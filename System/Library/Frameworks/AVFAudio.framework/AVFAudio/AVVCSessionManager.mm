@@ -19,6 +19,7 @@
 - (BOOL)isSessionOutputInWirelessSplitterMode;
 - (BOOL)predictIfMicrophoneShouldBeUsedForActivationMode:(int64_t)mode;
 - (BOOL)setActivationContext:(id)context error:(id *)error;
+- (BOOL)setActive:(BOOL)active withOptions:(unint64_t)options error:(id *)error;
 - (BOOL)setAudioHardwareControlFlags:(unint64_t)flags error:(id *)error;
 - (BOOL)setCategory:(id)category mode:(id)mode options:(unint64_t)options error:(id *)error;
 - (BOOL)setCategory:(id)category mode:(id)mode routeSharingPolicy:(unint64_t)policy options:(unint64_t)options error:(id *)error;
@@ -26,7 +27,13 @@
 - (BOOL)setDuckToLevelDB:(id)b error:(id *)error;
 - (BOOL)setDuckToLevelScalar:(id)scalar error:(id *)error;
 - (BOOL)setDuckingFadeOutDuration:(id)duration fadeInDuration:(id)inDuration error:(id *)error;
+- (BOOL)setEnableBTTriangleMode:(BOOL)mode error:(id *)error;
+- (BOOL)setIAmTheAssistant:(BOOL)assistant error:(id *)error;
+- (BOOL)setIsUsingBuiltInMicForRecording:(BOOL)recording error:(id *)error;
+- (BOOL)setMicrophoneAttribution:(BOOL)attribution error:(id *)error;
 - (BOOL)setPreferredSampleRate:(double)rate error:(id *)error;
+- (BOOL)setPrefersBeingInterruptedByNextActiveRecordingClient:(BOOL)client error:(id *)error;
+- (BOOL)setRecordingFromRemoteInput:(BOOL)input error:(id *)error;
 - (double)inputLatency;
 - (double)inputSafetyOffset;
 - (double)outputLatency;
@@ -41,6 +48,7 @@
 - (id)sessionCurrentInputRoutes;
 - (id)sessionCurrentOutputRoutes;
 - (id)siriRemoteInputIdentifier;
+- (int)enableSmartRoutingConsideration:(BOOL)consideration;
 - (int)sessionState;
 - (int)setSessionActivationContext:(id)context;
 - (int)setSessionAudioHWControlFlagsForActivationMode:(int64_t)mode withOptions:(unint64_t)options;
@@ -72,7 +80,7 @@
 
 - (double)inputLatency
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -85,9 +93,7 @@
       v6 = *kAVVCScope;
       if (!v6)
       {
-LABEL_17:
-        v5 = 0.0;
-        goto LABEL_18;
+        return 0.0;
       }
     }
 
@@ -99,18 +105,18 @@ LABEL_17:
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315906;
-      v11 = "AVVCSessionManager.mm";
-      v12 = 1024;
-      v13 = 1482;
-      v14 = 2080;
-      v15 = "inputLatency";
-      v16 = 1024;
-      v17 = 0;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v10, 0x22u);
+      v9 = 136315906;
+      v10 = "AVVCSessionManager.mm";
+      v11 = 1024;
+      v12 = 1482;
+      v13 = 2080;
+      v14 = "inputLatency";
+      v15 = 1024;
+      v16 = 0;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v9, 0x22u);
     }
 
-    goto LABEL_17;
+    return 0.0;
   }
 
   if (IsSerializationEnabled(void)::onceToken != -1)
@@ -132,14 +138,12 @@ LABEL_17:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_18:
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)isSWVolumeSupportedOnPickedRoute
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -154,7 +158,7 @@ LABEL_18:
       {
 LABEL_17:
         LOBYTE(v7) = 0;
-        goto LABEL_34;
+        return v7;
       }
     }
 
@@ -166,15 +170,15 @@ LABEL_17:
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315906;
-      v16 = "AVVCSessionManager.mm";
-      v17 = 1024;
-      v18 = 2051;
-      v19 = 2080;
-      v20 = "isSWVolumeSupportedOnPickedRoute";
-      v21 = 1024;
-      v22 = 0;
-      _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v15, 0x22u);
+      v14 = 136315906;
+      v15 = "AVVCSessionManager.mm";
+      v16 = 1024;
+      v17 = 2051;
+      v18 = 2080;
+      v19 = "isSWVolumeSupportedOnPickedRoute";
+      v20 = 1024;
+      v21 = 0;
+      _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v14, 0x22u);
     }
 
     goto LABEL_17;
@@ -218,11 +222,11 @@ LABEL_17:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v15 = 136315394;
-    v16 = "AVVCSessionManager.mm";
-    v17 = 1024;
-    v18 = 2059;
-    _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d isSWVolumeSupportedOnPickedRoute: Picked Route is nil", &v15, 0x12u);
+    v14 = 136315394;
+    v15 = "AVVCSessionManager.mm";
+    v16 = 1024;
+    v17 = 2059;
+    _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d isSWVolumeSupportedOnPickedRoute: Picked Route is nil", &v14, 0x12u);
   }
 
   LODWORD(v7) = 0;
@@ -240,13 +244,13 @@ LABEL_25:
 LABEL_29:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136315650;
-      v16 = "AVVCSessionManager.mm";
-      v17 = 1024;
-      v18 = 2062;
-      v19 = 1024;
-      LODWORD(v20) = v7;
-      _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d isSWVolumeSupportedOnPickedRoute: %d", &v15, 0x18u);
+      v14 = 136315650;
+      v15 = "AVVCSessionManager.mm";
+      v16 = 1024;
+      v17 = 2062;
+      v18 = 1024;
+      LODWORD(v19) = v7;
+      _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d isSWVolumeSupportedOnPickedRoute: %d", &v14, 0x18u);
     }
   }
 
@@ -255,14 +259,12 @@ LABEL_29:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_34:
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)isCurrentInputBuiltInMic
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -275,9 +277,7 @@ LABEL_34:
       v7 = *kAVVCScope;
       if (!v7)
       {
-LABEL_17:
-        v6 = 0;
-        goto LABEL_18;
+        return 0;
       }
     }
 
@@ -289,18 +289,18 @@ LABEL_17:
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      *v11 = 136315906;
-      *&v11[4] = "AVVCSessionManager.mm";
-      v12 = 1024;
-      v13 = 2142;
-      v14 = 2080;
-      v15 = "isCurrentInputBuiltInMic";
-      v16 = 1024;
-      v17 = 0;
-      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", v11, 0x22u);
+      *v10 = 136315906;
+      *&v10[4] = "AVVCSessionManager.mm";
+      v11 = 1024;
+      v12 = 2142;
+      v13 = 2080;
+      v14 = "isCurrentInputBuiltInMic";
+      v15 = 1024;
+      v16 = 0;
+      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", v10, 0x22u);
     }
 
-    goto LABEL_17;
+    return 0;
   }
 
   if (IsSerializationEnabled(void)::onceToken != -1)
@@ -315,24 +315,22 @@ LABEL_17:
   }
 
   currentRoute = [(AVAudioSession *)self->_audioSession currentRoute];
-  extractFirstInputPortTypeFromRouteDescription(currentRoute, v11);
-  v5 = *v11;
-  v6 = areNSStringsEqualOrBothNil(*v11, *MEMORY[0x1E698D660]);
+  extractFirstInputPortTypeFromRouteDescription(currentRoute, v10);
+  v5 = *v10;
+  v6 = areNSStringsEqualOrBothNil(*v10, *MEMORY[0x1E698D660]);
 
   if (v3)
   {
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_18:
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (int64_t)reporterID
 {
-  v17 = *MEMORY[0x1E69E9840];
-  ElapsedTime::ElapsedTime(v16, "[AVVCSessionManager reporterID]", "reporterID", 0);
+  v16 = *MEMORY[0x1E69E9840];
+  ElapsedTime::ElapsedTime(v15, "[AVVCSessionManager reporterID]", "reporterID", 0);
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -359,15 +357,15 @@ LABEL_16:
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 136315906;
-      v9 = "AVVCSessionManager.mm";
-      v10 = 1024;
-      v11 = 1606;
-      v12 = 2080;
-      v13 = "reporterID";
-      v14 = 1024;
-      v15 = 0;
-      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v8, 0x22u);
+      v7 = 136315906;
+      v8 = "AVVCSessionManager.mm";
+      v9 = 1024;
+      v10 = 1606;
+      v11 = 2080;
+      v12 = "reporterID";
+      v13 = 1024;
+      v14 = 0;
+      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v7, 0x22u);
     }
 
     goto LABEL_16;
@@ -391,8 +389,7 @@ LABEL_16:
   }
 
 LABEL_17:
-  ElapsedTime::~ElapsedTime(v16);
-  v6 = *MEMORY[0x1E69E9840];
+  ElapsedTime::~ElapsedTime(v15);
   return reporterID;
 }
 
@@ -433,7 +430,7 @@ LABEL_17:
 
 - (void)getHypotheticalRouteAndUpdateStates
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -441,7 +438,7 @@ LABEL_17:
 
   if (isAudioSessionAvailable(void)::audioSessionAvailable == 1)
   {
-    ElapsedTime::ElapsedTime(v24, "[AVVCSessionManager getHypotheticalRouteAndUpdateStates]", "getHypotheticalRouteAndUpdateStates", 0);
+    ElapsedTime::ElapsedTime(v23, "[AVVCSessionManager getHypotheticalRouteAndUpdateStates]", "getHypotheticalRouteAndUpdateStates", 0);
     pickedRoute = [(AVVCSessionManager *)self pickedRoute];
     if (kAVVCScope)
     {
@@ -460,13 +457,13 @@ LABEL_17:
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 136315650;
-      v19 = "AVVCSessionManager.mm";
-      v20 = 1024;
-      v21 = 524;
-      v22 = 2112;
-      v23[0] = pickedRoute;
-      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d pickedRoute from AudioSession: %@", &v18, 0x1Cu);
+      v17 = 136315650;
+      v18 = "AVVCSessionManager.mm";
+      v19 = 1024;
+      v20 = 524;
+      v21 = 2112;
+      v22[0] = pickedRoute;
+      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d pickedRoute from AudioSession: %@", &v17, 0x1Cu);
     }
 
 LABEL_11:
@@ -489,13 +486,13 @@ LABEL_11:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       mIsOtherAudioPlaying = self->mIsOtherAudioPlaying;
-      v18 = 136315650;
-      v19 = "AVVCSessionManager.mm";
-      v20 = 1024;
-      v21 = 527;
-      v22 = 1024;
-      LODWORD(v23[0]) = mIsOtherAudioPlaying;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d isSomeOtherAudioPlaying: %d", &v18, 0x18u);
+      v17 = 136315650;
+      v18 = "AVVCSessionManager.mm";
+      v19 = 1024;
+      v20 = 527;
+      v21 = 1024;
+      LODWORD(v22[0]) = mIsOtherAudioPlaying;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d isSomeOtherAudioPlaying: %d", &v17, 0x18u);
     }
 
 LABEL_18:
@@ -530,8 +527,8 @@ LABEL_26:
         {
 LABEL_33:
 
-          ElapsedTime::~ElapsedTime(v24);
-          goto LABEL_34;
+          ElapsedTime::~ElapsedTime(v23);
+          return;
         }
       }
 
@@ -545,15 +542,15 @@ LABEL_33:
       {
         mShouldDuckOthers = self->mShouldDuckOthers;
         mSessionNeedsVolumeControl = self->mSessionNeedsVolumeControl;
-        v18 = 136315906;
-        v19 = "AVVCSessionManager.mm";
-        v20 = 1024;
-        v21 = 583;
-        v22 = 1024;
-        LODWORD(v23[0]) = mShouldDuckOthers;
-        WORD2(v23[0]) = 1024;
-        *(v23 + 6) = mSessionNeedsVolumeControl;
-        _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_DEFAULT, "%25s:%-5d shouldDuckOthers(%d), sessionNeedsVolumeControl(%d)", &v18, 0x1Eu);
+        v17 = 136315906;
+        v18 = "AVVCSessionManager.mm";
+        v19 = 1024;
+        v20 = 583;
+        v21 = 1024;
+        LODWORD(v22[0]) = mShouldDuckOthers;
+        WORD2(v22[0]) = 1024;
+        *(v22 + 6) = mSessionNeedsVolumeControl;
+        _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_DEFAULT, "%25s:%-5d shouldDuckOthers(%d), sessionNeedsVolumeControl(%d)", &v17, 0x1Eu);
       }
 
       goto LABEL_33;
@@ -562,14 +559,11 @@ LABEL_33:
     LOBYTE(v12) = self->mOutputSupportsSWVolume;
     goto LABEL_25;
   }
-
-LABEL_34:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)pickedRoute
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -588,9 +582,9 @@ LABEL_34:
       std::recursive_mutex::lock(&self->mSessionManagerLock);
     }
 
-    ElapsedTime::ElapsedTime(v7, "[AVVCSessionManager pickedRoute]", "pickedRoute", 0);
+    ElapsedTime::ElapsedTime(v6, "[AVVCSessionManager pickedRoute]", "pickedRoute", 0);
     pickedRoute = [(AVAudioSession *)self->_audioSession pickedRoute];
-    ElapsedTime::~ElapsedTime(v7);
+    ElapsedTime::~ElapsedTime(v6);
     if (v3)
     {
       std::recursive_mutex::unlock(&self->mSessionManagerLock);
@@ -601,8 +595,6 @@ LABEL_34:
   {
     pickedRoute = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return pickedRoute;
 }
@@ -627,7 +619,7 @@ LABEL_34:
 
 - (double)outputLatency
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -640,9 +632,7 @@ LABEL_34:
       v6 = *kAVVCScope;
       if (!v6)
       {
-LABEL_17:
-        v5 = 0.0;
-        goto LABEL_18;
+        return 0.0;
       }
     }
 
@@ -654,18 +644,18 @@ LABEL_17:
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315906;
-      v11 = "AVVCSessionManager.mm";
-      v12 = 1024;
-      v13 = 1490;
-      v14 = 2080;
-      v15 = "outputLatency";
-      v16 = 1024;
-      v17 = 0;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v10, 0x22u);
+      v9 = 136315906;
+      v10 = "AVVCSessionManager.mm";
+      v11 = 1024;
+      v12 = 1490;
+      v13 = 2080;
+      v14 = "outputLatency";
+      v15 = 1024;
+      v16 = 0;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v9, 0x22u);
     }
 
-    goto LABEL_17;
+    return 0.0;
   }
 
   if (IsSerializationEnabled(void)::onceToken != -1)
@@ -687,14 +677,12 @@ LABEL_17:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_18:
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)isSessionOutputInWirelessSplitterMode
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (IsSerializationEnabled(void)::onceToken != -1)
   {
     dispatch_once(&IsSerializationEnabled(void)::onceToken, &__block_literal_global_197);
@@ -711,17 +699,17 @@ LABEL_18:
     LOBYTE(v4) = 0;
     if (!v3)
     {
-      goto LABEL_8;
+      return v4;
     }
 
 LABEL_7:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
-    goto LABEL_8;
+    return v4;
   }
 
   selfCopy = self;
-  v26 = v3;
-  ElapsedTime::ElapsedTime(v31, "[AVVCSessionManager isSessionOutputInWirelessSplitterMode]", "isSessionOutputInWirelessSplitterMode", 0);
+  v25 = v3;
+  ElapsedTime::ElapsedTime(v30, "[AVVCSessionManager isSessionOutputInWirelessSplitterMode]", "isSessionOutputInWirelessSplitterMode", 0);
   if (isAVOutputContextAvailable(void)::onceToken1 != -1)
   {
     dispatch_once(&isAVOutputContextAvailable(void)::onceToken1, &__block_literal_global);
@@ -742,15 +730,15 @@ LABEL_7:
     else
     {
       sharedSystemAudioContext = MEMORY[0x1E69E9C10];
-      v10 = MEMORY[0x1E69E9C10];
+      v9 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(sharedSystemAudioContext, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v41 = "AVVCCarplayRuntimeAvailability.mm";
-      v42 = 1024;
-      v43 = 70;
+      v40 = "AVVCCarplayRuntimeAvailability.mm";
+      v41 = 1024;
+      v42 = 70;
       _os_log_impl(&dword_1BA5AC000, sharedSystemAudioContext, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVOutputContext API not available", buf, 0x12u);
     }
 
@@ -758,12 +746,12 @@ LABEL_7:
   }
 
   sharedSystemAudioContext = [getAVOutputContextClass() sharedSystemAudioContext];
-  v24 = sharedSystemAudioContext;
+  v23 = sharedSystemAudioContext;
   supportsMultipleBluetoothOutputDevices = [sharedSystemAudioContext supportsMultipleBluetoothOutputDevices];
   if (kAVVCScope)
   {
-    v9 = *kAVVCScope;
-    if (!v9)
+    v8 = *kAVVCScope;
+    if (!v8)
     {
       if (supportsMultipleBluetoothOutputDevices)
       {
@@ -778,19 +766,19 @@ LABEL_29:
 
   else
   {
-    v9 = MEMORY[0x1E69E9C10];
-    v11 = MEMORY[0x1E69E9C10];
+    v8 = MEMORY[0x1E69E9C10];
+    v10 = MEMORY[0x1E69E9C10];
   }
 
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v41 = "AVVCCarplayRuntimeAvailability.mm";
-    v42 = 1024;
-    v43 = 78;
-    v44 = 1024;
-    LODWORD(v45) = supportsMultipleBluetoothOutputDevices;
-    _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d supportsMultipleBTDevices: %d", buf, 0x18u);
+    v40 = "AVVCCarplayRuntimeAvailability.mm";
+    v41 = 1024;
+    v42 = 78;
+    v43 = 1024;
+    LODWORD(v44) = supportsMultipleBluetoothOutputDevices;
+    _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d supportsMultipleBTDevices: %d", buf, 0x18u);
   }
 
   if (!supportsMultipleBluetoothOutputDevices)
@@ -802,56 +790,56 @@ LABEL_26:
   outputDevices = [sharedSystemAudioContext outputDevices];
   if (!kAVVCScope)
   {
+    v12 = MEMORY[0x1E69E9C10];
     v13 = MEMORY[0x1E69E9C10];
-    v14 = MEMORY[0x1E69E9C10];
     goto LABEL_31;
   }
 
-  v13 = *kAVVCScope;
-  if (v13)
+  v12 = *kAVVCScope;
+  if (v12)
   {
 LABEL_31:
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v41 = "AVVCCarplayRuntimeAvailability.mm";
-      v42 = 1024;
-      v43 = 82;
-      v44 = 2112;
-      v45 = outputDevices;
-      _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Wireless Output Devices: %@", buf, 0x1Cu);
+      v40 = "AVVCCarplayRuntimeAvailability.mm";
+      v41 = 1024;
+      v42 = 82;
+      v43 = 2112;
+      v44 = outputDevices;
+      _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Wireless Output Devices: %@", buf, 0x1Cu);
     }
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
-  v15 = outputDevices;
-  v4 = [v15 countByEnumeratingWithState:&v27 objects:buf count:16];
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v14 = outputDevices;
+  v4 = [v14 countByEnumeratingWithState:&v26 objects:buf count:16];
   if (!v4)
   {
     goto LABEL_49;
   }
 
-  v16 = 0;
-  v17 = MEMORY[0x1E69E9C10];
-  v18 = *v28;
+  v15 = 0;
+  v16 = MEMORY[0x1E69E9C10];
+  v17 = *v27;
   do
   {
     for (i = 0; i != v4; ++i)
     {
-      if (*v28 != v18)
+      if (*v27 != v17)
       {
-        objc_enumerationMutation(v15);
+        objc_enumerationMutation(v14);
       }
 
-      v20 = *(*(&v27 + 1) + 8 * i);
-      supportsBluetoothSharing = [v20 supportsBluetoothSharing];
+      v19 = *(*(&v26 + 1) + 8 * i);
+      supportsBluetoothSharing = [v19 supportsBluetoothSharing];
       if (kAVVCScope)
       {
-        v22 = *kAVVCScope;
-        if (!v22)
+        v21 = *kAVVCScope;
+        if (!v21)
         {
           goto LABEL_46;
         }
@@ -859,55 +847,53 @@ LABEL_31:
 
       else
       {
-        v23 = v17;
-        v22 = v17;
+        v22 = v16;
+        v21 = v16;
       }
 
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        *v32 = 136315906;
-        v33 = "AVVCCarplayRuntimeAvailability.mm";
-        v34 = 1024;
-        v35 = 86;
-        v36 = 2048;
-        v37 = v20;
-        v38 = 1024;
-        v39 = supportsBluetoothSharing;
-        _os_log_impl(&dword_1BA5AC000, v22, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVOutputDevice %p supports BT sharing: %d", v32, 0x22u);
+        *v31 = 136315906;
+        v32 = "AVVCCarplayRuntimeAvailability.mm";
+        v33 = 1024;
+        v34 = 86;
+        v35 = 2048;
+        v36 = v19;
+        v37 = 1024;
+        v38 = supportsBluetoothSharing;
+        _os_log_impl(&dword_1BA5AC000, v21, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVOutputDevice %p supports BT sharing: %d", v31, 0x22u);
       }
 
 LABEL_46:
-      v16 += supportsBluetoothSharing;
+      v15 += supportsBluetoothSharing;
     }
 
-    v4 = [v15 countByEnumeratingWithState:&v27 objects:buf count:16];
+    v4 = [v14 countByEnumeratingWithState:&v26 objects:buf count:16];
   }
 
   while (v4);
-  LOBYTE(v4) = v16 > 1;
+  LOBYTE(v4) = v15 > 1;
 LABEL_49:
 
-  sharedSystemAudioContext = v24;
+  sharedSystemAudioContext = v23;
 LABEL_50:
 
   self = selfCopy;
-  v3 = v26;
+  v3 = v25;
 LABEL_51:
   self->mSessionOutputIsWirelessSplitter = v4;
-  ElapsedTime::~ElapsedTime(v31);
+  ElapsedTime::~ElapsedTime(v30);
   if (v3)
   {
     goto LABEL_7;
   }
 
-LABEL_8:
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (double)speechDetectionDeviceSampleRate
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -920,9 +906,7 @@ LABEL_8:
       v6 = *kAVVCScope;
       if (!v6)
       {
-LABEL_17:
-        v5 = 16000.0;
-        goto LABEL_18;
+        return 16000.0;
       }
     }
 
@@ -934,18 +918,18 @@ LABEL_17:
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315906;
-      v11 = "AVVCSessionManager.mm";
-      v12 = 1024;
-      v13 = 1522;
-      v14 = 2080;
-      v15 = "speechDetectionDeviceSampleRate";
-      v16 = 1024;
-      v17 = 16000;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v10, 0x22u);
+      v9 = 136315906;
+      v10 = "AVVCSessionManager.mm";
+      v11 = 1024;
+      v12 = 1522;
+      v13 = 2080;
+      v14 = "speechDetectionDeviceSampleRate";
+      v15 = 1024;
+      v16 = 16000;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v9, 0x22u);
     }
 
-    goto LABEL_17;
+    return 16000.0;
   }
 
   if (IsSerializationEnabled(void)::onceToken != -1)
@@ -966,14 +950,12 @@ LABEL_17:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_18:
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (unint64_t)siriInputSource
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -1009,7 +991,7 @@ LABEL_18:
       v6 = *kAVVCScope;
       if (!v6)
       {
-        goto LABEL_17;
+        return siriInputSource;
       }
     }
 
@@ -1021,20 +1003,18 @@ LABEL_18:
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315906;
-      v11 = "AVVCSessionManager.mm";
-      v12 = 1024;
-      v13 = 1683;
-      v14 = 2080;
-      v15 = "siriInputSource";
-      v16 = 1024;
-      v17 = 1936289391;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v10, 0x22u);
+      v9 = 136315906;
+      v10 = "AVVCSessionManager.mm";
+      v11 = 1024;
+      v12 = 1683;
+      v13 = 2080;
+      v14 = "siriInputSource";
+      v15 = 1024;
+      v16 = 1936289391;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v9, 0x22u);
     }
   }
 
-LABEL_17:
-  v8 = *MEMORY[0x1E69E9840];
   return siriInputSource;
 }
 
@@ -1060,9 +1040,384 @@ LABEL_17:
   return sessionState > 4;
 }
 
+- (BOOL)setIsUsingBuiltInMicForRecording:(BOOL)recording error:(id *)error
+{
+  recordingCopy = recording;
+  v32 = *MEMORY[0x1E69E9840];
+  if (isAudioSessionAvailable(void)::onceToken != -1)
+  {
+    dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
+  }
+
+  if ((isAudioSessionAvailable(void)::audioSessionAvailable & 1) == 0)
+  {
+    if (kAVVCScope)
+    {
+      v12 = *kAVVCScope;
+      if (!v12)
+      {
+LABEL_20:
+        LOBYTE(v10) = 0;
+        return v10;
+      }
+    }
+
+    else
+    {
+      v12 = MEMORY[0x1E69E9C10];
+      v13 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 136315906;
+      v26 = "AVVCSessionManager.mm";
+      v27 = 1024;
+      v28 = 2124;
+      v29 = 2080;
+      *v30 = "setIsUsingBuiltInMicForRecording";
+      *&v30[8] = 1024;
+      v31 = 0;
+      _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", buf, 0x22u);
+    }
+
+    goto LABEL_20;
+  }
+
+  if (IsSerializationEnabled(void)::onceToken != -1)
+  {
+    dispatch_once(&IsSerializationEnabled(void)::onceToken, &__block_literal_global_197);
+  }
+
+  v7 = IsSerializationEnabled(void)::enable;
+  if (IsSerializationEnabled(void)::enable == 1)
+  {
+    std::recursive_mutex::lock(&self->mSessionManagerLock);
+  }
+
+  ElapsedTime::ElapsedTime(buf, "[AVVCSessionManager setIsUsingBuiltInMicForRecording:error:]", "setIsUsingBuiltInMicForRecording", 0);
+  audioSession = self->_audioSession;
+  v9 = [MEMORY[0x1E696AD98] numberWithBool:recordingCopy];
+  v10 = [(AVAudioSession *)audioSession setMXSessionProperty:*MEMORY[0x1E69B00E8] value:v9 error:error];
+
+  if ((v10 & 1) == 0 && *error)
+  {
+    if (kAVVCScope)
+    {
+      v11 = *kAVVCScope;
+      if (!v11)
+      {
+        goto LABEL_25;
+      }
+    }
+
+    else
+    {
+      v11 = MEMORY[0x1E69E9C10];
+      v14 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v15 = *error;
+      v19 = 136315650;
+      v20 = "AVVCSessionManager.mm";
+      v21 = 1024;
+      v22 = 2131;
+      v23 = 2112;
+      v24 = v15;
+      _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setIsUsingBuiltInMicForRecording failed with error: %@", &v19, 0x1Cu);
+    }
+  }
+
+LABEL_25:
+  ElapsedTime::~ElapsedTime(buf);
+  if (!kAVVCScope)
+  {
+    v16 = MEMORY[0x1E69E9C10];
+    v17 = MEMORY[0x1E69E9C10];
+    goto LABEL_29;
+  }
+
+  v16 = *kAVVCScope;
+  if (v16)
+  {
+LABEL_29:
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315906;
+      v26 = "AVVCSessionManager.mm";
+      v27 = 1024;
+      v28 = 2135;
+      v29 = 1024;
+      *v30 = recordingCopy;
+      *&v30[4] = 1024;
+      *&v30[6] = v10;
+      _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setIsUsingBuiltInMicForRecording : %d (bSet = %d)", buf, 0x1Eu);
+    }
+  }
+
+  if (v7)
+  {
+    std::recursive_mutex::unlock(&self->mSessionManagerLock);
+  }
+
+  return v10;
+}
+
+- (BOOL)setPrefersBeingInterruptedByNextActiveRecordingClient:(BOOL)client error:(id *)error
+{
+  clientCopy = client;
+  v32 = *MEMORY[0x1E69E9840];
+  if (isAudioSessionAvailable(void)::onceToken != -1)
+  {
+    dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
+  }
+
+  if ((isAudioSessionAvailable(void)::audioSessionAvailable & 1) == 0)
+  {
+    if (kAVVCScope)
+    {
+      v12 = *kAVVCScope;
+      if (!v12)
+      {
+LABEL_20:
+        LOBYTE(v10) = 0;
+        return v10;
+      }
+    }
+
+    else
+    {
+      v12 = MEMORY[0x1E69E9C10];
+      v13 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 136315906;
+      v26 = "AVVCSessionManager.mm";
+      v27 = 1024;
+      v28 = 2102;
+      v29 = 2080;
+      *v30 = "setPrefersBeingInterruptedByNextActiveRecordingClient";
+      *&v30[8] = 1024;
+      v31 = 0;
+      _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", buf, 0x22u);
+    }
+
+    goto LABEL_20;
+  }
+
+  if (IsSerializationEnabled(void)::onceToken != -1)
+  {
+    dispatch_once(&IsSerializationEnabled(void)::onceToken, &__block_literal_global_197);
+  }
+
+  v7 = IsSerializationEnabled(void)::enable;
+  if (IsSerializationEnabled(void)::enable == 1)
+  {
+    std::recursive_mutex::lock(&self->mSessionManagerLock);
+  }
+
+  ElapsedTime::ElapsedTime(buf, "[AVVCSessionManager setPrefersBeingInterruptedByNextActiveRecordingClient:error:]", "setPrefersBeingInterruptedByNextActiveRecordingClient", 0);
+  audioSession = self->_audioSession;
+  v9 = [MEMORY[0x1E696AD98] numberWithBool:clientCopy];
+  v10 = [(AVAudioSession *)audioSession setMXSessionProperty:*MEMORY[0x1E69B02A0] value:v9 error:error];
+
+  if ((v10 & 1) == 0 && *error)
+  {
+    if (kAVVCScope)
+    {
+      v11 = *kAVVCScope;
+      if (!v11)
+      {
+        goto LABEL_25;
+      }
+    }
+
+    else
+    {
+      v11 = MEMORY[0x1E69E9C10];
+      v14 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v15 = *error;
+      v19 = 136315650;
+      v20 = "AVVCSessionManager.mm";
+      v21 = 1024;
+      v22 = 2110;
+      v23 = 2112;
+      v24 = v15;
+      _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setPrefersBeingInterruptedByNextActiveRecordingClient failed with error: %@", &v19, 0x1Cu);
+    }
+  }
+
+LABEL_25:
+  ElapsedTime::~ElapsedTime(buf);
+  if (!kAVVCScope)
+  {
+    v16 = MEMORY[0x1E69E9C10];
+    v17 = MEMORY[0x1E69E9C10];
+    goto LABEL_29;
+  }
+
+  v16 = *kAVVCScope;
+  if (v16)
+  {
+LABEL_29:
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315906;
+      v26 = "AVVCSessionManager.mm";
+      v27 = 1024;
+      v28 = 2115;
+      v29 = 1024;
+      *v30 = clientCopy;
+      *&v30[4] = 1024;
+      *&v30[6] = v10;
+      _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setPrefersBeingInterruptedByNextActiveRecordingClient : %d (bSet = %d)", buf, 0x1Eu);
+    }
+  }
+
+  if (v7)
+  {
+    std::recursive_mutex::unlock(&self->mSessionManagerLock);
+  }
+
+  return v10;
+}
+
+- (BOOL)setMicrophoneAttribution:(BOOL)attribution error:(id *)error
+{
+  attributionCopy = attribution;
+  v32 = *MEMORY[0x1E69E9840];
+  if (isAudioSessionAvailable(void)::onceToken != -1)
+  {
+    dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
+  }
+
+  if ((isAudioSessionAvailable(void)::audioSessionAvailable & 1) == 0)
+  {
+    if (kAVVCScope)
+    {
+      v12 = *kAVVCScope;
+      if (!v12)
+      {
+LABEL_20:
+        LOBYTE(v10) = 0;
+        return v10;
+      }
+    }
+
+    else
+    {
+      v12 = MEMORY[0x1E69E9C10];
+      v13 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 136315906;
+      v26 = "AVVCSessionManager.mm";
+      v27 = 1024;
+      v28 = 2085;
+      v29 = 2080;
+      *v30 = "setMicrophoneAttribution";
+      *&v30[8] = 1024;
+      v31 = 0;
+      _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", buf, 0x22u);
+    }
+
+    goto LABEL_20;
+  }
+
+  if (IsSerializationEnabled(void)::onceToken != -1)
+  {
+    dispatch_once(&IsSerializationEnabled(void)::onceToken, &__block_literal_global_197);
+  }
+
+  v7 = IsSerializationEnabled(void)::enable;
+  if (IsSerializationEnabled(void)::enable == 1)
+  {
+    std::recursive_mutex::lock(&self->mSessionManagerLock);
+  }
+
+  ElapsedTime::ElapsedTime(buf, "[AVVCSessionManager setMicrophoneAttribution:error:]", "setMicrophoneAttribution", 0);
+  audioSession = self->_audioSession;
+  v9 = [MEMORY[0x1E696AD98] numberWithBool:attributionCopy];
+  v10 = [(AVAudioSession *)audioSession setMXSessionProperty:@"MicrophoneAttribution" value:v9 error:error];
+
+  if ((v10 & 1) == 0 && *error)
+  {
+    if (kAVVCScope)
+    {
+      v11 = *kAVVCScope;
+      if (!v11)
+      {
+        goto LABEL_25;
+      }
+    }
+
+    else
+    {
+      v11 = MEMORY[0x1E69E9C10];
+      v14 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v15 = *error;
+      v19 = 136315650;
+      v20 = "AVVCSessionManager.mm";
+      v21 = 1024;
+      v22 = 2092;
+      v23 = 2112;
+      v24 = v15;
+      _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setMicrophoneAttribution failed with error: %@", &v19, 0x1Cu);
+    }
+  }
+
+LABEL_25:
+  ElapsedTime::~ElapsedTime(buf);
+  if (!kAVVCScope)
+  {
+    v16 = MEMORY[0x1E69E9C10];
+    v17 = MEMORY[0x1E69E9C10];
+    goto LABEL_29;
+  }
+
+  v16 = *kAVVCScope;
+  if (v16)
+  {
+LABEL_29:
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315906;
+      v26 = "AVVCSessionManager.mm";
+      v27 = 1024;
+      v28 = 2096;
+      v29 = 1024;
+      *v30 = attributionCopy;
+      *&v30[4] = 1024;
+      *&v30[6] = v10;
+      _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setting microphone attribution : %d (bSet = %d)", buf, 0x1Eu);
+    }
+  }
+
+  if (v7)
+  {
+    std::recursive_mutex::unlock(&self->mSessionManagerLock);
+  }
+
+  return v10;
+}
+
 - (BOOL)isInputAvailable
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -1077,7 +1432,7 @@ LABEL_17:
       {
 LABEL_18:
         LOBYTE(isInputAvailable) = 0;
-        goto LABEL_25;
+        return isInputAvailable;
       }
     }
 
@@ -1089,15 +1444,15 @@ LABEL_18:
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 136315906;
-      v12 = "AVVCSessionManager.mm";
-      v13 = 1024;
-      v14 = 2070;
-      v15 = 2080;
-      v16 = "isInputAvailable";
-      v17 = 1024;
-      v18 = 0;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v11, 0x22u);
+      v10 = 136315906;
+      v11 = "AVVCSessionManager.mm";
+      v12 = 1024;
+      v13 = 2070;
+      v14 = 2080;
+      v15 = "isInputAvailable";
+      v16 = 1024;
+      v17 = 0;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v10, 0x22u);
     }
 
     goto LABEL_18;
@@ -1114,9 +1469,9 @@ LABEL_18:
     std::recursive_mutex::lock(&self->mSessionManagerLock);
   }
 
-  ElapsedTime::ElapsedTime(&v11, "[AVVCSessionManager isInputAvailable]", "isInputAvailable", 0);
+  ElapsedTime::ElapsedTime(&v10, "[AVVCSessionManager isInputAvailable]", "isInputAvailable", 0);
   isInputAvailable = [(AVAudioSession *)self->_audioSession isInputAvailable];
-  ElapsedTime::~ElapsedTime(&v11);
+  ElapsedTime::~ElapsedTime(&v10);
   if (!kAVVCScope)
   {
     v5 = MEMORY[0x1E69E9C10];
@@ -1130,13 +1485,13 @@ LABEL_18:
 LABEL_20:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315650;
-      v12 = "AVVCSessionManager.mm";
-      v13 = 1024;
-      v14 = 2078;
-      v15 = 1024;
-      LODWORD(v16) = isInputAvailable;
-      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d input available %d", &v11, 0x18u);
+      v10 = 136315650;
+      v11 = "AVVCSessionManager.mm";
+      v12 = 1024;
+      v13 = 2078;
+      v14 = 1024;
+      LODWORD(v15) = isInputAvailable;
+      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d input available %d", &v10, 0x18u);
     }
   }
 
@@ -1145,14 +1500,12 @@ LABEL_20:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_25:
-  v9 = *MEMORY[0x1E69E9840];
   return isInputAvailable;
 }
 
 - (BOOL)setDuckToLevelScalar:(id)scalar error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   scalarCopy = scalar;
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
@@ -1180,15 +1533,15 @@ LABEL_12:
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 136315906;
-      v13 = "AVVCSessionManager.mm";
-      v14 = 1024;
-      v15 = 2043;
-      v16 = 2080;
-      v17 = "setDuckToLevelScalar";
-      v18 = 1024;
-      v19 = 1;
-      _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v12, 0x22u);
+      v11 = 136315906;
+      v12 = "AVVCSessionManager.mm";
+      v13 = 1024;
+      v14 = 2043;
+      v15 = 2080;
+      v16 = "setDuckToLevelScalar";
+      v17 = 1024;
+      v18 = 1;
+      _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v11, 0x22u);
     }
 
     goto LABEL_12;
@@ -1197,13 +1550,12 @@ LABEL_12:
   v7 = [(AVAudioSession *)self->_audioSession setDuckToLevelScalar:scalarCopy error:error];
 LABEL_13:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)setDuckToLevelDB:(id)b error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   bCopy = b;
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
@@ -1231,15 +1583,15 @@ LABEL_12:
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 136315906;
-      v13 = "AVVCSessionManager.mm";
-      v14 = 1024;
-      v15 = 2036;
-      v16 = 2080;
-      v17 = "setDuckToLevelDB";
-      v18 = 1024;
-      v19 = 1;
-      _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v12, 0x22u);
+      v11 = 136315906;
+      v12 = "AVVCSessionManager.mm";
+      v13 = 1024;
+      v14 = 2036;
+      v15 = 2080;
+      v16 = "setDuckToLevelDB";
+      v17 = 1024;
+      v18 = 1;
+      _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v11, 0x22u);
     }
 
     goto LABEL_12;
@@ -1248,13 +1600,12 @@ LABEL_12:
   v7 = [(AVAudioSession *)self->_audioSession setDuckToLevelDB:bCopy error:error];
 LABEL_13:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (int64_t)inputNumberOfChannels
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -1267,9 +1618,7 @@ LABEL_13:
       v5 = *kAVVCScope;
       if (!v5)
       {
-LABEL_17:
-        inputNumberOfChannels = 1;
-        goto LABEL_18;
+        return 1;
       }
     }
 
@@ -1281,18 +1630,18 @@ LABEL_17:
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 136315906;
-      v10 = "AVVCSessionManager.mm";
-      v11 = 1024;
-      v12 = 2028;
-      v13 = 2080;
-      v14 = "inputNumberOfChannels";
-      v15 = 1024;
-      v16 = 1;
-      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v9, 0x22u);
+      v8 = 136315906;
+      v9 = "AVVCSessionManager.mm";
+      v10 = 1024;
+      v11 = 2028;
+      v12 = 2080;
+      v13 = "inputNumberOfChannels";
+      v14 = 1024;
+      v15 = 1;
+      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v8, 0x22u);
     }
 
-    goto LABEL_17;
+    return 1;
   }
 
   if (IsSerializationEnabled(void)::onceToken != -1)
@@ -1312,9 +1661,133 @@ LABEL_17:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_18:
-  v7 = *MEMORY[0x1E69E9840];
   return inputNumberOfChannels;
+}
+
+- (BOOL)setRecordingFromRemoteInput:(BOOL)input error:(id *)error
+{
+  inputCopy = input;
+  v25 = *MEMORY[0x1E69E9840];
+  if (isAudioSessionAvailable(void)::onceToken != -1)
+  {
+    dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
+  }
+
+  if ((isAudioSessionAvailable(void)::audioSessionAvailable & 1) == 0)
+  {
+    if (kAVVCScope)
+    {
+      v9 = *kAVVCScope;
+      if (!v9)
+      {
+        return 1;
+      }
+    }
+
+    else
+    {
+      v9 = MEMORY[0x1E69E9C10];
+      v13 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      v19 = 136315906;
+      v20 = "AVVCSessionManager.mm";
+      v21 = 1024;
+      v22 = 2010;
+      v23 = 2080;
+      *v24 = "setRecordingFromRemoteInput";
+      *&v24[8] = 1024;
+      *&v24[10] = 1;
+      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v19, 0x22u);
+    }
+
+    return 1;
+  }
+
+  if (IsSerializationEnabled(void)::onceToken != -1)
+  {
+    dispatch_once(&IsSerializationEnabled(void)::onceToken, &__block_literal_global_197);
+  }
+
+  v7 = IsSerializationEnabled(void)::enable;
+  if (IsSerializationEnabled(void)::enable == 1)
+  {
+    std::recursive_mutex::lock(&self->mSessionManagerLock);
+  }
+
+  if (kAVVCScope)
+  {
+    v8 = *kAVVCScope;
+    if (!v8)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+    v8 = MEMORY[0x1E69E9C10];
+    v10 = MEMORY[0x1E69E9C10];
+  }
+
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = 136315650;
+    v20 = "AVVCSessionManager.mm";
+    v21 = 1024;
+    v22 = 2013;
+    v23 = 1024;
+    *v24 = inputCopy;
+    _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setRecordingFromRemoteInput: %d", &v19, 0x18u);
+  }
+
+LABEL_18:
+  ElapsedTime::ElapsedTime(&v19, "[AVVCSessionManager setRecordingFromRemoteInput:error:]", "setRecordingFromRemoteInput", 0);
+  v11 = [(AVAudioSession *)self->_audioSession setRecordingFromRemoteInput:inputCopy error:error];
+  ElapsedTime::~ElapsedTime(&v19);
+  if ((v11 & 1) == 0 && *error)
+  {
+    if (kAVVCScope)
+    {
+      v12 = *kAVVCScope;
+      if (!v12)
+      {
+        goto LABEL_32;
+      }
+    }
+
+    else
+    {
+      v12 = MEMORY[0x1E69E9C10];
+      v14 = MEMORY[0x1E69E9C10];
+    }
+
+    v15 = v12;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      code = [*error code];
+      v17 = [*error description];
+      v19 = 136315906;
+      v20 = "AVVCSessionManager.mm";
+      v21 = 1024;
+      v22 = 2020;
+      v23 = 1024;
+      *v24 = code;
+      *&v24[4] = 2112;
+      *&v24[6] = v17;
+      _os_log_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d Error setting recording from remote input %d, %@", &v19, 0x22u);
+    }
+  }
+
+LABEL_32:
+  if (v7)
+  {
+    std::recursive_mutex::unlock(&self->mSessionManagerLock);
+  }
+
+  return v11;
 }
 
 - (void)removeSessionNotifications:(id)notifications
@@ -1431,7 +1904,7 @@ LABEL_18:
 
 - (unsigned)getOpaqueSessionID
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -1444,9 +1917,7 @@ LABEL_18:
       v5 = *kAVVCScope;
       if (!v5)
       {
-LABEL_17:
-        opaqueSessionID = 0;
-        goto LABEL_18;
+        return 0;
       }
     }
 
@@ -1458,18 +1929,18 @@ LABEL_17:
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 136315906;
-      v10 = "AVVCSessionManager.mm";
-      v11 = 1024;
-      v12 = 1951;
-      v13 = 2080;
-      v14 = "getOpaqueSessionID";
-      v15 = 1024;
-      v16 = 0;
-      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v9, 0x22u);
+      v8 = 136315906;
+      v9 = "AVVCSessionManager.mm";
+      v10 = 1024;
+      v11 = 1951;
+      v12 = 2080;
+      v13 = "getOpaqueSessionID";
+      v14 = 1024;
+      v15 = 0;
+      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v8, 0x22u);
     }
 
-    goto LABEL_17;
+    return 0;
   }
 
   if (IsSerializationEnabled(void)::onceToken != -1)
@@ -1489,14 +1960,74 @@ LABEL_17:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_18:
-  v7 = *MEMORY[0x1E69E9840];
   return opaqueSessionID;
+}
+
+- (BOOL)setActive:(BOOL)active withOptions:(unint64_t)options error:(id *)error
+{
+  activeCopy = active;
+  v22 = *MEMORY[0x1E69E9840];
+  if (isAudioSessionAvailable(void)::onceToken != -1)
+  {
+    dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
+  }
+
+  if ((isAudioSessionAvailable(void)::audioSessionAvailable & 1) == 0)
+  {
+    if (kAVVCScope)
+    {
+      v11 = *kAVVCScope;
+      if (!v11)
+      {
+        return 1;
+      }
+    }
+
+    else
+    {
+      v11 = MEMORY[0x1E69E9C10];
+      v12 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      v14 = 136315906;
+      v15 = "AVVCSessionManager.mm";
+      v16 = 1024;
+      v17 = 1940;
+      v18 = 2080;
+      v19 = "setActive";
+      v20 = 1024;
+      v21 = 1;
+      _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v14, 0x22u);
+    }
+
+    return 1;
+  }
+
+  if (IsSerializationEnabled(void)::onceToken != -1)
+  {
+    dispatch_once(&IsSerializationEnabled(void)::onceToken, &__block_literal_global_197);
+  }
+
+  v9 = IsSerializationEnabled(void)::enable;
+  if (IsSerializationEnabled(void)::enable == 1)
+  {
+    std::recursive_mutex::lock(&self->mSessionManagerLock);
+  }
+
+  v10 = [(AVAudioSession *)self->_audioSession setActive:activeCopy withOptions:options error:error];
+  if (v9)
+  {
+    std::recursive_mutex::unlock(&self->mSessionManagerLock);
+  }
+
+  return v10;
 }
 
 - (BOOL)setActivationContext:(id)context error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
@@ -1524,15 +2055,15 @@ LABEL_17:
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 136315906;
-      v14 = "AVVCSessionManager.mm";
-      v15 = 1024;
-      v16 = 1929;
-      v17 = 2080;
-      v18 = "setActivationContext";
-      v19 = 1024;
-      v20 = 0;
-      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v13, 0x22u);
+      v12 = 136315906;
+      v13 = "AVVCSessionManager.mm";
+      v14 = 1024;
+      v15 = 1929;
+      v16 = 2080;
+      v17 = "setActivationContext";
+      v18 = 1024;
+      v19 = 0;
+      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v12, 0x22u);
     }
 
     goto LABEL_17;
@@ -1557,7 +2088,6 @@ LABEL_17:
 
 LABEL_18:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -1650,7 +2180,7 @@ LABEL_18:
 
 - (BOOL)predictIfMicrophoneShouldBeUsedForActivationMode:(int64_t)mode
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -1665,7 +2195,7 @@ LABEL_18:
       {
 LABEL_20:
         LOBYTE(v7) = 0;
-        goto LABEL_102;
+        return v7 & 1;
       }
     }
 
@@ -1678,13 +2208,13 @@ LABEL_20:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v68 = "AVVCSessionManager.mm";
-      v69 = 1024;
-      v70 = 1762;
-      v71 = 2080;
-      v72 = "predictIfMicrophoneShouldBeUsedForActivationMode";
-      v73 = 1024;
-      LODWORD(v74) = 0;
+      v67 = "AVVCSessionManager.mm";
+      v68 = 1024;
+      v69 = 1762;
+      v70 = 2080;
+      v71 = "predictIfMicrophoneShouldBeUsedForActivationMode";
+      v72 = 1024;
+      LODWORD(v73) = 0;
       _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", buf, 0x22u);
     }
 
@@ -1696,7 +2226,7 @@ LABEL_20:
     dispatch_once(&IsSerializationEnabled(void)::onceToken, &__block_literal_global_197);
   }
 
-  v50 = IsSerializationEnabled(void)::enable;
+  v49 = IsSerializationEnabled(void)::enable;
   if (IsSerializationEnabled(void)::enable == 1)
   {
     std::recursive_mutex::lock(&self->mSessionManagerLock);
@@ -1727,18 +2257,18 @@ LABEL_20:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v68 = "AVVCSessionManager.mm";
-    v69 = 1024;
-    v70 = 1771;
-    v71 = 2112;
-    v72 = availableInputs;
+    v67 = "AVVCSessionManager.mm";
+    v68 = 1024;
+    v69 = 1771;
+    v70 = 2112;
+    v71 = availableInputs;
     _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d availableInputs: %@", buf, 0x1Cu);
   }
 
 LABEL_25:
-  v66 = 0;
+  v65 = 0;
   currentRoute = [(AVAudioSession *)self->_audioSession currentRoute];
-  extractFirstInputPortTypeFromRouteDescription(currentRoute, &v66);
+  extractFirstInputPortTypeFromRouteDescription(currentRoute, &v65);
   if (![availableInputs count])
   {
     if (kAVVCScope)
@@ -1759,9 +2289,9 @@ LABEL_25:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v68 = "AVVCSessionManager.mm";
-      v69 = 1024;
-      v70 = 1778;
+      v67 = "AVVCSessionManager.mm";
+      v68 = 1024;
+      v69 = 1778;
       _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d predictIfMicrophoneShouldBeUsedForActivationMode: No available inputs.", buf, 0x12u);
     }
 
@@ -1804,9 +2334,9 @@ LABEL_57:
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v68 = "AVVCSessionManager.mm";
-          v69 = 1024;
-          v70 = 1786;
+          v67 = "AVVCSessionManager.mm";
+          v68 = 1024;
+          v69 = 1786;
           _os_log_impl(&dword_1BA5AC000, v25, OS_LOG_TYPE_ERROR, "%25s:%-5d predictIfMicrophoneShouldBeUsedForActivationMode: Only one input available: Not Builtin Mic.", buf, 0x12u);
         }
 
@@ -1826,11 +2356,11 @@ LABEL_57:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v68 = "AVVCSessionManager.mm";
-      v69 = 1024;
-      v70 = 1782;
-      v71 = 2112;
-      v72 = v13;
+      v67 = "AVVCSessionManager.mm";
+      v68 = 1024;
+      v69 = 1782;
+      v70 = 2112;
+      v71 = v13;
       _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d predictIfMicrophoneShouldBeUsedForActivationMode: Only one input available: %@", buf, 0x1Cu);
     }
 
@@ -1840,35 +2370,35 @@ LABEL_57:
 
   if (mode == 1752132965)
   {
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
     v59 = 0u;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     v13 = availableInputs;
     obj = v13;
-    v26 = [v13 countByEnumeratingWithState:&v58 objects:v83 count:16];
+    v26 = [v13 countByEnumeratingWithState:&v57 objects:v82 count:16];
     if (!v26)
     {
       goto LABEL_86;
     }
 
     v7 = 0;
-    v27 = *v59;
-    v56 = *MEMORY[0x1E698D658];
-    v55 = *MEMORY[0x1E698D6A8];
-    v54 = *MEMORY[0x1E698D690];
-    v51 = v66;
+    v27 = *v58;
+    v55 = *MEMORY[0x1E698D658];
+    v54 = *MEMORY[0x1E698D6A8];
+    v53 = *MEMORY[0x1E698D690];
+    v50 = v65;
 LABEL_64:
-    v57 = v26;
+    v56 = v26;
     v28 = 0;
     while (1)
     {
-      if (*v59 != v27)
+      if (*v58 != v27)
       {
         objc_enumerationMutation(obj);
       }
 
-      v29 = *(*(&v58 + 1) + 8 * v28);
+      v29 = *(*(&v57 + 1) + 8 * v28);
       portType2 = [v29 portType];
       if (kAVVCScope)
       {
@@ -1897,21 +2427,21 @@ LABEL_64:
         v40 = Get4CCFromInt([v29 endpointType]);
         isHeadphones = [v29 isHeadphones];
         *buf = 136316930;
-        v68 = "AVVCSessionManager.mm";
-        v69 = 1024;
-        v70 = 1833;
-        v71 = 2112;
-        v72 = portType2;
-        v73 = 2112;
-        v74 = v37;
-        v75 = 2112;
-        v76 = v38;
-        v77 = 2048;
-        v78 = portSubType;
-        v79 = 2112;
-        v80 = v40;
-        v81 = 1024;
-        v82 = isHeadphones;
+        v67 = "AVVCSessionManager.mm";
+        v68 = 1024;
+        v69 = 1833;
+        v70 = 2112;
+        v71 = portType2;
+        v72 = 2112;
+        v73 = v37;
+        v74 = 2112;
+        v75 = v38;
+        v76 = 2048;
+        v77 = portSubType;
+        v78 = 2112;
+        v79 = v40;
+        v80 = 1024;
+        v81 = isHeadphones;
         _os_log_impl(&dword_1BA5AC000, v34, OS_LOG_TYPE_DEFAULT, "%25s:%-5d predictIfMicrophoneShouldBeUsedForActivationMode: Available input: [ portType(%@), portName(%@), portUID(%@), portSubType(%ld), endpointType(%@) isHeadphones(%d) ]", buf, 0x4Au);
 
         v27 = v36;
@@ -1919,7 +2449,7 @@ LABEL_64:
       }
 
 LABEL_74:
-      if (portType2 == v56)
+      if (portType2 == v55)
       {
         if (![v29 isHeadphones])
         {
@@ -1931,25 +2461,25 @@ LABEL_74:
         goto LABEL_80;
       }
 
-      if (portType2 == v55)
+      if (portType2 == v54)
       {
         v7 = 0;
         goto LABEL_83;
       }
 
-      if (portType2 == v54)
+      if (portType2 == v53)
       {
-        isBTDeviceInEar = areNSStringsEqualOrBothNil(v51, v54);
+        isBTDeviceInEar = areNSStringsEqualOrBothNil(v50, v53);
 LABEL_80:
         v7 = isBTDeviceInEar ^ 1u;
       }
 
 LABEL_83:
 
-      if (v57 == ++v28)
+      if (v56 == ++v28)
       {
         v13 = obj;
-        v26 = [obj countByEnumeratingWithState:&v58 objects:v83 count:16];
+        v26 = [obj countByEnumeratingWithState:&v57 objects:v82 count:16];
         if (!v26)
         {
           goto LABEL_91;
@@ -1967,13 +2497,13 @@ LABEL_49:
     goto LABEL_92;
   }
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   v13 = availableInputs;
   v14 = v13;
-  v15 = [v13 countByEnumeratingWithState:&v62 objects:v84 count:16];
+  v15 = [v13 countByEnumeratingWithState:&v61 objects:v83 count:16];
   if (!v15)
   {
 LABEL_86:
@@ -1982,19 +2512,19 @@ LABEL_86:
   }
 
   LOBYTE(v7) = 0;
-  v16 = *v63;
+  v16 = *v62;
   v17 = *MEMORY[0x1E698D658];
   v18 = *MEMORY[0x1E698D660];
   do
   {
     for (i = 0; i != v15; ++i)
     {
-      if (*v63 != v16)
+      if (*v62 != v16)
       {
         objc_enumerationMutation(v14);
       }
 
-      v20 = *(*(&v62 + 1) + 8 * i);
+      v20 = *(*(&v61 + 1) + 8 * i);
       portType3 = [v20 portType];
       v22 = portType3;
       if (portType3 == v17)
@@ -2017,7 +2547,7 @@ LABEL_86:
     }
 
     v13 = v14;
-    v15 = [v14 countByEnumeratingWithState:&v62 objects:v84 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v61 objects:v83 count:16];
   }
 
   while (v15);
@@ -2038,29 +2568,27 @@ LABEL_96:
     if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v68 = "AVVCSessionManager.mm";
-      v69 = 1024;
-      v70 = 1873;
-      v71 = 1024;
-      LODWORD(v72) = v7 & 1;
+      v67 = "AVVCSessionManager.mm";
+      v68 = 1024;
+      v69 = 1873;
+      v70 = 1024;
+      LODWORD(v71) = v7 & 1;
       _os_log_impl(&dword_1BA5AC000, v44, OS_LOG_TYPE_DEFAULT, "%25s:%-5d predictIfMicrophoneShouldBeUsedForActivationMode: isMicrophoneBuiltin(%d)", buf, 0x18u);
     }
   }
 
 LABEL_100:
-  if (v50)
+  if (v49)
   {
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_102:
-  v46 = *MEMORY[0x1E69E9840];
   return v7 & 1;
 }
 
 - (BOOL)isBTDeviceInEar
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   pickedRoute = [(AVVCSessionManager *)self pickedRoute];
   if (kAVVCScope)
   {
@@ -2079,13 +2607,13 @@ LABEL_102:
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 136315650;
-    v20 = "AVVCSessionManager.mm";
-    v21 = 1024;
-    v22 = 1730;
-    v23 = 2112;
-    v24 = pickedRoute;
-    _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d isBTDeviceInEar: pickedRoute from AudioSession: %@", &v19, 0x1Cu);
+    v18 = 136315650;
+    v19 = "AVVCSessionManager.mm";
+    v20 = 1024;
+    v21 = 1730;
+    v22 = 2112;
+    v23 = pickedRoute;
+    _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d isBTDeviceInEar: pickedRoute from AudioSession: %@", &v18, 0x1Cu);
   }
 
 LABEL_8:
@@ -2126,11 +2654,11 @@ LABEL_8:
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v19 = 136315394;
-      v20 = "AVVCSessionManager.mm";
-      v21 = 1024;
-      v22 = 1750;
-      _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d isBTDeviceInEar: pickedRoute is not a BT device", &v19, 0x12u);
+      v18 = 136315394;
+      v19 = "AVVCSessionManager.mm";
+      v20 = 1024;
+      v21 = 1750;
+      _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d isBTDeviceInEar: pickedRoute is not a BT device", &v18, 0x12u);
     }
   }
 
@@ -2154,23 +2682,22 @@ LABEL_19:
 
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 136315650;
-    v20 = "AVVCSessionManager.mm";
-    v21 = 1024;
-    v22 = 1754;
-    v23 = 1024;
-    LODWORD(v24) = v12 & 1;
-    _os_log_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d isBTDeviceInEar: (%d)", &v19, 0x18u);
+    v18 = 136315650;
+    v19 = "AVVCSessionManager.mm";
+    v20 = 1024;
+    v21 = 1754;
+    v22 = 1024;
+    LODWORD(v23) = v12 & 1;
+    _os_log_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d isBTDeviceInEar: (%d)", &v18, 0x18u);
   }
 
 LABEL_26:
-  v17 = *MEMORY[0x1E69E9840];
   return v12 & 1;
 }
 
 - (BOOL)isPickedRouteW1
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   pickedRoute = [(AVVCSessionManager *)self pickedRoute];
   v3 = pickedRoute;
   if (pickedRoute)
@@ -2207,20 +2734,20 @@ LABEL_21:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = "NO";
-      v14 = "AVVCSessionManager.mm";
-      v15 = 1024;
-      v16 = 1715;
-      v13 = 136315906;
+      v13 = "AVVCSessionManager.mm";
+      v14 = 1024;
+      v15 = 1715;
+      v12 = 136315906;
       if (v6)
       {
         v9 = "YES";
       }
 
-      v17 = 2080;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v5;
-      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d isPickedRouteW1: %s, id: %@", &v13, 0x26u);
+      v16 = 2080;
+      v17 = v9;
+      v18 = 2112;
+      v19 = v5;
+      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d isPickedRouteW1: %s, id: %@", &v12, 0x26u);
     }
 
     goto LABEL_21;
@@ -2239,11 +2766,11 @@ LABEL_21:
 LABEL_18:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "AVVCSessionManager.mm";
-      v15 = 1024;
-      v16 = 1718;
-      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d isPickedRouteW1: NO. pickedRoute is nil", &v13, 0x12u);
+      v12 = 136315394;
+      v13 = "AVVCSessionManager.mm";
+      v14 = 1024;
+      v15 = 1718;
+      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d isPickedRouteW1: NO. pickedRoute is nil", &v12, 0x12u);
     }
 
     LOBYTE(v6) = 0;
@@ -2253,7 +2780,6 @@ LABEL_18:
   LOBYTE(v6) = 0;
 LABEL_22:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -2373,7 +2899,7 @@ LABEL_22:
 
 - (BOOL)setPreferredSampleRate:(double)rate error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -2386,9 +2912,7 @@ LABEL_22:
       v9 = *kAVVCScope;
       if (!v9)
       {
-LABEL_17:
-        v8 = 1;
-        goto LABEL_18;
+        return 1;
       }
     }
 
@@ -2400,18 +2924,18 @@ LABEL_17:
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 136315906;
-      v14 = "AVVCSessionManager.mm";
-      v15 = 1024;
-      v16 = 1625;
-      v17 = 2080;
-      v18 = "setPreferredSampleRate:error";
-      v19 = 1024;
-      v20 = 1;
-      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v13, 0x22u);
+      v12 = 136315906;
+      v13 = "AVVCSessionManager.mm";
+      v14 = 1024;
+      v15 = 1625;
+      v16 = 2080;
+      v17 = "setPreferredSampleRate:error";
+      v18 = 1024;
+      v19 = 1;
+      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v12, 0x22u);
     }
 
-    goto LABEL_17;
+    return 1;
   }
 
   if (IsSerializationEnabled(void)::onceToken != -1)
@@ -2431,14 +2955,13 @@ LABEL_17:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_18:
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
-- (BOOL)setAudioHardwareControlFlags:(unint64_t)flags error:(id *)error
+- (BOOL)setIAmTheAssistant:(BOOL)assistant error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  assistantCopy = assistant;
+  v20 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -2451,9 +2974,7 @@ LABEL_18:
       v9 = *kAVVCScope;
       if (!v9)
       {
-LABEL_17:
-        v8 = 0;
-        goto LABEL_18;
+        return 1;
       }
     }
 
@@ -2465,18 +2986,79 @@ LABEL_17:
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 136315906;
-      v14 = "AVVCSessionManager.mm";
-      v15 = 1024;
-      v16 = 1592;
-      v17 = 2080;
-      v18 = "setAudioHardwareControlFlags";
-      v19 = 1024;
-      v20 = 0;
-      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v13, 0x22u);
+      v12 = 136315906;
+      v13 = "AVVCSessionManager.mm";
+      v14 = 1024;
+      v15 = 1615;
+      v16 = 2080;
+      v17 = "setIAmTheAssistant";
+      v18 = 1024;
+      v19 = 1;
+      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v12, 0x22u);
     }
 
-    goto LABEL_17;
+    return 1;
+  }
+
+  if (IsSerializationEnabled(void)::onceToken != -1)
+  {
+    dispatch_once(&IsSerializationEnabled(void)::onceToken, &__block_literal_global_197);
+  }
+
+  v7 = IsSerializationEnabled(void)::enable;
+  if (IsSerializationEnabled(void)::enable == 1)
+  {
+    std::recursive_mutex::lock(&self->mSessionManagerLock);
+  }
+
+  v8 = [(AVAudioSession *)self->_audioSession setIAmTheAssistant:assistantCopy error:error];
+  if (v7)
+  {
+    std::recursive_mutex::unlock(&self->mSessionManagerLock);
+  }
+
+  return v8;
+}
+
+- (BOOL)setAudioHardwareControlFlags:(unint64_t)flags error:(id *)error
+{
+  v20 = *MEMORY[0x1E69E9840];
+  if (isAudioSessionAvailable(void)::onceToken != -1)
+  {
+    dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
+  }
+
+  if ((isAudioSessionAvailable(void)::audioSessionAvailable & 1) == 0)
+  {
+    if (kAVVCScope)
+    {
+      v9 = *kAVVCScope;
+      if (!v9)
+      {
+        return 0;
+      }
+    }
+
+    else
+    {
+      v9 = MEMORY[0x1E69E9C10];
+      v10 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      v12 = 136315906;
+      v13 = "AVVCSessionManager.mm";
+      v14 = 1024;
+      v15 = 1592;
+      v16 = 2080;
+      v17 = "setAudioHardwareControlFlags";
+      v18 = 1024;
+      v19 = 0;
+      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v12, 0x22u);
+    }
+
+    return 0;
   }
 
   if (IsSerializationEnabled(void)::onceToken != -1)
@@ -2496,14 +3078,12 @@ LABEL_17:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_18:
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (BOOL)isSessionInSiriCategory
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -2516,9 +3096,7 @@ LABEL_18:
       v5 = *kAVVCScope;
       if (!v5)
       {
-LABEL_17:
-        v4 = 0;
-        goto LABEL_18;
+        return 0;
       }
     }
 
@@ -2530,18 +3108,18 @@ LABEL_17:
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 136315906;
-      v10 = "AVVCSessionManager.mm";
-      v11 = 1024;
-      v12 = 1579;
-      v13 = 2080;
-      v14 = "isSessionInSiriCategory";
-      v15 = 1024;
-      v16 = 0;
-      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v9, 0x22u);
+      v8 = 136315906;
+      v9 = "AVVCSessionManager.mm";
+      v10 = 1024;
+      v11 = 1579;
+      v12 = 2080;
+      v13 = "isSessionInSiriCategory";
+      v14 = 1024;
+      v15 = 0;
+      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v8, 0x22u);
     }
 
-    goto LABEL_17;
+    return 0;
   }
 
   if (IsSerializationEnabled(void)::onceToken != -1)
@@ -2561,14 +3139,12 @@ LABEL_17:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_18:
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (BOOL)isSessionInSiriCategoryModeAndOptions:(unsigned int)options
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -2581,9 +3157,7 @@ LABEL_18:
       v10 = *kAVVCScope;
       if (!v10)
       {
-LABEL_29:
-        v13 = 0;
-        goto LABEL_30;
+        return 0;
       }
     }
 
@@ -2595,18 +3169,18 @@ LABEL_29:
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v17 = 136315906;
-      v18 = "AVVCSessionManager.mm";
-      v19 = 1024;
-      v20 = 1559;
-      v21 = 2080;
-      v22 = "speechDetectionDeviceSampleRate";
-      v23 = 1024;
-      LODWORD(v24) = 0;
-      _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v17, 0x22u);
+      v16 = 136315906;
+      v17 = "AVVCSessionManager.mm";
+      v18 = 1024;
+      v19 = 1559;
+      v20 = 2080;
+      v21 = "speechDetectionDeviceSampleRate";
+      v22 = 1024;
+      LODWORD(v23) = 0;
+      _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v16, 0x22u);
     }
 
-    goto LABEL_29;
+    return 0;
   }
 
   if (IsSerializationEnabled(void)::onceToken != -1)
@@ -2636,17 +3210,17 @@ LABEL_29:
 LABEL_15:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v17 = 136316162;
-      v18 = "AVVCSessionManager.mm";
-      v19 = 1024;
-      v20 = 1565;
-      v21 = 2112;
-      v22 = v6;
-      v23 = 2112;
-      v24 = v7;
-      v25 = 1024;
-      v26 = mPreviousSessionCategoryOptions;
-      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d isSessionInSiriCategoryModeAndOptions: about to set Play&Record category, speech recognition/assistant mode. Current category: %@, mode: %@, options: 0x%x", &v17, 0x2Cu);
+      v16 = 136316162;
+      v17 = "AVVCSessionManager.mm";
+      v18 = 1024;
+      v19 = 1565;
+      v20 = 2112;
+      v21 = v6;
+      v22 = 2112;
+      v23 = v7;
+      v24 = 1024;
+      v25 = mPreviousSessionCategoryOptions;
+      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d isSessionInSiriCategoryModeAndOptions: about to set Play&Record category, speech recognition/assistant mode. Current category: %@, mode: %@, options: 0x%x", &v16, 0x2Cu);
     }
   }
 
@@ -2666,14 +3240,12 @@ LABEL_15:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_30:
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (BOOL)clearInputPreferences:(id *)preferences
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -2686,9 +3258,7 @@ LABEL_30:
       v7 = *kAVVCScope;
       if (!v7)
       {
-LABEL_17:
-        v6 = 0;
-        goto LABEL_18;
+        return 0;
       }
     }
 
@@ -2700,18 +3270,18 @@ LABEL_17:
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 136315906;
-      v12 = "AVVCSessionManager.mm";
-      v13 = 1024;
-      v14 = 1548;
-      v15 = 2080;
-      v16 = "clearInputPreferences";
-      v17 = 1024;
-      v18 = 0;
-      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v11, 0x22u);
+      v10 = 136315906;
+      v11 = "AVVCSessionManager.mm";
+      v12 = 1024;
+      v13 = 1548;
+      v14 = 2080;
+      v15 = "clearInputPreferences";
+      v16 = 1024;
+      v17 = 0;
+      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v10, 0x22u);
     }
 
-    goto LABEL_17;
+    return 0;
   }
 
   if (IsSerializationEnabled(void)::onceToken != -1)
@@ -2731,14 +3301,12 @@ LABEL_17:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_18:
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)setCategory:(id)category mode:(id)mode routeSharingPolicy:(unint64_t)policy options:(unint64_t)options error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   categoryCopy = category;
   modeCopy = mode;
   if (isAudioSessionAvailable(void)::onceToken != -1)
@@ -2767,15 +3335,15 @@ LABEL_17:
 
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v20 = 136315906;
-      v21 = "AVVCSessionManager.mm";
-      v22 = 1024;
-      v23 = 1540;
-      v24 = 2080;
-      v25 = "setCategory:mode:routeSharingPolicy:options";
-      v26 = 1024;
-      v27 = 0;
-      _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v20, 0x22u);
+      v19 = 136315906;
+      v20 = "AVVCSessionManager.mm";
+      v21 = 1024;
+      v22 = 1540;
+      v23 = 2080;
+      v24 = "setCategory:mode:routeSharingPolicy:options";
+      v25 = 1024;
+      v26 = 0;
+      _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v19, 0x22u);
     }
 
     goto LABEL_17;
@@ -2800,13 +3368,12 @@ LABEL_17:
 
 LABEL_18:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (BOOL)setCategory:(id)category mode:(id)mode options:(unint64_t)options error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   categoryCopy = category;
   modeCopy = mode;
   if (isAudioSessionAvailable(void)::onceToken != -1)
@@ -2835,15 +3402,15 @@ LABEL_17:
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v18 = 136315906;
-      v19 = "AVVCSessionManager.mm";
-      v20 = 1024;
-      v21 = 1531;
-      v22 = 2080;
-      v23 = "setCategory:mode:options";
-      v24 = 1024;
-      v25 = 0;
-      _os_log_impl(&dword_1BA5AC000, v14, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v18, 0x22u);
+      v17 = 136315906;
+      v18 = "AVVCSessionManager.mm";
+      v19 = 1024;
+      v20 = 1531;
+      v21 = 2080;
+      v22 = "setCategory:mode:options";
+      v23 = 1024;
+      v24 = 0;
+      _os_log_impl(&dword_1BA5AC000, v14, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v17, 0x22u);
     }
 
     goto LABEL_17;
@@ -2868,13 +3435,12 @@ LABEL_17:
 
 LABEL_18:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (double)outputVolume
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -2887,9 +3453,7 @@ LABEL_18:
       v6 = *kAVVCScope;
       if (!v6)
       {
-LABEL_17:
-        v5 = 0.0;
-        goto LABEL_18;
+        return 0.0;
       }
     }
 
@@ -2901,18 +3465,18 @@ LABEL_17:
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315906;
-      v11 = "AVVCSessionManager.mm";
-      v12 = 1024;
-      v13 = 1514;
-      v14 = 2080;
-      v15 = "outputVolume";
-      v16 = 1024;
-      v17 = 0;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v10, 0x22u);
+      v9 = 136315906;
+      v10 = "AVVCSessionManager.mm";
+      v11 = 1024;
+      v12 = 1514;
+      v13 = 2080;
+      v14 = "outputVolume";
+      v15 = 1024;
+      v16 = 0;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v9, 0x22u);
     }
 
-    goto LABEL_17;
+    return 0.0;
   }
 
   if (IsSerializationEnabled(void)::onceToken != -1)
@@ -2934,14 +3498,12 @@ LABEL_17:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_18:
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (double)inputSafetyOffset
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -2954,9 +3516,7 @@ LABEL_18:
       v6 = *kAVVCScope;
       if (!v6)
       {
-LABEL_17:
-        v5 = 0.0;
-        goto LABEL_18;
+        return 0.0;
       }
     }
 
@@ -2968,18 +3528,18 @@ LABEL_17:
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315906;
-      v11 = "AVVCSessionManager.mm";
-      v12 = 1024;
-      v13 = 1506;
-      v14 = 2080;
-      v15 = "inputSafetyOffset";
-      v16 = 1024;
-      v17 = 0;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v10, 0x22u);
+      v9 = 136315906;
+      v10 = "AVVCSessionManager.mm";
+      v11 = 1024;
+      v12 = 1506;
+      v13 = 2080;
+      v14 = "inputSafetyOffset";
+      v15 = 1024;
+      v16 = 0;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v9, 0x22u);
     }
 
-    goto LABEL_17;
+    return 0.0;
   }
 
   if (IsSerializationEnabled(void)::onceToken != -1)
@@ -3001,14 +3561,12 @@ LABEL_17:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_18:
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (double)outputSafetyOffset
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -3021,9 +3579,7 @@ LABEL_18:
       v6 = *kAVVCScope;
       if (!v6)
       {
-LABEL_17:
-        v5 = 0.0;
-        goto LABEL_18;
+        return 0.0;
       }
     }
 
@@ -3035,18 +3591,18 @@ LABEL_17:
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315906;
-      v11 = "AVVCSessionManager.mm";
-      v12 = 1024;
-      v13 = 1498;
-      v14 = 2080;
-      v15 = "outputSafetyOffset";
-      v16 = 1024;
-      v17 = 0;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v10, 0x22u);
+      v9 = 136315906;
+      v10 = "AVVCSessionManager.mm";
+      v11 = 1024;
+      v12 = 1498;
+      v13 = 2080;
+      v14 = "outputSafetyOffset";
+      v15 = 1024;
+      v16 = 0;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v9, 0x22u);
     }
 
-    goto LABEL_17;
+    return 0.0;
   }
 
   if (IsSerializationEnabled(void)::onceToken != -1)
@@ -3068,9 +3624,69 @@ LABEL_17:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_18:
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
+}
+
+- (BOOL)setEnableBTTriangleMode:(BOOL)mode error:(id *)error
+{
+  modeCopy = mode;
+  v20 = *MEMORY[0x1E69E9840];
+  if (isAudioSessionAvailable(void)::onceToken != -1)
+  {
+    dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
+  }
+
+  if ((isAudioSessionAvailable(void)::audioSessionAvailable & 1) == 0)
+  {
+    if (kAVVCScope)
+    {
+      v9 = *kAVVCScope;
+      if (!v9)
+      {
+        return 0;
+      }
+    }
+
+    else
+    {
+      v9 = MEMORY[0x1E69E9C10];
+      v10 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      v12 = 136315906;
+      v13 = "AVVCSessionManager.mm";
+      v14 = 1024;
+      v15 = 1468;
+      v16 = 2080;
+      v17 = "setEnableBTTriangleMode";
+      v18 = 1024;
+      v19 = 0;
+      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v12, 0x22u);
+    }
+
+    return 0;
+  }
+
+  if (IsSerializationEnabled(void)::onceToken != -1)
+  {
+    dispatch_once(&IsSerializationEnabled(void)::onceToken, &__block_literal_global_197);
+  }
+
+  v7 = IsSerializationEnabled(void)::enable;
+  if (IsSerializationEnabled(void)::enable == 1)
+  {
+    std::recursive_mutex::lock(&self->mSessionManagerLock);
+  }
+
+  v8 = [(AVAudioSession *)self->_audioSession setEligibleForBTTriangleConsideration:modeCopy error:error];
+  if (v7)
+  {
+    std::recursive_mutex::unlock(&self->mSessionManagerLock);
+  }
+
+  return v8;
 }
 
 - (BOOL)getForceGetSessionProperties
@@ -3246,7 +3862,7 @@ LABEL_18:
 
 - (void)setSessionStateWithoutLock:(int)lock
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (IsSerializationEnabled(void)::onceToken != -1)
   {
     dispatch_once(&IsSerializationEnabled(void)::onceToken, &__block_literal_global_197);
@@ -3296,17 +3912,17 @@ LABEL_18:
       v10 = off_1E7EF63F8[lock];
     }
 
-    v12 = 136316162;
-    v13 = "AVVCSessionManager.mm";
-    v14 = 1024;
-    v15 = 1396;
-    v16 = 2048;
+    v11 = 136316162;
+    v12 = "AVVCSessionManager.mm";
+    v13 = 1024;
+    v14 = 1396;
+    v15 = 2048;
     selfCopy = self;
-    v18 = 2080;
-    v19 = v9;
-    v20 = 2080;
-    v21 = v10;
-    _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d session(%p) state %s => %s", &v12, 0x30u);
+    v17 = 2080;
+    v18 = v9;
+    v19 = 2080;
+    v20 = v10;
+    _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d session(%p) state %s => %s", &v11, 0x30u);
   }
 
 LABEL_18:
@@ -3315,13 +3931,11 @@ LABEL_18:
   {
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSessionState:(int)state
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (IsSerializationEnabled(void)::onceToken != -1)
   {
     dispatch_once(&IsSerializationEnabled(void)::onceToken, &__block_literal_global_197);
@@ -3371,17 +3985,17 @@ LABEL_18:
       v10 = off_1E7EF63F8[state];
     }
 
-    v12 = 136316162;
-    v13 = "AVVCSessionManager.mm";
-    v14 = 1024;
-    v15 = 1390;
-    v16 = 2048;
+    v11 = 136316162;
+    v12 = "AVVCSessionManager.mm";
+    v13 = 1024;
+    v14 = 1390;
+    v15 = 2048;
     selfCopy = self;
-    v18 = 2080;
-    v19 = v9;
-    v20 = 2080;
-    v21 = v10;
-    _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d session(%p) state %s => %s", &v12, 0x30u);
+    v17 = 2080;
+    v18 = v9;
+    v19 = 2080;
+    v20 = v10;
+    _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d session(%p) state %s => %s", &v11, 0x30u);
   }
 
 LABEL_18:
@@ -3390,13 +4004,11 @@ LABEL_18:
   {
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)deactivateAudioSessionWithOptions:(unsigned int)options error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -3411,7 +4023,7 @@ LABEL_18:
       {
 LABEL_18:
         LOBYTE(v12) = 1;
-        goto LABEL_44;
+        return v12;
       }
     }
 
@@ -3424,13 +4036,13 @@ LABEL_18:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v31 = "AVVCSessionManager.mm";
-      v32 = 1024;
-      v33 = 1357;
-      v34 = 2080;
-      v35 = "deactivateAudioSessionWithOptions";
-      v36 = 1024;
-      v37 = 1;
+      v30 = "AVVCSessionManager.mm";
+      v31 = 1024;
+      v32 = 1357;
+      v33 = 2080;
+      v34 = "deactivateAudioSessionWithOptions";
+      v35 = 1024;
+      v36 = 1;
       _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", buf, 0x22u);
     }
 
@@ -3468,18 +4080,18 @@ LABEL_18:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v31 = "AVVCSessionManager.mm";
-    v32 = 1024;
-    v33 = 1365;
-    v34 = 1024;
-    LODWORD(v35) = options;
+    v30 = "AVVCSessionManager.mm";
+    v31 = 1024;
+    v32 = 1365;
+    v33 = 1024;
+    LODWORD(v34) = options;
     _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d deactivateAudioSession: session options : %d", buf, 0x18u);
   }
 
 LABEL_23:
-  v28 = 0;
-  v12 = [audioSession setActive:0 withOptions:options error:&v28];
-  v14 = v28;
+  v27 = 0;
+  v12 = [audioSession setActive:0 withOptions:options error:&v27];
+  v14 = v27;
   code = [v14 code];
   if (!v12)
   {
@@ -3503,16 +4115,16 @@ LABEL_39:
     v23 = v17;
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      CAX4CCString::CAX4CCString(v29, code);
+      CAX4CCString::CAX4CCString(v28, code);
       opaqueSessionID = [(AVAudioSession *)self->_audioSession opaqueSessionID];
       *buf = 136315906;
-      v31 = "AVVCSessionManager.mm";
-      v32 = 1024;
-      v33 = 1375;
-      v34 = 2080;
-      v35 = v29;
-      v36 = 1024;
-      v37 = opaqueSessionID;
+      v30 = "AVVCSessionManager.mm";
+      v31 = 1024;
+      v32 = 1375;
+      v33 = 2080;
+      v34 = v28;
+      v35 = 1024;
+      v36 = opaqueSessionID;
       _os_log_impl(&dword_1BA5AC000, v23, OS_LOG_TYPE_ERROR, "%25s:%-5d deactivateAudioSession failed with error: %s, session id:0x%x", buf, 0x22u);
     }
 
@@ -3533,16 +4145,16 @@ LABEL_31:
     v19 = v16;
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      CAX4CCString::CAX4CCString(v29, code);
+      CAX4CCString::CAX4CCString(v28, code);
       opaqueSessionID2 = [(AVAudioSession *)self->_audioSession opaqueSessionID];
       *buf = 136315906;
-      v31 = "AVVCSessionManager.mm";
-      v32 = 1024;
-      v33 = 1371;
-      v34 = 2080;
-      v35 = v29;
-      v36 = 1024;
-      v37 = opaqueSessionID2;
+      v30 = "AVVCSessionManager.mm";
+      v31 = 1024;
+      v32 = 1371;
+      v33 = 2080;
+      v34 = v28;
+      v35 = 1024;
+      v36 = opaqueSessionID2;
       _os_log_impl(&dword_1BA5AC000, v19, OS_LOG_TYPE_DEFAULT, "%25s:%-5d deactivateAudioSession succeeded error: %s, session id:0x%x", buf, 0x22u);
     }
   }
@@ -3561,15 +4173,13 @@ LABEL_40:
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_44:
-  v26 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (BOOL)activateAudioSessionWithPrewarm:(BOOL)prewarm error:(id *)error
 {
   prewarmCopy = prewarm;
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -3584,7 +4194,7 @@ LABEL_44:
       {
 LABEL_21:
         LOBYTE(v12) = 1;
-        goto LABEL_47;
+        return v12;
       }
     }
 
@@ -3597,13 +4207,13 @@ LABEL_21:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v44 = "AVVCSessionManager.mm";
-      v45 = 1024;
-      v46 = 1301;
-      v47 = 2080;
-      v48 = "activateAudioSessionWithPrewarm";
-      v49 = 1024;
-      LODWORD(v50) = 1;
+      v43 = "AVVCSessionManager.mm";
+      v44 = 1024;
+      v45 = 1301;
+      v46 = 2080;
+      v47 = "activateAudioSessionWithPrewarm";
+      v48 = 1024;
+      LODWORD(v49) = 1;
       _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", buf, 0x22u);
     }
 
@@ -3615,18 +4225,18 @@ LABEL_21:
     dispatch_once(&IsSerializationEnabled(void)::onceToken, &__block_literal_global_197);
   }
 
-  v30 = IsSerializationEnabled(void)::enable;
+  v29 = IsSerializationEnabled(void)::enable;
   if (IsSerializationEnabled(void)::enable == 1)
   {
     std::recursive_mutex::lock(&self->mSessionManagerLock);
   }
 
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__6402;
-  v40 = __Block_byref_object_dispose__6403;
-  v41 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__6402;
+  v39 = __Block_byref_object_dispose__6403;
+  v40 = 0;
   audioSession = [(AVVCSessionManager *)self audioSession];
   if (prewarmCopy)
   {
@@ -3660,13 +4270,13 @@ LABEL_21:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v44 = "AVVCSessionManager.mm";
-    v45 = 1024;
-    v46 = 1320;
-    v47 = 2112;
-    v48 = v8;
-    v49 = 1024;
-    LODWORD(v50) = mSessionActivationOptions;
+    v43 = "AVVCSessionManager.mm";
+    v44 = 1024;
+    v45 = 1320;
+    v46 = 2112;
+    v47 = v8;
+    v48 = 1024;
+    LODWORD(v49) = mSessionActivationOptions;
     _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %@: session options : %d", buf, 0x22u);
   }
 
@@ -3679,9 +4289,9 @@ LABEL_26:
   aBlock[2] = __60__AVVCSessionManager_activateAudioSessionWithPrewarm_error___block_invoke;
   aBlock[3] = &unk_1E7EF63D0;
   v14 = audioSession;
-  v35 = mSessionActivationOptions;
-  v33 = v14;
-  v34 = &v36;
+  v34 = mSessionActivationOptions;
+  v32 = v14;
+  v33 = &v35;
   v15 = _Block_copy(aBlock);
   v16 = objc_autoreleasePoolPush();
   v17 = +[AVVCMetricsManager sharedManager];
@@ -3691,7 +4301,7 @@ LABEL_26:
   ElapsedTime::~ElapsedTime(buf);
   kdebug_trace();
   ProfileMetrics(&cfstr_AvvcProfilePro_7.isa);
-  code = [v37[5] code];
+  code = [v36[5] code];
   if (!v12)
   {
     if (kAVVCScope)
@@ -3714,18 +4324,18 @@ LABEL_42:
     v26 = v20;
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      CAX4CCString::CAX4CCString(v42, code);
+      CAX4CCString::CAX4CCString(v41, code);
       opaqueSessionID = [(AVAudioSession *)self->_audioSession opaqueSessionID];
       *buf = 136316162;
-      v44 = "AVVCSessionManager.mm";
-      v45 = 1024;
-      v46 = 1344;
-      v47 = 2112;
-      v48 = v8;
-      v49 = 2080;
-      v50 = v42;
-      v51 = 1024;
-      v52 = opaqueSessionID;
+      v43 = "AVVCSessionManager.mm";
+      v44 = 1024;
+      v45 = 1344;
+      v46 = 2112;
+      v47 = v8;
+      v48 = 2080;
+      v49 = v41;
+      v50 = 1024;
+      v51 = opaqueSessionID;
       _os_log_impl(&dword_1BA5AC000, v26, OS_LOG_TYPE_ERROR, "%25s:%-5d %@ failed with error: %s, session id:0x%x", buf, 0x2Cu);
     }
 
@@ -3746,18 +4356,18 @@ LABEL_34:
     v22 = v19;
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      CAX4CCString::CAX4CCString(v42, code);
+      CAX4CCString::CAX4CCString(v41, code);
       opaqueSessionID2 = [(AVAudioSession *)self->_audioSession opaqueSessionID];
       *buf = 136316162;
-      v44 = "AVVCSessionManager.mm";
-      v45 = 1024;
-      v46 = 1340;
-      v47 = 2112;
-      v48 = v8;
-      v49 = 2080;
-      v50 = v42;
-      v51 = 1024;
-      v52 = opaqueSessionID2;
+      v43 = "AVVCSessionManager.mm";
+      v44 = 1024;
+      v45 = 1340;
+      v46 = 2112;
+      v47 = v8;
+      v48 = 2080;
+      v49 = v41;
+      v50 = 1024;
+      v51 = opaqueSessionID2;
       _os_log_impl(&dword_1BA5AC000, v22, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %@ succeeded error: %s, session id:0x%x", buf, 0x2Cu);
     }
   }
@@ -3767,17 +4377,15 @@ LABEL_43:
   [(AVVCSessionManager *)self setSessionStateWithoutLock:v24];
   if (error)
   {
-    *error = v37[5];
+    *error = v36[5];
   }
 
-  _Block_object_dispose(&v36, 8);
-  if (v30)
+  _Block_object_dispose(&v35, 8);
+  if (v29)
   {
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
-LABEL_47:
-  v28 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -3794,31 +4402,31 @@ uint64_t __60__AVVCSessionManager_activateAudioSessionWithPrewarm_error___block_
 
 - (BOOL)isAirplayOneOfTheOutputRoutes:(id)routes
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   routesCopy = routes;
-  v16 = [routesCopy count];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
+  v15 = [routesCopy count];
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   obj = routesCopy;
-  v3 = [obj countByEnumeratingWithState:&v18 objects:v32 count:16];
+  v3 = [obj countByEnumeratingWithState:&v17 objects:v31 count:16];
   if (v3)
   {
     v4 = 0;
     v5 = 0;
-    v6 = *v19;
+    v6 = *v18;
     v7 = *MEMORY[0x1E698D648];
     while (1)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        portType = [*(*(&v18 + 1) + 8 * i) portType];
+        portType = [*(*(&v17 + 1) + 8 * i) portType];
         if (kAVVCScope)
         {
           v10 = *kAVVCScope;
@@ -3837,15 +4445,15 @@ uint64_t __60__AVVCSessionManager_activateAudioSessionWithPrewarm_error___block_
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136316162;
-          v23 = "AVVCSessionManager.mm";
-          v24 = 1024;
-          v25 = 1286;
-          v26 = 1024;
-          v27 = v4 + 1;
-          v28 = 1024;
-          v29 = v16;
-          v30 = 2112;
-          v31 = portType;
+          v22 = "AVVCSessionManager.mm";
+          v23 = 1024;
+          v24 = 1286;
+          v25 = 1024;
+          v26 = v4 + 1;
+          v27 = 1024;
+          v28 = v15;
+          v29 = 2112;
+          v30 = portType;
           _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Output Port[%d / %d] : %@", buf, 0x28u);
         }
 
@@ -3856,7 +4464,7 @@ LABEL_13:
         ++v4;
       }
 
-      v3 = [obj countByEnumeratingWithState:&v18 objects:v32 count:16];
+      v3 = [obj countByEnumeratingWithState:&v17 objects:v31 count:16];
       if (!v3)
       {
         goto LABEL_17;
@@ -3867,8 +4475,158 @@ LABEL_13:
   v5 = 0;
 LABEL_17:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5 & 1;
+}
+
+- (int)enableSmartRoutingConsideration:(BOOL)consideration
+{
+  considerationCopy = consideration;
+  v35 = *MEMORY[0x1E69E9840];
+  if (isAudioSessionAvailable(void)::onceToken != -1)
+  {
+    dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
+  }
+
+  if ((isAudioSessionAvailable(void)::audioSessionAvailable & 1) == 0)
+  {
+    if (kAVVCScope)
+    {
+      v8 = *kAVVCScope;
+      if (!v8)
+      {
+        return 0;
+      }
+    }
+
+    else
+    {
+      v8 = MEMORY[0x1E69E9C10];
+      v13 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 136315906;
+      v28 = "AVVCSessionManager.mm";
+      v29 = 1024;
+      v30 = 1248;
+      v31 = 2080;
+      v32 = "enableSmartRoutingConsideration";
+      v33 = 1024;
+      v34 = 0;
+      _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", buf, 0x22u);
+    }
+
+    return 0;
+  }
+
+  if (IsSerializationEnabled(void)::onceToken != -1)
+  {
+    dispatch_once(&IsSerializationEnabled(void)::onceToken, &__block_literal_global_197);
+  }
+
+  v5 = IsSerializationEnabled(void)::enable;
+  if (IsSerializationEnabled(void)::enable == 1)
+  {
+    std::recursive_mutex::lock(&self->mSessionManagerLock);
+  }
+
+  ElapsedTime::ElapsedTime(buf, "[AVVCSessionManager enableSmartRoutingConsideration:]", "enableSmartRoutingConsideration", 0);
+  if (self->mEnableSmartRoutingConsideration == considerationCopy)
+  {
+    if (kAVVCScope)
+    {
+      v6 = *kAVVCScope;
+      if (!v6)
+      {
+        code = 0;
+        goto LABEL_37;
+      }
+    }
+
+    else
+    {
+      v6 = MEMORY[0x1E69E9C10];
+      v15 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *v21 = 136315394;
+      v22 = "AVVCSessionManager.mm";
+      v23 = 1024;
+      v24 = 1260;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::enableSmartRoutingConsideration No-op", v21, 0x12u);
+    }
+
+    code = 0;
+  }
+
+  else
+  {
+    audioSession = self->_audioSession;
+    v20 = 0;
+    v10 = [(AVAudioSession *)audioSession setEligibleForBTSmartRoutingConsideration:considerationCopy error:&v20];
+    v11 = v20;
+    v6 = v11;
+    if (v11)
+    {
+      v12 = v10;
+    }
+
+    else
+    {
+      v12 = 1;
+    }
+
+    if ((v12 & 1) == 0)
+    {
+      code = [v11 code];
+      if (kAVVCScope)
+      {
+        v14 = *kAVVCScope;
+        if (!v14)
+        {
+          goto LABEL_36;
+        }
+      }
+
+      else
+      {
+        v14 = MEMORY[0x1E69E9C10];
+        v16 = MEMORY[0x1E69E9C10];
+      }
+
+      v17 = v14;
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        v18 = [v6 description];
+        *v21 = 136315650;
+        v22 = "AVVCSessionManager.mm";
+        v23 = 1024;
+        v24 = 1268;
+        v25 = 2112;
+        v26 = v18;
+        _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::enableSmartRoutingConsideration failed: %@", v21, 0x1Cu);
+      }
+
+      goto LABEL_36;
+    }
+
+    code = 0;
+    self->mEnableSmartRoutingConsideration = considerationCopy;
+  }
+
+LABEL_36:
+
+LABEL_37:
+  ElapsedTime::~ElapsedTime(buf);
+  if (v5)
+  {
+    std::recursive_mutex::unlock(&self->mSessionManagerLock);
+  }
+
+  return code;
 }
 
 - (void)setSessionActivationOptions:(unsigned int)options
@@ -3912,10 +4670,10 @@ LABEL_17:
 
 - (BOOL)setDuckingFadeOutDuration:(id)duration fadeInDuration:(id)inDuration error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   durationCopy = duration;
   inDurationCopy = inDuration;
-  ElapsedTime::ElapsedTime(v27, "[AVVCSessionManager setDuckingFadeOutDuration:fadeInDuration:error:]", "setDuckingFadeDuration", 0);
+  ElapsedTime::ElapsedTime(v26, "[AVVCSessionManager setDuckingFadeOutDuration:fadeInDuration:error:]", "setDuckingFadeDuration", 0);
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -3942,15 +4700,15 @@ LABEL_20:
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v21 = 136315906;
-      v22 = "AVVCSessionManager.mm";
-      v23 = 1024;
-      v24 = 1190;
-      v25 = 2080;
-      *v26 = "setDuckingFadeDuration";
-      *&v26[8] = 1024;
-      *&v26[10] = 0;
-      _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v21, 0x22u);
+      v20 = 136315906;
+      v21 = "AVVCSessionManager.mm";
+      v22 = 1024;
+      v23 = 1190;
+      v24 = 2080;
+      *v25 = "setDuckingFadeDuration";
+      *&v25[8] = 1024;
+      *&v25[10] = 0;
+      _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v20, 0x22u);
     }
 
     goto LABEL_20;
@@ -3989,15 +4747,15 @@ LABEL_22:
     {
       code = [*error code];
       v18 = [*error description];
-      v21 = 136315906;
-      v22 = "AVVCSessionManager.mm";
-      v23 = 1024;
-      v24 = 1195;
-      v25 = 1024;
-      *v26 = code;
-      *&v26[4] = 2112;
-      *&v26[6] = v18;
-      _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d Error in setDuckingFadeDuration %d, %@", &v21, 0x22u);
+      v20 = 136315906;
+      v21 = "AVVCSessionManager.mm";
+      v22 = 1024;
+      v23 = 1195;
+      v24 = 1024;
+      *v25 = code;
+      *&v25[4] = 2112;
+      *&v25[6] = v18;
+      _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d Error in setDuckingFadeDuration %d, %@", &v20, 0x22u);
     }
   }
 
@@ -4008,18 +4766,17 @@ LABEL_25:
   }
 
 LABEL_27:
-  ElapsedTime::~ElapsedTime(v27);
+  ElapsedTime::~ElapsedTime(v26);
 
-  v19 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (BOOL)setDuckOthers:(id)others mixWithOthers:(id)withOthers error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   othersCopy = others;
   withOthersCopy = withOthers;
-  ElapsedTime::ElapsedTime(v36, "[AVVCSessionManager setDuckOthers:mixWithOthers:error:]", "setDuckOthersMixWithOthers", 0);
+  ElapsedTime::ElapsedTime(v35, "[AVVCSessionManager setDuckOthers:mixWithOthers:error:]", "setDuckOthersMixWithOthers", 0);
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -4046,15 +4803,15 @@ LABEL_20:
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v30 = 136315906;
-      v31 = "AVVCSessionManager.mm";
-      v32 = 1024;
-      v33 = 1139;
-      v34 = 2080;
-      *v35 = "setDuckOthers:mixWithOthers";
-      *&v35[8] = 1024;
-      *&v35[10] = 0;
-      _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v30, 0x22u);
+      v29 = 136315906;
+      v30 = "AVVCSessionManager.mm";
+      v31 = 1024;
+      v32 = 1139;
+      v33 = 2080;
+      *v34 = "setDuckOthers:mixWithOthers";
+      *&v34[8] = 1024;
+      *&v34[10] = 0;
+      _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", &v29, 0x22u);
     }
 
     goto LABEL_20;
@@ -4126,13 +4883,13 @@ LABEL_25:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v21 = self->mPreviousSessionCategoryOptions;
-      v30 = 136315650;
-      v31 = "AVVCSessionManager.mm";
-      v32 = 1024;
-      v33 = 1177;
-      v34 = 1024;
-      *v35 = v21;
-      _os_log_impl(&dword_1BA5AC000, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager: No change - options are the same. No op. Current options: 0x%x.", &v30, 0x18u);
+      v29 = 136315650;
+      v30 = "AVVCSessionManager.mm";
+      v31 = 1024;
+      v32 = 1177;
+      v33 = 1024;
+      *v34 = v21;
+      _os_log_impl(&dword_1BA5AC000, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager: No change - options are the same. No op. Current options: 0x%x.", &v29, 0x18u);
     }
 
 LABEL_36:
@@ -4158,15 +4915,15 @@ LABEL_36:
 LABEL_39:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = 136315906;
-      v31 = "AVVCSessionManager.mm";
-      v32 = 1024;
-      v33 = 1166;
-      v34 = 1024;
-      *v35 = v12;
-      *&v35[4] = 1024;
-      *&v35[6] = mPreviousSessionCategoryOptions;
-      _os_log_impl(&dword_1BA5AC000, v19, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager: Setting new options: 0x%x. Previous options: 0x%x", &v30, 0x1Eu);
+      v29 = 136315906;
+      v30 = "AVVCSessionManager.mm";
+      v31 = 1024;
+      v32 = 1166;
+      v33 = 1024;
+      *v34 = v12;
+      *&v34[4] = 1024;
+      *&v34[6] = mPreviousSessionCategoryOptions;
+      _os_log_impl(&dword_1BA5AC000, v19, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager: Setting new options: 0x%x. Previous options: 0x%x", &v29, 0x1Eu);
     }
   }
 
@@ -4185,23 +4942,23 @@ LABEL_39:
     else
     {
       v23 = MEMORY[0x1E69E9C10];
-      v26 = MEMORY[0x1E69E9C10];
+      v25 = MEMORY[0x1E69E9C10];
     }
 
-    v27 = v23;
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v26 = v23;
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       code = [*error code];
-      v29 = [*error description];
-      v30 = 136315906;
-      v31 = "AVVCSessionManager.mm";
-      v32 = 1024;
-      v33 = 1170;
-      v34 = 1024;
-      *v35 = code;
-      *&v35[4] = 2112;
-      *&v35[6] = v29;
-      _os_log_impl(&dword_1BA5AC000, v27, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setDuckOthers:mixWithOthers failed with error: %d, %@", &v30, 0x22u);
+      v28 = [*error description];
+      v29 = 136315906;
+      v30 = "AVVCSessionManager.mm";
+      v31 = 1024;
+      v32 = 1170;
+      v33 = 1024;
+      *v34 = code;
+      *&v34[4] = 2112;
+      *&v34[6] = v28;
+      _os_log_impl(&dword_1BA5AC000, v26, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setDuckOthers:mixWithOthers failed with error: %d, %@", &v29, 0x22u);
     }
 
 LABEL_54:
@@ -4222,9 +4979,8 @@ LABEL_48:
   }
 
 LABEL_49:
-  ElapsedTime::~ElapsedTime(v36);
+  ElapsedTime::~ElapsedTime(v35);
 
-  v24 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -4251,7 +5007,7 @@ LABEL_49:
 
 - (int)setSessionBufferSize:(int)size
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -4264,9 +5020,7 @@ LABEL_49:
       v7 = *kAVVCScope;
       if (!v7)
       {
-LABEL_21:
-        code = 0;
-        goto LABEL_44;
+        return 0;
       }
     }
 
@@ -4279,17 +5033,17 @@ LABEL_21:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v31 = "AVVCSessionManager.mm";
-      v32 = 1024;
-      v33 = 1099;
-      v34 = 2080;
-      v35 = "setSessionBufferSize";
-      v36 = 1024;
-      v37 = 0;
+      v30 = "AVVCSessionManager.mm";
+      v31 = 1024;
+      v32 = 1099;
+      v33 = 2080;
+      v34 = "setSessionBufferSize";
+      v35 = 1024;
+      v36 = 0;
       _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", buf, 0x22u);
     }
 
-    goto LABEL_21;
+    return 0;
   }
 
   ElapsedTime::ElapsedTime(buf, "[AVVCSessionManager setSessionBufferSize:]", "setSessionBufferSize", 0);
@@ -4325,11 +5079,11 @@ LABEL_29:
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v24 = 136315394;
-      v25 = "AVVCSessionManager.mm";
-      v26 = 1024;
-      v27 = 1116;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionBufferSize: No change - not setting preferred IO buffer size. No op.", v24, 0x12u);
+      *v23 = 136315394;
+      v24 = "AVVCSessionManager.mm";
+      v25 = 1024;
+      v26 = 1116;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionBufferSize: No change - not setting preferred IO buffer size. No op.", v23, 0x12u);
     }
 
     v6 = 0;
@@ -4337,9 +5091,9 @@ LABEL_29:
   }
 
   audioSession = self->_audioSession;
-  v23 = 0;
-  v9 = [(AVAudioSession *)audioSession setPreferredIOBufferFrameSize:size error:&v23];
-  v10 = v23;
+  v22 = 0;
+  v9 = [(AVAudioSession *)audioSession setPreferredIOBufferFrameSize:size error:&v22];
+  v10 = v22;
   v6 = v10;
   if (v9)
   {
@@ -4368,13 +5122,13 @@ LABEL_29:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     v17 = [v6 description];
-    *v24 = 136315650;
-    v25 = "AVVCSessionManager.mm";
-    v26 = 1024;
-    v27 = 1109;
-    v28 = 2112;
-    v29 = v17;
-    _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setSessionBufferSize failed: %@", v24, 0x1Cu);
+    *v23 = 136315650;
+    v24 = "AVVCSessionManager.mm";
+    v25 = 1024;
+    v26 = 1109;
+    v27 = 2112;
+    v28 = v17;
+    _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setSessionBufferSize failed: %@", v23, 0x1Cu);
   }
 
 LABEL_34:
@@ -4392,13 +5146,13 @@ LABEL_38:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       mPreviousIOBufferFrameSize = self->mPreviousIOBufferFrameSize;
-      *v24 = 136315650;
-      v25 = "AVVCSessionManager.mm";
-      v26 = 1024;
-      v27 = 1119;
-      v28 = 1024;
-      LODWORD(v29) = mPreviousIOBufferFrameSize;
-      _os_log_impl(&dword_1BA5AC000, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionBufferSize: Previous IO buffer size: %d", v24, 0x18u);
+      *v23 = 136315650;
+      v24 = "AVVCSessionManager.mm";
+      v25 = 1024;
+      v26 = 1119;
+      v27 = 1024;
+      LODWORD(v28) = mPreviousIOBufferFrameSize;
+      _os_log_impl(&dword_1BA5AC000, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionBufferSize: Previous IO buffer size: %d", v23, 0x18u);
     }
   }
 
@@ -4408,14 +5162,12 @@ LABEL_38:
   }
 
   ElapsedTime::~ElapsedTime(buf);
-LABEL_44:
-  v21 = *MEMORY[0x1E69E9840];
   return code;
 }
 
 - (int)setSessionSampleRateForActivationMode:(int64_t)mode
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -4428,9 +5180,7 @@ LABEL_44:
       v10 = *kAVVCScope;
       if (!v10)
       {
-LABEL_22:
-        code = 0;
-        goto LABEL_64;
+        return 0;
       }
     }
 
@@ -4443,17 +5193,17 @@ LABEL_22:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v46 = "AVVCSessionManager.mm";
-      v47 = 1024;
-      v48 = 1051;
-      v49 = 2080;
-      v50 = "setSessionSampleRateForActivationMode";
-      v51 = 1024;
-      v52 = 0;
+      v45 = "AVVCSessionManager.mm";
+      v46 = 1024;
+      v47 = 1051;
+      v48 = 2080;
+      v49 = "setSessionSampleRateForActivationMode";
+      v50 = 1024;
+      v51 = 0;
       _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", buf, 0x22u);
     }
 
-    goto LABEL_22;
+    return 0;
   }
 
   ElapsedTime::ElapsedTime(buf, "[AVVCSessionManager setSessionSampleRateForActivationMode:]", "setSessionSampleRateForActivationMode", 0);
@@ -4497,18 +5247,18 @@ LABEL_22:
 
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        *v37 = 136315394;
-        v38 = "AVVCSessionManager.mm";
-        v39 = 1024;
-        v40 = 1065;
-        _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVCSessionManager::setSessionSampleRateForActivationMode: forcing 22050k audio for car audio", v37, 0x12u);
+        *v36 = 136315394;
+        v37 = "AVVCSessionManager.mm";
+        v38 = 1024;
+        v39 = 1065;
+        _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVCSessionManager::setSessionSampleRateForActivationMode: forcing 22050k audio for car audio", v36, 0x12u);
       }
 
 LABEL_37:
       audioSession = self->_audioSession;
-      v36 = 0;
-      v17 = [(AVAudioSession *)audioSession setPreferredSampleRate:&v36 error:24000.0];
-      v18 = v36;
+      v35 = 0;
+      v17 = [(AVAudioSession *)audioSession setPreferredSampleRate:&v35 error:24000.0];
+      v18 = v35;
       v14 = v18;
       if (!v17)
       {
@@ -4520,12 +5270,12 @@ LABEL_37:
           goto LABEL_59;
         }
 
-        *v37 = 136315650;
-        v38 = "AVVCSessionManager.mm";
-        v39 = 1024;
-        v40 = 1068;
-        v41 = 2112;
-        v42 = v14;
+        *v36 = 136315650;
+        v37 = "AVVCSessionManager.mm";
+        v38 = 1024;
+        v39 = 1068;
+        v40 = 2112;
+        v41 = v14;
         v20 = "%25s:%-5d ERROR: AVVCSessionManager::setPreferredSampleRate for VehicleButtonPress : %@";
         v21 = v13;
         v22 = 28;
@@ -4554,10 +5304,10 @@ LABEL_32:
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v37 = 136315394;
-      v38 = "AVVCSessionManager.mm";
-      v39 = 1024;
-      v40 = 1072;
+      *v36 = 136315394;
+      v37 = "AVVCSessionManager.mm";
+      v38 = 1024;
+      v39 = 1072;
       v29 = "%25s:%-5d AVVCSessionManager::setSessionSampleRateForActivationMode: No change - not setting preferred sample rate. No op.";
       v30 = v13;
       v31 = 18;
@@ -4586,17 +5336,17 @@ LABEL_32:
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v37 = 136315650;
-      v38 = "AVVCSessionManager.mm";
-      v39 = 1024;
-      v40 = 1086;
-      v41 = 2048;
-      v42 = v8;
+      *v36 = 136315650;
+      v37 = "AVVCSessionManager.mm";
+      v38 = 1024;
+      v39 = 1086;
+      v40 = 2048;
+      v41 = v8;
       v29 = "%25s:%-5d AVVCSessionManager::setSessionSampleRateForActivationMode: SR remains at %f";
       v30 = v13;
       v31 = 28;
 LABEL_57:
-      _os_log_impl(&dword_1BA5AC000, v30, OS_LOG_TYPE_DEFAULT, v29, v37, v31);
+      _os_log_impl(&dword_1BA5AC000, v30, OS_LOG_TYPE_DEFAULT, v29, v36, v31);
     }
 
 LABEL_58:
@@ -4622,22 +5372,22 @@ LABEL_58:
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v37 = 136315906;
-    v38 = "AVVCSessionManager.mm";
-    v39 = 1024;
-    v40 = 1078;
-    v41 = 2048;
-    v42 = v8;
-    v43 = 2048;
-    v44 = 0x40D5888000000000;
-    _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionSampleRateForActivationMode: SR changes from %f to %f", v37, 0x26u);
+    *v36 = 136315906;
+    v37 = "AVVCSessionManager.mm";
+    v38 = 1024;
+    v39 = 1078;
+    v40 = 2048;
+    v41 = v8;
+    v42 = 2048;
+    v43 = 0x40D5888000000000;
+    _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionSampleRateForActivationMode: SR changes from %f to %f", v36, 0x26u);
   }
 
 LABEL_45:
   v24 = self->_audioSession;
-  v35 = 0;
-  v25 = [(AVAudioSession *)v24 setPreferredSampleRate:&v35 error:22050.0];
-  v26 = v35;
+  v34 = 0;
+  v25 = [(AVAudioSession *)v24 setPreferredSampleRate:&v34 error:22050.0];
+  v26 = v34;
   v14 = v26;
   if (!v25)
   {
@@ -4649,19 +5399,19 @@ LABEL_45:
       goto LABEL_59;
     }
 
-    *v37 = 136315906;
-    v38 = "AVVCSessionManager.mm";
-    v39 = 1024;
-    v40 = 1082;
-    v41 = 2048;
-    v42 = 0x40D5888000000000;
-    v43 = 2112;
-    v44 = v14;
+    *v36 = 136315906;
+    v37 = "AVVCSessionManager.mm";
+    v38 = 1024;
+    v39 = 1082;
+    v40 = 2048;
+    v41 = 0x40D5888000000000;
+    v42 = 2112;
+    v43 = v14;
     v20 = "%25s:%-5d ERROR: AVVCSessionManager::setPreferredSampleRate to %f : %@";
     v21 = v13;
     v22 = 38;
 LABEL_50:
-    _os_log_impl(&dword_1BA5AC000, v21, OS_LOG_TYPE_ERROR, v20, v37, v22);
+    _os_log_impl(&dword_1BA5AC000, v21, OS_LOG_TYPE_ERROR, v20, v36, v22);
 LABEL_59:
 
     goto LABEL_60;
@@ -4678,15 +5428,13 @@ LABEL_61:
   }
 
   ElapsedTime::~ElapsedTime(buf);
-LABEL_64:
-  v33 = *MEMORY[0x1E69E9840];
   return code;
 }
 
 - (int)setSessionAudioHWControlFlagsForActivationMode:(int64_t)mode withOptions:(unint64_t)options
 {
   optionsCopy = options;
-  v108 = *MEMORY[0x1E69E9840];
+  v107 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -4701,7 +5449,7 @@ LABEL_64:
       {
 LABEL_21:
         LODWORD(v12) = 0;
-        goto LABEL_103;
+        return v12;
       }
     }
 
@@ -4714,13 +5462,13 @@ LABEL_21:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v101 = "AVVCSessionManager.mm";
-      v102 = 1024;
-      v103 = 821;
-      v104 = 2080;
-      v105 = "setSessionAudioHWControlFlagsForActivationMode";
-      v106 = 1024;
-      v107 = 0;
+      v100 = "AVVCSessionManager.mm";
+      v101 = 1024;
+      v102 = 821;
+      v103 = 2080;
+      v104 = "setSessionAudioHWControlFlagsForActivationMode";
+      v105 = 1024;
+      v106 = 0;
       _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", buf, 0x22u);
     }
 
@@ -4747,9 +5495,9 @@ LABEL_21:
       if (self->mPreviousHardwareControlFlags != 0x100000)
       {
         audioSession = self->_audioSession;
-        v92 = 0;
-        v15 = [(AVAudioSession *)audioSession setAudioHardwareControlFlags:0x100000 error:&v92];
-        v16 = v92;
+        v91 = 0;
+        v15 = [(AVAudioSession *)audioSession setAudioHardwareControlFlags:0x100000 error:&v91];
+        v16 = v91;
         v17 = v16;
         if (v15)
         {
@@ -4764,13 +5512,13 @@ LABEL_21:
           v46 = v45;
           if (v45 && os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
           {
-            *v94 = 136315650;
-            v95 = "AVVCSessionManager.mm";
-            v96 = 1024;
-            v97 = 843;
-            v98 = 2112;
-            v99 = v17;
-            _os_log_impl(&dword_1BA5AC000, v46, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setAudioHardwareControlFlags (ATV + Plugin) : %@", v94, 0x1Cu);
+            *v93 = 136315650;
+            v94 = "AVVCSessionManager.mm";
+            v95 = 1024;
+            v96 = 843;
+            v97 = 2112;
+            v98 = v17;
+            _os_log_impl(&dword_1BA5AC000, v46, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setAudioHardwareControlFlags (ATV + Plugin) : %@", v93, 0x1Cu);
           }
         }
 
@@ -4797,11 +5545,11 @@ LABEL_21:
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v94 = 136315394;
-      v95 = "AVVCSessionManager.mm";
-      v96 = 1024;
-      v97 = 849;
-      _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setSessionAudioHWControlFlags: Take Audio HW control on tvOS", v94, 0x12u);
+      *v93 = 136315394;
+      v94 = "AVVCSessionManager.mm";
+      v95 = 1024;
+      v96 = 849;
+      _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setSessionAudioHWControlFlags: Take Audio HW control on tvOS", v93, 0x12u);
     }
 
     goto LABEL_74;
@@ -4826,11 +5574,11 @@ LABEL_21:
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v94 = 136315394;
-      v95 = "AVVCSessionManager.mm";
-      v96 = 1024;
-      v97 = 856;
-      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setSessionAudioHWControlFlags: iOS Audio Accessory Product (HomePod), setting volume desired HW control flag.", v94, 0x12u);
+      *v93 = 136315394;
+      v94 = "AVVCSessionManager.mm";
+      v95 = 1024;
+      v96 = 856;
+      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setSessionAudioHWControlFlags: iOS Audio Accessory Product (HomePod), setting volume desired HW control flag.", v93, 0x12u);
     }
 
 LABEL_38:
@@ -4842,9 +5590,9 @@ LABEL_99:
     }
 
     v20 = self->_audioSession;
-    v91 = 0;
-    v21 = [(AVAudioSession *)v20 setAudioHardwareControlFlags:0x100000 error:&v91];
-    v22 = v91;
+    v90 = 0;
+    v21 = [(AVAudioSession *)v20 setAudioHardwareControlFlags:0x100000 error:&v90];
+    v22 = v90;
     v23 = v22;
     if (v21)
     {
@@ -4873,13 +5621,13 @@ LABEL_86:
 
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      *v94 = 136315650;
-      v95 = "AVVCSessionManager.mm";
-      v96 = 1024;
-      v97 = 862;
-      v98 = 2112;
-      v99 = v23;
-      _os_log_impl(&dword_1BA5AC000, v30, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setAudioHardwareControlFlags (HomePod) : %@", v94, 0x1Cu);
+      *v93 = 136315650;
+      v94 = "AVVCSessionManager.mm";
+      v95 = 1024;
+      v96 = 862;
+      v97 = 2112;
+      v98 = v23;
+      _os_log_impl(&dword_1BA5AC000, v30, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setAudioHardwareControlFlags (HomePod) : %@", v93, 0x1Cu);
     }
 
     goto LABEL_86;
@@ -4906,35 +5654,35 @@ LABEL_86:
 
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        *v94 = 136315394;
-        v95 = "AVVCSessionManager.mm";
-        v96 = 1024;
-        v97 = 882;
-        _os_log_impl(&dword_1BA5AC000, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: wireless splitter mode, no volume control, yes routing control.", v94, 0x12u);
+        *v93 = 136315394;
+        v94 = "AVVCSessionManager.mm";
+        v95 = 1024;
+        v96 = 882;
+        _os_log_impl(&dword_1BA5AC000, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: wireless splitter mode, no volume control, yes routing control.", v93, 0x12u);
       }
 
 LABEL_79:
       if (self->mPreviousHardwareControlFlags != 2)
       {
         v40 = self->_audioSession;
-        v90 = 0;
-        v41 = [(AVAudioSession *)v40 setAudioHardwareControlFlags:2 error:&v90];
-        v42 = v90;
+        v89 = 0;
+        v41 = [(AVAudioSession *)v40 setAudioHardwareControlFlags:2 error:&v89];
+        v42 = v89;
         v43 = v42;
         if ((v41 & 1) == 0)
         {
           LODWORD(v12) = [(uint8_t *)v42 code];
-          v55 = CALog::LogObjIfEnabled(1, kAVVCScope);
-          v56 = v55;
-          if (v55 && os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+          v54 = CALog::LogObjIfEnabled(1, kAVVCScope);
+          v55 = v54;
+          if (v54 && os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
           {
-            *v94 = 136315650;
-            v95 = "AVVCSessionManager.mm";
-            v96 = 1024;
-            v97 = 888;
-            v98 = 2112;
-            v99 = v43;
-            _os_log_impl(&dword_1BA5AC000, v56, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setAudioHardwareControlFlags (wireless splitter) : %@", v94, 0x1Cu);
+            *v93 = 136315650;
+            v94 = "AVVCSessionManager.mm";
+            v95 = 1024;
+            v96 = 888;
+            v97 = 2112;
+            v98 = v43;
+            _os_log_impl(&dword_1BA5AC000, v55, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setAudioHardwareControlFlags (wireless splitter) : %@", v93, 0x1Cu);
           }
 
           goto LABEL_100;
@@ -4952,9 +5700,9 @@ LABEL_79:
       if (self->mPreviousHardwareControlFlags)
       {
         v26 = self->_audioSession;
-        v89 = 0;
-        v27 = [(AVAudioSession *)v26 setAudioHardwareControlFlags:0 error:&v89];
-        v28 = v89;
+        v88 = 0;
+        v27 = [(AVAudioSession *)v26 setAudioHardwareControlFlags:0 error:&v88];
+        v28 = v88;
         v29 = v28;
         if (v27)
         {
@@ -4965,17 +5713,17 @@ LABEL_79:
         else
         {
           LODWORD(v12) = [(uint8_t *)v28 code];
-          v57 = CALog::LogObjIfEnabled(1, kAVVCScope);
-          v58 = v57;
-          if (v57 && os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+          v56 = CALog::LogObjIfEnabled(1, kAVVCScope);
+          v57 = v56;
+          if (v56 && os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
           {
-            *v94 = 136315650;
-            v95 = "AVVCSessionManager.mm";
-            v96 = 1024;
-            v97 = 907;
-            v98 = 2112;
-            v99 = v29;
-            _os_log_impl(&dword_1BA5AC000, v58, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setAudioHardwareControlFlags : %@", v94, 0x1Cu);
+            *v93 = 136315650;
+            v94 = "AVVCSessionManager.mm";
+            v95 = 1024;
+            v96 = 907;
+            v97 = 2112;
+            v98 = v29;
+            _os_log_impl(&dword_1BA5AC000, v57, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setAudioHardwareControlFlags : %@", v93, 0x1Cu);
           }
         }
       }
@@ -4988,8 +5736,8 @@ LABEL_79:
 
       if (kAVVCScope)
       {
-        v59 = *kAVVCScope;
-        if (!v59)
+        v58 = *kAVVCScope;
+        if (!v58)
         {
 LABEL_120:
 
@@ -4999,21 +5747,21 @@ LABEL_120:
 
       else
       {
+        v58 = MEMORY[0x1E69E9C10];
         v59 = MEMORY[0x1E69E9C10];
-        v60 = MEMORY[0x1E69E9C10];
       }
 
-      v61 = v59;
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+      v60 = v58;
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
       {
-        CAX4CCString::CAX4CCString(v93, mode);
-        *v94 = 136315650;
-        v95 = "AVVCSessionManager.mm";
-        v96 = 1024;
-        v97 = 912;
-        v98 = 2080;
-        v99 = v93;
-        _os_log_impl(&dword_1BA5AC000, v61, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setAudioHardwareControlFlags: announce mode for %s context - set HW control flags to 0", v94, 0x1Cu);
+        CAX4CCString::CAX4CCString(v92, mode);
+        *v93 = 136315650;
+        v94 = "AVVCSessionManager.mm";
+        v95 = 1024;
+        v96 = 912;
+        v97 = 2080;
+        v98 = v92;
+        _os_log_impl(&dword_1BA5AC000, v60, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setAudioHardwareControlFlags: announce mode for %s context - set HW control flags to 0", v93, 0x1Cu);
       }
 
       goto LABEL_120;
@@ -5025,34 +5773,34 @@ LABEL_120:
       v33 = v32;
       if (v32 && os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        *v94 = 136315394;
-        v95 = "AVVCSessionManager.mm";
-        v96 = 1024;
-        v97 = 917;
-        _os_log_impl(&dword_1BA5AC000, v33, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: mini-ducking enabled. Not setting volume control flag", v94, 0x12u);
+        *v93 = 136315394;
+        v94 = "AVVCSessionManager.mm";
+        v95 = 1024;
+        v96 = 917;
+        _os_log_impl(&dword_1BA5AC000, v33, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: mini-ducking enabled. Not setting volume control flag", v93, 0x12u);
       }
 
       if (self->mPreviousHardwareControlFlags != 2)
       {
         v34 = self->_audioSession;
-        v88 = 0;
-        v35 = [(AVAudioSession *)v34 setAudioHardwareControlFlags:2 error:&v88];
-        v36 = v88;
+        v87 = 0;
+        v35 = [(AVAudioSession *)v34 setAudioHardwareControlFlags:2 error:&v87];
+        v36 = v87;
         v37 = v36;
         if ((v35 & 1) == 0)
         {
           LODWORD(v12) = [(uint8_t *)v36 code];
-          v69 = CALog::LogObjIfEnabled(1, kAVVCScope);
-          v70 = v69;
-          if (v69 && os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+          v68 = CALog::LogObjIfEnabled(1, kAVVCScope);
+          v69 = v68;
+          if (v68 && os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
           {
-            *v94 = 136315650;
-            v95 = "AVVCSessionManager.mm";
-            v96 = 1024;
-            v97 = 923;
-            v98 = 2112;
-            v99 = v37;
-            _os_log_impl(&dword_1BA5AC000, v70, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setAudioHardwareControlFlags (enable mini-ducking) : %@", v94, 0x1Cu);
+            *v93 = 136315650;
+            v94 = "AVVCSessionManager.mm";
+            v95 = 1024;
+            v96 = 923;
+            v97 = 2112;
+            v98 = v37;
+            _os_log_impl(&dword_1BA5AC000, v69, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setAudioHardwareControlFlags (enable mini-ducking) : %@", v93, 0x1Cu);
           }
 
           goto LABEL_100;
@@ -5070,34 +5818,34 @@ LABEL_120:
       v48 = v47;
       if (v47 && os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
-        *v94 = 136315394;
-        v95 = "AVVCSessionManager.mm";
-        v96 = 1024;
-        v97 = 932;
-        _os_log_impl(&dword_1BA5AC000, v48, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: disable mini-ducking. Set all HW control flags", v94, 0x12u);
+        *v93 = 136315394;
+        v94 = "AVVCSessionManager.mm";
+        v95 = 1024;
+        v96 = 932;
+        _os_log_impl(&dword_1BA5AC000, v48, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: disable mini-ducking. Set all HW control flags", v93, 0x12u);
       }
 
       if (self->mPreviousHardwareControlFlags != 18)
       {
         v49 = self->_audioSession;
-        v87 = 0;
-        v50 = [(AVAudioSession *)v49 setAudioHardwareControlFlags:18 error:&v87];
-        v51 = v87;
+        v86 = 0;
+        v50 = [(AVAudioSession *)v49 setAudioHardwareControlFlags:18 error:&v86];
+        v51 = v86;
         v52 = v51;
         if ((v50 & 1) == 0)
         {
           LODWORD(v12) = [(uint8_t *)v51 code];
-          v74 = CALog::LogObjIfEnabled(1, kAVVCScope);
-          v75 = v74;
-          if (v74 && os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+          v73 = CALog::LogObjIfEnabled(1, kAVVCScope);
+          v74 = v73;
+          if (v73 && os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
           {
-            *v94 = 136315650;
-            v95 = "AVVCSessionManager.mm";
-            v96 = 1024;
-            v97 = 939;
-            v98 = 2112;
-            v99 = v52;
-            _os_log_impl(&dword_1BA5AC000, v75, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setAudioHardwareControlFlags (disable mini-ducking) : %@", v94, 0x1Cu);
+            *v93 = 136315650;
+            v94 = "AVVCSessionManager.mm";
+            v95 = 1024;
+            v96 = 939;
+            v97 = 2112;
+            v98 = v52;
+            _os_log_impl(&dword_1BA5AC000, v74, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setAudioHardwareControlFlags (disable mini-ducking) : %@", v93, 0x1Cu);
           }
 
           goto LABEL_100;
@@ -5124,90 +5872,90 @@ LABEL_120:
     {
       currentRoute = [(AVAudioSession *)self->_audioSession currentRoute];
       outputs = [currentRoute outputs];
-      v65 = [(AVVCSessionManager *)self isAirplayOneOfTheOutputRoutes:outputs];
+      v64 = [(AVVCSessionManager *)self isAirplayOneOfTheOutputRoutes:outputs];
 
-      if (v65)
+      if (v64)
       {
         self->mSessionActivationOptions |= 0x4000u;
-        v66 = CALog::LogObjIfEnabled(3, kAVVCScope);
-        v67 = v66;
-        if (v66 && os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+        v65 = CALog::LogObjIfEnabled(3, kAVVCScope);
+        v66 = v65;
+        if (v65 && os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
         {
-          *v94 = 136315394;
-          v95 = "AVVCSessionManager.mm";
-          v96 = 1024;
-          v97 = 973;
-          _os_log_impl(&dword_1BA5AC000, v67, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: will not take control of hardware upon activation for AirPlay output (voic/rais)", v94, 0x12u);
+          *v93 = 136315394;
+          v94 = "AVVCSessionManager.mm";
+          v95 = 1024;
+          v96 = 973;
+          _os_log_impl(&dword_1BA5AC000, v66, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: will not take control of hardware upon activation for AirPlay output (voic/rais)", v93, 0x12u);
         }
 
-        v68 = 0;
+        v67 = 0;
         goto LABEL_166;
       }
 
-      v76 = CALog::LogObjIfEnabled(3, kAVVCScope);
-      v72 = v76;
-      if (!v76 || !os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+      v75 = CALog::LogObjIfEnabled(3, kAVVCScope);
+      v71 = v75;
+      if (!v75 || !os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_164;
       }
 
-      *v94 = 136315394;
-      v95 = "AVVCSessionManager.mm";
-      v96 = 1024;
-      v97 = 981;
-      v73 = "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: setting volume/routing required hardware control flag for 'voic' activation mode (output is not Airplay)";
+      *v93 = 136315394;
+      v94 = "AVVCSessionManager.mm";
+      v95 = 1024;
+      v96 = 981;
+      v72 = "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: setting volume/routing required hardware control flag for 'voic' activation mode (output is not Airplay)";
       goto LABEL_163;
     }
 
     if (IsPluginActivationContext(mode))
     {
 LABEL_135:
-      v71 = CALog::LogObjIfEnabled(3, kAVVCScope);
-      v72 = v71;
+      v70 = CALog::LogObjIfEnabled(3, kAVVCScope);
+      v71 = v70;
       if (mSessionNeedsVolumeControl)
       {
-        if (!v71 || !os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+        if (!v70 || !os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_164;
         }
 
-        *v94 = 136315394;
-        v95 = "AVVCSessionManager.mm";
-        v96 = 1024;
-        v97 = 998;
-        v73 = "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: (plugin activation context / (post->hdvc) : set all hw control flags";
+        *v93 = 136315394;
+        v94 = "AVVCSessionManager.mm";
+        v95 = 1024;
+        v96 = 998;
+        v72 = "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: (plugin activation context / (post->hdvc) : set all hw control flags";
 LABEL_163:
-        _os_log_impl(&dword_1BA5AC000, v72, OS_LOG_TYPE_DEFAULT, v73, v94, 0x12u);
+        _os_log_impl(&dword_1BA5AC000, v71, OS_LOG_TYPE_DEFAULT, v72, v93, 0x12u);
 LABEL_164:
 
 LABEL_165:
-        v68 = 18;
+        v67 = 18;
         goto LABEL_166;
       }
 
-      if (v71 && os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+      if (v70 && os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
       {
-        *v94 = 136315394;
-        v95 = "AVVCSessionManager.mm";
-        v96 = 1024;
-        v97 = 1001;
-        _os_log_impl(&dword_1BA5AC000, v72, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: (plugin activation context / (post->hdvc) : not setting volume control flag", v94, 0x12u);
+        *v93 = 136315394;
+        v94 = "AVVCSessionManager.mm";
+        v95 = 1024;
+        v96 = 1001;
+        _os_log_impl(&dword_1BA5AC000, v71, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: (plugin activation context / (post->hdvc) : not setting volume control flag", v93, 0x12u);
       }
 
 LABEL_154:
-      v68 = 2;
+      v67 = 2;
 LABEL_166:
-      if (v68 == self->mPreviousHardwareControlFlags)
+      if (v67 == self->mPreviousHardwareControlFlags)
       {
-        v79 = CALog::LogObjIfEnabled(3, kAVVCScope);
-        v80 = v79;
-        if (v79 && os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+        v78 = CALog::LogObjIfEnabled(3, kAVVCScope);
+        v79 = v78;
+        if (v78 && os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
         {
-          *v94 = 136315394;
-          v95 = "AVVCSessionManager.mm";
-          v96 = 1024;
-          v97 = 1036;
-          _os_log_impl(&dword_1BA5AC000, v80, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: No change - not setting hardware control flags. No op.", v94, 0x12u);
+          *v93 = 136315394;
+          v94 = "AVVCSessionManager.mm";
+          v95 = 1024;
+          v96 = 1036;
+          _os_log_impl(&dword_1BA5AC000, v79, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: No change - not setting hardware control flags. No op.", v93, 0x12u);
         }
 
         LODWORD(v12) = 0;
@@ -5215,31 +5963,31 @@ LABEL_166:
 
       else
       {
-        v81 = self->_audioSession;
-        v86 = 0;
-        v82 = [(AVAudioSession *)v81 setAudioHardwareControlFlags:v68 error:&v86];
-        v83 = v86;
-        v80 = v83;
-        if (v82)
+        v80 = self->_audioSession;
+        v85 = 0;
+        v81 = [(AVAudioSession *)v80 setAudioHardwareControlFlags:v67 error:&v85];
+        v82 = v85;
+        v79 = v82;
+        if (v81)
         {
           LODWORD(v12) = 0;
-          self->mPreviousHardwareControlFlags = v68;
+          self->mPreviousHardwareControlFlags = v67;
         }
 
         else
         {
-          LODWORD(v12) = [v83 code];
-          v84 = CALog::LogObjIfEnabled(1, kAVVCScope);
-          v85 = v84;
-          if (v84 && os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+          LODWORD(v12) = [v82 code];
+          v83 = CALog::LogObjIfEnabled(1, kAVVCScope);
+          v84 = v83;
+          if (v83 && os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
           {
-            *v94 = 136315650;
-            v95 = "AVVCSessionManager.mm";
-            v96 = 1024;
-            v97 = 1030;
-            v98 = 2112;
-            v99 = v80;
-            _os_log_impl(&dword_1BA5AC000, v85, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setAudioHardwareControlFlags : %@", v94, 0x1Cu);
+            *v93 = 136315650;
+            v94 = "AVVCSessionManager.mm";
+            v95 = 1024;
+            v96 = 1030;
+            v97 = 2112;
+            v98 = v79;
+            _os_log_impl(&dword_1BA5AC000, v84, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setAudioHardwareControlFlags : %@", v93, 0x1Cu);
           }
         }
       }
@@ -5255,18 +6003,18 @@ LABEL_166:
       }
 
 LABEL_160:
-      v78 = CALog::LogObjIfEnabled(3, kAVVCScope);
-      v72 = v78;
-      if (!v78 || !os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+      v77 = CALog::LogObjIfEnabled(3, kAVVCScope);
+      v71 = v77;
+      if (!v77 || !os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_164;
       }
 
-      *v94 = 136315394;
-      v95 = "AVVCSessionManager.mm";
-      v96 = 1024;
-      v97 = 1012;
-      v73 = "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: default mode - set all HW control flags";
+      *v93 = 136315394;
+      v94 = "AVVCSessionManager.mm";
+      v95 = 1024;
+      v96 = 1012;
+      v72 = "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: default mode - set all HW control flags";
       goto LABEL_163;
     }
 
@@ -5275,15 +6023,15 @@ LABEL_160:
       goto LABEL_160;
     }
 
-    v77 = CALog::LogObjIfEnabled(3, kAVVCScope);
-    v12 = v77;
-    if (v77 && os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+    v76 = CALog::LogObjIfEnabled(3, kAVVCScope);
+    v12 = v76;
+    if (v76 && os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
     {
-      *v94 = 136315394;
-      v95 = "AVVCSessionManager.mm";
-      v96 = 1024;
-      v97 = 1006;
-      _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: post followed by BluetoothVoiceTrigger (or auto context) should not control volume, so not setting any hw control flags.", v94, 0x12u);
+      *v93 = 136315394;
+      v94 = "AVVCSessionManager.mm";
+      v95 = 1024;
+      v96 = 1006;
+      _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags: post followed by BluetoothVoiceTrigger (or auto context) should not control volume, so not setting any hw control flags.", v93, 0x12u);
     }
 
 LABEL_74:
@@ -5304,11 +6052,11 @@ LABEL_74:
 LABEL_59:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v94 = 136315394;
-      v95 = "AVVCSessionManager.mm";
-      v96 = 1024;
-      v97 = 874;
-      _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags on older watch hardware: will never take control of HW on activation", v94, 0x12u);
+      *v93 = 136315394;
+      v94 = "AVVCSessionManager.mm";
+      v95 = 1024;
+      v96 = 874;
+      _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionAudioHWControlFlags on older watch hardware: will never take control of HW on activation", v93, 0x12u);
     }
   }
 
@@ -5326,15 +6074,13 @@ LABEL_100:
   }
 
   ElapsedTime::~ElapsedTime(buf);
-LABEL_103:
-  v53 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (int)setSessionCategoryModeOptionsForActivationMode:(int64_t)mode withOptions:(unint64_t)options
 {
   optionsCopy = options;
-  v99 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -5347,9 +6093,7 @@ LABEL_103:
       v8 = *kAVVCScope;
       if (!v8)
       {
-LABEL_23:
-        code = 0;
-        goto LABEL_164;
+        return 0;
       }
     }
 
@@ -5362,17 +6106,17 @@ LABEL_23:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v92 = "AVVCSessionManager.mm";
-      v93 = 1024;
-      v94 = 597;
-      v95 = 2080;
-      v96 = "setSessionCategoryModeOptionsForActivationMode";
-      v97 = 1024;
-      v98 = 0;
+      v91 = "AVVCSessionManager.mm";
+      v92 = 1024;
+      v93 = 597;
+      v94 = 2080;
+      v95 = "setSessionCategoryModeOptionsForActivationMode";
+      v96 = 1024;
+      v97 = 0;
       _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", buf, 0x22u);
     }
 
-    goto LABEL_23;
+    return 0;
   }
 
   ElapsedTime::ElapsedTime(buf, "[AVVCSessionManager setSessionCategoryModeOptionsForActivationMode:withOptions:]", "setSessionCategoryModeOptionsFromActivationMode", 0);
@@ -5381,7 +6125,7 @@ LABEL_23:
     dispatch_once(&IsSerializationEnabled(void)::onceToken, &__block_literal_global_197);
   }
 
-  v71 = IsSerializationEnabled(void)::enable;
+  v70 = IsSerializationEnabled(void)::enable;
   if (IsSerializationEnabled(void)::enable == 1)
   {
     std::recursive_mutex::lock(&self->mSessionManagerLock);
@@ -5407,13 +6151,13 @@ LABEL_23:
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v75 = 136315394;
-      v76 = "AVVCSessionManager.mm";
-      v77 = 1024;
-      v78 = 608;
+      *v74 = 136315394;
+      v75 = "AVVCSessionManager.mm";
+      v76 = 1024;
+      v77 = 608;
       v12 = "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: on 'audioOS'. Duck others.";
 LABEL_38:
-      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEFAULT, v12, v75, 0x12u);
+      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEFAULT, v12, v74, 0x12u);
       goto LABEL_39;
     }
 
@@ -5440,10 +6184,10 @@ LABEL_38:
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v75 = 136315394;
-      v76 = "AVVCSessionManager.mm";
-      v77 = 1024;
-      v78 = 612;
+      *v74 = 136315394;
+      v75 = "AVVCSessionManager.mm";
+      v76 = 1024;
+      v77 = 612;
       v12 = "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: on older watchOS. Interrupt others.";
       goto LABEL_38;
     }
@@ -5467,10 +6211,10 @@ LABEL_39:
 LABEL_36:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v75 = 136315394;
-      v76 = "AVVCSessionManager.mm";
-      v77 = 1024;
-      v78 = 617;
+      *v74 = 136315394;
+      v75 = "AVVCSessionManager.mm";
+      v76 = 1024;
+      v77 = 617;
       v12 = "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: (wireless splitter mode). Interrupt others.";
       goto LABEL_38;
     }
@@ -5520,11 +6264,11 @@ LABEL_89:
         v24 = v23;
         if (v23 && os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          *v75 = 136315394;
-          v76 = "AVVCSessionManager.mm";
-          v77 = 1024;
-          v78 = 699;
-          _os_log_impl(&dword_1BA5AC000, v24, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: Carplay Supports Mixable Siri", v75, 0x12u);
+          *v74 = 136315394;
+          v75 = "AVVCSessionManager.mm";
+          v76 = 1024;
+          v77 = 699;
+          _os_log_impl(&dword_1BA5AC000, v24, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: Carplay Supports Mixable Siri", v74, 0x12u);
         }
 
         LOBYTE(v19) = 1;
@@ -5549,11 +6293,11 @@ LABEL_89:
 
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
-          *v75 = 136315394;
-          v76 = "AVVCCarplayRuntimeAvailability.mm";
-          v77 = 1024;
-          v78 = 21;
-          _os_log_impl(&dword_1BA5AC000, v24, OS_LOG_TYPE_DEBUG, "%25s:%-5d CarPlay API not available", v75, 0x12u);
+          *v74 = 136315394;
+          v75 = "AVVCCarplayRuntimeAvailability.mm";
+          v76 = 1024;
+          v77 = 21;
+          _os_log_impl(&dword_1BA5AC000, v24, OS_LOG_TYPE_DEBUG, "%25s:%-5d CarPlay API not available", v74, 0x12u);
         }
       }
 
@@ -5591,11 +6335,11 @@ LABEL_71:
 
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      *v75 = 136315394;
-      v76 = "AVVCSessionManager.mm";
-      v77 = 1024;
-      v78 = 691;
-      _os_log_impl(&dword_1BA5AC000, v19, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: iMessage -- setting P&R category, clearing preferred input, etc.", v75, 0x12u);
+      *v74 = 136315394;
+      v75 = "AVVCSessionManager.mm";
+      v76 = 1024;
+      v77 = 691;
+      _os_log_impl(&dword_1BA5AC000, v19, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: iMessage -- setting P&R category, clearing preferred input, etc.", v74, 0x12u);
     }
 
     LOBYTE(v19) = 0;
@@ -5626,11 +6370,11 @@ LABEL_81:
 
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      *v75 = 136315394;
-      v76 = "AVVCSessionManager.mm";
-      v77 = 1024;
-      v78 = 677;
-      _os_log_impl(&dword_1BA5AC000, v18, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: ATV Activation  -- setting Playback category and Duck/Mix Options.", v75, 0x12u);
+      *v74 = 136315394;
+      v75 = "AVVCSessionManager.mm";
+      v76 = 1024;
+      v77 = 677;
+      _os_log_impl(&dword_1BA5AC000, v18, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: ATV Activation  -- setting Playback category and Duck/Mix Options.", v74, 0x12u);
     }
 
     v25 = 0;
@@ -5658,11 +6402,11 @@ LABEL_81:
 LABEL_73:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v75 = 136315394;
-      v76 = "AVVCSessionManager.mm";
-      v77 = 1024;
-      v78 = 657;
-      _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: Interrupt other audio during Siri Training", v75, 0x12u);
+      *v74 = 136315394;
+      v75 = "AVVCSessionManager.mm";
+      v76 = 1024;
+      v77 = 657;
+      _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: Interrupt other audio during Siri Training", v74, 0x12u);
     }
   }
 
@@ -5692,14 +6436,14 @@ LABEL_91:
     v34 = v32;
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      CAX4CCString::CAX4CCString(v90, mode);
-      *v75 = 136315650;
-      v76 = "AVVCSessionManager.mm";
-      v77 = 1024;
-      v78 = 724;
-      v79 = 2080;
-      *v80 = v90;
-      _os_log_impl(&dword_1BA5AC000, v34, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: announce mode for %s context - duck others", v75, 0x1Cu);
+      CAX4CCString::CAX4CCString(v89, mode);
+      *v74 = 136315650;
+      v75 = "AVVCSessionManager.mm";
+      v76 = 1024;
+      v77 = 724;
+      v78 = 2080;
+      *v79 = v89;
+      _os_log_impl(&dword_1BA5AC000, v34, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: announce mode for %s context - duck others", v74, 0x1Cu);
     }
 
     goto LABEL_108;
@@ -5721,9 +6465,9 @@ LABEL_108:
       {
 LABEL_124:
         audioSession = self->_audioSession;
-        v74 = 0;
-        v45 = [(AVAudioSession *)audioSession setCategory:v15 mode:v16 routeSharingPolicy:0 options:v18 error:&v74];
-        v46 = v74;
+        v73 = 0;
+        v45 = [(AVAudioSession *)audioSession setCategory:v15 mode:v16 routeSharingPolicy:0 options:v18 error:&v73];
+        v46 = v73;
         v36 = v46;
         if (v45)
         {
@@ -5753,13 +6497,13 @@ LABEL_139:
 
         if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
-          *v75 = 136315650;
-          v76 = "AVVCSessionManager.mm";
-          v77 = 1024;
-          v78 = 754;
-          v79 = 2112;
-          *v80 = v36;
-          _os_log_impl(&dword_1BA5AC000, v47, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setSessionCategoryModeOptions: setCategoryModeRouteSharingPolicyOptions failed with error: %@", v75, 0x1Cu);
+          *v74 = 136315650;
+          v75 = "AVVCSessionManager.mm";
+          v76 = 1024;
+          v77 = 754;
+          v78 = 2112;
+          *v79 = v36;
+          _os_log_impl(&dword_1BA5AC000, v47, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setSessionCategoryModeOptions: setCategoryModeRouteSharingPolicyOptions failed with error: %@", v74, 0x1Cu);
         }
 
         goto LABEL_151;
@@ -5778,27 +6522,27 @@ LABEL_139:
       mPreviousSessionMode = self->mPreviousSessionMode;
       mPreviousSessionCategoryOptions = self->mPreviousSessionCategoryOptions;
       mPreviousActivationMode = self->mPreviousActivationMode;
-      *v75 = 136317442;
-      v76 = "AVVCSessionManager.mm";
-      v77 = 1024;
-      v78 = 745;
-      v79 = 2112;
-      *v80 = v15;
-      *&v80[8] = 2112;
-      *&v80[10] = v16;
-      *&v80[18] = 1024;
-      *&v80[20] = v18;
-      v81 = 2112;
-      *v82 = mPreviousSessionCategory;
-      *&v82[8] = 2112;
-      v83 = mPreviousSessionMode;
-      v84 = 1024;
-      v85 = mPreviousSessionCategoryOptions;
-      v86 = 1024;
+      *v74 = 136317442;
+      v75 = "AVVCSessionManager.mm";
+      v76 = 1024;
+      v77 = 745;
+      v78 = 2112;
+      *v79 = v15;
+      *&v79[8] = 2112;
+      *&v79[10] = v16;
+      *&v79[18] = 1024;
+      *&v79[20] = v18;
+      v80 = 2112;
+      *v81 = mPreviousSessionCategory;
+      *&v81[8] = 2112;
+      v82 = mPreviousSessionMode;
+      v83 = 1024;
+      v84 = mPreviousSessionCategoryOptions;
+      v85 = 1024;
       modeCopy = mode;
-      v88 = 1024;
-      v89 = mPreviousActivationMode;
-      _os_log_impl(&dword_1BA5AC000, v37, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: Setting new category: %@, mode: %@, options: 0x%x. Previous category: %@, mode: %@, options: 0x%x. (Current activation: %d, Previous activation: %d)", v75, 0x52u);
+      v87 = 1024;
+      v88 = mPreviousActivationMode;
+      _os_log_impl(&dword_1BA5AC000, v37, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: Setting new category: %@, mode: %@, options: 0x%x. Previous category: %@, mode: %@, options: 0x%x. (Current activation: %d, Previous activation: %d)", v74, 0x52u);
     }
 
     goto LABEL_124;
@@ -5829,21 +6573,21 @@ LABEL_133:
       v50 = self->mPreviousSessionMode;
       v51 = self->mPreviousSessionCategoryOptions;
       v52 = self->mPreviousActivationMode;
-      *v75 = 136316674;
-      v76 = "AVVCSessionManager.mm";
-      v77 = 1024;
-      v78 = 775;
-      v79 = 2112;
-      *v80 = v49;
-      *&v80[8] = 2112;
-      *&v80[10] = v50;
-      *&v80[18] = 1024;
-      *&v80[20] = v51;
-      v81 = 1024;
-      *v82 = mode;
-      *&v82[4] = 1024;
-      *&v82[6] = v52;
-      _os_log_impl(&dword_1BA5AC000, v36, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: No change - category, mode and options are the same. No op. Current category: %@, mode: %@, options: 0x%x. (Current activation: %d, Previous activation: %d)", v75, 0x38u);
+      *v74 = 136316674;
+      v75 = "AVVCSessionManager.mm";
+      v76 = 1024;
+      v77 = 775;
+      v78 = 2112;
+      *v79 = v49;
+      *&v79[8] = 2112;
+      *&v79[10] = v50;
+      *&v79[18] = 1024;
+      *&v79[20] = v51;
+      v80 = 1024;
+      *v81 = mode;
+      *&v81[4] = 1024;
+      *&v81[6] = v52;
+      _os_log_impl(&dword_1BA5AC000, v36, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: No change - category, mode and options are the same. No op. Current category: %@, mode: %@, options: 0x%x. (Current activation: %d, Previous activation: %d)", v74, 0x38u);
     }
 
     v36 = 0;
@@ -5867,30 +6611,30 @@ LABEL_135:
       v55 = self->mPreviousSessionMode;
       v56 = self->mPreviousSessionCategoryOptions;
       v57 = self->mPreviousActivationMode;
-      *v75 = 136316930;
-      v76 = "AVVCSessionManager.mm";
-      v77 = 1024;
-      v78 = 765;
-      v79 = 1024;
-      *v80 = v18;
-      *&v80[4] = 2112;
-      *&v80[6] = v54;
-      *&v80[14] = 2112;
-      *&v80[16] = v55;
-      v81 = 1024;
-      *v82 = v56;
-      *&v82[4] = 1024;
-      *&v82[6] = mode;
-      LOWORD(v83) = 1024;
-      *(&v83 + 2) = v57;
-      _os_log_impl(&dword_1BA5AC000, v38, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: Setting new options: 0x%x. Previous category: %@, mode: %@, options: 0x%x. (Current activation: %d, Previous activation: %d)", v75, 0x3Eu);
+      *v74 = 136316930;
+      v75 = "AVVCSessionManager.mm";
+      v76 = 1024;
+      v77 = 765;
+      v78 = 1024;
+      *v79 = v18;
+      *&v79[4] = 2112;
+      *&v79[6] = v54;
+      *&v79[14] = 2112;
+      *&v79[16] = v55;
+      v80 = 1024;
+      *v81 = v56;
+      *&v81[4] = 1024;
+      *&v81[6] = mode;
+      LOWORD(v82) = 1024;
+      *(&v82 + 2) = v57;
+      _os_log_impl(&dword_1BA5AC000, v38, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionCategoryModeOptions: Setting new options: 0x%x. Previous category: %@, mode: %@, options: 0x%x. (Current activation: %d, Previous activation: %d)", v74, 0x3Eu);
     }
   }
 
   v58 = self->_audioSession;
-  v73 = 0;
-  v59 = [(AVAudioSession *)v58 setCategoryOptions:v18 error:&v73];
-  v60 = v73;
+  v72 = 0;
+  v59 = [(AVAudioSession *)v58 setCategoryOptions:v18 error:&v72];
+  v60 = v72;
   v36 = v60;
   if (v59)
   {
@@ -5915,22 +6659,22 @@ LABEL_135:
 
   if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
   {
-    *v75 = 136315650;
-    v76 = "AVVCSessionManager.mm";
-    v77 = 1024;
-    v78 = 768;
-    v79 = 2112;
-    *v80 = v36;
-    _os_log_impl(&dword_1BA5AC000, v61, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setSessionCategoryModeOptions: setCategoryOptions failed with error: %@", v75, 0x1Cu);
+    *v74 = 136315650;
+    v75 = "AVVCSessionManager.mm";
+    v76 = 1024;
+    v77 = 768;
+    v78 = 2112;
+    *v79 = v36;
+    _os_log_impl(&dword_1BA5AC000, v61, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setSessionCategoryModeOptions: setCategoryOptions failed with error: %@", v74, 0x1Cu);
   }
 
 LABEL_151:
   if (v25)
   {
     v64 = self->_audioSession;
-    v72 = v36;
-    v65 = [(AVAudioSession *)v64 clearInputPreferences:&v72];
-    v66 = v72;
+    v71 = v36;
+    v65 = [(AVAudioSession *)v64 clearInputPreferences:&v71];
+    v66 = v71;
 
     if ((v65 & 1) == 0)
     {
@@ -5952,13 +6696,13 @@ LABEL_151:
 
       if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
       {
-        *v75 = 136315650;
-        v76 = "AVVCSessionManager.mm";
-        v77 = 1024;
-        v78 = 781;
-        v79 = 2112;
-        *v80 = v66;
-        _os_log_impl(&dword_1BA5AC000, v67, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::clearInputPreferences failed with error: %@", v75, 0x1Cu);
+        *v74 = 136315650;
+        v75 = "AVVCSessionManager.mm";
+        v76 = 1024;
+        v77 = 781;
+        v78 = 2112;
+        *v79 = v66;
+        _os_log_impl(&dword_1BA5AC000, v67, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::clearInputPreferences failed with error: %@", v74, 0x1Cu);
       }
     }
   }
@@ -5970,14 +6714,12 @@ LABEL_151:
 
 LABEL_161:
 
-  if (v71)
+  if (v70)
   {
     std::recursive_mutex::unlock(&self->mSessionManagerLock);
   }
 
   ElapsedTime::~ElapsedTime(buf);
-LABEL_164:
-  v69 = *MEMORY[0x1E69E9840];
   return code;
 }
 
@@ -6007,7 +6749,7 @@ LABEL_164:
 {
   optionsCopy = options;
   duckingCopy = ducking;
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -6015,7 +6757,7 @@ LABEL_164:
 
   if (isAudioSessionAvailable(void)::audioSessionAvailable != 1)
   {
-    goto LABEL_48;
+    return;
   }
 
   if (caulk::product::get_device_class(self) != 4 && !self->mDeviceIsIOSAccessory)
@@ -6051,11 +6793,11 @@ LABEL_164:
 
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 136315394;
-        v21 = "AVVCSessionManager.mm";
-        v22 = 1024;
-        v23 = 473;
-        _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d shouldEnableMiniDucking: No change, no-op", &v20, 0x12u);
+        v19 = 136315394;
+        v20 = "AVVCSessionManager.mm";
+        v21 = 1024;
+        v22 = 473;
+        _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d shouldEnableMiniDucking: No change, no-op", &v19, 0x12u);
       }
 
       goto LABEL_45;
@@ -6082,7 +6824,7 @@ LABEL_45:
         }
 
         ElapsedTime::~ElapsedTime(buf);
-        goto LABEL_48;
+        return;
       }
 
       *&self->mShouldEnableMiniDucking = 256;
@@ -6095,11 +6837,11 @@ LABEL_45:
         v17 = v16;
         if (v16 && os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = 136315394;
-          v21 = "AVVCSessionManager.mm";
-          v22 = 1024;
-          v23 = 491;
-          _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d shouldEnableMiniDucking: Announce calls enabled. Will not set session properties while disabling miniDucking", &v20, 0x12u);
+          v19 = 136315394;
+          v20 = "AVVCSessionManager.mm";
+          v21 = 1024;
+          v22 = 491;
+          _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d shouldEnableMiniDucking: Announce calls enabled. Will not set session properties while disabling miniDucking", &v19, 0x12u);
         }
       }
 
@@ -6121,7 +6863,7 @@ LABEL_45:
     v7 = *kAVVCScope;
     if (!v7)
     {
-      goto LABEL_48;
+      return;
     }
   }
 
@@ -6134,19 +6876,16 @@ LABEL_45:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v25 = "AVVCSessionManager.mm";
-    v26 = 1024;
-    v27 = 464;
+    v24 = "AVVCSessionManager.mm";
+    v25 = 1024;
+    v26 = 464;
     _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d shouldEnableMiniDucking not available on this device", buf, 0x12u);
   }
-
-LABEL_48:
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (int)setSessionActivationContext:(id)context
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
@@ -6175,13 +6914,13 @@ LABEL_19:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v45 = "AVVCSessionManager.mm";
-      v46 = 1024;
-      v47 = 418;
-      v48 = 2080;
-      v49 = "setSessionActivationContext";
-      v50 = 1024;
-      v51 = 0;
+      v44 = "AVVCSessionManager.mm";
+      v45 = 1024;
+      v46 = 418;
+      v47 = 2080;
+      v48 = "setSessionActivationContext";
+      v49 = 1024;
+      v50 = 0;
       _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", buf, 0x22u);
     }
 
@@ -6221,11 +6960,11 @@ LABEL_24:
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v34 = 136315394;
-      v35 = "AVVCSessionManager.mm";
-      v36 = 1024;
-      v37 = 424;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionActivationContext : passed 'nil' dictionary, creating empty one.", v34, 0x12u);
+      *v33 = 136315394;
+      v34 = "AVVCSessionManager.mm";
+      v35 = 1024;
+      v36 = 424;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionActivationContext : passed 'nil' dictionary, creating empty one.", v33, 0x12u);
     }
 
     goto LABEL_24;
@@ -6241,9 +6980,9 @@ LABEL_25:
   if (((mPreviousActivationMode == intValue) & areDeviceUIDsSame(v13, self->mPreviousActivationDeviceUID)) == 0)
   {
     audioSession = self->_audioSession;
-    v31 = 0;
-    v18 = [(AVAudioSession *)audioSession setActivationContext:contextCopy error:&v31];
-    v19 = v31;
+    v30 = 0;
+    v18 = [(AVAudioSession *)audioSession setActivationContext:contextCopy error:&v30];
+    v19 = v30;
     if (v18)
     {
       if (kAVVCScope)
@@ -6271,22 +7010,22 @@ LABEL_51:
       v26 = v20;
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        CAX4CCString::CAX4CCString(v33, intValue);
-        CAX4CCString::CAX4CCString(v32, self->mPreviousActivationMode);
+        CAX4CCString::CAX4CCString(v32, intValue);
+        CAX4CCString::CAX4CCString(v31, self->mPreviousActivationMode);
         v27 = *p_mPreviousActivationDeviceUID;
-        *v34 = 136316418;
-        v35 = "AVVCSessionManager.mm";
-        v36 = 1024;
-        v37 = 442;
-        v38 = 2080;
-        *v39 = v33;
-        *&v39[8] = 2112;
-        *&v39[10] = v13;
-        v40 = 2080;
-        v41 = v32;
-        v42 = 2112;
-        v43 = v27;
-        _os_log_impl(&dword_1BA5AC000, v26, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionActivationContext : Setting new activation context. Current: { activationMode(%s), deviceUID(%@) }. Previous: { activationMode(%s), deviceUID(%@) }.", v34, 0x3Au);
+        *v33 = 136316418;
+        v34 = "AVVCSessionManager.mm";
+        v35 = 1024;
+        v36 = 442;
+        v37 = 2080;
+        *v38 = v32;
+        *&v38[8] = 2112;
+        *&v38[10] = v13;
+        v39 = 2080;
+        v40 = v31;
+        v41 = 2112;
+        v42 = v27;
+        _os_log_impl(&dword_1BA5AC000, v26, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionActivationContext : Setting new activation context. Current: { activationMode(%s), deviceUID(%@) }. Previous: { activationMode(%s), deviceUID(%@) }.", v33, 0x3Au);
       }
 
       goto LABEL_44;
@@ -6312,15 +7051,15 @@ LABEL_50:
 
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      *v34 = 136315906;
-      v35 = "AVVCSessionManager.mm";
-      v36 = 1024;
-      v37 = 438;
-      v38 = 1024;
-      *v39 = opaqueSessionID;
-      *&v39[4] = 2112;
-      *&v39[6] = v19;
-      _os_log_impl(&dword_1BA5AC000, v22, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setActivationContext of sessionID(0x%x) failed with error: %@", v34, 0x22u);
+      *v33 = 136315906;
+      v34 = "AVVCSessionManager.mm";
+      v35 = 1024;
+      v36 = 438;
+      v37 = 1024;
+      *v38 = opaqueSessionID;
+      *&v38[4] = 2112;
+      *&v38[6] = v19;
+      _os_log_impl(&dword_1BA5AC000, v22, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setActivationContext of sessionID(0x%x) failed with error: %@", v33, 0x22u);
     }
 
     goto LABEL_50;
@@ -6340,22 +7079,22 @@ LABEL_37:
     v19 = v16;
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      CAX4CCString::CAX4CCString(v33, intValue);
-      CAX4CCString::CAX4CCString(v32, self->mPreviousActivationMode);
+      CAX4CCString::CAX4CCString(v32, intValue);
+      CAX4CCString::CAX4CCString(v31, self->mPreviousActivationMode);
       v24 = *p_mPreviousActivationDeviceUID;
-      *v34 = 136316418;
-      v35 = "AVVCSessionManager.mm";
-      v36 = 1024;
-      v37 = 448;
-      v38 = 2080;
-      *v39 = v33;
-      *&v39[8] = 2112;
-      *&v39[10] = v13;
-      v40 = 2080;
-      v41 = v32;
-      v42 = 2112;
-      v43 = v24;
-      _os_log_impl(&dword_1BA5AC000, v19, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionActivationContext : No change - not setting activationMode and deviceUID. Current: { activationMode(%s), deviceUID(%@) }. Previous: { activationMode(%s), deviceUID(%@) }. No op.", v34, 0x3Au);
+      *v33 = 136316418;
+      v34 = "AVVCSessionManager.mm";
+      v35 = 1024;
+      v36 = 448;
+      v37 = 2080;
+      *v38 = v32;
+      *&v38[8] = 2112;
+      *&v38[10] = v13;
+      v39 = 2080;
+      v40 = v31;
+      v41 = 2112;
+      v42 = v24;
+      _os_log_impl(&dword_1BA5AC000, v19, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVCSessionManager::setSessionActivationContext : No change - not setting activationMode and deviceUID. Current: { activationMode(%s), deviceUID(%@) }. Previous: { activationMode(%s), deviceUID(%@) }. No op.", v33, 0x3Au);
     }
 
     goto LABEL_45;
@@ -6372,13 +7111,12 @@ LABEL_52:
   ElapsedTime::~ElapsedTime(buf);
 LABEL_55:
 
-  v29 = *MEMORY[0x1E69E9840];
   return code;
 }
 
 - (int)setupOneTimeSessionSettingsForClient:(int64_t)client
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   if (isAudioSessionAvailable(void)::onceToken != -1)
   {
     dispatch_once(&isAudioSessionAvailable(void)::onceToken, &__block_literal_global_44);
@@ -6391,9 +7129,7 @@ LABEL_55:
       v12 = *kAVVCScope;
       if (!v12)
       {
-LABEL_24:
-        code2 = 0;
-        goto LABEL_116;
+        return 0;
       }
     }
 
@@ -6406,17 +7142,17 @@ LABEL_24:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v82 = "AVVCSessionManager.mm";
-      v83 = 1024;
-      v84 = 216;
-      v85 = 2080;
-      v86 = "setupOneTimeSessionSettingsForClient";
-      v87 = 1024;
-      v88 = 0;
+      v81 = "AVVCSessionManager.mm";
+      v82 = 1024;
+      v83 = 216;
+      v84 = 2080;
+      v85 = "setupOneTimeSessionSettingsForClient";
+      v86 = 1024;
+      v87 = 0;
       _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d logAndReturnIfAudioSessionIsNotAvailable-%s returning : %d", buf, 0x22u);
     }
 
-    goto LABEL_24;
+    return 0;
   }
 
   ElapsedTime::ElapsedTime(buf, "[AVVCSessionManager setupOneTimeSessionSettingsForClient:]", "setupOneTimeSessionSettingsForClient", 0);
@@ -6449,9 +7185,9 @@ LABEL_24:
   if (reporterID)
   {
     audioSession = self->_audioSession;
-    v72 = 0;
-    v9 = [(AVAudioSession *)audioSession setReporterID:reporterID error:&v72];
-    v10 = v72;
+    v71 = 0;
+    v9 = [(AVAudioSession *)audioSession setReporterID:reporterID error:&v71];
+    v10 = v71;
     if (v9)
     {
       if (kAVVCScope)
@@ -6473,15 +7209,15 @@ LABEL_24:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         opaqueSessionID = [(AVAudioSession *)self->_audioSession opaqueSessionID];
-        *v73 = 136315906;
-        v74 = "AVVCSessionManager.mm";
-        v75 = 1024;
-        v76 = 235;
-        v77 = 2048;
-        v78 = reporterID;
-        v79 = 1024;
-        v80 = opaqueSessionID;
-        _os_log_impl(&dword_1BA5AC000, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Set reporterID(%lld) on session(0x%x)", v73, 0x22u);
+        *v72 = 136315906;
+        v73 = "AVVCSessionManager.mm";
+        v74 = 1024;
+        v75 = 235;
+        v76 = 2048;
+        v77 = reporterID;
+        v78 = 1024;
+        v79 = opaqueSessionID;
+        _os_log_impl(&dword_1BA5AC000, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Set reporterID(%lld) on session(0x%x)", v72, 0x22u);
       }
     }
 
@@ -6504,13 +7240,13 @@ LABEL_24:
 
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        *v73 = 136315650;
-        v74 = "AVVCSessionManager.mm";
-        v75 = 1024;
-        v76 = 232;
-        v77 = 2112;
-        v78 = v10;
-        _os_log_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setReporterID failed with error: %@", v73, 0x1Cu);
+        *v72 = 136315650;
+        v73 = "AVVCSessionManager.mm";
+        v74 = 1024;
+        v75 = 232;
+        v76 = 2112;
+        v77 = v10;
+        _os_log_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setReporterID failed with error: %@", v72, 0x1Cu);
       }
     }
   }
@@ -6534,11 +7270,11 @@ LABEL_24:
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      *v73 = 136315394;
-      v74 = "AVVCSessionManager.mm";
-      v75 = 1024;
-      v76 = 239;
-      _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCMetricsManager returned invalid reporterID", v73, 0x12u);
+      *v72 = 136315394;
+      v73 = "AVVCSessionManager.mm";
+      v74 = 1024;
+      v75 = 239;
+      _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCMetricsManager returned invalid reporterID", v72, 0x12u);
     }
 
     v10 = 0;
@@ -6562,9 +7298,9 @@ LABEL_43:
 
     v23 = v34;
     v35 = self->_audioSession;
-    v66 = v10;
-    LOBYTE(v34) = [(AVAudioSession *)v35 setCategory:v25 mode:v34 routeSharingPolicy:0 options:12 error:&v66];
-    v36 = v66;
+    v65 = v10;
+    LOBYTE(v34) = [(AVAudioSession *)v35 setCategory:v25 mode:v34 routeSharingPolicy:0 options:12 error:&v65];
+    v36 = v65;
 
     v10 = v36;
     if (v34)
@@ -6594,13 +7330,13 @@ LABEL_74:
 
     if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
-      *v73 = 136315650;
-      v74 = "AVVCSessionManager.mm";
-      v75 = 1024;
-      v76 = 390;
-      v77 = 2112;
-      v78 = v36;
-      _os_log_impl(&dword_1BA5AC000, v42, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setupOneTimeSessionSettings setCategoryModeRouteSharingPolicyOptions failed with error: %@", v73, 0x1Cu);
+      *v72 = 136315650;
+      v73 = "AVVCSessionManager.mm";
+      v74 = 1024;
+      v75 = 390;
+      v76 = 2112;
+      v77 = v36;
+      _os_log_impl(&dword_1BA5AC000, v42, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setupOneTimeSessionSettings setCategoryModeRouteSharingPolicyOptions failed with error: %@", v72, 0x1Cu);
     }
 
     goto LABEL_74;
@@ -6622,9 +7358,9 @@ LABEL_46:
 
     v23 = v27;
     v28 = self->_audioSession;
-    v70 = v10;
-    LOBYTE(v27) = [(AVAudioSession *)v28 setCategory:v25 mode:v27 routeSharingPolicy:0 options:4 error:&v70];
-    v29 = v70;
+    v69 = v10;
+    LOBYTE(v27) = [(AVAudioSession *)v28 setCategory:v25 mode:v27 routeSharingPolicy:0 options:4 error:&v69];
+    v29 = v69;
 
     v30 = v29;
     if (v27)
@@ -6657,13 +7393,13 @@ LABEL_66:
 
     if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      *v73 = 136315650;
-      v74 = "AVVCSessionManager.mm";
-      v75 = 1024;
-      v76 = 328;
-      v77 = 2112;
-      v78 = v29;
-      _os_log_impl(&dword_1BA5AC000, v37, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setupOneTimeSessionSettings setCategoryModeOptions failed with error: %@", v73, 0x1Cu);
+      *v72 = 136315650;
+      v73 = "AVVCSessionManager.mm";
+      v74 = 1024;
+      v75 = 328;
+      v76 = 2112;
+      v77 = v29;
+      _os_log_impl(&dword_1BA5AC000, v37, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setupOneTimeSessionSettings setCategoryModeOptions failed with error: %@", v72, 0x1Cu);
     }
 
     goto LABEL_66;
@@ -6672,9 +7408,9 @@ LABEL_66:
   v38 = *MEMORY[0x1E698D520];
   v25 = *MEMORY[0x1E698D520];
   v39 = self->_audioSession;
-  v71 = v10;
-  v40 = [(AVAudioSession *)v39 setCategory:v25 withOptions:19 error:&v71];
-  v41 = v71;
+  v70 = v10;
+  v40 = [(AVAudioSession *)v39 setCategory:v25 withOptions:19 error:&v70];
+  v41 = v70;
 
   v30 = v41;
   if (v40)
@@ -6699,22 +7435,22 @@ LABEL_66:
 LABEL_76:
     if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
-      *v73 = 136315650;
-      v74 = "AVVCSessionManager.mm";
-      v75 = 1024;
-      v76 = 266;
-      v77 = 2112;
-      v78 = v41;
-      _os_log_impl(&dword_1BA5AC000, v44, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setupOneTimeSessionSettings setCategoryModeOptions failed with error: %@", v73, 0x1Cu);
+      *v72 = 136315650;
+      v73 = "AVVCSessionManager.mm";
+      v74 = 1024;
+      v75 = 266;
+      v76 = 2112;
+      v77 = v41;
+      _os_log_impl(&dword_1BA5AC000, v44, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setupOneTimeSessionSettings setCategoryModeOptions failed with error: %@", v72, 0x1Cu);
     }
   }
 
   code2 = [v41 code];
 LABEL_80:
   v48 = self->_audioSession;
-  v69 = v30;
-  v49 = [(AVAudioSession *)v48 setIAmTheAssistant:1 error:&v69];
-  v50 = v69;
+  v68 = v30;
+  v49 = [(AVAudioSession *)v48 setIAmTheAssistant:1 error:&v68];
+  v50 = v68;
 
   v51 = v50;
   if (v49)
@@ -6735,22 +7471,22 @@ LABEL_80:
 LABEL_85:
     if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
-      *v73 = 136315650;
-      v74 = "AVVCSessionManager.mm";
-      v75 = 1024;
-      v76 = 340;
-      v77 = 2112;
-      v78 = v50;
-      _os_log_impl(&dword_1BA5AC000, v52, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setIAmTheAssistant failed with error: %@", v73, 0x1Cu);
+      *v72 = 136315650;
+      v73 = "AVVCSessionManager.mm";
+      v74 = 1024;
+      v75 = 340;
+      v76 = 2112;
+      v77 = v50;
+      _os_log_impl(&dword_1BA5AC000, v52, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setIAmTheAssistant failed with error: %@", v72, 0x1Cu);
     }
   }
 
   code2 = [v50 code];
 LABEL_89:
   v54 = self->_audioSession;
-  v68 = v50;
-  v55 = [(AVAudioSession *)v54 setAllowHapticsAndSystemSoundsDuringRecording:1 error:&v68];
-  v56 = v68;
+  v67 = v50;
+  v55 = [(AVAudioSession *)v54 setAllowHapticsAndSystemSoundsDuringRecording:1 error:&v67];
+  v56 = v67;
 
   v10 = v56;
   if (v55)
@@ -6771,13 +7507,13 @@ LABEL_89:
 LABEL_94:
     if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
     {
-      *v73 = 136315650;
-      v74 = "AVVCSessionManager.mm";
-      v75 = 1024;
-      v76 = 347;
-      v77 = 2112;
-      v78 = v56;
-      _os_log_impl(&dword_1BA5AC000, v57, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setAllowHapticsAndSystemSoundsDuringRecording failed with error: %@", v73, 0x1Cu);
+      *v72 = 136315650;
+      v73 = "AVVCSessionManager.mm";
+      v74 = 1024;
+      v75 = 347;
+      v76 = 2112;
+      v77 = v56;
+      _os_log_impl(&dword_1BA5AC000, v57, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: AVVCSessionManager::setAllowHapticsAndSystemSoundsDuringRecording failed with error: %@", v72, 0x1Cu);
     }
   }
 
@@ -6789,9 +7525,9 @@ LABEL_98:
   }
 
   v59 = self->_audioSession;
-  v67 = v56;
-  v60 = [(AVAudioSession *)v59 setEligibleForBTSmartRoutingConsideration:0 error:&v67];
-  v61 = v67;
+  v66 = v56;
+  v60 = [(AVAudioSession *)v59 setEligibleForBTSmartRoutingConsideration:0 error:&v66];
+  v61 = v66;
 
   v10 = v61;
   if ((v60 & 1) == 0)
@@ -6825,13 +7561,13 @@ LABEL_112:
 
     if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
     {
-      *v73 = 136315650;
-      v74 = "AVVCSessionManager.mm";
-      v75 = 1024;
-      v76 = 354;
-      v77 = 2112;
-      v78 = v61;
-      _os_log_impl(&dword_1BA5AC000, v62, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ERROR: AVVCSessionManager::setEligibleForBTSmartRoutingConsideration failed with error: %@", v73, 0x1Cu);
+      *v72 = 136315650;
+      v73 = "AVVCSessionManager.mm";
+      v74 = 1024;
+      v75 = 354;
+      v76 = 2112;
+      v77 = v61;
+      _os_log_impl(&dword_1BA5AC000, v62, OS_LOG_TYPE_DEFAULT, "%25s:%-5d ERROR: AVVCSessionManager::setEligibleForBTSmartRoutingConsideration failed with error: %@", v72, 0x1Cu);
     }
 
     goto LABEL_110;
@@ -6852,8 +7588,6 @@ LABEL_113:
   }
 
   ElapsedTime::~ElapsedTime(buf);
-LABEL_116:
-  v64 = *MEMORY[0x1E69E9840];
   return code2;
 }
 

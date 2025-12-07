@@ -1,4 +1,1097 @@
-void sub_10078A900(uint64_t a1)
+void sub_1007702A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
+{
+  if (a13)
+  {
+    sub_100008080(a13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_100770610(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
+{
+  if (a13)
+  {
+    sub_100008080(a13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_100770978(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
+{
+  if (a13)
+  {
+    sub_100008080(a13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_100770CE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
+{
+  if (a13)
+  {
+    sub_100008080(a13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_100771048(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
+{
+  if (a13)
+  {
+    sub_100008080(a13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_1007713B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
+{
+  if (a13)
+  {
+    sub_100008080(a13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_100771718(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
+{
+  if (a13)
+  {
+    sub_100008080(a13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_10077174C(uint64_t a1, uint64_t a2)
+{
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10028840C();
+  }
+
+  v4 = off_1025D47A8;
+  v5 = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT);
+  if (v5)
+  {
+    v6 = (a1 + 40);
+    if (*(a1 + 63) < 0)
+    {
+      v6 = *v6;
+    }
+
+    v7 = CLConnectionMessage::name(*a2);
+    if (*(v7 + 23) >= 0)
+    {
+      v8 = v7;
+    }
+
+    else
+    {
+      v8 = *v7;
+    }
+
+    *buf = 68289538;
+    v13 = 0;
+    v14 = 2082;
+    v15 = "";
+    v16 = 2082;
+    v17 = v6;
+    v18 = 2082;
+    v19 = v8;
+    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Received message from #CoreLocationAgent, User:%{public, location:escape_only}s, message:%{public, location:escape_only}s}", buf, 0x26u);
+  }
+
+  v9 = *a2;
+  v10 = *(a2 + 8);
+  v11[0] = v9;
+  v11[1] = v10;
+  if (v10)
+  {
+    atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  sub_1007718A8(v5, v11);
+  if (v10)
+  {
+    sub_100008080(v10);
+  }
+}
+
+void sub_1007718A8(uint64_t a1, CLConnectionMessage **a2)
+{
+  v3 = CLConnectionMessage::name(*a2);
+  if (*(v3 + 23) < 0 && *(v3 + 8) == 38 && !memcmp(*v3, "kCLConnectionMessageAuthPromptResponse", 0x26uLL))
+  {
+    Dictionary = CLConnectionMessage::getDictionary(*a2);
+    v15 = [Dictionary allKeys];
+    if ([v15 containsObject:@"uuid"] && objc_msgSend(v15, "containsObject:", @"pid") && (objc_msgSend(v15, "containsObject:", @"response") & 1) != 0)
+    {
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10028840C();
+      }
+
+      v16 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+      {
+        v17 = CLConnectionMessage::name(*a2);
+        v18 = *(v17 + 23) >= 0 ? v17 : *v17;
+        v24 = 68289538;
+        v25 = 0;
+        v26 = 2082;
+        v27 = "";
+        v28 = 2082;
+        v29 = v18;
+        v30 = 2114;
+        v31 = Dictionary;
+        _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#AuthPrompt response from #CoreLocationAgent is not yet supported on this platform, message:%{public, location:escape_only}s, resposne:%{public, location:escape_only}@}", &v24, 0x26u);
+        if (qword_1025D47A0 != -1)
+        {
+          sub_10192D4D0();
+        }
+      }
+
+      v19 = off_1025D47A8;
+      if (os_signpost_enabled(off_1025D47A8))
+      {
+        v20 = CLConnectionMessage::name(*a2);
+        if (*(v20 + 23) >= 0)
+        {
+          v21 = v20;
+        }
+
+        else
+        {
+          v21 = *v20;
+        }
+
+        v24 = 68289538;
+        v25 = 0;
+        v26 = 2082;
+        v27 = "";
+        v28 = 2082;
+        v29 = v21;
+        v30 = 2114;
+        v31 = Dictionary;
+        v10 = "#AuthPrompt response from #CoreLocationAgent is not yet supported on this platform";
+        v11 = "{msg%{public}.0s:#AuthPrompt response from #CoreLocationAgent is not yet supported on this platform, message:%{public, location:escape_only}s, resposne:%{public, location:escape_only}@}";
+        v12 = v19;
+        v13 = 38;
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10028840C();
+      }
+
+      v22 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+      {
+        v24 = 68289282;
+        v25 = 0;
+        v26 = 2082;
+        v27 = "";
+        v28 = 2114;
+        v29 = Dictionary;
+        _os_log_impl(dword_100000000, v22, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#AuthPrompt auth response from #CoreLocationAgent is malformed. Don't apply auth-response, resposne:%{public, location:escape_only}@}", &v24, 0x1Cu);
+        if (qword_1025D47A0 != -1)
+        {
+          sub_10192D4D0();
+        }
+      }
+
+      v23 = off_1025D47A8;
+      if (os_signpost_enabled(off_1025D47A8))
+      {
+        v24 = 68289282;
+        v25 = 0;
+        v26 = 2082;
+        v27 = "";
+        v28 = 2114;
+        v29 = Dictionary;
+        v10 = "#AuthPrompt auth response from #CoreLocationAgent is malformed. Don't apply auth-response";
+        v11 = "{msg%{public}.0s:#AuthPrompt auth response from #CoreLocationAgent is malformed. Don't apply auth-response, resposne:%{public, location:escape_only}@}";
+        v12 = v23;
+LABEL_17:
+        v13 = 28;
+LABEL_18:
+        _os_signpost_emit_with_name_impl(dword_100000000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v10, v11, &v24, v13);
+      }
+    }
+  }
+
+  else
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v4 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+    {
+      v5 = CLConnectionMessage::name(*a2);
+      v6 = *(v5 + 23) >= 0 ? v5 : *v5;
+      v24 = 68289282;
+      v25 = 0;
+      v26 = 2082;
+      v27 = "";
+      v28 = 2082;
+      v29 = v6;
+      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#CoreLocationAgent defaultMessageHandler received un-handled messaeg, message:%{public, location:escape_only}s}", &v24, 0x1Cu);
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+    }
+
+    v7 = off_1025D47A8;
+    if (os_signpost_enabled(off_1025D47A8))
+    {
+      v8 = CLConnectionMessage::name(*a2);
+      if (*(v8 + 23) >= 0)
+      {
+        v9 = v8;
+      }
+
+      else
+      {
+        v9 = *v8;
+      }
+
+      v24 = 68289282;
+      v25 = 0;
+      v26 = 2082;
+      v27 = "";
+      v28 = 2082;
+      v29 = v9;
+      v10 = "#CoreLocationAgent defaultMessageHandler received un-handled messaeg";
+      v11 = "{msg%{public}.0s:#CoreLocationAgent defaultMessageHandler received un-handled messaeg, message:%{public, location:escape_only}s}";
+      v12 = v7;
+      goto LABEL_17;
+    }
+  }
+}
+
+void sub_100772054(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
+{
+  if (a13)
+  {
+    sub_100008080(a13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_1007723BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
+{
+  if (a13)
+  {
+    sub_100008080(a13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_100772724(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
+{
+  if (a13)
+  {
+    sub_100008080(a13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_100772A8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
+{
+  if (a13)
+  {
+    sub_100008080(a13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_100772DF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
+{
+  if (a13)
+  {
+    sub_100008080(a13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_100772E28(id *a1, uint64_t a2)
+{
+  v4 = sub_100018FC8(a1, a2, &xmmword_101CE6CD8);
+
+  return sub_100033CDC(a1, a2, v4);
+}
+
+void sub_100772E74(uint64_t *a1, CLConnection *a2, uint64_t *a3)
+{
+  v3 = a1[106];
+  if (!v3)
+  {
+    goto LABEL_9;
+  }
+
+  v7 = a1 + 106;
+  do
+  {
+    v8 = *(v3 + 32);
+    v9 = v8 >= a2;
+    v10 = v8 < a2;
+    if (v9)
+    {
+      v7 = v3;
+    }
+
+    v3 = *(v3 + 8 * v10);
+  }
+
+  while (v3);
+  if (v7 == a1 + 106 || v7[4] > a2)
+  {
+LABEL_9:
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v11 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 68289539;
+      v18 = 0;
+      v19 = 2082;
+      v20 = "";
+      v21 = 2082;
+      v22 = "assert";
+      v23 = 2081;
+      v24 = "iter != fDaemonClients.end()";
+      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:recreateDaemonClientForConnectionWithRegistrationMessage must only be called with a connection for an active DC, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1025D47A0 != -1)
+      {
+        goto LABEL_28;
+      }
+    }
+
+    while (1)
+    {
+      v12 = off_1025D47A8;
+      if (os_signpost_enabled(off_1025D47A8))
+      {
+        *buf = 68289539;
+        v18 = 0;
+        v19 = 2082;
+        v20 = "";
+        v21 = 2082;
+        v22 = "assert";
+        v23 = 2081;
+        v24 = "iter != fDaemonClients.end()";
+        _os_signpost_emit_with_name_impl(dword_100000000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "recreateDaemonClientForConnectionWithRegistrationMessage must only be called with a connection for an active DC", "{msg%{public}.0s:recreateDaemonClientForConnectionWithRegistrationMessage must only be called with a connection for an active DC, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+        if (qword_1025D47A0 != -1)
+        {
+          sub_10192D4D0();
+        }
+      }
+
+      v13 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+      {
+        *buf = 68289539;
+        v18 = 0;
+        v19 = 2082;
+        v20 = "";
+        v21 = 2082;
+        v22 = "assert";
+        v23 = 2081;
+        v24 = "iter != fDaemonClients.end()";
+        _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_INFO, "{msg%{public}.0s:recreateDaemonClientForConnectionWithRegistrationMessage must only be called with a connection for an active DC, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      }
+
+      abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Core/ClientManagement/CLClientManager_Unified.mm", 1016, "recreateDaemonClientForConnectionWithRegistrationMessage");
+      __break(1u);
+LABEL_28:
+      sub_10192D4D0();
+    }
+  }
+
+  if (!sub_100B1FA08(v7[5]))
+  {
+    sub_10192E050();
+  }
+
+  sub_100112718(a1, a2);
+  v14 = *a3;
+  v15 = a3[1];
+  v16[0] = v14;
+  v16[1] = v15;
+  if (v15)
+  {
+    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  sub_1000540D0(a1, a2, v16);
+  if (v15)
+  {
+
+    sub_100008080(v15);
+  }
+}
+
+void sub_1007731A0(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    sub_100008080(v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+id sub_1007731C0(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = sub_1000184F4(a1, a2);
+  v6 = [*(a1 + 360) objectForKey:v5];
+  v7 = [v6 containsObject:{+[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", a3)}];
+  if (v7)
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v8 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = 68289794;
+      v15 = 0;
+      v16 = 2082;
+      v17 = "";
+      v18 = 2114;
+      v19 = v5;
+      v20 = 2050;
+      v21 = a3;
+      v22 = 1026;
+      v23 = a3;
+      v9 = "{msg%{public}.0s:#identityValidation successful, Identity:%{public, location:escape_only}@, ConnectedClientUniquePid:%{public}lld, ConnectedClientPid:%{public}d}";
+      v10 = v8;
+      v11 = 44;
+LABEL_10:
+      _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEFAULT, v9, &v14, v11);
+    }
+  }
+
+  else
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v12 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = 68290050;
+      v15 = 0;
+      v16 = 2082;
+      v17 = "";
+      v18 = 2114;
+      v19 = v5;
+      v20 = 2050;
+      v21 = a3;
+      v22 = 1026;
+      v23 = a3;
+      v24 = 2114;
+      v25 = v6;
+      v9 = "{msg%{public}.0s:#warning #identityValidation Identity invalid for connected client, Identity:%{public, location:escape_only}@, ConnectedClientUniquePid:%{public}lld, ConnectedClientPid:%{public}d, AllowedUniquePids:%{public, location:escape_only}@}";
+      v10 = v12;
+      v11 = 54;
+      goto LABEL_10;
+    }
+  }
+
+  return v7;
+}
+
+void sub_1007733A4(uint64_t a1, uint64_t a2, uint64_t *a3, unsigned int a4, void *a5, int a6)
+{
+  v29 = objc_alloc_init(NSAutoreleasePool);
+  v11 = sub_1000184F4(a1, a2);
+  if (([*(a1 + 136) dictionaryExistsAtKeyPath:v11] & 1) == 0)
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v15 = off_1025D47A8;
+    if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_38;
+    }
+
+    if (*(a3 + 23) >= 0)
+    {
+      v16 = a3;
+    }
+
+    else
+    {
+      v16 = *a3;
+    }
+
+    *buf = 68289794;
+    v31 = 0;
+    v32 = 2082;
+    v33 = "";
+    v34 = 2114;
+    v35 = v11;
+    v36 = 2082;
+    v37 = v16;
+    v38 = 1026;
+    v39 = a4;
+    v17 = "{msg%{public}.0s:skip persisting #dic for rehydration. Client not found, Client:%{public, location:escape_only}@, dic:%{public, location:escape_only}s, dicType:%{public}d}";
+LABEL_13:
+    v18 = v15;
+    v19 = 44;
+LABEL_37:
+    _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_DEFAULT, v17, buf, v19);
+    goto LABEL_38;
+  }
+
+  if (a6 && ![a5 count])
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v15 = off_1025D47A8;
+    if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_38;
+    }
+
+    if (*(a3 + 23) >= 0)
+    {
+      v27 = a3;
+    }
+
+    else
+    {
+      v27 = *a3;
+    }
+
+    *buf = 68289794;
+    v31 = 0;
+    v32 = 2082;
+    v33 = "";
+    v34 = 2114;
+    v35 = v11;
+    v36 = 2082;
+    v37 = v27;
+    v38 = 1026;
+    v39 = a4;
+    v17 = "{msg%{public}.0s:skip persisting #dic for rehydration, payload is empty, Client:%{public, location:escape_only}@, dic:%{public, location:escape_only}s, dicType:%{public}d}";
+    goto LABEL_13;
+  }
+
+  v12 = [[NSNumber numberWithUnsignedInt:?]];
+  v13 = [objc_msgSend(*(a1 + 136) dictionaryForKey:@"DIC" atKeyPath:v11 defaultValue:{+[NSMutableDictionary dictionary](NSMutableDictionary, "dictionary")), "mutableCopy"}];
+  if ([v13 objectForKeyedSubscript:v12])
+  {
+    v14 = [objc_msgSend(v13 objectForKeyedSubscript:{v12), "mutableCopy"}];
+  }
+
+  else
+  {
+    v14 = +[NSMutableDictionary dictionary];
+  }
+
+  v20 = v14;
+  if (*(a3 + 23) >= 0)
+  {
+    v21 = a3;
+  }
+
+  else
+  {
+    v21 = *a3;
+  }
+
+  if (a6)
+  {
+    [v14 removeObjectForKey:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v21)}];
+    if (*(a3 + 23) >= 0)
+    {
+      v22 = a3;
+    }
+
+    else
+    {
+      v22 = *a3;
+    }
+
+    [v20 setObject:a5 forKeyedSubscript:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v22)}];
+  }
+
+  else
+  {
+    [v14 removeObjectForKey:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v21)}];
+  }
+
+  if ([v20 count])
+  {
+    [v13 setObject:v20 forKeyedSubscript:v12];
+  }
+
+  else
+  {
+    [v13 removeObjectForKey:v12];
+  }
+
+  v23 = [v13 count];
+  v24 = *(a1 + 136);
+  if (v23)
+  {
+    [v24 setDictionary:v13 forKey:@"DIC" atKeyPath:v11];
+  }
+
+  else
+  {
+    [v24 removeValueForKey:@"DIC" atKeyPath:v11];
+  }
+
+  [*(a1 + 136) persist];
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10028840C();
+  }
+
+  v25 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+  {
+    if (*(a3 + 23) >= 0)
+    {
+      v26 = a3;
+    }
+
+    else
+    {
+      v26 = *a3;
+    }
+
+    *buf = 68290306;
+    v31 = 0;
+    v32 = 2082;
+    v33 = "";
+    v34 = 2114;
+    v35 = v11;
+    v36 = 2082;
+    v37 = v26;
+    v38 = 1026;
+    v39 = a4;
+    v40 = 1026;
+    v41 = a6;
+    v42 = 2114;
+    v43 = a5;
+    v17 = "{msg%{public}.0s:updated persistent-store for #dic rehydration, Client:%{public, location:escape_only}@, dic:%{public, location:escape_only}s, dicType:%{public}d, coming:%{public}hhd, RehydrationPayload:%{public, location:escape_only}@}";
+    v18 = v25;
+    v19 = 60;
+    goto LABEL_37;
+  }
+
+LABEL_38:
+}
+
+void sub_100773810(uint64_t a1)
+{
+  v2 = *(a1 + 832);
+  if (v2)
+  {
+    CLConnectionServer::~CLConnectionServer(v2);
+    operator delete();
+  }
+
+  sub_10077387C(a1);
+  v3 = *(a1 + 960);
+  if (v3)
+  {
+    CLConnection::deferredDelete(v3);
+    *(a1 + 960) = 0;
+  }
+
+  [*(a1 + 248) invalidate];
+
+  *(a1 + 248) = 0;
+}
+
+void sub_10077387C(uint64_t a1)
+{
+  v2 = objc_autoreleasePoolPush();
+  v3 = *(a1 + 840);
+  if (v3 != (a1 + 848))
+  {
+    do
+    {
+      v4 = v3[1];
+      v5 = v3;
+      if (v4)
+      {
+        do
+        {
+          v6 = v4;
+          v4 = *v4;
+        }
+
+        while (v4);
+      }
+
+      else
+      {
+        do
+        {
+          v6 = v5[2];
+          v7 = *v6 == v5;
+          v5 = v6;
+        }
+
+        while (!v7);
+      }
+
+      sub_10011219C(a1, v3[4]);
+      v3 = v6;
+    }
+
+    while (v6 != (a1 + 848));
+  }
+
+  objc_autoreleasePoolPop(v2);
+}
+
+void sub_100773918(uint64_t a1, uint64_t a2)
+{
+  v3 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
+  if ([v3 isValidCKP])
+  {
+    v4 = *(a1 + 840);
+    if (v4 != (a1 + 848))
+    {
+      do
+      {
+        v5 = v4[1];
+        v6 = v4;
+        if (v5)
+        {
+          do
+          {
+            v7 = v5;
+            v5 = *v5;
+          }
+
+          while (v5);
+        }
+
+        else
+        {
+          do
+          {
+            v7 = v6[2];
+            v8 = *v7 == v6;
+            v6 = v7;
+          }
+
+          while (!v8);
+        }
+
+        v9 = v4[4];
+        if ([sub_1000344B0(v4[5] 0)])
+        {
+          sub_10011219C(a1, v9);
+        }
+
+        v4 = v7;
+      }
+
+      while (v7 != (a1 + 848));
+    }
+  }
+}
+
+void *sub_1007739D0(uint64_t a1, char a2, uint64_t *a3)
+{
+  v9 = a2;
+  sub_10001CAF4(&v7);
+  sub_1000434C8(v7, @"LocationServicesEnabledIn8.0", &v9);
+  if (v8)
+  {
+    sub_100008080(v8);
+  }
+
+  sub_10001CAF4(&v7);
+  sub_10054B380(v7);
+  if (v8)
+  {
+    sub_100008080(v8);
+  }
+
+  sub_10054B43C(&v7, @"com.apple.locationd.notbackedup", 0, @"mobile");
+  sub_1000434C8(&v7, @"LocationServicesEnabledIn8.0", &v9);
+  sub_10054B380(&v7);
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.locationd/Prefs", 0, 0, 1u);
+  sub_100773AF4(a1, a3, 1);
+  return sub_10054B4D4(&v7);
+}
+
+void sub_100773AC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+{
+  if (a10)
+  {
+    sub_100008080(a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_100773AF4(uint64_t a1, uint64_t *a2, int a3)
+{
+  sub_1004E8744();
+  v6 = sub_10003845C();
+  v7 = sub_1004E8818();
+  v8 = (a1 + 120);
+  if ([*(a1 + 120) locationServicesEnabledStatus] != v6 || *(a1 + 824) != v7)
+  {
+    [*(a1 + 120) setLocationServicesEnabledStatus:v6];
+    *(a1 + 824) = v7;
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v9 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+    {
+      v10 = [*v8 locationServicesEnabledStatus];
+      *buf = 67109376;
+      *&buf[4] = v10;
+      *&buf[8] = 1024;
+      *&buf[10] = v7;
+      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEBUG, "GPS_NETWORK: currentStatus(%d) isGpsControlledByNetwork(%d)", buf, 0xEu);
+    }
+
+    if (sub_10000A100(121, 2))
+    {
+      sub_10192E3D4((a1 + 120), v7);
+    }
+
+    if (a3)
+    {
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v11 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 68289026;
+        *&buf[4] = 0;
+        *&buf[8] = 2082;
+        *&buf[10] = "";
+        _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#authsync sending kNotificationLocationServicesStatus}", buf, 0x12u);
+      }
+
+      [*(a1 + 1560) sendGlobalAuthStatus:sub_1000193E0()];
+    }
+
+    sub_100778254(a1);
+    *v28 = 0u;
+    memset(v29, 0, 19);
+    v26 = 0u;
+    *v27 = 0u;
+    memset(buf, 0, sizeof(buf));
+    v30 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    memset(__p, 0, 27);
+    v34 = [*(a1 + 120) locationServicesEnabledStatus];
+    *v35 = 4;
+    (*(*a1 + 152))(a1, v35, buf, 1, 0xFFFFFFFFLL, 0);
+    sub_10077387C(a1);
+    for (i = *(a1 + 1016); i; i = *i)
+    {
+      v13 = i + 2;
+      if (*(i + 39) < 0)
+      {
+        v13 = *v13;
+      }
+
+      v14 = [*(a1 + 136) registeredKeyPathForClientIdentifier:{+[CLClientKeyPath clientKeyPathWithClientKey:](CLClientKeyPath, "clientKeyPathWithClientKey:", +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v13))}];
+      if ([v14 isValidCKP])
+      {
+        v15 = sub_10004FEC8(a1, v14, &xmmword_101CE6CD8);
+        sub_100034280(a1, v14, v15);
+      }
+    }
+
+    v16 = *(a1 + 136);
+    *v35 = _NSConcreteStackBlock;
+    *v36 = 3221225472;
+    *&v36[8] = sub_1007A51F0;
+    *&v36[16] = &unk_1024704E8;
+    v37 = a1;
+    v38 = 0;
+    [v16 iterateAllAnchorKeyPathsWithBlock:v35];
+    sub_100774798(a1);
+    sub_100774D9C(a1);
+    v24[0] = &__kCFBooleanFalse;
+    v21 = @"IsResetEvent";
+    v22 = @"EventSource";
+    if (*(a2 + 23) >= 0)
+    {
+      v17 = a2;
+    }
+
+    else
+    {
+      v17 = *a2;
+    }
+
+    v24[1] = [NSString stringWithUTF8String:v17, v21, v22];
+    v23 = @"Enabled";
+    v24[2] = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [*v8 locationServicesEnabledStatus] == 1);
+    v18 = [NSDictionary dictionaryWithObjects:v24 forKeys:&v21 count:3];
+    if (qword_1025D4890 != -1)
+    {
+      sub_10192E4F8();
+    }
+
+    v19 = qword_1025D4898;
+    if (os_log_type_enabled(qword_1025D4898, OS_LOG_TYPE_DEBUG))
+    {
+      *v35 = 68289282;
+      *v36 = 2082;
+      *&v36[2] = "";
+      *&v36[10] = 2114;
+      *&v36[12] = v18;
+      _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#checkLocationServicesEnabledState #CoreAnalytics, Bigswitch Analytics:%{public, location:escape_only}@}", v35, 0x1Cu);
+    }
+
+    AnalyticsSendEvent();
+    DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+    CFNotificationCenterPostNotification(DarwinNotifyCenter, CLAuthorizationStatusChangedNotification, 0, 0, 0);
+    if (SHIBYTE(__p[2]) < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    if (SHIBYTE(v32) < 0)
+    {
+      operator delete(*(&v31 + 1));
+    }
+
+    if (SBYTE7(v31) < 0)
+    {
+      operator delete(v30);
+    }
+
+    if ((v29[15] & 0x80000000) != 0)
+    {
+      operator delete(v28[1]);
+    }
+
+    if (SHIBYTE(v28[0]) < 0)
+    {
+      operator delete(v27[0]);
+    }
+
+    if (SHIBYTE(v26) < 0)
+    {
+      operator delete(*&buf[24]);
+    }
+
+    if (buf[23] < 0)
+    {
+      operator delete(*buf);
+    }
+  }
+}
+
+void sub_100773FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  sub_100039BE8(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100774024(uint64_t a1)
+{
+  v1 = *(a1 + 272);
+  if (v1)
+  {
+    return *v1;
+  }
+
+  else
+  {
+    return 5;
+  }
+}
+
+id sub_10077403C(uint64_t a1)
+{
+  result = +[CLClientKeyPath nullClientKeyPath];
+  v3 = *(a1 + 272);
+  if (v3)
+  {
+    return *(v3 + 8);
+  }
+
+  return result;
+}
+
+id sub_100774074(id *a1, uint64_t a2)
+{
+  v3 = [-[NSArray objectAtIndexedSubscript:](sub_100019AB0(a1 a2)];
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10028840C();
+  }
+
+  v4 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+  {
+    v6[0] = 68289538;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    v9 = 2114;
+    v10 = a2;
+    v11 = 2050;
+    v12 = v3;
+    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Client static registration result, Client:%{public, location:escape_only}@, registration:%{public, location:CLClientRegistrationResult}lld}", v6, 0x26u);
+  }
+
+  return v3;
+}
+
+id sub_10077417C(uint64_t a1)
 {
   if (qword_1025D47A0 != -1)
   {
@@ -8,439 +1101,219 @@ void sub_10078A900(uint64_t a1)
   v2 = off_1025D47A8;
   if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 0;
-    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_DEFAULT, "Running #AuthDatabaseMigration_7", buf, 2u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101930BB8();
+    *buf = 68289026;
+    v7 = 0;
+    v8 = 2082;
+    v9 = "";
+    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:checkVisitMonitoringStopped}", buf, 0x12u);
   }
 
   v3 = *(a1 + 136);
   v5[0] = _NSConcreteStackBlock;
   v5[1] = 3221225472;
-  v5[2] = sub_10078AA5C;
+  v5[2] = sub_10077429C;
   v5[3] = &unk_10246FC30;
   v5[4] = a1;
-  [v3 iterateAllAnchorKeyPathsWithBlock:v5];
+  return [v3 iterateAllAnchorKeyPathsWithBlock:v5];
+}
+
+uint64_t sub_10077429C(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 136);
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_1007743E8;
+  v7[3] = &unk_10246FC80;
+  v7[4] = v3;
+  [v4 iterateIdentitiesRelatedToKeyPath:a2 withBlock:v7];
   if (qword_1025D47A0 != -1)
   {
     sub_10192D4D0();
+  }
+
+  v5 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 68289282;
+    v9 = 0;
+    v10 = 2082;
+    v11 = "";
+    v12 = 2114;
+    v13 = a2;
+    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:stop visit monitoring for client, ckp:%{public, location:escape_only}@}", buf, 0x1Cu);
+  }
+
+  return sub_1007744DC(v3, a2, 6uLL);
+}
+
+uint64_t sub_1007743E8(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 32);
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10028840C();
   }
 
   v4 = off_1025D47A8;
   if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 0;
-    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "Finished #AuthDatabaseMigration_7", buf, 2u);
+    v6[0] = 68289282;
+    v6[1] = 0;
+    v7 = 2082;
+    v8 = "";
+    v9 = 2114;
+    v10 = a2;
+    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:stop visit monitoring for related client, relatedCkp:%{public, location:escape_only}@}", v6, 0x1Cu);
   }
 
-  if (sub_10000A100(121, 2))
-  {
-    sub_101930C94();
-  }
+  return sub_1007744DC(v3, a2, 6uLL);
 }
 
-id sub_10078AA5C(uint64_t a1, uint64_t a2)
+uint64_t sub_1007744DC(uint64_t a1, uint64_t a2, unint64_t a3)
 {
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 136);
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_10078AAD4;
-  v5[3] = &unk_10246FC80;
-  v5[4] = v2;
-  return [v3 iterateIdentitiesRelatedToKeyPath:a2 withBlock:v5];
-}
-
-id sub_10078AAD4(uint64_t a1, void *a2)
-{
-  v3 = *(a1 + 32);
-  v4 = [*(v3 + 136) intForKey:@"SupportedAuthorizationMask" atKeyPath:a2 defaultValue:0];
-  if ((v4 & 6) == 4)
+  v5 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
+  result = [v5 isValidCKP];
+  if (result)
   {
-    if (qword_1025D47A0 != -1)
+    v18 = 0;
+    v19 = 0;
+    sub_10004F9C8(a3, &v19, &v18);
+    v7 = [*(a1 + 136) intForKey:v19 atKeyPath:v5 defaultValue:0xFFFFFFFFLL];
+    v8 = [*(a1 + 136) intForKey:v18 atKeyPath:v5 defaultValue:0xFFFFFFFFLL];
+    if (v7 != -1 && ((v9 = v7, v10 = v8, v8 == -1) || v10 < v9))
     {
-      sub_10028840C();
-    }
-
-    v5 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-    {
-      *buf = 68289282;
-      *&buf[4] = 0;
-      v36 = 2082;
-      v37 = "";
-      v38 = 2114;
-      v39 = a2;
-      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#AuthDatabaseMigration client's authorization mask contains Always but not WhenInUse, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-    }
-
-    [*(v3 + 136) setInt:v4 | 2 forKey:@"SupportedAuthorizationMask" atKeyPath:a2];
-  }
-
-  v6 = [*(v3 + 136) hasValueForKey:@"Authorized" atKeyPath:a2];
-  v7 = [*(v3 + 136) hasValueForKey:@"Authorization" atKeyPath:a2];
-  if (v6 && (v7 & 1) == 0)
-  {
-    if ([*(v3 + 136) BOOLForKey:@"Authorized" atKeyPath:a2 defaultValue:0])
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v8 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-      {
-        *buf = 68289282;
-        *&buf[4] = 0;
-        v36 = 2082;
-        v37 = "";
-        v38 = 2114;
-        v39 = a2;
-        _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#AuthDatabaseMigration AuthMigrate: Y => Always, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-      }
-
-      v9 = 4;
-    }
-
-    else
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v10 = off_1025D47A8;
-      v9 = 1;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-      {
-        *buf = 68289282;
-        *&buf[4] = 0;
-        v36 = 2082;
-        v37 = "";
-        v38 = 2114;
-        v39 = a2;
-        v9 = 1;
-        _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#AuthDatabaseMigration AuthMigrate: N => Never, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-      }
-    }
-
-    if (v4)
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v11 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-      {
-        *buf = 68289282;
-        *&buf[4] = 0;
-        v36 = 2082;
-        v37 = "";
-        v38 = 2114;
-        v39 = a2;
-        _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#AuthDatabaseMigration AuthMigrate: Authorization mask already available, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-      }
-    }
-
-    else
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v12 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-      {
-        *buf = 68289282;
-        *&buf[4] = 0;
-        v36 = 2082;
-        v37 = "";
-        v38 = 2114;
-        v39 = a2;
-        _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#AuthDatabaseMigration AuthMigrate: Imputing default supported authorization mask, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-      }
-
-      [*(v3 + 136) setInt:7 forKey:@"SupportedAuthorizationMask" atKeyPath:a2];
-    }
-
-    if ((sub_10078B250(v3, a2, v9, 0, 0, 1, 1) & 1) == 0)
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v13 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
-      {
-        *buf = 68289282;
-        *&buf[4] = 0;
-        v36 = 2082;
-        v37 = "";
-        v38 = 2114;
-        v39 = a2;
-        _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#AuthDatabaseMigration Client missing for authorization update, but didn't we just create it?, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-      }
-
-      v14 = off_1025D47A8;
-      if (os_signpost_enabled(off_1025D47A8))
-      {
-        *buf = 68289282;
-        *&buf[4] = 0;
-        v36 = 2082;
-        v37 = "";
-        v38 = 2114;
-        v39 = a2;
-        _os_signpost_emit_with_name_impl(dword_100000000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#AuthDatabaseMigration Client missing for authorization update, but didn't we just create it?", "{msg%{public}.0s:#AuthDatabaseMigration Client missing for authorization update, but didn't we just create it?, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-      }
-    }
-  }
-
-  [*(v3 + 136) removeValueForKey:@"Authorized" atKeyPath:a2];
-  if (([*(v3 + 136) hasValueForKey:@"RemoteUsage" atKeyPath:a2] & 1) == 0)
-  {
-    v15 = +[NSMutableDictionary dictionary];
-    v16 = 32;
-    v17 = &qword_101C8D448;
-    do
-    {
-      v34 = 0;
-      *buf = 0;
-      sub_10004F9C8(*(v17 - 1), buf, &v34);
-      v32 = 0;
-      v33 = 0;
-      sub_10004F9C8(*v17, &v33, &v32);
-      v18 = *buf;
-      [*(v3 + 136) doubleForKey:*buf atKeyPath:a2 defaultValue:-1.0];
-      if (v19 != -1.0)
-      {
-        v20 = [NSNumber numberWithDouble:?];
-        [v15 setObject:v20 forKeyedSubscript:v33];
-        [*(v3 + 136) removeValueForKey:v18 atKeyPath:a2];
-      }
-
-      v21 = v34;
-      [*(v3 + 136) doubleForKey:v34 atKeyPath:a2 defaultValue:-1.0];
-      if (v22 != -1.0)
-      {
-        v23 = [NSNumber numberWithDouble:?];
-        [v15 setObject:v23 forKeyedSubscript:v32];
-        [*(v3 + 136) removeValueForKey:v21 atKeyPath:a2];
-      }
-
-      v17 += 2;
-      v16 -= 16;
-    }
-
-    while (v16);
-    if ([v15 count])
-    {
-      [*(v3 + 136) setDictionary:v15 forKey:@"RemoteUsage" atKeyPath:a2];
-    }
-  }
-
-  if ([a2 website])
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v24 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-    {
-      v25 = [*(v3 + 136) readonlyStoreAtKeyPath:a2];
-      *buf = 68289538;
-      *&buf[4] = 0;
-      v36 = 2082;
-      v37 = "";
-      v38 = 2114;
-      v39 = a2;
-      v40 = 2114;
-      v41 = v25;
-      _os_log_impl(dword_100000000, v24, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#AuthDatabaseMigration found website. Removing from database, client:%{public, location:escape_only}@, dictionary:%{public, location:escape_only}@}", buf, 0x26u);
-    }
-
-    [*(v3 + 136) removeDictionaryAtKeyPath:a2];
-  }
-
-  v26 = [*(v3 + 136) hasValueForKey:@"Registered" atKeyPath:a2];
-  v27 = [*(v3 + 136) hasValueForKey:@"Authorization" atKeyPath:a2];
-  v28 = [*(v3 + 136) hasValueForKey:@"SupportedAuthorizationMask" atKeyPath:a2];
-  v29 = [*(v3 + 136) isKeyPathRegisteredSystemService:a2];
-  v30 = *(v3 + 136);
-  if (v27 & 1) != 0 || (v26 & v28 & 1) != 0 || (v29)
-  {
-    [v30 removeValueForKey:@"SuppressShowingInSettings" atKeyPath:a2];
-    return [*(v3 + 136) setBool:1 forKey:@"Registered" atKeyPath:a2];
-  }
-
-  else
-  {
-    [v30 setBool:1 forKey:@"SuppressShowingInSettings" atKeyPath:a2];
-    return [*(v3 + 136) removeValueForKey:@"Registered" atKeyPath:a2];
-  }
-}
-
-uint64_t sub_10078B250(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, int a5, int a6, int a7)
-{
-  if (a5)
-  {
-    v11 = sub_100033370(a1, a2);
-  }
-
-  else
-  {
-    v11 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
-    result = [v11 isValidCKP];
-    if (!result)
-    {
-      return result;
-    }
-  }
-
-  if ([v11 zoneId])
-  {
-    if (([*(a1 + 136) dictionaryExistsAtKeyPath:v11] & 1) == 0)
-    {
+      Current = CFAbsoluteTimeGetCurrent();
       if (qword_1025D47A0 != -1)
       {
         sub_10028840C();
       }
 
-      v13 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+      v12 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = 68289282;
-        *&buf[4] = 0;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 2114;
-        *&buf[20] = v11;
-        _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Zone not found - adding zone under client., Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
+        v13 = off_10246FCA0[a3];
+        *buf = 136447234;
+        v31 = v13;
+        v32 = 2050;
+        v33 = v9;
+        v34 = 2050;
+        v35 = v10;
+        v36 = 2114;
+        v37 = v5;
+        v38 = 2050;
+        v39 = Current;
+        _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_DEFAULT, "#warning %{public}s time started exists (%{public}.2f), but time stopped (%{public}.2f) doesn't exist or is earlier for %{public}@ - setting to %{public}.2f", buf, 0x34u);
       }
 
-      v14 = off_1025D47A8;
-      result = os_signpost_enabled(off_1025D47A8);
-      if (result)
+      if (sub_10000A100(121, 2))
       {
-        *buf = 68289282;
-        *&buf[4] = 0;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 2114;
-        *&buf[20] = v11;
-        _os_signpost_emit_with_name_impl(dword_100000000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Zone not found - adding zone under client.", "{msg%{public}.0s:Zone not found - adding zone under client., Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-        return 0;
-      }
-
-      return result;
-    }
-  }
-
-  else if ([v11 website] && (objc_msgSend(*(a1 + 136), "dictionaryExistsAtKeyPath:", v11) & 1) == 0)
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v15 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 68289282;
-      *&buf[4] = 0;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 2114;
-      *&buf[20] = v11;
-      _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:website not found - added website subIdentity under client., Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-    }
-  }
-
-  v16 = [*(a1 + 136) hasValueForKey:@"Authorization" atKeyPath:v11];
-  v17 = [*(a1 + 136) intForKey:@"Authorization" atKeyPath:v11 defaultValue:0];
-  v18 = [*(a1 + 136) intForKey:? atKeyPath:? defaultValue:?];
-  v47 = v17;
-  if (v17 != a3)
-  {
-    sub_1000F7D18(a1, v11, 0);
-    if (a7)
-    {
-      sub_10077A7A0(a1, v11);
-    }
-  }
-
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10192D4D0();
-  }
-
-  v19 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 68291330;
-    *&buf[4] = 0;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    *&buf[18] = 2114;
-    *&buf[20] = v11;
-    v58 = 1026;
-    *v59 = v17;
-    *&v59[4] = 2050;
-    *&v59[6] = a3;
-    v60 = 1026;
-    v61 = v18;
-    v62 = 1026;
-    v63 = a4;
-    v64 = 1026;
-    v65 = a7;
-    v66 = 1026;
-    v67 = a6;
-    v68 = 1026;
-    v69 = v17 != a3;
-    v70 = 1026;
-    v71 = v16;
-    _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:update client authorization mask, Client:%{public, location:escape_only}@, old:%{public}d, new:%{public}lu, oldCC:%{public}d, newCC:%{public}d, localAuthorizationChange:%{public}d, mayIncreaseAuth:%{public}hhd, authStateHasChanged:%{public}hhd, hasAuth:%{public}hhd}", buf, 0x50u);
-  }
-
-  if (![v11 zoneId] && !objc_msgSend(v11, "website"))
-  {
-    if (a3)
-    {
-      v22 = [*(a1 + 136) intForKey:? atKeyPath:? defaultValue:?];
-      if ((a3 & ~v22) != 0)
-      {
+        bzero(buf, 0x65CuLL);
         if (qword_1025D47A0 != -1)
         {
           sub_10192D4D0();
         }
 
-        v23 = off_1025D47A8;
+        v15 = off_10246FCA0[a3];
+        v20 = 136447234;
+        v21 = v15;
+        v22 = 2050;
+        v23 = v9;
+        v24 = 2050;
+        v25 = v10;
+        v26 = 2114;
+        v27 = v5;
+        v28 = 2050;
+        v29 = Current;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D47A8, 0, "#warning %{public}s time started exists (%{public}.2f), but time stopped (%{public}.2f) doesn't exist or is earlier for %{public}@ - setting to %{public}.2f", &v20, 52);
+        v17 = v16;
+        sub_100152C7C("Generic", 1, 0, 2, "BOOL CLClientManager::checkServiceStopped(CLClientKeyPath *, CLClientServiceType)", "%s\n", v16);
+        if (v17 != buf)
+        {
+          free(v17);
+        }
+      }
+
+      v14 = CFAbsoluteTimeGetCurrent();
+      sub_10002FE04(a1, v14, v5, a3, 0, 0, 0);
+      return 1;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+id sub_100774798(uint64_t a1)
+{
+  v2 = [objc_msgSend(*(a1 + 32) "vendor")];
+  v3 = *(a1 + 136);
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_10077482C;
+  v5[3] = &unk_10246FD68;
+  v5[4] = v2;
+  v5[5] = a1;
+  return [v3 iterateAllAnchorKeyPathsWithBlock:v5];
+}
+
+uint64_t sub_10077482C(uint64_t a1, void *a2)
+{
+  v4 = 0;
+  v5 = *(a1 + 40);
+  do
+  {
+    v23 = 0;
+    v24 = 0;
+    v6 = sub_100774B5C(v4);
+    sub_10004F9C8(v6, &v24, &v23);
+    [*(v5 + 136) doubleForKey:v24 atKeyPath:a2 defaultValue:-1.0];
+    v8 = v7;
+    result = [*(v5 + 136) doubleForKey:v23 atKeyPath:a2 defaultValue:-1.0];
+    if (v8 != -1.0)
+    {
+      v11 = v10;
+      if (v10 == -1.0 || v10 < v8)
+      {
+        if (v4)
+        {
+          [objc_msgSend(objc_msgSend(*(v5 + 32) "vendor")];
+        }
+
+        else
+        {
+          result = [*(a1 + 32) syncgetHasMonitoredRegions:{objc_msgSend(a2, "legacyClientKey")}];
+          if (result)
+          {
+            goto LABEL_17;
+          }
+        }
+
+        Current = CFAbsoluteTimeGetCurrent();
+        if (qword_1025D47A0 != -1)
+        {
+          sub_10192D4D0();
+        }
+
+        v14 = off_1025D47A8;
         if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = 134349570;
-          *&buf[4] = a3;
-          *&buf[12] = 2114;
-          *&buf[14] = v11;
-          *&buf[22] = 1026;
-          *&buf[24] = v22;
-          _os_log_impl(dword_100000000, v23, OS_LOG_TYPE_DEFAULT, "#warning New authMask %{public}lu for client %{public}@ implicitly extends its supported mask (%{public}d) until next connection & slide", buf, 0x1Cu);
+          v15 = off_10246FCA0[sub_100774B5C(v4)];
+          *buf = 136447234;
+          v36 = v15;
+          v37 = 2050;
+          v38 = v8;
+          v39 = 2050;
+          v40 = v11;
+          v41 = 2114;
+          v42 = a2;
+          v43 = 2050;
+          v44 = Current;
+          _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_DEFAULT, "#warning %{public}s region time started exists (%{public}.2f), but time stopped (%{public}.2f) doesn't exist or is earlier for %{public}@ - setting to %{public}.2f", buf, 0x34u);
         }
 
         if (sub_10000A100(121, 2))
@@ -451,575 +1324,140 @@ uint64_t sub_10078B250(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, int 
             sub_10192D4D0();
           }
 
-          v51 = 134349570;
-          v52 = a3;
-          v53 = 2114;
-          v54 = v11;
-          v55 = 1026;
-          v56 = v22;
-          v46 = _os_log_send_and_compose_impl();
-          sub_100152C7C("Generic", 1, 0, 2, "BOOL CLClientManager::updateStaticAuthorizationMaskForClientWithCompensation(CLClientKeyPath *, CLLocationDictionaryUtilitiesAuthorizationMask, CLClientCorrectiveCompensation, BOOL, BOOL, BOOL)", "%s\n", v46);
-          if (v46 != buf)
+          v18 = off_1025D47A8;
+          v19 = off_10246FCA0[sub_100774B5C(v4)];
+          v25 = 136447234;
+          v26 = v19;
+          v27 = 2050;
+          v28 = v8;
+          v29 = 2050;
+          v30 = v11;
+          v31 = 2114;
+          v32 = a2;
+          v33 = 2050;
+          v34 = Current;
+          LODWORD(v22) = 52;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v18, 0, "#warning %{public}s region time started exists (%{public}.2f), but time stopped (%{public}.2f) doesn't exist or is earlier for %{public}@ - setting to %{public}.2f", &v25, v22);
+          v21 = v20;
+          sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::checkRegionsStopped()_block_invoke", "%s\n", v20);
+          if (v21 != buf)
           {
-            free(v46);
+            free(v21);
           }
         }
 
-        v22 = (v22 | a3);
-      }
-
-      [*(a1 + 136) setInt:v22 forKey:@"SupportedAuthorizationMask" atKeyPath:v11];
-      if (a3 != 2)
-      {
-        sub_100791C88(a1, v11, 1, a3 == 4, a7);
-      }
-
-      goto LABEL_29;
-    }
-
-    sub_100791C88(a1, v11, 1, 0, a7);
-LABEL_47:
-    v24 = [*(a1 + 136) isKeyPathRegisteredSystemService:v11];
-    v25 = v24;
-    if (v17)
-    {
-      if (v24)
-      {
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v26 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
-        {
-          *buf = 68289282;
-          *&buf[4] = 0;
-          *&buf[8] = 2082;
-          *&buf[10] = "";
-          *&buf[18] = 2114;
-          *&buf[20] = v11;
-          _os_log_impl(dword_100000000, v26, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#ClearingAuthorization for System Service!, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-          if (qword_1025D47A0 != -1)
-          {
-            sub_10192D4D0();
-          }
-        }
-
-        v27 = off_1025D47A8;
-        if (os_signpost_enabled(off_1025D47A8))
-        {
-          *buf = 68289282;
-          *&buf[4] = 0;
-          *&buf[8] = 2082;
-          *&buf[10] = "";
-          *&buf[18] = 2114;
-          *&buf[20] = v11;
-          _os_signpost_emit_with_name_impl(dword_100000000, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#ClearingAuthorization for System Service!", "{msg%{public}.0s:#ClearingAuthorization for System Service!, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-        }
-
-        goto LABEL_65;
-      }
-
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v31 = off_1025D47A8;
-      if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_65;
-      }
-
-      *buf = 68289538;
-      *&buf[4] = 0;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 2114;
-      *&buf[20] = v11;
-      v58 = 1026;
-      *v59 = v17;
-      v29 = "{msg%{public}.0s:#ClearingAuthorization updateStaticAuthorizationMask setting to not-determined, client:%{public, location:escape_only}@, oldAuth:%{public}d}";
-      v30 = v31;
-    }
-
-    else
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v28 = off_1025D47A8;
-      if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_65;
-      }
-
-      *buf = 68289538;
-      *&buf[4] = 0;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 2114;
-      *&buf[20] = v11;
-      v58 = 1026;
-      *v59 = v25;
-      v29 = "{msg%{public}.0s:#ClearingAuthorization updateStaticAuthorizationMask setting to not-determined, but it's already set to not-determined., Client:%{public, location:escape_only}@, SystemService:%{public}hhd}";
-      v30 = v28;
-    }
-
-    _os_log_impl(dword_100000000, v30, OS_LOG_TYPE_DEFAULT, v29, buf, 0x22u);
-LABEL_65:
-    [*(a1 + 136) removeValueForKey:@"Authorization" atKeyPath:v11];
-    v20 = 0;
-    goto LABEL_66;
-  }
-
-  if (!a3)
-  {
-    goto LABEL_47;
-  }
-
-LABEL_29:
-  if (v47 >= a3 || (v20 = a3, a6))
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v21 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 68289538;
-      *&buf[4] = 0;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 2114;
-      *&buf[20] = v11;
-      v58 = 2050;
-      *v59 = a3;
-      _os_log_impl(dword_100000000, v21, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:setting authorization value, Client:%{public, location:escape_only}@, newAuth:%{public}lu}", buf, 0x26u);
-    }
-
-    [*(a1 + 136) setInt:a3 forKey:@"Authorization" atKeyPath:v11];
-    v20 = [*(a1 + 136) intForKey:@"Authorization" atKeyPath:v11 defaultValue:0];
-  }
-
-LABEL_66:
-  if (v18 >= a4)
-  {
-    v32 = 1;
-  }
-
-  else
-  {
-    v32 = a6;
-  }
-
-  if (a4 && v32)
-  {
-    [*(a1 + 136) setInt:a4 forKey:@"CorrectiveCompensationEnabled" atKeyPath:v11];
-  }
-
-  v33 = [*(a1 + 136) intForKey:@"IncidentalUseMode" atKeyPath:v11 defaultValue:0];
-  if (v20 != 2 && v33)
-  {
-    sub_10077A3D0(a1, 1, v11, a7);
-  }
-
-  if (a4)
-  {
-    v34 = a4;
-  }
-
-  else
-  {
-    v34 = v18;
-  }
-
-  if ((v20 & 6) == 0 || v34 == 2)
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v39 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 68289794;
-      *&buf[4] = 0;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 2114;
-      *&buf[20] = v11;
-      v58 = 2050;
-      *v59 = v20;
-      *&v59[8] = 1026;
-      *&v59[10] = v34;
-      _os_log_impl(dword_100000000, v39, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#pcHistorical vhAccessAllowedTime deleted during updateStaticAuthMask, Client:%{public, location:escape_only}@, newMask:%{public}lu, ccForVisitHistory:%{public}d}", buf, 0x2Cu);
-    }
-
-    [*(a1 + 136) removeValueForKey:@"VisitHistoryAccessAllowedTime" atKeyPath:v11];
-  }
-
-  else
-  {
-    v35 = [*(a1 + 136) intForKey:@"VisitHistoryAccess" atKeyPath:v11 defaultValue:0] == 3;
-    [*(a1 + 136) doubleForKey:@"VisitHistoryAccessAllowedTime" atKeyPath:v11 defaultValue:0.0];
-    if (v36 == 0.0 && v35)
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v38 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 68289794;
-        *&buf[4] = 0;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 2114;
-        *&buf[20] = v11;
-        v58 = 2050;
-        *v59 = v20;
-        *&v59[8] = 1026;
-        *&v59[10] = v34;
-        _os_log_impl(dword_100000000, v38, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#pcHistorical setting vhAccessAllowedTime during updateStaticAuthMask, Client:%{public, location:escape_only}@, newMask:%{public}lu, ccForVisitHistory:%{public}d}", buf, 0x2Cu);
-      }
-
-      [*(a1 + 136) setDouble:@"VisitHistoryAccessAllowedTime" forKey:v11 atKeyPath:CFAbsoluteTimeGetCurrent()];
-    }
-  }
-
-  if ([*(a1 + 136) BOOLForKey:@"IsAppClip" atKeyPath:v11 defaultValue:0])
-  {
-    if (v20 == 2)
-    {
-      TMGetKernelMonotonicClock();
-      v41 = v40;
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v42 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 68289538;
-        *&buf[4] = 0;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 2114;
-        *&buf[20] = v11;
-        v58 = 2050;
-        *v59 = v41;
-        _os_log_impl(dword_100000000, v42, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Setting registration time for #appclip, Client:%{public, location:escape_only}@, registrationTime:%{public}f}", buf, 0x26u);
-      }
-
-      [*(a1 + 136) setDouble:@"AuthorizationRegisterTime" forKey:v11 atKeyPath:v41];
-      goto LABEL_106;
-    }
-
-    [*(a1 + 136) removeValueForKey:@"AuthorizationRegisterTime" atKeyPath:v11];
-  }
-
-  if ((v20 & 6) == 0)
-  {
-    [*(a1 + 136) removeValueForKey:@"ProvisionalMonitoring" atKeyPath:v11];
-    [*(a1 + 136) removeValueForKey:@"ConsumptionPeriodBegin" atKeyPath:v11];
-    [*(a1 + 136) removeValueForKey:@"NextConsumptionThresholdScore" atKeyPath:v11];
-    [*(a1 + 136) removeValueForKey:@"NextNextConsumptionThresholdScore" atKeyPath:v11];
-    if (v20 == 1)
-    {
-      [*(a1 + 136) removeValueForKey:@"TemporaryAuthorization" atKeyPath:v11];
-      [*(a1 + 136) removeValueForKey:@"LocationButtonUseMode" atKeyPath:v11];
-    }
-
-    else
-    {
-      sub_100791ACC(a1, v11, 1, a7);
-    }
-  }
-
-LABEL_106:
-  if (([*(a1 + 136) isKeyPathRegisteredSystemService:v11] & 1) == 0 && !objc_msgSend(v11, "subIdentityId"))
-  {
-    v43 = *(a1 + 136);
-    if (v20 == 4)
-    {
-      if (([v43 hasValueForKey:@"ConsumptionPeriodBegin" atKeyPath:v11] & 1) == 0)
-      {
-        [*(a1 + 136) setDouble:@"ConsumptionPeriodBegin" forKey:v11 atKeyPath:CFAbsoluteTimeGetCurrent()];
-      }
-
-      if (([*(a1 + 136) hasValueForKey:@"NextConsumptionThresholdScore" atKeyPath:v11] & 1) == 0)
-      {
-        [*(a1 + 136) setInt:0 forKey:@"NextConsumptionThresholdScore" atKeyPath:v11];
-      }
-
-      goto LABEL_115;
-    }
-
-    [v43 removeValueForKey:@"ConsumptionPeriodBegin" atKeyPath:v11];
-    [*(a1 + 136) removeValueForKey:@"NextConsumptionThresholdScore" atKeyPath:v11];
-    [*(a1 + 136) removeValueForKey:@"NextNextConsumptionThresholdScore" atKeyPath:v11];
-  }
-
-  if (v20)
-  {
-LABEL_115:
-    [*(a1 + 136) removeValueForKey:@"AuthorizationPromptOptionTypeNegative" atKeyPath:v11];
-  }
-
-  if (v18 != a4 && a4 != 0 || v47 != a3)
-  {
-    if (a7)
-    {
-      if (![v11 website])
-      {
-        sub_10000EC00(__p, "AuthorizationChange");
-        sub_10077A934(a1, v11, __p);
-        if (v50 < 0)
-        {
-          operator delete(__p[0]);
-        }
+        v16 = sub_100774B5C(v4);
+        v17 = CFAbsoluteTimeGetCurrent();
+        result = sub_10002FE04(v5, v17, a2, v16, 0, 0, 0);
       }
     }
+
+LABEL_17:
+    ++v4;
   }
 
-  [*(a1 + 136) persist];
-  sub_10000EC00(buf, "");
-  sub_100018918(a1, v11, buf);
-  if ((buf[23] & 0x80000000) != 0)
-  {
-    operator delete(*buf);
-  }
-
-  return 1;
+  while (v4 != 4);
+  return result;
 }
 
-void sub_10078C0F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)
+uint64_t sub_100774B5C(unsigned int a1)
 {
-  if (a19 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_10078C12C(uint64_t a1)
-{
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10028840C();
-  }
-
-  v2 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_DEFAULT, "Running #AuthDatabaseMigration_9", buf, 2u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101930D70();
-  }
-
-  v3 = *(a1 + 136);
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_10078C290;
-  v5[3] = &unk_10246FC30;
-  v5[4] = a1;
-  [v3 iterateAllAnchorKeyPathsWithBlock:v5];
-  sub_10077D10C(a1);
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10192D4D0();
-  }
-
-  v4 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "Finished #AuthDatabaseMigration_9", buf, 2u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101930E4C();
-  }
-}
-
-id sub_10078C290(uint64_t a1, void *a2)
-{
-  v3 = *(a1 + 32);
-  if ([a2 executablePath])
+  if (a1 >= 4)
   {
     if (qword_1025D47A0 != -1)
     {
       sub_10028840C();
+    }
+
+    v2 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 68289539;
+      v6 = 0;
+      v7 = 2082;
+      v8 = "";
+      v9 = 2082;
+      v10 = "assert";
+      v11 = 2081;
+      v12 = "kCLClientServiceMax != service";
+      _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+    }
+
+    v3 = off_1025D47A8;
+    if (os_signpost_enabled(off_1025D47A8))
+    {
+      *buf = 68289539;
+      v6 = 0;
+      v7 = 2082;
+      v8 = "";
+      v9 = 2082;
+      v10 = "assert";
+      v11 = 2081;
+      v12 = "kCLClientServiceMax != service";
+      _os_signpost_emit_with_name_impl(dword_100000000, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Assertion failed", "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
     }
 
     v4 = off_1025D47A8;
-    if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
     {
-      return [*(v3 + 136) removeDictionaryAtKeyPath:{a2, v12, *v13, *&v13[16]}];
+      *buf = 68289539;
+      v6 = 0;
+      v7 = 2082;
+      v8 = "";
+      v9 = 2082;
+      v10 = "assert";
+      v11 = 2081;
+      v12 = "kCLClientServiceMax != service";
+      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    *buf = 68289282;
-    *&buf[4] = 0;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    *&buf[18] = 2114;
-    *&buf[20] = a2;
-    v5 = "{msg%{public}.0s:Removing executable client from authdb, Client:%{public, location:escape_only}@}";
-    v6 = buf;
-    v7 = v4;
-    v8 = 28;
-LABEL_6:
-    _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, v5, v6, v8);
-    return [*(v3 + 136) removeDictionaryAtKeyPath:{a2, v12, *v13, *&v13[16]}];
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Core/ClientManagement/CLClientManager_Unified.mm", 294, "serviceForRegion");
   }
 
-  result = [a2 bundleId];
-  if (result)
-  {
-    memset(buf, 0, 41);
-    result = [*(v3 + 136) expensivelyGetIdentifyingInformation:buf forClient:a2];
-    if (result)
-    {
-      v10 = [a2 bundleId];
-      result = [v10 isEqual:*buf];
-      if ((result & 1) == 0)
-      {
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v11 = off_1025D47A8;
-        if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-        {
-          return [*(v3 + 136) removeDictionaryAtKeyPath:{a2, v12, *v13, *&v13[16]}];
-        }
-
-        v12 = 68289538;
-        *v13 = 2082;
-        *&v13[2] = "";
-        *&v13[10] = 2114;
-        *&v13[12] = [a2 bundleId];
-        *&v13[20] = 2114;
-        *&v13[22] = *buf;
-        v5 = "{msg%{public}.0s:#Warning found alternative identity as top-level identity authdb. Removing client from authdb, ExistingClientBundleId:%{public, location:escape_only}@, CanonicalizedBundleId:%{public, location:escape_only}@}";
-        v6 = &v12;
-        v7 = v11;
-        v8 = 38;
-        goto LABEL_6;
-      }
-    }
-  }
-
-  return result;
+  return qword_101C8D908[a1];
 }
 
-void sub_10078C464(uint64_t a1)
+void sub_100774D9C(uint64_t a1)
 {
-  if (qword_1025D47A0 != -1)
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
+  v2 = *(a1 + 136);
+  v3[0] = _NSConcreteStackBlock;
+  v3[1] = 3221225472;
+  v3[2] = sub_100774E6C;
+  v3[3] = &unk_10246FD90;
+  v3[4] = &v4;
+  v3[5] = a1;
+  [v2 iterateAllAnchorKeyPathsWithBlock:v3];
+  if (v5[6] >= 1)
   {
-    sub_10028840C();
+    sub_1001D2F14(a1);
   }
 
-  v2 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-  {
-    LOWORD(v10) = 0;
-    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_DEFAULT, "Running #AuthDatabaseMigration_8", &v10, 2u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101930F28();
-  }
-
-  v3 = [*(a1 + 136) registeredKeyPathForClientIdentifier:{+[CLClientKeyPath clientKeyPathWithClientAnchor:anchorType:](CLClientKeyPath, "clientKeyPathWithClientAnchor:anchorType:", @"/System/Library/PrivateFrameworks/AssistantServices.framework", 112)}];
-  if ([v3 isValidCKP])
-  {
-    v4 = [*(a1 + 136) intForKey:@"Authorization" atKeyPath:v3 defaultValue:0];
-    v5 = [*(a1 + 136) intForKey:@"CorrectiveCompensationEnabled" atKeyPath:v3 defaultValue:0];
-    if (v4 == 2 && v5 == 0)
-    {
-      sub_10078C700(a1, v3, 1, @"Siri needs to be reset");
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v7 = off_1025D47A8;
-      if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_22;
-      }
-
-      v10 = 68289026;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v8 = "{msg%{public}.0s:#AuthDatabaseMigration_8 Siri authorization cleared}";
-    }
-
-    else
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v7 = off_1025D47A8;
-      if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_22;
-      }
-
-      v10 = 68289026;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v8 = "{msg%{public}.0s:#AuthDatabaseMigration_8 Siri has a user-set authorization value; not clearing.}";
-    }
-
-    _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, v8, &v10, 0x12u);
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-LABEL_22:
-    v9 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(v10) = 0;
-      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEFAULT, "Finished #AuthDatabaseMigration_8", &v10, 2u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_101931004();
-    }
-  }
+  _Block_object_dispose(&v4, 8);
 }
 
-id sub_10078C700(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+void sub_100774E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  v7 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
-  result = [v7 isValidCKP];
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id sub_100774E6C(uint64_t a1, void *a2)
+{
+  v4 = *(a1 + 40);
+  result = [*(v4 + 136) hasValueForKey:@"RangeTimeStarted" atKeyPath:a2];
   if (result)
   {
     if (qword_1025D47A0 != -1)
@@ -1027,1060 +1465,40 @@ id sub_10078C700(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
       sub_10028840C();
     }
 
-    v9 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    v6 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
     {
-      v10[0] = 68289794;
-      v10[1] = 0;
-      v11 = 2082;
-      v12 = "";
-      v13 = 1026;
-      v14 = a3;
-      v15 = 2114;
-      v16 = v7;
-      v17 = 2114;
-      v18 = a4;
-      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#ClearingAuthorization and corrective compensation, localAuthorizationChange:%{public}hhd, Client:%{public, location:escape_only}@, Reason:%{public, location:escape_only}@}", v10, 0x2Cu);
+      v7[0] = 68289282;
+      v7[1] = 0;
+      v8 = 2082;
+      v9 = "";
+      v10 = 2114;
+      v11 = [a2 legacyClientKey];
+      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:stop range for client, client:%{public, location:escape_only}@}", v7, 0x1Cu);
     }
 
-    [*(a1 + 136) removeValueForKey:@"CorrectiveCompensationEnabled" atKeyPath:v7];
-    return sub_10078B250(a1, v7, 0, 0, 0, 1, a3);
+    [*(v4 + 136) removeValueForKey:@"RangeTimeStarted" atKeyPath:a2];
+    result = [*(v4 + 136) setDouble:@"RangeTimeStopped" forKey:a2 atKeyPath:CFAbsoluteTimeGetCurrent()];
+    ++*(*(*(a1 + 32) + 8) + 24);
   }
 
   return result;
 }
 
-void sub_10078C854(uint64_t a1)
+uint64_t sub_100774FC8(uint64_t a1, uint64_t a2)
 {
-  context = objc_autoreleasePoolPush();
-  v51[0] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/PrivateFrameworks/Weather.framework" anchorType:112];
-  v52[0] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"com.apple.weather" anchorType:105];
-  v51[1] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"com.apple.Shoebox" anchorType:105];
-  v52[1] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/PrivateFrameworks/PassKitCore.framework" anchorType:112];
-  v51[2] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"com.apple.Passbook" anchorType:105];
-  v52[2] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/PrivateFrameworks/PassKitCore.framework" anchorType:112];
-  v51[3] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/PrivateFrameworks/Parsec.framework" anchorType:112];
-  v52[3] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/PrivateFrameworks/CoreParsec.framework" anchorType:112];
-  v2 = [NSDictionary dictionaryWithObjects:v52 forKeys:v51 count:4];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v3 = [(NSDictionary *)v2 countByEnumeratingWithState:&v33 objects:v50 count:16];
-  if (v3)
-  {
-    v4 = *v34;
-    do
-    {
-      v5 = 0;
-      do
-      {
-        if (*v34 != v4)
-        {
-          objc_enumerationMutation(v2);
-        }
-
-        v6 = *(*(&v33 + 1) + 8 * v5);
-        if ([*(a1 + 136) dictionaryExistsAtKeyPath:v6])
-        {
-          v7 = [(NSDictionary *)v2 objectForKeyedSubscript:v6];
-          v8 = [*(a1 + 136) intForKey:@"Authorization" atKeyPath:v6 defaultValue:0xFFFFFFFFLL];
-          if ([*(a1 + 136) migrateDictionaryAtKeyPath:v6 toKeyPath:v7 forceMigrationOnAuthCollision:0])
-          {
-            v9 = sub_1007805C8(a1, v7);
-            if (qword_1025D47A0 != -1)
-            {
-              sub_10192D4D0();
-            }
-
-            v10 = off_1025D47A8;
-            if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 68289794;
-              v41 = 0;
-              v42 = 2082;
-              v43 = "";
-              v44 = 2114;
-              v45 = v7;
-              v46 = 1026;
-              v47 = v8;
-              v48 = 1026;
-              v49 = v9;
-              _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#AuthDatabaseMigration #authsync Calling on synchronizeAuthorizationChangeTypeAdd, ToKey:%{public, location:escape_only}@, FromAuth:%{public}d, CorrectiveCompensation:%{public}d}", buf, 0x28u);
-            }
-
-            sub_10000EC00(__p, "Migration-migrator");
-            sub_10077A934(a1, v6, __p);
-            if (v32 < 0)
-            {
-              operator delete(__p[0]);
-            }
-          }
-        }
-
-        v5 = v5 + 1;
-      }
-
-      while (v3 != v5);
-      v3 = [(NSDictionary *)v2 countByEnumeratingWithState:&v33 objects:v50 count:16];
-    }
-
-    while (v3);
-  }
-
-  objc_autoreleasePoolPop(context);
-  v11 = objc_autoreleasePoolPush();
-  v39[0] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"com.apple.webapp" anchorType:105];
-  v39[1] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"com.apple.AdSheet" anchorType:105];
-  v39[2] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"com.apple.AdSheetPad" anchorType:105];
-  v39[3] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"com.apple.AdSheetPhone" anchorType:105];
-  v39[4] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"com.apple.springboard" anchorType:105];
-  v39[5] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"com.apple.CarPlayApp" anchorType:105];
-  v39[6] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/PrivateFrameworks/Assistant.framework" anchorType:112];
-  v39[7] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/PrivateFrameworks/AOSNotification.framework" anchorType:112];
-  v39[8] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/LocationBundles/LocationPerformance.framework" anchorType:112];
-  v39[9] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/LocationBundles/LocationdInternal.framework" anchorType:112];
-  v39[10] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/PrivateFrameworks/iAdCore.framework" anchorType:112];
-  v39[11] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/Applications/AdSheet.app" anchorType:112];
-  v39[12] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/Frameworks/Twitter.framework" anchorType:112];
-  v39[13] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/Frameworks/Weibo.framework" anchorType:112];
-  v39[14] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/Frameworks/Facebook.framework" anchorType:112];
-  v39[15] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/SocialServices/Twitter.socialplugin" anchorType:112];
-  v39[16] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/SocialServices/Weibo.socialplugin" anchorType:112];
-  v39[17] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/SocialServices/Facebook.socialplugin" anchorType:112];
-  v39[18] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/Frameworks/Social.framework/XPCServices/com.apple.twitter.xpc" anchorType:112];
-  v39[19] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/Frameworks/Social.framework/XPCServices/com.apple.weibo.xpc" anchorType:112];
-  v39[20] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/Frameworks/Social.framework/XPCServices/com.apple.facebook.xpc" anchorType:112];
-  v39[21] = [CLClientKeyPath clientKeyPathWithClientAnchor:@"/System/Library/PrivateFrameworks/CoreSuggestions.framework" anchorType:112];
-  v12 = [NSArray arrayWithObjects:v39 count:22];
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v27 objects:v38 count:16];
-  if (v13)
-  {
-    v14 = *v28;
-    do
-    {
-      for (i = 0; i != v13; i = i + 1)
-      {
-        if (*v28 != v14)
-        {
-          objc_enumerationMutation(v12);
-        }
-
-        v16 = *(*(&v27 + 1) + 8 * i);
-        if ([*(a1 + 136) dictionaryExistsAtKeyPath:v16])
-        {
-          [*(a1 + 136) removeDictionaryAtKeyPath:v16];
-        }
-      }
-
-      v13 = [(NSArray *)v12 countByEnumeratingWithState:&v27 objects:v38 count:16];
-    }
-
-    while (v13);
-  }
-
-  objc_autoreleasePoolPop(v11);
-  v37[0] = @"AttributionCount";
-  v37[1] = @"AuthorizationPurposeKey";
-  v37[2] = @"AppSwitcherQuitAppTime";
-  v37[3] = @"TrialPeriodBegin";
-  v37[4] = @"TrialPeriodNeedsReprompt";
-  v37[5] = @"ExistsInLSDatabase";
-  v17 = [NSArray arrayWithObjects:v37 count:6];
-  v18 = *(a1 + 136);
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_10078D14C;
-  v26[3] = &unk_10246FD68;
-  v26[4] = v17;
-  v26[5] = a1;
-  [v18 iterateAllAnchorKeyPathsWithBlock:v26];
-  v19 = GEOGetDefaultInteger();
-  v20 = [*(a1 + 136) registeredKeyPathForClientIdentifier:{+[CLClientKeyPath clientKeyPathWithClientAnchor:anchorType:](CLClientKeyPath, "clientKeyPathWithClientAnchor:anchorType:", @"/System/Library/LocationBundles/AppGenius.bundle", 112)}];
-  if ([v20 isValidCKP])
-  {
-    v21 = v19 == 2;
-    v22 = [*(a1 + 136) intForKey:@"Authorization" atKeyPath:v20 defaultValue:0] == 1 || v21;
-    if ((v22 & 1) == 0)
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v23 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 68289026;
-        v41 = 0;
-        v42 = 2082;
-        v43 = "";
-        _os_log_impl(dword_100000000, v23, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Setting Improve Maps to Denied because Maps does not believe it is authorized.}", buf, 0x12u);
-      }
-
-      sub_10078B250(a1, v20, 1uLL, 0, 1, 1, 1);
-    }
-  }
-
-  else
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v24 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 68289026;
-      v41 = 0;
-      v42 = 2082;
-      v43 = "";
-      _os_log_impl(dword_100000000, v24, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Warning AppGenius is not registered during update-version migration; this may be acceptable if we have never set up system services on this device before.}", buf, 0x12u);
-    }
-  }
-}
-
-void sub_10078D128(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35)
-{
-  if (a35 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-id sub_10078D14C(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 40);
-  v3 = *(v2 + 136);
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_10078D1CC;
-  v5[3] = &unk_10246FEF8;
-  v5[4] = *(a1 + 32);
-  v5[5] = v2;
-  return [v3 iterateIdentitiesRelatedToKeyPath:a2 withBlock:v5];
-}
-
-void sub_10078D1CC(uint64_t a1, void *a2)
-{
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v5 = [v3 countByEnumeratingWithState:&v13 objects:v23 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v14;
-    do
-    {
-      for (i = 0; i != v6; i = i + 1)
-      {
-        if (*v14 != v7)
-        {
-          objc_enumerationMutation(v3);
-        }
+  sub_1007744DC(v3, a2, 0xBuLL);
 
-        [*(v4 + 136) removeValueForKey:*(*(&v13 + 1) + 8 * i) atKeyPath:a2];
-      }
-
-      v6 = [v3 countByEnumeratingWithState:&v13 objects:v23 count:16];
-    }
-
-    while (v6);
-  }
-
-  v9 = [a2 bundlePath];
-  if (v9)
-  {
-    v10 = v9;
-    if ([+[NSFileManager fileExistsAtPath:"fileExistsAtPath:"]
-    {
-      if (([v10 isEqualToString:{objc_msgSend(v10, "stringByResolvingSymlinksInPath")}] & 1) == 0)
-      {
-        [*(v4 + 136) removeDictionaryAtKeyPath:a2];
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v11 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 68289282;
-          v18 = 0;
-          v19 = 2082;
-          v20 = "";
-          v21 = 2114;
-          v22 = v10;
-          _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#AuthDatabaseMigration Clearing client with symlinks in its bundlePath, BundlePath:%{public, location:escape_only}@}", buf, 0x1Cu);
-        }
-      }
-    }
-
-    else
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v12 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 68289282;
-        v18 = 0;
-        v19 = 2082;
-        v20 = "";
-        v21 = 2114;
-        v22 = v10;
-        _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#AuthDatabaseMigration #warning bundle path does not exist on disk;  clearing., BundlePath:%{public, location:escape_only}@}", buf, 0x1Cu);
-      }
-
-      [*(v4 + 136) removeDictionaryAtKeyPath:a2];
-    }
-  }
+  return sub_1007744DC(v3, a2, 3uLL);
 }
 
-void sub_10078D428(uint64_t a1, uint64_t a2, int a3)
+void sub_100775014(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
 {
-  if (qword_1025D47A0 != -1)
+  v9 = sub_100033370(a1, a2);
+  v10 = sub_10004FEC8(a1, v9, &xmmword_101CE6CD8);
+  if ([(CLClientManagerAuthorizationContext *)v10 isAuthorizedForServiceTypeMask:4112])
   {
-    sub_10028840C();
-  }
-
-  v6 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "Starting #AuthDatabaseMigration", buf, 2u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_1019310E0();
-  }
-
-  v7 = [CLAuthorizationDatabase authorizationDatabaseWithFilename:a2 withDataProtectionClass:2];
-  *(a1 + 136) = v7;
-  [(CLAuthorizationDatabase *)v7 migrationVersionNumber];
-  v9 = v8;
-  if (v8 < 7.0)
-  {
-    sub_10078A900(a1);
-  }
-
-  if (v9 < 8.1)
-  {
-    sub_10078C464(a1);
-  }
-
-  if (v9 < 9.0)
-  {
-    sub_10078C12C(a1);
-  }
-
-  if (v9 < 17.0)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-    v10 = a3;
-  }
-
-  if (v10 == 1)
-  {
-    sub_10078C854(a1);
-  }
-
-  sub_10001A3E8();
-  sub_1007181FC("kern.bootsessionuuid", buf);
-  if (SBYTE3(v23) >= 0)
-  {
-    v11 = buf;
-  }
-
-  else
-  {
-    v11 = *buf;
-  }
-
-  v12 = [NSString stringWithUTF8String:v11];
-  if (SBYTE3(v23) < 0)
-  {
-    operator delete(*buf);
-  }
-
-  v18 = 0;
-  v13 = sub_1000206B4();
-  sub_1003045C8(v13, @"kLastBootSessionUUID", &v18);
-  if (![(NSString *)v12 isEqualToString:v18])
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v14 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 68289538;
-      *&buf[4] = 0;
-      v20 = 2082;
-      v21 = "";
-      v22 = 2114;
-      v23 = v12;
-      v24 = 2114;
-      v25 = v18;
-      _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:First locationd run for boot session, bootSession:%{public, location:escape_only}@, lastSession:%{public, location:escape_only}@}", buf, 0x26u);
-    }
-
-    v15 = sub_1000206B4();
-    sub_1004FD43C(v15);
-    v16 = sub_1000206B4();
-    (*(*v16 + 944))(v16);
-    goto LABEL_31;
-  }
-
-  if (v10)
-  {
-LABEL_31:
-    [*(a1 + 136) performFullSystemServiceSetup];
-  }
-
-  [*(a1 + 136) completeMigration];
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10192D4D0();
-  }
-
-  v17 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_DEFAULT, "Finished #AuthDatabaseMigration", buf, 2u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_1019311C4();
-  }
-}
-
-void sub_10078D75C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_10078D780()
-{
-  if (qword_102659F30 != -1)
-  {
-    sub_1019312A8();
-  }
-
-  return qword_102659F28;
-}
-
-void *sub_10078D7E0(void *a1, int a2)
-{
-  if (!a2)
-  {
-    return a1;
-  }
-
-  if (qword_102659F30 != -1)
-  {
-    sub_1019312A8();
-  }
-
-  v3 = [qword_102659F28 objectForKey:a1];
-  if (!v3)
-  {
-    return a1;
-  }
-
-  v4 = v3;
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10028840C();
-  }
-
-  v5 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = 136446466;
-    v8 = [a1 UTF8String];
-    v9 = 2082;
-    v10 = [v4 UTF8String];
-    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "#authsync translating %{public}s to %{public}s", &v7, 0x16u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_1019312BC(a1, v4);
-  }
-
-  return v4;
-}
-
-id sub_10078D91C(uint64_t a1)
-{
-  if (qword_102659F40 != -1)
-  {
-    sub_1019313D8();
-  }
-
-  result = [qword_102659F38 valueForKey:a1];
-  if (!result)
-  {
-    return a1;
-  }
-
-  return result;
-}
-
-void sub_10078D96C(id a1)
-{
-  v2[0] = @"com.apple.NanoMaps";
-  v2[1] = @"com.apple.weather.watchapp";
-  v3[0] = @"com.apple.Maps";
-  v3[1] = @"com.apple.weather";
-  qword_102659F38 = [NSDictionary dictionaryWithObjects:v3 forKeys:v2 count:2];
-  v1 = qword_102659F38;
-}
-
-CLCompanionSyncAuthObject *sub_10078DA00(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
-{
-  v8 = objc_alloc_init(CLCompanionSyncAuthObject);
-  if (*(a2 + 23) >= 0)
-  {
-    v9 = a2;
-  }
-
-  else
-  {
-    v9 = *a2;
-  }
-
-  [(CLCompanionSyncAuthObject *)v8 setClientKey:[NSString stringWithUTF8String:v9]];
-  [(CLCompanionSyncAuthObject *)v8 setClearClient:a3];
-  [(CLCompanionSyncAuthObject *)v8 setOperationType:a4];
-  if (*(a2 + 23) < 0)
-  {
-    if (!a2[1])
-    {
-      return v8;
-    }
-
-    a2 = *a2;
-  }
-
-  else if (!*(a2 + 23))
-  {
-    return v8;
-  }
-
-  v10 = [*(a1 + 136) registeredKeyPathForClientIdentifier:{+[CLClientKeyPath clientKeyPathWithLegacyClientKey:](CLClientKeyPath, "clientKeyPathWithLegacyClientKey:", +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", a2))}];
-  if (![v10 isValidCKP] || (objc_msgSend(*(a1 + 136), "BOOLForKey:atKeyPath:defaultValue:", @"SuppressShowingInSettings", v10, 0) & 1) != 0)
-  {
-    return 0;
-  }
-
-  v11 = [*(a1 + 136) intForKey:@"Authorization" atKeyPath:v10 defaultValue:0];
-  if (v11)
-  {
-    [(CLCompanionSyncAuthObject *)v8 setAuthMask:v11];
-  }
-
-  v12 = [*(a1 + 136) intForKey:@"IncidentalUseMode" atKeyPath:v10 defaultValue:0];
-  if (v12)
-  {
-    [(CLCompanionSyncAuthObject *)v8 setIncidentalUseMode:v12];
-  }
-
-  v13 = [*(a1 + 136) intForKey:@"CorrectiveCompensationEnabled" atKeyPath:v10 defaultValue:0xFFFFFFFFLL];
-  if ((v13 & 0x80000000) == 0)
-  {
-    [(CLCompanionSyncAuthObject *)v8 setCorrectiveCompensationMask:v13];
-  }
-
-  -[CLCompanionSyncAuthObject setAuthorizationUpgradeAvailable:](v8, "setAuthorizationUpgradeAvailable:", [*(a1 + 136) BOOLForKey:@"AuthorizationUpgradeAvailable" atKeyPath:v10 defaultValue:1]);
-  v14 = *(a1 + 136);
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_10078DCC4;
-  v19[3] = &unk_10246FEF8;
-  v19[4] = v8;
-  v19[5] = a1;
-  [v14 iterateIdentitiesRelatedToKeyPath:v10 withBlock:v19];
-  v15 = [objc_msgSend(*(a1 + 136) arrayForKey:@"VectorClocks" atKeyPath:v10 defaultValue:{&off_1025543D8), "mutableCopy"}];
-  v16 = +[NSMutableArray array];
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_10078DECC;
-  v18[3] = &unk_1024701D8;
-  v18[4] = v16;
-  [v15 enumerateObjectsUsingBlock:v18];
-  -[CLCompanionSyncAuthObject setVectorClocks:](v8, "setVectorClocks:", [v16 copy]);
-  return v8;
-}
-
-id sub_10078DCC4(uint64_t a1, void *a2)
-{
-  v4 = *(a1 + 40);
-  result = [a2 subIdentityType];
-  if (result == 122)
-  {
-    v6 = objc_alloc_init(CLCompanionSyncInterestZone);
-    -[CLCompanionSyncInterestZone setZoneIdentifier:](v6, "setZoneIdentifier:", [a2 zoneId]);
-    v7 = [*(v4 + 136) intForKey:@"Authorization" atKeyPath:a2 defaultValue:0];
-    if (v7)
-    {
-      [(CLCompanionSyncInterestZone *)v6 setAuthMask:v7];
-    }
-
-    v8 = [*(v4 + 136) intForKey:@"CorrectiveCompensationEnabled" atKeyPath:a2 defaultValue:0];
-    if (v8)
-    {
-      [(CLCompanionSyncInterestZone *)v6 setCorrectiveCompensationMask:v8];
-    }
-
-    v9 = [*(v4 + 136) intForKey:@"Type" atKeyPath:a2 defaultValue:0];
-    if (v9)
-    {
-      [(CLCompanionSyncInterestZone *)v6 setZoneType:v9];
-    }
-
-    [*(v4 + 136) doubleForKey:@"Latitude" atKeyPath:a2 defaultValue:-1.0];
-    if (v10 != -1.0)
-    {
-      [(CLCompanionSyncInterestZone *)v6 setLatitude:?];
-    }
-
-    [*(v4 + 136) doubleForKey:@"Longitude" atKeyPath:a2 defaultValue:-1.0];
-    if (v11 != -1.0)
-    {
-      [(CLCompanionSyncInterestZone *)v6 setLongitude:?];
-    }
-
-    [*(v4 + 136) doubleForKey:@"Radius" atKeyPath:a2 defaultValue:-1.0];
-    if (v12 != -1.0)
-    {
-      [(CLCompanionSyncInterestZone *)v6 setRadius:?];
-    }
-
-    v13 = [*(v4 + 136) intForKey:@"ServiceMaskOperator" atKeyPath:a2 defaultValue:0xFFFFFFFFLL];
-    if (v13 != -1)
-    {
-      [(CLCompanionSyncInterestZone *)v6 setServiceMaskOperator:v13];
-    }
-
-    v14 = [*(v4 + 136) intForKey:@"Provenance" atKeyPath:a2 defaultValue:0xFFFFFFFFLL];
-    if (v14 != -1)
-    {
-      [(CLCompanionSyncInterestZone *)v6 setProvenance:v14];
-    }
-
-    v15 = *(a1 + 32);
-
-    return [v15 addInterestZones:v6];
-  }
-
-  return result;
-}
-
-void sub_10078DECC(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = objc_alloc_init(CLAuthSyncVectorClock);
-  [(CLAuthSyncVectorClock *)v6 setKey:sub_100920F1C(a3)];
-  -[CLAuthSyncVectorClock setValue:](v6, "setValue:", [a2 unsignedIntValue]);
-  [*(a1 + 32) addObject:v6];
-}
-
-id sub_10078DF5C(uint64_t a1, void *a2, char a3, char a4, char a5)
-{
-  v10 = objc_alloc_init(NSMutableArray);
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_10078E01C;
-  v12[3] = &unk_102470200;
-  v13 = a5;
-  v14 = a4;
-  v15 = a3;
-  v12[4] = v10;
-  v12[5] = a1;
-  [a2 enumerateObjectsUsingBlock:v12];
-  return v10;
-}
-
-void sub_10078E01C(uint64_t a1, void *a2)
-{
-  v4 = *(a1 + 40);
-  if (*(a1 + 48) == 1 && [a2 isEqualToString:@"RESET"])
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v5 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-    {
-      __p = 68289026;
-      v16 = 2082;
-      v17 = "";
-      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#authsync Ignoring RESET from ReunionSyncList during reunion sync}", &__p, 0x12u);
-    }
-
-    return;
-  }
-
-  if (([a2 isEqualToString:&stru_1025052F8] & 1) == 0 && !objc_msgSend(a2, "isEqualToString:", @"TOGGLE"))
-  {
-    v9 = [*(v4 + 136) intForKey:@"Authorization" atKeyPath:objc_msgSend(*(v4 + 136) defaultValue:{"registeredKeyPathForClientIdentifier:", +[CLClientKeyPath clientKeyPathWithLegacyClientKey:](CLClientKeyPath, "clientKeyPathWithLegacyClientKey:", a2)), 0}] == 0;
-    v10 = [sub_10078D7E0(a2 *(a1 + 50))];
-    if (v10)
-    {
-      v11 = v10;
-    }
-
-    else
-    {
-      v11 = "";
-    }
-
-    sub_10000EC00(&__p, v11);
-    v12 = sub_10078DA00(v4, &__p, v9, 2);
-    v13 = v12;
-    if (v18 < 0)
-    {
-      operator delete(__p);
-      if (v13)
-      {
-        goto LABEL_18;
-      }
-    }
-
-    else if (v12)
-    {
-LABEL_18:
-      [*(a1 + 32) addObject:v13];
-      return;
-    }
-
-    v14 = objc_alloc_init(CLCompanionSyncAuthObject);
-    [(CLCompanionSyncAuthObject *)v14 setClientKey:a2];
-    [(CLCompanionSyncAuthObject *)v14 setOperationType:3];
-    [*(a1 + 32) addObject:v14];
-    return;
-  }
-
-  if ((*(a1 + 49) & 1) == 0)
-  {
-    v6 = sub_1000193E0();
-    v7 = objc_alloc_init(CLCompanionSyncAuthObject);
-    [(CLCompanionSyncAuthObject *)v7 setClientKey:sub_10078D7E0(a2, *(a1 + 50))];
-    [(CLCompanionSyncAuthObject *)v7 setAuthMask:v6];
-    [(CLCompanionSyncAuthObject *)v7 setOperationType:1];
-    v8 = *(a1 + 32);
-
-    [v8 addObject:v7];
-  }
-}
-
-void sub_10078E2B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-id sub_10078E2DC(id *a1, void *a2, unsigned int a3, int a4, int a5)
-{
-  if (a5)
-  {
-    sub_10078E990(a1);
-  }
-
-  v43 = +[NSMutableSet set];
-  v62 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v5 = [a2 countByEnumeratingWithState:&v62 objects:v69 count:16];
-  if (v5)
-  {
-    v6 = *v63;
-    do
-    {
-      for (i = 0; i != v5; i = i + 1)
-      {
-        if (*v63 != v6)
-        {
-          objc_enumerationMutation(a2);
-        }
-
-        v8 = +[CLClientKeyPath clientKeyPathWithLegacyClientKey:](CLClientKeyPath, "clientKeyPathWithLegacyClientKey:", sub_10078D91C([*(*(&v62 + 1) + 8 * i) clientKey]));
-        [v43 addObject:v8];
-        [v43 addObject:{sub_100033370(a1, v8)}];
-      }
-
-      v5 = [a2 countByEnumeratingWithState:&v62 objects:v69 count:16];
-    }
-
-    while (v5);
-  }
-
-  if (a5)
-  {
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
-    v59 = 0u;
-    v9 = [v43 countByEnumeratingWithState:&v58 objects:v68 count:16];
-    if (v9)
-    {
-      v10 = *v59;
-      do
-      {
-        for (j = 0; j != v9; j = j + 1)
-        {
-          if (*v59 != v10)
-          {
-            objc_enumerationMutation(v43);
-          }
-
-          v12 = *(*(&v58 + 1) + 8 * j);
-          if (([v12 isValidCKP] & 1) == 0)
-          {
-            [a1[17] registerClient:v12 fromAuthSync:1];
-          }
-        }
-
-        v9 = [v43 countByEnumeratingWithState:&v58 objects:v68 count:16];
-      }
-
-      while (v9);
-    }
-
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    v45 = [a2 countByEnumeratingWithState:&v54 objects:v67 count:16];
-    if (v45)
-    {
-      v13 = *v55;
-      v41 = a3;
-      v40 = @"VectorClocks";
-      do
-      {
-        for (k = 0; k != v45; k = k + 1)
-        {
-          if (*v55 != v13)
-          {
-            objc_enumerationMutation(a2);
-          }
-
-          v15 = *(*(&v54 + 1) + 8 * k);
-          v16 = +[CLClientKeyPath clientKeyPathWithLegacyClientKey:](CLClientKeyPath, "clientKeyPathWithLegacyClientKey:", sub_10078D91C([v15 clientKey]));
-          v17 = sub_100033370(a1, v16);
-          if ([v15 hasPeerIndexInVectorClocks])
-          {
-            v18 = [v15 peerIndexInVectorClocks];
-          }
-
-          else
-          {
-            v18 = 0;
-          }
-
-          v19 = sub_10078F050(a1, v17, a4 + 1);
-          v20 = [v15 vectorClocks];
-          if ([v20 count])
-          {
-            v21 = [objc_msgSend(v20 objectAtIndexedSubscript:{0), "value"}];
-          }
-
-          else
-          {
-            v21 = 0;
-          }
-
-          if ([v20 count] && v18 < objc_msgSend(v20, "count"))
-          {
-            v22 = [objc_msgSend(v20 objectAtIndexedSubscript:{v18), "value"}];
-          }
-
-          else
-          {
-            v22 = 0;
-          }
-
-          [v19 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber atIndexedSubscript:{"numberWithUnsignedInt:", v22), 0}];
-          [v19 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber atIndexedSubscript:{"numberWithUnsignedInt:", v21), a3}];
-          [a1[17] setArray:v19 forKey:@"VectorClocks" atKeyPath:v17];
-          [a1[17] persist];
-        }
-
-        v45 = [a2 countByEnumeratingWithState:&v54 objects:v67 count:16];
-      }
-
-      while (v45);
-    }
-  }
-
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v37 = [a2 countByEnumeratingWithState:&v50 objects:v66 count:16];
-  if (v37)
-  {
-    v39 = 0;
-    v36 = *v51;
-    do
-    {
-      for (m = 0; m != v37; m = m + 1)
-      {
-        if (*v51 != v36)
-        {
-          objc_enumerationMutation(a2);
-        }
-
-        v24 = *(*(&v50 + 1) + 8 * m);
-        if ([v24 hasPeerIndexInVectorClocks])
-        {
-          v46 = [v24 peerIndexInVectorClocks];
-        }
-
-        else
-        {
-          v46 = 0;
-        }
-
-        sub_10000EC00(&__p, [objc_msgSend(v24 "clientKey")]);
-        v25 = [v24 authMask];
-        v26 = [v24 correctiveCompensationMask];
-        if ([v24 hasIncidentalUseMode])
-        {
-          v27 = [v24 incidentalUseMode];
-          v39 = v27 >> 8;
-          v28 = v27;
-          v29 = dword_100000000;
-        }
-
-        else
-        {
-          v29 = 0;
-          v28 = 0;
-        }
-
-        if ([v24 hasAuthorizationUpgradeAvailable])
-        {
-          v30 = [v24 authorizationUpgradeAvailable];
-          v31 = 256;
-        }
-
-        else
-        {
-          v30 = 0;
-          v31 = 0;
-        }
-
-        v32 = [v24 clearClient];
-        v40 = v40 & 0xFFFFFFFFFFFF0000 | [v24 suppressShowingInSettings] | 0x100;
-        v41 = v30 | v31 | v41 & 0xFFFFFFFFFFFF0000;
-        sub_10078F0DC(a1, &__p, 0, v25, v26 | dword_100000000, v29 | v28 | (v39 << 8), v30 | v31, v32, v40, 1, [v24 vectorClocks], a3, v46, a4);
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
-        }
-
-        sub_10000EC00(&__p, [objc_msgSend(v24 "clientKey")]);
-        sub_100790614(a1, &__p, [v24 interestZones], a3, v46, a4);
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
-        }
-      }
-
-      v37 = [a2 countByEnumeratingWithState:&v50 objects:v66 count:16];
-    }
-
-    while (v37);
-  }
-
-  if ((a5 & 1) == 0)
-  {
-    v33 = a1[17];
-    v48[0] = _NSConcreteStackBlock;
-    v48[1] = 3221225472;
-    v48[2] = sub_100790AF0;
-    v48[3] = &unk_10246FD68;
-    v48[4] = v43;
-    v48[5] = a1;
-    [v33 iterateAllAnchorKeyPathsWithBlock:v48];
-  }
-
-  return sub_100778254(a1);
-}
-
-void sub_10078E954(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37)
-{
-  if (a37 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_10078E990(uint64_t a1)
-{
-  if (*(a1 + 1128) == 1)
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v1 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 0;
-      _os_log_impl(dword_100000000, v1, OS_LOG_TYPE_DEBUG, "Skipping Reset, already in progress.", buf, 2u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_101931860();
-    }
-  }
-
-  else
-  {
-    sub_1007A2FA8();
     if ([*(a1 + 120) locationRestricted])
     {
       if (qword_1025D47A0 != -1)
@@ -2088,277 +1506,1122 @@ void sub_10078E990(uint64_t a1)
         sub_10028840C();
       }
 
-      v3 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 0;
-        _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_DEBUG, "#warning location services settings are frozen by restrictions - resetting", buf, 2u);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        sub_1019313EC();
-      }
-    }
-
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v4 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "resetting and disconnecting all clients from daemon", buf, 2u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_1019314D0();
-    }
-
-    sub_10077387C(a1);
-    sub_10001AF44(a1 + 752, *(a1 + 760));
-    *(a1 + 752) = a1 + 760;
-    *(a1 + 760) = 0u;
-    sub_10001AF44(a1 + 776, *(a1 + 784));
-    *(a1 + 776) = a1 + 784;
-    *(a1 + 784) = 0u;
-    sub_1007781D4(a1);
-    [*(a1 + 136) performFullSystemServiceSetup];
-    sub_100778254(a1);
-    [*(a1 + 1112) removeAllObjects];
-    [*(a1 + 1112) addObjectsFromArray:sub_1007A305C(a1)];
-    [*(a1 + 128) setArray:*(a1 + 1112) forKey:@"ResetIdentifiers"];
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v5 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "reset identifiers saved to settings", buf, 2u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_1019315B4();
-    }
-
-    *buf = 0;
-    (*(*a1 + 144))(a1, buf, 0, 0xFFFFFFFFLL);
-    *(a1 + 1128) = 1;
-    [*(a1 + 256) setNextFireDelay:65.0];
-    DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
-    CFNotificationCenterPostNotification(DarwinNotifyCenter, CLAppResetChangedNotification, 0, 0, 0);
-    sub_1001D2F14(a1);
-    sub_100044F7C(a1);
-    v21[0] = &__kCFBooleanTrue;
-    v20[0] = @"IsResetEvent";
-    v20[1] = @"EventSource";
-    v7 = (a1 + 976);
-    if (*(a1 + 999) < 0)
-    {
-      v7 = *v7;
-    }
-
-    v8 = [NSString stringWithUTF8String:v7];
-    v20[2] = @"Enabled";
-    v21[1] = v8;
-    v21[2] = &__kCFBooleanFalse;
-    v9 = [NSDictionary dictionaryWithObjects:v21 forKeys:v20 count:3];
-    if (qword_1025D4890 != -1)
-    {
-      sub_10192E4F8();
-    }
-
-    v10 = qword_1025D4898;
-    if (os_log_type_enabled(qword_1025D4898, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 68289282;
-      *&buf[4] = 0;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 2114;
-      *&buf[20] = v9;
-      _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#resetClients #CoreAnalytics, Bigswitch Analytics:%{public, location:escape_only}@}", buf, 0x1Cu);
-    }
-
-    AnalyticsSendEvent();
-    sub_10079373C(a1);
-    [*(a1 + 504) eraseAllData];
-    sub_1007AEA8C(a1 + 464);
-    sub_100565518(0, &v18);
-    v11 = std::string::append(&v18, "locScoreInfoReport", 0x12uLL);
-    v12 = *&v11->__r_.__value_.__l.__data_;
-    *&buf[16] = *(&v11->__r_.__value_.__l + 2);
-    *buf = v12;
-    v11->__r_.__value_.__l.__size_ = 0;
-    v11->__r_.__value_.__r.__words[2] = 0;
-    v11->__r_.__value_.__r.__words[0] = 0;
-    if (buf[23] >= 0)
-    {
-      v13 = buf;
-    }
-
-    else
-    {
-      v13 = *buf;
-    }
-
-    v14 = [NSString stringWithUTF8String:v13];
-    if ((buf[23] & 0x80000000) != 0)
-    {
-      operator delete(*buf);
-    }
-
-    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v18.__r_.__value_.__l.__data_);
-    }
-
-    v18.__r_.__value_.__r.__words[0] = 0;
-    if (![+[NSFileManager removeItemAtPath:"removeItemAtPath:error:"]
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v15 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      v11 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
       {
         *buf = 68289282;
-        *&buf[4] = 0;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 2114;
-        *&buf[20] = v18.__r_.__value_.__r.__words[0];
-        _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#warning Got error removing checkpoint file, Error:%{public, location:escape_only}@}", buf, 0x1Cu);
-      }
-    }
-
-    sub_1007A084C(a1);
-    if (qword_1025D4790 != -1)
-    {
-      sub_10192DAA4();
-    }
-
-    v16 = qword_1025D4798;
-    if (os_log_type_enabled(qword_1025D4798, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_INFO, "Removed locscoreInfo, locScoreInfoReport and cleared consumption map.", buf, 2u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_101931698();
-    }
-
-    if (_os_feature_enabled_impl())
-    {
-      [*(a1 + 568) eraseAllData];
-      sub_1007AEA8C(a1 + 528);
-      if (qword_1025D4790 != -1)
-      {
-        sub_10192DAA4();
+        v27 = 0;
+        v28 = 2082;
+        v29 = "";
+        v30 = 2114;
+        v31 = v9;
+        _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#transcriptSession skip prompting. Restrictions enabled, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
       }
 
-      v17 = qword_1025D4798;
-      if (os_log_type_enabled(qword_1025D4798, OS_LOG_TYPE_INFO))
-      {
-        *buf = 0;
-        _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_INFO, "Removed locationAttributionInterval and cleared consumption map for attribution.", buf, 2u);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        sub_10193177C();
-      }
-
-      sub_100788CC8(a1);
-    }
-  }
-}
-
-void sub_10078F014(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
-{
-  if (a21 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a15 < 0)
-  {
-    operator delete(a10);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-id sub_10078F050(uint64_t a1, uint64_t a2, int a3)
-{
-  v4 = [objc_msgSend(*(a1 + 136) arrayForKey:@"VectorClocks" atKeyPath:a2 defaultValue:{&off_102554408), "mutableCopy"}];
-  v5 = a3 - [v4 count];
-  if (v5 >= 1)
-  {
-    v6 = v5 + 1;
-    do
-    {
-      [v4 addObject:&off_10254EF18];
-      --v6;
+      v36 = NSDebugDescriptionErrorKey;
+      v37 = @"Restrictions are enabled.  Changing authorization isn't allowed";
+      (*(a5 + 16))(a5, 0, [NSError errorWithDomain:kCLErrorDomain code:18 userInfo:[NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1]]);
     }
 
-    while (v6 > 1);
-  }
-
-  return v4;
-}
-
-void sub_10078F0DC(uint64_t a1, const std::string *a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6, __int16 a7, char a8, unint64_t a9, int a10, void *a11, unsigned __int8 a12, unsigned __int8 a13, int a14)
-{
-  if ((a10 - 1) < 2)
-  {
-    v20 = sub_10001A3E8();
-    v21 = (**v20)(v20);
-    if (a10 == 2 && v21 != 0)
+    else if (*(a1 + 272))
     {
       if (qword_1025D47A0 != -1)
       {
         sub_10028840C();
       }
 
-      v41 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+      v13 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = 68289026;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        _os_log_impl(dword_100000000, v41, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#authsync applyAuthorizationSyncMessage on Companion received an update message}", buf, 0x12u);
+        v14 = *(a1 + 272);
+        v15 = *(v14 + 1);
+        v16 = *v14;
+        *buf = 68289794;
+        v27 = 0;
+        v28 = 2082;
+        v29 = "";
+        v30 = 2114;
+        v31 = v9;
+        v32 = 2114;
+        v33 = v15;
+        v34 = 2050;
+        v35 = v16;
+        _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#transcriptSession skip prompting. InflightPromptAuthorizationRequest found., Client:%{public, location:escape_only}@, inflightClient:%{public, location:escape_only}@, inflightRequestType:%{public, location:CLClientManager_Type::AuthorizationRequestType}lld}", buf, 0x30u);
+      }
+
+      v24 = NSDebugDescriptionErrorKey;
+      v25 = @"App is already presenting the user with an authorization prompt";
+      (*(a5 + 16))(a5, 0, [NSError errorWithDomain:kCLErrorDomain code:18 userInfo:[NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1]]);
+    }
+
+    else
+    {
+      v23[0] = _NSConcreteStackBlock;
+      v23[1] = 3221225472;
+      v23[2] = sub_1007755BC;
+      v23[3] = &unk_10246FDB8;
+      v23[4] = a5;
+      sub_10000EC00(__p, "");
+      sub_10023C2AC(v22, a4, v9, v23, __p);
+      v17 = sub_1007755CC(a1, v9, 0, v22, a3);
+      sub_10023DF30(v22);
+      if (v21 < 0)
+      {
+        operator delete(__p[0]);
+        if (v17)
+        {
+          return;
+        }
+      }
+
+      else if (v17)
+      {
+        return;
+      }
+
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v18 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 68289282;
+        v27 = 0;
+        v28 = 2082;
+        v29 = "";
+        v30 = 2114;
+        v31 = v9;
+        _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#Warning Could not post #transcriptSession, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
         if (qword_1025D47A0 != -1)
         {
           sub_10192D4D0();
         }
       }
 
-      v42 = off_1025D47A8;
+      v19 = off_1025D47A8;
       if (os_signpost_enabled(off_1025D47A8))
       {
-        *buf = 68289026;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        v37 = "#authsync applyAuthorizationSyncMessage on Companion received an update message";
-        v38 = "{msg%{public}.0s:#authsync applyAuthorizationSyncMessage on Companion received an update message}";
-        v39 = v42;
-        v40 = 18;
-        goto LABEL_50;
+        *buf = 68289282;
+        v27 = 0;
+        v28 = 2082;
+        v29 = "";
+        v30 = 2114;
+        v31 = v9;
+        _os_signpost_emit_with_name_impl(dword_100000000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#Warning Could not post #transcriptSession", "{msg%{public}.0s:#Warning Could not post #transcriptSession, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+      }
+    }
+  }
+
+  else
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v12 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289538;
+      v27 = 0;
+      v28 = 2082;
+      v29 = "";
+      v30 = 2114;
+      v31 = v9;
+      v32 = 1026;
+      LODWORD(v33) = [(CLClientManagerAuthorizationContext *)v10 registrationResult];
+      _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#transcriptSession #Warning skip prompting .No point in prompting if the user doesn't want them to get access to precise current location , Client:%{public, location:escape_only}@, RegistrationResult:%{public}d}", buf, 0x22u);
+    }
+
+    v38 = NSDebugDescriptionErrorKey;
+    v39 = @"Registration Result should be WIU or Always to enable Transcript Session";
+    (*(a5 + 16))(a5, 0, [NSError errorWithDomain:kCLErrorDomain code:18 userInfo:[NSDictionary dictionaryWithObjects:&v39 forKeys:&v38 count:1]]);
+  }
+}
+
+void sub_100775588(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
+{
+  sub_10023DF30(&a16);
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_1007755CC(uint64_t a1, uint64_t a2, void *a3, unsigned int *a4, uint64_t a5)
+{
+  if (!sub_10001CF3C())
+  {
+    v12 = sub_1000184F4(a1, a2);
+    v13 = sub_100033370(a1, v12);
+    sub_1000F7D18(a1, v13, 1);
+    if (&SBUserNotificationPendInSetupIfNotAllowedKey)
+    {
+      v14 = &SBUserNotificationHideOnClonedDisplay == 0;
+    }
+
+    else
+    {
+      v14 = 1;
+    }
+
+    if (v14 || &SBUserNotificationDismissOnLock == 0 || &SBUserNotificationDefaultButtonTag == 0 || &SBUserNotificationExtensionIdentifierKey == 0 || &SBUserNotificationExtensionItemsKey == 0)
+    {
+      return 0;
+    }
+
+    v19 = *a4;
+    v20 = sub_100783B48(a1, v12, a3);
+    if (v20)
+    {
+      v21 = v20;
+      v214 = v19;
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10028840C();
       }
 
-      return;
+      v22 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 68289538;
+        *&buf[4] = 0;
+        *&buf[8] = 2082;
+        *&buf[10] = "";
+        *&buf[18] = 2114;
+        *&buf[20] = v12;
+        v220 = 1026;
+        LODWORD(v221) = v19;
+        _os_log_impl(dword_100000000, v22, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#CUN Creating client user notification for client, Client:%{public, location:escape_only}@, requestType:%{public}d}", buf, 0x22u);
+      }
+
+      v213 = [NSMutableDictionary dictionaryWithDictionary:a5];
+      if (*(a4 + 39) < 0)
+      {
+        sub_100007244(buf, *(a4 + 2), *(a4 + 3));
+      }
+
+      else
+      {
+        *buf = *(a4 + 1);
+        *&buf[16] = *(a4 + 4);
+      }
+
+      if (buf[23] >= 0)
+      {
+        v27 = buf;
+      }
+
+      else
+      {
+        v27 = *buf;
+      }
+
+      v28 = [NSString stringWithUTF8String:v27];
+      v209 = v28;
+      if ((buf[23] & 0x80000000) != 0)
+      {
+        operator delete(*buf);
+      }
+
+      errorPtr = 0;
+      v30 = sub_10001A3E8(v28, v29);
+      if (sub_10001CF04(v30, v31))
+      {
+        v32 = sub_100055734([v12 bundleId]);
+        v33 = CFBundleCreate(kCFAllocatorDefault, v32);
+        v35 = v33;
+        if (v33)
+        {
+          v36 = sub_100056238(v33, v34);
+          v37 = sub_100055A24(v36, v35, @"NSLocationUsageDescriptionCarplay", 0);
+          CFRelease(v35);
+          if (v37)
+          {
+            CFRelease(v37);
+          }
+        }
+      }
+
+      v38 = _os_feature_enabled_impl();
+      v40 = v38;
+      if (v38)
+      {
+        v38 = [*(a1 + 136) BOOLForKey:@"AuthorizationPromptOptionTypeNegative" atKeyPath:v12 defaultValue:0];
+        v41 = v38;
+      }
+
+      else
+      {
+        v41 = 0;
+      }
+
+      v42 = 0;
+      v43 = 0;
+      switch(v19)
+      {
+        case 0:
+        case 10:
+        case 15:
+        case 17:
+          goto LABEL_53;
+        case 1:
+        case 3:
+          v205 = [NSString stringWithUTF8String:"com.apple.corelocation.CoreLocationTemporaryPreciseAuthPromptPlugin"];
+          v68 = sub_100056238(v205, v67);
+          format = sub_1007CB2E4(v68, @"LOCATION_CLIENT_PERMISSION_PLAIN_WHEN_IN_USE_TITLE");
+          alloc = kCFAllocatorDefault;
+          value = CFStringCreateStringWithValidatedFormat(kCFAllocatorDefault, 0, @"%@", format, &errorPtr, v21);
+          v70 = sub_100056238(value, v69);
+          v71 = @"LOCATION_CLIENT_PERMISSION_WHENINUSE_BUTTON";
+          if (v40)
+          {
+            v72 = @"LOCATION_CLIENT_PERMISSION_WHENINUSE_BUTTON";
+          }
+
+          else
+          {
+            v72 = @"LOCATION_CLIENT_PERMISSION_ONETIME_BUTTON";
+          }
+
+          if (v40)
+          {
+            v71 = @"LOCATION_CLIENT_PERMISSION_ONETIME_BUTTON";
+            v73 = @"LOCATION_CLIENT_PERMISSION_NOT_THIS_TIME_BUTTON";
+          }
+
+          else
+          {
+            v73 = @"LOCATION_CLIENT_PERMISSION_NEVER_BUTTON";
+          }
+
+          if (v41)
+          {
+            v74 = @"LOCATION_CLIENT_PERMISSION_ONETIME_BUTTON";
+          }
+
+          else
+          {
+            v74 = v72;
+          }
+
+          if (v41)
+          {
+            v75 = @"LOCATION_CLIENT_PERMISSION_NOT_THIS_TIME_BUTTON";
+          }
+
+          else
+          {
+            v75 = v71;
+          }
+
+          if (v41)
+          {
+            v76 = @"LOCATION_CLIENT_PERMISSION_NEVER_BUTTON";
+          }
+
+          else
+          {
+            v76 = v73;
+          }
+
+          v43 = sub_1007CB2E4(v70, v74);
+          v78 = sub_100056238(v43, v77);
+          cf = sub_1007CB2E4(v78, v75);
+          v80 = sub_100056238(cf, v79);
+          v81 = sub_1007CB2E4(v80, v76);
+          v82 = sub_1007841C0(a1, v12);
+          if (v82)
+          {
+            v208 = sub_100784288(a1, v12, v82, 1, 0, v209);
+            CFRelease(v82);
+            v42 = 0;
+            goto LABEL_131;
+          }
+
+          if (qword_1025D4790 != -1)
+          {
+            sub_10192DAA4();
+          }
+
+          v151 = qword_1025D4798;
+          if (os_log_type_enabled(qword_1025D4798, OS_LOG_TYPE_FAULT))
+          {
+            *buf = 68289282;
+            *&buf[4] = 0;
+            *&buf[8] = 2082;
+            *&buf[10] = "";
+            *&buf[18] = 2114;
+            *&buf[20] = v12;
+            _os_log_impl(dword_100000000, v151, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#AuthPrompt couldn't get bundle for client, ClientKeyPath:%{public, location:escape_only}@}", buf, 0x1Cu);
+            if (qword_1025D4790 != -1)
+            {
+              sub_10192DAA4();
+            }
+          }
+
+          v24 = qword_1025D4798;
+          result = os_signpost_enabled(qword_1025D4798);
+          if (result)
+          {
+            goto LABEL_238;
+          }
+
+          return result;
+        case 2:
+        case 4:
+        case 5:
+          v44 = sub_100056238(v38, v39);
+          v45 = @"LOCATION_CLIENT_PERMISSION_WHENINUSE_BUTTON";
+          if (!v40)
+          {
+            v45 = @"LOCATION_CLIENT_PERMISSION_ONETIME_BUTTON";
+          }
+
+          if (v41)
+          {
+            v46 = @"LOCATION_CLIENT_PERMISSION_ONETIME_BUTTON";
+          }
+
+          else
+          {
+            v46 = v45;
+          }
+
+          v43 = sub_1007CB2E4(v44, v46);
+          v48 = sub_100056238(v43, v47);
+          v49 = [(NSMutableDictionary *)v213 setObject:sub_1007CB2E4(v48 forKeyedSubscript:@"PRECISE_ON_PILL_BUTTON_TITLE"), @"PreciseButtonOnTitle"];
+          v51 = sub_100056238(v49, v50);
+          v52 = [(NSMutableDictionary *)v213 setObject:sub_1007CB2E4(v51 forKeyedSubscript:@"PRECISE_OFF_PILL_BUTTON_TITLE"), @"PreciseButtonOffTitle"];
+          v54 = sub_100056238(v52, v53);
+          [(NSMutableDictionary *)v213 setObject:sub_1007CB2E4(v54 forKeyedSubscript:@"ONLY_HERE_PILL_BUTTON_TITLE"), @"OnlyHereTitle"];
+          v42 = 1;
+          goto LABEL_60;
+        case 6:
+          v205 = [NSString stringWithUTF8String:"com.apple.corelocation.CoreLocationRepromptAlwaysAuthPromptPlugin"];
+          v109 = [-[NSMutableDictionary objectForKey:](v213 objectForKey:{@"LocationCount", "unsignedLongValue"}];
+          v111 = sub_100056238(v109, v110);
+          if (v109)
+          {
+            format = sub_1007CB2E8(v111, @"LOCATION_CLIENT_PERMISSION_REPROMPT_OTHER");
+            v112 = CFPreferencesCopyValue(@"AppleLanguages", @".GlobalPreferences", @"mobile", kCFPreferencesAnyHost);
+            ValueAtIndex = CFArrayGetValueAtIndex(v112, 0);
+            alloc = kCFAllocatorDefault;
+            v114 = CFLocaleCreate(kCFAllocatorDefault, ValueAtIndex);
+            v115 = CFStringCreateStringWithValidatedFormat(kCFAllocatorDefault, v114, @"%lu %@", format, &errorPtr, v109, v21);
+          }
+
+          else
+          {
+            format = sub_1007CB2E8(v111, @"LOCATION_REPROMPT_ALWAYS_TITLE");
+            alloc = kCFAllocatorDefault;
+            v115 = CFStringCreateStringWithValidatedFormat(kCFAllocatorDefault, 0, @"%@", format, &errorPtr, v21);
+          }
+
+          value = v115;
+          v155 = sub_100056238(v115, v116);
+          v43 = sub_1007CB2E4(v155, @"LOCATION_CLIENT_PERMISSION_WHENINUSE_ONLY_BUTTON");
+          v157 = sub_100056238(v43, v156);
+          cf = sub_1007CB2E4(v157, @"LOCATION_CLIENT_PERMISSION_KEEP_ALWAYS_BUTTON");
+          v208 = sub_100783DEC(a1, v12);
+          goto LABEL_148;
+        case 7:
+        case 8:
+          v83 = sub_100056238(v38, v39);
+          format = sub_1007CB2E4(v83, @"LOCATION_CLIENT_PERMISSION_UPGRADE_WHENINUSE_ALWAYS");
+          alloc = kCFAllocatorDefault;
+          value = CFStringCreateStringWithValidatedFormat(kCFAllocatorDefault, 0, @"%@", format, &errorPtr, v21);
+          v85 = sub_100056238(value, v84);
+          v43 = sub_1007CB2E4(v85, @"LOCATION_CLIENT_PERMISSION_KEEP_WHENINUSE_BUTTON");
+          v87 = sub_100056238(v43, v86);
+          cf = sub_1007CB2E4(v87, @"LOCATION_CLIENT_PERMISSION_ALWAYS_BUTTON");
+          v208 = sub_100783DEC(a1, v12);
+          goto LABEL_111;
+        case 9:
+          v205 = [NSString stringWithUTF8String:"com.apple.corelocation.CoreLocationTemporaryPreciseAuthPromptPlugin"];
+          v97 = sub_100056238(v205, v96);
+          format = sub_1007CB2E4(v97, @"LOCATION_CLIENT_PERMISSION_TEMPORARY_PRECISE_TITLE");
+          alloc = kCFAllocatorDefault;
+          value = CFStringCreateStringWithValidatedFormat(kCFAllocatorDefault, 0, @"%@", format, &errorPtr, v21);
+          v99 = sub_100056238(value, v98);
+          v43 = sub_1007CB2E4(v99, @"LOCATION_CLIENT_PERMISSION_TEMPORARY_PRECISE_NO_BUTTON");
+          v101 = sub_100056238(v43, v100);
+          cf = sub_1007CB2E4(v101, @"LOCATION_CLIENT_PERMISSION_TEMPORARY_PRECISE_YES_BUTTON");
+          v208 = [-[NSMutableDictionary objectForKey:](v213 objectForKey:{@"UsageDescription", "copy"}];
+          if (v208 || !v209)
+          {
+            goto LABEL_100;
+          }
+
+          v102 = sub_1007841C0(a1, v12);
+          v103 = v102;
+          if (v102)
+          {
+            CFAutorelease(v102);
+            v104 = [(__CFDictionary *)CFBundleGetInfoDictionary(v103) objectForKeyedSubscript:@"NSLocationTemporaryUsageDescriptionDictionary"];
+            if (!v104)
+            {
+              sub_10023D820(a4, [NSString stringWithFormat:@"Info.plist is missing the %@ key", @"NSLocationTemporaryUsageDescriptionDictionary"]);
+              return 0;
+            }
+
+            objc_opt_class();
+            if ((objc_opt_isKindOfClass() & 1) == 0)
+            {
+              sub_10023D820(a4, [NSString stringWithFormat:@"Info.plist value for %@ key is not a dictionary", @"NSLocationTemporaryUsageDescriptionDictionary"]);
+              return 0;
+            }
+
+            v105 = [v104 objectForKeyedSubscript:v209];
+            if (!v105)
+            {
+              sub_10023D820(a4, @"The purposeKey provided isn't present in the app's Info.plist dictionary of temporary usage descriptions");
+              return 0;
+            }
+
+            objc_opt_class();
+            isKindOfClass = objc_opt_isKindOfClass();
+            if ((isKindOfClass & 1) == 0)
+            {
+              sub_10023D820(a4, @"The purposeKey provided names an entry in Info.plist which isn't a string");
+              return 0;
+            }
+
+            v108 = sub_100056238(isKindOfClass, v107);
+            v208 = sub_100055A24(v108, v103, v209, 1);
+            if (!v208)
+            {
+              v208 = [v105 copy];
+            }
+
+LABEL_100:
+            [(NSMutableDictionary *)v213 setObject:@"UserLocationIsPrecise" forKeyedSubscript:@"UserLocationIsPrecise"];
+            goto LABEL_148;
+          }
+
+          if (qword_1025D4790 != -1)
+          {
+            sub_10192DAA4();
+          }
+
+          v203 = qword_1025D4798;
+          if (os_log_type_enabled(qword_1025D4798, OS_LOG_TYPE_FAULT))
+          {
+            *buf = 68289282;
+            *&buf[4] = 0;
+            *&buf[8] = 2082;
+            *&buf[10] = "";
+            *&buf[18] = 2114;
+            *&buf[20] = v12;
+            _os_log_impl(dword_100000000, v203, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#AuthPrompt couldn't get bundle for client, ClientKeyPath:%{public, location:escape_only}@}", buf, 0x1Cu);
+            if (qword_1025D4790 != -1)
+            {
+              sub_10192DAA4();
+            }
+          }
+
+          v24 = qword_1025D4798;
+          result = os_signpost_enabled(qword_1025D4798);
+          if (!result)
+          {
+            return result;
+          }
+
+          goto LABEL_238;
+        case 11:
+LABEL_60:
+          v205 = [NSString stringWithUTF8String:"com.apple.corelocation.CoreLocationVanillaWhenInUseAuthPromptPlugin"];
+          v56 = sub_100056238(v205, v55);
+          format = sub_1007CB2E4(v56, @"LOCATION_CLIENT_PERMISSION_WHENINUSE");
+          alloc = kCFAllocatorDefault;
+          value = CFStringCreateStringWithValidatedFormat(kCFAllocatorDefault, 0, @"%@", format, &errorPtr, v21);
+          v57 = [*(a1 + 136) BOOLForKey:@"IsAppClip" atKeyPath:v12 defaultValue:0];
+          if (v57)
+          {
+            if (qword_1025D47A0 != -1)
+            {
+              sub_10192D4D0();
+            }
+
+            v59 = off_1025D47A8;
+            v60 = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO);
+            if (v60)
+            {
+              *buf = 68289282;
+              *&buf[4] = 0;
+              *&buf[8] = 2082;
+              *&buf[10] = "";
+              *&buf[18] = 2114;
+              *&buf[20] = v12;
+              _os_log_impl(dword_100000000, v59, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Client is #appclip, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+            }
+
+            v62 = sub_100056238(v60, v61);
+            v63 = sub_1007CB2E4(v62, @"LOCATION_CLIENT_PERMISSION_WHENINUSE_UNTIL_TOMORROW_BUTTON");
+            cf = v63;
+            v65 = v41 | v40;
+            if (v41)
+            {
+              v66 = @"LOCATION_CLIENT_PERMISSION_NEVER_BUTTON";
+            }
+
+            else
+            {
+              v66 = @"LOCATION_CLIENT_PERMISSION_NOT_THIS_TIME_BUTTON";
+            }
+
+            if (v65)
+            {
+LABEL_129:
+              v152 = sub_100056238(v63, v64);
+              v81 = sub_1007CB2E4(v152, v66);
+              v153 = sub_1007841C0(a1, v12);
+              if (v153)
+              {
+                v208 = sub_100784288(a1, v12, v153, 1, 0, v209);
+                CFRelease(v153);
+LABEL_131:
+                *(a4 + 4) = v41;
+LABEL_149:
+                v127 = value;
+                if (errorPtr)
+                {
+                  if (qword_1025D47A0 != -1)
+                  {
+                    sub_10192D4D0();
+                  }
+
+                  v174 = off_1025D47A8;
+                  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+                  {
+                    v175 = [-[__CFError localizedDescription](errorPtr "localizedDescription")];
+                    *buf = 68289538;
+                    *&buf[4] = 0;
+                    *&buf[8] = 2082;
+                    *&buf[10] = "";
+                    *&buf[18] = 2114;
+                    *&buf[20] = v12;
+                    v220 = 2082;
+                    v221 = v175;
+                    _os_log_impl(dword_100000000, v174, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#Error, couldn't create prompt for client due to error returned by CFStringCreateStringWithValidatedFormat., Client:%{public, location:escape_only}@, error:%{public, location:escape_only}s}", buf, 0x26u);
+                    if (qword_1025D47A0 != -1)
+                    {
+                      sub_10192D4D0();
+                    }
+                  }
+
+                  v176 = off_1025D47A8;
+                  if (os_signpost_enabled(off_1025D47A8))
+                  {
+                    v177 = [-[__CFError localizedDescription](errorPtr "localizedDescription")];
+                    *buf = 68289538;
+                    *&buf[4] = 0;
+                    *&buf[8] = 2082;
+                    *&buf[10] = "";
+                    *&buf[18] = 2114;
+                    *&buf[20] = v12;
+                    v220 = 2082;
+                    v221 = v177;
+                    _os_signpost_emit_with_name_impl(dword_100000000, v176, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#Error, couldn't create prompt for client due to error returned by CFStringCreateStringWithValidatedFormat.", "{msg%{public}.0s:#Error, couldn't create prompt for client due to error returned by CFStringCreateStringWithValidatedFormat., Client:%{public, location:escape_only}@, error:%{public, location:escape_only}s}", buf, 0x26u);
+                  }
+
+                  return 0;
+                }
+
+                v126 = 32;
+                if (v208)
+                {
+                  v210 = 32;
+                  v204 = 0;
+                }
+
+                else
+                {
+LABEL_162:
+                  value = v127;
+                  v210 = v126;
+                  if (qword_1025D47A0 != -1)
+                  {
+                    sub_10192D4D0();
+                  }
+
+                  v178 = off_1025D47A8;
+                  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+                  {
+                    *buf = 68289538;
+                    *&buf[4] = 0;
+                    *&buf[8] = 2082;
+                    *&buf[10] = "";
+                    *&buf[18] = 2114;
+                    *&buf[20] = v12;
+                    v220 = 1026;
+                    LODWORD(v221) = v214;
+                    _os_log_impl(dword_100000000, v178, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Warning, unable to copy purpose string from client, Client:%{public, location:escape_only}@, requestType:%{public}d}", buf, 0x22u);
+                  }
+
+                  if ([-[NSMutableDictionary objectForKeyedSubscript:](v213 objectForKeyedSubscript:{@"isAutoPrompting", "BOOLValue"}])
+                  {
+                    if (qword_1025D47A0 != -1)
+                    {
+                      sub_10192D4D0();
+                    }
+
+                    v179 = off_1025D47A8;
+                    result = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT);
+                    if (result)
+                    {
+                      *buf = 68289538;
+                      *&buf[4] = 0;
+                      *&buf[8] = 2082;
+                      *&buf[10] = "";
+                      *&buf[18] = 2114;
+                      *&buf[20] = v12;
+                      v220 = 1026;
+                      LODWORD(v221) = v214;
+                      _os_log_impl(dword_100000000, v179, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Warning #autoPrompt fail to createAndPostClientUserNotification - purpose(UsageDescription) is NULL, Client:%{public, location:escape_only}@, requestType:%{public}d}", buf, 0x22u);
+                      return 0;
+                    }
+
+                    return result;
+                  }
+
+                  v208 = 0;
+                  alloc = kCFAllocatorDefault;
+                  v204 = 1;
+                }
+
+                Mutable = CFDictionaryCreateMutable(alloc, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+                CFDictionarySetValue(Mutable, SBUserNotificationPendInSetupIfNotAllowedKey, kCFBooleanTrue);
+                if ((*(a1 + 232) & 1) == 0)
+                {
+                  CFDictionarySetValue(Mutable, SBUserNotificationHideOnClonedDisplay, kCFBooleanTrue);
+                }
+
+                if (value)
+                {
+                  CFDictionarySetValue(Mutable, kCFUserNotificationAlertHeaderKey, value);
+                  CFRelease(value);
+                }
+
+                v182 = format;
+                if (format)
+                {
+                  CFRelease(format);
+                }
+
+                if (v43)
+                {
+                  CFDictionarySetValue(Mutable, kCFUserNotificationAlternateButtonTitleKey, v43);
+                  CFRelease(v43);
+                }
+
+                if (cf)
+                {
+                  CFDictionarySetValue(Mutable, kCFUserNotificationOtherButtonTitleKey, cf);
+                  CFRelease(cf);
+                }
+
+                if (v81)
+                {
+                  CFDictionarySetValue(Mutable, kCFUserNotificationDefaultButtonTitleKey, v81);
+                  CFRelease(v81);
+                }
+
+                if (v214 <= 0x13)
+                {
+                  if (((1 << v214) & 0xFEEBF) == 0)
+                  {
+                    if (((1 << v214) & 0x1100) == 0)
+                    {
+                      CFDictionarySetValue(Mutable, SBUserNotificationDismissOnLock, kCFBooleanTrue);
+                    }
+
+                    CFDictionarySetValue(Mutable, SBUserNotificationAllowedApplicationsKey, &off_1025543C0);
+                    goto LABEL_204;
+                  }
+
+                  v183 = sub_10001A3E8(v182, v181);
+                  if (!sub_10003FFF8(v183, v184) || ([objc_msgSend(v12 "clientAnchor")] & 1) == 0)
+                  {
+                    if (a3)
+                    {
+                      if (sub_10076CC80(v12))
+                      {
+                        CFDictionarySetValue(Mutable, kCFUserNotificationAlertTopMostKey, &__kCFBooleanTrue);
+                        CFDictionarySetValue(Mutable, SBUserNotificationForcesModalAlertAppearance, &__kCFBooleanTrue);
+                        CFDictionarySetValue(Mutable, SBUserNotificationDisplayActionButtonOnLockScreen, &__kCFBooleanTrue);
+                      }
+                    }
+
+                    else if ([v12 bundleId] && (objc_msgSend(-[NSMutableDictionary objectForKeyedSubscript:](v213, "objectForKeyedSubscript:", @"IsWebClip"), "BOOLValue") & 1) == 0)
+                    {
+                      v218 = [v12 bundleId];
+                      v185 = [NSArray arrayWithObjects:&v218 count:1];
+                      CFDictionarySetValue(Mutable, SBUserNotificationAllowedApplicationsKey, v185);
+                    }
+                  }
+                }
+
+                if ((v214 - 13) <= 1)
+                {
+                  CFDictionarySetValue(Mutable, SBUserNotificationAllowInSetupKey, &__kCFBooleanTrue);
+                  if (qword_1025D47A0 != -1)
+                  {
+                    sub_10192D4D0();
+                  }
+
+                  v186 = off_1025D47A8;
+                  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+                  {
+                    *buf = 0;
+                    _os_log_impl(dword_100000000, v186, OS_LOG_TYPE_INFO, "#CUN LocationButton prompt allowed during buddy-setup", buf, 2u);
+                  }
+
+                  if (sub_10000A100(121, 2))
+                  {
+                    sub_10192E520();
+                  }
+                }
+
+LABEL_204:
+                CFDictionarySetValue(Mutable, SBUserNotificationDefaultButtonTag, [NSNumber numberWithInt:v210]);
+                CFDictionarySetValue(Mutable, SBUserNotificationButtonLayoutDirectionKey, [NSNumber numberWithInt:1]);
+                if ((v42 & _os_feature_enabled_impl()) == 1)
+                {
+                  [(NSMutableDictionary *)v213 setObject:&__kCFBooleanTrue forKeyedSubscript:@"CLAuthPromptShowOnlyHerePill"];
+                }
+
+                if (v205 && sub_1004E87D0())
+                {
+                  v187 = +[NSExtensionItem extensionItemForDict:withName:withPayload:](NSExtensionItem, "extensionItemForDict:withName:withPayload:", [objc_msgSend(*(a1 + 136) readonlyStoreAtKeyPath:{v12), "dictionary"}], v21, v213);
+                  v215 = 0;
+                  v217 = v187;
+                  v188 = [NSKeyedArchiver archivedDataWithRootObject:[NSArray arrayWithObjects:&v217 count:1] requiringSecureCoding:1 error:&v215];
+                  if (v215)
+                  {
+                    if (qword_1025D47A0 != -1)
+                    {
+                      sub_10192D4D0();
+                    }
+
+                    v189 = off_1025D47A8;
+                    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+                    {
+                      *buf = 68289283;
+                      *&buf[4] = 0;
+                      *&buf[8] = 2082;
+                      *&buf[10] = "";
+                      *&buf[18] = 2113;
+                      *&buf[20] = v215;
+                      _os_log_impl(dword_100000000, v189, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Failed archiving extension item, error:%{private, location:escape_only}@}", buf, 0x1Cu);
+                    }
+                  }
+
+                  else
+                  {
+                    v190 = v188;
+                    CFDictionarySetValue(Mutable, SBUserNotificationExtensionIdentifierKey, v205);
+                    CFDictionarySetValue(Mutable, SBUserNotificationExtensionItemsKey, v190);
+                  }
+                }
+
+                if ((v204 & 1) == 0)
+                {
+                  CFDictionarySetValue(Mutable, kCFUserNotificationAlertMessageKey, v208);
+                  CFRelease(v208);
+                }
+
+                CFRelease(v21);
+                v193 = sub_10001A3E8(v191, v192);
+                v195 = sub_10001CF04(v193, v194);
+                if ((v195 & 1) != 0 || (v197 = sub_10001A3E8(v195, v196), sub_10003FFF8(v197, v198)))
+                {
+                  if (_os_feature_enabled_impl() && _os_feature_enabled_impl())
+                  {
+                    v199 = TCCCopyIconResourcePathForService();
+                    if (v199)
+                    {
+                      CFDictionarySetValue(Mutable, SBUserNotificationHeaderImagePath, v199);
+                      if (qword_1025D47A0 != -1)
+                      {
+                        sub_10192D4D0();
+                      }
+
+                      v200 = off_1025D47A8;
+                      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+                      {
+                        *buf = 68289538;
+                        *&buf[4] = 0;
+                        *&buf[8] = 2082;
+                        *&buf[10] = "";
+                        *&buf[18] = 2050;
+                        *&buf[20] = v214;
+                        v220 = 2114;
+                        v221 = v199;
+                        _os_log_impl(dword_100000000, v200, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#AuthPrompt Will use the icon in the prompt, promptType:%{public, location:CLClientManager_Type::AuthorizationRequestType}lld, iconPath:%{public, location:escape_only}@}", buf, 0x26u);
+                      }
+
+                      CFRelease(v199);
+                    }
+
+                    else
+                    {
+                      if (qword_1025D47A0 != -1)
+                      {
+                        sub_10192D4D0();
+                      }
+
+                      v201 = off_1025D47A8;
+                      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+                      {
+                        *buf = 68289282;
+                        *&buf[4] = 0;
+                        *&buf[8] = 2082;
+                        *&buf[10] = "";
+                        *&buf[18] = 2050;
+                        *&buf[20] = v214;
+                        _os_log_impl(dword_100000000, v201, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#AuthPrompt Unable to get the icon for prompt, promptType:%{public, location:CLClientManager_Type::AuthorizationRequestType}lld}", buf, 0x1Cu);
+                      }
+                    }
+                  }
+                }
+
+                [*(a1 + 40) currentLatchedAbsoluteTimestamp];
+                result = sub_10078364C(v12, a4, Mutable, v202);
+                if (result)
+                {
+                  sub_100783A10();
+                }
+
+                return result;
+              }
+
+              if (qword_1025D4790 != -1)
+              {
+                sub_10192DAA4();
+              }
+
+              v154 = qword_1025D4798;
+              if (os_log_type_enabled(qword_1025D4798, OS_LOG_TYPE_FAULT))
+              {
+                *buf = 68289282;
+                *&buf[4] = 0;
+                *&buf[8] = 2082;
+                *&buf[10] = "";
+                *&buf[18] = 2114;
+                *&buf[20] = v12;
+                _os_log_impl(dword_100000000, v154, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#AuthPrompt couldn't get bundle for client, ClientKeyPath:%{public, location:escape_only}@}", buf, 0x1Cu);
+                if (qword_1025D4790 != -1)
+                {
+                  sub_10192DAA4();
+                }
+              }
+
+              v24 = qword_1025D4798;
+              result = os_signpost_enabled(qword_1025D4798);
+              if (!result)
+              {
+                return result;
+              }
+
+LABEL_238:
+              *buf = 68289282;
+              *&buf[4] = 0;
+              *&buf[8] = 2082;
+              *&buf[10] = "";
+              *&buf[18] = 2114;
+              *&buf[20] = v12;
+              v25 = "#AuthPrompt couldn't get bundle for client";
+              v26 = "{msg%{public}.0s:#AuthPrompt couldn't get bundle for client, ClientKeyPath:%{public, location:escape_only}@}";
+LABEL_38:
+              _os_signpost_emit_with_name_impl(dword_100000000, v24, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v25, v26, buf, 0x1Cu);
+              return 0;
+            }
+          }
+
+          else
+          {
+            v88 = sub_100056238(v57, v58);
+            if (v41)
+            {
+              v63 = sub_1007CB2E4(v88, @"LOCATION_CLIENT_PERMISSION_NOT_THIS_TIME_BUTTON");
+              cf = v63;
+            }
+
+            else
+            {
+              if (v40)
+              {
+                v63 = sub_1007CB2E4(v88, @"LOCATION_CLIENT_PERMISSION_ONETIME_BUTTON");
+                cf = v63;
+                v66 = @"LOCATION_CLIENT_PERMISSION_NOT_THIS_TIME_BUTTON";
+                goto LABEL_129;
+              }
+
+              v63 = sub_1007CB2E4(v88, @"LOCATION_CLIENT_PERMISSION_WHENINUSE_BUTTON");
+              cf = v63;
+            }
+          }
+
+          v66 = @"LOCATION_CLIENT_PERMISSION_NEVER_BUTTON";
+          goto LABEL_129;
+        case 12:
+          v130 = sub_100056238(v38, v39);
+          format = sub_1007CB2E4(v130, @"LOCATION_CLIENT_PERMISSION_INCIDENTAL_USE_MODE_TITLE");
+          alloc = kCFAllocatorDefault;
+          value = CFStringCreateStringWithValidatedFormat(kCFAllocatorDefault, 0, @"%@", format, &errorPtr, v21);
+          v132 = sub_100056238(value, v131);
+          v43 = sub_1007CB2E4(v132, @"LOCATION_CLIENT_PERMISSION_INCIDENTAL_USE_MODE_NO_BUTTON");
+          v134 = sub_100056238(v43, v133);
+          cf = sub_1007CB2E4(v134, @"LOCATION_CLIENT_PERMISSION_INCIDENTAL_USE_MODE_YES_BUTTON");
+          v136 = sub_100056238(cf, v135);
+          v208 = sub_1007CB2E4(v136, @"LOCATION_CLIENT_PERMISSION_INCIDENTAL_USE_MODE_PURPOSE");
+LABEL_111:
+          v42 = 0;
+          v81 = 0;
+          v205 = 0;
+          goto LABEL_149;
+        case 13:
+          v89 = sub_100056238(v38, v39);
+          format = sub_1007CB2E4(v89, @"LOCATION_CLIENT_PERMISSION_PLAIN_TITLE_FOR_LOCATION_BUTTONS");
+          v91 = sub_100056238(format, v90);
+          v208 = sub_1007CB2E4(v91, @"LOCATION_CLIENT_PERMISSION_EXPLANATION_FOR_LOCATION_BUTTONS");
+          v93 = sub_100056238(v208, v92);
+          v43 = sub_1007CB2E4(v93, @"LOCATION_CLIENT_PERMISSION_DENY_LOCATION_BUTTONS");
+          v95 = sub_100056238(v43, v94);
+          cf = sub_1007CB2E4(v95, @"LOCATION_CLIENT_PERMISSION_ALLOW_LOCATION_BUTTONS");
+          v205 = [NSString stringWithUTF8String:"com.apple.corelocation.CoreLocationTemporaryPreciseAuthPromptPlugin"];
+          alloc = kCFAllocatorDefault;
+          value = CFStringCreateStringWithValidatedFormat(kCFAllocatorDefault, 0, @"%@", format, &errorPtr, v21);
+          goto LABEL_148;
+        case 14:
+          v139 = sub_100056238(v38, v39);
+          format = sub_1007CB2E4(v139, @"LOCATION_CLIENT_PERMISSION_TITLE_FOR_LOCATION_BUTTONS");
+          v141 = sub_100056238(format, v140);
+          v208 = sub_1007CB2E4(v141, @"LOCATION_CLIENT_PERMISSION_EXPLANATION_FOR_LOCATION_BUTTONS");
+          v143 = sub_100056238(v208, v142);
+          v43 = sub_1007CB2E4(v143, @"LOCATION_CLIENT_PERMISSION_DENY_LOCATION_BUTTONS");
+          v145 = sub_100056238(v43, v144);
+          cf = sub_1007CB2E4(v145, @"LOCATION_CLIENT_PERMISSION_ALLOW_LOCATION_BUTTONS");
+          v147 = sub_100056238(cf, v146);
+          v148 = [(NSMutableDictionary *)v213 setObject:sub_1007CB2E4(v147 forKeyedSubscript:@"PRECISE_ON_PILL_BUTTON_TITLE"), @"PreciseButtonOnTitle"];
+          v150 = sub_100056238(v148, v149);
+          [(NSMutableDictionary *)v213 setObject:sub_1007CB2E4(v150 forKeyedSubscript:@"PRECISE_OFF_PILL_BUTTON_TITLE"), @"PreciseButtonOffTitle"];
+          v205 = [NSString stringWithUTF8String:"com.apple.corelocation.CoreLocationVanillaWhenInUseAuthPromptPlugin"];
+          alloc = kCFAllocatorDefault;
+          value = CFStringCreateStringWithValidatedFormat(kCFAllocatorDefault, 0, @"%@", format, &errorPtr, v21);
+          goto LABEL_148;
+        case 16:
+          v205 = [NSString stringWithUTF8String:"com.apple.corelocation.CoreLocationRepromptAlwaysAuthPromptPlugin"];
+          v118 = sub_100056238(v205, v117);
+          format = sub_1007CB2E8(v118, @"LOCATION_CLIENT_TRANSCRIPT_TITLE");
+          alloc = kCFAllocatorDefault;
+          value = CFStringCreateStringWithValidatedFormat(kCFAllocatorDefault, 0, @"%@", format, &errorPtr, v21);
+          v119 = [-[NSMutableDictionary objectForKey:](v213 objectForKey:{@"UsageDescription", "copy"}];
+          v208 = v119;
+          if (!v119)
+          {
+            v121 = sub_100056238(0, v120);
+            v122 = sub_1007CB2E8(v121, @"LOCATION_CLIENT_TRANSCRIPT_USAGE_DESCRIPTION");
+            v208 = CFStringCreateStringWithValidatedFormat(kCFAllocatorDefault, 0, @"%@", v122, &errorPtr, v21);
+            CFRelease(v122);
+          }
+
+          v123 = sub_100056238(v119, v120);
+          v43 = sub_1007CB2E4(v123, @"LOCATION_CLIENT_TRANSCRIPT_YES_BUTTON");
+          v125 = sub_100056238(v43, v124);
+          cf = sub_1007CB2E4(v125, @"LOCATION_CLIENT_TRANSCRIPT_NO_BUTTON");
+          goto LABEL_148;
+        case 18:
+          if (!_os_feature_enabled_impl())
+          {
+            goto LABEL_53;
+          }
+
+          v128 = sub_1004E87D0();
+          if (v128)
+          {
+            v128 = [NSString stringWithUTF8String:"com.apple.corelocation.CoreLocationLearnedRouteAuthPromptPlugin"];
+            v205 = v128;
+          }
+
+          else
+          {
+            v205 = 0;
+          }
+
+          v158 = sub_100056238(v128, v129);
+          format = sub_1007CB2E4(v158, @"LOCATION_CLIENT_PERMISSION_TITLE_FOR_LEARNED_ROUTES_BUTTONS");
+          alloc = kCFAllocatorDefault;
+          value = CFStringCreateStringWithValidatedFormat(kCFAllocatorDefault, 0, @"%@", format, &errorPtr, v21);
+          v160 = sub_100056238(value, v159);
+          v208 = sub_1007CB2E4(v160, @"LOCATION_CLIENT_PERMISSION_LEARNED_ROUTES_USAGE_DESCRIPTION");
+          v162 = sub_100056238(v208, v161);
+          v43 = sub_1007CB2E4(v162, @"LOCATION_CLIENT_PERMISSION_DENY_LEARNED_ROUTES_BUTTON");
+          v164 = sub_100056238(v43, v163);
+          cf = sub_1007CB2E4(v164, @"LOCATION_CLIENT_PERMISSION_ALLOW_LEARNED_ROUTES_BUTTON");
+          goto LABEL_148;
+        case 19:
+          if (!_os_feature_enabled_impl())
+          {
+LABEL_53:
+            CFRelease(v21);
+            return 0;
+          }
+
+          v137 = sub_1004E87D0();
+          if (v137)
+          {
+            v137 = [NSString stringWithUTF8String:"com.apple.corelocation.CoreLocationVisitHistoryAuthPromptPlugin"];
+            v205 = v137;
+          }
+
+          else
+          {
+            v205 = 0;
+          }
+
+          v165 = sub_100056238(v137, v138);
+          format = sub_1007CB2E4(v165, @"LOCATION_CLIENT_PERMISSION_TITLE_FOR_VISIT_HISTORY_BUTTONS");
+          alloc = kCFAllocatorDefault;
+          value = CFStringCreateStringWithValidatedFormat(kCFAllocatorDefault, 0, @"%@", format, &errorPtr, v21);
+          v167 = sub_100056238(value, v166);
+          v168 = sub_1007CB2E4(v167, @"LOCATION_CLIENT_PERMISSION_VISIT_HISTORY_USAGE_DESCRIPTION");
+          v170 = v168;
+          if (v168)
+          {
+            v208 = CFStringCreateStringWithValidatedFormat(kCFAllocatorDefault, 0, @"%@", v168, &errorPtr, v21);
+            CFRelease(v170);
+          }
+
+          else
+          {
+            v208 = 0;
+          }
+
+          v171 = sub_100056238(v168, v169);
+          v43 = sub_1007CB2E4(v171, @"LOCATION_CLIENT_PERMISSION_DENY_VISIT_HISTORY_BUTTON");
+          v173 = sub_100056238(v43, v172);
+          cf = sub_1007CB2E4(v173, @"LOCATION_CLIENT_PERMISSION_ALLOW_VISIT_HISTORY_BUTTON");
+LABEL_148:
+          v42 = 0;
+          v81 = 0;
+          goto LABEL_149;
+        default:
+          v42 = 0;
+          v126 = 0;
+          v81 = 0;
+          v43 = 0;
+          cf = 0;
+          v205 = 0;
+          format = 0;
+          v127 = 0;
+          goto LABEL_162;
+      }
     }
 
     if (qword_1025D47A0 != -1)
@@ -2367,714 +2630,37 @@ void sub_10078F0DC(uint64_t a1, const std::string *a2, uint64_t a3, unsigned int
     }
 
     v23 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
     {
-      if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v24 = a2;
-      }
-
-      else
-      {
-        v24 = a2->__r_.__value_.__r.__words[0];
-      }
-
-      *buf = 68289538;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 2082;
-      *&buf[20] = v24;
-      *&buf[28] = 1026;
-      *&buf[30] = a10;
-      _os_log_impl(dword_100000000, v23, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#authsync applyAuthorizationSyncMessage un-translated key, clientKey:%{public, location:escape_only}s, OperationType:%{public}d}", buf, 0x22u);
-    }
-
-    if (!std::string::compare(a2, ""))
-    {
-      sub_100791270(a1, a4);
-    }
-
-    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v25 = a2;
-    }
-
-    else
-    {
-      v25 = a2->__r_.__value_.__r.__words[0];
-    }
-
-    v26 = sub_10078D91C([NSString stringWithUTF8String:v25]);
-    sub_10000EC00(v109, [v26 UTF8String]);
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v27 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-    {
-      v28 = v109;
-      if (v110 < 0)
-      {
-        v28 = v109[0];
-      }
-
-      if ((a5 & 0x100000000) != 0)
-      {
-        v29 = a5;
-      }
-
-      else
-      {
-        v29 = -1;
-      }
-
-      *buf = 68290562;
-      *&buf[4] = 0;
-      *&buf[8] = 2082;
-      v30 = a9 & 1;
-      if (((a9 >> 8) & 1) == 0)
-      {
-        v30 = 1;
-      }
-
-      *&buf[10] = "";
-      *&buf[18] = 2082;
-      *&buf[20] = v28;
-      *&buf[28] = 1026;
-      *&buf[30] = a4;
-      *&buf[34] = 1026;
-      *&buf[36] = v29;
-      *&buf[40] = 1026;
-      *&buf[42] = a10;
-      *v112 = 1026;
-      *&v112[2] = v30;
-      *v113 = 1026;
-      *&v113[2] = a14;
-      _os_log_impl(dword_100000000, v27, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#authsync applyAuthorizationSyncMessage, clientKey:%{public, location:escape_only}s, remoteAuth:%{public}d, corrective:%{public}d, OperationType:%{public}d, suppressShowingInSettings:%{public}d, maxNumberOfPeerClocks:%{public}u}", buf, 0x3Au);
-    }
-
-    v31 = [CLClientKeyPath clientKeyPathWithLegacyClientKey:v26];
-    if (a8)
-    {
-      v32 = a1;
-      v33 = [*(a1 + 136) registeredKeyPathForClientIdentifier:v31];
-      if (a10 == 2)
-      {
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-          v32 = a1;
-        }
-
-        v34 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 68289282;
-          *&buf[8] = 2082;
-          *&buf[10] = "";
-          *&buf[18] = 2114;
-          *&buf[20] = v31;
-          _os_log_impl(dword_100000000, v34, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#authsync removing client; CLCompanionSyncAuthObject_CLSYChangeType_UPDATE, client:%{public, location:escape_only}@}", buf, 0x1Cu);
-        }
-      }
-
-      else
-      {
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-          v32 = a1;
-        }
-
-        v50 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 68289282;
-          *&buf[8] = 2082;
-          *&buf[10] = "";
-          *&buf[18] = 2114;
-          *&buf[20] = v31;
-          _os_log_impl(dword_100000000, v50, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#authsync removing client as it is received with clear field set, client:%{public, location:escape_only}@}", buf, 0x1Cu);
-        }
-
-        v51 = [v33 isValidCKP] ^ 1;
-        if (!a3)
-        {
-          LOBYTE(v51) = 1;
-        }
-
-        if ((v51 & 1) == 0)
-        {
-          v33 = [v33 clientKeyPathWithReplacementSubIdentityId:+[NSString stringWithUTF8String:](NSString subIdentityType:{"stringWithUTF8String:", a3), 122}];
-        }
-      }
-
-      sub_10000EC00(__p, "ClientRemoved");
-      sub_100777AC4(v32, v33, 0, __p);
-      if (v108 < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v52 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
-      {
-        v53 = v109;
-        if (v110 < 0)
-        {
-          v53 = v109[0];
-        }
-
-        *buf = 68289282;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 2082;
-        *&buf[20] = v53;
-        _os_log_impl(dword_100000000, v52, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#authsync received with clear to delete the auth on companion, clientKey:%{public, location:escape_only}s}", buf, 0x1Cu);
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-      }
-
-      v54 = off_1025D47A8;
-      if (os_signpost_enabled(off_1025D47A8))
-      {
-        v55 = v109;
-        if (v110 < 0)
-        {
-          v55 = v109[0];
-        }
-
-        *buf = 68289282;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 2082;
-        *&buf[20] = v55;
-        _os_signpost_emit_with_name_impl(dword_100000000, v54, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#authsync received with clear to delete the auth on companion", "{msg%{public}.0s:#authsync received with clear to delete the auth on companion, clientKey:%{public, location:escape_only}s}", buf, 0x1Cu);
-      }
-
-      goto LABEL_207;
-    }
-
-    if (!a4 && ((a9 >> 8) & a9 & 1) != 0)
-    {
-LABEL_207:
-      if (v110 < 0)
-      {
-        operator delete(v109[0]);
-      }
-
-      return;
-    }
-
-    v43 = [*(a1 + 136) registeredKeyPathForClientIdentifier:v31];
-    if (([v43 isValidCKP] & 1) == 0)
-    {
-      v43 = [*(a1 + 136) registerClient:v31 fromAuthSync:1];
-    }
-
-    sub_1000F7D18(a1, v43, 0);
-    v87 = [a11 count];
-    v90 = [*(a1 + 136) intForKey:@"Authorization" atKeyPath:v43 defaultValue:0];
-    v44 = [*(a1 + 136) intForKey:@"IncidentalUseMode" atKeyPath:v43 defaultValue:0];
-    v45 = [*(a1 + 136) BOOLForKey:@"AuthorizationUpgradeAvailable" atKeyPath:v43 defaultValue:1];
-    v46 = v45;
-    if ((a5 & 0x100000000) != 0)
-    {
-      v47 = a5;
-    }
-
-    else
-    {
-      v47 = 0;
-    }
-
-    if ((a6 & dword_100000000) != 0)
-    {
-      v48 = a6;
-    }
-
-    else
-    {
-      v48 = v44;
-    }
-
-    v88 = v48;
-    v89 = v47;
-    if ((a7 & 0x100) != 0)
-    {
-      v49 = a7;
-    }
-
-    else
-    {
-      v49 = v45;
-    }
-
-    v91 = v49;
-    if ([a11 count])
-    {
-      v93 = [objc_msgSend(a11 objectAtIndexedSubscript:{0), "value"}];
-    }
-
-    else
-    {
-      v93 = 0;
-    }
-
-    if ([a11 count] && objc_msgSend(a11, "count") > a13)
-    {
-      v92 = [objc_msgSend(a11 objectAtIndexedSubscript:{a13), "value"}];
-    }
-
-    else
-    {
-      v92 = 0;
-    }
-
-    v56 = sub_10078F050(a1, v43, a14 + 1);
-    v57 = [objc_msgSend(v56 objectAtIndexedSubscript:{a12), "unsignedIntValue"}];
-    v94 = [objc_msgSend(v56 objectAtIndexedSubscript:{0), "unsignedIntValue"}];
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v58 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 68292098;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 2114;
-      *&buf[20] = v56;
-      *&buf[28] = 2114;
-      *&buf[30] = a11;
-      *&buf[38] = 1026;
-      *&buf[40] = a12;
-      *&buf[44] = 1026;
-      *v112 = a13;
-      *&v112[4] = 1026;
-      *v113 = v94;
-      *&v113[4] = 1026;
-      v114 = v92;
-      v115 = 1026;
-      v116 = v57;
-      v117 = 1026;
-      v118 = v93;
-      v119 = 2050;
-      v120 = v90;
-      v121 = 2050;
-      v122 = a4;
-      v123 = 1026;
-      v124 = v46;
-      v125 = 1026;
-      v126 = v91 & 1;
-      _os_log_impl(dword_100000000, v58, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#authsync local vs peer, localVC:%{public, location:escape_only}@, remoteVC:%{public, location:escape_only}@, fromPeerIdx:%{public}u, toPeerIdx:%{public}u, localClockForSelf:%{public}u, remoteClockForSelf:%{public}u, localClockForPeer:%{public}u, remoteClockForPeer:%{public}u, localAuth:%{public, location:CLLocationDictionaryUtilitiesAuthorizationMask}lld, remoteAuth:%{public, location:CLLocationDictionaryUtilitiesAuthorizationMask}lld, localIsAuthorizationUpgradeAvailable:%{public}hhd, remoteIsAuthorizationUpgradeAvailable:%{public}hhd}", buf, 0x6Au);
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-    }
-
-    v59 = off_1025D47A8;
-    if (os_signpost_enabled(off_1025D47A8))
-    {
-      *buf = 68292098;
+      *buf = 68289282;
       *&buf[4] = 0;
       *&buf[8] = 2082;
       *&buf[10] = "";
       *&buf[18] = 2114;
-      *&buf[20] = v56;
-      *&buf[28] = 2114;
-      *&buf[30] = a11;
-      *&buf[38] = 1026;
-      *&buf[40] = a12;
-      *&buf[44] = 1026;
-      *v112 = a13;
-      *&v112[4] = 1026;
-      *v113 = v94;
-      *&v113[4] = 1026;
-      v114 = v92;
-      v115 = 1026;
-      v116 = v57;
-      v117 = 1026;
-      v118 = v93;
-      v119 = 2050;
-      v120 = v90;
-      v121 = 2050;
-      v122 = a4;
-      v123 = 1026;
-      v124 = v46;
-      v125 = 1026;
-      v126 = v91 & 1;
-      _os_signpost_emit_with_name_impl(dword_100000000, v59, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#authsync local vs peer", "{msg%{public}.0s:#authsync local vs peer, localVC:%{public, location:escape_only}@, remoteVC:%{public, location:escape_only}@, fromPeerIdx:%{public}u, toPeerIdx:%{public}u, localClockForSelf:%{public}u, remoteClockForSelf:%{public}u, localClockForPeer:%{public}u, remoteClockForPeer:%{public}u, localAuth:%{public, location:CLLocationDictionaryUtilitiesAuthorizationMask}lld, remoteAuth:%{public, location:CLLocationDictionaryUtilitiesAuthorizationMask}lld, localIsAuthorizationUpgradeAvailable:%{public}hhd, remoteIsAuthorizationUpgradeAvailable:%{public}hhd}", buf, 0x6Au);
-    }
-
-    if (v93 <= v57)
-    {
-      if (v93 < v57)
-      {
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v61 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 68289026;
-          *&buf[8] = 2082;
-          *&buf[10] = "";
-          _os_log_impl(dword_100000000, v61, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#authsync peer clock has gone backwards}", buf, 0x12u);
-          if (qword_1025D47A0 != -1)
-          {
-            sub_10192D4D0();
-          }
-        }
-
-        v62 = off_1025D47A8;
-        if (os_signpost_enabled(off_1025D47A8))
-        {
-          *buf = 68289026;
-          *&buf[8] = 2082;
-          *&buf[10] = "";
-          _os_signpost_emit_with_name_impl(dword_100000000, v62, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#authsync peer clock has gone backwards", "{msg%{public}.0s:#authsync peer clock has gone backwards}", buf, 0x12u);
-        }
-      }
-    }
-
-    else
-    {
+      *&buf[20] = v12;
+      _os_log_impl(dword_100000000, v23, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:createClientUserNotification: BundleDisplayName nil, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
       if (qword_1025D47A0 != -1)
       {
         sub_10192D4D0();
       }
-
-      v60 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 68289026;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        _os_log_impl(dword_100000000, v60, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#authsync peer clock has advanced}", buf, 0x12u);
-      }
-
-      [v56 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber atIndexedSubscript:{"numberWithUnsignedInt:", v93), a12}];
-      [*(a1 + 136) setArray:v56 forKey:@"VectorClocks" atKeyPath:v43];
-      [*(a1 + 136) persist];
     }
 
-    v63 = a1;
-    if (v94 != v92)
+    v24 = off_1025D47A8;
+    result = os_signpost_enabled(off_1025D47A8);
+    if (!result)
     {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-        v63 = a1;
-      }
-
-      v64 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 68289026;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        _os_log_impl(dword_100000000, v64, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#authsync local clock has changed with respect to peer}", buf, 0x12u);
-      }
+      return result;
     }
 
-    if (v87)
-    {
-LABEL_119:
-      sub_1007AB040(v102, [*(v63 + 136) readonlyStoreAtKeyPath:v43]);
-      sub_1007AB17C(v101, a4, v88, v91 & 1, v89, 0, 0);
-      if (*v102 == *v101 && *&v102[4] == *&v101[4] && *&v102[20] == *&v101[20] && *&v102[28] == *&v101[28])
-      {
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v66 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 68289026;
-          *&buf[8] = 2082;
-          *&buf[10] = "";
-          _os_log_impl(dword_100000000, v66, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#authsync peer's auth capabilities haven't changed w.r.t to this device, so skipping this peer's capabilities.}", buf, 0x12u);
-        }
-
-        goto LABEL_207;
-      }
-
-      v67 = v94 == v92 || v57 == v93;
-      v68 = !v67;
-      v99 = *v101;
-      v100 = *&v101[16];
-      if (!v67)
-      {
-        *buf = *v102;
-        *&buf[16] = *&v102[16];
-        sub_1007AB22C(buf, v101);
-        v99 = *buf;
-        v100 = *&buf[16];
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-          v63 = a1;
-        }
-
-        v69 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-        {
-          if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-          {
-            a2 = a2->__r_.__value_.__r.__words[0];
-          }
-
-          v70 = [(CLKeyValueStore *)sub_10079140C(&v99) dictionary];
-          *buf = 68289794;
-          *&buf[8] = 2082;
-          *&buf[10] = "";
-          *&buf[18] = 1026;
-          *&buf[20] = a10;
-          *&buf[24] = 2082;
-          *&buf[26] = a2;
-          *&buf[34] = 2114;
-          *&buf[36] = v70;
-          _os_log_impl(dword_100000000, v69, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#authsync auth capabilities have changed. Merging now., OperationType:%{public}d, clientKey:%{public, location:escape_only}s, result:%{public, location:escape_only}@}", buf, 0x2Cu);
-        }
-      }
-
-      if (DWORD2(v99) == 1)
-      {
-        v71 = 3;
-      }
-
-      else if (v99 == -1)
-      {
-        v71 = 2;
-      }
-
-      else
-      {
-        v71 = 4 * (v99 == 1);
-      }
-
-      if (HIDWORD(v99) == 1)
-      {
-        v72 = 1;
-      }
-
-      else
-      {
-        v72 = 2;
-      }
-
-      if (v89)
-      {
-        v73 = v72;
-      }
-
-      else
-      {
-        v73 = 0;
-      }
-
-      sub_100791600(v63, v43, v71, v73, v65, 1, 0);
-      if (v88)
-      {
-        v74 = 1;
-        if (DWORD2(v99) != 1 && v99 == 1)
-        {
-          if (DWORD1(v99) == 1)
-          {
-            v75 = 3;
-          }
-
-          else
-          {
-            v75 = 1;
-          }
-
-          if (DWORD1(v99) == -1)
-          {
-            v74 = 2;
-          }
-
-          else
-          {
-            v74 = v75;
-          }
-        }
-
-        sub_10077A3D0(v63, v74, v43, 0);
-      }
-
-      if (DWORD2(v99) == 1)
-      {
-        goto LABEL_164;
-      }
-
-      if (v99 == -1)
-      {
-        v76 = 0;
-      }
-
-      else
-      {
-        if (v99 == 1)
-        {
-LABEL_164:
-          v76 = DWORD2(v99) == 0;
-          goto LABEL_165;
-        }
-
-        v76 = 1;
-      }
-
-LABEL_165:
-      sub_100791ACC(v63, v43, v76, 0);
-      if (DWORD2(v99) == 1 || v99 == -1 || v99 == 1 && DWORD2(v99))
-      {
-        sub_100791C88(v63, v43, 1, 0, 0);
-      }
-
-      if (!v68)
-      {
-        goto LABEL_207;
-      }
-
-      sub_10000EC00(v97, "CapabilitiesConflictResolution");
-      sub_10077A934(v63, v43, v97);
-      if ((v98 & 0x80000000) == 0)
-      {
-        goto LABEL_207;
-      }
-
-      v77 = v97[0];
-      goto LABEL_206;
-    }
-
-    sub_10001A3E8();
-    if (sub_10001CF3C() && ((v78 = [*(v63 + 136) BOOLForKey:@"SyncedAuthorizationDecisionOnGizmo" atKeyPath:v43 defaultValue:1], v90) ? (v79 = v90 == a4) : (v79 = 1), v79 ? (v80 = 1) : (v80 = v78), (v80 & 1) == 0))
-    {
-      v84 = sub_1007805C8(v63, v43);
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-        v63 = a1;
-      }
-
-      v85 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v86 = a2;
-        }
-
-        else
-        {
-          v86 = a2->__r_.__value_.__r.__words[0];
-        }
-
-        *buf = 68290306;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 1026;
-        *&buf[20] = a10;
-        *&buf[24] = 2082;
-        *&buf[26] = v86;
-        *&buf[34] = 1026;
-        *&buf[36] = v90;
-        *&buf[40] = 1026;
-        *&buf[42] = a4;
-        *v112 = 1026;
-        *&v112[2] = v84;
-        _os_log_impl(dword_100000000, v85, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#authsync pre-luckier #conflict applyAuthorizationSyncMessage change denied due to SyncedAuthorizationDecisionOnGizmo=false, OperationType:%{public}d, clientKey:%{public, location:escape_only}s, localAuth:%{public}d, remoteAuth:%{public}d, correctiveComp:%{public}d}", buf, 0x34u);
-      }
-
-      sub_10000EC00(v105, "AuthorizationConflictResolutionDuringAdd");
-      sub_10077A934(v63, v43, v105);
-      if ((v106 & 0x80000000) == 0)
-      {
-        goto LABEL_207;
-      }
-
-      v77 = v105[0];
-    }
-
-    else
-    {
-      v81 = sub_10001A3E8();
-      if (!(**v81)(v81) || !v90 || v90 == a4)
-      {
-        goto LABEL_119;
-      }
-
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-        v63 = a1;
-      }
-
-      v82 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v83 = a2;
-        }
-
-        else
-        {
-          v83 = a2->__r_.__value_.__r.__words[0];
-        }
-
-        *buf = 68290050;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 1026;
-        *&buf[20] = a10;
-        *&buf[24] = 2082;
-        *&buf[26] = v83;
-        *&buf[34] = 1026;
-        *&buf[36] = v90;
-        *&buf[40] = 1026;
-        *&buf[42] = a4;
-        _os_log_impl(dword_100000000, v82, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#authsync pre-luckier #conflict applyAuthorizationSyncMessage denied due to an auth conflict, OperationType:%{public}d, clientKey:%{public, location:escape_only}s, localAuth:%{public}d, remoteAuth:%{public}d}", buf, 0x2Eu);
-      }
-
-      sub_10000EC00(v103, "ClientRemoved-AuthConflictResolution");
-      sub_100777AC4(v63, v43, 1, v103);
-      if (v104 < 0)
-      {
-        operator delete(v103[0]);
-      }
-
-      sub_10000EC00(buf, "");
-      sub_100018918(v63, v43, buf);
-      if ((buf[23] & 0x80000000) == 0)
-      {
-        goto LABEL_207;
-      }
-
-      v77 = *buf;
-    }
-
-LABEL_206:
-    operator delete(v77);
-    goto LABEL_207;
+    *buf = 68289282;
+    *&buf[4] = 0;
+    *&buf[8] = 2082;
+    *&buf[10] = "";
+    *&buf[18] = 2114;
+    *&buf[20] = v12;
+    v25 = "createClientUserNotification: BundleDisplayName nil";
+    v26 = "{msg%{public}.0s:createClientUserNotification: BundleDisplayName nil, Client:%{public, location:escape_only}@}";
+    goto LABEL_38;
   }
 
   if (qword_1025D47A0 != -1)
@@ -3082,1705 +2668,528 @@ LABEL_206:
     sub_10028840C();
   }
 
-  v35 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
-  {
-    *buf = 68289282;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    *&buf[18] = 1026;
-    *&buf[20] = a10;
-    _os_log_impl(dword_100000000, v35, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:NotSuported #authSync applyAuthorizationSyncMessage applies syncMessage of operationTye Add or Update, Received OperationType:%{public}d}", buf, 0x18u);
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-  }
-
-  v36 = off_1025D47A8;
-  if (os_signpost_enabled(off_1025D47A8))
-  {
-    *buf = 68289282;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    *&buf[18] = 1026;
-    *&buf[20] = a10;
-    v37 = "NotSuported #authSync applyAuthorizationSyncMessage applies syncMessage of operationTye Add or Update";
-    v38 = "{msg%{public}.0s:NotSuported #authSync applyAuthorizationSyncMessage applies syncMessage of operationTye Add or Update, Received OperationType:%{public}d}";
-    v39 = v36;
-    v40 = 24;
-LABEL_50:
-    _os_signpost_emit_with_name_impl(dword_100000000, v39, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v37, v38, buf, v40);
-  }
-}
-
-void sub_100790538(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, void *__p, uint64_t a43, int a44, __int16 a45, char a46, char a47, uint64_t a48, uint64_t a49, int a50, __int16 a51, char a52, char a53)
-{
-  if (a47 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (*(v53 - 225) < 0)
-  {
-    operator delete(*(v53 - 248));
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-id sub_100790614(id result, uint64_t a2, void *a3, unsigned __int8 a4, unsigned __int8 a5, int a6)
-{
-  v30 = result;
-  if (a3)
-  {
-    v22 = sub_100791E4C(a2);
-    v31 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v34 = 0u;
-    result = [a3 countByEnumeratingWithState:&v31 objects:v44 count:16];
-    v28 = result;
-    if (result)
-    {
-      v29 = 0;
-      v27 = *v32;
-      do
-      {
-        v9 = 0;
-        do
-        {
-          if (*v32 != v27)
-          {
-            objc_enumerationMutation(a3);
-          }
-
-          v10 = *(*(&v31 + 1) + 8 * v9);
-          if ([v10 provenance] == 1)
-          {
-            v42[0] = @"Type";
-            v43[0] = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v10 zoneType]);
-            v42[1] = @"Latitude";
-            [v10 latitude];
-            v43[1] = [NSNumber numberWithDouble:?];
-            v42[2] = @"Longitude";
-            [v10 longitude];
-            v43[2] = [NSNumber numberWithDouble:?];
-            v42[3] = @"Radius";
-            [v10 radius];
-            v43[3] = [NSNumber numberWithDouble:?];
-            v42[4] = @"ServiceMaskOperator";
-            v43[4] = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v10 serviceMaskOperator]);
-            v42[5] = @"Provenance";
-            v43[5] = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v10 provenance]);
-            v11 = [NSDictionary dictionaryWithObjects:v43 forKeys:v42 count:6];
-            sub_10000EC00(&__p, [objc_msgSend(v10 "zoneIdentifier")]);
-            v12 = sub_100791FC0(v30, a2, &__p, v11, 2u, v22);
-            if (SBYTE3(v39) < 0)
-            {
-              operator delete(__p);
-            }
-          }
-
-          else
-          {
-            v12 = 0;
-          }
-
-          if (([v10 hasAuthMask] & 1) != 0 || objc_msgSend(v10, "hasCorrectiveCompensationMask"))
-          {
-            if ([v10 hasCorrectiveCompensationMask])
-            {
-              v13 = [v10 correctiveCompensationMask];
-              v29 = v13 >> 8;
-              v14 = v13;
-              v15 = dword_100000000;
-            }
-
-            else
-            {
-              v15 = 0;
-              v14 = 0;
-            }
-
-            v16 = [v10 zoneIdentifier];
-            if ((v12 & 1) == 0)
-            {
-              v17 = sub_10001A3E8();
-              if ((**v17)(v17))
-              {
-                v18 = @"clpla_companion_";
-              }
-
-              else
-              {
-                v18 = @"clpla_gizmo_";
-              }
-
-              v16 = [(__CFString *)v18 stringByAppendingString:v16];
-            }
-
-            if (qword_1025D47A0 != -1)
-            {
-              sub_10192D4D0();
-            }
-
-            v19 = off_1025D47A8;
-            if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-            {
-              if (*(a2 + 23) >= 0)
-              {
-                v20 = a2;
-              }
-
-              else
-              {
-                v20 = *a2;
-              }
-
-              v21 = [v16 UTF8String];
-              __p = 68289538;
-              v36 = 2082;
-              v37 = "";
-              v38 = 2082;
-              v39 = v20;
-              v40 = 2082;
-              v41 = v21;
-              _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Applying auth for SyncedZone., Client:%{public, location:escape_only}s, ZoneId:%{public, location:escape_only}s}", &__p, 0x26u);
-            }
-
-            v7 &= 0xFFFFFFFFFFFF0000;
-            v6 &= 0xFFFFFFFFFFFF0000;
-            sub_10078F0DC(v30, a2, [v16 UTF8String], objc_msgSend(v10, "authMask"), v15 | v14 | (v29 << 8), 0, v7, objc_msgSend(v10, "clearClient"), v6, 1, +[NSMutableArray array](NSMutableArray, "array"), a4, a5, a6);
-          }
-
-          v9 = v9 + 1;
-        }
-
-        while (v28 != v9);
-        result = [a3 countByEnumeratingWithState:&v31 objects:v44 count:16];
-        v28 = result;
-      }
-
-      while (result);
-    }
-  }
-
-  return result;
-}
-
-void sub_100790ACC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42)
-{
-  if (a42 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100790AF0(uint64_t a1, void *a2)
-{
-  v3 = *(a1 + 40);
-  if (([*(a1 + 32) containsObject:a2] & 1) == 0)
-  {
-    if ([a2 isAuthLimited])
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10028840C();
-      }
-
-      v4 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-      {
-        __p = 68289282;
-        v11 = 2082;
-        v12 = "";
-        v13 = 2114;
-        v14 = a2;
-        v5 = "{msg%{public}.0s:#authsync applying fullSyncMessages; skip deletion of auth limited client, client:%{public, location:escape_only}@}";
-        v6 = v4;
-        v7 = OS_LOG_TYPE_INFO;
-LABEL_12:
-        _os_log_impl(dword_100000000, v6, v7, v5, &__p, 0x1Cu);
-      }
-    }
-
-    else if ([*(v3 + 136) isKeyPathRegisteredSystemService:a2])
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10028840C();
-      }
-
-      v8 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        __p = 68289282;
-        v11 = 2082;
-        v12 = "";
-        v13 = 2114;
-        v14 = a2;
-        v5 = "{msg%{public}.0s:#authsync applying fullSyncMessages; skip deletion of system service client, client:%{public, location:escape_only}@}";
-        v6 = v8;
-        v7 = OS_LOG_TYPE_DEFAULT;
-        goto LABEL_12;
-      }
-    }
-
-    else
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10028840C();
-      }
-
-      v9 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-      {
-        __p = 68289282;
-        v11 = 2082;
-        v12 = "";
-        v13 = 2114;
-        v14 = a2;
-        _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#authsync applying fullSyncMessages; deleting client, client:%{public, location:escape_only}@}", &__p, 0x1Cu);
-      }
-
-      sub_10000EC00(&__p, [objc_msgSend(a2 "legacyClientKey")]);
-      sub_100790D50(v3, &__p);
-      if (SBYTE3(v14) < 0)
-      {
-        operator delete(__p);
-      }
-    }
-  }
-}
-
-void sub_100790D2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100790D50(uint64_t a1, uint64_t *a2)
-{
-  if (*(a2 + 23) >= 0)
-  {
-    v4 = a2;
-  }
-
-  else
-  {
-    v4 = *a2;
-  }
-
-  v5 = [sub_10078D91C(+[NSString stringWithUTF8String:](NSString stringWithUTF8String:{v4)), "UTF8String"}];
-  sub_10000EC00(v12, v5);
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10192D4D0();
-  }
-
-  v6 = off_1025D47A8;
+  v10 = off_1025D47A8;
   if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = v12;
-    if (v13 < 0)
-    {
-      v7 = v12[0];
-    }
-
-    *buf = 68289282;
-    v15 = 0;
-    v16 = 2082;
-    v17 = "";
-    v18 = 2082;
-    v19 = v7;
-    _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#authsync applyAuthorizationSyncMessageTypeDelete, clientKey:%{public, location:escape_only}s}", buf, 0x1Cu);
+    *buf = 0;
+    _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEFAULT, "#Pinning per-app prompts are not allowed when LocationPinning is enabled.", buf, 2u);
   }
 
-  if (*(a2 + 23) >= 0)
-  {
-    v8 = a2;
-  }
-
-  else
-  {
-    v8 = *a2;
-  }
-
-  v9 = [*(a1 + 136) registeredKeyPathForClientIdentifier:{+[CLClientKeyPath clientKeyPathWithLegacyClientKey:](CLClientKeyPath, "clientKeyPathWithLegacyClientKey:", +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v8))}];
-  sub_10000EC00(__p, "ClientRemoved");
-  sub_100777AC4(a1, v9, 0, __p);
-  if (v11 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  sub_1001D2F14(a1);
-  sub_100044F7C(a1);
-  if (v13 < 0)
-  {
-    operator delete(v12[0]);
-  }
-}
-
-void sub_100790F04(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a20 < 0)
-  {
-    operator delete(a15);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100790F40(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  v3 = [objc_msgSend(*(v2 + 1592) objectForKey:{*(a1 + 32)), "copy"}];
-  if (v3)
-  {
-    v4 = v3;
-    [*(v2 + 1592) removeObjectForKey:*(a1 + 32)];
-    v5 = [objc_msgSend(*(a1 + 32) "legacyClientKey")];
-    if (v5)
-    {
-      v6 = v5;
-    }
-
-    else
-    {
-      v6 = "";
-    }
-
-    sub_10000EC00(v10, v6);
-    v7 = [objc_msgSend(*(a1 + 32) "zoneId")];
-    sub_10000EC00(__p, [v4 UTF8String]);
-    sub_10079104C(v2, v10, v7, __p);
-    if (v9 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (v11 < 0)
-    {
-      operator delete(v10[0]);
-    }
-  }
-}
-
-void sub_100791014(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a20 < 0)
-  {
-    operator delete(a15);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-id sub_10079104C(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4)
-{
-  result = +[CLAuthSyncManager isSupported]_0();
+  result = sub_10000A100(121, 2);
   if (result)
   {
-    result = sub_10078DA00(a1, a2, 0, 1);
-    if (result)
-    {
-      v9 = result;
-      if (a3)
-      {
-        v22 = 0u;
-        v23 = 0u;
-        v20 = 0u;
-        v21 = 0u;
-        v10 = [result interestZones];
-        v11 = [v10 countByEnumeratingWithState:&v20 objects:v32 count:16];
-        if (v11)
-        {
-          v12 = v11;
-          v13 = *v21;
-LABEL_6:
-          v14 = 0;
-          while (1)
-          {
-            if (*v21 != v13)
-            {
-              objc_enumerationMutation(v10);
-            }
-
-            if ([objc_msgSend(*(*(&v20 + 1) + 8 * v14) "zoneIdentifier")])
-            {
-              break;
-            }
-
-            if (v12 == ++v14)
-            {
-              v12 = [v10 countByEnumeratingWithState:&v20 objects:v32 count:16];
-              if (v12)
-              {
-                goto LABEL_6;
-              }
-
-              break;
-            }
-          }
-        }
-      }
-
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v15 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        if (*(a4 + 23) >= 0)
-        {
-          v16 = a4;
-        }
-
-        else
-        {
-          v16 = *a4;
-        }
-
-        v17 = [v9 description];
-        *buf = 68289538;
-        v25 = 0;
-        v26 = 2082;
-        v27 = "";
-        v28 = 2082;
-        v29 = v16;
-        v30 = 2114;
-        v31 = v17;
-        _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#authsync addObject, syncReason:%{public, location:escape_only}s, syncObject:%{public, location:escape_only}@}", buf, 0x26u);
-      }
-
-      v18 = *(a1 + 1560);
-      if (*(a4 + 23) >= 0)
-      {
-        v19 = a4;
-      }
-
-      else
-      {
-        v19 = *a4;
-      }
-
-      return [v18 addObject:v9 withSyncSessionReason:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v19)}];
-    }
-  }
-
-  return result;
-}
-
-void sub_100791270(uint64_t a1, int a2)
-{
-  sub_10001CAF4(&__p);
-  v5 = a2 == 1;
-  sub_1000434C8(__p, @"LocationServicesEnabledIn8.0", &v5);
-  if (*v7)
-  {
-    sub_100008080(*v7);
-  }
-
-  sub_10001CAF4(&__p);
-  sub_10054B380(__p);
-  if (*v7)
-  {
-    sub_100008080(*v7);
-  }
-
-  sub_10000EC00(&__p, "com.apple.locationd.authsync");
-  sub_100773AF4(a1, &__p, 0);
-  if (SHIBYTE(v9) < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10192D4D0();
-  }
-
-  v4 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-  {
-    __p = 68289282;
-    *v7 = 2082;
-    *&v7[2] = "";
-    v8 = 1026;
-    v9 = a2;
-    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:authsync: Updating location services, newState:%{public}d}", &__p, 0x18u);
-  }
-}
-
-void sub_1007913D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-CLKeyValueStore *sub_10079140C(_DWORD *a1)
-{
-  v2 = +[NSMutableDictionary dictionary];
-  if (a1[2] == 1)
-  {
-    v3 = 4;
-  }
-
-  else if (*a1 == -1)
-  {
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = 2 * (*a1 == 1);
-  }
-
-  [v2 setObject:+[NSNumber numberWithUnsignedInteger:](NSNumber forKeyedSubscript:{"numberWithUnsignedInteger:", v3), @"Authorization"}];
-  if (a1[2] == 1 || *a1 != 1)
-  {
-    v6 = 1;
-  }
-
-  else
-  {
-    v4 = a1[1];
-    if (v4 == 1)
-    {
-      v5 = 3;
-    }
-
-    else
-    {
-      v5 = 1;
-    }
-
-    if (v4 == -1)
-    {
-      v6 = 2;
-    }
-
-    else
-    {
-      v6 = v5;
-    }
-  }
-
-  [v2 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber forKeyedSubscript:{"numberWithUnsignedInt:", v6), @"IncidentalUseMode"}];
-  v7 = a1[2];
-  if (v7 == 1)
-  {
-    goto LABEL_18;
-  }
-
-  if (*a1 == -1)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    if (*a1 == 1)
-    {
-LABEL_18:
-      v8 = v7 == 0;
-      goto LABEL_19;
-    }
-
-    v8 = 1;
-  }
-
-LABEL_19:
-  [v2 setObject:+[NSNumber numberWithBool:](NSNumber forKeyedSubscript:{"numberWithBool:", v8), @"AuthorizationUpgradeAvailable"}];
-  if (a1[3] == 1)
-  {
-    v9 = 1;
-  }
-
-  else
-  {
-    v9 = 2;
-  }
-
-  [v2 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber forKeyedSubscript:{"numberWithUnsignedInt:", v9), @"CorrectiveCompensationEnabled"}];
-  [v2 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber forKeyedSubscript:{"numberWithUnsignedInt:", 0), @"VisitHistoryAccess"}];
-  [v2 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber forKeyedSubscript:{"numberWithUnsignedInt:", 0), @"LearnedRoutesAccess"}];
-  [v2 setObject:+[NSNumber numberWithUnsignedInteger:](NSNumber forKeyedSubscript:{"numberWithUnsignedInteger:", 0), @"SupportedAuthorizationMask"}];
-
-  return [CLKeyValueStore storeWithDictionary:v2];
-}
-
-void sub_100791600(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, int a6, int a7)
-{
-  v12 = sub_100033370(a1, a2);
-  [*(a1 + 224) setNextFireDelay:0.3];
-  if ([*(a1 + 120) locationRestricted])
-  {
-    v13 = a7 == 0;
-  }
-
-  else
-  {
-    v13 = 1;
-  }
-
-  if (!v13)
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v17 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 138543362;
-      *&buf[4] = v12;
-      _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_DEBUG, "location services settings are frozen by restrictions - denying %{public}@", buf, 0xCu);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_101931944();
-    }
-
-    return;
-  }
-
-  v14 = "Never(because_invalid)";
-  v15 = 1;
-  if (a3 <= 2)
-  {
-    v16 = "Never";
-    if (a3 != 2)
-    {
-      v16 = "Never(because_invalid)";
-    }
-
-    if (a3)
-    {
-      v14 = v16;
-    }
-
-    else
-    {
-      v14 = "Invalid(Unset)";
-    }
-
-    v15 = a3 != 0;
-    goto LABEL_29;
-  }
-
-  if (a3 == 3)
-  {
-LABEL_27:
-    v14 = "Always";
-    a3 = 3;
-    v15 = 4;
-    goto LABEL_29;
-  }
-
-  if (a3 == 4)
-  {
-    if (!sub_10001CF3C() || ![*(a1 + 136) isKeyPathRegisteredSystemService:v12])
-    {
-      v14 = "WhenInUse";
-      a3 = 4;
-      v15 = 2;
-      goto LABEL_29;
-    }
-
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v18 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 68289282;
-      *&buf[4] = 0;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      v31 = 2114;
-      v32 = v12;
-      _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Adjusting authorization for systemService, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-    }
-
-    goto LABEL_27;
-  }
-
-LABEL_29:
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10192D4D0();
-  }
-
-  v19 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 138543874;
-    *&buf[4] = v12;
-    *&buf[12] = 1026;
-    *&buf[14] = a3;
-    v31 = 2082;
-    v32 = v14;
-    _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_DEBUG, "Setting client: %{public}@ authorization to %{public}d (%{public}s)", buf, 0x1Cu);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    bzero(buf, 0x65CuLL);
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    *__p = 138543874;
-    *&__p[4] = v12;
-    v26 = 1026;
-    v27 = a3;
-    v28 = 2082;
-    v29 = v14;
-    v24 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::setClientAuthorization(CLClientKeyPath *, CLClientAuthorizationStatus, CLClientCorrectiveCompensation, const char *, BOOL, BOOL)", "%s\n", v24);
-    if (v24 != buf)
-    {
-      free(v24);
-    }
-  }
-
-  if (*(a1 + 233) == 1)
-  {
-    v20 = [objc_msgSend(v12 "legacyClientKey")];
-    if (v20)
-    {
-      v21 = v20;
-    }
-
-    else
-    {
-      v21 = "";
-    }
-
-    sub_10000EC00(buf, v21);
-    v22 = [objc_msgSend(v12 "zoneId")];
-    if (v22)
-    {
-      v23 = v22;
-    }
-
-    else
-    {
-      v23 = "";
-    }
-
-    sub_10000EC00(__p, v23);
-    sub_100796A40(a1, buf, __p, 1, 0, 0, 3u, 1, *(a1 + 320), *(a1 + 328), 50.0, 1u, 0);
-    if (SBYTE3(v29) < 0)
-    {
-      operator delete(*__p);
-    }
-
-    if (SBYTE3(v32) < 0)
-    {
-      operator delete(*buf);
-    }
-
-    *(a1 + 233) = 0;
-    *(a1 + 320) = kCLLocationCoordinate2DInvalid;
-  }
-
-  sub_10078B250(a1, v12, v15, a4, 1, a6, a7);
-  sub_1007A4B1C(a1, v12);
-  sub_100044F7C(a1);
-}
-
-void sub_100791A90(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
-{
-  if (a18 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a25 < 0)
-  {
-    operator delete(a20);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100791ACC(uint64_t a1, uint64_t a2, int a3, int a4)
-{
-  v7 = sub_1000184F4(a1, a2);
-  v8 = [*(a1 + 136) BOOLForKey:@"AuthorizationUpgradeAvailable" atKeyPath:v7 defaultValue:1];
-  if (v8 == a3)
-  {
-    v10 = v8;
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v11 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 68289282;
-      v15 = 0;
-      v16 = 2082;
-      v17 = "";
-      v18 = 1026;
-      v19 = v10;
-      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ignoring updateAuthorizationUpgradeAvailableKey since newValue==currentValue, isAuthorizationUpgradeAvailable:%{public}hhd}", buf, 0x18u);
-    }
-  }
-
-  else
-  {
-    v9 = *(a1 + 136);
-    if (a3)
-    {
-      [v9 removeValueForKey:@"AuthorizationUpgradeAvailable" atKeyPath:v7];
-    }
-
-    else
-    {
-      [v9 setBool:0 forKey:@"AuthorizationUpgradeAvailable" atKeyPath:v7];
-    }
-
-    [*(a1 + 136) persist];
-    if (a4)
-    {
-      sub_10077A7A0(a1, v7);
-      sub_10000EC00(__p, "AuthorizationUpgradeAvailableChange");
-      sub_10077A934(a1, v7, __p);
-      if (v13 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-  }
-}
-
-void sub_100791C64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-id sub_100791C88(uint64_t a1, uint64_t a2, int a3, int a4, int a5)
-{
-  v9 = sub_1000184F4(a1, a2);
-  if ([v9 isAuthSharingSubIdentity])
-  {
-    v9 = [v9 anchorKeyPath];
-  }
-
-  v10 = *(a1 + 136);
-  if (!a3)
-  {
-    [v10 setBool:1 forKey:@"ProvisionalMonitoring" atKeyPath:v9];
-    [*(a1 + 136) setDouble:@"ProvisionalMonitoringBegin" forKey:v9 atKeyPath:CFAbsoluteTimeGetCurrent()];
-    return [*(a1 + 136) persist];
-  }
-
-  [v10 removeValueForKey:@"ProvisionalMonitoring" atKeyPath:v9];
-  [*(a1 + 136) removeValueForKey:@"ProvisionalMonitoringBegin" atKeyPath:v9];
-  sub_100791ACC(a1, v9, 0, a5);
-  v11 = *(a1 + 264);
-  if (v11)
-  {
-    if (v9)
-    {
-      [v9 cppClientKey];
-      LODWORD(v9) = HIBYTE(v23);
-      v12 = v22;
-    }
-
-    else
-    {
-      v12 = 0;
-      __p = 0;
-      v22 = 0;
-      v23 = 0;
-    }
-
-    v13 = *(v11 + 23);
-    if (v13 >= 0)
-    {
-      v14 = *(v11 + 23);
-    }
-
-    else
-    {
-      v14 = v11[1];
-    }
-
-    if ((v9 & 0x80u) == 0)
-    {
-      v12 = v9;
-    }
-
-    if (v14 == v12)
-    {
-      if (v13 >= 0)
-      {
-        v15 = v11;
-      }
-
-      else
-      {
-        v15 = *v11;
-      }
-
-      if ((v9 & 0x80u) == 0)
-      {
-        p_p = &__p;
-      }
-
-      else
-      {
-        p_p = __p;
-      }
-
-      v17 = memcmp(v15, p_p, v14) == 0;
-      if ((v9 & 0x80) == 0)
-      {
-LABEL_25:
-        if (v17)
-        {
-          if (a4)
-          {
-            v18 = *(a1 + 288);
-            if (v18)
-            {
-              (*(v18 + 16))(v18, 0);
-
-              *(a1 + 288) = 0;
-            }
-          }
-
-          v19 = *(a1 + 264);
-          *(a1 + 264) = 0;
-          if (v19)
-          {
-            sub_10068024C(a1 + 264, v19);
-          }
-
-          *(a1 + 280) = 0;
-        }
-
-        return [*(a1 + 136) persist];
-      }
-    }
-
-    else
-    {
-      v17 = 0;
-      if ((v9 & 0x80) == 0)
-      {
-        goto LABEL_25;
-      }
-    }
-
-    operator delete(__p);
-    goto LABEL_25;
-  }
-
-  return [*(a1 + 136) persist];
-}
-
-CFTypeRef sub_100791E4C(std::string *a1)
-{
-  sub_1000EBF44(a1, v9);
-  sub_10003B25C(v9);
-  if (v18 >= 0)
-  {
-    v1 = &v17;
-  }
-
-  else
-  {
-    v1 = v17;
-  }
-
-  sub_10000EC00(__p, v1);
-  if (v8 >= 0)
-  {
-    v2 = __p;
-  }
-
-  else
-  {
-    v2 = __p[0];
-  }
-
-  v3 = sub_100055734([NSString stringWithUTF8String:v2]);
-  if (v3)
-  {
-    v4 = CFBundleCreate(kCFAllocatorDefault, v3);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  sub_10001A3E8();
-  sub_10001CF3C();
-  if (v4)
-  {
-    v5 = sub_1000565F4(v4);
-    CFRelease(v4);
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (v8 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v22 < 0)
-  {
-    operator delete(v21);
-  }
-
-  if (v20 < 0)
-  {
-    operator delete(v19);
-  }
-
-  if (v18 < 0)
-  {
-    operator delete(v17);
-  }
-
-  if (v16 < 0)
-  {
-    operator delete(v15);
-  }
-
-  if (v14 < 0)
-  {
-    operator delete(v13);
-  }
-
-  if (v12 < 0)
-  {
-    operator delete(v11);
-  }
-
-  if (v10 < 0)
-  {
-    operator delete(v9[0]);
-  }
-
-  return v5;
-}
-
-uint64_t sub_100791FC0(uint64_t a1, uint64_t a2, std::string *__str, void *a4, unsigned int a5, void *a6)
-{
-  if (a5 - 3 <= 0xFFFFFFFD)
-  {
-    sub_101931CE4(a1, a2, __str);
-  }
-
-  v8 = __str;
-  memset(&v74, 0, sizeof(v74));
-  memset(&v73, 0, sizeof(v73));
-  if (a5 == 2)
-  {
-    if ((__str->__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      __str = __str->__r_.__value_.__r.__words[0];
-    }
-
-    v11 = [NSString stringWithUTF8String:__str];
-    v12 = sub_10001A3E8();
-    if ((**v12)(v12))
-    {
-      v13 = @"clpla_companion_";
-    }
-
-    else
-    {
-      v13 = @"clpla_gizmo_";
-    }
-
-    sub_100006044(&v74, [-[__CFString stringByAppendingString:](v13 stringByAppendingString:{v11), "UTF8String"}]);
-    std::string::operator=(&v73, v8);
-  }
-
-  else
-  {
-    std::string::operator=(&v74, __str);
-    if ((v8->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v14 = v8;
-    }
-
-    else
-    {
-      v14 = v8->__r_.__value_.__r.__words[0];
-    }
-
-    v15 = [NSString stringWithUTF8String:v14];
-    v16 = sub_10001A3E8();
-    if ((**v16)(v16))
-    {
-      v17 = @"clpla_companion_";
-    }
-
-    else
-    {
-      v17 = @"clpla_gizmo_";
-    }
-
-    sub_100006044(&v73, [-[__CFString stringByAppendingString:](v17 stringByAppendingString:{v15), "UTF8String"}]);
-  }
-
-  if (*(a2 + 23) >= 0)
-  {
-    v18 = a2;
-  }
-
-  else
-  {
-    v18 = *a2;
-  }
-
-  v19 = [*(a1 + 136) registeredKeyPathForClientIdentifier:{+[CLClientKeyPath clientKeyPathWithLegacyClientKey:](CLClientKeyPath, "clientKeyPathWithLegacyClientKey:", +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v18))}];
-  v20 = [v19 isValidCKP];
-  if ((v20 & 1) == 0)
-  {
-    if (*(a2 + 23) >= 0)
-    {
-      v21 = a2;
-    }
-
-    else
-    {
-      v21 = *a2;
-    }
-
-    v19 = [*(a1 + 136) registerClient:+[CLClientKeyPath clientKeyPathWithLegacyClientKey:](CLClientKeyPath fromAuthSync:{"clientKeyPathWithLegacyClientKey:", +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v21)), 0}];
-  }
-
-  if ((v74.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v22 = &v74;
-  }
-
-  else
-  {
-    v22 = v74.__r_.__value_.__r.__words[0];
-  }
-
-  v23 = [v19 clientKeyPathWithReplacementSubIdentityId:+[NSString stringWithUTF8String:](NSString subIdentityType:{"stringWithUTF8String:", v22), 122}];
-  if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v24 = &v73;
-  }
-
-  else
-  {
-    v24 = v73.__r_.__value_.__r.__words[0];
-  }
-
-  v25 = [v19 clientKeyPathWithReplacementSubIdentityId:+[NSString stringWithUTF8String:](NSString subIdentityType:{"stringWithUTF8String:", v24), 122}];
-  sub_10000EC00(__p, "ClientRemoved");
-  sub_100777AC4(a1, v23, 1, __p);
-  if (v72 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  v26 = [objc_msgSend(a4 objectForKeyedSubscript:{@"ServiceMaskOperator", "intValue"}];
-  v27 = [objc_msgSend(a4 objectForKeyedSubscript:{@"Type", "intValue"}];
-  [objc_msgSend(a4 objectForKeyedSubscript:{@"Latitude", "doubleValue"}];
-  v29 = v28;
-  [objc_msgSend(a4 objectForKeyedSubscript:{@"Longitude", "doubleValue"}];
-  v31 = v30;
-  [objc_msgSend(a4 objectForKeyedSubscript:{@"Radius", "doubleValue"}];
-  sub_100796A40(a1, a2, &v74, v27, 0, v26, a5, 0, v29, v31, v32, 0, 0);
-  if ((v73.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v33 = &v73;
-  }
-
-  else
-  {
-    v33 = v73.__r_.__value_.__r.__words[0];
-  }
-
-  v34 = [a6 objectForKeyedSubscript:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v33)}];
-  if (v34 && (sub_1007A7EA8(v34, a4) & 1) != 0)
-  {
-    v64 = _NSConcreteStackBlock;
-    v65 = 3221225472;
-    v66 = sub_1007A8160;
-    v67 = &unk_102470640;
-    v68 = a1;
-    if (v20 & 1) != 0 || (v35 = [*(a1 + 136) dictionaryExistsAtKeyPath:v25], (v35))
-    {
-      v43 = sub_1007A7EA8([objc_msgSend(*(a1 + 136) readonlyStoreAtKeyPath:{v25), "dictionary"}], a4);
-      if (v43)
-      {
-        sub_10000EC00(&v58, "ClientRemoved");
-        sub_100777AC4(a1, v23, 1, &v58);
-        if (SHIBYTE(v60) < 0)
-        {
-          operator delete(v58);
-        }
-
-        v51 = v25;
-        if (a5 == 2)
-        {
-          goto LABEL_55;
-        }
-
-        goto LABEL_52;
-      }
-
-      if (a5 == 2)
-      {
-        sub_10000EC00(&v61, "ClientRemoved");
-        sub_100777AC4(a1, v25, 1, &v61);
-        if (SHIBYTE(v63) < 0)
-        {
-          operator delete(v61);
-        }
-
-        v51 = v23;
-        v23 = v25;
-LABEL_52:
-        v66(&v64, v51, v23);
-LABEL_55:
-        v52 = 1;
-        goto LABEL_56;
-      }
-
-      sub_101931B8C(v43, v44, v45, v46, v47, v48, v49, v50, v54, v55, v56, a6, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69[0]);
-      result = abort_report_np();
-    }
-
-    else
-    {
-      if (a5 == 2)
-      {
-        v66(&v64, v23, v25);
-        goto LABEL_55;
-      }
-
-      sub_101931A34(v35, v36, v37, v38, v39, v40, v41, v42, v54, v55, v56, a6, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69[0]);
-      result = abort_report_np();
-    }
-
-    __break(1u);
-    return result;
-  }
-
-  if (a5 != 2)
-  {
-    sub_10000EC00(v69, "InfoPlistZoneRegistration");
-    sub_10079369C(a1, a2, v69);
-    if (v70 < 0)
-    {
-      operator delete(v69[0]);
-    }
-
-    goto LABEL_55;
-  }
-
-  v52 = 0;
-LABEL_56:
-  if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v73.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v74.__r_.__value_.__l.__data_);
-  }
-
-  return v52;
-}
-
-void sub_100792564(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
-{
-  if (a24 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (*(v41 - 129) < 0)
-  {
-    operator delete(*(v41 - 152));
-  }
-
-  if (*(v41 - 105) < 0)
-  {
-    operator delete(*(v41 - 128));
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-id sub_100792608(uint64_t a1)
-{
-  v2 = objc_alloc_init(NSMutableArray);
-  v3 = *sub_10001A3E8();
-  if ((*v3)())
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v4 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_INFO, "#authsync getAllAuthSync start", buf, 2u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_101931E50();
-    }
-
-    sub_10000EC00(buf, "");
-    v5 = sub_10078DA00(a1, buf, 0, 2);
-    if (v15 < 0)
-    {
-      operator delete(*buf);
-    }
-
-    [(CLCompanionSyncAuthObject *)v5 setAuthMask:sub_1000193E0() == 1];
-    [v2 addObject:v5];
-    v6 = *(a1 + 136);
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_1007928A0;
-    v11[3] = &unk_10246FD68;
-    v11[4] = v2;
-    v11[5] = a1;
-    [v6 iterateAllAnchorKeyPathsWithBlock:v11];
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v7 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-    {
-      v8 = [v2 count];
-      v9 = [objc_msgSend(v2 "description")];
-      *buf = 134349314;
-      *&buf[4] = v8;
-      v13 = 2082;
-      v14 = v9;
-      _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_INFO, "#authsync getAllAuthSync finish %{public}lu: %{public}s", buf, 0x16u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_101931F34(v2);
-    }
-  }
-
-  return v2;
-}
-
-void sub_10079287C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a20 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1007928A0(uint64_t a1, void *a2)
-{
-  v3 = *(a1 + 40);
-  v4 = [objc_msgSend(a2 "legacyClientKey")];
-  if (v4)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = "";
-  }
-
-  sub_10000EC00(__p, v5);
-  v6 = sub_10078DA00(v3, __p, 0, 2);
-  if (v8 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v6)
-  {
-    [*(a1 + 32) addObject:v6];
-  }
-}
-
-void sub_100792928(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-id sub_100792944(uint64_t a1)
-{
-  v2 = +[NSMutableDictionary dictionary];
-  if (_os_feature_enabled_impl())
-  {
-    v25 = 0;
-    v3 = sub_1000206B4();
-    if (sub_1003045C8(v3, @"CLClientManager.AssertionDueToWatchApp", &v25))
-    {
-      v4 = v25;
-      Current = CFAbsoluteTimeGetCurrent();
-      v21 = 0u;
-      v22 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      obj = [v4 allKeys];
-      v17 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
-      if (v17)
-      {
-        v16 = *v22;
-        do
-        {
-          for (i = 0; i != v17; i = i + 1)
-          {
-            if (*v22 != v16)
-            {
-              objc_enumerationMutation(obj);
-            }
-
-            v7 = *(*(&v21 + 1) + 8 * i);
-            v8 = +[NSMutableDictionary dictionary];
-            v10 = qword_102659E90;
-            v9 = qword_102659E98;
-            while (v10 != v9)
-            {
-              v11 = *v10++;
-              v19 = 0;
-              v20 = 0;
-              sub_10004F9C8(v11, &v20, &v19);
-              v12 = v19;
-              [v8 setObject:objc_msgSend(v4 forKey:{"objectForKeyedSubscript:", v7), v20}];
-              [v8 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:", Current), v12}];
-            }
-
-            [v2 setObject:v8 forKey:v7];
-          }
-
-          v17 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
-        }
-
-        while (v17);
-      }
-    }
-  }
-
-  else
-  {
-    v13 = *(a1 + 136);
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_100792B8C;
-    v18[3] = &unk_10246FD68;
-    v18[4] = v2;
-    v18[5] = a1;
-    [v13 iterateAllAnchorKeyPathsWithBlock:v18];
-  }
-
-  return v2;
-}
-
-void sub_100792B8C(uint64_t a1, void *a2)
-{
-  v3 = *(a1 + 40);
-  v4 = [a2 legacyClientKey];
-  sub_10000EC00(__p, [v4 UTF8String]);
-  v5 = sub_1000F610C(v3, __p);
-  v6 = v5;
-  if (v9 < 0)
-  {
-    operator delete(__p[0]);
-    if (!v6)
-    {
-      return;
-    }
-  }
-
-  else if (!v5)
-  {
-    return;
-  }
-
-  sub_10000EC00(__p, [v4 UTF8String]);
-  v7 = sub_100792C78(v3, __p);
-  if (v9 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if ([v7 count])
-  {
-    [*(a1 + 32) setObject:v7 forKey:v4];
-  }
-}
-
-void sub_100792C58(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-id sub_100792C78(uint64_t a1, uint64_t *a2)
-{
-  if (*(a2 + 23) >= 0)
-  {
-    v4 = a2;
-  }
-
-  else
-  {
-    v4 = *a2;
-  }
-
-  v5 = [*(a1 + 136) registeredKeyPathForClientIdentifier:{+[CLClientKeyPath clientKeyPathWithLegacyClientKey:](CLClientKeyPath, "clientKeyPathWithLegacyClientKey:", +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v4))}];
-  if ([v5 isValidCKP])
-  {
-    v6 = +[NSMutableDictionary dictionary];
-    for (i = 0; i != 11; ++i)
-    {
-      v8 = qword_101C8D460[i];
-      if (_os_feature_enabled_impl())
-      {
-        if (v8 > 0xA || ((1 << v8) & 0x430) == 0)
-        {
-          continue;
-        }
-      }
-
-      v17 = 0;
-      *buf = 0;
-      sub_10004F9C8(v8, buf, &v17);
-      v10 = *buf;
-      [*(a1 + 136) doubleForKey:*buf atKeyPath:v5 defaultValue:-1.0];
-      if (v11 != -1.0)
-      {
-        [v6 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:"), v10}];
-      }
-
-      v12 = v17;
-      [*(a1 + 136) doubleForKey:v17 atKeyPath:v5 defaultValue:-1.0];
-      if (v13 != -1.0)
-      {
-        [v6 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:"), v12}];
-      }
-    }
-  }
-
-  else
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v14 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-    {
-      if (*(a2 + 23) >= 0)
-      {
-        v15 = a2;
-      }
-
-      else
-      {
-        v15 = *a2;
-      }
-
-      *buf = 68289282;
-      *&buf[4] = 0;
-      v19 = 2082;
-      v20 = "";
-      v21 = 2082;
-      v22 = v15;
-      _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync Couldn't get nvp, client:%{public, location:escape_only}s}", buf, 0x1Cu);
-    }
-
+    sub_10192E604();
     return 0;
   }
 
-  return v6;
+  return result;
 }
 
-uint64_t sub_100792ED0(uint64_t a1, uint64_t *a2, void *a3)
+void sub_100777308(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
 {
-  p_info = &OBJC_METACLASS___CLMotionHintLoggerAdapter.info;
-  if (qword_1025D47A0 != -1)
+  if (a30 < 0)
   {
-LABEL_57:
-    sub_10028840C();
+    operator delete(__p);
   }
 
-  v7 = off_1025D47A8;
+  _Unwind_Resume(exception_object);
+}
+
+void sub_10077732C(uint64_t a1, uint64_t a2)
+{
+  v3 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
+  if ([v3 isValidCKP])
+  {
+    if (v3)
+    {
+      objc_msgSend_cppClientKey(v3);
+    }
+
+    else
+    {
+      __p[0] = 0;
+      __p[1] = 0;
+      v12 = 0;
+    }
+
+    v4 = sub_1005D7C24((a1 + 1000), __p);
+    v5 = v4;
+    if (SHIBYTE(v12) < 0)
+    {
+      operator delete(__p[0]);
+      if (!v5)
+      {
+        return;
+      }
+    }
+
+    else if (!v4)
+    {
+      return;
+    }
+
+    for (i = v5[7]; i; i = *i)
+    {
+      v7 = i[4];
+      if (v7)
+      {
+        v8 = std::__shared_weak_count::lock(v7);
+        if (v8)
+        {
+          v9 = v8;
+          v10 = i[3];
+          if (v10)
+          {
+            sub_1006E68CC(v10);
+          }
+
+          sub_100008080(v9);
+        }
+      }
+    }
+
+    sub_100546628((a1 + 1000), v5, __p);
+    sub_100061108(__p);
+  }
+}
+
+void sub_10077740C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_100777438(uint64_t a1)
+{
+  for (i = *(a1 + 1016); i; i = *i)
+  {
+    for (j = i[7]; j; j = *j)
+    {
+      v4 = j[4];
+      if (v4)
+      {
+        v5 = std::__shared_weak_count::lock(v4);
+        if (v5)
+        {
+          v6 = v5;
+          v7 = j[3];
+          if (v7)
+          {
+            sub_1006E68CC(v7);
+          }
+
+          sub_100008080(v6);
+        }
+      }
+    }
+  }
+
+  sub_1007AD694(a1 + 1000);
+}
+
+void sub_1007774D0(uint64_t a1, uint64_t a2)
+{
+  if (*(a2 + 23) >= 0)
+  {
+    v4 = a2;
+  }
+
+  else
+  {
+    v4 = *a2;
+  }
+
+  if (![objc_msgSend(*(a1 + 136) registeredKeyPathForClientIdentifier:{+[CLClientKeyPath clientKeyPathWithClientKey:](CLClientKeyPath, "clientKeyPathWithClientKey:", +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v4))), "isValidCKP"}])
+  {
+    return;
+  }
+
+  v5 = sub_1005D7C24((a1 + 1000), a2);
+  if (!v5)
+  {
+    return;
+  }
+
+  v6 = v5;
+  v7 = sub_1007AD734(v5 + 5, (a2 + 48));
+  if (v7)
+  {
+    v8 = v7;
+    v9 = v7[4];
+    if (v9)
+    {
+      v10 = v7[3];
+      atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      v11 = std::__shared_weak_count::lock(v9);
+      if (v11)
+      {
+        v12 = v11;
+        if (v10)
+        {
+          sub_100008080(v11);
+
+          std::__shared_weak_count::__release_weak(v9);
+          return;
+        }
+
+        sub_1007AD848(v6 + 5, v8);
+        sub_100008080(v12);
+      }
+
+      else
+      {
+        sub_1007AD848(v6 + 5, v8);
+      }
+
+      std::__shared_weak_count::__release_weak(v9);
+    }
+
+    else
+    {
+      sub_1007AD848(v6 + 5, v7);
+    }
+  }
+
+  if (!v6[8])
+  {
+    sub_100546628((a1 + 1000), v6, v13);
+    sub_100061108(v13);
+  }
+}
+
+uint64_t sub_100777634(uint64_t a1, uint64_t a2, unsigned int a3, int a4)
+{
+  v7 = sub_100774B5C(a3);
+  Current = CFAbsoluteTimeGetCurrent();
+
+  return sub_10002FE04(a1, Current, a2, v7, a4, 0, 0);
+}
+
+uint64_t sub_10077769C(uint64_t a1, uint64_t a2, int a3)
+{
+  Current = CFAbsoluteTimeGetCurrent();
+
+  return sub_10002FE04(a1, Current, a2, 6uLL, a3, 0, 0);
+}
+
+void sub_1007776F8(id *a1, uint64_t a2, double *a3)
+{
+  v6 = [a1[17] registeredKeyPathForClientIdentifier:a2];
+  if ([v6 isValidCKP])
+  {
+    [a1[17] setDouble:@"TimeMissing" forKey:v6 atKeyPath:*a3];
+    v7 = sub_100018FC8(a1, v6, &xmmword_101CE6CD8);
+
+    sub_100033CDC(a1, v6, v7);
+  }
+
+  else
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v8 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+    {
+      v10 = 68289282;
+      v11 = 0;
+      v12 = 2082;
+      v13 = "";
+      v14 = 2114;
+      v15 = a2;
+      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:How can an app be missing if we don't have an entry for it?, Client:%{public, location:escape_only}@}", &v10, 0x1Cu);
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+    }
+
+    v9 = off_1025D47A8;
+    if (os_signpost_enabled(off_1025D47A8))
+    {
+      v10 = 68289282;
+      v11 = 0;
+      v12 = 2082;
+      v13 = "";
+      v14 = 2114;
+      v15 = a2;
+      _os_signpost_emit_with_name_impl(dword_100000000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "How can an app be missing if we don't have an entry for it?", "{msg%{public}.0s:How can an app be missing if we don't have an entry for it?, Client:%{public, location:escape_only}@}", &v10, 0x1Cu);
+    }
+  }
+}
+
+id sub_1007778FC(id *a1, uint64_t a2)
+{
+  v3 = [a1[17] registeredKeyPathForClientIdentifier:a2];
+  result = [v3 isValidCKP];
+  if (result)
+  {
+    [a1[17] removeValueForKey:@"TimeMissing" atKeyPath:v3];
+    v5 = sub_100018FC8(a1, v3, &xmmword_101CE6CD8);
+
+    return sub_100033CDC(a1, v3, v5);
+  }
+
+  return result;
+}
+
+id sub_100777988(uint64_t a1, uint64_t a2)
+{
+  v3 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
+  result = [v3 isValidCKP];
+  if (result)
+  {
+    v5 = *(a1 + 136);
+
+    return [v5 intForKey:@"PromptedSettings" atKeyPath:v3 defaultValue:0];
+  }
+
+  return result;
+}
+
+id sub_1007779F4(uint64_t a1, uint64_t a2)
+{
+  v3 = sub_1000184F4(a1, a2);
+  [*(a1 + 136) setInt:objc_msgSend(*(a1 + 136) forKey:"intForKey:atKeyPath:defaultValue:" atKeyPath:{@"PromptedSettings", v3, 0) + 1, @"PromptedSettings", v3}];
+  [*(a1 + 136) persist];
+  v4 = *(a1 + 136);
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_1000352CC;
+  v6[3] = &unk_10246FEF8;
+  v6[4] = v3;
+  v6[5] = a1;
+  return [v4 iterateIdentitiesRelatedToKeyPath:v3 withBlock:v6];
+}
+
+void sub_100777AC4(uint64_t a1, char *a2, int a3, uint64_t *a4)
+{
+  v8 = _os_activity_create(dword_100000000, "CL: #ClearClient", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+  os_activity_scope_enter(v8, &v23);
+
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10192D4D0();
+  }
+
+  v9 = off_1025D47A8;
   if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
   {
+    v10 = a4;
+    if (*(a4 + 23) < 0)
+    {
+      v10 = *a4;
+    }
+
+    *buf = 68290050;
+    *&buf[4] = 0;
+    v25 = 2082;
+    v26 = "";
+    v27 = 2082;
+    v28 = "activity";
+    v29 = 2114;
+    v30 = a2;
+    v31 = 1026;
+    v32 = a3;
+    v33 = 2082;
+    v34 = v10;
+    _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#ClearClient, event:%{public, location:escape_only}s, ckp:%{public, location:escape_only}@, localAuthorizationChange:%{public}hhd, reason:%{public, location:escape_only}s}", buf, 0x36u);
+  }
+
+  if ([a2 isValidCKP])
+  {
+    if ([*(a1 + 136) isKeyPathRegisteredSystemService:a2])
+    {
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v11 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+      {
+        *buf = 68289282;
+        *&buf[4] = 0;
+        v25 = 2082;
+        v26 = "";
+        v27 = 2114;
+        v28 = a2;
+        _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#ClearClient removing client entry for System Service, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+        if (qword_1025D47A0 != -1)
+        {
+          sub_10192D4D0();
+        }
+      }
+
+      v12 = off_1025D47A8;
+      if (os_signpost_enabled(off_1025D47A8))
+      {
+        *buf = 68289282;
+        *&buf[4] = 0;
+        v25 = 2082;
+        v26 = "";
+        v27 = 2114;
+        v28 = a2;
+        _os_signpost_emit_with_name_impl(dword_100000000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#ClearClient removing client entry for System Service", "{msg%{public}.0s:#ClearClient removing client entry for System Service, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+      }
+
+      goto LABEL_48;
+    }
+
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v13 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289282;
+      *&buf[4] = 0;
+      v25 = 2082;
+      v26 = "";
+      v27 = 2114;
+      v28 = a2;
+      _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#ClearClient removing client entry, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+    }
+
+    sub_10077732C(a1, a2);
+    if (a3)
+    {
+      v14 = [objc_msgSend(a2 "legacyClientKey")];
+      v15 = v14 ? v14 : "";
+      sub_10000EC00(buf, v15);
+      sub_100778048(a1, buf, a4);
+      if (SBYTE3(v28) < 0)
+      {
+        operator delete(*buf);
+      }
+    }
+
+    v16 = [objc_msgSend(a2 "clientAnchor")];
+    if (v16)
+    {
+      v17 = v16;
+    }
+
+    else
+    {
+      v17 = "";
+    }
+
+    sub_10000EC00(buf, v17);
+    v18 = sub_1005D7C24(qword_102659E68, buf);
+    v19 = v18;
+    if (SBYTE3(v28) < 0)
+    {
+      operator delete(*buf);
+      if (v19)
+      {
+        goto LABEL_31;
+      }
+    }
+
+    else if (v18)
+    {
+LABEL_31:
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v20 = off_1025D47A8;
+      if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_46;
+      }
+
+      *buf = 68289282;
+      *&buf[4] = 0;
+      v25 = 2082;
+      v26 = "";
+      v27 = 2114;
+      v28 = a2;
+      v21 = "{msg%{public}.0s:#ClearClient attribution unavailable client, Client:%{public, location:escape_only}@}";
+LABEL_45:
+      _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_DEFAULT, v21, buf, 0x1Cu);
+LABEL_46:
+      [*(a1 + 136) removeDictionaryAtKeyPath:a2];
+      [*(a1 + 136) persist];
+      sub_10000EC00(buf, "");
+      sub_100018918(a1, a2, buf);
+      if (SBYTE3(v28) < 0)
+      {
+        operator delete(*buf);
+      }
+
+      goto LABEL_48;
+    }
+
+    v22 = [*(a1 + 440) objectForKey:a2];
+    if (v22)
+    {
+      sub_100251A28(a1, a2, v22, 1);
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v20 = off_1025D47A8;
+      if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_46;
+      }
+
+      *buf = 68289282;
+      *&buf[4] = 0;
+      v25 = 2082;
+      v26 = "";
+      v27 = 2114;
+      v28 = a2;
+      v21 = "{msg%{public}.0s:#ClearClient Completely removed attribution for client, Client:%{public, location:escape_only}@}";
+    }
+
+    else
+    {
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v20 = off_1025D47A8;
+      if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_46;
+      }
+
+      *buf = 68289282;
+      *&buf[4] = 0;
+      v25 = 2082;
+      v26 = "";
+      v27 = 2114;
+      v28 = a2;
+      v21 = "{msg%{public}.0s:#ClearClient client is not attributed. No special deattribution needed, Client:%{public, location:escape_only}@}";
+    }
+
+    goto LABEL_45;
+  }
+
+LABEL_48:
+  os_activity_scope_leave(&v23);
+}
+
+id sub_100778048(uint64_t a1, uint64_t *a2, uint64_t *a3)
+{
+  result = +[CLAuthSyncManager isSupported]_0(a1, a2);
+  if (result)
+  {
+    v7 = objc_alloc_init(CLCompanionSyncAuthObject);
     if (*(a2 + 23) >= 0)
     {
       v8 = a2;
@@ -4791,474 +3200,372 @@ LABEL_57:
       v8 = *a2;
     }
 
-    *buf = 68289282;
-    v45 = 0;
-    v46 = 2082;
-    v47 = "";
-    v48 = 2082;
-    v49 = v8;
-    _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync Merging remote location usage, client:%{public, location:escape_only}s}", buf, 0x1Cu);
-  }
-
-  if (*(a2 + 23) >= 0)
-  {
-    v9 = a2;
-  }
-
-  else
-  {
-    v9 = *a2;
-  }
-
-  v41 = [NSString stringWithUTF8String:v9];
-  Current = CFAbsoluteTimeGetCurrent();
-  for (i = 0; i != 11; ++i)
-  {
-    v12 = qword_101C8D460[i];
-    result = _os_feature_enabled_impl();
-    if (result)
+    [(CLCompanionSyncAuthObject *)v7 setClientKey:[NSString stringWithUTF8String:v8]];
+    [(CLCompanionSyncAuthObject *)v7 setOperationType:3];
+    if (qword_1025D47A0 != -1)
     {
-      if (v12 > 0xA || ((1 << v12) & 0x430) == 0)
-      {
-        continue;
-      }
+      sub_10028840C();
     }
 
-    v42 = 0;
-    v43 = 0;
-    sub_10004F9C8(v12, &v43, &v42);
-    v15 = [a3 objectForKeyedSubscript:v43];
-    v16 = [a3 objectForKeyedSubscript:v42];
-    v17 = v16;
-    if (v15)
+    v9 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = v16 == 0;
-    }
-
-    else
-    {
-      v18 = 1;
-    }
-
-    if (!v18)
-    {
-      if (p_info[244] != -1)
+      if (*(a3 + 23) >= 0)
       {
-        sub_10192D4D0();
-      }
-
-      v19 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        [v15 doubleValue];
-        v21 = v20;
-        [v17 doubleValue];
-        *buf = 68289794;
-        v45 = 0;
-        v46 = 2082;
-        v47 = "";
-        v48 = 2050;
-        v49 = v21;
-        v50 = 2050;
-        v51 = v22;
-        v52 = 2050;
-        v53 = v12;
-        _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync #warning Didn't expect a start time and a stop time, start time_s:%{public}.09f, stop time_s:%{public}.09f, service:%{public}lu}", buf, 0x30u);
-      }
-
-      [v17 doubleValue];
-      v24 = v23;
-      [v15 doubleValue];
-      if (v24 > v25)
-      {
-        v15 = 0;
+        v10 = a3;
       }
 
       else
       {
-        v17 = 0;
+        v10 = *a3;
       }
+
+      v13[0] = 68289538;
+      v13[1] = 0;
+      v14 = 2082;
+      v15 = "";
+      v16 = 2082;
+      v17 = v10;
+      v18 = 2114;
+      v19 = [(CLCompanionSyncAuthObject *)v7 description];
+      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#authsync deleteObject, syncReason:%{public, location:escape_only}s, syncObject:%{public, location:escape_only}@}", v13, 0x26u);
     }
 
-    if (*(a2 + 23) >= 0)
+    v11 = *(a1 + 1560);
+    if (*(a3 + 23) >= 0)
     {
-      v26 = a2;
+      v12 = a3;
     }
 
     else
     {
-      v26 = *a2;
+      v12 = *a3;
     }
 
-    v27 = [CLClientKeyPath clientKeyPathWithLegacyClientKey:[NSString stringWithUTF8String:v26]];
-    if (v15 | v17)
-    {
-      v28 = p_info[244];
-      if (v15)
-      {
-        if (v28 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v29 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-        {
-          if (*(a2 + 23) >= 0)
-          {
-            v30 = a2;
-          }
-
-          else
-          {
-            v30 = *a2;
-          }
-
-          [v15 doubleValue];
-          *buf = 68289794;
-          v45 = 0;
-          v46 = 2082;
-          v47 = "";
-          v48 = 2082;
-          v49 = v30;
-          p_info = (&OBJC_METACLASS___CLMotionHintLoggerAdapter + 32);
-          v50 = 2050;
-          v51 = v31;
-          v52 = 2050;
-          v53 = v12;
-          _os_log_impl(dword_100000000, v29, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync Starting remote location service, client:%{public, location:escape_only}s, start time_s:%{public}.09f, service:%{public}lu}", buf, 0x30u);
-        }
-
-        if (v12 == 10)
-        {
-          sub_1000F6978(a1, [CLClientKeyPath clientKeyPathWithLegacyClientKey:v41], -1, 0, 0.0);
-        }
-
-        [v15 doubleValue];
-        v33 = a1;
-        v34 = v27;
-        v35 = v12;
-        v36 = 1;
-      }
-
-      else
-      {
-        if (!v17)
-        {
-          sub_101932054(v28 == -1);
-          goto LABEL_57;
-        }
-
-        if (v28 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v38 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-        {
-          if (*(a2 + 23) >= 0)
-          {
-            v39 = a2;
-          }
-
-          else
-          {
-            v39 = *a2;
-          }
-
-          [v17 doubleValue];
-          *buf = 68289794;
-          v45 = 0;
-          v46 = 2082;
-          v47 = "";
-          v48 = 2082;
-          v49 = v39;
-          p_info = (&OBJC_METACLASS___CLMotionHintLoggerAdapter + 32);
-          v50 = 2050;
-          v51 = v40;
-          v52 = 2050;
-          v53 = v12;
-          _os_log_impl(dword_100000000, v38, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync Stopping remote location service, client:%{public, location:escape_only}s, stop time_s:%{public}.09f, service:%{public}lu}", buf, 0x30u);
-        }
-
-        [v17 doubleValue];
-        v33 = a1;
-        v34 = v27;
-        v35 = v12;
-        v36 = 0;
-      }
-
-      v37 = 1;
-    }
-
-    else
-    {
-      v33 = a1;
-      v34 = v27;
-      v35 = v12;
-      v36 = 0;
-      v37 = 0;
-      v32 = Current;
-    }
-
-    result = sub_10002FE04(v33, v34, v35, v36, v37, 1, v32);
+    return [v11 deleteObject:v7 withSyncSessionReason:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v12)}];
   }
 
   return result;
 }
 
-id sub_100793384(uint64_t a1, uint64_t a2)
+id sub_1007781D4(id *a1)
 {
+  sub_100777438(a1);
+  [a1[17] clear];
+  [a1[138] removeAllObjects];
+  [a1[137] setClientsAuthorizationMap:{objc_msgSend(a1[138], "copy")}];
+  [0 isValidCKP];
+  v2 = a1[137];
+  v3 = [0 legacyClientKey];
+
+  return [v2 setPersistentStoreDictionary:0 forClient:v3];
+}
+
+id sub_100778254(uint64_t a1)
+{
+  [*(a1 + 1104) removeAllObjects];
+  [0 isValidCKP];
+  [*(a1 + 1096) setPersistentStoreDictionary:0 forClient:{objc_msgSend(0, "legacyClientKey")}];
   v2 = *(a1 + 136);
   v4[0] = _NSConcreteStackBlock;
   v4[1] = 3221225472;
-  v4[2] = sub_1007933F8;
-  v4[3] = &unk_10246FD68;
-  v4[4] = a2;
-  v4[5] = a1;
+  v4[2] = sub_1007782FC;
+  v4[3] = &unk_10246FC30;
+  v4[4] = a1;
   return [v2 iterateAllAnchorKeyPathsWithBlock:v4];
 }
 
-void sub_1007933F8(uint64_t a1, void *a2)
+uint64_t sub_1007782FC(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 40);
-  v4 = [*(a1 + 32) objectForKeyedSubscript:{objc_msgSend(a2, "legacyClientKey")}];
-  if (v4)
-  {
-    v5 = v4;
-  }
+  v3 = *(a1 + 32);
+  v4 = sub_100018FC8(v3, a2, &xmmword_101CE6CD8);
 
-  else
-  {
-    v5 = &__NSDictionary0__struct;
-  }
-
-  v6 = [objc_msgSend(a2 "legacyClientKey")];
-  if (v6)
-  {
-    v7 = v6;
-  }
-
-  else
-  {
-    v7 = "";
-  }
-
-  sub_10000EC00(__p, v7);
-  sub_100792ED0(v3, __p, v5);
-  if (v9 < 0)
-  {
-    operator delete(__p[0]);
-  }
+  return sub_100033CDC(v3, a2, v4);
 }
 
-void sub_100793494(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+uint64_t sub_10077834C(uint64_t a1, void *a2)
 {
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-BOOL sub_1007934B0(uint64_t a1, void *a2)
-{
-  v3 = 0;
-  while (1)
-  {
-    v4 = qword_101C8D460[v3];
-    if (_os_feature_enabled_impl())
-    {
-      if (v4 > 0xA || ((1 << v4) & 0x430) == 0)
-      {
-        goto LABEL_13;
-      }
-    }
-
-    v18 = 0;
-    v19 = 0;
-    sub_10004F9C8(v4, &v19, &v18);
-    v6 = [a2 objectForKeyedSubscript:v19];
-    v7 = [a2 objectForKeyedSubscript:v18];
-    if (v6 && v7 != 0)
-    {
-      break;
-    }
-
-    if (v6)
-    {
-      return 1;
-    }
-
-LABEL_13:
-    if (++v3 == 11)
-    {
-      return 0;
-    }
-  }
-
-  v10 = v7;
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10028840C();
-  }
-
-  v11 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-  {
-    [v6 doubleValue];
-    v13 = v12;
-    [v10 doubleValue];
-    *buf = 68289794;
-    v21 = 0;
-    v22 = 2082;
-    v23 = "";
-    v24 = 2050;
-    v25 = v13;
-    v26 = 2050;
-    v27 = v14;
-    v28 = 2050;
-    v29 = v4;
-    _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync #warning Didn't expect a start time and a stop time, start time_s:%{public}.09f, stop time_s:%{public}.09f, service:%{public}lu}", buf, 0x30u);
-  }
-
-  [v10 doubleValue];
-  v16 = v15;
-  [v6 doubleValue];
-  return v16 <= v17;
-}
-
-id sub_10079369C(uint64_t a1, uint64_t *a2, uint64_t *a3)
-{
-  result = +[CLAuthSyncManager isSupported]_0();
-  if (result)
-  {
-    result = sub_10078DA00(a1, a2, 0, 1);
-    if (result)
-    {
-      v7 = result;
-      v8 = *(a1 + 1560);
-      if (*(a3 + 23) >= 0)
-      {
-        v9 = a3;
-      }
-
-      else
-      {
-        v9 = *a3;
-      }
-
-      v10 = [NSString stringWithUTF8String:v9];
-
-      return [v8 addObject:v7 withSyncSessionReason:v10];
-    }
-  }
-
-  return result;
-}
-
-void sub_10079373C(uint64_t a1)
-{
-  if (+[CLAuthSyncManager isSupported]_0())
-  {
-    v2 = sub_10001A3E8();
-    if ((**v2)(v2))
-    {
-      [*(a1 + 1560) sendNotification:0];
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10028840C();
-      }
-
-      v3 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-      {
-        *v4 = 0;
-        _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_INFO, "#authsync sending kNotificationReset to the watch", v4, 2u);
-      }
-
-      if (sub_10000A100(121, 2))
-      {
-        sub_1019323B8();
-      }
-    }
-  }
-}
-
-void sub_100793814(uint64_t a1)
-{
-  sub_10001A3E8();
-  if (sub_10001CF3C())
+  v2 = a2;
+  if (([a2 isValidCKP] & 1) == 0 && !objc_msgSend(*(a1 + 1120), "count"))
   {
     if (qword_1025D47A0 != -1)
     {
       sub_10028840C();
     }
 
-    v2 = off_1025D47A8;
+    v18 = off_1025D47A8;
     if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
     {
-      *v3 = 0;
-      _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_INFO, "#authsync received kNotificationReset from the companion", v3, 2u);
+      *buf = 0;
+      _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_INFO, "#IncidentalPrompt skip prompting. No client for incidental prompt", buf, 2u);
     }
 
-    if (sub_10000A100(121, 2))
+    result = sub_10000A100(121, 2);
+    if (result)
     {
-      sub_101932494();
+      sub_10192E6E8();
+      return 0;
     }
 
-    sub_10078E990(a1);
+    return result;
   }
+
+  if (([v2 isValidCKP] & 1) == 0)
+  {
+    v2 = [*(a1 + 1120) lastObject];
+  }
+
+  v4 = sub_1000184F4(a1, v2);
+  v5 = sub_10004306C([objc_msgSend(*(a1 + 136) readonlyStoreAtKeyPath:{v4), "dictionary"}]);
+  if (v5 != 1)
+  {
+    v6 = v5;
+    if (v5)
+    {
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10028840C();
+      }
+
+      v12 = off_1025D47A8;
+      result = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO);
+      if (!result)
+      {
+        return result;
+      }
+
+      *buf = 68289538;
+      v31 = 0;
+      v32 = 2082;
+      v33 = "";
+      v34 = 2114;
+      v35 = v4;
+      v36 = 2050;
+      v37 = v6;
+      v11 = "{msg%{public}.0s:#IncidentalPrompt skip prompting. IncidentalUseMode should be UnDetermined, Client:%{public, location:escape_only}@, IncidentalUseMode:%{public, location:CLClientIncidentalUseMode}lld}";
+      v13 = v12;
+      v14 = OS_LOG_TYPE_INFO;
+      v15 = 38;
+      goto LABEL_49;
+    }
+
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v7 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289282;
+      v31 = 0;
+      v32 = 2082;
+      v33 = "";
+      v34 = 2114;
+      v35 = v4;
+      _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#IncidentalPrompt Ineligible marking as NotDetermined, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+    }
+
+    sub_10077A3D0(a1, 1, v4, 1);
+  }
+
+  v8 = sub_10004FEC8(a1, v4, &xmmword_101CE6CD8);
+  if ([(CLClientManagerAuthorizationContext *)v8 registrationResult]!= 1)
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v16 = off_1025D47A8;
+    result = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO);
+    if (!result)
+    {
+      return result;
+    }
+
+    v17 = [(CLClientManagerAuthorizationContext *)v8 registrationResult];
+    *buf = 68289538;
+    v31 = 0;
+    v32 = 2082;
+    v33 = "";
+    v34 = 2114;
+    v35 = v4;
+    v36 = 1026;
+    LODWORD(v37) = v17;
+    v11 = "{msg%{public}.0s:#IncidentalPrompt skip prompting. Registration Result should be WIU, Client:%{public, location:escape_only}@, RegistrationResult:%{public}d}";
+    v13 = v16;
+    v14 = OS_LOG_TYPE_INFO;
+    v15 = 34;
+    goto LABEL_49;
+  }
+
+  if ([*(a1 + 120) locationRestricted])
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v9 = off_1025D47A8;
+    result = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO);
+    if (result)
+    {
+      *buf = 68289282;
+      v31 = 0;
+      v32 = 2082;
+      v33 = "";
+      v34 = 2114;
+      v35 = v4;
+      v11 = "{msg%{public}.0s:#IncidentalPrompt skip prompting. Restrictions enabled, Client:%{public, location:escape_only}@}";
+LABEL_48:
+      v13 = v9;
+      v14 = OS_LOG_TYPE_INFO;
+      v15 = 28;
+      goto LABEL_49;
+    }
+
+    return result;
+  }
+
+  if (([*(a1 + 1120) containsObject:v4] & 1) == 0)
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v19 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+    {
+      *buf = 68289282;
+      v31 = 0;
+      v32 = 2082;
+      v33 = "";
+      v34 = 2114;
+      v35 = v4;
+      _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#IncidentalPrompt client queued, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+    }
+
+    [*(a1 + 1120) addObject:v4];
+  }
+
+  if (*(a1 + 1084))
+  {
+    if (!*(a1 + 272))
+    {
+      sub_10000EC00(__p, "");
+      sub_10023C2AC(v29, 12, v4, 0, __p);
+      v24 = sub_1007755CC(a1, v4, 0, v29, 0);
+      sub_10023DF30(v29);
+      if (v28 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      if (v24)
+      {
+        return 1;
+      }
+
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v25 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 68289282;
+        v31 = 0;
+        v32 = 2082;
+        v33 = "";
+        v34 = 2114;
+        v35 = v4;
+        _os_log_impl(dword_100000000, v25, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#Warning Could not post #IncidentalUsePrompt, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+        if (qword_1025D47A0 != -1)
+        {
+          sub_10192D4D0();
+        }
+      }
+
+      v26 = off_1025D47A8;
+      result = os_signpost_enabled(off_1025D47A8);
+      if (result)
+      {
+        *buf = 68289282;
+        v31 = 0;
+        v32 = 2082;
+        v33 = "";
+        v34 = 2114;
+        v35 = v4;
+        _os_signpost_emit_with_name_impl(dword_100000000, v26, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#Warning Could not post #IncidentalUsePrompt", "{msg%{public}.0s:#Warning Could not post #IncidentalUsePrompt, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+        return 0;
+      }
+
+      return result;
+    }
+
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v20 = off_1025D47A8;
+    result = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT);
+    if (!result)
+    {
+      return result;
+    }
+
+    v21 = *(a1 + 272);
+    v22 = *(v21 + 1);
+    v23 = *v21;
+    *buf = 68289794;
+    v31 = 0;
+    v32 = 2082;
+    v33 = "";
+    v34 = 2114;
+    v35 = v4;
+    v36 = 2114;
+    v37 = v22;
+    v38 = 2050;
+    v39 = v23;
+    v11 = "{msg%{public}.0s:#IncidentalPrompt skip prompting. InflightPromptAuthorizationRequest found., Client:%{public, location:escape_only}@, inflightClient:%{public, location:escape_only}@, inflightRequestType:%{public, location:CLClientManager_Type::AuthorizationRequestType}lld}";
+    v13 = v20;
+    v14 = OS_LOG_TYPE_DEFAULT;
+    v15 = 48;
+LABEL_49:
+    _os_log_impl(dword_100000000, v13, v14, v11, buf, v15);
+    return 0;
+  }
+
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10192D4D0();
+  }
+
+  v9 = off_1025D47A8;
+  result = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO);
+  if (result)
+  {
+    *buf = 68289282;
+    v31 = 0;
+    v32 = 2082;
+    v33 = "";
+    v34 = 2114;
+    v35 = v4;
+    v11 = "{msg%{public}.0s:#IncidentalPrompt skip prompting. Not at homescreen., Client:%{public, location:escape_only}@}";
+    goto LABEL_48;
+  }
+
+  return result;
 }
 
-void sub_100793C90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100778A38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
 {
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_100793D94(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_100793EA8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_100793FBC(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_1007940D0(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_1007941E4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_100794594(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
-{
-  sub_10014588C(&a16);
-  if (a15 < 0)
+  sub_10023DF30(&a15);
+  if (a14 < 0)
   {
     operator delete(__p);
   }
@@ -5266,16 +3573,104 @@ void sub_100794594(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100794764(_Unwind_Exception *a1, uint64_t a2, ...)
+id sub_100778A6C(uint64_t a1, uint64_t *a2)
 {
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
+  v4 = a2;
+  if (*(a2 + 23) < 0)
+  {
+    v4 = *a2;
+  }
+
+  v5 = [NSString stringWithUTF8String:v4];
+  v6 = [*(a1 + 608) objectForKey:v5];
+  if (v6)
+  {
+    [v6 doubleValue];
+    Current = v7;
+  }
+
+  else
+  {
+    Current = CFAbsoluteTimeGetCurrent();
+    [*(a1 + 608) setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:"), v5}];
+  }
+
+  v10 = +[NSMutableDictionary dictionary];
+  v12 = qword_102659E90;
+  for (i = qword_102659E98; v12 != i; ++v12)
+  {
+    v13 = *v12;
+    v19 = 0;
+    v20 = 0;
+    sub_10004F9C8(v13, &v20, &v19);
+    v14 = v20;
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v15 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+    {
+      v16 = a2;
+      if (*(a2 + 23) < 0)
+      {
+        v16 = *a2;
+      }
+
+      *buf = 68289794;
+      v22 = 0;
+      v23 = 2082;
+      v24 = "";
+      v25 = 2082;
+      v26 = v16;
+      v27 = 2050;
+      v28 = v13;
+      v29 = 1026;
+      v30 = 1;
+      _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#usesync munged starttime for watch, client:%{public, location:escape_only}s, service:%{public, location:CLClientServiceType}lld, isReceivingLocation:%{public}hhd}", buf, 0x2Cu);
+    }
+
+    [v10 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:", Current), v14}];
+  }
+
+  sub_100778C94(a1, v9);
+  return [*(a1 + 1552) client:v18 didChangeUsageData:v10];
 }
 
-void sub_100794890(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+uint64_t sub_100778C94(uint64_t a1, uint64_t a2)
 {
-  if (a15 < 0)
+  v2 = sub_1000206B4(a1, a2);
+  v3 = sub_1003046B4(v2);
+  v5 = *(*sub_1000206B4(v3, v4) + 944);
+
+  return v5();
+}
+
+uint64_t sub_100778D10(uint64_t a1, uint64_t a2)
+{
+  v3 = [sub_1000184F4(a1 a2)];
+  sub_10000EC00(__p, [v3 UTF8String]);
+  sub_100778DE4(a1, __p);
+  if (v9 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  [*(a1 + 608) removeObjectForKey:v3];
+  sub_10000EC00(v6, [v3 UTF8String]);
+  sub_1000337E4((a1 + 640), v6);
+  if (v7 < 0)
+  {
+    operator delete(v6[0]);
+  }
+
+  return sub_100778C94(a1, v4);
+}
+
+void sub_100778DB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+{
+  if (a14 < 0)
   {
     operator delete(__p);
   }
@@ -5283,10 +3678,588 @@ void sub_100794890(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1007948F8(uint64_t a1, uint64_t a2)
+id sub_100778DE4(uint64_t a1, uint64_t *a2)
 {
-  v4 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
-  if ([v4 isValidCKP])
+  v3 = a2;
+  if (*(a2 + 23) < 0)
+  {
+    v3 = *a2;
+  }
+
+  v4 = [NSString stringWithUTF8String:v3];
+  v5 = +[NSMutableDictionary dictionary];
+  v8 = qword_102659E90;
+  v7 = qword_102659E98;
+  if (qword_102659E90 != qword_102659E98)
+  {
+    *&v6 = 68289026;
+    v19 = v6;
+    do
+    {
+      v9 = *v8;
+      v21 = 0;
+      v22 = 0;
+      sub_10004F9C8(v9, &v22, &v21);
+      v10 = v21;
+      v11 = v22;
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v12 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+      {
+        v13 = a2;
+        if (*(a2 + 23) < 0)
+        {
+          v13 = *a2;
+        }
+
+        *buf = 68289538;
+        v24 = 0;
+        v25 = 2082;
+        v26 = "";
+        v27 = 2082;
+        v28 = v13;
+        v29 = 2050;
+        v30 = v9;
+        _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#usesync send stoptime due to expiry of temp assertion, client:%{public, location:escape_only}s, service:%{public, location:CLClientServiceType}lld}", buf, 0x26u);
+      }
+
+      Current = CFAbsoluteTimeGetCurrent();
+      v15 = [*(a1 + 608) objectForKey:v4];
+      if (v15)
+      {
+        [v15 doubleValue];
+      }
+
+      else
+      {
+        if (qword_1025D47A0 != -1)
+        {
+          sub_10192D4D0();
+        }
+
+        v17 = off_1025D47A8;
+        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = v19;
+          v24 = 0;
+          v25 = 2082;
+          v26 = "";
+          _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#usesync #Warning Missing start time but stop location usage sync is called}", buf, 0x12u);
+        }
+
+        v16 = Current + -10.0;
+      }
+
+      [v5 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:", v16, v19), v11}];
+      [v5 setObject:+[NSNumber numberWithDouble:](NSNumber forKey:{"numberWithDouble:", Current), v10}];
+      ++v8;
+    }
+
+    while (v8 != v7);
+  }
+
+  return [*(a1 + 1552) client:v4 didChangeUsageData:v5];
+}
+
+uint64_t sub_100779070(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
+  if ([v5 isValidCKP])
+  {
+    v6 = [*(a1 + 136) intForKey:@"IncidentalUseMode" atKeyPath:v5 defaultValue:0];
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v7 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+    {
+      LOWORD(v10[0]) = 0;
+      _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_INFO, "#IncidentalUseMode able to get client's incidental use mode", v10, 2u);
+    }
+
+    if (sub_10000A100(121, 2))
+    {
+      sub_10192E7CC();
+    }
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10192D4D0();
+  }
+
+  v8 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+  {
+    v10[0] = 67109120;
+    v10[1] = v6;
+    _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_DEFAULT, "#IncidentalUseMode  returning with value:%d", v10, 8u);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    sub_10192E8A8(v6);
+  }
+
+  return (*(a3 + 16))(a3, v6);
+}
+
+void sub_100779210(uint64_t a1, int a2, void *a3)
+{
+  if (objc_opt_class())
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v6 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289538;
+      *&buf[4] = 0;
+      LOWORD(v16) = 2082;
+      *(&v16 + 2) = "";
+      WORD5(v16) = 1026;
+      HIDWORD(v16) = a2;
+      LOWORD(v17) = 2114;
+      *(&v17 + 2) = a3;
+      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LocationUtilityEvent Reported, utility:%{public}d, date:%{public, location:escape_only}@}", buf, 0x22u);
+    }
+
+    v7 = [a3 dateByAddingTimeInterval:-600.0];
+    v8 = [[NSDateInterval alloc] initWithStartDate:v7 endDate:a3];
+    AbsoluteTime = CFDateGetAbsoluteTime(v7);
+    if (AbsoluteTime < CFAbsoluteTimeGetCurrent())
+    {
+      v10 = [[RTStoredLocationEnumerationOptions alloc] initWithDateInterval:v8 horizontalAccuracy:0 batchSize:0 boundingBoxLocation:14 type:0.0];
+      [v10 setSmoothingRequired:1];
+      *buf = 0;
+      *&v16 = buf;
+      *(&v16 + 1) = 0x3052000000;
+      *&v17 = sub_1000474E4;
+      *(&v17 + 1) = sub_10004844C;
+      v18 = 0;
+      v11 = [objc_msgSend(*(a1 + 32) "vendor")];
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_1007794F0;
+      v13[3] = &unk_10246FE08;
+      v13[5] = buf;
+      v13[6] = a1;
+      v13[4] = v8;
+      v14 = a2;
+      [v11 enumerateStoredLocationsWithOptions:v10 withReply:v13];
+      _Block_object_dispose(buf, 8);
+    }
+  }
+
+  else
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v12 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289026;
+      *&buf[4] = 0;
+      LOWORD(v16) = 2082;
+      *(&v16 + 2) = "";
+      _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLPLocationConsumptionScoreInfo doesn't exist in this platform.}", buf, 0x12u);
+    }
+  }
+}
+
+void sub_1007794D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1007794F0(uint64_t a1, void *a2, uint64_t a3, int a4)
+{
+  if (a3)
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v5 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
+    {
+      v29 = 68289282;
+      v30 = 0;
+      v31 = 2082;
+      v32 = "";
+      v33 = 2114;
+      *v34 = a3;
+      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#LocationUtilityEvent Got error fetching locations from CoreRoutine, error:%{public, location:escape_only}@}", &v29, 0x1Cu);
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+    }
+
+    v6 = off_1025D47A8;
+    if (os_signpost_enabled(off_1025D47A8))
+    {
+      v29 = 68289282;
+      v30 = 0;
+      v31 = 2082;
+      v32 = "";
+      v33 = 2114;
+      *v34 = a3;
+      _os_signpost_emit_with_name_impl(dword_100000000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#LocationUtilityEvent Got error fetching locations from CoreRoutine", "{msg%{public}.0s:#LocationUtilityEvent Got error fetching locations from CoreRoutine, error:%{public, location:escape_only}@}", &v29, 0x1Cu);
+    }
+  }
+
+  else
+  {
+    v10 = *(a1 + 48);
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v11 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      v29 = 68289538;
+      v30 = 0;
+      v31 = 2082;
+      v32 = "";
+      v33 = 1026;
+      *v34 = a4;
+      *&v34[4] = 1026;
+      *&v34[6] = [a2 count];
+      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LocationUtilityEvent Reply back from CoreRoutine, enumerationCompleted:%{public}d, count:%{public}d}", &v29, 0x1Eu);
+    }
+
+    if (a4)
+    {
+      if (*(*(*(a1 + 40) + 8) + 40))
+      {
+        [objc_msgSend(*(v10 + 584) "startDate")];
+        v13 = v12;
+        [objc_msgSend(*(v10 + 584) "endDate")];
+        v15 = v14;
+        v16 = v13 + (v14 - v13) * 0.5;
+        [objc_msgSend(*(*(*(a1 + 40) + 8) + 40) "timestamp")];
+        if (v17 <= v16)
+        {
+          if (qword_1025D47A0 != -1)
+          {
+            sub_10192D4D0();
+          }
+
+          v25 = off_1025D47A8;
+          if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
+          {
+            v26 = [*(*(*(a1 + 40) + 8) + 40) timestamp];
+            v29 = 68290050;
+            v31 = 2082;
+            v30 = 0;
+            v32 = "";
+            v33 = 2114;
+            *v34 = v26;
+            *&v34[8] = 2050;
+            v35 = v16;
+            v36 = 2050;
+            v37 = v13;
+            v38 = 2050;
+            v39 = v15;
+            _os_log_impl(dword_100000000, v25, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#LocationUtilityEvent Location timestamp is earlier than or equal to last interval in archive. Will not persist., lastLocation.timestamp:%{public, location:escape_only}@, lastLocationUtilityEventIntervalInArchiveMidPoint:%{public}.6f, lastLocationUtilityEventIntervalInArchiveStartTime:%{public}.6f, lastLocationUtilityEventIntervalInArchiveEndTime:%{public}.6f}", &v29, 0x3Au);
+            if (qword_1025D47A0 != -1)
+            {
+              sub_10192D4D0();
+            }
+          }
+
+          v27 = off_1025D47A8;
+          if (os_signpost_enabled(off_1025D47A8))
+          {
+            v28 = [*(*(*(a1 + 40) + 8) + 40) timestamp];
+            v29 = 68290050;
+            v31 = 2082;
+            v30 = 0;
+            v32 = "";
+            v33 = 2114;
+            *v34 = v28;
+            *&v34[8] = 2050;
+            v35 = v16;
+            v36 = 2050;
+            v37 = v13;
+            v38 = 2050;
+            v39 = v15;
+            _os_signpost_emit_with_name_impl(dword_100000000, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#LocationUtilityEvent Location timestamp is earlier than or equal to last interval in archive. Will not persist.", "{msg%{public}.0s:#LocationUtilityEvent Location timestamp is earlier than or equal to last interval in archive. Will not persist., lastLocation.timestamp:%{public, location:escape_only}@, lastLocationUtilityEventIntervalInArchiveMidPoint:%{public}.6f, lastLocationUtilityEventIntervalInArchiveStartTime:%{public}.6f, lastLocationUtilityEventIntervalInArchiveEndTime:%{public}.6f}", &v29, 0x3Au);
+          }
+        }
+
+        else
+        {
+          *&v18 = COERCE_DOUBLE([objc_msgSend(*(*(*(a1 + 40) + 8) + 40) "timestamp")]);
+          *&v19 = COERCE_DOUBLE([objc_msgSend(*(*(*(a1 + 40) + 8) + 40) "timestamp")]);
+          v20 = objc_alloc_init(CLPLocationConsumptionScoreInfo);
+          [v20 setStartTime:CFDateGetAbsoluteTime(v18)];
+          [v20 setStopTime:CFDateGetAbsoluteTime(v19)];
+          [v20 setScore:*(a1 + 56)];
+          [*(v10 + 576) writeSecondaryObject:v20 toField:1];
+          if (qword_1025D47A0 != -1)
+          {
+            sub_10192D4D0();
+          }
+
+          v21 = off_1025D47A8;
+          if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+          {
+            v22 = [*(*(*(a1 + 40) + 8) + 40) timestamp];
+            v29 = 68289794;
+            v30 = 0;
+            v31 = 2082;
+            v32 = "";
+            v33 = 2114;
+            *v34 = v22;
+            *&v34[8] = 2114;
+            v35 = *&v18;
+            v36 = 2114;
+            v37 = *&v19;
+            _os_log_impl(dword_100000000, v21, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LocationUtilityEvent Persist utility event interval, lastLocation.timestamp:%{public, location:escape_only}@, locationUtilityEventIntervalStart:%{public, location:escape_only}@, locationUtilityEventIntervalEnd:%{public, location:escape_only}@}", &v29, 0x30u);
+          }
+
+          *(v10 + 584) = [[NSDateInterval alloc] initWithStartDate:v18 endDate:v19];
+        }
+      }
+
+      else
+      {
+        if (qword_1025D47A0 != -1)
+        {
+          sub_10192D4D0();
+        }
+
+        v23 = off_1025D47A8;
+        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+        {
+          v24 = *(a1 + 32);
+          v29 = 68289282;
+          v30 = 0;
+          v31 = 2082;
+          v32 = "";
+          v33 = 2114;
+          *v34 = v24;
+          _os_log_impl(dword_100000000, v23, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LocationUtilityEvent No locations in interval., interval:%{public, location:escape_only}@}", &v29, 0x1Cu);
+        }
+      }
+    }
+
+    else if ([a2 count])
+    {
+
+      *(*(*(a1 + 40) + 8) + 40) = [a2 lastObject];
+    }
+  }
+}
+
+id sub_100779AE8(uint64_t a1, uint64_t a2)
+{
+  if (objc_opt_class())
+  {
+    obj = +[NSMutableArray array];
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v4 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289282;
+      v19 = 0;
+      v20 = 2082;
+      v21 = "";
+      v22 = 2114;
+      v23 = a2;
+      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LocationUtilityEvent Retrieval request, lookBackWindowStartDate:%{public, location:escape_only}@}", buf, 0x1Cu);
+    }
+
+    if (a2)
+    {
+      v5 = *(a1 + 576);
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_100779FE8;
+      v17[3] = &unk_10246FE30;
+      v17[4] = a2;
+      v17[5] = obj;
+      sub_100779E1C(v5, 0, v17);
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj);
+      if (v6)
+      {
+        v7 = v6;
+        v8 = MEMORY[0];
+        do
+        {
+          v9 = 0;
+          do
+          {
+            if (MEMORY[0] != v8)
+            {
+              objc_enumerationMutation(obj);
+            }
+
+            v10 = *(8 * v9);
+            if (qword_1025D47A0 != -1)
+            {
+              sub_10192D4D0();
+            }
+
+            v11 = off_1025D47A8;
+            if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+            {
+              v12 = [v10 startDate];
+              v13 = [v10 endDate];
+              *buf = 68289794;
+              v19 = 0;
+              v20 = 2082;
+              v21 = "";
+              v22 = 2114;
+              v23 = a2;
+              v24 = 2114;
+              v25 = v12;
+              v26 = 2114;
+              v27 = v13;
+              _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LocationUtilityEvent Retrieved interval, lookBackWindowStartDate:%{public, location:escape_only}@, intervalStartDate:%{public, location:escape_only}@, intervalEndDate:%{public, location:escape_only}@}", buf, 0x30u);
+            }
+
+            v9 = v9 + 1;
+          }
+
+          while (v7 != v9);
+          v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj);
+        }
+
+        while (v7);
+      }
+    }
+  }
+
+  else
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v14 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289026;
+      v19 = 0;
+      v20 = 2082;
+      v21 = "";
+      _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLPLocationConsumptionScoreInfo doesn't exist in this platform.}", buf, 0x12u);
+    }
+
+    return 0;
+  }
+
+  return obj;
+}
+
+void sub_100779E1C(void *a1, uint64_t a2, uint64_t a3)
+{
+  if (objc_opt_class())
+  {
+    *buf = 0;
+    *&v10 = buf;
+    *(&v10 + 1) = 0x2020000000;
+    v11 = 0;
+    v8[0] = 0;
+    v8[1] = v8;
+    v8[2] = 0x2020000000;
+    v8[3] = 0;
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_100787370;
+    v7[3] = &unk_102470088;
+    v7[6] = buf;
+    v7[7] = v8;
+    v7[4] = a2;
+    v7[5] = a3;
+    [a1 iterateSecondaryData:objc_msgSend(a1 forField:"mappedSecondaryData") withHandler:{1, v7}];
+    _Block_object_dispose(v8, 8);
+    _Block_object_dispose(buf, 8);
+  }
+
+  else
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v6 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289026;
+      *&buf[4] = 0;
+      LOWORD(v10) = 2082;
+      *(&v10 + 2) = "";
+      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLPLocationConsumptionScoreInfo doesn't exist in this platform.}", buf, 0x12u);
+    }
+  }
+}
+
+void sub_100779FE8(uint64_t a1, double a2, double a3)
+{
+  [*(a1 + 32) timeIntervalSinceReferenceDate];
+  if ((a3 - a2) * 0.5 + a2 >= v6)
+  {
+    [*(a1 + 40) addObject:{objc_msgSend([NSDateInterval alloc], "initWithStartDate:endDate:", objc_msgSend([NSDate alloc], "initWithTimeIntervalSinceReferenceDate:", a2), objc_msgSend([NSDate alloc], "initWithTimeIntervalSinceReferenceDate:", a3))}];
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v7 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = *(a1 + 32);
+      v9[0] = 68289794;
+      v9[1] = 0;
+      v10 = 2082;
+      v11 = "";
+      v12 = 2114;
+      v13 = v8;
+      v14 = 1026;
+      v15 = a2;
+      v16 = 1026;
+      v17 = a3;
+      _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LocationUtilityEvent Retrieved interval prior, lookBackWindowStartDate:%{public, location:escape_only}@, startTime:%{public}d, endTime:%{public}d}", v9, 0x28u);
+    }
+  }
+}
+
+void sub_10077A174(uint64_t a1, uint64_t a2)
+{
+  v3 = sub_1000184F4(a1, a2);
+  if (![*(a1 + 120) locationRestricted])
   {
 LABEL_6:
     if (qword_1025D47A0 != -1)
@@ -5302,116 +4275,81 @@ LABEL_6:
     sub_10028840C();
   }
 
-  v5 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+  v4 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 68289282;
+    *buf = 68289026;
     *&buf[4] = 0;
-    *v15 = 2082;
-    *&v15[2] = "";
-    *&v15[10] = 2114;
-    *&v15[12] = a2;
-    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:appLaunchedByAppLifecycleManager called for unregistered app. Skipping., Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+    *v9 = 2082;
+    *&v9[2] = "";
+    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Warning location services settings are frozen by restrictions - resetting}", buf, 0x12u);
     goto LABEL_6;
   }
 
 LABEL_8:
-  v6 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+  v5 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 68289283;
+    *buf = 68289282;
     *&buf[4] = 0;
-    *v15 = 2082;
-    *&v15[2] = "";
-    *&v15[10] = 2113;
-    *&v15[12] = v4;
-    _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:app launched by CLALM, Client:%{private, location:escape_only}@}", buf, 0x1Cu);
+    *v9 = 2082;
+    *&v9[2] = "";
+    *&v9[10] = 2114;
+    *&v9[12] = v3;
+    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:resetting and disconnecting client, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
   }
 
-  if (v4)
+  sub_100773918(a1, v3);
+  if (v3)
   {
-    [v4 cppClientKey];
-  }
-
-  else
-  {
-    *buf = 0;
-    *v15 = 0;
-    *&v15[8] = 0;
-  }
-
-  v7 = sub_100046778((a1 + 464), buf);
-  *(v7 + 12) += 500;
-  if ((v15[15] & 0x80000000) != 0)
-  {
-    operator delete(*buf);
-  }
-
-  Current = CFAbsoluteTimeGetCurrent();
-  v9 = objc_alloc_init(CLPLocationConsumptionScoreInfo);
-  [v9 setClientKey:{objc_msgSend(v4, "clientKey")}];
-  [v9 setStartTime:Current];
-  [v9 setStopTime:Current];
-  [*(a1 + 504) writeSecondaryObject:v9 toField:1];
-  if (v4)
-  {
-    [v4 cppClientKey];
+    objc_msgSend_cppClientKey(v3);
   }
 
   else
   {
     *buf = 0;
-    *v15 = 0;
-    *&v15[8] = 0;
+    *v9 = 0;
+    *&v9[8] = 0;
   }
 
-  v10 = sub_10045EF04(a1 + 800, buf);
-  v11 = a1 + 808;
-  if ((v15[15] & 0x80000000) != 0)
+  sub_10004EB70((a1 + 752), buf);
+  if ((v9[15] & 0x80000000) != 0)
+  {
+    operator delete(*buf);
+    if (v3)
+    {
+      goto LABEL_15;
+    }
+  }
+
+  else if (v3)
+  {
+LABEL_15:
+    objc_msgSend_cppClientKey(v3);
+    goto LABEL_18;
+  }
+
+  *buf = 0;
+  *v9 = 0;
+  *&v9[8] = 0;
+LABEL_18:
+  sub_10004EB70((a1 + 776), buf);
+  if ((v9[15] & 0x80000000) != 0)
   {
     operator delete(*buf);
   }
 
-  if (v11 != v10)
+  sub_10000EC00(__p, "ClientRemoved");
+  sub_100777AC4(a1, v3, 1, __p);
+  if (v7 < 0)
   {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v12 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
-    {
-      *buf = 68289282;
-      *&buf[4] = 0;
-      *v15 = 2082;
-      *&v15[2] = "";
-      *&v15[10] = 2114;
-      *&v15[12] = v4;
-      _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Faulting for logs explaining usage score increment, ClientKey:%{public, location:escape_only}@}", buf, 0x1Cu);
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-    }
-
-    v13 = off_1025D47A8;
-    if (os_signpost_enabled(off_1025D47A8))
-    {
-      *buf = 68289282;
-      *&buf[4] = 0;
-      *v15 = 2082;
-      *&v15[2] = "";
-      *&v15[10] = 2114;
-      *&v15[12] = v4;
-      _os_signpost_emit_with_name_impl(dword_100000000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Faulting for logs explaining usage score increment", "{msg%{public}.0s:Faulting for logs explaining usage score increment, ClientKey:%{public, location:escape_only}@}", buf, 0x1Cu);
-    }
+    operator delete(__p[0]);
   }
 }
 
-void sub_100794C8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+void sub_10077A394(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
-  if (a16 < 0)
+  if (a15 < 0)
   {
     operator delete(__p);
   }
@@ -5419,1735 +4357,141 @@ void sub_100794C8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-id sub_100794D08(uint64_t a1)
+BOOL sub_10077A3D0(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v15 = 0;
-  v2 = sub_1000206B4();
-  v3 = sub_10005BBE4(v2, "SystemServiceGeneration", &v15) ^ 1;
-  if (v15 < 2)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  v5 = *(a1 + 136);
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_1007A6C10;
-  v13[3] = &unk_1024704E8;
-  v13[4] = a1;
-  v14 = v4;
-  [v5 iterateAllAnchorKeyPathsWithBlock:v13];
-  if (v4 == 1)
-  {
-    v6 = sub_1000206B4();
-    *v12 = 2;
-    sub_10004345C(v6, "SystemServiceGeneration", v12);
-    v7 = *sub_1000206B4();
-    (*(v7 + 944))();
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v8 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-    {
-      *v12 = 0;
-      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_INFO, "AuthMigrate: successfully resetted all SystemService authorization mask", v12, 2u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_101932710();
-    }
-
-    [*(a1 + 136) persist];
-  }
-
-  sub_1001D2F14(a1);
-  sub_100044F7C(a1);
-  [*(a1 + 1560) considerPerformingAForcedFullSync];
-  v9 = sub_1000206B4();
-  sub_1004FA94C(v9);
-  v10 = *sub_1000206B4();
-  (*(v10 + 944))();
-  return sub_10076DAA0(*(a1 + 1040));
-}
-
-void sub_100794F34(uint64_t a1, void *a2)
-{
-  if (*(a1 + 1128))
-  {
-    if ([*(a1 + 1112) containsObject:a2])
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10028840C();
-      }
-
-      v4 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-      {
-        v5 = [a2 UTF8String];
-        v6 = *(a1 + 1112);
-        v10 = 68289794;
-        *v11 = 0;
-        *&v11[4] = 2082;
-        *&v11[6] = "";
-        v12 = 2082;
-        v13 = v5;
-        v14 = 2114;
-        v15 = v6;
-        v16 = 2050;
-        v17 = [v6 count];
-        _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:reset completion reporting, Current Identifier:%{public, location:escape_only}s, ResetIdentifiers Snapshot:%{public, location:escape_only}@, Count:%{public}ld}", &v10, 0x30u);
-      }
-
-      [*(a1 + 1112) removeObject:a2];
-      [*(a1 + 128) setArray:*(a1 + 1112) forKey:@"ResetIdentifiers"];
-      if (![*(a1 + 1112) count])
-      {
-        if (qword_1025D4790 != -1)
-        {
-          sub_10192DAA4();
-        }
-
-        v7 = qword_1025D4798;
-        if (os_log_type_enabled(qword_1025D4798, OS_LOG_TYPE_INFO))
-        {
-          LOWORD(v10) = 0;
-          _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_INFO, "Completion reported back for all Reset registered clients", &v10, 2u);
-        }
-
-        if (sub_10000A100(121, 2))
-        {
-          sub_1019328DC();
-        }
-
-        *(a1 + 1128) = 0;
-        [*(a1 + 256) setNextFireDelay:0.0];
-      }
-    }
-
-    else
-    {
-      [*(a1 + 128) setArray:0 forKey:@"ResetIdentifiers"];
-      [*(a1 + 128) setInt:0 forKey:@"ResetRetrialCount"];
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10028840C();
-      }
-
-      v9 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
-      {
-        v10 = 138412290;
-        *v11 = a2;
-        _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_FAULT, "Reset registration and completion reporting is un-balanced. Completion of Reset reported for unregistered identifier: %@", &v10, 0xCu);
-      }
-
-      if (sub_10000A100(121, 0))
-      {
-        sub_1019327EC();
-      }
-    }
-  }
-
-  else
+  v8 = [*(a1 + 136) registeredKeyPathForClientIdentifier:?];
+  v9 = [*(a1 + 136) intForKey:@"IncidentalUseMode" atKeyPath:v8 defaultValue:0];
+  if (v9 == a2)
   {
     if (qword_1025D47A0 != -1)
     {
       sub_10028840C();
     }
 
-    v8 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+    v10 = off_1025D47A8;
+    result = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT);
+    if (result)
     {
-      v10 = 68289282;
-      *v11 = 0;
-      *&v11[4] = 2082;
-      *&v11[6] = "";
-      v12 = 2082;
-      v13 = [a2 UTF8String];
-      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Skip completion reporting. No Reset in progress, Identifier:%{public, location:escape_only}s}", &v10, 0x1Cu);
-    }
-  }
-}
-
-void sub_100795344(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_100795358(uint64_t a1, void *a2, void *a3)
-{
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10028840C();
-  }
-
-  v6 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-  {
-    v8 = 138412546;
-    v9 = a2;
-    v10 = 1026;
-    v11 = a3;
-    _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEBUG, "Setting client:%@ background indicator to %{public}d", &v8, 0x12u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_1019329B8(a2, a3);
-  }
-
-  return sub_1007A493C(a1, a2, a3, 1);
-}
-
-void sub_1007955BC(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_100795630(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100795848(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_100795940(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-id sub_100795954(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = sub_100033370(a1, a2);
-  v6 = *(a1 + 136);
-  if (a3)
-  {
-
-    return [v6 setString:a3 forKey:@"Purpose" atKeyPath:v5];
-  }
-
-  else
-  {
-
-    return [v6 removeValueForKey:@"Purpose" atKeyPath:v5];
-  }
-}
-
-void sub_100795A40(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-id sub_100795ABC(id *a1, void *a2)
-{
-  v8 = 0u;
-  v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  result = [a2 countByEnumeratingWithState:&v8 objects:v12 count:16];
-  if (result)
-  {
-    v5 = result;
-    v6 = *v9;
-    do
-    {
-      v7 = 0;
-      do
-      {
-        if (*v9 != v6)
-        {
-          objc_enumerationMutation(a2);
-        }
-
-        sub_1007778FC(a1, [CLClientKeyPath clientKeyPathWithLegacyClientKey:*(*(&v8 + 1) + 8 * v7)]);
-        v7 = v7 + 1;
-      }
-
-      while (v5 != v7);
-      result = [a2 countByEnumeratingWithState:&v8 objects:v12 count:16];
-      v5 = result;
-    }
-
-    while (result);
-  }
-
-  return result;
-}
-
-void *sub_100795C50(uint64_t a1, uint64_t a2, int a3)
-{
-  v4 = [*(a1 + 136) dictionary];
-  if (v4)
-  {
-    v5 = v4;
-    if ((_os_feature_enabled_impl() & 1) == 0)
-    {
-      v6 = objc_opt_new();
-      v29 = 0u;
-      v30 = 0u;
-      v31 = 0u;
-      v32 = 0u;
-      v7 = [v5 countByEnumeratingWithState:&v29 objects:v39 count:16];
-      if (!v7)
-      {
-        return v6;
-      }
-
-      v9 = v7;
-      v24 = v6;
-      v10 = *v30;
-      *&v8 = 138477827;
-      v23 = v8;
-LABEL_6:
-      v11 = 0;
-      while (1)
-      {
-        if (*v30 != v10)
-        {
-          objc_enumerationMutation(v5);
-        }
-
-        v12 = *(*(&v29 + 1) + 8 * v11);
-        [v5 objectForKeyedSubscript:{v12, v23}];
-        objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0 || ([v12 isEqualToString:@"e:"] & 1) != 0 || (objc_msgSend(v12, "isEqualToString:", @"p:") & 1) != 0 || objc_msgSend(objc_msgSend(v5, "objectForKeyedSubscript:", v12), "objectForKeyedSubscript:", @"AnchorKeyPath") || objc_msgSend(objc_msgSend(v5, "objectForKeyedSubscript:", v12), "objectForKeyedSubscript:", @"PrimaryKeyPath") || objc_msgSend(objc_msgSend(v5, "objectForKeyedSubscript:", v12), "objectForKeyedSubscript:", @"AuthLimitingKeyPath") || !objc_msgSend(objc_msgSend(v5, "objectForKeyedSubscript:", v12), "objectForKeyedSubscript:", @"Authorization") && objc_msgSend(objc_msgSend(v5, "objectForKeyedSubscript:", v12), "objectForKeyedSubscript:", @"SuppressShowingInSettings"))
-        {
-          goto LABEL_15;
-        }
-
-        v13 = [CLClientKeyPath clientKeyPathWithClientKey:v12];
-        v14 = [v5 objectForKeyedSubscript:v12];
-        v27 = v13;
-        if ([*(a1 + 136) isKeyPathRegisteredSystemService:v13])
-        {
-          v15 = v14;
-          if (sub_1000337DC(v14) != 8 && sub_1000E64F4([(CLClientKeyPath *)v27 bundlePath]) && (!a3 || sub_100D96660(v14)))
-          {
-            goto LABEL_29;
-          }
-        }
-
-        else
-        {
-          v15 = v14;
-          if (([v14 objectForKeyedSubscript:@"Authorization"] || objc_msgSend(v14, "objectForKeyedSubscript:", @"SupportedAuthorizationMask") || objc_msgSend(v14, "objectForKeyedSubscript:", @"SubIdentities")) && (!a3 || sub_100D96660(v14)))
-          {
-LABEL_29:
-            v16 = [v15 cl_deepMutableCopy];
-            v25 = v16;
-            v26 = [(NSString *)[(CLClientKeyPath *)v27 clientAnchor] copy];
-            if (v26 && v16)
-            {
-              sub_10078A488(a1, v27, v16);
-              if ([v16 objectForKeyedSubscript:@"PlatformSpecificBundleId"] && objc_msgSend(v16, "objectForKeyedSubscript:", @"BundleId"))
-              {
-                [v16 setObject:objc_msgSend(v16 forKeyedSubscript:{"objectForKeyedSubscript:", @"PlatformSpecificBundleId", @"BundleId"}];
-              }
-
-              if ([*(a1 + 136) BOOLForKey:@"Hidden" atKeyPath:v27 defaultValue:0])
-              {
-                [v16 setObject:+[NSNumber numberWithUnsignedInteger:](NSNumber forKeyedSubscript:{"numberWithUnsignedInteger:", sub_10023D76C(a1, v27)), @"SupportedAuthorizationMask"}];
-              }
-
-              sub_100D96874(v16);
-              [v24 setObject:v16 forKeyedSubscript:v26];
-            }
-
-            else if (v16)
-            {
-              if (qword_1025D47A0 != -1)
-              {
-                sub_10192D4D0();
-              }
-
-              v17 = off_1025D47A8;
-              if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
-              {
-                *buf = 68289283;
-                *v34 = 0;
-                *&v34[4] = 2082;
-                *&v34[6] = "";
-                v35 = 2113;
-                v36 = v12;
-                _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Client CKP key is nil in CLClientManager::copyClients, key:%{private, location:escape_only}@}", buf, 0x1Cu);
-                if (qword_1025D47A0 != -1)
-                {
-                  sub_10192D4D0();
-                }
-              }
-
-              v18 = off_1025D47A8;
-              if (os_signpost_enabled(off_1025D47A8))
-              {
-                *buf = 68289283;
-                *v34 = 0;
-                *&v34[4] = 2082;
-                *&v34[6] = "";
-                v35 = 2113;
-                v36 = v12;
-                _os_signpost_emit_with_name_impl(dword_100000000, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Client CKP key is nil in CLClientManager::copyClients", "{msg%{public}.0s:Client CKP key is nil in CLClientManager::copyClients, key:%{private, location:escape_only}@}", buf, 0x1Cu);
-              }
-            }
-
-            else
-            {
-              if (qword_1025D47A0 != -1)
-              {
-                sub_10192D4D0();
-              }
-
-              v19 = off_1025D47A8;
-              if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
-              {
-                v20 = [(CLClientKeyPath *)v27 clientAnchor];
-                *buf = v23;
-                *v34 = v20;
-                _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_FAULT, "Client record is nil in CLClientManager::copyClients for clientKey %{private}@", buf, 0xCu);
-              }
-
-              if (sub_10000A100(121, 0))
-              {
-                sub_101932BB4(&v37, v27, &v38);
-              }
-            }
-          }
-        }
-
-LABEL_15:
-        if (v9 == ++v11)
-        {
-          v21 = [v5 countByEnumeratingWithState:&v29 objects:v39 count:16];
-          v9 = v21;
-          if (!v21)
-          {
-            return v24;
-          }
-
-          goto LABEL_6;
-        }
-      }
-    }
-  }
-
-  return 0;
-}
-
-uint64_t sub_1007962C4(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
-  if ([v5 isValidCKP])
-  {
-    v6 = [objc_msgSend(*(a1 + 136) readonlyStoreAtKeyPath:{v5), "dictionary"}];
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = *(a3 + 16);
-
-  return v7(a3, v6);
-}
-
-id sub_100796390(uint64_t a1, uint64_t a2)
-{
-  v3 = sub_1000184F4(a1, a2);
-  if (![v3 isValidCKP])
-  {
-    return 0;
-  }
-
-  v4 = [*(a1 + 136) intForKey:@"SupportedAuthorizationMask" atKeyPath:v3 defaultValue:0];
-  if (([*(a1 + 136) BOOLForKey:@"Hidden" atKeyPath:v3 defaultValue:0] & 1) != 0 || (v4 & 4) == 0 || objc_msgSend(*(a1 + 136), "intForKey:atKeyPath:defaultValue:", @"Authorization", v3, 0) != 2)
-  {
-    return 0;
-  }
-
-  v5 = *(a1 + 136);
-
-  return [v5 BOOLForKey:@"AuthorizationUpgradeAvailable" atKeyPath:v3 defaultValue:1];
-}
-
-void sub_1007965AC(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_100796694(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_1007967B8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_100796A0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a22 < 0)
-  {
-    operator delete(a17);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100796A40(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, unsigned int a7, int a8, double a9, double a10, double a11, unsigned __int8 a12, uint64_t a13)
-{
-  if (qword_1025D4790 != -1)
-  {
-    sub_10192F910();
-  }
-
-  v18 = qword_1025D4798;
-  if (os_log_type_enabled(qword_1025D4798, OS_LOG_TYPE_DEFAULT))
-  {
-    if (*(a2 + 23) >= 0)
-    {
-      v19 = a2;
-    }
-
-    else
-    {
-      v19 = *a2;
-    }
-
-    if (*(a3 + 23) >= 0)
-    {
-      v20 = a3;
-    }
-
-    else
-    {
-      v20 = *a3;
-    }
-
-    *buf = 68291586;
-    *&buf[4] = 0;
-    v67 = 2082;
-    v68 = "";
-    v69 = 2082;
-    v70 = v19;
-    v71 = 2050;
-    v72 = a4;
-    v73 = 2082;
-    v74 = v20;
-    v75 = 1040;
-    v76 = LocationLogEncryptionDataSize();
-    v77 = 2098;
-    v78 = LocationLogEncryptionEncryptData();
-    v79 = 1040;
-    v80 = LocationLogEncryptionDataSize();
-    v81 = 2098;
-    v82 = LocationLogEncryptionEncryptData();
-    v83 = 2050;
-    v84 = a5;
-    v85 = 2050;
-    v86 = a6;
-    v87 = 2050;
-    v88 = a7;
-    _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Registration for InterestZone #pla, clientKey:%{public, location:escape_only}s, type:%{public, location:CLClientInterestZoneType}lld, zoneIdentifier:%{public, location:escape_only}s, lat:%{public, location:Encrypted_latitude}.*P, lon:%{public, location:Encrypted_longitude}.*P, PhenolicLocation:%{public, location:CLClientPhenolicLocation}lld, ServiceMaskOperator:%{public, location:CLClientInterestZoneServiceMaskOperator}lld, ProvenanceType:%{public, location:CLClientInterestZoneProvenanceType}lld}", buf, 0x6Eu);
-  }
-
-  if (*(a2 + 23) >= 0)
-  {
-    v21 = a2;
-  }
-
-  else
-  {
-    v21 = *a2;
-  }
-
-  v22 = [*(a1 + 136) registeredKeyPathForClientIdentifier:{+[CLClientKeyPath clientKeyPathWithLegacyClientKey:](CLClientKeyPath, "clientKeyPathWithLegacyClientKey:", +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v21))}];
-  if (([v22 isValidCKP] | a12))
-  {
-    if (([v22 isValidCKP] & 1) == 0)
-    {
-      if (*(a2 + 23) >= 0)
-      {
-        v23 = a2;
-      }
-
-      else
-      {
-        v23 = *a2;
-      }
-
-      v24 = [*(a1 + 136) registerClient:+[CLClientKeyPath clientKeyPathWithLegacyClientKey:](CLClientKeyPath fromAuthSync:{"clientKeyPathWithLegacyClientKey:", +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v23)), 0}];
-      if (*(a3 + 23) >= 0)
-      {
-        v25 = a3;
-      }
-
-      else
-      {
-        v25 = *a3;
-      }
-
-      v22 = [*(a1 + 136) registerSubIdentity:+[NSString stringWithUTF8String:](NSString withType:"stringWithUTF8String:" forAnchorKeyPath:{v25), 122, v24}];
-    }
-
-    if (a4 == 2)
-    {
-      [*(a1 + 136) setInt:a5 forKey:@"PhenolicLocation" atKeyPath:v22];
-    }
-
-    else
-    {
-      if (a4 != 1)
-      {
-        v60 = NSLocalizedDescriptionKey;
-        v61 = @"AuthZone registration failed. Invalid ZoneType.";
-        v38 = [NSDictionary dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-        (*(a13 + 16))(a13, [NSError errorWithDomain:kCLErrorDomainPrivate code:5 userInfo:v38]);
-        return;
-      }
-
-      if (a11 >= 50.0)
-      {
-        if (a11 > 1000.0)
-        {
-          if (qword_1025D47A0 != -1)
-          {
-            sub_10192D4D0();
-          }
-
-          v39 = off_1025D47A8;
-          if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-          {
-            if (*(a2 + 23) >= 0)
-            {
-              v40 = a2;
-            }
-
-            else
-            {
-              v40 = *a2;
-            }
-
-            if (*(a3 + 23) >= 0)
-            {
-              v41 = a3;
-            }
-
-            else
-            {
-              v41 = *a3;
-            }
-
-            *buf = 68289794;
-            *&buf[4] = 0;
-            v67 = 2082;
-            v68 = "";
-            v69 = 2082;
-            v70 = v40;
-            v71 = 2082;
-            v72 = v41;
-            v73 = 2050;
-            v74 = 0x408F400000000000;
-            _os_log_impl(dword_100000000, v39, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Zone radius too large. Updated to max threshold, ClientKey:%{public, location:escape_only}s, ZoneIdentifier:%{public, location:escape_only}s, MaxRadiusThreshold:%{public}.3f}", buf, 0x30u);
-          }
-
-          a11 = 1000.0;
-        }
-      }
-
-      else
-      {
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v26 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-        {
-          if (*(a2 + 23) >= 0)
-          {
-            v27 = a2;
-          }
-
-          else
-          {
-            v27 = *a2;
-          }
-
-          if (*(a3 + 23) >= 0)
-          {
-            v28 = a3;
-          }
-
-          else
-          {
-            v28 = *a3;
-          }
-
-          *buf = 68289794;
-          *&buf[4] = 0;
-          v67 = 2082;
-          v68 = "";
-          v69 = 2082;
-          v70 = v27;
-          v71 = 2082;
-          v72 = v28;
-          v73 = 2050;
-          v74 = 0x4049000000000000;
-          _os_log_impl(dword_100000000, v26, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Zone radius too small. Updated to min threshold, ClientKey:%{public, location:escape_only}s, ZoneIdentifier:%{public, location:escape_only}s, MinRadiusThreshold:%{public}.3f}", buf, 0x30u);
-        }
-
-        a11 = 50.0;
-      }
-
-      if (!sub_100020608(a9, a10))
-      {
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v45 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
-        {
-          v46 = [@"Registration : Invalid lat/lon." UTF8String];
-          v47 = *(a2 + 23) >= 0 ? a2 : *a2;
-          v48 = *(a3 + 23) >= 0 ? a3 : *a3;
-          *buf = 68289794;
-          *&buf[4] = 0;
-          v67 = 2082;
-          v68 = "";
-          v69 = 2082;
-          v70 = v46;
-          v71 = 2082;
-          v72 = v47;
-          v73 = 2082;
-          v74 = v48;
-          _os_log_impl(dword_100000000, v45, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:AuthZone operation failed., Error:%{public, location:escape_only}s, ClientKey:%{public, location:escape_only}s, ZoneIdentifier:%{public, location:escape_only}s}", buf, 0x30u);
-          if (qword_1025D47A0 != -1)
-          {
-            sub_10192D4D0();
-          }
-        }
-
-        v49 = off_1025D47A8;
-        if (os_signpost_enabled(off_1025D47A8))
-        {
-          v50 = [@"Registration : Invalid lat/lon." UTF8String];
-          if (*(a2 + 23) >= 0)
-          {
-            v51 = a2;
-          }
-
-          else
-          {
-            v51 = *a2;
-          }
-
-          if (*(a3 + 23) >= 0)
-          {
-            v52 = a3;
-          }
-
-          else
-          {
-            v52 = *a3;
-          }
-
-          *buf = 68289794;
-          *&buf[4] = 0;
-          v67 = 2082;
-          v68 = "";
-          v69 = 2082;
-          v70 = v50;
-          v71 = 2082;
-          v72 = v51;
-          v73 = 2082;
-          v74 = v52;
-          _os_signpost_emit_with_name_impl(dword_100000000, v49, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AuthZone operation failed.", "{msg%{public}.0s:AuthZone operation failed., Error:%{public, location:escape_only}s, ClientKey:%{public, location:escape_only}s, ZoneIdentifier:%{public, location:escape_only}s}", buf, 0x30u);
-        }
-
-        if (a13)
-        {
-          v62 = NSLocalizedDescriptionKey;
-          v63 = @"Registration : Invalid lat/lon.";
-          v53 = [NSDictionary dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-          (*(a13 + 16))(a13, [NSError errorWithDomain:kCLErrorDomainPrivate code:5 userInfo:v53]);
-        }
-
-        return;
-      }
-
-      [*(a1 + 136) setDouble:@"Latitude" forKey:v22 atKeyPath:a9];
-      [*(a1 + 136) setDouble:@"Longitude" forKey:v22 atKeyPath:a10];
-      [*(a1 + 136) setDouble:@"Radius" forKey:v22 atKeyPath:a11];
-    }
-
-    [*(a1 + 136) setInt:a4 forKey:@"Type" atKeyPath:v22];
-    [*(a1 + 136) setInt:a6 forKey:@"ServiceMaskOperator" atKeyPath:v22];
-    [*(a1 + 136) setInt:a7 forKey:@"Provenance" atKeyPath:v22];
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v42 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-    {
-      if (*(a2 + 23) >= 0)
-      {
-        v43 = a2;
-      }
-
-      else
-      {
-        v43 = *a2;
-      }
-
-      if (*(a3 + 23) >= 0)
-      {
-        v44 = a3;
-      }
-
-      else
-      {
-        v44 = *a3;
-      }
-
       *buf = 68289538;
       *&buf[4] = 0;
-      v67 = 2082;
-      v68 = "";
-      v69 = 2082;
-      v70 = v43;
-      v71 = 2082;
-      v72 = v44;
-      _os_log_impl(dword_100000000, v42, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:InterestZone registered, ClientKey:%{public, location:escape_only}s, ZoneIdentifier:%{public, location:escape_only}s}", buf, 0x26u);
+      v19 = 2082;
+      v20 = "";
+      v21 = 2050;
+      v22 = a2;
+      v23 = 2050;
+      v24 = a2;
+      _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#IncidentalUseMode Ignoring setIncidentalUseMode for a state that's already set, current:%{public, location:CLClientIncidentalUseMode}lld, state:%{public, location:CLClientIncidentalUseMode}lld}", buf, 0x26u);
+      return 0;
     }
 
-    if (a8 && (sub_10000EC00(buf, "ZoneRegistration"), sub_10079369C(a1, a2, buf), SBYTE3(v70) < 0))
-    {
-      operator delete(*buf);
-      if (!a13)
-      {
-        return;
-      }
-    }
-
-    else if (!a13)
-    {
-      return;
-    }
-
-    (*(a13 + 16))(a13, 0);
+    return result;
   }
 
-  else
+  v12 = v9;
+  if ([v8 isValidCKP])
   {
+    [*(a1 + 136) setInt:a2 forKey:@"IncidentalUseMode" atKeyPath:v8];
+    [*(a1 + 136) persist];
     if (qword_1025D47A0 != -1)
     {
-      sub_10192D4D0();
+      sub_10028840C();
     }
 
-    v29 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
+    v13 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = [@"Registration : Zone already exists and overriding is not allowed." UTF8String];
-      v31 = *(a2 + 23) >= 0 ? a2 : *a2;
-      v32 = *(a3 + 23) >= 0 ? a3 : *a3;
-      *buf = 68289794;
+      *buf = 68289538;
       *&buf[4] = 0;
-      v67 = 2082;
-      v68 = "";
-      v69 = 2082;
-      v70 = v30;
-      v71 = 2082;
-      v72 = v31;
-      v73 = 2082;
-      v74 = v32;
-      _os_log_impl(dword_100000000, v29, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:AuthZone operation failed., Error:%{public, location:escape_only}s, ClientKey:%{public, location:escape_only}s, ZoneIdentifier:%{public, location:escape_only}s}", buf, 0x30u);
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
+      v19 = 2082;
+      v20 = "";
+      v21 = 2050;
+      v22 = v12;
+      v23 = 2050;
+      v24 = a2;
+      _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#IncidentalUseMode able to SET client's incidental use mode, from:%{public, location:CLClientIncidentalUseMode}lld, to:%{public, location:CLClientIncidentalUseMode}lld}", buf, 0x26u);
     }
 
-    v33 = off_1025D47A8;
-    if (os_signpost_enabled(off_1025D47A8))
-    {
-      v34 = [@"Registration : Zone already exists and overriding is not allowed." UTF8String];
-      if (*(a2 + 23) >= 0)
-      {
-        v35 = a2;
-      }
-
-      else
-      {
-        v35 = *a2;
-      }
-
-      if (*(a3 + 23) >= 0)
-      {
-        v36 = a3;
-      }
-
-      else
-      {
-        v36 = *a3;
-      }
-
-      *buf = 68289794;
-      *&buf[4] = 0;
-      v67 = 2082;
-      v68 = "";
-      v69 = 2082;
-      v70 = v34;
-      v71 = 2082;
-      v72 = v35;
-      v73 = 2082;
-      v74 = v36;
-      _os_signpost_emit_with_name_impl(dword_100000000, v33, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AuthZone operation failed.", "{msg%{public}.0s:AuthZone operation failed., Error:%{public, location:escape_only}s, ClientKey:%{public, location:escape_only}s, ZoneIdentifier:%{public, location:escape_only}s}", buf, 0x30u);
-    }
-
-    if (a13)
-    {
-      v64 = NSLocalizedDescriptionKey;
-      v65 = @"Registration : Zone already exists and overriding is not allowed.";
-      v37 = [NSDictionary dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-      (*(a13 + 16))(a13, [NSError errorWithDomain:kCLErrorDomainPrivate code:5 userInfo:v37]);
-    }
-  }
-}
-
-void sub_1007974D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
-{
-  if (a26 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1007975D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a22 < 0)
-  {
-    operator delete(a17);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1007976B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a20 < 0)
-  {
-    operator delete(a15);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1007976E8(uint64_t a1, char *a2, char *a3, uint64_t a4, uint64_t a5)
-{
-  if (qword_1025D4790 != -1)
-  {
-    sub_10192F910();
-  }
-
-  v10 = qword_1025D4798;
-  if (os_log_type_enabled(qword_1025D4798, OS_LOG_TYPE_DEFAULT))
-  {
-    if (a2[23] >= 0)
-    {
-      v11 = a2;
-    }
-
-    else
-    {
-      v11 = *a2;
-    }
-
-    if (a3[23] >= 0)
-    {
-      v12 = a3;
-    }
-
-    else
-    {
-      v12 = *a3;
-    }
-
-    *buf = 68289794;
-    *&buf[4] = 0;
-    v30 = 2082;
-    v31 = "";
-    v32 = 2082;
-    v33 = v11;
-    v34 = 2082;
-    v35 = v12;
-    v36 = 1026;
-    LODWORD(v37) = a4;
-    _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:SetRelevanceForInterestZone, clientKey:%{public, location:escape_only}s, zoneIdentifier:%{public, location:escape_only}s, isRelevant:%{public}hhd}", buf, 0x2Cu);
-  }
-
-  if (a2[23] >= 0)
-  {
-    v13 = a2;
-  }
-
-  else
-  {
-    v13 = *a2;
-  }
-
-  v14 = [*(a1 + 136) registeredKeyPathForClientIdentifier:{+[CLClientKeyPath clientKeyPathWithLegacyClientKey:](CLClientKeyPath, "clientKeyPathWithLegacyClientKey:", +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v13))}];
-  if ([v14 isValidCKP])
-  {
-    if (a3[23] >= 0)
-    {
-      v15 = a3;
-    }
-
-    else
-    {
-      v15 = *a3;
-    }
-
-    v16 = [v14 clientKeyPathWithReplacementSubIdentityId:+[NSString stringWithUTF8String:](NSString subIdentityType:{"stringWithUTF8String:", v15), 122}];
-    [*(a1 + 136) setBool:a4 forKey:@"Relevant" atKeyPath:v16];
     sub_10000EC00(buf, "");
-    sub_100018918(a1, v16, buf);
-    if (SBYTE3(v33) < 0)
+    sub_100018918(a1, v8, buf);
+    if (SBYTE3(v22) < 0)
     {
       operator delete(*buf);
-      if (!a5)
+      if (!a4)
       {
-        return;
+        return 1;
       }
     }
 
-    else if (!a5)
+    else if (!a4)
     {
-      return;
+      return 1;
     }
 
-    v26 = 0;
-LABEL_44:
-    (*(a5 + 16))(a5, v26);
-    return;
-  }
-
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10192D4D0();
-  }
-
-  v17 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
-  {
-    v18 = [@"setRelevance : Zone not found." UTF8String];
-    v19 = a2[23] >= 0 ? a2 : *a2;
-    v20 = a3[23] >= 0 ? a3 : *a3;
-    *buf = 68289794;
-    *&buf[4] = 0;
-    v30 = 2082;
-    v31 = "";
-    v32 = 2082;
-    v33 = v18;
-    v34 = 2082;
-    v35 = v19;
-    v36 = 2082;
-    v37 = v20;
-    _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:AuthZone operation failed., Error:%{public, location:escape_only}s, ClientKey:%{public, location:escape_only}s, ZoneIdentifier:%{public, location:escape_only}s}", buf, 0x30u);
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-  }
-
-  v21 = off_1025D47A8;
-  if (os_signpost_enabled(off_1025D47A8))
-  {
-    v22 = [@"setRelevance : Zone not found." UTF8String];
-    if (a2[23] >= 0)
-    {
-      v23 = a2;
-    }
-
-    else
-    {
-      v23 = *a2;
-    }
-
-    if (a3[23] >= 0)
-    {
-      v24 = a3;
-    }
-
-    else
-    {
-      v24 = *a3;
-    }
-
-    *buf = 68289794;
-    *&buf[4] = 0;
-    v30 = 2082;
-    v31 = "";
-    v32 = 2082;
-    v33 = v22;
-    v34 = 2082;
-    v35 = v23;
-    v36 = 2082;
-    v37 = v24;
-    _os_signpost_emit_with_name_impl(dword_100000000, v21, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AuthZone operation failed.", "{msg%{public}.0s:AuthZone operation failed., Error:%{public, location:escape_only}s, ClientKey:%{public, location:escape_only}s, ZoneIdentifier:%{public, location:escape_only}s}", buf, 0x30u);
-  }
-
-  if (a5)
-  {
-    v27 = NSLocalizedDescriptionKey;
-    v28 = @"setRelevance : Zone not found.";
-    v25 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-    v26 = [NSError errorWithDomain:kCLErrorDomainPrivate code:5 userInfo:v25];
-    goto LABEL_44;
-  }
-}
-
-void sub_100797AD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
-{
-  if (a16 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100797B9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a20 < 0)
-  {
-    operator delete(a15);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100797C6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a20 < 0)
-  {
-    operator delete(a15);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100797CA0(uint64_t a1, char *a2, char *a3, uint64_t a4)
-{
-  if (qword_1025D4790 != -1)
-  {
-    sub_10192F910();
-  }
-
-  v8 = qword_1025D4798;
-  if (os_log_type_enabled(qword_1025D4798, OS_LOG_TYPE_DEFAULT))
-  {
-    if (a2[23] >= 0)
-    {
-      v9 = a2;
-    }
-
-    else
-    {
-      v9 = *a2;
-    }
-
-    if (a3[23] >= 0)
-    {
-      v10 = a3;
-    }
-
-    else
-    {
-      v10 = *a3;
-    }
-
-    *buf = 68289538;
-    v34 = 0;
-    v35 = 2082;
-    v36 = "";
-    v37 = 2082;
-    v38 = v9;
-    v39 = 2082;
-    v40 = v10;
-    _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Delete InterestZone, clientKey:%{public, location:escape_only}s, zoneIdentifier:%{public, location:escape_only}s}", buf, 0x26u);
-  }
-
-  if (a2[23] >= 0)
-  {
-    v11 = a2;
-  }
-
-  else
-  {
-    v11 = *a2;
-  }
-
-  v12 = [*(a1 + 136) registeredKeyPathForClientIdentifier:{+[CLClientKeyPath clientKeyPathWithLegacyClientKey:](CLClientKeyPath, "clientKeyPathWithLegacyClientKey:", +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v11))}];
-  if ([v12 isValidCKP])
-  {
-    if (a3[23] >= 0)
-    {
-      v13 = a3;
-    }
-
-    else
-    {
-      v13 = *a3;
-    }
-
-    v14 = [v12 clientKeyPathWithReplacementSubIdentityId:+[NSString stringWithUTF8String:](NSString subIdentityType:{"stringWithUTF8String:", v13), 122}];
-    sub_10000EC00(__p, "ClientRemoved");
-    sub_100777AC4(a1, v14, 1, __p);
-    if (v30 < 0)
+    sub_10077A7A0(a1, v8);
+    sub_10000EC00(__p, "LocalIncidentalUseModeChange");
+    sub_10077A934(a1, v8, __p);
+    if (v17 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v15 = *(a1 + 352);
-    if (a2[23] >= 0)
-    {
-      v16 = a2;
-    }
-
-    else
-    {
-      v16 = *a2;
-    }
-
-    v17 = [NSString stringWithUTF8String:v16];
-    if (a3[23] >= 0)
-    {
-      v18 = a3;
-    }
-
-    else
-    {
-      v18 = *a3;
-    }
-
-    [v15 stopCircularZoneMonitoringForClient:v17 withZoneId:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v18)}];
-    if (a4)
-    {
-      v19 = 0;
-LABEL_49:
-      (*(a4 + 16))(a4, v19);
-    }
+    return 1;
   }
 
-  else
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v20 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
-    {
-      v21 = [@"deleteZone : Zone not found." UTF8String];
-      v22 = a2[23] >= 0 ? a2 : *a2;
-      v23 = a3[23] >= 0 ? a3 : *a3;
-      *buf = 68289794;
-      v34 = 0;
-      v35 = 2082;
-      v36 = "";
-      v37 = 2082;
-      v38 = v21;
-      v39 = 2082;
-      v40 = v22;
-      v41 = 2082;
-      v42 = v23;
-      _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:AuthZone operation failed., Error:%{public, location:escape_only}s, ClientKey:%{public, location:escape_only}s, ZoneIdentifier:%{public, location:escape_only}s}", buf, 0x30u);
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-    }
-
-    v24 = off_1025D47A8;
-    if (os_signpost_enabled(off_1025D47A8))
-    {
-      v25 = [@"deleteZone : Zone not found." UTF8String];
-      if (a2[23] >= 0)
-      {
-        v26 = a2;
-      }
-
-      else
-      {
-        v26 = *a2;
-      }
-
-      if (a3[23] >= 0)
-      {
-        v27 = a3;
-      }
-
-      else
-      {
-        v27 = *a3;
-      }
-
-      *buf = 68289794;
-      v34 = 0;
-      v35 = 2082;
-      v36 = "";
-      v37 = 2082;
-      v38 = v25;
-      v39 = 2082;
-      v40 = v26;
-      v41 = 2082;
-      v42 = v27;
-      _os_signpost_emit_with_name_impl(dword_100000000, v24, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AuthZone operation failed.", "{msg%{public}.0s:AuthZone operation failed., Error:%{public, location:escape_only}s, ClientKey:%{public, location:escape_only}s, ZoneIdentifier:%{public, location:escape_only}s}", buf, 0x30u);
-    }
-
-    if (a4)
-    {
-      v31 = NSLocalizedDescriptionKey;
-      v32 = @"deleteZone : Zone not found.";
-      v28 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-      v19 = [NSError errorWithDomain:kCLErrorDomainPrivate code:5 userInfo:v28];
-      goto LABEL_49;
-    }
-  }
-}
-
-void sub_1007980A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1007981AC(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-BOOL sub_100798220(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
-  if ([v6 isValidCKP])
-  {
-    if (sub_1007A8220(a1, v6, 2))
-    {
-      [*(a1 + 136) removeValueForKey:@"VisitHistoryAccessAllowedTime" atKeyPath:v6];
-      if (a3 == 3)
-      {
-        [*(a1 + 136) setDouble:@"VisitHistoryAccessAllowedTime" forKey:v6 atKeyPath:CFAbsoluteTimeGetCurrent()];
-      }
-
-      [*(a1 + 136) setInt:a3 forKey:@"VisitHistoryAccess" atKeyPath:v6];
-      [*(a1 + 136) persist];
-      sub_10000EC00(&__p, "");
-      sub_100018918(a1, v6, &__p);
-      if (SBYTE3(v17) < 0)
-      {
-        operator delete(__p);
-      }
-
-      sub_100044F7C(a1);
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v7 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        __p = 68289538;
-        v14 = 2082;
-        v15 = "";
-        v16 = 2114;
-        v17 = v6;
-        v18 = 1026;
-        v19 = a3;
-        _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:set #VisitHistoryAccess - success, Client:%{public, location:escape_only}@, state:%{public}d}", &__p, 0x22u);
-      }
-
-      return 1;
-    }
-
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v12 = off_1025D47A8;
-    result = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT);
-    if (result)
-    {
-      __p = 68289282;
-      v14 = 2082;
-      v15 = "";
-      v16 = 2114;
-      v17 = v6;
-      v10 = "{msg%{public}.0s:set #VisitHistoryAccess - locIntl NotSupported, Client:%{public, location:escape_only}@}";
-      v11 = v12;
-      goto LABEL_20;
-    }
-  }
-
-  else
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v9 = off_1025D47A8;
-    result = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT);
-    if (result)
-    {
-      __p = 68289282;
-      v14 = 2082;
-      v15 = "";
-      v16 = 2114;
-      v17 = a2;
-      v10 = "{msg%{public}.0s:set #VisitHistoryAccess - invalid ckp, Client:%{public, location:escape_only}@}";
-      v11 = v9;
-LABEL_20:
-      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, v10, &__p, 0x1Cu);
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-void sub_1007984E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-BOOL sub_10079856C(uint64_t a1, void *a2, uint64_t a3)
-{
-  v6 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
-  if ([v6 isValidCKP])
-  {
-    if (sub_1007A8220(a1, v6, 1))
-    {
-      [*(a1 + 136) setInt:a3 forKey:@"LearnedRoutesAccess" atKeyPath:v6];
-      [*(a1 + 136) persist];
-      sub_10000EC00(&__p, "");
-      sub_100018918(a1, v6, &__p);
-      if (SBYTE3(v17) < 0)
-      {
-        operator delete(__p);
-      }
-
-      sub_100044F7C(a1);
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v7 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        __p = 68289538;
-        v14 = 2082;
-        v15 = "";
-        v16 = 2114;
-        v17 = v6;
-        v18 = 1026;
-        v19 = a3;
-        _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:set #LearnedRoutesAccess - success, Client:%{public, location:escape_only}@, state:%{public}d}", &__p, 0x22u);
-      }
-
-      return 1;
-    }
-
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v12 = off_1025D47A8;
-    result = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT);
-    if (result)
-    {
-      __p = 68289282;
-      v14 = 2082;
-      v15 = "";
-      v16 = 2114;
-      v17 = v6;
-      v10 = "{msg%{public}.0s:set #LearnedRoutesAccess - locIntl NotSupported, Client:%{public, location:escape_only}@}";
-      v11 = v12;
-      goto LABEL_18;
-    }
-  }
-
-  else
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v9 = off_1025D47A8;
-    result = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT);
-    if (result)
-    {
-      __p = 68289282;
-      v14 = 2082;
-      v15 = "";
-      v16 = 2114;
-      v17 = a2;
-      v10 = "{msg%{public}.0s:set #LearnedRoutesAccess - invalid ckp, Client:%{public, location:escape_only}@}";
-      v11 = v9;
-LABEL_18:
-      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, v10, &__p, 0x1Cu);
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-void sub_1007987F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1007988F8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-BOOL sub_100798960(uint64_t a1, uint64_t a2)
-{
-  v3 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
-  if (![v3 isValidCKP])
-  {
-    return 0;
-  }
-
-  if (v3)
-  {
-    [v3 cppClientKey];
-  }
-
-  else
-  {
-    __p[0] = 0;
-    __p[1] = 0;
-    v7 = 0;
-  }
-
-  v4 = a1 + 784 != sub_10045EF04(a1 + 776, __p);
-  if (SHIBYTE(v7) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  return v4;
-}
-
-void sub_1007989F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100798AE4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_1006E69AC(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_100798CB4(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = sub_1007A8220(a1, a2, 1);
   if (qword_1025D47A0 != -1)
   {
     sub_10028840C();
   }
 
-  v6 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+  v14 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
   {
-    v8[0] = 68289538;
-    v8[1] = 0;
-    v9 = 2082;
-    v10 = "";
-    v11 = 2114;
-    v12 = a2;
-    v13 = 1026;
-    v14 = v5;
-    _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Loc-Intl supported for #LearnedRoutes, Client:%{public, location:escape_only}@, supported:%{public}hhd}", v8, 0x22u);
+    *buf = 68289282;
+    *&buf[4] = 0;
+    v19 = 2082;
+    v20 = "";
+    v21 = 2114;
+    v22 = a3;
+    _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Unable to find client to update #IncidentalUseMode, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
   }
 
-  return (*(a3 + 16))(a3, 0, v5);
-}
-
-void sub_100798E08(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  sub_1007A8814(a1, a2, &v5);
-  v4 = sub_100E24778(v5);
-  (*(a3 + 16))(a3, 0, v4);
-  if (v6)
+  v15 = off_1025D47A8;
+  result = os_signpost_enabled(off_1025D47A8);
+  if (result)
   {
-    sub_100008080(v6);
+    *buf = 68289282;
+    *&buf[4] = 0;
+    v19 = 2082;
+    v20 = "";
+    v21 = 2114;
+    v22 = a3;
+    _os_signpost_emit_with_name_impl(dword_100000000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Unable to find client to update #IncidentalUseMode", "{msg%{public}.0s:Unable to find client to update #IncidentalUseMode, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+    return 0;
   }
+
+  return result;
 }
 
-void sub_100798E64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_10077A768(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
-  if (a10)
+  if (a15 < 0)
   {
-    sub_100008080(a10);
+    operator delete(__p);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_100798F60(_Unwind_Exception *a1, uint64_t a2, ...)
+id sub_10077A7A0(uint64_t a1, uint64_t a2)
 {
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_100798F74(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
-  if (([v5 isValidCKP] & 1) == 0)
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v17 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 68289026;
-      v43 = 2082;
-      v44 = "";
-      _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TemporaryAuth setTemporaryAuthorizationStatusInfoForClient: unknown client}", buf, 0x12u);
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-    }
-
-    v18 = off_1025D47A8;
-    if (os_signpost_enabled(off_1025D47A8))
-    {
-      *buf = 68289026;
-      v43 = 2082;
-      v44 = "";
-      v14 = "#TemporaryAuth setTemporaryAuthorizationStatusInfoForClient: unknown client";
-      v15 = "{msg%{public}.0s:#TemporaryAuth setTemporaryAuthorizationStatusInfoForClient: unknown client}";
-      v16 = v18;
-      v19 = 18;
-LABEL_31:
-      _os_signpost_emit_with_name_impl(dword_100000000, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v14, v15, buf, v19);
-      return;
-    }
-
-    return;
-  }
-
+  v4 = [objc_msgSend(*(a1 + 136) arrayForKey:@"VectorClocks" atKeyPath:a2 defaultValue:{&off_102554420), "mutableCopy"}];
+  v5 = [v4 mutableCopy];
+  [v4 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber atIndexedSubscript:{"numberWithUnsignedInt:", objc_msgSend(objc_msgSend(v4, "objectAtIndexedSubscript:", 0), "unsignedIntValue") + 1), 0}];
+  [*(a1 + 136) setArray:v4 forKey:@"VectorClocks" atKeyPath:a2];
   if (qword_1025D47A0 != -1)
   {
     sub_10028840C();
@@ -7156,405 +4500,264 @@ LABEL_31:
   v6 = off_1025D47A8;
   if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 68289282;
-    v43 = 2082;
-    v44 = "";
-    v45 = 2114;
-    *v46 = v5;
-    _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#TemporaryAuth setTemporaryAuthorizationStatusInfoForClient, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+    v8[0] = 68289794;
+    v8[1] = 0;
+    v9 = 2082;
+    v10 = "";
+    v11 = 2114;
+    v12 = a2;
+    v13 = 2114;
+    v14 = v5;
+    v15 = 2114;
+    v16 = v4;
+    _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:triggerLocalClockUpdate, Client:%{public, location:escape_only}@, previousVectorClocks:%{public, location:escape_only}@, vectorClocks:%{public, location:escape_only}@}", v8, 0x30u);
   }
 
-  v41 = 0;
-  if (!a3)
+  return [*(a1 + 136) persist];
+}
+
+void sub_10077A934(uint64_t a1, uint64_t a2, uint64_t *a3)
+{
+  v6 = [objc_msgSend(*(a1 + 32) "silo")];
+  if (+[CLAuthSyncManager isSupported]_0(v6, v7))
   {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v20 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 68289282;
-      v43 = 2082;
-      v44 = "";
-      v45 = 2114;
-      *v46 = v5;
-      _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TemporaryAuth setTemporaryAuthorizationStatusInfoForClient may not take nil data, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-    }
-
-    v21 = off_1025D47A8;
-    if (!os_signpost_enabled(off_1025D47A8))
-    {
-      return;
-    }
-
-    *buf = 68289282;
-    v43 = 2082;
-    v44 = "";
-    v45 = 2114;
-    *v46 = v5;
-    v14 = "#TemporaryAuth setTemporaryAuthorizationStatusInfoForClient may not take nil data";
-    v15 = "{msg%{public}.0s:#TemporaryAuth setTemporaryAuthorizationStatusInfoForClient may not take nil data, Client:%{public, location:escape_only}@}";
-    goto LABEL_29;
-  }
-
-  v7 = objc_opt_class();
-  v8 = objc_opt_class();
-  v9 = [NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithObjects:v7 fromData:v8 error:objc_opt_class(), 0], a3, &v41];
-  if (!v41)
-  {
-    v22 = v9;
-    v23 = [objc_msgSend(v9 objectsForKeys:&off_1025543F0 notFoundMarker:{+[NSNull null](NSNull, "null")), "count"}];
-    if (v23 != [&off_1025543F0 count])
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v29 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
-      {
-        v30 = [&off_1025543F0 count];
-        *buf = 68289538;
-        v43 = 2082;
-        v44 = "";
-        v45 = 2050;
-        *v46 = v30;
-        *&v46[8] = 2050;
-        v47 = v23;
-        _os_log_impl(dword_100000000, v29, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#TemporaryAuth missing one or more keys from decoded dict, target:%{public}lu, found:%{public}lu}", buf, 0x26u);
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-      }
-
-      v28 = off_1025D47A8;
-      if (!os_signpost_enabled(off_1025D47A8))
-      {
-        return;
-      }
-
-      v31 = [&off_1025543F0 count];
-      *buf = 68289538;
-      v43 = 2082;
-      v44 = "";
-      v45 = 2050;
-      *v46 = v31;
-      *&v46[8] = 2050;
-      v47 = v23;
-      v14 = "#TemporaryAuth missing one or more keys from decoded dict";
-      v15 = "{msg%{public}.0s:#TemporaryAuth missing one or more keys from decoded dict, target:%{public}lu, found:%{public}lu}";
-LABEL_50:
-      v16 = v28;
-      v19 = 38;
-      goto LABEL_31;
-    }
-
-    if ([v22 valueForKey:@"TransientInfoPayloadTimestamp"])
-    {
-      [objc_msgSend(v22 valueForKey:{@"TransientInfoPayloadTimestamp", "doubleValue"}];
-      v25 = v24;
-      Current = CFAbsoluteTimeGetCurrent();
-      if (vabdd_f64(Current, v25) <= 10.0)
-      {
-        v33 = [objc_msgSend(v22 valueForKey:{@"TransientInfoPayloadHasWIU", "BOOLValue"}];
-        v34 = [objc_msgSend(v22 valueForKey:{@"TransientInfoPayloadHasPrecise", "BOOLValue"}];
-        v35 = [objc_msgSend(v22 valueForKey:{@"TransientInfoPayloadInUseness", "intValue"}];
-        sub_10077B960(*(a1 + 136), v5, 2, v34);
-        sub_10077B960(*(a1 + 136), v5, 1, v33);
-        [*(a1 + 136) persist];
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v36 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-        {
-          *buf = 68289794;
-          v43 = 2082;
-          v44 = "";
-          v45 = 1026;
-          *v46 = v34;
-          *&v46[4] = 1026;
-          *&v46[6] = v35;
-          LOWORD(v47) = 1026;
-          *(&v47 + 2) = v33;
-          _os_log_impl(dword_100000000, v36, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#TemporaryAuth setTemporaryAuthorizationStatusInfoForClient, hasPrecise:%{public}hhd, inUseInt:%{public}d, hasWIU:%{public}hhd}", buf, 0x24u);
-        }
-
-        v37 = sub_101320CB8(v35);
-        if (v37)
-        {
-          [v5 legacyClientKey];
-          v38 = *(a1 + 400);
-          if (v5)
-          {
-            [v5 cppClientKey];
-          }
-
-          else
-          {
-            memset(v40, 0, sizeof(v40));
-          }
-
-          sub_10000EC00(v39, "setTemporaryAuthorizationStatusInfoForClient");
-          sub_100BA11E4(v38, v40, v39, v37, 1, buf);
-          sub_1007A6D38();
-        }
-
-        if ((v33 | v34))
-        {
-          sub_10000EC00(buf, "");
-          sub_100018918(a1, v5, buf);
-          if ((v46[3] & 0x80000000) != 0)
-          {
-            operator delete(*buf);
-          }
-        }
-
-        return;
-      }
-
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v27 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
-      {
-        *buf = 68289538;
-        v43 = 2082;
-        v44 = "";
-        v45 = 2050;
-        *v46 = Current;
-        *&v46[8] = 2050;
-        v47 = v25;
-        _os_log_impl(dword_100000000, v27, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#TemporaryAuth setTemporaryAuthorizationStatusInfoForClient stale info received, tNow:%{public}ld, sentTime:%{public}ld}", buf, 0x26u);
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-      }
-
-      v28 = off_1025D47A8;
-      if (!os_signpost_enabled(off_1025D47A8))
-      {
-        return;
-      }
-
-      *buf = 68289538;
-      v43 = 2082;
-      v44 = "";
-      v45 = 2050;
-      *v46 = Current;
-      *&v46[8] = 2050;
-      v47 = v25;
-      v14 = "#TemporaryAuth setTemporaryAuthorizationStatusInfoForClient stale info received";
-      v15 = "{msg%{public}.0s:#TemporaryAuth setTemporaryAuthorizationStatusInfoForClient stale info received, tNow:%{public}ld, sentTime:%{public}ld}";
-      goto LABEL_50;
-    }
+    v8 = _os_activity_create(dword_100000000, "CL: #authsync coalesceOutgoingSyncMessage", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v8, &state);
 
     if (qword_1025D47A0 != -1)
     {
       sub_10192D4D0();
     }
 
-    v32 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 68289282;
-      v43 = 2082;
-      v44 = "";
-      v45 = 2114;
-      *v46 = v5;
-      _os_log_impl(dword_100000000, v32, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TemporaryAuth setTemporaryAuthorizationStatusInfoForClient failed to find a timestamp in the packaged data. Ignoring the packet, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-    }
-
-    v21 = off_1025D47A8;
-    if (!os_signpost_enabled(off_1025D47A8))
-    {
-      return;
-    }
-
-    *buf = 68289282;
-    v43 = 2082;
-    v44 = "";
-    v45 = 2114;
-    *v46 = v5;
-    v14 = "#TemporaryAuth setTemporaryAuthorizationStatusInfoForClient failed to find a timestamp in the packaged data. Ignoring the packet";
-    v15 = "{msg%{public}.0s:#TemporaryAuth setTemporaryAuthorizationStatusInfoForClient failed to find a timestamp in the packaged data. Ignoring the packet, Client:%{public, location:escape_only}@}";
-LABEL_29:
-    v16 = v21;
-    goto LABEL_30;
-  }
-
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10192D4D0();
-  }
-
-  v10 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
-  {
-    v11 = [objc_msgSend(v41 "description")];
-    *buf = 68289282;
-    v43 = 2082;
-    v44 = "";
-    v45 = 2082;
-    *v46 = v11;
-    _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#TemporaryAuth encountered error while decoding, error:%{public, location:escape_only}s}", buf, 0x1Cu);
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-  }
-
-  v12 = off_1025D47A8;
-  if (os_signpost_enabled(off_1025D47A8))
-  {
-    v13 = [objc_msgSend(v41 "description")];
-    *buf = 68289282;
-    v43 = 2082;
-    v44 = "";
-    v45 = 2082;
-    *v46 = v13;
-    v14 = "#TemporaryAuth encountered error while decoding";
-    v15 = "{msg%{public}.0s:#TemporaryAuth encountered error while decoding, error:%{public, location:escape_only}s}";
-    v16 = v12;
-LABEL_30:
-    v19 = 28;
-    goto LABEL_31;
-  }
-}
-
-void sub_100799C58(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, uint64_t a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, char a52)
-{
-  if (a33 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100799DE0(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-NSData *sub_100799DF4(uint64_t a1, uint64_t a2)
-{
-  v3 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
-  if ([v3 isValidCKP])
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v4 = off_1025D47A8;
+    v9 = off_1025D47A8;
     if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 68289282;
-      v23 = 0;
+      v10 = a3;
+      if (*(a3 + 23) < 0)
+      {
+        v10 = *a3;
+      }
+
+      *buf = 68289794;
+      v17 = 0;
+      v18 = 2082;
+      v19 = "";
+      v20 = 2082;
+      v21 = "activity";
+      v22 = 2114;
+      v23 = a2;
       v24 = 2082;
-      v25 = "";
-      v26 = 2114;
-      v27 = v3;
-      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#TemporaryAuth retrieveTemporaryAuthorizationStatusInfoForClient, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+      v25 = v10;
+      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#authsync coalesceOutgoingSyncMessage, event:%{public, location:escape_only}s, ckp:%{public, location:escape_only}@, reason:%{public, location:escape_only}s}", buf, 0x30u);
     }
 
-    v5 = [*(a1 + 136) intForKey:@"TemporaryAuthorization" atKeyPath:v3 defaultValue:0];
-    v21 = sub_1000199AC(*(a1 + 400), v3);
-    v6 = v5;
-    v7 = v5 & 1;
-    v8 = sub_101320A5C(&v21);
-    Current = CFAbsoluteTimeGetCurrent();
-    v34[0] = @"TransientInfoPayloadTimestamp";
-    v35[0] = [NSNumber numberWithDouble:?];
-    v34[1] = @"TransientInfoPayloadInUseness";
-    v35[1] = [NSNumber numberWithInt:v8];
-    v34[2] = @"TransientInfoPayloadHasPrecise";
-    v35[2] = [NSNumber numberWithBool:(v5 >> 1) & 1];
-    v34[3] = @"TransientInfoPayloadHasWIU";
-    v35[3] = [NSNumber numberWithBool:v5 & 1];
-    v10 = [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:4];
-    if (qword_1025D47A0 != -1)
+    v11 = [*(a1 + 1592) objectForKey:a2];
+    if (v11)
     {
-      sub_10192D4D0();
+      if (*(a3 + 23) < 0)
+      {
+        a3 = *a3;
+      }
+
+      v12 = [v11 stringByAppendingFormat:@"_%s", a3];
     }
 
-    v11 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+    else
     {
-      *buf = 68290050;
-      v24 = 2082;
-      v23 = 0;
-      v25 = "";
-      v26 = 2050;
-      v27 = Current;
-      v28 = 1026;
-      v29 = v8;
-      v30 = 1026;
-      v31 = v7;
-      v32 = 1026;
-      v33 = (v6 & 2) >> 1;
-      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#TemporaryAuth retrieveTemporaryAuthorizationStatusInfoForClient, tNow:%{public}ld, inUse:%{public}d, hasTempWIU:%{public}hhd, hasTempPrecise:%{public}hhd}", buf, 0x2Eu);
+      if (*(a3 + 23) < 0)
+      {
+        a3 = *a3;
+      }
+
+      v12 = [NSString stringWithUTF8String:a3];
     }
 
-    v20 = 0;
-    v12 = [NSKeyedArchiver archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v20];
-    if (v20)
+    [*(a1 + 1592) setObject:v12 forKey:a2];
+    v13 = [*(a1 + 32) silo];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_100790F40;
+    v14[3] = &unk_102449BC0;
+    v14[4] = a2;
+    v14[5] = a1;
+    [v13 async:v14];
+    os_activity_scope_leave(&state);
+  }
+}
+
+uint64_t sub_10077AB64(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = sub_100033370(a1, a3);
+  [*(a1 + 136) setInt:a2 forKey:@"LocationButtonUseMode" atKeyPath:v5];
+  [*(a1 + 136) persist];
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10028840C();
+  }
+
+  v6 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+  {
+    v8[0] = 68289538;
+    v8[1] = 0;
+    v9 = 2082;
+    v10 = "";
+    v11 = 2114;
+    v12 = v5;
+    v13 = 2050;
+    v14 = a2;
+    _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#LocationButtonUseMode updated, Client:%{public, location:escape_only}@, Mode:%{public, location:CLClientLocationButtonUseMode}lld}", v8, 0x26u);
+  }
+
+  return 1;
+}
+
+void sub_10077AC8C(uint64_t a1)
+{
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10028840C();
+  }
+
+  v2 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+  {
+    v3 = [*(a1 + 32) UTF8String];
+    v4[0] = 68289282;
+    v4[1] = 0;
+    v5 = 2082;
+    v6 = "";
+    v7 = 2082;
+    v8 = v3;
+    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#SystemStatus Received and processed interval beginning message, MessageUUID:%{public, location:escape_only}s}", v4, 0x1Cu);
+  }
+}
+
+void sub_10077AD68(uint64_t a1, void *a2, void *a3, void *a4)
+{
+  if (objc_opt_class())
+  {
+    memset(&__p, 0, sizeof(__p));
+    if ([a4 isValidCKP])
+    {
+      v8 = sub_1000184F4(a1, a4);
+      if (v8)
+      {
+        objc_msgSend_cppClientKey(v8);
+      }
+
+      else
+      {
+        memset(buf, 0, 24);
+      }
+
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__p.__r_.__value_.__l.__data_);
+      }
+
+      __p = *buf;
+    }
+
+    else
+    {
+      sub_100006044(&__p, [@"com.apple.locationd.all-location-clients-stop" UTF8String]);
+    }
+
+    *buf = &__p;
+    v10 = sub_1007ADCC0(a3, &__p, &unk_101C66300, buf, &v20);
+    if (*(v10 + 5) == 0.0)
     {
       if (qword_1025D47A0 != -1)
       {
         sub_10192D4D0();
       }
 
-      v13 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+      v11 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
       {
-        v14 = [objc_msgSend(v20 "description")];
-        *buf = 68289282;
-        v23 = 0;
-        v24 = 2082;
-        v25 = "";
-        v26 = 2082;
-        v27 = v14;
-        _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#TemporaryAuth encountered error while converting, error:%{public, location:escape_only}s}", buf, 0x1Cu);
+        p_p = &__p;
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          p_p = __p.__r_.__value_.__r.__words[0];
+        }
+
+        *buf = 68289283;
+        *&buf[4] = 0;
+        *&buf[8] = 2082;
+        *&buf[10] = "";
+        *&buf[18] = 2081;
+        *&buf[20] = p_p;
+        _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Updating location consumption info on start, Client:%{private, location:escape_only}s}", buf, 0x1Cu);
+      }
+
+      *(v10 + 5) = CFAbsoluteTimeGetCurrent();
+      v13 = objc_alloc_init(CLPLocationConsumptionScoreInfo);
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v14 = &__p;
+      }
+
+      else
+      {
+        v14 = __p.__r_.__value_.__r.__words[0];
+      }
+
+      [v13 setClientKey:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v14, __p.__r_.__value_.__r.__words[0], __p.__r_.__value_.__l.__size_, __p.__r_.__value_.__r.__words[2])}];
+      [v13 setStartTime:*(v10 + 5)];
+      [a2 writeSecondaryObject:v13 toField:1];
+      if (a1 + 808 != sub_10045EF04(a1 + 800, &__p))
+      {
         if (qword_1025D47A0 != -1)
         {
           sub_10192D4D0();
         }
-      }
 
-      v15 = off_1025D47A8;
-      if (os_signpost_enabled(off_1025D47A8))
-      {
-        v16 = [objc_msgSend(v20 "description")];
-        *buf = 68289282;
-        v23 = 0;
-        v24 = 2082;
-        v25 = "";
-        v26 = 2082;
-        v27 = v16;
-        _os_signpost_emit_with_name_impl(dword_100000000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#TemporaryAuth encountered error while converting", "{msg%{public}.0s:#TemporaryAuth encountered error while converting, error:%{public, location:escape_only}s}", buf, 0x1Cu);
+        v15 = off_1025D47A8;
+        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+        {
+          v16 = &__p;
+          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          {
+            v16 = __p.__r_.__value_.__r.__words[0];
+          }
+
+          *buf = 68289282;
+          *&buf[4] = 0;
+          *&buf[8] = 2082;
+          *&buf[10] = "";
+          *&buf[18] = 2082;
+          *&buf[20] = v16;
+          _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Faulting for backtrace explaining usage score increment, Client:%{public, location:escape_only}s}", buf, 0x1Cu);
+          if (qword_1025D47A0 != -1)
+          {
+            sub_10192D4D0();
+          }
+        }
+
+        v17 = off_1025D47A8;
+        if (os_signpost_enabled(off_1025D47A8))
+        {
+          v18 = &__p;
+          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          {
+            v18 = __p.__r_.__value_.__r.__words[0];
+          }
+
+          *buf = 68289282;
+          *&buf[4] = 0;
+          *&buf[8] = 2082;
+          *&buf[10] = "";
+          *&buf[18] = 2082;
+          *&buf[20] = v18;
+          _os_signpost_emit_with_name_impl(dword_100000000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Faulting for backtrace explaining usage score increment", "{msg%{public}.0s:Faulting for backtrace explaining usage score increment, Client:%{public, location:escape_only}s}", buf, 0x1Cu);
+        }
       }
+    }
+
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
 
@@ -7565,74 +4768,474 @@ NSData *sub_100799DF4(uint64_t a1, uint64_t a2)
       sub_10028840C();
     }
 
-    v17 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
+    v9 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68289026;
-      v23 = 0;
-      v24 = 2082;
-      v25 = "";
-      _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TemporaryAuth retrieveTemporaryAuthorizationStatusInfoForClient: unknown client}", buf, 0x12u);
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
+      *&buf[4] = 0;
+      *&buf[8] = 2082;
+      *&buf[10] = "";
+      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLPLocationConsumptionScoreInfo doesn't exist in this platform.}", buf, 0x12u);
     }
+  }
+}
 
-    v18 = off_1025D47A8;
-    if (os_signpost_enabled(off_1025D47A8))
-    {
-      *buf = 68289026;
-      v23 = 0;
-      v24 = 2082;
-      v25 = "";
-      _os_signpost_emit_with_name_impl(dword_100000000, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#TemporaryAuth retrieveTemporaryAuthorizationStatusInfoForClient: unknown client", "{msg%{public}.0s:#TemporaryAuth retrieveTemporaryAuthorizationStatusInfoForClient: unknown client}", buf, 0x12u);
-    }
-
-    return 0;
+void sub_10077B190(uint64_t a1)
+{
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10028840C();
   }
 
-  return v12;
+  v2 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+  {
+    v3 = [*(a1 + 32) UTF8String];
+    v4[0] = 68289282;
+    v4[1] = 0;
+    v5 = 2082;
+    v6 = "";
+    v7 = 2082;
+    v8 = v3;
+    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#SystemStatus Received and processed interval end message, MessageUUID:%{public, location:escape_only}s}", v4, 0x1Cu);
+  }
 }
 
-void sub_10079A390(_Unwind_Exception *a1, uint64_t a2, ...)
+BOOL sub_10077B26C(uint64_t a1, uint64_t a2)
 {
-  va_start(va, a2);
-  sub_100039BE8(va);
-  _Unwind_Resume(a1);
-}
-
-double sub_10079A3A4(uint64_t a1, void *a2, double a3)
-{
-  v6 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
-  if ([v6 isValidCKP])
+  if ([*(a1 + 120) locationRestricted])
   {
     if (qword_1025D47A0 != -1)
     {
       sub_10028840C();
     }
 
-    v7 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+    v4 = off_1025D47A8;
+    result = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO);
+    if (result)
     {
-      v14 = 138412290;
-      *v15 = v6;
-      _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_INFO, "#appclip setting for bundle ID %@", &v14, 0xCu);
+      *buf = 68289282;
+      v22 = 0;
+      v23 = 2082;
+      v24 = "";
+      v25 = 2114;
+      v26 = a2;
+      v6 = "{msg%{public}.0s:#LocationButtonFirstUsage skip prompting. Restrictions enabled, Client:%{public, location:escape_only}@}";
+      v7 = v4;
+      v8 = OS_LOG_TYPE_INFO;
+      v9 = 28;
+LABEL_11:
+      _os_log_impl(dword_100000000, v7, v8, v6, buf, v9);
+      return 0;
     }
 
-    if (sub_10000A100(121, 2))
+    return result;
+  }
+
+  if (!*(a1 + 272))
+  {
+    if ([objc_msgSend(*(a1 + 136) readonlyStoreAtKeyPath:{a2), "BOOLForKey:defaultValue:", @"DefaultAccuracyReduced", 0}])
     {
-      sub_101932EBC();
+      v14 = 13;
     }
 
-    [*(a1 + 136) doubleForKey:@"AuthorizationRegisterTime" atKeyPath:v6 defaultValue:-1.0];
-    if (v8 == -1.0)
+    else
     {
-      TMGetKernelMonotonicClock();
+      v14 = 14;
     }
 
-    v9 = v8;
-    [*(a1 + 136) setDouble:@"AuthorizationRegisterTime" forKey:v6 atKeyPath:v8 + a3];
+    sub_10000EC00(__p, "");
+    sub_10023C2AC(v20, v14, a2, 0, __p);
+    v15 = sub_1007755CC(a1, a2, 0, v20, 0);
+    sub_10023DF30(v20);
+    if (v19 < 0)
+    {
+      operator delete(__p[0]);
+      if (v15)
+      {
+        return 1;
+      }
+    }
+
+    else if (v15)
+    {
+      return 1;
+    }
+
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v16 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 68289282;
+      v22 = 0;
+      v23 = 2082;
+      v24 = "";
+      v25 = 2114;
+      v26 = a2;
+      _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#Warning Could not post #LocationButtonFirstUsage, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+    }
+
+    v17 = off_1025D47A8;
+    result = os_signpost_enabled(off_1025D47A8);
+    if (result)
+    {
+      *buf = 68289282;
+      v22 = 0;
+      v23 = 2082;
+      v24 = "";
+      v25 = 2114;
+      v26 = a2;
+      _os_signpost_emit_with_name_impl(dword_100000000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#Warning Could not post #LocationButtonFirstUsage", "{msg%{public}.0s:#Warning Could not post #LocationButtonFirstUsage, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+      return 0;
+    }
+
+    return result;
+  }
+
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10028840C();
+  }
+
+  v10 = off_1025D47A8;
+  result = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT);
+  if (result)
+  {
+    v11 = *(a1 + 272);
+    v12 = *(v11 + 1);
+    v13 = *v11;
+    *buf = 68289794;
+    v22 = 0;
+    v23 = 2082;
+    v24 = "";
+    v25 = 2114;
+    v26 = a2;
+    v27 = 2114;
+    v28 = v12;
+    v29 = 2050;
+    v30 = v13;
+    v6 = "{msg%{public}.0s:#LocationButtonFirstUsage skip prompting. InflightPromptAuthorizationRequest found., Client:%{public, location:escape_only}@, inflightClient:%{public, location:escape_only}@, inflightRequestType:%{public, location:CLClientManager_Type::AuthorizationRequestType}lld}";
+    v7 = v10;
+    v8 = OS_LOG_TYPE_DEFAULT;
+    v9 = 48;
+    goto LABEL_11;
+  }
+
+  return result;
+}
+
+void sub_10077B5B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  sub_10023DF30(&a15);
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_10077B5E8(uint64_t a1, uint64_t a2, uint64_t a3, _BOOL8 a4, int a5, int a6)
+{
+  v8 = a4;
+  v10 = sub_100033370(a1, a2);
+  v11 = [*(a1 + 136) intForKey:@"LocationButtonUseMode" atKeyPath:v10 defaultValue:0];
+  v12 = [(CLClientManagerAuthorizationContext *)sub_10004FEC8(a1 transientAwareRegistrationResult:v10];
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10028840C();
+  }
+
+  v13 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+  {
+    __p = 68290562;
+    v22 = 2082;
+    v23 = "";
+    v24 = 2114;
+    v25 = v10;
+    v26 = 1026;
+    v27 = v8;
+    v28 = 1026;
+    v29 = a5;
+    v30 = 1026;
+    v31 = a6;
+    v32 = 2050;
+    v33 = v11;
+    v34 = 1026;
+    v35 = v12;
+    _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#TemporaryAuth Explicit temporary authorization request received, Client:%{public, location:escape_only}@, Granted:%{public}hhd, UsingLocationButton:%{public}hhd, VoiceInteractionEnabled:%{public}hhd, LocationButtonUseMode:%{public, location:CLClientLocationButtonUseMode}lld, TransientAwareRegistrationResult:%{public}d}", &__p, 0x3Eu);
+  }
+
+  if (a5 && (v8 & 1) == 0)
+  {
+    sub_10192E998();
+  }
+
+  if (!a5)
+  {
+    goto LABEL_17;
+  }
+
+  if (v12 != 4 && v12 != 2 || (a6 & 1) == 0 && v11)
+  {
+    if (v11 == 1)
+    {
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v14 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      {
+        __p = 68289282;
+        v22 = 2082;
+        v23 = "";
+        v24 = 2114;
+        v25 = v10;
+        v15 = "{msg%{public}.0s:#TemporaryAuth could not be granted , #LocationButtonUse denied, Client:%{public, location:escape_only}@}";
+        v16 = v14;
+        v17 = 28;
+LABEL_27:
+        _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_DEFAULT, v15, &__p, v17);
+        return;
+      }
+
+      return;
+    }
+
+LABEL_17:
+    sub_10077B960(*(a1 + 136), v10, 1u, v8);
+    v18 = *(a1 + 272);
+    if (v18 && (*(a1 + 312) == 2 || *v18 == 1))
+    {
+      [*(a1 + 136) setInt:2 forKey:@"CorrectiveCompensationEnabled" atKeyPath:v10];
+      [*(a1 + 136) persist];
+    }
+
+    sub_10000EC00(&__p, "");
+    sub_100018918(a1, v10, &__p);
+    if (SBYTE3(v25) < 0)
+    {
+      operator delete(__p);
+    }
+
+    return;
+  }
+
+  v19 = sub_10077B26C(a1, v10);
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10192D4D0();
+  }
+
+  v20 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+  {
+    __p = 68289538;
+    v22 = 2082;
+    v23 = "";
+    v24 = 2114;
+    v25 = v10;
+    v26 = 1026;
+    v27 = v19;
+    v15 = "{msg%{public}.0s:#TemporaryAuth #LocationButtonUse prompting status, Client:%{public, location:escape_only}@, PromptingStatus:%{public}hhd}";
+    v16 = v20;
+    v17 = 34;
+    goto LABEL_27;
+  }
+}
+
+void sub_10077B93C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+id sub_10077B960(void *a1, uint64_t a2, unsigned int a3, int a4)
+{
+  if (![a1 registeredKeyPathForClientIdentifier:a2])
+  {
+    [a1 registerClient:a2 fromAuthSync:0];
+  }
+
+  v8 = [a1 intForKey:@"TemporaryAuthorization" atKeyPath:a2 defaultValue:0];
+  if (a4)
+  {
+    v9 = v8 | a3;
+LABEL_6:
+
+    return [a1 setInt:v9 forKey:@"TemporaryAuthorization" atKeyPath:a2];
+  }
+
+  v9 = v8 & ~a3;
+  if ((v8 & ~a3) != 0)
+  {
+    goto LABEL_6;
+  }
+
+  return [a1 removeValueForKey:@"TemporaryAuthorization" atKeyPath:a2];
+}
+
+void sub_10077BA38(uint64_t a1, void *a2, int a3)
+{
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10028840C();
+  }
+
+  v6 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+  {
+    __p = 68289538;
+    v11 = 2082;
+    v12 = "";
+    v13 = 2114;
+    v14 = a2;
+    v15 = 1026;
+    v16 = a3;
+    _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#TemporaryAuth-Precise, Client:%{public, location:escape_only}@, granted:%{public}hhd}", &__p, 0x22u);
+  }
+
+  v7 = (a1 + 136);
+  if (a3)
+  {
+    v8 = 2;
+  }
+
+  else
+  {
+    v8 = 8;
+  }
+
+  if (a3)
+  {
+    v9 = 8;
+  }
+
+  else
+  {
+    v9 = 2;
+  }
+
+  sub_10077B960(*(a1 + 136), a2, v8, 1);
+  sub_10077B960(*v7, a2, v9, 0);
+  [*v7 persist];
+  sub_10000EC00(&__p, "");
+  sub_100018918(a1, a2, &__p);
+  if (SBYTE3(v14) < 0)
+  {
+    operator delete(__p);
+  }
+}
+
+void sub_10077BBA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_10077BBC4(void *a1, uint64_t a2, int a3, uint64_t a4)
+{
+  HIDWORD(v79) = a3;
+  __p[0] = 0;
+  __p[1] = 0;
+  v83 = 0;
+  if (a4)
+  {
+    v6 = sub_100033370(a1, a4);
+    v81 = v6;
+    if (v6)
+    {
+      objc_msgSend_cppClientKey(v6);
+    }
+
+    else
+    {
+      memset(buf, 0, 24);
+    }
+
+    if (SHIBYTE(v83) < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    *__p = *buf;
+    v83 = *&buf[16];
+  }
+
+  else
+  {
+    v81 = 0;
+    HIBYTE(v83) = 8;
+    strcpy(__p, "*nobody*");
+  }
+
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10192D4D0();
+  }
+
+  v7 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = "-";
+    v9 = a1[90];
+    if (a2)
+    {
+      v8 = "+";
+    }
+
+    *buf = 67109378;
+    *&buf[4] = v9;
+    *&buf[8] = 2080;
+    *&buf[10] = v8;
+    _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, "#CLEEA Emergency clients %d %s 1", buf, 0x12u);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    sub_10192DC88(buf);
+    v64 = "-";
+    v65 = a1[90];
+    if (a2)
+    {
+      v64 = "+";
+    }
+
+    v84 = 67109378;
+    LODWORD(v85[0]) = v65;
+    WORD2(v85[0]) = 2080;
+    *(v85 + 6) = v64;
+    LODWORD(v78) = 18;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D47A8, 0, "#CLEEA Emergency clients %d %s 1", &v84, v78);
+    v67 = v66;
+    sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::markClientEmergencyEnablementTransition(BOOL, BOOL, CLClientKeyPath *)", "%s\n", v66);
+    if (v67 != buf)
+    {
+      free(v67);
+    }
+  }
+
+  if (a2)
+  {
     if (qword_1025D47A0 != -1)
     {
       sub_10192D4D0();
@@ -7641,149 +5244,577 @@ double sub_10079A3A4(uint64_t a1, void *a2, double a3)
     v10 = off_1025D47A8;
     if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 68289794;
-      *v15 = 0;
-      *&v15[4] = 2082;
-      *&v15[6] = "";
-      v16 = 2114;
-      v17 = v6;
-      v18 = 2050;
-      v19 = v9;
-      v20 = 2050;
-      v21 = a3;
-      _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#appclip setOrChangeAppClipAuthorizationTime, Client:%{public, location:escape_only}@, registrationTime:%{public}f, delta:%{public}f}", &v14, 0x30u);
+      v11 = __p;
+      if (v83 < 0)
+      {
+        v11 = __p[0];
+      }
+
+      *buf = 136446210;
+      *&buf[4] = v11;
+      _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEFAULT, "#CLEEA adding emergency client,%{public}s", buf, 0xCu);
     }
 
-    [*(a1 + 136) persist];
+    if (sub_10000A100(121, 2))
+    {
+      sub_10192DC88(buf);
+      v68 = __p;
+      if (v83 < 0)
+      {
+        v68 = __p[0];
+      }
+
+      v84 = 136446210;
+      v85[0] = v68;
+      LODWORD(v78) = 12;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D47A8, 0, "#CLEEA adding emergency client,%{public}s", &v84, v78);
+      v70 = v69;
+      sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::markClientEmergencyEnablementTransition(BOOL, BOOL, CLClientKeyPath *)", "%s\n", v69);
+      if (v70 != buf)
+      {
+        free(v70);
+      }
+    }
+
+    v12 = a1[90];
+    LODWORD(v79) = v12 == 0;
+    if (v12)
+    {
+      v13 = a1[88];
+      if (v13 != a1 + 89)
+      {
+        do
+        {
+          if (qword_1025D47A0 != -1)
+          {
+            sub_10192D4D0();
+          }
+
+          v14 = v13 + 4;
+          v15 = off_1025D47A8;
+          if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+          {
+            v16 = v13 + 4;
+            if (*(v13 + 55) < 0)
+            {
+              v16 = *v14;
+            }
+
+            *buf = 136446210;
+            *&buf[4] = v16;
+            _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_DEFAULT, "#CLEEA %{public}s is still an emergency client", buf, 0xCu);
+          }
+
+          if (sub_10000A100(121, 2))
+          {
+            bzero(buf, 0x65CuLL);
+            if (qword_1025D47A0 != -1)
+            {
+              sub_10192D4D0();
+            }
+
+            if (*(v13 + 55) < 0)
+            {
+              v14 = *v14;
+            }
+
+            v84 = 136446210;
+            v85[0] = v14;
+            LODWORD(v78) = 12;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D47A8, 0, "#CLEEA %{public}s is still an emergency client", &v84, v78, v79);
+            v21 = v20;
+            sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::markClientEmergencyEnablementTransition(BOOL, BOOL, CLClientKeyPath *)", "%s\n", v20);
+            if (v21 != buf)
+            {
+              free(v21);
+            }
+          }
+
+          v17 = v13[1];
+          if (v17)
+          {
+            do
+            {
+              v18 = v17;
+              v17 = *v17;
+            }
+
+            while (v17);
+          }
+
+          else
+          {
+            do
+            {
+              v18 = v13[2];
+              v19 = *v18 == v13;
+              v13 = v18;
+            }
+
+            while (!v19);
+          }
+
+          v13 = v18;
+        }
+
+        while (v18 != a1 + 89);
+      }
+    }
+
+    else
+    {
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v36 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(dword_100000000, v36, OS_LOG_TYPE_DEFAULT, "#CLEEA First emergency client connected", buf, 2u);
+      }
+
+      if (sub_10000A100(121, 2))
+      {
+        sub_10192DC88(buf);
+        LOWORD(v84) = 0;
+        LODWORD(v78) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D47A8, 0, "#CLEEA First emergency client connected", &v84, v78, v79);
+        v75 = v74;
+        sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::markClientEmergencyEnablementTransition(BOOL, BOOL, CLClientKeyPath *)", "%s\n", v74);
+        if (v75 != buf)
+        {
+          free(v75);
+        }
+      }
+    }
+
+    sub_1007446D4(a1 + 88, __p);
   }
 
-  else
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10192D4D0();
+  }
+
+  v22 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+  {
+    v23 = __p;
+    if (v83 < 0)
+    {
+      v23 = __p[0];
+    }
+
+    *buf = 136446210;
+    *&buf[4] = v23;
+    _os_log_impl(dword_100000000, v22, OS_LOG_TYPE_DEFAULT, "#CLEEA removing emergency client,%{public}s", buf, 0xCu);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    sub_10192DC88(buf);
+    v71 = __p;
+    if (v83 < 0)
+    {
+      v71 = __p[0];
+    }
+
+    v84 = 136446210;
+    v85[0] = v71;
+    LODWORD(v78) = 12;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D47A8, 0, "#CLEEA removing emergency client,%{public}s", &v84, v78);
+    v73 = v72;
+    sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::markClientEmergencyEnablementTransition(BOOL, BOOL, CLClientKeyPath *)", "%s\n", v72);
+    if (v73 != buf)
+    {
+      free(v73);
+    }
+  }
+
+  v24 = (a1 + 88);
+  v25 = sub_10045EF04((a1 + 88), __p);
+  v26 = (a1 + 89);
+  if (a1 + 89 == v25)
   {
     if (qword_1025D47A0 != -1)
     {
-      sub_10028840C();
+      sub_10192D4D0();
     }
 
-    v11 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
+    v37 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
     {
-      v14 = 68289282;
-      *v15 = 0;
-      *&v15[4] = 2082;
-      *&v15[6] = "";
-      v16 = 2114;
-      v17 = a2;
-      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#appclip no such client, Client:%{public, location:escape_only}@}", &v14, 0x1Cu);
+      v38 = __p;
+      if (v83 < 0)
+      {
+        v38 = __p[0];
+      }
+
+      v39 = a1[90];
+      *buf = 68289538;
+      *&buf[4] = 0;
+      *&buf[8] = 2082;
+      *&buf[10] = "";
+      *&buf[18] = 2082;
+      *&buf[20] = v38;
+      v87 = 1026;
+      v88 = v39;
+      _os_log_impl(dword_100000000, v37, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#CLEEA Trying to remove emergency beneficiary which doesn't exist, MissingClientKey:%{public, location:escape_only}s, TotalMultisetSize:%{public}d}", buf, 0x22u);
       if (qword_1025D47A0 != -1)
       {
         sub_10192D4D0();
       }
     }
 
-    v12 = off_1025D47A8;
+    v40 = off_1025D47A8;
     if (os_signpost_enabled(off_1025D47A8))
     {
-      v14 = 68289282;
-      *v15 = 0;
-      *&v15[4] = 2082;
-      *&v15[6] = "";
-      v16 = 2114;
-      v17 = a2;
-      _os_signpost_emit_with_name_impl(dword_100000000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#appclip no such client", "{msg%{public}.0s:#appclip no such client, Client:%{public, location:escape_only}@}", &v14, 0x1Cu);
-    }
-  }
-
-  return -1.0;
-}
-
-id sub_10079A6C8(uint64_t a1, double a2)
-{
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10028840C();
-  }
-
-  v4 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 68289026;
-    v23 = 0;
-    v24 = 2082;
-    v25 = "";
-    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#appclip looking for authorizations to clear}", buf, 0x12u);
-  }
-
-  v5 = +[NSMutableArray array];
-  v6 = *(a1 + 136);
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_1007A3ACC;
-  v21[3] = &unk_1024704A8;
-  *&v21[6] = a2;
-  v21[4] = v5;
-  v21[5] = a1;
-  [v6 iterateAllAnchorKeyPathsWithBlock:v21];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v7 = [v5 countByEnumeratingWithState:&v17 objects:v28 count:16];
-  if (v7)
-  {
-    v9 = *v18;
-    *&v8 = 68289282;
-    v14 = v8;
-    do
-    {
-      v10 = 0;
-      do
+      v41 = __p;
+      if (v83 < 0)
       {
-        if (*v18 != v9)
-        {
-          objc_enumerationMutation(v5);
-        }
-
-        v11 = *(*(&v17 + 1) + 8 * v10);
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v12 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = v14;
-          v23 = 0;
-          v24 = 2082;
-          v25 = "";
-          v26 = 2114;
-          v27 = v11;
-          _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#appclip removing client because it expired, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-        }
-
-        sub_10000EC00(__p, "ClientRemoved");
-        sub_100777AC4(a1, v11, 1, __p);
-        if (v16 < 0)
-        {
-          operator delete(__p[0]);
-        }
-
-        v10 = v10 + 1;
+        v41 = __p[0];
       }
 
-      while (v7 != v10);
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v28 count:16];
+      v42 = a1[90];
+      *buf = 68289538;
+      *&buf[4] = 0;
+      *&buf[8] = 2082;
+      *&buf[10] = "";
+      *&buf[18] = 2082;
+      *&buf[20] = v41;
+      v87 = 1026;
+      v88 = v42;
+      v43 = "#CLEEA Trying to remove emergency beneficiary which doesn't exist";
+      v44 = "{msg%{public}.0s:#CLEEA Trying to remove emergency beneficiary which doesn't exist, MissingClientKey:%{public, location:escape_only}s, TotalMultisetSize:%{public}d}";
+      goto LABEL_145;
     }
-
-    while (v7);
   }
 
-  return [*(a1 + 136) persist];
+  else
+  {
+    sub_1001D2ED0(a1 + 88, v25);
+    v27 = a1[90];
+    v80 = v27 == 0;
+    if (v27)
+    {
+      v28 = *v24;
+      if (*v24 != v26)
+      {
+        do
+        {
+          if (qword_1025D47A0 != -1)
+          {
+            sub_10192D4D0();
+          }
+
+          v29 = v28 + 32;
+          v30 = off_1025D47A8;
+          if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+          {
+            v31 = v28 + 32;
+            if (v28[55] < 0)
+            {
+              v31 = *v29;
+            }
+
+            *buf = 136446210;
+            *&buf[4] = v31;
+            _os_log_impl(dword_100000000, v30, OS_LOG_TYPE_DEFAULT, "#CLEEA %{public}s is still an emergency client", buf, 0xCu);
+          }
+
+          if (sub_10000A100(121, 2))
+          {
+            bzero(buf, 0x65CuLL);
+            if (qword_1025D47A0 != -1)
+            {
+              sub_10192D4D0();
+            }
+
+            if (v28[55] < 0)
+            {
+              v29 = *v29;
+            }
+
+            v84 = 136446210;
+            v85[0] = v29;
+            LODWORD(v78) = 12;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D47A8, 0, "#CLEEA %{public}s is still an emergency client", &v84, v78);
+            v35 = v34;
+            sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::markClientEmergencyEnablementTransition(BOOL, BOOL, CLClientKeyPath *)", "%s\n", v34);
+            if (v35 != buf)
+            {
+              free(v35);
+            }
+          }
+
+          v32 = *(v28 + 1);
+          if (v32)
+          {
+            do
+            {
+              v33 = v32;
+              v32 = *v32;
+            }
+
+            while (v32);
+          }
+
+          else
+          {
+            do
+            {
+              v33 = *(v28 + 2);
+              v19 = *v33 == v28;
+              v28 = v33;
+            }
+
+            while (!v19);
+          }
+
+          v28 = v33;
+        }
+
+        while (v33 != v26);
+      }
+    }
+
+    else
+    {
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v45 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(dword_100000000, v45, OS_LOG_TYPE_DEFAULT, "#CLEEA Last emergency client disconnected", buf, 2u);
+      }
+
+      if (sub_10000A100(121, 2))
+      {
+        sub_10192DC88(buf);
+        LOWORD(v84) = 0;
+        LODWORD(v78) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D47A8, 0, "#CLEEA Last emergency client disconnected", &v84, v78);
+        v77 = v76;
+        sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::markClientEmergencyEnablementTransition(BOOL, BOOL, CLClientKeyPath *)", "%s\n", v76);
+        if (v77 != buf)
+        {
+          free(v77);
+        }
+      }
+    }
+
+    if (!HIDWORD(v79))
+    {
+      goto LABEL_127;
+    }
+
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v46 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      v47 = __p;
+      if (v83 < 0)
+      {
+        v47 = __p[0];
+      }
+
+      *buf = 68289282;
+      *&buf[4] = 0;
+      *&buf[8] = 2082;
+      *&buf[10] = "";
+      *&buf[18] = 2082;
+      *&buf[20] = v47;
+      _os_log_impl(dword_100000000, v46, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#CLEPTO removing beneficiary for deauthorization override, Client:%{public, location:escape_only}s}", buf, 0x1Cu);
+    }
+
+    v48 = (a1 + 91);
+    v49 = sub_10045EF04((a1 + 91), __p);
+    v50 = (a1 + 92);
+    if (a1 + 92 != v49)
+    {
+      sub_1001D2ED0(a1 + 91, v49);
+      v51 = *v48;
+      if (*v48 != v50)
+      {
+        do
+        {
+          if (qword_1025D47A0 != -1)
+          {
+            sub_10192D4D0();
+          }
+
+          v52 = v51 + 32;
+          v53 = off_1025D47A8;
+          if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+          {
+            v54 = v51 + 32;
+            if (v51[55] < 0)
+            {
+              v54 = *v52;
+            }
+
+            *buf = 136446210;
+            *&buf[4] = v54;
+            _os_log_impl(dword_100000000, v53, OS_LOG_TYPE_DEFAULT, "#CLEPTO (-) : %{public}s is still a beneficiary for deauthorization override", buf, 0xCu);
+          }
+
+          if (sub_10000A100(121, 2))
+          {
+            bzero(buf, 0x65CuLL);
+            if (qword_1025D47A0 != -1)
+            {
+              sub_10192D4D0();
+            }
+
+            if (v51[55] < 0)
+            {
+              v52 = *v52;
+            }
+
+            v84 = 136446210;
+            v85[0] = v52;
+            LODWORD(v78) = 12;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D47A8, 0, "#CLEPTO (-) : %{public}s is still a beneficiary for deauthorization override", &v84, v78);
+            v58 = v57;
+            sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::markClientEmergencyEnablementTransition(BOOL, BOOL, CLClientKeyPath *)", "%s\n", v57);
+            if (v58 != buf)
+            {
+              free(v58);
+            }
+          }
+
+          v55 = *(v51 + 1);
+          if (v55)
+          {
+            do
+            {
+              v56 = v55;
+              v55 = *v55;
+            }
+
+            while (v55);
+          }
+
+          else
+          {
+            do
+            {
+              v56 = *(v51 + 2);
+              v19 = *v56 == v51;
+              v51 = v56;
+            }
+
+            while (!v19);
+          }
+
+          v51 = v56;
+        }
+
+        while (v56 != v50);
+      }
+
+LABEL_127:
+      if (v80)
+      {
+        sub_1004E8738(a2);
+        sub_10000EC00(buf, "com.apple.locationd.CLEEA");
+        sub_100773AF4(a1, buf, 1);
+        if ((buf[23] & 0x80000000) != 0)
+        {
+          operator delete(*buf);
+        }
+
+        [objc_msgSend(objc_msgSend(a1[4] "vendor")];
+      }
+
+      if (v81)
+      {
+        sub_10000EC00(buf, "");
+        sub_100018918(a1, v81, buf);
+        if ((buf[23] & 0x80000000) != 0)
+        {
+          operator delete(*buf);
+        }
+      }
+
+      goto LABEL_146;
+    }
+
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v59 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+    {
+      v60 = __p;
+      if (v83 < 0)
+      {
+        v60 = __p[0];
+      }
+
+      v61 = a1[93];
+      *buf = 68289538;
+      *&buf[4] = 0;
+      *&buf[8] = 2082;
+      *&buf[10] = "";
+      *&buf[18] = 2082;
+      *&buf[20] = v60;
+      v87 = 1026;
+      v88 = v61;
+      _os_log_impl(dword_100000000, v59, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#CLEPTO Trying to remove deauthorizationOverride beneficiary which doesn't exist, MissingClientKey:%{public, location:escape_only}s, TotalMultisetSize:%{public}d}", buf, 0x22u);
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+    }
+
+    v40 = off_1025D47A8;
+    if (os_signpost_enabled(off_1025D47A8))
+    {
+      v62 = __p;
+      if (v83 < 0)
+      {
+        v62 = __p[0];
+      }
+
+      v63 = a1[93];
+      *buf = 68289538;
+      *&buf[4] = 0;
+      *&buf[8] = 2082;
+      *&buf[10] = "";
+      *&buf[18] = 2082;
+      *&buf[20] = v62;
+      v87 = 1026;
+      v88 = v63;
+      v43 = "#CLEPTO Trying to remove deauthorizationOverride beneficiary which doesn't exist";
+      v44 = "{msg%{public}.0s:#CLEPTO Trying to remove deauthorizationOverride beneficiary which doesn't exist, MissingClientKey:%{public, location:escape_only}s, TotalMultisetSize:%{public}d}";
+LABEL_145:
+      _os_signpost_emit_with_name_impl(dword_100000000, v40, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v43, v44, buf, 0x22u);
+    }
+  }
+
+LABEL_146:
+  if (SHIBYTE(v83) < 0)
+  {
+    operator delete(__p[0]);
+  }
 }
 
-void sub_10079A974(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_10077CD78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
 {
-  if (a17 < 0)
+  if (a20 < 0)
   {
     operator delete(__p);
   }
@@ -7791,129 +5822,209 @@ void sub_10079A974(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_10079ABDC(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4, uint64_t a5, uint64_t a6)
+void sub_10077CE04(uint64_t a1, uint64_t a2)
 {
-  *a1 = off_102470948;
-  *(a1 + 8) = [[CLNotifierClientAdapter alloc] initWithClient:a1];
-  *(a1 + 24) = a5;
-  *(a1 + 32) = a6;
-  if (*(a3 + 23) >= 0)
+  sub_100565518(0, &v37, a2);
+  if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v12 = a3;
+    size = HIBYTE(v37.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v12 = *a3;
+    size = v37.__r_.__value_.__l.__size_;
   }
 
-  v13 = [objc_msgSend(a4 "vendor")];
-  *(a1 + 16) = v13;
-  v14 = v13;
-  if (a2)
+  if (!size)
   {
-    [*(a1 + 16) setDelegateEntityName:a2];
+    sub_10192ECFC(v3, v4, v5, v6, v7, v8, v9, v10, v23, v24, v25, v26, v27, v28, v29, *(&v29 + 1), v30, *(&v30 + 1), v31, *(&v31 + 1), v32, *(&v32 + 1), v33, v34[0]);
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Core/ClientManagement/CLClientManager_Unified.mm", 3322, "migrateLegacySLCSubscriptions");
+    __break(1u);
   }
 
-  [*(a1 + 16) registerDelegate:*(a1 + 8) inSilo:{objc_msgSend(a4, "silo")}];
-  return a1;
+  sub_100070148(__p, size + 17);
+  if (v36 >= 0)
+  {
+    v12 = __p;
+  }
+
+  else
+  {
+    v12 = __p[0];
+  }
+
+  if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v13 = &v37;
+  }
+
+  else
+  {
+    v13 = v37.__r_.__value_.__r.__words[0];
+  }
+
+  memmove(v12, v13, size);
+  strcpy(v12 + size, "significant.plist");
+  if (v36 >= 0)
+  {
+    v14 = __p;
+  }
+
+  else
+  {
+    v14 = __p[0];
+  }
+
+  if (sub_100021690(v14))
+  {
+    sub_10004FD18();
+    if (v36 >= 0)
+    {
+      v15 = __p;
+    }
+
+    else
+    {
+      v15 = __p[0];
+    }
+
+    sub_1004F9C20(v34, v15);
+    v16 = sub_10007005C(v34);
+    v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16);
+    if (v17)
+    {
+      v18 = *v30;
+      do
+      {
+        for (i = 0; i != v17; i = i + 1)
+        {
+          if (*v30 != v18)
+          {
+            objc_enumerationMutation(v16);
+          }
+
+          v20 = *(*(&v29 + 1) + 8 * i);
+          v21 = [*(a1 + 136) registeredKeyPathForClientIdentifier:{+[CLClientKeyPath clientKeyPathWithLegacyClientKey:](CLClientKeyPath, "clientKeyPathWithLegacyClientKey:", v20)}];
+          if ([v21 isValidCKP])
+          {
+            sub_1000EA1BC(a1, v21, &v27);
+            sub_100F3B42C(v27, [v16 objectForKeyedSubscript:v20]);
+            if (v28)
+            {
+              sub_100008080(v28);
+            }
+          }
+        }
+
+        v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16);
+      }
+
+      while (v17);
+    }
+
+    if (v36 >= 0)
+    {
+      v22 = __p;
+    }
+
+    else
+    {
+      v22 = __p[0];
+    }
+
+    sub_1004E67B8(v22);
+    sub_100005DA4();
+  }
+
+  if (v36 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v37.__r_.__value_.__l.__data_);
+  }
 }
 
-void *sub_10079AE34(void *a1, uint64_t a2)
+void sub_10077D08C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37)
 {
-  *a1 = a2;
-  *(a1 + 1) = xmmword_101C8D3C0;
-  v4 = a1 + 1;
-  a1[3] = 0;
-  if (a2 == 1)
+  sub_100005DA4();
+  if (a31 < 0)
   {
-    v7 = sub_1000206B4();
-    if ((sub_1000B9370(v7, "lastBluetoothImproveAccuracyNotification", v4) & 1) == 0)
-    {
-      *v4 = 0xBFF0000000000000;
-    }
-
-    sub_10001CAF4(buf);
-    v6 = sub_1000B9370(*buf, "BluetoothImproveAccuracyNotificationInterval", a1 + 2);
+    operator delete(__p);
   }
 
-  else
+  if (a37 < 0)
   {
-    if (a2)
-    {
-      goto LABEL_13;
-    }
-
-    v5 = sub_1000206B4();
-    if ((sub_1000B9370(v5, "lastWifiImproveAccuracyNotification", v4) & 1) == 0)
-    {
-      *v4 = 0xBFF0000000000000;
-    }
-
-    sub_10001CAF4(buf);
-    v6 = sub_1000B9370(*buf, "WifiImproveAccuracyNotificationInterval", a1 + 2);
+    operator delete(a32);
   }
 
-  v8 = v6;
-  if (*&buf[8])
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_10077D10C(uint64_t a1, uint64_t a2)
+{
+  sub_10001A3E8(a1, a2);
+  result = sub_10001CF3C();
+  if ((result & 1) == 0)
   {
-    sub_100008080(*&buf[8]);
+    v4 = +[NSMutableArray array];
+    v5 = *(a1 + 136);
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10077D214;
+    v8[3] = &unk_10246FF20;
+    v8[4] = v4;
+    [v5 iterateAllAnchorKeyPathsWithBlock:v8];
+    v6 = [objc_msgSend(*(a1 + 32) "vendor")];
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_10077D274;
+    v7[3] = &unk_10246FF40;
+    v7[4] = a1;
+    return [v6 checkApplications:v4 withReply:v7];
   }
 
-  if ((v8 & 1) == 0)
+  return result;
+}
+
+id sub_10077D214(uint64_t a1, void *a2)
+{
+  result = [a2 bundleId];
+  if (result)
   {
-    a1[2] = 0x4122750000000000;
+    v5 = *(a1 + 32);
+    v6 = [a2 legacyClientKey];
+
+    return [v5 addObject:v6];
   }
 
-LABEL_13:
+  return result;
+}
+
+_BYTE *sub_10077D27C(double *a1, void *a2, void *a3, void *a4)
+{
   if (qword_1025D47A0 != -1)
   {
-    sub_10192D4D0();
+    sub_10028840C();
   }
 
-  v9 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+  v5 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = "Unknown";
-    if (a2 == 1)
-    {
-      v10 = "Bluetooth";
-    }
-
-    if (a2)
-    {
-      v11 = v10;
-    }
-
-    else
-    {
-      v11 = "Wifi";
-    }
-
-    sub_10000EC00(__p, v11);
-    if (v27 >= 0)
-    {
-      v12 = __p;
-    }
-
-    else
-    {
-      v12 = *__p;
-    }
-
-    v13 = *v4;
-    v14 = a1[2];
-    *buf = 136315650;
-    *&buf[4] = v12;
+    v6 = [a2 count];
+    v7 = [a2 count];
+    v8 = &v7[[a3 count]];
+    *buf = 134218240;
+    *&buf[4] = v6;
     *&buf[12] = 2048;
-    *&buf[14] = v13;
-    v30 = 2048;
-    v31 = v14;
-    _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEBUG, "last improve accuracy notification for %s, %f, retry interval, %f", buf, 0x20u);
-    if (SHIBYTE(v27) < 0)
-    {
-      operator delete(*__p);
-    }
+    *&buf[14] = [a4 count] + v8;
+    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "#ClearClient installation check found %ld uninstalled apps (amongst %ld bundle IDs)", buf, 0x16u);
   }
 
   if (sub_10000A100(121, 2))
@@ -7924,459 +6035,704 @@ LABEL_13:
       sub_10192D4D0();
     }
 
-    v16 = "Unknown";
-    if (a2 == 1)
+    v53 = off_1025D47A8;
+    v54 = [a2 count];
+    v55 = [a2 count];
+    v56 = [a3 count];
+    LODWORD(v71[0]) = 134218240;
+    *(v71 + 4) = v54;
+    WORD2(v71[1]) = 2048;
+    *(&v71[1] + 6) = &v55[v56 + [a4 count]];
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v53, 0, "#ClearClient installation check found %ld uninstalled apps (amongst %ld bundle IDs)", v71, 22);
+    v58 = v57;
+    sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::handleAppInstallationStatus(NSArray<NSString *> *, NSArray<NSString *> *, NSArray<NSString *> *)", "%s\n", v57);
+    if (v58 != buf)
     {
-      v16 = "Bluetooth";
-    }
-
-    if (a2)
-    {
-      v17 = v16;
-    }
-
-    else
-    {
-      v17 = "Wifi";
-    }
-
-    sub_10000EC00(v22, v17);
-    if (v23 >= 0)
-    {
-      v18 = v22;
-    }
-
-    else
-    {
-      v18 = v22[0];
-    }
-
-    v19 = *v4;
-    v20 = a1[2];
-    *__p = 136315650;
-    *&__p[4] = v18;
-    v25 = 2048;
-    v26 = v19;
-    v27 = 2048;
-    v28 = v20;
-    v21 = _os_log_send_and_compose_impl();
-    if (v23 < 0)
-    {
-      operator delete(v22[0]);
-    }
-
-    sub_100152C7C("Generic", 1, 0, 2, "CLClientManager::ImproveAccuracyNotification::ImproveAccuracyNotification(CLClientManagerTechnology)", "%s\n", v21);
-    if (v21 != buf)
-    {
-      free(v21);
+      free(v58);
     }
   }
 
-  return a1;
-}
-
-void sub_10079B184(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20)
-{
-  if (a20)
+  Current = CFAbsoluteTimeGetCurrent();
+  v69 = 0.0;
+  v65 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(a2);
+  if (!v9)
   {
-    sub_100008080(a20);
+    v11 = -1.0;
+    goto LABEL_92;
   }
 
-  _Unwind_Resume(exception_object);
-}
-
-void sub_10079B1A8(void *a1)
-{
-  if (a1[3])
+  v10 = *v66;
+  v11 = -1.0;
+  do
   {
-    if (qword_1025D47A0 != -1)
+    v12 = 0;
+    do
     {
-      sub_10028840C();
-    }
-
-    v2 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
-    {
-      v3 = "Unknown";
-      if (*a1 == 1)
+      if (*v66 != v10)
       {
-        v3 = "Bluetooth";
+        objc_enumerationMutation(a2);
       }
 
-      if (*a1)
+      v13 = *(*(&v65 + 1) + 8 * v12);
+      v14 = objc_alloc_init(NSAutoreleasePool);
+      v15 = sub_1000184F4(a1, [CLClientKeyPath clientKeyPathWithClientAnchor:v13 anchorType:105]);
+      if (qword_1025D47A0 != -1)
       {
-        v4 = v3;
+        sub_10192D4D0();
+      }
+
+      v16 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        *&buf[4] = v15;
+        _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_DEBUG, "#ClearClient %@ is missing ", buf, 0xCu);
+      }
+
+      if (sub_10000A100(121, 2))
+      {
+        sub_10192DC88(buf);
+        LODWORD(v71[0]) = 138412290;
+        *(v71 + 4) = v15;
+        LODWORD(v59) = 12;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D47A8, 2, "#ClearClient %@ is missing ", v71, v59);
+        v27 = v26;
+        sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::handleAppInstallationStatus(NSArray<NSString *> *, NSArray<NSString *> *, NSArray<NSString *> *)", "%s\n", v26);
+        if (v27 != buf)
+        {
+          free(v27);
+        }
+      }
+
+      v69 = 2.22507386e-308;
+      if (sub_10077E1DC(a1, v15, &v69))
+      {
+        v17 = v69;
+        v18 = Current - v69;
+        if (Current - v69 >= a1[30])
+        {
+          if (qword_1025D47A0 != -1)
+          {
+            sub_10192D4D0();
+          }
+
+          v19 = off_1025D47A8;
+          if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+          {
+            v20 = *(a1 + 30);
+            *buf = 68289794;
+            *&buf[4] = 0;
+            *&buf[8] = 2082;
+            *&buf[10] = "";
+            *&buf[18] = 2114;
+            *&buf[20] = v15;
+            *&buf[28] = 2050;
+            *&buf[30] = v18;
+            *&buf[38] = 2050;
+            *&buf[40] = v20;
+            _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#ClearClient Deleting entry as client has been missing beyond safe harbor threshold, Client:%{public, location:escape_only}@, missingTimeDuration_s:%{public}.09f, safe harbor threshold_s:%{public}.09f}", buf, 0x30u);
+          }
+
+          sub_10000EC00(__p, "ClientRemoved");
+          sub_100777AC4(a1, v15, 1, __p);
+          if (v64 < 0)
+          {
+            operator delete(__p[0]);
+          }
+
+          memset(v79, 0, 35);
+          *v78 = 0u;
+          memset(buf, 0, sizeof(buf));
+          v80 = 0u;
+          memset(v81, 0, 59);
+          if (v15)
+          {
+            objc_msgSend_clientName(v15);
+            if (buf[23] < 0)
+            {
+              operator delete(*buf);
+            }
+          }
+
+          else
+          {
+            v76 = 0;
+            memset(v75, 0, sizeof(v75));
+            *v74 = 0uLL;
+            *v72 = 0uLL;
+            memset(v73, 0, sizeof(v73));
+            memset(v71, 0, sizeof(v71));
+          }
+
+          *buf = *v71;
+          *&buf[16] = v71[2];
+          HIBYTE(v71[2]) = 0;
+          LOBYTE(v71[0]) = 0;
+          if (buf[47] < 0)
+          {
+            operator delete(*&buf[24]);
+          }
+
+          *&buf[24] = *&v71[3];
+          *&buf[40] = v71[5];
+          HIBYTE(v71[5]) = 0;
+          LOBYTE(v71[3]) = 0;
+          if (SHIBYTE(v79[0]) < 0)
+          {
+            operator delete(v78[0]);
+          }
+
+          *v78 = *v72;
+          v79[0] = v73[0];
+          HIBYTE(v73[0]) = 0;
+          LOBYTE(v72[0]) = 0;
+          if (SHIBYTE(v79[3]) < 0)
+          {
+            operator delete(v79[1]);
+          }
+
+          *&v79[1] = *&v73[1];
+          v79[3] = v73[3];
+          HIBYTE(v73[3]) = 0;
+          LOBYTE(v73[1]) = 0;
+          LOWORD(v79[4]) = v73[4];
+          BYTE2(v79[4]) = BYTE2(v73[4]);
+          if (SBYTE7(v81[0]) < 0)
+          {
+            operator delete(v80);
+          }
+
+          v80 = *&v73[5];
+          *&v81[0] = v73[7];
+          HIBYTE(v73[7]) = 0;
+          LOBYTE(v73[5]) = 0;
+          if (SHIBYTE(v81[1]) < 0)
+          {
+            operator delete(*(&v81[0] + 1));
+          }
+
+          *(v81 + 8) = *v74;
+          *(&v81[1] + 1) = *&v75[0];
+          BYTE7(v75[0]) = 0;
+          LOBYTE(v74[0]) = 0;
+          if (SBYTE7(v81[3]) < 0)
+          {
+            operator delete(*&v81[2]);
+            v81[2] = *(v75 + 8);
+            *&v81[3] = *(&v75[1] + 1);
+            HIBYTE(v75[1]) = 0;
+            BYTE8(v75[0]) = 0;
+            WORD4(v81[3]) = v76;
+            BYTE10(v81[3]) = BYTE2(v76);
+            if (SBYTE7(v75[0]) < 0)
+            {
+              operator delete(v74[0]);
+            }
+          }
+
+          else
+          {
+            v81[2] = *(v75 + 8);
+            *&v81[3] = *(&v75[1] + 1);
+            HIBYTE(v75[1]) = 0;
+            BYTE8(v75[0]) = 0;
+            WORD4(v81[3]) = v76;
+            BYTE10(v81[3]) = BYTE2(v76);
+          }
+
+          if (SHIBYTE(v73[7]) < 0)
+          {
+            operator delete(v73[5]);
+          }
+
+          if (SHIBYTE(v73[3]) < 0)
+          {
+            operator delete(v73[1]);
+          }
+
+          if (SHIBYTE(v73[0]) < 0)
+          {
+            operator delete(v72[0]);
+          }
+
+          if (SHIBYTE(v71[5]) < 0)
+          {
+            operator delete(v71[3]);
+          }
+
+          if (SHIBYTE(v71[2]) < 0)
+          {
+            operator delete(v71[0]);
+          }
+
+          LODWORD(v71[0]) = 1;
+          (*(*a1 + 152))(a1, v71, buf, 0, 0xFFFFFFFFLL, 0);
+          if (SBYTE7(v81[3]) < 0)
+          {
+            operator delete(*&v81[2]);
+          }
+
+          if (SHIBYTE(v81[1]) < 0)
+          {
+            operator delete(*(&v81[0] + 1));
+          }
+
+          if (SBYTE7(v81[0]) < 0)
+          {
+            operator delete(v80);
+          }
+
+          if (SHIBYTE(v79[3]) < 0)
+          {
+            operator delete(v79[1]);
+          }
+
+          if (SHIBYTE(v79[0]) < 0)
+          {
+            operator delete(v78[0]);
+          }
+
+          if (buf[47] < 0)
+          {
+            operator delete(*&buf[24]);
+          }
+
+          if (buf[23] < 0)
+          {
+            operator delete(*buf);
+          }
+
+          goto LABEL_44;
+        }
       }
 
       else
       {
-        v4 = "Wifi";
+        v18 = 0.0;
+        v17 = v69;
       }
 
-      sub_10000EC00(__p, v4);
-      if (v10 >= 0)
+      if (v17 == 2.22507386e-308)
       {
-        v5 = __p;
+        if (qword_1025D47A0 != -1)
+        {
+          sub_10192D4D0();
+        }
+
+        v21 = off_1025D47A8;
+        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 68289538;
+          *&buf[4] = 0;
+          *&buf[8] = 2082;
+          *&buf[10] = "";
+          *&buf[18] = 2114;
+          *&buf[20] = v15;
+          *&buf[28] = 2050;
+          *&buf[30] = Current;
+          _os_log_impl(dword_100000000, v21, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#ClearClient Marking client as missing, Client:%{public, location:escape_only}@, missingTime_s:%{public}.09f}", buf, 0x26u);
+        }
+
+        sub_1007776F8(a1, v15, &Current);
+        v22 = *(a1 + 17);
+        *buf = _NSConcreteStackBlock;
+        *&buf[8] = 3221225472;
+        *&buf[16] = sub_1000352CC;
+        *&buf[24] = &unk_10246FEF8;
+        *&buf[40] = a1;
+        *&buf[32] = v15;
+        [v22 iterateIdentitiesRelatedToKeyPath:v15 withBlock:buf];
       }
 
-      else
+      if (a1[30] - v18 < v11 || v11 == -1.0)
       {
-        v5 = __p[0];
+        v11 = a1[30] - v18;
       }
 
-      *buf = 136315138;
-      v12 = v5;
-      _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_DEBUG, "clear %s improve accuracy notification", buf, 0xCu);
-      if (v10 < 0)
+      if (qword_1025D47A0 != -1)
       {
-        operator delete(__p[0]);
+        sub_10192D4D0();
       }
+
+      v24 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+      {
+        v25 = *(a1 + 30);
+        *buf = 138412802;
+        *&buf[4] = v15;
+        *&buf[12] = 2048;
+        *&buf[14] = v18;
+        *&buf[22] = 2048;
+        *&buf[24] = v25;
+        _os_log_impl(dword_100000000, v24, OS_LOG_TYPE_DEBUG, "%@ has been missing for %.3fs (safe harbor threshold: %.3fs)", buf, 0x20u);
+      }
+
+      if (sub_10000A100(121, 2))
+      {
+        sub_10192DC88(buf);
+        v28 = *(a1 + 30);
+        LODWORD(v71[0]) = 138412802;
+        *(v71 + 4) = v15;
+        WORD2(v71[1]) = 2048;
+        *(&v71[1] + 6) = *&v18;
+        HIWORD(v71[2]) = 2048;
+        v71[3] = v28;
+        LODWORD(v59) = 32;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D47A8, 2, "%@ has been missing for %.3fs (safe harbor threshold: %.3fs)", v71, v59);
+        v30 = v29;
+        sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::handleAppInstallationStatus(NSArray<NSString *> *, NSArray<NSString *> *, NSArray<NSString *> *)", "%s\n", v29);
+        if (v30 != buf)
+        {
+          free(v30);
+        }
+      }
+
+LABEL_44:
+
+      v12 = v12 + 1;
     }
 
-    if (sub_10000A100(121, 2))
+    while (v9 != v12);
+    v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(a2);
+    v9 = v31;
+  }
+
+  while (v31);
+LABEL_92:
+  v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(a3);
+  if (v32)
+  {
+    v33 = MEMORY[0];
+    do
     {
-      sub_101933088(a1);
+      v34 = 0;
+      do
+      {
+        if (MEMORY[0] != v33)
+        {
+          objc_enumerationMutation(a3);
+        }
+
+        v35 = *(8 * v34);
+        v36 = objc_alloc_init(NSAutoreleasePool);
+        v37 = sub_1000184F4(a1, [CLClientKeyPath clientKeyPathWithClientAnchor:v35 anchorType:105]);
+        if (sub_10077E1DC(a1, v37, &v69))
+        {
+          if (qword_1025D47A0 != -1)
+          {
+            sub_10192D4D0();
+          }
+
+          v38 = off_1025D47A8;
+          if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+          {
+            v39 = *(a1 + 30);
+            *buf = 68289538;
+            *&buf[4] = 0;
+            *&buf[8] = 2082;
+            *&buf[10] = "";
+            *&buf[18] = 2114;
+            *&buf[20] = v37;
+            *&buf[28] = 2050;
+            *&buf[30] = v39;
+            _os_log_impl(dword_100000000, v38, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#ClearClient Client restored within safe harbor threshold - keeping, Client:%{public, location:escape_only}@, safe harbor threshold_s:%{public}.09f}", buf, 0x26u);
+          }
+
+          sub_1007778FC(a1, v37);
+          v40 = *(a1 + 17);
+          *buf = _NSConcreteStackBlock;
+          *&buf[8] = 3221225472;
+          *&buf[16] = sub_1000352CC;
+          *&buf[24] = &unk_10246FEF8;
+          *&buf[40] = a1;
+          *&buf[32] = v37;
+          [v40 iterateIdentitiesRelatedToKeyPath:v37 withBlock:buf];
+        }
+
+        v34 = v34 + 1;
+      }
+
+      while (v32 != v34);
+      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(a3);
     }
 
-    v6 = a1[3];
-    a1[3] = 0;
-    v7 = sub_100107858();
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_10079B480;
-    v8[3] = &unk_102449A78;
-    v8[4] = v6;
-    CFRunLoopPerformBlock(v7, kCFRunLoopCommonModes, v8);
+    while (v32);
   }
-}
 
-void sub_10079B350(uint64_t a1)
-{
-  v1 = *(a1 + 24);
-  *(a1 + 24) = 0;
-  v2 = sub_100107858();
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_10079B3DC;
-  block[3] = &unk_102449A78;
-  block[4] = v1;
-  CFRunLoopPerformBlock(v2, kCFRunLoopCommonModes, block);
-}
-
-void sub_10079B3DC(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  if (v1)
+  v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(a4);
+  if (v41)
   {
-    CFRelease(v1);
+    v42 = MEMORY[0];
+    do
+    {
+      v43 = 0;
+      do
+      {
+        if (MEMORY[0] != v42)
+        {
+          objc_enumerationMutation(a4);
+        }
+
+        v44 = *(8 * v43);
+        v45 = objc_alloc_init(NSAutoreleasePool);
+        v46 = sub_1000184F4(a1, [CLClientKeyPath clientKeyPathWithClientAnchor:v44 anchorType:105]);
+        if (sub_10077E1DC(a1, v46, &v69))
+        {
+          if (qword_1025D47A0 != -1)
+          {
+            sub_10192D4D0();
+          }
+
+          v47 = off_1025D47A8;
+          if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+          {
+            v48 = *(a1 + 30);
+            *buf = 68289538;
+            *&buf[4] = 0;
+            *&buf[8] = 2082;
+            *&buf[10] = "";
+            *&buf[18] = 2114;
+            *&buf[20] = v46;
+            *&buf[28] = 2050;
+            *&buf[30] = v48;
+            _os_log_impl(dword_100000000, v47, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#ClearClient Client restored (remotely) within safe harbor threshold - keeping, Client:%{public, location:escape_only}@, safe harbor threshold_s:%{public}.09f}", buf, 0x26u);
+          }
+
+          sub_1007778FC(a1, v46);
+        }
+
+        [*(a1 + 17) setBool:1 forKey:@"SyncedAuthForUninstalledApp" atKeyPath:v46];
+
+        v43 = v43 + 1;
+      }
+
+      while (v41 != v43);
+      v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(a4);
+    }
+
+    while (v41);
   }
-}
 
-uint64_t sub_10079B3EC(double *a1, double a2)
-{
-  v2 = *a1;
-  a1[1] = a2;
-  v3 = a1 + 1;
-  if (v2 == 0.0)
+  v49 = *(a1 + 31);
+  if (v11 == -1.0)
   {
-    v4 = "lastWifiImproveAccuracyNotification";
+    [v49 setNextFireDelay:1.79769313e308];
   }
 
   else
   {
-    if (*&v2 != 1)
+    [v49 nextFireDelay];
+    if (v11 < v50)
     {
-      goto LABEL_6;
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v51 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 134217984;
+        *&buf[4] = v11;
+        _os_log_impl(dword_100000000, v51, OS_LOG_TYPE_DEFAULT, "#ClearClient updated AppUninstallTimer; next timer will fire in %.3fs", buf, 0xCu);
+      }
+
+      if (sub_10000A100(121, 2))
+      {
+        sub_10192EE54(v11);
+      }
+
+      [*(a1 + 31) setNextFireDelay:v11];
+    }
+  }
+
+  [*(a1 + 17) persist];
+  sub_1001D2F14(a1);
+  return sub_100044F7C(a1);
+}
+
+BOOL sub_10077E1DC(uint64_t a1, uint64_t a2, void *a3)
+{
+  v5 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
+  if ([v5 isValidCKP])
+  {
+    v6 = [objc_msgSend(*(a1 + 136) readonlyStoreAtKeyPath:{v5), "dictionary"}];
+
+    return sub_100D96710(v6, a3);
+  }
+
+  else
+  {
+    *a3 = 0x10000000000000;
+    return 0;
+  }
+}
+
+BOOL sub_10077E260(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v7 = sub_1000184F4(a1, a2);
+  if (!&SBUserNotificationPendInSetupIfNotAllowedKey)
+  {
+    return 0;
+  }
+
+  v9 = v7;
+  v10 = sub_100056238(v7, v8);
+  v11 = sub_1007CB2E4(v10, @"LOCATION_ACCURACY");
+  v13 = v11;
+  if (a3 == 1)
+  {
+    v17 = sub_100056238(v11, v12);
+    v18 = @"IMPROVE_LOCATION_ACCURACY_BLUETOOTH";
+LABEL_9:
+    v11 = sub_1007CB2E4(v17, v18);
+    v19 = v11;
+    goto LABEL_10;
+  }
+
+  if (!a3)
+  {
+    v14 = MGGetBoolAnswer();
+    v15 = v14;
+    v17 = sub_100056238(v14, v16);
+    if (v15)
+    {
+      v18 = @"IMPROVE_LOCATION_ACCURACY_WLAN";
     }
 
-    v4 = "lastBluetoothImproveAccuracyNotification";
+    else
+    {
+      v18 = @"IMPROVE_LOCATION_ACCURACY_WIFI";
+    }
+
+    goto LABEL_9;
   }
 
-  v5 = sub_1000206B4();
-  sub_100116D68(v5, v4, v3);
-LABEL_6:
-  v6 = *(*sub_1000206B4() + 944);
-
-  return v6();
-}
-
-void sub_10079B480(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  if (v2)
+  v19 = 0;
+LABEL_10:
+  v20 = sub_100056238(v11, v12);
+  v21 = sub_1007CB2E4(v20, @"OK");
+  v23 = sub_100056238(v21, v22);
+  v24 = sub_1007CB2E4(v23, @"SETTINGS");
+  v25 = v24;
+  if (v13 && v19 && v21 && v24)
   {
-    CFUserNotificationCancel(v2);
-    v3 = *(a1 + 32);
+    keys = SBUserNotificationPendInSetupIfNotAllowedKey;
+    *v41 = kCFUserNotificationAlertHeaderKey;
+    *&v41[8] = kCFUserNotificationAlertMessageKey;
+    *&v41[16] = kCFUserNotificationDefaultButtonTitleKey;
+    v42 = kCFUserNotificationAlternateButtonTitleKey;
+    values[0] = kCFBooleanTrue;
+    values[1] = v13;
+    values[2] = v19;
+    values[3] = v21;
+    values[4] = v24;
+    v26 = CFDictionaryCreate(kCFAllocatorDefault, &keys, values, 5, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    if (v26)
+    {
+      error = 0;
+      v27 = CFUserNotificationCreate(kCFAllocatorDefault, 0.0, 0, &error, v26);
+      CFRelease(v26);
+    }
 
-    CFRelease(v3);
-  }
-}
+    else
+    {
+      v27 = 0;
+    }
 
-void sub_10079B4CC(uint64_t a1, void *a2)
-{
-  v4 = sub_10079DD60(a1, "CLClientManager", a2);
-  *v4 = off_1024702D8;
-  v4[14] = &off_1024703C0;
-  *(a1 + 120) = -[CLClientManagerStateTracker initInSilo:withIdentifier:state:]([CLClientManagerStateTracker alloc], "initInSilo:withIdentifier:state:", [a2 silo], a1, &stru_1024703F8);
-  v5 = [[CLSettingsMirror alloc] initInUniverse:*(a1 + 32)];
-  *(a1 + 136) = 0u;
-  *(a1 + 128) = v5;
-  *(a1 + 240) = 0x40F5180000000000;
-  *(a1 + 152) = 0u;
-  *(a1 + 168) = 0u;
-  *(a1 + 184) = 0u;
-  *(a1 + 200) = 0u;
-  *(a1 + 216) = 0u;
-  *(a1 + 232) = 0;
-  *(a1 + 248) = 0u;
-  *(a1 + 264) = 0u;
-  *(a1 + 280) = 0;
-  *(a1 + 296) = 0;
-  *(a1 + 304) = 0;
-  *(a1 + 288) = 0;
-  *(a1 + 312) = 0;
-  *(a1 + 320) = kCLLocationCoordinate2DInvalid;
-  *(a1 + 336) = 0;
-  *(a1 + 360) = objc_opt_new();
-  *(a1 + 368) = 0;
-  *(a1 + 376) = 0;
-  *(a1 + 384) = 0;
-  *(a1 + 392) = 0;
-  sub_1007AE81C();
-}
-
-void sub_10079D7B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t *a11, void **a12, uint64_t a13, char **a14, void **a15, void **a16, char **a17, void **a18, void **a19, char **a20, char **a21, char **a22, char **a23, char **a24, uint64_t a25)
-{
-  v28 = *(v25 + 1584);
-  *(v25 + 1584) = 0;
-  if (v28)
-  {
-    (*(*v28 + 8))(v28);
+    goto LABEL_19;
   }
 
-  sub_1003C94DC(a13);
-  sub_1003C94DC(v25 + 1352);
-  sub_10001AF44(v25 + 1136, *a14);
-  STACK[0x2A0] = a25;
-  sub_1007AB64C(&STACK[0x2A0]);
-  v29 = *(v25 + 1048);
-  if (v29)
+  v27 = 0;
+  if (v24)
   {
-    sub_100008080(v29);
+LABEL_19:
+    CFRelease(v25);
   }
 
-  sub_1007AE9F4(v25 + 1000);
-  if (*(v25 + 999) < 0)
+  if (v21)
   {
-    operator delete(*(v25 + 976));
+    CFRelease(v21);
   }
 
-  sub_1003C93BC(v25 + 936, *a15);
-  sub_1003C93BC(v25 + 912, *a16);
-  sub_10001AF44(v25 + 888, *a17);
-  sub_1003C93BC(v25 + 864, *a18);
-  sub_1003C93BC(v25 + 840, *a19);
-  sub_10001AF44(v25 + 800, *a20);
-  sub_10001AF44(v25 + 776, *a21);
-  sub_10001AF44(v25 + 752, *a22);
-  sub_10001AF44(v25 + 728, *a23);
-  sub_10001AF44(v25 + 704, *a24);
-  sub_1003C94DC(v25 + 640);
-  sub_1007AE998(v25 + 616, *a12);
-  sub_1003C94DC(v25 + 528);
-  sub_1003C94DC(v25 + 464);
-  v30 = *(v25 + 408);
-  if (v30)
+  if (v19)
   {
-    sub_100008080(v30);
+    CFRelease(v19);
   }
 
-  sub_1007A3EE0((v26 + 136), 0);
-  v31 = *a11;
-  *a11 = 0;
-  if (v31)
+  if (v13)
   {
-    sub_10068024C(a11, v31);
+    CFRelease(v13);
   }
 
-  v32 = *(v25 + 216);
-  *(v25 + 216) = 0;
-  if (v32)
+  if (v27)
   {
-    (*(*v32 + 8))(v32);
-  }
+    RunLoopSource = CFUserNotificationCreateRunLoopSource(kCFAllocatorDefault, v27, sub_1007A4864, 0);
+    if (RunLoopSource)
+    {
+      v29 = sub_100107858();
+      CFRunLoopAddSource(v29, RunLoopSource, kCFRunLoopCommonModes);
+      CFRelease(RunLoopSource);
+      CFRetain(v27);
+      sub_10079B350(a4);
+      *(a4 + 24) = v27;
+      sub_10000EC00(__p, "");
+      sub_10023C2AC(&keys, 15, v9, 0, __p);
+      if (v38 < 0)
+      {
+        operator delete(__p[0]);
+      }
 
-  v33 = *(v25 + 208);
-  *(v25 + 208) = 0;
-  if (v33)
-  {
-    (*(*v33 + 8))(v33);
-  }
+      [*(a1 + 40) currentLatchedAbsoluteTimestamp];
+      v31 = v30;
+      CFRetain(v27);
+      if (cf)
+      {
+        CFRelease(cf);
+      }
 
-  v34 = *(v25 + 200);
-  *(v25 + 200) = 0;
-  if (v34)
-  {
-    (*(*v34 + 8))(v34);
-  }
+      cf = v27;
+      v44 = v31;
+      operator new();
+    }
 
-  v35 = *(v25 + 192);
-  *(v25 + 192) = 0;
-  if (v35)
-  {
-    (*(*v35 + 8))(v35);
-  }
-
-  v36 = *(v25 + 184);
-  *(v25 + 184) = 0;
-  if (v36)
-  {
-    (*(*v36 + 8))(v36);
-  }
-
-  v37 = *(v25 + 176);
-  *(v25 + 176) = 0;
-  if (v37)
-  {
-    (*(*v37 + 8))(v37);
-  }
-
-  v38 = *(v25 + 168);
-  *(v25 + 168) = 0;
-  if (v38)
-  {
-    (*(*v38 + 8))(v38);
-  }
-
-  v39 = *(v25 + 160);
-  *(v25 + 160) = 0;
-  if (v39)
-  {
-    (*(*v39 + 8))(v39);
-  }
-
-  v40 = *(v25 + 152);
-  *(v25 + 152) = 0;
-  if (v40)
-  {
-    (*(*v40 + 8))(v40);
-  }
-
-  sub_1007A1964(v25);
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_10079DD60(uint64_t a1, char *a2, void *a3)
-{
-  *a1 = off_102470970;
-  sub_10000EC00((a1 + 8), a2);
-  *(a1 + 32) = a3;
-  *(a1 + 40) = [a3 silo];
-  *(a1 + 48) = 0;
-  *(a1 + 64) = 0;
-  *(a1 + 56) = a1 + 64;
-  *(a1 + 88) = 0;
-  *(a1 + 96) = 0;
-  *(a1 + 72) = 0;
-  *(a1 + 80) = a1 + 88;
-  *(a1 + 104) = 0;
-  *(a1 + 108) = 0;
-  return a1;
-}
-
-void sub_10079DDF0(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 31) < 0)
-  {
-    operator delete(*v2);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_10079DE0C(id a1, CLClientManagerStateTracker *a2)
-{
-  v3 = sub_10003845C();
-
-  [(CLClientManagerStateTracker *)a2 setLocationServicesEnabledStatus:v3];
-}
-
-id sub_10079DE48(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  result = [*(v1 + 128) BOOLForKey:@"CLCM.AllowPromptRecording" defaultValue:*(v1 + 232)];
-  *(v1 + 232) = result;
-  return result;
-}
-
-void sub_10079DE88(uint64_t a1)
-{
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10028840C();
-  }
-
-  v2 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-  {
-    *buf = 0;
-    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_INFO, "ResetTimer fired", buf, 2u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_1019331B8();
-  }
-
-  v3 = [*(a1 + 128) arrayForKey:@"ResetIdentifiers" defaultValue:0];
-  v4 = v3;
-  if (*(a1 + 1128) == 1)
-  {
-    *(a1 + 1128) = 0;
     if (qword_1025D47A0 != -1)
     {
       sub_10192D4D0();
     }
 
-    v5 = off_1025D47A8;
+    v35 = off_1025D47A8;
     if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
     {
-      *buf = 138412290;
-      v24 = v4;
-      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_FAULT, "Reset registration and completion reporting is un-balanced. Completion not reported for clients: %@", buf, 0xCu);
+      keys = 68289282;
+      *v41 = 2082;
+      *&v41[2] = "";
+      *&v41[10] = 2114;
+      *&v41[12] = v9;
+      _os_log_impl(dword_100000000, v35, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Could not create runloop source for ImproveAccuracyPrefs notification, Client:%{public, location:escape_only}@}", &keys, 0x1Cu);
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
     }
 
-    if (sub_10000A100(121, 0))
+    v36 = off_1025D47A8;
+    if (os_signpost_enabled(off_1025D47A8))
     {
-      sub_101933560();
+      keys = 68289282;
+      *v41 = 2082;
+      *&v41[2] = "";
+      *&v41[10] = 2114;
+      *&v41[12] = v9;
+      _os_signpost_emit_with_name_impl(dword_100000000, v36, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Could not create runloop source for ImproveAccuracyPrefs notification", "{msg%{public}.0s:Could not create runloop source for ImproveAccuracyPrefs notification, Client:%{public, location:escape_only}@}", &keys, 0x1Cu);
     }
 
-    [*(a1 + 128) setArray:0 forKey:@"ResetIdentifiers"];
-LABEL_43:
-    [*(a1 + 128) setInt:0 forKey:@"ResetRetrialCount"];
-    return;
-  }
-
-  if (![v3 count])
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v14 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_INFO, "Reset registration and completion reporting is balanced for all clients.", buf, 2u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_101933484();
-    }
-
-    goto LABEL_43;
+    CFRelease(v27);
+    return 0;
   }
 
   if (qword_1025D47A0 != -1)
@@ -8384,557 +6740,728 @@ LABEL_43:
     sub_10192D4D0();
   }
 
-  v6 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+  v32 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
   {
-    *buf = 0;
-    _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_INFO, "#reset-retry completing pending reset.", buf, 2u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101933294();
-  }
-
-  v15 = a1;
-  v7 = sub_1007A305C(a1);
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v8 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
-  if (v8)
-  {
-    v9 = v8;
-    v10 = *v17;
-    do
-    {
-      v11 = 0;
-      do
-      {
-        if (*v17 != v10)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        v12 = *(*(&v16 + 1) + 8 * v11);
-        if (([v7 containsObject:v12] & 1) == 0)
-        {
-          if (qword_1025D4790 != -1)
-          {
-            sub_10192DAA4();
-          }
-
-          v13 = qword_1025D4798;
-          if (os_log_type_enabled(qword_1025D4798, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 138412290;
-            v24 = v12;
-            _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_ERROR, "#reset-retry - service with identifier: %@ never checked in to retry handling reset after crash", buf, 0xCu);
-          }
-
-          if (sub_10000A100(121, 0))
-          {
-            sub_101933370(&v20, v12, &v21);
-          }
-        }
-
-        v11 = v11 + 1;
-      }
-
-      while (v9 != v11);
-      v9 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
-    }
-
-    while (v9);
-  }
-
-  sub_10078E990(v15);
-}
-
-void sub_10079E258(uint64_t a1, int *a2, uint64_t a3, uint64_t a4)
-{
-  CLProfilingIdentify();
-  [objc_msgSend(*(a4 + 32) "silo")];
-  if (qword_1025D47F0 != -1)
-  {
-    sub_101933650();
-  }
-
-  if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
-  {
-    v10 = 1;
-    v7 = _os_activity_create(dword_100000000, "CL: CLClientManager::onDarwinNotification", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v7, &state);
-
-    if (qword_1025D47F0 != -1)
-    {
-      sub_101933664();
-    }
-
-    v8 = qword_1025D47F8;
-    if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 68289538;
-      v12 = 0;
-      v13 = 2082;
-      v14 = "";
-      v15 = 2082;
-      v16 = "activity";
-      v17 = 2050;
-      v18 = a4;
-      _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:CLClientManager::onDarwinNotification, event:%{public, location:escape_only}s, this:%{public}p}", buf, 0x26u);
-    }
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  sub_1007A6160(a4, v6, a2);
-  if (v10 == 1)
-  {
-    os_activity_scope_leave(&state);
-  }
-}
-
-void sub_10079E41C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  CLProfilingIdentify();
-  [objc_msgSend(*(a4 + 32) "silo")];
-  if (qword_1025D47F0 != -1)
-  {
-    sub_101933650();
-  }
-
-  if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
-  {
-    v8 = 1;
-    v5 = _os_activity_create(dword_100000000, "CL: CLClientManager::onStatusNotification", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v5, &state);
-
-    if (qword_1025D47F0 != -1)
-    {
-      sub_101933664();
-    }
-
-    v6 = qword_1025D47F8;
-    if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 68289538;
-      v10 = 0;
-      v11 = 2082;
-      v12 = "";
-      v13 = 2082;
-      v14 = "activity";
-      v15 = 2050;
-      v16 = a4;
-      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:CLClientManager::onStatusNotification, event:%{public, location:escape_only}s, this:%{public}p}", buf, 0x26u);
-    }
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  if (v8 == 1)
-  {
-    os_activity_scope_leave(&state);
-  }
-}
-
-void sub_10079E5C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  CLProfilingIdentify();
-  [objc_msgSend(*(a2 + 32) "silo")];
-  if (qword_1025D47F0 != -1)
-  {
-    sub_101933650();
-  }
-
-  if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
-  {
-    v15 = 1;
-    v10 = _os_activity_create(dword_100000000, "CL: CLClientManager::onRestrictionsChangedNotification", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v10, &state);
-
-    if (qword_1025D47F0 != -1)
-    {
-      sub_101933664();
-    }
-
-    v11 = qword_1025D47F8;
-    if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 68289538;
-      v17 = 0;
-      v18 = 2082;
-      v19 = "";
-      v20 = 2082;
-      v21 = "activity";
-      v22 = 2050;
-      v23 = a2;
-      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:CLClientManager::onRestrictionsChangedNotification, event:%{public, location:escape_only}s, this:%{public}p}", buf, 0x26u);
-    }
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  v12 = [*(a2 + 32) silo];
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_1007AB320;
-  v13[3] = &unk_10244FF80;
-  v13[4] = a2;
-  v13[5] = a1;
-  v13[6] = a3;
-  v13[7] = a4;
-  v13[8] = a5;
-  [v12 sync:v13];
-  if (v15 == 1)
-  {
-    os_activity_scope_leave(&state);
-  }
-}
-
-void sub_10079E7F0(uint64_t a1, int token)
-{
-  v2 = *(a1 + 32);
-  state64 = 0;
-  notify_get_state(token, &state64);
-  if (state64)
-  {
-    *(v2 + 1085) = 1;
+    keys = 68289282;
+    *v41 = 2082;
+    *&v41[2] = "";
+    *&v41[10] = 2114;
+    *&v41[12] = v9;
+    _os_log_impl(dword_100000000, v32, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Could not create ImproveAccuracyPrefs notification, Client:%{public, location:escape_only}@}", &keys, 0x1Cu);
     if (qword_1025D47A0 != -1)
     {
       sub_10192D4D0();
     }
-
-    v3 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-    {
-      *v6 = 0;
-      _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_INFO, "#AuthPrompt screen locked", v6, 2u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_10193368C();
-    }
-
-    sub_10079EDEC(v2, 0, 0);
   }
 
-  else
+  v33 = off_1025D47A8;
+  result = os_signpost_enabled(off_1025D47A8);
+  if (result)
   {
-    *(v2 + 1083) = 1;
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v4 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_INFO, "Trial period #reprompt capacitor charged", buf, 2u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_101933768();
-    }
-
-    *(v2 + 1085) = 0;
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10192D4D0();
-    }
-
-    v5 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-    {
-      *v7 = 0;
-      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_INFO, "#AuthPrompt screen unlocked", v7, 2u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_101933844();
-    }
-
-    sub_10079E9B4(v2);
+    keys = 68289282;
+    *v41 = 2082;
+    *&v41[2] = "";
+    *&v41[10] = 2114;
+    *&v41[12] = v9;
+    _os_signpost_emit_with_name_impl(dword_100000000, v33, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Could not create ImproveAccuracyPrefs notification", "{msg%{public}.0s:Could not create ImproveAccuracyPrefs notification, Client:%{public, location:escape_only}@}", &keys, 0x1Cu);
+    return 0;
   }
+
+  return result;
 }
 
-void sub_10079E9B4(uint64_t a1)
+id sub_10077E830(uint64_t a1, __int128 *a2, uint64_t a3)
 {
-  Current = CFAbsoluteTimeGetCurrent();
-  v3 = *(a1 + 384);
-  if (qword_1025D47A0 != -1)
+  v6 = (a1 + 1168);
+  if (!*(a1 + 1168))
   {
-    sub_10028840C();
-  }
-
-  v4 = Current - v3;
-  v5 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = *(a1 + 376);
-    v7 = *(a1 + 377);
-    v8 = *(a1 + 384);
-    *buf = 68290050;
-    v25 = 2082;
-    v24 = 0;
-    v26 = "";
-    v27 = 1026;
-    *v28 = v6;
-    *&v28[4] = 1026;
-    *&v28[6] = v7;
-    v29 = 2050;
-    v30 = v8;
-    v31 = 2050;
-    v32 = v4;
-    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LearnedRoutes #pcHistorical updating LearnedRoutesVisitedPlaces minimum criteria, fAtLeastOneLearnedRouteAvailable:%{public}hhd, fAtLeastThreeUniqueVisitsAvailable:%{public}hhd, LastUpdateTime:%{public}f, timeElapsed:%{public}f}", buf, 0x32u);
-  }
-
-  if (v4 >= 14400.0)
-  {
-    v9 = [objc_msgSend(*(a1 + 32) "vendor")];
-    v10 = [*(a1 + 128) BOOLForKey:@"CLLearnedRoutesAvailable" defaultValue:0];
-    *(a1 + 376) = v10;
-    if ((v10 & 1) == 0)
+    v7 = [NSDictionary alloc];
+    sub_100565860(&v65);
+    sub_10000EC00(&v64, off_1025D8450);
+    if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      LODWORD(v19) = 0;
-      v11 = [[RTLearnedRouteFetchOptions alloc] initWithBundlePath:@"/System/Library/LocationBundles/LocationPromptUI.bundle" routeOriginLocation:0 routeDestinationLocation:0 routeDate:0 routeFetchType:5 fetchAllRouteLocations:1 routeOriginType:v19];
+      v8 = &v64;
+    }
+
+    else
+    {
+      v8 = v64.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      size = HIBYTE(v64.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      size = v64.__r_.__value_.__l.__size_;
+    }
+
+    v10 = std::string::append(&v65, v8, size);
+    v11 = *&v10->__r_.__value_.__l.__data_;
+    *&v71 = *(&v10->__r_.__value_.__l + 2);
+    *__p = v11;
+    v10->__r_.__value_.__l.__size_ = 0;
+    v10->__r_.__value_.__r.__words[2] = 0;
+    v10->__r_.__value_.__r.__words[0] = 0;
+    if ((SBYTE7(v71) & 0x80u) == 0)
+    {
+      v12 = __p;
+    }
+
+    else
+    {
+      v12 = __p[0];
+    }
+
+    *v6 = [v7 initWithContentsOfFile:{+[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", v12)}];
+    if (SBYTE7(v71) < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v64.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v65.__r_.__value_.__l.__data_);
+    }
+
+    if (*v6)
+    {
+      *(a1 + 1176) = [objc_msgSend(*v6 "allKeys")];
       if (qword_1025D47A0 != -1)
       {
         sub_10192D4D0();
       }
 
-      v12 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+      v13 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
       {
-        *buf = 0;
-        _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_INFO, "#LearnedRoutes min-criteria fetching routes", buf, 2u);
+        v14 = [objc_msgSend(*v6 "description")];
+        LODWORD(__p[0]) = 136315138;
+        *(__p + 4) = v14;
+        _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEBUG, "DAR map: %s", __p, 0xCu);
       }
 
       if (sub_10000A100(121, 2))
       {
-        sub_101933920();
+        sub_10192F1C4(v6);
       }
 
-      v22[0] = _NSConcreteStackBlock;
-      v22[1] = 3221225472;
-      v22[2] = sub_1007A92D0;
-      v22[3] = &unk_1024571C0;
-      v22[4] = a1;
-      [v9 fetchLearnedRoutesWithOptions:v11 withReply:v22];
-    }
-
-    v13 = [*(a1 + 128) BOOLForKey:@"CLVisitedPlacesAvailable" defaultValue:0];
-    *(a1 + 377) = v13;
-    if ((v13 & 1) == 0)
-    {
-      v14 = [[NSDateInterval alloc] initWithStartDate:+[NSDate dateWithTimeIntervalSinceReferenceDate:](NSDate endDate:{"dateWithTimeIntervalSinceReferenceDate:", CFAbsoluteTimeGetCurrent() + -2419200.0), +[NSDate now](NSDate, "now")}];
-      v15 = [[NSSet alloc] initWithObjects:{&off_10254EF60, 0}];
-      v16 = [RTStoredVisitFetchOptions alloc];
-      LOBYTE(v20) = 1;
-      v17 = [v16 initWithAscending:1 confidence:+[NSNumber numberWithDouble:](NSNumber dateInterval:"numberWithDouble:" labelVisit:RTVisitConfidenceHigh) limit:v14 sources:1 redact:{0, v15, v20}];
       if (qword_1025D47A0 != -1)
       {
         sub_10192D4D0();
       }
 
-      v18 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      v15 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
       {
-        *buf = 68289282;
-        v24 = 0;
-        v25 = 2082;
-        v26 = "";
-        v27 = 2114;
-        *v28 = v14;
-        _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#pcHistorical min-criteria fetching historical visits, dateInterval:%{public, location:escape_only}@}", buf, 0x1Cu);
+        v16 = [objc_msgSend(*(a1 + 1176) "description")];
+        LODWORD(__p[0]) = 136315138;
+        *(__p + 4) = v16;
+        _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_DEBUG, "DAR map sorted keys: %s", __p, 0xCu);
       }
 
-      v21[0] = _NSConcreteStackBlock;
-      v21[1] = 3221225472;
-      v21[2] = sub_1007A9400;
-      v21[3] = &unk_1024571C0;
-      v21[4] = a1;
-      [v9 fetchStoredVisitsWithOptions:v17 withReply:v21];
-    }
-
-    *(a1 + 384) = CFAbsoluteTimeGetCurrent();
-  }
-}
-
-void sub_10079EDEC(uint64_t a1, int a2, void *a3)
-{
-  v3 = *(a1 + 272);
-  if (v3)
-  {
-    if (a3 && ([a3 isEqual:*(v3 + 8)] & 1) == 0)
-    {
-      if (qword_1025D47A0 != -1)
+      if (sub_10000A100(121, 2))
       {
-        sub_10028840C();
-      }
-
-      v16 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        v17 = *(*(a1 + 272) + 8);
-        *buf = 68289538;
-        v20 = 0;
-        v21 = 2082;
-        v22 = "";
-        v23 = 2114;
-        v24 = v17;
-        v25 = 2114;
-        v26 = a3;
-        _os_log_impl(dword_100000000, v16, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#AuthPrompt skip Teardown Inflight Prompt - actual and expected inflight client does not match, ActualInflightClient:%{public, location:escape_only}@, ExpectedInflightClient:%{public, location:escape_only}@}", buf, 0x26u);
+        sub_10192F2C4((a1 + 1176));
       }
     }
 
     else
     {
-      v7 = @"TearDown SPI Invocation";
-      if (a2 == 1)
+      if (qword_1025D47A0 != -1)
       {
-        v7 = @"Squatting threshold(15 min) expired";
+        sub_10192D4D0();
       }
 
-      if (a2)
+      v17 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
       {
-        v8 = v7;
+        sub_100565860(&v65);
+        sub_10000EC00(&v64, off_1025D8450);
+        if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v18 = &v64;
+        }
+
+        else
+        {
+          v18 = v64.__r_.__value_.__r.__words[0];
+        }
+
+        if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v19 = HIBYTE(v64.__r_.__value_.__r.__words[2]);
+        }
+
+        else
+        {
+          v19 = v64.__r_.__value_.__l.__size_;
+        }
+
+        v20 = std::string::append(&v65, v18, v19);
+        v21 = *&v20->__r_.__value_.__l.__data_;
+        *&v71 = *(&v20->__r_.__value_.__l + 2);
+        *__p = v21;
+        v20->__r_.__value_.__l.__size_ = 0;
+        v20->__r_.__value_.__r.__words[2] = 0;
+        v20->__r_.__value_.__r.__words[0] = 0;
+        v22 = __p;
+        if (SBYTE7(v71) < 0)
+        {
+          v22 = __p[0];
+        }
+
+        LODWORD(buf) = 136446210;
+        *(&buf + 4) = v22;
+        _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_FAULT, "DAR: could not read map file %{public}s", &buf, 0xCu);
+        if (SBYTE7(v71) < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v64.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v65.__r_.__value_.__l.__data_);
+        }
+      }
+
+      if (sub_10000A100(121, 0))
+      {
+        sub_10192DC88(__p);
+        v42 = off_1025D47A8;
+        sub_100565860(&v64);
+        sub_10000EC00(&buf, off_1025D8450);
+        if ((v67 & 0x80u) == 0)
+        {
+          p_buf = &buf;
+        }
+
+        else
+        {
+          p_buf = buf;
+        }
+
+        if ((v67 & 0x80u) == 0)
+        {
+          v44 = v67;
+        }
+
+        else
+        {
+          v44 = *(&buf + 1);
+        }
+
+        v45 = std::string::append(&v64, p_buf, v44);
+        v46 = *&v45->__r_.__value_.__l.__data_;
+        v65.__r_.__value_.__r.__words[2] = v45->__r_.__value_.__r.__words[2];
+        *&v65.__r_.__value_.__l.__data_ = v46;
+        v45->__r_.__value_.__l.__size_ = 0;
+        v45->__r_.__value_.__r.__words[2] = 0;
+        v45->__r_.__value_.__r.__words[0] = 0;
+        v47 = &v65;
+        if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          v47 = v65.__r_.__value_.__r.__words[0];
+        }
+
+        v68 = 136446210;
+        v69 = v47;
+        _os_log_send_and_compose_impl(2, 0, __p, 1628, dword_100000000, v42, 17, "DAR: could not read map file %{public}s", &v68, 12);
+        v49 = v48;
+        if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v65.__r_.__value_.__l.__data_);
+        }
+
+        if (v67 < 0)
+        {
+          operator delete(buf);
+        }
+
+        if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v64.__r_.__value_.__l.__data_);
+        }
+
+        sub_100152C7C("Generic", 1, 0, 0, "void CLClientManager::reduceAccuracy(const CLClientLocation &, CLClientManagerReduceAccuracyReplyBlock)", "%s\n", v49);
+        if (v49 != __p)
+        {
+          free(v49);
+        }
+      }
+    }
+  }
+
+  v60[0] = _NSConcreteStackBlock;
+  v60[1] = 3221225472;
+  v61 = sub_10077F0B8;
+  v62 = &unk_10246FFA8;
+  v63 = a3;
+  if (*v6)
+  {
+    if (*(a1 + 1204) == -1.0 || vabdd_f64(*(a1 + 1260), *(a2 + 76)) > 604800.0 || sub_100117154(*(a1 + 1188), *(a1 + 1196), *(a2 + 4), *(a2 + 12)) > 500.0)
+    {
+      v23 = a2[7];
+      v24 = a2[8];
+      v25 = a2[5];
+      v57 = a2[6];
+      v58 = v23;
+      v59[0] = v24;
+      *(v59 + 12) = *(a2 + 140);
+      v26 = a2[3];
+      v27 = a2[4];
+      v28 = a2[1];
+      v53 = a2[2];
+      v54 = v26;
+      v55 = v27;
+      v56 = v25;
+      v51 = *a2;
+      v52 = v28;
+      v29 = *(a1 + 1576);
+      *&v26 = *(a2 + 4);
+      *&v27 = *(a2 + 12);
+      v50[0] = _NSConcreteStackBlock;
+      v50[1] = 3221225472;
+      v50[2] = sub_10077F3CC;
+      v50[3] = &unk_10246FFF0;
+      v50[4] = v60;
+      v50[5] = a1;
+      return [v29 getNumberOfInputApsUsedInWifiTileForCoordinate:v50 withReply:{*&v26, *&v27}];
+    }
+
+    else
+    {
+      v36 = *(a1 + 1344);
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v37 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+      {
+        LODWORD(__p[0]) = 134217984;
+        *(__p + 4) = v36;
+        _os_log_impl(dword_100000000, v37, OS_LOG_TYPE_DEBUG, "DAR: applying cached quantization %f", __p, 0xCu);
+      }
+
+      if (sub_10000A100(121, 2))
+      {
+        sub_10192F3C4(*&v36);
+      }
+
+      v38 = a2[7];
+      v76 = a2[6];
+      v77 = v38;
+      v78[0] = a2[8];
+      *(v78 + 12) = *(a2 + 140);
+      v39 = a2[3];
+      v72 = a2[2];
+      v73 = v39;
+      v40 = a2[5];
+      v74 = a2[4];
+      v75 = v40;
+      v41 = a2[1];
+      *__p = *a2;
+      v71 = v41;
+      return v61(v60, __p, *&v36);
+    }
+  }
+
+  else
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v31 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      LODWORD(__p[0]) = 134217984;
+      *(__p + 4) = 0x3FB999999999999ALL;
+      _os_log_impl(dword_100000000, v31, OS_LOG_TYPE_DEFAULT, "#Warning DAR: applying default quantization %f", __p, 0xCu);
+    }
+
+    if (sub_10000A100(121, 2))
+    {
+      sub_10192F4CC();
+    }
+
+    v32 = a2[7];
+    v76 = a2[6];
+    v77 = v32;
+    v78[0] = a2[8];
+    *(v78 + 12) = *(a2 + 140);
+    v33 = a2[3];
+    v72 = a2[2];
+    v73 = v33;
+    v34 = a2[5];
+    v74 = a2[4];
+    v75 = v34;
+    v35 = a2[1];
+    *__p = *a2;
+    v71 = v35;
+    return v61(v60, __p, 0.1);
+  }
+}
+
+void sub_10077EFC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, void *__p, uint64_t a53, int a54, __int16 a55, char a56, char a57)
+{
+  if (a57 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a47 < 0)
+  {
+    operator delete(a42);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+int64_t sub_10077F04C(id a1, id a2, id a3)
+{
+  v5 = [a2 integerValue];
+  if (v5 > [a3 integerValue])
+  {
+    return 1;
+  }
+
+  v7 = [a2 integerValue];
+  if (v7 >= [a3 integerValue])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return -1;
+  }
+}
+
+uint64_t sub_10077F0B8(uint64_t a1, uint64_t a2, double a3)
+{
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10028840C();
+  }
+
+  v5 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = *(a2 + 4);
+    v7 = *(a2 + 12);
+    v8 = *(a2 + 20);
+    *buf = 134546177;
+    *&buf[4] = v6;
+    *&buf[12] = 2053;
+    *&buf[14] = v7;
+    *&buf[22] = 2048;
+    *&buf[24] = v8;
+    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEBUG, "DAR: original location: %{sensitive}.8f, %{sensitive}.8f, %.2f", buf, 0x20u);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    sub_10192F5D0();
+  }
+
+  *(a2 + 4) = vmulq_n_f64(vrndaq_f64(vdivq_f64(*(a2 + 4), vdupq_lane_s64(*&a3, 0))), a3);
+  *(a2 + 20) = sqrt(a3 * a3 * 5000000000.0 + *(a2 + 20) * *(a2 + 20));
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10192D4D0();
+  }
+
+  v9 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+  {
+    v10 = *(a2 + 4);
+    v11 = *(a2 + 12);
+    v12 = *(a2 + 20);
+    *buf = 134546177;
+    *&buf[4] = v10;
+    *&buf[12] = 2053;
+    *&buf[14] = v11;
+    *&buf[22] = 2048;
+    *&buf[24] = v12;
+    _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEBUG, "DAR:  reduced location: %{sensitive}.8f, %{sensitive}.8f, %.2f", buf, 0x20u);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    bzero(buf, 0x65CuLL);
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v20 = *(a2 + 4);
+    v21 = *(a2 + 12);
+    v22 = *(a2 + 20);
+    v26 = 134546177;
+    v27 = v20;
+    v28 = 2053;
+    v29 = v21;
+    v30 = 2048;
+    v31 = v22;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D47A8, 2, "DAR:  reduced location: %{sensitive}.8f, %{sensitive}.8f, %.2f", &v26, 32);
+    v24 = v23;
+    sub_100152C7C("Generic", 1, 0, 2, "void CLClientManager::reduceAccuracy(const CLClientLocation &, CLClientManagerReduceAccuracyReplyBlock)_block_invoke", "%s\n", v23);
+    if (v24 != buf)
+    {
+      free(v24);
+    }
+  }
+
+  v13 = *(a1 + 32);
+  v14 = [CLLocation alloc];
+  v15 = *(a2 + 112);
+  v37 = *(a2 + 96);
+  v38 = v15;
+  v39[0] = *(a2 + 128);
+  *(v39 + 12) = *(a2 + 140);
+  v16 = *(a2 + 48);
+  v33 = *(a2 + 32);
+  v34 = v16;
+  v17 = *(a2 + 80);
+  v35 = *(a2 + 64);
+  v36 = v17;
+  v18 = *(a2 + 16);
+  *buf = *a2;
+  *&buf[16] = v18;
+  return (*(v13 + 16))(v13, [v14 initWithClientLocation:buf]);
+}
+
+uint64_t sub_10077F3CC(uint64_t a1, int *a2)
+{
+  v4 = *(a1 + 40);
+  v5 = [*(v4 + 1176) indexOfObject:-[NSNumber stringValue](+[NSNumber numberWithInt:](NSNumber inSortedRange:"numberWithInt:" options:a2) usingComparator:{"stringValue"), 0, objc_msgSend(*(v4 + 1176), "count"), 1024, &stru_10246FFC8}];
+  if (v5 == [*(v4 + 1176) count] || objc_msgSend(objc_msgSend(*(v4 + 1176), "objectAtIndex:", v5), "integerValue") != a2)
+  {
+    --v5;
+  }
+
+  [objc_msgSend(*(v4 + 1168) objectForKey:{objc_msgSend(*(v4 + 1176), "objectAtIndex:", v5)), "doubleValue"}];
+  v7 = v6;
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10028840C();
+  }
+
+  v8 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEBUG))
+  {
+    *v15 = 134218240;
+    *&v15[4] = v7;
+    *&v15[12] = 1024;
+    *&v15[14] = a2;
+    _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_DEBUG, "DAR: applying new quantization %f based on ap count %d", v15, 0x12u);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    sub_10192F6EC(a2, v7);
+    if (!a2)
+    {
+      goto LABEL_11;
+    }
+
+    goto LABEL_10;
+  }
+
+  if (a2)
+  {
+LABEL_10:
+    memmove((v4 + 1184), (a1 + 48), 0x9CuLL);
+    *(v4 + 1344) = v7;
+  }
+
+LABEL_11:
+  v9 = *(a1 + 32);
+  v10 = *(a1 + 160);
+  v20 = *(a1 + 144);
+  v21 = v10;
+  v22[0] = *(a1 + 176);
+  *(v22 + 12) = *(a1 + 188);
+  v11 = *(a1 + 96);
+  v16 = *(a1 + 80);
+  v17 = v11;
+  v12 = *(a1 + 128);
+  v18 = *(a1 + 112);
+  v19 = v12;
+  v13 = *(a1 + 64);
+  *v15 = *(a1 + 48);
+  *&v15[16] = v13;
+  return (*(v9 + 16))(v7);
+}
+
+int64_t sub_10077F5CC(id a1, id a2, id a3)
+{
+  v5 = [a2 integerValue];
+  if (v5 > [a3 integerValue])
+  {
+    return 1;
+  }
+
+  v7 = [a2 integerValue];
+  if (v7 >= [a3 integerValue])
+  {
+    return 0;
+  }
+
+  else
+  {
+    return -1;
+  }
+}
+
+void sub_10077F638(uint64_t *a1, uint64_t a2)
+{
+  v2 = a1[117];
+  v3 = a1 + 118;
+  if (v2 != a1 + 118)
+  {
+    while (1)
+    {
+      v6 = v2[4];
+      if ((*(a2 + 16))(a2, v6))
+      {
+        break;
+      }
+
+      v7 = v2[1];
+      if (v7)
+      {
+        do
+        {
+          v8 = v7;
+          v7 = *v7;
+        }
+
+        while (v7);
       }
 
       else
       {
-        v8 = @"ScreenLock enabled";
+        do
+        {
+          v8 = v2[2];
+          v9 = *v8 == v2;
+          v2 = v8;
+        }
+
+        while (!v9);
       }
 
-      if (qword_1025D47A0 != -1)
+      v2 = v8;
+      if (v8 == v3)
       {
-        sub_10028840C();
+        return;
       }
-
-      v9 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        v10 = *(a1 + 272);
-        v11 = *(v10 + 1);
-        v12 = *v10;
-        *buf = 68289794;
-        v20 = 0;
-        v21 = 2082;
-        v22 = "";
-        v23 = 2114;
-        v24 = v11;
-        v25 = 2050;
-        v26 = v12;
-        v27 = 2082;
-        v28 = [(__CFString *)v8 UTF8String];
-        _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#AuthPrompt Teardown Inflight Prompt, Client:%{public, location:escape_only}@, PromptType:%{public, location:CLClientManager_Type::AuthorizationRequestType}lld, Teardown Reason:%{public, location:escape_only}s}", buf, 0x30u);
-      }
-
-      v13 = *(a1 + 272);
-      v14 = *(v13 + 48);
-      if (v14)
-      {
-        v15 = sub_100107858();
-        block[0] = _NSConcreteStackBlock;
-        block[1] = 3221225472;
-        block[2] = sub_1007A3ED8;
-        block[3] = &unk_102449A78;
-        block[4] = v14;
-        CFRunLoopPerformBlock(v15, kCFRunLoopCommonModes, block);
-        v13 = *(a1 + 272);
-      }
-
-      sub_10023D820(v13, v8);
-      sub_1007A3EE0((a1 + 272), 0);
-      *(a1 + 312) = 0;
     }
-  }
-}
 
-void sub_10079F068(uint64_t a1, int token)
-{
-  v2 = *(a1 + 32);
-  state64 = 0;
-  state = notify_get_state(token, &state64);
-  v4 = state64;
-  *(v2 + 1084) = state64 != 0;
-  if (v4 == 1)
-  {
-    if ((*(v2 + 512) & 1) == 0)
+    *(v6 + 8) = mach_continuous_time();
+    sub_10077F82C(a1, v6);
+    if (qword_1025D4790 != -1)
     {
-      sub_100787934(state, *(v2 + 504), v2 + 464);
-      *(v2 + 512) = 1;
+      sub_10192F910();
     }
 
-    sub_10079F0E4(v2);
-    *(v2 + 1083) = 0;
+    v10 = qword_1025D4798;
+    if (os_log_type_enabled(qword_1025D4798, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = 68289282;
+      v13 = 0;
+      v14 = 2082;
+      v15 = "";
+      v16 = 2050;
+      v17 = v6;
+      _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#dic consuming a matching butterfly, eaten:%{public}p}", &v12, 0x1Cu);
+      if (qword_1025D4790 != -1)
+      {
+        sub_10192DAA4();
+      }
+    }
+
+    v11 = qword_1025D4798;
+    if (os_signpost_enabled(qword_1025D4798))
+    {
+      v12 = 68289282;
+      v13 = 0;
+      v14 = 2082;
+      v15 = "";
+      v16 = 2050;
+      v17 = v6;
+      _os_signpost_emit_with_name_impl(dword_100000000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#dic consuming a matching butterfly", "{msg%{public}.0s:#dic consuming a matching butterfly, eaten:%{public}p}", &v12, 0x1Cu);
+    }
   }
 }
 
-void sub_10079F0E4(uint64_t a1)
+void sub_10077F82C(uint64_t *a1, unint64_t a2)
 {
-  sub_10001A3E8();
-  sub_10001CF3C();
-  if ([*(a1 + 120) locationRestricted])
+  v3 = a1[118];
+  if (!v3)
   {
+    goto LABEL_9;
+  }
+
+  v4 = a1;
+  p_info = a1 + 118;
+  do
+  {
+    v6 = *(v3 + 32);
+    v7 = v6 >= a2;
+    v8 = v6 < a2;
+    if (v7)
+    {
+      p_info = v3;
+    }
+
+    v3 = *(v3 + 8 * v8);
+  }
+
+  while (v3);
+  if (p_info == a1 + 118 || p_info[4] > a2)
+  {
+LABEL_9:
+    p_info = &OBJC_METACLASS___CLMotionHintLoggerAdapter.info;
     if (qword_1025D47A0 != -1)
     {
       sub_10028840C();
     }
 
-    v2 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    v9 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
     {
-      *buf = 68289026;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      v3 = "{msg%{public}.0s:Dropping #provisional upgrade and #reprompt notification. Restrictions enabled}";
-      v4 = v2;
-      v5 = 18;
-LABEL_6:
-      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, v3, buf, v5);
-      return;
-    }
-
-    return;
-  }
-
-  if (*(a1 + 272))
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v6 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
-    {
-      v7 = *(a1 + 272);
-      v8 = *(v7 + 1);
-      v9 = *v7;
-      *buf = 68289538;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 2114;
-      *&buf[20] = v8;
-      v71 = 2050;
-      v72 = v9;
-      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:We should not get springboard.homescreenunlocked events when we have inflight prompt authorization request, inflightClient:%{public, location:escape_only}@, inflightRequestType:%{public, location:CLClientManager_Type::AuthorizationRequestType}lld}", buf, 0x26u);
+      *buf = 68290051;
+      *&buf[4] = 0;
+      v20 = 2082;
+      v21 = "";
+      v22 = 2114;
+      v23 = sub_100008880(a2);
+      v24 = 2050;
+      v25 = a2;
+      v26 = 2082;
+      v27 = "assert";
+      v28 = 2081;
+      v29 = "iter != fDaemonIdentifiableClientsWithoutConnection.end()";
+      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:destroying disconnected #dic - not found, ClientKey:%{public, location:escape_only}@, this:%{public}p, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
       if (qword_1025D47A0 != -1)
       {
         sub_10192D4D0();
@@ -8944,855 +7471,104 @@ LABEL_6:
     v10 = off_1025D47A8;
     if (os_signpost_enabled(off_1025D47A8))
     {
-      v11 = *(a1 + 272);
-      v12 = *(v11 + 1);
-      v13 = *v11;
-      *buf = 68289538;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 2114;
-      *&buf[20] = v12;
-      v71 = 2050;
-      v72 = v13;
-      _os_signpost_emit_with_name_impl(dword_100000000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "We should not get springboard.homescreenunlocked events when we have inflight prompt authorization request", "{msg%{public}.0s:We should not get springboard.homescreenunlocked events when we have inflight prompt authorization request, inflightClient:%{public, location:escape_only}@, inflightRequestType:%{public, location:CLClientManager_Type::AuthorizationRequestType}lld}", buf, 0x26u);
+      v11 = sub_100008880(a2);
+      *buf = 68290051;
+      *&buf[4] = 0;
+      v20 = 2082;
+      v21 = "";
+      v22 = 2114;
+      v23 = v11;
+      v24 = 2050;
+      v25 = a2;
+      v26 = 2082;
+      v27 = "assert";
+      v28 = 2081;
+      v29 = "iter != fDaemonIdentifiableClientsWithoutConnection.end()";
+      _os_signpost_emit_with_name_impl(dword_100000000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "destroying disconnected #dic - not found", "{msg%{public}.0s:destroying disconnected #dic - not found, ClientKey:%{public, location:escape_only}@, this:%{public}p, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
     }
 
-    return;
-  }
-
-  if (*(a1 + 280) != 1)
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v19 = off_1025D47A8;
+    v4 = off_1025D47A8;
     if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
     {
-      *buf = 0;
-      _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_INFO, "#IncidentalPrompt presenting, transitioned to homescreen.", buf, 2u);
+      v12 = sub_100008880(a2);
+      *buf = 68290051;
+      *&buf[4] = 0;
+      v20 = 2082;
+      v21 = "";
+      v22 = 2114;
+      v23 = v12;
+      v24 = 2050;
+      v25 = a2;
+      v26 = 2082;
+      v27 = "assert";
+      v28 = 2081;
+      v29 = "iter != fDaemonIdentifiableClientsWithoutConnection.end()";
+      _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:destroying disconnected #dic - not found, ClientKey:%{public, location:escape_only}@, this:%{public}p, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
     }
 
-    if (sub_10000A100(121, 2))
-    {
-      sub_1019339FC();
-    }
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Core/ClientManagement/CLClientManager_Unified.mm", 3670, "destroyDaemonIdentifiableClient");
+    __break(1u);
+  }
 
-    if ((sub_10077834C(a1, 0) & 1) != 0 || *(a1 + 1083) != 1)
-    {
-      return;
-    }
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10028840C();
+  }
 
+  v13 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = sub_100008880(a2);
+    *buf = 68289538;
+    *&buf[4] = 0;
+    v20 = 2082;
+    v21 = "";
+    v22 = 2114;
+    v23 = v14;
+    v24 = 2050;
+    v25 = a2;
+    _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:destroying #dic, ClientKeyPath:%{public, location:escape_only}@, this:%{public}p}", buf, 0x26u);
     if (qword_1025D47A0 != -1)
     {
       sub_10192D4D0();
     }
-
-    v20 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_INFO, "Trial period #reprompt capacitor fired", buf, 2u);
-    }
-
-    if (sub_10000A100(121, 2))
-    {
-      sub_101933AE0();
-    }
-
-    sub_100565518(0, &v66);
-    v21 = std::string::append(&v66, "locScoreInfoReport", 0x12uLL);
-    v22 = *&v21->__r_.__value_.__l.__data_;
-    *&buf[16] = *(&v21->__r_.__value_.__l + 2);
-    *buf = v22;
-    v21->__r_.__value_.__l.__size_ = 0;
-    v21->__r_.__value_.__r.__words[2] = 0;
-    v21->__r_.__value_.__r.__words[0] = 0;
-    if (buf[23] >= 0)
-    {
-      v23 = buf;
-    }
-
-    else
-    {
-      v23 = *buf;
-    }
-
-    v24 = [NSString stringWithUTF8String:v23];
-    if ((buf[23] & 0x80000000) != 0)
-    {
-      operator delete(*buf);
-    }
-
-    if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v66.__r_.__value_.__l.__data_);
-    }
-
-    if (![+[NSFileManager fileExistsAtPath:"fileExistsAtPath:"]
-    {
-      Current = CFAbsoluteTimeGetCurrent();
-      v66.__r_.__value_.__r.__words[0] = 0x410FA40000000000;
-      sub_10001CAF4(buf);
-      sub_1000B9370(*buf, "ClientRepromptAlwaysNotificationInterval", &v66);
-      if (*&buf[8])
-      {
-        sub_100008080(*&buf[8]);
-      }
-
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v34 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-      {
-        *buf = 68289282;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 2050;
-        *&buf[20] = v66.__r_.__value_.__r.__words[0];
-        _os_log_impl(dword_100000000, v34, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Commencing #reprompt iteration, Interval:%{public}f}", buf, 0x1Cu);
-      }
-
-      if (*&v66.__r_.__value_.__l.__data_ >= 0.0)
-      {
-        v36 = *(a1 + 136);
-        v62[0] = _NSConcreteStackBlock;
-        v62[1] = 3221225472;
-        v62[2] = sub_1007A3F38;
-        v62[3] = &unk_1024704C8;
-        v62[4] = a1;
-        *&v62[5] = Current;
-        v62[6] = v66.__r_.__value_.__r.__words[0];
-        [v36 iterateAllAnchorKeyPathsWithBlock:v62];
-      }
-
-      else
-      {
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v35 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(dword_100000000, v35, OS_LOG_TYPE_DEFAULT, "Not iterating for #reprompt: disabled", buf, 2u);
-        }
-
-        if (sub_10000A100(121, 2))
-        {
-          sub_101933BC4();
-        }
-      }
-
-      return;
-    }
-
-    v66.__r_.__value_.__r.__words[0] = 0;
-    v25 = -[NSDictionary fileModificationDate]([+[NSFileManager defaultManager](NSFileManager attributesOfItemAtPath:"attributesOfItemAtPath:error:" error:v24, &v66], "fileModificationDate");
-    if (v66.__r_.__value_.__r.__words[0])
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v26 = off_1025D47A8;
-      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
-      {
-        *buf = 68289282;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 2114;
-        *&buf[20] = v66.__r_.__value_.__r.__words[0];
-        _os_log_impl(dword_100000000, v26, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Could not get modification date of #reprompt file, Error:%{public, location:escape_only}@}", buf, 0x1Cu);
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-      }
-
-      v27 = off_1025D47A8;
-      if (!os_signpost_enabled(off_1025D47A8))
-      {
-        goto LABEL_60;
-      }
-
-      *buf = 68289282;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 2114;
-      *&buf[20] = v66.__r_.__value_.__r.__words[0];
-      v28 = "Could not get modification date of #reprompt file";
-      v29 = "{msg%{public}.0s:Could not get modification date of #reprompt file, Error:%{public, location:escape_only}@}";
-      goto LABEL_58;
-    }
-
-    if ([(NSDate *)v25 compare:[+[NSDate dateByAddingTimeInterval:"dateByAddingTimeInterval:"]== NSOrderedAscending]
-    {
-      if (qword_1025D47A0 != -1)
-      {
-        sub_10192D4D0();
-      }
-
-      v52 = off_1025D47A8;
-      if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_60;
-      }
-
-      *buf = 68289026;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      v49 = "{msg%{public}.0s:#reprompt data is over 5 days old.}";
-      v50 = v52;
-      v51 = 18;
-    }
-
-    else
-    {
-      v37 = [NSData dataWithContentsOfFile:v24 options:8 error:&v66];
-      if (!v37 || v66.__r_.__value_.__r.__words[0])
-      {
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v53 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
-        {
-          *buf = 68289539;
-          *&buf[8] = 2082;
-          *&buf[10] = "";
-          *&buf[18] = 2113;
-          *&buf[20] = v37;
-          v71 = 2114;
-          v72 = v66.__r_.__value_.__r.__words[0];
-          _os_log_impl(dword_100000000, v53, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Could not read checkpointed #reprompt data, Data:%{private, location:escape_only}@, Error:%{public, location:escape_only}@}", buf, 0x26u);
-          if (qword_1025D47A0 != -1)
-          {
-            sub_10192D4D0();
-          }
-        }
-
-        v54 = off_1025D47A8;
-        if (!os_signpost_enabled(off_1025D47A8))
-        {
-          goto LABEL_60;
-        }
-
-        *buf = 68289539;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 2113;
-        *&buf[20] = v37;
-        v71 = 2114;
-        v72 = v66.__r_.__value_.__r.__words[0];
-        v28 = "Could not read checkpointed #reprompt data";
-        v29 = "{msg%{public}.0s:Could not read checkpointed #reprompt data, Data:%{private, location:escape_only}@, Error:%{public, location:escape_only}@}";
-        v30 = v54;
-        v31 = 38;
-        goto LABEL_59;
-      }
-
-      v38 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v37 error:&v66];
-      if (!v38 || v66.__r_.__value_.__r.__words[0])
-      {
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v55 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
-        {
-          *buf = 68289282;
-          *&buf[8] = 2082;
-          *&buf[10] = "";
-          *&buf[18] = 2114;
-          *&buf[20] = v66.__r_.__value_.__r.__words[0];
-          _os_log_impl(dword_100000000, v55, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Could not configure unarchiver with checkpointed #reprompt data, Error:%{public, location:escape_only}@}", buf, 0x1Cu);
-          if (qword_1025D47A0 != -1)
-          {
-            sub_10192D4D0();
-          }
-        }
-
-        v27 = off_1025D47A8;
-        if (!os_signpost_enabled(off_1025D47A8))
-        {
-          goto LABEL_60;
-        }
-
-        *buf = 68289282;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 2114;
-        *&buf[20] = v66.__r_.__value_.__r.__words[0];
-        v28 = "Could not configure unarchiver with checkpointed #reprompt data";
-        v29 = "{msg%{public}.0s:Could not configure unarchiver with checkpointed #reprompt data, Error:%{public, location:escape_only}@}";
-LABEL_58:
-        v30 = v27;
-        v31 = 28;
-LABEL_59:
-        _os_signpost_emit_with_name_impl(dword_100000000, v30, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v28, v29, buf, v31);
-        goto LABEL_60;
-      }
-
-      v61 = objc_opt_class();
-      v60 = objc_opt_class();
-      v39 = objc_opt_class();
-      v40 = objc_opt_class();
-      v41 = objc_opt_class();
-      v42 = [v38 decodeObjectOfClasses:+[NSSet setWithObjects:](NSSet forKey:{"setWithObjects:", v61, v60, v39, v40, v41, objc_opt_class(), 0), NSKeyedArchiveRootObjectKey}];
-
-      if (!v42)
-      {
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v56 = off_1025D47A8;
-        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
-        {
-          *buf = 0;
-          _os_log_impl(dword_100000000, v56, OS_LOG_TYPE_FAULT, "Could not unarchive checkpointed #reprompt data", buf, 2u);
-        }
-
-        if (sub_10000A100(121, 0))
-        {
-          sub_101933E14();
-        }
-
-        goto LABEL_60;
-      }
-
-      v43 = [v42 objectForKeyedSubscript:@"ClientKey"];
-      v44 = [CLClientKeyPath clientKeyPathWithClientKey:v43];
-      v45 = sub_10004FEC8(a1, v44, &xmmword_101CE6CD8);
-      v46 = v45;
-      if (v45 && ![(CLClientManagerAuthorizationContext *)v45 registrationResult])
-      {
-        if (*(a1 + 280) == 1)
-        {
-          sub_101933CA8();
-        }
-
-        sub_10000EC00(v63, "");
-        sub_10023C2AC(v65, 6, v44, 0, v63);
-        v57 = sub_1007755CC(a1, v44, 0, v65, v42);
-        sub_10023DF30(v65);
-        if (v64 < 0)
-        {
-          operator delete(v63[0]);
-        }
-
-        if (v57)
-        {
-          if (qword_1025D47A0 != -1)
-          {
-            sub_10192D4D0();
-          }
-
-          v58 = off_1025D47A8;
-          if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 68289282;
-            *&buf[8] = 2082;
-            *&buf[10] = "";
-            *&buf[18] = 2114;
-            *&buf[20] = v43;
-            v3 = "{msg%{public}.0s:Creating trial period #reprompt notification, ClientKey:%{public, location:escape_only}@}";
-            v4 = v58;
-            v5 = 28;
-            goto LABEL_6;
-          }
-
-          return;
-        }
-
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v59 = off_1025D47A8;
-        if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-        {
-LABEL_60:
-          [+[NSFileManager defaultManager](NSFileManager removeItemAtPath:"removeItemAtPath:error:" error:v24, 0];
-          return;
-        }
-
-        *buf = 68289282;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 2114;
-        *&buf[20] = v43;
-        v49 = "{msg%{public}.0s:#Warning Could not post #reprompt, ClientKey:%{public, location:escape_only}@}";
-        v50 = v59;
-        v51 = 28;
-      }
-
-      else
-      {
-        if (qword_1025D47A0 != -1)
-        {
-          sub_10192D4D0();
-        }
-
-        v47 = off_1025D47A8;
-        if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_60;
-        }
-
-        v48 = [(CLClientManagerAuthorizationContext *)v46 transientAwareRegistrationResult];
-        *buf = 68289538;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 2114;
-        *&buf[20] = v43;
-        v71 = 1026;
-        LODWORD(v72) = v48;
-        v49 = "{msg%{public}.0s:Dropping checkpointed #reprompt data because target is no longer Always authorized, ClientKey:%{public, location:escape_only}@, RegistrationResult:%{public}d}";
-        v50 = v47;
-        v51 = 34;
-      }
-    }
-
-    _os_log_impl(dword_100000000, v50, OS_LOG_TYPE_DEFAULT, v49, buf, v51);
-    goto LABEL_60;
   }
 
-  v14 = *(a1 + 264);
-  if (!v14)
+  v15 = off_1025D47A8;
+  if (os_signpost_enabled(off_1025D47A8))
   {
-    sub_10193406C();
+    v16 = sub_100008880(a2);
+    *buf = 68289538;
+    *&buf[4] = 0;
+    v20 = 2082;
+    v21 = "";
+    v22 = 2114;
+    v23 = v16;
+    v24 = 2050;
+    v25 = a2;
+    _os_signpost_emit_with_name_impl(dword_100000000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "destroying #dic", "{msg%{public}.0s:destroying #dic, ClientKeyPath:%{public, location:escape_only}@, this:%{public}p}", buf, 0x26u);
   }
 
-  if (*(v14 + 23) < 0)
-  {
-    v14 = *v14;
-  }
-
-  v15 = [CLClientKeyPath clientKeyPathWithClientKey:[NSString stringWithUTF8String:v14]];
-  v16 = sub_10004FEC8(a1, v15, &xmmword_101CE6CD8);
-  v17 = v16;
-  if (v16 && [(CLClientManagerAuthorizationContext *)v16 registrationResult]== 8)
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v18 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 68289282;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 2114;
-      *&buf[20] = v15;
-      _os_log_impl(dword_100000000, v18, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Creating #provisional authorization upgrade notification, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
-    }
-
-    if (*(a1 + 272))
-    {
-      sub_101933F00();
-    }
-
-    sub_10000EC00(__p, "");
-    sub_10023C2AC(v69, 8, v15, 0, __p);
-    sub_1007755CC(a1, v15, 0, v69, 0);
-    sub_10023DF30(v69);
-    if (v68 < 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  else
-  {
-    if (qword_1025D47A0 != -1)
-    {
-      sub_10028840C();
-    }
-
-    v32 = off_1025D47A8;
-    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 68289538;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 2114;
-      *&buf[20] = v15;
-      v71 = 1026;
-      LODWORD(v72) = [(CLClientManagerAuthorizationContext *)v17 registrationResult];
-      v3 = "{msg%{public}.0s:Dropping #provisional authorization upgrade because target is no longer Provisionally Always authorized, Client:%{public, location:escape_only}@, RegistrationResult:%{public}d}";
-      v4 = v32;
-      v5 = 34;
-      goto LABEL_6;
-    }
-  }
-}
-
-void sub_10079FFF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, uint64_t a47, uint64_t a48, int a49, __int16 a50, char a51, char a52)
-{
-  sub_10023DF30(&a32);
-  if (a31 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1007A0088(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4)
-{
-  CLProfilingIdentify();
-  [objc_msgSend(*(a4 + 32) "silo")];
-  if (qword_1025D47F0 != -1)
-  {
-    sub_101933650();
-  }
-
-  if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
-  {
-    v11 = 1;
-    v8 = _os_activity_create(dword_100000000, "CL: CLClientManager::onDataProtectionManagerNotification", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v8, &state);
-
-    if (qword_1025D47F0 != -1)
-    {
-      sub_101933664();
-    }
-
-    v9 = qword_1025D47F8;
-    if (os_log_type_enabled(qword_1025D47F8, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 68289538;
-      v13 = 0;
-      v14 = 2082;
-      v15 = "";
-      v16 = 2082;
-      v17 = "activity";
-      v18 = 2050;
-      v19 = a4;
-      _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:CLClientManager::onDataProtectionManagerNotification, event:%{public, location:escape_only}s, this:%{public}p}", buf, 0x26u);
-    }
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  sub_100789448(a4, v7, a2, a3);
-  if (v11 == 1)
-  {
-    os_activity_scope_leave(&state);
-  }
-}
-
-uint64_t *sub_1007A025C(uint64_t *a1, uint64_t a2)
-{
-  std::istream::sentry::sentry();
-  if (v20 != 1)
-  {
-    return a1;
-  }
-
-  if (*(a2 + 23) < 0)
-  {
-    **a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  else
-  {
-    *a2 = 0;
-    *(a2 + 23) = 0;
-  }
-
-  v4 = (a1 + *(*a1 - 24));
-  width = v4->__width_;
-  if (width >= 0x7FFFFFFFFFFFFFF7)
-  {
-    v6 = 0x7FFFFFFFFFFFFFF7;
-  }
-
-  else
-  {
-    v6 = v4->__width_;
-  }
-
-  if (width >= 1)
-  {
-    v7 = v6;
-  }
-
-  else
-  {
-    v7 = 0x7FFFFFFFFFFFFFF7;
-  }
-
-  std::ios_base::getloc(v4);
-  v8 = std::locale::use_facet(&v19, &std::ctype<char>::id);
-  std::locale::~locale(&v19);
-  if (!v7)
-  {
-    v17 = *a1;
-    *(a1 + *(*a1 - 24) + 24) = 0;
-    v16 = 4;
-    goto LABEL_28;
-  }
-
-  v9 = 0;
-  v10 = a1 + 5;
-  while (1)
-  {
-    v11 = *(v10 + *(*a1 - 24));
-    v12 = v11[3];
-    if (v12 == v11[4])
-    {
-      break;
-    }
-
-    LOBYTE(v13) = *v12;
-LABEL_16:
-    if ((v13 & 0x80) == 0 && (*(&v8[1].~facet + (v13 & 0x7F)) & 0x4000) != 0)
-    {
-      v16 = 0;
-      goto LABEL_26;
-    }
-
-    std::string::push_back(a2, v13);
-    v14 = *(v10 + *(*a1 - 24));
-    v15 = v14[3];
-    if (v15 == v14[4])
-    {
-      (*(*v14 + 80))(v14);
-    }
-
-    else
-    {
-      v14[3] = v15 + 1;
-    }
-
-    if (v7 == ++v9)
-    {
-      v16 = 0;
-      v9 = 1;
-      goto LABEL_26;
-    }
-  }
-
-  v13 = (*(*v11 + 72))(v11);
-  if (v13 != -1)
-  {
-    goto LABEL_16;
-  }
-
-  v16 = 2;
-LABEL_26:
-  v17 = *a1;
-  *(a1 + *(*a1 - 24) + 24) = 0;
-  if (!v9)
-  {
-    v16 |= 4u;
-  }
-
-LABEL_28:
-  std::ios_base::clear((a1 + *(v17 - 24)), *(a1 + *(v17 - 24) + 32) | v16);
-  return a1;
-}
-
-void sub_1007A04A0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::locale a9)
-{
-  std::locale::~locale(&a9);
-  __cxa_begin_catch(a1);
-  v11 = *v9;
-  *(v9 + *(*v9 - 24) + 32) |= 1u;
-  if ((*(v9 + *(v11 - 24) + 36) & 1) == 0)
-  {
-    __cxa_end_catch();
-    JUMPOUT(0x1007A0460);
-  }
-
-  __cxa_rethrow();
-}
-
-void sub_1007A0550(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10028840C();
-  }
-
-  v2 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(v1 + 264);
-    if (v3)
-    {
-      if (v3[23] < 0)
-      {
-        v3 = *v3;
-      }
-    }
-
-    else
-    {
-      v3 = "nobody";
-    }
-
-    v5[0] = 68289282;
-    v5[1] = 0;
-    v6 = 2082;
-    v7 = "";
-    v8 = 2082;
-    v9 = v3;
-    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Ending #provisional intermediation reign guarantee due to staleness, king:%{public, location:escape_only}s}", v5, 0x1Cu);
-  }
-
-  v4 = *(v1 + 288);
-  if (v4)
-  {
-    (*(v4 + 16))(v4, 0);
-
-    *(v1 + 288) = 0;
-  }
-}
-
-void sub_1007A0668(uint64_t a1)
-{
-  if (*(a1 + 336))
-  {
-    sub_1019341D8();
-  }
-
-  v2 = *(a1 + 136);
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_1007A19E8;
-  v14[3] = &unk_10246FC30;
-  v14[4] = a1;
-  [v2 iterateAllAnchorKeyPathsWithBlock:v14];
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x4812000000;
-  v10 = sub_1007A1A04;
-  v11 = sub_1007A1A28;
-  v12 = &unk_10238AE8B;
-  memset(v13, 0, sizeof(v13));
-  v3 = *(a1 + 136);
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_1007A1A54;
-  v6[3] = &unk_10246FD90;
-  v6[4] = &v7;
-  v6[5] = a1;
-  [v3 iterateAllAnchorKeyPathsWithBlock:v6];
-  if (v8[6] != v8[7])
-  {
-    v4 = [*(a1 + 40) newTimer];
-    *(a1 + 336) = v4;
-    v5[0] = _NSConcreteStackBlock;
-    v5[1] = 3221225472;
-    v5[2] = sub_1007A1D0C;
-    v5[3] = &unk_10245D2D0;
-    v5[4] = &v7;
-    v5[5] = a1;
-    [v4 setHandler:v5];
-    [*(a1 + 336) setNextFireDelay:10.0];
-  }
-
-  _Block_object_dispose(&v7, 8);
-  v15 = v13;
-  sub_1007AB6A0(&v15);
-}
-
-void sub_1007A0828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
-{
-  va_start(va, a14);
-  _Block_object_dispose(va, 8);
-  *(v15 - 56) = v14;
-  sub_1007AB6A0((v15 - 56));
-  _Unwind_Resume(a1);
-}
-
-id sub_1007A084C(id *a1)
-{
-  if (qword_1025D47A0 != -1)
-  {
-    sub_10028840C();
-  }
-
-  v2 = off_1025D47A8;
-  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
-  {
-    *buf = 0;
-    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_INFO, "Resetting LocationConsumptionScoreInfoArchive", buf, 2u);
-  }
-
-  if (sub_10000A100(121, 2))
-  {
-    sub_101934344();
-  }
-
-  v3 = [CLHRequestArchive alloc];
-  sub_100565518(0, &v10);
-  v4 = std::string::append(&v10, "locScoreInfo/", 0xDuLL);
-  v5 = *&v4->__r_.__value_.__l.__data_;
-  v12 = v4->__r_.__value_.__r.__words[2];
-  *buf = v5;
-  v4->__r_.__value_.__l.__size_ = 0;
-  v4->__r_.__value_.__r.__words[2] = 0;
-  v4->__r_.__value_.__r.__words[0] = 0;
-  if (v12 >= 0)
-  {
-    v6 = buf;
-  }
-
-  else
-  {
-    v6 = *buf;
-  }
-
-  a1[63] = [(CLHRequestArchive *)v3 initWithDirectory:[NSString itemCountThresholdForAutoCleanUp:"stringWithUTF8String:" stringWithUTF8String:v6], 150];
-  if (SHIBYTE(v12) < 0)
+  sub_10000EC00(buf, [[NSString stringWithFormat:?];
+  v17 = sub_100008880(a2);
+  v18 = (*(*a2 + 24))(a2);
+  sub_1007733A4(v4, v17, buf, v18, 0, 0);
+  sub_10045E8A0(v4 + 117, p_info);
+  operator delete(p_info);
+  (*(*a2 + 8))(a2);
+  if (SBYTE3(v23) < 0)
   {
     operator delete(*buf);
   }
-
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v10.__r_.__value_.__l.__data_);
-  }
-
-  [a1[63] setRotationInterval:-1.0];
-  sub_100787F74(a1, a1[63], (a1 + 58));
-  a1[65] = [objc_msgSend(a1[4] "vendor")];
-  Current = CFAbsoluteTimeGetCurrent();
-  v8 = objc_alloc_init(CLPLocationConsumptionScoreInfo);
-  [v8 setClientKey:@"com.apple.locationd.all-location-clients-stop"];
-  [v8 setStopTime:Current];
-  [v8 setScore:0];
-  return [a1[63] writeSecondaryObject:v8 toField:1];
 }
 
-void sub_1007A0A34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_10077FD2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
-  if (a15 < 0)
+  if (a18 < 0)
   {
     operator delete(__p);
   }
@@ -9800,30 +7576,2316 @@ void sub_1007A0A34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1007A0A68(uint64_t a1)
+id sub_10077FD50(uint64_t a1)
 {
+  v2 = [*(a1 + 40) newTimer];
+  *(a1 + 144) = v2;
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 3221225472;
+  v4[2] = sub_10077FDE8;
+  v4[3] = &unk_102449A78;
+  v4[4] = a1;
+  [v2 setHandler:v4];
+  return [*(a1 + 144) setNextFireDelay:600.0];
+}
+
+id sub_10077FDE8(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  [*(v1 + 136) persist];
+  v2 = *(v1 + 144);
+
+  return [v2 setNextFireDelay:600.0];
+}
+
+id sub_10077FEB8(uint64_t a1, uint64_t a2)
+{
+  v4 = objc_opt_class();
+  v5 = objc_opt_class();
+  v6 = objc_opt_class();
+  v7 = [NSSet setWithObjects:v4, v5, v6, objc_opt_class(), 0];
+
+  return [NSKeyedUnarchiver unarchivedObjectOfClasses:v7 fromData:a1 error:a2];
+}
+
+NSData *sub_10077FF70(uint64_t a1)
+{
+  v2 = +[NSMutableDictionary dictionary];
+  [v2 setObject:&off_10254EF18 forKeyedSubscript:@"version"];
+  v3 = +[NSMutableDictionary dictionary];
+  v4 = *(a1 + 136);
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_1007801CC;
+  v9[3] = &unk_10246FD68;
+  v9[4] = v3;
+  v9[5] = a1;
+  [v4 iterateAllAnchorKeyPathsWithBlock:v9];
+  [v2 setObject:v3 forKeyedSubscript:@"clients"];
+  [v2 setObject:+[NSNumber numberWithBool:](NSNumber forKeyedSubscript:{"numberWithBool:", sub_1000193E0() == 1), @"global"}];
+  v8 = 0;
+  result = [NSKeyedArchiver archivedDataWithRootObject:v2 requiringSecureCoding:1 error:&v8];
+  if (v8)
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v6 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 68289282;
+      v11 = 0;
+      v12 = 2082;
+      v13 = "";
+      v14 = 2114;
+      v15 = v8;
+      _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:failed to archive authorization decisions, error:%{public, location:escape_only}@}", buf, 0x1Cu);
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+    }
+
+    v7 = off_1025D47A8;
+    if (os_signpost_enabled(off_1025D47A8))
+    {
+      *buf = 68289282;
+      v11 = 0;
+      v12 = 2082;
+      v13 = "";
+      v14 = 2114;
+      v15 = v8;
+      _os_signpost_emit_with_name_impl(dword_100000000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "failed to archive authorization decisions", "{msg%{public}.0s:failed to archive authorization decisions, error:%{public, location:escape_only}@}", buf, 0x1Cu);
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+void sub_1007801CC(uint64_t a1, void *a2)
+{
+  v4 = *(a1 + 40);
+  if (a2)
+  {
+    objc_msgSend_clientName(a2);
+  }
+
+  else
+  {
+    v19 = 0;
+    *__p = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    *v16 = 0u;
+    v13 = 0u;
+    *v14 = 0u;
+    *v11 = 0u;
+    *v12 = 0u;
+    *v9 = 0u;
+    v10 = 0u;
+    *v8 = 0u;
+  }
+
+  v5 = [a2 legacyClientKey];
+  sub_10003B25C(v8);
+  if (v15 >= 0)
+  {
+    v6 = &v14[1];
+  }
+
+  else
+  {
+    v6 = v14[1];
+  }
+
+  if ([[NSString stringWithUTF8String:?], "hasPrefix:", @"com.apple."])
+  {
+    goto LABEL_11;
+  }
+
+  v7 = HIBYTE(v12[0]);
+  if (SHIBYTE(v12[0]) < 0)
+  {
+    v7 = v11[1];
+  }
+
+  if (v7)
+  {
+LABEL_11:
+    [*(a1 + 32) setObject:objc_msgSend(objc_msgSend(*(v4 + 136) forKeyedSubscript:{"readonlyStoreAtKeyPath:", a2), "dictionary"), v5}];
+  }
+
+  if (SHIBYTE(v18) < 0)
+  {
+    operator delete(__p[1]);
+  }
+
+  if (SHIBYTE(__p[0]) < 0)
+  {
+    operator delete(v16[0]);
+  }
+
+  if (SHIBYTE(v15) < 0)
+  {
+    operator delete(v14[1]);
+  }
+
+  if (SHIBYTE(v13) < 0)
+  {
+    operator delete(v12[1]);
+  }
+
+  if (SHIBYTE(v12[0]) < 0)
+  {
+    operator delete(v11[0]);
+  }
+
+  if (SHIBYTE(v10) < 0)
+  {
+    operator delete(v9[1]);
+  }
+
+  if (SHIBYTE(v9[0]) < 0)
+  {
+    operator delete(v8[0]);
+  }
+}
+
+NSError *sub_100780350(uint64_t a1, uint64_t a2, void *a3)
+{
+  memset(&__s1, 0, sizeof(__s1));
+  v5 = sub_1000206B4(a1, a2);
+  if (sub_100005050(v5, @"kAuthorizationDecisionsConfirmationToken", &__s1))
+  {
+    v6 = [objc_msgSend(a3 "UUIDString")];
+    v7 = strlen(v6);
+    v8 = v7;
+    v9 = HIBYTE(__s1.__r_.__value_.__r.__words[2]);
+    if ((SHIBYTE(__s1.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+    {
+      if (v7 != __s1.__r_.__value_.__l.__size_)
+      {
+        goto LABEL_9;
+      }
+
+      if (v7 == -1)
+      {
+        sub_1003CC9DC();
+      }
+
+      p_s1 = __s1.__r_.__value_.__r.__words[0];
+    }
+
+    else
+    {
+      if (v7 != SHIBYTE(__s1.__r_.__value_.__r.__words[2]))
+      {
+        goto LABEL_9;
+      }
+
+      p_s1 = &__s1;
+    }
+
+    if (!memcmp(p_s1, v6, v8))
+    {
+      v13 = 0;
+      if ((v9 & 0x80) == 0)
+      {
+        return v13;
+      }
+
+      goto LABEL_21;
+    }
+  }
+
+LABEL_9:
+  v16 = 0;
+  sub_10077FEB8(a2, &v16);
+  if (v16)
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v11 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = [-[NSError description](v16 "description")];
+      *buf = 68289282;
+      v19 = 0;
+      v20 = 2082;
+      v21 = "";
+      v22 = 2082;
+      v23 = v12;
+      _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Attempting to apply archived auth decisions; early return due to failure to unarchive authorization decisions, errorDesc:%{public, location:escape_only}s}", buf, 0x1Cu);
+    }
+
+    v13 = v16;
+  }
+
+  else
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v14 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289026;
+      v19 = 0;
+      v20 = 2082;
+      v21 = "";
+      _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Warning Did not fail to unarchive authorization decisions! This is unexpected unless the archive came from a Sydro or earlier device. Early returning because this function must no-op.}", buf, 0x12u);
+    }
+
+    v13 = [NSError errorWithDomain:kCLErrorDomainPrivate code:5 userInfo:0];
+  }
+
+  if ((*(&__s1.__r_.__value_.__s + 23) & 0x80) != 0)
+  {
+LABEL_21:
+    operator delete(__s1.__r_.__value_.__l.__data_);
+  }
+
+  return v13;
+}
+
+id sub_1007805C8(uint64_t a1, uint64_t a2)
+{
+  v4 = [*(a1 + 136) registeredKeyPathForClientIdentifier:a2];
+  if ([v4 isValidCKP])
+  {
+    v5 = *(a1 + 136);
+
+    return [v5 intForKey:@"CorrectiveCompensationEnabled" atKeyPath:v4 defaultValue:0];
+  }
+
+  else
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v7 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_ERROR))
+    {
+      v9 = 68289282;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2114;
+      v14 = a2;
+      _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#compensation failed to load persistent store for client, Client:%{public, location:escape_only}@}", &v9, 0x1Cu);
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+    }
+
+    v8 = off_1025D47A8;
+    if (os_signpost_enabled(off_1025D47A8))
+    {
+      v9 = 68289282;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2114;
+      v14 = a2;
+      _os_signpost_emit_with_name_impl(dword_100000000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#compensation failed to load persistent store for client", "{msg%{public}.0s:#compensation failed to load persistent store for client, Client:%{public, location:escape_only}@}", &v9, 0x1Cu);
+    }
+
+    return 0;
+  }
+}
+
+void sub_1007807A8(uint64_t a1, uint64_t a2)
+{
+  v2 = a2;
+  v4 = sub_10001CF3C();
+  v5 = *(a1 + 272);
+  if (!v4)
+  {
+    if (v5)
+    {
+      v6 = *v5;
+      goto LABEL_9;
+    }
+
+LABEL_15:
+
+    sub_1007815E8(a1, v2);
+    return;
+  }
+
+  if (!v5)
+  {
+    goto LABEL_15;
+  }
+
+  v6 = *v5;
+  if (v6 == 17)
+  {
+
+    sub_1007808B0(a1, v2);
+    return;
+  }
+
+LABEL_9:
+  switch(v6)
+  {
+    case 15:
+
+      sub_100781234(a1, v2);
+      break;
+    case 10:
+
+      sub_10078104C(a1, v2);
+      break;
+    case 6:
+
+      sub_1007809DC(a1, v2);
+      return;
+    default:
+      goto LABEL_15;
+  }
+}
+
+uint64_t sub_1007808B0(uint64_t a1, char a2)
+{
+  if ((a2 & 3) - 1 >= 2)
+  {
+    if ((a2 & 3) != 0)
+    {
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10028840C();
+      }
+
+      v4 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      {
+        v6 = 134349056;
+        v7 = 3;
+        _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "#Pinning no user response to pinned location authorization (flags 0x%{public}lx)", &v6, 0xCu);
+      }
+
+      if (sub_10000A100(121, 2))
+      {
+        sub_10192FA20();
+      }
+    }
+
+    v3 = 0;
+  }
+
+  else
+  {
+    v3 = 1;
+  }
+
+  [objc_msgSend(objc_msgSend(*(a1 + 32) "vendor")];
+  sub_10023DC84(*(a1 + 272));
+  return sub_1007A3EE0((a1 + 272), 0);
+}
+
+uint64_t sub_1007809DC(uint64_t a1, char a2)
+{
+  v4 = sub_1000184F4(a1, *(*(a1 + 272) + 8));
+  if ((a2 & 3u) > 1uLL)
+  {
+    if ((a2 & 3) == 3)
+    {
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10028840C();
+      }
+
+      v7 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543618;
+        *&buf[4] = v4;
+        *&buf[12] = 2050;
+        *&buf[14] = 3;
+        _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, "#warning No user response to #reprompt for client %{public}@ (flags 0x%{public}lx)", buf, 0x16u);
+      }
+
+      if (sub_10000A100(121, 2))
+      {
+        sub_10192FB14();
+      }
+
+      goto LABEL_17;
+    }
+  }
+
+  else if ((a2 & 3) != 0)
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v5 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      *&buf[4] = v4;
+      _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "User has selected 'WIU' on #reprompt for %{public}@, changing authorization.", buf, 0xCu);
+    }
+
+    if (sub_10000A100(121, 2))
+    {
+      sub_10192FC1C();
+    }
+
+    sub_100791600(a1, v4, 4, 0, v6, 1, 1);
+LABEL_17:
+    v24 = 0;
+    goto LABEL_25;
+  }
+
   if (qword_1025D47A0 != -1)
   {
     sub_10028840C();
   }
 
-  v2 = off_1025D47A8;
+  v8 = off_1025D47A8;
   if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 0;
-    _os_log_impl(dword_100000000, v2, OS_LOG_TYPE_DEFAULT, "Registering coreanalytics activity", buf, 2u);
+    *buf = 138412290;
+    *&buf[4] = v4;
+    _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_DEFAULT, "User has authorized continued access for %@ at #reprompt", buf, 0xCu);
   }
 
   if (sub_10000A100(121, 2))
   {
-    sub_101934428();
+    sub_10192FD0C();
   }
 
-  v3 = [objc_msgSend(*(a1 + 32) "vendor")];
-  handler[0] = _NSConcreteStackBlock;
-  handler[1] = 3221225472;
-  handler[2] = sub_1007A6FA0;
-  handler[3] = &unk_10245EAB8;
-  handler[4] = v3;
-  xpc_activity_register("com.apple.locationd.CLClientManager.coreanalytics", XPC_ACTIVITY_CHECK_IN, handler);
+  v24 = 1;
+LABEL_25:
+  [*(a1 + 136) setDouble:@"ConsumptionPeriodBegin" forKey:v4 atKeyPath:CFAbsoluteTimeGetCurrent()];
+  sub_100565518(0, &v25, v9);
+  v10 = std::string::append(&v25, "locScoreInfoReport", 0x12uLL);
+  v11 = *&v10->__r_.__value_.__l.__data_;
+  *&buf[16] = *(&v10->__r_.__value_.__l + 2);
+  *buf = v11;
+  v10->__r_.__value_.__l.__size_ = 0;
+  v10->__r_.__value_.__r.__words[2] = 0;
+  v10->__r_.__value_.__r.__words[0] = 0;
+  if (buf[23] >= 0)
+  {
+    v12 = buf;
+  }
+
+  else
+  {
+    v12 = *buf;
+  }
+
+  v22 = [NSString stringWithUTF8String:v12];
+  if ((buf[23] & 0x80000000) != 0)
+  {
+    operator delete(*buf);
+  }
+
+  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v25.__r_.__value_.__l.__data_);
+  }
+
+  v13 = [*(a1 + 136) intForKey:@"ConsumptionCoolingRate" atKeyPath:v4 defaultValue:{0, v22}];
+  v14 = [*(a1 + 136) intForKey:@"NextConsumptionThresholdScore" atKeyPath:v4 defaultValue:0];
+  v15 = [*(a1 + 136) intForKey:@"NextNextConsumptionThresholdScore" atKeyPath:v4 defaultValue:0];
+  if (v24)
+  {
+    if (v4)
+    {
+      objc_msgSend_cppClientKey(v4);
+    }
+
+    else
+    {
+      memset(buf, 0, 24);
+    }
+
+    v25.__r_.__value_.__r.__words[0] = buf;
+    v16 = *(sub_100046778((a1 + 464), buf, &unk_101C66300, &v25) + 12);
+    if ((buf[23] & 0x80000000) != 0)
+    {
+      operator delete(*buf);
+    }
+
+    [*(a1 + 136) setInt:v15 forKey:@"NextConsumptionThresholdScore" atKeyPath:v4];
+    [*(a1 + 136) removeValueForKey:@"NextNextConsumptionThresholdScore" atKeyPath:v4];
+    if (v13 + 1 < 2)
+    {
+      v17 = v13 + 1;
+    }
+
+    else
+    {
+      v17 = 2;
+    }
+
+    if ((v14 + v14) < v15)
+    {
+      v18 = 1;
+    }
+
+    else
+    {
+      v18 = v17;
+    }
+
+    [*(a1 + 136) setInt:v18 forKey:@"ConsumptionCoolingRate" atKeyPath:v4];
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v19 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68290562;
+      *&buf[4] = 0;
+      *&buf[8] = 2082;
+      *&buf[10] = "";
+      *&buf[18] = 2114;
+      *&buf[20] = v4;
+      v27 = 1026;
+      v28 = v14;
+      v29 = 1026;
+      v30 = v15;
+      v31 = 1026;
+      v32 = v16;
+      v33 = 1026;
+      v34 = v13;
+      v35 = 1026;
+      v36 = v18;
+      _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Setting #reprompt thresholds, Client:%{public, location:escape_only}@, priorThreshold:%{public}d, newThreshold:%{public}d, currentUsage:%{public}d, priorCooling:%{public}d, newCooling:%{public}d}", buf, 0x3Au);
+    }
+  }
+
+  [*(a1 + 136) persist];
+  AnalyticsSendEventLazy();
+  v25.__r_.__value_.__r.__words[0] = 0;
+  if (![+[NSFileManager removeItemAtPath:"removeItemAtPath:error:"]
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v20 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289282;
+      *&buf[4] = 0;
+      *&buf[8] = 2082;
+      *&buf[10] = "";
+      *&buf[18] = 2114;
+      *&buf[20] = v25.__r_.__value_.__r.__words[0];
+      _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#warning Got error removing #reprompt checkpoint file, Error:%{public, location:escape_only}@}", buf, 0x1Cu);
+    }
+  }
+
+  return sub_1007A3EE0((a1 + 272), 0);
+}
+
+void sub_100780FFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33)
+{
+  if (a33 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_10078104C(uint64_t a1, char a2)
+{
+  v4 = sub_1000184F4(a1, *(*(a1 + 272) + 8));
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10028840C();
+  }
+
+  v5 = off_1025D47A8;
+  v6 = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT);
+  if (v6)
+  {
+    v9 = 68289538;
+    *v10 = 0;
+    *&v10[4] = 2082;
+    *&v10[6] = "";
+    *&v10[14] = 2114;
+    *&v10[16] = v4;
+    v11 = 1026;
+    v12 = a2 & 3;
+    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#AuthPrompt User responded on BigSwitch prompt, Client:%{public, location:escape_only}@, response:%{public}d}", &v9, 0x22u);
+  }
+
+  if ((a2 & 3u) <= 1uLL)
+  {
+    if ((a2 & 3) != 0)
+    {
+      sub_1007A5DBC(v6, "prefs:root=Privacy&path=LOCATION");
+    }
+
+    goto LABEL_9;
+  }
+
+  if ((a2 & 3) == 2)
+  {
+LABEL_9:
+    sub_1007779F4(a1, v4);
+    goto LABEL_16;
+  }
+
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10192D4D0();
+  }
+
+  v7 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = 138543618;
+    *v10 = v4;
+    *&v10[8] = 2050;
+    *&v10[10] = 3;
+    _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_DEFAULT, "#warning no user response to client %{public}@ (flags 0x%{public}lx)", &v9, 0x16u);
+  }
+
+  if (sub_10000A100(121, 2))
+  {
+    sub_10192FDFC();
+  }
+
+LABEL_16:
+  sub_10023DC84(*(a1 + 272));
+  return sub_1007A3EE0((a1 + 272), 0);
+}
+
+void sub_100781234(uint64_t a1, char a2)
+{
+  v4 = sub_1000184F4(a1, *(*(a1 + 272) + 8));
+  v5 = *(*(a1 + 272) + 48);
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10028840C();
+  }
+
+  v6 = off_1025D47A8;
+  v7 = os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT);
+  if (v7)
+  {
+    *buf = 68289538;
+    *&buf[4] = 0;
+    v24 = 2082;
+    v25 = "";
+    v26 = 2114;
+    v27 = v4;
+    v28 = 1026;
+    v29 = a2 & 3;
+    _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#AuthPrompt User responded on ImproveAccuracyPrefs prompt, Client:%{public, location:escape_only}@, response:%{public}d}", buf, 0x22u);
+  }
+
+  v8 = *(a1 + 1056);
+  v9 = *(a1 + 1064);
+  while (v8 != v9)
+  {
+    v7 = v8[3];
+    if (v7)
+    {
+      v7 = CFEqual(v7, v5);
+      v9 = *(a1 + 1064);
+      if (v7)
+      {
+        break;
+      }
+    }
+
+    v8 += 4;
+  }
+
+  if (v8 != v9)
+  {
+    if ((a2 & 3u) > 1uLL)
+    {
+      if ((a2 & 3) != 2)
+      {
+        if (qword_1025D47A0 != -1)
+        {
+          sub_10192D4D0();
+        }
+
+        v13 = off_1025D47A8;
+        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+        {
+          v14 = "Unknown";
+          if (*v8 == 1)
+          {
+            v14 = "Bluetooth";
+          }
+
+          if (*v8)
+          {
+            v15 = v14;
+          }
+
+          else
+          {
+            v15 = "Wifi";
+          }
+
+          sub_10000EC00(buf, v15);
+          if (SBYTE3(v27) >= 0)
+          {
+            v16 = buf;
+          }
+
+          else
+          {
+            v16 = *buf;
+          }
+
+          v19 = 136446466;
+          v20 = v16;
+          v21 = 2050;
+          v22 = 3;
+          _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEFAULT, "#warning no user response for improve accuracy prefs notification %{public}s (flags 0x%{public}lx)", &v19, 0x16u);
+          if (SBYTE3(v27) < 0)
+          {
+            operator delete(*buf);
+          }
+        }
+
+        if (sub_10000A100(121, 2))
+        {
+          sub_10192FEFC(v8);
+        }
+
+        goto LABEL_42;
+      }
+    }
+
+    else if ((a2 & 3) != 0)
+    {
+      if (!*v8)
+      {
+        v10 = "prefs:root=WIFI";
+        goto LABEL_40;
+      }
+
+      if (*v8 == 1)
+      {
+        v10 = "prefs:root=Bluetooth";
+LABEL_40:
+        sub_1007A5DBC(v7, v10);
+      }
+    }
+
+    Current = CFAbsoluteTimeGetCurrent();
+    sub_10079B3EC(v8, v18, Current);
+LABEL_42:
+    sub_10079B350(v8);
+    sub_10023DC84(*(a1 + 272));
+    sub_1007A3EE0((a1 + 272), 0);
+    return;
+  }
+
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10192D4D0();
+  }
+
+  v11 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+  {
+    *buf = 68289282;
+    *&buf[4] = 0;
+    v24 = 2082;
+    v25 = "";
+    v26 = 2050;
+    v27 = v5;
+    _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:ImproveAccuracyNotification object not created for notification, notification:%{public}p}", buf, 0x1Cu);
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+  }
+
+  v12 = off_1025D47A8;
+  if (os_signpost_enabled(off_1025D47A8))
+  {
+    *buf = 68289282;
+    *&buf[4] = 0;
+    v24 = 2082;
+    v25 = "";
+    v26 = 2050;
+    v27 = v5;
+    _os_signpost_emit_with_name_impl(dword_100000000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ImproveAccuracyNotification object not created for notification", "{msg%{public}.0s:ImproveAccuracyNotification object not created for notification, notification:%{public}p}", buf, 0x1Cu);
+  }
+}
+
+void sub_1007815E8(uint64_t a1, char a2)
+{
+  v4 = sub_1000184F4(a1, *(*(a1 + 272) + 8));
+  if (([v4 isValidCKP] & 1) == 0)
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v5 = off_1025D47A8;
+    if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = **(a1 + 272);
+      goto LABEL_9;
+    }
+
+    v6 = *(*(a1 + 272) + 8);
+    *buf = 68289282;
+    *&buf[4] = 0;
+    *v95 = 2082;
+    *&v95[2] = "";
+    *&v95[10] = 2114;
+    *&v95[12] = v6;
+    _os_log_impl(dword_100000000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Warning onClientUserNotification fInflightPromptAuthorizationRequest failed to evaluate to a real, registered client, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+  }
+
+  v7 = **(a1 + 272);
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10192D4D0();
+  }
+
+LABEL_9:
+  v8 = off_1025D47A8;
+  v9 = a2 & 3;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 68289794;
+    *&buf[4] = 0;
+    *v95 = 2082;
+    *&v95[2] = "";
+    *&v95[10] = 2114;
+    *&v95[12] = v4;
+    *&v95[20] = 1026;
+    *&v95[22] = v7;
+    *&v95[26] = 1026;
+    *&v95[28] = a2 & 3;
+    _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#AuthPrompt User responded to prompt for client, client:%{public, location:escape_only}@, requestType:%{public}d, response:%{public}d}", buf, 0x28u);
+  }
+
+  if (v9 == 3)
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v10 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289282;
+      *&buf[4] = 0;
+      *v95 = 2082;
+      *&v95[2] = "";
+      *&v95[10] = 2114;
+      *&v95[12] = v4;
+      _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#AuthPrompt User dismissed prompt for client, client:%{public, location:escape_only}@}", buf, 0x1Cu);
+    }
+
+    v98[0] = @"ClientKey";
+    v99[0] = [v4 userlessClientKeyPath];
+    v98[1] = @"RequestType";
+    v99[1] = [NSNumber numberWithUnsignedInt:v7];
+    v98[2] = @"Dismissed";
+    v99[2] = &__kCFBooleanTrue;
+    [NSDictionary dictionaryWithObjects:v99 forKeys:v98 count:3];
+    AnalyticsSendEvent();
+    sub_10023D820(*(a1 + 272), @"The user dismissed the prompt");
+    sub_1007A3EE0((a1 + 272), 0);
+    return;
+  }
+
+  v11 = *(*(a1 + 272) + 4);
+  v12 = _os_feature_enabled_impl();
+  v13 = *(a1 + 272);
+  if (*(v13 + 39) < 0)
+  {
+    sub_100007244(__p, *(v13 + 16), *(v13 + 24));
+  }
+
+  else
+  {
+    *__p = *(v13 + 16);
+    v88 = *(v13 + 32);
+  }
+
+  if (v7 <= 8)
+  {
+    if ((v7 - 1) >= 5)
+    {
+      if ((v7 - 7) >= 2)
+      {
+        goto LABEL_71;
+      }
+
+      if (v9 == 1)
+      {
+        v25 = 0;
+        v9 = 4;
+      }
+
+      else
+      {
+        if (v9 != 2)
+        {
+          if (qword_1025D47A0 != -1)
+          {
+            sub_10192D4D0();
+          }
+
+          v83 = off_1025D47A8;
+          if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+          {
+            *buf = 68290051;
+            *&buf[4] = 0;
+            *v95 = 2082;
+            *&v95[2] = "";
+            *&v95[10] = 2114;
+            *&v95[12] = v4;
+            *&v95[20] = 1026;
+            *&v95[22] = a2 & 3;
+            *&v95[26] = 2082;
+            *&v95[28] = "assert";
+            v96 = 2081;
+            v97 = "false";
+            _os_log_impl(dword_100000000, v83, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Impossible response to WhenInUse Upgrade to Always prompt, client:%{public, location:escape_only}@, flags:%{public}d, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x36u);
+            if (qword_1025D47A0 != -1)
+            {
+              sub_10192D4D0();
+            }
+          }
+
+          v84 = off_1025D47A8;
+          if (os_signpost_enabled(off_1025D47A8))
+          {
+            *buf = 68290051;
+            *&buf[4] = 0;
+            *v95 = 2082;
+            *&v95[2] = "";
+            *&v95[10] = 2114;
+            *&v95[12] = v4;
+            *&v95[20] = 1026;
+            *&v95[22] = a2 & 3;
+            *&v95[26] = 2082;
+            *&v95[28] = "assert";
+            v96 = 2081;
+            v97 = "false";
+            _os_signpost_emit_with_name_impl(dword_100000000, v84, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Impossible response to WhenInUse Upgrade to Always prompt", "{msg%{public}.0s:Impossible response to WhenInUse Upgrade to Always prompt, client:%{public, location:escape_only}@, flags:%{public}d, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x36u);
+            if (qword_1025D47A0 != -1)
+            {
+              sub_10192D4D0();
+            }
+          }
+
+          v85 = off_1025D47A8;
+          if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+          {
+            *buf = 68290051;
+            *&buf[4] = 0;
+            *v95 = 2082;
+            *&v95[2] = "";
+            *&v95[10] = 2114;
+            *&v95[12] = v4;
+            *&v95[20] = 1026;
+            *&v95[22] = a2 & 3;
+            *&v95[26] = 2082;
+            *&v95[28] = "assert";
+            v96 = 2081;
+            v97 = "false";
+            _os_log_impl(dword_100000000, v85, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Impossible response to WhenInUse Upgrade to Always prompt, client:%{public, location:escape_only}@, flags:%{public}d, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x36u);
+          }
+
+          v82 = 5416;
+          goto LABEL_246;
+        }
+
+        v9 = 3;
+        v25 = 1;
+      }
+
+      if (*(a1 + 264))
+      {
+        if (qword_1025D47A0 != -1)
+        {
+          sub_10192D4D0();
+        }
+
+        v44 = off_1025D47A8;
+        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+        {
+          v45 = *(a1 + 288) != 0;
+          *buf = 68289794;
+          *&buf[4] = 0;
+          *v95 = 2082;
+          *&v95[2] = "";
+          *&v95[10] = 2114;
+          *&v95[12] = v4;
+          *&v95[20] = 2050;
+          *&v95[22] = v9;
+          *&v95[30] = 1026;
+          *&v95[32] = v45;
+          _os_log_impl(dword_100000000, v44, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#provisional prompt response, Client:%{public, location:escape_only}@, GrantedStatus:%{public, location:CLClientAuthorizationStatus}lld, FollowupPending:%{public}hhd}", buf, 0x2Cu);
+        }
+
+        [*(a1 + 40) currentLatchedAbsoluteTimestamp];
+        v47 = v46;
+        v48 = *(a1 + 304);
+        *(a1 + 304) = 0;
+        v20 = -1.0;
+        [*(a1 + 136) doubleForKey:@"ProvisionalMonitoringBegin" atKeyPath:v4 defaultValue:-1.0];
+        v50 = v49;
+        if (v49 != -1.0)
+        {
+          Current = CFAbsoluteTimeGetCurrent();
+          if (qword_1025D47A0 != -1)
+          {
+            sub_10192D4D0();
+          }
+
+          v20 = Current - v50;
+          v52 = off_1025D47A8;
+          if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 68289538;
+            *&buf[4] = 0;
+            *v95 = 2082;
+            *&v95[2] = "";
+            *&v95[10] = 2114;
+            *&v95[12] = v4;
+            *&v95[20] = 2050;
+            *&v95[22] = v20;
+            _os_log_impl(dword_100000000, v52, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#provisional total duration, ClientKey:%{public, location:escape_only}@, duration:%{public}f}", buf, 0x26u);
+          }
+        }
+
+        v53 = *(a1 + 288);
+        if (v53)
+        {
+          (*(v53 + 16))(v53, v25);
+
+          *(a1 + 288) = 0;
+          v18 = 3;
+        }
+
+        else
+        {
+          v18 = 0;
+        }
+
+        v74 = sub_100033370(a1, v4);
+        sub_100791C88(a1, v74, 1, 0, 1);
+        v22 = 0;
+        v72 = v47 - v48;
+        goto LABEL_197;
+      }
+
+      sub_100791ACC(a1, v4, 0, 1);
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v57 = off_1025D47A8;
+      v20 = -1.0;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      {
+        v58 = *(a1 + 288) != 0;
+        *buf = 68289794;
+        *&buf[4] = 0;
+        *v95 = 2082;
+        *&v95[2] = "";
+        *&v95[10] = 2114;
+        *&v95[12] = v4;
+        *&v95[20] = 2050;
+        *&v95[22] = v9;
+        *&v95[30] = 1026;
+        *&v95[32] = v58;
+        _os_log_impl(dword_100000000, v57, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Non-#provisional WIU to Always #AuthPrompt prompt response, ClientKey:%{public, location:escape_only}@, GrantedStatus:%{public, location:CLClientAuthorizationStatus}lld, BypassingSomeoneElseOnDeck:%{public}hhd}", buf, 0x2Cu);
+      }
+
+      goto LABEL_135;
+    }
+
+LABEL_28:
+    if (v11)
+    {
+      if ((a2 & 3) != 0)
+      {
+        if (v9 != 1)
+        {
+          v15 = 0;
+          v9 = 0;
+LABEL_137:
+          v23 = 1;
+          goto LABEL_138;
+        }
+
+        goto LABEL_63;
+      }
+
+LABEL_64:
+      v23 = 0;
+      v24 = 0;
+      v15 = 0;
+      v9 = 2;
+      goto LABEL_139;
+    }
+
+    if (v12)
+    {
+      if ((a2 & 3) == 0)
+      {
+        v15 = 0;
+        goto LABEL_137;
+      }
+
+      if (v9 != 1)
+      {
+LABEL_63:
+        v23 = 0;
+        v15 = 0;
+        v9 = 0;
+LABEL_138:
+        v24 = 1;
+LABEL_139:
+        if (*(a1 + 312) == 3)
+        {
+          *(a1 + 233) = 1;
+          *buf = 0;
+          *v95 = buf;
+          *&v95[8] = 0x2020000000;
+          *&v95[16] = 0;
+          v59 = *(a1 + 136);
+          v86[0] = _NSConcreteStackBlock;
+          v86[1] = 3221225472;
+          v86[2] = sub_1007A5D78;
+          v86[3] = &unk_102470538;
+          v86[4] = buf;
+          [v59 iterateIdentitiesRelatedToKeyPath:v4 withBlock:v86];
+          v60 = [NSString stringWithFormat:@"%@-%@", @"cl-user-zone", [[NSNumber numberWithUnsignedInteger:?]]];
+          _Block_object_dispose(buf, 8);
+          if (!v24)
+          {
+LABEL_141:
+            if ((v7 - 3) < 0xFFFFFFFE)
+            {
+              v61 = v15;
+            }
+
+            else
+            {
+              v61 = 0;
+            }
+
+            if (v61 == 1)
+            {
+              v62 = sub_100033370(a1, v4);
+              sub_100791C88(a1, v62, 0, 0, 1);
+              v18 = 2;
+            }
+
+            else
+            {
+              v18 = 0;
+            }
+
+            goto LABEL_166;
+          }
+        }
+
+        else
+        {
+          v60 = 0;
+          if (!v24)
+          {
+            goto LABEL_141;
+          }
+        }
+
+        if (v23)
+        {
+          sub_10077B960(*(a1 + 136), v4, 4u, 1);
+          [*(a1 + 136) setBool:1 forKey:@"AuthorizationPromptOptionTypeNegative" atKeyPath:v4];
+          if (v11)
+          {
+            v18 = 14;
+          }
+
+          else
+          {
+            v18 = 13;
+          }
+
+          if (qword_1025D47A0 != -1)
+          {
+            sub_10192D4D0();
+          }
+
+          v63 = off_1025D47A8;
+          if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_166;
+          }
+
+          *buf = 68289282;
+          *&buf[4] = 0;
+          *v95 = 2082;
+          *&v95[2] = "";
+          *&v95[10] = 2114;
+          *&v95[12] = v4;
+          v64 = "{msg%{public}.0s:#TemporaryAuth Client has been granted temporary negative status, Client:%{public, location:escape_only}@}";
+        }
+
+        else
+        {
+          if (v60)
+          {
+            v4 = [v4 clientKeyPathWithReplacementSubIdentityId:v60 subIdentityType:122];
+          }
+
+          sub_10077B960(*(a1 + 136), v4, 1u, 1);
+          [*(a1 + 136) removeValueForKey:@"AuthorizationPromptOptionTypeNegative" atKeyPath:v4];
+          if (v11)
+          {
+            v18 = 12;
+          }
+
+          else
+          {
+            v18 = 1;
+          }
+
+          if (qword_1025D47A0 != -1)
+          {
+            sub_10192D4D0();
+          }
+
+          v63 = off_1025D47A8;
+          if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_166;
+          }
+
+          *buf = 68289282;
+          *&buf[4] = 0;
+          *v95 = 2082;
+          *&v95[2] = "";
+          *&v95[10] = 2114;
+          *&v95[12] = v4;
+          v64 = "{msg%{public}.0s:#TemporaryAuth Client has been granted temporary positive status, ClientKey:%{public, location:escape_only}@}";
+        }
+
+        _os_log_impl(dword_100000000, v63, OS_LOG_TYPE_DEFAULT, v64, buf, 0x1Cu);
+LABEL_166:
+        v65 = *(a1 + 312) - 1;
+        if (v65 > 2)
+        {
+          v66 = 0;
+        }
+
+        else
+        {
+          v66 = dword_101C8D928[v65];
+        }
+
+        if ((v7 & 0xFFFFFFFD) == 1)
+        {
+          v22 = 2;
+        }
+
+        else
+        {
+          v22 = v66;
+        }
+
+        v67 = HIBYTE(v88);
+        if (v88 < 0)
+        {
+          v67 = __p[1];
+        }
+
+        if (v67)
+        {
+          sub_1007A4C58(a1, v4, __p);
+        }
+
+        else
+        {
+          v68 = [*(a1 + 136) registeredKeyPathForClientIdentifier:v4];
+          if ([v68 isValidCKP])
+          {
+            [*(a1 + 136) removeValueForKey:@"AuthorizationPurposeKey" atKeyPath:v68];
+          }
+        }
+
+LABEL_194:
+        *(a1 + 312) = 0;
+LABEL_195:
+        v20 = -1.0;
+        goto LABEL_196;
+      }
+    }
+
+    else
+    {
+      if ((a2 & 3) == 0)
+      {
+        goto LABEL_64;
+      }
+
+      if (v9 == 1)
+      {
+        goto LABEL_63;
+      }
+    }
+
+    v23 = 0;
+    v24 = 0;
+    v9 = 4;
+    v15 = 1;
+    goto LABEL_139;
+  }
+
+  if (v7 <= 12)
+  {
+    if (v7 == 9)
+    {
+      v39 = a2 & 3;
+      if (v39 == 2)
+      {
+        v18 = 4;
+      }
+
+      else
+      {
+        v18 = 5;
+      }
+
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v40 = off_1025D47A8;
+      if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      {
+        v41 = "NO";
+        *buf = 68289538;
+        *&buf[4] = 0;
+        *&v95[2] = "";
+        *v95 = 2082;
+        if (v39 == 2)
+        {
+          v41 = "YES";
+        }
+
+        *&v95[10] = 2114;
+        *&v95[12] = v4;
+        *&v95[20] = 2082;
+        *&v95[22] = v41;
+        _os_log_impl(dword_100000000, v40, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Temporary relief from #compensation response, ClientKey:%{public, location:escape_only}@, TempPrecise:%{public, location:escape_only}s}", buf, 0x26u);
+      }
+
+      if (v39 == 2)
+      {
+        v42 = 2;
+      }
+
+      else
+      {
+        v42 = 8;
+      }
+
+      sub_10077B960(*(a1 + 136), v4, v42, 1);
+      v43 = sub_100031744([objc_msgSend(*(a1 + 136) readonlyStoreAtKeyPath:{v4), "dictionary"}]);
+      v9 = v43;
+      if (v43)
+      {
+        if (v43 == 2)
+        {
+          v9 = 4;
+        }
+
+        else if (v43 == 4)
+        {
+          v9 = 3;
+        }
+
+        else
+        {
+          if (qword_1025D47A0 != -1)
+          {
+            sub_10192D4D0();
+          }
+
+          v76 = off_1025D47A8;
+          if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+          {
+            *buf = 68289538;
+            *&buf[4] = 0;
+            *v95 = 2082;
+            *&v95[2] = "";
+            *&v95[10] = 2114;
+            *&v95[12] = v4;
+            *&v95[20] = 2050;
+            *&v95[22] = v9;
+            _os_log_impl(dword_100000000, v76, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Unexpected authorization status for #TemporaryAuth precise promptee, ClientKey:%{public, location:escape_only}@, AuthMask:%{public}lu}", buf, 0x26u);
+            if (qword_1025D47A0 != -1)
+            {
+              sub_10192D4D0();
+            }
+          }
+
+          v77 = off_1025D47A8;
+          if (os_signpost_enabled(off_1025D47A8))
+          {
+            *buf = 68289538;
+            *&buf[4] = 0;
+            *v95 = 2082;
+            *&v95[2] = "";
+            *&v95[10] = 2114;
+            *&v95[12] = v4;
+            *&v95[20] = 2050;
+            *&v95[22] = v9;
+            _os_signpost_emit_with_name_impl(dword_100000000, v77, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Unexpected authorization status for #TemporaryAuth precise promptee", "{msg%{public}.0s:Unexpected authorization status for #TemporaryAuth precise promptee, ClientKey:%{public, location:escape_only}@, AuthMask:%{public}lu}", buf, 0x26u);
+          }
+
+          v9 = 2;
+        }
+      }
+
+      [NSNumber numberWithBool:v39 == 2];
+      v22 = 0;
+      goto LABEL_195;
+    }
+
+    if (v7 != 11)
+    {
+      if (v7 == 12)
+      {
+        v16 = a2 & 3;
+        if (v16 == 2)
+        {
+          v17 = 3;
+        }
+
+        else
+        {
+          v17 = 2;
+        }
+
+        if ((a2 & 3) == 2)
+        {
+          v18 = 6;
+        }
+
+        else
+        {
+          v18 = 7;
+        }
+
+        sub_10077A3D0(a1, v17, v4, 1);
+        [NSNumber numberWithBool:v16 == 2];
+        [*(a1 + 1120) removeObject:v4];
+        if (qword_1025D47A0 != -1)
+        {
+          sub_10192D4D0();
+        }
+
+        v19 = off_1025D47A8;
+        v20 = -1.0;
+        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+        {
+          v21 = "Disallowed";
+          *buf = 68289538;
+          *&v95[2] = "";
+          *&buf[4] = 0;
+          *v95 = 2082;
+          if (v16 == 2)
+          {
+            v21 = "Allowed";
+          }
+
+          *&v95[10] = 2114;
+          *&v95[12] = v4;
+          *&v95[20] = 2082;
+          *&v95[22] = v21;
+          _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#AuthPrompt response, ClientKey:%{public, location:escape_only}@, IncidentalUseMode:%{public, location:escape_only}s}", buf, 0x26u);
+        }
+
+        v22 = 0;
+        v9 = 4;
+        goto LABEL_196;
+      }
+
+      goto LABEL_71;
+    }
+
+    goto LABEL_28;
+  }
+
+  if (v7 <= 17)
+  {
+    if ((v7 - 13) < 2)
+    {
+      if (v9 == 2)
+      {
+        v14 = 1;
+      }
+
+      else
+      {
+        if (v9 != 1)
+        {
+          if (qword_1025D47A0 != -1)
+          {
+            goto LABEL_247;
+          }
+
+          while (1)
+          {
+            v79 = off_1025D47A8;
+            if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+            {
+              *buf = 68290051;
+              *&buf[4] = 0;
+              *v95 = 2082;
+              *&v95[2] = "";
+              *&v95[10] = 2114;
+              *&v95[12] = v4;
+              *&v95[20] = 1026;
+              *&v95[22] = a2 & 3;
+              *&v95[26] = 2082;
+              *&v95[28] = "assert";
+              v96 = 2081;
+              v97 = "false";
+              _os_log_impl(dword_100000000, v79, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Impossible response to LocationButtonUse prompt, client:%{public, location:escape_only}@, flags:%{public}d, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x36u);
+              if (qword_1025D47A0 != -1)
+              {
+                sub_10192D4D0();
+              }
+            }
+
+            v80 = off_1025D47A8;
+            if (os_signpost_enabled(off_1025D47A8))
+            {
+              *buf = 68290051;
+              *&buf[4] = 0;
+              *v95 = 2082;
+              *&v95[2] = "";
+              *&v95[10] = 2114;
+              *&v95[12] = v4;
+              *&v95[20] = 1026;
+              *&v95[22] = a2 & 3;
+              *&v95[26] = 2082;
+              *&v95[28] = "assert";
+              v96 = 2081;
+              v97 = "false";
+              _os_signpost_emit_with_name_impl(dword_100000000, v80, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Impossible response to LocationButtonUse prompt", "{msg%{public}.0s:Impossible response to LocationButtonUse prompt, client:%{public, location:escape_only}@, flags:%{public}d, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x36u);
+              if (qword_1025D47A0 != -1)
+              {
+                sub_10192D4D0();
+              }
+            }
+
+            v81 = off_1025D47A8;
+            if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+            {
+              *buf = 68290051;
+              *&buf[4] = 0;
+              *v95 = 2082;
+              *&v95[2] = "";
+              *&v95[10] = 2114;
+              *&v95[12] = v4;
+              *&v95[20] = 1026;
+              *&v95[22] = a2 & 3;
+              *&v95[26] = 2082;
+              *&v95[28] = "assert";
+              v96 = 2081;
+              v97 = "false";
+              _os_log_impl(dword_100000000, v81, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Impossible response to LocationButtonUse prompt, client:%{public, location:escape_only}@, flags:%{public}d, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x36u);
+            }
+
+            v82 = 5377;
+LABEL_246:
+            abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Core/ClientManagement/CLClientManager.mm", v82, "onClientUserNotification");
+            __break(1u);
+LABEL_247:
+            sub_10192D4D0();
+          }
+        }
+
+        v14 = 0;
+        v9 = 0;
+      }
+
+      [*(a1 + 136) setInt:v9 forKey:@"LocationButtonUseMode" atKeyPath:v4];
+      v54 = *(a1 + 136);
+      if (v14)
+      {
+        sub_10077B960(v54, v4, 1u, 1);
+        if (qword_1025D47A0 != -1)
+        {
+          sub_10192D4D0();
+        }
+
+        v55 = off_1025D47A8;
+        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 68289282;
+          *&buf[4] = 0;
+          *v95 = 2082;
+          *&v95[2] = "";
+          *&v95[10] = 2114;
+          *&v95[12] = v4;
+          _os_log_impl(dword_100000000, v55, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#TemporaryAuth granted temporary auth , allowed chosen on #LocationButtonUse prompt, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+        }
+
+        v9 = 0;
+        v18 = 8;
+      }
+
+      else
+      {
+        v56 = sub_100031744([objc_msgSend(v54 readonlyStoreAtKeyPath:{v4), "dictionary"}]);
+        if (v56 >= 5)
+        {
+          v18 = 9;
+          v9 = 2;
+        }
+
+        else
+        {
+          v9 = dword_101C8D934[v56];
+          v18 = 9;
+        }
+      }
+
+      v70 = *(a1 + 312) - 1;
+      if (v70 > 2)
+      {
+        v71 = 0;
+      }
+
+      else
+      {
+        v71 = dword_101C8D928[v70];
+      }
+
+      if (v7 == 13)
+      {
+        v22 = 2;
+      }
+
+      else
+      {
+        v22 = v71;
+      }
+
+      goto LABEL_194;
+    }
+
+    if (v7 == 16)
+    {
+      v28 = a2 & 3;
+      if (v28 == 1)
+      {
+        v18 = 10;
+      }
+
+      else
+      {
+        v18 = 11;
+      }
+
+      v29 = sub_100031744([objc_msgSend(*(a1 + 136) readonlyStoreAtKeyPath:{v4), "dictionary"}]);
+      if (v29 > 4)
+      {
+        v9 = 2;
+      }
+
+      else
+      {
+        v9 = dword_101C8D934[v29];
+      }
+
+      [NSNumber numberWithBool:v28 == 1];
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v36 = off_1025D47A8;
+      v20 = -1.0;
+      if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_224;
+      }
+
+      v69 = "Disallowed";
+      *buf = 68289538;
+      *&v95[2] = "";
+      *&buf[4] = 0;
+      *v95 = 2082;
+      if (v28 == 1)
+      {
+        v69 = "Allowed";
+      }
+
+      *&v95[10] = 2114;
+      *&v95[12] = v4;
+      *&v95[20] = 2082;
+      *&v95[22] = v69;
+      v38 = "{msg%{public}.0s:#AuthPrompt response, ClientKey:%{public, location:escape_only}@, IncidentalUseMode:%{public, location:escape_only}s}";
+LABEL_223:
+      _os_log_impl(dword_100000000, v36, OS_LOG_TYPE_DEFAULT, v38, buf, 0x26u);
+LABEL_224:
+      v22 = 0;
+      goto LABEL_196;
+    }
+
+LABEL_71:
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v30 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 67240448;
+      *&buf[4] = a2 & 3;
+      *v95 = 1026;
+      *&v95[2] = v7;
+      _os_log_impl(dword_100000000, v30, OS_LOG_TYPE_FAULT, "#AuthPrompt Received response (%{public}d) for invalid/unrecognized response type (%{public}d)", buf, 0xEu);
+    }
+
+    if (sub_10000A100(121, 0))
+    {
+      sub_10192DC88(buf);
+      v91[0] = 67240448;
+      v91[1] = a2 & 3;
+      v92 = 1026;
+      v93 = v7;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D47A8, 17, "#AuthPrompt Received response (%{public}d) for invalid/unrecognized response type (%{public}d)", v91, 14);
+      v32 = v31;
+      sub_100152C7C("Generic", 1, 0, 0, "void CLClientManager::onClientUserNotification(CFOptionFlags)", "%s\n", v31);
+      if (v32 != buf)
+      {
+        free(v32);
+      }
+    }
+
+    goto LABEL_198;
+  }
+
+  if (v7 == 18)
+  {
+    v20 = -1.0;
+    v9 = 2;
+    if (_os_feature_enabled_impl())
+    {
+      v33 = a2 & 3;
+      if (v33 == 2)
+      {
+        v34 = 3;
+      }
+
+      else
+      {
+        v34 = 2;
+      }
+
+      if ((a2 & 3) == 2)
+      {
+        v18 = 17;
+      }
+
+      else
+      {
+        v18 = 18;
+      }
+
+      [*(a1 + 136) setInt:v34 forKey:@"LearnedRoutesAccess" atKeyPath:v4];
+      v35 = sub_100031744([objc_msgSend(*(a1 + 136) readonlyStoreAtKeyPath:{v4), "dictionary"}]);
+      if (v35 <= 4)
+      {
+        v9 = dword_101C8D934[v35];
+      }
+
+      [NSNumber numberWithBool:v33 == 2];
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+
+      v36 = off_1025D47A8;
+      if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_224;
+      }
+
+      v37 = "Disallowed";
+      *buf = 68289538;
+      *&v95[2] = "";
+      *&buf[4] = 0;
+      *v95 = 2082;
+      if (v33 == 2)
+      {
+        v37 = "Allowed";
+      }
+
+      *&v95[10] = 2114;
+      *&v95[12] = v4;
+      *&v95[20] = 2082;
+      *&v95[22] = v37;
+      v38 = "{msg%{public}.0s:#AuthPrompt response, ClientKey:%{public, location:escape_only}@, LearnedRoutes:%{public, location:escape_only}s}";
+      goto LABEL_223;
+    }
+
+LABEL_135:
+    v22 = 0;
+    v18 = 0;
+    goto LABEL_196;
+  }
+
+  if (v7 != 19)
+  {
+    goto LABEL_71;
+  }
+
+  v20 = -1.0;
+  if (_os_feature_enabled_impl())
+  {
+    [*(a1 + 136) removeValueForKey:@"VisitHistoryAccessAllowedTime" atKeyPath:v4];
+    v26 = a2 & 3;
+    if (v26 == 2)
+    {
+      [*(a1 + 136) setDouble:@"VisitHistoryAccessAllowedTime" forKey:v4 atKeyPath:CFAbsoluteTimeGetCurrent()];
+      v18 = 15;
+      v27 = 3;
+    }
+
+    else
+    {
+      v18 = 16;
+      v27 = 2;
+    }
+
+    [*(a1 + 136) setInt:v27 forKey:@"VisitHistoryAccess" atKeyPath:v4];
+    v75 = sub_100031744([objc_msgSend(*(a1 + 136) readonlyStoreAtKeyPath:{v4), "dictionary"}]);
+    if (v75 > 4)
+    {
+      v9 = 2;
+    }
+
+    else
+    {
+      v9 = dword_101C8D934[v75];
+    }
+
+    [NSNumber numberWithBool:v26 == 2];
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v36 = off_1025D47A8;
+    if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_224;
+    }
+
+    v78 = "Disallowed";
+    *buf = 68289538;
+    *&v95[2] = "";
+    *&buf[4] = 0;
+    *v95 = 2082;
+    if (v26 == 2)
+    {
+      v78 = "Allowed";
+    }
+
+    *&v95[10] = 2114;
+    *&v95[12] = v4;
+    *&v95[20] = 2082;
+    *&v95[22] = v78;
+    v38 = "{msg%{public}.0s:#AuthPrompt response, ClientKey:%{public, location:escape_only}@, VisitHistory:%{public, location:escape_only}s}";
+    goto LABEL_223;
+  }
+
+  v22 = 0;
+  v18 = 0;
+  v9 = 2;
+LABEL_196:
+  v72 = -1.0;
+LABEL_197:
+  v89[0] = @"ClientKey";
+  v90[0] = [v4 userlessClientKeyPath];
+  v89[1] = @"Special";
+  v90[1] = [NSNumber numberWithUnsignedInt:v18];
+  v89[2] = @"RequestType";
+  v90[2] = [NSNumber numberWithUnsignedInt:v7];
+  v89[3] = @"GrantedStatus";
+  v90[3] = [NSNumber numberWithUnsignedInt:v9];
+  v89[4] = @"CCStatus";
+  v90[4] = [NSNumber numberWithUnsignedInt:v22];
+  v89[5] = @"OnDeckDuration";
+  v90[5] = [NSNumber numberWithDouble:v72];
+  v89[6] = @"ProvisionalMonitoringDuration";
+  v90[6] = [NSNumber numberWithDouble:v20];
+  [NSDictionary dictionaryWithObjects:v90 forKeys:v89 count:7];
+  AnalyticsSendEvent();
+  sub_100791600(a1, v4, v9, v22, v73, 1, 1);
+  sub_10023DC84(*(a1 + 272));
+  sub_1007A3EE0((a1 + 272), 0);
+LABEL_198:
+  if (SHIBYTE(v88) < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_100782FAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
+{
+  if (a22 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL sub_100783014(uint64_t a1, uint64_t a2)
+{
+  if (!sub_10001CF3C() || !sub_10003845C())
+  {
+    return 0;
+  }
+
+  if ([*(a1 + 120) locationRestricted])
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v4 = off_1025D47A8;
+    if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+    {
+      return 0;
+    }
+
+    *buf = 68289026;
+    v40 = 0;
+    v41 = 2082;
+    v42 = "";
+    v5 = "{msg%{public}.0s:#createAndPostPinnedLocationAuthorization skip prompting. Restrictions enabled}";
+    v6 = v4;
+    v7 = OS_LOG_TYPE_INFO;
+    v8 = 18;
+    goto LABEL_13;
+  }
+
+  if (*(a1 + 272))
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v9 = off_1025D47A8;
+    if (!os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      return 0;
+    }
+
+    v10 = **(a1 + 272);
+    *buf = 68289282;
+    v40 = 0;
+    v41 = 2082;
+    v42 = "";
+    v43 = 2050;
+    v44 = v10;
+    v5 = "{msg%{public}.0s:#createAndPostPinnedLocationAuthorization skip prompting. InflightPromptAuthorizationRequest found., inflightRequestType:%{public, location:CLClientManager_Type::AuthorizationRequestType}lld}";
+    v6 = v9;
+    v7 = OS_LOG_TYPE_DEFAULT;
+    v8 = 28;
+LABEL_13:
+    _os_log_impl(dword_100000000, v6, v7, v5, buf, v8);
+    return 0;
+  }
+
+  v11 = 0;
+  if (&SBUserNotificationPendInSetupIfNotAllowedKey && &SBUserNotificationHideOnClonedDisplay && &SBUserNotificationDefaultButtonTag && &SBUserNotificationExtensionIdentifierKey && &SBUserNotificationExtensionItemsKey)
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10028840C();
+    }
+
+    v13 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289026;
+      v40 = 0;
+      v41 = 2082;
+      v42 = "";
+      _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#CUN Creating user notification for pinned location authorization}", buf, 0x12u);
+    }
+
+    Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    v16 = sub_100056238(Mutable, v15);
+    v17 = sub_1007CB2E4(v16, @"LOCATION_PINNED_AUTHORIZATION_TITLE");
+    v19 = v17;
+    if (v17)
+    {
+      CFDictionarySetValue(Mutable, kCFUserNotificationAlertHeaderKey, v17);
+      CFRelease(v19);
+    }
+
+    v20 = sub_100056238(v17, v18);
+    v21 = sub_1007CB2E4(v20, @"LOCATION_PINNED_AUTHORIZE");
+    v23 = v21;
+    if (v21)
+    {
+      CFDictionarySetValue(Mutable, kCFUserNotificationOtherButtonTitleKey, v21);
+      CFRelease(v23);
+    }
+
+    v24 = sub_100056238(v21, v22);
+    v25 = sub_1007CB2E4(v24, @"LOCATION_PINNED_NOT_AUTHORIZE");
+    v27 = v25;
+    if (v25)
+    {
+      CFDictionarySetValue(Mutable, kCFUserNotificationDefaultButtonTitleKey, v25);
+      CFRelease(v27);
+    }
+
+    v28 = sub_100056238(v25, v26);
+    v29 = sub_1007CB2E4(v28, @"LOCATION_PINNED_PERMISSION_EXPLANATION_FOR_LOCATION_BUTTONS");
+    if (v29)
+    {
+      CFDictionarySetValue(Mutable, kCFUserNotificationAlertMessageKey, v29);
+      CFRelease(v29);
+    }
+
+    CFDictionarySetValue(Mutable, SBUserNotificationPendInSetupIfNotAllowedKey, kCFBooleanTrue);
+    if ((*(a1 + 232) & 1) == 0)
+    {
+      CFDictionarySetValue(Mutable, SBUserNotificationHideOnClonedDisplay, kCFBooleanTrue);
+    }
+
+    CFDictionarySetValue(Mutable, SBUserNotificationAllowInSetupKey, &__kCFBooleanTrue);
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v30 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(dword_100000000, v30, OS_LOG_TYPE_INFO, "#CUN Pinned location authorization prompt allowed during buddy-setup", buf, 2u);
+    }
+
+    if (sub_10000A100(121, 2))
+    {
+      sub_101930054();
+    }
+
+    CFDictionarySetValue(Mutable, SBUserNotificationDefaultButtonTag, [NSNumber numberWithInt:32]);
+    v31 = [NSString stringWithUTF8String:"com.apple.corelocation.CoreLocationPinnedLocationAuthPromptPlugin"];
+    if (v31 && sub_1004E87D0())
+    {
+      v38 = 0;
+      v45 = [NSExtensionItem extensionItemForPinnedAuthorizationWithPayload:a2];
+      v32 = [NSKeyedArchiver archivedDataWithRootObject:[NSArray arrayWithObjects:&v45 count:1] requiringSecureCoding:1 error:&v38];
+      if (v38)
+      {
+        if (qword_1025D47A0 != -1)
+        {
+          sub_10192D4D0();
+        }
+
+        v33 = off_1025D47A8;
+        if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
+        {
+          *buf = 68289283;
+          v40 = 0;
+          v41 = 2082;
+          v42 = "";
+          v43 = 2113;
+          v44 = v38;
+          _os_log_impl(dword_100000000, v33, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Failed archiving extension item, error:%{private, location:escape_only}@}", buf, 0x1Cu);
+        }
+      }
+
+      else
+      {
+        v34 = v32;
+        CFDictionarySetValue(Mutable, SBUserNotificationExtensionIdentifierKey, v31);
+        CFDictionarySetValue(Mutable, SBUserNotificationExtensionItemsKey, v34);
+      }
+    }
+
+    sub_10000EC00(__p, "");
+    sub_10023C2AC(buf, 17, 0, 0, __p);
+    if (v37 < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    [*(a1 + 40) currentLatchedAbsoluteTimestamp];
+    v11 = sub_10078364C(0, buf, Mutable, v35);
+    if (v11)
+    {
+      sub_100783A10();
+    }
+
+    sub_10023DF30(buf);
+  }
+
+  return v11;
+}
+
+BOOL sub_10078364C(uint64_t a1, int *a2, CFDictionaryRef dictionary, double a4)
+{
+  error = 0;
+  v8 = *a2;
+  v9 = CFUserNotificationCreate(kCFAllocatorDefault, 0.0, 0x20uLL, &error, dictionary);
+  CFRelease(dictionary);
+  if (v9)
+  {
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v10 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289538;
+      v21 = 0;
+      v22 = 2082;
+      v23 = "";
+      v24 = 2114;
+      v25 = a1;
+      v26 = 1026;
+      v27 = v8;
+      _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#CUN Created client user notification for client, Client:%{public, location:escape_only}@, requestType:%{public}d}", buf, 0x22u);
+    }
+
+    RunLoopSource = CFUserNotificationCreateRunLoopSource(kCFAllocatorDefault, v9, sub_1007A4864, 0);
+    if (RunLoopSource)
+    {
+      v12 = RunLoopSource;
+      sub_1007A48EC(a2, v9, a4);
+      CFRelease(v9);
+      v13 = sub_100107858();
+      CFRunLoopAddSource(v13, v12, kCFRunLoopCommonModes);
+      CFRelease(v12);
+      return 1;
+    }
+
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+
+    v17 = off_1025D47A8;
+    if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 68289282;
+      v21 = 0;
+      v22 = 2082;
+      v23 = "";
+      v24 = 2114;
+      v25 = a1;
+      _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#CUN Could not create runloop source for  CFUserNotification, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+      if (qword_1025D47A0 != -1)
+      {
+        sub_10192D4D0();
+      }
+    }
+
+    v18 = off_1025D47A8;
+    if (os_signpost_enabled(off_1025D47A8))
+    {
+      *buf = 68289282;
+      v21 = 0;
+      v22 = 2082;
+      v23 = "";
+      v24 = 2114;
+      v25 = a1;
+      _os_signpost_emit_with_name_impl(dword_100000000, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#CUN Could not create runloop source for  CFUserNotification", "{msg%{public}.0s:#CUN Could not create runloop source for  CFUserNotification, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+    }
+
+    CFRelease(v9);
+    return 0;
+  }
+
+  if (qword_1025D47A0 != -1)
+  {
+    sub_10192D4D0();
+  }
+
+  v15 = off_1025D47A8;
+  if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
+  {
+    *buf = 68289282;
+    v21 = 0;
+    v22 = 2082;
+    v23 = "";
+    v24 = 2114;
+    v25 = a1;
+    _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#CUN Could not create CFUserNotification, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+    if (qword_1025D47A0 != -1)
+    {
+      sub_10192D4D0();
+    }
+  }
+
+  v16 = off_1025D47A8;
+  result = os_signpost_enabled(off_1025D47A8);
+  if (result)
+  {
+    *buf = 68289282;
+    v21 = 0;
+    v22 = 2082;
+    v23 = "";
+    v24 = 2114;
+    v25 = a1;
+    _os_signpost_emit_with_name_impl(dword_100000000, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#CUN Could not create CFUserNotification", "{msg%{public}.0s:#CUN Could not create CFUserNotification, Client:%{public, location:escape_only}@}", buf, 0x1Cu);
+    return 0;
+  }
+
+  return result;
 }

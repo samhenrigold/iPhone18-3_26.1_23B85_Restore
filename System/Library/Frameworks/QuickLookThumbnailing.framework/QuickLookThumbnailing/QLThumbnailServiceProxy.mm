@@ -292,49 +292,37 @@ void __62__QLThumbnailServiceProxy_touchOrAddThumbnailAddition_forURL___block_in
 
 void __69__QLThumbnailServiceProxy_updateLastHitDateOfAddition_onPhysicalURL___block_invoke(uint64_t a1, char a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if ((a2 & 1) == 0)
   {
     v3 = _log_0();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = *(a1 + 32);
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_impl(&dword_1CA1E7000, v3, OS_LOG_TYPE_INFO, "GenStore has a thumbnail for %@ but it was not present in the Quick Look DB", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_1CA1E7000, v3, OS_LOG_TYPE_INFO, "GenStore has a thumbnail for %@ but it was not present in the Quick Look DB", &v6, 0xCu);
     }
 
     v5 = [*(a1 + 40) indexProxy];
     [v5 addThumbnailForURLWrapper:*(a1 + 48) size:objc_msgSend(*(a1 + 56) completion:{"additionSize"), &__block_literal_global_98}];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __41__QLThumbnailServiceProxy_initWithError___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_ERROR, "Error caught while looking for a thumbnail: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_ERROR, "Error caught while looking for a thumbnail: %@", &v2, 0xCu);
 }
 
 void __37__QLThumbnailServiceProxy_indexProxy__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_ERROR, "indexProxy received error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)touchOrAddThumbnailAddition:forURL:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1CA1E7000, v0, v1, "Could not create FPSandboxingURLWrapper with url: %@, error: %@");
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1CA1E7000, a2, OS_LOG_TYPE_ERROR, "indexProxy received error %@", &v2, 0xCu);
 }
 
 @end

@@ -9,6 +9,8 @@
 - (id)_commaSeparatedNamesForUpdatingCities:(id)cities;
 - (id)_commaSeparatedPriorityUpdatingCitiesNames;
 - (id)_commaSeparatedUpdatingCitiesNames;
+- (id)_queue_executeFetchForCity:(id)city withUnits:(int)units requestOptions:(id)options completion:(id)completion;
+- (id)_queue_executeFetchForCity:(id)city withUnits:(int)units requestOptions:(id)options completion:(id)completion completionHandlersForCity:(id)forCity updatingCities:(id)cities;
 - (void)_handleForecastOperationCompletion:(id)completion;
 - (void)cancelAllFetchRequests;
 - (void)dealloc;
@@ -116,32 +118,32 @@ void __33__WAForecastModelController_init__block_invoke(uint64_t a1, void *a2, v
 
 void __33__WAForecastModelController_init__block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) updatingCities];
   v3 = [v2 copy];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v19;
+    v8 = *v18;
     *&v6 = 138412290;
-    v17 = v6;
+    v16 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         if ([v10 isLocalWeatherCity])
         {
           v11 = *(a1 + 40);
@@ -156,21 +158,19 @@ void __33__WAForecastModelController_init__block_invoke_2(uint64_t a1)
             if (v13 && os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
             {
               v15 = *(a1 + 48);
-              *buf = v17;
-              v23 = v15;
+              *buf = v16;
+              v22 = v15;
               _os_log_impl(&dword_272ACF000, v14, OS_LOG_TYPE_INFO, "Transmitting current location to %@ for local weather forecast.", buf, 0xCu);
             }
           }
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __33__WAForecastModelController_init__block_invoke_12(uint64_t a1, double a2, double a3)
@@ -190,30 +190,30 @@ void __33__WAForecastModelController_init__block_invoke_12(uint64_t a1, double a
 
 void __33__WAForecastModelController_init__block_invoke_2_13(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) updatingCities];
   v3 = [v2 copy];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         if ([v9 isLocalWeatherCity])
         {
           v10 = [v9 wfLocation];
@@ -228,20 +228,18 @@ void __33__WAForecastModelController_init__block_invoke_2_13(uint64_t a1)
             v16 = v15;
             if (v15 && os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
             {
-              *v18 = 0;
-              _os_log_impl(&dword_272ACF000, v16, OS_LOG_TYPE_INFO, "Transmitting current location to CoreLocation for reverse geocode request.", v18, 2u);
+              *v17 = 0;
+              _os_log_impl(&dword_272ACF000, v16, OS_LOG_TYPE_INFO, "Transmitting current location to CoreLocation for reverse geocode request.", v17, 2u);
             }
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -401,32 +399,32 @@ void __86__WAForecastModelController_fetchForecastForCity_withUnits_requestOptio
 
 - (BOOL)fetchForecastForCities:(id)cities completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   citiesCopy = cities;
   completionCopy = completion;
   if (completionCopy && [citiesCopy count])
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v21 = citiesCopy;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v20 = citiesCopy;
     v8 = citiesCopy;
-    v9 = [v8 countByEnumeratingWithState:&v24 objects:v30 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v23 objects:v29 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v25;
+      v11 = *v24;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v24 + 1) + 8 * i);
+          v13 = *(*(&v23 + 1) + 8 * i);
           locationID = [v13 locationID];
 
           if (locationID)
@@ -435,7 +433,7 @@ void __86__WAForecastModelController_fetchForecastForCity_withUnits_requestOptio
             if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v29 = v13;
+              v28 = v13;
               _os_log_impl(&dword_272ACF000, v15, OS_LOG_TYPE_DEFAULT, "Creating forecastOperation for city : %@", buf, 0xCu);
             }
 
@@ -446,7 +444,7 @@ void __86__WAForecastModelController_fetchForecastForCity_withUnits_requestOptio
             block[3] = &unk_279E67D10;
             block[4] = self;
             block[5] = v13;
-            v23 = completionCopy;
+            v22 = completionCopy;
             dispatch_async(incomingRequestQueue, block);
           }
 
@@ -457,14 +455,14 @@ void __86__WAForecastModelController_fetchForecastForCity_withUnits_requestOptio
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v24 objects:v30 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v23 objects:v29 count:16];
       }
 
       while (v10);
     }
 
     v18 = 1;
-    citiesCopy = v21;
+    citiesCopy = v20;
   }
 
   else
@@ -472,7 +470,6 @@ void __86__WAForecastModelController_fetchForecastForCity_withUnits_requestOptio
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -503,6 +500,114 @@ void __63__WAForecastModelController_fetchForecastForCities_completion___block_i
   [v8 addOperation:v5];
 }
 
+- (id)_queue_executeFetchForCity:(id)city withUnits:(int)units requestOptions:(id)options completion:(id)completion
+{
+  v7 = *&units;
+  completionCopy = completion;
+  optionsCopy = options;
+  cityCopy = city;
+  if ([(WAForecastModelController *)self isPriorityCity:cityCopy])
+  {
+    priorityCompletionHandlersForCity = [(WAForecastModelController *)self priorityCompletionHandlersForCity];
+    [(WAForecastModelController *)self priorityUpdatingCities];
+  }
+
+  else
+  {
+    priorityCompletionHandlersForCity = [(WAForecastModelController *)self completionHandlersForCity];
+    [(WAForecastModelController *)self updatingCities];
+  }
+  v14 = ;
+  v15 = [(WAForecastModelController *)self _queue_executeFetchForCity:cityCopy withUnits:v7 requestOptions:optionsCopy completion:completionCopy completionHandlersForCity:priorityCompletionHandlersForCity updatingCities:v14];
+
+  return v15;
+}
+
+- (id)_queue_executeFetchForCity:(id)city withUnits:(int)units requestOptions:(id)options completion:(id)completion completionHandlersForCity:(id)forCity updatingCities:(id)cities
+{
+  v12 = *&units;
+  v47 = *MEMORY[0x277D85DE8];
+  cityCopy = city;
+  optionsCopy = options;
+  completionCopy = completion;
+  forCityCopy = forCity;
+  citiesCopy = cities;
+  locationID = [cityCopy locationID];
+  v19 = [forCityCopy objectForKeyedSubscript:locationID];
+
+  if (v19)
+  {
+    v20 = WALogForCategory(1);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      name = [cityCopy name];
+      v22 = [(WAForecastModelController *)self _commaSeparatedNamesForUpdatingCities:citiesCopy];
+      *buf = 138412546;
+      v44 = name;
+      v45 = 2112;
+      v46 = v22;
+      _os_log_impl(&dword_272ACF000, v20, OS_LOG_TYPE_DEFAULT, "Multiplexing forecast request for %@ as one is already in-flight. Currently updating cities: %@", buf, 0x16u);
+    }
+
+    if (completionCopy)
+    {
+      v23 = [completionCopy copy];
+      [v19 addObject:v23];
+    }
+
+    v24 = 0;
+  }
+
+  else
+  {
+    v25 = MEMORY[0x277CBEB58];
+    v26 = [completionCopy copy];
+    v19 = [v25 setWithObject:v26];
+
+    locationID2 = [cityCopy locationID];
+    [forCityCopy setObject:v19 forKeyedSubscript:locationID2];
+
+    locationGeocodingSampler = [(WAForecastModelController *)self locationGeocodingSampler];
+    v29 = [locationGeocodingSampler canRecordLocationForCity:cityCopy];
+
+    v30 = [WAForecastOperation alloc];
+    connection = [(WAForecastModelController *)self connection];
+    v24 = [(WAForecastOperation *)v30 initWithCity:cityCopy withUnits:v12 requestOptions:optionsCopy canGeocode:v29 onConnection:connection];
+
+    trackingParameter = [(WAForecastModelController *)self trackingParameter];
+    [(WAForecastOperation *)v24 setTrackingParameter:trackingParameter];
+
+    objc_initWeak(&location, v24);
+    objc_initWeak(&from, self);
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __133__WAForecastModelController__queue_executeFetchForCity_withUnits_requestOptions_completion_completionHandlersForCity_updatingCities___block_invoke;
+    v38[3] = &unk_279E690C8;
+    objc_copyWeak(&v39, &from);
+    objc_copyWeak(&v40, &location);
+    [(WAForecastOperation *)v24 setCompletionBlock:v38];
+    v33 = WALogForCategory(1);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    {
+      name2 = [cityCopy name];
+      v35 = [(WAForecastModelController *)self _commaSeparatedNamesForUpdatingCities:citiesCopy];
+      *buf = 138412546;
+      v44 = name2;
+      v45 = 2112;
+      v46 = v35;
+      _os_log_impl(&dword_272ACF000, v33, OS_LOG_TYPE_DEFAULT, "Built forecast request for %@. Currently updating cities: %@", buf, 0x16u);
+    }
+
+    [citiesCopy addObject:cityCopy];
+    objc_destroyWeak(&v40);
+    objc_destroyWeak(&v39);
+    objc_destroyWeak(&from);
+    objc_destroyWeak(&location);
+  }
+
+  return v24;
+}
+
 void __133__WAForecastModelController__queue_executeFetchForCity_withUnits_requestOptions_completion_completionHandlersForCity_updatingCities___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -530,54 +635,54 @@ void __133__WAForecastModelController__queue_executeFetchForCity_withUnits_reque
 
 void __51__WAForecastModelController_cancelAllFetchRequests__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v2 = [*(a1 + 32) forecastOperationQueue];
   v3 = [v2 operations];
 
-  v4 = [v3 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v16 + 1) + 8 * i);
         v9 = WALogForCategory(1);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           v10 = [v8 city];
           *buf = 138412290;
-          v22 = v10;
+          v21 = v10;
           _os_log_impl(&dword_272ACF000, v9, OS_LOG_TYPE_DEFAULT, "Cancelling forecast request for %@", buf, 0xCu);
         }
 
         [v8 setCompletionBlock:0];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v5);
   }
 
   v11 = [*(a1 + 32) completionHandlersForCity];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __51__WAForecastModelController_cancelAllFetchRequests__block_invoke_22;
-  v16[3] = &unk_279E69118;
-  v16[4] = *(a1 + 32);
-  [v11 enumerateKeysAndObjectsUsingBlock:v16];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __51__WAForecastModelController_cancelAllFetchRequests__block_invoke_22;
+  v15[3] = &unk_279E69118;
+  v15[4] = *(a1 + 32);
+  [v11 enumerateKeysAndObjectsUsingBlock:v15];
 
   v12 = [*(a1 + 32) completionHandlersForCity];
   [v12 removeAllObjects];
@@ -587,20 +692,18 @@ void __51__WAForecastModelController_cancelAllFetchRequests__block_invoke(uint64
 
   v14 = [*(a1 + 32) updatingCities];
   [v14 removeAllObjects];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __51__WAForecastModelController_cancelAllFetchRequests__block_invoke_22(uint64_t a1, void *a2, void *a3)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
-  v20 = @"city";
-  v21[0] = a2;
+  v19 = @"city";
+  v20[0] = a2;
   v6 = MEMORY[0x277CBEAC0];
   v7 = a3;
   v8 = a2;
-  v9 = [v6 dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v9 = [v6 dictionaryWithObjects:v20 forKeys:&v19 count:1];
   v10 = [v5 errorWithDomain:@"com.apple.weather.forecastModelController.errorDomain" code:3072 userInfo:v9];
 
   v11 = [v7 allObjects];
@@ -611,13 +714,11 @@ void __51__WAForecastModelController_cancelAllFetchRequests__block_invoke_22(uin
   block[1] = 3221225472;
   block[2] = __51__WAForecastModelController_cancelAllFetchRequests__block_invoke_2;
   block[3] = &unk_279E690F0;
-  v18 = v11;
-  v19 = v10;
+  v17 = v11;
+  v18 = v10;
   v14 = v10;
   v15 = v11;
   dispatch_apply(v12, v13, block);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __51__WAForecastModelController_cancelAllFetchRequests__block_invoke_2(uint64_t a1, uint64_t a2)
@@ -628,7 +729,7 @@ void __51__WAForecastModelController_cancelAllFetchRequests__block_invoke_2(uint
 
 - (void)_handleForecastOperationCompletion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   city = [completionCopy city];
   if (!city)
@@ -643,34 +744,32 @@ void __51__WAForecastModelController_cancelAllFetchRequests__block_invoke_2(uint
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v21 = "[WAForecastModelController _handleForecastOperationCompletion:]";
-    v22 = 2112;
-    v23 = city;
-    v24 = 2112;
-    v25 = forecastModel;
+    v20 = "[WAForecastModelController _handleForecastOperationCompletion:]";
+    v21 = 2112;
+    v22 = city;
+    v23 = 2112;
+    v24 = forecastModel;
     _os_log_impl(&dword_272ACF000, v9, OS_LOG_TYPE_DEFAULT, "%s, completed forecast city=%@, forecastModel=%@", buf, 0x20u);
   }
 
   incomingRequestQueue = [(WAForecastModelController *)self incomingRequestQueue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __64__WAForecastModelController__handleForecastOperationCompletion___block_invoke;
-  v15[3] = &unk_279E68B40;
-  v16 = error;
-  v17 = city;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __64__WAForecastModelController__handleForecastOperationCompletion___block_invoke;
+  v14[3] = &unk_279E68B40;
+  v15 = error;
+  v16 = city;
   selfCopy = self;
-  v19 = forecastModel;
+  v18 = forecastModel;
   v11 = forecastModel;
   v12 = city;
   v13 = error;
-  dispatch_async(incomingRequestQueue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(incomingRequestQueue, v14);
 }
 
 void __64__WAForecastModelController__handleForecastOperationCompletion___block_invoke(id *a1)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 4);
   v3 = a1[4];
   v4 = WALogForCategory(0);
@@ -687,7 +786,7 @@ void __64__WAForecastModelController__handleForecastOperationCompletion___block_
   {
     v6 = [a1[5] name];
     *buf = 138412290;
-    v49 = v6;
+    v48 = v6;
     _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "Completed forecast request for %@", buf, 0xCu);
   }
 
@@ -703,7 +802,7 @@ void __64__WAForecastModelController__handleForecastOperationCompletion___block_
     {
       v11 = [a1[6] _commaSeparatedPriorityUpdatingCitiesNames];
       *buf = 138412290;
-      v49 = v11;
+      v48 = v11;
       _os_log_impl(&dword_272ACF000, v10, OS_LOG_TYPE_DEFAULT, "Remaining priority updating cities: %@", buf, 0xCu);
     }
 
@@ -718,13 +817,13 @@ void __64__WAForecastModelController__handleForecastOperationCompletion___block_
     block[1] = 3221225472;
     block[2] = __64__WAForecastModelController__handleForecastOperationCompletion___block_invoke_34;
     block[3] = &unk_279E69140;
-    v18 = &v45;
+    v18 = &v44;
     v19 = v15;
-    v45 = v19;
-    v20 = &v46;
-    v46 = a1[7];
-    v21 = &v47;
-    v47 = a1[4];
+    v44 = v19;
+    v20 = &v45;
+    v45 = a1[7];
+    v21 = &v46;
+    v46 = a1[4];
     dispatch_apply(v16, v17, block);
 
     v22 = [a1[5] locationID];
@@ -749,7 +848,7 @@ LABEL_15:
     {
       v26 = [a1[6] _commaSeparatedUpdatingCitiesNames];
       *buf = 138412290;
-      v49 = v26;
+      v48 = v26;
       _os_log_impl(&dword_272ACF000, v25, OS_LOG_TYPE_DEFAULT, "Remaining updating cities: %@", buf, 0xCu);
     }
 
@@ -760,18 +859,18 @@ LABEL_15:
 
     v31 = [v30 count];
     v32 = [a1[6] completionHandlerQueue];
-    v37 = MEMORY[0x277D85DD0];
-    v38 = 3221225472;
-    v39 = __64__WAForecastModelController__handleForecastOperationCompletion___block_invoke_35;
-    v40 = &unk_279E69140;
-    v18 = &v41;
+    v36 = MEMORY[0x277D85DD0];
+    v37 = 3221225472;
+    v38 = __64__WAForecastModelController__handleForecastOperationCompletion___block_invoke_35;
+    v39 = &unk_279E69140;
+    v18 = &v40;
     v19 = v30;
-    v41 = v19;
-    v20 = &v42;
-    v42 = a1[7];
-    v21 = &v43;
-    v43 = a1[4];
-    dispatch_apply(v31, v32, &v37);
+    v40 = v19;
+    v20 = &v41;
+    v41 = a1[7];
+    v21 = &v42;
+    v42 = a1[4];
+    dispatch_apply(v31, v32, &v36);
 
     v33 = [a1[5] locationID];
 
@@ -781,8 +880,6 @@ LABEL_15:
       goto LABEL_15;
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __64__WAForecastModelController__handleForecastOperationCompletion___block_invoke_34(uint64_t a1, uint64_t a2)
@@ -879,16 +976,14 @@ void __64__WAForecastModelController_isPriorityForecastOperationsEnabled__block_
 
 void __64__WAForecastModelController__handleForecastOperationCompletion___block_invoke_cold_1(uint64_t a1, uint64_t *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = [*(a1 + 40) name];
   v6 = *a2;
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_272ACF000, a3, OS_LOG_TYPE_ERROR, "Failed to complete forecast request for %@: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_272ACF000, a3, OS_LOG_TYPE_ERROR, "Failed to complete forecast request for %@: %@", &v7, 0x16u);
 }
 
 @end

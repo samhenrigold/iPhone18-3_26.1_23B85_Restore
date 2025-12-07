@@ -15,6 +15,7 @@
 - (id)formattedUnitReplacingFirstNumerator:(id)numerator;
 - (id)formattedValueBeforeNumberingSystem;
 - (id)locale;
+- (id)localizedNameForValue:(double)value locale:(id)locale retainingFormat:(BOOL)format unit:(id)unit;
 - (id)numberFormatter;
 - (id)replaceNumberingSystem:(id)system;
 - (id)resultContainingNumberFormatter;
@@ -114,27 +115,27 @@
 
 - (id)formattedResultBeforeNumberingSystem
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   units = [(CalculateTerm *)self units];
-  v5 = [units countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v5 = [units countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v30;
+    v7 = *v29;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v30 != v7)
+      if (*v29 != v7)
       {
         objc_enumerationMutation(units);
       }
 
-      v9 = *(*(&v29 + 1) + 8 * v8);
+      v9 = *(*(&v28 + 1) + 8 * v8);
       if ([v9 isNumerator])
       {
         break;
@@ -142,7 +143,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [units countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v6 = [units countByEnumeratingWithState:&v28 objects:v32 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -230,43 +231,41 @@ LABEL_16:
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return v25;
 }
 
 - (id)formattedUnitReplacingFirstNumerator:(id)numerator
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   numeratorCopy = numerator;
   locale = [(CalculateTerm *)self locale];
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
   units = [(CalculateTerm *)self units];
-  v6 = [units countByEnumeratingWithState:&v64 objects:v69 count:16];
+  v6 = [units countByEnumeratingWithState:&v63 objects:v68 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v65;
+    v8 = *v64;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v65 != v8)
+        if (*v64 != v8)
         {
           objc_enumerationMutation(units);
         }
 
-        if ([*(*(&v64 + 1) + 8 * i) isNumerator])
+        if ([*(*(&v63 + 1) + 8 * i) isNumerator])
         {
           v10 = 0;
           goto LABEL_11;
         }
       }
 
-      v7 = [units countByEnumeratingWithState:&v64 objects:v69 count:16];
+      v7 = [units countByEnumeratingWithState:&v63 objects:v68 count:16];
       if (v7)
       {
         continue;
@@ -281,33 +280,33 @@ LABEL_11:
 
   v11 = objc_opt_new();
   v12 = objc_opt_new();
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   obj = [(CalculateTerm *)self units];
-  v13 = [obj countByEnumeratingWithState:&v60 objects:v68 count:16];
-  v54 = v12;
+  v13 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
+  v53 = v12;
   if (v13)
   {
     v14 = v13;
-    v59 = 0;
+    v58 = 0;
     v15 = 1;
-    v57 = *v61;
-    v52 = v11;
-    v53 = numeratorCopy;
+    v56 = *v60;
+    v51 = v11;
+    v52 = numeratorCopy;
     do
     {
       v16 = 0;
-      v55 = v14;
+      v54 = v14;
       do
       {
-        if (*v61 != v57)
+        if (*v60 != v56)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v60 + 1) + 8 * v16);
+        v17 = *(*(&v59 + 1) + 8 * v16);
         isNumerator = [v17 isNumerator];
         v19 = 1.0;
         if (!isNumerator)
@@ -336,10 +335,10 @@ LABEL_21:
           v22 = 1;
         }
 
-        if (((v22 | v59) & 1) == 0)
+        if (((v22 | v58) & 1) == 0)
         {
           v31 = numeratorCopy;
-          v59 = 1;
+          v58 = 1;
           goto LABEL_45;
         }
 
@@ -368,12 +367,12 @@ LABEL_21:
 
             v26 = v30;
 LABEL_30:
-            v14 = v55;
+            v14 = v54;
             goto LABEL_36;
           }
         }
 
-        v14 = v55;
+        v14 = v54;
         if ([v26 hasSuffix:@"²"])
         {
           v32 = [v26 stringByReplacingOccurrencesOfString:@"²" withString:&stru_1F418FCD8];
@@ -410,8 +409,8 @@ LABEL_36:
         v37 = matchLocale;
         if (matchLocale)
         {
-          v51 = objc_loadWeakRetained(&v36->_result);
-          numberingSystem = [v51 numberingSystem];
+          v50 = objc_loadWeakRetained(&v36->_result);
+          numberingSystem = [v50 numberingSystem];
           v38 = numberingSystem;
         }
 
@@ -426,9 +425,9 @@ LABEL_36:
         {
         }
 
-        v11 = v52;
-        numeratorCopy = v53;
-        v12 = v54;
+        v11 = v51;
+        numeratorCopy = v52;
+        v12 = v53;
 LABEL_45:
 
         if (isNumerator)
@@ -449,7 +448,7 @@ LABEL_45:
       }
 
       while (v14 != v16);
-      v14 = [obj countByEnumeratingWithState:&v60 objects:v68 count:16];
+      v14 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
     }
 
     while (v14);
@@ -463,7 +462,7 @@ LABEL_45:
       v41 = [v11 componentsJoinedByString:@"·"];
 
       emptyNumeratorString = v41;
-      v12 = v54;
+      v12 = v53;
     }
 
     if ([v12 count] == 1)
@@ -496,9 +495,62 @@ LABEL_59:
   v46 = &stru_1F418FCD8;
 LABEL_60:
 
-  v47 = *MEMORY[0x1E69E9840];
-
   return v46;
+}
+
+- (id)localizedNameForValue:(double)value locale:(id)locale retainingFormat:(BOOL)format unit:(id)unit
+{
+  formatCopy = format;
+  unitCopy = unit;
+  localeCopy = locale;
+  result = [(CalculateTerm *)self result];
+  v13 = result;
+  if (result)
+  {
+    objc_msgSend_resolvedUnitFormats(result);
+  }
+
+  else
+  {
+    v29 = 0;
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+  }
+
+  v14 = *(&v21 + [unitCopy unitType]);
+  inputValueAndUnit = [v13 inputValueAndUnit];
+
+  v16 = 2;
+  v17 = 4;
+  if (v14 != 3)
+  {
+    v17 = v14;
+  }
+
+  if (v14 != 1)
+  {
+    v16 = v17;
+  }
+
+  if (inputValueAndUnit)
+  {
+    v18 = v16;
+  }
+
+  else
+  {
+    v18 = v14;
+  }
+
+  v19 = [unitCopy localizedNameForValue:localeCopy locale:formatCopy retainingFormat:v18 unitFormat:value];
+
+  return v19;
 }
 
 - (NSString)formattedUnit
@@ -511,28 +563,28 @@ LABEL_60:
 
 - (CalculateUnit)primaryUnit
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   units = [(CalculateTerm *)self units];
-  v3 = [units countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [units countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(units);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 isNumerator])
         {
           v9 = v8;
@@ -546,7 +598,7 @@ LABEL_60:
         }
       }
 
-      v4 = [units countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [units countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -564,8 +616,6 @@ LABEL_60:
   v5 = v5;
   v9 = v5;
 LABEL_15:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -588,13 +638,13 @@ LABEL_15:
 
   v7 = __bid128_from_string(uTF8String, 4, &v44);
   v9 = v8;
-  v10 = __bid128_quiet_less(v7, v8, 0, 0x3040000000000000, &v44);
+  v10 = __bid128_quiet_less(v7, v8, 0, 0x3040000000000000uLL, &v44);
   if (v10)
   {
     v9 &= ~0x8000000000000000;
   }
 
-  if (__bid128_quiet_greater(v7, v9, 0x2710uLL, 0x3040000000000000, &v44))
+  if (__bid128_quiet_greater(v7, v9, 0x2710uLL, 0x3040000000000000uLL, &v44))
   {
     v11 = __bid128_add(v7, v9, 0x2710uLL, 0xB040000000000000, 4, &v44);
     v13 = __bid128_fmod(v11, v12, 0x2710uLL, 0x3040000000000000uLL, &v44);
@@ -626,9 +676,9 @@ LABEL_15:
       v17 = 0x3040000000000000;
     }
 
-    v18 = bid128_pow_fix(0xAuLL, 0x3040000000000000uLL, v16, v17, 4u, &v44);
+    v18 = bid128_pow_fix(0xAuLL, 0x3040000000000000uLL, v16, v17, 4, &v44);
     v20 = v19;
-    v21 = __bid128_mul(v7, v9, v18, v19, 4u, &v44);
+    v21 = __bid128_mul(v7, v9, v18, v19, 4, &v44);
     v23 = __bid128_round_integral_exact(v21, v22, 4, &v44);
     v25 = __bid128_div(v23, v24, v18, v20, 4, &v44);
     v27 = v26;
@@ -653,7 +703,7 @@ LABEL_15:
       v31 = 0x3040000000000000;
     }
 
-    v32 = bid128_pow_fix(v28, v29, v30, v31, 4u, &v44);
+    v32 = bid128_pow_fix(v28, v29, v30, v31, 4, &v44);
     v34 = v33;
     v35 = __bid128_round_integral_exact(v25, v27, 4, &v44);
     v37 = v36;
@@ -800,7 +850,7 @@ LABEL_15:
   if (__bid128_quiet_greater(decimalValue, v19, 1uLL, 0xB040000000000000, &v94))
   {
     decimalValue2 = [(CalculateTerm *)self decimalValue];
-    autoScientificNotation &= __bid128_quiet_less(decimalValue2, v21, 1uLL, 0x3040000000000000, &v94) == 0 || !isCurrency;
+    autoScientificNotation &= __bid128_quiet_less(decimalValue2, v21, 1uLL, 0x3040000000000000uLL, &v94) == 0 || !isCurrency;
   }
 
   [MEMORY[0x1E696AB90] decimalNumberWithMantissa:1 exponent:0 isNegative:1];
@@ -918,10 +968,10 @@ LABEL_23:
 
   v82 = v24;
   v79 = v17;
-  v37 = __bid128_log10(self->_decimalValue.w[0], self->_decimalValue.w[1] & 0x7FFFFFFFFFFFFFFFLL, 4u, &v94);
+  v37 = __bid128_log10(self->_decimalValue.w[0], self->_decimalValue.w[1] & 0x7FFFFFFFFFFFFFFFLL, 4, &v94);
   v76 = __bid128_round_integral_negative(v37, v38, &v94);
   v77 = v39;
-  v40 = bid128_pow_fix(0xAuLL, 0x3040000000000000uLL, v76, v39, 4u, &v94);
+  v40 = bid128_pow_fix(0xAuLL, 0x3040000000000000uLL, v76, v39, 4, &v94);
   v42 = __bid128_div(self->_decimalValue.w[0], self->_decimalValue.w[1], v40, v41, 4, &v94);
   v44 = v43;
   value6 = [CalculateResult decimalNumberWithDecimal128:v42, v43];
@@ -933,27 +983,13 @@ LABEL_23:
   [(CalculateTerm *)self getMaximumFractionDigits:&v88 minimumFractionDigits:&v87 forValue:v42, v44];
   v46 = (*(v16 + 2))(v16, value6, v88, v87);
   decimalSeparator = [v26 decimalSeparator];
-  if (!decimalSeparator)
+  if (!decimalSeparator || (v48 = decimalSeparator, [v26 decimalSeparator], v49 = v23, v50 = objc_claimAutoreleasedReturnValue(), v51 = objc_msgSend(v46, "rangeOfString:", v50), v50, v23 = v49, v26 = v86, v48, v51 == 0x7FFFFFFFFFFFFFFFLL))
   {
-    goto LABEL_34;
-  }
-
-  v48 = decimalSeparator;
-  [v26 decimalSeparator];
-  v50 = v49 = v23;
-  v51 = [v46 rangeOfString:v50];
-
-  v23 = v49;
-  v26 = v86;
-
-  if (v51 == 0x7FFFFFFFFFFFFFFFLL)
-  {
-LABEL_34:
     v51 = [v46 length];
   }
 
   v81 = v23;
-  if ((v51 + -__bid128_quiet_less(v74, v45, 0, 0x3040000000000000, &v94)) >= 2)
+  if ((v51 + -__bid128_quiet_less(v74, v45, 0, 0x3040000000000000uLL, &v94)) >= 2)
   {
     v76 = __bid128_add(v76, v77, 1uLL, 0x3040000000000000, 4, &v94);
     v77 = v52;
@@ -1051,7 +1087,7 @@ id __52__CalculateTerm_formattedValueBeforeNumberingSystem__block_invoke(uint64_
   return v11;
 }
 
-uint64_t __52__CalculateTerm_formattedValueBeforeNumberingSystem__block_invoke_559(uint64_t a1)
+void *__52__CalculateTerm_formattedValueBeforeNumberingSystem__block_invoke_559(uint64_t a1)
 {
   v2 = [*(a1 + 32) maximumFractionDigits];
   v3 = [*(a1 + 32) minimumFractionDigits];
@@ -1209,14 +1245,14 @@ uint64_t __52__CalculateTerm_formattedValueBeforeNumberingSystem__block_invoke_5
     v22 = __bid128_round_integral_zero(v6, v5 & 0x7FFFFFFFFFFFFFFFLL, &v48);
     v24 = v23;
     v25 = __bid128_sub(v6, v5 & 0x7FFFFFFFFFFFFFFFLL, v22, v23, 4, &v48);
-    v27 = __bid128_log10(v25, v26, 4u, &v48);
+    v27 = __bid128_log10(v25, v26, 4, &v48);
     v29 = __bid128_round_integral_negative(v27, v28, &v48);
     v31 = __bid128_add(v29, v30 ^ 0x8000000000000000, 1uLL, 0xB040000000000000, 4, &v48);
     v33 = __bid128_to_int32_int(v31, v32, &v48);
     LODWORD(v34) = v33 & ~(v33 >> 31);
-    if (__bid128_quiet_greater(v22, v24, 0, 0x3040000000000000, &v48))
+    if (__bid128_quiet_greater(v22, v24, 0, 0x3040000000000000uLL, &v48))
     {
-      v35 = __bid128_log10(v22, v24, 4u, &v48);
+      v35 = __bid128_log10(v22, v24, 4, &v48);
       v37 = __bid128_round_integral_negative(v35, v36, &v48);
       v39 = ~__bid128_to_int32_int(v37, v38, &v48);
     }
@@ -1405,9 +1441,7 @@ LABEL_6:
 - (void)_setDecimalValue:(id)value
 {
   self->_decimalValue = value;
-  v4 = [CalculateResult decimalNumberWithDecimal128:?];
-  value = self->_value;
-  self->_value = v4;
+  self->_value = [CalculateResult decimalNumberWithDecimal128:?];
 
   MEMORY[0x1EEE66BB8]();
 }

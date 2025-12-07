@@ -1,210 +1,3 @@
-void coex::Module::State::handleSetWiFiStatus_sync(uint64_t *a1, xpc_object_t *a2, uint64_t a3)
-{
-  v39 = *MEMORY[0x29EDCA608];
-  if (MEMORY[0x29C272BA0](*a2) != MEMORY[0x29EDCAA00])
-  {
-    v6 = a1[4];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-    {
-      LOWORD(buf) = 0;
-      _os_log_debug_impl(&dword_297476000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", &buf, 2u);
-    }
-
-    goto LABEL_49;
-  }
-
-  value = xpc_dictionary_get_value(*a2, "WCMCellularSetWiFiStatus_CenterFrequency");
-  *&buf = value;
-  if (value)
-  {
-    xpc_retain(value);
-  }
-
-  else
-  {
-    *&buf = xpc_null_create();
-  }
-
-  v8 = xpc::dyn_cast_or_default(&buf, 0);
-  xpc_release(buf);
-  v9 = xpc_dictionary_get_value(*a2, "WCMCellularSetWiFiStatus_ChannelBandwidth");
-  *&buf = v9;
-  if (v9)
-  {
-    xpc_retain(v9);
-  }
-
-  else
-  {
-    *&buf = xpc_null_create();
-  }
-
-  v10 = xpc::dyn_cast_or_default(&buf, 0);
-  xpc_release(buf);
-  v11 = xpc_dictionary_get_value(*a2, "WCMCellularSetWiFiStatus_TxPower");
-  *&buf = v11;
-  if (v11)
-  {
-    xpc_retain(v11);
-  }
-
-  else
-  {
-    *&buf = xpc_null_create();
-  }
-
-  v12 = xpc::dyn_cast_or_default(&buf, 0);
-  xpc_release(buf);
-  v37 = 0;
-  v13 = *MEMORY[0x29EDB8ED8];
-  Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-  v15 = Mutable;
-  if (Mutable)
-  {
-    v37 = Mutable;
-  }
-
-  ctu::cf::insert<__CFString const*,int>(Mutable, *MEMORY[0x29EDC8778], v8, v13);
-  ctu::cf::insert<__CFString const*,int>(v15, *MEMORY[0x29EDC8658], v10, v13);
-  ctu::cf::insert<__CFString const*,int>(v15, *MEMORY[0x29EDC8620], v12, v13);
-  v36 = 0;
-  v16 = CFDictionaryCreateMutable(v13, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-  v17 = v16;
-  if (v16)
-  {
-    v36 = v16;
-  }
-
-  ctu::cf::insert<__CFString const*,__CFDictionary *>(v16, *MEMORY[0x29EDC8740], v15);
-  v18 = a1[4];
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-  {
-    LODWORD(buf) = 138412290;
-    *(&buf + 4) = v17;
-    _os_log_impl(&dword_297476000, v18, OS_LOG_TYPE_DEFAULT, "#I Setting WiFi status with: %@", &buf, 0xCu);
-  }
-
-  v20 = *a1;
-  v19 = a1[1];
-  *&buf = *a1;
-  if (!v19 || (v21 = std::__shared_weak_count::lock(v19), (*(&buf + 1) = v21) == 0))
-  {
-    std::__throw_bad_weak_ptr[abi:ne200100]();
-  }
-
-  v22 = v21;
-  v23 = a1[5];
-  if (v17 && (v24 = CFGetTypeID(v17), v24 == CFDictionaryGetTypeID()))
-  {
-    cf = v17;
-    CFRetain(v17);
-  }
-
-  else
-  {
-    cf = 0;
-  }
-
-  v31[0] = MEMORY[0x29EDCA5F8];
-  v31[1] = 1174405120;
-  v31[2] = ___ZN4coex6Module5State24handleSetWiFiStatus_syncEN3xpc4dictENS_5SubIdE_block_invoke;
-  v31[3] = &__block_descriptor_tmp_176;
-  v31[4] = a1;
-  v31[5] = v20;
-  v32 = v22;
-  atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
-  v25 = _Block_copy(v31);
-  v26 = a1[2];
-  if (v26)
-  {
-    dispatch_retain(v26);
-  }
-
-  if (v25)
-  {
-    aBlock = _Block_copy(v25);
-    object = v26;
-    if (!v26)
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_29;
-  }
-
-  aBlock = 0;
-  object = v26;
-  if (v26)
-  {
-LABEL_29:
-    dispatch_retain(v26);
-  }
-
-LABEL_30:
-  (*(*v23 + 16))(v23, &cf, a3, &aBlock);
-  if (object)
-  {
-    dispatch_release(object);
-  }
-
-  if (aBlock)
-  {
-    _Block_release(aBlock);
-  }
-
-  if (v26)
-  {
-    dispatch_release(v26);
-  }
-
-  if (v25)
-  {
-    _Block_release(v25);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  v27 = v32;
-  if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v27->__on_zero_shared)(v27);
-    std::__shared_weak_count::__release_weak(v27);
-  }
-
-  v28 = *(&buf + 1);
-  if (!*(&buf + 1) || atomic_fetch_add((*(&buf + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
-  {
-    v29 = v36;
-    if (!v36)
-    {
-      goto LABEL_47;
-    }
-
-    goto LABEL_46;
-  }
-
-  (v28->__on_zero_shared)(v28);
-  std::__shared_weak_count::__release_weak(v28);
-  v29 = v36;
-  if (v36)
-  {
-LABEL_46:
-    CFRelease(v29);
-  }
-
-LABEL_47:
-  if (v37)
-  {
-    CFRelease(v37);
-  }
-
-LABEL_49:
-  v30 = *MEMORY[0x29EDCA608];
-}
-
 void sub_29749DCB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, int a19, __int16 a20, char a21, char a22, int a23, __int16 a24, char a25, char a26, xpc_object_t object)
 {
   if (a2)
@@ -215,34 +8,32 @@ void sub_29749DCB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29749DDB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_29749DDB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
 
 void ___ZN4coex6Module5State24handleSetWiFiStatus_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set wifi status: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set wifi status: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetTimeShareConfigReq_sync(uint64_t *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v75 = *MEMORY[0x29EDCA608];
+  v73 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C272BA0](*a2) != MEMORY[0x29EDCAA00])
   {
     v6 = a1[4];
@@ -252,18 +43,18 @@ void coex::Module::State::handleSetTimeShareConfigReq_sync(uint64_t *a1, xpc_obj
       _os_log_debug_impl(&dword_297476000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", buf, 2u);
     }
 
-    goto LABEL_4;
+    return;
   }
 
   if (xpc_dictionary_get_value(*a2, "kWCMCellularSetTimeShareConfig_Enable"))
   {
-    v73 = 0;
-    v8 = *MEMORY[0x29EDB8ED8];
+    v71 = 0;
+    v7 = *MEMORY[0x29EDB8ED8];
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-    v10 = Mutable;
+    v9 = Mutable;
     if (Mutable)
     {
-      v73 = Mutable;
+      v71 = Mutable;
     }
 
     value = xpc_dictionary_get_value(*a2, "kWCMCellularSetTimeShareConfig_Enable");
@@ -278,14 +69,14 @@ void coex::Module::State::handleSetTimeShareConfigReq_sync(uint64_t *a1, xpc_obj
       *buf = xpc_null_create();
     }
 
-    v13 = xpc::dyn_cast_or_default(buf, 0);
-    ctu::cf::insert<__CFString const*,BOOL>(v10, *MEMORY[0x29EDC8928], v13);
+    v12 = xpc::dyn_cast_or_default(buf, 0);
+    ctu::cf::insert<__CFString const*,BOOL>(v9, *MEMORY[0x29EDC8928], v12);
     xpc_release(*buf);
-    v14 = xpc_dictionary_get_value(*a2, "kWCMCellularTimeShareConfig_CoexTech");
-    *buf = v14;
-    if (v14)
+    v13 = xpc_dictionary_get_value(*a2, "kWCMCellularTimeShareConfig_CoexTech");
+    *buf = v13;
+    if (v13)
     {
-      xpc_retain(v14);
+      xpc_retain(v13);
     }
 
     else
@@ -293,14 +84,14 @@ void coex::Module::State::handleSetTimeShareConfigReq_sync(uint64_t *a1, xpc_obj
       *buf = xpc_null_create();
     }
 
-    v15 = xpc::dyn_cast_or_default(buf, 0);
-    ctu::cf::insert<__CFString const*,unsigned int>(v10, *MEMORY[0x29EDC8960], v15, v8);
+    v14 = xpc::dyn_cast_or_default(buf, 0);
+    ctu::cf::insert<__CFString const*,unsigned int>(v9, *MEMORY[0x29EDC8960], v14, v7);
     xpc_release(*buf);
-    v16 = xpc_dictionary_get_value(*a2, "kWCMCellularTimeShareConfig_CallType");
-    *buf = v16;
-    if (v16)
+    v15 = xpc_dictionary_get_value(*a2, "kWCMCellularTimeShareConfig_CallType");
+    *buf = v15;
+    if (v15)
     {
-      xpc_retain(v16);
+      xpc_retain(v15);
     }
 
     else
@@ -308,14 +99,14 @@ void coex::Module::State::handleSetTimeShareConfigReq_sync(uint64_t *a1, xpc_obj
       *buf = xpc_null_create();
     }
 
-    v17 = xpc::dyn_cast_or_default(buf, 0);
-    ctu::cf::insert<__CFString const*,unsigned int>(v10, *MEMORY[0x29EDC8958], v17, v8);
+    v16 = xpc::dyn_cast_or_default(buf, 0);
+    ctu::cf::insert<__CFString const*,unsigned int>(v9, *MEMORY[0x29EDC8958], v16, v7);
     xpc_release(*buf);
-    v18 = xpc_dictionary_get_value(*a2, "kWCMCellularTimeShareConfig_LongDrxCycle");
-    *buf = v18;
-    if (v18)
+    v17 = xpc_dictionary_get_value(*a2, "kWCMCellularTimeShareConfig_LongDrxCycle");
+    *buf = v17;
+    if (v17)
     {
-      xpc_retain(v18);
+      xpc_retain(v17);
     }
 
     else
@@ -323,14 +114,14 @@ void coex::Module::State::handleSetTimeShareConfigReq_sync(uint64_t *a1, xpc_obj
       *buf = xpc_null_create();
     }
 
-    v19 = xpc::dyn_cast_or_default(buf, 0);
-    ctu::cf::insert<__CFString const*,unsigned short>(v10, *MEMORY[0x29EDC8A40], v19, v8);
+    v18 = xpc::dyn_cast_or_default(buf, 0);
+    ctu::cf::insert<__CFString const*,unsigned short>(v9, *MEMORY[0x29EDC8A40], v18, v7);
     xpc_release(*buf);
-    v20 = xpc_dictionary_get_value(*a2, "kWCMCellularTimeShareConfig_ShortDrxCycle");
-    *buf = v20;
-    if (v20)
+    v19 = xpc_dictionary_get_value(*a2, "kWCMCellularTimeShareConfig_ShortDrxCycle");
+    *buf = v19;
+    if (v19)
     {
-      xpc_retain(v20);
+      xpc_retain(v19);
     }
 
     else
@@ -338,14 +129,14 @@ void coex::Module::State::handleSetTimeShareConfigReq_sync(uint64_t *a1, xpc_obj
       *buf = xpc_null_create();
     }
 
-    v21 = xpc::dyn_cast_or_default(buf, 0);
-    ctu::cf::insert<__CFString const*,unsigned short>(v10, *MEMORY[0x29EDC8A60], v21, v8);
+    v20 = xpc::dyn_cast_or_default(buf, 0);
+    ctu::cf::insert<__CFString const*,unsigned short>(v9, *MEMORY[0x29EDC8A60], v20, v7);
     xpc_release(*buf);
-    v22 = xpc_dictionary_get_value(*a2, "kWCMCellularTImeShareConfig_SleepWakeDurScale");
-    *buf = v22;
-    if (v22)
+    v21 = xpc_dictionary_get_value(*a2, "kWCMCellularTImeShareConfig_SleepWakeDurScale");
+    *buf = v21;
+    if (v21)
     {
-      xpc_retain(v22);
+      xpc_retain(v21);
     }
 
     else
@@ -353,75 +144,74 @@ void coex::Module::State::handleSetTimeShareConfigReq_sync(uint64_t *a1, xpc_obj
       *buf = xpc_null_create();
     }
 
-    v23 = xpc::dyn_cast_or_default(buf, 0);
-    ctu::cf::insert<__CFString const*,unsigned char>(v10, *MEMORY[0x29EDC8AB0], v23, v8);
+    v22 = xpc::dyn_cast_or_default(buf, 0);
+    ctu::cf::insert<__CFString const*,unsigned char>(v9, *MEMORY[0x29EDC8AB0], v22, v7);
     xpc_release(*buf);
-    v72 = 0xAAAAAAAAAAAAAAAALL;
+    v70 = 0xAAAAAAAAAAAAAAAALL;
     *buf = a2;
     *&buf[8] = "kWCMCellularTImeShareConfig_BandInformationSet";
-    xpc::dict::object_proxy::operator xpc::array(buf, &v72);
-    v24 = MEMORY[0x29C272BA0](v72);
-    v25 = MEMORY[0x29EDCA9E0];
-    if (v24 == MEMORY[0x29EDCA9E0])
+    xpc::dict::object_proxy::operator xpc::array(buf, &v70);
+    v23 = MEMORY[0x29C272BA0](v70);
+    v24 = MEMORY[0x29EDCA9E0];
+    if (v23 == MEMORY[0x29EDCA9E0])
     {
-      v71 = 0;
-      v26 = CFArrayCreateMutable(v8, 0, MEMORY[0x29EDB9000]);
-      if (v26)
+      v69 = 0;
+      v25 = CFArrayCreateMutable(v7, 0, MEMORY[0x29EDB9000]);
+      if (v25)
       {
-        v71 = v26;
+        v69 = v25;
       }
 
       memset(buf, 170, sizeof(buf));
-      v27 = v72;
-      if (v72)
+      v26 = v70;
+      if (v70)
       {
-        xpc_retain(v72);
-        *buf = v27;
+        xpc_retain(v70);
+        *buf = v26;
       }
 
       else
       {
-        v27 = xpc_null_create();
-        *buf = v27;
-        if (!v27)
+        v26 = xpc_null_create();
+        *buf = v26;
+        if (!v26)
         {
-          v27 = 0;
+          v26 = 0;
           *buf = xpc_null_create();
           goto LABEL_35;
         }
       }
 
-      xpc_retain(v27);
+      xpc_retain(v26);
 LABEL_35:
       *&buf[8] = 0;
-      xpc_release(v27);
-      v59 = a1;
-      v60 = a3;
-      v28 = *MEMORY[0x29EDC8658];
-      v61 = *MEMORY[0x29EDC8658];
-      v62 = *MEMORY[0x29EDC8778];
-      v29 = MEMORY[0x29EDB9010];
-      v30 = MEMORY[0x29EDB9020];
+      xpc_release(v26);
+      v57 = a1;
+      v58 = a3;
+      v59 = *MEMORY[0x29EDC8658];
+      v60 = *MEMORY[0x29EDC8778];
+      v27 = MEMORY[0x29EDB9010];
+      v28 = MEMORY[0x29EDB9020];
       while (1)
       {
-        v31 = v72;
-        if (v72)
+        v29 = v70;
+        if (v70)
         {
-          xpc_retain(v72);
+          xpc_retain(v70);
         }
 
         else
         {
-          v31 = xpc_null_create();
+          v29 = xpc_null_create();
         }
 
-        if (MEMORY[0x29C272BA0](v72) == v25)
+        if (MEMORY[0x29C272BA0](v70) == v24)
         {
-          count = xpc_array_get_count(v72);
-          if (!v31)
+          count = xpc_array_get_count(v70);
+          if (!v29)
           {
 LABEL_45:
-            v33 = xpc_null_create();
+            v31 = xpc_null_create();
             goto LABEL_46;
           }
         }
@@ -429,41 +219,41 @@ LABEL_45:
         else
         {
           count = 0;
-          if (!v31)
+          if (!v29)
           {
             goto LABEL_45;
           }
         }
 
-        xpc_retain(v31);
-        v33 = v31;
+        xpc_retain(v29);
+        v31 = v29;
 LABEL_46:
+        xpc_release(v29);
+        v33 = *buf;
+        v32 = *&buf[8];
         xpc_release(v31);
-        v35 = *buf;
-        v34 = *&buf[8];
-        xpc_release(v33);
-        if (v34 == count && v35 == v33)
+        if (v32 == count && v33 == v31)
         {
           xpc_release(*buf);
-          v44 = v71;
-          v10 = v73;
-          ctu::cf::insert<__CFString const*,__CFArray *>(v73, *MEMORY[0x29EDC8AC8], v71);
-          a3 = v60;
-          a1 = v59;
-          if (v44)
+          v42 = v69;
+          v9 = v71;
+          ctu::cf::insert<__CFString const*,__CFArray *>(v71, *MEMORY[0x29EDC8AC8], v69);
+          a3 = v58;
+          a1 = v57;
+          if (v42)
           {
-            CFRelease(v44);
+            CFRelease(v42);
           }
 
           break;
         }
 
-        v70 = 0;
-        v36 = CFDictionaryCreateMutable(v8, 0, v29, v30);
-        v37 = v36;
-        if (v36)
+        v68 = 0;
+        v34 = CFDictionaryCreateMutable(v7, 0, v27, v28);
+        v35 = v34;
+        if (v34)
         {
-          v70 = v36;
+          v68 = v34;
         }
 
         object[0] = buf;
@@ -472,7 +262,21 @@ LABEL_46:
         xpc::array::object_proxy::operator xpc::dict(object, &xdict);
         if (MEMORY[0x29C272BA0](xdict) == MEMORY[0x29EDCAA00])
         {
-          v38 = xpc_dictionary_get_value(xdict, "kWCMCellularTImeShareConfig_BandSet_Frequency");
+          v36 = xpc_dictionary_get_value(xdict, "kWCMCellularTImeShareConfig_BandSet_Frequency");
+          object[0] = v36;
+          if (v36)
+          {
+            xpc_retain(v36);
+          }
+
+          else
+          {
+            object[0] = xpc_null_create();
+          }
+
+          v37 = xpc::dyn_cast_or_default(object, 0);
+          xpc_release(object[0]);
+          v38 = xpc_dictionary_get_value(xdict, "kWCMCellularTImeShareConfig_BandSet_BW");
           object[0] = v38;
           if (v38)
           {
@@ -486,40 +290,26 @@ LABEL_46:
 
           v39 = xpc::dyn_cast_or_default(object, 0);
           xpc_release(object[0]);
-          v40 = xpc_dictionary_get_value(xdict, "kWCMCellularTImeShareConfig_BandSet_BW");
-          object[0] = v40;
-          if (v40)
-          {
-            xpc_retain(v40);
-          }
-
-          else
-          {
-            object[0] = xpc_null_create();
-          }
-
-          v41 = xpc::dyn_cast_or_default(object, 0);
-          xpc_release(object[0]);
-          ctu::cf::insert<__CFString const*,long long>(v37, v62, v39, v8);
-          ctu::cf::insert<__CFString const*,long long>(v37, v61, v41, v8);
+          ctu::cf::insert<__CFString const*,long long>(v35, v60, v37, v7);
+          ctu::cf::insert<__CFString const*,long long>(v35, v59, v39, v7);
         }
 
-        v42 = v71;
-        object[0] = v37;
-        if (v37)
+        v40 = v69;
+        object[0] = v35;
+        if (v35)
         {
-          CFRetain(v37);
-          CFArrayAppendValue(v42, v37);
-          CFRelease(v37);
+          CFRetain(v35);
+          CFArrayAppendValue(v40, v35);
+          CFRelease(v35);
         }
 
         xpc_release(xdict);
-        if (v37)
+        if (v35)
         {
-          CFRelease(v37);
+          CFRelease(v35);
         }
 
-        v43 = *buf;
+        v41 = *buf;
         if (*buf)
         {
           xpc_retain(*buf);
@@ -527,45 +317,45 @@ LABEL_46:
 
         else
         {
-          v43 = xpc_null_create();
+          v41 = xpc_null_create();
         }
 
         ++*&buf[8];
-        xpc_release(v43);
+        xpc_release(v41);
       }
     }
 
     object[0] = 0;
-    v45 = CFDictionaryCreateMutable(v8, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-    v46 = v45;
-    if (v45)
+    v43 = CFDictionaryCreateMutable(v7, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+    v44 = v43;
+    if (v43)
     {
-      object[0] = v45;
+      object[0] = v43;
     }
 
-    ctu::cf::insert<__CFString const*,__CFDictionary *>(v45, *MEMORY[0x29EDC8800], v10);
-    v47 = a1[4];
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    ctu::cf::insert<__CFString const*,__CFDictionary *>(v43, *MEMORY[0x29EDC8800], v9);
+    v45 = a1[4];
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *&buf[4] = v46;
-      _os_log_impl(&dword_297476000, v47, OS_LOG_TYPE_DEFAULT, "#I Setting Time share config with: %@", buf, 0xCu);
+      *&buf[4] = v44;
+      _os_log_impl(&dword_297476000, v45, OS_LOG_TYPE_DEFAULT, "#I Setting Time share config with: %@", buf, 0xCu);
     }
 
-    v49 = *a1;
-    v48 = a1[1];
+    v47 = *a1;
+    v46 = a1[1];
     *buf = *a1;
-    if (!v48 || (v50 = std::__shared_weak_count::lock(v48), (*&buf[8] = v50) == 0))
+    if (!v46 || (v48 = std::__shared_weak_count::lock(v46), (*&buf[8] = v48) == 0))
     {
       std::__throw_bad_weak_ptr[abi:ne200100]();
     }
 
-    v51 = v50;
-    v52 = a1[5];
-    if (v46 && (v53 = CFGetTypeID(v46), v53 == CFDictionaryGetTypeID()))
+    v49 = v48;
+    v50 = a1[5];
+    if (v44 && (v51 = CFGetTypeID(v44), v51 == CFDictionaryGetTypeID()))
     {
-      cf = v46;
-      CFRetain(v46);
+      cf = v44;
+      CFRetain(v44);
     }
 
     else
@@ -578,21 +368,21 @@ LABEL_46:
     aBlock[2] = ___ZN4coex6Module5State32handleSetTimeShareConfigReq_syncEN3xpc4dictENS_5SubIdE_block_invoke;
     aBlock[3] = &__block_descriptor_tmp_188;
     aBlock[4] = a1;
-    aBlock[5] = v49;
-    v64 = v51;
-    atomic_fetch_add_explicit(&v51->__shared_owners_, 1uLL, memory_order_relaxed);
-    v54 = _Block_copy(aBlock);
-    v55 = a1[2];
-    if (v55)
+    aBlock[5] = v47;
+    v62 = v49;
+    atomic_fetch_add_explicit(&v49->__shared_owners_, 1uLL, memory_order_relaxed);
+    v52 = _Block_copy(aBlock);
+    v53 = a1[2];
+    if (v53)
     {
       dispatch_retain(a1[2]);
     }
 
-    if (v54)
+    if (v52)
     {
-      v65 = _Block_copy(v54);
-      v66 = v55;
-      if (!v55)
+      v63 = _Block_copy(v52);
+      v64 = v53;
+      if (!v53)
       {
         goto LABEL_81;
       }
@@ -600,30 +390,30 @@ LABEL_46:
 
     else
     {
-      v65 = 0;
-      v66 = v55;
-      if (!v55)
+      v63 = 0;
+      v64 = v53;
+      if (!v53)
       {
 LABEL_81:
-        (*(*v52 + 16))(v52, &cf, a3, &v65);
-        if (v66)
+        (*(*v50 + 16))(v50, &cf, a3, &v63);
+        if (v64)
         {
-          dispatch_release(v66);
+          dispatch_release(v64);
         }
 
-        if (v65)
+        if (v63)
         {
-          _Block_release(v65);
+          _Block_release(v63);
         }
 
-        if (v55)
+        if (v53)
         {
-          dispatch_release(v55);
+          dispatch_release(v53);
         }
 
-        if (v54)
+        if (v52)
         {
-          _Block_release(v54);
+          _Block_release(v52);
         }
 
         if (cf)
@@ -631,59 +421,56 @@ LABEL_81:
           CFRelease(cf);
         }
 
-        v56 = v64;
-        if (v64 && !atomic_fetch_add(&v64->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v54 = v62;
+        if (v62 && !atomic_fetch_add(&v62->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          (v56->__on_zero_shared)(v56);
-          std::__shared_weak_count::__release_weak(v56);
+          (v54->__on_zero_shared)(v54);
+          std::__shared_weak_count::__release_weak(v54);
         }
 
-        v57 = *&buf[8];
+        v55 = *&buf[8];
         if (*&buf[8] && !atomic_fetch_add((*&buf[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
         {
-          (v57->__on_zero_shared)(v57);
-          std::__shared_weak_count::__release_weak(v57);
-          v58 = object[0];
+          (v55->__on_zero_shared)(v55);
+          std::__shared_weak_count::__release_weak(v55);
+          v56 = object[0];
           if (!object[0])
           {
 LABEL_98:
-            xpc_release(v72);
-            if (v73)
+            xpc_release(v70);
+            if (v71)
             {
-              CFRelease(v73);
+              CFRelease(v71);
             }
 
-            goto LABEL_4;
+            return;
           }
         }
 
         else
         {
-          v58 = object[0];
+          v56 = object[0];
           if (!object[0])
           {
             goto LABEL_98;
           }
         }
 
-        CFRelease(v58);
+        CFRelease(v56);
         goto LABEL_98;
       }
     }
 
-    dispatch_retain(v55);
+    dispatch_retain(v53);
     goto LABEL_81;
   }
 
-  v12 = a1[4];
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v11 = a1[4];
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_297476000, v12, OS_LOG_TYPE_DEFAULT, "#E Missing Time share config", buf, 2u);
+    _os_log_impl(&dword_297476000, v11, OS_LOG_TYPE_DEFAULT, "#E Missing Time share config", buf, 2u);
   }
-
-LABEL_4:
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29749E79C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, char a23, xpc_object_t a24, uint64_t a25, xpc_object_t object, char a27)
@@ -698,25 +485,23 @@ void sub_29749E79C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4coex6Module5State32handleSetTimeShareConfigReq_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set Time share config: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set Time share config: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetWCI2TxAntMap_sync(uint64_t *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v70 = *MEMORY[0x29EDCA608];
+  v68 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C272BA0](*a2) != MEMORY[0x29EDCAA00])
   {
     v6 = a1[4];
@@ -726,18 +511,18 @@ void coex::Module::State::handleSetWCI2TxAntMap_sync(uint64_t *a1, xpc_object_t 
       _os_log_debug_impl(&dword_297476000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", buf, 2u);
     }
 
-    goto LABEL_4;
+    return;
   }
 
   if (xpc_dictionary_get_value(*a2, "kWCMCellularSetWCI2TxAntMap_Enable"))
   {
-    v68 = 0;
-    v8 = *MEMORY[0x29EDB8ED8];
+    v66 = 0;
+    v7 = *MEMORY[0x29EDB8ED8];
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-    v10 = Mutable;
+    v9 = Mutable;
     if (Mutable)
     {
-      v68 = Mutable;
+      v66 = Mutable;
     }
 
     value = xpc_dictionary_get_value(*a2, "kWCMCellularSetWCI2TxAntMap_Enable");
@@ -752,14 +537,14 @@ void coex::Module::State::handleSetWCI2TxAntMap_sync(uint64_t *a1, xpc_object_t 
       *buf = xpc_null_create();
     }
 
-    v13 = xpc::dyn_cast_or_default(buf, 0);
-    ctu::cf::insert<__CFString const*,BOOL>(v10, *MEMORY[0x29EDC8850], v13);
+    v12 = xpc::dyn_cast_or_default(buf, 0);
+    ctu::cf::insert<__CFString const*,BOOL>(v9, *MEMORY[0x29EDC8850], v12);
     xpc_release(*buf);
-    v14 = xpc_dictionary_get_value(*a2, "kWCMCellularSetWCI2TxAntMap_DefaultIdx");
-    *buf = v14;
-    if (v14)
+    v13 = xpc_dictionary_get_value(*a2, "kWCMCellularSetWCI2TxAntMap_DefaultIdx");
+    *buf = v13;
+    if (v13)
     {
-      xpc_retain(v14);
+      xpc_retain(v13);
     }
 
     else
@@ -767,75 +552,74 @@ void coex::Module::State::handleSetWCI2TxAntMap_sync(uint64_t *a1, xpc_object_t 
       *buf = xpc_null_create();
     }
 
-    v15 = xpc::dyn_cast_or_default(buf, 0);
-    ctu::cf::insert<__CFString const*,unsigned char>(v10, *MEMORY[0x29EDC8938], v15, v8);
+    v14 = xpc::dyn_cast_or_default(buf, 0);
+    ctu::cf::insert<__CFString const*,unsigned char>(v9, *MEMORY[0x29EDC8938], v14, v7);
     xpc_release(*buf);
-    v67 = 0xAAAAAAAAAAAAAAAALL;
+    v65 = 0xAAAAAAAAAAAAAAAALL;
     *buf = a2;
     *&buf[8] = "kWCMCellularSetWCI2TxAntMap_InformationSet";
-    xpc::dict::object_proxy::operator xpc::array(buf, &v67);
-    v16 = MEMORY[0x29C272BA0](v67);
-    v17 = MEMORY[0x29EDCA9E0];
-    if (v16 == MEMORY[0x29EDCA9E0])
+    xpc::dict::object_proxy::operator xpc::array(buf, &v65);
+    v15 = MEMORY[0x29C272BA0](v65);
+    v16 = MEMORY[0x29EDCA9E0];
+    if (v15 == MEMORY[0x29EDCA9E0])
     {
-      v66 = 0;
-      v18 = CFArrayCreateMutable(v8, 0, MEMORY[0x29EDB9000]);
-      if (v18)
+      v64 = 0;
+      v17 = CFArrayCreateMutable(v7, 0, MEMORY[0x29EDB9000]);
+      if (v17)
       {
-        v66 = v18;
+        v64 = v17;
       }
 
       memset(buf, 170, sizeof(buf));
-      v19 = v67;
-      if (v67)
+      v18 = v65;
+      if (v65)
       {
-        xpc_retain(v67);
-        *buf = v19;
+        xpc_retain(v65);
+        *buf = v18;
       }
 
       else
       {
-        v19 = xpc_null_create();
-        *buf = v19;
-        if (!v19)
+        v18 = xpc_null_create();
+        *buf = v18;
+        if (!v18)
         {
-          v19 = 0;
+          v18 = 0;
           *buf = xpc_null_create();
           goto LABEL_23;
         }
       }
 
-      xpc_retain(v19);
+      xpc_retain(v18);
 LABEL_23:
       *&buf[8] = 0;
-      xpc_release(v19);
-      v54 = a1;
-      v55 = a3;
-      v20 = *MEMORY[0x29EDC8A18];
-      v56 = *MEMORY[0x29EDC8A18];
-      v57 = *MEMORY[0x29EDC89E0];
-      v21 = MEMORY[0x29EDB9010];
-      v22 = MEMORY[0x29EDB9020];
+      xpc_release(v18);
+      v52 = a1;
+      v53 = a3;
+      v54 = *MEMORY[0x29EDC8A18];
+      v55 = *MEMORY[0x29EDC89E0];
+      v19 = MEMORY[0x29EDB9010];
+      v20 = MEMORY[0x29EDB9020];
       while (1)
       {
-        v23 = v67;
-        if (v67)
+        v21 = v65;
+        if (v65)
         {
-          xpc_retain(v67);
+          xpc_retain(v65);
         }
 
         else
         {
-          v23 = xpc_null_create();
+          v21 = xpc_null_create();
         }
 
-        if (MEMORY[0x29C272BA0](v67) == v17)
+        if (MEMORY[0x29C272BA0](v65) == v16)
         {
-          count = xpc_array_get_count(v67);
-          if (!v23)
+          count = xpc_array_get_count(v65);
+          if (!v21)
           {
 LABEL_33:
-            v25 = xpc_null_create();
+            v23 = xpc_null_create();
             goto LABEL_34;
           }
         }
@@ -843,41 +627,41 @@ LABEL_33:
         else
         {
           count = 0;
-          if (!v23)
+          if (!v21)
           {
             goto LABEL_33;
           }
         }
 
-        xpc_retain(v23);
-        v25 = v23;
+        xpc_retain(v21);
+        v23 = v21;
 LABEL_34:
+        xpc_release(v21);
+        v25 = *buf;
+        v24 = *&buf[8];
         xpc_release(v23);
-        v27 = *buf;
-        v26 = *&buf[8];
-        xpc_release(v25);
-        if (v26 == count && v27 == v25)
+        if (v24 == count && v25 == v23)
         {
           xpc_release(*buf);
-          v36 = v66;
-          v10 = v68;
-          ctu::cf::insert<__CFString const*,__CFArray *>(v68, *MEMORY[0x29EDC8A20], v66);
-          a3 = v55;
-          a1 = v54;
-          if (v36)
+          v34 = v64;
+          v9 = v66;
+          ctu::cf::insert<__CFString const*,__CFArray *>(v66, *MEMORY[0x29EDC8A20], v64);
+          a3 = v53;
+          a1 = v52;
+          if (v34)
           {
-            CFRelease(v36);
+            CFRelease(v34);
           }
 
           break;
         }
 
-        v65 = 0;
-        v28 = CFDictionaryCreateMutable(v8, 0, v21, v22);
-        v29 = v28;
-        if (v28)
+        v63 = 0;
+        v26 = CFDictionaryCreateMutable(v7, 0, v19, v20);
+        v27 = v26;
+        if (v26)
         {
-          v65 = v28;
+          v63 = v26;
         }
 
         object[0] = buf;
@@ -886,7 +670,21 @@ LABEL_34:
         xpc::array::object_proxy::operator xpc::dict(object, &xdict);
         if (MEMORY[0x29C272BA0](xdict) == MEMORY[0x29EDCAA00])
         {
-          v30 = xpc_dictionary_get_value(xdict, "kWCMCellularSetWCI2TxAntMap_Infoet_AntIdx");
+          v28 = xpc_dictionary_get_value(xdict, "kWCMCellularSetWCI2TxAntMap_Infoet_AntIdx");
+          object[0] = v28;
+          if (v28)
+          {
+            xpc_retain(v28);
+          }
+
+          else
+          {
+            object[0] = xpc_null_create();
+          }
+
+          v29 = xpc::dyn_cast_or_default(object, 0);
+          xpc_release(object[0]);
+          v30 = xpc_dictionary_get_value(xdict, "kWCMCellularSetWCI2TxAntMap_InfoSet_WCI2Idx");
           object[0] = v30;
           if (v30)
           {
@@ -900,40 +698,26 @@ LABEL_34:
 
           v31 = xpc::dyn_cast_or_default(object, 0);
           xpc_release(object[0]);
-          v32 = xpc_dictionary_get_value(xdict, "kWCMCellularSetWCI2TxAntMap_InfoSet_WCI2Idx");
-          object[0] = v32;
-          if (v32)
-          {
-            xpc_retain(v32);
-          }
-
-          else
-          {
-            object[0] = xpc_null_create();
-          }
-
-          v33 = xpc::dyn_cast_or_default(object, 0);
-          xpc_release(object[0]);
-          ctu::cf::insert<__CFString const*,unsigned char>(v29, v57, v31, v8);
-          ctu::cf::insert<__CFString const*,unsigned char>(v29, v56, v33, v8);
+          ctu::cf::insert<__CFString const*,unsigned char>(v27, v55, v29, v7);
+          ctu::cf::insert<__CFString const*,unsigned char>(v27, v54, v31, v7);
         }
 
-        v34 = v66;
-        object[0] = v29;
-        if (v29)
+        v32 = v64;
+        object[0] = v27;
+        if (v27)
         {
-          CFRetain(v29);
-          CFArrayAppendValue(v34, v29);
-          CFRelease(v29);
+          CFRetain(v27);
+          CFArrayAppendValue(v32, v27);
+          CFRelease(v27);
         }
 
         xpc_release(xdict);
-        if (v29)
+        if (v27)
         {
-          CFRelease(v29);
+          CFRelease(v27);
         }
 
-        v35 = *buf;
+        v33 = *buf;
         if (*buf)
         {
           xpc_retain(*buf);
@@ -941,66 +725,66 @@ LABEL_34:
 
         else
         {
-          v35 = xpc_null_create();
+          v33 = xpc_null_create();
         }
 
         ++*&buf[8];
-        xpc_release(v35);
+        xpc_release(v33);
       }
     }
 
     object[0] = 0xAAAAAAAAAAAAAAAALL;
-    v37 = xpc_dictionary_get_value(*a2, "kWCMCellularSetWCI2Type7FRTwoTxEnable");
-    object[0] = v37;
-    if (v37)
+    v35 = xpc_dictionary_get_value(*a2, "kWCMCellularSetWCI2Type7FRTwoTxEnable");
+    object[0] = v35;
+    if (v35)
     {
-      xpc_retain(v37);
-      v38 = object[0];
+      xpc_retain(v35);
+      v36 = object[0];
     }
 
     else
     {
-      v38 = xpc_null_create();
-      object[0] = v38;
+      v36 = xpc_null_create();
+      object[0] = v36;
     }
 
-    if (MEMORY[0x29C272BA0](v38) != MEMORY[0x29EDCAA40])
+    if (MEMORY[0x29C272BA0](v36) != MEMORY[0x29EDCAA40])
     {
-      v39 = xpc::dyn_cast_or_default(object, 0);
-      ctu::cf::insert<__CFString const*,BOOL>(v10, *MEMORY[0x29EDC8A50], v39);
+      v37 = xpc::dyn_cast_or_default(object, 0);
+      ctu::cf::insert<__CFString const*,BOOL>(v9, *MEMORY[0x29EDC8A50], v37);
     }
 
-    v66 = 0;
-    v40 = CFDictionaryCreateMutable(v8, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-    v41 = v40;
-    if (v40)
+    v64 = 0;
+    v38 = CFDictionaryCreateMutable(v7, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+    v39 = v38;
+    if (v38)
     {
-      v66 = v40;
+      v64 = v38;
     }
 
-    ctu::cf::insert<__CFString const*,__CFDictionary *>(v40, *MEMORY[0x29EDC8798], v10);
-    v42 = a1[4];
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    ctu::cf::insert<__CFString const*,__CFDictionary *>(v38, *MEMORY[0x29EDC8798], v9);
+    v40 = a1[4];
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *&buf[4] = v41;
-      _os_log_impl(&dword_297476000, v42, OS_LOG_TYPE_DEFAULT, "#I Setting Tx antenna map with: %@", buf, 0xCu);
+      *&buf[4] = v39;
+      _os_log_impl(&dword_297476000, v40, OS_LOG_TYPE_DEFAULT, "#I Setting Tx antenna map with: %@", buf, 0xCu);
     }
 
-    v44 = *a1;
-    v43 = a1[1];
+    v42 = *a1;
+    v41 = a1[1];
     *buf = *a1;
-    if (!v43 || (v45 = std::__shared_weak_count::lock(v43), (*&buf[8] = v45) == 0))
+    if (!v41 || (v43 = std::__shared_weak_count::lock(v41), (*&buf[8] = v43) == 0))
     {
       std::__throw_bad_weak_ptr[abi:ne200100]();
     }
 
-    v46 = v45;
-    v47 = a1[5];
-    if (v41 && (v48 = CFGetTypeID(v41), v48 == CFDictionaryGetTypeID()))
+    v44 = v43;
+    v45 = a1[5];
+    if (v39 && (v46 = CFGetTypeID(v39), v46 == CFDictionaryGetTypeID()))
     {
-      cf = v41;
-      CFRetain(v41);
+      cf = v39;
+      CFRetain(v39);
     }
 
     else
@@ -1013,21 +797,21 @@ LABEL_34:
     aBlock[2] = ___ZN4coex6Module5State26handleSetWCI2TxAntMap_syncEN3xpc4dictENS_5SubIdE_block_invoke;
     aBlock[3] = &__block_descriptor_tmp_197;
     aBlock[4] = a1;
-    aBlock[5] = v44;
-    v59 = v46;
-    atomic_fetch_add_explicit(&v46->__shared_owners_, 1uLL, memory_order_relaxed);
-    v49 = _Block_copy(aBlock);
-    v50 = a1[2];
-    if (v50)
+    aBlock[5] = v42;
+    v57 = v44;
+    atomic_fetch_add_explicit(&v44->__shared_owners_, 1uLL, memory_order_relaxed);
+    v47 = _Block_copy(aBlock);
+    v48 = a1[2];
+    if (v48)
     {
       dispatch_retain(a1[2]);
     }
 
-    if (v49)
+    if (v47)
     {
-      v60 = _Block_copy(v49);
-      v61 = v50;
-      if (!v50)
+      v58 = _Block_copy(v47);
+      v59 = v48;
+      if (!v48)
       {
         goto LABEL_74;
       }
@@ -1035,30 +819,30 @@ LABEL_34:
 
     else
     {
-      v60 = 0;
-      v61 = v50;
-      if (!v50)
+      v58 = 0;
+      v59 = v48;
+      if (!v48)
       {
 LABEL_74:
-        (*(*v47 + 16))(v47, &cf, a3, &v60);
-        if (v61)
+        (*(*v45 + 16))(v45, &cf, a3, &v58);
+        if (v59)
         {
-          dispatch_release(v61);
+          dispatch_release(v59);
         }
 
-        if (v60)
+        if (v58)
         {
-          _Block_release(v60);
+          _Block_release(v58);
         }
 
-        if (v50)
+        if (v48)
         {
-          dispatch_release(v50);
+          dispatch_release(v48);
         }
 
-        if (v49)
+        if (v47)
         {
-          _Block_release(v49);
+          _Block_release(v47);
         }
 
         if (cf)
@@ -1066,60 +850,57 @@ LABEL_74:
           CFRelease(cf);
         }
 
-        v51 = v59;
-        if (v59 && !atomic_fetch_add(&v59->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v49 = v57;
+        if (v57 && !atomic_fetch_add(&v57->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          (v51->__on_zero_shared)(v51);
-          std::__shared_weak_count::__release_weak(v51);
+          (v49->__on_zero_shared)(v49);
+          std::__shared_weak_count::__release_weak(v49);
         }
 
-        v52 = *&buf[8];
+        v50 = *&buf[8];
         if (*&buf[8] && !atomic_fetch_add((*&buf[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
         {
-          (v52->__on_zero_shared)(v52);
-          std::__shared_weak_count::__release_weak(v52);
-          v53 = v66;
-          if (!v66)
+          (v50->__on_zero_shared)(v50);
+          std::__shared_weak_count::__release_weak(v50);
+          v51 = v64;
+          if (!v64)
           {
 LABEL_91:
             xpc_release(object[0]);
-            xpc_release(v67);
-            if (v68)
+            xpc_release(v65);
+            if (v66)
             {
-              CFRelease(v68);
+              CFRelease(v66);
             }
 
-            goto LABEL_4;
+            return;
           }
         }
 
         else
         {
-          v53 = v66;
-          if (!v66)
+          v51 = v64;
+          if (!v64)
           {
             goto LABEL_91;
           }
         }
 
-        CFRelease(v53);
+        CFRelease(v51);
         goto LABEL_91;
       }
     }
 
-    dispatch_retain(v50);
+    dispatch_retain(v48);
     goto LABEL_74;
   }
 
-  v12 = a1[4];
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v11 = a1[4];
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_297476000, v12, OS_LOG_TYPE_DEFAULT, "#E Missing Tx antenna map", buf, 2u);
+    _os_log_impl(&dword_297476000, v11, OS_LOG_TYPE_DEFAULT, "#E Missing Tx antenna map", buf, 2u);
   }
-
-LABEL_4:
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29749F2FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, char a23, xpc_object_t object, uint64_t a25, xpc_object_t a26, char a27)
@@ -1134,25 +915,23 @@ void sub_29749F2FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4coex6Module5State26handleSetWCI2TxAntMap_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set Tx antenna map: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set Tx antenna map: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetAntBlocking_sync(uint64_t *a1, void *a2, uint64_t a3)
 {
-  v76 = *MEMORY[0x29EDCA608];
+  v75 = *MEMORY[0x29EDCA608];
   v6 = MEMORY[0x29C272BA0](*a2);
   v7 = MEMORY[0x29EDCAA00];
   if (v6 != MEMORY[0x29EDCAA00])
@@ -1164,38 +943,38 @@ void coex::Module::State::handleSetAntBlocking_sync(uint64_t *a1, void *a2, uint
       _os_log_debug_impl(&dword_297476000, v8, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", buf, 2u);
     }
 
-    goto LABEL_105;
+    return;
   }
 
-  v73 = 0;
+  v72 = 0;
   v9 = *MEMORY[0x29EDB8ED8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v11 = Mutable;
   if (Mutable)
   {
-    v73 = Mutable;
+    v72 = Mutable;
   }
 
-  v72 = 0xAAAAAAAAAAAAAAAALL;
+  v71 = 0xAAAAAAAAAAAAAAAALL;
   *buf = a2;
   *&buf[8] = "kWCMCellularSetAntBlocking_BandInformationSet";
-  xpc::dict::object_proxy::operator xpc::array(buf, &v72);
-  v12 = MEMORY[0x29C272BA0](v72);
+  xpc::dict::object_proxy::operator xpc::array(buf, &v71);
+  v12 = MEMORY[0x29C272BA0](v71);
   v13 = MEMORY[0x29EDCA9E0];
   if (v12 == MEMORY[0x29EDCA9E0])
   {
-    v71 = 0;
+    v70 = 0;
     v14 = CFArrayCreateMutable(v9, 0, MEMORY[0x29EDB9000]);
     if (v14)
     {
-      v71 = v14;
+      v70 = v14;
     }
 
     memset(buf, 170, sizeof(buf));
-    v15 = v72;
-    if (v72)
+    v15 = v71;
+    if (v71)
     {
-      xpc_retain(v72);
+      xpc_retain(v71);
       *buf = v15;
     }
 
@@ -1215,15 +994,15 @@ void coex::Module::State::handleSetAntBlocking_sync(uint64_t *a1, void *a2, uint
 LABEL_13:
     *&buf[8] = 0;
     xpc_release(v15);
-    v56 = a3;
-    v58 = *MEMORY[0x29EDC87C0];
-    v57 = *MEMORY[0x29EDC8818];
+    v55 = a3;
+    v57 = *MEMORY[0x29EDC87C0];
+    v56 = *MEMORY[0x29EDC8818];
     while (1)
     {
-      v16 = v72;
-      if (v72)
+      v16 = v71;
+      if (v71)
       {
-        xpc_retain(v72);
+        xpc_retain(v71);
       }
 
       else
@@ -1231,9 +1010,9 @@ LABEL_13:
         v16 = xpc_null_create();
       }
 
-      if (MEMORY[0x29C272BA0](v72) == v13)
+      if (MEMORY[0x29C272BA0](v71) == v13)
       {
-        count = xpc_array_get_count(v72);
+        count = xpc_array_get_count(v71);
         if (!v16)
         {
 LABEL_23:
@@ -1261,10 +1040,10 @@ LABEL_24:
       if (v20 == count && v19 == v18)
       {
         xpc_release(*buf);
-        v40 = v71;
-        v11 = v73;
-        ctu::cf::insert<__CFString const*,__CFArray *>(v73, *MEMORY[0x29EDC89A8], v71);
-        a3 = v56;
+        v40 = v70;
+        v11 = v72;
+        ctu::cf::insert<__CFString const*,__CFArray *>(v72, *MEMORY[0x29EDC89A8], v70);
+        a3 = v55;
         if (v40)
         {
           CFRelease(v40);
@@ -1282,7 +1061,7 @@ LABEL_24:
       }
 
       object = buf;
-      v68 = *&buf[8];
+      v67 = *&buf[8];
       xdict = 0xAAAAAAAAAAAAAAAALL;
       xpc::array::object_proxy::operator xpc::dict(&object, &xdict);
       if (MEMORY[0x29C272BA0](xdict) != v7)
@@ -1304,21 +1083,21 @@ LABEL_24:
 
       v24 = xpc::dyn_cast_or_default(&object, 0);
       xpc_release(object);
-      ctu::cf::insert<__CFString const*,unsigned char>(v22, v58, v24, v9);
+      ctu::cf::insert<__CFString const*,unsigned char>(v22, v57, v24, v9);
       xarray = 0xAAAAAAAAAAAAAAAALL;
       object = &xdict;
-      v68 = "kWCMCellularSetAntBlocking_BandInfoSet_BandList";
+      v67 = "kWCMCellularSetAntBlocking_BandInfoSet_BandList";
       xpc::dict::object_proxy::operator xpc::array(&object, &xarray);
       if (MEMORY[0x29C272BA0](xarray) != v13)
       {
         goto LABEL_61;
       }
 
-      v65 = 0;
+      v64 = 0;
       v25 = CFArrayCreateMutable(v9, 0, MEMORY[0x29EDB9000]);
       if (v25)
       {
-        v65 = v25;
+        v64 = v25;
       }
 
       v26 = xarray;
@@ -1386,7 +1165,7 @@ LABEL_50:
         }
 
         v33 = xpc_array_get_value(v26, i);
-        v64 = v33;
+        v63 = v33;
         if (v33)
         {
           xpc_retain(v33);
@@ -1394,11 +1173,11 @@ LABEL_50:
 
         else
         {
-          v64 = xpc_null_create();
+          v63 = xpc_null_create();
         }
 
-        v34 = xpc::dyn_cast_or_default(&v64, 0);
-        v35 = v65;
+        v34 = xpc::dyn_cast_or_default(&v63, 0);
+        v35 = v64;
         valuePtr = v34;
         v36 = CFNumberCreate(v9, kCFNumberIntType, &valuePtr);
         object = v36;
@@ -1408,7 +1187,7 @@ LABEL_50:
           CFRelease(v36);
         }
 
-        xpc_release(v64);
+        xpc_release(v63);
         if (v26)
         {
           xpc_retain(v26);
@@ -1424,9 +1203,9 @@ LABEL_50:
       }
 
       xpc_release(v26);
-      v37 = v65;
+      v37 = v64;
       v22 = cf;
-      ctu::cf::insert<__CFString const*,__CFArray *>(cf, v57, v65);
+      ctu::cf::insert<__CFString const*,__CFArray *>(cf, v56, v64);
       if (v37)
       {
         CFRelease(v37);
@@ -1435,7 +1214,7 @@ LABEL_50:
 LABEL_61:
       xpc_release(xarray);
 LABEL_62:
-      v38 = v71;
+      v38 = v70;
       object = v22;
       if (v22)
       {
@@ -1495,13 +1274,13 @@ LABEL_62:
   v48 = a1[5];
   if (v42 && (v49 = CFGetTypeID(v42), v49 == CFDictionaryGetTypeID()))
   {
-    v63 = v42;
+    v62 = v42;
     CFRetain(v42);
   }
 
   else
   {
-    v63 = 0;
+    v62 = 0;
   }
 
   aBlock[0] = MEMORY[0x29EDCA5F8];
@@ -1510,7 +1289,7 @@ LABEL_62:
   aBlock[3] = &__block_descriptor_tmp_203;
   aBlock[4] = a1;
   aBlock[5] = v45;
-  v60 = v47;
+  v59 = v47;
   atomic_fetch_add_explicit(&v47->__shared_owners_, 1uLL, memory_order_relaxed);
   v50 = _Block_copy(aBlock);
   v51 = a1[2];
@@ -1521,8 +1300,8 @@ LABEL_62:
 
   if (v50)
   {
-    v61 = _Block_copy(v50);
-    v62 = v51;
+    v60 = _Block_copy(v50);
+    v61 = v51;
     if (!v51)
     {
       goto LABEL_86;
@@ -1531,8 +1310,8 @@ LABEL_62:
     goto LABEL_85;
   }
 
-  v61 = 0;
-  v62 = v51;
+  v60 = 0;
+  v61 = v51;
   if (v51)
   {
 LABEL_85:
@@ -1540,15 +1319,15 @@ LABEL_85:
   }
 
 LABEL_86:
-  (*(*v48 + 16))(v48, &v63, a3, &v61);
-  if (v62)
-  {
-    dispatch_release(v62);
-  }
-
+  (*(*v48 + 16))(v48, &v62, a3, &v60);
   if (v61)
   {
-    _Block_release(v61);
+    dispatch_release(v61);
+  }
+
+  if (v60)
+  {
+    _Block_release(v60);
   }
 
   if (v51)
@@ -1561,13 +1340,13 @@ LABEL_86:
     _Block_release(v50);
   }
 
-  if (v63)
+  if (v62)
   {
-    CFRelease(v63);
+    CFRelease(v62);
   }
 
-  v52 = v60;
-  if (v60 && !atomic_fetch_add(&v60->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v52 = v59;
+  if (v59 && !atomic_fetch_add(&v59->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v52->__on_zero_shared)(v52);
     std::__shared_weak_count::__release_weak(v52);
@@ -1595,14 +1374,11 @@ LABEL_102:
   }
 
 LABEL_103:
-  xpc_release(v72);
-  if (v73)
+  xpc_release(v71);
+  if (v72)
   {
-    CFRelease(v73);
+    CFRelease(v72);
   }
-
-LABEL_105:
-  v55 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29749FDF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, char a21, xpc_object_t a22, char a23, xpc_object_t object, xpc_object_t a25, uint64_t a26, xpc_object_t a27, char a28)
@@ -1617,25 +1393,23 @@ void sub_29749FDF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4coex6Module5State25handleSetAntBlocking_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set Ant blocking: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set Ant blocking: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleTransparentMessageReq_sync(uint64_t *a1, void *a2, uint64_t a3)
 {
-  v73 = *MEMORY[0x29EDCA608];
+  v72 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C272BA0](*a2) != MEMORY[0x29EDCAA00])
   {
     v6 = a1[4];
@@ -1645,38 +1419,38 @@ void coex::Module::State::handleTransparentMessageReq_sync(uint64_t *a1, void *a
       _os_log_debug_impl(&dword_297476000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", buf, 2u);
     }
 
-    goto LABEL_103;
+    return;
   }
 
-  v70 = 0;
+  v69 = 0;
   v7 = *MEMORY[0x29EDB8ED8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v9 = Mutable;
   if (Mutable)
   {
-    v70 = Mutable;
+    v69 = Mutable;
   }
 
-  v69 = 0xAAAAAAAAAAAAAAAALL;
+  v68 = 0xAAAAAAAAAAAAAAAALL;
   *buf = a2;
   *&buf[8] = "kWCMCellularTransparentMessageInformationSet";
-  xpc::dict::object_proxy::operator xpc::array(buf, &v69);
-  v10 = MEMORY[0x29C272BA0](v69);
+  xpc::dict::object_proxy::operator xpc::array(buf, &v68);
+  v10 = MEMORY[0x29C272BA0](v68);
   v11 = MEMORY[0x29EDCA9E0];
   if (v10 == MEMORY[0x29EDCA9E0])
   {
-    v68 = 0;
+    v67 = 0;
     v12 = CFArrayCreateMutable(v7, 0, MEMORY[0x29EDB9000]);
     if (v12)
     {
-      v68 = v12;
+      v67 = v12;
     }
 
     memset(buf, 170, sizeof(buf));
-    v13 = v69;
-    if (v69)
+    v13 = v68;
+    if (v68)
     {
-      xpc_retain(v69);
+      xpc_retain(v68);
       *buf = v13;
     }
 
@@ -1697,13 +1471,13 @@ LABEL_13:
     *&buf[8] = 0;
     xpc_release(v13);
     v14 = *MEMORY[0x29EDC8930];
-    v55 = *MEMORY[0x29EDC8A48];
+    v54 = *MEMORY[0x29EDC8A48];
     while (1)
     {
-      v15 = v69;
-      if (v69)
+      v15 = v68;
+      if (v68)
       {
-        xpc_retain(v69);
+        xpc_retain(v68);
       }
 
       else
@@ -1711,9 +1485,9 @@ LABEL_13:
         v15 = xpc_null_create();
       }
 
-      if (MEMORY[0x29C272BA0](v69) == v11)
+      if (MEMORY[0x29C272BA0](v68) == v11)
       {
-        count = xpc_array_get_count(v69);
+        count = xpc_array_get_count(v68);
         if (!v15)
         {
 LABEL_23:
@@ -1741,9 +1515,9 @@ LABEL_24:
       if (v19 == count && v18 == v17)
       {
         xpc_release(*buf);
-        v39 = v68;
-        v9 = v70;
-        ctu::cf::insert<__CFString const*,__CFArray *>(v70, *MEMORY[0x29EDC8AB8], v68);
+        v39 = v67;
+        v9 = v69;
+        ctu::cf::insert<__CFString const*,__CFArray *>(v69, *MEMORY[0x29EDC8AB8], v67);
         a3 = a3;
         if (v39)
         {
@@ -1753,16 +1527,16 @@ LABEL_24:
         break;
       }
 
-      *v67 = 0;
+      *v66 = 0;
       v20 = CFDictionaryCreateMutable(v7, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
       v21 = v20;
       if (v20)
       {
-        *v67 = v20;
+        *v66 = v20;
       }
 
       object = buf;
-      v65 = *&buf[8];
+      v64 = *&buf[8];
       xdict = 0xAAAAAAAAAAAAAAAALL;
       xpc::array::object_proxy::operator xpc::dict(&object, &xdict);
       value = xpc_dictionary_get_value(xdict, "kWCMCellularTransparentMessage_Type");
@@ -1782,15 +1556,15 @@ LABEL_24:
       xpc_release(object);
       xarray = 0xAAAAAAAAAAAAAAAALL;
       object = &xdict;
-      v65 = "kWCMCellularTransparentMessage_ByteList";
+      v64 = "kWCMCellularTransparentMessage_ByteList";
       xpc::dict::object_proxy::operator xpc::array(&object, &xarray);
       if (MEMORY[0x29C272BA0](xarray) == v11)
       {
-        v62 = 0;
+        v61 = 0;
         v24 = CFArrayCreateMutable(v7, 0, MEMORY[0x29EDB9000]);
         if (v24)
         {
-          v62 = v24;
+          v61 = v24;
         }
 
         v25 = xarray;
@@ -1859,9 +1633,9 @@ LABEL_48:
           if (v27 == v30 && v25 == v31)
           {
             xpc_release(v25);
-            v36 = v62;
-            v21 = *v67;
-            ctu::cf::insert<__CFString const*,__CFArray *>(*v67, v55, v62);
+            v36 = v61;
+            v21 = *v66;
+            ctu::cf::insert<__CFString const*,__CFArray *>(*v66, v54, v61);
             if (v36)
             {
               CFRelease(v36);
@@ -1871,7 +1645,7 @@ LABEL_48:
           }
 
           v32 = xpc_array_get_value(v25, v27);
-          v61 = v32;
+          v60 = v32;
           if (v32)
           {
             xpc_retain(v32);
@@ -1879,11 +1653,11 @@ LABEL_48:
 
           else
           {
-            v61 = xpc_null_create();
+            v60 = xpc_null_create();
           }
 
-          v33 = xpc::dyn_cast_or_default(&v61, 0);
-          v34 = v62;
+          v33 = xpc::dyn_cast_or_default(&v60, 0);
+          v34 = v61;
           valuePtr = v33;
           v35 = CFNumberCreate(v7, kCFNumberIntType, &valuePtr);
           object = v35;
@@ -1893,7 +1667,7 @@ LABEL_48:
             CFRelease(v35);
           }
 
-          xpc_release(v61);
+          xpc_release(v60);
           if (v25)
           {
             xpc_retain(v25);
@@ -1911,7 +1685,7 @@ LABEL_48:
         }
       }
 
-      v37 = v68;
+      v37 = v67;
       object = v21;
       if (v21)
       {
@@ -1987,7 +1761,7 @@ LABEL_48:
   aBlock[3] = &__block_descriptor_tmp_209;
   aBlock[4] = a1;
   aBlock[5] = v44;
-  v57 = v46;
+  v56 = v46;
   atomic_fetch_add_explicit(&v46->__shared_owners_, 1uLL, memory_order_relaxed);
   v49 = _Block_copy(aBlock);
   v50 = a1[2];
@@ -1998,8 +1772,8 @@ LABEL_48:
 
   if (v49)
   {
-    v58 = _Block_copy(v49);
-    v59 = v50;
+    v57 = _Block_copy(v49);
+    v58 = v50;
     if (!v50)
     {
       goto LABEL_84;
@@ -2008,8 +1782,8 @@ LABEL_48:
     goto LABEL_83;
   }
 
-  v58 = 0;
-  v59 = v50;
+  v57 = 0;
+  v58 = v50;
   if (v50)
   {
 LABEL_83:
@@ -2017,15 +1791,15 @@ LABEL_83:
   }
 
 LABEL_84:
-  (*(*v47 + 16))(v47, &cf, a3, &v58);
-  if (v59)
-  {
-    dispatch_release(v59);
-  }
-
+  (*(*v47 + 16))(v47, &cf, a3, &v57);
   if (v58)
   {
-    _Block_release(v58);
+    dispatch_release(v58);
+  }
+
+  if (v57)
+  {
+    _Block_release(v57);
   }
 
   if (v50)
@@ -2043,8 +1817,8 @@ LABEL_84:
     CFRelease(cf);
   }
 
-  v51 = v57;
-  if (v57 && !atomic_fetch_add(&v57->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v51 = v56;
+  if (v56 && !atomic_fetch_add(&v56->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v51->__on_zero_shared)(v51);
     std::__shared_weak_count::__release_weak(v51);
@@ -2072,14 +1846,11 @@ LABEL_100:
   }
 
 LABEL_101:
-  xpc_release(v69);
-  if (v70)
+  xpc_release(v68);
+  if (v69)
   {
-    CFRelease(v70);
+    CFRelease(v69);
   }
-
-LABEL_103:
-  v54 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2974A0908(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, char a21, xpc_object_t a22, char a23, xpc_object_t object, xpc_object_t a25, uint64_t a26, xpc_object_t a27, char a28)
@@ -2094,25 +1865,23 @@ void sub_2974A0908(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4coex6Module5State32handleTransparentMessageReq_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to send transparent message req: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to send transparent message req: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetClientAntBlocking_sync(uint64_t *a1, void *a2, unsigned int a3)
 {
-  v106 = *MEMORY[0x29EDCA608];
+  v105 = *MEMORY[0x29EDCA608];
   v6 = MEMORY[0x29C272BA0](*a2);
   v7 = MEMORY[0x29EDCAA00];
   if (v6 != MEMORY[0x29EDCAA00])
@@ -2124,40 +1893,40 @@ void coex::Module::State::handleSetClientAntBlocking_sync(uint64_t *a1, void *a2
       _os_log_debug_impl(&dword_297476000, v8, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", buf, 2u);
     }
 
-    goto LABEL_154;
+    return;
   }
 
-  v77 = a3;
-  v103 = 0;
+  v76 = a3;
+  v102 = 0;
   v9 = *MEMORY[0x29EDB8ED8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v11 = Mutable;
   if (Mutable)
   {
-    v103 = Mutable;
+    v102 = Mutable;
   }
 
-  v102 = 0xAAAAAAAAAAAAAAAALL;
+  v101 = 0xAAAAAAAAAAAAAAAALL;
   *buf = a2;
   *&buf[8] = "kWCMCellularSetAntBlocking_ClientInformationSet";
-  xpc::dict::object_proxy::operator xpc::array(buf, &v102);
-  v78 = a1;
-  v12 = MEMORY[0x29C272BA0](v102);
+  xpc::dict::object_proxy::operator xpc::array(buf, &v101);
+  v77 = a1;
+  v12 = MEMORY[0x29C272BA0](v101);
   v13 = MEMORY[0x29EDCA9E0];
   if (v12 == MEMORY[0x29EDCA9E0])
   {
-    v101 = 0;
+    v100 = 0;
     v14 = CFArrayCreateMutable(v9, 0, MEMORY[0x29EDB9000]);
     if (v14)
     {
-      v101 = v14;
+      v100 = v14;
     }
 
     memset(buf, 170, sizeof(buf));
-    v15 = v102;
-    if (v102)
+    v15 = v101;
+    if (v101)
     {
-      xpc_retain(v102);
+      xpc_retain(v101);
       *buf = v15;
     }
 
@@ -2177,18 +1946,18 @@ void coex::Module::State::handleSetClientAntBlocking_sync(uint64_t *a1, void *a2
 LABEL_13:
     *&buf[8] = 0;
     xpc_release(v15);
-    v81 = *MEMORY[0x29EDC8898];
-    v82 = *MEMORY[0x29EDC8820];
-    v80 = *MEMORY[0x29EDC89B0];
-    v84 = *MEMORY[0x29EDC87C0];
-    v83 = *MEMORY[0x29EDC8818];
-    v79 = *MEMORY[0x29EDC89A8];
+    v80 = *MEMORY[0x29EDC8898];
+    v81 = *MEMORY[0x29EDC8820];
+    v79 = *MEMORY[0x29EDC89B0];
+    v83 = *MEMORY[0x29EDC87C0];
+    v82 = *MEMORY[0x29EDC8818];
+    v78 = *MEMORY[0x29EDC89A8];
     while (1)
     {
-      v16 = v102;
-      if (v102)
+      v16 = v101;
+      if (v101)
       {
-        xpc_retain(v102);
+        xpc_retain(v101);
       }
 
       else
@@ -2196,9 +1965,9 @@ LABEL_13:
         v16 = xpc_null_create();
       }
 
-      if (MEMORY[0x29C272BA0](v102) == v13)
+      if (MEMORY[0x29C272BA0](v101) == v13)
       {
-        count = xpc_array_get_count(v102);
+        count = xpc_array_get_count(v101);
         if (!v16)
         {
 LABEL_23:
@@ -2226,9 +1995,9 @@ LABEL_24:
       if (v20 == count && v19 == v18)
       {
         xpc_release(*buf);
-        v61 = v101;
-        v11 = v103;
-        ctu::cf::insert<__CFString const*,__CFArray *>(v103, *MEMORY[0x29EDC8AA0], v101);
+        v61 = v100;
+        v11 = v102;
+        ctu::cf::insert<__CFString const*,__CFArray *>(v102, *MEMORY[0x29EDC8AA0], v100);
         if (v61)
         {
           CFRelease(v61);
@@ -2237,19 +2006,19 @@ LABEL_24:
         break;
       }
 
-      v100 = 0;
+      v99 = 0;
       v21 = CFDictionaryCreateMutable(v9, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
       v22 = v21;
       if (v21)
       {
-        v100 = v21;
+        v99 = v21;
       }
 
       p_xdict = buf;
-      v98 = *&buf[8];
-      v99 = 0xAAAAAAAAAAAAAAAALL;
-      xpc::array::object_proxy::operator xpc::dict(&p_xdict, &v99);
-      value = xpc_dictionary_get_value(v99, "kWCMCellularSetAntBlocking_ClientId");
+      v97 = *&buf[8];
+      v98 = 0xAAAAAAAAAAAAAAAALL;
+      xpc::array::object_proxy::operator xpc::dict(&p_xdict, &v98);
+      value = xpc_dictionary_get_value(v98, "kWCMCellularSetAntBlocking_ClientId");
       p_xdict = value;
       if (value)
       {
@@ -2262,9 +2031,9 @@ LABEL_24:
       }
 
       v24 = xpc::dyn_cast_or_default(&p_xdict, 0);
-      ctu::cf::insert<__CFString const*,unsigned int>(v22, v82, v24, v9);
+      ctu::cf::insert<__CFString const*,unsigned int>(v22, v81, v24, v9);
       xpc_release(p_xdict);
-      v25 = xpc_dictionary_get_value(v99, "kWCMCellularSetAntBlocking_BlockVoice");
+      v25 = xpc_dictionary_get_value(v98, "kWCMCellularSetAntBlocking_BlockVoice");
       p_xdict = v25;
       if (v25)
       {
@@ -2277,9 +2046,9 @@ LABEL_24:
       }
 
       v26 = xpc::dyn_cast_or_default(&p_xdict, 0);
-      ctu::cf::insert<__CFString const*,BOOL>(v22, v81, v26);
+      ctu::cf::insert<__CFString const*,BOOL>(v22, v80, v26);
       xpc_release(p_xdict);
-      v27 = xpc_dictionary_get_value(v99, "kWCMCellularSetAntBlocking_TimeMultiplier");
+      v27 = xpc_dictionary_get_value(v98, "kWCMCellularSetAntBlocking_TimeMultiplier");
       p_xdict = v27;
       if (v27)
       {
@@ -2292,25 +2061,25 @@ LABEL_24:
       }
 
       v28 = xpc::dyn_cast_or_default(&p_xdict, 0);
-      ctu::cf::insert<__CFString const*,unsigned int>(v22, v80, v28, v9);
+      ctu::cf::insert<__CFString const*,unsigned int>(v22, v79, v28, v9);
       xpc_release(p_xdict);
-      v96 = 0xAAAAAAAAAAAAAAAALL;
-      p_xdict = &v99;
-      v98 = "kWCMCellularSetAntBlocking_BandInformationSet";
-      xpc::dict::object_proxy::operator xpc::array(&p_xdict, &v96);
-      if (MEMORY[0x29C272BA0](v96) == v13)
+      v95 = 0xAAAAAAAAAAAAAAAALL;
+      p_xdict = &v98;
+      v97 = "kWCMCellularSetAntBlocking_BandInformationSet";
+      xpc::dict::object_proxy::operator xpc::array(&p_xdict, &v95);
+      if (MEMORY[0x29C272BA0](v95) == v13)
       {
-        v95 = 0;
+        v94 = 0;
         v29 = CFArrayCreateMutable(v9, 0, MEMORY[0x29EDB9000]);
         if (v29)
         {
-          v95 = v29;
+          v94 = v29;
         }
 
-        v30 = v96;
-        if (v96)
+        v30 = v95;
+        if (v95)
         {
-          xpc_retain(v96);
+          xpc_retain(v95);
           goto LABEL_43;
         }
 
@@ -2332,10 +2101,10 @@ LABEL_43:
         v32 = 0;
         while (2)
         {
-          v34 = v96;
-          if (v96)
+          v34 = v95;
+          if (v95)
           {
-            xpc_retain(v96);
+            xpc_retain(v95);
           }
 
           else
@@ -2343,9 +2112,9 @@ LABEL_43:
             v34 = xpc_null_create();
           }
 
-          if (MEMORY[0x29C272BA0](v96) == v13)
+          if (MEMORY[0x29C272BA0](v95) == v13)
           {
-            v35 = xpc_array_get_count(v96);
+            v35 = xpc_array_get_count(v95);
             if (!v34)
             {
               goto LABEL_54;
@@ -2373,9 +2142,9 @@ LABEL_54:
           if (v32 == v35 && v30 == v36)
           {
             xpc_release(v30);
-            v58 = v95;
-            v22 = v100;
-            ctu::cf::insert<__CFString const*,__CFArray *>(v100, v79, v95);
+            v58 = v94;
+            v22 = v99;
+            ctu::cf::insert<__CFString const*,__CFArray *>(v99, v78, v94);
             if (v58)
             {
               CFRelease(v58);
@@ -2445,21 +2214,21 @@ LABEL_66:
           v43 = xpc::dyn_cast_or_default(&p_xdict, 0);
           xpc_release(p_xdict);
           v41 = cf;
-          ctu::cf::insert<__CFString const*,unsigned char>(cf, v84, v43, v9);
+          ctu::cf::insert<__CFString const*,unsigned char>(cf, v83, v43, v9);
           object = 0xAAAAAAAAAAAAAAAALL;
           p_xdict = &xdict;
-          v98 = "kWCMCellularSetAntBlocking_BandInfoSet_BandList";
+          v97 = "kWCMCellularSetAntBlocking_BandInfoSet_BandList";
           xpc::dict::object_proxy::operator xpc::array(&p_xdict, &object);
           if (MEMORY[0x29C272BA0](object) != v13)
           {
             goto LABEL_101;
           }
 
-          v91 = 0;
+          v90 = 0;
           v44 = CFArrayCreateMutable(v9, 0, MEMORY[0x29EDB9000]);
           if (v44)
           {
-            v91 = v44;
+            v90 = v44;
           }
 
           v45 = object;
@@ -2527,9 +2296,9 @@ LABEL_89:
           if (v47 == v50 && v45 == v51)
           {
             xpc_release(v45);
-            v56 = v91;
+            v56 = v90;
             v41 = cf;
-            ctu::cf::insert<__CFString const*,__CFArray *>(cf, v83, v91);
+            ctu::cf::insert<__CFString const*,__CFArray *>(cf, v82, v90);
             if (v56)
             {
               CFRelease(v56);
@@ -2538,7 +2307,7 @@ LABEL_89:
 LABEL_101:
             xpc_release(object);
 LABEL_102:
-            v57 = v95;
+            v57 = v94;
             p_xdict = v41;
             if (v41)
             {
@@ -2573,7 +2342,7 @@ LABEL_102:
         }
 
         v52 = xpc_array_get_value(v45, v47);
-        v90 = v52;
+        v89 = v52;
         if (v52)
         {
           xpc_retain(v52);
@@ -2581,11 +2350,11 @@ LABEL_102:
 
         else
         {
-          v90 = xpc_null_create();
+          v89 = xpc_null_create();
         }
 
-        v53 = xpc::dyn_cast_or_default(&v90, 0);
-        v54 = v91;
+        v53 = xpc::dyn_cast_or_default(&v89, 0);
+        v54 = v90;
         valuePtr = v53;
         v55 = CFNumberCreate(v9, kCFNumberIntType, &valuePtr);
         p_xdict = v55;
@@ -2595,7 +2364,7 @@ LABEL_102:
           CFRelease(v55);
         }
 
-        xpc_release(v90);
+        xpc_release(v89);
         if (v45)
         {
           xpc_retain(v45);
@@ -2613,7 +2382,7 @@ LABEL_102:
       }
 
 LABEL_111:
-      v59 = v101;
+      v59 = v100;
       p_xdict = v22;
       if (v22)
       {
@@ -2622,8 +2391,8 @@ LABEL_111:
         CFRelease(v22);
       }
 
-      xpc_release(v96);
-      xpc_release(v99);
+      xpc_release(v95);
+      xpc_release(v98);
       if (v22)
       {
         CFRelease(v22);
@@ -2654,7 +2423,7 @@ LABEL_111:
   }
 
   ctu::cf::insert<__CFString const*,__CFDictionary *>(v62, *MEMORY[0x29EDC8880], v11);
-  v64 = v78[4];
+  v64 = v77[4];
   if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -2662,46 +2431,46 @@ LABEL_111:
     _os_log_impl(&dword_297476000, v64, OS_LOG_TYPE_DEFAULT, "#I Setting Client Ant blocking with: %@", buf, 0xCu);
   }
 
-  v66 = *v78;
-  v65 = v78[1];
-  *buf = *v78;
+  v66 = *v77;
+  v65 = v77[1];
+  *buf = *v77;
   if (!v65 || (v67 = std::__shared_weak_count::lock(v65), (*&buf[8] = v67) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
   v68 = v67;
-  v69 = v78[5];
+  v69 = v77[5];
   if (v63 && (v70 = CFGetTypeID(v63), v70 == CFDictionaryGetTypeID()))
   {
-    v89 = v63;
+    v88 = v63;
     CFRetain(v63);
   }
 
   else
   {
-    v89 = 0;
+    v88 = 0;
   }
 
   aBlock[0] = MEMORY[0x29EDCA5F8];
   aBlock[1] = 1174405120;
   aBlock[2] = ___ZN4coex6Module5State31handleSetClientAntBlocking_syncEN3xpc4dictENS_5SubIdE_block_invoke;
   aBlock[3] = &__block_descriptor_tmp_216;
-  aBlock[4] = v78;
+  aBlock[4] = v77;
   aBlock[5] = v66;
-  v86 = v68;
+  v85 = v68;
   atomic_fetch_add_explicit(&v68->__shared_owners_, 1uLL, memory_order_relaxed);
   v71 = _Block_copy(aBlock);
-  v72 = v78[2];
+  v72 = v77[2];
   if (v72)
   {
-    dispatch_retain(v78[2]);
+    dispatch_retain(v77[2]);
   }
 
   if (v71)
   {
-    v87 = _Block_copy(v71);
-    v88 = v72;
+    v86 = _Block_copy(v71);
+    v87 = v72;
     if (!v72)
     {
       goto LABEL_135;
@@ -2710,8 +2479,8 @@ LABEL_111:
     goto LABEL_134;
   }
 
-  v87 = 0;
-  v88 = v72;
+  v86 = 0;
+  v87 = v72;
   if (v72)
   {
 LABEL_134:
@@ -2719,15 +2488,15 @@ LABEL_134:
   }
 
 LABEL_135:
-  (*(*v69 + 16))(v69, &v89, v77, &v87);
-  if (v88)
-  {
-    dispatch_release(v88);
-  }
-
+  (*(*v69 + 16))(v69, &v88, v76, &v86);
   if (v87)
   {
-    _Block_release(v87);
+    dispatch_release(v87);
+  }
+
+  if (v86)
+  {
+    _Block_release(v86);
   }
 
   if (v72)
@@ -2740,13 +2509,13 @@ LABEL_135:
     _Block_release(v71);
   }
 
-  if (v89)
+  if (v88)
   {
-    CFRelease(v89);
+    CFRelease(v88);
   }
 
-  v73 = v86;
-  if (v86 && !atomic_fetch_add(&v86->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v73 = v85;
+  if (v85 && !atomic_fetch_add(&v85->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v73->__on_zero_shared)(v73);
     std::__shared_weak_count::__release_weak(v73);
@@ -2774,14 +2543,11 @@ LABEL_151:
   }
 
 LABEL_152:
-  xpc_release(v102);
-  if (v103)
+  xpc_release(v101);
+  if (v102)
   {
-    CFRelease(v103);
+    CFRelease(v102);
   }
-
-LABEL_154:
-  v76 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2974A17AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, char a27, xpc_object_t a28, char a29, xpc_object_t object, xpc_object_t a31, char a32, int a33, __int16 a34, char a35, char a36)
@@ -2796,25 +2562,23 @@ void sub_2974A17AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4coex6Module5State31handleSetClientAntBlocking_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set Ant blocking: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set Ant blocking: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetClientAntBlockingExtended_sync(uint64_t *a1, void *a2, unsigned int a3)
 {
-  v106 = *MEMORY[0x29EDCA608];
+  v105 = *MEMORY[0x29EDCA608];
   v6 = MEMORY[0x29C272BA0](*a2);
   v7 = MEMORY[0x29EDCAA00];
   if (v6 != MEMORY[0x29EDCAA00])
@@ -2826,40 +2590,40 @@ void coex::Module::State::handleSetClientAntBlockingExtended_sync(uint64_t *a1, 
       _os_log_error_impl(&dword_297476000, v8, OS_LOG_TYPE_ERROR, "Invalid XPC dict", buf, 2u);
     }
 
-    goto LABEL_154;
+    return;
   }
 
-  v77 = a3;
-  v103 = 0;
+  v76 = a3;
+  v102 = 0;
   v9 = *MEMORY[0x29EDB8ED8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v11 = Mutable;
   if (Mutable)
   {
-    v103 = Mutable;
+    v102 = Mutable;
   }
 
-  v102 = 0xAAAAAAAAAAAAAAAALL;
+  v101 = 0xAAAAAAAAAAAAAAAALL;
   *buf = a2;
   *&buf[8] = "kWCMCellularSetAntBlocking_ClientInformationSet";
-  xpc::dict::object_proxy::operator xpc::array(buf, &v102);
-  v78 = a1;
-  v12 = MEMORY[0x29C272BA0](v102);
+  xpc::dict::object_proxy::operator xpc::array(buf, &v101);
+  v77 = a1;
+  v12 = MEMORY[0x29C272BA0](v101);
   v13 = MEMORY[0x29EDCA9E0];
   if (v12 == MEMORY[0x29EDCA9E0])
   {
-    v101 = 0;
+    v100 = 0;
     v14 = CFArrayCreateMutable(v9, 0, MEMORY[0x29EDB9000]);
     if (v14)
     {
-      v101 = v14;
+      v100 = v14;
     }
 
     memset(buf, 170, sizeof(buf));
-    v15 = v102;
-    if (v102)
+    v15 = v101;
+    if (v101)
     {
-      xpc_retain(v102);
+      xpc_retain(v101);
       *buf = v15;
     }
 
@@ -2879,18 +2643,18 @@ void coex::Module::State::handleSetClientAntBlockingExtended_sync(uint64_t *a1, 
 LABEL_13:
     *&buf[8] = 0;
     xpc_release(v15);
-    v81 = *MEMORY[0x29EDC8898];
-    v82 = *MEMORY[0x29EDC8820];
-    v80 = *MEMORY[0x29EDC89B0];
-    v84 = *MEMORY[0x29EDC87C0];
-    v83 = *MEMORY[0x29EDC8818];
-    v79 = *MEMORY[0x29EDC89A8];
+    v80 = *MEMORY[0x29EDC8898];
+    v81 = *MEMORY[0x29EDC8820];
+    v79 = *MEMORY[0x29EDC89B0];
+    v83 = *MEMORY[0x29EDC87C0];
+    v82 = *MEMORY[0x29EDC8818];
+    v78 = *MEMORY[0x29EDC89A8];
     while (1)
     {
-      v16 = v102;
-      if (v102)
+      v16 = v101;
+      if (v101)
       {
-        xpc_retain(v102);
+        xpc_retain(v101);
       }
 
       else
@@ -2898,9 +2662,9 @@ LABEL_13:
         v16 = xpc_null_create();
       }
 
-      if (MEMORY[0x29C272BA0](v102) == v13)
+      if (MEMORY[0x29C272BA0](v101) == v13)
       {
-        count = xpc_array_get_count(v102);
+        count = xpc_array_get_count(v101);
         if (!v16)
         {
 LABEL_23:
@@ -2928,9 +2692,9 @@ LABEL_24:
       if (v20 == count && v19 == v18)
       {
         xpc_release(*buf);
-        v61 = v101;
-        v11 = v103;
-        ctu::cf::insert<__CFString const*,__CFArray *>(v103, *MEMORY[0x29EDC8AA0], v101);
+        v61 = v100;
+        v11 = v102;
+        ctu::cf::insert<__CFString const*,__CFArray *>(v102, *MEMORY[0x29EDC8AA0], v100);
         if (v61)
         {
           CFRelease(v61);
@@ -2939,19 +2703,19 @@ LABEL_24:
         break;
       }
 
-      v100 = 0;
+      v99 = 0;
       v21 = CFDictionaryCreateMutable(v9, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
       v22 = v21;
       if (v21)
       {
-        v100 = v21;
+        v99 = v21;
       }
 
       p_xdict = buf;
-      v98 = *&buf[8];
-      v99 = 0xAAAAAAAAAAAAAAAALL;
-      xpc::array::object_proxy::operator xpc::dict(&p_xdict, &v99);
-      value = xpc_dictionary_get_value(v99, "kWCMCellularSetAntBlocking_ClientId");
+      v97 = *&buf[8];
+      v98 = 0xAAAAAAAAAAAAAAAALL;
+      xpc::array::object_proxy::operator xpc::dict(&p_xdict, &v98);
+      value = xpc_dictionary_get_value(v98, "kWCMCellularSetAntBlocking_ClientId");
       p_xdict = value;
       if (value)
       {
@@ -2964,9 +2728,9 @@ LABEL_24:
       }
 
       v24 = xpc::dyn_cast_or_default(&p_xdict, 0);
-      ctu::cf::insert<__CFString const*,unsigned int>(v22, v82, v24, v9);
+      ctu::cf::insert<__CFString const*,unsigned int>(v22, v81, v24, v9);
       xpc_release(p_xdict);
-      v25 = xpc_dictionary_get_value(v99, "kWCMCellularSetAntBlocking_BlockVoice");
+      v25 = xpc_dictionary_get_value(v98, "kWCMCellularSetAntBlocking_BlockVoice");
       p_xdict = v25;
       if (v25)
       {
@@ -2979,9 +2743,9 @@ LABEL_24:
       }
 
       v26 = xpc::dyn_cast_or_default(&p_xdict, 0);
-      ctu::cf::insert<__CFString const*,BOOL>(v22, v81, v26);
+      ctu::cf::insert<__CFString const*,BOOL>(v22, v80, v26);
       xpc_release(p_xdict);
-      v27 = xpc_dictionary_get_value(v99, "kWCMCellularSetAntBlocking_TimeMultiplier");
+      v27 = xpc_dictionary_get_value(v98, "kWCMCellularSetAntBlocking_TimeMultiplier");
       p_xdict = v27;
       if (v27)
       {
@@ -2994,25 +2758,25 @@ LABEL_24:
       }
 
       v28 = xpc::dyn_cast_or_default(&p_xdict, 0);
-      ctu::cf::insert<__CFString const*,unsigned int>(v22, v80, v28, v9);
+      ctu::cf::insert<__CFString const*,unsigned int>(v22, v79, v28, v9);
       xpc_release(p_xdict);
-      v96 = 0xAAAAAAAAAAAAAAAALL;
-      p_xdict = &v99;
-      v98 = "kWCMCellularSetAntBlocking_BandInformationSet";
-      xpc::dict::object_proxy::operator xpc::array(&p_xdict, &v96);
-      if (MEMORY[0x29C272BA0](v96) == v13)
+      v95 = 0xAAAAAAAAAAAAAAAALL;
+      p_xdict = &v98;
+      v97 = "kWCMCellularSetAntBlocking_BandInformationSet";
+      xpc::dict::object_proxy::operator xpc::array(&p_xdict, &v95);
+      if (MEMORY[0x29C272BA0](v95) == v13)
       {
-        v95 = 0;
+        v94 = 0;
         v29 = CFArrayCreateMutable(v9, 0, MEMORY[0x29EDB9000]);
         if (v29)
         {
-          v95 = v29;
+          v94 = v29;
         }
 
-        v30 = v96;
-        if (v96)
+        v30 = v95;
+        if (v95)
         {
-          xpc_retain(v96);
+          xpc_retain(v95);
           goto LABEL_43;
         }
 
@@ -3034,10 +2798,10 @@ LABEL_43:
         v32 = 0;
         while (2)
         {
-          v34 = v96;
-          if (v96)
+          v34 = v95;
+          if (v95)
           {
-            xpc_retain(v96);
+            xpc_retain(v95);
           }
 
           else
@@ -3045,9 +2809,9 @@ LABEL_43:
             v34 = xpc_null_create();
           }
 
-          if (MEMORY[0x29C272BA0](v96) == v13)
+          if (MEMORY[0x29C272BA0](v95) == v13)
           {
-            v35 = xpc_array_get_count(v96);
+            v35 = xpc_array_get_count(v95);
             if (!v34)
             {
               goto LABEL_54;
@@ -3075,9 +2839,9 @@ LABEL_54:
           if (v32 == v35 && v30 == v36)
           {
             xpc_release(v30);
-            v58 = v95;
-            v22 = v100;
-            ctu::cf::insert<__CFString const*,__CFArray *>(v100, v79, v95);
+            v58 = v94;
+            v22 = v99;
+            ctu::cf::insert<__CFString const*,__CFArray *>(v99, v78, v94);
             if (v58)
             {
               CFRelease(v58);
@@ -3147,21 +2911,21 @@ LABEL_66:
           v43 = xpc::dyn_cast_or_default(&p_xdict, 0);
           xpc_release(p_xdict);
           v41 = cf;
-          ctu::cf::insert<__CFString const*,unsigned char>(cf, v84, v43, v9);
+          ctu::cf::insert<__CFString const*,unsigned char>(cf, v83, v43, v9);
           object = 0xAAAAAAAAAAAAAAAALL;
           p_xdict = &xdict;
-          v98 = "kWCMCellularSetAntBlocking_BandInfoSet_BandList";
+          v97 = "kWCMCellularSetAntBlocking_BandInfoSet_BandList";
           xpc::dict::object_proxy::operator xpc::array(&p_xdict, &object);
           if (MEMORY[0x29C272BA0](object) != v13)
           {
             goto LABEL_101;
           }
 
-          v91 = 0;
+          v90 = 0;
           v44 = CFArrayCreateMutable(v9, 0, MEMORY[0x29EDB9000]);
           if (v44)
           {
-            v91 = v44;
+            v90 = v44;
           }
 
           v45 = object;
@@ -3229,9 +2993,9 @@ LABEL_89:
           if (v47 == v50 && v45 == v51)
           {
             xpc_release(v45);
-            v56 = v91;
+            v56 = v90;
             v41 = cf;
-            ctu::cf::insert<__CFString const*,__CFArray *>(cf, v83, v91);
+            ctu::cf::insert<__CFString const*,__CFArray *>(cf, v82, v90);
             if (v56)
             {
               CFRelease(v56);
@@ -3240,7 +3004,7 @@ LABEL_89:
 LABEL_101:
             xpc_release(object);
 LABEL_102:
-            v57 = v95;
+            v57 = v94;
             p_xdict = v41;
             if (v41)
             {
@@ -3275,7 +3039,7 @@ LABEL_102:
         }
 
         v52 = xpc_array_get_value(v45, v47);
-        v90 = v52;
+        v89 = v52;
         if (v52)
         {
           xpc_retain(v52);
@@ -3283,11 +3047,11 @@ LABEL_102:
 
         else
         {
-          v90 = xpc_null_create();
+          v89 = xpc_null_create();
         }
 
-        v53 = xpc::dyn_cast_or_default(&v90, 0);
-        v54 = v91;
+        v53 = xpc::dyn_cast_or_default(&v89, 0);
+        v54 = v90;
         valuePtr = v53;
         v55 = CFNumberCreate(v9, kCFNumberIntType, &valuePtr);
         p_xdict = v55;
@@ -3297,7 +3061,7 @@ LABEL_102:
           CFRelease(v55);
         }
 
-        xpc_release(v90);
+        xpc_release(v89);
         if (v45)
         {
           xpc_retain(v45);
@@ -3315,7 +3079,7 @@ LABEL_102:
       }
 
 LABEL_111:
-      v59 = v101;
+      v59 = v100;
       p_xdict = v22;
       if (v22)
       {
@@ -3324,8 +3088,8 @@ LABEL_111:
         CFRelease(v22);
       }
 
-      xpc_release(v96);
-      xpc_release(v99);
+      xpc_release(v95);
+      xpc_release(v98);
       if (v22)
       {
         CFRelease(v22);
@@ -3356,7 +3120,7 @@ LABEL_111:
   }
 
   ctu::cf::insert<__CFString const*,__CFDictionary *>(v62, *MEMORY[0x29EDC8A58], v11);
-  v64 = v78[4];
+  v64 = v77[4];
   if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -3364,46 +3128,46 @@ LABEL_111:
     _os_log_impl(&dword_297476000, v64, OS_LOG_TYPE_DEFAULT, "#I Setting Client Ant blocking Extended with: %@ ", buf, 0xCu);
   }
 
-  v66 = *v78;
-  v65 = v78[1];
-  *buf = *v78;
+  v66 = *v77;
+  v65 = v77[1];
+  *buf = *v77;
   if (!v65 || (v67 = std::__shared_weak_count::lock(v65), (*&buf[8] = v67) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
   v68 = v67;
-  v69 = v78[5];
+  v69 = v77[5];
   if (v63 && (v70 = CFGetTypeID(v63), v70 == CFDictionaryGetTypeID()))
   {
-    v89 = v63;
+    v88 = v63;
     CFRetain(v63);
   }
 
   else
   {
-    v89 = 0;
+    v88 = 0;
   }
 
   aBlock[0] = MEMORY[0x29EDCA5F8];
   aBlock[1] = 1174405120;
   aBlock[2] = ___ZN4coex6Module5State39handleSetClientAntBlockingExtended_syncEN3xpc4dictENS_5SubIdE_block_invoke;
   aBlock[3] = &__block_descriptor_tmp_219;
-  aBlock[4] = v78;
+  aBlock[4] = v77;
   aBlock[5] = v66;
-  v86 = v68;
+  v85 = v68;
   atomic_fetch_add_explicit(&v68->__shared_owners_, 1uLL, memory_order_relaxed);
   v71 = _Block_copy(aBlock);
-  v72 = v78[2];
+  v72 = v77[2];
   if (v72)
   {
-    dispatch_retain(v78[2]);
+    dispatch_retain(v77[2]);
   }
 
   if (v71)
   {
-    v87 = _Block_copy(v71);
-    v88 = v72;
+    v86 = _Block_copy(v71);
+    v87 = v72;
     if (!v72)
     {
       goto LABEL_135;
@@ -3412,8 +3176,8 @@ LABEL_111:
     goto LABEL_134;
   }
 
-  v87 = 0;
-  v88 = v72;
+  v86 = 0;
+  v87 = v72;
   if (v72)
   {
 LABEL_134:
@@ -3421,15 +3185,15 @@ LABEL_134:
   }
 
 LABEL_135:
-  (*(*v69 + 16))(v69, &v89, v77, &v87);
-  if (v88)
-  {
-    dispatch_release(v88);
-  }
-
+  (*(*v69 + 16))(v69, &v88, v76, &v86);
   if (v87)
   {
-    _Block_release(v87);
+    dispatch_release(v87);
+  }
+
+  if (v86)
+  {
+    _Block_release(v86);
   }
 
   if (v72)
@@ -3442,13 +3206,13 @@ LABEL_135:
     _Block_release(v71);
   }
 
-  if (v89)
+  if (v88)
   {
-    CFRelease(v89);
+    CFRelease(v88);
   }
 
-  v73 = v86;
-  if (v86 && !atomic_fetch_add(&v86->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v73 = v85;
+  if (v85 && !atomic_fetch_add(&v85->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v73->__on_zero_shared)(v73);
     std::__shared_weak_count::__release_weak(v73);
@@ -3476,14 +3240,11 @@ LABEL_151:
   }
 
 LABEL_152:
-  xpc_release(v102);
-  if (v103)
+  xpc_release(v101);
+  if (v102)
   {
-    CFRelease(v103);
+    CFRelease(v102);
   }
-
-LABEL_154:
-  v76 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2974A2784(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, char a27, xpc_object_t a28, char a29, xpc_object_t object, xpc_object_t a31, char a32, int a33, __int16 a34, char a35, char a36)
@@ -3498,25 +3259,23 @@ void sub_2974A2784(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4coex6Module5State39handleSetClientAntBlockingExtended_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set Ant blocking Extended: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set Ant blocking Extended: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleTriggerAntennaBlocking_sync(uint64_t *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v39 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C272BA0](*a2) != MEMORY[0x29EDCAA00])
   {
     v6 = a1[4];
@@ -3526,16 +3285,16 @@ void coex::Module::State::handleTriggerAntennaBlocking_sync(uint64_t *a1, xpc_ob
       _os_log_debug_impl(&dword_297476000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", &buf, 2u);
     }
 
-    goto LABEL_51;
+    return;
   }
 
-  v37 = 0;
+  v36 = 0;
   v7 = *MEMORY[0x29EDB8ED8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v9 = Mutable;
   if (Mutable)
   {
-    v37 = Mutable;
+    v36 = Mutable;
   }
 
   value = xpc_dictionary_get_value(*a2, "kWCMCellularTriggerClientAntBlockingReq_Enable");
@@ -3587,12 +3346,12 @@ void coex::Module::State::handleTriggerAntennaBlocking_sync(uint64_t *a1, xpc_ob
     xpc_release(buf);
   }
 
-  v36 = 0;
+  v35 = 0;
   v16 = CFDictionaryCreateMutable(v7, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v17 = v16;
   if (v16)
   {
-    v36 = v16;
+    v35 = v16;
   }
 
   ctu::cf::insert<__CFString const*,__CFDictionary *>(v16, *MEMORY[0x29EDC8808], v9);
@@ -3625,15 +3384,15 @@ void coex::Module::State::handleTriggerAntennaBlocking_sync(uint64_t *a1, xpc_ob
     cf = 0;
   }
 
-  v31[0] = MEMORY[0x29EDCA5F8];
-  v31[1] = 1174405120;
-  v31[2] = ___ZN4coex6Module5State33handleTriggerAntennaBlocking_syncEN3xpc4dictENS_5SubIdE_block_invoke;
-  v31[3] = &__block_descriptor_tmp_225;
-  v31[4] = a1;
-  v31[5] = v20;
-  v32 = v22;
+  v30[0] = MEMORY[0x29EDCA5F8];
+  v30[1] = 1174405120;
+  v30[2] = ___ZN4coex6Module5State33handleTriggerAntennaBlocking_syncEN3xpc4dictENS_5SubIdE_block_invoke;
+  v30[3] = &__block_descriptor_tmp_225;
+  v30[4] = a1;
+  v30[5] = v20;
+  v31 = v22;
   atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
-  v25 = _Block_copy(v31);
+  v25 = _Block_copy(v30);
   v26 = a1[2];
   if (v26)
   {
@@ -3687,8 +3446,8 @@ LABEL_32:
     CFRelease(cf);
   }
 
-  v27 = v32;
-  if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v27 = v31;
+  if (v31 && !atomic_fetch_add(&v31->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v27->__on_zero_shared)(v27);
     std::__shared_weak_count::__release_weak(v27);
@@ -3697,8 +3456,8 @@ LABEL_32:
   v28 = *(&buf + 1);
   if (!*(&buf + 1) || atomic_fetch_add((*(&buf + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    v29 = v36;
-    if (!v36)
+    v29 = v35;
+    if (!v35)
     {
       goto LABEL_49;
     }
@@ -3708,21 +3467,18 @@ LABEL_32:
 
   (v28->__on_zero_shared)(v28);
   std::__shared_weak_count::__release_weak(v28);
-  v29 = v36;
-  if (v36)
+  v29 = v35;
+  if (v35)
   {
 LABEL_48:
     CFRelease(v29);
   }
 
 LABEL_49:
-  if (v37)
+  if (v36)
   {
-    CFRelease(v37);
+    CFRelease(v36);
   }
-
-LABEL_51:
-  v30 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2974A3060(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, int a19, __int16 a20, char a21, char a22, int a23, __int16 a24, char a25, char a26, xpc_object_t object)
@@ -3737,25 +3493,23 @@ void sub_2974A3060(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4coex6Module5State33handleTriggerAntennaBlocking_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to trigger antenna blocking: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to trigger antenna blocking: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetCC1_sync(uint64_t *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v44 = *MEMORY[0x29EDCA608];
+  v43 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C272BA0](*a2) != MEMORY[0x29EDCAA00])
   {
     v6 = a1[4];
@@ -3765,16 +3519,16 @@ void coex::Module::State::handleSetCC1_sync(uint64_t *a1, xpc_object_t *a2, uint
       _os_log_debug_impl(&dword_297476000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", &buf, 2u);
     }
 
-    goto LABEL_60;
+    return;
   }
 
-  v42 = 0;
+  v41 = 0;
   v7 = *MEMORY[0x29EDB8ED8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v9 = Mutable;
   if (Mutable)
   {
-    v42 = Mutable;
+    v41 = Mutable;
   }
 
   value = xpc_dictionary_get_value(*a2, "kWCMCellularSetCC_Enable");
@@ -3865,12 +3619,12 @@ void coex::Module::State::handleSetCC1_sync(uint64_t *a1, xpc_object_t *a2, uint
     xpc_release(buf);
   }
 
-  v41 = 0;
+  v40 = 0;
   v21 = CFDictionaryCreateMutable(v7, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v22 = v21;
   if (v21)
   {
-    v41 = v21;
+    v40 = v21;
   }
 
   ctu::cf::insert<__CFString const*,__CFDictionary *>(v21, *MEMORY[0x29EDC8678], v9);
@@ -3903,15 +3657,15 @@ void coex::Module::State::handleSetCC1_sync(uint64_t *a1, xpc_object_t *a2, uint
     cf = 0;
   }
 
-  v36[0] = MEMORY[0x29EDCA5F8];
-  v36[1] = 1174405120;
-  v36[2] = ___ZN4coex6Module5State17handleSetCC1_syncEN3xpc4dictENS_5SubIdE_block_invoke;
-  v36[3] = &__block_descriptor_tmp_233;
-  v36[4] = a1;
-  v36[5] = v25;
-  v37 = v27;
+  v35[0] = MEMORY[0x29EDCA5F8];
+  v35[1] = 1174405120;
+  v35[2] = ___ZN4coex6Module5State17handleSetCC1_syncEN3xpc4dictENS_5SubIdE_block_invoke;
+  v35[3] = &__block_descriptor_tmp_233;
+  v35[4] = a1;
+  v35[5] = v25;
+  v36 = v27;
   atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
-  v30 = _Block_copy(v36);
+  v30 = _Block_copy(v35);
   v31 = a1[2];
   if (v31)
   {
@@ -3965,8 +3719,8 @@ LABEL_41:
     CFRelease(cf);
   }
 
-  v32 = v37;
-  if (v37 && !atomic_fetch_add(&v37->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v32 = v36;
+  if (v36 && !atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v32->__on_zero_shared)(v32);
     std::__shared_weak_count::__release_weak(v32);
@@ -3975,8 +3729,8 @@ LABEL_41:
   v33 = *(&buf + 1);
   if (!*(&buf + 1) || atomic_fetch_add((*(&buf + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    v34 = v41;
-    if (!v41)
+    v34 = v40;
+    if (!v40)
     {
       goto LABEL_58;
     }
@@ -3986,21 +3740,18 @@ LABEL_41:
 
   (v33->__on_zero_shared)(v33);
   std::__shared_weak_count::__release_weak(v33);
-  v34 = v41;
-  if (v41)
+  v34 = v40;
+  if (v40)
   {
 LABEL_57:
     CFRelease(v34);
   }
 
 LABEL_58:
-  if (v42)
+  if (v41)
   {
-    CFRelease(v42);
+    CFRelease(v41);
   }
-
-LABEL_60:
-  v35 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2974A37E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, int a19, __int16 a20, char a21, char a22, int a23, __int16 a24, char a25, char a26, xpc_object_t object)
@@ -4015,25 +3766,23 @@ void sub_2974A37E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4coex6Module5State17handleSetCC1_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set CC1: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set CC1: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetCC2_sync(uint64_t *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v44 = *MEMORY[0x29EDCA608];
+  v43 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C272BA0](*a2) != MEMORY[0x29EDCAA00])
   {
     v6 = a1[4];
@@ -4043,16 +3792,16 @@ void coex::Module::State::handleSetCC2_sync(uint64_t *a1, xpc_object_t *a2, uint
       _os_log_debug_impl(&dword_297476000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", &buf, 2u);
     }
 
-    goto LABEL_60;
+    return;
   }
 
-  v42 = 0;
+  v41 = 0;
   v7 = *MEMORY[0x29EDB8ED8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v9 = Mutable;
   if (Mutable)
   {
-    v42 = Mutable;
+    v41 = Mutable;
   }
 
   value = xpc_dictionary_get_value(*a2, "kWCMCellularSetCC_Enable");
@@ -4143,12 +3892,12 @@ void coex::Module::State::handleSetCC2_sync(uint64_t *a1, xpc_object_t *a2, uint
     xpc_release(buf);
   }
 
-  v41 = 0;
+  v40 = 0;
   v21 = CFDictionaryCreateMutable(v7, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v22 = v21;
   if (v21)
   {
-    v41 = v21;
+    v40 = v21;
   }
 
   ctu::cf::insert<__CFString const*,__CFDictionary *>(v21, *MEMORY[0x29EDC8680], v9);
@@ -4181,15 +3930,15 @@ void coex::Module::State::handleSetCC2_sync(uint64_t *a1, xpc_object_t *a2, uint
     cf = 0;
   }
 
-  v36[0] = MEMORY[0x29EDCA5F8];
-  v36[1] = 1174405120;
-  v36[2] = ___ZN4coex6Module5State17handleSetCC2_syncEN3xpc4dictENS_5SubIdE_block_invoke;
-  v36[3] = &__block_descriptor_tmp_236_0;
-  v36[4] = a1;
-  v36[5] = v25;
-  v37 = v27;
+  v35[0] = MEMORY[0x29EDCA5F8];
+  v35[1] = 1174405120;
+  v35[2] = ___ZN4coex6Module5State17handleSetCC2_syncEN3xpc4dictENS_5SubIdE_block_invoke;
+  v35[3] = &__block_descriptor_tmp_236_0;
+  v35[4] = a1;
+  v35[5] = v25;
+  v36 = v27;
   atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
-  v30 = _Block_copy(v36);
+  v30 = _Block_copy(v35);
   v31 = a1[2];
   if (v31)
   {
@@ -4243,8 +3992,8 @@ LABEL_41:
     CFRelease(cf);
   }
 
-  v32 = v37;
-  if (v37 && !atomic_fetch_add(&v37->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v32 = v36;
+  if (v36 && !atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v32->__on_zero_shared)(v32);
     std::__shared_weak_count::__release_weak(v32);
@@ -4253,8 +4002,8 @@ LABEL_41:
   v33 = *(&buf + 1);
   if (!*(&buf + 1) || atomic_fetch_add((*(&buf + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    v34 = v41;
-    if (!v41)
+    v34 = v40;
+    if (!v40)
     {
       goto LABEL_58;
     }
@@ -4264,21 +4013,18 @@ LABEL_41:
 
   (v33->__on_zero_shared)(v33);
   std::__shared_weak_count::__release_weak(v33);
-  v34 = v41;
-  if (v41)
+  v34 = v40;
+  if (v40)
   {
 LABEL_57:
     CFRelease(v34);
   }
 
 LABEL_58:
-  if (v42)
+  if (v41)
   {
-    CFRelease(v42);
+    CFRelease(v41);
   }
-
-LABEL_60:
-  v35 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2974A3FCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, int a19, __int16 a20, char a21, char a22, int a23, __int16 a24, char a25, char a26, xpc_object_t object)
@@ -4293,25 +4039,23 @@ void sub_2974A3FCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4coex6Module5State17handleSetCC2_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set CC2: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set CC2: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetLaaGpioThrottle_sync(uint64_t *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C272BA0](*a2) != MEMORY[0x29EDCAA00])
   {
     v6 = a1[4];
@@ -4321,16 +4065,16 @@ void coex::Module::State::handleSetLaaGpioThrottle_sync(uint64_t *a1, xpc_object
       _os_log_debug_impl(&dword_297476000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", &buf, 2u);
     }
 
-    goto LABEL_46;
+    return;
   }
 
-  v35 = 0;
+  v34 = 0;
   v7 = *MEMORY[0x29EDB8ED8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v9 = Mutable;
   if (Mutable)
   {
-    v35 = Mutable;
+    v34 = Mutable;
   }
 
   value = xpc_dictionary_get_value(*a2, "kWCMCellularSetLaaGpioThrottleReq_Enabled");
@@ -4363,12 +4107,12 @@ void coex::Module::State::handleSetLaaGpioThrottle_sync(uint64_t *a1, xpc_object
   v13 = xpc::dyn_cast_or_default(&buf, 0);
   ctu::cf::insert<__CFString const*,unsigned int>(v9, *MEMORY[0x29EDC8A00], v13, v7);
   xpc_release(buf);
-  v34 = 0;
+  v33 = 0;
   v14 = CFDictionaryCreateMutable(v7, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v15 = v14;
   if (v14)
   {
-    v34 = v14;
+    v33 = v14;
   }
 
   ctu::cf::insert<__CFString const*,__CFDictionary *>(v14, *MEMORY[0x29EDC88E8], v9);
@@ -4401,15 +4145,15 @@ void coex::Module::State::handleSetLaaGpioThrottle_sync(uint64_t *a1, xpc_object
     cf = 0;
   }
 
-  v29[0] = MEMORY[0x29EDCA5F8];
-  v29[1] = 1174405120;
-  v29[2] = ___ZN4coex6Module5State29handleSetLaaGpioThrottle_syncEN3xpc4dictENS_5SubIdE_block_invoke;
-  v29[3] = &__block_descriptor_tmp_241_0;
-  v29[4] = a1;
-  v29[5] = v18;
-  v30 = v20;
+  v28[0] = MEMORY[0x29EDCA5F8];
+  v28[1] = 1174405120;
+  v28[2] = ___ZN4coex6Module5State29handleSetLaaGpioThrottle_syncEN3xpc4dictENS_5SubIdE_block_invoke;
+  v28[3] = &__block_descriptor_tmp_241_0;
+  v28[4] = a1;
+  v28[5] = v18;
+  v29 = v20;
   atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-  v23 = _Block_copy(v29);
+  v23 = _Block_copy(v28);
   v24 = a1[2];
   if (v24)
   {
@@ -4463,8 +4207,8 @@ LABEL_27:
     CFRelease(cf);
   }
 
-  v25 = v30;
-  if (v30 && !atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v25 = v29;
+  if (v29 && !atomic_fetch_add(&v29->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v25->__on_zero_shared)(v25);
     std::__shared_weak_count::__release_weak(v25);
@@ -4473,8 +4217,8 @@ LABEL_27:
   v26 = *(&buf + 1);
   if (!*(&buf + 1) || atomic_fetch_add((*(&buf + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    v27 = v34;
-    if (!v34)
+    v27 = v33;
+    if (!v33)
     {
       goto LABEL_44;
     }
@@ -4484,21 +4228,18 @@ LABEL_27:
 
   (v26->__on_zero_shared)(v26);
   std::__shared_weak_count::__release_weak(v26);
-  v27 = v34;
-  if (v34)
+  v27 = v33;
+  if (v33)
   {
 LABEL_43:
     CFRelease(v27);
   }
 
 LABEL_44:
-  if (v35)
+  if (v34)
   {
-    CFRelease(v35);
+    CFRelease(v34);
   }
-
-LABEL_46:
-  v28 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2974A463C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, int a19, __int16 a20, char a21, char a22, int a23, __int16 a24, char a25, char a26, xpc_object_t object)
@@ -4513,25 +4254,23 @@ void sub_2974A463C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4coex6Module5State29handleSetLaaGpioThrottle_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set LAA GPIO throttle: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set LAA GPIO throttle: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetGnssParams_sync(uint64_t *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v39 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C272BA0](*a2) != MEMORY[0x29EDCAA00])
   {
     v6 = a1[4];
@@ -4541,16 +4280,16 @@ void coex::Module::State::handleSetGnssParams_sync(uint64_t *a1, xpc_object_t *a
       _os_log_debug_impl(&dword_297476000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", &buf, 2u);
     }
 
-    goto LABEL_49;
+    return;
   }
 
-  v37 = 0;
+  v36 = 0;
   v7 = *MEMORY[0x29EDB8ED8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v9 = Mutable;
   if (Mutable)
   {
-    v37 = Mutable;
+    v36 = Mutable;
   }
 
   value = xpc_dictionary_get_value(*a2, "kWCMCellularSetGnssParamsReq_Enabled");
@@ -4598,12 +4337,12 @@ void coex::Module::State::handleSetGnssParams_sync(uint64_t *a1, xpc_object_t *a
   v15 = xpc::dyn_cast_or_default(&buf, 0);
   ctu::cf::insert<__CFString const*,unsigned int>(v9, *MEMORY[0x29EDC86A8], v15, v7);
   xpc_release(buf);
-  v36 = 0;
+  v35 = 0;
   v16 = CFDictionaryCreateMutable(v7, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   v17 = v16;
   if (v16)
   {
-    v36 = v16;
+    v35 = v16;
   }
 
   ctu::cf::insert<__CFString const*,__CFDictionary *>(v16, *MEMORY[0x29EDC87A8], v9);
@@ -4636,15 +4375,15 @@ void coex::Module::State::handleSetGnssParams_sync(uint64_t *a1, xpc_object_t *a
     cf = 0;
   }
 
-  v31[0] = MEMORY[0x29EDCA5F8];
-  v31[1] = 1174405120;
-  v31[2] = ___ZN4coex6Module5State24handleSetGnssParams_syncEN3xpc4dictENS_5SubIdE_block_invoke;
-  v31[3] = &__block_descriptor_tmp_247_0;
-  v31[4] = a1;
-  v31[5] = v20;
-  v32 = v22;
+  v30[0] = MEMORY[0x29EDCA5F8];
+  v30[1] = 1174405120;
+  v30[2] = ___ZN4coex6Module5State24handleSetGnssParams_syncEN3xpc4dictENS_5SubIdE_block_invoke;
+  v30[3] = &__block_descriptor_tmp_247_0;
+  v30[4] = a1;
+  v30[5] = v20;
+  v31 = v22;
   atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
-  v25 = _Block_copy(v31);
+  v25 = _Block_copy(v30);
   v26 = a1[2];
   if (v26)
   {
@@ -4698,8 +4437,8 @@ LABEL_30:
     CFRelease(cf);
   }
 
-  v27 = v32;
-  if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v27 = v31;
+  if (v31 && !atomic_fetch_add(&v31->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v27->__on_zero_shared)(v27);
     std::__shared_weak_count::__release_weak(v27);
@@ -4708,8 +4447,8 @@ LABEL_30:
   v28 = *(&buf + 1);
   if (!*(&buf + 1) || atomic_fetch_add((*(&buf + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    v29 = v36;
-    if (!v36)
+    v29 = v35;
+    if (!v35)
     {
       goto LABEL_47;
     }
@@ -4719,21 +4458,18 @@ LABEL_30:
 
   (v28->__on_zero_shared)(v28);
   std::__shared_weak_count::__release_weak(v28);
-  v29 = v36;
-  if (v36)
+  v29 = v35;
+  if (v35)
   {
 LABEL_46:
     CFRelease(v29);
   }
 
 LABEL_47:
-  if (v37)
+  if (v36)
   {
-    CFRelease(v37);
+    CFRelease(v36);
   }
-
-LABEL_49:
-  v30 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2974A4C7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, int a19, __int16 a20, char a21, char a22, int a23, __int16 a24, char a25, char a26, xpc_object_t object)
@@ -4748,25 +4484,23 @@ void sub_2974A4C7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4coex6Module5State24handleSetGnssParams_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set Gnss params: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set Gnss params: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v46 = *MEMORY[0x29EDCA608];
+  v45 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C272BA0](*a2) != MEMORY[0x29EDCAA00])
   {
     v6 = a1[4];
@@ -4776,18 +4510,18 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
       _os_log_debug_impl(&dword_297476000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", &buf, 2u);
     }
 
-    goto LABEL_4;
+    return;
   }
 
   if (xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_CoexEnable"))
   {
-    v44 = 0;
-    v8 = *MEMORY[0x29EDB8ED8];
+    v43 = 0;
+    v7 = *MEMORY[0x29EDB8ED8];
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-    v10 = Mutable;
+    v9 = Mutable;
     if (Mutable)
     {
-      v44 = Mutable;
+      v43 = Mutable;
     }
 
     value = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_CoexEnable");
@@ -4802,14 +4536,14 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
       *&buf = xpc_null_create();
     }
 
-    v13 = xpc::dyn_cast_or_default(&buf, 0);
-    ctu::cf::insert<__CFString const*,BOOL>(v10, *MEMORY[0x29EDC8868], v13);
+    v12 = xpc::dyn_cast_or_default(&buf, 0);
+    ctu::cf::insert<__CFString const*,BOOL>(v9, *MEMORY[0x29EDC8868], v12);
     xpc_release(buf);
-    v14 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_ProtectCQIPeriod");
-    *&buf = v14;
-    if (v14)
+    v13 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_ProtectCQIPeriod");
+    *&buf = v13;
+    if (v13)
     {
-      xpc_retain(v14);
+      xpc_retain(v13);
     }
 
     else
@@ -4817,14 +4551,14 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
       *&buf = xpc_null_create();
     }
 
-    v15 = xpc::dyn_cast_or_default(&buf, 0);
-    ctu::cf::insert<__CFString const*,int>(v10, *MEMORY[0x29EDC89C0], v15, v8);
+    v14 = xpc::dyn_cast_or_default(&buf, 0);
+    ctu::cf::insert<__CFString const*,int>(v9, *MEMORY[0x29EDC89C0], v14, v7);
     xpc_release(buf);
-    v16 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_ThresholdIn");
-    *&buf = v16;
-    if (v16)
+    v15 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_ThresholdIn");
+    *&buf = v15;
+    if (v15)
     {
-      xpc_retain(v16);
+      xpc_retain(v15);
     }
 
     else
@@ -4832,14 +4566,14 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
       *&buf = xpc_null_create();
     }
 
-    v17 = xpc::dyn_cast_or_default(&buf, 0);
-    ctu::cf::insert<__CFString const*,int>(v10, *MEMORY[0x29EDC8870], v17, v8);
+    v16 = xpc::dyn_cast_or_default(&buf, 0);
+    ctu::cf::insert<__CFString const*,int>(v9, *MEMORY[0x29EDC8870], v16, v7);
     xpc_release(buf);
-    v18 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_ThresholdOut");
-    *&buf = v18;
-    if (v18)
+    v17 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_ThresholdOut");
+    *&buf = v17;
+    if (v17)
     {
-      xpc_retain(v18);
+      xpc_retain(v17);
     }
 
     else
@@ -4847,14 +4581,14 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
       *&buf = xpc_null_create();
     }
 
-    v19 = xpc::dyn_cast_or_default(&buf, 0);
-    ctu::cf::insert<__CFString const*,int>(v10, *MEMORY[0x29EDC88C8], v19, v8);
+    v18 = xpc::dyn_cast_or_default(&buf, 0);
+    ctu::cf::insert<__CFString const*,int>(v9, *MEMORY[0x29EDC88C8], v18, v7);
     xpc_release(buf);
-    v20 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_DeactTimer");
-    *&buf = v20;
-    if (v20)
+    v19 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_DeactTimer");
+    *&buf = v19;
+    if (v19)
     {
-      xpc_retain(v20);
+      xpc_retain(v19);
     }
 
     else
@@ -4862,14 +4596,14 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
       *&buf = xpc_null_create();
     }
 
-    v21 = xpc::dyn_cast_or_default(&buf, 0);
-    ctu::cf::insert<__CFString const*,int>(v10, *MEMORY[0x29EDC8838], v21, v8);
+    v20 = xpc::dyn_cast_or_default(&buf, 0);
+    ctu::cf::insert<__CFString const*,int>(v9, *MEMORY[0x29EDC8838], v20, v7);
     xpc_release(buf);
-    v22 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_DeactStopTimer");
-    *&buf = v22;
-    if (v22)
+    v21 = xpc_dictionary_get_value(*a2, "WCMCellularSetLAAConfig_DeactStopTimer");
+    *&buf = v21;
+    if (v21)
     {
-      xpc_retain(v22);
+      xpc_retain(v21);
     }
 
     else
@@ -4877,40 +4611,40 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
       *&buf = xpc_null_create();
     }
 
-    v23 = xpc::dyn_cast_or_default(&buf, 0);
-    ctu::cf::insert<__CFString const*,int>(v10, *MEMORY[0x29EDC8948], v23, v8);
+    v22 = xpc::dyn_cast_or_default(&buf, 0);
+    ctu::cf::insert<__CFString const*,int>(v9, *MEMORY[0x29EDC8948], v22, v7);
     xpc_release(buf);
-    v43 = 0;
-    v24 = CFDictionaryCreateMutable(v8, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-    v25 = v24;
-    if (v24)
+    v42 = 0;
+    v23 = CFDictionaryCreateMutable(v7, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+    v24 = v23;
+    if (v23)
     {
-      v43 = v24;
+      v42 = v23;
     }
 
-    ctu::cf::insert<__CFString const*,__CFDictionary *>(v24, *MEMORY[0x29EDC8700], v10);
-    v26 = a1[4];
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    ctu::cf::insert<__CFString const*,__CFDictionary *>(v23, *MEMORY[0x29EDC8700], v9);
+    v25 = a1[4];
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v25;
-      _os_log_impl(&dword_297476000, v26, OS_LOG_TYPE_DEFAULT, "#I Setting LAA config with: %@", &buf, 0xCu);
+      *(&buf + 4) = v24;
+      _os_log_impl(&dword_297476000, v25, OS_LOG_TYPE_DEFAULT, "#I Setting LAA config with: %@", &buf, 0xCu);
     }
 
-    v28 = *a1;
-    v27 = a1[1];
+    v27 = *a1;
+    v26 = a1[1];
     *&buf = *a1;
-    if (!v27 || (v29 = std::__shared_weak_count::lock(v27), (*(&buf + 1) = v29) == 0))
+    if (!v26 || (v28 = std::__shared_weak_count::lock(v26), (*(&buf + 1) = v28) == 0))
     {
       std::__throw_bad_weak_ptr[abi:ne200100]();
     }
 
-    v30 = v29;
-    v31 = a1[5];
-    if (v25 && (v32 = CFGetTypeID(v25), v32 == CFDictionaryGetTypeID()))
+    v29 = v28;
+    v30 = a1[5];
+    if (v24 && (v31 = CFGetTypeID(v24), v31 == CFDictionaryGetTypeID()))
     {
-      cf = v25;
-      CFRetain(v25);
+      cf = v24;
+      CFRetain(v24);
     }
 
     else
@@ -4918,26 +4652,26 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
       cf = 0;
     }
 
-    v38[0] = MEMORY[0x29EDCA5F8];
-    v38[1] = 1174405120;
-    v38[2] = ___ZN4coex6Module5State23handleSetLAAConfig_syncEN3xpc4dictENS_5SubIdE_block_invoke;
-    v38[3] = &__block_descriptor_tmp_256;
-    v38[4] = a1;
-    v38[5] = v28;
-    v39 = v30;
-    atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
-    v33 = _Block_copy(v38);
-    v34 = a1[2];
-    if (v34)
-    {
-      dispatch_retain(v34);
-    }
-
+    v37[0] = MEMORY[0x29EDCA5F8];
+    v37[1] = 1174405120;
+    v37[2] = ___ZN4coex6Module5State23handleSetLAAConfig_syncEN3xpc4dictENS_5SubIdE_block_invoke;
+    v37[3] = &__block_descriptor_tmp_256;
+    v37[4] = a1;
+    v37[5] = v27;
+    v38 = v29;
+    atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
+    v32 = _Block_copy(v37);
+    v33 = a1[2];
     if (v33)
     {
-      aBlock = _Block_copy(v33);
-      object = v34;
-      if (!v34)
+      dispatch_retain(v33);
+    }
+
+    if (v32)
+    {
+      aBlock = _Block_copy(v32);
+      object = v33;
+      if (!v33)
       {
         goto LABEL_43;
       }
@@ -4946,11 +4680,11 @@ void coex::Module::State::handleSetLAAConfig_sync(uint64_t *a1, xpc_object_t *a2
     else
     {
       aBlock = 0;
-      object = v34;
-      if (!v34)
+      object = v33;
+      if (!v33)
       {
 LABEL_43:
-        (*(*v31 + 16))(v31, &cf, a3, &aBlock);
+        (*(*v30 + 16))(v30, &cf, a3, &aBlock);
         if (object)
         {
           dispatch_release(object);
@@ -4961,14 +4695,14 @@ LABEL_43:
           _Block_release(aBlock);
         }
 
-        if (v34)
-        {
-          dispatch_release(v34);
-        }
-
         if (v33)
         {
-          _Block_release(v33);
+          dispatch_release(v33);
+        }
+
+        if (v32)
+        {
+          _Block_release(v32);
         }
 
         if (cf)
@@ -4976,58 +4710,55 @@ LABEL_43:
           CFRelease(cf);
         }
 
-        v35 = v39;
-        if (v39 && !atomic_fetch_add(&v39->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v34 = v38;
+        if (v38 && !atomic_fetch_add(&v38->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v34->__on_zero_shared)(v34);
+          std::__shared_weak_count::__release_weak(v34);
+        }
+
+        v35 = *(&buf + 1);
+        if (*(&buf + 1) && !atomic_fetch_add((*(&buf + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
         {
           (v35->__on_zero_shared)(v35);
           std::__shared_weak_count::__release_weak(v35);
-        }
-
-        v36 = *(&buf + 1);
-        if (*(&buf + 1) && !atomic_fetch_add((*(&buf + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v36->__on_zero_shared)(v36);
-          std::__shared_weak_count::__release_weak(v36);
-          v37 = v43;
-          if (!v43)
+          v36 = v42;
+          if (!v42)
           {
 LABEL_60:
-            if (v44)
+            if (v43)
             {
-              CFRelease(v44);
+              CFRelease(v43);
             }
 
-            goto LABEL_4;
+            return;
           }
         }
 
         else
         {
-          v37 = v43;
-          if (!v43)
+          v36 = v42;
+          if (!v42)
           {
             goto LABEL_60;
           }
         }
 
-        CFRelease(v37);
+        CFRelease(v36);
         goto LABEL_60;
       }
     }
 
-    dispatch_retain(v34);
+    dispatch_retain(v33);
     goto LABEL_43;
   }
 
-  v12 = a1[4];
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v11 = a1[4];
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf) = 0;
-    _os_log_impl(&dword_297476000, v12, OS_LOG_TYPE_DEFAULT, "#E Missing LAA config", &buf, 2u);
+    _os_log_impl(&dword_297476000, v11, OS_LOG_TYPE_DEFAULT, "#E Missing LAA config", &buf, 2u);
   }
-
-LABEL_4:
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2974A543C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, int a19, __int16 a20, char a21, char a22, int a23, __int16 a24, char a25, char a26, xpc_object_t object)
@@ -5042,25 +4773,23 @@ void sub_2974A543C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN4coex6Module5State23handleSetLAAConfig_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set LAA config: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set LAA config: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetFCMBCMAntennaMode_sync(uint64_t *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v47 = *MEMORY[0x29EDCA608];
+  v46 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C272BA0](*a2) != MEMORY[0x29EDCAA00])
   {
     v6 = a1[4];
@@ -5070,7 +4799,7 @@ void coex::Module::State::handleSetFCMBCMAntennaMode_sync(uint64_t *a1, xpc_obje
       _os_log_debug_impl(&dword_297476000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", buf, 2u);
     }
 
-    goto LABEL_55;
+    return;
   }
 
   if (xpc_dictionary_get_value(*a2, "WCMCellularSetFCM_BCM_Antenna_Switching_RAT"))
@@ -5089,15 +4818,15 @@ void coex::Module::State::handleSetFCMBCMAntennaMode_sync(uint64_t *a1, xpc_obje
 
     v9 = xpc::dyn_cast_or_default(buf, 0);
     xpc_release(*buf);
-    v45 = 0xAAAAAAAAAAAAAAAALL;
+    v44 = 0xAAAAAAAAAAAAAAAALL;
     *buf = a2;
-    v40 = "WCMCellularSetFCM_BCM_Antenna_Switching_PortMapInformationSet";
-    xpc::dict::object_proxy::operator xpc::array(buf, &v45);
+    v39 = "WCMCellularSetFCM_BCM_Antenna_Switching_PortMapInformationSet";
+    xpc::dict::object_proxy::operator xpc::array(buf, &v44);
     *buf = 0;
-    v40 = buf;
-    v41 = 0x3002000000;
-    v42 = __Block_byref_object_copy_;
-    v43 = __Block_byref_object_dispose_;
+    v39 = buf;
+    v40 = 0x3002000000;
+    v41 = __Block_byref_object_copy_;
+    v42 = __Block_byref_object_dispose_;
     cf = 0;
     v10 = *MEMORY[0x29EDB8ED8];
     Mutable = CFArrayCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9000]);
@@ -5116,14 +4845,14 @@ void coex::Module::State::handleSetFCMBCMAntennaMode_sync(uint64_t *a1, xpc_obje
     applier[2] = ___ZN4coex6Module5State31handleSetFCMBCMAntennaMode_syncEN3xpc4dictENS_5SubIdE_block_invoke;
     applier[3] = &unk_29EE6B2C8;
     applier[4] = buf;
-    xpc_array_apply(v45, applier);
-    if (!CFArrayGetCount(*(v40 + 5)))
+    xpc_array_apply(v44, applier);
+    if (!CFArrayGetCount(*(v39 + 5)))
     {
       v28 = a1[4];
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v46) = 0;
-        _os_log_debug_impl(&dword_297476000, v28, OS_LOG_TYPE_DEBUG, "#D Empty port map passed for FCM BCM Antenna mode", &v46, 2u);
+        LOWORD(v45) = 0;
+        _os_log_debug_impl(&dword_297476000, v28, OS_LOG_TYPE_DEBUG, "#D Empty port map passed for FCM BCM Antenna mode", &v45, 2u);
         _Block_object_dispose(buf, 8);
         v29 = cf;
         if (!cf)
@@ -5140,8 +4869,8 @@ LABEL_52:
       if (!cf)
       {
 LABEL_54:
-        xpc_release(v45);
-        goto LABEL_55;
+        xpc_release(v44);
+        return;
       }
 
 LABEL_53:
@@ -5149,37 +4878,37 @@ LABEL_53:
       goto LABEL_54;
     }
 
-    v37 = 0;
+    v36 = 0;
     v13 = CFDictionaryCreateMutable(v10, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
     v14 = v13;
     if (v13)
     {
-      v37 = v13;
+      v36 = v13;
     }
 
     ctu::cf::insert<__CFString const*,unsigned int>(v13, *MEMORY[0x29EDC89B8], v9, v10);
-    ctu::cf::insert<__CFString const*,__CFArray *>(v14, *MEMORY[0x29EDC8AC0], *(v40 + 5));
-    v36 = 0;
+    ctu::cf::insert<__CFString const*,__CFArray *>(v14, *MEMORY[0x29EDC8AC0], *(v39 + 5));
+    v35 = 0;
     v15 = CFDictionaryCreateMutable(v10, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
     v16 = v15;
     if (v15)
     {
-      v36 = v15;
+      v35 = v15;
     }
 
     ctu::cf::insert<__CFString const*,__CFDictionary *>(v15, *MEMORY[0x29EDC8888], v14);
     v17 = a1[4];
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v46) = 138412290;
-      *(&v46 + 4) = v16;
-      _os_log_impl(&dword_297476000, v17, OS_LOG_TYPE_DEFAULT, "#I Setting FCM BCM Antenna mode with: %@", &v46, 0xCu);
+      LODWORD(v45) = 138412290;
+      *(&v45 + 4) = v16;
+      _os_log_impl(&dword_297476000, v17, OS_LOG_TYPE_DEFAULT, "#I Setting FCM BCM Antenna mode with: %@", &v45, 0xCu);
     }
 
     v19 = *a1;
     v18 = a1[1];
-    *&v46 = *a1;
-    if (!v18 || (v20 = std::__shared_weak_count::lock(v18), (*(&v46 + 1) = v20) == 0))
+    *&v45 = *a1;
+    if (!v18 || (v20 = std::__shared_weak_count::lock(v18), (*(&v45 + 1) = v20) == 0))
     {
       std::__throw_bad_weak_ptr[abi:ne200100]();
     }
@@ -5188,13 +4917,13 @@ LABEL_53:
     v22 = a1[5];
     if (v16 && (v23 = CFGetTypeID(v16), v23 == CFDictionaryGetTypeID()))
     {
-      v35 = v16;
+      v34 = v16;
       CFRetain(v16);
     }
 
     else
     {
-      v35 = 0;
+      v34 = 0;
     }
 
     aBlock[0] = MEMORY[0x29EDCA5F8];
@@ -5203,7 +4932,7 @@ LABEL_53:
     aBlock[3] = &__block_descriptor_tmp_266;
     aBlock[4] = a1;
     aBlock[5] = v19;
-    v32 = v21;
+    v31 = v21;
     atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
     v24 = _Block_copy(aBlock);
     v25 = a1[2];
@@ -5214,20 +4943,20 @@ LABEL_53:
 
     if (v24)
     {
-      v33 = _Block_copy(v24);
+      v32 = _Block_copy(v24);
       object = v25;
       if (!v25)
       {
 LABEL_31:
-        (*(*v22 + 16))(v22, &v35, a3, &v33);
+        (*(*v22 + 16))(v22, &v34, a3, &v32);
         if (object)
         {
           dispatch_release(object);
         }
 
-        if (v33)
+        if (v32)
         {
-          _Block_release(v33);
+          _Block_release(v32);
         }
 
         if (v25)
@@ -5240,33 +4969,33 @@ LABEL_31:
           _Block_release(v24);
         }
 
-        if (v35)
+        if (v34)
         {
-          CFRelease(v35);
+          CFRelease(v34);
         }
 
-        v26 = v32;
-        if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v26 = v31;
+        if (v31 && !atomic_fetch_add(&v31->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v26->__on_zero_shared)(v26);
           std::__shared_weak_count::__release_weak(v26);
         }
 
-        v27 = *(&v46 + 1);
-        if (*(&v46 + 1) && !atomic_fetch_add((*(&v46 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+        v27 = *(&v45 + 1);
+        if (*(&v45 + 1) && !atomic_fetch_add((*(&v45 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
         {
           (v27->__on_zero_shared)(v27);
           std::__shared_weak_count::__release_weak(v27);
         }
 
+        if (v35)
+        {
+          CFRelease(v35);
+        }
+
         if (v36)
         {
           CFRelease(v36);
-        }
-
-        if (v37)
-        {
-          CFRelease(v37);
         }
 
         goto LABEL_52;
@@ -5275,7 +5004,7 @@ LABEL_31:
 
     else
     {
-      v33 = 0;
+      v32 = 0;
       object = v25;
       if (!v25)
       {
@@ -5293,9 +5022,6 @@ LABEL_31:
     *buf = 0;
     _os_log_impl(&dword_297476000, v8, OS_LOG_TYPE_DEFAULT, "#E Invalid RAT option passed for FCM BCM Antenna mode", buf, 2u);
   }
-
-LABEL_55:
-  v30 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2974A5C28(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, char a19, int a20, __int16 a21, char a22, char a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, xpc_object_t object)
@@ -5401,35 +5127,34 @@ LABEL_8:
   return 1;
 }
 
-void sub_2974A5F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, const void *a10)
+void sub_2974A5F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, ...)
 {
-  ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(&a10);
+  va_start(va, a9);
+  ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(&a9);
-  xpc_release(v10);
+  xpc_release(v9);
   _Unwind_Resume(a1);
 }
 
 void ___ZN4coex6Module5State31handleSetFCMBCMAntennaMode_syncEN3xpc4dictENS_5SubIdE_block_invoke_263(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set FCM BCM Antenna mode: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set FCM BCM Antenna mode: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::handleSetRC1DurationParam_sync(uint64_t *a1, xpc_object_t *a2, uint64_t a3)
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C272BA0](*a2) != MEMORY[0x29EDCAA00])
   {
     v6 = a1[4];
@@ -5439,7 +5164,7 @@ void coex::Module::State::handleSetRC1DurationParam_sync(uint64_t *a1, xpc_objec
       _os_log_debug_impl(&dword_297476000, v6, OS_LOG_TYPE_DEBUG, "#D Invalid XPC dict", buf, 2u);
     }
 
-    goto LABEL_4;
+    return;
   }
 
   if (xpc_dictionary_get_value(*a2, "kWCMCellularRC1Duration"))
@@ -5456,49 +5181,49 @@ void coex::Module::State::handleSetRC1DurationParam_sync(uint64_t *a1, xpc_objec
       *buf = xpc_null_create();
     }
 
-    v10 = xpc::dyn_cast_or_default(buf, 0);
+    v9 = xpc::dyn_cast_or_default(buf, 0);
     xpc_release(*buf);
-    v34 = 0;
-    v11 = *MEMORY[0x29EDB8ED8];
+    v33 = 0;
+    v10 = *MEMORY[0x29EDB8ED8];
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-    v13 = Mutable;
+    v12 = Mutable;
     if (Mutable)
     {
-      v34 = Mutable;
+      v33 = Mutable;
     }
 
-    ctu::cf::insert<__CFString const*,unsigned int>(Mutable, *MEMORY[0x29EDC86E8], v10, v11);
-    v33 = 0;
-    v14 = CFDictionaryCreateMutable(v11, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-    v15 = v14;
-    if (v14)
+    ctu::cf::insert<__CFString const*,unsigned int>(Mutable, *MEMORY[0x29EDC86E8], v9, v10);
+    v32 = 0;
+    v13 = CFDictionaryCreateMutable(v10, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
+    v14 = v13;
+    if (v13)
     {
-      v33 = v14;
+      v32 = v13;
     }
 
-    ctu::cf::insert<__CFString const*,__CFDictionary *>(v14, *MEMORY[0x29EDC8768], v13);
-    v16 = a1[4];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    ctu::cf::insert<__CFString const*,__CFDictionary *>(v13, *MEMORY[0x29EDC8768], v12);
+    v15 = a1[4];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      *&buf[4] = v10;
-      _os_log_impl(&dword_297476000, v16, OS_LOG_TYPE_DEFAULT, "#I Setting RC1 duration to %u", buf, 8u);
+      *&buf[4] = v9;
+      _os_log_impl(&dword_297476000, v15, OS_LOG_TYPE_DEFAULT, "#I Setting RC1 duration to %u", buf, 8u);
     }
 
-    v18 = *a1;
-    v17 = a1[1];
+    v17 = *a1;
+    v16 = a1[1];
     *buf = *a1;
-    if (!v17 || (v19 = std::__shared_weak_count::lock(v17), (v36 = v19) == 0))
+    if (!v16 || (v18 = std::__shared_weak_count::lock(v16), (v35 = v18) == 0))
     {
       std::__throw_bad_weak_ptr[abi:ne200100]();
     }
 
-    v20 = v19;
-    v21 = a1[5];
-    if (v15 && (v22 = CFGetTypeID(v15), v22 == CFDictionaryGetTypeID()))
+    v19 = v18;
+    v20 = a1[5];
+    if (v14 && (v21 = CFGetTypeID(v14), v21 == CFDictionaryGetTypeID()))
     {
-      cf = v15;
-      CFRetain(v15);
+      cf = v14;
+      CFRetain(v14);
     }
 
     else
@@ -5506,26 +5231,26 @@ void coex::Module::State::handleSetRC1DurationParam_sync(uint64_t *a1, xpc_objec
       cf = 0;
     }
 
-    v28[0] = MEMORY[0x29EDCA5F8];
-    v28[1] = 1174405120;
-    v28[2] = ___ZN4coex6Module5State30handleSetRC1DurationParam_syncEN3xpc4dictENS_5SubIdE_block_invoke;
-    v28[3] = &__block_descriptor_tmp_270;
-    v28[4] = a1;
-    v28[5] = v18;
-    v29 = v20;
-    atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-    v23 = _Block_copy(v28);
-    v24 = a1[2];
-    if (v24)
-    {
-      dispatch_retain(v24);
-    }
-
+    v27[0] = MEMORY[0x29EDCA5F8];
+    v27[1] = 1174405120;
+    v27[2] = ___ZN4coex6Module5State30handleSetRC1DurationParam_syncEN3xpc4dictENS_5SubIdE_block_invoke;
+    v27[3] = &__block_descriptor_tmp_270;
+    v27[4] = a1;
+    v27[5] = v17;
+    v28 = v19;
+    atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
+    v22 = _Block_copy(v27);
+    v23 = a1[2];
     if (v23)
     {
-      aBlock = _Block_copy(v23);
-      object = v24;
-      if (!v24)
+      dispatch_retain(v23);
+    }
+
+    if (v22)
+    {
+      aBlock = _Block_copy(v22);
+      object = v23;
+      if (!v23)
       {
         goto LABEL_28;
       }
@@ -5534,11 +5259,11 @@ void coex::Module::State::handleSetRC1DurationParam_sync(uint64_t *a1, xpc_objec
     else
     {
       aBlock = 0;
-      object = v24;
-      if (!v24)
+      object = v23;
+      if (!v23)
       {
 LABEL_28:
-        (*(*v21 + 16))(v21, &cf, a3, &aBlock);
+        (*(*v20 + 16))(v20, &cf, a3, &aBlock);
         if (object)
         {
           dispatch_release(object);
@@ -5549,14 +5274,14 @@ LABEL_28:
           _Block_release(aBlock);
         }
 
-        if (v24)
-        {
-          dispatch_release(v24);
-        }
-
         if (v23)
         {
-          _Block_release(v23);
+          dispatch_release(v23);
+        }
+
+        if (v22)
+        {
+          _Block_release(v22);
         }
 
         if (cf)
@@ -5564,58 +5289,55 @@ LABEL_28:
           CFRelease(cf);
         }
 
-        v25 = v29;
-        if (v29 && !atomic_fetch_add(&v29->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v24 = v28;
+        if (v28 && !atomic_fetch_add(&v28->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v24->__on_zero_shared)(v24);
+          std::__shared_weak_count::__release_weak(v24);
+        }
+
+        v25 = v35;
+        if (v35 && !atomic_fetch_add(&v35->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
           (v25->__on_zero_shared)(v25);
           std::__shared_weak_count::__release_weak(v25);
-        }
-
-        v26 = v36;
-        if (v36 && !atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v26->__on_zero_shared)(v26);
-          std::__shared_weak_count::__release_weak(v26);
-          v27 = v33;
-          if (!v33)
+          v26 = v32;
+          if (!v32)
           {
 LABEL_45:
-            if (v34)
+            if (v33)
             {
-              CFRelease(v34);
+              CFRelease(v33);
             }
 
-            goto LABEL_4;
+            return;
           }
         }
 
         else
         {
-          v27 = v33;
-          if (!v33)
+          v26 = v32;
+          if (!v32)
           {
             goto LABEL_45;
           }
         }
 
-        CFRelease(v27);
+        CFRelease(v26);
         goto LABEL_45;
       }
     }
 
-    dispatch_retain(v24);
+    dispatch_retain(v23);
     goto LABEL_28;
   }
 
-  v9 = a1[4];
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v8 = a1[4];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_297476000, v9, OS_LOG_TYPE_DEFAULT, "#E Invalid RC1 duration passed", buf, 2u);
+    _os_log_impl(&dword_297476000, v8, OS_LOG_TYPE_DEFAULT, "#E Invalid RC1 duration passed", buf, 2u);
   }
-
-LABEL_4:
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2974A6488(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, int a19, __int16 a20, char a21, char a22, int a23, __int16 a24, char a25, char a26, xpc_object_t object)
@@ -5628,29 +5350,27 @@ void sub_2974A6488(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   __clang_call_terminate(exception_object);
 }
 
-void sub_2974A6548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_2974A6548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
 
 void ___ZN4coex6Module5State30handleSetRC1DurationParam_syncEN3xpc4dictENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
   if (*a2)
   {
     v3 = *(*(a1 + 32) + 32);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set RC1 duration; %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_297476000, v3, OS_LOG_TYPE_DEFAULT, "#E Failed to set RC1 duration; %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void coex::Module::State::convertScanFreqBandFilter_sync(uint64_t a1, xpc_object_t *a2, CFArrayRef *a3)
@@ -5776,9 +5496,9 @@ LABEL_6:
   }
 }
 
-void sub_2974A68D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2974A68D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -5969,36 +5689,36 @@ LABEL_38:
   xpc_release(v29);
 }
 
-void sub_2974A6D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2974A6D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va3, a11);
-  va_start(va2, a11);
-  va_start(va1, a11);
-  va_start(va, a11);
-  v16 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va3, a18);
+  va_start(va2, a18);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v23 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   va_copy(va2, va1);
-  v19 = va_arg(va2, const void *);
+  v26 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v21 = va_arg(va3, void);
-  v23 = va_arg(va3, void);
+  v28 = va_arg(va3, void);
+  v30 = va_arg(va3, void);
   coex::CommandDriver::Callback::~Callback(va);
-  if (v11)
+  if (v18)
   {
-    dispatch_release(v11);
+    dispatch_release(v18);
   }
 
-  if (v12)
+  if (v19)
   {
-    _Block_release(v12);
+    _Block_release(v19);
   }
 
-  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](v13 + 48);
+  std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](v20 + 48);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(va1);
   std::shared_ptr<Registry>::~shared_ptr[abi:ne200100](va2);
   ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(va3);
-  _Block_object_dispose((v14 - 112), 8);
-  xpc_release(*(v14 - 72));
+  _Block_object_dispose((v21 - 112), 8);
+  xpc_release(*(v21 - 72));
   _Unwind_Resume(a1);
 }
 
@@ -6012,7 +5732,7 @@ xpc_object_t __Block_byref_object_copy__271(uint64_t a1, uint64_t a2)
 
 void ___ZN4coex6Module5State32handleGetScanFreqBandFilter_syncENS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2, const __CFDictionary **a3)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v4 = *(a1 + 40);
   v5 = *a2;
   if (*a2)
@@ -6038,12 +5758,12 @@ void ___ZN4coex6Module5State32handleGetScanFreqBandFilter_syncENS_5SubIdE_block_
   ctu::cf::dict_adapter::dict_adapter(buf, v7);
   v8 = ctu::cf::map_adapter::copyCFArrayRef(buf, *MEMORY[0x29EDC87F8]);
   v9 = *(*(*(a1 + 32) + 8) + 40);
-  v16[0] = v9;
-  v16[1] = v8;
+  v15[0] = v9;
+  v15[1] = v8;
   if (v9)
   {
     v10 = xpc_retain(v9);
-    v15 = v8;
+    v14 = v8;
     if (!v8)
     {
       goto LABEL_10;
@@ -6054,8 +5774,8 @@ void ___ZN4coex6Module5State32handleGetScanFreqBandFilter_syncENS_5SubIdE_block_
 
   v10 = xpc_null_create();
   v9 = v10;
-  v15 = v8;
-  v16[0] = v10;
+  v14 = v8;
+  v15[0] = v10;
   if (v8)
   {
 LABEL_9:
@@ -6063,14 +5783,14 @@ LABEL_9:
   }
 
 LABEL_10:
-  coex::Module::State::convertScanFreqBandFilter_sync(v10, v16, &v15);
+  coex::Module::State::convertScanFreqBandFilter_sync(v10, v15, &v14);
   if (v8)
   {
     CFRelease(v8);
   }
 
   xpc_release(v9);
-  v16[0] = 0;
+  v15[0] = 0;
   if (v8)
   {
     CFRelease(v8);
@@ -6082,7 +5802,7 @@ LABEL_15:
   if (v11)
   {
     v12 = *(*(*(a1 + 32) + 8) + 40);
-    v14 = v12;
+    v13 = v12;
     if (v12)
     {
       xpc_retain(v12);
@@ -6091,14 +5811,12 @@ LABEL_15:
     else
     {
       v12 = xpc_null_create();
-      v14 = v12;
+      v13 = v12;
     }
 
-    coex::XpcClient::sendMessage(v11, 305, &v14, *(a1 + 64));
+    coex::XpcClient::sendMessage(v11, 305, &v13, *(a1 + 64));
     xpc_release(v12);
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2974A6FA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, char a12, int a13, __int16 a14, char a15, char a16)
@@ -7247,8 +6965,9 @@ void ___ZN4coex6Module5State18sendWWANState_syncENS_5SubIdE_block_invoke_8(uint6
   xpc_release(v4);
 }
 
-void coex::Module::State::sendLinkQuality_sync(uint64_t a1, int a2)
+void coex::Module::State::sendLinkQuality_sync(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = xpc_dictionary_create(0, 0, 0);
   if (v4 || (v4 = xpc_null_create()) != 0)
   {
@@ -7272,7 +6991,7 @@ void coex::Module::State::sendLinkQuality_sync(uint64_t a1, int a2)
 
   xpc_release(v4);
   v25 = 0xAAAAAAAAAAAAAAAALL;
-  coex::Module::State::getSubProperty(a1, coex::kKeyLinkQuality, a2, 0, &v25);
+  coex::Module::State::getSubProperty(a1, coex::kKeyLinkQuality, v2, 0, &v25);
   if (v25)
   {
     v24[0] = 0xAAAAAAAAAAAAAAAALL;
@@ -7357,7 +7076,7 @@ void coex::Module::State::sendLinkQuality_sync(uint64_t a1, int a2)
       v20 = v19;
     }
 
-    coex::XpcClient::sendMessage(v18, 302, &v20, a2);
+    coex::XpcClient::sendMessage(v18, 302, &v20, v2);
     xpc_release(v19);
     v20 = 0;
   }
@@ -7370,33 +7089,34 @@ void coex::Module::State::sendLinkQuality_sync(uint64_t a1, int a2)
   xpc_release(v5);
 }
 
-void sub_2974A956C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974A956C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va4, a2);
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va4, a3);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, const void *);
+  v8 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v9 = va_arg(va3, const void *);
+  v10 = va_arg(va3, const void *);
   va_copy(va4, va3);
-  v11 = va_arg(va4, void);
-  v13 = va_arg(va4, void);
-  MEMORY[0x29C270ED0](va);
+  v12 = va_arg(va4, void);
+  v14 = va_arg(va4, void);
+  MEMORY[0x29C270ED0](va, a2);
   ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(va1);
   ctu::cf::CFSharedRef<__CFNumber const>::~CFSharedRef(va2);
   MEMORY[0x29C270ED0](va3);
   ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef(va4);
-  xpc_release(v2);
+  xpc_release(v3);
   _Unwind_Resume(a1);
 }
 
-void coex::Module::State::sendFailCondition_sync(uint64_t a1, int a2)
+void coex::Module::State::sendFailCondition_sync(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v70 = 0xAAAAAAAAAAAAAAAALL;
   coex::Module::State::getSubProperty(a1, coex::kKeyFailCondition, a2, 0, &v70);
   if (!v70)
@@ -7508,7 +7228,7 @@ LABEL_12:
             v55 = v20;
           }
 
-          coex::XpcClient::sendMessage(v19, 303, &v55, a2);
+          coex::XpcClient::sendMessage(v19, 303, &v55, v2);
           xpc_release(v20);
           v55 = 0;
         }
@@ -7627,7 +7347,7 @@ LABEL_35:
             v48 = v36;
           }
 
-          coex::XpcClient::sendMessage(v35, 303, &v48, a2);
+          coex::XpcClient::sendMessage(v35, 303, &v48, v2);
           xpc_release(v36);
           v48 = 0;
         }
@@ -7711,7 +7431,7 @@ LABEL_48:
         v46[0] = v45;
       }
 
-      coex::XpcClient::sendMessage(v44, 301, v46, a2);
+      coex::XpcClient::sendMessage(v44, 301, v46, v2);
       xpc_release(v45);
       v46[0] = 0;
     }
@@ -7742,15 +7462,15 @@ LABEL_64:
   }
 }
 
-void sub_2974A9DCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2974A9DCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
-  _Block_object_dispose((v13 - 136), 8);
-  xpc_release(*(v13 - 96));
+  va_start(va, a20);
+  _Block_object_dispose((v20 - 136), 8);
+  xpc_release(*(v20 - 96));
   ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef(va);
-  ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef((v13 - 80));
-  MEMORY[0x29C270ED0](v13 - 72);
-  ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef((v13 - 56));
+  ctu::cf::CFSharedRef<__CFData const>::~CFSharedRef((v20 - 80));
+  MEMORY[0x29C270ED0](v20 - 72);
+  ctu::cf::CFSharedRef<__CFDictionary>::~CFSharedRef((v20 - 56));
   _Unwind_Resume(a1);
 }
 
@@ -7784,7 +7504,7 @@ void ___ZN4coex6Module5State22sendFailCondition_syncENS_5SubIdE_block_invoke_2(u
 
 void ___ZN4coex6Module5State14setPolicy_syncENS_5SubIdE_block_invoke(uint64_t a1, const void **a2)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v4 = *(a1 + 32);
   v5 = *a2;
   if (*a2)
@@ -7793,25 +7513,25 @@ void ___ZN4coex6Module5State14setPolicy_syncENS_5SubIdE_block_invoke(uint64_t a1
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = v5;
+      v20 = v5;
       _os_log_impl(&dword_297476000, v6, OS_LOG_TYPE_DEFAULT, "#I Failed to set policy: %@", buf, 0xCu);
     }
   }
 
-  ctu::cf::dict_adapter::dict_adapter(v19, (a1 + 56));
-  v14[0] = MEMORY[0x29EDCA5F8];
-  v14[1] = 1174405120;
-  v15 = ___ZN4coex6Module5State14setPolicy_syncENS_5SubIdE_block_invoke_317;
-  v16 = &__block_descriptor_tmp_319;
+  ctu::cf::dict_adapter::dict_adapter(v18, (a1 + 56));
+  v13[0] = MEMORY[0x29EDCA5F8];
+  v13[1] = 1174405120;
+  v14 = ___ZN4coex6Module5State14setPolicy_syncENS_5SubIdE_block_invoke_317;
+  v15 = &__block_descriptor_tmp_319;
   v7 = *a2;
-  v17 = v4;
+  v16 = v4;
   cf = v7;
   if (v7)
   {
     CFRetain(v7);
   }
 
-  v8 = (*v19[0])(v19, *MEMORY[0x29EDC88F8]);
+  v8 = (*v18[0])(v18, *MEMORY[0x29EDC88F8]);
   v9 = v8;
   if (v8)
   {
@@ -7823,7 +7543,7 @@ void ___ZN4coex6Module5State14setPolicy_syncENS_5SubIdE_block_invoke(uint64_t a1
       CFRelease(v9);
       if (v12)
       {
-        v15(v14, *buf);
+        v14(v13, *buf);
       }
     }
 
@@ -7833,13 +7553,11 @@ void ___ZN4coex6Module5State14setPolicy_syncENS_5SubIdE_block_invoke(uint64_t a1
     }
   }
 
-  MEMORY[0x29C270ED0](v19);
+  MEMORY[0x29C270ED0](v18);
   if (cf)
   {
     CFRelease(cf);
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2974AA220(_Unwind_Exception *exception_object, int a2)
@@ -7852,10 +7570,10 @@ void sub_2974AA220(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_2974AA240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2974AA240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  ctu::cf::CFSharedRef<__CFError>::~CFSharedRef((v7 + 40));
+  va_start(va, a13);
+  ctu::cf::CFSharedRef<__CFError>::~CFSharedRef((v13 + 40));
   MEMORY[0x29C270ED0](va);
   _Unwind_Resume(a1);
 }
@@ -7987,19 +7705,17 @@ void __destroy_helper_block_e8_40c46_ZTSNSt3__110shared_ptrIN4coex6Module5StateE
 
 void ___ZN4coex6Module5State23setLinkQualityMode_syncEjNS_5SubIdE_block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *a2;
-  if (*a2 && (v3 = *(*(a1 + 32) + 32), os_log_type_enabled(v3, OS_LOG_TYPE_ERROR)))
+  if (*a2)
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_297476000, v3, OS_LOG_TYPE_ERROR, "Failed to set SINR and/or BLER: %@", &v6, 0xCu);
-    v5 = *MEMORY[0x29EDCA608];
-  }
-
-  else
-  {
-    v4 = *MEMORY[0x29EDCA608];
+    v3 = *(*(a1 + 32) + 32);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_error_impl(&dword_297476000, v3, OS_LOG_TYPE_ERROR, "Failed to set SINR and/or BLER: %@", &v4, 0xCu);
+    }
   }
 }
 
@@ -8083,16 +7799,17 @@ void ctu::cf::update<__CFString const*,void const*>(__CFDictionary *a1, CFTypeRe
   }
 }
 
-void sub_2974AA7E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
+void sub_2974AA7E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(&a9);
-  ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(&a10);
+  ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2974AA804(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2974AA804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::cf::ConvertToCFTypeRef::~ConvertToCFTypeRef(va);
   _Unwind_Resume(a1);
 }
@@ -8371,11 +8088,11 @@ void sub_2974AAE08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb1_E3__3EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb1_E3__3EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C272BA0](v4) == MEMORY[0x29EDCA9E0])
   {
@@ -8391,7 +8108,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -8424,11 +8141,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb1_E3__3NS_14
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb2_E3__4EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb2_E3__4EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   object = v3;
   if (v3)
   {
@@ -8444,7 +8161,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -8477,11 +8194,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb2_E3__4NS_14
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb3_E3__5EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb3_E3__5EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   object = v3;
   if (v3)
   {
@@ -8497,7 +8214,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -8545,7 +8262,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
     v3 = xpc_null_create();
   }
 
-  v5 = *(v4 + 4);
+  v5 = *(v4 + 32);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     v7[0] = 0;
@@ -8565,11 +8282,11 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   operator delete(a1);
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb5_E3__7EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb5_E3__7EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C272BA0](v3) == MEMORY[0x29EDCAA00])
   {
@@ -8586,7 +8303,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -8619,11 +8336,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb5_E3__7NS_14
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb6_E3__8EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb6_E3__8EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t **a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C272BA0](v3) == MEMORY[0x29EDCAA00])
   {
@@ -8640,7 +8357,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -8673,11 +8390,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb6_E3__8NS_14
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb7_E3__9EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb7_E3__9EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C272BA0](v4) == MEMORY[0x29EDCA9E0])
   {
@@ -8693,7 +8410,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -8754,11 +8471,11 @@ void sub_2974AB878(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb9_E4__11EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb9_E4__11EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C272BA0](v3) == MEMORY[0x29EDCAA00])
   {
@@ -8775,7 +8492,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -8808,11 +8525,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb9_E4__11NS_1
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb10_E4__12EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb10_E4__12EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C272BA0](v3) == MEMORY[0x29EDCAA00])
   {
@@ -8829,7 +8546,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -8862,11 +8579,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb10_E4__12NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb11_E4__13EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb11_E4__13EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C272BA0](v4) == MEMORY[0x29EDCAA00])
   {
@@ -8882,7 +8599,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -8915,11 +8632,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb11_E4__13NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb12_E4__14EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb12_E4__14EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C272BA0](v3) == MEMORY[0x29EDCAA00])
   {
@@ -8936,7 +8653,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -8969,11 +8686,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb12_E4__14NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb13_E4__15EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb13_E4__15EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C272BA0](v4) == MEMORY[0x29EDCAA00])
   {
@@ -8989,7 +8706,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -9022,11 +8739,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb13_E4__15NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb14_E4__16EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb14_E4__16EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C272BA0](v4) == MEMORY[0x29EDCAA00])
   {
@@ -9042,7 +8759,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -9075,11 +8792,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb14_E4__16NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb15_E4__17EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb15_E4__17EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C272BA0](v4) == MEMORY[0x29EDCAA00])
   {
@@ -9095,7 +8812,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -9128,11 +8845,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb15_E4__17NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb16_E4__18EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb16_E4__18EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C272BA0](v4) == MEMORY[0x29EDCAA00])
   {
@@ -9148,7 +8865,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -9181,11 +8898,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb16_E4__18NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb17_E4__19EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb17_E4__19EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C272BA0](v4) == MEMORY[0x29EDCAA00])
   {
@@ -9201,7 +8918,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -9234,11 +8951,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb17_E4__19NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb18_E4__20EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb18_E4__20EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C272BA0](v3) == MEMORY[0x29EDCAA00])
   {
@@ -9255,7 +8972,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -9288,11 +9005,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb18_E4__20NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb19_E4__21EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb19_E4__21EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C272BA0](v3) == MEMORY[0x29EDCAA00])
   {
@@ -9309,7 +9026,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -9342,11 +9059,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb19_E4__21NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb20_E4__22EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb20_E4__22EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C272BA0](v3) == MEMORY[0x29EDCAA00])
   {
@@ -9363,7 +9080,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -9396,11 +9113,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb20_E4__22NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb21_E4__23EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb21_E4__23EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C272BA0](v3) == MEMORY[0x29EDCAA00])
   {
@@ -9417,7 +9134,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -9450,11 +9167,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb21_E4__23NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb22_E4__24EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb22_E4__24EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v4 = **a1;
-  v3 = *(*a1 + 8);
+  v3 = (*a1)[1];
   v6 = v3;
   if (v3 && MEMORY[0x29C272BA0](v3) == MEMORY[0x29EDCAA00])
   {
@@ -9471,7 +9188,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(v3);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -9504,11 +9221,11 @@ xpc_object_t **_ZNSt3__110unique_ptrIZZN4coex6Module5State4initEvEUb22_E4__24NS_
   return result;
 }
 
-void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb23_E4__25EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(void *a1)
+void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15execute_wrappedIZZNS5_4initEvEUb23_E4__25EEvOT_EUlvE_EEvP16dispatch_queue_sNSt3__110unique_ptrIS9_NSE_14default_deleteIS9_EEEEENUlPvE_8__invokeESJ_(uint64_t ***a1)
 {
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   object = v4;
   if (v4 && MEMORY[0x29C272BA0](v4) == MEMORY[0x29EDCAA00])
   {
@@ -9524,7 +9241,7 @@ void _ZZN8dispatch5asyncIZNK3ctu20SharedSynchronizableIN4coex6Module5StateEE15ex
   xpc_release(object);
   xpc_release(v2[1]);
   operator delete(v2);
-  v5 = *(a1 + 2);
+  v5 = a1[2];
   if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v5->__on_zero_shared)(v5);
@@ -9828,5 +9545,250 @@ void boost::detail::sp_counted_impl_p<boost::signals2::detail::grouped_list<int,
     }
 
     operator delete(v1);
+  }
+}
+
+void boost::signals2::detail::connection_body_base::~connection_body_base(boost::signals2::detail::connection_body_base *this)
+{
+  *this = &unk_2A1E41C60;
+  v1 = *(this + 2);
+  if (v1)
+  {
+    if (atomic_fetch_add(v1 + 3, 0xFFFFFFFF) == 1)
+    {
+      (*(*v1 + 24))(v1);
+    }
+  }
+}
+
+void boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>::~connection_body(void *a1)
+{
+  v1 = boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>::~connection_body(a1);
+
+  operator delete(v1);
+}
+
+uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>::connected(uint64_t a1)
+{
+  v19[3] = *MEMORY[0x29EDCA608];
+  *&v2 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v14[8] = v2;
+  v14[9] = v2;
+  v14[6] = v2;
+  v14[7] = v2;
+  v14[4] = v2;
+  v14[5] = v2;
+  v14[2] = v2;
+  v14[3] = v2;
+  v14[0] = v2;
+  v14[1] = v2;
+  v3 = *(a1 + 48);
+  v15 = 10;
+  v16 = v14;
+  v17 = 0;
+  v18 = v3;
+  pthread_mutex_lock(v3);
+  v4 = *(a1 + 32);
+  if (v4)
+  {
+    v5 = *v4;
+    if (*v4 != v4[1])
+    {
+      while (1)
+      {
+        memset(v19, 170, 24);
+        boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::apply_visitor<boost::signals2::detail::lock_weak_ptr_visitor const>(v5, v19);
+        if ((*v5 ^ (*v5 >> 31)) == 2)
+        {
+          if (!(*(**(v5 + 8) + 24))(*(v5 + 8)))
+          {
+            goto LABEL_6;
+          }
+        }
+
+        else
+        {
+          v6 = *(v5 + 16);
+          if (v6 && atomic_load_explicit((v6 + 8), memory_order_acquire))
+          {
+LABEL_6:
+            v7 = 0;
+            if (LODWORD(v19[0]) == SLODWORD(v19[0]) >> 31)
+            {
+              goto LABEL_13;
+            }
+
+            goto LABEL_7;
+          }
+        }
+
+        if (*(a1 + 24) == 1)
+        {
+          *(a1 + 24) = 0;
+          boost::signals2::detail::connection_body_base::dec_slot_refcount<boost::signals2::mutex>(a1, v14);
+        }
+
+        v7 = 1;
+        if (LODWORD(v19[0]) == SLODWORD(v19[0]) >> 31)
+        {
+LABEL_13:
+          v8 = v19[2];
+          if (v19[2])
+          {
+            if (atomic_fetch_add((v19[2] + 8), 0xFFFFFFFF) == 1)
+            {
+              (*(*v8 + 16))(v8);
+              if (atomic_fetch_add(v8 + 3, 0xFFFFFFFF) == 1)
+              {
+                (*(*v8 + 24))(v8);
+              }
+            }
+          }
+
+          goto LABEL_17;
+        }
+
+LABEL_7:
+        if (v19[1])
+        {
+          (*(*v19[1] + 8))(v19[1]);
+        }
+
+LABEL_17:
+        if ((v7 & 1) == 0)
+        {
+          v5 += 24;
+          if (v5 != *(*(a1 + 32) + 8))
+          {
+            continue;
+          }
+        }
+
+        break;
+      }
+    }
+  }
+
+  v9 = *(a1 + 24);
+  pthread_mutex_unlock(v18);
+  v10 = v16;
+  if (v16)
+  {
+    if (v17 > 0)
+    {
+      v12 = &v16[16 * v17];
+      do
+      {
+        v13 = *(v12 - 1);
+        if (v13)
+        {
+          if (atomic_fetch_add(v13 + 2, 0xFFFFFFFF) == 1)
+          {
+            (*(*v13 + 16))(v13);
+            if (atomic_fetch_add(v13 + 3, 0xFFFFFFFF) == 1)
+            {
+              (*(*v13 + 24))(v13);
+            }
+          }
+        }
+
+        v12 -= 16;
+      }
+
+      while (v12 > v10);
+    }
+
+    if (v15 >= 0xB)
+    {
+      operator delete(v16);
+    }
+  }
+
+  return v9;
+}
+
+void sub_2974ADA10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t boost::signals2::detail::connection_body<std::pair<boost::signals2::detail::slot_meta_group,boost::optional<int>>,boost::signals2::slot<void ()(void),boost::function<void ()(void)>>,boost::signals2::mutex>::release_slot@<X0>(uint64_t result@<X0>, void *a2@<X8>)
+{
+  v3 = *(result + 40);
+  v2 = (result + 32);
+  *a2 = *(result + 32);
+  a2[1] = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1u, memory_order_relaxed);
+    v4 = *(result + 40);
+    *v2 = 0;
+    *(result + 40) = 0;
+    if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
+    {
+      result = (*(*v4 + 16))(v4);
+      if (atomic_fetch_add(v4 + 3, 0xFFFFFFFF) == 1)
+      {
+        return (*(*v4 + 24))(v4);
+      }
+    }
+  }
+
+  else
+  {
+    *v2 = 0;
+    *(result + 40) = 0;
+  }
+
+  return result;
+}
+
+void boost::checked_delete<boost::signals2::slot<void ()(void),boost::function<void ()(void)>>>(char **__p)
+{
+  if (__p)
+  {
+    v2 = __p[3];
+    if (v2)
+    {
+      if ((v2 & 1) == 0)
+      {
+        v3 = *v2;
+        if (v3)
+        {
+          v3(__p + 4, __p + 4, 2);
+        }
+      }
+
+      __p[3] = 0;
+    }
+
+    v4 = *__p;
+    if (*__p)
+    {
+      v5 = __p[1];
+      v6 = *__p;
+      if (v5 != v4)
+      {
+        do
+        {
+          v5 -= 24;
+          boost::variant<boost::weak_ptr<boost::signals2::detail::trackable_pointee>,boost::weak_ptr<void>,boost::signals2::detail::foreign_void_weak_ptr>::destroy_content(v5);
+        }
+
+        while (v5 != v4);
+        v6 = *__p;
+      }
+
+      __p[1] = v4;
+      operator delete(v6);
+    }
+
+    operator delete(__p);
   }
 }

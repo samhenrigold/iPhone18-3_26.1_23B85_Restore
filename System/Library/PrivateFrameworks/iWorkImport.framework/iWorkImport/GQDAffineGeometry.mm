@@ -243,7 +243,7 @@
 {
   if (self)
   {
-    return [(CGAffineTransform *)self transformHasVFlip:0 vFlip:0 hasHFlip:0 hFlip:0];
+    return objc_msgSend_transformHasVFlip_vFlip_hasHFlip_hFlip_(self, a3, 0, 0, 0, 0);
   }
 
   *&retstr->c = 0u;
@@ -267,7 +267,7 @@
   memset(v37, 0, sizeof(v37));
   if (v15)
   {
-    [v15 transformStruct];
+    objc_msgSend_transformStruct(v15);
   }
 
   v17 = vFlipCopy && hFlipCopy;
@@ -326,7 +326,7 @@
   v34 = 0u;
   if (v14)
   {
-    [v14 transformStruct];
+    objc_msgSend_transformStruct(v14);
   }
 
   v31 = v35;

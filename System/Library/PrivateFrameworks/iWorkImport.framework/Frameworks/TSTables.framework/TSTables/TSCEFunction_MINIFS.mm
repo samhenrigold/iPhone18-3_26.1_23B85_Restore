@@ -7,34 +7,34 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v9 = **arguments;
-  v26 = 0;
-  v10 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v9, a2, context, spec, 0, 1, &v26);
-  v11 = v26;
+  v24 = 0;
+  v10 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v9, a2, context, spec, 0, 1, &v24);
+  v11 = v24;
   if (v11)
   {
-    v16 = v11;
-    v17 = objc_msgSend_raiseErrorOrConvert_(context, v12, v11, v14, v15);
+    v15 = v11;
+    v16 = objc_msgSend_raiseErrorOrConvert_(context, v12, v11, v14);
   }
 
   else
   {
-    v18 = objc_msgSend_dimensions(v10, v12, v13, v14, v15);
-    v25 = 0;
-    v20 = objc_msgSend_vectorCriterionPairsWithContext_functionSpec_arguments_dimensions_skipFirst_skipLast_outError_(self, v19, context, spec, arguments, v18, 1, 0, &v25);
-    v16 = v25;
-    if (v16)
+    v17 = objc_msgSend_dimensions(v10, v12, v13, v14);
+    v23 = 0;
+    v19 = objc_msgSend_vectorCriterionPairsWithContext_functionSpec_arguments_dimensions_skipFirst_skipLast_outError_(self, v18, context, spec, arguments, v17, 1, 0, &v23);
+    v15 = v23;
+    if (v15)
     {
-      objc_msgSend_raiseErrorOrConvert_(context, v21, v16, v22, v23);
+      objc_msgSend_raiseErrorOrConvert_(context, v20, v15, v21);
     }
 
     else
     {
-      objc_msgSend_extremumIfs_functionSpec_maxVector_criteria_isMax_(TSCEFunction_MAXIFS, v21, context, spec, v10, v20, 0);
+      objc_msgSend_extremumIfs_functionSpec_maxVector_criteria_isMax_(TSCEFunction_MAXIFS, v20, context, spec, v10, v19, 0);
     }
-    v17 = ;
+    v16 = ;
   }
 
-  return v17;
+  return v16;
 }
 
 @end

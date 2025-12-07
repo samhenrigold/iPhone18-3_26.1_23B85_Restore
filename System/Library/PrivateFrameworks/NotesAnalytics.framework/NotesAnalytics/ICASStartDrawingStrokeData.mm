@@ -24,8 +24,8 @@
 
 - (id)toDict
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"startPencilStrokeCount";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"startPencilStrokeCount";
   startPencilStrokeCount = [(ICASStartDrawingStrokeData *)self startPencilStrokeCount];
   if (startPencilStrokeCount)
   {
@@ -38,8 +38,8 @@
   }
 
   v5 = startPencilStrokeCount2;
-  v12[1] = @"startFingerStrokeCount";
-  v13[0] = startPencilStrokeCount2;
+  v11[1] = @"startFingerStrokeCount";
+  v12[0] = startPencilStrokeCount2;
   startFingerStrokeCount = [(ICASStartDrawingStrokeData *)self startFingerStrokeCount];
   if (startFingerStrokeCount)
   {
@@ -52,10 +52,8 @@
   }
 
   v8 = startFingerStrokeCount2;
-  v13[1] = startFingerStrokeCount2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = startFingerStrokeCount2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }

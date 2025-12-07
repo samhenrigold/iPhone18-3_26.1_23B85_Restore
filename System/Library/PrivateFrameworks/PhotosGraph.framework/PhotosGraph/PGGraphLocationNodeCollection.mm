@@ -13,7 +13,7 @@
 
 - (id)deepParentLocationNodesWithLabel:(id)label
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   labelCopy = label;
   v5 = +[PGGraphLocationNode parentLocationOfLocation];
   transitiveClosure = [v5 transitiveClosure];
@@ -21,20 +21,18 @@
   if (labelCopy)
   {
     v7 = MEMORY[0x277D22C90];
-    v16[0] = transitiveClosure;
+    v15[0] = transitiveClosure;
     v8 = objc_alloc(MEMORY[0x277D22C78]);
     v9 = [v8 initWithLabel:labelCopy domain:*MEMORY[0x277D22CB0]];
     relation = [v9 relation];
-    v16[1] = relation;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+    v15[1] = relation;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
     v12 = [v7 chain:v11];
 
     transitiveClosure = v12;
   }
 
   v13 = [(MANodeCollection *)PGGraphLocationNodeCollection nodesRelatedToNodes:self withRelation:transitiveClosure];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -58,7 +56,7 @@
 
 - (id)deepChildLocationNodesWithLabel:(id)label
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   labelCopy = label;
   v5 = +[PGGraphLocationNode childLocationOfLocation];
   transitiveClosure = [v5 transitiveClosure];
@@ -66,20 +64,18 @@
   if (labelCopy)
   {
     v7 = MEMORY[0x277D22C90];
-    v16[0] = transitiveClosure;
+    v15[0] = transitiveClosure;
     v8 = objc_alloc(MEMORY[0x277D22C78]);
     v9 = [v8 initWithLabel:labelCopy domain:*MEMORY[0x277D22CB0]];
     relation = [v9 relation];
-    v16[1] = relation;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+    v15[1] = relation;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
     v12 = [v7 chain:v11];
 
     transitiveClosure = v12;
   }
 
   v13 = [(MANodeCollection *)PGGraphLocationNodeCollection nodesRelatedToNodes:self withRelation:transitiveClosure];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

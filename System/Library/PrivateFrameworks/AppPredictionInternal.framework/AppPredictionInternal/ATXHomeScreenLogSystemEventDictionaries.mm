@@ -57,25 +57,23 @@
 
 void __79__ATXHomeScreenLogSystemEventDictionaries_systemLevelDictionaryAccumulatorKeys__block_invoke()
 {
-  v3[13] = *MEMORY[0x277D85DE8];
-  v3[0] = @"MeanWidgetsPerStack";
-  v3[1] = @"NumberOfFirstPartyWidgets";
-  v3[2] = @"NumberOfThirdPartyWidgets";
-  v3[3] = @"NumberOfLockUnlockSessions";
-  v3[4] = @"NumberOfLockUnlockSessionsWithWidgetDwell";
-  v3[5] = @"NumberOfProactiveWidgetRotationsDueToShortcutConversion";
-  v3[6] = @"NumberOfProactiveWidgetRotationsDueToWidgetHeuristic";
-  v3[7] = @"NumberOfProactiveWidgetRotationsDueToStalenessRotation";
-  v3[8] = @"NumberOfProactiveWidgetRotationsDueToTimelineDonationNonStaleness";
-  v3[9] = @"NumberOfProactiveWidgetRotationsDueToTimelineDonationStaleness";
-  v3[10] = @"NumberOfProactiveWidgetRotationsDueToSuggestionWidget";
-  v3[11] = @"NumberOfProactiveWidgetRotationsDueToOtherReasons";
-  v3[12] = @"NumberOfHomeScreenPages";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:13];
+  v2[13] = *MEMORY[0x277D85DE8];
+  v2[0] = @"MeanWidgetsPerStack";
+  v2[1] = @"NumberOfFirstPartyWidgets";
+  v2[2] = @"NumberOfThirdPartyWidgets";
+  v2[3] = @"NumberOfLockUnlockSessions";
+  v2[4] = @"NumberOfLockUnlockSessionsWithWidgetDwell";
+  v2[5] = @"NumberOfProactiveWidgetRotationsDueToShortcutConversion";
+  v2[6] = @"NumberOfProactiveWidgetRotationsDueToWidgetHeuristic";
+  v2[7] = @"NumberOfProactiveWidgetRotationsDueToStalenessRotation";
+  v2[8] = @"NumberOfProactiveWidgetRotationsDueToTimelineDonationNonStaleness";
+  v2[9] = @"NumberOfProactiveWidgetRotationsDueToTimelineDonationStaleness";
+  v2[10] = @"NumberOfProactiveWidgetRotationsDueToSuggestionWidget";
+  v2[11] = @"NumberOfProactiveWidgetRotationsDueToOtherReasons";
+  v2[12] = @"NumberOfHomeScreenPages";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:13];
   v1 = systemLevelDictionaryAccumulatorKeys_array;
   systemLevelDictionaryAccumulatorKeys_array = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)systemLevelDictionaryAccumulatorSplitByLocationKeys
@@ -92,93 +90,91 @@ void __79__ATXHomeScreenLogSystemEventDictionaries_systemLevelDictionaryAccumula
 
 void __94__ATXHomeScreenLogSystemEventDictionaries_systemLevelDictionaryAccumulatorSplitByLocationKeys__block_invoke()
 {
-  v3[22] = *MEMORY[0x277D85DE8];
-  v3[0] = @"NumberOfSmartStacksOn";
-  v3[1] = @"NumberOfDegenerateSmartStacksOn";
-  v3[2] = @"NumberOfRegularStacksOn";
-  v3[3] = @"NumberOfPinnedWidgetsOn";
-  v3[4] = @"NumberOfUserScrollsOn";
-  v3[5] = @"NumberOfUserScrollPseudoTappedRotationsOn";
-  v3[6] = @"NumberOfUserScrollTappedRotationsOn";
-  v3[7] = @"NumberOfUserScrollFinalOutcomePseudoTappedOn";
-  v3[8] = @"NumberOfProactiveRotationsOn";
-  v3[9] = @"NumberOfProactiveViewedRotationsOn";
-  v3[10] = @"NumberOfProactivePseudoTappedRotationsOn";
-  v3[11] = @"NumberOfProactiveTappedRotationsOn";
-  v3[12] = @"NumberOfProactiveViewsOn";
-  v3[13] = @"NumberOfProactivePseudoTapsOn";
-  v3[14] = @"NumberOfProactiveTapsByLocationOn";
-  v3[15] = @"NumberOfViewsForStackWidgetsOn";
-  v3[16] = @"NumberOfPseudoTapsForStackWidgetsOn";
-  v3[17] = @"NumberOfTapsForStackWidgetsOn";
-  v3[18] = @"NumberOfViewsForPinnedWidgetsOn";
-  v3[19] = @"NumberOfPseudoTapsForPinnedWidgetsOn";
-  v3[20] = @"NumberOfTapsForPinnedWidgetsOn";
-  v3[21] = @"NumberOfLockUnlockSessionsWithWidgetDwellOn";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:22];
+  v2[22] = *MEMORY[0x277D85DE8];
+  v2[0] = @"NumberOfSmartStacksOn";
+  v2[1] = @"NumberOfDegenerateSmartStacksOn";
+  v2[2] = @"NumberOfRegularStacksOn";
+  v2[3] = @"NumberOfPinnedWidgetsOn";
+  v2[4] = @"NumberOfUserScrollsOn";
+  v2[5] = @"NumberOfUserScrollPseudoTappedRotationsOn";
+  v2[6] = @"NumberOfUserScrollTappedRotationsOn";
+  v2[7] = @"NumberOfUserScrollFinalOutcomePseudoTappedOn";
+  v2[8] = @"NumberOfProactiveRotationsOn";
+  v2[9] = @"NumberOfProactiveViewedRotationsOn";
+  v2[10] = @"NumberOfProactivePseudoTappedRotationsOn";
+  v2[11] = @"NumberOfProactiveTappedRotationsOn";
+  v2[12] = @"NumberOfProactiveViewsOn";
+  v2[13] = @"NumberOfProactivePseudoTapsOn";
+  v2[14] = @"NumberOfProactiveTapsByLocationOn";
+  v2[15] = @"NumberOfViewsForStackWidgetsOn";
+  v2[16] = @"NumberOfPseudoTapsForStackWidgetsOn";
+  v2[17] = @"NumberOfTapsForStackWidgetsOn";
+  v2[18] = @"NumberOfViewsForPinnedWidgetsOn";
+  v2[19] = @"NumberOfPseudoTapsForPinnedWidgetsOn";
+  v2[20] = @"NumberOfTapsForPinnedWidgetsOn";
+  v2[21] = @"NumberOfLockUnlockSessionsWithWidgetDwellOn";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:22];
   v1 = systemLevelDictionaryAccumulatorSplitByLocationKeys_array;
   systemLevelDictionaryAccumulatorSplitByLocationKeys_array = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createNewSystemLevelDictionary
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = +[ATXHomeScreenLogUploaderUtilities abGroup];
   [v3 setObject:v4 forKeyedSubscript:@"ABGroup"];
 
   [(ATXHomeScreenLogSystemEventDictionaries *)self _populateSystemLevelDictionaryWithWidgetCohortAdoptionMetrics:v3];
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   systemLevelDictionaryAccumulatorKeys = [objc_opt_class() systemLevelDictionaryAccumulatorKeys];
-  v6 = [systemLevelDictionaryAccumulatorKeys countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v6 = [systemLevelDictionaryAccumulatorKeys countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(systemLevelDictionaryAccumulatorKeys);
         }
 
-        [v3 setObject:&unk_283A55EE0 forKeyedSubscript:*(*(&v24 + 1) + 8 * i)];
+        [v3 setObject:&unk_283A55EE0 forKeyedSubscript:*(*(&v23 + 1) + 8 * i)];
       }
 
-      v7 = [systemLevelDictionaryAccumulatorKeys countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v7 = [systemLevelDictionaryAccumulatorKeys countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v7);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   systemLevelDictionaryAccumulatorSplitByLocationKeys = [objc_opt_class() systemLevelDictionaryAccumulatorSplitByLocationKeys];
-  v11 = [systemLevelDictionaryAccumulatorSplitByLocationKeys countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v11 = [systemLevelDictionaryAccumulatorSplitByLocationKeys countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(systemLevelDictionaryAccumulatorSplitByLocationKeys);
         }
 
         v15 = 0;
-        v16 = *(*(&v20 + 1) + 8 * j);
+        v16 = *(*(&v19 + 1) + 8 * j);
         do
         {
           v17 = [ATXHomeScreenLogUploaderUtilities keyByConcatenatingAccumulatorKey:v16 withLocation:v15];
@@ -190,13 +186,11 @@ void __94__ATXHomeScreenLogSystemEventDictionaries_systemLevelDictionaryAccumula
         while (v15 != 6);
       }
 
-      v12 = [systemLevelDictionaryAccumulatorSplitByLocationKeys countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v12 = [systemLevelDictionaryAccumulatorSplitByLocationKeys countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v12);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -346,42 +340,38 @@ LABEL_6:
 
 - (void)sendToCoreAnalytics
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = __atxlog_handle_home_screen();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = __atxlog_handle_home_screen(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     systemLevelEventDictionary = self->_systemLevelEventDictionary;
-    v10 = 138412290;
-    v11 = systemLevelEventDictionary;
-    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_INFO, "ATXHomeScreenLogUploader: System level dictionary: %@", &v10, 0xCu);
+    v8 = 138412290;
+    v9 = systemLevelEventDictionary;
+    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_INFO, "ATXHomeScreenLogUploader: System level dictionary: %@", &v8, 0xCu);
   }
 
-  v5 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = __atxlog_handle_home_screen(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     unlockSessionEngagementDictionary = self->_unlockSessionEngagementDictionary;
-    v10 = 138412290;
-    v11 = unlockSessionEngagementDictionary;
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_INFO, "ATXHomeScreenLogUploader: Engagement summary dictionary: %@", &v10, 0xCu);
+    v8 = 138412290;
+    v9 = unlockSessionEngagementDictionary;
+    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "ATXHomeScreenLogUploader: Engagement summary dictionary: %@", &v8, 0xCu);
   }
 
-  v7 = self->_systemLevelEventDictionary;
   AnalyticsSendEvent();
-  v8 = self->_unlockSessionEngagementDictionary;
   AnalyticsSendEvent();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dryRunResult
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"System Level Dictionary";
-  v6[1] = @"Engagement Summary Dictionary";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"System Level Dictionary";
+  v5[1] = @"Engagement Summary Dictionary";
   unlockSessionEngagementDictionary = self->_unlockSessionEngagementDictionary;
-  v7[0] = self->_systemLevelEventDictionary;
-  v7[1] = unlockSessionEngagementDictionary;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = self->_systemLevelEventDictionary;
+  v6[1] = unlockSessionEngagementDictionary;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }
@@ -408,32 +398,32 @@ LABEL_6:
 
 - (void)updateSystemLevelUnlockSessionsWithWidgetDwell:(id)dwell
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dwellCopy = dwell;
   selfCopy = self;
   [ATXHomeScreenLogUploaderUtilities incrementDictionary:self->_systemLevelEventDictionary forKey:@"NumberOfLockUnlockSessionsWithWidgetDwell"];
   v5 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = dwellCopy;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       v10 = 0;
       do
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        stackLocation = [*(*(&v19 + 1) + 8 * v10) stackLocation];
+        stackLocation = [*(*(&v18 + 1) + 8 * v10) stackLocation];
         v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:stackLocation];
         v13 = [v5 containsObject:v12];
 
@@ -451,13 +441,11 @@ LABEL_6:
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSystemLevelSummaryForHomeScreenEvent:(id)event
@@ -549,8 +537,8 @@ LABEL_7:
 
 void __96__ATXHomeScreenLogSystemEventDictionaries_updateSystemLevelSummaryForHomeScreenPages_startDate___block_invoke(uint64_t a1, void *a2)
 {
-  v60 = *MEMORY[0x277D85DE8];
-  v43 = a2;
+  v59 = *MEMORY[0x277D85DE8];
+  v42 = a2;
   v3 = ATXStackLocationForPageAndIndex();
   v4 = off_278593000;
   if (ATXStackLocationIsHomeScreen())
@@ -558,35 +546,35 @@ void __96__ATXHomeScreenLogSystemEventDictionaries_updateSystemLevelSummaryForHo
     [ATXHomeScreenLogUploaderUtilities incrementDictionary:*(*(a1 + 32) + 8) forKey:@"NumberOfHomeScreenPages"];
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
-  v5 = v43;
-  v6 = [v43 stacks];
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v5 = v42;
+  v6 = [v42 stacks];
   v7 = [v5 panels];
   v8 = [v6 arrayByAddingObjectsFromArray:v7];
 
   obj = v8;
-  v47 = [v8 countByEnumeratingWithState:&v54 objects:v59 count:16];
-  if (v47)
+  v46 = [v8 countByEnumeratingWithState:&v53 objects:v58 count:16];
+  if (v46)
   {
-    v46 = *v55;
+    v45 = *v54;
     do
     {
       v9 = 0;
       do
       {
-        if (*v55 != v46)
+        if (*v54 != v45)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v54 + 1) + 8 * v9);
+        v10 = *(*(&v53 + 1) + 8 * v9);
         v11 = [v10 widgets];
         v12 = [v11 count];
 
-        v48 = v9;
+        v47 = v9;
         if (v12 == 1)
         {
           v13 = v4[277];
@@ -615,7 +603,7 @@ void __96__ATXHomeScreenLogSystemEventDictionaries_updateSystemLevelSummaryForHo
           v24 = [(__objc2_class *)v4[277] keyByConcatenatingAccumulatorKey:@"NumberOfSmartStacksOn" withLocation:v3];
           [(__objc2_class *)v22 incrementDictionary:v23 forKey:v24];
 
-          if (![*(a1 + 40) isSmartStackPossiblyDegenerate:v10 onPage:v44 usingTimelineEntriesSinceDate:*(a1 + 48)])
+          if (![*(a1 + 40) isSmartStackPossiblyDegenerate:v10 onPage:v43 usingTimelineEntriesSinceDate:*(a1 + 48)])
           {
             goto LABEL_16;
           }
@@ -633,26 +621,26 @@ LABEL_15:
         [(__objc2_class *)v18 incrementDictionary:v19 forKey:v17];
 
 LABEL_16:
-        v52 = 0u;
-        v53 = 0u;
-        v50 = 0u;
         v51 = 0u;
-        v49 = [v10 widgets];
-        v25 = [v49 countByEnumeratingWithState:&v50 objects:v58 count:16];
+        v52 = 0u;
+        v49 = 0u;
+        v50 = 0u;
+        v48 = [v10 widgets];
+        v25 = [v48 countByEnumeratingWithState:&v49 objects:v57 count:16];
         if (v25)
         {
           v26 = v25;
-          v27 = *v51;
+          v27 = *v50;
           do
           {
             for (i = 0; i != v26; ++i)
             {
-              if (*v51 != v27)
+              if (*v50 != v27)
               {
-                objc_enumerationMutation(v49);
+                objc_enumerationMutation(v48);
               }
 
-              v29 = *(*(&v50 + 1) + 8 * i);
+              v29 = *(*(&v49 + 1) + 8 * i);
               v30 = v4[277];
               v31 = [v29 extensionBundleId];
               LOBYTE(v30) = [(__objc2_class *)v30 isFirstPartyApp:v31];
@@ -685,23 +673,21 @@ LABEL_16:
               [(__objc2_class *)v4[277] incrementDictionary:*(*(a1 + 32) + 8) forKey:v32];
             }
 
-            v26 = [v49 countByEnumeratingWithState:&v50 objects:v58 count:16];
+            v26 = [v48 countByEnumeratingWithState:&v49 objects:v57 count:16];
           }
 
           while (v26);
         }
 
-        v9 = v48 + 1;
+        v9 = v47 + 1;
       }
 
-      while (v48 + 1 != v47);
-      v47 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
+      while (v47 + 1 != v46);
+      v46 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
     }
 
-    while (v47);
+    while (v46);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateNPlusOneLifetimeMetricsWithRotationSession:(id)session

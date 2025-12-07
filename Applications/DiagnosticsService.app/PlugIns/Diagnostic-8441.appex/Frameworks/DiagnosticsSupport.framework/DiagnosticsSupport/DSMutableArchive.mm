@@ -4,7 +4,9 @@
 + (id)archive;
 - (BOOL)_addDirectoryToContents:(id)contents searchQueue:(id)queue flatten:(BOOL)flatten error:(id *)error;
 - (BOOL)_addFile:(id)file archive:(archive *)archive error:(id *)error;
+- (BOOL)_addPathToContents:(id)contents searchQueue:(id)queue flatten:(BOOL)flatten error:(id *)error;
 - (BOOL)_writeArchive:(archive *)archive error:(id *)error;
+- (BOOL)addURL:(id)l prefix:(id)prefix flatten:(BOOL)flatten error:(id *)error;
 - (BOOL)archiveAsFile:(id)file error:(id *)error;
 - (BOOL)archiveAsFileUsingDescriptor:(int)descriptor error:(id *)error;
 - (DSMutableArchive)init;
@@ -38,6 +40,83 @@
   }
 
   return v2;
+}
+
+- (BOOL)addURL:(id)l prefix:(id)prefix flatten:(BOOL)flatten error:(id *)error
+{
+  flattenCopy = flatten;
+  lCopy = l;
+  prefixCopy = prefix;
+  if (prefixCopy)
+  {
+    v12 = prefixCopy;
+  }
+
+  else
+  {
+    v12 = &stru_1C970;
+  }
+
+  v13 = +[NSMutableArray array];
+  v14 = [DSArchivePath archivePathWithSource:lCopy prefix:v12 root:1];
+  [v13 addObject:v14];
+
+  do
+  {
+    v15 = [v13 objectAtIndex:0];
+    [v13 removeObjectAtIndex:0];
+    v16 = [(DSMutableArchive *)self _addPathToContents:v15 searchQueue:v13 flatten:flattenCopy error:error];
+  }
+
+  while (v16 && [v13 count]);
+
+  return v16;
+}
+
+- (BOOL)_addPathToContents:(id)contents searchQueue:(id)queue flatten:(BOOL)flatten error:(id *)error
+{
+  flattenCopy = flatten;
+  contentsCopy = contents;
+  queueCopy = queue;
+  v20 = 0;
+  v12 = +[NSFileManager defaultManager];
+  sourceUrl = [contentsCopy sourceUrl];
+  path = [sourceUrl path];
+  v15 = [v12 fileExistsAtPath:path isDirectory:&v20];
+
+  if (v15)
+  {
+    if (v20 == 1)
+    {
+      v16 = [(DSMutableArchive *)self _addDirectoryToContents:contentsCopy searchQueue:queueCopy flatten:flattenCopy error:error];
+    }
+
+    else
+    {
+      tableOfContents = [(DSMutableArchive *)self tableOfContents];
+      [tableOfContents addObject:contentsCopy];
+
+      v16 = 1;
+    }
+  }
+
+  else
+  {
+    if (error)
+    {
+      *error = [NSError errorWithDomain:@"com.apple.Diagnostics.DSMutableArchive" code:6 userInfo:0];
+    }
+
+    v17 = DiagnosticLogHandleForCategory(3);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      [DSMutableArchive _addPathToContents:contentsCopy searchQueue:? flatten:? error:?];
+    }
+
+    v16 = 0;
+  }
+
+  return v16;
 }
 
 - (BOOL)_addDirectoryToContents:(id)contents searchQueue:(id)queue flatten:(BOOL)flatten error:(id *)error
@@ -728,19 +807,7 @@ LABEL_24:
   v11 = malloc_type_malloc(0x400uLL, 0x100004077774924uLL);
   [directoryCopy getFileSystemRepresentation:v11 maxLength:1024];
   v12 = strlen(v11);
-  if (v12 + 1 > 0x3FF)
-  {
-    v16 = DiagnosticLogHandleForCategory(3);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-    {
-      +[DSMutableArchive extractArchive:toDirectory:];
-    }
-
-    v15 = 0;
-    v13 = v11;
-  }
-
-  else
+  if (v12 + 1 <= 0x3FF)
   {
     v11[v12] = 47;
     v11[v12 + 1] = 0;
@@ -789,9 +856,7 @@ LABEL_24:
           v14 = DiagnosticLogHandleForCategory(3);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-LABEL_31:
-            +[DSMutableArchive extractArchive:toDirectory:];
-            goto LABEL_7;
+            [DSMutableArchive extractArchive:v9 toDirectory:?];
           }
 
           goto LABEL_7;
@@ -839,7 +904,7 @@ LABEL_31:
       v14 = DiagnosticLogHandleForCategory(3);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_31;
+        [DSMutableArchive extractArchive:v8 toDirectory:?];
       }
     }
 
@@ -853,8 +918,18 @@ LABEL_8:
     archive_write_free();
     free(v10);
     v10 = v11;
+    goto LABEL_12;
   }
 
+  v16 = DiagnosticLogHandleForCategory(3);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  {
+    +[DSMutableArchive extractArchive:toDirectory:];
+  }
+
+  v15 = 0;
+  v13 = v11;
+LABEL_12:
   free(v10);
   free(v13);
 
@@ -951,12 +1026,12 @@ LABEL_8:
   _os_log_error_impl(&dword_0, a4, OS_LOG_TYPE_ERROR, "Extract error: %s", a1, 0xCu);
 }
 
-+ (void)extractArchive:toDirectory:.cold.5()
++ (void)extractArchive:(uint64_t)a1 toDirectory:.cold.5(uint64_t a1)
 {
   archive_error_string();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 @end

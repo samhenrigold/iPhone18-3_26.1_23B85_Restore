@@ -525,48 +525,51 @@ void __57__PDFDocumentViewController_goToPage_direction_animated___block_invoke(
   nearestCopy = nearest;
   y = point.y;
   x = point.x;
-  v53 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   [(PDFDocumentViewController *)self viewControllers];
-  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v7 = v51 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v48 objects:v52 count:16];
+  v51 = 0u;
+  v7 = v52 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v49 objects:v53 count:16];
   if (v8)
   {
     v9 = v8;
-    v46 = 0;
-    v10 = *v49;
+    v47 = 0;
+    v10 = *v50;
     v11 = 1.79769313e308;
     v12 = 0x1EBF19000uLL;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v49 != v10)
+        if (*v50 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v48 + 1) + 8 * i);
+        v14 = *(*(&v49 + 1) + 8 * i);
         pageView = [v14 pageView];
         pDFPage = [v14 PDFPage];
         WeakRetained = objc_loadWeakRetained(*(&self->super.super.super.super.isa + *(v12 + 3864)) + 1);
-        v18 = PDFRectToCGRect([pDFPage boundsForBox:{objc_msgSend(WeakRetained, "displayBox")}]);
-        v20 = v19;
-        v22 = v21;
-        v24 = v23;
+        [pDFPage boundsForBox:{objc_msgSend(WeakRetained, "displayBox")}];
+        PDFRectToCGRect();
+        v19 = v18;
+        v21 = v20;
+        v23 = v22;
+        v25 = v24;
         [(PDFDocumentViewController *)self convertPoint:pDFPage toPage:x, y];
-        v55.x = PDFPointToCGPoint(v25, v26);
-        v55.y = v27;
-        v56.origin.x = v18;
-        v56.origin.y = v20;
-        v56.size.width = v22;
-        v56.size.height = v24;
-        if (CGRectContainsPoint(v56, v55))
+        PDFPointToCGPoint();
+        v56.x = v26;
+        v56.y = v27;
+        v57.origin.x = v19;
+        v57.origin.y = v21;
+        v57.size.width = v23;
+        v57.size.height = v25;
+        if (CGRectContainsPoint(v57, v56))
         {
 
-          v44 = v46;
+          v45 = v47;
           goto LABEL_17;
         }
 
@@ -578,28 +581,30 @@ void __57__PDFDocumentViewController_goToPage_direction_animated___block_invoke(
           v31 = v12;
           view = [(PDFDocumentViewController *)self view];
           [pageView bounds];
-          v33 = PDFRectToCGRect([view convertRect:pageView fromView:?]);
-          v35 = v34;
-          v37 = v36;
-          v39 = v38;
+          [view convertRect:pageView fromView:?];
+          PDFRectToCGRect();
+          v34 = v33;
+          v36 = v35;
+          v38 = v37;
+          v40 = v39;
 
-          v57.origin.x = v33;
-          v57.origin.y = v35;
-          v57.size.width = v37;
-          v57.size.height = v39;
-          v40 = x - CGRectGetMidX(v57);
-          v58.origin.x = v33;
-          v58.origin.y = v35;
-          v58.size.width = v37;
-          v58.size.height = v39;
-          MidY = CGRectGetMidY(v58);
-          v42 = (y - MidY) * (y - MidY) + v40 * v40;
-          if (v42 < v11)
+          v58.origin.x = v34;
+          v58.origin.y = v36;
+          v58.size.width = v38;
+          v58.size.height = v40;
+          v41 = x - CGRectGetMidX(v58);
+          v59.origin.x = v34;
+          v59.origin.y = v36;
+          v59.size.width = v38;
+          v59.size.height = v40;
+          MidY = CGRectGetMidY(v59);
+          v43 = (y - MidY) * (y - MidY) + v41 * v41;
+          if (v43 < v11)
           {
-            v43 = pDFPage;
+            v44 = pDFPage;
 
-            v46 = v43;
-            v11 = v42;
+            v47 = v44;
+            v11 = v43;
           }
 
           v12 = v31;
@@ -609,7 +614,7 @@ void __57__PDFDocumentViewController_goToPage_direction_animated___block_invoke(
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v48 objects:v52 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v49 objects:v53 count:16];
       if (v9)
       {
         continue;
@@ -621,11 +626,11 @@ void __57__PDFDocumentViewController_goToPage_direction_animated___block_invoke(
 
   else
   {
-    v46 = 0;
+    v47 = 0;
   }
 
-  v44 = v46;
-  pDFPage = v44;
+  v45 = v47;
+  pDFPage = v45;
 LABEL_17:
 
   return pDFPage;
@@ -706,70 +711,62 @@ LABEL_13:
 
 - (CGPoint)_convertPoint:(CGPoint)point toPDFPageViewController:(id)controller
 {
-  y = point.y;
-  x = point.x;
   controllerCopy = controller;
-  v8 = PDFPointToCGPoint(x, y);
-  v10 = v9;
+  PDFPointToCGPoint();
+  v7 = v6;
+  v9 = v8;
   pDFPage = [controllerCopy PDFPage];
   pageView = [controllerCopy pageView];
 
   view = [(PDFDocumentViewController *)self view];
-  [view convertPoint:pageView toView:{v8, v10}];
-  v47 = v14;
-  v16 = v15;
+  [view convertPoint:pageView toView:{v7, v9}];
 
   [pageView bounds];
-  v45 = v17 - v16;
   WeakRetained = objc_loadWeakRetained(&self->_private->pdfView);
   [pDFPage boundsForBox:{objc_msgSend(WeakRetained, "displayBox")}];
-  v43 = v19;
-  v44 = v20;
-  v22 = v21;
-  v24 = v23;
+  v38 = v14;
+  v39 = v15;
+  v17 = v16;
+  v19 = v18;
 
-  v26 = *MEMORY[0x1E695EFD0];
-  v25 = *(MEMORY[0x1E695EFD0] + 8);
-  v28 = *(MEMORY[0x1E695EFD0] + 16);
-  v27 = *(MEMORY[0x1E695EFD0] + 24);
-  v30 = *(MEMORY[0x1E695EFD0] + 32);
-  v29 = *(MEMORY[0x1E695EFD0] + 40);
+  v21 = *MEMORY[0x1E695EFD0];
+  v20 = *(MEMORY[0x1E695EFD0] + 8);
+  v23 = *(MEMORY[0x1E695EFD0] + 16);
+  v22 = *(MEMORY[0x1E695EFD0] + 24);
+  v25 = *(MEMORY[0x1E695EFD0] + 32);
+  v24 = *(MEMORY[0x1E695EFD0] + 40);
   rotation = [pDFPage rotation];
-  v32.f64[0] = v47;
-  v32.f64[1] = v45;
   if (rotation > 179)
   {
     if (rotation == 180)
     {
-      v46 = v32;
-      v37 = PDFDegToRad(180.0);
-      v48.a = v26;
-      v48.b = v25;
-      v48.c = v28;
-      v48.d = v27;
-      v48.tx = v30;
-      v48.ty = v29;
-      CGAffineTransformRotate(&v49, &v48, v37);
-      v35 = -v22 - v43;
-      v34 = -v24 - v44;
-      v48 = v49;
+      v31 = PDFDegToRad(180.0);
+      v40.a = v21;
+      v40.b = v20;
+      v40.c = v23;
+      v40.d = v22;
+      v40.tx = v25;
+      v40.ty = v24;
+      CGAffineTransformRotate(&v41, &v40, v31);
+      v29 = -v17 - v38;
+      v28 = -v19 - v39;
+      v40 = v41;
       goto LABEL_10;
     }
 
     if (rotation == 270)
     {
-      v46 = v32;
-      v36 = PDFDegToRad(270.0);
-      v48.a = v26;
-      v48.b = v25;
-      v48.c = v28;
-      v48.d = v27;
-      v48.tx = v30;
-      v48.ty = v29;
-      CGAffineTransformRotate(&v49, &v48, v36);
-      v35 = -v24 - v44;
-      v48 = v49;
-      v34 = v43;
+      v30 = PDFDegToRad(270.0);
+      v40.a = v21;
+      v40.b = v20;
+      v40.c = v23;
+      v40.d = v22;
+      v40.tx = v25;
+      v40.ty = v24;
+      CGAffineTransformRotate(&v41, &v40, v30);
+      v29 = -v19 - v39;
+      v40 = v41;
+      v28 = v38;
       goto LABEL_10;
     }
   }
@@ -778,45 +775,43 @@ LABEL_13:
   {
     if (!rotation)
     {
-      v48.a = v26;
-      v48.b = v25;
-      v48.c = v28;
-      v48.d = v27;
-      v48.tx = v30;
-      v48.ty = v29;
-      v46 = v32;
-      v35 = v43;
-      v34 = v44;
+      v40.a = v21;
+      v40.b = v20;
+      v40.c = v23;
+      v40.d = v22;
+      v40.tx = v25;
+      v40.ty = v24;
+      v29 = v38;
+      v28 = v39;
       goto LABEL_10;
     }
 
     if (rotation == 90)
     {
-      v46 = v32;
-      v33 = PDFDegToRad(90.0);
-      v48.a = v26;
-      v48.b = v25;
-      v48.c = v28;
-      v48.d = v27;
-      v48.tx = v30;
-      v48.ty = v29;
-      CGAffineTransformRotate(&v49, &v48, v33);
-      v34 = -v22 - v43;
-      v48 = v49;
-      v35 = v44;
+      v27 = PDFDegToRad(90.0);
+      v40.a = v21;
+      v40.b = v20;
+      v40.c = v23;
+      v40.d = v22;
+      v40.tx = v25;
+      v40.ty = v24;
+      CGAffineTransformRotate(&v41, &v40, v27);
+      v28 = -v17 - v38;
+      v40 = v41;
+      v29 = v39;
 LABEL_10:
-      CGAffineTransformTranslate(&v49, &v48, v35, v34);
-      v32 = vaddq_f64(*&v49.tx, vmlaq_n_f64(vmulq_laneq_f64(*&v49.c, v46, 1), *&v49.a, v47));
+      CGAffineTransformTranslate(&v41, &v40, v29, v28);
     }
   }
 
-  v38 = PDFPointFromCGPoint(v32.f64[0], v32.f64[1]);
-  v40 = v39;
+  PDFPointFromCGPoint();
+  v33 = v32;
+  v35 = v34;
 
-  v41 = v38;
-  v42 = v40;
-  result.y = v42;
-  result.x = v41;
+  v36 = v33;
+  v37 = v35;
+  result.y = v37;
+  result.x = v36;
   return result;
 }
 
@@ -895,61 +890,60 @@ LABEL_13:
 
 - (CGPoint)_convertPoint:(CGPoint)point fromPDFPageViewController:(id)controller
 {
-  y = point.y;
-  x = point.x;
   controllerCopy = controller;
-  v45 = PDFPointToCGPoint(x, y);
-  v46 = v8;
+  PDFPointToCGPoint();
+  v41 = v6;
+  v42 = v7;
   pDFPage = [controllerCopy PDFPage];
   WeakRetained = objc_loadWeakRetained(&self->_private->pdfView);
   [pDFPage boundsForBox:{objc_msgSend(WeakRetained, "displayBox")}];
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
 
   rotation = [pDFPage rotation];
-  v20 = *(MEMORY[0x1E695EFD0] + 8);
-  v22 = *(MEMORY[0x1E695EFD0] + 16);
-  v21 = *(MEMORY[0x1E695EFD0] + 24);
-  v24 = *(MEMORY[0x1E695EFD0] + 32);
-  v23 = *(MEMORY[0x1E695EFD0] + 40);
-  v25.f64[0] = v45;
-  v25.f64[1] = v46;
-  v47 = v25;
+  v19 = *(MEMORY[0x1E695EFD0] + 8);
+  v21 = *(MEMORY[0x1E695EFD0] + 16);
+  v20 = *(MEMORY[0x1E695EFD0] + 24);
+  v23 = *(MEMORY[0x1E695EFD0] + 32);
+  v22 = *(MEMORY[0x1E695EFD0] + 40);
+  v24.f64[0] = v41;
+  v24.f64[1] = v42;
+  v43 = v24;
   if (rotation > 179)
   {
     if (rotation == 180)
     {
-      v48.a = *MEMORY[0x1E695EFD0];
-      v48.b = v20;
-      v48.c = v22;
-      v48.d = v21;
-      v48.tx = v24;
-      v48.ty = v23;
-      CGAffineTransformTranslate(&v49, &v48, v16 + v12, v18 + v14);
-      tx = v49.tx;
-      ty = v49.ty;
-      v43 = *&v49.c;
-      v44 = *&v49.a;
-      v28 = 180.0;
+      v44.a = *MEMORY[0x1E695EFD0];
+      v44.b = v19;
+      v44.c = v21;
+      v44.d = v20;
+      v44.tx = v23;
+      v44.ty = v22;
+      CGAffineTransformTranslate(&v45, &v44, v15 + v11, v17 + v13);
+      tx = v45.tx;
+      ty = v45.ty;
+      v39 = *&v45.c;
+      v40 = *&v45.a;
+      v27 = 180.0;
       goto LABEL_10;
     }
 
     if (rotation == 270)
     {
-      v48.a = *MEMORY[0x1E695EFD0];
-      v48.b = v20;
-      v48.c = v22;
-      v48.d = v21;
-      v48.tx = v24;
-      v48.ty = v23;
-      CGAffineTransformTranslate(&v49, &v48, v18 + v14, -v12);
-      tx = v49.tx;
-      ty = v49.ty;
-      v43 = *&v49.c;
-      v44 = *&v49.a;
-      v28 = 90.0;
+      v44.a = *MEMORY[0x1E695EFD0];
+      v44.b = v19;
+      v44.c = v21;
+      v44.d = v20;
+      v44.tx = v23;
+      v44.ty = v22;
+      CGAffineTransformTranslate(&v45, &v44, v17 + v13, -v11);
+      tx = v45.tx;
+      ty = v45.ty;
+      v39 = *&v45.c;
+      v40 = *&v45.a;
+      v27 = 90.0;
       goto LABEL_10;
     }
   }
@@ -958,39 +952,39 @@ LABEL_13:
   {
     if (!rotation)
     {
-      v48.a = *MEMORY[0x1E695EFD0];
-      v48.b = v20;
-      v48.c = v22;
-      v48.d = v21;
-      v48.tx = v24;
-      v48.ty = v23;
-      CGAffineTransformTranslate(&v49, &v48, -v12, -v14);
+      v44.a = *MEMORY[0x1E695EFD0];
+      v44.b = v19;
+      v44.c = v21;
+      v44.d = v20;
+      v44.tx = v23;
+      v44.ty = v22;
+      CGAffineTransformTranslate(&v45, &v44, -v11, -v13);
 LABEL_11:
-      v47 = vaddq_f64(*&v49.tx, vmlaq_n_f64(vmulq_laneq_f64(*&v49.c, v47, 1), *&v49.a, v45));
+      v43 = vaddq_f64(*&v45.tx, vmlaq_n_f64(vmulq_laneq_f64(*&v45.c, v43, 1), *&v45.a, v41));
       goto LABEL_12;
     }
 
     if (rotation == 90)
     {
-      v48.a = *MEMORY[0x1E695EFD0];
-      v48.b = v20;
-      v48.c = v22;
-      v48.d = v21;
-      v48.tx = v24;
-      v48.ty = v23;
-      CGAffineTransformTranslate(&v49, &v48, -v14, v16 + v12);
-      tx = v49.tx;
-      ty = v49.ty;
-      v43 = *&v49.c;
-      v44 = *&v49.a;
-      v28 = 270.0;
+      v44.a = *MEMORY[0x1E695EFD0];
+      v44.b = v19;
+      v44.c = v21;
+      v44.d = v20;
+      v44.tx = v23;
+      v44.ty = v22;
+      CGAffineTransformTranslate(&v45, &v44, -v13, v15 + v11);
+      tx = v45.tx;
+      ty = v45.ty;
+      v39 = *&v45.c;
+      v40 = *&v45.a;
+      v27 = 270.0;
 LABEL_10:
-      v29 = PDFDegToRad(v28);
-      *&v48.a = v44;
-      *&v48.c = v43;
-      v48.tx = tx;
-      v48.ty = ty;
-      CGAffineTransformRotate(&v49, &v48, v29);
+      v28 = PDFDegToRad(v27);
+      *&v44.a = v40;
+      *&v44.c = v39;
+      v44.tx = tx;
+      v44.ty = ty;
+      CGAffineTransformRotate(&v45, &v44, v28);
       goto LABEL_11;
     }
   }
@@ -998,19 +992,18 @@ LABEL_10:
 LABEL_12:
   pageView = [controllerCopy pageView];
   [pageView bounds];
-  v32 = v31 - v47.f64[1];
+  v31 = v30 - v43.f64[1];
   view = [(PDFDocumentViewController *)self view];
-  [view convertPoint:pageView fromView:{v47.f64[0], v32}];
-  v35 = v34;
-  v37 = v36;
+  [view convertPoint:pageView fromView:{v43.f64[0], v31}];
 
-  v38 = PDFPointFromCGPoint(v35, v37);
-  v40 = v39;
+  PDFPointFromCGPoint();
+  v34 = v33;
+  v36 = v35;
 
-  v41 = v38;
-  v42 = v40;
-  result.y = v42;
-  result.x = v41;
+  v37 = v34;
+  v38 = v36;
+  result.y = v38;
+  result.x = v37;
   return result;
 }
 

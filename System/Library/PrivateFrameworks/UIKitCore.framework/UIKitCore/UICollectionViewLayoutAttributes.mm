@@ -871,7 +871,7 @@
   [(UICollectionViewLayoutAttributes *)self frame];
   [v6 appendFormat:@"frame = (%g %g; %g %g); ", v8, v9, v10, v11];
   memset(&v19, 0, sizeof(v19));
-  [(UICollectionViewLayoutAttributes *)self transform3D];
+  objc_msgSend_transform3D(self);
   v18 = v19;
   if (!CATransform3DIsIdentity(&v18))
   {
@@ -929,7 +929,7 @@
 {
   if (equal == self)
   {
-    LOBYTE(v5) = 1;
+    LOBYTE(isEqual) = 1;
   }
 
   else
@@ -937,21 +937,21 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v5 = [(NSIndexPath *)self->_indexPath isEqual:*(equal + 2)];
-      if (v5)
+      isEqual = objc_msgSend_isEqual_(self->_indexPath);
+      if (isEqual)
       {
 
-        LOBYTE(v5) = [(UICollectionViewLayoutAttributes *)self _isEquivalentTo:equal];
+        LOBYTE(isEqual) = [(UICollectionViewLayoutAttributes *)self _isEquivalentTo:equal];
       }
     }
 
     else
     {
-      LOBYTE(v5) = 0;
+      LOBYTE(isEqual) = 0;
     }
   }
 
-  return v5;
+  return isEqual;
 }
 
 - (uint64_t)_isEquivalentTo:(uint64_t)to
@@ -1055,7 +1055,7 @@
     if ((v21 ^ v20) & 0xFC00) == 0 && (v22 = (v20 >> 9) & 1, v22 == ((v21 >> 9) & 1)) && (!v22 || (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*(to + 320), *(a2 + 320)), vceqq_f64(*(to + 336), *(a2 + 336)))))))
     {
       v23 = *(to + 8);
-      if (v23 == *(a2 + 8) || (result = [v23 isEqualToString:?], result))
+      if (v23 == *(a2 + 8) || (result = objc_msgSend_isEqualToString_(v23), result))
       {
         result = _deferringTokenEqualToToken(*(to + 272), *(a2 + 272));
         if (result)

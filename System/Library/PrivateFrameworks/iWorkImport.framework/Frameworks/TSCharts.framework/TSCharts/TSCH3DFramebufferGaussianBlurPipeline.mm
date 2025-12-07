@@ -37,13 +37,13 @@
 
 - (void)updateShaderEffectsStates
 {
-  v22.receiver = self;
-  v22.super_class = TSCH3DFramebufferGaussianBlurPipeline;
-  [(TSCH3DFramebufferCopyPipeline *)&v22 updateShaderEffectsStates];
-  objc_msgSend_tapUnit(self, v3, v4, v5, v6);
-  v11 = objc_msgSend_processor(self, v7, v8, v9, v10);
-  v16 = objc_msgSend_effectsStates(v11, v12, v13, v14, v15);
-  objc_msgSend_setTapUnit_effectsStates_(TSCH3DGaussianBlurShaderEffect, v17, v18, v19, v20, v21, v16);
+  v21.receiver = self;
+  v21.super_class = TSCH3DFramebufferGaussianBlurPipeline;
+  [(TSCH3DFramebufferCopyPipeline *)&v21 updateShaderEffectsStates];
+  objc_msgSend_tapUnit(self, v3, v4, v5);
+  v10 = objc_msgSend_processor(self, v6, v7, v8, v9);
+  v15 = objc_msgSend_effectsStates(v10, v11, v12, v13, v14);
+  objc_msgSend_setTapUnit_effectsStates_(TSCH3DGaussianBlurShaderEffect, v16, v17, v18, v19, v20, v15);
 }
 
 @end

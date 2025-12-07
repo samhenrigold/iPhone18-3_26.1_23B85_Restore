@@ -22,8 +22,10 @@
 - (id)askSecurityForCKDeviceID;
 - (id)carryStatus;
 - (id)chunkFailureSet:(unint64_t)set events:(id)events error:(id *)error;
+- (id)createChunkedLoggingJSON:(BOOL)n forUpload:(BOOL)upload participatingClients:(id)clients force:(BOOL)force error:(id *)error;
 - (id)createChunkedLoggingJSON:(id)n failures:(id)failures error:(id *)error;
 - (id)createEventDictionary:(id)dictionary timestamp:(id)timestamp error:(id *)error;
+- (id)createLoggingJSON:(BOOL)n forUpload:(BOOL)upload participatingClients:(id)clients force:(BOOL)force error:(id *)error;
 - (id)dataAnalyticsSetting:(id)setting;
 - (id)eventDictWithBlacklistedFieldsStrippedFrom:(id)from;
 - (id)getSession;
@@ -236,35 +238,32 @@ LABEL_18:
   v2 = objc_alloc_init(ACAccountStore);
   v3 = [v2 accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierIMAP];
   [v2 accountsWithAccountType:v3];
+  v26 = 0u;
+  v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v4 = v31 = 0u;
-  v23 = [v4 countByEnumeratingWithState:&v28 objects:v33 count:16];
-  if (v23)
+  v4 = v29 = 0u;
+  v21 = [v4 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v21)
   {
-    v5 = *v29;
+    v5 = *v27;
     v6 = ACEmailAliasKeyEmailAddresses;
-    v7 = &DiagnosticLogSubmissionEnabled_ptr;
-    v21 = *v29;
-    v22 = v3;
-    v20 = ACEmailAliasKeyEmailAddresses;
+    v19 = *v27;
+    v20 = v3;
+    v18 = ACEmailAliasKeyEmailAddresses;
     do
     {
-      v8 = 0;
-      do
+      for (i = 0; i != v21; i = i + 1)
       {
-        if (*v29 != v5)
+        if (*v27 != v5)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v28 + 1) + 8 * v8) objectForKeyedSubscript:{v6, v20, v21}];
-        v10 = v7[298];
+        v8 = [*(*(&v26 + 1) + 8 * i) objectForKeyedSubscript:{v6, v18, v19}];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          allKeys = [v9 allKeys];
+          allKeys = [v8 allKeys];
         }
 
         else
@@ -272,7 +271,7 @@ LABEL_18:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            allKeys = v9;
+            allKeys = v8;
           }
 
           else
@@ -280,7 +279,7 @@ LABEL_18:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              allKeys = [v9 componentsSeparatedByString:{@", "}];
+              allKeys = [v8 componentsSeparatedByString:{@", "}];
             }
 
             else
@@ -290,37 +289,37 @@ LABEL_18:
           }
         }
 
-        v26 = 0u;
-        v27 = 0u;
         v24 = 0u;
         v25 = 0u;
-        v12 = allKeys;
-        v13 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
-        if (v13)
+        v22 = 0u;
+        v23 = 0u;
+        v10 = allKeys;
+        v11 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        if (v11)
         {
-          v14 = v13;
-          v15 = *v25;
+          v12 = v11;
+          v13 = *v23;
           while (2)
           {
-            for (i = 0; i != v14; i = i + 1)
+            for (j = 0; j != v12; j = j + 1)
             {
-              if (*v25 != v15)
+              if (*v23 != v13)
               {
-                objc_enumerationMutation(v12);
+                objc_enumerationMutation(v10);
               }
 
-              v17 = *(*(&v24 + 1) + 8 * i);
-              if ([v17 hasSuffix:@"@apple.com"])
+              v15 = *(*(&v22 + 1) + 8 * j);
+              if ([v15 hasSuffix:@"@apple.com"])
               {
-                v18 = v17;
+                v16 = v15;
 
-                v3 = v22;
+                v3 = v20;
                 goto LABEL_26;
               }
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
-            if (v14)
+            v12 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            if (v12)
             {
               continue;
             }
@@ -329,29 +328,26 @@ LABEL_18:
           }
         }
 
-        v8 = v8 + 1;
-        v6 = v20;
-        v5 = v21;
-        v7 = &DiagnosticLogSubmissionEnabled_ptr;
+        v6 = v18;
+        v5 = v19;
       }
 
-      while (v8 != v23);
-      v18 = 0;
-      v3 = v22;
-      v23 = [v4 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v16 = 0;
+      v3 = v20;
+      v21 = [v4 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
-    while (v23);
+    while (v21);
   }
 
   else
   {
-    v18 = 0;
+    v16 = 0;
   }
 
 LABEL_26:
 
-  return v18;
+  return v16;
 }
 
 - (id)askSecurityForCKDeviceID
@@ -494,6 +490,93 @@ LABEL_17:
 LABEL_18:
 
   return v8;
+}
+
+- (id)createLoggingJSON:(BOOL)n forUpload:(BOOL)upload participatingClients:(id)clients force:(BOOL)force error:(id *)error
+{
+  forceCopy = force;
+  uploadCopy = upload;
+  clientsCopy = clients;
+  v12 = +[NSMutableArray array];
+  v13 = +[NSMutableArray array];
+  v26 = 0;
+  LODWORD(uploadCopy) = [(SFAnalyticsTopic *)self copyEvents:v13 failures:v12 forUpload:uploadCopy participatingClients:clientsCopy force:forceCopy linkedUUID:0 error:&v26];
+
+  v14 = v26;
+  v15 = v14;
+  if (uploadCopy && v14 == 0)
+  {
+    if ([v12 count] > self->_maxEventsToReport)
+    {
+      v19 = [v12 subarrayWithRange:0];
+      v20 = [v19 mutableCopy];
+
+      v12 = v20;
+    }
+
+    v21 = +[NSMutableArray array];
+    [v21 addObjectsFromArray:v13];
+    [v21 addObjectsFromArray:v12];
+    v22 = +[NSDate date];
+    [v22 timeIntervalSince1970];
+    v24 = [NSNumber numberWithDouble:v23 * 1000.0];
+    v18 = [(SFAnalyticsTopic *)self createEventDictionary:v21 timestamp:v24 error:error];
+  }
+
+  else if (error)
+  {
+    v17 = v14;
+    v18 = 0;
+    *error = v15;
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  return v18;
+}
+
+- (id)createChunkedLoggingJSON:(BOOL)n forUpload:(BOOL)upload participatingClients:(id)clients force:(BOOL)force error:(id *)error
+{
+  forceCopy = force;
+  uploadCopy = upload;
+  clientsCopy = clients;
+  v12 = +[NSUUID UUID];
+  v13 = +[NSMutableArray array];
+  v14 = +[NSMutableArray array];
+  v23 = 0;
+  LODWORD(uploadCopy) = [(SFAnalyticsTopic *)self copyEvents:v14 failures:v13 forUpload:uploadCopy participatingClients:clientsCopy force:forceCopy linkedUUID:v12 error:&v23];
+
+  v15 = v23;
+  v16 = v15;
+  if (uploadCopy && v15 == 0)
+  {
+    if ([v13 count] > self->_maxEventsToReport)
+    {
+      v20 = [v13 subarrayWithRange:0];
+      v21 = [v20 mutableCopy];
+
+      v13 = v21;
+    }
+
+    v19 = [(SFAnalyticsTopic *)self createChunkedLoggingJSON:v14 failures:v13 error:error];
+  }
+
+  else if (error)
+  {
+    v18 = v15;
+    v19 = 0;
+    *error = v16;
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  return v19;
 }
 
 - (BOOL)copyEvents:(id)events failures:(id)failures forUpload:(BOOL)upload participatingClients:(id)clients force:(BOOL)force linkedUUID:(id)d error:(id *)error

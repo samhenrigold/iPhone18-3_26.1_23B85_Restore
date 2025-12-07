@@ -167,9 +167,9 @@ id __42__SCNReferenceNode__diffObject_with_path___block_invoke()
   return v3;
 }
 
-uint64_t __34__SCNReferenceNode__isNameUnique___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__34__SCNReferenceNode__isNameUnique___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  result = [objc_msgSend(a2 "name")];
+  result = objc_msgSend_isEqualToString_([a2 name]);
   if (result)
   {
     if (++*(*(*(a1 + 40) + 8) + 24) == 2)
@@ -195,57 +195,59 @@ uint64_t __34__SCNReferenceNode__isNameUnique___block_invoke(uint64_t a1, void *
   {
     -[SCNReferenceNode _diffObject:with:path:](self, "_diffObject:with:path:", [node geometry], objc_msgSend(with, "geometry"), objc_msgSend(objc_msgSend(path, "stringByAppendingString:", @"."), "stringByAppendingString:", @"geometry"));
     v9 = [objc_msgSend(objc_msgSend(node "geometry")];
-    if (v9 == [objc_msgSend(objc_msgSend(withCopy "geometry")])
+    v10 = [objc_msgSend(objc_msgSend(withCopy "geometry")];
+    if (v9 == v10)
     {
-      v28 = [objc_msgSend(node "geometry")];
-      v27 = [objc_msgSend(withCopy "geometry")];
+      v34 = [objc_msgSend(node "geometry")];
+      v33 = [objc_msgSend(withCopy "geometry")];
       if (v9)
       {
-        v10 = 0;
-        v25 = v9;
+        v12 = 0;
+        v31 = v9;
         pathCopy = path;
         do
         {
-          v11 = [v28 objectAtIndexedSubscript:v10];
-          v12 = [v27 objectAtIndexedSubscript:v10];
-          v29 = v10;
-          v13 = [objc_msgSend(path stringByAppendingString:{@".", "stringByAppendingString:", objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"geometry.materials[%d]", v10)}];
-          [(SCNReferenceNode *)self _diffObject:v11 with:v12 path:v13];
-          properties = [v11 properties];
-          properties2 = [v12 properties];
-          v16 = [properties count];
-          if ([properties2 count] == v16)
+          v13 = [v34 objectAtIndexedSubscript:v12];
+          v14 = [v33 objectAtIndexedSubscript:v12];
+          v35 = v12;
+          v15 = [objc_msgSend(path stringByAppendingString:{@".", "stringByAppendingString:", objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"geometry.materials[%d]", v12)}];
+          [(SCNReferenceNode *)self _diffObject:v13 with:v14 path:v15];
+          properties = [v13 properties];
+          properties2 = [v14 properties];
+          v18 = [properties count];
+          v19 = [properties2 count];
+          if (v19 == v18)
           {
-            if (v16)
+            if (v18)
             {
-              for (i = 0; i != v16; ++i)
+              for (i = 0; i != v18; ++i)
               {
-                -[SCNReferenceNode _diffObject:with:path:](self, "_diffObject:with:path:", [properties objectAtIndexedSubscript:i], objc_msgSend(properties2, "objectAtIndexedSubscript:", i), objc_msgSend(objc_msgSend(v13, "stringByAppendingString:", @"."), "stringByAppendingString:", objc_msgSend(objc_msgSend(properties, "objectAtIndexedSubscript:", i), "slotName")));
+                -[SCNReferenceNode _diffObject:with:path:](self, "_diffObject:with:path:", [properties objectAtIndexedSubscript:i], objc_msgSend(properties2, "objectAtIndexedSubscript:", i), objc_msgSend(objc_msgSend(v15, "stringByAppendingString:", @"."), "stringByAppendingString:", objc_msgSend(objc_msgSend(properties, "objectAtIndexedSubscript:", i), "slotName")));
               }
             }
           }
 
           else
           {
-            v18 = scn_default_log();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+            v22 = scn_default_log(v19, v20);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
-              [SCNReferenceNode _diffNode:v31 with:v18 path:?];
+              [SCNReferenceNode _diffNode:v37 with:v22 path:?];
             }
           }
 
-          ++v10;
+          ++v12;
           path = pathCopy;
         }
 
-        while (v29 + 1 != v25);
+        while (v35 + 1 != v31);
       }
     }
 
     else
     {
-      v19 = scn_default_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v23 = scn_default_log(v10, v11);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         [SCNReferenceNode _diffNode:with:path:];
       }
@@ -257,12 +259,13 @@ uint64_t __34__SCNReferenceNode__isNameUnique___block_invoke(uint64_t a1, void *
     -[SCNReferenceNode _diffObject:with:path:](self, "_diffObject:with:path:", [objc_msgSend(nodeCopy "particleSystems")], objc_msgSend(objc_msgSend(withCopy, "particleSystems"), "objectAtIndexedSubscript:", 0), objc_msgSend(objc_msgSend(path, "stringByAppendingString:", @"."), "stringByAppendingString:", @"particleSystems[0]"));
   }
 
-  v20 = [objc_msgSend(nodeCopy "childNodes")];
-  if (v20 == [objc_msgSend(withCopy "childNodes")])
+  v24 = [objc_msgSend(nodeCopy "childNodes")];
+  v25 = [objc_msgSend(withCopy "childNodes")];
+  if (v24 == v25)
   {
-    if (v20)
+    if (v24)
     {
-      for (j = 0; j != v20; ++j)
+      for (j = 0; j != v24; ++j)
       {
         path = [objc_msgSend(path stringByAppendingString:{@".", "stringByAppendingString:", objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"[%d]", j)}];
         -[SCNReferenceNode _diffNode:with:path:](self, "_diffNode:with:path:", [objc_msgSend(nodeCopy "childNodes")], objc_msgSend(objc_msgSend(withCopy, "childNodes"), "objectAtIndexedSubscript:", j), path);
@@ -272,8 +275,8 @@ uint64_t __34__SCNReferenceNode__isNameUnique___block_invoke(uint64_t a1, void *
 
   else
   {
-    v22 = scn_default_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v28 = scn_default_log(v25, v26);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       [SCNReferenceNode _diffNode:with:path:];
     }
@@ -336,7 +339,7 @@ uint64_t __34__SCNReferenceNode__isNameUnique___block_invoke(uint64_t a1, void *
 
 - (void)_applyUnsharing:(id)unsharing alreadyShared:(id)shared
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if ([shared containsObject:?])
   {
     return;
@@ -368,7 +371,7 @@ uint64_t __34__SCNReferenceNode__isNameUnique___block_invoke(uint64_t a1, void *
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if ([v12 isEqualToString:@"geometry"])
+    if (objc_msgSend_isEqualToString_(v12))
     {
       v15 = [objc_msgSend(v14 "geometry")];
       [v14 setGeometry:v15];
@@ -377,7 +380,7 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    if ([v12 isEqualToString:@"particleSystems[0]"])
+    if (objc_msgSend_isEqualToString_(v12))
     {
       v16 = [objc_msgSend(v14 "particleSystems")];
       if (v16)
@@ -404,56 +407,57 @@ LABEL_12:
     v14 = [(SCNNode *)self valueForKeyPath:v11];
   }
 
-  if ([v12 isEqualToString:@"firstMaterial"])
+  if (objc_msgSend_isEqualToString_(v12))
   {
     v18 = 0;
     goto LABEL_17;
   }
 
-  if ([v12 isEqualToString:@"materials"])
+  if (objc_msgSend_isEqualToString_(v12))
   {
-    v19 = [objc_msgSend(v14 "materials")];
+    v21 = [objc_msgSend(v14 "materials")];
 
-    [v14 setMaterials:v19];
+    [v14 setMaterials:v21];
   }
 
   else
   {
-    v21 = [v12 rangeOfString:@"["];
-    if (v22 == 1)
+    v23 = [v12 rangeOfString:@"["];
+    if (v24 == 1)
     {
-      v23 = [v12 substringFromIndex:v21 + 1];
-      v24 = [v23 rangeOfString:@"]"];
-      if (v25 == 1)
+      v25 = [v12 substringFromIndex:v23 + 1];
+      v26 = [v25 rangeOfString:@"]"];
+      if (v27 == 1)
       {
-        v18 = [objc_msgSend(v23 substringToIndex:{v24), "integerValue"}];
+        v18 = [objc_msgSend(v25 substringToIndex:{v26), "integerValue"}];
 LABEL_17:
-        if (v18 >= [objc_msgSend(v14 "materials")])
+        v19 = [objc_msgSend(v14 "materials")];
+        if (v18 >= v19)
         {
-          v20 = scn_default_log();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v22 = scn_default_log(v19, v20);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412802;
             unsharingCopy = unsharing;
-            v31 = 1024;
-            v32 = v18;
             v33 = 1024;
-            v34 = [objc_msgSend(v14 "materials")];
-            _os_log_error_impl(&dword_21BEF7000, v20, OS_LOG_TYPE_ERROR, "Error: failed to evaluate key path %@ - material index %d out of bounds (%d)", buf, 0x18u);
+            v34 = v18;
+            v35 = 1024;
+            v36 = [objc_msgSend(v14 "materials")];
+            _os_log_error_impl(&dword_21BEF7000, v22, OS_LOG_TYPE_ERROR, "Error: failed to evaluate key path %@ - material index %d out of bounds (%d)", buf, 0x18u);
           }
         }
 
         else
         {
-          v28 = [objc_msgSend(objc_msgSend(v14 "materials")];
+          v30 = [objc_msgSend(objc_msgSend(v14 "materials")];
           [v14 replaceMaterialAtIndex:v18 withMaterial:?];
         }
 
         return;
       }
 
-      v27 = scn_default_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v29 = scn_default_log(v26, v27);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         [SCNReferenceNode _applyUnsharing:alreadyShared:];
       }
@@ -461,8 +465,8 @@ LABEL_17:
 
     else
     {
-      v26 = scn_default_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v28 = scn_default_log(v23, v24);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         [SCNReferenceNode _applyUnsharing:alreadyShared:];
       }
@@ -635,7 +639,7 @@ LABEL_17:
 
   else
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNReferenceNode _loadReferencedSceneWithURL:catalog:];
@@ -657,7 +661,7 @@ LABEL_17:
 
 - (void)_loadWithURL:(id)l catalog:(id)catalog
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (l)
   {
     v7 = [SCNTransaction valueForKey:@"SCNReferenceLoadingStack"];
@@ -667,10 +671,11 @@ LABEL_17:
       [SCNTransaction setValue:v7 forKey:@"SCNReferenceLoadingStack"];
     }
 
-    if ([v7 containsObject:l])
+    v8 = [v7 containsObject:l];
+    if (v8)
     {
-      v8 = scn_default_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = scn_default_log(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [SCNReferenceNode _loadWithURL:catalog:];
       }
@@ -679,9 +684,9 @@ LABEL_17:
     else
     {
       [v7 addObject:l];
-      v10 = [(SCNReferenceNode *)self _loadReferencedSceneWithURL:l catalog:catalog];
+      v12 = [(SCNReferenceNode *)self _loadReferencedSceneWithURL:l catalog:catalog];
       [v7 removeObject:l];
-      if (v10)
+      if (v12)
       {
         self->_loaded = 1;
         selfCopy = self;
@@ -691,37 +696,37 @@ LABEL_17:
           [(SCNNode *)selfCopy setName:@"referenceRoot"];
         }
 
-        v17 = 0u;
-        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
-        v12 = [objc_msgSend(objc_msgSend(v10 "rootNode")];
-        v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
-        if (v13)
+        v21 = 0u;
+        v22 = 0u;
+        v14 = [objc_msgSend(objc_msgSend(v12 "rootNode")];
+        v15 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        if (v15)
         {
-          v14 = v13;
-          v15 = *v18;
+          v16 = v15;
+          v17 = *v20;
           do
           {
-            v16 = 0;
+            v18 = 0;
             do
             {
-              if (*v18 != v15)
+              if (*v20 != v17)
               {
-                objc_enumerationMutation(v12);
+                objc_enumerationMutation(v14);
               }
 
-              [(SCNNode *)selfCopy addChildNode:*(*(&v17 + 1) + 8 * v16++)];
+              [(SCNNode *)selfCopy addChildNode:*(*(&v19 + 1) + 8 * v18++)];
             }
 
-            while (v14 != v16);
-            v14 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
+            while (v16 != v18);
+            v16 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
           }
 
-          while (v14);
+          while (v16);
         }
 
-        -[SCNNode _copyAnimationsFrom:](selfCopy, "_copyAnimationsFrom:", [v10 rootNode]);
+        -[SCNNode _copyAnimationsFrom:](selfCopy, "_copyAnimationsFrom:", [v12 rootNode]);
         if (selfCopy != self)
         {
           [(SCNNode *)self addChildNode:selfCopy];
@@ -734,8 +739,8 @@ LABEL_17:
 
   else
   {
-    v9 = scn_default_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = scn_default_log(self, a2);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SCNReferenceNode _loadReferencedSceneWithURL:catalog:];
     }
@@ -771,18 +776,18 @@ LABEL_17:
 
 - (SCNReferenceNode)initWithCoder:(NSCoder *)aDecoder
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = SCNReferenceNode;
-  v4 = [(SCNNode *)&v8 initWithCoder:?];
+  v11[2] = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = SCNReferenceNode;
+  v4 = [(SCNNode *)&v10 initWithCoder:?];
   if (v4)
   {
     v5 = MEMORY[0x277CBEB98];
-    v9[0] = objc_opt_class();
-    v9[1] = objc_opt_class();
-    -[SCNReferenceNode setReferenceURL:](v4, "setReferenceURL:", -[NSCoder decodeObjectOfClasses:forKey:](aDecoder, "decodeObjectOfClasses:forKey:", [v5 setWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v9, 2)}], @"referenceURL"));
-    [(SCNReferenceNode *)v4 setLoadingPolicy:[(NSCoder *)aDecoder decodeIntegerForKey:@"loadingPolicy"]];
-    v4->_overrides = [-[NSCoder decodeObjectOfClasses:forKey:](aDecoder decodeObjectOfClasses:SCNUserInfoClasses() forKey:{@"overrides", "mutableCopy"}];
+    v11[0] = objc_opt_class();
+    v11[1] = objc_opt_class();
+    -[SCNReferenceNode setReferenceURL:](v4, "setReferenceURL:", -[NSCoder decodeObjectOfClasses:forKey:](aDecoder, "decodeObjectOfClasses:forKey:", [v5 setWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v11, 2)}], @"referenceURL"));
+    v6 = [(SCNReferenceNode *)v4 setLoadingPolicy:[(NSCoder *)aDecoder decodeIntegerForKey:@"loadingPolicy"]];
+    v4->_overrides = [-[NSCoder decodeObjectOfClasses:forKey:](aDecoder decodeObjectOfClasses:SCNUserInfoClasses(v6 forKey:{v7), @"overrides", "mutableCopy"}];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {

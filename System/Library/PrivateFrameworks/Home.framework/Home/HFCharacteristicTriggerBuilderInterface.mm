@@ -336,19 +336,8 @@ BOOL __95__HFCharacteristicTriggerBuilderInterface_thresholdValueForCharacterist
   v6 = v5;
 
   v7 = [*(a1 + 32) minValue];
-  if (!v7)
+  if (!v7 || (v8 = v7, [*(a1 + 32) minValue], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 40), "hf_minimumTriggerValue"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "compare:", v10), v10, v9, v8, !v11))
   {
-    goto LABEL_10;
-  }
-
-  v8 = v7;
-  v9 = [*(a1 + 32) minValue];
-  v10 = [*(a1 + 40) hf_minimumTriggerValue];
-  v11 = [v9 compare:v10];
-
-  if (!v11)
-  {
-LABEL_10:
     if (v6)
     {
       v18 = [v6 thresholdRange];

@@ -12,253 +12,246 @@
 - (id)validateFeatures:(id)features predictionModel:(id)model
 {
   featuresCopy = features;
-  v9 = objc_msgSend_modelDescription(model, v7, v8);
-  v12 = objc_msgSend_inputDescriptionsByName(v9, v10, v11);
-  v15 = objc_msgSend_allValues(v12, v13, v14);
+  modelDescription = [model modelDescription];
+  inputDescriptionsByName = [modelDescription inputDescriptionsByName];
+  allValues = [inputDescriptionsByName allValues];
 
-  if (objc_msgSend_count(featuresCopy, v16, v17))
+  if ([featuresCopy count])
   {
-    v20 = 0;
+    v10 = 0;
     do
     {
-      v21 = objc_msgSend_objectAtIndexedSubscript_(featuresCopy, v18, v20);
-      v23 = objc_msgSend_validateFeatureProvider_inputDescriptions_(self, v22, v21, v15);
-      objc_msgSend_setObject_atIndexedSubscript_(featuresCopy, v24, v23, v20);
+      v11 = [featuresCopy objectAtIndexedSubscript:v10];
+      v12 = [(APOdmlFeatureValidator *)self validateFeatureProvider:v11 inputDescriptions:allValues];
+      [featuresCopy setObject:v12 atIndexedSubscript:v10];
 
-      ++v20;
+      ++v10;
     }
 
-    while (v20 < objc_msgSend_count(featuresCopy, v25, v26));
+    while (v10 < [featuresCopy count]);
   }
 
-  v27 = objc_msgSend_copy(featuresCopy, v18, v19);
+  v13 = [featuresCopy copy];
 
-  return v27;
+  return v13;
 }
 
 - (id)validateFeatureProvider:(id)provider inputDescriptions:(id)descriptions
 {
   providerCopy = provider;
-  v8 = objc_msgSend_missingFeatures_inputDescriptions_(self, v7, providerCopy, descriptions);
-  objc_msgSend_reportMissingFeatureError_(self, v9, v8);
-  v11 = objc_msgSend_imputeMissingFeatures_(self, v10, v8);
-  v14 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v12, v13);
-  v17 = objc_msgSend_dictionary(providerCopy, v15, v16);
+  v7 = [(APOdmlFeatureValidator *)self missingFeatures:providerCopy inputDescriptions:descriptions];
+  [(APOdmlFeatureValidator *)self reportMissingFeatureError:v7];
+  v8 = [(APOdmlFeatureValidator *)self imputeMissingFeatures:v7];
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  dictionary2 = [providerCopy dictionary];
 
-  objc_msgSend_addEntriesFromDictionary_(v14, v18, v17);
-  objc_msgSend_addEntriesFromDictionary_(v14, v19, v11);
-  v20 = objc_alloc(MEMORY[0x277CBFED0]);
-  v23 = objc_msgSend_copy(v14, v21, v22);
-  v25 = objc_msgSend_initWithDictionary_error_(v20, v24, v23, 0);
+  [dictionary addEntriesFromDictionary:dictionary2];
+  [dictionary addEntriesFromDictionary:v8];
+  v11 = objc_alloc(MEMORY[0x277CBFED0]);
+  v12 = [dictionary copy];
+  v13 = [v11 initWithDictionary:v12 error:0];
 
-  return v25;
+  return v13;
 }
 
 - (id)missingFeatures:(id)features inputDescriptions:(id)descriptions
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   descriptionsCopy = descriptions;
-  v9 = objc_msgSend_array(MEMORY[0x277CBEB18], v7, v8);
-  v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v10 = descriptionsCopy;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v31, v35, 16);
-  if (v12)
+  array = [MEMORY[0x277CBEB18] array];
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v8 = descriptionsCopy;
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v9)
   {
-    v15 = v12;
-    v16 = *v32;
+    v10 = v9;
+    v11 = *v20;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v32 != v16)
-        {
-          objc_enumerationMutation(v10);
-        }
-
-        v18 = *(*(&v31 + 1) + 8 * i);
-        v19 = objc_msgSend_dictionary(featuresCopy, v13, v14, v31);
-        v22 = objc_msgSend_name(v18, v20, v21);
-        v24 = objc_msgSend_objectForKey_(v19, v23, v22);
-
-        if (!v24)
-        {
-          objc_msgSend_addObject_(v9, v25, v18);
-        }
-      }
-
-      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v31, v35, 16);
-    }
-
-    while (v15);
-  }
-
-  v28 = objc_msgSend_copy(v9, v26, v27);
-  v29 = *MEMORY[0x277D85DE8];
-
-  return v28;
-}
-
-- (id)imputeMissingFeatures:(id)features
-{
-  v28 = *MEMORY[0x277D85DE8];
-  featuresCopy = features;
-  v7 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v5, v6);
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v8 = featuresCopy;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v23, v27, 16);
-  if (v10)
-  {
-    v12 = v10;
-    v13 = *v24;
-    do
-    {
-      for (i = 0; i != v12; ++i)
-      {
-        if (*v24 != v13)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * i);
-        v16 = objc_msgSend_imputeFeature_(self, v11, v15, v23);
-        v19 = objc_msgSend_name(v15, v17, v18);
-        objc_msgSend_setValue_forKey_(v7, v20, v16, v19);
+        v13 = *(*(&v19 + 1) + 8 * i);
+        dictionary = [featuresCopy dictionary];
+        name = [v13 name];
+        v16 = [dictionary objectForKey:name];
+
+        if (!v16)
+        {
+          [array addObject:v13];
+        }
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v23, v27, 16);
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v12);
+    while (v10);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
+  v17 = [array copy];
 
-  return v7;
+  return v17;
+}
+
+- (id)imputeMissingFeatures:(id)features
+{
+  v20 = *MEMORY[0x277D85DE8];
+  featuresCopy = features;
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v6 = featuresCopy;
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v16;
+    do
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v16 != v9)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        v11 = *(*(&v15 + 1) + 8 * i);
+        v12 = [(APOdmlFeatureValidator *)self imputeFeature:v11, v15];
+        name = [v11 name];
+        [dictionary setValue:v12 forKey:name];
+      }
+
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v8);
+  }
+
+  return dictionary;
 }
 
 - (id)imputeFeature:(id)feature
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   featureCopy = feature;
-  v6 = objc_msgSend_multiArrayConstraint(featureCopy, v4, v5);
-  v9 = objc_msgSend_shape(v6, v7, v8);
-  v12 = objc_msgSend_count(v9, v10, v11);
+  multiArrayConstraint = [featureCopy multiArrayConstraint];
+  shape = [multiArrayConstraint shape];
+  v6 = [shape count];
 
-  if (v12 < 3)
+  if (v6 < 3)
   {
-    v27 = objc_msgSend_multiArrayConstraint(featureCopy, v13, v14);
-    v30 = objc_msgSend_shape(v27, v28, v29);
-    v33 = objc_msgSend_count(v30, v31, v32) - 1;
+    multiArrayConstraint2 = [featureCopy multiArrayConstraint];
+    shape2 = [multiArrayConstraint2 shape];
+    v15 = [shape2 count] - 1;
 
-    v36 = objc_msgSend_multiArrayConstraint(featureCopy, v34, v35);
-    v39 = objc_msgSend_shape(v36, v37, v38);
-    v41 = objc_msgSend_objectAtIndexedSubscript_(v39, v40, v33);
+    multiArrayConstraint3 = [featureCopy multiArrayConstraint];
+    shape3 = [multiArrayConstraint3 shape];
+    v18 = [shape3 objectAtIndexedSubscript:v15];
 
-    v44 = objc_msgSend_array(MEMORY[0x277CBEB18], v42, v43);
-    if (objc_msgSend_intValue(v41, v45, v46) >= 1)
+    array = [MEMORY[0x277CBEB18] array];
+    if ([v18 intValue] >= 1)
     {
-      v49 = 0;
+      v20 = 0;
       do
       {
-        v50 = objc_msgSend_notANumber(MEMORY[0x277CCA980], v47, v48);
-        objc_msgSend_addObject_(v44, v51, v50);
+        notANumber = [MEMORY[0x277CCA980] notANumber];
+        [array addObject:notANumber];
 
-        ++v49;
+        ++v20;
       }
 
-      while (v49 < objc_msgSend_intValue(v41, v52, v53));
+      while (v20 < [v18 intValue]);
     }
 
-    v54 = objc_msgSend_multiArrayConstraint(featureCopy, v47, v48);
-    v57 = objc_msgSend_shape(v54, v55, v56);
-    v60 = objc_msgSend_count(v57, v58, v59);
+    multiArrayConstraint4 = [featureCopy multiArrayConstraint];
+    shape4 = [multiArrayConstraint4 shape];
+    v24 = [shape4 count];
 
-    if (v60 == 1)
+    if (v24 == 1)
     {
-      objc_msgSend_multiarrayFromArray_(MEMORY[0x277CBFF48], v61, v44);
+      [MEMORY[0x277CBFF48] multiarrayFromArray:array];
     }
 
     else
     {
-      objc_msgSend_twoDimensionalMultiarrayFromArray_(MEMORY[0x277CBFF48], v61, v44);
+      [MEMORY[0x277CBFF48] twoDimensionalMultiarrayFromArray:array];
     }
-    v26 = ;
+    v12 = ;
   }
 
   else
   {
-    v15 = OdmlLogForCategory(6uLL);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v7 = OdmlLogForCategory(6uLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v16 = objc_opt_class();
-      v17 = v16;
-      v20 = objc_msgSend_multiArrayConstraint(featureCopy, v18, v19);
-      v23 = objc_msgSend_shape(v20, v21, v22);
-      v64 = 138412546;
-      v65 = v16;
-      v66 = 2048;
-      v67 = objc_msgSend_count(v23, v24, v25);
-      _os_log_impl(&dword_260ECB000, v15, OS_LOG_TYPE_ERROR, "[%@] Unexpected shape length: %lu", &v64, 0x16u);
+      v8 = objc_opt_class();
+      v9 = v8;
+      multiArrayConstraint5 = [featureCopy multiArrayConstraint];
+      shape5 = [multiArrayConstraint5 shape];
+      v26 = 138412546;
+      v27 = v8;
+      v28 = 2048;
+      v29 = [shape5 count];
+      _os_log_impl(&dword_260ECB000, v7, OS_LOG_TYPE_ERROR, "[%@] Unexpected shape length: %lu", &v26, 0x16u);
     }
 
-    v26 = 0;
+    v12 = 0;
   }
 
-  v62 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v12;
 }
 
 - (void)reportMissingFeatureError:(id)error
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   obj = error;
-  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v3, &v24, v28, 16);
-  if (v4)
+  v3 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v3)
   {
-    v6 = v4;
-    v7 = *v25;
+    v4 = v3;
+    v5 = *v14;
     do
     {
-      v8 = 0;
+      v6 = 0;
       do
       {
-        if (*v25 != v7)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * v8);
-        v10 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v5, @"APOdmlPredictionErrorDomain", 4004, 0);
-        v13 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v11, v12);
-        v16 = objc_msgSend_name(v9, v14, v15);
-        objc_msgSend_setValue_forKey_(v13, v17, v16, @"featureName");
+        v7 = *(*(&v13 + 1) + 8 * v6);
+        v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APOdmlPredictionErrorDomain" code:4004 userInfo:0];
+        dictionary = [MEMORY[0x277CBEB38] dictionary];
+        name = [v7 name];
+        [dictionary setValue:name forKey:@"featureName"];
 
-        v20 = objc_msgSend_copy(v13, v18, v19);
-        objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsPrediction, v21, v10, v20);
+        v11 = [dictionary copy];
+        [APOdmlAnalyticsPrediction sendEvent:v8 additionalDetails:v11];
 
-        ++v8;
+        ++v6;
       }
 
-      while (v6 != v8);
-      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v24, v28, 16);
+      while (v4 != v6);
+      v4 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v6);
+    while (v4);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

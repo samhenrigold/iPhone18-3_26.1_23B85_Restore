@@ -37,29 +37,29 @@
 
 - (id)modelsWithParentIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = [(HMDAccessorySettingMetadata *)self modelWithParentIdentifier:identifier];
   v5 = [MEMORY[0x277CBEB18] arrayWithObject:v4];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   constraints = [(HMDAccessorySettingMetadata *)self constraints];
-  v7 = [constraints countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [constraints countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(constraints);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         uuid = [v4 uuid];
         v13 = [v11 modelWithParentIdentifier:uuid];
 
@@ -67,14 +67,13 @@
         [v5 addObject:v13];
       }
 
-      v8 = [constraints countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [constraints countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
-  v14 = [v5 copy];
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = objc_msgSend_copy(v5);
 
   return v14;
 }
@@ -111,7 +110,7 @@
       v21 = [(HMDAccessorySettingMetadata *)&v31 init];
       if (v21)
       {
-        v22 = [v20 copy];
+        v22 = objc_msgSend_copy(v20);
         name = v21->_name;
         v21->_name = v22;
 
@@ -123,7 +122,7 @@
         v21->_properties = properties;
         if (constraintsCopy)
         {
-          v26 = [constraintsCopy copy];
+          v26 = objc_msgSend_copy(constraintsCopy);
         }
 
         else
@@ -137,7 +136,7 @@
         }
 
         objc_storeStrong(&v21->_mergeStrategy, strategy);
-        v28 = [valueCopy copy];
+        v28 = objc_msgSend_copy(valueCopy);
         value = v21->_value;
         v21->_value = v28;
       }
@@ -162,7 +161,7 @@
 
 + (id)valueWithType:(int64_t)type constraints:(id)constraints representation:(id)representation
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   constraintsCopy = constraints;
   representationCopy = representation;
   v9 = representationCopy;
@@ -182,9 +181,9 @@
           {
             v13 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v42 = v13;
-            v43 = 2112;
-            v44 = v9;
+            v41 = v13;
+            v42 = 2112;
+            v43 = v9;
             v14 = "%{public}@Invalid data value: %@";
             goto LABEL_45;
           }
@@ -218,9 +217,9 @@ LABEL_46:
           {
             v13 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v42 = v13;
-            v43 = 2112;
-            v44 = v9;
+            v41 = v13;
+            v42 = 2112;
+            v43 = v9;
             v14 = "%{public}@Invalid number value: %@";
 LABEL_45:
             _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEFAULT, v14, buf, 0x16u);
@@ -251,9 +250,9 @@ LABEL_45:
         {
           v13 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v42 = v13;
-          v43 = 2112;
-          v44 = v9;
+          v41 = v13;
+          v42 = 2112;
+          v43 = v9;
           v14 = "%{public}@Invalid string value: %@";
           goto LABEL_45;
         }
@@ -291,27 +290,27 @@ LABEL_35:
 
     if (v17)
     {
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
-      v36 = constraintsCopy;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v35 = constraintsCopy;
       v18 = constraintsCopy;
-      v19 = [v18 countByEnumeratingWithState:&v37 objects:v47 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v36 objects:v46 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v38;
+        v21 = *v37;
         while (2)
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v38 != v21)
+            if (*v37 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            value = [*(*(&v37 + 1) + 8 * i) value];
+            value = [*(*(&v36 + 1) + 8 * i) value];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -335,7 +334,7 @@ LABEL_35:
             }
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v37 objects:v47 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v36 objects:v46 count:16];
           if (v20)
           {
             continue;
@@ -351,18 +350,18 @@ LABEL_35:
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v42 = v29;
-        v43 = 2112;
-        v44 = v17;
-        v45 = 2112;
-        v46 = v18;
+        v41 = v29;
+        v42 = 2112;
+        v43 = v17;
+        v44 = 2112;
+        v45 = v18;
         _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid item with title '%@', constraints: %@", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v27);
       v10 = 0;
 LABEL_38:
-      constraintsCopy = v36;
+      constraintsCopy = v35;
     }
 
     else
@@ -373,9 +372,9 @@ LABEL_38:
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v42 = v33;
-        v43 = 2112;
-        v44 = v15;
+        v41 = v33;
+        v42 = 2112;
+        v43 = v15;
         _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid string value: %@", buf, 0x16u);
       }
 
@@ -386,14 +385,12 @@ LABEL_38:
 
 LABEL_47:
 
-  v34 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)settingWithDictonaryRepresentation:(id)representation parentKeyPath:(id)path
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   pathCopy = path;
   v8 = [representationCopy hmf_stringForKey:@"Key"];
@@ -410,30 +407,30 @@ LABEL_47:
       if (v13)
       {
         selfCopy = self;
-        v37 = v11;
-        v39 = pathCopy;
-        v42 = 0u;
-        v43 = 0u;
-        v40 = 0u;
+        v36 = v11;
+        v38 = pathCopy;
         v41 = 0u;
-        v15 = [v13 countByEnumeratingWithState:&v40 objects:v44 count:16];
-        v38 = v10;
-        v35 = v12;
+        v42 = 0u;
+        v39 = 0u;
+        v40 = 0u;
+        v15 = [v13 countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v37 = v10;
+        v34 = v12;
         if (v15)
         {
           v16 = v15;
           v17 = 0;
-          v18 = *v41;
+          v18 = *v40;
           do
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v41 != v18)
+              if (*v40 != v18)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v20 = *(*(&v40 + 1) + 8 * i);
+              v20 = *(*(&v39 + 1) + 8 * i);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -451,7 +448,7 @@ LABEL_47:
               v17 |= v23;
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v40 objects:v44 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v39 objects:v43 count:16];
           }
 
           while (v16);
@@ -471,13 +468,13 @@ LABEL_47:
         v30 = [(HMDAccessorySettingMergeStrategy *)v28 initWithMergeStrategy:v29];
 
         v31 = [representationCopy objectForKeyedSubscript:@"Value"];
-        v32 = [HMDAccessorySettingMetadata valueWithType:v35 constraints:v27 representation:v31];
+        v32 = [HMDAccessorySettingMetadata valueWithType:v34 constraints:v27 representation:v31];
 
-        v10 = v38;
-        pathCopy = v39;
-        v24 = [[selfCopy alloc] initWithName:v38 type:v35 properties:v17 constraints:v27 mergeStrategy:v30 value:v32 parentKeyPath:v39];
+        v10 = v37;
+        pathCopy = v38;
+        v24 = [[selfCopy alloc] initWithName:v37 type:v34 properties:v17 constraints:v27 mergeStrategy:v30 value:v32 parentKeyPath:v38];
 
-        v11 = v37;
+        v11 = v36;
       }
 
       else
@@ -497,41 +494,39 @@ LABEL_47:
     v24 = 0;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return v24;
 }
 
 + (id)settingsWithArrayRepresenation:(id)represenation parentKeyPath:(id)path
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   represenationCopy = represenation;
   pathCopy = path;
   array = [MEMORY[0x277CBEB18] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = represenationCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v14 = [HMDAccessorySettingMetadata settingWithDictonaryRepresentation:v13 parentKeyPath:pathCopy, v18];
+          v14 = [HMDAccessorySettingMetadata settingWithDictonaryRepresentation:v13 parentKeyPath:pathCopy, v17];
           if (v14)
           {
             [array addObject:v14];
@@ -539,14 +534,13 @@ LABEL_47:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
 
-  v15 = [array copy];
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = objc_msgSend_copy(array);
 
   return v15;
 }

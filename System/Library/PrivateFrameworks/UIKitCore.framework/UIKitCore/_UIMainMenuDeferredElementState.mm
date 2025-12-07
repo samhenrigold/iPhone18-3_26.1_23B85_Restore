@@ -92,7 +92,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    LOBYTE(v12) = 1;
+    LOBYTE(isEqual) = 1;
   }
 
   else
@@ -113,15 +113,15 @@
 
       else
       {
-        LOBYTE(v12) = 0;
+        LOBYTE(isEqual) = 0;
         if (!v9 || !v10)
         {
           goto LABEL_28;
         }
 
-        v12 = [(NSArray *)v9 isEqual:v10];
+        isEqual = objc_msgSend_isEqual_(v9);
 
-        if (!v12)
+        if (!isEqual)
         {
           goto LABEL_29;
         }
@@ -137,15 +137,15 @@
 
       else
       {
-        LOBYTE(v12) = 0;
+        LOBYTE(isEqual) = 0;
         if (!v9 || !v14)
         {
           goto LABEL_28;
         }
 
-        v12 = [(NSArray *)v9 isEqual:v14];
+        isEqual = objc_msgSend_isEqual_(v9);
 
-        if (!v12)
+        if (!isEqual)
         {
           goto LABEL_29;
         }
@@ -166,27 +166,27 @@ LABEL_23:
         v11 = v19;
         if (v9 == v19)
         {
-          LOBYTE(v12) = 1;
+          LOBYTE(isEqual) = 1;
         }
 
         else
         {
-          LOBYTE(v12) = 0;
+          LOBYTE(isEqual) = 0;
           if (v9 && v19)
           {
-            LOBYTE(v12) = [(NSArray *)v9 isEqual:v19];
+            LOBYTE(isEqual) = objc_msgSend_isEqual_(v9);
           }
         }
 
         goto LABEL_28;
       }
 
-      LOBYTE(v12) = 0;
+      LOBYTE(isEqual) = 0;
       if (v9 && v16)
       {
-        v12 = [(NSArray *)v9 isEqual:v16];
+        isEqual = objc_msgSend_isEqual_(v9);
 
-        if (!v12)
+        if (!isEqual)
         {
           goto LABEL_29;
         }
@@ -200,12 +200,12 @@ LABEL_29:
       goto LABEL_30;
     }
 
-    LOBYTE(v12) = 0;
+    LOBYTE(isEqual) = 0;
   }
 
 LABEL_30:
 
-  return v12;
+  return isEqual;
 }
 
 - (unint64_t)hash

@@ -1,8 +1,10 @@
 @interface PPM2TopicItemDonation
 - (BOOL)isEqual:(id)equal;
+- (id)algorithmAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)donationSourceAsString:(int)string;
 - (int)StringAsAlgorithm:(id)algorithm;
 - (int)StringAsDonationSource:(id)source;
 - (int)algorithm;
@@ -172,7 +174,6 @@ LABEL_11:
       goto LABEL_33;
     }
 
-    v8 = *(equalCopy + 40);
     if (self->_newItem)
     {
       if ((*(equalCopy + 40) & 1) == 0)
@@ -225,7 +226,7 @@ LABEL_11:
     }
 
 LABEL_33:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_34;
   }
 
@@ -234,7 +235,6 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  v12 = *(equalCopy + 41);
   if (self->_userCreated)
   {
     if ((*(equalCopy + 41) & 1) == 0)
@@ -249,7 +249,7 @@ LABEL_33:
   }
 
 LABEL_26:
-  v10 = (v6 & 1) == 0;
+  v9 = (v6 & 1) == 0;
   if (has)
   {
     if ((v6 & 1) == 0 || self->_rank != *(equalCopy + 1))
@@ -257,12 +257,12 @@ LABEL_26:
       goto LABEL_33;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_34:
 
-  return v10;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -370,7 +370,6 @@ LABEL_34:
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    donationSource = self->_donationSource;
     PBDataWriterWriteInt32Field();
   }
 
@@ -382,14 +381,12 @@ LABEL_34:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    newItem = self->_newItem;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    algorithm = self->_algorithm;
     PBDataWriterWriteInt32Field();
   }
 
@@ -398,17 +395,15 @@ LABEL_34:
     PBDataWriterWriteStringField();
   }
 
-  v8 = self->_has;
-  if ((v8 & 0x10) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x10) != 0)
   {
-    userCreated = self->_userCreated;
     PBDataWriterWriteBOOLField();
-    v8 = self->_has;
+    v5 = self->_has;
   }
 
-  if (v8)
+  if (v5)
   {
-    rank = self->_rank;
     PBDataWriterWriteInt64Field();
   }
 }
@@ -635,6 +630,21 @@ LABEL_34:
   return v4;
 }
 
+- (id)algorithmAsString:(int)string
+{
+  if (string >= 0x16)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278971F20[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasAlgorithm:(BOOL)algorithm
 {
   if (algorithm)
@@ -809,6 +819,21 @@ LABEL_34:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)donationSourceAsString:(int)string
+{
+  if (string >= 0x19)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278971E58[string];
   }
 
   return v4;

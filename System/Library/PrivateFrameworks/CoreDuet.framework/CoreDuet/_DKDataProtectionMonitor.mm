@@ -2,11 +2,11 @@
 + (id)sharedInstance;
 - (BOOL)deviceIsLocked;
 - (BOOL)deviceIsPasswordConfigured;
+- (BOOL)isDataAvailableForClassA;
 - (BOOL)isDataAvailableForClassC;
 - (_DKDataProtectionMonitor)init;
 - (id)registerStateChangeHandler:(uint64_t)handler;
 - (uint64_t)isDataAvailableFor:(uint64_t)for;
-- (uint64_t)isDataAvailableForClassA;
 - (void)dealloc;
 - (void)deregisterStateChangeHandler:(uint64_t)handler;
 - (void)handleKeyBagLockNotification;
@@ -123,7 +123,7 @@
 
 - (void)handleKeyBagLockNotification
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = _os_activity_create(&dword_191750000, "CoreDuet: _DKDataProtectionMonitor handleKeyBagLockNotification", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -134,21 +134,21 @@
 
     state.opaque[0] = 0;
     state.opaque[1] = &state;
-    v36 = 0x3032000000;
-    v37 = __Block_byref_object_copy__26;
-    v38 = __Block_byref_object_dispose__26;
-    v39 = 0;
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x3032000000;
-    v32 = __Block_byref_object_copy__26;
-    v33 = __Block_byref_object_dispose__26;
-    v34 = 0;
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x3032000000;
-    v26 = __Block_byref_object_copy__26;
-    v27 = __Block_byref_object_dispose__26;
+    v35 = 0x3032000000;
+    v36 = __Block_byref_object_copy__26;
+    v37 = __Block_byref_object_dispose__26;
+    v38 = 0;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy__26;
+    v32 = __Block_byref_object_dispose__26;
+    v33 = 0;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x3032000000;
+    v25 = __Block_byref_object_copy__26;
+    v26 = __Block_byref_object_dispose__26;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     v3 = *(self + 32);
     block[0] = MEMORY[0x1E69E9820];
@@ -157,55 +157,55 @@
     block[3] = &unk_1E736AA08;
     block[4] = self;
     block[5] = &state;
-    block[6] = &v29;
-    block[7] = &v23;
+    block[6] = &v28;
+    block[7] = &v22;
     dispatch_sync(v3, block);
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
-    v4 = v24[5];
-    v5 = [v4 countByEnumeratingWithState:&v18 objects:v41 count:16];
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v4 = v23[5];
+    v5 = [v4 countByEnumeratingWithState:&v17 objects:v40 count:16];
     if (v5)
     {
-      v6 = *v19;
+      v6 = *v18;
       do
       {
         v7 = 0;
         do
         {
-          if (*v19 != v6)
+          if (*v18 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = [v24[5] objectForKeyedSubscript:*(*(&v18 + 1) + 8 * v7)];
+          v8 = [v23[5] objectForKeyedSubscript:*(*(&v17 + 1) + 8 * v7)];
           [v8 BOOLValue];
 
-          v16 = 0u;
-          v17 = 0u;
-          v14 = 0u;
           v15 = 0u;
-          v9 = v30[5];
-          v10 = [v9 countByEnumeratingWithState:&v14 objects:v40 count:16];
+          v16 = 0u;
+          v13 = 0u;
+          v14 = 0u;
+          v9 = v29[5];
+          v10 = [v9 countByEnumeratingWithState:&v13 objects:v39 count:16];
           if (v10)
           {
-            v11 = *v15;
+            v11 = *v14;
             do
             {
               v12 = 0;
               do
               {
-                if (*v15 != v11)
+                if (*v14 != v11)
                 {
                   objc_enumerationMutation(v9);
                 }
 
-                (*(*(*(&v14 + 1) + 8 * v12++) + 16))();
+                (*(*(*(&v13 + 1) + 8 * v12++) + 16))();
               }
 
               while (v10 != v12);
-              v10 = [v9 countByEnumeratingWithState:&v14 objects:v40 count:16];
+              v10 = [v9 countByEnumeratingWithState:&v13 objects:v39 count:16];
             }
 
             while (v10);
@@ -215,22 +215,20 @@
         }
 
         while (v7 != v5);
-        v5 = [v4 countByEnumeratingWithState:&v18 objects:v41 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v17 objects:v40 count:16];
       }
 
       while (v5);
     }
 
-    _Block_object_dispose(&v23, 8);
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v28, 8);
 
     _Block_object_dispose(&state, 8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)isDataAvailableForClassA
+- (BOOL)isDataAvailableForClassA
 {
   if (result)
   {

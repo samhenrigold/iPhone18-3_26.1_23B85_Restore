@@ -14,7 +14,7 @@
 {
   appearCopy = appear;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for StackDetailViewController();
+  v8.super_class = type metadata accessor for StackDetailViewController(0);
   v4 = v8.receiver;
   [(StackDetailViewController *)&v8 viewWillAppear:appearCopy];
   navigationController = [v4 navigationController];

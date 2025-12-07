@@ -15,6 +15,7 @@
 - (id)logIdentifier;
 - (void)_resetSessionMetric;
 - (void)_submitMetric;
+- (void)_updateSessionState:(BOOL)state linkLayerType:(int64_t)type sessionInfo:(id)info bookkeeping:(id)bookkeeping withError:(id)error;
 - (void)resetSessionMetric;
 - (void)submitMetric;
 - (void)timerDidFire:(id)fire;
@@ -51,7 +52,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   workQueue = [(HMDAccessorySessionMetric *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -72,9 +73,9 @@
         v12 = HMFGetLogIdentifier();
         shortDescription = [accessory shortDescription];
         *buf = 138543618;
-        v22 = v12;
-        v23 = 2114;
-        v24 = shortDescription;
+        v21 = v12;
+        v22 = 2114;
+        v23 = shortDescription;
         _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@HAP session TTR timer fired. Initiating radar for allowed accessory: %{public}@", buf, 0x16u);
       }
 
@@ -93,15 +94,13 @@
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v22 = v19;
+        v21 = v19;
         _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Accessory reference is nil when handling HAP session TTR timer", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateReachableState:(BOOL)state
@@ -118,7 +117,7 @@
 
 void __50__HMDAccessorySessionMetric_updateReachableState___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) accessory];
   if (v2)
   {
@@ -141,15 +140,15 @@ void __50__HMDAccessorySessionMetric_updateReachableState___block_invoke(uint64_
         {
           v11 = HMFGetLogIdentifier();
           v12 = [v2 shortDescription];
-          v33 = 138543618;
-          v34 = v11;
-          v35 = 2112;
-          v36 = v12;
+          v32 = 138543618;
+          v33 = v11;
+          v34 = 2112;
+          v35 = v12;
           v13 = "%{public}@Was already reachable for: %@";
           v14 = v10;
           v15 = OS_LOG_TYPE_DEBUG;
 LABEL_11:
-          _os_log_impl(&dword_229538000, v14, v15, v13, &v33, 0x16u);
+          _os_log_impl(&dword_229538000, v14, v15, v13, &v32, 0x16u);
 
           goto LABEL_12;
         }
@@ -178,10 +177,10 @@ LABEL_11:
       {
         v11 = HMFGetLogIdentifier();
         v12 = [v2 shortDescription];
-        v33 = 138543618;
-        v34 = v11;
-        v35 = 2114;
-        v36 = v12;
+        v32 = 138543618;
+        v33 = v11;
+        v34 = 2114;
+        v35 = v12;
         v13 = "%{public}@Reachable started for accessory: %{public}@";
         v14 = v10;
         v15 = OS_LOG_TYPE_INFO;
@@ -212,15 +211,15 @@ LABEL_12:
       {
         v27 = HMFGetLogIdentifier();
         v28 = [v2 shortDescription];
-        v33 = 138543618;
-        v34 = v27;
-        v35 = 2114;
-        v36 = v28;
+        v32 = 138543618;
+        v33 = v27;
+        v34 = 2114;
+        v35 = v28;
         v29 = "%{public}@Reachable stopped for accessory: %{public}@";
         v30 = v26;
         v31 = OS_LOG_TYPE_INFO;
 LABEL_18:
-        _os_log_impl(&dword_229538000, v30, v31, v29, &v33, 0x16u);
+        _os_log_impl(&dword_229538000, v30, v31, v29, &v32, 0x16u);
       }
     }
 
@@ -233,10 +232,10 @@ LABEL_18:
       {
         v27 = HMFGetLogIdentifier();
         v28 = [v2 shortDescription];
-        v33 = 138543618;
-        v34 = v27;
-        v35 = 2112;
-        v36 = v28;
+        v32 = 138543618;
+        v33 = v27;
+        v34 = 2112;
+        v35 = v28;
         v29 = "%{public}@Was not reachable for: %@";
         v30 = v26;
         v31 = OS_LOG_TYPE_DEBUG;
@@ -249,13 +248,11 @@ LABEL_18:
   }
 
 LABEL_20:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetSessionMetric
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessorySessionMetric *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -267,11 +264,11 @@ LABEL_20:
     v7 = HMFGetLogIdentifier();
     accessory = [(HMDAccessorySessionMetric *)selfCopy accessory];
     shortDescription = [accessory shortDescription];
-    v14 = 138543618;
-    v15 = v7;
-    v16 = 2114;
-    v17 = shortDescription;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Resetting session metric - accessory: %{public}@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v7;
+    v15 = 2114;
+    v16 = shortDescription;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Resetting session metric - accessory: %{public}@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -298,8 +295,6 @@ LABEL_20:
 
   sessionInfo = [(HMDAccessorySessionMetric *)selfCopy sessionInfo];
   [sessionInfo resetWithNumIPs:0 numIPsTried:0 numBonjourNames:0 ipAddress:0 serviceName:0 resolveAttempted:0];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetSessionMetric
@@ -315,7 +310,7 @@ LABEL_20:
 
 - (void)_submitMetric
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessorySessionMetric *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -356,15 +351,15 @@ LABEL_20:
     name = [accessory name];
     identifier = [accessory identifier];
     coreAnalyticsEventDictionary = [(HMDAccessorySessionMetricEvent *)v17 coreAnalyticsEventDictionary];
-    v37 = 138544130;
-    v38 = v21;
-    v39 = 2112;
-    v40 = name;
-    v41 = 2114;
-    v42 = identifier;
-    v43 = 2114;
-    v44 = coreAnalyticsEventDictionary;
-    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Submitting SessionMetric for accessory: %@/%{public}@ - %{public}@", &v37, 0x2Au);
+    v36 = 138544130;
+    v37 = v21;
+    v38 = 2112;
+    v39 = name;
+    v40 = 2114;
+    v41 = identifier;
+    v42 = 2114;
+    v43 = coreAnalyticsEventDictionary;
+    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Submitting SessionMetric for accessory: %@/%{public}@ - %{public}@", &v36, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v18);
@@ -396,19 +391,17 @@ LABEL_20:
     v31 = HMFGetLogIdentifier();
     name2 = [accessory name];
     identifier2 = [accessory identifier];
-    v37 = 138543874;
-    v38 = v31;
-    v39 = 2112;
-    v40 = name2;
-    v41 = 2114;
-    v42 = identifier2;
-    _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Skipped Submitting SessionMetric for %@/%{public}@", &v37, 0x20u);
+    v36 = 138543874;
+    v37 = v31;
+    v38 = 2112;
+    v39 = name2;
+    v40 = 2114;
+    v41 = identifier2;
+    _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Skipped Submitting SessionMetric for %@/%{public}@", &v36, 0x20u);
   }
 
   objc_autoreleasePoolPop(v28);
 LABEL_14:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitMetric
@@ -420,6 +413,388 @@ LABEL_14:
   block[3] = &unk_27868A728;
   block[4] = self;
   dispatch_async(workQueue, block);
+}
+
+- (void)_updateSessionState:(BOOL)state linkLayerType:(int64_t)type sessionInfo:(id)info bookkeeping:(id)bookkeeping withError:(id)error
+{
+  stateCopy = state;
+  v125 = *MEMORY[0x277D85DE8];
+  infoCopy = info;
+  bookkeepingCopy = bookkeeping;
+  errorCopy = error;
+  workQueue = [(HMDAccessorySessionMetric *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  accessory = [(HMDAccessorySessionMetric *)self accessory];
+  if (!accessory)
+  {
+    goto LABEL_65;
+  }
+
+  readWriteLogEventManager = [(HMDAccessorySessionMetric *)self readWriteLogEventManager];
+  uuid = [accessory uuid];
+  [readWriteLogEventManager updateSessionConnectivity:stateCopy withSessionInfo:infoCopy forAccessoryUUID:uuid];
+
+  v108 = accessory;
+  if (stateCopy)
+  {
+    sessionStartTime = [(HMDAccessorySessionMetric *)self sessionStartTime];
+
+    if (sessionStartTime)
+    {
+      v19 = HAPLinkLayerTypeDescription();
+      [(HMDAccessorySessionMetric *)self setAccessoryTransport:v19];
+
+      v20 = objc_autoreleasePoolPush();
+      selfCopy = self;
+      v22 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      {
+        v23 = HMFGetLogIdentifier();
+        accessoryTransport = [(HMDAccessorySessionMetric *)selfCopy accessoryTransport];
+        shortDescription = [accessory shortDescription];
+        *buf = 138543874;
+        v118 = v23;
+        v119 = 2112;
+        v120 = accessoryTransport;
+        v121 = 2112;
+        v122 = shortDescription;
+        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEBUG, "%{public}@Session was already started on %@ for: %@", buf, 0x20u);
+
+        accessory = v108;
+      }
+
+      objc_autoreleasePoolPop(v20);
+      goto LABEL_65;
+    }
+  }
+
+  [(HMDAccessorySessionMetric *)self setHasActiveSession:stateCopy];
+  sessionInfo = [(HMDAccessorySessionMetric *)self sessionInfo];
+  v27 = sessionInfo;
+  v105 = infoCopy;
+  if (infoCopy)
+  {
+    numIPAddresses = [infoCopy numIPAddresses];
+    numIPAddressesTried = [infoCopy numIPAddressesTried];
+    v29 = infoCopy;
+    numBonjourNames = [infoCopy numBonjourNames];
+    [v29 ipAddress];
+    v32 = v31 = bookkeepingCopy;
+    [v29 serviceName];
+    v34 = v33 = errorCopy;
+    resolveAttempted = [v29 resolveAttempted];
+    v36 = numIPAddressesTried;
+    accessory = v108;
+    [v27 resetWithNumIPs:numIPAddresses numIPsTried:v36 numBonjourNames:numBonjourNames ipAddress:v32 serviceName:v34 resolveAttempted:resolveAttempted];
+
+    errorCopy = v33;
+    bookkeepingCopy = v31;
+  }
+
+  else
+  {
+    [sessionInfo resetWithNumIPs:0 numIPsTried:0 numBonjourNames:0 ipAddress:0 serviceName:0 resolveAttempted:0];
+  }
+
+  v37 = objc_autoreleasePoolPush();
+  selfCopy2 = self;
+  v38 = HMFGetOSLogHandle();
+  v39 = os_log_type_enabled(v38, OS_LOG_TYPE_INFO);
+  if (stateCopy)
+  {
+    if (v39)
+    {
+      v40 = HMFGetLogIdentifier();
+      accessoryTransport2 = [(HMDAccessorySessionMetric *)selfCopy2 accessoryTransport];
+      shortDescription2 = [accessory shortDescription];
+      [bookkeepingCopy lastDiscoveryMethod];
+      v43 = HAPAccessoryServerDiscoveryMethodToString();
+      *buf = 138544130;
+      v118 = v40;
+      v119 = 2114;
+      v120 = accessoryTransport2;
+      v121 = 2114;
+      v122 = shortDescription2;
+      v123 = 2112;
+      v124 = v43;
+      _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_INFO, "%{public}@Session started on %{public}@ for accessory: %{public}@ discovered by %@", buf, 0x2Au);
+
+      accessory = v108;
+    }
+
+    objc_autoreleasePoolPop(v37);
+    date = [MEMORY[0x277CBEAA8] date];
+    [(HMDAccessorySessionMetric *)selfCopy2 setSessionStartTime:date];
+
+    [(HMDAccessorySessionMetric *)selfCopy2 setSuccessfulSessionRetries:[(HMDAccessorySessionMetric *)selfCopy2 successfulSessionRetries]+ 1];
+    v45 = HAPLinkLayerTypeDescription();
+    [(HMDAccessorySessionMetric *)selfCopy2 setAccessoryTransport:v45];
+
+    [(HMDAccessorySessionMetric *)selfCopy2 setIsFromPrimary:[(HMDAccessorySessionMetric *)selfCopy2 isCurrentPrimaryResident]];
+    infoCopy = v105;
+    if (bookkeepingCopy)
+    {
+      selfCopy2->_isBonjourUpdateForced = [bookkeepingCopy lastDiscoveryMethod] == 2;
+    }
+
+    goto LABEL_65;
+  }
+
+  infoCopy = v105;
+  if (v39)
+  {
+    v46 = HMFGetLogIdentifier();
+    accessoryTransport3 = [(HMDAccessorySessionMetric *)selfCopy2 accessoryTransport];
+    shortDescription3 = [accessory shortDescription];
+    *buf = 138544130;
+    v118 = v46;
+    v119 = 2114;
+    v120 = accessoryTransport3;
+    v121 = 2114;
+    v122 = errorCopy;
+    v123 = 2112;
+    v124 = shortDescription3;
+    _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_INFO, "%{public}@Session ended on %{public}@ with error: %{public}@ for accessory: %@", buf, 0x2Au);
+  }
+
+  objc_autoreleasePoolPop(v37);
+  sessionStartTime2 = [(HMDAccessorySessionMetric *)selfCopy2 sessionStartTime];
+
+  if (sessionStartTime2)
+  {
+    sessionStartTime3 = [(HMDAccessorySessionMetric *)selfCopy2 sessionStartTime];
+    [sessionStartTime3 timeIntervalSinceNow];
+    v52 = fabs(v51);
+    [(HMDAccessorySessionMetric *)selfCopy2 activeSessionDurationSec];
+    [(HMDAccessorySessionMetric *)selfCopy2 setActiveSessionDurationSec:v53 + v52];
+  }
+
+  if (!errorCopy)
+  {
+    goto LABEL_55;
+  }
+
+  radarInitiator = [(HMDAccessorySessionMetric *)selfCopy2 radarInitiator];
+
+  if (!radarInitiator)
+  {
+    goto LABEL_55;
+  }
+
+  v103 = errorCopy;
+  v104 = bookkeepingCopy;
+  v55 = objc_autoreleasePoolPush();
+  v56 = selfCopy2;
+  v57 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+  {
+    v58 = HMFGetLogIdentifier();
+    manufacturer = [accessory manufacturer];
+    model = [accessory model];
+    firmwareVersion = [accessory firmwareVersion];
+    *buf = 138544130;
+    v118 = v58;
+    v119 = 2114;
+    v120 = manufacturer;
+    v121 = 2114;
+    v122 = model;
+    v123 = 2114;
+    v124 = firmwareVersion;
+
+    accessory = v108;
+  }
+
+  objc_autoreleasePoolPop(v55);
+  v114 = 0u;
+  v115 = 0u;
+  v112 = 0u;
+  v113 = 0u;
+  v102 = v56;
+  hapSessionTTRAllowList = [(HMDAccessorySessionMetric *)v56 hapSessionTTRAllowList];
+  v111 = [hapSessionTTRAllowList countByEnumeratingWithState:&v112 objects:v116 count:16];
+  if (!v111)
+  {
+    goto LABEL_54;
+  }
+
+  v110 = *v113;
+  v107 = hapSessionTTRAllowList;
+  while (2)
+  {
+    for (i = 0; i != v111; ++i)
+    {
+      if (*v113 != v110)
+      {
+        objc_enumerationMutation(hapSessionTTRAllowList);
+      }
+
+      v64 = *(*(&v112 + 1) + 8 * i);
+      v65 = [v64 objectForKeyedSubscript:@"Manufacturer"];
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v66 = v65;
+      }
+
+      else
+      {
+        v66 = 0;
+      }
+
+      v67 = v66;
+
+      v68 = [v64 objectForKeyedSubscript:@"Model"];
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v69 = v68;
+      }
+
+      else
+      {
+        v69 = 0;
+      }
+
+      v70 = v69;
+
+      v71 = [v64 objectForKeyedSubscript:@"FirmwareVersion"];
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v72 = v71;
+      }
+
+      else
+      {
+        v72 = 0;
+      }
+
+      v73 = v72;
+
+      manufacturer2 = [accessory manufacturer];
+      if (![manufacturer2 isEqualToString:v67])
+      {
+        goto LABEL_42;
+      }
+
+      model2 = [accessory model];
+      if (([model2 isEqualToString:v70] & 1) == 0)
+      {
+
+LABEL_42:
+        goto LABEL_43;
+      }
+
+      firmwareVersion2 = [accessory firmwareVersion];
+      versionString = [firmwareVersion2 versionString];
+      v78 = [versionString isEqualToString:v73];
+
+      accessory = v108;
+      hapSessionTTRAllowList = v107;
+
+      if (v78)
+      {
+        hapSessionTTRTimer = [(HMDAccessorySessionMetric *)v102 hapSessionTTRTimer];
+        isRunning = [hapSessionTTRTimer isRunning];
+
+        v81 = objc_autoreleasePoolPush();
+        v82 = v102;
+        v83 = HMFGetOSLogHandle();
+        v84 = os_log_type_enabled(v83, OS_LOG_TYPE_INFO);
+        if (isRunning)
+        {
+          if (v84)
+          {
+            v85 = HMFGetLogIdentifier();
+            *buf = 138543362;
+            v118 = v85;
+            _os_log_impl(&dword_229538000, v83, OS_LOG_TYPE_INFO, "%{public}@Not starting timer to initiate radar for accessory because one is already running", buf, 0xCu);
+          }
+
+          objc_autoreleasePoolPop(v81);
+        }
+
+        else
+        {
+          if (v84)
+          {
+            v86 = HMFGetLogIdentifier();
+            *buf = 138543362;
+            v118 = v86;
+            _os_log_impl(&dword_229538000, v83, OS_LOG_TYPE_INFO, "%{public}@Starting timer to initiate radar for accessory", buf, 0xCu);
+          }
+
+          objc_autoreleasePoolPop(v81);
+          hapSessionTTRTimer2 = [(HMDAccessorySessionMetric *)v82 hapSessionTTRTimer];
+          [hapSessionTTRTimer2 resume];
+        }
+
+        hapSessionTTRAllowList = v107;
+        goto LABEL_54;
+      }
+
+LABEL_43:
+    }
+
+    v111 = [hapSessionTTRAllowList countByEnumeratingWithState:&v112 objects:v116 count:16];
+    if (v111)
+    {
+      continue;
+    }
+
+    break;
+  }
+
+LABEL_54:
+
+  bookkeepingCopy = v104;
+  infoCopy = v105;
+  errorCopy = v103;
+LABEL_55:
+  if (infoCopy)
+  {
+    home = [accessory home];
+    homeManager = [home homeManager];
+    metricsManager = [homeManager metricsManager];
+    threadNetworkObserver = [metricsManager threadNetworkObserver];
+
+    if (threadNetworkObserver)
+    {
+      [threadNetworkObserver requestThreadNetworkStateCaptureForAccessory:accessory failingScenario:2];
+    }
+  }
+
+  underlyingErrors = [errorCopy underlyingErrors];
+  firstObject = [underlyingErrors firstObject];
+  v94 = firstObject;
+  if (firstObject)
+  {
+    v95 = firstObject;
+  }
+
+  else
+  {
+    v95 = errorCopy;
+  }
+
+  v96 = v95;
+
+  if (v96)
+  {
+    [(HMDAccessorySessionMetric *)selfCopy2 setSessionFailures:[(HMDAccessorySessionMetric *)selfCopy2 sessionFailures]+ 1];
+    errorCounts = [(HMDAccessorySessionMetric *)selfCopy2 errorCounts];
+    v98 = [errorCounts objectForKeyedSubscript:v96];
+    integerValue = [v98 integerValue];
+
+    v100 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:integerValue + 1];
+    errorCounts2 = [(HMDAccessorySessionMetric *)selfCopy2 errorCounts];
+    [errorCounts2 setObject:v100 forKeyedSubscript:v96];
+  }
+
+  [(HMDAccessorySessionMetric *)selfCopy2 setSessionStartTime:0];
+
+LABEL_65:
 }
 
 - (void)updateSessionState:(BOOL)state linkLayerType:(int64_t)type sessionInfo:(id)info bookkeeping:(id)bookkeeping withError:(id)error
@@ -447,7 +822,7 @@ LABEL_14:
 - (NSError)topError
 {
   errorCounts = [(HMDAccessorySessionMetric *)self errorCounts];
-  v3 = [errorCounts copy];
+  v3 = objc_msgSend_copy(errorCounts);
 
   v4 = [v3 keysSortedByValueUsingComparator:&__block_literal_global_230427];
   firstObject = [v4 firstObject];
@@ -531,89 +906,87 @@ uint64_t __37__HMDAccessorySessionMetric_topError__block_invoke(uint64_t a1, voi
 
 - (id)attributeDescriptions
 {
-  v64[15] = *MEMORY[0x277D85DE8];
+  v63[15] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   v4 = MEMORY[0x277CCABB0];
   [(HMDAccessorySessionMetric *)self submissionIntervalSec];
-  v63 = [v4 numberWithDouble:?];
-  v62 = [v3 initWithName:@"submissionInterval" value:v63];
-  v64[0] = v62;
+  v62 = [v4 numberWithDouble:?];
+  v61 = [v3 initWithName:@"submissionInterval" value:v62];
+  v63[0] = v61;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   v6 = MEMORY[0x277CCABB0];
   [(HMDAccessorySessionMetric *)self activeSessionDurationSec];
-  v61 = [v6 numberWithDouble:?];
-  v60 = [v5 initWithName:@"activeSessionDurationSec" value:v61];
-  v64[1] = v60;
+  v60 = [v6 numberWithDouble:?];
+  v59 = [v5 initWithName:@"activeSessionDurationSec" value:v60];
+  v63[1] = v59;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   v8 = MEMORY[0x277CCABB0];
   [(HMDAccessorySessionMetric *)self reachableDurationSec];
-  v59 = [v8 numberWithDouble:?];
-  v58 = [v7 initWithName:@"reachableDurationSec" value:v59];
-  v64[2] = v58;
+  v58 = [v8 numberWithDouble:?];
+  v57 = [v7 initWithName:@"reachableDurationSec" value:v58];
+  v63[2] = v57;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   v10 = MEMORY[0x277CCABB0];
   [(HMDAccessorySessionMetric *)self sessionCheckIntervalSec];
-  v57 = [v10 numberWithDouble:?];
-  v56 = [v9 initWithName:@"sessionCheckIntervalSec" value:v57];
-  v64[3] = v56;
+  v56 = [v10 numberWithDouble:?];
+  v55 = [v9 initWithName:@"sessionCheckIntervalSec" value:v56];
+  v63[3] = v55;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
-  v55 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDAccessorySessionMetric sessionFailures](self, "sessionFailures")}];
-  v54 = [v11 initWithName:@"sessionFailures" value:v55];
-  v64[4] = v54;
+  v54 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDAccessorySessionMetric sessionFailures](self, "sessionFailures")}];
+  v53 = [v11 initWithName:@"sessionFailures" value:v54];
+  v63[4] = v53;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
-  v53 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDAccessorySessionMetric successfulSessionRetries](self, "successfulSessionRetries")}];
-  v52 = [v12 initWithName:@"successfulSessionRetries" value:v53];
-  v64[5] = v52;
+  v52 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDAccessorySessionMetric successfulSessionRetries](self, "successfulSessionRetries")}];
+  v51 = [v12 initWithName:@"successfulSessionRetries" value:v52];
+  v63[5] = v51;
   v13 = objc_alloc(MEMORY[0x277D0F778]);
   topError = [(HMDAccessorySessionMetric *)self topError];
   domain = [topError domain];
-  v49 = [v13 initWithName:@"topErrorDomain" value:domain];
-  v64[6] = v49;
+  v48 = [v13 initWithName:@"topErrorDomain" value:domain];
+  v63[6] = v48;
   v14 = objc_alloc(MEMORY[0x277D0F778]);
   v15 = MEMORY[0x277CCABB0];
   topError2 = [(HMDAccessorySessionMetric *)self topError];
-  v47 = [v15 numberWithInteger:{objc_msgSend(topError2, "code")}];
-  v46 = [v14 initWithName:@"topErrorCode" value:v47];
-  v64[7] = v46;
+  v46 = [v15 numberWithInteger:{objc_msgSend(topError2, "code")}];
+  v45 = [v14 initWithName:@"topErrorCode" value:v46];
+  v63[7] = v45;
   v16 = objc_alloc(MEMORY[0x277D0F778]);
-  v45 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDAccessorySessionMetric isFromPrimary](self, "isFromPrimary")}];
-  v44 = [v16 initWithName:@"isFromPrimary" value:v45];
-  v64[8] = v44;
+  v44 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDAccessorySessionMetric isFromPrimary](self, "isFromPrimary")}];
+  v43 = [v16 initWithName:@"isFromPrimary" value:v44];
+  v63[8] = v43;
   v17 = objc_alloc(MEMORY[0x277D0F778]);
-  v43 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDAccessorySessionMetric isHomeThreadCapable](self, "isHomeThreadCapable")}];
-  v42 = [v17 initWithName:@"isHomeThreadCapable" value:v43];
-  v64[9] = v42;
+  v42 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDAccessorySessionMetric isHomeThreadCapable](self, "isHomeThreadCapable")}];
+  v41 = [v17 initWithName:@"isHomeThreadCapable" value:v42];
+  v63[9] = v41;
   v18 = objc_alloc(MEMORY[0x277D0F778]);
-  v41 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDAccessorySessionMetric isPrimaryResidentThreadCapable](self, "isPrimaryResidentThreadCapable")}];
-  v40 = [v18 initWithName:@"isPrimaryResidentThreadCapable" value:v41];
-  v64[10] = v40;
+  v40 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDAccessorySessionMetric isPrimaryResidentThreadCapable](self, "isPrimaryResidentThreadCapable")}];
+  v39 = [v18 initWithName:@"isPrimaryResidentThreadCapable" value:v40];
+  v63[10] = v39;
   v19 = objc_alloc(MEMORY[0x277D0F778]);
-  v39 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDAccessorySessionMetric isThreadNetworkUp](self, "isThreadNetworkUp")}];
-  v20 = [v19 initWithName:@"isThreadNetworkUp" value:v39];
-  v64[11] = v20;
+  v38 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDAccessorySessionMetric isThreadNetworkUp](self, "isThreadNetworkUp")}];
+  v20 = [v19 initWithName:@"isThreadNetworkUp" value:v38];
+  v63[11] = v20;
   v21 = objc_alloc(MEMORY[0x277D0F778]);
   v22 = MEMORY[0x277CCABB0];
   sessionInfo = [(HMDAccessorySessionMetric *)self sessionInfo];
   v24 = [v22 numberWithUnsignedInteger:{objc_msgSend(sessionInfo, "numIPAddresses")}];
   v25 = [v21 initWithName:@"numIPAddressesResolved" value:v24];
-  v64[12] = v25;
+  v63[12] = v25;
   v26 = objc_alloc(MEMORY[0x277D0F778]);
   v27 = MEMORY[0x277CCABB0];
   sessionInfo2 = [(HMDAccessorySessionMetric *)self sessionInfo];
   v29 = [v27 numberWithUnsignedInteger:{objc_msgSend(sessionInfo2, "numIPAddressesTried")}];
   v30 = [v26 initWithName:@"numIPAddressesTried" value:v29];
-  v64[13] = v30;
+  v63[13] = v30;
   v31 = objc_alloc(MEMORY[0x277D0F778]);
   v32 = MEMORY[0x277CCABB0];
   sessionInfo3 = [(HMDAccessorySessionMetric *)self sessionInfo];
   v34 = [v32 numberWithUnsignedInteger:{objc_msgSend(sessionInfo3, "numBonjourNames")}];
   v35 = [v31 initWithName:@"numBonjourNamesSeen" value:v34];
-  v64[14] = v35;
-  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:15];
+  v63[14] = v35;
+  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:15];
 
-  v36 = *MEMORY[0x277D85DE8];
-
-  return v38;
+  return v37;
 }
 
 - (NSDictionary)state
@@ -751,7 +1124,7 @@ uint64_t __37__HMDAccessorySessionMetric_topError__block_invoke(uint64_t a1, voi
 
     if (initiatorCopy)
     {
-      v33 = [listCopy copy];
+      v33 = objc_msgSend_copy(listCopy);
       hapSessionTTRAllowList = v21->_hapSessionTTRAllowList;
       v21->_hapSessionTTRAllowList = v33;
 
@@ -821,10 +1194,9 @@ uint64_t __37__HMDAccessorySessionMetric_topError__block_invoke(uint64_t a1, voi
 
 void __40__HMDAccessorySessionMetric_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v21_230514;
-  logCategory__hmf_once_v21_230514 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v21_230514;
+  logCategory__hmf_once_v21_230514 = v0;
 }
 
 @end

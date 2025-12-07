@@ -35,11 +35,10 @@
 - (id)description
 {
   v3 = [NSString alloc];
-  playbackState = self->_playbackState;
-  v5 = MRMediaRemoteCopyPlaybackStateDescription();
-  v6 = [v3 initWithFormat:@"%@-%@", v5, self->_date];
+  v4 = MRMediaRemoteCopyPlaybackStateDescription();
+  v5 = [v3 initWithFormat:@"%@-%@", v4, self->_date];
 
-  return v6;
+  return v5;
 }
 
 @end

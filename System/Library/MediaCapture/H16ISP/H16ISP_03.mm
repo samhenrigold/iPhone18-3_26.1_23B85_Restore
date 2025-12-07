@@ -76,142 +76,142 @@ uint64_t std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std
   return a1;
 }
 
-uint64_t CopyGDCCoefficients(uint64_t a1, uint64_t a2)
+uint64_t CopyGDCCoefficients(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v4 = v3;
-  v6 = v5;
-  v8 = v7;
-  v9 = v2;
-  v69 = *MEMORY[0x277D85DE8];
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
+  v8 = v1;
+  v68 = *MEMORY[0x277D85DE8];
   valuePtr = 0.0;
-  v10 = *MEMORY[0x277CBECE8];
+  v9 = *MEMORY[0x277CBECE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (Mutable)
   {
-    if (H16ISP::H16ISPDevice::isSensorType(*(v4 + 24), *(v6 + 156), 1718186595))
+    if (H16ISP::H16ISPDevice::isSensorType(*(v3 + 24), *(v5 + 156), 1718186595))
     {
-      if (!getPCECalib(*(v4 + 24), v48))
+      if (!getPCECalib(*(v3 + 24)))
       {
-        v14 = 4294954516;
+        v13 = 4294954516;
         goto LABEL_19;
       }
 
-      v12 = &v44;
-      v13 = -64;
+      v11 = &v43;
+      v12 = -64;
       do
       {
-        *v12 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v48[v13 + 13120]), *&v48[v13 + 13136]);
-        v12[-2] = vcvt_hight_f32_f64(vcvt_f32_f64(*&v48[v13 + 13184]), *&v48[v13 + 13200]);
-        ++v12;
-        v13 += 32;
+        *v11 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v47[v12 + 13120]), *&v47[v12 + 13136]);
+        v11[-2] = vcvt_hight_f32_f64(vcvt_f32_f64(*&v47[v12 + 13184]), *&v47[v12 + 13200]);
+        ++v11;
+        v12 += 32;
       }
 
-      while (v13);
-      bzero(v32, 0x40uLL);
+      while (v12);
+      bzero(v31, 0x40uLL);
       goto LABEL_13;
     }
 
-    if (H16ISP::H16ISPDevice::GetDistortionData(*(v4 + 24), *(v6 + 156), 0, &v49))
+    if (H16ISP::H16ISPDevice::GetDistortionData(*(v3 + 24), *(v5 + 156), 0, &v48))
     {
 LABEL_9:
-      v14 = 4294954514;
+      v13 = 4294954514;
       goto LABEL_19;
     }
 
-    v15 = &v52;
-    if ((v50 - 49921) < 4 || v50 == 49925)
+    v14 = &v51;
+    if ((v49 - 49921) < 4 || v49 == 49925)
     {
       *bytes = 0;
-      v41 = vcvt_hight_f32_f64(vcvt_f32_f64(v61), v62);
-      v42 = vcvt_f32_f64(v63);
-      v16 = v64;
-      v43 = v16;
-      v44 = 0;
-      v45 = vcvt_hight_f32_f64(vcvt_f32_f64(v53), v54);
-      v46 = vcvt_f32_f64(v55);
-      v17 = v56;
-      v47 = v17;
-      *v32 = 0;
-      v33 = vcvt_hight_f32_f64(vcvt_f32_f64(v65), v66);
-      v34 = vcvt_f32_f64(v67);
-      v18 = v68;
-      v35 = v18;
-      v36 = 0;
-      v37 = vcvt_hight_f32_f64(vcvt_f32_f64(v57), v58);
-      v38 = vcvt_f32_f64(v59);
-      v19 = v60;
-      v39 = v19;
+      v40 = vcvt_hight_f32_f64(vcvt_f32_f64(v60), v61);
+      v41 = vcvt_f32_f64(v62);
+      v15 = v63;
+      v42 = v15;
+      v43 = 0;
+      v44 = vcvt_hight_f32_f64(vcvt_f32_f64(v52), v53);
+      v45 = vcvt_f32_f64(v54);
+      v16 = v55;
+      v46 = v16;
+      *v31 = 0;
+      v32 = vcvt_hight_f32_f64(vcvt_f32_f64(v64), v65);
+      v33 = vcvt_f32_f64(v66);
+      v17 = v67;
+      v34 = v17;
+      v35 = 0;
+      v36 = vcvt_hight_f32_f64(vcvt_f32_f64(v56), v57);
+      v37 = vcvt_f32_f64(v58);
+      v18 = v59;
+      v38 = v18;
     }
 
     else
     {
-      if (v50 != 49926)
+      if (v49 != 49926)
       {
         goto LABEL_9;
       }
 
-      v27 = &v44;
-      v28 = &v36;
-      v29 = 8;
+      v26 = &v43;
+      v27 = &v35;
+      v28 = 8;
       do
       {
-        v27[-2] = vcvt_hight_f32_f64(vcvt_f32_f64(v15[-4]), v15[-3]);
-        *v27++ = vcvt_hight_f32_f64(vcvt_f32_f64(v15[-12]), v15[-11]);
-        v28[-2] = vcvt_hight_f32_f64(vcvt_f32_f64(*v15), v15[1]);
-        *v28++ = vcvt_hight_f32_f64(vcvt_f32_f64(v15[-8]), v15[-7]);
-        v15 += 2;
-        v29 -= 4;
+        v26[-2] = vcvt_hight_f32_f64(vcvt_f32_f64(v14[-4]), v14[-3]);
+        *v26++ = vcvt_hight_f32_f64(vcvt_f32_f64(v14[-12]), v14[-11]);
+        v27[-2] = vcvt_hight_f32_f64(vcvt_f32_f64(*v14), v14[1]);
+        *v27++ = vcvt_hight_f32_f64(vcvt_f32_f64(v14[-8]), v14[-7]);
+        v14 += 2;
+        v28 -= 4;
       }
 
-      while (v29);
-      v30 = v51;
-      valuePtr = v30;
+      while (v28);
+      v29 = v50;
+      valuePtr = v29;
     }
 
 LABEL_13:
-    v20 = CFDataCreate(v10, bytes, 64);
-    if (v20)
+    v19 = CFDataCreate(v9, bytes, 64);
+    if (v19)
     {
-      v21 = v20;
-      CFDictionaryAddValue(Mutable, *MEMORY[0x277CF4538], v20);
-      CFRelease(v21);
-      v22 = CFDataCreate(v10, v32, 64);
-      if (v22)
+      v20 = v19;
+      CFDictionaryAddValue(Mutable, *MEMORY[0x277CF4538], v19);
+      CFRelease(v20);
+      v21 = CFDataCreate(v9, v31, 64);
+      if (v21)
       {
-        v23 = v22;
-        CFDictionaryAddValue(Mutable, *MEMORY[0x277CF4540], v22);
-        CFRelease(v23);
+        v22 = v21;
+        CFDictionaryAddValue(Mutable, *MEMORY[0x277CF4540], v21);
+        CFRelease(v22);
         if (valuePtr == 0.0)
         {
-          v14 = 0;
+          v13 = 0;
           goto LABEL_21;
         }
 
-        v24 = CFNumberCreate(v9, kCFNumberFloatType, &valuePtr);
-        if (v24)
+        v23 = CFNumberCreate(v8, kCFNumberFloatType, &valuePtr);
+        if (v23)
         {
-          v25 = v24;
-          CFDictionaryAddValue(Mutable, *MEMORY[0x277CF4548], v24);
-          v14 = 0;
+          v24 = v23;
+          CFDictionaryAddValue(Mutable, *MEMORY[0x277CF4548], v23);
+          v13 = 0;
 LABEL_20:
-          CFRelease(v25);
+          CFRelease(v24);
           goto LABEL_21;
         }
       }
     }
 
-    v14 = 4294954510;
+    v13 = 4294954510;
 LABEL_19:
-    v25 = Mutable;
+    v24 = Mutable;
     Mutable = 0;
     goto LABEL_20;
   }
 
-  v14 = 4294954510;
+  v13 = 4294954510;
 LABEL_21:
-  *v8 = Mutable;
-  return v14;
+  *v7 = Mutable;
+  return v13;
 }
 
 float H16ISP::H16ISPDevice::ISP_GetOpticalPixelSize(H16ISP::H16ISPDevice *this, unsigned int a2)
@@ -225,7 +225,7 @@ float H16ISP::H16ISPDevice::ISP_GetOpticalPixelSize(H16ISP::H16ISPDevice *this, 
   return result;
 }
 
-unint64_t H16ISP::H16ISPTimeOfFlightColorSynchronizer::setWideConfiguration(pthread_mutex_t **this, const __CFDictionary *a2, const simd_float4x3 *a3, float a4)
+unint64_t H16ISP::H16ISPTimeOfFlightColorSynchronizer::setWideConfiguration(H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal **this, const __CFDictionary *a2, const simd_float4x3 *a3, float a4)
 {
   H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::enableColor(this[3], a2, a3, a4);
   result = H16ISP::H16ISPDevice::getSensorChannel(*this, 1919246706, 1852793709);
@@ -1068,11 +1068,11 @@ LABEL_212:
   return 0;
 }
 
-void H16ISP::H16ISPMetadataDictCreatorGraphNode::H16ISPMetadataDictCreatorGraphNode(H16ISP::H16ISPMetadataDictCreatorGraphNode *this, H16ISP::H16ISPDevice *a2)
+void H16ISP::H16ISPMetadataDictCreatorGraphNode::H16ISPMetadataDictCreatorGraphNode(H16ISP::H16ISPMetadataDictCreatorGraphNode *this, H16ISP::H16ISPDevice *a2, unsigned int a3)
 {
   H16ISP::H16ISPFilterGraphNode::H16ISPFilterGraphNode(this, 4);
-  *v3 = &unk_2838138E0;
-  v3[10] = a2;
+  *v4 = &unk_2838138E0;
+  v4[10] = a2;
   operator new[]();
 }
 
@@ -1093,9 +1093,8 @@ H16ISP::H16ISPGraphExitNode *H16ISP::H16ISPGraphExitNode::H16ISPGraphExitNode(H1
   return this;
 }
 
-void *std::deque<H16ISP::H16ISPFilterGraphNode *>::push_back(void *result, void *a2)
+void std::deque<H16ISP::H16ISPFilterGraphNode *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -1112,15 +1111,14 @@ void *std::deque<H16ISP::H16ISPFilterGraphNode *>::push_back(void *result, void 
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<H16ISP::H16ISPFilterGraphNode *>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<H16ISP::H16ISPFilterGraphNode *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
 uint64_t H16ISP::H16ISPFilterGraphManager::AddEntryNode(H16ISP::H16ISPFilterGraphManager *this, H16ISP::H16ISPFilterGraphNode *a2)
@@ -1131,19 +1129,19 @@ uint64_t H16ISP::H16ISPFilterGraphManager::AddEntryNode(H16ISP::H16ISPFilterGrap
   return 0;
 }
 
-void *std::deque<H16ISP::H16ISPFilterGraphNode *>::__add_back_capacity(void *a1)
+void std::deque<H16ISP::H16ISPFilterGraphNode *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -1151,25 +1149,25 @@ void *std::deque<H16ISP::H16ISPFilterGraphNode *>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](a1, v9);
+    v10 = a1;
+    std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **&>(a1, &v9);
 }
 
 void sub_224822430(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -1218,27 +1216,26 @@ double H16ISP::H16ISPFilterGraphManager::H16ISPFilterGraphManager(H16ISP::H16ISP
   return result;
 }
 
-void *std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **>(void *result, void *a2)
+void std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](result[4], v11);
+      std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -1247,18 +1244,17 @@ void *std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **>(void *resu
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 uint64_t H16ISP::H16ISPFilterGraphManager::AddNode(H16ISP::H16ISPFilterGraphManager *this, H16ISP::H16ISPFilterGraphNode *a2)
@@ -1878,45 +1874,45 @@ uint64_t H16ISP::H16ISPFrameReceiver::addIODispatcherToRunLoop(H16ISP::H16ISPFra
   return v3;
 }
 
-uint64_t H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(uint64_t a1, uint64_t a2, int a3)
+uint64_t H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8, double a9, __int128 *a10, unsigned __int8 a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, uint64_t a16, int a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   pthread_mutex_lock((a1 + 96));
-  v5 = *(a1 + 728);
-  v6 = *(a1 + 752);
-  v7 = (v5 + 8 * (v6 >> 9));
-  v8 = *(a1 + 736);
-  if (v8 == v5)
+  v22 = *(a1 + 728);
+  v23 = *(a1 + 752);
+  v24 = (v22 + 8 * (v23 >> 9));
+  v25 = *(a1 + 736);
+  if (v25 == v22)
   {
-    v9 = 0;
+    v26 = 0;
   }
 
   else
   {
-    v9 = *v7 + 8 * (*(a1 + 752) & 0x1FFLL);
+    v26 = *v24 + 8 * (*(a1 + 752) & 0x1FFLL);
   }
 
 LABEL_4:
-  v10 = v9 - 4096;
+  v27 = v26 - 4096;
   while (1)
   {
-    v11 = v8 == v5 ? 0 : *(v5 + (((*(a1 + 760) + v6) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(a1 + 760) + v6) & 0x1FF);
-    if (v9 == v11)
+    v28 = v25 == v22 ? 0 : *(v22 + (((*(a1 + 760) + v23) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(a1 + 760) + v23) & 0x1FF);
+    if (v26 == v28)
     {
       operator new();
     }
 
-    if (*(*v9 + 20) == a3)
+    if (*(*v26 + 20) == a3)
     {
       break;
     }
 
-    v9 += 8;
-    v10 += 8;
-    if (*v7 == v10)
+    v26 += 8;
+    v27 += 8;
+    if (*v24 == v27)
     {
-      v12 = v7[1];
-      ++v7;
-      v9 = v12;
+      v29 = v24[1];
+      ++v24;
+      v26 = v29;
       goto LABEL_4;
     }
   }
@@ -1925,19 +1921,19 @@ LABEL_4:
   return 3758097122;
 }
 
-void *std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::__add_back_capacity(void *a1)
+void std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -1945,25 +1941,25 @@ void *std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::__add_back_capacity(v
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](a1, v9);
+    v10 = a1;
+    std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **&>(a1, &v9);
 }
 
 void sub_224823CCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -1977,11 +1973,10 @@ void sub_224823CCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::push_back(void *result, void *a2)
+void std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::push_back(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  v5 = result[1];
+  v4 = a1[2];
+  v5 = a1[1];
   if (v4 == v5)
   {
     v6 = 0;
@@ -1992,19 +1987,18 @@ void *std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::push_back(void *resul
     v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v7 = result[5];
-  v8 = v7 + result[4];
+  v7 = a1[5];
+  v8 = v7 + a1[4];
   if (v6 == v8)
   {
-    result = std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::__add_back_capacity(a1);
+    v5 = a1[1];
+    v7 = a1[5];
+    v8 = a1[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  a1[5] = v7 + 1;
 }
 
 uint64_t H16ISP::H16ISPFrameReceiverBufferPool::activatePool(H16ISP::H16ISPFrameReceiverBufferPool *this, char a2)
@@ -2301,55 +2295,55 @@ uint64_t H16ISP::H16ISPDevice::EnableFirmwareFocusHint(H16ISP::H16ISPDevice *thi
   return H16ISP::H16ISPDevice::ISP_SendCommand(this, v7, 0x10u, 0, 0xFFFFFFFF);
 }
 
-uint64_t H16ISP::H16ISPFrameReceiver::addSharedBufferPoolToFrameReceiver(H16ISP::H16ISPFrameReceiver *this, H16ISP::H16ISPFrameReceiverSharedBufferPool *a2)
+uint64_t H16ISP::H16ISPFrameReceiver::addSharedBufferPoolToFrameReceiver(H16ISP::H16ISPFrameReceiver *this, H16ISP::H16ISPFrameReceiverSharedBufferPool *a2, int a3)
 {
   pthread_mutex_lock((this + 96));
-  v4 = *(this + 97);
-  v5 = (v4 + 8 * (*(this + 100) >> 9));
-  v6 = *(this + 98);
-  if (v6 == v4)
+  v5 = *(this + 97);
+  v6 = (v5 + 8 * (*(this + 100) >> 9));
+  v7 = *(this + 98);
+  if (v7 == v5)
   {
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v7 = (*v5 + 8 * (*(this + 100) & 0x1FFLL));
+    v8 = (*v6 + 8 * (*(this + 100) & 0x1FFLL));
   }
 
   while (1)
   {
-    if (v6 == v4)
+    if (v7 == v5)
     {
-      v9 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v8 = *(this + 101) + *(this + 100);
-      v9 = *(v4 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF);
+      v9 = *(this + 101) + *(this + 100);
+      v10 = *(v5 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF);
     }
 
-    if (v7 == v9)
+    if (v8 == v10)
     {
       operator new();
     }
 
-    v10 = *(H16ISP::H16ISPFrameReceiverSharedBufferPool::GetPool(**v7) + 20);
-    if (v10 == *(H16ISP::H16ISPFrameReceiverSharedBufferPool::GetPool(a2) + 20))
+    v11 = *(H16ISP::H16ISPFrameReceiverSharedBufferPool::GetPool(**v8) + 20);
+    if (v11 == *(H16ISP::H16ISPFrameReceiverSharedBufferPool::GetPool(a2) + 20))
     {
       break;
     }
 
-    if ((++v7 - *v5) == 4096)
+    if ((++v8 - *v6) == 4096)
     {
-      v11 = v5[1];
-      ++v5;
-      v7 = v11;
+      v12 = v6[1];
+      ++v6;
+      v8 = v12;
     }
 
-    v4 = *(this + 97);
-    v6 = *(this + 98);
+    v5 = *(this + 97);
+    v7 = *(this + 98);
   }
 
   pthread_mutex_unlock((this + 96));
@@ -2383,8 +2377,9 @@ uint64_t H16ISP::H16ISPFrameReceiverSharedBufferPool::RegisterCompletionCallback
   return this;
 }
 
-void MyH16ISPFrameReceiverMessageProc(int a1, int a2, int a3, void *a4, void *a5, void *a6)
+void MyH16ISPFrameReceiverMessageProc(int a1, uint64_t a2, unsigned int a3, void *a4, void *a5, void *a6)
 {
+  v10 = a2;
   v40 = *MEMORY[0x277D85DE8];
   v12 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
   if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
@@ -2469,7 +2464,7 @@ LABEL_38:
     }
 
     v29 = MEMORY[0x277CF67E8];
-    if (a3 | a2)
+    if (a3 | v10)
     {
       if ((a1 - 3) >= 2)
       {
@@ -2521,15 +2516,15 @@ LABEL_26:
     goto LABEL_37;
   }
 
-  if (a2 <= 0x13 && (((1 << a2) & 0x806C1) != 0 || a2 == 1 && ((*(DerivedStorage + 1704) & 1) != 0 || *(DerivedStorage + 2504) == 1)))
+  if (v10 <= 0x13 && (((1 << v10) & 0x806C1) != 0 || v10 == 1 && ((*(DerivedStorage + 1704) & 1) != 0 || *(DerivedStorage + 2504) == 1)))
   {
     v33 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     if (v33)
     {
       v34 = v33;
-      if (a2 <= 6)
+      if (v10 <= 6)
       {
-        switch(a2)
+        switch(v10)
         {
           case 0:
             v35 = *MEMORY[0x277CF54B0];
@@ -2556,16 +2551,16 @@ LABEL_26:
         }
       }
 
-      else if (a2 > 9)
+      else if (v10 > 9)
       {
-        if (a2 == 10)
+        if (v10 == 10)
         {
           v35 = *MEMORY[0x277CF54B0];
           v36 = MEMORY[0x277CF6658];
           goto LABEL_68;
         }
 
-        if (a2 == 19)
+        if (v10 == 19)
         {
           v35 = *MEMORY[0x277CF54B0];
           v37 = @"VisPipe";
@@ -2576,7 +2571,7 @@ LABEL_69:
 
       else
       {
-        if (a2 == 7)
+        if (v10 == 7)
         {
           v35 = *MEMORY[0x277CF54B0];
           v36 = MEMORY[0x277CF6660];
@@ -2588,7 +2583,7 @@ LABEL_69:
           goto LABEL_68;
         }
 
-        if (a2 == 9)
+        if (v10 == 9)
         {
           v35 = *MEMORY[0x277CF54B0];
           v36 = MEMORY[0x277CF6668];
@@ -2621,16 +2616,16 @@ uint64_t H16ISP::H16ISPDevice::EnableTileBasedGDC(H16ISP::H16ISPDevice *this, in
   return H16ISP::H16ISPDevice::ISP_SendCommand(this, v13, 0x14u, 0, 0xFFFFFFFF);
 }
 
-void ActivateSecondaryScalerOutputInFrameReceiver(uint64_t a1, uint64_t a2)
+void ActivateSecondaryScalerOutputInFrameReceiver(uint64_t result, uint64_t a2)
 {
-  v92 = *MEMORY[0x277D85DE8];
-  if (!*(a1 + 160))
+  v100 = *MEMORY[0x277D85DE8];
+  if (!*(result + 160))
   {
     return;
   }
 
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 192);
+  v4 = *(result + 48);
+  v5 = *(result + 192);
   if (v4 < v5)
   {
     v5 = 0;
@@ -2638,14 +2633,14 @@ void ActivateSecondaryScalerOutputInFrameReceiver(uint64_t a1, uint64_t a2)
 
   v6 = v4 - v5;
   v7 = dword_281003314;
-  v8 = *(a1 + 184);
+  v8 = *(result + 184);
   if (!dword_281003314)
   {
     v7 = *(v8 + 120 * v6 + 116);
   }
 
-  v9 = *(a1 + 92);
-  if (H16ISP::H16ISPDevice::GetCameraConfig(*(a2 + 24), *(a1 + 156), *(v8 + 120 * v6 + 16), v68, v91))
+  v9 = *(result + 92);
+  if (H16ISP::H16ISPDevice::GetCameraConfig(*(a2 + 24), *(result + 156), *(v8 + 120 * v6 + 16), v76, v99))
   {
     v10 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
@@ -2663,13 +2658,13 @@ void ActivateSecondaryScalerOutputInFrameReceiver(uint64_t a1, uint64_t a2)
   }
 
   v11 = v7 - v9;
-  v12 = *(a1 + 700);
+  v12 = *(result + 700);
   if (v12)
   {
     v13 = v12 / 1000000.0;
-    v14 = *(a1 + 184);
-    v15 = *(a1 + 48);
-    v16 = *(a1 + 192);
+    v14 = *(result + 184);
+    v15 = *(result + 48);
+    v16 = *(result + 192);
     if (v15 < v16)
     {
       v16 = 0;
@@ -2688,7 +2683,7 @@ void ActivateSecondaryScalerOutputInFrameReceiver(uint64_t a1, uint64_t a2)
     v18 = *(v17 + 108);
     if (v18 == 0.0)
     {
-      v19 = HIDWORD(v68[0]);
+      v19 = HIDWORD(v76[0]);
     }
 
     else
@@ -2707,8 +2702,8 @@ void ActivateSecondaryScalerOutputInFrameReceiver(uint64_t a1, uint64_t a2)
     }
   }
 
-  valuePtr = -*(a1 + 928) & 0xF;
-  v20 = *(a1 + 1048);
+  valuePtr = -*(result + 928) & 0xF;
+  v20 = *(result + 1048);
   if (v20)
   {
     PixelBufferAttributes = CVPixelBufferPoolGetPixelBufferAttributes(v20);
@@ -2719,49 +2714,50 @@ void ActivateSecondaryScalerOutputInFrameReceiver(uint64_t a1, uint64_t a2)
     }
   }
 
-  v90 = 0;
-  v66 = 0;
-  if (H16ISP::getFrameFormatMetaInfo(*(a1 + 920), &v64))
+  v98 = 0;
+  v23 = *(result + 968);
+  v74 = 0;
+  if (H16ISP::getFrameFormatMetaInfo(*(result + 920), &v72))
   {
-    v23 = DWORD1(v64);
-    v24 = BYTE8(v64);
+    v24 = DWORD1(v72);
+    v25 = BYTE8(v72);
   }
 
   else
   {
-    v25 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+    v26 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
     {
-      v25 = os_log_create("com.apple.isp", "plugin");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v25;
+      v26 = os_log_create("com.apple.isp", "plugin");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v26;
     }
 
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       ActivateSecondaryScalerOutputInFrameReceiver();
     }
 
+    v25 = 0;
     v24 = 0;
-    v23 = 0;
   }
 
-  v26 = *(a1 + 1048);
-  if (!v26)
+  v27 = *(result + 1048);
+  if (!v27)
   {
-    v31 = *(a1 + 924);
-    LODWORD(v66) = *(a1 + 928);
-    HIDWORD(v66) = v31;
+    v32 = *(result + 924);
+    LODWORD(v74) = *(result + 928);
+    HIDWORD(v74) = v32;
 LABEL_37:
-    if (H16ISP::H16ISPDevice::SetSecondaryScalerSource(*(a2 + 24), *(a1 + 156), *(a1 + 1096)))
+    if (H16ISP::H16ISPDevice::SetSecondaryScalerSource(*(a2 + 24), *(result + 156), *(result + 1096)))
     {
-      v32 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+      v33 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
       if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
       {
-        v32 = os_log_create("com.apple.isp", "plugin");
-        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v32;
+        v33 = os_log_create("com.apple.isp", "plugin");
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v33;
       }
 
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         ActivateSecondaryScalerOutputInFrameReceiver();
       }
@@ -2769,54 +2765,73 @@ LABEL_37:
 
     else
     {
-      if (HIDWORD(v64) <= 0x1B && ((1 << SBYTE12(v64)) & 0xE000002) != 0 || (*(a1 + 4392) | 2) == 3 && HIDWORD(v64) <= 0x13 && ((1 << SBYTE12(v64)) & 0xC0001) != 0 || (*(a1 + 4388) - 1) < 2)
+      v34 = v11 + 1 + v23;
+      if (HIDWORD(v72) <= 0x1B && ((1 << SBYTE12(v72)) & 0xE000002) != 0 || (*(result + 4392) | 2) == 3 && HIDWORD(v72) <= 0x13 && ((1 << SBYTE12(v72)) & 0xC0001) != 0 || (*(result + 4388) - 1) < 2)
       {
-        v33 = 0;
-        v34 = 0;
+        v35 = 0;
+        v36 = 0;
+        v37 = 0;
       }
 
       else
       {
-        v34 = v24 & 1;
-        v33 = 1;
+        v36 = v25 & 1;
+        if (v25)
+        {
+          v37 = 768;
+        }
+
+        else
+        {
+          v37 = 512;
+        }
+
+        v35 = 1;
       }
 
-      v62 = 0u;
-      v63 = 0u;
-      GenerateBufferTagsForOutput(a1, a1 + 904, &v62);
-      v35 = *(a1 + 160);
-      *buf = v62;
-      *&buf[16] = v63;
-      v36 = H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(v35, 10, v69);
-      v37 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+      v70 = 0u;
+      v71 = 0u;
+      GenerateBufferTagsForOutput(result, result + 904, &v70);
+      v38 = *(result + 160);
+      v39 = *(result + 924);
+      v40 = *(result + 928);
+      *buf = v70;
+      *&buf[16] = v71;
+      LOBYTE(v65) = 0;
+      HIDWORD(v64) = *(result + 972);
+      HIDWORD(v63) = v34;
+      LODWORD(v64) = v34;
+      LODWORD(v63) = 128;
+      v41 = H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(v38, 10, v77, v39, v40, valuePtr, 0, v24, 0.0, buf, v25 & 1, v63, v64, __SPAIR64__(v37, v11), 0, @"YUV2", -1, *(result + 1048), result + 1056, v65);
+      v42 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
       if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
       {
-        v37 = os_log_create("com.apple.isp", "plugin");
-        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v37;
+        v42 = os_log_create("com.apple.isp", "plugin");
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v42;
       }
 
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
       {
-        v38 = v11 + 1 + *(a1 + 968);
+        v43 = v11 + 1 + *(result + 968);
         *buf = 136315650;
         *&buf[4] = "ActivateSecondaryScalerOutputInFrameReceiver";
         *&buf[12] = 1024;
-        *&buf[14] = v38;
+        *&buf[14] = v43;
         *&buf[18] = 1024;
         *&buf[20] = v11;
-        _os_log_impl(&dword_2247DB000, v37, OS_LOG_TYPE_INFO, "%s - YUV2 pool size=%d,prime=%d\n", buf, 0x18u);
+        _os_log_impl(&dword_2247DB000, v42, OS_LOG_TYPE_INFO, "%s - YUV2 pool size=%d,prime=%d\n", buf, 0x18u);
       }
 
-      if (v36)
+      if (v41)
       {
-        v39 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+        v44 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
         if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
         {
-          v39 = os_log_create("com.apple.isp", "plugin");
-          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v39;
+          v44 = os_log_create("com.apple.isp", "plugin");
+          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v44;
         }
 
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
           ActivateSecondaryScalerOutputInFrameReceiver();
         }
@@ -2824,34 +2839,34 @@ LABEL_37:
 
       else
       {
-        v58 = v34;
-        v59 = v33;
-        BufferPool = H16ISP::H16ISPFrameReceiver::getBufferPool(*(a1 + 160), 10);
-        v60 = *(a1 + 952) | (*(a1 + 960) << 32);
-        v61 = *(a1 + 936) | (*(a1 + 944) << 32);
-        if (v65 == 2 || (DWORD1(v64) - 35) <= 1)
+        v66 = v36;
+        v67 = v35;
+        BufferPool = H16ISP::H16ISPFrameReceiver::getBufferPool(*(result + 160), 10);
+        v68 = *(result + 952) | (*(result + 960) << 32);
+        v69 = *(result + 936) | (*(result + 944) << 32);
+        if (v73 == 2 || (DWORD1(v72) - 35) <= 1)
         {
-          v90 = *(BufferPool + 44);
+          v98 = *(BufferPool + 44);
         }
 
-        v42 = *(a2 + 24);
-        v43 = *(a1 + 156);
-        v44 = *(a1 + 924);
-        v45 = *(a1 + 928);
-        v47 = HIDWORD(v66);
-        v46 = valuePtr;
-        v48 = v66;
-        v49 = ColorRangeForOutputWithMatrix(a1, a1 + 904, *(a1 + 172));
-        if (H16ISP::H16ISPDevice::SetSecondaryBESConfig(v42, v43, v61, v60, v44, v45, v46, v47, v48, v23, v49, &v90))
+        v47 = *(a2 + 24);
+        v48 = *(result + 156);
+        v49 = *(result + 924);
+        v50 = *(result + 928);
+        v52 = HIDWORD(v74);
+        v51 = valuePtr;
+        v53 = v74;
+        v54 = ColorRangeForOutputWithMatrix(result, result + 904, *(result + 172));
+        if (H16ISP::H16ISPDevice::SetSecondaryBESConfig(v47, v48, v69, v68, v49, v50, v51, v52, v53, v24, v54, &v98))
         {
-          v50 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+          v55 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
           if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
           {
-            v50 = os_log_create("com.apple.isp", "plugin");
-            GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v50;
+            v55 = os_log_create("com.apple.isp", "plugin");
+            GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v55;
           }
 
-          if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
           {
             ActivateSecondaryScalerOutputInFrameReceiver();
           }
@@ -2859,47 +2874,47 @@ LABEL_37:
 
         else
         {
-          v51 = *(a1 + 160);
-          if ((*v51 - 1) <= 1 && H16ISP::H16ISPFrameReceiver::SendFWInitialBuffers(v51, 10))
+          v56 = *(result + 160);
+          if ((*v56 - 1) <= 1 && H16ISP::H16ISPFrameReceiver::SendFWInitialBuffers(v56, 10))
           {
-            v52 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+            v57 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
             if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
             {
-              v52 = os_log_create("com.apple.isp", "plugin");
-              GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v52;
+              v57 = os_log_create("com.apple.isp", "plugin");
+              GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v57;
             }
 
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
             {
               ActivateSecondaryScalerOutputInFrameReceiver();
             }
           }
 
-          else if (*(a1 + 976) == 1 && (*(*(a1 + 160) + 533) & 1) == 0 && (v86 = v73, v87 = v74, v88 = v75, v89 = v76, v82 = v69, v83 = v70, v84 = v71, v85 = v72, v78 = v68[2], v79 = v68[3], v80 = v68[4], v81 = v68[5], *buf = v68[0], *&buf[16] = v68[1], AddRawPoolToFrameReceiver(a1, a2, buf)))
+          else if (*(result + 976) == 1 && (*(*(result + 160) + 533) & 1) == 0 && (v94 = v81, v95 = v82, v96 = v83, v97 = v84, v90 = v77, v91 = v78, v92 = v79, v93 = v80, v86 = v76[2], v87 = v76[3], v88 = v76[4], v89 = v76[5], *buf = v76[0], *&buf[16] = v76[1], AddRawPoolToFrameReceiver(result, a2, buf, *(result + 920))))
           {
-            v53 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+            v58 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
             if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
             {
-              v53 = os_log_create("com.apple.isp", "plugin");
-              GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v53;
+              v58 = os_log_create("com.apple.isp", "plugin");
+              GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v58;
             }
 
-            if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
             {
               ActivateSecondaryScalerOutputInFrameReceiver();
             }
           }
 
-          else if (H16ISP::H16ISPDevice::SetScalerChromaSampleOffset(*(a2 + 24), *(a1 + 156), v58, v59, 1))
+          else if (H16ISP::H16ISPDevice::SetScalerChromaSampleOffset(*(a2 + 24), *(result + 156), v66, v67, 1))
           {
-            v54 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+            v59 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
             if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
             {
-              v54 = os_log_create("com.apple.isp", "plugin");
-              GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v54;
+              v59 = os_log_create("com.apple.isp", "plugin");
+              GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v59;
             }
 
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
             {
               ActivateSecondaryScalerOutputInFrameReceiver();
             }
@@ -2907,27 +2922,27 @@ LABEL_37:
 
           else
           {
-            v55 = vcvtms_u32_f32(*(a1 + 1040) * 256.0);
-            if (v55)
+            v60 = vcvtms_u32_f32(*(result + 1040) * 256.0);
+            if (v60)
             {
-              v56 = v55;
+              v61 = v60;
             }
 
             else
             {
-              v56 = HIDWORD(v68[0]);
+              v61 = HIDWORD(v76[0]);
             }
 
-            if (H16ISP::H16ISPDevice::ISP_SetMaxOutputRate(*(a2 + 24), 9, v56))
+            if (H16ISP::H16ISPDevice::ISP_SetMaxOutputRate(*(a2 + 24), 9, v61))
             {
-              v57 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+              v62 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
               if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
               {
-                v57 = os_log_create("com.apple.isp", "plugin");
-                GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v57;
+                v62 = os_log_create("com.apple.isp", "plugin");
+                GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v62;
               }
 
-              if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
               {
                 ActivateSecondaryScalerOutputInFrameReceiver();
               }
@@ -2935,7 +2950,7 @@ LABEL_37:
 
             else
             {
-              SetMetaDataOptionsOnFrameReceiver(a1, a2);
+              SetMetaDataOptionsOnFrameReceiver(result, a2);
             }
           }
         }
@@ -2945,25 +2960,25 @@ LABEL_37:
     return;
   }
 
-  v27 = CVPixelBufferPoolGetPixelBufferAttributes(v26);
-  if (v27)
+  v28 = CVPixelBufferPoolGetPixelBufferAttributes(v27);
+  if (v28)
   {
-    v28 = v27;
-    v29 = CFDictionaryGetValue(v27, *MEMORY[0x277CC4EC8]);
-    v30 = CFDictionaryGetValue(v28, *MEMORY[0x277CC4DD8]);
-    CFNumberGetValue(v29, kCFNumberIntType, &v66 + 4);
-    CFNumberGetValue(v30, kCFNumberIntType, &v66);
+    v29 = v28;
+    v30 = CFDictionaryGetValue(v28, *MEMORY[0x277CC4EC8]);
+    v31 = CFDictionaryGetValue(v29, *MEMORY[0x277CC4DD8]);
+    CFNumberGetValue(v30, kCFNumberIntType, &v74 + 4);
+    CFNumberGetValue(v31, kCFNumberIntType, &v74);
     goto LABEL_37;
   }
 
-  v40 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+  v45 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
   if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
   {
-    v40 = os_log_create("com.apple.isp", "plugin");
-    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v40;
+    v45 = os_log_create("com.apple.isp", "plugin");
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v45;
   }
 
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
   {
     ActivateSecondaryScalerOutputInFrameReceiver();
   }
@@ -3090,7 +3105,7 @@ LABEL_4:
 
 uint64_t H16ISP::H16ISPDevice::SetSecondaryBESConfig(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, int a11, int *a12)
 {
-  v12 = MEMORY[0x28223BE20](a1, a2);
+  v12 = MEMORY[0x28223BE20](a1);
   v49 = *MEMORY[0x277D85DE8];
   if (*(v12 + 1167) <= v13)
   {
@@ -3399,7 +3414,7 @@ uint64_t H16ISP::H16ISPDevice::SetAEBracketingWaitForFocusParams(H16ISP::H16ISPD
 
 uint64_t EnablePCEStreamingInFrameReceiver(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2 + 4096;
   if (*(a2 + 4256) == 1)
   {
@@ -3410,9 +3425,8 @@ uint64_t EnablePCEStreamingInFrameReceiver(uint64_t a1, uint64_t a2)
     H16ISP::H16ISPFrameReceiver::setHwGdrMode(*(a2 + 160), *(v3 + 332));
     H16ISP::H16ISPFrameReceiver::setCinVidMode(*(a2 + 160), *(v3 + 352));
     v12 = *(a2 + 160);
-    v13 = *(a2 + 4408);
 
-    return H16ISP::H16ISPFrameReceiver::EnablePDEStreaming(v12, v13);
+    return H16ISP::H16ISPFrameReceiver::EnablePDEStreaming(v12);
   }
 
   else
@@ -3480,29 +3494,29 @@ uint64_t EnablePCEStreamingInFrameReceiver(uint64_t a1, uint64_t a2)
       v11 = *(a2 + 1568);
     }
 
-    v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+    v14 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
     {
-      v15 = os_log_create("com.apple.isp", "plugin");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v15;
+      v14 = os_log_create("com.apple.isp", "plugin");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v14;
     }
 
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v16 = 136315650;
-      v17 = "EnablePCEStreamingInFrameReceiver";
-      v18 = 1024;
-      v19 = v11 + v10;
-      v20 = 1024;
-      v21 = 4;
-      _os_log_impl(&dword_2247DB000, v15, OS_LOG_TYPE_INFO, "%s - Depth pool size=%d,prime=%d\n", &v16, 0x18u);
+      v15 = 136315650;
+      v16 = "EnablePCEStreamingInFrameReceiver";
+      v17 = 1024;
+      v18 = v11 + v10;
+      v19 = 1024;
+      v20 = 4;
+      _os_log_impl(&dword_2247DB000, v14, OS_LOG_TYPE_INFO, "%s - Depth pool size=%d,prime=%d\n", &v15, 0x18u);
     }
 
     H16ISP::H16ISPFrameReceiver::setPCEPreset(*(a2 + 160), *(a2 + 4412));
     H16ISP::H16ISPFrameReceiver::setPCEOutputFormat(*(a2 + 160), *(a2 + 4416));
     H16ISP::H16ISPFrameReceiver::setHwGdrMode(*(a2 + 160), *(v3 + 332));
     H16ISP::H16ISPFrameReceiver::setCinVidMode(*(a2 + 160), *(v3 + 352));
-    return H16ISP::H16ISPFrameReceiver::EnablePDEStreaming(*(a2 + 160), *(a2 + 4408));
+    return H16ISP::H16ISPFrameReceiver::EnablePDEStreaming(*(a2 + 160));
   }
 }
 
@@ -3571,61 +3585,52 @@ uint64_t H16ISP::CreateH16ISPFrameReceiver(uint64_t a1)
   return v4;
 }
 
-uint64_t H16ISP::H16ISPFrameReceiver::EnablePDEStreaming(uint64_t a1, uint64_t a2)
+uint64_t H16ISP::H16ISPFrameReceiver::EnablePDEStreaming(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  v4 = v3;
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v11 = v2;
-  v54 = *MEMORY[0x277D85DE8];
-  H16ISP::ValidatePDECalibration(*(v2 + 400), *(v2 + 436));
-  v12 = *(v11 + 16);
-  if (H16ISP::H16ISPDevice::isSensorType(*(v11 + 400), *(v11 + 436), 1718186595))
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  v12 = v1;
+  v70 = *MEMORY[0x277D85DE8];
+  H16ISP::ValidatePDECalibration(*(v1 + 400), *(v1 + 436));
+  v13 = *(v12 + 16);
+  if (H16ISP::H16ISPDevice::isSensorType(*(v12 + 400), *(v12 + 436), 1718186595))
   {
-    bzero(v48, 0x68uLL);
-    v49 = 1565;
-    v50 = *(v11 + 436);
-    v13 = H16ISP::H16ISPDevice::ISP_SendCommand(*(v11 + 400), v48, 0x68u, 0, 0xFFFFFFFF);
-    v14 = v52 == 10 && v13 == 0;
-    v15 = 1;
+    bzero(v62, 0x68uLL);
+    v63 = 1565;
+    v64 = *(v12 + 436);
+    v14 = H16ISP::H16ISPDevice::ISP_SendCommand(*(v12 + 400), v62, 0x68u, 0, 0xFFFFFFFF);
+    v15 = v67 == 10 && v14 == 0;
+    v16 = 1;
     goto LABEL_9;
   }
 
-  if (!H16ISP::H16ISPDevice::isSensorType(*(v11 + 400), *(v11 + 436), 1919246706))
+  if (!H16ISP::H16ISPDevice::isSensorType(*(v12 + 400), *(v12 + 436), 1919246706))
   {
-    v14 = !H16ISP::H16ISPDevice::hasSensorType(*(v11 + 400), 1718186595);
-    v15 = 3;
+    v15 = !H16ISP::H16ISPDevice::hasSensorType(*(v12 + 400), 1718186595);
+    v16 = 3;
 LABEL_9:
-    if (v14)
+    if (v15)
     {
-      v16 = v15 + 1;
+      v17 = v16 + 1;
     }
 
     else
     {
-      v16 = v15;
+      v17 = v16;
     }
 
     goto LABEL_12;
   }
 
-  v16 = 5;
+  v17 = 5;
 LABEL_12:
-  if (v12 <= 7)
+  if (v13 <= 7)
   {
-    v17 = v12;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  if (v12 <= 4)
-  {
-    v18 = v12;
+    v18 = v13;
   }
 
   else
@@ -3633,140 +3638,87 @@ LABEL_12:
     v18 = 0;
   }
 
-  bzero(v44, 0x650uLL);
-  v45 = 278;
-  v46 = *(v11 + 436);
-  v47 = 50;
-  v19 = H16ISP::H16ISPDevice::ISP_SendCommand(*(v11 + 400), v44, 0x650u, 0, 0xFFFFFFFF);
-  if (v19)
+  if (v13 <= 4)
   {
-    v20 = v19;
-    v21 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    v19 = v13;
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  bzero(v58, 0x650uLL);
+  v59 = 278;
+  v60 = *(v12 + 436);
+  v61 = 50;
+  v20 = H16ISP::H16ISPDevice::ISP_SendCommand(*(v12 + 400), v58, 0x650u, 0, 0xFFFFFFFF);
+  if (v20)
+  {
+    v21 = v20;
+    v22 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
     {
-      v21 = os_log_create("com.apple.isp", "general");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v21;
+      v22 = os_log_create("com.apple.isp", "general");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v22;
     }
 
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       H16ISP::H16ISPFrameReceiver::EnablePDEStreaming();
     }
 
-    return v20;
+    return v21;
   }
 
-  if (v16 <= 2)
+  if (v17 <= 2)
   {
-    v49 = 24577;
-    v50 = *(v11 + 436);
-    bzero(v51, 0x344CuLL);
-    if (H16ISP::H16ISPDevice::ISP_SendCommand(*(v11 + 400), v48, 0x3458u, 0, 0xFFFFFFFF) || v51[0] != 1)
+    if (v17 == 1)
     {
-      return 0;
-    }
-
-    if (v16 == 1)
-    {
-      WidthOfPreset = H16ISP::DepthFrontConfigurations::getWidthOfPreset(v17);
-      HeightOfPreset = H16ISP::DepthFrontConfigurations::getHeightOfPreset(v17);
-      RegistrationOfPreset = H16ISP::DepthFrontConfigurations::getRegistrationOfPreset(v17);
+      v30 = 0;
     }
 
     else
     {
-      WidthOfPreset = H16ISP::DepthFrontRotatedConfigurations::getWidthOfPreset(v17);
-      HeightOfPreset = H16ISP::DepthFrontRotatedConfigurations::getHeightOfPreset(v17);
-      RegistrationOfPreset = H16ISP::DepthFrontRotatedConfigurations::getRegistrationOfPreset(v17);
+      v30 = 270;
     }
 
-    v25 = RegistrationOfPreset;
-    v26 = 608;
-    v27 = 656;
-    if ((v10 & 1) == 0)
+    v63 = 24577;
+    v64 = *(v12 + 436);
+    bzero(v65, 0x344CuLL);
+    if (H16ISP::H16ISPDevice::ISP_SendCommand(*(v12 + 400), v62, 0x3458u, 0, 0xFFFFFFFF) || v65[0] != 1)
     {
-LABEL_45:
-      if ((v10 & 2) != 0 && H16ISP::H16ISPFrameReceiver::ConfigurePDEBufferPool(v11, v44, 13, 1, 0xDu, v8, v6, 5, (v10 >> 10) & 4, v26, SHIWORD(v26), v27))
+      return 0;
+    }
+
+    v31 = v66;
+    v52 = v30;
+    if (v17 == 1)
+    {
+      WidthOfPreset = H16ISP::DepthFrontConfigurations::getWidthOfPreset(v18);
+      HeightOfPreset = H16ISP::DepthFrontConfigurations::getHeightOfPreset(v18);
+      RegistrationOfPreset = H16ISP::DepthFrontConfigurations::getRegistrationOfPreset(v18);
+    }
+
+    else
+    {
+      WidthOfPreset = H16ISP::DepthFrontRotatedConfigurations::getWidthOfPreset(v18);
+      HeightOfPreset = H16ISP::DepthFrontRotatedConfigurations::getHeightOfPreset(v18);
+      RegistrationOfPreset = H16ISP::DepthFrontRotatedConfigurations::getRegistrationOfPreset(v18);
+    }
+
+    v26 = RegistrationOfPreset;
+    v55 = 0;
+    v29 = v31 + 0.5;
+    v27 = 608;
+    v28 = 656;
+    if ((v11 & 1) == 0)
+    {
+LABEL_50:
+      if ((v11 & 2) != 0)
       {
-        v30 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
-        if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
-        {
-          v30 = os_log_create("com.apple.isp", "general");
-          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v30;
-        }
-
-        v20 = 3758097095;
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
-        {
-          H16ISP::H16ISPFrameReceiver::EnablePDEStreaming();
-        }
-
-        return v20;
-      }
-
-      if ((v10 & 4) != 0)
-      {
-        *v48 = 0;
-        v43[0] = 0;
-        H16ISP::H16ISPGetYUVSBufferParamsForDataBufferSize(80896, v48, v43, v24);
-        if (H16ISP::H16ISPFrameReceiver::ConfigurePDEBufferPool(v11, v44, 14, 2, 0xEu, v8, v6, 7, 0, *v48, *&v48[2], v43[0]))
-        {
-          v31 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
-          if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
-          {
-            v31 = os_log_create("com.apple.isp", "general");
-            GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v31;
-          }
-
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-          {
-            H16ISP::H16ISPFrameReceiver::EnablePDEStreaming();
-          }
-
-          return 3758097095;
-        }
-      }
-
-      v32 = *(v11 + 20);
-      if (v32 == 1)
-      {
-        v25 |= 2u;
-        v33 = 11;
-      }
-
-      else
-      {
-        v33 = 4;
-      }
-
-      if (v32 == 1)
-      {
-        v34 = 30;
-      }
-
-      else
-      {
-        v34 = 3;
-      }
-
-      if ((v10 & 8) != 0)
-      {
-        if (*(v11 + 28))
-        {
-          v35 = v25 | 8;
-        }
-
-        else
-        {
-          v35 = v25;
-        }
-
-        if (*(v11 + 29))
-        {
-          v35 |= 0x10u;
-        }
-
-        if (H16ISP::H16ISPFrameReceiver::ConfigurePDEBufferPool(v11, v44, 15, 3, 0xFu, v8, v6, v33, v35, WidthOfPreset, SHIWORD(WidthOfPreset), HeightOfPreset))
+        v35 = v3 ? v3[1] : 0;
+        if (H16ISP::H16ISPFrameReceiver::ConfigurePDEBufferPool(v12, v58, 13, 1, 13, v9, v7, 5, 0.0, (v11 >> 10) & 4, v27, v28, v55, @"PDE_DY", v35, -1))
         {
           v36 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
           if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
@@ -3775,60 +3727,143 @@ LABEL_45:
             GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v36;
           }
 
-          v20 = 3758097095;
+          v21 = 3758097095;
           if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
             H16ISP::H16ISPFrameReceiver::EnablePDEStreaming();
           }
 
-          return v20;
+          return v21;
         }
       }
 
-      v37 = *(v11 + 24);
-      if (v37)
+      if ((v11 & 4) != 0)
       {
-        if (v37 == 1)
+        *v62 = 0;
+        v57[0] = 0;
+        H16ISP::H16ISPGetYUVSBufferParamsForDataBufferSize(80896, v62, v57, v25);
+        v37 = v3 ? v3[3] : 0;
+        if (H16ISP::H16ISPFrameReceiver::ConfigurePDEBufferPool(v12, v58, 14, 2, 14, v9, v7, 7, 0.0, 0, *v62, v57[0], 0, @"PDE_GMS", v37, -1))
         {
-          if ((*(v11 + 28) & 1) != 0 || v16 > 2)
+          v38 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+          if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
           {
-            goto LABEL_82;
+            v38 = os_log_create("com.apple.isp", "general");
+            GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v38;
+          }
+
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          {
+            H16ISP::H16ISPFrameReceiver::EnablePDEStreaming();
+          }
+
+          return 3758097095;
+        }
+      }
+
+      v39 = *(v12 + 20);
+      if (v39 == 1)
+      {
+        v26 |= 2u;
+        v40 = 11;
+      }
+
+      else
+      {
+        v40 = 4;
+      }
+
+      if (v39 == 1)
+      {
+        v41 = 30;
+      }
+
+      else
+      {
+        v41 = 3;
+      }
+
+      if ((v11 & 8) != 0)
+      {
+        if (*(v12 + 28))
+        {
+          v42 = v26 | 8;
+        }
+
+        else
+        {
+          v42 = v26;
+        }
+
+        if (*(v12 + 29))
+        {
+          v42 |= 0x10u;
+        }
+
+        v43 = v3 ? v3[2] : 0;
+        if (H16ISP::H16ISPFrameReceiver::ConfigurePDEBufferPool(v12, v58, 15, 3, 15, v9, v7, v40, v29, v42, WidthOfPreset, HeightOfPreset, v52, @"PDE_NORM_DX", v43, 0x1FFF))
+        {
+          v44 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+          if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+          {
+            v44 = os_log_create("com.apple.isp", "general");
+            GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v44;
+          }
+
+          v21 = 3758097095;
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          {
+            H16ISP::H16ISPFrameReceiver::EnablePDEStreaming();
+          }
+
+          return v21;
+        }
+      }
+
+      v45 = *(v12 + 24);
+      if (v45)
+      {
+        if (v45 == 1)
+        {
+          if ((*(v12 + 28) & 1) != 0 || v17 > 2)
+          {
+            goto LABEL_96;
           }
         }
 
-        else if (v16 > 2)
+        else if (v17 > 2)
         {
-LABEL_89:
-          if (H16ISP::H16ISPDevice::EnableOutofBoundDepth(*(v11 + 400), *(v11 + 436), v4))
+LABEL_106:
+          if (H16ISP::H16ISPDevice::EnableOutofBoundDepth(*(v12 + 400), *(v12 + 436), v5))
           {
-            v39 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+            v48 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
             if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
             {
-              v39 = os_log_create("com.apple.isp", "general");
-              GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v39;
+              v48 = os_log_create("com.apple.isp", "general");
+              GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v48;
             }
 
-            v20 = 3758097095;
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+            v21 = 3758097095;
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
             {
               H16ISP::H16ISPFrameReceiver::EnablePDEStreaming();
             }
 
-            return v20;
+            return v21;
           }
 
-          if (v4)
+          if (v5)
           {
-            if (H16ISP::H16ISPDevice::GetCameraConfig(*(v11 + 400), *(v11 + 436), 0, v43, v48))
+            if (H16ISP::H16ISPDevice::GetCameraConfig(*(v12 + 400), *(v12 + 436), 0, v57, v62))
             {
-              v40 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+              v49 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
               if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
               {
-                v40 = os_log_create("com.apple.isp", "general");
-                GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v40;
+                v49 = os_log_create("com.apple.isp", "general");
+                GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v49;
               }
 
-              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
               {
                 H16ISP::H16ISPFrameReceiver::EnablePDEStreaming();
               }
@@ -3836,97 +3871,124 @@ LABEL_89:
               return 3758097095;
             }
 
-            H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(v11, 25, v53);
+            memset(v56, 0, sizeof(v56));
+            LOBYTE(v51) = 1;
+            HIDWORD(v50) = v9 + v7 + 1;
+            LODWORD(v50) = 128;
+            H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(v12, 25, v68, (v69 >> 4) + 1, 8, 0, 0, 1, 0.0, v56, 1u, v50, 0, v7 | 0x4000000000, 0, @"PDE_META", 0, 0, 0, v51);
           }
 
           return 0;
         }
 
-        H16ISP::H16ISPFrameReceiver::ConfigurePDEBufferPool(v11, v44, 16, 5, 0x15u, v8, v6, v33, v25, WidthOfPreset, SHIWORD(WidthOfPreset), HeightOfPreset);
+        H16ISP::H16ISPFrameReceiver::ConfigurePDEBufferPool(v12, v58, 16, 5, 21, v9, v7, v40, v29, v26, WidthOfPreset, HeightOfPreset, v55, @"PDE_NORM_DX2", 0, 0x1FFF);
       }
 
-LABEL_82:
-      if ((v10 & 0x20) != 0 && v16 <= 2 && H16ISP::H16ISPFrameReceiver::ConfigurePDEBufferPool(v11, v44, 17, 4, 0x11u, v8, v6, v34, v25, WidthOfPreset, SHIWORD(WidthOfPreset), HeightOfPreset))
+LABEL_96:
+      if ((v11 & 0x20) != 0 && v17 <= 2)
       {
-        v38 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
-        if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+        v46 = v3 ? v3[4] : 0;
+        if (H16ISP::H16ISPFrameReceiver::ConfigurePDEBufferPool(v12, v58, 17, 4, 17, v9, v7, v41, 0.0, v26, WidthOfPreset, HeightOfPreset, v52, @"DEPTH", v46, 0))
         {
-          v38 = os_log_create("com.apple.isp", "general");
-          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v38;
-        }
+          v47 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+          if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+          {
+            v47 = os_log_create("com.apple.isp", "general");
+            GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v47;
+          }
 
-        v20 = 3758097095;
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
-        {
-          H16ISP::H16ISPFrameReceiver::EnablePDEStreaming();
-        }
+          v21 = 3758097095;
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          {
+            H16ISP::H16ISPFrameReceiver::EnablePDEStreaming();
+          }
 
-        return v20;
+          return v21;
+        }
       }
 
-      goto LABEL_89;
+      goto LABEL_106;
     }
   }
 
-  else if (v16 == 3)
+  else if (v17 == 3)
   {
-    WidthOfPreset = H16ISP::DepthRearConfigurations::getWidthOfPreset(v18);
-    HeightOfPreset = H16ISP::DepthRearConfigurations::getHeightOfPreset(v18);
-    v25 = 0;
-    v26 = 320;
-    v27 = 240;
-    if ((v10 & 1) == 0)
-    {
-      goto LABEL_45;
-    }
-  }
-
-  else if (v16 == 4)
-  {
-    HeightOfPreset = H16ISP::DepthRearConfigurations::getWidthOfPreset(v18);
-    v23 = H16ISP::DepthRearConfigurations::getHeightOfPreset(v18);
-    v25 = 0;
-    v26 = 240;
+    WidthOfPreset = H16ISP::DepthRearConfigurations::getWidthOfPreset(v19);
+    v52 = 0;
+    HeightOfPreset = H16ISP::DepthRearConfigurations::getHeightOfPreset(v19);
+    v26 = 0;
+    v55 = 0;
     v27 = 320;
-    WidthOfPreset = v23;
-    if ((v10 & 1) == 0)
+    v28 = 240;
+    v29 = 56.5;
+    if ((v11 & 1) == 0)
     {
-      goto LABEL_45;
+      goto LABEL_50;
+    }
+  }
+
+  else if (v17 == 4)
+  {
+    HeightOfPreset = H16ISP::DepthRearConfigurations::getWidthOfPreset(v19);
+    v24 = H16ISP::DepthRearConfigurations::getHeightOfPreset(v19);
+    v26 = 0;
+    v27 = 240;
+    v28 = 320;
+    v52 = 270;
+    v29 = 56.5;
+    WidthOfPreset = v24;
+    v55 = 270;
+    if ((v11 & 1) == 0)
+    {
+      goto LABEL_50;
     }
   }
 
   else
   {
-    WidthOfPreset = H16ISP::DepthRearConfigurations::getWidthOfPreset(v18);
-    HeightOfPreset = H16ISP::DepthRearConfigurations::getHeightOfPreset(v18);
-    v25 = 0;
-    v26 = 240;
-    v27 = 320;
-    if ((v10 & 1) == 0)
+    WidthOfPreset = H16ISP::DepthRearConfigurations::getWidthOfPreset(v19);
+    v52 = 0;
+    HeightOfPreset = H16ISP::DepthRearConfigurations::getHeightOfPreset(v19);
+    v26 = 0;
+    v29 = 0.5;
+    v55 = 270;
+    v27 = 240;
+    v28 = 320;
+    if ((v11 & 1) == 0)
     {
-      goto LABEL_45;
+      goto LABEL_50;
     }
   }
 
-  if (!H16ISP::H16ISPFrameReceiver::ConfigurePDEBufferPool(v11, v44, 12, 0, 0xCu, v8, v6, 4, (v10 >> 10) & 4, v26, SHIWORD(v26), v27))
+  if (v3)
   {
-    goto LABEL_45;
+    v33 = *v3;
   }
 
-  v29 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  else
+  {
+    v33 = 0;
+  }
+
+  if (!H16ISP::H16ISPFrameReceiver::ConfigurePDEBufferPool(v12, v58, 12, 0, 12, v9, v7, 4, v29, (v11 >> 10) & 4, v27, v28, v55, @"PDE_DX", v33, 0x3FFF))
+  {
+    goto LABEL_50;
+  }
+
+  v34 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
   if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
   {
-    v29 = os_log_create("com.apple.isp", "general");
-    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v29;
+    v34 = os_log_create("com.apple.isp", "general");
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v34;
   }
 
-  v20 = 3758097095;
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v21 = 3758097095;
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
   {
     H16ISP::H16ISPFrameReceiver::EnablePDEStreaming();
   }
 
-  return v20;
+  return v21;
 }
 
 BOOL H16ISP::ValidatePDECalibration(H16ISP *this, H16ISP::H16ISPDevice *a2)
@@ -3935,7 +3997,7 @@ BOOL H16ISP::ValidatePDECalibration(H16ISP *this, H16ISP::H16ISPDevice *a2)
   v27 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEAC0];
   v5 = MEMORY[0x277CCACA8];
-  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&g_baseConfigurationDirectory, "calibration", &v18);
+  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(g_baseConfigurationDirectory, "calibration", &v18);
   v6 = std::string::append(&v18, ".plist", 6uLL);
   v7 = *&v6->__r_.__value_.__l.__data_;
   v17 = v6->__r_.__value_.__r.__words[2];
@@ -4002,7 +4064,7 @@ void sub_2248275C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+char *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -4025,7 +4087,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   }
 
   result = std::string::basic_string[abi:ne200100](a3, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -4280,7 +4342,7 @@ uint64_t ___ZN6H16ISP38CreateFixedPrioritySerialDispatchQueueEPKcj_block_invoke(
   return MEMORY[0x282204EA8](v5);
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -4292,11 +4354,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 uint64_t H16ISP::H16ISPSetMachThreadPriority(H16ISP *this, int a2)
@@ -4341,55 +4403,55 @@ uint64_t ___ZN6H16ISP21H16ISPFilterGraphNode8ActivateEv_block_invoke(uint64_t a1
   return kdebug_trace();
 }
 
-uint64_t H16ISP::H16ISPFrameReceiver::ConfigurePDEBufferPool(uint64_t a1, uint64_t a2, int a3, __int16 a4, unsigned int a5, uint64_t a6, uint64_t a7, int a8, int a9, __int16 a10, __int16 a11, __int16 a12)
+uint64_t H16ISP::H16ISPFrameReceiver::ConfigurePDEBufferPool(uint64_t a1, uint64_t a2, uint64_t a3, __int16 a4, int a5, int a6, unsigned int a7, int a8, float a9, int a10, unsigned int a11, unsigned int a12, int a13, uint64_t a14, uint64_t a15, int a16)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v12 = *(a2 + 12);
-  v13 = MEMORY[0x277D86220];
-  if (!v12)
+  v44 = *MEMORY[0x277D85DE8];
+  v16 = *(a2 + 12);
+  v17 = MEMORY[0x277D86220];
+  if (!v16)
   {
     goto LABEL_13;
   }
 
-  v16 = (a2 + 18);
-  while (*(v16 - 1) != a3)
+  v22 = (a2 + 18);
+  while (*(v22 - 1) != a3)
   {
-    v16 += 16;
-    if (!--v12)
+    v22 += 16;
+    if (!--v16)
     {
       goto LABEL_13;
     }
   }
 
-  v25 = *v16;
-  v17 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  v34 = *v22;
+  v23 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
   if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
   {
-    v17 = os_log_create("com.apple.isp", "general");
-    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v17;
+    v23 = os_log_create("com.apple.isp", "general");
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v23;
   }
 
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
     *&buf[4] = "ConfigurePDEBufferPool";
     *&buf[12] = 1024;
-    *&buf[14] = v25;
-    _os_log_impl(&dword_2247DB000, v17, OS_LOG_TYPE_DEFAULT, "%s - pdePoolID=%d\n", buf, 0x12u);
+    *&buf[14] = v34;
+    _os_log_impl(&dword_2247DB000, v23, OS_LOG_TYPE_DEFAULT, "%s - pdePoolID=%d\n", buf, 0x12u);
   }
 
-  if (v25 == 0xFFFF)
+  if (v34 == 0xFFFF)
   {
 LABEL_13:
-    v19 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
-    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v13)
+    v25 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v17)
     {
-      v19 = os_log_create("com.apple.isp", "general");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v19;
+      v25 = os_log_create("com.apple.isp", "general");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v25;
     }
 
-    v20 = 3758097095;
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v26 = 3758097095;
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       H16ISP::H16ISPFrameReceiver::ConfigurePDEBufferPool();
     }
@@ -4399,33 +4461,33 @@ LABEL_13:
   {
     if ((a8 - 6) > 4)
     {
-      LOWORD(v18) = 2;
+      LOWORD(v24) = 2;
     }
 
     else
     {
-      v18 = dword_2249D1F24[a8 - 6];
+      v24 = dword_2249D1F24[a8 - 6];
     }
 
-    bzero(v26, 0x18uLL);
-    v27 = 24578;
-    v28 = *(a1 + 436);
-    v29 = a4;
-    v33 = a9;
-    v30 = a10;
-    v31 = a12;
-    v32 = (v18 * a10 + 63) & 0xFFC0;
-    v20 = H16ISP::H16ISPDevice::ISP_SendCommand(*(a1 + 400), v26, 0x18u, 0, 0xFFFFFFFF);
-    if (v20)
+    bzero(v35, 0x18uLL);
+    v36 = 24578;
+    v37 = *(a1 + 436);
+    v38 = a4;
+    v42 = a10;
+    v39 = a11;
+    v40 = a12;
+    v41 = (v24 * a11 + 63) & 0xFFC0;
+    v26 = H16ISP::H16ISPDevice::ISP_SendCommand(*(a1 + 400), v35, 0x18u, 0, 0xFFFFFFFF);
+    if (v26)
     {
-      v22 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
-      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v13)
+      v28 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v17)
       {
-        v22 = os_log_create("com.apple.isp", "general");
-        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v22;
+        v28 = os_log_create("com.apple.isp", "general");
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v28;
       }
 
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         H16ISP::H16ISPFrameReceiver::ConfigurePDEBufferPool();
       }
@@ -4434,11 +4496,14 @@ LABEL_13:
     else
     {
       memset(buf, 0, sizeof(buf));
-      H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(a1, a5, v25);
+      LOBYTE(v30) = 1;
+      HIDWORD(v29) = a6 + a7 + 1;
+      LODWORD(v29) = 128;
+      H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(a1, a5, v34, a11, a12, 0, 0, a8, COERCE_DOUBLE(LODWORD(a9)), buf, 1u, v29, 0, a7, a13, a14, a16, a15, 0, v30);
     }
   }
 
-  return v20;
+  return v26;
 }
 
 uint64_t H16ISP::H16ISPDevice::EnableOutofBoundDepth(H16ISP::H16ISPDevice *this, __int16 a2, char a3)
@@ -5123,14 +5188,15 @@ void __copy_helper_block_e8_32c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEE
   }
 }
 
-uint64_t H16ISP::H16ISPFrameReceiverSharedBufferPool::AllocateAndSendBuffers(H16ISP::H16ISPFrameReceiverSharedBufferPool *this, unsigned int a2)
+uint64_t H16ISP::H16ISPFrameReceiverSharedBufferPool::AllocateAndSendBuffers(H16ISP::H16ISPFrameReceiverSharedBufferPool *this, uint64_t a2)
 {
-  v25[444] = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v26[444] = *MEMORY[0x277D85DE8];
   pthread_mutex_lock((this + 8));
-  if (!a2)
+  if (!v2)
   {
 LABEL_8:
-    v13 = H16ISP::H16ISPDevice::ISP_SendBuffers(*this, v23, a2, *(this + 24));
+    v13 = H16ISP::H16ISPDevice::ISP_SendBuffers(*this, v24, v2, *(this + 24));
     if (v13)
     {
       v14 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
@@ -5148,21 +5214,21 @@ LABEL_8:
 
     else
     {
-      *(*(this + 9) + 120) += a2;
+      *(*(this + 9) + 120) += v2;
     }
 
     goto LABEL_27;
   }
 
   v4 = 0;
-  v5 = v25;
+  v5 = v26;
   while (1)
   {
-    pixelBuffer[0] = 0;
-    Buffer = H16ISP::H16ISPFrameReceiverBufferPool::allocateBuffer(*(this + 9), pixelBuffer, 0);
-    if (Buffer)
+    pixelBuffer = 0;
+    v6 = H16ISP::H16ISPFrameReceiverBufferPool::allocateBuffer(*(this + 9), &pixelBuffer, 0);
+    if (v6)
     {
-      v13 = Buffer;
+      v13 = v6;
       v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
       if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
       {
@@ -5184,13 +5250,13 @@ LABEL_8:
       goto LABEL_22;
     }
 
-    IOSurface = CVPixelBufferGetIOSurface(pixelBuffer[0]);
+    IOSurface = CVPixelBufferGetIOSurface(pixelBuffer);
     ID = IOSurfaceGetID(IOSurface);
-    v8 = pixelBuffer[0];
-    pixelBuffer[2] = &ID;
-    std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 13, &ID)[3] = v8;
+    v8 = pixelBuffer;
+    p_ID = &ID;
+    std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 26, &ID, &std::piecewise_construct, &p_ID)[3] = v8;
     *(v5 - 2) = *(this + 5);
-    v9 = CVPixelBufferGetIOSurface(pixelBuffer[0]);
+    v9 = CVPixelBufferGetIOSurface(pixelBuffer);
     *(v5 - 4) = IOSurfaceGetID(v9);
     v10 = *(this + 9);
     *(v5 - 3) = *(v10 + 24);
@@ -5206,13 +5272,13 @@ LABEL_8:
 LABEL_7:
     ++v4;
     v5 += 14;
-    if (a2 == v4)
+    if (v2 == v4)
     {
       goto LABEL_8;
     }
   }
 
-  v12 = H16ISP::H16ISPFrameReceiverSharedBufferPool::setBufferConfig(this, pixelBuffer[0]);
+  v12 = H16ISP::H16ISPFrameReceiverSharedBufferPool::setBufferConfig(this, pixelBuffer);
   if (!v12)
   {
     *(this + 148) = 1;
@@ -5246,15 +5312,15 @@ LABEL_22:
   }
 
 LABEL_23:
-  v17 = &v24;
+  v17 = &v25;
   do
   {
     v18 = *v17;
     v17 += 14;
-    v19 = H16ISP::H16ISPFrameReceiverSharedBufferPool::FindBuffer(this, v18);
-    if (v19)
+    Buffer = H16ISP::H16ISPFrameReceiverSharedBufferPool::FindBuffer(this, v18);
+    if (Buffer)
     {
-      H16ISP::H16ISPFrameReceiverSharedBufferPool::ReleaseBuffer(this, v19);
+      H16ISP::H16ISPFrameReceiverSharedBufferPool::ReleaseBuffer(this, Buffer);
     }
 
     --v4;
@@ -5302,7 +5368,7 @@ uint64_t H16ISP::H16ISPFrameReceiver::sendInitialBuffersToFirmware(H16ISP::H16IS
   return v4;
 }
 
-void *std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::assign<std::__deque_iterator<H16ISP::H16ISPFrameReceiverBufferPool *,H16ISP::H16ISPFrameReceiverBufferPool * const*,H16ISP::H16ISPFrameReceiverBufferPool * const&,H16ISP::H16ISPFrameReceiverBufferPool * const* const*,long,512l>,0>(void *a1, char **a2, char *a3, char *a4, char *a5)
+void *std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::assign<std::__deque_iterator<H16ISP::H16ISPFrameReceiverBufferPool *,H16ISP::H16ISPFrameReceiverBufferPool * const*,H16ISP::H16ISPFrameReceiverBufferPool * const&,H16ISP::H16ISPFrameReceiverBufferPool * const* const*,long,512l>,0>(unint64_t *a1, void **a2, uint64_t *a3, char *a4, uint64_t *a5)
 {
   if (a5 == a3)
   {
@@ -5311,7 +5377,7 @@ void *std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::assign<std::__deque_i
 
   else
   {
-    v5 = (&a5[-*a4] >> 3) + ((a4 - a2) << 6) - ((a3 - *a2) >> 3);
+    v5 = ((a5 - *a4) >> 3) + ((a4 - a2) << 6) - ((a3 - *a2) >> 3);
   }
 
   return std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::__assign_with_size_random_access[abi:ne200100]<std::__deque_iterator<H16ISP::H16ISPFrameReceiverBufferPool *,H16ISP::H16ISPFrameReceiverBufferPool * const*,H16ISP::H16ISPFrameReceiverBufferPool * const&,H16ISP::H16ISPFrameReceiverBufferPool * const* const*,long,512l>>(a1, a2, a3, v5);
@@ -5371,7 +5437,7 @@ uint64_t H16ISP::H16ISPFrameReceiver::startReceive(H16ISP::H16ISPFrameReceiver *
 
     if (*(this + 532) == 1)
     {
-      started = H16ISP::H16ISPDevice::StartFaceDetect(*(this + 50), *(this + 109));
+      started = H16ISP::H16ISPDevice::StartFaceDetect(*(this + 50));
       if (started)
       {
         v7 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
@@ -5425,12 +5491,12 @@ uint64_t H16ISP::H16ISPFrameReceiver::startReceive(H16ISP::H16ISPFrameReceiver *
     {
       if (*v11)
       {
-        H16ISP::H16ISPDevice::SetMaximumFrameRate(*(this + 50), *(this + 109));
+        H16ISP::H16ISPDevice::SetMaximumFrameRate(*(this + 50));
       }
 
       if (*(this + 131) >= v10)
       {
-        H16ISP::H16ISPDevice::SetMinimumFrameRate(*(this + 50), *(this + 109));
+        H16ISP::H16ISPDevice::SetMinimumFrameRate(*(this + 50));
       }
     }
 
@@ -5558,7 +5624,7 @@ uint64_t H16ISP::H16ISPFrameReceiver::startReceive(H16ISP::H16ISPFrameReceiver *
         }
       }
 
-      if (!H16ISP::H16ISPDevice::StartCamera(*(this + 50), 1 << *(this + 109)))
+      if (!H16ISP::H16ISPDevice::StartCamera(*(this + 50), (1 << *(this + 109))))
       {
         *(this + 435) = 1;
         if (v3)
@@ -5849,7 +5915,7 @@ LABEL_89:
               }
             }
 
-            started = H16ISP::H16ISPDevice::StartCamera(*(this + 50), 1 << *(this + 109));
+            started = H16ISP::H16ISPDevice::StartCamera(*(this + 50), (1 << *(this + 109)));
             if (started)
             {
               v69 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
@@ -5931,9 +5997,9 @@ LABEL_108:
   return started;
 }
 
-void sub_22482A2E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_22482A2E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::deque<__CVBuffer *>::~deque[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6043,7 +6109,7 @@ uint64_t H16ISP::H16ISPFrameReceiverBufferPool::allocateBuffer(H16ISP::H16ISPFra
   return v7;
 }
 
-void *std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::__assign_with_size_random_access[abi:ne200100]<std::__deque_iterator<H16ISP::H16ISPFrameReceiverBufferPool *,H16ISP::H16ISPFrameReceiverBufferPool * const*,H16ISP::H16ISPFrameReceiverBufferPool * const&,H16ISP::H16ISPFrameReceiverBufferPool * const* const*,long,512l>>(void *a1, char **a2, char *a3, unint64_t a4)
+void *std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::__assign_with_size_random_access[abi:ne200100]<std::__deque_iterator<H16ISP::H16ISPFrameReceiverBufferPool *,H16ISP::H16ISPFrameReceiverBufferPool * const*,H16ISP::H16ISPFrameReceiverBufferPool * const&,H16ISP::H16ISPFrameReceiverBufferPool * const* const*,long,512l>>(unint64_t *a1, void **a2, uint64_t *a3, unint64_t a4)
 {
   v20 = a2;
   v21 = a3;
@@ -6059,7 +6125,7 @@ void *std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::__assign_with_size_ra
 
     else
     {
-      v16 = *v15 + 8 * (a1[4] & 0x1FFLL);
+      v16 = *v15 + 8 * (a1[4] & 0x1FF);
     }
 
     v22[0] = a2;
@@ -6083,7 +6149,7 @@ void *std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::__assign_with_size_ra
 
     else
     {
-      v12 = *(v11 + 8 * (a1[4] >> 9)) + 8 * (a1[4] & 0x1FFLL);
+      v12 = *(v11 + 8 * (a1[4] >> 9)) + 8 * (a1[4] & 0x1FF);
     }
 
     v23 = (v11 + 8 * (a1[4] >> 9));
@@ -6113,33 +6179,33 @@ void *std::__deque_iterator<__CVBuffer *,__CVBuffer **,__CVBuffer *&,__CVBuffer 
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(float *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -6147,47 +6213,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -6203,7 +6269,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -6211,7 +6277,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -6235,7 +6301,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -6412,7 +6478,7 @@ void SetMinimumFrameRateNow(uint64_t a1, uint64_t a2)
     }
 
     H16ISP::H16ISPFrameReceiver::SetFrameDoneTimeoutDuration(v3, v6);
-    H16ISP::H16ISPDevice::SetMinimumFrameRate(v5, *(a1 + 156));
+    H16ISP::H16ISPDevice::SetMinimumFrameRate(v5);
     if (ExclaveSetMinimumFrameRateNow(a2, a1))
     {
       v9 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_exclavesLog;
@@ -6442,271 +6508,427 @@ uint64_t H16ISP::H16ISPFrameReceiver::SetFrameDoneTimeoutDuration(H16ISP::H16ISP
   return 0;
 }
 
-uint64_t AddRawPoolToFrameReceiver(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t AddRawPoolToFrameReceiver(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v5 = (a1 + 4096);
-  v36 = 0;
-  *v35 = 0;
-  v34 = 0;
-  *v33 = 0;
-  v6 = *(a1 + 4816);
-  if (v6 || (v10 = *(a1 + 4824), (v11 = *(a1 + 4936)) != 0) && (v6 = *v11) != 0)
+  v58 = *MEMORY[0x277D85DE8];
+  v6 = (a1 + 4096);
+  v55 = 0;
+  *v54 = 0;
+  v53 = 0;
+  *v52 = 0;
+  v7 = *(a1 + 4816);
+  if (!v7)
   {
-    v7 = H16ISP::H16ISPFrameReceiver::addSharedBufferPoolToFrameReceiver(*(a1 + 160), v6);
-    if (v7)
+    v12 = *(a1 + 4824);
+    v13 = *(a1 + 4936);
+    if (!v13 || (v7 = *v13) == 0)
     {
-      v8 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
+      if (!v12)
       {
-        v8 = os_log_create("com.apple.isp", "plugin");
-        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v8;
+        v12 = *(a1 + 4840);
       }
 
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      RawBufferConfig = H16ISP::H16ISPDevice::GetRawBufferConfig(*(a2 + 24), *(a1 + 156), &v55, &v54[1], v54, &v53, &v52[1], v52);
+      if (RawBufferConfig)
       {
-        AddRawPoolToFrameReceiver();
-      }
-    }
-  }
+        v8 = RawBufferConfig;
+        v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+        if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
+        {
+          v15 = os_log_create("com.apple.isp", "plugin");
+          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v15;
+        }
 
-  else
-  {
-    if (!v10)
-    {
-      v10 = *(a1 + 4840);
-    }
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        {
+          AddRawPoolToFrameReceiver();
+        }
 
-    RawBufferConfig = H16ISP::H16ISPDevice::GetRawBufferConfig(*(a2 + 24), *(a1 + 156), &v36, &v35[1], v35, &v34, &v33[1], v33);
-    if (RawBufferConfig)
-    {
-      v7 = RawBufferConfig;
-      v13 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
-      {
-        v13 = os_log_create("com.apple.isp", "plugin");
-        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v13;
+        return v8;
       }
 
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-      {
-        AddRawPoolToFrameReceiver();
-      }
-    }
-
-    else
-    {
-      if ((*(a1 + 776) & 1) != 0 || (*(a1 + 976) & 1) != 0 || (*(a1 + 1176) & 1) != 0 || (*(a1 + 1376) & 1) != 0 || (*(a1 + 1576) & 1) != 0 || (*(a1 + 2104) & 1) != 0 || (*(a1 + 2504) & 1) != 0 || (*(a1 + 4080) & 1) != 0 || doesDisabledTofRequireBuffers(a2, a1) || (*(a1 + 1704) & 1) != 0 || *(a1 + 1904) == 1 && ((v5[352] & 1) != 0 || *(a1 + 1976) == 1))
+      if ((*(a1 + 776) & 1) != 0 || (*(a1 + 976) & 1) != 0 || (*(a1 + 1176) & 1) != 0 || (*(a1 + 1376) & 1) != 0 || (*(a1 + 1576) & 1) != 0 || (*(a1 + 2104) & 1) != 0 || (*(a1 + 2504) & 1) != 0 || (*(a1 + 4080) & 1) != 0 || doesDisabledTofRequireBuffers(a2, a1) || (*(a1 + 1704) & 1) != 0 || *(a1 + 1904) == 1 && ((v6[352] & 1) != 0 || *(a1 + 1976) == 1))
       {
         if (*(a1 + 776) == 1)
         {
-          v14 = *(a1 + 768);
+          v16 = *(a1 + 768);
         }
 
         else
         {
-          v14 = 0;
+          v16 = 0;
         }
 
-        if (*(a1 + 976) == 1 && *(a1 + 968) > v14)
+        if (*(a1 + 976) == 1 && *(a1 + 968) > v16)
         {
-          v14 = *(a1 + 968);
+          v16 = *(a1 + 968);
         }
 
-        if (*(a1 + 1176) == 1 && *(a1 + 1168) > v14)
+        if (*(a1 + 1176) == 1 && *(a1 + 1168) > v16)
         {
-          v14 = *(a1 + 1168);
+          v16 = *(a1 + 1168);
         }
 
-        if (*(a1 + 1376) == 1 && *(a1 + 1368) > v14)
+        if (*(a1 + 1376) == 1 && *(a1 + 1368) > v16)
         {
-          v14 = *(a1 + 1368);
+          v16 = *(a1 + 1368);
         }
 
-        if (*(a1 + 1576) == 1 && *(a1 + 1568) > v14)
+        if (*(a1 + 1576) == 1 && *(a1 + 1568) > v16)
         {
-          v14 = *(a1 + 1568);
+          v16 = *(a1 + 1568);
         }
 
-        if (*(a1 + 2104) == 1 && *(a1 + 2168) > v14)
+        if (*(a1 + 2104) == 1 && *(a1 + 2168) > v16)
         {
-          v14 = *(a1 + 2168);
+          v16 = *(a1 + 2168);
         }
 
-        if (*(a1 + 2504) == 1 && *(a1 + 2568) > v14)
+        if (*(a1 + 2504) == 1 && *(a1 + 2568) > v16)
         {
-          v14 = *(a1 + 2568);
+          v16 = *(a1 + 2568);
         }
 
-        if (*(a1 + 1704) == 1 && *(a1 + 1768) > v14)
+        if (*(a1 + 1704) == 1 && *(a1 + 1768) > v16)
         {
-          v14 = *(a1 + 1768);
+          v16 = *(a1 + 1768);
         }
 
-        if (((*(a1 + 4080) & 1) != 0 || doesDisabledTofRequireBuffers(a2, a1)) && *(a1 + 4108) > v14)
+        if (((*(a1 + 4080) & 1) != 0 || doesDisabledTofRequireBuffers(a2, a1)) && *(a1 + 4108) > v16)
         {
-          v14 = *(a1 + 4108);
+          v16 = *(a1 + 4108);
         }
 
-        if (*(a1 + 1904) == 1 && ((v5[352] & 1) != 0 || *(a1 + 1976) == 1) && *(a1 + 1968) > v14)
+        if (*(a1 + 1904) == 1 && ((v6[352] & 1) != 0 || *(a1 + 1976) == 1) && *(a1 + 1968) > v16)
         {
-          v14 = *(a1 + 1968);
+          v16 = *(a1 + 1968);
         }
       }
 
       else
       {
-        v14 = 0;
+        v16 = 0;
       }
 
       if (*(a1 + 8) && H16ISP::H16ISPDevice::isSensorType(*(a2 + 24), *(a1 + 156), 1785950322))
       {
-        v14 += 4;
+        v16 += 4;
       }
 
-      if (v5[498] == 1 && H16ISP::H16ISPDevice::isSensorType(*(a2 + 24), *(a1 + 156), 1718186595))
+      if (v6[498] == 1 && H16ISP::H16ISPDevice::isSensorType(*(a2 + 24), *(a1 + 156), 1718186595))
       {
-        v14 += 4;
+        v16 += 4;
       }
 
-      v15 = *(a1 + 156);
-      if (gCaptureDeviceCFPrefs[44 * v15 + 208])
+      v17 = *(a1 + 156);
+      if (gCaptureDeviceCFPrefs[44 * v17 + 208])
       {
-        v16 = gCaptureDeviceCFPrefs[44 * v15 + 208];
+        v18 = gCaptureDeviceCFPrefs[44 * v17 + 208];
       }
 
       else
       {
-        v16 = v14;
+        v18 = v16;
       }
 
       if (gCaptureDeviceCFPrefs[0])
       {
-        v17 = 60;
+        v19 = 60;
       }
 
       else
       {
-        v17 = 48;
-        if (v5[510])
+        v19 = 48;
+        if (v6[510])
         {
-          v17 = 60;
+          v19 = 60;
         }
       }
 
-      v18 = *(a1 + 2104);
-      v19 = v36;
-      v20 = *(a3 + v17);
-      H16ISP::H16ISPDevice::GetPoolInfoExtended(*(a2 + 24), v15, 3, &v31);
-      if (*(a1 + 568) == 1 && (v32 - 2) >= 2 && v32 != 5)
+      v20 = 0;
+      v21 = *(a1 + 4464);
+      if (v21 > 1735549491)
       {
-        v21 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-        if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
+        if (v21 == 1919379252)
         {
-          v21 = os_log_create("com.apple.isp", "plugin");
-          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v21;
+          v20 = 8;
         }
 
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        else if (v21 == 1735549492)
         {
-          AddRawPoolToFrameReceiver();
+          v20 = 4;
         }
       }
 
-      v22 = v16 + v18;
-      if (v10 && *(a3 + 144))
+      else if (v21 == 1650943796)
       {
-        v36 += v34;
+        v20 = 16;
       }
 
-      v23 = *(a1 + 160);
-      *buf = 0u;
-      v38 = 0u;
-      v7 = H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(v23, 1, v20);
-      v24 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
+      else if (v21 == 1734505012)
       {
-        v24 = os_log_create("com.apple.isp", "plugin");
-        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v24;
+        v20 = 32;
       }
 
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v22 = *(a1 + 2104);
+      v23 = v55;
+      v24 = *(a3 + v19);
+      H16ISP::H16ISPDevice::GetPoolInfoExtended(*(a2 + 24), v17, 3, v50);
+      if (*(a1 + 2504))
       {
-        *buf = 67109632;
-        *&buf[4] = v22 + v19;
-        *&buf[8] = 1024;
-        *&buf[10] = v36;
-        *&buf[14] = 1024;
-        LODWORD(v38) = v7;
-        _os_log_impl(&dword_2247DB000, v24, OS_LOG_TYPE_INFO, "AddRawPoolToFrameReceiver - RAW pool size=%d,prime=%d (res=0x%08X)\n\n", buf, 0x14u);
+        v25 = v20 | 2;
       }
 
-      if (v7)
+      else
       {
-        goto LABEL_87;
+        v25 = v20;
       }
 
-      if (!v10 && *(a3 + 144) && v34)
+      v26 = *(a1 + 560);
+      if (v26 <= 1)
       {
-        v27 = v22 + v34;
-        v28 = *(a1 + 160);
-        v29 = *(a3 + 160);
-        *buf = 0u;
-        v38 = 0u;
-        v7 = H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(v28, 29, v29);
-        v30 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-        if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
+        if (!v26)
         {
-          v30 = os_log_create("com.apple.isp", "plugin");
-          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v30;
+          v27 = 19;
+          goto LABEL_96;
         }
 
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        if (v26 == 1)
         {
-          *buf = 67109632;
-          *&buf[4] = v27;
-          *&buf[8] = 1024;
-          *&buf[10] = v34;
-          *&buf[14] = 1024;
-          LODWORD(v38) = v7;
-          _os_log_impl(&dword_2247DB000, v30, OS_LOG_TYPE_INFO, "AddRawPoolToFrameReceiver - SIFR-RAW pool size=%d,prime=%d (res=0x%08X)\n\n", buf, 0x14u);
+          if (*(a1 + 569))
+          {
+            v27 = 38;
+          }
+
+          else
+          {
+            v27 = 20;
+          }
+
+          goto LABEL_96;
+        }
+      }
+
+      else
+      {
+        if (v26 == 2)
+        {
+          v27 = 21;
+          goto LABEL_96;
         }
 
-        if (v7)
+        if (v26 == 15)
         {
-LABEL_87:
-          v25 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+          v27 = 37;
+LABEL_96:
+          if (*(a1 + 568) == 1)
+          {
+            if ((v51 - 2) >= 2)
+            {
+              if (v51 == 5)
+              {
+                v27 = 41;
+              }
+
+              else
+              {
+                v49 = v25;
+                v28 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+                if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
+                {
+                  v28 = os_log_create("com.apple.isp", "plugin");
+                  GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v28;
+                }
+
+                if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+                {
+                  AddRawPoolToFrameReceiver();
+                }
+
+                v25 = v49;
+              }
+            }
+
+            else
+            {
+              v27 = 40;
+            }
+          }
+
+          v29 = v18 + v22;
+          v30 = *(a1 + 180);
+          if (a4 == 1278226736)
+          {
+            v31 = 12;
+          }
+
+          else
+          {
+            v31 = 8;
+          }
+
+          if (v30 != 3414)
+          {
+            v31 = v27;
+          }
+
+          if ((v30 | 4) == 0x506C)
+          {
+            v31 = a4 == 1278226738 ? 54 : 8;
+            if (a4 == 1278226736)
+            {
+              v31 = 12;
+            }
+          }
+
+          v32 = v29 + v23;
+          if (*(a3 + 72))
+          {
+            v33 = v31;
+          }
+
+          else
+          {
+            v33 = 7;
+          }
+
+          if (v12)
+          {
+            v34 = v55;
+            if (*(a3 + 144))
+            {
+              v34 = v55 + v53;
+              v55 += v53;
+            }
+          }
+
+          else
+          {
+            v34 = v55;
+          }
+
+          v35 = *(a1 + 160);
+          *buf = 0u;
+          v57 = 0u;
+          HIDWORD(v47) = *(a1 + 4516);
+          LOBYTE(v47) = 1;
+          HIDWORD(v46) = v25;
+          v36 = v25;
+          LODWORD(v46) = v34;
+          HIDWORD(v44) = v32;
+          LODWORD(v44) = 128;
+          v8 = H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(v35, 1, v24, v54[1], v54[0], 0, 0, v33, 0.0, buf, 1u, v44, 0x70000000000, v46, 0, @"RAW", 0, v12, 0, v47);
+          v37 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
           if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
           {
-            v25 = os_log_create("com.apple.isp", "plugin");
-            GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v25;
+            v37 = os_log_create("com.apple.isp", "plugin");
+            GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v37;
           }
 
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
           {
-            AddRawPoolToFrameReceiver();
+            *buf = 67109632;
+            *&buf[4] = v32;
+            *&buf[8] = 1024;
+            *&buf[10] = v55;
+            *&buf[14] = 1024;
+            LODWORD(v57) = v8;
+            _os_log_impl(&dword_2247DB000, v37, OS_LOG_TYPE_INFO, "AddRawPoolToFrameReceiver - RAW pool size=%d,prime=%d (res=0x%08X)\n\n", buf, 0x14u);
           }
+
+          if (v8)
+          {
+            goto LABEL_129;
+          }
+
+          if (!v12 && *(a3 + 144) && v53)
+          {
+            v40 = v29 + v53;
+            v41 = *(a1 + 160);
+            v42 = *(a3 + 160);
+            *buf = 0u;
+            v57 = 0u;
+            HIDWORD(v48) = *(a1 + 4516);
+            LOBYTE(v48) = 1;
+            HIDWORD(v45) = v40;
+            LODWORD(v45) = 128;
+            v8 = H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(v41, 29, v42, v52[1], v52[0], 0, 0, v33, 0.0, buf, 1u, v45, 0x70000000000, __SPAIR64__(v36, v53), 0, @"SIFR_RAW", 0, 0, 0, v48);
+            v43 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+            if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
+            {
+              v43 = os_log_create("com.apple.isp", "plugin");
+              GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v43;
+            }
+
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+            {
+              *buf = 67109632;
+              *&buf[4] = v40;
+              *&buf[8] = 1024;
+              *&buf[10] = v53;
+              *&buf[14] = 1024;
+              LODWORD(v57) = v8;
+              _os_log_impl(&dword_2247DB000, v43, OS_LOG_TYPE_INFO, "AddRawPoolToFrameReceiver - SIFR-RAW pool size=%d,prime=%d (res=0x%08X)\n\n", buf, 0x14u);
+            }
+
+            if (v8)
+            {
+LABEL_129:
+              v38 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+              if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
+              {
+                v38 = os_log_create("com.apple.isp", "plugin");
+                GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v38;
+              }
+
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+              {
+                AddRawPoolToFrameReceiver();
+              }
+            }
+          }
+
+          return v8;
         }
       }
+
+      v27 = 2;
+      goto LABEL_96;
     }
   }
 
-  return v7;
+  v8 = H16ISP::H16ISPFrameReceiver::addSharedBufferPoolToFrameReceiver(*(a1 + 160), v7, *(a1 + 4368));
+  if (v8)
+  {
+    v9 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
+    {
+      v9 = os_log_create("com.apple.isp", "plugin");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v9;
+    }
+
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      AddRawPoolToFrameReceiver();
+    }
+  }
+
+  return v8;
 }
 
-void *std::deque<H16ISP::H16ISPFrameReceiverSharedPoolStruct *>::__add_back_capacity(void *a1)
+void std::deque<H16ISP::H16ISPFrameReceiverSharedPoolStruct *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -6714,25 +6936,25 @@ void *std::deque<H16ISP::H16ISPFrameReceiverSharedPoolStruct *>::__add_back_capa
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](a1, v9);
+    v10 = a1;
+    std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **&>(a1, &v9);
 }
 
 void sub_22482BB1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -6746,34 +6968,33 @@ void sub_22482BB1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t H16ISP::H16ISPDevice::SetMinimumFrameRate(H16ISP::H16ISPDevice *this, uint64_t a2)
+uint64_t H16ISP::H16ISPDevice::SetMinimumFrameRate(H16ISP::H16ISPDevice *this)
 {
-  v2 = MEMORY[0x28223BE20](this, a2);
-  v5 = v4;
-  v6 = v3;
-  v7 = v2;
-  v14 = *MEMORY[0x277D85DE8];
-  if (v8)
+  v1 = MEMORY[0x28223BE20](this);
+  v4 = v3;
+  v5 = v2;
+  v6 = v1;
+  v13 = *MEMORY[0x277D85DE8];
+  if (v7)
   {
 
-    return H16ISP::H16ISPDevice::ISP_SetExclaveMinimumFrameRate(v2, v3, v4);
+    return H16ISP::H16ISPDevice::ISP_SetExclaveMinimumFrameRate(v1, v2, v3);
   }
 
   else
   {
-    bzero(v10, 0x10uLL);
-    v11 = 522;
-    v12 = v6;
-    v13 = v5;
-    return H16ISP::H16ISPDevice::ISP_SendCommand(v7, v10, 0x10u, 0, 0xFFFFFFFF);
+    bzero(v9, 0x10uLL);
+    v10 = 522;
+    v11 = v5;
+    v12 = v4;
+    return H16ISP::H16ISPDevice::ISP_SendCommand(v6, v9, 0x10u, 0, 0xFFFFFFFF);
   }
 }
 
-void *std::deque<H16ISP::H16ISPFrameReceiverSharedPoolStruct *>::push_back(void *result, void *a2)
+void std::deque<H16ISP::H16ISPFrameReceiverSharedPoolStruct *>::push_back(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  v5 = result[1];
+  v4 = a1[2];
+  v5 = a1[1];
   if (v4 == v5)
   {
     v6 = 0;
@@ -6784,19 +7005,18 @@ void *std::deque<H16ISP::H16ISPFrameReceiverSharedPoolStruct *>::push_back(void 
     v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v7 = result[5];
-  v8 = v7 + result[4];
+  v7 = a1[5];
+  v8 = v7 + a1[4];
   if (v6 == v8)
   {
-    result = std::deque<H16ISP::H16ISPFrameReceiverSharedPoolStruct *>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<H16ISP::H16ISPFrameReceiverSharedPoolStruct *>::__add_back_capacity(a1);
+    v5 = a1[1];
+    v7 = a1[5];
+    v8 = a1[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  a1[5] = v7 + 1;
 }
 
 uint64_t ExclaveSetMinimumFrameRateNow(uint64_t a1, uint64_t a2)
@@ -6836,34 +7056,34 @@ uint64_t ExclaveSetMinimumFrameRateNow(uint64_t a1, uint64_t a2)
   return v5;
 }
 
-void SetMaximumFrameRateNow(uint64_t a1, uint64_t a2)
+void SetMaximumFrameRateNow(uint64_t result, uint64_t a2)
 {
-  if (*(a1 + 160))
+  if (*(result + 160))
   {
     v4 = *(a2 + 24);
-    H16ISP::H16ISPDevice::SetMaximumFrameRate(v4, *(a1 + 156));
-    v5 = *(a1 + 4720);
+    H16ISP::H16ISPDevice::SetMaximumFrameRate(v4);
+    v5 = *(result + 4720);
     if (v5)
     {
       v9 = 0;
       H16ISP::H16ISPFilterGraphManager::GetNode(v5, 9, &v9);
       if (v9)
       {
-        H16ISP::H16ISPGraphVIOCameraControlNode::AdjustStreamFrameRate(v9, *(a1 + 52), v6);
+        H16ISP::H16ISPGraphVIOCameraControlNode::AdjustStreamFrameRate(v9, *(result + 52), v6);
       }
 
-      if (H16ISP::H16ISPDevice::isSensorType(v4, *(a1 + 156), 1785950322))
+      if (H16ISP::H16ISPDevice::isSensorType(v4, *(result + 156), 1785950322))
       {
         v8 = 0;
-        H16ISP::H16ISPFilterGraphManager::GetNode(*(a1 + 4720), 11, &v8);
+        H16ISP::H16ISPFilterGraphManager::GetNode(*(result + 4720), 11, &v8);
         if (v8)
         {
-          H16ISP::H16ISPJasperDepthNode::setJasperFrameRateMax(v8, *(a1 + 52));
+          H16ISP::H16ISPJasperDepthNode::setJasperFrameRateMax(v8, *(result + 52));
         }
       }
     }
 
-    if (ExclaveSetMaximumFrameRateNow(a2, a1))
+    if (ExclaveSetMaximumFrameRateNow(a2, result))
     {
       v7 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_exclavesLog;
       if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_exclavesLog == MEMORY[0x277D86220])
@@ -6891,26 +7111,26 @@ uint64_t H16ISP::MyCVPixelBufferPoolScanIOSurfacesCallback(H16ISP *this, H16ISP:
   return 0;
 }
 
-uint64_t H16ISP::H16ISPDevice::SetMaximumFrameRate(H16ISP::H16ISPDevice *this, uint64_t a2)
+uint64_t H16ISP::H16ISPDevice::SetMaximumFrameRate(H16ISP::H16ISPDevice *this)
 {
-  v2 = MEMORY[0x28223BE20](this, a2);
-  v5 = v4;
-  v6 = v3;
-  v7 = v2;
-  v14 = *MEMORY[0x277D85DE8];
-  if (v8)
+  v1 = MEMORY[0x28223BE20](this);
+  v4 = v3;
+  v5 = v2;
+  v6 = v1;
+  v13 = *MEMORY[0x277D85DE8];
+  if (v7)
   {
 
-    return H16ISP::H16ISPDevice::ISP_SetExclaveMaximumFrameRate(v2, v3, v4);
+    return H16ISP::H16ISPDevice::ISP_SetExclaveMaximumFrameRate(v1, v2, v3);
   }
 
   else
   {
-    bzero(v10, 0x10uLL);
-    v11 = 520;
-    v12 = v6;
-    v13 = v5;
-    return H16ISP::H16ISPDevice::ISP_SendCommand(v7, v10, 0x10u, 0, 0xFFFFFFFF);
+    bzero(v9, 0x10uLL);
+    v10 = 520;
+    v11 = v5;
+    v12 = v4;
+    return H16ISP::H16ISPDevice::ISP_SendCommand(v6, v9, 0x10u, 0, 0xFFFFFFFF);
   }
 }
 
@@ -7012,184 +7232,187 @@ void H16ISPPostNotification(const __CFString *a1, const void *a2, const void *a3
 
 uint64_t H16ISP::H16ISPFrameReceiver::FrameDone(H16ISP::H16ISPFrameReceiver *this, void *a2, int a3, unint64_t *a4)
 {
-  v4 = MEMORY[0x28223BE20](this, a2);
+  v4 = MEMORY[0x28223BE20](this);
   v6 = v5;
   v8 = v7;
   v9 = v4;
-  v214 = *MEMORY[0x277D85DE8];
-  v202 = 0;
+  v219 = *MEMORY[0x277D85DE8];
+  v207 = 0;
   kdebug_trace();
   pthread_mutex_lock((v9 + 160));
+  v206 = 0;
+  *(&v10 + 1) = 0;
+  v204 = 0u;
+  v205 = 0u;
+  v203 = 0u;
   v201 = 0;
-  v199 = 0u;
-  v200 = 0u;
-  v198 = 0u;
-  v196 = 0;
+  v202 = 0;
+  v199 = 0;
+  v200 = 0;
   v197 = 0;
-  v194 = 0;
+  v198 = 0;
   v195 = 0;
-  v192 = 0;
+  v196 = 0;
   v193 = 0;
-  v190 = 0;
+  v194 = 0;
   v191 = 0;
-  v188 = 0;
-  v189 = 0;
-  v186 = 0;
-  v187 = 0;
-  v185 = 0;
-  v179 = (v6 - 2);
+  v192 = 0;
+  v190 = 0;
+  v184 = (v6 - 2);
   if (v6 != 2)
   {
-    v10 = 0;
-    v174 = 0;
-    v172 = 0;
     v11 = 0;
-    v168 = 0;
-    v169 = 0;
-    v170 = 0;
-    cf = 0;
+    v179 = 0;
+    v177 = 0;
+    v12 = 0;
+    v173 = 0;
+    v174 = 0;
     v175 = 0;
-    v176 = (v9 + 896);
-    v167 = 0;
-    v177 = (v9 + 456);
-    v178 = 0;
+    cf = 0;
+    v180 = 0;
+    v181 = (v9 + 896);
+    v172 = 0;
+    v182 = (v9 + 456);
+    v183 = 0;
+    *&v10 = 67109890;
+    v171 = v10;
     while (2)
     {
       pixelBuffer = 0;
-      v12 = *(v9 + 824);
-      v13 = *(v9 + 848);
-      v14 = (v12 + 8 * (v13 >> 9));
-      v15 = *(v9 + 832);
-      if (v15 == v12)
+      v13 = *(v9 + 824);
+      v14 = *(v9 + 848);
+      v15 = (v13 + 8 * (v14 >> 9));
+      v16 = *(v9 + 832);
+      if (v16 == v13)
       {
-        v16 = 0;
+        v17 = 0;
       }
 
       else
       {
-        v16 = (*v14 + 8 * (*(v9 + 848) & 0x1FFLL));
+        v17 = (*v15 + 8 * (*(v9 + 848) & 0x1FFLL));
       }
 
-      v17 = (v10 + 2);
-      v180 = v11;
+      v18 = (v11 + 2);
+      v185 = v12;
 LABEL_7:
-      v18 = v16;
+      v19 = v17;
       while (1)
       {
-        if (v15 == v12)
+        if (v16 == v13)
         {
-          v19 = 0;
+          v20 = 0;
         }
 
         else
         {
-          v19 = *(v12 + (((*(v9 + 856) + v13) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(v9 + 856) + v13) & 0x1FF);
+          v20 = *(v13 + (((*(v9 + 856) + v14) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(v9 + 856) + v14) & 0x1FF);
         }
 
-        if (v18 == v19)
+        if (v19 == v20)
         {
-          v22 = *(v9 + 776);
-          v23 = (v22 + 8 * (*(v9 + 800) >> 9));
-          v24 = *(v9 + 784);
-          if (v24 == v22)
+          v23 = *(v9 + 776);
+          v24 = (v23 + 8 * (*(v9 + 800) >> 9));
+          v25 = *(v9 + 784);
+          if (v25 == v23)
           {
-            v25 = 0;
+            v26 = 0;
           }
 
           else
           {
-            v25 = (*v23 + 8 * (*(v9 + 800) & 0x1FFLL));
+            v26 = (*v24 + 8 * (*(v9 + 800) & 0x1FFLL));
           }
 
           while (1)
           {
-            if (v24 == v22)
+            if (v25 == v23)
             {
-              v27 = 0;
+              v28 = 0;
             }
 
             else
             {
-              v26 = *(v9 + 808) + *(v9 + 800);
-              v27 = *(v22 + ((v26 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v26 & 0x1FF);
+              v27 = *(v9 + 808) + *(v9 + 800);
+              v28 = *(v23 + ((v27 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v27 & 0x1FF);
             }
 
-            if (v25 == v27)
+            if (v26 == v28)
             {
               break;
             }
 
-            if (H16ISP::H16ISPFrameReceiverSharedBufferPool::FindBuffer(**v25, *(v8 + 8 * v17)))
+            if (H16ISP::H16ISPFrameReceiverSharedBufferPool::FindBuffer(**v26, *(v8 + 8 * v18)))
             {
               operator new();
             }
 
-            if ((++v25 - *v23) == 4096)
+            if ((++v26 - *v24) == 4096)
             {
-              v28 = v23[1];
-              ++v23;
-              v25 = v28;
+              v29 = v24[1];
+              ++v24;
+              v26 = v29;
             }
 
-            v22 = *(v9 + 776);
-            v24 = *(v9 + 784);
+            v23 = *(v9 + 776);
+            v25 = *(v9 + 784);
           }
 
-          v29 = *(v9 + 864);
-          v11 = v180;
-          if (v29 && H16ISP::H16ISPFrameReceiverDataBufferPool::FindBuffer(v29, *(v8 + 8 * v17)))
+          v30 = *(v9 + 864);
+          v12 = v185;
+          if (v30 && H16ISP::H16ISPFrameReceiverDataBufferPool::FindBuffer(v30, *(v8 + 8 * v18)))
           {
             operator new();
           }
 
-          v34 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+          v35 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
           if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
           {
-            v34 = os_log_create("com.apple.isp", "general");
-            GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v34;
+            v35 = os_log_create("com.apple.isp", "general");
+            GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v35;
           }
 
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
           {
-            v35 = *(v8 + 8 * v17);
+            v36 = *(v8 + 8 * v18);
             *buf = 67109120;
-            *&buf[4] = v35;
-            _os_log_unreliable_impl();
+            *&buf[4] = v36;
+            _os_log_unreliable_impl(&dword_2247DB000, v35, 16, "Unable to locate surface ID %d\n", v169);
           }
 
           goto LABEL_80;
         }
 
-        v20 = *v18;
-        if (*(v8 + 8 * v17) == *(*v18 + 8))
+        v21 = *v19;
+        if (*(v8 + 8 * v18) == *(*v19 + 8))
         {
           break;
         }
 
-        v18 += 8;
-        v16 += 8;
-        if ((*v14 + 4096) == v16)
+        v19 += 8;
+        v17 += 8;
+        if ((*v15 + 4096) == v17)
         {
-          v21 = *(v14 + 1);
-          v14 += 8;
-          v16 = v21;
+          v22 = *(v15 + 1);
+          v15 += 8;
+          v17 = v22;
           goto LABEL_7;
         }
       }
 
-      v30 = *(v20 + 2);
-      v31 = *(v30 + 16);
-      if (v31)
+      v31 = *(v21 + 2);
+      v32 = *(v31 + 16);
+      if (v32)
       {
-        v32 = v31 == 10;
+        v33 = v32 == 10;
       }
 
       else
       {
-        v32 = 1;
+        v33 = 1;
       }
 
-      if (v32)
+      if (v33)
       {
         if (H16ISP::gFrameReceiverCFPrefs != 1)
         {
@@ -7197,122 +7420,122 @@ LABEL_7:
         }
       }
 
-      else if (v31 != 6 || H16ISP::gFrameReceiverCFPrefs != 1)
+      else if (v32 != 6 || H16ISP::gFrameReceiverCFPrefs != 1)
       {
 LABEL_42:
-        --*(v30 + 120);
-        if (*(v9 + 434) & 1) != 0 || (*(v30 + 144))
+        --*(v31 + 120);
+        if (*(v9 + 434) & 1) != 0 || (*(v31 + 144))
         {
-          CVPixelBufferRelease(*v20);
-          std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::erase((v9 + 816), v14, v16);
+          CVPixelBufferRelease(*v21);
+          std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::erase((v9 + 816), v15, v17);
           goto LABEL_78;
         }
 
-        switch(v31)
+        switch(v32)
         {
           case 0:
-            v201 = *v20;
+            v206 = *v21;
             break;
           case 1:
           case 41:
-            std::deque<__CVBuffer *>::push_back(&v198, v20);
+            std::deque<__CVBuffer *>::push_back(&v203, v21);
             break;
           case 2:
-            v180 = *v20;
+            v185 = *v21;
             break;
           case 3:
-            cf = *v20;
-            v168 = *(v30 + 20);
+            cf = *v21;
+            HIDWORD(v173) = *(v31 + 20);
             break;
           case 6:
-            v195 = *v20;
+            v200 = *v21;
             break;
           case 7:
-            v196 = *v20;
+            v201 = *v21;
             break;
           case 8:
-            v169 = *v20;
+            v174 = *v21;
             break;
           case 9:
-            v193 = *v20;
+            v198 = *v21;
             break;
           case 10:
-            v194 = *v20;
+            v199 = *v21;
             break;
           case 12:
-            v191 = *v20;
+            v196 = *v21;
             break;
           case 13:
-            v190 = *v20;
+            v195 = *v21;
             break;
           case 15:
-            v189 = *v20;
+            v194 = *v21;
             break;
           case 17:
-            v192 = *v20;
+            v197 = *v21;
             break;
           case 21:
-            v188 = *v20;
+            v193 = *v21;
             break;
           case 25:
-            v167 = *v20;
+            v172 = *v21;
             break;
           case 29:
-            v197 = *v20;
+            v202 = *v21;
             break;
           case 31:
-            v187 = *v20;
+            v192 = *v21;
             break;
           case 34:
           case 35:
           case 36:
           case 37:
-            ++v175;
+            ++v180;
             break;
           case 38:
-            v185 = *v20;
+            v190 = *v21;
             break;
           case 39:
-            v186 = *v20;
+            v191 = *v21;
             break;
           case 45:
-            ++HIDWORD(v170);
+            ++HIDWORD(v175);
             break;
           case 46:
-            LODWORD(v170) = v170 + 1;
+            LODWORD(v175) = v175 + 1;
             break;
           default:
             break;
         }
 
-        v36 = *(v20 + 2);
-        if (*(v36 + 116))
+        v37 = *(v21 + 2);
+        if (*(v37 + 116))
         {
-          v38 = &v213[v178];
-          *v38 = *v20;
-          v38[1] = *(v36 + 16);
-          std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::erase((v9 + 816), v14, v16);
+          v39 = &v218[v183];
+          *v39 = *v21;
+          v39[1] = *(v37 + 16);
+          std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::erase((v9 + 816), v15, v17);
         }
 
         else
         {
-          if (*(v36 + 16) != 31 || !H16ISP::H16ISPFrameReceiverBufferPool::TryStillImageBufferRemove(v36, *v20))
+          if (*(v37 + 16) != 31 || !H16ISP::H16ISPFrameReceiverBufferPool::TryStillImageBufferRemove(v37, *v21))
           {
-            if (!*v176 || (v39 = *(v20 + 2), *(v39 + 16)))
+            if (!*v181 || (v40 = *(v21 + 2), *(v40 + 16)))
             {
-              H16ISP::H16ISPFrameReceiverBufferPool::allocateBuffer(*(v20 + 2), &pixelBuffer, 0);
+              H16ISP::H16ISPFrameReceiverBufferPool::allocateBuffer(*(v21 + 2), &pixelBuffer, 0);
               if (*(v9 + 933) == 1)
               {
-                v52 = *(*(v20 + 2) + 16);
-                if (v52 == 2)
+                v53 = *(*(v21 + 2) + 16);
+                if (v53 == 2)
                 {
                   operator new();
                 }
 
-                if (!v52)
+                if (!v53)
                 {
-                  v53 = *(v9 + 936);
-                  if (pixelBuffer ? H16ISP::MOVReader::getNextFrame(v53, pixelBuffer) : H16ISP::MOVReader::getNextFrame(v53, *v20))
+                  v54 = *(v9 + 936);
+                  if (pixelBuffer ? H16ISP::MOVReader::getNextFrame(v54, pixelBuffer) : H16ISP::MOVReader::getNextFrame(v54, *v21))
                   {
                     *(v9 + 933) = 0;
                     H16ISP::MOVReader::~MOVReader(*(v9 + 936));
@@ -7323,290 +7546,292 @@ LABEL_42:
 
               if (pixelBuffer)
               {
-                v55 = *(v20 + 2);
-                v56 = *(v55 + 4);
-                if (v56)
+                v56 = *(v21 + 2);
+                v57 = *(v56 + 4);
+                if (v57)
                 {
                   goto LABEL_113;
                 }
 
-                v56 = *(v9 + 920);
-                if (!v56)
+                v57 = *(v9 + 920);
+                if (!v57)
                 {
                   goto LABEL_117;
                 }
 
                 *buf = 0;
-                H16ISP::H16ISPFrameReceiverBufferPool::allocateBuffer(v55, buf, 0);
+                H16ISP::H16ISPFrameReceiverBufferPool::allocateBuffer(v56, buf, 0);
                 if (*buf)
                 {
-                  v57 = &v213[v178];
-                  *v57 = *buf;
-                  v57[1] = -4294967291;
-                  v178 = (v178 + 1);
+                  v58 = &v218[v183];
+                  *v58 = *buf;
+                  v58[1] = -4294967291;
+                  v183 = (v183 + 1);
                   --*(v9 + 920);
                 }
 
-                v55 = *(v20 + 2);
-                v56 = *(v55 + 4);
+                v56 = *(v21 + 2);
+                v57 = *(v56 + 4);
 LABEL_113:
-                if (v56 == 3)
+                if (v57 == 3)
                 {
-                  v58 = v9 + 456;
-                  if (*v177)
+                  v59 = v9 + 456;
+                  if (*v182)
                   {
-                    CVPixelBufferRelease(*v177);
-                    v58 = v9 + 456;
-                    *v177 = 0;
+                    CVPixelBufferRelease(*v182);
+                    v59 = v9 + 456;
+                    *v182 = 0;
                   }
 
-                  v59 = *v20;
-                  *(v58 + 16) = *(v20 + 2);
-                  *v58 = v59;
+                  v60 = *v21;
+                  *(v59 + 16) = *(v21 + 2);
+                  *v59 = v60;
                 }
 
                 else
                 {
 LABEL_117:
-                  v60 = &v213[v178];
-                  *v60 = *v20;
-                  *(v60 + 2) = v56;
-                  *(v60 + 3) = *(v55 + 5);
-                  v178 = (v178 + 1);
+                  v61 = &v218[v183];
+                  *v61 = *v21;
+                  *(v61 + 2) = v57;
+                  *(v61 + 3) = *(v56 + 5);
+                  v183 = (v183 + 1);
                 }
 
-                v61 = pixelBuffer;
-                *v20 = pixelBuffer;
-                IOSurface = CVPixelBufferGetIOSurface(v61);
+                v62 = pixelBuffer;
+                *v21 = pixelBuffer;
+                IOSurface = CVPixelBufferGetIOSurface(v62);
                 ID = IOSurfaceGetID(IOSurface);
-                *(v20 + 2) = ID;
-                v64 = &v212[7 * v174];
-                *v64 = H16ISP::H16ISPFrameReceiver::FrameDone;
-                v64[1] = v9;
-                *(v64 + 4) = ID;
-                v65 = *(v20 + 2);
-                *(v64 + 20) = *(v65 + 24);
-                *(v64 + 7) = *(v65 + 40);
-                *(v64 + 8) = *(v65 + 20);
-                ++v174;
+                *(v21 + 2) = ID;
+                v65 = &v217[7 * v179];
+                *v65 = H16ISP::H16ISPFrameReceiver::FrameDone;
+                v65[1] = v9;
+                *(v65 + 4) = ID;
+                v66 = *(v21 + 2);
+                *(v65 + 20) = *(v66 + 24);
+                *(v65 + 7) = *(v66 + 40);
+                *(v65 + 8) = *(v66 + 20);
+                ++v179;
               }
 
               else
               {
-                v66 = *(v20 + 2);
-                v67 = (*(v66 + 20) - 2 * *(v9 + 436)) % 0x32u;
-                v68 = "UNKNOWN_TYPE";
-                if (v67 <= 0x2B)
+                v67 = *(v21 + 2);
+                v68 = (*(v67 + 20) - 2 * *(v9 + 436)) % 0x32u;
+                v69 = "UNKNOWN_TYPE";
+                if (v68 <= 0x2B)
                 {
-                  v68 = h16ispFirmwarePoolTypes[v67];
+                  v69 = h16ispFirmwarePoolTypes[v68];
                 }
 
-                v69 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
-                v173 = v68;
+                v70 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                v178 = v69;
                 if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
                 {
-                  v69 = os_log_create("com.apple.isp", "general");
-                  GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v69;
-                  v66 = *(v20 + 2);
+                  v70 = os_log_create("com.apple.isp", "general");
+                  GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v70;
+                  v67 = *(v21 + 2);
                 }
 
-                if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
                 {
-                  v70 = *(v66 + 184);
-                  if (!v70)
+                  v71 = *(v67 + 184);
+                  if (!v71)
                   {
-                    v70 = *(v66 + 160);
+                    v71 = *(v67 + 160);
                   }
 
-                  v71 = *(v9 + 436);
-                  v72 = *(v66 + 20);
-                  *buf = 67109890;
-                  *&buf[4] = v71;
+                  v72 = *(v9 + 436);
+                  v73 = *(v67 + 20);
+                  *buf = v171;
+                  *&buf[4] = v72;
                   *&buf[8] = 2080;
-                  *&buf[10] = v173;
+                  *&buf[10] = v178;
                   *&buf[18] = 1024;
-                  *&buf[20] = v72;
+                  *&buf[20] = v73;
                   *&buf[24] = 2048;
-                  *&buf[26] = v70;
-                  _os_log_unreliable_impl();
+                  *&buf[26] = v71;
+                  _os_log_unreliable_impl(&dword_2247DB000, v70, 16, "Unable to allocate a replacement buffer (poolID = CHAN_%d_%s, actual poolID = %d, buffer pool pointer = %p)\n", v169, v170, v171, *(&v171 + 1));
                 }
 
                 kdebug_trace();
-                v73 = &v212[7 * v174];
-                *v73 = H16ISP::H16ISPFrameReceiver::FrameDone;
-                v73[1] = v9;
-                *(v73 + 4) = *(v20 + 2);
-                v74 = *(v20 + 2);
-                *(v73 + 20) = *(v74 + 24);
-                *(v73 + 7) = *(v74 + 40);
-                *(v73 + 8) = *(v74 + 20);
-                ++v174;
-                v75 = *(*(v20 + 2) + 16);
-                v172 = 1;
-                if (v75 <= 0x1D)
+                v74 = &v217[7 * v179];
+                *v74 = H16ISP::H16ISPFrameReceiver::FrameDone;
+                v74[1] = v9;
+                *(v74 + 4) = *(v21 + 2);
+                v75 = *(v21 + 2);
+                *(v74 + 20) = *(v75 + 24);
+                *(v74 + 7) = *(v75 + 40);
+                *(v74 + 8) = *(v75 + 20);
+                ++v179;
+                v76 = *(*(v21 + 2) + 16);
+                v177 = 1;
+                if (v76 <= 0x1D)
                 {
-                  if (((1 << v75) & 0x20000441) != 0)
+                  if (((1 << v76) & 0x20000441) != 0)
                   {
-                    v172 = 1;
+                    LOBYTE(v173) = 1;
+                    v177 = 1;
                   }
 
-                  else if (v75 == 1)
+                  else if (v76 == 1)
                   {
-                    --*(&v200 + 1);
-                    std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::__maybe_remove_back_spare[abi:ne200100](&v198, 1);
-                    v172 = 1;
+                    --*(&v205 + 1);
+                    LOBYTE(v173) = 1;
+                    std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::__maybe_remove_back_spare[abi:ne200100](&v203, 1);
+                    v177 = 1;
                   }
                 }
               }
 
 LABEL_79:
-              v11 = v180;
+              v12 = v185;
               goto LABEL_80;
             }
 
-            v40 = &v213[v178];
-            *v40 = *v20;
-            *(v40 + 2) = 0;
-            *(v40 + 3) = *(v39 + 20);
-            std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::erase((v9 + 816), v14, v16);
-            v178 = (v178 + 1);
-            MEMORY[0x22AA55B60](v20, 0x1020C4093CA8EA1);
-            v41 = *(v9 + 924) - 1;
-            *(v9 + 924) = v41;
-            if (v41)
+            v41 = &v218[v183];
+            *v41 = *v21;
+            *(v41 + 2) = 0;
+            *(v41 + 3) = *(v40 + 20);
+            std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::erase((v9 + 816), v15, v17);
+            v183 = (v183 + 1);
+            MEMORY[0x22AA55B60](v21, 0x1020C4093CA8EA1);
+            v42 = *(v9 + 924) - 1;
+            *(v9 + 924) = v42;
+            if (v42)
             {
               goto LABEL_79;
             }
 
-            LODWORD(v183[0]) = *(v9 + 436);
-            *&v182[4] = 2049;
-            *(v183 + 4) = *(v9 + 904);
-            v11 = v180;
-            v42 = H16ISP::H16ISPDevice::ISP_SendCommand(*(v9 + 400), v182, 0x1Cu, 0, 0xFFFFFFFF);
-            if (v42)
+            LODWORD(v188[0]) = *(v9 + 436);
+            *&v187[4] = 2049;
+            *(v188 + 4) = *(v9 + 904);
+            v12 = v185;
+            v43 = H16ISP::H16ISPDevice::ISP_SendCommand(*(v9 + 400), v187, 0x1Cu, 0, 0xFFFFFFFF);
+            if (v43)
             {
-              v43 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+              v44 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
               if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
               {
-                v43 = os_log_create("com.apple.isp", "general");
-                GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v43;
+                v44 = os_log_create("com.apple.isp", "general");
+                GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v44;
               }
 
-              if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
               {
                 *buf = 67109120;
-                *&buf[4] = v42;
-                _os_log_unreliable_impl();
+                *&buf[4] = v43;
+                _os_log_unreliable_impl(&dword_2247DB000, v44, 16, "Error sending sCIspCmdChCropSet command: 0x%08X\n", v169);
               }
             }
 
-            v44 = *(v9 + 436);
+            v45 = *(v9 + 436);
             WORD2(time.value) = 2817;
-            v45 = *(v9 + 896);
-            v46 = *(v45 + 36) + *(v45 + 24);
-            time.timescale = v44;
-            time.flags = v46;
-            v211 = v46;
-            v47 = *(v45 + 28);
-            LODWORD(time.epoch) = v47.i32[0];
-            v210 = vrev64_s32(v47);
-            v48 = *(v45 + 40);
-            v49 = *(v45 + 88) ^ 1;
-            v207 = v48;
-            HIDWORD(time.epoch) = v49;
-            if (v48 <= 21)
+            v46 = *(v9 + 896);
+            v47 = *(v46 + 36) + *(v46 + 24);
+            time.timescale = v45;
+            time.flags = v47;
+            v216 = v47;
+            v48 = *(v46 + 28);
+            LODWORD(time.epoch) = v48.i32[0];
+            v215 = vrev64_s32(v48);
+            v49 = *(v46 + 40);
+            v50 = *(v46 + 88) ^ 1;
+            v212 = v49;
+            HIDWORD(time.epoch) = v50;
+            if (v49 <= 21)
             {
-              if ((v48 - 15) < 2)
+              if ((v49 - 15) < 2)
               {
-                v46 *= 2;
+                v47 *= 2;
               }
 
               else
               {
-                if (v48 == 1)
+                if (v49 == 1)
                 {
-                  LODWORD(v208) = (2 * v46 + 63) & 0xFFFFFFC0;
+                  LODWORD(v213) = (2 * v47 + 63) & 0xFFFFFFC0;
                   goto LABEL_147;
                 }
 
-                if (v48 == 18)
+                if (v49 == 18)
                 {
-                  v46 = (2 * ((2863311531u * (v46 + 2)) >> 32)) & 0xFFFFFFFC;
+                  v47 = (2 * ((2863311531u * (v47 + 2)) >> 32)) & 0xFFFFFFFC;
                 }
               }
             }
 
             else
             {
-              if (v48 <= 0x24)
+              if (v49 <= 0x24)
               {
-                if (((1 << v48) & 0x3F000000) != 0)
+                if (((1 << v49) & 0x3F000000) != 0)
                 {
-                  v208 = __PAIR64__(*(v45 + 372), *(v45 + 340));
+                  v213 = __PAIR64__(*(v46 + 372), *(v46 + 340));
                   goto LABEL_147;
                 }
 
-                if (((1 << v48) & 0x780000000) != 0 || ((1 << v48) & 0x1800000000) != 0)
+                if (((1 << v49) & 0x780000000) != 0 || ((1 << v49) & 0x1800000000) != 0)
                 {
-                  v50 = *(v45 + 340);
-                  v51 = *(v45 + 372);
-                  HIDWORD(v208) = v50;
-                  v209 = v51;
+                  v51 = *(v46 + 340);
+                  v52 = *(v46 + 372);
+                  HIDWORD(v213) = v51;
+                  v214 = v52;
 LABEL_147:
-                  v77 = H16ISP::H16ISPDevice::ISP_SendCommand(*(v9 + 400), &time, 0x38u, 0, 0xFFFFFFFF);
-                  if (v77)
+                  v78 = H16ISP::H16ISPDevice::ISP_SendCommand(*(v9 + 400), &time, 0x38u, 0, 0xFFFFFFFF);
+                  if (v78)
                   {
-                    v78 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                    v79 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
                     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
                     {
-                      v78 = os_log_create("com.apple.isp", "general");
-                      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v78;
+                      v79 = os_log_create("com.apple.isp", "general");
+                      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v79;
                     }
 
-                    if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+                    if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 67109120;
-                      *&buf[4] = v77;
-                      _os_log_unreliable_impl();
+                      *&buf[4] = v78;
+                      _os_log_unreliable_impl(&dword_2247DB000, v79, 16, "Error sending sCIspCmdChOutputConfigSet command: 0x%08X\n", v169);
                     }
                   }
 
-                  v181 = 0;
-                  v79 = *v176;
-                  if (*(*v176 + 28))
+                  v186 = 0;
+                  v80 = *v181;
+                  if (*(*v181 + 28))
                   {
-                    v80 = 0;
+                    v81 = 0;
                     do
                     {
-                      if (!H16ISP::H16ISPFrameReceiverBufferPool::allocateBuffer(v79, &v181, 0))
+                      if (!H16ISP::H16ISPFrameReceiverBufferPool::allocateBuffer(v80, &v186, 0))
                       {
                         operator new();
                       }
 
-                      v79 = *v176;
-                      ++v80;
+                      v80 = *v181;
+                      ++v81;
                     }
 
-                    while (v80 < *(v79 + 28));
+                    while (v81 < *(v80 + 28));
                   }
 
-                  else if (!v77)
+                  else if (!v78)
                   {
-                    v82 = H16ISP::H16ISPDevice::ISP_SendBuffers(*(v9 + 400), buf, 0, *(v9 + 376));
-                    if (v82)
+                    v83 = H16ISP::H16ISPDevice::ISP_SendBuffers(*(v9 + 400), buf, 0, *(v9 + 376));
+                    if (v83)
                     {
-                      v83 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                      v84 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
                       if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
                       {
-                        v83 = os_log_create("com.apple.isp", "general");
-                        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v83;
+                        v84 = os_log_create("com.apple.isp", "general");
+                        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v84;
                       }
 
-                      if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+                      if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
                       {
-                        v203 = 67109120;
-                        v204 = v82;
-                        _os_log_unreliable_impl();
+                        v208 = 67109120;
+                        v209 = v83;
+                        _os_log_unreliable_impl(&dword_2247DB000, v84, 16, "pH16ISPDevice->ISP_SendBuffers failed, result=0x%08X\n", v169);
                       }
                     }
 
@@ -7617,76 +7842,76 @@ LABEL_147:
                     }
                   }
 
-                  v84 = *(v9 + 728);
-                  v85 = *(v9 + 752);
-                  v86 = v84 + 8 * (v85 >> 9);
-                  v87 = *(v9 + 736);
-                  if (v87 == v84)
+                  v85 = *(v9 + 728);
+                  v86 = *(v9 + 752);
+                  v87 = v85 + 8 * (v86 >> 9);
+                  v88 = *(v9 + 736);
+                  if (v88 == v85)
                   {
-                    v88 = 0;
+                    v89 = 0;
                   }
 
                   else
                   {
-                    v88 = (*v86 + 8 * (*(v9 + 752) & 0x1FFLL));
+                    v89 = (*v87 + 8 * (*(v9 + 752) & 0x1FFLL));
                   }
 
 LABEL_169:
-                  v89 = v88;
+                  v90 = v89;
                   while (1)
                   {
-                    v90 = v87 == v84 ? 0 : *(v84 + (((*(v9 + 760) + v85) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(v9 + 760) + v85) & 0x1FF);
-                    if (v89 == v90)
+                    v91 = v88 == v85 ? 0 : *(v85 + (((*(v9 + 760) + v86) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(v9 + 760) + v86) & 0x1FF);
+                    if (v90 == v91)
                     {
                       break;
                     }
 
-                    v91 = *v89;
-                    if (!*(*v89 + 16))
+                    v92 = *v90;
+                    if (!*(*v90 + 16))
                     {
-                      std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::erase((v9 + 720), v86, v88);
-                      H16ISP::H16ISPFrameReceiverBufferPool::~H16ISPFrameReceiverBufferPool(v91);
+                      std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::erase((v9 + 720), v87, v89);
+                      H16ISP::H16ISPFrameReceiverBufferPool::~H16ISPFrameReceiverBufferPool(v92);
                       MEMORY[0x22AA55B60]();
-                      std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::push_back((v9 + 720), v176);
-                      *v176 = 0;
+                      std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::push_back((v9 + 720), v181);
+                      *v181 = 0;
                       break;
                     }
 
+                    v90 += 8;
                     v89 += 8;
-                    v88 += 8;
-                    if ((*v86 + 4096) == v88)
+                    if ((*v87 + 4096) == v89)
                     {
-                      v92 = *(v86 + 8);
-                      v86 += 8;
-                      v88 = v92;
+                      v93 = *(v87 + 8);
+                      v87 += 8;
+                      v89 = v93;
                       goto LABEL_169;
                     }
                   }
 
 LABEL_80:
-                  if (++v10 != v179)
+                  if (++v11 != v184)
                   {
                     continue;
                   }
 
-                  if (cf && v175 && cf == *v177)
+                  if (cf && v180 && cf == *v182)
                   {
                     CFRetain(cf);
-                    v96 = &v213[v178];
-                    *v96 = cf;
-                    *(v96 + 2) = 3;
-                    *(v96 + 3) = v168;
-                    v94 = (v178 + 1);
+                    v97 = &v218[v183];
+                    *v97 = cf;
+                    *(v97 + 2) = 3;
+                    *(v97 + 3) = HIDWORD(v173);
+                    v95 = (v183 + 1);
                   }
 
                   else
                   {
-                    v94 = v178;
+                    v95 = v183;
                   }
 
-                  if ((v172 & 1) != 0 && *(v9 + 48))
+                  if ((v177 & 1) != 0 && *(v9 + 48))
                   {
-                    if (v11)
+                    if (v12)
                     {
 LABEL_190:
                       if (!H16ISP::H16ISPDevice::ISP_GetCameraTime(*(v9 + 400), buf))
@@ -7694,43 +7919,43 @@ LABEL_190:
                         operator new();
                       }
 
-                      v95 = 0;
+                      v96 = 0;
                     }
 
                     else
                     {
-                      v97 = 0;
-                      v98 = *(v9 + 824);
-                      v99 = *(v9 + 848);
-                      v100 = *(v9 + 832);
+                      v98 = 0;
+                      v99 = *(v9 + 824);
+                      v100 = *(v9 + 848);
+                      v101 = *(v9 + 832);
                       do
                       {
-                        if (v100 == v98)
+                        if (v101 == v99)
                         {
-                          v101 = 0;
+                          v102 = 0;
                         }
 
                         else
                         {
-                          v101 = *(v98 + 8 * (*(v9 + 848) >> 9)) + 8 * (*(v9 + 848) & 0x1FFLL);
+                          v102 = *(v99 + 8 * (*(v9 + 848) >> 9)) + 8 * (*(v9 + 848) & 0x1FFLL);
                         }
 
-                        v102 = (v98 + 8 * (v99 >> 9));
+                        v103 = (v99 + 8 * (v100 >> 9));
 LABEL_198:
-                        v103 = v101 - 4096;
+                        v104 = v102 - 4096;
                         while (1)
                         {
-                          v104 = v100 == v98 ? 0 : *(v98 + (((*(v9 + 856) + v99) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(v9 + 856) + v99) & 0x1FF);
-                          if (v101 == v104)
+                          v105 = v101 == v99 ? 0 : *(v99 + (((*(v9 + 856) + v100) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(v9 + 856) + v100) & 0x1FF);
+                          if (v102 == v105)
                           {
                             break;
                           }
 
-                          v105 = *v101;
-                          if (*(v8 + 8 * (v97 + 2)) == *(*v101 + 8) && *(*(v105 + 16) + 16) == 2)
+                          v106 = *v102;
+                          if (*(v8 + 8 * (v98 + 2)) == *(*v102 + 8) && *(*(v106 + 16) + 16) == 2)
                           {
-                            v11 = *v105;
-                            if (*v105)
+                            v12 = *v106;
+                            if (*v106)
                             {
                               goto LABEL_190;
                             }
@@ -7738,116 +7963,178 @@ LABEL_198:
                             break;
                           }
 
-                          v101 += 8;
-                          v103 += 8;
-                          if (*v102 == v103)
+                          v102 += 8;
+                          v104 += 8;
+                          if (*v103 == v104)
                           {
-                            v106 = v102[1];
-                            ++v102;
-                            v101 = v106;
+                            v107 = v103[1];
+                            ++v103;
+                            v102 = v107;
                             goto LABEL_198;
                           }
                         }
 
-                        ++v97;
+                        ++v98;
                       }
 
-                      while (v97 != v179);
-                      v95 = mach_absolute_time();
-                      v11 = 0;
+                      while (v98 != v184);
+                      v96 = mach_absolute_time();
+                      v12 = 0;
                     }
 
-                    (*(v9 + 48))(1, HIDWORD(v95), v95, 0, 0, *(v9 + 56));
+                    (*(v9 + 48))(1, HIDWORD(v96), v96, 0, 0, *(v9 + 56));
                   }
 
-                  if (v174)
+                  if (v179)
                   {
-                    v107 = H16ISP::H16ISPDevice::ISP_SendBuffers(*(v9 + 400), v212, v174, *(v9 + 376));
-                    if (v107)
+                    v108 = H16ISP::H16ISPDevice::ISP_SendBuffers(*(v9 + 400), v217, v179, *(v9 + 376));
+                    if (v108)
                     {
-                      v108 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                      v109 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
                       if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
                       {
-                        v108 = os_log_create("com.apple.isp", "general");
-                        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v108;
+                        v109 = os_log_create("com.apple.isp", "general");
+                        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v109;
                       }
 
-                      if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
+                      if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
                       {
                         *buf = 67109120;
-                        *&buf[4] = v107;
-                        _os_log_unreliable_impl();
+                        *&buf[4] = v108;
+                        _os_log_unreliable_impl(&dword_2247DB000, v109, 16, "pH16ISPDevice->ISP_SendBuffers failed, result=0x%08X\n", v169);
                       }
                     }
 
                     else
                     {
-                      v109 = 0;
-                      v110 = *(v9 + 728);
-                      v111 = *(v9 + 752);
-                      v112 = *(v9 + 736);
+                      v110 = 0;
+                      v111 = *(v9 + 728);
+                      v112 = *(v9 + 752);
+                      v113 = *(v9 + 736);
                       do
                       {
-                        if (v112 == v110)
+                        if (v113 == v111)
                         {
-                          v113 = 0;
+                          v114 = 0;
                         }
 
                         else
                         {
-                          v113 = *(v110 + 8 * (v111 >> 9)) + 8 * (v111 & 0x1FF);
+                          v114 = *(v111 + 8 * (v112 >> 9)) + 8 * (v112 & 0x1FF);
                         }
 
-                        v114 = (v110 + 8 * (v111 >> 9));
+                        v115 = (v111 + 8 * (v112 >> 9));
 LABEL_223:
-                        v115 = v113 - 4096;
+                        v116 = v114 - 4096;
                         while (1)
                         {
-                          v116 = v112 == v110 ? 0 : *(v110 + (((*(v9 + 760) + v111) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(v9 + 760) + v111) & 0x1FF);
-                          if (v113 == v116)
+                          v117 = v113 == v111 ? 0 : *(v111 + (((*(v9 + 760) + v112) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(v9 + 760) + v112) & 0x1FF);
+                          if (v114 == v117)
                           {
                             break;
                           }
 
-                          if (*(*v113 + 20) == LODWORD(v212[7 * v109 + 4]))
+                          if (*(*v114 + 20) == LODWORD(v217[7 * v110 + 4]))
                           {
-                            ++*(*v113 + 120);
+                            ++*(*v114 + 120);
                             break;
                           }
 
-                          v113 += 8;
-                          v115 += 8;
-                          if (*v114 == v115)
+                          v114 += 8;
+                          v116 += 8;
+                          if (*v115 == v116)
                           {
-                            v117 = v114[1];
-                            ++v114;
-                            v113 = v117;
+                            v118 = v115[1];
+                            ++v115;
+                            v114 = v118;
                             goto LABEL_223;
                           }
                         }
 
-                        ++v109;
+                        ++v110;
                       }
 
-                      while (v109 != v174);
+                      while (v110 != v179);
                     }
                   }
 
-                  if (v94)
+                  if (v95)
                   {
                     memset(buf, 0, 48);
                     LOBYTE(pixelBuffer) = 0;
-                    if (v11)
+                    if (v12)
                     {
-                      H16ISP::H16ISPFrameReceiver::ProcessFrameMetadata(v9);
-                      if (v201)
+                      v119 = 1;
+                      if (!v206 && !v200 && !v199 && !(((*(&v205 + 1) | v202) != 0) | v173 & 1))
                       {
-                        std::deque<__CVBuffer *>::push_back(buf, &v201);
+                        v119 = v192 != 0;
                       }
 
-                      if (v194)
+                      H16ISP::H16ISPFrameReceiver::ProcessFrameMetadata(v9, v12, &v207, 2u, v119, &pixelBuffer);
+                      if (v206)
                       {
-                        std::deque<__CVBuffer *>::push_back(buf, &v194);
+                        std::deque<__CVBuffer *>::push_back(buf, &v206);
+                      }
+
+                      if (v199)
+                      {
+                        std::deque<__CVBuffer *>::push_back(buf, &v199);
+                      }
+
+                      if (v200)
+                      {
+                        std::deque<__CVBuffer *>::push_back(buf, &v200);
+                      }
+
+                      if (*(&v205 + 1))
+                      {
+                        v120 = *(&v203 + 1);
+                        v121 = v204;
+                        v122 = (*(&v203 + 1) + 8 * (v205 >> 9));
+                        if (v204 == *(&v203 + 1))
+                        {
+                          v123 = 0;
+                        }
+
+                        else
+                        {
+                          v123 = (*v122 + 8 * (v205 & 0x1FF));
+                        }
+
+                        while (1)
+                        {
+                          v128 = v121 == v120 ? 0 : *(v120 + (((*(&v205 + 1) + v205) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(&v205 + 1) + v205) & 0x1FF);
+                          if (v123 == v128 || !*v123)
+                          {
+                            break;
+                          }
+
+                          std::deque<__CVBuffer *>::push_back(buf, v123++);
+                          if ((v123 - *v122) == 4096)
+                          {
+                            v129 = v122[1];
+                            ++v122;
+                            v123 = v129;
+                          }
+
+                          v120 = *(&v203 + 1);
+                          v121 = v204;
+                        }
+                      }
+
+                      if (v202)
+                      {
+                        std::deque<__CVBuffer *>::push_back(buf, &v202);
+                      }
+
+                      if (v197)
+                      {
+                        std::deque<__CVBuffer *>::push_back(buf, &v197);
+                      }
+
+                      if (v196)
+                      {
+                        std::deque<__CVBuffer *>::push_back(buf, &v196);
                       }
 
                       if (v195)
@@ -7855,45 +8142,14 @@ LABEL_223:
                         std::deque<__CVBuffer *>::push_back(buf, &v195);
                       }
 
-                      if (*(&v200 + 1))
+                      if (v194)
                       {
-                        v118 = *(&v198 + 1);
-                        v119 = v199;
-                        v120 = (*(&v198 + 1) + 8 * (v200 >> 9));
-                        if (v199 == *(&v198 + 1))
-                        {
-                          v121 = 0;
-                        }
-
-                        else
-                        {
-                          v121 = (*v120 + 8 * (v200 & 0x1FF));
-                        }
-
-                        while (1)
-                        {
-                          v126 = v119 == v118 ? 0 : *(v118 + (((*(&v200 + 1) + v200) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(&v200 + 1) + v200) & 0x1FF);
-                          if (v121 == v126 || !*v121)
-                          {
-                            break;
-                          }
-
-                          std::deque<__CVBuffer *>::push_back(buf, v121++);
-                          if ((v121 - *v120) == 4096)
-                          {
-                            v127 = v120[1];
-                            ++v120;
-                            v121 = v127;
-                          }
-
-                          v118 = *(&v198 + 1);
-                          v119 = v199;
-                        }
+                        std::deque<__CVBuffer *>::push_back(buf, &v194);
                       }
 
-                      if (v197)
+                      if (v193)
                       {
-                        std::deque<__CVBuffer *>::push_back(buf, &v197);
+                        std::deque<__CVBuffer *>::push_back(buf, &v193);
                       }
 
                       if (v192)
@@ -7905,394 +8161,369 @@ LABEL_223:
                       {
                         std::deque<__CVBuffer *>::push_back(buf, &v191);
                       }
-
-                      if (v190)
-                      {
-                        std::deque<__CVBuffer *>::push_back(buf, &v190);
-                      }
-
-                      if (v189)
-                      {
-                        std::deque<__CVBuffer *>::push_back(buf, &v189);
-                      }
-
-                      if (v188)
-                      {
-                        std::deque<__CVBuffer *>::push_back(buf, &v188);
-                      }
-
-                      if (v187)
-                      {
-                        std::deque<__CVBuffer *>::push_back(buf, &v187);
-                      }
-
-                      if (v186)
-                      {
-                        std::deque<__CVBuffer *>::push_back(buf, &v186);
-                      }
                     }
 
                     else
                     {
-                      v11 = v169;
-                      if (v169)
+                      v12 = v174;
+                      if (v174)
                       {
-                        H16ISP::H16ISPFrameReceiver::ProcessFrameMetadata(v9);
-                        if (v196)
+                        H16ISP::H16ISPFrameReceiver::ProcessFrameMetadata(v9, v174, &v207, 8u, 0, &pixelBuffer);
+                        if (v201)
                         {
-                          std::deque<__CVBuffer *>::push_back(buf, &v196);
+                          std::deque<__CVBuffer *>::push_back(buf, &v201);
                         }
 
-                        if (v193)
+                        if (v198)
                         {
-                          std::deque<__CVBuffer *>::push_back(buf, &v193);
+                          std::deque<__CVBuffer *>::push_back(buf, &v198);
                         }
 
-                        if (*(&v200 + 1))
+                        if (*(&v205 + 1))
                         {
-                          v122 = *(&v198 + 1);
-                          v123 = v199;
-                          v124 = (*(&v198 + 1) + 8 * (v200 >> 9));
-                          if (v199 == *(&v198 + 1))
+                          v124 = *(&v203 + 1);
+                          v125 = v204;
+                          v126 = (*(&v203 + 1) + 8 * (v205 >> 9));
+                          if (v204 == *(&v203 + 1))
                           {
-                            v125 = 0;
+                            v127 = 0;
                           }
 
                           else
                           {
-                            v125 = (*v124 + 8 * (v200 & 0x1FF));
+                            v127 = (*v126 + 8 * (v205 & 0x1FF));
                           }
 
                           while (1)
                           {
-                            v128 = v123 == v122 ? 0 : *(v122 + (((*(&v200 + 1) + v200) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(&v200 + 1) + v200) & 0x1FF);
-                            if (v125 == v128 || !*v125)
+                            v130 = v125 == v124 ? 0 : *(v124 + (((*(&v205 + 1) + v205) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(&v205 + 1) + v205) & 0x1FF);
+                            if (v127 == v130 || !*v127)
                             {
                               break;
                             }
 
-                            std::deque<__CVBuffer *>::push_back(buf, v125++);
-                            if ((v125 - *v124) == 4096)
+                            std::deque<__CVBuffer *>::push_back(buf, v127++);
+                            if ((v127 - *v126) == 4096)
                             {
-                              v129 = v124[1];
-                              ++v124;
-                              v125 = v129;
+                              v131 = v126[1];
+                              ++v126;
+                              v127 = v131;
                             }
 
-                            v122 = *(&v198 + 1);
-                            v123 = v199;
+                            v124 = *(&v203 + 1);
+                            v125 = v204;
                           }
                         }
 
-                        if (v197)
+                        if (v202)
                         {
-                          std::deque<__CVBuffer *>::push_back(buf, &v197);
+                          std::deque<__CVBuffer *>::push_back(buf, &v202);
                         }
 
-                        if (v187)
+                        if (v192)
                         {
-                          std::deque<__CVBuffer *>::push_back(buf, &v187);
+                          std::deque<__CVBuffer *>::push_back(buf, &v192);
                         }
                       }
 
                       else
                       {
-                        v11 = v167;
-                        if (v167)
+                        v12 = v172;
+                        if (v172)
                         {
-                          H16ISP::H16ISPFrameReceiver::ProcessFrameMetadata(v9);
-                          if (v192)
+                          H16ISP::H16ISPFrameReceiver::ProcessFrameMetadata(v9, v172, &v207, 0x19u, 0, &pixelBuffer);
+                          if (v197)
                           {
-                            std::deque<__CVBuffer *>::push_back(buf, &v192);
+                            std::deque<__CVBuffer *>::push_back(buf, &v197);
                           }
 
-                          if (v191)
+                          if (v196)
                           {
-                            std::deque<__CVBuffer *>::push_back(buf, &v191);
+                            std::deque<__CVBuffer *>::push_back(buf, &v196);
                           }
 
-                          if (v190)
+                          if (v195)
                           {
-                            std::deque<__CVBuffer *>::push_back(buf, &v190);
+                            std::deque<__CVBuffer *>::push_back(buf, &v195);
                           }
 
-                          if (v189)
+                          if (v194)
                           {
-                            std::deque<__CVBuffer *>::push_back(buf, &v189);
+                            std::deque<__CVBuffer *>::push_back(buf, &v194);
                           }
 
-                          if (v188)
+                          if (v193)
                           {
-                            std::deque<__CVBuffer *>::push_back(buf, &v188);
+                            std::deque<__CVBuffer *>::push_back(buf, &v193);
                           }
                         }
 
                         else
                         {
-                          if (v185)
+                          if (v190)
                           {
-                            std::deque<__CVBuffer *>::push_back(buf, &v185);
+                            std::deque<__CVBuffer *>::push_back(buf, &v190);
                           }
 
-                          v11 = 0;
+                          v12 = 0;
                         }
                       }
                     }
 
-                    v130 = FigHostTimeToNanoseconds();
-                    CMTimeMake(&time, v130, 1000000000);
-                    v131 = CMTimeCopyAsDictionary(&time, *MEMORY[0x277CBECE8]);
-                    v132 = *&buf[8];
-                    v133 = *&buf[16];
-                    v134 = (*&buf[8] + 8 * (*&buf[32] >> 9));
+                    v132 = FigHostTimeToNanoseconds();
+                    CMTimeMake(&time, v132, 1000000000);
+                    v133 = CMTimeCopyAsDictionary(&time, *MEMORY[0x277CBECE8]);
+                    v134 = *&buf[8];
+                    v135 = *&buf[16];
+                    v136 = (*&buf[8] + 8 * (*&buf[32] >> 9));
                     if (*&buf[16] == *&buf[8])
                     {
-                      v135 = 0;
+                      v137 = 0;
                     }
 
                     else
                     {
-                      v135 = (*v134 + 8 * (*&buf[32] & 0x1FF));
+                      v137 = (*v136 + 8 * (*&buf[32] & 0x1FF));
                     }
 
-                    v136 = *MEMORY[0x277CF3F80];
+                    v138 = *MEMORY[0x277CF3F80];
                     while (1)
                     {
-                      v137 = v133 == v132 ? 0 : *(v132 + (((*&buf[40] + *&buf[32]) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*&buf[40] + *&buf[32]) & 0x1FFLL);
-                      if (v135 == v137 || !*v135)
+                      v139 = v135 == v134 ? 0 : *(v134 + (((*&buf[40] + *&buf[32]) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*&buf[40] + *&buf[32]) & 0x1FFLL);
+                      if (v137 == v139 || !*v137)
                       {
                         break;
                       }
 
-                      CVBufferSetAttachment(*v135, @"RawMetaData", v11, kCVAttachmentMode_ShouldPropagate);
-                      if (*v177)
+                      CVBufferSetAttachment(*v137, @"RawMetaData", v12, kCVAttachmentMode_ShouldPropagate);
+                      if (*v182)
                       {
-                        CVBufferSetAttachment(*v135, @"RawFaceDetectData", *v177, kCVAttachmentMode_ShouldPropagate);
+                        CVBufferSetAttachment(*v137, @"RawFaceDetectData", *v182, kCVAttachmentMode_ShouldPropagate);
                       }
 
-                      if (v131)
+                      if (v133)
                       {
-                        CVBufferSetAttachment(*v135, v136, v131, kCVAttachmentMode_ShouldPropagate);
+                        CVBufferSetAttachment(*v137, v138, v133, kCVAttachmentMode_ShouldPropagate);
                       }
 
-                      if ((++v135 - *v134) == 4096)
+                      if ((++v137 - *v136) == 4096)
                       {
-                        v138 = v134[1];
-                        ++v134;
-                        v135 = v138;
+                        v140 = v136[1];
+                        ++v136;
+                        v137 = v140;
                       }
 
-                      v132 = *&buf[8];
-                      v133 = *&buf[16];
+                      v134 = *&buf[8];
+                      v135 = *&buf[16];
                     }
 
-                    if (v131)
+                    if (v133)
                     {
-                      CFRelease(v131);
+                      CFRelease(v133);
                     }
 
                     if (*(v9 + 948) == 1)
                     {
                       H16ISP::H16ISPDevice::ISP_GetCameraTime(*(v9 + 400), &time);
-                      v140 = *(*(v9 + 400) + 104);
-                      if (v140)
+                      v142 = *(*(v9 + 400) + 104);
+                      if (v142)
                       {
-                        H16ISP::H16ISPMotionManager::GetOscarTimeSyncInfo(v140, v182);
+                        H16ISP::H16ISPMotionManager::GetOscarTimeSyncInfo(v142, v187);
                       }
 
                       else
                       {
-                        *v182 = 0;
-                        v183[0] = 0;
+                        *v187 = 0;
+                        v188[0] = 0;
                       }
 
                       if (*&buf[40])
                       {
-                        v139.n128_u64[0] = *(v9 + 480);
-                        H16ISP::GenerateAndAttachCoreMediaMetaDataDictionary(*(*(v9 + 400) + 88), *(*(*&buf[8] + ((*&buf[32] >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (*&buf[32] & 0x1FF)), buf, v9 + 952, v139);
+                        v141.n128_u64[0] = *(v9 + 480);
+                        H16ISP::GenerateAndAttachCoreMediaMetaDataDictionary(*(*(v9 + 400) + 88), *(*(*&buf[8] + ((*&buf[32] >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (*&buf[32] & 0x1FF)), buf, v9 + 952, v141);
                       }
                     }
 
-                    if (*(v9 + 884) && v201)
+                    if (*(v9 + 884) && v206)
                     {
-                      PixelFormatType = CVPixelBufferGetPixelFormatType(v201);
-                      v142 = PixelFormatType;
-                      v144 = PixelFormatType == 2037741158 || PixelFormatType == 875704422;
-                      CVPixelBufferLockBaseAddress(v201, 0);
-                      if (v142 == 2037741171 || v142 == 2037741158)
+                      PixelFormatType = CVPixelBufferGetPixelFormatType(v206);
+                      v144 = PixelFormatType;
+                      v146 = PixelFormatType == 2037741158 || PixelFormatType == 875704422;
+                      CVPixelBufferLockBaseAddress(v206, 0);
+                      if (v144 == 2037741171 || v144 == 2037741158)
                       {
-                        BaseAddress = CVPixelBufferGetBaseAddress(v201);
-                        Width = CVPixelBufferGetWidth(v201);
-                        Height = CVPixelBufferGetHeight(v201);
-                        BytesPerRow = CVPixelBufferGetBytesPerRow(v201);
-                        H16ISP::H16ISPFrameReceiver::InsertTestPattern(BytesPerRow, BaseAddress, Width, Height, BytesPerRow, !v144, v144);
+                        BaseAddress = CVPixelBufferGetBaseAddress(v206);
+                        Width = CVPixelBufferGetWidth(v206);
+                        Height = CVPixelBufferGetHeight(v206);
+                        BytesPerRow = CVPixelBufferGetBytesPerRow(v206);
+                        H16ISP::H16ISPFrameReceiver::InsertTestPattern(BytesPerRow, BaseAddress, Width, Height, BytesPerRow, !v146, v146);
                       }
 
                       else
                       {
-                        BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(v201, 0);
-                        v150 = CVPixelBufferGetBaseAddressOfPlane(v201, 1uLL);
-                        v151 = CVPixelBufferGetWidth(v201);
-                        v152 = CVPixelBufferGetHeight(v201);
-                        BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(v201, 0);
-                        v154 = CVPixelBufferGetBytesPerRowOfPlane(v201, 1uLL);
-                        H16ISP::H16ISPFrameReceiver::InsertTestPattern_YCbCr_420_Y_UV(v154, BaseAddressOfPlane, v150, v151, v152, BytesPerRowOfPlane, v154, !v144, v155, v144);
+                        BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(v206, 0);
+                        v152 = CVPixelBufferGetBaseAddressOfPlane(v206, 1uLL);
+                        v153 = CVPixelBufferGetWidth(v206);
+                        v154 = CVPixelBufferGetHeight(v206);
+                        BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(v206, 0);
+                        v156 = CVPixelBufferGetBytesPerRowOfPlane(v206, 1uLL);
+                        H16ISP::H16ISPFrameReceiver::InsertTestPattern_YCbCr_420_Y_UV(v156, BaseAddressOfPlane, v152, v153, v154, BytesPerRowOfPlane, v156, !v146, v157, v146);
                       }
 
-                      CVPixelBufferUnlockBaseAddress(v201, 0);
+                      CVPixelBufferUnlockBaseAddress(v206, 0);
                     }
 
-                    if (*v177 && !v196 && (v201 || v194 || v195))
+                    if (*v182 && !v201 && (v206 || v199 || v200))
                     {
-                      v156 = &v213[v94];
-                      *v156 = *v177;
-                      v156[1] = *(*(v9 + 472) + 16);
-                      v94 = (v94 + 1);
+                      v158 = &v218[v95];
+                      *v158 = *v182;
+                      v158[1] = *(*(v9 + 472) + 16);
+                      v95 = (v95 + 1);
                       *(v9 + 456) = 0;
                     }
 
-                    v157 = pixelBuffer;
+                    v159 = pixelBuffer;
                     if (pixelBuffer)
                     {
                       if (*(v9 + 1024) == 1)
                       {
-                        (*(v9 + 48))(1, HIDWORD(v202), v202, 0, 0, *(v9 + 56));
+                        (*(v9 + 48))(1, HIDWORD(v207), v207, 0, 0, *(v9 + 56));
                       }
 
                       ++*(v9 + 1028);
-                      v158 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                      v160 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
                       if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
                       {
-                        v158 = os_log_create("com.apple.isp", "general");
-                        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v158;
+                        v160 = os_log_create("com.apple.isp", "general");
+                        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v160;
                       }
 
-                      if (os_log_type_enabled(v158, OS_LOG_TYPE_ERROR))
+                      if (os_log_type_enabled(v160, OS_LOG_TYPE_ERROR))
                       {
-                        v159 = *(v9 + 436);
-                        v160 = *(v9 + 1024);
-                        v161 = *(v9 + 440);
+                        v161 = *(v9 + 436);
+                        v162 = *(v9 + 1024);
+                        v163 = *(v9 + 440);
                         LODWORD(time.value) = 67109632;
-                        HIDWORD(time.value) = v159;
+                        HIDWORD(time.value) = v161;
                         LOWORD(time.timescale) = 1024;
-                        *(&time.timescale + 2) = v160;
+                        *(&time.timescale + 2) = v162;
                         HIWORD(time.flags) = 1024;
-                        LODWORD(time.epoch) = v161;
-                        _os_log_unreliable_impl();
+                        LODWORD(time.epoch) = v163;
+                        _os_log_unreliable_impl(&dword_2247DB000, v160, 16, "Received frame drop request: channel=%d frameDropRequestEnabled=%d frameCount=%d\n", v169, v170, v171);
                       }
                     }
 
-                    v162 = (!*&buf[40] && *(v9 + 444) != -1 && !v170 || v157 && *(v9 + 1024) == 1) && v175 == 0;
-                    v163 = *(v9 + 32);
-                    if (v163 && !v162)
+                    v164 = (!*&buf[40] && *(v9 + 444) != -1 && !v175 || v159 && *(v9 + 1024) == 1) && v180 == 0;
+                    v165 = *(v9 + 32);
+                    if (v165 && !v164)
                     {
                       if (*(v9 + 392))
                       {
                         operator new();
                       }
 
-                      v163(*(v9 + 40), v202, *(v9 + 436), v94, v213);
+                      v165(*(v9 + 40), v207, *(v9 + 436), v95, v218);
                     }
 
-                    if (v94)
+                    if (v95)
                     {
-                      v164 = v94;
-                      v165 = v213;
+                      v166 = v95;
+                      v167 = v218;
                       do
                       {
-                        CVBufferRelease(*v165);
-                        *v165 = 0;
-                        v165 += 2;
-                        --v164;
+                        CVBufferRelease(*v167);
+                        *v167 = 0;
+                        v167 += 2;
+                        --v166;
                       }
 
-                      while (v164);
+                      while (v166);
                     }
 
                     std::deque<__CVBuffer *>::~deque[abi:ne200100](buf);
                   }
 
-                  goto LABEL_370;
+                  goto LABEL_375;
                 }
               }
 
-              if (v48 == 22)
+              if (v49 == 22)
               {
-                v76 = vand_s8(vadd_s32(vdup_n_s32(32 * v46), 0x1E0000003E0), 0xFFFFFE00FFFFFC00);
+                v77 = vand_s8(vadd_s32(vdup_n_s32(32 * v47), 0x1E0000003E0), 0xFFFFFE00FFFFFC00);
                 goto LABEL_146;
               }
 
-              if (v48 == 23)
+              if (v49 == 23)
               {
-                v76 = vshr_n_u32(vmul_s32(vshl_u32(vadd_s32(vdup_n_s32(v46), 0xF0000001FLL), 0xFFFFFFFCFFFFFFFBLL), 0xA0000002800), 3uLL);
+                v77 = vshr_n_u32(vmul_s32(vshl_u32(vadd_s32(vdup_n_s32(v47), 0xF0000001FLL), 0xFFFFFFFCFFFFFFFBLL), 0xA0000002800), 3uLL);
 LABEL_146:
-                v208 = v76;
+                v213 = v77;
                 goto LABEL_147;
               }
             }
 
-            LODWORD(v208) = (v46 + 63) & 0xFFFFFFC0;
-            HIDWORD(v208) = v208;
+            LODWORD(v213) = (v47 + 63) & 0xFFFFFFC0;
+            HIDWORD(v213) = v213;
             goto LABEL_147;
           }
 
-          v37 = &v213[v178];
-          *v37 = *v20;
-          v37[1] = *(*(v20 + 2) + 16);
-          std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::erase((v9 + 816), v14, v16);
+          v38 = &v218[v183];
+          *v38 = *v21;
+          v38[1] = *(*(v21 + 2) + 16);
+          std::deque<H16ISP::H16ISPFrameReceiverBufferPool *>::erase((v9 + 816), v15, v17);
         }
 
-        v178 = (v178 + 1);
+        v183 = (v183 + 1);
 LABEL_78:
-        MEMORY[0x22AA55B60](v20, 0x1020C4093CA8EA1);
+        MEMORY[0x22AA55B60](v21, 0x1020C4093CA8EA1);
         goto LABEL_79;
       }
 
       break;
     }
 
-    v93 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    v94 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
     {
-      v93 = os_log_create("com.apple.isp", "general");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v93;
+      v94 = os_log_create("com.apple.isp", "general");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v94;
     }
 
-    if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       *&buf[4] = "FrameDone";
-      _os_log_impl(&dword_2247DB000, v93, OS_LOG_TYPE_DEFAULT, "%s - Simulating YUV buffer starvation, returning\n", buf, 0xCu);
+      _os_log_impl(&dword_2247DB000, v94, OS_LOG_TYPE_DEFAULT, "%s - Simulating YUV buffer starvation, returning\n", buf, 0xCu);
     }
 
-    MEMORY[0x22AA55B60](v20, 0x1020C4093CA8EA1);
-    return std::deque<__CVBuffer *>::~deque[abi:ne200100](&v198);
+    MEMORY[0x22AA55B60](v21, 0x1020C4093CA8EA1);
+    return std::deque<__CVBuffer *>::~deque[abi:ne200100](&v203);
   }
 
-LABEL_370:
+LABEL_375:
   H16ISP::H16ISPFrameReceiver::tickleNoDataTimer(v9);
   H16ISP::H16ISPFrameReceiver::tickleTailspinTimer(v9);
   pthread_mutex_unlock((v9 + 160));
   kdebug_trace();
-  return std::deque<__CVBuffer *>::~deque[abi:ne200100](&v198);
+  return std::deque<__CVBuffer *>::~deque[abi:ne200100](&v203);
 }
 
-uint64_t H16ISP::H16ISPFrameReceiver::ProcessFrameMetadata(uint64_t a1)
+uint64_t H16ISP::H16ISPFrameReceiver::ProcessFrameMetadata(uint64_t a1, __CVBuffer *a2, unint64_t *a3, unsigned int a4, int a5, _BYTE *a6)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (!H16ISP::H16ISPDevice::ISP_GetCameraTime(*(a1 + 400), &outputStruct))
   {
     operator new();
   }
 
-  v1 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
   if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
   {
-    v1 = os_log_create("com.apple.isp", "general");
-    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v1;
+    v6 = os_log_create("com.apple.isp", "general");
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v6;
   }
 
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     H16ISP::H16ISPFrameReceiver::ProcessFrameMetadata();
   }
@@ -8957,7 +9188,7 @@ uint64_t H16ISP::H16ISPFrameReceiverBufferPool::addPreallocatedBuffer(pthread_mu
   pixelBuffer = a2;
   pthread_mutex_lock(this + 4);
   CVPixelBufferRetain(a2);
-  std::deque<__CVBuffer *>::push_back(&this[3].__sig, &pixelBuffer);
+  std::deque<__CVBuffer *>::push_back(&this[3], &pixelBuffer);
   if ((this[1].__opaque[45] & 4) != 0)
   {
     extraRowsOnBottom = 0;
@@ -8976,9 +9207,8 @@ uint64_t H16ISP::H16ISPFrameReceiverBufferPool::addPreallocatedBuffer(pthread_mu
   return 0;
 }
 
-void *std::deque<__CVBuffer *>::push_back(void *result, void *a2)
+void std::deque<__CVBuffer *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -8995,15 +9225,14 @@ void *std::deque<__CVBuffer *>::push_back(void *result, void *a2)
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<__CVBuffer *>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<__CVBuffer *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
 void H16ISP::H16ISPFrameMetadata::~H16ISPFrameMetadata(H16ISP::H16ISPFrameMetadata *this)
@@ -9091,22 +9320,22 @@ H16ISP::H16ISPFilterGraphMessage *H16ISP::H16ISPFilterGraphMessage::H16ISPFilter
   return this;
 }
 
-void ActivateStillImageOutputInFrameReceiver(uint64_t a1, uint64_t a2)
+void ActivateStillImageOutputInFrameReceiver(uint64_t result, uint64_t a2)
 {
-  v108 = *MEMORY[0x277D85DE8];
-  if (!*(a1 + 160))
+  v118 = *MEMORY[0x277D85DE8];
+  if (!*(result + 160))
   {
     return;
   }
 
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 192);
+  v4 = *(result + 48);
+  v5 = *(result + 192);
   if (v4 < v5)
   {
     v5 = 0;
   }
 
-  if (H16ISP::H16ISPDevice::GetCameraConfig(*(a2 + 24), *(a1 + 156), *(*(a1 + 184) + 120 * (v4 - v5) + 16), v83, v106))
+  if (H16ISP::H16ISPDevice::GetCameraConfig(*(a2 + 24), *(result + 156), *(*(result + 184) + 120 * (v4 - v5) + 16), v92, v115))
   {
     v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
@@ -9123,12 +9352,12 @@ void ActivateStillImageOutputInFrameReceiver(uint64_t a1, uint64_t a2)
     return;
   }
 
-  bzero(v78, 0x1CuLL);
-  v80 = *(a1 + 156);
-  v79 = 2827;
-  v81 = vmovn_s64(vcvtq_s64_f64(*(a1 + 1336)));
-  v82 = vmovn_s64(vcvtq_u64_f64(*(a1 + 1352)));
-  if (H16ISP::H16ISPDevice::ISP_SendCommand(*(a2 + 24), v78, 0x1Cu, 0, 0xFFFFFFFF))
+  bzero(v87, 0x1CuLL);
+  v89 = *(result + 156);
+  v88 = 2827;
+  v90 = vmovn_s64(vcvtq_s64_f64(*(result + 1336)));
+  v91 = vmovn_s64(vcvtq_u64_f64(*(result + 1352)));
+  if (H16ISP::H16ISPDevice::ISP_SendCommand(*(a2 + 24), v87, 0x1Cu, 0, 0xFFFFFFFF))
   {
     v7 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
@@ -9145,45 +9374,47 @@ void ActivateStillImageOutputInFrameReceiver(uint64_t a1, uint64_t a2)
     return;
   }
 
-  v8 = *(a1 + 1368);
+  v8 = *(result + 1368);
   valuePtr = 0;
-  v9 = (a1 + 1320);
-  if (H16ISP::getFrameFormatMetaInfo(*(a1 + 1320), &v75))
+  v9 = (result + 1320);
+  if (H16ISP::getFrameFormatMetaInfo(*(result + 1320), &v84))
   {
-    v10 = DWORD1(v75);
+    v10 = DWORD1(v84);
+    v11 = BYTE8(v84);
   }
 
   else
   {
-    v11 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+    v12 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
     {
-      v11 = os_log_create("com.apple.isp", "plugin");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v11;
+      v12 = os_log_create("com.apple.isp", "plugin");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v12;
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       ActivateStillImageOutputInFrameReceiver();
     }
 
+    v11 = 0;
     v10 = 0;
   }
 
-  v12 = *(a1 + 1448);
-  if (v12)
+  v13 = *(result + 1448);
+  if (v13)
   {
-    PixelBufferAttributes = CVPixelBufferPoolGetPixelBufferAttributes(v12);
+    PixelBufferAttributes = CVPixelBufferPoolGetPixelBufferAttributes(v13);
     if (!PixelBufferAttributes)
     {
-      v28 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+      v32 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
       if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
       {
-        v28 = os_log_create("com.apple.isp", "plugin");
-        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v28;
+        v32 = os_log_create("com.apple.isp", "plugin");
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v32;
       }
 
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         ActivateStillImageOutputInFrameReceiver();
       }
@@ -9191,66 +9422,87 @@ void ActivateStillImageOutputInFrameReceiver(uint64_t a1, uint64_t a2)
       return;
     }
 
-    v14 = PixelBufferAttributes;
+    v15 = PixelBufferAttributes;
     Value = CFDictionaryGetValue(PixelBufferAttributes, *MEMORY[0x277CC4EC8]);
-    v16 = CFDictionaryGetValue(v14, *MEMORY[0x277CC4DD8]);
+    v17 = CFDictionaryGetValue(v15, *MEMORY[0x277CC4DD8]);
     CFNumberGetValue(Value, kCFNumberIntType, &valuePtr + 4);
-    CFNumberGetValue(v16, kCFNumberIntType, &valuePtr);
+    CFNumberGetValue(v17, kCFNumberIntType, &valuePtr);
   }
 
   else
   {
-    v17 = *(a1 + 1324);
-    LODWORD(valuePtr) = *(a1 + 1328);
-    HIDWORD(valuePtr) = v17;
+    v18 = *(result + 1324);
+    LODWORD(valuePtr) = *(result + 1328);
+    HIDWORD(valuePtr) = v18;
   }
 
-  if (HIDWORD(v75) <= 0x1B && ((1 << SBYTE12(v75)) & 0xE000002) != 0)
+  if (HIDWORD(v84) <= 0x1B)
   {
-    v18 = 0;
-    v19 = 0;
-    goto LABEL_28;
-  }
-
-  v29 = *v9;
-  v18 = 1;
-  if (*v9 > 1885745711)
-  {
-    if (v29 != 1885745712 && v29 != 2019963440)
+    v19 = 1;
+    if (((1 << SBYTE12(v84)) & 0xE000002) != 0)
     {
-      v30 = 2037741158;
-      goto LABEL_58;
+      v20 = 0;
+      v21 = 0;
+      goto LABEL_28;
     }
   }
 
-  else if (v29 != 641230384 && v29 != 645424688)
+  v33 = *v9;
+  v19 = 769;
+  v20 = 1;
+  if (*v9 <= 1885745711)
   {
-    v30 = 875704422;
-LABEL_58:
-    v19 = v29 == v30;
+    if (v33 != 641230384 && v33 != 645424688)
+    {
+      v34 = 875704422;
+      goto LABEL_58;
+    }
+
+LABEL_60:
+    v21 = 1;
     goto LABEL_28;
   }
 
-  v19 = 1;
-LABEL_28:
-  v58 = v19;
-  v59 = v18;
-  v73 = 0u;
-  v74 = 0u;
-  GenerateBufferTagsForOutput(a1, a1 + 1304, &v73);
-  v20 = *(a1 + 160);
-  *buf = v73;
-  *&buf[16] = v74;
-  v21 = H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(v20, 7, SDWORD2(v84));
-  v22 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-  v23 = MEMORY[0x277D86220];
-  if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
+  if (v33 == 1885745712 || v33 == 2019963440)
   {
-    v22 = os_log_create("com.apple.isp", "plugin");
-    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v22;
+    goto LABEL_60;
   }
 
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+  v34 = 2037741158;
+LABEL_58:
+  v21 = 1;
+  if (v33 != v34)
+  {
+    v21 = 0;
+    v19 = 513;
+  }
+
+LABEL_28:
+  v67 = v21;
+  v68 = v20;
+  v82 = 0u;
+  v83 = 0u;
+  GenerateBufferTagsForOutput(result, result + 1304, &v82);
+  v22 = *(result + 160);
+  v23 = *(result + 1324);
+  v24 = *(result + 1328);
+  *buf = v82;
+  *&buf[16] = v83;
+  LOBYTE(v65) = 0;
+  HIDWORD(v64) = v19;
+  LODWORD(v64) = 0;
+  HIDWORD(v62) = v8;
+  LODWORD(v62) = 128;
+  v25 = H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(v22, 7, SDWORD2(v93), v23, v24, 0, 0, v10, 0.0, buf, v11 & 1, v62, v8, v64, 0, @"STILL", -1, *(result + 1448), 0, v65);
+  v26 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+  v27 = MEMORY[0x277D86220];
+  if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
+  {
+    v26 = os_log_create("com.apple.isp", "plugin");
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v26;
+  }
+
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
     *&buf[4] = "ActivateStillImageOutputInFrameReceiver";
@@ -9258,19 +9510,19 @@ LABEL_28:
     *&buf[14] = v8;
     *&buf[18] = 1024;
     *&buf[20] = 0;
-    _os_log_impl(&dword_2247DB000, v22, OS_LOG_TYPE_INFO, "%s - STILL pool size=%d,prime=%d\n", buf, 0x18u);
+    _os_log_impl(&dword_2247DB000, v26, OS_LOG_TYPE_INFO, "%s - STILL pool size=%d,prime=%d\n", buf, 0x18u);
   }
 
-  if (v21)
+  if (v25)
   {
-    v24 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v23)
+    v28 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v27)
     {
-      v24 = os_log_create("com.apple.isp", "plugin");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v24;
+      v28 = os_log_create("com.apple.isp", "plugin");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v28;
     }
 
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       ActivateStillImageOutputInFrameReceiver();
     }
@@ -9278,14 +9530,14 @@ LABEL_28:
     return;
   }
 
-  BufferPool = H16ISP::H16ISPFrameReceiver::getBufferPool(*(a1 + 160), 7);
-  v27 = *(BufferPool + 44);
-  v26 = *(BufferPool + 48);
-  bzero(v61, 0x38uLL);
-  v63 = *(a1 + 156);
-  v62 = 2823;
-  v64 = *(a1 + 1324);
-  v69 = 0;
+  BufferPool = H16ISP::H16ISPFrameReceiver::getBufferPool(*(result + 160), 7);
+  v31 = *(BufferPool + 44);
+  v30 = *(BufferPool + 48);
+  bzero(v70, 0x38uLL);
+  v72 = *(result + 156);
+  v71 = 2823;
+  v73 = *(result + 1324);
+  v78 = 0;
   if (v10 <= 22)
   {
     if (v10 > 14)
@@ -9293,165 +9545,101 @@ LABEL_28:
       switch(v10)
       {
         case 15:
-          v33 = 18;
-          v71 = 0;
-          v34 = 2 * HIDWORD(valuePtr);
+          v37 = 18;
+          v80 = 0;
+          v38 = 2 * HIDWORD(valuePtr);
           break;
         case 18:
-          v33 = 19;
-          v71 = 0;
-          v34 = (2 * ((2863311531u * (HIDWORD(valuePtr) + 2)) >> 32)) & 0xFFFFFFFC;
+          v37 = 19;
+          v80 = 0;
+          v38 = (2 * ((2863311531u * (HIDWORD(valuePtr) + 2)) >> 32)) & 0xFFFFFFFC;
           break;
         case 22:
-          v67 = vand_s8(vadd_s32(vdup_n_s32(32 * HIDWORD(valuePtr)), 0x1E0000003E0), 0xFFFFFE00FFFFFC00);
-          v66 = 0;
-LABEL_66:
-          v71 = 1;
-          goto LABEL_75;
+          v76 = vand_s8(vadd_s32(vdup_n_s32(32 * HIDWORD(valuePtr)), 0x1E0000003E0), 0xFFFFFE00FFFFFC00);
+          v75 = 0;
+LABEL_67:
+          v80 = 1;
+          goto LABEL_76;
         default:
-          goto LABEL_73;
+          goto LABEL_74;
       }
 
-      v66 = v33;
-      LODWORD(v67) = (v34 + 63) & 0xFFFFFFC0;
-      HIDWORD(v67) = v67;
-      goto LABEL_75;
+      v75 = v37;
+      LODWORD(v76) = (v38 + 63) & 0xFFFFFFC0;
+      HIDWORD(v76) = v76;
+      goto LABEL_76;
     }
 
     if (v10)
     {
       if (v10 == 1)
       {
-        v71 = 0;
-        v66 = 1;
-        LODWORD(v67) = (2 * HIDWORD(valuePtr) + 63) & 0xFFFFFFC0;
-        goto LABEL_75;
+        v80 = 0;
+        v75 = 1;
+        LODWORD(v76) = (2 * HIDWORD(valuePtr) + 63) & 0xFFFFFFC0;
+        goto LABEL_76;
       }
 
       if (v10 != 13)
       {
-LABEL_73:
-        v71 = 0;
-        v35 = (HIDWORD(valuePtr) + 63) & 0xFFFFFFC0;
-        v66 = v10;
-        goto LABEL_74;
+LABEL_74:
+        v80 = 0;
+        v39 = (HIDWORD(valuePtr) + 63) & 0xFFFFFFC0;
+        v75 = v10;
+        goto LABEL_75;
       }
 
-      v71 = 1;
+      v80 = 1;
     }
 
     else
     {
-      v71 = 0;
+      v80 = 0;
     }
 
-    v35 = (HIDWORD(valuePtr) + 63) & 0xFFFFFFC0;
-    v66 = 0;
-LABEL_74:
-    LODWORD(v67) = v35;
-    HIDWORD(v67) = v35;
-    goto LABEL_75;
+    v39 = (HIDWORD(valuePtr) + 63) & 0xFFFFFFC0;
+    v75 = 0;
+LABEL_75:
+    LODWORD(v76) = v39;
+    HIDWORD(v76) = v39;
+    goto LABEL_76;
   }
 
   if ((v10 - 24) < 6)
   {
-    v71 = v76 != 0;
-    v66 = HIDWORD(v75);
-    v67 = __PAIR64__(v26, v27);
-    goto LABEL_75;
+    v80 = v85 != 0;
+    v75 = HIDWORD(v84);
+    v76 = __PAIR64__(v30, v31);
+    goto LABEL_76;
   }
 
   if ((v10 - 31) >= 6)
   {
     if (v10 == 23)
     {
-      v31 = &valuePtr + 1;
-      v32 = vld1_dup_f32(v31);
-      v67 = vshr_n_u32(vmul_s32(vshl_u32(vadd_s32(v32, 0xF0000001FLL), 0xFFFFFFFCFFFFFFFBLL), 0xA0000002800), 3uLL);
-      v66 = 19;
-      goto LABEL_66;
+      v35 = &valuePtr + 1;
+      v36 = vld1_dup_f32(v35);
+      v76 = vshr_n_u32(vmul_s32(vshl_u32(vadd_s32(v36, 0xF0000001FLL), 0xFFFFFFFCFFFFFFFBLL), 0xA0000002800), 3uLL);
+      v75 = 19;
+      goto LABEL_67;
     }
 
-    goto LABEL_73;
+    goto LABEL_74;
   }
 
-  v71 = v76 != 0;
-  v66 = HIDWORD(v75);
-  HIDWORD(v67) = v27;
-  v68 = v26;
-LABEL_75:
-  v36 = ColorRangeForOutputWithMatrix(a1, a1 + 1304, *(a1 + 176));
-  v72 = HIDWORD(valuePtr);
-  v65 = v36;
-  v70 = valuePtr;
-  if (H16ISP::H16ISPDevice::ISP_SendCommand(*(a2 + 24), v61, 0x38u, 0, 0xFFFFFFFF))
-  {
-    v37 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v23)
-    {
-      v37 = os_log_create("com.apple.isp", "plugin");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v37;
-    }
-
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
-    {
-      ActivateStillImageOutputInFrameReceiver();
-    }
-
-    return;
-  }
-
-  if (*(a1 + 776) & 1) != 0 || (*(a1 + 976) & 1) != 0 || (*(a1 + 1176) & 1) != 0 || (*(a1 + 1376) & 1) != 0 || (*(a1 + 1576) & 1) != 0 || (*(a1 + 2104) & 1) != 0 || (*(a1 + 2504) & 1) != 0 || (*(a1 + 4080))
-  {
-    v38 = 0;
-  }
-
-  else
-  {
-    v38 = *(a1 + 1704) ^ 1;
-  }
-
-  v39 = *(a1 + 160);
-  if ((*(v39 + 533) & 1) == 0 && (v38 & 1) == 0)
-  {
-    v102 = v89;
-    v103 = v90;
-    v104 = v91;
-    v105 = v92;
-    v98 = v85;
-    v99 = v86;
-    v100 = v87;
-    v101 = v88;
-    v94 = v83[2];
-    v95 = v83[3];
-    v96 = v83[4];
-    v97 = v84;
-    *buf = v83[0];
-    *&buf[16] = v83[1];
-    if (AddRawPoolToFrameReceiver(a1, a2, buf))
-    {
-      v40 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v23)
-      {
-        v40 = os_log_create("com.apple.isp", "plugin");
-        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v40;
-      }
-
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
-      {
-        ActivateStillImageOutputInFrameReceiver();
-      }
-
-      return;
-    }
-
-    v39 = *(a1 + 160);
-  }
-
-  if (!H16ISP::H16ISPFrameReceiver::HasPool(v39, 30) && *(a1 + 1377) == 1 && AddThumbnailRawPoolToFrameReceiver(a1, a2))
+  v80 = v85 != 0;
+  v75 = HIDWORD(v84);
+  HIDWORD(v76) = v31;
+  v77 = v30;
+LABEL_76:
+  v40 = ColorRangeForOutputWithMatrix(result, result + 1304, *(result + 176));
+  v81 = HIDWORD(valuePtr);
+  v74 = v40;
+  v79 = valuePtr;
+  if (H16ISP::H16ISPDevice::ISP_SendCommand(*(a2 + 24), v70, 0x38u, 0, 0xFFFFFFFF))
   {
     v41 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v23)
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v27)
     {
       v41 = os_log_create("com.apple.isp", "plugin");
       GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v41;
@@ -9461,42 +9649,61 @@ LABEL_75:
     {
       ActivateStillImageOutputInFrameReceiver();
     }
+
+    return;
   }
 
-  else if (*(a1 + 4256) == 1 && (*(a1 + 720) | 2) == 0x4C303132 && H16ISP::H16ISPDevice::SetSensorInterfacePixelFormat(*(a2 + 24), *(a1 + 156), 15, 1, 0, 0))
+  if (*(result + 776) & 1) != 0 || (*(result + 976) & 1) != 0 || (*(result + 1176) & 1) != 0 || (*(result + 1376) & 1) != 0 || (*(result + 1576) & 1) != 0 || (*(result + 2104) & 1) != 0 || (*(result + 2504) & 1) != 0 || (*(result + 4080))
   {
-    v42 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v23)
-    {
-      v42 = os_log_create("com.apple.isp", "plugin");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v42;
-    }
-
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
-    {
-      ActivateStillImageOutputInFrameReceiver();
-    }
+    v42 = 0;
   }
 
-  else if (v76 == 2 && (v43 = H16ISP::H16ISPFrameReceiver::getBufferPool(*(a1 + 160), 7), H16ISP::H16ISPDevice::SetBufferPoolConfiguration(*(a2 + 24), *(a1 + 156), 7, 1, 2, 2u, (v43 + 336))))
+  else
   {
-    v44 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v23)
-    {
-      v44 = os_log_create("com.apple.isp", "plugin");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v44;
-    }
-
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
-    {
-      ActivateStillImageOutputInFrameReceiver();
-    }
+    v42 = *(result + 1704) ^ 1;
   }
 
-  else if (*(a1 + 1424) == 1 && AddSushiRawPoolToFrameReceiver(a1, a2, a1 + 1304))
+  v43 = *(result + 160);
+  if ((*(v43 + 533) & 1) == 0 && (v42 & 1) == 0)
+  {
+    v111 = v98;
+    v112 = v99;
+    v113 = v100;
+    v114 = v101;
+    v107 = v94;
+    v108 = v95;
+    v109 = v96;
+    v110 = v97;
+    v103 = v92[2];
+    v104 = v92[3];
+    v105 = v92[4];
+    v106 = v93;
+    *buf = v92[0];
+    *&buf[16] = v92[1];
+    if (AddRawPoolToFrameReceiver(result, a2, buf, *(result + 1320)))
+    {
+      v44 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v27)
+      {
+        v44 = os_log_create("com.apple.isp", "plugin");
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v44;
+      }
+
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      {
+        ActivateStillImageOutputInFrameReceiver();
+      }
+
+      return;
+    }
+
+    v43 = *(result + 160);
+  }
+
+  if (!H16ISP::H16ISPFrameReceiver::HasPool(v43, 30) && *(result + 1377) == 1 && AddThumbnailRawPoolToFrameReceiver(result, a2))
   {
     v45 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v23)
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v27)
     {
       v45 = os_log_create("com.apple.isp", "plugin");
       GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v45;
@@ -9508,10 +9715,10 @@ LABEL_75:
     }
   }
 
-  else if (*(a1 + 1428) && AddSashimiRawPoolToFrameReceiver(a1, a2, a1 + 1304))
+  else if (*(result + 4256) == 1 && (*(result + 720) | 2) == 0x4C303132 && H16ISP::H16ISPDevice::SetSensorInterfacePixelFormat(*(a2 + 24), *(result + 156), 15, 1, 0, 0))
   {
     v46 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v23)
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v27)
     {
       v46 = os_log_create("com.apple.isp", "plugin");
       GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v46;
@@ -9523,25 +9730,10 @@ LABEL_75:
     }
   }
 
-  else if (*(a1 + 1432) && AddFocusPixelDataToFrameReceiver(a1, a2, a1 + 1304))
-  {
-    v47 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v23)
-    {
-      v47 = os_log_create("com.apple.isp", "plugin");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v47;
-    }
-
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
-    {
-      ActivateStillImageOutputInFrameReceiver();
-    }
-  }
-
-  else if (*(a1 + 1400) == 1 && AddSplitPixelDataToFrameReceiver(a1, a2, a1 + 1304))
+  else if (v85 == 2 && (v47 = H16ISP::H16ISPFrameReceiver::getBufferPool(*(result + 160), 7), H16ISP::H16ISPDevice::SetBufferPoolConfiguration(*(a2 + 24), *(result + 156), 7, 1, 2, 2u, (v47 + 336))))
   {
     v48 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v23)
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v27)
     {
       v48 = os_log_create("com.apple.isp", "plugin");
       GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v48;
@@ -9553,75 +9745,139 @@ LABEL_75:
     }
   }
 
+  else if (*(result + 1424) == 1 && AddSushiRawPoolToFrameReceiver(result, a2, result + 1304))
+  {
+    v49 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v27)
+    {
+      v49 = os_log_create("com.apple.isp", "plugin");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v49;
+    }
+
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+    {
+      ActivateStillImageOutputInFrameReceiver();
+    }
+  }
+
+  else if (*(result + 1428) && AddSashimiRawPoolToFrameReceiver(result, a2, result + 1304))
+  {
+    v50 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v27)
+    {
+      v50 = os_log_create("com.apple.isp", "plugin");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v50;
+    }
+
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+    {
+      ActivateStillImageOutputInFrameReceiver();
+    }
+  }
+
+  else if (*(result + 1432) && AddFocusPixelDataToFrameReceiver(result, a2, result + 1304))
+  {
+    v51 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v27)
+    {
+      v51 = os_log_create("com.apple.isp", "plugin");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v51;
+    }
+
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    {
+      ActivateStillImageOutputInFrameReceiver();
+    }
+  }
+
+  else if (*(result + 1400) == 1 && AddSplitPixelDataToFrameReceiver(result, a2, result + 1304))
+  {
+    v52 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v27)
+    {
+      v52 = os_log_create("com.apple.isp", "plugin");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v52;
+    }
+
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+    {
+      ActivateStillImageOutputInFrameReceiver();
+    }
+  }
+
   else
   {
-    if (!H16ISP::H16ISPFrameReceiver::HasPool(*(a1 + 160), 8))
+    if (!H16ISP::H16ISPFrameReceiver::HasPool(*(result + 160), 8))
     {
-      v60 = 0;
-      v49 = resizeStillMetaPool(a1, 0, &v60 + 1, &v60);
-      if (v49)
+      v69 = 0;
+      v53 = resizeStillMetaPool(result, 0, &v69 + 1, &v69);
+      if (v53)
       {
-        v50 = v49;
-        v51 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-        if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v23)
+        v54 = v53;
+        v55 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+        if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v27)
         {
-          v51 = os_log_create("com.apple.isp", "plugin");
-          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v51;
+          v55 = os_log_create("com.apple.isp", "plugin");
+          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v55;
         }
 
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
           *&buf[4] = "ActivateStillImageOutputInFrameReceiver";
           *&buf[12] = 1024;
-          *&buf[14] = v50;
-          _os_log_impl(&dword_2247DB000, v51, OS_LOG_TYPE_DEFAULT, "%s - resize still meta pool failed err= %d\n", buf, 0x12u);
+          *&buf[14] = v54;
+          _os_log_impl(&dword_2247DB000, v55, OS_LOG_TYPE_DEFAULT, "%s - resize still meta pool failed err= %d\n", buf, 0x12u);
         }
       }
 
-      v52 = v60 + HIDWORD(v60);
-      if (HIDWORD(v60) >= 0x10)
+      v56 = v69 + HIDWORD(v69);
+      if (HIDWORD(v69) >= 0x10)
       {
-        v53 = 16;
+        v57 = 16;
       }
 
       else
       {
-        v53 = HIDWORD(v60);
+        v57 = HIDWORD(v69);
       }
 
-      v54 = *(a1 + 160);
+      v58 = *(result + 160);
       memset(buf, 0, sizeof(buf));
-      v55 = H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(v54, 8, v107);
-      v56 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v23)
+      HIDWORD(v66) = *(result + 4516);
+      LOBYTE(v66) = 1;
+      HIDWORD(v63) = v69 + HIDWORD(v69);
+      LODWORD(v63) = 128;
+      v59 = H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(v58, 8, v117, (v116 >> 4) + 1, 8, 0, 0, 1, 0.0, buf, 1u, v63, 0, v57, 0, @"STILLMETA", 0, 0, 0, v66);
+      v60 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v27)
       {
-        v56 = os_log_create("com.apple.isp", "plugin");
-        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v56;
+        v60 = os_log_create("com.apple.isp", "plugin");
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v60;
       }
 
-      if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
       {
         *buf = 67109632;
-        *&buf[4] = v52;
+        *&buf[4] = v56;
         *&buf[8] = 1024;
-        *&buf[10] = v53;
+        *&buf[10] = v57;
         *&buf[14] = 1024;
-        *&buf[16] = v55;
-        _os_log_impl(&dword_2247DB000, v56, OS_LOG_TYPE_INFO, "ActivateStillImageOutputInFrameReceiver STILLMETA pool size=%d,prime=%d res =%d\n\n", buf, 0x14u);
+        *&buf[16] = v59;
+        _os_log_impl(&dword_2247DB000, v60, OS_LOG_TYPE_INFO, "ActivateStillImageOutputInFrameReceiver STILLMETA pool size=%d,prime=%d res =%d\n\n", buf, 0x14u);
       }
     }
 
-    if (H16ISP::H16ISPDevice::SetScalerChromaSampleOffset(*(a2 + 24), *(a1 + 156), v58, v59, 2))
+    if (H16ISP::H16ISPDevice::SetScalerChromaSampleOffset(*(a2 + 24), *(result + 156), v67, v68, 2))
     {
-      v57 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
-      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v23)
+      v61 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == v27)
       {
-        v57 = os_log_create("com.apple.isp", "plugin");
-        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v57;
+        v61 = os_log_create("com.apple.isp", "plugin");
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v61;
       }
 
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
         ActivateStillImageOutputInFrameReceiver();
       }
@@ -9629,137 +9885,7 @@ LABEL_75:
 
     else
     {
-      SetMetaDataOptionsOnFrameReceiver(a1, a2);
+      SetMetaDataOptionsOnFrameReceiver(result, a2);
     }
   }
-}
-
-uint64_t H16ISP::H16ISPFrameReceiver::SetMetaDataOptions(uint64_t a1, __int128 *a2)
-{
-  v2 = *a2;
-  v3 = a2[1];
-  *(a1 + 984) = *(a2 + 4);
-  *(a1 + 952) = v2;
-  *(a1 + 968) = v3;
-  return 0;
-}
-
-uint64_t H16ISP::H16ISPFilterGraphNode::EnqueueMessage(H16ISP::H16ISPFilterGraphNode *this, H16ISP::H16ISPFilterGraphMessage *a2)
-{
-  if (*(this + 16) != 1)
-  {
-    return 3758097112;
-  }
-
-  v11[12] = v2;
-  v11[13] = v3;
-  pthread_mutex_lock((a2 + 8));
-  ++*a2;
-  pthread_mutex_unlock((a2 + 8));
-  v6 = (*(*this + 72))(this);
-  if (v6)
-  {
-    v7 = v6;
-    if (*(this + 18) >= v6)
-    {
-      v10 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
-      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
-      {
-        v10 = os_log_create("com.apple.isp", "general");
-        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v10;
-      }
-
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        H16ISP::H16ISPFilterGraphNode::EnqueueMessage(this, v7, v10);
-      }
-
-      goto LABEL_11;
-    }
-  }
-
-  v8 = *(this + 1);
-  if (!v8)
-  {
-LABEL_11:
-    H16ISP::H16ISPFilterGraphMessage::Release(a2);
-    return 0;
-  }
-
-  ++*(this + 18);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 0x40000000;
-  v11[2] = ___ZN6H16ISP21H16ISPFilterGraphNode14EnqueueMessageEPNS_24H16ISPFilterGraphMessageE_block_invoke;
-  v11[3] = &__block_descriptor_tmp_3_1;
-  v11[4] = this;
-  v11[5] = a2;
-  dispatch_async(v8, v11);
-  return 0;
-}
-
-uint64_t H16ISP::H16ISPDevice::SetBufferPoolConfiguration(H16ISP::H16ISPDevice *a1, int a2, __int16 a3, __int16 a4, int a5, unsigned int a6, const void *a7)
-{
-  bzero(v15, 0x9CuLL);
-  v16 = 279;
-  v17 = a2;
-  v18 = a3;
-  v19 = a4;
-  v21 = a5;
-  v20[66] = a6;
-  memcpy(v20, a7, 32 * a6);
-  return H16ISP::H16ISPDevice::ISP_SendCommand(a1, v15, 0x9Cu, 0, 0xFFFFFFFF);
-}
-
-uint64_t H16ISP::H16ISPGraphNullNode::EnqueueMessage(H16ISP::H16ISPGraphNullNode *this, H16ISP::H16ISPFilterGraphMessage *a2)
-{
-  if (*(this + 16) != 1)
-  {
-    return 3758097112;
-  }
-
-  v4 = *(this + 4);
-  v5 = *(this + 5);
-  v6 = (v4 + 8 * (*(this + 7) >> 9));
-  if (v5 == v4)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v7 = (*v6 + 8 * (*(this + 7) & 0x1FFLL));
-  }
-
-  while (1)
-  {
-    if (v5 == v4)
-    {
-      v12 = 0;
-    }
-
-    else
-    {
-      v11 = *(this + 8) + *(this + 7);
-      v12 = *(v4 + ((v11 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v11 & 0x1FF);
-    }
-
-    if (v7 == v12)
-    {
-      break;
-    }
-
-    v9 = *v7++;
-    (*(*v9 + 32))(v9, a2);
-    if ((v7 - *v6) == 4096)
-    {
-      v10 = v6[1];
-      ++v6;
-      v7 = v10;
-    }
-
-    v4 = *(this + 4);
-    v5 = *(this + 5);
-  }
-
-  return 0;
 }

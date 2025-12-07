@@ -8,16 +8,16 @@
 
 - (_TtC18ASMessagesProvider35TitledButtonStackCollectionViewCell)initWithCoder:(id)coder
 {
-  v4 = sub_BD88(&qword_949F78);
+  v4 = sub_BD88(&qword_949F78, &qword_78B1F8);
   __chkstk_darwin(v4);
   v5 = OBJC_IVAR____TtC18ASMessagesProvider35TitledButtonStackCollectionViewCell_itemLayoutContext;
   v6 = sub_75C840();
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   v7 = OBJC_IVAR____TtC18ASMessagesProvider35TitledButtonStackCollectionViewCell_lineBreaks;
-  v8 = sub_BD88(&qword_949F68);
+  v8 = sub_BD88(&qword_949F68, &qword_78B1F0);
   (*(*(v8 - 8) + 56))(self + v7, 1, 1, v8);
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider35TitledButtonStackCollectionViewCell_buttons) = _swiftEmptyArrayStorage;
-  type metadata accessor for RoundedTitledButton();
+  type metadata accessor for RoundedTitledButton(0);
   sub_7667C0();
   sub_1F5FF4();
   sub_767480();
@@ -35,7 +35,7 @@
 - (void)prepareForReuse
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for TitledButtonStackCollectionViewCell();
+  v3.super_class = type metadata accessor for TitledButtonStackCollectionViewCell(0);
   v2 = v3.receiver;
   [(TitledButtonStackCollectionViewCell *)&v3 prepareForReuse];
   sub_1F5014();

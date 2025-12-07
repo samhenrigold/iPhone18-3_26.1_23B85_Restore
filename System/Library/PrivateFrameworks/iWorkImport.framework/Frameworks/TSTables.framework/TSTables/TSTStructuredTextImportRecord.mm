@@ -19,24 +19,24 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_opt_new();
-  v9 = objc_msgSend_copy(self->_importSettings, v5, v6, v7, v8);
-  objc_msgSend_setImportSettings_(v4, v10, v9, v11, v12);
+  v8 = objc_msgSend_copy(self->_importSettings, v5, v6, v7);
+  objc_msgSend_setImportSettings_(v4, v9, v8, v10);
 
-  v17 = objc_msgSend_copy(self->_importSource, v13, v14, v15, v16);
-  objc_msgSend_setImportSource_(v4, v18, v17, v19, v20);
+  v14 = objc_msgSend_copy(self->_importSource, v11, v12, v13);
+  objc_msgSend_setImportSource_(v4, v15, v14, v16);
 
-  v25 = objc_msgSend_copy(self->_importDate, v21, v22, v23, v24);
-  objc_msgSend_setImportDate_(v4, v26, v25, v27, v28);
+  v20 = objc_msgSend_copy(self->_importDate, v17, v18, v19);
+  objc_msgSend_setImportDate_(v4, v21, v20, v22);
 
-  v33 = objc_msgSend_copy(self->_sourceData, v29, v30, v31, v32);
-  objc_msgSend_setSourceData_(v4, v34, v33, v35, v36);
+  v26 = objc_msgSend_copy(self->_sourceData, v23, v24, v25);
+  objc_msgSend_setSourceData_(v4, v27, v26, v28);
 
-  objc_msgSend_setConfidence_(v4, v37, v38, v39, v40, self->_confidence);
-  v45 = objc_msgSend_copy(self->_importedRegion, v41, v42, v43, v44);
-  objc_msgSend_setImportedRegion_(v4, v46, v45, v47, v48);
+  objc_msgSend_setConfidence_(v4, v29, v30, v31, self->_confidence);
+  v35 = objc_msgSend_copy(self->_importedRegion, v32, v33, v34);
+  objc_msgSend_setImportedRegion_(v4, v36, v35, v37);
 
-  objc_msgSend_setSourceColumnCount_(v4, v49, self->_sourceColumnCount, v50, v51);
-  objc_msgSend_setSourceRowCount_(v4, v52, self->_sourceRowCount, v53, v54);
+  objc_msgSend_setSourceColumnCount_(v4, v38, self->_sourceColumnCount, v39);
+  objc_msgSend_setSourceRowCount_(v4, v40, self->_sourceRowCount, v41);
   return v4;
 }
 
@@ -45,10 +45,10 @@
   importSettings = self->_importSettings;
   if (importSettings)
   {
-    importSettings = objc_msgSend_type(importSettings, a2, v2, v3, v4);
+    importSettings = objc_msgSend_type(importSettings, a2, v2, v3);
     if (importSettings)
     {
-      LOBYTE(importSettings) = ((objc_msgSend_isWholeTableImport(self, v7, v8, v9, v10) & 1) != 0 || self->_pasteInverseCommands) && self->_sourceData != 0;
+      LOBYTE(importSettings) = ((objc_msgSend_isWholeTableImport(self, v6, v7, v8) & 1) != 0 || self->_pasteInverseCommands) && self->_sourceData != 0;
     }
   }
 
@@ -58,201 +58,201 @@
 + (id)recordFromArchive:(const void *)archive
 {
   v4 = objc_alloc(objc_opt_class());
-  v8 = objc_msgSend_initFromArchive_(v4, v5, archive, v6, v7);
+  v7 = objc_msgSend_initFromArchive_(v4, v5, archive, v6);
 
-  return v8;
+  return v7;
 }
 
 - (id)initFromArchive:(const void *)archive
 {
-  v41.receiver = self;
-  v41.super_class = TSTStructuredTextImportRecord;
-  v7 = [(TSTStructuredTextImportRecord *)&v41 init];
-  if (v7)
+  v36.receiver = self;
+  v36.super_class = TSTStructuredTextImportRecord;
+  v6 = [(TSTStructuredTextImportRecord *)&v36 init];
+  if (v6)
   {
     if (*(archive + 5))
     {
-      objc_msgSend_settingsFromArchive_(MEMORY[0x277D806E0], v4, *(archive + 5), v5, v6);
+      objc_msgSend_settingsFromArchive_(MEMORY[0x277D806E0], v4, *(archive + 5), v5);
     }
 
     else
     {
-      objc_msgSend_settingsFromArchive_(MEMORY[0x277D806E0], v4, MEMORY[0x277D80760], v5, v6);
+      objc_msgSend_settingsFromArchive_(MEMORY[0x277D806E0], v4, MEMORY[0x277D80760], v5);
     }
-    v8 = ;
-    v9 = *(v7 + 2);
-    *(v7 + 2) = v8;
+    v7 = ;
+    v8 = *(v6 + 2);
+    *(v6 + 2) = v7;
 
-    v14 = *(archive + 4);
-    if (v14)
+    v12 = *(archive + 4);
+    if (v12)
     {
-      v15 = *(archive + 3) & 0xFFFFFFFFFFFFFFFELL;
-      if (*(v15 + 23) < 0)
+      v13 = *(archive + 3) & 0xFFFFFFFFFFFFFFFELL;
+      if (*(v13 + 23) < 0)
       {
-        v15 = *v15;
+        v13 = *v13;
       }
 
-      v16 = objc_msgSend_fileURLWithFileSystemRepresentation_isDirectory_relativeToURL_(MEMORY[0x277CBEBC0], v10, v15, 0, 0);
-      v17 = *(v7 + 3);
-      *(v7 + 3) = v16;
+      v14 = objc_msgSend_fileURLWithFileSystemRepresentation_isDirectory_relativeToURL_(MEMORY[0x277CBEBC0], v9, v13, 0, 0);
+      v15 = *(v6 + 3);
+      *(v6 + 3) = v14;
 
-      v14 = *(archive + 4);
+      v12 = *(archive + 4);
     }
 
-    if ((v14 & 0x10) != 0)
+    if ((v12 & 0x10) != 0)
     {
-      v18 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x277CBEAA8], v10, v11, v12, v13, *(archive + 7));
-      v19 = *(v7 + 4);
-      *(v7 + 4) = v18;
+      v16 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x277CBEAA8], v9, v10, v11, *(archive + 7));
+      v17 = *(v6 + 4);
+      *(v6 + 4) = v16;
 
-      v14 = *(archive + 4);
+      v12 = *(archive + 4);
     }
 
-    if ((v14 & 2) != 0)
+    if ((v12 & 2) != 0)
     {
-      v21 = *(archive + 4) & 0xFFFFFFFFFFFFFFFELL;
-      v22 = *(v21 + 23);
-      if (v22 < 0)
+      v19 = *(archive + 4) & 0xFFFFFFFFFFFFFFFELL;
+      v20 = *(v19 + 23);
+      if (v20 < 0)
       {
-        objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v10, *v21, *(v21 + 8), v13);
+        objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v9, *v19, *(v19 + 8));
       }
 
       else
       {
-        objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v10, *(archive + 4) & 0xFFFFFFFFFFFFFFFELL, v22, v13);
+        objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], v9, *(archive + 4) & 0xFFFFFFFFFFFFFFFELL, v20);
       }
-      v20 = ;
+      v18 = ;
     }
 
     else
     {
-      v20 = objc_msgSend_dataWithContentsOfURL_(MEMORY[0x277CBEA90], v10, *(v7 + 3), v12, v13);
+      v18 = objc_msgSend_dataWithContentsOfURL_(MEMORY[0x277CBEA90], v9, *(v6 + 3), v11);
     }
 
-    v23 = *(v7 + 5);
-    *(v7 + 5) = v20;
+    v21 = *(v6 + 5);
+    *(v6 + 5) = v18;
 
-    v28 = *(archive + 4);
-    v29 = *(archive + 22);
-    if ((v28 & 0x100) == 0)
+    v25 = *(archive + 4);
+    v26 = *(archive + 22);
+    if ((v25 & 0x100) == 0)
     {
-      v29 = 0.0;
+      v26 = 0.0;
     }
 
-    *(v7 + 6) = v29;
-    if ((v28 & 8) != 0)
+    *(v6 + 6) = v26;
+    if ((v25 & 8) != 0)
     {
-      v30 = [TSTCellRegion alloc];
+      v27 = [TSTCellRegion alloc];
       if (*(archive + 6))
       {
-        v34 = objc_msgSend_initFromMessage_(v30, v31, *(archive + 6), v32, v33);
+        v30 = objc_msgSend_initFromMessage_(v27, v28, *(archive + 6), v29);
       }
 
       else
       {
-        v34 = objc_msgSend_initFromMessage_(v30, v31, &TST::_CellRegion_default_instance_, v32, v33);
+        v30 = objc_msgSend_initFromMessage_(v27, v28, &TST::_CellRegion_default_instance_, v29);
       }
 
-      v35 = *(v7 + 7);
-      *(v7 + 7) = v34;
+      v31 = *(v6 + 7);
+      *(v6 + 7) = v30;
 
-      v28 = *(archive + 4);
+      v25 = *(archive + 4);
     }
 
-    if ((v28 & 0x20) != 0 && !objc_msgSend_sourceEncoding(*(v7 + 2), v24, v25, v26, v27))
+    if ((v25 & 0x20) != 0 && !objc_msgSend_sourceEncoding(*(v6 + 2), v22, v23, v24))
     {
-      objc_msgSend_setSourceEncoding_(*(v7 + 2), v36, *(archive + 8), v37, v38);
+      objc_msgSend_setSourceEncoding_(*(v6 + 2), v32, *(archive + 8), v33);
     }
 
-    v39 = *(archive + 4);
-    if ((v39 & 0x80) != 0)
+    v34 = *(archive + 4);
+    if ((v34 & 0x80) != 0)
     {
-      *(v7 + 8) = *(archive + 10);
+      *(v6 + 8) = *(archive + 10);
     }
 
-    if ((v39 & 0x40) != 0)
+    if ((v34 & 0x40) != 0)
     {
-      *(v7 + 9) = *(archive + 9);
+      *(v6 + 9) = *(archive + 9);
     }
   }
 
-  return v7;
+  return v6;
 }
 
 - (void)encodeToArchive:(void *)archive
 {
   importSettings = self->_importSettings;
   *(archive + 4) |= 4u;
-  v8 = *(archive + 5);
-  if (!v8)
+  v7 = *(archive + 5);
+  if (!v7)
   {
-    v9 = *(archive + 1);
-    if (v9)
+    v8 = *(archive + 1);
+    if (v8)
     {
-      v9 = *(v9 & 0xFFFFFFFFFFFFFFFELL);
+      v8 = *(v8 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v8 = MEMORY[0x223DA02E0](v9, a2);
-    *(archive + 5) = v8;
+    v7 = MEMORY[0x223DA02E0](v8, a2);
+    *(archive + 5) = v7;
   }
 
-  objc_msgSend_encodeToArchive_(importSettings, a2, v8, v3, v4);
+  objc_msgSend_encodeToArchive_(importSettings, a2, v7, v3);
   importSource = self->_importSource;
   if (importSource)
   {
-    v15 = objc_msgSend_fileSystemRepresentation(importSource, v10, v11, v12, v13);
-    sub_22116EB30(archive, v15);
+    v13 = objc_msgSend_fileSystemRepresentation(importSource, v9, v10, v11);
+    sub_22116EB30(archive, v13);
   }
 
   importDate = self->_importDate;
   if (importDate)
   {
-    objc_msgSend_timeIntervalSinceReferenceDate(importDate, v10, v11, v12, v13);
+    objc_msgSend_timeIntervalSinceReferenceDate(importDate, v9, v10, v11);
     *(archive + 4) |= 0x10u;
-    *(archive + 7) = v17;
+    *(archive + 7) = v15;
   }
 
   sourceData = self->_sourceData;
-  if (sourceData && objc_msgSend_length(sourceData, v10, v11, v12, v13) <= 0x2000000)
+  if (sourceData && objc_msgSend_length(sourceData, v9, v10, v11) <= 0x2000000)
   {
-    v19 = objc_msgSend_bytes(self->_sourceData, v10, v11, v12, v13);
-    v24 = objc_msgSend_length(self->_sourceData, v20, v21, v22, v23);
-    sub_22116EC44(archive, v19, v24);
+    v17 = objc_msgSend_bytes(self->_sourceData, v9, v10, v11);
+    v21 = objc_msgSend_length(self->_sourceData, v18, v19, v20);
+    sub_22116EC44(archive, v17, v21);
   }
 
-  if (objc_msgSend_sourceEncoding(self->_importSettings, v10, v11, v12, v13))
+  if (objc_msgSend_sourceEncoding(self->_importSettings, v9, v10, v11))
   {
-    v29 = objc_msgSend_sourceEncoding(self->_importSettings, v25, v26, v27, v28);
+    v25 = objc_msgSend_sourceEncoding(self->_importSettings, v22, v23, v24);
     *(archive + 4) |= 0x20u;
-    *(archive + 8) = v29;
+    *(archive + 8) = v25;
   }
 
   confidence = self->_confidence;
   if (confidence != 0.0)
   {
-    v31 = confidence;
+    v27 = confidence;
     *(archive + 4) |= 0x100u;
-    *(archive + 22) = v31;
+    *(archive + 22) = v27;
   }
 
   importedRegion = self->_importedRegion;
   if (importedRegion)
   {
     *(archive + 4) |= 8u;
-    v33 = *(archive + 6);
-    if (!v33)
+    v29 = *(archive + 6);
+    if (!v29)
     {
-      v34 = *(archive + 1);
-      if (v34)
+      v30 = *(archive + 1);
+      if (v30)
       {
-        v34 = *(v34 & 0xFFFFFFFFFFFFFFFELL);
+        v30 = *(v30 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v33 = google::protobuf::Arena::CreateMaybeMessage<TST::CellRegion>(v34);
-      *(archive + 6) = v33;
+      v29 = google::protobuf::Arena::CreateMaybeMessage<TST::CellRegion>(v30);
+      *(archive + 6) = v29;
     }
 
-    objc_msgSend_saveToMessage_(importedRegion, v25, v33, v27, v28);
+    objc_msgSend_saveToMessage_(importedRegion, v22, v29, v24);
   }
 
   sourceColumnCount = self->_sourceColumnCount;

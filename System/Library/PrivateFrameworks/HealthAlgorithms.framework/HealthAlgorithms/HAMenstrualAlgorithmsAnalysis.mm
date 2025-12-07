@@ -37,15 +37,15 @@
 
 - (HAMenstrualAlgorithmsAnalysis)initWithCoder:(id)coder
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(HAMenstrualAlgorithmsAnalysis *)self init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v27[0] = objc_opt_class();
-    v27[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+    v26[0] = objc_opt_class();
+    v26[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
     v8 = [v6 setWithArray:v7];
 
     v9 = NSStringFromSelector(sel_menstruationPredictions);
@@ -76,7 +76,6 @@
     v24 = v5;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

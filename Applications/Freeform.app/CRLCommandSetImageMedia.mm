@@ -30,7 +30,7 @@
   (*(v9 + 16))(self + OBJC_IVAR____TtC8Freeform23CRLCommandSetImageMedia_id, v11, v8);
   *(self + OBJC_IVAR____TtC8Freeform23CRLCommandSetImageMedia_imageData) = data;
   *(self + OBJC_IVAR____TtC8Freeform23CRLCommandSetImageMedia_thumbnailData) = thumbnailData;
-  v12 = type metadata accessor for CRLCommandSetImageMedia();
+  v12 = type metadata accessor for CRLCommandSetImageMedia(0);
   v17.receiver = self;
   v17.super_class = v12;
   dataCopy = data;

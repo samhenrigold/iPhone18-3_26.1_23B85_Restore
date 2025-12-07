@@ -388,15 +388,13 @@ LABEL_14:
 
 - (void)_bcs_localizedDisplayNameForRedirectedSHCURL
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   absoluteString = [self absoluteString];
-  v5 = 138478083;
-  v6 = absoluteString;
-  v7 = 2113;
-  v8 = a2;
-  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSURLAction: Unable to create HKSignedClinicalDataSource for: %{private}@ error: %{private}@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138478083;
+  v5 = absoluteString;
+  v6 = 2113;
+  v7 = a2;
+  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSURLAction: Unable to create HKSignedClinicalDataSource for: %{private}@ error: %{private}@", &v4, 0x16u);
 }
 
 @end

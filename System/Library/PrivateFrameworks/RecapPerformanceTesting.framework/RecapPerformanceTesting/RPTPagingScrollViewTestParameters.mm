@@ -15,78 +15,78 @@
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   handlerCopy = handler;
-  v17 = RPTLogTestRunning();
+  v17 = RPTLogTestRunning(handlerCopy);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v45.origin.x = x;
-    v45.origin.y = y;
-    v45.size.width = width;
-    v45.size.height = height;
-    v18 = _RPTStringFromCGRect(v45);
+    v46.origin.x = x;
+    v46.origin.y = y;
+    v46.size.width = width;
+    v46.size.height = height;
+    v18 = _RPTStringFromCGRect(v46);
     v19 = v18;
     *buf = 138544386;
     v20 = @"YES";
-    v35 = nameCopy;
-    v36 = 2114;
+    v36 = nameCopy;
+    v37 = 2114;
     if (!handlerCopy)
     {
       v20 = @"NULL";
     }
 
-    v37 = v18;
-    v38 = 2048;
+    v38 = v18;
+    v39 = 2048;
     lengthCopy = length;
-    v40 = 2050;
+    v41 = 2050;
     directionCopy = direction;
-    v42 = 2114;
-    v43 = v20;
+    v43 = 2114;
+    v44 = v20;
     _os_log_impl(&dword_261A17000, v17, OS_LOG_TYPE_DEFAULT, "RPT: [RPTPagingScrollViewTestParameters initWithTestName:]", buf, 0x34u);
   }
 
   v21 = _RPTAxisFromScrollDirection(direction);
   if (RPTSizeAlongAxis(v21, width, height) * 1.5 > length)
   {
-    v22 = RPTLogTestRunning();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = RPTLogTestRunning(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [(RPTPagingScrollViewTestParameters *)v22 initWithTestName:y scrollBounds:width scrollContentLength:height direction:length completionHandler:?];
+      [(RPTPagingScrollViewTestParameters *)v23 initWithTestName:y scrollBounds:width scrollContentLength:height direction:length completionHandler:?];
     }
   }
 
-  v33.receiver = self;
-  v33.super_class = RPTPagingScrollViewTestParameters;
-  v23 = [(RPTPagingScrollViewTestParameters *)&v33 init];
-  if (v23)
+  v34.receiver = self;
+  v34.super_class = RPTPagingScrollViewTestParameters;
+  v24 = [(RPTPagingScrollViewTestParameters *)&v34 init];
+  if (v24)
   {
-    v24 = [nameCopy copy];
-    testName = v23->_testName;
-    v23->_testName = v24;
+    v25 = [nameCopy copy];
+    testName = v24->_testName;
+    v24->_testName = v25;
 
-    v23->_scrollingBounds.origin.x = x;
-    v23->_scrollingBounds.origin.y = y;
-    v23->_scrollingBounds.size.width = width;
-    v23->_scrollingBounds.size.height = height;
-    v23->_scrollingContentLength = length;
-    v23->_direction = _UIScrollDirectionFromRPTScrollDirection(direction);
-    v26 = MEMORY[0x2667162B0](handlerCopy);
-    completionHandler = v23->_completionHandler;
-    v23->_completionHandler = v26;
+    v24->_scrollingBounds.origin.x = x;
+    v24->_scrollingBounds.origin.y = y;
+    v24->_scrollingBounds.size.width = width;
+    v24->_scrollingBounds.size.height = height;
+    v24->_scrollingContentLength = length;
+    v24->_direction = _UIScrollDirectionFromRPTScrollDirection(direction);
+    v27 = MEMORY[0x2667162B0](handlerCopy);
+    completionHandler = v24->_completionHandler;
+    v24->_completionHandler = v27;
 
-    v28 = +[RPTCoordinateSpaceConverter identityConverter];
-    conversion = v23->_conversion;
-    v23->_conversion = v28;
+    v29 = +[RPTCoordinateSpaceConverter identityConverter];
+    conversion = v24->_conversion;
+    v24->_conversion = v29;
 
-    v30 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7B8]];
-    curveFunction = v23->_curveFunction;
-    v23->_curveFunction = v30;
+    v31 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7B8]];
+    curveFunction = v24->_curveFunction;
+    v24->_curveFunction = v31;
 
-    v23->_iterationDurationFactor = 1.0;
+    v24->_iterationDurationFactor = 1.0;
   }
 
-  return v23;
+  return v24;
 }
 
 - (RPTPagingScrollViewTestParameters)initWithTestName:(id)name scrollView:(id)view completionHandler:(id)handler
@@ -95,7 +95,7 @@
   nameCopy = name;
   viewCopy = view;
   handlerCopy = handler;
-  v11 = RPTLogTestRunning();
+  v11 = RPTLogTestRunning(handlerCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = @"YES";
@@ -128,7 +128,7 @@
 
 - (id)composerBlock
 {
-  v3 = RPTLogTestRunning();
+  v3 = RPTLogTestRunning(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -147,7 +147,7 @@
 
 void __50__RPTPagingScrollViewTestParameters_composerBlock__block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v4[6])
@@ -168,76 +168,76 @@ void __50__RPTPagingScrollViewTestParameters_composerBlock__block_invoke(uint64_
   v10 = v9;
   v11 = _RPTAxisFromScrollDirection(v6);
   v12 = RPTSizeAlongAxis(v11, v8, v10);
-  v13 = RPTLogTestRunning();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = RPTLogTestRunning(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     *&buf[4] = v12;
-    _os_log_impl(&dword_261A17000, v13, OS_LOG_TYPE_DEFAULT, "RPT: RPTPagingScrollViewTestParameters pageLength %f", buf, 0xCu);
+    _os_log_impl(&dword_261A17000, v14, OS_LOG_TYPE_DEFAULT, "RPT: RPTPagingScrollViewTestParameters pageLength %f", buf, 0xCu);
   }
 
-  v14 = v12 * 10.0;
-  [*(a1 + 32) scrollingContentLength];
-  if (v15 >= v12 * 7.0)
+  v15 = v12 * 10.0;
+  v16 = [*(a1 + 32) scrollingContentLength];
+  if (v17 >= v12 * 7.0)
   {
-    v16 = v12 * 7.0;
+    v18 = v12 * 7.0;
   }
 
   else
   {
-    v16 = v15;
+    v18 = v17;
   }
 
-  v17 = RPTLogTestRunning();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = RPTLogTestRunning(v16);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     *&buf[4] = v12;
-    _os_log_impl(&dword_261A17000, v17, OS_LOG_TYPE_DEFAULT, "RPT: RPTPagingScrollViewTestParameters reversalOffset %f", buf, 0xCu);
+    _os_log_impl(&dword_261A17000, v19, OS_LOG_TYPE_DEFAULT, "RPT: RPTPagingScrollViewTestParameters reversalOffset %f", buf, 0xCu);
   }
 
-  if (v14 > 0.0)
+  if (v15 > 0.0)
   {
-    v18 = fmax(v12 / 500.0, 1.5);
-    if (v18 <= 0.5)
+    v20 = fmax(v12 / 500.0, 1.5);
+    if (v20 <= 0.5)
     {
-      v19 = v18;
+      v21 = v20;
     }
 
     else
     {
-      v19 = 0.5;
+      v21 = 0.5;
     }
 
-    v20 = 1;
-    v21 = 0.0;
+    v22 = 1;
+    v23 = 0.0;
     do
     {
-      v22 = v19;
-      v23 = v6;
-      if ((v21 / v16))
+      v24 = v21;
+      v25 = v6;
+      if ((v23 / v18))
       {
-        v23 = RPTOppositeDirectionFrom(v6);
-        v22 = v19 * 0.5;
+        v25 = RPTOppositeDirectionFrom(v6);
+        v24 = v21 * 0.5;
       }
 
       *buf = 0uLL;
-      v26 = 0.0;
-      v27 = 0.0;
-      [*(a1 + 32) positionsForDirection:v23 startOut:buf endOut:&v26];
-      if (v20)
+      v28 = 0.0;
+      v29 = 0.0;
+      [*(a1 + 32) positionsForDirection:v25 startOut:buf endOut:&v28];
+      if (v22)
       {
-        v22 = v19 + v19;
+        v24 = v21 + v21;
       }
 
-      v24 = *(a1 + 32);
-      [v24 iterationDurationFactor];
-      [v24 swipeWithComposer:v3 fromPoint:*buf toPoint:v26 duration:{v27, v22 * v25}];
-      v20 = 0;
-      v21 = (v12 + v21);
+      v26 = *(a1 + 32);
+      [v26 iterationDurationFactor];
+      [v26 swipeWithComposer:v3 fromPoint:*buf toPoint:v28 duration:{v29, v24 * v27}];
+      v22 = 0;
+      v23 = (v12 + v23);
     }
 
-    while (v14 > v21);
+    while (v15 > v23);
   }
 }
 
@@ -313,7 +313,7 @@ LABEL_12:
   v10 = point.x;
   v30 = *MEMORY[0x277D85DE8];
   composerCopy = composer;
-  v13 = RPTLogTestRunning();
+  v13 = RPTLogTestRunning(composerCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v31.x = v10;

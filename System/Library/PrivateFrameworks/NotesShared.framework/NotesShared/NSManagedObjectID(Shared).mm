@@ -44,16 +44,16 @@
 
 - (uint64_t)ic_isModernContainerType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [self ic_isEntityOfClass:v2];
+  return [self ic_isEntityOfClass:v3];
 }
 
 - (uint64_t)ic_isLegacyContainerType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [self ic_isEntityOfClass:v2];
+  return [self ic_isEntityOfClass:v3];
 }
 
 - (uint64_t)ic_isNoteType
@@ -68,30 +68,30 @@
 
 - (uint64_t)ic_isModernNoteType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [self ic_isEntityOfClass:v2];
+  return [self ic_isEntityOfClass:v3];
 }
 
 - (uint64_t)ic_isModernFolderType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [self ic_isEntityOfClass:v2];
+  return [self ic_isEntityOfClass:v3];
 }
 
 - (uint64_t)ic_isModernAccountType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [self ic_isEntityOfClass:v2];
+  return [self ic_isEntityOfClass:v3];
 }
 
 - (uint64_t)ic_isLegacyNoteType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [self ic_isEntityOfClass:v2];
+  return [self ic_isEntityOfClass:v3];
 }
 
 - (uint64_t)ic_isLegacyType
@@ -105,16 +105,16 @@
 
 - (uint64_t)ic_isModernAccountProxyType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [self ic_isEntityOfClass:v2];
+  return [self ic_isEntityOfClass:v3];
 }
 
 - (uint64_t)ic_isLegacyAccountType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [self ic_isEntityOfClass:v2];
+  return [self ic_isEntityOfClass:v3];
 }
 
 - (uint64_t)ic_isAccountType
@@ -129,9 +129,9 @@
 
 - (uint64_t)ic_isLegacyFolderType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [self ic_isEntityOfClass:v2];
+  return [self ic_isEntityOfClass:v3];
 }
 
 - (uint64_t)ic_isFolderType
@@ -146,37 +146,37 @@
 
 - (uint64_t)ic_isBaseAttachmentType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [self ic_isEntityOfClass:v2];
+  return [self ic_isEntityOfClass:v3];
 }
 
 - (uint64_t)ic_isAttachmentType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [self ic_isEntityOfClass:v2];
+  return [self ic_isEntityOfClass:v3];
 }
 
 - (uint64_t)ic_isInlineAttachmentType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [self ic_isEntityOfClass:v2];
+  return [self ic_isEntityOfClass:v3];
 }
 
 - (uint64_t)ic_isHashtagType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [self ic_isEntityOfClass:v2];
+  return [self ic_isEntityOfClass:v3];
 }
 
 - (uint64_t)ic_isInvitationType
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
 
-  return [self ic_isEntityOfClass:v2];
+  return [self ic_isEntityOfClass:v3];
 }
 
 @end

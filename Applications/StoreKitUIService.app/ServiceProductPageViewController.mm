@@ -53,6 +53,10 @@
 - (void)setVisibleInClientWindow:(id)window;
 - (void)showErrorPageWithCompletion:(id)completion;
 - (void)showPageForLookupResult:(id)result productID:(id)d parameters:(id)parameters logKey:(id)key completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willTransitionToTraitCollection:(id)collection withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -90,47 +94,51 @@
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   v7 = objc_opt_class();
   logKey = self->_logKey;
-  v13 = 138543618;
-  v14 = v7;
-  v15 = 2114;
-  v16 = logKey;
+  v12 = 138543618;
+  v13 = v7;
+  v14 = 2114;
+  v15 = logKey;
   v9 = v7;
-  LODWORD(v11) = 22;
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@][%{public}@]: Dealloc.", &v12, 22);
 
   if (v10)
   {
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, &v13, v11];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   [(ServiceProductPageViewController *)self _cleanUpExtension];
-  v12.receiver = self;
-  v12.super_class = ServiceProductPageViewController;
-  [(ServiceProductPageViewController *)&v12 dealloc];
+  v11.receiver = self;
+  v11.super_class = ServiceProductPageViewController;
+  [(ServiceProductPageViewController *)&v11 dealloc];
 }
 
 - (void)loadView
@@ -146,6 +154,100 @@ LABEL_9:
   }
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v19.receiver = self;
+  v19.super_class = ServiceProductPageViewController;
+  [(ServiceProductPageViewController *)&v19 viewDidAppear:appear];
+  view = [(ServiceProductPageViewController *)self view];
+  window = [view window];
+  _rootSheetPresentationController = [window _rootSheetPresentationController];
+  [_rootSheetPresentationController _setShouldScaleDownBehindDescendantSheets:0];
+
+  desiredPresentationStyle = [(ServiceProductPageViewController *)self desiredPresentationStyle];
+
+  if (desiredPresentationStyle)
+  {
+    desiredPresentationStyle2 = [(ServiceProductPageViewController *)self desiredPresentationStyle];
+    integerValue = [desiredPresentationStyle2 integerValue];
+    cardContainerViewController = [(ServiceProductPageViewController *)self cardContainerViewController];
+    [cardContainerViewController setModalPresentationStyle:integerValue];
+  }
+
+  else
+  {
+    if (self->_preview)
+    {
+      v11 = 0;
+    }
+
+    else
+    {
+      v11 = -2;
+    }
+
+    desiredPresentationStyle2 = [(ServiceProductPageViewController *)self cardContainerViewController];
+    [desiredPresentationStyle2 setModalPresentationStyle:v11];
+  }
+
+  cardContainerViewController2 = [(ServiceProductPageViewController *)self cardContainerViewController];
+  presentationController = [cardContainerViewController2 presentationController];
+
+  [presentationController setDelegate:self];
+  cardContainerViewController3 = [(ServiceProductPageViewController *)self cardContainerViewController];
+  if (cardContainerViewController3)
+  {
+    v15 = cardContainerViewController3;
+    cardContainerViewController4 = [(ServiceProductPageViewController *)self cardContainerViewController];
+    presentingViewController = [cardContainerViewController4 presentingViewController];
+
+    if (!presentingViewController)
+    {
+      cardContainerViewController5 = [(ServiceProductPageViewController *)self cardContainerViewController];
+      [(ServiceProductPageViewController *)self presentViewController:cardContainerViewController5 animated:!self->_preview completion:0];
+    }
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = +[NSNotificationCenter defaultCenter];
+  [v5 postNotificationName:SKUIVideoPreviewDismissNotification object:0];
+
+  cardContainerViewController = [(ServiceProductPageViewController *)self cardContainerViewController];
+  if (cardContainerViewController)
+  {
+    v7 = cardContainerViewController;
+    cardContainerViewController2 = [(ServiceProductPageViewController *)self cardContainerViewController];
+    presentingViewController = [cardContainerViewController2 presentingViewController];
+
+    if (presentingViewController)
+    {
+      cardContainerViewController3 = [(ServiceProductPageViewController *)self cardContainerViewController];
+      [cardContainerViewController3 dismissViewControllerAnimated:1 completion:0];
+    }
+  }
+
+  v11.receiver = self;
+  v11.super_class = ServiceProductPageViewController;
+  [(ServiceProductPageViewController *)&v11 viewDidDisappear:disappearCopy];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = ServiceProductPageViewController;
+  [(ServiceProductPageViewController *)&v3 viewWillAppear:appear];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = ServiceProductPageViewController;
+  [(ServiceProductPageViewController *)&v3 viewWillDisappear:disappear];
+}
+
 - (void)_willAppearInRemoteViewController
 {
   _hostApplicationBundleIdentifier = [(ServiceProductPageViewController *)self _hostApplicationBundleIdentifier];
@@ -154,16 +256,21 @@ LABEL_9:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
@@ -174,19 +281,18 @@ LABEL_9:
     logKey = self->_logKey;
     *location = 138544130;
     *&location[4] = v9;
-    v25 = 2114;
-    v26 = logKey;
-    v27 = 2112;
-    v28 = _hostApplicationBundleIdentifier;
-    v29 = 1024;
-    v30 = _isClientEntitled;
+    v24 = 2114;
+    v25 = logKey;
+    v26 = 2112;
+    v27 = _hostApplicationBundleIdentifier;
+    v28 = 1024;
+    v29 = _isClientEntitled;
     v11 = v9;
-    LODWORD(v19) = 38;
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Appearing in client: %@, entitled: %d", location, 38);
 
     if (v12)
     {
-      v13 = [NSString stringWithCString:v12 encoding:4, location, v19];
+      v13 = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
@@ -200,21 +306,21 @@ LABEL_9:
   profileValidated = [v14 profileValidated];
   objc_initWeak(location, self);
   v16 = [(NSString *)self->_logKey copy];
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_100018CF4;
-  v21[3] = &unk_1000519B0;
-  objc_copyWeak(v23, location);
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100018CF4;
+  v20[3] = &unk_1000519B0;
+  objc_copyWeak(v22, location);
   v17 = profileValidated;
   v18 = v16;
-  v22 = v18;
-  v23[1] = v17;
-  [(ServiceProductPageViewController *)self _addConfigurationAction:v21];
-  v20.receiver = self;
-  v20.super_class = ServiceProductPageViewController;
-  [(ServiceProductPageViewController *)&v20 _willAppearInRemoteViewController];
+  v21 = v18;
+  v22[1] = v17;
+  [(ServiceProductPageViewController *)self _addConfigurationAction:v20];
+  v19.receiver = self;
+  v19.super_class = ServiceProductPageViewController;
+  [(ServiceProductPageViewController *)&v19 _willAppearInRemoteViewController];
 
-  objc_destroyWeak(v23);
+  objc_destroyWeak(v22);
   objc_destroyWeak(location);
 }
 
@@ -397,16 +503,21 @@ LABEL_9:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
@@ -415,29 +526,27 @@ LABEL_9:
   {
     v9 = objc_opt_class();
     logKey = self->_logKey;
-    *v17 = 138543874;
-    *&v17[4] = v9;
-    *&v17[12] = 2114;
-    *&v17[14] = logKey;
-    *&v17[22] = 2112;
-    v18 = parametersCopy;
+    v16 = 138543874;
+    v17 = v9;
+    v18 = 2114;
+    v19 = logKey;
+    v20 = 2112;
+    v21 = parametersCopy;
     v11 = v9;
-    LODWORD(v16) = 32;
-    v15 = v17;
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@][%{public}@]: Loading product with parameters: %@", &v16, 32);
 
     if (!v12)
     {
-      goto LABEL_10;
+      goto LABEL_11;
     }
 
-    oSLogObject = [NSString stringWithCString:v12 encoding:4, v17, v16, *v17, *&v17[16], v18];
+    oSLogObject = [NSString stringWithCString:v12 encoding:4];
     free(v12);
     v15 = oSLogObject;
     SSFileLog();
   }
 
-LABEL_10:
+LABEL_11:
   v13 = [parametersCopy objectForKeyedSubscript:SKStoreProductParameterITunesItemIdentifier];
   if (v13 && ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || [v13 length]) && ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || objc_msgSend(v13, "integerValue")))
   {
@@ -480,43 +589,47 @@ LABEL_10:
   shouldLog = [v8 shouldLog];
   if ([v8 shouldLogToDisk])
   {
-    v10 = shouldLog | 2;
+    LODWORD(v10) = shouldLog | 2;
   }
 
   else
   {
-    v10 = shouldLog;
+    LODWORD(v10) = shouldLog;
   }
 
   oSLogObject = [v8 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
 
   if (!v10)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   v12 = objc_opt_class();
   logKey = self->_logKey;
-  *v19 = 138543874;
-  *&v19[4] = v12;
-  *&v19[12] = 2114;
-  *&v19[14] = logKey;
-  *&v19[22] = 2114;
-  v20 = dCopy;
+  v18 = 138543874;
+  v19 = v12;
+  v20 = 2114;
+  v21 = logKey;
+  v22 = 2114;
+  v23 = dCopy;
   v14 = v12;
-  LODWORD(v18) = 32;
-  v15 = _os_log_send_and_compose_impl();
+  v15 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@][%{public}@]: Attempting to load item %{public}@ with the legacy controller.", &v18, 32);
 
   if (v15)
   {
-    oSLogObject = [NSString stringWithCString:v15 encoding:4, v19, v18, *v19, *&v19[16], v20];
+    oSLogObject = [NSString stringWithCString:v15 encoding:4];
     free(v15);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   _setupProductPageViewController = [(ServiceProductPageViewController *)self _setupProductPageViewController];
@@ -574,41 +687,41 @@ LABEL_9:
     queryItems = [v10 queryItems];
     v12 = [queryItems count];
 
-    v33 = v10;
+    v32 = v10;
     if (v12)
     {
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       queryItems2 = [v10 queryItems];
-      v14 = [queryItems2 countByEnumeratingWithState:&v34 objects:v46 count:16];
+      v14 = [queryItems2 countByEnumeratingWithState:&v33 objects:v45 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v35;
+        v16 = *v34;
         do
         {
           for (i = 0; i != v15; i = i + 1)
           {
-            if (*v35 != v16)
+            if (*v34 != v16)
             {
               objc_enumerationMutation(queryItems2);
             }
 
-            v18 = *(*(&v34 + 1) + 8 * i);
+            v18 = *(*(&v33 + 1) + 8 * i);
             value = [v18 value];
             name = [v18 name];
             [v9 setObject:value forKey:name];
           }
 
-          v15 = [queryItems2 countByEnumeratingWithState:&v34 objects:v46 count:16];
+          v15 = [queryItems2 countByEnumeratingWithState:&v33 objects:v45 count:16];
         }
 
         while (v15);
       }
 
-      v10 = v33;
+      v10 = v32;
     }
 
     v21 = +[SSLogConfig sharedConfig];
@@ -639,20 +752,19 @@ LABEL_9:
       v26 = objc_opt_class();
       v27 = v8;
       logKey = self->_logKey;
-      v32 = v26;
+      v31 = v26;
       path = [lCopy path];
-      v38 = 138544130;
-      v39 = v26;
-      v10 = v33;
-      v40 = 2114;
-      v41 = logKey;
+      v37 = 138544130;
+      v38 = v26;
+      v10 = v32;
+      v39 = 2114;
+      v40 = logKey;
       v8 = v27;
-      v42 = 2112;
-      v43 = path;
-      v44 = 2112;
-      v45 = v9;
-      LODWORD(v31) = 42;
-      v30 = _os_log_send_and_compose_impl();
+      v41 = 2112;
+      v42 = path;
+      v43 = 2112;
+      v44 = v9;
+      v30 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@][%{public}@]: Requested product with URL: %@. Parameters: %@", &v37, 42);
 
       if (!v30)
       {
@@ -664,7 +776,7 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      oSLogObject = [NSString stringWithCString:v30 encoding:4, &v38, v31];
+      oSLogObject = [NSString stringWithCString:v30 encoding:4];
       free(v30);
       SSFileLog();
     }
@@ -685,16 +797,21 @@ LABEL_26:
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [v5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -703,39 +820,38 @@ LABEL_26:
     {
       v9 = objc_opt_class();
       logKey = self->_logKey;
-      v16 = 138543874;
-      v17 = v9;
-      v18 = 2114;
-      v19 = logKey;
-      v20 = 2112;
-      v21 = parametersCopy;
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2114;
+      v18 = logKey;
+      v19 = 2112;
+      v20 = parametersCopy;
       v11 = v9;
-      LODWORD(v13) = 32;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Setting additional buy parameters: %@", &v15, 32);
 
       if (!v12)
       {
-LABEL_11:
+LABEL_12:
 
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_10001A70C;
-        v14[3] = &unk_100051A18;
-        v15 = parametersCopy;
-        [(ServiceProductPageViewController *)self _addConfigurationAction:v14];
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_10001A70C;
+        v13[3] = &unk_100051A18;
+        v14 = parametersCopy;
+        [(ServiceProductPageViewController *)self _addConfigurationAction:v13];
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, &v16, v13];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
 }
 
 - (void)setAffiliateIdentifier:(id)identifier
@@ -747,16 +863,21 @@ LABEL_12:
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [v5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -765,39 +886,38 @@ LABEL_12:
     {
       v9 = objc_opt_class();
       logKey = self->_logKey;
-      v16 = 138543874;
-      v17 = v9;
-      v18 = 2114;
-      v19 = logKey;
-      v20 = 2112;
-      v21 = identifierCopy;
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2114;
+      v18 = logKey;
+      v19 = 2112;
+      v20 = identifierCopy;
       v11 = v9;
-      LODWORD(v13) = 32;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Setting affiliateID: %@", &v15, 32);
 
       if (!v12)
       {
-LABEL_11:
+LABEL_12:
 
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_10001A91C;
-        v14[3] = &unk_100051A18;
-        v15 = identifierCopy;
-        [(ServiceProductPageViewController *)self _addConfigurationAction:v14];
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_10001A91C;
+        v13[3] = &unk_100051A18;
+        v14 = identifierCopy;
+        [(ServiceProductPageViewController *)self _addConfigurationAction:v13];
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, &v16, v13];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
 }
 
 - (void)setAskToBuy:(id)buy
@@ -809,16 +929,21 @@ LABEL_12:
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [v5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -827,41 +952,40 @@ LABEL_12:
     {
       v9 = objc_opt_class();
       logKey = self->_logKey;
-      v17 = 138543874;
-      v18 = v9;
-      v19 = 2114;
-      v20 = logKey;
-      v21 = 2112;
-      v22 = buyCopy;
+      v16 = 138543874;
+      v17 = v9;
+      v18 = 2114;
+      v19 = logKey;
+      v20 = 2112;
+      v21 = buyCopy;
       v11 = v9;
-      LODWORD(v14) = 32;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Setting ask to buy: %@", &v16, 32);
 
       if (!v12)
       {
-LABEL_11:
+LABEL_12:
 
-        v15[0] = _NSConcreteStackBlock;
-        v15[1] = 3221225472;
-        v15[2] = sub_10001AB44;
-        v15[3] = &unk_100051A18;
+        v14[0] = _NSConcreteStackBlock;
+        v14[1] = 3221225472;
+        v14[2] = sub_10001AB44;
+        v14[3] = &unk_100051A18;
         v13 = buyCopy;
-        v16 = v13;
-        [(ServiceProductPageViewController *)self _addConfigurationAction:v15];
+        v15 = v13;
+        [(ServiceProductPageViewController *)self _addConfigurationAction:v14];
         -[ServiceProductPageViewController setIsAskToBuy:](self, "setIsAskToBuy:", [v13 BOOLValue]);
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, &v17, v14];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
 }
 
 - (void)setCancelButtonTitle:(id)title
@@ -873,16 +997,21 @@ LABEL_12:
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [v5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -891,39 +1020,38 @@ LABEL_12:
     {
       v9 = objc_opt_class();
       logKey = self->_logKey;
-      v16 = 138543874;
-      v17 = v9;
-      v18 = 2114;
-      v19 = logKey;
-      v20 = 2112;
-      v21 = titleCopy;
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2114;
+      v18 = logKey;
+      v19 = 2112;
+      v20 = titleCopy;
       v11 = v9;
-      LODWORD(v13) = 32;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Setting cancel button title: %@", &v15, 32);
 
       if (!v12)
       {
-LABEL_11:
+LABEL_12:
 
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_10001ADA0;
-        v14[3] = &unk_100051A18;
-        v15 = titleCopy;
-        [(ServiceProductPageViewController *)self _addConfigurationAction:v14];
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_10001ADA0;
+        v13[3] = &unk_100051A18;
+        v14 = titleCopy;
+        [(ServiceProductPageViewController *)self _addConfigurationAction:v13];
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, &v16, v13];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
 }
 
 - (void)setClientIdentifier:(id)identifier
@@ -935,16 +1063,21 @@ LABEL_12:
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [v5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -953,39 +1086,38 @@ LABEL_12:
     {
       v9 = objc_opt_class();
       logKey = self->_logKey;
-      v16 = 138543874;
-      v17 = v9;
-      v18 = 2114;
-      v19 = logKey;
-      v20 = 2112;
-      v21 = identifierCopy;
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2114;
+      v18 = logKey;
+      v19 = 2112;
+      v20 = identifierCopy;
       v11 = v9;
-      LODWORD(v13) = 32;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Setting clientID: %@", &v15, 32);
 
       if (!v12)
       {
-LABEL_11:
+LABEL_12:
 
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_10001AFB0;
-        v14[3] = &unk_100051A18;
-        v15 = identifierCopy;
-        [(ServiceProductPageViewController *)self _addConfigurationAction:v14];
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_10001AFB0;
+        v13[3] = &unk_100051A18;
+        v14 = identifierCopy;
+        [(ServiceProductPageViewController *)self _addConfigurationAction:v13];
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, &v16, v13];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
 }
 
 - (void)setHostBundleIdentifier:(id)identifier
@@ -997,16 +1129,21 @@ LABEL_12:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
@@ -1015,33 +1152,32 @@ LABEL_12:
     {
       v10 = objc_opt_class();
       logKey = self->_logKey;
-      *v15 = 138543874;
-      *&v15[4] = v10;
-      *&v15[12] = 2114;
-      *&v15[14] = logKey;
-      *&v15[22] = 2112;
-      v16 = identifierCopy;
+      v14 = 138543874;
+      v15 = v10;
+      v16 = 2114;
+      v17 = logKey;
+      v18 = 2112;
+      v19 = identifierCopy;
       v12 = v10;
-      LODWORD(v14) = 32;
-      v13 = _os_log_send_and_compose_impl();
+      v13 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Setting hostBundleIdentifier: %@", &v14, 32);
 
       if (!v13)
       {
-LABEL_11:
+LABEL_12:
 
         objc_storeStrong(&self->_hostApplicationBundleIdentifierOverride, identifier);
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [NSString stringWithCString:v13 encoding:4, v15, v14, *v15, *&v15[16], v16];
+      oSLogObject = [NSString stringWithCString:v13 encoding:4];
       free(v13);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
 }
 
 - (void)setProductPageStyle:(id)style
@@ -1053,16 +1189,21 @@ LABEL_12:
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [v5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -1071,39 +1212,38 @@ LABEL_12:
     {
       v9 = objc_opt_class();
       logKey = self->_logKey;
-      v16 = 138543874;
-      v17 = v9;
-      v18 = 2114;
-      v19 = logKey;
-      v20 = 2112;
-      v21 = styleCopy;
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2114;
+      v18 = logKey;
+      v19 = 2112;
+      v20 = styleCopy;
       v11 = v9;
-      LODWORD(v13) = 32;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Setting page style: %@", &v15, 32);
 
       if (!v12)
       {
-LABEL_11:
+LABEL_12:
 
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_10001B384;
-        v14[3] = &unk_100051A18;
-        v15 = styleCopy;
-        [(ServiceProductPageViewController *)self _addConfigurationAction:v14];
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_10001B384;
+        v13[3] = &unk_100051A18;
+        v14 = styleCopy;
+        [(ServiceProductPageViewController *)self _addConfigurationAction:v13];
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, &v16, v13];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
 }
 
 - (void)setPromptString:(id)string
@@ -1115,16 +1255,21 @@ LABEL_12:
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [v5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -1133,39 +1278,38 @@ LABEL_12:
     {
       v9 = objc_opt_class();
       logKey = self->_logKey;
-      v16 = 138543874;
-      v17 = v9;
-      v18 = 2114;
-      v19 = logKey;
-      v20 = 2112;
-      v21 = stringCopy;
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2114;
+      v18 = logKey;
+      v19 = 2112;
+      v20 = stringCopy;
       v11 = v9;
-      LODWORD(v13) = 32;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Setting prompt string: %@", &v15, 32);
 
       if (!v12)
       {
-LABEL_11:
+LABEL_12:
 
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_10001B594;
-        v14[3] = &unk_100051A18;
-        v15 = stringCopy;
-        [(ServiceProductPageViewController *)self _addConfigurationAction:v14];
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_10001B594;
+        v13[3] = &unk_100051A18;
+        v14 = stringCopy;
+        [(ServiceProductPageViewController *)self _addConfigurationAction:v13];
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, &v16, v13];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
 }
 
 - (void)setRightBarButtonTitle:(id)title
@@ -1177,16 +1321,21 @@ LABEL_12:
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [v5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -1195,39 +1344,38 @@ LABEL_12:
     {
       v9 = objc_opt_class();
       logKey = self->_logKey;
-      v16 = 138543874;
-      v17 = v9;
-      v18 = 2114;
-      v19 = logKey;
-      v20 = 2112;
-      v21 = titleCopy;
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2114;
+      v18 = logKey;
+      v19 = 2112;
+      v20 = titleCopy;
       v11 = v9;
-      LODWORD(v13) = 32;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Setting right bar button title: %@", &v15, 32);
 
       if (!v12)
       {
-LABEL_11:
+LABEL_12:
 
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_10001B7A4;
-        v14[3] = &unk_100051A18;
-        v15 = titleCopy;
-        [(ServiceProductPageViewController *)self _addConfigurationAction:v14];
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_10001B7A4;
+        v13[3] = &unk_100051A18;
+        v14 = titleCopy;
+        [(ServiceProductPageViewController *)self _addConfigurationAction:v13];
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, &v16, v13];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
 }
 
 - (void)setScriptContextDictionary:(id)dictionary
@@ -1239,16 +1387,21 @@ LABEL_12:
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [v5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -1257,39 +1410,38 @@ LABEL_12:
     {
       v9 = objc_opt_class();
       logKey = self->_logKey;
-      v16 = 138543874;
-      v17 = v9;
-      v18 = 2114;
-      v19 = logKey;
-      v20 = 2112;
-      v21 = dictionaryCopy;
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2114;
+      v18 = logKey;
+      v19 = 2112;
+      v20 = dictionaryCopy;
       v11 = v9;
-      LODWORD(v13) = 32;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Setting context dictionary: %@", &v15, 32);
 
       if (!v12)
       {
-LABEL_11:
+LABEL_12:
 
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_10001B9B4;
-        v14[3] = &unk_100051A18;
-        v15 = dictionaryCopy;
-        [(ServiceProductPageViewController *)self _addConfigurationAction:v14];
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_10001B9B4;
+        v13[3] = &unk_100051A18;
+        v14 = dictionaryCopy;
+        [(ServiceProductPageViewController *)self _addConfigurationAction:v13];
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, &v16, v13];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
 }
 
 - (void)setPreview:(id)preview
@@ -1299,53 +1451,57 @@ LABEL_12:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   v9 = objc_opt_class();
   logKey = self->_logKey;
-  v17 = 138543874;
-  v18 = v9;
-  v19 = 2114;
-  v20 = logKey;
-  v21 = 2112;
-  v22 = previewCopy;
+  v16 = 138543874;
+  v17 = v9;
+  v18 = 2114;
+  v19 = logKey;
+  v20 = 2112;
+  v21 = previewCopy;
   v11 = v9;
-  LODWORD(v14) = 32;
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Setting preview mode: %@", &v16, 32);
 
   if (v12)
   {
-    oSLogObject = [NSString stringWithCString:v12 encoding:4, &v17, v14];
+    oSLogObject = [NSString stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   self->_preview = [previewCopy BOOLValue];
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_10001BBD0;
-  v15[3] = &unk_100051A18;
-  v16 = previewCopy;
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10001BBD0;
+  v14[3] = &unk_100051A18;
+  v15 = previewCopy;
   v13 = previewCopy;
-  [(ServiceProductPageViewController *)self _addConfigurationAction:v15];
+  [(ServiceProductPageViewController *)self _addConfigurationAction:v14];
 }
 
 - (void)setPresentationStyle:(id)style
@@ -1355,43 +1511,47 @@ LABEL_9:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   v9 = objc_opt_class();
   logKey = self->_logKey;
-  *v14 = 138543874;
-  *&v14[4] = v9;
-  *&v14[12] = 2114;
-  *&v14[14] = logKey;
-  *&v14[22] = 2112;
-  v15 = styleCopy;
+  v13 = 138543874;
+  v14 = v9;
+  v15 = 2114;
+  v16 = logKey;
+  v17 = 2112;
+  v18 = styleCopy;
   v11 = v9;
-  LODWORD(v13) = 32;
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Setting presentation style: %@", &v13, 32);
 
   if (v12)
   {
-    oSLogObject = [NSString stringWithCString:v12 encoding:4, v14, v13, *v14, *&v14[16], v15];
+    oSLogObject = [NSString stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   [(ServiceProductPageViewController *)self setDesiredPresentationStyle:styleCopy];
@@ -1406,16 +1566,21 @@ LABEL_9:
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [v5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -1424,39 +1589,38 @@ LABEL_9:
     {
       v9 = objc_opt_class();
       logKey = self->_logKey;
-      v16 = 138543874;
-      v17 = v9;
-      v18 = 2114;
-      v19 = logKey;
-      v20 = 2112;
-      v21 = contextCopy;
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2114;
+      v18 = logKey;
+      v19 = 2112;
+      v20 = contextCopy;
       v11 = v9;
-      LODWORD(v13) = 32;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Setting usageContext: %@", &v15, 32);
 
       if (!v12)
       {
-LABEL_11:
+LABEL_12:
 
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_10001BF84;
-        v14[3] = &unk_100051A18;
-        v15 = contextCopy;
-        [(ServiceProductPageViewController *)self _addConfigurationAction:v14];
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_10001BF84;
+        v13[3] = &unk_100051A18;
+        v14 = contextCopy;
+        [(ServiceProductPageViewController *)self _addConfigurationAction:v13];
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, &v16, v13];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
 }
 
 - (void)setShowsRightBarButton:(id)button
@@ -1468,16 +1632,21 @@ LABEL_12:
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [v5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -1486,39 +1655,38 @@ LABEL_12:
     {
       v9 = objc_opt_class();
       logKey = self->_logKey;
-      v16 = 138543874;
-      v17 = v9;
-      v18 = 2114;
-      v19 = logKey;
-      v20 = 2112;
-      v21 = buttonCopy;
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2114;
+      v18 = logKey;
+      v19 = 2112;
+      v20 = buttonCopy;
       v11 = v9;
-      LODWORD(v13) = 32;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Setting shows right button: %@", &v15, 32);
 
       if (!v12)
       {
-LABEL_11:
+LABEL_12:
 
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_10001C194;
-        v14[3] = &unk_100051A18;
-        v15 = buttonCopy;
-        [(ServiceProductPageViewController *)self _addConfigurationAction:v14];
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_10001C194;
+        v13[3] = &unk_100051A18;
+        v14 = buttonCopy;
+        [(ServiceProductPageViewController *)self _addConfigurationAction:v13];
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, &v16, v13];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
 }
 
 - (void)setShowsStoreButton:(id)button
@@ -1530,16 +1698,21 @@ LABEL_12:
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [v5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -1548,39 +1721,38 @@ LABEL_12:
     {
       v9 = objc_opt_class();
       logKey = self->_logKey;
-      v16 = 138543874;
-      v17 = v9;
-      v18 = 2114;
-      v19 = logKey;
-      v20 = 2112;
-      v21 = buttonCopy;
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2114;
+      v18 = logKey;
+      v19 = 2112;
+      v20 = buttonCopy;
       v11 = v9;
-      LODWORD(v13) = 32;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Setting shows store button: %@", &v15, 32);
 
       if (!v12)
       {
-LABEL_11:
+LABEL_12:
 
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_10001C3F0;
-        v14[3] = &unk_100051A18;
-        v15 = buttonCopy;
-        [(ServiceProductPageViewController *)self _addConfigurationAction:v14];
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_10001C3F0;
+        v13[3] = &unk_100051A18;
+        v14 = buttonCopy;
+        [(ServiceProductPageViewController *)self _addConfigurationAction:v13];
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, &v16, v13];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
 }
 
 - (void)setVisibleInClientWindow:(id)window
@@ -1651,16 +1823,21 @@ LABEL_12:
   shouldLog = [v11 shouldLog];
   if ([v11 shouldLogToDisk])
   {
-    v13 = shouldLog | 2;
+    LODWORD(v13) = shouldLog | 2;
   }
 
   else
   {
-    v13 = shouldLog;
+    LODWORD(v13) = shouldLog;
   }
 
   oSLogObject = [v11 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
@@ -1671,17 +1848,16 @@ LABEL_12:
     logKey = self->_logKey;
     *location = 138543874;
     *&location[4] = v15;
-    v40 = 2114;
-    v41 = logKey;
-    v42 = 2114;
-    v43 = identifierCopy;
+    v39 = 2114;
+    v40 = logKey;
+    v41 = 2114;
+    v42 = identifierCopy;
     v17 = v15;
-    LODWORD(v31) = 32;
-    v18 = _os_log_send_and_compose_impl();
+    v18 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@][%{public}@]: Performing lookup for %{public}@", location, 32);
 
     if (v18)
     {
-      v19 = [NSString stringWithCString:v18 encoding:4, location, v31];
+      v19 = [NSString stringWithCString:v18 encoding:4];
       free(v18);
       SSFileLog();
     }
@@ -1706,28 +1882,28 @@ LABEL_12:
   [v22 setPlatform:@"omni"];
   v23 = [[AMSProcessInfo alloc] initWithBundleIdentifier:@"com.apple.appstored"];
   [v22 setClientInfo:v23];
-  v38 = identifierCopy;
-  v24 = [NSArray arrayWithObjects:&v38 count:1];
+  v37 = identifierCopy;
+  v24 = [NSArray arrayWithObjects:&v37 count:1];
   v25 = [v22 performLookupWithBundleIdentifiers:0 itemIdentifiers:v24];
 
   v26 = [(NSString *)self->_logKey copy];
   objc_initWeak(location, self);
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = sub_10001D280;
-  v32[3] = &unk_100051B30;
-  objc_copyWeak(&v37, location);
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_10001D280;
+  v31[3] = &unk_100051B30;
+  objc_copyWeak(&v36, location);
   v27 = v26;
-  v33 = v27;
+  v32 = v27;
   v28 = identifierCopy;
-  v34 = v28;
+  v33 = v28;
   v29 = failureCopy;
-  v35 = v29;
+  v34 = v29;
   v30 = successCopy;
-  v36 = v30;
-  [v25 addFinishBlock:v32];
+  v35 = v30;
+  [v25 addFinishBlock:v31];
 
-  objc_destroyWeak(&v37);
+  objc_destroyWeak(&v36);
   objc_destroyWeak(location);
 }
 
@@ -1964,48 +2140,53 @@ LABEL_8:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   v7 = objc_opt_class();
   logKey = self->_logKey;
   v9 = v7;
-  [(ServiceProductPageViewController *)self _hostApplicationBundleIdentifier];
+  _hostApplicationBundleIdentifier = [(ServiceProductPageViewController *)self _hostApplicationBundleIdentifier];
   v14 = 138543874;
   v15 = v7;
   v16 = 2114;
   v17 = logKey;
-  v19 = v18 = 2112;
-  LODWORD(v13) = 32;
-  v10 = _os_log_send_and_compose_impl();
+  v18 = 2112;
+  v19 = _hostApplicationBundleIdentifier;
+  v11 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@][%{public}@]: Rejecting unentitled request from client: %@", &v14, 32);
 
-  if (v10)
+  if (v11)
   {
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, &v14, v13];
-    free(v10);
+    oSLogObject = [NSString stringWithCString:v11 encoding:4];
+    free(v11);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
-  v11 = [NSError errorWithDomain:SKErrorDomain code:5 userInfo:0];
+  v12 = [NSError errorWithDomain:SKErrorDomain code:5 userInfo:0];
   _clientViewControllerProxy = [(ServiceProductPageViewController *)self _clientViewControllerProxy];
-  [_clientViewControllerProxy loadDidFinishWithResult:&__kCFBooleanFalse error:v11];
+  [_clientViewControllerProxy loadDidFinishWithResult:&__kCFBooleanFalse error:v12];
 }
 
 - (BOOL)_shouldLayoutAsOverlayWithTraitCollection:(id)collection
@@ -2056,17 +2237,15 @@ LABEL_9:
   }
 
   logKey = self->_logKey;
-  v16 = 138543618;
+  v15 = 138543618;
   selfCopy = self;
-  v18 = 2114;
-  v19 = logKey;
-  LODWORD(v15) = 22;
-  v14 = &v16;
-  v10 = _os_log_send_and_compose_impl();
+  v17 = 2114;
+  v18 = logKey;
+  v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@][%{public}@]: Cleanup duties performed.", &v15, 22);
 
   if (v10)
   {
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, &v16, v15];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     v14 = oSLogObject;
     SSFileLog();
@@ -2095,41 +2274,45 @@ LABEL_11:
   shouldLog = [v8 shouldLog];
   if ([v8 shouldLogToDisk])
   {
-    v10 = shouldLog | 2;
+    LODWORD(v10) = shouldLog | 2;
   }
 
   else
   {
-    v10 = shouldLog;
+    LODWORD(v10) = shouldLog;
   }
 
   oSLogObject = [v8 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
 
   if (!v10)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   v12 = objc_opt_class();
   logKey = self->_logKey;
-  *v18 = 138543618;
-  *&v18[4] = v12;
-  *&v18[12] = 2114;
-  *&v18[14] = logKey;
+  v17 = 138543618;
+  v18 = v12;
+  v19 = 2114;
+  v20 = logKey;
   v14 = v12;
-  LODWORD(v17) = 22;
-  v15 = _os_log_send_and_compose_impl();
+  v15 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%{public}@][%{public}@]: Sending analytics event.", &v17, 22);
 
   if (v15)
   {
-    oSLogObject = [NSString stringWithCString:v15 encoding:4, v18, v17, *v18, *&v18[16]];
+    oSLogObject = [NSString stringWithCString:v15 encoding:4];
     free(v15);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   v16 = objc_alloc_init(_TtC17StoreKitUIService18ProductLookupEvent);
@@ -2164,43 +2347,47 @@ LABEL_9:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   v9 = objc_opt_class();
   logKey = self->_logKey;
-  *v14 = 138543874;
-  *&v14[4] = v9;
-  *&v14[12] = 2114;
-  *&v14[14] = logKey;
-  *&v14[22] = 2048;
+  v13 = 138543874;
+  v14 = v9;
+  v15 = 2114;
+  v16 = logKey;
+  v17 = 2048;
   resultCopy = result;
   v11 = v9;
-  LODWORD(v13) = 32;
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@][%{public}@]: Legacy product page finished with result: %ld", &v13, 32);
 
   if (v12)
   {
-    oSLogObject = [NSString stringWithCString:v12 encoding:4, v14, v13, *v14, *&v14[16], resultCopy];
+    oSLogObject = [NSString stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   [(ServiceProductPageViewController *)self _sendDidFinishWithResult:result];

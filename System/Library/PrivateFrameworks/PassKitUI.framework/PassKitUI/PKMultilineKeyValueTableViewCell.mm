@@ -67,9 +67,9 @@
 
 - (void)layoutSubviews
 {
-  v24.receiver = self;
-  v24.super_class = PKMultilineKeyValueTableViewCell;
-  [(PKMultilineKeyValueTableViewCell *)&v24 layoutSubviews];
+  v34.receiver = self;
+  v34.super_class = PKMultilineKeyValueTableViewCell;
+  [(PKMultilineKeyValueTableViewCell *)&v34 layoutSubviews];
   contentView = [(PKMultilineKeyValueTableViewCell *)self contentView];
   [contentView bounds];
   v5 = v4;
@@ -98,17 +98,24 @@
 
   [(UILabel *)self->_keyLabel systemLayoutSizeFittingSize:v16, 0.0];
   v20 = v19;
+  v22 = v21;
   memset(&slice, 0, sizeof(slice));
-  v25.origin.x = v13;
-  v25.origin.y = v14;
-  v25.size.width = v16;
-  v25.size.height = v17;
-  CGRectDivide(v25, &slice, &remainder, v20, v18);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v35.origin.x = v13;
+  v35.origin.y = v14;
+  v35.size.width = v16;
+  v35.size.height = v17;
+  CGRectDivide(v35, &slice, &remainder, v20, v18);
+  v23 = PKContentAlignmentMake();
+  v24.n128_u64[0] = *&slice.origin.x;
+  v25.n128_u64[0] = *&slice.origin.y;
+  v26.n128_u64[0] = *&slice.size.width;
+  v27.n128_u64[0] = *&slice.size.height;
+  v28.n128_f64[0] = v20;
+  v29.n128_u64[0] = v22;
+  PKSizeAlignedInRect(v23, v28, v29, v24, v25, v26, v27, v30);
   [(UILabel *)self->_keyLabel setFrame:?];
-  memset(&v21, 0, sizeof(v21));
-  CGRectDivide(remainder, &v21, &remainder, 10.0, v18);
+  memset(&v31, 0, sizeof(v31));
+  CGRectDivide(remainder, &v31, &remainder, 10.0, v18);
   [(UILabel *)self->_valueLabel setFrame:remainder.origin.x, remainder.origin.y, remainder.size.width, remainder.size.height];
 }
 

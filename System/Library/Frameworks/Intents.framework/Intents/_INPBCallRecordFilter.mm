@@ -1,8 +1,11 @@
 @interface _INPBCallRecordFilter
 - (BOOL)isEqual:(id)equal;
 - (_INPBCallRecordFilter)initWithCoder:(id)coder;
+- (id)callCapabilityAsString:(int)string;
+- (id)callTypesAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)preferredCallProviderAsString:(int)string;
 - (int)StringAsCallCapability:(id)capability;
 - (int)StringAsCallTypes:(id)types;
 - (int)StringAsPreferredCallProvider:(id)provider;
@@ -22,7 +25,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(_INPBCallRecordFilter *)self hasCallCapability])
   {
@@ -78,30 +81,30 @@
   if ([(NSArray *)self->_participants count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v11 = self->_participants;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v22;
+      v14 = *v21;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v22 != v14)
+          if (*v21 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation = [*(*(&v21 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v20 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v13);
@@ -125,8 +128,6 @@
 
     [dictionary setObject:v18 forKeyedSubscript:@"preferredCallProvider"];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -288,63 +289,60 @@ LABEL_15:
 
 - (void)writeTo:(id)to
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_INPBCallRecordFilter *)self hasCallCapability])
   {
-    callCapability = self->_callCapability;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_callTypes.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_callTypes.list[v6];
       PBDataWriterWriteInt32Field();
-      ++v6;
+      ++v5;
     }
 
-    while (v6 < self->_callTypes.count);
+    while (v5 < self->_callTypes.count);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v8 = self->_participants;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_participants;
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v17;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; ++i)
+      v10 = 0;
+      do
       {
-        if (*v17 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
+        ++v10;
       }
 
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      while (v8 != v10);
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
   if ([(_INPBCallRecordFilter *)self hasPreferredCallProvider])
   {
-    preferredCallProvider = self->_preferredCallProvider;
     PBDataWriterWriteInt32Field();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsPreferredCallProvider:(id)provider
@@ -368,6 +366,21 @@ LABEL_15:
   else
   {
     v4 = 2;
+  }
+
+  return v4;
+}
+
+- (id)preferredCallProviderAsString:(int)string
+{
+  if ((string - 2) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72884C8[string - 2];
   }
 
   return v4;
@@ -481,6 +494,22 @@ LABEL_15:
   return v4;
 }
 
+- (id)callTypesAsString:(int)string
+{
+  v4 = string - 2;
+  if (string - 2) < 9 && ((0x1EFu >> v4))
+  {
+    v5 = off_1E7288480[v4];
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v5;
+}
+
 - (void)addCallTypes:(int)types
 {
   if (types != 0x7FFFFFFF)
@@ -504,6 +533,26 @@ LABEL_15:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)callCapabilityAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"AUDIO_CALL";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"VIDEO_CALL";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

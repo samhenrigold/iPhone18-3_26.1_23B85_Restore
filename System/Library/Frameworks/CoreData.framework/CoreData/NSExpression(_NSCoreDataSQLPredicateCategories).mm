@@ -6,9 +6,9 @@
 
 - (id)_keypathsForDerivedPropertyValidation:()_NSCoreDataSQLPredicateCategories
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v27 = 0;
+  v26 = 0;
   expressionType = [self expressionType];
   if (expressionType > 9)
   {
@@ -20,32 +20,32 @@
 
     if (expressionType != 14)
     {
-      goto LABEL_28;
+      goto LABEL_27;
     }
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     collection = [self collection];
-    v9 = [collection countByEnumeratingWithState:&v23 objects:v30 count:16];
+    v9 = [collection countByEnumeratingWithState:&v22 objects:v29 count:16];
     if (v9)
     {
-      v10 = *v24;
+      v10 = *v23;
 LABEL_9:
       v11 = 0;
       while (1)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(collection);
         }
 
-        v12 = [*(*(&v23 + 1) + 8 * v11) _keypathsForDerivedPropertyValidation:&v27];
+        v12 = [*(*(&v22 + 1) + 8 * v11) _keypathsForDerivedPropertyValidation:&v26];
         v13 = v12;
         if (!v12)
         {
-          goto LABEL_30;
+          goto LABEL_29;
         }
 
         if ([v12 count])
@@ -55,7 +55,7 @@ LABEL_9:
 
         if (v9 == ++v11)
         {
-          v9 = [collection countByEnumeratingWithState:&v23 objects:v30 count:16];
+          v9 = [collection countByEnumeratingWithState:&v22 objects:v29 count:16];
           v14 = 1;
           if (v9)
           {
@@ -78,19 +78,19 @@ LABEL_19:
       goto LABEL_20;
     }
 
-LABEL_28:
+LABEL_27:
     if (a3)
     {
-      v21 = MEMORY[0x1E696ABC0];
-      v28 = @"expression";
+      v20 = MEMORY[0x1E696ABC0];
+      v27 = @"expression";
       selfCopy = self;
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&selfCopy forKeys:&v28 count:1];
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&selfCopy forKeys:&v27 count:1];
       v14 = 0;
-      *a3 = [v21 errorWithDomain:*MEMORY[0x1E696A250] code:134097 userInfo:v22];
+      *a3 = [v20 errorWithDomain:*MEMORY[0x1E696A250] code:134097 userInfo:v21];
       goto LABEL_21;
     }
 
-LABEL_30:
+LABEL_29:
     v14 = 0;
     goto LABEL_21;
   }
@@ -98,28 +98,25 @@ LABEL_30:
 LABEL_20:
   v14 = 1;
 LABEL_21:
-  v15 = v27;
-  if (a3 && v27)
+  v15 = v26;
+  if (a3 && v26)
   {
-    *a3 = v27;
+    *a3 = v26;
   }
 
   [0 drain];
   v16 = 0;
-  v17 = v27;
+  v17 = v26;
   v18 = v5;
   if (v14)
   {
-    result = v5;
+    return v5;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 @end

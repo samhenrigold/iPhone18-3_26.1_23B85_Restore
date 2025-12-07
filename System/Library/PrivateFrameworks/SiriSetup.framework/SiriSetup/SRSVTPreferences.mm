@@ -1,6 +1,7 @@
 @interface SRSVTPreferences
 - (BOOL)compactVoiceTriggerEnabled:(id)enabled;
 - (SRSVTPreferences)init;
+- (void)overrideCompactVoiceTriggerEnabled:(BOOL)enabled;
 @end
 
 @implementation SRSVTPreferences
@@ -45,6 +46,13 @@
   }
 
   return bOOLValue;
+}
+
+- (void)overrideCompactVoiceTriggerEnabled:(BOOL)enabled
+{
+  self->compactVoiceTriggerEnabledOverride = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+
+  MEMORY[0x2821F96F8]();
 }
 
 @end

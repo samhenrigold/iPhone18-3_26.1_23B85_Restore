@@ -468,13 +468,13 @@ LABEL_35:
 
     if (v9)
     {
-      LOBYTE(v10) = 0;
+      LOBYTE(isEqualToString) = 0;
       goto LABEL_56;
     }
 
-    v10 = [(NSString *)v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_57;
     }
@@ -490,15 +490,15 @@ LABEL_35:
 
   else
   {
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqualToString) = 0;
     if (!v6 || !v12)
     {
       goto LABEL_56;
     }
 
-    v10 = [(NSString *)v6 isEqualToString:v12];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_57;
     }
@@ -514,15 +514,15 @@ LABEL_35:
 
   else
   {
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqualToString) = 0;
     if (!v6 || !v14)
     {
       goto LABEL_56;
     }
 
-    v10 = [(NSString *)v6 isEqualToString:v14];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_57;
     }
@@ -538,15 +538,15 @@ LABEL_35:
 
   else
   {
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqualToString) = 0;
     if (!v6 || !v16)
     {
       goto LABEL_56;
     }
 
-    v10 = [(NSString *)v6 isEqualToString:v16];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_57;
     }
@@ -562,15 +562,15 @@ LABEL_35:
 
   else
   {
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqualToString) = 0;
     if (!v6 || !v18)
     {
       goto LABEL_56;
     }
 
-    v10 = [(NSString *)v6 isEqualToString:v18];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_57;
     }
@@ -586,15 +586,15 @@ LABEL_35:
 
   else
   {
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqualToString) = 0;
     if (!v6 || !v20)
     {
       goto LABEL_56;
     }
 
-    v10 = [(NSString *)v6 isEqualToString:v20];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_57;
     }
@@ -622,27 +622,27 @@ LABEL_51:
         v8 = v27;
         if (v6 == v27)
         {
-          LOBYTE(v10) = 1;
+          LOBYTE(isEqualToString) = 1;
         }
 
         else
         {
-          LOBYTE(v10) = 0;
+          LOBYTE(isEqualToString) = 0;
           if (v6 && v27)
           {
-            LOBYTE(v10) = [(NSString *)v6 isEqualToString:v27];
+            LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v6);
           }
         }
 
         goto LABEL_56;
       }
 
-      LOBYTE(v10) = 0;
+      LOBYTE(isEqualToString) = 0;
       if (v6 && v24)
       {
-        v10 = [(NSString *)v6 isEqualToString:v24];
+        isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-        if (!v10)
+        if (!isEqualToString)
         {
           goto LABEL_57;
         }
@@ -661,10 +661,10 @@ LABEL_56:
     goto LABEL_43;
   }
 
-  LOBYTE(v10) = 0;
+  LOBYTE(isEqualToString) = 0;
 LABEL_57:
 
-  return v10;
+  return isEqualToString;
 }
 
 - (PKSeat)initWithCoder:(id)coder

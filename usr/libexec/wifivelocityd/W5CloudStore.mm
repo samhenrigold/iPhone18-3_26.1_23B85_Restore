@@ -25,9 +25,9 @@
 
 - (W5CloudStore)init
 {
-  v8.receiver = self;
-  v8.super_class = W5CloudStore;
-  v2 = [(W5CloudStore *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = W5CloudStore;
+  v2 = [(W5CloudStore *)&v9 init];
   if (!v2)
   {
 LABEL_8:
@@ -45,13 +45,14 @@ LABEL_8:
     v7 = sub_100098A04();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315650;
-      v10 = "[W5CloudStore init]";
-      v11 = 2080;
-      v12 = "W5CloudStore.m";
-      v13 = 1024;
-      v14 = 53;
-      _os_log_send_and_compose_impl();
+      v10 = 136315650;
+      v11 = "[W5CloudStore init]";
+      v12 = 2080;
+      v13 = "W5CloudStore.m";
+      v14 = 1024;
+      v15 = 53;
+      LODWORD(v8) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v7, 0, "[wifivelocity] %s (%s:%u) failed to create app KVS store", &v10, v8, LODWORD(v9.receiver));
     }
 
     goto LABEL_8;
@@ -98,7 +99,7 @@ LABEL_8:
   _homeDiagnosticsDomain = [(W5CloudStore *)self _homeDiagnosticsDomain];
   v11 = [_homeDiagnosticsDomain mutableCopy];
 
-  v39 = v11;
+  v38 = v11;
   v12 = [v11 objectForKeyedSubscript:@"registered-app-peers"];
   if (!v12)
   {
@@ -114,17 +115,15 @@ LABEL_8:
     v31 = sub_100098A04();
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = 136315906;
-      v44 = "[W5CloudStore registerDiagnosticModePeer:configuration:error:]";
-      v45 = 2080;
-      v46 = "W5CloudStore.m";
-      v47 = 1024;
-      v48 = 96;
-      v49 = 2114;
-      v50 = peerCopy;
-      LODWORD(v37) = 38;
-      v36 = &v43;
-      _os_log_send_and_compose_impl();
+      v42 = 136315906;
+      v43 = "[W5CloudStore registerDiagnosticModePeer:configuration:error:]";
+      v44 = 2080;
+      v45 = "W5CloudStore.m";
+      v46 = 1024;
+      v47 = 96;
+      v48 = 2114;
+      v49 = peerCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v31, 0, "[wifivelocity] %s (%s:%u) nil peer ID for peer='%{public}@'", &v42, 38);
     }
 
     if (!error)
@@ -135,26 +134,24 @@ LABEL_8:
     goto LABEL_26;
   }
 
-  v40 = 0;
-  v16 = [NSKeyedArchiver archivedDataWithRootObject:peerCopy requiringSecureCoding:1 error:&v40];
-  v17 = v40;
+  v39 = 0;
+  v16 = [NSKeyedArchiver archivedDataWithRootObject:peerCopy requiringSecureCoding:1 error:&v39];
+  v17 = v39;
   v18 = v17;
   if (!v16)
   {
     v32 = sub_100098A04();
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = 136315906;
-      v44 = "[W5CloudStore registerDiagnosticModePeer:configuration:error:]";
-      v45 = 2080;
-      v46 = "W5CloudStore.m";
-      v47 = 1024;
-      v48 = 101;
-      v49 = 2114;
-      v50 = peerCopy;
-      LODWORD(v37) = 38;
-      v36 = &v43;
-      _os_log_send_and_compose_impl();
+      v42 = 136315906;
+      v43 = "[W5CloudStore registerDiagnosticModePeer:configuration:error:]";
+      v44 = 2080;
+      v45 = "W5CloudStore.m";
+      v46 = 1024;
+      v47 = 101;
+      v48 = 2114;
+      v49 = peerCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v32, 0, "[wifivelocity] %s (%s:%u) failed to encode peer='%{public}@'", &v42, 38);
     }
 
     if (!error)
@@ -172,9 +169,9 @@ LABEL_8:
     }
 
 LABEL_26:
-    v41 = NSLocalizedFailureReasonErrorKey;
-    v42 = @"W5ParamErr";
-    v34 = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1, v36, v37];
+    v40 = NSLocalizedFailureReasonErrorKey;
+    v41 = @"W5ParamErr";
+    v34 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
     v35 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:1 userInfo:v34];
     *error = v35;
 
@@ -184,7 +181,7 @@ LABEL_27:
     goto LABEL_16;
   }
 
-  v38 = v17;
+  v37 = v17;
   v19 = +[NSMutableDictionary dictionary];
   v20 = +[NSDate date];
   [v19 setObject:v20 forKeyedSubscript:@"timestamp"];
@@ -214,38 +211,39 @@ LABEL_27:
   }
 
   [v13 setObject:v19 forKeyedSubscript:peerID];
-  [v39 setObject:v13 forKeyedSubscript:@"registered-app-peers"];
-  [(W5CloudStore *)self _setHomeDiagnosticsDomain:v39];
+  [v38 setObject:v13 forKeyedSubscript:@"registered-app-peers"];
+  [(W5CloudStore *)self _setHomeDiagnosticsDomain:v38];
   v27 = sub_100098A04();
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
-    v43 = 136315906;
-    v44 = "[W5CloudStore registerDiagnosticModePeer:configuration:error:]";
-    v45 = 2080;
-    v46 = "W5CloudStore.m";
-    v47 = 1024;
-    v48 = 131;
-    v49 = 2114;
-    v50 = peerCopy;
-    _os_log_send_and_compose_impl();
+    v42 = 136315906;
+    v43 = "[W5CloudStore registerDiagnosticModePeer:configuration:error:]";
+    v44 = 2080;
+    v45 = "W5CloudStore.m";
+    v46 = 1024;
+    v47 = 131;
+    v48 = 2114;
+    v49 = peerCopy;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v27, 0, "[wifivelocity] %s (%s:%u) registered peer='%{public}@", &v42, 38);
   }
 
   v28 = sub_100098A04();
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    v43 = 136315906;
-    v44 = "[W5CloudStore registerDiagnosticModePeer:configuration:error:]";
-    v45 = 2080;
-    v46 = "W5CloudStore.m";
-    v47 = 1024;
-    v48 = 132;
-    v49 = 2112;
-    v50 = v39;
-    _os_log_send_and_compose_impl();
+    v42 = 136315906;
+    v43 = "[W5CloudStore registerDiagnosticModePeer:configuration:error:]";
+    v44 = 2080;
+    v45 = "W5CloudStore.m";
+    v46 = 1024;
+    v47 = 132;
+    v48 = 2112;
+    v49 = v38;
+    LODWORD(v36) = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v28, 0, "[wifivelocity] %s (%s:%u) W5CloudStore: %@", &v42, v36);
   }
 
   v29 = 1;
-  v18 = v38;
+  v18 = v37;
 LABEL_16:
 
   return v29;
@@ -274,13 +272,10 @@ LABEL_16:
       v25 = 152;
       v26 = 2114;
       v27 = peerCopy;
-LABEL_13:
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v17, 0, "[wifivelocity] %s (%s:%u) nil peer ID for peer='%{public}@'", &v20, 38);
     }
 
-LABEL_14:
-    v12 = 0;
-    goto LABEL_15;
+    goto LABEL_13;
   }
 
   if (!v9)
@@ -294,9 +289,11 @@ LABEL_14:
       v23 = "W5CloudStore.m";
       v24 = 1024;
       v25 = 153;
-      goto LABEL_13;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v17, 0, "[wifivelocity] %s (%s:%u) peers is empty", &v20, 28);
     }
 
+LABEL_13:
+    v12 = 0;
     goto LABEL_14;
   }
 
@@ -320,7 +317,7 @@ LABEL_14:
       v26 = 2114;
       v27 = peerCopy;
       v15 = 1;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v14, 0, "[wifivelocity] %s (%s:%u) unregistered peer='%{public}@", &v20, 38);
     }
 
     else
@@ -342,10 +339,10 @@ LABEL_14:
     v25 = 156;
     v26 = 2114;
     v27 = peerID;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v17, 0, "[wifivelocity] %s (%s:%u) peer is not registered with ID='%{public}@'", &v20, 38);
   }
 
-LABEL_15:
+LABEL_14:
 
   if (!error)
   {
@@ -370,39 +367,39 @@ LABEL_8:
   v3 = [_homeDiagnosticsDomain mutableCopy];
 
   v4 = [v3 objectForKeyedSubscript:@"registered-app-peers"];
-  v18 = +[NSMutableArray array];
+  v19 = +[NSMutableArray array];
   if (v4)
   {
-    v17 = v4;
-    v22 = 0u;
+    v18 = v4;
     v23 = 0u;
-    v20 = 0u;
+    v24 = 0u;
     v21 = 0u;
+    v22 = 0u;
     allValues = [v4 allValues];
-    v6 = [allValues countByEnumeratingWithState:&v20 objects:v32 count:16];
+    v6 = [allValues countByEnumeratingWithState:&v21 objects:v33 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v21;
+      v8 = *v22;
       do
       {
         for (i = 0; i != v7; i = i + 1)
         {
-          if (*v21 != v8)
+          if (*v22 != v8)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v10 = *(*(&v20 + 1) + 8 * i);
+          v10 = *(*(&v21 + 1) + 8 * i);
           v11 = [NSSet setWithObjects:objc_opt_class(), 0];
           v12 = [v10 objectForKeyedSubscript:@"peer"];
-          v19 = 0;
-          v13 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v11 fromData:v12 error:&v19];
-          v14 = v19;
+          v20 = 0;
+          v13 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v11 fromData:v12 error:&v20];
+          v14 = v20;
 
           if (v13)
           {
-            [v18 addObject:v13];
+            [v19 addObject:v13];
           }
 
           else
@@ -410,29 +407,30 @@ LABEL_8:
             v15 = sub_100098A04();
             if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
             {
-              v24 = 136315906;
-              v25 = "[W5CloudStore registeredPeers]";
-              v26 = 2080;
-              v27 = "W5CloudStore.m";
-              v28 = 1024;
-              v29 = 191;
-              v30 = 2114;
-              v31 = v14;
-              _os_log_send_and_compose_impl();
+              v25 = 136315906;
+              v26 = "[W5CloudStore registeredPeers]";
+              v27 = 2080;
+              v28 = "W5CloudStore.m";
+              v29 = 1024;
+              v30 = 191;
+              v31 = 2114;
+              v32 = v14;
+              LODWORD(v17) = 38;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v15, 0, "[wifivelocity] %s (%s:%u) failed to decode peer error='%{public}@'", &v25, v17);
             }
           }
         }
 
-        v7 = [allValues countByEnumeratingWithState:&v20 objects:v32 count:16];
+        v7 = [allValues countByEnumeratingWithState:&v21 objects:v33 count:16];
       }
 
       while (v7);
     }
 
-    v4 = v17;
+    v4 = v18;
   }
 
-  return v18;
+  return v19;
 }
 
 - (id)getMinNotificationInterval:(id)interval notificationType:(int64_t)type

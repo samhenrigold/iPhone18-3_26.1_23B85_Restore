@@ -1,3 +1,95 @@
+uint64_t ATXPBFaceGalleryItemReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        break;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v20 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v20 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v20 & 0x7F) << v5;
+        if ((v20 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        break;
+      }
+
+      v13 = (v12 >> 3) - 1;
+      if (v13 >= 3)
+      {
+        if ((PBReaderSkipValueWithTag() & 1) == 0)
+        {
+          return 0;
+        }
+      }
+
+      else
+      {
+        v14 = off_1E80C69B8[v13];
+        v15 = PBReaderReadString();
+        v16 = *v14;
+        v17 = *(a1 + v16);
+        *(a1 + v16) = v15;
+      }
+
+      v18 = [a2 position];
+    }
+
+    while (v18 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+id dateManipulationQueue(uint64_t a1)
+{
+  if (dateManipulationQueue_onceToken != -1)
+  {
+    dateManipulationQueue_cold_1();
+  }
+
+  v2 = dateManipulationQueue_dateManipulationQueue;
+
+  return v2;
+}
+
 void swapMethodImplementations()
 {
   v0 = objc_opt_class();
@@ -224,9 +316,9 @@ id ATXNotificationCategorizationXPCInterface()
   return v0;
 }
 
-void sub_1BF6B4910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF6B4910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -238,26 +330,33 @@ uint64_t __Block_byref_object_copy__24(uint64_t result, uint64_t a2)
   return result;
 }
 
+void sub_1BF6B4CAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 id ATXSlotSetsSerialize(void *a1, void *a2)
 {
-  v99[2] = *MEMORY[0x1E69E9840];
+  v100[2] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   context = objc_autoreleasePoolPush();
   v5 = objc_opt_new();
-  v90 = 0u;
   v91 = 0u;
   v92 = 0u;
   v93 = 0u;
+  v94 = 0u;
   v6 = v4;
   obj = v6;
-  v70 = [v6 countByEnumeratingWithState:&v90 objects:v98 count:16];
-  v64 = v3;
-  if (v70)
+  v71 = [v6 countByEnumeratingWithState:&v91 objects:v99 count:16];
+  v65 = v3;
+  if (v71)
   {
     v7 = 0;
-    v65 = 0;
-    v68 = *v91;
+    v66 = 0;
+    v69 = *v92;
     v8 = 8;
     do
     {
@@ -265,12 +364,12 @@ id ATXSlotSetsSerialize(void *a1, void *a2)
       v10 = v7;
       do
       {
-        if (*v91 != v68)
+        if (*v92 != v69)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v90 + 1) + 8 * v9);
+        v7 = *(*(&v91 + 1) + 8 * v9);
 
         v11 = v8 + 1;
         v12 = [v7 parameters];
@@ -280,26 +379,26 @@ id ATXSlotSetsSerialize(void *a1, void *a2)
           v13 = [v7 parameters];
           v11 += [v13 count];
 
-          v88 = 0u;
           v89 = 0u;
-          v86 = 0u;
+          v90 = 0u;
           v87 = 0u;
+          v88 = 0u;
           v14 = [v7 parameters];
-          v15 = [v14 countByEnumeratingWithState:&v86 objects:v97 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v87 objects:v98 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v87;
+            v17 = *v88;
             do
             {
               for (i = 0; i != v16; ++i)
               {
-                if (*v87 != v17)
+                if (*v88 != v17)
                 {
                   objc_enumerationMutation(v14);
                 }
 
-                v19 = *(*(&v86 + 1) + 8 * i);
+                v19 = *(*(&v87 + 1) + 8 * i);
                 v20 = [v5 count];
                 [v5 addObject:v19];
                 if (v20 != [v5 count])
@@ -308,7 +407,7 @@ id ATXSlotSetsSerialize(void *a1, void *a2)
                 }
               }
 
-              v16 = [v14 countByEnumeratingWithState:&v86 objects:v97 count:16];
+              v16 = [v14 countByEnumeratingWithState:&v87 objects:v98 count:16];
             }
 
             while (v16);
@@ -317,7 +416,7 @@ id ATXSlotSetsSerialize(void *a1, void *a2)
 
         else
         {
-          v65 = 1;
+          v66 = 1;
         }
 
         v21 = [v7 uuid];
@@ -336,22 +435,22 @@ id ATXSlotSetsSerialize(void *a1, void *a2)
         v10 = v7;
       }
 
-      while (v9 != v70);
-      v70 = [obj countByEnumeratingWithState:&v90 objects:v98 count:16];
+      while (v9 != v71);
+      v71 = [obj countByEnumeratingWithState:&v91 objects:v99 count:16];
     }
 
-    while (v70);
+    while (v71);
 
-    v22 = v65;
-    if (!v65 || [obj count] == 1)
+    v22 = v66;
+    if (!v66 || [obj count] == 1)
     {
-      v3 = v64;
+      v3 = v65;
       goto LABEL_28;
     }
 
-    ATXSlotSetsSerialize_cold_1(v99);
-    v6 = v99[0];
-    v3 = v64;
+    ATXSlotSetsSerialize_cold_1(v100);
+    v6 = v100[0];
+    v3 = v65;
   }
 
   else
@@ -370,172 +469,172 @@ LABEL_28:
 
   v25 = objc_autoreleasePoolPush();
   v26 = objc_autoreleasePoolPush();
-  v85 = 0;
-  v27 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v85];
-  v28 = v85;
+  v86 = 0;
+  v27 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v86];
+  v28 = v86;
   objc_autoreleasePoolPop(v26);
   if (v27)
   {
-    v29 = v8 + 2 * v23;
-    v30 = [v27 length] - 8;
-    v31 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:v29 + v30];
-    LODWORD(v99[0]) = 0;
-    [v31 appendBytes:v99 length:4];
-    LODWORD(v99[0]) = [v5 count] | ((v30 & 0x7FFFFF) << 8) | (v22 << 31);
-    [v31 appendBytes:v99 length:4];
-    [v31 appendBytes:objc_msgSend(v27 length:{"bytes") + 8, v30}];
+    v30 = v8 + 2 * v23;
+    v31 = [v27 length] - 8;
+    v32 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:v30 + v31];
+    LODWORD(v100[0]) = 0;
+    [v32 appendBytes:v100 length:4];
+    LODWORD(v100[0]) = [v5 count] | ((v31 & 0x7FFFFF) << 8) | (v22 << 31);
+    [v32 appendBytes:v100 length:4];
+    [v32 appendBytes:objc_msgSend(v27 length:{"bytes") + 8, v31}];
 
     objc_autoreleasePoolPop(v25);
-    v83 = 0u;
     v84 = 0u;
-    v81 = 0u;
+    v85 = 0u;
     v82 = 0u;
-    v71 = v5;
-    v32 = [v71 countByEnumeratingWithState:&v81 objects:v96 count:16];
-    if (v32)
+    v83 = 0u;
+    v72 = v5;
+    v33 = [v72 countByEnumeratingWithState:&v82 objects:v97 count:16];
+    if (v33)
     {
-      v33 = v32;
-      v34 = 0;
-      v35 = *v82;
+      v34 = v33;
+      v35 = 0;
+      v36 = *v83;
       do
       {
-        for (j = 0; j != v33; ++j)
+        for (j = 0; j != v34; ++j)
         {
-          if (*v82 != v35)
+          if (*v83 != v36)
           {
-            objc_enumerationMutation(v71);
+            objc_enumerationMutation(v72);
           }
 
-          v37 = *(*(&v81 + 1) + 8 * j);
-          v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v34];
-          [v24 setObject:v38 forKeyedSubscript:v37];
+          v38 = *(*(&v82 + 1) + 8 * j);
+          v39 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v35];
+          [v24 setObject:v39 forKeyedSubscript:v38];
 
-          v39 = v37;
-          v40 = v31;
-          v41 = [v37 UTF8String];
-          v42 = strlen(v41);
-          v43 = v42;
-          if (v42 >= 0xFFFF)
+          v40 = v38;
+          v41 = v32;
+          v42 = [v38 UTF8String];
+          v43 = strlen(v42);
+          v44 = v43;
+          if (v43 >= 0xFFFF)
           {
             ATXSlotSetsSerialize_cold_3();
           }
 
-          LOWORD(v99[0]) = v43;
-          [v40 appendBytes:v99 length:2];
-          [v40 appendBytes:v41 length:strlen(v41)];
+          LOWORD(v100[0]) = v44;
+          [v41 appendBytes:v100 length:2];
+          [v41 appendBytes:v42 length:strlen(v42)];
 
-          ++v34;
+          ++v35;
         }
 
-        v33 = [v71 countByEnumeratingWithState:&v81 objects:v96 count:16];
+        v34 = [v72 countByEnumeratingWithState:&v82 objects:v97 count:16];
       }
 
-      while (v33);
+      while (v34);
     }
 
-    v79 = 0u;
     v80 = 0u;
-    v77 = 0u;
+    v81 = 0u;
     v78 = 0u;
-    v66 = obj;
-    v72 = [v66 countByEnumeratingWithState:&v77 objects:v95 count:16];
-    if (v72)
+    v79 = 0u;
+    v67 = obj;
+    v73 = [v67 countByEnumeratingWithState:&v78 objects:v96 count:16];
+    if (v73)
     {
-      v44 = 0;
-      v69 = *v78;
+      v45 = 0;
+      v70 = *v79;
       do
       {
-        v45 = 0;
-        v46 = v44;
+        v46 = 0;
+        v47 = v45;
         do
         {
-          if (*v78 != v69)
+          if (*v79 != v70)
           {
-            objc_enumerationMutation(v66);
+            objc_enumerationMutation(v67);
           }
 
-          v44 = *(*(&v77 + 1) + 8 * v45);
+          v45 = *(*(&v78 + 1) + 8 * v46);
 
-          v47 = [v44 uuid];
+          v48 = [v45 uuid];
 
-          v48 = [v44 parameters];
-          v49 = [v48 count];
+          v49 = [v45 parameters];
+          v50 = [v49 count];
 
-          LOBYTE(v99[0]) = v49 | ((v47 != 0) << 7);
-          [v31 appendBytes:v99 length:1];
-          if (v47)
+          LOBYTE(v100[0]) = v50 | ((v48 != 0) << 7);
+          [v32 appendBytes:v100 length:1];
+          if (v48)
           {
-            v50 = [v44 uuid];
-            v99[0] = 0;
-            v99[1] = 0;
-            v51 = v31;
-            [v50 getUUIDBytes:v99];
-            [v51 appendBytes:v99 length:16];
+            v51 = [v45 uuid];
+            v100[0] = 0;
+            v100[1] = 0;
+            v52 = v32;
+            [v51 getUUIDBytes:v100];
+            [v52 appendBytes:v100 length:16];
           }
 
-          v75 = 0u;
           v76 = 0u;
-          v73 = 0u;
+          v77 = 0u;
           v74 = 0u;
-          v52 = [v44 parameters];
-          v53 = [v52 countByEnumeratingWithState:&v73 objects:v94 count:16];
-          if (v53)
+          v75 = 0u;
+          v53 = [v45 parameters];
+          v54 = [v53 countByEnumeratingWithState:&v74 objects:v95 count:16];
+          if (v54)
           {
-            v54 = v53;
-            v55 = *v74;
+            v55 = v54;
+            v56 = *v75;
             do
             {
-              for (k = 0; k != v54; ++k)
+              for (k = 0; k != v55; ++k)
               {
-                if (*v74 != v55)
+                if (*v75 != v56)
                 {
-                  objc_enumerationMutation(v52);
+                  objc_enumerationMutation(v53);
                 }
 
-                v57 = [v24 objectForKeyedSubscript:*(*(&v73 + 1) + 8 * k)];
-                LOBYTE(v99[0]) = [v57 unsignedCharValue];
-                [v31 appendBytes:v99 length:1];
+                v58 = [v24 objectForKeyedSubscript:*(*(&v74 + 1) + 8 * k)];
+                LOBYTE(v100[0]) = [v58 unsignedCharValue];
+                [v32 appendBytes:v100 length:1];
               }
 
-              v54 = [v52 countByEnumeratingWithState:&v73 objects:v94 count:16];
+              v55 = [v53 countByEnumeratingWithState:&v74 objects:v95 count:16];
             }
 
-            while (v54);
+            while (v55);
           }
 
-          v45 = v45 + 1;
-          v46 = v44;
+          v46 = v46 + 1;
+          v47 = v45;
         }
 
-        while (v45 != v72);
-        v72 = [v66 countByEnumeratingWithState:&v77 objects:v95 count:16];
+        while (v46 != v73);
+        v73 = [v67 countByEnumeratingWithState:&v78 objects:v96 count:16];
       }
 
-      while (v72);
+      while (v73);
     }
 
-    v58 = adler32(0, ([v31 bytes] + 4), objc_msgSend(v31, "length") - 4);
-    *[v31 mutableBytes] = v58;
-    v59 = [v31 copy];
+    v59 = adler32(0, ([v32 bytes] + 4), objc_msgSend(v32, "length") - 4);
+    *[v32 mutableBytes] = v59;
+    v60 = [v32 copy];
 
-    v3 = v64;
+    v3 = v65;
   }
 
   else
   {
-    v60 = __atxlog_handle_default();
-    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+    v61 = __atxlog_handle_default(v29);
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
     {
-      ATXSlotSetsSerialize_cold_4(v3, v28, v60);
+      ATXSlotSetsSerialize_cold_4(v3, v28, v61);
     }
 
     objc_autoreleasePoolPop(v25);
-    v59 = 0;
+    v60 = 0;
   }
 
   objc_autoreleasePoolPop(contexta);
 
-  return v59;
+  return v60;
 }
 
 void __getAVRoutingSessionManagerClass_block_invoke_cold_1()
@@ -586,41 +685,42 @@ void ATXUnarchiverZip()
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
+void ATXUnarchiverZip(uint64_t a1)
 {
   archive_error_string();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 {
   archive_error_string();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 {
   archive_error_string();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void PPCreateReadArchive_cold_1()
+void PPCreateReadArchive_cold_1(uint64_t a1)
 {
   archive_error_string();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void PPCreateReadArchive_cold_2()
+void PPCreateReadArchive_cold_2(uint64_t a1)
 {
   archive_error_string();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void PPZipUnarchive_cold_1()
@@ -632,28 +732,28 @@ void PPZipUnarchive_cold_1()
   _os_log_error_impl(&dword_1BF549000, v1, OS_LOG_TYPE_ERROR, "ATXUnarchiver: failed to create directory at %@ - %@.", v2, 0x16u);
 }
 
-void PPZipUnarchive_cold_2()
+void PPZipUnarchive_cold_2(uint64_t a1)
 {
   archive_error_string();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void PPZipUnarchive_cold_3()
+void PPZipUnarchive_cold_3(uint64_t a1)
 {
   archive_error_string();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void PPZipUnarchive_cold_4()
+void PPZipUnarchive_cold_4(uint64_t a1)
 {
   archive_error_string();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void PPZipUnarchive_cold_5()
@@ -664,36 +764,36 @@ void PPZipUnarchive_cold_5()
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
-void PPZipUnarchive_cold_7()
+void PPZipUnarchive_cold_7(uint64_t a1)
 {
   archive_error_string();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void PPZipUnarchive_cold_8()
+void PPZipUnarchive_cold_8(uint64_t a1)
 {
   archive_error_string();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void PPZipUnarchive_cold_10()
+void PPZipUnarchive_cold_10(uint64_t a1)
 {
   archive_error_string();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void PPZipUnarchive_cold_11()
+void PPZipUnarchive_cold_11(uint64_t a1)
 {
   archive_error_string();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void NSStringForATXWidgetEngagementType_cold_1(int a1, NSObject *a2)

@@ -6,6 +6,7 @@
 - (id)stringForKey:(id)key defaultValue:(id)value;
 - (int64_t)integerForKey:(id)key defaultValue:(int64_t)value;
 - (unint64_t)unsignedIntegerForKey:(id)key defaultValue:(unint64_t)value;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setInteger:(int64_t)integer forKey:(id)key;
 - (void)setPreferencesValue:(id)value forKey:(id)key;
 - (void)setUnsignedInteger:(unint64_t)integer forKey:(id)key;
@@ -56,6 +57,14 @@
   }
 
   return value;
+}
+
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  v7 = [NSNumber numberWithBool:boolCopy];
+  [(PHPreferences *)self setNumber:v7 forKey:keyCopy];
 }
 
 - (id)numberForKey:(id)key defaultValue:(id)value

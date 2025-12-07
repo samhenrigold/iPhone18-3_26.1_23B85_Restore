@@ -558,7 +558,7 @@ LABEL_16:
         break;
       case 21:
         [v2 addObject:@"fa"];
-        if ([v2 count] != 22)
+        if (objc_msgSend_count(v2) != 22)
         {
           currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
           [currentHandler handleFailureInMethod:v8 object:selfCopy file:@"PLBackgroundJobWorkerTypes+PhotosCtlSupport.m" lineNumber:97 description:@"Number of unique codes is not equal to number of worker types"];

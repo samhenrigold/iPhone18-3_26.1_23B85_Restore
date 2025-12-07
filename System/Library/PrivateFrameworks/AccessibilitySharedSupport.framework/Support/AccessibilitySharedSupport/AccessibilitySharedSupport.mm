@@ -15,10 +15,10 @@ void sub_100001CA8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_100001CE0(uint64_t a1)
+void sub_100001CE0(uint64_t a1, uint64_t a2)
 {
-  v2 = AXSSLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = AXSSLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100029554();
   }
@@ -30,10 +30,10 @@ void sub_100001CE0(uint64_t a1)
   }
 }
 
-void sub_100001D4C(uint64_t a1)
+void sub_100001D4C(uint64_t a1, uint64_t a2)
 {
-  v2 = AXSSLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = AXSSLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100029590();
   }
@@ -215,9 +215,9 @@ void sub_1000032F4(uint64_t a1)
   [v2 playVideoAtURL:v3 onMotionTrackingVideoFileInput:v4 completionHandler:v5];
 }
 
-void sub_1000035E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000035E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -291,9 +291,9 @@ void sub_1000038F4(uint64_t a1)
   }
 }
 
-void sub_100003ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100003ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -334,7 +334,7 @@ void *sub_1000046A0(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -349,27 +349,27 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_1000047E0()
+uint64_t sub_1000047E0(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1000544A0 = result;
   return result;
 }
 
-uint64_t start()
+uint64_t start(uint64_t a1, uint64_t a2)
 {
-  v0 = AXSSLogForCategory();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
-  {
-    sub_1000297B8(v0);
-  }
-
-  v1 = objc_opt_new();
-  [v1 startDaemon];
   v2 = AXSSLogForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000297FC(v2);
+    sub_1000297B8(v2);
+  }
+
+  v3 = objc_opt_new();
+  [v3 startDaemon];
+  v4 = AXSSLogForCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    sub_1000297FC(v4);
   }
 
   return 0;
@@ -399,16 +399,23 @@ id sub_100004EF8()
   return v1;
 }
 
-void sub_100004FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100004FC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100006770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100006770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_100008088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -451,7 +458,7 @@ uint64_t sub_10000834C()
   v1 = v3[0];
   if (!qword_1000544B0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -464,7 +471,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t sub_10000844C()
+uint64_t sub_10000844C(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1000544B0 = result;
@@ -651,46 +658,46 @@ void sub_100009A44(uint64_t a1)
   [v10 lookAtPointTracker:*(a1 + 32) trackedOnScreenPoint:{v6, v8}];
 }
 
-void sub_100009BE4(uint64_t a1)
+void sub_100009BE4(uint64_t a1, uint64_t a2)
 {
-  v2 = AXSSLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = AXSSLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = AXSSHumanReadableDescriptionForMotionTrackingFacialExpression();
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "arKitCameraInputSource: didReceiveExpressionStart: called for expression: %@", &v5, 0xCu);
+    v4 = AXSSHumanReadableDescriptionForMotionTrackingFacialExpression();
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "arKitCameraInputSource: didReceiveExpressionStart: called for expression: %@", &v6, 0xCu);
+  }
+
+  v5 = [*(a1 + 32) delegate];
+  [v5 lookAtPointTracker:*(a1 + 32) expressionStarted:*(a1 + 40)];
+}
+
+void sub_100009D38(uint64_t a1, uint64_t a2)
+{
+  v3 = AXSSLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  {
+    v4 = AXSSHumanReadableDescriptionForMotionTrackingFacialExpression();
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "arKitCameraInputSource:didReceiveExpressionEnd: called for expression: %@", &v6, 0xCu);
+  }
+
+  v5 = [*(a1 + 32) delegate];
+  [v5 lookAtPointTracker:*(a1 + 32) expressionEnded:*(a1 + 40)];
+}
+
+void sub_100009E8C(uint64_t a1, uint64_t a2)
+{
+  v3 = AXSSLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10000A23C(v3);
   }
 
   v4 = [*(a1 + 32) delegate];
-  [v4 lookAtPointTracker:*(a1 + 32) expressionStarted:*(a1 + 40)];
-}
-
-void sub_100009D38(uint64_t a1)
-{
-  v2 = AXSSLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-  {
-    v3 = AXSSHumanReadableDescriptionForMotionTrackingFacialExpression();
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "arKitCameraInputSource:didReceiveExpressionEnd: called for expression: %@", &v5, 0xCu);
-  }
-
-  v4 = [*(a1 + 32) delegate];
-  [v4 lookAtPointTracker:*(a1 + 32) expressionEnded:*(a1 + 40)];
-}
-
-void sub_100009E8C(uint64_t a1)
-{
-  v2 = AXSSLogForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
-  {
-    sub_10000A23C(v2);
-  }
-
-  v3 = [*(a1 + 32) delegate];
-  [v3 lookAtPointTrackerWasInterrupted:*(a1 + 32)];
+  [v4 lookAtPointTrackerWasInterrupted:*(a1 + 32)];
 }
 
 void sub_100009F08(id a1)
@@ -921,7 +928,7 @@ id sub_10000AFE8(uint64_t a1)
     [v46 setString:v47];
 
     v48 = +[NSMutableString string];
-    v49 = [*(a1 + 40) expressions];
+    v49 = objc_msgSend_expressions(*(a1 + 40));
     v50 = [v49 allKeys];
     v51 = [v50 sortedArrayUsingSelector:"compare:"];
 
@@ -946,7 +953,7 @@ id sub_10000AFE8(uint64_t a1)
           }
 
           v57 = *(*(&v96 + 1) + 8 * v56);
-          [*(a1 + 40) expressions];
+          objc_msgSend_expressions(*(a1 + 40));
           v59 = v58 = a1;
           v60 = [v59 objectForKeyedSubscript:v57];
           [v60 floatValue];
@@ -1198,7 +1205,7 @@ CGFloat AXMTScreenPointForHIDPoint(uint64_t a1, uint64_t a2, void *a3, double a4
   {
     if (a3)
     {
-      *a3 = [NSError errorWithDomain:AXSSMotionTrackingErrorDomain code:1 userInfo:0];
+      *a3 = [NSError errorWithDomain:AXSSMotionTrackingErrorDomain code:1 userInfo:0, a4, a5, a6, a7, a8, a9, a10];
     }
 
     return NSZeroPoint.x;
@@ -1254,16 +1261,16 @@ void sub_10000CB28(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_10000CC14()
+uint64_t sub_10000CC14(uint64_t a1)
 {
   qword_100054550 = objc_opt_new();
 
   return _objc_release_x1();
 }
 
-void sub_10000CF98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10000CF98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1369,9 +1376,10 @@ void sub_10000E790(uint64_t a1)
   [WeakRetained _checkBackboardEffectiveDeviceOrientation];
 }
 
-void sub_10000F098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_10000F098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose(&a26, 8);
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a22, 8);
   _Unwind_Resume(a1);
 }
@@ -1423,25 +1431,26 @@ LABEL_8:
 
 uint64_t sub_10000F1E8()
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
   v0 = qword_1000545B0;
-  v7 = qword_1000545B0;
+  v8 = qword_1000545B0;
   if (!qword_1000545B0)
   {
     v1 = sub_10000F6E8();
-    v5[3] = dlsym(v1, "kCVAFaceTracking_FailureType");
-    qword_1000545B0 = v5[3];
-    v0 = v5[3];
+    v6[3] = dlsym(v1, "kCVAFaceTracking_FailureType");
+    qword_1000545B0 = v6[3];
+    v0 = v6[3];
   }
 
-  _Block_object_dispose(&v4, 8);
+  _Block_object_dispose(&v5, 8);
   if (!v0)
   {
-    v3 = sub_100029794();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    sub_100029794();
+    v4 = v3;
+    _Block_object_dispose(&v5, 8);
+    _Unwind_Resume(v4);
   }
 
   return *v0;
@@ -1484,7 +1493,7 @@ void *sub_10000F480(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -1499,7 +1508,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_10000F5C0()
+uint64_t sub_10000F5C0(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_100054580 = result;
@@ -1546,7 +1555,7 @@ uint64_t sub_10000F6E8()
   v1 = v3[0];
   if (!qword_100054590)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -1559,7 +1568,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t sub_10000F7E8()
+uint64_t sub_10000F7E8(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_100054590 = result;
@@ -1602,10 +1611,11 @@ void *sub_10000F94C(uint64_t a1)
   return result;
 }
 
-void sub_10000F9AC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000F9AC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_10000FA10(uint64_t a1, NSObject *a2)
@@ -1658,12 +1668,33 @@ void sub_10000FE58(void *a1)
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
+void sub_10000FF18(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AXMTUtilities _startMonitoringOrientationLockStatus]_block_invoke";
+  sub_10000F9AC(&_mh_execute_header, a1, a3, "%s: orientation just unlocked, forcing update with accelerometer data!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10000FFD0(double a1, double a2, double a3, double a4)
 {
   v4 = NSStringFromCGRect(*&a1);
   sub_10000F9D4();
   sub_10000F99C();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
+}
+
+void sub_100010068(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AXMTUtilities _updateScreenBounds]";
+  sub_10000F9AC(&_mh_execute_header, a1, a3, "%s: attempted to get new screen bounds 10 times but nothing changed!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000100F4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "void __springBoardLaunched(CFNotificationCenterRef, void *, CFStringRef, const void *, CFDictionaryRef)_block_invoke";
+  sub_10000F9AC(&_mh_execute_header, a1, a3, "%s:", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 double AXMTGeometryCentroidOfPoints(void *a1)
@@ -1787,10 +1818,18 @@ void sub_1000124B8(uint64_t a1)
   [v3 videoPlayedWithInput:v4 success:1 error:0];
 }
 
-void sub_100012700(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100012700(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
+}
+
+void sub_10001271C()
+{
+  v6 = 136315394;
+  sub_10000F9D4();
+  sub_100012700(&_mh_execute_header, v0, v1, "%s: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_100012790(void *a1)
@@ -1886,7 +1925,7 @@ LABEL_22:
           if (objc_opt_isKindOfClass())
           {
             v35 = *(a1 + 32);
-            v36 = [v35 expressions];
+            v36 = objc_msgSend_expressions(v35);
             v37 = [*(a1 + 40) _previousExpressions];
             v38 = [*(a1 + 40) expressionConfiguration];
             v74 = 0;
@@ -1982,7 +2021,7 @@ LABEL_31:
             v36 = v42;
             if (v42)
             {
-              [v42 expressions];
+              objc_msgSend_expressions(v42);
             }
 
             else
@@ -2115,30 +2154,55 @@ void sub_1000163A8(uint64_t a1)
   [WeakRetained _signalTrackedUnboundedOnScreenPoint:1 boundPoint:{*(a1 + 40), *(a1 + 48)}];
 }
 
-void sub_10001682C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001682C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void sub_10001685C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001685C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
+}
+
+void sub_100016878(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AXMTCameraBasedLookAtPointTracker setInput:]";
+  sub_10000F9AC(&_mh_execute_header, a1, a3, "%s: Input is of type video file, creating AXMTVideoFileReader!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000168F0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AXMTCameraBasedLookAtPointTracker setInput:]";
+  sub_10000F9AC(&_mh_execute_header, a1, a3, "%s: Input is of type camera, creating AXMTVideoCapturer!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100016968(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AXMTCameraBasedLookAtPointTracker startTracking]";
+  sub_10000F9AC(&_mh_execute_header, a1, a3, "%s: starting video capturer", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100016A50(void *a1)
 {
   [a1 floatValue];
+  v7 = 136315394;
   sub_10001684C();
-  sub_10001682C(&_mh_execute_header, v1, v2, "%s: using yaw: %f", v3, v4, v5, v6, 2u);
+  sub_10001682C(&_mh_execute_header, v1, v2, "%s: using yaw: %f", v3, v4, v5, v6, v7);
 }
 
 void sub_100016ADC(void *a1)
 {
   [a1 floatValue];
+  v7 = 136315394;
   sub_10001684C();
-  sub_10001682C(&_mh_execute_header, v1, v2, "%s: using pitch: %f", v3, v4, v5, v6, 2u);
+  sub_10001682C(&_mh_execute_header, v1, v2, "%s: using pitch: %f", v3, v4, v5, v6, v7);
 }
 
 void sub_100016B68(void *a1, NSObject *a2)
@@ -2163,6 +2227,13 @@ void sub_100016C4C(os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%s: uniqueIdentifier was nil, could not store calibration values", &v1, 0xCu);
 }
 
+void sub_100016CD0(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10000F9AC(&_mh_execute_header, a2, a3, "AXMTCameraBasedLookAtPointTracker: lost face %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100016D3C()
 {
   v1[0] = 136315394;
@@ -2174,7 +2245,7 @@ void sub_100016DBC(uint64_t a1)
 {
   v1 = NSStringFromPoint(*(a1 + 40));
   sub_10000F9D4();
-  sub_10001682C(&_mh_execute_header, v2, v3, "%s: %@", v4, v5, v6, v7, 2u);
+  sub_10001682C(&_mh_execute_header, v2, v3, "%s: %@", v4, v5, v6, v7, 136315394);
 }
 
 double AXMTMathStandardDeviationOfValuesWithPrecalculatedMean(void *a1, double a2)
@@ -2494,7 +2565,7 @@ void *sub_100019E24(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -2509,7 +2580,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_100019F64()
+uint64_t sub_100019F64(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1000545C0 = result;
@@ -2546,6 +2617,27 @@ void sub_10001A150(int a1, NSObject *a2)
   v4 = 1024;
   v5 = a1;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "%s: Failed to create PM Assertion with error = 0x%i", &v2, 0x12u);
+}
+
+void sub_10001A1DC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AXMTHIDBasedLookAtPointTracker _setUpPowerAssertionIfNecessary]";
+  sub_10000F9AC(&_mh_execute_header, a1, a3, "%s: successfully obtained power assertion.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10001A254(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AXMTHIDBasedLookAtPointTracker _cleanUpPowerAssertionIfNecessary]";
+  sub_10000F9AC(&_mh_execute_header, a1, a3, "%s: releasing power assertion", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10001A310(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  sub_10000F9AC(&_mh_execute_header, a2, a3, "AXMTHIDBasedLookAtPointTracker:_failedToTrackFaceWithError: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 id sub_10001AD40(uint64_t a1)
@@ -2599,16 +2691,16 @@ void sub_10001B2E4(uint64_t a1)
   }
 }
 
-void sub_10001BC3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10001BC3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10001BD78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001BD78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2676,7 +2768,7 @@ void *sub_10001D000(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -2691,23 +2783,25 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_10001D140()
+uint64_t sub_10001D140(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1000545D0 = result;
   return result;
 }
 
-void sub_10001D1B4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001D1B4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void sub_10001D1D0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001D1D0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_10001D1EC(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -2779,6 +2873,13 @@ void sub_10001D7B8()
   sub_10001D1EC(&_mh_execute_header, v0, v1, "%s: Failed to add AVCaptureVideoDataOutput instance %@ to capture session %@", v2);
 }
 
+void sub_10001D89C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AXMTVideoCapturer _configureMetadataOutputWithObjectType:forCaptureSession:addFaceTracking:]";
+  sub_10001D1D0(&_mh_execute_header, a1, a3, "%s: metadataOutput object does not support faceTracking", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10001D914(uint64_t a1, void *a2, NSObject *a3)
 {
   v5 = [a2 availableMetadataObjectTypes];
@@ -2818,16 +2919,16 @@ void sub_10001E5F8(double a1, double a2)
   _os_log_debug_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEBUG, "%s: %@", &v3, 0x16u);
 }
 
-void sub_10001E980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001E980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2885,10 +2986,11 @@ void sub_10001E9CC(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10001F270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_10001F270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a28, 8);
-  _Block_object_dispose(&a32, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2936,7 +3038,7 @@ void *sub_100020608(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -2951,7 +3053,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_100020748()
+uint64_t sub_100020748(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1000545E0 = result;
@@ -2989,6 +3091,34 @@ void sub_1000208AC(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "%s: Failed to process screen gaze request %@!", &v2, 0x16u);
 }
 
+void sub_100020938(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AXMTVisionKitEyeTracker processSampleBuffer:metadata:]";
+  sub_10001D1D0(&_mh_execute_header, a1, a3, "%s: largestObservation is nil!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000209B0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AXMTVisionKitEyeTracker processSampleBuffer:metadata:]";
+  sub_10001D1D0(&_mh_execute_header, a1, a3, "%s: detectedGazeResults is empty!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100020A28(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AXMTVisionKitEyeTracker processSampleBuffer:metadata:]";
+  sub_10001D1D0(&_mh_execute_header, a1, a3, "%s: sampleBuffer is NULL!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100020AA0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AXMTVisionKitEyeTracker processSampleBuffer:metadata:]";
+  sub_10001D1D0(&_mh_execute_header, a1, a3, "%s: no face metadata found!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100020C88(id a1)
 {
   qword_1000545E8 = objc_alloc_init(AXMTVideoFilePlayManager);
@@ -3019,9 +3149,9 @@ void sub_100021650(os_log_t log)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s: Pausing current video", &v1, 0xCu);
 }
 
-void sub_10002202C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002202C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3045,9 +3175,9 @@ void sub_10002205C(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_100022200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100022200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3071,6 +3201,13 @@ intptr_t sub_100022658(uint64_t a1, uint64_t a2)
   v3 = *(a1 + 40);
 
   return dispatch_semaphore_signal(v3);
+}
+
+void sub_100022B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_100022B78(id a1)
@@ -3184,9 +3321,9 @@ LABEL_18:
 LABEL_15:
 }
 
-void sub_100022F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100022F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3201,167 +3338,173 @@ void sub_100022F28(uint64_t a1, void *a2, uint64_t a3)
   }
 }
 
-uint64_t sub_100022FAC()
+uint64_t sub_100022FAC(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = qword_1000546C0;
-  v7 = qword_1000546C0;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v1 = qword_1000546C0;
+  v9 = qword_1000546C0;
   if (!qword_1000546C0)
   {
-    v1 = sub_100027DF8();
-    v5[3] = dlsym(v1, "kCVAFaceTracking_TrackedFacesArray");
-    qword_1000546C0 = v5[3];
-    v0 = v5[3];
+    v2 = sub_100027DF8();
+    v7[3] = dlsym(v2, "kCVAFaceTracking_TrackedFacesArray");
+    qword_1000546C0 = v7[3];
+    v1 = v7[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (!v0)
+  _Block_object_dispose(&v6, 8);
+  if (!v1)
   {
-    v3 = sub_100029794();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    sub_100029794();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
-  return *v0;
+  return *v1;
 }
 
-uint64_t sub_1000230A0()
+uint64_t sub_1000230A0(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = qword_1000546C8;
-  v7 = qword_1000546C8;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v1 = qword_1000546C8;
+  v9 = qword_1000546C8;
   if (!qword_1000546C8)
   {
-    v1 = sub_100027DF8();
-    v5[3] = dlsym(v1, "kCVAFaceTracking_SmoothData");
-    qword_1000546C8 = v5[3];
-    v0 = v5[3];
+    v2 = sub_100027DF8();
+    v7[3] = dlsym(v2, "kCVAFaceTracking_SmoothData");
+    qword_1000546C8 = v7[3];
+    v1 = v7[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (!v0)
+  _Block_object_dispose(&v6, 8);
+  if (!v1)
   {
-    v3 = sub_100029794();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    sub_100029794();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
-  return *v0;
+  return *v1;
 }
 
-void sub_1000238BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000238BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1000238F4()
+uint64_t sub_1000238F4(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = qword_1000546E0;
-  v7 = qword_1000546E0;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v1 = qword_1000546E0;
+  v9 = qword_1000546E0;
   if (!qword_1000546E0)
   {
-    v1 = sub_100027DF8();
-    v5[3] = dlsym(v1, "kCVAFaceTrackingLiteFilter_SharedData");
-    qword_1000546E0 = v5[3];
-    v0 = v5[3];
+    v2 = sub_100027DF8();
+    v7[3] = dlsym(v2, "kCVAFaceTrackingLiteFilter_SharedData");
+    qword_1000546E0 = v7[3];
+    v1 = v7[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (!v0)
+  _Block_object_dispose(&v6, 8);
+  if (!v1)
   {
-    v3 = sub_100029794();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    sub_100029794();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
-  return *v0;
+  return *v1;
 }
 
-uint64_t sub_100023F84()
+uint64_t sub_100023F84(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = qword_100054740;
-  v7 = qword_100054740;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v1 = qword_100054740;
+  v9 = qword_100054740;
   if (!qword_100054740)
   {
-    v1 = sub_100027DF8();
-    v5[3] = dlsym(v1, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionMouthPuckerCenter");
-    qword_100054740 = v5[3];
-    v0 = v5[3];
+    v2 = sub_100027DF8();
+    v7[3] = dlsym(v2, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionMouthPuckerCenter");
+    qword_100054740 = v7[3];
+    v1 = v7[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (!v0)
+  _Block_object_dispose(&v6, 8);
+  if (!v1)
   {
-    v3 = sub_100029794();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    sub_100029794();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
-  return *v0;
+  return *v1;
 }
 
-uint64_t sub_100024078()
+uint64_t sub_100024078(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = qword_100054748;
-  v7 = qword_100054748;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v1 = qword_100054748;
+  v9 = qword_100054748;
   if (!qword_100054748)
   {
-    v1 = sub_100027DF8();
-    v5[3] = dlsym(v1, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionMouthPuckerRight");
-    qword_100054748 = v5[3];
-    v0 = v5[3];
+    v2 = sub_100027DF8();
+    v7[3] = dlsym(v2, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionMouthPuckerRight");
+    qword_100054748 = v7[3];
+    v1 = v7[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (!v0)
+  _Block_object_dispose(&v6, 8);
+  if (!v1)
   {
-    v3 = sub_100029794();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    sub_100029794();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
-  return *v0;
+  return *v1;
 }
 
-uint64_t sub_10002416C()
+uint64_t sub_10002416C(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = qword_100054750;
-  v7 = qword_100054750;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v1 = qword_100054750;
+  v9 = qword_100054750;
   if (!qword_100054750)
   {
-    v1 = sub_100027DF8();
-    v5[3] = dlsym(v1, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionMouthPuckerLeft");
-    qword_100054750 = v5[3];
-    v0 = v5[3];
+    v2 = sub_100027DF8();
+    v7[3] = dlsym(v2, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionMouthPuckerLeft");
+    qword_100054750 = v7[3];
+    v1 = v7[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (!v0)
+  _Block_object_dispose(&v6, 8);
+  if (!v1)
   {
-    v3 = sub_100029794();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    sub_100029794();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
-  return *v0;
+  return *v1;
 }
 
 void sub_100024934(id a1)
@@ -3399,172 +3542,178 @@ void sub_100024934(id a1)
   qword_100054610 = v1;
 }
 
-void sub_1000259C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1000259C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_100025A00()
+uint64_t sub_100025A00(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = qword_100054770;
-  v7 = qword_100054770;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v1 = qword_100054770;
+  v9 = qword_100054770;
   if (!qword_100054770)
   {
-    v1 = sub_100027DF8();
-    v5[3] = dlsym(v1, "kCVAFaceTracking_Rotation");
-    qword_100054770 = v5[3];
-    v0 = v5[3];
+    v2 = sub_100027DF8();
+    v7[3] = dlsym(v2, "kCVAFaceTracking_Rotation");
+    qword_100054770 = v7[3];
+    v1 = v7[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (!v0)
+  _Block_object_dispose(&v6, 8);
+  if (!v1)
   {
-    v3 = sub_100029794();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    sub_100029794();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
-  return *v0;
+  return *v1;
 }
 
-uint64_t sub_100025AF4()
+uint64_t sub_100025AF4(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = qword_100054778;
-  v7 = qword_100054778;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v1 = qword_100054778;
+  v9 = qword_100054778;
   if (!qword_100054778)
   {
-    v1 = sub_100027DF8();
-    v5[3] = dlsym(v1, "kCVAFaceTracking_Translation");
-    qword_100054778 = v5[3];
-    v0 = v5[3];
+    v2 = sub_100027DF8();
+    v7[3] = dlsym(v2, "kCVAFaceTracking_Translation");
+    qword_100054778 = v7[3];
+    v1 = v7[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (!v0)
+  _Block_object_dispose(&v6, 8);
+  if (!v1)
   {
-    v3 = sub_100029794();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    sub_100029794();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
-  return *v0;
+  return *v1;
 }
 
-uint64_t sub_100025BE8()
+uint64_t sub_100025BE8(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = qword_100054780;
-  v7 = qword_100054780;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v1 = qword_100054780;
+  v9 = qword_100054780;
   if (!qword_100054780)
   {
-    v1 = sub_100027DF8();
-    v5[3] = dlsym(v1, "kCVAFaceTracking_Extrinsics");
-    qword_100054780 = v5[3];
-    v0 = v5[3];
+    v2 = sub_100027DF8();
+    v7[3] = dlsym(v2, "kCVAFaceTracking_Extrinsics");
+    qword_100054780 = v7[3];
+    v1 = v7[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (!v0)
+  _Block_object_dispose(&v6, 8);
+  if (!v1)
   {
-    v3 = sub_100029794();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    sub_100029794();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
-  return *v0;
+  return *v1;
 }
 
-uint64_t sub_100025CDC()
+uint64_t sub_100025CDC(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = qword_100054788;
-  v7 = qword_100054788;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v1 = qword_100054788;
+  v9 = qword_100054788;
   if (!qword_100054788)
   {
-    v1 = sub_100027DF8();
-    v5[3] = dlsym(v1, "kCVAFaceTracking_Intrinsics");
-    qword_100054788 = v5[3];
-    v0 = v5[3];
+    v2 = sub_100027DF8();
+    v7[3] = dlsym(v2, "kCVAFaceTracking_Intrinsics");
+    qword_100054788 = v7[3];
+    v1 = v7[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (!v0)
+  _Block_object_dispose(&v6, 8);
+  if (!v1)
   {
-    v3 = sub_100029794();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    sub_100029794();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
-  return *v0;
+  return *v1;
 }
 
-uint64_t sub_100025DD0()
+uint64_t sub_100025DD0(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = qword_100054790;
-  v7 = qword_100054790;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v1 = qword_100054790;
+  v9 = qword_100054790;
   if (!qword_100054790)
   {
-    v1 = sub_100027DF8();
-    v5[3] = dlsym(v1, "kCVAFaceTracking_CameraColor");
-    qword_100054790 = v5[3];
-    v0 = v5[3];
+    v2 = sub_100027DF8();
+    v7[3] = dlsym(v2, "kCVAFaceTracking_CameraColor");
+    qword_100054790 = v7[3];
+    v1 = v7[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (!v0)
+  _Block_object_dispose(&v6, 8);
+  if (!v1)
   {
-    v3 = sub_100029794();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    sub_100029794();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
-  return *v0;
+  return *v1;
 }
 
-uint64_t sub_100025EC4()
+uint64_t sub_100025EC4(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = qword_1000547A0;
-  v7 = qword_1000547A0;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v1 = qword_1000547A0;
+  v9 = qword_1000547A0;
   if (!qword_1000547A0)
   {
-    v1 = sub_100027DF8();
-    v5[3] = dlsym(v1, "kCVAFaceTracking_DetectedFaceRect");
-    qword_1000547A0 = v5[3];
-    v0 = v5[3];
+    v2 = sub_100027DF8();
+    v7[3] = dlsym(v2, "kCVAFaceTracking_DetectedFaceRect");
+    qword_1000547A0 = v7[3];
+    v1 = v7[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (!v0)
+  _Block_object_dispose(&v6, 8);
+  if (!v1)
   {
-    v3 = sub_100029794();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    sub_100029794();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
-  return *v0;
+  return *v1;
 }
 
-void sub_1000263C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1000263C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3577,11 +3726,11 @@ void sub_100026438(id a1)
 
 double sub_100026B40(float32x4_t _Q0)
 {
-  _S4 = _Q0.u32[1];
-  _S5 = _Q0.u32[2];
+  _S4 = _Q0.i32[1];
+  _S5 = _Q0.i32[2];
   __asm { FMLS            S3, S5, V0.S[2] }
 
-  _S6 = _Q0.u32[3];
+  _S6 = _Q0.i32[3];
   __asm { FMLA            S3, S6, V0.S[3] }
 
   v10 = vmuls_lane_f32(_Q0.f32[2], _Q0, 3);
@@ -3612,30 +3761,31 @@ void sub_100026DE4(id a1)
   byte_100054630 = v2;
 }
 
-uint64_t sub_100027528()
+uint64_t sub_100027528(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = qword_1000547F8;
-  v7 = qword_1000547F8;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v1 = qword_1000547F8;
+  v9 = qword_1000547F8;
   if (!qword_1000547F8)
   {
-    v1 = sub_100027DF8();
-    v5[3] = dlsym(v1, "kCVAFaceTracking_Pose");
-    qword_1000547F8 = v5[3];
-    v0 = v5[3];
+    v2 = sub_100027DF8();
+    v7[3] = dlsym(v2, "kCVAFaceTracking_Pose");
+    qword_1000547F8 = v7[3];
+    v1 = v7[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (!v0)
+  _Block_object_dispose(&v6, 8);
+  if (!v1)
   {
-    v3 = sub_100029794();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v3);
+    sub_100029794();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
-  return *v0;
+  return *v1;
 }
 
 void *sub_100027DA8(uint64_t a1)
@@ -3666,7 +3816,7 @@ uint64_t sub_100027DF8()
   v1 = v3[0];
   if (!qword_100054698)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -3679,7 +3829,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t sub_100027EF8()
+uint64_t sub_100027EF8(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_100054698 = result;
@@ -4152,11 +4302,11 @@ void sub_100029680(void *a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Can't find a tracker class for inputConfiguration %@, inputToUse %@", &v7, 0x16u);
 }
 
-uint64_t sub_100029794()
+void sub_100029794()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return sub_1000297B8(v0);
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  sub_1000297B8(v1);
 }
 
 __float2 __sincosf_stret(float a1)

@@ -1,5 +1,7 @@
 @interface PMLDiffPrivacyNoiseStrategy
++ (id)gaussianNoiseWithScaleFactor:(float)factor minimumMagnitude:(float)magnitude seed:(int)seed;
 - ($94F468A8D4C62B317260615823C2B210)noiseScaleFactors;
+- (BOOL)scaleAndAddNoiseToDenseVector:(id)vector usingNorm:(BOOL)norm scaleFactor:(float *)factor;
 - (NSString)description;
 - (PMLDiffPrivacyNoiseStrategy)initWithMaxIterationCount:(int)count noiseScaleFactors:(id)factors minimumMagnitude:(float)magnitude seed:(int)seed noiseMechanism:(int64_t)mechanism inplaceNorm:(BOOL)norm;
 - (PMLDiffPrivacyNoiseStrategy)initWithPlist:(id)plist chunks:(id)chunks context:(id)context;
@@ -73,94 +75,85 @@
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v31[8] = *MEMORY[0x277D85DE8];
+  v28[8] = *MEMORY[0x277D85DE8];
   chunksCopy = chunks;
   noiseMechanism = self->_noiseMechanism;
-  v6 = off_279ABF6E8;
   if (noiseMechanism > 1)
   {
-    if (noiseMechanism != 3)
+    if (noiseMechanism != 3 && noiseMechanism != 2)
     {
-      if (noiseMechanism != 2)
-      {
-        goto LABEL_13;
-      }
-
-      v6 = off_279ABF718;
+      goto LABEL_12;
     }
 
-LABEL_8:
-    v7 = *v6;
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
-    if (v9)
+LABEL_7:
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    if (v7)
     {
-      goto LABEL_14;
+      goto LABEL_13;
     }
 
-    goto LABEL_13;
+    goto LABEL_12;
   }
 
   if (!noiseMechanism)
   {
-    v10 = PML_LogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v8 = PML_LogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_260D68000, v10, OS_LOG_TYPE_ERROR, "You must explicitly specify a noise mechanism.", buf, 2u);
+      _os_log_error_impl(&dword_260D68000, v8, OS_LOG_TYPE_ERROR, "You must explicitly specify a noise mechanism.", buf, 2u);
     }
 
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"You must explicitly specify a noise mechanism."];
-    goto LABEL_13;
+    goto LABEL_12;
   }
 
   if (noiseMechanism == 1)
   {
-    goto LABEL_8;
+    goto LABEL_7;
   }
 
+LABEL_12:
+  v9 = MEMORY[0x277CBEAD8];
+  v10 = *MEMORY[0x277CBE660];
+  v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid noise mechanism value: %lli", self->_noiseMechanism];
+  v12 = [v9 exceptionWithName:v10 reason:v11 userInfo:0];
+  [v12 raise];
+
+  v7 = 0;
 LABEL_13:
-  v11 = MEMORY[0x277CBEAD8];
-  v12 = *MEMORY[0x277CBE660];
-  v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid noise mechanism value: %lli", self->_noiseMechanism];
-  v14 = [v11 exceptionWithName:v12 reason:v13 userInfo:0];
-  [v14 raise];
-
-  v9 = 0;
-LABEL_14:
-  v30[0] = @"NOISE_STRATEGY_MAX_ITERATIONS";
-  v15 = [MEMORY[0x277CCABB0] numberWithInt:self->_maxIterations];
-  v31[0] = v15;
-  v30[1] = @"NOISE_STRATEGY_MINIMUM_MAGNITUDE";
-  v16 = MEMORY[0x277CCABB0];
+  v27[0] = @"NOISE_STRATEGY_MAX_ITERATIONS";
+  v13 = [MEMORY[0x277CCABB0] numberWithInt:self->_maxIterations];
+  v28[0] = v13;
+  v27[1] = @"NOISE_STRATEGY_MINIMUM_MAGNITUDE";
+  v14 = MEMORY[0x277CCABB0];
   [(PMLDiffPrivacyNoiseStrategy *)self minimumMagnitude];
-  v17 = [v16 numberWithFloat:?];
-  v31[1] = v17;
-  v30[2] = @"GAUSSIAN_NOISE_SCALE";
-  *&v18 = self->_noiseScaleFactors.gaussianScaleFactor;
+  v15 = [v14 numberWithFloat:?];
+  v28[1] = v15;
+  v27[2] = @"GAUSSIAN_NOISE_SCALE";
+  *&v16 = self->_noiseScaleFactors.gaussianScaleFactor;
+  v17 = [MEMORY[0x277CCABB0] numberWithFloat:v16];
+  v28[2] = v17;
+  v27[3] = @"LAPLACE_NOISE_SCALE";
+  *&v18 = self->_noiseScaleFactors.laplaceScaleFactor;
   v19 = [MEMORY[0x277CCABB0] numberWithFloat:v18];
-  v31[2] = v19;
-  v30[3] = @"LAPLACE_NOISE_SCALE";
-  *&v20 = self->_noiseScaleFactors.laplaceScaleFactor;
-  v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
-  v31[3] = v21;
-  v30[4] = @"NOISE_MECHANISM_ENUM_VALUE";
-  v22 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_noiseMechanism];
-  v31[4] = v22;
-  v30[5] = @"INPLACE_NORM";
-  v23 = [MEMORY[0x277CCABB0] numberWithBool:self->_inplaceNorm];
-  v31[5] = v23;
-  v30[6] = @"NOISE_STRATEGY_SCALE";
-  *&v24 = self->_noiseScaleFactors.gaussianScaleFactor;
-  v25 = [MEMORY[0x277CCABB0] numberWithFloat:v24];
-  v30[7] = @"NOISE_SAMPLER";
-  v31[6] = v25;
-  v31[7] = v9;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:8];
+  v28[3] = v19;
+  v27[4] = @"NOISE_MECHANISM_ENUM_VALUE";
+  v20 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_noiseMechanism];
+  v28[4] = v20;
+  v27[5] = @"INPLACE_NORM";
+  v21 = [MEMORY[0x277CCABB0] numberWithBool:self->_inplaceNorm];
+  v28[5] = v21;
+  v27[6] = @"NOISE_STRATEGY_SCALE";
+  *&v22 = self->_noiseScaleFactors.gaussianScaleFactor;
+  v23 = [MEMORY[0x277CCABB0] numberWithFloat:v22];
+  v27[7] = @"NOISE_SAMPLER";
+  v28[6] = v23;
+  v28[7] = v7;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:8];
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v24;
 }
 
 - (void)addNoiseToSparseMatrix:(id)matrix
@@ -468,6 +461,27 @@ char *__54__PMLDiffPrivacyNoiseStrategy_addNoiseToSparseVector___block_invoke_2(
   return result;
 }
 
+- (BOOL)scaleAndAddNoiseToDenseVector:(id)vector usingNorm:(BOOL)norm scaleFactor:(float *)factor
+{
+  normCopy = norm;
+  vectorCopy = vector;
+  v9 = [(PMLDiffPrivacyNoiseStrategy *)self samplerWithScaleFactorFor:vectorCopy usingNorm:normCopy];
+  v11 = v10;
+  LODWORD(v12) = v10;
+  [vectorCopy scaleInPlaceWithInversedFactor:v12];
+  v13 = [(PMLDiffPrivacyNoiseStrategy *)self createSamplerByName:v9];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __83__PMLDiffPrivacyNoiseStrategy_scaleAndAddNoiseToDenseVector_usingNorm_scaleFactor___block_invoke;
+  v16[3] = &unk_279AC0138;
+  v14 = v13;
+  v17 = v14;
+  [vectorCopy processValuesInPlaceWithBlock:v16];
+  *factor = v11;
+
+  return 1;
+}
+
 - (id)createSamplerByName:(id)name
 {
   nameCopy = name;
@@ -517,40 +531,33 @@ LABEL_6:
 
 - (id)createDefaultSampler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   noiseMechanism = self->_noiseMechanism;
-  if (noiseMechanism == 3)
-  {
-    v5 = vcvtq_f64_f32(self->_noiseScaleFactors);
-  }
-
-  else if (noiseMechanism != 2 && noiseMechanism != 1)
+  if (noiseMechanism != 3 && noiseMechanism != 2 && noiseMechanism != 1)
   {
     v4 = PML_LogHandle();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v11 = self->_noiseMechanism;
+      v9 = self->_noiseMechanism;
       *buf = 134217984;
-      v13 = v11;
+      v11 = v9;
       _os_log_error_impl(&dword_260D68000, v4, OS_LOG_TYPE_ERROR, "Invalid noiseMechanism, got: %lld", buf, 0xCu);
     }
 
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"Invalid noiseMechanism, got: %lld", self->_noiseMechanism}];
   }
 
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [(PMLDiffPrivacyNoiseStrategy *)self createSamplerByName:v7];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v7 = [(PMLDiffPrivacyNoiseStrategy *)self createSamplerByName:v6];
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v7;
 }
 
 - (_PMLPreNoiseScaleFactorAndNoiseSampler)samplerWithScaleFactorFor:(id)for usingNorm:(BOOL)norm
 {
   normCopy = norm;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   forCopy = for;
   v8 = forCopy;
   v9 = 0;
@@ -570,9 +577,9 @@ LABEL_6:
       v18 = PML_LogHandle();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v29 = self->_noiseMechanism;
+        v28 = self->_noiseMechanism;
         *buf = 134217984;
-        v31 = v29;
+        v30 = v28;
         _os_log_error_impl(&dword_260D68000, v18, OS_LOG_TYPE_ERROR, "Invalid noiseMechanism, got: %lld", buf, 0xCu);
       }
 
@@ -637,11 +644,10 @@ LABEL_19:
 
 LABEL_20:
 
-  v26 = *MEMORY[0x277D85DE8];
-  v27 = v4;
-  v28 = v9;
-  result.var1 = *&v27;
-  result.var0 = v28;
+  v26 = v4;
+  v27 = v9;
+  result.var1 = *&v26;
+  result.var0 = v27;
   return result;
 }
 
@@ -677,6 +683,17 @@ LABEL_20:
   }
 
   return v17;
+}
+
++ (id)gaussianNoiseWithScaleFactor:(float)factor minimumMagnitude:(float)magnitude seed:(int)seed
+{
+  v5 = *&seed;
+  v8 = [PMLDiffPrivacyNoiseStrategy alloc];
+  *&v9 = factor;
+  *&v10 = magnitude;
+  v11 = [(PMLDiffPrivacyNoiseStrategy *)v8 initWithMaxIterationCount:1 noiseScaleFactors:v5 minimumMagnitude:1 seed:0 noiseMechanism:v9 inplaceNorm:0.0, v10];
+
+  return v11;
 }
 
 @end

@@ -1,10 +1,12 @@
 @interface RMConfigurationStatusArchiver
 + (BOOL)_removeStatusFileAndParentIfEmptyAtURL:(id)l madeChanges:(BOOL *)changes error:(id *)error;
 + (BOOL)_removeStatusFileDirectoryAtURL:(id)l madeChanges:(BOOL *)changes error:(id *)error;
++ (BOOL)persistStatusForStoreIdentifier:(id)identifier declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token sourceIdentifier:(id)sourceIdentifier validity:(BOOL)validity reasons:(id)reasons error:(id *)error;
 + (BOOL)removeAllStatusForStoreIdentifier:(id)identifier error:(id *)error;
 + (BOOL)removeStatusForStoreIdentifier:(id)identifier declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token error:(id *)error;
 + (BOOL)removeStatusForStoreIdentifier:(id)identifier declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token sourceIdentifier:(id)sourceIdentifier error:(id *)error;
 + (BOOL)validStatusForStoreIdentifier:(id)identifier declarationIdentifier:(id)declarationIdentifier serverToken:(id)token;
++ (id)_getStatusDirectoryURLWithStoreIdentifier:(id)identifier declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token createIfNeeded:(BOOL)needed;
 + (id)_getStatusFileURLForStoreIdentifier:(id)identifier declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token sourceIdentifier:(id)sourceIdentifier;
 + (id)fileSystemSafeCharacterSet;
 + (id)statusForStoreIdentifier:(id)identifier declarationIdentifier:(id)declarationIdentifier serverToken:(id)token;
@@ -143,6 +145,76 @@
   return bOOLValue;
 }
 
++ (BOOL)persistStatusForStoreIdentifier:(id)identifier declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token sourceIdentifier:(id)sourceIdentifier validity:(BOOL)validity reasons:(id)reasons error:(id *)error
+{
+  validityCopy = validity;
+  identifierCopy = identifier;
+  declarationIdentifierCopy = declarationIdentifier;
+  tokenCopy = token;
+  sourceIdentifierCopy = sourceIdentifier;
+  reasonsCopy = reasons;
+  v38[0] = @"identifier";
+  v38[1] = @"server-token";
+  v39[0] = declarationIdentifierCopy;
+  v39[1] = tokenCopy;
+  v38[2] = @"valid";
+  v20 = [NSNumber numberWithBool:validityCopy];
+  v39[2] = v20;
+  v21 = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:3];
+  v22 = [v21 mutableCopy];
+
+  if (reasonsCopy && [reasonsCopy count])
+  {
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_100024E20;
+    v36[3] = &unk_1000D1928;
+    v37 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(reasonsCopy, "count")}];
+    v23 = v37;
+    [reasonsCopy enumerateObjectsUsingBlock:v36];
+    [v22 setObject:v23 forKeyedSubscript:@"reasons"];
+  }
+
+  v24 = [self _getStatusFileURLForStoreIdentifier:identifierCopy declarationIdentifier:declarationIdentifierCopy declarationServerToken:tokenCopy sourceIdentifier:{sourceIdentifierCopy, sourceIdentifierCopy}];
+  v35 = 0;
+  v25 = [RMJSONUtilities serializeJSONDictionary:v22 fileURL:v24 error:&v35];
+  v26 = v35;
+  v27 = +[RMLog configurationStatusArchiver];
+  v28 = v27;
+  if (v25)
+  {
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    {
+      sub_1000259D8();
+    }
+
+    v29 = +[RMSubscribedStatusKeyPathUpdater sharedUpdater];
+    [v29 notifyStatusDidChangeForDeclarations];
+
+    v30 = +[RMStoreController sharedController];
+    [v30 observerStoresDidChange];
+
+    v31 = +[RMStoreController sharedController];
+    [v31 declarationStatusDidChange];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      sub_100025970();
+    }
+
+    if (error && v26)
+    {
+      v32 = v26;
+      *error = v26;
+    }
+  }
+
+  return v25;
+}
+
 + (BOOL)removeStatusForStoreIdentifier:(id)identifier declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token error:(id *)error
 {
   v8 = [RMConfigurationStatusArchiver _getStatusDirectoryURLWithStoreIdentifier:identifier declarationIdentifier:declarationIdentifier declarationServerToken:token createIfNeeded:0];
@@ -254,6 +326,41 @@
   v3 = qword_1000E67D8;
 
   return v3;
+}
+
++ (id)_getStatusDirectoryURLWithStoreIdentifier:(id)identifier declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token createIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  tokenCopy = token;
+  declarationIdentifierCopy = declarationIdentifier;
+  identifierCopy = identifier;
+  v12 = [RMLocations statusDirectoryURLCreateIfNeeded:neededCopy];
+  v13 = [v12 URLByAppendingPathComponent:identifierCopy isDirectory:1];
+
+  tokenCopy = [NSString stringWithFormat:@"%@-%@", declarationIdentifierCopy, tokenCopy];
+
+  v15 = +[RMConfigurationStatusArchiver fileSystemSafeCharacterSet];
+  v16 = [tokenCopy stringByAddingPercentEncodingWithAllowedCharacters:v15];
+
+  v17 = [v13 URLByAppendingPathComponent:v16 isDirectory:1];
+  if (neededCopy)
+  {
+    v18 = +[NSFileManager defaultManager];
+    v23 = 0;
+    v19 = [v18 createDirectoryAtURL:v17 withIntermediateDirectories:1 attributes:0 error:&v23];
+    v20 = v23;
+
+    if ((v19 & 1) == 0)
+    {
+      v21 = +[RMLog configurationStatusArchiver];
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        sub_100025B8C();
+      }
+    }
+  }
+
+  return v17;
 }
 
 + (id)_getStatusFileURLForStoreIdentifier:(id)identifier declarationIdentifier:(id)declarationIdentifier declarationServerToken:(id)token sourceIdentifier:(id)sourceIdentifier

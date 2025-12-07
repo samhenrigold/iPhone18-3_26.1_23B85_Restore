@@ -32,27 +32,8 @@
   printBrailleCopy = printBraille;
   v10 = [self translatedTextInIsolationForBraille:@"⠿" translationMode:mode];
   v50 = v10;
-  if (SCROJapaneseInputBrailleSelected())
+  if ((SCROJapaneseInputBrailleSelected() & 1) != 0 || ![v10 length] || (objc_msgSend(self, "translatedTextInIsolationForBraille:translationMode:", @"⠿⠿⠿", 1), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "stringByReplacingOccurrencesOfString:withString:", @" ", &stru_28763D5C8), v12 = brailleCopy, v13 = objc_claimAutoreleasedReturnValue(), v11, objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@%@%@", v10, v10, v10, v10), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "isEqualToString:", v14), v14, v13, brailleCopy = v12, !v15))
   {
-    goto LABEL_7;
-  }
-
-  if (![v10 length])
-  {
-    goto LABEL_7;
-  }
-
-  v11 = [self translatedTextInIsolationForBraille:@"⠿⠿⠿" translationMode:1];
-  [v11 stringByReplacingOccurrencesOfString:@" " withString:&stru_28763D5C8];
-  v13 = v12 = brailleCopy;
-
-  v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@%@", v10, v10, v10, v10];
-  v15 = [v13 isEqualToString:v14];
-
-  brailleCopy = v12;
-  if (!v15)
-  {
-LABEL_7:
     v21 = 1;
     v22 = [self translatedTextInIsolationForBraille:printBrailleCopy translationMode:1];
     goto LABEL_8;

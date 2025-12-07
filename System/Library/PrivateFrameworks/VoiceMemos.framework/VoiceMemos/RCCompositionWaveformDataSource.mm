@@ -3,6 +3,7 @@
 - (BOOL)_synchronouslyAppendSegmentsFromDataSource:(id)source;
 - (RCCompositionWaveformDataSource)initWithComposition:(id)composition trackIndex:(unint64_t)index;
 - (float)loadingProgress;
+- (id)_dataSourceForAVContentURL:(id)l isDecomposedFragment:(BOOL)fragment sourceTimeRange:(id)range destinationTime:(double)time;
 - (id)saveableWaveform;
 - (id)synchronouslyApproximateWaveformSegmentsByReadingCurrentFileAheadTimeRange:(id)range;
 - (void)cancelLoading;
@@ -176,7 +177,7 @@ uint64_t __47__RCCompositionWaveformDataSource_startLoading__block_invoke_2(uint
 
 void __47__RCCompositionWaveformDataSource_startLoading__block_invoke_3(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(*(*(a1 + 48) + 8) + 40) accumulatorWaveform];
   v3 = [v2 segmentCount];
 
@@ -185,26 +186,26 @@ void __47__RCCompositionWaveformDataSource_startLoading__block_invoke_3(uint64_t
     __47__RCCompositionWaveformDataSource_startLoading__block_invoke_3_cold_1(a1);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v4 = *(a1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v25;
 LABEL_5:
     v8 = 0;
     while (1)
     {
-      if (*v26 != v7)
+      if (*v25 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v25 + 1) + 8 * v8);
+      v9 = *(*(&v24 + 1) + 8 * v8);
       v10 = [*(*(*(a1 + 48) + 8) + 40) activeFragmentDataSource];
       if ([v10 canceled])
       {
@@ -258,7 +259,7 @@ LABEL_14:
 LABEL_20:
       if (v6 == ++v8)
       {
-        v6 = [v4 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v6)
         {
           goto LABEL_5;
@@ -277,7 +278,6 @@ LABEL_22:
   [*(*(*(a1 + 48) + 8) + 40) finishLoadingWithCompletionTimeout:-1 completionBlock:0];
 LABEL_25:
   dispatch_group_leave(*(*(a1 + 32) + 120));
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (float)loadingProgress
@@ -294,6 +294,29 @@ LABEL_25:
   }
 
   return v4 + self->_progressOfFinishedFragments;
+}
+
+- (id)_dataSourceForAVContentURL:(id)l isDecomposedFragment:(BOOL)fragment sourceTimeRange:(id)range destinationTime:(double)time
+{
+  var1 = range.var1;
+  var0 = range.var0;
+  fragmentCopy = fragment;
+  lCopy = l;
+  if (RCTimeRangeEqualToTimeRange(-1.79769313e308, 1.79769313e308, var0, var1))
+  {
+    RCTimeRangeMake();
+    var0 = v12;
+    var1 = v13;
+  }
+
+  v14 = [(RCFileInputWaveformDataSource *)[_RCTimeRangeFileInputWaveformDataSource alloc] initWithAVFileURL:lCopy trackIndex:[(RCWaveformDataSource *)self trackIndex]];
+
+  [(RCFileInputWaveformDataSource *)v14 setSourceTimeRange:var0, var1];
+  [(RCFileInputWaveformDataSource *)v14 setDestinationBeginTime:time];
+  [(_RCTimeRangeFileInputWaveformDataSource *)v14 setIsDecomposedFragment:fragmentCopy];
+  [(RCWaveformDataSource *)v14 addObserver:self];
+
+  return v14;
 }
 
 - (BOOL)_synchronouslyAppendSegmentsFromDataSource:(id)source
@@ -365,7 +388,7 @@ LABEL_25:
 
 - (void)waveformDataSource:(id)source didLoadWaveformSegment:(id)segment
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   segmentCopy = segment;
   if ([(RCWaveformDataSource *)self canceled])
@@ -380,7 +403,7 @@ LABEL_25:
     [waveformGenerator sourceTimeRange];
     v10 = v9;
     v12 = v11;
-    [segmentCopy timeRange];
+    objc_msgSend_timeRange(segmentCopy);
     if (RCTimeRangeIntersectsRange(v10, v12, v13, v14))
     {
       v15 = [segmentCopy segmentByClippingToTimeRange:{v10, v12}];
@@ -389,14 +412,12 @@ LABEL_25:
         [waveformGenerator destinationBeginTime];
         v17 = [v15 copyWithTimeRangeOffsetByTimeOffset:v16 - v10];
         waveformGenerator2 = [(RCWaveformDataSource *)self waveformGenerator];
-        v21[0] = v17;
-        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+        v20[0] = v17;
+        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
         [waveformGenerator2 appendAveragePowerLevelsByDigestingWaveformSegments:v19];
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __47__RCCompositionWaveformDataSource_startLoading__block_invoke_3_cold_1(uint64_t a1)

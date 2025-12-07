@@ -104,43 +104,78 @@
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
+  }
+
+  v18 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v17 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v17, &v18, "%@", v5);
+    v6 = v17;
   }
 
   discoveryTimeout = self->_discoveryTimeout;
   if (discoveryTimeout != 0.0)
   {
-    CUAppendF();
-    v6 = v4;
+    v8 = @"?";
+    if (discoveryTimeout == INFINITY)
+    {
+      v8 = @"Unbounded";
+    }
 
-    v4 = v6;
+    v16 = v6;
+    if (discoveryTimeout == 360.0)
+    {
+      v8 = @"Long";
+    }
+
+    if (discoveryTimeout == 180.0)
+    {
+      v8 = @"Medium";
+    }
+
+    if (discoveryTimeout == 60.0)
+    {
+      v8 = @"Short";
+    }
+
+    CUAppendF(&v16, &v18, "timeout '%@'", v8);
+    v9 = v16;
+
+    v6 = v9;
   }
 
   if (self->_options)
   {
-    v11 = CUPrintFlags64();
-    CUAppendF();
-    v7 = v4;
+    v15 = v6;
+    v10 = CUPrintFlags64();
+    CUAppendF(&v15, &v18, "setup %@", v10);
+    v11 = v15;
 
-    v4 = v7;
+    v6 = v11;
   }
 
-  v8 = &stru_28499D698;
-  if (v4)
+  v12 = &stru_28499D698;
+  if (v6)
   {
-    v8 = v4;
+    v12 = v6;
   }
 
-  v9 = v8;
+  v13 = v12;
 
-  return v9;
+  return v13;
 }
 
 - (ASPickerDisplaySettings)initWithXPCObject:(id)object error:(id *)error
@@ -151,8 +186,8 @@
   {
     if (error)
     {
-      v17 = [objc_opt_class() description];
-      *error = ASErrorF(-6756, "%@ init failed", v18, v19, v20, v21, v22, v23, v17);
+      v11 = [objc_opt_class() description];
+      *error = ASErrorF(-6756, "%@ init failed", v11);
     }
 
     goto LABEL_13;
@@ -162,8 +197,8 @@
   {
     if (error)
     {
-      ASErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v24);
-      *error = v15 = 0;
+      ASErrorF(-6756, "XPC non-dict");
+      *error = v9 = 0;
       goto LABEL_8;
     }
 
@@ -175,25 +210,25 @@
     goto LABEL_13;
   }
 
-  v14 = CUXPCDecodeUInt64RangedEx();
-  if (v14 != 6)
+  v8 = CUXPCDecodeUInt64RangedEx();
+  if (v8 != 6)
   {
-    if (v14 != 5)
+    if (v8 != 5)
     {
       goto LABEL_7;
     }
 
 LABEL_13:
-    v15 = 0;
+    v9 = 0;
     goto LABEL_8;
   }
 
   v7->_options = 0;
 LABEL_7:
-  v15 = v7;
+  v9 = v7;
 LABEL_8:
 
-  return v15;
+  return v9;
 }
 
 @end

@@ -3,6 +3,7 @@
 - (id).cxx_construct;
 - (id)copySessions;
 - (id)copySessionsForClientID:(unsigned int)d;
+- (id)copySessionsWithProtocolID:(unsigned __int8)d;
 - (id)sessionWithProtocolID:(unsigned __int8)d;
 - (id)sessionWithSessionID:(unsigned __int16)d;
 - (void)addSession:(id)session withSessionID:(unsigned __int16)d;
@@ -268,6 +269,59 @@ LABEL_14:
   }
 
   return 0;
+}
+
+- (id)copySessionsWithProtocolID:(unsigned __int8)d
+{
+  selfCopy = self;
+  if (((self + 8) & 7) != 0)
+  {
+LABEL_14:
+    __break(0x5516u);
+  }
+
+  else
+  {
+    if (*(self + 6))
+    {
+      dCopy = d;
+      self = [NSMutableArray arrayWithCapacity:0];
+      selfCopy2 = self;
+      v6 = selfCopy[1];
+      v8 = v6;
+      v7 = (selfCopy + 2);
+      while (v6 != v7)
+      {
+        if (!v6 || (v6 & 7) != 0)
+        {
+          goto LABEL_14;
+        }
+
+        self = [*(v6 + 40) protocolID];
+        if (self == dCopy)
+        {
+          if (!v8 || (v8 & 7) != 0)
+          {
+            goto LABEL_14;
+          }
+
+          [selfCopy2 addObject:*(v8 + 40)];
+        }
+
+        self = sub_100007D44(&v8);
+        v6 = v8;
+      }
+    }
+
+    else
+    {
+      selfCopy2 = 0;
+    }
+
+    return [selfCopy2 copy];
+  }
+
+  return self;
 }
 
 - (id).cxx_construct

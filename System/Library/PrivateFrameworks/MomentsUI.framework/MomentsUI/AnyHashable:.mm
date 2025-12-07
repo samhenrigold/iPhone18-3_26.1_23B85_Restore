@@ -1,5 +1,5 @@
 @interface AnyHashable:
-- (uint64_t)Any;
+- (double)Any;
 - (void)Any;
 @end
 
@@ -9,16 +9,16 @@
 {
   if (!lazy cache variable for type metadata for [AnyHashable : Any]?)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDys11AnyHashableVypGMd);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDys11AnyHashableVypGMd, &_sSDys11AnyHashableVypGMR);
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [AnyHashable : Any]?);
+      atomic_store(v1, &lazy cache variable for type metadata for [AnyHashable : Any]?);
     }
   }
 }
 
-- (uint64_t)Any
+- (double)Any
 {
   v4 = *(self + 32);
   if (a3)
@@ -33,6 +33,8 @@
 
   v6 = a2;
   v4(a2, v5);
+
+  return result;
 }
 
 @end

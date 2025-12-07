@@ -180,10 +180,10 @@ uint64_t __55__CRSubtitleSettings_initWithDictionaryRepresentation___block_invok
 
   else
   {
-    v8 = CarGeneralLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = CarGeneralLogging(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __55__CRSubtitleSettings_initWithDictionaryRepresentation___block_invoke_cold_1(v5, v8);
+      __55__CRSubtitleSettings_initWithDictionaryRepresentation___block_invoke_cold_1(v5, v9);
     }
   }
 
@@ -212,10 +212,10 @@ uint64_t __55__CRSubtitleSettings_initWithDictionaryRepresentation___block_invok
 
   else
   {
-    v8 = CarGeneralLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = CarGeneralLogging(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __55__CRSubtitleSettings_initWithDictionaryRepresentation___block_invoke_75_cold_1(v5, v8);
+      __55__CRSubtitleSettings_initWithDictionaryRepresentation___block_invoke_75_cold_1(v5, v9);
     }
   }
 

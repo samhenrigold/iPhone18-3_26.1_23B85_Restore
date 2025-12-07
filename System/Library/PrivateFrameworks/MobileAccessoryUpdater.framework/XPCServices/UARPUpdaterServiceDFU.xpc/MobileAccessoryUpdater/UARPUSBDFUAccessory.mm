@@ -10,6 +10,7 @@
 - (int)applyFirmware;
 - (int)disableDisconnectCallback;
 - (int)enableDisconnectCallback:(void *)callback reference:(void *)reference;
+- (int)sendBurnCommand:(char *)command length:(unsigned __int16)length;
 - (unsigned)connectUarpController:(id)controller options:(uarpPlatformOptionsObj *)options;
 - (unsigned)disconnectUarpController;
 - (unsigned)recvMessage:(id)message;
@@ -469,6 +470,103 @@ LABEL_12:
   v10 = [NSString stringWithFormat:@"<%@, vid=%d, pid=%d, %@, dfuMode=<%s> simulator=<%s>>", identifier, v4, v5, serialNumber, v7, v9];
 
   return v10;
+}
+
+- (int)sendBurnCommand:(char *)command length:(unsigned __int16)length
+{
+  lengthCopy = length;
+  openDfuDevice = [(USBDFUUpdater *)self->_usbDfuAccessory openDfuDevice];
+  if (!openDfuDevice)
+  {
+    v8 = [(USBDFUUpdater *)self->_usbDfuAccessory sendDfuBlockData:command length:lengthCopy];
+    if (v8)
+    {
+      openDfuDevice = v8;
+      if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+      {
+        sub_100017308();
+      }
+    }
+
+    else
+    {
+      v9 = [(USBDFUUpdater *)self->_usbDfuAccessory sendDfuBlockData:0 length:0];
+      if (v9)
+      {
+        openDfuDevice = v9;
+        if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+        {
+          sub_100017390();
+        }
+      }
+
+      else
+      {
+        v10 = [(USBDFUUpdater *)self->_usbDfuAccessory dfuSetState:7];
+        if (v10)
+        {
+          openDfuDevice = v10;
+          log = self->_log;
+          if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
+          {
+            sub_10001741C(log, v12, v13, v14, v15, v16, v17, v18);
+          }
+        }
+
+        else
+        {
+          v19 = 0;
+          v20 = 0;
+          while (1)
+          {
+            v42 = 0;
+            v41 = 0;
+            v21 = [(USBDFUUpdater *)self->_usbDfuAccessory dfuGetStatusCmd:&v41];
+            if (v21)
+            {
+              break;
+            }
+
+            if (BYTE4(v41) != 7)
+            {
+              ++v20;
+            }
+
+            v19 += v42;
+            usleep(1000 * v42);
+            if (v19 >> 4 > 0x270 || v20 >= 3u)
+            {
+              v40 = 11;
+              if (![(USBDFUUpdater *)self->_usbDfuAccessory dfuGetStateCmd:&v40]&& v40 == 2)
+              {
+                return 0;
+              }
+
+              v32 = self->_log;
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+              {
+                sub_100017494(v32, v33, v34, v35, v36, v37, v38, v39);
+              }
+
+              [(USBDFUUpdater *)self->_usbDfuAccessory closeDfuDevice];
+              return -536870212;
+            }
+          }
+
+          openDfuDevice = v21;
+          v23 = self->_log;
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          {
+            sub_100017494(v23, v24, v25, v26, v27, v28, v29, v30);
+          }
+        }
+      }
+    }
+
+    [(USBDFUUpdater *)self->_usbDfuAccessory closeDfuDevice];
+  }
+
+  return openDfuDevice;
 }
 
 - (int)applyFirmware

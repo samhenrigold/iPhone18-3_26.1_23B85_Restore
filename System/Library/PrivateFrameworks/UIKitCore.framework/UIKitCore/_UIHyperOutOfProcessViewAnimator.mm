@@ -93,9 +93,9 @@
     goto LABEL_8;
   }
 
-  v7 = [(_UISpringParameters *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if (!v7)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     [(_UIHyperOutOfProcessViewAnimator *)self willChangeValueForKey:@"_boundaryCrossedSpringParameters"];
@@ -142,9 +142,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(_UISpringParameters *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if (!v7)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     [(_UIHyperOutOfProcessViewAnimator *)self willChangeValueForKey:@"_interactionEndedSpringParameters"];
@@ -457,7 +457,7 @@ LABEL_8:
     _dimensions = [(_UIHyperOutOfProcessViewAnimator *)self _dimensions];
     if (_dimensions != [v5 _dimensions])
     {
-      LOBYTE(v12) = 0;
+      LOBYTE(isEqual) = 0;
 LABEL_19:
 
       goto LABEL_20;
@@ -474,7 +474,7 @@ LABEL_19:
 
     else
     {
-      LOBYTE(v12) = 0;
+      LOBYTE(isEqual) = 0;
       v13 = v10;
       v14 = v9;
       if (!v9 || !v10)
@@ -485,9 +485,9 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      v12 = [v9 isEqual:v10];
+      isEqual = objc_msgSend_isEqual_(v9);
 
-      if (!v12)
+      if (!isEqual)
       {
         goto LABEL_18;
       }
@@ -500,25 +500,25 @@ LABEL_18:
     v13 = v17;
     if (v14 == v17)
     {
-      LOBYTE(v12) = 1;
+      LOBYTE(isEqual) = 1;
     }
 
     else
     {
-      LOBYTE(v12) = 0;
+      LOBYTE(isEqual) = 0;
       if (v14 && v17)
       {
-        LOBYTE(v12) = [v14 isEqual:v17];
+        LOBYTE(isEqual) = objc_msgSend_isEqual_(v14);
       }
     }
 
     goto LABEL_17;
   }
 
-  LOBYTE(v12) = 0;
+  LOBYTE(isEqual) = 0;
 LABEL_20:
 
-  return v12;
+  return isEqual;
 }
 
 - (CAFrameRateRange)_preferredFrameRateRange

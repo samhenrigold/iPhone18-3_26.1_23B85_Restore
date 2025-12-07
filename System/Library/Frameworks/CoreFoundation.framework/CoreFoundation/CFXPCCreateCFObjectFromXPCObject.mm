@@ -3,7 +3,7 @@
 
 @implementation CFXPCCreateCFObjectFromXPCObject
 
-uint64_t ___CFXPCCreateCFObjectFromXPCObject_block_invoke_2(void *a1, const char *a2, uint64_t a3)
+CFDataRef ___CFXPCCreateCFObjectFromXPCObject_block_invoke_2(void *a1, const char *a2, const __CFURL *a3)
 {
   result = _CFXPCCreateCFObjectFromXPCObject(a3);
   if (result)
@@ -32,7 +32,7 @@ uint64_t ___CFXPCCreateCFObjectFromXPCObject_block_invoke_2(void *a1, const char
   return result;
 }
 
-BOOL ___CFXPCCreateCFObjectFromXPCObject_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL ___CFXPCCreateCFObjectFromXPCObject_block_invoke(uint64_t a1, uint64_t a2, const __CFURL *a3)
 {
   v4 = _CFXPCCreateCFObjectFromXPCObject(a3);
   if (v4)

@@ -66,7 +66,7 @@
 - (IMPersistentMenu)initWithDictionary:(id)dictionary
 {
   v3 = sub_1A88C81A8();
-  IMPersistentMenu.init(dictionary:)(v3);
+  IMPersistentMenu.init(dictionary:)(v3, v4);
   return result;
 }
 
@@ -85,13 +85,13 @@
   }
 
   v3 = sub_1A872F1AC(v5);
-  sub_1A85EF638(v5, &qword_1EB3057B0);
+  sub_1A85EF638(v5, &qword_1EB3057B0, &unk_1A88E27B0);
   return v3 & 1;
 }
 
 + (id)emptyStampProperty
 {
-  sub_1A870CCE0(&qword_1EB303718);
+  sub_1A870CCE0(&qword_1EB303718, &unk_1A88EA7C0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1A88E14F0;
   *(inited + 32) = sub_1A88C82E8();
@@ -102,7 +102,7 @@
   *(inited + 56) = v5;
   sub_1A8738AAC(inited);
   swift_setDeallocating();
-  sub_1A85EF638(inited + 32, &qword_1EB303720);
+  sub_1A85EF638(inited + 32, &qword_1EB303720, qword_1A88E3DC8);
   v6 = sub_1A88C8188();
 
   return v6;
@@ -110,7 +110,7 @@
 
 + (id)relayEmptyStampProperty
 {
-  sub_1A870CCE0(&qword_1EB303718);
+  sub_1A870CCE0(&qword_1EB303718, &unk_1A88EA7C0);
   inited = swift_initStackObject();
   *(inited + 32) = 1970169197;
   *(inited + 16) = xmmword_1A88E14F0;
@@ -121,7 +121,7 @@
   *(inited + 56) = v4;
   sub_1A8738AAC(inited);
   swift_setDeallocating();
-  sub_1A85EF638(inited + 32, &qword_1EB303720);
+  sub_1A85EF638(inited + 32, &qword_1EB303720, qword_1A88E3DC8);
   v5 = sub_1A88C8188();
 
   return v5;

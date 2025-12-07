@@ -378,7 +378,7 @@ uint64_t __47__AVCaptureDevice_setUpStudioLightingStateOnce__block_invoke(uint64
   return isEligibleForReactionEffects_sIsEligibleForReactionEffects;
 }
 
-uint64_t __47__AVCaptureDevice_isEligibleForReactionEffects__block_invoke(uint64_t a1)
+void *__47__AVCaptureDevice_isEligibleForReactionEffects__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _checkEligibilityForEffect:AVCaptureBundleCameraReactionEffectsEnabledKey];
   isEligibleForReactionEffects_sIsEligibleForReactionEffects = result;
@@ -495,15 +495,15 @@ uint64_t __47__AVCaptureDevice_setUpBackgroundBlurStateOnce__block_invoke(uint64
 
 uint64_t __48__AVCaptureDevice_setUpReactionEffectsStateOnce__block_invoke(uint64_t a1)
 {
-  v17[0] = AVCaptureReactionTypeThumbsUp;
-  v17[1] = AVCaptureReactionTypeThumbsDown;
-  v17[2] = AVCaptureReactionTypeBalloons;
-  v17[3] = AVCaptureReactionTypeHeart;
-  v17[4] = AVCaptureReactionTypeFireworks;
-  v17[5] = AVCaptureReactionTypeRain;
-  v17[6] = AVCaptureReactionTypeConfetti;
-  v17[7] = AVCaptureReactionTypeLasers;
-  sAvailableReactions = [MEMORY[0x1E695DFD8] setWithArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v17, 8)}];
+  v15[0] = AVCaptureReactionTypeThumbsUp;
+  v15[1] = AVCaptureReactionTypeThumbsDown;
+  v15[2] = AVCaptureReactionTypeBalloons;
+  v15[3] = AVCaptureReactionTypeHeart;
+  v15[4] = AVCaptureReactionTypeFireworks;
+  v15[5] = AVCaptureReactionTypeRain;
+  v15[6] = AVCaptureReactionTypeConfetti;
+  v15[7] = AVCaptureReactionTypeLasers;
+  sAvailableReactions = [MEMORY[0x1E695DFD8] setWithArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v15, 8)}];
   v2 = AVCaptureClientPreferencesDomain();
   sReactionsEnabledKey = AVControlCenterVideoEffectsReactionsEnabledPreferenceKey(v2);
   v3 = AVCaptureClientPreferencesDomain();
@@ -550,7 +550,7 @@ uint64_t __48__AVCaptureDevice_setUpReactionEffectsStateOnce__block_invoke(uint6
     +[AVCaptureProprietaryDefaultsSingleton setObject:forKey:](AVCaptureProprietaryDefaultsSingleton, "setObject:forKey:", [MEMORY[0x1E696AD98] numberWithBool:sGesturesEnabled], AVControlCenterVideoEffectsGesturesEnabledDefaultPreferenceKey(v13));
   }
 
-  [AVCaptureProprietaryDefaultsSingleton addObserver:"addObserver:forKey:callHandlerForInitialValue:defaultChangedHandler:" forKey:v15 callHandlerForInitialValue:v16 defaultChangedHandler:?];
+  [AVCaptureProprietaryDefaultsSingleton addObserver:"addObserver:forKey:callHandlerForInitialValue:defaultChangedHandler:" forKey:? callHandlerForInitialValue:? defaultChangedHandler:?];
   [AVCaptureProprietaryDefaultsSingleton addObserver:"addObserver:forKey:callHandlerForInitialValue:defaultChangedHandler:" forKey:? callHandlerForInitialValue:? defaultChangedHandler:?];
   [AVCaptureProprietaryDefaultsSingleton addObserver:"addObserver:forKey:callHandlerForInitialValue:defaultChangedHandler:" forKey:? callHandlerForInitialValue:? defaultChangedHandler:?];
   return [AVCaptureProprietaryDefaultsSingleton addObserver:"addObserver:forKey:callHandlerForInitialValue:defaultChangedHandler:" forKey:? callHandlerForInitialValue:? defaultChangedHandler:?];
@@ -581,32 +581,36 @@ uint64_t __59__AVCaptureDevice_setUpGesturesDefaultDisabledNotification__block_i
   v0 = AVCaptureClientPreferencesDomain();
   sHaveShownAppGesturesDefaultDisabledNotificationKey = AVControlCenterVideoEffectsHaveShownGesturesDefaultDisabledNotificationPreferenceKey(v0);
   sRequestGesturesDefaultDisabledNotificationKey = AVControlCenterVideoEffectsRequestGesturesDefaultDisabledNotificationPreferenceKey();
-  v1 = [AVCaptureProprietaryDefaultsSingleton objectForKey:sHaveShownGlobalGesturesDefaultDisabledNotificationKey];
-  if (v1)
+  isKindOfClass = [AVCaptureProprietaryDefaultsSingleton objectForKey:sHaveShownGlobalGesturesDefaultDisabledNotificationKey];
+  if (isKindOfClass)
   {
-    v2 = v1;
+    v3 = isKindOfClass;
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      sHaveShownGesturesDefaultDisabledNotification = [v2 BOOLValue];
+      isKindOfClass = [v3 BOOLValue];
+      sHaveShownGesturesDefaultDisabledNotification = isKindOfClass;
     }
   }
 
   if ((sHaveShownGesturesDefaultDisabledNotification & 1) == 0)
   {
-    v3 = [AVCaptureProprietaryDefaultsSingleton objectForKey:sHaveShownAppGesturesDefaultDisabledNotificationKey];
-    if (v3)
+    isKindOfClass = [AVCaptureProprietaryDefaultsSingleton objectForKey:sHaveShownAppGesturesDefaultDisabledNotificationKey];
+    if (isKindOfClass)
     {
-      v4 = v3;
+      v4 = isKindOfClass;
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        sHaveShownGesturesDefaultDisabledNotification = [v4 BOOLValue];
+        isKindOfClass = [v4 BOOLValue];
+        sHaveShownGesturesDefaultDisabledNotification = isKindOfClass;
       }
     }
   }
 
-  if (AVCaptureClientIsContinuityCapture())
+  if (AVCaptureClientIsContinuityCapture(isKindOfClass, v2))
   {
     sHaveShownGesturesDefaultDisabledNotification = 1;
   }
@@ -624,25 +628,25 @@ uint64_t __59__AVCaptureDevice_setUpGesturesDefaultDisabledNotification__block_i
   return _listEligibleEffects_sEligibleEffectSet;
 }
 
-uint64_t __39__AVCaptureDevice__listEligibleEffects__block_invoke()
+void *__39__AVCaptureDevice__listEligibleEffects__block_invoke()
 {
   v0 = AVCaptureClientPreferencesDomain();
   v1 = 0x1E695D000uLL;
-  v47[0] = AVCaptureBundleCameraPortraitEffectEnabledKey;
-  v47[1] = AVCaptureBundleCameraStudioLightEnabledKey;
-  v47[2] = AVCaptureBundleCameraReactionEffectsEnabledKey;
-  v47[3] = AVCaptureBundleCameraBackgroundReplacementEnabledKey;
-  v2 = [MEMORY[0x1E695DFD8] setWithArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v47, 4)}];
+  v56[0] = AVCaptureBundleCameraPortraitEffectEnabledKey;
+  v56[1] = AVCaptureBundleCameraStudioLightEnabledKey;
+  v56[2] = AVCaptureBundleCameraReactionEffectsEnabledKey;
+  v56[3] = AVCaptureBundleCameraBackgroundReplacementEnabledKey;
+  v2 = [MEMORY[0x1E695DFD8] setWithArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v56, 4)}];
   p_vtable = AVCaptureConnection.vtable;
   if (!_listEligibleEffects_sEligibleEffectSet)
   {
     v4 = v2;
-    if (([(__CFString *)v0 isEqual:0x1F1CBF688]& 1) != 0 || ([(__CFString *)v0 isEqual:0x1F1CC2088]& 1) != 0 || ([(__CFString *)v0 isEqual:0x1F1CC20C8]& 1) != 0 || (AVCaptureClientIsContinuityCapture() & 1) != 0 || (AVCaptureIsRunningInXCTest() & 1) != 0 || (AVCaptureClientIsInternalCommandLineTool() & 1) != 0 || AVCaptureClientIsInternalTestTool())
+    if ([(__CFString *)v0 isEqual:0x1F1CBF688]& 1) != 0 || ([(__CFString *)v0 isEqual:0x1F1CC2088]& 1) != 0 || (v5 = [(__CFString *)v0 isEqual:0x1F1CC20C8], (v5) || (AVCaptureClientIsContinuityCapture(v5, v6) & 1) != 0 || (IsRunningInXCTest = AVCaptureIsRunningInXCTest(), (IsRunningInXCTest) || (AVCaptureClientIsInternalCommandLineTool(IsRunningInXCTest, v8) & 1) != 0 || AVCaptureClientIsInternalTestTool())
     {
       if (dword_1ED806A00)
       {
-        v46 = 0;
-        v45 = OS_LOG_TYPE_DEFAULT;
+        v55 = 0;
+        v54 = OS_LOG_TYPE_DEFAULT;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -653,140 +657,145 @@ uint64_t __39__AVCaptureDevice__listEligibleEffects__block_invoke()
 
     else
     {
-      v11 = objc_autoreleasePoolPush();
-      v12 = [MEMORY[0x1E6963620] bundleRecordForCurrentProcess];
+      v15 = objc_autoreleasePoolPush();
+      v16 = [MEMORY[0x1E6963620] bundleRecordForCurrentProcess];
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && [objc_msgSend(v12 "UIBackgroundModes")])
+      v37 = v16;
+      if ((objc_opt_isKindOfClass() & 1) != 0 && [objc_msgSend(v16 "UIBackgroundModes")])
       {
         if (dword_1ED806A00)
         {
-          v46 = 0;
-          v45 = OS_LOG_TYPE_DEFAULT;
-          v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+          v55 = 0;
+          v54 = OS_LOG_TYPE_DEFAULT;
+          v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
       }
 
       else
       {
-        v14 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v4, "count")}];
-        v41 = 0u;
-        v42 = 0u;
-        v43 = 0u;
-        v44 = 0u;
-        v15 = [v4 countByEnumeratingWithState:&v41 objects:v40 count:16];
-        if (v15)
+        v18 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v4, "count")}];
+        v49 = 0u;
+        v50 = 0u;
+        v51 = 0u;
+        v52 = 0u;
+        v19 = [v4 countByEnumeratingWithState:&v49 objects:v48 count:16];
+        if (v19)
         {
-          v16 = v15;
-          v27 = v11;
-          v28 = v0;
-          v29 = *v42;
+          v20 = v19;
+          v33 = v15;
+          v34 = v0;
+          obj = v4;
+          v36 = *v50;
+          v21 = AVCaptureConnection.vtable;
           do
           {
-            for (i = 0; i != v16; ++i)
+            for (i = 0; i != v20; ++i)
             {
-              if (*v42 != v29)
+              if (*v50 != v36)
               {
-                objc_enumerationMutation(v4);
+                objc_enumerationMutation(obj);
               }
 
-              v18 = *(*(&v41 + 1) + 8 * i);
-              v19 = [objc_msgSend(objc_msgSend(v12 infoDictionary];
-              if (v19)
+              v23 = *(*(&v49 + 1) + 8 * i);
+              v24 = [objc_msgSend(objc_msgSend(v37 "infoDictionary")];
+              if (v24)
               {
-                [v14 addObject:v18];
+                [v18 addObject:v23];
               }
 
               if (dword_1ED806A00)
               {
-                v46 = 0;
-                v45 = OS_LOG_TYPE_DEFAULT;
-                v20 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v21 = v46;
-                if (os_log_type_enabled(v20, v45))
+                v55 = 0;
+                v54 = OS_LOG_TYPE_DEFAULT;
+                v25 = v21;
+                v26 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v27 = v55;
+                v28 = v54;
+                if (os_log_type_enabled(v26, v54))
                 {
-                  v22 = v21;
+                  v29 = v27;
                 }
 
                 else
                 {
-                  v22 = v21 & 0xFFFFFFFE;
+                  v29 = v27 & 0xFFFFFFFE;
                 }
 
-                if (v22)
+                if (v29)
                 {
-                  v23 = [v12 bundleIdentifier];
-                  v30 = 136316162;
-                  v24 = "is NOT";
-                  if (v19)
+                  v30 = [v37 bundleIdentifier];
+                  v38 = 136316162;
+                  v31 = "is NOT";
+                  if (v24)
                   {
-                    v24 = "is";
+                    v31 = "is";
                   }
 
-                  v31 = "+[AVCaptureDevice _listEligibleEffects]_block_invoke";
-                  v32 = 2112;
-                  v33 = v28;
-                  v34 = 2112;
-                  v35 = v23;
-                  v36 = 2080;
-                  v37 = v24;
-                  v38 = 2112;
-                  v39 = v18;
-                  LODWORD(v26) = 52;
-                  v25 = &v30;
-                  _os_log_send_and_compose_impl();
+                  v39 = "+[AVCaptureDevice _listEligibleEffects]_block_invoke";
+                  v40 = 2112;
+                  v41 = v34;
+                  v42 = 2112;
+                  v43 = v30;
+                  v44 = 2080;
+                  v45 = v31;
+                  v46 = 2112;
+                  v47 = v23;
+                  LODWORD(v32) = 52;
+                  _os_log_send_and_compose_impl(v29, 0, v53, 128, &dword_1A917C000, v26, v28, "<<<< AVCaptureDevice >>>> %s: App with preferencesDomain '%@' bundle '%@' %s eligible for %@ effects", &v38, v32);
                 }
 
+                v21 = v25;
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
               }
             }
 
-            v16 = [v4 countByEnumeratingWithState:&v41 objects:v40 count:16];
+            v20 = [obj countByEnumeratingWithState:&v49 objects:v48 count:16];
           }
 
-          while (v16);
-          v4 = v14;
+          while (v20);
+          v4 = v18;
           v1 = 0x1E695D000;
-          v0 = v28;
+          v0 = v34;
           p_vtable = (AVCaptureConnection + 24);
-          v11 = v27;
+          v15 = v33;
         }
 
         else
         {
-          v4 = v14;
+          v4 = v18;
         }
       }
 
       p_vtable[380] = v4;
-      objc_autoreleasePoolPop(v11);
+      objc_autoreleasePoolPop(v15);
     }
   }
 
-  v6 = AVControlCenterVideoEffectsEligibleEffectListPreferenceKey(v0);
-  v7 = *(v1 + 4056);
-  v8 = [AVCaptureProprietaryDefaultsSingleton objectForKey:v6];
-  if (v8)
+  v10 = AVControlCenterVideoEffectsEligibleEffectListPreferenceKey(v0);
+  v11 = *(v1 + 4056);
+  v12 = [AVCaptureProprietaryDefaultsSingleton objectForKey:v10];
+  if (v12)
   {
-    v9 = v8;
+    v13 = v12;
   }
 
   else
   {
-    v9 = MEMORY[0x1E695E0F0];
+    v13 = MEMORY[0x1E695E0F0];
   }
 
-  result = [objc_msgSend(v7 setWithArray:{v9, v25, v26), "isEqualToSet:", p_vtable[380]}];
+  result = [objc_msgSend(v11 setWithArray:{v13), "isEqualToSet:", p_vtable[380]}];
   if ((result & 1) == 0)
   {
-    return +[AVCaptureProprietaryDefaultsSingleton setObject:forKey:](AVCaptureProprietaryDefaultsSingleton, "setObject:forKey:", [p_vtable[380] allObjects], v6);
+    return +[AVCaptureProprietaryDefaultsSingleton setObject:forKey:](AVCaptureProprietaryDefaultsSingleton, "setObject:forKey:", [p_vtable[380] allObjects], v10);
   }
 
   return result;
 }
 
-uint64_t __55__AVCaptureDevice_reactionEffectGesturesEnabledDefault__block_invoke()
+void *__55__AVCaptureDevice_reactionEffectGesturesEnabledDefault__block_invoke()
 {
   v0 = [objc_msgSend(MEMORY[0x1E6963620] "bundleRecordForCurrentProcess")];
   v1 = [v0 objectForKey:AVCaptureBundleCameraReactionEffectGesturesEnabledDefaultKey ofClass:objc_opt_class()];
@@ -810,6 +819,8 @@ uint64_t __55__AVCaptureDevice_reactionEffectGesturesEnabledDefault__block_invok
     }
   }
 
+  v5 = 0;
+  v4 = 0;
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
   os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
   return fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -887,13 +898,14 @@ uint64_t __54__AVCaptureDevice_setUpBackgroundReplacementStateOnce__block_invoke
 
 - (id)initSubclass
 {
-  v4.receiver = self;
-  v4.super_class = AVCaptureDevice;
-  v2 = [(AVCaptureDevice *)&v4 init];
+  v6.receiver = self;
+  v6.super_class = AVCaptureDevice;
+  v2 = [(AVCaptureDevice *)&v6 init];
   if (v2)
   {
-    v2->_internal = objc_alloc_init(AVCaptureDeviceInternal);
-    if ((AVCaptureIsRunningInMediaserverd() & 1) == 0)
+    v3 = objc_alloc_init(AVCaptureDeviceInternal);
+    v2->_internal = v3;
+    if ((AVCaptureIsRunningInMediaserverd(v3, v4) & 1) == 0)
     {
       +[AVCaptureDevice _registerOnceForServerConnectionDiedNotification];
     }
@@ -1159,7 +1171,7 @@ uint64_t __78__AVCaptureDevice__filterConnectedDevices_withDeviceTypes_mediaType
   return [v4 containsObject:v5];
 }
 
-uint64_t __78__AVCaptureDevice__filterConnectedDevices_withDeviceTypes_mediaType_position___block_invoke_2(uint64_t a1, void *a2, void *a3)
+void *__78__AVCaptureDevice__filterConnectedDevices_withDeviceTypes_mediaType_position___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   if (*(a1 + 40) != 1 || (v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "indexOfObject:", objc_msgSend(a2, "deviceType"))}], (result = objc_msgSend(v6, "compare:", objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInteger:", objc_msgSend(*(a1 + 32), "indexOfObject:", objc_msgSend(a3, "deviceType"))))) == 0))
   {
@@ -1451,7 +1463,7 @@ LABEL_9:
   else
   {
     v11 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v11, v12))
     {
       objc_exception_throw(v11);
     }
@@ -1586,7 +1598,7 @@ uint64_t __42__AVCaptureDevice_setUserPreferredCamera___block_invoke()
     else
     {
       v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-      if (AVCaptureShouldThrowForAPIViolations())
+      if (AVCaptureShouldThrowForAPIViolations(v8, v9))
       {
         objc_exception_throw(v8);
       }
@@ -1701,6 +1713,8 @@ uint64_t __68__AVCaptureDevice_setUserPreferredCamera_forClientPreferenceDomain_
   camerasCopy = cameras;
   if (dword_1ED806A00)
   {
+    v10 = 0;
+    v9 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1743,7 +1757,7 @@ LABEL_8:
   {
     if (FigCameraUsageProhibited())
     {
-      AVCaptureGetCurrentProcessAuditToken(&v10);
+      AVCaptureGetCurrentProcessAuditToken(&v11);
       if (!FigCameraUsageAllowedForClient())
       {
         return 1;
@@ -1758,7 +1772,7 @@ LABEL_8:
   if (![(NSString *)mediaType isEqualToString:*MEMORY[0x1E69875D8]])
   {
     v9 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, mediaType}];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v9, v10))
     {
       objc_exception_throw(v9);
     }
@@ -1824,17 +1838,17 @@ LABEL_20:
   if ([(NSString *)mediaType isEqualToString:*MEMORY[0x1E69875A0]])
   {
     mEMORY[0x1E6958460] = [MEMORY[0x1E6958460] sharedInstance];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___block_invoke;
-    v9[3] = &unk_1E786F600;
-    v9[4] = handler;
-    [mEMORY[0x1E6958460] requestRecordPermission:v9];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___block_invoke;
+    v10[3] = &unk_1E786F600;
+    v10[4] = handler;
+    [mEMORY[0x1E6958460] requestRecordPermission:v10];
   }
 
   else if ([(NSString *)mediaType isEqualToString:*MEMORY[0x1E6987608]]|| [(NSString *)mediaType isEqualToString:@"pcld"])
   {
-    if (FigCameraUsageProhibited() && (AVCaptureGetCurrentProcessAuditToken(&v8), !FigCameraUsageAllowedForClient()))
+    if (FigCameraUsageProhibited() && (AVCaptureGetCurrentProcessAuditToken(&v9), !FigCameraUsageAllowedForClient()))
     {
       if (handler)
       {
@@ -1852,7 +1866,7 @@ LABEL_20:
   else
   {
     v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, mediaType}];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v7, v8))
     {
       objc_exception_throw(v7);
     }
@@ -1908,16 +1922,16 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
     {
       v6 = objc_alloc(NSClassFromString(&cfstr_Avcapturefigvi.isa));
       v7 = *&token->var0[4];
-      v10[0] = *token->var0;
-      v10[1] = v7;
-      return [v6 initProxyDeviceWithUniqueID:d targetClientAuditToken:v10];
+      v11[0] = *token->var0;
+      v11[1] = v7;
+      return [v6 initProxyDeviceWithUniqueID:d targetClientAuditToken:v11];
     }
   }
 
   else
   {
     v9 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v9, v10))
     {
       objc_exception_throw(v9);
     }
@@ -1939,6 +1953,8 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 {
   if (dword_1ED806A00)
   {
+    v4 = 0;
+    v3 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1957,7 +1973,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setFaceDetectionDrivenImageProcessingEnabled:(BOOL)enabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -1981,7 +1997,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setProvidesStortorgetMetadata:(BOOL)metadata
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -1992,7 +2008,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setLowLightVideoCaptureEnabled:(BOOL)enabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2003,7 +2019,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setVariableFrameRateVideoCaptureEnabled:(BOOL)enabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2014,7 +2030,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setAutoVideoFrameRateEnabled:(BOOL)enabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2025,7 +2041,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setVideoStabilizationStrength:(int64_t)strength
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2036,7 +2052,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setDigitalFlashMode:(int64_t)mode
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2047,7 +2063,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setTimeLapseCaptureRate:(float)rate
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2058,7 +2074,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setUltraHighResolutionZeroShutterLagEnabled:(BOOL)enabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2069,7 +2085,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setActiveFormat:(AVCaptureDeviceFormat *)activeFormat
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2080,7 +2096,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setActiveDepthDataFormat:(AVCaptureDeviceFormat *)activeDepthDataFormat
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2091,7 +2107,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setActiveDepthDataMinFrameDuration:(CMTime *)activeDepthDataMinFrameDuration
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2102,7 +2118,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setActiveVideoMinFrameDuration:(CMTime *)activeVideoMinFrameDuration
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2113,7 +2129,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setActiveVideoMaxFrameDuration:(CMTime *)activeVideoMaxFrameDuration
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2239,25 +2255,23 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
   {
     if (device)
     {
-      v9 = *MEMORY[0x1E69873D8];
+      v7 = *MEMORY[0x1E69873D8];
       selfCopy = self;
-      [MEMORY[0x1E695DF20] dictionaryWithObjects:&selfCopy forKeys:&v9 count:1];
+      [MEMORY[0x1E695DF20] dictionaryWithObjects:&selfCopy forKeys:&v7 count:1];
       *device = AVLocalizedError();
     }
 
-    v8 = v3;
-    LODWORD(v7) = 0;
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v7, selfCopy, v9, v10, v11, v12);
   }
 
-  [(AVCaptureDevice *)self _stopUsingDevice:v7];
+  [(AVCaptureDevice *)self _stopUsingDevice];
   return 0;
 }
 
 - (void)setFlashMode:(AVCaptureFlashMode)flashMode
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2268,7 +2282,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setTorchMode:(AVCaptureTorchMode)torchMode
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2279,7 +2293,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (BOOL)setTorchModeOnWithLevel:(float)torchLevel error:(NSError *)outError
 {
   v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v4, v5))
   {
     objc_exception_throw(v4);
   }
@@ -2291,7 +2305,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setFocusMode:(AVCaptureFocusMode)focusMode
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2311,7 +2325,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setFocusPointOfInterest:(CGPoint)focusPointOfInterest
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2344,7 +2358,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setFocusRectOfInterest:(CGRect)interest
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2368,7 +2382,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setAutoFocusRangeRestriction:(AVCaptureAutoFocusRangeRestriction)autoFocusRangeRestriction
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2379,7 +2393,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setSmoothAutoFocusEnabled:(BOOL)smoothAutoFocusEnabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2390,7 +2404,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setAutomaticallyAdjustsFaceDrivenAutoFocusEnabled:(BOOL)automaticallyAdjustsFaceDrivenAutoFocusEnabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2401,7 +2415,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setFaceDrivenAutoFocusEnabled:(BOOL)faceDrivenAutoFocusEnabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2412,7 +2426,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setFocusModeLockedWithLensPosition:(float)lensPosition completionHandler:(void *)handler
 {
   v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v4, v5))
   {
     objc_exception_throw(v4);
   }
@@ -2423,7 +2437,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setExposureMode:(AVCaptureExposureMode)exposureMode
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2443,7 +2457,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setExposurePointOfInterest:(CGPoint)exposurePointOfInterest
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2476,7 +2490,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setExposureRectOfInterest:(CGRect)interest
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2500,7 +2514,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setAutomaticallyAdjustsFaceDrivenAutoExposureEnabled:(BOOL)automaticallyAdjustsFaceDrivenAutoExposureEnabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2511,7 +2525,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setFaceDrivenAutoExposureEnabled:(BOOL)faceDrivenAutoExposureEnabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2522,7 +2536,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setActiveMaxExposureDuration:(CMTime *)activeMaxExposureDuration
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA20] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2533,7 +2547,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setExposureModeCustomWithDuration:(CMTime *)duration ISO:(float)ISO completionHandler:(void *)handler
 {
   v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v5, v6))
   {
     objc_exception_throw(v5);
   }
@@ -2544,7 +2558,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setExposureTargetBias:(float)bias completionHandler:(void *)handler
 {
   v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v4, v5))
   {
     objc_exception_throw(v4);
   }
@@ -2555,7 +2569,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setGlobalToneMappingEnabled:(BOOL)globalToneMappingEnabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2566,7 +2580,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setWhiteBalanceMode:(AVCaptureWhiteBalanceMode)whiteBalanceMode
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2599,7 +2613,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setWhiteBalanceModeLockedWithDeviceWhiteBalanceTemperatureAndTintValues:(id)values completionHandler:(id)handler
 {
   v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v4, v5))
   {
     objc_exception_throw(v4);
   }
@@ -2610,7 +2624,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setWhiteBalanceModeLockedWithDeviceWhiteBalanceGains:(AVCaptureWhiteBalanceGains)whiteBalanceGains completionHandler:(void *)handler
 {
   v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v4, v5))
   {
     objc_exception_throw(v4);
   }
@@ -2661,7 +2675,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setAutomaticallyAdjustsImageControlMode:(BOOL)mode
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2672,7 +2686,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setImageControlMode:(int64_t)mode
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2683,7 +2697,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setAutomaticallyAdjustsVideoHDREnabled:(BOOL)automaticallyAdjustsVideoHDREnabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2694,7 +2708,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setVideoHDREnabled:(BOOL)videoHDREnabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2705,7 +2719,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setVideoHDRSuspended:(BOOL)suspended
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2716,7 +2730,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setActiveColorSpace:(AVCaptureColorSpace)activeColorSpace
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2727,7 +2741,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setVideoZoomFactor:(CGFloat)videoZoomFactor
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2738,7 +2752,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)rampToVideoZoomFactor:(CGFloat)factor withRate:(float)rate
 {
   v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v4, v5))
   {
     objc_exception_throw(v4);
   }
@@ -2749,7 +2763,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)rampExponentiallyToVideoZoomFactor:(float)factor withDuration:(double)duration
 {
   v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v4, v5))
   {
     objc_exception_throw(v4);
   }
@@ -2760,7 +2774,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)rampToVideoZoomFactor:(float)factor withTuning:(int64_t)tuning
 {
   v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v4, v5))
   {
     objc_exception_throw(v4);
   }
@@ -2771,7 +2785,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)cancelVideoZoomRamp
 {
   v2 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v2, v3))
   {
     objc_exception_throw(v2);
   }
@@ -2782,7 +2796,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setMaxAvailableVideoZoomFactorOverride:(double)override
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2793,7 +2807,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
 - (void)setGeometricDistortionCorrectionEnabled:(BOOL)geometricDistortionCorrectionEnabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -2811,7 +2825,7 @@ uint64_t __63__AVCaptureDevice_requestAccessForMediaType_completionHandler___blo
     v24 = *MEMORY[0x1E695D940];
 LABEL_11:
     v25 = [v23 exceptionWithName:v24 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v25, v26))
     {
       objc_exception_throw(v25);
     }
@@ -2844,48 +2858,48 @@ LABEL_11:
     return 0;
   }
 
-  v36 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v30 = 0u;
+  v36 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  [cameraPoseMatrix getBytes:&v34 length:{objc_msgSend(cameraPoseMatrix, "length")}];
-  [v8 getBytes:&v30 length:{objc_msgSend(v8, "length")}];
+  v34 = 0u;
+  [cameraPoseMatrix getBytes:&v35 length:{objc_msgSend(cameraPoseMatrix, "length")}];
+  [v8 getBytes:&v31 length:{objc_msgSend(v8, "length")}];
   v10 = 0;
-  v11 = vzip1q_s32(v30, v31);
-  v11.i32[2] = v32.i32[0];
-  v12 = vzip2q_s32(vzip1q_s32(v30, v32), vdupq_lane_s32(*v31.i8, 1));
-  v13 = vzip2q_s32(v30, v31);
-  v13.i32[2] = v32.i32[2];
-  v38[0] = v34;
-  v38[1] = v35;
-  v38[2] = v36;
-  memset(v39, 0, sizeof(v39));
+  v11 = vzip1q_s32(v31, v32);
+  v11.i32[2] = v33.i32[0];
+  v12 = vzip2q_s32(vzip1q_s32(v31, v33), vdupq_lane_s32(*v32.i8, 1));
+  v13 = vzip2q_s32(v31, v32);
+  v13.i32[2] = v33.i32[2];
+  v39[0] = v35;
+  v39[1] = v36;
+  v39[2] = v37;
+  memset(v40, 0, sizeof(v40));
   do
   {
-    v39[v10] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v11, COERCE_FLOAT(v38[v10])), v12, *&v38[v10], 1), v13, v38[v10], 2);
+    v40[v10] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v11, COERCE_FLOAT(v39[v10])), v12, *&v39[v10], 1), v13, v39[v10], 2);
     ++v10;
   }
 
   while (v10 != 3);
-  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
   FigCaptureFirmwareToNVMExtrinsicMatrixTransform();
   FigCaptureTransformExtrinsicMatrix();
-  DWORD2(v26) = v14;
-  DWORD2(v27) = v15;
-  *&v26 = v16;
-  *&v27 = v17;
-  DWORD2(v28) = v18;
-  DWORD2(v29) = v19;
-  *&v28 = v20;
-  *&v29 = v21;
-  return [MEMORY[0x1E695DEF0] dataWithBytes:&v26 length:64];
+  DWORD2(v27) = v14;
+  DWORD2(v28) = v15;
+  *&v27 = v16;
+  *&v28 = v17;
+  DWORD2(v29) = v18;
+  DWORD2(v30) = v19;
+  *&v29 = v20;
+  *&v30 = v21;
+  return [MEMORY[0x1E695DEF0] dataWithBytes:&v27 length:64];
 }
 
 + (BOOL)defaultCenterStageEnabledForBundleID:(id)d
@@ -2900,20 +2914,15 @@ LABEL_11:
   [self setupKVOLoggingOnce];
   if (sDetailedKVOOverrideLogging == 1)
   {
-    v21 = 0;
+    v11 = 0;
     FigCopyBacktrace();
     if (dword_1ED806A00)
     {
-      v20 = 0;
-      v19 = 0;
+      v10 = 0;
+      v9 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-    }
-
-    if (v21)
-    {
-      CFRelease(v21);
     }
   }
 
@@ -2939,35 +2948,14 @@ LABEL_11:
     os_unfair_lock_unlock(&sCenterStageLock);
     if (dword_1ED806A00)
     {
-      LODWORD(v21) = 0;
-      LOBYTE(v20) = 0;
+      LODWORD(v11) = 0;
+      LOBYTE(v10) = 0;
       v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v9 = v21;
-      if (os_log_type_enabled(v8, v20))
-      {
-        v10 = v9;
-      }
-
-      else
-      {
-        v10 = v9 & 0xFFFFFFFE;
-      }
-
-      if (v10)
-      {
-        v15 = 136315394;
-        v16 = "+[AVCaptureDevice _cinematicFramingEnabledChanged:]";
-        v17 = 1024;
-        LODWORD(v18) = _defaultCenterStageEnabled;
-        LODWORD(v14) = 18;
-        v12 = &v15;
-        _os_log_send_and_compose_impl();
-      }
-
+      os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [self didChangeValueForKey:{@"centerStageEnabled", v12, v14}];
+    [self didChangeValueForKey:@"centerStageEnabled"];
     [self didChangeValueForKey:@"cinematicFramingEnabled"];
   }
 }
@@ -2987,7 +2975,7 @@ LABEL_11:
   if (centerStageControlMode >= (AVCaptureCenterStageControlModeCooperative|AVCaptureCenterStageControlModeApp))
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -3016,47 +3004,48 @@ LABEL_11:
   {
     if (dword_1ED806A00)
     {
-      v20 = 0;
-      v19 = OS_LOG_TYPE_DEFAULT;
+      v21 = 0;
+      v20 = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v7 = [MEMORY[0x1E696AD98] numberWithBool:{v3, v13, v14}];
-    [AVCaptureProprietaryDefaultsSingleton setObject:v7 forKey:sCenterStageEnabledKey];
+    v8 = [MEMORY[0x1E696AD98] numberWithBool:v3];
+    [AVCaptureProprietaryDefaultsSingleton setObject:v8 forKey:sCenterStageEnabledKey];
     os_unfair_lock_lock(&sCenterStageLock);
-    v8 = sCenterStageEnabled;
+    v9 = sCenterStageEnabled;
     os_unfair_lock_unlock(&sCenterStageLock);
     if (dword_1ED806A00)
     {
-      v20 = 0;
-      v19 = OS_LOG_TYPE_DEFAULT;
-      v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v10 = v20;
-      if (os_log_type_enabled(v9, v19))
+      v21 = 0;
+      v20 = OS_LOG_TYPE_DEFAULT;
+      v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v11 = v21;
+      v12 = v20;
+      if (os_log_type_enabled(v10, v20))
       {
-        v11 = v10;
+        v13 = v11;
       }
 
       else
       {
-        v11 = v10 & 0xFFFFFFFE;
+        v13 = v11 & 0xFFFFFFFE;
       }
 
-      if (v11)
+      if (v13)
       {
-        v12 = @"NO";
-        if (v8 == v3)
+        v14 = @"NO";
+        if (v9 == v3)
         {
-          v12 = @"YES";
+          v14 = @"YES";
         }
 
         v15 = 136315394;
         v16 = "+[AVCaptureDevice setCenterStageEnabled:]";
         v17 = 2112;
-        v18 = v12;
-        _os_log_send_and_compose_impl();
+        v18 = v14;
+        _os_log_send_and_compose_impl(v13, 0, v19, 128, &dword_1A917C000, v10, v12, "<<<< AVCaptureDevice >>>> %s: 2. Done, requested value to setCenterStageEnabled and app state for centerStageEnabled agree? %@", &v15, 22);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -3066,7 +3055,7 @@ LABEL_11:
   else
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -3108,6 +3097,8 @@ LABEL_11:
   {
     if (dword_1ED806A00)
     {
+      v9 = 0;
+      v8 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -3134,20 +3125,15 @@ LABEL_11:
   [self setupKVOLoggingOnce];
   if (sDetailedKVOOverrideLogging == 1)
   {
-    v19 = 0;
+    v11 = 0;
     FigCopyBacktrace();
     if (dword_1ED806A00)
     {
-      v18 = 0;
-      v17 = 0;
+      v10 = 0;
+      v9 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-    }
-
-    if (v19)
-    {
-      CFRelease(v19);
     }
   }
 
@@ -3173,35 +3159,14 @@ LABEL_11:
     os_unfair_lock_unlock(&sBackgroundBlurLock);
     if (dword_1ED806A00)
     {
-      LODWORD(v19) = 0;
-      LOBYTE(v18) = 0;
+      LODWORD(v11) = 0;
+      LOBYTE(v10) = 0;
       v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v9 = v19;
-      if (os_log_type_enabled(v8, v18))
-      {
-        v10 = v9;
-      }
-
-      else
-      {
-        v10 = v9 & 0xFFFFFFFE;
-      }
-
-      if (v10)
-      {
-        v13 = 136315394;
-        v14 = "+[AVCaptureDevice _backgroundBlurEnabledChanged:]";
-        v15 = 1024;
-        LODWORD(v16) = bOOLValue;
-        LODWORD(v12) = 18;
-        v11 = &v13;
-        _os_log_send_and_compose_impl();
-      }
-
+      os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [self didChangeValueForKey:{@"portraitEffectEnabled", v11, v12}];
+    [self didChangeValueForKey:@"portraitEffectEnabled"];
     [self didChangeValueForKey:@"backgroundBlurEnabled"];
   }
 }
@@ -3218,7 +3183,8 @@ LABEL_11:
 + (void)setBackgroundBlurControlMode:(int64_t)mode
 {
   [self setUpBackgroundBlurStateOnce];
-  if ((AVCaptureCurrentClientIsFaceTimeVariant() & 1) != 0 || (AVCaptureClientIsContinuityCapture() & 1) != 0 || (AVCaptureIsRunningInXCTest() & 1) != 0 || (AVCaptureClientIsInternalTestTool() & 1) != 0 || AVCaptureTemporaryHackToAllowPortraitBlurSeeRadar78740254())
+  IsFaceTimeVariant = AVCaptureCurrentClientIsFaceTimeVariant();
+  if ((IsFaceTimeVariant & 1) != 0 || (AVCaptureClientIsContinuityCapture(IsFaceTimeVariant, v6) & 1) != 0 || (AVCaptureIsRunningInXCTest() & 1) != 0 || (AVCaptureClientIsInternalTestTool() & 1) != 0 || AVCaptureTemporaryHackToAllowPortraitBlurSeeRadar78740254())
   {
     if (mode < 3)
     {
@@ -3227,8 +3193,8 @@ LABEL_7:
       os_unfair_lock_lock(&sBackgroundBlurLock);
       sBackgroundBlurControlMode = mode;
       os_unfair_lock_unlock(&sBackgroundBlurLock);
-      v5 = [MEMORY[0x1E696AD98] numberWithInteger:mode];
-      [AVCaptureProprietaryDefaultsSingleton setObject:v5 forKey:sBackgroundBlurControlModeKey];
+      v7 = [MEMORY[0x1E696AD98] numberWithInteger:mode];
+      [AVCaptureProprietaryDefaultsSingleton setObject:v7 forKey:sBackgroundBlurControlModeKey];
 
       [self didChangeValueForKey:@"backgroundBlurControlMode"];
       return;
@@ -3240,13 +3206,13 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+  if (AVCaptureShouldThrowForAPIViolations(v8, v9))
   {
-    objc_exception_throw(v6);
+    objc_exception_throw(v8);
   }
 
-  NSLog(&cfstr_SuppressingExc.isa, v6);
+  NSLog(&cfstr_SuppressingExc.isa, v8);
 }
 
 + (void)setBackgroundBlurEnabled:(BOOL)enabled
@@ -3257,47 +3223,48 @@ LABEL_7:
   {
     if (dword_1ED806A00)
     {
-      v20 = 0;
-      v19 = OS_LOG_TYPE_DEFAULT;
+      v21 = 0;
+      v20 = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v7 = [MEMORY[0x1E696AD98] numberWithBool:{enabledCopy, v13, v14}];
-    [AVCaptureProprietaryDefaultsSingleton setObject:v7 forKey:sBackgroundBlurEnabledKey];
+    v8 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+    [AVCaptureProprietaryDefaultsSingleton setObject:v8 forKey:sBackgroundBlurEnabledKey];
     os_unfair_lock_lock(&sBackgroundBlurLock);
-    v8 = sBackgroundBlurEnabled;
+    v9 = sBackgroundBlurEnabled;
     os_unfair_lock_unlock(&sBackgroundBlurLock);
     if (dword_1ED806A00)
     {
-      v20 = 0;
-      v19 = OS_LOG_TYPE_DEFAULT;
-      v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v10 = v20;
-      if (os_log_type_enabled(v9, v19))
+      v21 = 0;
+      v20 = OS_LOG_TYPE_DEFAULT;
+      v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v11 = v21;
+      v12 = v20;
+      if (os_log_type_enabled(v10, v20))
       {
-        v11 = v10;
+        v13 = v11;
       }
 
       else
       {
-        v11 = v10 & 0xFFFFFFFE;
+        v13 = v11 & 0xFFFFFFFE;
       }
 
-      if (v11)
+      if (v13)
       {
-        v12 = @"NO";
-        if (v8 == enabledCopy)
+        v14 = @"NO";
+        if (v9 == enabledCopy)
         {
-          v12 = @"YES";
+          v14 = @"YES";
         }
 
         v15 = 136315394;
         v16 = "+[AVCaptureDevice setBackgroundBlurEnabled:]";
         v17 = 2112;
-        v18 = v12;
-        _os_log_send_and_compose_impl();
+        v18 = v14;
+        _os_log_send_and_compose_impl(v13, 0, v19, 128, &dword_1A917C000, v10, v12, "<<<< AVCaptureDevice >>>> %s: 2. Done, requested value to setBackgroundBlurEnabled and app state for backgroundBlurEnabled agree? %@", &v15, 22);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -3307,7 +3274,7 @@ LABEL_7:
   else
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -3331,7 +3298,7 @@ LABEL_7:
   return isEligibleForBackgroundBlur_sIsEligibleForBackgroundBlur;
 }
 
-uint64_t __46__AVCaptureDevice_isEligibleForBackgroundBlur__block_invoke(uint64_t a1)
+void *__46__AVCaptureDevice_isEligibleForBackgroundBlur__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _checkEligibilityForEffect:AVCaptureBundleCameraPortraitEffectEnabledKey];
   isEligibleForBackgroundBlur_sIsEligibleForBackgroundBlur = result;
@@ -3378,9 +3345,9 @@ uint64_t __46__AVCaptureDevice_isEligibleForBackgroundBlur__block_invoke(uint64_
       sBackgroundBlurAperture = LODWORD(aperture);
       sSettingBackgroundBlurApertureMyself = 1;
       os_unfair_lock_unlock(&sBackgroundBlurLock);
-      *&v9 = aperture;
-      v10 = [MEMORY[0x1E696AD98] numberWithFloat:v9];
-      [AVCaptureProprietaryDefaultsSingleton setObject:v10 forKey:sBackgroundBlurApertureKey];
+      *&v10 = aperture;
+      v11 = [MEMORY[0x1E696AD98] numberWithFloat:v10];
+      [AVCaptureProprietaryDefaultsSingleton setObject:v11 forKey:sBackgroundBlurApertureKey];
       os_unfair_lock_lock(&sBackgroundBlurLock);
       sSettingBackgroundBlurApertureMyself = 0;
       os_unfair_lock_unlock(&sBackgroundBlurLock);
@@ -3400,7 +3367,7 @@ uint64_t __46__AVCaptureDevice_isEligibleForBackgroundBlur__block_invoke(uint64_
   }
 
   v8 = [v6 exceptionWithName:v7 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v8, v9))
   {
     objc_exception_throw(v8);
   }
@@ -3428,21 +3395,21 @@ uint64_t __46__AVCaptureDevice_isEligibleForBackgroundBlur__block_invoke(uint64_
 
 + (void)setStudioLightingControlMode:(int64_t)mode
 {
-  [self setUpStudioLightingStateOnce];
-  if ((AVCaptureClientIsContinuityCapture() & 1) != 0 || (AVCaptureIsRunningInXCTest() & 1) != 0 || (AVCaptureClientIsInternalTestTool() & 1) != 0 || (IsFaceTimeVariant = AVCaptureCurrentClientIsFaceTimeVariant(), v6 = mode, IsFaceTimeVariant))
+  setUpStudioLightingStateOnce = [self setUpStudioLightingStateOnce];
+  if ((AVCaptureClientIsContinuityCapture(setUpStudioLightingStateOnce, v6) & 1) != 0 || (AVCaptureIsRunningInXCTest() & 1) != 0 || (AVCaptureClientIsInternalTestTool() & 1) != 0 || (IsFaceTimeVariant = AVCaptureCurrentClientIsFaceTimeVariant(), v8 = mode, IsFaceTimeVariant))
   {
-    v6 = mode & 0xFFFFFFFFFFFFFFFDLL;
+    v8 = mode & 0xFFFFFFFFFFFFFFFDLL;
   }
 
-  if (v6)
+  if (v8)
   {
-    v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    v9 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+    if (AVCaptureShouldThrowForAPIViolations(v9, v10))
     {
-      objc_exception_throw(v7);
+      objc_exception_throw(v9);
     }
 
-    NSLog(&cfstr_SuppressingExc.isa, v7);
+    NSLog(&cfstr_SuppressingExc.isa, v9);
   }
 
   else
@@ -3451,8 +3418,8 @@ uint64_t __46__AVCaptureDevice_isEligibleForBackgroundBlur__block_invoke(uint64_
     os_unfair_lock_lock(&sBackgroundBlurLock);
     sStudioLightingControlMode = mode;
     os_unfair_lock_unlock(&sBackgroundBlurLock);
-    v8 = [MEMORY[0x1E696AD98] numberWithInteger:mode];
-    [AVCaptureProprietaryDefaultsSingleton setObject:v8 forKey:sStudioLightingControlModeKey];
+    v11 = [MEMORY[0x1E696AD98] numberWithInteger:mode];
+    [AVCaptureProprietaryDefaultsSingleton setObject:v11 forKey:sStudioLightingControlModeKey];
 
     [self didChangeValueForKey:@"studioLightingControlMode"];
   }
@@ -3466,47 +3433,48 @@ uint64_t __46__AVCaptureDevice_isEligibleForBackgroundBlur__block_invoke(uint64_
   {
     if (dword_1ED806A00)
     {
-      v20 = 0;
-      v19 = OS_LOG_TYPE_DEFAULT;
+      v21 = 0;
+      v20 = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v7 = [MEMORY[0x1E696AD98] numberWithBool:{enabledCopy, v13, v14}];
-    [AVCaptureProprietaryDefaultsSingleton setObject:v7 forKey:sStudioLightingEnabledKey];
+    v8 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
+    [AVCaptureProprietaryDefaultsSingleton setObject:v8 forKey:sStudioLightingEnabledKey];
     os_unfair_lock_lock(&sBackgroundBlurLock);
-    v8 = sStudioLightingEnabled;
+    v9 = sStudioLightingEnabled;
     os_unfair_lock_unlock(&sBackgroundBlurLock);
     if (dword_1ED806A00)
     {
-      v20 = 0;
-      v19 = OS_LOG_TYPE_DEFAULT;
-      v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v10 = v20;
-      if (os_log_type_enabled(v9, v19))
+      v21 = 0;
+      v20 = OS_LOG_TYPE_DEFAULT;
+      v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v11 = v21;
+      v12 = v20;
+      if (os_log_type_enabled(v10, v20))
       {
-        v11 = v10;
+        v13 = v11;
       }
 
       else
       {
-        v11 = v10 & 0xFFFFFFFE;
+        v13 = v11 & 0xFFFFFFFE;
       }
 
-      if (v11)
+      if (v13)
       {
-        v12 = @"NO";
-        if (v8 == enabledCopy)
+        v14 = @"NO";
+        if (v9 == enabledCopy)
         {
-          v12 = @"YES";
+          v14 = @"YES";
         }
 
         v15 = 136315394;
         v16 = "+[AVCaptureDevice setStudioLightingEnabled:]";
         v17 = 2112;
-        v18 = v12;
-        _os_log_send_and_compose_impl();
+        v18 = v14;
+        _os_log_send_and_compose_impl(v13, 0, v19, 128, &dword_1A917C000, v10, v12, "<<<< AVCaptureDevice >>>> %s: 2. Done, requested value to setStudioLightingEnabled and app state for studioLightingEnabled agree? %@", &v15, 22);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -3516,7 +3484,7 @@ uint64_t __46__AVCaptureDevice_isEligibleForBackgroundBlur__block_invoke(uint64_
   else
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -3540,7 +3508,7 @@ uint64_t __46__AVCaptureDevice_isEligibleForBackgroundBlur__block_invoke(uint64_
   return isEligibleForStudioLighting_sIsEligibleForStudioLighting;
 }
 
-uint64_t __46__AVCaptureDevice_isEligibleForStudioLighting__block_invoke(uint64_t a1)
+void *__46__AVCaptureDevice_isEligibleForStudioLighting__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _checkEligibilityForEffect:AVCaptureBundleCameraStudioLightEnabledKey];
   isEligibleForStudioLighting_sIsEligibleForStudioLighting = result;
@@ -3552,20 +3520,15 @@ uint64_t __46__AVCaptureDevice_isEligibleForStudioLighting__block_invoke(uint64_
   [self setupKVOLoggingOnce];
   if (sDetailedKVOOverrideLogging == 1)
   {
-    v18 = 0;
+    v10 = 0;
     FigCopyBacktrace();
     if (dword_1ED806A00)
     {
-      v17 = 0;
-      v16 = 0;
+      v9 = 0;
+      v8 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-    }
-
-    if (v18)
-    {
-      CFRelease(v18);
     }
   }
 
@@ -3595,35 +3558,14 @@ uint64_t __46__AVCaptureDevice_isEligibleForStudioLighting__block_invoke(uint64_
     os_unfair_lock_unlock(&sBackgroundBlurLock);
     if (dword_1ED806A00)
     {
-      LODWORD(v18) = 0;
-      LOBYTE(v17) = 0;
+      LODWORD(v10) = 0;
+      LOBYTE(v9) = 0;
       v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v8 = v18;
-      if (os_log_type_enabled(v7, v17))
-      {
-        v9 = v8;
-      }
-
-      else
-      {
-        v9 = v8 & 0xFFFFFFFE;
-      }
-
-      if (v9)
-      {
-        v12 = 136315394;
-        v13 = "+[AVCaptureDevice _studioLightEnabledChanged:]";
-        v14 = 1024;
-        LODWORD(v15) = sStudioLightingEnabled;
-        LODWORD(v11) = 18;
-        v10 = &v12;
-        _os_log_send_and_compose_impl();
-      }
-
+      os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [self didChangeValueForKey:{@"studioLightEnabled", v10, v11}];
+    [self didChangeValueForKey:@"studioLightEnabled"];
     [self didChangeValueForKey:@"studioLightingEnabled"];
   }
 }
@@ -3678,9 +3620,9 @@ uint64_t __46__AVCaptureDevice_isEligibleForStudioLighting__block_invoke(uint64_
       sStudioLightingIntensity = LODWORD(intensity);
       sSettingStudioLightingIntensityMyself = 1;
       os_unfair_lock_unlock(&sBackgroundBlurLock);
-      *&v9 = intensity;
-      v10 = [MEMORY[0x1E696AD98] numberWithFloat:v9];
-      [AVCaptureProprietaryDefaultsSingleton setObject:v10 forKey:sStudioLightingIntensityKey];
+      *&v10 = intensity;
+      v11 = [MEMORY[0x1E696AD98] numberWithFloat:v10];
+      [AVCaptureProprietaryDefaultsSingleton setObject:v11 forKey:sStudioLightingIntensityKey];
       os_unfair_lock_lock(&sBackgroundBlurLock);
       sSettingStudioLightingIntensityMyself = 0;
       os_unfair_lock_unlock(&sBackgroundBlurLock);
@@ -3700,7 +3642,7 @@ uint64_t __46__AVCaptureDevice_isEligibleForStudioLighting__block_invoke(uint64_
   }
 
   v8 = [v6 exceptionWithName:v7 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v8, v9))
   {
     objc_exception_throw(v8);
   }
@@ -3713,24 +3655,19 @@ uint64_t __46__AVCaptureDevice_isEligibleForStudioLighting__block_invoke(uint64_
   [self setupKVOLoggingOnce];
   if (sDetailedKVOOverrideLogging == 1)
   {
-    v21 = 0;
+    v11 = 0;
     FigCopyBacktrace();
     if (dword_1ED806A00)
     {
-      v20 = 0;
-      v19 = 0;
+      v10 = 0;
+      v9 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
-
-    if (v21)
-    {
-      CFRelease(v21);
-    }
   }
 
-  bOOLValue = [AVCaptureDevice reactionEffectsEnabledDefault:v11];
+  bOOLValue = +[AVCaptureDevice reactionEffectsEnabledDefault];
   if (changed)
   {
     objc_opt_class();
@@ -3751,62 +3688,35 @@ uint64_t __46__AVCaptureDevice_isEligibleForStudioLighting__block_invoke(uint64_
     os_unfair_lock_unlock(&sReactionsLock);
     if (dword_1ED806A00)
     {
-      LODWORD(v21) = 0;
-      LOBYTE(v20) = 0;
+      LODWORD(v11) = 0;
+      LOBYTE(v10) = 0;
       v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v9 = v21;
-      if (os_log_type_enabled(v8, v20))
-      {
-        v10 = v9;
-      }
-
-      else
-      {
-        v10 = v9 & 0xFFFFFFFE;
-      }
-
-      if (v10)
-      {
-        v15 = 136315394;
-        v16 = "+[AVCaptureDevice _reactionsEnabledChanged:]";
-        v17 = 1024;
-        LODWORD(v18) = bOOLValue;
-        LODWORD(v14) = 18;
-        v12 = &v15;
-        _os_log_send_and_compose_impl();
-      }
-
+      os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [self didChangeValueForKey:{@"reactionEffectsEnabled", v12, v14}];
+    [self didChangeValueForKey:@"reactionEffectsEnabled"];
   }
 }
 
 + (void)_gesturesEnabledChanged:(id)changed
 {
-  selfCopy = self;
   [self setupKVOLoggingOnce];
   if (sDetailedKVOOverrideLogging == 1)
   {
-    v23 = 0;
+    v12 = 0;
     FigCopyBacktrace();
     if (dword_1ED806A00)
     {
-      v22 = 0;
-      v21 = 0;
+      v11 = 0;
+      v10 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
-
-    if (v23)
-    {
-      CFRelease(v23);
-    }
   }
 
-  bOOLValue = [AVCaptureDevice reactionEffectGesturesEnabledDefault:v13];
+  bOOLValue = +[AVCaptureDevice reactionEffectGesturesEnabledDefault];
   if (changed)
   {
     objc_opt_class();
@@ -3824,64 +3734,41 @@ uint64_t __46__AVCaptureDevice_isEligibleForStudioLighting__block_invoke(uint64_
     v8 = sSuppressedGesturesEnabled;
     if (sSuppressedGesturesEnabled == 1)
     {
-      [selfCopy willChangeValueForKey:@"reactionEffectSuppressedGesturesEnabled"];
+      [self willChangeValueForKey:@"reactionEffectSuppressedGesturesEnabled"];
     }
 
-    [selfCopy willChangeValueForKey:@"reactionEffectGesturesEnabled"];
+    [self willChangeValueForKey:@"reactionEffectGesturesEnabled"];
     os_unfair_lock_lock(&sReactionsLock);
     sGesturesEnabled = bOOLValue;
     sSuppressedGesturesEnabled = 0;
     os_unfair_lock_unlock(&sReactionsLock);
     if (dword_1ED806A00)
     {
-      v9 = selfCopy;
-      LODWORD(v23) = 0;
-      LOBYTE(v22) = 0;
-      v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v11 = v23;
-      if (os_log_type_enabled(v10, v22))
-      {
-        v12 = v11;
-      }
-
-      else
-      {
-        v12 = v11 & 0xFFFFFFFE;
-      }
-
-      if (v12)
-      {
-        v17 = 136315394;
-        v18 = "+[AVCaptureDevice _gesturesEnabledChanged:]";
-        v19 = 1024;
-        LODWORD(v20) = bOOLValue;
-        LODWORD(v16) = 18;
-        v14 = &v17;
-        _os_log_send_and_compose_impl();
-      }
-
+      LODWORD(v12) = 0;
+      LOBYTE(v11) = 0;
+      v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      selfCopy = v9;
     }
 
-    [selfCopy didChangeValueForKey:{@"reactionEffectGesturesEnabled", v14, v16}];
+    [self didChangeValueForKey:@"reactionEffectGesturesEnabled"];
     if (v8)
     {
-      [selfCopy didChangeValueForKey:@"reactionEffectSuppressedGesturesEnabled"];
+      [self didChangeValueForKey:@"reactionEffectSuppressedGesturesEnabled"];
     }
   }
 }
 
 + (void)_reactionTriggered:(id)triggered
 {
-  v4 = [triggered objectForKeyedSubscript:@"AVControlCenterModulesNotificationDeviceIdentifierKey"];
+  v4 = objc_msgSend_objectForKeyedSubscript_(triggered, a2, @"AVControlCenterModulesNotificationDeviceIdentifierKey");
   if (v4)
   {
     v5 = [AVCaptureDevice deviceWithUniqueID:v4];
     if (v5)
     {
       v6 = v5;
-      v7 = [triggered objectForKeyedSubscript:@"AVControlCenterModulesNotificationReactionTypeKey"];
+      v7 = objc_msgSend_objectForKeyedSubscript_(triggered);
       +[AVCaptureDevice setUpReactionEffectsStateOnce];
       if ([sAvailableReactions containsObject:v7])
       {
@@ -3909,14 +3796,14 @@ uint64_t __46__AVCaptureDevice_isEligibleForStudioLighting__block_invoke(uint64_
 
 + (void)_reactionsInProgressChangedByControlCenter:(id)center
 {
-  v4 = [center objectForKeyedSubscript:@"AVControlCenterModulesNotificationDeviceIdentifierKey"];
+  v4 = objc_msgSend_objectForKeyedSubscript_(center, a2, @"AVControlCenterModulesNotificationDeviceIdentifierKey");
   if (v4)
   {
     v5 = [AVCaptureDevice deviceWithUniqueID:v4];
     if (v5)
     {
       v6 = v5;
-      v7 = [center objectForKeyedSubscript:@"AVControlCenterModulesNotificationReactionEffectsInProgressKey"];
+      v7 = objc_msgSend_objectForKeyedSubscript_(center);
       if (v7)
       {
 
@@ -4005,7 +3892,7 @@ LABEL_29:
     v19 = v18;
     if (v17)
     {
-      [v17 startTime];
+      objc_msgSend_startTime(v17);
       if (!v19)
       {
         goto LABEL_20;
@@ -4023,7 +3910,7 @@ LABEL_20:
       }
     }
 
-    [v19 startTime];
+    objc_msgSend_startTime(v19);
 LABEL_21:
     CMTimeSubtract(&time, &lhs, &rhs);
     Seconds = CMTimeGetSeconds(&time);
@@ -4037,13 +3924,13 @@ LABEL_31:
         goto LABEL_32;
       }
 
-      [v17 endTime];
+      objc_msgSend_endTime(v17);
       if ((v23 & 1) == 0)
       {
         goto LABEL_31;
       }
 
-      [v17 endTime];
+      objc_msgSend_endTime(v17);
       time = v22;
       [v19 setEndTime:&time];
 LABEL_32:
@@ -4088,7 +3975,7 @@ LABEL_23:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v5 = [MEMORY[0x1E696AD98] numberWithBool:{enabledCopy, v11, v12}];
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
   [AVCaptureProprietaryDefaultsSingleton setObject:v5 forKey:sReactionsEnabledKey];
   os_unfair_lock_lock(&sReactionsLock);
   v6 = sReactionsEnabled;
@@ -4099,29 +3986,30 @@ LABEL_23:
     v17 = OS_LOG_TYPE_DEFAULT;
     v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     v8 = v18;
+    v9 = v17;
     if (os_log_type_enabled(v7, v17))
     {
-      v9 = v8;
+      v10 = v8;
     }
 
     else
     {
-      v9 = v8 & 0xFFFFFFFE;
+      v10 = v8 & 0xFFFFFFFE;
     }
 
-    if (v9)
+    if (v10)
     {
-      v10 = @"NO";
+      v11 = @"NO";
       if (v6 == enabledCopy)
       {
-        v10 = @"YES";
+        v11 = @"YES";
       }
 
-      v13 = 136315394;
-      v14 = "+[AVCaptureDevice setReactionEffectsEnabled:]";
-      v15 = 2112;
-      v16 = v10;
-      _os_log_send_and_compose_impl();
+      v12 = 136315394;
+      v13 = "+[AVCaptureDevice setReactionEffectsEnabled:]";
+      v14 = 2112;
+      v15 = v11;
+      _os_log_send_and_compose_impl(v10, 0, v16, 128, &dword_1A917C000, v7, v9, "<<<< AVCaptureDevice >>>> %s: 2. Done, requested value to setReactionEffectsEnabled and app state for reactionEffectsEnabled agree? %@", &v12, 22);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -4141,7 +4029,7 @@ LABEL_23:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v5 = [MEMORY[0x1E696AD98] numberWithBool:{enabledCopy, v11, v12}];
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:enabledCopy];
   [AVCaptureProprietaryDefaultsSingleton setObject:v5 forKey:sGesturesEnabledKey];
   os_unfair_lock_lock(&sReactionsLock);
   v6 = sGesturesEnabled;
@@ -4152,29 +4040,30 @@ LABEL_23:
     v17 = OS_LOG_TYPE_DEFAULT;
     v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     v8 = v18;
+    v9 = v17;
     if (os_log_type_enabled(v7, v17))
     {
-      v9 = v8;
+      v10 = v8;
     }
 
     else
     {
-      v9 = v8 & 0xFFFFFFFE;
+      v10 = v8 & 0xFFFFFFFE;
     }
 
-    if (v9)
+    if (v10)
     {
-      v10 = @"NO";
+      v11 = @"NO";
       if (v6 == enabledCopy)
       {
-        v10 = @"YES";
+        v11 = @"YES";
       }
 
-      v13 = 136315394;
-      v14 = "+[AVCaptureDevice setReactionEffectGesturesEnabled:]";
-      v15 = 2112;
-      v16 = v10;
-      _os_log_send_and_compose_impl();
+      v12 = 136315394;
+      v13 = "+[AVCaptureDevice setReactionEffectGesturesEnabled:]";
+      v14 = 2112;
+      v15 = v11;
+      _os_log_send_and_compose_impl(v10, 0, v16, 128, &dword_1A917C000, v7, v9, "<<<< AVCaptureDevice >>>> %s: 2. Done, requested value to setReactionEffectGesturesEnabled and app state for reactionEffectGesturesEnabled agree? %@", &v12, 22);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -4225,20 +4114,15 @@ LABEL_23:
   [self setupKVOLoggingOnce];
   if (sDetailedKVOOverrideLogging == 1)
   {
-    v19 = 0;
+    v11 = 0;
     FigCopyBacktrace();
     if (dword_1ED806A00)
     {
-      v18 = 0;
-      v17 = 0;
+      v10 = 0;
+      v9 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-    }
-
-    if (v19)
-    {
-      CFRelease(v19);
     }
   }
 
@@ -4263,41 +4147,22 @@ LABEL_23:
     os_unfair_lock_unlock(&sGesturesDefaultDisabledNotificationLock);
     if (dword_1ED806A00)
     {
-      LODWORD(v19) = 0;
-      LOBYTE(v18) = 0;
+      LODWORD(v11) = 0;
+      LOBYTE(v10) = 0;
       v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v9 = v19;
-      if (os_log_type_enabled(v8, v18))
-      {
-        v10 = v9;
-      }
-
-      else
-      {
-        v10 = v9 & 0xFFFFFFFE;
-      }
-
-      if (v10)
-      {
-        v13 = 136315394;
-        v14 = "+[AVCaptureDevice _haveShownGesturesDefaultDisabledNotificationChanged:]";
-        v15 = 1024;
-        LODWORD(v16) = bOOLValue;
-        LODWORD(v12) = 18;
-        v11 = &v13;
-        _os_log_send_and_compose_impl();
-      }
-
+      os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [self didChangeValueForKey:{@"haveShownGesturesDefaultDisabledNotification", v11, v12}];
+    [self didChangeValueForKey:@"haveShownGesturesDefaultDisabledNotification"];
   }
 }
 
 + (void)requestGesturesDefaultDisabledNotification
 {
   haveShownGesturesDefaultDisabledNotification = [self haveShownGesturesDefaultDisabledNotification];
+  v8 = 0;
+  v7 = 0;
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
   os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
   fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -4350,7 +4215,7 @@ LABEL_23:
   else
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -4376,16 +4241,21 @@ void __54__AVCaptureDevice_setUpBackgroundReplacementStateOnce__block_invoke_4(u
     v10 = [*(a1 + 32) backgroundReplacementURL];
     v11 = +[AVCaptureDevice backgroundReplacementURLDefault];
     [v9 stringWithFormat:@"current URL: %@\ndefault URL: %@\ncall stack:\n%@", v10, v11, objc_msgSend(MEMORY[0x1E696AF00], "callStackSymbols")];
+    v30 = 0;
+    v29 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
-    v17 = _os_log_send_and_compose_impl();
+    v17 = [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
+    v25 = 138412290;
+    v26 = v17;
+    LODWORD(v23) = 12;
+    v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_1A917C000, MEMORY[0x1E69E9C10], 0, "Background Replacement URL Removed: nil in %@", &v25, v23);
     FigCaptureGetFrameworkRadarComponent();
     FigCapturePleaseFileRadar();
-    v18 = v17;
+    v19 = v18;
 LABEL_10:
-    free(v18);
+    free(v19);
     return;
   }
 
@@ -4396,15 +4266,22 @@ LABEL_10:
     v14 = [*(a1 + 32) backgroundReplacementURL];
     v15 = +[AVCaptureDevice backgroundReplacementURLDefault];
     [v13 stringWithFormat:@"current URL: %@\ndefault URL: %@\ncall stack:\n%@", v14, v15, objc_msgSend(MEMORY[0x1E696AF00], "callStackSymbols")];
+    v30 = 0;
+    v29 = 0;
     v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    objc_opt_class();
-    [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
-    v19 = _os_log_send_and_compose_impl();
+    v20 = objc_opt_class();
+    v21 = [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
+    v25 = 138412546;
+    v26 = v20;
+    v27 = 2112;
+    v28 = v21;
+    LODWORD(v24) = 22;
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_1A917C000, MEMORY[0x1E69E9C10], 0, "Background Replacement URL Removed: non URL (%@) in %@", &v25, v24);
     FigCaptureGetFrameworkRadarComponent();
     FigCapturePleaseFileRadar();
-    v18 = v19;
+    v19 = v22;
     goto LABEL_10;
   }
 
@@ -4648,7 +4525,7 @@ LABEL_8:
   return isEligibleForBackgroundReplacement_sIsEligibleForBackgroundReplacement;
 }
 
-uint64_t __53__AVCaptureDevice_isEligibleForBackgroundReplacement__block_invoke(uint64_t a1)
+void *__53__AVCaptureDevice_isEligibleForBackgroundReplacement__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _checkEligibilityForEffect:AVCaptureBundleCameraBackgroundReplacementEnabledKey];
   isEligibleForBackgroundReplacement_sIsEligibleForBackgroundReplacement = result;
@@ -4859,7 +4736,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
   if ((systemUserInterface - 1) >= 2)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -4877,7 +4754,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
 - (void)setAutomaticallyEnablesLowLightBoostWhenAvailable:(BOOL)automaticallyEnablesLowLightBoostWhenAvailable
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -4897,7 +4774,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
   if (enabled)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -4909,7 +4786,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
 - (void)setEyeDetectionEnabled:(BOOL)enabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -4920,7 +4797,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
 - (void)setEyeClosedDetectionEnabled:(BOOL)enabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -4931,7 +4808,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
 - (void)setSmileDetectionEnabled:(BOOL)enabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -4944,7 +4821,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
   if (restrictedSwitchingBehaviorConditions | switchingBehavior)
   {
     v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v4, v5))
     {
       objc_exception_throw(v4);
     }
@@ -4958,7 +4835,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
   if ([(NSArray *)fallbackPrimaryConstituentDevices count])
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -4972,7 +4849,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
   if (![(AVCaptureDevice *)self isTimeOfFlightProjectorModeSupported:mode])
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -4984,7 +4861,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
 - (void)setSpatialOverCaptureEnabled:(BOOL)enabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -4995,7 +4872,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
 - (void)setNonDestructiveCropEnabled:(BOOL)enabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -5006,7 +4883,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
 - (void)setAspectRatioForNonDestructiveCrop:(int64_t)crop
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -5019,7 +4896,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
   if (![(AVCaptureDevice *)self isCinematicVideoFocusAtPointSupported:d])
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -5031,7 +4908,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
 - (void)setCinematicVideoTrackingFocusWithDetectedObjectID:(int64_t)d focusMode:(int64_t)mode
 {
   v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v4, v5))
   {
     objc_exception_throw(v4);
   }
@@ -5042,7 +4919,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
 - (void)setCinematicVideoTrackingFocusAtPoint:(CGPoint)point focusMode:(int64_t)mode
 {
   v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v4, v5))
   {
     objc_exception_throw(v4);
   }
@@ -5053,7 +4930,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
 - (void)setCinematicVideoFixedFocusAtPoint:(CGPoint)point focusMode:(int64_t)mode
 {
   v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v4, v5))
   {
     objc_exception_throw(v4);
   }
@@ -5068,81 +4945,84 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
     +[AVCaptureDevice continuityCaptureCameraCapabilities];
   }
 
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3052000000;
-  v15 = __Block_byref_object_copy__5;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3052000000;
+  v19 = __Block_byref_object_copy__5;
   v2 = getCMContinuityCaptureCapabilitiesClass_softClass;
-  v16 = __Block_byref_object_dispose__5;
-  v17 = getCMContinuityCaptureCapabilitiesClass_softClass;
+  v20 = __Block_byref_object_dispose__5;
+  v21 = getCMContinuityCaptureCapabilitiesClass_softClass;
   if (!getCMContinuityCaptureCapabilitiesClass_softClass)
   {
-    *v20 = MEMORY[0x1E69E9820];
-    *&v20[8] = 3221225472;
-    *&v20[16] = __getCMContinuityCaptureCapabilitiesClass_block_invoke;
-    v21 = &unk_1E786EC30;
-    v22 = &v12;
-    __getCMContinuityCaptureCapabilitiesClass_block_invoke(v20);
-    v2 = v13[5];
+    *v24 = MEMORY[0x1E69E9820];
+    *&v24[8] = 3221225472;
+    *&v24[16] = __getCMContinuityCaptureCapabilitiesClass_block_invoke;
+    v25 = &unk_1E786EC30;
+    v26 = &v16;
+    __getCMContinuityCaptureCapabilitiesClass_block_invoke(v24);
+    v2 = v17[5];
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v16, 8);
   capabilitiesForCurrentDevice = [v2 capabilitiesForCurrentDevice];
   dictionaryRepresentation = [capabilitiesForCurrentDevice dictionaryRepresentation];
-  if (AVCaptureClientIsRapport())
+  if (AVCaptureClientIsRapport(dictionaryRepresentation, v5))
   {
     [NSClassFromString(&cfstr_Avcapturefigvi.isa) _releaseStaticResources];
   }
 
   if (dword_1ED806A00)
   {
-    v19 = 0;
-    v18 = OS_LOG_TYPE_DEFAULT;
+    v23 = 0;
+    v22 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v6 = v19;
-    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v18))
+    v7 = v23;
+    v8 = v22;
+    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v22))
     {
-      v7 = v6;
+      v9 = v7;
     }
 
     else
     {
-      v7 = v6 & 0xFFFFFFFE;
+      v9 = v7 & 0xFFFFFFFE;
     }
 
-    if (v7)
+    if (v9)
     {
-      *v20 = 136315394;
-      *&v20[4] = "+[AVCaptureDevice continuityCaptureCameraCapabilities]";
-      *&v20[12] = 2112;
-      *&v20[14] = capabilitiesForCurrentDevice;
-      _os_log_send_and_compose_impl();
+      *v24 = 136315394;
+      *&v24[4] = "+[AVCaptureDevice continuityCaptureCameraCapabilities]";
+      *&v24[12] = 2112;
+      *&v24[14] = capabilitiesForCurrentDevice;
+      _os_log_send_and_compose_impl(v9, 0, &v16, 128, &dword_1A917C000, os_log_and_send_and_compose_flags_and_os_log_type, v8, "<<<< AVCaptureDevice >>>> %s: Capabilities: %@", v24, 22);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     if (dword_1ED806A00)
     {
-      v19 = 0;
-      v18 = OS_LOG_TYPE_DEFAULT;
-      v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v9 = v19;
-      if (os_log_type_enabled(v8, v18))
+      v23 = 0;
+      v22 = OS_LOG_TYPE_DEFAULT;
+      v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v11 = v23;
+      v12 = v22;
+      if (os_log_type_enabled(v10, v22))
       {
-        v10 = v9;
+        v13 = v11;
       }
 
       else
       {
-        v10 = v9 & 0xFFFFFFFE;
+        v13 = v11 & 0xFFFFFFFE;
       }
 
-      if (v10)
+      if (v13)
       {
-        *v20 = 136315394;
-        *&v20[4] = "+[AVCaptureDevice continuityCaptureCameraCapabilities]";
-        *&v20[12] = 2112;
-        *&v20[14] = dictionaryRepresentation;
-        _os_log_send_and_compose_impl();
+        *v24 = 136315394;
+        *&v24[4] = "+[AVCaptureDevice continuityCaptureCameraCapabilities]";
+        *&v24[12] = 2112;
+        *&v24[14] = dictionaryRepresentation;
+        LODWORD(v15) = 22;
+        _os_log_send_and_compose_impl(v13, 0, &v16, 128, &dword_1A917C000, v10, v12, "<<<< AVCaptureDevice >>>> %s: Capabilities Dictionary: %@", v24, v15);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -5152,7 +5032,7 @@ uint64_t __47__AVCaptureDevice_setUpMicrophoneModeStateOnce__block_invoke(uint64
   return dictionaryRepresentation;
 }
 
-uint64_t __54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke()
+AVCaptureBlockKVOObserver *__54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695E000]);
   continuityCaptureCameraCapabilities_cameraCaptureUserDefaults = [v0 initWithSuiteName:*MEMORY[0x1E698F708]];
@@ -5185,6 +5065,8 @@ uint64_t __54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke
   v2 = CFPreferencesCopyValue(*MEMORY[0x1E698F728], *MEMORY[0x1E698F718], *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
   if (dword_1ED806A00)
   {
+    v6 = 0;
+    v5 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -5196,7 +5078,7 @@ uint64_t __54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke
 - (void)setDeskViewCameraMode:(int64_t)mode
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -5209,7 +5091,7 @@ uint64_t __54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke
   if (![(AVCaptureDevice *)self isManualFramingSupported])
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -5221,7 +5103,7 @@ uint64_t __54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke
 - (void)setCenterStageFieldOfViewRestrictedToWide:(BOOL)wide
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -5232,7 +5114,7 @@ uint64_t __54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke
 - (void)setManualFramingPanningAngleX:(float)x
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -5243,7 +5125,7 @@ uint64_t __54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke
 - (void)setManualFramingPanningAngleY:(float)y
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -5254,7 +5136,7 @@ uint64_t __54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke
 - (void)startPanningAtPoint:(CGPoint)point
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -5265,7 +5147,7 @@ uint64_t __54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke
 - (void)panWithTranslation:(CGPoint)translation
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -5276,7 +5158,7 @@ uint64_t __54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke
 - (void)performOneShotFraming
 {
   v2 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v2, v3))
   {
     objc_exception_throw(v2);
   }
@@ -5287,7 +5169,7 @@ uint64_t __54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke
 - (void)resetFraming
 {
   v2 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v2, v3))
   {
     objc_exception_throw(v2);
   }
@@ -5298,7 +5180,7 @@ uint64_t __54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke
 - (void)setGazeSelectionEnabled:(BOOL)enabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -5356,28 +5238,29 @@ uint64_t __54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [AVCaptureProprietaryDefaultsSingleton retryPriorFailedKeyObservationRegistrations:v6];
+  +[AVCaptureProprietaryDefaultsSingleton retryPriorFailedKeyObservationRegistrations];
   if (dword_1ED806A00)
   {
     v11 = 0;
     v10 = OS_LOG_TYPE_DEFAULT;
     v3 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     v4 = v11;
+    v5 = v10;
     if (os_log_type_enabled(v3, v10))
     {
-      v5 = v4;
+      v6 = v4;
     }
 
     else
     {
-      v5 = v4 & 0xFFFFFFFE;
+      v6 = v4 & 0xFFFFFFFE;
     }
 
-    if (v5)
+    if (v6)
     {
-      v8 = 136315138;
-      v9 = "+[AVCaptureDevice(ServerConnection) ensureServerConnection]";
-      _os_log_send_and_compose_impl();
+      v7 = 136315138;
+      v8 = "+[AVCaptureDevice(ServerConnection) ensureServerConnection]";
+      _os_log_send_and_compose_impl(v6, 0, v9, 128, &dword_1A917C000, v3, v5, "<<<< AVCaptureDevice >>>> %s: have retried prior failed key observations", &v7);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -5387,7 +5270,7 @@ uint64_t __54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke
 - (void)setDockedTrackingEnabled:(BOOL)enabled
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }
@@ -5398,7 +5281,7 @@ uint64_t __54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke
 - (void)setDynamicAspectRatio:(id)ratio completionHandler:(id)handler
 {
   v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v4, v5))
   {
     objc_exception_throw(v4);
   }
@@ -5409,7 +5292,7 @@ uint64_t __54__AVCaptureDevice_continuityCaptureCameraCapabilities__block_invoke
 - (void)setCameraLensSmudgeDetectionEnabled:(BOOL)enabled detectionInterval:(id *)interval
 {
   v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v4, v5))
   {
     objc_exception_throw(v4);
   }

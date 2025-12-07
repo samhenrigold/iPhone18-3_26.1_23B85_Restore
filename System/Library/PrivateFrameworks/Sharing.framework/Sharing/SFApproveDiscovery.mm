@@ -47,18 +47,22 @@
   dispatch_async(dispatchQueue, v7);
 }
 
-uint64_t __45__SFApproveDiscovery_activateWithCompletion___block_invoke(uint64_t a1)
+uint64_t __45__SFApproveDiscovery_activateWithCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a1;
   *(*(a1 + 32) + 8) = 1;
-  if (gLogCategory_SFApproveDiscovery <= 50 && (gLogCategory_SFApproveDiscovery != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFApproveDiscovery <= 50)
   {
-    __45__SFApproveDiscovery_activateWithCompletion___block_invoke_cold_1();
+    if (gLogCategory_SFApproveDiscovery != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __45__SFApproveDiscovery_activateWithCompletion___block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v4 = *(v3 + 32);
+  v5 = *(v3 + 40);
 
-  return [v2 _activateWithCompletion:v3];
+  return [v4 _activateWithCompletion:v5];
 }
 
 - (void)_activateWithCompletion:(id)completion
@@ -93,23 +97,26 @@ uint64_t __45__SFApproveDiscovery_activateWithCompletion___block_invoke(uint64_t
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __32__SFApproveDiscovery_invalidate__block_invoke(uint64_t result)
+void *__32__SFApproveDiscovery_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v5 = *(result + 32);
-  if ((*(v5 + 24) & 1) == 0)
+  v7 = result[4];
+  if ((*(v7 + 24) & 1) == 0)
   {
-    v8 = v1;
-    v6 = result;
-    *(v5 + 24) = 1;
-    if (gLogCategory_SFApproveDiscovery <= 50 && (gLogCategory_SFApproveDiscovery != -1 || _LogCategory_Initialize()))
+    v10 = v3;
+    v8 = result;
+    *(v7 + 24) = 1;
+    if (gLogCategory_SFApproveDiscovery <= 50)
     {
-      __32__SFApproveDiscovery_invalidate__block_invoke_cold_1();
+      if (gLogCategory_SFApproveDiscovery != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __32__SFApproveDiscovery_invalidate__block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    [*(v6 + 32) _discoveryEnsureStopped];
-    v7 = *(v6 + 32);
+    [v8[4] _discoveryEnsureStopped];
+    v9 = v8[4];
 
-    return [v7 _invalidated];
+    return [v9 _invalidated];
   }
 
   return result;
@@ -135,9 +142,12 @@ uint64_t __32__SFApproveDiscovery_invalidate__block_invoke(uint64_t result)
     self->_invalidationHandler = 0;
 
     self->_invalidateDone = 1;
-    if (gLogCategory_SFApproveDiscovery <= 50 && (gLogCategory_SFApproveDiscovery != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFApproveDiscovery <= 50)
     {
-      [SFApproveDiscovery _invalidated];
+      if (gLogCategory_SFApproveDiscovery != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        [(SFApproveDiscovery *)v5 _invalidated];
+      }
     }
   }
 }
@@ -204,16 +214,20 @@ uint64_t __32__SFApproveDiscovery_invalidate__block_invoke(uint64_t result)
   }
 }
 
-uint64_t __45__SFApproveDiscovery__discoveryEnsureStarted__block_invoke_4(uint64_t a1)
+uint64_t __45__SFApproveDiscovery__discoveryEnsureStarted__block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFApproveDiscovery <= 90 && (gLogCategory_SFApproveDiscovery != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFApproveDiscovery <= 90)
   {
-    __45__SFApproveDiscovery__discoveryEnsureStarted__block_invoke_4_cold_1();
+    if (gLogCategory_SFApproveDiscovery != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __45__SFApproveDiscovery__discoveryEnsureStarted__block_invoke_4_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(v3 + 32);
 
-  return [v2 invalidate];
+  return [v4 invalidate];
 }
 
 - (void)_discoveryEnsureStopped
@@ -238,7 +252,7 @@ uint64_t __45__SFApproveDiscovery__discoveryEnsureStarted__block_invoke_4(uint64
     {
       if (gLogCategory_SFApproveDiscovery <= 60 && (gLogCategory_SFApproveDiscovery != -1 || _LogCategory_Initialize()))
       {
-        [SFApproveDiscovery _discoveryFoundDevice:];
+        [SFApproveDiscovery _discoveryFoundDevice:deviceCopy];
       }
     }
 
@@ -246,7 +260,7 @@ uint64_t __45__SFApproveDiscovery__discoveryEnsureStarted__block_invoke_4(uint64
     {
       if (gLogCategory_SFApproveDiscovery <= 50 && (gLogCategory_SFApproveDiscovery != -1 || _LogCategory_Initialize()))
       {
-        [SFApproveDiscovery _discoveryFoundDevice:];
+        [SFApproveDiscovery _discoveryFoundDevice:deviceCopy];
       }
 
       [(NSMutableDictionary *)self->_deviceDictionary setObject:deviceCopy forKeyedSubscript:identifier];
@@ -266,13 +280,13 @@ uint64_t __45__SFApproveDiscovery__discoveryEnsureStarted__block_invoke_4(uint64
 
     else if (gLogCategory_SFApproveDiscovery <= 50 && (gLogCategory_SFApproveDiscovery != -1 || _LogCategory_Initialize()))
     {
-      [SFApproveDiscovery _discoveryFoundDevice:];
+      [SFApproveDiscovery _discoveryFoundDevice:deviceCopy];
     }
   }
 
   else if (gLogCategory_SFApproveDiscovery <= 90 && (gLogCategory_SFApproveDiscovery != -1 || _LogCategory_Initialize()))
   {
-    [SFApproveDiscovery _discoveryFoundDevice:];
+    [SFApproveDiscovery _discoveryFoundDevice:deviceCopy];
   }
 }
 
@@ -281,18 +295,22 @@ uint64_t __45__SFApproveDiscovery__discoveryEnsureStarted__block_invoke_4(uint64
   changedCopy = changed;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   identifier = [changedCopy identifier];
+  v7 = identifier;
   if (!identifier)
   {
-    if (gLogCategory_SFApproveDiscovery <= 90 && (gLogCategory_SFApproveDiscovery != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFApproveDiscovery <= 90)
     {
-      [SFApproveDiscovery _discoveryDeviceChanged:];
+      if (gLogCategory_SFApproveDiscovery != -1 || (identifier = _LogCategory_Initialize(), identifier))
+      {
+        [(SFApproveDiscovery *)identifier _discoveryDeviceChanged:v5, v6];
+      }
     }
 
     goto LABEL_21;
   }
 
-  v5 = [(NSMutableDictionary *)self->_deviceDictionary objectForKeyedSubscript:identifier];
-  if (v5)
+  v8 = [(NSMutableDictionary *)self->_deviceDictionary objectForKeyedSubscript:identifier];
+  if (v8)
   {
   }
 
@@ -300,10 +318,10 @@ uint64_t __45__SFApproveDiscovery__discoveryEnsureStarted__block_invoke_4(uint64
   {
     if (gLogCategory_SFApproveDiscovery <= 50 && (gLogCategory_SFApproveDiscovery != -1 || _LogCategory_Initialize()))
     {
-      [SFApproveDiscovery _discoveryDeviceChanged:];
+      [SFApproveDiscovery _discoveryDeviceChanged:changedCopy];
     }
 
-    [(NSMutableDictionary *)self->_deviceDictionary setObject:changedCopy forKeyedSubscript:identifier];
+    [(NSMutableDictionary *)self->_deviceDictionary setObject:changedCopy forKeyedSubscript:v7];
     selfCopy = self;
     objc_sync_enter(selfCopy);
     allValues = [(NSMutableDictionary *)self->_deviceDictionary allValues];
@@ -320,24 +338,24 @@ uint64_t __45__SFApproveDiscovery__discoveryEnsureStarted__block_invoke_4(uint64
     goto LABEL_21;
   }
 
-  v10 = [(NSMutableDictionary *)self->_deviceDictionary objectForKeyedSubscript:identifier];
-  if (v10)
+  v13 = [(NSMutableDictionary *)self->_deviceDictionary objectForKeyedSubscript:v7];
+  if (v13)
   {
-    v11 = v10;
+    v14 = v13;
     autoUnlockEnabled = [changedCopy autoUnlockEnabled];
 
     if ((autoUnlockEnabled & 1) == 0)
     {
       if (gLogCategory_SFApproveDiscovery <= 50 && (gLogCategory_SFApproveDiscovery != -1 || _LogCategory_Initialize()))
       {
-        [SFApproveDiscovery _discoveryDeviceChanged:];
+        [SFApproveDiscovery _discoveryDeviceChanged:changedCopy];
       }
 
-      [(NSMutableDictionary *)self->_deviceDictionary removeObjectForKey:identifier];
+      [(NSMutableDictionary *)self->_deviceDictionary removeObjectForKey:v7];
       selfCopy2 = self;
       objc_sync_enter(selfCopy2);
       allValues2 = [(NSMutableDictionary *)self->_deviceDictionary allValues];
-      v15 = selfCopy2->_devices;
+      v18 = selfCopy2->_devices;
       selfCopy2->_devices = allValues2;
 
       objc_sync_exit(selfCopy2);
@@ -358,18 +376,19 @@ LABEL_21:
   deviceCopy = device;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   identifier = [deviceCopy identifier];
+  v7 = identifier;
   if (identifier)
   {
-    v5 = [(NSMutableDictionary *)self->_deviceDictionary objectForKeyedSubscript:identifier];
+    v8 = [(NSMutableDictionary *)self->_deviceDictionary objectForKeyedSubscript:identifier];
 
-    if (v5)
+    if (v8)
     {
       if (gLogCategory_SFApproveDiscovery <= 50 && (gLogCategory_SFApproveDiscovery != -1 || _LogCategory_Initialize()))
       {
-        [SFApproveDiscovery _discoveryLostDevice:];
+        [SFApproveDiscovery _discoveryLostDevice:deviceCopy];
       }
 
-      [(NSMutableDictionary *)self->_deviceDictionary removeObjectForKey:identifier];
+      [(NSMutableDictionary *)self->_deviceDictionary removeObjectForKey:v7];
       selfCopy = self;
       objc_sync_enter(selfCopy);
       allValues = [(NSMutableDictionary *)self->_deviceDictionary allValues];
@@ -386,13 +405,16 @@ LABEL_21:
 
     else if (gLogCategory_SFApproveDiscovery <= 50 && (gLogCategory_SFApproveDiscovery != -1 || _LogCategory_Initialize()))
     {
-      [SFApproveDiscovery _discoveryLostDevice:];
+      [SFApproveDiscovery _discoveryLostDevice:deviceCopy];
     }
   }
 
-  else if (gLogCategory_SFApproveDiscovery <= 90 && (gLogCategory_SFApproveDiscovery != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_SFApproveDiscovery <= 90)
   {
-    [SFApproveDiscovery _discoveryLostDevice:];
+    if (gLogCategory_SFApproveDiscovery != -1 || (identifier = _LogCategory_Initialize(), identifier))
+    {
+      [(SFApproveDiscovery *)identifier _discoveryLostDevice:v5, v6];
+    }
   }
 }
 

@@ -18,20 +18,20 @@
   v16 = [(HDIDSDevice *)&v26 init];
   if (v16)
   {
-    v17 = [identifierCopy copy];
+    v17 = objc_msgSend_copy(identifierCopy);
     identifier = v16->_identifier;
     v16->_identifier = v17;
 
-    v19 = [nameCopy copy];
+    v19 = objc_msgSend_copy(nameCopy);
     name = v16->_name;
     v16->_name = v19;
 
-    v21 = [dCopy copy];
+    v21 = objc_msgSend_copy(dCopy);
     destinationID = v16->_destinationID;
     v16->_destinationID = v21;
 
     v16->_deviceType = type;
-    v23 = [versionCopy copy];
+    v23 = objc_msgSend_copy(versionCopy);
     buildVersion = v16->_buildVersion;
     v16->_buildVersion = v23;
   }

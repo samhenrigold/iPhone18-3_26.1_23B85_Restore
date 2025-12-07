@@ -5,7 +5,7 @@
 
 Class __get_PSSuggesterConfigurationClass_block_invoke(uint64_t a1)
 {
-  PeopleSuggesterLibraryCore();
+  PeopleSuggesterLibraryCore(0);
   result = objc_getClass("_PSSuggesterConfiguration");
   *(*(*(a1 + 32) + 8) + 24) = result;
   get_PSSuggesterConfigurationClass_softClass = *(*(*(a1 + 32) + 8) + 24);

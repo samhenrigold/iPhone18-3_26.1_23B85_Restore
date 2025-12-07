@@ -36,7 +36,7 @@
 
 - (void)import:(id)import
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   importCopy = import;
   date = [MEMORY[0x277CBEAA8] date];
   v6 = +[MKLog log];
@@ -47,9 +47,9 @@
     _os_log_impl(&dword_2592D2000, v6, OS_LOG_TYPE_INFO, "%@ will import a vcard.", buf, 0xCu);
   }
 
-  v39 = 0;
-  v7 = [MEMORY[0x277CBDAC8] contactsWithData:importCopy error:&v39];
-  v8 = v39;
+  v38 = 0;
+  v7 = [MEMORY[0x277CBDAC8] contactsWithData:importCopy error:&v38];
+  v8 = v38;
   if (v8)
   {
     v9 = +[MKLog log];
@@ -97,38 +97,38 @@ LABEL_20:
   }
 
   v9 = objc_alloc_init(MEMORY[0x277CBDBA0]);
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v10 = v7;
-  v11 = [v10 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v11)
   {
-    v12 = *v36;
+    v12 = *v35;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v36 != v12)
+        if (*v35 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = [*(*(&v35 + 1) + 8 * i) mutableCopy];
+        v14 = [*(*(&v34 + 1) + 8 * i) mutableCopy];
         [v9 addContact:v14 toContainerWithIdentifier:0];
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v11);
   }
 
   contactStore = self->_contactStore;
-  v34 = 0;
-  [(CNContactStore *)contactStore executeSaveRequest:v9 error:&v34];
-  v16 = v34;
+  v33 = 0;
+  [(CNContactStore *)contactStore executeSaveRequest:v9 error:&v33];
+  v16 = v33;
   if (v16)
   {
     v8 = v16;
@@ -181,7 +181,6 @@ LABEL_30:
   [contacts setImportElapsedTime:v32];
 
   objc_sync_exit(v24);
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -116,25 +116,23 @@
 
 - (void)handleResponseHeaders:(id)headers
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   headersCopy = headers;
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v9 = headersCopy;
+    v8 = headersCopy;
     _os_log_impl(&dword_195925000, v5, OS_LOG_TYPE_DEFAULT, "FT URL  Message Completed With Respone Headers %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
   {
-    v7 = headersCopy;
+    v6 = headersCopy;
     _IDSLogV();
   }
 
-  [(FTURLRequestMessage *)self setResponseHeaders:headersCopy, v7];
-
-  v6 = *MEMORY[0x1E69E9840];
+  [(FTURLRequestMessage *)self setResponseHeaders:headersCopy, v6];
 }
 
 - (void)handleResponseStatus:(unint64_t)status

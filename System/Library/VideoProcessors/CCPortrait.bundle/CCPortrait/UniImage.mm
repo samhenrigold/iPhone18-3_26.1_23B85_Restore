@@ -360,180 +360,180 @@ LABEL_13:
   scheduledCopy = scheduled;
   arrayCopy = array;
   queueCopy = queue;
-  v569 = objc_msgSend_set(MEMORY[0x29EDB8E20], v9, v10);
-  v565 = objc_msgSend_array(MEMORY[0x29EDB8DE8], v11, v12);
+  v578 = objc_msgSend_set(MEMORY[0x29EDB8E20], v9, v10);
+  v574 = objc_msgSend_array(MEMORY[0x29EDB8DE8], v11, v12);
   v15 = objc_msgSend_set(MEMORY[0x29EDB8E20], v13, v14);
   v18 = objc_msgSend_weakObjectsPointerArray(MEMORY[0x29EDBA0A0], v16, v17);
   v21 = objc_msgSend_lastObject(arrayCopy, v19, v20);
   v24 = objc_msgSend_kernel(v21, v22, v23);
 
-  v563 = v24;
+  v572 = v24;
   v27 = objc_msgSend_getRenderOrder(v24, v25, v26);
-  v581 = 0u;
-  v582 = 0u;
-  v583 = 0u;
-  v584 = 0u;
+  v590 = 0u;
+  v591 = 0u;
+  v592 = 0u;
+  v593 = 0u;
   v28 = arrayCopy;
-  v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v29, &v581, v580, 16);
+  v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v29, &v590, v589, 16);
   if (v30)
   {
     v31 = v30;
-    v32 = *v582;
+    v32 = *v591;
     do
     {
       for (i = 0; i != v31; ++i)
       {
-        if (*v582 != v32)
+        if (*v591 != v32)
         {
           objc_enumerationMutation(v28);
         }
 
-        sub_2956B918C(*(*(&v581 + 1) + 8 * i), v15, v18);
+        sub_2956B918C(*(*(&v590 + 1) + 8 * i), v15, v18);
       }
 
-      v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v34, &v581, v580, 16);
+      v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v34, &v590, v589, 16);
     }
 
     while (v31);
   }
 
   v35 = v27;
-  if (v35 && objc_msgSend_pointerAtIndex_(v35, v36, 0))
+  if (v35 && (v36 = objc_msgSend_pointerAtIndex_(v35, v37, 0)) != 0)
   {
-    v38 = objc_msgSend_pointerAtIndex_(v35, v37, 0);
-    v41 = objc_msgSend_device(v38, v39, v40);
-    v44 = v41;
+    v39 = objc_msgSend_pointerAtIndex_(v35, v38, 0);
+    v42 = objc_msgSend_device(v39, v40, v41);
+    v45 = v42;
     if (!queueCopy)
     {
-      queueCopy = objc_msgSend_newCommandQueue(v41, v42, v43);
+      queueCopy = objc_msgSend_newCommandQueue(v42, v43, v44);
     }
 
-    v560 = v44;
+    v569 = v45;
     objc_opt_class();
     objc_opt_class();
-    v45 = MEMORY[0x29EDB8E20];
-    v48 = objc_msgSend_count(v35, v46, v47);
-    v566 = objc_msgSend_setWithCapacity_(v45, v49, v48);
-    v574 = 0u;
-    v575 = 0u;
-    v576 = 0u;
-    v577 = 0u;
-    v561 = v35;
+    v46 = MEMORY[0x29EDB8E20];
+    v49 = objc_msgSend_count(v35, v47, v48);
+    v575 = objc_msgSend_setWithCapacity_(v46, v50, v49);
+    v583 = 0u;
+    v584 = 0u;
+    v585 = 0u;
+    v586 = 0u;
+    v570 = v35;
     obj = v35;
-    v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v50, &v574, v573, 16);
-    if (v51)
+    v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v51, &v583, v582, 16);
+    if (v52)
     {
-      v52 = v51;
-      v53 = 0;
-      v570 = *v575;
-      v564 = queueCopy;
+      v53 = v52;
+      v54 = 0;
+      v579 = *v584;
+      v573 = queueCopy;
       do
       {
-        v54 = 0;
+        v55 = 0;
         do
         {
-          if (*v575 != v570)
+          if (*v584 != v579)
           {
             objc_enumerationMutation(obj);
           }
 
-          v55 = *(*(&v574 + 1) + 8 * v54);
+          v56 = *(*(&v583 + 1) + 8 * v55);
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             sub_2956CE0C0();
           }
 
-          v56 = v55;
-          if (!v56)
+          v57 = v56;
+          if (!v57)
           {
             goto LABEL_103;
           }
 
-          v57 = objc_opt_class();
-          if (v57 == objc_opt_class())
+          v58 = objc_opt_class();
+          if (v58 == objc_opt_class())
           {
-            v73 = objc_msgSend_mk(v56, v58, v59);
+            v75 = objc_msgSend_mk(v57, v59, v60);
 
-            if (v73)
+            if (v75)
             {
-              v76 = objc_msgSend_mk(v56, v74, v75);
-              v64 = objc_msgSend_label(v76, v77, v78);
+              v78 = objc_msgSend_mk(v57, v76, v77);
+              v65 = objc_msgSend_label(v78, v79, v80);
 
-              v81 = objc_msgSend_length(@"run kernel: modify_blurmap_apply", v79, v80);
-              v83 = objc_msgSend_substringWithRange_(@"run kernel: modify_blurmap_apply", v82, 12, v81 - 12);
-              isEqualToString = objc_msgSend_isEqualToString_(v64, v84, v83);
+              v83 = objc_msgSend_length(@"run kernel: modify_blurmap_apply", v81, v82);
+              v85 = objc_msgSend_substringWithRange_(@"run kernel: modify_blurmap_apply", v84, 12, v83 - 12);
+              isEqualToString = objc_msgSend_isEqualToString_(v65, v86, v85);
 
-              v88 = "run kernel: modify_blurmap_apply";
+              v91 = "run kernel: modify_blurmap_apply";
               if ((isEqualToString & 1) != 0
-                || (v89 = objc_msgSend_length(@"run kernel: modify_blurmap_glasses_apply", v86, v87), objc_msgSend_substringWithRange_(@"run kernel: modify_blurmap_glasses_apply", v90, 12, v89 - 12), v91 = objc_claimAutoreleasedReturnValue(), v93 = objc_msgSend_isEqualToString_(v64, v92, v91), v91, v88 = "run kernel: modify_blurmap_glasses_apply", (v93 & 1) != 0)
-                || (v96 = objc_msgSend_length(@"run kernel: threshold_hard_apply", v94, v95), objc_msgSend_substringWithRange_(@"run kernel: threshold_hard_apply", v97, 12, v96 - 12), v98 = objc_claimAutoreleasedReturnValue(), v100 = objc_msgSend_isEqualToString_(v64, v99, v98), v98, v88 = "run kernel: threshold_hard_apply", (v100 & 1) != 0)
-                || (v103 = objc_msgSend_length(@"run kernel: map_linear_apply", v101, v102), objc_msgSend_substringWithRange_(@"run kernel: map_linear_apply", v104, 12, v103 - 12), v105 = objc_claimAutoreleasedReturnValue(), v107 = objc_msgSend_isEqualToString_(v64, v106, v105), v105, v88 = "run kernel: map_linear_apply", (v107 & 1) != 0)
-                || (v110 = objc_msgSend_length(@"run kernel: map_linear_no_secondary_tex_apply", v108, v109), objc_msgSend_substringWithRange_(@"run kernel: map_linear_no_secondary_tex_apply", v111, 12, v110 - 12), v112 = objc_claimAutoreleasedReturnValue(), v114 = objc_msgSend_isEqualToString_(v64, v113, v112), v112, v88 = "run kernel: map_linear_no_secondary_tex_apply", (v114 & 1) != 0)
-                || (v117 = objc_msgSend_length(@"run kernel: disparity_refinement_bicubic_upscale", v115, v116), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_bicubic_upscale", v118, 12, v117 - 12), v119 = objc_claimAutoreleasedReturnValue(), v121 = objc_msgSend_isEqualToString_(v64, v120, v119), v119, v88 = "run kernel: disparity_refinement_bicubic_upscale", (v121 & 1) != 0)
-                || (v124 = objc_msgSend_length(@"run kernel: disparity_refinement_slm_passthrough", v122, v123), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_slm_passthrough", v125, 12, v124 - 12), v126 = objc_claimAutoreleasedReturnValue(), v128 = objc_msgSend_isEqualToString_(v64, v127, v126), v126, v88 = "run kernel: disparity_refinement_slm_passthrough", (v128 & 1) != 0)
-                || (v131 = objc_msgSend_length(@"run kernel: disparity_refinement_calcweightsX", v129, v130), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_calcweightsX", v132, 12, v131 - 12), v133 = objc_claimAutoreleasedReturnValue(), v135 = objc_msgSend_isEqualToString_(v64, v134, v133), v133, v88 = "run kernel: disparity_refinement_calcweightsX", (v135 & 1) != 0)
-                || (v138 = objc_msgSend_length(@"run kernel: disparity_refinement_calcweightsY", v136, v137), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_calcweightsY", v139, 12, v138 - 12), v140 = objc_claimAutoreleasedReturnValue(), v142 = objc_msgSend_isEqualToString_(v64, v141, v140), v140, v88 = "run kernel: disparity_refinement_calcweightsY", (v142 & 1) != 0)
-                || (v145 = objc_msgSend_length(@"run kernel: disparity_refinement_preproc", v143, v144), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_preproc", v146, 12, v145 - 12), v147 = objc_claimAutoreleasedReturnValue(), v149 = objc_msgSend_isEqualToString_(v64, v148, v147), v147, v88 = "run kernel: disparity_refinement_preproc", (v149 & 1) != 0)
-                || (v152 = objc_msgSend_length(@"run kernel: disparity_refinement_sample", v150, v151), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_sample", v153, 12, v152 - 12), v154 = objc_claimAutoreleasedReturnValue(), v156 = objc_msgSend_isEqualToString_(v64, v155, v154), v154, v88 = "run kernel: disparity_refinement_sample", (v156 & 1) != 0)
-                || (v159 = objc_msgSend_length(@"run kernel: disparity_refinement_antialias", v157, v158), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_antialias", v160, 12, v159 - 12), v161 = objc_claimAutoreleasedReturnValue(), v163 = objc_msgSend_isEqualToString_(v64, v162, v161), v161, v88 = "run kernel: disparity_refinement_antialias", (v163 & 1) != 0)
-                || (v166 = objc_msgSend_length(@"run kernel: facemask_calc", v164, v165), objc_msgSend_substringWithRange_(@"run kernel: facemask_calc", v167, 12, v166 - 12), v168 = objc_claimAutoreleasedReturnValue(), v170 = objc_msgSend_isEqualToString_(v64, v169, v168), v168, v88 = "run kernel: facemask_calc", (v170 & 1) != 0)
-                || (v173 = objc_msgSend_length(@"run kernel: facemask_apply", v171, v172), objc_msgSend_substringWithRange_(@"run kernel: facemask_apply", v174, 12, v173 - 12), v175 = objc_claimAutoreleasedReturnValue(), v177 = objc_msgSend_isEqualToString_(v64, v176, v175), v175, v88 = "run kernel: facemask_apply", (v177 & 1) != 0)
-                || (v180 = objc_msgSend_length(@"run kernel: fpDisparityRefinementPreprocessing", v178, v179), objc_msgSend_substringWithRange_(@"run kernel: fpDisparityRefinementPreprocessing", v181, 12, v180 - 12), v182 = objc_claimAutoreleasedReturnValue(), v184 = objc_msgSend_isEqualToString_(v64, v183, v182), v182, v88 = "run kernel: fpDisparityRefinementPreprocessing", (v184 & 1) != 0)
-                || (v187 = objc_msgSend_length(@"run kernel: fp_slm_calc", v185, v186), objc_msgSend_substringWithRange_(@"run kernel: fp_slm_calc", v188, 12, v187 - 12), v189 = objc_claimAutoreleasedReturnValue(), v191 = objc_msgSend_isEqualToString_(v64, v190, v189), v189, v88 = "run kernel: fp_slm_calc", (v191 & 1) != 0)
-                || (v194 = objc_msgSend_length(@"run kernel: fp_slm_calc_eyes", v192, v193), objc_msgSend_substringWithRange_(@"run kernel: fp_slm_calc_eyes", v195, 12, v194 - 12), v196 = objc_claimAutoreleasedReturnValue(), v198 = objc_msgSend_isEqualToString_(v64, v197, v196), v196, v88 = "run kernel: fp_slm_calc_eyes", (v198 & 1) != 0)
-                || (v201 = objc_msgSend_length(@"run kernel: segmentation_fusion_apply", v199, v200), objc_msgSend_substringWithRange_(@"run kernel: segmentation_fusion_apply", v202, 12, v201 - 12), v203 = objc_claimAutoreleasedReturnValue(), v205 = objc_msgSend_isEqualToString_(v64, v204, v203), v203, v88 = "run kernel: segmentation_fusion_apply", (v205 & 1) != 0)
-                || (v208 = objc_msgSend_length(@"run kernel: slm_shiftmap_calcminmax", v206, v207), objc_msgSend_substringWithRange_(@"run kernel: slm_shiftmap_calcminmax", v209, 12, v208 - 12), v210 = objc_claimAutoreleasedReturnValue(), v212 = objc_msgSend_isEqualToString_(v64, v211, v210), v210, v88 = "run kernel: slm_shiftmap_calcminmax", (v212 & 1) != 0)
-                || (v215 = objc_msgSend_length(@"run kernel: slm_calc", v213, v214), objc_msgSend_substringWithRange_(@"run kernel: slm_calc", v216, 12, v215 - 12), v217 = objc_claimAutoreleasedReturnValue(), v219 = objc_msgSend_isEqualToString_(v64, v218, v217), v217, v88 = "run kernel: slm_calc", (v219 & 1) != 0)
-                || (v222 = objc_msgSend_length(@"run kernel: slm_calc_eyes", v220, v221), objc_msgSend_substringWithRange_(@"run kernel: slm_calc_eyes", v223, 12, v222 - 12), v224 = objc_claimAutoreleasedReturnValue(), v226 = objc_msgSend_isEqualToString_(v64, v225, v224), v224, v88 = "run kernel: slm_calc_eyes", (v226 & 1) != 0)
-                || (v229 = objc_msgSend_length(@"run kernel: eye_protection_face_calc", v227, v228), objc_msgSend_substringWithRange_(@"run kernel: eye_protection_face_calc", v230, 12, v229 - 12), v231 = objc_claimAutoreleasedReturnValue(), v233 = objc_msgSend_isEqualToString_(v64, v232, v231), v231, v88 = "run kernel: eye_protection_face_calc", (v233 & 1) != 0)
-                || (v236 = objc_msgSend_length(@"run kernel: eye_protection_glasses_face_calc", v234, v235), objc_msgSend_substringWithRange_(@"run kernel: eye_protection_glasses_face_calc", v237, 12, v236 - 12), v238 = objc_claimAutoreleasedReturnValue(), v240 = objc_msgSend_isEqualToString_(v64, v239, v238), v238, v88 = "run kernel: eye_protection_glasses_face_calc", (v240 & 1) != 0)
-                || (v243 = objc_msgSend_length(@"run kernel: crispHair_BlurX", v241, v242), objc_msgSend_substringWithRange_(@"run kernel: crispHair_BlurX", v244, 12, v243 - 12), v245 = objc_claimAutoreleasedReturnValue(), v247 = objc_msgSend_isEqualToString_(v64, v246, v245), v245, v88 = "run kernel: crispHair_BlurX", (v247 & 1) != 0)
-                || (v250 = objc_msgSend_length(@"run kernel: crispHair_BlurY", v248, v249), objc_msgSend_substringWithRange_(@"run kernel: crispHair_BlurY", v251, 12, v250 - 12), v252 = objc_claimAutoreleasedReturnValue(), v254 = objc_msgSend_isEqualToString_(v64, v253, v252), v252, v88 = "run kernel: crispHair_BlurY", (v254 & 1) != 0)
-                || (v257 = objc_msgSend_length(@"run kernel: crispHair_expandedDispX", v255, v256), objc_msgSend_substringWithRange_(@"run kernel: crispHair_expandedDispX", v258, 12, v257 - 12), v259 = objc_claimAutoreleasedReturnValue(), v261 = objc_msgSend_isEqualToString_(v64, v260, v259), v259, v88 = "run kernel: crispHair_expandedDispX", (v261 & 1) != 0)
-                || (v264 = objc_msgSend_length(@"run kernel: crispHair_expandedDispY", v262, v263), objc_msgSend_substringWithRange_(@"run kernel: crispHair_expandedDispY", v265, 12, v264 - 12), v266 = objc_claimAutoreleasedReturnValue(), v268 = objc_msgSend_isEqualToString_(v64, v267, v266), v266, v88 = "run kernel: crispHair_expandedDispY", (v268 & 1) != 0)
-                || (v271 = objc_msgSend_length(@"run kernel: crispHairDownsamplingSingle", v269, v270), objc_msgSend_substringWithRange_(@"run kernel: crispHairDownsamplingSingle", v272, 12, v271 - 12), v273 = objc_claimAutoreleasedReturnValue(), v275 = objc_msgSend_isEqualToString_(v64, v274, v273), v273, v88 = "run kernel: crispHairDownsamplingSingle", (v275 & 1) != 0)
-                || (v278 = objc_msgSend_length(@"run kernel: blurmap_x_smoothing", v276, v277), objc_msgSend_substringWithRange_(@"run kernel: blurmap_x_smoothing", v279, 12, v278 - 12), v280 = objc_claimAutoreleasedReturnValue(), v282 = objc_msgSend_isEqualToString_(v64, v281, v280), v280, v88 = "run kernel: blurmap_x_smoothing", (v282 & 1) != 0)
-                || (v285 = objc_msgSend_length(@"run kernel: blurmap_y_smoothing", v283, v284), objc_msgSend_substringWithRange_(@"run kernel: blurmap_y_smoothing", v286, 12, v285 - 12), v287 = objc_claimAutoreleasedReturnValue(), v289 = objc_msgSend_isEqualToString_(v64, v288, v287), v287, v88 = "run kernel: blurmap_y_smoothing", (v289 & 1) != 0)
-                || (v292 = objc_msgSend_length(@"run kernel: blurmap_x_smoothing_scaled", v290, v291), objc_msgSend_substringWithRange_(@"run kernel: blurmap_x_smoothing_scaled", v293, 12, v292 - 12), v294 = objc_claimAutoreleasedReturnValue(), v296 = objc_msgSend_isEqualToString_(v64, v295, v294), v294, v88 = "run kernel: blurmap_x_smoothing_scaled", (v296 & 1) != 0)
-                || (v299 = objc_msgSend_length(@"run kernel: blurmap_y_smoothing_scaled", v297, v298), objc_msgSend_substringWithRange_(@"run kernel: blurmap_y_smoothing_scaled", v300, 12, v299 - 12), v301 = objc_claimAutoreleasedReturnValue(), v303 = objc_msgSend_isEqualToString_(v64, v302, v301), v301, v88 = "run kernel: blurmap_y_smoothing_scaled", (v303 & 1) != 0)
-                || (v306 = objc_msgSend_length(@"run kernel: blurmap_x_smoothing_unbiased", v304, v305), objc_msgSend_substringWithRange_(@"run kernel: blurmap_x_smoothing_unbiased", v307, 12, v306 - 12), v308 = objc_claimAutoreleasedReturnValue(), v310 = objc_msgSend_isEqualToString_(v64, v309, v308), v308, v88 = "run kernel: blurmap_x_smoothing_unbiased", (v310 & 1) != 0)
-                || (v313 = objc_msgSend_length(@"run kernel: blurmap_y_smoothing_unbiased", v311, v312), objc_msgSend_substringWithRange_(@"run kernel: blurmap_y_smoothing_unbiased", v314, 12, v313 - 12), v315 = objc_claimAutoreleasedReturnValue(), v317 = objc_msgSend_isEqualToString_(v64, v316, v315), v315, v88 = "run kernel: blurmap_y_smoothing_unbiased", (v317 & 1) != 0)
-                || (v320 = objc_msgSend_length(@"run kernel: blurmap_x_smoothing_scaled_unbiased", v318, v319), objc_msgSend_substringWithRange_(@"run kernel: blurmap_x_smoothing_scaled_unbiased", v321, 12, v320 - 12), v322 = objc_claimAutoreleasedReturnValue(), v324 = objc_msgSend_isEqualToString_(v64, v323, v322), v322, v88 = "run kernel: blurmap_x_smoothing_scaled_unbiased", (v324 & 1) != 0)
-                || (v327 = objc_msgSend_length(@"run kernel: blurmap_y_smoothing_scaled_unbiased", v325, v326), objc_msgSend_substringWithRange_(@"run kernel: blurmap_y_smoothing_scaled_unbiased", v328, 12, v327 - 12), v329 = objc_claimAutoreleasedReturnValue(), v331 = objc_msgSend_isEqualToString_(v64, v330, v329), v329, v88 = "run kernel: blurmap_y_smoothing_scaled_unbiased", (v331 & 1) != 0)
-                || (v334 = objc_msgSend_length(@"run kernel: sparserendering_preprocess", v332, v333), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_preprocess", v335, 12, v334 - 12), v336 = objc_claimAutoreleasedReturnValue(), v338 = objc_msgSend_isEqualToString_(v64, v337, v336), v336, v88 = "run kernel: sparserendering_preprocess", (v338 & 1) != 0)
-                || (v341 = objc_msgSend_length(@"run kernel: sparserendering_preprocess_scaled", v339, v340), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_preprocess_scaled", v342, 12, v341 - 12), v343 = objc_claimAutoreleasedReturnValue(), v345 = objc_msgSend_isEqualToString_(v64, v344, v343), v343, v88 = "run kernel: sparserendering_preprocess_scaled", (v345 & 1) != 0)
-                || (v348 = objc_msgSend_length(@"run kernel: sparserendering_prefilter_x", v346, v347), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_prefilter_x", v349, 12, v348 - 12), v350 = objc_claimAutoreleasedReturnValue(), v352 = objc_msgSend_isEqualToString_(v64, v351, v350), v350, v88 = "run kernel: sparserendering_prefilter_x", (v352 & 1) != 0)
-                || (v355 = objc_msgSend_length(@"run kernel: sparserendering_prefilter_y", v353, v354), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_prefilter_y", v356, 12, v355 - 12), v357 = objc_claimAutoreleasedReturnValue(), v359 = objc_msgSend_isEqualToString_(v64, v358, v357), v357, v88 = "run kernel: sparserendering_prefilter_y", (v359 & 1) != 0)
-                || (v362 = objc_msgSend_length(@"run kernel: sparserendering_sample_withAlpha", v360, v361), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_sample_withAlpha", v363, 12, v362 - 12), v364 = objc_claimAutoreleasedReturnValue(), v366 = objc_msgSend_isEqualToString_(v64, v365, v364), v364, v88 = "run kernel: sparserendering_sample_withAlpha", (v366 & 1) != 0)
-                || (v369 = objc_msgSend_length(@"run kernel: sparserendering_sample_noAlpha", v367, v368), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_sample_noAlpha", v370, 12, v369 - 12), v371 = objc_claimAutoreleasedReturnValue(), v373 = objc_msgSend_isEqualToString_(v64, v372, v371), v371, v88 = "run kernel: sparserendering_sample_noAlpha", (v373 & 1) != 0)
-                || (v376 = objc_msgSend_length(@"run kernel: sparserendering_antialias_x", v374, v375), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_antialias_x", v377, 12, v376 - 12), v378 = objc_claimAutoreleasedReturnValue(), v380 = objc_msgSend_isEqualToString_(v64, v379, v378), v378, v88 = "run kernel: sparserendering_antialias_x", (v380 & 1) != 0)
-                || (v383 = objc_msgSend_length(@"run kernel: sparserendering_antialias_y", v381, v382), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_antialias_y", v384, 12, v383 - 12), v385 = objc_claimAutoreleasedReturnValue(), v387 = objc_msgSend_isEqualToString_(v64, v386, v385), v385, v88 = "run kernel: sparserendering_antialias_y", (v387 & 1) != 0)
-                || (v390 = objc_msgSend_length(@"run kernel: sparserendering_yuv_out_1", v388, v389), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_yuv_out_1", v391, 12, v390 - 12), v392 = objc_claimAutoreleasedReturnValue(), v394 = objc_msgSend_isEqualToString_(v64, v393, v392), v392, v88 = "run kernel: sparserendering_yuv_out_1", (v394 & 1) != 0)
-                || (v397 = objc_msgSend_length(@"run kernel: sparserendering_yuv_out_2", v395, v396), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_yuv_out_2", v398, 12, v397 - 12), v399 = objc_claimAutoreleasedReturnValue(), v401 = objc_msgSend_isEqualToString_(v64, v400, v399), v399, v88 = "run kernel: sparserendering_yuv_out_2", (v401 & 1) != 0)
-                || (v404 = objc_msgSend_length(@"run kernel: sparserendering_extractY", v402, v403), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_extractY", v405, 12, v404 - 12), v406 = objc_claimAutoreleasedReturnValue(), v408 = objc_msgSend_isEqualToString_(v64, v407, v406), v406, v88 = "run kernel: sparserendering_extractY", (v408 & 1) != 0)
-                || (v411 = objc_msgSend_length(@"run kernel: sparserendering_sample_noAlpha_ray", v409, v410), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_sample_noAlpha_ray", v412, 12, v411 - 12), v413 = objc_claimAutoreleasedReturnValue(), v415 = objc_msgSend_isEqualToString_(v64, v414, v413), v413, v88 = "run kernel: sparserendering_sample_noAlpha_ray", (v415 & 1) != 0)
-                || (v418 = objc_msgSend_length(@"run kernel: sparserendering_add_noise", v416, v417), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_add_noise", v419, 12, v418 - 12), v420 = objc_claimAutoreleasedReturnValue(), v422 = objc_msgSend_isEqualToString_(v64, v421, v420), v420, v88 = "run kernel: sparserendering_add_noise", (v422 & 1) != 0)
-                || (v425 = objc_msgSend_length(@"run kernel: sparserendering_blend_raytraced", v423, v424), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_blend_raytraced", v426, 12, v425 - 12), v427 = objc_claimAutoreleasedReturnValue(), v429 = objc_msgSend_isEqualToString_(v64, v428, v427), v427, v88 = "run kernel: sparserendering_blend_raytraced", (v429 & 1) != 0)
-                || (v432 = objc_msgSend_length(@"run kernel: disparity_refinement_extract_positive_blur_values", v430, v431), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_extract_positive_blur_values", v433, 12, v432 - 12), v434 = objc_claimAutoreleasedReturnValue(), v436 = objc_msgSend_isEqualToString_(v64, v435, v434), v434, v88 = "run kernel: disparity_refinement_extract_positive_blur_values", (v436 & 1) != 0)
-                || (v439 = objc_msgSend_length(@"run kernel: disparity_refinement_extract_negative_blur_values", v437, v438), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_extract_negative_blur_values", v440, 12, v439 - 12), v441 = objc_claimAutoreleasedReturnValue(), v443 = objc_msgSend_isEqualToString_(v64, v442, v441), v441, v88 = "run kernel: disparity_refinement_extract_negative_blur_values", (v443 & 1) != 0)
-                || (v446 = objc_msgSend_length(@"run kernel: sparserendering_antialias_x_4chan", v444, v445), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_antialias_x_4chan", v447, 12, v446 - 12), v448 = objc_claimAutoreleasedReturnValue(), v450 = objc_msgSend_isEqualToString_(v64, v449, v448), v448, v88 = "run kernel: sparserendering_antialias_x_4chan", (v450 & 1) != 0)
-                || (v453 = objc_msgSend_length(@"run kernel: sparserendering_antialias_y_4chan", v451, v452), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_antialias_y_4chan", v454, 12, v453 - 12), v455 = objc_claimAutoreleasedReturnValue(), v457 = objc_msgSend_isEqualToString_(v64, v456, v455), v455, v88 = "run kernel: sparserendering_antialias_y_4chan", (v457 & 1) != 0)
-                || (v460 = objc_msgSend_length(@"run kernel: sparserendering_add_noise_only", v458, v459), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_add_noise_only", v461, 12, v460 - 12), v462 = objc_claimAutoreleasedReturnValue(), v464 = objc_msgSend_isEqualToString_(v64, v463, v462), v462, v88 = "run kernel: sparserendering_add_noise_only", (v464 & 1) != 0)
-                || (v467 = objc_msgSend_length(@"run kernel: median3x3_oneChannel", v465, v466), objc_msgSend_substringWithRange_(@"run kernel: median3x3_oneChannel", v468, 12, v467 - 12), v469 = objc_claimAutoreleasedReturnValue(), v471 = objc_msgSend_isEqualToString_(v64, v470, v469), v469, v88 = "run kernel: median3x3_oneChannel", (v471 & 1) != 0)
-                || (v474 = objc_msgSend_length(@"run kernel: median3x3_twoChannel", v472, v473), objc_msgSend_substringWithRange_(@"run kernel: median3x3_twoChannel", v475, 12, v474 - 12), v476 = objc_claimAutoreleasedReturnValue(), v478 = objc_msgSend_isEqualToString_(v64, v477, v476), v476, v88 = "run kernel: median3x3_twoChannel", (v478 & 1) != 0)
-                || (v481 = objc_msgSend_length(@"run kernel: sobel_oneChannel", v479, v480), objc_msgSend_substringWithRange_(@"run kernel: sobel_oneChannel", v482, 12, v481 - 12), v483 = objc_claimAutoreleasedReturnValue(), v485 = objc_msgSend_isEqualToString_(v64, v484, v483), v483, v88 = "run kernel: sobel_oneChannel", (v485 & 1) != 0)
-                || (v488 = objc_msgSend_length(@"run kernel: sobel_yChannel_Thresholded", v486, v487), objc_msgSend_substringWithRange_(@"run kernel: sobel_yChannel_Thresholded", v489, 12, v488 - 12), v490 = objc_claimAutoreleasedReturnValue(), v492 = objc_msgSend_isEqualToString_(v64, v491, v490), v490, v88 = "run kernel: sobel_yChannel_Thresholded", (v492 & 1) != 0)
-                || (v495 = objc_msgSend_length(@"run kernel: blendBackgroundBlur", v493, v494), objc_msgSend_substringWithRange_(@"run kernel: blendBackgroundBlur", v496, 12, v495 - 12), v497 = objc_claimAutoreleasedReturnValue(), v499 = objc_msgSend_isEqualToString_(v64, v498, v497), v497, v88 = "run kernel: blendBackgroundBlur", v499))
+                || (v92 = objc_msgSend_length(@"run kernel: modify_blurmap_glasses_apply", v89, v90), objc_msgSend_substringWithRange_(@"run kernel: modify_blurmap_glasses_apply", v93, 12, v92 - 12), v94 = objc_claimAutoreleasedReturnValue(), v96 = objc_msgSend_isEqualToString_(v65, v95, v94), v94, v91 = "run kernel: modify_blurmap_glasses_apply", (v96 & 1) != 0)
+                || (v99 = objc_msgSend_length(@"run kernel: threshold_hard_apply", v97, v98), objc_msgSend_substringWithRange_(@"run kernel: threshold_hard_apply", v100, 12, v99 - 12), v101 = objc_claimAutoreleasedReturnValue(), v103 = objc_msgSend_isEqualToString_(v65, v102, v101), v101, v91 = "run kernel: threshold_hard_apply", (v103 & 1) != 0)
+                || (v106 = objc_msgSend_length(@"run kernel: map_linear_apply", v104, v105), objc_msgSend_substringWithRange_(@"run kernel: map_linear_apply", v107, 12, v106 - 12), v108 = objc_claimAutoreleasedReturnValue(), v110 = objc_msgSend_isEqualToString_(v65, v109, v108), v108, v91 = "run kernel: map_linear_apply", (v110 & 1) != 0)
+                || (v113 = objc_msgSend_length(@"run kernel: map_linear_no_secondary_tex_apply", v111, v112), objc_msgSend_substringWithRange_(@"run kernel: map_linear_no_secondary_tex_apply", v114, 12, v113 - 12), v115 = objc_claimAutoreleasedReturnValue(), v117 = objc_msgSend_isEqualToString_(v65, v116, v115), v115, v91 = "run kernel: map_linear_no_secondary_tex_apply", (v117 & 1) != 0)
+                || (v120 = objc_msgSend_length(@"run kernel: disparity_refinement_bicubic_upscale", v118, v119), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_bicubic_upscale", v121, 12, v120 - 12), v122 = objc_claimAutoreleasedReturnValue(), v124 = objc_msgSend_isEqualToString_(v65, v123, v122), v122, v91 = "run kernel: disparity_refinement_bicubic_upscale", (v124 & 1) != 0)
+                || (v127 = objc_msgSend_length(@"run kernel: disparity_refinement_slm_passthrough", v125, v126), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_slm_passthrough", v128, 12, v127 - 12), v129 = objc_claimAutoreleasedReturnValue(), v131 = objc_msgSend_isEqualToString_(v65, v130, v129), v129, v91 = "run kernel: disparity_refinement_slm_passthrough", (v131 & 1) != 0)
+                || (v134 = objc_msgSend_length(@"run kernel: disparity_refinement_calcweightsX", v132, v133), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_calcweightsX", v135, 12, v134 - 12), v136 = objc_claimAutoreleasedReturnValue(), v138 = objc_msgSend_isEqualToString_(v65, v137, v136), v136, v91 = "run kernel: disparity_refinement_calcweightsX", (v138 & 1) != 0)
+                || (v141 = objc_msgSend_length(@"run kernel: disparity_refinement_calcweightsY", v139, v140), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_calcweightsY", v142, 12, v141 - 12), v143 = objc_claimAutoreleasedReturnValue(), v145 = objc_msgSend_isEqualToString_(v65, v144, v143), v143, v91 = "run kernel: disparity_refinement_calcweightsY", (v145 & 1) != 0)
+                || (v148 = objc_msgSend_length(@"run kernel: disparity_refinement_preproc", v146, v147), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_preproc", v149, 12, v148 - 12), v150 = objc_claimAutoreleasedReturnValue(), v152 = objc_msgSend_isEqualToString_(v65, v151, v150), v150, v91 = "run kernel: disparity_refinement_preproc", (v152 & 1) != 0)
+                || (v155 = objc_msgSend_length(@"run kernel: disparity_refinement_sample", v153, v154), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_sample", v156, 12, v155 - 12), v157 = objc_claimAutoreleasedReturnValue(), v159 = objc_msgSend_isEqualToString_(v65, v158, v157), v157, v91 = "run kernel: disparity_refinement_sample", (v159 & 1) != 0)
+                || (v162 = objc_msgSend_length(@"run kernel: disparity_refinement_antialias", v160, v161), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_antialias", v163, 12, v162 - 12), v164 = objc_claimAutoreleasedReturnValue(), v166 = objc_msgSend_isEqualToString_(v65, v165, v164), v164, v91 = "run kernel: disparity_refinement_antialias", (v166 & 1) != 0)
+                || (v169 = objc_msgSend_length(@"run kernel: facemask_calc", v167, v168), objc_msgSend_substringWithRange_(@"run kernel: facemask_calc", v170, 12, v169 - 12), v171 = objc_claimAutoreleasedReturnValue(), v173 = objc_msgSend_isEqualToString_(v65, v172, v171), v171, v91 = "run kernel: facemask_calc", (v173 & 1) != 0)
+                || (v176 = objc_msgSend_length(@"run kernel: facemask_apply", v174, v175), objc_msgSend_substringWithRange_(@"run kernel: facemask_apply", v177, 12, v176 - 12), v178 = objc_claimAutoreleasedReturnValue(), v180 = objc_msgSend_isEqualToString_(v65, v179, v178), v178, v91 = "run kernel: facemask_apply", (v180 & 1) != 0)
+                || (v183 = objc_msgSend_length(@"run kernel: fpDisparityRefinementPreprocessing", v181, v182), objc_msgSend_substringWithRange_(@"run kernel: fpDisparityRefinementPreprocessing", v184, 12, v183 - 12), v185 = objc_claimAutoreleasedReturnValue(), v187 = objc_msgSend_isEqualToString_(v65, v186, v185), v185, v91 = "run kernel: fpDisparityRefinementPreprocessing", (v187 & 1) != 0)
+                || (v190 = objc_msgSend_length(@"run kernel: fp_slm_calc", v188, v189), objc_msgSend_substringWithRange_(@"run kernel: fp_slm_calc", v191, 12, v190 - 12), v192 = objc_claimAutoreleasedReturnValue(), v194 = objc_msgSend_isEqualToString_(v65, v193, v192), v192, v91 = "run kernel: fp_slm_calc", (v194 & 1) != 0)
+                || (v197 = objc_msgSend_length(@"run kernel: fp_slm_calc_eyes", v195, v196), objc_msgSend_substringWithRange_(@"run kernel: fp_slm_calc_eyes", v198, 12, v197 - 12), v199 = objc_claimAutoreleasedReturnValue(), v201 = objc_msgSend_isEqualToString_(v65, v200, v199), v199, v91 = "run kernel: fp_slm_calc_eyes", (v201 & 1) != 0)
+                || (v204 = objc_msgSend_length(@"run kernel: segmentation_fusion_apply", v202, v203), objc_msgSend_substringWithRange_(@"run kernel: segmentation_fusion_apply", v205, 12, v204 - 12), v206 = objc_claimAutoreleasedReturnValue(), v208 = objc_msgSend_isEqualToString_(v65, v207, v206), v206, v91 = "run kernel: segmentation_fusion_apply", (v208 & 1) != 0)
+                || (v211 = objc_msgSend_length(@"run kernel: slm_shiftmap_calcminmax", v209, v210), objc_msgSend_substringWithRange_(@"run kernel: slm_shiftmap_calcminmax", v212, 12, v211 - 12), v213 = objc_claimAutoreleasedReturnValue(), v215 = objc_msgSend_isEqualToString_(v65, v214, v213), v213, v91 = "run kernel: slm_shiftmap_calcminmax", (v215 & 1) != 0)
+                || (v218 = objc_msgSend_length(@"run kernel: slm_calc", v216, v217), objc_msgSend_substringWithRange_(@"run kernel: slm_calc", v219, 12, v218 - 12), v220 = objc_claimAutoreleasedReturnValue(), v222 = objc_msgSend_isEqualToString_(v65, v221, v220), v220, v91 = "run kernel: slm_calc", (v222 & 1) != 0)
+                || (v225 = objc_msgSend_length(@"run kernel: slm_calc_eyes", v223, v224), objc_msgSend_substringWithRange_(@"run kernel: slm_calc_eyes", v226, 12, v225 - 12), v227 = objc_claimAutoreleasedReturnValue(), v229 = objc_msgSend_isEqualToString_(v65, v228, v227), v227, v91 = "run kernel: slm_calc_eyes", (v229 & 1) != 0)
+                || (v232 = objc_msgSend_length(@"run kernel: eye_protection_face_calc", v230, v231), objc_msgSend_substringWithRange_(@"run kernel: eye_protection_face_calc", v233, 12, v232 - 12), v234 = objc_claimAutoreleasedReturnValue(), v236 = objc_msgSend_isEqualToString_(v65, v235, v234), v234, v91 = "run kernel: eye_protection_face_calc", (v236 & 1) != 0)
+                || (v239 = objc_msgSend_length(@"run kernel: eye_protection_glasses_face_calc", v237, v238), objc_msgSend_substringWithRange_(@"run kernel: eye_protection_glasses_face_calc", v240, 12, v239 - 12), v241 = objc_claimAutoreleasedReturnValue(), v243 = objc_msgSend_isEqualToString_(v65, v242, v241), v241, v91 = "run kernel: eye_protection_glasses_face_calc", (v243 & 1) != 0)
+                || (v246 = objc_msgSend_length(@"run kernel: crispHair_BlurX", v244, v245), objc_msgSend_substringWithRange_(@"run kernel: crispHair_BlurX", v247, 12, v246 - 12), v248 = objc_claimAutoreleasedReturnValue(), v250 = objc_msgSend_isEqualToString_(v65, v249, v248), v248, v91 = "run kernel: crispHair_BlurX", (v250 & 1) != 0)
+                || (v253 = objc_msgSend_length(@"run kernel: crispHair_BlurY", v251, v252), objc_msgSend_substringWithRange_(@"run kernel: crispHair_BlurY", v254, 12, v253 - 12), v255 = objc_claimAutoreleasedReturnValue(), v257 = objc_msgSend_isEqualToString_(v65, v256, v255), v255, v91 = "run kernel: crispHair_BlurY", (v257 & 1) != 0)
+                || (v260 = objc_msgSend_length(@"run kernel: crispHair_expandedDispX", v258, v259), objc_msgSend_substringWithRange_(@"run kernel: crispHair_expandedDispX", v261, 12, v260 - 12), v262 = objc_claimAutoreleasedReturnValue(), v264 = objc_msgSend_isEqualToString_(v65, v263, v262), v262, v91 = "run kernel: crispHair_expandedDispX", (v264 & 1) != 0)
+                || (v267 = objc_msgSend_length(@"run kernel: crispHair_expandedDispY", v265, v266), objc_msgSend_substringWithRange_(@"run kernel: crispHair_expandedDispY", v268, 12, v267 - 12), v269 = objc_claimAutoreleasedReturnValue(), v271 = objc_msgSend_isEqualToString_(v65, v270, v269), v269, v91 = "run kernel: crispHair_expandedDispY", (v271 & 1) != 0)
+                || (v274 = objc_msgSend_length(@"run kernel: crispHairDownsamplingSingle", v272, v273), objc_msgSend_substringWithRange_(@"run kernel: crispHairDownsamplingSingle", v275, 12, v274 - 12), v276 = objc_claimAutoreleasedReturnValue(), v278 = objc_msgSend_isEqualToString_(v65, v277, v276), v276, v91 = "run kernel: crispHairDownsamplingSingle", (v278 & 1) != 0)
+                || (v281 = objc_msgSend_length(@"run kernel: blurmap_x_smoothing", v279, v280), objc_msgSend_substringWithRange_(@"run kernel: blurmap_x_smoothing", v282, 12, v281 - 12), v283 = objc_claimAutoreleasedReturnValue(), v285 = objc_msgSend_isEqualToString_(v65, v284, v283), v283, v91 = "run kernel: blurmap_x_smoothing", (v285 & 1) != 0)
+                || (v288 = objc_msgSend_length(@"run kernel: blurmap_y_smoothing", v286, v287), objc_msgSend_substringWithRange_(@"run kernel: blurmap_y_smoothing", v289, 12, v288 - 12), v290 = objc_claimAutoreleasedReturnValue(), v292 = objc_msgSend_isEqualToString_(v65, v291, v290), v290, v91 = "run kernel: blurmap_y_smoothing", (v292 & 1) != 0)
+                || (v295 = objc_msgSend_length(@"run kernel: blurmap_x_smoothing_scaled", v293, v294), objc_msgSend_substringWithRange_(@"run kernel: blurmap_x_smoothing_scaled", v296, 12, v295 - 12), v297 = objc_claimAutoreleasedReturnValue(), v299 = objc_msgSend_isEqualToString_(v65, v298, v297), v297, v91 = "run kernel: blurmap_x_smoothing_scaled", (v299 & 1) != 0)
+                || (v302 = objc_msgSend_length(@"run kernel: blurmap_y_smoothing_scaled", v300, v301), objc_msgSend_substringWithRange_(@"run kernel: blurmap_y_smoothing_scaled", v303, 12, v302 - 12), v304 = objc_claimAutoreleasedReturnValue(), v306 = objc_msgSend_isEqualToString_(v65, v305, v304), v304, v91 = "run kernel: blurmap_y_smoothing_scaled", (v306 & 1) != 0)
+                || (v309 = objc_msgSend_length(@"run kernel: blurmap_x_smoothing_unbiased", v307, v308), objc_msgSend_substringWithRange_(@"run kernel: blurmap_x_smoothing_unbiased", v310, 12, v309 - 12), v311 = objc_claimAutoreleasedReturnValue(), v313 = objc_msgSend_isEqualToString_(v65, v312, v311), v311, v91 = "run kernel: blurmap_x_smoothing_unbiased", (v313 & 1) != 0)
+                || (v316 = objc_msgSend_length(@"run kernel: blurmap_y_smoothing_unbiased", v314, v315), objc_msgSend_substringWithRange_(@"run kernel: blurmap_y_smoothing_unbiased", v317, 12, v316 - 12), v318 = objc_claimAutoreleasedReturnValue(), v320 = objc_msgSend_isEqualToString_(v65, v319, v318), v318, v91 = "run kernel: blurmap_y_smoothing_unbiased", (v320 & 1) != 0)
+                || (v323 = objc_msgSend_length(@"run kernel: blurmap_x_smoothing_scaled_unbiased", v321, v322), objc_msgSend_substringWithRange_(@"run kernel: blurmap_x_smoothing_scaled_unbiased", v324, 12, v323 - 12), v325 = objc_claimAutoreleasedReturnValue(), v327 = objc_msgSend_isEqualToString_(v65, v326, v325), v325, v91 = "run kernel: blurmap_x_smoothing_scaled_unbiased", (v327 & 1) != 0)
+                || (v330 = objc_msgSend_length(@"run kernel: blurmap_y_smoothing_scaled_unbiased", v328, v329), objc_msgSend_substringWithRange_(@"run kernel: blurmap_y_smoothing_scaled_unbiased", v331, 12, v330 - 12), v332 = objc_claimAutoreleasedReturnValue(), v334 = objc_msgSend_isEqualToString_(v65, v333, v332), v332, v91 = "run kernel: blurmap_y_smoothing_scaled_unbiased", (v334 & 1) != 0)
+                || (v337 = objc_msgSend_length(@"run kernel: sparserendering_preprocess", v335, v336), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_preprocess", v338, 12, v337 - 12), v339 = objc_claimAutoreleasedReturnValue(), v341 = objc_msgSend_isEqualToString_(v65, v340, v339), v339, v91 = "run kernel: sparserendering_preprocess", (v341 & 1) != 0)
+                || (v344 = objc_msgSend_length(@"run kernel: sparserendering_preprocess_scaled", v342, v343), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_preprocess_scaled", v345, 12, v344 - 12), v346 = objc_claimAutoreleasedReturnValue(), v348 = objc_msgSend_isEqualToString_(v65, v347, v346), v346, v91 = "run kernel: sparserendering_preprocess_scaled", (v348 & 1) != 0)
+                || (v351 = objc_msgSend_length(@"run kernel: sparserendering_prefilter_x", v349, v350), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_prefilter_x", v352, 12, v351 - 12), v353 = objc_claimAutoreleasedReturnValue(), v355 = objc_msgSend_isEqualToString_(v65, v354, v353), v353, v91 = "run kernel: sparserendering_prefilter_x", (v355 & 1) != 0)
+                || (v358 = objc_msgSend_length(@"run kernel: sparserendering_prefilter_y", v356, v357), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_prefilter_y", v359, 12, v358 - 12), v360 = objc_claimAutoreleasedReturnValue(), v362 = objc_msgSend_isEqualToString_(v65, v361, v360), v360, v91 = "run kernel: sparserendering_prefilter_y", (v362 & 1) != 0)
+                || (v365 = objc_msgSend_length(@"run kernel: sparserendering_sample_withAlpha", v363, v364), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_sample_withAlpha", v366, 12, v365 - 12), v367 = objc_claimAutoreleasedReturnValue(), v369 = objc_msgSend_isEqualToString_(v65, v368, v367), v367, v91 = "run kernel: sparserendering_sample_withAlpha", (v369 & 1) != 0)
+                || (v372 = objc_msgSend_length(@"run kernel: sparserendering_sample_noAlpha", v370, v371), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_sample_noAlpha", v373, 12, v372 - 12), v374 = objc_claimAutoreleasedReturnValue(), v376 = objc_msgSend_isEqualToString_(v65, v375, v374), v374, v91 = "run kernel: sparserendering_sample_noAlpha", (v376 & 1) != 0)
+                || (v379 = objc_msgSend_length(@"run kernel: sparserendering_antialias_x", v377, v378), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_antialias_x", v380, 12, v379 - 12), v381 = objc_claimAutoreleasedReturnValue(), v383 = objc_msgSend_isEqualToString_(v65, v382, v381), v381, v91 = "run kernel: sparserendering_antialias_x", (v383 & 1) != 0)
+                || (v386 = objc_msgSend_length(@"run kernel: sparserendering_antialias_y", v384, v385), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_antialias_y", v387, 12, v386 - 12), v388 = objc_claimAutoreleasedReturnValue(), v390 = objc_msgSend_isEqualToString_(v65, v389, v388), v388, v91 = "run kernel: sparserendering_antialias_y", (v390 & 1) != 0)
+                || (v393 = objc_msgSend_length(@"run kernel: sparserendering_yuv_out_1", v391, v392), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_yuv_out_1", v394, 12, v393 - 12), v395 = objc_claimAutoreleasedReturnValue(), v397 = objc_msgSend_isEqualToString_(v65, v396, v395), v395, v91 = "run kernel: sparserendering_yuv_out_1", (v397 & 1) != 0)
+                || (v400 = objc_msgSend_length(@"run kernel: sparserendering_yuv_out_2", v398, v399), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_yuv_out_2", v401, 12, v400 - 12), v402 = objc_claimAutoreleasedReturnValue(), v404 = objc_msgSend_isEqualToString_(v65, v403, v402), v402, v91 = "run kernel: sparserendering_yuv_out_2", (v404 & 1) != 0)
+                || (v407 = objc_msgSend_length(@"run kernel: sparserendering_extractY", v405, v406), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_extractY", v408, 12, v407 - 12), v409 = objc_claimAutoreleasedReturnValue(), v411 = objc_msgSend_isEqualToString_(v65, v410, v409), v409, v91 = "run kernel: sparserendering_extractY", (v411 & 1) != 0)
+                || (v414 = objc_msgSend_length(@"run kernel: sparserendering_sample_noAlpha_ray", v412, v413), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_sample_noAlpha_ray", v415, 12, v414 - 12), v416 = objc_claimAutoreleasedReturnValue(), v418 = objc_msgSend_isEqualToString_(v65, v417, v416), v416, v91 = "run kernel: sparserendering_sample_noAlpha_ray", (v418 & 1) != 0)
+                || (v421 = objc_msgSend_length(@"run kernel: sparserendering_add_noise", v419, v420), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_add_noise", v422, 12, v421 - 12), v423 = objc_claimAutoreleasedReturnValue(), v425 = objc_msgSend_isEqualToString_(v65, v424, v423), v423, v91 = "run kernel: sparserendering_add_noise", (v425 & 1) != 0)
+                || (v428 = objc_msgSend_length(@"run kernel: sparserendering_blend_raytraced", v426, v427), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_blend_raytraced", v429, 12, v428 - 12), v430 = objc_claimAutoreleasedReturnValue(), v432 = objc_msgSend_isEqualToString_(v65, v431, v430), v430, v91 = "run kernel: sparserendering_blend_raytraced", (v432 & 1) != 0)
+                || (v435 = objc_msgSend_length(@"run kernel: disparity_refinement_extract_positive_blur_values", v433, v434), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_extract_positive_blur_values", v436, 12, v435 - 12), v437 = objc_claimAutoreleasedReturnValue(), v439 = objc_msgSend_isEqualToString_(v65, v438, v437), v437, v91 = "run kernel: disparity_refinement_extract_positive_blur_values", (v439 & 1) != 0)
+                || (v442 = objc_msgSend_length(@"run kernel: disparity_refinement_extract_negative_blur_values", v440, v441), objc_msgSend_substringWithRange_(@"run kernel: disparity_refinement_extract_negative_blur_values", v443, 12, v442 - 12), v444 = objc_claimAutoreleasedReturnValue(), v446 = objc_msgSend_isEqualToString_(v65, v445, v444), v444, v91 = "run kernel: disparity_refinement_extract_negative_blur_values", (v446 & 1) != 0)
+                || (v449 = objc_msgSend_length(@"run kernel: sparserendering_antialias_x_4chan", v447, v448), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_antialias_x_4chan", v450, 12, v449 - 12), v451 = objc_claimAutoreleasedReturnValue(), v453 = objc_msgSend_isEqualToString_(v65, v452, v451), v451, v91 = "run kernel: sparserendering_antialias_x_4chan", (v453 & 1) != 0)
+                || (v456 = objc_msgSend_length(@"run kernel: sparserendering_antialias_y_4chan", v454, v455), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_antialias_y_4chan", v457, 12, v456 - 12), v458 = objc_claimAutoreleasedReturnValue(), v460 = objc_msgSend_isEqualToString_(v65, v459, v458), v458, v91 = "run kernel: sparserendering_antialias_y_4chan", (v460 & 1) != 0)
+                || (v463 = objc_msgSend_length(@"run kernel: sparserendering_add_noise_only", v461, v462), objc_msgSend_substringWithRange_(@"run kernel: sparserendering_add_noise_only", v464, 12, v463 - 12), v465 = objc_claimAutoreleasedReturnValue(), v467 = objc_msgSend_isEqualToString_(v65, v466, v465), v465, v91 = "run kernel: sparserendering_add_noise_only", (v467 & 1) != 0)
+                || (v470 = objc_msgSend_length(@"run kernel: median3x3_oneChannel", v468, v469), objc_msgSend_substringWithRange_(@"run kernel: median3x3_oneChannel", v471, 12, v470 - 12), v472 = objc_claimAutoreleasedReturnValue(), v474 = objc_msgSend_isEqualToString_(v65, v473, v472), v472, v91 = "run kernel: median3x3_oneChannel", (v474 & 1) != 0)
+                || (v477 = objc_msgSend_length(@"run kernel: median3x3_twoChannel", v475, v476), objc_msgSend_substringWithRange_(@"run kernel: median3x3_twoChannel", v478, 12, v477 - 12), v479 = objc_claimAutoreleasedReturnValue(), v481 = objc_msgSend_isEqualToString_(v65, v480, v479), v479, v91 = "run kernel: median3x3_twoChannel", (v481 & 1) != 0)
+                || (v484 = objc_msgSend_length(@"run kernel: sobel_oneChannel", v482, v483), objc_msgSend_substringWithRange_(@"run kernel: sobel_oneChannel", v485, 12, v484 - 12), v486 = objc_claimAutoreleasedReturnValue(), v488 = objc_msgSend_isEqualToString_(v65, v487, v486), v486, v91 = "run kernel: sobel_oneChannel", (v488 & 1) != 0)
+                || (v491 = objc_msgSend_length(@"run kernel: sobel_yChannel_Thresholded", v489, v490), objc_msgSend_substringWithRange_(@"run kernel: sobel_yChannel_Thresholded", v492, 12, v491 - 12), v493 = objc_claimAutoreleasedReturnValue(), v495 = objc_msgSend_isEqualToString_(v65, v494, v493), v493, v91 = "run kernel: sobel_yChannel_Thresholded", (v495 & 1) != 0)
+                || (v498 = objc_msgSend_length(@"run kernel: blendBackgroundBlur", v496, v497), objc_msgSend_substringWithRange_(@"run kernel: blendBackgroundBlur", v499, 12, v498 - 12), v500 = objc_claimAutoreleasedReturnValue(), v502 = objc_msgSend_isEqualToString_(v65, v501, v500), v500, v91 = "run kernel: blendBackgroundBlur", v502))
               {
-                v500 = uni_activity();
-                v501 = _os_activity_create(&dword_295691000, v88, v500, OS_ACTIVITY_FLAG_DEFAULT);
+                v503 = uni_activity(v88);
+                v504 = _os_activity_create(&dword_295691000, v91, v503, OS_ACTIVITY_FLAG_DEFAULT);
 
-                v502 = v56;
-                queueCopy = v564;
+                v505 = v57;
+                queueCopy = v573;
                 goto LABEL_104;
               }
 
-              queueCopy = v564;
+              queueCopy = v573;
 LABEL_102:
 
               goto LABEL_103;
@@ -543,35 +543,35 @@ LABEL_102:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v62 = objc_msgSend_inputs(v56, v60, v61);
-            v64 = objc_msgSend_objectForKeyedSubscript_(v62, v63, @"desiredFormat");
+            v63 = objc_msgSend_inputs(v57, v61, v62);
+            v65 = objc_msgSend_objectForKeyedSubscript_(v63, v64, @"desiredFormat");
 
-            if (v64)
+            if (v65)
             {
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v67 = objc_msgSend_unsignedIntegerValue(v64, v65, v66);
-                v68 = uni_activity();
-                v69 = "texture view of misc type";
-                if (v67 == 70)
+                v68 = objc_msgSend_unsignedIntegerValue(v65, v66, v67);
+                v69 = uni_activity(v68);
+                v70 = "texture view of misc type";
+                if (v68 == 70)
                 {
-                  v69 = "linear to sRGB texture view";
+                  v70 = "linear to sRGB texture view";
                 }
 
-                if (v67 == 71)
+                if (v68 == 71)
                 {
-                  v70 = "sRGB to linear texture view";
+                  v71 = "sRGB to linear texture view";
                 }
 
                 else
                 {
-                  v70 = v69;
+                  v71 = v70;
                 }
 
-                v71 = _os_activity_create(&dword_295691000, v70, v68, OS_ACTIVITY_FLAG_DEFAULT);
+                v72 = _os_activity_create(&dword_295691000, v71, v69, OS_ACTIVITY_FLAG_DEFAULT);
 
-                queueCopy = v564;
+                queueCopy = v573;
                 goto LABEL_100;
               }
             }
@@ -580,162 +580,167 @@ LABEL_102:
           }
 
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          isKindOfClass = objc_opt_isKindOfClass();
+          if (isKindOfClass)
           {
-            v71 = uni_activity();
-            v72 = "run kernel: Gaussian Blur";
+            v72 = uni_activity(isKindOfClass);
+            v74 = "run kernel: Gaussian Blur";
 LABEL_99:
-            v64 = _os_activity_create(&dword_295691000, v72, v71, OS_ACTIVITY_FLAG_DEFAULT);
+            v65 = _os_activity_create(&dword_295691000, v74, v72, OS_ACTIVITY_FLAG_DEFAULT);
 LABEL_100:
 
-            v502 = v56;
+            v505 = v57;
             goto LABEL_104;
           }
 
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v506 = objc_opt_isKindOfClass();
+          if (v506)
           {
-            v71 = uni_activity();
-            v72 = "run kernel: Guided Filter";
+            v72 = uni_activity(v506);
+            v74 = "run kernel: Guided Filter";
             goto LABEL_99;
           }
 
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v507 = objc_opt_isKindOfClass();
+          if (v507)
           {
-            v71 = uni_activity();
-            v72 = "run kernel: Highlight Recovery";
+            v72 = uni_activity(v507);
+            v74 = "run kernel: Highlight Recovery";
             goto LABEL_99;
           }
 
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v508 = objc_opt_isKindOfClass();
+          if (v508)
           {
-            v71 = uni_activity();
-            v72 = "run kernel: Morphology";
+            v72 = uni_activity(v508);
+            v74 = "run kernel: Morphology";
             goto LABEL_99;
           }
 
 LABEL_103:
 
-          v64 = uni_activity();
-          v502 = _os_activity_create(&dword_295691000, "kernel run", v64, OS_ACTIVITY_FLAG_DEFAULT);
+          v65 = uni_activity(v509);
+          v505 = _os_activity_create(&dword_295691000, "kernel run", v65, OS_ACTIVITY_FLAG_DEFAULT);
 LABEL_104:
 
-          v503 = uni_logger_render();
-          if (os_log_type_enabled(v503, OS_LOG_TYPE_DEBUG))
+          v511 = uni_logger_render(v510);
+          if (os_log_type_enabled(v511, OS_LOG_TYPE_DEBUG))
           {
-            sub_2956CE0EC(v578, v53, &v579, v503);
+            sub_2956CE0EC(v587, v54, &v588, v511);
           }
 
-          v505 = objc_msgSend_run_(v56, v504, queueCopy);
-          v507 = objc_msgSend_objectAtIndexedSubscript_(v505, v506, 0);
-          if (!v507)
+          v513 = objc_msgSend_run_(v57, v512, queueCopy);
+          v515 = objc_msgSend_objectAtIndexedSubscript_(v513, v514, 0);
+          if (!v515)
           {
             sub_2956CE1B0();
           }
 
-          v508 = v507;
+          v516 = v515;
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            if ((objc_msgSend_conformsToProtocol_(v508, v509, &unk_2A1CA1FD8) & 1) == 0)
+            if ((objc_msgSend_conformsToProtocol_(v516, v517, &unk_2A1CA1FD8) & 1) == 0)
             {
               sub_2956CE184();
             }
 
-            objc_msgSend_writeDebugTextures_filesWritten_(v56, v510, v508, v566);
-            objc_msgSend_commit(v508, v511, v512);
+            objc_msgSend_writeDebugTextures_filesWritten_(v57, v518, v516, v575);
+            objc_msgSend_commit(v516, v519, v520);
             if (scheduledCopy)
             {
-              objc_msgSend_waitUntilScheduled(v508, v513, v514);
+              objc_msgSend_waitUntilScheduled(v516, v521, v522);
             }
 
-            if (objc_msgSend_shouldWriteDebugTextures(UniKernel, v513, v514))
+            v523 = objc_msgSend_shouldWriteDebugTextures(UniKernel, v521, v522);
+            if (v523)
             {
-              objc_msgSend_waitUntilCompleted(v508, v515, v516);
+              v523 = objc_msgSend_waitUntilCompleted(v516, v524, v525);
             }
 
-            v517 = uni_logger_render();
-            if (os_log_type_enabled(v517, OS_LOG_TYPE_INFO))
+            v526 = uni_logger_render(v523);
+            if (os_log_type_enabled(v526, OS_LOG_TYPE_INFO))
             {
-              v519 = objc_msgSend_stringWithFormat_(MEMORY[0x29EDBA0F8], v518, @"%@", v56);
-              v520 = v519;
-              v523 = objc_msgSend_UTF8String(v520, v521, v522);
+              v528 = objc_msgSend_stringWithFormat_(MEMORY[0x29EDBA0F8], v527, @"%@", v57);
+              v529 = v528;
+              v532 = objc_msgSend_UTF8String(v529, v530, v531);
               *buf = 136315138;
-              v572 = v523;
-              _os_log_impl(&dword_295691000, v517, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
+              v581 = v532;
+              _os_log_impl(&dword_295691000, v526, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
             }
 
-            if ((objc_msgSend_containsObject_(v569, v524, v508) & 1) == 0)
+            if ((objc_msgSend_containsObject_(v578, v533, v516) & 1) == 0)
             {
-              objc_msgSend_addObject_(v565, v525, v508);
-              objc_msgSend_addObject_(v569, v526, v508);
+              objc_msgSend_addObject_(v574, v534, v516);
+              objc_msgSend_addObject_(v578, v535, v516);
             }
 
-            ++v53;
+            ++v54;
           }
 
-          ++v54;
+          ++v55;
         }
 
-        while (v52 != v54);
-        v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v527, &v574, v573, 16);
+        while (v53 != v55);
+        v53 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v536, &v583, v582, 16);
       }
 
-      while (v52);
+      while (v53);
     }
 
     if (completedCopy)
     {
-      v530 = objc_msgSend_lastObject(v565, v528, v529);
-      objc_msgSend_waitUntilCompleted(v530, v531, v532);
+      v539 = objc_msgSend_lastObject(v574, v537, v538);
+      objc_msgSend_waitUntilCompleted(v539, v540, v541);
     }
 
-    v533 = objc_msgSend_processInfo(MEMORY[0x29EDBA0B0], v528, v529);
-    v536 = objc_msgSend_processName(v533, v534, v535);
+    v542 = objc_msgSend_processInfo(MEMORY[0x29EDBA0B0], v537, v538);
+    v545 = objc_msgSend_processName(v542, v543, v544);
 
-    v537 = MEMORY[0x29EDBA0F8];
-    v538 = getpid();
-    v540 = objc_msgSend_stringWithFormat_(v537, v539, @"_pid%d", v538);
-    v542 = v540;
-    if (v536)
+    v546 = MEMORY[0x29EDBA0F8];
+    v547 = getpid();
+    v549 = objc_msgSend_stringWithFormat_(v546, v548, @"_pid%d", v547);
+    v551 = v549;
+    if (v545)
     {
-      v543 = objc_msgSend_stringByAppendingString_(v536, v541, v540);
+      v552 = objc_msgSend_stringByAppendingString_(v545, v550, v549);
     }
 
     else
     {
-      v543 = v540;
+      v552 = v549;
     }
 
-    v546 = objc_opt_new();
-    v549 = objc_msgSend_temporaryDirectory(v546, v547, v548);
-    v550 = v549;
-    v553 = objc_msgSend_fileSystemRepresentation(v550, v551, v552);
+    v555 = objc_opt_new();
+    v558 = objc_msgSend_temporaryDirectory(v555, v556, v557);
+    v559 = v558;
+    v562 = objc_msgSend_fileSystemRepresentation(v559, v560, v561);
 
-    v554 = MEMORY[0x29EDBA0F8];
-    v555 = atomic_load(dword_2A1388980);
-    v557 = objc_msgSend_stringWithFormat_(v554, v556, @"/%s/%@_%d.dot", v553, v543, v555);
+    v563 = MEMORY[0x29EDBA0F8];
+    v564 = atomic_load(dword_2A1388980);
+    v566 = objc_msgSend_stringWithFormat_(v563, v565, @"/%s/%@_%d.dot", v562, v552, v564);
     atomic_fetch_add_explicit(dword_2A1388980, 1u, memory_order_relaxed);
-    v558 = objc_opt_class();
-    objc_msgSend__spewDot_filename_(v558, v559, obj, v557);
+    v567 = objc_opt_class();
+    objc_msgSend__spewDot_filename_(v567, v568, obj, v566);
 
-    v545 = v563;
-    v544 = v560;
-    v35 = v561;
+    v554 = v572;
+    v553 = v569;
+    v35 = v570;
   }
 
   else
   {
-    v544 = uni_logger_api();
-    if (os_log_type_enabled(v544, OS_LOG_TYPE_INFO))
+    v553 = uni_logger_api(v36);
+    if (os_log_type_enabled(v553, OS_LOG_TYPE_INFO))
     {
-      *v578 = 136446210;
-      v579 = "+[UniImage metalRenderImageArray:queue:waitUntilScheduled:waitUntilCompleted:]";
-      _os_log_impl(&dword_295691000, v544, OS_LOG_TYPE_INFO, "%{public}s Nothing to do ... ", v578, 0xCu);
+      *v587 = 136446210;
+      v588 = "+[UniImage metalRenderImageArray:queue:waitUntilScheduled:waitUntilCompleted:]";
+      _os_log_impl(&dword_295691000, v553, OS_LOG_TYPE_INFO, "%{public}s Nothing to do ... ", v587, 0xCu);
     }
 
-    v545 = v563;
+    v554 = v572;
   }
 }
 

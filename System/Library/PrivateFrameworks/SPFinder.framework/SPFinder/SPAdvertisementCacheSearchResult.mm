@@ -27,12 +27,12 @@
 
 - (SPAdvertisementCacheSearchResult)initWithCoder:(id)coder
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[0] = objc_opt_class();
+  v12[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   v7 = [v4 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"beaconAdvertisements"];
   [(SPAdvertisementCacheSearchResult *)self setBeaconAdvertisements:v8];
@@ -43,7 +43,6 @@
   v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"error"];
 
   [(SPAdvertisementCacheSearchResult *)self setError:v10];
-  v11 = *MEMORY[0x277D85DE8];
   return self;
 }
 

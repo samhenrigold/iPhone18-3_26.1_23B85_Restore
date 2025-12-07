@@ -112,13 +112,13 @@
   recordCopy = record;
   providerCopy = provider;
   environmentCopy = environment;
-  v52.receiver = self;
-  v52.super_class = AVTAvatarAttributeEditorViewController;
-  v13 = [(AVTAvatarAttributeEditorViewController *)&v52 initWithNibName:0 bundle:0];
+  v54.receiver = self;
+  v54.super_class = AVTAvatarAttributeEditorViewController;
+  v13 = [(AVTAvatarAttributeEditorViewController *)&v54 initWithNibName:0 bundle:0];
   v14 = v13;
   if (v13)
   {
-    v48 = providerCopy;
+    v50 = providerCopy;
     objc_storeStrong(&v13->_environment, environment);
     objc_storeStrong(&v14->_avtViewSessionProvider, provider);
     coreEnvironment = [environmentCopy coreEnvironment];
@@ -126,17 +126,17 @@
     imageProviderScheduler = v14->_imageProviderScheduler;
     v14->_imageProviderScheduler = v16;
 
-    v51 = [[AVTPresetImageProvider alloc] initWithRenderingScheduler:v14->_imageProviderScheduler environment:environmentCopy];
+    v53 = [[AVTPresetImageProvider alloc] initWithRenderingScheduler:v14->_imageProviderScheduler environment:environmentCopy];
     deviceResourceManager = [environmentCopy deviceResourceManager];
-    [deviceResourceManager registerConsumer:v51];
+    [deviceResourceManager registerConsumer:v53];
 
-    v50 = objc_alloc_init(AVTColorLayerProvider);
+    v52 = objc_alloc_init(AVTColorLayerProvider);
     v19 = [AVTPresetResourceLoader alloc];
     v20 = [(AVTPresetResourceLoader *)v19 initWithEnvironment:environmentCopy renderingScheduler:v14->_imageProviderScheduler callbackQueue:MEMORY[0x1E69E96A0]];
     v21 = [AVTAvatarAttributeEditorPreloader alloc];
     logger = [environmentCopy logger];
-    v47 = v20;
-    v49 = [(AVTAvatarAttributeEditorPreloader *)v21 initWithResourceLoader:v20 logger:logger];
+    v49 = v20;
+    v51 = [(AVTAvatarAttributeEditorPreloader *)v21 initWithResourceLoader:v20 logger:logger];
 
     v23 = [[AVTUIStickerGeneratorPool alloc] initWithMaxStickerGeneratorCount:2];
     v24 = [AVTClippableImageStore alloc];
@@ -151,7 +151,7 @@
 
     v32 = [AVTAvatarAttributeEditorModelManager alloc];
     editorCoreModel = [environmentCopy editorCoreModel];
-    v34 = [(AVTAvatarAttributeEditorModelManager *)v32 initWithAvatarRecord:recordCopy coreModel:editorCoreModel imageProvider:v51 colorLayerProvider:v50 preloader:v49 environment:environmentCopy stickerRenderer:v31];
+    v34 = [(AVTAvatarAttributeEditorModelManager *)v32 initWithAvatarRecord:recordCopy coreModel:editorCoreModel imageProvider:v53 colorLayerProvider:v52 preloader:v51 environment:environmentCopy stickerRenderer:v31];
     modelManager = v14->_modelManager;
     v14->_modelManager = v34;
 
@@ -172,22 +172,22 @@
 
     [(AVTAvatarAttributeEditorModelManager *)v14->_modelManager setDelegate:v14->_dataSource];
     buildUIModel = [(AVTAvatarAttributeEditorModelManager *)v14->_modelManager buildUIModel];
-    [(AVTAvatarAttributeEditorDataSource *)v14->_dataSource reloadWithCategories:buildUIModel currentCategoryIndex:[AVTAvatarAttributeEditorDataSource indexForCurrentCategoryGivenPreferredIdentifier:v36 categories:buildUIModel]];
+    v41 = [(AVTAvatarAttributeEditorDataSource *)v14->_dataSource reloadWithCategories:buildUIModel currentCategoryIndex:[AVTAvatarAttributeEditorDataSource indexForCurrentCategoryGivenPreferredIdentifier:v36 categories:buildUIModel]];
     v14->_isCreating = v29;
-    v14->_allowFacetracking = AVTUIIsFacetrackingSupported();
-    v41 = [[_AVTAvatarRecordImageProvider alloc] initWithEnvironment:environmentCopy];
+    v14->_allowFacetracking = AVTUIIsFacetrackingSupported(v41, v42);
+    v43 = [[_AVTAvatarRecordImageProvider alloc] initWithEnvironment:environmentCopy];
     headerPreviewImageRenderer = v14->_headerPreviewImageRenderer;
-    v14->_headerPreviewImageRenderer = v41;
+    v14->_headerPreviewImageRenderer = v43;
 
     if (!v14->_allowFacetracking)
     {
       coreEnvironment3 = [environmentCopy coreEnvironment];
-      v44 = [AVTSerialTaskScheduler fifoSchedulerWithEnvironment:coreEnvironment3];
+      v46 = [AVTSerialTaskScheduler fifoSchedulerWithEnvironment:coreEnvironment3];
       headerPreviewScheduler = v14->_headerPreviewScheduler;
-      v14->_headerPreviewScheduler = v44;
+      v14->_headerPreviewScheduler = v46;
     }
 
-    providerCopy = v48;
+    providerCopy = v50;
   }
 
   return v14;
@@ -378,7 +378,7 @@
   [(UIView *)self->_headerContainerView addSubview:self->_transitioningContainer];
 }
 
-uint64_t __57__AVTAvatarAttributeEditorViewController_setUpHeaderView__block_invoke(uint64_t a1)
+void *__57__AVTAvatarAttributeEditorViewController_setUpHeaderView__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) allowFacetracking];
   if (result)
@@ -1002,11 +1002,11 @@ uint64_t __77__AVTAvatarAttributeEditorViewController_updateHeaderViewForPreview
   {
     if (self->_isCreating && !renderCopy)
     {
-      v8 = MEMORY[0x1E69DCAB8];
-      v9 = AVTAvatarUIBundle();
-      v10 = [v8 imageNamed:@"newMemojiThumbnail" inBundle:v9 compatibleWithTraitCollection:0];
+      v9 = MEMORY[0x1E69DCAB8];
+      v10 = AVTAvatarUIBundle(v8);
+      v11 = [v9 imageNamed:@"newMemojiThumbnail" inBundle:v10 compatibleWithTraitCollection:0];
       transitioningContainer = [(AVTAvatarAttributeEditorViewController *)self transitioningContainer];
-      [transitioningContainer setStaticImage:v10];
+      [transitioningContainer setStaticImage:v11];
 
       if (!handlerCopy)
       {
@@ -1021,22 +1021,22 @@ uint64_t __77__AVTAvatarAttributeEditorViewController_updateHeaderViewForPreview
     if (headerPreviewImageRenderer)
     {
       avatarRecord2 = [(AVTAvatarAttributeEditorViewController *)self avatarRecord];
-      v15 = +[AVTRenderingScope listControllerThumbnailScope];
+      v16 = +[AVTRenderingScope listControllerThumbnailScope];
       headerPreviewImageRenderer2 = [(AVTAvatarAttributeEditorViewController *)self headerPreviewImageRenderer];
       modelManager = [(AVTAvatarAttributeEditorViewController *)self modelManager];
       avatar = [modelManager avatar];
-      v19 = [headerPreviewImageRenderer2 providerForAvatar:avatar forRecord:avatarRecord2 scope:v15 usingCache:!renderCopy];
+      v20 = [headerPreviewImageRenderer2 providerForAvatar:avatar forRecord:avatarRecord2 scope:v16 usingCache:!renderCopy];
 
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __110__AVTAvatarAttributeEditorViewController_updateImageViewWithPosedAvatarRecordForcingRender_completionHandler___block_invoke;
-      v23[3] = &unk_1E7F3D2A8;
-      v23[4] = self;
-      v24 = avatarRecord2;
-      v25 = handlerCopy;
-      v20 = v19[2];
-      v21 = avatarRecord2;
-      v22 = v20(v19, v23, 0);
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __110__AVTAvatarAttributeEditorViewController_updateImageViewWithPosedAvatarRecordForcingRender_completionHandler___block_invoke;
+      v24[3] = &unk_1E7F3D2A8;
+      v24[4] = self;
+      v25 = avatarRecord2;
+      v26 = handlerCopy;
+      v21 = v20[2];
+      v22 = avatarRecord2;
+      v23 = v21(v20, v24, 0);
     }
   }
 

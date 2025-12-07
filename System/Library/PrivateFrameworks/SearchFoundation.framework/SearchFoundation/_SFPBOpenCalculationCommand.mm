@@ -249,18 +249,14 @@ LABEL_13:
 
 - (void)setOutput:(id)output
 {
-  v4 = [output copy];
-  output = self->_output;
-  self->_output = v4;
+  self->_output = [output copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setInput:(id)input
 {
-  v4 = [input copy];
-  input = self->_input;
-  self->_input = v4;
+  self->_input = [input copy];
 
   MEMORY[0x1EEE66BB8]();
 }

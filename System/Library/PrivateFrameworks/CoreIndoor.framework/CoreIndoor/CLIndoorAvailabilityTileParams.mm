@@ -15,13 +15,13 @@
 
 - (CLIndoorAvailabilityTileParams)initWithAvailabilityTile:(void *)tile
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = CLIndoorAvailabilityTileParams;
-  v4 = [(CLIndoorAvailabilityTileParams *)&v10 init];
+  v17 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = CLIndoorAvailabilityTileParams;
+  v4 = [(CLIndoorAvailabilityTileParams *)&v9 init];
   if (!v4)
   {
-    goto LABEL_23;
+    return v4;
   }
 
   *(v4 + 50) = sub_245A3935C(tile);
@@ -34,12 +34,12 @@
   v4[328] = v5;
   if (v5)
   {
-    sub_245A82794(tile, &v11);
-    v6 = v17;
-    v4[329] = v17 & 1;
+    sub_245A82794(tile, &v10);
+    v6 = v16;
+    v4[329] = v16 & 1;
     if (v6)
     {
-      *(v4 + 89) = v13;
+      *(v4 + 89) = v12;
       v4[330] = (v6 & 2) != 0;
       if ((v6 & 2) == 0)
       {
@@ -63,7 +63,7 @@ LABEL_5:
       }
     }
 
-    *(v4 + 90) = v14;
+    *(v4 + 90) = v13;
     v4[331] = (v6 & 4) != 0;
     if ((v6 & 4) == 0)
     {
@@ -72,17 +72,17 @@ LABEL_6:
       if ((v6 & 8) == 0)
       {
 LABEL_8:
-        sub_245A4A8DC(&v11);
+        sub_245A4A8DC(&v10);
         goto LABEL_10;
       }
 
 LABEL_7:
-      *(v4 + 92) = v16;
+      *(v4 + 92) = v15;
       goto LABEL_8;
     }
 
 LABEL_17:
-    *(v4 + 91) = v15;
+    *(v4 + 91) = v14;
     v4[332] = (v6 & 8) != 0;
     if ((v6 & 8) == 0)
     {
@@ -101,12 +101,12 @@ LABEL_10:
   *(v4 + 96) = sub_245A39390(tile);
   *(v4 + 97) = sub_245A38C8C(tile);
   *(v4 + 98) = sub_245A39474(tile);
-  sub_245A391E0(tile, &v11);
+  sub_245A391E0(tile, &v10);
   if (v4[8] == 1)
   {
-    if (v11)
+    if (v10)
     {
-      sub_245A37D20((v4 + 16), &v12);
+      sub_245A37D20((v4 + 16), &v11);
       goto LABEL_21;
     }
 
@@ -116,24 +116,22 @@ LABEL_10:
 
   else
   {
-    if (!v11)
+    if (!v10)
     {
       goto LABEL_21;
     }
 
-    sub_245A39558((v4 + 16), &v12);
+    sub_245A39558((v4 + 16), &v11);
     v7 = 1;
   }
 
   v4[8] = v7;
 LABEL_21:
-  if (v11 == 1)
+  if (v10 == 1)
   {
-    sub_245A38D60(&v12);
+    sub_245A38D60(&v11);
   }
 
-LABEL_23:
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

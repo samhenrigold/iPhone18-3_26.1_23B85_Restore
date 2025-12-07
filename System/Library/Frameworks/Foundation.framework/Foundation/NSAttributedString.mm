@@ -947,7 +947,7 @@ void *__74__NSAttributedString_NSInflection___firstValueOfAttributeWithKey_inRan
   return v5;
 }
 
-uint64_t __64__NSAttributedString_NSInflection___identicalAttributesInRange___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, BOOL *a5)
+void *__64__NSAttributedString_NSInflection___identicalAttributesInRange___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, BOOL *a5)
 {
   v21 = *MEMORY[0x1E69E9840];
   v7 = *(*(*(a1 + 32) + 8) + 40);
@@ -1375,9 +1375,9 @@ uint64_t __132__NSAttributedString_NSAttributedStringFormattingSPI____initWithFo
   return [v8 addAttributes:a2 range:{v9, a4}];
 }
 
-uint64_t __132__NSAttributedString_NSAttributedStringFormattingSPI____initWithFormat_attributeOptions_formattingOptions_locale_context_arguments___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__132__NSAttributedString_NSAttributedStringFormattingSPI____initWithFormat_attributeOptions_formattingOptions_locale_context_arguments___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  result = [a2 objectForKeyedSubscript:@"NSInflect"];
+  result = [a2 objectForKeyedSubscript:{@"NSInflect", a4}];
   if (result || (result = [a2 objectForKeyedSubscript:@"NSInflectionAlternative"]) != 0 || (result = objc_msgSend(a2, "objectForKeyedSubscript:", @"NSInflectionReferentConcept")) != 0 || (result = objc_msgSend(a2, "objectForKeyedSubscript:", @"NSInflectionAgreementConcept")) != 0 || (result = objc_msgSend(a2, "objectForKeyedSubscript:", @"NSInflectionAgreementArgument")) != 0 || (result = objc_msgSend(a2, "objectForKeyedSubscript:", @"NSLocalizedNumberFormat")) != 0)
   {
     *(*(*(a1 + 32) + 8) + 24) = 1;

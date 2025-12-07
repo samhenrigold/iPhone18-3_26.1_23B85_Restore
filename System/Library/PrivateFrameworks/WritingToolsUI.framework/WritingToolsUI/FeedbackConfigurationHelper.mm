@@ -14,9 +14,9 @@
 
   if (byte_1EC7D2240 == 1)
   {
-    v5 = &type metadata for WritingTools;
-    v6 = sub_1D451F108();
-    v4[0] = 14;
+    v4[3] = &type metadata for WritingTools;
+    v4[4] = sub_1D451F108();
+    LOBYTE(v4[0]) = 14;
     v2 = sub_1D455561C();
     __swift_destroy_boxed_opaque_existential_1(v4);
   }
@@ -32,7 +32,7 @@
 - (_TtC14WritingToolsUI27FeedbackConfigurationHelper)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FeedbackConfigurationHelper();
+  v3.super_class = type metadata accessor for FeedbackConfigurationHelper(self, a2);
   return [(FeedbackConfigurationHelper *)&v3 init];
 }
 

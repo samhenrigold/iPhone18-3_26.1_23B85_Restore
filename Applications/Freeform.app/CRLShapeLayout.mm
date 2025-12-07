@@ -269,7 +269,7 @@
   if (layoutInfoGeometry3)
   {
     v24 = sub_10011F31C(v17, v19, v22);
-    [layoutInfoGeometry3 transformBasedOnPoint:CGPointZero.x centeredAtPoint:{CGPointZero.y, v24, v25}];
+    objc_msgSend_transformBasedOnPoint_centeredAtPoint_(layoutInfoGeometry3, CGPointZero.x, CGPointZero.y, v24, v25);
   }
 
   else
@@ -330,7 +330,7 @@ LABEL_26:
   v44 = 0u;
   v45 = 0u;
   v43 = 0u;
-  [(CRLShapeLayout *)self computeLayoutTransform];
+  objc_msgSend_computeLayoutTransform(self);
   v37 = [CRLCanvasLayoutGeometry alloc];
 
   v40 = v43;
@@ -348,7 +348,7 @@ LABEL_26:
   v6 = layoutInfoGeometry;
   if (layoutInfoGeometry)
   {
-    [layoutInfoGeometry transform];
+    objc_msgSend_transform(layoutInfoGeometry);
   }
 
   else
@@ -449,7 +449,7 @@ LABEL_28:
       {
         if (geometryCopy)
         {
-          [geometryCopy transform];
+          objc_msgSend_transform(geometryCopy);
           v11 = *&v29.a;
           v12 = *&v29.c;
           v13 = *&v29.tx;
@@ -464,7 +464,7 @@ LABEL_28:
 
         y = CGPointZero.y;
         v24 = vaddq_f64(v13, vmlaq_n_f64(vmulq_n_f64(v12, y), v11, CGPointZero.x));
-        [v9 transform];
+        objc_msgSend_transform(v9, *&y, v10, *&CGPointZero.x, *&y);
         v15 = sub_10011F31C(v24.f64[0], v24.f64[1], vaddq_f64(*&v29.tx, vmlaq_n_f64(vmulq_n_f64(*&v29.c, v22), *&v29.a, v23)).f64[0]);
         *(&self->mClippedPathRotatedTransform.tx + 3) = sub_10011F334(*(&self->mClippedPathRotatedTransform.tx + 3), *(&self->mClippedPathRotatedTransform.ty + 3), v15);
         *(&self->mClippedPathRotatedTransform.ty + 3) = v16;
@@ -478,7 +478,7 @@ LABEL_28:
           *(&self->mCachedAlignmentFrame.originalCachedRect.size.height + 3) = sub_10011F334(*(&self->mCachedAlignmentFrame.originalCachedRect.size.height + 3), *(&self->mCachedAlignmentFrame.isValid + 3), v15);
           *(&self->mCachedAlignmentFrame.isValid + 3) = v19;
           memset(&v29, 0, sizeof(v29));
-          [v9 transform];
+          objc_msgSend_transform(v9);
           CGAffineTransformInvert(&t2, &t1);
           v20 = *(&self->mCachedAlignmentFrameInRootTransformInRoot.a + 3);
           *&t1.a = *v17;
@@ -487,7 +487,7 @@ LABEL_28:
           CGAffineTransformConcat(&v29, &t1, &t2);
           if (geometryCopy)
           {
-            [geometryCopy transform];
+            objc_msgSend_transform(geometryCopy);
           }
 
           else
@@ -540,7 +540,7 @@ LABEL_29:
 
   else
   {
-    [(CRLCanvasAbstractLayout *)self transform];
+    objc_msgSend_transform(self, a2);
     [(CRLShapeLayout *)self shapeFrameWithTransform:&v8];
     *v2 = v3;
     v2[1] = v4;
@@ -580,7 +580,7 @@ LABEL_29:
   else
   {
     memset(&t1, 0, sizeof(t1));
-    [(CRLCanvasAbstractLayout *)self transform];
+    objc_msgSend_transform(self);
     v12 = *&transform->c;
     *&v13.a = *&transform->a;
     *&v13.c = v12;
@@ -604,15 +604,15 @@ LABEL_29:
   if (parent)
   {
     v4 = (&self->mCachedAlignmentFrame.originalCachedRect.size.height + 3);
-    if (!*(&self->mCachedAlignmentFrameInRoot.originalCachedRect.size.width + 3) || ([(CRLCanvasAbstractLayout *)self transformInRoot], v5 = *(&self->mCachedAlignmentFrameInRootTransformInRoot.a + 3), *&v15.a = *(&self->mCachedAlignmentFrameInRoot.originalCachedRect.size.height + 3), *&v15.c = v5, *&v15.tx = *(&self->mCachedAlignmentFrameInRootTransformInRoot.c + 3), !CGAffineTransformEqualToTransform(&v15, &t2)))
+    if (!*(&self->mCachedAlignmentFrameInRoot.originalCachedRect.size.width + 3) || (objc_msgSend_transformInRoot(self), v5 = *(&self->mCachedAlignmentFrameInRootTransformInRoot.a + 3), *&v15.a = *(&self->mCachedAlignmentFrameInRoot.originalCachedRect.size.height + 3), *&v15.c = v5, *&v15.tx = *(&self->mCachedAlignmentFrameInRootTransformInRoot.c + 3), !CGAffineTransformEqualToTransform(&v15, &t2)))
     {
-      [(CRLCanvasAbstractLayout *)self transformInRoot];
+      objc_msgSend_transformInRoot(self);
       [(CRLShapeLayout *)self shapeFrameWithTransform:&t2];
       *v4 = v6;
       *(&self->mCachedAlignmentFrame.isValid + 3) = v7;
       *(&self->mCachedAlignmentFrameInRoot.cachedRect.origin.x + 3) = v8;
       *(&self->mCachedAlignmentFrameInRoot.cachedRect.origin.y + 3) = v9;
-      [(CRLCanvasAbstractLayout *)self transformInRoot];
+      objc_msgSend_transformInRoot(self);
       v10 = *&t2.c;
       *(&self->mCachedAlignmentFrameInRoot.originalCachedRect.size.height + 3) = *&t2.a;
       *(&self->mCachedAlignmentFrameInRootTransformInRoot.a + 3) = v10;
@@ -1054,7 +1054,7 @@ LABEL_8:
     v4 = layoutInfoGeometry;
     if (layoutInfoGeometry)
     {
-      [layoutInfoGeometry transform];
+      objc_msgSend_transform(layoutInfoGeometry);
     }
 
     else
@@ -1218,7 +1218,7 @@ LABEL_8:
   v8 = geometryInRoot;
   if (geometryInRoot)
   {
-    [geometryInRoot transform];
+    objc_msgSend_transform(geometryInRoot);
     v10 = v28.f64[1];
     v9 = v28.f64[0];
     v12 = v29.f64[1];
@@ -1244,7 +1244,7 @@ LABEL_8:
   v18 = geometryInRoot2;
   if (geometryInRoot2)
   {
-    [geometryInRoot2 transform];
+    objc_msgSend_transform(geometryInRoot2);
     v19 = v28;
     v20 = v29;
     v21 = v30;
@@ -1594,7 +1594,7 @@ LABEL_21:
 LABEL_22:
   v28 = path;
   memset(&v91, 0, sizeof(v91));
-  [(CRLCanvasAbstractLayout *)self transformInRoot];
+  objc_msgSend_transformInRoot(self);
   layoutController = [(CRLCanvasLayout *)self layoutController];
   canvas = [layoutController canvas];
 
@@ -2062,7 +2062,7 @@ LABEL_79:
   v25 = 0u;
   v26 = 0u;
   v24 = 0u;
-  [(CRLCanvasAbstractLayout *)self transformInRoot];
+  objc_msgSend_transformInRoot(self);
   v26 = 0uLL;
   v23[0] = v24;
   v23[1] = v25;
@@ -2459,7 +2459,7 @@ LABEL_79:
 LABEL_120:
     if (shapeInfo)
     {
-      [shapeInfo computeFullTransform];
+      objc_msgSend_computeFullTransform(shapeInfo);
     }
 
     else
@@ -2539,7 +2539,7 @@ LABEL_124:
   v7 = [CRLCanvasInfoGeometry alloc];
   if (pureGeometry)
   {
-    [pureGeometry fullTransform];
+    objc_msgSend_fullTransform(pureGeometry);
   }
 
   else
@@ -2772,14 +2772,14 @@ LABEL_124:
   {
     if (trackerCopy)
     {
-      [trackerCopy flippedIfNecessaryTransformForLayout:self];
+      objc_msgSend_flippedIfNecessaryTransformForLayout_(trackerCopy);
       goto LABEL_7;
     }
   }
 
   else if (trackerCopy)
   {
-    [trackerCopy transformForLayout:self];
+    objc_msgSend_transformForLayout_(trackerCopy);
     goto LABEL_7;
   }
 
@@ -2792,7 +2792,7 @@ LABEL_7:
   v19 = v16;
   if (trackerCopy)
   {
-    [trackerCopy resizeTransform];
+    objc_msgSend_resizeTransform(trackerCopy);
   }
 
   else
@@ -2915,7 +2915,7 @@ LABEL_7:
   v25 = originalPureGeometry;
   if (originalPureGeometry)
   {
-    [originalPureGeometry transform];
+    objc_msgSend_transform(originalPureGeometry);
   }
 
   else
@@ -2978,7 +2978,7 @@ LABEL_7:
         v53 = off_1019EDA68;
         if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
         {
-          sub_101382838(&self->mDynamicMaskPath + 3, v53);
+          sub_101382838((&self->mDynamicMaskPath + 3), v53);
         }
 
         if (qword_101AD5A10 != -1)
@@ -3015,7 +3015,7 @@ LABEL_55:
     v60 = originalPureGeometry2;
     if (originalPureGeometry2)
     {
-      [originalPureGeometry2 fullTransform];
+      objc_msgSend_fullTransform(originalPureGeometry2);
     }
 
     else
@@ -3146,7 +3146,7 @@ LABEL_59:
           v99 = originalPureGeometry3;
           if (originalPureGeometry3)
           {
-            [originalPureGeometry3 transform];
+            objc_msgSend_transform(originalPureGeometry3);
           }
 
           else
@@ -3384,7 +3384,7 @@ LABEL_6:
   v6 = pureGeometry;
   if (pureGeometry)
   {
-    [pureGeometry fullTransform];
+    objc_msgSend_fullTransform(pureGeometry);
   }
 
   else
@@ -3548,7 +3548,7 @@ LABEL_6:
     v12 = 0u;
     if (trackerCopy)
     {
-      [trackerCopy rotateTransform];
+      objc_msgSend_rotateTransform(trackerCopy);
     }
 
     else
@@ -3558,7 +3558,7 @@ LABEL_6:
       v9 = 0uLL;
     }
 
-    [(CRLCanvasLayout *)self layoutTransformInInfoSpace:&v9];
+    objc_msgSend_layoutTransformInInfoSpace_(self, v9, v10, v11);
     v9 = v12;
     v10 = v13;
     v11 = v14;
@@ -3584,7 +3584,7 @@ LABEL_6:
     v17 = 0u;
     if (trackerCopy)
     {
-      [trackerCopy resizeTransformForLayout:self];
+      objc_msgSend_resizeTransformForLayout_(trackerCopy);
     }
 
     [trackerCopy currentSizeForLayout:self];
@@ -3617,7 +3617,7 @@ LABEL_6:
       v17 = 0u;
       if (trackerCopy)
       {
-        [trackerCopy freeTransformForLayout:self];
+        objc_msgSend_freeTransformForLayout_(trackerCopy);
       }
 
       else
@@ -3627,7 +3627,7 @@ LABEL_6:
         v14 = 0uLL;
       }
 
-      [(CRLCanvasLayout *)self layoutTransformInInfoSpace:&v14];
+      objc_msgSend_layoutTransformInInfoSpace_(self);
       v14 = v17;
       v15 = v18;
       v16 = v19;
@@ -4275,7 +4275,7 @@ LABEL_11:
     shapeInfo2 = [(CRLShapeLayout *)self shapeInfo];
     tailLineEnd = [shapeInfo2 tailLineEnd];
     stroke = [(CRLShapeLayout *)self stroke];
-    [CRLBezierPath lineEndPositioningOnPath:path atHead:1 headPoint:headLineEnd tailPoint:tailLineEnd headLineEnd:stroke tailLineEnd:*(&self->mCachedAlignmentFrameInRootTransformInRoot.tx + 3) stroke:*(&self->mCachedAlignmentFrameInRootTransformInRoot.ty + 3), *(&self->mHeadPoint.x + 3), *(&self->mHeadPoint.y + 3)];
+    objc_msgSend_lineEndPositioningOnPath_atHead_headPoint_tailPoint_headLineEnd_tailLineEnd_stroke_(CRLBezierPath, *(&self->mCachedAlignmentFrameInRootTransformInRoot.tx + 3), *(&self->mCachedAlignmentFrameInRootTransformInRoot.ty + 3), *(&self->mHeadPoint.x + 3), *(&self->mHeadPoint.y + 3));
 
     *(&self->mTailLineEndPoint.x + 3) = 0.0;
     *(&self->mTailPoint + 3) = *(v9 + 8);
@@ -4297,7 +4297,7 @@ LABEL_11:
     shapeInfo2 = [(CRLShapeLayout *)self shapeInfo];
     tailLineEnd = [shapeInfo2 tailLineEnd];
     stroke = [(CRLShapeLayout *)self stroke];
-    [CRLBezierPath lineEndPositioningOnPath:path atHead:0 headPoint:headLineEnd tailPoint:tailLineEnd headLineEnd:stroke tailLineEnd:*(&self->mCachedAlignmentFrameInRootTransformInRoot.tx + 3) stroke:*(&self->mCachedAlignmentFrameInRootTransformInRoot.ty + 3), *(&self->mHeadPoint.x + 3), *(&self->mHeadPoint.y + 3)];
+    objc_msgSend_lineEndPositioningOnPath_atHead_headPoint_tailPoint_headLineEnd_tailLineEnd_stroke_(CRLBezierPath, *(&self->mCachedAlignmentFrameInRootTransformInRoot.tx + 3), *(&self->mCachedAlignmentFrameInRootTransformInRoot.ty + 3), *(&self->mHeadPoint.x + 3), *(&self->mHeadPoint.y + 3));
 
     *(&self->mTailLineEndPoint.y + 3) = 0.0;
     *(&self->mHeadLineEndPoint + 3) = *(v9 + 8);

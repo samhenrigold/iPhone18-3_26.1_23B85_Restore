@@ -2,8 +2,10 @@
 - (FMCoreLocationController)fmCoreLocationController;
 - (FMTimeSeriesModel)initWithFMCoreData:(id)data locationController:(id)controller;
 - (id)trimEventsAndCopyForState:(id)state basedOnTimestamp:(unint64_t)timestamp;
+- (void)_handleAirplaneModeActiveChanged:(BOOL)changed;
 - (void)_handleCellMonitorUpdate:(id)update info:(id)info;
 - (void)_handleIncomingMetric:(id)metric withPayload:(id)payload;
+- (void)_handleLocationAuthorizationUpdate:(BOOL)update;
 - (void)_handleRegistrationStatusChanged:(id)changed registrationStatus:(id)status;
 - (void)_handleSignalStrengthChanged:(id)changed bars:(id)bars;
 - (void)_initializeStateForContext:(id)context atTime:(id)time;
@@ -159,6 +161,19 @@
 
   [(FMTimeSeriesModel *)self _initializeStateForContext:contextCopy atTime:timeCopy];
 LABEL_8:
+}
+
+- (void)_handleAirplaneModeActiveChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  if (os_log_type_enabled(*(qword_1002DBE98 + 136), OS_LOG_TYPE_DEBUG))
+  {
+    sub_1001FD288();
+  }
+
+  [(FMTimeSeriesModel *)self setIsAirplaneModeActive:changedCopy];
+  contextUUIDToStateMap = [(FMModel *)self contextUUIDToStateMap];
+  [contextUUIDToStateMap enumerateKeysAndObjectsUsingBlock:&stru_1002ABE18];
 }
 
 - (void)_handleCellMonitorUpdate:(id)update info:(id)info
@@ -464,7 +479,7 @@ LABEL_23:
 
       v10 = [v8 gci];
       subscriptionID = [v8 subscriptionID];
-      -[FMTimeSeriesModel handleCongestionInfoForGCI:andSubsId:isCongested:](self, "handleCongestionInfoForGCI:andSubsId:isCongested:", v10, [subscriptionID unsignedIntValue], objc_msgSend(v8, "isCongested"));
+      -[FMTimeSeriesModel handleCongestionInfoForGCI:andSubsId:isCongested:](self, "handleCongestionInfoForGCI:andSubsId:isCongested:", v10, [subscriptionID unsignedIntValue], objc_msgSend_isCongested(v8));
     }
 
     else
@@ -481,7 +496,7 @@ LABEL_23:
         }
 
         v10Gci = [v10 gci];
-        -[FMTimeSeriesModel handleCongestionInfoForGCI:andSubsId:isCongested:](self, "handleCongestionInfoForGCI:andSubsId:isCongested:", v10Gci, [v10 subsId], objc_msgSend(v10, "isCongested"));
+        -[FMTimeSeriesModel handleCongestionInfoForGCI:andSubsId:isCongested:](self, "handleCongestionInfoForGCI:andSubsId:isCongested:", v10Gci, [v10 subsId], objc_msgSend_isCongested(v10));
       }
 
       else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -501,6 +516,17 @@ LABEL_23:
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "FederatedMobility[FMTimeSeriesModel]:#N Received null metric: %@", &v15, 0xCu);
     }
   }
+}
+
+- (void)_handleLocationAuthorizationUpdate:(BOOL)update
+{
+  updateCopy = update;
+  if (os_log_type_enabled(*(qword_1002DBE98 + 136), OS_LOG_TYPE_DEBUG))
+  {
+    sub_1001FD7E4();
+  }
+
+  [(FMTimeSeriesModel *)self setIsLocationAuthorized:updateCopy];
 }
 
 - (id)trimEventsAndCopyForState:(id)state basedOnTimestamp:(unint64_t)timestamp
@@ -1387,44 +1413,42 @@ LABEL_23:
 - (void)updatedActivePredictions:(NSArray *)predictions completionHandler:(id)handler
 {
   v7 = sub_100164A3C(&qword_1002D7180, &qword_10024ABF0);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v18 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  v12[2] = predictions;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = type metadata accessor for TaskPriority();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = predictions;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = type metadata accessor for TaskPriority();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_10024D490;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_10024D490;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_10024D4A0;
-  v15[5] = v14;
+  v14[4] = &unk_10024D4A0;
+  v14[5] = v13;
   predictionsCopy = predictions;
   selfCopy = self;
-  sub_1001D5BAC(0, 0, v10, &unk_10024D4B0, v15);
+  sub_1001D5BAC(0, 0, v9, &unk_10024D4B0, v14);
 }
 
 - (void)updatedCongestionState:(BOOL)state
 {
   v4 = sub_100164A3C(&qword_1002D7180, &qword_10024ABF0);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v10 - v6;
-  v8 = type metadata accessor for TaskPriority();
-  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
-  v9 = swift_allocObject();
-  *(v9 + 16) = 0;
-  *(v9 + 24) = 0;
-  *(v9 + 32) = state;
-  sub_1001C47C0(0, 0, v7, &unk_10024D480, v9);
+  v6 = &v9 - v5;
+  v7 = type metadata accessor for TaskPriority();
+  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v8 = swift_allocObject();
+  *(v8 + 16) = 0;
+  *(v8 + 24) = 0;
+  *(v8 + 32) = state;
+  sub_1001C47C0(0, 0, v6, &unk_10024D480, v8);
 }
 
 @end

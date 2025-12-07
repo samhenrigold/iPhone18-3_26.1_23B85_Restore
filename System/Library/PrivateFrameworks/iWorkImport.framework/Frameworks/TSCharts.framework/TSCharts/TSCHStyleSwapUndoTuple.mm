@@ -156,12 +156,12 @@
   v3 = [TSCHStyleSwapUndoTuple alloc];
   styleSwapSupporting = self->_styleSwapSupporting;
   v9 = objc_msgSend_swapType(self, v5, v6, v7, v8);
-  v14 = objc_msgSend_index(self, v10, v11, v12, v13);
-  v19 = objc_msgSend_afterValue(self, v15, v16, v17, v18);
-  v24 = objc_msgSend_beforeValue(self, v20, v21, v22, v23);
-  v29 = objc_msgSend_initWithPersistentStyleSwapSupporting_swapType_index_oldValue_newValue_refLineUUID_(v3, v25, v26, v27, v28, styleSwapSupporting, v9, v14, v19, v24, 0);
+  v13 = objc_msgSend_index(self, v10, v11, v12);
+  v18 = objc_msgSend_afterValue(self, v14, v15, v16, v17);
+  v23 = objc_msgSend_beforeValue(self, v19, v20, v21, v22);
+  v28 = objc_msgSend_initWithPersistentStyleSwapSupporting_swapType_index_oldValue_newValue_refLineUUID_(v3, v24, v25, v26, v27, styleSwapSupporting, v9, v13, v18, v23, 0);
 
-  return v29;
+  return v28;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -405,19 +405,19 @@ LABEL_13:
 {
   v3 = [TSCHStyleSemanticTag alloc];
   v8 = objc_msgSend_swapType(self, v4, v5, v6, v7);
-  v13 = objc_msgSend_index(self, v9, v10, v11, v12);
-  v18 = objc_msgSend_initWithType_index_(v3, v14, v15, v16, v17, v8, v13);
+  v12 = objc_msgSend_index(self, v9, v10, v11);
+  v17 = objc_msgSend_initWithType_index_(v3, v13, v14, v15, v16, v8, v12);
 
-  return v18;
+  return v17;
 }
 
 - (TSCHStyleOwnerReference)styleOwnerReference
 {
   v6 = objc_msgSend_swapType(self, a2, v2, v3, v4);
   v7 = sub_2762E60FC(v6);
-  v13 = objc_msgSend_index(self, v8, v9, v10, v11);
+  v12 = objc_msgSend_index(self, v8, v9, v10);
 
-  return objc_msgSend_styleOwnerReferenceWithType_index_(TSCHStyleOwnerReference, v12, v14, v15, v16, v7, v13);
+  return objc_msgSend_styleOwnerReferenceWithType_index_(TSCHStyleOwnerReference, v11, v13, v14, v15, v7, v12);
 }
 
 - (id)migratedStyleForStyle:(id)style documentRoot:(id)root
@@ -496,11 +496,11 @@ LABEL_13:
   v51 = [TSCHStyleSwapUndoTuple alloc];
   styleSwapSupporting = self->_styleSwapSupporting;
   v57 = objc_msgSend_swapType(self, v53, v54, v55, v56);
-  v62 = objc_msgSend_index(self, v58, v59, v60, v61);
-  v67 = objc_msgSend_refLineUUID(self, v63, v64, v65, v66);
-  v72 = objc_msgSend_initWithPersistentStyleSwapSupporting_swapType_index_oldValue_newValue_refLineUUID_(v51, v68, v69, v70, v71, styleSwapSupporting, v57, v62, v48, v50, v67);
+  v61 = objc_msgSend_index(self, v58, v59, v60);
+  v66 = objc_msgSend_refLineUUID(self, v62, v63, v64, v65);
+  v71 = objc_msgSend_initWithPersistentStyleSwapSupporting_swapType_index_oldValue_newValue_refLineUUID_(v51, v67, v68, v69, v70, styleSwapSupporting, v57, v61, v48, v50, v66);
 
-  return v72;
+  return v71;
 }
 
 - (id)convertedSwapTupleForChartInfo:(id)info
@@ -527,11 +527,11 @@ LABEL_13:
   {
     v25 = [TSCHStyleSwapUndoTuple alloc];
     v30 = objc_msgSend_swapType(self, v26, v27, v28, v29);
-    v35 = objc_msgSend_index(self, v31, v32, v33, v34);
-    v40 = objc_msgSend_beforeValue(self, v36, v37, v38, v39);
-    v45 = objc_msgSend_afterValue(self, v41, v42, v43, v44);
-    v50 = objc_msgSend_refLineUUID(self, v46, v47, v48, v49);
-    selfCopy = objc_msgSend_initWithPersistentStyleSwapSupporting_swapType_index_oldValue_newValue_refLineUUID_(v25, v51, v52, v53, v54, infoCopy, v30, v35, v40, v45, v50);
+    v34 = objc_msgSend_index(self, v31, v32, v33);
+    v39 = objc_msgSend_beforeValue(self, v35, v36, v37, v38);
+    v44 = objc_msgSend_afterValue(self, v40, v41, v42, v43);
+    v49 = objc_msgSend_refLineUUID(self, v45, v46, v47, v48);
+    selfCopy = objc_msgSend_initWithPersistentStyleSwapSupporting_swapType_index_oldValue_newValue_refLineUUID_(v25, v50, v51, v52, v53, infoCopy, v30, v34, v39, v44, v49);
   }
 
   return selfCopy;

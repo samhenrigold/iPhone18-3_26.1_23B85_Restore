@@ -25,7 +25,7 @@
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_100140278(&qword_1008E5718);
+  v9 = sub_100140278(&qword_1008E5718, &unk_1006E3CB0);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   if (!note)
@@ -62,7 +62,7 @@ LABEL_7:
 
 LABEL_8:
 
-  sub_10000EA04(v11, &qword_1008E5718);
+  sub_10000EA04(v11, &qword_1008E5718, &unk_1006E3CB0);
 }
 
 - (_TtC10FitnessApp18TrendsDataProvider)init

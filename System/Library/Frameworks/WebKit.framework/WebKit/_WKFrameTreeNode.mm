@@ -39,15 +39,15 @@
 
     v6 = v5;
     v7 = v5;
-    v8 = *(v4 + 8);
+    var1 = v4->var1;
   }
 
   else
   {
-    v8 = 0;
+    var1 = 0;
   }
 
-  CFRelease(v8);
+  CFRelease(var1);
   if (v14)
   {
     CFRelease(*(v14 + 8));
@@ -92,8 +92,8 @@
       WebKit::FrameInfoData::FrameInfoData(&v19, isa);
       WTF::Vector<WebKit::FrameTreeNodeData,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v25, isa + 44);
       API::FrameTreeNode::create(&v19, *self[6]._node.m_storage.data, &v18);
-      v7 = *(v18 + 8);
-      if (!v7)
+      var1 = v18->var1;
+      if (!var1)
       {
         break;
       }
@@ -106,12 +106,12 @@
         return result;
       }
 
-      v8 = v7;
+      v8 = var1;
       v10 = v18;
       v18 = 0;
       if (v10)
       {
-        v11 = *(v10 + 8);
+        v11 = v10->var1;
 LABEL_8:
         CFRelease(v11);
       }
@@ -139,9 +139,9 @@ LABEL_8:
       }
 
       WebCore::ResourceRequestBase::~ResourceRequestBase(&v20);
-      if (v7)
+      if (var1)
       {
-        [(NSArray *)v3 addObject:v7];
+        [(NSArray *)v3 addObject:var1];
       }
 
       isa += 46;

@@ -71,7 +71,7 @@ LABEL_10:
 
 - (BOOL)_migrateEdgesToNativelyModeledObjectsWithError:(id *)error context:(id)context
 {
-  v112 = *MEMORY[0x1E69E9840];
+  v116 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v8 = contextCopy;
   if (error)
@@ -97,10 +97,10 @@ LABEL_10:
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"PLModelMigrationActions_19000.m" lineNumber:942 description:{@"Invalid parameter not satisfying: %@", @"moc"}];
 
 LABEL_3:
-  v70 = 0;
-  v71 = &v70;
-  v72 = 0x2020000000;
-  v73 = 1;
+  v74 = 0;
+  v75 = &v74;
+  v76 = 0x2020000000;
+  v77 = 1;
   v9 = PLMigrationGetLog();
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
@@ -111,16 +111,20 @@ LABEL_3:
 
     if (v12)
     {
-      v16 = PLMigrationGetLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = PLMigrationGetLog();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_19BF1F000, v16, OS_LOG_TYPE_DEFAULT, "RelocateEdgesAndNormalizeNodeValues: migrating edges for modeled objects...", buf, 2u);
+        _os_log_impl(&dword_19BF1F000, v17, OS_LOG_TYPE_DEFAULT, "RelocateEdgesAndNormalizeNodeValues: migrating edges for modeled objects...", buf, 2u);
       }
     }
 
     else
     {
+      v114 = 0u;
+      v115 = 0u;
+      v112 = 0u;
+      v113 = 0u;
       v110 = 0u;
       v111 = 0u;
       v108 = 0u;
@@ -147,89 +151,97 @@ LABEL_3:
       v89 = 0u;
       v86 = 0u;
       v87 = 0u;
-      v84 = 0u;
-      v85 = 0u;
-      v82 = 0u;
-      v83 = 0u;
       memset(buf, 0, sizeof(buf));
       v13 = PLMigrationGetLog();
-      os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-      LOWORD(v78) = 0;
-      LODWORD(v64) = 2;
-      v14 = _os_log_send_and_compose_impl();
-
-      v15 = [(PLModelMigrationActionCore *)self logger:&v78];
-      [v15 logWithMessage:v14 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{946, 0}];
-
-      if (v14 != buf)
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        free(v14);
+        v14 = 3;
+      }
+
+      else
+      {
+        v14 = 2;
+      }
+
+      LOWORD(v82) = 0;
+      v15 = _os_log_send_and_compose_impl(v14, 0, buf, 512, &dword_19BF1F000, v13, 0, "RelocateEdgesAndNormalizeNodeValues: migrating edges for modeled objects...", &v82, 2);
+
+      logger2 = [(PLModelMigrationActionCore *)self logger];
+      [logger2 logWithMessage:v15 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{946, 0}];
+
+      if (v15 != buf)
+      {
+        free(v15);
       }
     }
   }
 
-  v17 = PLSafeInsertNewObjectForEntityForNameInManagedObjectContext(@"GraphLabel", v8, 0);
-  [v17 willChangeValueForKey:@"code"];
-  [v17 setPrimitiveValue:&unk_1F0FBB530 forKey:@"code"];
-  [v17 didChangeValueForKey:@"code"];
-  v69 = 0;
-  v18 = [v8 save:&v69];
-  v19 = v69;
-  v20 = v19;
-  if (v18)
+  v18 = PLSafeInsertNewObjectForEntityForNameInManagedObjectContext(@"GraphLabel", v8, 0);
+  [v18 willChangeValueForKey:@"code"];
+  [v18 setPrimitiveValue:&unk_1F0FBB530 forKey:@"code"];
+  [v18 didChangeValueForKey:@"code"];
+  v73 = 0;
+  v19 = [v8 save:&v73];
+  v20 = v73;
+  v21 = v20;
+  if (v19)
   {
 
-    *&v78 = 0;
-    *(&v78 + 1) = &v78;
-    v79 = 0x2020000000;
-    v80 = 0;
-    v21 = +[PLGraphEdge fetchRequest];
-    v22 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == nil OR %K == nil", @"sourceNode", @"targetNode"];
-    [v21 setPredicate:v22];
+    *&v82 = 0;
+    *(&v82 + 1) = &v82;
+    v83 = 0x2020000000;
+    v84 = 0;
+    v22 = +[PLGraphEdge fetchRequest];
+    v23 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == nil OR %K == nil", @"sourceNode", @"targetNode"];
+    [v22 setPredicate:v23];
 
-    v23 = [PLEnumerateAndSaveController alloc];
-    v24 = objc_opt_class();
-    v25 = NSStringFromClass(v24);
-    v67[0] = MEMORY[0x1E69E9820];
-    v67[1] = 3221225472;
-    v67[2] = __117__PLModelMigrationAction_RelocateEdgesAndNormalizeNodeValues__migrateEdgesToNativelyModeledObjectsWithError_context___block_invoke;
-    v67[3] = &unk_1E7575B30;
-    v68 = v8;
-    v66[0] = MEMORY[0x1E69E9820];
-    v66[1] = 3221225472;
-    v66[2] = __117__PLModelMigrationAction_RelocateEdgesAndNormalizeNodeValues__migrateEdgesToNativelyModeledObjectsWithError_context___block_invoke_2;
-    v66[3] = &unk_1E7568010;
-    v66[4] = self;
-    v66[5] = &v70;
-    v66[6] = &v78;
-    v66[7] = error;
-    v26 = [(PLEnumerateAndSaveController *)v23 initWithName:v25 fetchRequest:v21 context:v68 options:4 generateContextBlock:v67 didFetchObjectIDsBlock:0 processResultsBlock:v66];
+    v24 = [PLEnumerateAndSaveController alloc];
+    v25 = objc_opt_class();
+    v26 = NSStringFromClass(v25);
+    v71[0] = MEMORY[0x1E69E9820];
+    v71[1] = 3221225472;
+    v71[2] = __117__PLModelMigrationAction_RelocateEdgesAndNormalizeNodeValues__migrateEdgesToNativelyModeledObjectsWithError_context___block_invoke;
+    v71[3] = &unk_1E7575B30;
+    v72 = v8;
+    v70[0] = MEMORY[0x1E69E9820];
+    v70[1] = 3221225472;
+    v70[2] = __117__PLModelMigrationAction_RelocateEdgesAndNormalizeNodeValues__migrateEdgesToNativelyModeledObjectsWithError_context___block_invoke_2;
+    v70[3] = &unk_1E7568010;
+    v70[4] = self;
+    v70[5] = &v74;
+    v70[6] = &v82;
+    v70[7] = error;
+    v27 = [(PLEnumerateAndSaveController *)v24 initWithName:v26 fetchRequest:v22 context:v72 options:4 generateContextBlock:v71 didFetchObjectIDsBlock:0 processResultsBlock:v70];
 
-    [(PLEnumerateAndSaveController *)v26 setItemsPerBatch:4000];
-    if ([(PLEnumerateAndSaveController *)v26 processObjectsWithError:error])
+    [(PLEnumerateAndSaveController *)v27 setItemsPerBatch:4000];
+    if ([(PLEnumerateAndSaveController *)v27 processObjectsWithError:error])
     {
-      v27 = PLMigrationGetLog();
-      v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+      v28 = PLMigrationGetLog();
+      v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
 
-      if (v28)
+      if (v29)
       {
-        logger2 = [(PLModelMigrationActionCore *)self logger];
-        v30 = logger2 == 0;
+        logger3 = [(PLModelMigrationActionCore *)self logger];
+        v31 = logger3 == 0;
 
-        if (v30)
+        if (v31)
         {
-          v55 = PLMigrationGetLog();
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+          v59 = PLMigrationGetLog();
+          if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
           {
-            v56 = *(*(&v78 + 1) + 24);
+            v60 = *(*(&v82 + 1) + 24);
             *buf = 134217984;
-            *&buf[4] = v56;
-            _os_log_impl(&dword_19BF1F000, v55, OS_LOG_TYPE_DEFAULT, "RelocateEdgesAndNormalizeNodeValues: migrating edges, total items processed: %ld", buf, 0xCu);
+            *&buf[4] = v60;
+            _os_log_impl(&dword_19BF1F000, v59, OS_LOG_TYPE_DEFAULT, "RelocateEdgesAndNormalizeNodeValues: migrating edges, total items processed: %ld", buf, 0xCu);
           }
         }
 
         else
         {
+          v114 = 0u;
+          v115 = 0u;
+          v112 = 0u;
+          v113 = 0u;
           v110 = 0u;
           v111 = 0u;
           v108 = 0u;
@@ -256,25 +268,29 @@ LABEL_3:
           v89 = 0u;
           v86 = 0u;
           v87 = 0u;
-          v84 = 0u;
-          v85 = 0u;
-          v82 = 0u;
-          v83 = 0u;
           memset(buf, 0, sizeof(buf));
-          v31 = PLMigrationGetLog();
-          os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
-          v32 = *(*(&v78 + 1) + 24);
-          v74 = 134217984;
-          v75 = v32;
-          LODWORD(v65) = 12;
-          v33 = _os_log_send_and_compose_impl();
-
-          v34 = [(PLModelMigrationActionCore *)self logger:&v74];
-          [v34 logWithMessage:v33 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1069, 0}];
-
-          if (v33 != buf)
+          v32 = PLMigrationGetLog();
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
-            free(v33);
+            v33 = 3;
+          }
+
+          else
+          {
+            v33 = 2;
+          }
+
+          v34 = *(*(&v82 + 1) + 24);
+          v78 = 134217984;
+          v79 = v34;
+          v35 = _os_log_send_and_compose_impl(v33, 0, buf, 512, &dword_19BF1F000, v32, 0, "RelocateEdgesAndNormalizeNodeValues: migrating edges, total items processed: %ld", &v78);
+
+          logger4 = [(PLModelMigrationActionCore *)self logger];
+          [logger4 logWithMessage:v35 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1069, 0}];
+
+          if (v35 != buf)
+          {
+            free(v35);
           }
         }
       }
@@ -282,32 +298,36 @@ LABEL_3:
 
     else
     {
-      v42 = PLMigrationGetLog();
-      v43 = os_log_type_enabled(v42, OS_LOG_TYPE_ERROR);
+      v45 = PLMigrationGetLog();
+      v46 = os_log_type_enabled(v45, OS_LOG_TYPE_ERROR);
 
-      if (v43)
+      if (v46)
       {
-        logger3 = [(PLModelMigrationActionCore *)self logger];
-        v45 = logger3 == 0;
+        logger5 = [(PLModelMigrationActionCore *)self logger];
+        v48 = logger5 == 0;
 
-        if (v45)
+        if (v48)
         {
-          v57 = PLMigrationGetLog();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+          v61 = PLMigrationGetLog();
+          if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
           {
-            v58 = objc_opt_class();
-            v59 = NSStringFromClass(v58);
-            v60 = *error;
+            v62 = objc_opt_class();
+            v63 = NSStringFromClass(v62);
+            v64 = *error;
             *buf = 138543618;
-            *&buf[4] = v59;
+            *&buf[4] = v63;
             *&buf[12] = 2114;
-            *&buf[14] = v60;
-            _os_log_impl(&dword_19BF1F000, v57, OS_LOG_TYPE_ERROR, "Failed to perform a save operation for %{public}@. Error: %{public}@", buf, 0x16u);
+            *&buf[14] = v64;
+            _os_log_impl(&dword_19BF1F000, v61, OS_LOG_TYPE_ERROR, "Failed to perform a save operation for %{public}@. Error: %{public}@", buf, 0x16u);
           }
         }
 
         else
         {
+          v114 = 0u;
+          v115 = 0u;
+          v112 = 0u;
+          v113 = 0u;
           v110 = 0u;
           v111 = 0u;
           v108 = 0u;
@@ -334,64 +354,73 @@ LABEL_3:
           v89 = 0u;
           v86 = 0u;
           v87 = 0u;
-          v84 = 0u;
-          v85 = 0u;
-          v82 = 0u;
-          v83 = 0u;
           memset(buf, 0, sizeof(buf));
-          v46 = PLMigrationGetLog();
-          os_log_type_enabled(v46, OS_LOG_TYPE_ERROR);
-          v47 = objc_opt_class();
-          v48 = NSStringFromClass(v47);
-          v49 = *error;
-          v74 = 138543618;
-          v75 = v48;
-          v76 = 2114;
-          v77 = v49;
-          LODWORD(v65) = 22;
-          v50 = _os_log_send_and_compose_impl();
-
-          v51 = [(PLModelMigrationActionCore *)self logger:&v74];
-          [v51 logWithMessage:v50 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1071, 16}];
-
-          if (v50 != buf)
+          v49 = PLMigrationGetLog();
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
           {
-            free(v50);
+            v50 = 3;
+          }
+
+          else
+          {
+            v50 = 2;
+          }
+
+          v51 = objc_opt_class();
+          v52 = NSStringFromClass(v51);
+          v53 = *error;
+          v78 = 138543618;
+          v79 = v52;
+          v80 = 2114;
+          v81 = v53;
+          LODWORD(v69) = 22;
+          v54 = _os_log_send_and_compose_impl(v50, 0, buf, 512, &dword_19BF1F000, v49, 16, "Failed to perform a save operation for %{public}@. Error: %{public}@", &v78, v69);
+
+          logger6 = [(PLModelMigrationActionCore *)self logger];
+          [logger6 logWithMessage:v54 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1071, 16}];
+
+          if (v54 != buf)
+          {
+            free(v54);
           }
         }
       }
 
-      *(v71 + 24) = 0;
+      *(v75 + 24) = 0;
     }
 
-    v54 = *(v71 + 24);
+    v58 = *(v75 + 24);
 
-    _Block_object_dispose(&v78, 8);
+    _Block_object_dispose(&v82, 8);
   }
 
   else
   {
-    v35 = PLMigrationGetLog();
-    v36 = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
+    v37 = PLMigrationGetLog();
+    v38 = os_log_type_enabled(v37, OS_LOG_TYPE_ERROR);
 
-    if (v36)
+    if (v38)
     {
-      logger4 = [(PLModelMigrationActionCore *)self logger];
-      v38 = logger4 == 0;
+      logger7 = [(PLModelMigrationActionCore *)self logger];
+      v40 = logger7 == 0;
 
-      if (v38)
+      if (v40)
       {
-        v52 = PLMigrationGetLog();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+        v56 = PLMigrationGetLog();
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          *&buf[4] = v20;
-          _os_log_impl(&dword_19BF1F000, v52, OS_LOG_TYPE_ERROR, "Failed to insert actor label. Error: %@", buf, 0xCu);
+          *&buf[4] = v21;
+          _os_log_impl(&dword_19BF1F000, v56, OS_LOG_TYPE_ERROR, "Failed to insert actor label. Error: %@", buf, 0xCu);
         }
       }
 
       else
       {
+        v114 = 0u;
+        v115 = 0u;
+        v112 = 0u;
+        v113 = 0u;
         v110 = 0u;
         v111 = 0u;
         v108 = 0u;
@@ -418,42 +447,47 @@ LABEL_3:
         v89 = 0u;
         v86 = 0u;
         v87 = 0u;
-        v84 = 0u;
-        v85 = 0u;
-        v82 = 0u;
-        v83 = 0u;
         memset(buf, 0, sizeof(buf));
-        v39 = PLMigrationGetLog();
-        os_log_type_enabled(v39, OS_LOG_TYPE_ERROR);
-        LODWORD(v78) = 138412290;
-        *(&v78 + 4) = v20;
-        LODWORD(v64) = 12;
-        v40 = _os_log_send_and_compose_impl();
-
-        v41 = [(PLModelMigrationActionCore *)self logger:&v78];
-        [v41 logWithMessage:v40 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{961, 16}];
-
-        if (v40 != buf)
+        v41 = PLMigrationGetLog();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
-          free(v40);
+          v42 = 3;
+        }
+
+        else
+        {
+          v42 = 2;
+        }
+
+        LODWORD(v82) = 138412290;
+        *(&v82 + 4) = v21;
+        LODWORD(v68) = 12;
+        v43 = _os_log_send_and_compose_impl(v42, 0, buf, 512, &dword_19BF1F000, v41, 16, "Failed to insert actor label. Error: %@", &v82, v68);
+
+        logger8 = [(PLModelMigrationActionCore *)self logger];
+        [logger8 logWithMessage:v43 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{961, 16}];
+
+        if (v43 != buf)
+        {
+          free(v43);
         }
       }
     }
 
-    v53 = v20;
-    *error = v20;
+    v57 = v21;
+    *error = v21;
 
-    v54 = 0;
+    v58 = 0;
   }
 
-  _Block_object_dispose(&v70, 8);
+  _Block_object_dispose(&v74, 8);
 
-  return v54 & 1;
+  return v58 & 1;
 }
 
 - (BOOL)_migrateNodePropertiesWithError:(id *)error context:(id)context
 {
-  v95 = *MEMORY[0x1E69E9840];
+  v99 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v8 = contextCopy;
   if (error)
@@ -489,6 +523,10 @@ LABEL_3:
 
     if (logger)
     {
+      v97 = 0u;
+      v98 = 0u;
+      v95 = 0u;
+      v96 = 0u;
       v93 = 0u;
       v94 = 0u;
       v91 = 0u;
@@ -513,71 +551,79 @@ LABEL_3:
       v74 = 0u;
       v71 = 0u;
       v72 = 0u;
-      v69 = 0u;
       v70 = 0u;
-      v67 = 0u;
-      v68 = 0u;
-      v66 = 0u;
-      v65 = 0u;
+      v69 = 0u;
       memset(buf, 0, sizeof(buf));
       v13 = PLMigrationGetLog();
-      os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-      LOWORD(v60) = 0;
-      LODWORD(v54) = 2;
-      v14 = _os_log_send_and_compose_impl();
-
-      v15 = [(PLModelMigrationActionCore *)self logger:&v60];
-      [v15 logWithMessage:v14 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{902, 0}];
-
-      if (v14 != buf)
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        free(v14);
+        v14 = 3;
+      }
+
+      else
+      {
+        v14 = 2;
+      }
+
+      LOWORD(v64) = 0;
+      v15 = _os_log_send_and_compose_impl(v14, 0, buf, 512, &dword_19BF1F000, v13, 0, "RelocateEdgesAndNormalizeNodeValues: setting required node properties...", &v64, 2);
+
+      logger2 = [(PLModelMigrationActionCore *)self logger];
+      [logger2 logWithMessage:v15 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{902, 0}];
+
+      if (v15 != buf)
+      {
+        free(v15);
       }
     }
 
     else
     {
-      v16 = PLMigrationGetLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = PLMigrationGetLog();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_19BF1F000, v16, OS_LOG_TYPE_DEFAULT, "RelocateEdgesAndNormalizeNodeValues: setting required node properties...", buf, 2u);
+        _os_log_impl(&dword_19BF1F000, v17, OS_LOG_TYPE_DEFAULT, "RelocateEdgesAndNormalizeNodeValues: setting required node properties...", buf, 2u);
       }
     }
   }
 
-  v17 = +[PLGraphNode fetchRequest];
-  [v17 setFetchBatchSize:100];
-  v59 = 0;
-  v18 = [v8 executeFetchRequest:v17 error:&v59];
-  v19 = v59;
-  v20 = v19;
-  if (v18)
+  v18 = +[PLGraphNode fetchRequest];
+  [v18 setFetchBatchSize:100];
+  v63 = 0;
+  v19 = [v8 executeFetchRequest:v18 error:&v63];
+  v20 = v63;
+  v21 = v20;
+  if (v19)
   {
     selfCopy = self;
-    v56[0] = MEMORY[0x1E69E9820];
-    v56[1] = 3221225472;
-    v56[2] = __102__PLModelMigrationAction_RelocateEdgesAndNormalizeNodeValues__migrateNodePropertiesWithError_context___block_invoke;
-    v56[3] = &unk_1E7567FE8;
-    v55 = pl_graphCache;
-    v57 = pl_graphCache;
-    v58 = v8;
-    v22 = [v58 enumerateWithIncrementalSaveUsingObjects:v18 withBlock:v56];
-    v23 = v22;
-    v24 = v22 == 0;
-    if (v22)
+    v60[0] = MEMORY[0x1E69E9820];
+    v60[1] = 3221225472;
+    v60[2] = __102__PLModelMigrationAction_RelocateEdgesAndNormalizeNodeValues__migrateNodePropertiesWithError_context___block_invoke;
+    v60[3] = &unk_1E7567FE8;
+    v59 = pl_graphCache;
+    v61 = pl_graphCache;
+    v62 = v8;
+    v23 = [v62 enumerateWithIncrementalSaveUsingObjects:v19 withBlock:v60];
+    v24 = v23;
+    v25 = v23 == 0;
+    if (v23)
     {
-      v25 = v22;
-      *error = v23;
-      v26 = PLMigrationGetLog();
-      v27 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
+      v26 = v23;
+      *error = v24;
+      v27 = PLMigrationGetLog();
+      v28 = os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
 
-      if (v27)
+      if (v28)
       {
-        logger2 = [(PLModelMigrationActionCore *)selfCopy logger];
+        logger3 = [(PLModelMigrationActionCore *)selfCopy logger];
 
-        if (logger2)
+        if (logger3)
         {
+          v97 = 0u;
+          v98 = 0u;
+          v95 = 0u;
+          v96 = 0u;
           v93 = 0u;
           v94 = 0u;
           v91 = 0u;
@@ -602,67 +648,76 @@ LABEL_3:
           v74 = 0u;
           v71 = 0u;
           v72 = 0u;
-          v69 = 0u;
           v70 = 0u;
-          v67 = 0u;
-          v68 = 0u;
-          v66 = 0u;
-          v65 = 0u;
+          v69 = 0u;
           memset(buf, 0, sizeof(buf));
-          v29 = PLMigrationGetLog();
-          v30 = selfCopy;
-          os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
-          v31 = objc_opt_class();
-          v32 = NSStringFromClass(v31);
-          v60 = 138543618;
-          v61 = v32;
-          v62 = 2114;
-          v63 = v23;
-          LODWORD(v54) = 22;
-          v33 = _os_log_send_and_compose_impl();
-
-          v34 = [(PLModelMigrationActionCore *)v30 logger:&v60];
-          [v34 logWithMessage:v33 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{928, 16}];
-
-          if (v33 != buf)
+          v30 = PLMigrationGetLog();
+          v31 = selfCopy;
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
-            free(v33);
+            v32 = 3;
+          }
+
+          else
+          {
+            v32 = 2;
+          }
+
+          v33 = objc_opt_class();
+          v34 = NSStringFromClass(v33);
+          v64 = 138543618;
+          v65 = v34;
+          v66 = 2114;
+          v67 = v24;
+          LODWORD(v58) = 22;
+          v35 = _os_log_send_and_compose_impl(v32, 0, buf, 512, &dword_19BF1F000, v30, 16, "Failed to perform a save operation for %{public}@. Error: %{public}@", &v64, v58);
+
+          logger4 = [(PLModelMigrationActionCore *)v31 logger];
+          [logger4 logWithMessage:v35 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{928, 16}];
+
+          if (v35 != buf)
+          {
+            free(v35);
           }
         }
 
         else
         {
-          v45 = PLMigrationGetLog();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+          v49 = PLMigrationGetLog();
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
           {
-            v46 = objc_opt_class();
-            v47 = NSStringFromClass(v46);
+            v50 = objc_opt_class();
+            v51 = NSStringFromClass(v50);
             *buf = 138543618;
-            *&buf[4] = v47;
+            *&buf[4] = v51;
             *&buf[12] = 2114;
-            *&buf[14] = v23;
-            _os_log_impl(&dword_19BF1F000, v45, OS_LOG_TYPE_ERROR, "Failed to perform a save operation for %{public}@. Error: %{public}@", buf, 0x16u);
+            *&buf[14] = v24;
+            _os_log_impl(&dword_19BF1F000, v49, OS_LOG_TYPE_ERROR, "Failed to perform a save operation for %{public}@. Error: %{public}@", buf, 0x16u);
           }
         }
       }
     }
 
-    pl_graphCache = v55;
+    pl_graphCache = v59;
   }
 
   else
   {
-    v35 = v19;
-    *error = v20;
-    v36 = PLMigrationGetLog();
-    v37 = os_log_type_enabled(v36, OS_LOG_TYPE_ERROR);
+    v37 = v20;
+    *error = v21;
+    v38 = PLMigrationGetLog();
+    v39 = os_log_type_enabled(v38, OS_LOG_TYPE_ERROR);
 
-    if (v37)
+    if (v39)
     {
-      logger3 = [(PLModelMigrationActionCore *)self logger];
+      logger5 = [(PLModelMigrationActionCore *)self logger];
 
-      if (logger3)
+      if (logger5)
       {
+        v97 = 0u;
+        v98 = 0u;
+        v95 = 0u;
+        v96 = 0u;
         v93 = 0u;
         v94 = 0u;
         v91 = 0u;
@@ -687,59 +742,65 @@ LABEL_3:
         v74 = 0u;
         v71 = 0u;
         v72 = 0u;
-        v69 = 0u;
         v70 = 0u;
-        v67 = 0u;
-        v68 = 0u;
-        v66 = 0u;
-        v65 = 0u;
+        v69 = 0u;
         memset(buf, 0, sizeof(buf));
-        v39 = PLMigrationGetLog();
-        os_log_type_enabled(v39, OS_LOG_TYPE_ERROR);
-        v40 = objc_opt_class();
-        v41 = NSStringFromClass(v40);
-        v60 = 138543618;
-        v61 = v41;
-        v62 = 2114;
-        v63 = v20;
-        LODWORD(v54) = 22;
-        selfCopy2 = self;
-        v43 = _os_log_send_and_compose_impl();
-
-        v44 = [(PLModelMigrationActionCore *)selfCopy2 logger:&v60];
-        [v44 logWithMessage:v43 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{933, 16}];
-
-        if (v43 != buf)
+        v41 = PLMigrationGetLog();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
-          free(v43);
+          v42 = 3;
+        }
+
+        else
+        {
+          v42 = 2;
+        }
+
+        v43 = objc_opt_class();
+        v44 = NSStringFromClass(v43);
+        v64 = 138543618;
+        v65 = v44;
+        v66 = 2114;
+        v67 = v21;
+        LODWORD(v58) = 22;
+        v45 = _os_log_send_and_compose_impl(v42, 0, buf, 512, &dword_19BF1F000, v41, 16, "Failed to perform a fetch operation for %{public}@. Error: %{public}@", &v64, v58);
+        selfCopy2 = self;
+        v47 = v45;
+
+        logger6 = [(PLModelMigrationActionCore *)selfCopy2 logger];
+        [logger6 logWithMessage:v47 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{933, 16}];
+
+        if (v47 != buf)
+        {
+          free(v47);
         }
       }
 
       else
       {
-        v48 = PLMigrationGetLog();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v52 = PLMigrationGetLog();
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
-          v49 = objc_opt_class();
-          v50 = NSStringFromClass(v49);
+          v53 = objc_opt_class();
+          v54 = NSStringFromClass(v53);
           *buf = 138543618;
-          *&buf[4] = v50;
+          *&buf[4] = v54;
           *&buf[12] = 2114;
-          *&buf[14] = v20;
-          _os_log_impl(&dword_19BF1F000, v48, OS_LOG_TYPE_ERROR, "Failed to perform a fetch operation for %{public}@. Error: %{public}@", buf, 0x16u);
+          *&buf[14] = v21;
+          _os_log_impl(&dword_19BF1F000, v52, OS_LOG_TYPE_ERROR, "Failed to perform a fetch operation for %{public}@. Error: %{public}@", buf, 0x16u);
         }
       }
     }
 
-    v24 = 0;
+    v25 = 0;
   }
 
-  return v24;
+  return v25;
 }
 
 - (BOOL)_migrateGraphEdgeValuesWithError:(id *)error context:(id)context
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v8 = contextCopy;
   if (error)
@@ -774,155 +835,172 @@ LABEL_3:
 
     if (logger)
     {
-      v85 = 0u;
+      v88 = 0u;
+      v89 = 0u;
       v86 = 0u;
-      v83 = 0u;
+      v87 = 0u;
       v84 = 0u;
-      v81 = 0u;
+      v85 = 0u;
       v82 = 0u;
-      v79 = 0u;
+      v83 = 0u;
       v80 = 0u;
-      v77 = 0u;
+      v81 = 0u;
       v78 = 0u;
-      v75 = 0u;
+      v79 = 0u;
       v76 = 0u;
-      v73 = 0u;
+      v77 = 0u;
       v74 = 0u;
-      v71 = 0u;
+      v75 = 0u;
       v72 = 0u;
-      v69 = 0u;
+      v73 = 0u;
       v70 = 0u;
-      v67 = 0u;
+      v71 = 0u;
       v68 = 0u;
-      v65 = 0u;
+      v69 = 0u;
       v66 = 0u;
-      v63 = 0u;
+      v67 = 0u;
       v64 = 0u;
-      v61 = 0u;
+      v65 = 0u;
       v62 = 0u;
-      v59 = 0u;
+      v63 = 0u;
       v60 = 0u;
-      v57 = 0u;
-      v58 = 0u;
+      v61 = 0u;
       memset(buf, 0, sizeof(buf));
       v12 = PLMigrationGetLog();
-      os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-      LOWORD(v52) = 0;
-      LODWORD(v49) = 2;
-      v13 = _os_log_send_and_compose_impl();
-
-      v14 = [(PLModelMigrationActionCore *)self logger:&v52];
-      [v14 logWithMessage:v13 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{859, 0}];
-
-      if (v13 != buf)
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        free(v13);
+        v13 = 3;
+      }
+
+      else
+      {
+        v13 = 2;
+      }
+
+      LOWORD(v55) = 0;
+      v14 = _os_log_send_and_compose_impl(v13, 0, buf, 512, &dword_19BF1F000, v12, 0, "RelocateEdgesAndNormalizeNodeValues: migrating GraphEdgeValues...", &v55, 2);
+
+      logger2 = [(PLModelMigrationActionCore *)self logger];
+      [logger2 logWithMessage:v14 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{859, 0}];
+
+      if (v14 != buf)
+      {
+        free(v14);
       }
     }
 
     else
     {
-      v15 = PLMigrationGetLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = PLMigrationGetLog();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_19BF1F000, v15, OS_LOG_TYPE_DEFAULT, "RelocateEdgesAndNormalizeNodeValues: migrating GraphEdgeValues...", buf, 2u);
+        _os_log_impl(&dword_19BF1F000, v16, OS_LOG_TYPE_DEFAULT, "RelocateEdgesAndNormalizeNodeValues: migrating GraphEdgeValues...", buf, 2u);
       }
     }
   }
 
-  v16 = +[PLGraphEdgeValue fetchRequest];
-  [v16 setFetchBatchSize:100];
-  v51 = 0;
-  v17 = [v8 executeFetchRequest:v16 error:&v51];
-  v18 = v51;
-  v19 = v18;
-  if (v17)
+  v17 = +[PLGraphEdgeValue fetchRequest];
+  [v17 setFetchBatchSize:100];
+  v54 = 0;
+  v18 = [v8 executeFetchRequest:v17 error:&v54];
+  v19 = v54;
+  v20 = v19;
+  if (v18)
   {
-    v50[0] = MEMORY[0x1E69E9820];
-    v50[1] = 3221225472;
-    v50[2] = __103__PLModelMigrationAction_RelocateEdgesAndNormalizeNodeValues__migrateGraphEdgeValuesWithError_context___block_invoke;
-    v50[3] = &unk_1E7567FC0;
-    v50[4] = self;
-    v20 = [v8 enumerateWithIncrementalSaveUsingObjects:v17 withBlock:v50];
-    v21 = v20;
-    LOBYTE(v22) = v20 == 0;
-    if (v20)
+    v53[0] = MEMORY[0x1E69E9820];
+    v53[1] = 3221225472;
+    v53[2] = __103__PLModelMigrationAction_RelocateEdgesAndNormalizeNodeValues__migrateGraphEdgeValuesWithError_context___block_invoke;
+    v53[3] = &unk_1E7567FC0;
+    v53[4] = self;
+    v21 = [v8 enumerateWithIncrementalSaveUsingObjects:v18 withBlock:v53];
+    v22 = v21;
+    LOBYTE(v23) = v21 == 0;
+    if (v21)
     {
-      v23 = v20;
-      *error = v21;
-      v24 = PLMigrationGetLog();
-      v25 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+      v24 = v21;
+      *error = v22;
+      v25 = PLMigrationGetLog();
+      v26 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
 
-      if (v25)
+      if (v26)
       {
-        logger2 = [(PLModelMigrationActionCore *)self logger];
+        logger3 = [(PLModelMigrationActionCore *)self logger];
 
-        if (logger2)
+        if (logger3)
         {
-          v85 = 0u;
+          v88 = 0u;
+          v89 = 0u;
           v86 = 0u;
-          v83 = 0u;
+          v87 = 0u;
           v84 = 0u;
-          v81 = 0u;
+          v85 = 0u;
           v82 = 0u;
-          v79 = 0u;
+          v83 = 0u;
           v80 = 0u;
-          v77 = 0u;
+          v81 = 0u;
           v78 = 0u;
-          v75 = 0u;
+          v79 = 0u;
           v76 = 0u;
-          v73 = 0u;
+          v77 = 0u;
           v74 = 0u;
-          v71 = 0u;
+          v75 = 0u;
           v72 = 0u;
-          v69 = 0u;
+          v73 = 0u;
           v70 = 0u;
-          v67 = 0u;
+          v71 = 0u;
           v68 = 0u;
-          v65 = 0u;
+          v69 = 0u;
           v66 = 0u;
-          v63 = 0u;
+          v67 = 0u;
           v64 = 0u;
-          v61 = 0u;
+          v65 = 0u;
           v62 = 0u;
-          v59 = 0u;
+          v63 = 0u;
           v60 = 0u;
-          v57 = 0u;
-          v58 = 0u;
+          v61 = 0u;
           memset(buf, 0, sizeof(buf));
-          v27 = PLMigrationGetLog();
-          os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
-          v28 = objc_opt_class();
-          v29 = NSStringFromClass(v28);
-          v52 = 138543618;
-          v53 = v29;
-          v54 = 2114;
-          v55 = v21;
-          LODWORD(v49) = 22;
-          v30 = _os_log_send_and_compose_impl();
-
-          v31 = [(PLModelMigrationActionCore *)self logger:&v52];
-          [v31 logWithMessage:v30 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{884, 16}];
-
-          if (v30 != buf)
+          v28 = PLMigrationGetLog();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
-            free(v30);
+            v29 = 3;
+          }
+
+          else
+          {
+            v29 = 2;
+          }
+
+          v30 = objc_opt_class();
+          v31 = NSStringFromClass(v30);
+          v55 = 138543618;
+          v56 = v31;
+          v57 = 2114;
+          v58 = v22;
+          LODWORD(v52) = 22;
+          v32 = _os_log_send_and_compose_impl(v29, 0, buf, 512, &dword_19BF1F000, v28, 16, "Failed to perform a save operation for %{public}@. Error: %{public}@", &v55, v52);
+
+          logger4 = [(PLModelMigrationActionCore *)self logger];
+          [logger4 logWithMessage:v32 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{884, 16}];
+
+          if (v32 != buf)
+          {
+            free(v32);
           }
         }
 
         else
         {
-          v40 = PLMigrationGetLog();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v43 = PLMigrationGetLog();
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
           {
-            v41 = objc_opt_class();
-            v42 = NSStringFromClass(v41);
+            v44 = objc_opt_class();
+            v45 = NSStringFromClass(v44);
             *buf = 138543618;
-            *&buf[4] = v42;
+            *&buf[4] = v45;
             *&buf[12] = 2114;
-            *&buf[14] = v21;
-            _os_log_impl(&dword_19BF1F000, v40, OS_LOG_TYPE_ERROR, "Failed to perform a save operation for %{public}@. Error: %{public}@", buf, 0x16u);
+            *&buf[14] = v22;
+            _os_log_impl(&dword_19BF1F000, v43, OS_LOG_TYPE_ERROR, "Failed to perform a save operation for %{public}@. Error: %{public}@", buf, 0x16u);
           }
         }
       }
@@ -931,93 +1009,102 @@ LABEL_3:
 
   else
   {
-    v32 = v18;
-    *error = v19;
-    v33 = PLMigrationGetLog();
-    v22 = os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
+    v34 = v19;
+    *error = v20;
+    v35 = PLMigrationGetLog();
+    v23 = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
 
-    if (v22)
+    if (v23)
     {
-      logger3 = [(PLModelMigrationActionCore *)self logger];
+      logger5 = [(PLModelMigrationActionCore *)self logger];
 
-      if (logger3)
+      if (logger5)
       {
-        v85 = 0u;
+        v88 = 0u;
+        v89 = 0u;
         v86 = 0u;
-        v83 = 0u;
+        v87 = 0u;
         v84 = 0u;
-        v81 = 0u;
+        v85 = 0u;
         v82 = 0u;
-        v79 = 0u;
+        v83 = 0u;
         v80 = 0u;
-        v77 = 0u;
+        v81 = 0u;
         v78 = 0u;
-        v75 = 0u;
+        v79 = 0u;
         v76 = 0u;
-        v73 = 0u;
+        v77 = 0u;
         v74 = 0u;
-        v71 = 0u;
+        v75 = 0u;
         v72 = 0u;
-        v69 = 0u;
+        v73 = 0u;
         v70 = 0u;
-        v67 = 0u;
+        v71 = 0u;
         v68 = 0u;
-        v65 = 0u;
+        v69 = 0u;
         v66 = 0u;
-        v63 = 0u;
+        v67 = 0u;
         v64 = 0u;
-        v61 = 0u;
+        v65 = 0u;
         v62 = 0u;
-        v59 = 0u;
+        v63 = 0u;
         v60 = 0u;
-        v57 = 0u;
-        v58 = 0u;
+        v61 = 0u;
         memset(buf, 0, sizeof(buf));
-        v35 = PLMigrationGetLog();
-        os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
-        v36 = objc_opt_class();
-        v37 = NSStringFromClass(v36);
-        v52 = 138543618;
-        v53 = v37;
-        v54 = 2114;
-        v55 = v19;
-        LODWORD(v49) = 22;
-        v38 = _os_log_send_and_compose_impl();
-
-        v39 = [(PLModelMigrationActionCore *)self logger:&v52];
-        [v39 logWithMessage:v38 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{889, 16}];
-
-        if (v38 != buf)
+        v37 = PLMigrationGetLog();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          free(v38);
+          v38 = 3;
+        }
+
+        else
+        {
+          v38 = 2;
+        }
+
+        v39 = objc_opt_class();
+        v40 = NSStringFromClass(v39);
+        v55 = 138543618;
+        v56 = v40;
+        v57 = 2114;
+        v58 = v20;
+        LODWORD(v52) = 22;
+        v41 = _os_log_send_and_compose_impl(v38, 0, buf, 512, &dword_19BF1F000, v37, 16, "Failed to perform a fetch operation for %{public}@. Error: %{public}@", &v55, v52);
+
+        logger6 = [(PLModelMigrationActionCore *)self logger];
+        [logger6 logWithMessage:v41 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{889, 16}];
+
+        if (v41 != buf)
+        {
+          free(v41);
         }
       }
 
       else
       {
-        v43 = PLMigrationGetLog();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+        v46 = PLMigrationGetLog();
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
-          v44 = objc_opt_class();
-          v45 = NSStringFromClass(v44);
+          v47 = objc_opt_class();
+          v48 = NSStringFromClass(v47);
           *buf = 138543618;
-          *&buf[4] = v45;
+          *&buf[4] = v48;
           *&buf[12] = 2114;
-          *&buf[14] = v19;
-          _os_log_impl(&dword_19BF1F000, v43, OS_LOG_TYPE_ERROR, "Failed to perform a fetch operation for %{public}@. Error: %{public}@", buf, 0x16u);
+          *&buf[14] = v20;
+          _os_log_impl(&dword_19BF1F000, v46, OS_LOG_TYPE_ERROR, "Failed to perform a fetch operation for %{public}@. Error: %{public}@", buf, 0x16u);
         }
       }
 
-      LOBYTE(v22) = 0;
+      LOBYTE(v23) = 0;
     }
   }
 
-  return v22;
+  return v23;
 }
 
 - (BOOL)_migrateGraphNodeValuesWithError:(id *)error context:(id)context
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v8 = contextCopy;
   if (error)
@@ -1052,155 +1139,172 @@ LABEL_3:
 
     if (logger)
     {
-      v85 = 0u;
+      v88 = 0u;
+      v89 = 0u;
       v86 = 0u;
-      v83 = 0u;
+      v87 = 0u;
       v84 = 0u;
-      v81 = 0u;
+      v85 = 0u;
       v82 = 0u;
-      v79 = 0u;
+      v83 = 0u;
       v80 = 0u;
-      v77 = 0u;
+      v81 = 0u;
       v78 = 0u;
-      v75 = 0u;
+      v79 = 0u;
       v76 = 0u;
-      v73 = 0u;
+      v77 = 0u;
       v74 = 0u;
-      v71 = 0u;
+      v75 = 0u;
       v72 = 0u;
-      v69 = 0u;
+      v73 = 0u;
       v70 = 0u;
-      v67 = 0u;
+      v71 = 0u;
       v68 = 0u;
-      v65 = 0u;
+      v69 = 0u;
       v66 = 0u;
-      v63 = 0u;
+      v67 = 0u;
       v64 = 0u;
-      v61 = 0u;
+      v65 = 0u;
       v62 = 0u;
-      v59 = 0u;
+      v63 = 0u;
       v60 = 0u;
-      v57 = 0u;
-      v58 = 0u;
+      v61 = 0u;
       memset(buf, 0, sizeof(buf));
       v12 = PLMigrationGetLog();
-      os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-      LOWORD(v52) = 0;
-      LODWORD(v49) = 2;
-      v13 = _os_log_send_and_compose_impl();
-
-      v14 = [(PLModelMigrationActionCore *)self logger:&v52];
-      [v14 logWithMessage:v13 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{816, 0}];
-
-      if (v13 != buf)
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        free(v13);
+        v13 = 3;
+      }
+
+      else
+      {
+        v13 = 2;
+      }
+
+      LOWORD(v55) = 0;
+      v14 = _os_log_send_and_compose_impl(v13, 0, buf, 512, &dword_19BF1F000, v12, 0, "RelocateEdgesAndNormalizeNodeValues: migrating GraphNodeValues...", &v55, 2);
+
+      logger2 = [(PLModelMigrationActionCore *)self logger];
+      [logger2 logWithMessage:v14 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{816, 0}];
+
+      if (v14 != buf)
+      {
+        free(v14);
       }
     }
 
     else
     {
-      v15 = PLMigrationGetLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = PLMigrationGetLog();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_19BF1F000, v15, OS_LOG_TYPE_DEFAULT, "RelocateEdgesAndNormalizeNodeValues: migrating GraphNodeValues...", buf, 2u);
+        _os_log_impl(&dword_19BF1F000, v16, OS_LOG_TYPE_DEFAULT, "RelocateEdgesAndNormalizeNodeValues: migrating GraphNodeValues...", buf, 2u);
       }
     }
   }
 
-  v16 = +[PLGraphNodeValue fetchRequest];
-  [v16 setFetchBatchSize:100];
-  v51 = 0;
-  v17 = [v8 executeFetchRequest:v16 error:&v51];
-  v18 = v51;
-  v19 = v18;
-  if (v17)
+  v17 = +[PLGraphNodeValue fetchRequest];
+  [v17 setFetchBatchSize:100];
+  v54 = 0;
+  v18 = [v8 executeFetchRequest:v17 error:&v54];
+  v19 = v54;
+  v20 = v19;
+  if (v18)
   {
-    v50[0] = MEMORY[0x1E69E9820];
-    v50[1] = 3221225472;
-    v50[2] = __103__PLModelMigrationAction_RelocateEdgesAndNormalizeNodeValues__migrateGraphNodeValuesWithError_context___block_invoke;
-    v50[3] = &unk_1E7567F98;
-    v50[4] = self;
-    v20 = [v8 enumerateWithIncrementalSaveUsingObjects:v17 withBlock:v50];
-    v21 = v20;
-    LOBYTE(v22) = v20 == 0;
-    if (v20)
+    v53[0] = MEMORY[0x1E69E9820];
+    v53[1] = 3221225472;
+    v53[2] = __103__PLModelMigrationAction_RelocateEdgesAndNormalizeNodeValues__migrateGraphNodeValuesWithError_context___block_invoke;
+    v53[3] = &unk_1E7567F98;
+    v53[4] = self;
+    v21 = [v8 enumerateWithIncrementalSaveUsingObjects:v18 withBlock:v53];
+    v22 = v21;
+    LOBYTE(v23) = v21 == 0;
+    if (v21)
     {
-      v23 = v20;
-      *error = v21;
-      v24 = PLMigrationGetLog();
-      v25 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+      v24 = v21;
+      *error = v22;
+      v25 = PLMigrationGetLog();
+      v26 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
 
-      if (v25)
+      if (v26)
       {
-        logger2 = [(PLModelMigrationActionCore *)self logger];
+        logger3 = [(PLModelMigrationActionCore *)self logger];
 
-        if (logger2)
+        if (logger3)
         {
-          v85 = 0u;
+          v88 = 0u;
+          v89 = 0u;
           v86 = 0u;
-          v83 = 0u;
+          v87 = 0u;
           v84 = 0u;
-          v81 = 0u;
+          v85 = 0u;
           v82 = 0u;
-          v79 = 0u;
+          v83 = 0u;
           v80 = 0u;
-          v77 = 0u;
+          v81 = 0u;
           v78 = 0u;
-          v75 = 0u;
+          v79 = 0u;
           v76 = 0u;
-          v73 = 0u;
+          v77 = 0u;
           v74 = 0u;
-          v71 = 0u;
+          v75 = 0u;
           v72 = 0u;
-          v69 = 0u;
+          v73 = 0u;
           v70 = 0u;
-          v67 = 0u;
+          v71 = 0u;
           v68 = 0u;
-          v65 = 0u;
+          v69 = 0u;
           v66 = 0u;
-          v63 = 0u;
+          v67 = 0u;
           v64 = 0u;
-          v61 = 0u;
+          v65 = 0u;
           v62 = 0u;
-          v59 = 0u;
+          v63 = 0u;
           v60 = 0u;
-          v57 = 0u;
-          v58 = 0u;
+          v61 = 0u;
           memset(buf, 0, sizeof(buf));
-          v27 = PLMigrationGetLog();
-          os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
-          v28 = objc_opt_class();
-          v29 = NSStringFromClass(v28);
-          v52 = 138543618;
-          v53 = v29;
-          v54 = 2112;
-          v55 = v21;
-          LODWORD(v49) = 22;
-          v30 = _os_log_send_and_compose_impl();
-
-          v31 = [(PLModelMigrationActionCore *)self logger:&v52];
-          [v31 logWithMessage:v30 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{842, 16}];
-
-          if (v30 != buf)
+          v28 = PLMigrationGetLog();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
-            free(v30);
+            v29 = 3;
+          }
+
+          else
+          {
+            v29 = 2;
+          }
+
+          v30 = objc_opt_class();
+          v31 = NSStringFromClass(v30);
+          v55 = 138543618;
+          v56 = v31;
+          v57 = 2112;
+          v58 = v22;
+          LODWORD(v52) = 22;
+          v32 = _os_log_send_and_compose_impl(v29, 0, buf, 512, &dword_19BF1F000, v28, 16, "Failed to perform a save operation for %{public}@. Error: %@", &v55, v52);
+
+          logger4 = [(PLModelMigrationActionCore *)self logger];
+          [logger4 logWithMessage:v32 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{842, 16}];
+
+          if (v32 != buf)
+          {
+            free(v32);
           }
         }
 
         else
         {
-          v40 = PLMigrationGetLog();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v43 = PLMigrationGetLog();
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
           {
-            v41 = objc_opt_class();
-            v42 = NSStringFromClass(v41);
+            v44 = objc_opt_class();
+            v45 = NSStringFromClass(v44);
             *buf = 138543618;
-            *&buf[4] = v42;
+            *&buf[4] = v45;
             *&buf[12] = 2112;
-            *&buf[14] = v21;
-            _os_log_impl(&dword_19BF1F000, v40, OS_LOG_TYPE_ERROR, "Failed to perform a save operation for %{public}@. Error: %@", buf, 0x16u);
+            *&buf[14] = v22;
+            _os_log_impl(&dword_19BF1F000, v43, OS_LOG_TYPE_ERROR, "Failed to perform a save operation for %{public}@. Error: %@", buf, 0x16u);
           }
         }
       }
@@ -1209,88 +1313,97 @@ LABEL_3:
 
   else
   {
-    v32 = v18;
-    *error = v19;
-    v33 = PLMigrationGetLog();
-    v22 = os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
+    v34 = v19;
+    *error = v20;
+    v35 = PLMigrationGetLog();
+    v23 = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
 
-    if (v22)
+    if (v23)
     {
-      logger3 = [(PLModelMigrationActionCore *)self logger];
+      logger5 = [(PLModelMigrationActionCore *)self logger];
 
-      if (logger3)
+      if (logger5)
       {
-        v85 = 0u;
+        v88 = 0u;
+        v89 = 0u;
         v86 = 0u;
-        v83 = 0u;
+        v87 = 0u;
         v84 = 0u;
-        v81 = 0u;
+        v85 = 0u;
         v82 = 0u;
-        v79 = 0u;
+        v83 = 0u;
         v80 = 0u;
-        v77 = 0u;
+        v81 = 0u;
         v78 = 0u;
-        v75 = 0u;
+        v79 = 0u;
         v76 = 0u;
-        v73 = 0u;
+        v77 = 0u;
         v74 = 0u;
-        v71 = 0u;
+        v75 = 0u;
         v72 = 0u;
-        v69 = 0u;
+        v73 = 0u;
         v70 = 0u;
-        v67 = 0u;
+        v71 = 0u;
         v68 = 0u;
-        v65 = 0u;
+        v69 = 0u;
         v66 = 0u;
-        v63 = 0u;
+        v67 = 0u;
         v64 = 0u;
-        v61 = 0u;
+        v65 = 0u;
         v62 = 0u;
-        v59 = 0u;
+        v63 = 0u;
         v60 = 0u;
-        v57 = 0u;
-        v58 = 0u;
+        v61 = 0u;
         memset(buf, 0, sizeof(buf));
-        v35 = PLMigrationGetLog();
-        os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
-        v36 = objc_opt_class();
-        v37 = NSStringFromClass(v36);
-        v52 = 138543618;
-        v53 = v37;
-        v54 = 2112;
-        v55 = v19;
-        LODWORD(v49) = 22;
-        v38 = _os_log_send_and_compose_impl();
-
-        v39 = [(PLModelMigrationActionCore *)self logger:&v52];
-        [v39 logWithMessage:v38 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{847, 16}];
-
-        if (v38 != buf)
+        v37 = PLMigrationGetLog();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          free(v38);
+          v38 = 3;
+        }
+
+        else
+        {
+          v38 = 2;
+        }
+
+        v39 = objc_opt_class();
+        v40 = NSStringFromClass(v39);
+        v55 = 138543618;
+        v56 = v40;
+        v57 = 2112;
+        v58 = v20;
+        LODWORD(v52) = 22;
+        v41 = _os_log_send_and_compose_impl(v38, 0, buf, 512, &dword_19BF1F000, v37, 16, "Failed to perform a fetch operation for %{public}@. Error: %@", &v55, v52);
+
+        logger6 = [(PLModelMigrationActionCore *)self logger];
+        [logger6 logWithMessage:v41 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{847, 16}];
+
+        if (v41 != buf)
+        {
+          free(v41);
         }
       }
 
       else
       {
-        v43 = PLMigrationGetLog();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+        v46 = PLMigrationGetLog();
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
-          v44 = objc_opt_class();
-          v45 = NSStringFromClass(v44);
+          v47 = objc_opt_class();
+          v48 = NSStringFromClass(v47);
           *buf = 138543618;
-          *&buf[4] = v45;
+          *&buf[4] = v48;
           *&buf[12] = 2112;
-          *&buf[14] = v19;
-          _os_log_impl(&dword_19BF1F000, v43, OS_LOG_TYPE_ERROR, "Failed to perform a fetch operation for %{public}@. Error: %@", buf, 0x16u);
+          *&buf[14] = v20;
+          _os_log_impl(&dword_19BF1F000, v46, OS_LOG_TYPE_ERROR, "Failed to perform a fetch operation for %{public}@. Error: %@", buf, 0x16u);
         }
       }
 
-      LOBYTE(v22) = 0;
+      LOBYTE(v23) = 0;
     }
   }
 
-  return v22;
+  return v23;
 }
 
 - (void)setup
@@ -1357,22 +1470,22 @@ LABEL_6:
     managedObjectContext = [actorCopy managedObjectContext];
     v18 = [PLGraphNode insertGraphNodeInContext:managedObjectContext withPrimaryLabel:labelCopy];
 
-    entity = [actorCopy entity];
-    name = [entity name];
+    v20 = objc_msgSend_entity(actorCopy);
+    name = [v20 name];
     v22 = +[PLManagedAsset entityName];
-    v23 = [name isEqualToString:v22];
+    isEqualToString = objc_msgSend_isEqualToString_(name);
 
-    if (v23)
+    if (isEqualToString)
     {
       v24 = @"actingAsset";
     }
 
     else
     {
-      entity2 = [actorCopy entity];
-      name2 = [entity2 name];
+      v25 = objc_msgSend_entity(actorCopy);
+      name2 = [v25 name];
       v27 = +[PLMoment entityName];
-      v28 = [name2 isEqualToString:v27];
+      v28 = objc_msgSend_isEqualToString_(name2);
 
       if (v28)
       {
@@ -1381,10 +1494,10 @@ LABEL_6:
 
       else
       {
-        entity3 = [actorCopy entity];
-        name3 = [entity3 name];
+        v29 = objc_msgSend_entity(actorCopy);
+        name3 = [v29 name];
         v31 = +[PLPerson entityName];
-        v32 = [name3 isEqualToString:v31];
+        v32 = objc_msgSend_isEqualToString_(name3);
 
         if (v32)
         {

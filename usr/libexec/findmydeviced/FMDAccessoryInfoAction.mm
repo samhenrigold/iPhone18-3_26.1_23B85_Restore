@@ -34,7 +34,7 @@
 - (void)runWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_10000BE38();
+  v5 = sub_10000BE38(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     accessoryTypes = [(FMDAccessoryInfoAction *)self accessoryTypes];

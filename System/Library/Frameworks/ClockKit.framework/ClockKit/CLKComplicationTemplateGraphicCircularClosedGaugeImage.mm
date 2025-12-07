@@ -88,7 +88,7 @@ void __104__CLKComplicationTemplateGraphicCircularClosedGaugeImage__enumerateFul
   qword_27DE91B40 = v3;
   [v5 setNewestAllowedSizeClass:&unk_284A34128];
   [v5 scaledValue:3 withOverride:27.0 forSizeClass:31.0];
-  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1370 = v4;
+  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1370[0] = v4;
 }
 
 @end

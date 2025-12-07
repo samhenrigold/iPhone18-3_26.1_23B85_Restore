@@ -1,6 +1,7 @@
 @interface TUIKTSingleAccountViewController
 - (TUIKTSingleAccountViewController)initWithOptions:(id)options;
 - (id)specifiers;
+- (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated;
 - (void)specifierProvider:(id)provider didFinishLoadingSpecifier:(id)specifier;
 - (void)specifierProvider:(id)provider showViewController:(id)controller;
 - (void)specifierProvider:(id)provider willBeginLoadingSpecifier:(id)specifier;
@@ -116,6 +117,38 @@ uint64_t __80__TUIKTSingleAccountViewController_specifierProvider_didFinishLoadi
   TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_5 = os_log_create("com.apple.Transparency", "ui");
 
   return MEMORY[0x2821F96F8]();
+}
+
+- (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v14 = *MEMORY[0x277D85DE8];
+  providerCopy = provider;
+  specifiersCopy = specifiers;
+  dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
+  if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_5 != -1)
+  {
+    [TUIKTSingleAccountViewController reloadSpecifiersForProvider:oldSpecifiers:animated:];
+  }
+
+  v10 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_5;
+  if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_5, OS_LOG_TYPE_DEBUG))
+  {
+    v12 = 138412290;
+    v13 = providerCopy;
+    _os_log_impl(&dword_26F50B000, v10, OS_LOG_TYPE_DEBUG, "Reloading specifiers for provider %@", &v12, 0xCu);
+  }
+
+  if ([specifiersCopy count])
+  {
+    specifiers = [providerCopy specifiers];
+    [(TUIKTSingleAccountViewController *)self replaceContiguousSpecifiers:specifiersCopy withSpecifiers:specifiers animated:animatedCopy];
+  }
+
+  else
+  {
+    [(TUIKTSingleAccountViewController *)self reloadSpecifiers];
+  }
 }
 
 uint64_t __87__TUIKTSingleAccountViewController_reloadSpecifiersForProvider_oldSpecifiers_animated___block_invoke()

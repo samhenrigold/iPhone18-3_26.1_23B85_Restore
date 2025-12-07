@@ -148,34 +148,34 @@ LABEL_14:
   height = size.height;
   width = size.width;
   deviceCopy = device;
-  SBUIBytesPerPixelForMetalPixelFormat(format);
-  v15 = (CGBitmapGetAlignedBytesPerRow() & 0xFFFFFFFFFFFFFFC0) + 64;
-  v16 = ((v15 * height) & 0xFFFFFFFFFFFFF000) + 4096;
-  v17 = malloc_default_zone();
-  v18 = malloc_type_zone_memalign(v17, 0x1000uLL, v16, 0x4FCC339FuLL);
-  bzero(v18, v16);
+  SBUIBytesPerPixelForMetalPixelFormat(format, v15, v16);
+  v17 = (CGBitmapGetAlignedBytesPerRow() & 0xFFFFFFFFFFFFFFC0) + 64;
+  v18 = ((v17 * height) & 0xFFFFFFFFFFFFF000) + 4096;
+  v19 = malloc_default_zone();
+  v20 = malloc_type_zone_memalign(v19, 0x1000uLL, v18, 0x4FCC339FuLL);
+  bzero(v20, v18);
   if (bytes)
   {
-    *bytes = v18;
+    *bytes = v20;
   }
 
   if (length)
   {
-    *length = v16;
+    *length = v18;
   }
 
   if (row)
   {
-    *row = v15;
+    *row = v17;
   }
 
-  v19 = [deviceCopy newBufferWithBytesNoCopy:v18 length:v16 options:0 deallocator:0];
+  v21 = [deviceCopy newBufferWithBytesNoCopy:v20 length:v18 options:0 deallocator:0];
 
-  v20 = [MEMORY[0x1E69741C0] texture2DDescriptorWithPixelFormat:format width:width height:height mipmapped:0];
-  [v20 setUsage:2];
-  v21 = [v19 newTextureWithDescriptor:v20 offset:0 bytesPerRow:v15];
+  v22 = [MEMORY[0x1E69741C0] texture2DDescriptorWithPixelFormat:format width:width height:height mipmapped:0];
+  [v22 setUsage:2];
+  v23 = [v21 newTextureWithDescriptor:v22 offset:0 bytesPerRow:v17];
 
-  return v21;
+  return v23;
 }
 
 - (id)_sourceTextureForImage:(id)image settings:(id)settings outMetalOutputTextureSize:(CGSize *)size
@@ -245,7 +245,7 @@ LABEL_14:
   {
     if (settingsCopy)
     {
-      [settingsCopy shadowSettings];
+      objc_msgSend_shadowSettings(settingsCopy);
       v9 = *&v32;
     }
 

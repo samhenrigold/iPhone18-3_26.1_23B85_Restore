@@ -2484,7 +2484,7 @@ LABEL_15:
 + (void)presentEducationPaneIfNecessaryIn:(id)in
 {
   inCopy = in;
-  sub_1006EF79C();
+  sub_1006EF79C(inCopy);
 }
 
 @end

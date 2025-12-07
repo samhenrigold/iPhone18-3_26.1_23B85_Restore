@@ -88,7 +88,7 @@
   }
 
   selfCopy = self;
-  sub_1D14F7D58();
+  sub_1D14F7D58(selfCopy);
 }
 
 @end

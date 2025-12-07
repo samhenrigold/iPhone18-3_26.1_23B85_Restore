@@ -46,9 +46,10 @@
   v13 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(payloadCopy, "announcementPlatform")}];
   [v6 setValue:v13 forKey:@"announcePlatform"];
 
-  v20 = 0;
-  v14 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:payloadCopy requiringSecureCoding:1 error:&v20];
-  v15 = v20;
+  v21 = 0;
+  v14 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:payloadCopy requiringSecureCoding:1 error:&v21];
+  v15 = v21;
+  v16 = v15;
   if (v14)
   {
     [v6 setValue:v14 forKey:@"announcePayload"];
@@ -56,32 +57,33 @@
 
   else
   {
-    v16 = SKIDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = SKIDefaultLog(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [(SKIMessagesInvocation *)v15 announceMessagesRequestFromAnnounceDirectInvocationPayload:v16];
+      [(SKIMessagesInvocation *)v16 announceMessagesRequestFromAnnounceDirectInvocationPayload:v17];
     }
   }
 
   [(SKIDirectInvocationPayload *)v5 setUserData:v6];
-  v17 = [SKIDirectInvocation runSiriKitExecutorCommandWithContext:v4 payload:v5];
-  v18 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v17];
+  v18 = [SKIDirectInvocation runSiriKitExecutorCommandWithContext:v4 payload:v5];
+  v19 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v18];
 
-  return v18;
+  return v19;
 }
 
 + (id)announcePayloadFromUserData:(id)data
 {
   v3 = [data objectForKeyedSubscript:@"announcePayload"];
-  v8 = 0;
-  v4 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v9];
+  v5 = v9;
+  v6 = v5;
   if (!v4)
   {
-    v6 = SKIDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SKIDefaultLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(SKIMessagesInvocation *)v5 announcePayloadFromUserData:v6];
+      [(SKIMessagesInvocation *)v6 announcePayloadFromUserData:v7];
     }
   }
 
@@ -192,56 +194,54 @@
 
 + (id)composeNewMessageRequestToHandles:(id)handles inApp:(id)app
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
   appCopy = app;
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v7 = handlesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v23 + 1) + 8 * i);
         value = [v12 value];
-        v30 = value;
+        v29 = value;
         v14 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v12, "type")}];
-        v31 = v14;
-        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+        v30 = v14;
+        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
         [v6 addObject:v15];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v9);
   }
 
-  v28[0] = @"appBundleId";
-  v28[1] = @"handles";
-  v29[0] = appCopy;
-  v29[1] = v6;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+  v27[0] = @"appBundleId";
+  v27[1] = @"handles";
+  v28[0] = appCopy;
+  v28[1] = v6;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
   v17 = [[SKIDirectInvocationPayload alloc] initWithIdentifier:@"com.apple.siri.DirectInvocation.Messages.NewMessageToHandles"];
   [(SKIDirectInvocationPayload *)v17 setUserData:v16];
   v18 = +[SKIDirectInvocationContext contextForCarPlayDirectAction];
   v19 = [SKIDirectInvocation runSiriKitExecutorCommandWithContext:v18 payload:v17];
   v20 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v19];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -272,40 +272,36 @@
 
 + (id)updateMessageContentFromInteractiveSnippet:(id)snippet withContext:(id)context
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   snippetCopy = snippet;
   v7 = [[SKIDirectInvocationPayload alloc] initWithIdentifier:@"com.apple.siri.directInvocation.messages.MessageContentChangedViaSnippet"];
-  v13 = @"content";
-  v14[0] = snippetCopy;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = @"content";
+  v13[0] = snippetCopy;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   [(SKIDirectInvocationPayload *)v7 setUserData:v8];
 
   v9 = [SKIDirectInvocation runSiriKitExecutorCommandWithContext:contextCopy payload:v7];
 
   v10 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 + (id)sendMessageFromInteractiveSnippetWithUpdatedContent:(id)content withContext:(id)context
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   contentCopy = content;
   v7 = [[SKIDirectInvocationPayload alloc] initWithIdentifier:@"com.apple.siri.directInvocation.messages.MessageSendViaSnippet"];
-  v13 = @"content";
-  v14[0] = contentCopy;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = @"content";
+  v13[0] = contentCopy;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   [(SKIDirectInvocationPayload *)v7 setUserData:v8];
 
   v9 = [SKIDirectInvocation runSiriKitExecutorCommandWithContext:contextCopy payload:v7];
 
   v10 = [SKIDirectInvocation wrapCommandInStartLocalRequest:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -326,20 +322,20 @@
 
 + (id)makeParameterMetadataForIntent:(id)intent
 {
-  v13[4] = *MEMORY[0x277D85DE8];
+  v12[4] = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v4 = [SKIMessagesInvocation makeParameterMetadataForParameterNamed:@"recipient"];
-    v13[0] = v4;
+    v12[0] = v4;
     v5 = [SKIMessagesInvocation makeParameterMetadataForParameterNamed:@"speakableGroupName"];
-    v13[1] = v5;
+    v12[1] = v5;
     v6 = [SKIMessagesInvocation makeParameterMetadataForParameterNamed:@"outgoingMessageType"];
-    v13[2] = v6;
+    v12[2] = v6;
     v7 = [SKIMessagesInvocation makeParameterMetadataForParameterNamed:@"content"];
-    v13[3] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:4];
+    v12[3] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:4];
 LABEL_5:
 
     goto LABEL_7;
@@ -350,22 +346,20 @@ LABEL_5:
   {
     v4 = [SKIMessagesInvocation makeParameterMetadataForParameterNamed:@"recipient"];
     v5 = [SKIMessagesInvocation makeParameterMetadataForParameterNamed:@"speakableGroupName", v4];
-    v12[1] = v5;
+    v11[1] = v5;
     v6 = [SKIMessagesInvocation makeParameterMetadataForParameterNamed:@"sender"];
-    v12[2] = v6;
+    v11[2] = v6;
     v7 = [SKIMessagesInvocation makeParameterMetadataForParameterNamed:@"attribute"];
-    v12[3] = v7;
+    v11[3] = v7;
     v9 = [SKIMessagesInvocation makeParameterMetadataForParameterNamed:@"dateTimeRange"];
-    v12[4] = v9;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:5];
+    v11[4] = v9;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:5];
 
     goto LABEL_5;
   }
 
   v8 = MEMORY[0x277CBEBF8];
 LABEL_7:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -384,20 +378,18 @@ LABEL_7:
 
 + (void)announceMessagesRequestFromAnnounceDirectInvocationPayload:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_267542000, a2, OS_LOG_TYPE_ERROR, "error archiving SKIAnnounceNotificationDirectInvocationPayload for SKIMessagesInvocation: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_267542000, a2, OS_LOG_TYPE_ERROR, "error archiving SKIAnnounceNotificationDirectInvocationPayload for SKIMessagesInvocation: %@", &v2, 0xCu);
 }
 
 + (void)announcePayloadFromUserData:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_267542000, a2, OS_LOG_TYPE_ERROR, "error unarchiving SKIAnnounceNotificationDirectInvocationPayload from userData for SKIMessagesInvocation: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_267542000, a2, OS_LOG_TYPE_ERROR, "error unarchiving SKIAnnounceNotificationDirectInvocationPayload from userData for SKIMessagesInvocation: %@", &v2, 0xCu);
 }
 
 @end

@@ -73,27 +73,25 @@
 
 - (id)prediction
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v8[0] = @"prediction";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[1] = *MEMORY[0x277D85DE8];
+  v7[0] = @"prediction";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   prefixes = [(CNAutocompleteProbeKeyBuilder *)self prefixes];
   v5 = [v3 arrayByAddingObjectsFromArray:prefixes];
   [(CNAutocompleteProbeKeyBuilder *)self setPrefixes:v5];
 
-  v6 = *MEMORY[0x277D85DE8];
   return self;
 }
 
 - (id)prefixedSearch
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v8[0] = @"prefixed";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[1] = *MEMORY[0x277D85DE8];
+  v7[0] = @"prefixed";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   prefixes = [(CNAutocompleteProbeKeyBuilder *)self prefixes];
   v5 = [v3 arrayByAddingObjectsFromArray:prefixes];
   [(CNAutocompleteProbeKeyBuilder *)self setPrefixes:v5];
 
-  v6 = *MEMORY[0x277D85DE8];
   return self;
 }
 

@@ -30,30 +30,28 @@
 
 void __54__AATrustedContactsCustodianSplashScreenModel_bullets__block_invoke(uint64_t a1)
 {
-  v20[3] = *MEMORY[0x1E69E9840];
+  v19[3] = *MEMORY[0x1E69E9840];
   v2 = [AAOBBulletPointModel alloc];
-  v19 = [*(a1 + 32) _firstBulletPointSymbolName];
-  v18 = [*(a1 + 32) _firstBulletPointTitle];
+  v18 = [*(a1 + 32) _firstBulletPointSymbolName];
+  v17 = [*(a1 + 32) _firstBulletPointTitle];
   v3 = [*(a1 + 32) _firstBulletPointDescription];
-  v4 = [(AAOBBulletPointModel *)v2 initWithSymbolNamed:v19 title:v18 description:v3];
-  v20[0] = v4;
+  v4 = [(AAOBBulletPointModel *)v2 initWithSymbolNamed:v18 title:v17 description:v3];
+  v19[0] = v4;
   v5 = [AAOBBulletPointModel alloc];
   v6 = [*(a1 + 32) _secondBulletPointSymbolName];
   v7 = [*(a1 + 32) _secondBulletPointTitle];
   v8 = [*(a1 + 32) _secondBulletPointDescription];
   v9 = [(AAOBBulletPointModel *)v5 initWithSymbolNamed:v6 title:v7 description:v8];
-  v20[1] = v9;
+  v19[1] = v9;
   v10 = [AAOBBulletPointModel alloc];
   v11 = [*(a1 + 32) _thirdBulletPointSymbolName];
   v12 = [*(a1 + 32) _thirdBulletPointTitle];
   v13 = [*(a1 + 32) _thirdBulletPointDescription];
   v14 = [(AAOBBulletPointModel *)v10 initWithSymbolNamed:v11 title:v12 description:v13];
-  v20[2] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
+  v19[2] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:3];
   v16 = bullets_bullets;
   bullets_bullets = v15;
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)secondaryButton

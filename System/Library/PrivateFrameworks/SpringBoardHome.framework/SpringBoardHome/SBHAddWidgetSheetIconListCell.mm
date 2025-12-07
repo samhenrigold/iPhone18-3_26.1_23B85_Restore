@@ -361,7 +361,7 @@
   swift_unknownObjectWeakAssign();
   providerCopy = provider;
   selfCopy = self;
-  sub_1BEDC9358(Strong);
+  sub_1BEDC9358(Strong, selfCopy);
 }
 
 - (void)prepareForReuse

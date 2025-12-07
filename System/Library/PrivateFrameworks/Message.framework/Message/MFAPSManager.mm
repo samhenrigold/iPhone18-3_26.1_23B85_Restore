@@ -152,7 +152,7 @@ void __29__MFAPSManager_APSConnection__block_invoke()
 
 - (void)_startAPS_nts
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   v3 = self->_pushService == 0;
   publicToken = MFLogGeneral();
@@ -162,9 +162,9 @@ void __29__MFAPSManager_APSConnection__block_invoke()
     if (v5)
     {
       v6 = +[MFAPSManager apsEnvironment];
-      v14 = 138412290;
-      v15 = v6;
-      _os_log_impl(&dword_1B0389000, publicToken, OS_LOG_TYPE_INFO, "#aps-push Using %@ APS environment.", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v6;
+      _os_log_impl(&dword_1B0389000, publicToken, OS_LOG_TYPE_INFO, "#aps-push Using %@ APS environment.", &v13, 0xCu);
     }
 
     if (self->_launchMachServiceName)
@@ -192,8 +192,8 @@ void __29__MFAPSManager_APSConnection__block_invoke()
       v11 = MFLogGeneral();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&dword_1B0389000, v11, OS_LOG_TYPE_INFO, "#aps-push Starting MFAPSManager.", &v14, 2u);
+        LOWORD(v13) = 0;
+        _os_log_impl(&dword_1B0389000, v11, OS_LOG_TYPE_INFO, "#aps-push Starting MFAPSManager.", &v13, 2u);
       }
 
       [(MFAPSManager *)self connection:self->_pushService didReceivePublicToken:publicToken];
@@ -204,8 +204,8 @@ void __29__MFAPSManager_APSConnection__block_invoke()
       v12 = MFLogGeneral();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&dword_1B0389000, v12, OS_LOG_TYPE_INFO, "#aps-push Starting MFAPSManager. Waiting for public token.", &v14, 2u);
+        LOWORD(v13) = 0;
+        _os_log_impl(&dword_1B0389000, v12, OS_LOG_TYPE_INFO, "#aps-push Starting MFAPSManager. Waiting for public token.", &v13, 2u);
       }
 
       [(NSConditionLock *)self->_deviceTokenLock lock];
@@ -216,11 +216,9 @@ void __29__MFAPSManager_APSConnection__block_invoke()
 
   else if (v5)
   {
-    LOWORD(v14) = 0;
-    _os_log_impl(&dword_1B0389000, publicToken, OS_LOG_TYPE_INFO, "#aps-push Push service already running.", &v14, 2u);
+    LOWORD(v13) = 0;
+    _os_log_impl(&dword_1B0389000, publicToken, OS_LOG_TYPE_INFO, "#aps-push Push service already running.", &v13, 2u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stopAPS_nts
@@ -253,7 +251,7 @@ void __29__MFAPSManager_APSConnection__block_invoke()
 
 void __38__MFAPSManager_startWatchingForTopic___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 24) addObject:*(a1 + 40)];
   [*(*(a1 + 32) + 32) removeObject:*(a1 + 40)];
   v2 = *(a1 + 32);
@@ -266,9 +264,9 @@ void __38__MFAPSManager_startWatchingForTopic___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = *(a1 + 40);
-    v11 = 138412290;
-    v12 = v4;
-    _os_log_impl(&dword_1B0389000, v3, OS_LOG_TYPE_INFO, "#aps-push Start watching topic '%@'", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v4;
+    _os_log_impl(&dword_1B0389000, v3, OS_LOG_TYPE_INFO, "#aps-push Start watching topic '%@'", &v10, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -277,8 +275,6 @@ void __38__MFAPSManager_startWatchingForTopic___block_invoke(uint64_t a1)
   v8 = [v5 enabledTopicsWithTopics:v7];
   v9 = [*(*(a1 + 32) + 32) allObjects];
   [v6 setEnabledTopics:v8 ignoredTopics:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopWatchingForTopic:(id)topic
@@ -300,7 +296,7 @@ void __38__MFAPSManager_startWatchingForTopic___block_invoke(uint64_t a1)
 
 void __37__MFAPSManager_stopWatchingForTopic___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 24) countForObject:*(a1 + 40)];
   [*(*(a1 + 32) + 24) removeObject:*(a1 + 40)];
   if (v2 == 1)
@@ -309,9 +305,9 @@ void __37__MFAPSManager_stopWatchingForTopic___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = *(a1 + 40);
-      v11 = 138412290;
-      v12 = v4;
-      _os_log_impl(&dword_1B0389000, v3, OS_LOG_TYPE_INFO, "#aps-push Stop watching topic '%@'", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v4;
+      _os_log_impl(&dword_1B0389000, v3, OS_LOG_TYPE_INFO, "#aps-push Stop watching topic '%@'", &v10, 0xCu);
     }
 
     [*(*(a1 + 32) + 32) addObject:*(a1 + 40)];
@@ -323,8 +319,6 @@ void __37__MFAPSManager_stopWatchingForTopic___block_invoke(uint64_t a1)
   v8 = [v5 enabledTopicsWithTopics:v7];
   v9 = [*(*(a1 + 32) + 32) allObjects];
   [v6 setEnabledTopics:v8 ignoredTopics:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)enabledTopicsWithTopics:(id)topics
@@ -355,23 +349,23 @@ void __37__MFAPSManager_stopWatchingForTopic___block_invoke(uint64_t a1)
   dispatch_async(queue, block);
 }
 
-void __38__MFAPSManager_swapTopic_forNewTopic___block_invoke(void *a1)
+void __38__MFAPSManager_swapTopic_forNewTopic___block_invoke(void *a1, uint64_t a2)
 {
   v16 = *MEMORY[0x1E69E9840];
-  v2 = MFLogGeneral();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = MFLogGeneral();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = a1[4];
-    v4 = a1[5];
+    v4 = a1[4];
+    v5 = a1[5];
     v12 = 138412546;
-    v13 = v3;
+    v13 = v4;
     v14 = 2112;
-    v15 = v4;
-    _os_log_impl(&dword_1B0389000, v2, OS_LOG_TYPE_INFO, "#aps-push Swapping registered topic '%@' for topic '%@'", &v12, 0x16u);
+    v15 = v5;
+    _os_log_impl(&dword_1B0389000, v3, OS_LOG_TYPE_INFO, "#aps-push Swapping registered topic '%@' for topic '%@'", &v12, 0x16u);
   }
 
-  v5 = [*(a1[6] + 24) containsObject:a1[4]];
-  if (v5)
+  v6 = [*(a1[6] + 24) containsObject:a1[4]];
+  if (v6)
   {
     [*(a1[6] + 24) removeObject:a1[4]];
     [*(a1[6] + 24) addObject:a1[5]];
@@ -381,24 +375,19 @@ void __38__MFAPSManager_swapTopic_forNewTopic___block_invoke(void *a1)
   {
     [*(a1[6] + 32) removeObject:a1[4]];
     [*(a1[6] + 32) addObject:a1[5]];
-LABEL_8:
-    v6 = a1[6];
-    v7 = *(v6 + 16);
-    v8 = [*(v6 + 24) allObjects];
-    v9 = [v6 enabledTopicsWithTopics:v8];
-    v10 = [*(a1[6] + 32) allObjects];
-    [v7 setEnabledTopics:v9 ignoredTopics:v10];
-
-    goto LABEL_9;
   }
 
-  if (v5)
+  else if (!v6)
   {
-    goto LABEL_8;
+    return;
   }
 
-LABEL_9:
-  v11 = *MEMORY[0x1E69E9840];
+  v7 = a1[6];
+  v8 = *(v7 + 16);
+  v9 = [*(v7 + 24) allObjects];
+  v10 = [v7 enabledTopicsWithTopics:v9];
+  v11 = [*(a1[6] + 32) allObjects];
+  [v8 setEnabledTopics:v10 ignoredTopics:v11];
 }
 
 - (void)connect
@@ -452,7 +441,7 @@ void *__23__MFAPSManager_connect__block_invoke(uint64_t a1)
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   tokenCopy = token;
   if (tokenCopy && [(NSCountedSet *)self->_watchedTopics containsObject:@"com.apple.mobilemail.dummyTopicToForceServerConnection"])
@@ -464,9 +453,9 @@ void *__23__MFAPSManager_connect__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     ef_hexString = [(NSData *)tokenCopy ef_hexString];
-    v11 = 138412290;
-    v12 = ef_hexString;
-    _os_log_impl(&dword_1B0389000, v8, OS_LOG_TYPE_INFO, "#aps-push Received public token '%@'.", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = ef_hexString;
+    _os_log_impl(&dword_1B0389000, v8, OS_LOG_TYPE_INFO, "#aps-push Received public token '%@'.", &v10, 0xCu);
   }
 
   [(NSConditionLock *)self->_deviceTokenLock lock];
@@ -481,8 +470,6 @@ void *__23__MFAPSManager_connect__block_invoke(uint64_t a1)
     [(NSConditionLock *)self->_deviceTokenLock unlockWithCondition:self->_deviceToken != 0];
     dispatch_async(MEMORY[0x1E69E96A0], &__block_literal_global_60);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __49__MFAPSManager_connection_didReceivePublicToken___block_invoke()
@@ -493,7 +480,7 @@ void __49__MFAPSManager_connection_didReceivePublicToken___block_invoke()
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   topic = [messageCopy topic];
   userInfo = [messageCopy userInfo];
@@ -501,11 +488,11 @@ void __49__MFAPSManager_connection_didReceivePublicToken___block_invoke()
   v8 = MFLogGeneral();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v16 = 138412546;
-    v17 = topic;
-    v18 = 2112;
-    v19 = userInfo;
-    _os_log_impl(&dword_1B0389000, v8, OS_LOG_TYPE_INFO, "#aps-push received notification on topic '%@', userInfo=%@", &v16, 0x16u);
+    v15 = 138412546;
+    v16 = topic;
+    v17 = 2112;
+    v18 = userInfo;
+    _os_log_impl(&dword_1B0389000, v8, OS_LOG_TYPE_INFO, "#aps-push received notification on topic '%@', userInfo=%@", &v15, 0x16u);
   }
 
   if (([topic hasPrefix:@"com.apple.mobilemail.push."] & 1) != 0 || objc_msgSend(topic, "hasPrefix:", @"com.apple.mail."))
@@ -556,8 +543,6 @@ LABEL_14:
   }
 
 LABEL_16:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyDiagnosticInformation
@@ -622,11 +607,10 @@ void __41__MFAPSManager_copyDiagnosticInformation__block_invoke(uint64_t a1)
 
 void __29__MFAPSManager_APSConnection__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "#aps-push Unable to open ApplePushService at %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "#aps-push Unable to open ApplePushService at %@", &v2, 0xCu);
 }
 
 @end

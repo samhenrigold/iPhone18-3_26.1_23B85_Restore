@@ -64,20 +64,18 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    settingEnabled = self->_settingEnabled;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    settingDate = self->_settingDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -134,7 +132,6 @@
       goto LABEL_9;
     }
 
-    v7 = *(equalCopy + 16);
     if (self->_settingEnabled)
     {
       if ((*(equalCopy + 16) & 1) == 0)

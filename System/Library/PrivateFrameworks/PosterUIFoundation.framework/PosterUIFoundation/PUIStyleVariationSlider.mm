@@ -119,7 +119,7 @@ void __47__PUIStyleVariationSlider_setPressed_animated___block_invoke(uint64_t a
   v5 = 0u;
   v6 = 0u;
   v4 = 0u;
-  [(PUIStyleVariationSlider *)self _metricsForBounds:?];
+  objc_msgSend__metricsForBounds_(self);
   v3[8] = v12;
   v3[9] = v13;
   v3[10] = v14;
@@ -457,7 +457,7 @@ LABEL_5:
     v22 = 0u;
     v20 = 0u;
     [(PUIStyleVariationSlider *)self bounds];
-    [(PUIStyleVariationSlider *)self _metricsForBounds:?];
+    objc_msgSend__metricsForBounds_(self);
     [(UIView *)variationSliderTrackView setFrame:v24, v25];
     [(UIView *)variationSliderTrackView _setContinuousCornerRadius:*&v30];
     v18[0] = MEMORY[0x1E69E9820];
@@ -544,7 +544,7 @@ uint64_t __48__PUIStyleVariationSlider__updateTrackAnimated___block_invoke_2(uin
     v27 = 0u;
     v25 = 0u;
     [(PUIStyleVariationSlider *)self bounds];
-    [(PUIStyleVariationSlider *)self _metricsForBounds:?];
+    objc_msgSend__metricsForBounds_(self);
     [(UIView *)variationSliderThumbView setFrame:0, 0.0, 0.0];
     if (v7 && animatedCopy)
     {

@@ -17,12 +17,14 @@
 - (void)dealloc;
 - (void)reloadHeader;
 - (void)reloadHeaderIcon;
+- (void)replaceLastActionItem:(id)item reloadRowImmediately:(BOOL)immediately;
 - (void)setBusinessItem:(id)item;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateActionListViewWithAnimation;
 - (void)updateContentIfNecessary;
 - (void)updateLastActionItemWithAnimationIfNecessary;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -79,6 +81,14 @@
   v5.receiver = self;
   v5.super_class = BCActionsListViewController;
   [(BCActionsListViewController *)&v5 dealloc];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = BCActionsListViewController;
+  [(BCActionsListViewController *)&v4 viewWillAppear:appear];
+  [(BCActionsListViewController *)self _sizeAndLoadTable];
 }
 
 - (void)viewDidLoad
@@ -384,6 +394,16 @@ LABEL_18:
       v4 = firstObject;
     }
   }
+}
+
+- (void)replaceLastActionItem:(id)item reloadRowImmediately:(BOOL)immediately
+{
+  immediatelyCopy = immediately;
+  itemCopy = item;
+  actionItems = [(BCActionsListViewController *)self actionItems];
+  -[BCActionsListViewController _replaceActionItem:atIndex:reloadRowImmediately:](self, "_replaceActionItem:atIndex:reloadRowImmediately:", itemCopy, [actionItems count] - 1, immediatelyCopy);
+
+  [(BCActionsListViewController *)self setLastActionItemPendingUpdate:1];
 }
 
 - (void)_replaceActionItem:(id)item atIndex:(unint64_t)index reloadRowImmediately:(BOOL)immediately

@@ -1,5 +1,5 @@
 @interface NTKCrosswindColorSequencer
-+ (double)initialAngleProgressesForReferenceDate:withCalendar:;
++ (double)initialAngleProgressesForReferenceDate:(uint64_t)date withCalendar:(uint64_t)calendar;
 + (id)_defaultReferenceDateWithCalendar:(id)calendar;
 - ($7DEDF3842AEFB7F1E6DF5AF62E424A02)colorCompositionForDate:(id)date;
 - ($7DEDF3842AEFB7F1E6DF5AF62E424A02)referenceComposition;
@@ -59,22 +59,21 @@
 
 - ($7DEDF3842AEFB7F1E6DF5AF62E424A02)colorCompositionForDate:(id)date
 {
-  calendar = self->_calendar;
   dateCopy = date;
   NTKHourMinuteSecondAnglesForTime();
   [dateCopy timeIntervalSinceDate:self->_referenceDate];
-  v7 = v6;
+  v6 = v5;
 
-  v8 = [(NTKCrosswindColorSequencer *)self _numberOfHandCrossingsInTimeInterval:v7 betweenHandsWithCrossInterval:61.0169492 initialProgress:COERCE_FLOAT(*self->_initialReferenceAngleProgresses) forHandAtAngle:0.0 crossingHandAtAngle:0.0];
-  v9 = [(NTKCrosswindColorSequencer *)self _numberOfHandCrossingsInTimeInterval:v7 betweenHandsWithCrossInterval:60.0834492 initialProgress:*&self->_initialReferenceAngleProgresses[4] forHandAtAngle:0.0 crossingHandAtAngle:0.0];
+  v7 = [(NTKCrosswindColorSequencer *)self _numberOfHandCrossingsInTimeInterval:v6 betweenHandsWithCrossInterval:61.0169492 initialProgress:COERCE_FLOAT(*self->_initialReferenceAngleProgresses) forHandAtAngle:0.0 crossingHandAtAngle:0.0];
+  v8 = [(NTKCrosswindColorSequencer *)self _numberOfHandCrossingsInTimeInterval:v6 betweenHandsWithCrossInterval:60.0834492 initialProgress:*&self->_initialReferenceAngleProgresses[4] forHandAtAngle:0.0 crossingHandAtAngle:0.0];
   innerSecondGradientIndex = self->_referenceComposition.innerSecondGradientIndex;
   outerSecondGradientIndex = self->_referenceComposition.outerSecondGradientIndex;
   gradientCount = self->_gradientCount;
-  v13 = NTKCrosswindOffsetIndexWrapped(innerSecondGradientIndex, v9 + v8, gradientCount);
-  v14 = NTKCrosswindOffsetIndexWrapped(outerSecondGradientIndex, v8, gradientCount);
-  v15 = v13;
-  result.var1 = v14;
-  result.var0 = v15;
+  v12 = NTKCrosswindOffsetIndexWrapped(innerSecondGradientIndex, v8 + v7, gradientCount);
+  v13 = NTKCrosswindOffsetIndexWrapped(outerSecondGradientIndex, v7, gradientCount);
+  v14 = v12;
+  result.var1 = v13;
+  result.var0 = v14;
   return result;
 }
 
@@ -155,13 +154,13 @@
   return v7;
 }
 
-+ (double)initialAngleProgressesForReferenceDate:withCalendar:
++ (double)initialAngleProgressesForReferenceDate:(uint64_t)date withCalendar:(uint64_t)calendar
 {
   NTKHourMinuteSecondAnglesForTime();
-  v0 = fmod(0.0 - 0.0, 6.28318531) / 6.28318531;
-  v3 = v0;
-  *&v1 = fmod(0.0 - 0.0, 6.28318531) / 6.28318531;
-  return COERCE_DOUBLE(__PAIR64__(v1, LODWORD(v3)));
+  v4 = fmod(0.0 - 0.0, 6.28318531) / 6.28318531;
+  v7 = v4;
+  *&v5 = fmod(0.0 - 0.0, 6.28318531) / 6.28318531;
+  return COERCE_DOUBLE(__PAIR64__(v5, LODWORD(v7)));
 }
 
 - ($7DEDF3842AEFB7F1E6DF5AF62E424A02)referenceComposition

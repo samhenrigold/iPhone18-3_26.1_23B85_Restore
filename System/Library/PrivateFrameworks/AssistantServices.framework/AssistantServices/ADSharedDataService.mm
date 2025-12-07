@@ -368,27 +368,28 @@
 {
   notificationCopy = notification;
   completionCopy = completion;
-  if ([(ADPeerConnection *)self->_peerConnection hasPeer]|| (sub_100214E18() & 1) != 0)
+  hasPeer = [(ADPeerConnection *)self->_peerConnection hasPeer];
+  if (hasPeer & 1) != 0 || (sub_100214E18(hasPeer, v9))
   {
     [notificationCopy userInfo];
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1000EFB08;
-    v10[3] = &unk_100518200;
-    v11 = v10[4] = self;
-    v12 = completionCopy;
-    v8 = v11;
-    [(ADSharedDataService *)self _getDataWithCompletion:v10];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1000EFB08;
+    v12[3] = &unk_100518200;
+    v13 = v12[4] = self;
+    v14 = completionCopy;
+    v10 = v13;
+    [(ADSharedDataService *)self _getDataWithCompletion:v12];
   }
 
   else
   {
-    v9 = AFSiriLogContextDaemon;
+    v11 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v14 = "[ADSharedDataService _pushSharedDataToPeerFromNotification:completion:]";
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%s Not pushing shared data because we have no peer", buf, 0xCu);
+      v16 = "[ADSharedDataService _pushSharedDataToPeerFromNotification:completion:]";
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%s Not pushing shared data because we have no peer", buf, 0xCu);
     }
 
     if (completionCopy)

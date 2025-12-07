@@ -48,7 +48,7 @@
 
 + (id)createForScene:(id)scene
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   _synchronizedDrawingFence = [sceneCopy _synchronizedDrawingFence];
   if (_synchronizedDrawingFence)
@@ -61,15 +61,13 @@
     v6 = UVLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = sceneCopy;
-      _os_log_impl(&dword_25F542000, v6, OS_LOG_TYPE_DEFAULT, "[UIScene _synchronizedDrawingFence] returned nil: scene = %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = sceneCopy;
+      _os_log_impl(&dword_25F542000, v6, OS_LOG_TYPE_DEFAULT, "[UIScene _synchronizedDrawingFence] returned nil: scene = %@", &v8, 0xCu);
     }
 
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

@@ -71,7 +71,7 @@
   v4 = *&d;
   v13 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v7 = SBLogPointer();
+  v7 = SBLogPointer(identifierCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v10[0] = 67109378;
@@ -143,7 +143,7 @@
   v34 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   _sceneIdentifier = [sceneCopy _sceneIdentifier];
-  v7 = SBLogPointer();
+  v7 = SBLogPointer(_sceneIdentifier);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -209,7 +209,7 @@
 void __58__SBMousePointerManager_requestPointerActivationForScene___block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x277D85DE8];
-  v2 = SBLogPointer();
+  v2 = SBLogPointer(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -325,8 +325,7 @@ void __54__SBMousePointerManager_mousePointerDevicesDidChange___block_invoke(uin
   if (self->_connectedPointingDevicesCount != count)
   {
     self->_connectedPointingDevicesCount = count;
-    [(SBMousePointerManager *)self _updatePointerAssertionsAndScenes];
-    v4 = SBLogPointer();
+    v4 = SBLogPointer([(SBMousePointerManager *)self _updatePointerAssertionsAndScenes]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       connectedPointingDevicesCount = self->_connectedPointingDevicesCount;
@@ -419,42 +418,43 @@ void __58__SBMousePointerManager__updatePointerAssertionsAndScenes__block_invoke
 - (void)_updateScenesForPointerWithHardwareAttached:(BOOL)attached
 {
   attachedCopy = attached;
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v26 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
+  v26 = 0u;
   v5 = self->_springBoardScenesToPointerAssertions;
-  v6 = [(NSMapTable *)v5 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v6 = [(NSMapTable *)v5 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v26;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v25 + 1) + 8 * i);
         _sbDisplayConfiguration = [v10 _sbDisplayConfiguration];
+        v12 = _sbDisplayConfiguration;
         if (!_sbDisplayConfiguration)
         {
           [SBMousePointerManager _updateScenesForPointerWithHardwareAttached:];
         }
 
-        v12 = SBLogPointer();
-        v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
+        v13 = SBLogPointer(_sbDisplayConfiguration);
+        v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
         if (attachedCopy)
         {
-          if (v13)
+          if (v14)
           {
             _sceneIdentifier = [v10 _sceneIdentifier];
-            hardwareIdentifier = [_sbDisplayConfiguration hardwareIdentifier];
+            hardwareIdentifier = [v12 hardwareIdentifier];
             systemClientController = self->_systemClientController;
             *buf = 138543874;
             *&buf[4] = _sceneIdentifier;
@@ -462,46 +462,46 @@ void __58__SBMousePointerManager__updatePointerAssertionsAndScenes__block_invoke
             *&buf[14] = hardwareIdentifier;
             *&buf[22] = 2048;
             *&buf[24] = systemClientController;
-            _os_log_debug_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEBUG, "Activating pointer scenes for SB windowScene %{public}@ (%{public}@) - systemClientController: %p", buf, 0x20u);
+            _os_log_debug_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEBUG, "Activating pointer scenes for SB windowScene %{public}@ (%{public}@) - systemClientController: %p", buf, 0x20u);
           }
 
-          [(PSPointerSystemClientController *)self->_systemClientController prepareScenesForPointerForDisplayConfiguration:_sbDisplayConfiguration];
-          if ([_sbDisplayConfiguration isMainDisplay] && (objc_opt_respondsToSelector() & 1) != 0)
+          [(PSPointerSystemClientController *)self->_systemClientController prepareScenesForPointerForDisplayConfiguration:v12];
+          if ([v12 isMainDisplay] && (objc_opt_respondsToSelector() & 1) != 0)
           {
-            v14 = self->_systemClientController;
-            v15 = *&self->_rootWindowTransformForEmbeddedDisplay.c;
+            v15 = self->_systemClientController;
+            v16 = *&self->_rootWindowTransformForEmbeddedDisplay.c;
             *buf = *&self->_rootWindowTransformForEmbeddedDisplay.a;
-            *&buf[16] = v15;
-            v29 = *&self->_rootWindowTransformForEmbeddedDisplay.tx;
-            [(PSPointerSystemClientController *)v14 setRootWindowTransform:buf forDisplayConfiguration:_sbDisplayConfiguration];
+            *&buf[16] = v16;
+            v30 = *&self->_rootWindowTransformForEmbeddedDisplay.tx;
+            [(PSPointerSystemClientController *)v15 setRootWindowTransform:buf forDisplayConfiguration:v12];
           }
         }
 
         else
         {
-          if (v13)
+          if (v14)
           {
             _sceneIdentifier2 = [v10 _sceneIdentifier];
-            identity = [_sbDisplayConfiguration identity];
-            hardwareIdentifier2 = [_sbDisplayConfiguration hardwareIdentifier];
-            v21 = self->_systemClientController;
+            identity = [v12 identity];
+            hardwareIdentifier2 = [v12 hardwareIdentifier];
+            v22 = self->_systemClientController;
             *buf = 138544130;
             *&buf[4] = _sceneIdentifier2;
             *&buf[12] = 2112;
             *&buf[14] = identity;
             *&buf[22] = 2114;
             *&buf[24] = hardwareIdentifier2;
-            v22 = hardwareIdentifier2;
-            LOWORD(v29) = 2048;
-            *(&v29 + 2) = v21;
-            _os_log_debug_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEBUG, "Invalidating pointer scenes for SB windowScene %{public}@ displayIdentity: %@ (%{public}@) - systemClientController: %p", buf, 0x2Au);
+            v23 = hardwareIdentifier2;
+            LOWORD(v30) = 2048;
+            *(&v30 + 2) = v22;
+            _os_log_debug_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEBUG, "Invalidating pointer scenes for SB windowScene %{public}@ displayIdentity: %@ (%{public}@) - systemClientController: %p", buf, 0x2Au);
           }
 
-          [(PSPointerSystemClientController *)self->_systemClientController invalidateScenesForPointerForDisplayConfiguration:_sbDisplayConfiguration];
+          [(PSPointerSystemClientController *)self->_systemClientController invalidateScenesForPointerForDisplayConfiguration:v12];
         }
       }
 
-      v7 = [(NSMapTable *)v5 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v7 = [(NSMapTable *)v5 countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
     while (v7);

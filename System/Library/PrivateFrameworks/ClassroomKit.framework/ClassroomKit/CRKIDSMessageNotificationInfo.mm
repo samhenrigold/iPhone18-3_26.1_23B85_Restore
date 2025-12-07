@@ -56,21 +56,21 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    +[CRKIDSMessageNotificationInfo instanceWithDictionary:];
+    [CRKIDSMessageNotificationInfo instanceWithDictionary:v5];
   }
 
   v6 = [dictionaryCopy objectForKeyedSubscript:@"SenderAppleID"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    +[CRKIDSMessageNotificationInfo instanceWithDictionary:];
+    [CRKIDSMessageNotificationInfo instanceWithDictionary:v6];
   }
 
   v7 = [dictionaryCopy objectForKeyedSubscript:@"SenderAddress"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    +[CRKIDSMessageNotificationInfo instanceWithDictionary:];
+    [CRKIDSMessageNotificationInfo instanceWithDictionary:v7];
   }
 
   v8 = [[self alloc] initWithMessage:v5 senderAppleID:v6 senderAddress:v7];
@@ -78,37 +78,37 @@
   return v8;
 }
 
-+ (void)instanceWithDictionary:.cold.1()
++ (void)instanceWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[CRKIDSMessageNotificationInfo instanceWithDictionary:]"];
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v14 = [MEMORY[0x277CCA890] currentHandler];
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[CRKIDSMessageNotificationInfo instanceWithDictionary:]"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  [OUTLINED_FUNCTION_0_2(v5 v6];
 }
 
-+ (void)instanceWithDictionary:.cold.2()
++ (void)instanceWithDictionary:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[CRKIDSMessageNotificationInfo instanceWithDictionary:]"];
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v14 = [MEMORY[0x277CCA890] currentHandler];
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[CRKIDSMessageNotificationInfo instanceWithDictionary:]"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  [OUTLINED_FUNCTION_0_2(v5 v6];
 }
 
-+ (void)instanceWithDictionary:.cold.3()
++ (void)instanceWithDictionary:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v13 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[CRKIDSMessageNotificationInfo instanceWithDictionary:]"];
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  [OUTLINED_FUNCTION_0_2(v4 v5];
+  v14 = [MEMORY[0x277CCA890] currentHandler];
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[CRKIDSMessageNotificationInfo instanceWithDictionary:]"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  [OUTLINED_FUNCTION_0_2(v5 v6];
 }
 
 @end

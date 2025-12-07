@@ -130,7 +130,7 @@ LABEL_14:
 
 - (void)handleLongPress:(id)press
 {
-  if ([(UILongPressGestureRecognizer *)self->_longPressRecognizer state]== 1)
+  if (objc_msgSend_state(self->_longPressRecognizer, a2, press) == 1)
   {
     [(MediaControlsMasterVolumeSlider *)self setSyncState:1];
     [(MediaControlsMasterVolumeSlider *)self setNeedsLayout];

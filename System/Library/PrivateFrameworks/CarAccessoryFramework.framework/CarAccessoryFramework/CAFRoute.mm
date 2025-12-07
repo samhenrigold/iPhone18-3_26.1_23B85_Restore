@@ -34,10 +34,15 @@
 - (NSString)userVisibleApplicationName;
 - (unsigned)geodeticSystem;
 - (unsigned)routeState;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setApplicationEnabled:(BOOL)enabled;
 - (void)setDestination:(id)destination;
+- (void)setGeodeticSystem:(unsigned __int8)system;
 - (void)setLegs:(id)legs;
 - (void)setOrigin:(id)origin;
+- (void)setRouteState:(unsigned __int8)state;
+- (void)setUserEnabled:(BOOL)enabled;
 - (void)setUserVisibleApplicationName:(id)name;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -119,6 +124,13 @@
   routeStateValue = [routeStateCharacteristic routeStateValue];
 
   return routeStateValue;
+}
+
+- (void)setRouteState:(unsigned __int8)state
+{
+  stateCopy = state;
+  routeStateCharacteristic = [(CAFRoute *)self routeStateCharacteristic];
+  [routeStateCharacteristic setRouteStateValue:stateCopy];
 }
 
 - (CAFStringCharacteristic)userVisibleApplicationNameCharacteristic
@@ -204,6 +216,13 @@
   return bOOLValue;
 }
 
+- (void)setApplicationEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  applicationEnabledCharacteristic = [(CAFRoute *)self applicationEnabledCharacteristic];
+  [applicationEnabledCharacteristic setBoolValue:enabledCopy];
+}
+
 - (BOOL)applicationEnabledInvalid
 {
   applicationEnabledCharacteristic = [(CAFRoute *)self applicationEnabledCharacteristic];
@@ -244,6 +263,13 @@
   bOOLValue = [userEnabledCharacteristic BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setUserEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  userEnabledCharacteristic = [(CAFRoute *)self userEnabledCharacteristic];
+  [userEnabledCharacteristic setBoolValue:enabledCopy];
 }
 
 - (BOOL)userEnabledInvalid
@@ -320,6 +346,13 @@
   geodeticSystemValue = [geodeticSystemCharacteristic geodeticSystemValue];
 
   return geodeticSystemValue;
+}
+
+- (void)setGeodeticSystem:(unsigned __int8)system
+{
+  systemCopy = system;
+  geodeticSystemCharacteristic = [(CAFRoute *)self geodeticSystemCharacteristic];
+  [geodeticSystemCharacteristic setGeodeticSystemValue:systemCopy];
 }
 
 - (CAFPointOfInterestCharacteristic)originCharacteristic
@@ -475,6 +508,202 @@
   isInvalid = [legsCharacteristic isInvalid];
 
   return isInvalid;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000045000101"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    routeStateCharacteristic = [(CAFRoute *)self routeStateCharacteristic];
+    uniqueIdentifier2 = [routeStateCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers routeService:self didUpdateRouteState:{-[CAFRoute routeState](self, "routeState")}];
+LABEL_37:
+
+      goto LABEL_38;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000045000102"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    userVisibleApplicationNameCharacteristic = [(CAFRoute *)self userVisibleApplicationNameCharacteristic];
+    uniqueIdentifier4 = [userVisibleApplicationNameCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleApplicationName = [(CAFRoute *)self userVisibleApplicationName];
+      [observers routeService:self didUpdateUserVisibleApplicationName:userVisibleApplicationName];
+LABEL_8:
+
+      goto LABEL_37;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000045000103"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    applicationEnabledCharacteristic = [(CAFRoute *)self applicationEnabledCharacteristic];
+    uniqueIdentifier6 = [applicationEnabledCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      [observers routeService:self didUpdateApplicationEnabled:{-[CAFRoute applicationEnabled](self, "applicationEnabled")}];
+      goto LABEL_37;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000045000104"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    userEnabledCharacteristic = [(CAFRoute *)self userEnabledCharacteristic];
+    uniqueIdentifier8 = [userEnabledCharacteristic uniqueIdentifier];
+    v28 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v28)
+    {
+      observers = [(CAFService *)self observers];
+      [observers routeService:self didUpdateUserEnabled:{-[CAFRoute userEnabled](self, "userEnabled")}];
+      goto LABEL_37;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType5 = [updateCopy characteristicType];
+  if ([characteristicType5 isEqual:@"0x0000000045000105"])
+  {
+    uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+    vehicleEnabledCharacteristic = [(CAFRoute *)self vehicleEnabledCharacteristic];
+    uniqueIdentifier10 = [vehicleEnabledCharacteristic uniqueIdentifier];
+    v33 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+    if (v33)
+    {
+      observers = [(CAFService *)self observers];
+      [observers routeService:self didUpdateVehicleEnabled:{-[CAFRoute vehicleEnabled](self, "vehicleEnabled")}];
+      goto LABEL_37;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType6 = [updateCopy characteristicType];
+  if ([characteristicType6 isEqual:@"0x0000000045000106"])
+  {
+    uniqueIdentifier11 = [updateCopy uniqueIdentifier];
+    geodeticSystemCharacteristic = [(CAFRoute *)self geodeticSystemCharacteristic];
+    uniqueIdentifier12 = [geodeticSystemCharacteristic uniqueIdentifier];
+    v38 = [uniqueIdentifier11 isEqual:uniqueIdentifier12];
+
+    if (v38)
+    {
+      observers = [(CAFService *)self observers];
+      [observers routeService:self didUpdateGeodeticSystem:{-[CAFRoute geodeticSystem](self, "geodeticSystem")}];
+      goto LABEL_37;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType7 = [updateCopy characteristicType];
+  if ([characteristicType7 isEqual:@"0x0000000045000107"])
+  {
+    uniqueIdentifier13 = [updateCopy uniqueIdentifier];
+    originCharacteristic = [(CAFRoute *)self originCharacteristic];
+    uniqueIdentifier14 = [originCharacteristic uniqueIdentifier];
+    v43 = [uniqueIdentifier13 isEqual:uniqueIdentifier14];
+
+    if (v43)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleApplicationName = [(CAFRoute *)self origin];
+      [observers routeService:self didUpdateOrigin:userVisibleApplicationName];
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType8 = [updateCopy characteristicType];
+  if ([characteristicType8 isEqual:@"0x0000000045000108"])
+  {
+    uniqueIdentifier15 = [updateCopy uniqueIdentifier];
+    destinationCharacteristic = [(CAFRoute *)self destinationCharacteristic];
+    uniqueIdentifier16 = [destinationCharacteristic uniqueIdentifier];
+    v48 = [uniqueIdentifier15 isEqual:uniqueIdentifier16];
+
+    if (v48)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleApplicationName = [(CAFRoute *)self destination];
+      [observers routeService:self didUpdateDestination:userVisibleApplicationName];
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000045000109"])
+  {
+    goto LABEL_37;
+  }
+
+  uniqueIdentifier17 = [updateCopy uniqueIdentifier];
+  legsCharacteristic = [(CAFRoute *)self legsCharacteristic];
+  uniqueIdentifier18 = [legsCharacteristic uniqueIdentifier];
+  v52 = [uniqueIdentifier17 isEqual:uniqueIdentifier18];
+
+  if (v52)
+  {
+    observers = [(CAFService *)self observers];
+    userVisibleApplicationName = [(CAFRoute *)self legs];
+    [observers routeService:self didUpdateLegs:userVisibleApplicationName];
+    goto LABEL_8;
+  }
+
+LABEL_38:
+  v53.receiver = self;
+  v53.super_class = CAFRoute;
+  [(CAFService *)&v53 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForRouteState

@@ -15,93 +15,87 @@
 
 - (NSString)pathExtension
 {
-  v2 = *(self + OBJC_IVAR___PFMediaStreamedAssetCache_pathExtension);
-  v3 = *(self + OBJC_IVAR___PFMediaStreamedAssetCache_pathExtension + 8);
 
-  v4 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+  v2 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
 
-  return v4;
+  return v2;
 }
 
 - (PFMediaStreamedAssetCache)initWithSourceURL:(id)l
 {
   v4 = sub_1D9176C2C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v18 - v10;
+  v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &v17 - v9;
   sub_1D9176B9C();
-  v12 = sub_1D9176B1C();
+  v11 = sub_1D9176B1C();
   streamedMediaAssetURL = [objc_opt_self() streamedMediaAssetURL];
   sub_1D9176B9C();
 
-  v14 = sub_1D9176B1C();
-  v15 = *(v5 + 8);
-  v15(v8, v4);
-  v16 = [(PFMediaStreamedAssetCache *)self initWithSourceURL:v12 cacheLocation:v14 purgeability:512];
+  v13 = sub_1D9176B1C();
+  v14 = *(v5 + 8);
+  v14(v7, v4);
+  v15 = [(PFMediaStreamedAssetCache *)self initWithSourceURL:v11 cacheLocation:v13 purgeability:512];
 
-  v15(v11, v4);
-  return v16;
+  v14(v10, v4);
+  return v15;
 }
 
 - (PFMediaStreamedAssetCache)initWithSourceURL:(id)l cacheLocation:(id)location purgeability:(int)purgeability
 {
   v6 = sub_1D9176C2C();
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v14 - v11;
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v13 - v10;
   sub_1D9176B9C();
   sub_1D9176B9C();
-  return MediaStreamedAssetCache.init(sourceURL:cacheLocation:purgeability:)(v12, v9, purgeability);
+  return MediaStreamedAssetCache.init(sourceURL:cacheLocation:purgeability:)(v11, v8, purgeability);
 }
 
 - (id)cachedAssetURL
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECAB5910, &qword_1D9188C90);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  MediaStreamedAssetCache.cachedAssetURL()(v6);
+  MediaStreamedAssetCache.cachedAssetURL()(v5);
 
-  v8 = sub_1D9176C2C();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_1D9176C2C();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_1D9176B1C();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_1D9176B1C();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (id)streamCacheURLAndReturnError:(id *)error
 {
   v4 = sub_1D9176C2C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v15[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v9 = *(self + OBJC_IVAR___PFMediaStreamedAssetCache_phase);
+  v7 = &v14[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v8 = *(self + OBJC_IVAR___PFMediaStreamedAssetCache_phase);
   selfCopy = self;
-  v10 = *(*v9 + *MEMORY[0x1E69E6B68] + 16);
-  v11 = (*(*v9 + 48) + 3) & 0x1FFFFFFFCLL;
+  v9 = *(*v8 + *MEMORY[0x1E69E6B68] + 16);
+  v10 = (*(*v8 + 48) + 3) & 0x1FFFFFFFCLL;
   selfCopy2 = self;
-  os_unfair_lock_lock((v9 + v11));
-  sub_1D8E6A76C(v9 + v10, v8);
-  os_unfair_lock_unlock((v9 + v11));
+  os_unfair_lock_lock((v8 + v10));
+  sub_1D8E6A76C((v8 + v9), v7);
+  os_unfair_lock_unlock((v8 + v10));
 
-  v13 = sub_1D9176B1C();
-  (*(v5 + 8))(v8, v4);
+  v12 = sub_1D9176B1C();
+  (*(v5 + 8))(v7, v4);
 
-  return v13;
+  return v12;
 }
 
 - (BOOL)completeAndReturnError:(id *)error
@@ -134,25 +128,20 @@
 {
   v3 = sub_1D9176C2C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = &v19 - v9;
-  v11 = *(self + OBJC_IVAR___PFMediaStreamedAssetCache_sourceURLMD5);
-  v12 = *(self + OBJC_IVAR___PFMediaStreamedAssetCache_sourceURLMD5 + 8);
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v14 - v8;
   selfCopy = self;
   sub_1D9176B3C();
-  v14 = *(selfCopy + OBJC_IVAR___PFMediaStreamedAssetCache_pathExtension);
-  v15 = *(selfCopy + OBJC_IVAR___PFMediaStreamedAssetCache_pathExtension + 8);
   sub_1D9176B4C();
-  v16 = *(v4 + 8);
-  v16(v7, v3);
+  v11 = *(v4 + 8);
+  v11(v6, v3);
 
-  v17 = sub_1D9176B1C();
-  v16(v10, v3);
+  v12 = sub_1D9176B1C();
+  v11(v9, v3);
 
-  return v17;
+  return v12;
 }
 
 - (void)dealloc

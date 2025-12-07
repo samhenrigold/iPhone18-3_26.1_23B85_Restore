@@ -40,66 +40,64 @@
 
 - (void)pft_each:()PosterFuturesKit
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   selfCopy = self;
-  v6 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [selfCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v4[2](v4, *(*(&v11 + 1) + 8 * v9++));
+        v4[2](v4, *(*(&v10 + 1) + 8 * v9++));
       }
 
       while (v7 != v9);
-      v7 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [selfCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pft_each:()PosterFuturesKit until:
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   selfCopy = self;
-  v9 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v16 != v11)
+      if (*v15 != v11)
       {
         objc_enumerationMutation(selfCopy);
       }
 
-      v13 = *(*(&v15 + 1) + 8 * v12);
+      v13 = *(*(&v14 + 1) + 8 * v12);
       if (v7[2](v7))
       {
         break;
@@ -108,7 +106,7 @@ LABEL_3:
       v6[2](v6, v13);
       if (v10 == ++v12)
       {
-        v10 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -118,8 +116,6 @@ LABEL_3:
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pft_each:()PosterFuturesKit untilCancelled:
@@ -276,7 +272,7 @@ LABEL_3:
 
 - (id)pft_compactMap:()PosterFuturesKit
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (self && [self count])
   {
@@ -284,36 +280,36 @@ LABEL_3:
     {
       selfCopy = self;
       v6 = v4;
-      v16 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(selfCopy, "count")}];
+      v15 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(selfCopy, "count")}];
+      v16 = 0u;
       v17 = 0u;
       v18 = 0u;
       v19 = 0u;
-      v20 = 0u;
       v7 = selfCopy;
-      v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v18;
+        v10 = *v17;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v18 != v10)
+            if (*v17 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = v6[2](v6, *(*(&v17 + 1) + 8 * i));
-            v13 = (off_2870E42A0)(&__block_literal_global_4_0, v12);
+            v12 = v6[2](v6, *(*(&v16 + 1) + 8 * i));
+            v13 = off_2870E42A0(&__block_literal_global_4_0, v12);
 
             if (v13)
             {
-              [v16 addObject:v12];
+              [v15 addObject:v12];
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
         }
 
         while (v9);
@@ -322,18 +318,16 @@ LABEL_3:
 
     else
     {
-      v16 = PFTArrayCompactMapFastPath(self, v4);
+      v15 = PFTArrayCompactMapFastPath(self, v4);
     }
   }
 
   else
   {
-    v16 = MEMORY[0x277CBEBF8];
+    v15 = MEMORY[0x277CBEBF8];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v15;
 }
 
 - (id)pft_filter:()PosterFuturesKit
@@ -379,27 +373,27 @@ LABEL_3:
 
 - (id)pft_firstObjectPassingTest:()PosterFuturesKit
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   selfCopy = self;
-  v6 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if (v4[2](v4, v9))
         {
           v6 = v9;
@@ -407,7 +401,7 @@ LABEL_3:
         }
       }
 
-      v6 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -418,8 +412,6 @@ LABEL_3:
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -441,29 +433,29 @@ LABEL_11:
 
 - (uint64_t)pft_all:()PosterFuturesKit
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   selfCopy = self;
-  v6 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        if (!v4[2](v4, *(*(&v13 + 1) + 8 * v9)))
+        if (!v4[2](v4, *(*(&v12 + 1) + 8 * v9)))
         {
           v10 = 0;
           goto LABEL_11;
@@ -473,7 +465,7 @@ LABEL_11:
       }
 
       while (v7 != v9);
-      v7 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -486,40 +478,39 @@ LABEL_11:
   v10 = 1;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (uint64_t)pft_any:()PosterFuturesKit
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   selfCopy = self;
-  v6 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [selfCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        if (v4[2](v4, *(*(&v11 + 1) + 8 * i)))
+        if (v4[2](v4, *(*(&v10 + 1) + 8 * i)))
         {
           v6 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [selfCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -531,35 +522,34 @@ LABEL_11:
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (uint64_t)pft_none:()PosterFuturesKit
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   selfCopy = self;
-  v6 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        if (v4[2](v4, *(*(&v13 + 1) + 8 * v9)))
+        if (v4[2](v4, *(*(&v12 + 1) + 8 * v9)))
         {
           v10 = 0;
           goto LABEL_11;
@@ -569,7 +559,7 @@ LABEL_11:
       }
 
       while (v7 != v9);
-      v7 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -582,48 +572,45 @@ LABEL_11:
   v10 = 1;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (id)pft_indicesForObjects:()PosterFuturesKit
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a3;
   indexSet = [MEMORY[0x277CCAB58] indexSet];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [self indexOfObject:{*(*(&v14 + 1) + 8 * i), v14}];
+        v11 = [self indexOfObject:{*(*(&v13 + 1) + 8 * i), v13}];
         if (v11 != 0x7FFFFFFFFFFFFFFFLL)
         {
           [indexSet addIndex:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return indexSet;
 }
@@ -681,20 +668,20 @@ LABEL_11:
 
 - (id)pft_reduce:()PosterFuturesKit initialValue:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   selfCopy = self;
-  v9 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   v10 = v7;
   if (v9)
   {
     v11 = v9;
-    v12 = *v18;
+    v12 = *v17;
     v10 = v7;
     do
     {
@@ -702,25 +689,23 @@ LABEL_11:
       v14 = v10;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v10 = v6[2](v6, v14, *(*(&v17 + 1) + 8 * v13));
+        v10 = v6[2](v6, v14, *(*(&v16 + 1) + 8 * v13));
 
         ++v13;
         v14 = v10;
       }
 
       while (v11 != v13);
-      v11 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -787,53 +772,6 @@ LABEL_11:
 
 - (id)pft_groupBy:()PosterFuturesKit
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v4 = a3;
-  dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  selfCopy = self;
-  v7 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v7)
-  {
-    v8 = v7;
-    v9 = *v17;
-    do
-    {
-      for (i = 0; i != v8; ++i)
-      {
-        if (*v17 != v9)
-        {
-          objc_enumerationMutation(selfCopy);
-        }
-
-        v11 = *(*(&v16 + 1) + 8 * i);
-        v12 = v4[2](v4, v11);
-        v13 = [dictionary objectForKey:{v12, v16}];
-        if (!v13)
-        {
-          v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
-          [dictionary setObject:v13 forKey:v12];
-        }
-
-        [v13 addObject:v11];
-      }
-
-      v8 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
-    }
-
-    while (v8);
-  }
-
-  v14 = *MEMORY[0x277D85DE8];
-
-  return dictionary;
-}
-
-- (id)pft_indexBy:()PosterFuturesKit
-{
   v20 = *MEMORY[0x277D85DE8];
   v4 = a3;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -858,7 +796,14 @@ LABEL_11:
 
         v11 = *(*(&v15 + 1) + 8 * i);
         v12 = v4[2](v4, v11);
-        [dictionary setObject:v11 forKey:{v12, v15}];
+        v13 = [dictionary objectForKey:{v12, v15}];
+        if (!v13)
+        {
+          v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          [dictionary setObject:v13 forKey:v12];
+        }
+
+        [v13 addObject:v11];
       }
 
       v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
@@ -867,7 +812,43 @@ LABEL_11:
     while (v8);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+  return dictionary;
+}
+
+- (id)pft_indexBy:()PosterFuturesKit
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v4 = a3;
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  selfCopy = self;
+  v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v15;
+    do
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v15 != v9)
+        {
+          objc_enumerationMutation(selfCopy);
+        }
+
+        v11 = *(*(&v14 + 1) + 8 * i);
+        v12 = v4[2](v4, v11);
+        [dictionary setObject:v11 forKey:{v12, v14}];
+      }
+
+      v8 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v8);
+  }
 
   return dictionary;
 }

@@ -89,9 +89,9 @@ void capabilities::ct::compatibleHardwareConfigurationString(std::string *a1@<X8
 
   if (byte_1ED7FDDE7 < 0)
   {
-    v3 = xmmword_1ED7FDDD0;
+    v2 = xmmword_1ED7FDDD0;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -3523,20 +3523,20 @@ void capabilities::ct::getSupportedMessageModes(void *a1@<X8>)
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  v3 = qword_1ED7FDDE8;
-  v4 = *algn_1ED7FDDF0 - qword_1ED7FDDE8;
+  v2 = qword_1ED7FDDE8;
+  v3 = *algn_1ED7FDDF0 - qword_1ED7FDDE8;
   if (*algn_1ED7FDDF0 != qword_1ED7FDDE8)
   {
-    std::vector<capabilities::ct::SupportedMessageMode>::__vallocate[abi:ne200100](a1, v4 >> 2);
-    v5 = a1[1];
-    memmove(v5, v3, v4);
-    a1[1] = &v5[v4];
+    std::vector<capabilities::ct::SupportedMessageMode>::__vallocate[abi:ne200100](a1, v3 >> 2);
+    v4 = a1[1];
+    memmove(v4, v2, v3);
+    a1[1] = &v4[v3];
   }
 }
 
-void *capabilities::ct::sGetSupportedMessageModes(void *a1, int a2)
+void **capabilities::ct::sGetSupportedMessageModes(void **a1, int a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
@@ -3579,9 +3579,8 @@ void *capabilities::ct::sGetSupportedMessageModes(void *a1, int a2)
     case 170:
     case 171:
     case 172:
-      LODWORD(v7) = 2;
-      result = std::vector<capabilities::ct::SupportedMessageMode>::__assign_with_size[abi:ne200100]<capabilities::ct::SupportedMessageMode const*,capabilities::ct::SupportedMessageMode const*>(a1, &v7, &v7 + 4, 1uLL);
-      goto LABEL_7;
+      LODWORD(v6) = 2;
+      return std::vector<capabilities::ct::SupportedMessageMode>::__assign_with_size[abi:ne200100]<capabilities::ct::SupportedMessageMode const*,capabilities::ct::SupportedMessageMode const*>(a1, &v6, &v6 + 4, 1uLL);
     case 84:
     case 85:
     case 86:
@@ -3655,7 +3654,7 @@ void *capabilities::ct::sGetSupportedMessageModes(void *a1, int a2)
     case 207:
     case 208:
     case 210:
-      goto LABEL_4;
+      goto LABEL_7;
     case 87:
     case 88:
     case 103:
@@ -3681,25 +3680,21 @@ void *capabilities::ct::sGetSupportedMessageModes(void *a1, int a2)
     case 169:
     case 209:
     case 211:
-      goto LABEL_6;
+      goto LABEL_5;
     default:
       if ((a2 - 0x8000) < 3 || (a2 - 60) >= 2)
       {
-LABEL_4:
-        v7 = xmmword_1CAE5F0F0;
-        result = std::vector<capabilities::ct::SupportedMessageMode>::__assign_with_size[abi:ne200100]<capabilities::ct::SupportedMessageMode const*,capabilities::ct::SupportedMessageMode const*>(a1, &v7, v8, 4uLL);
+LABEL_7:
+        v6 = xmmword_1CAE5F0F0;
+        return std::vector<capabilities::ct::SupportedMessageMode>::__assign_with_size[abi:ne200100]<capabilities::ct::SupportedMessageMode const*,capabilities::ct::SupportedMessageMode const*>(a1, &v6, v7, 4uLL);
       }
 
       else
       {
-LABEL_6:
-        LODWORD(v7) = 4;
-        result = std::vector<capabilities::ct::SupportedMessageMode>::__assign_with_size[abi:ne200100]<capabilities::ct::SupportedMessageMode const*,capabilities::ct::SupportedMessageMode const*>(a1, &v7, &v7 + 4, 1uLL);
+LABEL_5:
+        LODWORD(v6) = 4;
+        return std::vector<capabilities::ct::SupportedMessageMode>::__assign_with_size[abi:ne200100]<capabilities::ct::SupportedMessageMode const*,capabilities::ct::SupportedMessageMode const*>(a1, &v6, &v6 + 4, 1uLL);
       }
-
-LABEL_7:
-      v6 = *MEMORY[0x1E69E9840];
-      return result;
   }
 }
 
@@ -3732,28 +3727,28 @@ void capabilities::ct::getSupportedMTSMSTypes(void *a1@<X8>)
   if ((atomic_load_explicit(&qword_1ED7FD9F0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ED7FD9F0))
   {
     Radio = TelephonyRadiosGetRadio();
-    capabilities::ct::sGetSupportedMTSMSTypes(qword_1ED7FDE00, Radio);
-    __cxa_atexit(std::vector<capabilities::ct::SupportedMTSMSTypes>::~vector[abi:ne200100], qword_1ED7FDE00, &dword_1CAE37000);
+    capabilities::ct::sGetSupportedMTSMSTypes(&qword_1ED7FDE00, Radio);
+    __cxa_atexit(std::vector<capabilities::ct::SupportedMTSMSTypes>::~vector[abi:ne200100], &qword_1ED7FDE00, &dword_1CAE37000);
     __cxa_guard_release(&qword_1ED7FD9F0);
   }
 
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  v3 = qword_1ED7FDE00[0];
-  v4 = unk_1ED7FDE08 - qword_1ED7FDE00[0];
-  if (unk_1ED7FDE08 != qword_1ED7FDE00[0])
+  v2 = qword_1ED7FDE00;
+  v3 = unk_1ED7FDE08 - qword_1ED7FDE00;
+  if (unk_1ED7FDE08 != qword_1ED7FDE00)
   {
-    std::vector<capabilities::ct::SupportedMessageMode>::__vallocate[abi:ne200100](a1, v4 >> 2);
-    v5 = a1[1];
-    memmove(v5, v3, v4);
-    a1[1] = &v5[v4];
+    std::vector<capabilities::ct::SupportedMessageMode>::__vallocate[abi:ne200100](a1, v3 >> 2);
+    v4 = a1[1];
+    memmove(v4, v2, v3);
+    a1[1] = &v4[v3];
   }
 }
 
-void *capabilities::ct::sGetSupportedMTSMSTypes(void *a1, int a2)
+void **capabilities::ct::sGetSupportedMTSMSTypes(void **a1, int a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
@@ -3764,18 +3759,15 @@ void *capabilities::ct::sGetSupportedMTSMSTypes(void *a1, int a2)
   a1[2] = v4;
   if (a2 == 4 || a2 == 16)
   {
-    v7 = 0x100000002;
-    result = std::vector<capabilities::ct::SupportedMessageMode>::__assign_with_size[abi:ne200100]<capabilities::ct::SupportedMessageMode const*,capabilities::ct::SupportedMessageMode const*>(a1, &v7, &v8, 2uLL);
+    v6 = 0x100000002;
+    return std::vector<capabilities::ct::SupportedMessageMode>::__assign_with_size[abi:ne200100]<capabilities::ct::SupportedMessageMode const*,capabilities::ct::SupportedMessageMode const*>(a1, &v6, &v7, 2uLL);
   }
 
   else
   {
-    LODWORD(v7) = 0;
-    result = std::vector<capabilities::ct::SupportedMessageMode>::__assign_with_size[abi:ne200100]<capabilities::ct::SupportedMessageMode const*,capabilities::ct::SupportedMessageMode const*>(a1, &v7, &v7 + 4, 1uLL);
+    LODWORD(v6) = 0;
+    return std::vector<capabilities::ct::SupportedMessageMode>::__assign_with_size[abi:ne200100]<capabilities::ct::SupportedMessageMode const*,capabilities::ct::SupportedMessageMode const*>(a1, &v6, &v6 + 4, 1uLL);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void sub_1CAE4F4DC(_Unwind_Exception *exception_object)
@@ -4921,9 +4913,9 @@ void capabilities::ct::deviceName(std::string *a1@<X8>)
 
   if (byte_1ED7FDE2F < 0)
   {
-    v3 = xmmword_1ED7FDE18;
+    v2 = xmmword_1ED7FDE18;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -6287,9 +6279,9 @@ void capabilities::ct::SARValue(std::string *a1@<X8>)
 
   if (byte_1ED7FDE47 < 0)
   {
-    v3 = xmmword_1ED7FDE30;
+    v2 = xmmword_1ED7FDE30;
 
-    std::string::__init_copy_ctor_external(a1, v3, *(&v3 + 1));
+    std::string::__init_copy_ctor_external(a1, v2, *(&v2 + 1));
   }
 
   else
@@ -8997,7 +8989,7 @@ char *std::vector<capabilities::ct::SupportedMessageMode>::__vallocate[abi:ne200
   return result;
 }
 
-void *std::vector<capabilities::ct::SupportedMessageMode>::__assign_with_size[abi:ne200100]<capabilities::ct::SupportedMessageMode const*,capabilities::ct::SupportedMessageMode const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<capabilities::ct::SupportedMessageMode>::__assign_with_size[abi:ne200100]<capabilities::ct::SupportedMessageMode const*,capabilities::ct::SupportedMessageMode const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = __src;
   v7 = result;
@@ -9229,7 +9221,7 @@ LABEL_5:
 
   if (v6 != v5)
   {
-    ctu::join<std::__wrap_iter<std::string *>>(v5, v6, " | ", 3uLL, &__p);
+    ctu::join<std::__wrap_iter<std::string *>>(&__p, v5, v6, " | ", 3uLL);
     if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v8.__r_.__value_.__l.__data_);
@@ -9283,7 +9275,7 @@ LABEL_5:
 
   if (v6 != v5)
   {
-    ctu::join<std::__wrap_iter<std::string *>>(v5, v6, " | ", 3uLL, &__p);
+    ctu::join<std::__wrap_iter<std::string *>>(&__p, v5, v6, " | ", 3uLL);
     if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v8.__r_.__value_.__l.__data_);
@@ -9585,7 +9577,7 @@ LABEL_12:
 
   if (v6 != v5)
   {
-    ctu::join<std::__wrap_iter<std::string *>>(v5, v6, " | ", 3uLL, &__p);
+    ctu::join<std::__wrap_iter<std::string *>>(&__p, v5, v6, " | ", 3uLL);
     if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v8.__r_.__value_.__l.__data_);
@@ -9622,7 +9614,7 @@ void sub_1CAE55FCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void capabilities::diag::asString(char a1@<W0>, char *a2@<X8>)
+void capabilities::diag::asString(char a1@<W0>, void **a2@<X8>)
 {
   memset(a2, 170, 24);
   std::string::basic_string[abi:ne200100]<0>(a2, "???");
@@ -9663,8 +9655,8 @@ LABEL_7:
 
   if (v6 != v5)
   {
-    ctu::join<std::__wrap_iter<std::string *>>(v5, v6, " | ", 3uLL, &__p);
-    if (a2[23] < 0)
+    ctu::join<std::__wrap_iter<std::string *>>(&__p, v5, v6, " | ", 3uLL);
+    if (*(a2 + 23) < 0)
     {
       operator delete(*a2);
     }

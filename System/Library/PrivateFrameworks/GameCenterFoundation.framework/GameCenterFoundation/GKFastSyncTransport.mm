@@ -104,13 +104,13 @@
 - (id)enrichPeerDictionariesForPlayersConnection:(id)connection
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D7DD010, &qword_227AA3C00);
-  sub_227A7269C();
+  v4 = sub_227A7269C();
   selfCopy = self;
-  FastSyncTransport.enrichPeerDictionaries(forPlayersConnection:)();
+  FastSyncTransport.enrichPeerDictionaries(forPlayersConnection:)(v4);
 
-  v5 = sub_227A7268C();
+  v6 = sub_227A7268C();
 
-  return v5;
+  return v6;
 }
 
 - (void)localConnectionDataWithCompletionHandler:(id)handler

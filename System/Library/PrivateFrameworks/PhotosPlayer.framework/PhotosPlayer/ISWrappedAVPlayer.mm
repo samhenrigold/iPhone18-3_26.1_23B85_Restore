@@ -52,6 +52,7 @@
 - (void)setItemForwardEndPlaybackTime:(id *)time;
 - (void)setLoopTimeRange:(id *)range;
 - (void)setLoopingEnabled:(BOOL)enabled;
+- (void)setLoopingEnabled:(BOOL)enabled withTemplateItem:(id)item;
 - (void)setPreventsSleepDuringVideoPlayback:(BOOL)playback;
 - (void)setRate:(float)rate;
 - (void)setRate:(float)rate time:(id *)time atHostTime:(id *)hostTime;
@@ -222,19 +223,19 @@ void __63__ISWrappedAVPlayer_replaceCurrentItemWithPlayerItem_thenCall___block_i
     {
       if (v3)
       {
-        [(dispatch_queue_t *)v3 loopTimeRange];
+        objc_msgSend_loopTimeRange(v3);
         if (BYTE12(v22))
         {
-          [(dispatch_queue_t *)v3 loopTimeRange];
+          objc_msgSend_loopTimeRange(v3);
           if (v21)
           {
-            [(dispatch_queue_t *)v3 loopTimeRange];
+            objc_msgSend_loopTimeRange(v3);
             if (!v20)
             {
-              [(dispatch_queue_t *)v3 loopTimeRange];
+              objc_msgSend_loopTimeRange(v3);
               if ((v19 & 0x8000000000000000) == 0)
               {
-                [(dispatch_queue_t *)v3 loopTimeRange];
+                objc_msgSend_loopTimeRange(v3);
                 v10 = *(a1 + 32);
                 duration[0] = duration[1];
                 [v10 setLoopTimeRange:duration];
@@ -256,7 +257,7 @@ void __63__ISWrappedAVPlayer_replaceCurrentItemWithPlayerItem_thenCall___block_i
       v12 = v11;
       if (v11)
       {
-        [v11 duration];
+        objc_msgSend_duration(v11);
       }
 
       else
@@ -487,6 +488,21 @@ void __38__ISWrappedAVPlayer_setLoopTimeRange___block_invoke_2(_OWORD *a1, void 
   [v3 setLoopTimeRange:v5];
 }
 
+- (void)setLoopingEnabled:(BOOL)enabled withTemplateItem:(id)item
+{
+  enabledCopy = enabled;
+  itemCopy = item;
+  [(ISWrappedAVPlayer *)self setLoopingEnabled:enabledCopy];
+  currentItem = [(ISWrappedAVPlayer *)self currentItem];
+
+  v7 = itemCopy;
+  if (currentItem != itemCopy)
+  {
+    [(ISWrappedAVPlayer *)self replaceCurrentItemWithPlayerItem:itemCopy];
+    v7 = itemCopy;
+  }
+}
+
 - (void)setLoopingEnabled:(BOOL)enabled
 {
   if ([(ISWrappedAVPlayer *)self isLoopingEnabled]!= enabled)
@@ -518,7 +534,7 @@ void __39__ISWrappedAVPlayer_setLoopingEnabled___block_invoke_2(uint64_t a1, voi
     v6 = v5;
     if (v5)
     {
-      [v5 duration];
+      objc_msgSend_duration(v5);
     }
 
     else
@@ -747,7 +763,7 @@ __n128 __47__ISWrappedAVPlayer_itemForwardPlaybackEndTime__block_invoke(uint64_t
   result = self->_playerQueue_avPlayer;
   if (result)
   {
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result currentTime];
+    return objc_msgSend_currentTime(result, a3);
   }
 
   return result;
@@ -1618,73 +1634,73 @@ void __71__ISWrappedAVPlayer_observeChangeforKVOProxyIdentifier_keyPath_change__
   [*(a1 + 32) signalChange:{0x4000, v3, v4, v5, v6, v7}];
 }
 
-uint64_t __71__ISWrappedAVPlayer_observeChangeforKVOProxyIdentifier_keyPath_change___block_invoke_33(uint64_t a1)
+void *__71__ISWrappedAVPlayer_observeChangeforKVOProxyIdentifier_keyPath_change___block_invoke_33(uint64_t a1)
 {
   result = [*(a1 + 40) BOOLValue];
   *(*(a1 + 32) + 322) = result;
   return result;
 }
 
-uint64_t __71__ISWrappedAVPlayer_observeChangeforKVOProxyIdentifier_keyPath_change___block_invoke_31(uint64_t a1)
+void *__71__ISWrappedAVPlayer_observeChangeforKVOProxyIdentifier_keyPath_change___block_invoke_31(uint64_t a1)
 {
   result = [*(a1 + 40) BOOLValue];
   *(*(a1 + 32) + 321) = result;
   return result;
 }
 
-__n128 __71__ISWrappedAVPlayer_observeChangeforKVOProxyIdentifier_keyPath_change___block_invoke_29(uint64_t a1)
+__n128 __71__ISWrappedAVPlayer_observeChangeforKVOProxyIdentifier_keyPath_change___block_invoke_29(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  if (v1)
+  v3 = *(a1 + 32);
+  v2 = *(a1 + 40);
+  if (v2)
   {
-    [v1 CMTimeValue];
+    objc_msgSend_CMTimeValue(v2, a2);
   }
 
   else
   {
-    v4 = 0uLL;
-    v5 = 0;
+    v5 = 0uLL;
+    v6 = 0;
   }
 
-  result = v4;
-  *(v2 + 296) = v5;
-  *(v2 + 280) = v4;
+  result = v5;
+  *(v3 + 296) = v6;
+  *(v3 + 280) = v5;
   return result;
 }
 
-uint64_t __71__ISWrappedAVPlayer_observeChangeforKVOProxyIdentifier_keyPath_change___block_invoke_27(uint64_t a1)
+void *__71__ISWrappedAVPlayer_observeChangeforKVOProxyIdentifier_keyPath_change___block_invoke_27(uint64_t a1)
 {
   result = [*(a1 + 40) BOOLValue];
   *(*(a1 + 32) + 304) = result;
   return result;
 }
 
-uint64_t __71__ISWrappedAVPlayer_observeChangeforKVOProxyIdentifier_keyPath_change___block_invoke_23(uint64_t a1)
+void *__71__ISWrappedAVPlayer_observeChangeforKVOProxyIdentifier_keyPath_change___block_invoke_23(uint64_t a1)
 {
   result = [*(a1 + 40) BOOLValue];
   *(*(a1 + 32) + 320) = result;
   return result;
 }
 
-__n128 __71__ISWrappedAVPlayer_observeChangeforKVOProxyIdentifier_keyPath_change___block_invoke_19(uint64_t a1)
+__n128 __71__ISWrappedAVPlayer_observeChangeforKVOProxyIdentifier_keyPath_change___block_invoke_19(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  if (v1)
+  v3 = *(a1 + 32);
+  v2 = *(a1 + 40);
+  if (v2)
   {
-    [v1 CMTimeValue];
+    objc_msgSend_CMTimeValue(v2, a2);
   }
 
   else
   {
-    v4 = 0uLL;
-    v5 = 0;
+    v5 = 0uLL;
+    v6 = 0;
   }
 
-  result = v4;
-  v2[17].n128_u64[0] = v5;
-  v2[16] = v4;
+  result = v5;
+  v3[17].n128_u64[0] = v6;
+  v3[16] = v5;
   return result;
 }
 
@@ -1722,7 +1738,7 @@ void __71__ISWrappedAVPlayer_observeChangeforKVOProxyIdentifier_keyPath_change__
   [WeakRetained _playerQueue_updatePlayerItemAudioTracksEnabled];
 }
 
-uint64_t __71__ISWrappedAVPlayer_observeChangeforKVOProxyIdentifier_keyPath_change___block_invoke_2(uint64_t a1)
+void *__71__ISWrappedAVPlayer_observeChangeforKVOProxyIdentifier_keyPath_change___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 40) floatValue];
   *(*(a1 + 32) + 176) = v3;

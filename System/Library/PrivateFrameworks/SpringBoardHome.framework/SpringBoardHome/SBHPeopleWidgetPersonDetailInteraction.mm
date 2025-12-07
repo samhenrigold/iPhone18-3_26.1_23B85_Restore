@@ -81,20 +81,21 @@
 - (double)targetContentCornerRadius
 {
   settings = [(SBHPeopleWidgetPersonDetailInteraction *)self settings];
-  if ([settings usesCardStyle])
+  usesCardStyle = [settings usesCardStyle];
+  if (usesCardStyle)
   {
     [settings cardCornerRadius];
   }
 
   else
   {
-    v4 = SBHScreenTypeForCurrentDevice();
-    v3 = SBHDisplayCornerRadiusForScreenType(v4);
+    v6 = SBHScreenTypeForCurrentDevice(usesCardStyle, v4);
+    v5 = SBHDisplayCornerRadiusForScreenType(v6);
   }
 
-  v5 = v3;
+  v7 = v5;
 
-  return v5;
+  return v7;
 }
 
 - (UIView)homeScreenContentView
@@ -164,7 +165,7 @@
     [referenceIconView setHighlighted:0];
     v54 = referenceIconView;
     [referenceIconView addObserver:self];
-    [containerView bounds];
+    objc_msgSend_bounds(containerView);
     v17 = v16;
     v19 = v18;
     v21 = v20;
@@ -234,7 +235,7 @@
     v47 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v40, v42, v44, v46}];
     [MEMORY[0x1E69AE158] materialViewWithRecipe:3];
     v49 = v48 = containerView;
-    [v47 bounds];
+    objc_msgSend_bounds(v47);
     [v49 setFrame:?];
     [v49 setAutoresizingMask:18];
     [v47 addSubview:v49];
@@ -256,7 +257,7 @@
 
   else
   {
-    v34 = SBLogIcon();
+    v34 = SBLogIcon(sourceIconView);
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       v51 = NSStringFromSelector(a2);
@@ -294,7 +295,7 @@
 - (void)transitionWillProgressToEndState:(id)state
 {
   v9 = *MEMORY[0x1E69E9840];
-  v4 = SBLogIcon();
+  v4 = SBLogIcon(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138543362;
@@ -315,7 +316,7 @@
 - (void)transitionDidProgressToEndState:(id)state
 {
   v8 = *MEMORY[0x1E69E9840];
-  v4 = SBLogIcon();
+  v4 = SBLogIcon(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138543362;
@@ -333,7 +334,7 @@
 - (void)transitionWillReturnToBeginningState:(id)state
 {
   v9 = *MEMORY[0x1E69E9840];
-  v4 = SBLogIcon();
+  v4 = SBLogIcon(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138543362;
@@ -355,7 +356,7 @@
 {
   v22 = *MEMORY[0x1E69E9840];
   stateCopy = state;
-  v5 = SBLogIcon();
+  v5 = SBLogIcon(stateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v20 = 138543362;
@@ -407,18 +408,18 @@
 
 - (void)peopleEntityViewControllerDidRequestDismissal:(id)dismissal
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   dismissalCopy = dismissal;
   personViewController = [(SBHPeopleWidgetPersonDetailInteraction *)self personViewController];
 
   if (personViewController == dismissalCopy)
   {
-    v6 = SBLogIcon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SBLogIcon(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543362;
+      v8 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@]: dismissing due to view controller request", &v7, 0xCu);
+      _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@]: dismissing due to view controller request", &v8, 0xCu);
     }
 
     [(SBHPeopleWidgetPersonDetailInteraction *)self endInteractionAnimated:1];
@@ -428,7 +429,7 @@
 - (void)_handleTapToDismiss:(id)dismiss
 {
   v7 = *MEMORY[0x1E69E9840];
-  v4 = SBLogIcon();
+  v4 = SBLogIcon(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138543362;
@@ -469,7 +470,7 @@
 {
   settings = [(SBHPeopleWidgetPersonDetailInteraction *)self settings];
   containerView = [(SBHPeopleWidgetPersonDetailInteraction *)self containerView];
-  [containerView bounds];
+  objc_msgSend_bounds(containerView);
   v6 = v5;
   v8 = v7;
   v10 = v9;

@@ -229,7 +229,7 @@ uint64_t __89__PKPaymentSetupAssistantCoreController__extendedSetupAssistantNeed
 
     if (!v9)
     {
-      watchPeerPaymentWebService = [getNPKCompanionAgentConnectionClass_4[0]() watchPeerPaymentWebService];
+      watchPeerPaymentWebService = [(objc_class *)getNPKCompanionAgentConnectionClass_4() watchPeerPaymentWebService];
       v20 = +[PKPeerPaymentWebService sharedService];
       v32 = watchPeerPaymentWebService;
       targetDevice = [watchPeerPaymentWebService targetDevice];
@@ -297,7 +297,7 @@ LABEL_42:
     }
   }
 
-  if (!PKDaemonIsAvailable() || (PKStoreDemoModeEnabled() & 1) != 0 || ![getNPKCompanionAgentConnectionClass_4[0]() isSetupAssistantProvisioningSupported])
+  if (!PKDaemonIsAvailable() || (PKStoreDemoModeEnabled() & 1) != 0 || ![(objc_class *)getNPKCompanionAgentConnectionClass_4() isSetupAssistantProvisioningSupported])
   {
     v16 = 0;
     v18 = 0;
@@ -975,9 +975,9 @@ void __97__PKPaymentSetupAssistantCoreController__preflightPaymentSetupProvision
         goto LABEL_13;
       }
 
-      v9 = [v6 isEqualToString:v7];
+      isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-      if (!v9)
+      if (!isEqualToString)
       {
 LABEL_13:
         v12 = [v4 passWithUniqueID:v6];
@@ -1074,9 +1074,9 @@ LABEL_9:
         if ([v12 hasAssociatedPeerPaymentAccount])
         {
           uniqueID = [v12 uniqueID];
-          v15 = [uniqueID isEqualToString:peerPaymentPassUniqueID];
+          isEqualToString = objc_msgSend_isEqualToString_(uniqueID);
 
-          if (v15)
+          if (isEqualToString)
           {
             if ([v12 passActivationState] == 4)
             {
@@ -1200,7 +1200,7 @@ LABEL_11:
   setupAssistant = [(PKPaymentSetupAssistantContextProtocol *)self->_setupAssistantContext setupAssistant];
   if (setupAssistant == 2)
   {
-    watchPaymentWebService = [getNPKCompanionAgentConnectionClass_4[0]() watchPaymentWebService];
+    watchPaymentWebService = [(objc_class *)getNPKCompanionAgentConnectionClass_4() watchPaymentWebService];
   }
 
   else if (setupAssistant == 1)
@@ -1728,7 +1728,7 @@ uint64_t __74__PKPaymentSetupAssistantCoreController__expressSetupProvisioningCo
         if (paymentPass)
         {
           uniqueID = [v18 uniqueID];
-          if (![uniqueID isEqualToString:v11])
+          if (!objc_msgSend_isEqualToString_(uniqueID))
           {
 
 LABEL_12:
@@ -1790,12 +1790,12 @@ uint64_t __80__PKPaymentSetupAssistantCoreController__expressCardRemovalProvisio
   if ([v5 hasAssociatedPeerPaymentAccount])
   {
     v7 = [v5 uniqueID];
-    v8 = [v7 isEqualToString:*(a1 + 32)];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
     if (([v6 hasAssociatedPeerPaymentAccount] & 1) == 0)
     {
 LABEL_10:
-      if (v8)
+      if (isEqualToString)
       {
         v11 = -1;
         goto LABEL_13;
@@ -1817,18 +1817,18 @@ LABEL_12:
       goto LABEL_12;
     }
 
-    v8 = 0;
+    isEqualToString = 0;
   }
 
   v9 = [v6 uniqueID];
-  v10 = [v9 isEqualToString:*(a1 + 32)];
+  v10 = objc_msgSend_isEqualToString_(v9);
 
   if (!v10)
   {
     goto LABEL_10;
   }
 
-  if (v8)
+  if (isEqualToString)
   {
     goto LABEL_12;
   }

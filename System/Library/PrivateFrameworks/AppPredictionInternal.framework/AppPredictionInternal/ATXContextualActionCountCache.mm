@@ -59,20 +59,20 @@
   {
     actionTime2 = [parameterCopy actionTime];
     [parameterCopy setActionTime:0];
-    v7 = [(NSDate *)self->_oldestAction earlierDate:actionTime2];
+    v8 = [(NSDate *)self->_oldestAction earlierDate:actionTime2];
     oldestAction = self->_oldestAction;
-    self->_oldestAction = v7;
+    self->_oldestAction = v8;
 
-    v9 = [(ATXContextualActionCountCache *)self isHeadingToWorkActionTime:actionTime2];
-    v10 = [(ATXContextualActionCountCache *)self isHeadingHomeActionTime:actionTime2];
-    v11 = [(ATXContextualActionCountCache *)self isOtherActionTime:actionTime2];
-    if (v9)
+    v10 = [(ATXContextualActionCountCache *)self isHeadingToWorkActionTime:actionTime2];
+    v11 = [(ATXContextualActionCountCache *)self isHeadingHomeActionTime:actionTime2];
+    v12 = [(ATXContextualActionCountCache *)self isOtherActionTime:actionTime2];
+    if (v10)
     {
       [(NSCountedSet *)self->headingToWorkActions addObject:parameterCopy];
-      if (!v10)
+      if (!v11)
       {
 LABEL_4:
-        if (!v11)
+        if (!v12)
         {
 LABEL_6:
 
@@ -85,13 +85,13 @@ LABEL_5:
       }
     }
 
-    else if (!v10)
+    else if (!v11)
     {
       goto LABEL_4;
     }
 
     [(NSCountedSet *)self->headingHomeActions addObject:parameterCopy];
-    if (!v11)
+    if (!v12)
     {
       goto LABEL_6;
     }
@@ -99,10 +99,10 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v12 = __atxlog_handle_dailyroutines();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+  v13 = __atxlog_handle_dailyroutines(v6);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
-    [(ATXContextualActionCountCache *)parameterCopy addMinimalActionParameter:v12];
+    [(ATXContextualActionCountCache *)parameterCopy addMinimalActionParameter:v13];
   }
 
 LABEL_10:
@@ -175,7 +175,7 @@ LABEL_7:
       goto LABEL_11;
   }
 
-  v8 = __atxlog_handle_default();
+  v8 = __atxlog_handle_default(contextType);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [(ATXContextualActionCountCache *)contextCopy getCountsForContext:v8];
@@ -198,25 +198,22 @@ LABEL_11:
 
 - (void)addMinimalActionParameter:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = [a1 bundleId];
   v5 = [a1 actionType];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Cannot process action %@:%@ without valid actionTime", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Cannot process action %@:%@ without valid actionTime", &v6, 0x16u);
 }
 
 - (void)getCountsForContext:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [a1 contextType];
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Unsupported context type was given: %lu", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [a1 contextType];
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Unsupported context type was given: %lu", &v3, 0xCu);
 }
 
 @end

@@ -121,7 +121,7 @@ void __39__EKUISemiConstantCache_sharedInstance__block_invoke()
   weekAllDayLabelFontCompact = self->_weekAllDayLabelFontCompact;
   if (!weekAllDayLabelFontCompact)
   {
-    v4 = EKUIUsesRoundedRectsInsteadOfCircles(0, a2);
+    v4 = EKUIUsesRoundedRectsInsteadOfCircles();
     v5 = 13.0;
     if (v4)
     {
@@ -143,7 +143,7 @@ void __39__EKUISemiConstantCache_sharedInstance__block_invoke()
   weekAllDayLabelFontRegular = self->_weekAllDayLabelFontRegular;
   if (!weekAllDayLabelFontRegular)
   {
-    v4 = EKUIUsesRoundedRectsInsteadOfCircles(0, a2);
+    v4 = EKUIUsesRoundedRectsInsteadOfCircles();
     v5 = 17.0;
     if (v4)
     {
@@ -165,7 +165,7 @@ void __39__EKUISemiConstantCache_sharedInstance__block_invoke()
   weekAllDayTodayLabelFontCompact = self->_weekAllDayTodayLabelFontCompact;
   if (!weekAllDayTodayLabelFontCompact)
   {
-    v4 = EKUIUsesRoundedRectsInsteadOfCircles(0, a2);
+    v4 = EKUIUsesRoundedRectsInsteadOfCircles();
     v5 = 13.0;
     if (v4)
     {

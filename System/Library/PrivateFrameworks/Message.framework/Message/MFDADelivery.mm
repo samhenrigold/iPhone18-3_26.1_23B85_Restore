@@ -43,9 +43,9 @@ void __19__MFDADelivery_log__block_invoke(uint64_t a1)
 
 - (id)deliverSynchronously
 {
-  v53 = *MEMORY[0x1E69E9840];
-  v39 = objc_alloc_init(MFDADeliveryConsumer);
-  v36 = +[MFActivityMonitor currentMonitor];
+  v52 = *MEMORY[0x1E69E9840];
+  v38 = objc_alloc_init(MFDADeliveryConsumer);
+  v35 = +[MFActivityMonitor currentMonitor];
   v3 = MFUserAgent();
   [v3 networkActivityStarted:self];
 
@@ -99,15 +99,15 @@ void __19__MFDADelivery_log__block_invoke(uint64_t a1)
     originalMessageID = self->_originalMessageID;
     originalLongID = self->_originalLongID;
     *buf = 67241218;
-    v44 = v7;
-    v45 = 2114;
-    v46 = folderID;
-    v47 = 2114;
-    v48 = originalMessageID;
-    v49 = 2114;
-    v50 = originalLongID;
-    v51 = 1026;
-    v52 = v8;
+    v43 = v7;
+    v44 = 2114;
+    v45 = folderID;
+    v46 = 2114;
+    v47 = originalMessageID;
+    v48 = 2114;
+    v49 = originalLongID;
+    v50 = 1026;
+    v51 = v8;
     _os_log_impl(&dword_1B0389000, v11, OS_LOG_TYPE_DEFAULT, "Sending message with type: %{public}u, folderID: %{public}@, originalMessageID: %{public}@, originalLongID: %{public}@, useSmartTask: %{public}d", buf, 0x2Cu);
   }
 
@@ -117,41 +117,40 @@ void __19__MFDADelivery_log__block_invoke(uint64_t a1)
   v18 = self->_originalMessageID;
   v19 = self->_originalLongID;
   accountID = self->_accountID;
-  BYTE1(v35) = [(MFMailDelivery *)self isUserRequested];
-  LOBYTE(v35) = v8;
-  [accountConduit sendMessageWithRFC822Data:data messageID:messageIDHeaderInFortyBytesOrLess outgoingMessageType:v7 originalMessageFolderID:v17 originalMessageItemID:v18 originalMessageLongID:v19 originalAccountID:accountID useSmartTasksIfPossible:v35 isUserRequested:v39 consumer:0 context:?];
+  BYTE1(v34) = [(MFMailDelivery *)self isUserRequested];
+  LOBYTE(v34) = v8;
+  [accountConduit sendMessageWithRFC822Data:data messageID:messageIDHeaderInFortyBytesOrLess outgoingMessageType:v7 originalMessageFolderID:v17 originalMessageItemID:v18 originalMessageLongID:v19 originalAccountID:accountID useSmartTasksIfPossible:v34 isUserRequested:v38 consumer:0 context:?];
 
-  [(MFDAMailAccountConsumer *)v39 waitUntilDone];
+  [(MFDAMailAccountConsumer *)v38 waitUntilDone];
   v21 = CFAbsoluteTimeGetCurrent();
-  error = [(MFDADeliveryConsumer *)v39 error];
-  [v36 setError:error];
+  error = [(MFDADeliveryConsumer *)v38 error];
+  [v35 setError:error];
 
   v23 = MFUserAgent();
   [v23 networkActivityEnded:self];
 
-  v24 = [[MFDeliveryResult alloc] initWithStatus:[(MFDADeliveryConsumer *)v39 status]];
+  v24 = [[MFDeliveryResult alloc] initWithStatus:[(MFDADeliveryConsumer *)v38 status]];
   v25 = self->super._result;
   self->super._result = v24;
 
   [(MFDeliveryResult *)self->super._result setDuration:v21 - Current];
-  [(MFDeliveryResult *)self->super._result setBytesSent:[(MFDADeliveryConsumer *)v39 bytesWritten]];
+  [(MFDeliveryResult *)self->super._result setBytesSent:[(MFDADeliveryConsumer *)v38 bytesWritten]];
   if (!v7 && [self->_DAMailAccount supportsThreadOperations]&& [(MFMailDelivery *)self conversationFlags])
   {
     v26 = [self->_DAMailAccount mailboxUidOfType:4 createIfNeeded:0];
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     DAMailAccount = self->_DAMailAccount;
-    v40 = v26;
-    v41 = @"MailAccountContentsDidChangeUids";
-    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
-    v42 = v29;
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+    v39 = v26;
+    v40 = @"MailAccountContentsDidChangeUids";
+    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+    v41 = v29;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
     [defaultCenter postNotificationName:@"MailAccountContentsDidChange" object:DAMailAccount userInfo:v30];
   }
 
   v31 = self->super._result;
   v32 = v31;
 
-  v33 = *MEMORY[0x1E69E9840];
   return v31;
 }
 

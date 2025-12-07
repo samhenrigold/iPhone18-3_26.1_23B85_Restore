@@ -1,5 +1,6 @@
 @interface GCIONotificationPort
 - (GCIONotificationPort)initWithMainPort:(unsigned int)port;
+- (GCIONotificationPort)initWithMainPort:(unsigned int)port queue:(id)queue;
 - (id)debugDescription;
 - (void)addCancellationHandler:(id)handler onQueue:(id)queue;
 - (void)dealloc;
@@ -22,6 +23,13 @@
   }
 
   return v4;
+}
+
+- (GCIONotificationPort)initWithMainPort:(unsigned int)port queue:(id)queue
+{
+  v5 = [(GCIONotificationPort *)self initWithMainPort:*&port];
+  [(GCIONotificationPort *)v5 setQueue:queue];
+  return v5;
 }
 
 - (void)dealloc
@@ -112,7 +120,7 @@ void __55__GCIONotificationPort_addCancellationHandler_onQueue___block_invoke_2(
 
 - (void)initWithMainPort:(void *)a1 .cold.1(void *a1)
 {
-  v2 = _gc_log_iokit();
+  v2 = _gc_log_iokit(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     *v3 = 0;

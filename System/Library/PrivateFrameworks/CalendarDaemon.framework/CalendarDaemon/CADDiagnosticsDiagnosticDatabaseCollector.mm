@@ -9,7 +9,7 @@
 - (void)determineExpectedOutputFiles:(id)files
 {
   filesCopy = files;
-  if (CalendarDiagnosticsLibraryCore())
+  if (CalendarDiagnosticsLibraryCore(0))
   {
     if ([filesCopy redactLogs])
     {
@@ -53,7 +53,7 @@
 - (BOOL)collectDiagnosticsDatabase:(id)database
 {
   databaseCopy = database;
-  if (CalendarDiagnosticsLibraryCore())
+  if (CalendarDiagnosticsLibraryCore(0))
   {
     v21 = 0;
     v22 = &v21;

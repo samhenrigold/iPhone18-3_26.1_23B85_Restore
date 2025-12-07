@@ -9,7 +9,6 @@
 - (void)loadDocumentArchive:(void *)archive;
 - (void)saveCurrentVersion:(void *)version;
 - (void)saveToArchive:(void *)archive;
-- (void)serialize;
 @end
 
 @implementation TTVersionedDocument
@@ -52,114 +51,119 @@
 
 - (void)loadDocumentArchive:(void *)archive
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   serializationVersion = [objc_opt_class() serializationVersion];
   v6 = *(archive + 12);
   if (!v6)
   {
-    v10 = -1;
-    goto LABEL_34;
+    v10 = 0xFFFFFFFFLL;
+    goto LABEL_35;
   }
 
   v7 = serializationVersion;
   v8 = 0;
   v9 = -1;
-  v10 = -1;
+  LODWORD(v10) = -1;
   do
   {
     v11 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(archive + 40, v8);
-    versioned_document::Version::Version(v40, v11);
-    if (v10 < 0 && v41 <= v7)
+    versioned_document::Version::Version(v39, v11);
+    if (v10 >= 0 || v40 > v7)
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 = v8;
     }
 
-    if (v41 < v7)
+    if (v40 < v7)
     {
       if (v9 < 0)
       {
         v9 = v8;
       }
 
-      versioned_document::Version::~Version(v40);
+      versioned_document::Version::~Version(v39);
       if ((v9 & 0x80000000) == 0)
       {
-        goto LABEL_18;
+        goto LABEL_19;
       }
 
-LABEL_34:
+LABEL_35:
       v22 = +[REMLog crdt];
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [(TTVersionedDocument *)v22 loadDocumentArchive:v23, v24, v25, v26, v27, v28, v29];
       }
 
-      goto LABEL_37;
+      goto LABEL_38;
     }
 
-    if (v42 <= v7)
+    if (v41 <= v7)
     {
       v9 = v8;
     }
 
-    versioned_document::Version::~Version(v40);
+    versioned_document::Version::~Version(v39);
     ++v8;
   }
 
   while (v6 != v8);
   if (v9 < 0)
   {
-    goto LABEL_34;
+    goto LABEL_35;
   }
 
-LABEL_18:
+LABEL_19:
   if (v9 >= v6)
   {
-LABEL_37:
-    if (v10 < 0)
+LABEL_38:
+    if ((v10 & 0x80000000) != 0)
     {
-      goto LABEL_39;
+      return;
     }
 
-    goto LABEL_38;
+    goto LABEL_39;
   }
 
   *&v13 = 67109632;
-  v39 = v13;
+  v38 = v13;
   while (1)
   {
     v14 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(archive + 40, v9);
-    versioned_document::Version::Version(v40, v14);
-    v15 = v43;
-    v16 = *(v43 + 23);
+    versioned_document::Version::Version(v39, v14);
+    v15 = v42;
+    v16 = *(v42 + 23);
     if (v16 < 0)
     {
-      v15 = *v43;
-      v16 = v43[1];
+      v15 = *v42;
+      v16 = v42[1];
     }
 
-    v17 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v15 length:v16 freeWhenDone:{0, v39}];
-    if (v41 < v7)
+    v17 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v15 length:v16 freeWhenDone:{0, v38}];
+    if (v40 < v7)
     {
       v18 = +[REMLog crdt];
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109376;
-        v45 = v41;
-        v46 = 1024;
-        v47 = v7;
+        v44 = v40;
+        v45 = 1024;
+        v46 = v7;
         v19 = v18;
         v20 = "Loading old version %d < %d";
         v21 = 14;
-LABEL_31:
+LABEL_32:
         _os_log_debug_impl(&dword_19A0DB000, v19, OS_LOG_TYPE_DEBUG, v20, buf, v21);
-        goto LABEL_32;
+        goto LABEL_33;
       }
 
-      goto LABEL_32;
+      goto LABEL_33;
     }
 
-    if (v41 != v7)
+    if (v40 != v7)
     {
       break;
     }
@@ -168,58 +172,55 @@ LABEL_31:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      v45 = v7;
+      v44 = v7;
       v19 = v18;
       v20 = "Loading current version %d";
       v21 = 8;
-      goto LABEL_31;
+      goto LABEL_32;
     }
 
-LABEL_32:
+LABEL_33:
 
-    [(TTVersionedDocument *)self mergeVersion:v41 fromData:v17];
-    versioned_document::Version::~Version(v40);
+    [(TTVersionedDocument *)self mergeVersion:v40 fromData:v17];
+    versioned_document::Version::~Version(v39);
     if (v6 == ++v9)
     {
-      goto LABEL_37;
+      goto LABEL_38;
     }
   }
 
-  if (v42 <= v7)
+  if (v41 <= v7)
   {
     v18 = +[REMLog crdt];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      *buf = v39;
-      v45 = v41;
-      v46 = 1024;
-      v47 = v7;
-      v48 = 1024;
-      v49 = v42;
+      *buf = v38;
+      v44 = v40;
+      v45 = 1024;
+      v46 = v7;
+      v47 = 1024;
+      v48 = v41;
       v19 = v18;
       v20 = "Loading future version %d > %d where min-supported %d";
       v21 = 20;
-      goto LABEL_31;
+      goto LABEL_32;
     }
 
-    goto LABEL_32;
+    goto LABEL_33;
   }
 
-  v31 = +[REMLog crdt];
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+  v30 = +[REMLog crdt];
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
-    [(TTVersionedDocument *)v31 loadDocumentArchive:v32, v33, v34, v35, v36, v37, v38];
+    [(TTVersionedDocument *)v30 loadDocumentArchive:v31, v32, v33, v34, v35, v36, v37];
   }
 
-  versioned_document::Version::~Version(v40);
+  versioned_document::Version::~Version(v39);
   if ((v10 & 0x80000000) == 0)
   {
-LABEL_38:
+LABEL_39:
     google::protobuf::RepeatedPtrField<versioned_document::Version>::DeleteSubrange((archive + 40), v10, *(archive + 12) - v10);
   }
-
-LABEL_39:
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -267,8 +268,8 @@ LABEL_39:
   documentArchive2 = [documentCopy documentArchive];
   if (documentArchive2 != documentArchive)
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>((documentArchive + 40));
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>((documentArchive + 40), (documentArchive2 + 40));
+    google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(&documentArchive[5]);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(documentArchive + 5, documentArchive2 + 5);
   }
 
   return 1;
@@ -300,7 +301,7 @@ LABEL_39:
 
 - (id)serialize
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = +[REMLog crdt];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
@@ -313,20 +314,20 @@ LABEL_39:
   documentArchive[8] |= 1u;
   documentArchive[16] = v6;
   documentArchive2 = [(TTVersionedDocument *)self documentArchive];
-  v8 = *(documentArchive2 + 13);
-  v9 = *(documentArchive2 + 12);
+  v8 = documentArchive2[13];
+  v9 = documentArchive2[12];
   if (v9 >= v8)
   {
-    if (v8 == *(documentArchive2 + 14))
+    if (v8 == documentArchive2[14])
     {
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(documentArchive2 + 5, v8 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(documentArchive2 + 10, v8 + 1);
     }
 
     google::protobuf::internal::GenericTypeHandler<versioned_document::Version>::New();
   }
 
-  v10 = documentArchive2[5];
-  *(documentArchive2 + 12) = v9 + 1;
+  v10 = *(documentArchive2 + 5);
+  documentArchive2[12] = v9 + 1;
   [(TTVersionedDocument *)self saveCurrentVersion:*(v10 + 8 * v9)];
   v11 = objc_alloc(MEMORY[0x1E695DF88]);
   documentArchive3 = [(TTVersionedDocument *)self documentArchive];
@@ -339,10 +340,10 @@ LABEL_39:
   v18 = documentArchive5[12];
   if (v18 <= 0)
   {
-    google::protobuf::internal::LogMessage::LogMessage(v26, 3, "/Library/Caches/com.apple.xbs/Sources/ReminderKit/CRProtobuf/protobuf-lite/google/protobuf/repeated_field.h", 913);
-    v19 = google::protobuf::internal::LogMessage::operator<<(v26, "CHECK failed: (current_size_) > (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v25, v19);
-    google::protobuf::internal::LogMessage::~LogMessage(&v26[0].__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::LogMessage(v25, 3, "/Library/Caches/com.apple.xbs/Sources/ReminderKit/CRProtobuf/protobuf-lite/google/protobuf/repeated_field.h", 913);
+    v19 = google::protobuf::internal::LogMessage::operator<<(v25, "CHECK failed: (current_size_) > (0): ");
+    google::protobuf::internal::LogFinisher::operator=(&v24, v19);
+    google::protobuf::internal::LogMessage::~LogMessage(&v25[0].__r_.__value_.__l.__data_);
     v18 = v17[12];
   }
 
@@ -352,14 +353,12 @@ LABEL_39:
   (*(**(v20 + 8 * v21) + 32))(*(v20 + 8 * v21));
   tT_gzipDeflate = [v13 TT_gzipDeflate];
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return tT_gzipDeflate;
 }
 
 - (void)saveToArchive:(void *)archive
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   v5 = +[REMLog crdt];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
@@ -374,7 +373,7 @@ LABEL_39:
   if (documentArchive != archive)
   {
     google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(archive + 40);
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>((archive + 40), (documentArchive + 40));
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(archive + 5, documentArchive + 5);
   }
 
   v9 = *(archive + 13);
@@ -383,7 +382,7 @@ LABEL_39:
   {
     if (v9 == *(archive + 14))
     {
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 5, v9 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 10, v9 + 1);
     }
 
     google::protobuf::internal::GenericTypeHandler<versioned_document::Version>::New();
@@ -392,7 +391,6 @@ LABEL_39:
   v11 = *(archive + 5);
   *(archive + 12) = v10 + 1;
   [(TTVersionedDocument *)self saveCurrentVersion:*(v11 + 8 * v10)];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadData:(int)a3 .cold.1(uint8_t *buf, int a2, int a3, os_log_t log)
@@ -402,13 +400,6 @@ LABEL_39:
   *(buf + 4) = 1024;
   *(buf + 10) = a3;
   _os_log_error_impl(&dword_19A0DB000, log, OS_LOG_TYPE_ERROR, "TTVersionedDocument is wrong versionedDocumentSerializationVersion %d != %d.", buf, 0xEu);
-}
-
-- (void)serialize
-{
-  v3 = *(self + 48);
-  OUTLINED_FUNCTION_0_14(1.5047e-36, self, a2, a3);
-  _os_log_debug_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_DEBUG, "Saving versioned document %d with %d future versions.", v4, 0xEu);
 }
 
 @end

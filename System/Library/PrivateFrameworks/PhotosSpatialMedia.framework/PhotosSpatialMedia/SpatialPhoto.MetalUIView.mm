@@ -25,7 +25,7 @@
 - (void)setFrame:(CGRect)frame
 {
   selfCopy = self;
-  sub_25E6BD94C();
+  sub_25E6BD94C(&selRef_setFrame_);
 }
 
 - (CGRect)bounds
@@ -41,7 +41,7 @@
 - (void)setBounds:(CGRect)bounds
 {
   selfCopy = self;
-  sub_25E6BD94C();
+  sub_25E6BD94C(&selRef_setBounds_);
 }
 
 - (void)didMoveToWindow
@@ -76,7 +76,7 @@
 {
   viewCopy = view;
   selfCopy = self;
-  sub_25E6C0280();
+  sub_25E6C0280(viewCopy);
 }
 
 @end

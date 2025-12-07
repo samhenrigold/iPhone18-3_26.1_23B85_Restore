@@ -58,8 +58,7 @@
 
 - (void)dealloc
 {
-  [(NanoRoutePlanningState *)self->_stateObject leaveToState:0];
-  v3 = sub_100032AE0();
+  v3 = sub_100032AE0([(NanoRoutePlanningState *)self->_stateObject leaveToState:0]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
@@ -83,45 +82,46 @@
 
 - (NanoRoutePlanningSession)initWithOrigin:(unint64_t)origin
 {
-  v20.receiver = self;
-  v20.super_class = NanoRoutePlanningSession;
-  v4 = [(NanoRoutePlanningSession *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = NanoRoutePlanningSession;
+  v4 = [(NanoRoutePlanningSession *)&v21 init];
+  v5 = v4;
   if (v4)
   {
-    v5 = sub_100032AE0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100032AE0(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v22 = v4;
-      v23 = 2080;
-      v24 = "[NanoRoutePlanningSession initWithOrigin:]";
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%p] %s", buf, 0x16u);
+      v23 = v5;
+      v24 = 2080;
+      v25 = "[NanoRoutePlanningSession initWithOrigin:]";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[%p] %s", buf, 0x16u);
     }
 
-    v6 = MapsAppBundleId;
-    v7 = [NSString stringWithFormat:@"%@.%@.%p", MapsAppBundleId, objc_opt_class(), v4];
-    uTF8String = [v7 UTF8String];
-    v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v10 = dispatch_queue_create(uTF8String, v9);
-    v11 = *(v4 + 2);
-    *(v4 + 2) = v10;
+    v7 = MapsAppBundleId;
+    v8 = [NSString stringWithFormat:@"%@.%@.%p", MapsAppBundleId, objc_opt_class(), v5];
+    uTF8String = [v8 UTF8String];
+    v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v11 = dispatch_queue_create(uTF8String, v10);
+    isolationQueue = v5->_isolationQueue;
+    v5->_isolationQueue = v11;
 
-    dispatch_queue_set_specific(*(v4 + 2), &unk_100065A40, &unk_100065A40, 0);
-    v12 = [NSString stringWithFormat:@"%@.%@.%p", v6, objc_opt_class(), v4];
-    uTF8String2 = [v12 UTF8String];
-    v14 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v15 = dispatch_queue_create(uTF8String2, v14);
-    v16 = *(v4 + 3);
-    *(v4 + 3) = v15;
+    dispatch_queue_set_specific(v5->_isolationQueue, &unk_100065A40, &unk_100065A40, 0);
+    v13 = [NSString stringWithFormat:@"%@.%@.%p", v7, objc_opt_class(), v5];
+    uTF8String2 = [v13 UTF8String];
+    v15 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v16 = dispatch_queue_create(uTF8String2, v15);
+    stateIsolationQueue = v5->_stateIsolationQueue;
+    v5->_stateIsolationQueue = v16;
 
-    dispatch_queue_set_specific(*(v4 + 3), &off_1000862E0, &off_1000862E0, 0);
-    *(v4 + 4) = origin;
-    v17 = [NSMutableDictionary dictionaryWithCapacity:1];
-    v18 = *(v4 + 11);
-    *(v4 + 11) = v17;
+    dispatch_queue_set_specific(v5->_stateIsolationQueue, &off_1000862E0, &off_1000862E0, 0);
+    v5->_origin = origin;
+    v18 = [NSMutableDictionary dictionaryWithCapacity:1];
+    classesBySessionState = v5->_classesBySessionState;
+    v5->_classesBySessionState = v18;
   }
 
-  return v4;
+  return v5;
 }
 
 - (NSString)description
@@ -169,15 +169,16 @@
 
 - (void)invalidate
 {
-  if (![(NanoRoutePlanningSession *)self isInvalidated])
+  isInvalidated = [(NanoRoutePlanningSession *)self isInvalidated];
+  if ((isInvalidated & 1) == 0)
   {
     self->_invalidated = 1;
-    v3 = sub_100032AE0();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = sub_100032AE0(isInvalidated);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "[%p] is being invalidated", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "[%p] is being invalidated", buf, 0xCu);
     }
 
     isolationQueue = self->_isolationQueue;
@@ -210,8 +211,7 @@
   dispatch_assert_queue_V2(self->_isolationQueue);
   [(NanoRoutePlanningSession *)self _cancelRequestIfNeeded];
   [(NanoRoutePlanningSession *)self _prepareForRequest:requestCopy];
-  [(NanoRoutePlanningSession *)self _broadcastIfNeeded];
-  v5 = sub_100032AE0();
+  v5 = sub_100032AE0([(NanoRoutePlanningSession *)self _broadcastIfNeeded]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = 134218242;
@@ -429,15 +429,15 @@
   p_response = &self->_response;
   if (response != responseCopy)
   {
-    v8 = sub_100032AE0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = sub_100032AE0(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v9 = *p_response;
-      v10 = 138543618;
-      v11 = v9;
-      v12 = 2114;
-      v13 = responseCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Changing response from %{public}@ to %{public}@", &v10, 0x16u);
+      v10 = *p_response;
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2114;
+      v14 = responseCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Changing response from %{public}@ to %{public}@", &v11, 0x16u);
     }
 
     objc_storeStrong(p_response, response);
@@ -660,22 +660,22 @@
     }
 
     self->_state = state;
-    v10 = [[class alloc] initWithStateManager:self isolationQueue:self->_stateIsolationQueue];
+    v11 = [[class alloc] initWithStateManager:self isolationQueue:self->_stateIsolationQueue];
     stateObject = self->_stateObject;
-    self->_stateObject = v10;
+    self->_stateObject = v11;
 
-    v12 = sub_100032AE0();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v14 = sub_100032AE0(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v13 = sub_100013558(state);
-      v14 = NSStringFromClass(class);
-      v15 = 134218498;
+      v15 = sub_100013558(state);
+      v16 = NSStringFromClass(class);
+      v17 = 134218498;
       selfCopy2 = self;
-      v17 = 2112;
-      v18 = v13;
       v19 = 2112;
-      v20 = v14;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "[%p] Will transition to state %@ with class %@", &v15, 0x20u);
+      v20 = v15;
+      v21 = 2112;
+      v22 = v16;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "[%p] Will transition to state %@ with class %@", &v17, 0x20u);
     }
 
     [(NanoRoutePlanningState *)self->_stateObject enterToState:state fromState:state];
@@ -684,15 +684,15 @@
 
   else
   {
-    v8 = sub_100032AE0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100032AE0(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v9 = sub_100013558(state);
-      v15 = 134218242;
+      v10 = sub_100013558(state);
+      v17 = 134218242;
       selfCopy2 = self;
-      v17 = 2112;
-      v18 = v9;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "[%p] No class found for state %@", &v15, 0x16u);
+      v19 = 2112;
+      v20 = v10;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "[%p] No class found for state %@", &v17, 0x16u);
     }
 
     [(NanoRoutePlanningSession *)self _notifySessionDidFail];
@@ -717,7 +717,7 @@
 
 - (void)_notifyDidChangeFromState:(int64_t)state toState:(int64_t)toState
 {
-  v7 = sub_100032AE0();
+  v7 = sub_100032AE0(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = sub_100013558(state);
@@ -912,17 +912,17 @@
 - (void)registerObserver:(id)observer
 {
   observerCopy = observer;
-  [(NanoRoutePlanningSession *)self _assertNotInvalidated];
+  _assertNotInvalidated = [(NanoRoutePlanningSession *)self _assertNotInvalidated];
   if (observerCopy)
   {
-    v5 = sub_100032AE0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = sub_100032AE0(_assertNotInvalidated);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v7 = 134218242;
+      v8 = 134218242;
       selfCopy = self;
-      v9 = 2112;
-      v10 = observerCopy;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "[%p] Adding observer: %@", &v7, 0x16u);
+      v10 = 2112;
+      v11 = observerCopy;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "[%p] Adding observer: %@", &v8, 0x16u);
     }
 
     observers = [(NanoRoutePlanningSession *)self observers];
@@ -933,20 +933,21 @@
 - (void)unregisterObserver:(id)observer
 {
   observerCopy = observer;
+  v5 = observerCopy;
   if (observerCopy)
   {
-    v5 = sub_100032AE0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = sub_100032AE0(observerCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v7 = 134218242;
+      v8 = 134218242;
       selfCopy = self;
-      v9 = 2112;
-      v10 = observerCopy;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "[%p] Removing observer: %@", &v7, 0x16u);
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "[%p] Removing observer: %@", &v8, 0x16u);
     }
 
     observers = [(NanoRoutePlanningSession *)self observers];
-    [observers unregisterObserver:observerCopy];
+    [observers unregisterObserver:v5];
   }
 }
 
@@ -954,7 +955,7 @@
 {
   if (!self->_transaction)
   {
-    v3 = sub_100032AE0();
+    v3 = sub_100032AE0(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
@@ -976,7 +977,7 @@
 {
   if (self->_transaction)
   {
-    v3 = sub_100032AE0();
+    v3 = sub_100032AE0(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v5 = 134217984;
@@ -996,8 +997,7 @@
   dispatch_assert_queue_V2(isolationQueue);
   [(NanoRoutePlanningSession *)self _prepareForRequest:requestCopy];
 
-  [(NanoRoutePlanningSession *)self _broadcastIfNeeded];
-  v6 = sub_100032AE0();
+  v6 = sub_100032AE0([(NanoRoutePlanningSession *)self _broadcastIfNeeded]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     companionRouteContext = [(NanoRoutePlanningRequest *)self->_request companionRouteContext];
@@ -1035,49 +1035,49 @@
   requestCopy = request;
   responseCopy = response;
   dispatch_assert_queue_V2(self->_isolationQueue);
-  v29[0] = _NSConcreteStackBlock;
-  v29[1] = 3221225472;
-  v29[2] = sub_100036424;
-  v29[3] = &unk_100085E38;
-  v29[4] = self;
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_100036424;
+  v31[3] = &unk_100085E38;
+  v31[4] = self;
   v8 = requestCopy;
-  v30 = v8;
+  v32 = v8;
   v9 = responseCopy;
-  v31 = v9;
-  v10 = objc_retainBlock(v29);
+  v33 = v9;
+  v10 = objc_retainBlock(v31);
   v11 = v10;
   state = self->_state;
   if (state != 3)
   {
     if (state == 4)
     {
-      (v10[2])(v10);
-      v13 = sub_100032AE0();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v13 = (v10[2])(v10);
+      v14 = sub_100032AE0(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         companionRouteContext = [(NanoRoutePlanningRequest *)self->_request companionRouteContext];
         simpleDescription = [companionRouteContext simpleDescription];
         *buf = 134218242;
         selfCopy3 = self;
-        v34 = 2112;
-        v35 = simpleDescription;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "[%p] Updating completed session with context %@, notify observers", buf, 0x16u);
+        v36 = 2112;
+        v37 = simpleDescription;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "[%p] Updating completed session with context %@, notify observers", buf, 0x16u);
       }
 
       [(NanoRoutePlanningSession *)self _notifySessionDidUpdateResponse];
       goto LABEL_20;
     }
 
-    v16 = sub_100032AE0();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = sub_100032AE0(v10);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       companionRouteContext2 = [(NanoRoutePlanningRequest *)self->_request companionRouteContext];
       simpleDescription2 = [companionRouteContext2 simpleDescription];
       *buf = 134218242;
       selfCopy3 = self;
-      v34 = 2112;
-      v35 = simpleDescription2;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "[%p] Force anticipate request before updating request/response with context %@", buf, 0x16u);
+      v36 = 2112;
+      v37 = simpleDescription2;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "[%p] Force anticipate request before updating request/response with context %@", buf, 0x16u);
     }
 
     [(NanoRoutePlanningSession *)self _anticipateRoutesWithRequest:v8];
@@ -1089,43 +1089,43 @@
 
   if (lastError || hasReceivedAllExpectedRoutes)
   {
-    v21 = sub_100032AE0();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v23 = sub_100032AE0(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       companionRouteContext3 = [(NanoRoutePlanningRequest *)self->_request companionRouteContext];
       simpleDescription3 = [companionRouteContext3 simpleDescription];
       if (hasReceivedAllExpectedRoutes)
       {
-        v23 = @"YES";
+        v25 = @"YES";
       }
 
       else
       {
-        v23 = @"NO";
+        v25 = @"NO";
       }
 
-      v24 = v23;
+      v26 = v25;
       lastError2 = [v9 lastError];
       if (lastError2)
       {
-        v26 = @"YES";
+        v28 = @"YES";
       }
 
       else
       {
-        v26 = @"NO";
+        v28 = @"NO";
       }
 
-      v27 = v26;
+      v29 = v28;
       *buf = 134218754;
       selfCopy3 = self;
-      v34 = 2112;
-      v35 = simpleDescription3;
       v36 = 2112;
-      v37 = v24;
+      v37 = simpleDescription3;
       v38 = 2112;
-      v39 = v27;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "[%p] Updating request with context %@ (hasReceivedAllRoutes: %@, error: %@)", buf, 0x2Au);
+      v39 = v26;
+      v40 = 2112;
+      v41 = v29;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "[%p] Updating request with context %@ (hasReceivedAllRoutes: %@, error: %@)", buf, 0x2Au);
     }
 
     [(NanoRoutePlanningSession *)self _transitionToState:4];

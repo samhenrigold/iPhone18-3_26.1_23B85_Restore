@@ -57,7 +57,6 @@
   }
 
   PBDataWriterWriteStringField();
-  code = self->_code;
   PBDataWriterWriteInt32Field();
   if (self->_userInfo)
   {

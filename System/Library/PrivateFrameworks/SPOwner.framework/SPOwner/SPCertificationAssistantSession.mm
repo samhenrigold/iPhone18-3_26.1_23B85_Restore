@@ -27,33 +27,31 @@
 
 - (void)startUpdatingBeaconsWithContext:(id)context collectionDifference:(id)difference completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   differenceCopy = difference;
   completionCopy = completion;
-  v11 = LogCategory_OwnerSession();
+  v11 = LogCategory_OwnerSession(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v22 = "[SPCertificationAssistantSession startUpdatingBeaconsWithContext:collectionDifference:completion:]";
+    v21 = "[SPCertificationAssistantSession startUpdatingBeaconsWithContext:collectionDifference:completion:]";
     _os_log_impl(&dword_2643D0000, v11, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   queue = [(SPCertificationAssistantSession *)self queue];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __99__SPCertificationAssistantSession_startUpdatingBeaconsWithContext_collectionDifference_completion___block_invoke;
-  v17[3] = &unk_279B58E30;
-  v17[4] = self;
-  v18 = contextCopy;
-  v19 = completionCopy;
-  v20 = differenceCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __99__SPCertificationAssistantSession_startUpdatingBeaconsWithContext_collectionDifference_completion___block_invoke;
+  v16[3] = &unk_279B58E30;
+  v16[4] = self;
+  v17 = contextCopy;
+  v18 = completionCopy;
+  v19 = differenceCopy;
   v13 = differenceCopy;
   v14 = contextCopy;
   v15 = completionCopy;
-  dispatch_async(queue, v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v16);
 }
 
 void __99__SPCertificationAssistantSession_startUpdatingBeaconsWithContext_collectionDifference_completion___block_invoke(uint64_t a1)
@@ -79,27 +77,25 @@ void __99__SPCertificationAssistantSession_startUpdatingBeaconsWithContext_colle
 
 - (void)stopUpdatingBeaconsWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = LogCategory_OwnerSession();
+  v5 = LogCategory_OwnerSession(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[SPCertificationAssistantSession stopUpdatingBeaconsWithCompletion:]";
+    v11 = "[SPCertificationAssistantSession stopUpdatingBeaconsWithCompletion:]";
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   queue = [(SPCertificationAssistantSession *)self queue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __69__SPCertificationAssistantSession_stopUpdatingBeaconsWithCompletion___block_invoke;
-  v9[3] = &unk_279B58B80;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __69__SPCertificationAssistantSession_stopUpdatingBeaconsWithCompletion___block_invoke;
+  v8[3] = &unk_279B58B80;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v8);
 }
 
 void __69__SPCertificationAssistantSession_stopUpdatingBeaconsWithCompletion___block_invoke(uint64_t a1)
@@ -176,16 +172,15 @@ void __108__SPCertificationAssistantSession_registerSimpleBeaconInterfaceWithCon
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v7 = [SPCertificationAssistantSession beaconsChanges:a2];
-    v6 = [objc_alloc(MEMORY[0x277CCABF0]) initWithChanges:v7];
+    v6 = [SPCertificationAssistantSession beaconsChanges:a2];
+    v5 = [objc_alloc(MEMORY[0x277CCABF0]) initWithChanges:v6];
     (*(*(a1 + 32) + 16))();
   }
 }

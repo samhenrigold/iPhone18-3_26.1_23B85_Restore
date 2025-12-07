@@ -9,7 +9,7 @@
 - (ICTextElementAnimator)initWithTextView:(id)view originTrackedParagraphs:(id)paragraphs destinationTrackedParagraphs:(id)trackedParagraphs
 {
   ObjectType = swift_getObjectType();
-  sub_2151A6C9C(0, &qword_27CA5D958);
+  sub_2151A6C9C(0, &qword_27CA5D958, 0x277D36998);
   v8 = sub_2154A1F4C();
   v9 = sub_2154A1F4C();
   *(&self->super.isa + OBJC_IVAR___ICTextElementAnimator_textView) = view;
@@ -44,7 +44,7 @@
 
   selfCopy = self;
   TextElementAnimator.animate(completion:)(v7, v6);
-  sub_21532594C(v7);
+  sub_21532594C(v7, v6);
 }
 
 - (ICTextElementAnimator)init

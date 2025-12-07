@@ -4,6 +4,7 @@
 + (void)initialize;
 - (BOOL)trainOn:(id)on forNEpochs:(unint64_t)epochs;
 - (QuickTypePFLTrainerMLP)initWithSeedModelPath:(id)path andPrivacyIdentifier:(id)identifier;
+- (id)getWeightUpdatesAddNoise:(BOOL)noise encryptionKey:(id)key recipe:(id)recipe;
 - (void)writeModelToURL:(id)l;
 @end
 
@@ -21,7 +22,6 @@
 
 + (__CFData)copyToFlatBuffer:(void *)buffer
 {
-  cf = 0;
   v3 = NLModelContainerCopySplitContainerData();
   if (CFArrayGetCount(v3) != 2)
   {
@@ -41,7 +41,7 @@
 
 + (id)reportingStringForModelUpdates:(float *)updates count:(unint64_t)count
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:3];
   if (count >= 3)
   {
@@ -76,16 +76,16 @@
     v10 = v11;
   }
 
-  v20[0] = @"ModelUpdate";
-  v20[1] = @"ModelShape";
-  v21[0] = v10;
+  v19[0] = @"ModelUpdate";
+  v19[1] = @"ModelShape";
+  v20[0] = v10;
   v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"(%zu, )", count];
-  v21[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v20[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
-  v19 = 0;
-  v14 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v13 options:0 error:&v19];
-  v15 = v19;
+  v18 = 0;
+  v14 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v13 options:0 error:&v18];
+  v15 = v18;
   if (![v14 length] || v15)
   {
     if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
@@ -100,8 +100,6 @@
   {
     v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v14 encoding:4];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -138,17 +136,17 @@
 
 - (BOOL)trainOn:(id)on forNEpochs:(unint64_t)epochs
 {
-  v54[3] = *MEMORY[0x277D85DE8];
+  v52[3] = *MEMORY[0x277D85DE8];
   onCopy = on;
-  v53[0] = *MEMORY[0x277D2A268];
+  v51[0] = *MEMORY[0x277D2A268];
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:epochs];
-  v54[0] = v6;
-  v53[1] = *MEMORY[0x277D2A238];
+  v52[0] = v6;
+  v51[1] = *MEMORY[0x277D2A238];
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_batchSize];
-  v53[2] = *MEMORY[0x277D2A240];
-  v54[1] = v7;
-  v54[2] = MEMORY[0x277CBEC38];
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:3];
+  v51[2] = *MEMORY[0x277D2A240];
+  v52[1] = v7;
+  v52[2] = MEMORY[0x277CBEC38];
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:3];
   v9 = [v8 mutableCopy];
 
   learningRate = [(QuickTypePFLTrainerMLP *)self learningRate];
@@ -177,83 +175,81 @@
   }
 
   cf = 0;
-  seedModelPath = self->_seedModelPath;
-  v19 = NLModelContainerCreateWithContentsOfURL();
-  v49 = v19;
-  if (v19 && (v20 = MLPModelTrainerCreateWithModel(), v48 = v20, CFRelease(v19), v49 = 0, v20))
+  v18 = NLModelContainerCreateWithContentsOfURL();
+  v47 = v18;
+  if (v18 && (v19 = MLPModelTrainerCreateWithModel(), v46 = v19, CFRelease(v18), v47 = 0, v19))
   {
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __45__QuickTypePFLTrainerMLP_trainOn_forNEpochs___block_invoke;
-    v46[3] = &unk_279928BF8;
-    v21 = onCopy;
-    v47 = v21;
-    v22 = MEMORY[0x25F8584E0](v46);
-    v23 = MLPModelTrainerEvaluateModel();
-    v24 = MEMORY[0x277D2A260];
-    v25 = [v23 objectForKeyedSubscript:*MEMORY[0x277D2A260]];
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __45__QuickTypePFLTrainerMLP_trainOn_forNEpochs___block_invoke;
+    v44[3] = &unk_279928BF8;
+    v20 = onCopy;
+    v45 = v20;
+    v21 = MEMORY[0x25F8584E0](v44);
+    v22 = MLPModelTrainerEvaluateModel();
+    v23 = MEMORY[0x277D2A260];
+    v24 = [v22 objectForKeyedSubscript:*MEMORY[0x277D2A260]];
     initialLoss = self->_initialLoss;
-    self->_initialLoss = v25;
+    self->_initialLoss = v24;
 
-    v27 = sLog;
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+    v26 = sLog;
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       [(NSNumber *)self->_initialLoss floatValue];
       *buf = 134217984;
-      v52 = v28;
-      _os_log_impl(&dword_25AE22000, v27, OS_LOG_TYPE_INFO, "Initial loss: %.2f", buf, 0xCu);
+      v50 = v27;
+      _os_log_impl(&dword_25AE22000, v26, OS_LOG_TYPE_INFO, "Initial loss: %.2f", buf, 0xCu);
     }
 
-    [v21 rewind];
-    v45 = 1;
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __45__QuickTypePFLTrainerMLP_trainOn_forNEpochs___block_invoke_60;
-    v42[3] = &unk_279928C20;
-    v29 = v21;
-    v43 = v29;
-    v44 = &v45;
-    v30 = MEMORY[0x25F8584E0](v42);
-    v31 = sLog;
+    [v20 rewind];
+    v43 = 1;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __45__QuickTypePFLTrainerMLP_trainOn_forNEpochs___block_invoke_60;
+    v40[3] = &unk_279928C20;
+    v28 = v20;
+    v41 = v28;
+    v42 = &v43;
+    v29 = MEMORY[0x25F8584E0](v40);
+    v30 = sLog;
     if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_25AE22000, v31, OS_LOG_TYPE_INFO, "Started training", buf, 2u);
+      _os_log_impl(&dword_25AE22000, v30, OS_LOG_TYPE_INFO, "Started training", buf, 2u);
     }
 
-    v32 = MLPModelTrainerTrainModel();
-    nlp::CFScopedPtr<void *>::reset(&self->_model.m_ref, v32);
-    [v29 rewind];
-    v33 = MLPModelTrainerEvaluateModel();
-    v34 = [v33 objectForKeyedSubscript:*v24];
+    v31 = MLPModelTrainerTrainModel();
+    nlp::CFScopedPtr<void *>::reset(&self->_model.m_ref, v31);
+    [v28 rewind];
+    v32 = MLPModelTrainerEvaluateModel();
+    v33 = [v32 objectForKeyedSubscript:*v23];
     trainingLoss = self->_trainingLoss;
-    self->_trainingLoss = v34;
+    self->_trainingLoss = v33;
 
-    v36 = sLog;
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+    v35 = sLog;
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
       [(NSNumber *)self->_trainingLoss floatValue];
       *buf = 134217984;
-      v52 = v37;
-      _os_log_impl(&dword_25AE22000, v36, OS_LOG_TYPE_INFO, "Training loss: %.2f", buf, 0xCu);
+      v50 = v36;
+      _os_log_impl(&dword_25AE22000, v35, OS_LOG_TYPE_INFO, "Training loss: %.2f", buf, 0xCu);
     }
 
-    v38 = self->_model.m_ref != 0;
-    CFRelease(v20);
+    v37 = self->_model.m_ref != 0;
+    CFRelease(v19);
   }
 
   else
   {
-    v38 = 0;
+    v37 = 0;
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-  return v38;
+  return v37;
 }
 
 uint64_t __45__QuickTypePFLTrainerMLP_trainOn_forNEpochs___block_invoke(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, _BYTE *a5)
 {
-  result = [*(a1 + 32) nextTrainingDataBatch:a3];
+  result = [*(a1 + 32) nextTrainingDataBatch:{a3, a4}];
   if (!result)
   {
     *a5 = 1;
@@ -285,21 +281,246 @@ uint64_t __45__QuickTypePFLTrainerMLP_trainOn_forNEpochs___block_invoke_60(uint6
 
 void __45__QuickTypePFLTrainerMLP_trainOn_forNEpochs___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = sLog;
   if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = a2;
-    _os_log_impl(&dword_25AE22000, v3, OS_LOG_TYPE_INFO, "PFL Training %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = a2;
+    _os_log_impl(&dword_25AE22000, v3, OS_LOG_TYPE_INFO, "PFL Training %@", &v4, 0xCu);
+  }
+}
+
+- (id)getWeightUpdatesAddNoise:(BOOL)noise encryptionKey:(id)key recipe:(id)recipe
+{
+  noiseCopy = noise;
+  v57 = *MEMORY[0x277D85DE8];
+  keyCopy = key;
+  recipeCopy = recipe;
+  if (!self->_model.m_ref)
+  {
+    v48 = keyCopy;
+    if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
+    {
+      [QuickTypePFLTrainerMLP getWeightUpdatesAddNoise:encryptionKey:recipe:];
+    }
+
+    goto LABEL_50;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
+  if ((!keyCopy || !noiseCopy) && !+[NLPLearnerUtils isInternalInstall])
+  {
+    v48 = keyCopy;
+LABEL_50:
+    v35 = 0;
+    goto LABEL_55;
+  }
+
+  v47 = objc_alloc_init(QuickTypeWeightUpdates);
+  v9 = sLog;
+  if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_25AE22000, v9, OS_LOG_TYPE_INFO, "Dumping updated model weights", buf, 2u);
+  }
+
+  if ([recipeCopy pluginShouldAddNoiseAndEncryptResult])
+  {
+    v10 = sLog;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    {
+      v11 = [MEMORY[0x277CCABB0] numberWithBool:noiseCopy];
+      [(QuickTypePFLTrainerMLP *)v11 getWeightUpdatesAddNoise:keyCopy encryptionKey:buf recipe:v10];
+    }
+
+    v12 = keyCopy;
+  }
+
+  else
+  {
+
+    if (os_log_type_enabled(sLog, OS_LOG_TYPE_DEBUG))
+    {
+      [QuickTypePFLTrainerMLP getWeightUpdatesAddNoise:encryptionKey:recipe:];
+    }
+
+    v12 = 0;
+    LODWORD(noiseCopy) = 0;
+  }
+
+  v48 = v12;
+  v13 = NLModelContainerCreateWithContentsOfURL();
+  v53 = v13;
+  v14 = [objc_opt_class() copyToFlatBuffer:v13];
+  v52 = v14;
+  if (v13)
+  {
+    CFRelease(v13);
+  }
+
+  v53 = 0;
+  BytePtr = CFDataGetBytePtr(v14);
+  v16 = [objc_opt_class() copyToFlatBuffer:self->_model.m_ref];
+  v51 = v16;
+  MutableBytePtr = CFDataGetMutableBytePtr(v16);
+  Length = CFDataGetLength(v14);
+  v19 = Length >> 2;
+  if (Length >> 2 != CFDataGetLength(v16) >> 2)
+  {
+    __assert_rtn("[QuickTypePFLTrainerMLP getWeightUpdatesAddNoise:encryptionKey:recipe:]", "QuickTypePFLTrainerMLP.mm", 220, "weightCount == (CFDataGetLength(updatedModelData) / sizeof(float)) && Mismatching buffer lengths for seed model and updated model");
+  }
+
+  v45 = [objc_alloc(MEMORY[0x277D05610]) initWithRecipe:recipeCopy];
+  if (os_log_type_enabled(sLog, OS_LOG_TYPE_DEBUG))
+  {
+    [QuickTypePFLTrainerMLP getWeightUpdatesAddNoise:encryptionKey:recipe:];
+  }
+
+  v20 = 0.0;
+  v21 = 0.0;
+  if (Length >= 4)
+  {
+    v22 = MutableBytePtr;
+    v23 = Length >> 2;
+    do
+    {
+      v24 = *BytePtr;
+      BytePtr += 4;
+      v25 = *v22;
+      v26 = *v22 - v24;
+      *v22++ = v26;
+      v21 = v26 * v26 + *&v21;
+      *&v21 = v21;
+      v27 = vabds_f32(v25, v24);
+      if (v27 > v20)
+      {
+        v20 = v27;
+      }
+
+      --v23;
+    }
+
+    while (v23);
+  }
+
+  *&v21 = sqrtf(*&v21);
+  v28 = [MEMORY[0x277CCABB0] numberWithFloat:{v21, v45}];
+  [(QuickTypeWeightUpdates *)v47 setL2Norm:v28];
+
+  *&v29 = v20;
+  v30 = [MEMORY[0x277CCABB0] numberWithFloat:v29];
+  [(QuickTypeWeightUpdates *)v47 setMaxNorm:v30];
+
+  if (v14)
+  {
+    CFRelease(v14);
+  }
+
+  v52 = 0;
+  nlp::CFScopedPtr<void *>::reset(&self->_model.m_ref, 0);
+  if (os_log_type_enabled(sLog, OS_LOG_TYPE_DEBUG))
+  {
+    [QuickTypePFLTrainerMLP getWeightUpdatesAddNoise:encryptionKey:recipe:];
+  }
+
+  if (noiseCopy)
+  {
+    v31 = sLog;
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+    {
+      clippingNorm = [(QuickTypePFLTrainerMLP *)self clippingNorm];
+      [(QuickTypePFLTrainerMLP *)clippingNorm getWeightUpdatesAddNoise:v55 encryptionKey:[(QuickTypePFLTrainerMLP *)self normBinCount] recipe:v31];
+    }
+
+    if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
+    {
+      [QuickTypePFLTrainerMLP getWeightUpdatesAddNoise:encryptionKey:recipe:];
+    }
+
+    v33 = 0;
+    v34 = 0;
+  }
+
+  else
+  {
+    v36 = [objc_opt_class() reportingStringForModelUpdates:MutableBytePtr count:v19];
+    [(QuickTypeWeightUpdates *)v47 setWeightUpdatesDiagnosticReport:v36];
+
+    v37 = sLog;
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+    {
+      weightUpdatesDiagnosticReport = [(QuickTypeWeightUpdates *)v47 weightUpdatesDiagnosticReport];
+      [QuickTypePFLTrainerMLP getWeightUpdatesAddNoise:weightUpdatesDiagnosticReport encryptionKey:v55 recipe:v37];
+    }
+
+    if (!v48)
+    {
+      v42 = objc_alloc_init(MEMORY[0x277D05618]);
+      [v42 setVersion:1];
+      [v42 setData32s:MutableBytePtr count:v19];
+      data = [v42 data];
+      [(QuickTypeWeightUpdates *)v47 setWeightUpdates:data];
+
+      v35 = v47;
+      v33 = 0;
+      v34 = 0;
+      goto LABEL_52;
+    }
+
+    v50 = 0;
+    v34 = [v46 encryptedDataWithPublicKey:v48 inPlaceDataFloatNumbers:MutableBytePtr count:v19 error:&v50];
+    v39 = v50;
+    v33 = v39;
+    if (v34 && !v39)
+    {
+      if (v16)
+      {
+        CFRelease(v16);
+      }
+
+      v51 = 0;
+      v40 = sLog;
+      if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
+      {
+        *v54 = 0;
+        _os_log_impl(&dword_25AE22000, v40, OS_LOG_TYPE_INFO, "Privatization and encryption completed", v54, 2u);
+      }
+
+      v41 = sLog;
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+      {
+        -[QuickTypePFLTrainerMLP getWeightUpdatesAddNoise:encryptionKey:recipe:].cold.6(v54, [v34 length], v41);
+      }
+
+      [(QuickTypeWeightUpdates *)v47 setWeightUpdates:v34];
+      v35 = v47;
+      v16 = 0;
+      v33 = 0;
+      goto LABEL_52;
+    }
+
+    if (os_log_type_enabled(sLog, OS_LOG_TYPE_ERROR))
+    {
+      [QuickTypePFLTrainerMLP getWeightUpdatesAddNoise:encryptionKey:recipe:];
+    }
+  }
+
+  v35 = 0;
+LABEL_52:
+
+  if (v16)
+  {
+    CFRelease(v16);
+  }
+
+LABEL_55:
+
+  return v35;
 }
 
 - (void)writeModelToURL:(id)l
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (self->_model.m_ref)
   {
@@ -309,7 +530,7 @@ void __45__QuickTypePFLTrainerMLP_trainOn_forNEpochs___block_invoke_2(uint64_t a
       if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v8 = lCopy;
+        v7 = lCopy;
         _os_log_impl(&dword_25AE22000, v5, OS_LOG_TYPE_INFO, "Saved PFL model at %@", buf, 0xCu);
       }
     }
@@ -327,43 +548,6 @@ void __45__QuickTypePFLTrainerMLP_trainOn_forNEpochs___block_invoke_2(uint64_t a
   {
     [QuickTypePFLTrainerMLP writeModelToURL:];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)copyToFlatBuffer:(uint64_t *)a1 .cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)reportingStringForModelUpdates:count:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)trainOn:(uint64_t *)a1 forNEpochs:.cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)trainOn:(uint64_t *)a1 forNEpochs:.cold.2(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getWeightUpdatesAddNoise:(uint8_t *)buf encryptionKey:(os_log_t)log recipe:.cold.2(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -389,14 +573,6 @@ void __45__QuickTypePFLTrainerMLP_trainOn_forNEpochs___block_invoke_2(uint64_t a
   _os_log_debug_impl(&dword_25AE22000, log, OS_LOG_TYPE_DEBUG, "Encrypted data size is : %{bytes}zu", buf, 0xCu);
 }
 
-- (void)getWeightUpdatesAddNoise:encryptionKey:recipe:.cold.7()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)getWeightUpdatesAddNoise:(uint64_t)a3 encryptionKey:(os_log_t)log recipe:.cold.8(void *a1, uint8_t *buf, uint64_t a3, os_log_t log)
 {
   *buf = 138412546;
@@ -418,14 +594,6 @@ void __45__QuickTypePFLTrainerMLP_trainOn_forNEpochs___block_invoke_2(uint64_t a
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)writeModelToURL:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeModelToURL:.cold.2()

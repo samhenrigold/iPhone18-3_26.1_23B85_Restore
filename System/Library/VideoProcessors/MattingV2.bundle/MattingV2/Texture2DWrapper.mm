@@ -1,6 +1,8 @@
 @interface Texture2DWrapper
 - (Texture2DWrapper)initWithFigMetalContext:(id)context copyingPixelBuffer:(__CVBuffer *)buffer usage:(unint64_t)usage;
+- (Texture2DWrapper)initWithFigMetalContext:(id)context pixelBuffer:(__CVBuffer *)buffer usage:(unint64_t)usage textureArray:(BOOL)array;
 - (Texture2DWrapper)initWithTexture:(id)texture textureArray:(BOOL)array;
+- (id)initNewTextureWithFigMetalContext:(id)context size:(CGSize)size withFormat:(unint64_t)format usage:(unint64_t)usage textureArray:(BOOL)array;
 - (unint64_t)textureFormatOfPixelBuffer:(__CVBuffer *)buffer;
 @end
 
@@ -28,31 +30,71 @@ LABEL_7:
   }
 
   objc_msgSend_setTexture_(v7, v8, textureCopy);
-  if (!arrayCopy)
-  {
-    goto LABEL_5;
-  }
-
-  v12 = objc_msgSend_texture(v9, v10, v11);
-  v15 = objc_msgSend_texture(v9, v13, v14);
-  v18 = objc_msgSend_pixelFormat(v15, v16, v17);
-  v20 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(v12, v19, v18, 3, 0, 1, 0, 1);
-  objc_msgSend_setTextureArray_(v9, v21, v20);
-
-  v24 = objc_msgSend_textureArray(v9, v22, v23);
-
-  if (!v24)
+  if (arrayCopy && (objc_msgSend_texture(v9, v10, v11), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend_texture(v9, v13, v14), v15 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend_pixelFormat(v15, v16, v17), v20 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(v12, v19, v18, 3, 0, 1, 0, 1), objc_msgSend_setTextureArray_(v9, v21, v20), v20, v15, v12, objc_msgSend_textureArray(v9, v22, v23), v24 = objc_claimAutoreleasedReturnValue(), v24, !v24))
   {
     sub_2957E16E0();
   }
 
   else
   {
-LABEL_5:
     v24 = v9;
   }
 
 LABEL_8:
+
+  return v24;
+}
+
+- (Texture2DWrapper)initWithFigMetalContext:(id)context pixelBuffer:(__CVBuffer *)buffer usage:(unint64_t)usage textureArray:(BOOL)array
+{
+  arrayCopy = array;
+  contextCopy = context;
+  if (!buffer)
+  {
+    sub_2957E1870();
+LABEL_9:
+    selfCopy = 0;
+    goto LABEL_5;
+  }
+
+  objc_msgSend_setPixelBuffer_(self, v10, buffer);
+  if (!CVPixelBufferGetIOSurface(buffer))
+  {
+    sub_2957E180C();
+    goto LABEL_9;
+  }
+
+  v13 = objc_msgSend_textureFormatOfPixelBuffer_(self, v12, buffer);
+  if (!v13)
+  {
+    sub_2957E17A8();
+    goto LABEL_9;
+  }
+
+  v16 = v13;
+  v17 = objc_msgSend_pixelBuffer(self, v14, v15);
+  v19 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(contextCopy, v18, v17, v16, usage, 0);
+  self = objc_msgSend_initWithTexture_textureArray_(self, v20, v19, arrayCopy);
+
+  selfCopy = self;
+LABEL_5:
+
+  return selfCopy;
+}
+
+- (id)initNewTextureWithFigMetalContext:(id)context size:(CGSize)size withFormat:(unint64_t)format usage:(unint64_t)usage textureArray:(BOOL)array
+{
+  arrayCopy = array;
+  v11 = MEMORY[0x29EDBB670];
+  width = size.width;
+  height = size.height;
+  contextCopy = context;
+  v16 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(v11, v15, format, width, height, 0);
+  objc_msgSend_setUsage_(v16, v17, usage);
+  v20 = objc_msgSend_device(contextCopy, v18, v19);
+
+  v22 = objc_msgSend_newTextureWithDescriptor_(v20, v21, v16);
+  v24 = objc_msgSend_initWithTexture_textureArray_(self, v23, v22, arrayCopy);
 
   return v24;
 }

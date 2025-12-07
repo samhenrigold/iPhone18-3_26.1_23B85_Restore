@@ -35,7 +35,7 @@
 
 - (void)processResponse
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(WLKDictionaryResponseProcessor);
   data = [(WLKNetworkRequestOperation *)self data];
   v5 = [(WLKDictionaryResponseProcessor *)v3 processResponseData:data error:0];
@@ -45,12 +45,10 @@
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     response = self->_response;
-    v9 = 138412290;
-    v10 = response;
-    _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKSubscriptionDataRequestOperation - response: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = response;
+    _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKSubscriptionDataRequestOperation - response: %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_requestURL:(id *)l

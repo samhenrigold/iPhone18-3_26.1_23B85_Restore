@@ -26,7 +26,7 @@
   swift_unknownObjectRetain();
   sub_21EAA9320();
   swift_unknownObjectRelease();
-  SensorAttributionExpandedViewController.init(moduleInstanceManager:)(&v4);
+  SensorAttributionExpandedViewController.init(moduleInstanceManager:)(v4);
   return result;
 }
 
@@ -119,7 +119,7 @@
 
 - (void)sensorAttributionsChanged:(id)changed
 {
-  sub_21E9F8880(0, &qword_28125B790);
+  sub_21E9F8880(0, &qword_28125B790, 0x277CFC9B8);
   sub_21E9F84D4();
   *(self + OBJC_IVAR___CCUISensorAttributionExpandedViewController_sensorActivityData) = sub_21EAA8F60();
 }

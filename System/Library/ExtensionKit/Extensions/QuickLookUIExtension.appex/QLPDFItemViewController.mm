@@ -35,10 +35,17 @@
 - (void)permissionViewController:(id)controller didPickOptions:(id)options;
 - (void)permissionViewControllerWasCancelled:(id)cancelled;
 - (void)prepareForDrawingPages:(_NSRange)pages ofSize:(CGSize)size;
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion;
+- (void)previewDidAppear:(BOOL)appear;
+- (void)previewDidDisappear:(BOOL)disappear;
+- (void)previewWillAppear:(BOOL)appear;
+- (void)previewWillDisappear:(BOOL)disappear;
 - (void)provideCurrentPageAndVisibleRectWithCompletionHandler:(id)handler;
 - (void)requestLockForCurrentItem;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
 - (void)shouldLockPreviewForUnsavedEdits:(BOOL)edits;
 - (void)startFormFilling;
+- (void)transitionDidFinish:(BOOL)finish didComplete:(BOOL)complete;
 - (void)transitionDidStart:(BOOL)start;
 - (void)transitionWillFinish:(BOOL)finish didComplete:(BOOL)complete;
 - (void)updateContentFrame;
@@ -46,6 +53,7 @@
 - (void)updateRemoteEdgePanGestureWidth;
 - (void)updateStateRestorationWithUserInfo:(id)info;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation QLPDFItemViewController
@@ -79,6 +87,31 @@
   v12.super_class = QLPDFItemViewController;
   v11 = handlerCopy;
   [(QLMarkupItemViewController *)&v12 loadPreviewControllerWithContents:contentsCopy context:contextCopy completionHandler:v13];
+}
+
+- (void)previewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = QLPDFItemViewController;
+  [(QLMarkupItemViewController *)&v6 previewWillAppear:appear];
+  [(QLPDFItemViewController *)self updateScrollViewContentOffset];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 addObserver:self selector:"_findSessionDidBeginNotification:" name:UIFindInteractionFindSessionDidBeginNotification object:0];
+
+  v5 = +[NSNotificationCenter defaultCenter];
+  [v5 addObserver:self selector:"_findSessionDidEndNotification:" name:UIFindInteractionFindSessionDidEndNotification object:0];
+
+  [(QLPDFItemViewController *)self applyRestoredPDFPageIndexIfPossible];
+  [(QLPDFItemViewController *)self _startObservingCurrentPDFPageIndex];
+}
+
+- (void)previewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = QLPDFItemViewController;
+  [(QLMarkupItemViewController *)&v4 previewWillDisappear:disappear];
+  [(QLPDFItemViewController *)self _stopObservingCurrentPDFPageIndex];
+  [(QLPDFItemViewController *)self dismissSearchIfNeeded];
 }
 
 - (void)dealloc
@@ -159,6 +192,47 @@
   }
 
   objc_sync_exit(v2);
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = QLPDFItemViewController;
+  [(QLMarkupItemViewController *)&v4 previewDidAppear:appear];
+  self->_isVisible = 1;
+}
+
+- (void)previewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = QLPDFItemViewController;
+  [(QLMarkupItemViewController *)&v5 previewDidDisappear:disappear];
+  markupViewController = [(QLMarkupItemViewController *)self markupViewController];
+  [markupViewController setShowThumbnailViewForMultipage:0];
+
+  self->_isVisible = 0;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = QLPDFItemViewController;
+  [(QLMarkupItemViewController *)&v5 viewWillAppear:appear];
+  markupViewController = [(QLMarkupItemViewController *)self markupViewController];
+  [markupViewController setShowThumbnailViewForMultipage:0];
+
+  [(QLPDFItemViewController *)self applyRestoredPDFPageIndexIfPossible];
+}
+
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  controllerCopy = controller;
+  [(QLPDFItemViewController *)self dismissSearchIfNeeded];
+  v10.receiver = self;
+  v10.super_class = QLPDFItemViewController;
+  [(QLPDFItemViewController *)&v10 presentViewController:controllerCopy animated:animatedCopy completion:completionCopy];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -750,6 +824,16 @@ LABEL_7:
   [UIView animateWithDuration:v13 animations:0.2, v14, v15, v16, v17, selfCopy2, v19, v20, v21, v22, selfCopy];
 }
 
+- (void)transitionDidFinish:(BOOL)finish didComplete:(BOOL)complete
+{
+  v7.receiver = self;
+  v7.super_class = QLPDFItemViewController;
+  [(QLPDFItemViewController *)&v7 transitionDidFinish:finish didComplete:complete];
+  v5 = +[UIColor _ql_markupBackgroundColor];
+  view = [(QLPDFItemViewController *)self view];
+  [view setBackgroundColor:v5];
+}
+
 - (BOOL)shouldAcceptTouch:(id)touch ofGestureRecognizer:(id)recognizer
 {
   touchCopy = touch;
@@ -838,6 +922,37 @@ LABEL_8:
   return contentViewScrollView;
 }
 
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  appearanceCopy = appearance;
+  appearance = [(QLPDFItemViewController *)self appearance];
+  presentationMode = [appearance presentationMode];
+
+  v16.receiver = self;
+  v16.super_class = QLPDFItemViewController;
+  [(QLMarkupItemViewController *)&v16 setAppearance:appearanceCopy animated:animatedCopy];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10000A3EC;
+  v12[3] = &unk_100024CB0;
+  v15 = presentationMode;
+  v9 = appearanceCopy;
+  v13 = v9;
+  selfCopy = self;
+  v10 = objc_retainBlock(v12);
+  v11 = v10;
+  if (animatedCopy)
+  {
+    [UIView animateWithDuration:v10 animations:0 completion:UINavigationControllerHideShowBarDuration];
+  }
+
+  else
+  {
+    (v10[2])(v10);
+  }
+}
+
 - (void)numberOfPagesWithSize:(CGSize)size completionHandler:(id)handler
 {
   height = size.height;
@@ -906,7 +1021,6 @@ LABEL_8:
   v3.super_class = QLPDFItemViewController;
   [(QLMarkupItemViewController *)&v3 updateContentFrame];
   [(QLPDFItemViewController *)self contentFrame];
-  self->_isSearching;
   [(QLPDFItemViewController *)self setContentFrame:?];
 }
 

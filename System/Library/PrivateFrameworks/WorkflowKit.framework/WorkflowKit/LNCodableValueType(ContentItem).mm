@@ -62,58 +62,57 @@
 - (objc_class)wf_contentItemClass
 {
   v22[2] = *MEMORY[0x1E69E9840];
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v22[0] = v3;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v22[0] = v4;
   identifier = [self identifier];
-  v5 = [identifier stringByReplacingOccurrencesOfString:@"." withString:@"_"];
-  v22[1] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+  v6 = [identifier stringByReplacingOccurrencesOfString:@"." withString:@"_"];
+  v22[1] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
 
-  v7 = [v6 componentsJoinedByString:@"_"];
-  v8 = NSClassFromString(v7);
-  if (v8)
+  v8 = [v7 componentsJoinedByString:@"_"];
+  v9 = NSClassFromString(v8);
+  if (v9)
   {
-    v9 = v8;
-LABEL_3:
     v10 = v9;
+LABEL_3:
+    v11 = v10;
     goto LABEL_6;
   }
 
   os_unfair_lock_lock(&classRegistrationLock_9271);
-  ClassPair = objc_allocateClassPair(v2, [(NSString *)v7 cStringUsingEncoding:4], 0);
+  ClassPair = objc_allocateClassPair(v3, [(NSString *)v8 cStringUsingEncoding:4], 0);
   if (!ClassPair)
   {
     os_unfair_lock_unlock(&classRegistrationLock_9271);
-    v9 = NSClassFromString(v7);
+    v10 = NSClassFromString(v8);
     goto LABEL_3;
   }
 
-  v12 = ClassPair;
+  v13 = ClassPair;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __54__LNCodableValueType_ContentItem__wf_contentItemClass__block_invoke;
   aBlock[3] = &__block_descriptor_40_e14_B32__0_8_16_24lu32l8;
-  aBlock[4] = v2;
-  v13 = _Block_copy(aBlock);
+  aBlock[4] = v3;
+  v14 = _Block_copy(aBlock);
   selfCopy = self;
   v19[0] = MEMORY[0x1E69E9820];
   v19[1] = 3221225472;
   v19[2] = __54__LNCodableValueType_ContentItem__wf_contentItemClass__block_invoke_2;
   v19[3] = &unk_1E8375460;
   v20 = selfCopy;
-  v15 = selfCopy;
-  v16 = _Block_copy(v19);
-  v13[2](v13, v12, sel_valueType, v16);
+  v16 = selfCopy;
+  v17 = _Block_copy(v19);
+  v14[2](v14, v13, sel_valueType, v17);
 
-  objc_registerClassPair(v12);
+  objc_registerClassPair(v13);
   os_unfair_lock_unlock(&classRegistrationLock_9271);
-  v10 = v12;
+  v11 = v13;
 
 LABEL_6:
-  v17 = *MEMORY[0x1E69E9840];
 
-  return v10;
+  return v11;
 }
 
 - (id)wf_contentItemClassWithAppBundleIdentifier:()ContentItem
@@ -122,18 +121,8 @@ LABEL_6:
   wf_dateIntervalIdentifier = [MEMORY[0x1E69AC750] wf_dateIntervalIdentifier];
   v4 = [identifier isEqual:wf_dateIntervalIdentifier];
 
-  if (v4)
+  if (v4 || ([self identifier], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E69AC750], "wf_durationIdentifier"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v5, "isEqual:", v6), v6, v5, v7) || (objc_msgSend(self, "identifier"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E69AC750], "wf_personNameComponentsIdentifier"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqual:", v9), v9, v8, v10))
   {
-    goto LABEL_4;
-  }
-
-  identifier2 = [self identifier];
-  wf_durationIdentifier = [MEMORY[0x1E69AC750] wf_durationIdentifier];
-  v7 = [identifier2 isEqual:wf_durationIdentifier];
-
-  if (v7 || ([self identifier], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E69AC750], "wf_personNameComponentsIdentifier"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqual:", v9), v9, v8, v10))
-  {
-LABEL_4:
     wf_contentItemClass = objc_opt_class();
   }
 

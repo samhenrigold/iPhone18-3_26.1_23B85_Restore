@@ -5,6 +5,7 @@
 - (NEFilterControlVerdict)init;
 - (NEFilterControlVerdict)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -22,6 +23,30 @@
   }
 
   return result;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v11.receiver = self;
+  v11.super_class = NEFilterControlVerdict;
+  v7 = [NEFilterNewFlowVerdict descriptionWithIndent:sel_descriptionWithIndent_options_ options:?];
+  v8 = v7;
+  if (self)
+  {
+    [v7 appendPrettyBOOL:self->_updateRules withName:@"updateRules" andIndent:v5 options:options];
+    handledByDataProvider = self->_handledByDataProvider;
+  }
+
+  else
+  {
+    [v7 appendPrettyBOOL:0 withName:@"updateRules" andIndent:v5 options:options];
+    handledByDataProvider = 0;
+  }
+
+  [v8 appendPrettyBOOL:handledByDataProvider withName:@"handledByDataProvider" andIndent:v5 options:options];
+
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

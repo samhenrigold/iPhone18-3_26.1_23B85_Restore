@@ -16,30 +16,30 @@
   if (v9)
   {
     v10 = [[VideoReaderRand alloc] initFromFile:fileCopy frameTimes:times];
-    readerRand = v9->readerRand;
-    v9->readerRand = v10;
+    v11 = *(v9 + 7);
+    *(v9 + 7) = v10;
 
-    v12 = v9->readerRand;
+    v12 = *(v9 + 7);
     if (!v12)
     {
       v17 = 0;
       goto LABEL_8;
     }
 
-    [(VideoReader *)v12 setPixelFormatOptions:v6];
-    if (&v9->mFrameTimes != times)
+    [v12 setPixelFormatOptions:v6];
+    if (v9 + 8 != times)
     {
-      sub_2418DF350(&v9->mFrameTimes.__begin_, *times, *(times + 1), 0xAAAAAAAAAAAAAAABLL * ((*(times + 1) - *times) >> 3));
+      sub_2418DF350(v9 + 1, *times, *(times + 1), 0xAAAAAAAAAAAAAAABLL * ((*(times + 1) - *times) >> 3));
     }
 
-    v9->numFrames = -1431655765 * ((v9->mFrameTimes.__end_ - v9->mFrameTimes.__begin_) >> 3);
-    videoTrack = [(VideoReader *)v9->readerRand videoTrack];
-    videoTrack = v9->videoTrack;
-    v9->videoTrack = videoTrack;
+    *(v9 + 8) = -1431655765 * ((*(v9 + 2) - *(v9 + 1)) >> 3);
+    videoTrack = [*(v9 + 7) videoTrack];
+    v14 = *(v9 + 5);
+    *(v9 + 5) = videoTrack;
 
-    asset = [(VideoReader *)v9->readerRand asset];
-    asset = v9->asset;
-    v9->asset = asset;
+    asset = [*(v9 + 7) asset];
+    v16 = *(v9 + 6);
+    *(v9 + 6) = asset;
   }
 
   v17 = v9;

@@ -8,9 +8,9 @@
 - (CSUMetricOperatingPointCurve)initWithOperatingPointsData:(id)data metricPattern:(int)pattern error:(id *)error
 {
   dataCopy = data;
-  v50.receiver = self;
-  v50.super_class = CSUMetricOperatingPointCurve;
-  v13 = [(CSUMetricOperatingPointCurve *)&v50 init];
+  v49.receiver = self;
+  v49.super_class = CSUMetricOperatingPointCurve;
+  v13 = [(CSUMetricOperatingPointCurve *)&v49 init];
   if (!v13)
   {
     if (error)
@@ -93,7 +93,7 @@ LABEL_11:
     v48 = 4 * v41;
     do
     {
-      v49 = *v43++;
+      v43 += 4;
       v48 -= 4;
     }
 

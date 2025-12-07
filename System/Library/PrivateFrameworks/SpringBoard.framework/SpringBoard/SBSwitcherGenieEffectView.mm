@@ -136,7 +136,7 @@
   [(_SBSwitcherGenieEffectContentView *)self->_contentView addSubview:v9];
   if (!self->_portaledContentShouldMatchSource && (isIconBadgeView & 1) == 0)
   {
-    [(UIView *)self->_childContentView frame];
+    objc_msgSend_frame(self->_childContentView);
     [v9 sb_setBoundsAndPositionFromFrame:?];
     animation = [MEMORY[0x277CD9EE8] animation];
     layer = [(UIView *)self->_childContentView layer];
@@ -346,7 +346,7 @@
       v43 = v42;
       if (attributesCopy)
       {
-        [attributesCopy glassHighlight];
+        objc_msgSend_glassHighlight(attributesCopy);
       }
 
       else
@@ -391,7 +391,7 @@
     {
       if (attributesCopy)
       {
-        [attributesCopy glassHighlight];
+        objc_msgSend_glassHighlight(attributesCopy);
       }
 
       else
@@ -405,7 +405,7 @@
       v44 = self->_attributes;
       if (v44)
       {
-        [(SBSwitcherGenieAttributes *)v44 glassHighlight];
+        objc_msgSend_glassHighlight(v44);
       }
 
       else
@@ -473,23 +473,27 @@ void __59__SBSwitcherGenieEffectView_setAttributes_mode_completion___block_invok
     v8 = *v12;
     do
     {
-      for (i = 0; i != v7; ++i)
+      v9 = 0;
+      do
       {
         if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v11 + 1) + 8 * i);
-        if (([(NSMutableArray *)self->_contentNotificationBadgePortalViews containsObject:v10, v11]& 1) == 0)
+        v10 = *(*(&v11 + 1) + 8 * v9);
+        if ((objc_msgSend_containsObject_(self->_contentNotificationBadgePortalViews, v11) & 1) == 0)
         {
           UIRectGetCenter();
           [v10 setCenter:?];
           SBRectWithSize();
           [v10 setBounds:?];
         }
+
+        ++v9;
       }
 
+      while (v7 != v9);
       v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
@@ -724,7 +728,7 @@ LABEL_11:
   attributes = self->_attributes;
   if (attributes)
   {
-    [(SBSwitcherGenieAttributes *)attributes glassHighlight];
+    objc_msgSend_glassHighlight(attributes);
   }
 
   else
@@ -1303,7 +1307,7 @@ void __73__SBSwitcherGenieEffectView__performGenieWithAttributes_mode_completion
           v42 = v41;
           if (v15)
           {
-            [v15 glassHighlight];
+            objc_msgSend_glassHighlight(v15);
           }
 
           else

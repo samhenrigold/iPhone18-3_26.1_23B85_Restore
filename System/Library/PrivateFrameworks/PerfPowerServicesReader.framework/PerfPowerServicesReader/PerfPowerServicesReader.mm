@@ -1,13 +1,13 @@
-id PPSReaderLog()
+id PPSReaderLog(uint64_t a1)
 {
   if (PPSReaderLog_onceToken != -1)
   {
     PPSReaderLog_cold_1();
   }
 
-  v1 = PPSReaderLog___logObj;
+  v2 = PPSReaderLog___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t PPSSQLiteRow::PPSSQLiteRow(uint64_t a1, sqlite3_stmt *a2, void *a3)
@@ -37,10 +37,10 @@ unsigned __int8 *PPSSQLiteRow::columnValueAsString(sqlite3_stmt **this, int a2)
   return v2;
 }
 
-void sub_25E226530(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25E226530(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PPSSQLiteDatabase;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -54,36 +54,56 @@ void __Block_byref_object_dispose__5(uint64_t a1)
   }
 }
 
-id logHandle()
+id logHandle(uint64_t a1)
 {
   if (logHandle_onceToken != -1)
   {
     logHandle_cold_1();
   }
 
-  v1 = logHandle__logHandle;
+  v2 = logHandle__logHandle;
 
-  return v1;
+  return v2;
+}
+
+{
+  if (logHandle(void)::onceToken != -1)
+  {
+    logHandle();
+  }
+
+  v2 = logHandle(void)::logHandle;
+
+  return v2;
+}
+
+{
+  if (logHandle(void)::onceToken != -1)
+  {
+    logHandle();
+  }
+
+  v2 = logHandle(void)::__logHandle;
+
+  return v2;
 }
 
 id PPSCreateSubsystemCategoryPredicate(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K = %@ AND %K = %@)", @"subsystem", a1, @"category", a2];
   v7 = v6;
   if (v5)
   {
     v8 = MEMORY[0x277CCA920];
-    v13[0] = v6;
-    v13[1] = v5;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+    v12[0] = v6;
+    v12[1] = v5;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
     v10 = [v8 andPredicateWithSubpredicates:v9];
 
     v7 = v10;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -141,14 +161,12 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
 
 __n128 __Block_byref_object_copy__5(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -170,7 +188,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<double,doub
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<std::pair<double,double>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<double,double>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -180,7 +198,7 @@ void std::vector<std::pair<double,double>>::__vallocate[abi:ne200100](uint64_t a
   std::vector<boost::histogram::axis::variant<boost::histogram::axis::regular<double,boost::use_default,boost::use_default,boost::use_default>,boost::histogram::axis::variable<double,boost::use_default,boost::use_default,std::allocator<double>>,boost::histogram::axis::integer<int,boost::use_default,boost::histogram::axis::option::bit<1u>>>>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<std::pair<double,double>>::__init_with_size[abi:ne200100]<std::pair<double,double>*,std::pair<double,double>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<double,double>>::__init_with_size[abi:ne200100]<std::pair<double,double>*,std::pair<double,double>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {

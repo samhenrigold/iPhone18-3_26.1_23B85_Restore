@@ -59,12 +59,13 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC8AppStore20SegmentedControlView_segmentDidChangeHandler);
   if (v3)
   {
+    v5 = *&self->segmentedControl[OBJC_IVAR____TtC8AppStore20SegmentedControlView_segmentDidChangeHandler];
     inCopy = in;
     selfCopy = self;
-    sub_10000827C(v3);
+    sub_10000827C(v3, v5);
     v3(inCopy);
 
-    sub_10001F63C(v3);
+    sub_10001F63C(v3, v5);
   }
 }
 

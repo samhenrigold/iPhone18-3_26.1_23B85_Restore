@@ -374,7 +374,6 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v5 = *(equalCopy + 80);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 80) & 2) == 0 || self->_timestamp != *(equalCopy + 2))
@@ -422,7 +421,7 @@ LABEL_35:
   }
 
   has = self->_has;
-  v11 = *(equalCopy + 80);
+  v10 = *(equalCopy + 80);
   if (has)
   {
     if ((*(equalCopy + 80) & 1) == 0 || self->_iteration != *(equalCopy + 1))
@@ -442,36 +441,36 @@ LABEL_35:
     if (![(AWDProactiveModelFittingQuantizedSparseVector *)sparseQuantizedGradient isEqual:?])
     {
 LABEL_35:
-      v14 = 0;
+      v13 = 0;
       goto LABEL_36;
     }
 
     has = self->_has;
-    v11 = *(equalCopy + 80);
+    v10 = *(equalCopy + 80);
   }
 
   if ((has & 8) != 0)
   {
-    if ((v11 & 8) == 0 || self->_gradientScaleFactor != *(equalCopy + 11))
+    if ((v10 & 8) == 0 || self->_gradientScaleFactor != *(equalCopy + 11))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v11 & 8) != 0)
+  else if ((v10 & 8) != 0)
   {
     goto LABEL_35;
   }
 
   if ((has & 4) != 0)
   {
-    if ((v11 & 4) == 0 || self->_gradientL2norm != *(equalCopy + 10))
+    if ((v10 & 4) == 0 || self->_gradientL2norm != *(equalCopy + 10))
     {
       goto LABEL_35;
     }
   }
 
-  else if ((v11 & 4) != 0)
+  else if ((v10 & 4) != 0)
   {
     goto LABEL_35;
   }
@@ -479,17 +478,17 @@ LABEL_35:
   denseQuantizedGradient = self->_denseQuantizedGradient;
   if (denseQuantizedGradient | *(equalCopy + 3))
   {
-    v14 = [(AWDProactiveModelFittingQuantizedDenseVector *)denseQuantizedGradient isEqual:?];
+    v13 = [(AWDProactiveModelFittingQuantizedDenseVector *)denseQuantizedGradient isEqual:?];
   }
 
   else
   {
-    v14 = 1;
+    v13 = 1;
   }
 
 LABEL_36:
 
-  return v14;
+  return v13;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -619,71 +618,67 @@ LABEL_36:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_modelInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_sparseFloatGradient)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_minibatchStats)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_evaluationMetrics)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (*&self->_has)
   {
-    iteration = self->_iteration;
     PBDataWriterWriteUint64Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_sparseQuantizedGradient)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    gradientScaleFactor = self->_gradientScaleFactor;
     PBDataWriterWriteFloatField();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    gradientL2norm = self->_gradientL2norm;
     PBDataWriterWriteFloatField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_denseQuantizedGradient)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 

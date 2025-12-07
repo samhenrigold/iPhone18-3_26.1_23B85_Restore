@@ -8,7 +8,7 @@
 
 - (JavaNetStandardSocketOptions_NetworkInterfaceSocketOption)initWithNSString:(id)string withInt:(int)int
 {
-  v7 = JavaNetNetworkInterface_class_();
+  v7 = JavaNetNetworkInterface_class_(self, a2);
   JreStrongAssign(&self->super.name_, string);
   JreStrongAssign(&self->super.type_, v7);
   self->super.socketOption_ = int;
@@ -19,7 +19,6 @@
 {
   if (!id)
   {
-    name = self->super.name_;
     v10 = JreStrcat("$$$", a2, descriptor, 0, v4, v5, v6, v7, @"value for ");
     goto LABEL_8;
   }
@@ -46,10 +45,9 @@ LABEL_8:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    name = self->super.name_;
-    v14 = JreStrcat("$$", v6, v7, v8, v9, v10, v11, v12, @"Unexpected type of value returned for ");
-    v15 = new_JavaLangAssertionError_initWithId_(v14);
-    objc_exception_throw(v15);
+    v13 = JreStrcat("$$", v5, v6, v7, v8, v9, v10, v11, @"Unexpected type of value returned for ");
+    v14 = new_JavaLangAssertionError_initWithId_(v13);
+    objc_exception_throw(v14);
   }
 
   objc_opt_class();

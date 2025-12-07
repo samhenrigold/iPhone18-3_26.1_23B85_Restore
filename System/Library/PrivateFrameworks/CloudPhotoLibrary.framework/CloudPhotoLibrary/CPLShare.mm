@@ -149,26 +149,26 @@ LABEL_13:
 
 - (BOOL)ownerIsCurrentUser
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   participants = [(CPLShare *)self participants];
-  v3 = [participants countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [participants countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(participants);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if ([v6 isCurrentUser])
         {
           LOBYTE(v3) = [v6 role] == 1;
@@ -176,7 +176,7 @@ LABEL_13:
         }
       }
 
-      v3 = [participants countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [participants countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -188,32 +188,31 @@ LABEL_13:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (CPLShareParticipant)currentUserParticipant
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   participants = [(CPLShare *)self participants];
-  v3 = [participants countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [participants countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(participants);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if ([v6 isCurrentUser])
         {
           v3 = v6;
@@ -221,7 +220,7 @@ LABEL_11:
         }
       }
 
-      v3 = [participants countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [participants countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -233,33 +232,31 @@ LABEL_11:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (CPLShareParticipant)owner
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   participants = [(CPLShare *)self participants];
-  v3 = [participants countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [participants countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(participants);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if ([v6 role] == 1)
         {
           v3 = v6;
@@ -267,7 +264,7 @@ LABEL_11:
         }
       }
 
-      v3 = [participants countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [participants countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -278,8 +275,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

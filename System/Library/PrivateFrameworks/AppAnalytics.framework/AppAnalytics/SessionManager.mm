@@ -21,21 +21,19 @@
     v8 = 0;
   }
 
-  v11 = *self->accessQueue;
-  v10 = *self->accessGroup;
-  v12 = swift_allocObject();
-  v13 = *self->processorManager;
+  v10 = *self->accessQueue;
+  v11 = swift_allocObject();
   swift_weakInit();
-  v14 = swift_allocObject();
-  v14[2] = v12;
-  v14[3] = queue;
-  v14[4] = v9;
-  v14[5] = v8;
+  v12 = swift_allocObject();
+  v12[2] = v11;
+  v12[3] = queue;
+  v12[4] = v9;
+  v12[5] = v8;
   queueCopy = queue;
 
   sub_1B698BF94(v9);
-  sub_1B69877A4(v11, sub_1B6A0BE34, v14);
-  sub_1B69A3100(v9);
+  sub_1B69877A4(v10, sub_1B6A0BE34, v12);
+  sub_1B69A3100(v9, v8);
 }
 
 @end

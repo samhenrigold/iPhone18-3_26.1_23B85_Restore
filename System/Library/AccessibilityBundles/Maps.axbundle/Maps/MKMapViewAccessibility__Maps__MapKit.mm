@@ -6,14 +6,13 @@
 
 - (id)snapshotImageWithScale:(double)scale
 {
-  v5 = *MEMORY[0x29EDC7F10];
   _UIAccessibilityBlockPostingOfNotification();
-  v8.receiver = self;
-  v8.super_class = MKMapViewAccessibility__Maps__MapKit;
-  v6 = [(MKMapViewAccessibility__Maps__MapKit *)&v8 snapshotImageWithScale:scale];
+  v7.receiver = self;
+  v7.super_class = MKMapViewAccessibility__Maps__MapKit;
+  v5 = [(MKMapViewAccessibility__Maps__MapKit *)&v7 snapshotImageWithScale:scale];
   _UIAccessibilityUnblockPostingOfNotification();
 
-  return v6;
+  return v5;
 }
 
 @end

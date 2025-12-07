@@ -61,6 +61,7 @@
 - (void)newRenderPipelineStateWithDescriptor:(id)descriptor options:(unint64_t)options completionHandler:(id)handler;
 - (void)newRenderPipelineStateWithTileDescriptor:(id)descriptor completionHandler:(id)handler;
 - (void)newRenderPipelineStateWithTileDescriptor:(id)descriptor options:(unint64_t)options completionHandler:(id)handler;
+- (void)setWritableHeapsEnabled:(BOOL)enabled;
 @end
 
 @implementation MTLCountersDevice
@@ -541,6 +542,14 @@
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject areWritableHeapsEnabled];
+}
+
+- (void)setWritableHeapsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setWritableHeapsEnabled:enabledCopy];
 }
 
 @end

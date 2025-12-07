@@ -30,6 +30,7 @@
 - (void)readCharacteristicValues:(id)values timeout:(double)timeout completionQueue:(id)queue completionHandler:(id)handler;
 - (void)readValueForCharacteristic:(id)characteristic timeout:(double)timeout completionQueue:(id)queue completionHandler:(id)handler;
 - (void)setConsecutiveFailedPingCount:(int)count;
+- (void)setReachable:(BOOL)reachable;
 - (void)writeCharacteristicValue:(id)value timeout:(double)timeout completionQueue:(id)queue completionHandler:(id)handler;
 - (void)writeCharacteristicValues:(id)values timeout:(double)timeout completionQueue:(id)queue completionHandler:(id)handler;
 @end
@@ -144,7 +145,7 @@
       {
         if ([servicesCopy count] >= 0x65)
         {
-          v15 = sub_10007FAA0();
+          v15 = sub_10007FAA0(0);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             v16 = sub_10007FAFC(0);
@@ -163,7 +164,7 @@ LABEL_9:
         objc_storeStrong(&self->_services, services);
         if (![(HAPAccessory *)self _validateCharacteristicValues])
         {
-          v15 = sub_10007FAA0();
+          v15 = sub_10007FAA0(0);
           if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_10;
@@ -178,7 +179,7 @@ LABEL_9:
 
         if (![(HAPAccessory *)self _updateAndValidateServices])
         {
-          v15 = sub_10007FAA0();
+          v15 = sub_10007FAA0(0);
           if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_10;
@@ -203,7 +204,7 @@ LABEL_9:
     goto LABEL_15;
   }
 
-  v15 = sub_10007FAA0();
+  v15 = sub_10007FAA0(0);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     v16 = sub_10007FAFC(0);
@@ -253,31 +254,7 @@ LABEL_15:
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_10;
-    }
-
-    instanceID = [(HAPAccessory *)self instanceID];
-    instanceID2 = [(HAPAccessory *)v6 instanceID];
-    v9 = [instanceID isEqualToNumber:instanceID2];
-
-    if (!v9)
-    {
-      goto LABEL_10;
-    }
-
-    identifier = [(HAPAccessory *)self identifier];
-    identifier2 = [(HAPAccessory *)v6 identifier];
-    v12 = [identifier isEqualToString:identifier2];
-
-    if (!v12)
-    {
-      goto LABEL_10;
-    }
-
-    linkType = [(HAPAccessory *)self linkType];
-    if (linkType == [(HAPAccessory *)v6 linkType])
+    if (v6 && (-[HAPAccessory instanceID](self, "instanceID"), v7 = objc_claimAutoreleasedReturnValue(), -[HAPAccessory instanceID](v6, "instanceID"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v7 isEqualToNumber:v8], v8, v7, v9) && (-[HAPAccessory identifier](self, "identifier"), v10 = objc_claimAutoreleasedReturnValue(), -[HAPAccessory identifier](v6, "identifier"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isEqualToString:", v11), v11, v10, v12) && (v13 = -[HAPAccessory linkType](self, "linkType"), v13 == -[HAPAccessory linkType](v6, "linkType")))
     {
       communicationProtocol = [(HAPAccessory *)self communicationProtocol];
       v15 = communicationProtocol == [(HAPAccessory *)v6 communicationProtocol];
@@ -285,7 +262,6 @@ LABEL_15:
 
     else
     {
-LABEL_10:
       v15 = 0;
     }
   }
@@ -380,6 +356,31 @@ LABEL_15:
   return reachable;
 }
 
+- (void)setReachable:(BOOL)reachable
+{
+  reachableCopy = reachable;
+  os_unfair_lock_lock_with_options();
+  if (self->_reachable == reachableCopy)
+  {
+
+    os_unfair_lock_unlock(&self->_lock);
+  }
+
+  else
+  {
+    self->_reachable = reachableCopy;
+    os_unfair_lock_unlock(&self->_lock);
+    delegate = [(HAPAccessory *)self delegate];
+    v6 = objc_opt_respondsToSelector();
+
+    if (v6)
+    {
+      delegate2 = [(HAPAccessory *)self delegate];
+      [delegate2 accessory:self didUpdateReachabilityState:reachableCopy];
+    }
+  }
+}
+
 - (int)consecutiveFailedPingCount
 {
   os_unfair_lock_lock_with_options();
@@ -415,7 +416,7 @@ LABEL_15:
 
     else
     {
-      v9 = sub_10007FAA0();
+      v9 = sub_10007FAA0(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = sub_10007FAFC(0);
@@ -500,7 +501,7 @@ LABEL_15:
       else
       {
         selfCopy = self;
-        v24 = sub_10007FAA0();
+        v24 = sub_10007FAA0(selfCopy);
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           v25 = sub_10007FAFC(selfCopy);
@@ -532,7 +533,7 @@ LABEL_21:
     }
 
     selfCopy2 = self;
-    v14 = sub_10007FAA0();
+    v14 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = sub_10007FAFC(selfCopy2);
@@ -559,7 +560,7 @@ LABEL_21:
   else
   {
     selfCopy3 = self;
-    v18 = sub_10007FAA0();
+    v18 = sub_10007FAA0(selfCopy3);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = sub_10007FAFC(selfCopy3);
@@ -605,7 +606,7 @@ LABEL_22:
       else
       {
         selfCopy = self;
-        v22 = sub_10007FAA0();
+        v22 = sub_10007FAA0(selfCopy);
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           v23 = sub_10007FAFC(selfCopy);
@@ -631,7 +632,7 @@ LABEL_22:
     }
 
     selfCopy2 = self;
-    v14 = sub_10007FAA0();
+    v14 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = sub_10007FAFC(selfCopy2);
@@ -656,7 +657,7 @@ LABEL_20:
   else
   {
     selfCopy3 = self;
-    v18 = sub_10007FAA0();
+    v18 = sub_10007FAA0(selfCopy3);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = sub_10007FAFC(selfCopy3);
@@ -707,7 +708,7 @@ LABEL_20:
       else
       {
         selfCopy = self;
-        v24 = sub_10007FAA0();
+        v24 = sub_10007FAA0(selfCopy);
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           v25 = sub_10007FAFC(selfCopy);
@@ -740,7 +741,7 @@ LABEL_21:
     }
 
     selfCopy2 = self;
-    v14 = sub_10007FAA0();
+    v14 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = sub_10007FAFC(selfCopy2);
@@ -767,7 +768,7 @@ LABEL_21:
   else
   {
     selfCopy3 = self;
-    v18 = sub_10007FAA0();
+    v18 = sub_10007FAA0(selfCopy3);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = sub_10007FAFC(selfCopy3);
@@ -813,7 +814,7 @@ LABEL_22:
       else
       {
         selfCopy = self;
-        v22 = sub_10007FAA0();
+        v22 = sub_10007FAA0(selfCopy);
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           v23 = sub_10007FAFC(selfCopy);
@@ -839,7 +840,7 @@ LABEL_22:
     }
 
     selfCopy2 = self;
-    v14 = sub_10007FAA0();
+    v14 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = sub_10007FAFC(selfCopy2);
@@ -864,7 +865,7 @@ LABEL_20:
   else
   {
     selfCopy3 = self;
-    v18 = sub_10007FAA0();
+    v18 = sub_10007FAA0(selfCopy3);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = sub_10007FAFC(selfCopy3);
@@ -920,7 +921,7 @@ LABEL_20:
 
         if (v11)
         {
-          characteristics = sub_10007FAA0();
+          characteristics = sub_10007FAA0(0);
           if (!os_log_type_enabled(characteristics, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_23;
@@ -967,7 +968,7 @@ LABEL_32:
 
               if (v20)
               {
-                v23 = sub_10007FAA0();
+                v23 = sub_10007FAA0(0);
                 if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
                 {
                   v24 = sub_10007FAFC(0);
@@ -1001,7 +1002,7 @@ LABEL_32:
         self = selfCopy;
         if (![(HAPAccessory *)selfCopy _updateService:v9])
         {
-          characteristics = sub_10007FAA0();
+          characteristics = sub_10007FAA0(0);
           services = v34;
           if (!os_log_type_enabled(characteristics, OS_LOG_TYPE_ERROR))
           {
@@ -1038,7 +1039,7 @@ LABEL_32:
 
   else
   {
-    services = sub_10007FAA0();
+    services = sub_10007FAA0(0);
     if (os_log_type_enabled(services, OS_LOG_TYPE_ERROR))
     {
       characteristics = sub_10007FAFC(0);
@@ -1094,7 +1095,7 @@ LABEL_23:
         {
           if (v5)
           {
-            v38 = sub_10007FAA0();
+            v38 = sub_10007FAA0(0);
             if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
               v39 = sub_10007FAFC(0);
@@ -1244,7 +1245,7 @@ LABEL_23:
   {
   }
 
-  v5 = sub_10007FAA0();
+  v5 = sub_10007FAA0(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     v40 = sub_10007FAFC(0);
@@ -1263,7 +1264,7 @@ LABEL_44:
 - (void)invalidate
 {
   selfCopy = self;
-  v3 = sub_10007FAA0();
+  v3 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = sub_10007FAFC(selfCopy);
@@ -1342,7 +1343,7 @@ LABEL_44:
 
                     if (v18)
                     {
-                      v20 = sub_10007FAA0();
+                      v20 = sub_10007FAA0(0);
                       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
                       {
                         v21 = sub_10007FAFC(0);
@@ -1572,7 +1573,7 @@ LABEL_8:
           }
 
           selfCopy = self;
-          v19 = sub_10007FAA0();
+          v19 = sub_10007FAA0(selfCopy);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             v20 = sub_10007FAFC(selfCopy);
@@ -1660,7 +1661,7 @@ LABEL_19:
 
             v16 = *(*(&v91 + 1) + 8 * i);
             selfCopy = self;
-            v18 = sub_10007FAA0();
+            v18 = sub_10007FAA0(selfCopy);
             if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
             {
               v19 = sub_10007FAFC(selfCopy);
@@ -1704,7 +1705,7 @@ LABEL_19:
 
             v26 = *(*(&v87 + 1) + 8 * j);
             selfCopy2 = self;
-            v28 = sub_10007FAA0();
+            v28 = sub_10007FAA0(selfCopy2);
             if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
             {
               v29 = sub_10007FAFC(selfCopy2);
@@ -1750,7 +1751,7 @@ LABEL_19:
 
             v35 = *(*(&v83 + 1) + 8 * k);
             selfCopy3 = self;
-            v37 = sub_10007FAA0();
+            v37 = sub_10007FAA0(selfCopy3);
             if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
             {
               v38 = sub_10007FAFC(selfCopy3);
@@ -1765,7 +1766,7 @@ LABEL_19:
             if (v39 && [v35 mergeObject:v39])
             {
               v40 = selfCopy3;
-              v41 = sub_10007FAA0();
+              v41 = sub_10007FAA0(v40);
               if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
               {
                 v42 = sub_10007FAFC(v40);
@@ -1878,7 +1879,7 @@ LABEL_19:
     else
     {
       selfCopy4 = self;
-      v10 = sub_10007FAA0();
+      v10 = sub_10007FAA0(selfCopy4);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         v73 = sub_10007FAFC(selfCopy4);

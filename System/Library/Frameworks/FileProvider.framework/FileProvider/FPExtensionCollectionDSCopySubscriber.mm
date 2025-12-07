@@ -70,7 +70,7 @@ void *__82__FPExtensionCollectionDSCopySubscriber_startMonitoringWithURL_publish
         v7 = *(v6 + 8);
         *(v6 + 8) = v5;
 
-        return MEMORY[0x1EEE66BB8]();
+        return MEMORY[0x1EEE66BB8](v5, v7);
       }
     }
   }

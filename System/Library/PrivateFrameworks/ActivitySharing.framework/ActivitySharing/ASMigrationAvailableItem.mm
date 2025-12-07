@@ -74,73 +74,74 @@ id __86__ASMigrationAvailableItem_CloudKitCodingSupport__migrationAvailableItems
 + (id)migrationAvailableItemWithRecord:(id)record
 {
   recordCopy = record;
-  if (_ASCloudKitSchemaVersionForRecord(recordCopy) == 1)
+  v4 = _ASCloudKitSchemaVersionForRecord(recordCopy);
+  if (v4 == 1)
   {
     encryptedValues = [recordCopy encryptedValues];
-    v5 = [encryptedValues objectForKeyedSubscript:@"EncryptedData"];
+    v7 = [encryptedValues objectForKeyedSubscript:@"EncryptedData"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v6 = v5;
+      v8 = v7;
     }
 
     else
     {
-      v6 = 0;
+      v8 = 0;
     }
 
-    if (v6)
+    if (v8)
     {
-      v8 = [[ASCodableCloudKitMigrationAvailableItem alloc] initWithData:v6];
-      v9 = [ASMigrationAvailableItem migrationAvailableItemWithCodableItem:v8];
-      v10 = [objc_alloc(MEMORY[0x277CCAAB0]) initRequiringSecureCoding:1];
-      [recordCopy encodeSystemFieldsWithCoder:v10];
-      [v10 finishEncoding];
-      v11 = objc_alloc(MEMORY[0x277CCAAC8]);
-      encodedData = [v10 encodedData];
-      v17 = 0;
-      v13 = [v11 initForReadingFromData:encodedData error:&v17];
-      v14 = v17;
+      v12 = [[ASCodableCloudKitMigrationAvailableItem alloc] initWithData:v8];
+      v13 = [ASMigrationAvailableItem migrationAvailableItemWithCodableItem:v12];
+      v14 = [objc_alloc(MEMORY[0x277CCAAB0]) initRequiringSecureCoding:1];
+      [recordCopy encodeSystemFieldsWithCoder:v14];
+      [v14 finishEncoding];
+      v15 = objc_alloc(MEMORY[0x277CCAAC8]);
+      encodedData = [v14 encodedData];
+      v23 = 0;
+      v17 = [v15 initForReadingFromData:encodedData error:&v23];
+      v18 = v23;
 
-      if (v14)
+      if (v18)
       {
-        ASLoggingInitialize();
+        ASLoggingInitialize(v19, v20);
         if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
         {
           +[ASRelationship(CloudKitCodingSupport) _relationshipWithRecord:relationshipEventRecords:completion:];
         }
       }
 
-      v15 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithCoder:v13];
-      [v9 setSystemFieldsOnlyRecord:v15];
+      v21 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithCoder:v17];
+      [v13 setSystemFieldsOnlyRecord:v21];
 
-      v7 = v9;
+      v9 = v13;
     }
 
     else
     {
-      ASLoggingInitialize();
+      ASLoggingInitialize(v10, v11);
       if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
       {
         +[ASMigrationAvailableItem(CloudKitCodingSupport) migrationAvailableItemWithRecord:];
       }
 
-      v7 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    ASLoggingInitialize();
+    ASLoggingInitialize(v4, v5);
     if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
     {
       +[ASMigrationAvailableItem(CloudKitCodingSupport) migrationAvailableItemWithRecord:];
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
-  return v7;
+  return v9;
 }
 
 - (id)recordWithZoneID:(id)d recordEncryptionType:(int64_t)type

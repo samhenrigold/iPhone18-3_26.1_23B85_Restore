@@ -14,12 +14,154 @@
 - (void)_lock_removeClone:(id)clone fromWindowServerDisplay:(id)display;
 - (void)_lock_removeDisplayCloneDestination:(id)destination;
 - (void)_lock_setupCloningToDestination:(id)destination fromVirtualMode:(id)mode hideByDefault:(BOOL)default;
+- (void)addModeRequest:(unint64_t)request forDisplay:(id)display clientPID:(int)d;
 - (void)cloneMirroringRequestsDidChange;
 - (void)evaluateDisplay:(id)display reason:(id)reason;
 - (void)removeDisplay:(id)display;
+- (void)removeModeRequestForDisplay:(id)display clientPID:(int)d;
+- (void)setCloneRotationDisabled:(BOOL)disabled;
 @end
 
 @implementation BKDisplayCloneMirroringManager
+
+- (void)removeModeRequestForDisplay:(id)display clientPID:(int)d
+{
+  v4 = *&d;
+  displayCopy = display;
+  os_unfair_lock_lock(&self->_lock);
+  lock_cloneMirrorRequests = self->_lock_cloneMirrorRequests;
+  v8 = displayCopy;
+  if (lock_cloneMirrorRequests)
+  {
+    v9 = BKLogDisplay();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = BSProcessDescriptionForPID();
+      v15 = 138543618;
+      v16 = v8;
+      v17 = 2114;
+      v18 = v10;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "clone mirror mode remove for destinationDisplay:%{public}@ from process:%{public}@", &v15, 0x16u);
+    }
+
+    os_unfair_lock_lock(&lock_cloneMirrorRequests->_lock);
+    v11 = [NSNumber numberWithInt:v4];
+    v12 = [(NSMutableDictionary *)lock_cloneMirrorRequests->_pidToRequests objectForKey:v11];
+    v13 = [v12 objectForKey:v8];
+    if (v13)
+    {
+      [(NSMutableOrderedSet *)lock_cloneMirrorRequests->_modeRequestsInOrder removeObject:v13];
+      [v12 removeObjectForKey:v8];
+    }
+
+    if (![v12 count])
+    {
+      [(NSMutableDictionary *)lock_cloneMirrorRequests->_pidToRequests removeObjectForKey:v11];
+      v14 = [(NSMutableDictionary *)lock_cloneMirrorRequests->_pidToDeathWatcher objectForKey:v11];
+      [v14 invalidate];
+
+      [(NSMutableDictionary *)lock_cloneMirrorRequests->_pidToDeathWatcher removeObjectForKey:v11];
+    }
+
+    [(BKDisplayCloneMirrorRequestCache *)lock_cloneMirrorRequests _lock_rebuildModeCache];
+    os_unfair_lock_unlock(&lock_cloneMirrorRequests->_lock);
+  }
+
+  [(BKDisplayCloneMirroringManager *)self _lock_evaluateAllDisplaysForReason:@"removeModeRequest"];
+
+  os_unfair_lock_unlock(&self->_lock);
+}
+
+- (void)addModeRequest:(unint64_t)request forDisplay:(id)display clientPID:(int)d
+{
+  v5 = *&d;
+  displayCopy = display;
+  os_unfair_lock_lock(&self->_lock);
+  lock_cloneMirrorRequests = self->_lock_cloneMirrorRequests;
+  v11 = displayCopy;
+  if (lock_cloneMirrorRequests)
+  {
+    v12 = BKLogDisplay();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = NSStringFromBKSDisplayServicesCloneMirroringMode();
+      v14 = BSProcessDescriptionForPID();
+      *buf = 138543874;
+      *&buf[4] = v13;
+      v37 = 2114;
+      v38 = v11;
+      v39 = 2114;
+      v40 = v14;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "clone mirror mode request:%{public}@ destinationDisplay:%{public}@ from process:%{public}@", buf, 0x20u);
+    }
+
+    os_unfair_lock_lock(&lock_cloneMirrorRequests->_lock);
+    v15 = objc_alloc_init(BKDisplayCloneMirrorRequestClient);
+    v16 = v15;
+    if (v15)
+    {
+      v15->_pid = v5;
+      objc_storeStrong(&v15->_displayUUID, display);
+      v16->_mode = request;
+    }
+
+    if (!lock_cloneMirrorRequests->_displayUUIDToModeRequest)
+    {
+      v17 = objc_alloc_init(NSMutableDictionary);
+      displayUUIDToModeRequest = lock_cloneMirrorRequests->_displayUUIDToModeRequest;
+      lock_cloneMirrorRequests->_displayUUIDToModeRequest = v17;
+
+      v19 = objc_alloc_init(NSMutableDictionary);
+      pidToRequests = lock_cloneMirrorRequests->_pidToRequests;
+      lock_cloneMirrorRequests->_pidToRequests = v19;
+
+      v21 = objc_alloc_init(NSMutableOrderedSet);
+      modeRequestsInOrder = lock_cloneMirrorRequests->_modeRequestsInOrder;
+      lock_cloneMirrorRequests->_modeRequestsInOrder = v21;
+    }
+
+    v23 = [NSNumber numberWithInt:v5];
+    v24 = [(NSMutableDictionary *)lock_cloneMirrorRequests->_pidToRequests objectForKey:v23];
+    v25 = v24;
+    if (v24)
+    {
+      v26 = [v24 objectForKey:v11];
+      [(NSMutableOrderedSet *)lock_cloneMirrorRequests->_modeRequestsInOrder removeObject:v26];
+      [v25 setObject:v16 forKey:v11];
+    }
+
+    else
+    {
+      v34 = lock_cloneMirrorRequests->_pidToRequests;
+      v27 = [NSMutableDictionary alloc];
+      *buf = v16;
+      v28 = [NSArray arrayWithObjects:buf count:1];
+      v35 = v11;
+      v29 = [NSArray arrayWithObjects:&v35 count:1];
+      v30 = [v27 initWithObjects:v28 forKeys:v29];
+      [(NSMutableDictionary *)v34 setObject:v30 forKey:v23];
+
+      [(BKDisplayCloneMirrorRequestCache *)lock_cloneMirrorRequests _lock_addDeathWatcherForPid:v5];
+    }
+
+    [(NSMutableOrderedSet *)lock_cloneMirrorRequests->_modeRequestsInOrder addObject:v16, v34];
+    v31 = [(NSMutableDictionary *)lock_cloneMirrorRequests->_displayUUIDToModeRequest objectForKey:v11];
+    v32 = v31;
+    if (!v31 || *(v31 + 8) == v5)
+    {
+      v33 = v16;
+
+      [(NSMutableDictionary *)lock_cloneMirrorRequests->_displayUUIDToModeRequest setObject:v33 forKey:v11];
+      v32 = v33;
+    }
+
+    os_unfair_lock_unlock(&lock_cloneMirrorRequests->_lock);
+  }
+
+  [(BKDisplayCloneMirroringManager *)self _lock_evaluateAllDisplaysForReason:@"addModeRequest"];
+
+  os_unfair_lock_unlock(&self->_lock);
+}
 
 - (void)removeDisplay:(id)display
 {
@@ -181,6 +323,20 @@
 
   os_unfair_lock_lock(&self->_lock);
   [(BKDisplayCloneMirroringManager *)self _lock_evaluateDisplay:v23 reason:reasonCopy];
+  os_unfair_lock_unlock(&self->_lock);
+}
+
+- (void)setCloneRotationDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  os_unfair_lock_lock(&self->_lock);
+  if (self->_lock_cloneRotationDisabled != disabledCopy)
+  {
+    self->_lock_cloneRotationDisabled = disabledCopy;
+    disabledCopy = [NSString stringWithFormat:@"setCloneRotationDisabled:%d", disabledCopy];
+    [(BKDisplayCloneMirroringManager *)self _lock_evaluateExistingClonesForReason:disabledCopy];
+  }
+
   os_unfair_lock_unlock(&self->_lock);
 }
 

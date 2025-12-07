@@ -8,6 +8,7 @@
 - (int)_stopNetwork:(id)network session:(id)session;
 - (void)dealloc;
 - (void)disassociate;
+- (void)startNetworkWithHostRole:(int)role request:(id)request completion:(id)completion;
 - (void)stopNetwork:(id)network completion:(id)completion;
 @end
 
@@ -49,27 +50,27 @@
 
 - (id)hostedNetworkMatchingSSID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   [(WLWiFiDeviceClient *)self _hostedNetworks];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = v16 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         ssid = [v9 ssid];
         v11 = [ssid isEqualToString:dCopy];
 
@@ -80,7 +81,7 @@
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -91,8 +92,6 @@
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -114,6 +113,33 @@ LABEL_11:
   MEMORY[0x282187638](v2, 0);
 }
 
+- (void)startNetworkWithHostRole:(int)role request:(id)request completion:(id)completion
+{
+  v6 = *&role;
+  requestCopy = request;
+  completionCopy = completion;
+  v9 = _startSessionToCompletionMap(completionCopy);
+  wl_uniqueIdentifier = [MEMORY[0x277CCACA8] wl_uniqueIdentifier];
+  v11 = v9;
+  objc_sync_enter(v11);
+  v12 = MEMORY[0x2743DF630](completionCopy);
+  [v11 setObject:v12 forKeyedSubscript:wl_uniqueIdentifier];
+
+  objc_sync_exit(v11);
+  v13 = [(WLWiFiDeviceClient *)self _startNetworkWithRole:v6 request:requestCopy session:wl_uniqueIdentifier];
+  if (v13)
+  {
+    v15 = v13;
+    _WLLog();
+    v14 = v11;
+    objc_sync_enter(v14);
+    [v14 setObject:0 forKeyedSubscript:{wl_uniqueIdentifier, v15}];
+    objc_sync_exit(v14);
+
+    completionCopy[2](completionCopy, 0);
+  }
+}
+
 - (int)_startNetworkWithRole:(int)role request:(id)request session:(id)session
 {
   sessionCopy = session;
@@ -128,7 +154,7 @@ LABEL_11:
 {
   networkCopy = network;
   completionCopy = completion;
-  v7 = _stopSessionToCompletionMap();
+  v7 = _stopSessionToCompletionMap(completionCopy);
   wl_uniqueIdentifier = [MEMORY[0x277CCACA8] wl_uniqueIdentifier];
   v9 = v7;
   objc_sync_enter(v9);
@@ -163,19 +189,19 @@ LABEL_11:
 
 - (BOOL)_completionMapsAreEmpty
 {
-  v2 = _startSessionToCompletionMap();
-  objc_sync_enter(v2);
-  v3 = _startSessionToCompletionMap();
-  v4 = [v3 count];
+  v2 = _startSessionToCompletionMap(self);
+  v3 = objc_sync_enter(v2);
+  v4 = _startSessionToCompletionMap(v3);
+  v5 = [v4 count];
 
   objc_sync_exit(v2);
-  v5 = _stopSessionToCompletionMap();
-  objc_sync_enter(v5);
-  v6 = _stopSessionToCompletionMap();
-  v7 = v4 | [v6 count];
+  v7 = _stopSessionToCompletionMap(v6);
+  v8 = objc_sync_enter(v7);
+  v9 = _stopSessionToCompletionMap(v8);
+  v10 = v5 | [v9 count];
 
-  objc_sync_exit(v5);
-  return v7 == 0;
+  objc_sync_exit(v7);
+  return v10 == 0;
 }
 
 @end

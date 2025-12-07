@@ -18,7 +18,9 @@ void __134__WBSLPLinkMetadataCache__setMetadata_forURLString_lastFetchDate_lastF
   v2 = *(*a1 + 64);
   v3 = a2;
   v4 = [v2 path];
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Skipping LP metadata disk cache write despite successful fetch due to failed UUID write to database at %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Skipping LP metadata disk cache write despite successful fetch due to failed UUID write to database at %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __134__WBSLPLinkMetadataCache__setMetadata_forURLString_lastFetchDate_lastFetchDidSucceed_metadataHasImage_existingInfo_completionHandler___block_invoke_3_cold_2(uint64_t a1, void *a2)
@@ -26,7 +28,9 @@ void __134__WBSLPLinkMetadataCache__setMetadata_forURLString_lastFetchDate_lastF
   v2 = *(*a1 + 64);
   v3 = a2;
   v4 = [v2 path];
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Skipping LP metadata disk cache write due to failed database write at %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Skipping LP metadata disk cache write due to failed database write at %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)sqliteStoreDidFailDatabaseIntegrityCheck:(void *)a3 completionHandler:.cold.1(void **a1, void *a2, void *a3)

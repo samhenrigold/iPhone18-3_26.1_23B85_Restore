@@ -10,14 +10,14 @@
 
 - (id)extractionsFromText:(id)text bundleId:(id)id
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   textCopy = text;
   idCopy = id;
   v8 = objc_opt_new();
   v9 = +[PPConfiguration sharedInstance];
   isMultilingual = [v9 isMultilingual];
 
-  v46 = textCopy;
+  v45 = textCopy;
   if (isMultilingual)
   {
     v11 = MEMORY[0x277D3A248];
@@ -44,7 +44,7 @@
   v15 = 1;
 LABEL_6:
   v17 = [v14 componentsFromLocaleIdentifier:languageCode];
-  v44 = [v17 objectForKeyedSubscript:*MEMORY[0x277CBE6C8]];
+  v43 = [v17 objectForKeyedSubscript:*MEMORY[0x277CBE6C8]];
 
   if (v15)
   {
@@ -54,39 +54,39 @@ LABEL_6:
   v19 = objc_opt_new();
   uUIDString = [v19 UUIDString];
   date = [MEMORY[0x277CBEAA8] date];
-  v22 = [v18 initWithBundleId:idCopy groupId:0 documentId:uUIDString date:date relevanceDate:0 contactHandles:0 language:v44 metadata:0];
+  v22 = [v18 initWithBundleId:idCopy groupId:0 documentId:uUIDString date:date relevanceDate:0 contactHandles:0 language:v43 metadata:0];
 
   v23 = +[PPConfiguration sharedInstance];
-  v24 = [v23 extractionAlgorithmsForBundleId:idCopy sourceLanguage:v44 conservative:0 domain:0];
+  v24 = [v23 extractionAlgorithmsForBundleId:idCopy sourceLanguage:v43 conservative:0 domain:0];
 
   v25 = +[PPConfiguration sharedInstance];
-  v26 = [v25 extractionAlgorithmsForBundleId:idCopy sourceLanguage:v44 conservative:0 domain:1];
+  v26 = [v25 extractionAlgorithmsForBundleId:idCopy sourceLanguage:v43 conservative:0 domain:1];
 
-  v41 = v26;
-  v42 = v24;
-  v43 = v22;
-  v27 = [(PPTopicDissector *)self->_dissector topicsInText:v46 isPlainText:1 source:v22 cloudSync:0 language:v44 topicAlgorithms:v24 namedEntityAlgorithms:1.0 weight:v26];
+  v40 = v26;
+  v41 = v24;
+  v42 = v22;
+  v27 = [(PPTopicDissector *)self->_dissector topicsInText:v45 isPlainText:1 source:v22 cloudSync:0 language:v43 topicAlgorithms:v24 namedEntityAlgorithms:1.0 weight:v26];
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
-  v28 = [v27 countByEnumeratingWithState:&v47 objects:v51 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v46 objects:v50 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v48;
+    v30 = *v47;
     do
     {
       v31 = 0;
       v32 = v8;
       do
       {
-        if (*v48 != v30)
+        if (*v47 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v33 = *(*(&v47 + 1) + 8 * v31);
+        v33 = *(*(&v46 + 1) + 8 * v31);
         topics = [v33 topics];
         if (topics)
         {
@@ -108,13 +108,11 @@ LABEL_6:
       }
 
       while (v29 != v31);
-      v29 = [v27 countByEnumeratingWithState:&v47 objects:v51 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v46 objects:v50 count:16];
     }
 
     while (v29);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

@@ -56,8 +56,8 @@ LABEL_33:
   invalidationFlag = v11->_invalidationFlag;
   v11->_invalidationFlag = v12;
 
-  v14 = PBFLogSQLite();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = PBFLogSQLite(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
     v46 = v11;
@@ -65,55 +65,56 @@ LABEL_33:
     v48 = lCopy;
     v49 = 1024;
     *v50 = v6;
-    _os_log_impl(&dword_21B526000, v14, OS_LOG_TYPE_DEFAULT, "[%p] opening database at %{public}@ w/ flags %d", buf, 0x1Cu);
+    _os_log_impl(&dword_21B526000, v15, OS_LOG_TYPE_DEFAULT, "[%p] opening database at %{public}@ w/ flags %d", buf, 0x1Cu);
   }
 
   v43 = 0;
-  v15 = [objc_alloc(MEMORY[0x277D3EB90]) initWithFileURL:lCopy options:v6 dataProtectionClass:1 error:&v43];
-  v16 = v43;
+  v16 = [objc_alloc(MEMORY[0x277D3EB90]) initWithFileURL:lCopy options:v6 dataProtectionClass:1 error:&v43];
+  v17 = v43;
   connection = v11->_connection;
-  v11->_connection = v15;
+  v11->_connection = v16;
 
-  v18 = v11->_connection;
-  if (v18 && !v16)
+  v20 = v11->_connection;
+  if (v20 && !v17)
   {
     errorCopy = error;
-    v19 = PBFLogSQLite();
-    [(PFSQLiteDatabaseConnection *)v18 setLoggingCategory:v19];
+    v21 = PBFLogSQLite(v19);
+    [(PFSQLiteDatabaseConnection *)v20 setLoggingCategory:v21];
 
     v41 = 0u;
     v42 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v20 = [&unk_282D0A288 countByEnumeratingWithState:&v39 objects:v53 count:16];
-    if (v20)
+    v22 = [&unk_282D0A288 countByEnumeratingWithState:&v39 objects:v53 count:16];
+    if (v22)
     {
-      v21 = v20;
-      v22 = *v40;
+      v23 = v22;
+      v24 = *v40;
 LABEL_8:
-      v23 = 0;
+      v25 = 0;
       while (1)
       {
-        if (*v40 != v22)
+        if (*v40 != v24)
         {
           objc_enumerationMutation(&unk_282D0A288);
         }
 
-        v24 = *(*(&v39 + 1) + 8 * v23);
-        v25 = v11->_connection;
+        v26 = *(*(&v39 + 1) + 8 * v25);
+        v27 = v11->_connection;
         v38 = 0;
-        errorCopy = [(PFSQLiteDatabaseConnection *)v25 executeQuery:v24 error:&v38, errorCopy];
-        v27 = v38;
-        v16 = v27;
+        errorCopy = [(PFSQLiteDatabaseConnection *)v27 executeQuery:v26 error:&v38, errorCopy];
+        v29 = v38;
+        v17 = v29;
         if ((errorCopy & 1) == 0)
         {
           break;
         }
 
-        if (v21 == ++v23)
+        if (v23 == ++v25)
         {
-          v21 = [&unk_282D0A288 countByEnumeratingWithState:&v39 objects:v53 count:16];
-          if (v21)
+          v22 = [&unk_282D0A288 countByEnumeratingWithState:&v39 objects:v53 count:16];
+          v23 = v22;
+          if (v22)
           {
             goto LABEL_8;
           }
@@ -122,32 +123,32 @@ LABEL_8:
         }
       }
 
-      v30 = PBFLogSQLite();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v31 = PBFLogSQLite(v29);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         *buf = 134219010;
         v46 = v11;
         v47 = 2114;
-        v48 = v24;
+        v48 = v26;
         v49 = 2114;
         *v50 = lCopy;
         *&v50[8] = 1024;
         *&v50[10] = v6;
         v51 = 2114;
-        v52 = v16;
-        _os_log_error_impl(&dword_21B526000, v30, OS_LOG_TYPE_ERROR, "[%p] failed to run pragma '%{public}@' on database at %{public}@ w/ flags %d: %{public}@", buf, 0x30u);
+        v52 = v17;
+        _os_log_error_impl(&dword_21B526000, v31, OS_LOG_TYPE_ERROR, "[%p] failed to run pragma '%{public}@' on database at %{public}@ w/ flags %d: %{public}@", buf, 0x30u);
       }
 
-      if (v16)
+      if (v17)
       {
         if (errorCopy)
         {
-          v31 = v16;
-          *errorCopy = v16;
+          v22 = v17;
+          *errorCopy = v17;
         }
 
-        v29 = PBFLogSQLite();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v30 = PBFLogSQLite(v22);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           [_PBFPosterExtensionDataStoreSQLiteDatabaseImpl initWithURL:options:error:];
         }
@@ -157,7 +158,7 @@ LABEL_8:
     }
 
 LABEL_30:
-    v33 = PBFLogSQLite();
+    v33 = PBFLogSQLite(v22);
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
@@ -173,19 +174,20 @@ LABEL_30:
     goto LABEL_33;
   }
 
-  if (!v16)
+  if (!v17)
   {
-    v16 = _PBFPosterExtensionDataStoreSQLiteDatabaseError(2, 0, 0, 0);
+    v19 = _PBFPosterExtensionDataStoreSQLiteDatabaseError(2, 0, 0, 0);
+    v17 = v19;
   }
 
-  if (error && v16)
+  if (error && v17)
   {
-    v28 = v16;
-    *error = v16;
+    v19 = v17;
+    *error = v17;
   }
 
-  v29 = PBFLogSQLite();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v30 = PBFLogSQLite(v19);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     *buf = 134218754;
     v46 = v11;
@@ -194,8 +196,8 @@ LABEL_30:
     v49 = 1024;
     *v50 = v6;
     *&v50[4] = 2114;
-    *&v50[6] = v16;
-    _os_log_error_impl(&dword_21B526000, v29, OS_LOG_TYPE_ERROR, "[%p] failed open database at %{public}@ w/ flags %d: %{public}@", buf, 0x26u);
+    *&v50[6] = v17;
+    _os_log_error_impl(&dword_21B526000, v30, OS_LOG_TYPE_ERROR, "[%p] failed open database at %{public}@ w/ flags %d: %{public}@", buf, 0x26u);
   }
 
 LABEL_29:
@@ -209,7 +211,7 @@ LABEL_34:
 - (void)dealloc
 {
   v7 = *MEMORY[0x277D85DE8];
-  v3 = PBFLogSQLite();
+  v3 = PBFLogSQLite(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -243,7 +245,7 @@ LABEL_34:
 
 - (id)setup
 {
-  v54[2] = *MEMORY[0x277D85DE8];
+  v59[2] = *MEMORY[0x277D85DE8];
   if ([(BSAtomicFlag *)self->_invalidationFlag getFlag])
   {
     v3 = [MEMORY[0x277CCA9B8] pbf_generalErrorWithCode:3 userInfo:0];
@@ -253,23 +255,23 @@ LABEL_34:
   v4 = [(_PBFPosterExtensionDataStoreSQLiteDatabaseImpl *)self dataStoreMetadataWithError:0];
   v5 = [v4 objectForKey:@"version"];
 
-  v6 = PBFLogSQLite();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = PBFLogSQLite(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     selfCopy8 = self;
-    _os_log_impl(&dword_21B526000, v6, OS_LOG_TYPE_DEFAULT, "[%p] setup", buf, 0xCu);
+    _os_log_impl(&dword_21B526000, v7, OS_LOG_TYPE_DEFAULT, "[%p] setup", buf, 0xCu);
   }
 
-  v37 = v5;
+  v42 = v5;
   if (self->_sqliteFlags)
   {
-    v12 = PBFLogSQLite();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v16 = PBFLogSQLite(v8);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       selfCopy8 = self;
-      _os_log_impl(&dword_21B526000, v12, OS_LOG_TYPE_DEFAULT, "[%p] setup bail; is readonly", buf, 0xCu);
+      _os_log_impl(&dword_21B526000, v16, OS_LOG_TYPE_DEFAULT, "[%p] setup bail; is readonly", buf, 0xCu);
     }
 
     v3 = 0;
@@ -277,13 +279,14 @@ LABEL_34:
   }
 
   connection = self->_connection;
-  v46 = 0;
-  v8 = [(PFSQLiteDatabaseConnection *)connection executeQuery:@"BEGIN TRANSACTION;" error:&v46];
-  v3 = v46;
-  if ((v8 & 1) == 0)
+  v51 = 0;
+  v10 = [(PFSQLiteDatabaseConnection *)connection executeQuery:@"BEGIN TRANSACTION;" error:&v51];
+  integerValue = v51;
+  v3 = integerValue;
+  if ((v10 & 1) == 0)
   {
-    v12 = PBFLogSQLite();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = PBFLogSQLite(integerValue);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [_PBFPosterExtensionDataStoreSQLiteDatabaseImpl setup];
     }
@@ -294,6 +297,7 @@ LABEL_34:
   if (v5)
   {
     integerValue = [v5 integerValue];
+    v12 = integerValue;
     if (integerValue > 1)
     {
       goto LABEL_9;
@@ -302,105 +306,105 @@ LABEL_34:
 
   else
   {
-    integerValue = -1;
+    v12 = -1;
   }
 
   do
   {
-    v14 = PBFLogSQLite();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v18 = PBFLogSQLite(integerValue);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
       selfCopy8 = self;
-      v49 = 2048;
-      v50 = integerValue;
-      _os_log_impl(&dword_21B526000, v14, OS_LOG_TYPE_DEFAULT, "[%p] setup update database to version %lu", buf, 0x16u);
+      v54 = 2048;
+      v55 = v12;
+      _os_log_impl(&dword_21B526000, v18, OS_LOG_TYPE_DEFAULT, "[%p] setup update database to version %lu", buf, 0x16u);
     }
 
-    if (integerValue < 0)
+    if (v12 < 0)
     {
-      v18 = &unk_282D0A2A0;
+      v22 = &unk_282D0A2A0;
     }
 
-    else if (integerValue == 1)
+    else if (v12 == 1)
     {
-      v54[0] = @"UPDATE posterMetadata SET value = 2 WHERE key = version;";
-      v15 = MEMORY[0x277CCACA8];
+      v59[0] = @"UPDATE posterMetadata SET value = 2 WHERE key = version;";
+      v19 = MEMORY[0x277CCACA8];
       mEMORY[0x277CF0CA8] = [MEMORY[0x277CF0CA8] sharedInstance];
-      v17 = [v15 stringWithFormat:@"INSERT INTO posterMetadata(key, value) VALUES(deviceClass, %d)", objc_msgSend(mEMORY[0x277CF0CA8], "deviceClass")];;
-      v54[1] = v17;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
+      v21 = [v19 stringWithFormat:@"INSERT INTO posterMetadata(key, value) VALUES(deviceClass, %d)", objc_msgSend(mEMORY[0x277CF0CA8], "deviceClass")];;
+      v59[1] = v21;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
     }
 
     else
     {
-      v18 = 0;
+      v22 = 0;
     }
 
-    if ([v18 count])
+    if ([v22 count])
     {
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v19 = v18;
-      v20 = [v19 countByEnumeratingWithState:&v42 objects:v53 count:16];
-      if (v20)
+      v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v23 = v22;
+      v24 = [v23 countByEnumeratingWithState:&v47 objects:v58 count:16];
+      if (v24)
       {
-        v21 = v20;
-        v22 = *v43;
-        v23 = v3;
+        v25 = v24;
+        v26 = *v48;
+        v27 = v3;
         while (2)
         {
-          for (i = 0; i != v21; ++i)
+          for (i = 0; i != v25; ++i)
           {
-            if (*v43 != v22)
+            if (*v48 != v26)
             {
-              objc_enumerationMutation(v19);
+              objc_enumerationMutation(v23);
             }
 
-            v25 = *(*(&v42 + 1) + 8 * i);
-            v26 = self->_connection;
-            v41 = 0;
-            [(PFSQLiteDatabaseConnection *)v26 executeQuery:v25 error:&v41];
-            v3 = v41;
+            v29 = *(*(&v47 + 1) + 8 * i);
+            v30 = self->_connection;
+            v46 = 0;
+            [(PFSQLiteDatabaseConnection *)v30 executeQuery:v29 error:&v46];
+            v3 = v46;
 
-            v27 = PBFLogSQLite();
-            v28 = v27;
+            v32 = PBFLogSQLite(v31);
+            v33 = v32;
             if (v3)
             {
-              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
               {
                 databaseURL = self->_databaseURL;
                 *buf = 134218754;
                 selfCopy8 = self;
-                v49 = 2114;
-                v50 = v25;
-                v51 = 2114;
-                *v52 = databaseURL;
-                *&v52[8] = 2114;
-                *&v52[10] = v3;
-                _os_log_error_impl(&dword_21B526000, v28, OS_LOG_TYPE_ERROR, "[%p] failed to execute setup query '%{public}@' on database at %{public}@: %{public}@", buf, 0x2Au);
+                v54 = 2114;
+                v55 = v29;
+                v56 = 2114;
+                *v57 = databaseURL;
+                *&v57[8] = 2114;
+                *&v57[10] = v3;
+                _os_log_error_impl(&dword_21B526000, v33, OS_LOG_TYPE_ERROR, "[%p] failed to execute setup query '%{public}@' on database at %{public}@: %{public}@", buf, 0x2Au);
               }
 
               goto LABEL_48;
             }
 
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134218242;
               selfCopy8 = self;
-              v49 = 2114;
-              v50 = v25;
-              _os_log_impl(&dword_21B526000, v28, OS_LOG_TYPE_DEFAULT, "[%p] success setup query '%{public}@'", buf, 0x16u);
+              v54 = 2114;
+              v55 = v29;
+              _os_log_impl(&dword_21B526000, v33, OS_LOG_TYPE_DEFAULT, "[%p] success setup query '%{public}@'", buf, 0x16u);
             }
 
-            v23 = 0;
+            v27 = 0;
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v42 objects:v53 count:16];
-          v23 = 0;
-          if (v21)
+          v25 = [v23 countByEnumeratingWithState:&v47 objects:v58 count:16];
+          v27 = 0;
+          if (v25)
           {
             continue;
           }
@@ -414,47 +418,47 @@ LABEL_34:
 
     else
     {
-      v19 = PBFLogSQLite();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v23 = PBFLogSQLite(0);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218240;
         selfCopy8 = self;
-        v49 = 2048;
-        v50 = integerValue;
-        _os_log_impl(&dword_21B526000, v19, OS_LOG_TYPE_DEFAULT, "[%p] skip setup for version %lu", buf, 0x16u);
+        v54 = 2048;
+        v55 = v12;
+        _os_log_impl(&dword_21B526000, v23, OS_LOG_TYPE_DEFAULT, "[%p] skip setup for version %lu", buf, 0x16u);
       }
     }
 
 LABEL_48:
 
-    ++integerValue;
+    ++v12;
   }
 
-  while (integerValue != 2);
+  while (v12 != 2);
 LABEL_9:
-  v10 = self->_connection;
+  v13 = self->_connection;
   if (!v3)
   {
-    v40 = 0;
-    [(PFSQLiteDatabaseConnection *)v10 executeQuery:@"COMMIT TRANSACTION;" error:&v40];
-    v30 = v40;
-    if (v30)
+    v45 = 0;
+    [(PFSQLiteDatabaseConnection *)v13 executeQuery:@"COMMIT TRANSACTION;" error:&v45];
+    v35 = v45;
+    if (v35)
     {
-      v3 = v30;
-      v12 = PBFLogSQLite();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v3 = v35;
+      v16 = PBFLogSQLite(v35);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v31 = self->_databaseURL;
+        v36 = self->_databaseURL;
         sqliteFlags = self->_sqliteFlags;
         *buf = 134218754;
         selfCopy8 = self;
-        v49 = 2114;
-        v50 = v31;
-        v51 = 1024;
-        *v52 = sqliteFlags;
-        *&v52[4] = 2114;
-        *&v52[6] = v3;
-        _os_log_error_impl(&dword_21B526000, v12, OS_LOG_TYPE_ERROR, "[%p] failed to commit transaction on database at %{public}@ w/ flags %d: %{public}@", buf, 0x26u);
+        v54 = 2114;
+        v55 = v36;
+        v56 = 1024;
+        *v57 = sqliteFlags;
+        *&v57[4] = 2114;
+        *&v57[6] = v3;
+        _os_log_error_impl(&dword_21B526000, v16, OS_LOG_TYPE_ERROR, "[%p] failed to commit transaction on database at %{public}@ w/ flags %d: %{public}@", buf, 0x26u);
       }
 
       goto LABEL_19;
@@ -463,25 +467,25 @@ LABEL_9:
     goto LABEL_53;
   }
 
-  v39 = 0;
-  [(PFSQLiteDatabaseConnection *)v10 executeQuery:@"ROLLBACK TRANSACTION;" error:&v39];
-  v11 = v39;
+  v44 = 0;
+  [(PFSQLiteDatabaseConnection *)v13 executeQuery:@"ROLLBACK TRANSACTION;" error:&v44];
+  v14 = v44;
 
-  if (!v11)
+  if (!v14)
   {
 LABEL_53:
-    if (integerValue == 2)
+    if (v12 == 2)
     {
-      v38 = 0;
-      v33 = [(_PBFPosterExtensionDataStoreSQLiteDatabaseImpl *)self dataStoreMetadataWithError:&v38];
-      v3 = v38;
-      v12 = [v33 objectForKey:@"version"];
+      v43 = 0;
+      v38 = [(_PBFPosterExtensionDataStoreSQLiteDatabaseImpl *)self dataStoreMetadataWithError:&v43];
+      v3 = v43;
+      v16 = [v38 objectForKey:@"version"];
 
-      if ([v12 integerValue]!= 2 && !v3)
+      if ([v16 integerValue]!= 2 && !v3)
       {
         v3 = _PBFPosterExtensionDataStoreSQLiteDatabaseError(1, 0, @"Database migration failed final version not equal to expected version", 0);;
-        v34 = PBFLogSQLite();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v39 = PBFLogSQLite(v3);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           [_PBFPosterExtensionDataStoreSQLiteDatabaseImpl setup];
         }
@@ -491,8 +495,8 @@ LABEL_53:
     else
     {
       v3 = _PBFPosterExtensionDataStoreSQLiteDatabaseError(1, 0, @"Database migration failed.", 0);
-      v12 = PBFLogSQLite();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v16 = PBFLogSQLite(v3);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [_PBFPosterExtensionDataStoreSQLiteDatabaseImpl setup];
       }
@@ -501,23 +505,23 @@ LABEL_53:
     goto LABEL_19;
   }
 
-  v12 = PBFLogSQLite();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v16 = PBFLogSQLite(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    v35 = self->_databaseURL;
-    v36 = self->_sqliteFlags;
+    v40 = self->_databaseURL;
+    v41 = self->_sqliteFlags;
     *buf = 134218754;
     selfCopy8 = self;
-    v49 = 2114;
-    v50 = v35;
-    v51 = 1024;
-    *v52 = v36;
-    *&v52[4] = 2114;
-    *&v52[6] = v11;
-    _os_log_error_impl(&dword_21B526000, v12, OS_LOG_TYPE_ERROR, "[%p] failed to rollback transaction on database at %{public}@ w/ flags %d: %{public}@", buf, 0x26u);
+    v54 = 2114;
+    v55 = v40;
+    v56 = 1024;
+    *v57 = v41;
+    *&v57[4] = 2114;
+    *&v57[6] = v14;
+    _os_log_error_impl(&dword_21B526000, v16, OS_LOG_TYPE_ERROR, "[%p] failed to rollback transaction on database at %{public}@ w/ flags %d: %{public}@", buf, 0x26u);
   }
 
-  v3 = v11;
+  v3 = v14;
 LABEL_19:
 
 LABEL_20:
@@ -534,7 +538,7 @@ LABEL_20:
     v6 = [(_PBFPosterExtensionDataStoreSQLiteDatabaseImpl *)self dataStoreMetadataWithError:error];
     v39 = [v6 objectForKey:@"version"];
 
-    v7 = v39;
+    v8 = v39;
     if (v39)
     {
       integerValue = [v39 integerValue];
@@ -546,30 +550,30 @@ LABEL_41:
         return v5;
       }
 
-      v9 = integerValue;
-      v10 = 0;
-      while (v9 == 1)
+      v10 = integerValue;
+      v11 = 0;
+      while (v10 == 1)
       {
-        v11 = objc_opt_new();
+        v12 = objc_opt_new();
         connection = self->_connection;
         v43[0] = MEMORY[0x277D85DD0];
         v43[1] = 3221225472;
         v43[2] = __76___PBFPosterExtensionDataStoreSQLiteDatabaseImpl_validateDatabaseWithError___block_invoke;
         v43[3] = &unk_2782C91C8;
-        v13 = v11;
-        v44 = v13;
+        v14 = v12;
+        v44 = v14;
         v42 = 0;
         [(PFSQLiteDatabaseConnection *)connection executeQuery:@"SELECT tbl_name from sqlite_master WHERE type = 'table' AND tbl_name NOT LIKE 'sqlite_%'" resultRowHandler:v43 error:&v42];
-        v14 = v42;
+        v15 = v42;
 
-        v15 = [MEMORY[0x277CBEB98] setWithObjects:{@"poster", @"posterMetadata", @"posterAttributes", @"posterRoles", @"posterRoleMembership", 0}];
-        if (([v15 isEqual:v13] & 1) == 0)
+        v16 = [MEMORY[0x277CBEB98] setWithObjects:{@"poster", @"posterMetadata", @"posterAttributes", @"posterRoles", @"posterRoleMembership", 0}];
+        if (([v16 isEqual:v14] & 1) == 0)
         {
           v49[0] = @"version";
           v25 = [MEMORY[0x277CCABB0] numberWithInteger:1];
           v50[0] = v25;
           v49[1] = @"expectingTableNames";
-          allObjects = [v15 allObjects];
+          allObjects = [v16 allObjects];
           v27 = allObjects;
           v28 = MEMORY[0x277CBEBF8];
           if (allObjects)
@@ -584,7 +588,7 @@ LABEL_41:
 
           v50[1] = v29;
           v49[2] = @"tableNames";
-          allObjects2 = [v13 allObjects];
+          allObjects2 = [v14 allObjects];
           v31 = allObjects2;
           if (allObjects2)
           {
@@ -606,7 +610,7 @@ LABEL_41:
             *errorCopy = v34;
           }
 
-          v36 = PBFLogSQLite();
+          v36 = PBFLogSQLite(v35);
           if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
             [_PBFPosterExtensionDataStoreSQLiteDatabaseImpl validateDatabaseWithError:];
@@ -615,11 +619,11 @@ LABEL_41:
           goto LABEL_39;
         }
 
-        v10 = v14;
-        v9 = 2;
+        v11 = v15;
+        v10 = 2;
       }
 
-      if (v9 == 2)
+      if (v10 == 2)
       {
         *buf = 0;
         *&buf[8] = buf;
@@ -627,25 +631,25 @@ LABEL_41:
         v46 = __Block_byref_object_copy__8;
         v47 = __Block_byref_object_dispose__8;
         v48 = 0;
-        v16 = self->_connection;
+        v17 = self->_connection;
         v40 = 0;
         v41[0] = MEMORY[0x277D85DD0];
         v41[1] = 3221225472;
         v41[2] = __76___PBFPosterExtensionDataStoreSQLiteDatabaseImpl_validateDatabaseWithError___block_invoke_250;
         v41[3] = &unk_2782C91F0;
         v41[4] = buf;
-        [(PFSQLiteDatabaseConnection *)v16 executeQuery:@"SELECT value FROM posterMetadata WHERE key = 'version';" resultRowHandler:v41 error:&v40];
-        v17 = v40;
-        v18 = v17;
-        if (v17)
+        [(PFSQLiteDatabaseConnection *)v17 executeQuery:@"SELECT value FROM posterMetadata WHERE key = 'version';" resultRowHandler:v41 error:&v40];
+        v18 = v40;
+        v19 = v18;
+        if (v18)
         {
           if (errorCopy)
           {
-            v19 = v17;
-            *errorCopy = v18;
+            v18 = v18;
+            *errorCopy = v19;
           }
 
-          v20 = PBFLogSQLite();
+          v20 = PBFLogSQLite(v18);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             [_PBFPosterExtensionDataStoreSQLiteDatabaseImpl validateDatabaseWithError:];
@@ -658,7 +662,7 @@ LABEL_41:
 
       else
       {
-        v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"Version check failed for version %ld", v9];
+        v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"Version check failed for version %ld", v10];
         v22 = _PBFPosterExtensionDataStoreSQLiteDatabaseError(5, 0, v21, 0);
 
         if (errorCopy)
@@ -667,13 +671,13 @@ LABEL_41:
           *errorCopy = v22;
         }
 
-        v24 = PBFLogSQLite();
+        v24 = PBFLogSQLite(v23);
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218498;
           *&buf[4] = self;
           *&buf[12] = 2048;
-          *&buf[14] = v9;
+          *&buf[14] = v10;
           *&buf[22] = 2114;
           v46 = v22;
           _os_log_error_impl(&dword_21B526000, v24, OS_LOG_TYPE_ERROR, "[%p] failed validateDatabaseWithError for version %lu with error: %{public}@", buf, 0x20u);
@@ -682,22 +686,22 @@ LABEL_41:
         v5 = 0;
       }
 
-      v14 = v10;
+      v15 = v11;
     }
 
     else
     {
-      v14 = PBFLogSQLite();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = PBFLogSQLite(v7);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [(_PBFPosterExtensionDataStoreSQLiteDatabaseImpl *)self validateDatabaseWithError:v14];
+        [(_PBFPosterExtensionDataStoreSQLiteDatabaseImpl *)self validateDatabaseWithError:v15];
       }
 
 LABEL_39:
       v5 = 0;
     }
 
-    v7 = v39;
+    v8 = v39;
     goto LABEL_41;
   }
 
@@ -717,68 +721,71 @@ LABEL_39:
   if (![(BSAtomicFlag *)self->_invalidationFlag getFlag])
   {
     connection = self->_connection;
-    v25 = 0;
-    v9 = [(PFSQLiteDatabaseConnection *)connection executeQuery:@"BEGIN TRANSACTION;" error:&v25];
-    v10 = v25;
+    v28 = 0;
+    v9 = [(PFSQLiteDatabaseConnection *)connection executeQuery:@"BEGIN TRANSACTION;" error:&v28];
+    v10 = v28;
+    v11 = v10;
     if (v9)
     {
-      v11 = changesCopy[2](changesCopy, self);
-      v12 = self->_connection;
-      if (v11)
+      v12 = changesCopy[2](changesCopy, self);
+      v13 = self->_connection;
+      if (v12)
       {
-        v24 = 0;
-        v7 = [(PFSQLiteDatabaseConnection *)v12 executeQuery:@"COMMIT TRANSACTION;" error:&v24];
-        v13 = v24;
+        v27 = 0;
+        v7 = [(PFSQLiteDatabaseConnection *)v13 executeQuery:@"COMMIT TRANSACTION;" error:&v27];
+        v14 = v27;
+        v15 = v14;
         if ((v7 & 1) == 0)
         {
-          v14 = PBFLogSQLite();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v16 = PBFLogSQLite(v14);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             [_PBFPosterExtensionDataStoreSQLiteDatabaseImpl performChanges:error:];
           }
 
           if (error)
           {
-            v15 = v13;
-            *error = v13;
+            v17 = v15;
+            *error = v15;
           }
         }
 
         goto LABEL_24;
       }
 
-      v23 = 0;
-      v18 = [(PFSQLiteDatabaseConnection *)v12 executeQuery:@"ROLLBACK TRANSACTION;" error:&v23];
-      v19 = v23;
-      if ((v18 & 1) == 0)
+      v26 = 0;
+      v20 = [(PFSQLiteDatabaseConnection *)v13 executeQuery:@"ROLLBACK TRANSACTION;" error:&v26];
+      v21 = v26;
+      v22 = v21;
+      if ((v20 & 1) == 0)
       {
-        v20 = PBFLogSQLite();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v23 = PBFLogSQLite(v21);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           [_PBFPosterExtensionDataStoreSQLiteDatabaseImpl performChanges:error:];
         }
 
         if (error)
         {
-          v21 = v19;
-          *error = v19;
+          v24 = v22;
+          *error = v22;
         }
       }
     }
 
     else
     {
-      v16 = PBFLogSQLite();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = PBFLogSQLite(v10);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [_PBFPosterExtensionDataStoreSQLiteDatabaseImpl performChanges:error:];
       }
 
       if (error)
       {
-        v17 = v10;
+        v19 = v11;
         v7 = 0;
-        *error = v10;
+        *error = v11;
 LABEL_24:
 
         goto LABEL_25;
@@ -2184,7 +2191,7 @@ LABEL_41:
 
 - (void)sortedPosterUUIDsForRole:(char *)a1 error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleIdentifier"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2192,7 +2199,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleIdentifier", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -2203,7 +2210,7 @@ LABEL_41:
 
 - (void)checkIfPosterUUIDs:(char *)a1 belongToRole:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"posterUUIDs"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2211,7 +2218,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"posterUUIDs", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2221,7 +2228,7 @@ LABEL_41:
 
 - (void)checkIfPosterUUIDs:(char *)a1 belongToRole:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleId"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2229,7 +2236,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleId", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2239,7 +2246,7 @@ LABEL_41:
 
 - (void)selectedPosterUUIDForRole:(char *)a1 error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleIdentifier"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2247,7 +2254,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleIdentifier", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -2258,7 +2265,7 @@ LABEL_41:
 
 - (void)attributeForPoster:(char *)a1 roleId:attributeId:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"attributeIdentifier"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2266,7 +2273,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"attributeIdentifier", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -2277,7 +2284,7 @@ LABEL_41:
 
 - (void)attributeForPoster:(char *)a1 roleId:attributeId:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleIdentifier"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2285,7 +2292,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleIdentifier", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -2296,7 +2303,7 @@ LABEL_41:
 
 - (void)attributeForPoster:(char *)a1 roleId:attributeId:error:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"posterUUID"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2304,7 +2311,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"posterUUID", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -2315,7 +2322,7 @@ LABEL_41:
 
 - (void)attributesForPoster:(char *)a1 roleId:attributeIdentifiers:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"attributeIdentifiers"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2323,7 +2330,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"attributeIdentifiers", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -2334,7 +2341,7 @@ LABEL_41:
 
 - (void)attributesForPoster:(char *)a1 roleId:attributeIdentifiers:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleIdentifier"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2342,7 +2349,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleIdentifier", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -2353,7 +2360,7 @@ LABEL_41:
 
 - (void)attributesForPoster:(char *)a1 roleId:attributeIdentifiers:error:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"posterUUID"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2361,7 +2368,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"posterUUID", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -2372,7 +2379,7 @@ LABEL_41:
 
 - (void)addRole:(char *)a1 displayName:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"displayName"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2380,7 +2387,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"displayName", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2390,7 +2397,7 @@ LABEL_41:
 
 - (void)addRole:(char *)a1 displayName:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleIdentifier"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2398,7 +2405,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleIdentifier", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2408,7 +2415,7 @@ LABEL_41:
 
 - (void)removeRole:(char *)a1 error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleIdentifier"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2416,7 +2423,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleIdentifier", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2426,7 +2433,7 @@ LABEL_41:
 
 - (void)addPosterUUID:(char *)a1 provider:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"provider"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2434,7 +2441,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"provider", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2444,7 +2451,7 @@ LABEL_41:
 
 - (void)addPosterUUID:(char *)a1 provider:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"posterUUID"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2452,7 +2459,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"posterUUID", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2462,7 +2469,7 @@ LABEL_41:
 
 - (void)removePosterUUID:(char *)a1 error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"posterUUID"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2470,7 +2477,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"posterUUID", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2480,7 +2487,7 @@ LABEL_41:
 
 - (void)assignPosterUUID:(char *)a1 toRole:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleIdentifier"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2488,7 +2495,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleIdentifier", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2498,7 +2505,7 @@ LABEL_41:
 
 - (void)assignPosterUUID:(char *)a1 toRole:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"posterUUID"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2506,7 +2513,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"posterUUID", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2516,7 +2523,7 @@ LABEL_41:
 
 - (void)unassignPosterUUID:(char *)a1 fromRole:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleIdentifier"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2524,7 +2531,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleIdentifier", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2534,7 +2541,7 @@ LABEL_41:
 
 - (void)unassignPosterUUID:(char *)a1 fromRole:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"posterUUID"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2542,7 +2549,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"posterUUID", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2552,7 +2559,7 @@ LABEL_41:
 
 - (void)mutateDataStoreMetadataForKey:(char *)a1 value:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"key"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2560,7 +2567,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"key", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2570,7 +2577,7 @@ LABEL_41:
 
 - (void)markPosterUUIDAsSelected:(char *)a1 roleId:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleIdentifier"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2578,7 +2585,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleIdentifier", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2588,7 +2595,7 @@ LABEL_41:
 
 - (void)markPosterUUIDAsSelected:(char *)a1 roleId:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"posterUUID"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2596,7 +2603,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"posterUUID", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2606,7 +2613,7 @@ LABEL_41:
 
 - (void)mutateAttributeForPoster:(char *)a1 roleId:attributeId:attributePayload:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"attributeIdentifier"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2614,7 +2621,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"attributeIdentifier", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2624,7 +2631,7 @@ LABEL_41:
 
 - (void)mutateAttributeForPoster:(char *)a1 roleId:attributeId:attributePayload:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleIdentifier"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2632,7 +2639,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleIdentifier", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2642,7 +2649,7 @@ LABEL_41:
 
 - (void)mutateAttributeForPoster:(char *)a1 roleId:attributeId:attributePayload:error:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"posterUUID"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2650,7 +2657,7 @@ LABEL_41:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"posterUUID", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

@@ -160,34 +160,34 @@ void __69__BWIOSurfaceTracking_trackPixelBuffer_surfaceUseCountIsZeroHandler___b
   if (use)
   {
     os_unfair_lock_lock((use + 8));
-    OUTLINED_FUNCTION_1_13();
-    v4 = *(use + 16);
-    v13 = OUTLINED_FUNCTION_0_0(v5, v6, v7, v8, v9, v10, v11, v12, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58);
-    if (v13)
+    v4 = OUTLINED_FUNCTION_1_13();
+    v5 = *(use + 16);
+    v14 = OUTLINED_FUNCTION_0_0(v6, v7, v8, v9, v10, v11, v12, v13, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v4);
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v61;
+      v15 = v14;
+      v16 = *v60;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v61 != v15)
+          if (*v60 != v16)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v5);
           }
 
-          v17 = *(v60 + 8 * i);
-          ID = IOSurfaceGetID([v17 surface]);
+          v18 = *(v59 + 8 * i);
+          ID = IOSurfaceGetID([v18 surface]);
           if (ID == a2)
           {
-            ID = [v17 setClientUseCount:{objc_msgSend(v17, "clientUseCount") + 1}];
+            ID = [v18 setClientUseCount:{objc_msgSend(v18, "clientUseCount") + 1}];
           }
         }
 
-        v14 = OUTLINED_FUNCTION_0_0(ID, v19, v20, v21, v22, v23, v24, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59);
+        v15 = OUTLINED_FUNCTION_0_0(ID, v20, v21, v22, v23, v24, v25, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58);
       }
 
-      while (v14);
+      while (v15);
     }
 
     os_unfair_lock_unlock((use + 8));
@@ -201,7 +201,7 @@ void __69__BWIOSurfaceTracking_trackPixelBuffer_surfaceUseCountIsZeroHandler___b
     v3 = result;
     os_unfair_lock_lock(result + 2);
     v4 = *&v3[4]._os_unfair_lock_opaque;
-    v13 = OUTLINED_FUNCTION_3_108(v5, v6, v7, v8, v9, v10, v11, v12, v49, v52, v55, v58, v61, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v94, v97, v100, v102, v104, v106, v108, v110, v112, v114);
+    v13 = OUTLINED_FUNCTION_3_108(v5, v6, v7, v8, v9, v10, v11, v12, v50, v53, v56, v59, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95, v98, v100, v102, v104, v106, v108, v110, v112);
     if (v13)
     {
       v14 = v13;
@@ -242,7 +242,7 @@ void __69__BWIOSurfaceTracking_trackPixelBuffer_surfaceUseCountIsZeroHandler___b
           ++v16;
         }
 
-        v14 = OUTLINED_FUNCTION_3_108(ID, v21, v22, v23, v24, v25, v26, v27, v50, v53, v56, v59, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95, v98, v101, v103, v105, v107, v109, v111, v113, v115);
+        v14 = OUTLINED_FUNCTION_3_108(ID, v21, v22, v23, v24, v25, v26, v27, v51, v54, v57, v60, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93, v96, v99, v101, v103, v105, v107, v109, v111, v113);
       }
 
       while (v14);
@@ -265,39 +265,39 @@ void __69__BWIOSurfaceTracking_trackPixelBuffer_surfaceUseCountIsZeroHandler___b
     }
 
     os_unfair_lock_unlock(v3 + 2);
-    OUTLINED_FUNCTION_1_13();
-    result = OUTLINED_FUNCTION_1_3(v29, v30, v31, v32, v33, v34, v35, v36, v50, v53, v56, v59, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95, v98);
+    v29 = OUTLINED_FUNCTION_1_13();
+    result = OUTLINED_FUNCTION_1_3(v30, v31, v32, v33, v34, v35, v36, v37, v51, v54, v57, v60, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93, v96, v29);
     if (result)
     {
-      v37 = result;
-      v38 = *v103;
+      v38 = result;
+      v39 = *v103;
       do
       {
-        v39 = 0;
+        v40 = 0;
         do
         {
-          if (*v103 != v38)
+          if (*v103 != v39)
           {
             objc_enumerationMutation(v28);
           }
 
-          v40 = *(v101 + 8 * v39);
-          if (IOSurfaceIsInUse([v40 surface]))
+          v41 = *(v101 + 8 * v40);
+          if (IOSurfaceIsInUse([v41 surface]))
           {
-            v41 = +[BWIOSurfacePoller trackSurface:useCountIsZeroHandler:](BWIOSurfacePoller, "trackSurface:useCountIsZeroHandler:", [v40 surface], objc_msgSend(v40, "handler"));
+            v42 = +[BWIOSurfacePoller trackSurface:useCountIsZeroHandler:](BWIOSurfacePoller, "trackSurface:useCountIsZeroHandler:", [v41 surface], objc_msgSend(v41, "handler"));
           }
 
           else
           {
-            v41 = (*([v40 handler] + 16))();
+            v42 = (*([v41 handler] + 16))();
           }
 
-          v39 = (v39 + 1);
+          v40 = (v40 + 1);
         }
 
-        while (v37 != v39);
-        result = OUTLINED_FUNCTION_1_3(v41, v42, v43, v44, v45, v46, v47, v48, v51, v54, v57, v60, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93, v96, v99);
-        v37 = result;
+        while (v38 != v40);
+        result = OUTLINED_FUNCTION_1_3(v42, v43, v44, v45, v46, v47, v48, v49, v52, v55, v58, v61, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v94, v97);
+        v38 = result;
       }
 
       while (result);

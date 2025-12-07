@@ -133,109 +133,91 @@ LABEL_26:
   to;
   if ([(_CPTCPInfo *)self avgRTT])
   {
-    avgRTT = self->_avgRTT;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPTCPInfo *)self cellRXPackets])
   {
-    cellRXPackets = self->_cellRXPackets;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPTCPInfo *)self cellTXPackets])
   {
-    cellTXPackets = self->_cellTXPackets;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPTCPInfo *)self connectAttempts])
   {
-    connectAttempts = self->_connectAttempts;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPTCPInfo *)self connectSuccesses])
   {
-    connectSuccesses = self->_connectSuccesses;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPTCPInfo *)self minRTT])
   {
-    minRTT = self->_minRTT;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPTCPInfo *)self rxBytes])
   {
-    rxBytes = self->_rxBytes;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPTCPInfo *)self rxDuplicateBytes])
   {
-    rxDuplicateBytes = self->_rxDuplicateBytes;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPTCPInfo *)self rxOutOfOrderBytes])
   {
-    rxOutOfOrderBytes = self->_rxOutOfOrderBytes;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPTCPInfo *)self rxPackets])
   {
-    rxPackets = self->_rxPackets;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPTCPInfo *)self txBytes])
   {
-    txBytes = self->_txBytes;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPTCPInfo *)self txPackets])
   {
-    txPackets = self->_txPackets;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPTCPInfo *)self txRetransmitPackets])
   {
-    txRetransmitPackets = self->_txRetransmitPackets;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPTCPInfo *)self varRTT])
   {
-    varRTT = self->_varRTT;
     PBDataWriterWriteUint32Field();
   }
 
   if ([(_CPTCPInfo *)self wifiRXPackets])
   {
-    wifiRXPackets = self->_wifiRXPackets;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPTCPInfo *)self wifiTXPackets])
   {
-    wifiTXPackets = self->_wifiTXPackets;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPTCPInfo *)self wiredRXPackets])
   {
-    wiredRXPackets = self->_wiredRXPackets;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPTCPInfo *)self wiredTXPackets])
   {
-    wiredTXPackets = self->_wiredTXPackets;
     PBDataWriterWriteUint64Field();
   }
 
@@ -243,13 +225,11 @@ LABEL_26:
 
   if (statsType)
   {
-    statsType = self->_statsType;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPTCPInfo *)self txRetransmitBytes])
   {
-    txRetransmitBytes = self->_txRetransmitBytes;
     PBDataWriterWriteUint64Field();
   }
 
@@ -258,32 +238,32 @@ LABEL_26:
 
 - (_CPTCPInfo)initWithTelemetryDictionary:(id)dictionary
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v5 = [(_CPTCPInfo *)self init];
   if (v5)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
-    v18 = dictionaryCopy;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v17 = dictionaryCopy;
     v6 = dictionaryCopy;
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v20;
+      v9 = *v19;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
+          v11 = *(*(&v18 + 1) + 8 * i);
           if ([v11 compare:@"timing_data_key_unknown" options:3])
           {
             if ([v11 compare:@"_kCFNTimingDataConnectionReused" options:3])
@@ -741,17 +721,16 @@ LABEL_26:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v8);
     }
 
     v15 = v5;
-    dictionaryCopy = v18;
+    dictionaryCopy = v17;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -51,24 +51,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_extensionName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    typeCode = self->_typeCode;
     PBDataWriterWriteUint32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_extensionPayload)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -138,7 +137,6 @@
     }
   }
 
-  v10 = *(equalCopy + 28);
   if (*&self->_has)
   {
     if ((*(equalCopy + 28) & 1) == 0 || self->_typeCode != *(equalCopy + 6))
@@ -155,10 +153,10 @@ LABEL_11:
   }
 
   extensionPayload = self->_extensionPayload;
-  v12 = equalCopy[2];
-  if (extensionPayload | v12)
+  v11 = equalCopy[2];
+  if (extensionPayload | v11)
   {
-    isEqual = objc_msgSend_isEqual_(extensionPayload, v7, v12);
+    isEqual = objc_msgSend_isEqual_(extensionPayload, v7, v11);
   }
 
   else

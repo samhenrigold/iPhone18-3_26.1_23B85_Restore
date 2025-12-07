@@ -135,7 +135,7 @@
 
 - (void)writeTo:(id)to
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_accessor)
   {
@@ -150,58 +150,52 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    kind = self->_kind;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    timestampAdjustment = self->_timestampAdjustment;
     PBDataWriterWriteDoubleField();
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v8 = self->_assetIdentifiers;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_assetIdentifiers;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v17;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
         PBDataWriterWriteDataField();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    accessCount = self->_accessCount;
     PBDataWriterWriteInt32Field();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(PAPBApplication *)self->_accessor copyWithZone:zone];
   v7 = *(v5 + 24);
@@ -225,30 +219,30 @@
     *(v5 + 52) |= 1u;
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v11 = self->_assetIdentifiers;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [*(*(&v19 + 1) + 8 * i) copyWithZone:{zone, v19}];
+        v16 = [*(*(&v18 + 1) + 8 * i) copyWithZone:{zone, v18}];
         [v5 addAssetIdentifiers:v16];
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v13);
@@ -260,7 +254,6 @@
     *(v5 + 52) |= 2u;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -291,7 +284,6 @@
   }
 
   has = self->_has;
-  v8 = *(equalCopy + 52);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 52) & 4) == 0 || self->_kind != *(equalCopy + 12))
@@ -324,14 +316,14 @@
     if (![(NSMutableArray *)assetIdentifiers isEqual:?])
     {
 LABEL_23:
-      v10 = 0;
+      v9 = 0;
       goto LABEL_24;
     }
 
     has = self->_has;
   }
 
-  v10 = (*(equalCopy + 52) & 2) == 0;
+  v9 = (*(equalCopy + 52) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 52) & 2) == 0 || self->_accessCount != *(equalCopy + 4))
@@ -339,12 +331,12 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_24:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash
@@ -413,7 +405,7 @@ LABEL_9:
 
 - (void)mergeFrom:(id)from
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   accessor = self->_accessor;
   v6 = *(fromCopy + 3);
@@ -449,29 +441,29 @@ LABEL_9:
     *&self->_has |= 1u;
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = *(fromCopy + 4);
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(PAPBAccess *)self addAssetIdentifiers:*(*(&v14 + 1) + 8 * i), v14];
+        [(PAPBAccess *)self addAssetIdentifiers:*(*(&v13 + 1) + 8 * i), v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
@@ -482,8 +474,6 @@ LABEL_9:
     self->_accessCount = *(fromCopy + 4);
     *&self->_has |= 2u;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

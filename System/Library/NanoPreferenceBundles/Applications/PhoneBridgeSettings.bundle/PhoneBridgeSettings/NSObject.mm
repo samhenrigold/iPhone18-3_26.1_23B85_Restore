@@ -10,7 +10,7 @@
 + (void)performBlockAtIdle:(id)idle
 {
   idleCopy = idle;
-  v5 = nph_general_log();
+  v5 = nph_general_log(idleCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -37,7 +37,7 @@
 
 + (void)NPHRequestIdleTimeNotification
 {
-  v2 = nph_general_log();
+  v2 = nph_general_log(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -52,14 +52,14 @@
 
 + (void)_NPHIdleTimeNotification:(id)notification
 {
-  v4 = nph_general_log();
+  v4 = nph_general_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "+[NSObject(NPHIdleTime) _NPHIdleTimeNotification:]";
-    v12 = 2048;
-    v13 = COERCE_DOUBLE([qword_C688 count]);
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "%s sIdleBlocks.count:%lu", &v10, 0x16u);
+    v11 = 136315394;
+    v12 = "+[NSObject(NPHIdleTime) _NPHIdleTimeNotification:]";
+    v13 = 2048;
+    v14 = COERCE_DOUBLE([qword_C688 count]);
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "%s sIdleBlocks.count:%lu", &v11, 0x16u);
   }
 
   firstObject = [qword_C688 firstObject];
@@ -67,18 +67,18 @@
   {
     v6 = +[NSDate date];
     firstObject[2](firstObject);
-    [v6 timeIntervalSinceNow];
-    v8 = v7 * -1000.0;
-    if (v7 * -1000.0 > 100.0)
+    timeIntervalSinceNow = [v6 timeIntervalSinceNow];
+    v9 = v8 * -1000.0;
+    if (v8 * -1000.0 > 100.0)
     {
-      v9 = nph_general_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = nph_general_log(timeIntervalSinceNow);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 136315394;
-        v11 = "+[NSObject(NPHIdleTime) _NPHIdleTimeNotification:]";
-        v12 = 2048;
-        v13 = v8;
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "******* %s BLOCKING MAIN THREAD: %f", &v10, 0x16u);
+        v11 = 136315394;
+        v12 = "+[NSObject(NPHIdleTime) _NPHIdleTimeNotification:]";
+        v13 = 2048;
+        v14 = v9;
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "******* %s BLOCKING MAIN THREAD: %f", &v11, 0x16u);
       }
     }
 

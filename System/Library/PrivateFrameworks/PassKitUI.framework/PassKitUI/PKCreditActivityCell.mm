@@ -89,9 +89,9 @@
 
 - (void)layoutSubviews
 {
-  v21.receiver = self;
-  v21.super_class = PKCreditActivityCell;
-  [(PKDashboardCollectionViewCell *)&v21 layoutSubviews];
+  v57.receiver = self;
+  v57.super_class = PKCreditActivityCell;
+  [(PKDashboardCollectionViewCell *)&v57 layoutSubviews];
   v3 = 8.0;
   if (!self->_isCompactUI)
   {
@@ -133,34 +133,63 @@
   v13 = v12 - (v4 + v5);
   [(PKCreditActivityCell *)self _shouldReverseLayoutDirection];
   memset(&slice, 0, sizeof(slice));
-  v19.size.width = v11;
-  v19.size.height = v13;
+  v55.size.width = v11;
+  v55.size.height = v13;
   [(UILabel *)self->_labelTitle sizeThatFits:v11, v13, *&v7, *&v9];
-  v15 = v14 + 0.0;
-  v22.origin.x = v7;
-  v22.origin.y = v9;
-  v22.size.width = v11;
-  v22.size.height = v13;
-  CGRectDivide(v22, &slice, &v19, v15, CGRectMinYEdge);
+  v15 = *&v14;
+  v17 = fmin(v11, v16);
+  v18 = v14 + 0.0;
+  v58.origin.x = v7;
+  v58.origin.y = v9;
+  v58.size.width = v11;
+  v58.size.height = v13;
+  CGRectDivide(v58, &slice, &v55, v18, CGRectMinYEdge);
   labelTitle = self->_labelTitle;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v20 = PKContentAlignmentMake();
+  v21.n128_u64[0] = *&slice.origin.x;
+  v22.n128_u64[0] = *&slice.origin.y;
+  v23.n128_u64[0] = *&slice.size.width;
+  v24.n128_u64[0] = *&slice.size.height;
+  v25.n128_f64[0] = v17;
+  v26.n128_u64[0] = v15;
+  PKSizeAlignedInRect(v20, v25, v26, v21, v22, v23, v24, v27);
   [(UILabel *)labelTitle setFrame:?];
-  [(UILabel *)self->_labelRewardsSummary sizeThatFits:v19.size.width, v19.size.height];
-  v23 = v19;
-  CGRectDivide(v19, &slice, &v19, v23.origin.y + 7.0, CGRectMinYEdge);
+  [(UILabel *)self->_labelRewardsSummary sizeThatFits:v55.size.width, v55.size.height];
+  v29 = *&v28;
+  v31 = fmin(v55.size.width, v30);
+  CGRectDivide(v55, &slice, &v55, v28 + 7.0, CGRectMinYEdge);
   labelRewardsSummary = self->_labelRewardsSummary;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v33 = PKContentAlignmentMake();
+  v34.n128_u64[0] = *&slice.origin.x;
+  v35.n128_u64[0] = *&slice.origin.y;
+  v36.n128_u64[0] = *&slice.size.width;
+  v37.n128_u64[0] = *&slice.size.height;
+  v38.n128_f64[0] = v31;
+  v39.n128_u64[0] = v29;
+  PKSizeAlignedInRect(v33, v38, v39, v34, v35, v36, v37, v40);
   [(UILabel *)labelRewardsSummary setFrame:?];
   if (self->_useAccessibilityLayout)
   {
-    PKFloatRoundToPixel();
+    v41.n128_f64[0] = v11 * 0.5;
+    PKFloatRoundToPixel(v41, v42);
+    width = v43;
   }
 
+  else
+  {
+    width = v55.size.width;
+  }
+
+  height = v55.size.height;
   chartView = self->_chartView;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v47 = PKContentAlignmentMake();
+  v48.n128_u64[0] = *&v55.origin.x;
+  v49.n128_u64[0] = *&v55.origin.y;
+  v50.n128_u64[0] = *&v55.size.width;
+  v51.n128_u64[0] = *&v55.size.height;
+  v52.n128_f64[0] = width;
+  v53.n128_f64[0] = height;
+  PKSizeAlignedInRect(v47, v52, v53, v48, v49, v50, v51, v54);
   [(PKSpendingSummaryChartView *)chartView setFrame:?];
 }
 
@@ -184,36 +213,37 @@
 
   v7 = _UISolariumFeatureFlagEnabled();
   v8 = _UISolariumFeatureFlagEnabled();
-  v9 = width + v6 * -2.0;
-  v10 = v9;
+  v11 = width + v6 * -2.0;
+  v12 = v11;
   if (self->_useAccessibilityLayout)
   {
-    PKFloatRoundToPixel();
-    v10 = v11;
+    v9.n128_f64[0] = v11 * 0.5;
+    PKFloatRoundToPixel(v9, v10);
+    v12 = v13;
   }
 
-  v12 = 8.0;
-  v13 = 16.0;
+  v14 = 8.0;
+  v15 = 16.0;
   if (!v8)
   {
-    v13 = 8.0;
+    v15 = 8.0;
   }
 
   if (v7)
   {
-    v12 = 12.0;
+    v14 = 12.0;
   }
 
-  v14 = v12 + v13;
-  [(UILabel *)self->_labelTitle sizeThatFits:v9, height];
-  v16 = v14 + v15 + 7.0;
-  [(UILabel *)self->_labelRewardsSummary sizeThatFits:v9, height];
+  v16 = v14 + v15;
+  [(UILabel *)self->_labelTitle sizeThatFits:v11, height];
   v18 = v16 + v17 + 7.0;
-  [(PKSpendingSummaryChartView *)self->_chartView sizeThatFits:v10, height];
-  v20 = v18 + v19;
-  v21 = width;
-  result.height = v20;
-  result.width = v21;
+  [(UILabel *)self->_labelRewardsSummary sizeThatFits:v11, height];
+  v20 = v18 + v19 + 7.0;
+  [(PKSpendingSummaryChartView *)self->_chartView sizeThatFits:v12, height];
+  v22 = v20 + v21;
+  v23 = width;
+  result.height = v22;
+  result.width = v23;
   return result;
 }
 

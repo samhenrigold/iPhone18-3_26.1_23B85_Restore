@@ -200,60 +200,59 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    muid = self->_muid;
     PBDataWriterWriteUint64Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_name)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_lineColorString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_artwork)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_modeArtwork)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_system)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_alternateArtwork)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_locationHint)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_headerArtwork)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   [(PBUnknownFields *)self->_unknownFields writeTo:toCopy];
@@ -372,7 +371,6 @@
     goto LABEL_23;
   }
 
-  v5 = *(equalCopy + 88);
   if (*&self->_has)
   {
     if ((*(equalCopy + 88) & 1) == 0 || self->_muid != *(equalCopy + 2))
@@ -384,7 +382,7 @@
   else if (*(equalCopy + 88))
   {
 LABEL_23:
-    v14 = 0;
+    v13 = 0;
     goto LABEL_24;
   }
 
@@ -451,17 +449,17 @@ LABEL_23:
   headerArtwork = self->_headerArtwork;
   if (headerArtwork | *(equalCopy + 5))
   {
-    v14 = [(MSPTransitStorageArtwork *)headerArtwork isEqual:?];
+    v13 = [(MSPTransitStorageArtwork *)headerArtwork isEqual:?];
   }
 
   else
   {
-    v14 = 1;
+    v13 = 1;
   }
 
 LABEL_24:
 
-  return v14;
+  return v13;
 }
 
 - (unint64_t)hash

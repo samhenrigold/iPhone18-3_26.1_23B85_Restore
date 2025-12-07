@@ -39,11 +39,11 @@ void __29__EDMessageActionHandler_log__block_invoke(uint64_t a1)
 
 - (EDMessageActionHandler)initWithExtensionsController:(id)controller
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
-  v21.receiver = self;
-  v21.super_class = EDMessageActionHandler;
-  v6 = [(EDMessageActionHandler *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = EDMessageActionHandler;
+  v6 = [(EDMessageActionHandler *)&v20 init];
   v7 = v6;
   if (v6)
   {
@@ -60,20 +60,19 @@ void __29__EDMessageActionHandler_log__block_invoke(uint64_t a1)
 
     objc_initWeak(&location, v7);
     extensionsController = v7->_extensionsController;
-    v22[0] = *MEMORY[0x1E69ADA38];
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __55__EDMessageActionHandler_initWithExtensionsController___block_invoke;
-    v18[3] = &unk_1E82536C8;
-    objc_copyWeak(&v19, &location);
-    [(MEAppExtensionsController *)extensionsController registerMailAppExtensionsObserver:v7 capabilities:v15 includeDisabled:0 completion:v18];
+    v21[0] = *MEMORY[0x1E69ADA38];
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __55__EDMessageActionHandler_initWithExtensionsController___block_invoke;
+    v17[3] = &unk_1E82536C8;
+    objc_copyWeak(&v18, &location);
+    [(MEAppExtensionsController *)extensionsController registerMailAppExtensionsObserver:v7 capabilities:v15 includeDisabled:0 completion:v17];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -166,34 +165,34 @@ EDMessageActionProvider *__48__EDMessageActionHandler_messageActionProviders__bl
 
 - (id)actionDecisionForMessage:(id)message usingMessageActionProvider:(id)provider
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   providerCopy = provider;
   actionProviderInterfacesByExtensionID = [(EDMessageActionHandler *)self actionProviderInterfacesByExtensionID];
   v9 = [actionProviderInterfacesByExtensionID objectForKeyedSubscript:providerCopy];
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__20;
-  v34 = __Block_byref_object_dispose__20;
-  v35 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__20;
+  v33 = __Block_byref_object_dispose__20;
+  v34 = 0;
   v10 = objc_alloc_init(MEMORY[0x1E699B868]);
   future = [v10 future];
   v12 = future;
   if (v9)
   {
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __78__EDMessageActionHandler_actionDecisionForMessage_usingMessageActionProvider___block_invoke;
-    v26[3] = &unk_1E8253738;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __78__EDMessageActionHandler_actionDecisionForMessage_usingMessageActionProvider___block_invoke;
+    v25[3] = &unk_1E8253738;
     v13 = future;
-    v27 = v13;
-    v29 = &v30;
-    v28 = v10;
-    [v9 decideActionForMessage:messageCopy completionHandler:v26];
-    v25 = 0;
-    v14 = [v13 resultWithTimeout:&v25 error:2.0];
-    v15 = v25;
+    v26 = v13;
+    v28 = &v29;
+    v27 = v10;
+    [v9 decideActionForMessage:messageCopy completionHandler:v25];
+    v24 = 0;
+    v14 = [v13 resultWithTimeout:&v24 error:2.0];
+    v15 = v24;
     if (v15)
     {
       [v13 cancel];
@@ -202,14 +201,14 @@ EDMessageActionProvider *__48__EDMessageActionHandler_messageActionProviders__bl
       {
         ef_publicDescription = [v15 ef_publicDescription];
         *buf = 138543618;
-        v37 = providerCopy;
-        v38 = 2114;
-        v39 = ef_publicDescription;
+        v36 = providerCopy;
+        v37 = 2114;
+        v38 = ef_publicDescription;
         _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "Error occured requesting action for extension:  %{public}@: Error: %{public}@", buf, 0x16u);
       }
     }
 
-    v18 = v27;
+    v18 = v26;
   }
 
   else
@@ -223,27 +222,26 @@ EDMessageActionProvider *__48__EDMessageActionHandler_messageActionProviders__bl
     v15 = 0;
   }
 
-  v19 = v31[5];
+  v19 = v30[5];
   if (v19)
   {
     v20 = +[EDMessageActionHandler log];
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = v31[5];
+      v21 = v30[5];
       *buf = 138543618;
-      v37 = providerCopy;
-      v38 = 2114;
-      v39 = v21;
+      v36 = providerCopy;
+      v37 = 2114;
+      v38 = v21;
       _os_log_impl(&dword_1C61EF000, v20, OS_LOG_TYPE_DEFAULT, "Received decision from action handler: %{public}@: %{public}@", buf, 0x16u);
     }
 
-    v19 = v31[5];
+    v19 = v30[5];
   }
 
   v22 = v19;
 
-  _Block_object_dispose(&v30, 8);
-  v23 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v29, 8);
 
   return v22;
 }
@@ -291,38 +289,38 @@ void __78__EDMessageActionHandler_actionDecisionForMessage_usingMessageActionPro
 
 - (NSArray)requiredHeaders
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   actionProviderInterfacesByExtensionID = [(EDMessageActionHandler *)self actionProviderInterfacesByExtensionID];
   allValues = [actionProviderInterfacesByExtensionID allValues];
 
-  v6 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
-        v13[0] = MEMORY[0x1E69E9820];
-        v13[1] = 3221225472;
-        v13[2] = __41__EDMessageActionHandler_requiredHeaders__block_invoke;
-        v13[3] = &unk_1E8253760;
-        v14 = v3;
-        [v9 requiredHeadersWithCompletion:v13];
+        v9 = *(*(&v14 + 1) + 8 * i);
+        v12[0] = MEMORY[0x1E69E9820];
+        v12[1] = 3221225472;
+        v12[2] = __41__EDMessageActionHandler_requiredHeaders__block_invoke;
+        v12[3] = &unk_1E8253760;
+        v13 = v3;
+        [v9 requiredHeadersWithCompletion:v12];
       }
 
-      v6 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -330,27 +328,23 @@ void __78__EDMessageActionHandler_actionDecisionForMessage_usingMessageActionPro
 
   allObjects = [v3 allObjects];
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return allObjects;
 }
 
 void __55__EDMessageActionHandler_initWithExtensionsController___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Failed to register for app extensions changes error:%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Failed to register for app extensions changes error:%@", &v2, 0xCu);
 }
 
 - (void)actionDecisionForMessage:(uint64_t)a1 usingMessageActionProvider:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Extension not found while attempting to find action: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Extension not found while attempting to find action: %{public}@", &v2, 0xCu);
 }
 
 @end

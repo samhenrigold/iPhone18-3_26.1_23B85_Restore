@@ -20,6 +20,7 @@
 - (void)activate;
 - (void)addStatusMonitorObservers;
 - (void)dealloc;
+- (void)handleMoveToAppShareSheetCompletedWithSuccess:(BOOL)success error:(id)error;
 - (void)launchMoveToAppShareSheetForFiles:(id)files;
 - (void)logReceiverBundleID:(id)d forAppProxy:(id)proxy andURL:(id)l;
 - (void)performImportWithCompletedURLs:(id)ls completion:(id)completion;
@@ -154,27 +155,32 @@ LABEL_20:
 
 - (id)description
 {
-  v8 = objc_opt_class();
-  NSAppendPrintF();
-  v11 = 0;
-  v9 = [(SFAirDropTransfer *)self->_transfer identifier:v8];
-  NSAppendPrintF();
-  v3 = v11;
+  v16 = 0;
+  v3 = objc_opt_class();
+  NSAppendPrintF(&v16, "<%@ %{ptr}", v3, self);
+  v4 = v16;
+  v15 = v4;
+  identifier = [(SFAirDropTransfer *)self->_transfer identifier];
+  NSAppendPrintF(&v15, ", transferIdentifier: %@", identifier);
+  v6 = v15;
 
   bundleProxy = self->_bundleProxy;
   if (bundleProxy)
   {
+    v14 = v6;
     bundleIdentifier = [(LSBundleProxy *)bundleProxy bundleIdentifier];
-    NSAppendPrintF();
-    v5 = v3;
+    NSAppendPrintF(&v14, ", bundleProxy: %@", bundleIdentifier);
+    v9 = v14;
 
-    v3 = v5;
+    v6 = v9;
   }
 
-  NSAppendPrintF();
-  v6 = v3;
+  v13 = v6;
+  NSAppendPrintF(&v13, ">");
+  v10 = v13;
+  v11 = v13;
 
-  return v3;
+  return v10;
 }
 
 - (void)transferUpdated
@@ -461,16 +467,11 @@ LABEL_17:
 - (id)cancelActionTitleToAccompanyActions:(id)actions
 {
   transfer = [(SDAirDropHandler *)self transfer];
-  transferState = [transfer transferState];
+  [transfer transferState];
 
-  if ((transferState - 1) <= 6)
-  {
-    v5 = off_1008CDBF0[(transferState - 1)];
-  }
+  v4 = SFLocalizedStringForKey();
 
-  v6 = SFLocalizedStringForKey();
-
-  return v6;
+  return v4;
 }
 
 - (void)updatePossibleActions
@@ -507,29 +508,28 @@ LABEL_17:
     v13 = [transfer5 transferState] == 9;
   }
 
-  handlingAppBundleID = self->_handlingAppBundleID;
   if ((SFRemovableSystemAppAvailable() & 1) == 0 && self->_handlingAppBundleID != 0 && !v13)
   {
-    v16 = [SFAirDropAction alloc];
+    v15 = [SFAirDropAction alloc];
     transfer6 = [(SDAirDropHandler *)self transfer];
     identifier2 = [transfer6 identifier];
-    v19 = [LSApplicationProxy applicationProxyForSystemPlaceholder:self->_handlingAppBundleID];
-    localizedName = [v19 localizedName];
+    v18 = [LSApplicationProxy applicationProxyForSystemPlaceholder:self->_handlingAppBundleID];
+    localizedName = [v18 localizedName];
     singleItemActionTitle = [(SDAirDropHandler *)self singleItemActionTitle];
-    v22 = [v16 initWithTransferIdentifier:identifier2 actionIdentifier:@"SDUninstalledAppActionIdentifier" title:localizedName singleItemTitle:singleItemActionTitle type:1];
+    v21 = [v15 initWithTransferIdentifier:identifier2 actionIdentifier:@"SDUninstalledAppActionIdentifier" title:localizedName singleItemTitle:singleItemActionTitle type:1];
 
-    v25 = _NSConcreteStackBlock;
-    v26 = 3221225472;
-    v27 = sub_100052E84;
-    v28 = &unk_1008CDB10;
-    objc_copyWeak(&v29, &location);
-    [v22 setActionHandler:&v25];
-    v31 = v22;
-    v23 = [NSArray arrayWithObjects:&v31 count:1, v25, v26, v27, v28];
+    v24 = _NSConcreteStackBlock;
+    v25 = 3221225472;
+    v26 = sub_100052E84;
+    v27 = &unk_1008CDB10;
+    objc_copyWeak(&v28, &location);
+    [v21 setActionHandler:&v24];
+    v30 = v21;
+    v22 = [NSArray arrayWithObjects:&v30 count:1, v24, v25, v26, v27];
     transfer7 = [(SDAirDropHandler *)self transfer];
-    [transfer7 setPossibleActions:v23];
+    [transfer7 setPossibleActions:v22];
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v28);
   }
 
   objc_destroyWeak(&location);
@@ -702,6 +702,52 @@ LABEL_17:
       completionHandler2 = [(SDAirDropHandler *)self completionHandler];
       completionHandler2[2](completionHandler2, 0, 0, 1);
     }
+  }
+}
+
+- (void)handleMoveToAppShareSheetCompletedWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  if (successCopy)
+  {
+    [(SDAirDropHandler *)self handleMoveToAppShareSheetSucceeded];
+  }
+
+  else
+  {
+    v7 = airdrop_log();
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+    if (errorCopy)
+    {
+      if (v8)
+      {
+        sub_100054DEC(errorCopy, v7);
+      }
+    }
+
+    else if (v8)
+    {
+      sub_100054E64();
+    }
+  }
+
+  moveToShareSheetCompletion = [(SDAirDropHandler *)self moveToShareSheetCompletion];
+
+  if (moveToShareSheetCompletion)
+  {
+    moveToShareSheetCompletion2 = [(SDAirDropHandler *)self moveToShareSheetCompletion];
+    moveToShareSheetCompletion2[2](moveToShareSheetCompletion2, successCopy);
+
+    [(SDAirDropHandler *)self setMoveToShareSheetCompletion:0];
+  }
+
+  completionHandler = [(SDAirDropHandler *)self completionHandler];
+
+  if (completionHandler)
+  {
+    completionHandler2 = [(SDAirDropHandler *)self completionHandler];
+    completionHandler2[2](completionHandler2, 1, 0, 1);
   }
 }
 

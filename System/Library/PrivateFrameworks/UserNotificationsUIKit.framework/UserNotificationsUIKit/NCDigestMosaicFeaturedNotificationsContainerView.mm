@@ -456,12 +456,12 @@ LABEL_8:
   viewCopy = view;
   providerCopy = provider;
   v12 = providerCopy;
-  if (style == 1 && [providerCopy appNotificationCount])
+  if (style == 1 && (v13 = [providerCopy appNotificationCount]) != 0)
   {
-    v13 = MEMORY[0x277CCACA8];
-    v14 = NCUserNotificationsUIKitFrameworkBundle();
-    v15 = [v14 localizedStringForKey:@"NOTIFICATION_DIGEST_FEATURED_COUNT_TEXT" value:&stru_282FE84F8 table:0];
-    primaryText = [v13 localizedStringWithFormat:v15, objc_msgSend(v12, "appNotificationCount"), 0];
+    v14 = MEMORY[0x277CCACA8];
+    v15 = NCUserNotificationsUIKitFrameworkBundle(v13);
+    v16 = [v15 localizedStringForKey:@"NOTIFICATION_DIGEST_FEATURED_COUNT_TEXT" value:&stru_282FE84F8 table:0];
+    primaryText = [v14 localizedStringWithFormat:v16, objc_msgSend(v12, "appNotificationCount"), 0];
   }
 
   else
@@ -478,7 +478,7 @@ LABEL_8:
 
   notificationRequest = [v12 notificationRequest];
   subordinateIconRecipe = [notificationRequest subordinateIconRecipe];
-  v21 = subordinateIconRecipe;
+  v22 = subordinateIconRecipe;
   if (subordinateIconRecipe)
   {
     iconRecipe = subordinateIconRecipe;
@@ -490,12 +490,12 @@ LABEL_8:
     iconRecipe = [notificationRequest2 iconRecipe];
   }
 
-  v24 = [NCBadgedIconDescription alloc];
+  v25 = [NCBadgedIconDescription alloc];
   notificationRequest3 = [v12 notificationRequest];
   topLevelSectionIdentifier = [notificationRequest3 topLevelSectionIdentifier];
-  v27 = [(NCBadgedIconDescription *)v24 initWithBundleIdentifier:topLevelSectionIdentifier prominentIconDescription:iconRecipe subordinateIconRecipe:0 badgeText:0];
+  v28 = [(NCBadgedIconDescription *)v25 initWithBundleIdentifier:topLevelSectionIdentifier prominentIconDescription:iconRecipe subordinateIconRecipe:0 badgeText:0];
 
-  [viewCopy setBadgedIconDescription:v27];
+  [viewCopy setBadgedIconDescription:v28];
   [viewCopy setAlpha:1.0];
   if (attachmentCopy)
   {
@@ -508,21 +508,21 @@ LABEL_8:
       if (objc_opt_isKindOfClass())
       {
         [viewCopy imageAttachmentSizeRatio];
-        v30 = v29;
+        v31 = v30;
       }
 
       else
       {
-        v30 = 0.666666667;
+        v31 = 0.666666667;
       }
 
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __143__NCDigestMosaicFeaturedNotificationsContainerView__configureNotificationContentView_withContentProvider_showImageAttachment_contentViewStyle___block_invoke;
-      v31[3] = &unk_2783730B8;
-      v32 = viewCopy;
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __143__NCDigestMosaicFeaturedNotificationsContainerView__configureNotificationContentView_withContentProvider_showImageAttachment_contentViewStyle___block_invoke;
+      v32[3] = &unk_2783730B8;
+      v33 = viewCopy;
       selfCopy = self;
-      [v12 fetchFeaturedAttachmentImageWithSizeRatio:v31 completion:v30];
+      [v12 fetchFeaturedAttachmentImageWithSizeRatio:v32 completion:v31];
     }
   }
 
@@ -666,15 +666,15 @@ void __89__NCDigestMosaicFeaturedNotificationsContainerView_setVisualStylingProv
   return v6;
 }
 
-uint64_t __79__NCDigestMosaicFeaturedNotificationsContainerView__shouldShowImageAttachments__block_invoke(uint64_t result, void *a2, unint64_t a3)
+void *__79__NCDigestMosaicFeaturedNotificationsContainerView__shouldShowImageAttachments__block_invoke(void *result, void *a2, unint64_t a3)
 {
   if (a3 <= 1)
   {
     v3 = result;
-    if (*(*(*(result + 32) + 8) + 24))
+    if (*(*(result[4] + 8) + 24))
     {
       result = [a2 hasAttachmentImage];
-      *(*(*(v3 + 32) + 8) + 24) = result;
+      *(*(v3[4] + 8) + 24) = result;
     }
   }
 

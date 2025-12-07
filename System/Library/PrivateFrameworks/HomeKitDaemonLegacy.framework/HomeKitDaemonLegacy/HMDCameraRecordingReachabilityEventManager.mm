@@ -18,6 +18,9 @@
 - (id)logIdentifier;
 - (id)mostRecentReachabilityEventModelInModels:(id)models;
 - (id)performCloudPullWithLabel:(id)label;
+- (id)reachabilityEventModelWithReachability:(BOOL)reachability dateOfOccurrence:(id)occurrence;
+- (id)reachabilityEventModelWithUUID:(id)d reachability:(BOOL)reachability dateOfOccurrence:(id)occurrence;
+- (void)addCameraReachabilityEventWithReachability:(BOOL)reachability dateOfOccurrence:(id)occurrence;
 - (void)cleanUpEvents;
 - (void)clipManagerDidStart:(id)start;
 - (void)clipManagerDidStop:(id)stop;
@@ -37,6 +40,7 @@
 - (void)handleResidentDeviceConfirmedStateChangedNotification:(id)notification;
 - (void)handleSubscribeMessage:(id)message;
 - (void)handleUnsubscribeMessage:(id)message;
+- (void)handleUpdatedCameraReachability:(BOOL)reachability;
 - (void)insertBulletinForReachabilityEvent:(id)event;
 - (void)localZone:(id)zone didProcessModelCreation:(id)creation;
 - (void)localZone:(id)zone didProcessModelDeletion:(id)deletion;
@@ -87,7 +91,7 @@
 
 - (void)networkMonitorIsUnreachable:(id)unreachable
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   unreachableCopy = unreachable;
   workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -98,20 +102,18 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Received network monitor is unreachable", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Received network monitor is unreachable", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   [(HMDCameraRecordingReachabilityEventManager *)selfCopy setCurrentDeviceConnectedToNetwork:0];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkMonitorIsReachable:(id)reachable
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   reachableCopy = reachable;
   workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -122,20 +124,18 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Received network monitor is reachable", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Received network monitor is reachable", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   [(HMDCameraRecordingReachabilityEventManager *)selfCopy setCurrentDeviceConnectedToNetwork:1];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerDidFire:(id)fire
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -153,9 +153,9 @@
       v25 = HMFGetLogIdentifier();
       v26 = HMFBooleanToString();
       *buf = 138543618;
-      v32 = v25;
-      v33 = 2112;
-      v34 = v26;
+      v31 = v25;
+      v32 = 2112;
+      v33 = v26;
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@Initial reachability timer fired with isReachable: %@", buf, 0x16u);
     }
 
@@ -183,11 +183,11 @@
         [(HMDCameraRecordingReachabilityEventManager *)selfCopy2 currentCameraReachability];
         v13 = HMFBooleanToString();
         *buf = 138543874;
-        v32 = v11;
-        v33 = 2114;
-        v34 = v12;
-        v35 = 2114;
-        v36 = v13;
+        v31 = v11;
+        v32 = 2114;
+        v33 = v12;
+        v34 = 2114;
+        v35 = v13;
         _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Reachability change debounce timer fired with last known reachability %{public}@ and current reachability %{public}@", buf, 0x20u);
       }
 
@@ -207,9 +207,9 @@
         aBlock[1] = 3221225472;
         aBlock[2] = __59__HMDCameraRecordingReachabilityEventManager_timerDidFire___block_invoke;
         aBlock[3] = &unk_27972CF98;
-        v30 = currentCameraReachability;
+        v29 = currentCameraReachability;
         aBlock[4] = selfCopy2;
-        v29 = reachabilityChangeDebounceStartDate;
+        v28 = reachabilityChangeDebounceStartDate;
         v17 = reachabilityChangeDebounceStartDate;
         v18 = _Block_copy(aBlock);
         didHandleInitialReachabilityFuture = [(HMDCameraRecordingReachabilityEventManager *)selfCopy2 didHandleInitialReachabilityFuture];
@@ -219,8 +219,6 @@
       [(HMDCameraRecordingReachabilityEventManager *)selfCopy2 setReachabilityChangeDebounceTimer:0];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clipManagerDidStop:(id)stop
@@ -235,7 +233,7 @@
 
 - (void)clipManagerDidStart:(id)start
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   startCopy = start;
   workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -262,24 +260,22 @@
     {
       v14 = HMFGetLogIdentifier();
       suppressNotificationsBeforeDate = [(HMDCameraRecordingReachabilityEventManager *)selfCopy suppressNotificationsBeforeDate];
-      v18 = 138543618;
-      v19 = v14;
-      v20 = 2112;
-      v21 = suppressNotificationsBeforeDate;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Suppressing all reachability notifications before %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v14;
+      v19 = 2112;
+      v20 = suppressNotificationsBeforeDate;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Suppressing all reachability notifications before %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
     date = [MEMORY[0x277CBEAA8] date];
     [(HMDCameraRecordingReachabilityEventManager *)selfCopy setSuppressNotificationsBeforeDate:date];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localZone:(id)zone didProcessModelUpdate:(id)update
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   updateCopy = update;
   v8 = objc_autoreleasePoolPush();
@@ -288,15 +284,14 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v11;
-    v15 = 2112;
-    v16 = updateCopy;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Received model update: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v11;
+    v14 = 2112;
+    v15 = updateCopy;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Received model update: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localZone:(id)zone didProcessModelDeletion:(id)deletion
@@ -315,7 +310,7 @@
 
 void __80__HMDCameraRecordingReachabilityEventManager_localZone_didProcessModelDeletion___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) model];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -340,11 +335,11 @@ void __80__HMDCameraRecordingReachabilityEventManager_localZone_didProcessModelD
     {
       v9 = HMFGetLogIdentifier();
       v10 = [v4 debugDescription];
-      v19 = 138543618;
-      v20 = v9;
-      v21 = 2112;
-      v22 = v10;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Received deleted reachability event model: %@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v9;
+      v20 = 2112;
+      v21 = v10;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Received deleted reachability event model: %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -362,19 +357,17 @@ void __80__HMDCameraRecordingReachabilityEventManager_localZone_didProcessModelD
     {
       v16 = HMFGetLogIdentifier();
       v17 = *(a1 + 32);
-      v19 = 138543874;
-      v20 = v16;
-      v21 = 2112;
-      v22 = v17;
-      v23 = 2112;
-      v24 = objc_opt_class();
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Deletion model %@ is not of expected type: %@", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v16;
+      v20 = 2112;
+      v21 = v17;
+      v22 = 2112;
+      v23 = objc_opt_class();
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Deletion model %@ is not of expected type: %@", &v18, 0x20u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localZone:(id)zone didProcessModelCreation:(id)creation
@@ -393,7 +386,7 @@ void __80__HMDCameraRecordingReachabilityEventManager_localZone_didProcessModelD
 
 void __80__HMDCameraRecordingReachabilityEventManager_localZone_didProcessModelCreation___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) model];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -417,11 +410,11 @@ void __80__HMDCameraRecordingReachabilityEventManager_localZone_didProcessModelC
     {
       v8 = HMFGetLogIdentifier();
       v9 = [v4 debugDescription];
-      v28 = 138543618;
-      v29 = v8;
-      v30 = 2114;
-      v31 = v9;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Received new reachability event model: %{public}@", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = v8;
+      v29 = 2114;
+      v30 = v9;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Received new reachability event model: %{public}@", &v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -453,13 +446,13 @@ LABEL_17:
         v24 = HMFGetLogIdentifier();
         v25 = [v10 dateOfOccurrence];
         v26 = [*(a1 + 40) suppressNotificationsBeforeDate];
-        v28 = 138543874;
-        v29 = v24;
-        v30 = 2112;
-        v31 = v25;
-        v32 = 2112;
-        v33 = v26;
-        _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Ignoring created event with date of occurrence %@ because it is before %@", &v28, 0x20u);
+        v27 = 138543874;
+        v28 = v24;
+        v29 = 2112;
+        v30 = v25;
+        v31 = 2112;
+        v32 = v26;
+        _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Ignoring created event with date of occurrence %@ because it is before %@", &v27, 0x20u);
       }
     }
 
@@ -472,11 +465,11 @@ LABEL_17:
       {
         v20 = HMFGetLogIdentifier();
         v21 = [v4 debugDescription];
-        v28 = 138543618;
-        v29 = v20;
-        v30 = 2112;
-        v31 = v21;
-        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to convert reachability model into event: %@", &v28, 0x16u);
+        v27 = 138543618;
+        v28 = v20;
+        v29 = 2112;
+        v30 = v21;
+        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to convert reachability model into event: %@", &v27, 0x16u);
       }
     }
 
@@ -485,110 +478,9 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDeleteAllEventsMessage:(id)message
-{
-  v29 = *MEMORY[0x277D85DE8];
-  messageCopy = message;
-  workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
-  dispatch_assert_queue_V2(workQueue);
-
-  v6 = objc_autoreleasePoolPush();
-  selfCopy = self;
-  v8 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-  {
-    v9 = HMFGetLogIdentifier();
-    *buf = 138543362;
-    v28 = v9;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling delete all reachability events message", buf, 0xCu);
-  }
-
-  objc_autoreleasePoolPop(v6);
-  localZone = [(HMDCameraRecordingReachabilityEventManager *)selfCopy localZone];
-
-  if (localZone)
-  {
-    localZone2 = [(HMDCameraRecordingReachabilityEventManager *)selfCopy localZone];
-    v26 = objc_opt_class();
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
-    v13 = MEMORY[0x277D17108];
-    name = [messageCopy name];
-    v15 = [v13 optionsWithLabel:name];
-    v16 = [localZone2 removeAllModelsOfTypes:v12 options:v15];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __75__HMDCameraRecordingReachabilityEventManager_handleDeleteAllEventsMessage___block_invoke;
-    v24[3] = &unk_27972EB40;
-    v25 = messageCopy;
-    v17 = [v16 addCompletionBlock:v24];
-
-    v18 = v25;
-  }
-
-  else
-  {
-    v19 = objc_autoreleasePoolPush();
-    v20 = selfCopy;
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-    {
-      v22 = HMFGetLogIdentifier();
-      *buf = 138543362;
-      v28 = v22;
-      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Cannot delete clips because zones are not ready", buf, 0xCu);
-    }
-
-    objc_autoreleasePoolPop(v19);
-    v18 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
-    [messageCopy respondWithError:v18];
-  }
-
-  v23 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handlePerformCloudPullMessage:(id)message
-{
-  v22 = *MEMORY[0x277D85DE8];
-  messageCopy = message;
-  workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
-  dispatch_assert_queue_V2(workQueue);
-
-  v6 = objc_autoreleasePoolPush();
-  selfCopy = self;
-  v8 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-  {
-    v9 = HMFGetLogIdentifier();
-    *buf = 138543362;
-    v21 = v9;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling perform cloud pull message", buf, 0xCu);
-  }
-
-  objc_autoreleasePoolPop(v6);
-  v10 = [(HMDCameraRecordingReachabilityEventManager *)selfCopy performCloudPullWithLabel:@"Fetching reachability events due to client request"];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __76__HMDCameraRecordingReachabilityEventManager_handlePerformCloudPullMessage___block_invoke;
-  v18[3] = &unk_2797358F0;
-  v11 = messageCopy;
-  v19 = v11;
-  v12 = [v10 addSuccessBlock:v18];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __76__HMDCameraRecordingReachabilityEventManager_handlePerformCloudPullMessage___block_invoke_2;
-  v16[3] = &unk_2797359D8;
-  v17 = v11;
-  v13 = v11;
-  v14 = [v12 addFailureBlock:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleUnsubscribeMessage:(id)message
 {
   v28 = *MEMORY[0x277D85DE8];
   messageCopy = message;
@@ -601,9 +493,104 @@ LABEL_18:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v22 = 138543362;
-    v23 = v9;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling unsubscribe message", &v22, 0xCu);
+    *buf = 138543362;
+    v27 = v9;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling delete all reachability events message", buf, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v6);
+  localZone = [(HMDCameraRecordingReachabilityEventManager *)selfCopy localZone];
+
+  if (localZone)
+  {
+    localZone2 = [(HMDCameraRecordingReachabilityEventManager *)selfCopy localZone];
+    v25 = objc_opt_class();
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+    v13 = MEMORY[0x277D17108];
+    name = [messageCopy name];
+    v15 = [v13 optionsWithLabel:name];
+    v16 = [localZone2 removeAllModelsOfTypes:v12 options:v15];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __75__HMDCameraRecordingReachabilityEventManager_handleDeleteAllEventsMessage___block_invoke;
+    v23[3] = &unk_27972EB40;
+    v24 = messageCopy;
+    v17 = [v16 addCompletionBlock:v23];
+
+    v18 = v24;
+  }
+
+  else
+  {
+    v19 = objc_autoreleasePoolPush();
+    v20 = selfCopy;
+    v21 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      v22 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v27 = v22;
+      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Cannot delete clips because zones are not ready", buf, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v19);
+    v18 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
+    [messageCopy respondWithError:v18];
+  }
+}
+
+- (void)handlePerformCloudPullMessage:(id)message
+{
+  v21 = *MEMORY[0x277D85DE8];
+  messageCopy = message;
+  workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v6 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v8 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  {
+    v9 = HMFGetLogIdentifier();
+    *buf = 138543362;
+    v20 = v9;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling perform cloud pull message", buf, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v6);
+  v10 = [(HMDCameraRecordingReachabilityEventManager *)selfCopy performCloudPullWithLabel:@"Fetching reachability events due to client request"];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __76__HMDCameraRecordingReachabilityEventManager_handlePerformCloudPullMessage___block_invoke;
+  v17[3] = &unk_2797358F0;
+  v11 = messageCopy;
+  v18 = v11;
+  v12 = [v10 addSuccessBlock:v17];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __76__HMDCameraRecordingReachabilityEventManager_handlePerformCloudPullMessage___block_invoke_2;
+  v15[3] = &unk_2797359D8;
+  v16 = v11;
+  v13 = v11;
+  v14 = [v12 addFailureBlock:v15];
+}
+
+- (void)handleUnsubscribeMessage:(id)message
+{
+  v27 = *MEMORY[0x277D85DE8];
+  messageCopy = message;
+  workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v6 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v8 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  {
+    v9 = HMFGetLogIdentifier();
+    v21 = 138543362;
+    v22 = v9;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling unsubscribe message", &v21, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -639,26 +626,24 @@ LABEL_18:
       v17 = HMFGetLogIdentifier();
       v18 = objc_opt_class();
       transport2 = [messageCopy transport];
-      v22 = 138543874;
-      v23 = v17;
-      v24 = 2112;
-      v25 = v18;
-      v26 = 2112;
-      v27 = transport2;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unsubscribing transport was not of expected class %@: %@", &v22, 0x20u);
+      v21 = 138543874;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v18;
+      v25 = 2112;
+      v26 = transport2;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unsubscribing transport was not of expected class %@: %@", &v21, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
     v20 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSubscribeMessage:(id)message
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -669,9 +654,9 @@ LABEL_18:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v22 = 138543362;
-    v23 = v9;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling subscribe message", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = v9;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling subscribe message", &v21, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -707,26 +692,24 @@ LABEL_18:
       v17 = HMFGetLogIdentifier();
       v18 = objc_opt_class();
       transport2 = [messageCopy transport];
-      v22 = 138543874;
-      v23 = v17;
-      v24 = 2112;
-      v25 = v18;
-      v26 = 2112;
-      v27 = transport2;
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Subscribing transport was not of expected class %@: %@", &v22, 0x20u);
+      v21 = 138543874;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v18;
+      v25 = 2112;
+      v26 = transport2;
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Subscribing transport was not of expected class %@: %@", &v21, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
     v20 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFetchCountOfEventsMessage:(id)message
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -739,9 +722,9 @@ LABEL_18:
     v9 = HMFGetLogIdentifier();
     shortDescription = [messageCopy shortDescription];
     *buf = 138543618;
-    v42 = v9;
-    v43 = 2112;
-    v44 = shortDescription;
+    v41 = v9;
+    v42 = 2112;
+    v43 = shortDescription;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Received message to fetch count of events: %@", buf, 0x16u);
   }
 
@@ -766,9 +749,9 @@ LABEL_18:
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v42 = v20;
-        v43 = 2112;
-        v44 = v16;
+        v41 = v20;
+        v42 = 2112;
+        v43 = v16;
         _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Fetching count of reachability event models with date interval: %@", buf, 0x16u);
       }
 
@@ -782,18 +765,18 @@ LABEL_18:
         v25 = HMFGetLogIdentifier();
         v26 = [v21 count];
         *buf = 138543874;
-        v42 = v25;
-        v43 = 2048;
-        v44 = v26;
-        v45 = 2112;
-        v46 = v16;
+        v41 = v25;
+        v42 = 2048;
+        v43 = v26;
+        v44 = 2112;
+        v45 = v16;
         _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@Successfully fetched count of %lu events with date interval: %@", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v22);
       v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v21, "count", *MEMORY[0x277CCF540])}];
-      v40 = v27;
-      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      v39 = v27;
+      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
 
       [messageCopy respondWithPayload:v28];
     }
@@ -808,9 +791,9 @@ LABEL_18:
         v36 = HMFGetLogIdentifier();
         messagePayload3 = [messageCopy messagePayload];
         *buf = 138543618;
-        v42 = v36;
-        v43 = 2112;
-        v44 = messagePayload3;
+        v41 = v36;
+        v42 = 2112;
+        v43 = messagePayload3;
         _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_ERROR, "%{public}@Could not find required value in message payload: %@", buf, 0x16u);
       }
 
@@ -829,7 +812,7 @@ LABEL_18:
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v42 = v32;
+      v41 = v32;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Cannot fetch count of events because zones are not ready", buf, 0xCu);
     }
 
@@ -837,13 +820,11 @@ LABEL_18:
     v13 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v13];
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFetchEventsMessage:(id)message
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -856,9 +837,9 @@ LABEL_18:
     v9 = HMFGetLogIdentifier();
     shortDescription = [messageCopy shortDescription];
     *buf = 138543618;
-    v50 = v9;
-    v51 = 2112;
-    v52 = shortDescription;
+    v49 = v9;
+    v50 = 2112;
+    v51 = shortDescription;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Received message to fetch events: %@", buf, 0x16u);
   }
 
@@ -874,30 +855,30 @@ LABEL_18:
     v16 = v15;
     if (v12 && v13 && v14 && v15)
     {
-      v46 = v13;
+      v45 = v13;
       v17 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v12 endDate:v13];
       bOOLValue = [v16 BOOLValue];
       unsignedIntegerValue = [v14 unsignedIntegerValue];
       v20 = objc_autoreleasePoolPush();
       v21 = selfCopy;
       v22 = HMFGetOSLogHandle();
-      v45 = v16;
+      v44 = v16;
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         v23 = HMFGetLogIdentifier();
         HMFBooleanToString();
-        v24 = v44 = v14;
+        v24 = v43 = v14;
         *buf = 138544130;
-        v50 = v23;
-        v51 = 2112;
-        v52 = v17;
-        v53 = 2048;
-        v54 = unsignedIntegerValue;
-        v55 = 2112;
-        v56 = v24;
+        v49 = v23;
+        v50 = 2112;
+        v51 = v17;
+        v52 = 2048;
+        v53 = unsignedIntegerValue;
+        v54 = 2112;
+        v55 = v24;
         _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Fetching reachability event models with date interval: %@, limit: %lu, shouldOrderAscending: %@", buf, 0x2Au);
 
-        v14 = v44;
+        v14 = v43;
       }
 
       objc_autoreleasePoolPop(v20);
@@ -918,7 +899,7 @@ LABEL_18:
       v28 = v14;
       if ([v26 count] <= unsignedIntegerValue)
       {
-        v29 = [v26 copy];
+        v29 = objc_msgSend_copy(v26);
       }
 
       else
@@ -927,16 +908,16 @@ LABEL_18:
       }
 
       v39 = v29;
-      v13 = v46;
+      v13 = v45;
       v40 = [v29 na_map:&__block_literal_global_123_131100];
-      v47 = *MEMORY[0x277CCF578];
+      v46 = *MEMORY[0x277CCF578];
       v41 = encodeRootObjectForIncomingXPCMessage(v40, 0);
-      v48 = v41;
-      v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+      v47 = v41;
+      v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
       [messageCopy respondWithPayload:v42];
 
       v14 = v28;
-      v16 = v45;
+      v16 = v44;
     }
 
     else
@@ -949,9 +930,9 @@ LABEL_18:
         v37 = HMFGetLogIdentifier();
         messagePayload = [messageCopy messagePayload];
         *buf = 138543618;
-        v50 = v37;
-        v51 = 2112;
-        v52 = messagePayload;
+        v49 = v37;
+        v50 = 2112;
+        v51 = messagePayload;
         _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_ERROR, "%{public}@Could not find required value in message payload: %@", buf, 0x16u);
       }
 
@@ -970,7 +951,7 @@ LABEL_18:
     {
       v33 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v50 = v33;
+      v49 = v33;
       _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@Cannot fetch events because zones are not ready", buf, 0xCu);
     }
 
@@ -978,8 +959,6 @@ LABEL_18:
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v12];
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__HMDCameraRecordingReachabilityEventManager_handleFetchEventsMessage___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1004,7 +983,7 @@ uint64_t __71__HMDCameraRecordingReachabilityEventManager_handleFetchEventsMessa
 
 - (void)handleRemoteCameraReachabilityDidChangeMessage:(id)message
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1015,15 +994,13 @@ uint64_t __71__HMDCameraRecordingReachabilityEventManager_handleFetchEventsMessa
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v9;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Received remote camera reachability change message", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v9;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Received remote camera reachability change message", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   v10 = [(HMDCameraRecordingReachabilityEventManager *)selfCopy performCloudPullWithLabel:@"Fetching reachability events due to remote message"];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAppleAccountSettingsHomeStateUpdated:(id)updated
@@ -1039,7 +1016,7 @@ uint64_t __71__HMDCameraRecordingReachabilityEventManager_handleFetchEventsMessa
 
 void __89__HMDCameraRecordingReachabilityEventManager_handleAppleAccountSettingsHomeStateUpdated___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1047,11 +1024,11 @@ void __89__HMDCameraRecordingReachabilityEventManager_handleAppleAccountSettings
   {
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 32) accountSettings];
-    v16 = 138543618;
-    v17 = v5;
-    v18 = 2112;
-    v19 = v6;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Received notification of updated home state for account settings: %@", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v5;
+    v17 = 2112;
+    v18 = v6;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Received notification of updated home state for account settings: %@", &v15, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -1076,8 +1053,6 @@ void __89__HMDCameraRecordingReachabilityEventManager_handleAppleAccountSettings
   {
     [v8 setCameraReachabilityEventNotificationsEnabled:0 forAccessory:v7 completionHandler:0];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleBridgedAccessoryDisconnectedNotification:(id)notification
@@ -1093,7 +1068,7 @@ void __89__HMDCameraRecordingReachabilityEventManager_handleAppleAccountSettings
 
 void __93__HMDCameraRecordingReachabilityEventManager_handleBridgedAccessoryDisconnectedNotification___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) hapAccessory];
   v3 = [v2 isPrimary];
 
@@ -1107,18 +1082,16 @@ void __93__HMDCameraRecordingReachabilityEventManager_handleBridgedAccessoryDisc
       v7 = HMFGetLogIdentifier();
       v8 = [*(a1 + 32) hapAccessory];
       v9 = [v8 shortDescription];
-      v11 = 138543618;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Bridged camera disconnected: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Bridged camera disconnected: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 32) handleUpdatedCameraReachability:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleBridgedAccessoryConnectedNotification:(id)notification
@@ -1134,7 +1107,7 @@ void __93__HMDCameraRecordingReachabilityEventManager_handleBridgedAccessoryDisc
 
 void __90__HMDCameraRecordingReachabilityEventManager_handleBridgedAccessoryConnectedNotification___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) hapAccessory];
   v3 = [v2 isPrimary];
 
@@ -1148,18 +1121,16 @@ void __90__HMDCameraRecordingReachabilityEventManager_handleBridgedAccessoryConn
       v7 = HMFGetLogIdentifier();
       v8 = [*(a1 + 32) hapAccessory];
       v9 = [v8 shortDescription];
-      v11 = 138543618;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Bridged camera connected: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Bridged camera connected: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 32) handleUpdatedCameraReachability:1];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryDisconnectedNotification:(id)notification
@@ -1175,7 +1146,7 @@ void __90__HMDCameraRecordingReachabilityEventManager_handleBridgedAccessoryConn
 
 void __86__HMDCameraRecordingReachabilityEventManager_handleAccessoryDisconnectedNotification___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) hapAccessory];
   v3 = [v2 isPrimary];
 
@@ -1189,18 +1160,16 @@ void __86__HMDCameraRecordingReachabilityEventManager_handleAccessoryDisconnecte
       v7 = HMFGetLogIdentifier();
       v8 = [*(a1 + 32) hapAccessory];
       v9 = [v8 shortDescription];
-      v11 = 138543618;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Unconfigured camera: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Unconfigured camera: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 32) handleUpdatedCameraReachability:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryConnectedNotification:(id)notification
@@ -1216,7 +1185,7 @@ void __86__HMDCameraRecordingReachabilityEventManager_handleAccessoryDisconnecte
 
 void __83__HMDCameraRecordingReachabilityEventManager_handleAccessoryConnectedNotification___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) hapAccessory];
   v3 = [v2 isPrimary];
 
@@ -1230,18 +1199,16 @@ void __83__HMDCameraRecordingReachabilityEventManager_handleAccessoryConnectedNo
       v7 = HMFGetLogIdentifier();
       v8 = [*(a1 + 32) hapAccessory];
       v9 = [v8 shortDescription];
-      v11 = 138543618;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Configured camera: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Configured camera: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 32) handleUpdatedCameraReachability:1];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCameraProfileSettingsDidChange:(id)change
@@ -1260,16 +1227,16 @@ void __83__HMDCameraRecordingReachabilityEventManager_handleAccessoryConnectedNo
 
 void __83__HMDCameraRecordingReachabilityEventManager_handleCameraProfileSettingsDidChange___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v31 = 138543362;
-    v32 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Received camera profile settings did change notification", &v31, 0xCu);
+    v30 = 138543362;
+    v31 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Received camera profile settings did change notification", &v30, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -1314,9 +1281,9 @@ void __83__HMDCameraRecordingReachabilityEventManager_handleCameraProfileSetting
           if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
             v20 = HMFGetLogIdentifier();
-            v31 = 138543362;
-            v32 = v20;
-            _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Reachability event notifications are now enabled", &v31, 0xCu);
+            v30 = 138543362;
+            v31 = v20;
+            _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Reachability event notifications are now enabled", &v30, 0xCu);
           }
 
           objc_autoreleasePoolPop(v17);
@@ -1340,21 +1307,19 @@ void __83__HMDCameraRecordingReachabilityEventManager_handleCameraProfileSetting
       v27 = objc_opt_class();
       v28 = [*(a1 + 40) userInfo];
       v29 = [v28 objectForKeyedSubscript:@"HMDCameraProfileSettingsNotificationKey"];
-      v31 = 138544130;
-      v32 = v26;
-      v33 = 2112;
-      v34 = @"HMDCameraProfileSettingsNotificationKey";
-      v35 = 2112;
-      v36 = v27;
-      v37 = 2112;
-      v38 = v29;
-      _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Object for key %@ is not of expected type %@: %@", &v31, 0x2Au);
+      v30 = 138544130;
+      v31 = v26;
+      v32 = 2112;
+      v33 = @"HMDCameraProfileSettingsNotificationKey";
+      v34 = 2112;
+      v35 = v27;
+      v36 = 2112;
+      v37 = v29;
+      _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Object for key %@ is not of expected type %@: %@", &v30, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v23);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleResidentDeviceConfirmedStateChangedNotification:(id)notification
@@ -1368,9 +1333,9 @@ void __83__HMDCameraRecordingReachabilityEventManager_handleCameraProfileSetting
   dispatch_async(workQueue, block);
 }
 
-uint64_t __100__HMDCameraRecordingReachabilityEventManager_handleResidentDeviceConfirmedStateChangedNotification___block_invoke(uint64_t a1)
+void *__100__HMDCameraRecordingReachabilityEventManager_handleResidentDeviceConfirmedStateChangedNotification___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) hapAccessory];
   v3 = [v2 home];
   v4 = [v3 isCurrentDeviceConfirmedPrimaryResident];
@@ -1387,26 +1352,25 @@ uint64_t __100__HMDCameraRecordingReachabilityEventManager_handleResidentDeviceC
       [*(a1 + 32) isCurrentDeviceConfirmedPrimaryResident];
       v10 = HMFBooleanToString();
       v11 = HMFBooleanToString();
-      v13 = 138543874;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v11;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Notified that isCurrentDeviceConfirmedPrimaryResident changed from %@ to %@", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v11;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Notified that isCurrentDeviceConfirmedPrimaryResident changed from %@ to %@", &v12, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
-    result = [*(a1 + 32) setCurrentDeviceConfirmedPrimaryResident:v4];
+    return [*(a1 + 32) setCurrentDeviceConfirmedPrimaryResident:v4];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)insertBulletinForReachabilityEvent:(id)event
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   currentSettings = [(HMDCameraRecordingReachabilityEventManager *)self currentSettings];
   notificationSettings = [currentSettings notificationSettings];
@@ -1424,11 +1388,11 @@ uint64_t __100__HMDCameraRecordingReachabilityEventManager_handleResidentDeviceC
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v14 = HMFGetLogIdentifier();
-      v23 = 138543618;
-      v24 = v14;
-      v25 = 2114;
-      v26 = eventCopy;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Inserting bulletin for new reachability event: %{public}@", &v23, 0x16u);
+      v22 = 138543618;
+      v23 = v14;
+      v24 = 2114;
+      v25 = eventCopy;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Inserting bulletin for new reachability event: %{public}@", &v22, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -1446,21 +1410,19 @@ uint64_t __100__HMDCameraRecordingReachabilityEventManager_handleResidentDeviceC
       v19 = HMFGetLogIdentifier();
       v20 = HMFBooleanToString();
       v21 = HMFBooleanToString();
-      v23 = 138544130;
-      v24 = v19;
-      v25 = 2112;
-      v26 = eventCopy;
-      v27 = 2112;
-      v28 = v20;
-      v29 = 2112;
-      v30 = v21;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Not inserting bulletin for new reachability event: %@ due to reachabilityEventNotificationEnabled: %@ and isHomeEnabled: %@", &v23, 0x2Au);
+      v22 = 138544130;
+      v23 = v19;
+      v24 = 2112;
+      v25 = eventCopy;
+      v26 = 2112;
+      v27 = v20;
+      v28 = 2112;
+      v29 = v21;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Not inserting bulletin for new reachability event: %@ due to reachabilityEventNotificationEnabled: %@ and isHomeEnabled: %@", &v22, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mostRecentReachabilityEventModelInModels:(id)models
@@ -1511,7 +1473,7 @@ LABEL_5:
 - (void)startReachabilityChangeDebounceTimerWithReachability:(BOOL)reachability
 {
   reachabilityCopy = reachability;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1532,11 +1494,11 @@ LABEL_5:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v20 = 138543618;
-    v21 = v11;
-    v22 = 2048;
-    v23 = v7;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Starting reachability change debounce timer with time interval of %fs", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v11;
+    v21 = 2048;
+    v22 = v7;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Starting reachability change debounce timer with time interval of %fs", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -1556,8 +1518,6 @@ LABEL_5:
 
   date = [MEMORY[0x277CBEAA8] date];
   [(HMDCameraRecordingReachabilityEventManager *)selfCopy setReachabilityChangeDebounceStartDate:date];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (double)reachabilityChangeUnreachableDebounceTimeout
@@ -1586,7 +1546,7 @@ LABEL_5:
 
 - (void)updateInitialReachabilityTimer
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1598,9 +1558,9 @@ LABEL_5:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v7;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Starting initial reachability timer", &v17, 0xCu);
+      v15 = 138543362;
+      v16 = v7;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Starting initial reachability timer", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -1622,14 +1582,11 @@ LABEL_5:
 
     initialReachabilityTimer3 = [(HMDCameraRecordingReachabilityEventManager *)selfCopy initialReachabilityTimer];
     [initialReachabilityTimer3 resume];
-
-    v15 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     [(HMDCameraRecordingReachabilityEventManager *)self setInitialReachabilityTimer:0];
-    v16 = *MEMORY[0x277D85DE8];
 
     [(HMDCameraRecordingReachabilityEventManager *)self setReachabilityChangeDebounceTimer:0];
   }
@@ -1649,7 +1606,7 @@ LABEL_5:
 
 - (id)performCloudPullWithLabel:(id)label
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   labelCopy = label;
   workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1666,14 +1623,14 @@ LABEL_5:
     v12 = [v10 schedulerWithDispatchQueue:workQueue2];
     v13 = [v9 reschedule:v12];
 
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __72__HMDCameraRecordingReachabilityEventManager_performCloudPullWithLabel___block_invoke;
-    v23[3] = &unk_2797358C8;
-    v23[4] = self;
-    v24 = v7;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __72__HMDCameraRecordingReachabilityEventManager_performCloudPullWithLabel___block_invoke;
+    v22[3] = &unk_2797358C8;
+    v22[4] = self;
+    v23 = v7;
     v14 = v7;
-    v15 = [v13 addFailureBlock:v23];
+    v15 = [v13 addFailureBlock:v22];
   }
 
   else
@@ -1685,7 +1642,7 @@ LABEL_5:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v19;
+      v25 = v19;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Cannot perform cloud pull because zones are not ready", buf, 0xCu);
     }
 
@@ -1695,14 +1652,12 @@ LABEL_5:
     v15 = [v20 futureWithError:v13];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 void __72__HMDCameraRecordingReachabilityEventManager_performCloudPullWithLabel___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1711,22 +1666,21 @@ void __72__HMDCameraRecordingReachabilityEventManager_performCloudPullWithLabel_
   {
     v7 = HMFGetLogIdentifier();
     v8 = *(a1 + 40);
-    v10 = 138543874;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to perform cloud pull with options %@ due to error: %@", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to perform cloud pull with options %@ due to error: %@", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitLogEventWithCurrentModel:(id)model
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   v5 = 0.0;
   if ([modelCopy reachable])
@@ -1755,11 +1709,11 @@ void __72__HMDCameraRecordingReachabilityEventManager_performCloudPullWithLabel_
       {
         v14 = HMFGetLogIdentifier();
         v15 = [v7 debugDescription];
-        v24 = 138543618;
-        v25 = v14;
-        v26 = 2112;
-        v27 = v15;
-        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_FAULT, "%{public}@Most recent reachability event model has no date of occurrence: %@", &v24, 0x16u);
+        v23 = 138543618;
+        v24 = v14;
+        v25 = 2112;
+        v26 = v15;
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_FAULT, "%{public}@Most recent reachability event model has no date of occurrence: %@", &v23, 0x16u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -1786,12 +1740,43 @@ void __72__HMDCameraRecordingReachabilityEventManager_performCloudPullWithLabel_
   [logEventSubmitter submitLogEvent:v21];
 
   [(HMDCameraRecordingReachabilityEventManager *)self setReachabilityChangeDebounceCount:0];
-  v23 = *MEMORY[0x277D85DE8];
+}
+
+- (id)reachabilityEventModelWithUUID:(id)d reachability:(BOOL)reachability dateOfOccurrence:(id)occurrence
+{
+  reachabilityCopy = reachability;
+  occurrenceCopy = occurrence;
+  dCopy = d;
+  workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v11 = [HMDCameraRecordingReachabilityEventModel alloc];
+  hapAccessory = [(HMDCameraRecordingReachabilityEventManager *)self hapAccessory];
+  uuid = [hapAccessory uuid];
+  v14 = [(HMBModel *)v11 initWithModelID:dCopy parentModelID:uuid];
+
+  [(HMDCameraRecordingReachabilityEventModel *)v14 setReachable:reachabilityCopy];
+  [(HMDCameraRecordingReachabilityEventModel *)v14 setDateOfOccurrence:occurrenceCopy];
+
+  return v14;
+}
+
+- (id)reachabilityEventModelWithReachability:(BOOL)reachability dateOfOccurrence:(id)occurrence
+{
+  reachabilityCopy = reachability;
+  occurrenceCopy = occurrence;
+  workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  uUID = [MEMORY[0x277CCAD78] UUID];
+  v9 = [(HMDCameraRecordingReachabilityEventManager *)self reachabilityEventModelWithUUID:uUID reachability:reachabilityCopy dateOfOccurrence:occurrenceCopy];
+
+  return v9;
 }
 
 - (void)notifyTransportOfUpdatedEvents:(id)events removedEventUUIDs:(id)ds
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   dsCopy = ds;
   workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
@@ -1811,48 +1796,48 @@ void __72__HMDCameraRecordingReachabilityEventManager_performCloudPullWithLabel_
       v15 = HMFGetLogIdentifier();
       clientConnections2 = [(HMDCameraRecordingReachabilityEventManager *)selfCopy clientConnections];
       *buf = 138544130;
-      v43 = v15;
-      v44 = 2048;
-      v45 = [clientConnections2 count];
-      v46 = 2048;
-      v47 = [eventsCopy count];
-      v48 = 2048;
-      v49 = [dsCopy count];
+      v42 = v15;
+      v43 = 2048;
+      v44 = [clientConnections2 count];
+      v45 = 2048;
+      v46 = [eventsCopy count];
+      v47 = 2048;
+      v48 = [dsCopy count];
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Notifying %lu subscribed transports of %lu updated events, %lu removed events", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v11);
-    v40[0] = *MEMORY[0x277CCF570];
-    v33 = eventsCopy;
+    v39[0] = *MEMORY[0x277CCF570];
+    v32 = eventsCopy;
     v17 = encodeRootObjectForIncomingXPCMessage(eventsCopy, 0);
-    v40[1] = *MEMORY[0x277CCF560];
-    v41[0] = v17;
-    v32 = dsCopy;
-    v41[1] = dsCopy;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
+    v39[1] = *MEMORY[0x277CCF560];
+    v40[0] = v17;
+    v31 = dsCopy;
+    v40[1] = dsCopy;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = [(HMDCameraRecordingReachabilityEventManager *)selfCopy clientConnections];
-    v19 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v19 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v36;
+      v21 = *v35;
       v22 = *MEMORY[0x277CCF528];
       do
       {
         v23 = 0;
         do
         {
-          if (*v36 != v21)
+          if (*v35 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v35 + 1) + 8 * v23);
+          v24 = *(*(&v34 + 1) + 8 * v23);
           v25 = [MEMORY[0x277D0F848] entitledMessageWithName:v22 messagePayload:v18];
           [v25 setTransport:v24];
           v26 = objc_alloc(MEMORY[0x277D0F820]);
@@ -1868,14 +1853,14 @@ void __72__HMDCameraRecordingReachabilityEventManager_performCloudPullWithLabel_
         }
 
         while (v20 != v23);
-        v20 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v20 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
       while (v20);
     }
 
-    dsCopy = v32;
-    eventsCopy = v33;
+    dsCopy = v31;
+    eventsCopy = v32;
   }
 
   else
@@ -1884,23 +1869,21 @@ void __72__HMDCameraRecordingReachabilityEventManager_performCloudPullWithLabel_
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v43 = v30;
-      v44 = 2048;
-      v45 = [eventsCopy count];
-      v46 = 2048;
-      v47 = [dsCopy count];
+      v42 = v30;
+      v43 = 2048;
+      v44 = [eventsCopy count];
+      v45 = 2048;
+      v46 = [dsCopy count];
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@No subscribed transports to notify of %lu updated events, %lu removed events", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyRemoteSubscribersOfCameraReachabilityEventModel:(id)model
 {
-  v76[1] = *MEMORY[0x277D85DE8];
+  v75[1] = *MEMORY[0x277D85DE8];
   modelCopy = model;
   workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1915,16 +1898,16 @@ void __72__HMDCameraRecordingReachabilityEventManager_performCloudPullWithLabel_
     {
       notificationRegistry = [home notificationRegistry];
       uuid = [v6 uuid];
-      v76[0] = uuid;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:1];
+      v75[0] = uuid;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:1];
       v12 = [notificationRegistry userIDsRegisteredForReachabilityEventNotificationsForAccessoryUUIDs:v11];
 
-      v64[0] = MEMORY[0x277D85DD0];
-      v64[1] = 3221225472;
-      v64[2] = __100__HMDCameraRecordingReachabilityEventManager_notifyRemoteSubscribersOfCameraReachabilityEventModel___block_invoke;
-      v64[3] = &unk_27972CF08;
-      v64[4] = self;
-      v13 = [v12 na_map:v64];
+      v63[0] = MEMORY[0x277D85DD0];
+      v63[1] = 3221225472;
+      v63[2] = __100__HMDCameraRecordingReachabilityEventManager_notifyRemoteSubscribersOfCameraReachabilityEventModel___block_invoke;
+      v63[3] = &unk_27972CF08;
+      v63[4] = self;
+      v13 = [v12 na_map:v63];
       if ([v13 hmf_isEmpty])
       {
         v14 = objc_autoreleasePoolPush();
@@ -1935,7 +1918,7 @@ void __72__HMDCameraRecordingReachabilityEventManager_performCloudPullWithLabel_
           HMFGetLogIdentifier();
           v18 = v17 = v12;
           *buf = 138543362;
-          v66 = v18;
+          v65 = v18;
           _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@No devices need to be notified for accessory reachability event", buf, 0xCu);
 
           v12 = v17;
@@ -1946,42 +1929,42 @@ void __72__HMDCameraRecordingReachabilityEventManager_performCloudPullWithLabel_
 
       else
       {
-        v51 = v12;
-        v52 = v8;
-        v53 = v6;
-        v74[0] = @"HMDRemoteCameraReachabilityDidChangeMessageKeyUUID";
+        v50 = v12;
+        v51 = v8;
+        v52 = v6;
+        v73[0] = @"HMDRemoteCameraReachabilityDidChangeMessageKeyUUID";
         hmbModelID = [modelCopy hmbModelID];
         uUIDString = [hmbModelID UUIDString];
-        v75[0] = uUIDString;
-        v74[1] = @"HMDRemoteCameraReachabilityDidChangeMessageKeyDateOfOccurrence";
+        v74[0] = uUIDString;
+        v73[1] = @"HMDRemoteCameraReachabilityDidChangeMessageKeyDateOfOccurrence";
         dateOfOccurrence = [modelCopy dateOfOccurrence];
-        v75[1] = dateOfOccurrence;
-        v74[2] = @"HMDRemoteCameraReachabilityDidChangeMessageKeyIsReachable";
+        v74[1] = dateOfOccurrence;
+        v73[2] = @"HMDRemoteCameraReachabilityDidChangeMessageKeyIsReachable";
         v30 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(modelCopy, "reachable")}];
-        v75[2] = v30;
-        v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:3];
+        v74[2] = v30;
+        v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:3];
 
-        v62 = 0u;
-        v63 = 0u;
-        v60 = 0u;
         v61 = 0u;
+        v62 = 0u;
+        v59 = 0u;
+        v60 = 0u;
         obj = v13;
-        v59 = [obj countByEnumeratingWithState:&v60 objects:v73 count:16];
-        if (v59)
+        v58 = [obj countByEnumeratingWithState:&v59 objects:v72 count:16];
+        if (v58)
         {
-          v32 = *v61;
-          v54 = v31;
-          v55 = v13;
+          v32 = *v60;
+          v53 = v31;
+          v54 = v13;
           do
           {
-            for (i = 0; i != v59; ++i)
+            for (i = 0; i != v58; ++i)
             {
-              if (*v61 != v32)
+              if (*v60 != v32)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v34 = *(*(&v60 + 1) + 8 * i);
+              v34 = *(*(&v59 + 1) + 8 * i);
               v35 = [HMDRemoteMessage alloc];
               v36 = [HMDRemoteDeviceMessageDestination alloc];
               uniqueIdentifier = [(HMDCameraRecordingReachabilityEventManager *)self uniqueIdentifier];
@@ -1997,25 +1980,25 @@ void __72__HMDCameraRecordingReachabilityEventManager_performCloudPullWithLabel_
                 shortDescription = [v34 shortDescription];
                 hmbModelID2 = [modelCopy hmbModelID];
                 [(HMFObject *)v39 shortDescription];
-                v58 = v40;
+                v57 = v40;
                 v46 = v32;
                 v48 = v47 = self;
                 *buf = 138544130;
-                v66 = v43;
-                v67 = 2112;
-                v68 = shortDescription;
-                v69 = 2114;
-                v70 = hmbModelID2;
-                v71 = 2114;
-                v72 = v48;
+                v65 = v43;
+                v66 = 2112;
+                v67 = shortDescription;
+                v68 = 2114;
+                v69 = hmbModelID2;
+                v70 = 2114;
+                v71 = v48;
                 _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_INFO, "%{public}@Notifying device %@ of camera reachability event model %{public}@ using message: %{public}@", buf, 0x2Au);
 
                 self = v47;
                 v32 = v46;
-                v40 = v58;
+                v40 = v57;
 
-                v31 = v54;
-                v13 = v55;
+                v31 = v53;
+                v13 = v54;
               }
 
               objc_autoreleasePoolPop(v40);
@@ -2023,15 +2006,15 @@ void __72__HMDCameraRecordingReachabilityEventManager_performCloudPullWithLabel_
               [messageDispatcher sendMessage:v39];
             }
 
-            v59 = [obj countByEnumeratingWithState:&v60 objects:v73 count:16];
+            v58 = [obj countByEnumeratingWithState:&v59 objects:v72 count:16];
           }
 
-          while (v59);
+          while (v58);
         }
 
-        v8 = v52;
-        v6 = v53;
-        v12 = v51;
+        v8 = v51;
+        v6 = v52;
+        v12 = v50;
       }
     }
 
@@ -2044,7 +2027,7 @@ void __72__HMDCameraRecordingReachabilityEventManager_performCloudPullWithLabel_
       {
         v26 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v66 = v26;
+        v65 = v26;
         _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Home reference was nil when attempting to notify subscribers", buf, 0xCu);
       }
 
@@ -2061,19 +2044,17 @@ void __72__HMDCameraRecordingReachabilityEventManager_performCloudPullWithLabel_
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v66 = v22;
+      v65 = v22;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@HAP accessory reference was nil when attempting to notify subscribers", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 id __100__HMDCameraRecordingReachabilityEventManager_notifyRemoteSubscribersOfCameraReachabilityEventModel___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [HMDDevice deviceWithDestination:v3];
   if (!v4)
@@ -2084,17 +2065,15 @@ id __100__HMDCameraRecordingReachabilityEventManager_notifyRemoteSubscribersOfCa
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unable to get the device with destination %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unable to get the device with destination %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -2125,7 +2104,7 @@ id __100__HMDCameraRecordingReachabilityEventManager_notifyRemoteSubscribersOfCa
 
 id __78__HMDCameraRecordingReachabilityEventManager_addCameraReachabilityEventModel___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 mirrorOutputResult];
 
@@ -2142,9 +2121,9 @@ id __78__HMDCameraRecordingReachabilityEventManager_addCameraReachabilityEventMo
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@No mirrorOutputResult future provided", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@No mirrorOutputResult future provided", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -2153,14 +2132,62 @@ id __78__HMDCameraRecordingReachabilityEventManager_addCameraReachabilityEventMo
     v5 = [v10 futureWithError:v11];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v5;
+}
+
+- (void)addCameraReachabilityEventWithReachability:(BOOL)reachability dateOfOccurrence:(id)occurrence
+{
+  reachabilityCopy = reachability;
+  v35 = *MEMORY[0x277D85DE8];
+  occurrenceCopy = occurrence;
+  workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v8 = [(HMDCameraRecordingReachabilityEventManager *)self reachabilityEventModelWithReachability:reachabilityCopy dateOfOccurrence:occurrenceCopy];
+  v9 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v11 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  {
+    v12 = HMFGetLogIdentifier();
+    hmbModelID = [v8 hmbModelID];
+    *buf = 138544130;
+    v28 = v12;
+    v29 = 2114;
+    v30 = hmbModelID;
+    v31 = 1024;
+    v32 = reachabilityCopy;
+    v33 = 2112;
+    v34 = occurrenceCopy;
+    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Adding camera reachability event model %{public}@ with reachability: %{BOOL}d date of occurrence: %@", buf, 0x26u);
+  }
+
+  objc_autoreleasePoolPop(v9);
+  v14 = [(HMDCameraRecordingReachabilityEventManager *)selfCopy addCameraReachabilityEventModel:v8];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __106__HMDCameraRecordingReachabilityEventManager_addCameraReachabilityEventWithReachability_dateOfOccurrence___block_invoke;
+  v25[3] = &unk_279735918;
+  v25[4] = selfCopy;
+  v15 = v8;
+  v26 = v15;
+  v16 = [v14 addSuccessBlock:v25];
+  v19 = MEMORY[0x277D85DD0];
+  v20 = 3221225472;
+  v21 = __106__HMDCameraRecordingReachabilityEventManager_addCameraReachabilityEventWithReachability_dateOfOccurrence___block_invoke_2;
+  v22 = &unk_2797358C8;
+  v23 = selfCopy;
+  v24 = v15;
+  v17 = v15;
+  v18 = [v16 addFailureBlock:&v19];
+
+  [(HMDCameraRecordingReachabilityEventManager *)selfCopy submitLogEventWithCurrentModel:v17, v19, v20, v21, v22, v23];
+  [(HMDCameraRecordingReachabilityEventManager *)selfCopy setMostRecentReachabilityEventModel:v17];
 }
 
 void __106__HMDCameraRecordingReachabilityEventManager_addCameraReachabilityEventWithReachability_dateOfOccurrence___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -2169,17 +2196,16 @@ void __106__HMDCameraRecordingReachabilityEventManager_addCameraReachabilityEven
   {
     v7 = HMFGetLogIdentifier();
     v8 = *(a1 + 40);
-    v10 = 138543874;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to push event %@ to the cloud due to error: %@", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to push event %@ to the cloud due to error: %@", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchMostRecentReachabilityEventModel
@@ -2241,7 +2267,7 @@ id __83__HMDCameraRecordingReachabilityEventManager_fetchMostRecentReachabilityE
   v9 = v6;
   v10 = intervalCopy;
   [v8 enumerateObjectsUsingBlock:&v13];
-  v11 = [v9 copy];
+  v11 = objc_msgSend_copy(v9, v13, v14, v15, v16);
 
   return v11;
 }
@@ -2302,7 +2328,7 @@ void __86__HMDCameraRecordingReachabilityEventManager_fetchReachabilityEventsWit
 
 void __77__HMDCameraRecordingReachabilityEventManager_handleInitialCameraReachability__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) workQueue];
@@ -2330,7 +2356,7 @@ void __77__HMDCameraRecordingReachabilityEventManager_handleInitialCameraReachab
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     v16 = HMFGetLogIdentifier();
-    v28 = v13;
+    v27 = v13;
     v17 = v8;
     v18 = v5;
     v19 = v6;
@@ -2338,15 +2364,15 @@ void __77__HMDCameraRecordingReachabilityEventManager_handleInitialCameraReachab
     v21 = [*(a1 + 32) mostRecentReachabilityEventModel];
     v22 = [v21 createEvent];
     *buf = 138543874;
-    v30 = v16;
-    v31 = 1024;
-    v32 = v20;
+    v29 = v16;
+    v30 = 1024;
+    v31 = v20;
     v6 = v19;
     v5 = v18;
     v8 = v17;
-    v13 = v28;
-    v33 = 2114;
-    v34 = v22;
+    v13 = v27;
+    v32 = 2114;
+    v33 = v22;
     _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Determining should add initial reachability event using reachability: %{BOOL}d, most recent reachability event: %{public}@", buf, 0x1Cu);
   }
 
@@ -2364,8 +2390,83 @@ void __77__HMDCameraRecordingReachabilityEventManager_handleInitialCameraReachab
 
   v26 = [*(a1 + 32) didHandleInitialReachabilityFuture];
   [v26 finishWithNoResult];
+}
 
-  v27 = *MEMORY[0x277D85DE8];
+- (void)handleUpdatedCameraReachability:(BOOL)reachability
+{
+  reachabilityCopy = reachability;
+  v16 = *MEMORY[0x277D85DE8];
+  workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  initialReachabilityTimer = [(HMDCameraRecordingReachabilityEventManager *)self initialReachabilityTimer];
+
+  if (initialReachabilityTimer)
+  {
+    v7 = objc_autoreleasePoolPush();
+    selfCopy3 = self;
+    v9 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = HMFGetLogIdentifier();
+      v14 = 138543362;
+      v15 = v10;
+      v11 = "%{public}@Initial reachability timer active";
+LABEL_11:
+      v12 = v9;
+      v13 = OS_LOG_TYPE_DEFAULT;
+LABEL_12:
+      _os_log_impl(&dword_2531F8000, v12, v13, v11, &v14, 0xCu);
+
+      goto LABEL_13;
+    }
+
+    goto LABEL_13;
+  }
+
+  if (![(HMDCameraRecordingReachabilityEventManager *)self shouldHandleReachabilityChanges])
+  {
+    v7 = objc_autoreleasePoolPush();
+    selfCopy3 = self;
+    v9 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = HMFGetLogIdentifier();
+      v14 = 138543362;
+      v15 = v10;
+      v11 = "%{public}@Not handling reachability change";
+      goto LABEL_11;
+    }
+
+LABEL_13:
+
+    objc_autoreleasePoolPop(v7);
+    return;
+  }
+
+  if ([(HMDCameraRecordingReachabilityEventManager *)self currentCameraReachability]== reachabilityCopy)
+  {
+    v7 = objc_autoreleasePoolPush();
+    selfCopy3 = self;
+    v9 = HMFGetOSLogHandle();
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      goto LABEL_13;
+    }
+
+    v10 = HMFGetLogIdentifier();
+    v14 = 138543362;
+    v15 = v10;
+    v11 = "%{public}@Current camera reachability is same as updated camera reachability";
+    v12 = v9;
+    v13 = OS_LOG_TYPE_INFO;
+    goto LABEL_12;
+  }
+
+  [(HMDCameraRecordingReachabilityEventManager *)self setCurrentCameraReachability:reachabilityCopy];
+  [(HMDCameraRecordingReachabilityEventManager *)self setReachabilityChangeDebounceCount:[(HMDCameraRecordingReachabilityEventManager *)self reachabilityChangeDebounceCount]+ 1];
+
+  [(HMDCameraRecordingReachabilityEventManager *)self startReachabilityChangeDebounceTimerWithReachability:reachabilityCopy];
 }
 
 - (void)setCurrentDeviceConnectedToNetwork:(BOOL)network
@@ -2393,7 +2494,7 @@ void __77__HMDCameraRecordingReachabilityEventManager_handleInitialCameraReachab
 - (void)setCurrentDeviceConfirmedPrimaryResident:(BOOL)resident
 {
   residentCopy = resident;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -2443,16 +2544,14 @@ void __77__HMDCameraRecordingReachabilityEventManager_handleInitialCameraReachab
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         v15 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v15;
-        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Not updating notification registrations because accessory reference is nil", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v15;
+        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Not updating notification registrations because accessory reference is nil", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isCurrentDeviceConfirmedPrimaryResident
@@ -2470,7 +2569,7 @@ void __77__HMDCameraRecordingReachabilityEventManager_handleInitialCameraReachab
   dispatch_assert_queue_V2(workQueue);
 
   LODWORD(workQueue) = isRecordingAllowedForSettings(self->_currentSettings);
-  v6 = [settingsCopy copy];
+  v6 = objc_msgSend_copy(settingsCopy);
   currentSettings = self->_currentSettings;
   self->_currentSettings = v6;
 
@@ -2532,7 +2631,7 @@ void __77__HMDCameraRecordingReachabilityEventManager_handleInitialCameraReachab
 
 - (void)cleanUpEvents
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -2546,13 +2645,13 @@ void __77__HMDCameraRecordingReachabilityEventManager_handleInitialCameraReachab
   {
     v13 = [(HMDCameraRecordingReachabilityEventManager *)self mostRecentReachabilityEventModelInModels:v8];
     v14 = MEMORY[0x277CBEB98];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __59__HMDCameraRecordingReachabilityEventManager_cleanUpEvents__block_invoke;
-    v27[3] = &unk_27972CE90;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __59__HMDCameraRecordingReachabilityEventManager_cleanUpEvents__block_invoke;
+    v26[3] = &unk_27972CE90;
     v15 = v13;
-    v28 = v15;
-    v16 = [v8 na_map:v27];
+    v27 = v15;
+    v16 = [v8 na_map:v26];
     v17 = [v14 setWithArray:v16];
 
     v18 = objc_autoreleasePoolPush();
@@ -2563,9 +2662,9 @@ void __77__HMDCameraRecordingReachabilityEventManager_handleInitialCameraReachab
       v21 = HMFGetLogIdentifier();
       v22 = [v17 count];
       *buf = 138543618;
-      v30 = v21;
-      v31 = 2048;
-      v32 = v22;
+      v29 = v21;
+      v30 = 2048;
+      v31 = v22;
       _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Removing %lu expired records", buf, 0x16u);
     }
 
@@ -2585,14 +2684,12 @@ void __77__HMDCameraRecordingReachabilityEventManager_handleInitialCameraReachab
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v30 = v12;
+      v29 = v12;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEBUG, "%{public}@No expired models to delete", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 id __59__HMDCameraRecordingReachabilityEventManager_cleanUpEvents__block_invoke(uint64_t a1, void *a2)
@@ -2619,7 +2716,7 @@ id __59__HMDCameraRecordingReachabilityEventManager_cleanUpEvents__block_invoke(
 {
   networkCopy = network;
   residentCopy = resident;
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   dispatcherCopy = dispatcher;
   settingsCopy = settings;
   workQueue = [(HMDCameraRecordingReachabilityEventManager *)self workQueue];
@@ -2634,13 +2731,13 @@ id __59__HMDCameraRecordingReachabilityEventManager_cleanUpEvents__block_invoke(
     v16 = HMFBooleanToString();
     v17 = HMFBooleanToString();
     *buf = 138544130;
-    v62 = v15;
-    v63 = 2112;
-    v64 = settingsCopy;
-    v65 = 2112;
-    v66 = v16;
-    v67 = 2112;
-    v68 = v17;
+    v61 = v15;
+    v62 = 2112;
+    v63 = settingsCopy;
+    v64 = 2112;
+    v65 = v16;
+    v66 = 2112;
+    v67 = v17;
     _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Configuring with current settings: %@, isCurrentDeviceConfirmedPrimaryResident: %@, isCurrentDeviceConnectedToNetwork: %@", buf, 0x2Au);
   }
 
@@ -2651,58 +2748,58 @@ id __59__HMDCameraRecordingReachabilityEventManager_cleanUpEvents__block_invoke(
   v20 = [HMDXPCMessagePolicy policyWithEntitlements:133];
   v21 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:0 remoteAccessRequired:0 requiresCameraStreamingAccess:1];
   [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:4 remoteAccessRequired:0];
-  v22 = v51 = networkCopy;
+  v22 = v50 = networkCopy;
   messageDispatcher = [(HMDCameraRecordingReachabilityEventManager *)selfCopy messageDispatcher];
   +[HMDRemoteMessagePolicy defaultSecurePolicy];
-  v24 = v52 = dispatcherCopy;
-  v60[0] = v24;
-  v60[1] = v21;
-  v50 = settingsCopy;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
+  v24 = v51 = dispatcherCopy;
+  v59[0] = v24;
+  v59[1] = v21;
+  v49 = settingsCopy;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
   [messageDispatcher registerForMessage:@"HMDRemoteCameraReachabilityDidChangeMessage" receiver:selfCopy policies:v25 selector:sel_handleRemoteCameraReachabilityDidChangeMessage_];
 
   messageDispatcher2 = [(HMDCameraRecordingReachabilityEventManager *)selfCopy messageDispatcher];
   v27 = *MEMORY[0x277CCF538];
-  v59[0] = v20;
-  v59[1] = v21;
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
+  v58[0] = v20;
+  v58[1] = v21;
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
   [messageDispatcher2 registerForMessage:v27 receiver:selfCopy policies:v28 selector:sel_handleFetchEventsMessage_];
 
   messageDispatcher3 = [(HMDCameraRecordingReachabilityEventManager *)selfCopy messageDispatcher];
   v30 = *MEMORY[0x277CCF530];
-  v58[0] = v20;
-  v58[1] = v21;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
+  v57[0] = v20;
+  v57[1] = v21;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
   [messageDispatcher3 registerForMessage:v30 receiver:selfCopy policies:v31 selector:sel_handleFetchCountOfEventsMessage_];
 
   messageDispatcher4 = [(HMDCameraRecordingReachabilityEventManager *)selfCopy messageDispatcher];
   v33 = *MEMORY[0x277CCF588];
-  v57[0] = v20;
-  v57[1] = v21;
-  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+  v56[0] = v20;
+  v56[1] = v21;
+  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
   [messageDispatcher4 registerForMessage:v33 receiver:selfCopy policies:v34 selector:sel_handleSubscribeMessage_];
 
   messageDispatcher5 = [(HMDCameraRecordingReachabilityEventManager *)selfCopy messageDispatcher];
   v36 = *MEMORY[0x277CCF590];
-  v56[0] = v20;
-  v56[1] = v21;
-  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+  v55[0] = v20;
+  v55[1] = v21;
+  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
   [messageDispatcher5 registerForMessage:v36 receiver:selfCopy policies:v37 selector:sel_handleUnsubscribeMessage_];
 
   messageDispatcher6 = [(HMDCameraRecordingReachabilityEventManager *)selfCopy messageDispatcher];
   v39 = *MEMORY[0x277CCF580];
-  v55[0] = v20;
-  v55[1] = v21;
-  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
+  v54[0] = v20;
+  v54[1] = v21;
+  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
   [messageDispatcher6 registerForMessage:v39 receiver:selfCopy policies:v40 selector:sel_handlePerformCloudPullMessage_];
 
   v41 = [HMDConfigurationMessagePolicy policyWithOperationTypes:4];
   messageDispatcher7 = [(HMDCameraRecordingReachabilityEventManager *)selfCopy messageDispatcher];
   v43 = *MEMORY[0x277CCF520];
-  v54[0] = v20;
-  v54[1] = v22;
-  v54[2] = v41;
-  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:3];
+  v53[0] = v20;
+  v53[1] = v22;
+  v53[2] = v41;
+  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:3];
   [messageDispatcher7 registerForMessage:v43 receiver:selfCopy policies:v44 selector:sel_handleDeleteAllEventsMessage_];
 
   notificationCenter = [(HMDCameraRecordingReachabilityEventManager *)selfCopy notificationCenter];
@@ -2715,11 +2812,9 @@ id __59__HMDCameraRecordingReachabilityEventManager_cleanUpEvents__block_invoke(
   accountSettings = [(HMDCameraRecordingReachabilityEventManager *)selfCopy accountSettings];
   [notificationCenter3 addObserver:selfCopy selector:sel_handleAppleAccountSettingsHomeStateUpdated_ name:@"HMDAppleAccountSettingsHomeStateUpdatedNotification" object:accountSettings];
 
-  [(HMDCameraRecordingReachabilityEventManager *)selfCopy setCurrentSettings:v50];
+  [(HMDCameraRecordingReachabilityEventManager *)selfCopy setCurrentSettings:v49];
   [(HMDCameraRecordingReachabilityEventManager *)selfCopy setCurrentDeviceConfirmedPrimaryResident:residentCopy];
-  [(HMDCameraRecordingReachabilityEventManager *)selfCopy setCurrentDeviceConnectedToNetwork:v51];
-
-  v49 = *MEMORY[0x277D85DE8];
+  [(HMDCameraRecordingReachabilityEventManager *)selfCopy setCurrentDeviceConnectedToNetwork:v50];
 }
 
 - (HMDCameraRecordingReachabilityEventManager)initWithHAPAccessory:(id)accessory zoneName:(id)name workQueue:(id)queue
@@ -2811,12 +2906,11 @@ id __171__HMDCameraRecordingReachabilityEventManager_initWithAccessory_workQueue
 
 uint64_t __57__HMDCameraRecordingReachabilityEventManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v68;
-  logCategory__hmf_once_v68 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v68;
+  logCategory__hmf_once_v68 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

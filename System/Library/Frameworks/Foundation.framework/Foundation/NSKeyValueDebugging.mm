@@ -73,7 +73,7 @@ uint64_t __42___NSKeyValueDebugging__clearWillDidTable__block_invoke(uint64_t a1
   return [*(*(a1 + 32) + 16) removeAllObjects];
 }
 
-uint64_t __90___NSKeyValueDebugging__checkConsistencyForStatsWhileOutOfLock_forPair_timingDescription___block_invoke(void *a1)
+void *__90___NSKeyValueDebugging__checkConsistencyForStatsWhileOutOfLock_forPair_timingDescription___block_invoke(void *a1)
 {
   result = [*(a1[4] + 32) objectForKeyedSubscript:a1[5]];
   if (result == a1[6])
@@ -87,7 +87,7 @@ uint64_t __90___NSKeyValueDebugging__checkConsistencyForStatsWhileOutOfLock_forP
   return result;
 }
 
-uint64_t __41___NSKeyValueDebugging__checkConsistency__block_invoke(uint64_t a1)
+void *__41___NSKeyValueDebugging__checkConsistency__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -529,7 +529,7 @@ uint64_t __66___NSKeyValueDebugging_object_willAddObserver_forKeyPath_context___
   return [v3 removeObjectForKey:v2];
 }
 
-uint64_t __69___NSKeyValueDebugging_object_willRemoveObserver_forKeyPath_context___block_invoke(uint64_t a1)
+void *__69___NSKeyValueDebugging_object_willRemoveObserver_forKeyPath_context___block_invoke(uint64_t a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   v2 = [objc_msgSend(*(*(a1 + 32) + 48) "allKeys")];
@@ -589,7 +589,7 @@ LABEL_7:
         }
 
 LABEL_13:
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);

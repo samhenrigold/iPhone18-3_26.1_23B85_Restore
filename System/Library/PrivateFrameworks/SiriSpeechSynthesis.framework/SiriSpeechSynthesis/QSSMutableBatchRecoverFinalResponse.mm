@@ -5,12 +5,22 @@
 - (int)num_of_processed;
 - (int)num_of_requested;
 - (int)num_of_succeeded;
+- (void)setError_code:(int)error_code;
 - (void)setError_str:(id)error_str;
+- (void)setNum_of_processed:(int)num_of_processed;
+- (void)setNum_of_requested:(int)num_of_requested;
+- (void)setNum_of_succeeded:(int)num_of_succeeded;
 - (void)setSession_id:(id)session_id;
 - (void)setSpeech_id:(id)speech_id;
 @end
 
 @implementation QSSMutableBatchRecoverFinalResponse
+
+- (void)setNum_of_succeeded:(int)num_of_succeeded
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&num_of_succeeded];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (int)num_of_succeeded
 {
@@ -20,12 +30,24 @@
   return intValue;
 }
 
+- (void)setNum_of_processed:(int)num_of_processed
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&num_of_processed];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (int)num_of_processed
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"num_of_processed"];
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setNum_of_requested:(int)num_of_requested
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&num_of_requested];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (int)num_of_requested
@@ -39,6 +61,12 @@
 - (void)setError_str:(id)error_str
 {
   v4 = [error_str copy];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
+- (void)setError_code:(int)error_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&error_code];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 

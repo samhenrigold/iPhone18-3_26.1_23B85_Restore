@@ -15,7 +15,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   if (self)
   {
@@ -32,9 +32,9 @@ LABEL_4:
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
           v9 = HMFGetLogIdentifier();
-          v24 = 138543362;
-          v25 = v9;
-          _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Downgrade debouce timer has fired, calling network has deteriorated", &v24, 0xCu);
+          v23 = 138543362;
+          v24 = v9;
+          _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Downgrade debouce timer has fired, calling network has deteriorated", &v23, 0xCu);
         }
 
         objc_autoreleasePoolPop(v6);
@@ -50,9 +50,9 @@ LABEL_4:
           if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
           {
             v13 = HMFGetLogIdentifier();
-            v24 = 138543362;
-            v25 = v13;
-            _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Calling delegate videoStreamReconfigureDidNetworkDeteriorate", &v24, 0xCu);
+            v23 = 138543362;
+            v24 = v13;
+            _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Calling delegate videoStreamReconfigureDidNetworkDeteriorate", &v23, 0xCu);
           }
 
           objc_autoreleasePoolPop(v10);
@@ -88,9 +88,9 @@ LABEL_20:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     v18 = HMFGetLogIdentifier();
-    v24 = 138543362;
-    v25 = v18;
-    _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Upgrade debouce timer has fired, calling network has improved", &v24, 0xCu);
+    v23 = 138543362;
+    v24 = v18;
+    _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Upgrade debouce timer has fired, calling network has improved", &v23, 0xCu);
   }
 
   objc_autoreleasePoolPop(v15);
@@ -106,9 +106,9 @@ LABEL_20:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       v22 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v22;
-      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Calling delegate videoStreamReconfigureDidNetworkImprove", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = v22;
+      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Calling delegate videoStreamReconfigureDidNetworkImprove", &v23, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
@@ -122,8 +122,6 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpgradeDebouceTimer:(uint64_t)timer
@@ -156,12 +154,12 @@ LABEL_21:
 
 - (void)downlinkQualityChanged:(id)changed
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   if (self)
   {
     dispatch_assert_queue_V2(self->_workQueue);
-    v5 = [changedCopy copy];
+    v5 = objc_msgSend_copy(changedCopy);
     objc_storeStrong(&self->_downlinkQualityInfo, v5);
 
     if (self->_reconfigurationMode)
@@ -172,9 +170,9 @@ LABEL_21:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v9 = HMFGetLogIdentifier();
-        v11 = 138543362;
-        v12 = v9;
-        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Not processing the downlink quality change yet, since the stream is in reconfiguration mode", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = v9;
+        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Not processing the downlink quality change yet, since the stream is in reconfiguration mode", &v10, 0xCu);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -190,16 +188,13 @@ LABEL_21:
   {
     dispatch_assert_queue_V2(0);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processDownlinkQuality
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   if (!self)
   {
-    v81 = *MEMORY[0x277D85DE8];
     return;
   }
 
@@ -214,14 +209,14 @@ LABEL_21:
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v85 = v7;
-    v86 = 2112;
-    v87 = v3;
+    v83 = v7;
+    v84 = 2112;
+    v85 = v3;
     _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Downlink quality changed with %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v83 = [v3 hmf_numberForKey:*MEMORY[0x277CE57C0]];
+  v81 = [v3 hmf_numberForKey:*MEMORY[0x277CE57C0]];
   v8 = [v3 hmf_numberForKey:*MEMORY[0x277CE57B8]];
   v9 = [v3 hmf_BOOLForKey:*MEMORY[0x277CE57A8]];
   v10 = [v3 hmf_BOOLForKey:*MEMORY[0x277CE57B0]];
@@ -234,7 +229,7 @@ LABEL_21:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v85 = v14;
+      v83 = v14;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Upgrade debounce timer is set, but not operating at maximum anymore, resetting the timer", buf, 0xCu);
 
       v2 = 0x27F59A000uLL;
@@ -253,7 +248,7 @@ LABEL_21:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v85 = v18;
+      v83 = v18;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Downgrade debounce timer is set, but not operating at minimum anymore, resetting the timer", buf, 0xCu);
 
       v2 = 0x27F59A000uLL;
@@ -265,7 +260,7 @@ LABEL_21:
 
   if (v10)
   {
-    v19 = [v83 isEqualToNumber:v8];
+    v19 = [v81 isEqualToNumber:v8];
     v20 = *(selfCopy + 5);
     if (v19)
     {
@@ -279,9 +274,9 @@ LABEL_21:
         {
           v41 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v85 = v41;
-          v86 = 2048;
-          v87 = videoAttributesDowngradeDebouceTimer;
+          v83 = v41;
+          v84 = 2048;
+          v85 = videoAttributesDowngradeDebouceTimer;
           _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Starting downgrade debouce timer with interval %llu seconds", buf, 0x16u);
         }
 
@@ -303,7 +298,7 @@ LABEL_21:
       {
         v25 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v85 = v25;
+        v83 = v25;
         _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Downgrade debounce timer is already scheduled", buf, 0xCu);
       }
 
@@ -323,7 +318,7 @@ LABEL_21:
     {
       v36 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v85 = v36;
+      v83 = v36;
       _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_INFO, "%{public}@Downgrade debounce timer is set, but optimal and operating bitrates arent matching, resetting the timer", buf, 0xCu);
     }
 
@@ -334,13 +329,13 @@ LABEL_21:
 
   if (v9)
   {
-    v27 = [v83 isEqualToNumber:v8];
+    v27 = [v81 isEqualToNumber:v8];
     v28 = *(selfCopy + 4);
     if (v27)
     {
       if (!v28)
       {
-        v82 = v8;
+        v80 = v8;
         v46 = *(selfCopy + 9);
         dispatch_assert_queue_V2(*(selfCopy + 6));
         if ([*(selfCopy + 3) count] >= 4)
@@ -362,55 +357,55 @@ LABEL_21:
             HMFGetLogIdentifier();
             v57 = v56 = v50;
             *buf = 138544130;
-            v85 = v57;
+            v83 = v57;
+            v84 = 2112;
+            v85 = v48;
             v86 = 2112;
-            v87 = v48;
+            v87 = v56;
             v88 = 2112;
-            v89 = v56;
-            v90 = 2112;
-            v91 = v52;
+            v89 = v52;
             _os_log_impl(&dword_2531F8000, v55, OS_LOG_TYPE_INFO, "%{public}@reconfigure_1: %@, reconfigure_2: %@, reconfigure_3: %@", buf, 0x2Au);
 
             v50 = v56;
           }
 
           objc_autoreleasePoolPop(v53);
-          v8 = v82;
+          v8 = v80;
           if ([v48 eventType] == 2 && objc_msgSend(v50, "eventType") == 1 && objc_msgSend(v52, "eventType") == 2 && (objc_msgSend(v52, "timestamp"), v58 = v50, v59 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v59, "timeIntervalSinceNow"), v61 = fabs(v60), v59, v50 = v58, v61 < 120.0))
           {
-            v73 = objc_autoreleasePoolPush();
-            v74 = v54;
-            v75 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
+            v72 = objc_autoreleasePoolPush();
+            v73 = v54;
+            v74 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
             {
-              v76 = HMFGetLogIdentifier();
+              v75 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v85 = v76;
-              v86 = 2048;
-              v87 = *&v61;
-              _os_log_impl(&dword_2531F8000, v75, OS_LOG_TYPE_INFO, "%{public}@Downgrade-Upgrade-Downgrade has happened within %lf seconds", buf, 0x16u);
+              v83 = v75;
+              v84 = 2048;
+              v85 = *&v61;
+              _os_log_impl(&dword_2531F8000, v74, OS_LOG_TYPE_INFO, "%{public}@Downgrade-Upgrade-Downgrade has happened within %lf seconds", buf, 0x16u);
 
               v50 = v58;
             }
 
-            objc_autoreleasePoolPop(v73);
-            v77 = objc_autoreleasePoolPush();
-            v78 = v74;
-            v79 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
+            objc_autoreleasePoolPop(v72);
+            v76 = objc_autoreleasePoolPush();
+            v77 = v73;
+            v78 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v78, OS_LOG_TYPE_INFO))
             {
-              v80 = HMFGetLogIdentifier();
+              v79 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v85 = v80;
-              v86 = 2048;
-              v87 = 0x405E000000000000;
-              _os_log_impl(&dword_2531F8000, v79, OS_LOG_TYPE_INFO, "%{public}@A Flip flop has been detected, so upgrade is going to be backed off by %lf seconds", buf, 0x16u);
+              v83 = v79;
+              v84 = 2048;
+              v85 = 0x405E000000000000;
+              _os_log_impl(&dword_2531F8000, v78, OS_LOG_TYPE_INFO, "%{public}@A Flip flop has been detected, so upgrade is going to be backed off by %lf seconds", buf, 0x16u);
             }
 
-            objc_autoreleasePoolPop(v77);
+            objc_autoreleasePoolPop(v76);
             v46 = 120.0;
             v2 = 0x27F59A000;
-            v8 = v82;
+            v8 = v80;
           }
 
           else
@@ -427,9 +422,9 @@ LABEL_21:
         {
           v65 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v85 = v65;
-          v86 = 2048;
-          v87 = *&v46;
+          v83 = v65;
+          v84 = 2048;
+          v85 = *&v46;
           _os_log_impl(&dword_2531F8000, v64, OS_LOG_TYPE_INFO, "%{public}@Starting upgrade debouce timer with interval %lf seconds", buf, 0x16u);
         }
 
@@ -460,7 +455,7 @@ LABEL_21:
       {
         v32 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v85 = v32;
+        v83 = v32;
         _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Upgrade debounce timer is already scheduled", buf, 0xCu);
       }
 
@@ -482,7 +477,7 @@ LABEL_25:
     {
       v40 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v85 = v40;
+      v83 = v40;
       _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_INFO, "%{public}@Upgrade debounce timer is set, but optimal and operating bitrates arent matching, resetting the timer", buf, 0xCu);
     }
 
@@ -497,13 +492,12 @@ LABEL_51:
   v70 = *(v2 + 3964);
   v71 = *&selfCopy[v70];
   *&selfCopy[v70] = 0;
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateReconfigurationMode:(BOOL)mode
 {
   selfCopy = self;
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (self)
   {
     self = self->_workQueue;
@@ -516,20 +510,15 @@ LABEL_51:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    if (selfCopy)
-    {
-      reconfigurationMode = v6->_reconfigurationMode;
-    }
-
+    v9 = HMFBooleanToString();
     v10 = HMFBooleanToString();
-    v11 = HMFBooleanToString();
-    v17 = 138543874;
-    v18 = v8;
+    v15 = 138543874;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v9;
     v19 = 2112;
     v20 = v10;
-    v21 = 2112;
-    v22 = v11;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating reconfiguration mode from %@ to %@", &v17, 0x20u);
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating reconfiguration mode from %@ to %@", &v15, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -538,23 +527,21 @@ LABEL_51:
     v6->_reconfigurationMode = mode;
     if (v6->_downlinkQualityInfo)
     {
-      v12 = objc_autoreleasePoolPush();
-      v13 = v6;
-      v14 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v11 = objc_autoreleasePoolPush();
+      v12 = v6;
+      v13 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v15 = HMFGetLogIdentifier();
-        v17 = 138543362;
-        v18 = v15;
-        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Downlink quality info is present, processing it", &v17, 0xCu);
+        v14 = HMFGetLogIdentifier();
+        v15 = 138543362;
+        v16 = v14;
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Downlink quality info is present, processing it", &v15, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v12);
-      [(HMDVideoStreamReconfigure *)v13 _processDownlinkQuality];
+      objc_autoreleasePoolPop(v11);
+      [(HMDVideoStreamReconfigure *)v12 _processDownlinkQuality];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -605,10 +592,11 @@ LABEL_51:
 
 uint64_t __40__HMDVideoStreamReconfigure_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v1_11071 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_11071;
+  logCategory__hmf_once_v1_11071 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

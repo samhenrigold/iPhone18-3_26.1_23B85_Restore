@@ -14,6 +14,7 @@
 - (BOOL)containsListWithCustomBadgeForTipKitWithError:(id *)error;
 - (BOOL)deleteSharedGroceryList:(id)list error:(id *)error;
 - (BOOL)hasActiveCloudKitAccountForTipKitWithError:(id *)error;
+- (BOOL)isIntelligentFeaturesSupportedInCurrentAppVersionWithIntelligentFeature:(int64_t)feature isInternalInstall:(BOOL)install;
 - (BOOL)saveSaveRequest:(id)request accountChangeItems:(id)items listChangeItems:(id)changeItems listSectionChangeItems:(id)sectionChangeItems smartListChangeItems:(id)listChangeItems smartListSectionChangeItems:(id)listSectionChangeItems templateChangeItems:(id)templateChangeItems templateSectionChangeItems:(id)self0 reminderChangeItems:(id)self1 author:(id)self2 replicaManagerProvider:(id)self3 error:(id *)self4;
 - (BOOL)test_revertImageAttachmentsToUnDeduped:(id)deduped error:(id *)error;
 - (REMStore)init;
@@ -40,6 +41,7 @@
 - (id)fetchActiveCloudKitAccountObjectIDsWithFetchOption:(int64_t)option error:(id *)error;
 - (id)fetchAllListsWithExternalIdentifier:(id)identifier error:(id *)error;
 - (id)fetchAllRemindersWithExternalIdentifier:(id)identifier error:(id *)error;
+- (id)fetchAssignmentsWithObjectIDs:(id)ds includeConcealedObjects:(BOOL)objects error:(id *)error;
 - (id)fetchCompletedRemindersForEventKitBridgingWithCompletionDateFrom:(id)from to:(id)to withListIDs:(id)ds error:(id *)error;
 - (id)fetchCreatedOrCompletedRemindersCountForAppStoreFromDate:(id)date toDate:(id)toDate error:(id *)error;
 - (id)fetchCustomSmartListWithObjectID:(id)d error:(id *)error;
@@ -50,6 +52,7 @@
 - (id)fetchDefaultListWithError:(id *)error;
 - (id)fetchEligibleDefaultListsWithError:(id *)error;
 - (id)fetchFamilyGroceryListEligibilityForFamilyChecklistWithLocale:(id)locale error:(id *)error;
+- (id)fetchHashtagsWithObjectIDs:(id)ds includeConcealedObjects:(BOOL)objects error:(id *)error;
 - (id)fetchIncompleteRemindersCountForNewsRecipeCardWithBatchCreationID:(id)d error:(id *)error;
 - (id)fetchIncompleteRemindersForEventKitBridgingWithDueDateFrom:(id)from to:(id)to withListIDs:(id)ds error:(id *)error;
 - (id)fetchIncompleteRemindersForNewsRecipeCardWithBatchCreationID:(id)d error:(id *)error;
@@ -133,6 +136,7 @@
 - (void)requestToDeleteLocalDataWithCompletion:(id)completion;
 - (void)requestToDeleteSyncDataWithAccountIdentifier:(id)identifier completion:(id)completion;
 - (void)requestToMergeLocalDataIntoSyncDataWithAccountIdentifier:(id)identifier completion:(id)completion;
+- (void)requestToUpdateClientConnectionsAsynchronously:(BOOL)asynchronously shouldKeepAlive:(BOOL)alive completion:(id)completion;
 - (void)saveSaveRequest:(id)request accountChangeItems:(id)items listChangeItems:(id)changeItems listSectionChangeItems:(id)sectionChangeItems smartListChangeItems:(id)listChangeItems smartListSectionChangeItems:(id)listSectionChangeItems templateChangeItems:(id)templateChangeItems templateSectionChangeItems:(id)self0 reminderChangeItems:(id)self1 author:(id)self2 replicaManagerProvider:(id)self3 queue:(id)self4 completion:(id)self5;
 - (void)stopShare:(id)share accountID:(id)d queue:(id)queue completion:(id)completion;
 - (void)test_handleIncompleteAutoCategorizationOperationQueueItemsImmediatelyWithTimeout:(double)timeout;
@@ -141,7 +145,9 @@
 - (void)test_initDummyAutoCategorizationWithCategoryByTitle:(id)title;
 - (void)test_refreshHashtagLabelsImmediately;
 - (void)test_setupForManualHashtagLabelRefreshing;
+- (void)triggerCloudKitOnlySyncWithReason:(id)reason discretionary:(BOOL)discretionary completion:(id)completion;
 - (void)triggerSyncForDataAccessAccountsWithAccountIDs:(id)ds;
+- (void)triggerThrottledSyncWithReason:(id)reason discretionary:(BOOL)discretionary completion:(id)completion;
 - (void)updateAccountWithAccountID:(id)d restartDA:(BOOL)a completion:(id)completion;
 - (void)updateAccountsAndSync:(BOOL)sync completion:(id)completion;
 - (void)updateShare:(id)share accountID:(id)d queue:(id)queue completion:(id)completion;
@@ -240,7 +246,7 @@ void __22__REMStore_initialize__block_invoke_2()
 
 void __50__REMStore_createIsolatedStoreContainerWithError___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[REMLog xpc];
@@ -260,9 +266,9 @@ void __50__REMStore_createIsolatedStoreContainerWithError___block_invoke_2(uint6
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v15 = 138412290;
-      v16 = v5;
-      _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "Did create isolated store container {token: %@}", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v5;
+      _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "Did create isolated store container {token: %@}", &v14, 0xCu);
     }
 
     v9 = 40;
@@ -273,8 +279,6 @@ void __50__REMStore_createIsolatedStoreContainerWithError___block_invoke_2(uint6
   v12 = v10;
   v13 = *(v11 + 40);
   *(v11 + 40) = v12;
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)destroyIsolatedStoreContainerWithToken:(id)token error:(id *)error
@@ -330,7 +334,7 @@ void __57__REMStore_destroyIsolatedStoreContainerWithToken_error___block_invoke(
 
 void __57__REMStore_destroyIsolatedStoreContainerWithToken_error___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[REMLog xpc];
   v5 = v4;
@@ -338,19 +342,17 @@ void __57__REMStore_destroyIsolatedStoreContainerWithToken_error___block_invoke_
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __57__REMStore_destroyIsolatedStoreContainerWithToken_error___block_invoke_2_cold_1(v3, a1);
+      __57__REMStore_destroyIsolatedStoreContainerWithToken_error___block_invoke_2_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Did destroy isolated store container {token: %@}", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "Did destroy isolated store container {token: %@}", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __57__REMStore_destroyIsolatedStoreContainerWithToken_error___block_invoke_32(uint64_t a1, void *a2)
@@ -403,12 +405,12 @@ void __57__REMStore_destroyIsolatedStoreContainerWithToken_error___block_invoke_
 
 - (REMStore)initWithDaemonController:(id)controller storeContainerToken:(id)token
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   tokenCopy = token;
-  v16.receiver = self;
-  v16.super_class = REMStore;
-  v9 = [(REMStore *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = REMStore;
+  v9 = [(REMStore *)&v15 init];
   v10 = v9;
   if (v9)
   {
@@ -419,7 +421,7 @@ void __57__REMStore_destroyIsolatedStoreContainerWithToken_error___block_invoke_
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v18 = v10;
+        v17 = v10;
         _os_log_impl(&dword_19A0DB000, v11, OS_LOG_TYPE_INFO, "Created isolated store {store: %@}", buf, 0xCu);
       }
     }
@@ -431,7 +433,6 @@ void __57__REMStore_destroyIsolatedStoreContainerWithToken_error___block_invoke_
     v10->_l_inProgressSaveRequestsContainer = v12;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -470,7 +471,7 @@ void __57__REMStore_destroyIsolatedStoreContainerWithToken_error___block_invoke_
 
 - (void)invalidate
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   storeContainerToken = [(REMStore *)self storeContainerToken];
 
   daemonController = +[REMLogStore xpc];
@@ -479,9 +480,9 @@ void __57__REMStore_destroyIsolatedStoreContainerWithToken_error___block_invoke_
   {
     if (v5)
     {
-      v7 = 138412290;
+      v6 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_19A0DB000, daemonController, OS_LOG_TYPE_DEFAULT, "Invalidating REMStore {store: %@}", &v7, 0xCu);
+      _os_log_impl(&dword_19A0DB000, daemonController, OS_LOG_TYPE_DEFAULT, "Invalidating REMStore {store: %@}", &v6, 0xCu);
     }
 
     daemonController = [(REMStore *)self daemonController];
@@ -490,13 +491,12 @@ void __57__REMStore_destroyIsolatedStoreContainerWithToken_error___block_invoke_
 
   else if (v5)
   {
-    v7 = 138412290;
+    v6 = 138412290;
     selfCopy2 = self;
-    _os_log_impl(&dword_19A0DB000, daemonController, OS_LOG_TYPE_DEFAULT, "Not invalidating connection for REMStore because its not an isolated store {store: %@}", &v7, 0xCu);
+    _os_log_impl(&dword_19A0DB000, daemonController, OS_LOG_TYPE_DEFAULT, "Not invalidating connection for REMStore because its not an isolated store {store: %@}", &v6, 0xCu);
   }
 
   [(REMStore *)self setDaemonController:0];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)nukeDatabase
@@ -519,17 +519,15 @@ void __24__REMStore_nukeDatabase__block_invoke(uint64_t a1, void *a2)
 
 void __24__REMStore_nukeDatabase__block_invoke_49(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[REMLogStore write];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_19A0DB000, v3, OS_LOG_TYPE_DEFAULT, "Nuked database with error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_19A0DB000, v3, OS_LOG_TYPE_DEFAULT, "Nuked database with error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fetchAccountsWithError:(id *)error
@@ -885,7 +883,7 @@ void __50__REMStore_fetchReplicaManagerForAccountID_error___block_invoke(uint64_
   v4 = +[REMLogStore xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __50__REMStore_fetchReplicaManagerForAccountID_error___block_invoke_cold_1(v3, a1);
+    __50__REMStore_fetchReplicaManagerForAccountID_error___block_invoke_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -895,7 +893,7 @@ void __50__REMStore_fetchReplicaManagerForAccountID_error___block_invoke(uint64_
 
 void __50__REMStore_fetchReplicaManagerForAccountID_error___block_invoke_70(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[REMLogStore read];
@@ -904,7 +902,7 @@ void __50__REMStore_fetchReplicaManagerForAccountID_error___block_invoke_70(uint
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __50__REMStore_fetchReplicaManagerForAccountID_error___block_invoke_70_cold_1(v6, a1);
+      __50__REMStore_fetchReplicaManagerForAccountID_error___block_invoke_70_cold_1();
     }
 
     v9 = 48;
@@ -915,11 +913,11 @@ void __50__REMStore_fetchReplicaManagerForAccountID_error___block_invoke_70(uint
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v11 = *(a1 + 32);
-    v13 = 138412546;
-    v14 = v11;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "Store replica manager fetch successful {account: %@, fetchSerializedData: %@}", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v11;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "Store replica manager fetch successful {account: %@, fetchSerializedData: %@}", &v12, 0x16u);
   }
 
   if (v5)
@@ -929,8 +927,6 @@ void __50__REMStore_fetchReplicaManagerForAccountID_error___block_invoke_70(uint
 LABEL_9:
     objc_storeStrong((*(*(a1 + v9) + 8) + 40), v10);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fetchReplicaManagersForAccountID:(id)d bundleID:(id)iD error:(id *)error
@@ -987,7 +983,7 @@ void __60__REMStore_fetchReplicaManagersForAccountID_bundleID_error___block_invo
   v4 = +[REMLogStore xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __50__REMStore_fetchReplicaManagerForAccountID_error___block_invoke_cold_1(v3, a1);
+    __50__REMStore_fetchReplicaManagerForAccountID_error___block_invoke_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -997,7 +993,7 @@ void __60__REMStore_fetchReplicaManagersForAccountID_bundleID_error___block_invo
 
 void __60__REMStore_fetchReplicaManagersForAccountID_bundleID_error___block_invoke_75(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[REMLogStore read];
@@ -1006,7 +1002,7 @@ void __60__REMStore_fetchReplicaManagersForAccountID_bundleID_error___block_invo
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __60__REMStore_fetchReplicaManagersForAccountID_bundleID_error___block_invoke_75_cold_1(v6, a1);
+      __60__REMStore_fetchReplicaManagersForAccountID_bundleID_error___block_invoke_75_cold_1();
     }
 
     v9 = 56;
@@ -1018,13 +1014,13 @@ void __60__REMStore_fetchReplicaManagersForAccountID_bundleID_error___block_invo
   {
     v11 = *(a1 + 32);
     v12 = *(a1 + 40);
-    v14 = 138412802;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v12;
-    v18 = 2048;
-    v19 = [v5 count];
-    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "Store replica manager fetch successful {account: %@, bundleID: %@, managerByID.count: %lu}", &v14, 0x20u);
+    v13 = 138412802;
+    v14 = v11;
+    v15 = 2112;
+    v16 = v12;
+    v17 = 2048;
+    v18 = [v5 count];
+    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "Store replica manager fetch successful {account: %@, bundleID: %@, managerByID.count: %lu}", &v13, 0x20u);
   }
 
   if (v5)
@@ -1034,8 +1030,6 @@ void __60__REMStore_fetchReplicaManagersForAccountID_bundleID_error___block_invo
 LABEL_9:
     objc_storeStrong((*(*(a1 + v9) + 8) + 40), v10);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)saveSaveRequest:(id)request accountChangeItems:(id)items listChangeItems:(id)changeItems listSectionChangeItems:(id)sectionChangeItems smartListChangeItems:(id)listChangeItems smartListSectionChangeItems:(id)listSectionChangeItems templateChangeItems:(id)templateChangeItems templateSectionChangeItems:(id)self0 reminderChangeItems:(id)self1 author:(id)self2 replicaManagerProvider:(id)self3 error:(id *)self4
@@ -1113,7 +1107,7 @@ void __238__REMStore_saveSaveRequest_accountChangeItems_listChangeItems_listSect
   v4 = +[REMLogStore xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __238__REMStore_saveSaveRequest_accountChangeItems_listChangeItems_listSectionChangeItems_smartListChangeItems_smartListSectionChangeItems_templateChangeItems_templateSectionChangeItems_reminderChangeItems_author_replicaManagerProvider_error___block_invoke_2_cold_1(v3, a1);
+    __238__REMStore_saveSaveRequest_accountChangeItems_listChangeItems_listSectionChangeItems_smartListChangeItems_smartListSectionChangeItems_templateChangeItems_templateSectionChangeItems_reminderChangeItems_author_replicaManagerProvider_error___block_invoke_2_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -1226,14 +1220,13 @@ void __249__REMStore_saveSaveRequest_accountChangeItems_listChangeItems_listSect
 
 void __249__REMStore_saveSaveRequest_accountChangeItems_listChangeItems_listSectionChangeItems_smartListChangeItems_smartListSectionChangeItems_templateChangeItems_templateSectionChangeItems_reminderChangeItems_author_replicaManagerProvider_queue_completion___block_invoke_2(uint64_t a1)
 {
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __249__REMStore_saveSaveRequest_accountChangeItems_listChangeItems_listSectionChangeItems_smartListChangeItems_smartListSectionChangeItems_templateChangeItems_templateSectionChangeItems_reminderChangeItems_author_replicaManagerProvider_queue_completion___block_invoke_3;
-  v5[3] = &unk_1E7507BC8;
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __249__REMStore_saveSaveRequest_accountChangeItems_listChangeItems_listSectionChangeItems_smartListChangeItems_smartListSectionChangeItems_templateChangeItems_templateSectionChangeItems_reminderChangeItems_author_replicaManagerProvider_queue_completion___block_invoke_3;
+  v4[3] = &unk_1E7507BC8;
   v2 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v3 = [v2 _withInProgressSaveRequestContainer:v5];
-  v4 = *(a1 + 48);
+  v5 = *(a1 + 40);
+  v3 = [v2 _withInProgressSaveRequestContainer:v4];
   (*(*(a1 + 56) + 16))();
 }
 
@@ -1268,7 +1261,7 @@ void __249__REMStore_saveSaveRequest_accountChangeItems_listChangeItems_listSect
   v4 = +[REMLogStore xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __238__REMStore_saveSaveRequest_accountChangeItems_listChangeItems_listSectionChangeItems_smartListChangeItems_smartListSectionChangeItems_templateChangeItems_templateSectionChangeItems_reminderChangeItems_author_replicaManagerProvider_error___block_invoke_2_cold_1(v3, a1);
+    __238__REMStore_saveSaveRequest_accountChangeItems_listChangeItems_listSectionChangeItems_smartListChangeItems_smartListSectionChangeItems_templateChangeItems_templateSectionChangeItems_reminderChangeItems_author_replicaManagerProvider_error___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -1312,15 +1305,15 @@ void __52__REMStore_processNoOpSaveRequest_queue_completion___block_invoke_2(uin
 
 - (id)executeFetchRequest:(id)request error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v7 = [(REMStore *)self fetchResultByExecutingFetchRequest:requestCopy error:error];
   if (v7)
   {
     fetchExecutor = [requestCopy fetchExecutor];
-    v15 = 0;
-    v9 = [fetchExecutor resultsFromFetchResult:v7 inStore:self error:&v15];
-    v10 = v15;
+    v14 = 0;
+    v9 = [fetchExecutor resultsFromFetchResult:v7 inStore:self error:&v14];
+    v10 = v14;
 
     if (!v9)
     {
@@ -1328,11 +1321,11 @@ void __52__REMStore_processNoOpSaveRequest_queue_completion___block_invoke_2(uin
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v17 = v10;
-        v18 = 2112;
-        v19 = v7;
-        v20 = 2112;
-        v21 = requestCopy;
+        v16 = v10;
+        v17 = 2112;
+        v18 = v7;
+        v19 = 2112;
+        v20 = requestCopy;
         _os_log_error_impl(&dword_19A0DB000, v11, OS_LOG_TYPE_ERROR, "Failed to get results from fetchResult {error: %@, fetchResult: %@, fetchRequest: %@}", buf, 0x20u);
       }
 
@@ -1349,14 +1342,12 @@ void __52__REMStore_processNoOpSaveRequest_queue_completion___block_invoke_2(uin
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)resultsIndexedByObjectIDFromExecutingFetchRequest:(id)request error:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v7 = +[REMSignpost database];
   v8 = os_signpost_id_generate(v7);
@@ -1372,41 +1363,41 @@ void __52__REMStore_processNoOpSaveRequest_queue_completion___block_invoke_2(uin
   v12 = [(REMStore *)self executeFetchRequest:requestCopy error:error];
   if (v12)
   {
-    v25 = v8;
-    v26 = requestCopy;
+    v24 = v8;
+    v25 = requestCopy;
     v13 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v12, "count")}];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v14 = v12;
-    v15 = [v14 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v28;
+      v17 = *v27;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v28 != v17)
+          if (*v27 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v27 + 1) + 8 * i);
+          v19 = *(*(&v26 + 1) + 8 * i);
           remObjectID = [v19 remObjectID];
           [v13 setObject:v19 forKeyedSubscript:remObjectID];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v16);
     }
 
-    v8 = v25;
-    requestCopy = v26;
+    v8 = v24;
+    requestCopy = v25;
   }
 
   else
@@ -1421,8 +1412,6 @@ void __52__REMStore_processNoOpSaveRequest_queue_completion___block_invoke_2(uin
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_19A0DB000, v22, OS_SIGNPOST_INTERVAL_END, v8, "REMStore.fetchByObjectID", &unk_19A233B9D, buf, 2u);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1488,7 +1477,7 @@ void __53__REMStore_fetchResultByExecutingFetchRequest_error___block_invoke(uint
   v4 = +[REMLogStore xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __53__REMStore_fetchResultByExecutingFetchRequest_error___block_invoke_cold_1(v3, a1);
+    __53__REMStore_fetchResultByExecutingFetchRequest_error___block_invoke_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -1498,7 +1487,7 @@ void __53__REMStore_fetchResultByExecutingFetchRequest_error___block_invoke(uint
 
 void __53__REMStore_fetchResultByExecutingFetchRequest_error___block_invoke_88(void *a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[REMLogStore read];
@@ -1507,7 +1496,7 @@ void __53__REMStore_fetchResultByExecutingFetchRequest_error___block_invoke_88(v
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __53__REMStore_fetchResultByExecutingFetchRequest_error___block_invoke_88_cold_1(v6, a1);
+      __53__REMStore_fetchResultByExecutingFetchRequest_error___block_invoke_88_cold_1();
     }
 
     v9 = *(a1[7] + 8);
@@ -1521,11 +1510,11 @@ LABEL_11:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v11 = a1[4];
-    v22 = 138412546;
-    v23 = v11;
-    v24 = 2112;
-    v25 = v5;
-    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "Store fetch successful {fetchRequest: %@, fetchResult: %@}", &v22, 0x16u);
+    v21 = 138412546;
+    v22 = v11;
+    v23 = 2112;
+    v24 = v5;
+    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "Store fetch successful {fetchRequest: %@, fetchResult: %@}", &v21, 0x16u);
   }
 
   v12 = +[REMLogStore read];
@@ -1534,9 +1523,9 @@ LABEL_11:
   {
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v22 = 138412290;
-      v23 = v5;
-      _os_log_impl(&dword_19A0DB000, v13, OS_LOG_TYPE_INFO, "Successfully executed fetch {fetchResult: %@}", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = v5;
+      _os_log_impl(&dword_19A0DB000, v13, OS_LOG_TYPE_INFO, "Successfully executed fetch {fetchResult: %@}", &v21, 0xCu);
     }
 
     v9 = *(a1[6] + 8);
@@ -1546,17 +1535,15 @@ LABEL_11:
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    __53__REMStore_fetchResultByExecutingFetchRequest_error___block_invoke_88_cold_2(v13, v15, v16, v17, v18, v19, v20, v21);
+    __53__REMStore_fetchResultByExecutingFetchRequest_error___block_invoke_88_cold_2(v13, v14, v15, v16, v17, v18, v19, v20);
   }
 
 LABEL_12:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)resultFromPerformingInvocation:(id)invocation error:(id *)error
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   invocationCopy = invocation;
   if ([(REMStore *)self assertOnMainThreadFetches])
   {
@@ -1564,18 +1551,18 @@ LABEL_12:
   }
 
   [(REMStore *)self _incrementStoreGeneration];
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__1;
-  v47 = __Block_byref_object_dispose__1;
-  v48 = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy__1;
-  v41 = __Block_byref_object_dispose__1;
   v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__1;
+  v46 = __Block_byref_object_dispose__1;
+  v47 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy__1;
+  v40 = __Block_byref_object_dispose__1;
+  v41 = 0;
   v7 = _os_activity_create(&dword_19A0DB000, "REMStore Invocation", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -1591,9 +1578,9 @@ LABEL_12:
     v14 = name;
     v15 = [name cStringUsingEncoding:1];
     *buf = 136446466;
-    v50 = v15;
-    v51 = 1026;
-    v52 = _isUserInteractiveStore;
+    v49 = v15;
+    v50 = 1026;
+    v51 = _isUserInteractiveStore;
     _os_signpost_emit_with_name_impl(&dword_19A0DB000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "REMStore.invocation", " enableTelemetry=YES Name=%{public, signpost.telemetry:string1, Name=InvocationName}s UserInteractive=%{public, signpost.telemetry:number1, Name=UserInteractive}d", buf, 0x12u);
   }
 
@@ -1602,7 +1589,7 @@ LABEL_12:
   {
     name2 = [invocationCopy name];
     *buf = 138543362;
-    v50 = name2;
+    v49 = name2;
     _os_log_impl(&dword_19A0DB000, v16, OS_LOG_TYPE_DEFAULT, "FETCH START {name: %{public}@}", buf, 0xCu);
   }
 
@@ -1610,26 +1597,26 @@ LABEL_12:
   name3 = [invocationCopy name];
   v20 = [v18 stringWithFormat:@"inv_%@", name3];
 
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __49__REMStore_resultFromPerformingInvocation_error___block_invoke;
-  v33[3] = &unk_1E7507BF0;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __49__REMStore_resultFromPerformingInvocation_error___block_invoke;
+  v32[3] = &unk_1E7507BF0;
   v21 = invocationCopy;
-  v34 = v21;
-  v35 = &v43;
-  v22 = [(REMStore *)self _xpcSyncStorePerformerWithReason:v20 errorHandler:v33];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __49__REMStore_resultFromPerformingInvocation_error___block_invoke_93;
-  v29[3] = &unk_1E7507DA8;
+  v33 = v21;
+  v34 = &v42;
+  v22 = [(REMStore *)self _xpcSyncStorePerformerWithReason:v20 errorHandler:v32];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __49__REMStore_resultFromPerformingInvocation_error___block_invoke_93;
+  v28[3] = &unk_1E7507DA8;
   v23 = v21;
-  v30 = v23;
-  v31 = &v37;
-  v32 = &v43;
-  [v22 performInvocation:v23 completion:v29];
+  v29 = v23;
+  v30 = &v36;
+  v31 = &v42;
+  [v22 performInvocation:v23 completion:v28];
   if (error)
   {
-    *error = v44[5];
+    *error = v43[5];
   }
 
   v24 = v12;
@@ -1640,13 +1627,11 @@ LABEL_12:
     _os_signpost_emit_with_name_impl(&dword_19A0DB000, v25, OS_SIGNPOST_INTERVAL_END, v10, "REMStore.invocation", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v26 = v38[5];
+  v26 = v37[5];
   os_activity_scope_leave(&state);
 
-  _Block_object_dispose(&v37, 8);
-  _Block_object_dispose(&v43, 8);
-
-  v27 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v42, 8);
 
   return v26;
 }
@@ -1667,7 +1652,7 @@ void __49__REMStore_resultFromPerformingInvocation_error___block_invoke(uint64_t
 
 void __49__REMStore_resultFromPerformingInvocation_error___block_invoke_93(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[REMLogStore read];
@@ -1688,9 +1673,9 @@ void __49__REMStore_resultFromPerformingInvocation_error___block_invoke_93(uint6
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v11 = [*(a1 + 32) name];
-      v16 = 138543362;
-      v17 = v11;
-      _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_DEFAULT, "FETCH END {name: %{public}@}", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v11;
+      _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_DEFAULT, "FETCH END {name: %{public}@}", &v15, 0xCu);
     }
 
     v9 = 40;
@@ -1701,13 +1686,11 @@ void __49__REMStore_resultFromPerformingInvocation_error___block_invoke_93(uint6
   v13 = v10;
   v14 = *(v12 + 40);
   *(v12 + 40) = v13;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)resultFromPerformingSwiftInvocation:(id)invocation parametersData:(id)data storages:(id)storages error:(id *)error
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   invocationCopy = invocation;
   dataCopy = data;
   storagesCopy = storages;
@@ -1718,24 +1701,24 @@ void __49__REMStore_resultFromPerformingInvocation_error___block_invoke_93(uint6
 
   [(REMStore *)self _incrementStoreGeneration];
   v11 = resultFromPerformingSwiftInvocation_parametersData_storages_error__globalInvocationCounter++;
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x3032000000;
-  v62 = __Block_byref_object_copy__1;
-  v63 = __Block_byref_object_dispose__1;
-  v64 = 0;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy__1;
-  v57 = __Block_byref_object_dispose__1;
   v58 = 0;
+  v59 = &v58;
+  v60 = 0x3032000000;
+  v61 = __Block_byref_object_copy__1;
+  v62 = __Block_byref_object_dispose__1;
+  v63 = 0;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__1;
+  v56 = __Block_byref_object_dispose__1;
+  v57 = 0;
   v12 = _os_activity_create(&dword_19A0DB000, "REMStore swiftInvocation", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v12, &state);
   _isUserInteractiveStore = [(REMStore *)self _isUserInteractiveStore];
-  v40 = v12;
+  v39 = v12;
   v14 = +[REMSignpost database];
   v15 = os_signpost_id_generate(v14);
   v16 = v14;
@@ -1746,9 +1729,9 @@ void __49__REMStore_resultFromPerformingInvocation_error___block_invoke_93(uint6
     v19 = name;
     v20 = [name cStringUsingEncoding:1];
     *buf = 136446466;
-    v66 = v20;
-    v67 = 1026;
-    LODWORD(v68) = _isUserInteractiveStore;
+    v65 = v20;
+    v66 = 1026;
+    LODWORD(v67) = _isUserInteractiveStore;
     _os_signpost_emit_with_name_impl(&dword_19A0DB000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v15, "REMStore.invocation", " enableTelemetry=YES Name=%{public, signpost.telemetry:string1, Name=InvocationName}s UserInteractive=%{public, signpost.telemetry:number1, Name=UserInteractive}d", buf, 0x12u);
   }
 
@@ -1759,13 +1742,13 @@ void __49__REMStore_resultFromPerformingInvocation_error___block_invoke_93(uint6
     v23 = [dataCopy length];
     v24 = [storagesCopy count];
     *buf = 134218754;
-    v66 = v11;
-    v67 = 2114;
-    v68 = name2;
-    v69 = 2048;
-    v70 = v23;
-    v71 = 2048;
-    v72 = v24;
+    v65 = v11;
+    v66 = 2114;
+    v67 = name2;
+    v68 = 2048;
+    v69 = v23;
+    v70 = 2048;
+    v71 = v24;
     _os_log_impl(&dword_19A0DB000, v21, OS_LOG_TYPE_DEFAULT, "FETCH START {invocationCounter: %ld, name: %{public}@, parametersData.length %ld, storages.count: %ld}", buf, 0x2Au);
   }
 
@@ -1773,52 +1756,50 @@ void __49__REMStore_resultFromPerformingInvocation_error___block_invoke_93(uint6
   name3 = [invocationCopy name];
   v27 = [v25 stringWithFormat:@"swInv_%@", name3];
 
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 3221225472;
-  v48[2] = __78__REMStore_resultFromPerformingSwiftInvocation_parametersData_storages_error___block_invoke;
-  v48[3] = &unk_1E7507DD0;
-  v51 = v11;
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __78__REMStore_resultFromPerformingSwiftInvocation_parametersData_storages_error___block_invoke;
+  v47[3] = &unk_1E7507DD0;
+  v50 = v11;
   v28 = invocationCopy;
-  v49 = v28;
-  v50 = &v59;
-  v29 = [(REMStore *)self _xpcSyncStorePerformerWithReason:v27 errorHandler:v48];
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = __78__REMStore_resultFromPerformingSwiftInvocation_parametersData_storages_error___block_invoke_98;
-  v43[3] = &unk_1E7507DF8;
-  v47 = v11;
+  v48 = v28;
+  v49 = &v58;
+  v29 = [(REMStore *)self _xpcSyncStorePerformerWithReason:v27 errorHandler:v47];
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __78__REMStore_resultFromPerformingSwiftInvocation_parametersData_storages_error___block_invoke_98;
+  v42[3] = &unk_1E7507DF8;
+  v46 = v11;
   v30 = v28;
-  v44 = v30;
-  v45 = &v53;
-  v46 = &v59;
-  [v29 performSwiftInvocation:v30 withParametersData:dataCopy storages:storagesCopy completion:v43];
+  v43 = v30;
+  v44 = &v52;
+  v45 = &v58;
+  [v29 performSwiftInvocation:v30 withParametersData:dataCopy storages:storagesCopy completion:v42];
   if (error)
   {
-    *error = v60[5];
+    *error = v59[5];
   }
 
   v31 = v17;
   v32 = v31;
   if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
   {
-    resultStorages = [v54[5] resultStorages];
+    resultStorages = [v53[5] resultStorages];
     v34 = [resultStorages count];
-    resultData = [v54[5] resultData];
+    resultData = [v53[5] resultData];
     v36 = [resultData length];
     *buf = 134349312;
-    v66 = v34;
-    v67 = 2050;
-    v68 = v36;
+    v65 = v34;
+    v66 = 2050;
+    v67 = v36;
     _os_signpost_emit_with_name_impl(&dword_19A0DB000, v32, OS_SIGNPOST_INTERVAL_END, v15, "REMStore.invocation", " enableTelemetry=YES ResultCount=%{public, signpost.telemetry:number1, Name:ResultCount}ld DataSize=%{public, signpost.telemetry:number2, Name:DataSize}ld", buf, 0x16u);
   }
 
-  v37 = v54[5];
+  v37 = v53[5];
   os_activity_scope_leave(&state);
 
-  _Block_object_dispose(&v53, 8);
-  _Block_object_dispose(&v59, 8);
-
-  v38 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v58, 8);
 
   return v37;
 }
@@ -1839,7 +1820,7 @@ void __78__REMStore_resultFromPerformingSwiftInvocation_parametersData_storages_
 
 void __78__REMStore_resultFromPerformingSwiftInvocation_parametersData_storages_error___block_invoke_98(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[REMLogStore read];
@@ -1864,15 +1845,15 @@ void __78__REMStore_resultFromPerformingSwiftInvocation_parametersData_storages_
       v13 = [v5 resultData];
       v14 = [v13 length];
       v15 = [v5 resultStorages];
-      v20 = 134218754;
-      v21 = v11;
-      v22 = 2114;
-      v23 = v12;
-      v24 = 2048;
-      v25 = v14;
-      v26 = 2048;
-      v27 = [v15 count];
-      _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_DEFAULT, "FETCH END {invocationCounter: %ld, name: %{public}@, result.data.length: %ld, result.storages.count: %ld}", &v20, 0x2Au);
+      v19 = 134218754;
+      v20 = v11;
+      v21 = 2114;
+      v22 = v12;
+      v23 = 2048;
+      v24 = v14;
+      v25 = 2048;
+      v26 = [v15 count];
+      _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_DEFAULT, "FETCH END {invocationCounter: %ld, name: %{public}@, result.data.length: %ld, result.storages.count: %ld}", &v19, 0x2Au);
     }
 
     v9 = 40;
@@ -1883,8 +1864,6 @@ void __78__REMStore_resultFromPerformingSwiftInvocation_parametersData_storages_
   v17 = v10;
   v18 = *(v16 + 40);
   *(v16 + 40) = v17;
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateAllRemindersWithBlock:(id)block
@@ -1904,12 +1883,12 @@ void __78__REMStore_resultFromPerformingSwiftInvocation_parametersData_storages_
 
 void __43__REMStore_enumerateAllRemindersWithBlock___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v22 = 0;
-  v21 = 0;
-  v6 = [v5 fetchRemindersWithError:&v21];
-  v7 = v21;
+  v20 = 0;
+  v19 = 0;
+  v6 = [v5 fetchRemindersWithError:&v19];
+  v7 = v19;
   if (v7)
   {
     v8 = +[REMLogStore read];
@@ -1919,39 +1898,38 @@ void __43__REMStore_enumerateAllRemindersWithBlock___block_invoke(uint64_t a1, v
     }
   }
 
-  v19 = 0u;
-  v20 = 0u;
   v17 = 0u;
   v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v16;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
-        v15 = objc_autoreleasePoolPush();
+        v14 = objc_autoreleasePoolPush();
         (*(*(a1 + 32) + 16))(*(a1 + 32));
-        if (v22 == 1)
+        if (v20 == 1)
         {
-          *a3 = v22;
-          objc_autoreleasePoolPop(v15);
+          *a3 = v20;
+          objc_autoreleasePoolPop(v14);
           goto LABEL_15;
         }
 
-        objc_autoreleasePoolPop(v15);
+        objc_autoreleasePoolPop(v14);
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v21 count:16];
       if (v11)
       {
         continue;
@@ -1962,21 +1940,19 @@ void __43__REMStore_enumerateAllRemindersWithBlock___block_invoke(uint64_t a1, v
   }
 
 LABEL_15:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enumerateAllListsIncludingGroups:(BOOL)groups withBlock:(id)block
 {
   groupsCopy = groups;
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (blockCopy)
   {
-    v61 = 0;
     v60 = 0;
-    v7 = [(REMStore *)self fetchAccountsWithError:&v60];
-    v8 = v60;
+    v59 = 0;
+    v7 = [(REMStore *)self fetchAccountsWithError:&v59];
+    v8 = v59;
     v9 = 0x1E7506000uLL;
     if (v8)
     {
@@ -1987,37 +1963,37 @@ LABEL_15:
       }
     }
 
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     v11 = v7;
-    v12 = [v11 countByEnumeratingWithState:&v56 objects:v68 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v55 objects:v67 count:16];
     if (v12)
     {
-      v14 = *v57;
+      v14 = *v56;
       *&v13 = 138412546;
-      v35 = v13;
-      v37 = groupsCopy;
-      v42 = v11;
-      v36 = *v57;
+      v34 = v13;
+      v36 = groupsCopy;
+      v41 = v11;
+      v35 = *v56;
       do
       {
         v15 = 0;
-        v39 = v12;
+        v38 = v12;
         do
         {
-          if (*v57 != v14)
+          if (*v56 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v40 = v15;
-          v16 = *(*(&v56 + 1) + 8 * v15);
+          v39 = v15;
+          v16 = *(*(&v55 + 1) + 8 * v15);
           context = objc_autoreleasePoolPush();
-          v55 = v8;
-          v17 = [v16 fetchListsWithError:&v55];
-          v18 = v55;
+          v54 = v8;
+          v17 = [v16 fetchListsWithError:&v54];
+          v18 = v54;
 
           if (v18)
           {
@@ -2025,91 +2001,91 @@ LABEL_15:
             if (os_log_type_enabled(read, OS_LOG_TYPE_ERROR))
             {
               localizedDescription = [v18 localizedDescription];
-              *buf = v35;
-              v65 = v16;
-              v66 = 2112;
-              v67 = localizedDescription;
+              *buf = v34;
+              v64 = v16;
+              v65 = 2112;
+              v66 = localizedDescription;
               _os_log_error_impl(&dword_19A0DB000, read, OS_LOG_TYPE_ERROR, "Unexpected error when fetching all lists from account {account: %@, error: %@}", buf, 0x16u);
             }
           }
 
-          v53 = 0u;
-          v54 = 0u;
-          v51 = 0u;
           v52 = 0u;
+          v53 = 0u;
+          v50 = 0u;
+          v51 = 0u;
           v20 = v17;
-          v45 = [v20 countByEnumeratingWithState:&v51 objects:v63 count:16];
-          if (v45)
+          v44 = [v20 countByEnumeratingWithState:&v50 objects:v62 count:16];
+          if (v44)
           {
-            v21 = *v52;
+            v21 = *v51;
             v8 = v18;
-            v41 = v20;
-            v38 = *v52;
+            v40 = v20;
+            v37 = *v51;
             while (2)
             {
-              for (i = 0; i != v45; ++i)
+              for (i = 0; i != v44; ++i)
               {
-                if (*v52 != v21)
+                if (*v51 != v21)
                 {
                   objc_enumerationMutation(v20);
                 }
 
-                v23 = *(*(&v51 + 1) + 8 * i);
+                v23 = *(*(&v50 + 1) + 8 * i);
                 v24 = objc_autoreleasePoolPush();
                 if ([v23 isGroup])
                 {
                   if (groupsCopy)
                   {
-                    blockCopy[2](blockCopy, v23, &v61);
-                    if (v61)
+                    blockCopy[2](blockCopy, v23, &v60);
+                    if (v60)
                     {
 LABEL_41:
                       objc_autoreleasePoolPop(v24);
 
                       objc_autoreleasePoolPop(context);
-                      v11 = v42;
+                      v11 = v41;
                       goto LABEL_42;
                     }
                   }
 
-                  v49 = 0u;
-                  v50 = 0u;
-                  v47 = 0u;
                   v48 = 0u;
+                  v49 = 0u;
+                  v46 = 0u;
+                  v47 = 0u;
                   sublistContext = [v23 sublistContext];
-                  v46 = v8;
-                  v26 = [sublistContext fetchListsWithError:&v46];
-                  v43 = v46;
+                  v45 = v8;
+                  v26 = [sublistContext fetchListsWithError:&v45];
+                  v42 = v45;
 
-                  v27 = [v26 countByEnumeratingWithState:&v47 objects:v62 count:16];
+                  v27 = [v26 countByEnumeratingWithState:&v46 objects:v61 count:16];
                   if (v27)
                   {
                     v28 = v27;
-                    v29 = *v48;
+                    v29 = *v47;
                     while (2)
                     {
                       for (j = 0; j != v28; ++j)
                       {
-                        if (*v48 != v29)
+                        if (*v47 != v29)
                         {
                           objc_enumerationMutation(v26);
                         }
 
-                        v31 = *(*(&v47 + 1) + 8 * j);
+                        v31 = *(*(&v46 + 1) + 8 * j);
                         v32 = objc_autoreleasePoolPush();
-                        blockCopy[2](blockCopy, v31, &v61);
-                        LOBYTE(v31) = v61;
+                        blockCopy[2](blockCopy, v31, &v60);
+                        LOBYTE(v31) = v60;
                         objc_autoreleasePoolPop(v32);
                         if (v31)
                         {
 
-                          v8 = v43;
-                          v20 = v41;
+                          v8 = v42;
+                          v20 = v40;
                           goto LABEL_41;
                         }
                       }
 
-                      v28 = [v26 countByEnumeratingWithState:&v47 objects:v62 count:16];
+                      v28 = [v26 countByEnumeratingWithState:&v46 objects:v61 count:16];
                       if (v28)
                       {
                         continue;
@@ -2119,17 +2095,17 @@ LABEL_41:
                     }
                   }
 
-                  v8 = v43;
-                  groupsCopy = v37;
-                  v14 = v36;
-                  v20 = v41;
-                  v21 = v38;
+                  v8 = v42;
+                  groupsCopy = v36;
+                  v14 = v35;
+                  v20 = v40;
+                  v21 = v37;
                 }
 
                 else
                 {
-                  blockCopy[2](blockCopy, v23, &v61);
-                  if (v61)
+                  blockCopy[2](blockCopy, v23, &v60);
+                  if (v60)
                   {
                     goto LABEL_41;
                   }
@@ -2139,8 +2115,8 @@ LABEL_41:
               }
 
               v9 = 0x1E7506000;
-              v45 = [v20 countByEnumeratingWithState:&v51 objects:v63 count:16];
-              if (v45)
+              v44 = [v20 countByEnumeratingWithState:&v50 objects:v62 count:16];
+              if (v44)
               {
                 continue;
               }
@@ -2155,12 +2131,12 @@ LABEL_41:
           }
 
           objc_autoreleasePoolPop(context);
-          v15 = v40 + 1;
-          v11 = v42;
+          v15 = v39 + 1;
+          v11 = v41;
         }
 
-        while (v40 + 1 != v39);
-        v12 = [v42 countByEnumeratingWithState:&v56 objects:v68 count:16];
+        while (v39 + 1 != v38);
+        v12 = [v41 countByEnumeratingWithState:&v55 objects:v67 count:16];
       }
 
       while (v12);
@@ -2168,8 +2144,6 @@ LABEL_41:
 
 LABEL_42:
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_xpcSyncStorePerformerWithReason:(id)reason errorHandler:(id)handler
@@ -2195,7 +2169,7 @@ void __58__REMStore__xpcSyncStorePerformerWithReason_errorHandler___block_invoke
   v4 = +[REMLogStore xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __58__REMStore__xpcSyncStorePerformerWithReason_errorHandler___block_invoke_cold_1(v3, a1);
+    __58__REMStore__xpcSyncStorePerformerWithReason_errorHandler___block_invoke_cold_1();
   }
 
   v5 = *(a1 + 40);
@@ -2226,7 +2200,7 @@ void __58__REMStore__xpcSyncStorePerformerWithReason_errorHandler___block_invoke
 
 - (void)_saveAccountChangeItems:(id)items listChangeItems:(id)changeItems listSectionChangeItems:(id)sectionChangeItems smartListChangeItems:(id)listChangeItems smartListSectionChangeItems:(id)listSectionChangeItems templateChangeItems:(id)templateChangeItems templateSectionChangeItems:(id)templateSectionChangeItems reminderChangeItems:(id)self0 author:(id)self1 replicaManagerProvider:(id)self2 synchronously:(BOOL)self3 syncToCloudKit:(BOOL)self4 performer:(id)self5 completion:(id)self6
 {
-  v232 = *MEMORY[0x1E69E9840];
+  v231 = *MEMORY[0x1E69E9840];
   obj = items;
   changeItemsCopy = changeItems;
   sectionChangeItemsCopy = sectionChangeItems;
@@ -2249,7 +2223,7 @@ void __58__REMStore__xpcSyncStorePerformerWithReason_errorHandler___block_invoke
     _os_signpost_emit_with_name_impl(&dword_19A0DB000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v25, "REMStore.save", &unk_19A233B9D, buf, 2u);
   }
 
-  v140 = v27;
+  v139 = v27;
 
   v28 = +[REMLogStore write];
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
@@ -2259,84 +2233,84 @@ void __58__REMStore__xpcSyncStorePerformerWithReason_errorHandler___block_invoke
     v31 = [listChangeItemsCopy count];
     v32 = [reminderChangeItemsCopy count];
     *buf = 138544386;
-    v223 = authorCopy;
-    v224 = 2048;
-    v225 = v29;
-    v226 = 2048;
-    v227 = v30;
-    v228 = 2048;
-    v229 = v31;
-    v230 = 2048;
-    v231 = v32;
+    v222 = authorCopy;
+    v223 = 2048;
+    v224 = v29;
+    v225 = 2048;
+    v226 = v30;
+    v227 = 2048;
+    v228 = v31;
+    v229 = 2048;
+    v230 = v32;
     _os_log_impl(&dword_19A0DB000, v28, OS_LOG_TYPE_DEFAULT, "(client) SAVE START {author: %{public}@, accountChangeItems.count: %lu, listChangeItems.count: %lu, smartListChangeItems: %lu, reminderChangeItems.count: %lu}", buf, 0x34u);
   }
 
-  v145 = authorCopy;
+  v144 = authorCopy;
 
   v33 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(changeItemsCopy, "count") + objc_msgSend(obj, "count") + objc_msgSend(listChangeItemsCopy, "count") + objc_msgSend(reminderChangeItemsCopy, "count")}];
-  v167 = [MEMORY[0x1E695DFA8] set];
-  v166 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(obj, "count")}];
+  v166 = [MEMORY[0x1E695DFA8] set];
+  v165 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(obj, "count")}];
+  v208 = 0u;
   v209 = 0u;
   v210 = 0u;
   v211 = 0u;
-  v212 = 0u;
   v34 = obj;
-  v35 = [v34 countByEnumeratingWithState:&v209 objects:v221 count:16];
+  v35 = [v34 countByEnumeratingWithState:&v208 objects:v220 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v210;
+    v37 = *v209;
     do
     {
       for (i = 0; i != v36; ++i)
       {
-        if (*v210 != v37)
+        if (*v209 != v37)
         {
           objc_enumerationMutation(v34);
         }
 
-        v39 = *(*(&v209 + 1) + 8 * i);
+        v39 = *(*(&v208 + 1) + 8 * i);
         storage = [v39 storage];
-        [v166 addObject:storage];
+        [v165 addObject:storage];
 
         objectID = [v39 objectID];
         changedKeys = [v39 changedKeys];
         [(REMStore *)self _addChangeItemChangedKeys:changedKeys objectID:objectID toChangedKeysMap:v33];
 
-        [v167 addObject:objectID];
+        [v166 addObject:objectID];
       }
 
-      v36 = [v34 countByEnumeratingWithState:&v209 objects:v221 count:16];
+      v36 = [v34 countByEnumeratingWithState:&v208 objects:v220 count:16];
     }
 
     while (v36);
   }
 
-  v138 = v34;
-  v139 = v25;
+  v137 = v34;
+  v138 = v25;
 
-  v150 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(changeItemsCopy, "count")}];
+  v149 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(changeItemsCopy, "count")}];
+  v204 = 0u;
   v205 = 0u;
   v206 = 0u;
   v207 = 0u;
-  v208 = 0u;
   obja = changeItemsCopy;
-  v43 = [obja countByEnumeratingWithState:&v205 objects:v220 count:16];
+  v43 = [obja countByEnumeratingWithState:&v204 objects:v219 count:16];
   if (v43)
   {
     v44 = v43;
-    v45 = *v206;
+    v45 = *v205;
     do
     {
       v46 = 0;
       do
       {
-        if (*v206 != v45)
+        if (*v205 != v45)
         {
           objc_enumerationMutation(obja);
         }
 
-        v47 = *(*(&v205 + 1) + 8 * v46);
+        v47 = *(*(&v204 + 1) + 8 * v46);
         objectID2 = [v47 objectID];
         entityName = [objectID2 entityName];
         v50 = +[REMList cdEntityName];
@@ -2345,13 +2319,13 @@ void __58__REMStore__xpcSyncStorePerformerWithReason_errorHandler___block_invoke
         if (v51)
         {
           storage2 = [v47 storage];
-          [v150 addObject:storage2];
+          [v149 addObject:storage2];
 
           changedKeys2 = [v47 changedKeys];
           [(REMStore *)self _addChangeItemChangedKeys:changedKeys2 objectID:objectID2 toChangedKeysMap:v33];
 
           accountID = [v47 accountID];
-          [v167 addObject:accountID];
+          [v166 addObject:accountID];
 LABEL_20:
 
           goto LABEL_23;
@@ -2372,7 +2346,7 @@ LABEL_20:
             accountID = +[REMLogStore write];
             if (os_log_type_enabled(accountID, OS_LOG_TYPE_FAULT))
             {
-              [REMStore _saveAccountChangeItems:v204 listChangeItems:accountID listSectionChangeItems:? smartListChangeItems:? smartListSectionChangeItems:? templateChangeItems:? templateSectionChangeItems:? reminderChangeItems:? author:? replicaManagerProvider:? synchronously:? syncToCloudKit:? performer:? completion:?];
+              [REMStore _saveAccountChangeItems:v203 listChangeItems:accountID listSectionChangeItems:? smartListChangeItems:? smartListSectionChangeItems:? templateChangeItems:? templateSectionChangeItems:? reminderChangeItems:? author:? replicaManagerProvider:? synchronously:? syncToCloudKit:? performer:? completion:?];
             }
 
             goto LABEL_20;
@@ -2385,7 +2359,7 @@ LABEL_23:
       }
 
       while (v44 != v46);
-      v61 = [obja countByEnumeratingWithState:&v205 objects:v220 count:16];
+      v61 = [obja countByEnumeratingWithState:&v204 objects:v219 count:16];
       v44 = v61;
     }
 
@@ -2393,26 +2367,26 @@ LABEL_23:
   }
 
   v62 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(sectionChangeItemsCopy, "count")}];
+  v198 = 0u;
   v199 = 0u;
   v200 = 0u;
   v201 = 0u;
-  v202 = 0u;
   v63 = sectionChangeItemsCopy;
-  v64 = [v63 countByEnumeratingWithState:&v199 objects:v219 count:16];
+  v64 = [v63 countByEnumeratingWithState:&v198 objects:v218 count:16];
   if (v64)
   {
     v65 = v64;
-    v66 = *v200;
+    v66 = *v199;
     do
     {
       for (j = 0; j != v65; ++j)
       {
-        if (*v200 != v66)
+        if (*v199 != v66)
         {
           objc_enumerationMutation(v63);
         }
 
-        v68 = *(*(&v199 + 1) + 8 * j);
+        v68 = *(*(&v198 + 1) + 8 * j);
         storage3 = [v68 storage];
         [v62 addObject:storage3];
 
@@ -2421,227 +2395,227 @@ LABEL_23:
         [(REMStore *)self _addChangeItemChangedKeys:changedKeys4 objectID:objectID3 toChangedKeysMap:v33];
       }
 
-      v65 = [v63 countByEnumeratingWithState:&v199 objects:v219 count:16];
+      v65 = [v63 countByEnumeratingWithState:&v198 objects:v218 count:16];
     }
 
     while (v65);
   }
 
-  v136 = v62;
+  v135 = v62;
 
-  v165 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(listChangeItemsCopy, "count")}];
+  v164 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(listChangeItemsCopy, "count")}];
+  v194 = 0u;
   v195 = 0u;
   v196 = 0u;
   v197 = 0u;
-  v198 = 0u;
-  v153 = listChangeItemsCopy;
-  v72 = [v153 countByEnumeratingWithState:&v195 objects:v218 count:16];
+  v152 = listChangeItemsCopy;
+  v72 = [v152 countByEnumeratingWithState:&v194 objects:v217 count:16];
   if (v72)
   {
     v73 = v72;
-    v74 = *v196;
+    v74 = *v195;
     do
     {
       for (k = 0; k != v73; ++k)
       {
-        if (*v196 != v74)
+        if (*v195 != v74)
         {
-          objc_enumerationMutation(v153);
+          objc_enumerationMutation(v152);
         }
 
-        v76 = *(*(&v195 + 1) + 8 * k);
+        v76 = *(*(&v194 + 1) + 8 * k);
         storage4 = [v76 storage];
-        [v165 addObject:storage4];
+        [v164 addObject:storage4];
 
         changedKeys5 = [v76 changedKeys];
         objectID4 = [v76 objectID];
         [(REMStore *)self _addChangeItemChangedKeys:changedKeys5 objectID:objectID4 toChangedKeysMap:v33];
       }
 
-      v73 = [v153 countByEnumeratingWithState:&v195 objects:v218 count:16];
+      v73 = [v152 countByEnumeratingWithState:&v194 objects:v217 count:16];
     }
 
     while (v73);
   }
 
-  v163 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(listSectionChangeItemsCopy, "count")}];
+  v162 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(listSectionChangeItemsCopy, "count")}];
+  v190 = 0u;
   v191 = 0u;
   v192 = 0u;
   v193 = 0u;
-  v194 = 0u;
-  v152 = listSectionChangeItemsCopy;
-  v80 = [v152 countByEnumeratingWithState:&v191 objects:v217 count:16];
+  v151 = listSectionChangeItemsCopy;
+  v80 = [v151 countByEnumeratingWithState:&v190 objects:v216 count:16];
   if (v80)
   {
     v81 = v80;
-    v82 = *v192;
+    v82 = *v191;
     do
     {
       for (m = 0; m != v81; ++m)
       {
-        if (*v192 != v82)
+        if (*v191 != v82)
         {
-          objc_enumerationMutation(v152);
+          objc_enumerationMutation(v151);
         }
 
-        v84 = *(*(&v191 + 1) + 8 * m);
+        v84 = *(*(&v190 + 1) + 8 * m);
         storage5 = [v84 storage];
-        [v163 addObject:storage5];
+        [v162 addObject:storage5];
 
         changedKeys6 = [v84 changedKeys];
         objectID5 = [v84 objectID];
         [(REMStore *)self _addChangeItemChangedKeys:changedKeys6 objectID:objectID5 toChangedKeysMap:v33];
       }
 
-      v81 = [v152 countByEnumeratingWithState:&v191 objects:v217 count:16];
+      v81 = [v151 countByEnumeratingWithState:&v190 objects:v216 count:16];
     }
 
     while (v81);
   }
 
-  v137 = v63;
+  v136 = v63;
 
-  v161 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(templateChangeItemsCopy, "count")}];
+  v160 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(templateChangeItemsCopy, "count")}];
+  v186 = 0u;
   v187 = 0u;
   v188 = 0u;
   v189 = 0u;
-  v190 = 0u;
-  v151 = templateChangeItemsCopy;
-  v88 = [v151 countByEnumeratingWithState:&v187 objects:v216 count:16];
+  v150 = templateChangeItemsCopy;
+  v88 = [v150 countByEnumeratingWithState:&v186 objects:v215 count:16];
   if (v88)
   {
     v89 = v88;
-    v90 = *v188;
+    v90 = *v187;
     do
     {
       for (n = 0; n != v89; ++n)
       {
-        if (*v188 != v90)
+        if (*v187 != v90)
         {
-          objc_enumerationMutation(v151);
+          objc_enumerationMutation(v150);
         }
 
-        v92 = *(*(&v187 + 1) + 8 * n);
+        v92 = *(*(&v186 + 1) + 8 * n);
         storage6 = [v92 storage];
-        [v161 addObject:storage6];
+        [v160 addObject:storage6];
 
         changedKeys7 = [v92 changedKeys];
         objectID6 = [v92 objectID];
         [(REMStore *)self _addChangeItemChangedKeys:changedKeys7 objectID:objectID6 toChangedKeysMap:v33];
 
         accountID2 = [v92 accountID];
-        [v167 addObject:accountID2];
+        [v166 addObject:accountID2];
       }
 
-      v89 = [v151 countByEnumeratingWithState:&v187 objects:v216 count:16];
+      v89 = [v150 countByEnumeratingWithState:&v186 objects:v215 count:16];
     }
 
     while (v89);
   }
 
-  v159 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(templateSectionChangeItemsCopy, "count")}];
+  v158 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(templateSectionChangeItemsCopy, "count")}];
+  v182 = 0u;
   v183 = 0u;
   v184 = 0u;
   v185 = 0u;
-  v186 = 0u;
   v97 = templateSectionChangeItemsCopy;
-  v98 = [v97 countByEnumeratingWithState:&v183 objects:v215 count:16];
+  v98 = [v97 countByEnumeratingWithState:&v182 objects:v214 count:16];
   if (v98)
   {
     v99 = v98;
-    v100 = *v184;
+    v100 = *v183;
     do
     {
       for (ii = 0; ii != v99; ++ii)
       {
-        if (*v184 != v100)
+        if (*v183 != v100)
         {
           objc_enumerationMutation(v97);
         }
 
-        v102 = *(*(&v183 + 1) + 8 * ii);
+        v102 = *(*(&v182 + 1) + 8 * ii);
         storage7 = [v102 storage];
-        [v159 addObject:storage7];
+        [v158 addObject:storage7];
 
         changedKeys8 = [v102 changedKeys];
         objectID7 = [v102 objectID];
         [(REMStore *)self _addChangeItemChangedKeys:changedKeys8 objectID:objectID7 toChangedKeysMap:v33];
       }
 
-      v99 = [v97 countByEnumeratingWithState:&v183 objects:v215 count:16];
+      v99 = [v97 countByEnumeratingWithState:&v182 objects:v214 count:16];
     }
 
     while (v99);
   }
 
-  v135 = v97;
+  v134 = v97;
 
-  v157 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(reminderChangeItemsCopy, "count")}];
+  v156 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(reminderChangeItemsCopy, "count")}];
+  v178 = 0u;
   v179 = 0u;
   v180 = 0u;
   v181 = 0u;
-  v182 = 0u;
   v106 = reminderChangeItemsCopy;
-  v107 = [v106 countByEnumeratingWithState:&v179 objects:v214 count:16];
+  v107 = [v106 countByEnumeratingWithState:&v178 objects:v213 count:16];
   if (v107)
   {
     v108 = v107;
-    v109 = *v180;
+    v109 = *v179;
     do
     {
       for (jj = 0; jj != v108; ++jj)
       {
-        if (*v180 != v109)
+        if (*v179 != v109)
         {
           objc_enumerationMutation(v106);
         }
 
-        v111 = *(*(&v179 + 1) + 8 * jj);
+        v111 = *(*(&v178 + 1) + 8 * jj);
         storage8 = [v111 storage];
-        [v157 addObject:storage8];
+        [v156 addObject:storage8];
 
         changedKeys9 = [v111 changedKeys];
         objectID8 = [v111 objectID];
         [(REMStore *)self _addChangeItemChangedKeys:changedKeys9 objectID:objectID8 toChangedKeysMap:v33];
 
         accountID3 = [v111 accountID];
-        [v167 addObject:accountID3];
+        [v166 addObject:accountID3];
       }
 
-      v108 = [v106 countByEnumeratingWithState:&v179 objects:v214 count:16];
+      v108 = [v106 countByEnumeratingWithState:&v178 objects:v213 count:16];
     }
 
     while (v108);
   }
 
-  v134 = v106;
+  v133 = v106;
 
-  v116 = [providerCopy unsavedReplicaManagersForAccountIDs:v167];
-  v149 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v116, "count")}];
+  v116 = [providerCopy unsavedReplicaManagersForAccountIDs:v166];
+  v148 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v116, "count")}];
+  v174 = 0u;
   v175 = 0u;
   v176 = 0u;
   v177 = 0u;
-  v178 = 0u;
   v117 = v116;
-  v118 = [v117 countByEnumeratingWithState:&v175 objects:v213 count:16];
+  v118 = [v117 countByEnumeratingWithState:&v174 objects:v212 count:16];
   if (v118)
   {
     v119 = v118;
-    v120 = *v176;
+    v120 = *v175;
     do
     {
       for (kk = 0; kk != v119; ++kk)
       {
-        if (*v176 != v120)
+        if (*v175 != v120)
         {
           objc_enumerationMutation(v117);
         }
 
-        v122 = *(*(&v175 + 1) + 8 * kk);
+        v122 = *(*(&v174 + 1) + 8 * kk);
         v123 = [v117 objectForKeyedSubscript:v122];
-        v174 = 0;
-        v124 = [v123 serializedDataCappedAtMaxSize:1 error:&v174];
-        v125 = v174;
+        v173 = 0;
+        v124 = [v123 serializedDataCappedAtMaxSize:1 error:&v173];
+        v125 = v173;
 
         v126 = +[REMLogStore write];
         v127 = v126;
@@ -2661,13 +2635,13 @@ LABEL_23:
           {
             version = [v124 version];
             *buf = 134218242;
-            v223 = version;
-            v224 = 2112;
-            v225 = v122;
+            v222 = version;
+            v223 = 2112;
+            v224 = v122;
             _os_log_impl(&dword_19A0DB000, v127, OS_LOG_TYPE_INFO, "Will save REMReplicaManager {version: %llu, accountID: %@}", buf, 0x16u);
           }
 
-          [v149 setObject:v124 forKeyedSubscript:v122];
+          [v148 setObject:v124 forKeyedSubscript:v122];
         }
 
         else
@@ -2675,41 +2649,39 @@ LABEL_23:
           if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v223 = v125;
+            v222 = v125;
             _os_log_error_impl(&dword_19A0DB000, v127, OS_LOG_TYPE_ERROR, "Failed to serialize REMReplicaManager {error: %{public}@}", buf, 0xCu);
           }
         }
       }
 
-      v119 = [v117 countByEnumeratingWithState:&v175 objects:v213 count:16];
+      v119 = [v117 countByEnumeratingWithState:&v174 objects:v212 count:16];
     }
 
     while (v119);
   }
 
   mode = [(REMStore *)self mode];
-  v168[0] = MEMORY[0x1E69E9820];
-  v168[1] = 3221225472;
-  v168[2] = __271__REMStore__saveAccountChangeItems_listChangeItems_listSectionChangeItems_smartListChangeItems_smartListSectionChangeItems_templateChangeItems_templateSectionChangeItems_reminderChangeItems_author_replicaManagerProvider_synchronously_syncToCloudKit_performer_completion___block_invoke;
-  v168[3] = &unk_1E7507E48;
-  v169 = v149;
-  v170 = v117;
-  v171 = v140;
-  v172 = completionCopy;
-  v173 = v139;
-  v147 = completionCopy;
-  v146 = v140;
-  v142 = v117;
-  v131 = v149;
-  LOWORD(v133) = __PAIR16__(kit, synchronously);
-  [performerCopy saveAccountStorages:v166 listStorages:v150 listSectionStorages:v136 smartListStorages:v165 smartListSectionStorages:v163 templateStorages:v161 templateSectionStorages:v159 reminderStorages:v157 changedKeys:v33 replicaManagers:v131 author:v145 mode:mode synchronously:v133 syncToCloudKit:v168 completion:?];
-
-  v132 = *MEMORY[0x1E69E9840];
+  v167[0] = MEMORY[0x1E69E9820];
+  v167[1] = 3221225472;
+  v167[2] = __271__REMStore__saveAccountChangeItems_listChangeItems_listSectionChangeItems_smartListChangeItems_smartListSectionChangeItems_templateChangeItems_templateSectionChangeItems_reminderChangeItems_author_replicaManagerProvider_synchronously_syncToCloudKit_performer_completion___block_invoke;
+  v167[3] = &unk_1E7507E48;
+  v168 = v148;
+  v169 = v117;
+  v170 = v139;
+  v171 = completionCopy;
+  v172 = v138;
+  v146 = completionCopy;
+  v145 = v139;
+  v141 = v117;
+  v131 = v148;
+  LOWORD(v132) = __PAIR16__(kit, synchronously);
+  [performerCopy saveAccountStorages:v165 listStorages:v149 listSectionStorages:v135 smartListStorages:v164 smartListSectionStorages:v162 templateStorages:v160 templateSectionStorages:v158 reminderStorages:v156 changedKeys:v33 replicaManagers:v131 author:v144 mode:mode synchronously:v132 syncToCloudKit:v167 completion:?];
 }
 
 void __271__REMStore__saveAccountChangeItems_listChangeItems_listSectionChangeItems_smartListChangeItems_smartListSectionChangeItems_templateChangeItems_templateSectionChangeItems_reminderChangeItems_author_replicaManagerProvider_synchronously_syncToCloudKit_performer_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[REMLogStore write];
   v5 = v4;
@@ -2729,26 +2701,26 @@ void __271__REMStore__saveAccountChangeItems_listChangeItems_listSectionChangeIt
       _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_DEFAULT, "(client) SAVE END", buf, 2u);
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v5 = *(a1 + 32);
-    v6 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v19 + 1) + 8 * i);
+          v10 = *(*(&v18 + 1) + 8 * i);
           v11 = [*(a1 + 32) objectForKeyedSubscript:v10];
           v12 = [v11 version];
 
@@ -2756,9 +2728,9 @@ void __271__REMStore__saveAccountChangeItems_listChangeItems_listSectionChangeIt
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             *buf = 134218242;
-            v24 = v12;
-            v25 = 2112;
-            v26 = v10;
+            v23 = v12;
+            v24 = 2112;
+            v25 = v10;
             _os_log_impl(&dword_19A0DB000, v13, OS_LOG_TYPE_INFO, "Marking REMReplicaManager as saved {version: %llu, accountID: %@}", buf, 0x16u);
           }
 
@@ -2766,7 +2738,7 @@ void __271__REMStore__saveAccountChangeItems_listChangeItems_listSectionChangeIt
           [v14 didSaveVersion:v12];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
       }
 
       while (v7);
@@ -2784,7 +2756,6 @@ void __271__REMStore__saveAccountChangeItems_listChangeItems_listSectionChangeIt
   }
 
   (*(*(a1 + 56) + 16))();
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fetchShareForListWithID:(id)d error:(id *)error
@@ -2843,7 +2814,7 @@ void __42__REMStore_fetchShareForListWithID_error___block_invoke(uint64_t a1, vo
   v4 = +[REMLogStore xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __42__REMStore_fetchShareForListWithID_error___block_invoke_cold_1(v3, a1);
+    __42__REMStore_fetchShareForListWithID_error___block_invoke_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -2853,7 +2824,7 @@ void __42__REMStore_fetchShareForListWithID_error___block_invoke(uint64_t a1, vo
 
 void __42__REMStore_fetchShareForListWithID_error___block_invoke_115(void *a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -2861,7 +2832,7 @@ void __42__REMStore_fetchShareForListWithID_error___block_invoke_115(void *a1, v
     v7 = +[REMLogStore read];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __42__REMStore_fetchShareForListWithID_error___block_invoke_115_cold_1(v6, a1);
+      __42__REMStore_fetchShareForListWithID_error___block_invoke_115_cold_1();
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a3);
@@ -2871,18 +2842,16 @@ void __42__REMStore_fetchShareForListWithID_error___block_invoke_115(void *a1, v
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = a1[4];
-    v13 = 138412546;
-    v14 = v9;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "Store fetch share successful {list: %@, share: %@}", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v9;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "Store fetch share successful {list: %@, share: %@}", &v12, 0x16u);
   }
 
   v10 = *(a1[6] + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)createShareForListWithID:(id)d appIconData:(id)data error:(id *)error
@@ -2942,7 +2911,7 @@ void __55__REMStore_createShareForListWithID_appIconData_error___block_invoke(ui
   v4 = +[REMLogStore xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __55__REMStore_createShareForListWithID_appIconData_error___block_invoke_cold_1(v3, a1);
+    __55__REMStore_createShareForListWithID_appIconData_error___block_invoke_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -2952,7 +2921,7 @@ void __55__REMStore_createShareForListWithID_appIconData_error___block_invoke(ui
 
 void __55__REMStore_createShareForListWithID_appIconData_error___block_invoke_120(void *a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -2960,7 +2929,7 @@ void __55__REMStore_createShareForListWithID_appIconData_error___block_invoke_12
     v7 = +[REMLogStore write];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __55__REMStore_createShareForListWithID_appIconData_error___block_invoke_120_cold_1(v6, a1);
+      __55__REMStore_createShareForListWithID_appIconData_error___block_invoke_120_cold_1();
     }
 
     objc_storeStrong((*(a1[5] + 8) + 40), a3);
@@ -2970,18 +2939,16 @@ void __55__REMStore_createShareForListWithID_appIconData_error___block_invoke_12
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = a1[4];
-    v13 = 138412546;
-    v14 = v9;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "Store create share successful {list: %@, share: %@}", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v9;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "Store create share successful {list: %@, share: %@}", &v12, 0x16u);
   }
 
   v10 = *(a1[6] + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateShare:(id)share accountID:(id)d queue:(id)queue completion:(id)completion
@@ -3053,7 +3020,7 @@ void __51__REMStore_updateShare_accountID_queue_completion___block_invoke_5(uint
   v4 = +[REMLogStore xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __51__REMStore_updateShare_accountID_queue_completion___block_invoke_5_cold_1(v3, a1);
+    __51__REMStore_updateShare_accountID_queue_completion___block_invoke_5_cold_1();
   }
 
   (*(*(a1 + 48) + 16))();
@@ -3128,7 +3095,7 @@ void __49__REMStore_stopShare_accountID_queue_completion___block_invoke_5(uint64
   v4 = +[REMLogStore xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __49__REMStore_stopShare_accountID_queue_completion___block_invoke_5_cold_1(v3, a1);
+    __49__REMStore_stopShare_accountID_queue_completion___block_invoke_5_cold_1();
   }
 
   (*(*(a1 + 48) + 16))();
@@ -3198,7 +3165,7 @@ void __53__REMStore_acceptShareWithMetadata_queue_completion___block_invoke_5(ui
   v4 = +[REMLogStore xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __53__REMStore_acceptShareWithMetadata_queue_completion___block_invoke_5_cold_1(v3, a1);
+    __53__REMStore_acceptShareWithMetadata_queue_completion___block_invoke_5_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -3214,7 +3181,7 @@ void __53__REMStore_acceptShareWithMetadata_queue_completion___block_invoke_5(ui
 
 - (id)compressedDistributedEvaluationDataWithOptions:(id)options error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v7 = +[REMLogStore read];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -3226,39 +3193,39 @@ void __53__REMStore_acceptShareWithMetadata_queue_completion___block_invoke_5(ui
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__1;
-  v26 = __Block_byref_object_dispose__1;
-  v27 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__1;
-  v21 = __Block_byref_object_dispose__1;
-  v22 = 0;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __65__REMStore_compressedDistributedEvaluationDataWithOptions_error___block_invoke;
-  v16[3] = &unk_1E7507AE0;
-  v16[4] = &buf;
-  v8 = [(REMStore *)self _xpcSyncStorePerformerWithReason:@"distributedEvaluation" errorHandler:v16];
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__1;
+  v25 = __Block_byref_object_dispose__1;
+  v26 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__1;
+  v20 = __Block_byref_object_dispose__1;
+  v21 = 0;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __65__REMStore_compressedDistributedEvaluationDataWithOptions_error___block_invoke;
+  v15[3] = &unk_1E7507AE0;
+  v15[4] = &buf;
+  v8 = [(REMStore *)self _xpcSyncStorePerformerWithReason:@"distributedEvaluation" errorHandler:v15];
   v9 = v8;
   if (v8)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __65__REMStore_compressedDistributedEvaluationDataWithOptions_error___block_invoke_135;
-    v15[3] = &unk_1E7507F60;
-    v15[4] = &v17;
-    v15[5] = &buf;
-    [v8 compressedDistributedEvaluationDataWithOptions:optionsCopy completion:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __65__REMStore_compressedDistributedEvaluationDataWithOptions_error___block_invoke_135;
+    v14[3] = &unk_1E7507F60;
+    v14[4] = &v16;
+    v14[5] = &buf;
+    [v8 compressedDistributedEvaluationDataWithOptions:optionsCopy completion:v14];
   }
 
   v10 = +[REMLogStore read];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&dword_19A0DB000, v10, OS_LOG_TYPE_DEFAULT, "(client) DistributedEvaluation Export END", v14, 2u);
+    *v13 = 0;
+    _os_log_impl(&dword_19A0DB000, v10, OS_LOG_TYPE_DEFAULT, "(client) DistributedEvaluation Export END", v13, 2u);
   }
 
   if (error)
@@ -3266,12 +3233,10 @@ void __53__REMStore_acceptShareWithMetadata_queue_completion___block_invoke_5(ui
     *error = *(*(&buf + 1) + 40);
   }
 
-  v11 = v18[5];
+  v11 = v17[5];
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v16, 8);
   _Block_object_dispose(&buf, 8);
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -3359,7 +3324,7 @@ void __65__REMStore_compressedDistributedEvaluationDataWithOptions_error___block
 
 - (id)fetchDefaultAccountWithError:(id *)error
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v5 = [(REMStore *)self fetchDefaultListWithError:?];
   v6 = v5;
   if (v5)
@@ -3369,25 +3334,25 @@ void __65__REMStore_compressedDistributedEvaluationDataWithOptions_error___block
   }
 
   [(REMStore *)self fetchAccountsWithError:error];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v8 = v43 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v40 objects:v46 count:16];
+  v8 = v42 = 0u;
+  v9 = [v8 countByEnumeratingWithState:&v39 objects:v45 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v41;
+    v11 = *v40;
 LABEL_5:
     v12 = 0;
     while (1)
     {
-      if (*v41 != v11)
+      if (*v40 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v40 + 1) + 8 * v12);
+      v13 = *(*(&v39 + 1) + 8 * v12);
       accountTypeHost = [v13 accountTypeHost];
       isPrimaryCloudKit = [accountTypeHost isPrimaryCloudKit];
 
@@ -3398,7 +3363,7 @@ LABEL_5:
 
       if (v10 == ++v12)
       {
-        v10 = [v8 countByEnumeratingWithState:&v40 objects:v46 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v39 objects:v45 count:16];
         if (v10)
         {
           goto LABEL_5;
@@ -3413,26 +3378,26 @@ LABEL_5:
   {
 LABEL_11:
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v16 = v8;
-    v17 = [v16 countByEnumeratingWithState:&v36 objects:v45 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v35 objects:v44 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v37;
+      v19 = *v36;
 LABEL_13:
       v20 = 0;
       while (1)
       {
-        if (*v37 != v19)
+        if (*v36 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v13 = *(*(&v36 + 1) + 8 * v20);
+        v13 = *(*(&v35 + 1) + 8 * v20);
         accountTypeHost2 = [v13 accountTypeHost];
         isCloudBased = [accountTypeHost2 isCloudBased];
 
@@ -3443,7 +3408,7 @@ LABEL_13:
 
         if (v18 == ++v20)
         {
-          v18 = [v16 countByEnumeratingWithState:&v36 objects:v45 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v35 objects:v44 count:16];
           if (v18)
           {
             goto LABEL_13;
@@ -3458,12 +3423,12 @@ LABEL_13:
     {
 LABEL_19:
 
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
       v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
       v23 = v16;
-      v24 = [v23 countByEnumeratingWithState:&v32 objects:v44 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v31 objects:v43 count:16];
       if (!v24)
       {
         account = 0;
@@ -3471,17 +3436,17 @@ LABEL_19:
       }
 
       v25 = v24;
-      v26 = *v33;
+      v26 = *v32;
 LABEL_21:
       v27 = 0;
       while (1)
       {
-        if (*v33 != v26)
+        if (*v32 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v13 = *(*(&v32 + 1) + 8 * v27);
+        v13 = *(*(&v31 + 1) + 8 * v27);
         accountTypeHost3 = [v13 accountTypeHost];
         isLocal = [accountTypeHost3 isLocal];
 
@@ -3492,7 +3457,7 @@ LABEL_21:
 
         if (v25 == ++v27)
         {
-          v25 = [v23 countByEnumeratingWithState:&v32 objects:v44 count:16];
+          v25 = [v23 countByEnumeratingWithState:&v31 objects:v43 count:16];
           account = 0;
           if (v25)
           {
@@ -3509,7 +3474,6 @@ LABEL_21:
 LABEL_29:
 
 LABEL_30:
-  v30 = *MEMORY[0x1E69E9840];
 
   return account;
 }
@@ -3621,7 +3585,7 @@ void __64__REMStore_fetchMinimumSearchTermLengthByBaseLanguageWithError___block_
 
 void __64__REMStore_fetchMinimumSearchTermLengthByBaseLanguageWithError___block_invoke_153(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[REMLogStore read];
@@ -3640,9 +3604,9 @@ void __64__REMStore_fetchMinimumSearchTermLengthByBaseLanguageWithError___block_
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v12 = 138412290;
-    v13 = v5;
-    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "Fetch minimumSearchTermLengthByBaseLanguage successful {result: %@}", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v5;
+    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "Fetch minimumSearchTermLengthByBaseLanguage successful {result: %@}", &v11, 0xCu);
   }
 
   if (v5)
@@ -3652,8 +3616,6 @@ void __64__REMStore_fetchMinimumSearchTermLengthByBaseLanguageWithError___block_
 LABEL_9:
     objc_storeStrong((*(*(a1 + v9) + 8) + 40), v10);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_respondToCalDAVSharedList:(id)list withResponse:(int64_t)response queue:(id)queue completion:(id)completion
@@ -3994,7 +3956,7 @@ void __66__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople___bloc
 
 - (void)notifyOfInteractionWithPeople:(id)people force:(BOOL)force completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   peopleCopy = people;
   completionCopy = completion;
   if (force || +[REMStore _shouldNotifyReminddOfInteractionWithPeople])
@@ -4003,24 +3965,24 @@ void __66__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople___bloc
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = peopleCopy;
+      v20 = peopleCopy;
       _os_log_impl(&dword_19A0DB000, v10, OS_LOG_TYPE_DEFAULT, "_shouldNotifyReminddOfInteractionWithPeople returned YES. Notifying people interaction {people: %@}", buf, 0xCu);
     }
 
     daemonController = [(REMStore *)self daemonController];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_completion___block_invoke;
-    v17[3] = &unk_1E7507F38;
-    v18 = peopleCopy;
-    v19 = completionCopy;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_completion___block_invoke_360;
-    v14[3] = &unk_1E7507D30;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_completion___block_invoke;
+    v16[3] = &unk_1E7507F38;
+    v17 = peopleCopy;
+    v18 = completionCopy;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_completion___block_invoke_360;
+    v13[3] = &unk_1E7507D30;
+    v14 = v17;
     v15 = v18;
-    v16 = v19;
-    [daemonController asyncStorePerformerWithReason:@"notifyOfInteractionWithPeople" loadHandler:v17 errorHandler:v14];
+    [daemonController asyncStorePerformerWithReason:@"notifyOfInteractionWithPeople" loadHandler:v16 errorHandler:v13];
   }
 
   else
@@ -4029,14 +3991,12 @@ void __66__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople___bloc
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v21 = peopleCopy;
+      v20 = peopleCopy;
       _os_log_impl(&dword_19A0DB000, v12, OS_LOG_TYPE_INFO, "_shouldNotifyReminddOfInteractionWithPeople returned NO. Skipping notification {people: %@}", buf, 0xCu);
     }
 
     (*(completionCopy + 2))(completionCopy, 0);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_completion___block_invoke(uint64_t a1, void *a2)
@@ -4059,7 +4019,7 @@ void __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_
     v4 = +[REMLog alarmEngine];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_completion___block_invoke_2_cold_1(v3, a1);
+      __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_completion___block_invoke_2_cold_1();
     }
   }
 
@@ -4072,7 +4032,7 @@ void __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_
   v4 = +[REMLogStore xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_completion___block_invoke_360_cold_1(v3, a1);
+    __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_completion___block_invoke_360_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -4080,7 +4040,7 @@ void __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_
 
 + (BOOL)_shouldNotifyReminddOfInteractionWithPeople
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = +[REMDispatchQueue storeQueue];
   dispatch_assert_queue_V2(v2);
 
@@ -4111,7 +4071,7 @@ void __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v18) = _shouldNotifyReminddOfInteractionWithPeople___sNotifyToken;
+      LODWORD(v17) = _shouldNotifyReminddOfInteractionWithPeople___sNotifyToken;
       _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_DEFAULT, "Failed to register shouldNotifyOfInteractionWithPeople with notify. Returning YES to _shouldNotifyReminddOfInteractionWithPeople {token: %d}", buf, 8u);
     }
 
@@ -4129,9 +4089,7 @@ void __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_
 
 LABEL_11:
 
-LABEL_19:
-    result = 1;
-    goto LABEL_20;
+    return 1;
   }
 
   v8 = check;
@@ -4145,8 +4103,8 @@ LABEL_19:
       _os_log_impl(&dword_19A0DB000, v10, OS_LOG_TYPE_DEFAULT, "shouldNotifyOfInteractionWithPeople did change. Updating cache", buf, 2u);
     }
 
-    v15 = 0;
-    state = notify_get_state(_shouldNotifyReminddOfInteractionWithPeople___sNotifyToken, &v15);
+    v14 = 0;
+    state = notify_get_state(_shouldNotifyReminddOfInteractionWithPeople___sNotifyToken, &v14);
     v12 = +[REMLog alarmEngine];
     v5 = v12;
     if (state)
@@ -4158,18 +4116,18 @@ LABEL_19:
 
 LABEL_18:
 
-      goto LABEL_19;
+      return 1;
     }
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v18 = v15;
+      v17 = v14;
       _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_DEFAULT, "Successfully notify_get_state updating cache {state: %llu}", buf, 0xCu);
     }
 
-    result = v15 != 0;
-    _shouldNotifyReminddOfInteractionWithPeople___sShouldNotifyRemindd = v15 != 0;
+    result = v14 != 0;
+    _shouldNotifyReminddOfInteractionWithPeople___sShouldNotifyRemindd = v14 != 0;
   }
 
   else
@@ -4177,15 +4135,13 @@ LABEL_18:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      LODWORD(v18) = _shouldNotifyReminddOfInteractionWithPeople___sShouldNotifyRemindd;
+      LODWORD(v17) = _shouldNotifyReminddOfInteractionWithPeople___sShouldNotifyRemindd;
       _os_log_impl(&dword_19A0DB000, v10, OS_LOG_TYPE_INFO, "shouldNotifyOfInteractionWithPeople did not change. Returning cached value {__sShouldNotifyRemindd: %d}", buf, 8u);
     }
 
-    result = _shouldNotifyReminddOfInteractionWithPeople___sShouldNotifyRemindd;
+    return _shouldNotifyReminddOfInteractionWithPeople___sShouldNotifyRemindd;
   }
 
-LABEL_20:
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4254,13 +4210,13 @@ LABEL_20:
 
 - (id)fetchIncompleteRemindersCountForNewsRecipeCardWithBatchCreationID:(id)d error:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v7 = +[REMLogStore read];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v14 = dCopy;
+    v13 = dCopy;
     _os_log_impl(&dword_19A0DB000, v7, OS_LOG_TYPE_DEFAULT, "NewsRecipeCardSPI START fetch incomplete reminders count {batchCreationID:%{public}@}", buf, 0xCu);
   }
 
@@ -4275,26 +4231,24 @@ LABEL_20:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v14 = dCopy;
-    v15 = 2114;
-    v16 = v9;
+    v13 = dCopy;
+    v14 = 2114;
+    v15 = v9;
     _os_log_impl(&dword_19A0DB000, v10, OS_LOG_TYPE_DEFAULT, "NewsRecipeCardSPI END fetch incomplete reminders count {batchCreationID:%{public}@, remindersCount:%{public}@}", buf, 0x16u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)fetchIncompleteRemindersForNewsRecipeCardWithBatchCreationID:(id)d error:(id *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v7 = +[REMLogStore read];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = dCopy;
+    v14 = dCopy;
     _os_log_impl(&dword_19A0DB000, v7, OS_LOG_TYPE_DEFAULT, "NewsRecipeCardSPI START fetch incomplete reminders {batchCreationID:%{public}@}", buf, 0xCu);
   }
 
@@ -4310,28 +4264,26 @@ LABEL_20:
   {
     v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v9, "count")}];
     *buf = 138543618;
-    v15 = dCopy;
-    v16 = 2114;
-    v17 = v11;
+    v14 = dCopy;
+    v15 = 2114;
+    v16 = v11;
     _os_log_impl(&dword_19A0DB000, v10, OS_LOG_TYPE_DEFAULT, "NewsRecipeCardSPI END fetch incomplete reminders {batchCreationID:%{public}@, remindersCount:%{public}@}", buf, 0x16u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)fetchFamilyGroceryListEligibilityForFamilyChecklistWithLocale:(id)locale error:(id *)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   v7 = +[REMLogStore read];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     localeIdentifier = [localeCopy localeIdentifier];
-    v17 = 138477827;
-    v18 = localeIdentifier;
-    _os_log_impl(&dword_19A0DB000, v7, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI START shared grocery lists eligibility for locale {eligibility:%{private}@}", &v17, 0xCu);
+    v16 = 138477827;
+    v17 = localeIdentifier;
+    _os_log_impl(&dword_19A0DB000, v7, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI START shared grocery lists eligibility for locale {eligibility:%{private}@}", &v16, 0xCu);
   }
 
   v9 = [[REMFamilyChecklistDataView alloc] initWithStore:self];
@@ -4341,16 +4293,16 @@ LABEL_20:
     v11 = +[REMLogStore read];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [REMStore(FamilyChecklist) fetchFamilyGroceryListEligibilityForFamilyChecklistWithLocale:error error:?];
+      [REMStore(FamilyChecklist) fetchFamilyGroceryListEligibilityForFamilyChecklistWithLocale:error:];
     }
   }
 
   v12 = +[REMLogStore read];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138543362;
-    v18 = v10;
-    _os_log_impl(&dword_19A0DB000, v12, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI END shared grocery lists eligibility {eligibility:%{public}@}", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = v10;
+    _os_log_impl(&dword_19A0DB000, v12, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI END shared grocery lists eligibility {eligibility:%{public}@}", &v16, 0xCu);
   }
 
   if ([v10 isEligible])
@@ -4382,20 +4334,18 @@ LABEL_20:
   [(REMStore *)self postFamilyAnalyticsPayloadWithOperationId:@"eligibleForSharedGroceryList" operationDetail:v13];
 LABEL_19:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (id)sharedGroceryListForFamilyChecklistWithCommonParticipants:(id)participants error:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   participantsCopy = participants;
   v7 = +[REMLogStore read];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v16 = participantsCopy;
+    v15 = participantsCopy;
     _os_log_impl(&dword_19A0DB000, v7, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI START existing shared grocery lists {commonParticipants: %{public}@}", buf, 0xCu);
   }
 
@@ -4406,7 +4356,7 @@ LABEL_19:
     v10 = +[REMLogStore read];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [REMStore(FamilyChecklist) sharedGroceryListForFamilyChecklistWithCommonParticipants:error error:?];
+      [REMStore(FamilyChecklist) sharedGroceryListForFamilyChecklistWithCommonParticipants:error:];
     }
   }
 
@@ -4414,21 +4364,19 @@ LABEL_19:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v16 = v9;
+    v15 = v9;
     _os_log_impl(&dword_19A0DB000, v11, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI END existing shared grocery lists {sharedGroceryLists: %{public}@}", buf, 0xCu);
   }
 
   v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"existingSharedGroceryLists%lu", objc_msgSend(v9, "count")];
   [(REMStore *)self postFamilyAnalyticsPayloadWithOperationId:@"existingSharedGroceryList" operationDetail:v12];
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)createSharedGroceryListWithError:(id *)error
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v5 = +[REMLogStore write];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -4443,7 +4391,7 @@ LABEL_19:
     v8 = +[REMLogStore write];
     if (os_log_type_enabled(&v8->super, OS_LOG_TYPE_ERROR))
     {
-      [REMStore(FamilyChecklist) createSharedGroceryListWithError:error];
+      [REMStore(FamilyChecklist) createSharedGroceryListWithError:];
     }
 
     v9 = 0;
@@ -4454,7 +4402,7 @@ LABEL_19:
     v8 = [[REMSaveRequest alloc] initWithStore:self];
     v10 = [(REMSaveRequest *)v8 updateAccount:v7];
     v11 = _REMGetLocalizedString(79);
-    v40 = v10;
+    v39 = v10;
     v12 = [(REMSaveRequest *)v8 addListWithName:v11 toAccountChangeItem:v10];
 
     v13 = [[REMColor alloc] initWithCKSymbolicColorName:@"green" hexString:0];
@@ -4474,7 +4422,7 @@ LABEL_19:
       v17 = +[REMLogStore write];
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [REMStore(FamilyChecklist) createSharedGroceryListWithError:error];
+        [REMStore(FamilyChecklist) createSharedGroceryListWithError:];
       }
 
       v9 = 0;
@@ -4490,7 +4438,7 @@ LABEL_19:
         v19 = +[REMLogStore write];
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          [REMStore(FamilyChecklist) createSharedGroceryListWithError:error];
+          [REMStore(FamilyChecklist) createSharedGroceryListWithError:];
         }
 
         v9 = 0;
@@ -4498,12 +4446,12 @@ LABEL_19:
 
       else
       {
-        v35 = groceryContextChangeItem;
-        v38 = v6;
+        v34 = groceryContextChangeItem;
+        v37 = v6;
         v20 = objc_alloc_init(MEMORY[0x1E695DFD8]);
         v21 = [REMFamilyChecklistSharedGroceryList alloc];
         [v12 objectID];
-        v22 = v39 = v7;
+        v22 = v38 = v7;
         v23 = v21;
         v19 = v20;
         v9 = [(REMFamilyChecklistSharedGroceryList *)v23 initWithListID:v22 participants:v20];
@@ -4512,10 +4460,10 @@ LABEL_19:
         [(REMFamilyChecklistSharedGroceryList *)v9 setURL:v24];
 
         v25 = objc_alloc_init(MEMORY[0x1E696ACA0]);
-        v26 = [REMCloudContainer newCloudContainerForAccount:v39];
+        v26 = [REMCloudContainer newCloudContainerForAccount:v38];
         v27 = v17;
-        v36 = v17;
-        v37 = v26;
+        v35 = v17;
+        v36 = v26;
         if (v26)
         {
           v28 = v26;
@@ -4532,68 +4480,66 @@ LABEL_19:
           v31 = +[REMLogStore write];
           if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
-            [REMStore(FamilyChecklist) createSharedGroceryListWithError:error];
+            [REMStore(FamilyChecklist) createSharedGroceryListWithError:];
           }
 
           v19 = v30;
         }
 
-        groceryContextChangeItem = v35;
+        groceryContextChangeItem = v34;
         v32 = +[REMLogStore write];
         if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v42 = v9;
+          v41 = v9;
           _os_log_impl(&dword_19A0DB000, v32, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI END create shared grocery list {sharedGroceryList: %{public}@}", buf, 0xCu);
         }
 
         [(REMStore *)self postFamilyAnalyticsPayloadWithOperationId:@"createdSharedGroceryList" operationDetail:0];
-        v6 = v38;
-        v7 = v39;
-        v17 = v36;
+        v6 = v37;
+        v7 = v38;
+        v17 = v35;
       }
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (void)addParticipantsToSharedGroceryList:(id)list completion:(id)completion
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   listCopy = list;
   completionCopy = completion;
   v6 = +[REMLog cloudkitCollaboration];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v54 = listCopy;
+    v53 = listCopy;
     _os_log_impl(&dword_19A0DB000, v6, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI START add participants to shared grocery list {sharedGroceryList: %{public}@}", buf, 0xCu);
   }
 
   v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   participants = [listCopy participants];
-  v9 = [participants countByEnumeratingWithState:&v48 objects:v52 count:16];
+  v9 = [participants countByEnumeratingWithState:&v47 objects:v51 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v49;
+    v11 = *v48;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v49 != v11)
+        if (*v48 != v11)
         {
           objc_enumerationMutation(participants);
         }
 
-        v13 = *(*(&v48 + 1) + 8 * i);
+        v13 = *(*(&v47 + 1) + 8 * i);
         phones = [v13 phones];
         firstObject = [phones firstObject];
 
@@ -4621,7 +4567,7 @@ LABEL_19:
 LABEL_13:
       }
 
-      v10 = [participants countByEnumeratingWithState:&v48 objects:v52 count:16];
+      v10 = [participants countByEnumeratingWithState:&v47 objects:v51 count:16];
     }
 
     while (v10);
@@ -4630,9 +4576,9 @@ LABEL_13:
   if ([v7 count])
   {
     listID = [listCopy listID];
-    v47 = 0;
-    v21 = [(REMStore *)self fetchShareForListWithID:listID error:&v47];
-    v22 = v47;
+    v46 = 0;
+    v21 = [(REMStore *)self fetchShareForListWithID:listID error:&v46];
+    v22 = v46;
 
     v23 = completionCopy;
     if (v22)
@@ -4649,17 +4595,17 @@ LABEL_13:
     else
     {
       v26 = [objc_alloc(MEMORY[0x1E695B950]) initWithUserIdentityLookupInfos:v7];
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 3221225472;
-      v45[2] = __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completion___block_invoke;
-      v45[3] = &unk_1E7508050;
+      v44[0] = MEMORY[0x1E69E9820];
+      v44[1] = 3221225472;
+      v44[2] = __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completion___block_invoke;
+      v44[3] = &unk_1E7508050;
       v27 = v21;
-      v46 = v27;
-      [v26 setShareParticipantFetchedBlock:v45];
+      v45 = v27;
+      [v26 setShareParticipantFetchedBlock:v44];
       v28 = [[REMAccountsDataView alloc] initWithStore:self];
-      v44 = 0;
-      v29 = [(REMAccountsDataView *)v28 fetchPrimaryActiveCloudKitAccountWithError:&v44];
-      v22 = v44;
+      v43 = 0;
+      v29 = [(REMAccountsDataView *)v28 fetchPrimaryActiveCloudKitAccountWithError:&v43];
+      v22 = v43;
       if (v22)
       {
         v30 = +[REMLog cloudkitCollaboration];
@@ -4673,21 +4619,21 @@ LABEL_13:
 
       else
       {
-        v35 = v29;
+        v34 = v29;
         v31 = [REMCloudContainer newCloudContainerForAccount:v29];
-        v38[0] = MEMORY[0x1E69E9820];
-        v38[1] = 3221225472;
-        v38[2] = __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completion___block_invoke_421;
-        v38[3] = &unk_1E75080C8;
-        v43 = completionCopy;
-        v39 = listCopy;
-        v40 = v27;
+        v37[0] = MEMORY[0x1E69E9820];
+        v37[1] = 3221225472;
+        v37[2] = __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completion___block_invoke_421;
+        v37[3] = &unk_1E75080C8;
+        v42 = completionCopy;
+        v38 = listCopy;
+        v39 = v27;
         selfCopy = self;
-        v42 = v31;
+        v41 = v31;
         v32 = v31;
-        v29 = v35;
+        v29 = v34;
         v33 = v32;
-        [v26 setFetchShareParticipantsCompletionBlock:v38];
+        [v26 setFetchShareParticipantsCompletionBlock:v37];
         [v33 addOperation:v26];
       }
     }
@@ -4705,8 +4651,6 @@ LABEL_13:
 
     (*(completionCopy + 2))(completionCopy, 0, v22);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completion___block_invoke(uint64_t a1, void *a2)
@@ -4718,7 +4662,7 @@ void __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completi
 
 void __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completion___block_invoke_421(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[REMLog cloudkitCollaboration];
   v5 = v4;
@@ -4738,36 +4682,34 @@ void __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completi
     {
       v6 = *(a1 + 32);
       *buf = 138543362;
-      v20 = v6;
+      v19 = v6;
       _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI CloudKit add participants to shared grocery list fetchParticipants succeeded {sharedGroceryList: %{public}@}", buf, 0xCu);
     }
 
     v7 = objc_alloc(MEMORY[0x1E695B9B8]);
-    v18 = *(a1 + 40);
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+    v17 = *(a1 + 40);
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
     v9 = [v7 initWithRecordsToSave:v8 recordIDsToDelete:0];
 
     [v9 setSavePolicy:0];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completion___block_invoke_424;
-    v14[3] = &unk_1E75080A0;
-    v15 = *(a1 + 32);
-    v17 = *(a1 + 64);
-    v13 = *(a1 + 40);
-    v10 = v13.i64[0];
-    v16 = vextq_s8(v13, v13, 8uLL);
-    [v9 setModifyRecordsCompletionBlock:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completion___block_invoke_424;
+    v13[3] = &unk_1E75080A0;
+    v14 = *(a1 + 32);
+    v16 = *(a1 + 64);
+    v12 = *(a1 + 40);
+    v10 = v12.i64[0];
+    v15 = vextq_s8(v12, v12, 8uLL);
+    [v9 setModifyRecordsCompletionBlock:v13];
     v11 = [*(a1 + 56) privateCloudDatabase];
     [v11 addOperation:v9];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completion___block_invoke_424(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -4779,7 +4721,7 @@ void __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completi
     {
       v31 = *(a1 + 32);
       *buf = 138543362;
-      v49 = v31;
+      v48 = v31;
       _os_log_impl(&dword_19A0DB000, v11, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI CloudKit add participants to shared grocery list modifyRecords succeeded {sharedGroceryList: %{public}@}", buf, 0xCu);
     }
 
@@ -4815,37 +4757,37 @@ LABEL_23:
   {
     v18 = *(a1 + 32);
     *buf = 138543362;
-    v49 = v18;
+    v48 = v18;
     _os_log_impl(&dword_19A0DB000, v17, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI CloudKit checking 'Partial Failure' modifyRecords error for add participants to shared grocery list {sharedGroceryList: %{public}@}", buf, 0xCu);
   }
 
   v19 = [v9 userInfo];
   v20 = [v19 objectForKeyedSubscript:*MEMORY[0x1E695B798]];
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v11 = v20;
-  v21 = [v11 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v21 = [v11 countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (!v21)
   {
     goto LABEL_21;
   }
 
   v22 = v21;
-  v38 = *v44;
-  v37 = v7;
+  v37 = *v43;
+  v36 = v7;
   while (2)
   {
     for (i = 0; i != v22; ++i)
     {
-      if (*v44 != v38)
+      if (*v43 != v37)
       {
         objc_enumerationMutation(v11);
       }
 
-      v24 = *(*(&v43 + 1) + 8 * i);
+      v24 = *(*(&v42 + 1) + 8 * i);
       v25 = [MEMORY[0x1E695DFB0] null];
 
       if (v24 == v25)
@@ -4863,7 +4805,7 @@ LABEL_30:
         (*(*(a1 + 56) + 16))();
 
 LABEL_31:
-        v7 = v37;
+        v7 = v36;
         goto LABEL_27;
       }
 
@@ -4879,13 +4821,13 @@ LABEL_31:
       {
         v30 = *(a1 + 32);
         *buf = 138543362;
-        v49 = v30;
+        v48 = v30;
         _os_log_impl(&dword_19A0DB000, v29, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI CloudKit hiding 'Server Record Change' error for add participants to shared grocery list {sharedGroceryList: %{public}@}", buf, 0xCu);
       }
     }
 
-    v22 = [v11 countByEnumeratingWithState:&v43 objects:v47 count:16];
-    v7 = v37;
+    v22 = [v11 countByEnumeratingWithState:&v42 objects:v46 count:16];
+    v7 = v36;
     if (v22)
     {
       continue;
@@ -4898,27 +4840,26 @@ LABEL_21:
 
 LABEL_26:
   v32 = *(a1 + 40);
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completion___block_invoke_432;
-  v40[3] = &unk_1E7508078;
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completion___block_invoke_432;
+  v39[3] = &unk_1E7508078;
   v33 = *(a1 + 56);
   *&v34 = *(a1 + 32);
   *(&v34 + 1) = *(a1 + 40);
-  v39 = v34;
+  v38 = v34;
   *&v35 = *(a1 + 48);
   *(&v35 + 1) = v33;
-  v41 = v39;
-  v42 = v35;
-  [v32 triggerCloudKitOnlySyncWithReason:@"FamilyChecklist(CloudKitSync)" discretionary:0 completion:v40];
+  v40 = v38;
+  v41 = v35;
+  [v32 triggerCloudKitOnlySyncWithReason:@"FamilyChecklist(CloudKitSync)" discretionary:0 completion:v39];
 
 LABEL_27:
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completion___block_invoke_432(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[REMLog cloudkitCollaboration];
   v5 = v4;
@@ -4938,7 +4879,7 @@ void __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completi
     {
       v6 = *(a1 + 32);
       *buf = 138543362;
-      v13 = v6;
+      v11 = v6;
       _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI END add participants to shared grocery list {sharedGroceryList: %{public}@}", buf, 0xCu);
     }
 
@@ -4947,23 +4888,20 @@ void __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completi
     v9 = [v7 stringWithFormat:@"invitedParticipants%lu", objc_msgSend(v8, "count")];
 
     [*(a1 + 40) postFamilyAnalyticsPayloadWithOperationId:@"addedParticipantsToSharedGroceryList" operationDetail:v9];
-    v10 = *(a1 + 48);
     (*(*(a1 + 56) + 16))();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)deleteSharedGroceryList:(id)list error:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   listCopy = list;
   v7 = +[REMLogStore write];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138543362;
-    v21 = listCopy;
-    _os_log_impl(&dword_19A0DB000, v7, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI START delete shared grocery list {sharedGroceryList: %{public}@}", &v20, 0xCu);
+    v19 = 138543362;
+    v20 = listCopy;
+    _os_log_impl(&dword_19A0DB000, v7, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI START delete shared grocery list {sharedGroceryList: %{public}@}", &v19, 0xCu);
   }
 
   v8 = [[REMListsDataView alloc] initWithStore:self];
@@ -4984,11 +4922,11 @@ void __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completi
         v17 = +[REMLogStore write];
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = 138543618;
-          v21 = listCopy;
-          v22 = 1024;
-          v23 = v12;
-          _os_log_impl(&dword_19A0DB000, v17, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI END delete shared grocery list {sharedGroceryList: %{public}@, didSave: %i}", &v20, 0x12u);
+          v19 = 138543618;
+          v20 = listCopy;
+          v21 = 1024;
+          v22 = v12;
+          _os_log_impl(&dword_19A0DB000, v17, OS_LOG_TYPE_DEFAULT, "FamilyChecklistSPI END delete shared grocery list {sharedGroceryList: %{public}@, didSave: %i}", &v19, 0x12u);
         }
 
         [(REMStore *)self postFamilyAnalyticsPayloadWithOperationId:@"cancelledSharedGroceryList" operationDetail:0];
@@ -4998,7 +4936,7 @@ void __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completi
       v15 = +[REMLogStore write];
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [REMStore(FamilyChecklist) deleteSharedGroceryList:error error:?];
+        [REMStore(FamilyChecklist) deleteSharedGroceryList:error:];
       }
     }
 
@@ -5022,19 +4960,18 @@ LABEL_20:
   v11 = +[REMLogStore write];
   if (os_log_type_enabled(&v11->super, OS_LOG_TYPE_ERROR))
   {
-    [REMStore(FamilyChecklist) deleteSharedGroceryList:error error:?];
+    [REMStore(FamilyChecklist) deleteSharedGroceryList:error:];
   }
 
   LOBYTE(v12) = 0;
 LABEL_21:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (void)postFamilyAnalyticsPayloadWithOperationId:(id)id operationDetail:(id)detail
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   detailCopy = detail;
   idCopy = id;
   v7 = objc_opt_new();
@@ -5048,15 +4985,77 @@ LABEL_21:
   v8 = +[REMLog analytics];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = @"com.apple.reminderkit.familyChecklist";
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_DEFAULT, "Posting analytics {name: (%@, privacy: .public), payload: (%@, privacy: .public)", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = @"com.apple.reminderkit.familyChecklist";
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_DEFAULT, "Posting analytics {name: (%@, privacy: .public), payload: (%@, privacy: .public)", &v9, 0x16u);
   }
 
   AnalyticsSendEvent();
-  v9 = *MEMORY[0x1E69E9840];
+}
+
+- (BOOL)isIntelligentFeaturesSupportedInCurrentAppVersionWithIntelligentFeature:(int64_t)feature isInternalInstall:(BOOL)install
+{
+  installCopy = install;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__1;
+  v20 = __Block_byref_object_dispose__1;
+  v21 = 0;
+  v6 = @"SuggestedRemindersSupportedInCurrentAppVersion";
+  if (feature != 1)
+  {
+    v6 = 0;
+  }
+
+  if (feature)
+  {
+    v7 = v6;
+  }
+
+  else
+  {
+    v7 = @"AutoCategorizationSupportedInCurrentAppVersion";
+  }
+
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __123__REMStore_IntelligentFeatures__isIntelligentFeaturesSupportedInCurrentAppVersionWithIntelligentFeature_isInternalInstall___block_invoke;
+  v15[3] = &__block_descriptor_40_e17_v16__0__NSError_8l;
+  v15[4] = feature;
+  v8 = [(REMStore *)self _xpcSyncStorePerformerWithReason:v7 errorHandler:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __123__REMStore_IntelligentFeatures__isIntelligentFeaturesSupportedInCurrentAppVersionWithIntelligentFeature_isInternalInstall___block_invoke_471;
+  v14[3] = &unk_1E7508110;
+  v14[4] = &v16;
+  [v8 fetchIntelligentFeaturesMinimumSupportedVersionWith:feature isInternalInstall:installCopy completion:v14];
+  v9 = v17[5];
+  if (v9)
+  {
+    unsignedIntValue = [v9 unsignedIntValue];
+    if (unsignedIntValue)
+    {
+      v11 = unsignedIntValue < 0x134FFF1uLL;
+    }
+
+    else
+    {
+      v11 = 1;
+    }
+
+    v12 = v11;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  _Block_object_dispose(&v16, 8);
+  return v12;
 }
 
 void __123__REMStore_IntelligentFeatures__isIntelligentFeaturesSupportedInCurrentAppVersionWithIntelligentFeature_isInternalInstall___block_invoke(uint64_t a1, void *a2)
@@ -5407,7 +5406,7 @@ void __72__REMStore_EventKitCompatibility__MCIsManagedAccountWithObjectID_error_
   v4 = +[REMLogStore xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __72__REMStore_EventKitCompatibility__MCIsManagedAccountWithObjectID_error___block_invoke_cold_1(v3, a1);
+    __72__REMStore_EventKitCompatibility__MCIsManagedAccountWithObjectID_error___block_invoke_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -5417,7 +5416,7 @@ void __72__REMStore_EventKitCompatibility__MCIsManagedAccountWithObjectID_error_
 
 void __72__REMStore_EventKitCompatibility__MCIsManagedAccountWithObjectID_error___block_invoke_516(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[REMLogStore read];
@@ -5426,7 +5425,7 @@ void __72__REMStore_EventKitCompatibility__MCIsManagedAccountWithObjectID_error_
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __72__REMStore_EventKitCompatibility__MCIsManagedAccountWithObjectID_error___block_invoke_516_cold_1(v6, a1);
+      __72__REMStore_EventKitCompatibility__MCIsManagedAccountWithObjectID_error___block_invoke_516_cold_1();
     }
 
     v9 = 48;
@@ -5437,11 +5436,11 @@ void __72__REMStore_EventKitCompatibility__MCIsManagedAccountWithObjectID_error_
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v11 = *(a1 + 32);
-    v13 = 138412546;
-    v14 = v11;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "Store perform MCIsManagedAccountWithObjectID successful {account: %@, MCIsManaged: %@}", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v11;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "Store perform MCIsManagedAccountWithObjectID successful {account: %@, MCIsManaged: %@}", &v12, 0x16u);
   }
 
   if (v5)
@@ -5451,8 +5450,6 @@ void __72__REMStore_EventKitCompatibility__MCIsManagedAccountWithObjectID_error_
 LABEL_9:
     objc_storeStrong((*(*(a1 + v9) + 8) + 40), v10);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)notificationsEnabled
@@ -5481,6 +5478,60 @@ LABEL_9:
   }
 
   return 1;
+}
+
+- (id)fetchAssignmentsWithObjectIDs:(id)ds includeConcealedObjects:(BOOL)objects error:(id *)error
+{
+  objectsCopy = objects;
+  dsCopy = ds;
+  if (!dsCopy)
+  {
+    NSLog(&cfstr_SIsUnexpectedl.isa, "objectIDs");
+  }
+
+  if ([dsCopy count])
+  {
+    v9 = [[REMAssignmentsDataViewInvocation_fetchByObjectID alloc] initWithObjectIDs:dsCopy];
+    [(REMAssignmentsDataViewInvocation_fetchByObjectID *)v9 setAllowConcealedObjects:objectsCopy];
+    v10 = [(REMStore *)self resultFromPerformingInvocation:v9 error:error];
+    v11 = objc_opt_class();
+    v12 = REMDynamicCast(v11, v10);
+    assignments = [v12 assignments];
+  }
+
+  else
+  {
+    assignments = [MEMORY[0x1E695DFD8] set];
+  }
+
+  return assignments;
+}
+
+- (id)fetchHashtagsWithObjectIDs:(id)ds includeConcealedObjects:(BOOL)objects error:(id *)error
+{
+  objectsCopy = objects;
+  dsCopy = ds;
+  if (!dsCopy)
+  {
+    NSLog(&cfstr_SIsUnexpectedl.isa, "objectIDs");
+  }
+
+  if ([dsCopy count])
+  {
+    v9 = [[REMHashtagsDataViewInvocation_fetchByObjectID alloc] initWithObjectIDs:dsCopy];
+    [(REMHashtagsDataViewInvocation_fetchByObjectID *)v9 setAllowConcealedObjects:objectsCopy];
+    v10 = [(REMStore *)self resultFromPerformingInvocation:v9 error:error];
+    v11 = objc_opt_class();
+    v12 = REMDynamicCast(v11, v10);
+    hashtags = [v12 hashtags];
+  }
+
+  else
+  {
+    hashtags = [MEMORY[0x1E695DFD8] set];
+  }
+
+  return hashtags;
 }
 
 - (id)fetchAllListsWithExternalIdentifier:(id)identifier error:(id *)error
@@ -5512,19 +5563,18 @@ LABEL_9:
 
 void __90__REMStore_AccountManagement_PrivateSPIs__triggerSyncForDataAccessAccountsWithAccountIDs___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[REMLogStore xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_19A0DB000, v4, OS_LOG_TYPE_DEFAULT, "Triggering sync for dataAccess accounts {accountIDs: %{public}@}", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_19A0DB000, v4, OS_LOG_TYPE_DEFAULT, "Triggering sync for dataAccess accounts {accountIDs: %{public}@}", &v6, 0xCu);
   }
 
   [v3 syncDataAccessAccountsWithAccountIDs:*(a1 + 32) bypassThrottler:1 completion:&__block_literal_global_540];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __90__REMStore_AccountManagement_PrivateSPIs__triggerSyncForDataAccessAccountsWithAccountIDs___block_invoke_2(uint64_t a1, void *a2)
@@ -5535,6 +5585,19 @@ void __90__REMStore_AccountManagement_PrivateSPIs__triggerSyncForDataAccessAccou
   {
     __90__REMStore_AccountManagement_PrivateSPIs__triggerSyncForDataAccessAccountsWithAccountIDs___block_invoke_2_cold_1();
   }
+}
+
+- (void)triggerThrottledSyncWithReason:(id)reason discretionary:(BOOL)discretionary completion:(id)completion
+{
+  discretionaryCopy = discretionary;
+  completionCopy = completion;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __96__REMStore_AccountManagement_Internal__triggerThrottledSyncWithReason_discretionary_completion___block_invoke;
+  v10[3] = &unk_1E7507CE0;
+  v11 = completionCopy;
+  v9 = completionCopy;
+  [(REMStore *)self _triggerSyncWithReason:reason skipDataAccessSync:0 forcingCloudKitReload:0 discretionary:discretionaryCopy bypassThrottler:0 completion:v10];
 }
 
 void __96__REMStore_AccountManagement_Internal__triggerThrottledSyncWithReason_discretionary_completion___block_invoke(uint64_t a1, void *a2)
@@ -5572,6 +5635,19 @@ LABEL_8:
   v8 = *(*(a1 + 32) + 16);
 LABEL_9:
   v8();
+}
+
+- (void)triggerCloudKitOnlySyncWithReason:(id)reason discretionary:(BOOL)discretionary completion:(id)completion
+{
+  discretionaryCopy = discretionary;
+  completionCopy = completion;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __99__REMStore_AccountManagement_Internal__triggerCloudKitOnlySyncWithReason_discretionary_completion___block_invoke;
+  v10[3] = &unk_1E7507CE0;
+  v11 = completionCopy;
+  v9 = completionCopy;
+  [(REMStore *)self _triggerSyncWithReason:reason skipDataAccessSync:1 forcingCloudKitReload:0 discretionary:discretionaryCopy bypassThrottler:1 completion:v10];
 }
 
 - (void)updateAccountsAndSync:(BOOL)sync completion:(id)completion
@@ -5691,11 +5767,11 @@ void __88__REMStore_AccountManagement_Internal__updateAccountWithAccountID_resta
 
 void __88__REMStore_AccountManagement_Internal__updateAccountWithAccountID_restartDA_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = +[REMLogStore xpc];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = +[REMLogStore xpc];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __88__REMStore_AccountManagement_Internal__updateAccountWithAccountID_restartDA_completion___block_invoke_3_cold_1(v3, a1);
+    __88__REMStore_AccountManagement_Internal__updateAccountWithAccountID_restartDA_completion___block_invoke_3_cold_1();
   }
 }
 
@@ -5899,11 +5975,11 @@ void __108__REMStore_AccountManagement_Internal__requestToMergeLocalDataIntoSync
 
 void __108__REMStore_AccountManagement_Internal__requestToMergeLocalDataIntoSyncDataWithAccountIdentifier_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = +[REMLogStore xpc];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = +[REMLogStore xpc];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __108__REMStore_AccountManagement_Internal__requestToMergeLocalDataIntoSyncDataWithAccountIdentifier_completion___block_invoke_3_cold_1(a1);
+    __108__REMStore_AccountManagement_Internal__requestToMergeLocalDataIntoSyncDataWithAccountIdentifier_completion___block_invoke_3_cold_1();
   }
 }
 
@@ -5941,11 +6017,11 @@ void __96__REMStore_AccountManagement_Internal__requestToDeleteSyncDataWithAccou
 
 void __96__REMStore_AccountManagement_Internal__requestToDeleteSyncDataWithAccountIdentifier_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = +[REMLogStore xpc];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = +[REMLogStore xpc];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __96__REMStore_AccountManagement_Internal__requestToDeleteSyncDataWithAccountIdentifier_completion___block_invoke_3_cold_1(a1);
+    __96__REMStore_AccountManagement_Internal__requestToDeleteSyncDataWithAccountIdentifier_completion___block_invoke_3_cold_1();
   }
 }
 
@@ -6064,7 +6140,7 @@ void __77__REMStore_Sharing__addCKShareObserverIfNeededForAccountID_queue_comple
   v4 = +[REMLogStore xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __77__REMStore_Sharing__addCKShareObserverIfNeededForAccountID_queue_completion___block_invoke_5_cold_1(v3, a1);
+    __77__REMStore_Sharing__addCKShareObserverIfNeededForAccountID_queue_completion___block_invoke_5_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -6075,6 +6151,57 @@ void __77__REMStore_Sharing__addCKShareObserverIfNeededForAccountID_queue_comple
   v2 = [[_REMDACalDAVSyncReplicaManagerProvider alloc] initWithStore:self];
 
   return v2;
+}
+
+- (void)requestToUpdateClientConnectionsAsynchronously:(BOOL)asynchronously shouldKeepAlive:(BOOL)alive completion:(id)completion
+{
+  aliveCopy = alive;
+  asynchronouslyCopy = asynchronously;
+  completionCopy = completion;
+  daemonController = [(REMStore *)self daemonController];
+  if (asynchronouslyCopy)
+  {
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __105__REMStore_ClientConnections__requestToUpdateClientConnectionsAsynchronously_shouldKeepAlive_completion___block_invoke;
+    v24[3] = &unk_1E7508340;
+    v26 = aliveCopy;
+    v10 = &v25;
+    v25 = completionCopy;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __105__REMStore_ClientConnections__requestToUpdateClientConnectionsAsynchronously_shouldKeepAlive_completion___block_invoke_2;
+    v20[3] = &unk_1E7508188;
+    v22 = asynchronouslyCopy;
+    v23 = aliveCopy;
+    v21 = v25;
+    [daemonController asyncStorePerformerWithReason:@"requestToUpdateClientConnections" loadHandler:v24 errorHandler:v20];
+
+    v11 = v21;
+  }
+
+  else
+  {
+    v13 = MEMORY[0x1E69E9820];
+    v14 = 3221225472;
+    v15 = __105__REMStore_ClientConnections__requestToUpdateClientConnectionsAsynchronously_shouldKeepAlive_completion___block_invoke_655;
+    v16 = &unk_1E7508188;
+    v18 = 0;
+    v19 = aliveCopy;
+    v10 = &v17;
+    v12 = completionCopy;
+    v17 = v12;
+    v11 = [daemonController syncStorePerformerWithReason:@"requestToUpdateClientConnections" errorHandler:&v13];
+
+    if (v11)
+    {
+      [v11 requestToUpdateClientConnectionsWithShouldKeepAlive:{aliveCopy, v13, v14, v15, v16}];
+      if (v12)
+      {
+        v12[2](v12, 0);
+      }
+    }
+  }
 }
 
 uint64_t __105__REMStore_ClientConnections__requestToUpdateClientConnectionsAsynchronously_shouldKeepAlive_completion___block_invoke(uint64_t a1, void *a2)
@@ -6125,7 +6252,7 @@ void __105__REMStore_ClientConnections__requestToUpdateClientConnectionsAsynchro
 
 - (id)repairPhantomObjectsWithObjectIDs:(id)ds error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v7 = +[REMLogStore write];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -6137,42 +6264,40 @@ void __105__REMStore_ClientConnections__requestToUpdateClientConnectionsAsynchro
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__1;
-  v26 = __Block_byref_object_dispose__1;
-  v27 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__1;
-  v21 = __Block_byref_object_dispose__1;
-  v22 = 0;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __76__REMStore_PhantomObjectRepairing__repairPhantomObjectsWithObjectIDs_error___block_invoke;
-  v14[3] = &unk_1E7507BF0;
-  v8 = dsCopy;
-  v15 = v8;
-  p_buf = &buf;
-  v9 = [(REMStore *)self _xpcSyncStorePerformerWithReason:@"repairPhantomObjectsWithObjectIDs" errorHandler:v14];
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__1;
+  v25 = __Block_byref_object_dispose__1;
+  v26 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__1;
+  v20 = __Block_byref_object_dispose__1;
+  v21 = 0;
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;
-  v13[2] = __76__REMStore_PhantomObjectRepairing__repairPhantomObjectsWithObjectIDs_error___block_invoke_664;
-  v13[3] = &unk_1E7508368;
-  v13[4] = &buf;
-  v13[5] = &v17;
-  [v9 validatePhantomObjectsWith:v8 shouldRepair:1 completion:v13];
+  v13[2] = __76__REMStore_PhantomObjectRepairing__repairPhantomObjectsWithObjectIDs_error___block_invoke;
+  v13[3] = &unk_1E7507BF0;
+  v8 = dsCopy;
+  v14 = v8;
+  p_buf = &buf;
+  v9 = [(REMStore *)self _xpcSyncStorePerformerWithReason:@"repairPhantomObjectsWithObjectIDs" errorHandler:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __76__REMStore_PhantomObjectRepairing__repairPhantomObjectsWithObjectIDs_error___block_invoke_664;
+  v12[3] = &unk_1E7508368;
+  v12[4] = &buf;
+  v12[5] = &v16;
+  [v9 validatePhantomObjectsWith:v8 shouldRepair:1 completion:v12];
   if (error)
   {
     *error = *(*(&buf + 1) + 40);
   }
 
-  v10 = v18[5];
+  v10 = v17[5];
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v16, 8);
   _Block_object_dispose(&buf, 8);
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -6183,7 +6308,7 @@ void __76__REMStore_PhantomObjectRepairing__repairPhantomObjectsWithObjectIDs_er
   v4 = +[REMLogStore xpc];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __76__REMStore_PhantomObjectRepairing__repairPhantomObjectsWithObjectIDs_error___block_invoke_cold_1(v3, a1);
+    __76__REMStore_PhantomObjectRepairing__repairPhantomObjectsWithObjectIDs_error___block_invoke_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -6193,7 +6318,7 @@ void __76__REMStore_PhantomObjectRepairing__repairPhantomObjectsWithObjectIDs_er
 
 void __76__REMStore_PhantomObjectRepairing__repairPhantomObjectsWithObjectIDs_error___block_invoke_664(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -6210,16 +6335,14 @@ void __76__REMStore_PhantomObjectRepairing__repairPhantomObjectsWithObjectIDs_er
   v8 = +[REMLogStore write];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v12 = 138543362;
-    v13 = v5;
-    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "repairPhantomObjectsWithObjectIDs successful {result: %{public}@}", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v5;
+    _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_INFO, "repairPhantomObjectsWithObjectIDs successful {result: %{public}@}", &v11, 0xCu);
   }
 
   v9 = *(*(a1 + 40) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v5;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)debugFetchPhantomListsWithError:(id *)error
@@ -6715,193 +6838,133 @@ void __67__REMStore_UnitTest__test_revertImageAttachmentsToUnDeduped_error___blo
   return v10;
 }
 
-void __50__REMStore_createIsolatedStoreContainerWithError___block_invoke_2_cold_1()
+void __57__REMStore_destroyIsolatedStoreContainerWithToken_error___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "Failed to create isolated store container {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __57__REMStore_destroyIsolatedStoreContainerWithToken_error___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
-{
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __57__REMStore_destroyIsolatedStoreContainerWithToken_error___block_invoke_32_cold_1()
+void __50__REMStore_fetchReplicaManagerForAccountID_error___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "XPC error trying to call destroyIsolatedStoreContainerWithToken {xpcError: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __24__REMStore_nukeDatabase__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "xpc error while using debug performer {error :%@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __50__REMStore_fetchReplicaManagerForAccountID_error___block_invoke_cold_1(uint64_t a1, uint64_t a2)
-{
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __50__REMStore_fetchReplicaManagerForAccountID_error___block_invoke_70_cold_1(uint64_t a1, uint64_t a2)
+void __50__REMStore_fetchReplicaManagerForAccountID_error___block_invoke_70_cold_1()
 {
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __60__REMStore_fetchReplicaManagersForAccountID_bundleID_error___block_invoke_75_cold_1(uint64_t a1, uint64_t a2)
+void __60__REMStore_fetchReplicaManagersForAccountID_bundleID_error___block_invoke_75_cold_1()
 {
-  OUTLINED_FUNCTION_20(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_20(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __238__REMStore_saveSaveRequest_accountChangeItems_listChangeItems_listSectionChangeItems_smartListChangeItems_smartListSectionChangeItems_templateChangeItems_templateSectionChangeItems_reminderChangeItems_author_replicaManagerProvider_error___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
+void __238__REMStore_saveSaveRequest_accountChangeItems_listChangeItems_listSectionChangeItems_smartListChangeItems_smartListSectionChangeItems_templateChangeItems_templateSectionChangeItems_reminderChangeItems_author_replicaManagerProvider_error___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __53__REMStore_fetchResultByExecutingFetchRequest_error___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __53__REMStore_fetchResultByExecutingFetchRequest_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __53__REMStore_fetchResultByExecutingFetchRequest_error___block_invoke_88_cold_1(uint64_t a1, uint64_t a2)
+void __53__REMStore_fetchResultByExecutingFetchRequest_error___block_invoke_88_cold_1()
 {
-  OUTLINED_FUNCTION_20(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_20(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __53__REMStore_fetchResultByExecutingFetchRequest_error___block_invoke_88_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, a1, a3, "Failed to get fetchResult or error from fetchRequest {fetchRequest: %@}", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void __49__REMStore_resultFromPerformingInvocation_error___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*(v0 + 32) name];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __49__REMStore_resultFromPerformingInvocation_error___block_invoke_93_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*(v0 + 32) name];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __78__REMStore_resultFromPerformingSwiftInvocation_parametersData_storages_error___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(v0 + 48);
-  v2 = [*(v0 + 32) name];
+  v1 = [*(v0 + 32) name];
   OUTLINED_FUNCTION_19();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_18();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void __78__REMStore_resultFromPerformingSwiftInvocation_parametersData_storages_error___block_invoke_98_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(v0 + 56);
-  v2 = [*(v0 + 32) name];
+  v1 = [*(v0 + 32) name];
   OUTLINED_FUNCTION_19();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_18();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void __43__REMStore_enumerateAllRemindersWithBlock___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [a2 localizedDescription];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enumerateAllListsIncludingGroups:(void *)a1 withBlock:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __58__REMStore__xpcSyncStorePerformerWithReason_errorHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __58__REMStore__xpcSyncStorePerformerWithReason_errorHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)_addChangeItemChangedKeys:objectID:toChangedKeysMap:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "(client) Unexpected duplicate change item on objects with the same objectID {objectID: %{public}@}", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "(client) Unexpected duplicate change item on objects with the same objectID {objectID: %{public}@}", v1, 0xCu);
 }
 
 - (void)_saveAccountChangeItems:(os_log_t)log listChangeItems:listSectionChangeItems:smartListChangeItems:smartListSectionChangeItems:templateChangeItems:templateSectionChangeItems:reminderChangeItems:author:replicaManagerProvider:synchronously:syncToCloudKit:performer:completion:.cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -6911,399 +6974,207 @@ void __58__REMStore__xpcSyncStorePerformerWithReason_errorHandler___block_invoke
   _os_log_fault_impl(&dword_19A0DB000, log, OS_LOG_TYPE_FAULT, "A template should be modified using 'REMTemplateChangeItem' instead of 'REMListChangeItem'", buf, 2u);
 }
 
-void __271__REMStore__saveAccountChangeItems_listChangeItems_listSectionChangeItems_smartListChangeItems_smartListSectionChangeItems_templateChangeItems_templateSectionChangeItems_reminderChangeItems_author_replicaManagerProvider_synchronously_syncToCloudKit_performer_completion___block_invoke_cold_1()
+void __42__REMStore_fetchShareForListWithID_error___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "(client) SAVE FAIL {error: %{public}@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __42__REMStore_fetchShareForListWithID_error___block_invoke_cold_1(uint64_t a1, uint64_t a2)
-{
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __42__REMStore_fetchShareForListWithID_error___block_invoke_115_cold_1(uint64_t a1, uint64_t a2)
+void __42__REMStore_fetchShareForListWithID_error___block_invoke_115_cold_1()
 {
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __55__REMStore_createShareForListWithID_appIconData_error___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __55__REMStore_createShareForListWithID_appIconData_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __55__REMStore_createShareForListWithID_appIconData_error___block_invoke_120_cold_1(uint64_t a1, uint64_t a2)
+void __55__REMStore_createShareForListWithID_appIconData_error___block_invoke_120_cold_1()
 {
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __51__REMStore_updateShare_accountID_queue_completion___block_invoke_5_cold_1(uint64_t a1, uint64_t a2)
+void __51__REMStore_updateShare_accountID_queue_completion___block_invoke_5_cold_1()
 {
-  OUTLINED_FUNCTION_20(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_20(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __49__REMStore_stopShare_accountID_queue_completion___block_invoke_5_cold_1(uint64_t a1, uint64_t a2)
+void __49__REMStore_stopShare_accountID_queue_completion___block_invoke_5_cold_1()
 {
-  OUTLINED_FUNCTION_20(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_20(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __53__REMStore_acceptShareWithMetadata_queue_completion___block_invoke_5_cold_1(uint64_t a1, uint64_t a2)
+void __53__REMStore_acceptShareWithMetadata_queue_completion___block_invoke_5_cold_1()
 {
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __65__REMStore_compressedDistributedEvaluationDataWithOptions_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "XPC error while fetching store performer {error: %{public}@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __65__REMStore_compressedDistributedEvaluationDataWithOptions_error___block_invoke_135_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "DistributedEvaluation Export ERROR {error: %{public}@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __55__REMStore_anchoredBubbleCloudOverridesWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "XPC error while querying iCloud configuration for Suggested Attributes harvesting parameters {error: %{public}@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __64__REMStore_fetchMinimumSearchTermLengthByBaseLanguageWithError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "XPC error while querying iCloud configuration for minimumSearchTermLengthByBaseLanguage {error: %{public}@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __64__REMStore_fetchMinimumSearchTermLengthByBaseLanguageWithError___block_invoke_153_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "Fetch minimumSearchTermLengthByBaseLanguage failed {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __84__REMStore_CalDAVSharing___respondToCalDAVSharedList_withResponse_queue_completion___block_invoke_3_cold_1()
 {
   OUTLINED_FUNCTION_17();
-  v1 = *MEMORY[0x1E69E9840];
-  [OUTLINED_FUNCTION_16(v2) objectID];
+  [OUTLINED_FUNCTION_16(v1) objectID];
   objc_claimAutoreleasedReturnValue();
-  v3 = [OUTLINED_FUNCTION_15() account];
-  v4 = [v3 objectID];
+  v2 = [OUTLINED_FUNCTION_15() account];
+  v3 = [v2 objectID];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void __84__REMStore_CalDAVSharing___respondToCalDAVSharedList_withResponse_queue_completion___block_invoke_3_cold_2()
 {
   OUTLINED_FUNCTION_17();
-  v1 = *MEMORY[0x1E69E9840];
-  [OUTLINED_FUNCTION_16(v2) objectID];
+  [OUTLINED_FUNCTION_16(v1) objectID];
   objc_claimAutoreleasedReturnValue();
-  v3 = [OUTLINED_FUNCTION_15() account];
-  v4 = [v3 objectID];
+  v2 = [OUTLINED_FUNCTION_15() account];
+  v3 = [v2 objectID];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void __84__REMStore_CalDAVSharing___respondToCalDAVSharedList_withResponse_queue_completion___block_invoke_3_cold_3()
 {
   OUTLINED_FUNCTION_17();
-  v1 = *MEMORY[0x1E69E9840];
-  [OUTLINED_FUNCTION_16(v2) objectID];
+  [OUTLINED_FUNCTION_16(v1) objectID];
   objc_claimAutoreleasedReturnValue();
-  v3 = [OUTLINED_FUNCTION_15() account];
-  v4 = [v3 objectID];
+  v2 = [OUTLINED_FUNCTION_15() account];
+  v3 = [v2 objectID];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void __84__REMStore_CalDAVSharing___respondToCalDAVSharedList_withResponse_queue_completion___block_invoke_3_cold_4()
 {
   OUTLINED_FUNCTION_17();
-  v1 = *MEMORY[0x1E69E9840];
-  [OUTLINED_FUNCTION_16(v2) objectID];
+  [OUTLINED_FUNCTION_16(v1) objectID];
   objc_claimAutoreleasedReturnValue();
-  v3 = [OUTLINED_FUNCTION_15() account];
-  v4 = [v3 objectID];
+  v2 = [OUTLINED_FUNCTION_15() account];
+  v3 = [v2 objectID];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void __84__REMStore_CalDAVSharing___respondToCalDAVSharedList_withResponse_queue_completion___block_invoke_3_323_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [*(a2 + 32) objectID];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-void __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_completion___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
+void __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_completion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_completion___block_invoke_360_cold_1(uint64_t a1, uint64_t a2)
+void __83__REMStore_iMessageInteractionSPI__notifyOfInteractionWithPeople_force_completion___block_invoke_360_cold_1()
 {
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completion___block_invoke_421_cold_1()
+void __72__REMStore_EventKitCompatibility__MCIsManagedAccountWithObjectID_error___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "FamilyChecklistSPI CloudKit error fetching participants for shared grocery list %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completion___block_invoke_424_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "FamilyChecklistSPI CloudKit error modifying record to add participants to shared grocery list %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __75__REMStore_FamilyChecklist__addParticipantsToSharedGroceryList_completion___block_invoke_432_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "FamilyChecklistSPI error syncing shared grocery list participants %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __123__REMStore_IntelligentFeatures__isIntelligentFeaturesSupportedInCurrentAppVersionWithIntelligentFeature_isInternalInstall___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "XPC error while request to fetch Suggested Reminders minimum supported version {error: %{public}@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __123__REMStore_IntelligentFeatures__isIntelligentFeaturesSupportedInCurrentAppVersionWithIntelligentFeature_isInternalInstall___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "XPC error while request to fetch Auto Categorization minimum supported version {error: %{public}@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __67__REMStore_TrialClient__requestDownloadGroceryModelAssetsFromTrial__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "XPC error while request downloading grocery model assets from trial {error: %{public}@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __72__REMStore_EventKitCompatibility__MCIsManagedAccountWithObjectID_error___block_invoke_cold_1(uint64_t a1, uint64_t a2)
-{
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __72__REMStore_EventKitCompatibility__MCIsManagedAccountWithObjectID_error___block_invoke_516_cold_1(uint64_t a1, uint64_t a2)
+void __72__REMStore_EventKitCompatibility__MCIsManagedAccountWithObjectID_error___block_invoke_516_cold_1()
 {
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __90__REMStore_AccountManagement_PrivateSPIs__triggerSyncForDataAccessAccountsWithAccountIDs___block_invoke_2_cold_1()
+void __88__REMStore_AccountManagement_Internal__updateAccountWithAccountID_restartDA_completion___block_invoke_3_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "XPC error while syncing {error: %{public}@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __73__REMStore_AccountManagement_Internal__updateAccountsAndSync_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "Error updating account. Not Triggering sync {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __73__REMStore_AccountManagement_Internal__updateAccountsAndSync_completion___block_invoke_2_552_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "XPC error while updating accounts {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __88__REMStore_AccountManagement_Internal__updateAccountWithAccountID_restartDA_completion___block_invoke_3_cold_1(uint64_t a1, uint64_t a2)
-{
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __77__REMStore_AccountManagement_Internal__removeOrphanedAccountsWithCompletion___block_invoke_3_cold_1()
+void __108__REMStore_AccountManagement_Internal__requestToMergeLocalDataIntoSyncDataWithAccountIdentifier_completion___block_invoke_3_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "XPC error while removing orphaned accounts {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __145__REMStore_AccountManagement_Internal___triggerSyncWithReason_skipDataAccessSync_forcingCloudKitReload_discretionary_bypassThrottler_completion___block_invoke_6_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "XPC error while syncing {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __108__REMStore_AccountManagement_Internal__requestToMergeLocalDataIntoSyncDataWithAccountIdentifier_completion___block_invoke_3_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __96__REMStore_AccountManagement_Internal__requestToDeleteSyncDataWithAccountIdentifier_completion___block_invoke_3_cold_1(uint64_t a1)
+void __96__REMStore_AccountManagement_Internal__requestToDeleteSyncDataWithAccountIdentifier_completion___block_invoke_3_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __79__REMStore_AccountManagement_Internal__requestToDeleteLocalDataWithCompletion___block_invoke_3_cold_1()
+void __77__REMStore_Sharing__addCKShareObserverIfNeededForAccountID_queue_completion___block_invoke_5_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "XPC error while requesting to delete local data {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __77__REMStore_Sharing__addCKShareObserverIfNeededForAccountID_queue_completion___block_invoke_5_cold_1(uint64_t a1, uint64_t a2)
-{
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __105__REMStore_ClientConnections__requestToUpdateClientConnectionsAsynchronously_shouldKeepAlive_completion___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_4();
   v2 = v1;
-  v3 = *MEMORY[0x1E69E9840];
-  v4 = [OUTLINED_FUNCTION_21() numberWithBool:?];
-  v5 = [*(v0 + 3480) numberWithBool:*(v2 + 41)];
+  v3 = [OUTLINED_FUNCTION_21() numberWithBool:?];
+  v4 = [*(v0 + 3480) numberWithBool:*(v2 + 41)];
   OUTLINED_FUNCTION_19();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_18();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x20u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
 }
 
-void __76__REMStore_PhantomObjectRepairing__repairPhantomObjectsWithObjectIDs_error___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __76__REMStore_PhantomObjectRepairing__repairPhantomObjectsWithObjectIDs_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_7(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __76__REMStore_PhantomObjectRepairing__repairPhantomObjectsWithObjectIDs_error___block_invoke_664_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __67__REMStore_UnitTest__test_revertImageAttachmentsToUnDeduped_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "xpc error while using debug performer {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

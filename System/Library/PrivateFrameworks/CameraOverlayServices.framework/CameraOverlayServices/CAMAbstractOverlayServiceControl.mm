@@ -4,6 +4,7 @@
 - (CAMAbstractOverlayServiceControl)initWithCoder:(id)coder;
 - (id)_initWithIdentifier:(id)identifier title:(id)title imageName:(id)name;
 - (id)description;
+- (id)updateWithEnabled:(BOOL)enabled;
 - (id)validateUpdate:(id)update;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -186,7 +187,7 @@ void __52__CAMAbstractOverlayServiceControl__preferredLocale__block_invoke()
 
 - (id)validateUpdate:(id)update
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   updateCopy = update;
   valueType = [updateCopy valueType];
   controlType = [(CAMAbstractOverlayServiceControl *)self controlType];
@@ -197,9 +198,9 @@ void __52__CAMAbstractOverlayServiceControl__preferredLocale__block_invoke()
   if ((v9 & 1) == 0)
   {
     v12 = MEMORY[0x277CCA9B8];
-    v32 = *MEMORY[0x277CCA068];
-    v33[0] = @"InvalidIdentifier";
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v31 = *MEMORY[0x277CCA068];
+    v32[0] = @"InvalidIdentifier";
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
     v14 = v12;
     v15 = -100;
 LABEL_10:
@@ -288,14 +289,14 @@ LABEL_32:
       case 0:
 LABEL_31:
         v25 = MEMORY[0x277CCA9B8];
-        v32 = *MEMORY[0x277CCA068];
-        v33[0] = @"InvalidValueType";
-        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+        v31 = *MEMORY[0x277CCA068];
+        v32[0] = @"InvalidValueType";
+        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
         controlType = [v25 errorWithDomain:@"CAMOverlayErrorDomain" code:-12 userInfo:v26];
 
         goto LABEL_32;
       case 1:
-        if ([updateCopy indexValue] < 0 || (v29 = objc_msgSend(updateCopy, "indexValue"), -[CAMAbstractOverlayServiceControl valueTitles](selfCopy2, "valueTitles"), v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "count"), v30, v29 >= v31))
+        if ([updateCopy indexValue] < 0 || (v28 = objc_msgSend(updateCopy, "indexValue"), -[CAMAbstractOverlayServiceControl valueTitles](selfCopy2, "valueTitles"), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "count"), v29, v28 >= v30))
         {
           v17 = -13;
           goto LABEL_40;
@@ -324,9 +325,9 @@ LABEL_40:
   if (valueType <= 4 && valueType != 3)
   {
     v18 = MEMORY[0x277CCA9B8];
-    v32 = *MEMORY[0x277CCA068];
-    v33[0] = @"InvalidValueType";
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v31 = *MEMORY[0x277CCA068];
+    v32[0] = @"InvalidValueType";
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
     v14 = v18;
     v15 = -12;
     goto LABEL_10;
@@ -334,9 +335,17 @@ LABEL_40:
 
 LABEL_33:
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return controlType;
+}
+
+- (id)updateWithEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = [CAMOverlayServiceControlUpdate alloc];
+  identifier = [(CAMAbstractOverlayServiceControl *)self identifier];
+  v7 = [(CAMOverlayServiceControlUpdate *)v5 _initWithControlIdentifier:identifier isEnabled:enabledCopy];
+
+  return v7;
 }
 
 @end

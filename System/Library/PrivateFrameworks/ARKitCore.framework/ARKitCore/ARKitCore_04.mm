@@ -1,37 +1,62 @@
-uint64_t ARC3DShapeTriangulationTriangleCrossesSegment(double **a1, double a2, double a3, double a4, double a5)
+uint64_t ARC3DNeighborSharingVertices(void *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = ARC3DSegmentIntersectsSegment(a2, a3, a4, a5, **a1, (*a1)[1], *a1[1], a1[1][1]);
-  v11 = ARC3DSegmentIntersectsSegment(a2, a3, a4, a5, *a1[1], a1[1][1], *a1[2], a1[2][1]);
-  return (v10 | v11 | ARC3DSegmentIntersectsSegment(a2, a3, a4, a5, *a1[2], a1[2][1], **a1, (*a1)[1])) & 1;
+  if (*a1 == a2 || *a1 == a3)
+  {
+    v4 = a1[1];
+    v5 = v4 == a3 || v4 == a2;
+    v6 = 5;
+    if (v5)
+    {
+      v6 = 3;
+    }
+  }
+
+  else
+  {
+    v6 = 4;
+  }
+
+  return a1[v6];
 }
 
-uint64_t ARC3DShapeTriangulationCheckConsistency(uint64_t result)
+uint64_t ARC3DShapeTriangulationTriangleCrossesSegment(double **a1, __n128 a2, __n128 a3, __n128 a4, __n128 a5)
 {
-  v1 = *(result + 32);
-  if (v1)
+  v5 = a5.n128_f64[0];
+  v6 = a4.n128_f64[0];
+  v7 = a3.n128_f64[0];
+  v8 = a2.n128_f64[0];
+  v10 = ARC3DSegmentIntersectsSegment(a2.n128_f64[0], a3.n128_f64[0], a4.n128_f64[0], a5.n128_f64[0], **a1, (*a1)[1], *a1[1], a1[1][1]);
+  v11 = ARC3DSegmentIntersectsSegment(v8, v7, v6, v5, *a1[1], a1[1][1], *a1[2], a1[2][1]);
+  return (v10 | v11 | ARC3DSegmentIntersectsSegment(v8, v7, v6, v5, *a1[2], a1[2][1], **a1, (*a1)[1])) & 1;
+}
+
+uint64_t ARC3DShapeTriangulationCheckConsistency(uint64_t result, uint64_t a2)
+{
+  v2 = *(result + 32);
+  if (v2)
   {
-    v2 = 0;
-    v3 = *(result + 16);
+    v3 = 0;
+    v4 = *(result + 16);
     do
     {
-      v4 = 0;
-      v5 = v3 + 56 * v2;
-      v6 = v5 + 48;
+      v5 = 0;
+      v6 = v4 + 56 * v3;
+      v7 = v6 + 48;
       do
       {
-        v7 = v4 + 1;
-        if (v4 == 2)
+        v8 = v5 + 1;
+        if (v5 == 2)
         {
-          v8 = 0;
+          v9 = 0;
         }
 
         else
         {
-          v8 = (v4 + 1);
+          v9 = (v5 + 1);
         }
 
-        result = *(v5 + 24 + 8 * v4);
-        if (result == v5)
+        result = *(v6 + 24 + 8 * v5);
+        if (result == v6)
         {
           ARC3DShapeTriangulationCheckConsistency_cold_8();
         }
@@ -41,58 +66,58 @@ uint64_t ARC3DShapeTriangulationCheckConsistency(uint64_t result)
           ARC3DShapeTriangulationCheckConsistency_cold_7();
         }
 
-        v9 = 0;
         v10 = 0;
         v11 = 0;
-        v12 = *(v5 + 8 * v8);
-        v13 = v3;
-        v14 = 0xFFFFFFFFLL;
+        v12 = 0;
+        v13 = *(v6 + 8 * v9);
+        v14 = v4;
+        v15 = 0xFFFFFFFFLL;
         do
         {
           for (i = 0; i != 3; ++i)
           {
             if (i == 2)
             {
-              v16 = 0;
+              v17 = 0;
             }
 
             else
             {
-              v16 = i + 1;
+              v17 = i + 1;
             }
 
-            if (*(v5 + 8 * v4) == *(v3 + 56 * v9 + 8 * v16) && v12 == *(v13 + 8 * i))
+            if (*(v6 + 8 * v5) == *(v4 + 56 * v10 + 8 * v17) && v13 == *(v14 + 8 * i))
             {
-              ++v11;
-              v10 = v3 + 56 * v9;
-              v14 = i;
+              ++v12;
+              v11 = v4 + 56 * v10;
+              v15 = i;
             }
           }
 
-          ++v9;
-          v13 += 56;
+          ++v10;
+          v14 += 56;
         }
 
-        while (v9 != v1);
-        if (v10 != result)
+        while (v10 != v2);
+        if (v11 != result)
         {
           ARC3DShapeTriangulationCheckConsistency_cold_1();
         }
 
         if (result)
         {
-          if (v11 != 1)
+          if (v12 != 1)
           {
             ARC3DShapeTriangulationCheckConsistency_cold_2();
           }
 
-          result = *(v10 + 8 * v14 + 24);
-          if (result != v5)
+          result = *(v11 + 8 * v15 + 24);
+          if (result != v6)
           {
             ARC3DShapeTriangulationCheckConsistency_cold_3();
           }
 
-          if (*(v10 + v14 + 48) != *(v6 + v4))
+          if (*(v11 + v15 + 48) != *(v7 + v5))
           {
             ARC3DShapeTriangulationCheckConsistency_cold_4();
           }
@@ -100,25 +125,25 @@ uint64_t ARC3DShapeTriangulationCheckConsistency(uint64_t result)
 
         else
         {
-          if (v11)
+          if (v12)
           {
             ARC3DShapeTriangulationCheckConsistency_cold_5();
           }
 
-          if (*(v6 + v4))
+          if (*(v7 + v5))
           {
             ARC3DShapeTriangulationCheckConsistency_cold_6();
           }
         }
 
-        ++v4;
+        ++v5;
       }
 
-      while (v7 != 3);
-      ++v2;
+      while (v8 != 3);
+      ++v3;
     }
 
-    while (v2 != v1);
+    while (v3 != v2);
   }
 
   return result;
@@ -171,7 +196,7 @@ uint64_t ARC3DShapeTriangulationTriangleContainingVertex(uint64_t a1, uint64_t a
   return i;
 }
 
-uint64_t ARC3DShapeTriangulationTriangleContainingPoint(float64x2_t *a1, unint64_t a2, uint64_t a3)
+unint64_t ARC3DShapeTriangulationTriangleContainingPoint(float64x2_t *a1, unint64_t a2, uint64_t a3)
 {
   v3 = *(a3 + 32);
   v4 = *(a3 + 32);
@@ -249,25 +274,25 @@ uint64_t ARC3DShapeTriangulationTriangleContainingPoint(float64x2_t *a1, unint64
   return v11;
 }
 
-uint64_t ARC3DEdgeCrossingSegment(uint64_t a1, double *a2, double *a3, double ***a4)
+uint64_t ARC3DEdgeCrossingSegment(uint64_t a1, unint64_t *a2, unint64_t *a3, unint64_t ***a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8)
 {
-  v8 = *a1;
-  if (*a1 == a3 || (v9 = *(a1 + 8), v9 == a3) || *(a1 + 16) == a3)
+  v12 = *a1;
+  if (*a1 == a3 || (v13 = *(a1 + 8), v13 == a3) || *(a1 + 16) == a3)
   {
-    v12 = *(a1 + 24);
-    if (v12 && (*v12 == a2 || v12[1] == a2 || v12[2] == a2) && (*v12 == a3 || v12[1] == a3 || v12[2] == a3))
+    v16 = *(a1 + 24);
+    if (v16 && (*v16 == a2 || v16[1] == a2 || v16[2] == a2) && (*v16 == a3 || v16[1] == a3 || v16[2] == a3))
     {
       goto LABEL_41;
     }
 
-    v12 = *(a1 + 32);
-    if (v12 && (*v12 == a2 || v12[1] == a2 || v12[2] == a2) && (*v12 == a3 || v12[1] == a3 || v12[2] == a3))
+    v16 = *(a1 + 32);
+    if (v16 && (*v16 == a2 || v16[1] == a2 || v16[2] == a2) && (*v16 == a3 || v16[1] == a3 || v16[2] == a3))
     {
       goto LABEL_41;
     }
 
-    v12 = *(a1 + 40);
-    if (v12 && (*v12 == a2 || v12[1] == a2 || v12[2] == a2) && (*v12 == a3 || v12[1] == a3 || v12[2] == a3))
+    v16 = *(a1 + 40);
+    if (v16 && (*v16 == a2 || v16[1] == a2 || v16[2] == a2) && (*v16 == a3 || v16[1] == a3 || v16[2] == a3))
     {
       goto LABEL_41;
     }
@@ -275,38 +300,38 @@ uint64_t ARC3DEdgeCrossingSegment(uint64_t a1, double *a2, double *a3, double **
 
   else
   {
-    v10 = v8 == a2 || v9 == a2;
-    if (!v10 && (ARC3DSegmentIntersectsSegment(*a2, a2[1], *a3, a3[1], *v8, v8[1], *v9, v9[1]) & 1) != 0)
+    v14 = v12 == a2 || v13 == a2;
+    if (!v14 && (ARC3DSegmentIntersectsSegment(*a2, *(a2 + 1), *a3, *(a3 + 1), *v12, v12[1], *v13, v13[1]) & 1) != 0)
     {
-      v11 = 24;
+      v15 = 24;
 LABEL_40:
-      v12 = *(a1 + v11);
+      v16 = *(a1 + v15);
 LABEL_41:
-      *a4 = v12;
+      *a4 = v16;
       return 1;
     }
 
-    v13 = *(a1 + 8);
-    if (v13 != a2)
+    v17 = *(a1 + 8);
+    if (v17 != a2)
     {
-      v14 = *(a1 + 16);
-      if (v14 != a2 && (ARC3DSegmentIntersectsSegment(*a2, a2[1], *a3, a3[1], *v13, v13[1], *v14, v14[1]) & 1) != 0)
+      v18 = *(a1 + 16);
+      if (v18 != a2 && (ARC3DSegmentIntersectsSegment(*a2, *(a2 + 1), *a3, *(a3 + 1), *v17, v17[1], *v18, *(v18 + 8)) & 1) != 0)
       {
-        v11 = 32;
+        v15 = 32;
         goto LABEL_40;
       }
     }
 
-    v15 = *(a1 + 16);
-    if (v15 != a2 && *a1 != a2)
+    v19 = *(a1 + 16);
+    if (v19 != a2 && *a1 != a2)
     {
-      result = ARC3DSegmentIntersectsSegment(*a2, a2[1], *a3, a3[1], *v15, v15[1], **a1, *(*a1 + 8));
+      result = ARC3DSegmentIntersectsSegment(*a2, *(a2 + 1), *a3, *(a3 + 1), *v19, v19[1], **a1, *(*a1 + 8));
       if (!result)
       {
         return result;
       }
 
-      v11 = 40;
+      v15 = 40;
       goto LABEL_40;
     }
   }
@@ -1269,456 +1294,456 @@ void ARC3DShapeTriangulationAddEdge(uint64_t a1, double *a2, double *a3)
   v6 = ARC3DShapeTriangulationTriangleContainingVertex(v3, a1);
   if (v6 == 2)
   {
-    v16 = 6;
+    v24 = 6;
     goto LABEL_44;
   }
 
-  v7 = v6;
-  v8 = *(v4 + 32);
-  v72 = 0;
-  if ((ARC3DEdgeCrossingSegment(v6, v3, v5, &v72) & 1) == 0)
+  v11 = v6;
+  v12 = *(v4 + 32);
+  v80 = 0;
+  if ((ARC3DEdgeCrossingSegment(v6, v3, v5, &v80, v7, v8, v9, v10) & 1) == 0)
   {
     while (1)
     {
-      if (!--v8)
+      if (!--v12)
       {
-        v16 = 2;
+        v24 = 2;
         goto LABEL_44;
       }
 
-      if (*v7 == v3)
+      if (*v11 == v3)
       {
         break;
       }
 
-      if (*(v7 + 8) == v3)
+      if (v11[1] == v3)
       {
-        v9 = 32;
+        v17 = 4;
         goto LABEL_15;
       }
 
-      if (*(v7 + 16) == v3)
+      if (v11[2] == v3)
       {
-        v9 = 40;
+        v17 = 5;
 LABEL_15:
-        v7 = *(v7 + v9);
+        v11 = v11[v17];
       }
 
-      if (ARC3DEdgeCrossingSegment(v7, v3, v5, &v72))
+      if (ARC3DEdgeCrossingSegment(v11, v3, v5, &v80, v13, v14, v15, v16))
       {
         goto LABEL_17;
       }
     }
 
-    v9 = 24;
+    v17 = 3;
     goto LABEL_15;
   }
 
 LABEL_17:
-  if (!v7 || *v7 != v5 && *(v7 + 8) != v5 && *(v7 + 16) != v5)
+  if (!v11 || *v11 != v5 && v11[1] != v5 && v11[2] != v5)
   {
-    v70 = 0x1000000000;
+    v78 = 0x1000000000;
     ptr = malloc_type_malloc(0x80uLL, 0x2004093837F09uLL);
-    v67 = 0x400000000;
-    v68 = malloc_type_malloc(0x20uLL, 0x2004093837F09uLL);
-    v69 = malloc_type_malloc(0x20uLL, 0x2004093837F09uLL);
-    v64 = 0x400000000;
-    v65 = malloc_type_malloc(0x20uLL, 0x2004093837F09uLL);
-    v10 = malloc_type_malloc(0x20uLL, 0x2004093837F09uLL);
-    v11 = 0;
-    v12 = 0;
-    v13 = 0;
-    v66 = v10;
+    v75 = 0x400000000;
+    v76 = malloc_type_malloc(0x20uLL, 0x2004093837F09uLL);
+    v77 = malloc_type_malloc(0x20uLL, 0x2004093837F09uLL);
+    v72 = 0x400000000;
+    v73 = malloc_type_malloc(0x20uLL, 0x2004093837F09uLL);
+    v18 = malloc_type_malloc(0x20uLL, 0x2004093837F09uLL);
+    v19 = 0;
+    v20 = 0;
+    v21 = 0;
+    v74 = v18;
     do
     {
-      v14 = *(v7 + v11);
-      if (v14 != v3)
+      v22 = v11[v19];
+      if (v22 != v3)
       {
-        if ((*v5 - *v3) * (v14[1] - v3[1]) - (v5[1] - v3[1]) * (*v14 - *v3) <= 0.0)
+        if ((*v5 - *v3) * (v22[1] - v3[1]) - (v5[1] - v3[1]) * (*v22 - *v3) <= 0.0)
         {
-          v12 = *(v7 + v11);
+          v20 = v11[v19];
         }
 
         else
         {
-          v13 = *(v7 + v11);
+          v21 = v11[v19];
         }
       }
 
-      v11 += 8;
+      ++v19;
     }
 
-    while (v11 != 24);
-    if (*v7 == v12)
+    while (v19 != 3);
+    if (*v11 == v20)
     {
-      v19 = 32;
+      v27 = 4;
     }
 
-    else if (*(v7 + 8) == v12)
+    else if (v11[1] == v20)
     {
-      v19 = 40;
+      v27 = 5;
     }
 
     else
     {
-      if (*(v7 + 16) != v12)
+      if (v11[2] != v20)
       {
-        v15 = 0;
+        v23 = 0;
         goto LABEL_49;
       }
 
-      v19 = 24;
+      v27 = 3;
     }
 
-    v15 = *(v7 + v19);
+    v23 = v11[v27];
 LABEL_49:
-    ARC3DShapeTriangulationListInsert(&v67, v13, v15);
-    if (*v7 == v13)
+    ARC3DShapeTriangulationListInsert(&v75, v21, v23);
+    if (*v11 == v21)
     {
-      v21 = 32;
+      v29 = 4;
     }
 
-    else if (*(v7 + 8) == v13)
+    else if (v11[1] == v21)
     {
-      v21 = 40;
+      v29 = 5;
     }
 
     else
     {
-      if (*(v7 + 16) != v13)
+      if (v11[2] != v21)
       {
-        v20 = 0;
+        v28 = 0;
 LABEL_57:
-        ARC3DShapeTriangulationListInsert(&v64, v12, v20);
-        v22 = 0;
-        v63 = v70;
-        if (v13 != v5 && v12 != v5)
+        ARC3DShapeTriangulationListInsert(&v72, v20, v28);
+        v30 = 0;
+        v71 = v78;
+        if (v21 != v5 && v20 != v5)
         {
-          v58 = 0;
-          v59 = 0;
-          v23 = ptr;
-          v57 = v4;
-          v60 = HIDWORD(v70);
-          v24 = *(v4 + 32) - 1;
-          v25 = v3;
+          v66 = 0;
+          v67 = 0;
+          v31 = ptr;
+          v65 = v4;
+          v68 = HIDWORD(v78);
+          v32 = *(v4 + 32) - 1;
+          v33 = v3;
           while (1)
           {
-            if (!v24)
+            if (!v32)
             {
-              v47 = 3;
+              v55 = 3;
               goto LABEL_112;
             }
 
-            v26 = (v7 + 16);
-            v27 = *(v7 + 8);
-            if (*v7 == v25)
+            v34 = v11 + 2;
+            v35 = v11[1];
+            if (*v11 == v33)
             {
-              v29 = 32;
+              v37 = 4;
             }
 
             else
             {
-              v28 = *v26;
-              if (v27 == v25)
+              v36 = *v34;
+              if (v35 == v33)
               {
-                v27 = v28;
-                v26 = v7;
-                v29 = 40;
+                v35 = v36;
+                v34 = v11;
+                v37 = 5;
               }
 
               else
               {
-                if (v28 != v25)
+                if (v36 != v33)
                 {
                   goto LABEL_108;
                 }
 
-                v27 = *v7;
-                v26 = (v7 + 8);
-                v29 = 24;
+                v35 = *v11;
+                v34 = v11 + 1;
+                v37 = 3;
               }
             }
 
-            v30 = *(v7 + v29);
-            if (v30)
+            v38 = v11[v37];
+            if (v38)
             {
-              v31 = v27 == 0;
+              v39 = v35 == 0;
             }
 
             else
             {
-              v31 = 1;
+              v39 = 1;
             }
 
-            if (v31)
+            if (v39)
             {
 LABEL_108:
-              v47 = 4;
+              v55 = 4;
               goto LABEL_112;
             }
 
-            v62 = v24;
-            v32 = v23;
-            v33 = *v26;
-            v34 = ARC3DVertexNotSharedByTriangles(v30, v7);
-            if (!v34)
+            v70 = v32;
+            v40 = v31;
+            v41 = *v34;
+            v42 = ARC3DVertexNotSharedByTriangles(v38, v11);
+            if (!v42)
             {
-              v47 = 1;
+              v55 = 1;
 LABEL_112:
-              v4 = v57;
+              v4 = v65;
 LABEL_129:
-              *(v4 + 40) = v47;
+              *(v4 + 40) = v55;
               goto LABEL_130;
             }
 
-            v35 = v34;
-            v36 = (*v5 - *v3) * (v34[1] - v3[1]) - (v5[1] - v3[1]) * (*v34 - *v3);
-            v37 = *v30;
-            v61 = v33;
-            if (v36 <= 0.0)
+            v43 = v42;
+            v44 = (*v5 - *v3) * (v42[1] - v3[1]) - (v5[1] - v3[1]) * (*v42 - *v3);
+            v45 = *v38;
+            v69 = v41;
+            if (v44 <= 0.0)
             {
-              if (v37 == v13)
+              if (v45 == v21)
               {
-                v41 = 4;
+                v49 = 4;
               }
 
-              else if (v30[1] == v13)
+              else if (v38[1] == v21)
               {
-                v41 = 5;
+                v49 = 5;
               }
 
               else
               {
-                if (v30[2] != v13)
+                if (v38[2] != v21)
                 {
-                  v39 = 0;
+                  v47 = 0;
 LABEL_90:
-                  ARC3DShapeTriangulationListInsert(&v64, v34, v39);
-                  v42 = v13;
-                  v58 = v12;
+                  ARC3DShapeTriangulationListInsert(&v72, v42, v47);
+                  v50 = v21;
+                  v66 = v20;
                   goto LABEL_91;
                 }
 
-                v41 = 3;
+                v49 = 3;
               }
 
-              v39 = v30[v41];
+              v47 = v38[v49];
               goto LABEL_90;
             }
 
-            if (v37 == v12)
+            if (v45 == v20)
             {
               break;
             }
 
-            if (v30[1] == v12)
+            if (v38[1] == v20)
             {
-              v40 = 5;
+              v48 = 5;
               goto LABEL_86;
             }
 
-            if (v30[2] == v12)
+            if (v38[2] == v20)
             {
-              v40 = 3;
+              v48 = 3;
               goto LABEL_86;
             }
 
-            v38 = 0;
+            v46 = 0;
 LABEL_87:
-            ARC3DShapeTriangulationListInsert(&v67, v34, v38);
-            v42 = v35;
-            v59 = v13;
-            v35 = v12;
+            ARC3DShapeTriangulationListInsert(&v75, v42, v46);
+            v50 = v43;
+            v67 = v21;
+            v43 = v20;
 LABEL_91:
-            v23 = v32;
-            if (v63 == v60)
+            v31 = v40;
+            if (v71 == v68)
             {
-              v60 *= 2;
-              v23 = malloc_type_realloc(v32, 8 * v60, 0x2004093837F09uLL);
-              ptr = v23;
+              v68 *= 2;
+              v31 = malloc_type_realloc(v40, 8 * v68, 0x2004093837F09uLL);
+              ptr = v31;
             }
 
-            v43 = v63 + 1;
-            *(v23 + v63) = v7;
-            v25 = v61;
-            if (v36 > 0.0 == (*v5 - *v3) * (v27[1] - v3[1]) - (v5[1] - v3[1]) * (*v27 - *v3) > 0.0)
+            v51 = v71 + 1;
+            *(v31 + v71) = v11;
+            v33 = v69;
+            if (v44 > 0.0 == (*v5 - *v3) * (v35[1] - v3[1]) - (v5[1] - v3[1]) * (*v35 - *v3) > 0.0)
             {
-              v25 = v27;
+              v33 = v35;
             }
 
-            if (v42 != v5)
+            if (v50 != v5)
             {
-              v24 = v62 - 1;
-              v7 = v30;
-              v12 = v35;
-              v13 = v42;
-              ++v63;
-              if (v35 != v5)
+              v32 = v70 - 1;
+              v11 = v38;
+              v20 = v43;
+              v21 = v50;
+              ++v71;
+              if (v43 != v5)
               {
                 continue;
               }
             }
 
-            v22 = v59;
-            HIDWORD(v70) = v60;
-            v4 = v57;
-            v44 = v58;
+            v30 = v67;
+            HIDWORD(v78) = v68;
+            v4 = v65;
+            v52 = v66;
             goto LABEL_99;
           }
 
-          v40 = 4;
+          v48 = 4;
 LABEL_86:
-          v38 = v30[v40];
+          v46 = v38[v48];
           goto LABEL_87;
         }
 
-        v43 = v70;
-        v42 = v13;
-        v44 = 0;
-        v30 = v7;
+        v51 = v78;
+        v50 = v21;
+        v52 = 0;
+        v38 = v11;
 LABEL_99:
-        v45 = *v30;
-        if (v42 != v5)
+        v53 = *v38;
+        if (v50 != v5)
         {
-          if (v45 == v44)
+          if (v53 == v52)
           {
-            v48 = 4;
+            v56 = 4;
           }
 
-          else if (v30[1] == v44)
+          else if (v38[1] == v52)
           {
-            v48 = 5;
+            v56 = 5;
           }
 
           else
           {
-            if (v30[2] != v44)
+            if (v38[2] != v52)
             {
-              v46 = 0;
+              v54 = 0;
 LABEL_117:
-              v50 = &v67;
+              v58 = &v75;
               goto LABEL_122;
             }
 
-            v48 = 3;
+            v56 = 3;
           }
 
-          v46 = v30[v48];
+          v54 = v38[v56];
           goto LABEL_117;
         }
 
-        if (v45 == v22)
+        if (v53 == v30)
         {
-          v49 = 4;
+          v57 = 4;
         }
 
-        else if (v30[1] == v22)
+        else if (v38[1] == v30)
         {
-          v49 = 5;
+          v57 = 5;
         }
 
         else
         {
-          if (v30[2] != v22)
+          if (v38[2] != v30)
           {
-            v46 = 0;
+            v54 = 0;
 LABEL_121:
-            v50 = &v64;
+            v58 = &v72;
 LABEL_122:
-            ARC3DShapeTriangulationListInsert(v50, v5, v46);
-            if (HIDWORD(v70) == v43)
+            ARC3DShapeTriangulationListInsert(v58, v5, v54);
+            if (HIDWORD(v78) == v51)
             {
-              HIDWORD(v70) = 2 * v43;
-              v51 = malloc_type_realloc(ptr, 16 * v43, 0x2004093837F09uLL);
-              ptr = v51;
+              HIDWORD(v78) = 2 * v51;
+              v59 = malloc_type_realloc(ptr, 16 * v51, 0x2004093837F09uLL);
+              ptr = v59;
             }
 
             else
             {
-              v51 = ptr;
+              v59 = ptr;
             }
 
-            LODWORD(v70) = v43 + 1;
-            *(v51 + v43) = v30;
-            v47 = 1;
-            v52 = ARC3DShapeConnectedComponentTriangulatePseudopolygon(&v67, v3, v5, &v70, 1);
-            if (v52 == 2)
+            LODWORD(v78) = v51 + 1;
+            *(v59 + v51) = v38;
+            v55 = 1;
+            v60 = ARC3DShapeConnectedComponentTriangulatePseudopolygon(&v75, v3, v5, &v78, 1);
+            if (v60 == 2)
             {
               goto LABEL_129;
             }
 
-            v53 = v52;
-            v54 = ARC3DShapeConnectedComponentTriangulatePseudopolygon(&v64, v3, v5, &v70, 0);
-            if (v54 == 2)
+            v61 = v60;
+            v62 = ARC3DShapeConnectedComponentTriangulatePseudopolygon(&v72, v3, v5, &v78, 0);
+            if (v62 == 2)
             {
               goto LABEL_129;
             }
 
-            *(v53 + 24) = v54;
-            *(v54 + 40) = v53;
-            if (v70)
+            *(v61 + 24) = v62;
+            *(v62 + 40) = v61;
+            if (v78)
             {
               ARC3DShapeTriangulationAddEdge_cold_1();
             }
 
 LABEL_130:
             free(ptr);
-            v55 = v69;
-            free(v68);
-            free(v55);
-            v56 = v66;
-            free(v65);
-            free(v56);
+            v63 = v77;
+            free(v76);
+            free(v63);
+            v64 = v74;
+            free(v73);
+            free(v64);
             return;
           }
 
-          v49 = 3;
+          v57 = 3;
         }
 
-        v46 = v30[v49];
+        v54 = v38[v57];
         goto LABEL_121;
       }
 
-      v21 = 24;
+      v29 = 3;
     }
 
-    v20 = *(v7 + v21);
+    v28 = v11[v29];
     goto LABEL_57;
   }
 
-  v17 = 0;
-  while (*(v7 + 8 * v17 + 24) != v72)
+  v25 = 0;
+  while (v11[v25 + 3] != v80)
   {
-    if (++v17 == 3)
+    if (++v25 == 3)
     {
-      LODWORD(v17) = -1;
+      LODWORD(v25) = -1;
       break;
     }
   }
 
-  v18 = 0;
-  while (v72[v18 + 3] != v7)
+  v26 = 0;
+  while (v80[v26 + 3] != v11)
   {
-    if (++v18 == 3)
+    if (++v26 == 3)
     {
       goto LABEL_43;
     }
   }
 
-  if (v17 != -1)
+  if (v25 != -1)
   {
-    *(v72 + v18 + 48) = 1;
-    *(v7 + v17 + 48) = 1;
+    *(v80 + v26 + 48) = 1;
+    *(v11 + v25 + 48) = 1;
     return;
   }
 
 LABEL_43:
-  v16 = 5;
+  v24 = 5;
 LABEL_44:
-  *(v4 + 40) = v16;
+  *(v4 + 40) = v24;
 }
 
-int *ARC3DShapeTriangulationResolveSwaps(int *result, double *a2)
+unsigned int *ARC3DShapeTriangulationResolveSwaps(unsigned int *result, double *a2)
 {
   v2 = *result;
   if (*result)
@@ -1879,18 +1904,18 @@ LABEL_38:
   return result;
 }
 
-int *ARC3DShapeTriangulationTriangleSplitInside(int *result, uint64_t a2, uint64_t a3)
+int *ARC3DShapeTriangulationTriangleSplitInside(int *result, uint64_t *a2, uint64_t a3)
 {
   v4 = result;
-  v6 = *(a2 + 32);
-  v5 = *(a2 + 40);
+  v6 = a2[4];
+  v5 = a2[5];
   v7 = *a2;
-  v8 = *(a2 + 8);
-  v10 = *(a2 + 16);
-  v9 = *(a2 + 24);
+  v8 = a2[1];
+  v10 = a2[2];
+  v9 = a2[3];
   *a2 = a3;
-  *(a2 + 8) = v7;
-  *(a2 + 16) = v8;
+  a2[1] = v7;
+  a2[2] = v8;
   v11 = *(result + 2);
   v12 = result[8];
   v13 = v11 + 56 * v12;
@@ -1898,9 +1923,9 @@ int *ARC3DShapeTriangulationTriangleSplitInside(int *result, uint64_t a2, uint64
   result[8] = v12 + 2;
   v14 = v11 + 56 * (v12 + 1);
   *(v14 + 51) = 0;
-  *(a2 + 24) = v13;
-  *(a2 + 32) = v9;
-  *(a2 + 40) = v14;
+  a2[3] = v13;
+  a2[4] = v9;
+  a2[5] = v14;
   *v13 = a3;
   *(v13 + 8) = v10;
   *(v13 + 16) = v7;
@@ -2022,20 +2047,20 @@ void *ARC3DShapeTriangulationTriangleSplitOnEdge(uint64_t a1, uint64_t a2, uint6
   *(v7 + 49) = v8;
   *(v7 + 50) = v18;
   *v25 = a3;
-  *(v25 + 8) = v21;
-  *(v25 + 16) = v19;
-  *(v25 + 24) = a2;
-  *(v25 + 32) = v15;
-  *(v25 + 40) = v26;
+  v25[1] = v21;
+  v25[2] = v19;
+  v25[3] = a2;
+  v25[4] = v15;
+  v25[5] = v26;
   *(v25 + 48) = 0;
   *(v25 + 49) = v17;
   *(v25 + 50) = v18;
   *v26 = a3;
-  *(v26 + 8) = v19;
-  *(v26 + 16) = v22;
-  *(v26 + 24) = v25;
-  *(v26 + 32) = v9;
-  *(v26 + 40) = v7;
+  v26[1] = v19;
+  v26[2] = v22;
+  v26[3] = v25;
+  v26[4] = v9;
+  v26[5] = v7;
   *(v26 + 48) = v18;
   *(v26 + 49) = v16;
   if (v11)
@@ -2173,13 +2198,13 @@ uint64_t ARC3DShapeTriangulationTriangleMark(uint64_t a1, int a2, BOOL *a3)
   v6 = *(a1 + 24);
   if (v6 && (*(v6 + 51) & 1) == 0)
   {
-    ARC3DShapeTriangulationTriangleMark();
+    ARC3DShapeTriangulationTriangleMark(v6, *(a1 + 48) != a2, a3);
   }
 
   v7 = *(a1 + 32);
   if (v7 && (*(v7 + 51) & 1) == 0)
   {
-    ARC3DShapeTriangulationTriangleMark();
+    ARC3DShapeTriangulationTriangleMark(v7, *(a1 + 49) != a2, a3);
   }
 
   result = *(a1 + 40);
@@ -2187,7 +2212,7 @@ uint64_t ARC3DShapeTriangulationTriangleMark(uint64_t a1, int a2, BOOL *a3)
   {
     if ((*(result + 51) & 1) == 0)
     {
-      result = ARC3DShapeTriangulationTriangleMark();
+      result = ARC3DShapeTriangulationTriangleMark(result, *(a1 + 50) != a2, a3);
     }
   }
 
@@ -2441,63 +2466,59 @@ double ARC3DComputeLinesIntersection(double *a1, double *a2, double a3, double a
   return result;
 }
 
-double ARC3DComputeLinesIntersectionForPoints(double *a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9)
+double ARC3DComputeLinesIntersectionForPoints(double *a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10)
 {
-  v9 = a2 - a4;
-  v10 = (a2 - a4) * (a7 - a9) - (a3 - a5) * (a6 - a8);
-  if (v10 == 0.0)
+  v10 = a3 - a5;
+  v11 = (a3 - a5) * (a8 - a10) - (a4 - a6) * (a7 - a9);
+  if (v11 == 0.0)
   {
     ARC3DComputeLinesIntersectionForPoints_cold_1();
   }
 
-  v11 = -(a3 - a5);
-  v12 = a2 * a5 - a3 * a4;
-  v13 = a6 * a9 - a7 * a8;
-  v14 = (v12 * (a6 - a8) - v9 * v13) / v10;
-  result = (v13 * v11 + v12 * (a7 - a9)) / v10;
-  *a1 = v14;
+  v12 = -(a4 - a6);
+  v13 = a3 * a6 - a4 * a5;
+  v14 = a7 * a10 - a8 * a9;
+  v15 = (v13 * (a7 - a9) - v10 * v14) / v11;
+  result = (v14 * v12 + v13 * (a8 - a10)) / v11;
+  *a1 = v15;
   a1[1] = result;
   return result;
 }
 
-__n128 ARCVAMatrixFromMatrix@<Q0>(simd_float3x3 a1@<0:Q0, 16:Q1, 32:Q2>, uint64_t a2@<X8>)
+__n128 ARCVAMatrixFromMatrix@<Q0>(int8x16_t *__return_ptr a1@<X8>, simd_float3x3 a2@<0:Q0, 16:Q1, 32:Q2>)
 {
-  a1.columns[0].i32[3] = a1.columns[1].i32[0];
-  *a2 = a1.columns[0];
-  *(a2 + 16) = vextq_s8(vextq_s8(a1.columns[1], a1.columns[1], 0xCuLL), a1.columns[2], 8uLL);
-  *(a2 + 32) = a1.columns[2].i32[2];
-  return a1.columns[0];
+  a2.columns[0].i32[3] = a2.columns[1].i32[0];
+  *a1 = a2.columns[0];
+  a1[1] = vextq_s8(vextq_s8(a2.columns[1], a2.columns[1], 0xCuLL), a2.columns[2], 8uLL);
+  a1[2].i32[0] = a2.columns[2].i32[2];
+  return a2.columns[0];
 }
 
-uint64_t ARUltrawideToWideExtrinsics()
+void ARUltrawideToWideExtrinsics()
 {
   ARCameraToJasperExtrinsics(*MEMORY[0x1E6986948]);
   ARMatrix4x4FromMatrix4x3();
-  v10 = v1;
-  v11 = v0;
-  v12 = v3;
-  v13 = v2;
+  v5 = v1;
+  v6 = v0;
+  v7 = v3;
+  v8 = v2;
   ARCameraToJasperExtrinsics(*MEMORY[0x1E6986950]);
   ARMatrix4x4FromMatrix4x3();
-  v18 = __invert_f4(v17);
+  v12 = __invert_f4(v11);
   v4 = 0;
-  v14[0] = v11;
-  v14[1] = v10;
-  v14[2] = v13;
-  v14[3] = v12;
+  v9[0] = v6;
+  v9[1] = v5;
+  v9[2] = v8;
+  v9[3] = v7;
   do
   {
-    v15[v4] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v18.columns[0], COERCE_FLOAT(v14[v4])), v18.columns[1], *&v14[v4], 1), v18.columns[2], v14[v4], 2), v18.columns[3], v14[v4], 3);
+    v9[v4 + 4] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v12.columns[0], COERCE_FLOAT(v9[v4])), v12.columns[1], *&v9[v4], 1), v12.columns[2], v9[v4], 2), v12.columns[3], v9[v4], 3);
     ++v4;
   }
 
   while (v4 != 4);
-  v5 = v15[2];
-  v6 = v15[3];
-  v7 = v15[0];
-  v8 = v15[1];
 
-  return ARMatrix4x3FromMatrix4x4(v7, v8, v5, v6);
+  ARMatrix4x3FromMatrix4x4();
 }
 
 __n128 ARCameraToJasperExtrinsics(void *a1)
@@ -2550,92 +2571,92 @@ LABEL_7:
   return v4;
 }
 
-id ARJasperWideCameraCalibration()
+id ARJasperWideCameraCalibration(uint64_t a1)
 {
   if (ARJasperWideCameraCalibration::onceToken != -1)
   {
     ARJasperWideCameraCalibration_cold_1();
   }
 
-  v1 = ARJasperWideCameraCalibration::cameraCalibration;
+  v2 = ARJasperWideCameraCalibration::cameraCalibration;
 
-  return v1;
+  return v2;
 }
 
 void __ARJasperWideCameraCalibration_block_invoke()
 {
   v0 = ARCameraToJasperExtrinsics(*MEMORY[0x1E6986950]).n128_u64[0];
-  v16 = v1;
-  v17 = *&v0;
-  v14 = v3;
-  v15 = v2;
+  v18 = v1;
+  v19 = *&v0;
+  v16 = v3;
+  v17 = v2;
   v4 = MEMORY[0x1E695DEF0];
-  v5 = ARKitCoreBundle();
-  v6 = [v5 ar_pathForPrivateResource:@"Wide_distortion_lookup_table" ofType:@"hardcoded"];
-  v18 = [v4 dataWithContentsOfFile:v6];
+  v6 = ARKitCoreBundle(v5);
+  v7 = [v6 ar_pathForPrivateResource:@"Wide_distortion_lookup_table" ofType:@"hardcoded"];
+  v20 = [v4 dataWithContentsOfFile:v7];
 
-  v7 = MEMORY[0x1E695DEF0];
-  v8 = ARKitCoreBundle();
-  v9 = [v8 ar_pathForPrivateResource:@"Wide_inverse_distortion_lookup_table" ofType:@"hardcoded"];
-  v10 = [v7 dataWithContentsOfFile:v9];
+  v8 = MEMORY[0x1E695DEF0];
+  v10 = ARKitCoreBundle(v9);
+  v11 = [v10 ar_pathForPrivateResource:@"Wide_inverse_distortion_lookup_table" ofType:@"hardcoded"];
+  v12 = [v8 dataWithContentsOfFile:v11];
 
-  if (v18 && v10)
+  if (v20 && v12)
   {
-    v11 = [objc_alloc(MEMORY[0x1E698C178]) initWithDistortionCenter:v18 lensDistortionLookupTable:v10 inverseLensDistortionLookupTable:{959.341819, 718.244185}];
-    v12 = [objc_alloc(MEMORY[0x1E698C160]) initWithIntrinsics:v11 cameraToPlatformTransform:*&_PromotedConst_88 pixelSize:unk_1C25F0A00 forReferenceDimensions:0.0 withDistortionModel:{v17, v16, v15, v14, 0.00197999994, 0x409E000000000000, 0x4096800000000000}];
-    v13 = ARJasperWideCameraCalibration::cameraCalibration;
-    ARJasperWideCameraCalibration::cameraCalibration = v12;
+    v13 = [objc_alloc(MEMORY[0x1E698C178]) initWithDistortionCenter:v20 lensDistortionLookupTable:v12 inverseLensDistortionLookupTable:{959.341819, 718.244185}];
+    v14 = [objc_alloc(MEMORY[0x1E698C160]) initWithIntrinsics:v13 cameraToPlatformTransform:*&_PromotedConst_88 pixelSize:unk_1C25F0A00 forReferenceDimensions:0.0 withDistortionModel:{v19, v18, v17, v16, 0.00197999994, 0x409E000000000000, 0x4096800000000000}];
+    v15 = ARJasperWideCameraCalibration::cameraCalibration;
+    ARJasperWideCameraCalibration::cameraCalibration = v14;
   }
 }
 
-id ARST2JasperWideCameraCalibration()
+id ARST2JasperWideCameraCalibration(uint64_t a1)
 {
   if (ARST2JasperWideCameraCalibration::onceToken != -1)
   {
     ARST2JasperWideCameraCalibration_cold_1();
   }
 
-  v1 = ARST2JasperWideCameraCalibration::cameraCalibration;
+  v2 = ARST2JasperWideCameraCalibration::cameraCalibration;
 
-  return v1;
+  return v2;
 }
 
 void __ARST2JasperWideCameraCalibration_block_invoke()
 {
   v0 = ARST2CameraToJasperExtrinsics(*MEMORY[0x1E6986950]).n128_u64[0];
-  v16 = v1;
-  v17 = *&v0;
-  v14 = v3;
-  v15 = v2;
+  v18 = v1;
+  v19 = *&v0;
+  v16 = v3;
+  v17 = v2;
   v4 = MEMORY[0x1E695DEF0];
-  v5 = ARKitCoreBundle();
-  v6 = [v5 ar_pathForPrivateResource:@"Wide_distortion_lookup_table" ofType:@"hardcoded"];
-  v18 = [v4 dataWithContentsOfFile:v6];
+  v6 = ARKitCoreBundle(v5);
+  v7 = [v6 ar_pathForPrivateResource:@"Wide_distortion_lookup_table" ofType:@"hardcoded"];
+  v20 = [v4 dataWithContentsOfFile:v7];
 
-  v7 = MEMORY[0x1E695DEF0];
-  v8 = ARKitCoreBundle();
-  v9 = [v8 ar_pathForPrivateResource:@"Wide_inverse_distortion_lookup_table" ofType:@"hardcoded"];
-  v10 = [v7 dataWithContentsOfFile:v9];
+  v8 = MEMORY[0x1E695DEF0];
+  v10 = ARKitCoreBundle(v9);
+  v11 = [v10 ar_pathForPrivateResource:@"Wide_inverse_distortion_lookup_table" ofType:@"hardcoded"];
+  v12 = [v8 dataWithContentsOfFile:v11];
 
-  if (v18 && v10)
+  if (v20 && v12)
   {
-    v11 = [objc_alloc(MEMORY[0x1E698C178]) initWithDistortionCenter:v18 lensDistortionLookupTable:v10 inverseLensDistortionLookupTable:{959.341819, 718.244185}];
-    v12 = [objc_alloc(MEMORY[0x1E698C160]) initWithIntrinsics:v11 cameraToPlatformTransform:*&_PromotedConst_88 pixelSize:unk_1C25F0A00 forReferenceDimensions:0.0 withDistortionModel:{v17, v16, v15, v14, 0.00197999994, 0x409E000000000000, 0x4096800000000000}];
-    v13 = ARST2JasperWideCameraCalibration::cameraCalibration;
-    ARST2JasperWideCameraCalibration::cameraCalibration = v12;
+    v13 = [objc_alloc(MEMORY[0x1E698C178]) initWithDistortionCenter:v20 lensDistortionLookupTable:v12 inverseLensDistortionLookupTable:{959.341819, 718.244185}];
+    v14 = [objc_alloc(MEMORY[0x1E698C160]) initWithIntrinsics:v13 cameraToPlatformTransform:*&_PromotedConst_88 pixelSize:unk_1C25F0A00 forReferenceDimensions:0.0 withDistortionModel:{v19, v18, v17, v16, 0.00197999994, 0x409E000000000000, 0x4096800000000000}];
+    v15 = ARST2JasperWideCameraCalibration::cameraCalibration;
+    ARST2JasperWideCameraCalibration::cameraCalibration = v14;
   }
 }
 
-id _ARLogGeneral_39()
+id _ARLogGeneral_39(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_41 != -1)
   {
     _ARLogGeneral_cold_1_39();
   }
 
-  v1 = _ARLogGeneral_logObj_41;
+  v2 = _ARLogGeneral_logObj_41;
 
-  return v1;
+  return v2;
 }
 
 uint64_t aggregationSizeForPointCloud(void *a1)
@@ -2675,7 +2696,7 @@ void sub_1C256E4E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ARInstrumentsValueFromFrameVendReason()
+void ARInstrumentsValueFromFrameVendReason(uint64_t result)
 {
   if (ARInstrumentsValueFromFrameVendReason_onceToken != -1)
   {
@@ -2683,7 +2704,7 @@ void ARInstrumentsValueFromFrameVendReason()
   }
 }
 
-uint64_t __ARInstrumentsValueFromFrameVendReason_block_invoke()
+void *__ARInstrumentsValueFromFrameVendReason_block_invoke()
 {
   v10 = 0;
   v0 = [@"TimerTick" getBytes:&v10 maxLength:8 usedLength:0 encoding:1 options:0 range:0 remainingRange:{objc_msgSend(@"TimerTick", "length"), 0}];
@@ -2733,16 +2754,16 @@ uint64_t __ARInstrumentsValueFromFrameVendReason_block_invoke()
   return result;
 }
 
-id _ARLogGeneral_40()
+id _ARLogGeneral_40(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_42 != -1)
   {
     _ARLogGeneral_cold_1_40();
   }
 
-  v1 = _ARLogGeneral_logObj_42;
+  v2 = _ARLogGeneral_logObj_42;
 
-  return v1;
+  return v2;
 }
 
 void sub_1C2570974(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -2752,72 +2773,72 @@ void sub_1C2570974(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ARLLAToECEF@<X0>(_OWORD *a1@<X8>)
+uint64_t ARLLAToECEF@<X0>(_OWORD *a2@<X8>)
 {
   result = cnnavigation::LLAToECEF();
-  v3 = 0uLL;
   v4 = 0uLL;
+  v5 = 0uLL;
   if (!result)
   {
-    *&v4 = 0;
-    v3 = 0uLL;
+    *&v5 = 0;
+    v4 = 0uLL;
   }
 
-  *a1 = v3;
-  a1[1] = v4;
+  *a2 = v4;
+  a2[1] = v5;
   return result;
 }
 
-int8x16_t ARECEFToLLA@<Q0>(int8x16_t *a1@<X8>)
+int8x16_t ARECEFToLLA@<Q0>(int8x16_t *a2@<X8>)
 {
-  v2 = cnnavigation::ECEFToLLA();
-  v3.i32[0] = 0;
-  v4.i32[0] = v2;
-  v5 = vdupq_lane_s32(*&vceqq_s32(v4, v3), 0);
-  v6 = vdupq_n_s64(0x404CA5DC1A63C1F8uLL);
-  v7 = vandq_s8(vmulq_f64(0, v6), v5);
-  v6.f64[0] = 0.0;
-  result = vbslq_s8(v5, v6, 0);
-  *a1 = v7;
-  a1[1] = result;
+  v3 = cnnavigation::ECEFToLLA();
+  v4.i32[0] = 0;
+  v5.i32[0] = v3;
+  v6 = vdupq_lane_s32(*&vceqq_s32(v5, v4), 0);
+  v7 = vdupq_n_s64(0x404CA5DC1A63C1F8uLL);
+  v8 = vandq_s8(vmulq_f64(0, v7), v6);
+  v7.i64[0] = 0;
+  result = vbslq_s8(v6, v7, 0);
+  *a2 = v8;
+  a2[1] = result;
   return result;
 }
 
-uint64_t ARECEFToENU@<X0>(_OWORD *a1@<X8>)
+uint64_t ARECEFToENU@<X0>(_OWORD *a3@<X8>)
 {
   result = cnnavigation::ECEFToENU();
-  v3 = 0uLL;
-  v4 = 0uLL;
+  v5 = 0uLL;
+  v6 = 0uLL;
   if (!result)
   {
-    v3 = v5;
-    *&v4 = v6;
+    v5 = v7;
+    *&v6 = v8;
   }
 
-  *a1 = v3;
-  a1[1] = v4;
+  *a3 = v5;
+  a3[1] = v6;
   return result;
 }
 
-uint64_t ARENUToECEF@<X0>(_OWORD *a1@<X8>)
+uint64_t ARENUToECEF@<X0>(_OWORD *a3@<X8>)
 {
   result = cnnavigation::ENUToECEF();
-  v3 = 0uLL;
-  v4 = 0uLL;
+  v5 = 0uLL;
+  v6 = 0uLL;
   if (!result)
   {
-    v3 = v5;
-    *&v4 = v6;
+    v5 = v7;
+    *&v6 = v8;
   }
 
-  *a1 = v3;
-  a1[1] = v4;
+  *a3 = v5;
+  a3[1] = v6;
   return result;
 }
 
 void ARENUToECEFTransform(uint64_t a1@<X0>, _OWORD *a2@<X8>)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = *a1;
   v4 = MEMORY[0x1E69E9B08];
   v5 = *(MEMORY[0x1E69E9B08] + 80);
@@ -2847,15 +2868,15 @@ void ARENUToECEFTransform(uint64_t a1@<X0>, _OWORD *a2@<X8>)
   }
 
   v15 = v11;
-  v29 = xmmword_1C25F0A60;
-  v30 = 0x3FF0000000000000;
-  *&v27[104] = v16;
-  v28 = v9;
+  v30 = xmmword_1C25F0A60;
+  v31 = 0x3FF0000000000000;
+  v28 = v16;
+  v29 = v9;
   LOBYTE(v22.f64[1]) = 0;
   v25 = 0x300000003;
   v23 = &unk_1F4207908;
   v24 = xmmword_1C25F0A50;
-  v26 = v27;
+  v26 = &v27;
   *&v22.f64[0] = MEMORY[0x1E6998280] + 16;
   if (!cnnavigation::ENUToECEF())
   {
@@ -2882,6 +2903,13 @@ void ARENUToECEFTransform(uint64_t a1@<X0>, _OWORD *a2@<X8>)
   a2[6] = v15;
   a2[7] = v14;
   cnnavigation::ENUToECEFJacobian::~ENUToECEFJacobian(&v22);
+}
+
+void sub_1C2571694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  cnnavigation::ENUToECEFJacobian::~ENUToECEFJacobian(va);
+  _Unwind_Resume(a1);
 }
 
 void ARAnchorToECEFTransform(_OWORD *a1@<X0>, _OWORD *a2@<X8>)
@@ -3176,19 +3204,19 @@ uint64_t cnmatrix::CNMatrixBase<double>::operator()(uint64_t a1, int a2, int a3)
   return v3 + 8 * v4;
 }
 
-double ARConsensusAndAverageFilterImpl::Update(ARConsensusAndAverageFilterImpl *this, const simd_double4x4 *a2, const simd_double4x4 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, __int128 a10, __int128 a11, __int128 a12, uint64_t a13, __n128 a14, uint64_t a15, uint64_t a16, char a17, __int128 __src, __int128 a19, __int128 a20, __int128 a21, __int128 a22, __int128 a23, __int128 a24, __int128 a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, simd_double4x4 a48)
+double ARConsensusAndAverageFilterImpl::Update(uint64_t a1, __int128 *a2, const simd_double4x4 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, __int128 a10, __int128 a11, __int128 a12, uint64_t a13, __n128 a14, uint64_t a15, uint64_t a16, char a17, __int128 __src, __int128 a19, __int128 a20, __int128 a21, __int128 a22, __int128 a23, __int128 a24, __int128 a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, simd_double4x4 a48)
 {
-  v52 = *(this + 34);
-  v51 = *(this + 35);
-  if (0x8E38E38E38E38E39 * ((v51 - v52) >> 5) == *(this + 76))
+  v52 = *(a1 + 272);
+  v51 = *(a1 + 280);
+  if (0x8E38E38E38E38E39 * ((v51 - v52) >> 5) == *(a1 + 304))
   {
     v53 = v51 - (v52 + 288);
     if (v51 != v52 + 288)
     {
-      memmove(*(this + 34), (v52 + 288), v51 - (v52 + 288));
+      memmove(*(a1 + 272), (v52 + 288), v51 - (v52 + 288));
     }
 
-    *(this + 35) = v52 + v53;
+    *(a1 + 280) = v52 + v53;
   }
 
   *&STACK[0x5C0] = 0u;
@@ -3199,29 +3227,29 @@ double ARConsensusAndAverageFilterImpl::Update(ARConsensusAndAverageFilterImpl *
   *&STACK[0x590] = 0u;
   *&STACK[0x560] = 0u;
   *&STACK[0x570] = 0u;
-  v54 = *&a2->columns[2].f64[2];
-  a22 = *a2->columns[2].f64;
+  v54 = a2[5];
+  a22 = a2[4];
   a23 = v54;
-  v55 = *&a2->columns[3].f64[2];
-  a24 = *a2->columns[3].f64;
+  v55 = a2[7];
+  a24 = a2[6];
   a25 = v55;
-  v56 = *&a2->columns[0].f64[2];
-  __src = *a2->columns[0].f64;
+  v56 = a2[1];
+  __src = *a2;
   a19 = v56;
-  v57 = *&a2->columns[1].f64[2];
-  a20 = *a2->columns[1].f64;
+  v57 = a2[3];
+  a20 = a2[2];
   a21 = v57;
   __invert_d4();
   *&STACK[0x540] = 0u;
   *&STACK[0x550] = 0u;
   memset(&a48, 0, 96);
-  ConvertIMU(&STACK[0x560], &a48);
-  ARConsensusAndAverageFilterImpl::ConvertToENU(this, &a48, a3, &__src);
-  v59 = *(this + 35);
-  v58 = *(this + 36);
+  ConvertIMU(&a48, &STACK[0x560]);
+  ARConsensusAndAverageFilterImpl::ConvertToENU(&__src, a1, &a48, a3);
+  v59 = *(a1 + 280);
+  v58 = *(a1 + 288);
   if (v59 >= v58)
   {
-    v61 = *(this + 34);
+    v61 = *(a1 + 272);
     v62 = 0x8E38E38E38E38E39 * ((v59 - v61) >> 5);
     v63 = v62 + 1;
     if (v62 + 1 > 0xE38E38E38E38E3)
@@ -3247,20 +3275,20 @@ double ARConsensusAndAverageFilterImpl::Update(ARConsensusAndAverageFilterImpl *
 
     if (v65)
     {
-      std::allocator<AlignedPose>::allocate_at_least[abi:ne200100](this + 272, v65);
+      std::allocator<AlignedPose>::allocate_at_least[abi:ne200100](a1 + 272, v65);
     }
 
     v66 = 288 * v62;
     memcpy(v66, &__src, 0x120uLL);
     v60 = v66 + 288;
-    v67 = *(this + 34);
-    v68 = *(this + 35) - v67;
+    v67 = *(a1 + 272);
+    v68 = *(a1 + 280) - v67;
     v69 = (v66 - v68);
     memcpy(v69, v67, v68);
-    v70 = *(this + 34);
-    *(this + 34) = v69;
-    *(this + 35) = v60;
-    *(this + 36) = 0;
+    v70 = *(a1 + 272);
+    *(a1 + 272) = v69;
+    *(a1 + 280) = v60;
+    *(a1 + 288) = 0;
     if (v70)
     {
       operator delete(v70);
@@ -3269,97 +3297,97 @@ double ARConsensusAndAverageFilterImpl::Update(ARConsensusAndAverageFilterImpl *
 
   else
   {
-    memcpy(*(this + 35), &__src, 0x120uLL);
+    memcpy(*(a1 + 280), &__src, 0x120uLL);
     v60 = v59 + 288;
   }
 
-  *(this + 35) = v60;
-  ARConsensusAndAverageFilterImpl::GetAlignmentAtFrameConsensusAndAverage(this, this + 34, 954437177 * ((v60 - *(this + 34)) >> 5) - 1, this + 296, &a14);
+  *(a1 + 280) = v60;
+  ARConsensusAndAverageFilterImpl::GetAlignmentAtFrameConsensusAndAverage(a1, (a1 + 272), 954437177 * ((v60 - *(a1 + 272)) >> 5) - 1, a1 + 296, &a14);
   if (a17 == 1)
   {
     MatrixFromTransform4Dof(&a14, v74);
-    *(this + 4) = a9;
-    *(this + 5) = a10;
-    *(this + 6) = a11;
-    *(this + 7) = a12;
+    *(a1 + 64) = a9;
+    *(a1 + 80) = a10;
+    *(a1 + 96) = a11;
+    *(a1 + 112) = a12;
     v72 = v74[1];
-    *this = v74[0];
-    *(this + 1) = v72;
+    *a1 = v74[0];
+    *(a1 + 16) = v72;
     result = *&v75;
     v73 = vars0;
-    *(this + 2) = v75;
-    *(this + 3) = v73;
-    *(this + 128) = 1;
+    *(a1 + 32) = v75;
+    *(a1 + 48) = v73;
+    *(a1 + 128) = 1;
   }
 
   return result;
 }
 
-void ARConsensusAndAverageFilterImpl::ConvertToENU(float64x2_t *this@<X0>, const simd_double4x4 *a2@<X1>, const simd_double4x4 *a3@<X2>, uint64_t a4@<X8>)
+void ARConsensusAndAverageFilterImpl::ConvertToENU(uint64_t *__return_ptr a1@<X8>, float64x2_t *this@<X0>, const simd_double4x4 *a3@<X1>, const simd_double4x4 *a4@<X2>)
 {
   v7 = 0;
-  *(a4 + 128) = 0x7FF8000000000000;
-  *(a4 + 136) = 0;
+  a1[16] = 0x7FF8000000000000;
+  *(a1 + 136) = 0;
   v8 = vdupq_n_s64(0x7FF8000000000000uLL);
   do
   {
-    v9 = (a4 + v7);
+    v9 = &a1[v7];
     *v9 = v8;
-    v9[1] = v8;
-    v7 += 32;
+    *(v9 + 1) = v8;
+    v7 += 4;
   }
 
-  while (v7 != 128);
-  *(a4 + 272) = 0x7FF8000000000000;
-  *(a4 + 280) = 0;
-  v10 = 144;
+  while (v7 != 16);
+  a1[34] = 0x7FF8000000000000;
+  *(a1 + 280) = 0;
+  v10 = 18;
   v11 = vdupq_n_s64(0x7FF8000000000000uLL);
   do
   {
-    v12 = (a4 + v10);
+    v12 = &a1[v10];
     *v12 = v11;
-    v12[1] = v11;
-    v10 += 32;
+    *(v12 + 1) = v11;
+    v10 += 4;
   }
 
-  while (v10 != 272);
-  v13 = *&a2->columns[2].f64[2];
-  *(a4 + 64) = *a2->columns[2].f64;
-  *(a4 + 80) = v13;
-  v14 = *&a2->columns[3].f64[2];
-  *(a4 + 96) = *a2->columns[3].f64;
-  *(a4 + 112) = v14;
-  v15 = *&a2->columns[0].f64[2];
-  *a4 = *a2->columns[0].f64;
-  *(a4 + 16) = v15;
-  v16 = *&a2->columns[1].f64[2];
-  *(a4 + 32) = *a2->columns[1].f64;
-  *(a4 + 48) = v16;
-  *(a4 + 128) = 0;
-  *(a4 + 136) = 1;
-  *(a4 + 128) = HeadingFromRot(a4);
+  while (v10 != 34);
+  v13 = *&a3->columns[2].f64[2];
+  *(a1 + 4) = *a3->columns[2].f64;
+  *(a1 + 5) = v13;
+  v14 = *&a3->columns[3].f64[2];
+  *(a1 + 6) = *a3->columns[3].f64;
+  *(a1 + 7) = v14;
+  v15 = *&a3->columns[0].f64[2];
+  *a1 = *a3->columns[0].f64;
+  *(a1 + 1) = v15;
+  v16 = *&a3->columns[1].f64[2];
+  *(a1 + 2) = *a3->columns[1].f64;
+  *(a1 + 3) = v16;
+  a1[16] = 0;
+  *(a1 + 136) = 1;
+  *(a1 + 16) = HeadingFromRot(a1);
   v17 = 0;
-  v18 = *&a3->columns[3].f64[2];
-  *(a4 + 240) = *a3->columns[3].f64;
-  *(a4 + 256) = v18;
-  v19 = *&a3->columns[2].f64[2];
-  *(a4 + 208) = *a3->columns[2].f64;
-  *(a4 + 224) = v19;
-  v20 = *&a3->columns[1].f64[2];
-  *(a4 + 176) = *a3->columns[1].f64;
-  *(a4 + 192) = v20;
-  v21 = *&a3->columns[0].f64[2];
-  *(a4 + 144) = *a3->columns[0].f64;
-  *(a4 + 160) = v21;
-  *(a4 + 272) = 0;
-  v22 = vnegq_f64(*(a4 + 208));
-  v23 = vnegq_f64(*(a4 + 224));
-  v24 = vnegq_f64(*(a4 + 176));
-  v25 = vnegq_f64(*(a4 + 192));
-  v26 = vnegq_f64(*(a4 + 144));
-  v27 = vnegq_f64(*(a4 + 160));
-  v28 = *(a4 + 240);
-  v29 = *(a4 + 256);
+  v18 = *&a4->columns[3].f64[2];
+  *(a1 + 15) = *a4->columns[3].f64;
+  *(a1 + 16) = v18;
+  v19 = *&a4->columns[2].f64[2];
+  *(a1 + 13) = *a4->columns[2].f64;
+  *(a1 + 14) = v19;
+  v20 = *&a4->columns[1].f64[2];
+  *(a1 + 11) = *a4->columns[1].f64;
+  *(a1 + 12) = v20;
+  v21 = *&a4->columns[0].f64[2];
+  *(a1 + 9) = *a4->columns[0].f64;
+  *(a1 + 10) = v21;
+  a1[34] = 0;
+  v22 = vnegq_f64(*(a1 + 13));
+  v23 = vnegq_f64(*(a1 + 14));
+  v24 = vnegq_f64(*(a1 + 11));
+  v25 = vnegq_f64(*(a1 + 12));
+  v26 = vnegq_f64(*(a1 + 9));
+  v27 = vnegq_f64(*(a1 + 10));
+  v28 = *(a1 + 15);
+  v29 = *(a1 + 16);
   v52 = 0u;
   v53 = 0u;
   v50 = 0u;
@@ -3396,23 +3424,24 @@ void ARConsensusAndAverageFilterImpl::ConvertToENU(float64x2_t *this@<X0>, const
 
   while (v17 != 8);
   v41 = v51;
-  *(a4 + 208) = v50;
-  *(a4 + 224) = v41;
+  *(a1 + 13) = v50;
+  *(a1 + 14) = v41;
   v42 = v53;
-  *(a4 + 240) = v52;
-  *(a4 + 256) = v42;
+  *(a1 + 15) = v52;
+  *(a1 + 16) = v42;
   v43 = v47;
-  *(a4 + 144) = v46;
-  *(a4 + 160) = v43;
+  *(a1 + 9) = v46;
+  *(a1 + 10) = v43;
   v44 = v49;
-  *(a4 + 176) = v48;
-  *(a4 + 192) = v44;
-  *(a4 + 280) = 1;
-  *(a4 + 272) = HeadingFromRot(a4 + 144);
+  *(a1 + 11) = v48;
+  *(a1 + 12) = v44;
+  *(a1 + 280) = 1;
+  *(a1 + 34) = HeadingFromRot((a1 + 18));
 }
 
-void ARConsensusAndAverageFilterImpl::GetAlignmentAtFrameConsensusAndAverage(uint64_t a1@<X0>, uint64_t *a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+void ARConsensusAndAverageFilterImpl::GetAlignmentAtFrameConsensusAndAverage(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
+  v5 = a3;
   v9 = *(a4 + 8);
   ARConsensusAndAverageFilterImpl::GetAlignmentAtFrameConsensus(a1, a2, a3, a4, &v56);
   if ((v58 & 1) == 0)
@@ -3427,7 +3456,7 @@ void ARConsensusAndAverageFilterImpl::GetAlignmentAtFrameConsensusAndAverage(uin
   v53 = 0;
   v54 = 0;
   v55 = 0;
-  ARConsensusAndAverageFilterImpl::GetInliers(a1, a2, a3, &v56, v9, &v53);
+  ARConsensusAndAverageFilterImpl::GetInliers(a1, a2, v5, &v56, v9, &v53);
   v10 = v53;
   if (v54 == v53)
   {
@@ -3457,7 +3486,7 @@ LABEL_19:
       v17 = v51;
       do
       {
-        v18 = v17[8].f64[0] - v17[17].f64[0];
+        v18 = *(v17 + 128) - *(v17 + 272);
         v19 = v18 + ceil(v18 / -360.0) * 360.0;
         if (v19 > 180.0)
         {
@@ -3468,7 +3497,7 @@ LABEL_19:
         v15 = v15 + v20.__sinval;
         v14 = v14 + v20.__cosval;
         v16 = v16 + 1.0;
-        v17 += 18;
+        v17 += 288;
       }
 
       while (v17 != v12);
@@ -3575,7 +3604,7 @@ void std::allocator<AlignedPose>::allocate_at_least[abi:ne200100](uint64_t a1, u
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void ARConsensusAndAverageFilterImpl::GetAlignmentAtFrameConsensus(uint64_t a1@<X0>, uint64_t *a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+void ARConsensusAndAverageFilterImpl::GetAlignmentAtFrameConsensus(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   v7 = *(a4 + 8);
   v8 = *a4;
@@ -3589,6 +3618,7 @@ void ARConsensusAndAverageFilterImpl::GetAlignmentAtFrameConsensus(uint64_t a1@<
 
   else
   {
+    v9 = a3;
     v11 = 0;
     v12 = a3;
     v13 = 288 * a3 + 280;
@@ -3609,7 +3639,7 @@ void ARConsensusAndAverageFilterImpl::GetAlignmentAtFrameConsensus(uint64_t a1@<
         v24 = vsubq_f64(*(v16 - 40), vmlaq_n_f64(vmulq_laneq_f64(v20, *(v16 - 184), 1), v18, *(v16 - 184)));
         *&v25 = *(v16 - 24) - *(v16 - 168);
         v26 = 1;
-        Inliers = ARConsensusAndAverageFilterImpl::GetInliers(a1, a2, a3, &v24, v7, 0);
+        Inliers = ARConsensusAndAverageFilterImpl::GetInliers(a1, a2, v9, &v24, v7, 0);
         if (Inliers > v14)
         {
           v27 = v24;
@@ -3718,7 +3748,7 @@ double ARConsensusAndAverageFilterImpl::GetInliers(uint64_t a1, uint64_t *a2, un
               }
 
               *(4 * v27) = v11;
-              v24 = 4 * v27 + 4;
+              v24 = (4 * v27 + 4);
               memcpy(0, v25, v26);
               v32 = *a6;
               *a6 = 0;
@@ -3735,7 +3765,7 @@ double ARConsensusAndAverageFilterImpl::GetInliers(uint64_t a1, uint64_t *a2, un
             else
             {
               *v23 = v11;
-              v24 = (v23 + 4);
+              v24 = v23 + 4;
             }
 
             a6[1] = v24;
@@ -3763,7 +3793,7 @@ double ARConsensusAndAverageFilterImpl::GetInliers(uint64_t a1, uint64_t *a2, un
   return 0.0;
 }
 
-__n128 ARConsensusAndAverageFilterImpl::RetrieveInliers@<Q0>(void *a1@<X1>, unsigned int **a2@<X2>, void *a3@<X8>)
+__n128 ARConsensusAndAverageFilterImpl::RetrieveInliers@<Q0>(void *a1@<X1>, unsigned int **a2@<X2>, uint64_t *a3@<X8>)
 {
   v5 = std::vector<std::pair<Pos4Dof,Pos4Dof>>::vector[abi:ne200100](a3, a2[1] - *a2);
   v7 = *a2;
@@ -3889,17 +3919,17 @@ void ARConsensusAndAverageFilterImpl::ApplyTransform(uint64_t a1@<X1>, uint64_t 
   }
 }
 
-void *std::vector<std::pair<Pos4Dof,Pos4Dof>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::pair<Pos4Dof,Pos4Dof>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::pair<Pos4Dof,Pos4Dof>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::pair<Pos4Dof,Pos4Dof>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C2572C20(_Unwind_Exception *exception_object)
@@ -3914,7 +3944,7 @@ void sub_1C2572C20(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<Pos4Dof,Pos4Dof>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<Pos4Dof,Pos4Dof>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xE38E38E38E38E4)
   {
@@ -4029,7 +4059,7 @@ void Transform4DofFromMatrix(const simd_double4x4 *a1@<X0>, uint64_t a2@<X8>)
   *(a2 + 32) = 0;
 }
 
-float64x2_t *ConvertIMU@<X0>(float64x2_t *result@<X0>, uint64_t a2@<X8>)
+float64x2_t *ConvertIMU@<X0>(uint64_t *__return_ptr a1@<X8>, float64x2_t *result@<X0>)
 {
   v2 = 0;
   v4 = *result;
@@ -4047,15 +4077,15 @@ float64x2_t *ConvertIMU@<X0>(float64x2_t *result@<X0>, uint64_t a2@<X8>)
   v14[7] = xmmword_1C25C88F0;
   do
   {
-    v12 = v14[v2];
-    v11 = v14[v2 + 1];
-    v13 = (a2 + v2 * 16);
+    v12 = v14[v2 / 2];
+    v11 = v14[v2 / 2 + 1];
+    v13 = &a1[v2];
     *v13 = vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v4, v12.f64[0]), v6, v12, 1), v8, v11.f64[0]), v10, v11, 1);
     v13[1] = vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v3, v12.f64[0]), v5, v12, 1), v7, v11.f64[0]), v9, v11, 1);
-    v2 += 2;
+    v2 += 4;
   }
 
-  while (v2 != 8);
+  while (v2 != 16);
   return result;
 }
 
@@ -4132,16 +4162,16 @@ void ___ZL13_ARLogGeneralv_block_invoke_26()
   _ARLogGeneral(void)::logObj = v0;
 }
 
-id _ARLogGeneral_41()
+id _ARLogGeneral_41(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_43 != -1)
   {
     _ARLogGeneral_cold_1_41();
   }
 
-  v1 = _ARLogGeneral_logObj_43;
+  v2 = _ARLogGeneral_logObj_43;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_47()
@@ -4170,49 +4200,49 @@ void sub_1C2575460(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<CV3DHitTestPoint3D>::resize(void *a1, unint64_t a2)
+void std::vector<CV3DHitTestPoint3D>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 2);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 2);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<CV3DHitTestPoint3D>::__append(a1, v4);
+    std::vector<CV3DHitTestPoint3D>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 12 * a2;
+    result[1] = *result + 12 * a2;
   }
 }
 
-void std::vector<CV3DHitTestCovariance3D>::resize(void *a1, unint64_t a2)
+void std::vector<CV3DHitTestCovariance3D>::resize(void *result, unint64_t a2)
 {
-  v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 2);
+  v2 = 0x8E38E38E38E38E39 * ((result[1] - *result) >> 2);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<CV3DHitTestCovariance3D>::__append(a1, v4);
+    std::vector<CV3DHitTestCovariance3D>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 36 * a2;
+    result[1] = *result + 36 * a2;
   }
 }
 
-void *std::vector<CV3DHitTestPoint3D>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<CV3DHitTestPoint3D>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<cva::Matrix<float,3u,1u,false>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<cva::Matrix<float,3u,1u,false>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C257560C(_Unwind_Exception *exception_object)
@@ -4227,17 +4257,17 @@ void sub_1C257560C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<CV3DHitTestCovariance3D>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<CV3DHitTestCovariance3D>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<CV3DHitTestCovariance3D>::__vallocate[abi:ne200100](result, a2);
+    std::vector<CV3DHitTestCovariance3D>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C25756B0(_Unwind_Exception *exception_object)
@@ -4252,7 +4282,7 @@ void sub_1C25756B0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<CV3DHitTestCovariance3D>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CV3DHitTestCovariance3D>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x71C71C71C71C71DLL)
   {
@@ -4404,152 +4434,156 @@ void std::vector<CV3DHitTestCovariance3D>::__append(uint64_t a1, unint64_t a2)
 
 uint64_t ARSaveIOSurfaceRAW(void *a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
-  if ([v3 planeCount])
+  v5 = [v3 planeCount];
+  if (v5)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARSaveIOSurfaceRAW_cold_1();
     }
 
-    v5 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v6 = _ARLogGeneral();
-    v7 = v6;
-    if (v5 == 1)
+    v6 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v7 = _ARLogGeneral(v5);
+    v8 = v7;
+    if (v6 == 1)
     {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v26) = 0;
-        _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_ERROR, "ARSaveIOSurfaceRAW: Only planar surface are supported.", &v26, 2u);
+        LOWORD(v30) = 0;
+        _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, "ARSaveIOSurfaceRAW: Only planar surface are supported.", &v30, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v26) = 0;
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "Error: ARSaveIOSurfaceRAW: Only planar surface are supported.", &v26, 2u);
+      LOWORD(v30) = 0;
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "Error: ARSaveIOSurfaceRAW: Only planar surface are supported.", &v30, 2u);
     }
 
 LABEL_37:
 
 LABEL_45:
-    v24 = 4294960636;
+    v28 = 4294960636;
     goto LABEL_46;
   }
 
-  if ([v3 elementWidth] != 1)
+  v9 = [v3 elementWidth];
+  if (v9 != 1)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARSaveIOSurfaceRAW_cold_1();
     }
 
-    v16 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v17 = _ARLogGeneral();
-    v7 = v17;
-    if (v16 == 1)
+    v20 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v21 = _ARLogGeneral(v9);
+    v8 = v21;
+    if (v20 == 1)
     {
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v26) = 0;
-        _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_ERROR, "ARSaveIOSurfaceRAW: Only surface with elementWidth == 1 supported.", &v26, 2u);
+        LOWORD(v30) = 0;
+        _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, "ARSaveIOSurfaceRAW: Only surface with elementWidth == 1 supported.", &v30, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v26) = 0;
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "Error: ARSaveIOSurfaceRAW: Only surface with elementWidth == 1 supported.", &v26, 2u);
+      LOWORD(v30) = 0;
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "Error: ARSaveIOSurfaceRAW: Only surface with elementWidth == 1 supported.", &v30, 2u);
     }
 
     goto LABEL_37;
   }
 
-  v8 = [v3 elementWidth];
-  if (v8 != [v3 elementHeight])
+  v10 = [v3 elementWidth];
+  v11 = [v3 elementHeight];
+  if (v10 != v11)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARSaveIOSurfaceRAW_cold_1();
     }
 
-    v18 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v19 = _ARLogGeneral();
-    v7 = v19;
-    if (v18 == 1)
+    v22 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v23 = _ARLogGeneral(v11);
+    v8 = v23;
+    if (v22 == 1)
     {
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v26) = 0;
-        _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_ERROR, "ARSaveIOSurfaceRAW: Only surface with elementWidth == elementHeight supported.", &v26, 2u);
+        LOWORD(v30) = 0;
+        _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, "ARSaveIOSurfaceRAW: Only surface with elementWidth == elementHeight supported.", &v30, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v26) = 0;
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "Error: ARSaveIOSurfaceRAW: Only surface with elementWidth == elementHeight supported.", &v26, 2u);
+      LOWORD(v30) = 0;
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "Error: ARSaveIOSurfaceRAW: Only surface with elementWidth == elementHeight supported.", &v30, 2u);
     }
 
     goto LABEL_37;
   }
 
-  v9 = [v3 width];
-  v10 = [v3 bytesPerElement];
-  v11 = [v3 bytesPerRow];
-  v12 = v10 * v9;
-  if (v12 < v11)
+  v12 = [v3 width];
+  v13 = [v3 bytesPerElement];
+  v14 = [v3 bytesPerRow];
+  v15 = v14;
+  v16 = v13 * v12;
+  if (v16 < v14)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARSaveIOSurfaceRAW_cold_1();
     }
 
-    v13 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v14 = _ARLogGeneral();
-    v15 = v14;
-    if (v13 == 1)
+    v17 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v18 = _ARLogGeneral(v14);
+    v19 = v18;
+    if (v17 == 1)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v26 = 134218240;
-        v27 = v12;
-        v28 = 2048;
-        v29 = v11;
-        _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_ERROR, "ARSaveIOSurfaceRAW: validBytesPerRow (%zu) must be <  paddedBytesPerRow (%zu).", &v26, 0x16u);
+        v30 = 134218240;
+        v31 = v16;
+        v32 = 2048;
+        v33 = v15;
+        _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_ERROR, "ARSaveIOSurfaceRAW: validBytesPerRow (%zu) must be <  paddedBytesPerRow (%zu).", &v30, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v26 = 134218240;
-      v27 = v12;
-      v28 = 2048;
-      v29 = v11;
-      _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "Error: ARSaveIOSurfaceRAW: validBytesPerRow (%zu) must be <  paddedBytesPerRow (%zu).", &v26, 0x16u);
+      v30 = 134218240;
+      v31 = v16;
+      v32 = 2048;
+      v33 = v15;
+      _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_INFO, "Error: ARSaveIOSurfaceRAW: validBytesPerRow (%zu) must be <  paddedBytesPerRow (%zu).", &v30, 0x16u);
     }
 
     goto LABEL_45;
   }
 
-  v20 = [MEMORY[0x1E695DF88] dataWithLength:{objc_msgSend(v3, "height") * v12}];
+  v24 = [MEMORY[0x1E695DF88] dataWithLength:{objc_msgSend(v3, "height") * v16}];
   [v3 lockWithOptions:1 seed:0];
-  v21 = [v3 baseAddress];
-  v22 = [v20 mutableBytes];
+  v25 = [v3 baseAddress];
+  v26 = [v24 mutableBytes];
   for (i = 0; i < [v3 height]; ++i)
   {
-    memcpy(v22, v21, v12);
-    v21 += v11;
-    v22 += v12;
+    memcpy(v26, v25, v16);
+    v25 += v15;
+    v26 += v16;
   }
 
   [v3 unlockWithOptions:1 seed:0];
-  v24 = [v20 writeToFile:v4 atomically:1];
+  v28 = [v24 writeToFile:v4 atomically:1];
 
 LABEL_46:
-  return v24;
+  return v28;
 }
 
 uint64_t ARSavePixelBufferPNG(__CVBuffer *a1, void *a2)
@@ -4559,7 +4593,7 @@ uint64_t ARSavePixelBufferPNG(__CVBuffer *a1, void *a2)
   WidthOfPlane = CVPixelBufferGetWidthOfPlane(a1, 0);
   HeightOfPlane = CVPixelBufferGetHeightOfPlane(a1, 0);
   pixelBufferOut = 0;
-  CVPixelBufferLockBaseAddress(a1, 1uLL);
+  v7 = CVPixelBufferLockBaseAddress(a1, 1uLL);
   if (PixelFormatType > 1111970368)
   {
     switch(PixelFormatType)
@@ -4578,32 +4612,32 @@ LABEL_15:
       ARSaveIOSurfaceRAW_cold_1();
     }
 
-    v14 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v15 = _ARLogGeneral();
-    v10 = v15;
-    if (v14 == 1)
+    v16 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v17 = _ARLogGeneral(v7);
+    v12 = v17;
+    if (v16 == 1)
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v16 = "Supported formats are:  - kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange - kCVPixelFormatType_420YpCbCr8BiPlanarFullRange - kCVPixelFormatType_OneComponent8 - kCVPixelFormatType_32RGBA - kCVPixelFormatType_32ARGB - kCVPixelFormatType_32BGRA";
-        v17 = v10;
-        v18 = OS_LOG_TYPE_ERROR;
+        v18 = "Supported formats are:  - kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange - kCVPixelFormatType_420YpCbCr8BiPlanarFullRange - kCVPixelFormatType_OneComponent8 - kCVPixelFormatType_32RGBA - kCVPixelFormatType_32ARGB - kCVPixelFormatType_32BGRA";
+        v19 = v12;
+        v20 = OS_LOG_TYPE_ERROR;
 LABEL_30:
-        _os_log_impl(&dword_1C241C000, v17, v18, v16, buf, 2u);
+        _os_log_impl(&dword_1C241C000, v19, v20, v18, buf, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v16 = "Error: Supported formats are:  - kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange - kCVPixelFormatType_420YpCbCr8BiPlanarFullRange - kCVPixelFormatType_OneComponent8 - kCVPixelFormatType_32RGBA - kCVPixelFormatType_32ARGB - kCVPixelFormatType_32BGRA";
-      v17 = v10;
-      v18 = OS_LOG_TYPE_INFO;
+      v18 = "Error: Supported formats are:  - kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange - kCVPixelFormatType_420YpCbCr8BiPlanarFullRange - kCVPixelFormatType_OneComponent8 - kCVPixelFormatType_32RGBA - kCVPixelFormatType_32ARGB - kCVPixelFormatType_32BGRA";
+      v19 = v12;
+      v20 = OS_LOG_TYPE_INFO;
       goto LABEL_30;
     }
 
-    v7 = 4294960616;
+    v9 = 4294960616;
     goto LABEL_32;
   }
 
@@ -4617,8 +4651,9 @@ LABEL_30:
     goto LABEL_15;
   }
 
-  v7 = CVPixelBufferCreate(*MEMORY[0x1E695E480], WidthOfPlane, HeightOfPlane, 0x20u, 0, &pixelBufferOut);
-  if (!v7)
+  v8 = CVPixelBufferCreate(*MEMORY[0x1E695E480], WidthOfPlane, HeightOfPlane, 0x20u, 0, &pixelBufferOut);
+  v9 = v8;
+  if (!v8)
   {
     ARPixelBufferConvertYCbCrToARGB(a1, &pixelBufferOut);
 LABEL_22:
@@ -4635,39 +4670,40 @@ LABEL_22:
     ARSavePixelBufferPNG_cold_1();
   }
 
-  v8 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v9 = _ARLogGeneral();
-  v10 = v9;
-  if (v8 == 1)
+  v10 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v11 = _ARLogGeneral(v8);
+  v12 = v11;
+  if (v10 == 1)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v11 = "Could not create image buffer of type kCVPixelFormatType_32ARGB";
-      v12 = v10;
-      v13 = OS_LOG_TYPE_ERROR;
+      v13 = "Could not create image buffer of type kCVPixelFormatType_32ARGB";
+      v14 = v12;
+      v15 = OS_LOG_TYPE_ERROR;
 LABEL_27:
-      _os_log_impl(&dword_1C241C000, v12, v13, v11, buf, 2u);
+      _os_log_impl(&dword_1C241C000, v14, v15, v13, buf, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    v11 = "Error: Could not create image buffer of type kCVPixelFormatType_32ARGB";
-    v12 = v10;
-    v13 = OS_LOG_TYPE_INFO;
+    v13 = "Error: Could not create image buffer of type kCVPixelFormatType_32ARGB";
+    v14 = v12;
+    v15 = OS_LOG_TYPE_INFO;
     goto LABEL_27;
   }
 
 LABEL_32:
 
-  return v7;
+  return v9;
 }
 
 uint64_t ARSaveFloatingPixelBufferAsPng16(void *a1, __CVBuffer *a2, float a3)
 {
   v5 = a1;
+  v6 = v5;
   if (!a2)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -4675,38 +4711,38 @@ uint64_t ARSaveFloatingPixelBufferAsPng16(void *a1, __CVBuffer *a2, float a3)
       ARSaveIOSurfaceRAW_cold_1();
     }
 
-    v14 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v15 = _ARLogGeneral();
-    v16 = v15;
-    if (v14 == 1)
+    v16 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v17 = _ARLogGeneral(v5);
+    v18 = v17;
+    if (v16 == 1)
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v17 = "Input buffer cannot be null";
+        v19 = "Input buffer cannot be null";
 LABEL_31:
-        v24 = v16;
-        v25 = OS_LOG_TYPE_ERROR;
+        v27 = v18;
+        v28 = OS_LOG_TYPE_ERROR;
 LABEL_35:
-        _os_log_impl(&dword_1C241C000, v24, v25, v17, buf, 2u);
+        _os_log_impl(&dword_1C241C000, v27, v28, v19, buf, 2u);
       }
 
 LABEL_36:
 
-      v21 = 0;
+      v24 = 0;
       goto LABEL_37;
     }
 
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       goto LABEL_36;
     }
 
     *buf = 0;
-    v17 = "Error: Input buffer cannot be null";
+    v19 = "Error: Input buffer cannot be null";
 LABEL_34:
-    v24 = v16;
-    v25 = OS_LOG_TYPE_INFO;
+    v27 = v18;
+    v28 = OS_LOG_TYPE_INFO;
     goto LABEL_35;
   }
 
@@ -4718,28 +4754,28 @@ LABEL_34:
       ARSaveIOSurfaceRAW_cold_1();
     }
 
-    v22 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v23 = _ARLogGeneral();
-    v16 = v23;
-    if (v22 == 1)
+    v25 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v26 = _ARLogGeneral(PixelFormatType);
+    v18 = v26;
+    if (v25 == 1)
     {
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v17 = "Supported formats are kCVPixelFormatType_OneComponent32Float, kCVPixelFormatType_DepthFloat32 or kCVPixelFormatType_DisparityFloat32";
+        v19 = "Supported formats are kCVPixelFormatType_OneComponent32Float, kCVPixelFormatType_DepthFloat32 or kCVPixelFormatType_DisparityFloat32";
         goto LABEL_31;
       }
 
       goto LABEL_36;
     }
 
-    if (!os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       goto LABEL_36;
     }
 
     *buf = 0;
-    v17 = "Error: Supported formats are kCVPixelFormatType_OneComponent32Float, kCVPixelFormatType_DepthFloat32 or kCVPixelFormatType_DisparityFloat32";
+    v19 = "Error: Supported formats are kCVPixelFormatType_OneComponent32Float, kCVPixelFormatType_DepthFloat32 or kCVPixelFormatType_DisparityFloat32";
     goto LABEL_34;
   }
 
@@ -4748,72 +4784,72 @@ LABEL_34:
   Height = CVPixelBufferGetHeight(a2);
   BytesPerRow = CVPixelBufferGetBytesPerRow(a2);
   BaseAddress = CVPixelBufferGetBaseAddress(a2);
-  v11 = Width | (Height << 32);
-  v34 = 0;
-  v35 = v11;
-  v36 = ((Width << 33) + 0xF00000000) & 0xFFFFFFF000000000 | 2;
-  *buf = v11;
-  v27[0] = v36;
-  v12 = cva::Array<unsigned short,2u,16u>::allocate(buf, v27);
-  v37 = v12;
+  v12 = Width | (Height << 32);
+  v37 = 0;
+  v38 = v12;
+  v39 = ((Width << 33) + 0xF00000000) & 0xFFFFFFF000000000 | 2;
+  *buf = v12;
+  v30[0] = v39;
+  v13 = cva::Array<unsigned short,2u,16u>::allocate(buf, v30);
+  v40 = v13;
   *buf = 0;
-  v30 = v11;
-  v32 = 0;
-  v33 = 0;
-  v31 = (BytesPerRow << 32) | 4;
+  v33 = v12;
+  v35 = 0;
+  v36 = 0;
+  v34 = (BytesPerRow << 32) | 4;
   if (BaseAddress)
   {
-    v33 = BaseAddress;
-    v13 = (BaseAddress + BytesPerRow * Height);
+    v36 = BaseAddress;
+    v15 = (BaseAddress + BytesPerRow * Height);
   }
 
   else
   {
-    v13 = 0;
+    v15 = 0;
   }
 
-  v27[0] = 0;
-  v27[1] = v11;
-  v27[3] = 0;
-  v28 = 0;
-  v27[2] = ((Width << 33) + 0xF00000000) & 0xFFFFFFF000000000 | 2;
-  if (v12)
+  v30[0] = 0;
+  v30[1] = v12;
+  v30[3] = 0;
+  v31 = 0;
+  v30[2] = ((Width << 33) + 0xF00000000) & 0xFFFFFFF000000000 | 2;
+  if (v13)
   {
-    v28 = v12;
+    v31 = v13;
   }
 
-  if (BaseAddress != v13)
+  if (BaseAddress != v15)
   {
     do
     {
-      v18 = *BaseAddress * a3;
-      v19 = v18 > 65535.0 || v18 < 0.0;
-      v20 = v18;
-      if (v19)
+      v20 = *BaseAddress * a3;
+      v21 = v20 > 65535.0 || v20 < 0.0;
+      v22 = v20;
+      if (v21)
       {
-        LOWORD(v20) = 0;
+        LOWORD(v22) = 0;
       }
 
-      *v28 = v20;
-      cva::ArrayIterator<float,2u>::increment(buf);
-      cva::ArrayIterator<float,2u>::increment(v27);
-      BaseAddress = v33;
+      *v31 = v22;
+      cva::ArrayIterator<float,2u>::increment(buf, v14);
+      cva::ArrayIterator<float,2u>::increment(v30, v23);
+      BaseAddress = v36;
     }
 
-    while (v33 != v13);
+    while (v36 != v15);
   }
 
   CVPixelBufferUnlockBaseAddress(a2, 1uLL);
-  [v5 UTF8String];
-  v21 = cva::imwrite<unsigned short>();
-  if (v37)
+  [v6 UTF8String];
+  v24 = cva::imwrite<unsigned short>();
+  if (v40)
   {
-    free(v37);
+    free(v40);
   }
 
 LABEL_37:
 
-  return v21;
+  return v24;
 }
 
 uint64_t ARSavePixelBufferPGM(__CVBuffer *a1, void *a2)
@@ -4828,8 +4864,7 @@ uint64_t ARSavePixelBufferPGM(__CVBuffer *a1, void *a2)
     HeightOfPlane = CVPixelBufferGetHeightOfPlane(a1, 0);
     BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(a1, 0);
     BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(a1, 0);
-    [v3 UTF8String];
-    std::ofstream::basic_ofstream(buf);
+    std::ofstream::basic_ofstream(buf, [v3 UTF8String], 52);
     v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "P5", 2);
     std::ios_base::getloc((v9 + *(*v9 - 24)));
     v10 = std::locale::use_facet(&v24, MEMORY[0x1E69E5318]);
@@ -4888,7 +4923,7 @@ uint64_t ARSavePixelBufferPGM(__CVBuffer *a1, void *a2)
     }
 
     v20 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v21 = _ARLogGeneral();
+    v21 = _ARLogGeneral(PixelFormatType);
     v22 = v21;
     if (v20 == 1)
     {
@@ -4911,22 +4946,22 @@ uint64_t ARSavePixelBufferPGM(__CVBuffer *a1, void *a2)
   return v19;
 }
 
-uint64_t *std::ofstream::basic_ofstream(uint64_t *a1)
+uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t a2, int a3)
 {
   a1[58] = 0;
-  v2 = MEMORY[0x1E69E5530] + 64;
+  v4 = MEMORY[0x1E69E5530] + 64;
   a1[52] = MEMORY[0x1E69E5530] + 64;
-  v3 = *(MEMORY[0x1E69E54D0] + 16);
-  v4 = *(MEMORY[0x1E69E54D0] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 1);
-  v6 = MEMORY[0x1E69E5530] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
+  v5 = *(MEMORY[0x1E69E54D0] + 16);
+  v6 = *(MEMORY[0x1E69E54D0] + 8);
   *a1 = v6;
-  a1[52] = v2;
+  *(a1 + *(v6 - 24)) = v5;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 1);
+  v8 = MEMORY[0x1E69E5530] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[52] = v4;
   MEMORY[0x1C691A5B0](a1 + 1);
   if (!std::filebuf::open())
   {
@@ -4957,7 +4992,7 @@ void *std::ofstream::~ofstream(void *a1)
 
 uint64_t ARSavePixelBufferPPM(__CVBuffer *a1, void *a2)
 {
-  v50[19] = *MEMORY[0x1E69E9840];
+  v52[19] = *MEMORY[0x1E69E9840];
   v3 = a2;
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
   if (PixelFormatType <= 875704437)
@@ -4981,6 +5016,7 @@ LABEL_8:
         WidthOfPlane = CVPixelBufferGetWidthOfPlane(a1, 0);
         HeightOfPlane = CVPixelBufferGetHeightOfPlane(a1, 0);
         v8 = CVPixelBufferCreate(*MEMORY[0x1E695E480], WidthOfPlane, HeightOfPlane, 0x20u, 0, &pixelBuffer);
+        v9 = v8;
         if (v8)
         {
           if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -4988,22 +5024,22 @@ LABEL_8:
             ARSavePixelBufferPNG_cold_1();
           }
 
-          v9 = ARShouldUseLogTypeError(void)::internalOSVersion;
-          v10 = _ARLogGeneral();
-          v11 = v10;
-          if (v9 == 1)
+          v10 = ARShouldUseLogTypeError(void)::internalOSVersion;
+          v11 = _ARLogGeneral(v8);
+          v12 = v11;
+          if (v10 == 1)
           {
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_ERROR, "Could not create image buffer of type kCVPixelFormatType_32ARGB", buf, 2u);
+              _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_ERROR, "Could not create image buffer of type kCVPixelFormatType_32ARGB", buf, 2u);
             }
           }
 
-          else if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+          else if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_INFO, "Error: Could not create image buffer of type kCVPixelFormatType_32ARGB", buf, 2u);
+            _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_INFO, "Error: Could not create image buffer of type kCVPixelFormatType_32ARGB", buf, 2u);
           }
 
 LABEL_63:
@@ -5011,30 +5047,31 @@ LABEL_63:
           goto LABEL_64;
         }
 
-        v8 = ARPixelBufferConvertYCbCrToARGB(a1, &pixelBuffer);
-        if (v8)
+        v36 = ARPixelBufferConvertYCbCrToARGB(a1, &pixelBuffer);
+        v9 = v36;
+        if (v36)
         {
           if (ARShouldUseLogTypeError(void)::onceToken != -1)
           {
             ARSavePixelBufferPNG_cold_1();
           }
 
-          v35 = ARShouldUseLogTypeError(void)::internalOSVersion;
-          v36 = _ARLogGeneral();
-          v11 = v36;
-          if (v35 == 1)
+          v37 = ARShouldUseLogTypeError(void)::internalOSVersion;
+          v38 = _ARLogGeneral(v36);
+          v12 = v38;
+          if (v37 == 1)
           {
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_ERROR, "Could not convert pixel formats", buf, 2u);
+              _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_ERROR, "Could not convert pixel formats", buf, 2u);
             }
           }
 
-          else if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+          else if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_INFO, "Error: Could not convert pixel formats", buf, 2u);
+            _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_INFO, "Error: Could not convert pixel formats", buf, 2u);
           }
 
           goto LABEL_63;
@@ -5048,55 +5085,54 @@ LABEL_63:
       }
 
       CVPixelBufferLockBaseAddress(pixelBuffer, 0);
-      v12 = CVPixelBufferGetPixelFormatType(pixelBuffer);
-      v13 = CVPixelBufferGetWidthOfPlane(pixelBuffer, 0);
-      v14 = CVPixelBufferGetHeightOfPlane(pixelBuffer, 0);
+      v13 = CVPixelBufferGetPixelFormatType(pixelBuffer);
+      v14 = CVPixelBufferGetWidthOfPlane(pixelBuffer, 0);
+      v15 = CVPixelBufferGetHeightOfPlane(pixelBuffer, 0);
       BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(pixelBuffer, 0);
       BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, 0);
-      v17 = v3;
-      [v3 UTF8String];
-      std::ofstream::basic_ofstream(buf);
-      v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "P6", 2);
-      std::ios_base::getloc((v18 + *(*v18 - 24)));
-      v19 = std::locale::use_facet(&v47, MEMORY[0x1E69E5318]);
-      (v19->__vftable[2].~facet_0)(v19, 10);
-      std::locale::~locale(&v47);
+      v18 = v3;
+      std::ofstream::basic_ofstream(buf, [v3 UTF8String], 52);
+      v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "P6", 2);
+      std::ios_base::getloc((v19 + *(*v19 - 24)));
+      v20 = std::locale::use_facet(&v49, MEMORY[0x1E69E5318]);
+      (v20->__vftable[2].~facet_0)(v20, 10);
+      std::locale::~locale(&v49);
       std::ostream::put();
       std::ostream::flush();
-      v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "# ARKit image dump", 18);
-      std::ios_base::getloc((v20 + *(*v20 - 24)));
-      v21 = std::locale::use_facet(&v47, MEMORY[0x1E69E5318]);
-      (v21->__vftable[2].~facet_0)(v21, 10);
-      std::locale::~locale(&v47);
+      v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "# ARKit image dump", 18);
+      std::ios_base::getloc((v21 + *(*v21 - 24)));
+      v22 = std::locale::use_facet(&v49, MEMORY[0x1E69E5318]);
+      (v22->__vftable[2].~facet_0)(v22, 10);
+      std::locale::~locale(&v49);
       std::ostream::put();
       std::ostream::flush();
-      v22 = MEMORY[0x1C691A6C0](buf, v13);
-      v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, " ", 1);
-      v24 = MEMORY[0x1C691A6C0](v23, v14);
-      std::ios_base::getloc((v24 + *(*v24 - 24)));
-      v25 = std::locale::use_facet(&v47, MEMORY[0x1E69E5318]);
-      (v25->__vftable[2].~facet_0)(v25, 10);
-      std::locale::~locale(&v47);
+      v23 = MEMORY[0x1C691A6C0](buf, v14);
+      v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, " ", 1);
+      v25 = MEMORY[0x1C691A6C0](v24, v15);
+      std::ios_base::getloc((v25 + *(*v25 - 24)));
+      v26 = std::locale::use_facet(&v49, MEMORY[0x1E69E5318]);
+      (v26->__vftable[2].~facet_0)(v26, 10);
+      std::locale::~locale(&v49);
       std::ostream::put();
       std::ostream::flush();
-      v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "255", 3);
-      std::ios_base::getloc((v26 + *(*v26 - 24)));
-      v27 = std::locale::use_facet(&v47, MEMORY[0x1E69E5318]);
-      (v27->__vftable[2].~facet_0)(v27, 10);
-      std::locale::~locale(&v47);
+      v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "255", 3);
+      std::ios_base::getloc((v27 + *(*v27 - 24)));
+      v28 = std::locale::use_facet(&v49, MEMORY[0x1E69E5318]);
+      (v28->__vftable[2].~facet_0)(v28, 10);
+      std::locale::~locale(&v49);
       std::ostream::put();
       std::ostream::flush();
-      switch(v12)
+      switch(v13)
       {
         case 0x20u:
-          if (v14)
+          if (v15)
           {
-            v41 = 0;
-            v42 = BaseAddressOfPlane + 3;
+            v43 = 0;
+            v44 = BaseAddressOfPlane + 3;
             do
             {
-              v43 = v13;
-              for (i = v42; v43; --v43)
+              v45 = v14;
+              for (i = v44; v45; --v45)
               {
                 ARSavePixelBufferPPM::color = *(i - 2);
                 byte_1EBF43499 = *(i - 1);
@@ -5105,23 +5141,23 @@ LABEL_63:
                 i += 4;
               }
 
-              ++v41;
-              v42 += BytesPerRowOfPlane;
+              ++v43;
+              v44 += BytesPerRowOfPlane;
             }
 
-            while (v41 != v14);
+            while (v43 != v15);
           }
 
           break;
         case 0x42475241u:
-          if (v14)
+          if (v15)
           {
-            v37 = 0;
-            v38 = BaseAddressOfPlane + 2;
+            v39 = 0;
+            v40 = BaseAddressOfPlane + 2;
             do
             {
-              v39 = v13;
-              for (j = v38; v39; --v39)
+              v41 = v14;
+              for (j = v40; v41; --v41)
               {
                 ARSavePixelBufferPPM::color = *j;
                 byte_1EBF4349C = *(j - 1);
@@ -5130,26 +5166,26 @@ LABEL_63:
                 j += 4;
               }
 
-              ++v37;
-              v38 += BytesPerRowOfPlane;
+              ++v39;
+              v40 += BytesPerRowOfPlane;
             }
 
-            while (v37 != v14);
+            while (v39 != v15);
           }
 
           break;
         case 0x4C303038u:
-          if (v14)
+          if (v15)
           {
-            for (k = 0; k != v14; ++k)
+            for (k = 0; k != v15; ++k)
             {
-              v29 = v13;
-              for (m = BaseAddressOfPlane; v29; --v29)
+              v30 = v14;
+              for (m = BaseAddressOfPlane; v30; --v30)
               {
                 ARSavePixelBufferPPM::color = *m;
                 byte_1EBF4349F = ARSavePixelBufferPPM::color;
-                v31 = *m++;
-                byte_1EBF434A0 = v31;
+                v32 = *m++;
+                byte_1EBF434A0 = v32;
                 std::ostream::write();
               }
 
@@ -5159,24 +5195,24 @@ LABEL_63:
 
           break;
         default:
-          v8 = 4294960616;
+          v9 = 4294960616;
           goto LABEL_55;
       }
 
-      v8 = 0;
+      v9 = 0;
 LABEL_55:
       if (!std::filebuf::close())
       {
-        std::ios_base::clear(&buf[*(*buf - 24)], *&v49[*(*buf - 24) + 24] | 4);
+        std::ios_base::clear(&buf[*(*buf - 24)], *&v51[*(*buf - 24) + 24] | 4);
       }
 
       CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
       CVPixelBufferRelease(pixelBuffer);
       *buf = *MEMORY[0x1E69E54D0];
       *&buf[*(*buf - 24)] = *(MEMORY[0x1E69E54D0] + 24);
-      MEMORY[0x1C691A5C0](v49);
+      MEMORY[0x1C691A5C0](v51);
       std::ostream::~ostream();
-      MEMORY[0x1C691A740](v50);
+      MEMORY[0x1C691A740](v52);
       goto LABEL_64;
     }
 
@@ -5193,28 +5229,28 @@ LABEL_55:
     ARSaveIOSurfaceRAW_cold_1();
   }
 
-  v32 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v33 = _ARLogGeneral();
-  v34 = v33;
-  if (v32 == 1)
+  v33 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v34 = _ARLogGeneral(PixelFormatType);
+  v35 = v34;
+  if (v33 == 1)
   {
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C241C000, v34, OS_LOG_TYPE_ERROR, "Supported formats are kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, kCVPixelFormatType_420YpCbCr8BiPlanarFullRange, kCVPixelFormatType_OneComponent8 or kCVPixelFormatType_32ARGB", buf, 2u);
+      _os_log_impl(&dword_1C241C000, v35, OS_LOG_TYPE_ERROR, "Supported formats are kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, kCVPixelFormatType_420YpCbCr8BiPlanarFullRange, kCVPixelFormatType_OneComponent8 or kCVPixelFormatType_32ARGB", buf, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C241C000, v34, OS_LOG_TYPE_INFO, "Error: Supported formats are kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, kCVPixelFormatType_420YpCbCr8BiPlanarFullRange, kCVPixelFormatType_OneComponent8 or kCVPixelFormatType_32ARGB", buf, 2u);
+    _os_log_impl(&dword_1C241C000, v35, OS_LOG_TYPE_INFO, "Error: Supported formats are kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, kCVPixelFormatType_420YpCbCr8BiPlanarFullRange, kCVPixelFormatType_OneComponent8 or kCVPixelFormatType_32ARGB", buf, 2u);
   }
 
-  v8 = 4294960616;
+  v9 = 4294960616;
 LABEL_64:
 
-  return v8;
+  return v9;
 }
 
 uint64_t ARSavePixelBufferEXR(__CVBuffer *a1, void *a2)
@@ -5227,86 +5263,89 @@ uint64_t ARSavePixelBufferEXR(__CVBuffer *a1, void *a2)
   {
     WidthOfPlane = CVPixelBufferGetWidthOfPlane(a1, 0);
     HeightOfPlane = CVPixelBufferGetHeightOfPlane(a1, 0);
+    v8 = HeightOfPlane;
     pixelBufferOut = 0;
     if (v5 != 1380411457)
     {
       if (v5 == 843264104)
       {
-        v8 = CVPixelBufferCreate(*MEMORY[0x1E695E480], WidthOfPlane, HeightOfPlane, 0x52476841u, 0, &pixelBufferOut);
-        if (v8)
+        v9 = CVPixelBufferCreate(*MEMORY[0x1E695E480], WidthOfPlane, HeightOfPlane, 0x52476841u, 0, &pixelBufferOut);
+        v10 = v9;
+        if (v9)
         {
           if (ARShouldUseLogTypeError(void)::onceToken != -1)
           {
             ARSavePixelBufferPNG_cold_1();
           }
 
-          v9 = ARShouldUseLogTypeError(void)::internalOSVersion;
-          v10 = _ARLogGeneral();
-          v11 = v10;
-          if (v9 == 1)
+          v11 = ARShouldUseLogTypeError(void)::internalOSVersion;
+          v12 = _ARLogGeneral(v9);
+          v13 = v12;
+          if (v11 == 1)
           {
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
               LODWORD(keys[0]) = 67109120;
-              HIDWORD(keys[0]) = v8;
-              v12 = "CVPixelBufferCreate failed to create pixel buffer of type kCVPixelFormatType_128RGBAFloat with error %i";
+              HIDWORD(keys[0]) = v10;
+              v14 = "CVPixelBufferCreate failed to create pixel buffer of type kCVPixelFormatType_128RGBAFloat with error %i";
 LABEL_28:
-              v29 = v11;
-              v30 = OS_LOG_TYPE_ERROR;
+              v32 = v13;
+              v33 = OS_LOG_TYPE_ERROR;
 LABEL_44:
-              _os_log_impl(&dword_1C241C000, v29, v30, v12, keys, 8u);
+              _os_log_impl(&dword_1C241C000, v32, v33, v14, keys, 8u);
               goto LABEL_49;
             }
 
             goto LABEL_49;
           }
 
-          if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+          if (!os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
           {
             goto LABEL_49;
           }
 
           LODWORD(keys[0]) = 67109120;
-          HIDWORD(keys[0]) = v8;
-          v12 = "Error: CVPixelBufferCreate failed to create pixel buffer of type kCVPixelFormatType_128RGBAFloat with error %i";
+          HIDWORD(keys[0]) = v10;
+          v14 = "Error: CVPixelBufferCreate failed to create pixel buffer of type kCVPixelFormatType_128RGBAFloat with error %i";
           goto LABEL_43;
         }
 
-        v8 = ARPixelBufferConvertTwoComponent16HalfToRGBAHalf(a1, &pixelBufferOut);
-        if (!v8)
+        HeightOfPlane = ARPixelBufferConvertTwoComponent16HalfToRGBAHalf(a1, &pixelBufferOut);
+        v10 = HeightOfPlane;
+        if (!HeightOfPlane)
         {
 LABEL_18:
           CVPixelBufferLockBaseAddress(pixelBufferOut, 0);
           BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(pixelBufferOut, 0);
           DataSize = CVPixelBufferGetDataSize(pixelBufferOut);
-          v18 = CGDataProviderCreateWithData(0, BaseAddressOfPlane, DataSize, 0);
+          v20 = CGDataProviderCreateWithData(0, BaseAddressOfPlane, DataSize, 0);
           DeviceRGB = CGColorSpaceCreateDeviceRGB();
           BytesPerRow = CVPixelBufferGetBytesPerRow(pixelBufferOut);
-          v21 = CGImageCreate(WidthOfPlane, HeightOfPlane, 0x10uLL, 0x40uLL, BytesPerRow, DeviceRGB, 0x1103u, v18, 0, 0, kCGRenderingIntentDefault);
-          v11 = [MEMORY[0x1E695DFF8] fileURLWithPath:v3 isDirectory:0];
-          v22 = *MEMORY[0x1E695E480];
-          v23 = CFStringCreateWithCString(*MEMORY[0x1E695E480], "com.ilm.openexr-image", 0x8000100u);
-          v24 = CGImageDestinationCreateWithURL(v11, v23, 1uLL, 0);
+          v23 = CGImageCreate(WidthOfPlane, v8, 0x10uLL, 0x40uLL, BytesPerRow, DeviceRGB, 0x1103u, v20, 0, 0, kCGRenderingIntentDefault);
+          v13 = [MEMORY[0x1E695DFF8] fileURLWithPath:v3 isDirectory:0];
+          v24 = *MEMORY[0x1E695E480];
+          v25 = CFStringCreateWithCString(*MEMORY[0x1E695E480], "com.ilm.openexr-image", 0x8000100u);
+          v26 = CGImageDestinationCreateWithURL(v13, v25, 1uLL, 0);
           keys[0] = *MEMORY[0x1E696D2C8];
           values = *MEMORY[0x1E695E4D0];
-          v25 = CFDictionaryCreate(v22, keys, &values, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-          CGImageDestinationAddImage(v24, v21, v25);
-          v26 = CGImageDestinationFinalize(v24);
-          if (v24)
-          {
-            CFRelease(v24);
-          }
-
-          CFRelease(v25);
-          CFRelease(v23);
-          CGImageRelease(v21);
-          CGColorSpaceRelease(DeviceRGB);
-          CGDataProviderRelease(v18);
-          CVPixelBufferUnlockBaseAddress(pixelBufferOut, 0);
-          CVPixelBufferRelease(pixelBufferOut);
+          v27 = CFDictionaryCreate(v24, keys, &values, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+          CGImageDestinationAddImage(v26, v23, v27);
+          v28 = CGImageDestinationFinalize(v26);
           if (v26)
           {
-            v8 = 0;
+            CFRelease(v26);
+          }
+
+          CFRelease(v27);
+          CFRelease(v25);
+          CGImageRelease(v23);
+          CGColorSpaceRelease(DeviceRGB);
+          CGDataProviderRelease(v20);
+          CVPixelBufferUnlockBaseAddress(pixelBufferOut, 0);
+          CVPixelBufferRelease(pixelBufferOut);
+          if (v28)
+          {
+            v10 = 0;
             goto LABEL_49;
           }
 
@@ -5315,39 +5354,39 @@ LABEL_18:
             ARSavePixelBufferPNG_cold_1();
           }
 
-          v31 = ARShouldUseLogTypeError(void)::internalOSVersion;
-          v32 = _ARLogGeneral();
-          v33 = v32;
-          if (v31 == 1)
+          v34 = ARShouldUseLogTypeError(void)::internalOSVersion;
+          v35 = _ARLogGeneral(v29);
+          v36 = v35;
+          if (v34 == 1)
           {
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              v34 = "Could not save image to file";
-              v35 = v33;
-              v36 = OS_LOG_TYPE_ERROR;
+              v37 = "Could not save image to file";
+              v38 = v36;
+              v39 = OS_LOG_TYPE_ERROR;
 LABEL_47:
-              _os_log_impl(&dword_1C241C000, v35, v36, v34, buf, 2u);
+              _os_log_impl(&dword_1C241C000, v38, v39, v37, buf, 2u);
             }
           }
 
-          else if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+          else if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            v34 = "Error: Could not save image to file";
-            v35 = v33;
-            v36 = OS_LOG_TYPE_INFO;
+            v37 = "Error: Could not save image to file";
+            v38 = v36;
+            v39 = OS_LOG_TYPE_INFO;
             goto LABEL_47;
           }
 
-          v8 = 4294960636;
+          v10 = 4294960636;
           goto LABEL_49;
         }
       }
 
       else
       {
-        v8 = 4294960636;
+        v10 = 4294960636;
       }
 
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
@@ -5355,16 +5394,16 @@ LABEL_47:
         ARSavePixelBufferPNG_cold_1();
       }
 
-      v27 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v28 = _ARLogGeneral();
-      v11 = v28;
-      if (v27 == 1)
+      v30 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v31 = _ARLogGeneral(HeightOfPlane);
+      v13 = v31;
+      if (v30 == 1)
       {
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           LODWORD(keys[0]) = 67109120;
-          HIDWORD(keys[0]) = v8;
-          v12 = "Could not convert pixel formats with error: %i";
+          HIDWORD(keys[0]) = v10;
+          v14 = "Could not convert pixel formats with error: %i";
           goto LABEL_28;
         }
 
@@ -5373,17 +5412,17 @@ LABEL_49:
         goto LABEL_50;
       }
 
-      if (!os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         goto LABEL_49;
       }
 
       LODWORD(keys[0]) = 67109120;
-      HIDWORD(keys[0]) = v8;
-      v12 = "Error: Could not convert pixel formats with error: %i";
+      HIDWORD(keys[0]) = v10;
+      v14 = "Error: Could not convert pixel formats with error: %i";
 LABEL_43:
-      v29 = v11;
-      v30 = OS_LOG_TYPE_INFO;
+      v32 = v13;
+      v33 = OS_LOG_TYPE_INFO;
       goto LABEL_44;
     }
 
@@ -5397,28 +5436,28 @@ LABEL_43:
     ARSaveIOSurfaceRAW_cold_1();
   }
 
-  v13 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v14 = _ARLogGeneral();
-  v15 = v14;
-  if (v13 == 1)
+  v15 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v16 = _ARLogGeneral(PixelFormatType);
+  v17 = v16;
+  if (v15 == 1)
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       LOWORD(pixelBufferOut) = 0;
-      _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_ERROR, "Supported pixel formats are kCVPixelFormatType_64RGBAHalf, kCVPixelFormatType_TwoComponent16Half", &pixelBufferOut, 2u);
+      _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_ERROR, "Supported pixel formats are kCVPixelFormatType_64RGBAHalf, kCVPixelFormatType_TwoComponent16Half", &pixelBufferOut, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     LOWORD(pixelBufferOut) = 0;
-    _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "Error: Supported pixel formats are kCVPixelFormatType_64RGBAHalf, kCVPixelFormatType_TwoComponent16Half", &pixelBufferOut, 2u);
+    _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_INFO, "Error: Supported pixel formats are kCVPixelFormatType_64RGBAHalf, kCVPixelFormatType_TwoComponent16Half", &pixelBufferOut, 2u);
   }
 
-  v8 = 4294960616;
+  v10 = 4294960616;
 LABEL_50:
 
-  return v8;
+  return v10;
 }
 
 uint64_t ARResizeBufferWithNearestNeighbors(__CVBuffer *a1, __CVBuffer *a2, size_t a3)
@@ -5636,28 +5675,28 @@ void ___ZL13_ARLogGeneralv_block_invoke_27()
   _ARLogGeneral(void)::logObj = v0;
 }
 
-uint64_t cva::ArrayIterator<float,2u>::increment(uint64_t result)
+uint64_t cva::ArrayIterator<float,2u>::increment(uint64_t result, uint64_t a2)
 {
-  v1 = *(result + 32);
-  if (!v1)
+  v2 = *(result + 32);
+  if (!v2)
   {
     cva::ArrayIterator<float,2u>::increment();
   }
 
-  v2 = *(result + 16);
-  v3 = v1 + v2;
-  v4 = *(result + 24) + 1;
-  *(result + 24) = v4;
-  if (v4 == *(result + 8))
+  v3 = *(result + 16);
+  v4 = v2 + v3;
+  v5 = *(result + 24) + 1;
+  *(result + 24) = v5;
+  if (v5 == *(result + 8))
   {
-    v5 = (v2 * v4);
-    v6 = *(result + 28) + 1;
-    v3 = v3 - v5 + *(result + 20);
+    v6 = (v3 * v5);
+    v7 = *(result + 28) + 1;
+    v4 = v4 - v6 + *(result + 20);
     *(result + 24) = 0;
-    *(result + 28) = v6;
+    *(result + 28) = v7;
   }
 
-  *(result + 32) = v3;
+  *(result + 32) = v4;
   return result;
 }
 
@@ -5701,16 +5740,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x1E69E5318]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -5733,9 +5772,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_1C2578858(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1C2578858(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x1C691A670](&a10);
+  MEMORY[0x1C691A670](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -5825,21 +5864,21 @@ void sub_1C2578A8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-id _ARLogGeneral_42()
+id _ARLogGeneral_42(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_44 != -1)
   {
     _ARLogGeneral_cold_1_42();
   }
 
-  v1 = _ARLogGeneral_logObj_44;
+  v2 = _ARLogGeneral_logObj_44;
 
-  return v1;
+  return v2;
 }
 
-void sub_1C257926C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, void (*a16)(char *))
+void sub_1C257926C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void (*a16)(uint64_t *, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  a16(&a14);
+  a16(&a14, a2, a3, a4, a5, a6, a7, a8);
   os_unfair_lock_unlock(v16 + 6);
   _Unwind_Resume(a1);
 }
@@ -5883,7 +5922,7 @@ id CreateDrawDatasFromFrame(void *a1)
         }
 
         v11 = [DrawData alloc];
-        [v9 transform];
+        objc_msgSend_transform(v9);
         LODWORD(v12) = 10.0;
         v14 = [(DrawData *)v11 initWithPosition:v10 size:v13 color:v12];
         [v4 addObject:v14];
@@ -5939,9 +5978,9 @@ void DrawOntoPixelBufferBGRA(__CVBuffer *a1, void *a2, void *a3)
         }
 
         v14 = *(*(&v32 + 1) + 8 * i);
-        [v14 position];
+        objc_msgSend_position(v14);
         v31 = v15;
-        [v7 transform];
+        objc_msgSend_transform(v7);
         v44 = __invert_f4(v43);
         v44.columns[0] = vaddq_f32(v44.columns[3], vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v44.columns[0], v31.f32[0]), v44.columns[1], *v31.f32, 1), v44.columns[2], v31, 2));
         v44.columns[1] = vmulq_f32(v44.columns[0], v44.columns[0]);
@@ -5999,17 +6038,17 @@ void DrawOntoPixelBufferBGRA(__CVBuffer *a1, void *a2, void *a3)
   v38(v37);
 }
 
-float SignedDistance(void *a1, float32x4_t a2)
+float SignedDistance(void *a1, const char *a2, float32x4_t a4)
 {
-  [a1 transform];
-  v6 = __invert_f4(v5);
-  v6.columns[0] = vaddq_f32(v6.columns[3], vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v6.columns[0], a2.f32[0]), v6.columns[1], *a2.f32, 1), v6.columns[2], a2, 2));
-  v6.columns[1] = vmulq_f32(v6.columns[0], v6.columns[0]);
-  v2 = sqrtf(v6.columns[1].f32[2] + vaddv_f32(*v6.columns[1].f32));
-  result = -v2;
-  if (v6.columns[0].i32[2] < 0)
+  objc_msgSend_transform(a1, a2);
+  v8 = __invert_f4(v7);
+  v8.columns[0] = vaddq_f32(v8.columns[3], vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v8.columns[0], a4.f32[0]), v8.columns[1], *a4.f32, 1), v8.columns[2], a4, 2));
+  v8.columns[1] = vmulq_f32(v8.columns[0], v8.columns[0]);
+  v4 = sqrtf(v8.columns[1].f32[2] + vaddv_f32(*v8.columns[1].f32));
+  result = -v4;
+  if (v8.columns[0].i32[2] < 0)
   {
-    return v2;
+    return v4;
   }
 
   return result;
@@ -6272,9 +6311,9 @@ double arkit::KeyMapBuffer<void const*,std::vector<unsigned char>>::KeyMapBuffer
   return result;
 }
 
-uint64_t *arkit::KeyMapBuffer<void const*,std::vector<unsigned char>>::insert(uint64_t a1, std::locale::__imp *a2, char **a3)
+uint64_t *arkit::KeyMapBuffer<void const*,std::vector<unsigned char>>::insert(void *a1, std::locale::__imp *a2, char **a3)
 {
-  std::deque<void const*>::push_front((a1 + 40), a2);
+  std::deque<void const*>::push_front((a1 + 5), a2);
   if (std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned char>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<unsigned char>>>>::find<void const*>(a1, a2))
   {
     v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x1E69E5310], "Key already in buffer", 21);
@@ -6287,38 +6326,37 @@ uint64_t *arkit::KeyMapBuffer<void const*,std::vector<unsigned char>>::insert(ui
   }
 
   v11.__locale_ = a2;
-  result = std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned char>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<unsigned char>>>>::__emplace_unique_key_args<void const*,std::piecewise_construct_t const&,std::tuple<void const* const&>,std::tuple<>>(a1, a2) + 3;
+  result = std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned char>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<unsigned char>>>>::__emplace_unique_key_args<void const*,std::piecewise_construct_t const&,std::tuple<void const* const&>,std::tuple<>>(a1, a2, &std::piecewise_construct, &v11) + 3;
   if (result != a3)
   {
     result = std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(result, *a3, a3[1], a3[1] - *a3);
   }
 
-  v9 = *(a1 + 80);
-  if (v9 > *(a1 + 88))
+  v9 = a1[10];
+  if (v9 > a1[11])
   {
     v10 = v9 - 1;
-    v11.__locale_ = *(*(*(a1 + 48) + (((*(a1 + 72) + v10) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(a1 + 72) + v10) & 0x1FF));
-    *(a1 + 80) = v10;
-    std::deque<void const*>::__maybe_remove_back_spare[abi:ne200100]((a1 + 40), 1);
+    v11.__locale_ = *(*(a1[6] + (((a1[9] + v10) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((a1[9] + v10) & 0x1FF));
+    a1[10] = v10;
+    std::deque<void const*>::__maybe_remove_back_spare[abi:ne200100](a1 + 5, 1);
     return std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned char>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<unsigned char>>>>::__erase_unique<void const*>(a1, &v11);
   }
 
   return result;
 }
 
-const void **std::deque<void const*>::push_front(const void **result, void *a2)
+void std::deque<void const*>::push_front(uint64_t result, void *a2)
 {
-  v3 = result;
-  v4 = result[4];
+  v4 = *(result + 32);
   if (!v4)
   {
-    result = std::deque<void const*>::__add_front_capacity(result);
-    v4 = v3[4];
+    std::deque<void const*>::__add_front_capacity(result);
+    v4 = *(result + 32);
   }
 
-  v5 = v3[1];
-  v6 = &v5[8 * (v4 >> 9)];
-  if (v3[2] == v5)
+  v5 = *(result + 8);
+  v6 = (v5 + 8 * (v4 >> 9));
+  if (*(result + 16) == v5)
   {
     v7 = 0;
   }
@@ -6334,13 +6372,12 @@ const void **std::deque<void const*>::push_front(const void **result, void *a2)
   }
 
   *(v7 - 8) = *a2;
-  v8 = v3[5] + 1;
-  v3[4] = (v4 - 1);
-  v3[5] = v8;
-  return result;
+  v8 = *(result + 40) + 1;
+  *(result + 32) = v4 - 1;
+  *(result + 40) = v8;
 }
 
-BOOL arkit::KeyMapBuffer<void const*,std::vector<unsigned char>>::find(void *a1, void *a2, void *a3)
+BOOL arkit::KeyMapBuffer<void const*,std::vector<unsigned char>>::find(void *a1, void *a2, uint64_t *a3)
 {
   v4 = std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned char>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<unsigned char>>>>::find<void const*>(a1, a2);
   v5 = v4;
@@ -6352,17 +6389,17 @@ BOOL arkit::KeyMapBuffer<void const*,std::vector<unsigned char>>::find(void *a1,
   return v5 != 0;
 }
 
-void *arkit::wrapRawData@<X0>(arkit *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *arkit::wrapRawData@<X0>(uint64_t *__return_ptr a1@<X8>, arkit *this@<X0>, size_t a3@<X1>)
 {
-  v5 = *std::vector<unsigned char>::vector[abi:ne200100](a3, a2);
+  v5 = *std::vector<unsigned char>::vector[abi:ne200100](a1, a3);
 
-  return memcpy(v5, this, a2);
+  return memcpy(v5, this, a3);
 }
 
-const void **std::deque<void const*>::__add_front_capacity(uint64_t a1)
+void std::deque<void const*>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -6374,15 +6411,15 @@ const void **std::deque<void const*>::__add_front_capacity(uint64_t a1)
     v4 = ((v2 - v1) << 6) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x200)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x200)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -6390,24 +6427,24 @@ const void **std::deque<void const*>::__add_front_capacity(uint64_t a1)
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::allocator<void const**>::allocate_at_least[abi:ne200100](a1, v10);
+    v10[4] = a1;
+    std::allocator<void const**>::allocate_at_least[abi:ne200100](a1, v9);
   }
 
-  *(a1 + 32) = v5 + 512;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<void const**>::emplace_front<void const**&>(a1, v11);
+  a1[4] = (v5 + 512);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<void const**>::emplace_front<void const**&>(a1, v10);
 }
 
 void sub_1C257B39C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -6421,14 +6458,13 @@ void sub_1C257B39C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const void **std::__split_buffer<void const**>::emplace_front<void const**&>(const void **result, void *a2)
+void std::__split_buffer<void const**>::emplace_front<void const**&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -6441,52 +6477,50 @@ const void **std::__split_buffer<void const**>::emplace_front<void const**&>(con
         v9 = (v7 - v4) >> 2;
       }
 
-      std::allocator<void const**>::allocate_at_least[abi:ne200100](result, v9);
+      std::allocator<void const**>::allocate_at_least[abi:ne200100](a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<void const**>::emplace_back<void const**>(void *result, void *a2)
+void std::__split_buffer<void const**>::emplace_back<void const**>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::allocator<void const**>::allocate_at_least[abi:ne200100](result, v11);
+      std::allocator<void const**>::allocate_at_least[abi:ne200100](a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -6495,40 +6529,38 @@ void *std::__split_buffer<void const**>::emplace_back<void const**>(void *result
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::allocator<void const**>::allocate_at_least[abi:ne200100](result[4], v11);
+      std::allocator<void const**>::allocate_at_least[abi:ne200100](a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -6537,18 +6569,17 @@ void *std::__split_buffer<void const**>::emplace_back<void const**>(void *result
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::allocator<void const**>::allocate_at_least[abi:ne200100](uint64_t a1, unint64_t a2)
@@ -6561,35 +6592,35 @@ void std::allocator<void const**>::allocate_at_least[abi:ne200100](uint64_t a1, 
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned char>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<unsigned char>>>>::__emplace_unique_key_args<void const*,std::piecewise_construct_t const&,std::tuple<void const* const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned char>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<unsigned char>>>>::__emplace_unique_key_args<void const*,std::piecewise_construct_t const&,std::tuple<void const* const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, void **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -6597,44 +6628,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<void const*,std::vector<unsigned char>>,void *>>>::operator()[abi:ne200100](uint64_t a1, void *__p)
@@ -6696,7 +6727,7 @@ uint64_t std::deque<void const*>::__maybe_remove_back_spare[abi:ne200100](void *
   return v7 ^ 1u;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned char>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<unsigned char>>>>::__erase_unique<void const*>(void *a1, void *a2)
+uint64_t std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned char>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<unsigned char>>>>::__erase_unique<void const*>(void *a1, void *a2)
 {
   result = std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned char>>,std::__unordered_map_hasher<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::hash<void const*>,std::equal_to<void const*>,true>,std::__unordered_map_equal<void const*,std::__hash_value_type<void const*,std::vector<unsigned char>>,std::equal_to<void const*>,std::hash<void const*>,true>,std::allocator<std::__hash_value_type<void const*,std::vector<unsigned char>>>>::find<void const*>(a1, a2);
   if (result)
@@ -6741,45 +6772,37 @@ void *std::__hash_table<std::__hash_value_type<void const*,std::vector<unsigned 
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -7049,8 +7072,10 @@ uint64_t ARMeshClassificationFromSemantic(uint64_t result)
   return result;
 }
 
-id ARMeshAnchorFromMeshNoCopy(void *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, int a6, int a7, int a8, float32x4_t a9, float32x4_t a10, float32x4_t a11, float32x4_t a12, double a13, char a14, char a15)
+ARMeshAnchor *ARMeshAnchorFromMeshNoCopy(void *a1, uint64_t a2, void *a3, void *a4, float32x4_t a5, float32x4_t a6, float32x4_t a7, float32x4_t a8, double a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, char a14, char a15)
 {
+  v15 = a13;
+  v17 = a11;
   v23 = a1;
   v24 = a3;
   v26 = a4;
@@ -7069,7 +7094,7 @@ id ARMeshAnchorFromMeshNoCopy(void *a1, uint64_t a2, void *a3, void *a4, uint64_
     v56 = 0u;
     do
     {
-      *(&v53 + v29 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a9, COERCE_FLOAT(v52[v29])), a10, *&v52[v29], 1), a11, v52[v29], 2), a12, v52[v29], 3);
+      *(&v53 + v29 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a5, COERCE_FLOAT(v52[v29])), a6, *&v52[v29], 1), a7, v52[v29], 2), a8, v52[v29], 3);
       ++v29;
     }
 
@@ -7082,15 +7107,15 @@ id ARMeshAnchorFromMeshNoCopy(void *a1, uint64_t a2, void *a3, void *a4, uint64_
 
   else
   {
-    v46 = *a10.i64;
-    v47 = *a9.i64;
-    v28 = a11.i64[0];
-    v27 = a12.i64[0];
+    v46 = *a6.i64;
+    v47 = *a5.i64;
+    v28 = a7.i64[0];
+    v27 = a8.i64[0];
   }
 
   v45 = *&v28;
   v44 = *&v27;
-  v34 = ARMeshGeometryFromMeshNoCopy(v23, a2, v25, a5, a6, a8);
+  v34 = ARMeshGeometryFromMeshNoCopy(v23, a2, v25, a10, v17, v15);
   if (!v34)
   {
     v42 = 0;
@@ -7101,24 +7126,24 @@ id ARMeshAnchorFromMeshNoCopy(void *a1, uint64_t a2, void *a3, void *a4, uint64_
   v36 = v35;
   if (!v26)
   {
-    if (a7)
+    if (a12)
     {
-      v41 = [(ARMeshAnchor *)v35 initWithGeometry:v34 atTimestamp:v24 identifier:a13 referenceOriginTransform:*a9.i64, *a10.i64, *a11.i64, *a12.i64];
+      v41 = [(ARMeshAnchor *)v35 initWithGeometry:v34 atTimestamp:v24 identifier:a9 referenceOriginTransform:*a5.i64, *a6.i64, *a7.i64, *a8.i64];
       goto LABEL_14;
     }
 
 LABEL_13:
-    v41 = [(ARMeshAnchor *)v35 initWithGeometry:v34 atTimestamp:v24 identifier:a13 transform:v47, v46, v45, v44];
+    v41 = [(ARMeshAnchor *)v35 initWithGeometry:v34 atTimestamp:v24 identifier:a9 transform:v47, v46, v45, v44];
     goto LABEL_14;
   }
 
-  if (!a7)
+  if (!a12)
   {
     goto LABEL_13;
   }
 
   [v26 visionTransform];
-  v41 = [(ARMeshAnchor *)v36 initWithGeometry:v34 atTimestamp:v24 identifier:a13 visionTransform:v37 referenceOriginTransform:v38, v39, v40, *&a9, *&a10, *&a11, *&a12];
+  v41 = [(ARMeshAnchor *)v36 initWithGeometry:v34 atTimestamp:v24 identifier:a9 visionTransform:v37 referenceOriginTransform:v38, v39, v40, *&a5, *&a6, *&a7, *&a8];
 LABEL_14:
   v42 = v41;
 LABEL_15:
@@ -7243,8 +7268,9 @@ LABEL_3:
 
 void __ARMeshGeometryFromMeshNoCopy_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = a2;
+  v5 = v4;
   if (a3)
   {
     if (ARShouldUseLogTypeError_onceToken_48 != -1)
@@ -7252,51 +7278,51 @@ void __ARMeshGeometryFromMeshNoCopy_block_invoke(uint64_t a1, void *a2, void *a3
       __ARMeshGeometryFromMeshNoCopy_block_invoke_cold_1();
     }
 
-    v5 = ARShouldUseLogTypeError_internalOSVersion_48;
-    v6 = _ARLogGeneral_43();
-    v7 = v6;
-    if (v5 == 1)
+    v6 = ARShouldUseLogTypeError_internalOSVersion_48;
+    v7 = _ARLogGeneral_43(v4);
+    v8 = v7;
+    if (v6 == 1)
     {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v8 = [a3 localizedFailureReason];
-        v12 = 138412546;
-        v13 = v4;
-        v14 = 2112;
-        v15 = v8;
-        v9 = "%@: %@";
-        v10 = v7;
-        v11 = OS_LOG_TYPE_ERROR;
+        v9 = [a3 localizedFailureReason];
+        v13 = 138412546;
+        v14 = v5;
+        v15 = 2112;
+        v16 = v9;
+        v10 = "%@: %@";
+        v11 = v8;
+        v12 = OS_LOG_TYPE_ERROR;
 LABEL_9:
-        _os_log_impl(&dword_1C241C000, v10, v11, v9, &v12, 0x16u);
+        _os_log_impl(&dword_1C241C000, v11, v12, v10, &v13, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v8 = [a3 localizedFailureReason];
-      v12 = 138412546;
-      v13 = v4;
-      v14 = 2112;
-      v15 = v8;
-      v9 = "Error: %@: %@";
-      v10 = v7;
-      v11 = OS_LOG_TYPE_INFO;
+      v9 = [a3 localizedFailureReason];
+      v13 = 138412546;
+      v14 = v5;
+      v15 = 2112;
+      v16 = v9;
+      v10 = "Error: %@: %@";
+      v11 = v8;
+      v12 = OS_LOG_TYPE_INFO;
       goto LABEL_9;
     }
   }
 }
 
-id _ARLogGeneral_43()
+id _ARLogGeneral_43(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_45 != -1)
   {
     _ARLogGeneral_cold_1_43();
   }
 
-  v1 = _ARLogGeneral_logObj_45;
+  v2 = _ARLogGeneral_logObj_45;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_49()
@@ -7306,52 +7332,52 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_49()
   return result;
 }
 
-id reportingQueue()
+id reportingQueue(uint64_t a1)
 {
   if (reportingQueue_onceToken != -1)
   {
     reportingQueue_cold_1();
   }
 
-  v1 = reportingQueue_s_reportingQueue;
+  v2 = reportingQueue_s_reportingQueue;
 
-  return v1;
+  return v2;
 }
 
-id hitTestReportingMap()
+id hitTestReportingMap(uint64_t a1)
 {
   if (hitTestReportingMap_onceToken != -1)
   {
     hitTestReportingMap_cold_1();
   }
 
-  v1 = hitTestReportingMap_s_hitTestReporting;
+  v2 = hitTestReportingMap_s_hitTestReporting;
 
-  return v1;
+  return v2;
 }
 
-id bundleID()
+id bundleID(uint64_t a1)
 {
   if (bundleID_onceToken != -1)
   {
     bundleID_cold_1();
   }
 
-  v1 = bundleID_bundleID;
+  v2 = bundleID_bundleID;
 
-  return v1;
+  return v2;
 }
 
-id _ARLogSession_1()
+id _ARLogSession_1(uint64_t a1)
 {
   if (_ARLogSession_onceToken_2 != -1)
   {
     _ARLogSession_cold_1_1();
   }
 
-  v1 = _ARLogSession_logObj_2;
+  v2 = _ARLogSession_logObj_2;
 
-  return v1;
+  return v2;
 }
 
 void __reportingQueue_block_invoke()
@@ -7564,8 +7590,8 @@ double ARSphericalHarmonicsByApplyingRotation@<D0>(uint64_t a1@<X0>, uint64_t a2
   v7[0] = *a1;
   v7[1] = v4;
   v8 = *(a1 + 32);
-  ARCVAMatrixFromMatrix(a3, v6);
-  return arkit::shct::rotateShCoeff(v7, v6, a2);
+  ARCVAMatrixFromMatrix(v6, a3);
+  return arkit::shct::rotateShCoeff(v7, v6[0].i32, a2);
 }
 
 id ARSphericalHarmonicsDataWithAmbientLight(float a1, float32x4_t a2, double a3, float32x4_t a4)
@@ -7736,11 +7762,11 @@ __CFString *NSStringFromUIInterfaceOrientation(unint64_t a1)
   }
 }
 
-void sub_1C2584984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C2584984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 128), 8);
+  _Block_object_dispose((v18 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7751,51 +7777,51 @@ uint64_t __Block_byref_object_copy__6(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C2584B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C2584B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C2584C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C2584C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C2584DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C2584DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C2584EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C2584EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C258500C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C258500C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id ARTechniqueProcessDataClassApprovedList()
+id ARTechniqueProcessDataClassApprovedList(uint64_t a1)
 {
   if (ARTechniqueProcessDataClassApprovedList_onceToken != -1)
   {
     ARTechniqueProcessDataClassApprovedList_cold_1();
   }
 
-  v1 = ARTechniqueProcessDataClassApprovedList_techniqueProcessDataClassApprovedList;
+  v2 = ARTechniqueProcessDataClassApprovedList_techniqueProcessDataClassApprovedList;
 
-  return v1;
+  return v2;
 }
 
 void __ARTechniqueProcessDataClassApprovedList_block_invoke()
@@ -7831,16 +7857,16 @@ void __ARTechniqueProcessDataClassApprovedList_block_invoke()
   ARTechniqueProcessDataClassApprovedList_techniqueProcessDataClassApprovedList = v2;
 }
 
-id ARTechniqueResultDataClassApprovedList()
+id ARTechniqueResultDataClassApprovedList(uint64_t a1)
 {
   if (ARTechniqueResultDataClassApprovedList_onceToken != -1)
   {
     ARTechniqueResultDataClassApprovedList_cold_1();
   }
 
-  v1 = ARTechniqueResultDataClassApprovedList_techniqueResultDataClassApprovedList;
+  v2 = ARTechniqueResultDataClassApprovedList_techniqueResultDataClassApprovedList;
 
-  return v1;
+  return v2;
 }
 
 void __ARTechniqueResultDataClassApprovedList_block_invoke()
@@ -7892,11 +7918,11 @@ void __ARTechniqueResultDataClassApprovedList_block_invoke()
 id ARRemoteTechniqueClientInterfaceWithProtocol(uint64_t a1)
 {
   v1 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:a1];
-  v2 = ARTechniqueResultDataClassApprovedList();
+  v2 = ARTechniqueResultDataClassApprovedList(v1);
   [v1 setClasses:v2 forSelector:sel_techniqueDidOutputResultData_timestamp_context_ argumentIndex:0 ofReply:0];
 
-  v3 = ARTechniqueResultDataClassApprovedList();
-  [v1 setClasses:v3 forSelector:sel_techniqueDidOutputResultData_timestamp_context_ argumentIndex:2 ofReply:0];
+  v4 = ARTechniqueResultDataClassApprovedList(v3);
+  [v1 setClasses:v4 forSelector:sel_techniqueDidOutputResultData_timestamp_context_ argumentIndex:2 ofReply:0];
 
   return v1;
 }
@@ -7904,54 +7930,54 @@ id ARRemoteTechniqueClientInterfaceWithProtocol(uint64_t a1)
 id ARRemoteTechniqueServiceInterfaceWithProtocol(uint64_t a1)
 {
   v1 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:a1];
-  v2 = ARTechniqueProcessDataClassApprovedList();
+  v2 = ARTechniqueProcessDataClassApprovedList(v1);
   [v1 setClasses:v2 forSelector:sel_processData_reply_ argumentIndex:0 ofReply:0];
 
-  v3 = ARTechniqueProcessDataClassApprovedList();
-  [v1 setClasses:v3 forSelector:sel_processData_reply_ argumentIndex:0 ofReply:1];
+  v4 = ARTechniqueProcessDataClassApprovedList(v3);
+  [v1 setClasses:v4 forSelector:sel_processData_reply_ argumentIndex:0 ofReply:1];
 
-  v4 = ARTechniqueResultDataClassApprovedList();
-  [v1 setClasses:v4 forSelector:sel_requestResultDataAtTimestamp_context_ argumentIndex:1 ofReply:0];
+  v6 = ARTechniqueResultDataClassApprovedList(v5);
+  [v1 setClasses:v6 forSelector:sel_requestResultDataAtTimestamp_context_ argumentIndex:1 ofReply:0];
 
   return v1;
 }
 
-id _ARLogTechnique_16()
+id _ARLogTechnique_16(uint64_t a1)
 {
   if (_ARLogTechnique_onceToken_22 != -1)
   {
     _ARLogTechnique_cold_1_16();
   }
 
-  v1 = _ARLogTechnique_logObj_22;
+  v2 = _ARLogTechnique_logObj_22;
 
-  return v1;
+  return v2;
 }
 
-void sub_1C2585DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C2585DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C2585F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C2585F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C2585FF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C2585FF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C2586274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C2586274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7963,23 +7989,23 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C2586418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C2586418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C25864FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C25864FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C258661C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C258661C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8006,16 +8032,16 @@ void sub_1C25875B4(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-id _ARLogGeneral_44()
+id _ARLogGeneral_44(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_46 != -1)
   {
     _ARLogGeneral_cold_1_44();
   }
 
-  v1 = _ARLogGeneral_logObj_46;
+  v2 = _ARLogGeneral_logObj_46;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_51()
@@ -8025,16 +8051,16 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_51()
   return result;
 }
 
-id ARLocationSensorDidOutputSensorDataClassApprovedList()
+id ARLocationSensorDidOutputSensorDataClassApprovedList(uint64_t a1)
 {
   if (ARLocationSensorDidOutputSensorDataClassApprovedList_onceToken != -1)
   {
     ARLocationSensorDidOutputSensorDataClassApprovedList_cold_1();
   }
 
-  v1 = ARLocationSensorDidOutputSensorDataClassApprovedList_locationSensorDidOutputSensorDataClassApprovedList;
+  v2 = ARLocationSensorDidOutputSensorDataClassApprovedList_locationSensorDidOutputSensorDataClassApprovedList;
 
-  return v1;
+  return v2;
 }
 
 void __ARLocationSensorDidOutputSensorDataClassApprovedList_block_invoke()
@@ -8049,16 +8075,16 @@ void __ARLocationSensorDidOutputSensorDataClassApprovedList_block_invoke()
   ARLocationSensorDidOutputSensorDataClassApprovedList_locationSensorDidOutputSensorDataClassApprovedList = v2;
 }
 
-id ARLocationSensorUpdateEstimationFromVIOPoseClassApprovedList()
+id ARLocationSensorUpdateEstimationFromVIOPoseClassApprovedList(uint64_t a1)
 {
   if (ARLocationSensorUpdateEstimationFromVIOPoseClassApprovedList_onceToken != -1)
   {
     ARLocationSensorUpdateEstimationFromVIOPoseClassApprovedList_cold_1();
   }
 
-  v1 = ARLocationSensorUpdateEstimationFromVIOPoseClassApprovedList_locationSensorUpdateEstimationFromVIOPoseClassApprovedList;
+  v2 = ARLocationSensorUpdateEstimationFromVIOPoseClassApprovedList_locationSensorUpdateEstimationFromVIOPoseClassApprovedList;
 
-  return v1;
+  return v2;
 }
 
 void __ARLocationSensorUpdateEstimationFromVIOPoseClassApprovedList_block_invoke()
@@ -8076,7 +8102,7 @@ void __ARLocationSensorUpdateEstimationFromVIOPoseClassApprovedList_block_invoke
 id ARRemoteLocationSensorClientInterface()
 {
   v0 = ARRemoteSensorClientInterfaceWithProtocol(&unk_1F4284738);
-  v1 = ARLocationSensorDidOutputSensorDataClassApprovedList();
+  v1 = ARLocationSensorDidOutputSensorDataClassApprovedList(v0);
   [v0 setClasses:v1 forSelector:sel_sensorDidOutputSensorData_ argumentIndex:0 ofReply:0];
 
   return v0;
@@ -8085,27 +8111,27 @@ id ARRemoteLocationSensorClientInterface()
 id ARRemoteLocationSensorServiceInterface()
 {
   v0 = ARRemoteSensorServiceInterfaceWithProtocol(&unk_1F4284798);
-  v1 = ARLocationSensorUpdateEstimationFromVIOPoseClassApprovedList();
+  v1 = ARLocationSensorUpdateEstimationFromVIOPoseClassApprovedList(v0);
   [v0 setClasses:v1 forSelector:sel_updateEstimationFromVIOPose_imageData_ argumentIndex:1 ofReply:0];
 
   return v0;
 }
 
-id _ARLogSensor_11()
+id _ARLogSensor_11(uint64_t a1)
 {
   if (_ARLogSensor_onceToken_15 != -1)
   {
     _ARLogSensor_cold_1_11();
   }
 
-  v1 = _ARLogSensor_logObj_15;
+  v2 = _ARLogSensor_logObj_15;
 
-  return v1;
+  return v2;
 }
 
-void sub_1C2588BCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C2588BCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8117,16 +8143,16 @@ uint64_t __Block_byref_object_copy__8(uint64_t result, uint64_t a2)
   return result;
 }
 
-id _ARLogSensor_12()
+id _ARLogSensor_12(uint64_t a1)
 {
   if (_ARLogSensor_onceToken_16 != -1)
   {
     _ARLogSensor_cold_1_12();
   }
 
-  v1 = _ARLogSensor_logObj_16;
+  v2 = _ARLogSensor_logObj_16;
 
-  return v1;
+  return v2;
 }
 
 void sub_1C2589F30(void *a1)
@@ -8144,16 +8170,16 @@ void sub_1C258A974(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _ARLogGeneral_45()
+id _ARLogGeneral_45(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_47 != -1)
   {
     _ARLogGeneral_cold_1_45();
   }
 
-  v1 = _ARLogGeneral_logObj_47;
+  v2 = _ARLogGeneral_logObj_47;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_52()
@@ -8172,16 +8198,16 @@ void sub_1C258BB40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id _ARLogGeneral_46()
+id _ARLogGeneral_46(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_48 != -1)
   {
     _ARLogGeneral_cold_1_46();
   }
 
-  v1 = _ARLogGeneral_logObj_48;
+  v2 = _ARLogGeneral_logObj_48;
 
-  return v1;
+  return v2;
 }
 
 void sub_1C258C0B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, os_activity_scope_state_s state, id location)
@@ -8192,9 +8218,9 @@ void sub_1C258C0B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C258C6FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C258C6FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8244,16 +8270,16 @@ __CFString *NSStringFromCFUUIDRef(CFUUIDRef uuid)
   return v1;
 }
 
-id _ARLogGeneral_47()
+id _ARLogGeneral_47(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_50 != -1)
   {
     _ARLogGeneral_cold_1_47();
   }
 
-  v1 = _ARLogGeneral_logObj_50;
+  v2 = _ARLogGeneral_logObj_50;
 
-  return v1;
+  return v2;
 }
 
 uint64_t _archive_open_callback(uint64_t a1, uint64_t a2)
@@ -8327,7 +8353,7 @@ id ARCopyFromSharedTextureHandle(void *a1, char a2)
   return v9;
 }
 
-id ARCopyMipmapsFromSharedTextureHandle(void *a1, id a2)
+_BYTE *ARCopyMipmapsFromSharedTextureHandle(void *a1, _BYTE *a2)
 {
   v2 = a2;
   if (a2)
@@ -8428,16 +8454,16 @@ float ARAverageCubemapIntensity(void *a1)
   return v4 / 24.0;
 }
 
-id _ARLogGeneral_48()
+id _ARLogGeneral_48(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_51 != -1)
   {
     _ARLogGeneral_cold_1_48();
   }
 
-  v1 = _ARLogGeneral_logObj_51;
+  v2 = _ARLogGeneral_logObj_51;
 
-  return v1;
+  return v2;
 }
 
 id ARErrorWithCodeAndUserInfo(uint64_t a1, void *a2)
@@ -8454,27 +8480,27 @@ id ARErrorWithCodeAndUserInfo(uint64_t a1, void *a2)
         switch(a1)
         {
           case 304:
-            v50 = ARKitCoreBundle();
-            v51 = [v50 localizedStringForKey:@"Invalid collaboration data." value:&stru_1F4208A80 table:@"Localizable"];
-            [v5 setObject:v51 forKeyedSubscript:*MEMORY[0x1E696A578]];
+            v61 = ARKitCoreBundle(v4);
+            v62 = [v61 localizedStringForKey:@"Invalid collaboration data." value:&stru_1F4208A80 table:@"Localizable"];
+            [v5 setObject:v62 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
-            v16 = ARKitCoreBundle();
-            v7 = v16;
-            v17 = @"The encoded data is not in a format supported by this version of ARCollaborationData.";
+            v17 = ARKitCoreBundle(v63);
+            v7 = v17;
+            v18 = @"The encoded data is not in a format supported by this version of ARCollaborationData.";
             break;
           case 400:
-            v6 = ARKitCoreBundle();
+            v6 = ARKitCoreBundle(v4);
             v7 = v6;
             v8 = @"Insufficient features.";
             goto LABEL_65;
           case 401:
-            v27 = ARKitCoreBundle();
-            v28 = [v27 localizedStringForKey:@"Object merge failed." value:&stru_1F4208A80 table:@"Localizable"];
-            [v5 setObject:v28 forKeyedSubscript:*MEMORY[0x1E696A578]];
+            v30 = ARKitCoreBundle(v4);
+            v31 = [v30 localizedStringForKey:@"Object merge failed." value:&stru_1F4208A80 table:@"Localizable"];
+            [v5 setObject:v31 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
-            v16 = ARKitCoreBundle();
-            v7 = v16;
-            v17 = @"Not enough matching features were found for the reference objects to be merged.";
+            v17 = ARKitCoreBundle(v32);
+            v7 = v17;
+            v18 = @"Not enough matching features were found for the reference objects to be merged.";
             break;
           default:
             goto LABEL_67;
@@ -8483,32 +8509,32 @@ id ARErrorWithCodeAndUserInfo(uint64_t a1, void *a2)
 
       else if (a1 == 301)
       {
-        v44 = ARKitCoreBundle();
-        v45 = [v44 localizedStringForKey:@"Invalid reference object." value:&stru_1F4208A80 table:@"Localizable"];
-        [v5 setObject:v45 forKeyedSubscript:*MEMORY[0x1E696A578]];
+        v52 = ARKitCoreBundle(v4);
+        v53 = [v52 localizedStringForKey:@"Invalid reference object." value:&stru_1F4208A80 table:@"Localizable"];
+        [v5 setObject:v53 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
-        v16 = ARKitCoreBundle();
-        v7 = v16;
-        v17 = @"The reference object data is not in a format supported by this version of ARReferenceObject.";
+        v17 = ARKitCoreBundle(v54);
+        v7 = v17;
+        v18 = @"The reference object data is not in a format supported by this version of ARReferenceObject.";
       }
 
       else
       {
         if (a1 != 302)
         {
-          v6 = ARKitCoreBundle();
+          v6 = ARKitCoreBundle(v4);
           v7 = v6;
           v8 = @"Invalid configuration.";
           goto LABEL_65;
         }
 
-        v54 = ARKitCoreBundle();
-        v55 = [v54 localizedStringForKey:@"Invalid world map." value:&stru_1F4208A80 table:@"Localizable"];
-        [v5 setObject:v55 forKeyedSubscript:*MEMORY[0x1E696A578]];
+        v67 = ARKitCoreBundle(v4);
+        v68 = [v67 localizedStringForKey:@"Invalid world map." value:&stru_1F4208A80 table:@"Localizable"];
+        [v5 setObject:v68 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
-        v16 = ARKitCoreBundle();
-        v7 = v16;
-        v17 = @"The world map data is not in a format supported by this version of ARWorldMap.";
+        v17 = ARKitCoreBundle(v69);
+        v7 = v17;
+        v18 = @"The world map data is not in a format supported by this version of ARWorldMap.";
       }
 
       goto LABEL_60;
@@ -8520,7 +8546,7 @@ id ARErrorWithCodeAndUserInfo(uint64_t a1, void *a2)
       {
         if (a1 == 501)
         {
-          v6 = ARKitCoreBundle();
+          v6 = ARKitCoreBundle(v4);
           v7 = v6;
           v8 = @"Request failed.";
           goto LABEL_65;
@@ -8533,21 +8559,21 @@ id ARErrorWithCodeAndUserInfo(uint64_t a1, void *a2)
 
         [v4 setObject:@"Unauthorized to write to the photo library." forKeyedSubscript:*MEMORY[0x1E696A578]];
         [v5 setObject:@"A permission is missing to access the photo library." forKeyedSubscript:*MEMORY[0x1E696A588]];
-        v18 = *MEMORY[0x1E696A598];
-        v19 = @"Make sure that the application has the required privacy settings.";
+        v19 = *MEMORY[0x1E696A598];
+        v20 = @"Make sure that the application has the required privacy settings.";
         goto LABEL_73;
       }
 
-      v35 = ARKitCoreBundle();
-      v36 = [v35 localizedStringForKey:@"File IO failed." value:&stru_1F4208A80 table:@"Localizable"];
-      [v5 setObject:v36 forKeyedSubscript:*MEMORY[0x1E696A578]];
+      v41 = ARKitCoreBundle(v4);
+      v42 = [v41 localizedStringForKey:@"File IO failed." value:&stru_1F4208A80 table:@"Localizable"];
+      [v5 setObject:v42 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
-      v37 = MEMORY[0x1E696AEC0];
-      v38 = ARKitCoreBundle();
-      v39 = [v38 localizedStringForKey:@"Unable to read from or write to URL: %@." value:&stru_1F4208A80 table:@"Localizable"];
-      v40 = [v3 objectForKeyedSubscript:*MEMORY[0x1E696A998]];
-      v41 = [v37 stringWithFormat:v39, v40];
-      [v5 setObject:v41 forKeyedSubscript:*MEMORY[0x1E696A588]];
+      v43 = MEMORY[0x1E696AEC0];
+      v45 = ARKitCoreBundle(v44);
+      v46 = [v45 localizedStringForKey:@"Unable to read from or write to URL: %@." value:&stru_1F4208A80 table:@"Localizable"];
+      v47 = [v3 objectForKeyedSubscript:*MEMORY[0x1E696A998]];
+      v48 = [v43 stringWithFormat:v46, v47];
+      [v5 setObject:v48 forKeyedSubscript:*MEMORY[0x1E696A588]];
 
       if (!v3)
       {
@@ -8561,7 +8587,7 @@ id ARErrorWithCodeAndUserInfo(uint64_t a1, void *a2)
       {
         if (a1 == 1005)
         {
-          v6 = ARKitCoreBundle();
+          v6 = ARKitCoreBundle(v4);
           v7 = v6;
           v8 = @"Unsupported sensor data.";
         }
@@ -8573,7 +8599,7 @@ id ARErrorWithCodeAndUserInfo(uint64_t a1, void *a2)
             goto LABEL_67;
           }
 
-          v6 = ARKitCoreBundle();
+          v6 = ARKitCoreBundle(v4);
           v7 = v6;
           v8 = @"Unsupported feature.";
         }
@@ -8584,8 +8610,8 @@ id ARErrorWithCodeAndUserInfo(uint64_t a1, void *a2)
       if (a1 == 1001)
       {
         [v4 setObject:@"Failed saving the recording." forKeyedSubscript:*MEMORY[0x1E696A578]];
-        v18 = *MEMORY[0x1E696A588];
-        v19 = @"Failed saving the recording for an unknown reason.";
+        v19 = *MEMORY[0x1E696A588];
+        v20 = @"Failed saving the recording for an unknown reason.";
         goto LABEL_73;
       }
 
@@ -8597,8 +8623,8 @@ id ARErrorWithCodeAndUserInfo(uint64_t a1, void *a2)
       [v4 setObject:@"Failed to load espresso model." forKeyedSubscript:*MEMORY[0x1E696A578]];
       if (!v3 || (v9 = *MEMORY[0x1E696A368], [v3 objectForKey:*MEMORY[0x1E696A368]], v10 = objc_claimAutoreleasedReturnValue(), v10, !v10))
       {
-        v18 = *MEMORY[0x1E696A588];
-        v19 = @"File path is invalid or does not exist";
+        v19 = *MEMORY[0x1E696A588];
+        v20 = @"File path is invalid or does not exist";
         goto LABEL_73;
       }
 
@@ -8620,91 +8646,91 @@ LABEL_68:
       switch(a1)
       {
         case 'd':
-          v42 = ARKitCoreBundle();
-          v43 = [v42 localizedStringForKey:@"Unsupported configuration." value:&stru_1F4208A80 table:@"Localizable"];
-          [v5 setObject:v43 forKeyedSubscript:*MEMORY[0x1E696A578]];
+          v49 = ARKitCoreBundle(v4);
+          v50 = [v49 localizedStringForKey:@"Unsupported configuration." value:&stru_1F4208A80 table:@"Localizable"];
+          [v5 setObject:v50 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
-          v16 = ARKitCoreBundle();
-          v7 = v16;
-          v17 = @"The provided configuration is not supported on this device.";
+          v17 = ARKitCoreBundle(v51);
+          v7 = v17;
+          v18 = @"The provided configuration is not supported on this device.";
           break;
         case 'e':
-          v52 = ARKitCoreBundle();
-          v53 = [v52 localizedStringForKey:@"Required sensor unavailable." value:&stru_1F4208A80 table:@"Localizable"];
-          [v5 setObject:v53 forKeyedSubscript:*MEMORY[0x1E696A578]];
+          v64 = ARKitCoreBundle(v4);
+          v65 = [v64 localizedStringForKey:@"Required sensor unavailable." value:&stru_1F4208A80 table:@"Localizable"];
+          [v5 setObject:v65 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
-          v16 = ARKitCoreBundle();
-          v7 = v16;
-          v17 = @"A required sensor is not available on this device.";
+          v17 = ARKitCoreBundle(v66);
+          v7 = v17;
+          v18 = @"A required sensor is not available on this device.";
           break;
         case 'f':
-          v14 = ARKitCoreBundle();
+          v14 = ARKitCoreBundle(v4);
           v15 = [v14 localizedStringForKey:@"Required sensor failed." value:&stru_1F4208A80 table:@"Localizable"];
           [v5 setObject:v15 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
-          v16 = ARKitCoreBundle();
-          v7 = v16;
-          v17 = @"A sensor failed to deliver the required input.";
+          v17 = ARKitCoreBundle(v16);
+          v7 = v17;
+          v18 = @"A sensor failed to deliver the required input.";
           break;
         default:
           goto LABEL_67;
       }
 
 LABEL_60:
-      v33 = [v16 localizedStringForKey:v17 value:&stru_1F4208A80 table:@"Localizable"];
-      v34 = MEMORY[0x1E696A588];
+      v39 = [v17 localizedStringForKey:v18 value:&stru_1F4208A80 table:@"Localizable"];
+      v40 = MEMORY[0x1E696A588];
       goto LABEL_66;
     }
 
     if (a1 == 103)
     {
-      v46 = ARKitCoreBundle();
-      v47 = [v46 localizedStringForKey:@"Camera access not authorized." value:&stru_1F4208A80 table:@"Localizable"];
-      [v5 setObject:v47 forKeyedSubscript:*MEMORY[0x1E696A578]];
+      v55 = ARKitCoreBundle(v4);
+      v56 = [v55 localizedStringForKey:@"Camera access not authorized." value:&stru_1F4208A80 table:@"Localizable"];
+      [v5 setObject:v56 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
-      v48 = ARKitCoreBundle();
-      v49 = [v48 localizedStringForKey:@"The app does not have permission to use the camera." value:&stru_1F4208A80 table:@"Localizable"];
-      [v5 setObject:v49 forKeyedSubscript:*MEMORY[0x1E696A588]];
+      v58 = ARKitCoreBundle(v57);
+      v59 = [v58 localizedStringForKey:@"The app does not have permission to use the camera." value:&stru_1F4208A80 table:@"Localizable"];
+      [v5 setObject:v59 forKeyedSubscript:*MEMORY[0x1E696A588]];
 
-      v24 = ARKitCoreBundle();
-      v25 = v24;
-      v26 = @"Make sure that the application has the required camera privacy settings.";
+      v27 = ARKitCoreBundle(v60);
+      v28 = v27;
+      v29 = @"Make sure that the application has the required camera privacy settings.";
     }
 
     else
     {
-      v20 = ARKitCoreBundle();
+      v21 = ARKitCoreBundle(v4);
       if (a1 == 104)
       {
-        v56 = [v20 localizedStringForKey:@"Microphone access not authorized." value:&stru_1F4208A80 table:@"Localizable"];
-        [v5 setObject:v56 forKeyedSubscript:*MEMORY[0x1E696A578]];
+        v70 = [v21 localizedStringForKey:@"Microphone access not authorized." value:&stru_1F4208A80 table:@"Localizable"];
+        [v5 setObject:v70 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
-        v57 = ARKitCoreBundle();
-        v58 = [v57 localizedStringForKey:@"The app does not have permission to use the microphone." value:&stru_1F4208A80 table:@"Localizable"];
-        [v5 setObject:v58 forKeyedSubscript:*MEMORY[0x1E696A588]];
+        v72 = ARKitCoreBundle(v71);
+        v73 = [v72 localizedStringForKey:@"The app does not have permission to use the microphone." value:&stru_1F4208A80 table:@"Localizable"];
+        [v5 setObject:v73 forKeyedSubscript:*MEMORY[0x1E696A588]];
 
-        v24 = ARKitCoreBundle();
-        v25 = v24;
-        v26 = @"Make sure that the application has the required microphone privacy settings.";
+        v27 = ARKitCoreBundle(v74);
+        v28 = v27;
+        v29 = @"Make sure that the application has the required microphone privacy settings.";
       }
 
       else
       {
-        v21 = [v20 localizedStringForKey:@"Location access not authorized." value:&stru_1F4208A80 table:@"Localizable"];
-        [v5 setObject:v21 forKeyedSubscript:*MEMORY[0x1E696A578]];
+        v22 = [v21 localizedStringForKey:@"Location access not authorized." value:&stru_1F4208A80 table:@"Localizable"];
+        [v5 setObject:v22 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
-        v22 = ARKitCoreBundle();
-        v23 = [v22 localizedStringForKey:@"The app does not have permission to use the location of the device." value:&stru_1F4208A80 table:@"Localizable"];
-        [v5 setObject:v23 forKeyedSubscript:*MEMORY[0x1E696A588]];
+        v24 = ARKitCoreBundle(v23);
+        v25 = [v24 localizedStringForKey:@"The app does not have permission to use the location of the device." value:&stru_1F4208A80 table:@"Localizable"];
+        [v5 setObject:v25 forKeyedSubscript:*MEMORY[0x1E696A588]];
 
-        v24 = ARKitCoreBundle();
-        v25 = v24;
-        v26 = @"Location access and precise accuracy must be enabled in the app's privacy settings.";
+        v27 = ARKitCoreBundle(v26);
+        v28 = v27;
+        v29 = @"Location access and precise accuracy must be enabled in the app's privacy settings.";
       }
     }
 
-    v59 = [v24 localizedStringForKey:v26 value:&stru_1F4208A80 table:@"Localizable"];
-    [v5 setObject:v59 forKeyedSubscript:*MEMORY[0x1E696A598]];
+    v75 = [v27 localizedStringForKey:v29 value:&stru_1F4208A80 table:@"Localizable"];
+    [v5 setObject:v75 forKeyedSubscript:*MEMORY[0x1E696A598]];
 
     if (!v3)
     {
@@ -8720,7 +8746,7 @@ LABEL_60:
     {
       if (a1 == 202)
       {
-        v6 = ARKitCoreBundle();
+        v6 = ARKitCoreBundle(v4);
         v7 = v6;
         v8 = @"Geo tracking failed because of a runtime error.";
       }
@@ -8732,7 +8758,7 @@ LABEL_60:
           goto LABEL_67;
         }
 
-        v6 = ARKitCoreBundle();
+        v6 = ARKitCoreBundle(v4);
         v7 = v6;
         v8 = @"Invalid reference image.";
       }
@@ -8742,36 +8768,36 @@ LABEL_60:
 
     if (a1 != 200)
     {
-      v6 = ARKitCoreBundle();
+      v6 = ARKitCoreBundle(v4);
       v7 = v6;
       v8 = @"Geo tracking is not available at this location.";
 LABEL_65:
-      v33 = [v6 localizedStringForKey:v8 value:&stru_1F4208A80 table:@"Localizable"];
-      v34 = MEMORY[0x1E696A578];
+      v39 = [v6 localizedStringForKey:v8 value:&stru_1F4208A80 table:@"Localizable"];
+      v40 = MEMORY[0x1E696A578];
       goto LABEL_66;
     }
 
-    v29 = ARKitCoreBundle();
-    v30 = [v29 localizedStringForKey:@"World tracking failed." value:&stru_1F4208A80 table:@"Localizable"];
-    [v5 setObject:v30 forKeyedSubscript:*MEMORY[0x1E696A578]];
+    v33 = ARKitCoreBundle(v4);
+    v34 = [v33 localizedStringForKey:@"World tracking failed." value:&stru_1F4208A80 table:@"Localizable"];
+    [v5 setObject:v34 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
-    v16 = ARKitCoreBundle();
-    v7 = v16;
-    v17 = @"World tracking cannot determine the device’s position.";
+    v17 = ARKitCoreBundle(v35);
+    v7 = v17;
+    v18 = @"World tracking cannot determine the device’s position.";
     goto LABEL_60;
   }
 
   if (a1 == 106)
   {
-    v31 = ARKitCoreBundle();
-    v32 = [v31 localizedStringForKey:@"Another high-resolution frame is currently being captured." value:&stru_1F4208A80 table:@"Localizable"];
-    [v5 setObject:v32 forKeyedSubscript:*MEMORY[0x1E696A578]];
+    v36 = ARKitCoreBundle(v4);
+    v37 = [v36 localizedStringForKey:@"Another high-resolution frame is currently being captured." value:&stru_1F4208A80 table:@"Localizable"];
+    [v5 setObject:v37 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
-    v7 = ARKitCoreBundle();
-    v33 = [v7 localizedStringForKey:@"Please wait for the completion handler call." value:&stru_1F4208A80 table:@"Localizable"];
-    v34 = MEMORY[0x1E696A598];
+    v7 = ARKitCoreBundle(v38);
+    v39 = [v7 localizedStringForKey:@"Please wait for the completion handler call." value:&stru_1F4208A80 table:@"Localizable"];
+    v40 = MEMORY[0x1E696A598];
 LABEL_66:
-    [v5 setObject:v33 forKeyedSubscript:*v34];
+    [v5 setObject:v39 forKeyedSubscript:*v40];
 
 LABEL_67:
     if (!v3)
@@ -8784,7 +8810,7 @@ LABEL_67:
 
   if (a1 == 107)
   {
-    v6 = ARKitCoreBundle();
+    v6 = ARKitCoreBundle(v4);
     v7 = v6;
     v8 = @"Capturing a high resolution frame failed.";
     goto LABEL_65;
@@ -8797,31 +8823,31 @@ LABEL_67:
 
   [v4 setObject:@"Unsupported capture session configuration." forKeyedSubscript:*MEMORY[0x1E696A578]];
   [v5 setObject:@"Input device and/or format of the provided capture session are not supported for the given configuration." forKeyedSubscript:*MEMORY[0x1E696A588]];
-  v18 = *MEMORY[0x1E696A598];
-  v19 = @"Make sure that the correct device and format are being used for capture.";
+  v19 = *MEMORY[0x1E696A598];
+  v20 = @"Make sure that the correct device and format are being used for capture.";
 LABEL_73:
-  [v5 setObject:v19 forKeyedSubscript:v18];
+  [v5 setObject:v20 forKeyedSubscript:v19];
   if (v3)
   {
     goto LABEL_68;
   }
 
 LABEL_69:
-  v60 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.arkit.error" code:a1 userInfo:v5];
+  v76 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.arkit.error" code:a1 userInfo:v5];
 
-  return v60;
+  return v76;
 }
 
-id ARFrameworkVersions()
+id ARFrameworkVersions(uint64_t a1)
 {
   if (ARFrameworkVersions_onceToken != -1)
   {
     ARFrameworkVersions_cold_1();
   }
 
-  v1 = ARFrameworkVersions_frameworksVersionsDict;
+  v2 = ARFrameworkVersions_frameworksVersionsDict;
 
-  return v1;
+  return v2;
 }
 
 void __ARFrameworkVersions_block_invoke()
@@ -8912,63 +8938,64 @@ uint64_t ARCorrectCVPixelBufferOrientation(__CVBuffer *a1, unsigned int a2, __CV
       ARCorrectCVPixelBufferOrientation_cold_1();
     }
 
-    v7 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v8 = _ARLogGeneral();
-    v9 = v8;
-    if (v7 == 1)
+    v8 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v9 = _ARLogGeneral(a1);
+    v10 = v9;
+    if (v8 == 1)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf.data) = 0;
-        v10 = "Input pixel buffer cannot be NULL";
-        v11 = v9;
-        v12 = OS_LOG_TYPE_ERROR;
+        v11 = "Input pixel buffer cannot be NULL";
+        v12 = v10;
+        v13 = OS_LOG_TYPE_ERROR;
 LABEL_17:
-        _os_log_impl(&dword_1C241C000, v11, v12, v10, &buf, 2u);
+        _os_log_impl(&dword_1C241C000, v12, v13, v11, &buf, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf.data) = 0;
-      v10 = "Error: Input pixel buffer cannot be NULL";
-      v11 = v9;
-      v12 = OS_LOG_TYPE_INFO;
+      v11 = "Error: Input pixel buffer cannot be NULL";
+      v12 = v10;
+      v13 = OS_LOG_TYPE_INFO;
       goto LABEL_17;
     }
 
     return 4294960635;
   }
 
-  if (CVPixelBufferGetPixelFormatType(a1) != 1278226488)
+  PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
+  if (PixelFormatType != 1278226488)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARCorrectCVPixelBufferOrientation_cold_1();
     }
 
-    v13 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v14 = _ARLogGeneral();
-    v15 = v14;
-    if (v13 == 1)
+    v14 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v15 = _ARLogGeneral(PixelFormatType);
+    v16 = v15;
+    if (v14 == 1)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf.data) = 0;
-        v16 = "Input pixel buffer must have format kCVPixelFormatType_OneComponent8";
-        v17 = v15;
-        v18 = OS_LOG_TYPE_ERROR;
+        v17 = "Input pixel buffer must have format kCVPixelFormatType_OneComponent8";
+        v18 = v16;
+        v19 = OS_LOG_TYPE_ERROR;
 LABEL_26:
-        _os_log_impl(&dword_1C241C000, v17, v18, v16, &buf, 2u);
+        _os_log_impl(&dword_1C241C000, v18, v19, v17, &buf, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf.data) = 0;
-      v16 = "Error: Input pixel buffer must have format kCVPixelFormatType_OneComponent8";
-      v17 = v15;
-      v18 = OS_LOG_TYPE_INFO;
+      v17 = "Error: Input pixel buffer must have format kCVPixelFormatType_OneComponent8";
+      v18 = v16;
+      v19 = OS_LOG_TYPE_INFO;
       goto LABEL_26;
     }
 
@@ -8983,7 +9010,7 @@ LABEL_26:
     return result;
   }
 
-  v44 = 0;
+  v49 = 0;
   pixelBufferOut = 0;
   if (a2 <= 8)
   {
@@ -8991,7 +9018,7 @@ LABEL_26:
     {
       Width = CVPixelBufferGetWidth(a1);
       Height = CVPixelBufferGetHeight(a1);
-      v21 = 2;
+      v22 = 2;
       goto LABEL_33;
     }
 
@@ -8999,7 +9026,7 @@ LABEL_26:
     {
       Height = CVPixelBufferGetWidth(a1);
       Width = CVPixelBufferGetHeight(a1);
-      v21 = 1;
+      v22 = 1;
       goto LABEL_33;
     }
 
@@ -9007,7 +9034,7 @@ LABEL_26:
     {
       Height = CVPixelBufferGetWidth(a1);
       Width = CVPixelBufferGetHeight(a1);
-      v21 = 3;
+      v22 = 3;
       goto LABEL_33;
     }
   }
@@ -9016,57 +9043,58 @@ LABEL_26:
   {
     Width = CVPixelBufferGetWidth(a1);
     Height = CVPixelBufferGetHeight(a1);
-    v21 = 0;
+    v22 = 0;
   }
 
   else
   {
-    v21 = 0;
+    v22 = 0;
     Height = 0;
     Width = 0;
   }
 
 LABEL_33:
   Attributes = _getAttributes();
-  v23 = *MEMORY[0x1E695E480];
-  if (CVPixelBufferCreate(*MEMORY[0x1E695E480], Width, Height, 0x4C303038u, Attributes, &pixelBufferOut))
+  v24 = *MEMORY[0x1E695E480];
+  v25 = CVPixelBufferCreate(*MEMORY[0x1E695E480], Width, Height, 0x4C303038u, Attributes, &pixelBufferOut);
+  if (v25)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARCorrectCVPixelBufferOrientation_cold_2();
     }
 
-    v24 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v25 = _ARLogGeneral();
-    v26 = v25;
-    if (v24 == 1)
+    v26 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v27 = _ARLogGeneral(v25);
+    v28 = v27;
+    if (v26 == 1)
     {
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf.data) = 0;
-        v27 = "Could not create pixelbuffer";
+        v29 = "Could not create pixelbuffer";
         p_buf = &buf;
 LABEL_56:
-        v34 = v26;
-        v35 = OS_LOG_TYPE_ERROR;
+        v38 = v28;
+        v39 = OS_LOG_TYPE_ERROR;
 LABEL_69:
-        _os_log_impl(&dword_1C241C000, v34, v35, v27, p_buf, 2u);
+        _os_log_impl(&dword_1C241C000, v38, v39, v29, p_buf, 2u);
       }
 
 LABEL_70:
 
       CVPixelBufferRelease(pixelBufferOut);
-      CVPixelBufferRelease(v44);
+      CVPixelBufferRelease(v49);
       return 4294960636;
     }
 
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
       goto LABEL_70;
     }
 
     LOWORD(buf.data) = 0;
-    v27 = "Error: Could not create pixelbuffer";
+    v29 = "Error: Could not create pixelbuffer";
     p_buf = &buf;
     goto LABEL_68;
   }
@@ -9081,128 +9109,129 @@ LABEL_70:
   dest.height = CVPixelBufferGetHeight(pixelBufferOut);
   dest.width = CVPixelBufferGetWidth(pixelBufferOut);
   dest.rowBytes = CVPixelBufferGetBytesPerRow(pixelBufferOut);
-  v29 = vImageRotate90_Planar8(&buf, &dest, v21, 0, 0);
+  v31 = vImageRotate90_Planar8(&buf, &dest, v22, 0, 0);
   CVPixelBufferUnlockBaseAddress(a1, 0);
-  CVPixelBufferUnlockBaseAddress(pixelBufferOut, 0);
-  if (v29)
+  v32 = CVPixelBufferUnlockBaseAddress(pixelBufferOut, 0);
+  if (v31)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARCorrectCVPixelBufferOrientation_cold_2();
     }
 
-    v30 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v31 = _ARLogGeneral();
-    v26 = v31;
-    if (v30 == 1)
+    v33 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v34 = _ARLogGeneral(v32);
+    v28 = v34;
+    if (v33 == 1)
     {
-      if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_70;
       }
 
-      LOWORD(v41.data) = 0;
-      v27 = "Could not rotate pixelbuffer";
+      LOWORD(v46.data) = 0;
+      v29 = "Could not rotate pixelbuffer";
 LABEL_55:
-      p_buf = &v41;
+      p_buf = &v46;
       goto LABEL_56;
     }
 
-    if (!os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
     {
       goto LABEL_70;
     }
 
-    LOWORD(v41.data) = 0;
-    v27 = "Error: Could not rotate pixelbuffer";
+    LOWORD(v46.data) = 0;
+    v29 = "Error: Could not rotate pixelbuffer";
     goto LABEL_67;
   }
 
   if (a2 <= 7 && ((1 << a2) & 0xB4) != 0)
   {
-    if (CVPixelBufferCreate(v23, Width, Height, 0x4C303038u, Attributes, &v44))
+    v35 = CVPixelBufferCreate(v24, Width, Height, 0x4C303038u, Attributes, &v49);
+    if (v35)
     {
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
       {
         ARCorrectCVPixelBufferOrientation_cold_2();
       }
 
-      v32 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v33 = _ARLogGeneral();
-      v26 = v33;
-      if (v32 == 1)
+      v36 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v37 = _ARLogGeneral(v35);
+      v28 = v37;
+      if (v36 == 1)
       {
-        if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_70;
         }
 
-        LOWORD(v41.data) = 0;
-        v27 = "Could not create pixelbuffer";
+        LOWORD(v46.data) = 0;
+        v29 = "Could not create pixelbuffer";
         goto LABEL_55;
       }
 
-      if (!os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
       {
         goto LABEL_70;
       }
 
-      LOWORD(v41.data) = 0;
-      v27 = "Error: Could not create pixelbuffer";
+      LOWORD(v46.data) = 0;
+      v29 = "Error: Could not create pixelbuffer";
 LABEL_67:
-      p_buf = &v41;
+      p_buf = &v46;
       goto LABEL_68;
     }
 
     CVPixelBufferLockBaseAddress(pixelBufferOut, 0);
-    CVPixelBufferLockBaseAddress(v44, 0);
-    v41.data = CVPixelBufferGetBaseAddress(v44);
-    v41.height = CVPixelBufferGetHeight(v44);
-    v41.width = CVPixelBufferGetWidth(v44);
-    v41.rowBytes = CVPixelBufferGetBytesPerRow(v44);
-    v36 = vImageHorizontalReflect_Planar8(&dest, &v41, 0);
+    CVPixelBufferLockBaseAddress(v49, 0);
+    v46.data = CVPixelBufferGetBaseAddress(v49);
+    v46.height = CVPixelBufferGetHeight(v49);
+    v46.width = CVPixelBufferGetWidth(v49);
+    v46.rowBytes = CVPixelBufferGetBytesPerRow(v49);
+    v40 = vImageHorizontalReflect_Planar8(&dest, &v46, 0);
     CVPixelBufferUnlockBaseAddress(pixelBufferOut, 0);
-    CVPixelBufferUnlockBaseAddress(v44, 0);
-    if (v36)
+    v41 = CVPixelBufferUnlockBaseAddress(v49, 0);
+    if (v40)
     {
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
       {
         ARCorrectCVPixelBufferOrientation_cold_2();
       }
 
-      v37 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v38 = _ARLogGeneral();
-      v26 = v38;
-      if (v37 == 1)
+      v42 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v43 = _ARLogGeneral(v41);
+      v28 = v43;
+      if (v42 == 1)
       {
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          v40[0] = 0;
-          v27 = "Could not mirror pixelbuffer";
-          p_buf = v40;
+          v45[0] = 0;
+          v29 = "Could not mirror pixelbuffer";
+          p_buf = v45;
           goto LABEL_56;
         }
 
         goto LABEL_70;
       }
 
-      if (!os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
       {
         goto LABEL_70;
       }
 
-      v40[0] = 0;
-      v27 = "Error: Could not mirror pixelbuffer";
-      p_buf = v40;
+      v45[0] = 0;
+      v29 = "Error: Could not mirror pixelbuffer";
+      p_buf = v45;
 LABEL_68:
-      v34 = v26;
-      v35 = OS_LOG_TYPE_INFO;
+      v38 = v28;
+      v39 = OS_LOG_TYPE_INFO;
       goto LABEL_69;
     }
 
-    v39 = pixelBufferOut;
-    *a3 = v44;
-    CVPixelBufferRelease(v39);
+    v44 = pixelBufferOut;
+    *a3 = v49;
+    CVPixelBufferRelease(v44);
   }
 
   else
@@ -9229,8 +9258,8 @@ uint64_t ARCreateDownScaledGrayscaleImageAndMask(void *a1, size_t a2, void *a3, 
   v9 = a3;
   v10 = objc_alloc_init(MEMORY[0x1E695F620]);
   pixelBufferOut = 0;
-  v74 = 0;
-  v72 = 0;
+  v80 = 0;
+  v78 = 0;
   [v8 extent];
   v12 = v11;
   [v8 extent];
@@ -9238,43 +9267,44 @@ uint64_t ARCreateDownScaledGrayscaleImageAndMask(void *a1, size_t a2, void *a3, 
   v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"arkit/%s %@; 1/1", "ARCreateDownScaledGrayscaleImageAndMask", v9];;
   Attributes = _getAttributes();
   v17 = *MEMORY[0x1E695E480];
-  if (CVPixelBufferCreate(*MEMORY[0x1E695E480], v12, v14, 0x4C303038u, Attributes, &pixelBufferOut))
+  v18 = CVPixelBufferCreate(*MEMORY[0x1E695E480], v12, v14, 0x4C303038u, Attributes, &pixelBufferOut);
+  if (v18)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARCorrectCVPixelBufferOrientation_cold_2();
     }
 
-    v18 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v19 = _ARLogGeneral();
-    v20 = v19;
-    if (v18 == 1)
+    v19 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v20 = _ARLogGeneral(v18);
+    v21 = v20;
+    if (v19 == 1)
     {
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf.data) = 0;
-        v21 = "Could not create pixelbuffer";
-        v22 = v20;
-        v23 = OS_LOG_TYPE_ERROR;
+        v22 = "Could not create pixelbuffer";
+        v23 = v21;
+        v24 = OS_LOG_TYPE_ERROR;
 LABEL_16:
-        _os_log_impl(&dword_1C241C000, v22, v23, v21, &buf, 2u);
+        _os_log_impl(&dword_1C241C000, v23, v24, v22, &buf, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf.data) = 0;
-      v21 = "Error: Could not create pixelbuffer";
-      v22 = v20;
-      v23 = OS_LOG_TYPE_INFO;
+      v22 = "Error: Could not create pixelbuffer";
+      v23 = v21;
+      v24 = OS_LOG_TYPE_INFO;
       goto LABEL_16;
     }
 
 LABEL_54:
-    CVPixelBufferRelease(v74);
+    CVPixelBufferRelease(v80);
     CVPixelBufferRelease(pixelBufferOut);
-    CVPixelBufferRelease(v72);
-    v46 = 4294960636;
+    CVPixelBufferRelease(v78);
+    v50 = 4294960636;
     goto LABEL_55;
   }
 
@@ -9282,125 +9312,128 @@ LABEL_54:
   if (pixelBufferOut)
   {
     buf.data = 0;
-    if (ARScalePixelBufferMaxDimensionToNewDimension(pixelBufferOut, a2, &buf))
+    v25 = ARScalePixelBufferMaxDimensionToNewDimension(pixelBufferOut, a2, &buf);
+    if (v25)
     {
-      v65 = a4;
-      v66 = v9;
-      v24 = v15;
-      v25 = a5;
-      v26 = v10;
+      v71 = a4;
+      v72 = v9;
+      v26 = v15;
+      v27 = a5;
+      v28 = v10;
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
       {
         ARCorrectCVPixelBufferOrientation_cold_2();
       }
 
-      v27 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v28 = _ARLogGeneral();
-      v29 = v28;
-      if (v27 == 1)
+      v29 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v30 = _ARLogGeneral(v25);
+      v31 = v30;
+      if (v29 == 1)
       {
-        v10 = v26;
-        if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v10 = v28;
+        if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_37;
         }
 
-        LOWORD(v70.data) = 0;
-        v30 = "Error: Could not downscale pixelbuffer";
-        v31 = v29;
-        v32 = OS_LOG_TYPE_ERROR;
+        LOWORD(v76.data) = 0;
+        v32 = "Error: Could not downscale pixelbuffer";
+        v33 = v31;
+        v34 = OS_LOG_TYPE_ERROR;
       }
 
       else
       {
-        v10 = v26;
-        if (!os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+        v10 = v28;
+        if (!os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
         {
           goto LABEL_37;
         }
 
-        LOWORD(v70.data) = 0;
-        v30 = "Error: Error: Could not downscale pixelbuffer";
-        v31 = v29;
-        v32 = OS_LOG_TYPE_INFO;
+        LOWORD(v76.data) = 0;
+        v32 = "Error: Error: Could not downscale pixelbuffer";
+        v33 = v31;
+        v34 = OS_LOG_TYPE_INFO;
       }
 
-      _os_log_impl(&dword_1C241C000, v31, v32, v30, &v70, 2u);
+      _os_log_impl(&dword_1C241C000, v33, v34, v32, &v76, 2u);
 LABEL_37:
 
-      v15 = v24;
-      v9 = v66;
-      a5 = v25;
-      a4 = v65;
+      v15 = v26;
+      v9 = v72;
+      a5 = v27;
+      a4 = v71;
       if (!a5)
       {
         goto LABEL_38;
       }
 
 LABEL_20:
-      if (CVPixelBufferCreate(v17, v12, v14, 0x20u, Attributes, &v74))
+      v35 = CVPixelBufferCreate(v17, v12, v14, 0x20u, Attributes, &v80);
+      if (v35)
       {
-        v33 = v10;
+        v36 = v10;
         if (ARShouldUseLogTypeError(void)::onceToken != -1)
         {
           ARCorrectCVPixelBufferOrientation_cold_2();
         }
 
-        v34 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v35 = _ARLogGeneral();
-        v36 = v35;
-        if (v34 == 1)
+        v37 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v38 = _ARLogGeneral(v35);
+        v39 = v38;
+        if (v37 == 1)
         {
-          v10 = v33;
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v10 = v36;
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
             LOWORD(buf.data) = 0;
-            v37 = "Could not create pixelbuffer";
+            v40 = "Could not create pixelbuffer";
 LABEL_32:
             p_buf = &buf;
 LABEL_33:
-            v42 = v36;
-            v43 = OS_LOG_TYPE_ERROR;
+            v46 = v39;
+            v47 = OS_LOG_TYPE_ERROR;
 LABEL_52:
-            _os_log_impl(&dword_1C241C000, v42, v43, v37, p_buf, 2u);
+            _os_log_impl(&dword_1C241C000, v46, v47, v40, p_buf, 2u);
             goto LABEL_53;
           }
 
           goto LABEL_53;
         }
 
-        v10 = v33;
-        if (!os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+        v10 = v36;
+        if (!os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
         {
           goto LABEL_53;
         }
 
         LOWORD(buf.data) = 0;
-        v37 = "Error: Could not create pixelbuffer";
+        v40 = "Error: Could not create pixelbuffer";
 LABEL_50:
         p_buf = &buf;
         goto LABEL_51;
       }
 
-      [v10 render:v8 toCVPixelBuffer:v74];
-      if (CVPixelBufferCreate(v17, v12, v14, 0x4C303038u, Attributes, &v72))
+      [v10 render:v8 toCVPixelBuffer:v80];
+      v41 = CVPixelBufferCreate(v17, v12, v14, 0x4C303038u, Attributes, &v78);
+      if (v41)
       {
-        v38 = v10;
+        v42 = v10;
         if (ARShouldUseLogTypeError(void)::onceToken != -1)
         {
           ARCorrectCVPixelBufferOrientation_cold_2();
         }
 
-        v39 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v40 = _ARLogGeneral();
-        v36 = v40;
-        if (v39 == 1)
+        v43 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v44 = _ARLogGeneral(v41);
+        v39 = v44;
+        if (v43 == 1)
         {
-          v10 = v38;
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v10 = v42;
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
             LOWORD(buf.data) = 0;
-            v37 = "Could not create pixelbuffer";
+            v40 = "Could not create pixelbuffer";
             goto LABEL_32;
           }
 
@@ -9409,137 +9442,138 @@ LABEL_53:
           goto LABEL_54;
         }
 
-        v10 = v38;
-        if (!os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+        v10 = v42;
+        if (!os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
         {
           goto LABEL_53;
         }
 
         LOWORD(buf.data) = 0;
-        v37 = "Error: Could not create pixelbuffer";
+        v40 = "Error: Could not create pixelbuffer";
         goto LABEL_50;
       }
 
-      CVPixelBufferLockBaseAddress(v74, 0);
-      CVPixelBufferLockBaseAddress(v72, 0);
+      CVPixelBufferLockBaseAddress(v80, 0);
+      CVPixelBufferLockBaseAddress(v78, 0);
       memset(&buf, 0, sizeof(buf));
-      buf.data = CVPixelBufferGetBaseAddress(v74);
-      buf.height = CVPixelBufferGetHeight(v74);
-      buf.width = CVPixelBufferGetWidth(v74);
-      v47 = a5;
-      buf.rowBytes = CVPixelBufferGetBytesPerRow(v74);
-      memset(&v70, 0, sizeof(v70));
-      v70.data = CVPixelBufferGetBaseAddress(v72);
-      v70.height = CVPixelBufferGetHeight(v72);
-      v70.width = CVPixelBufferGetWidth(v72);
-      v70.rowBytes = CVPixelBufferGetBytesPerRow(v72);
-      v48 = vImageExtractChannel_ARGB8888(&buf, &v70, 0, 0);
-      CVPixelBufferUnlockBaseAddress(v74, 0);
-      CVPixelBufferUnlockBaseAddress(v72, 0);
-      if (v48)
+      buf.data = CVPixelBufferGetBaseAddress(v80);
+      buf.height = CVPixelBufferGetHeight(v80);
+      buf.width = CVPixelBufferGetWidth(v80);
+      v51 = a5;
+      buf.rowBytes = CVPixelBufferGetBytesPerRow(v80);
+      memset(&v76, 0, sizeof(v76));
+      v76.data = CVPixelBufferGetBaseAddress(v78);
+      v76.height = CVPixelBufferGetHeight(v78);
+      v76.width = CVPixelBufferGetWidth(v78);
+      v76.rowBytes = CVPixelBufferGetBytesPerRow(v78);
+      v52 = vImageExtractChannel_ARGB8888(&buf, &v76, 0, 0);
+      CVPixelBufferUnlockBaseAddress(v80, 0);
+      v53 = CVPixelBufferUnlockBaseAddress(v78, 0);
+      if (v52)
       {
-        v49 = v10;
+        v54 = v10;
         if (ARShouldUseLogTypeError(void)::onceToken != -1)
         {
           ARCorrectCVPixelBufferOrientation_cold_2();
         }
 
-        v50 = ARShouldUseLogTypeError(void)::internalOSVersion;
-        v51 = _ARLogGeneral();
-        v36 = v51;
-        if (v50 == 1)
+        v55 = ARShouldUseLogTypeError(void)::internalOSVersion;
+        v56 = _ARLogGeneral(v53);
+        v39 = v56;
+        if (v55 == 1)
         {
-          v10 = v49;
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+          v10 = v54;
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
           {
-            LOWORD(v69[0]) = 0;
-            v37 = "Could not extract alpha channel from image";
-            p_buf = v69;
+            LOWORD(v75[0]) = 0;
+            v40 = "Could not extract alpha channel from image";
+            p_buf = v75;
             goto LABEL_33;
           }
 
           goto LABEL_53;
         }
 
-        v10 = v49;
-        if (!os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+        v10 = v54;
+        if (!os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
         {
           goto LABEL_53;
         }
 
-        LOWORD(v69[0]) = 0;
-        v37 = "Error: Could not extract alpha channel from image";
-        p_buf = v69;
+        LOWORD(v75[0]) = 0;
+        v40 = "Error: Could not extract alpha channel from image";
+        p_buf = v75;
 LABEL_51:
-        v42 = v36;
-        v43 = OS_LOG_TYPE_INFO;
+        v46 = v39;
+        v47 = OS_LOG_TYPE_INFO;
         goto LABEL_52;
       }
 
-      CVPixelBufferRelease(v74);
-      if (!v72)
+      CVPixelBufferRelease(v80);
+      if (!v78)
       {
-        v60 = 0;
-        v61 = v47;
+        v66 = 0;
+        v67 = v51;
 LABEL_72:
-        *v61 = v60;
+        *v67 = v66;
         *a4 = pixelBufferOut;
-        IOSurface = CVPixelBufferGetIOSurface(*v61);
-        v63 = *MEMORY[0x1E696CF98];
+        IOSurface = CVPixelBufferGetIOSurface(*v67);
+        v69 = *MEMORY[0x1E696CF98];
         IOSurfaceSetValue(IOSurface, *MEMORY[0x1E696CF98], v15);
-        v64 = CVPixelBufferGetIOSurface(*a4);
-        IOSurfaceSetValue(v64, v63, v15);
+        v70 = CVPixelBufferGetIOSurface(*a4);
+        IOSurfaceSetValue(v70, v69, v15);
         goto LABEL_39;
       }
 
-      v69[0] = 0;
-      if (!ARScalePixelBufferMaxDimensionToNewDimension(v72, a2, v69))
+      v75[0] = 0;
+      v58 = ARScalePixelBufferMaxDimensionToNewDimension(v78, a2, v75);
+      if (!v58)
       {
-        v61 = v47;
-        CVPixelBufferRelease(v72);
-        v72 = v69[0];
+        v67 = v51;
+        CVPixelBufferRelease(v78);
+        v78 = v75[0];
 LABEL_71:
-        v60 = v72;
+        v66 = v78;
         goto LABEL_72;
       }
 
-      v53 = v10;
+      v59 = v10;
       if (ARShouldUseLogTypeError(void)::onceToken != -1)
       {
         ARCorrectCVPixelBufferOrientation_cold_2();
       }
 
-      v54 = ARShouldUseLogTypeError(void)::internalOSVersion;
-      v55 = _ARLogGeneral();
-      v56 = v55;
-      if (v54 == 1)
+      v60 = ARShouldUseLogTypeError(void)::internalOSVersion;
+      v61 = _ARLogGeneral(v58);
+      v62 = v61;
+      if (v60 == 1)
       {
-        v10 = v53;
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+        v10 = v59;
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
         {
-          *v68 = 0;
-          v57 = "Error: Could not downscale alpha mask";
-          v58 = v56;
-          v59 = OS_LOG_TYPE_ERROR;
+          *v74 = 0;
+          v63 = "Error: Could not downscale alpha mask";
+          v64 = v62;
+          v65 = OS_LOG_TYPE_ERROR;
 LABEL_69:
-          _os_log_impl(&dword_1C241C000, v58, v59, v57, v68, 2u);
+          _os_log_impl(&dword_1C241C000, v64, v65, v63, v74, 2u);
         }
       }
 
       else
       {
-        v10 = v53;
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+        v10 = v59;
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
         {
-          *v68 = 0;
-          v57 = "Error: Error: Could not downscale alpha mask";
-          v58 = v56;
-          v59 = OS_LOG_TYPE_INFO;
+          *v74 = 0;
+          v63 = "Error: Error: Could not downscale alpha mask";
+          v64 = v62;
+          v65 = OS_LOG_TYPE_INFO;
           goto LABEL_69;
         }
       }
 
-      v61 = v47;
+      v67 = v51;
       goto LABEL_71;
     }
 
@@ -9553,48 +9587,49 @@ LABEL_69:
   }
 
 LABEL_38:
-  v44 = pixelBufferOut;
+  v48 = pixelBufferOut;
   *a4 = pixelBufferOut;
-  v45 = CVPixelBufferGetIOSurface(v44);
-  IOSurfaceSetValue(v45, *MEMORY[0x1E696CF98], v15);
+  v49 = CVPixelBufferGetIOSurface(v48);
+  IOSurfaceSetValue(v49, *MEMORY[0x1E696CF98], v15);
 LABEL_39:
-  v46 = 0;
+  v50 = 0;
 LABEL_55:
 
-  return v46;
+  return v50;
 }
 
 uint64_t ARScalePixelBufferMaxDimensionToNewDimension(__CVBuffer *a1, size_t a2, __CVBuffer **a3)
 {
-  if (CVPixelBufferGetPixelFormatType(a1) != 1278226488)
+  PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
+  if (PixelFormatType != 1278226488)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARCorrectCVPixelBufferOrientation_cold_1();
     }
 
-    v11 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v12 = _ARLogGeneral();
-    v13 = v12;
-    if (v11 == 1)
+    v12 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v13 = _ARLogGeneral(PixelFormatType);
+    v14 = v13;
+    if (v12 == 1)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf.data) = 0;
-        v14 = "Pixelbuffer must have format kCVPixelFormatType_OneComponent8";
-        v15 = v13;
-        v16 = OS_LOG_TYPE_ERROR;
+        v15 = "Pixelbuffer must have format kCVPixelFormatType_OneComponent8";
+        v16 = v14;
+        v17 = OS_LOG_TYPE_ERROR;
 LABEL_16:
-        _os_log_impl(&dword_1C241C000, v15, v16, v14, &buf, 2u);
+        _os_log_impl(&dword_1C241C000, v16, v17, v15, &buf, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf.data) = 0;
-      v14 = "Error: Pixelbuffer must have format kCVPixelFormatType_OneComponent8";
-      v15 = v13;
-      v16 = OS_LOG_TYPE_INFO;
+      v15 = "Error: Pixelbuffer must have format kCVPixelFormatType_OneComponent8";
+      v16 = v14;
+      v17 = OS_LOG_TYPE_INFO;
       goto LABEL_16;
     }
 
@@ -9605,36 +9640,36 @@ LABEL_16:
   Height = CVPixelBufferGetHeight(a1);
   if (Width <= Height)
   {
-    v8 = Height;
+    v9 = Height;
   }
 
   else
   {
-    v8 = Width;
+    v9 = Width;
   }
 
-  if (v8 <= a2)
+  if (v9 <= a2)
   {
-    v10 = Height;
+    v11 = Height;
     a2 = Width;
   }
 
   else
   {
-    v9 = a2;
+    v10 = a2;
     if (Width <= Height)
     {
-      v10 = a2;
-      a2 = ((v9 / Height) * Width);
+      v11 = a2;
+      a2 = ((v10 / Height) * Width);
     }
 
     else
     {
-      v10 = ((v9 / Width) * Height);
+      v11 = ((v10 / Width) * Height);
     }
   }
 
-  if (a2 == Width && v10 == Height)
+  if (a2 == Width && v11 == Height)
   {
     *a3 = a1;
     CVPixelBufferRetain(a1);
@@ -9643,35 +9678,36 @@ LABEL_16:
 
   Attributes = _getAttributes();
   pixelBufferOut = 0;
-  if (CVPixelBufferCreate(*MEMORY[0x1E695E480], a2, v10, 0x4C303038u, Attributes, &pixelBufferOut))
+  v20 = CVPixelBufferCreate(*MEMORY[0x1E695E480], a2, v11, 0x4C303038u, Attributes, &pixelBufferOut);
+  if (v20)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ARCorrectCVPixelBufferOrientation_cold_2();
     }
 
-    v19 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v20 = _ARLogGeneral();
-    v21 = v20;
-    if (v19 == 1)
+    v21 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v22 = _ARLogGeneral(v20);
+    v23 = v22;
+    if (v21 == 1)
     {
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         LOWORD(buf.data) = 0;
-        v22 = "Could not create pixelbuffer";
-        v23 = v21;
-        v24 = OS_LOG_TYPE_ERROR;
+        v24 = "Could not create pixelbuffer";
+        v25 = v23;
+        v26 = OS_LOG_TYPE_ERROR;
 LABEL_36:
-        _os_log_impl(&dword_1C241C000, v23, v24, v22, &buf, 2u);
+        _os_log_impl(&dword_1C241C000, v25, v26, v24, &buf, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       LOWORD(buf.data) = 0;
-      v22 = "Error: Could not create pixelbuffer";
-      v23 = v21;
-      v24 = OS_LOG_TYPE_INFO;
+      v24 = "Error: Could not create pixelbuffer";
+      v25 = v23;
+      v26 = OS_LOG_TYPE_INFO;
       goto LABEL_36;
     }
 
@@ -9688,7 +9724,8 @@ LABEL_36:
   dest.height = CVPixelBufferGetHeight(pixelBufferOut);
   dest.width = CVPixelBufferGetWidth(pixelBufferOut);
   dest.rowBytes = CVPixelBufferGetBytesPerRow(pixelBufferOut);
-  if (!vImageScale_Planar8(&buf, &dest, 0, 0x20u))
+  v27 = vImageScale_Planar8(&buf, &dest, 0, 0x20u);
+  if (!v27)
   {
     CVPixelBufferUnlockBaseAddress(a1, 0);
     CVPixelBufferUnlockBaseAddress(pixelBufferOut, 0);
@@ -9702,28 +9739,28 @@ LABEL_36:
     ARCorrectCVPixelBufferOrientation_cold_2();
   }
 
-  v25 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v26 = _ARLogGeneral();
-  v27 = v26;
-  if (v25 == 1)
+  v28 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v29 = _ARLogGeneral(v27);
+  v30 = v29;
+  if (v28 == 1)
   {
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      *v31 = 0;
-      v28 = "Could not scale pixelbuffer";
-      v29 = v27;
-      v30 = OS_LOG_TYPE_ERROR;
+      *v34 = 0;
+      v31 = "Could not scale pixelbuffer";
+      v32 = v30;
+      v33 = OS_LOG_TYPE_ERROR;
 LABEL_41:
-      _os_log_impl(&dword_1C241C000, v29, v30, v28, v31, 2u);
+      _os_log_impl(&dword_1C241C000, v32, v33, v31, v34, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
   {
-    *v31 = 0;
-    v28 = "Error: Could not scale pixelbuffer";
-    v29 = v27;
-    v30 = OS_LOG_TYPE_INFO;
+    *v34 = 0;
+    v31 = "Error: Could not scale pixelbuffer";
+    v32 = v30;
+    v33 = OS_LOG_TYPE_INFO;
     goto LABEL_41;
   }
 

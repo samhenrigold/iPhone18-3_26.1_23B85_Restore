@@ -244,7 +244,7 @@ void __62__SBSystemUIScenesCoordinator__sceneControllersConfigurations__block_in
   v94 = v2;
   v91 = v14;
   v92 = v10;
-  if (((+[SBCaptureHardwareButton deviceSupportsCaptureButton]() & 1) != 0 || +[SBCaptureHardwareButton simulateCaptureButtonWithActionButton]()) && +[SBCaptureHardwareButton isCaptureFeatureEnabled])
+  if (((+[SBCaptureHardwareButton deviceSupportsCaptureButton]() & 1) != 0 || +[SBCaptureHardwareButton simulateCaptureButtonWithActionButton](SBCaptureHardwareButton)) && +[SBCaptureHardwareButton isCaptureFeatureEnabled])
   {
     v44 = MEMORY[0x277CBEB38];
     v45 = +[SBCameraOverlayUISceneController _setupInfo];
@@ -448,7 +448,7 @@ void __67__SBSystemUIScenesCoordinator__systemUISceneBoundProcessIdentities__blo
   }
 
   _systemUISceneBoundProcessIdentities = [self _systemUISceneBoundProcessIdentities];
-  v6 = [_systemUISceneBoundProcessIdentities containsObject:clientCopy];
+  v6 = objc_msgSend_containsObject_(_systemUISceneBoundProcessIdentities);
 
   return v6;
 }
@@ -473,7 +473,7 @@ void __67__SBSystemUIScenesCoordinator__systemUISceneBoundProcessIdentities__blo
   if (uiSceneSessionRole)
   {
     _systemUISceneSessionRoles = [objc_opt_class() _systemUISceneSessionRoles];
-    v14 = [_systemUISceneSessionRoles containsObject:uiSceneSessionRole];
+    v14 = objc_msgSend_containsObject_(_systemUISceneSessionRoles);
 
     if (v12)
     {

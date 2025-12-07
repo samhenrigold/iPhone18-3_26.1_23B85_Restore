@@ -7,11 +7,14 @@
 - (GCOperation)initWithError:(id)error;
 - (GCOperation)initWithResult:(id)result;
 - (id).cxx_construct;
+- (id)_thenSynchronouslyRequiringState:(int64_t)state onQueue:(id)queue withOptions:(unsigned int)options qosClass:(unsigned int)class relativePriority:(int)priority label:(id)label block:(id)block;
 - (id)activate;
 - (id)debugDescription;
 - (id)initCancelled;
 - (id)initOnQueue:(id)queue withOptions:(unsigned int)options;
+- (id)initOnQueue:(id)queue withOptions:(unsigned int)options block:(id)block;
 - (id)startAsynchronously;
+- (void)_observeFinishOnQueue:(id)queue withOptions:(unsigned int)options qosClass:(unsigned int)class relativePriority:(int)priority block:(id)block;
 - (void)_startAsynchronouslyIfNeeded;
 - (void)setAsyncBlock:(id)block;
 - (void)setLabel:(id)label;
@@ -165,6 +168,17 @@ LABEL_12:
   return v8;
 }
 
+- (id)initOnQueue:(id)queue withOptions:(unsigned int)options block:(id)block
+{
+  v6 = *&options;
+  queueCopy = queue;
+  blockCopy = block;
+  v10 = [(GCOperation *)self initOnQueue:queueCopy withOptions:v6];
+  [v10 setAsyncBlock:blockCopy];
+
+  return v10;
+}
+
 - (void)setLabel:(id)label
 {
   labelCopy = label;
@@ -248,7 +262,6 @@ LABEL_12:
   {
     if (v8 && v8 != 21)
     {
-      v11 = *(a4 + 68);
       v10 = dispatch_block_create_with_voucher_and_qos_class();
     }
 
@@ -257,9 +270,9 @@ LABEL_12:
       v10 = dispatch_block_create_with_voucher();
     }
 
-    v12 = v10;
+    v11 = v10;
 
-    v7 = v12;
+    v7 = v11;
   }
 
   dispatch_async(*(a4 + 88), v7);
@@ -267,18 +280,18 @@ LABEL_12:
 
 void __43__GCOperation__startAsynchronouslyIfNeeded__block_invoke_293(uint64_t a1)
 {
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__12;
-  v22 = __Block_byref_object_dispose__12;
-  v23 = 0;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__12;
-  v16 = __Block_byref_object_dispose__12;
   v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__12;
+  v21 = __Block_byref_object_dispose__12;
+  v22 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__12;
+  v15 = __Block_byref_object_dispose__12;
+  v16 = 0;
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -286,22 +299,21 @@ void __43__GCOperation__startAsynchronouslyIfNeeded__block_invoke_293(uint64_t a
     block[1] = 3221225472;
     block[2] = __43__GCOperation__startAsynchronouslyIfNeeded__block_invoke_294;
     block[3] = &unk_1E8415268;
-    v10 = &v12;
+    v9 = &v11;
     v3 = *(a1 + 48);
     block[4] = *(a1 + 40);
-    v9 = v3;
-    v11 = &v18;
+    v8 = v3;
+    v10 = &v17;
     dispatch_async_and_wait(v2, block);
-    v4 = v9;
+    v4 = v8;
   }
 
   else
   {
-    v5 = *(a1 + 40);
-    v6 = (*(*(a1 + 48) + 16))();
-    objc_storeStrong(&v23, 0);
-    v4 = v13[5];
-    v13[5] = v6;
+    v5 = (*(*(a1 + 48) + 16))();
+    objc_storeStrong(&v22, 0);
+    v4 = v12[5];
+    v12[5] = v5;
   }
 
   if (atomic_load_explicit((*(a1 + 40) + 15), memory_order_acquire))
@@ -311,15 +323,15 @@ void __43__GCOperation__startAsynchronouslyIfNeeded__block_invoke_293(uint64_t a
 
   else
   {
-    v7 = v13[5];
-    if (v7)
+    v6 = v12[5];
+    if (v6)
     {
-      [*(a1 + 40) _setState:2 result:v7 error:0];
+      [*(a1 + 40) _setState:2 result:v6 error:0];
     }
 
     else
     {
-      if (!v19[5])
+      if (!v18[5])
       {
         __43__GCOperation__startAsynchronouslyIfNeeded__block_invoke_293_cold_1();
       }
@@ -328,22 +340,21 @@ void __43__GCOperation__startAsynchronouslyIfNeeded__block_invoke_293(uint64_t a
     }
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v11, 8);
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v17, 8);
 }
 
 void __43__GCOperation__startAsynchronouslyIfNeeded__block_invoke_294(void *a1)
 {
   v2 = a1[5];
-  v3 = a1[4];
-  v4 = *(a1[7] + 8);
-  obj = *(v4 + 40);
-  v5 = (*(v2 + 16))();
-  objc_storeStrong((v4 + 40), obj);
-  v6 = *(a1[6] + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v3 = *(a1[7] + 8);
+  obj = *(v3 + 40);
+  v4 = (*(v2 + 16))();
+  objc_storeStrong((v3 + 40), obj);
+  v5 = *(a1[6] + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 - (BOOL)_runSynchronouslyIfNeeded
@@ -383,13 +394,12 @@ LABEL_20:
       v8 = *(self + 88);
       *(self + 88) = v7;
 
-      v9 = *(self + 88);
       [*(self + 24) UTF8String];
       dispatch_queue_set_label_nocopy();
       dispatch_activate(*(self + 88));
-      v10 = dispatch_get_current_queue();
-      v11 = *(self + 96);
-      *(self + 96) = v10;
+      v9 = dispatch_get_current_queue();
+      v10 = *(self + 96);
+      *(self + 96) = v9;
 
       *(self + 13) &= ~2u;
       os_unfair_lock_unlock((self + 8));
@@ -397,42 +407,41 @@ LABEL_20:
       aBlock[1] = 3221225472;
       aBlock[2] = __40__GCOperation__runSynchronouslyIfNeeded__block_invoke;
       aBlock[3] = &unk_1E8415290;
-      v12 = v5;
-      v21 = v12;
+      v11 = v5;
+      v19 = v11;
       selfCopy = self;
-      v23 = v2;
-      v13 = _Block_copy(aBlock);
-      v14 = *(self + 64);
-      if (!*(self + 56) && v14 == 21)
+      v21 = v2;
+      v12 = _Block_copy(aBlock);
+      v13 = *(self + 64);
+      if (!*(self + 56) && v13 == 21)
       {
 LABEL_19:
-        dispatch_async_and_wait(*(self + 88), v13);
+        dispatch_async_and_wait(*(self + 88), v12);
 
         goto LABEL_20;
       }
 
-      if (v14)
+      if (v13)
       {
-        if (v14 != 21)
+        if (v13 != 21)
         {
-          v17 = *(self + 68);
-          v16 = dispatch_block_create_with_voucher_and_qos_class();
+          v15 = dispatch_block_create_with_voucher_and_qos_class();
           goto LABEL_18;
         }
 
-        v15 = DISPATCH_BLOCK_ASSIGN_CURRENT;
+        v14 = DISPATCH_BLOCK_ASSIGN_CURRENT;
       }
 
       else
       {
-        v15 = DISPATCH_BLOCK_DETACHED;
+        v14 = DISPATCH_BLOCK_DETACHED;
       }
 
-      v16 = dispatch_block_create(v15, v13);
+      v15 = dispatch_block_create(v14, v12);
 LABEL_18:
-      v18 = v16;
+      v16 = v15;
 
-      v13 = v18;
+      v12 = v16;
       goto LABEL_19;
     }
 
@@ -444,18 +453,18 @@ LABEL_18:
 
 void __40__GCOperation__runSynchronouslyIfNeeded__block_invoke(uint64_t a1)
 {
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__12;
-  v22 = __Block_byref_object_dispose__12;
-  v23 = 0;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__12;
-  v16 = __Block_byref_object_dispose__12;
   v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__12;
+  v21 = __Block_byref_object_dispose__12;
+  v22 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__12;
+  v15 = __Block_byref_object_dispose__12;
+  v16 = 0;
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -463,22 +472,21 @@ void __40__GCOperation__runSynchronouslyIfNeeded__block_invoke(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __40__GCOperation__runSynchronouslyIfNeeded__block_invoke_2;
     block[3] = &unk_1E8415268;
-    v10 = &v12;
+    v9 = &v11;
     v3 = *(a1 + 48);
     block[4] = *(a1 + 40);
-    v9 = v3;
-    v11 = &v18;
+    v8 = v3;
+    v10 = &v17;
     dispatch_async_and_wait(v2, block);
-    v4 = v9;
+    v4 = v8;
   }
 
   else
   {
-    v5 = *(a1 + 40);
-    v6 = (*(*(a1 + 48) + 16))();
-    objc_storeStrong(&v23, 0);
-    v4 = v13[5];
-    v13[5] = v6;
+    v5 = (*(*(a1 + 48) + 16))();
+    objc_storeStrong(&v22, 0);
+    v4 = v12[5];
+    v12[5] = v5;
   }
 
   if (atomic_load_explicit((*(a1 + 40) + 15), memory_order_acquire))
@@ -488,15 +496,15 @@ void __40__GCOperation__runSynchronouslyIfNeeded__block_invoke(uint64_t a1)
 
   else
   {
-    v7 = v13[5];
-    if (v7)
+    v6 = v12[5];
+    if (v6)
     {
-      [*(a1 + 40) _setState:2 result:v7 error:0];
+      [*(a1 + 40) _setState:2 result:v6 error:0];
     }
 
     else
     {
-      if (!v19[5])
+      if (!v18[5])
       {
         __43__GCOperation__startAsynchronouslyIfNeeded__block_invoke_293_cold_1();
       }
@@ -505,22 +513,21 @@ void __40__GCOperation__runSynchronouslyIfNeeded__block_invoke(uint64_t a1)
     }
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v11, 8);
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v17, 8);
 }
 
 void __40__GCOperation__runSynchronouslyIfNeeded__block_invoke_2(void *a1)
 {
   v2 = a1[5];
-  v3 = a1[4];
-  v4 = *(a1[7] + 8);
-  obj = *(v4 + 40);
-  v5 = (*(v2 + 16))();
-  objc_storeStrong((v4 + 40), obj);
-  v6 = *(a1[6] + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v3 = *(a1[7] + 8);
+  obj = *(v3 + 40);
+  v4 = (*(v2 + 16))();
+  objc_storeStrong((v3 + 40), obj);
+  v5 = *(a1[6] + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 - (BOOL)_checkFinished:(BOOL)finished
@@ -574,6 +581,52 @@ void __40__GCOperation__runSynchronouslyIfNeeded__block_invoke_2(void *a1)
   return v5;
 }
 
+- (void)_observeFinishOnQueue:(id)queue withOptions:(unsigned int)options qosClass:(unsigned int)class relativePriority:(int)priority block:(id)block
+{
+  v8 = *&priority;
+  v9 = *&class;
+  v10 = *&options;
+  queueCopy = queue;
+  blockCopy = block;
+  if ((v10 & 0x10000) == 0)
+  {
+    [(GCOperation *)self _startAsynchronouslyIfNeeded];
+  }
+
+  os_unfair_lock_lock_with_options();
+  if (self->_continuations._continuations.tqh_first)
+  {
+    if ((v10 & 0x10000) == 0 && (*(&self->super._state + 1) & 2) == 0)
+    {
+      privateQueue = self->_privateQueue;
+      if (privateQueue)
+      {
+        dispatch_async(privateQueue, &__block_literal_global_300);
+      }
+    }
+
+    os_unfair_lock_unlock(&self->super._lock);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __81__GCOperation__observeFinishOnQueue_withOptions_qosClass_relativePriority_block___block_invoke_2;
+    v15[3] = &unk_1E8415240;
+    v17 = blockCopy;
+    v16 = queueCopy;
+    v18 = v10;
+    v19 = v9;
+    v20 = v8;
+    ContinuationList::addOrInvokeContinuation_takesLock(&self->_qos, self, v15);
+  }
+
+  else
+  {
+    os_unfair_lock_unlock(&self->super._lock);
+    v21.receiver = self;
+    v21.super_class = GCOperation;
+    [(GCFuture *)&v21 _observeFinishOnQueue:queueCopy withOptions:v10 qosClass:v9 relativePriority:v8 block:blockCopy];
+  }
+}
+
 - (BOOL)_setState:(int64_t)state result:(id)result error:(id)error
 {
   resultCopy = result;
@@ -603,6 +656,57 @@ void __40__GCOperation__runSynchronouslyIfNeeded__block_invoke_2(void *a1)
   v2 = [(GCFuture *)&v4 debugDescription];
 
   return v2;
+}
+
+- (id)_thenSynchronouslyRequiringState:(int64_t)state onQueue:(id)queue withOptions:(unsigned int)options qosClass:(unsigned int)class relativePriority:(int)priority label:(id)label block:(id)block
+{
+  v12 = *&options;
+  queueCopy = queue;
+  labelCopy = label;
+  blockCopy = block;
+  if (!blockCopy)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"GCFuture.mm" lineNumber:1875 description:{@"Invalid parameter not satisfying: %s", "block != nil"}];
+  }
+
+  if ((atomic_load_explicit(&self->super._state + 2, memory_order_acquire) & 1) == 0)
+  {
+    [GCOperation _startAsynchronouslyIfNeeded];
+  }
+
+  v19 = [[GCOperation alloc] initOnQueue:queueCopy withOptions:v12];
+  if (self->_targetQueue)
+  {
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __106__GCOperation__thenSynchronouslyRequiringState_onQueue_withOptions_qosClass_relativePriority_label_block___block_invoke;
+    v26[3] = &unk_1E8415150;
+    v26[4] = self;
+    v30 = v12;
+    classCopy = class;
+    priorityCopy = priority;
+    v27 = queueCopy;
+    stateCopy = state;
+    v28 = blockCopy;
+    [v19 setAsyncBlock:v26];
+  }
+
+  if (self->_asyncBlock)
+  {
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __106__GCOperation__thenSynchronouslyRequiringState_onQueue_withOptions_qosClass_relativePriority_label_block___block_invoke_3;
+    v23[3] = &unk_1E84152B8;
+    v23[4] = self;
+    stateCopy2 = state;
+    v24 = blockCopy;
+    [v19 setSyncBlock:v23];
+  }
+
+  activate = [v19 activate];
+
+  return activate;
 }
 
 void __106__GCOperation__thenSynchronouslyRequiringState_onQueue_withOptions_qosClass_relativePriority_label_block___block_invoke(uint64_t a1, void *a2)

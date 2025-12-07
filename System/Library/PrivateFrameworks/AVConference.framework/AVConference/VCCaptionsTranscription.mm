@@ -70,7 +70,7 @@
 - (VCCaptionsTranscription)initWithSFTranscription:(id)transcription taskInfo:(id)info isLocal:(BOOL)local isFinal:(BOOL)final
 {
   v33 = *MEMORY[0x1E69E9840];
-  v8 = -[VCCaptionsTranscription initWithUtteranceNumber:updateNumber:isLocal:isFinal:streamToken:isTranslated:](self, "initWithUtteranceNumber:updateNumber:isLocal:isFinal:streamToken:isTranslated:", [info utteranceNumber], objc_msgSend(info, "updateNumber"), local, final, objc_msgSend(info, "token"), 0);
+  v8 = -[VCCaptionsTranscription initWithUtteranceNumber:updateNumber:isLocal:isFinal:streamToken:isTranslated:](self, "initWithUtteranceNumber:updateNumber:isLocal:isFinal:streamToken:isTranslated:", [info utteranceNumber], objc_msgSend(info, "updateNumber"), local, final, objc_msgSend_token(info), 0);
   if (v8)
   {
     v9 = v8;
@@ -119,7 +119,7 @@
           v24 = v23;
           [(NSMutableArray *)v9->_segments addObject:v23];
 
-          [v16 duration];
+          objc_msgSend_duration(v16);
           v14 = v14 + v25;
         }
 
@@ -161,7 +161,7 @@
 - (VCCaptionsTranscription)initWithSTTranscriberMultisegmentResult:(id)result taskInfo:(id)info isLocal:(BOOL)local isFinal:(BOOL)final
 {
   v27 = *MEMORY[0x1E69E9840];
-  v8 = -[VCCaptionsTranscription initWithUtteranceNumber:updateNumber:isLocal:isFinal:streamToken:isTranslated:](self, "initWithUtteranceNumber:updateNumber:isLocal:isFinal:streamToken:isTranslated:", [info utteranceNumber], objc_msgSend(info, "updateNumber"), local, final, objc_msgSend(info, "token"), 0);
+  v8 = -[VCCaptionsTranscription initWithUtteranceNumber:updateNumber:isLocal:isFinal:streamToken:isTranslated:](self, "initWithUtteranceNumber:updateNumber:isLocal:isFinal:streamToken:isTranslated:", [info utteranceNumber], objc_msgSend(info, "updateNumber"), local, final, objc_msgSend_token(info), 0);
   if (!v8)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -240,7 +240,7 @@ LABEL_9:
   v21 = VCCaptionTaskInfo_HostTime(info);
   if (resultCopy)
   {
-    [resultCopy recognitionAudioRange];
+    objc_msgSend_recognitionAudioRange(resultCopy);
   }
 
   else
@@ -255,7 +255,7 @@ LABEL_9:
 
 - (VCCaptionsTranscription)initWithTextTranscription:(id)transcription taskInfo:(id)info isLocal:(BOOL)local isFinal:(BOOL)final isTranslated:(BOOL)translated
 {
-  v9 = -[VCCaptionsTranscription initWithUtteranceNumber:updateNumber:isLocal:isFinal:streamToken:isTranslated:](self, "initWithUtteranceNumber:updateNumber:isLocal:isFinal:streamToken:isTranslated:", [info utteranceNumber], objc_msgSend(info, "updateNumber"), local, final, objc_msgSend(info, "token"), translated);
+  v9 = -[VCCaptionsTranscription initWithUtteranceNumber:updateNumber:isLocal:isFinal:streamToken:isTranslated:](self, "initWithUtteranceNumber:updateNumber:isLocal:isFinal:streamToken:isTranslated:", [info utteranceNumber], objc_msgSend(info, "updateNumber"), local, final, objc_msgSend_token(info), translated);
   if (v9)
   {
     v10 = [transcription length];
@@ -661,7 +661,7 @@ LABEL_12:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to init captions transcription VCCaptionsTranscription from text result.", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to init captions transcription VCCaptionsTranscription from text result.", v2, v3, v4, v5);
     }
   }
 }
@@ -688,7 +688,7 @@ LABEL_12:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode utterance number", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode utterance number", v2, v3, v4, v5);
     }
   }
 }
@@ -702,7 +702,7 @@ LABEL_12:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode update number", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode update number", v2, v3, v4, v5);
     }
   }
 }
@@ -716,7 +716,7 @@ LABEL_12:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode is local", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode is local", v2, v3, v4, v5);
     }
   }
 }
@@ -730,7 +730,7 @@ LABEL_12:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode is final", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode is final", v2, v3, v4, v5);
     }
   }
 }
@@ -744,7 +744,7 @@ LABEL_12:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode segments", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode segments", v2, v3, v4, v5);
     }
   }
 }
@@ -758,7 +758,7 @@ LABEL_12:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode utterance start timestamp", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode utterance start timestamp", v2, v3, v4, v5);
     }
   }
 }
@@ -772,7 +772,7 @@ LABEL_12:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode utterance duration", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode utterance duration", v2, v3, v4, v5);
     }
   }
 }
@@ -786,7 +786,7 @@ LABEL_12:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode is translated", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to decode is translated", v2, v3, v4, v5);
     }
   }
 }

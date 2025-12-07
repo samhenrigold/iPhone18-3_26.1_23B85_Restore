@@ -44,7 +44,7 @@
 
 - (id)specifiers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   userInfo = [(PSSpecifier *)self->_parentSpecifier userInfo];
   item = [userInfo item];
@@ -77,9 +77,9 @@
       getLogger = [(PSUIDataPlanDetailsController *)self getLogger];
       if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 136315138;
-        v20 = "[PSUIDataPlanDetailsController specifiers]";
-        _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s showing subscription context menus group", &v19, 0xCu);
+        v18 = 136315138;
+        v19 = "[PSUIDataPlanDetailsController specifiers]";
+        _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s showing subscription context menus group", &v18, 0xCu);
       }
 
       [v3 addObject:getLogger2];
@@ -99,12 +99,10 @@
     getLogger2 = [(PSUIDataPlanDetailsController *)self getLogger];
     if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "Plan item is not set!", &v19, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "Plan item is not set!", &v18, 2u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

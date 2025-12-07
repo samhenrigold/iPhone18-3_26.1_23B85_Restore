@@ -26,9 +26,9 @@
 - (TSCEDenseGrid)initWithValueGrid:(id)grid
 {
   gridCopy = grid;
-  v39.receiver = self;
-  v39.super_class = TSCEDenseGrid;
-  v6 = [(TSCEAbstractGrid *)&v39 init];
+  v33.receiver = self;
+  v33.super_class = TSCEDenseGrid;
+  v6 = [(TSCEAbstractGrid *)&v33 init];
   v7 = v6;
   v8 = v6;
   if (v6)
@@ -36,19 +36,19 @@
     objc_storeStrong(&v6->_valueGrid, grid);
     v8->_gridKind = 0;
     v8->_isFlattened = 1;
-    if (objc_msgSend_count(gridCopy, v9, v10, v11, v12) && objc_msgSend_topLeftCoord(gridCopy, v13, v14, v15, v16))
+    if (objc_msgSend_count(gridCopy, v9, v10, v11) && objc_msgSend_topLeftCoord(gridCopy, v12, v13, v14))
     {
-      v17 = MEMORY[0x277D81150];
-      v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSCEDenseGrid initWithValueGrid:]", v15, v16);
-      v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDenseGrid.mm", v20, v21);
-      v38 = objc_msgSend_topLeftCoord(gridCopy, v23, v24, v25, v26);
-      v31 = sub_2211786FC(&v38, v27, v28, v29, v30);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v32, v18, v22, 34, 0, "Warning, making a TSCEDenseGrid with a non-zero based offset: %@", v31);
+      v15 = MEMORY[0x277D81150];
+      v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSCEDenseGrid initWithValueGrid:]", v14);
+      v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDenseGrid.mm", v18);
+      v32 = objc_msgSend_topLeftCoord(gridCopy, v20, v21, v22);
+      v26 = sub_2211786FC(&v32, v23, v24, v25);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v27, v16, v19, 34, 0, "Warning, making a TSCEDenseGrid with a non-zero based offset: %@", v26);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v34, v35, v36);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30);
     }
 
-    objc_msgSend_compressToZeroBased(v7->_valueGrid, v13, v14, v15, v16);
+    objc_msgSend_compressToZeroBased(v7->_valueGrid, v12, v13, v14);
   }
 
   return v8;
@@ -77,15 +77,15 @@
 
 - (TSCEDenseGrid)initWithValues:(const void *)values gridKind:(char)kind isFlattened:(BOOL)flattened dimensions:(const TSCEGridDimensions *)dimensions
 {
-  v17.receiver = self;
-  v17.super_class = TSCEDenseGrid;
-  v10 = [(TSCEAbstractGrid *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = TSCEDenseGrid;
+  v10 = [(TSCEAbstractGrid *)&v16 init];
   if (v10)
   {
     v11 = [TSCEValueGrid alloc];
-    v14 = objc_msgSend_initWithValueVector_dimensions_(v11, v12, values, dimensions, v13);
+    v13 = objc_msgSend_initWithValueVector_dimensions_(v11, v12, values, dimensions);
     valueGrid = v10->_valueGrid;
-    v10->_valueGrid = v14;
+    v10->_valueGrid = v13;
 
     v10->_gridKind = kind;
     v10->_isFlattened = flattened;
@@ -97,66 +97,66 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [TSCEDenseGrid alloc];
-  v9 = objc_msgSend_copy(self->_valueGrid, v5, v6, v7, v8);
-  v13 = objc_msgSend_initWithValueGrid_(v4, v10, v9, v11, v12);
+  v8 = objc_msgSend_copy(self->_valueGrid, v5, v6, v7);
+  v11 = objc_msgSend_initWithValueGrid_(v4, v9, v8, v10);
 
-  v13[16] = self->_gridKind;
-  v13[17] = self->_isFlattened;
-  return v13;
+  v11[16] = self->_gridKind;
+  v11[17] = self->_isFlattened;
+  return v11;
 }
 
 - (char)deepType:(id)type outError:(id *)error
 {
   typeCopy = type;
-  if (objc_msgSend_count(self, v7, v8, v9, v10) == 1)
+  if (objc_msgSend_count(self, v7, v8, v9) == 1)
   {
-    v14 = objc_msgSend_valueAtIndex_(self, v11, 0, v12, v13);
-    v17 = objc_msgSend_deepType_outError_(v14, v15, typeCopy, error, v16);
+    v12 = objc_msgSend_valueAtIndex_(self, v10, 0, v11);
+    v14 = objc_msgSend_deepType_outError_(v12, v13, typeCopy, error);
   }
 
   else
   {
-    v17 = 9;
+    v14 = 9;
   }
 
-  return v17;
+  return v14;
 }
 
 - (id)errorWithContext:(id)context
 {
-  v7 = objc_msgSend_count(self, a2, context, v3, v4);
-  if (v7)
+  v6 = objc_msgSend_count(self, a2, context, v3);
+  if (v6)
   {
-    if (v7 == 1)
+    if (v6 == 1)
     {
-      v12 = objc_msgSend_valueAtIndex_(self, v8, 0, v10, v11);
-      v16 = objc_msgSend_errorWithContext_(v12, v13, context, v14, v15);
+      v10 = objc_msgSend_valueAtIndex_(self, v7, 0, v9);
+      v13 = objc_msgSend_errorWithContext_(v10, v11, context, v12);
     }
 
     else
     {
-      v16 = objc_msgSend_nestedArrayResultSpillError(TSCEError, v8, v9, v10, v11);
+      v13 = objc_msgSend_nestedArrayResultSpillError(TSCEError, v7, v8, v9);
     }
   }
 
   else
   {
-    v16 = 0;
+    v13 = 0;
   }
 
-  return v16;
+  return v13;
 }
 
 - (id)asValueGrid:(id)grid
 {
-  v5 = objc_msgSend_copy(self->_valueGrid, a2, grid, v3, v4);
+  v4 = objc_msgSend_copy(self->_valueGrid, a2, grid, v3);
 
-  return v5;
+  return v4;
 }
 
 - (id)deepResolveInPlace:(id)place
 {
-  objc_msgSend_deepResolveInPlace_(self->_valueGrid, a2, place, v3, v4);
+  objc_msgSend_deepResolveInPlace_(self->_valueGrid, a2, place, v3);
   if (self->_gridKind == 2)
   {
     self->_gridKind = 0;
@@ -171,27 +171,27 @@
   numberCopy = number;
   if (!error)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSCEDenseGrid asNumber:functionSpec:argIndex:outError:]", v12, v13);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDenseGrid.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v21, v16, v20, 152, 0, "outError of non-nil is required for this API");
+    v14 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSCEDenseGrid asNumber:functionSpec:argIndex:outError:]", v12);
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDenseGrid.mm", v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v19, v15, v18, 152, 0, "outError of non-nil is required for this API");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22);
   }
 
-  if (objc_msgSend_count(self, v10, v11, v12, v13) == 1)
+  if (objc_msgSend_count(self, v10, v11, v12) == 1)
   {
-    v30 = objc_msgSend_firstValue(self->_valueGrid, v26, v27, v28, v29);
-    v32 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v30, v31, numberCopy, spec, v7, error);
+    v26 = objc_msgSend_firstValue(self->_valueGrid, v23, v24, v25);
+    v28 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v26, v27, numberCopy, spec, v7, error);
   }
 
   else
   {
-    *error = objc_msgSend_argumentSetUsedOutOfContextError(TSCEError, v26, v27, v28, v29);
-    v32 = objc_msgSend_zero(TSCENumberValue, v33, v34, v35, v36);
+    *error = objc_msgSend_argumentSetUsedOutOfContextError(TSCEError, v23, v24, v25);
+    v28 = objc_msgSend_zero(TSCENumberValue, v29, v30, v31);
   }
 
-  return v32;
+  return v28;
 }
 
 - (id)asDate:(id)date functionSpec:(id)spec argIndex:(int)index outError:(id *)error
@@ -200,27 +200,27 @@
   dateCopy = date;
   if (!error)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSCEDenseGrid asDate:functionSpec:argIndex:outError:]", v12, v13);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDenseGrid.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v21, v16, v20, 162, 0, "outError of non-nil is required for this API");
+    v14 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSCEDenseGrid asDate:functionSpec:argIndex:outError:]", v12);
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDenseGrid.mm", v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v19, v15, v18, 162, 0, "outError of non-nil is required for this API");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22);
   }
 
-  if (objc_msgSend_count(self, v10, v11, v12, v13) == 1)
+  if (objc_msgSend_count(self, v10, v11, v12) == 1)
   {
-    v30 = objc_msgSend_firstValue(self->_valueGrid, v26, v27, v28, v29);
-    v32 = objc_msgSend_asDate_functionSpec_argumentIndex_outError_(v30, v31, dateCopy, spec, v7, error);
+    v26 = objc_msgSend_firstValue(self->_valueGrid, v23, v24, v25);
+    v28 = objc_msgSend_asDate_functionSpec_argumentIndex_outError_(v26, v27, dateCopy, spec, v7, error);
   }
 
   else
   {
-    objc_msgSend_argumentSetUsedOutOfContextError(TSCEError, v26, v27, v28, v29);
-    *error = v32 = 0;
+    objc_msgSend_argumentSetUsedOutOfContextError(TSCEError, v23, v24, v25);
+    *error = v28 = 0;
   }
 
-  return v32;
+  return v28;
 }
 
 - (BOOL)asBoolean:(id)boolean functionSpec:(id)spec argIndex:(int)index outError:(id *)error
@@ -229,27 +229,27 @@
   booleanCopy = boolean;
   if (!error)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSCEDenseGrid asBoolean:functionSpec:argIndex:outError:]", v12, v13);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDenseGrid.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v21, v16, v20, 172, 0, "outError of non-nil is required for this API");
+    v14 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSCEDenseGrid asBoolean:functionSpec:argIndex:outError:]", v12);
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDenseGrid.mm", v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v19, v15, v18, 172, 0, "outError of non-nil is required for this API");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22);
   }
 
-  if (objc_msgSend_count(self, v10, v11, v12, v13) == 1)
+  if (objc_msgSend_count(self, v10, v11, v12) == 1)
   {
-    v30 = objc_msgSend_firstValue(self->_valueGrid, v26, v27, v28, v29);
-    v32 = objc_msgSend_asBoolean_functionSpec_argumentIndex_outError_(v30, v31, booleanCopy, spec, v7, error);
+    v26 = objc_msgSend_firstValue(self->_valueGrid, v23, v24, v25);
+    v28 = objc_msgSend_asBoolean_functionSpec_argumentIndex_outError_(v26, v27, booleanCopy, spec, v7, error);
   }
 
   else
   {
-    objc_msgSend_argumentSetUsedOutOfContextError(TSCEError, v26, v27, v28, v29);
-    *error = v32 = 0;
+    objc_msgSend_argumentSetUsedOutOfContextError(TSCEError, v23, v24, v25);
+    *error = v28 = 0;
   }
 
-  return v32;
+  return v28;
 }
 
 - (id)asReference:(id)reference functionSpec:(id)spec argIndex:(int)index outError:(id *)error
@@ -258,27 +258,27 @@
   referenceCopy = reference;
   if (!error)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSCEDenseGrid asReference:functionSpec:argIndex:outError:]", v12, v13);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDenseGrid.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v21, v16, v20, 182, 0, "outError of non-nil is required for this API");
+    v14 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSCEDenseGrid asReference:functionSpec:argIndex:outError:]", v12);
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDenseGrid.mm", v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v19, v15, v18, 182, 0, "outError of non-nil is required for this API");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22);
   }
 
-  if (objc_msgSend_count(self, v10, v11, v12, v13) == 1)
+  if (objc_msgSend_count(self, v10, v11, v12) == 1)
   {
-    v30 = objc_msgSend_firstValue(self->_valueGrid, v26, v27, v28, v29);
-    v32 = objc_msgSend_asReference_functionSpec_argumentIndex_outError_(v30, v31, referenceCopy, spec, v7, error);
+    v26 = objc_msgSend_firstValue(self->_valueGrid, v23, v24, v25);
+    v28 = objc_msgSend_asReference_functionSpec_argumentIndex_outError_(v26, v27, referenceCopy, spec, v7, error);
   }
 
   else
   {
-    *error = objc_msgSend_argumentSetUsedOutOfContextError(TSCEError, v26, v27, v28, v29);
-    v32 = objc_msgSend_emptyReferenceValue(TSCEReferenceValue, v33, v34, v35, v36);
+    *error = objc_msgSend_argumentSetUsedOutOfContextError(TSCEError, v23, v24, v25);
+    v28 = objc_msgSend_emptyReferenceValue(TSCEReferenceValue, v29, v30, v31);
   }
 
-  return v32;
+  return v28;
 }
 
 - (id)asString:(id)string functionSpec:(id)spec argIndex:(int)index outError:(id *)error
@@ -287,27 +287,27 @@
   stringCopy = string;
   if (!error)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSCEDenseGrid asString:functionSpec:argIndex:outError:]", v12, v13);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDenseGrid.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v21, v16, v20, 192, 0, "outError of non-nil is required for this API");
+    v14 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSCEDenseGrid asString:functionSpec:argIndex:outError:]", v12);
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDenseGrid.mm", v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v19, v15, v18, 192, 0, "outError of non-nil is required for this API");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22);
   }
 
-  if (objc_msgSend_count(self, v10, v11, v12, v13) == 1)
+  if (objc_msgSend_count(self, v10, v11, v12) == 1)
   {
-    v30 = objc_msgSend_firstValue(self->_valueGrid, v26, v27, v28, v29);
-    v32 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v30, v31, stringCopy, spec, v7, error);
+    v26 = objc_msgSend_firstValue(self->_valueGrid, v23, v24, v25);
+    v28 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v26, v27, stringCopy, spec, v7, error);
   }
 
   else
   {
-    objc_msgSend_argumentSetUsedOutOfContextError(TSCEError, v26, v27, v28, v29);
-    *error = v32 = 0;
+    objc_msgSend_argumentSetUsedOutOfContextError(TSCEError, v23, v24, v25);
+    *error = v28 = 0;
   }
 
-  return v32;
+  return v28;
 }
 
 - (id)asRawString:(id)string functionSpec:(id)spec argIndex:(int)index outError:(id *)error
@@ -316,47 +316,47 @@
   stringCopy = string;
   if (!error)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSCEDenseGrid asRawString:functionSpec:argIndex:outError:]", v12, v13);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDenseGrid.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v21, v16, v20, 202, 0, "outError of non-nil is required for this API");
+    v14 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSCEDenseGrid asRawString:functionSpec:argIndex:outError:]", v12);
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEDenseGrid.mm", v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v19, v15, v18, 202, 0, "outError of non-nil is required for this API");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22);
   }
 
-  if (objc_msgSend_count(self, v10, v11, v12, v13) == 1)
+  if (objc_msgSend_count(self, v10, v11, v12) == 1)
   {
-    v30 = objc_msgSend_firstValue(self->_valueGrid, v26, v27, v28, v29);
-    v32 = objc_msgSend_asRawString_functionSpec_argumentIndex_outError_(v30, v31, stringCopy, spec, v7, error);
+    v26 = objc_msgSend_firstValue(self->_valueGrid, v23, v24, v25);
+    v28 = objc_msgSend_asRawString_functionSpec_argumentIndex_outError_(v26, v27, stringCopy, spec, v7, error);
   }
 
   else
   {
-    objc_msgSend_argumentSetUsedOutOfContextError(TSCEError, v26, v27, v28, v29);
-    *error = v32 = 0;
+    objc_msgSend_argumentSetUsedOutOfContextError(TSCEError, v23, v24, v25);
+    *error = v28 = 0;
   }
 
-  return v32;
+  return v28;
 }
 
 - (id)valueAtIndex:(unint64_t)index accessContext:(TSCEGridAccessContext *)context
 {
   if (!self->_isFlattened)
   {
-    v8 = objc_msgSend_valueAt1DIndex_(self->_valueGrid, a2, index, context, v4);
-    v17 = context->var0;
-    v36 = context->var1;
+    v7 = objc_msgSend_valueAt1DIndex_(self->_valueGrid, a2, index, context);
+    v14 = context->var0;
+    v30 = context->var1;
     if (!context->var6)
     {
-      if (objc_msgSend_isReferenceValue(v8, v32, v33, v34, v35))
+      if (objc_msgSend_isReferenceValue(v7, v27, v28, v29))
       {
         var3 = context->var3;
-        v143 = 0;
-        v42 = objc_msgSend_asReference_functionSpec_argumentIndex_outError_(v8, v37, v17, v36, var3, &v143);
-        v26 = v143;
-        if (v26)
+        v116 = 0;
+        v35 = objc_msgSend_asReference_functionSpec_argumentIndex_outError_(v7, v31, v14, v30, var3, &v116);
+        v22 = v116;
+        if (v22)
         {
-          v31 = objc_msgSend_errorValue_(TSCEErrorValue, v43, v26, v45, v46);
+          v26 = objc_msgSend_errorValue_(TSCEErrorValue, v36, v22, v38);
 
 LABEL_49:
           goto LABEL_60;
@@ -364,77 +364,77 @@ LABEL_49:
 
         if (context->var5)
         {
-          v64 = objc_msgSend_calcEngine(v17, v43, v44, v45, v46);
-          objc_msgSend_resetResolver_(v42, v65, v64, v66, v67);
+          v52 = objc_msgSend_calcEngine(v14, v36, v37, v38);
+          objc_msgSend_resetResolver_(v35, v53, v52, v54);
         }
 
-        isOutputOfAFunction = objc_msgSend_isOutputOfAFunction(v42, v43, v44, v45, v46);
-        if (v17)
+        isOutputOfAFunction = objc_msgSend_isOutputOfAFunction(v35, v36, v37, v38);
+        if (v14)
         {
-          v73 = isOutputOfAFunction;
+          v59 = isOutputOfAFunction;
         }
 
         else
         {
-          v73 = 0;
+          v59 = 0;
         }
 
-        if (v73 == 1)
+        if (v59 == 1)
         {
-          if (v42)
+          if (v35)
           {
-            objc_msgSend_anyRef(v42, v69, v70, v71, v72);
+            objc_msgSend_anyRef(v35, v56, v57, v58);
           }
 
           else
           {
-            v148 = 0u;
-            v149 = 0u;
-            v146 = 0u;
-            v147 = 0u;
-            v145 = 0u;
+            v121 = 0u;
+            v122 = 0u;
+            v119 = 0u;
+            v120 = 0u;
+            v118 = 0u;
           }
 
-          objc_msgSend_addCalculatedPrecedent_(v17, v69, &v145, v71, v72);
+          objc_msgSend_addCalculatedPrecedent_(v14, v56, &v118, v58);
         }
       }
 
-      v84 = TSCEGridAccessContext::argSpec(context, v37, v38, v39, v40);
-      v85 = v84;
-      if (v84)
+      v68 = TSCEGridAccessContext::argSpec(context, v31, v32, v33);
+      v69 = v68;
+      if (v68)
       {
-        v86 = objc_msgSend_accessorMode(v84, v32, v33, v34, v35);
-        v91 = objc_msgSend_argumentType(v85, v87, v88, v89, v90);
-        if (v86 >= 2 && (v86 != 2 || v91 == 1))
+        v70 = objc_msgSend_accessorMode(v68, v27, v28, v29);
+        v74 = objc_msgSend_argumentType(v69, v71, v72, v73);
+        if (v70 >= 2 && (v70 != 2 || v74 == 1))
         {
-          v92 = objc_msgSend_argumentAccessor(v85, v32, v33, v34, v35);
-          v142 = v8;
-          v26 = (*(*v92 + 16))(v92, &v142, context, self->_gridKind == 0);
-          v93 = v142;
+          v75 = objc_msgSend_argumentAccessor(v69, v27, v28, v29);
+          v115 = v7;
+          v22 = (*(*v75 + 16))(v75, &v115, context, self->_gridKind == 0);
+          v76 = v115;
 
-          if (v26)
+          if (v22)
           {
-            v31 = objc_msgSend_errorValue_(TSCEErrorValue, v32, v26, v34, v35);
-            v8 = v93;
+            v26 = objc_msgSend_errorValue_(TSCEErrorValue, v27, v22, v29);
+            v7 = v76;
             goto LABEL_49;
           }
 
-          v8 = v93;
+          v7 = v76;
         }
       }
     }
 
     if (context->var7)
     {
-      if (objc_msgSend_nativeType(v8, v32, v33, v34, v35) == 6)
+      if (objc_msgSend_nativeType(v7, v27, v28, v29) == 6)
       {
-        v98 = objc_msgSend_asReferenceValue(v8, v94, v95, v96, v97);
-        v103 = objc_msgSend_evalRef(v98, v99, v100, v101, v102);
-        context->var9 = objc_msgSend_getHidingActionForRows_(v103, v104, 0, v105, v106);
+        v80 = objc_msgSend_asReferenceValue(v7, v77, v78, v79);
+        v84 = objc_msgSend_evalRef(v80, v81, v82, v83);
+        context->var9 = objc_msgSend_getHidingActionForRows_(v84, v85, 0, v86);
 
-        v111 = objc_msgSend_asReferenceValue(v8, v107, v108, v109, v110);
-        v116 = objc_msgSend_evalRef(v111, v112, v113, v114, v115);
-        context->var10 = objc_msgSend_getHidingActionForRows_(v116, v117, 1, v118, v119);
+        v90 = objc_msgSend_asReferenceValue(v7, v87, v88, v89);
+        v94 = objc_msgSend_evalRef(v90, v91, v92, v93);
+        context->var10 = objc_msgSend_getHidingActionForRows_(v94, v95, 1, v96);
       }
 
       else
@@ -443,15 +443,15 @@ LABEL_49:
       }
     }
 
-    v8 = v8;
-    v26 = 0;
-    v31 = v8;
+    v7 = v7;
+    v22 = 0;
+    v26 = v7;
     goto LABEL_49;
   }
 
-  v8 = context->var0;
-  v12 = objc_msgSend_valueAt1DIndex_(self->_valueGrid, v9, index, v10, v11);
-  v17 = v12;
+  v7 = context->var0;
+  v10 = objc_msgSend_valueAt1DIndex_(self->_valueGrid, v8, index, v9);
+  v14 = v10;
   if (context->var7)
   {
     *&context->var9 = 0;
@@ -462,160 +462,160 @@ LABEL_49:
     goto LABEL_58;
   }
 
-  if (objc_msgSend_isReferenceValue(v12, v13, v14, v15, v16))
+  if (objc_msgSend_isReferenceValue(v10, v11, v12, v13))
   {
-    v22 = context->var1;
-    v23 = context->var3;
-    v150 = 0;
-    v25 = objc_msgSend_asReference_functionSpec_argumentIndex_outError_(v17, v24, v8, v22, v23, &v150);
-    v26 = v150;
+    v18 = context->var1;
+    v19 = context->var3;
+    v123 = 0;
+    v21 = objc_msgSend_asReference_functionSpec_argumentIndex_outError_(v14, v20, v7, v18, v19, &v123);
+    v22 = v123;
 
-    if (v26)
+    if (v22)
     {
-      v31 = objc_msgSend_errorValue_(TSCEErrorValue, v27, v26, v29, v30);
+      v26 = objc_msgSend_errorValue_(TSCEErrorValue, v23, v22, v25);
 
       goto LABEL_60;
     }
 
     if (context->var5)
     {
-      v74 = objc_msgSend_calcEngine(v8, v27, v28, v29, v30);
-      objc_msgSend_resetResolver_(v25, v75, v74, v76, v77);
+      v60 = objc_msgSend_calcEngine(v7, v23, v24, v25);
+      objc_msgSend_resetResolver_(v21, v61, v60, v62);
     }
 
-    v78 = objc_msgSend_isOutputOfAFunction(v25, v27, v28, v29, v30);
-    if (v8)
+    v63 = objc_msgSend_isOutputOfAFunction(v21, v23, v24, v25);
+    if (v7)
     {
-      v83 = v78;
+      v67 = v63;
     }
 
     else
     {
-      v83 = 0;
+      v67 = 0;
     }
 
-    if (v83 == 1)
+    if (v67 == 1)
     {
-      if (v25)
+      if (v21)
       {
-        objc_msgSend_anyRef(v25, v79, v80, v81, v82);
+        objc_msgSend_anyRef(v21, v64, v65, v66);
       }
 
       else
       {
-        v148 = 0u;
-        v149 = 0u;
-        v146 = 0u;
-        v147 = 0u;
-        v145 = 0u;
+        v121 = 0u;
+        v122 = 0u;
+        v119 = 0u;
+        v120 = 0u;
+        v118 = 0u;
       }
 
-      objc_msgSend_addCalculatedPrecedent_(v8, v79, &v145, v81, v82);
+      objc_msgSend_addCalculatedPrecedent_(v7, v64, &v118, v66);
     }
 
-    v63 = objc_msgSend_referredToValue_fetchRichTextAttributesIfPlainText_(v25, v79, v8, 1, v82);
+    v51 = objc_msgSend_referredToValue_fetchRichTextAttributesIfPlainText_(v21, v64, v7, 1);
   }
 
   else
   {
-    if (objc_msgSend_isCategoryRefValue(v17, v18, v19, v20, v21))
+    if (objc_msgSend_isCategoryRefValue(v14, v15, v16, v17))
     {
-      v51 = objc_msgSend_asCategoryRefValue(v17, v47, v48, v49, v50);
-      v55 = objc_msgSend_referredToValue_(v51, v52, v8, v53, v54);
+      v42 = objc_msgSend_asCategoryRefValue(v14, v39, v40, v41);
+      v45 = objc_msgSend_referredToValue_(v42, v43, v7, v44);
     }
 
     else
     {
-      if (!objc_msgSend_isViewTractRefValue(v17, v47, v48, v49, v50))
+      if (!objc_msgSend_isViewTractRefValue(v14, v39, v40, v41))
       {
-        v63 = v17;
+        v51 = v14;
         goto LABEL_53;
       }
 
-      v51 = objc_msgSend_asViewTractRefValue(v17, v56, v57, v58, v59);
-      v55 = objc_msgSend_referredToValue_(v51, v60, v8, v61, v62);
+      v42 = objc_msgSend_asViewTractRefValue(v14, v46, v47, v48);
+      v45 = objc_msgSend_referredToValue_(v42, v49, v7, v50);
     }
 
-    v63 = v55;
+    v51 = v45;
   }
 
 LABEL_53:
-  v120 = TSCEGridAccessContext::argSpec(context, v56, v57, v58, v59);
-  v125 = v120;
-  if (v120 && (v126 = objc_msgSend_accessorMode(v120, v121, v122, v123, v124), v131 = objc_msgSend_argumentType(v125, v127, v128, v129, v130), v126 >= 2) && (v126 != 2 || v131 == 1))
+  v97 = TSCEGridAccessContext::argSpec(context, v46, v47, v48);
+  v101 = v97;
+  if (v97 && (v102 = objc_msgSend_accessorMode(v97, v98, v99, v100), v106 = objc_msgSend_argumentType(v101, v103, v104, v105), v102 >= 2) && (v102 != 2 || v106 == 1))
   {
-    v138 = objc_msgSend_argumentAccessor(v125, v132, v133, v134, v135);
-    v144 = v63;
-    v26 = (*(*v138 + 16))(v138, &v144, context, self->_gridKind == 0);
-    v17 = v144;
+    v112 = objc_msgSend_argumentAccessor(v101, v107, v108, v109);
+    v117 = v51;
+    v22 = (*(*v112 + 16))(v112, &v117, context, self->_gridKind == 0);
+    v14 = v117;
 
-    if (v26)
+    if (v22)
     {
-      v136 = objc_msgSend_errorValue_(TSCEErrorValue, v139, v26, v140, v141);
+      v110 = objc_msgSend_errorValue_(TSCEErrorValue, v113, v22, v114);
       goto LABEL_59;
     }
   }
 
   else
   {
-    v17 = v63;
+    v14 = v51;
   }
 
 LABEL_58:
-  v136 = v17;
-  v17 = v136;
-  v26 = 0;
+  v110 = v14;
+  v14 = v110;
+  v22 = 0;
 LABEL_59:
-  v31 = v136;
+  v26 = v110;
 LABEL_60:
 
-  return v31;
+  return v26;
 }
 
 - (id)flattenedGrid:(TSCEGridAccessContext *)grid format:(const TSCEFormat *)format
 {
-  if (objc_msgSend_gridKind(self, a2, grid, format, v4))
+  if (objc_msgSend_gridKind(self, a2, grid, format))
   {
-    v12.receiver = self;
-    v12.super_class = TSCEDenseGrid;
-    v10 = [(TSCEAbstractGrid *)&v12 flattenedGrid:grid format:format];
+    v10.receiver = self;
+    v10.super_class = TSCEDenseGrid;
+    v8 = [(TSCEAbstractGrid *)&v10 flattenedGrid:grid format:format];
   }
 
   else
   {
-    v10 = objc_msgSend_gridValue_format_(TSCEGridValue, v8, self, format, v9);
+    v8 = objc_msgSend_gridValue_format_(TSCEGridValue, v7, self, format);
   }
 
-  return v10;
+  return v8;
 }
 
 - (id)subGridValueAtGridCoord:(const TSCEGridCoord *)coord width:(int)width height:(int)height accessContext:(TSCEGridAccessContext *)context
 {
   v7 = objc_msgSend_subGridAtGridCoord_width_height_(self->_valueGrid, a2, coord, *&width, *&height, context);
   v8 = [TSCEDenseGrid alloc];
-  v12 = objc_msgSend_initWithValueGrid_(v8, v9, v7, v10, v11);
-  v12[17] = self->_isFlattened;
-  v16 = objc_msgSend_gridValue_(TSCEGridValue, v13, v12, v14, v15);
+  v11 = objc_msgSend_initWithValueGrid_(v8, v9, v7, v10);
+  v11[17] = self->_isFlattened;
+  v14 = objc_msgSend_gridValue_(TSCEGridValue, v12, v11, v13);
 
-  return v16;
+  return v14;
 }
 
 - (id)error
 {
-  v10 = 0;
-  v3 = objc_msgSend_deepType_outError_(self, a2, 0, &v10, v2);
-  v7 = v10;
-  if (v3 == 9)
+  v8 = 0;
+  v2 = objc_msgSend_deepType_outError_(self, a2, 0, &v8);
+  v5 = v8;
+  if (v2 == 9)
   {
-    v8 = objc_msgSend_errorForErrorType_(TSCEError, v4, 27, v5, v6);
+    v6 = objc_msgSend_errorForErrorType_(TSCEError, v3, 27, v4);
   }
 
   else
   {
-    v8 = 0;
+    v6 = 0;
   }
 
-  return v8;
+  return v6;
 }
 
 @end

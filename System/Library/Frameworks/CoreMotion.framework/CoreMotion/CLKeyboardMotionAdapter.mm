@@ -9,7 +9,7 @@
 
 - (void)inputReportForDevice:(id)device report:(char *)report length:(int64_t)length
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (qword_1ED71D2B0 != -1)
   {
     dispatch_once(&qword_1ED71D2B0, &unk_1F0E295E0);
@@ -20,22 +20,22 @@
   {
     if (length == 30)
     {
-      v11 = *(report + 7);
-      v12 = report[17];
-      v13 = *(report + 26);
+      v12 = *(report + 7);
+      v13 = report[17];
+      v14 = *(report + 26);
       *buf = *(report + 9);
-      *&buf[20] = v11;
-      v45 = v12;
+      *&buf[20] = v12;
+      v44 = v13;
       *&buf[8] = *(report + 18);
-      *&buf[16] = v13;
+      *&buf[16] = v14;
       sub_19B41E070(*buf);
-      v14 = buf;
-      v15 = v8;
-      v16 = 0;
-      v17 = 23;
+      v15 = buf;
+      v16 = v8;
+      v17 = 0;
+      v18 = 23;
 LABEL_17:
-      sub_19B41DF08(v15, v16, v14, v17);
-      goto LABEL_92;
+      sub_19B41DF08(v16, v17, v15, v18);
+      return;
     }
 
     if (qword_1ED71C7B8 != -1)
@@ -43,39 +43,37 @@ LABEL_17:
       dispatch_once(&qword_1ED71C7B8, &unk_1F0E28A40);
     }
 
-    v20 = qword_1ED71C7C8;
+    v21 = qword_1ED71C7C8;
     if (os_log_type_enabled(qword_1ED71C7C8, OS_LOG_TYPE_FAULT))
     {
       *buf = 134218240;
       *&buf[4] = length;
       *&buf[12] = 2048;
       *&buf[14] = 30;
-      _os_log_impl(&dword_19B41C000, v20, OS_LOG_TYPE_FAULT, "Bad motion report input %ld, expected %lu", buf, 0x16u);
+      _os_log_impl(&dword_19B41C000, v21, OS_LOG_TYPE_FAULT, "Bad motion report input %ld, expected %lu", buf, 0x16u);
     }
 
-    v21 = sub_19B420058();
-    if ((*(v21 + 160) & 0x80000000) != 0 && (*(v21 + 164) & 0x80000000) != 0 && (*(v21 + 168) & 0x80000000) != 0 && !*(v21 + 152))
+    v22 = sub_19B420058();
+    if ((*(v22 + 160) & 0x80000000) != 0 && (*(v22 + 164) & 0x80000000) != 0 && (*(v22 + 168) & 0x80000000) != 0 && !*(v22 + 152))
     {
-      goto LABEL_92;
+      return;
     }
 
     bzero(buf, 0x65CuLL);
     if (qword_1ED71C7B8 == -1)
     {
 LABEL_35:
-      v40 = 134218240;
-      lengthCopy2 = length;
-      v42 = 2048;
-      v43 = 30;
+      LODWORD(v40) = 22;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 17, "Bad motion report input %ld, expected %lu", &v41, v40);
 LABEL_90:
-      v36 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "void CLKeyboardMotionNotifier::onIoHidReportBounce(CLHidDevice *, uint8_t *, CFIndex)", "CoreLocation: %s\n", v36);
-      if (v36 != buf)
+      v38 = v11;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "void CLKeyboardMotionNotifier::onIoHidReportBounce(CLHidDevice *, uint8_t *, CFIndex)", "CoreLocation: %s\n", v11);
+      if (v38 != buf)
       {
-        free(v36);
+        free(v38);
       }
 
-      goto LABEL_92;
+      return;
     }
 
 LABEL_105:
@@ -92,15 +90,15 @@ LABEL_105:
         dispatch_once(&qword_1ED71C7B8, &unk_1F0E28A40);
       }
 
-      v22 = qword_1ED71C7C8;
+      v23 = qword_1ED71C7C8;
       if (os_log_type_enabled(qword_1ED71C7C8, OS_LOG_TYPE_FAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_FAULT, "Empty keyboard device report input", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_FAULT, "Empty keyboard device report input", buf, 2u);
       }
 
-      v23 = sub_19B420058();
-      if ((*(v23 + 160) & 0x80000000) == 0 || (*(v23 + 164) & 0x80000000) == 0 || (*(v23 + 168) & 0x80000000) == 0 || *(v23 + 152))
+      v24 = sub_19B420058();
+      if ((*(v24 + 160) & 0x80000000) == 0 || (*(v24 + 164) & 0x80000000) == 0 || (*(v24 + 168) & 0x80000000) == 0 || *(v24 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1ED71C7B8 != -1)
@@ -108,46 +106,48 @@ LABEL_105:
           dispatch_once(&qword_1ED71C7B8, &unk_1F0E28A40);
         }
 
-        LOWORD(v40) = 0;
+        LOWORD(v41) = 0;
+        LODWORD(v40) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 17, "Empty keyboard device report input", &v41, v40, v41, v42);
         goto LABEL_90;
       }
 
-      goto LABEL_92;
+      return;
     }
 
-    v18 = *report;
-    if (v18 == 196)
+    v19 = *report;
+    if (v19 == 196)
     {
       if (length == 3)
       {
-        v24 = report[1] & 2;
-        if (*(qword_1ED71D2A8 + 88) != v24 >> 1)
+        v25 = report[1] & 2;
+        if (*(qword_1ED71D2A8 + 88) != v25 >> 1)
         {
           if (qword_1ED71C7B8 != -1)
           {
             dispatch_once(&qword_1ED71C7B8, &unk_1F0E28A40);
           }
 
-          v25 = qword_1ED71C7C8;
+          v26 = qword_1ED71C7C8;
           if (os_log_type_enabled(qword_1ED71C7C8, OS_LOG_TYPE_INFO))
           {
-            if (v24)
+            if (v25)
             {
-              v26 = "entered";
+              v27 = "entered";
             }
 
             else
             {
-              v26 = "dismissed";
+              v27 = "dismissed";
             }
 
             *buf = 136315138;
-            *&buf[4] = v26;
-            _os_log_impl(&dword_19B41C000, v25, OS_LOG_TYPE_INFO, "Accessory Hall Effect sensor detected tablet mode %s", buf, 0xCu);
+            *&buf[4] = v27;
+            _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_INFO, "Accessory Hall Effect sensor detected tablet mode %s", buf, 0xCu);
           }
 
-          v27 = sub_19B420058();
-          if (*(v27 + 160) > 1 || *(v27 + 164) > 1 || *(v27 + 168) > 1 || *(v27 + 152))
+          v28 = sub_19B420058();
+          if (*(v28 + 160) > 1 || *(v28 + 164) > 1 || *(v28 + 168) > 1 || *(v28 + 152))
           {
             bzero(buf, 0x65CuLL);
             if (qword_1ED71C7B8 != -1)
@@ -155,43 +155,44 @@ LABEL_105:
               dispatch_once(&qword_1ED71C7B8, &unk_1F0E28A40);
             }
 
-            if (v24)
+            if (v25)
             {
-              v28 = "entered";
+              v29 = "entered";
             }
 
             else
             {
-              v28 = "dismissed";
+              v29 = "dismissed";
             }
 
-            v40 = 136315138;
-            lengthCopy2 = v28;
-            v29 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "void CLKeyboardMotionNotifier::onIoHidReportBounce(CLHidDevice *, uint8_t *, CFIndex)", "CoreLocation: %s\n", v29);
-            if (v29 != buf)
+            LODWORD(v41) = 136315138;
+            *(&v41 + 4) = v29;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 1, "Accessory Hall Effect sensor detected tablet mode %s", &v41);
+            v31 = v30;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "void CLKeyboardMotionNotifier::onIoHidReportBounce(CLHidDevice *, uint8_t *, CFIndex)", "CoreLocation: %s\n", v30);
+            if (v31 != buf)
             {
-              free(v29);
+              free(v31);
             }
           }
 
-          if (v24)
+          if (v25)
           {
-            v30 = 3;
+            v32 = 3;
           }
 
           else
           {
-            v30 = 4;
+            v32 = 4;
           }
 
-          LOBYTE(v40) = v30;
-          v31 = mach_absolute_time();
-          sub_19B41E070(v31);
-          sub_19B41DF08(v8, 4, &v40, 1);
+          LOBYTE(v41) = v32;
+          v33 = mach_absolute_time();
+          sub_19B41E070(v33);
+          sub_19B41DF08(v8, 4, &v41, 1);
         }
 
-        *(v8 + 88) = v24 >> 1;
+        *(v8 + 88) = v25 >> 1;
       }
 
       else
@@ -201,18 +202,18 @@ LABEL_105:
           dispatch_once(&qword_1ED71C7B8, &unk_1F0E28A40);
         }
 
-        v34 = qword_1ED71C7C8;
+        v36 = qword_1ED71C7C8;
         if (os_log_type_enabled(qword_1ED71C7C8, OS_LOG_TYPE_FAULT))
         {
           *buf = 134218240;
           *&buf[4] = length;
           *&buf[12] = 2048;
           *&buf[14] = 3;
-          _os_log_impl(&dword_19B41C000, v34, OS_LOG_TYPE_FAULT, "Bad motion report input state %ld, expected %lu", buf, 0x16u);
+          _os_log_impl(&dword_19B41C000, v36, OS_LOG_TYPE_FAULT, "Bad motion report input state %ld, expected %lu", buf, 0x16u);
         }
 
-        v35 = sub_19B420058();
-        if ((*(v35 + 160) & 0x80000000) == 0 || (*(v35 + 164) & 0x80000000) == 0 || (*(v35 + 168) & 0x80000000) == 0 || *(v35 + 152))
+        v37 = sub_19B420058();
+        if ((*(v37 + 160) & 0x80000000) == 0 || (*(v37 + 164) & 0x80000000) == 0 || (*(v37 + 168) & 0x80000000) == 0 || *(v37 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1ED71C7B8 != -1)
@@ -220,47 +221,45 @@ LABEL_105:
             dispatch_once(&qword_1ED71C7B8, &unk_1F0E28A40);
           }
 
-          v40 = 134218240;
-          lengthCopy2 = length;
-          v42 = 2048;
-          v43 = 3;
+          LODWORD(v40) = 22;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 17, "Bad motion report input state %ld, expected %lu", &v41, v40);
           goto LABEL_90;
         }
       }
 
-      goto LABEL_92;
+      return;
     }
 
-    if (v18 != 1)
+    if (v19 != 1)
     {
-      goto LABEL_92;
+      return;
     }
 
     if (length == 30)
     {
       *buf = *report;
       *&buf[8] = *(report + 4);
-      v19 = 1;
+      v20 = 1;
       if (buf[0] == 1 && !buf[1] && !buf[2])
       {
         if (*&buf[3] | *&buf[7])
         {
-          v19 = 1;
+          v20 = 1;
         }
 
         else
         {
-          v19 = buf[9] != 0;
+          v20 = buf[9] != 0;
         }
       }
 
-      v39 = v19;
-      v38 = mach_absolute_time();
-      sub_19B41E070(v38);
-      v14 = &v39;
-      v15 = v8;
-      v16 = 1;
+      HIBYTE(v40) = v20;
+      v39 = mach_absolute_time();
+      sub_19B41E070(v39);
+      v15 = &v40 + 7;
+      v16 = v8;
       v17 = 1;
+      v18 = 1;
       goto LABEL_17;
     }
 
@@ -269,20 +268,20 @@ LABEL_105:
       dispatch_once(&qword_1ED71C7B8, &unk_1F0E28A40);
     }
 
-    v32 = qword_1ED71C7C8;
+    v34 = qword_1ED71C7C8;
     if (os_log_type_enabled(qword_1ED71C7C8, OS_LOG_TYPE_FAULT))
     {
       *buf = 134218240;
       *&buf[4] = length;
       *&buf[12] = 2048;
       *&buf[14] = 30;
-      _os_log_impl(&dword_19B41C000, v32, OS_LOG_TYPE_FAULT, "Bad motion report input %ld, expected %lu", buf, 0x16u);
+      _os_log_impl(&dword_19B41C000, v34, OS_LOG_TYPE_FAULT, "Bad motion report input %ld, expected %lu", buf, 0x16u);
     }
 
-    v33 = sub_19B420058();
-    if ((*(v33 + 160) & 0x80000000) != 0 && (*(v33 + 164) & 0x80000000) != 0 && (*(v33 + 168) & 0x80000000) != 0 && !*(v33 + 152))
+    v35 = sub_19B420058();
+    if ((*(v35 + 160) & 0x80000000) != 0 && (*(v35 + 164) & 0x80000000) != 0 && (*(v35 + 168) & 0x80000000) != 0 && !*(v35 + 152))
     {
-      goto LABEL_92;
+      return;
     }
 
     bzero(buf, 0x65CuLL);
@@ -315,12 +314,11 @@ LABEL_105:
       dispatch_once(&qword_1ED71C7B8, &unk_1F0E28A40);
     }
 
-    LOWORD(v40) = 0;
+    LOWORD(v41) = 0;
+    LODWORD(v40) = 2;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 17, "received bad hid report", &v41, v40, v41, v42);
     goto LABEL_90;
   }
-
-LABEL_92:
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)monitorUpdateForDevice:(id)device added:(BOOL)added
@@ -423,7 +421,7 @@ LABEL_92:
 
 - (void)smartCoverStateDidChange:(int64_t)change
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (qword_1ED71D2B0 != -1)
   {
     dispatch_once(&qword_1ED71D2B0, &unk_1F0E295E0);
@@ -441,13 +439,13 @@ LABEL_92:
     {
       if (change != 3)
       {
-        goto LABEL_21;
+        return;
       }
 
       v5 = 1;
     }
 
-    v11 = v5;
+    HIBYTE(v12) = v5;
     if (qword_1ED71C7B8 != -1)
     {
       dispatch_once(&qword_1ED71C7B8, &unk_1F0E28A40);
@@ -457,7 +455,7 @@ LABEL_92:
     if (os_log_type_enabled(qword_1ED71C7C8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v15 = (off_1EE5DEA18[0])(change);
+      v16 = off_1EE5DEA18(change);
       _os_log_impl(&dword_19B41C000, v6, OS_LOG_TYPE_INFO, "iPad Hall Effect sensor detected the cover was, %@", buf, 0xCu);
     }
 
@@ -470,23 +468,23 @@ LABEL_92:
         dispatch_once(&qword_1ED71C7B8, &unk_1F0E28A40);
       }
 
-      v12 = 138412290;
-      v13 = (off_1EE5DEA18[0])(change);
-      v8 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "void CLKeyboardMotionNotifier::onSmartCoverOpened(SBSSmartCoverState)", "CoreLocation: %s\n", v8);
-      if (v8 != buf)
+      v8 = qword_1ED71C7C8;
+      v13 = 138412290;
+      v14 = off_1EE5DEA18(change);
+      LODWORD(v12) = 12;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v8, 1, "iPad Hall Effect sensor detected the cover was, %@", &v13, v12);
+      v10 = v9;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "void CLKeyboardMotionNotifier::onSmartCoverOpened(SBSSmartCoverState)", "CoreLocation: %s\n", v9);
+      if (v10 != buf)
       {
-        free(v8);
+        free(v10);
       }
     }
 
-    v9 = mach_absolute_time();
-    sub_19B41E070(v9);
-    sub_19B41DF08(v4, 4, &v11, 1);
+    v11 = mach_absolute_time();
+    sub_19B41E070(v11);
+    sub_19B41DF08(v4, 4, &v12 + 7, 1);
   }
-
-LABEL_21:
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

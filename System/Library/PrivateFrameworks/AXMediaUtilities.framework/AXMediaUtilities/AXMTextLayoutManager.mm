@@ -4102,51 +4102,51 @@ LABEL_27:
 
 - (id)nutritionLabelRowsForContourResults:(double)results normalizedNutritionLabelFrame:(double)frame fullImageFrame:(double)imageFrame processedImageFrame:(double)processedImageFrame
 {
-  v23 = a11;
+  v18 = a11;
   array = [MEMORY[0x1E695DF70] array];
-  if ([v23 count])
+  if ([v18 count])
   {
-    v25 = 0;
-    v26 = 0.0;
+    v20 = 0;
+    v21 = 0.0;
     do
     {
-      v27 = [v23 objectAtIndex:v25];
-      [v27 AXMRectValue];
-      v29 = v28;
+      v22 = [v18 objectAtIndex:v20];
+      [v22 AXMRectValue];
+      v24 = v23;
 
-      if (v25)
+      if (v20)
       {
-        v30 = [v23 objectAtIndex:v25 - 1];
-        [v30 AXMRectValue];
-        v32 = v31;
+        v25 = [v18 objectAtIndex:v20 - 1];
+        [v25 AXMRectValue];
+        v27 = v26;
 
-        v33 = v32 - v29;
+        v28 = v27 - v24;
       }
 
       else
       {
-        v33 = 1.0 - v29 + -0.005;
-        v26 = frame + a2;
+        v28 = 1.0 - v24 + -0.005;
+        v21 = frame + a2;
       }
 
-      v26 = v26 - a15 * v33 / a8;
-      v34 = [MEMORY[0x1E696B098] valueWithRect:{self, v26, results + 0.01}];
-      [array addObject:v34];
+      v21 = v21 - a15 * v28 / a8;
+      v29 = [MEMORY[0x1E696B098] valueWithRect:{self, v21, results + 0.01}];
+      [array addObject:v29];
 
-      ++v25;
+      ++v20;
     }
 
-    while ([v23 count] > v25);
+    while ([v18 count] > v20);
   }
 
   lastObject = [array lastObject];
   [lastObject AXMRectValue];
-  v37 = v36 - a2;
+  v32 = v31 - a2;
 
-  if (v37 > 0.05)
+  if (v32 > 0.05)
   {
-    v38 = [MEMORY[0x1E696B098] valueWithRect:{self, a2, results, v37}];
-    [array addObject:v38];
+    v33 = [MEMORY[0x1E696B098] valueWithRect:{self, a2, results, v32}];
+    [array addObject:v33];
   }
 
   return array;
@@ -4745,7 +4745,7 @@ BOOL __82__AXMTextLayoutManager_textColumnsForTable_sourceImage_requestHandler_c
 {
   height = size.height;
   width = size.width;
-  v65[1] = *MEMORY[0x1E69E9840];
+  v67[1] = *MEMORY[0x1E69E9840];
   rowsCopy = rows;
   handlerCopy = handler;
   array = [MEMORY[0x1E695DF70] array];
@@ -4755,52 +4755,52 @@ BOOL __82__AXMTextLayoutManager_textColumnsForTable_sourceImage_requestHandler_c
 
   [v10 setRecognitionLevel:0];
   [v10 setUsesLanguageCorrection:0];
-  v65[0] = v10;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:1];
-  v63 = 0;
-  v13 = [handlerCopy performRequests:v12 error:&v63];
-  v14 = v63;
+  v67[0] = v10;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:1];
+  v65 = 0;
+  v13 = [handlerCopy performRequests:v12 error:&v65];
+  v14 = v65;
 
   if (v13)
   {
-    v42 = v14;
-    v43 = v10;
-    v44 = handlerCopy;
+    v44 = v14;
+    v45 = v10;
+    v46 = handlerCopy;
     results = [v10 results];
     if ([rowsCopy count])
     {
       v15 = 0;
-      v47 = rowsCopy;
+      v49 = rowsCopy;
       do
       {
-        v61 = 0u;
-        v62 = 0u;
-        v51 = v15;
+        v63 = 0u;
+        v64 = 0u;
+        v53 = v15;
         v16 = [rowsCopy objectAtIndex:v15];
-        [v16 getValue:&v61];
+        [v16 getValue:&v63];
 
-        v58[0] = MEMORY[0x1E69E9820];
-        v58[1] = 3221225472;
-        v58[2] = __92__AXMTextLayoutManager_featureCellsForNutritionLabelRows_withRequestHandler_withCanvasSize___block_invoke;
-        v58[3] = &unk_1E7A1DA68;
-        v58[4] = self;
-        v59 = v61;
-        v60 = v62;
-        v50 = [MEMORY[0x1E696AE18] predicateWithBlock:v58];
+        v60[0] = MEMORY[0x1E69E9820];
+        v60[1] = 3221225472;
+        v60[2] = __92__AXMTextLayoutManager_featureCellsForNutritionLabelRows_withRequestHandler_withCanvasSize___block_invoke;
+        v60[3] = &unk_1E7A1DA68;
+        v60[4] = self;
+        v61 = v63;
+        v62 = v64;
+        v52 = [MEMORY[0x1E696AE18] predicateWithBlock:v60];
         v17 = [results filteredArrayUsingPredicate:?];
         v18 = [v17 sortedArrayUsingComparator:&__block_literal_global_600];
 
         array2 = [MEMORY[0x1E695DF70] array];
-        v54 = 0u;
-        v55 = 0u;
         v56 = 0u;
         v57 = 0u;
+        v58 = 0u;
+        v59 = 0u;
         obj = v18;
-        v19 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
+        v19 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
         if (v19)
         {
           v20 = v19;
-          v21 = *v55;
+          v21 = *v57;
           v22 = 0.0;
           v23 = &stru_1F23EA908;
           do
@@ -4809,12 +4809,12 @@ BOOL __82__AXMTextLayoutManager_textColumnsForTable_sourceImage_requestHandler_c
             v25 = v23;
             do
             {
-              if (*v55 != v21)
+              if (*v57 != v21)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v26 = [*(*(&v54 + 1) + 8 * v24) topCandidates:1];
+              v26 = [*(*(&v56 + 1) + 8 * v24) topCandidates:1];
               firstObject = [v26 firstObject];
 
               string = [firstObject string];
@@ -4855,7 +4855,7 @@ BOOL __82__AXMTextLayoutManager_textColumnsForTable_sourceImage_requestHandler_c
             }
 
             while (v20 != v24);
-            v20 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
+            v20 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
           }
 
           while (v20);
@@ -4867,36 +4867,36 @@ BOOL __82__AXMTextLayoutManager_textColumnsForTable_sourceImage_requestHandler_c
           v23 = &stru_1F23EA908;
         }
 
-        v36 = AXMIsRunningInServiceProcess();
-        v37 = v23;
-        if ((v36 & 1) == 0)
+        v38 = AXMIsRunningInServiceProcess(v36, v37);
+        v39 = v23;
+        if ((v38 & 1) == 0)
         {
-          v37 = [(AXMTextLayoutManager *)self processNutritionLabelText:v23];
-          v46 = v37;
+          v39 = [(AXMTextLayoutManager *)self processNutritionLabelText:v23];
+          v48 = v39;
         }
 
-        v38 = [obj count];
-        height = [AXMVisionFeature tableCellWithText:v37 boundingBox:array2 confidence:0 recognizedTextFeatures:v61 canvasSize:v62 isHeader:v22 / v38, width, height];
-        if ((v36 & 1) == 0)
+        v40 = [obj count];
+        height = [AXMVisionFeature tableCellWithText:v39 boundingBox:array2 confidence:0 recognizedTextFeatures:v63 canvasSize:v64 isHeader:v22 / v40, width, height];
+        if ((v38 & 1) == 0)
         {
         }
 
         [height confidence];
-        if (v40 > 0.0)
+        if (v42 > 0.0)
         {
           [array addObject:height];
         }
 
-        v15 = v51 + 1;
-        rowsCopy = v47;
+        v15 = v53 + 1;
+        rowsCopy = v49;
       }
 
-      while ([v47 count] > (v51 + 1));
+      while ([v49 count] > (v53 + 1));
     }
 
-    v10 = v43;
-    handlerCopy = v44;
-    v14 = v42;
+    v10 = v45;
+    handlerCopy = v46;
+    v14 = v44;
   }
 
   return array;

@@ -3,6 +3,7 @@
 - (BOOL)addChange:(id)change currentAndPendingChangesBlock:(id)block;
 - (BOOL)mailboxHasSubMailboxes:(id)mailboxes;
 - (MailChangeManager)init;
+- (id)allMailboxUidsSortedWithSpecialsAtTopForAccount:(id)account includingLocals:(BOOL)locals client:(id)client outbox:(id)outbox;
 - (id)copyDiagnosticInformation;
 - (id)displayNameForMailbox:(id)mailbox;
 - (id)displayNameUsingSpecialNamesForMailbox:(id)mailbox;
@@ -397,6 +398,83 @@ LABEL_11:
       [treeCopy moveMailbox:mailboxToMoveOrRename toParent:mailboxParentForMove];
     }
   }
+}
+
+- (id)allMailboxUidsSortedWithSpecialsAtTopForAccount:(id)account includingLocals:(BOOL)locals client:(id)client outbox:(id)outbox
+{
+  localsCopy = locals;
+  accountCopy = account;
+  clientCopy = client;
+  outboxCopy = outbox;
+  if (pthread_main_np() != 1)
+  {
+    v24 = +[NSAssertionHandler currentHandler];
+    [v24 handleFailureInMethod:a2 object:self file:@"MailChangeManager.m" lineNumber:263 description:@"Current thread must be main"];
+  }
+
+  v14 = [accountCopy treeOfAllMailboxUidsSortedWithSpecialsAtTopIncludingLocals:localsCopy client:clientCopy outbox:outboxCopy];
+  pendingChanges = self->_pendingChanges;
+  if (pendingChanges && [(NSMutableArray *)pendingChanges count])
+  {
+    if (!self->_currentChange)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  else if (!self->_currentChange)
+  {
+    goto LABEL_17;
+  }
+
+  [(MailChangeManager *)self _modifyMailboxesForMailboxTree:v14 forChange:?];
+LABEL_9:
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v16 = self->_pendingChanges;
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v17)
+  {
+    v18 = *v26;
+    do
+    {
+      for (i = 0; i != v17; i = i + 1)
+      {
+        if (*v26 != v18)
+        {
+          objc_enumerationMutation(v16);
+        }
+
+        [(MailChangeManager *)self _modifyMailboxesForMailboxTree:v14 forChange:*(*(&v25 + 1) + 8 * i), v25];
+      }
+
+      v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    }
+
+    while (v17);
+  }
+
+LABEL_17:
+  uniqueID = [accountCopy uniqueID];
+  if (uniqueID)
+  {
+    lastCalculatedMailboxDictionary = self->_lastCalculatedMailboxDictionary;
+    if (v14)
+    {
+      [(NSMutableDictionary *)lastCalculatedMailboxDictionary setObject:v14 forKeyedSubscript:uniqueID];
+    }
+
+    else
+    {
+      [(NSMutableDictionary *)lastCalculatedMailboxDictionary removeObjectForKey:uniqueID];
+    }
+  }
+
+  flattenedMailboxTreeRepresentation = [v14 flattenedMailboxTreeRepresentation];
+
+  return flattenedMailboxTreeRepresentation;
 }
 
 - (id)genericMailboxUidsSortedForAccount:(id)account includingLocals:(BOOL)locals excludingMailbox:(id)mailbox

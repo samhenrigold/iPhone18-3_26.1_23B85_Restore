@@ -1,8 +1,10 @@
 @interface KmlDeviceConfigurationData
+- (BOOL)isValidForKmlVersion:(unsigned __int16)version transport:(int64_t)transport;
 - (KmlDeviceConfigurationData)initWithData:(id)data outerTag:(BOOL)tag;
 - (id)asData;
 - (id)readerBleConfigWithTag:(void *)tag target:;
 - (id)readerSupportedTransports;
+- (id)supportedRadiosAsDataForTarget:(unsigned __int8)target;
 - (uint64_t)parseDeviceConfigData:(int)data outerTag:;
 - (unsigned)sharingConfigToSend:(unsigned __int8 *)send;
 - (void)parseKeySharingConfigData:(_BYTE *)data;
@@ -132,20 +134,18 @@
   v11 = [KmlTlv TLVWithTag:32590 value:data];
   value = [v11 value];
 
-  v13 = KmlLogger();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = KmlLogger(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    v14 = kmlUtilHexStringFromData(value);
+    v15 = kmlUtilHexStringFromData(value);
     *buf = 136315650;
     v23 = "[KmlDeviceConfigurationData asData]";
     v24 = 1024;
     v25 = 95;
     v26 = 2112;
-    v27 = v14;
-    _os_log_impl(&dword_248BF3000, v13, OS_LOG_TYPE_INFO, "%s : %i : DeviceConfig Data : %@", buf, 0x1Cu);
+    v27 = v15;
+    _os_log_impl(&dword_248BF3000, v14, OS_LOG_TYPE_INFO, "%s : %i : DeviceConfig Data : %@", buf, 0x1Cu);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return value;
 }
@@ -213,16 +213,17 @@
           }
 
           v10 = *(*(&v14 + 1) + 8 * i);
-          if ([v10 tag] == 32608)
+          v11 = [v10 tag];
+          if (v11 == 32608)
           {
-            v11 = KmlLogger();
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+            v12 = KmlLogger(v11);
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
             {
               *buf = 136315394;
               v19 = "[KmlDeviceConfigurationData updateSharingConfigWithData:]";
               v20 = 1024;
               v21 = 158;
-              _os_log_impl(&dword_248BF3000, v11, OS_LOG_TYPE_INFO, "%s : %i : Found sharing config data", buf, 0x12u);
+              _os_log_impl(&dword_248BF3000, v12, OS_LOG_TYPE_INFO, "%s : %i : Found sharing config data", buf, 0x12u);
             }
 
             value = [v10 value];
@@ -244,25 +245,23 @@
 
 LABEL_14:
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatePPIDWithServerProvidedData:(id)data
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v5 = dataCopy;
+  v6 = dataCopy;
   if (self->_mfiPPID)
   {
-    v6 = KmlLogger();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = KmlLogger(dataCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v23 = "[KmlDeviceConfigurationData updatePPIDWithServerProvidedData:]";
-      v24 = 1024;
-      v25 = 169;
-      _os_log_impl(&dword_248BF3000, v6, OS_LOG_TYPE_INFO, "%s : %i : We already have car provided ppid. Ignore the server provided value", buf, 0x12u);
+      v24 = "[KmlDeviceConfigurationData updatePPIDWithServerProvidedData:]";
+      v25 = 1024;
+      v26 = 169;
+      _os_log_impl(&dword_248BF3000, v7, OS_LOG_TYPE_INFO, "%s : %i : We already have car provided ppid. Ignore the server provided value", buf, 0x12u);
     }
 
 LABEL_20:
@@ -270,76 +269,79 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  if (dataCopy && [dataCopy length])
+  if (dataCopy)
   {
-    [KmlTlv TLVsWithData:v5];
-    v18 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v7 = v21 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v28 count:16];
-    if (v8)
+    dataCopy = [dataCopy length];
+    if (dataCopy)
     {
-      v9 = v8;
-      v10 = *v19;
-      while (2)
+      [KmlTlv TLVsWithData:v6];
+      v19 = 0u;
+      v20 = 0u;
+      v21 = 0u;
+      v8 = v22 = 0u;
+      v9 = [v8 countByEnumeratingWithState:&v19 objects:v29 count:16];
+      if (v9)
       {
-        for (i = 0; i != v9; ++i)
+        v10 = v9;
+        v11 = *v20;
+        while (2)
         {
-          if (*v19 != v10)
+          for (i = 0; i != v10; ++i)
           {
-            objc_enumerationMutation(v7);
+            if (*v20 != v11)
+            {
+              objc_enumerationMutation(v8);
+            }
+
+            v13 = *(*(&v19 + 1) + 8 * i);
+            if ([v13 tag] == 32554)
+            {
+              value = [v13 value];
+              [(KmlDeviceConfigurationData *)self parseOemSpecificContent:value];
+
+              asData = [v13 asData];
+              oemSpecificContentAsData = self->_oemSpecificContentAsData;
+              self->_oemSpecificContentAsData = asData;
+
+              [(NSMutableArray *)self->_remainingTlvs addObject:v13];
+              goto LABEL_16;
+            }
           }
 
-          v12 = *(*(&v18 + 1) + 8 * i);
-          if ([v12 tag] == 32554)
+          v10 = [v8 countByEnumeratingWithState:&v19 objects:v29 count:16];
+          if (v10)
           {
-            value = [v12 value];
-            [(KmlDeviceConfigurationData *)self parseOemSpecificContent:value];
-
-            asData = [v12 asData];
-            oemSpecificContentAsData = self->_oemSpecificContentAsData;
-            self->_oemSpecificContentAsData = asData;
-
-            [(NSMutableArray *)self->_remainingTlvs addObject:v12];
-            goto LABEL_16;
+            continue;
           }
-        }
 
-        v9 = [v7 countByEnumeratingWithState:&v18 objects:v28 count:16];
-        if (v9)
-        {
-          continue;
+          break;
         }
-
-        break;
       }
-    }
 
 LABEL_16:
+    }
   }
 
-  if (KmlLogIsInternalBuild())
+  IsInternalBuild = KmlLogIsInternalBuild(dataCopy, v5);
+  if (IsInternalBuild)
   {
-    v6 = KmlLogger();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = KmlLogger(IsInternalBuild);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v16 = kmlUtilHexStringFromData(self->_oemSpecificContentAsData);
+      v18 = kmlUtilHexStringFromData(self->_oemSpecificContentAsData);
       *buf = 136315650;
-      v23 = "[KmlDeviceConfigurationData updatePPIDWithServerProvidedData:]";
-      v24 = 1024;
-      v25 = 184;
-      v26 = 2112;
-      v27 = v16;
-      _os_log_impl(&dword_248BF3000, v6, OS_LOG_TYPE_INFO, "%s : %i : Server provided PPID data: %@", buf, 0x1Cu);
+      v24 = "[KmlDeviceConfigurationData updatePPIDWithServerProvidedData:]";
+      v25 = 1024;
+      v26 = 184;
+      v27 = 2112;
+      v28 = v18;
+      _os_log_impl(&dword_248BF3000, v7, OS_LOG_TYPE_INFO, "%s : %i : Server provided PPID data: %@", buf, 0x1Cu);
     }
 
     goto LABEL_20;
   }
 
 LABEL_21:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeUwbSupportLocally
@@ -347,15 +349,16 @@ LABEL_21:
   v10 = *MEMORY[0x277D85DE8];
   if (self->_readerSupportsUwb)
   {
-    v2 = [(KmlDeviceConfigurationData *)self readerBleConfigWithTag:1 target:?];
-    if (v2)
+    v4 = [(KmlDeviceConfigurationData *)self readerBleConfigWithTag:1 target:?];
+    v2 = v4;
+    if (v4)
     {
-      [(NSMutableArray *)self->_remainingTlvs addObject:v2];
+      v4 = [(NSMutableArray *)self->_remainingTlvs addObject:v4];
     }
 
     self->_readerSupportsUwb = 0;
     self->_uwbDisabledLocally = 1;
-    v5 = KmlLogger();
+    v5 = KmlLogger(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = 136315394;
@@ -368,7 +371,7 @@ LABEL_21:
 
   else
   {
-    v2 = KmlLogger();
+    v2 = KmlLogger(self);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       v6 = 136315394;
@@ -378,13 +381,83 @@ LABEL_21:
       _os_log_impl(&dword_248BF3000, v2, OS_LOG_TYPE_INFO, "%s : %i : This reader doesn't support UWB. Nothing to disable locally.", &v6, 0x12u);
     }
   }
+}
 
-  v3 = *MEMORY[0x277D85DE8];
+- (BOOL)isValidForKmlVersion:(unsigned __int16)version transport:(int64_t)transport
+{
+  v14 = *MEMORY[0x277D85DE8];
+  v6 = [KmlVersions doesVersion:version support:768];
+  if (v6)
+  {
+    if ((self->_immoTokenConfig | 2) == 2)
+    {
+      v7 = KmlLogger(v6);
+      if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+LABEL_6:
+
+        return 0;
+      }
+
+      v10 = 136315394;
+      v11 = "[KmlDeviceConfigurationData isValidForKmlVersion:transport:]";
+      v12 = 1024;
+      v13 = 213;
+      v8 = "%s : %i : Sharing In a chain does not support offline immo tokens";
+LABEL_5:
+      _os_log_impl(&dword_248BF3000, v7, OS_LOG_TYPE_ERROR, v8, &v10, 0x12u);
+      goto LABEL_6;
+    }
+
+    if (self->_maxOfflineAttestationCount <= 1u)
+    {
+      v7 = KmlLogger(v6);
+      if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_6;
+      }
+
+      v10 = 136315394;
+      v11 = "[KmlDeviceConfigurationData isValidForKmlVersion:transport:]";
+      v12 = 1024;
+      v13 = 218;
+      v8 = "%s : %i : Max attestation count must be at least 2 for sharing in a chain";
+      goto LABEL_5;
+    }
+  }
+
+  if (transport)
+  {
+    if (transport == 2)
+    {
+      if (!self->_readerSupportsUwb)
+      {
+        return 0;
+      }
+
+      goto LABEL_16;
+    }
+
+    return 1;
+  }
+
+  if (!self->_readerSupportsUwb)
+  {
+    return 1;
+  }
+
+LABEL_16:
+  if (!self->_readerBtIRK)
+  {
+    return 0;
+  }
+
+  return self->_readerBtIdAddress != 0;
 }
 
 - (uint64_t)parseDeviceConfigData:(int)data outerTag:
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (!self)
@@ -398,37 +471,33 @@ LABEL_21:
   if (!data)
   {
 LABEL_17:
-    v20 = [KmlTlv TLVsWithData:value7];
+    v21 = [KmlTlv TLVsWithData:value7];
     [*(self + 8) removeAllObjects];
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v17 = v20;
-    v21 = [v17 countByEnumeratingWithState:&v47 objects:v56 count:16];
-    v18 = 1;
-    if (!v21)
+    memset(v46, 0, sizeof(v46));
+    v18 = v21;
+    v22 = [v18 countByEnumeratingWithState:v46 objects:v49 count:16];
+    v19 = 1;
+    if (!v22)
     {
-      v10 = v17;
+      v10 = v18;
       goto LABEL_55;
     }
 
-    v22 = v21;
-    v44 = value7;
-    v45 = v6;
-    v23 = *v48;
-    v46 = *(v8 + 415);
+    v23 = v22;
+    v43 = value7;
+    v44 = v6;
+    v45 = *(v8 + 415);
 LABEL_19:
     v24 = 0;
     while (1)
     {
-      OUTLINED_FUNCTION_4_0(v48);
-      if (!v15)
+      OUTLINED_FUNCTION_4_0();
+      if (!v14)
       {
-        objc_enumerationMutation(v17);
+        objc_enumerationMutation(v18);
       }
 
-      v25 = *(*(&v47 + 1) + 8 * v24);
+      v25 = *(*(&v46[0] + 1) + 8 * v24);
       v26 = [v25 tag];
       switch(v26)
       {
@@ -496,14 +565,13 @@ LABEL_43:
           [(KmlDeviceConfigurationData *)self parseReaderBleConfigData:value5];
 
           *(self + 28) = 1;
-          [*(self + 8) addObject:v25];
-          value6 = KmlLogger();
+          value6 = KmlLogger([*(self + 8) addObject:v25]);
           if (os_log_type_enabled(value6, OS_LOG_TYPE_INFO))
           {
-            *buf = v46;
-            v58 = "[KmlDeviceConfigurationData parseDeviceConfigData:outerTag:]";
-            v59 = 1024;
-            v60 = 314;
+            *buf = v45;
+            v51 = "[KmlDeviceConfigurationData parseDeviceConfigData:outerTag:]";
+            v52 = 1024;
+            v53 = 314;
             _os_log_impl(&dword_248BF3000, value6, OS_LOG_TYPE_INFO, "%s : %i : UWB is disabled for local use, but available for sharing.", buf, 0x12u);
           }
 
@@ -520,16 +588,16 @@ LABEL_51:
           break;
       }
 
-      if (v22 == ++v24)
+      if (v23 == ++v24)
       {
-        v40 = [v17 countByEnumeratingWithState:&v47 objects:v56 count:16];
-        v22 = v40;
+        v40 = [v18 countByEnumeratingWithState:v46 objects:v49 count:16];
+        v23 = v40;
         if (!v40)
         {
-          v18 = 1;
-          v10 = v17;
-          value7 = v44;
-          v6 = v45;
+          v19 = 1;
+          v10 = v18;
+          value7 = v43;
+          v6 = v44;
           goto LABEL_55;
         }
 
@@ -543,73 +611,69 @@ LABEL_51:
 
   v9 = value7;
   [KmlTlv TLVsWithData:value7];
-  v51 = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  v10 = v54 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v51 objects:v61 count:16];
+  v10 = memset(v47, 0, sizeof(v47));
+  v11 = [v10 countByEnumeratingWithState:v47 objects:v54 count:16];
   if (!v11)
   {
     goto LABEL_11;
   }
 
   v12 = v11;
-  v13 = *v52;
   do
   {
     for (i = 0; i != v12; ++i)
     {
-      OUTLINED_FUNCTION_4_0(v52);
-      if (!v15)
+      OUTLINED_FUNCTION_4_0();
+      if (!v14)
       {
         objc_enumerationMutation(v10);
       }
 
-      v16 = *(*(&v51 + 1) + 8 * i);
-      if ([v16 tag] == 32590)
+      v15 = *(*(&v47[0] + 1) + 8 * i);
+      v16 = [v15 tag];
+      if (v16 == 32590)
       {
-        v19 = KmlLogger();
+        v20 = KmlLogger(v16);
         v8 = &off_248C29000;
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v58 = "[KmlDeviceConfigurationData parseDeviceConfigData:outerTag:]";
-          v59 = 1024;
-          v60 = 245;
-          _os_log_impl(&dword_248BF3000, v19, OS_LOG_TYPE_INFO, "%s : %i : Found device config data to parse in outer tag", buf, 0x12u);
+          v51 = "[KmlDeviceConfigurationData parseDeviceConfigData:outerTag:]";
+          v52 = 1024;
+          v53 = 245;
+          _os_log_impl(&dword_248BF3000, v20, OS_LOG_TYPE_INFO, "%s : %i : Found device config data to parse in outer tag", buf, 0x12u);
         }
 
-        value7 = [v16 value];
+        value7 = [v15 value];
 
         goto LABEL_17;
       }
     }
 
-    v12 = [v10 countByEnumeratingWithState:&v51 objects:v61 count:16];
+    v12 = [v10 countByEnumeratingWithState:v47 objects:v54 count:16];
   }
 
   while (v12);
 LABEL_11:
 
-  v17 = KmlLogger();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  v18 = KmlLogger(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v58 = "[KmlDeviceConfigurationData parseDeviceConfigData:outerTag:]";
-    v59 = 1024;
-    v60 = 253;
-    _os_log_impl(&dword_248BF3000, v17, OS_LOG_TYPE_ERROR, "%s : %i : Expected to find outer tag, but did not", buf, 0x12u);
+    v51 = "[KmlDeviceConfigurationData parseDeviceConfigData:outerTag:]";
+    v52 = 1024;
+    v53 = 253;
+    _os_log_impl(&dword_248BF3000, v18, OS_LOG_TYPE_ERROR, "%s : %i : Expected to find outer tag, but did not", buf, 0x12u);
   }
 
-  v18 = 0;
+  v19 = 0;
   value7 = v9;
 LABEL_55:
 
-  v55 = v18;
-  v41 = v55;
+  v48 = v19;
+  v41 = v48;
 LABEL_56:
 
-  v42 = *MEMORY[0x277D85DE8];
   return v41;
 }
 
@@ -683,7 +747,7 @@ LABEL_17:
 
 - (void)parseSupportedRadiosData:(uint64_t)data
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!data)
   {
@@ -706,33 +770,29 @@ LABEL_17:
   *(data + 56) = 0;
 
   v8 = [KmlTlv TLVsWithData:v3];
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  memset(v19, 0, sizeof(v19));
+  v9 = [v8 countByEnumeratingWithState:v19 objects:v20 count:16];
   if (!v9)
   {
     goto LABEL_19;
   }
 
   v10 = v9;
-  v20 = v3;
+  v18 = v3;
   v11 = 0;
-  v12 = *v22;
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      OUTLINED_FUNCTION_4_0(v22);
-      if (!v14)
+      OUTLINED_FUNCTION_4_0();
+      if (!v13)
       {
         objc_enumerationMutation(v8);
       }
 
-      v15 = *(*(&v21 + 1) + 8 * i);
-      v16 = [v15 tag];
-      switch(v16)
+      v14 = *(*(&v19[0] + 1) + 8 * i);
+      v15 = [v14 tag];
+      switch(v15)
       {
         case 24400:
 LABEL_13:
@@ -750,7 +810,7 @@ LABEL_14:
           *(data + 28) = 0;
           break;
         case 32594:
-          value = [v15 value];
+          value = [v14 value];
           [(KmlDeviceConfigurationData *)data parseReaderBleConfigData:value];
 
           v11 = 1;
@@ -758,30 +818,28 @@ LABEL_14:
       }
     }
 
-    v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v10 = [v8 countByEnumeratingWithState:v19 objects:v20 count:16];
   }
 
   while (v10);
-  v3 = v20;
+  v3 = v18;
   if (v11)
   {
-    v18 = 1;
+    v17 = 1;
     goto LABEL_20;
   }
 
 LABEL_19:
-  v18 = 0;
+  v17 = 0;
   *(data + 18) = 1;
 LABEL_20:
-  *(data + 16) = v18;
+  *(data + 16) = v17;
 
 LABEL_21:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseKeySharingConfigData:(_BYTE *)data
 {
-  v16 = *MEMORY[0x277D85DE8];
   if (data)
   {
     data[17] = 1;
@@ -792,22 +850,21 @@ LABEL_21:
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          OUTLINED_FUNCTION_4_0(v15);
-          if (!v9)
+          OUTLINED_FUNCTION_4_0();
+          if (!v8)
           {
             objc_enumerationMutation(v3);
           }
 
-          v10 = *(v14 + 8 * i);
-          switch([v10 tag])
+          v9 = *(v12 + 8 * i);
+          switch([v9 tag])
           {
             case 0xDAu:
-              data[23] = [v10 valueAsUnsignedShort];
+              data[23] = [v9 valueAsUnsignedShort];
               break;
             case 0xDBu:
               data[24] = 1;
@@ -816,18 +873,18 @@ LABEL_21:
               data[25] = 1;
               break;
             case 0xDDu:
-              valueAsUnsignedChar = [v10 valueAsUnsignedChar];
+              valueAsUnsignedChar = [v9 valueAsUnsignedChar];
               if (valueAsUnsignedChar >= 0x10)
               {
-                v12 = 16;
+                v11 = 16;
               }
 
               else
               {
-                v12 = valueAsUnsignedChar;
+                v11 = valueAsUnsignedChar;
               }
 
-              data[26] = v12;
+              data[26] = v11;
               break;
             case 0xDEu:
               data[27] = 1;
@@ -844,13 +901,11 @@ LABEL_21:
       while (v6);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseOemSpecificContent:(uint64_t)content
 {
-  v121 = *MEMORY[0x277D85DE8];
+  v127 = *MEMORY[0x277D85DE8];
   v4 = a2;
   contentCopy = content;
   if (!content)
@@ -858,263 +913,281 @@ LABEL_21:
     goto LABEL_61;
   }
 
-  v90 = v4;
+  v96 = v4;
   v5 = [KmlTlv TLVsWithData:v4];
   v6 = [@"AAPL" dataUsingEncoding:4];
-  v96 = [@"DFLT" dataUsingEncoding:4];
-  v7 = KmlLogger();
+  v102 = [@"DFLT" dataUsingEncoding:4];
+  v7 = KmlLogger(v102);
   value4 = &off_248C29000;
   if (OUTLINED_FUNCTION_11(v7))
   {
     *buf = 136315906;
     OUTLINED_FUNCTION_0_0("[KmlDeviceConfigurationData parseOemSpecificContent:]");
-    v116 = 503;
-    v117 = 2112;
-    v118 = v6;
-    v119 = 2112;
-    v120 = v96;
+    v122 = 503;
+    v123 = 2112;
+    v124 = v6;
+    v125 = 2112;
+    v126 = v102;
     OUTLINED_FUNCTION_9();
     _os_log_impl(v9, v10, v11, v12, v13, 0x26u);
   }
 
-  v110 = 0u;
-  v111 = 0u;
-  v108 = 0u;
-  v109 = 0u;
+  v116 = 0u;
+  v117 = 0u;
+  v114 = 0u;
+  v115 = 0u;
   v14 = v5;
-  v94 = [v14 countByEnumeratingWithState:&v108 objects:v114 count:16];
-  if (!v94)
+  v15 = [v14 countByEnumeratingWithState:&v114 objects:v120 count:16];
+  v100 = v15;
+  if (!v15)
   {
-    v66 = 0;
-    v67 = v14;
+    v72 = 0;
+    v73 = v14;
     goto LABEL_59;
   }
 
-  v99 = 0;
-  v92 = 0;
-  v93 = *v109;
-  v91 = v14;
+  v105 = 0;
+  v98 = 0;
+  v99 = *v115;
+  v97 = v14;
   while (2)
   {
-    for (i = 0; i != v94; i = v53 + 1)
+    v16 = 0;
+    do
     {
-      if (*v109 != v93)
+      if (*v115 != v99)
       {
         objc_enumerationMutation(v14);
       }
 
-      v95 = i;
-      v16 = *(*(&v108 + 1) + 8 * i);
-      v17 = KmlLogger();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v101 = v16;
+      v17 = *(*(&v114 + 1) + 8 * v16);
+      v18 = KmlLogger(v15);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        v18 = [v16 tag];
-        value = [v16 value];
+        v19 = [v17 tag];
+        value = [v17 value];
         *buf = 136315906;
         OUTLINED_FUNCTION_0_0("[KmlDeviceConfigurationData parseOemSpecificContent:]");
-        v116 = 505;
-        v117 = v20;
-        LODWORD(v118) = v18;
-        OUTLINED_FUNCTION_7(v21);
-        _os_log_impl(&dword_248BF3000, v17, OS_LOG_TYPE_INFO, "%s : %i : TLV: %02x : %@", v22, 0x22u);
+        v122 = 505;
+        v123 = v21;
+        LODWORD(v124) = v19;
+        OUTLINED_FUNCTION_7(v22);
+        _os_log_impl(&dword_248BF3000, v18, OS_LOG_TYPE_INFO, "%s : %i : TLV: %02x : %@", v23, 0x22u);
       }
 
-      if ([v16 tag] != 97)
+      v15 = [v17 tag];
+      if (v15 != 97)
       {
-        v53 = v95;
-        continue;
+        v57 = v101;
+        goto LABEL_49;
       }
 
-      value2 = [v16 value];
-      v24 = [KmlTlv TLVsWithData:value2];
+      value2 = [v17 value];
+      v25 = [KmlTlv TLVsWithData:value2];
 
-      v106 = 0u;
-      v107 = 0u;
-      v104 = 0u;
-      v105 = 0u;
-      v25 = v24;
-      v26 = [v25 countByEnumeratingWithState:&v104 objects:v113 count:16];
-      if (v26)
+      v112 = 0u;
+      v113 = 0u;
+      v110 = 0u;
+      v111 = 0u;
+      v26 = v25;
+      v27 = [v26 countByEnumeratingWithState:&v110 objects:v119 count:16];
+      v28 = v27;
+      if (v27)
       {
-        v98 = 0;
-        HIDWORD(v97) = 0;
-        v27 = *v105;
+        v104 = 0;
+        HIDWORD(v103) = 0;
+        v29 = *v111;
         do
         {
-          for (j = 0; j != v26; j = (j + 1))
+          v30 = 0;
+          do
           {
-            if (*v105 != v27)
+            if (*v111 != v29)
             {
-              objc_enumerationMutation(v25);
+              objc_enumerationMutation(v26);
             }
 
-            v29 = *(*(&v104 + 1) + 8 * j);
-            v30 = KmlLogger();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+            v31 = *(*(&v110 + 1) + 8 * v30);
+            v32 = KmlLogger(v27);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
             {
-              v31 = [v29 tag];
-              value3 = [v29 value];
-              OUTLINED_FUNCTION_3_0(value3, v33, v34, v35, v36, v37, v38, v39, contentCopy, v90, v91, v92, v93, v94, v95, v96, v97, v98, v40);
+              v33 = [v31 tag];
+              value3 = [v31 value];
+              OUTLINED_FUNCTION_3_0(value3, v35, v36, v37, v38, v39, v40, v41, v42, contentCopy, v96, v97, v98, v99, v100, v101, v102, v103, v104, v43);
               OUTLINED_FUNCTION_0_0("[KmlDeviceConfigurationData parseOemSpecificContent:]");
-              v116 = 510;
-              v117 = v41;
-              LODWORD(v118) = v31;
-              OUTLINED_FUNCTION_7(v42);
-              _os_log_impl(&dword_248BF3000, v30, OS_LOG_TYPE_INFO, "%s : %i : TLV: %02x : %@", v43, 0x22u);
+              v122 = 510;
+              v123 = v44;
+              LODWORD(v124) = v33;
+              OUTLINED_FUNCTION_7(v45);
+              _os_log_impl(&dword_248BF3000, v32, OS_LOG_TYPE_INFO, "%s : %i : TLV: %02x : %@", v46, 0x22u);
             }
 
-            if ([v29 tag] == 64)
+            if ([v31 tag] == 64)
             {
-              value4 = [v29 value];
-              v44 = [(__CFString *)v6 isEqualToData:value4];
+              value4 = [v31 value];
+              v47 = [(__CFString *)v6 isEqualToData:value4];
 
-              if (v44)
+              if (v47)
               {
-                HIDWORD(v97) = 1;
+                HIDWORD(v103) = 1;
               }
 
               else
               {
-                value4 = [v29 value];
-                v52 = [v96 isEqualToData:value4];
+                value4 = [v31 value];
+                v55 = [v102 isEqualToData:value4];
 
-                v99 |= v52;
+                v105 |= v55;
               }
             }
 
-            else if ([v29 tag] == 49)
+            else
             {
-              value5 = [v29 value];
-              value4 = [KmlTlv TLVsWithData:value5];
-
-              v102 = 0u;
-              v103 = 0u;
-              v100 = 0u;
-              v101 = 0u;
-              v46 = value4;
-              v47 = [v46 countByEnumeratingWithState:&v100 objects:v112 count:16];
-              if (v47)
+              v27 = [v31 tag];
+              if (v27 == 49)
               {
-                v48 = v47;
-                v49 = v6;
-                value4 = *v101;
-                while (2)
+                value5 = [v31 value];
+                value4 = [KmlTlv TLVsWithData:value5];
+
+                v108 = 0u;
+                v109 = 0u;
+                v106 = 0u;
+                v107 = 0u;
+                v49 = value4;
+                v50 = [v49 countByEnumeratingWithState:&v106 objects:v118 count:16];
+                if (v50)
                 {
-                  for (k = 0; k != v48; ++k)
+                  v51 = v50;
+                  v52 = v6;
+                  value4 = *v107;
+                  while (2)
                   {
-                    if (*v101 != value4)
+                    for (i = 0; i != v51; ++i)
                     {
-                      objc_enumerationMutation(v46);
+                      if (*v107 != value4)
+                      {
+                        objc_enumerationMutation(v49);
+                      }
+
+                      v54 = *(*(&v106 + 1) + 8 * i);
+                      if ([v54 tag] == 80)
+                      {
+                        value4 = [v54 value];
+
+                        v104 = value4;
+                        goto LABEL_34;
+                      }
                     }
 
-                    v51 = *(*(&v100 + 1) + 8 * k);
-                    if ([v51 tag] == 80)
+                    v51 = [v49 countByEnumeratingWithState:&v106 objects:v118 count:16];
+                    if (v51)
                     {
-                      value4 = [v51 value];
-
-                      v98 = value4;
-                      goto LABEL_34;
+                      continue;
                     }
-                  }
 
-                  v48 = [v46 countByEnumeratingWithState:&v100 objects:v112 count:16];
-                  if (v48)
-                  {
-                    continue;
+                    break;
                   }
-
-                  break;
-                }
 
 LABEL_34:
-                v6 = v49;
+                  v6 = v52;
+                }
               }
             }
+
+            v30 = v30 + 1;
           }
 
-          v26 = [v25 countByEnumeratingWithState:&v104 objects:v113 count:16];
+          while (v30 != v28);
+          v27 = [v26 countByEnumeratingWithState:&v110 objects:v119 count:16];
+          v28 = v27;
         }
 
-        while (v26);
+        while (v27);
 
-        if ((v97 & 0x100000000) != 0)
+        if ((v103 & 0x100000000) != 0)
         {
-          v68 = v6;
-          v69 = KmlLogger();
-          v70 = v98;
-          if (OUTLINED_FUNCTION_11(v69))
+          v74 = v6;
+          v75 = KmlLogger(v56);
+          v76 = v104;
+          if (OUTLINED_FUNCTION_11(v75))
           {
-            v71 = kmlUtilHexStringFromData(v98);
-            OUTLINED_FUNCTION_3_0(v71, v72, v73, v74, v75, v76, v77, v78, contentCopy, v90, v91, v92, v93, v94, v95, v96, v97, v98, v79);
+            v77 = kmlUtilHexStringFromData(v104);
+            OUTLINED_FUNCTION_3_0(v77, v78, v79, v80, v81, v82, v83, v84, v85, contentCopy, v96, v97, v98, v99, v100, v101, v102, v103, v104, v86);
             OUTLINED_FUNCTION_0_0("[KmlDeviceConfigurationData parseOemSpecificContent:]");
-            v116 = 529;
-            v117 = 2112;
-            v118 = @"AAPL";
-            v119 = 2112;
-            v120 = v80;
+            v122 = 529;
+            v123 = 2112;
+            v124 = @"AAPL";
+            v125 = 2112;
+            v126 = v87;
             OUTLINED_FUNCTION_9();
-            _os_log_impl(v81, v82, v83, v84, v85, 0x26u);
+            _os_log_impl(v88, v89, v90, v91, v92, 0x26u);
           }
 
-          v86 = *(contentCopy + 136);
-          *(contentCopy + 136) = v70;
-          v87 = v70;
+          v93 = *(contentCopy + 136);
+          *(contentCopy + 136) = v76;
+          v94 = v76;
 
-          v14 = v91;
-          v66 = v92;
-          v67 = v91;
-          v6 = v68;
+          v14 = v97;
+          v72 = v98;
+          v73 = v97;
+          v6 = v74;
           goto LABEL_59;
         }
 
-        v26 = v98;
-        if (v99)
+        v28 = v104;
+        if (v105)
         {
-          v14 = v91;
-          v53 = v95;
+          v14 = v97;
+          v57 = v101;
 LABEL_43:
-          v54 = KmlLogger();
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+          v58 = KmlLogger(v56);
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
           {
-            v55 = kmlUtilHexStringFromData(v26);
-            OUTLINED_FUNCTION_3_0(v55, v56, v57, v58, v59, v60, v61, v62, contentCopy, v90, v91, v92, v93, v94, v95, v96, v97, v98, v63);
+            v59 = kmlUtilHexStringFromData(v28);
+            OUTLINED_FUNCTION_3_0(v59, v60, v61, v62, v63, v64, v65, v66, v67, contentCopy, v96, v97, v98, v99, v100, v101, v102, v103, v104, v68);
             OUTLINED_FUNCTION_0_0("[KmlDeviceConfigurationData parseOemSpecificContent:]");
-            v116 = 533;
-            v117 = 2112;
-            v118 = @"DFLT";
-            v119 = 2112;
-            v120 = v64;
-            _os_log_impl(&dword_248BF3000, v54, OS_LOG_TYPE_INFO, "%s : %i : Found default product plan data for %@ : (%@)", buf, 0x26u);
+            v122 = 533;
+            v123 = 2112;
+            v124 = @"DFLT";
+            v125 = 2112;
+            v126 = v69;
+            _os_log_impl(&dword_248BF3000, v58, OS_LOG_TYPE_INFO, "%s : %i : Found default product plan data for %@ : (%@)", buf, 0x26u);
           }
 
-          v26 = v26;
-          v99 = 1;
-          v92 = v26;
+          v28 = v28;
+          v105 = 1;
+          v98 = v28;
           goto LABEL_48;
         }
 
-        v99 = 0;
-        v14 = v91;
-        v53 = v95;
+        v105 = 0;
+        v14 = v97;
+        v57 = v101;
       }
 
       else
       {
 
-        v53 = v95;
-        if (v99)
+        v57 = v101;
+        if (v105)
         {
           goto LABEL_43;
         }
 
-        v99 = 0;
+        v105 = 0;
       }
 
 LABEL_48:
+
+LABEL_49:
+      v16 = v57 + 1;
     }
 
-    v94 = [v14 countByEnumeratingWithState:&v108 objects:v114 count:16];
-    if (v94)
+    while (v16 != v100);
+    v15 = [v14 countByEnumeratingWithState:&v114 objects:v120 count:16];
+    v100 = v15;
+    if (v15)
     {
       continue;
     }
@@ -1122,31 +1195,29 @@ LABEL_48:
     break;
   }
 
-  if ((v99 & 1) == 0)
+  if ((v105 & 1) == 0)
   {
-    v66 = v92;
+    v72 = v98;
     goto LABEL_60;
   }
 
-  v65 = KmlLogger();
-  if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
+  v71 = KmlLogger(v70);
+  if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
     OUTLINED_FUNCTION_0_0("[KmlDeviceConfigurationData parseOemSpecificContent:]");
-    v116 = 540;
-    _os_log_impl(&dword_248BF3000, v65, OS_LOG_TYPE_INFO, "%s : %i : Only found default product plan data, so using it", buf, 0x12u);
+    v122 = 540;
+    _os_log_impl(&dword_248BF3000, v71, OS_LOG_TYPE_INFO, "%s : %i : Only found default product plan data, so using it", buf, 0x12u);
   }
 
-  v66 = v92;
-  v67 = *(contentCopy + 136);
-  *(contentCopy + 136) = v66;
+  v72 = v98;
+  v73 = *(contentCopy + 136);
+  *(contentCopy + 136) = v72;
 LABEL_59:
 
 LABEL_60:
-  v4 = v90;
+  v4 = v96;
 LABEL_61:
-
-  v88 = *MEMORY[0x277D85DE8];
 }
 
 - (id)readerBleConfigWithTag:(void *)tag target:
@@ -1217,28 +1288,28 @@ LABEL_61:
 
 - (void)parseSharingInAChainDeviceConfigMailboxSettingData
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (self)
   {
     [KmlTlv TLVsWithData:self[14]];
+    v33 = 0u;
+    v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v3 = v38 = 0u;
-    value = [v3 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v3 = v36 = 0u;
+    value = [v3 countByEnumeratingWithState:&v33 objects:v41 count:16];
     if (value)
     {
-      v5 = *v36;
+      v5 = *v34;
       while (2)
       {
         for (i = 0; i != value; i = i + 1)
         {
-          if (*v36 != v5)
+          if (*v34 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          v1 = *(*(&v35 + 1) + 8 * i);
+          v1 = *(*(&v33 + 1) + 8 * i);
           if ([v1 tag] == 96)
           {
             value = [v1 value];
@@ -1246,7 +1317,7 @@ LABEL_61:
           }
         }
 
-        value = [v3 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        value = [v3 countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (value)
         {
           continue;
@@ -1258,47 +1329,47 @@ LABEL_61:
 
 LABEL_12:
 
-    if (![value length])
+    v7 = [value length];
+    if (!v7)
     {
-      v7 = KmlLogger();
-      if (OUTLINED_FUNCTION_11(v7))
+      v8 = KmlLogger(0);
+      if (OUTLINED_FUNCTION_11(v8))
       {
         OUTLINED_FUNCTION_8();
-        v40 = 592;
+        v38 = 592;
         OUTLINED_FUNCTION_9();
-        _os_log_impl(v8, v9, v10, v11, v12, 0x12u);
+        _os_log_impl(v9, v10, v11, v12, v13, 0x12u);
       }
     }
 
-    v13 = KmlLogger();
-    if (OUTLINED_FUNCTION_11(v13))
+    v14 = KmlLogger(v7);
+    if (OUTLINED_FUNCTION_11(v14))
     {
       OUTLINED_FUNCTION_8();
-      v40 = 595;
-      v41 = 2112;
-      v42 = value;
+      v38 = 595;
+      v39 = 2112;
+      v40 = value;
       OUTLINED_FUNCTION_9();
-      _os_log_impl(v14, v15, v16, v17, v18, 0x1Cu);
+      _os_log_impl(v15, v16, v17, v18, v19, 0x1Cu);
     }
 
-    v19 = [KmlTlv TLVsWithData:value];
-    v20 = OUTLINED_FUNCTION_2_0();
-    v22 = [v21 countByEnumeratingWithState:v33 objects:v39 count:{16, v20}];
-    if (v22)
+    v20 = [KmlTlv TLVsWithData:value];
+    v21 = OUTLINED_FUNCTION_2_0();
+    v23 = [v22 countByEnumeratingWithState:v32 objects:v37 count:{16, v21}];
+    if (v23)
     {
-      v23 = v22;
-      v24 = *v34;
+      v24 = v23;
       do
       {
-        for (j = 0; j != v23; ++j)
+        for (j = 0; j != v24; ++j)
         {
-          OUTLINED_FUNCTION_4_0(v34);
+          OUTLINED_FUNCTION_4_0();
           if (!v26)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v20);
           }
 
-          v27 = *(v33[1] + 8 * j);
+          v27 = *(v32[1] + 8 * j);
           if ([v27 tag] == 74)
           {
             value2 = [v27 value];
@@ -1314,19 +1385,16 @@ LABEL_12:
           }
         }
 
-        v23 = [v19 countByEnumeratingWithState:v33 objects:v39 count:16];
+        v24 = [v20 countByEnumeratingWithState:v32 objects:v37 count:16];
       }
 
-      while (v23);
+      while (v24);
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseReaderBleConfigData:(uint64_t)data
 {
-  v19 = *MEMORY[0x277D85DE8];
   if (data)
   {
     v3 = [KmlTlv TLVsWithData:a2];
@@ -1336,17 +1404,17 @@ LABEL_12:
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = *(v17 + 8 * i);
+          v9 = *(v16 + 8 * i);
           switch([v9 tag])
           {
             case 0xD0u:
@@ -1391,8 +1459,37 @@ LABEL_14:
       while (v6);
     }
   }
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (id)supportedRadiosAsDataForTarget:(unsigned __int8)target
+{
+  targetCopy = target;
+  data = [MEMORY[0x277CBEB28] data];
+  if (self->_readerSupportsNfc)
+  {
+    v7 = [KmlTlv TLVWithJustTag:24400];
+    asData = [v7 asData];
+    OUTLINED_FUNCTION_5_0(asData);
+  }
+
+  v9 = [(KmlDeviceConfigurationData *)self readerBleConfigWithTag:targetCopy target:?];
+  if (self->_readerSupportsUwb || targetCopy != 1 && self->_uwbDisabledLocally)
+  {
+    v10 = [KmlTlv TLVWithJustTag:24401];
+    asData2 = [v10 asData];
+    OUTLINED_FUNCTION_1_0(asData2);
+
+    if (v9)
+    {
+      asData3 = [v9 asData];
+      [data appendData:asData3];
+    }
+  }
+
+  v13 = [KmlTlv TLVWithTag:32585 value:data];
+  asData4 = [v13 asData];
+
+  return asData4;
 }
 
 @end

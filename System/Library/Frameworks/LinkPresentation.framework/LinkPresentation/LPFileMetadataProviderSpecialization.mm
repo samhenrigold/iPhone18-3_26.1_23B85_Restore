@@ -190,28 +190,29 @@ void __93__LPFileMetadataProviderSpecialization_requestQuickLookThumbnailForURL_
 {
   v5 = a2;
   v6 = a3;
-  if (v6 || ![v5 CGImage])
+  v8 = v6;
+  if (v6 || (v6 = [v5 CGImage]) == 0)
   {
-    v7 = LPLogChannelFetching();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = LPLogChannelFetching(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __93__LPFileMetadataProviderSpecialization_requestQuickLookThumbnailForURL_size_badgeType_image___block_invoke_cold_1(v6, v7);
+      __93__LPFileMetadataProviderSpecialization_requestQuickLookThumbnailForURL_size_badgeType_image___block_invoke_cold_1(v8, v9);
     }
   }
 
   else
   {
-    v8 = LPLogChannelFetching();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = LPLogChannelFetching(v6, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_1AE886000, v8, OS_LOG_TYPE_DEFAULT, "LPFileMetadataProviderSpecialization retrieved a thumbnail from QuickLookThumbnailing", v12, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_1AE886000, v10, OS_LOG_TYPE_DEFAULT, "LPFileMetadataProviderSpecialization retrieved a thumbnail from QuickLookThumbnailing", v14, 2u);
     }
 
-    v9 = -[LPImage _initWithCGImage:]([LPImage alloc], "_initWithCGImage:", [v5 CGImage]);
-    v10 = *(a1 + 40);
-    v11 = *v10;
-    *v10 = v9;
+    v11 = -[LPImage _initWithCGImage:]([LPImage alloc], "_initWithCGImage:", [v5 CGImage]);
+    v12 = *(a1 + 40);
+    v13 = *v12;
+    *v12 = v11;
   }
 
   dispatch_group_leave(*(*(a1 + 32) + 96));
@@ -322,16 +323,16 @@ uint64_t __61__LPFileMetadataProviderSpecialization_fetchMetadataFromURL___block
 
 - (void)fetchMetadataForReachableFile:(id)file
 {
-  v99[3] = *MEMORY[0x1E69E9840];
+  v101[3] = *MEMORY[0x1E69E9840];
   fileCopy = file;
   if (!self->_UTI)
   {
     if (!self->_MIMEType || ([LPMIMETypeRegistry UTIForMIMEType:?], v11 = objc_claimAutoreleasedReturnValue(), v12 = self->_UTI, self->_UTI = v11, v12, !self->_UTI))
     {
-      v96 = 0;
-      [fileCopy getPromisedItemResourceValue:&v96 forKey:*MEMORY[0x1E695DC68] error:0];
-      v13 = v96;
-      v14 = v96;
+      v98 = 0;
+      [fileCopy getPromisedItemResourceValue:&v98 forKey:*MEMORY[0x1E695DC68] error:0];
+      v13 = v98;
+      v14 = v98;
       objc_storeStrong(&self->_UTI, v13);
       MIMEType = self->_MIMEType;
       if (MIMEType)
@@ -344,29 +345,29 @@ uint64_t __61__LPFileMetadataProviderSpecialization_fetchMetadataFromURL___block
         v16 = [LPMIMETypeRegistry MIMETypeForUTI:v14];
       }
 
-      v46 = self->_MIMEType;
+      v48 = self->_MIMEType;
       self->_MIMEType = v16;
 
       if (!self->_UTI)
       {
         pathExtension = [fileCopy pathExtension];
-        v48 = [LPMIMETypeRegistry UTIForFileExtension:pathExtension];
+        v50 = [LPMIMETypeRegistry UTIForFileExtension:pathExtension];
         UTI = self->_UTI;
-        self->_UTI = v48;
+        self->_UTI = v50;
 
-        v50 = self->_MIMEType;
-        if (v50)
+        v52 = self->_MIMEType;
+        if (v52)
         {
-          v51 = v50;
+          v53 = v52;
         }
 
         else
         {
-          v51 = [LPMIMETypeRegistry MIMETypeForUTI:self->_UTI];
+          v53 = [LPMIMETypeRegistry MIMETypeForUTI:self->_UTI];
         }
 
-        v80 = self->_MIMEType;
-        self->_MIMEType = v51;
+        v82 = self->_MIMEType;
+        self->_MIMEType = v53;
       }
     }
   }
@@ -428,22 +429,22 @@ LABEL_16:
 LABEL_17:
   v23 = *MEMORY[0x1E695DB50];
   v24 = *MEMORY[0x1E695DAA8];
-  v99[0] = *MEMORY[0x1E695DB50];
-  v99[1] = v24;
-  v83 = v24;
-  v82 = *MEMORY[0x1E695DB78];
-  v99[2] = *MEMORY[0x1E695DB78];
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v99 count:3];
-  v95 = 0;
-  v87 = [fileCopy promisedItemResourceValuesForKeys:v25 error:&v95];
-  v84 = v95;
+  v101[0] = *MEMORY[0x1E695DB50];
+  v101[1] = v24;
+  v85 = v24;
+  v84 = *MEMORY[0x1E695DB78];
+  v101[2] = *MEMORY[0x1E695DB78];
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v101 count:3];
+  v97 = 0;
+  v89 = [fileCopy promisedItemResourceValuesForKeys:v25 error:&v97];
+  v86 = v97;
 
-  if (!v87)
+  if (!v89)
   {
-    v26 = LPLogChannelFetching();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v28 = LPLogChannelFetching(v26, v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      [(LPFileMetadataProviderSpecialization *)v84 fetchMetadataForReachableFile:v26];
+      [(LPFileMetadataProviderSpecialization *)v86 fetchMetadataForReachableFile:v28];
     }
   }
 
@@ -466,23 +467,23 @@ LABEL_26:
 
   context5 = [(LPMetadataProviderSpecialization *)self context];
   postRedirectURL3 = [context5 postRedirectURL];
-  v33 = *MEMORY[0x1E695DB60];
-  v98[0] = *MEMORY[0x1E695DC10];
-  v32 = v98[0];
-  v98[1] = v33;
-  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v98 count:2];
-  context4 = [postRedirectURL3 promisedItemResourceValuesForKeys:v34 error:0];
+  v35 = *MEMORY[0x1E695DB60];
+  v100[0] = *MEMORY[0x1E695DC10];
+  v34 = v100[0];
+  v100[1] = v35;
+  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v100 count:2];
+  context4 = [postRedirectURL3 promisedItemResourceValuesForKeys:v36 error:0];
 
-  v36 = [context4 objectForKey:v32];
-  v37 = v36;
-  if (!v36)
+  v38 = [context4 objectForKey:v34];
+  v39 = v38;
+  if (!v38)
   {
     path = [MEMORY[0x1E696AC08] defaultManager];
     lastPathComponent = [(LPMetadataProviderSpecialization *)self context];
     stringByDeletingPathExtension = [lastPathComponent postRedirectURL];
     path2 = [stringByDeletingPathExtension path];
-    v43 = [path displayNameAtPath:path2];
-    [(LPFileMetadata *)self->_fileMetadata setName:v43];
+    v45 = [path displayNameAtPath:path2];
+    [(LPFileMetadata *)self->_fileMetadata setName:v45];
 
     postRedirectURL2 = 0;
     goto LABEL_26;
@@ -490,21 +491,21 @@ LABEL_26:
 
   if (v8)
   {
-    postRedirectURL2 = v36;
+    postRedirectURL2 = v38;
   }
 
   else
   {
-    v44 = [context4 objectForKey:v33];
-    v45 = v44;
-    if (v44 && ([v44 BOOLValue] & 1) == 0)
+    v46 = [context4 objectForKey:v35];
+    v47 = v46;
+    if (v46 && ([v46 BOOLValue] & 1) == 0)
     {
-      postRedirectURL2 = [v37 stringByDeletingPathExtension];
+      postRedirectURL2 = [v39 stringByDeletingPathExtension];
     }
 
     else
     {
-      postRedirectURL2 = v37;
+      postRedirectURL2 = v39;
     }
   }
 
@@ -512,60 +513,60 @@ LABEL_26:
 LABEL_37:
 
   [(LPFileMetadata *)self->_fileMetadata setType:self->_UTI];
-  v52 = [v87 objectForKeyedSubscript:v83];
-  [(LPFileMetadata *)self->_fileMetadata setCreationDate:v52];
+  v54 = [v89 objectForKeyedSubscript:v85];
+  [(LPFileMetadata *)self->_fileMetadata setCreationDate:v54];
 
-  v53 = [v87 objectForKeyedSubscript:v23];
-  -[LPFileMetadata setSize:](self->_fileMetadata, "setSize:", [v53 unsignedLongLongValue]);
+  v55 = [v89 objectForKeyedSubscript:v23];
+  -[LPFileMetadata setSize:](self->_fileMetadata, "setSize:", [v55 unsignedLongLongValue]);
 
   if (![(LPFileMetadata *)self->_fileMetadata size])
   {
-    v54 = [v87 objectForKeyedSubscript:v82];
-    bOOLValue = [v54 BOOLValue];
+    v56 = [v89 objectForKeyedSubscript:v84];
+    bOOLValue = [v56 BOOLValue];
 
     if (bOOLValue)
     {
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-      v57 = [MEMORY[0x1E695DEC8] arrayWithObject:v23];
-      v58 = [defaultManager enumeratorAtURL:fileCopy includingPropertiesForKeys:v57 options:0 errorHandler:0];
+      v59 = [MEMORY[0x1E695DEC8] arrayWithObject:v23];
+      v60 = [defaultManager enumeratorAtURL:fileCopy includingPropertiesForKeys:v59 options:0 errorHandler:0];
 
+      v95 = 0u;
+      v96 = 0u;
       v93 = 0u;
       v94 = 0u;
-      v91 = 0u;
-      v92 = 0u;
-      v59 = v58;
-      v60 = 0;
-      v61 = [v59 countByEnumeratingWithState:&v91 objects:v97 count:16];
-      if (v61)
+      v61 = v60;
+      v62 = 0;
+      v63 = [v61 countByEnumeratingWithState:&v93 objects:v99 count:16];
+      if (v63)
       {
-        v62 = *v92;
+        v64 = *v94;
         do
         {
-          for (i = 0; i != v61; ++i)
+          for (i = 0; i != v63; ++i)
           {
-            if (*v92 != v62)
+            if (*v94 != v64)
             {
-              objc_enumerationMutation(v59);
+              objc_enumerationMutation(v61);
             }
 
-            v64 = *(*(&v91 + 1) + 8 * i);
-            v90 = 0;
-            v65 = [v64 getResourceValue:&v90 forKey:v23 error:0];
-            v66 = v90;
-            v67 = v66;
-            if (v65)
+            v66 = *(*(&v93 + 1) + 8 * i);
+            v92 = 0;
+            v67 = [v66 getResourceValue:&v92 forKey:v23 error:0];
+            v68 = v92;
+            v69 = v68;
+            if (v67)
             {
-              v60 += [v66 integerValue];
+              v62 += [v68 integerValue];
             }
           }
 
-          v61 = [v59 countByEnumeratingWithState:&v91 objects:v97 count:16];
+          v63 = [v61 countByEnumeratingWithState:&v93 objects:v99 count:16];
         }
 
-        while (v61);
+        while (v63);
       }
 
-      [(LPFileMetadata *)self->_fileMetadata setSize:v60];
+      [(LPFileMetadata *)self->_fileMetadata setSize:v62];
     }
   }
 
@@ -573,9 +574,9 @@ LABEL_37:
   [(LPFileMetadataProviderSpecialization *)self updatePreliminaryMetadata];
   if ([LPMIMETypeRegistry isMediaType:self->_MIMEType])
   {
-    v68 = [LPMetadataProviderSpecializationContext alloc];
+    v70 = [LPMetadataProviderSpecializationContext alloc];
     originalURL = [(LPLinkMetadata *)self->_metadata originalURL];
-    v69 = self->_MIMEType;
+    v71 = self->_MIMEType;
     context6 = [(LPMetadataProviderSpecialization *)self context];
     webView = [context6 webView];
     context7 = [(LPMetadataProviderSpecialization *)self context];
@@ -583,17 +584,17 @@ LABEL_37:
     context8 = [(LPMetadataProviderSpecialization *)self context];
     allowedSpecializations = [context8 allowedSpecializations];
     context9 = [(LPMetadataProviderSpecialization *)self context];
-    LOBYTE(v81) = [context9 fetchIsNotUserInitiated];
-    v77 = [(LPMetadataProviderSpecializationContext *)v68 initWithOriginalURL:originalURL postRedirectURL:fileCopy MIMEType:v69 webView:webView hasLoadedResource:1 shouldFetchSubresources:shouldFetchSubresources2 allowedSpecializations:allowedSpecializations fetchIsNotUserInitiated:v81];
+    LOBYTE(v83) = [context9 fetchIsNotUserInitiated];
+    v79 = [(LPMetadataProviderSpecializationContext *)v70 initWithOriginalURL:originalURL postRedirectURL:fileCopy MIMEType:v71 webView:webView hasLoadedResource:1 shouldFetchSubresources:shouldFetchSubresources2 allowedSpecializations:allowedSpecializations fetchIsNotUserInitiated:v83];
 
-    v78 = [LPStreamingMediaMetadataProviderSpecialization specializedMetadataProviderForResourceWithContext:v77];
-    [v78 setDelegate:self];
+    v80 = [LPStreamingMediaMetadataProviderSpecialization specializedMetadataProviderForResourceWithContext:v79];
+    [v80 setDelegate:self];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __70__LPFileMetadataProviderSpecialization_fetchMetadataForReachableFile___block_invoke;
     block[3] = &unk_1E7A35450;
-    v89 = v78;
-    v79 = v78;
+    v91 = v80;
+    v81 = v80;
     dispatch_async(MEMORY[0x1E69E96A0], block);
     dispatch_group_enter(self->_fetchGroup);
   }

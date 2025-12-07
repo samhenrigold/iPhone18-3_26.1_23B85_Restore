@@ -143,7 +143,6 @@
   MEMORY[0x277D82BD8](widthAnchor2);
   MEMORY[0x277D82BD8](v12);
   MEMORY[0x277D82BD8](widthAnchor);
-  *MEMORY[0x277D85DE8];
 }
 
 + (int64_t)_buttonStyleForUIStyle
@@ -227,8 +226,6 @@
     MEMORY[0x277D82BD8](layer);
     MEMORY[0x277D82BD8](v10);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_performAnimationToSetHighlighted:(BOOL)highlighted

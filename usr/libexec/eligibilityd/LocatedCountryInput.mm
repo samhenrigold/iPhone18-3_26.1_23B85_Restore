@@ -26,24 +26,24 @@
     {
       if (v6)
       {
-        objc_opt_class();
-        if (sub_100027870(v6))
+        v7 = objc_opt_class();
+        if (sub_100027870(v6, v7))
         {
-          v7 = [NSSet setWithArray:v6];
-          v8 = [countryCodes intersectsSet:v7];
+          v8 = [NSSet setWithArray:v6];
+          v9 = [countryCodes intersectsSet:v8];
         }
 
         else
         {
-          v11 = sub_10001F638();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          v12 = sub_10001F638();
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
-            v12 = 136315138;
-            v13 = "[LocatedCountryInput anyInArray:]";
-            _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%s: Country list contains non-String entries", &v12, 0xCu);
+            v13 = 136315138;
+            v14 = "[LocatedCountryInput anyInArray:]";
+            _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%s: Country list contains non-String entries", &v13, 0xCu);
           }
 
-          v8 = 0;
+          v9 = 0;
         }
 
 LABEL_11:
@@ -56,25 +56,25 @@ LABEL_11:
     {
     }
 
-    v9 = sub_10001F638();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_10001F638();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "[LocatedCountryInput anyInArray:]";
-      v14 = 2112;
-      v15 = v6;
-      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%s: Unexpected type passed to selector: %@", &v12, 0x16u);
+      v13 = 136315394;
+      v14 = "[LocatedCountryInput anyInArray:]";
+      v15 = 2112;
+      v16 = v6;
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s: Unexpected type passed to selector: %@", &v13, 0x16u);
     }
 
-    v8 = 0;
-    v6 = v9;
+    v9 = 0;
+    v6 = v10;
     goto LABEL_11;
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_12:
 
-  return v8;
+  return v9;
 }
 
 - (NSString)description
@@ -277,8 +277,8 @@ LABEL_25:
         }
 
         *buf = 136315394;
-        v29 = "[LocatedCountryInput initWithCountryCodes:status:process:]";
-        v30 = 2080;
+        v30 = "[LocatedCountryInput initWithCountryCodes:status:process:]";
+        v31 = 2080;
         name = xpc_type_get_name(v11);
         v13 = "%s: Located country codes input is wrong data type: %s";
         v14 = v12;
@@ -288,8 +288,8 @@ LABEL_6:
         goto LABEL_25;
       }
 
-      v22 = xpc_dictionary_get_array(codesCopy, "OS_ELIGIBILITY_INPUT_COUNTRY_LOCATION_KEY_COUNTRY_CODE_LIST");
-      if (!v22)
+      v23 = xpc_dictionary_get_array(codesCopy, "OS_ELIGIBILITY_INPUT_COUNTRY_LOCATION_KEY_COUNTRY_CODE_LIST");
+      if (!v23)
       {
         v12 = sub_10001F638();
         if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -298,49 +298,49 @@ LABEL_6:
         }
 
         *buf = 136315138;
-        v29 = "[LocatedCountryInput initWithCountryCodes:status:process:]";
+        v30 = "[LocatedCountryInput initWithCountryCodes:status:process:]";
         v13 = "%s: Located country codes input missing country code array";
         v14 = v12;
         v15 = 12;
         goto LABEL_6;
       }
 
-      v12 = v22;
-      v23 = [LocatedCountryInput _parseConfidenceFromInputDict:codesCopy];
-      if (!v23)
+      v12 = v23;
+      v24 = [LocatedCountryInput _parseConfidenceFromInputDict:codesCopy];
+      if (!v24)
       {
-        v25 = sub_10001F638();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v26 = sub_10001F638();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v29 = "[LocatedCountryInput initWithCountryCodes:status:process:]";
-          _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "%s: Located country codes input missing confidence values", buf, 0xCu);
+          v30 = "[LocatedCountryInput initWithCountryCodes:status:process:]";
+          _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%s: Located country codes input missing confidence values", buf, 0xCu);
         }
 
         goto LABEL_25;
       }
 
-      v16 = v23;
+      v16 = v24;
     }
 
     v17 = _CFXPCCreateCFObjectFromXPCObject();
-    objc_opt_class();
-    if ((sub_100027870(v17) & 1) == 0)
+    v18 = objc_opt_class();
+    if ((sub_100027870(v17, v18) & 1) == 0)
     {
-      v24 = sub_10001F638();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v25 = sub_10001F638();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v29 = "[LocatedCountryInput initWithCountryCodes:status:process:]";
-        _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%s: Located country codes input contains non-String entries", buf, 0xCu);
+        v30 = "[LocatedCountryInput initWithCountryCodes:status:process:]";
+        _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "%s: Located country codes input contains non-String entries", buf, 0xCu);
       }
 
       goto LABEL_25;
     }
 
-    v18 = [NSSet setWithArray:v17];
+    v19 = [NSSet setWithArray:v17];
 
-    v12 = v18;
+    v12 = v19;
   }
 
   else
@@ -349,17 +349,17 @@ LABEL_6:
     v12 = 0;
   }
 
-  v27.receiver = self;
-  v27.super_class = LocatedCountryInput;
-  v19 = [(EligibilityInput *)&v27 initWithInputType:1 status:status process:processCopy];
-  v20 = v19;
-  if (v19)
+  v28.receiver = self;
+  v28.super_class = LocatedCountryInput;
+  v20 = [(EligibilityInput *)&v28 initWithInputType:1 status:status process:processCopy];
+  v21 = v20;
+  if (v20)
   {
-    objc_storeStrong(&v19->_countryCodes, v12);
-    v20->_confidence = v16;
+    objc_storeStrong(&v20->_countryCodes, v12);
+    v21->_confidence = v16;
   }
 
-  self = v20;
+  self = v21;
   selfCopy = self;
 LABEL_26:
 

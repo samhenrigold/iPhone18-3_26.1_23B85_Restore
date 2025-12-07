@@ -1,243 +1,4 @@
-uint64_t FixEdgeAndSubEdges(uint64_t result)
-{
-  if (result)
-  {
-    v1 = result;
-    do
-    {
-      if (*(v1 + 57))
-      {
-        break;
-      }
-
-      *(v1 + 57) = 1;
-      if (*(v1 + 58))
-      {
-        break;
-      }
-
-      result = FixEdgeAndSubEdges(*(v1 + 64));
-      v1 = *(v1 + 72);
-    }
-
-    while (v1);
-  }
-
-  return result;
-}
-
-void AppendTree(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
-{
-  if (a2)
-  {
-    if (!*(a2 + 58))
-    {
-      v18 = 0;
-      v17 = 0;
-      if ((mosyntkbsgram_GetRuleVisAndCost((a2 + 80), &v18, &v17) & 0x80000000) != 0)
-      {
-        return;
-      }
-
-      if (mosyntkbsgram_IsNilIter((a2 + 80)) || !v18)
-      {
-        AppendNode(a1, a2, a3, a4);
-        if (v15 < 0)
-        {
-          return;
-        }
-
-        v16 = *a4;
-        *(v16 + 60) = 0;
-        v16[8] = 0;
-        v19 = 0;
-        if ((AppendTree(a1, *(a2 + 64), v16 + 1, &v19) & 0x80000000) != 0)
-        {
-          return;
-        }
-
-        v11 = *(a2 + 72);
-        v13 = v16 + 1;
-        v14 = &v19;
-        v12 = a1;
-      }
-
-      else
-      {
-        if ((AppendTree(a1, *(a2 + 64), a3, a4) & 0x80000000) != 0)
-        {
-          return;
-        }
-
-        v11 = *(a2 + 72);
-        v12 = a1;
-        v13 = a3;
-        v14 = a4;
-      }
-
-      AppendTree(v12, v11, v13, v14);
-      return;
-    }
-
-    AppendNode(a1, a2, a3, a4);
-    if ((v8 & 0x80000000) == 0)
-    {
-      v9 = *a4;
-      *(v9 + 60) = 1;
-      mosyntdata_CopyTermInfo(a1, *(a2 + 64), v9 + 8);
-      if ((v10 & 0x80000000) == 0)
-      {
-        v9[1] = 0;
-      }
-    }
-  }
-}
-
-void AppendNode(uint64_t a1, __n128 *a2, void *a3, void **a4)
-{
-  mosyntdata_AddNode(a1, a3, a4, 1, a2[1].n128_i16[6], a2 + 2);
-  if ((v6 & 0x80000000) == 0)
-  {
-    v7 = *a4;
-    v8 = a2[1].n128_i16[4];
-    v7[12] = a2[6].n128_u32[0];
-    v7[13] = v8;
-    v7[14] = a2[1].n128_i16[5];
-  }
-}
-
-uint64_t com_mosynt_GetCfgParamVal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char *a5, char **a6)
-{
-  *a6 = a5;
-  __c_1 = -1;
-  __c = 0;
-  v11 = 0;
-  v7 = (*(a3 + 96))(a1, a2, "fecfg", a4, &v11, &__c_1, &__c);
-  if ((v7 & 0x80000000) == 0 && __c_1)
-  {
-    v8 = *v11;
-    v9 = strchr(*v11, __c);
-    if (v9)
-    {
-      *v9 = 0;
-      v8 = *v11;
-    }
-
-    *a6 = v8;
-  }
-
-  return v7;
-}
-
-uint64_t com_mosynt_GetBacktransPOS(uint64_t a1, uint64_t a2, uint64_t a3, char *__s, _WORD *a5)
-{
-  v15 = *MEMORY[0x1E69E9840];
-  strcpy(__sa, "backtrans_");
-  if (strlen(__s) < 0x81)
-  {
-    __strcat_chk();
-  }
-
-  else
-  {
-    __strncat_chk();
-  }
-
-  v10 = strchr(__sa, 40);
-  if (v10)
-  {
-    *v10 = 0;
-  }
-
-  v13 = 0;
-  result = com_mosynt_GetCfgParamVal(a1, a2, a3, __sa, __s, &v13);
-  if ((result & 0x80000000) == 0)
-  {
-    *a5 = *v13;
-  }
-
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t com_mosynt_GetBacktrans2POS(uint64_t a1, uint64_t a2, uint64_t a3, char *__s, unsigned int a5, char *a6)
-{
-  v25 = *MEMORY[0x1E69E9840];
-  v10 = strlen(__s);
-  *a6 = 0;
-  if (v10)
-  {
-    v11 = 0;
-    CfgParamVal = 0;
-    v23 = 0;
-    v13 = v10;
-    do
-    {
-      v14 = __s[v11];
-      if (v14 != 92)
-      {
-        strcpy(__sa, "backtrans2_");
-        v15 = strlen(__sa);
-        __sa[v15] = v14;
-        __sa[(v15 + 1)] = 0;
-        CfgParamVal = com_mosynt_GetCfgParamVal(a1, a2, a3, __sa, a6, &v23);
-        if ((CfgParamVal & 0x80000000) != 0)
-        {
-          break;
-        }
-
-        v16 = v23;
-        v17 = strlen(v23);
-        if (v17)
-        {
-          v18 = strlen(a6);
-          if (v23 != a6 && v17 + v18 + 1 < a5)
-          {
-            if (v18)
-            {
-              *&a6[strlen(a6)] = 92;
-            }
-
-            strcat(a6, v16);
-          }
-        }
-      }
-
-      ++v11;
-    }
-
-    while (v11 < v13);
-  }
-
-  else
-  {
-    CfgParamVal = 0;
-  }
-
-  v19 = *MEMORY[0x1E69E9840];
-  return CfgParamVal;
-}
-
-uint64_t com_mosynt_UseMosynt(uint64_t a1, uint64_t a2, uint64_t a3, _BOOL4 *a4)
-{
-  __s1 = 0;
-  CfgParamVal = com_mosynt_GetCfgParamVal(a1, a2, a3, "mosynt_usemosynt", "NO", &__s1);
-  if ((CfgParamVal & 0x80000000) != 0)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v6 = __s1;
-    v7 = !strcmp(__s1, "YES") || strcmp(v6, "yes") == 0;
-  }
-
-  *a4 = v7;
-  return CfgParamVal;
-}
-
-uint64_t mosyntbase_WInt3Ln(uint64_t a1, unsigned __int8 *a2, int a3, unsigned int a4, unsigned __int8 *a5, int a6)
+uint64_t mosyntbase_WInt3Ln(uint64_t a1, char *a2, unsigned int a3, uint64_t a4, char *a5, unsigned int a6)
 {
   v12 = a2;
   v11 = a3;
@@ -262,7 +23,7 @@ uint64_t mosyntbase_WInt3Ln(uint64_t a1, unsigned __int8 *a2, int a3, unsigned i
   return result;
 }
 
-uint64_t mosyntbase_WString(uint64_t a1, unsigned __int8 *a2, int a3)
+uint64_t mosyntbase_WString(uint64_t a1, char *a2, unsigned int a3)
 {
   v6 = a2;
   v5 = a3;
@@ -270,22 +31,21 @@ uint64_t mosyntbase_WString(uint64_t a1, unsigned __int8 *a2, int a3)
   return mosyntpal_WriteString(a1, v6, v5);
 }
 
-uint64_t mosyntbase_WInt(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t mosyntbase_WInt(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  memset(v6, 0, sizeof(v6));
-  result = mosyntpal_IntToString(a2, a3, v6, 100);
+  v7 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  memset(v5, 0, sizeof(v5));
+  result = mosyntpal_IntToString(a2, a3, v5, 100);
   if ((result & 0x80000000) == 0)
   {
-    result = mosyntpal_WriteString(a1, v6, 100);
+    return mosyntpal_WriteString(a1, v5, 0x64u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t mosyntbase_WStringLn(uint64_t a1, unsigned __int8 *a2, int a3)
+uint64_t mosyntbase_WStringLn(uint64_t a1, char *a2, unsigned int a3)
 {
   v6 = a2;
   v5 = a3;
@@ -299,7 +59,7 @@ uint64_t mosyntbase_WStringLn(uint64_t a1, unsigned __int8 *a2, int a3)
   return result;
 }
 
-uint64_t mosyntbase_WString3Ln(uint64_t a1, unsigned __int8 *a2, int a3, unsigned __int8 *a4, int a5, unsigned __int8 *a6, int a7)
+uint64_t mosyntbase_WString3Ln(uint64_t a1, char *a2, unsigned int a3, char *a4, unsigned int a5, char *a6, unsigned int a7)
 {
   v14 = a2;
   v13 = a3;
@@ -327,25 +87,29 @@ uint64_t mosyntbase_WString3Ln(uint64_t a1, unsigned __int8 *a2, int a3, unsigne
   return result;
 }
 
-uint64_t mosyntbase_WriteDevelMessage(uint64_t a1, unsigned __int8 *a2, int a3, unsigned __int8 *a4, int a5, unsigned __int8 *a6, int a7, unsigned __int8 *a8, unsigned int a9, unsigned int a10, unsigned int a11, unsigned int a12)
+uint64_t mosyntbase_WriteDevelMessage(uint64_t a1, const char *a2, int a3, unsigned __int8 *a4, unsigned int a5, unsigned __int8 *a6, unsigned int a7, unsigned __int8 *a8, ...)
 {
-  v13 = a10;
-  v14 = a11;
-  v15 = a12;
-  v24 = a2;
-  v23 = a3;
-  v22 = a4;
-  v21 = a5;
-  v20 = a6;
-  v19 = a7;
-  v18 = a8;
-  m2__fix__carray__len(&v24, &v23);
-  m2__fix__carray__len(&v22, &v21);
+  va_start(va1, a8);
+  va_start(va, a8);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v9 = HIDWORD(v21);
+  v10 = v23;
+  v11 = HIDWORD(v23);
+  v20 = a2;
+  v19 = a3;
+  v18 = a4;
+  v17 = a5;
+  v16 = a6;
+  v15 = a7;
+  v14 = a8;
   m2__fix__carray__len(&v20, &v19);
-  m2__fix__carray__len(&v18, &a9);
-  *(&v17 + 1) = __PAIR64__(v15, v14);
-  *&v17 = __PAIR64__(v13, a9);
-  result = mosyntbase_WriteMessage(a1, v24, v23, v22, v21, v20, v19, v18, v17);
+  m2__fix__carray__len(&v18, &v17);
+  m2__fix__carray__len(&v16, &v15);
+  m2__fix__carray__len(&v14, va);
+  *(&v13 + 1) = __PAIR64__(v11, v10);
+  *&v13 = __PAIR64__(v9, v21);
+  result = mosyntbase_WriteMessage(a1, v20, v19, v18, v17, v16, v15, v14, v13);
   if ((result & 0x80000000) == 0)
   {
     return kaldi::nnet1::Component::IsUpdatable(result);
@@ -354,59 +118,58 @@ uint64_t mosyntbase_WriteDevelMessage(uint64_t a1, unsigned __int8 *a2, int a3, 
   return result;
 }
 
-uint64_t mosyntbase_WriteMessage(uint64_t a1, unsigned __int8 *a2, int a3, unsigned __int8 *a4, int a5, unsigned __int8 *a6, int a7, unsigned __int8 *a8, __int128 a9)
+uint64_t mosyntbase_WriteMessage(uint64_t a1, unsigned __int8 *a2, int a3, unsigned __int8 *a4, unsigned int a5, unsigned __int8 *a6, unsigned int a7, unsigned __int8 *a8, __int128 a9)
 {
   v10 = *(&a9 + 4);
   v11 = HIDWORD(a9);
-  v22 = *MEMORY[0x1E69E9840];
-  v20 = a2;
-  v19 = a3;
-  v18 = a4;
-  v17 = a5;
-  v16 = a6;
-  v15 = a7;
-  v14 = a8;
-  memset(v21, 0, 512);
-  m2__fix__carray__len(&v20, &v19);
-  m2__fix__carray__len(&v18, &v17);
-  m2__fix__carray__len(&v16, &v15);
-  m2__fix__carray__len(&v14, &a9);
-  result = mosyntbase_ComposeMessage(v20, v19, v18, v17, v16, v15, v14, a9, v10, HIDWORD(v10), v11, v21, 1000);
+  v21 = *MEMORY[0x1E69E9840];
+  v19 = a2;
+  v18 = a3;
+  v17 = a4;
+  v16 = a5;
+  v15 = a6;
+  v14 = a7;
+  v13 = a8;
+  memset(v20, 0, 512);
+  m2__fix__carray__len(&v19, &v18);
+  m2__fix__carray__len(&v17, &v16);
+  m2__fix__carray__len(&v15, &v14);
+  m2__fix__carray__len(&v13, &a9);
+  result = mosyntbase_ComposeMessage(v19, v18, v17, v16, v15, v14, v13, a9, v10, HIDWORD(v10), v11, v20, 1000);
   if ((result & 0x80000000) == 0)
   {
-    result = mosyntpal_WriteString(a1, v21, 1000);
+    result = mosyntpal_WriteString(a1, v20, 0x3E8u);
     if ((result & 0x80000000) == 0)
     {
-      result = kaldi::nnet1::Component::IsUpdatable(result);
+      return kaldi::nnet1::Component::IsUpdatable(result);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t mosyntbase_ComposeMessage(unsigned __int8 *a1, int a2, unsigned __int8 *a3, int a4, unsigned __int8 *a5, int a6, unsigned __int8 *a7, int a8, unsigned int a9, unsigned int a10, unsigned int a11, _BYTE *a12, int a13)
+uint64_t mosyntbase_ComposeMessage(unsigned __int8 *a1, int a2, unsigned __int8 *a3, unsigned int a4, unsigned __int8 *a5, unsigned int a6, unsigned __int8 *a7, unsigned int a8, unsigned int a9, unsigned int a10, unsigned int a11, _BYTE *a12, int a13)
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v35 = a1;
-  v34 = a2;
-  v33 = a3;
-  v32 = a4;
-  v31 = a5;
-  v30 = a6;
-  v29 = a7;
-  v28 = a8;
-  v38[0] = 0;
-  v38[1] = 0;
-  v39 = 0;
-  m2__fix__carray__len(&v35, &v34);
-  m2__fix__carray__len(&v33, &v32);
-  m2__fix__carray__len(&v31, &v30);
-  m2__fix__carray__len(&v29, &v28);
-  v27 = 0;
+  v39 = *MEMORY[0x1E69E9840];
+  v34 = a1;
+  v33 = a2;
+  v32 = a3;
+  v31 = a4;
+  v30 = a5;
+  v29 = a6;
+  v28 = a7;
+  v27 = a8;
+  v37[0] = 0;
+  v37[1] = 0;
+  v38 = 0;
+  m2__fix__carray__len(&v34, &v33);
+  m2__fix__carray__len(&v32, &v31);
+  m2__fix__carray__len(&v30, &v29);
+  m2__fix__carray__len(&v28, &v27);
+  v26 = 0;
   *a12 = 0;
-  v13 = v34;
-  if (v34 >= 1)
+  v13 = v33;
+  if (v33 >= 1)
   {
     v14 = 0;
     v15 = 1;
@@ -414,8 +177,8 @@ uint64_t mosyntbase_ComposeMessage(unsigned __int8 *a1, int a2, unsigned __int8 
     do
     {
       v17 = v13 - 1;
-      v18 = &v35[v14];
-      result = v35[v14];
+      v18 = &v34[v14];
+      result = v34[v14];
       if (result == 37)
       {
         if (v14 < v17)
@@ -434,19 +197,19 @@ uint64_t mosyntbase_ComposeMessage(unsigned __int8 *a1, int a2, unsigned __int8 
               case 1:
                 v24 = a9;
 LABEL_25:
-                result = mosyntpal_IntToString(v24, 0, v38, 20);
+                result = mosyntpal_IntToString(v24, 0, v37, 20);
                 if ((result & 0x80000000) != 0)
                 {
-                  goto LABEL_36;
+                  return result;
                 }
 
                 break;
               default:
-                mosyntbase_CCopy("%d", 0, v38, 20, &v26);
+                mosyntbase_CCopy("%d", 0, v37, 20, &v25);
                 break;
             }
 
-            mosyntbase_App(a12, a13, &v27, v38, 20, &v26);
+            mosyntbase_App(a12, a13, &v26, v37, 0x14u, &v25);
             ++v15;
 LABEL_33:
             v23 = 2;
@@ -458,27 +221,27 @@ LABEL_33:
             switch(v16)
             {
               case 3:
-                v21 = v29;
-                v22 = v28;
+                v21 = v28;
+                v22 = v27;
                 break;
               case 2:
-                v21 = v31;
-                v22 = v30;
+                v21 = v30;
+                v22 = v29;
                 break;
               case 1:
-                v21 = v33;
-                v22 = v32;
+                v21 = v32;
+                v22 = v31;
                 break;
               default:
-                v37 = "%s";
-                v36 = 0;
-                m2__fix__carray__len(&v37, &v36);
-                v21 = v37;
-                v22 = v36;
+                v36 = "%s";
+                v35 = 0;
+                m2__fix__carray__len(&v36, &v35);
+                v21 = v36;
+                v22 = v35;
                 break;
             }
 
-            mosyntbase_App(a12, a13, &v27, v21, v22, &v26);
+            mosyntbase_App(a12, a13, &v26, v21, v22, &v25);
             ++v16;
             goto LABEL_33;
           }
@@ -489,35 +252,32 @@ LABEL_33:
       {
         if (v14 < v17 && v18[1] == 110)
         {
-          LOWORD(v38[0]) = mosyntpal_EOL();
-          mosyntbase_App(a12, a13, &v27, v38, 20, &v26);
+          LOWORD(v37[0]) = mosyntpal_EOL();
+          mosyntbase_App(a12, a13, &v26, v37, 0x14u, &v25);
           goto LABEL_33;
         }
       }
 
-      else if (!v35[v14])
+      else if (!v34[v14])
       {
-        goto LABEL_36;
+        return result;
       }
 
-      LOWORD(v38[0]) = result;
-      mosyntbase_App(a12, a13, &v27, v38, 20, &v26);
+      LOWORD(v37[0]) = result;
+      mosyntbase_App(a12, a13, &v26, v37, 0x14u, &v25);
       v23 = 1;
 LABEL_34:
       v14 += v23;
-      v13 = v34;
+      v13 = v33;
     }
 
-    while (v14 < v34);
+    while (v14 < v33);
   }
 
-  result = 0;
-LABEL_36:
-  v25 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
-uint64_t mosyntbase_Length(uint64_t a1, int a2)
+uint64_t mosyntbase_Length(uint64_t a1, unsigned int a2)
 {
   if (a2 < 1)
   {
@@ -536,7 +296,7 @@ uint64_t mosyntbase_Length(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t mosyntbase_Copy(uint64_t a1, int a2, uint64_t a3, int a4, BOOL *a5)
+uint64_t mosyntbase_Copy(uint64_t a1, unsigned int a2, uint64_t a3, int a4, BOOL *a5)
 {
   if (a2 < 1)
   {
@@ -567,7 +327,7 @@ LABEL_11:
   return 0;
 }
 
-uint64_t mosyntbase_CCopy(unsigned __int8 *a1, unsigned int a2, uint64_t a3, int a4, BOOL *a5)
+uint64_t mosyntbase_CCopy(const char *a1, unsigned int a2, uint64_t a3, int a4, BOOL *a5, ...)
 {
   v15 = a1;
   v14 = a2;
@@ -602,7 +362,7 @@ LABEL_11:
   return 0;
 }
 
-uint64_t mosyntbase_AppendTo(uint64_t a1, int a2, _BYTE *a3, int a4, BOOL *a5)
+uint64_t mosyntbase_AppendTo(uint64_t a1, int a2, _BYTE *a3, unsigned int a4, BOOL *a5)
 {
   v5 = (a2 - 1);
   if (a2 <= 1)
@@ -651,7 +411,7 @@ LABEL_14:
   return 0;
 }
 
-uint64_t mosyntbase_App(uint64_t a1, int a2, int *a3, uint64_t a4, int a5, BOOL *a6)
+uint64_t mosyntbase_App(uint64_t a1, int a2, int *a3, uint64_t a4, unsigned int a5, BOOL *a6)
 {
   v6 = a2 - 1;
   v7 = *a3;
@@ -687,7 +447,7 @@ LABEL_13:
   return 0;
 }
 
-uint64_t mosyntbase_CApp(uint64_t a1, int a2, int *a3, unsigned __int8 *a4, int a5, BOOL *a6)
+uint64_t mosyntbase_CApp(uint64_t a1, int a2, int *a3, unsigned __int8 *a4, unsigned int a5, BOOL *a6)
 {
   v12 = a4;
   v11 = a5;
@@ -812,7 +572,7 @@ BOOL mosyntbase_CEqual(unsigned __int8 *a1, int a2, unsigned __int8 *a3, int a4)
   return mosyntbase_Equal(v8, v7, v6, v5);
 }
 
-uint64_t mosyntbase_UpperCase(_BYTE *a1, int a2)
+uint64_t mosyntbase_UpperCase(_BYTE *a1, unsigned int a2)
 {
   if (a2 >= 1)
   {
@@ -995,28 +755,28 @@ uint64_t mosyntbase_RemoveSubstring(int a1, int a2, uint64_t a3, int a4, _BYTE *
 
 uint64_t mosyntaccphr_TreatSyntTree(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int a5, int a6, uint64_t a7, uint64_t a8)
 {
-  v299 = *MEMORY[0x1E69E9840];
-  v283 = 0;
-  SentTermCommList = mosyntpal_ALLOCATE(a1, &v283, 0x60u);
+  v290 = *MEMORY[0x1E69E9840];
+  v274 = 0;
+  SentTermCommList = mosyntpal_ALLOCATE(a1, &v274, 0x60u);
   if ((SentTermCommList & 0x80000000) != 0)
   {
-    goto LABEL_576;
+    return SentTermCommList;
   }
 
-  v17 = v283;
-  *v283 = a2;
+  v17 = v274;
+  *v274 = a2;
   *(v17 + 8) = a3;
   *(v17 + 16) = a4;
   *(v17 + 24) = a5;
   *(v17 + 28) = a6;
   *(v17 + 32) = 0;
   *(v17 + 40) = a7;
-  *(v283 + 48) = (mosyntkbaccphr_Nil)();
-  *(v283 + 52) = (mosyntkbaccphr_Nil)();
-  v18 = (mosyntkbaccphr_Nil)();
-  v19 = v283;
-  v20 = v283;
-  *(v283 + 56) = v18;
+  *(v274 + 48) = mosyntkbaccphr_Nil();
+  *(v274 + 52) = mosyntkbaccphr_Nil();
+  v18 = mosyntkbaccphr_Nil();
+  v19 = v274;
+  v20 = v274;
+  *(v274 + 56) = v18;
   v21 = (v20 + 56);
   if (!a8)
   {
@@ -1028,46 +788,43 @@ uint64_t mosyntaccphr_TreatSyntTree(uint64_t a1, int a2, uint64_t a3, uint64_t a
   {
     v24 = (v19 + 48);
     v23 = *(v19 + 48);
-    if (v23 == (mosyntkbaccphr_Nil)())
+    if (v23 == mosyntkbaccphr_Nil())
     {
-      DomainById = FindDomainById(v19, *(v19 + 28), (v19 + 48));
-      v26 = *(v19 + 48);
-      if (v26 == mosyntkbaccphr_Nil(DomainById))
+      FindDomainById(v19, *(v19 + 28), (v19 + 48));
+      v25 = *(v19 + 48);
+      if (v25 == mosyntkbaccphr_Nil())
       {
-        v27 = mosyntkbaccphr_AccPhrDomains(*(v19 + 16));
-        *(v19 + 48) = v27;
+        v26 = mosyntkbaccphr_AccPhrDomains(*(v19 + 16));
+        *(v19 + 48) = v26;
       }
 
       else
       {
-        v27 = *v24;
+        v26 = *v24;
       }
 
-      *(v19 + 52) = v27;
-      *(v19 + 56) = v27;
+      *(v19 + 52) = v26;
+      *(v19 + 56) = v26;
     }
 
-    *&v292 = 0;
-    SentTermCommList = mosyntdata_GetSentTermCommList(a1, *(v19 + 40), *(a8 + 52), &v292);
+    *&v283 = 0;
+    SentTermCommList = mosyntdata_GetSentTermCommList(a1, *(v19 + 40), *(a8 + 52), &v283);
     if ((SentTermCommList & 0x80000000) != 0)
     {
-      goto LABEL_576;
+      return SentTermCommList;
     }
 
-    v28 = v292;
-    v29 = *(v19 + 16);
-    inited = fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::InitMatcher();
-    if (v29 == inited)
+    v27 = v283;
+    v28 = *(v19 + 16);
+    if (v28 == fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::InitMatcher())
     {
-      v43 = mosyntkbaccphr_Nil(inited);
-      *(v19 + 48) = v43;
-      v44 = mosyntkbaccphr_Nil(v43);
-      *(v19 + 52) = v44;
-      *(v19 + 56) = mosyntkbaccphr_Nil(v44);
+      *(v19 + 48) = mosyntkbaccphr_Nil();
+      *(v19 + 52) = mosyntkbaccphr_Nil();
+      *(v19 + 56) = mosyntkbaccphr_Nil();
       goto LABEL_65;
     }
 
-    if (!v28)
+    if (!v27)
     {
       goto LABEL_65;
     }
@@ -1075,116 +832,113 @@ uint64_t mosyntaccphr_TreatSyntTree(uint64_t a1, int a2, uint64_t a3, uint64_t a
     BestScenarioPathSuffix = 0;
     while (1)
     {
-      while (*(v28 + 2) != 5)
+      while (*(v27 + 2) != 5)
       {
 LABEL_61:
-        v28 = *v28;
-        if (!v28)
+        v27 = *v27;
+        if (!v27)
         {
           if ((BestScenarioPathSuffix & 0x80000000) != 0)
           {
-            goto LABEL_577;
+            return BestScenarioPathSuffix;
           }
 
           goto LABEL_65;
         }
       }
 
-      if (*(v28 + 3))
+      if (*(v27 + 3))
       {
-        v32 = *v24;
+        v30 = *v24;
       }
 
       else
       {
-        inited = mosyntkbaccphr_Nil(inited);
-        v32 = inited;
-        *v24 = inited;
+        v30 = mosyntkbaccphr_Nil();
+        *v24 = v30;
       }
 
-      inited = mosyntkbaccphr_Nil(inited);
-      if (v32 == inited)
+      if (v30 == mosyntkbaccphr_Nil())
       {
-        v33 = FindDomainById(v19, *(v19 + 28), (v19 + 48));
-        v34 = *(v19 + 48);
-        if (v34 == mosyntkbaccphr_Nil(v33))
+        FindDomainById(v19, *(v19 + 28), (v19 + 48));
+        v31 = *(v19 + 48);
+        if (v31 == mosyntkbaccphr_Nil())
         {
-          inited = mosyntkbaccphr_AccPhrDomains(*(v19 + 16));
-          *(v19 + 48) = inited;
+          v32 = mosyntkbaccphr_AccPhrDomains(*(v19 + 16));
+          *(v19 + 48) = v32;
         }
 
         else
         {
-          inited = *v24;
+          v32 = *v24;
         }
 
         BestScenarioPathSuffix = 0;
-        *(v19 + 52) = inited;
-        *v21 = inited;
+        *(v19 + 52) = v32;
+        *v21 = v32;
       }
 
-      v35 = *(v28 + 3);
-      if (v35 != 2)
+      v33 = *(v27 + 3);
+      if (v33 != 2)
       {
         break;
       }
 
-      v39 = *v19;
-      if (!*(v28 + 36))
+      v37 = *v19;
+      if (!*(v27 + 36))
       {
-        if (v39 >= 1)
+        if (v37 >= 1)
         {
           SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
           if ((SentTermCommList & 0x80000000) != 0)
           {
-            goto LABEL_576;
+            return SentTermCommList;
           }
 
-          inited = mosyntbase_WriteMessage(a1, "Resetting sentence domain\\n", 0, "", 0, "", 0, "", 0);
+          v39 = mosyntbase_WriteMessage(a1, "Resetting sentence domain\\n", 0, "", 0, "", 0, "", 0);
           goto LABEL_54;
         }
 
 LABEL_55:
-        v42 = *(v19 + 52);
+        v40 = *(v19 + 52);
 LABEL_60:
-        *v21 = v42;
+        *v21 = v40;
         goto LABEL_61;
       }
 
-      if (v39 >= 1)
+      if (v37 >= 1)
       {
         SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
         if ((SentTermCommList & 0x80000000) != 0)
         {
-          goto LABEL_576;
+          return SentTermCommList;
         }
 
-        SentTermCommList = mosyntbase_WriteMessage(a1, "Setting sentence domain to '%s'\\n", 0, v28 + 36, 100, "", 0, "", 0);
+        SentTermCommList = mosyntbase_WriteMessage(a1, "Setting sentence domain to '%s'\\n", 0, v27 + 36, 0x64u, "", 0, "", 0);
         if ((SentTermCommList & 0x80000000) != 0)
         {
-          goto LABEL_576;
+          return SentTermCommList;
         }
       }
 
-      DomainByName = FindDomainByName(v19, v28 + 36, v21);
-      v41 = *(v19 + 56);
-      inited = mosyntkbaccphr_Nil(DomainByName);
-      if (v41 == inited)
+      FindDomainByName(v19, v27 + 36, v21);
+      v38 = *(v19 + 56);
+      if (v38 == mosyntkbaccphr_Nil())
       {
         if (*v19 >= 1)
         {
           SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
           if ((SentTermCommList & 0x80000000) != 0)
           {
-            goto LABEL_576;
+            return SentTermCommList;
           }
 
-          inited = mosyntbase_WriteMessage(a1, "Didn't find sentence domain '%s'\\n", 0, v28 + 36, 100, "", 0, "", 0);
+          v39 = mosyntbase_WriteMessage(a1, "Didn't find sentence domain '%s'\\n", 0, v27 + 36, 0x64u, "", 0, "", 0);
 LABEL_54:
-          BestScenarioPathSuffix = inited;
-          if ((inited & 0x80000000) != 0)
+          BestScenarioPathSuffix = v39;
+          if ((v39 & 0x80000000) != 0)
           {
-            goto LABEL_577;
+            return BestScenarioPathSuffix;
           }
 
           goto LABEL_55;
@@ -1196,56 +950,54 @@ LABEL_45:
       }
 
       BestScenarioPathSuffix = 0;
-      v28 = *v28;
-      if (!v28)
+      v27 = *v27;
+      if (!v27)
       {
         goto LABEL_65;
       }
     }
 
-    if (v35 != 1)
+    if (v33 != 1)
     {
-      if (!v35 && *v19 >= 1)
+      if (!v33 && *v19 >= 1)
       {
         SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
         if ((SentTermCommList & 0x80000000) != 0)
         {
-          goto LABEL_576;
+          return SentTermCommList;
         }
 
-        inited = mosyntbase_WriteMessage(a1, "Resetting default domain\\n", 0, "", 0, "", 0, "", 0);
-        BestScenarioPathSuffix = inited;
-        if ((inited & 0x80000000) != 0)
+        BestScenarioPathSuffix = mosyntbase_WriteMessage(a1, "Resetting default domain\\n", 0, "", 0, "", 0, "", 0);
+        if ((BestScenarioPathSuffix & 0x80000000) != 0)
         {
-          goto LABEL_577;
+          return BestScenarioPathSuffix;
         }
       }
 
       goto LABEL_61;
     }
 
-    v36 = *v19;
-    if (*(v28 + 36))
+    v34 = *v19;
+    if (*(v27 + 36))
     {
-      if (v36 >= 1)
+      if (v34 >= 1)
       {
         SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
         if ((SentTermCommList & 0x80000000) != 0)
         {
-          goto LABEL_576;
+          return SentTermCommList;
         }
 
-        SentTermCommList = mosyntbase_WriteMessage(a1, "Setting paragraph domain to '%s'\\n", 0, v28 + 36, 100, "", 0, "", 0);
+        SentTermCommList = mosyntbase_WriteMessage(a1, "Setting paragraph domain to '%s'\\n", 0, v27 + 36, 0x64u, "", 0, "", 0);
         if ((SentTermCommList & 0x80000000) != 0)
         {
-          goto LABEL_576;
+          return SentTermCommList;
         }
       }
 
-      v37 = FindDomainByName(v19, v28 + 36, (v19 + 52));
-      v38 = *(v19 + 52);
-      inited = mosyntkbaccphr_Nil(v37);
-      if (v38 != inited)
+      FindDomainByName(v19, v27 + 36, (v19 + 52));
+      v35 = *(v19 + 52);
+      if (v35 != mosyntkbaccphr_Nil())
       {
         goto LABEL_45;
       }
@@ -1255,88 +1007,88 @@ LABEL_45:
         SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
         if ((SentTermCommList & 0x80000000) != 0)
         {
-          goto LABEL_576;
+          return SentTermCommList;
         }
 
-        inited = mosyntbase_WriteMessage(a1, "Didn't find paragraph domain '%s'\\n", 0, v28 + 36, 100, "", 0, "", 0);
+        v36 = mosyntbase_WriteMessage(a1, "Didn't find paragraph domain '%s'\\n", 0, v27 + 36, 0x64u, "", 0, "", 0);
         goto LABEL_49;
       }
 
       BestScenarioPathSuffix = 0;
     }
 
-    else if (v36 >= 1)
+    else if (v34 >= 1)
     {
       SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
-      inited = mosyntbase_WriteMessage(a1, "Resetting paragraph domain\\n", 0, "", 0, "", 0, "", 0);
+      v36 = mosyntbase_WriteMessage(a1, "Resetting paragraph domain\\n", 0, "", 0, "", 0, "", 0);
 LABEL_49:
-      BestScenarioPathSuffix = inited;
-      if ((inited & 0x80000000) != 0)
+      BestScenarioPathSuffix = v36;
+      if ((v36 & 0x80000000) != 0)
       {
-        goto LABEL_577;
+        return BestScenarioPathSuffix;
       }
     }
 
-    v42 = *v24;
+    v40 = *v24;
     *(v19 + 52) = *v24;
     goto LABEL_60;
   }
 
 LABEL_65:
-  v45 = v283;
-  *(v283 + 60) = *(v283 + 56);
-  v46 = mosyntkbaccphr_AccPhrType(*(v45 + 16));
-  v47 = v283;
-  if (!v46)
+  v41 = v274;
+  *(v274 + 60) = *(v274 + 56);
+  v42 = mosyntkbaccphr_AccPhrType(*(v41 + 16));
+  v43 = v274;
+  if (!v42)
   {
-    v287 = 0;
-    v54 = mosyntkbsymtab_WildConsId(*(v283 + 8));
-    SentTermCommList = GenAccTree(a1, v47, a8, &v287);
+    v278 = 0;
+    v50 = mosyntkbsymtab_WildConsId();
+    SentTermCommList = GenAccTree(a1, v43, a8, &v278);
     if ((SentTermCommList & 0x80000000) != 0)
     {
-      goto LABEL_576;
+      return SentTermCommList;
     }
 
-    v55 = v287;
-    LODWORD(v292) = 0;
-    SentTermCommList = Accentuation1(a1, v47, v287, &v292);
+    v51 = v278;
+    LODWORD(v283) = 0;
+    SentTermCommList = Accentuation1(a1, v43, v278, &v283);
     if ((SentTermCommList & 0x80000000) != 0)
     {
-      goto LABEL_576;
+      return SentTermCommList;
     }
 
-    *&v290[0] = 0;
-    v286 = 0;
-    *&v292 = 0;
-    SentTermCommList = GetInitPhrasing1(a1, v47, v55, 3, 0, &v286, &v292);
+    *&v281[0] = 0;
+    v277 = 0;
+    *&v283 = 0;
+    SentTermCommList = GetInitPhrasing1(a1, v43, v51, 3, 0, &v277, &v283);
     if ((SentTermCommList & 0x80000000) != 0)
     {
-      goto LABEL_576;
+      return SentTermCommList;
     }
 
-    v56 = v292 ? *(v292 + 24) : 0;
-    SentTermCommList = mosyntdata_GetSentTermCommList(a1, *(v47 + 40), v56, v290);
+    v52 = v283 ? *(v283 + 24) : 0;
+    SentTermCommList = mosyntdata_GetSentTermCommList(a1, *(v43 + 40), v52, v281);
     if ((SentTermCommList & 0x80000000) != 0)
     {
-      goto LABEL_576;
+      return SentTermCommList;
     }
 
-    v57 = FinalBoundaryIndex(a1, *&v290[0]);
-    SentTermCommList = AppendInitBound(a1, v47, &v286, &v292, v57, 0);
+    v53 = FinalBoundaryIndex(a1, *&v281[0]);
+    SentTermCommList = AppendInitBound(a1, v43, &v277, &v283, v53, 0);
     if ((SentTermCommList & 0x80000000) != 0)
     {
-      goto LABEL_576;
+      return SentTermCommList;
     }
 
-    *(v292 + 16) = v56;
-    if (*v47 <= 0)
+    *(v283 + 16) = v52;
+    if (*v43 <= 0)
     {
-      v59 = v286;
+      v55 = v277;
     }
 
     else
@@ -1344,50 +1096,50 @@ LABEL_65:
       SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
       SentTermCommList = mosyntbase_WString(a1, "initial phrasing: ", 0);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
-      v58 = v286;
-      SentTermCommList = WriteBoundList(a1, v47, v286, 0);
+      v54 = v277;
+      SentTermCommList = WriteBoundList(a1, v43, v277, 0);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
       SentTermCommList = mosyntbase_WLn(a1);
-      v59 = v58;
+      v55 = v54;
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
     }
 
-    v82 = *(v47 + 24);
-    v292 = 0u;
-    v293 = 0u;
-    v294 = 0u;
-    v295 = 0u;
-    v296 = 0u;
-    v297 = 0u;
-    v298 = 0;
-    v282 = v59;
-    if (v59)
+    v78 = *(v43 + 24);
+    v283 = 0u;
+    v284 = 0u;
+    v285 = 0u;
+    v286 = 0u;
+    v287 = 0u;
+    v288 = 0u;
+    v289 = 0;
+    v273 = v55;
+    if (v55)
     {
-      v83 = 0;
+      v79 = 0;
       BestScenarioPathSuffix = 0;
-      v84 = v59;
+      v80 = v55;
       do
       {
-        v85 = *(v84 + 4);
-        if (v85 < 100)
+        v81 = *(v80 + 4);
+        if (v81 < 100)
         {
-          *(&v292 + v85) = 1;
+          *(&v283 + v81) = 1;
         }
 
         else
@@ -1395,84 +1147,84 @@ LABEL_65:
           SentTermCommList = mosyntbase_WString(a1, "*** maximum nr of phrase boundary index levels exceeded", 0);
           if ((SentTermCommList & 0x80000000) != 0)
           {
-            goto LABEL_576;
+            return SentTermCommList;
           }
 
           BestScenarioPathSuffix = mosyntbase_WLn(a1);
           if ((BestScenarioPathSuffix & 0x80000000) != 0)
           {
-            goto LABEL_577;
+            return BestScenarioPathSuffix;
           }
 
-          LOWORD(v85) = *(v84 + 4);
-          v59 = v282;
+          LOWORD(v81) = *(v80 + 4);
+          v55 = v273;
         }
 
-        if (v83 <= v85)
+        if (v79 <= v81)
         {
-          v83 = v85;
+          v79 = v81;
         }
 
-        v84 = *v84;
+        v80 = *v80;
       }
 
-      while (v84);
+      while (v80);
     }
 
     else
     {
       BestScenarioPathSuffix = 0;
-      v83 = 0;
+      v79 = 0;
     }
 
-    v155 = v83;
+    v149 = v79;
     for (i = 1; i != 3; ++i)
     {
-      if (v155 >= 2)
+      if (v149 >= 2)
       {
-        v157 = v155;
+        v151 = v149;
         do
         {
-          if (v157 > 0x63 || *(&v292 + v157))
+          if (v151 > 0x63 || *(&v283 + v151))
           {
-            if (v59)
+            if (v55)
             {
-              v158 = 0;
-              v159 = 0;
-              v160 = 0;
-              v161 = v59;
+              v152 = 0;
+              v153 = 0;
+              v154 = 0;
+              v155 = v55;
               while (1)
               {
-                v162 = v161[4];
-                if ((v162 & 0x80000000) == 0)
+                v156 = v155[4];
+                if ((v156 & 0x80000000) == 0)
                 {
                   break;
                 }
 
 LABEL_386:
-                v161 = *v161;
-                if (!v161)
+                v155 = *v155;
+                if (!v155)
                 {
                   goto LABEL_387;
                 }
               }
 
-              if (!v159 || (v159[4] & 0x80000000) == 0)
+              if (!v153 || (v153[4] & 0x80000000) == 0)
               {
-                v160 = v159;
+                v154 = v153;
               }
 
-              if (v158)
+              if (v152)
               {
-                v163 = v158[4];
-                if (v157 == v163 && v160)
+                v157 = v152[4];
+                if (v151 == v157 && v154)
                 {
                   if (i == 1)
                   {
-                    v164 = v160[5];
-                    if (v164 || v163 < v160[4])
+                    v158 = v154[5];
+                    if (v158 || v157 < v154[4])
                     {
-                      if (v163 <= v162 || v158[5])
+                      if (v157 <= v156 || v152[5])
                       {
                         goto LABEL_384;
                       }
@@ -1480,48 +1232,48 @@ LABEL_386:
 
                     else
                     {
-                      v164 = 0;
+                      v158 = 0;
                     }
 
 LABEL_383:
-                    v158[4] = -1;
-                    v160[5] = v158[5] + v164;
-                    v160[6] += v158[6];
+                    v152[4] = -1;
+                    v154[5] = v152[5] + v158;
+                    v154[6] += v152[6];
                     goto LABEL_384;
                   }
 
-                  if (v82 > 1 || v163 >= 3)
+                  if (v78 > 1 || v157 >= 3)
                   {
-                    v165 = v160[6];
-                    if (v165 >= 5)
+                    v159 = v154[6];
+                    if (v159 >= 5)
                     {
-                      v166 = v82 - 1;
+                      v160 = v78 - 1;
                     }
 
                     else
                     {
-                      v166 = v82;
+                      v160 = v78;
                     }
 
-                    if (v165 < 3)
+                    if (v159 < 3)
                     {
-                      v166 = v82 + 1;
+                      v160 = v78 + 1;
                     }
 
-                    v167 = v158[6];
-                    v168 = v167 >= 5 ? v82 - 1 : v82;
-                    v169 = v167 >= 3 ? v168 : v82 + 1;
-                    if (v163 >= v160[4])
+                    v161 = v152[6];
+                    v162 = v161 >= 5 ? v78 - 1 : v78;
+                    v163 = v161 >= 3 ? v162 : v78 + 1;
+                    if (v157 >= v154[4])
                     {
-                      if (v163 >= v162 && v166 >= v160[5])
+                      if (v157 >= v156 && v160 >= v154[5])
                       {
-                        v164 = v160[5];
+                        v158 = v154[5];
                         goto LABEL_383;
                       }
 
-                      if (v163 > v162 && v169 >= v158[5])
+                      if (v157 > v156 && v163 >= v152[5])
                       {
-                        v164 = v160[5];
+                        v158 = v154[5];
                         goto LABEL_383;
                       }
                     }
@@ -1529,158 +1281,158 @@ LABEL_383:
                 }
 
 LABEL_384:
-                v159 = v158;
+                v153 = v152;
               }
 
               else
               {
-                v159 = 0;
+                v153 = 0;
               }
 
-              v158 = v161;
+              v152 = v155;
               goto LABEL_386;
             }
 
 LABEL_387:
-            if (*v47 >= 1)
+            if (*v43 >= 1)
             {
               SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
               if ((SentTermCommList & 0x80000000) != 0)
               {
-                goto LABEL_576;
+                return SentTermCommList;
               }
 
-              v170 = (i == 1 ? "after clitic melting" : "after rhythmic melting");
-              SentTermCommList = mosyntbase_WString(a1, v170, 0);
+              v164 = i == 1 ? "after clitic melting" : "after rhythmic melting";
+              SentTermCommList = mosyntbase_WString(a1, v164, 0);
               if ((SentTermCommList & 0x80000000) != 0)
               {
-                goto LABEL_576;
+                return SentTermCommList;
               }
 
               SentTermCommList = mosyntbase_WString(a1, ", index ", 0);
               if ((SentTermCommList & 0x80000000) != 0)
               {
-                goto LABEL_576;
+                return SentTermCommList;
               }
 
-              SentTermCommList = mosyntbase_WInt(a1, v157, 0);
+              SentTermCommList = mosyntbase_WInt(a1, v151, 0);
               if ((SentTermCommList & 0x80000000) != 0)
               {
-                goto LABEL_576;
+                return SentTermCommList;
               }
 
               SentTermCommList = mosyntbase_WString(a1, ": ", 0);
               if ((SentTermCommList & 0x80000000) != 0)
               {
-                goto LABEL_576;
+                return SentTermCommList;
               }
 
-              SentTermCommList = WriteBoundList(a1, v47, v282, 0);
+              SentTermCommList = WriteBoundList(a1, v43, v273, 0);
               if ((SentTermCommList & 0x80000000) != 0)
               {
-                goto LABEL_576;
+                return SentTermCommList;
               }
 
               BestScenarioPathSuffix = mosyntbase_WLn(a1);
-              v59 = v282;
+              v55 = v273;
               if ((BestScenarioPathSuffix & 0x80000000) != 0)
               {
-                goto LABEL_577;
+                return BestScenarioPathSuffix;
               }
             }
           }
 
-          v204 = v157-- <= 2;
+          v196 = v151-- <= 2;
         }
 
-        while (!v204);
+        while (!v196);
       }
     }
 
     if ((BestScenarioPathSuffix & 0x80000000) != 0)
     {
-      goto LABEL_577;
+      return BestScenarioPathSuffix;
     }
 
-    if (mosyntkbsymtab_PropTabAvailable(*(v47 + 8)) && mosyntkbsymtab_HasIntPropValue(a1, *(v47 + 8), v54, 8u, 1))
+    if (mosyntkbsymtab_PropTabAvailable(*(v43 + 8)) && mosyntkbsymtab_HasIntPropValue(a1, *(v43 + 8), v50, 8, 1))
     {
 LABEL_404:
-      if (*v47 >= 1)
+      if (*v43 >= 1)
       {
         SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
         if ((SentTermCommList & 0x80000000) != 0)
         {
-          goto LABEL_576;
+          return SentTermCommList;
         }
 
         SentTermCommList = mosyntbase_WStringLn(a1, "before setting phrase types: ", 0);
         if ((SentTermCommList & 0x80000000) != 0)
         {
-          goto LABEL_576;
+          return SentTermCommList;
         }
 
-        SentTermCommList = WriteBoundList(a1, v47, v282, 1);
+        SentTermCommList = WriteBoundList(a1, v43, v273, 1);
         if ((SentTermCommList & 0x80000000) != 0)
         {
-          goto LABEL_576;
+          return SentTermCommList;
         }
 
         SentTermCommList = mosyntbase_WLn(a1);
         if ((SentTermCommList & 0x80000000) != 0)
         {
-          goto LABEL_576;
+          return SentTermCommList;
         }
       }
 
       goto LABEL_437;
     }
 
-    if (v282)
+    if (v273)
     {
-      v171 = 0;
-      v172 = 0;
-      v173 = 0;
-      v174 = v282;
+      v165 = 0;
+      v166 = 0;
+      v167 = 0;
+      v168 = v273;
       while (1)
       {
-        if (*(v174 + 4) > 1u)
+        if (*(v168 + 4) > 1u)
         {
-          v175 = v172;
+          v169 = v166;
           goto LABEL_422;
         }
 
-        v171 = 0;
-        v175 = 0;
-        if (!v173 || !v172)
+        v165 = 0;
+        v169 = 0;
+        if (!v167 || !v166)
         {
           goto LABEL_420;
         }
 
-        v173 = v174;
-        if (v172 != v174)
+        v167 = v168;
+        if (v166 != v168)
         {
           break;
         }
 
 LABEL_422:
-        v176 = *(v174 + 15);
-        if (v176 <= 0)
+        v170 = *(v168 + 15);
+        if (v170 <= 0)
         {
-          v174 = *v174;
+          v168 = *v168;
         }
 
         else
         {
-          v174 = *v174;
-          if (v171 == 0 || v171 >= v176)
+          v168 = *v168;
+          if (v165 == 0 || v165 >= v170)
           {
-            v175 = v174;
-            v171 = v176;
+            v169 = v168;
+            v165 = v170;
           }
         }
 
-        v172 = v175;
-        if (!v174)
+        v166 = v169;
+        if (!v168)
         {
           goto LABEL_428;
         }
@@ -1688,495 +1440,495 @@ LABEL_422:
 
       do
       {
-        if ((*(v172 + 8) & 0x80000000) == 0)
+        if ((v166[1] & 0x80000000) == 0)
         {
-          *(v172 + 8) = -1;
+          *(v166 + 4) = -1;
         }
 
-        v172 = *v172;
+        v166 = *v166;
       }
 
-      while (v172 != v174);
-      v175 = 0;
-      v171 = 0;
+      while (v166 != v168);
+      v169 = 0;
+      v165 = 0;
 LABEL_420:
-      v173 = v174;
+      v167 = v168;
       goto LABEL_422;
     }
 
 LABEL_428:
-    if (*v47 >= 1)
+    if (*v43 >= 1)
     {
       SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
       SentTermCommList = mosyntbase_WString(a1, "after postcyclic deletion: ", 0);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
-      SentTermCommList = WriteBoundList(a1, v47, v282, 0);
+      SentTermCommList = WriteBoundList(a1, v43, v273, 0);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
       SentTermCommList = mosyntbase_WLn(a1);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
       goto LABEL_404;
     }
 
 LABEL_437:
-    if (v282)
+    if (v273)
     {
-      v178 = 0;
-      v179 = 0;
-      v180 = 0;
-      v181 = 0;
-      LODWORD(v285) = 0;
-      *&v292 = 0;
-      *&v290[0] = 0;
-      v182 = v282;
-      v183 = 1;
+      v172 = 0;
+      v173 = 0;
+      v174 = 0;
+      v175 = 0;
+      LODWORD(v276) = 0;
+      *&v283 = 0;
+      *&v281[0] = 0;
+      v176 = v273;
+      v177 = 1;
       do
       {
-        mosyntdata_GetSentTermCommList(a1, *(v47 + 40), *(v182 + 4), &v292);
-        mosyntdata_GetPunctFromCommandList(a1, v292, &v285, v290);
-        if (v285 == 11)
+        mosyntdata_GetSentTermCommList(a1, *(v43 + 40), *(v176 + 4), &v283);
+        mosyntdata_GetPunctFromCommandList(a1, v283, &v276, v281);
+        if (v276 == 11)
         {
-          v184 = 1;
+          v178 = 1;
         }
 
         else
         {
-          v184 = v178;
+          v178 = v172;
         }
 
-        if (v285 == 10)
+        if (v276 == 10)
         {
-          v179 = 1;
+          v173 = 1;
         }
 
         else
         {
-          v178 = v184;
+          v172 = v178;
         }
 
-        if (*(v182 + 14) >= 1)
+        if (*(v176 + 14) >= 1)
         {
-          if (mosyntkbsymtab_PropTabAvailable(*(v47 + 8)) && mosyntkbsymtab_HasIntPropValue(a1, *(v47 + 8), *(v182 + 14), 6u, 2))
+          if (mosyntkbsymtab_PropTabAvailable(*(v43 + 8)) && mosyntkbsymtab_HasIntPropValue(a1, *(v43 + 8), *(v176 + 14), 6, 2))
           {
-            v183 = 0;
-            v181 = 1;
+            v177 = 0;
+            v175 = 1;
           }
 
-          else if (v183 || !mosyntkbsymtab_PropTabAvailable(*(v47 + 8)))
+          else if (v177 || !mosyntkbsymtab_PropTabAvailable(*(v43 + 8)))
           {
-            v183 = 0;
+            v177 = 0;
           }
 
           else
           {
-            v183 = 0;
-            if (mosyntkbsymtab_HasIntPropValue(a1, *(v47 + 8), *(v182 + 14), 6u, 3))
+            v177 = 0;
+            if (mosyntkbsymtab_HasIntPropValue(a1, *(v43 + 8), *(v176 + 14), 6, 3))
             {
-              v180 = 1;
+              v174 = 1;
             }
           }
         }
 
-        v182 = *v182;
+        v176 = *v176;
       }
 
-      while (v182);
-      if (v178)
+      while (v176);
+      if (v172)
       {
-        v185 = 9;
+        v179 = 9;
       }
 
       else
       {
-        v185 = 2;
+        v179 = 2;
       }
 
-      if (v179)
+      if (v173)
       {
-        if (v180)
+        if (v174)
         {
-          v185 = 8;
+          v179 = 8;
         }
 
         else
         {
-          v185 = 4;
+          v179 = 4;
         }
 
-        if (!v181)
+        if (!v175)
         {
-          if (v180)
+          if (v174)
           {
-            v265 = v282;
+            v256 = v273;
             do
             {
-              if (*(v265 + 14) >= 1 && mosyntkbsymtab_PropTabAvailable(*(v47 + 8)) && mosyntkbsymtab_HasIntPropValue(a1, *(v47 + 8), *(v265 + 14), 6u, 3))
+              if (*(v256 + 14) >= 1 && mosyntkbsymtab_PropTabAvailable(*(v43 + 8)) && mosyntkbsymtab_HasIntPropValue(a1, *(v43 + 8), *(v256 + 14), 6, 3))
               {
-                *(v265 + 4) = 2;
+                *(v256 + 4) = 2;
               }
 
-              v265 = *v265;
+              v256 = *v256;
             }
 
-            while (v265);
-            v209 = 1;
+            while (v256);
+            v201 = 1;
           }
 
           else
           {
-            v209 = 0;
-            v185 = 4;
+            v201 = 0;
+            v179 = 4;
           }
 
 LABEL_531:
-          if (v282)
+          if (v273)
           {
-            v210 = 0;
-            v211 = 1;
-            v212 = v282;
+            v202 = 0;
+            v203 = 1;
+            v204 = v273;
             do
             {
-              if (v212[1] < 0)
+              if (v204[1] < 0)
               {
-                v213 = *v212;
+                v205 = *v204;
               }
 
               else
               {
-                v213 = *v212;
-                if (v210)
+                v205 = *v204;
+                if (v202)
                 {
-                  if (!v213)
+                  if (!v205)
                   {
-                    *(v210 + 8) = v185;
+                    *(v202 + 8) = v179;
                     break;
                   }
 
-                  if (v209)
+                  if (v201)
                   {
-                    if (v211)
+                    if (v203)
                     {
-                      v211 = 0;
-                      *(v210 + 8) = 6;
+                      v203 = 0;
+                      *(v202 + 8) = 6;
                     }
 
                     else
                     {
-                      *(v210 + 8) = 7;
+                      *(v202 + 8) = 7;
                     }
                   }
 
                   else
                   {
-                    *(v210 + 8) = 1;
+                    *(v202 + 8) = 1;
                   }
                 }
 
-                v210 = v212;
+                v202 = v204;
               }
 
-              v212 = v213;
+              v204 = v205;
             }
 
-            while (v213);
+            while (v205);
           }
 
-          if (*v47 >= 1)
+          if (*v43 >= 1)
           {
             SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
             if ((SentTermCommList & 0x80000000) != 0)
             {
-              goto LABEL_576;
+              return SentTermCommList;
             }
 
             SentTermCommList = mosyntbase_WStringLn(a1, "after setting phrase types: ", 0);
             if ((SentTermCommList & 0x80000000) != 0)
             {
-              goto LABEL_576;
+              return SentTermCommList;
             }
 
-            SentTermCommList = WriteBoundList(a1, v47, v282, 1);
+            SentTermCommList = WriteBoundList(a1, v43, v273, 1);
             if ((SentTermCommList & 0x80000000) != 0)
             {
-              goto LABEL_576;
+              return SentTermCommList;
             }
 
             SentTermCommList = mosyntbase_WLn(a1);
             if ((SentTermCommList & 0x80000000) != 0)
             {
-              goto LABEL_576;
+              return SentTermCommList;
             }
           }
 
-          v223 = mosyntkbsymtab_WildConsId(*(v47 + 8));
-          if (mosyntkbsymtab_PropTabAvailable(*(v47 + 8)) && mosyntkbsymtab_HasIntPropValue(a1, *(v47 + 8), v223, 9u, 1))
+          v214 = mosyntkbsymtab_WildConsId();
+          if (mosyntkbsymtab_PropTabAvailable(*(v43 + 8)) && mosyntkbsymtab_HasIntPropValue(a1, *(v43 + 8), v214, 9, 1))
           {
-            if (!v282)
+            if (!v273)
             {
               goto LABEL_653;
             }
 
-            v224 = v282;
+            v215 = v273;
             do
             {
-              if (*(v224 + 15))
+              if (*(v215 + 15))
               {
-                ++*(v224 + 15);
+                ++*(v215 + 15);
               }
 
-              v224 = *v224;
+              v215 = *v215;
             }
 
-            while (v224);
+            while (v215);
           }
 
-          if (v282)
+          if (v273)
           {
-            v225 = 0;
-            v226 = 0;
-            v227 = 0;
+            v216 = 0;
+            v217 = 0;
+            v218 = 0;
             BestScenarioPathSuffix = 0;
-            v228 = v282;
+            v219 = v273;
             do
             {
-              if ((v228[1] & 0x80000000) == 0)
+              if ((v219[1] & 0x80000000) == 0)
               {
-                if (v226)
+                if (v217)
                 {
-                  *(v226 + 15) = 1;
+                  *(v217 + 15) = 1;
                 }
 
-                *&v292 = 0;
-                SentTermCommList = mosyntpal_ALLOCATE(a1, &v292, 0x12Au);
+                *&v283 = 0;
+                SentTermCommList = mosyntpal_ALLOCATE(a1, &v283, 0x12Au);
                 if ((SentTermCommList & 0x80000000) != 0)
                 {
-                  goto LABEL_576;
+                  return SentTermCommList;
                 }
 
-                if (v227)
+                if (v218)
                 {
                   for (j = 0; j != 99; ++j)
                   {
-                    *(v292 + j) = 0;
+                    *(v283 + j) = 0;
                   }
 
-                  for (k = v227; k != v228; k = *k)
+                  for (k = v218; k != v219; k = *k)
                   {
-                    v231 = *(k + 30);
-                    if (v231 <= 98)
+                    v222 = *(k + 15);
+                    if (v222 <= 98)
                     {
-                      *(v292 + v231) = 1;
+                      *(v283 + v222) = 1;
                     }
                   }
 
-                  v232 = 0;
-                  v233 = 1;
-                  v234 = v292;
+                  v223 = 0;
+                  v224 = 1;
+                  v225 = v283;
                   do
                   {
-                    if (*(v234 + v232))
+                    if (*(v225 + v223))
                     {
-                      *(v234 + 2 * v232 + 100) = v233++;
+                      *(v225 + 2 * v223 + 100) = v224++;
                     }
 
-                    ++v232;
+                    ++v223;
                   }
 
-                  while (v232 != 99);
-                  while (v227 != v228)
+                  while (v223 != 99);
+                  while (v218 != v219)
                   {
-                    v235 = *(v227 + 30);
-                    if (v235 <= 98)
+                    v226 = *(v218 + 15);
+                    if (v226 <= 98)
                     {
-                      v236 = v292;
-                      if (*v47 >= 2 && *(v292 + 2 * v235 + 100) != v235)
+                      v227 = v283;
+                      if (*v43 >= 2 && *(v283 + 2 * v226 + 100) != v226)
                       {
                         SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
                         if ((SentTermCommList & 0x80000000) != 0)
                         {
-                          goto LABEL_576;
+                          return SentTermCommList;
                         }
 
                         SentTermCommList = mosyntbase_WString(a1, "accent normalization: ", 0);
                         if ((SentTermCommList & 0x80000000) != 0)
                         {
-                          goto LABEL_576;
+                          return SentTermCommList;
                         }
 
-                        SentTermCommList = mosyntbase_WInt(a1, *(v227 + 30), 0);
+                        SentTermCommList = mosyntbase_WInt(a1, *(v218 + 15), 0);
                         if ((SentTermCommList & 0x80000000) != 0)
                         {
-                          goto LABEL_576;
+                          return SentTermCommList;
                         }
 
                         SentTermCommList = mosyntbase_WString(a1, " changed to ", 0);
                         if ((SentTermCommList & 0x80000000) != 0)
                         {
-                          goto LABEL_576;
+                          return SentTermCommList;
                         }
 
-                        SentTermCommList = mosyntbase_WInt(a1, *(v292 + 2 * *(v227 + 30) + 100), 0);
+                        SentTermCommList = mosyntbase_WInt(a1, *(v283 + 2 * *(v218 + 15) + 100), 0);
                         if ((SentTermCommList & 0x80000000) != 0)
                         {
-                          goto LABEL_576;
+                          return SentTermCommList;
                         }
 
                         SentTermCommList = mosyntbase_WLn(a1);
                         if ((SentTermCommList & 0x80000000) != 0)
                         {
-                          goto LABEL_576;
+                          return SentTermCommList;
                         }
 
-                        v236 = v292;
-                        LOWORD(v235) = *(v227 + 30);
+                        v227 = v283;
+                        LOWORD(v226) = *(v218 + 15);
                       }
 
-                      *(v227 + 30) = *(v236 + 2 * v235 + 100);
-                      if (mosyntkbsymtab_PropTabAvailable(*(v47 + 8)))
+                      *(v218 + 15) = *(v227 + 2 * v226 + 100);
+                      if (mosyntkbsymtab_PropTabAvailable(*(v43 + 8)))
                       {
-                        v237 = mosyntkbsymtab_IntPropValue(a1, *(v47 + 8), *(v227 + 28), 2u);
+                        v228 = mosyntkbsymtab_IntPropValue(a1, *(v43 + 8), *(v218 + 14), 2);
                       }
 
                       else
                       {
-                        v237 = 1;
+                        v228 = 1;
                       }
 
-                      v238 = *(v227 + 30);
-                      if (v238 >= 2 && v237 > v238)
+                      v229 = *(v218 + 15);
+                      if (v229 >= 2 && v228 > v229)
                       {
-                        *(v227 + 30) = v237;
+                        *(v218 + 15) = v228;
                       }
                     }
 
-                    v227 = *v227;
+                    v218 = *v218;
                   }
                 }
 
-                BestScenarioPathSuffix = mosyntpal_DEALLOCATE(a1, &v292);
+                BestScenarioPathSuffix = mosyntpal_DEALLOCATE(a1, &v283);
                 if ((BestScenarioPathSuffix & 0x80000000) != 0)
                 {
-                  goto LABEL_577;
+                  return BestScenarioPathSuffix;
                 }
 
-                v226 = 0;
-                v225 = 0;
-                v227 = v228;
+                v217 = 0;
+                v216 = 0;
+                v218 = v219;
               }
 
-              if (mosyntkbsymtab_PropTabAvailable(*(v47 + 8)) && mosyntkbsymtab_HasIntPropValue(a1, *(v47 + 8), v223, 7u, 1))
+              if (mosyntkbsymtab_PropTabAvailable(*(v43 + 8)) && mosyntkbsymtab_HasIntPropValue(a1, *(v43 + 8), v214, 7, 1))
               {
-                v239 = *(v228 + 15);
-                if (v225)
+                v230 = *(v219 + 15);
+                if (v216)
                 {
-                  v240 = v225 <= v239;
+                  v231 = v216 <= v230;
                 }
 
                 else
                 {
-                  v240 = 0;
+                  v231 = 0;
                 }
 
-                v241 = !v240;
-                v242 = v241 == 0;
-                if (v241)
+                v232 = !v231;
+                v233 = v232 == 0;
+                if (v232)
                 {
-                  v243 = v228;
-                }
-
-                else
-                {
-                  v243 = v226;
-                }
-
-                if (v242)
-                {
-                  v244 = v225;
+                  v234 = v219;
                 }
 
                 else
                 {
-                  v244 = *(v228 + 15);
+                  v234 = v217;
+                }
+
+                if (v233)
+                {
+                  v235 = v216;
+                }
+
+                else
+                {
+                  v235 = *(v219 + 15);
                 }
               }
 
               else
               {
-                v239 = *(v228 + 15);
-                v245 = v225 != 0;
-                v246 = v225 < v239;
-                v247 = !v245 || !v246;
-                if (v245 && v246)
+                v230 = *(v219 + 15);
+                v236 = v216 != 0;
+                v237 = v216 < v230;
+                v238 = !v236 || !v237;
+                if (v236 && v237)
                 {
-                  v243 = v226;
+                  v234 = v217;
                 }
 
                 else
                 {
-                  v243 = v228;
+                  v234 = v219;
                 }
 
-                if (v247)
+                if (v238)
                 {
-                  v244 = *(v228 + 15);
+                  v235 = *(v219 + 15);
                 }
 
                 else
                 {
-                  v244 = v225;
+                  v235 = v216;
                 }
               }
 
-              if (v239 >= 1)
+              if (v230 >= 1)
               {
-                v226 = v243;
-                v225 = v244;
+                v217 = v234;
+                v216 = v235;
               }
 
-              v228 = *v228;
+              v219 = *v219;
             }
 
-            while (v228);
+            while (v219);
             goto LABEL_654;
           }
 
 LABEL_653:
           BestScenarioPathSuffix = 0;
 LABEL_654:
-          if (*v47 >= 1)
+          if (*v43 >= 1)
           {
             SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
             if ((SentTermCommList & 0x80000000) != 0)
             {
-              goto LABEL_576;
+              return SentTermCommList;
             }
 
             SentTermCommList = mosyntbase_WString(a1, "accent normalization and accent limitation: ", 0);
             if ((SentTermCommList & 0x80000000) != 0)
             {
-              goto LABEL_576;
+              return SentTermCommList;
             }
 
-            SentTermCommList = WriteBoundList(a1, v47, v282, 0);
+            SentTermCommList = WriteBoundList(a1, v43, v273, 0);
             if ((SentTermCommList & 0x80000000) != 0)
             {
-              goto LABEL_576;
+              return SentTermCommList;
             }
 
             BestScenarioPathSuffix = mosyntbase_WLn(a1);
@@ -2184,249 +1936,248 @@ LABEL_654:
 
           if ((BestScenarioPathSuffix & 0x80000000) != 0)
           {
-            goto LABEL_577;
+            return BestScenarioPathSuffix;
           }
 
-          if (v282)
+          if (v273)
           {
-            v248 = 0;
-            v249 = v282;
+            v239 = 0;
+            v240 = v273;
             do
             {
-              v250 = *(v249 + 4);
-              if ((v250 & 0x80000000) == 0)
+              v241 = *(v240 + 4);
+              if ((v241 & 0x80000000) == 0)
               {
-                if (v248)
+                if (v239)
                 {
-                  v251 = *(v249 + 8);
-                  v204 = v251 > 8;
-                  v252 = (1 << v251) & 0x1D0;
-                  v253 = v204 || v252 == 0;
-                  if (!v253 && v248 != v249)
+                  v242 = *(v240 + 8);
+                  v196 = v242 > 8;
+                  v243 = (1 << v242) & 0x1D0;
+                  v244 = v196 || v243 == 0;
+                  if (!v244 && v239 != v240)
                   {
-                    v255 = v248;
+                    v246 = v239;
                     do
                     {
-                      if (*(v255 + 30) == 2)
+                      if (*(v246 + 15) == 2)
                       {
-                        *(v255 + 30) = 3;
+                        *(v246 + 15) = 3;
                       }
 
-                      v255 = *v255;
+                      v246 = *v246;
                     }
 
-                    while (v255 != v249);
+                    while (v246 != v240);
                   }
                 }
 
-                if (v250 < 2u)
+                if (v241 < 2u)
                 {
-                  v248 = v249;
+                  v239 = v240;
                 }
               }
 
-              v249 = *v249;
+              v240 = *v240;
             }
 
-            while (v249);
+            while (v240);
           }
 
-          if (*v47 >= 1)
+          if (*v43 >= 1)
           {
             SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
             if ((SentTermCommList & 0x80000000) != 0)
             {
-              goto LABEL_576;
+              return SentTermCommList;
             }
 
             SentTermCommList = mosyntbase_WString(a1, "reduction of pitch accents: ", 0);
             if ((SentTermCommList & 0x80000000) != 0)
             {
-              goto LABEL_576;
+              return SentTermCommList;
             }
 
-            SentTermCommList = WriteBoundList(a1, v47, v282, 0);
+            SentTermCommList = WriteBoundList(a1, v43, v273, 0);
             if ((SentTermCommList & 0x80000000) != 0)
             {
-              goto LABEL_576;
+              return SentTermCommList;
             }
 
             SentTermCommList = mosyntbase_WLn(a1);
             if ((SentTermCommList & 0x80000000) != 0)
             {
-              goto LABEL_576;
+              return SentTermCommList;
             }
           }
 
-          if (v282)
+          if (v273)
           {
-            v256 = *(v47 + 40);
-            if (v256)
+            v247 = *(v43 + 40);
+            if (v247)
             {
-              v257 = v282;
+              v248 = v273;
               while (1)
               {
-                v258 = v257;
-                v259 = *(v256 + 16 * *(v257 + 4) + 8);
-                if (v259)
+                v249 = v248;
+                v250 = *(v247 + 16 * *(v248 + 4) + 8);
+                if (v250)
                 {
-                  v260 = *(v258 + 4);
-                  if (v260 >= 2)
+                  v251 = *(v249 + 4);
+                  if (v251 >= 2)
                   {
-                    v260 = 2;
+                    v251 = 2;
                   }
 
-                  *(v259 + 8) = v260;
-                  *(v259 + 12) = *(v258 + 8);
+                  *(v250 + 8) = v251;
+                  *(v250 + 12) = *(v249 + 8);
                 }
 
-                v257 = *v258;
-                if (!*v258)
+                v248 = *v249;
+                if (!*v249)
                 {
                   break;
                 }
 
-                v261 = *(v256 + 16 * *(v258 + 5));
-                if (v261)
+                v252 = *(v247 + 16 * *(v249 + 5));
+                if (v252)
                 {
-                  v262 = *(v258 + 15);
-                  if (v262 >= 3)
+                  v253 = *(v249 + 15);
+                  if (v253 >= 3)
                   {
-                    v263 = 3;
+                    v254 = 3;
                   }
 
                   else
                   {
-                    v263 = v262;
+                    v254 = v253;
                   }
 
-                  if (v262 <= 98)
+                  if (v253 <= 98)
                   {
-                    v264 = v263;
+                    v255 = v254;
                   }
 
                   else
                   {
-                    v264 = 0;
+                    v255 = 0;
                   }
 
-                  *(v261 + 16) = v264;
+                  *(v252 + 16) = v255;
                 }
               }
             }
           }
 
-          if (v282)
+          if (v273)
           {
-            v266 = v282;
+            v257 = v273;
             do
             {
-              *&v292 = v266;
-              v266 = *v266;
-              v267 = mosyntpal_DEALLOCATE(a1, &v292);
-              BestScenarioPathSuffix = v267;
+              *&v283 = v257;
+              v257 = *v257;
+              v258 = mosyntpal_DEALLOCATE(a1, &v283);
+              BestScenarioPathSuffix = v258;
             }
 
-            while ((v267 & 0x80000000) == 0 && v266);
-            if ((v267 & 0x80000000) != 0)
+            while ((v258 & 0x80000000) == 0 && v257);
+            if ((v258 & 0x80000000) != 0)
             {
-              goto LABEL_577;
+              return BestScenarioPathSuffix;
             }
           }
 
           goto LABEL_555;
         }
 
-        v185 = 5;
+        v179 = 5;
       }
     }
 
     else
     {
-      v185 = 2;
+      v179 = 2;
     }
 
-    v209 = 0;
+    v201 = 0;
     goto LABEL_531;
   }
 
-  v286 = 0;
-  *(v283 + 80) = 0;
-  *(v47 + 88) = 0;
-  *(v47 + 72) = 0;
-  NewAPVertex(a1, v47, *(a8 + 52), &v286);
+  v277 = 0;
+  *(v274 + 80) = 0;
+  *(v43 + 88) = 0;
+  *(v43 + 72) = 0;
+  NewAPVertex(a1, v43, *(a8 + 52), &v277);
   if ((SentTermCommList & 0x80000000) != 0)
   {
-    goto LABEL_576;
+    return SentTermCommList;
   }
 
-  *&v292 = 0;
-  TreeToChart(a1, v47, a8, v286, 0, &v292);
+  *&v283 = 0;
+  TreeToChart(a1, v43, a8, v277, 0, &v283);
   if ((SentTermCommList & 0x80000000) != 0)
   {
-    goto LABEL_576;
+    return SentTermCommList;
   }
 
-  v48 = &v286;
-  if (v292)
+  v44 = &v277;
+  if (v283)
   {
-    v48 = (v292 + 24);
+    v44 = (v283 + 24);
   }
 
-  v49 = *v48;
-  if (v286 == *v48)
+  v45 = *v44;
+  if (v277 == *v44)
   {
 LABEL_555:
-    v215 = v283;
-    v216 = *(v283 + 32);
-    *&v292 = v216;
-    if (!v216)
+    v207 = v274;
+    v208 = *(v274 + 32);
+    *&v283 = v208;
+    if (!v208)
     {
 LABEL_575:
-      *(v215 + 32) = 0;
-      SentTermCommList = mosyntpal_DEALLOCATE(a1, &v283);
-      goto LABEL_576;
+      *(v207 + 32) = 0;
+      return mosyntpal_DEALLOCATE(a1, &v274);
     }
 
     while (1)
     {
-      v217 = *v216;
-      v218 = *(v216 + 2);
-      if (v218 > 4)
+      v209 = *v208;
+      v210 = *(v208 + 2);
+      if (v210 > 4)
       {
-        if (v218 <= 6)
+        if (v210 <= 6)
         {
-          if (v218 == 5)
+          if (v210 == 5)
           {
-            v219 = v216 + 2;
-            v220 = a1;
+            v211 = v208 + 2;
+            v212 = a1;
           }
 
           else
           {
 LABEL_568:
-            v219 = v216 + 2;
-            v220 = a1;
+            v211 = v208 + 2;
+            v212 = a1;
           }
 
 LABEL_572:
-          SentTermCommList = mosyntpal_DEALLOCATE(v220, v219);
+          SentTermCommList = mosyntpal_DEALLOCATE(v212, v211);
           if ((SentTermCommList & 0x80000000) != 0)
           {
-            goto LABEL_576;
+            return SentTermCommList;
           }
 
           goto LABEL_573;
         }
 
-        if (v218 == 7)
+        if (v210 == 7)
         {
-          v219 = v216 + 2;
-          v220 = a1;
+          v211 = v208 + 2;
+          v212 = a1;
           goto LABEL_572;
         }
 
-        if (v218 == 8)
+        if (v210 == 8)
         {
           goto LABEL_568;
         }
@@ -2434,213 +2185,213 @@ LABEL_572:
 
       else
       {
-        if (v218 > 2)
+        if (v210 > 2)
         {
-          if (v218 == 3)
+          if (v210 == 3)
           {
-            v219 = v216 + 2;
-            v220 = a1;
+            v211 = v208 + 2;
+            v212 = a1;
           }
 
           else
           {
 LABEL_565:
-            v219 = v216 + 2;
-            v220 = a1;
+            v211 = v208 + 2;
+            v212 = a1;
           }
 
           goto LABEL_572;
         }
 
-        if (v218 == 1)
+        if (v210 == 1)
         {
           goto LABEL_565;
         }
 
-        if (v218 == 2)
+        if (v210 == 2)
         {
-          v219 = v216 + 2;
-          v220 = a1;
+          v211 = v208 + 2;
+          v212 = a1;
           goto LABEL_572;
         }
       }
 
 LABEL_573:
-      SentTermCommList = mosyntpal_DEALLOCATE(a1, &v292);
+      SentTermCommList = mosyntpal_DEALLOCATE(a1, &v283);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
-      *&v292 = v217;
-      v216 = v217;
-      if (!v217)
+      *&v283 = v209;
+      v208 = v209;
+      if (!v209)
       {
         goto LABEL_575;
       }
     }
   }
 
-  SentTermCommList = SetFunctionWords(a1, v47, v286, *v48);
+  SentTermCommList = SetFunctionWords(a1, v43, v277, *v44);
   if ((SentTermCommList & 0x80000000) != 0)
   {
-    goto LABEL_576;
+    return SentTermCommList;
   }
 
-  v284 = 0;
-  v50 = v286;
-  if (*v47 >= 1)
+  v275 = 0;
+  v46 = v277;
+  if (*v43 >= 1)
   {
     SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
     if ((SentTermCommList & 0x80000000) != 0)
     {
-      goto LABEL_576;
+      return SentTermCommList;
     }
 
     SentTermCommList = mosyntbase_WriteMessage(a1, "[AccPhr] Sentence PoS and phonetic string:\\n", 0, "", 0, "", 0, "", 0);
     if ((SentTermCommList & 0x80000000) != 0)
     {
-      goto LABEL_576;
+      return SentTermCommList;
     }
 
     SentTermCommList = mosyntbase_WString(a1, "[AccPhr] ", 0);
     if ((SentTermCommList & 0x80000000) != 0)
     {
-      goto LABEL_576;
+      return SentTermCommList;
     }
 
-    SentTermCommList = WriteCoverage(a1, v47, v50, v49);
+    SentTermCommList = WriteCoverage(a1, v43, v46, v45);
     if ((SentTermCommList & 0x80000000) != 0)
     {
-      goto LABEL_576;
+      return SentTermCommList;
     }
 
     SentTermCommList = mosyntbase_WLn(a1);
     if ((SentTermCommList & 0x80000000) != 0)
     {
-      goto LABEL_576;
+      return SentTermCommList;
     }
   }
 
-  v285 = 0;
-  if (v50 == v49)
+  v276 = 0;
+  if (v46 == v45)
   {
-    v281 = (v47 + 16);
+    v272 = (v43 + 16);
   }
 
   else
   {
     do
     {
-      SentTermCommList = MatchEdge(a1, v47, v50[4], &v285, &v284);
+      SentTermCommList = MatchEdge(a1, v43, v46[4], &v276, &v275);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
-      for (m = v50[6]; m; m = *m)
+      for (m = v46[6]; m; m = *m)
       {
-        SentTermCommList = MatchEdge(a1, v47, m, &v285, &v284);
+        SentTermCommList = MatchEdge(a1, v43, m, &v276, &v275);
         if ((SentTermCommList & 0x80000000) != 0)
         {
-          goto LABEL_576;
+          return SentTermCommList;
         }
       }
 
-      v50 = v50[2];
+      v46 = v46[2];
     }
 
-    while (v50 != v49);
-    v52 = v285;
-    v53 = *(v47 + 16);
-    v281 = (v47 + 16);
-    if (v285)
+    while (v46 != v45);
+    v48 = v276;
+    v49 = *(v43 + 16);
+    v272 = (v43 + 16);
+    if (v276)
     {
       BestScenarioPathSuffix = 0;
       do
       {
-        if (IsMatchingRule(a1, v47, *(v52 + 2), v52[3], v52[2]))
+        if (IsMatchingRule(a1, v43, *(v48 + 2), v48[3], v48[2]))
         {
-          BestScenarioPathSuffix = AddEdgeRule(a1, v47, *(v52 + 2), v52[3]);
+          BestScenarioPathSuffix = AddEdgeRule(a1, v43, *(v48 + 2), v48[3]);
           if ((BestScenarioPathSuffix & 0x80000000) != 0)
           {
-            goto LABEL_577;
+            return BestScenarioPathSuffix;
           }
 
-          if (mosyntkbaccphr_GetRule(0, v53, *(v52 + 2)) >= 1)
+          if (mosyntkbaccphr_GetRule(0, v49, *(v48 + 2)) >= 1)
           {
-            BestScenarioPathSuffix = AddRuleScenarios(a1, v47, *(v52 + 2), (v52[2] + 40), &v284);
+            BestScenarioPathSuffix = AddRuleScenarios(a1, v43, *(v48 + 2), (v48[2] + 40), &v275);
             if ((BestScenarioPathSuffix & 0x80000000) != 0)
             {
-              goto LABEL_577;
+              return BestScenarioPathSuffix;
             }
           }
         }
 
-        v52 = *v52;
+        v48 = *v48;
       }
 
-      while (v52);
+      while (v48);
       if ((BestScenarioPathSuffix & 0x80000000) != 0)
       {
-        goto LABEL_577;
+        return BestScenarioPathSuffix;
       }
     }
   }
 
-  v60 = v284;
-  v61 = v286;
-  if (v284)
+  v56 = v275;
+  v57 = v277;
+  if (v275)
   {
-    v62 = 0;
-    v298 = 0;
-    v296 = 0u;
-    v297 = 0u;
-    v294 = 0u;
-    v295 = 0u;
-    v292 = 0u;
-    v293 = 0u;
+    v58 = 0;
+    v289 = 0;
+    v287 = 0u;
+    v288 = 0u;
+    v285 = 0u;
+    v286 = 0u;
+    v283 = 0u;
+    v284 = 0u;
     while (1)
     {
-      BestScenarioPathSuffix = mosyntkbsymtab_AtomSymString(a1, *(v47 + 8), *(v60 + 8), &v292, 100);
+      BestScenarioPathSuffix = mosyntkbsymtab_AtomSymString(a1, *(v43 + 8), *(v56 + 2), &v283, 100);
       if ((BestScenarioPathSuffix & 0x80000000) != 0)
       {
-        goto LABEL_577;
+        return BestScenarioPathSuffix;
       }
 
-      if (v61 == v49)
+      if (v57 == v45)
       {
         goto LABEL_137;
       }
 
-      v63 = v61;
+      v59 = v57;
       do
       {
-        v64 = *(v60 + 8);
-        v65 = 1;
-        v66 = v63;
+        v60 = *(v56 + 2);
+        v61 = 1;
+        v62 = v59;
         while (1)
         {
-          v67 = *(v66 + 6);
-          if (!v67)
+          v63 = *(v62 + 6);
+          if (!v63)
           {
             break;
           }
 
           while (1)
           {
-            v68 = v67;
-            v69 = v67[5];
-            if (v69)
+            v64 = v63;
+            v65 = v63[5];
+            if (v65)
             {
               break;
             }
 
 LABEL_118:
-            v71 = 1;
+            v67 = 1;
 LABEL_120:
-            v67 = *v68;
-            if (!*v68)
+            v63 = *v64;
+            if (!*v64)
             {
               goto LABEL_121;
             }
@@ -2648,8 +2399,59 @@ LABEL_120:
 
           while (1)
           {
-            v70 = *(v69 + 2);
-            if (v70 >= v64)
+            v66 = *(v65 + 2);
+            if (v66 >= v60)
+            {
+              break;
+            }
+
+            v65 = *v65;
+            if (!v65)
+            {
+              goto LABEL_118;
+            }
+          }
+
+          v67 = v66 != v60;
+          if (v66 != v60)
+          {
+            goto LABEL_120;
+          }
+
+LABEL_121:
+          if (v67)
+          {
+            break;
+          }
+
+          v70 = v64[3];
+LABEL_130:
+          v61 = 0;
+          v58 = v59;
+          v62 = v70;
+          if (v70 == v45)
+          {
+            v72 = AddSegment(a1, v43, v60, v59, v70);
+            BestScenarioPathSuffix = v72;
+            v58 = v59;
+            if ((v72 & 0x80000000) != 0)
+            {
+              return BestScenarioPathSuffix;
+            }
+
+            goto LABEL_137;
+          }
+        }
+
+        v68 = *(v62 + 4);
+        v69 = *(v68 + 40);
+        if (v69)
+        {
+          v70 = *(v68 + 24);
+          while (1)
+          {
+            v71 = *(v69 + 2);
+            if (v71 >= v60)
             {
               break;
             }
@@ -2657,298 +2459,247 @@ LABEL_120:
             v69 = *v69;
             if (!v69)
             {
-              goto LABEL_118;
-            }
-          }
-
-          v71 = v70 != v64;
-          if (v70 != v64)
-          {
-            goto LABEL_120;
-          }
-
-LABEL_121:
-          if (v71)
-          {
-            break;
-          }
-
-          v74 = v68[3];
-LABEL_130:
-          v65 = 0;
-          v62 = v63;
-          v66 = v74;
-          if (v74 == v49)
-          {
-            v76 = AddSegment(a1, v47, v64, v63, v74);
-            BestScenarioPathSuffix = v76;
-            v62 = v63;
-            if ((v76 & 0x80000000) != 0)
-            {
-              goto LABEL_577;
-            }
-
-            goto LABEL_137;
-          }
-        }
-
-        v72 = *(v66 + 4);
-        v73 = *(v72 + 40);
-        if (v73)
-        {
-          v74 = *(v72 + 24);
-          while (1)
-          {
-            v75 = *(v73 + 2);
-            if (v75 >= v64)
-            {
-              break;
-            }
-
-            v73 = *v73;
-            if (!v73)
-            {
               goto LABEL_132;
             }
           }
 
-          if (v75 == v64)
+          if (v71 == v60)
           {
             goto LABEL_130;
           }
         }
 
 LABEL_132:
-        if ((v65 & 1) == 0)
+        if ((v61 & 1) == 0)
         {
-          BestScenarioPathSuffix = AddSegment(a1, v47, v64, v62, v66);
+          BestScenarioPathSuffix = AddSegment(a1, v43, v60, v58, v62);
           if ((BestScenarioPathSuffix & 0x80000000) != 0)
           {
-            goto LABEL_577;
+            return BestScenarioPathSuffix;
           }
         }
 
-        v63 = *(v66 + 2);
+        v59 = *(v62 + 2);
       }
 
-      while (v63 != v49);
+      while (v59 != v45);
 LABEL_137:
-      v60 = *v60;
-      if (!v60)
+      v56 = *v56;
+      if (!v56)
       {
         if ((BestScenarioPathSuffix & 0x80000000) != 0)
         {
-          goto LABEL_577;
+          return BestScenarioPathSuffix;
         }
 
-        v61 = v286;
+        v57 = v277;
         break;
       }
     }
   }
 
-  v287 = 0;
-  v289 = 0;
-  v288 = 0;
-  v291 = 0;
-  memset(v290, 0, sizeof(v290));
-  BestScenarioPathSuffix = GetBestScenarioPathSuffix(a1, v47, 0, v61, v49, &v289 + 1, &v289, &v288, &v287);
+  v278 = 0;
+  v280 = 0;
+  v279 = 0;
+  v282 = 0;
+  memset(v281, 0, sizeof(v281));
+  BestScenarioPathSuffix = GetBestScenarioPathSuffix(a1, v43, 0, v57, v45, &v280 + 1, &v280, &v279, &v278);
   if ((BestScenarioPathSuffix & 0x80000000) != 0)
   {
-    goto LABEL_577;
+    return BestScenarioPathSuffix;
   }
 
-  v77 = v287;
-  if (*v47 >= 1)
+  v73 = v278;
+  if (*v43 >= 1)
   {
     SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
     if ((SentTermCommList & 0x80000000) != 0)
     {
-      goto LABEL_576;
+      return SentTermCommList;
     }
 
     BestScenarioPathSuffix = mosyntbase_WriteMessage(a1, "[AccPhr] Optimal Scenario Combination:\\n", 0, "", 0, "", 0, "", 0);
     if ((BestScenarioPathSuffix & 0x80000000) != 0)
     {
-      goto LABEL_577;
+      return BestScenarioPathSuffix;
     }
   }
 
-  for (; v77; v77 = *v77)
+  for (; v73; v73 = *v73)
   {
-    if (*v47 >= 1 && v61 != *(v77[1] + 8))
+    if (*v43 >= 1 && v57 != *(v73[1] + 8))
     {
       SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
       SentTermCommList = mosyntbase_WString(a1, "[AccPhr] No scenario covering: ", 0);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
-      SentTermCommList = WriteCoverage(a1, v47, v61, *(v77[1] + 8));
+      SentTermCommList = WriteCoverage(a1, v43, v57, *(v73[1] + 8));
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
       BestScenarioPathSuffix = mosyntbase_WLn(a1);
       if ((BestScenarioPathSuffix & 0x80000000) != 0)
       {
-        goto LABEL_577;
+        return BestScenarioPathSuffix;
       }
     }
 
-    v78 = v77[1];
-    v79 = *(v78 + 8);
-    while (v61 != v79)
+    v74 = v73[1];
+    v75 = *(v74 + 8);
+    while (v57 != v75)
     {
-      *(v61 + 20) = 0;
-      v61 = v61[2];
+      *(v57 + 20) = 0;
+      v57 = v57[2];
     }
 
-    if (*v47 >= 1)
+    if (*v43 >= 1)
     {
       SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
       SentTermCommList = mosyntbase_WString(a1, "[AccPhr] Scenario '", 0);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
-      v80 = *(v77[1] + 24);
-      v298 = 0;
-      v296 = 0u;
-      v297 = 0u;
-      v294 = 0u;
-      v295 = 0u;
-      v292 = 0u;
-      v293 = 0u;
-      SentTermCommList = mosyntkbsymtab_AtomSymString(a1, *(v47 + 8), v80, &v292, 100);
+      v76 = *(v73[1] + 24);
+      v289 = 0;
+      v287 = 0u;
+      v288 = 0u;
+      v285 = 0u;
+      v286 = 0u;
+      v283 = 0u;
+      v284 = 0u;
+      SentTermCommList = mosyntkbsymtab_AtomSymString(a1, *(v43 + 8), v76, &v283, 100);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
-      SentTermCommList = mosyntbase_WString(a1, &v292, 100);
+      SentTermCommList = mosyntbase_WString(a1, &v283, 0x64u);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
       SentTermCommList = mosyntbase_WString(a1, "' covers: ", 0);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
-      SentTermCommList = WriteCoverage(a1, v47, *(v77[1] + 8), *(v77[1] + 16));
+      SentTermCommList = WriteCoverage(a1, v43, *(v73[1] + 8), *(v73[1] + 16));
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
       BestScenarioPathSuffix = mosyntbase_WLn(a1);
       if ((BestScenarioPathSuffix & 0x80000000) != 0)
       {
-        goto LABEL_577;
+        return BestScenarioPathSuffix;
       }
 
       goto LABEL_162;
     }
 
-    while (v61 != *(v78 + 16))
+    while (v57 != *(v74 + 16))
     {
-      v81 = *(v78 + 24);
-      *(v61 + 20) = v81;
-      BestScenarioPathSuffix = mosyntkbsymtab_AtomSymString(a1, *(v47 + 8), v81, v290, 100);
+      v77 = *(v74 + 24);
+      *(v57 + 20) = v77;
+      BestScenarioPathSuffix = mosyntkbsymtab_AtomSymString(a1, *(v43 + 8), v77, v281, 100);
       if ((BestScenarioPathSuffix & 0x80000000) != 0)
       {
-        goto LABEL_577;
+        return BestScenarioPathSuffix;
       }
 
-      v61 = v61[2];
+      v57 = v57[2];
 LABEL_162:
-      v78 = v77[1];
+      v74 = v73[1];
     }
   }
 
-  v272 = v49;
-  if (v61 != v49 && *v47 >= 1)
+  v263 = v45;
+  if (v57 != v45 && *v43 >= 1)
   {
     SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
     if ((SentTermCommList & 0x80000000) != 0)
     {
-      goto LABEL_576;
+      return SentTermCommList;
     }
 
     SentTermCommList = mosyntbase_WString(a1, "[AccPhr] No scenario covering: ", 0);
     if ((SentTermCommList & 0x80000000) != 0)
     {
-      goto LABEL_576;
+      return SentTermCommList;
     }
 
-    SentTermCommList = WriteCoverage(a1, v47, v61, v49);
+    SentTermCommList = WriteCoverage(a1, v43, v57, v45);
     if ((SentTermCommList & 0x80000000) != 0)
     {
-      goto LABEL_576;
+      return SentTermCommList;
     }
 
     BestScenarioPathSuffix = mosyntbase_WLn(a1);
     if ((BestScenarioPathSuffix & 0x80000000) != 0)
     {
-      goto LABEL_577;
+      return BestScenarioPathSuffix;
     }
   }
 
-  while (v61 != v49)
+  while (v57 != v45)
   {
-    *(v61 + 20) = 0;
-    v61 = v61[2];
+    *(v57 + 20) = 0;
+    v57 = v57[2];
   }
 
   if ((BestScenarioPathSuffix & 0x80000000) != 0)
   {
-    goto LABEL_577;
+    return BestScenarioPathSuffix;
   }
 
-  v86 = v286;
-  if (v286 != v49)
+  v82 = v277;
+  if (v277 != v45)
   {
     BestScenarioPathSuffix = 0;
-    v279 = *v281;
-    v87 = v286;
-    v268 = v286;
+    v270 = *v272;
+    v83 = v277;
+    v259 = v277;
     while (1)
     {
-      v88 = v87[6];
-      v270 = v88 == 0;
-      v277 = v87;
-      if (v88)
+      v84 = v83[6];
+      v261 = v84 == 0;
+      v268 = v83;
+      if (v84)
       {
         break;
       }
 
-      v88 = v87[4];
-      if (v88)
+      v84 = v83[4];
+      if (v84)
       {
         break;
       }
 
-      v154 = v272;
+      v148 = v263;
 LABEL_338:
-      v87 = v277[2];
-      v86 = v268;
-      if (v87 == v154)
+      v83 = v268[2];
+      v82 = v259;
+      if (v83 == v148)
       {
         goto LABEL_435;
       }
@@ -2956,33 +2707,33 @@ LABEL_338:
 
     while (1)
     {
-      v89 = *(v88 + 32);
-      v90 = v279;
-      if (v89)
+      v85 = v84[4];
+      v86 = v270;
+      if (v85)
       {
         break;
       }
 
 LABEL_329:
-      v88 = *v88;
-      if (v88)
+      v84 = *v84;
+      if (v84)
       {
-        v153 = 0;
+        v147 = 0;
       }
 
       else
       {
-        v153 = !v270;
+        v147 = !v261;
       }
 
-      if (v153)
+      if (v147)
       {
-        v88 = v277[4];
-        v270 = 1;
+        v84 = v268[4];
+        v261 = 1;
       }
 
-      v154 = v272;
-      if (!v88)
+      v148 = v263;
+      if (!v84)
       {
         goto LABEL_338;
       }
@@ -2990,16 +2741,16 @@ LABEL_329:
 
     while (1)
     {
-      v275 = v89;
-      v91 = v89[2];
-      if (v91)
+      v266 = v85;
+      v87 = v85[2];
+      if (v87)
       {
         break;
       }
 
 LABEL_328:
-      v89 = *v275;
-      if (!*v275)
+      v85 = *v266;
+      if (!*v266)
       {
         goto LABEL_329;
       }
@@ -3007,387 +2758,380 @@ LABEL_328:
 
     while (1)
     {
-      if (mosyntkbaccphr_GetRule(0, v90, *(v91 + 2)) < 1)
+      if (mosyntkbaccphr_GetRule(0, v86, *(v87 + 2)) < 1)
       {
         goto LABEL_203;
       }
 
-      Rule = mosyntkbaccphr_GetRule(0, v90, *(v91 + 2));
-      v93 = *(v277 + 20);
-      v94 = *v281;
-      for (n = mosyntkbaccphr_AccPhrScenarios(*v281); ; n = mosyntkbaccphr_GetScenario(3, v94, v96))
+      Rule = mosyntkbaccphr_GetRule(0, v86, *(v87 + 2));
+      v89 = *(v268 + 20);
+      v90 = *v272;
+      for (n = mosyntkbaccphr_AccPhrScenarios(*v272); ; n = mosyntkbaccphr_GetScenario(3, v90, v92))
       {
-        v96 = n;
-        Scenario = mosyntkbaccphr_Nil(n);
-        if (v96 == Scenario)
-        {
-          break;
-        }
-
-        Scenario = mosyntkbaccphr_GetScenario(1, v94, v96);
-        if (Scenario == v93)
+        v92 = n;
+        if (n == mosyntkbaccphr_Nil() || mosyntkbaccphr_GetScenario(1, v90, v92) == v89)
         {
           break;
         }
       }
 
-      if (v96 == mosyntkbaccphr_Nil(Scenario) || (RuleSet = mosyntkbaccphr_GetScenario(2, v94, v96), RuleSet == mosyntkbaccphr_Nil(RuleSet)))
+      if (v92 == mosyntkbaccphr_Nil() || (Scenario = mosyntkbaccphr_GetScenario(2, v90, v92), Scenario == mosyntkbaccphr_Nil()))
       {
-        v90 = v279;
+        v86 = v270;
         goto LABEL_203;
       }
 
       do
       {
-        if (mosyntkbaccphr_GetRuleSetIsSubset(v94, RuleSet))
+        if (mosyntkbaccphr_GetRuleSetIsSubset(v90, Scenario))
         {
-          v99 = 0;
+          v94 = 0;
         }
 
         else
         {
-          v99 = mosyntkbaccphr_GetRuleSet(1, v94, RuleSet) == Rule;
+          v94 = mosyntkbaccphr_GetRuleSet(1, v90, Scenario) == Rule;
         }
 
-        RuleSet = mosyntkbaccphr_GetRuleSet(4, v94, RuleSet);
+        Scenario = mosyntkbaccphr_GetRuleSet(4, v90, Scenario);
       }
 
-      while (RuleSet != mosyntkbaccphr_Nil(RuleSet) && !v99);
-      v90 = v279;
-      if (v99)
+      while (Scenario != mosyntkbaccphr_Nil() && !v94);
+      v86 = v270;
+      if (v94)
       {
         break;
       }
 
 LABEL_203:
-      v91 = *v91;
-      if (!v91)
+      v87 = *v87;
+      if (!v87)
       {
         goto LABEL_328;
       }
     }
 
-    if (*v47 >= 1)
+    if (*v43 >= 1)
     {
       SentTermCommList = mosyntbase_WriteMessage(a1, "[AccPhr]\\n[AccPhr] <<<< Applying rule:\\n", 0, "", 0, "", 0, "", 0);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
       SentTermCommList = mosyntbase_WString(a1, "[AccPhr] ", 0);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
-      SentTermCommList = mosyntkbaccphr_WriteRuleHeadline(a1, *(v47 + 8), v279, *(v91 + 2));
+      SentTermCommList = mosyntkbaccphr_WriteRuleHeadline(a1, *(v43 + 8), v270, *(v87 + 2));
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
       SentTermCommList = mosyntbase_WLn(a1);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
       SentTermCommList = mosyntbase_WriteMessage(a1, "[AccPhr] Node Covers:\\n", 0, "", 0, "", 0, "", 0);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
       SentTermCommList = mosyntbase_WString(a1, "[AccPhr] ", 0);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
-      SentTermCommList = WriteCoverage(a1, v47, *(v88 + 16), *(v88 + 24));
+      SentTermCommList = WriteCoverage(a1, v43, v84[2], v84[3]);
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
 
       SentTermCommList = mosyntbase_WLn(a1);
-      v90 = v279;
+      v86 = v270;
       if ((SentTermCommList & 0x80000000) != 0)
       {
-        goto LABEL_576;
+        return SentTermCommList;
       }
     }
 
-    v100 = mosyntkbaccphr_GetRule(12, v90, *(v91 + 2));
-    *&v292 = 0;
-    v288 = 0;
-    LODWORD(v289) = 0;
-    *&v290[0] = 0;
-    v287 = 0;
-    v101 = *v281;
-    if (mosyntkbaccphr_Nil(v100) == v100)
+    v95 = mosyntkbaccphr_GetRule(12, v86, *(v87 + 2));
+    *&v283 = 0;
+    v279 = 0;
+    LODWORD(v280) = 0;
+    *&v281[0] = 0;
+    v278 = 0;
+    v96 = *v272;
+    if (mosyntkbaccphr_Nil() == v95)
     {
       goto LABEL_221;
     }
 
-    v273 = 0;
+    v264 = 0;
     BestScenarioPathSuffix = 0;
-    v110 = v101;
+    v105 = v96;
     while (1)
     {
-      mosyntkbaccphr_GetInstrType(v101, v100);
-      if (mosyntkbaccphr_GetInstrType(v101, v100) <= 6)
+      mosyntkbaccphr_GetInstrType(v96, v95);
+      if (mosyntkbaccphr_GetInstrType(v96, v95) <= 6)
       {
-        *&v292 = v88;
-        Instr = mosyntkbaccphr_GetInstr(0, v101, v100);
-        if (!mosyntkbaccphr_GetNode(3, v101, Instr))
+        *&v283 = v84;
+        Instr = mosyntkbaccphr_GetInstr(0, v96, v95);
+        if (!mosyntkbaccphr_GetNode(3, v96, Instr))
         {
           goto LABEL_252;
         }
 
-        v112 = mosyntkbaccphr_GetInstr(0, v101, v100);
-        if (mosyntkbaccphr_GetNodeMatchOp(v101, v112))
+        v107 = mosyntkbaccphr_GetInstr(0, v96, v95);
+        if (mosyntkbaccphr_GetNodeMatchOp(v96, v107))
         {
-          v113 = mosyntkbaccphr_GetInstr(0, v101, v100);
-          v114 = *v275;
-          HIDWORD(v289) = v113;
-          if (v114)
+          v108 = mosyntkbaccphr_GetInstr(0, v96, v95);
+          v109 = *v266;
+          HIDWORD(v280) = v108;
+          if (v109)
           {
             do
             {
-              v115 = IsMatchingNode(a1, v47, &v289 + 1, v114);
-              if (v115)
+              v110 = IsMatchingNode(a1, v43, &v280 + 1, v109);
+              if (v110)
               {
                 break;
               }
 
-              v114 = *v114;
+              v109 = *v109;
             }
 
-            while (v114);
-            v101 = v110;
-            if (v115)
+            while (v109);
+            v96 = v105;
+            if (v110)
             {
 LABEL_252:
-              if (*v47 >= 1)
+              if (*v43 >= 1)
               {
                 SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
                 if ((SentTermCommList & 0x80000000) != 0)
                 {
-                  goto LABEL_576;
+                  return SentTermCommList;
                 }
 
                 SentTermCommList = mosyntbase_WStringLn(a1, "[AccPhr]", 0);
                 if ((SentTermCommList & 0x80000000) != 0)
                 {
-                  goto LABEL_576;
+                  return SentTermCommList;
                 }
 
                 SentTermCommList = mosyntknowl_WriteTraceHeader(a1, 4u);
                 if ((SentTermCommList & 0x80000000) != 0)
                 {
-                  goto LABEL_576;
+                  return SentTermCommList;
                 }
 
                 SentTermCommList = mosyntbase_WString(a1, "[AccPhr] --> Instruction ", 0);
                 if ((SentTermCommList & 0x80000000) != 0)
                 {
-                  goto LABEL_576;
+                  return SentTermCommList;
                 }
 
-                BestScenarioPathSuffix = mosyntkbaccphr_WriteInstruction(a1, *(v47 + 8), v110, v100);
+                BestScenarioPathSuffix = mosyntkbaccphr_WriteInstruction(a1, *(v43 + 8), v105, v95);
                 if ((BestScenarioPathSuffix & 0x80000000) != 0)
                 {
-                  goto LABEL_577;
+                  return BestScenarioPathSuffix;
                 }
               }
 
-              v123 = v110;
-              InstrType = mosyntkbaccphr_GetInstrType(v110, v100);
+              v117 = v105;
+              InstrType = mosyntkbaccphr_GetInstrType(v105, v95);
               if ((InstrType - 3) >= 3)
               {
                 if (InstrType == 2)
                 {
-                  if (mosyntkbaccphr_GetInstrRight(v110, v100))
+                  if (mosyntkbaccphr_GetInstrRight(v105, v95))
                   {
-                    v131 = (*(v292 + 24) + 24);
+                    v125 = (*(v283 + 24) + 24);
                   }
 
                   else
                   {
-                    v131 = &v292;
+                    v125 = &v283;
                   }
 
-                  v132 = 0;
-                  v133 = *(*v131 + 16);
-                  v273 = *(v133 + 32);
-                  *(v133 + 84) = 1;
+                  v126 = 0;
+                  v127 = *(*v125 + 16);
+                  v264 = *(v127 + 32);
+                  *(v127 + 84) = 1;
                 }
 
                 else if (InstrType)
                 {
-                  v132 = 1;
+                  v126 = 1;
                 }
 
                 else
                 {
-                  InstrRight = mosyntkbaccphr_GetInstrRight(v110, v100);
-                  v127 = 24;
-                  v128 = 16;
+                  InstrRight = mosyntkbaccphr_GetInstrRight(v105, v95);
+                  v121 = 24;
+                  v122 = 16;
                   if (InstrRight)
                   {
-                    v128 = 24;
+                    v122 = 24;
                   }
 
                   else
                   {
-                    v127 = 32;
+                    v121 = 32;
                   }
 
-                  v129 = *(v292 + v128);
-                  v273 = *(v129 + v127);
-                  if (mosyntkbaccphr_GetInstr(2, v110, v100))
+                  v123 = *(v283 + v122);
+                  v264 = *(v123 + v121);
+                  if (mosyntkbaccphr_GetInstr(2, v105, v95))
                   {
-                    if (mosyntkbaccphr_GetInstr(2, v110, v100) == 1)
+                    if (mosyntkbaccphr_GetInstr(2, v105, v95) == 1)
                     {
-                      v130 = 5;
+                      v124 = 5;
                     }
 
                     else
                     {
-                      v130 = mosyntkbaccphr_GetInstr(2, v110, v100);
+                      v124 = mosyntkbaccphr_GetInstr(2, v105, v95);
                     }
 
-                    LODWORD(v289) = v130;
-                    if (*(v129 + 68) < 2u)
+                    LODWORD(v280) = v124;
+                    if (*(v123 + 68) < 2u)
                     {
                       goto LABEL_303;
                     }
 
-                    *(v129 + 68) = 1;
-                    if (v130 <= *(v129 + 72))
+                    *(v123 + 68) = 1;
+                    if (v124 <= *(v123 + 72))
                     {
                       goto LABEL_303;
                     }
 
-                    v132 = 0;
-                    *(v129 + 72) = v130;
+                    v126 = 0;
+                    *(v123 + 72) = v124;
                   }
 
                   else
                   {
-                    if ((*(v129 + 68) & 0x80000000) == 0)
+                    if ((*(v123 + 68) & 0x80000000) == 0)
                     {
                       goto LABEL_303;
                     }
 
-                    v132 = 0;
-                    *(v129 + 68) = 2;
+                    v126 = 0;
+                    *(v123 + 68) = 2;
                   }
                 }
               }
 
               else
               {
-                if (mosyntkbaccphr_GetInstrTargetRange(v110, v100) && mosyntkbaccphr_GetInstrTargetRange(v110, v100) == 1)
+                if (mosyntkbaccphr_GetInstrTargetRange(v105, v95) && mosyntkbaccphr_GetInstrTargetRange(v105, v95) == 1)
                 {
-                  if (mosyntkbaccphr_GetInstrRight(v110, v100))
+                  if (mosyntkbaccphr_GetInstrRight(v105, v95))
                   {
-                    v125 = *(*(v292 + 24) + 24);
+                    v119 = *(*(v283 + 24) + 24);
                   }
 
                   else
                   {
-                    v125 = *(*(v292 + 16) + 32);
+                    v119 = *(*(v283 + 16) + 32);
                   }
 
-                  *&v292 = v125;
-                  v123 = v110;
+                  *&v283 = v119;
+                  v117 = v105;
                 }
 
-                v273 = v292;
-                v134 = *(v292 + 16);
-                v135 = mosyntkbaccphr_GetInstrType(v123, v100);
-                if (v135 == 4)
+                v264 = v283;
+                v128 = *(v283 + 16);
+                v129 = mosyntkbaccphr_GetInstrType(v117, v95);
+                if (v129 == 4)
                 {
-                  v136 = 2;
+                  v130 = 2;
                 }
 
                 else
                 {
-                  v136 = 1;
+                  v130 = 1;
                 }
 
-                if (v135 == 5)
+                if (v129 == 5)
                 {
-                  v137 = 3;
+                  v131 = 3;
                 }
 
                 else
                 {
-                  v137 = v136;
+                  v131 = v130;
                 }
 
-                v138 = mosyntkbaccphr_GetInstr(2, v123, v100);
-                SentTermCommList = mosyntdata_EncodeSymbolicValue(a1, v138, 0, &v289);
+                v132 = mosyntkbaccphr_GetInstr(2, v117, v95);
+                SentTermCommList = mosyntdata_EncodeSymbolicValue(a1, v132, 0, &v280);
                 if ((SentTermCommList & 0x80000000) != 0)
                 {
-                  goto LABEL_576;
+                  return SentTermCommList;
                 }
 
-                v139 = mosyntkbaccphr_GetInstr(2, v110, v100);
-                BestScenarioPathSuffix = mosyntdata_EncodeSymbolicValue(a1, v139, 1, &v288);
+                v133 = mosyntkbaccphr_GetInstr(2, v105, v95);
+                BestScenarioPathSuffix = mosyntdata_EncodeSymbolicValue(a1, v133, 1, &v279);
                 if ((BestScenarioPathSuffix & 0x80000000) != 0)
                 {
-                  goto LABEL_577;
+                  return BestScenarioPathSuffix;
                 }
 
                 do
                 {
-                  v140 = mosyntdata_SentTermBoundData(a1, *(v47 + 40), *(*(v134 + 32) + 84));
-                  if (v140)
+                  v134 = mosyntdata_SentTermBoundData(a1, *(v43 + 40), *(*(v128 + 32) + 84));
+                  if (v134)
                   {
-                    v141 = v140;
-                    SentTermCommList = mosyntdata_NewCommand(a1, &v287);
+                    v135 = v134;
+                    SentTermCommList = mosyntdata_NewCommand(a1, &v278);
                     if ((SentTermCommList & 0x80000000) != 0)
                     {
-                      goto LABEL_576;
+                      return SentTermCommList;
                     }
 
-                    v142 = v287;
-                    v143 = v289;
-                    *(v287 + 8) = v137;
-                    *(v142 + 12) = v143;
-                    *&v290[0] = mosyntdata_LastPhonEle(a1, *v141);
-                    BestScenarioPathSuffix = mosyntdata_AppendPhonList(a1, v141, v290, v287, v287);
+                    v136 = v278;
+                    v137 = v280;
+                    *(v278 + 8) = v131;
+                    *(v136 + 12) = v137;
+                    *&v281[0] = mosyntdata_LastPhonEle(a1, *v135);
+                    BestScenarioPathSuffix = mosyntdata_AppendPhonList(a1, v135, v281, v278, v278);
                     if ((BestScenarioPathSuffix & 0x80000000) != 0)
                     {
-                      goto LABEL_577;
+                      return BestScenarioPathSuffix;
                     }
                   }
 
-                  v134 = *(v134 + 16);
-                  v144 = mosyntdata_SentTermBoundData(a1, *(v47 + 40), *(v134 + 64));
-                  if (v144)
+                  v128 = *(v128 + 16);
+                  v138 = mosyntdata_SentTermBoundData(a1, *(v43 + 40), *(v128 + 64));
+                  if (v138)
                   {
-                    v145 = v144;
-                    SentTermCommList = mosyntdata_NewCommand(a1, &v287);
+                    v139 = v138;
+                    SentTermCommList = mosyntdata_NewCommand(a1, &v278);
                     if ((SentTermCommList & 0x80000000) != 0)
                     {
-                      goto LABEL_576;
+                      return SentTermCommList;
                     }
 
-                    v146 = v287;
-                    v147 = v288;
-                    *(v287 + 8) = v137;
-                    *(v146 + 12) = v147;
-                    *&v290[0] = mosyntdata_LastPhonEle(a1, *v145);
-                    v148 = v287;
-                    if (v287 && (*v287 = *v145, *v145 = v148, !*&v290[0]))
+                    v140 = v278;
+                    v141 = v279;
+                    *(v278 + 8) = v131;
+                    *(v140 + 12) = v141;
+                    *&v281[0] = mosyntdata_LastPhonEle(a1, *v139);
+                    v142 = v278;
+                    if (v278 && (*v278 = *v139, *v139 = v142, !*&v281[0]))
                     {
                       BestScenarioPathSuffix = 0;
-                      *&v290[0] = v148;
+                      *&v281[0] = v142;
                     }
 
                     else
@@ -3397,39 +3141,39 @@ LABEL_252:
                   }
                 }
 
-                while (v134 != *(v292 + 24));
+                while (v128 != *(v283 + 24));
 LABEL_303:
-                v132 = 0;
+                v126 = 0;
               }
 
-              if (*v47 >= 1)
+              if (*v43 >= 1)
               {
                 SentTermCommList = mosyntbase_WString(a1, " : ", 0);
                 if ((SentTermCommList & 0x80000000) != 0)
                 {
-                  goto LABEL_576;
+                  return SentTermCommList;
                 }
 
-                if (v132)
+                if (v126)
                 {
-                  v149 = mosyntbase_WStringLn(a1, " not implemented yet!", 0);
+                  v143 = mosyntbase_WStringLn(a1, " not implemented yet!", 0);
                 }
 
                 else
                 {
-                  SentTermCommList = WriteCoverage(a1, v47, *(v273 + 16), *(v273 + 24));
+                  SentTermCommList = WriteCoverage(a1, v43, *(v264 + 16), *(v264 + 24));
                   if ((SentTermCommList & 0x80000000) != 0)
                   {
-                    goto LABEL_576;
+                    return SentTermCommList;
                   }
 
-                  v149 = mosyntbase_WLn(a1);
+                  v143 = mosyntbase_WLn(a1);
                 }
 
-                BestScenarioPathSuffix = v149;
-                if ((v149 & 0x80000000) != 0)
+                BestScenarioPathSuffix = v143;
+                if ((v143 & 0x80000000) != 0)
                 {
-                  goto LABEL_577;
+                  return BestScenarioPathSuffix;
                 }
               }
 
@@ -3439,35 +3183,34 @@ LABEL_303:
 
           else
           {
-            v101 = v110;
+            v96 = v105;
           }
         }
 
-        v116 = mosyntkbaccphr_GetInstr(0, v101, v100);
-        if ((mosyntkbaccphr_GetNodeMatchOp(v101, v116) & 2) != 0 && *(v88 + 72))
+        v111 = mosyntkbaccphr_GetInstr(0, v96, v95);
+        if ((mosyntkbaccphr_GetNodeMatchOp(v96, v111) & 2) != 0 && v84[9])
         {
-          v117 = mosyntkbaccphr_GetInstrRight(v110, v100);
-          if (v117)
+          if (mosyntkbaccphr_GetInstrRight(v105, v95))
           {
-            v118 = *(v88 + 72);
+            v112 = v84[9];
             do
             {
-              v119 = v118;
-              v118 = v118[7];
+              v113 = v112;
+              v112 = v112[7];
             }
 
-            while (v118);
-            v120 = mosyntkbaccphr_GetInstr(0, v110, v100);
-            v121 = IsRightMatchingTarget(a1, v47, v120, v119, &v292);
+            while (v112);
+            v114 = mosyntkbaccphr_GetInstr(0, v105, v95);
+            v115 = IsRightMatchingTarget(a1, v43, v114, v113, &v283);
           }
 
           else
           {
-            v122 = mosyntkbaccphr_GetInstr(v117, v110, v100);
-            v121 = IsLeftMatchingTarget(a1, v47, v122, *(v88 + 72), &v292);
+            v116 = mosyntkbaccphr_GetInstr(0, v105, v95);
+            v115 = IsLeftMatchingTarget(a1, v43, v116, v84[9], &v283);
           }
 
-          if (v121)
+          if (v115)
           {
             goto LABEL_252;
           }
@@ -3475,110 +3218,105 @@ LABEL_303:
       }
 
 LABEL_311:
-      v101 = v110;
-      v100 = mosyntkbaccphr_GetInstr(6, v110, v100);
-      if (v100 == mosyntkbaccphr_Nil(v100))
+      v96 = v105;
+      v95 = mosyntkbaccphr_GetInstr(6, v105, v95);
+      if (v95 == mosyntkbaccphr_Nil())
       {
-        v90 = v279;
+        v86 = v270;
         if ((BestScenarioPathSuffix & 0x80000000) != 0)
         {
-          goto LABEL_577;
+          return BestScenarioPathSuffix;
         }
 
 LABEL_221:
-        v102 = mosyntkbaccphr_GetRule(13, v90, *(v91 + 2));
-        v103 = *v281;
-        Children = mosyntkbaccphr_Nil(v102);
-        LODWORD(v105) = v102;
-        if (v102 != Children)
+        v97 = mosyntkbaccphr_GetRule(13, v86, *(v87 + 2));
+        v98 = *v272;
+        v99 = v97;
+        if (v97 != mosyntkbaccphr_Nil())
         {
-          v105 = v102;
+          v99 = v97;
           do
           {
-            v106 = *(v88 + 16);
-            Children = mosyntkbaccphr_GetChildren(1, v103, v102);
-            LODWORD(v292) = Children;
-            if (v106 == *(v88 + 24))
+            v100 = v84[2];
+            Children = mosyntkbaccphr_GetChildren(1, v98, v97);
+            LODWORD(v283) = Children;
+            if (v100 == v84[3])
             {
               break;
             }
 
-            v107 = Children;
+            Node = Children;
             do
             {
-              Children = mosyntkbaccphr_Nil(Children);
-              if (v107 == Children)
+              if (Node == mosyntkbaccphr_Nil())
               {
                 break;
               }
 
-              v108 = *(*(v106 + 32) + 32);
+              v103 = *(*(v100 + 32) + 32);
               do
               {
-                v109 = v108;
-                v108 = *v108;
+                v104 = v103;
+                v103 = *v103;
               }
 
-              while (v108);
-              Children = IsMatchingNode(a1, v47, &v292, v109);
-              if (!Children)
+              while (v103);
+              if (!IsMatchingNode(a1, v43, &v283, v104))
               {
                 break;
               }
 
-              v106 = *(v106 + 16);
-              Children = mosyntkbaccphr_GetNode(8, v103, v107);
-              v107 = Children;
-              LODWORD(v292) = Children;
+              v100 = *(v100 + 16);
+              Node = mosyntkbaccphr_GetNode(8, v98, Node);
+              LODWORD(v283) = Node;
             }
 
-            while (v106 != *(v88 + 24));
-            if (v106 == *(v88 + 24))
+            while (v100 != v84[3]);
+            if (v100 == v84[3])
             {
               break;
             }
 
-            v105 = mosyntkbaccphr_GetChildren(2, v103, v105);
-            Children = mosyntkbaccphr_Nil(v105);
+            v99 = mosyntkbaccphr_GetChildren(2, v98, v99);
           }
 
-          while (v105 != Children);
+          while (v99 != mosyntkbaccphr_Nil());
         }
 
-        if (v105 == mosyntkbaccphr_Nil(Children))
+        if (v99 == mosyntkbaccphr_Nil())
         {
           BestScenarioPathSuffix = 0;
 LABEL_325:
-          v90 = v279;
-          if (*v47 >= 1)
+          v86 = v270;
+          if (*v43 >= 1)
           {
             BestScenarioPathSuffix = mosyntbase_WriteMessage(a1, "[AccPhr] End rule.>>>>>\\n", 0, "", 0, "", 0, "", 0);
             if ((BestScenarioPathSuffix & 0x80000000) != 0)
             {
-              goto LABEL_577;
+              return BestScenarioPathSuffix;
             }
           }
 
           goto LABEL_203;
         }
 
-        if (*v47 < 1)
+        if (*v43 < 1)
         {
           BestScenarioPathSuffix = 0;
 LABEL_322:
-          v150 = *(v88 + 16);
-          v151 = mosyntkbaccphr_GetChildren(1, v103, v102);
-          if (v150 != *(v88 + 24))
+          v144 = v84[2];
+          v145 = mosyntkbaccphr_GetChildren(1, v98, v97);
+          if (v144 != v84[3])
           {
-            Node = v151;
+            v146 = v145;
             do
             {
-              *(v150 + 84) = mosyntkbaccphr_GetNode(2, v103, Node);
-              v150 = *(v150 + 16);
-              Node = mosyntkbaccphr_GetNode(8, v103, Node);
+              *(v144 + 84) = mosyntkbaccphr_GetNode(2, v98, v146);
+              v144 = *(v144 + 16);
+              v146 = mosyntkbaccphr_GetNode(8, v98, v146);
             }
 
-            while (v150 != *(v88 + 24));
+            while (v144 != v84[3]);
           }
 
           goto LABEL_325;
@@ -3596,10 +3334,10 @@ LABEL_322:
               SentTermCommList = mosyntbase_WString(a1, "[AccPhr] --> Template ", 0);
               if ((SentTermCommList & 0x80000000) == 0)
               {
-                BestScenarioPathSuffix = mosyntkbaccphr_WritePromTemplate(a1, *(v47 + 8), v103, v105);
+                BestScenarioPathSuffix = mosyntkbaccphr_WritePromTemplate(a1, *(v43 + 8), v98, v99);
                 if ((BestScenarioPathSuffix & 0x80000000) != 0)
                 {
-                  goto LABEL_577;
+                  return BestScenarioPathSuffix;
                 }
 
                 goto LABEL_322;
@@ -3608,260 +3346,254 @@ LABEL_322:
           }
         }
 
-LABEL_576:
-        BestScenarioPathSuffix = SentTermCommList;
-        goto LABEL_577;
+        return SentTermCommList;
       }
     }
   }
 
   BestScenarioPathSuffix = 0;
 LABEL_435:
-  *(v86 + 34) = 0;
-  *&v292 = 0;
-  if (v272)
+  *(v82 + 34) = 0;
+  *&v283 = 0;
+  if (v263)
   {
-    mosyntdata_GetSentTermCommList(a1, *(v47 + 40), v272[16], &v292);
-    v177 = v292;
+    mosyntdata_GetSentTermCommList(a1, *(v43 + 40), v263[16], &v283);
+    v171 = v283;
   }
 
   else
   {
-    v177 = 0;
+    v171 = 0;
   }
 
-  *(v272 + 34) = FinalBoundaryIndex(a1, v177);
+  *(v263 + 34) = FinalBoundaryIndex(a1, v171);
   if ((BestScenarioPathSuffix & 0x80000000) != 0)
   {
-    goto LABEL_577;
+    return BestScenarioPathSuffix;
   }
 
-  v269 = v286;
-  if (!v286)
+  v260 = v277;
+  if (!v277)
   {
     BestScenarioPathSuffix = 0;
     goto LABEL_546;
   }
 
-  v186 = 0;
-  v187 = 0;
-  v188 = 0;
+  v180 = 0;
+  v181 = 0;
+  v182 = 0;
   BestScenarioPathSuffix = 0;
-  LODWORD(v287) = 0;
-  *&v292 = 0;
-  *&v290[0] = 0;
-  v189 = v286;
+  LODWORD(v278) = 0;
+  *&v283 = 0;
+  *&v281[0] = 0;
+  v183 = v277;
   do
   {
-    v274 = v189;
-    if (*(v189 + 34) < 0)
+    v265 = v183;
+    if (*(v183 + 34) < 0)
     {
       goto LABEL_506;
     }
 
-    if (v187 && !v186)
+    if (v181 && !v180)
     {
-      if (v187 != v189)
+      if (v181 != v183)
       {
-        v186 = 0;
-        v190 = -1;
-        v271 = v187;
+        v180 = 0;
+        v184 = -1;
+        v262 = v181;
         do
         {
-          v278 = v190;
-          v280 = v186;
-          v276 = v187;
-          v191 = *(v187[4] + 32);
+          v269 = v184;
+          v271 = v180;
+          v267 = v181;
+          v185 = v181[4][4];
           do
           {
-            v192 = v191;
-            v191 = *v191;
+            v186 = v185;
+            v185 = *v185;
           }
 
-          while (v191);
-          v193 = *v281;
-          v194 = mosyntkbaccphr_AccPhrHierarchy(*v281);
-          BYTE4(v289) = 0;
-          v195 = mosyntkbaccphr_Nil(v194);
-          if (v194 == v195)
+          while (v185);
+          v187 = *v272;
+          v188 = mosyntkbaccphr_AccPhrHierarchy(*v272);
+          BYTE4(v280) = 0;
+          if (v188 == mosyntkbaccphr_Nil())
           {
-            v196 = 0;
+            v189 = 0;
           }
 
           else
           {
-            v196 = 0;
+            v189 = 0;
             do
             {
-              v197 = v192[1];
-              v198 = *(v197 + 16);
-              ConsList = mosyntkbaccphr_GetConsList(0, v193, v194);
-              v200 = mosyntkbaccphr_GetConsList(1, v193, v194);
-              v201 = mosyntkbaccphr_CheckMatchingConsFeat3(a1, v193, v198, (v197 + 24), ConsList, v200, &v289 + 4);
-              if (!BYTE4(v289))
+              v190 = v186[1];
+              v191 = *(v190 + 16);
+              ConsList = mosyntkbaccphr_GetConsList(0, v187, v188);
+              v193 = mosyntkbaccphr_GetConsList(1, v187, v188);
+              mosyntkbaccphr_CheckMatchingConsFeat3(a1, v187, v191, (v190 + 24), ConsList, v193, &v280 + 4);
+              if (!BYTE4(v280))
               {
-                ++v196;
-                v201 = mosyntkbaccphr_GetConsList(2, v193, v194);
-                v194 = v201;
+                ++v189;
+                v188 = mosyntkbaccphr_GetConsList(2, v187, v188);
               }
-
-              v195 = mosyntkbaccphr_Nil(v201);
             }
 
-            while (v194 != v195 && !BYTE4(v289));
+            while (v188 != mosyntkbaccphr_Nil() && !BYTE4(v280));
           }
 
-          if (v194 == mosyntkbaccphr_Nil(v195))
+          if (v188 == mosyntkbaccphr_Nil())
           {
-            v202 = -1;
+            v194 = -1;
           }
 
           else
           {
-            v202 = v196;
+            v194 = v189;
           }
 
-          v190 = v278;
-          if (v278 >= v202)
+          v184 = v269;
+          if (v269 >= v194)
           {
-            v203 = v202;
+            v195 = v194;
           }
 
           else
           {
-            v203 = v278;
+            v195 = v269;
           }
 
-          v204 = v278 <= v202 || v202 <= -1;
-          v189 = v274;
-          v186 = v280;
-          if (!v204)
+          v196 = v269 <= v194 || v194 <= -1;
+          v183 = v265;
+          v180 = v271;
+          if (!v196)
           {
-            v186 = v274;
+            v180 = v265;
           }
 
-          if (v202 >= 0)
+          if (v194 >= 0)
           {
-            v190 = v203;
+            v184 = v195;
           }
 
-          v187 = v276[2];
+          v181 = v267[2];
         }
 
-        while (v187 != v274);
-        v187 = v271;
-        if (v186)
+        while (v181 != v265);
+        v181 = v262;
+        if (v180)
         {
           goto LABEL_505;
         }
       }
 
-      v186 = v187;
-      if (mosyntkbaccphr_AccPhrDefaultEmph(*v281) != 1)
+      v180 = v181;
+      if (mosyntkbaccphr_AccPhrDefaultEmph(*v272) != 1)
       {
-        if (mosyntkbaccphr_AccPhrDefaultEmph(*v281) != 2)
+        if (mosyntkbaccphr_AccPhrDefaultEmph(*v272) != 2)
         {
-          v205 = *v187;
-          v189 = v274;
-          v186 = v187;
-          if (v205 != (*v274 + v205) / 2)
+          v197 = *v181;
+          v183 = v265;
+          v180 = v181;
+          if (v197 != (*v265 + v197) / 2)
           {
-            v186 = v187;
+            v180 = v181;
             do
             {
-              v186 = *(v186 + 16);
+              v180 = *(v180 + 16);
             }
 
-            while (*v186 != (*v274 + v205) / 2);
+            while (*v180 != (*v265 + v197) / 2);
           }
 
           goto LABEL_505;
         }
 
-        v189 = v274;
-        v186 = v274[1];
+        v183 = v265;
+        v180 = v265[1];
       }
     }
 
-    if (!v186)
+    if (!v180)
     {
-      v188 = v187;
-      v187 = v189;
+      v182 = v181;
+      v181 = v183;
       goto LABEL_506;
     }
 
 LABEL_505:
-    *(v186 + 84) = 1;
-    v188 = v187;
-    v187 = v189;
-    v186 = 0;
+    *(v180 + 84) = 1;
+    v182 = v181;
+    v181 = v183;
+    v180 = 0;
 LABEL_506:
-    if (*(v189 + 21) == 1)
+    if (*(v183 + 21) == 1)
     {
-      if (v186)
+      if (v180)
       {
-        if (mosyntkbaccphr_AccPhrDefaultEmph(*v281) == 1)
+        if (mosyntkbaccphr_AccPhrDefaultEmph(*v272) == 1)
         {
-          v206 = 3;
+          v198 = 3;
         }
 
         else
         {
-          *(v186 + 84) = -1;
-          BestScenarioPathSuffix = SetFunctionWords(a1, v47, v186, *(v186 + 16));
+          *(v180 + 84) = -1;
+          BestScenarioPathSuffix = SetFunctionWords(a1, v43, v180, *(v180 + 16));
           if ((BestScenarioPathSuffix & 0x80000000) != 0)
           {
-            goto LABEL_577;
+            return BestScenarioPathSuffix;
           }
 
-          if (*(v186 + 84) == -1)
+          if (*(v180 + 84) == -1)
           {
-            *(v186 + 84) = 3;
+            *(v180 + 84) = 3;
           }
 
-          v206 = 1;
-          v189 = v274;
-          v186 = v274;
+          v198 = 1;
+          v183 = v265;
+          v180 = v265;
         }
 
-        *(v189 + 21) = v206;
+        *(v183 + 21) = v198;
       }
 
       else
       {
-        v186 = v189;
+        v180 = v183;
       }
     }
 
-    v189 = v189[2];
+    v183 = v183[2];
   }
 
-  while (v189);
-  if (!v187)
+  while (v183);
+  if (!v181)
   {
     goto LABEL_546;
   }
 
-  *(v187 + 19) = 0;
-  if (!v188 || *(v188 + 19))
+  *(v181 + 19) = 0;
+  if (!v182 || *(v182 + 19))
   {
     goto LABEL_546;
   }
 
-  SentTermCommList = mosyntdata_GetSentTermCommList(a1, *(v47 + 40), *(v187 + 16), v290);
+  SentTermCommList = mosyntdata_GetSentTermCommList(a1, *(v43 + 40), *(v181 + 16), v281);
   if ((SentTermCommList & 0x80000000) != 0)
   {
-    goto LABEL_576;
+    return SentTermCommList;
   }
 
-  BestScenarioPathSuffix = mosyntdata_GetPunctFromCommandList(a1, *&v290[0], &v287, &v292);
+  BestScenarioPathSuffix = mosyntdata_GetPunctFromCommandList(a1, *&v281[0], &v278, &v283);
   if ((BestScenarioPathSuffix & 0x80000000) == 0)
   {
-    v207 = v287 == 11 ? 9 : 2;
-    v208 = v287 == 10 ? 4 : v207;
-    *(v188 + 19) = v208;
+    v199 = v278 == 11 ? 9 : 2;
+    v200 = v278 == 10 ? 4 : v199;
+    *(v182 + 19) = v200;
 LABEL_546:
-    for (ii = v269; ii != v272; ii = ii[2])
+    for (ii = v260; ii != v263; ii = ii[2])
     {
       if (*(ii + 21) == -1)
       {
@@ -3876,17 +3608,15 @@ LABEL_546:
 
     if ((BestScenarioPathSuffix & 0x80000000) == 0)
     {
-      ChartToSentTermData(v47, v286);
+      ChartToSentTermData(v43, v277);
       goto LABEL_555;
     }
   }
 
-LABEL_577:
-  v221 = *MEMORY[0x1E69E9840];
   return BestScenarioPathSuffix;
 }
 
-uint64_t FindDomainById(uint64_t a1, int a2, _DWORD *a3)
+uint64_t FindDomainById(uint64_t a1, int a2, int *a3)
 {
   v5 = *(a1 + 16);
   for (i = mosyntkbaccphr_AccPhrDomains(v5); ; i = mosyntkbaccphr_GetScenario(3, v5, *a3))
@@ -3952,9 +3682,9 @@ uint64_t GenAccTree(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
     }
 
     v9 = v16;
-    *(v16 + 16) = *(v5 + 52);
+    v16[2] = *(v5 + 52);
     *(v9 + 24) = 0;
-    *(v9 + 26) = *(v5 + 8);
+    *(v9 + 13) = *(v5 + 8);
     if (*(v5 + 60))
     {
       v14 = 0;
@@ -3965,14 +3695,14 @@ uint64_t GenAccTree(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
         return v10;
       }
 
-      *(v9 + 8) = v15;
+      v9[1] = v15;
       v11 = v14;
-      *(v14 + 16) = *(v5 + 52);
+      v14[2] = *(v5 + 52);
       v12 = 1;
       *(v11 + 24) = 1;
       if (mosyntkbsymtab_PropTabAvailable(*(a2 + 8)))
       {
-        if (mosyntkbsymtab_IntPropValue(a1, *(a2 + 8), *(v5 + 8), 2u) >= 1)
+        if (mosyntkbsymtab_IntPropValue(a1, *(a2 + 8), *(v5 + 8), 2) >= 1)
         {
           v12 = 1;
         }
@@ -3983,12 +3713,12 @@ uint64_t GenAccTree(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
         }
       }
 
-      *(v11 + 26) = v12;
+      *(v11 + 13) = v12;
     }
 
     else
     {
-      v10 = GenAccTree(a1, a2, v5[1], v9 + 8);
+      v10 = GenAccTree(a1, a2, v5[1], v9 + 1);
       if ((v10 & 0x80000000) != 0)
       {
         return v10;
@@ -4005,7 +3735,7 @@ uint64_t GenAccTree(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
   return v8;
 }
 
-uint64_t AddAccNode(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
+uint64_t AddAccNode(uint64_t a1, uint64_t a2, void *a3, void **a4)
 {
   v14 = 0;
   result = mosyntpal_ALLOCATE(a1, &v14, 0x20u);
@@ -4032,7 +3762,7 @@ uint64_t AddAccNode(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 
       *v12 = v14;
       *a4 = v13;
-      *(v13 + 8) = 0;
+      v13[1] = 0;
     }
   }
 
@@ -4041,7 +3771,7 @@ uint64_t AddAccNode(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 
 uint64_t Accentuation1(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
 {
-  v8 = mosyntkbsymtab_WildConsId(*(a2 + 8));
+  v8 = mosyntkbsymtab_WildConsId();
   *a4 = 0;
   if (!a3)
   {
@@ -4230,7 +3960,7 @@ LABEL_47:
       }
     }
 
-    if (mosyntkbsymtab_PropTabAvailable(*(a2 + 8)) && mosyntkbsymtab_HasIntPropValue(a1, *(a2 + 8), *(a3 + 26), 4u, 1))
+    if (mosyntkbsymtab_PropTabAvailable(*(a2 + 8)) && mosyntkbsymtab_HasIntPropValue(a1, *(a2 + 8), *(a3 + 26), 4, 1))
     {
       return FirstAccPatVal;
     }
@@ -4310,8 +4040,8 @@ LABEL_45:
 
 uint64_t SingleTreeMatchFound(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
 {
-  v8 = mosyntkbsymtab_WildConsId(*(a2 + 8));
-  if (mosyntkbsymtab_PropTabAvailable(*(a2 + 8)) && mosyntkbsymtab_HasIntPropValue(a1, *(a2 + 8), v8, 9u, 1))
+  v8 = mosyntkbsymtab_WildConsId();
+  if (mosyntkbsymtab_PropTabAvailable(*(a2 + 8)) && mosyntkbsymtab_HasIntPropValue(a1, *(a2 + 8), v8, 9, 1))
   {
     v9 = *a3;
     *a3 = 0;
@@ -4413,45 +4143,35 @@ uint64_t WriteAccList(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t RhythmicAccShift(uint64_t a1, int *a2, uint64_t a3)
 {
-  v10[3] = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  memset(v10, 0, 24);
-  AccShift(a3, v10, &v9);
-  if (!v9 || *a2 < 1)
+  v8[3] = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  memset(v8, 0, 24);
+  AccShift(a3, v8, &v7);
+  if (!v7 || *a2 < 1)
   {
-    result = 0;
-LABEL_11:
-    v8 = *MEMORY[0x1E69E9840];
-    return result;
+    return 0;
   }
 
   result = mosyntknowl_WriteTraceHeader(a1, 4u);
-  if ((result & 0x80000000) != 0)
+  if ((result & 0x80000000) == 0)
   {
-    goto LABEL_11;
+    result = mosyntbase_WString(a1, "accentuation after rhythmic shift: ", 0);
+    if ((result & 0x80000000) == 0)
+    {
+      result = WriteAccList(a1, a2, a3);
+      if ((result & 0x80000000) == 0)
+      {
+        result = mosyntbase_WLn(a1);
+        if ((result & 0x80000000) == 0)
+        {
+
+          return mosyntbase_WLn(a1);
+        }
+      }
+    }
   }
 
-  result = mosyntbase_WString(a1, "accentuation after rhythmic shift: ", 0);
-  if ((result & 0x80000000) != 0)
-  {
-    goto LABEL_11;
-  }
-
-  result = WriteAccList(a1, a2, a3);
-  if ((result & 0x80000000) != 0)
-  {
-    goto LABEL_11;
-  }
-
-  result = mosyntbase_WLn(a1);
-  if ((result & 0x80000000) != 0)
-  {
-    goto LABEL_11;
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-
-  return mosyntbase_WLn(a1);
+  return result;
 }
 
 uint64_t MatchFound(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -4512,7 +4232,7 @@ uint64_t MatchFound(uint64_t a1, uint64_t a2, void *a3, void *a4)
     if (!*a4)
     {
       v15 = *(a4 + 8);
-      if (mosyntkbsymtab_Star2ConsId(*(a2 + 8)) != v15)
+      if (mosyntkbsymtab_Star2ConsId() != v15)
       {
         v16 = *(a4 + 8);
         return mosyntkbsymtab_StarConsId(*(a2 + 8)) == v16;
@@ -4551,7 +4271,7 @@ uint64_t MatchFound(uint64_t a1, uint64_t a2, void *a3, void *a4)
   }
 
   v10 = *(a4 + 8);
-  if (mosyntkbsymtab_Star2ConsId(*(a2 + 8)) == v10)
+  if (mosyntkbsymtab_Star2ConsId() == v10)
   {
     if (!MatchFound(a1, a2, *a3, a4) && !MatchFound(a1, a2, *a3, *a4))
     {
@@ -4581,7 +4301,7 @@ uint64_t MatchFound(uint64_t a1, uint64_t a2, void *a3, void *a4)
   }
 
   v19 = *(a4 + 8);
-  if (mosyntkbsymtab_Wild2ConsId(*(a2 + 8)) == v19)
+  if (mosyntkbsymtab_Wild2ConsId() == v19)
   {
     result = DownMatchFound(a1, a2, a3, a4[1]);
     if (!result)
@@ -4598,7 +4318,7 @@ LABEL_38:
   }
 
   v20 = *(a4 + 8);
-  if (mosyntkbsymtab_WildConsId(*(a2 + 8)) != v20 && (*(a3 + 24) || *(a3 + 13) != *(a4 + 8)))
+  if (mosyntkbsymtab_WildConsId() != v20 && (*(a3 + 24) || *(a3 + 13) != *(a4 + 8)))
   {
     return 0;
   }
@@ -4612,11 +4332,11 @@ LABEL_38:
   return result;
 }
 
-uint64_t DownMatchFound(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+uint64_t DownMatchFound(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
 {
   v8 = *a3;
   *a3 = 0;
-  if (MatchFound())
+  if (MatchFound(a1, a2, a3, a4))
   {
     result = 1;
   }
@@ -4660,7 +4380,7 @@ uint64_t AccShift(uint64_t result, uint64_t *a2, _BYTE *a3)
   {
     if (*(i + 24))
     {
-      if (*(i + 13) - 1 > 0x61)
+      if (*(i + 26) - 1 > 0x61)
       {
         continue;
       }
@@ -4675,7 +4395,7 @@ uint64_t AccShift(uint64_t result, uint64_t *a2, _BYTE *a3)
         continue;
       }
 
-      v9 = *(i + 13);
+      v9 = *(i + 26);
       if (v9 == 1 && *(v6 + 26) == 2 && (*(v7 + 26) & 0xFFFE) == 2)
       {
         *(v6 + 26) = 3;
@@ -4724,7 +4444,7 @@ uint64_t GetInitPhrasing1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
         break;
       }
 
-      if (!mosyntkbsymtab_PropTabAvailable(*(a2 + 8)) || !mosyntkbsymtab_HasIntPropValue(a1, *(a2 + 8), *(*v7 + 26), 5u, 0))
+      if (!mosyntkbsymtab_PropTabAvailable(*(a2 + 8)) || !mosyntkbsymtab_HasIntPropValue(a1, *(a2 + 8), *(*v7 + 26), 5, 0))
       {
         v16 = mosyntkbsymtab_PropTabAvailable(*(a2 + 8));
         a5 = a4;
@@ -4733,7 +4453,7 @@ uint64_t GetInitPhrasing1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
           continue;
         }
 
-        HasIntPropValue = mosyntkbsymtab_HasIntPropValue(a1, *(a2 + 8), *(*v7 + 26), 5u, *(a3 + 26));
+        HasIntPropValue = mosyntkbsymtab_HasIntPropValue(a1, *(a2 + 8), *(*v7 + 26), 5, *(a3 + 26));
         a5 = a4;
         if (!HasIntPropValue)
         {
@@ -4861,12 +4581,12 @@ uint64_t FinalBoundaryIndex(uint64_t a1, uint64_t *a2)
   return 2;
 }
 
-uint64_t WriteBoundList(uint64_t a1, uint64_t a2, uint64_t *a3, int a4)
+uint64_t WriteBoundList(uint64_t a1, uint64_t a2, uint64_t **a3, int a4)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v11 = 0;
   v12 = 0;
   v13 = 0;
-  v14 = 0;
   if (a3)
   {
     v6 = a3;
@@ -4883,31 +4603,31 @@ uint64_t WriteBoundList(uint64_t a1, uint64_t a2, uint64_t *a3, int a4)
         result = mosyntbase_WLn(a1);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_29;
+          return result;
         }
 
         result = mosyntknowl_WriteTraceHeader(a1, 4u);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_29;
+          return result;
         }
 
         result = mosyntbase_WString(a1, " #{", 0);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_29;
+          return result;
         }
 
         result = mosyntbase_WInt(a1, *(v6 + 4), 0);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_29;
+          return result;
         }
 
         result = mosyntbase_WString(a1, "}", 0);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_29;
+          return result;
         }
 
         if (a4)
@@ -4915,50 +4635,50 @@ uint64_t WriteBoundList(uint64_t a1, uint64_t a2, uint64_t *a3, int a4)
           result = mosyntbase_WString(a1, " (", 0);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_29;
+            return result;
           }
 
-          result = mosyntkbaccphr_PhraseTypeToString(*(v6 + 8), &v13, 10);
+          result = mosyntkbaccphr_PhraseTypeToString(*(v6 + 8), &v12, 10);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_29;
+            return result;
           }
 
-          result = mosyntbase_WString(a1, &v13, 10);
+          result = mosyntbase_WString(a1, &v12, 0xAu);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_29;
+            return result;
           }
 
           result = mosyntbase_WString(a1, ")", 0);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_29;
+            return result;
           }
         }
 
         result = mosyntbase_WString(a1, " <", 0);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_29;
+          return result;
         }
 
         result = mosyntbase_WInt(a1, *(v6 + 5), 0);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_29;
+          return result;
         }
 
         result = mosyntbase_WString(a1, ",", 0);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_29;
+          return result;
         }
 
         result = mosyntbase_WInt(a1, *(v6 + 6), 0);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_29;
+          return result;
         }
 
         v9 = a1;
@@ -4968,7 +4688,7 @@ uint64_t WriteBoundList(uint64_t a1, uint64_t a2, uint64_t *a3, int a4)
       result = mosyntbase_WString(v9, v10, 0);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_29;
+        return result;
       }
 
       if (!*v6)
@@ -4979,31 +4699,31 @@ uint64_t WriteBoundList(uint64_t a1, uint64_t a2, uint64_t *a3, int a4)
       result = mosyntbase_WString(a1, " [", 0);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_29;
+        return result;
       }
 
       result = mosyntbase_WInt(a1, *(v6 + 15), 0);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_29;
+        return result;
       }
 
       result = mosyntbase_WString(a1, "]", 0);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_29;
+        return result;
       }
 
-      result = mosyntdata_GetSentTermWordPhonList(a1, *(a2 + 40), *(v6 + 5), &v12);
+      result = mosyntdata_GetSentTermWordPhonList(a1, *(a2 + 40), *(v6 + 5), &v11);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_29;
+        return result;
       }
 
-      result = mosyntdata_WritePhonList(a1, *(a2 + 8), v12);
+      result = mosyntdata_WritePhonList(a1, *(a2 + 8), v11);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_29;
+        return result;
       }
 
       v6 = *v6;
@@ -5012,69 +4732,61 @@ uint64_t WriteBoundList(uint64_t a1, uint64_t a2, uint64_t *a3, int a4)
     while (v6);
   }
 
-  result = mosyntbase_WLn(a1);
-LABEL_29:
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return mosyntbase_WLn(a1);
 }
 
-uint64_t CountSyllsAndAccs(uint64_t result, uint64_t **a2, _WORD *a3, _WORD *a4)
+void CountSyllsAndAccs(uint64_t a1, uint64_t **a2, _WORD *a3, _WORD *a4)
 {
   *a3 = 1;
   *a4 = 0;
   if (a2)
   {
     v6 = a2;
-    v7 = result;
-    v8 = 0;
+    v7 = 0;
     while (1)
     {
-      v9 = *(v6 + 12);
-      result = mosyntkbsymtab_SyllSepId(*(v7 + 8));
-      if (result != v9)
+      v8 = *(v6 + 12);
+      if (mosyntkbsymtab_SyllSepId() != v8)
       {
         break;
       }
 
       ++*a3;
-      if (v8 <= 0)
+      if (v7 <= 0)
       {
 LABEL_10:
         v6 = *v6;
         if (!v6)
         {
-          if (v8 >= 1)
+          if (v7 >= 1)
           {
             ++*a4;
           }
 
-          return result;
+          return;
         }
       }
 
       else
       {
-        v8 = 0;
+        v7 = 0;
         ++*a4;
         v6 = *v6;
         if (!v6)
         {
-          return result;
+          return;
         }
       }
     }
 
-    v10 = *(v6 + 12);
-    result = mosyntkbsymtab_PrimAccId(*(v7 + 8));
-    if (result == v10 || (v11 = *(v6 + 12), result = mosyntkbsymtab_SecAccId(*(v7 + 8)), result == v11))
+    v9 = *(v6 + 12);
+    if (mosyntkbsymtab_PrimAccId() == v9 || (v10 = *(v6 + 12), mosyntkbsymtab_SecAccId() == v10))
     {
-      ++v8;
+      ++v7;
     }
 
     goto LABEL_10;
   }
-
-  return result;
 }
 
 uint64_t SetFunctionWords(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -5246,24 +4958,24 @@ double NewAPVertex(uint64_t a1, uint64_t a2, int a3, uint64_t *a4)
 void TreeToChart(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t *a6)
 {
   v7 = a4;
+  v35 = 0;
   v34 = 0;
+  v32 = 0;
   v33 = 0;
   v31 = 0;
-  v32 = 0;
-  v30 = 0;
   *a6 = 0;
   v11 = *(a3 + 52);
   *(a4 + 64) = v11;
   if (*(a3 + 60))
   {
-    if ((mosyntdata_GetSentTermCommList(a1, *(a2 + 40), v11, &v31) & 0x80000000) == 0 && (mosyntdata_GetPunctFromCommandList(a1, v31, &v33, &v32) & 0x80000000) == 0)
+    if ((mosyntdata_GetSentTermCommList(a1, *(a2 + 40), v11, &v32) & 0x80000000) == 0 && (mosyntdata_GetPunctFromCommandList(a1, v32, &v34, &v33) & 0x80000000) == 0)
     {
-      if (mosyntknowl_IsIntraSentPunct(a1, v33))
+      if (mosyntknowl_IsIntraSentPunct(a1, v34))
       {
         *(v7 + 68) = 1;
       }
 
-      if ((mosyntdata_GetSentTermWordPhonList(a1, *(a2 + 40), *(a3 + 52), &v30) & 0x80000000) == 0 && (NewAPEdge(a1, a2, a3, a6) & 0x80000000) == 0)
+      if ((mosyntdata_GetSentTermWordPhonList(a1, *(a2 + 40), *(a3 + 52), &v31) & 0x80000000) == 0 && (NewAPEdge(a1, a2, a3, a6) & 0x80000000) == 0)
       {
         v12 = *a6;
         *(v12 + 92) = 0;
@@ -5271,7 +4983,7 @@ void TreeToChart(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uin
         NewAPVertex(a1, a2, *(a3 + 56), (*a6 + 24));
         if ((v13 & 0x80000000) == 0)
         {
-          CountSyllsAndAccs(a2, v30, (*a6 + 82), (*a6 + 80));
+          CountSyllsAndAccs(a2, v31, (*a6 + 82), (*a6 + 80));
           *(v7 + 16) = *(*a6 + 24);
           *(*(*a6 + 24) + 8) = v7;
           v14 = *a6;
@@ -5289,33 +5001,39 @@ void TreeToChart(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uin
     v15 = *(a3 + 8);
     if (v15)
     {
-      v27 = a3;
+      v28 = a3;
       v17 = 0;
       v18 = 0;
       v19 = 0;
       v20 = 0;
       v21 = 0;
-      while ((TreeToChart(a1, a2, v15, v7, (a5 + 1), &v34) & 0x80000000) == 0)
+      while (1)
       {
-        v22 = v34;
-        if (v34)
+        TreeToChart(a1, a2, v15, v7, a5 + 1, &v35);
+        if (v22 < 0)
         {
-          *(v34 + 64) = v21;
+          break;
+        }
+
+        v23 = v35;
+        if (v35)
+        {
+          *(v35 + 64) = v21;
           if (!v20)
           {
-            v20 = v22;
+            v20 = v23;
           }
 
           if (v21)
           {
-            *(v21 + 56) = v22;
+            *(v21 + 56) = v23;
           }
 
           ++v19;
-          v7 = *(v22 + 24);
-          v18 += *(v22 + 82);
-          v17 += *(v22 + 80);
-          v21 = v22;
+          v7 = *(v23 + 24);
+          v18 += *(v23 + 82);
+          v17 += *(v23 + 80);
+          v21 = v23;
         }
 
         v15 = *v15;
@@ -5329,30 +5047,30 @@ void TreeToChart(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uin
           if (v19 < 2)
           {
             *a6 = v21;
-            AddAPNode(a1, a2, v27, (v21 + 32));
+            AddAPNode(a1, a2, v28, (v21 + 32));
           }
 
-          else if ((NewAPEdge(a1, a2, v27, a6) & 0x80000000) == 0)
+          else if ((NewAPEdge(a1, a2, v28, a6) & 0x80000000) == 0)
           {
-            v23 = *a6;
-            *(v23 + 92) = 1;
-            *(v23 + 16) = a4;
+            v24 = *a6;
+            *(v24 + 92) = 1;
+            *(v24 + 16) = a4;
             *(*a6 + 24) = v7;
             **a6 = *(a4 + 48);
-            v24 = *a6;
-            *(a4 + 48) = *a6;
-            *(v24 + 8) = *(v7 + 40);
             v25 = *a6;
+            *(a4 + 48) = *a6;
+            *(v25 + 8) = *(v7 + 40);
+            v26 = *a6;
             *(v7 + 40) = *a6;
-            *(v25 + 82) = v18;
-            *(v25 + 80) = v17;
-            *(v25 + 72) = v20;
+            *(v26 + 82) = v18;
+            *(v26 + 80) = v17;
+            *(v26 + 72) = v20;
             if (v20)
             {
-              v26 = *a6;
+              v27 = *a6;
               do
               {
-                *(v20 + 48) = v26;
+                *(v20 + 48) = v27;
                 v20 = *(v20 + 56);
               }
 
@@ -5513,54 +5231,47 @@ LABEL_13:
   return mosyntbase_WriteMessage(a1, " (%i) ", 0, "", 0, "", 0, "", v12);
 }
 
-uint64_t MatchEdge(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t **a4, uint64_t *a5)
+uint64_t MatchEdge(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t **a4, void *a5)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = *(a3 + 32);
-  if (v5)
+  if (!v5)
   {
-    v10 = *(a2 + 16);
-    v26 = 0u;
-    memset(v25, 0, sizeof(v25));
-    v23 = 0;
-LABEL_3:
-    result = mosyntkbaccphr_LookupAccPhrRule(a1, *(a2 + 16), *(v5[1] + 16), (v5[1] + 24), &v23, v25);
+    return 0;
+  }
+
+  v10 = *(a2 + 16);
+  v25 = 0u;
+  memset(v24, 0, sizeof(v24));
+  v22 = 0;
+  do
+  {
+    result = mosyntkbaccphr_LookupAccPhrRule(a1, *(a2 + 16), *(v5[1] + 16), (v5[1] + 24), &v22, v24);
     if ((result & 0x80000000) != 0)
     {
-      goto LABEL_28;
+      return result;
     }
 
-    while (1)
+    while (v22)
     {
-      if (!v23)
-      {
-        v5 = *v5;
-        if (!v5)
-        {
-          goto LABEL_28;
-        }
-
-        goto LABEL_3;
-      }
-
-      Rule = mosyntkbaccphr_GetRule(15, v10, DWORD2(v26));
-      v13 = DWORD2(v26);
+      Rule = mosyntkbaccphr_GetRule(15, v10, SDWORD2(v25));
+      v13 = DWORD2(v25);
       if (Rule < 1)
       {
-        if (IsMatchingRule(a1, a2, DWORD2(v26), v5, a3))
+        if (IsMatchingRule(a1, a2, DWORD2(v25), v5, a3))
         {
-          result = AddEdgeRule(a1, a2, SDWORD2(v26), v5);
+          result = AddEdgeRule(a1, a2, SDWORD2(v25), v5);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_28;
+            return result;
           }
 
-          if (mosyntkbaccphr_GetRule(0, v10, DWORD2(v26)) >= 1)
+          if (mosyntkbaccphr_GetRule(0, v10, SDWORD2(v25)) >= 1)
           {
-            result = AddRuleScenarios(a1, a2, DWORD2(v26), (a3 + 40), a5);
+            result = AddRuleScenarios(a1, a2, DWORD2(v25), (a3 + 40), a5);
             if ((result & 0x80000000) != 0)
             {
-              goto LABEL_28;
+              return result;
             }
           }
         }
@@ -5568,21 +5279,21 @@ LABEL_3:
 
       else
       {
-        v24 = 0;
-        result = mosyntpal_ALLOCATE(a1, &v24, 0x20u);
+        v23 = 0;
+        result = mosyntpal_ALLOCATE(a1, &v23, 0x20u);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_28;
+          return result;
         }
 
-        result = NoteAPRuleListAlloc(a1, a2, v24);
+        result = NoteAPRuleListAlloc(a1, a2, v23);
         if ((result & 0x80000000) != 0)
         {
-          goto LABEL_28;
+          return result;
         }
 
-        v14 = v24;
-        *(v24 + 8) = v13;
+        v14 = v23;
+        *(v23 + 8) = v13;
         v14[2] = a3;
         v14[3] = v5;
         v15 = *a4;
@@ -5610,13 +5321,13 @@ LABEL_3:
 
             v19 = 0;
 LABEL_22:
-            *v24 = v19;
-            *v17 = v24;
+            *v23 = v19;
+            *v17 = v23;
             goto LABEL_23;
           }
 
           v20 = *a4;
-          v14 = v24;
+          v14 = v23;
         }
 
         else
@@ -5625,30 +5336,30 @@ LABEL_22:
         }
 
         *v14 = v20;
-        *a4 = v24;
+        *a4 = v23;
       }
 
 LABEL_23:
-      result = mosyntkbaccphr_GetNextAccPhrEntry(a1, v10, &v23, v25);
+      result = mosyntkbaccphr_GetNextAccPhrEntry(a1, v10, &v22, v24);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_28;
+        return result;
       }
     }
+
+    v5 = *v5;
   }
 
-  result = 0;
-LABEL_28:
-  v21 = *MEMORY[0x1E69E9840];
+  while (v5);
   return result;
 }
 
 uint64_t IsMatchingRule(uint64_t a1, uint64_t a2, uint64_t a3, void **a4, uint64_t a5)
 {
-  v33[2] = *MEMORY[0x1E69E9840];
-  v32 = 0;
-  v33[0] = 0;
-  *(v33 + 5) = 0;
+  v32[2] = *MEMORY[0x1E69E9840];
+  v31 = 0;
+  v32[0] = 0;
+  *(v32 + 5) = 0;
   v10 = *(a2 + 16);
   v11 = **(a5 + 24) - **(a5 + 16);
   if (mosyntkbaccphr_GetRule(8, v10, a3) <= v11 && v11 <= mosyntkbaccphr_GetRule(9, v10, a3) && (v12 = mosyntkbaccphr_GetRule(6, v10, a3), v13 = *(a5 + 82), v12 <= v13) && mosyntkbaccphr_GetRule(7, v10, a3) >= v13 && (v14 = mosyntkbaccphr_GetRule(10, v10, a3), v15 = *(a5 + 80), v14 <= v15) && mosyntkbaccphr_GetRule(11, v10, a3) >= v15)
@@ -5710,7 +5421,7 @@ uint64_t IsMatchingRule(uint64_t a1, uint64_t a2, uint64_t a3, void **a4, uint64
   if (*a2 >= 2)
   {
     mosyntknowl_WriteTraceHeader(a1, 4u);
-    m2__cp__str("[AccPhr]           ", &v32, 21);
+    m2__cp__str("[AccPhr]           ", &v31, 0x15u);
     mosyntbase_WString(a1, "[AccPhr] Node ", 0);
     v18 = *(a2 + 8);
     v19 = mosyntkbaccphr_GetRule(1, v10, a3);
@@ -5725,48 +5436,48 @@ uint64_t IsMatchingRule(uint64_t a1, uint64_t a2, uint64_t a3, void **a4, uint64
     mosyntbase_WLn(a1);
     if (v16)
     {
-      mosyntbase_WriteMessage(a1, "%s...\\n[AccPhr] Rule matched successfully.\\n", 0, &v32, 21, "", 0, "", 0);
-      goto LABEL_19;
+      mosyntbase_WriteMessage(a1, "%s...\\n[AccPhr] Rule matched successfully.\\n", 0, &v31, 0x15u, "", 0, "", 0);
+      return v16;
     }
 
     if (v17 == 5)
     {
       v24 = *(a2 + 8);
       v25 = mosyntkbaccphr_GetRule(5, v10, a3);
-      mosyntkbaccphr_WriteChildrenList(a1, v24, v10, &v32, 21, v25);
-      mosyntbase_WriteMessage(a1, "%s...\\n[AccPhr] Rule doesn't match: ", 0, &v32, 21, "", 0, "", 0);
+      mosyntkbaccphr_WriteChildrenList(a1, v24, v10, &v31, 0x15u, v25);
+      mosyntbase_WriteMessage(a1, "%s...\\n[AccPhr] Rule doesn't match: ", 0, &v31, 0x15u, "", 0, "", 0);
       v23 = "children";
     }
 
     else if (v17 == 1)
     {
       v20 = mosyntkbaccphr_GetRule(8, v10, a3);
-      *(&v29 + 1) = mosyntkbaccphr_GetRule(9, v10, a3);
-      LODWORD(v29) = 0;
-      DWORD1(v29) = v20;
-      mosyntbase_WriteMessage(a1, "%s<wordrange(%i,%i)>\\n", 0, &v32, 21, "", 0, "", v29);
+      *(&v28 + 1) = mosyntkbaccphr_GetRule(9, v10, a3);
+      LODWORD(v28) = 0;
+      DWORD1(v28) = v20;
+      mosyntbase_WriteMessage(a1, "%s<wordrange(%i,%i)>\\n", 0, &v31, 0x15u, "", 0, "", v28);
       v21 = mosyntkbaccphr_GetRule(6, v10, a3);
-      *(&v30 + 1) = mosyntkbaccphr_GetRule(7, v10, a3);
-      LODWORD(v30) = 0;
-      DWORD1(v30) = v21;
-      mosyntbase_WriteMessage(a1, "%s<syllrange(%i,%i)>\\n", 0, &v32, 21, "", 0, "", v30);
+      *(&v29 + 1) = mosyntkbaccphr_GetRule(7, v10, a3);
+      LODWORD(v29) = 0;
+      DWORD1(v29) = v21;
+      mosyntbase_WriteMessage(a1, "%s<syllrange(%i,%i)>\\n", 0, &v31, 0x15u, "", 0, "", v29);
       v22 = mosyntkbaccphr_GetRule(10, v10, a3);
-      *(&v31 + 1) = mosyntkbaccphr_GetRule(11, v10, a3);
-      LODWORD(v31) = 0;
-      DWORD1(v31) = v22;
-      mosyntbase_WriteMessage(a1, "%s<accrange(%i,%i)>\\n", 0, &v32, 21, "", 0, "", v31);
-      mosyntbase_WriteMessage(a1, "%s...\\n[AccPhr] Rule doesn't match: ", 0, &v32, 21, "", 0, "", 0);
+      *(&v30 + 1) = mosyntkbaccphr_GetRule(11, v10, a3);
+      LODWORD(v30) = 0;
+      DWORD1(v30) = v22;
+      mosyntbase_WriteMessage(a1, "%s<accrange(%i,%i)>\\n", 0, &v31, 0x15u, "", 0, "", v30);
+      mosyntbase_WriteMessage(a1, "%s...\\n[AccPhr] Rule doesn't match: ", 0, &v31, 0x15u, "", 0, "", 0);
       v23 = "constraints";
     }
 
     else
     {
-      mosyntbase_WriteMessage(a1, "%s...\\n[AccPhr] Rule doesn't match: ", 0, &v32, 21, "", 0, "", 0);
+      mosyntbase_WriteMessage(a1, "%s...\\n[AccPhr] Rule doesn't match: ", 0, &v31, 0x15u, "", 0, "", 0);
       if ((v17 - 2) > 2)
       {
 LABEL_18:
         mosyntbase_WStringLn(a1, " definition.", 0);
-        goto LABEL_19;
+        return v16;
       }
 
       v23 = off_1E81A3DB0[v17 - 2];
@@ -5776,8 +5487,6 @@ LABEL_18:
     goto LABEL_18;
   }
 
-LABEL_19:
-  v26 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -5802,8 +5511,9 @@ uint64_t AddEdgeRule(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t AddRuleScenarios(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+uint64_t AddRuleScenarios(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
 {
+  v6 = a3;
   v9 = *(a2 + 16);
   Scenario = mosyntkbaccphr_GetScenario(2, v9, *(a2 + 60));
   if (Scenario != mosyntkbaccphr_Nil())
@@ -5843,7 +5553,7 @@ uint64_t AddRuleScenarios(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, u
               else
               {
                 RuleSet = mosyntkbaccphr_GetRuleSet(1, v9, v15);
-                v16 = RuleSet != mosyntkbaccphr_GetRule(0, v9, a3);
+                v16 = RuleSet != mosyntkbaccphr_GetRule(0, v9, v6);
               }
 
               v15 = mosyntkbaccphr_GetRuleSet(4, v9, v15);
@@ -5897,8 +5607,9 @@ uint64_t NoteAPRuleListAlloc(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t IsMatchingNodeContext(uint64_t a1, uint64_t a2, uint64_t a3, void **a4, void *a5, int a6)
+uint64_t IsMatchingNodeContext(uint64_t a1, uint64_t a2, uint64_t a3, void **a4, void *a5, uint64_t a6)
 {
+  v6 = a6;
   v11 = *(a2 + 16);
   if (a6 <= 1)
   {
@@ -5924,7 +5635,7 @@ LABEL_7:
     if (mosyntkbaccphr_GetNode(3, v11, Rule))
     {
       NodeMatchOp = mosyntkbaccphr_GetNodeMatchOp(v11, Rule);
-      if (a6)
+      if (v6)
       {
         goto LABEL_14;
       }
@@ -5960,8 +5671,8 @@ LABEL_14:
         if ((mosyntkbaccphr_GetNodeMatchOp(v11, Rule) & 2) != 0)
         {
           v31 = mosyntkbaccphr_GetNodeMatchOp(v11, Rule);
-          LODWORD(v17) = IsMatchingNodeNeighbours(a1, a2, &v33, a5, a6, (v31 >> 2) & 1);
-          LODWORD(Rule) = v33;
+          LODWORD(v17) = IsMatchingNodeNeighbours(a1, a2, &v33, a5, v6, (v31 >> 2) & 1);
+          Rule = v33;
         }
 
         else
@@ -6025,7 +5736,7 @@ LABEL_14:
     while (Children != mosyntkbaccphr_Nil())
     {
       v22 = mosyntkbaccphr_GetNodeMatchOp(v11, Children);
-      Children = mosyntkbaccphr_GetNode(8, v11, Children);
+      LODWORD(Children) = mosyntkbaccphr_GetNode(8, v11, Children);
       if ((v22 & 2) == 0)
       {
         goto LABEL_50;
@@ -6119,12 +5830,12 @@ BOOL IsMatchingChildFuzzy(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v8 = *(a2 + 16);
   v9 = a4[4];
-  v12 = a3;
+  v14 = a3;
   if (v9)
   {
     do
     {
-      v10 = IsMatchingNode(a1, a2, &v12, v9);
+      v10 = IsMatchingNode(a1, a2, &v14, v9);
       if (v10)
       {
         break;
@@ -6140,21 +5851,25 @@ BOOL IsMatchingChildFuzzy(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
     }
   }
 
-  if ((mosyntkbaccphr_GetNodeMatchOp(v8, a3) & 4) != 0 && a4[9] && IsMatchingChildFuzzy(a1, a2, a3))
+  if ((mosyntkbaccphr_GetNodeMatchOp(v8, a3) & 4) != 0)
   {
-    return 1;
+    v11 = a4[9];
+    if (v11)
+    {
+      if (IsMatchingChildFuzzy(a1, a2, a3, v11))
+      {
+        return 1;
+      }
+    }
   }
 
-  if (a4[7])
-  {
-    return IsMatchingChildFuzzy(a1, a2, a3) != 0;
-  }
-
-  return 0;
+  v13 = a4[7];
+  return v13 && IsMatchingChildFuzzy(a1, a2, a3, v13);
 }
 
 uint64_t IsMatchingChildren(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned __int8 a7)
 {
+  v10 = a3;
   while (2)
   {
     if (*(a6 + 16) == a4)
@@ -6184,10 +5899,10 @@ uint64_t IsMatchingChildren(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
       while (1)
       {
         v16 = v13[4];
-        v28 = a3;
+        v28 = v10;
         if (!v16)
         {
-          goto LABEL_22;
+          goto LABEL_23;
         }
 
         do
@@ -6204,48 +5919,48 @@ uint64_t IsMatchingChildren(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
         while (v16);
         if (!v17)
         {
-          goto LABEL_20;
+          goto LABEL_21;
         }
 
-        Node = mosyntkbaccphr_GetNode(8, v15, a3);
+        Node = mosyntkbaccphr_GetNode(8, v15, v10);
         if (Node != mosyntkbaccphr_Nil())
         {
-          if ((mosyntkbaccphr_GetNodeMatchOp(v15, a3) & 4) != 0 && *v13[3] < **(a6 + 24))
+          if ((mosyntkbaccphr_GetNodeMatchOp(v15, v10) & 4) != 0 && *v13[3] < **(a6 + 24))
           {
-            v19 = mosyntkbaccphr_GetNode(8, v15, a3);
+            v19 = mosyntkbaccphr_GetNode(8, v15, v10);
             v20 = v13[3];
             v21 = a7;
             v22 = a1;
             v23 = a2;
             v24 = a5;
             v25 = a6;
-LABEL_19:
+LABEL_20:
             v16 = IsMatchingChildren(v22, v23, v19, v20, v24, v25, v21);
-            goto LABEL_22;
+            goto LABEL_23;
           }
 
           if (*(a6 + 56))
           {
-            v19 = mosyntkbaccphr_GetNode(8, v15, a3);
+            v19 = mosyntkbaccphr_GetNode(8, v15, v10);
             v25 = *(a6 + 56);
             v20 = *(v25 + 16);
             v21 = a7;
             v22 = a1;
             v23 = a2;
             v24 = a5;
-            goto LABEL_19;
+            goto LABEL_20;
           }
 
-LABEL_20:
+LABEL_21:
           v16 = 0;
-          goto LABEL_22;
+          goto LABEL_23;
         }
 
         v16 = !a7 || (v13[3] == *(a5 + 24));
-LABEL_22:
-        if ((mosyntkbaccphr_GetNodeMatchOp(v15, a3) & 4) == 0)
+LABEL_23:
+        if ((mosyntkbaccphr_GetNodeMatchOp(v15, v10) & 4) == 0)
         {
-          goto LABEL_28;
+          goto LABEL_29;
         }
 
         v13 = *v13;
@@ -6256,7 +5971,7 @@ LABEL_22:
 
         if (v16)
         {
-          goto LABEL_28;
+          goto LABEL_29;
         }
       }
 
@@ -6270,10 +5985,10 @@ LABEL_22:
     }
 
     while (!v16);
-LABEL_28:
+LABEL_29:
     if (!(v16 | a7))
     {
-      if ((mosyntkbaccphr_GetNodeMatchOp(v15, a3) & 4) != 0 && *a4 + 1 < **(a6 + 24))
+      if ((mosyntkbaccphr_GetNodeMatchOp(v15, v10) & 4) != 0 && *a4 + 1 < **(a6 + 24))
       {
         a7 = 0;
         a4 = *(a4 + 16);
@@ -6763,7 +6478,7 @@ uint64_t IsMatchingNode(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4)
       return result;
     }
 
-    mosyntbase_WriteDevelMessage(a1, "IsMatchingNode -- Property, not handeled here\\n", 0, "", 0, "", 0, "", 0, 0, 0, 0);
+    mosyntbase_WriteDevelMessage(a1, "IsMatchingNode -- Property, not handeled here\\n", 0, "", 0, "", 0, "", 0, 0);
     return 0;
   }
 
@@ -6773,7 +6488,7 @@ uint64_t IsMatchingNode(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4)
   return v17;
 }
 
-uint64_t InsertScenario(uint64_t a1, uint64_t a2, int a3, uint64_t *a4, _DWORD *a5)
+uint64_t InsertScenario(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, _DWORD *a5)
 {
   v6 = 0;
   *a5 = 1;
@@ -7015,7 +6730,7 @@ LABEL_21:
       return result;
     }
 
-    result = GetBestScenarioPathSuffix(a1, a2, v38, v19[2], a5, &v40 + 4, &v40, &v39 + 4, &v37);
+    result = GetBestScenarioPathSuffix(a1, a2, v38, v19[2], a5, &v40 + 1, &v40, &v39 + 1, &v37);
     if ((result & 0x80000000) != 0)
     {
       return result;
@@ -7205,7 +6920,7 @@ uint64_t IsRightMatchingTarget(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, 
         do
         {
           v14 = v13;
-          v13 = *(v13 + 56);
+          v13 = v13[7];
         }
 
         while (v13);
@@ -7266,7 +6981,7 @@ BOOL IsLeftMatchingTarget(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void 
   }
 
   v15 = a4[7];
-  return v15 && IsLeftMatchingTarget(a1, a2, a3, v15, a5) != 0;
+  return v15 && IsLeftMatchingTarget(a1, a2, a3, v15, a5);
 }
 
 uint64_t mosyntsentpho_TreatSentPho(uint64_t a1, int a2, uint64_t a3, int *a4, int *a5, int *a6, uint64_t *a7, uint64_t **a8)
@@ -7361,7 +7076,7 @@ uint64_t ApplyFSTSeq(uint64_t a1, uint64_t a2, int a3, int *a4, uint64_t *a5, ui
   return result;
 }
 
-uint64_t mosyntkbwgram_GetFirstEpsTrans(uint64_t a1, int a2, _DWORD *a3, _DWORD *a4, _BYTE *a5, int *a6)
+uint64_t mosyntkbwgram_GetFirstEpsTrans(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4, _BYTE *a5, int *a6)
 {
   v8 = 0;
   result = wgram_GetFirstEpsTrans(a1, a2, a3, a4, &v8, a6);
@@ -7369,7 +7084,7 @@ uint64_t mosyntkbwgram_GetFirstEpsTrans(uint64_t a1, int a2, _DWORD *a3, _DWORD 
   return result;
 }
 
-uint64_t mosyntkbwgram_GetNextEpsTrans(uint64_t a1, int a2, unsigned int *a3, _DWORD *a4, _BYTE *a5, int *a6)
+uint64_t mosyntkbwgram_GetNextEpsTrans(uint64_t a1, uint64_t a2, unsigned int *a3, _DWORD *a4, _BYTE *a5, int *a6)
 {
   v8 = 0;
   result = wgram_GetNextEpsTrans(a1, a2, a3, a4, &v8, a6);
@@ -7377,78 +7092,80 @@ uint64_t mosyntkbwgram_GetNextEpsTrans(uint64_t a1, int a2, unsigned int *a3, _D
   return result;
 }
 
-uint64_t kbsymtab_LoadData(_WORD *a1, int a2, _WORD *a3, int a4, uint64_t *a5, int a6)
+uint64_t kbsymtab_LoadData(_WORD *a1, uint64_t a2, _WORD *a3, uint64_t a4, uint64_t *a5, int a6)
 {
-  v65 = *MEMORY[0x1E69E9840];
-  v60 = 0;
-  inited = InitRsrcFunction(a1, a2, &v60);
+  v8 = a4;
+  v10 = a2;
+  v64 = *MEMORY[0x1E69E9840];
+  v59 = 0;
+  inited = InitRsrcFunction(a1, a2, &v59);
   v13 = inited;
   if (!a5)
   {
-    goto LABEL_33;
+    return v13;
   }
 
   if ((inited & 0x80000000) != 0)
   {
-    goto LABEL_33;
+    return v13;
   }
 
   v13 = 2371887114;
-  v14 = heap_Calloc(*(v60 + 8), 1, 16624);
+  v14 = heap_Calloc(*(v59 + 8), 1, 16624);
   *a5 = v14;
   if (!v14)
   {
-    goto LABEL_33;
+    return v13;
   }
 
-  Lex = kblex_loadLex(a1, a2, a3, a4, 3, (v14 + 8584));
+  Lex = kblex_loadLex(a1, v10, a3, v8, 3, (v14 + 8584));
   if ((Lex & 0x80000000) != 0)
   {
     goto LABEL_31;
   }
 
-  Lex = kblex_loadLex(a1, a2, a3, a4, 4, (*a5 + 8592));
+  Lex = kblex_loadLex(a1, v10, a3, v8, 4, (*a5 + 8592));
   if ((Lex & 0x80000000) != 0)
   {
     goto LABEL_31;
   }
 
-  Lex = kblex_loadLex(a1, a2, a3, a4, 5, (*a5 + 8600));
+  Lex = kblex_loadLex(a1, v10, a3, v8, 5, (*a5 + 8600));
   if ((Lex & 0x80000000) != 0)
   {
     goto LABEL_31;
   }
 
-  Lex = kblex_loadLex(a1, a2, a3, a4, 6, (*a5 + 8608));
+  Lex = kblex_loadLex(a1, v10, a3, v8, 6, (*a5 + 8608));
   if ((Lex & 0x80000000) != 0)
   {
     goto LABEL_31;
   }
 
-  v13 = kblex_loadLex(a1, a2, a3, a4, 7, (*a5 + 8616));
+  v13 = kblex_loadLex(a1, v10, a3, v8, 7, (*a5 + 8616));
   if ((v13 & 0x80000000) != 0)
   {
 LABEL_32:
-    freeTabsAsLex(*a5, a1, a2, a3, a4);
-    heap_Free(*(v60 + 8), *a5);
+    freeTabsAsLex(*a5, a1, v10, a3, v8);
+    heap_Free(*(v59 + 8), *a5);
     *a5 = 0;
-    goto LABEL_33;
+    return v13;
   }
 
   if (!*a5)
   {
-    goto LABEL_33;
+    return v13;
   }
 
-  *(*a5 + 120) = heap_Calloc(*(v60 + 8), 1, 1000);
-  *(*a5 + 128) = LhpuCreate(*(v60 + 8));
+  *(*a5 + 120) = heap_Calloc(*(v59 + 8), 1, 1000);
+  *(*a5 + 128) = LhpuCreate(*(v59 + 8));
   v16 = *a5;
   if (!*(*a5 + 120) || !v16[16])
   {
     v13 = 2371887114;
   }
 
-  *v16 = v60;
+  *v16 = v59;
   *(*a5 + 8) = 1;
   for (i = 1078; i != 2078; ++i)
   {
@@ -7547,82 +7264,41 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  v48 = *(v60 + 8);
+  v48 = *(v59 + 8);
   v49 = *a5;
   *&__s = ssftmap_ElemCopyString;
   *(&__s + 1) = ssftmap_ElemFreeString;
-  v62 = ssftmap_ElemCompareKeysString;
-  v63 = ssftmap_ElemCopyString;
-  v64 = ssftmap_ElemFreeString;
+  v61 = ssftmap_ElemCompareKeysString;
+  v62 = ssftmap_ElemCopyString;
+  v63 = ssftmap_ElemFreeString;
   Lex = ssftmap_ObjOpen(v48, 0, &__s, (v49 + 8544));
-  if ((Lex & 0x80000000) != 0)
-  {
-    goto LABEL_31;
-  }
-
-  v50 = *(v60 + 8);
-  v51 = *a5;
-  *&__s = ssftmap_ElemCopyString;
-  *(&__s + 1) = ssftmap_ElemFreeString;
-  v62 = ssftmap_ElemCompareKeysString;
-  v63 = ssftmap_ElemCopyString;
-  v64 = ssftmap_ElemFreeString;
-  Lex = ssftmap_ObjOpen(v50, 0, &__s, (v51 + 8552));
-  if ((Lex & 0x80000000) != 0)
-  {
-    goto LABEL_31;
-  }
-
-  v52 = *(v60 + 8);
-  v53 = *a5;
-  *&__s = ssftmap_ElemCopyString;
-  *(&__s + 1) = ssftmap_ElemFreeString;
-  v62 = ssftmap_ElemCompareKeysString;
-  v63 = ssftmap_ElemCopyString;
-  v64 = ssftmap_ElemFreeString;
-  Lex = ssftmap_ObjOpen(v52, 0, &__s, (v53 + 8560));
-  if ((Lex & 0x80000000) != 0)
-  {
-    goto LABEL_31;
-  }
-
-  v54 = *(v60 + 8);
-  v55 = *a5;
-  *&__s = ssftmap_ElemCopyString;
-  *(&__s + 1) = ssftmap_ElemFreeString;
-  v62 = ssftmap_ElemCompareKeysString;
-  v63 = ssftmap_ElemCopyString;
-  v64 = ssftmap_ElemFreeString;
-  Lex = ssftmap_ObjOpen(v54, 0, &__s, (v55 + 8568));
-  if ((Lex & 0x80000000) != 0)
+  if ((Lex & 0x80000000) != 0 || (v50 = *(v59 + 8), v51 = *a5, *&__s = ssftmap_ElemCopyString, *(&__s + 1) = ssftmap_ElemFreeString, v61 = ssftmap_ElemCompareKeysString, v62 = ssftmap_ElemCopyString, v63 = ssftmap_ElemFreeString, Lex = ssftmap_ObjOpen(v50, 0, &__s, (v51 + 8552)), (Lex & 0x80000000) != 0) || (v52 = *(v59 + 8), v53 = *a5, *&__s = ssftmap_ElemCopyString, *(&__s + 1) = ssftmap_ElemFreeString, v61 = ssftmap_ElemCompareKeysString, v62 = ssftmap_ElemCopyString, v63 = ssftmap_ElemFreeString, Lex = ssftmap_ObjOpen(v52, 0, &__s, (v53 + 8560)), (Lex & 0x80000000) != 0) || (v54 = *(v59 + 8), v55 = *a5, *&__s = ssftmap_ElemCopyString, *(&__s + 1) = ssftmap_ElemFreeString, v61 = ssftmap_ElemCompareKeysString, v62 = ssftmap_ElemCopyString, v63 = ssftmap_ElemFreeString, Lex = ssftmap_ObjOpen(v54, 0, &__s, (v55 + 8568)), (Lex & 0x80000000) != 0))
   {
 LABEL_31:
     v13 = Lex;
     goto LABEL_32;
   }
 
-  v56 = *(v60 + 8);
+  v56 = *(v59 + 8);
   v57 = *a5;
   *&__s = ssftmap_ElemCopyString;
   *(&__s + 1) = ssftmap_ElemFreeString;
-  v62 = ssftmap_ElemCompareKeysString;
-  v63 = ssftmap_ElemCopyString;
-  v64 = ssftmap_ElemFreeString;
+  v61 = ssftmap_ElemCompareKeysString;
+  v62 = ssftmap_ElemCopyString;
+  v63 = ssftmap_ElemFreeString;
   v13 = ssftmap_ObjOpen(v56, 0, &__s, (v57 + 8576));
   if ((v13 & 0x80000000) != 0)
   {
     goto LABEL_32;
   }
 
-LABEL_33:
-  v58 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
-uint64_t freeTabsAsLex(uint64_t result, _WORD *a2, int a3, _WORD *a4, int a5)
+void *freeTabsAsLex(void *result, _WORD *a2, int a3, _WORD *a4, int a5)
 {
   v9 = result;
-  v10 = *(result + 8584);
+  v10 = result[1073];
   if (v10)
   {
     result = kblex_FinishLex(a2, a3, a4, a5, v10);
@@ -7673,14 +7349,14 @@ uint64_t kbsymtab_UnloadData(_WORD *a1, int a2, _WORD *a3, int a4, uint64_t *a5)
         v13 = *a5;
       }
 
-      v14 = *(v13 + 120);
+      v14 = v13[15];
       if (v14)
       {
         heap_Free(v12, v14);
         v13 = *a5;
       }
 
-      ssftmap_ObjClose(*(v13 + 8544));
+      ssftmap_ObjClose(v13[1068]);
       ssftmap_ObjClose(*(*a5 + 8552));
       ssftmap_ObjClose(*(*a5 + 8560));
       ssftmap_ObjClose(*(*a5 + 8568));
@@ -7720,41 +7396,39 @@ uint64_t kbsymtab_KnownGraphId(uint64_t a1, unsigned __int8 *a2)
   return v3 & ~(v3 >> 31);
 }
 
-char *kbsymtab_GraphSymString(uint64_t a1, signed int a2, char *__dst, unint64_t a4)
+char *kbsymtab_GraphSymString(uint64_t a1, uint64_t a2, char *__dst, unint64_t a4)
 {
+  v6 = a2;
   *__dst = 0;
   if (!a1 || a4 < 8 || a2 > 999 || !*(a1 + 8536) || (result = strcpy(__dst, (a1 + 8 * a2 + 536)), !*__dst))
   {
 
-    return dictLookupSymStr(a1, 3, a2, __dst, a4);
+    return dictLookupSymStr(a1, 3, v6, __dst, a4);
   }
 
   return result;
 }
 
-uint64_t dictLookupSymStr(void *a1, int a2, unsigned int a3, char *a4, uint64_t a5)
+char *dictLookupSymStr(void *a1, uint64_t a2, unsigned int a3, char *a4, uint64_t a5)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v14 = 58;
-  result = LH_itoa(a3, v15, 0xAu);
-  if (a4)
+  v7 = a2;
+  v15 = *MEMORY[0x1E69E9840];
+  v13 = 58;
+  result = LH_itoa(a3, v14, 0xAu);
+  if (a4 && a5)
   {
-    if (a5)
+    v12 = 0;
+    *a4 = 0;
+    v11 = -1;
+    result = dictLookup(a1, v7, &v13, &v12, &v11);
+    if (v11)
     {
-      v13 = 0;
-      *a4 = 0;
-      v12 = -1;
-      result = dictLookup(a1, a2, &v14, &v13, &v12);
-      if (v12)
-      {
-        v10 = a5 - 1;
-        result = strncpy(a4, *v13, v10);
-        a4[v10] = 0;
-      }
+      v10 = a5 - 1;
+      result = strncpy(a4, *v12, v10);
+      a4[v10] = 0;
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7769,13 +7443,11 @@ uint64_t kbsymtab_AccId(uint64_t a1, int a2)
   return *(a1 + 4 * v2 + 28);
 }
 
-uint64_t kbsymtab_IntPropValue(void *a1, unsigned int a2, unsigned int a3)
+uint64_t kbsymtab_IntPropValue(void *a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  buildSymFeatPropKey(a1, a2, 0, a3, v6);
-  result = dictSingleLookupInt(a1, 4, v6);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v6 = *MEMORY[0x1E69E9840];
+  buildSymFeatPropKey(a1, a2, 0, a3, v5);
+  return dictSingleLookupInt(a1, 4, v5);
 }
 
 char *buildSymFeatPropKey(void *a1, unsigned int a2, __int16 *a3, unsigned int a4, _BYTE *a5)
@@ -7837,7 +7509,7 @@ char *buildSymFeatPropKey(void *a1, unsigned int a2, __int16 *a3, unsigned int a
   return strncpy(v10 + 1, v18, v11 - 1);
 }
 
-uint64_t dictSingleLookupInt(void *a1, int a2, uint64_t a3)
+uint64_t dictSingleLookupInt(void *a1, uint64_t a2, uint64_t a3)
 {
   v6 = 0;
   v5 = -1;
@@ -7854,36 +7526,30 @@ uint64_t dictSingleLookupInt(void *a1, int a2, uint64_t a3)
 
 BOOL kbsymtab_HasIntPropValue(void *a1, unsigned int a2, unsigned int a3, int a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  buildSymFeatPropKey(a1, a2, 0, a3, v16);
-  v15 = 0;
+  v16 = *MEMORY[0x1E69E9840];
+  buildSymFeatPropKey(a1, a2, 0, a3, v15);
   v14 = 0;
-  dictLookup(a1, 4, v16, &v15, &v14);
-  v6 = v14;
-  if (v14)
+  v13 = 0;
+  dictLookup(a1, 4, v15, &v14, &v13);
+  v6 = v13;
+  if (!v13)
   {
-    v7 = v15;
-    v8 = 1;
-    do
-    {
-      v9 = *v7++;
-      v10 = atoi(v9);
-    }
-
-    while (v10 != a4 && v8++ < v6);
-    result = v10 == a4;
+    return 0;
   }
 
-  else
+  v7 = v14;
+  v8 = 1;
+  do
   {
-    result = 0;
+    v9 = *v7++;
+    v10 = atoi(v9);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  while (v10 != a4 && v8++ < v6);
+  return v10 == a4;
 }
 
-void **kbsymtab_GetFirstAccPatVal(void **result, int a2, int a3, uint64_t a4, void *a5)
+uint64_t *kbsymtab_GetFirstAccPatVal(uint64_t *result, int a2, int a3, uint64_t a4, void *a5)
 {
   if (result)
   {
@@ -7900,44 +7566,40 @@ void **kbsymtab_GetFirstAccPatVal(void **result, int a2, int a3, uint64_t a4, vo
   return result;
 }
 
-void **kbsymtab_GetNextAccPatVal(void **result, void *a2)
+uint64_t *kbsymtab_GetNextAccPatVal(uint64_t *result, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (result)
+  v11 = *MEMORY[0x1E69E9840];
+  if (result && a2)
   {
-    if (a2)
+    v3 = result;
+    v9 = 0;
+    *a2 = 0;
+    buildSymFeatPropKey(*result, *(v3 + 2), 0, *(v3 + 6), v10);
+    v4 = *v3;
+    v7 = 0;
+    result = dictLookup(v4, 4, v10, &v9, &v7);
+    v5 = *(v3 + 7) + 1;
+    if (v5 < v7)
     {
-      v3 = result;
-      v10 = 0;
-      *a2 = 0;
-      buildSymFeatPropKey(*result, *(v3 + 2), 0, *(v3 + 6), v11);
-      v4 = *v3;
-      v8 = 0;
-      result = dictLookup(v4, 4, v11, &v10, &v8);
-      v5 = *(v3 + 7) + 1;
-      if (v5 < v8)
-      {
-        v9 = (*v3)[15];
-        v6 = v9;
-        *(v3 + 7) = v5;
-        strncpy(v6, *(v10 + 8 * v5), 0x3E8uLL);
-        result = stringToPatternTree(*v3, &v9, a2);
-      }
+      v8 = *(*v3 + 120);
+      v6 = v8;
+      *(v3 + 7) = v5;
+      strncpy(v6, *(v9 + 8 * v5), 0x3E8uLL);
+      return stringToPatternTree(*v3, &v8, a2);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t stringToPatternTree(void *a1, char **a2, uint64_t a3)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   result = heap_Calloc(*(*a1 + 8), 1, 24);
   *a3 = result;
   if (!result)
   {
-    goto LABEL_39;
+    return result;
   }
 
   *result = 0;
@@ -7947,32 +7609,32 @@ uint64_t stringToPatternTree(void *a1, char **a2, uint64_t a3)
   v8 = **a2;
   if (v8 == 37)
   {
-    *a2 = v7 + 1;
+    *a2 = (v7 + 1);
     if (v7[1] == 37)
     {
-      *a2 = v7 + 2;
+      *a2 = (v7 + 2);
       v9 = 9509;
       goto LABEL_8;
     }
 
     v15 = 37;
 LABEL_15:
-    v31 = v15;
+    v30 = v15;
     goto LABEL_32;
   }
 
   if (v8 == 42)
   {
-    *a2 = v7 + 1;
+    *a2 = (v7 + 1);
     if (v7[1] == 42)
     {
-      *a2 = v7 + 2;
+      *a2 = (v7 + 2);
       v9 = 10794;
 LABEL_8:
-      v31 = v9;
-      v32 = 0;
+      v30 = v9;
+      v31 = 0;
 LABEL_32:
-      result = dictSingleLookupInt(a1, 1, &v31);
+      result = dictSingleLookupInt(a1, 1, &v30);
       *(*a3 + 16) = result & ~(result >> 31);
       goto LABEL_33;
     }
@@ -7996,13 +7658,13 @@ LABEL_32:
       v17 = *(MEMORY[0x1E69E9830] + 4 * v8 + 60) & 0x100;
     }
 
-    v18 = &v31;
+    v18 = &v30;
     if (v17)
     {
       v19 = *a2 + 1;
-      LOBYTE(v31) = v10;
+      LOBYTE(v30) = v10;
       *a2 = v19;
-      v18 = (&v31 + 1);
+      v18 = (&v30 + 1);
       for (i = 1; ; ++i)
       {
         v21 = *v19;
@@ -8025,7 +7687,7 @@ LABEL_32:
   }
 
   v12 = 0;
-  v13 = v7 + 1;
+  v13 = (v7 + 1);
   do
   {
     v12 = v11 + 10 * v12;
@@ -8040,11 +7702,11 @@ LABEL_33:
   v24 = *a2;
   if (**a2 == 40)
   {
-    v30 = 0;
-    *a2 = v24 + 1;
-    result = stringToPatternTree(a1, a2, &v30);
-    v25 = v30;
-    *(*a3 + 8) = v30;
+    v29 = 0;
+    *a2 = (v24 + 1);
+    result = stringToPatternTree(a1, a2, &v29);
+    v25 = v29;
+    *(*a3 + 8) = v29;
     while (1)
     {
       v26 = *a2;
@@ -8055,9 +7717,9 @@ LABEL_33:
       }
 
       *a2 = v26 + 1;
-      result = stringToPatternTree(a1, a2, &v30);
-      v28 = v30;
-      *v25 = v30;
+      result = stringToPatternTree(a1, a2, &v29);
+      v28 = v29;
+      *v25 = v29;
       v25 = v28;
     }
 
@@ -8067,12 +7729,10 @@ LABEL_33:
     }
   }
 
-LABEL_39:
-  v29 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void *kbsymtab_DisposeAccPat(void *result, void **a2)
+void *kbsymtab_DisposeAccPat(void *result, uint64_t *a2)
 {
   if (result)
   {
@@ -8085,7 +7745,7 @@ void *kbsymtab_DisposeAccPat(void *result, void **a2)
         do
         {
           v5 = *v3;
-          kbsymtab_DisposeAccPat(v4, v3 + 1);
+          kbsymtab_DisposeAccPat(v4, (v3 + 8));
           result = heap_Free(*(*v4 + 8), v3);
           v3 = v5;
         }
@@ -8099,7 +7759,7 @@ void *kbsymtab_DisposeAccPat(void *result, void **a2)
   return result;
 }
 
-void kbsymtab_GetFeatMatchedFirstIntPropVal(uint64_t a1, int a2, uint64_t a3, int a4, uint64_t a5, int *a6)
+void kbsymtab_GetFeatMatchedFirstIntPropVal(uint64_t result, int a2, uint64_t a3, int a4, uint64_t a5, int *a6)
 {
   if (a6)
   {
@@ -8108,18 +7768,18 @@ void kbsymtab_GetFeatMatchedFirstIntPropVal(uint64_t a1, int a2, uint64_t a3, in
 
   if (a5)
   {
-    *a5 = a1;
+    *a5 = result;
     *(a5 + 8) = a2;
     *(a5 + 16) = a3;
     *(a5 + 24) = a4;
     *(a5 + 28) = -1;
-    kbsymtab_GetFeatMatchedNextIntPropVal(a1, a5, a6);
+    kbsymtab_GetFeatMatchedNextIntPropVal(result, a5, a6);
   }
 }
 
 void kbsymtab_GetFeatMatchedNextIntPropVal(uint64_t a1, uint64_t a2, int *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     *a3 = -1;
@@ -8127,13 +7787,13 @@ void kbsymtab_GetFeatMatchedNextIntPropVal(uint64_t a1, uint64_t a2, int *a3)
 
   if (a2)
   {
-    v12 = 0;
-    buildSymFeatPropKey(*a2, *(a2 + 8), *(a2 + 16), *(a2 + 24), v13);
-    v5 = *a2;
     v11 = 0;
-    v6 = dictLookup(v5, 4, v13, &v12, &v11);
+    buildSymFeatPropKey(*a2, *(a2 + 8), *(a2 + 16), *(a2 + 24), v12);
+    v5 = *a2;
+    v10 = 0;
+    v6 = dictLookup(v5, 4, v12, &v11, &v10);
     v7 = *(a2 + 28) + 1;
-    if (v7 >= v11)
+    if (v7 >= v10)
     {
       if (*(a2 + 16))
       {
@@ -8157,15 +7817,13 @@ void kbsymtab_GetFeatMatchedNextIntPropVal(uint64_t a1, uint64_t a2, int *a3)
       *(a2 + 28) = v7;
       if (a3)
       {
-        *a3 = atoi(*(v12 + 8 * v7));
+        *a3 = atoi(*(v11 + 8 * v7));
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
-void *kbsymtab_GetLhPlusPhone(void *result, uint64_t a2, int a3, int *a4, char *a5, int a6, _BYTE *a7)
+char *kbsymtab_GetLhPlusPhone(char *result, uint64_t a2, int a3, int *a4, char *a5, int a6, _BYTE *a7)
 {
   if (a7)
   {
@@ -8200,7 +7858,7 @@ void *kbsymtab_GetLhPlusPhone(void *result, uint64_t a2, int a3, int *a4, char *
       v14 = result;
       if (!result)
       {
-        result = LhplGetSymbol(v13, v9[16], &v17 + 1, &v17);
+        result = LhplGetSymbol(v13, *(v9 + 16), &v17 + 1, &v17);
         if (result)
         {
           v14 = a6;
@@ -8257,13 +7915,13 @@ LABEL_20:
 
 uint64_t getComplexPhoneLen(void *a1, _BYTE *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (*a2 != 123)
   {
-    goto LABEL_11;
+    return 0;
   }
 
-  v8[0] = 123;
+  v7[0] = 123;
   for (i = 1; i != 13; ++i)
   {
     v3 = a2[i];
@@ -8282,41 +7940,37 @@ uint64_t getComplexPhoneLen(void *a1, _BYTE *a2)
       break;
     }
 
-    v8[i] = v3;
+    v7[i] = v3;
   }
 
   v4 = i;
   if (a2[i] == 125)
   {
-    *&v8[i] = 125;
-    if (dictSingleLookupInt(a1, 0, v8) >= 1)
+    *&v7[i] = 125;
+    if (dictSingleLookupInt(a1, 0, v7) >= 1)
     {
-      v5 = v4 + 1;
+      return (v4 + 1);
     }
 
     else
     {
-      v5 = 0;
+      return 0;
     }
   }
 
   else
   {
-LABEL_11:
-    v5 = 0;
+    return 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
 }
 
-uint64_t dictLookup(void *a1, int a2, uint64_t a3, void *a4, __int16 *a5)
+uint64_t dictLookup(void *a1, int a2, uint64_t a3, void *a4, unsigned __int16 *a5)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v9 = &a1[a2];
-  memset(v30, 0, sizeof(v30));
   memset(v29, 0, sizeof(v29));
-  v27 = 0;
+  memset(v28, 0, sizeof(v28));
+  v26 = 0;
   v10 = v9[1068];
   v11 = v9[1073];
   *__src = 0;
@@ -8344,7 +7998,7 @@ LABEL_31:
       *a4 = a1 + 1078;
 LABEL_32:
       *a5 = v24;
-      goto LABEL_35;
+      return result;
     }
 
     v25 = heap_Alloc(*(*a1 + 8), 101);
@@ -8357,20 +8011,20 @@ LABEL_32:
 
   v14 = *a5;
   *a5 = 0;
-  kblexXX_StartLookup(v11, v30);
+  kblexXX_StartLookup(v11, v29);
   v15 = 0;
-  v28 = 1;
+  v27 = 1;
   while (*(a3 + v15))
   {
-    result = kblexXX_LookupChar(*(a3 + v15++), v30, &v28);
-    if (!v28)
+    result = kblexXX_LookupChar(*(a3 + v15++), v29, &v27);
+    if (!v27)
     {
       goto LABEL_23;
     }
   }
 
-  kblexXX_GetFirstEntry(v30, &v27, v29);
-  if (v27)
+  kblexXX_GetFirstEntry(v29, &v26, v28);
+  if (v26)
   {
     v16 = a1 + 1078;
     do
@@ -8390,7 +8044,7 @@ LABEL_32:
         break;
       }
 
-      kblexXX_GetEntryPhon(0, v29, __src, 100);
+      kblexXX_GetEntryPhon(0, v28, __src, 0x64u);
       v18 = *a5;
       if (v18 <= 0x3E7)
       {
@@ -8405,31 +8059,31 @@ LABEL_32:
         }
       }
 
-      kblexXX_GetNextEntry(&v27, v29);
+      kblexXX_GetNextEntry(&v26, v28);
     }
 
-    while (v27);
+    while (v26);
   }
 
-  result = kaldi::nnet1::Component::IsUpdatable(v29);
+  result = kaldi::nnet1::Component::IsUpdatable(v28);
 LABEL_23:
   *a4 = a1 + 1078;
-  if (!*a5)
+  if (*a5)
+  {
+    if (*a5 != 1)
+    {
+      return result;
+    }
+
+    v22 = a1[1078];
+  }
+
+  else
   {
     v22 = "~";
-    goto LABEL_34;
   }
 
-  if (*a5 == 1)
-  {
-    v22 = a1[1078];
-LABEL_34:
-    result = ssftmap_Insert(v10, a3, v22);
-  }
-
-LABEL_35:
-  v26 = *MEMORY[0x1E69E9840];
-  return result;
+  return ssftmap_Insert(v10, a3, v22);
 }
 
 uint64_t mosynt_PadWithChar(uint64_t a1, int a2, int __c, unsigned int a4)
@@ -8704,8 +8358,9 @@ LABEL_7:
   return 0;
 }
 
-uint64_t mosynt_NormalizeSpaceFields(_BYTE *a1, uint64_t a2, unsigned int a3)
+uint64_t mosynt_NormalizeSpaceFields(_BYTE *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v14 = 0;
   v5 = *a1;
   if (*a1)
@@ -8749,7 +8404,7 @@ uint64_t mosynt_NormalizeSpaceFields(_BYTE *a1, uint64_t a2, unsigned int a3)
         break;
       }
 
-      result = mosynt_TransferStretchedStringSection(a1, &v12, v13, a2, a3, &v14, v13, 32);
+      result = mosynt_TransferStretchedStringSection(a1, &v12, v13, a2, v3, &v14, v13, 32);
       if ((result & 0x80000000) != 0)
       {
         break;
@@ -8767,9 +8422,9 @@ uint64_t mosynt_NormalizeSpaceFields(_BYTE *a1, uint64_t a2, unsigned int a3)
   {
     result = 0;
 LABEL_13:
-    if (v5 >= a3)
+    if (v5 >= v3)
     {
-      v5 = a3 - 1;
+      v5 = v3 - 1;
     }
 
     *(a2 + v5) = 0;
@@ -9198,7 +8853,7 @@ uint64_t mosynt_TraceString(uint64_t a1, char *__s, unsigned int a3)
   return mosyntbase_WString(a1, __s, v7);
 }
 
-uint64_t mosynt_TraceInt(uint64_t a1, unsigned int a2, unsigned int a3)
+uint64_t mosynt_TraceInt(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   if (a1)
   {
@@ -9232,7 +8887,7 @@ uint64_t mosynt_TraceInt(uint64_t a1, unsigned int a2, unsigned int a3)
   }
 }
 
-uint64_t mosynt_NumPOSListToPOSList(uint64_t a1, void *a2, _BYTE *a3, uint64_t a4, int a5)
+uint64_t mosynt_NumPOSListToPOSList(uint64_t a1, void *a2, _BYTE *a3, uint64_t a4, uint64_t a5)
 {
   v17 = 0;
   if (*a3)
@@ -9249,7 +8904,7 @@ uint64_t mosynt_NumPOSListToPOSList(uint64_t a1, void *a2, _BYTE *a3, uint64_t a
           break;
         }
 
-        v11 = v12 + 10 * v11 - 48;
+        v11 = (v12 + 10 * v11 - 48);
         ++v10;
       }
 
@@ -9352,7 +9007,7 @@ uint64_t mosynt_WordAnalysis(uint64_t a1)
   v13 = v2;
   v15 = v14;
   v16 = v1;
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   if (!v1)
   {
     goto LABEL_7;
@@ -9381,45 +9036,45 @@ LABEL_8:
   result = mosyntbase_WriteMessage(v1, "\n\n[WANA] analyzing word '%s'\n", 0, v2, 0, "", 0, "", 0);
   if ((result & 0x80000000) != 0)
   {
-    goto LABEL_34;
+    return result;
   }
 
   v19 = 0;
 LABEL_9:
-  v50 = 0;
+  v49 = 0;
   result = utf8_getUTF8Char(v13, 0, __s);
   if ((result & 0x80000000) != 0)
   {
-    goto LABEL_34;
+    return result;
   }
 
   if (__s[0])
   {
-    v38 = v17;
-    v40 = v10;
-    v42 = v12;
+    v37 = v17;
+    v39 = v10;
+    v41 = v12;
     v20 = 0;
     v21 = 0;
     while (1)
     {
       v22 = strlen(__s);
-      result = utf8_ToLower(__s, 0, v44);
+      result = utf8_ToLower(__s, 0, v43);
       if ((result & 0x80000000) != 0)
       {
-        goto LABEL_34;
+        return result;
       }
 
-      v23 = strlen(v44);
+      v23 = strlen(v43);
       if (v23 && v20 + v23 + 1 <= 0x1388)
       {
         v24 = v23;
-        v25 = v44;
+        v25 = v43;
         v26 = v20;
         do
         {
           v27 = *v25++;
           v20 = v26 + 1;
-          v57[v26++] = v27;
+          v56[v26++] = v27;
           --v24;
         }
 
@@ -9430,10 +9085,10 @@ LABEL_9:
       utf8_getUTF8Char(v13, v21, __s);
       if (!__s[0])
       {
-        v57[v20] = 0;
-        v12 = v42;
-        v10 = v40;
-        v17 = v38;
+        v56[v20] = 0;
+        v12 = v41;
+        v10 = v39;
+        v17 = v37;
         if ((v19 & 1) == 0)
         {
           goto LABEL_21;
@@ -9444,43 +9099,43 @@ LABEL_9:
     }
   }
 
-  v57[0] = 0;
+  v56[0] = 0;
   if ((v19 & 1) == 0)
   {
 LABEL_21:
-    result = mosyntbase_WriteMessage(v16, "[WANA] after lowercase conversion '%s'\n", 0, v57, 0, "", 0, "", 0);
+    result = mosyntbase_WriteMessage(v16, "[WANA] after lowercase conversion '%s'\n", 0, v56, 0, "", 0, "", 0);
     if ((result & 0x80000000) != 0)
     {
-      goto LABEL_34;
+      return result;
     }
   }
 
 LABEL_22:
-  v56 = 0;
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
+  v55 = 0;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   *__s = 0u;
   result = hlp_CastFSTSeq(*(v15 + 200), *(v15 + 208), __s);
   if ((result & 0x80000000) == 0)
   {
-    v43 = *(v15 + 8);
+    v42 = *(v15 + 8);
     v28 = v17;
     v29 = *(v15 + 96);
     v30 = *(v15 + 192);
-    v39 = *v15;
-    v41 = *(v15 + 184);
-    v31 = strlen(v57);
+    v38 = *v15;
+    v40 = *(v15 + 184);
+    v31 = strlen(v56);
+    v45 = v52;
     v46 = v53;
     v47 = v54;
     v48 = v55;
-    v49 = v56;
-    *v44 = *__s;
-    v45 = v52;
-    result = mosyntwordana_ParseWord(v16, v28, v39, v43, (v15 + 16), v29, (v15 + 104), v41, v44, v30, 0, v57, v31, v12, v10, v8, &v50, (v15 + 232));
-    v32 = v50;
-    *v6 = v50;
+    *v43 = *__s;
+    v44 = v51;
+    result = mosyntwordana_ParseWord(v16, v28, v38, v42, (v15 + 16), v29, (v15 + 104), v40, v43, v30, 0, v56, v31, v12, v10, v8, &v49, (v15 + 232));
+    v32 = v49;
+    *v6 = v49;
     if ((result & 0x80000000) == 0)
     {
       *v5 = 0;
@@ -9491,9 +9146,7 @@ LABEL_22:
         v34 = *(v33 + 32);
         if (!v34)
         {
-LABEL_32:
-          *(v15 + 240) = *(v33 + 32);
-          goto LABEL_34;
+          goto LABEL_32;
         }
 
         v35 = -1;
@@ -9515,15 +9168,14 @@ LABEL_32:
       if (!v33)
       {
         *(v15 + 240) = 0;
-        goto LABEL_34;
+        return result;
       }
 
-      goto LABEL_32;
+LABEL_32:
+      *(v15 + 240) = *(v33 + 32);
     }
   }
 
-LABEL_34:
-  v37 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9559,11 +9211,11 @@ LABEL_7:
   return result;
 }
 
-uint64_t mosynt_GetReading(uint64_t a1, void **a2, int a3, _DWORD *a4, unsigned __int8 *a5, int a6, char *a7, int a8, _DWORD *a9)
+uint64_t mosynt_GetReading(uint64_t a1, void *a2, int a3, _DWORD *a4, unsigned __int8 *a5, int a6, char *a7, uint64_t a8, _DWORD *a9)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v35 = 0;
-  memset(v34, 0, sizeof(v34));
+  v37 = *MEMORY[0x1E69E9840];
+  v34 = 0;
+  memset(v33, 0, sizeof(v33));
   if (a1)
   {
     if (*(a1 + 1024))
@@ -9592,18 +9244,17 @@ uint64_t mosynt_GetReading(uint64_t a1, void **a2, int a3, _DWORD *a4, unsigned 
   v16 = a2[30];
   if (!v16)
   {
-    result = 0;
-    goto LABEL_14;
+    return 0;
   }
 
   *a4 = 1;
-  v36 = 0;
-  v17 = a6 - 1;
-  result = mosyntkbsymtab_AppDecomprConsToString(a1, *a2, *(v16 + 8), a5, a6 - 1, &v36);
+  v35 = 0;
+  v17 = (a6 - 1);
+  result = mosyntkbsymtab_AppDecomprConsToString(a1, *a2, *(v16 + 8), a5, v17, &v35);
   if ((result & 0x80000000) == 0)
   {
     a5[v17] = 0;
-    result = hlp_CastFSTSeq(a2[27], *(a2 + 56), v34);
+    result = hlp_CastFSTSeq(a2[27], *(a2 + 56), v33);
     if ((result & 0x80000000) == 0)
     {
       result = mosyntwordpho_ReadingToPhonString(a1, v15, *a2, v16, a7, a8);
@@ -9618,13 +9269,13 @@ uint64_t mosynt_GetReading(uint64_t a1, void **a2, int a3, _DWORD *a4, unsigned 
         else
         {
           __strcpy_chk();
-          result = mosyntwordpho_TreatSingleReadingString(a1, v15, *a2, v34, v16, a7, a8);
+          result = mosyntwordpho_TreatSingleReadingString(a1, v15, *a2, v33, v16, a7, a8);
           if ((result & 0x80000000) != 0)
           {
-            goto LABEL_14;
+            return result;
           }
 
-          a7[a8 - 1] = 0;
+          a7[(a8 - 1)] = 0;
           v19 = (a2 + 156);
           v20 = a7;
         }
@@ -9637,59 +9288,59 @@ uint64_t mosynt_GetReading(uint64_t a1, void **a2, int a3, _DWORD *a4, unsigned 
           if (a3)
           {
             *__s = 8689634;
-            v22 = strlen(__s);
-            v23 = strlen(a7);
-            v24 = v23 + 2 * v22;
-            LODWORD(v25) = ~(2 * v22) + a8;
-            if (v24 <= a8 - 1)
+            v21 = strlen(__s);
+            v22 = strlen(a7);
+            v23 = v22 + 2 * v21;
+            LODWORD(v24) = ~(2 * v21) + a8;
+            if (v23 <= a8 - 1)
             {
-              v25 = v23;
+              v24 = v22;
             }
 
             else
             {
-              v25 = v25;
+              v24 = v24;
             }
 
-            if (v25)
+            if (v24)
             {
-              v26 = v22 + v25 + 0xFFFFFFFF;
-              v27 = v25;
+              v25 = v21 + v24 + 0xFFFFFFFF;
+              v26 = v24;
               do
               {
-                a7[v26--] = a7[--v27];
+                a7[v25--] = a7[--v26];
+              }
+
+              while (v26);
+            }
+
+            if (v21)
+            {
+              v27 = v21;
+              if (v23 >= a8 - 1)
+              {
+                v23 = a8 - 1;
+              }
+
+              v28 = v23 - v21;
+              v29 = __s;
+              v30 = a7;
+              do
+              {
+                v31 = *v29++;
+                *v30++ = v31;
+                a7[v28++] = v31;
+                --v27;
               }
 
               while (v27);
             }
 
-            if (v22)
-            {
-              v28 = v22;
-              if (v24 >= a8 - 1)
-              {
-                v24 = a8 - 1;
-              }
-
-              v29 = v24 - v22;
-              v30 = __s;
-              v31 = a7;
-              do
-              {
-                v32 = *v30++;
-                *v31++ = v32;
-                a7[v29++] = v32;
-                --v28;
-              }
-
-              while (v28);
-            }
-
             result = 0;
-            a7[(v25 + 2 * v22)] = 0;
+            a7[(v24 + 2 * v21)] = 0;
           }
 
-          if (!v15 || (HIDWORD(v33) = 0, LODWORD(v33) = 0, *(&v33 + 4) = *(v16 + 12), result = mosyntbase_WriteMessage(a1, "\n[WANA] reading: %s cost %d  %s\n\n", 0, a5, 0, a7, 0, "", v33), (result & 0x80000000) == 0) && (result = mosyntdata_WriteReadingStruct(a1, *a2, 1, v16, 4), (result & 0x80000000) == 0))
+          if (!v15 || (HIDWORD(v32) = 0, LODWORD(v32) = 0, *(&v32 + 4) = *(v16 + 12), result = mosyntbase_WriteMessage(a1, "\n[WANA] reading: %s cost %d  %s\n\n", 0, a5, 0, a7, 0, "", v32), (result & 0x80000000) == 0) && (result = mosyntdata_WriteReadingStruct(a1, *a2, 1, v16, 4), (result & 0x80000000) == 0))
           {
             a2[30] = *a2[30];
           }
@@ -9698,7 +9349,380 @@ uint64_t mosynt_GetReading(uint64_t a1, void **a2, int a3, _DWORD *a4, unsigned 
     }
   }
 
-LABEL_14:
-  v21 = *MEMORY[0x1E69E9840];
   return result;
+}
+
+uint64_t mosynt_SkipToFirstOptimalReading(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 240);
+  if (v2)
+  {
+    v3 = *(v2 + 3);
+    v4 = *(a2 + 240);
+    do
+    {
+      if (*(v4 + 3) < v3)
+      {
+        v2 = v4;
+        v3 = *(v4 + 3);
+      }
+
+      v4 = *v4;
+    }
+
+    while (v4);
+    *(a2 + 240) = v2;
+  }
+
+  return 0;
+}
+
+uint64_t mosynt_FinishWordAnalysis(uint64_t a1, uint64_t a2)
+{
+  if (a1)
+  {
+    if (*(a1 + 1024))
+    {
+      if (*(a1 + 1028))
+      {
+        result = mosyntbase_WriteMessage(a1, "\n\n", 0, "", 0, "", 0, "", 0);
+        if (!a2 || (result & 0x80000000) != 0)
+        {
+          return result;
+        }
+
+        goto LABEL_9;
+      }
+    }
+
+    else
+    {
+      *(a1 + 1028) = 0;
+      *(a1 + 1024) = 1;
+      *(a1 + 1032) = 20;
+    }
+  }
+
+  result = 0;
+  if (!a2)
+  {
+    return result;
+  }
+
+LABEL_9:
+  v5 = *(a2 + 232);
+  if (v5)
+  {
+    while (1)
+    {
+      v6 = v5;
+      v5 = *v5;
+      result = mosyntdata_DisposeItem(a1, &v6);
+      if ((result & 0x80000000) != 0)
+      {
+        break;
+      }
+
+      if (!v5)
+      {
+        goto LABEL_12;
+      }
+    }
+  }
+
+  else
+  {
+LABEL_12:
+    *(a2 + 1248) = 0;
+    *(a2 + 232) = 0;
+    *(a2 + 240) = 0;
+    *(a2 + 248) = 0;
+  }
+
+  return result;
+}
+
+uint64_t mosynt_LHPlusMapping(uint64_t a1, char *a2, uint64_t a3, char *__s1, char *a5, uint64_t a6)
+{
+  if (a1)
+  {
+    if (*(a1 + 1024))
+    {
+      v12 = *(a1 + 1028);
+    }
+
+    else
+    {
+      v12 = 0;
+      *(a1 + 1028) = 0;
+      *(a1 + 1024) = 1;
+      *(a1 + 1032) = 20;
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  v19 = 0;
+  v18 = 0;
+  memset(v16, 0, sizeof(v16));
+  v17 = 0;
+  *a5 = 0;
+  if (!strncmp(__s1, "[SVOX]", 6uLL))
+  {
+    v15 = strncpy(a5, __s1, (a6 - 1));
+    v14 = "[SVOX]";
+LABEL_14:
+    mosynt_RemoveInitSubstr(v15, v14);
+    if (!v12)
+    {
+      return 0;
+    }
+
+    result = mosyntbase_WriteMessage(a1, "[WANA] before LHPlus mapping: %s\n", 0, __s1, 0, "", 0, "", 0);
+    if ((result & 0x80000000) == 0)
+    {
+      return mosyntbase_WriteMessage(a1, "[WANA] after LHPlus mapping: %s\n\n", 0, a5, 0, "", 0, "", 0);
+    }
+
+    return result;
+  }
+
+  if (a6 >= 6)
+  {
+    strcpy(a5, "{VOC}");
+    strncat(a5, __s1, (a6 - 6));
+  }
+
+  result = fst_getFSTSeq(a3, 1, &v19, &v18);
+  if ((result & 0x80000000) == 0)
+  {
+    result = hlp_CastFSTSeq(v19, v18, v16);
+    if ((result & 0x80000000) == 0)
+    {
+      result = mosyntwordpho_LHPlusMapping(a1, v12, a2, v16, a5, a6);
+      if ((result & 0x80000000) == 0)
+      {
+        a5[(a6 - 1)] = 0;
+        v14 = "{VOC}";
+        v15 = a5;
+        goto LABEL_14;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t mosynt_StartSentenceAnalysis(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7)
+{
+  if (!a1)
+  {
+    v9 = 0;
+    if (a7)
+    {
+      goto LABEL_6;
+    }
+
+    return 0;
+  }
+
+  if (!*(a1 + 1024))
+  {
+    v9 = 0;
+    *(a1 + 1028) = 0;
+    *(a1 + 1024) = 1;
+    *(a1 + 1032) = 20;
+    if (a7)
+    {
+      goto LABEL_6;
+    }
+
+    return 0;
+  }
+
+  v9 = *(a1 + 1028);
+  if (!a7)
+  {
+    return 0;
+  }
+
+LABEL_6:
+  v13 = 0;
+  *a7 = a5;
+  a7[1] = a6;
+  result = com_mosynt_GetCfgParamVal(a2, a3, a4, "mosynt_maxvertexedges", "-1", &v13);
+  if ((result & 0x80000000) == 0)
+  {
+    v11 = atoi(v13);
+    if (v11 >= 0)
+    {
+      v12 = v11;
+    }
+
+    else
+    {
+      v12 = 200;
+    }
+
+    result = mosyntsentana_CreateAndInitParseDesc(a1, v9, *a7, a7[1], v12, a7 + 2);
+    if ((result & 0x80000000) == 0)
+    {
+      a7[3] = 0;
+    }
+  }
+
+  return result;
+}
+
+void mosynt_InsertTerminals(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned __int8 *a9)
+{
+  v9 = MEMORY[0x1EEE9AC00](a1);
+  v33 = v11;
+  v32 = v12;
+  v14 = v13;
+  v16 = v15;
+  v18 = v17;
+  v20 = v19;
+  v21 = v9;
+  v41 = *MEMORY[0x1E69E9840];
+  if (v9)
+  {
+    if (*(v9 + 1024))
+    {
+      v22 = *(v9 + 1028);
+    }
+
+    else
+    {
+      v22 = 0;
+      *(v9 + 1028) = 0;
+      *(v9 + 1024) = 1;
+      *(v9 + 1032) = 20;
+    }
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  memset(v40, 0, sizeof(v40));
+  v35 = 0;
+  v36 = 0;
+  v34 = 0;
+  if (*v10)
+  {
+    v23 = v10;
+  }
+
+  else
+  {
+    v23 = "MosyntDummyConsFeat";
+  }
+
+  v24 = strlen(v23);
+  while ((mosyntkbsymtab_GetConsFeatFromString(v21, *v20, 1, v23, v24, &v35, &v35 + 1, v40) & 0x80000000) == 0)
+  {
+    if (SHIDWORD(v35) < 1)
+    {
+      if ((mosyntbase_WriteMessage(v21, "[SANA] error converting cons/feat %s\n", 0, v23, 0, a9, 0, "", 0) & 0x80000000) != 0)
+      {
+        return;
+      }
+
+      goto LABEL_26;
+    }
+
+    mosyntdata_NewTermInfo(v21, 0, &v36);
+    if (v25 < 0)
+    {
+      return;
+    }
+
+    v26 = v36;
+    if (v36)
+    {
+      *(v36 + 8) = v32;
+      *(v26 + 16) = v33;
+      *(v26 + 24) = v18;
+      *(v26 + 28) = v16 - 2;
+      *(v26 + 32) = a9;
+      *(v26 + 40) = 0;
+      v27 = strlen(a9);
+      v28 = v27 - 1;
+      if (v27 > 4999)
+      {
+        v28 = 4998;
+      }
+
+      *(v26 + 44) = v28;
+      v29 = v28 + 1;
+      if (v22)
+      {
+LABEL_20:
+        __strncpy_chk();
+        v37[v29] = 0;
+        v34 = 0;
+        if ((mosyntkbsymtab_AppConsFeatToString(v21, *v20, HIDWORD(v35), v40, v39, 4999, &v34) & 0x80000000) != 0)
+        {
+          return;
+        }
+
+        __strcpy_chk();
+        if ((mosyntkbsymtab_ConsFeatToComprConsFeatStr(v38, 5000) & 0x80000000) != 0)
+        {
+          return;
+        }
+
+        *(&v30 + 1) = v14;
+        LODWORD(v30) = 0;
+        DWORD1(v30) = ~v18 + v16;
+        if ((mosyntbase_WriteMessage(v21, "[SANA] reading from pos 0 to pos %d: %s cost %d  %s\n", 0, v38, 0, v37, 0, "", v30) & 0x80000000) != 0)
+        {
+          return;
+        }
+
+        if (v22 != 1)
+        {
+          *(&v31 + 1) = v16;
+          LODWORD(v31) = 0;
+          DWORD1(v31) = v18;
+          if ((mosyntbase_WriteMessage(v21, "[SANA] terminal edge from %d to %d for %s %s\n", 0, v39, 0, v37, 0, "", v31) & 0x80000000) != 0)
+          {
+            return;
+          }
+        }
+      }
+    }
+
+    else
+    {
+      v29 = 1;
+      if (v22)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    if ((mosyntsentana_InsertTerminalEdge(v21, v20[2], v18, v16, HIDWORD(v35), v40, v36, v14) & 0x80000000) != 0)
+    {
+      return;
+    }
+
+LABEL_26:
+    if (v23[v35] != 92)
+    {
+      if (v22)
+      {
+        mosyntbase_WLn(v21);
+      }
+
+      return;
+    }
+
+    LODWORD(v35) = v35 + 1;
+  }
 }

@@ -17,12 +17,12 @@
 - (uint64_t)hf_isValidObject
 {
   accessory = [self accessory];
-  home = [accessory home];
+  v3 = objc_msgSend_home(accessory);
 
-  if (home)
+  if (v3)
   {
     uniqueIdentifier = [self uniqueIdentifier];
-    accessories = [home accessories];
+    accessories = [v3 accessories];
     v9[0] = MEMORY[0x277D85DD0];
     v9[1] = 3221225472;
     v9[2] = __66__HMAccessoryProfile_HFHomeKitObjectConformance__hf_isValidObject__block_invoke;
@@ -43,9 +43,9 @@
 - (id)home
 {
   accessory = [self accessory];
-  home = [accessory home];
+  v2 = objc_msgSend_home(accessory);
 
-  return home;
+  return v2;
 }
 
 @end

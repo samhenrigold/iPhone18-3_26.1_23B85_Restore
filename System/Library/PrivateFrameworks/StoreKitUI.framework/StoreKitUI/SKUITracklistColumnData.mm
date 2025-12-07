@@ -3,6 +3,7 @@
 - (id)_initSKUITracklistColumnData;
 - (id)columnForIdentifier:(int64_t)identifier;
 - (id)viewElementsForTrack:(id)track columnIndex:(int64_t)index;
+- (void)_initSKUITracklistColumnData;
 - (void)adjustColumnsToFitWidth:(double)width;
 - (void)enumerateColumnsForHeader:(id)header usingBlock:(id)block;
 - (void)enumerateColumnsForTrack:(id)track usingBlock:(id)block;
@@ -456,6 +457,12 @@ void __60__SKUITracklistColumnData_viewElementsForTrack_columnIndex___block_invo
 
     *a5 = 1;
   }
+}
+
+- (void)_initSKUITracklistColumnData
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITracklistColumnData _initSKUITracklistColumnData]";
 }
 
 @end

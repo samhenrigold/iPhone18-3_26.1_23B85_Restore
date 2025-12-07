@@ -17,49 +17,47 @@
   return v3;
 }
 
-void __54__GKTurnBasedExchangeInternal_secureCodedPropertyKeys__block_invoke()
+void __54__GKTurnBasedExchangeInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18[10] = *MEMORY[0x277D85DE8];
-  v17[0] = @"exchangeID";
-  v18[0] = objc_opt_class();
-  v17[1] = @"senderIndex";
-  v18[1] = objc_opt_class();
-  v17[2] = @"statusString";
-  v18[2] = objc_opt_class();
-  v17[3] = @"recipientIndexes";
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
-  v3 = [v0 setWithObjects:{v1, v2, objc_opt_class(), 0}];
-  v18[3] = v3;
-  v17[4] = @"localizableMessage";
-  v4 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
-  v6 = objc_opt_class();
+  v19[10] = *MEMORY[0x277D85DE8];
+  v18[0] = @"exchangeID";
+  v19[0] = objc_opt_class();
+  v18[1] = @"senderIndex";
+  v19[1] = objc_opt_class();
+  v18[2] = @"statusString";
+  v19[2] = objc_opt_class();
+  v18[3] = @"recipientIndexes";
+  v2 = MEMORY[0x277CBEB98];
+  v3 = objc_opt_class();
+  v4 = objc_opt_class();
+  v5 = [v2 setWithObjects:{v3, v4, objc_opt_class(), 0}];
+  v19[3] = v5;
+  v18[4] = @"localizableMessage";
+  v6 = MEMORY[0x277CBEB98];
   v7 = objc_opt_class();
   v8 = objc_opt_class();
-  v9 = [v4 setWithObjects:{v5, v6, v7, v8, objc_opt_class(), 0}];
-  v18[4] = v9;
-  v17[5] = @"data";
-  v18[5] = objc_opt_class();
-  v17[6] = @"sendDate";
-  v18[6] = objc_opt_class();
-  v17[7] = @"timeoutDate";
-  v18[7] = objc_opt_class();
-  v17[8] = @"completionDate";
-  v18[8] = objc_opt_class();
-  v17[9] = @"replies";
-  v10 = MEMORY[0x277CBEB98];
-  v11 = objc_opt_class();
-  v12 = objc_opt_class();
-  v13 = [v10 setWithObjects:{v11, v12, objc_opt_class(), 0}];
-  v18[9] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:10];
+  v9 = objc_opt_class();
+  v10 = objc_opt_class();
+  v11 = [v6 setWithObjects:{v7, v8, v9, v10, objc_opt_class(), 0}];
+  v19[4] = v11;
+  v18[5] = @"data";
+  v19[5] = objc_opt_class();
+  v18[6] = @"sendDate";
+  v19[6] = objc_opt_class();
+  v18[7] = @"timeoutDate";
+  v19[7] = objc_opt_class();
+  v18[8] = @"completionDate";
+  v19[8] = objc_opt_class();
+  v18[9] = @"replies";
+  v12 = MEMORY[0x277CBEB98];
+  v13 = objc_opt_class();
+  v14 = objc_opt_class();
+  v15 = [v12 setWithObjects:{v13, v14, objc_opt_class(), 0}];
+  v19[9] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:10];
 
-  v15 = secureCodedPropertyKeys_sSecureCodedKeys_368;
-  secureCodedPropertyKeys_sSecureCodedKeys_368 = v14;
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = secureCodedPropertyKeys_sSecureCodedKeys_368;
+  secureCodedPropertyKeys_sSecureCodedKeys_368 = v16;
 }
 
 - (BOOL)isEqual:(id)equal

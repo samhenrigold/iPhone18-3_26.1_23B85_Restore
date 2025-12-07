@@ -748,7 +748,7 @@ LABEL_17:
     if (length)
     {
       v16 = malloc_type_calloc(length, 1uLL, 0x100004077774924uLL);
-      v17 = [_NSParagraphBidiLevelsProducer resolvedBaseWritingDirectionForTextContentManager:attributedString AttributedString:location paragraphRange:length baseWritingDirection:v15 fallbackBaseWritingDirection:direction bidiLevels:?];
+      v17 = [_NSParagraphBidiLevelsProducer resolvedBaseWritingDirectionForTextContentManager:attributedString AttributedString:location paragraphRange:length baseWritingDirection:v15 fallbackBaseWritingDirection:direction bidiLevels:v16];
       if (v17 == -1)
       {
         resolvedBaseDirection = v15;

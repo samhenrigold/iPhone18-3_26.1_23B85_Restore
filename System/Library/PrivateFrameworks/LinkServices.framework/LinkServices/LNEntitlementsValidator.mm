@@ -100,7 +100,6 @@
 {
   lookupCopy = lookup;
   getpid();
-  v4 = *MEMORY[0x1E69E9BD0];
   [lookupCopy UTF8String];
 
   return sandbox_check() == 0;
@@ -177,7 +176,7 @@
 
 + (BOOL)validateEntitlement:(id)entitlement secTaskRef:(__SecTask *)ref validator:(id)validator
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   validatorCopy = validator;
   error = 0;
   v8 = SecTaskCopyValueForEntitlement(ref, entitlement, &error);
@@ -187,7 +186,7 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v15 = error;
+      v14 = error;
       _os_log_impl(&dword_19763D000, v9, OS_LOG_TYPE_FAULT, "SecTaskCopyValueForEntitlement() failed with error %{public}@", buf, 0xCu);
     }
 
@@ -200,7 +199,6 @@
     v10 = validatorCopy[2](validatorCopy, v8);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -241,7 +239,7 @@
 
 + (id)valueForEntitlement:(id)entitlement secTaskRef:(__SecTask *)ref
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   error = 0;
   v4 = SecTaskCopyValueForEntitlement(ref, entitlement, &error);
   v5 = v4;
@@ -251,7 +249,7 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v12 = error;
+      v11 = error;
       _os_log_impl(&dword_19763D000, v6, OS_LOG_TYPE_FAULT, "SecTaskCopyValueForEntitlement() failed with error %{public}@", buf, 0xCu);
     }
 
@@ -263,8 +261,6 @@
   {
     v7 = v4;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

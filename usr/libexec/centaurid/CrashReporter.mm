@@ -29,9 +29,9 @@
 - (CrashReporter)initWithBuiltIn:(BOOL)in analyticsReporter:(id)reporter
 {
   reporterCopy = reporter;
-  v27.receiver = self;
-  v27.super_class = CrashReporter;
-  v9 = [(CrashReporter *)&v27 init];
+  v29.receiver = self;
+  v29.super_class = CrashReporter;
+  v9 = [(CrashReporter *)&v29 init];
   if (v9)
   {
     v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -49,28 +49,28 @@
       {
         if (v9->_builtIn)
         {
-          v14 = sub_100025608();
+          v14 = sub_100025608(v13);
           wsku = v9->_wsku;
           v9->_wsku = v14;
 
-          v16 = sub_1000257CC();
+          v17 = sub_1000257CC(v16);
           chipset = v9->_chipset;
-          v9->_chipset = v16;
+          v9->_chipset = v17;
 
-          v18 = sub_100025918();
+          v20 = sub_100025918(v19);
           chipsetRevision = v9->_chipsetRevision;
-          v9->_chipsetRevision = v18;
+          v9->_chipsetRevision = v20;
         }
 
-        v20 = sub_100025A64();
+        v22 = sub_100025A64(v13);
         productType = v9->_productType;
-        v9->_productType = v20;
+        v9->_productType = v22;
       }
 
       else
       {
-        v25 = sub_100025204();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v27 = sub_100025204(v13);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           sub_10002A474();
         }
@@ -81,16 +81,16 @@
 
     else
     {
-      v22 = sub_100025204();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v24 = sub_100025204(v13);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = [objc_opt_class() description];
-        v24 = NSStringFromSelector(a2);
+        v25 = [objc_opt_class() description];
+        v26 = NSStringFromSelector(a2);
         *buf = 138543618;
-        v29 = v23;
-        v30 = 2114;
-        v31 = v24;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: crash analytics feature disabled", buf, 0x16u);
+        v31 = v25;
+        v32 = 2114;
+        v33 = v26;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: crash analytics feature disabled", buf, 0x16u);
       }
     }
   }
@@ -123,163 +123,165 @@
 
   if (v6)
   {
-    v7 = [NSString stringWithUTF8String:"Reason"];
-    v8 = [v6 objectForKeyedSubscript:v7];
+    v8 = [NSString stringWithUTF8String:"Reason"];
+    v9 = [v6 objectForKeyedSubscript:v8];
 
-    if (v8)
+    if (v9)
     {
-      v9 = [NSString stringWithUTF8String:"SubsystemID"];
-      v10 = [v6 objectForKeyedSubscript:v9];
+      v11 = [NSString stringWithUTF8String:"SubsystemID"];
+      v12 = [v6 objectForKeyedSubscript:v11];
 
-      if (!v10)
+      if (!v12)
       {
         sub_10002A714(self);
         goto LABEL_28;
       }
 
-      v11 = [objc_opt_class() subsystemNameForSubsystemID:v10];
-      v12 = [NSString stringWithUTF8String:"UpTimestamp"];
-      v13 = [v6 objectForKeyedSubscript:v12];
+      v13 = [objc_opt_class() subsystemNameForSubsystemID:v12];
+      v14 = [NSString stringWithUTF8String:"UpTimestamp"];
+      v15 = [v6 objectForKeyedSubscript:v14];
 
-      v48 = v13;
-      if (v13)
+      v59 = v15;
+      if (v15)
       {
-        v14 = [NSString stringWithUTF8String:"MonotonicTimestamp"];
-        v15 = [v6 objectForKeyedSubscript:v14];
+        v17 = [NSString stringWithUTF8String:"MonotonicTimestamp"];
+        v18 = [v6 objectForKeyedSubscript:v17];
 
-        if (v15)
+        if (v18)
         {
-          v16 = [NSString stringWithUTF8String:"RealTimestamp"];
-          v17 = [v6 objectForKeyedSubscript:v16];
+          v20 = [NSString stringWithUTF8String:"RealTimestamp"];
+          v21 = [v6 objectForKeyedSubscript:v20];
 
-          if (v17)
+          if (v21)
           {
-            v47 = v10;
-            v18 = [objc_opt_class() decodeCrashlogs:crashCopy fromSubsystem:v11];
-            v45 = crashCopy;
-            v46 = v8;
-            if (v18)
+            v58 = v12;
+            v23 = [objc_opt_class() decodeCrashlogs:crashCopy fromSubsystem:v13];
+            v24 = v23;
+            v56 = crashCopy;
+            v57 = v9;
+            if (v23)
             {
               if (sub_10002529C())
               {
-                v19 = +[NSUserDefaults standardUserDefaults];
-                v20 = [v19 BOOLForKey:@"SaveDecodedCrashlogs"];
+                v25 = +[NSUserDefaults standardUserDefaults];
+                v26 = [v25 BOOLForKey:@"SaveDecodedCrashlogs"];
 
-                if (v20)
+                if (v26)
                 {
-                  [objc_opt_class() saveDecodedCrashlogs:v18 fromSubsystem:v11 timestamp:v17];
+                  [objc_opt_class() saveDecodedCrashlogs:v24 fromSubsystem:v13 timestamp:v21];
                 }
               }
 
-              v21 = [objc_opt_class() firmwareReasonFromDecodedCrashlogs:v18 subsystemID:v47];
+              v23 = [objc_opt_class() firmwareReasonFromDecodedCrashlogs:v24 subsystemID:v58];
+              v27 = v23;
             }
 
             else
             {
-              v21 = 0;
+              v27 = 0;
             }
 
-            v22 = sub_100025204();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-            {
-              v23 = [objc_opt_class() description];
-              v24 = NSStringFromSelector(a2);
-              *buf = 138543874;
-              v51 = v23;
-              v52 = 2114;
-              v53 = v24;
-              v54 = 2112;
-              v55 = v11;
-              _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: subsystem: %@", buf, 0x20u);
-            }
-
-            v25 = sub_100025204();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
-            {
-              v26 = [objc_opt_class() description];
-              v27 = NSStringFromSelector(a2);
-              *buf = 138543874;
-              v51 = v26;
-              v52 = 2114;
-              v53 = v27;
-              v54 = 2114;
-              v55 = v46;
-              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: host reason: %{public}@", buf, 0x20u);
-            }
-
-            v28 = sub_100025204();
+            v28 = sub_100025204(v23);
             if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
               v29 = [objc_opt_class() description];
               v30 = NSStringFromSelector(a2);
               *buf = 138543874;
-              v51 = v29;
-              v52 = 2114;
-              v53 = v30;
-              v54 = 2114;
-              v55 = v21;
-              _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: firmware reason: %{public}@", buf, 0x20u);
+              v62 = v29;
+              v63 = 2114;
+              v64 = v30;
+              v65 = 2112;
+              v66 = v13;
+              _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: subsystem: %@", buf, 0x20u);
             }
 
-            v31 = sub_100025204();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            v32 = sub_100025204(v31);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
             {
-              v32 = [objc_opt_class() description];
-              v33 = NSStringFromSelector(a2);
+              v33 = [objc_opt_class() description];
+              v34 = NSStringFromSelector(a2);
               *buf = 138543874;
-              v51 = v32;
-              v52 = 2114;
-              v53 = v33;
-              v54 = 2112;
-              v55 = v48;
-              _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: up timestamp: %@", buf, 0x20u);
+              v62 = v33;
+              v63 = 2114;
+              v64 = v34;
+              v65 = 2114;
+              v66 = v57;
+              _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: host reason: %{public}@", buf, 0x20u);
             }
 
-            v34 = sub_100025204();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+            v36 = sub_100025204(v35);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
-              v35 = [objc_opt_class() description];
-              v36 = NSStringFromSelector(a2);
+              v37 = [objc_opt_class() description];
+              v38 = NSStringFromSelector(a2);
               *buf = 138543874;
-              v51 = v35;
-              v52 = 2114;
-              v53 = v36;
-              v54 = 2112;
-              v55 = v15;
-              _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: monotonic timestamp: %@", buf, 0x20u);
+              v62 = v37;
+              v63 = 2114;
+              v64 = v38;
+              v65 = 2114;
+              v66 = v27;
+              _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: firmware reason: %{public}@", buf, 0x20u);
             }
 
-            v37 = sub_100025204();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+            v40 = sub_100025204(v39);
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
             {
-              v38 = [objc_opt_class() description];
-              v39 = NSStringFromSelector(a2);
+              v41 = [objc_opt_class() description];
+              v42 = NSStringFromSelector(a2);
               *buf = 138543874;
-              v51 = v38;
-              v52 = 2114;
-              v53 = v39;
-              v54 = 2112;
-              v55 = v17;
-              _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: real timestamp: %@", buf, 0x20u);
+              v62 = v41;
+              v63 = 2114;
+              v64 = v42;
+              v65 = 2112;
+              v66 = v59;
+              _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: up timestamp: %@", buf, 0x20u);
             }
 
-            v8 = v46;
-            [(AnalyticsReporter *)self->_analyticsReporter reportCrashlogProcessedFromSubsystem:v11 hostReason:v46 firmwareReason:v21];
+            v44 = sub_100025204(v43);
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+            {
+              v45 = [objc_opt_class() description];
+              v46 = NSStringFromSelector(a2);
+              *buf = 138543874;
+              v62 = v45;
+              v63 = 2114;
+              v64 = v46;
+              v65 = 2112;
+              v66 = v18;
+              _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: monotonic timestamp: %@", buf, 0x20u);
+            }
+
+            v48 = sub_100025204(v47);
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+            {
+              v49 = [objc_opt_class() description];
+              v50 = NSStringFromSelector(a2);
+              *buf = 138543874;
+              v62 = v49;
+              v63 = 2114;
+              v64 = v50;
+              v65 = 2112;
+              v66 = v21;
+              _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: real timestamp: %@", buf, 0x20u);
+            }
+
+            v9 = v57;
+            [(AnalyticsReporter *)self->_analyticsReporter reportCrashlogProcessedFromSubsystem:v13 hostReason:v57 firmwareReason:v27];
             if ([(CrashReporter *)self shouldNotifyUser])
             {
-              v40 = [objc_opt_class() notificationBodyForHostReason:v46 firmwareReason:v21 subsystemName:v11];
-              v41 = [objc_opt_class() radarCreationURLWithHostReason:v46 firmwareReason:v21 subsystemName:v11 upTimestamp:v48 monotonicTimestamp:v15 realTimestamp:v17];
-              [(CrashReporter *)self notifyUserWithBody:v40 radarCreationURL:v41];
+              v51 = [objc_opt_class() notificationBodyForHostReason:v57 firmwareReason:v27 subsystemName:v13];
+              v52 = [objc_opt_class() radarCreationURLWithHostReason:v57 firmwareReason:v27 subsystemName:v13 upTimestamp:v59 monotonicTimestamp:v18 realTimestamp:v21];
+              [(CrashReporter *)self notifyUserWithBody:v51 radarCreationURL:v52];
             }
 
-            [(CrashReporter *)self sendToCrashAnalyticsPipeline:v18 hostReason:v46 subsystemID:v47 upTimestamp:v48 monotonicTimestamp:v15 realTimestamp:v17];
+            [(CrashReporter *)self sendToCrashAnalyticsPipeline:v24 hostReason:v57 subsystemID:v58 upTimestamp:v59 monotonicTimestamp:v18 realTimestamp:v21];
 
-            crashCopy = v45;
+            crashCopy = v56;
             goto LABEL_28;
           }
 
-          v44 = sub_100025204();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          v55 = sub_100025204(v22);
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
           {
             sub_10002A51C();
           }
@@ -287,8 +289,8 @@
 
         else
         {
-          v43 = sub_100025204();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          v54 = sub_100025204(v19);
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
           {
             sub_10002A5C4();
           }
@@ -297,8 +299,8 @@
 
       else
       {
-        v42 = sub_100025204();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        v53 = sub_100025204(v16);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
           sub_10002A66C();
         }
@@ -307,8 +309,8 @@
       goto LABEL_28;
     }
 
-    v8 = sub_100025204();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100025204(v10);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10002A7E4();
     }
@@ -316,8 +318,8 @@
 
   else
   {
-    v8 = sub_100025204();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100025204(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10002A88C();
     }
@@ -329,34 +331,35 @@ LABEL_28:
 + (id)decodeCrashlogs:(id)crashlogs fromSubsystem:(id)subsystem
 {
   crashlogsCopy = crashlogs;
+  v8 = crashlogsCopy;
   if (&_RTBuddyCrashlogDecode)
   {
     [CrashlogDecoder decoderForSubsystem:subsystem];
-    v12 = _NSConcreteStackBlock;
-    v13 = 3221225472;
-    v14 = sub_100029EE4;
-    v15 = &unk_10005CA38;
+    v13 = _NSConcreteStackBlock;
+    v14 = 3221225472;
+    v15 = sub_100029EE4;
+    v16 = &unk_10005CA38;
     selfCopy = self;
-    v16 = v19 = a2;
-    v17 = objc_alloc_init(NSMutableDictionary);
-    v8 = v17;
-    v9 = v16;
-    [crashlogsCopy enumerateKeysAndObjectsUsingBlock:&v12];
-    v10 = [v8 copy];
+    v17 = v20 = a2;
+    v18 = objc_alloc_init(NSMutableDictionary);
+    v9 = v18;
+    v10 = v17;
+    [v8 enumerateKeysAndObjectsUsingBlock:&v13];
+    v11 = [v9 copy];
   }
 
   else
   {
-    v9 = sub_100025204();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100025204(crashlogsCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10002A934();
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 + (id)decodeCustomSectionsFromData:(id)data forCore:(id)core withDecoder:(id)decoder sectionInfo:(id)info
@@ -366,160 +369,164 @@ LABEL_28:
   decoderCopy = decoder;
   infoCopy = info;
   objc_opt_class();
-  v40 = infoCopy;
-  v46 = decoderCopy;
-  v47 = coreCopy;
+  v44 = infoCopy;
+  v50 = decoderCopy;
+  v51 = coreCopy;
   if (objc_opt_isKindOfClass())
   {
-    v50 = [decoderCopy supportedSectionsForCore:coreCopy];
-    if (v50)
+    v54 = [decoderCopy supportedSectionsForCore:coreCopy];
+    if (v54)
     {
-      v41 = objc_alloc_init(NSMutableDictionary);
-      v51 = 0u;
-      v52 = 0u;
-      v53 = 0u;
-      v54 = 0u;
+      v45 = objc_alloc_init(NSMutableDictionary);
+      v55 = 0u;
+      v56 = 0u;
+      v57 = 0u;
+      v58 = 0u;
       v12 = infoCopy;
-      v13 = [v12 countByEnumeratingWithState:&v51 objects:v67 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v55 objects:v71 count:16];
       if (!v13)
       {
         goto LABEL_33;
       }
 
-      v15 = *v52;
+      v15 = *v56;
       *&v14 = 138544386;
-      v39 = v14;
+      v43 = v14;
       while (1)
       {
         v16 = 0;
         do
         {
-          if (*v52 != v15)
+          if (*v56 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v51 + 1) + 8 * v16);
-          v18 = [v17 objectForKeyedSubscript:{@"section-signature", v39}];
+          v17 = *(*(&v55 + 1) + 8 * v16);
+          v18 = [v17 objectForKeyedSubscript:{@"section-signature", v43}];
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          isKindOfClass = objc_opt_isKindOfClass();
+          if (isKindOfClass)
           {
-            if (![v50 containsObject:v18])
+            if (![v54 containsObject:v18])
             {
               goto LABEL_26;
             }
 
-            v19 = [v17 objectForKeyedSubscript:@"section-offset"];
+            v20 = [v17 objectForKeyedSubscript:@"section-offset"];
             objc_opt_class();
-            if (objc_opt_isKindOfClass())
+            v21 = objc_opt_isKindOfClass();
+            if (v21)
             {
-              v20 = [v17 objectForKeyedSubscript:@"section-size"];
+              v22 = [v17 objectForKeyedSubscript:@"section-size"];
               objc_opt_class();
-              if (objc_opt_isKindOfClass())
+              v23 = objc_opt_isKindOfClass();
+              if (v23)
               {
-                unsignedIntegerValue = [v19 unsignedIntegerValue];
-                unsignedIntegerValue2 = [v20 unsignedIntegerValue];
-                if (unsignedIntegerValue < [dataCopy length] && unsignedIntegerValue2 < objc_msgSend(dataCopy, "length") && &unsignedIntegerValue[unsignedIntegerValue2] <= objc_msgSend(dataCopy, "length"))
+                unsignedIntegerValue = [v20 unsignedIntegerValue];
+                unsignedIntegerValue2 = [v22 unsignedIntegerValue];
+                v26 = [dataCopy length];
+                if (unsignedIntegerValue < v26 && (v26 = [dataCopy length], unsignedIntegerValue2 < v26) && (v26 = objc_msgSend(dataCopy, "length"), &unsignedIntegerValue[unsignedIntegerValue2] <= v26))
                 {
-                  v29 = sub_100025204();
-                  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+                  v33 = sub_100025204(v26);
+                  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
                   {
-                    v45 = [objc_opt_class() description];
-                    v30 = NSStringFromSelector(a2);
+                    v49 = [objc_opt_class() description];
+                    v34 = NSStringFromSelector(a2);
                     *buf = 138544130;
-                    v56 = v45;
-                    v57 = 2114;
-                    v58 = v30;
-                    v59 = 2112;
-                    v60 = v47;
-                    v61 = 2112;
-                    v62 = v18;
-                    v43 = v30;
-                    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: decoding %@:%@", buf, 0x2Au);
+                    v60 = v49;
+                    v61 = 2114;
+                    v62 = v34;
+                    v63 = 2112;
+                    v64 = v51;
+                    v65 = 2112;
+                    v66 = v18;
+                    v47 = v34;
+                    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: decoding %@:%@", buf, 0x2Au);
                   }
 
-                  v31 = [dataCopy subdataWithRange:{unsignedIntegerValue, unsignedIntegerValue2}];
-                  v23 = [v46 decodeData:v31 forSection:v18 fromCore:v47];
+                  v35 = [dataCopy subdataWithRange:{unsignedIntegerValue, unsignedIntegerValue2}];
+                  v27 = [v50 decodeData:v35 forSection:v18 fromCore:v51];
 
-                  if ([v23 count])
+                  if ([v27 count])
                   {
-                    [v41 addEntriesFromDictionary:v23];
+                    [v45 addEntriesFromDictionary:v27];
                   }
                 }
 
                 else
                 {
-                  v23 = sub_100025204();
-                  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+                  v27 = sub_100025204(v26);
+                  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
                   {
-                    v44 = [objc_opt_class() description];
-                    v42 = NSStringFromSelector(a2);
-                    v24 = [dataCopy length];
+                    v48 = [objc_opt_class() description];
+                    v46 = NSStringFromSelector(a2);
+                    v28 = [dataCopy length];
                     *buf = 138544642;
-                    v56 = v44;
-                    v57 = 2114;
-                    v58 = v42;
-                    v59 = 2112;
-                    v60 = v18;
-                    v61 = 2048;
-                    v62 = unsignedIntegerValue;
-                    v63 = 2048;
-                    v64 = unsignedIntegerValue2;
+                    v60 = v48;
+                    v61 = 2114;
+                    v62 = v46;
+                    v63 = 2112;
+                    v64 = v18;
                     v65 = 2048;
-                    v66 = v24;
-                    _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: %@ section out of bounds: %lu, %lu, %lu", buf, 0x3Eu);
+                    v66 = unsignedIntegerValue;
+                    v67 = 2048;
+                    v68 = unsignedIntegerValue2;
+                    v69 = 2048;
+                    v70 = v28;
+                    _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: %@ section out of bounds: %lu, %lu, %lu", buf, 0x3Eu);
                   }
                 }
               }
 
               else
               {
-                v23 = sub_100025204();
-                if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+                v27 = sub_100025204(v23);
+                if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
                 {
-                  v32 = [objc_opt_class() description];
-                  v33 = NSStringFromSelector(a2);
+                  v36 = [objc_opt_class() description];
+                  v37 = NSStringFromSelector(a2);
                   *buf = 138543874;
-                  v56 = v32;
-                  v57 = 2114;
-                  v58 = v33;
-                  v59 = 2112;
-                  v60 = v18;
-                  _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: %@ section size missing or wrong type", buf, 0x20u);
+                  v60 = v36;
+                  v61 = 2114;
+                  v62 = v37;
+                  v63 = 2112;
+                  v64 = v18;
+                  _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: %@ section size missing or wrong type", buf, 0x20u);
                 }
               }
             }
 
             else
             {
-              v20 = sub_100025204();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+              v22 = sub_100025204(v21);
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
               {
-                v27 = [objc_opt_class() description];
-                v28 = NSStringFromSelector(a2);
+                v31 = [objc_opt_class() description];
+                v32 = NSStringFromSelector(a2);
                 *buf = 138543874;
-                v56 = v27;
-                v57 = 2114;
-                v58 = v28;
-                v59 = 2112;
-                v60 = v18;
-                _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: %@ section offset missing or wrong type", buf, 0x20u);
+                v60 = v31;
+                v61 = 2114;
+                v62 = v32;
+                v63 = 2112;
+                v64 = v18;
+                _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: %@ section offset missing or wrong type", buf, 0x20u);
               }
             }
           }
 
           else
           {
-            v19 = sub_100025204();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            v20 = sub_100025204(isKindOfClass);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
-              v25 = [objc_opt_class() description];
-              v26 = NSStringFromSelector(a2);
+              v29 = [objc_opt_class() description];
+              v30 = NSStringFromSelector(a2);
               *buf = 138543618;
-              v56 = v25;
-              v57 = 2114;
-              v58 = v26;
-              _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: signature missing or wrong type", buf, 0x16u);
+              v60 = v29;
+              v61 = 2114;
+              v62 = v30;
+              _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: signature missing or wrong type", buf, 0x16u);
             }
           }
 
@@ -528,26 +535,26 @@ LABEL_26:
         }
 
         while (v13 != v16);
-        v34 = [v12 countByEnumeratingWithState:&v51 objects:v67 count:16];
-        v13 = v34;
-        if (!v34)
+        v38 = [v12 countByEnumeratingWithState:&v55 objects:v71 count:16];
+        v13 = v38;
+        if (!v38)
         {
 LABEL_33:
 
-          v35 = v41;
+          v39 = v45;
           goto LABEL_35;
         }
       }
     }
   }
 
-  v50 = 0;
-  v35 = 0;
+  v54 = 0;
+  v39 = 0;
 LABEL_35:
-  v36 = v35;
-  v37 = [v35 copy];
+  v40 = v39;
+  v41 = [v39 copy];
 
-  return v37;
+  return v41;
 }
 
 + (id)firmwareReasonFromDecodedCrashlogs:(id)crashlogs subsystemID:(id)d
@@ -557,7 +564,7 @@ LABEL_35:
   v9 = [self primaryCoreNameForSubsystemID:dCopy];
   if (!v9)
   {
-    v14 = sub_100025204();
+    v14 = sub_100025204(0);
     if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_8;
@@ -578,7 +585,7 @@ LABEL_35:
   v10 = [crashlogsCopy objectForKey:v9];
   if (!v10)
   {
-    v14 = sub_100025204();
+    v14 = sub_100025204(0);
     if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_8:
@@ -608,7 +615,7 @@ LABEL_7:
     goto LABEL_12;
   }
 
-  v14 = sub_100025204();
+  v14 = sub_100025204(0);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v17 = [objc_opt_class() description];
@@ -701,95 +708,95 @@ LABEL_12:
   v13 = [v11 stringByAppendingPathComponent:v12];
 
   v14 = +[NSFileManager defaultManager];
-  v43 = 0;
-  v37 = v13;
-  LOBYTE(v12) = [v14 createDirectoryAtPath:v13 withIntermediateDirectories:1 attributes:0 error:&v43];
-  v15 = v43;
+  v45 = 0;
+  v39 = v13;
+  LOBYTE(v12) = [v14 createDirectoryAtPath:v13 withIntermediateDirectories:1 attributes:0 error:&v45];
+  v15 = v45;
 
   if (v12)
   {
+    v43 = 0u;
+    v44 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v16 = crashlogsCopy;
-    v17 = [v16 countByEnumeratingWithState:&v39 objects:v52 count:16];
-    if (v17)
+    v17 = crashlogsCopy;
+    v18 = [v17 countByEnumeratingWithState:&v41 objects:v54 count:16];
+    if (v18)
     {
-      v18 = v17;
-      v32 = v10;
-      v33 = subsystemCopy;
-      v34 = crashlogsCopy;
-      v36 = *v40;
+      v19 = v18;
+      v34 = v10;
+      v35 = subsystemCopy;
+      v36 = crashlogsCopy;
+      v38 = *v42;
       do
       {
-        v19 = 0;
-        v20 = v15;
+        v20 = 0;
+        v21 = v15;
         do
         {
-          if (*v40 != v36)
+          if (*v42 != v38)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v17);
           }
 
-          v21 = *(*(&v39 + 1) + 8 * v19);
-          v22 = [v37 stringByAppendingPathComponent:v21];
-          v23 = [v22 stringByAppendingPathExtension:@"plist"];
+          v22 = *(*(&v41 + 1) + 8 * v20);
+          v23 = [v39 stringByAppendingPathComponent:v22];
+          v24 = [v23 stringByAppendingPathExtension:@"plist"];
 
-          v24 = [v16 objectForKeyedSubscript:v21];
-          v25 = [NSURL fileURLWithPath:v23];
-          v38 = v20;
-          v26 = [v24 writeToURL:v25 error:&v38];
-          v15 = v38;
+          v25 = [v17 objectForKeyedSubscript:v22];
+          v26 = [NSURL fileURLWithPath:v24];
+          v40 = v21;
+          v27 = [v25 writeToURL:v26 error:&v40];
+          v15 = v40;
 
-          if ((v26 & 1) == 0)
+          if ((v27 & 1) == 0)
           {
-            v27 = sub_100025204();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+            v29 = sub_100025204(v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
-              v28 = [objc_opt_class() description];
-              v29 = NSStringFromSelector(a2);
+              v30 = [objc_opt_class() description];
+              v31 = NSStringFromSelector(a2);
               *buf = 138544130;
-              v45 = v28;
-              v46 = 2114;
-              v47 = v29;
+              v47 = v30;
               v48 = 2114;
-              v49 = v21;
+              v49 = v31;
               v50 = 2114;
-              v51 = v15;
-              _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to write %{public}@: %{public}@", buf, 0x2Au);
+              v51 = v22;
+              v52 = 2114;
+              v53 = v15;
+              _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to write %{public}@: %{public}@", buf, 0x2Au);
             }
           }
 
-          v19 = v19 + 1;
-          v20 = v15;
+          v20 = v20 + 1;
+          v21 = v15;
         }
 
-        while (v18 != v19);
-        v18 = [v16 countByEnumeratingWithState:&v39 objects:v52 count:16];
+        while (v19 != v20);
+        v19 = [v17 countByEnumeratingWithState:&v41 objects:v54 count:16];
       }
 
-      while (v18);
-      subsystemCopy = v33;
-      crashlogsCopy = v34;
-      v10 = v32;
+      while (v19);
+      subsystemCopy = v35;
+      crashlogsCopy = v36;
+      v10 = v34;
     }
   }
 
   else
   {
-    v16 = sub_100025204();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = sub_100025204(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v30 = [objc_opt_class() description];
-      v31 = NSStringFromSelector(a2);
+      v32 = [objc_opt_class() description];
+      v33 = NSStringFromSelector(a2);
       *buf = 138543874;
-      v45 = v30;
-      v46 = 2114;
-      v47 = v31;
+      v47 = v32;
       v48 = 2114;
-      v49 = v15;
-      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to create directory: %{public}@", buf, 0x20u);
+      v49 = v33;
+      v50 = 2114;
+      v51 = v15;
+      _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to create directory: %{public}@", buf, 0x20u);
     }
   }
 }
@@ -800,42 +807,42 @@ LABEL_12:
   lCopy = l;
   if (self->_userNotificationCenter || (v9 = [[UNUserNotificationCenter alloc] initWithBundleIdentifier:@"com.apple.centaurid.CentauriNotifications" queue:self->_dispatchQueue], v10 = self->_userNotificationCenter, self->_userNotificationCenter = v9, v10, self->_userNotificationCenter))
   {
-    v11 = objc_alloc_init(UNMutableNotificationContent);
-    [v11 setTitle:@"Connectivity Fatal Error Detected"];
-    [v11 setSubtitle:@"Please File a Radar"];
-    [v11 setBody:bodyCopy];
-    v12 = +[UNNotificationSound defaultSound];
-    [v11 setSound:v12];
+    v12 = objc_alloc_init(UNMutableNotificationContent);
+    [v12 setTitle:@"Connectivity Fatal Error Detected"];
+    [v12 setSubtitle:@"Please File a Radar"];
+    [v12 setBody:bodyCopy];
+    v13 = +[UNNotificationSound defaultSound];
+    [v12 setSound:v13];
 
-    [v11 setThreadIdentifier:@"com.apple.centaurid.crashalert"];
-    [v11 setCategoryIdentifier:@"com.apple.centaurid.crashalert"];
-    [v11 setShouldBackgroundDefaultAction:1];
-    [v11 setShouldAuthenticateDefaultAction:1];
-    [v11 setDefaultActionURL:lCopy];
-    v13 = [UNNotificationIcon iconForApplicationIdentifier:@"com.apple.TapToRadar"];
-    [v11 setIcon:v13];
+    [v12 setThreadIdentifier:@"com.apple.centaurid.crashalert"];
+    [v12 setCategoryIdentifier:@"com.apple.centaurid.crashalert"];
+    [v12 setShouldBackgroundDefaultAction:1];
+    [v12 setShouldAuthenticateDefaultAction:1];
+    [v12 setDefaultActionURL:lCopy];
+    v14 = [UNNotificationIcon iconForApplicationIdentifier:@"com.apple.TapToRadar"];
+    [v12 setIcon:v14];
 
-    v14 = [UNNotificationRequest requestWithIdentifier:@"com.apple.centaurid.CentauriNotifications" content:v11 trigger:0];
-    if (v14)
+    v15 = [UNNotificationRequest requestWithIdentifier:@"com.apple.centaurid.CentauriNotifications" content:v12 trigger:0];
+    if (v15)
     {
-      v15 = v14;
+      v16 = v15;
       objc_initWeak(&location, self);
       userNotificationCenter = self->_userNotificationCenter;
-      v17[0] = _NSConcreteStackBlock;
-      v17[1] = 3221225472;
-      v17[2] = sub_1000128D0;
-      v17[3] = &unk_10005CA60;
-      objc_copyWeak(v18, &location);
-      v18[1] = a2;
-      [(UNUserNotificationCenter *)userNotificationCenter addNotificationRequest:v15 withCompletionHandler:v17];
-      objc_destroyWeak(v18);
+      v18[0] = _NSConcreteStackBlock;
+      v18[1] = 3221225472;
+      v18[2] = sub_1000128D0;
+      v18[3] = &unk_10005CA60;
+      objc_copyWeak(v19, &location);
+      v19[1] = a2;
+      [(UNUserNotificationCenter *)userNotificationCenter addNotificationRequest:v16 withCompletionHandler:v18];
+      objc_destroyWeak(v19);
       objc_destroyWeak(&location);
     }
 
     else
     {
-      v15 = sub_100025204();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = sub_100025204(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_10002A9DC(self, a2);
       }
@@ -844,8 +851,8 @@ LABEL_12:
 
   else
   {
-    v11 = sub_100025204();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100025204(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10002AA90(self, a2);
     }
@@ -862,18 +869,18 @@ LABEL_12:
     return 60;
   }
 
-  v5 = sub_100025204();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100025204(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [objc_opt_class() description];
-    v7 = NSStringFromSelector(a2);
-    v9 = 138543874;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v7;
-    v13 = 2048;
-    v14 = v4;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: overriding to %ld seconds", &v9, 0x20u);
+    v7 = [objc_opt_class() description];
+    v8 = NSStringFromSelector(a2);
+    v10 = 138543874;
+    v11 = v7;
+    v12 = 2114;
+    v13 = v8;
+    v14 = 2048;
+    v15 = v4;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: overriding to %ld seconds", &v10, 0x20u);
   }
 
   return v4;
@@ -891,33 +898,34 @@ LABEL_12:
   v8 = v7;
   if (!v7)
   {
-    v11 = sub_100025204();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100025204(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10002AB44();
     }
 
-    v10 = 0;
+    v11 = 0;
     goto LABEL_9;
   }
 
-  v14 = 0;
-  v9 = [v7 writeToFile:v6 options:0 error:&v14];
-  v10 = v14;
+  v15 = 0;
+  v9 = [v7 writeToFile:v6 options:0 error:&v15];
+  v10 = v15;
+  v11 = v10;
   if ((v9 & 1) == 0)
   {
-    v11 = sub_100025204();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100025204(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v12 = [objc_opt_class() description];
-      v13 = NSStringFromSelector(a2);
+      v13 = [objc_opt_class() description];
+      v14 = NSStringFromSelector(a2);
       *buf = 138543874;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v13;
-      v19 = 2114;
-      v20 = v10;
-      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to write file: %{public}@", buf, 0x20u);
+      v17 = v13;
+      v18 = 2114;
+      v19 = v14;
+      v20 = 2114;
+      v21 = v11;
+      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to write file: %{public}@", buf, 0x20u);
     }
 
 LABEL_9:
@@ -936,8 +944,8 @@ LABEL_9:
     {
       if (!objc_opt_class())
       {
-        v12 = sub_100025204();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v15 = sub_100025204(0);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           sub_10002ACB8();
         }
@@ -945,43 +953,45 @@ LABEL_9:
         goto LABEL_18;
       }
 
-      v19.tv_sec = 0;
-      v19.tv_nsec = 0;
-      if (clock_gettime(_CLOCK_MONOTONIC_RAW, &v19))
+      v22.tv_sec = 0;
+      v22.tv_nsec = 0;
+      v8 = clock_gettime(_CLOCK_MONOTONIC_RAW, &v22);
+      if (v8)
       {
-        v7 = sub_100025204();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v9 = sub_100025204(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           sub_10002ABEC();
         }
       }
 
       getLastUserNotificationTimestamp = [(CrashReporter *)self getLastUserNotificationTimestamp];
-      tv_sec = v19.tv_sec;
+      tv_sec = v22.tv_sec;
       if (getLastUserNotificationTimestamp >= 1)
       {
-        v10 = getLastUserNotificationTimestamp;
-        if (v19.tv_sec >= getLastUserNotificationTimestamp)
+        v12 = getLastUserNotificationTimestamp;
+        v13 = v22.tv_sec - getLastUserNotificationTimestamp;
+        if (v22.tv_sec >= getLastUserNotificationTimestamp)
         {
-          v11 = v19.tv_sec - getLastUserNotificationTimestamp;
-          if (v11 < [objc_opt_class() getUserNotificationMinInterval])
+          getUserNotificationMinInterval = [objc_opt_class() getUserNotificationMinInterval];
+          if (v13 < getUserNotificationMinInterval)
           {
-            v12 = sub_100025204();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+            v15 = sub_100025204(getUserNotificationMinInterval);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
             {
-              v13 = [objc_opt_class() description];
-              v14 = NSStringFromSelector(a2);
+              v16 = [objc_opt_class() description];
+              v17 = NSStringFromSelector(a2);
               *buf = 138543874;
-              v21 = v13;
-              v22 = 2114;
-              v23 = v14;
-              v24 = 2048;
-              v25 = v19.tv_sec - v10;
-              v15 = "%{public}@::%{public}@: %ld seconds since last notification, suppressing";
-              v16 = v12;
-              v17 = 32;
+              v24 = v16;
+              v25 = 2114;
+              v26 = v17;
+              v27 = 2048;
+              v28 = v22.tv_sec - v12;
+              v18 = "%{public}@::%{public}@: %ld seconds since last notification, suppressing";
+              v19 = v15;
+              v20 = 32;
 LABEL_15:
-              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, v15, buf, v17);
+              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, v18, buf, v20);
 
               goto LABEL_18;
             }
@@ -989,7 +999,7 @@ LABEL_15:
             goto LABEL_18;
           }
 
-          tv_sec = v19.tv_sec;
+          tv_sec = v22.tv_sec;
         }
       }
 
@@ -998,18 +1008,18 @@ LABEL_15:
       return v4;
     }
 
-    v12 = sub_100025204();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100025204(v7);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [objc_opt_class() description];
-      v14 = NSStringFromSelector(a2);
+      v16 = [objc_opt_class() description];
+      v17 = NSStringFromSelector(a2);
       *buf = 138543618;
-      v21 = v13;
-      v22 = 2114;
-      v23 = v14;
-      v15 = "%{public}@::%{public}@: preference disabled";
-      v16 = v12;
-      v17 = 22;
+      v24 = v16;
+      v25 = 2114;
+      v26 = v17;
+      v18 = "%{public}@::%{public}@: preference disabled";
+      v19 = v15;
+      v20 = 22;
       goto LABEL_15;
     }
 
@@ -1031,66 +1041,64 @@ LABEL_18:
   reasonCopy = reason;
   v17 = objc_opt_new();
   [v17 setScheme:@"tap-to-radar"];
-  [v17 setHost:@"new"];
-  v18 = sub_1000254F0();
-  v19 = sub_1000253D8();
+  v18 = sub_1000254F0([v17 setHost:@"new"]);
+  v19 = sub_1000253D8(v18);
   firmwareReasonCopy = [NSString stringWithFormat:@"%@: %@: Connectivity Fatal Error: %@: %@: %@", v18, v19, nameCopy, reasonCopy, firmwareReasonCopy];
 
-  v20 = sub_1000253D8();
-  v21 = sub_1000254F0();
-  v22 = [objc_opt_class() humanReadableDurationFromTimestamp:timestampCopy];
+  v21 = sub_1000253D8(v20);
+  v22 = sub_1000254F0(v21);
+  v23 = [objc_opt_class() humanReadableDurationFromTimestamp:timestampCopy];
 
-  v23 = [objc_opt_class() humanReadableDurationFromTimestamp:monotonicTimestampCopy];
+  v24 = [objc_opt_class() humanReadableDurationFromTimestamp:monotonicTimestampCopy];
 
-  v24 = [objc_opt_class() humanReadableWallTimeFromTimestamp:realTimestampCopy];
+  v25 = [objc_opt_class() humanReadableWallTimeFromTimestamp:realTimestampCopy];
 
-  v25 = [NSString stringWithFormat:@"Connectivity Fatal Error Detected\nSubsystem: %@\nHost Reason: %@\nFirmware Reason: %@\nOS Version: %@\nDevice Type: %@\nUptime Excluding Sleep: %@\nUptime Including Sleep: %@\nTimestamp: %@\n", nameCopy, reasonCopy, firmwareReasonCopy, v20, v21, v22, v23, v24];
+  v26 = [NSString stringWithFormat:@"Connectivity Fatal Error Detected\nSubsystem: %@\nHost Reason: %@\nFirmware Reason: %@\nOS Version: %@\nDevice Type: %@\nUptime Excluding Sleep: %@\nUptime Including Sleep: %@\nTimestamp: %@\n", nameCopy, reasonCopy, firmwareReasonCopy, v21, v22, v23, v24, v25];
 
-  v26 = v25;
-  v27 = +[NSMutableArray array];
-  v28 = [[NSURLQueryItem alloc] initWithName:@"ComponentID" value:@"1671730"];
-  [v27 addObject:v28];
+  v27 = v26;
+  v28 = +[NSMutableArray array];
+  v29 = [[NSURLQueryItem alloc] initWithName:@"ComponentID" value:@"1671730"];
+  [v28 addObject:v29];
 
-  v29 = [[NSURLQueryItem alloc] initWithName:@"ComponentName" value:@"Connectivity LiveOn"];
-  [v27 addObject:v29];
+  v30 = [[NSURLQueryItem alloc] initWithName:@"ComponentName" value:@"Connectivity LiveOn"];
+  [v28 addObject:v30];
 
-  v30 = [[NSURLQueryItem alloc] initWithName:@"ComponentVersion" value:@"All"];
-  [v27 addObject:v30];
+  v31 = [[NSURLQueryItem alloc] initWithName:@"ComponentVersion" value:@"All"];
+  [v28 addObject:v31];
 
-  v31 = [[NSURLQueryItem alloc] initWithName:@"Title" value:firmwareReasonCopy];
-  [v27 addObject:v31];
+  v32 = [[NSURLQueryItem alloc] initWithName:@"Title" value:firmwareReasonCopy];
+  [v28 addObject:v32];
 
-  v32 = [[NSURLQueryItem alloc] initWithName:@"Description" value:v26];
-  [v27 addObject:v32];
+  v33 = [[NSURLQueryItem alloc] initWithName:@"Description" value:v27];
+  [v28 addObject:v33];
 
-  v33 = [[NSURLQueryItem alloc] initWithName:@"Classification" value:@"Crash/Hang/Data Loss"];
-  [v27 addObject:v33];
+  v34 = [[NSURLQueryItem alloc] initWithName:@"Classification" value:@"Crash/Hang/Data Loss"];
+  [v28 addObject:v34];
 
-  v34 = [[NSURLQueryItem alloc] initWithName:@"Keywords" value:@"1942038"];
-  [v27 addObject:v34];
+  v35 = [[NSURLQueryItem alloc] initWithName:@"Keywords" value:@"1942038"];
+  [v28 addObject:v35];
 
-  v35 = [[NSURLQueryItem alloc] initWithName:@"ExtensionIdentifiers" value:{@"com.apple.DiagnosticExtensions.ConnectivityDE, com.apple.DiagnosticExtensions.WiFi, com.apple.DiagnosticExtensions.BluetoothDiagnosticExtension, com.apple.DiagnosticExtensions.BluetoothHeadset, com.apple.DiagnosticExtensions.sysdiagnose"}];
-  [v27 addObject:v35];
+  v36 = [[NSURLQueryItem alloc] initWithName:@"ExtensionIdentifiers" value:{@"com.apple.DiagnosticExtensions.ConnectivityDE, com.apple.DiagnosticExtensions.WiFi, com.apple.DiagnosticExtensions.BluetoothDiagnosticExtension, com.apple.DiagnosticExtensions.BluetoothHeadset, com.apple.DiagnosticExtensions.sysdiagnose"}];
+  [v28 addObject:v36];
 
-  [v17 setQueryItems:v27];
-  v36 = sub_100025204();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+  v37 = sub_100025204([v17 setQueryItems:v28]);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
-    v37 = [objc_opt_class() description];
-    v38 = NSStringFromSelector(a2);
-    v39 = [v17 URL];
+    v38 = [objc_opt_class() description];
+    v39 = NSStringFromSelector(a2);
+    v40 = [v17 URL];
     *buf = 138543874;
-    v47 = v37;
-    v48 = 2114;
-    v49 = v38;
-    v50 = 2112;
-    v51 = v39;
-    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: %@", buf, 0x20u);
+    v48 = v38;
+    v49 = 2114;
+    v50 = v39;
+    v51 = 2112;
+    v52 = v40;
+    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: %@", buf, 0x20u);
   }
 
-  v40 = [v17 URL];
+  v41 = [v17 URL];
 
-  return v40;
+  return v41;
 }
 
 + (id)humanReadableDurationFromTimestamp:(id)timestamp
@@ -1173,18 +1181,18 @@ LABEL_18:
   {
     integerValue = v3;
 LABEL_11:
-    v8 = sub_100025204();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100025204(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [objc_opt_class() description];
-      v12 = NSStringFromSelector(a2);
-      v16 = 138543874;
-      v17 = v11;
-      v18 = 2114;
-      v19 = v12;
-      v20 = 2048;
-      v21 = integerValue;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: %lu%%", &v16, 0x20u);
+      v13 = [objc_opt_class() description];
+      v14 = NSStringFromSelector(a2);
+      v18 = 138543874;
+      v19 = v13;
+      v20 = 2114;
+      v21 = v14;
+      v22 = 2048;
+      v23 = integerValue;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: %lu%%", &v18, 0x20u);
     }
 
     v3 = integerValue;
@@ -1192,45 +1200,46 @@ LABEL_11:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     integerValue = [v5 integerValue];
-    v7 = sub_100025204();
-    v8 = v7;
+    v9 = sub_100025204(integerValue);
+    v10 = v9;
     if (integerValue < 0x65)
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = [objc_opt_class() description];
-        v10 = NSStringFromSelector(a2);
-        v16 = 138543618;
-        v17 = v9;
-        v18 = 2114;
-        v19 = v10;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: override accepted", &v16, 0x16u);
+        v11 = [objc_opt_class() description];
+        v12 = NSStringFromSelector(a2);
+        v18 = 138543618;
+        v19 = v11;
+        v20 = 2114;
+        v21 = v12;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: override accepted", &v18, 0x16u);
       }
 
       goto LABEL_11;
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v14 = [objc_opt_class() description];
-      v15 = NSStringFromSelector(a2);
-      v16 = 138543874;
-      v17 = v14;
-      v18 = 2114;
-      v19 = v15;
-      v20 = 2048;
-      v21 = integerValue;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: override out of range: %ld", &v16, 0x20u);
+      v16 = [objc_opt_class() description];
+      v17 = NSStringFromSelector(a2);
+      v18 = 138543874;
+      v19 = v16;
+      v20 = 2114;
+      v21 = v17;
+      v22 = 2048;
+      v23 = integerValue;
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: override out of range: %ld", &v18, 0x20u);
     }
   }
 
   else
   {
-    v8 = sub_100025204();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sub_100025204(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10002AD74();
     }
@@ -1252,108 +1261,109 @@ LABEL_14:
   if (self->_enableCrashAnalytics)
   {
     v20 = arc4random_uniform(0x64u);
-    if ([objc_opt_class() crashAnalyticsSamplingRate] <= v20)
+    crashAnalyticsSamplingRate = [objc_opt_class() crashAnalyticsSamplingRate];
+    if (crashAnalyticsSamplingRate <= v20)
     {
-      v26 = sub_100025204();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v28 = sub_100025204(crashAnalyticsSamplingRate);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = [objc_opt_class() description];
+        v29 = [objc_opt_class() description];
         NSStringFromSelector(a2);
-        v29 = v28 = realTimestampCopy;
+        v31 = v30 = realTimestampCopy;
         *buf = 138543618;
-        v98 = v27;
-        v99 = 2114;
-        v100 = v29;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: dropping due to sampling rate", buf, 0x16u);
+        v102 = v29;
+        v103 = 2114;
+        v104 = v31;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: dropping due to sampling rate", buf, 0x16u);
 
-        realTimestampCopy = v28;
+        realTimestampCopy = v30;
       }
 
       goto LABEL_49;
     }
 
-    v78 = realTimestampCopy;
-    v80 = timestampCopy;
-    v81 = reasonCopy;
-    v79 = monotonicTimestampCopy;
-    if (sub_10002529C() && (+[NSUserDefaults standardUserDefaults](NSUserDefaults, "standardUserDefaults"), v21 = objc_claimAutoreleasedReturnValue(), v22 = [v21 BOOLForKey:@"CrashAnalyticsTestMode"], v21, v22))
+    v82 = realTimestampCopy;
+    v84 = timestampCopy;
+    v85 = reasonCopy;
+    v83 = monotonicTimestampCopy;
+    if (sub_10002529C() && (+[NSUserDefaults standardUserDefaults](NSUserDefaults, "standardUserDefaults"), v22 = objc_claimAutoreleasedReturnValue(), v23 = [v22 BOOLForKey:@"CrashAnalyticsTestMode"], v22, v23))
     {
-      v23 = sub_100025204();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v25 = sub_100025204(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = [objc_opt_class() description];
-        v25 = NSStringFromSelector(a2);
+        v26 = [objc_opt_class() description];
+        v27 = NSStringFromSelector(a2);
         *buf = 138543618;
-        v98 = v24;
-        v99 = 2114;
-        v100 = v25;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: test mode enabled", buf, 0x16u);
+        v102 = v26;
+        v103 = 2114;
+        v104 = v27;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: test mode enabled", buf, 0x16u);
       }
 
-      v73 = 1;
+      v77 = 1;
     }
 
     else
     {
-      v73 = 0;
+      v77 = 0;
     }
 
-    v77 = [objc_opt_class() subsystemNameForSubsystemID:dCopy];
+    v81 = [objc_opt_class() subsystemNameForSubsystemID:dCopy];
     selfCopy = self;
-    v75 = dCopy;
-    v84 = [objc_opt_class() primaryCoreNameForSubsystemID:dCopy];
-    v85 = objc_alloc_init(NSMutableArray);
-    v91 = 0u;
-    v92 = 0u;
-    v93 = 0u;
-    v94 = 0u;
-    v76 = pipelineCopy;
-    v30 = pipelineCopy;
-    v31 = [v30 countByEnumeratingWithState:&v91 objects:v111 count:16];
-    if (v31)
+    v79 = dCopy;
+    v88 = [objc_opt_class() primaryCoreNameForSubsystemID:dCopy];
+    v89 = objc_alloc_init(NSMutableArray);
+    v95 = 0u;
+    v96 = 0u;
+    v97 = 0u;
+    v98 = 0u;
+    v80 = pipelineCopy;
+    v32 = pipelineCopy;
+    v33 = [v32 countByEnumeratingWithState:&v95 objects:v115 count:16];
+    if (v33)
     {
-      v32 = v31;
-      v33 = *v92;
+      v34 = v33;
+      v35 = *v96;
       do
       {
-        v34 = 0;
+        v36 = 0;
         do
         {
-          if (*v92 != v33)
+          if (*v96 != v35)
           {
-            objc_enumerationMutation(v30);
+            objc_enumerationMutation(v32);
           }
 
-          v35 = *(*(&v91 + 1) + 8 * v34);
-          v36 = [v30 objectForKeyedSubscript:v35];
+          v37 = *(*(&v95 + 1) + 8 * v36);
+          v38 = [v32 objectForKeyedSubscript:v37];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
 
           if (isKindOfClass)
           {
-            v38 = [v30 objectForKeyedSubscript:v35];
-            v39 = [(CrashReporter *)selfCopy analyticsDataForCrashlog:v38 core:v35];
+            v41 = [v32 objectForKeyedSubscript:v37];
+            v42 = [(CrashReporter *)selfCopy analyticsDataForCrashlog:v41 core:v37];
 
-            if (v39)
+            if (v42)
             {
-              v109[0] = @"core";
-              v109[1] = @"crashlog";
-              v110[0] = v35;
-              v110[1] = v39;
-              v40 = [NSDictionary dictionaryWithObjects:v110 forKeys:v109 count:2];
-              [v85 addObject:v40];
+              v113[0] = @"core";
+              v113[1] = @"crashlog";
+              v114[0] = v37;
+              v114[1] = v42;
+              v43 = [NSDictionary dictionaryWithObjects:v114 forKeys:v113 count:2];
+              [v89 addObject:v43];
 
-              if ([v84 isEqualToString:v35])
+              if ([v88 isEqualToString:v37])
               {
-                v41 = [v39 mutableCopy];
-                [v41 removeObjectForKey:@"application-info"];
-                v108[0] = @"AP";
-                v107[0] = @"core";
-                v107[1] = @"crashlog";
-                v42 = [v41 copy];
-                v108[1] = v42;
-                v43 = [NSDictionary dictionaryWithObjects:v108 forKeys:v107 count:2];
-                [v85 addObject:v43];
+                v44 = [v42 mutableCopy];
+                [v44 removeObjectForKey:@"application-info"];
+                v112[0] = @"AP";
+                v111[0] = @"core";
+                v111[1] = @"crashlog";
+                v45 = [v44 copy];
+                v112[1] = v45;
+                v46 = [NSDictionary dictionaryWithObjects:v112 forKeys:v111 count:2];
+                [v89 addObject:v46];
 
 LABEL_20:
               }
@@ -1362,100 +1372,100 @@ LABEL_20:
 
           else
           {
-            v39 = sub_100025204();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+            v42 = sub_100025204(v40);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
-              v41 = [objc_opt_class() description];
-              v42 = NSStringFromSelector(a2);
+              v44 = [objc_opt_class() description];
+              v45 = NSStringFromSelector(a2);
               *buf = 138543618;
-              v98 = v41;
-              v99 = 2114;
-              v100 = v42;
-              _os_log_error_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: decoded crashlog has wrong type", buf, 0x16u);
+              v102 = v44;
+              v103 = 2114;
+              v104 = v45;
+              _os_log_error_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: decoded crashlog has wrong type", buf, 0x16u);
               goto LABEL_20;
             }
           }
 
-          v34 = v34 + 1;
+          v36 = v36 + 1;
         }
 
-        while (v32 != v34);
-        v44 = [v30 countByEnumeratingWithState:&v91 objects:v111 count:16];
-        v32 = v44;
+        while (v34 != v36);
+        v47 = [v32 countByEnumeratingWithState:&v95 objects:v115 count:16];
+        v34 = v47;
       }
 
-      while (v44);
+      while (v47);
     }
 
-    v105[0] = @"bug_type";
-    v105[1] = @"UI_country_code";
-    v106[0] = @"305";
-    v106[1] = @"US";
-    v105[2] = @"log-version";
-    v105[3] = @"accessory_type";
-    v106[2] = @"1.0";
-    v106[3] = @"centauri";
-    v105[4] = @"analytics_test_mode";
-    v74 = [NSNumber numberWithBool:v73];
-    v106[4] = v74;
-    v105[5] = @"accessory_machine_config";
+    v109[0] = @"bug_type";
+    v109[1] = @"UI_country_code";
+    v110[0] = @"305";
+    v110[1] = @"US";
+    v109[2] = @"log-version";
+    v109[3] = @"accessory_type";
+    v110[2] = @"1.0";
+    v110[3] = @"centauri";
+    v109[4] = @"analytics_test_mode";
+    v78 = [NSNumber numberWithBool:v77];
+    v110[4] = v78;
+    v109[5] = @"accessory_machine_config";
     productType = selfCopy->_productType;
-    v46 = productType;
+    v49 = productType;
     if (!productType)
     {
-      v46 = +[NSNull null];
+      v49 = +[NSNull null];
     }
 
-    v72 = v46;
-    v106[5] = v46;
-    v105[6] = @"application-info";
-    v103[0] = @"chipset";
+    v76 = v49;
+    v110[5] = v49;
+    v109[6] = @"application-info";
+    v107[0] = @"chipset";
     chipset = selfCopy->_chipset;
-    v48 = chipset;
+    v51 = chipset;
     if (!chipset)
     {
-      v48 = +[NSNull null];
+      v51 = +[NSNull null];
     }
 
-    v70 = v48;
-    v104[0] = v48;
-    v103[1] = @"chipset-revision";
+    v74 = v51;
+    v108[0] = v51;
+    v107[1] = @"chipset-revision";
     chipsetRevision = selfCopy->_chipsetRevision;
-    v50 = chipsetRevision;
+    v53 = chipsetRevision;
     if (!chipsetRevision)
     {
-      v50 = [NSNull null:v48];
+      v53 = [NSNull null:v51];
     }
 
-    v104[1] = v50;
-    v103[2] = @"sku";
+    v108[1] = v53;
+    v107[2] = @"sku";
     wsku = selfCopy->_wsku;
-    v52 = wsku;
+    v55 = wsku;
     if (!wsku)
     {
-      v52 = +[NSNull null];
+      v55 = +[NSNull null];
     }
 
-    v104[2] = v52;
-    v103[3] = @"builtin";
-    v53 = [NSNumber numberWithBool:selfCopy->_builtIn, v70];
-    v104[3] = v53;
-    v104[4] = v81;
-    v103[4] = @"host-reason";
-    v103[5] = @"subsystem";
-    v104[5] = v77;
-    v104[6] = v80;
-    v103[6] = @"uptime-without-sleep";
-    v103[7] = @"uptime-with-sleep";
-    v104[7] = v79;
-    v103[8] = @"wall-time";
-    v54 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v78 unsignedLongLongValue] % 0x4E94914F0000);
-    v104[8] = v54;
-    v55 = [NSDictionary dictionaryWithObjects:v104 forKeys:v103 count:9];
-    v105[7] = @"crashlogs";
-    v106[6] = v55;
-    v106[7] = v85;
-    v82 = [NSDictionary dictionaryWithObjects:v106 forKeys:v105 count:8];
+    v108[2] = v55;
+    v107[3] = @"builtin";
+    v56 = [NSNumber numberWithBool:selfCopy->_builtIn, v74];
+    v108[3] = v56;
+    v108[4] = v85;
+    v107[4] = @"host-reason";
+    v107[5] = @"subsystem";
+    v108[5] = v81;
+    v108[6] = v84;
+    v107[6] = @"uptime-without-sleep";
+    v107[7] = @"uptime-with-sleep";
+    v108[7] = v83;
+    v107[8] = @"wall-time";
+    v57 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v82 unsignedLongLongValue] % 0x4E94914F0000);
+    v108[8] = v57;
+    v58 = [NSDictionary dictionaryWithObjects:v108 forKeys:v107 count:9];
+    v109[7] = @"crashlogs";
+    v110[6] = v58;
+    v110[7] = v89;
+    v86 = [NSDictionary dictionaryWithObjects:v110 forKeys:v109 count:8];
 
     if (wsku)
     {
@@ -1475,107 +1485,107 @@ LABEL_20:
     }
 
 LABEL_36:
-    v26 = v85;
-    v56 = v82;
+    v28 = v89;
+    v59 = v86;
     if (!chipset)
     {
     }
 
-    monotonicTimestampCopy = v79;
+    monotonicTimestampCopy = v83;
     if (!productType)
     {
     }
 
-    v90 = 0;
-    v57 = [NSJSONSerialization dataWithJSONObject:v82 options:1 error:&v90];
-    v58 = v90;
-    v59 = v58;
-    reasonCopy = v81;
-    if (!v57 || v58)
+    v94 = 0;
+    v60 = [NSJSONSerialization dataWithJSONObject:v86 options:1 error:&v94];
+    v61 = v94;
+    v62 = v61;
+    reasonCopy = v85;
+    if (!v60 || v61)
     {
-      v67 = sub_100025204();
-      pipelineCopy = v76;
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+      v71 = sub_100025204(v61);
+      pipelineCopy = v80;
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
       {
-        v68 = [objc_opt_class() description];
-        v69 = NSStringFromSelector(a2);
+        v72 = [objc_opt_class() description];
+        v73 = NSStringFromSelector(a2);
         *buf = 138543874;
-        v98 = v68;
-        v99 = 2114;
-        v100 = v69;
-        v101 = 2114;
-        v102 = v59;
-        _os_log_error_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: json serialization failed: %{public}@", buf, 0x20u);
+        v102 = v72;
+        v103 = 2114;
+        v104 = v73;
+        v105 = 2114;
+        v106 = v62;
+        _os_log_error_impl(&_mh_execute_header, v71, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: json serialization failed: %{public}@", buf, 0x20u);
       }
 
       goto LABEL_48;
     }
 
-    v95 = kOSALogOptionOverrideFilePrefix;
-    v96 = @"CentauriFirmwareEvent";
-    v60 = [NSDictionary dictionaryWithObjects:&v96 forKeys:&v95 count:1];
-    v89 = 0;
-    v87[0] = _NSConcreteStackBlock;
-    v87[1] = 3221225472;
-    v87[2] = sub_1000144B0;
-    v87[3] = &unk_10005CAC8;
-    v88 = v57;
-    v61 = [OSALog createForSubmission:@"305" metadata:0 options:v60 error:&v89 writing:v87];
-    v59 = v89;
+    v99 = kOSALogOptionOverrideFilePrefix;
+    v100 = @"CentauriFirmwareEvent";
+    v63 = [NSDictionary dictionaryWithObjects:&v100 forKeys:&v99 count:1];
+    v93 = 0;
+    v91[0] = _NSConcreteStackBlock;
+    v91[1] = 3221225472;
+    v91[2] = sub_1000144B0;
+    v91[3] = &unk_10005CAC8;
+    v92 = v60;
+    v64 = [OSALog createForSubmission:@"305" metadata:0 options:v63 error:&v93 writing:v91];
+    v62 = v93;
 
-    v62 = sub_100025204();
-    v63 = v62;
-    pipelineCopy = v76;
-    if (!v61 || v59)
+    v66 = sub_100025204(v65);
+    v67 = v66;
+    pipelineCopy = v80;
+    if (!v64 || v62)
     {
-      if (!os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_47;
       }
 
-      v64 = [objc_opt_class() description];
-      v65 = NSStringFromSelector(a2);
+      v68 = [objc_opt_class() description];
+      v69 = NSStringFromSelector(a2);
       *buf = 138543874;
-      v98 = v64;
-      v99 = 2114;
-      v100 = v65;
-      v101 = 2114;
-      v102 = v59;
-      _os_log_error_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: submission failed: %{public}@", buf, 0x20u);
+      v102 = v68;
+      v103 = 2114;
+      v104 = v69;
+      v105 = 2114;
+      v106 = v62;
+      _os_log_error_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: submission failed: %{public}@", buf, 0x20u);
     }
 
     else
     {
-      if (!os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_47:
 
-        v67 = v88;
+        v71 = v92;
 LABEL_48:
 
-        dCopy = v75;
-        timestampCopy = v80;
-        realTimestampCopy = v78;
+        dCopy = v79;
+        timestampCopy = v84;
+        realTimestampCopy = v82;
 LABEL_49:
 
         goto LABEL_50;
       }
 
-      v64 = [objc_opt_class() description];
-      v65 = NSStringFromSelector(a2);
-      filepath = [v61 filepath];
+      v68 = [objc_opt_class() description];
+      v69 = NSStringFromSelector(a2);
+      filepath = [v64 filepath];
       *buf = 138543874;
-      v98 = v64;
-      v99 = 2114;
-      v100 = v65;
-      v101 = 2114;
-      v102 = filepath;
-      _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: submitted: %{public}@", buf, 0x20u);
+      v102 = v68;
+      v103 = 2114;
+      v104 = v69;
+      v105 = 2114;
+      v106 = filepath;
+      _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: submitted: %{public}@", buf, 0x20u);
 
-      v56 = v82;
+      v59 = v86;
     }
 
-    v26 = v85;
+    v28 = v89;
     goto LABEL_47;
   }
 
@@ -1587,10 +1597,10 @@ LABEL_50:
   crashlogCopy = crashlog;
   coreCopy = core;
   v7 = objc_alloc_init(NSMutableArray);
-  v234 = objc_alloc_init(NSMutableArray);
+  v239 = objc_alloc_init(NSMutableArray);
   v8 = [crashlogCopy objectForKeyedSubscript:@"errors"];
 
-  v231 = crashlogCopy;
+  v236 = crashlogCopy;
   if (v8)
   {
     v9 = 0;
@@ -1603,373 +1613,376 @@ LABEL_50:
     v16 = 0;
     v17 = 0;
     v18 = 0;
-    v235 = 0;
-    v257 = 0;
+    v240 = 0;
+    v262 = 0;
     goto LABEL_234;
   }
 
   v19 = [crashlogCopy objectForKeyedSubscript:@"panic"];
-  v20 = &airship_ch_interface_close_ptr;
   if (v19)
   {
-    v21 = v19;
+    v20 = v19;
     objc_opt_class();
-    v235 = v21;
-    if (objc_opt_isKindOfClass())
+    v240 = v20;
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       goto LABEL_9;
     }
 
-    v22 = sub_100025204();
+    v22 = sub_100025204(isKindOfClass);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_10002AE1C();
     }
   }
 
-  v235 = 0;
+  v240 = 0;
 LABEL_9:
   v23 = [crashlogCopy objectForKeyedSubscript:@"crashlog-version"];
   if (v23)
   {
     v24 = v23;
     objc_opt_class();
-    v229 = v24;
-    if (objc_opt_isKindOfClass())
+    v234 = v24;
+    v25 = objc_opt_isKindOfClass();
+    if (v25)
     {
       goto LABEL_15;
     }
 
-    v25 = sub_100025204();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v26 = sub_100025204(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       sub_10002AED4();
     }
   }
 
-  v229 = 0;
+  v234 = 0;
 LABEL_15:
-  v26 = [crashlogCopy objectForKeyedSubscript:@"exception"];
-  if (v26)
+  v27 = [crashlogCopy objectForKeyedSubscript:@"exception"];
+  if (v27)
   {
-    v27 = v26;
+    v28 = v27;
     objc_opt_class();
-    v228 = v27;
-    if (objc_opt_isKindOfClass())
+    v233 = v28;
+    v29 = objc_opt_isKindOfClass();
+    if (v29)
     {
       goto LABEL_21;
     }
 
-    v28 = sub_100025204();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v30 = sub_100025204(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       sub_10002AF8C();
     }
   }
 
-  v228 = 0;
+  v233 = 0;
 LABEL_21:
-  v29 = [crashlogCopy objectForKeyedSubscript:@"sections"];
-  if (!v29)
+  v31 = [crashlogCopy objectForKeyedSubscript:@"sections"];
+  if (!v31)
   {
-    null6 = sub_100025204();
+    null6 = sub_100025204(0);
     if (os_log_type_enabled(null6, OS_LOG_TYPE_ERROR))
     {
       sub_10002B0EC();
     }
 
-    v225 = 0;
-    v226 = 0;
-    v227 = 0;
+    v230 = 0;
+    v231 = 0;
     v232 = 0;
-    v233 = 0;
-    v236 = 0;
     v237 = 0;
     v238 = 0;
+    v241 = 0;
+    v242 = 0;
+    v243 = 0;
     goto LABEL_231;
   }
 
-  v30 = v29;
+  v32 = v31;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  v33 = objc_opt_isKindOfClass();
+  if ((v33 & 1) == 0)
   {
-    null6 = sub_100025204();
-    v238 = v30;
+    null6 = sub_100025204(v33);
+    v243 = v32;
     if (os_log_type_enabled(null6, OS_LOG_TYPE_ERROR))
     {
       sub_10002B044();
     }
 
-    v225 = 0;
-    v226 = 0;
-    v227 = 0;
+    v230 = 0;
+    v231 = 0;
     v232 = 0;
-    v233 = 0;
-    v236 = 0;
     v237 = 0;
+    v238 = 0;
+    v241 = 0;
+    v242 = 0;
 LABEL_231:
-    v257 = 0;
+    v262 = 0;
     goto LABEL_232;
   }
 
   aSelector = a2;
-  v281 = 0u;
-  v282 = 0u;
-  v279 = 0u;
-  v280 = 0u;
-  v31 = v30;
-  v32 = [v31 countByEnumeratingWithState:&v279 objects:v302 count:16];
-  v33 = &airship_ch_interface_close_ptr;
-  v34 = &airship_ch_interface_close_ptr;
-  v238 = v31;
-  if (!v32)
+  v286 = 0u;
+  v287 = 0u;
+  v284 = 0u;
+  v285 = 0u;
+  v34 = v32;
+  v35 = [v34 countByEnumeratingWithState:&v284 objects:v307 count:16];
+  v36 = &airship_ch_interface_close_ptr;
+  v37 = &airship_ch_interface_close_ptr;
+  v243 = v34;
+  if (!v35)
   {
-    v236 = 0;
+    v241 = 0;
+    v242 = 0;
     v237 = 0;
+    v238 = 0;
+    v230 = 0;
+    v231 = 0;
     v232 = 0;
-    v233 = 0;
-    v225 = 0;
-    v226 = 0;
-    v227 = 0;
 LABEL_255:
 
     goto LABEL_256;
   }
 
-  v35 = v32;
-  v225 = 0;
-  v226 = 0;
-  v227 = 0;
+  v38 = v35;
+  v230 = 0;
+  v231 = 0;
   v232 = 0;
-  v233 = 0;
-  v239 = 0;
-  v236 = 0;
   v237 = 0;
-  v243 = *v280;
+  v238 = 0;
+  v244 = 0;
+  v241 = 0;
+  v242 = 0;
+  v248 = *v285;
   do
   {
-    v36 = 0;
-    v241 = v35;
+    v39 = 0;
+    v246 = v38;
     do
     {
-      if (*v280 != v243)
+      if (*v285 != v248)
       {
-        objc_enumerationMutation(v31);
+        objc_enumerationMutation(v34);
       }
 
-      v245 = v36;
-      v37 = *(*(&v279 + 1) + 8 * v36);
-      v38 = v33[197];
+      v250 = v39;
+      v40 = *(*(&v284 + 1) + 8 * v39);
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      v41 = objc_opt_isKindOfClass();
+      if ((v41 & 1) == 0)
       {
-        v47 = sub_100025204();
-        obj = v47;
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        v50 = sub_100025204(v41);
+        obj = v50;
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
         {
-          v48 = [objc_opt_class() description];
-          v49 = NSStringFromSelector(aSelector);
+          v51 = [objc_opt_class() description];
+          v52 = NSStringFromSelector(aSelector);
           *buf = 138543618;
-          v299 = v48;
-          v300 = 2114;
-          v301 = v49;
-          v50 = v47;
-          v51 = "%{public}@::%{public}@: section has wrong type";
+          v304 = v51;
+          v305 = 2114;
+          v306 = v52;
+          v53 = v50;
+          v54 = "%{public}@::%{public}@: section has wrong type";
           goto LABEL_150;
         }
 
 LABEL_41:
-        v247 = 0;
-        v249 = 0;
+        v252 = 0;
+        v254 = 0;
         goto LABEL_46;
       }
 
-      v39 = [v37 objectForKeyedSubscript:@"section-name"];
-      if (!v39)
+      v42 = [v40 objectForKeyedSubscript:@"section-name"];
+      if (!v42)
       {
-        v52 = sub_100025204();
-        obj = v52;
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+        v55 = sub_100025204(0);
+        obj = v55;
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
         {
-          v48 = [objc_opt_class() description];
-          v49 = NSStringFromSelector(aSelector);
+          v51 = [objc_opt_class() description];
+          v52 = NSStringFromSelector(aSelector);
           *buf = 138543618;
-          v299 = v48;
-          v300 = 2114;
-          v301 = v49;
-          v50 = v52;
-          v51 = "%{public}@::%{public}@: section missing name";
+          v304 = v51;
+          v305 = 2114;
+          v306 = v52;
+          v53 = v55;
+          v54 = "%{public}@::%{public}@: section missing name";
 LABEL_150:
-          _os_log_error_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, v51, buf, 0x16u);
+          _os_log_error_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, v54, buf, 0x16u);
 
-          v35 = v241;
+          v38 = v246;
         }
 
         goto LABEL_41;
       }
 
-      v40 = v39;
-      v41 = v20[183];
+      v43 = v42;
       objc_opt_class();
-      v249 = v40;
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      v254 = v43;
+      v44 = objc_opt_isKindOfClass();
+      if ((v44 & 1) == 0)
       {
-        v53 = sub_100025204();
-        obj = v53;
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+        v56 = sub_100025204(v44);
+        obj = v56;
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
-          v54 = [objc_opt_class() description];
-          v55 = NSStringFromSelector(aSelector);
+          v57 = [objc_opt_class() description];
+          v58 = NSStringFromSelector(aSelector);
           *buf = 138543618;
-          v299 = v54;
-          v300 = 2114;
-          v301 = v55;
-          v56 = v53;
-          v57 = "%{public}@::%{public}@: section name has wrong type";
+          v304 = v57;
+          v305 = 2114;
+          v306 = v58;
+          v59 = v56;
+          v60 = "%{public}@::%{public}@: section name has wrong type";
           goto LABEL_176;
         }
 
 LABEL_45:
-        v247 = 0;
+        v252 = 0;
         goto LABEL_46;
       }
 
-      v42 = [v37 objectForKeyedSubscript:@"section-signature"];
-      if (!v42)
+      v45 = [v40 objectForKeyedSubscript:@"section-signature"];
+      if (!v45)
       {
-        v58 = sub_100025204();
-        obj = v58;
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+        v61 = sub_100025204(0);
+        obj = v61;
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
         {
-          v54 = [objc_opt_class() description];
-          v55 = NSStringFromSelector(aSelector);
+          v57 = [objc_opt_class() description];
+          v58 = NSStringFromSelector(aSelector);
           *buf = 138543618;
-          v299 = v54;
-          v300 = 2114;
-          v301 = v55;
-          v56 = v58;
-          v57 = "%{public}@::%{public}@: section missing signature";
+          v304 = v57;
+          v305 = 2114;
+          v306 = v58;
+          v59 = v61;
+          v60 = "%{public}@::%{public}@: section missing signature";
 LABEL_176:
-          _os_log_error_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, v57, buf, 0x16u);
+          _os_log_error_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, v60, buf, 0x16u);
 
-          v35 = v241;
+          v38 = v246;
         }
 
         goto LABEL_45;
       }
 
-      v43 = v42;
-      v44 = v20[183];
+      v46 = v45;
       objc_opt_class();
-      v247 = v43;
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      v252 = v46;
+      v47 = objc_opt_isKindOfClass();
+      if ((v47 & 1) == 0)
       {
-        v60 = sub_100025204();
-        obj = v60;
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+        v63 = sub_100025204(v47);
+        obj = v63;
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
         {
-          v61 = [objc_opt_class() description];
-          v62 = NSStringFromSelector(aSelector);
+          v64 = [objc_opt_class() description];
+          v65 = NSStringFromSelector(aSelector);
           *buf = 138543618;
-          v299 = v61;
-          v300 = 2114;
-          v301 = v62;
-          _os_log_error_impl(&_mh_execute_header, v60, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: section signature has wrong type", buf, 0x16u);
+          v304 = v64;
+          v305 = 2114;
+          v306 = v65;
+          _os_log_error_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: section signature has wrong type", buf, 0x16u);
 
-          v35 = v241;
+          v38 = v246;
         }
 
         goto LABEL_46;
       }
 
-      if ([v249 isEqualToString:@"Version Section"] && objc_msgSend(v43, "isEqualToString:", @"Cver"))
+      if ([v254 isEqualToString:@"Version Section"] && objc_msgSend(v46, "isEqualToString:", @"Cver"))
       {
-        v45 = [v37 objectForKeyedSubscript:@"uuid"];
+        v48 = [v40 objectForKeyedSubscript:@"uuid"];
 
-        if (v45)
+        if (v48)
         {
-          v46 = v20[183];
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v49 = objc_opt_isKindOfClass();
+          if (v49)
           {
-            v236 = v45;
+            v241 = v48;
             goto LABEL_162;
           }
 
-          v141 = sub_100025204();
-          if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
+          v146 = sub_100025204(v49);
+          if (os_log_type_enabled(v146, OS_LOG_TYPE_ERROR))
           {
-            v168 = [objc_opt_class() description];
-            v169 = NSStringFromSelector(aSelector);
+            v173 = [objc_opt_class() description];
+            v174 = NSStringFromSelector(aSelector);
             *buf = 138543618;
-            v299 = v168;
-            v300 = 2114;
-            v301 = v169;
-            _os_log_error_impl(&_mh_execute_header, v141, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: uuid has wrong type", buf, 0x16u);
+            v304 = v173;
+            v305 = 2114;
+            v306 = v174;
+            _os_log_error_impl(&_mh_execute_header, v146, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: uuid has wrong type", buf, 0x16u);
 
-            v35 = v241;
+            v38 = v246;
           }
         }
 
-        v236 = 0;
+        v241 = 0;
 LABEL_162:
-        v142 = [v37 objectForKeyedSubscript:@"version"];
+        v147 = [v40 objectForKeyedSubscript:@"version"];
 
-        if (v142)
+        if (v147)
         {
-          v143 = v20[183];
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v148 = objc_opt_isKindOfClass();
+          if (v148)
           {
-            v237 = v142;
+            v242 = v147;
             goto LABEL_169;
           }
 
-          v144 = sub_100025204();
-          if (os_log_type_enabled(v144, OS_LOG_TYPE_ERROR))
+          v149 = sub_100025204(v148);
+          if (os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
           {
-            v170 = [objc_opt_class() description];
-            v171 = NSStringFromSelector(aSelector);
+            v175 = [objc_opt_class() description];
+            v176 = NSStringFromSelector(aSelector);
             *buf = 138543618;
-            v299 = v170;
-            v300 = 2114;
-            v301 = v171;
-            _os_log_error_impl(&_mh_execute_header, v144, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: version has wrong type", buf, 0x16u);
+            v304 = v175;
+            v305 = 2114;
+            v306 = v176;
+            _os_log_error_impl(&_mh_execute_header, v149, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: version has wrong type", buf, 0x16u);
 
-            v35 = v241;
+            v38 = v246;
           }
         }
 
-        v237 = 0;
+        v242 = 0;
 LABEL_169:
-        v145 = [v37 objectForKeyedSubscript:@"slide"];
-        v31 = v238;
-        obj = v145;
-        if (v145)
+        v150 = [v40 objectForKeyedSubscript:@"slide"];
+        v34 = v243;
+        obj = v150;
+        if (v150)
         {
-          v146 = v145;
-          v147 = v20[183];
+          v151 = v150;
           objc_opt_class();
-          v59 = v245;
-          if (objc_opt_isKindOfClass())
+          v152 = objc_opt_isKindOfClass();
+          v62 = v250;
+          if (v152)
           {
-            v239 = strtoull([v146 UTF8String], 0, 0);
+            v244 = strtoull([v151 UTF8String], 0, 0);
           }
 
           else
           {
-            v148 = sub_100025204();
-            if (os_log_type_enabled(v148, OS_LOG_TYPE_ERROR))
+            v153 = sub_100025204(v152);
+            if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
             {
-              v172 = [objc_opt_class() description];
-              v173 = NSStringFromSelector(aSelector);
+              v177 = [objc_opt_class() description];
+              v178 = NSStringFromSelector(aSelector);
               *buf = 138543618;
-              v299 = v172;
-              v300 = 2114;
-              v301 = v173;
-              _os_log_error_impl(&_mh_execute_header, v148, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: slide has wrong type", buf, 0x16u);
+              v304 = v177;
+              v305 = 2114;
+              v306 = v178;
+              _os_log_error_impl(&_mh_execute_header, v153, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: slide has wrong type", buf, 0x16u);
 
-              v35 = v241;
+              v38 = v246;
             }
           }
 
@@ -1979,137 +1992,136 @@ LABEL_169:
         goto LABEL_46;
       }
 
-      if (![v249 isEqualToString:@"Callstack Section"] || !objc_msgSend(v43, "isEqualToString:", @"Ccst"))
+      if (![v254 isEqualToString:@"Callstack Section"] || !objc_msgSend(v46, "isEqualToString:", @"Ccst"))
       {
-        if ([v249 isEqualToString:@"Task List Section"] && objc_msgSend(v43, "isEqualToString:", @"Crtk"))
+        if ([v254 isEqualToString:@"Task List Section"] && objc_msgSend(v46, "isEqualToString:", @"Crtk"))
         {
-          v73 = [v37 objectForKeyedSubscript:@"tasks"];
-          if (v73)
+          v76 = [v40 objectForKeyedSubscript:@"tasks"];
+          if (v76)
           {
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) == 0)
+            v77 = objc_opt_isKindOfClass();
+            if ((v77 & 1) == 0)
             {
-              v74 = sub_100025204();
-              if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+              v78 = sub_100025204(v77);
+              if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
               {
-                v178 = [objc_opt_class() description];
-                v179 = NSStringFromSelector(aSelector);
+                v183 = [objc_opt_class() description];
+                v184 = NSStringFromSelector(aSelector);
                 *buf = 138543618;
-                v299 = v178;
-                v300 = 2114;
-                v301 = v179;
-                _os_log_error_impl(&_mh_execute_header, v74, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: tasks has wrong type", buf, 0x16u);
+                v304 = v183;
+                v305 = 2114;
+                v306 = v184;
+                _os_log_error_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: tasks has wrong type", buf, 0x16u);
               }
 
-              v73 = 0;
+              v76 = 0;
             }
           }
 
-          v273 = 0u;
-          v274 = 0u;
-          v271 = 0u;
-          v272 = 0u;
-          obj = v73;
-          v75 = [obj countByEnumeratingWithState:&v271 objects:v296 count:16];
-          if (!v75)
+          v278 = 0u;
+          v279 = 0u;
+          v276 = 0u;
+          v277 = 0u;
+          obj = v76;
+          v79 = [obj countByEnumeratingWithState:&v276 objects:v301 count:16];
+          if (!v79)
           {
 LABEL_115:
 
-            v31 = v238;
-            v35 = v241;
+            v34 = v243;
+            v38 = v246;
             goto LABEL_46;
           }
 
-          v76 = v75;
-          v258 = *v272;
+          v80 = v79;
+          v263 = *v277;
           while (2)
           {
-            v77 = 0;
+            v81 = 0;
 LABEL_78:
-            if (*v272 != v258)
+            if (*v277 != v263)
             {
               objc_enumerationMutation(obj);
             }
 
-            v78 = *(*(&v271 + 1) + 8 * v77);
-            v79 = [v78 objectForKeyedSubscript:@"description"];
-            if (v79)
+            v82 = *(*(&v276 + 1) + 8 * v81);
+            v83 = [v82 objectForKeyedSubscript:@"description"];
+            if (v83)
             {
-              v80 = v20[183];
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) == 0)
+              v84 = objc_opt_isKindOfClass();
+              if ((v84 & 1) == 0)
               {
-                v81 = sub_100025204();
-                if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+                v85 = sub_100025204(v84);
+                if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
                 {
-                  v97 = [objc_opt_class() description];
-                  v98 = NSStringFromSelector(aSelector);
+                  v102 = [objc_opt_class() description];
+                  v103 = NSStringFromSelector(aSelector);
                   *buf = 138543618;
-                  v299 = v97;
-                  v300 = 2114;
-                  v301 = v98;
-                  _os_log_error_impl(&_mh_execute_header, v81, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: task description has wrong type", buf, 0x16u);
-
-                  v20 = &airship_ch_interface_close_ptr;
+                  v304 = v102;
+                  v305 = 2114;
+                  v306 = v103;
+                  _os_log_error_impl(&_mh_execute_header, v85, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: task description has wrong type", buf, 0x16u);
                 }
 
-                v79 = 0;
+                v83 = 0;
               }
             }
 
-            v82 = [v78 objectForKeyedSubscript:@"stack"];
-            if (v82)
+            v86 = [v82 objectForKeyedSubscript:@"stack"];
+            if (v86)
             {
-              v83 = v82;
+              v87 = v86;
               objc_opt_class();
-              if (objc_opt_isKindOfClass())
+              v88 = objc_opt_isKindOfClass();
+              if (v88)
               {
-                v269 = 0u;
-                v270 = 0u;
-                v267 = 0u;
-                v268 = 0u;
-                v84 = v83;
-                v85 = [v84 countByEnumeratingWithState:&v267 objects:v295 count:16];
-                if (v85)
+                v274 = 0u;
+                v275 = 0u;
+                v272 = 0u;
+                v273 = 0u;
+                v89 = v87;
+                v90 = [v89 countByEnumeratingWithState:&v272 objects:v300 count:16];
+                if (v90)
                 {
-                  v86 = v85;
-                  v87 = v7;
-                  v88 = *v268;
+                  v91 = v90;
+                  v92 = v7;
+                  v93 = *v273;
                   while (2)
                   {
-                    for (i = 0; i != v86; i = i + 1)
+                    for (i = 0; i != v91; ++i)
                     {
-                      if (*v268 != v88)
+                      if (*v273 != v93)
                       {
-                        objc_enumerationMutation(v84);
+                        objc_enumerationMutation(v89);
                       }
 
-                      v90 = *(*(&v267 + 1) + 8 * i);
                       objc_opt_class();
-                      if ((objc_opt_isKindOfClass() & 1) == 0)
+                      v95 = objc_opt_isKindOfClass();
+                      if ((v95 & 1) == 0)
                       {
-                        v93 = sub_100025204();
-                        if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
+                        v98 = sub_100025204(v95);
+                        if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
                         {
-                          v99 = [objc_opt_class() description];
-                          v100 = NSStringFromSelector(aSelector);
+                          v104 = [objc_opt_class() description];
+                          v105 = NSStringFromSelector(aSelector);
                           *buf = 138543618;
-                          v299 = v99;
-                          v300 = 2114;
-                          v301 = v100;
-                          _os_log_error_impl(&_mh_execute_header, v93, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: task stack entry has wrong type", buf, 0x16u);
+                          v304 = v104;
+                          v305 = 2114;
+                          v306 = v105;
+                          _os_log_error_impl(&_mh_execute_header, v98, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: task stack entry has wrong type", buf, 0x16u);
                         }
 
-                        v7 = v87;
-                        v33 = &airship_ch_interface_close_ptr;
-                        v34 = &airship_ch_interface_close_ptr;
-                        v20 = &airship_ch_interface_close_ptr;
+                        v7 = v92;
+                        v36 = &airship_ch_interface_close_ptr;
+                        v37 = &airship_ch_interface_close_ptr;
                         goto LABEL_102;
                       }
                     }
 
-                    v86 = [v84 countByEnumeratingWithState:&v267 objects:v295 count:16];
-                    if (v86)
+                    v91 = [v89 countByEnumeratingWithState:&v272 objects:v300 count:16];
+                    if (v91)
                     {
                       continue;
                     }
@@ -2117,64 +2129,61 @@ LABEL_78:
                     break;
                   }
 
-                  v7 = v87;
-                  v33 = &airship_ch_interface_close_ptr;
-                  v34 = &airship_ch_interface_close_ptr;
-                  v20 = &airship_ch_interface_close_ptr;
+                  v7 = v92;
+                  v36 = &airship_ch_interface_close_ptr;
+                  v37 = &airship_ch_interface_close_ptr;
                 }
               }
 
               else
               {
-                v84 = sub_100025204();
-                if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+                v89 = sub_100025204(v88);
+                if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
                 {
-                  v91 = [objc_opt_class() description];
-                  v92 = NSStringFromSelector(aSelector);
+                  v96 = [objc_opt_class() description];
+                  v97 = NSStringFromSelector(aSelector);
                   *buf = 138543618;
-                  v299 = v91;
-                  v300 = 2114;
-                  v301 = v92;
-                  _os_log_error_impl(&_mh_execute_header, v84, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: task stack has wrong type", buf, 0x16u);
-
-                  v20 = &airship_ch_interface_close_ptr;
+                  v304 = v96;
+                  v305 = 2114;
+                  v306 = v97;
+                  _os_log_error_impl(&_mh_execute_header, v89, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: task stack has wrong type", buf, 0x16u);
                 }
 
 LABEL_102:
 
-                v84 = 0;
+                v89 = 0;
               }
             }
 
             else
             {
-              v84 = 0;
+              v89 = 0;
             }
 
-            v293[0] = @"description";
-            v94 = v79;
-            if (!v79)
+            v298[0] = @"description";
+            v99 = v83;
+            if (!v83)
             {
-              null = [v34[201] null];
-              v94 = null;
+              null = [v37[201] null];
+              v99 = null;
             }
 
-            v294[0] = v94;
-            v293[1] = @"stack";
-            v95 = v84;
-            if (!v84)
+            v299[0] = v99;
+            v298[1] = @"stack";
+            v100 = v89;
+            if (!v89)
             {
-              null2 = [v34[201] null];
-              v95 = null2;
+              null2 = [v37[201] null];
+              v100 = null2;
             }
 
-            v294[1] = v95;
-            v96 = [v33[197] dictionaryWithObjects:v294 forKeys:v293 count:2];
-            [v7 addObject:v96];
+            v299[1] = v100;
+            v101 = [v36[197] dictionaryWithObjects:v299 forKeys:v298 count:2];
+            [v7 addObject:v101];
 
-            if (v84)
+            if (v89)
             {
-              if (v79)
+              if (v83)
               {
                 goto LABEL_110;
               }
@@ -2185,7 +2194,7 @@ LABEL_113:
             else
             {
 
-              if (!v79)
+              if (!v83)
               {
                 goto LABEL_113;
               }
@@ -2193,11 +2202,11 @@ LABEL_113:
 
 LABEL_110:
 
-            if (++v77 == v76)
+            if (++v81 == v80)
             {
-              v101 = [obj countByEnumeratingWithState:&v271 objects:v296 count:16];
-              v76 = v101;
-              if (!v101)
+              v106 = [obj countByEnumeratingWithState:&v276 objects:v301 count:16];
+              v80 = v106;
+              if (!v106)
               {
                 goto LABEL_115;
               }
@@ -2209,188 +2218,187 @@ LABEL_110:
           }
         }
 
-        if ([v249 isEqualToString:@"Mailbox Section"] && objc_msgSend(v43, "isEqualToString:", @"Cmbx"))
+        if ([v254 isEqualToString:@"Mailbox Section"] && objc_msgSend(v46, "isEqualToString:", @"Cmbx"))
         {
-          v102 = [v37 objectForKeyedSubscript:@"registers"];
-          if (v102)
+          v107 = [v40 objectForKeyedSubscript:@"registers"];
+          if (v107)
           {
-            v103 = v33[197];
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) == 0)
+            v108 = objc_opt_isKindOfClass();
+            if ((v108 & 1) == 0)
             {
-              v104 = sub_100025204();
-              if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
+              v109 = sub_100025204(v108);
+              if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
               {
-                v180 = [objc_opt_class() description];
-                v181 = NSStringFromSelector(aSelector);
+                v185 = [objc_opt_class() description];
+                v186 = NSStringFromSelector(aSelector);
                 *buf = 138543618;
-                v299 = v180;
-                v300 = 2114;
-                v301 = v181;
-                _os_log_error_impl(&_mh_execute_header, v104, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: mailbox registers has wrong type", buf, 0x16u);
+                v304 = v185;
+                v305 = 2114;
+                v306 = v186;
+                _os_log_error_impl(&_mh_execute_header, v109, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: mailbox registers has wrong type", buf, 0x16u);
 
-                v33 = &airship_ch_interface_close_ptr;
+                v36 = &airship_ch_interface_close_ptr;
               }
 
-              v102 = 0;
+              v107 = 0;
             }
           }
 
-          v265 = 0u;
-          v266 = 0u;
-          v263 = 0u;
-          v264 = 0u;
-          v105 = v102;
-          v106 = [v105 countByEnumeratingWithState:&v263 objects:v292 count:16];
-          obj = v105;
-          v31 = v238;
-          if (!v106)
+          v270 = 0u;
+          v271 = 0u;
+          v268 = 0u;
+          v269 = 0u;
+          v110 = v107;
+          v111 = [v110 countByEnumeratingWithState:&v268 objects:v297 count:16];
+          obj = v110;
+          v34 = v243;
+          if (!v111)
           {
             goto LABEL_186;
           }
 
-          v107 = v106;
-          v108 = *v264;
+          v112 = v111;
+          v113 = *v269;
 LABEL_125:
-          v109 = 0;
+          v114 = 0;
           while (1)
           {
-            if (*v264 != v108)
+            if (*v269 != v113)
             {
-              objc_enumerationMutation(v105);
+              objc_enumerationMutation(v110);
             }
 
-            v110 = *(*(&v263 + 1) + 8 * v109);
-            v111 = v20[183];
+            v115 = *(*(&v268 + 1) + 8 * v114);
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) == 0)
+            v116 = objc_opt_isKindOfClass();
+            if ((v116 & 1) == 0)
             {
               break;
             }
 
-            v112 = [v105 objectForKeyedSubscript:v110];
-            v113 = v20[183];
+            v117 = [v110 objectForKeyedSubscript:v115];
             objc_opt_class();
-            isKindOfClass = objc_opt_isKindOfClass();
+            v118 = objc_opt_isKindOfClass();
 
-            if ((isKindOfClass & 1) == 0)
+            if ((v118 & 1) == 0)
             {
-              v150 = sub_100025204();
-              if (!os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
+              v155 = sub_100025204(v119);
+              if (!os_log_type_enabled(v155, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_185;
               }
 
-              v151 = [objc_opt_class() description];
-              v152 = NSStringFromSelector(aSelector);
+              v156 = [objc_opt_class() description];
+              v157 = NSStringFromSelector(aSelector);
               *buf = 138543618;
-              v299 = v151;
-              v300 = 2114;
-              v301 = v152;
-              v153 = v150;
-              v154 = "%{public}@::%{public}@: mailbox register value has wrong type";
+              v304 = v156;
+              v305 = 2114;
+              v306 = v157;
+              v158 = v155;
+              v159 = "%{public}@::%{public}@: mailbox register value has wrong type";
               goto LABEL_216;
             }
 
-            v109 = v109 + 1;
-            v31 = v238;
-            if (v107 == v109)
+            v114 = v114 + 1;
+            v34 = v243;
+            if (v112 == v114)
             {
-              v107 = [v105 countByEnumeratingWithState:&v263 objects:v292 count:16];
-              if (v107)
+              v112 = [v110 countByEnumeratingWithState:&v268 objects:v297 count:16];
+              if (v112)
               {
                 goto LABEL_125;
               }
 
-              obj = v105;
-              v33 = &airship_ch_interface_close_ptr;
-              v34 = &airship_ch_interface_close_ptr;
+              obj = v110;
+              v36 = &airship_ch_interface_close_ptr;
+              v37 = &airship_ch_interface_close_ptr;
 LABEL_186:
 
-              v124 = [v37 objectForKeyedSubscript:@"mailbox-error"];
-              if (v124)
+              v129 = [v40 objectForKeyedSubscript:@"mailbox-error"];
+              if (v129)
               {
-                v155 = v20[183];
                 objc_opt_class();
-                if ((objc_opt_isKindOfClass() & 1) == 0)
+                v160 = objc_opt_isKindOfClass();
+                if ((v160 & 1) == 0)
                 {
-                  v156 = sub_100025204();
-                  if (os_log_type_enabled(v156, OS_LOG_TYPE_ERROR))
+                  v161 = sub_100025204(v160);
+                  if (os_log_type_enabled(v161, OS_LOG_TYPE_ERROR))
                   {
-                    v182 = [objc_opt_class() description];
-                    v183 = NSStringFromSelector(aSelector);
+                    v187 = [objc_opt_class() description];
+                    v188 = NSStringFromSelector(aSelector);
                     *buf = 138543618;
-                    v299 = v182;
-                    v300 = 2114;
-                    v301 = v183;
-                    _os_log_error_impl(&_mh_execute_header, v156, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: mailbox error has wrong type", buf, 0x16u);
+                    v304 = v187;
+                    v305 = 2114;
+                    v306 = v188;
+                    _os_log_error_impl(&_mh_execute_header, v161, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: mailbox error has wrong type", buf, 0x16u);
 
-                    v33 = &airship_ch_interface_close_ptr;
+                    v36 = &airship_ch_interface_close_ptr;
                   }
 
-                  v124 = 0;
+                  v129 = 0;
                 }
               }
 
-              v125 = [v37 objectForKeyedSubscript:@"route-number"];
-              if (v125)
+              v130 = [v40 objectForKeyedSubscript:@"route-number"];
+              if (v130)
               {
-                v157 = v20[183];
                 objc_opt_class();
-                if ((objc_opt_isKindOfClass() & 1) == 0)
+                v162 = objc_opt_isKindOfClass();
+                if ((v162 & 1) == 0)
                 {
-                  v158 = sub_100025204();
-                  if (os_log_type_enabled(v158, OS_LOG_TYPE_ERROR))
+                  v163 = sub_100025204(v162);
+                  if (os_log_type_enabled(v163, OS_LOG_TYPE_ERROR))
                   {
-                    v184 = [objc_opt_class() description];
-                    v185 = NSStringFromSelector(aSelector);
+                    v189 = [objc_opt_class() description];
+                    v190 = NSStringFromSelector(aSelector);
                     *buf = 138543618;
-                    v299 = v184;
-                    v300 = 2114;
-                    v301 = v185;
-                    _os_log_error_impl(&_mh_execute_header, v158, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: mailbox route number has wrong type", buf, 0x16u);
+                    v304 = v189;
+                    v305 = 2114;
+                    v306 = v190;
+                    _os_log_error_impl(&_mh_execute_header, v163, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: mailbox route number has wrong type", buf, 0x16u);
 
-                    v33 = &airship_ch_interface_close_ptr;
+                    v36 = &airship_ch_interface_close_ptr;
                   }
 
-                  v125 = 0;
+                  v130 = 0;
                 }
               }
 
-              v59 = v245;
-              v290[0] = @"registers";
-              v159 = obj;
+              v62 = v250;
+              v295[0] = @"registers";
+              v164 = obj;
               if (!obj)
               {
-                null3 = [v34[201] null];
-                v159 = null3;
+                null3 = [v37[201] null];
+                v164 = null3;
               }
 
-              v291[0] = v159;
-              v290[1] = @"mailbox-error";
-              v160 = v124;
-              if (!v124)
+              v296[0] = v164;
+              v295[1] = @"mailbox-error";
+              v165 = v129;
+              if (!v129)
               {
-                null4 = [v34[201] null];
-                v160 = null4;
+                null4 = [v37[201] null];
+                v165 = null4;
               }
 
-              v291[1] = v160;
-              v290[2] = @"route-number";
-              v161 = v125;
-              if (!v125)
+              v296[1] = v165;
+              v295[2] = @"route-number";
+              v166 = v130;
+              if (!v130)
               {
-                null5 = [v34[201] null];
-                v161 = null5;
+                null5 = [v37[201] null];
+                v166 = null5;
               }
 
-              v291[2] = v161;
-              v162 = [v33[197] dictionaryWithObjects:v291 forKeys:v290 count:{3, null3}];
-              [v234 addObject:v162];
+              v296[2] = v166;
+              v167 = [v36[197] dictionaryWithObjects:v296 forKeys:v295 count:{3, null3}];
+              [v239 addObject:v167];
 
-              if (v125)
+              if (v130)
               {
-                if (v124)
+                if (v129)
                 {
 LABEL_204:
                   if (!obj)
@@ -2404,7 +2412,7 @@ LABEL_204:
               else
               {
 
-                if (v124)
+                if (v129)
                 {
                   goto LABEL_204;
                 }
@@ -2414,142 +2422,142 @@ LABEL_204:
             }
           }
 
-          v150 = sub_100025204();
-          if (!os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
+          v155 = sub_100025204(v116);
+          if (!os_log_type_enabled(v155, OS_LOG_TYPE_ERROR))
           {
 LABEL_185:
-            v34 = &airship_ch_interface_close_ptr;
+            v37 = &airship_ch_interface_close_ptr;
 
             obj = 0;
-            v31 = v238;
-            v33 = &airship_ch_interface_close_ptr;
+            v34 = v243;
+            v36 = &airship_ch_interface_close_ptr;
             goto LABEL_186;
           }
 
-          v151 = [objc_opt_class() description];
-          v152 = NSStringFromSelector(aSelector);
+          v156 = [objc_opt_class() description];
+          v157 = NSStringFromSelector(aSelector);
           *buf = 138543618;
-          v299 = v151;
-          v300 = 2114;
-          v301 = v152;
-          v153 = v150;
-          v154 = "%{public}@::%{public}@: mailbox register key has wrong type";
+          v304 = v156;
+          v305 = 2114;
+          v306 = v157;
+          v158 = v155;
+          v159 = "%{public}@::%{public}@: mailbox register key has wrong type";
 LABEL_216:
-          _os_log_error_impl(&_mh_execute_header, v153, OS_LOG_TYPE_ERROR, v154, buf, 0x16u);
+          _os_log_error_impl(&_mh_execute_header, v158, OS_LOG_TYPE_ERROR, v159, buf, 0x16u);
 
           goto LABEL_185;
         }
 
-        if ([v249 isEqualToString:@"Register Frame Section"] && objc_msgSend(v43, "isEqualToString:", @"CrgM"))
+        if ([v254 isEqualToString:@"Register Frame Section"] && objc_msgSend(v46, "isEqualToString:", @"CrgM"))
         {
-          v115 = [v37 objectForKeyedSubscript:@"registers"];
-          obj = v115;
-          if (v115)
+          v120 = [v40 objectForKeyedSubscript:@"registers"];
+          obj = v120;
+          if (v120)
           {
-            v116 = v115;
-            v117 = v20[183];
+            v121 = v120;
             objc_opt_class();
-            v59 = v245;
-            if (objc_opt_isKindOfClass())
+            v122 = objc_opt_isKindOfClass();
+            v62 = v250;
+            if (v122)
             {
-              v118 = +[NSRegularExpression regularExpressionWithPattern:options:error:](NSRegularExpression, "regularExpressionWithPattern:options:error:", @"pc=(0x[0-9a-fA-F]+)", 0, 0);
-              v119 = [v118 firstMatchInString:v116 options:0 range:{0, objc_msgSend(v116, "length")}];
-              [v119 rangeAtIndex:1];
-              if (v120)
+              v123 = +[NSRegularExpression regularExpressionWithPattern:options:error:](NSRegularExpression, "regularExpressionWithPattern:options:error:", @"pc=(0x[0-9a-fA-F]+)", 0, 0);
+              v124 = [v123 firstMatchInString:v121 options:0 range:{0, objc_msgSend(v121, "length")}];
+              [v124 rangeAtIndex:1];
+              if (v125)
               {
-                v121 = [v119 rangeAtIndex:1];
-                v123 = [v116 substringWithRange:{v121, v122}];
+                v126 = [v124 rangeAtIndex:1];
+                v128 = [v121 substringWithRange:{v126, v127}];
 
-                v226 = v123;
-                v33 = &airship_ch_interface_close_ptr;
+                v231 = v128;
+                v36 = &airship_ch_interface_close_ptr;
               }
 
-              v124 = +[NSRegularExpression regularExpressionWithPattern:options:error:](NSRegularExpression, "regularExpressionWithPattern:options:error:", @"lr=(0x[0-9a-fA-F]+)", 0, 0);
+              v129 = +[NSRegularExpression regularExpressionWithPattern:options:error:](NSRegularExpression, "regularExpressionWithPattern:options:error:", @"lr=(0x[0-9a-fA-F]+)", 0, 0);
 
-              v125 = -[NSObject firstMatchInString:options:range:](v124, "firstMatchInString:options:range:", v116, 0, 0, [v116 length]);
+              v130 = -[NSObject firstMatchInString:options:range:](v129, "firstMatchInString:options:range:", v121, 0, 0, [v121 length]);
 
-              [v125 rangeAtIndex:1];
-              if (v126)
+              [v130 rangeAtIndex:1];
+              if (v131)
               {
-                v127 = [v125 rangeAtIndex:1];
-                v129 = [v116 substringWithRange:{v127, v128}];
+                v132 = [v130 rangeAtIndex:1];
+                v134 = [v121 substringWithRange:{v132, v133}];
 
-                v227 = v129;
+                v232 = v134;
               }
 
 LABEL_206:
 
 LABEL_207:
-              v35 = v241;
+              v38 = v246;
 LABEL_47:
 
               goto LABEL_48;
             }
 
-            v124 = sub_100025204();
-            if (!os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+            v129 = sub_100025204(v122);
+            if (!os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_207;
             }
 
-            v133 = [objc_opt_class() description];
-            v163 = NSStringFromSelector(aSelector);
+            v138 = [objc_opt_class() description];
+            v168 = NSStringFromSelector(aSelector);
             *buf = 138543618;
-            v299 = v133;
-            v300 = 2114;
-            v301 = v163;
-            v164 = v124;
-            v165 = "%{public}@::%{public}@: registers has wrong type";
+            v304 = v138;
+            v305 = 2114;
+            v306 = v168;
+            v169 = v129;
+            v170 = "%{public}@::%{public}@: registers has wrong type";
 LABEL_214:
-            _os_log_error_impl(&_mh_execute_header, v164, OS_LOG_TYPE_ERROR, v165, buf, 0x16u);
+            _os_log_error_impl(&_mh_execute_header, v169, OS_LOG_TYPE_ERROR, v170, buf, 0x16u);
 
 LABEL_147:
-            v33 = &airship_ch_interface_close_ptr;
+            v36 = &airship_ch_interface_close_ptr;
             goto LABEL_148;
           }
 
           goto LABEL_46;
         }
 
-        if ([v249 isEqualToString:@"String Section"] && objc_msgSend(v43, "isEqualToString:", @"Cstr"))
+        if ([v254 isEqualToString:@"String Section"] && objc_msgSend(v46, "isEqualToString:", @"Cstr"))
         {
-          v130 = [v37 objectForKeyedSubscript:@"contents"];
-          obj = v130;
-          if (v130)
+          v135 = [v40 objectForKeyedSubscript:@"contents"];
+          obj = v135;
+          if (v135)
           {
-            v131 = v130;
-            v132 = v20[183];
+            v136 = v135;
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) == 0)
+            v137 = objc_opt_isKindOfClass();
+            if ((v137 & 1) == 0)
             {
-              v124 = sub_100025204();
-              v59 = v245;
-              if (!os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+              v129 = sub_100025204(v137);
+              v62 = v250;
+              if (!os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_207;
               }
 
-              v133 = [objc_opt_class() description];
-              v163 = NSStringFromSelector(aSelector);
+              v138 = [objc_opt_class() description];
+              v168 = NSStringFromSelector(aSelector);
               *buf = 138543618;
-              v299 = v133;
-              v300 = 2114;
-              v301 = v163;
-              v164 = v124;
-              v165 = "%{public}@::%{public}@: contents has wrong type";
+              v304 = v138;
+              v305 = 2114;
+              v306 = v168;
+              v169 = v129;
+              v170 = "%{public}@::%{public}@: contents has wrong type";
               goto LABEL_214;
             }
 
-            v124 = [NSRegularExpression regularExpressionWithPattern:@"Boot Args:\\s*(\\S+.*)" options:0 error:0];
-            v133 = -[NSObject firstMatchInString:options:range:](v124, "firstMatchInString:options:range:", v131, 0, 0, [v131 length]);
-            [v133 rangeAtIndex:1];
-            v59 = v245;
-            if (v134)
+            v129 = [NSRegularExpression regularExpressionWithPattern:@"Boot Args:\\s*(\\S+.*)" options:0 error:0];
+            v138 = -[NSObject firstMatchInString:options:range:](v129, "firstMatchInString:options:range:", v136, 0, 0, [v136 length]);
+            [v138 rangeAtIndex:1];
+            v62 = v250;
+            if (v139)
             {
-              v135 = [v133 rangeAtIndex:1];
-              v137 = [v131 substringWithRange:{v135, v136}];
+              v140 = [v138 rangeAtIndex:1];
+              v142 = [v136 substringWithRange:{v140, v141}];
 
-              v225 = v137;
+              v230 = v142;
               goto LABEL_147;
             }
 
@@ -2559,87 +2567,87 @@ LABEL_148:
           }
 
 LABEL_46:
-          v59 = v245;
+          v62 = v250;
           goto LABEL_47;
         }
 
         goto LABEL_178;
       }
 
-      v63 = [v37 objectForKeyedSubscript:@"stack"];
+      v66 = [v40 objectForKeyedSubscript:@"stack"];
 
-      if (v63)
+      if (v66)
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        v67 = objc_opt_isKindOfClass();
+        if ((v67 & 1) == 0)
         {
-          v64 = sub_100025204();
-          if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+          v68 = sub_100025204(v67);
+          if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
           {
-            v174 = [objc_opt_class() description];
-            v175 = NSStringFromSelector(aSelector);
+            v179 = [objc_opt_class() description];
+            v180 = NSStringFromSelector(aSelector);
             *buf = 138543618;
-            v299 = v174;
-            v300 = 2114;
-            v301 = v175;
-            _os_log_error_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: callstack has wrong type", buf, 0x16u);
+            v304 = v179;
+            v305 = 2114;
+            v306 = v180;
+            _os_log_error_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: callstack has wrong type", buf, 0x16u);
 
-            v35 = v241;
+            v38 = v246;
           }
 
-          v63 = 0;
+          v66 = 0;
         }
       }
 
-      v277 = 0u;
-      v278 = 0u;
-      v275 = 0u;
-      v276 = 0u;
-      v65 = v63;
-      v66 = [v65 countByEnumeratingWithState:&v275 objects:v297 count:16];
-      v67 = v65;
-      if (v66)
+      v282 = 0u;
+      v283 = 0u;
+      v280 = 0u;
+      v281 = 0u;
+      v69 = v66;
+      v70 = [v69 countByEnumeratingWithState:&v280 objects:v302 count:16];
+      v71 = v69;
+      if (v70)
       {
-        v68 = v66;
-        v69 = *v276;
+        v72 = v70;
+        v73 = *v281;
         while (2)
         {
-          for (j = 0; j != v68; j = j + 1)
+          for (j = 0; j != v72; ++j)
           {
-            if (*v276 != v69)
+            if (*v281 != v73)
             {
-              objc_enumerationMutation(v65);
+              objc_enumerationMutation(v69);
             }
 
-            v71 = *(*(&v275 + 1) + 8 * j);
-            v72 = v20[183];
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) == 0)
+            v75 = objc_opt_isKindOfClass();
+            if ((v75 & 1) == 0)
             {
-              v138 = sub_100025204();
-              v35 = v241;
-              if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
+              v143 = sub_100025204(v75);
+              v38 = v246;
+              if (os_log_type_enabled(v143, OS_LOG_TYPE_ERROR))
               {
-                v166 = [objc_opt_class() description];
-                v167 = NSStringFromSelector(aSelector);
+                v171 = [objc_opt_class() description];
+                v172 = NSStringFromSelector(aSelector);
                 *buf = 138543618;
-                v299 = v166;
-                v300 = 2114;
-                v301 = v167;
-                _os_log_error_impl(&_mh_execute_header, v138, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: callstack entry has wrong type", buf, 0x16u);
+                v304 = v171;
+                v305 = 2114;
+                v306 = v172;
+                _os_log_error_impl(&_mh_execute_header, v143, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: callstack entry has wrong type", buf, 0x16u);
 
-                v35 = v241;
+                v38 = v246;
               }
 
-              v67 = 0;
+              v71 = 0;
               goto LABEL_154;
             }
 
-            v35 = v241;
+            v38 = v246;
           }
 
-          v68 = [v65 countByEnumeratingWithState:&v275 objects:v297 count:16];
-          if (v68)
+          v72 = [v69 countByEnumeratingWithState:&v280 objects:v302 count:16];
+          if (v72)
           {
             continue;
           }
@@ -2647,312 +2655,295 @@ LABEL_46:
           break;
         }
 
-        v67 = v65;
+        v71 = v69;
 LABEL_154:
-        v33 = &airship_ch_interface_close_ptr;
-        v34 = &airship_ch_interface_close_ptr;
+        v36 = &airship_ch_interface_close_ptr;
+        v37 = &airship_ch_interface_close_ptr;
       }
 
-      v233 = v67;
+      v238 = v71;
 
-      v139 = [v37 objectForKeyedSubscript:@"stack-description"];
+      v144 = [v40 objectForKeyedSubscript:@"stack-description"];
 
-      if (!v139)
+      if (!v144)
       {
-        v232 = 0;
-        v31 = v238;
+        v237 = 0;
+        v34 = v243;
 LABEL_178:
-        v59 = v245;
+        v62 = v250;
         goto LABEL_48;
       }
 
-      v140 = v20[183];
       objc_opt_class();
-      v31 = v238;
-      v59 = v245;
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      v145 = objc_opt_isKindOfClass();
+      v34 = v243;
+      v62 = v250;
+      if ((v145 & 1) == 0)
       {
-        obj = v139;
-        v149 = sub_100025204();
-        if (os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
+        obj = v144;
+        v154 = sub_100025204(v145);
+        if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
         {
-          v176 = [objc_opt_class() description];
-          v177 = NSStringFromSelector(aSelector);
+          v181 = [objc_opt_class() description];
+          v182 = NSStringFromSelector(aSelector);
           *buf = 138543618;
-          v299 = v176;
-          v300 = 2114;
-          v301 = v177;
-          _os_log_error_impl(&_mh_execute_header, v149, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: callstack description has wrong type", buf, 0x16u);
+          v304 = v181;
+          v305 = 2114;
+          v306 = v182;
+          _os_log_error_impl(&_mh_execute_header, v154, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: callstack description has wrong type", buf, 0x16u);
 
-          v35 = v241;
+          v38 = v246;
         }
 
-        v232 = 0;
+        v237 = 0;
         goto LABEL_47;
       }
 
-      v232 = v139;
+      v237 = v144;
 LABEL_48:
 
-      v36 = v59 + 1;
+      v39 = v62 + 1;
     }
 
-    while (v36 != v35);
-    v186 = [v31 countByEnumeratingWithState:&v279 objects:v302 count:16];
-    v35 = v186;
+    while (v39 != v38);
+    v191 = [v34 countByEnumeratingWithState:&v284 objects:v307 count:16];
+    v38 = v191;
   }
 
-  while (v186);
+  while (v191);
 
-  if (v239)
+  if (v244)
   {
-    v188 = v226;
-    v187 = v227;
-    if (v226)
+    v193 = v231;
+    v192 = v232;
+    if (v231)
     {
-      v189 = [objc_opt_class() unslideAddress:v226 slide:v239];
+      v194 = [objc_opt_class() unslideAddress:v231 slide:v244];
 
-      v188 = v189;
+      v193 = v194;
     }
 
-    if (v227)
+    if (v232)
     {
-      v190 = [objc_opt_class() unslideAddress:v227 slide:v239];
+      v195 = [objc_opt_class() unslideAddress:v232 slide:v244];
 
-      v187 = v190;
+      v192 = v195;
     }
 
-    if (v233)
+    if (v238)
     {
-      v191 = [objc_opt_class() unslideCallstack:v233 slide:v239];
+      v196 = [objc_opt_class() unslideCallstack:v238 slide:v244];
 
-      v233 = v191;
+      v238 = v196;
     }
 
     else
     {
-      v233 = 0;
+      v238 = 0;
     }
 
-    v194 = v235;
-    v226 = v188;
-    v227 = v187;
+    v199 = v240;
+    v231 = v193;
+    v232 = v192;
     if (!v7)
     {
-      v34 = &airship_ch_interface_close_ptr;
+      v37 = &airship_ch_interface_close_ptr;
       goto LABEL_257;
     }
 
-    v195 = objc_alloc_init(NSMutableArray);
-    v259 = 0u;
-    v260 = 0u;
-    v261 = 0u;
-    v262 = 0u;
-    v196 = v7;
-    v197 = [v196 countByEnumeratingWithState:&v259 objects:v289 count:16];
-    if (v197)
+    v200 = objc_alloc_init(NSMutableArray);
+    v264 = 0u;
+    v265 = 0u;
+    v266 = 0u;
+    v267 = 0u;
+    v201 = v7;
+    v202 = [v201 countByEnumeratingWithState:&v264 objects:v294 count:16];
+    if (v202)
     {
-      v198 = v197;
-      v199 = *v260;
+      v203 = v202;
+      v204 = *v265;
       do
       {
-        for (k = 0; k != v198; k = k + 1)
+        for (k = 0; k != v203; k = k + 1)
         {
-          if (*v260 != v199)
+          if (*v265 != v204)
           {
-            objc_enumerationMutation(v196);
+            objc_enumerationMutation(v201);
           }
 
-          v201 = *(*(&v259 + 1) + 8 * k);
-          v202 = [v201 objectForKeyedSubscript:@"stack"];
+          v206 = *(*(&v264 + 1) + 8 * k);
+          v207 = [v206 objectForKeyedSubscript:@"stack"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v203 = [objc_opt_class() unslideCallstack:v202 slide:v239];
+            v208 = [objc_opt_class() unslideCallstack:v207 slide:v244];
           }
 
           else
           {
-            v203 = 0;
+            v208 = 0;
           }
 
-          v287[0] = @"description";
-          v204 = [v201 objectForKeyedSubscript:?];
-          v288[0] = v204;
-          v287[1] = @"stack";
-          v205 = v203;
-          if (!v203)
+          v292[0] = @"description";
+          v209 = [v206 objectForKeyedSubscript:?];
+          v293[0] = v209;
+          v292[1] = @"stack";
+          v210 = v208;
+          if (!v208)
           {
             v7 = +[NSNull null];
-            v205 = v7;
+            v210 = v7;
           }
 
-          v288[1] = v205;
-          v206 = [v33[197] dictionaryWithObjects:v288 forKeys:v287 count:2];
-          [v195 addObject:v206];
+          v293[1] = v210;
+          v211 = [v36[197] dictionaryWithObjects:v293 forKeys:v292 count:2];
+          [v200 addObject:v211];
 
-          if (!v203)
+          if (!v208)
           {
           }
 
-          v33 = &airship_ch_interface_close_ptr;
+          v36 = &airship_ch_interface_close_ptr;
         }
 
-        v198 = [v196 countByEnumeratingWithState:&v259 objects:v289 count:16];
+        v203 = [v201 countByEnumeratingWithState:&v264 objects:v294 count:16];
       }
 
-      while (v198);
+      while (v203);
     }
 
-    v31 = v195;
-    v7 = v31;
-    v34 = &airship_ch_interface_close_ptr;
+    v34 = v200;
+    v7 = v34;
+    v37 = &airship_ch_interface_close_ptr;
     goto LABEL_255;
   }
 
 LABEL_256:
-  v194 = v235;
+  v199 = v240;
 LABEL_257:
-  v285[0] = @"panic";
-  null6 = v194;
-  if (!v194)
+  v290[0] = @"panic";
+  null6 = v199;
+  if (!v199)
   {
-    null6 = [v34[201] null];
+    null6 = [v37[201] null];
   }
 
-  v286[0] = null6;
-  v285[1] = @"crashlog-version";
-  null7 = v229;
-  if (!v229)
+  v291[0] = null6;
+  v290[1] = @"crashlog-version";
+  null7 = v234;
+  if (!v234)
   {
-    null7 = [v34[201] null];
+    null7 = [v37[201] null];
   }
 
-  v252 = null7;
-  v286[1] = null7;
-  v285[2] = @"exception";
-  v208 = v228;
-  if (!v228)
-  {
-    v208 = +[NSNull null];
-  }
-
-  v250 = v208;
-  v286[2] = v208;
-  v285[3] = @"uuid";
-  v209 = v236;
-  if (!v236)
-  {
-    v209 = +[NSNull null];
-  }
-
-  v248 = v209;
-  v286[3] = v209;
-  v285[4] = @"version";
-  v210 = v237;
-  if (!v237)
-  {
-    v210 = +[NSNull null];
-  }
-
-  v286[4] = v210;
-  v285[5] = @"call-stack";
-  v283[0] = @"stack";
-  v211 = v233;
+  v257 = null7;
+  v291[1] = null7;
+  v290[2] = @"exception";
+  v213 = v233;
   if (!v233)
-  {
-    v211 = +[NSNull null];
-  }
-
-  v246 = v211;
-  v284[0] = v211;
-  v283[1] = @"stack-description";
-  v212 = v232;
-  if (!v232)
-  {
-    v212 = +[NSNull null];
-  }
-
-  v244 = v212;
-  v284[1] = v212;
-  v254 = [v33[197] dictionaryWithObjects:v284 forKeys:v283 count:2];
-  v286[5] = v254;
-  v285[6] = @"tasks";
-  v213 = [v7 copy];
-  v214 = v213;
-  if (!v213)
   {
     v213 = +[NSNull null];
   }
 
-  obja = v7;
-  v242 = v213;
-  v286[6] = v213;
-  v285[7] = @"mailboxes";
-  v215 = [v234 copy];
-  v216 = v215;
-  if (!v215)
+  v255 = v213;
+  v291[2] = v213;
+  v290[3] = @"uuid";
+  v214 = v241;
+  if (!v241)
+  {
+    v214 = +[NSNull null];
+  }
+
+  v253 = v214;
+  v291[3] = v214;
+  v290[4] = @"version";
+  v215 = v242;
+  if (!v242)
+  {
+    v215 = +[NSNull null];
+  }
+
+  v291[4] = v215;
+  v290[5] = @"call-stack";
+  v288[0] = @"stack";
+  v216 = v238;
+  if (!v238)
   {
     v216 = +[NSNull null];
   }
 
-  v286[7] = v216;
-  v285[8] = @"program-counter";
-  v217 = v226;
-  if (!v226)
+  v251 = v216;
+  v289[0] = v216;
+  v288[1] = @"stack-description";
+  v217 = v237;
+  if (!v237)
   {
     v217 = +[NSNull null];
   }
 
-  v286[8] = v217;
-  v285[9] = @"link-register";
-  v218 = v227;
-  if (!v227)
+  v249 = v217;
+  v289[1] = v217;
+  v259 = [v36[197] dictionaryWithObjects:v289 forKeys:v288 count:2];
+  v291[5] = v259;
+  v290[6] = @"tasks";
+  v218 = [v7 copy];
+  v219 = v218;
+  if (!v218)
   {
     v218 = +[NSNull null];
   }
 
-  v286[9] = v218;
-  v285[10] = @"boot-args";
-  v219 = v225;
-  if (!v225)
-  {
-    v219 = +[NSNull null];
-  }
-
-  v286[10] = v219;
-  v285[11] = @"application-info";
-  v220 = [v231 objectForKeyedSubscript:@"__customSectionData"];
+  obja = v7;
+  v247 = v218;
+  v291[6] = v218;
+  v290[7] = @"mailboxes";
+  v220 = [v239 copy];
   v221 = v220;
   if (!v220)
   {
     v221 = +[NSNull null];
   }
 
-  v286[11] = v221;
-  v257 = [NSDictionary dictionaryWithObjects:v286 forKeys:v285 count:12];
-  if (!v220)
+  v291[7] = v221;
+  v290[8] = @"program-counter";
+  v222 = v231;
+  if (!v231)
   {
+    v222 = +[NSNull null];
   }
 
+  v291[8] = v222;
+  v290[9] = @"link-register";
+  v223 = v232;
+  if (!v232)
+  {
+    v223 = +[NSNull null];
+  }
+
+  v291[9] = v223;
+  v290[10] = @"boot-args";
+  v224 = v230;
+  if (!v230)
+  {
+    v224 = +[NSNull null];
+  }
+
+  v291[10] = v224;
+  v290[11] = @"application-info";
+  v225 = [v236 objectForKeyedSubscript:@"__customSectionData"];
+  v226 = v225;
+  if (!v225)
+  {
+    v226 = +[NSNull null];
+  }
+
+  v291[11] = v226;
+  v262 = [NSDictionary dictionaryWithObjects:v291 forKeys:v290 count:12];
   if (!v225)
   {
   }
 
-  if (!v227)
-  {
-  }
-
-  if (!v226)
-  {
-  }
-
-  if (!v215)
-  {
-  }
-
-  v7 = obja;
-  if (!v214)
+  if (!v230)
   {
   }
 
@@ -2960,7 +2951,16 @@ LABEL_257:
   {
   }
 
-  if (!v233)
+  if (!v231)
+  {
+  }
+
+  if (!v220)
+  {
+  }
+
+  v7 = obja;
+  if (!v219)
   {
   }
 
@@ -2968,48 +2968,56 @@ LABEL_257:
   {
   }
 
-  v15 = v236;
-  if (!v236)
+  if (!v238)
   {
   }
 
-  if (!v228)
+  if (!v242)
   {
   }
 
-  if (!v229)
+  v15 = v241;
+  if (!v241)
   {
   }
 
-  if (v235)
+  if (!v233)
   {
-    v17 = v228;
-    v18 = v229;
-    v14 = v237;
-    v16 = v238;
-    v9 = v225;
-    v11 = v226;
-    v10 = v227;
+  }
+
+  if (!v234)
+  {
+  }
+
+  if (v240)
+  {
+    v17 = v233;
+    v18 = v234;
+    v14 = v242;
+    v16 = v243;
+    v9 = v230;
+    v11 = v231;
+    v10 = v232;
     goto LABEL_233;
   }
 
-  v235 = 0;
+  v240 = 0;
 LABEL_232:
 
-  v17 = v228;
-  v18 = v229;
-  v14 = v237;
-  v16 = v238;
-  v9 = v225;
-  v11 = v226;
-  v10 = v227;
-  v15 = v236;
+  v17 = v233;
+  v18 = v234;
+  v14 = v242;
+  v16 = v243;
+  v9 = v230;
+  v11 = v231;
+  v10 = v232;
+  v15 = v241;
 LABEL_233:
-  v12 = v232;
-  v13 = v233;
+  v12 = v237;
+  v13 = v238;
 LABEL_234:
 
-  return v257;
+  return v262;
 }
 
 + (id)unslideAddress:(id)address slide:(unint64_t)slide
@@ -3018,7 +3026,7 @@ LABEL_234:
   v7 = strtoull([address UTF8String], 0, 0);
   if (v7 == -1)
   {
-    v9 = sub_100025204();
+    v9 = sub_100025204(-1);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10002B23C();
@@ -3033,7 +3041,7 @@ LABEL_234:
     v7 -= slide;
     if (!v8)
     {
-      v9 = sub_100025204();
+      v9 = sub_100025204(v7);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_10002B194();
@@ -3100,71 +3108,73 @@ LABEL_8:
 
     if (v7)
     {
-      v17 = 0;
-      v8 = [NSData dataWithContentsOfFile:v5 options:0 error:&v17];
-      v9 = v17;
-      if (v8)
+      v20 = 0;
+      v9 = [NSData dataWithContentsOfFile:v5 options:0 error:&v20];
+      v10 = v20;
+      v11 = v10;
+      if (v9)
       {
-        if ([v8 length]== 8)
+        v12 = [v9 length];
+        if (v12 == 8)
         {
-          self->_lastUserNotificationTimestamp = *[v8 bytes];
+          self->_lastUserNotificationTimestamp = *[v9 bytes];
           self->_lastUserNotificationTimestampKnown = 1;
           goto LABEL_6;
         }
 
-        v12 = sub_100025204();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v15 = sub_100025204(v12);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          v14 = [objc_opt_class() description];
-          v15 = NSStringFromSelector(a2);
-          v16 = [v8 length];
+          v17 = [objc_opt_class() description];
+          v18 = NSStringFromSelector(a2);
+          v19 = [v9 length];
           *buf = 138544130;
-          v19 = v14;
-          v20 = 2114;
-          v21 = v15;
-          v22 = 2048;
-          v23 = v16;
-          v24 = 2048;
-          v25 = 8;
-          _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: unexpected file size %lu, expected %zu", buf, 0x2Au);
+          v22 = v17;
+          v23 = 2114;
+          v24 = v18;
+          v25 = 2048;
+          v26 = v19;
+          v27 = 2048;
+          v28 = 8;
+          _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: unexpected file size %lu, expected %zu", buf, 0x2Au);
         }
       }
 
       else
       {
-        v8 = sub_100025204();
-        if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v9 = sub_100025204(v10);
+        if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_6;
         }
 
-        v12 = [objc_opt_class() description];
-        v13 = NSStringFromSelector(a2);
+        v15 = [objc_opt_class() description];
+        v16 = NSStringFromSelector(a2);
         *buf = 138543874;
-        v19 = v12;
-        v20 = 2114;
-        v21 = v13;
-        v22 = 2112;
-        v23 = v9;
-        _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to read file: %@", buf, 0x20u);
+        v22 = v15;
+        v23 = 2114;
+        v24 = v16;
+        v25 = 2112;
+        v26 = v11;
+        _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to read file: %@", buf, 0x20u);
       }
 
       goto LABEL_6;
     }
 
-    v9 = sub_100025204();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100025204(v8);
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_7;
     }
 
-    v8 = [objc_opt_class() description];
-    v11 = NSStringFromSelector(a2);
+    v9 = [objc_opt_class() description];
+    v14 = NSStringFromSelector(a2);
     *buf = 138543618;
-    v19 = v8;
-    v20 = 2114;
-    v21 = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: no prior user notifications since boot", buf, 0x16u);
+    v22 = v9;
+    v23 = 2114;
+    v24 = v14;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: no prior user notifications since boot", buf, 0x16u);
 
 LABEL_6:
 LABEL_7:

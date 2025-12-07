@@ -1,4 +1,5 @@
 @interface RPNWActivityMessageMetrics
++ (id)startMessageMetrics:(int)metrics withParent:(id)parent;
 - (NSString)peerDeviceModel;
 - (NSString)peerOSVersion;
 - (id)_metricsDictionary;
@@ -152,6 +153,24 @@
   v4[1] = &v5;
   [(RPNWActivityMetrics *)self _withLock:v3];
   [(RPNWActivityEventMetrics *)v6 destination:v4];
+  return v8;
+}
+
++ (id)startMessageMetrics:(int)metrics withParent:(id)parent
+{
+  v4 = *&metrics;
+  parentCopy = parent;
+  v7 = nw_activity_create();
+  v8 = [[self alloc] _initWithNWActivity:v7];
+  [v8 setMessageType:v4];
+  if (parentCopy)
+  {
+    nwActivity = [parentCopy nwActivity];
+    nw_activity_set_parent_activity();
+  }
+
+  nw_activity_activate();
+
   return v8;
 }
 

@@ -33,14 +33,22 @@
 
 - (void)_queue_pollSatisfied
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
-  v4 = [MEMORY[0x277CC1D70] vehicularState] == 2 && objc_msgSend(MEMORY[0x277CC1D70], "vehicularOperatorState") != 1;
+  vehicularState = [MEMORY[0x277CC1D70] vehicularState];
+  v4 = 0;
+  if (vehicularState == 2)
+  {
+    vehicularState = [MEMORY[0x277CC1D70] vehicularOperatorState];
+    if (vehicularState != 1)
+    {
+      v4 = 1;
+    }
+  }
+
   if (self->_queue_isDriving != v4)
   {
     self->_queue_isDriving = v4;
-    v5 = SULogInstallConstraints();
-    self->_queue_isDriving;
+    v5 = SULogInstallConstraints(vehicularState);
     SULogInfoForSubsystem(v5, @"%@ - is driving constraint changed (satisfied? %@)", v6, v7, v8, v9, v10, v11, self);
 
     delegate = [(SUInstallationConstraintMonitorBase *)self delegate];
@@ -61,7 +69,6 @@
 
 - (unint64_t)unsatisfiedConstraints
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
   if (!self->_queue_isDriving)
   {

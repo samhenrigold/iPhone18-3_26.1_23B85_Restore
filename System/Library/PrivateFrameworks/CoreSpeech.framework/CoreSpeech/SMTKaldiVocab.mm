@@ -55,7 +55,7 @@
             if (sub_10001D408(v12 + 2, __p))
             {
               v19 = __p;
-              p_unkIndex = sub_10001D190(&self->_w2i.__table_.__bucket_list_.__ptr_, __p) + 5;
+              p_unkIndex = sub_10001D190(&self->_w2i, __p, &v19) + 5;
               goto LABEL_18;
             }
           }
@@ -198,7 +198,7 @@ LABEL_18:
   {
     sub_10001D0D8(__p, [v46[5] UTF8String]);
     v64 = __p;
-    v9->_unkIndex = sub_10001E12C(&v9->_w2i.__table_.__bucket_list_.__ptr_, __p)[5];
+    v9->_unkIndex = sub_10001E12C(&v9->_w2i.__table_.__bucket_list_.__ptr_, __p, &v64)[5];
     if (v27 < 0)
     {
       operator delete(__p[0]);
@@ -206,7 +206,7 @@ LABEL_18:
 
     sub_10001D0D8(__p, [v52[5] UTF8String]);
     v64 = __p;
-    v9->_eosIndex = sub_10001E12C(&v9->_w2i.__table_.__bucket_list_.__ptr_, __p)[5];
+    v9->_eosIndex = sub_10001E12C(&v9->_w2i.__table_.__bucket_list_.__ptr_, __p, &v64)[5];
     if (v27 < 0)
     {
       operator delete(__p[0]);
@@ -214,7 +214,7 @@ LABEL_18:
 
     sub_10001D0D8(__p, [v58[5] UTF8String]);
     v64 = __p;
-    v9->_bosIndex = sub_10001E12C(&v9->_w2i.__table_.__bucket_list_.__ptr_, __p)[5];
+    v9->_bosIndex = sub_10001E12C(&v9->_w2i.__table_.__bucket_list_.__ptr_, __p, &v64)[5];
     if (v27 < 0)
     {
       operator delete(__p[0]);

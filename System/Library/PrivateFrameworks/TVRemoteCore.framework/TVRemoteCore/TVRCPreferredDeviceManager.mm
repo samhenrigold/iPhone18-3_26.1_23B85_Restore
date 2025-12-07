@@ -46,39 +46,40 @@ uint64_t __44__TVRCPreferredDeviceManager_sharedInstance__block_invoke(uint64_t 
   v2 = CFPreferencesCopyAppValue(@"TVRCPreferredDevicerKey", @"com.apple.TVRemoteCore");
   if (v2)
   {
-    v9 = 0;
-    v3 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v2 error:&v9];
-    v4 = v9;
+    v10 = 0;
+    v3 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v2 error:&v10];
+    v4 = v10;
+    v5 = v4;
     if (v4)
     {
-      v5 = _TVRCPreferredDeviceLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = _TVRCPreferredDeviceLog(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        [(TVRCPreferredDeviceManager *)v4 preferredDevice];
+        [(TVRCPreferredDeviceManager *)v5 preferredDevice];
       }
 
-      v6 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v6 = v3;
+      v7 = v3;
     }
   }
 
   else
   {
-    v4 = _TVRCPreferredDeviceLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _TVRCPreferredDeviceLog(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_26CF7F000, v4, OS_LOG_TYPE_DEFAULT, "Could not find a preferred device", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "Could not find a preferred device", v9, 2u);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (double)preferredDeviceSearchTimeout
@@ -93,7 +94,7 @@ uint64_t __44__TVRCPreferredDeviceManager_sharedInstance__block_invoke(uint64_t 
 
   else
   {
-    v6 = _TVRCPreferredDeviceLog();
+    v6 = _TVRCPreferredDeviceLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -108,9 +109,9 @@ uint64_t __44__TVRCPreferredDeviceManager_sharedInstance__block_invoke(uint64_t 
 
 - (void)setPreferredDevice:(id)device
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v5 = _TVRCPreferredDeviceLog();
+  v5 = _TVRCPreferredDeviceLog(deviceCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (deviceCopy)
   {
@@ -126,35 +127,36 @@ uint64_t __44__TVRCPreferredDeviceManager_sharedInstance__block_invoke(uint64_t 
     device = self->_device;
     self->_device = v7;
 
-    v9 = _TVRCPreferredDeviceLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _TVRCPreferredDeviceLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = self->_device;
+      v11 = self->_device;
       *buf = 138543362;
-      v19 = v10;
-      _os_log_impl(&dword_26CF7F000, v9, OS_LOG_TYPE_DEFAULT, "Setting preferred device %{public}@", buf, 0xCu);
+      v20 = v11;
+      _os_log_impl(&dword_26CF7F000, v10, OS_LOG_TYPE_DEFAULT, "Setting preferred device %{public}@", buf, 0xCu);
     }
 
     device = [(TVRCPreferredDeviceManager *)self device];
 
     if (device)
     {
-      v12 = self->_device;
-      v17 = 0;
-      v13 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v12 requiringSecureCoding:1 error:&v17];
-      v14 = v17;
-      if (v14)
+      v13 = self->_device;
+      v18 = 0;
+      v14 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v13 requiringSecureCoding:1 error:&v18];
+      v15 = v18;
+      v16 = v15;
+      if (v15)
       {
-        v15 = _TVRCPreferredDeviceLog();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v17 = _TVRCPreferredDeviceLog(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          [(TVRCSiriRemoteFindingManager *)v14 _updatePairedRemoteInfo:v15];
+          [(TVRCSiriRemoteFindingManager *)v16 _updatePairedRemoteInfo:v17];
         }
       }
 
       else
       {
-        CFPreferencesSetAppValue(@"TVRCPreferredDevicerKey", v13, @"com.apple.TVRemoteCore");
+        CFPreferencesSetAppValue(@"TVRCPreferredDevicerKey", v14, @"com.apple.TVRemoteCore");
         CFPreferencesSetAppValue(@"TVRCDeviceTimeoutKey", &unk_287E66D00, @"com.apple.TVRemoteCore");
       }
     }
@@ -172,17 +174,14 @@ uint64_t __44__TVRCPreferredDeviceManager_sharedInstance__block_invoke(uint64_t 
     CFPreferencesSetAppValue(@"TVRCDeviceIdentifierKey", 0, @"com.apple.TVRemoteCore");
     CFPreferencesSetAppValue(@"TVRCDeviceTimeoutKey", 0, @"com.apple.TVRemoteCore");
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)preferredDevice
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_26CF7F000, a2, OS_LOG_TYPE_ERROR, "Unarchiving error - %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26CF7F000, a2, OS_LOG_TYPE_ERROR, "Unarchiving error - %{public}@", &v2, 0xCu);
 }
 
 @end

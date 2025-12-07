@@ -283,16 +283,16 @@
 - (void)getNicknameSuggestions:(int64_t)suggestions minSuggestionLength:(int64_t)length maxSuggestionLength:(int64_t)suggestionLength handler:(id)handler
 {
   handlerCopy = handler;
-  v30[0] = @"suggestions-count";
+  v30 = @"suggestions-count";
   v11 = [NSNumber numberWithInteger:suggestions];
-  v31[0] = v11;
-  v30[1] = @"min-suggestion-length";
+  v33 = v11;
+  v31 = @"min-suggestion-length";
   v12 = [NSNumber numberWithInteger:length];
-  v31[1] = v12;
-  v30[2] = @"max-suggestion-length";
+  v34 = v12;
+  v32 = @"max-suggestion-length";
   v13 = [NSNumber numberWithInteger:suggestionLength];
-  v31[2] = v13;
-  v14 = [NSDictionary dictionaryWithObjects:v31 forKeys:v30 count:3];
+  v35 = v13;
+  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   v15 = [NSString stringWithFormat:@"%s:%d %s", "GKProfileService.m", 1322, "[GKProfileServicePrivate getNicknameSuggestions:minSuggestionLength:maxSuggestionLength:handler:]"];
   v16 = [GKDispatchGroup dispatchGroupWithName:v15];
@@ -325,7 +325,7 @@
   handlerCopy = handler;
   v21 = @"key";
   v22 = @"TD.termsOfServiceURL";
-  v5 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v6 = [NSString stringWithFormat:@"%s:%d %s", "GKProfileService.m", 1346, "[GKProfileServicePrivate getTermsAndConditionsURLWithHandler:]"];
   v7 = [GKDispatchGroup dispatchGroupWithName:v6];
 
@@ -495,7 +495,7 @@
   v18 = GKAccountPrivacyNoticeVersionKey;
   v13 = [NSNumber numberWithUnsignedInteger:version];
   v19 = v13;
-  v14 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   v16[0] = _NSConcreteStackBlock;
   v16[1] = 3221225472;
@@ -1930,10 +1930,10 @@ LABEL_7:
 
 + (id)parseContactAssociationIDsFromRelationships:(id)relationships contactAssociationIDMap:(id)map contacts:(id)contacts
 {
-  sub_1001A7B44(0, &qword_1003B84C0);
+  sub_1001A7B44(0, &qword_1003B84C0, GKContactRelationshipResult_ptr);
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_1001A7B44(0, &qword_1003B5B78);
+  sub_1001A7B44(0, &qword_1003B5B78, CNContact_ptr);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sub_100269340(v5, v6, v7);
 

@@ -2,6 +2,7 @@
 + (id)WRM_IdsMetricsControllerSingleton;
 - (BOOL)getAnticipiatedTxPerValid;
 - (BOOL)getTxPerAnticipatedMovAvgValid;
+- (BOOL)isIDSTransportMetricsGoodEnough:(int)enough :(BOOL)a4;
 - (WRM_IdsMetricsController)init;
 - (double)evaluateDLThroughput;
 - (double)evaluateULThroughput;
@@ -293,6 +294,41 @@
   mLocalDeliveryCumulativeMessageSent = [(WRM_IdsMetricsController *)self mLocalDeliveryCumulativeMessageSent];
   v4 = [(WRM_IdsMetricsController *)self mLocalDeliveryCumulativeMessageDelivered]+ mLocalDeliveryCumulativeMessageSent;
   return [(WRM_IdsMetricsController *)self mLocalDeliveryMessageDeliveredDeliveryError]+ v4 > 0x45;
+}
+
+- (BOOL)isIDSTransportMetricsGoodEnough:(int)enough :(BOOL)a4
+{
+  wRM_HandoverManagerSingleton = [+[WRM_HandoverManager WRM_HandoverManagerSingleton](WRM_HandoverManager WRM_HandoverManagerSingleton];
+  getRTT = [(WRM_IdsMetricsController *)self getRTT];
+  [(WRM_IdsMetricsController *)self getTxPer];
+  v7 = v6 * 100.0;
+  getTxPerValid = [(WRM_IdsMetricsController *)self getTxPerValid];
+  [(WRM_IdsMetricsController *)self getAnticipiatedTxPer];
+  v10 = v9 * 100.0;
+  getAnticipiatedTxPerValid = [(WRM_IdsMetricsController *)self getAnticipiatedTxPerValid];
+  [(WRM_IdsMetricsController *)self getTxPerAnticipatedMovAvg];
+  v13 = v12 * 100.0;
+  getTxPerAnticipatedMovAvgValid = [(WRM_IdsMetricsController *)self getTxPerAnticipatedMovAvgValid];
+  getAvgTxPDUSize = [(WRM_IdsMetricsController *)self getAvgTxPDUSize];
+  getAvgRxPDUSize = [(WRM_IdsMetricsController *)self getAvgRxPDUSize];
+  [(WRM_IdsMetricsController *)self evaluateDLThroughput];
+  v18 = v17;
+  [(WRM_IdsMetricsController *)self evaluateDLThroughput];
+  v20 = v19;
+  getRTTMovAvg = [(WRM_IdsMetricsController *)self getRTTMovAvg];
+  [(WRM_IdsMetricsController *)self getTxPerMovAvg];
+  v23 = v22 * 100.0;
+  getAvgTxPDUSizeMovAvg = [(WRM_IdsMetricsController *)self getAvgTxPDUSizeMovAvg];
+  getAvgRxPDUSizeMovAvg = [(WRM_IdsMetricsController *)self getAvgRxPDUSizeMovAvg];
+  [WCM_Logging logLevel:27 message:@"Ant PER: %.2f, Ant PER Valid: %d, Ant Mov PER: %.2f, Ant Mov PER Valid:%d", *&v10, getAnticipiatedTxPerValid, *&v13, getTxPerAnticipatedMovAvgValid];
+  [WCM_Logging logLevel:27 message:@"IDS Metrics For Cell/WiFi Eval, RTT: %d, M_avg RTT: %d, TX PER: %.2f, Tx PER Valid: %d, M_avg TX PER: %.2f, Rx Size: %d, MAvgRx Size: %d, DL Thr: %.2f, Tx Size: %d, MAvgTx Size: %d, UL Thr: %.2f", getRTT, getRTTMovAvg, *&v7, getTxPerValid, *&v23, getAvgRxPDUSize, getAvgRxPDUSizeMovAvg, v18, getAvgTxPDUSize, getAvgTxPDUSizeMovAvg, *&v20];
+  result = 1;
+  if (enough == 1 && v20 < 1000.0)
+  {
+    return [wRM_HandoverManagerSingleton idsWiFiMinRttTh1] > getRTT && (v10 < objc_msgSend(wRM_HandoverManagerSingleton, "idsWiFiMinPerTh1") || !getAnticipiatedTxPerValid) && (v13 < objc_msgSend(wRM_HandoverManagerSingleton, "idsMovAvgWiFiMinPerTh1") || !getTxPerAnticipatedMovAvgValid) && (v7 < objc_msgSend(wRM_HandoverManagerSingleton, "idsAvgWiFiMinPerTh1") || !getTxPerValid);
+  }
+
+  return result;
 }
 
 @end

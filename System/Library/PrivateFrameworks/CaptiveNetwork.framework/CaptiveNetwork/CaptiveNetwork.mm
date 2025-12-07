@@ -175,7 +175,7 @@ void *__CNMonitorSyncState_block_invoke(void *result)
 
 void __CNMonitorSetupConnection_block_invoke(uint64_t a1, uint64_t a2, const __CFArray *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   TypeID = CFArrayGetTypeID();
   if (a3)
@@ -201,7 +201,7 @@ void __CNMonitorSetupConnection_block_invoke(uint64_t a1, uint64_t a2, const __C
             if (os_log_type_enabled(logger, v11))
             {
               *buf = 138412290;
-              v16 = ValueAtIndex;
+              v15 = ValueAtIndex;
               _os_log_impl(&dword_242BE1000, logger, v11, "command is not a dictionary %@", buf, 0xCu);
             }
           }
@@ -224,8 +224,6 @@ void __CNMonitorSetupConnection_block_invoke(uint64_t a1, uint64_t a2, const __C
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __CNMonitorSetupConnection_block_invoke_2(uint64_t a1, uint64_t a2, int a3)
@@ -255,9 +253,9 @@ void __CNMonitorSetupConnection_block_invoke_2(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-void __CNMonitorSetupConnection_block_invoke_8(uint64_t a1)
+void __CNMonitorSetupConnection_block_invoke_8(void *a1)
 {
-  if (!ServerConnectionCreate("com.apple.networking.captivenetworksupport", "com.apple.networking.captivenetworksupport.startserver", *(*(a1 + 48) + 36), 0, *(a1 + 32), *(a1 + 40)))
+  if (!ServerConnectionCreate("com.apple.networking.captivenetworksupport", "com.apple.networking.captivenetworksupport.startserver", *(a1[6] + 36), 0, a1[4], a1[5]))
   {
     logger = mysyslog_get_logger();
     v2 = _SC_syslog_os_log_mapping();
@@ -286,16 +284,16 @@ uint64_t CNPluginMonitorStart(uint64_t a1, dispatch_object_t object, void *aBloc
   return result;
 }
 
-void CNPluginMonitorStop()
+void CNPluginMonitorStop(uint64_t a1)
 {
   if (CNPluginMonitorGet_once != -1)
   {
     CNPluginMonitorStart_cold_1();
   }
 
-  v1 = CNPluginMonitorGet_monitor;
+  v2 = CNPluginMonitorGet_monitor;
 
-  CNMonitorSetQueueAndHandler(v1, 0, 0);
+  CNMonitorSetQueueAndHandler(v2, 0, 0);
 }
 
 const void *CNPluginMonitorEventCopyDisplayIDs(const void *a1)
@@ -326,7 +324,7 @@ _OWORD *__CNPluginMonitorGet_block_invoke()
 
 void CNPluginMonitorHandleCommand(uint64_t a1, CFDictionaryRef theDict)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
   Value = CFDictionaryGetValue(theDict, @"EventType");
   TypeID = CFNumberGetTypeID();
@@ -336,36 +334,36 @@ void CNPluginMonitorHandleCommand(uint64_t a1, CFDictionaryRef theDict)
     v9 = _SC_syslog_os_log_mapping();
     if (!os_log_type_enabled(logger, v9))
     {
-      goto LABEL_11;
+      return;
     }
 
     *buf = 138412290;
-    v21 = theDict;
+    v20 = theDict;
     v10 = "event type invalid/missing in %@";
     v11 = logger;
     v12 = v9;
     v13 = 12;
-LABEL_10:
-    _os_log_impl(&dword_242BE1000, v11, v12, v10, buf, v13);
-    goto LABEL_11;
+    goto LABEL_10;
   }
 
   if (valuePtr != 1)
   {
-    v15 = mysyslog_get_logger();
-    v16 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(v15, v16))
+    v14 = mysyslog_get_logger();
+    v15 = _SC_syslog_os_log_mapping();
+    if (!os_log_type_enabled(v14, v15))
     {
-      goto LABEL_11;
+      return;
     }
 
     *buf = 67109120;
-    LODWORD(v21) = valuePtr;
+    LODWORD(v20) = valuePtr;
     v10 = "event type %d unrecognized";
-    v11 = v15;
-    v12 = v16;
+    v11 = v14;
+    v12 = v15;
     v13 = 8;
-    goto LABEL_10;
+LABEL_10:
+    _os_log_impl(&dword_242BE1000, v11, v12, v10, buf, v13);
+    return;
   }
 
   v6 = CFDictionaryGetValue(theDict, @"DisplayIDs");
@@ -375,16 +373,14 @@ LABEL_10:
     CFRetain(v6);
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 0x40000000;
-  v17[2] = __CNPluginMonitorHandleCommand_block_invoke;
-  v17[3] = &__block_descriptor_tmp_6;
-  v18 = valuePtr;
-  v17[4] = a1;
-  v17[5] = v7;
-  CNMonitorPerformBlock(a1, v17);
-LABEL_11:
-  v14 = *MEMORY[0x277D85DE8];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 0x40000000;
+  v16[2] = __CNPluginMonitorHandleCommand_block_invoke;
+  v16[3] = &__block_descriptor_tmp_6;
+  v17 = valuePtr;
+  v16[4] = a1;
+  v16[5] = v7;
+  CNMonitorPerformBlock(a1, v16);
 }
 
 CFDictionaryRef CNPluginMonitorCopyControl(int a1)
@@ -404,14 +400,13 @@ CFDictionaryRef CNPluginMonitorCopyControl(int a1)
   keys[0] = @"Type";
   v2 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
   values[0] = v2;
-  v7 = 1;
+  v6 = 1;
   keys[1] = @"EventType";
-  v3 = CFNumberCreate(0, kCFNumberSInt32Type, &v7);
+  v3 = CFNumberCreate(0, kCFNumberSInt32Type, &v6);
   values[1] = v3;
   v4 = CFDictionaryCreate(0, keys, values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   CFRelease(v2);
   CFRelease(v3);
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -470,21 +465,19 @@ void __CNPluginMonitorHandleCommand_block_invoke_2(uint64_t a1)
 
 uint64_t CNProberProvideResult(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   logger = mysyslog_get_logger();
   v5 = _SC_syslog_os_log_mapping();
   if (os_log_type_enabled(logger, v5))
   {
-    v8 = 134218240;
-    v9 = a1;
-    v10 = 1024;
-    v11 = a2;
-    _os_log_impl(&dword_242BE1000, logger, v5, "prober %p result %d", &v8, 0x12u);
+    v7 = 134218240;
+    v8 = a1;
+    v9 = 1024;
+    v10 = a2;
+    _os_log_impl(&dword_242BE1000, logger, v5, "prober %p result %d", &v7, 0x12u);
   }
 
-  result = (*(a1 + 16))(*(a1 + 24), a1, a2);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1 + 16))(*(a1 + 24), a1, a2);
 }
 
 const void *CNProberCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -521,31 +514,31 @@ CFRunLoopSourceRef CNProberCreateRunLoopSource(void *a1)
   return CFRunLoopSourceCreate(*MEMORY[0x277CBECE8], 0, &v2);
 }
 
-void CNProberCallback()
+void CNProberCallback(uint64_t a1)
 {
   logger = mysyslog_get_logger();
-  v1 = _SC_syslog_os_log_mapping();
-  if (os_log_type_enabled(logger, v1))
+  v2 = _SC_syslog_os_log_mapping();
+  if (os_log_type_enabled(logger, v2))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_242BE1000, logger, v1, "Unexpected runloop source triggered", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_242BE1000, logger, v2, "Unexpected runloop source triggered", v3, 2u);
   }
 }
 
-BOOL CNScrapeCredentials(const __CFString *a1, const __CFString *a2, const __CFString *a3, const __CFString *a4)
+BOOL CNScrapeCredentials(const __CFString *a1, const __CFString *a2, const __CFString *a3, const __CFString *a4, uint64_t a5)
 {
   CaptivePort = FindCaptivePort();
-  v9 = *MEMORY[0x277CBECE8];
-  v10 = CFStringMallocCString(*MEMORY[0x277CBECE8], a1, 0x1000uLL);
-  v11 = CFStringMallocCString(v9, a2, 0x1000uLL);
-  v12 = CFStringMallocCString(v9, a3, 0x1000uLL);
-  v13 = CFStringMallocCString(v9, a4, 0x1000uLL);
-  v14 = v13;
-  if ((CaptivePort + 1) < 2 || (v10 ? (v15 = v11 == 0) : (v15 = 1), !v15 ? (v16 = v13 == 0) : (v16 = 1), !v16 ? (v17 = v12 == 0) : (v17 = 1), v17))
+  v10 = *MEMORY[0x277CBECE8];
+  v11 = CFStringMallocCString(*MEMORY[0x277CBECE8], a1, 0x1000uLL);
+  v12 = CFStringMallocCString(v10, a2, 0x1000uLL);
+  v13 = CFStringMallocCString(v10, a3, 0x1000uLL);
+  v14 = CFStringMallocCString(v10, a4, 0x1000uLL);
+  v15 = v14;
+  if ((CaptivePort + 1) < 2 || (v11 ? (v16 = v12 == 0) : (v16 = 1), !v16 ? (v17 = v14 == 0) : (v17 = 1), !v17 ? (v18 = v13 == 0) : (v18 = 1), v18))
   {
-    v18 = 0;
     v19 = 0;
-    if (!v10)
+    v20 = 0;
+    if (!v11)
     {
       goto LABEL_15;
     }
@@ -553,28 +546,28 @@ BOOL CNScrapeCredentials(const __CFString *a1, const __CFString *a2, const __CFS
 
   else
   {
-    v18 = ParsePost() == 0;
+    v19 = ParsePost() == 0;
   }
 
-  CFAllocatorDeallocate(v9, v10);
-  v19 = v18;
+  CFAllocatorDeallocate(v10, v11);
+  v20 = v19;
 LABEL_15:
-  if (v11)
-  {
-    CFAllocatorDeallocate(v9, v11);
-  }
-
-  if (v14)
-  {
-    CFAllocatorDeallocate(v9, v14);
-  }
-
   if (v12)
   {
-    CFAllocatorDeallocate(v9, v12);
+    CFAllocatorDeallocate(v10, v12);
   }
 
-  return v19;
+  if (v15)
+  {
+    CFAllocatorDeallocate(v10, v15);
+  }
+
+  if (v13)
+  {
+    CFAllocatorDeallocate(v10, v13);
+  }
+
+  return v20;
 }
 
 uint64_t FindCaptivePort()
@@ -780,18 +773,17 @@ uint64_t CNAccountsUse(const __CFString *a1, const __CFString *a2, __CFRunLoop *
 
     else
     {
-      v20 = *(v11 + 8);
-      v21 = AuthenticateUsing();
+      v20 = AuthenticateUsing();
       free(v15);
       free(v17);
-      v22 = v11[3];
-      if (v21)
+      v21 = v11[3];
+      if (v20)
       {
-        if (v22)
+        if (v21)
         {
-          v23 = v11[3];
+          v22 = v11[3];
 LABEL_21:
-          CFRelease(v23);
+          CFRelease(v22);
         }
 
 LABEL_22:
@@ -799,23 +791,23 @@ LABEL_22:
         return 0;
       }
 
-      RunLoopSource = CFMachPortCreateRunLoopSource(v12, v22, 0);
+      RunLoopSource = CFMachPortCreateRunLoopSource(v12, v21, 0);
       if (RunLoopSource)
       {
-        v25 = RunLoopSource;
+        v24 = RunLoopSource;
         pthread_once(&__captiveInit, CaptiveInitOnce);
         pthread_mutex_lock(&__captiveLock);
         *v11 = sAuthStateHead;
         sAuthStateHead = v11;
         pthread_mutex_unlock(&__captiveLock);
-        CFRunLoopAddSource(a3, v25, *MEMORY[0x277CBF048]);
-        CFRelease(v25);
+        CFRunLoopAddSource(a3, v24, *MEMORY[0x277CBF048]);
+        CFRelease(v24);
         return 1;
       }
     }
 
-    v23 = v11[3];
-    if (v23)
+    v22 = v11[3];
+    if (v22)
     {
       goto LABEL_21;
     }
@@ -828,7 +820,7 @@ LABEL_22:
 
 uint64_t CNAuthenticateUsingTokenAccount(const __CFString *a1, const __CFData *a2, __CFRunLoop *a3, uint64_t a4, uint64_t a5)
 {
-  v21 = 0;
+  v20 = 0;
   pthread_once(&__captiveInit, CaptiveInitOnce);
   v10 = 0;
   if (!a1 || !a2)
@@ -842,10 +834,10 @@ uint64_t CNAuthenticateUsingTokenAccount(const __CFString *a1, const __CFData *a
   }
 
   v11 = malloc_type_malloc(0x28uLL, 0x10A0040FFE778EBuLL);
-  *&v20.version = xmmword_278D899D0;
-  memset(&v20.retain, 0, 24);
+  *&v19.version = xmmword_278D899D0;
+  memset(&v19.retain, 0, 24);
   v12 = *MEMORY[0x277CBECE8];
-  v13 = CFMachPortCreate(*MEMORY[0x277CBECE8], MachServerCallback, &v20, 0);
+  v13 = CFMachPortCreate(*MEMORY[0x277CBECE8], MachServerCallback, &v19, 0);
   v11[3] = v13;
   if (!v13)
   {
@@ -853,7 +845,7 @@ uint64_t CNAuthenticateUsingTokenAccount(const __CFString *a1, const __CFData *a
 LABEL_14:
     free(v11);
     v10 = 0;
-    v17 = 0;
+    v16 = 0;
     goto LABEL_15;
   }
 
@@ -869,26 +861,25 @@ LABEL_14:
   v14 = CFStringMallocCString(v12, a1, 0x400uLL);
   CFDataGetBytePtr(a2);
   CFDataGetLength(a2);
-  v15 = *(v11 + 8);
-  if (AuthenticateUsingToken() | v21 || (RunLoopSource = CFMachPortCreateRunLoopSource(v12, v11[3], 0)) == 0)
+  if (AuthenticateUsingToken() | v20 || (RunLoopSource = CFMachPortCreateRunLoopSource(v12, v11[3], 0)) == 0)
   {
 LABEL_12:
-    v18 = v11[3];
-    if (v18)
+    v17 = v11[3];
+    if (v17)
     {
-      CFRelease(v18);
+      CFRelease(v17);
     }
 
     goto LABEL_14;
   }
 
-  v17 = RunLoopSource;
+  v16 = RunLoopSource;
   pthread_once(&__captiveInit, CaptiveInitOnce);
   pthread_mutex_lock(&__captiveLock);
   *v11 = sAuthStateHead;
   sAuthStateHead = v11;
   pthread_mutex_unlock(&__captiveLock);
-  CFRunLoopAddSource(a3, v17, *MEMORY[0x277CBF048]);
+  CFRunLoopAddSource(a3, v16, *MEMORY[0x277CBF048]);
   v10 = 1;
 LABEL_15:
   if (v14)
@@ -896,9 +887,9 @@ LABEL_15:
     free(v14);
   }
 
-  if (v17)
+  if (v16)
   {
-    CFRelease(v17);
+    CFRelease(v16);
   }
 
   return v10;
@@ -1267,16 +1258,15 @@ uint64_t CNPurgeCaptivePortalAuthenticationCredentials(CFStringRef theString)
 
 uint64_t CaptiveInitOnce()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2.__sig = 0;
-  *v2.__opaque = 0;
+  v2 = *MEMORY[0x277D85DE8];
+  v1.__sig = 0;
+  *v1.__opaque = 0;
   __kCNProberTypeID = _CFRuntimeRegisterClass();
-  pthread_mutexattr_init(&v2);
-  pthread_mutex_init(&__captiveLock, &v2);
-  result = pthread_mutexattr_destroy(&v2);
+  pthread_mutexattr_init(&v1);
+  pthread_mutex_init(&__captiveLock, &v1);
+  result = pthread_mutexattr_destroy(&v1);
   sMachParams = CNSClient_server;
   dword_27ECDDBD8 = dword_28556E6C8;
-  v1 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1632,7 +1622,7 @@ CFIndex my_CFArrayFindValue(const __CFArray *a1, const void *a2)
   return CFArrayGetFirstIndexOfValue(a1, v4, a2);
 }
 
-uint64_t my_CFArrayFindDictWithKeyAndValue(const __CFArray *a1, const void *a2, const void *a3)
+CFIndex my_CFArrayFindDictWithKeyAndValue(const __CFArray *a1, const void *a2, const void *a3)
 {
   if (a1)
   {
@@ -1813,7 +1803,7 @@ CFArrayRef CNNetworkListCreate(const void *a1, const void *a2)
   return Copy;
 }
 
-uint64_t CNNetworkGetTypeID()
+uint64_t CNNetworkGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (__CNNetworkRegisterClass_once != -1)
   {
@@ -2153,34 +2143,40 @@ const __CFDictionary *CNNetworkIsChosenPlugin(uint64_t a1)
   return result;
 }
 
-void *CNNetworkCreateWithSSIDAndBSSID(void *a1, void *a2)
+void *CNNetworkCreateWithSSIDAndBSSID(const void *a1, const void *a2)
 {
   keys[2] = *MEMORY[0x277D85DE8];
   TypeID = CFStringGetTypeID();
-  if (a1 && CFGetTypeID(a1) == TypeID && (v5 = CFStringGetTypeID(), a2) && CFGetTypeID(a2) == v5)
+  if (!a1)
   {
-    if (__CNNetworkRegisterClass_once != -1)
-    {
-      CNNetworkCreate_cold_1();
-    }
-
-    Instance = _CFRuntimeCreateInstance();
-    Instance[3] = 0;
-    Instance[4] = 0;
-    Instance[2] = 0;
-    keys[0] = @"SSIDString";
-    keys[1] = @"BSSID";
-    values[0] = a1;
-    values[1] = a2;
-    Instance[2] = CFDictionaryCreate(0, keys, values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    return 0;
   }
 
-  else
+  if (CFGetTypeID(a1) != TypeID)
   {
-    Instance = 0;
+    return 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  v5 = CFStringGetTypeID();
+  if (!a2 || CFGetTypeID(a2) != v5)
+  {
+    return 0;
+  }
+
+  if (__CNNetworkRegisterClass_once != -1)
+  {
+    CNNetworkCreate_cold_1();
+  }
+
+  Instance = _CFRuntimeCreateInstance();
+  Instance[3] = 0;
+  Instance[4] = 0;
+  Instance[2] = 0;
+  keys[0] = @"SSIDString";
+  keys[1] = @"BSSID";
+  values[0] = a1;
+  values[1] = a2;
+  Instance[2] = CFDictionaryCreate(0, keys, values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   return Instance;
 }
 
@@ -2250,168 +2246,165 @@ __CFString *__CNNetworkCopyDebugDesc(const void *a1)
 
 void _CNPluginProvideResponse(const __CFDictionary *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if (!a1 || !*(G_plugin + 24))
+  v10 = *MEMORY[0x277D85DE8];
+  if (a1 && *(G_plugin + 24))
   {
-LABEL_10:
-    v9 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  Value = CFDictionaryGetValue(a1, @"UniqueID");
-  v3 = *(G_plugin + 24);
-  if (!v3 || (v14.length = CFArrayGetCount(v3), v14.location = 0, FirstIndexOfValue = CFArrayGetFirstIndexOfValue(*(G_plugin + 24), v14, Value), FirstIndexOfValue == -1))
-  {
-    logger = mysyslog_get_logger();
-    v8 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(logger, v8))
+    Value = CFDictionaryGetValue(a1, @"UniqueID");
+    v3 = *(G_plugin + 24);
+    if (!v3 || (v12.length = CFArrayGetCount(v3), v12.location = 0, FirstIndexOfValue = CFArrayGetFirstIndexOfValue(*(G_plugin + 24), v12, Value), FirstIndexOfValue == -1))
     {
-      v10 = 138412290;
-      v11 = a1;
-      _os_log_impl(&dword_242BE1000, logger, v8, "Ignoring stale command response %@", &v10, 0xCu);
+      logger = mysyslog_get_logger();
+      v7 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(logger, v7))
+      {
+        v8 = 138412290;
+        v9 = a1;
+        _os_log_impl(&dword_242BE1000, logger, v7, "Ignoring stale command response %@", &v8, 0xCu);
+      }
     }
 
-    goto LABEL_10;
+    else
+    {
+      CFArrayRemoveValueAtIndex(*(G_plugin + 24), FirstIndexOfValue);
+      v5 = *G_plugin;
+
+      ServerConnectionProvideResponse(v5, a1);
+    }
   }
-
-  CFArrayRemoveValueAtIndex(*(G_plugin + 24), FirstIndexOfValue);
-  v5 = *G_plugin;
-  v6 = *MEMORY[0x277D85DE8];
-
-  ServerConnectionProvideResponse(v5, a1);
 }
 
 BOOL CNPluginRegister(const void *a1, NSObject *a2, const void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   values = 0;
   if (!a3)
   {
-    goto LABEL_19;
+    return 0;
   }
 
-  if (!a1)
+  if (a1)
   {
-    Value = 0;
-    goto LABEL_10;
-  }
-
-  TypeID = CFDictionaryGetTypeID();
-  if (CFGetTypeID(a1) != TypeID)
-  {
-    logger = mysyslog_get_logger();
-    v16 = _SC_syslog_os_log_mapping();
-    result = os_log_type_enabled(logger, v16);
-    if (result)
+    TypeID = CFDictionaryGetTypeID();
+    if (CFGetTypeID(a1) != TypeID)
     {
+      logger = mysyslog_get_logger();
+      v16 = _SC_syslog_os_log_mapping();
+      result = os_log_type_enabled(logger, v16);
+      if (!result)
+      {
+        return result;
+      }
+
       *buf = 0;
       v12 = "CNPluginRegister: 'options' is not a dictionary";
       v17 = logger;
       v18 = v16;
       v19 = 2;
-LABEL_18:
-      _os_log_impl(&dword_242BE1000, v17, v18, v12, buf, v19);
-      goto LABEL_19;
+      goto LABEL_18;
     }
 
-    goto LABEL_20;
-  }
+    Value = CFDictionaryGetValue(a1, @"DisplayName");
+    values = Value;
+    if (Value)
+    {
+      v8 = CFStringGetTypeID();
+      if (CFGetTypeID(Value) != v8)
+      {
+        v9 = mysyslog_get_logger();
+        v10 = _SC_syslog_os_log_mapping();
+        result = os_log_type_enabled(v9, v10);
+        if (!result)
+        {
+          return result;
+        }
 
-  Value = CFDictionaryGetValue(a1, @"DisplayName");
-  values = Value;
-  if (!Value || (v8 = CFStringGetTypeID(), CFGetTypeID(Value) == v8))
-  {
+        *buf = 138412290;
+        v24 = @"DisplayName";
+        v12 = "CNPluginRegister: %@ property must be a string";
+        goto LABEL_17;
+      }
+    }
+
     if (CFDictionaryGetCount(a1) >= 2)
     {
       v9 = mysyslog_get_logger();
       v10 = _SC_syslog_os_log_mapping();
       result = os_log_type_enabled(v9, v10);
-      if (result)
+      if (!result)
       {
-        *buf = 138412290;
-        v25 = @"DisplayName";
-        v12 = "CNPluginRegister: 'options' contains properties other than %@";
-LABEL_17:
-        v17 = v9;
-        v18 = v10;
-        v19 = 12;
-        goto LABEL_18;
+        return result;
       }
 
-      goto LABEL_20;
+      *buf = 138412290;
+      v24 = @"DisplayName";
+      v12 = "CNPluginRegister: 'options' contains properties other than %@";
+LABEL_17:
+      v17 = v9;
+      v18 = v10;
+      v19 = 12;
+LABEL_18:
+      _os_log_impl(&dword_242BE1000, v17, v18, v12, buf, v19);
+      return 0;
     }
-
-LABEL_10:
-    if (G_plugin)
-    {
-LABEL_19:
-      result = 0;
-      goto LABEL_20;
-    }
-
-    v13 = malloc_type_malloc(0x20uLL, 0xA00400A0658E3uLL);
-    G_plugin = v13;
-    *v13 = 0u;
-    v13[1] = 0u;
-    *(v13 + 1) = a2;
-    *(G_plugin + 16) = _Block_copy(a3);
-    if (Value)
-    {
-      v14 = CFDictionaryCreate(0, &kCNPluginOptionDisplayName, &values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-
-    v21 = ServerConnectionCreate("com.apple.networking.captivenetworksupport", "com.apple.networking.captivenetworksupport.startserver", 3, v14, &__block_literal_global_1, 0);
-    v22 = G_plugin;
-    *G_plugin = v21;
-    if (v14)
-    {
-      CFRelease(v14);
-      v22 = G_plugin;
-      v21 = *G_plugin;
-    }
-
-    if (v21)
-    {
-      ServerConnectionResume(v21);
-      dispatch_retain(a2);
-      result = 1;
-    }
-
-    else
-    {
-      _Block_release(*(v22 + 16));
-      free(G_plugin);
-      result = 0;
-      G_plugin = 0;
-    }
-
-    goto LABEL_20;
   }
 
-  v9 = mysyslog_get_logger();
-  v10 = _SC_syslog_os_log_mapping();
-  result = os_log_type_enabled(v9, v10);
-  if (result)
+  else
   {
-    *buf = 138412290;
-    v25 = @"DisplayName";
-    v12 = "CNPluginRegister: %@ property must be a string";
-    goto LABEL_17;
+    Value = 0;
   }
 
-LABEL_20:
-  v20 = *MEMORY[0x277D85DE8];
+  if (G_plugin)
+  {
+    return 0;
+  }
+
+  v13 = malloc_type_malloc(0x20uLL, 0xA00400A0658E3uLL);
+  G_plugin = v13;
+  *v13 = 0u;
+  v13[1] = 0u;
+  *(v13 + 1) = a2;
+  *(G_plugin + 16) = _Block_copy(a3);
+  if (Value)
+  {
+    v14 = CFDictionaryCreate(0, &kCNPluginOptionDisplayName, &values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  v20 = ServerConnectionCreate("com.apple.networking.captivenetworksupport", "com.apple.networking.captivenetworksupport.startserver", 3, v14, &__block_literal_global_1, 0);
+  v21 = G_plugin;
+  *G_plugin = v20;
+  if (v14)
+  {
+    CFRelease(v14);
+    v21 = G_plugin;
+    v20 = *G_plugin;
+  }
+
+  if (v20)
+  {
+    ServerConnectionResume(v20);
+    dispatch_retain(a2);
+    return 1;
+  }
+
+  else
+  {
+    _Block_release(*(v21 + 16));
+    free(G_plugin);
+    result = 0;
+    G_plugin = 0;
+  }
+
   return result;
 }
 
 void __CNPluginRegister_block_invoke(uint64_t a1, uint64_t a2, const __CFArray *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   TypeID = CFArrayGetTypeID();
   if (a3 && CFGetTypeID(a3) == TypeID && (v5 = CFArrayGetCount(a3)) != 0)
   {
@@ -2440,7 +2433,7 @@ void __CNPluginRegister_block_invoke(uint64_t a1, uint64_t a2, const __CFArray *
           v17 = CFStringGetTypeID();
           if (Value && CFGetTypeID(Value) == v17)
           {
-            if (!Count || (v41.location = 0, v41.length = Count, !CFArrayContainsValue(*(G_plugin + 24), v41, Value)))
+            if (!Count || (v40.location = 0, v40.length = Count, !CFArrayContainsValue(*(G_plugin + 24), v40, Value)))
             {
               v18 = CNPluginCommandCreate(ValueAtIndex);
               if (!v18)
@@ -2452,8 +2445,8 @@ void __CNPluginRegister_block_invoke(uint64_t a1, uint64_t a2, const __CFArray *
                   continue;
                 }
 
-                *v38 = 138412290;
-                v39 = ValueAtIndex;
+                *v37 = 138412290;
+                v38 = ValueAtIndex;
                 v22 = logger;
                 v23 = v28;
                 v24 = "CNPluginCommandCreate(%@) failed";
@@ -2462,10 +2455,10 @@ void __CNPluginRegister_block_invoke(uint64_t a1, uint64_t a2, const __CFArray *
 
               v19 = *(G_plugin + 8);
               *buf = MEMORY[0x277D85DD0];
-              v34 = 0x40000000;
-              v35 = __CNPluginHandleCommandInfo_block_invoke;
-              v36 = &__block_descriptor_tmp_10;
-              v37 = v18;
+              v33 = 0x40000000;
+              v34 = __CNPluginHandleCommandInfo_block_invoke;
+              v35 = &__block_descriptor_tmp_10;
+              v36 = v18;
               dispatch_async(v19, buf);
             }
 
@@ -2478,8 +2471,8 @@ void __CNPluginRegister_block_invoke(uint64_t a1, uint64_t a2, const __CFArray *
             v26 = _SC_syslog_os_log_mapping();
             if (os_log_type_enabled(v25, v26))
             {
-              *v38 = 138412290;
-              v39 = ValueAtIndex;
+              *v37 = 138412290;
+              v38 = ValueAtIndex;
               v22 = v25;
               v23 = v26;
               v24 = "command contains no uniqueID %@";
@@ -2494,13 +2487,13 @@ void __CNPluginRegister_block_invoke(uint64_t a1, uint64_t a2, const __CFArray *
           v21 = _SC_syslog_os_log_mapping();
           if (os_log_type_enabled(v20, v21))
           {
-            *v38 = 138412290;
-            v39 = ValueAtIndex;
+            *v37 = 138412290;
+            v38 = ValueAtIndex;
             v22 = v20;
             v23 = v21;
             v24 = "command is not a dictionary %@";
 LABEL_27:
-            _os_log_impl(&dword_242BE1000, v22, v23, v24, v38, 0xCu);
+            _os_log_impl(&dword_242BE1000, v22, v23, v24, v37, 0xCu);
           }
         }
       }
@@ -2539,17 +2532,15 @@ LABEL_27:
       }
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t CNPluginLogoffNetwork(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2000000000;
-  v17 = 0;
+  v22 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2000000000;
+  v16 = 0;
   if (!G_plugin)
   {
 LABEL_11:
@@ -2569,8 +2560,8 @@ LABEL_11:
   }
 
   v3 = InterfaceName;
-  v22 = 0;
-  v20 = 0;
+  v21 = 0;
+  v19 = 0;
   v4 = CNNetworkCopySerializationWithoutAnnotations(a1);
   valuePtr = 1;
   v5 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
@@ -2580,8 +2571,8 @@ LABEL_11:
   values[1] = v3;
   if (v4)
   {
-    v22 = @"Network";
-    v20 = v4;
+    v21 = @"Network";
+    v19 = v4;
     v6 = CFDictionaryCreate(0, keys, values, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     CFRelease(v4);
   }
@@ -2607,18 +2598,17 @@ LABEL_9:
   }
 
   HandlerQueue = ServerConnectionGetHandlerQueue(*G_plugin);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 0x40000000;
-  v13[2] = __CNPluginLogoffNetwork_block_invoke;
-  v13[3] = &unk_278D89A68;
-  v13[4] = &v14;
-  v13[5] = v6;
-  dispatch_sync(HandlerQueue, v13);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 0x40000000;
+  v12[2] = __CNPluginLogoffNetwork_block_invoke;
+  v12[3] = &unk_278D89A68;
+  v12[4] = &v13;
+  v12[5] = v6;
+  dispatch_sync(HandlerQueue, v12);
   CFRelease(v6);
-  v8 = *(v15 + 24);
+  v8 = *(v14 + 24);
 LABEL_12:
-  _Block_object_dispose(&v14, 8);
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v13, 8);
   return v8;
 }
 
@@ -2724,7 +2714,7 @@ void appendCommandAsNetwork(const __CFDictionary *a1, __CFArray **a2)
 
 void __CNPluginHandleCommandInfo_block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   Value = CFDictionaryGetValue(*(v2 + 16), @"UniqueID");
   TypeID = CFStringGetTypeID();
@@ -2756,7 +2746,7 @@ void __CNPluginHandleCommandInfo_block_invoke(uint64_t a1)
           {
             String = CNPCommandTypeGetString(*(v2 + 24));
             *buf = 136315138;
-            v17 = String;
+            v15 = String;
             _os_log_impl(&dword_242BE1000, logger, v11, "Delivery of %s command acknowledged", buf, 0xCu);
           }
 
@@ -2773,13 +2763,11 @@ void __CNPluginHandleCommandInfo_block_invoke(uint64_t a1)
     }
   }
 
-  v13 = *(a1 + 32);
   (*(*(G_plugin + 16) + 16))();
   CFRelease(*(a1 + 32));
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t CNPluginCommandGetTypeID()
+uint64_t CNPluginCommandGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (__CNPluginCommandRegisterClass_once != -1)
   {
@@ -2880,7 +2868,7 @@ __CFString *__CNPluginCommandCopyDebugDesc(unsigned int *a1)
   return Mutable;
 }
 
-uint64_t CNPluginResponseGetTypeID()
+uint64_t CNPluginResponseGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (__CNPluginResponseRegisterClass_once != -1)
   {
@@ -2890,8 +2878,9 @@ uint64_t CNPluginResponseGetTypeID()
   return __kCNPluginResponseTypeID;
 }
 
-uint64_t CNPluginResponseCreate(uint64_t a1, int a2)
+uint64_t CNPluginResponseCreate(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (__CNPluginResponseRegisterClass_once != -1)
   {
     CNPluginResponseGetTypeID_cold_1();
@@ -2901,7 +2890,7 @@ uint64_t CNPluginResponseCreate(uint64_t a1, int a2)
   *(Instance + 16) = 0u;
   *(Instance + 32) = 0u;
   *(Instance + 16) = *(a1 + 24);
-  *(Instance + 20) = a2;
+  *(Instance + 20) = v2;
   Value = CFDictionaryGetValue(*(a1 + 16), @"UniqueID");
   *(Instance + 24) = CFRetain(Value);
   return Instance;
@@ -2909,13 +2898,13 @@ uint64_t CNPluginResponseCreate(uint64_t a1, int a2)
 
 void CNPluginResponseDeliver(void *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v18 = 0;
   v19 = 0;
-  v20 = 0;
-  v17 = 0;
+  v16 = 0;
   keys[0] = @"UniqueID";
   v2 = a1[3];
-  v16 = 0;
+  v15 = 0;
   values[0] = v2;
   v3 = CFNumberCreate(0, kCFNumberSInt32Type, a1 + 20);
   keys[1] = @"Result";
@@ -2927,8 +2916,8 @@ void CNPluginResponseDeliver(void *a1)
     v6 = v5;
     if (v5)
     {
-      v19 = @"Network";
-      v16 = v5;
+      v18 = @"Network";
+      v15 = v5;
       v7 = 3;
       goto LABEL_6;
     }
@@ -2975,13 +2964,12 @@ LABEL_6:
   }
 
   Queue = _CNPluginGetQueue();
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 0x40000000;
-  v14[2] = __CNPluginResponseDeliver_block_invoke;
-  v14[3] = &__block_descriptor_tmp_4;
-  v14[4] = v11;
-  dispatch_sync(Queue, v14);
-  v13 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 0x40000000;
+  v13[2] = __CNPluginResponseDeliver_block_invoke;
+  v13[3] = &__block_descriptor_tmp_4;
+  v13[4] = v11;
+  dispatch_sync(Queue, v13);
 }
 
 void __CNPluginResponseDeliver_block_invoke(uint64_t a1)
@@ -2994,7 +2982,7 @@ void __CNPluginResponseDeliver_block_invoke(uint64_t a1)
 
 void CNPluginResponseSetNetworkList(uint64_t a1, CFTypeRef cf)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*(a1 + 16) == 1)
   {
     if (cf)
@@ -3018,18 +3006,16 @@ void CNPluginResponseSetNetworkList(uint64_t a1, CFTypeRef cf)
     if (os_log_type_enabled(logger, v6))
     {
       String = CNPCommandTypeGetString(*(a1 + 16));
-      v9 = 136315138;
-      v10 = String;
-      _os_log_impl(&dword_242BE1000, logger, v6, "CNPluginResponseSetNetworkList() invalid for %s", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = String;
+      _os_log_impl(&dword_242BE1000, logger, v6, "CNPluginResponseSetNetworkList() invalid for %s", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void CNPluginResponseSetNetwork(uint64_t a1, CFTypeRef cf)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*(a1 + 16) == 2)
   {
     if (cf)
@@ -3053,13 +3039,11 @@ void CNPluginResponseSetNetwork(uint64_t a1, CFTypeRef cf)
     if (os_log_type_enabled(logger, v6))
     {
       String = CNPCommandTypeGetString(*(a1 + 16));
-      v9 = 136315138;
-      v10 = String;
-      _os_log_impl(&dword_242BE1000, logger, v6, "CNPluginResponseSetNetwork() invalid for %s", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = String;
+      _os_log_impl(&dword_242BE1000, logger, v6, "CNPluginResponseSetNetwork() invalid for %s", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __CNPluginResponseDeallocate(void *a1)
@@ -3111,11 +3095,11 @@ __CFString *__CNPluginResponseCopyDebugDesc(uint64_t a1)
   return Mutable;
 }
 
-void CNWebSheetDone(int a1, void *a2)
+void CNWebSheetDone(uint64_t a1, void *a2)
 {
-  if (G_websheet && (v4 = *(G_websheet + 8)) != 0)
+  if (G_websheet && (v3 = a1, (v4 = *(G_websheet + 8)) != 0))
   {
-    Response = createResponse(v4, a1, 1, a2);
+    Response = createResponse(v4, v3, 1, a2);
     HandlerQueue = ServerConnectionGetHandlerQueue(*G_websheet);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 0x40000000;
@@ -3140,20 +3124,20 @@ void CNWebSheetDone(int a1, void *a2)
 
 CFDictionaryRef createResponse(void *a1, int a2, int a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   valuePtr = a2;
+  v15 = 0;
   v16 = 0;
-  v17 = 0;
-  v14 = 0;
+  v13 = 0;
   keys = @"UniqueID";
   values = a1;
-  v13 = 0;
+  v12 = 0;
   v5 = MEMORY[0x277CBECE8];
   if (a3)
   {
     v6 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &valuePtr);
-    v16 = @"Result";
-    v13 = v6;
+    v15 = @"Result";
+    v12 = v6;
     v7 = 2;
     if (!a4)
     {
@@ -3179,7 +3163,6 @@ LABEL_4:
     CFRelease(v6);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -3203,7 +3186,7 @@ uint64_t CNWebSheetProbeRequest(const void *a1)
 
 void __CNWebSheetProbeRequest_block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   theDict = 0;
   valuePtr = 1;
@@ -3283,14 +3266,13 @@ void __CNWebSheetProbeRequest_block_invoke(uint64_t a1)
     *keys = MEMORY[0x277D85DD0];
     *&keys[8] = 0x40000000;
     *&keys[16] = __startProbe_block_invoke;
-    v23 = &__block_descriptor_tmp_32;
-    v24 = v2;
+    v22 = &__block_descriptor_tmp_32;
+    v23 = v2;
     CFRunLoopPerformBlock(v16, v17, keys);
     CFRunLoopWakeUp(*(G_websheet + 40));
   }
 
   CFRelease(*(a1 + 32));
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t CNWebSheetRegister(uint64_t a1, uint64_t a2)
@@ -3327,7 +3309,7 @@ uint64_t CNWebSheetRegister(uint64_t a1, uint64_t a2)
     v12 = _SC_syslog_os_log_mapping();
     if (os_log_type_enabled(logger, v12))
     {
-      *v13 = 0;
+      v13[0] = 0;
       _os_log_impl(&dword_242BE1000, logger, v12, "ServerConnectionCreate failed", v13, 2u);
     }
 
@@ -3341,7 +3323,7 @@ uint64_t CNWebSheetRegister(uint64_t a1, uint64_t a2)
 
 void __CNWebSheetRegister_block_invoke(uint64_t a1, uint64_t a2, const __CFArray *a3)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
   TypeID = CFArrayGetTypeID();
   if (a3 && CFGetTypeID(a3) == TypeID && (Count = CFArrayGetCount(a3)) != 0)
@@ -3350,7 +3332,7 @@ void __CNWebSheetRegister_block_invoke(uint64_t a1, uint64_t a2, const __CFArray
     if (Count >= 1)
     {
       v7 = 0;
-      v53 = *MEMORY[0x277CBF048];
+      v52 = *MEMORY[0x277CBF048];
       do
       {
         ValueAtIndex = CFArrayGetValueAtIndex(a3, v7);
@@ -3386,7 +3368,7 @@ void __CNWebSheetRegister_block_invoke(uint64_t a1, uint64_t a2, const __CFArray
               {
                 if (valuePtr == 2)
                 {
-                  v55 = 7;
+                  v54 = 7;
                   v35 = *(G_websheet + 48);
                   if (v35)
                   {
@@ -3398,31 +3380,31 @@ void __CNWebSheetRegister_block_invoke(uint64_t a1, uint64_t a2, const __CFArray
                       v39 = CFNumberGetTypeID();
                       if (v38 && CFGetTypeID(v38) == v39)
                       {
-                        CFNumberGetValue(v38, kCFNumberIntType, &v55);
+                        CFNumberGetValue(v38, kCFNumberIntType, &v54);
                       }
 
                       v40 = mysyslog_get_logger();
                       v41 = _SC_syslog_os_log_mapping();
                       if (os_log_type_enabled(v40, v41))
                       {
-                        *v61 = 138412802;
-                        v62 = Value;
-                        v63 = 2048;
-                        v64 = v37;
-                        v65 = 1024;
-                        v66 = v55;
-                        _os_log_impl(&dword_242BE1000, v40, v41, "%@ prober %p COMPLETE result %d", v61, 0x1Cu);
+                        *v60 = 138412802;
+                        v61 = Value;
+                        v62 = 2048;
+                        v63 = v37;
+                        v64 = 1024;
+                        v65 = v54;
+                        _os_log_impl(&dword_242BE1000, v40, v41, "%@ prober %p COMPLETE result %d", v60, 0x1Cu);
                       }
 
                       CFRetain(v37);
                       v42 = *(G_websheet + 40);
                       *&buf = MEMORY[0x277D85DD0];
                       *(&buf + 1) = 0x40000000;
-                      v57 = __CNWebSheetHandleProbeResult_block_invoke;
-                      v58 = &__block_descriptor_tmp_48;
-                      v59 = v37;
-                      v60 = v55;
-                      CFRunLoopPerformBlock(v42, v53, &buf);
+                      v56 = __CNWebSheetHandleProbeResult_block_invoke;
+                      v57 = &__block_descriptor_tmp_48;
+                      v58 = v37;
+                      v59 = v54;
+                      CFRunLoopPerformBlock(v42, v52, &buf);
                       CFRunLoopWakeUp(*(G_websheet + 40));
                       CFDictionaryRemoveValue(*(G_websheet + 48), Value);
                     }
@@ -3433,9 +3415,9 @@ void __CNWebSheetRegister_block_invoke(uint64_t a1, uint64_t a2, const __CFArray
                       v49 = _SC_syslog_os_log_mapping();
                       if (os_log_type_enabled(v48, v49))
                       {
-                        *v61 = 138412290;
-                        v62 = Value;
-                        p_buf = v61;
+                        *v60 = 138412290;
+                        v61 = Value;
+                        p_buf = v60;
                         v20 = v48;
                         v21 = v49;
                         v22 = "can't find prober with ID %@";
@@ -3484,10 +3466,10 @@ LABEL_21:
                   v45 = *(G_websheet + 40);
                   *&buf = MEMORY[0x277D85DD0];
                   *(&buf + 1) = 0x40000000;
-                  v57 = __CNWebSheetPresentUI_block_invoke;
-                  v58 = &__block_descriptor_tmp_44;
-                  v59 = v43;
-                  CFRunLoopPerformBlock(v45, v53, &buf);
+                  v56 = __CNWebSheetPresentUI_block_invoke;
+                  v57 = &__block_descriptor_tmp_44;
+                  v58 = v43;
+                  CFRunLoopPerformBlock(v45, v52, &buf);
                   CFRunLoopWakeUp(*(G_websheet + 40));
                 }
 
@@ -3498,8 +3480,8 @@ LABEL_21:
               v47 = _SC_syslog_os_log_mapping();
               if (os_log_type_enabled(v46, v47))
               {
-                *v61 = 0;
-                v26 = v61;
+                *v60 = 0;
+                v26 = v60;
                 v27 = v46;
                 v28 = v47;
                 v29 = "websheet info is missing/invalid";
@@ -3579,8 +3561,6 @@ LABEL_30:
       _os_log_impl(&dword_242BE1000, v50, v51, "No more commands to process", &buf, 2u);
     }
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 void __CNWebSheetRegister_block_invoke_2(uint64_t a1, uint64_t a2, int a3)
@@ -3641,7 +3621,6 @@ void provideResponse(void *a1)
   v1 = CFDictionaryCreate(*MEMORY[0x277CBECE8], keys, values, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   ServerConnectionProvideResponse(*G_websheet, v1);
   CFRelease(v1);
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __CNWebSheetPresentUI_block_invoke(uint64_t a1)
@@ -3663,11 +3642,11 @@ void __CNWebSheetHandleProbeResult_block_invoke(uint64_t a1)
 uint64_t ServerConnectionCreate(uint64_t a1, uint64_t a2, int a3, const __CFDictionary *a4, const void *a5, const void *a6)
 {
   v6 = 0;
-  v47 = *MEMORY[0x277D85DE8];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2000000000;
-  v42 = 0;
+  v46 = *MEMORY[0x277D85DE8];
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2000000000;
+  v41 = 0;
   if (!G_conn)
   {
     G_conn = malloc_type_malloc(0x60uLL, 0x10F0040ADC7DA84uLL);
@@ -3721,7 +3700,7 @@ uint64_t ServerConnectionCreate(uint64_t a1, uint64_t a2, int a3, const __CFDict
         {
           v21 = mach_error_string(v18);
           *buf = 136315138;
-          v46 = v21;
+          v45 = v21;
           _os_log_impl(&dword_242BE1000, logger, v20, "mach_port_allocate() failed, %s", buf, 0xCu);
         }
       }
@@ -3736,7 +3715,7 @@ uint64_t ServerConnectionCreate(uint64_t a1, uint64_t a2, int a3, const __CFDict
         {
           v26 = mach_error_string(v23);
           *buf = 136315138;
-          v46 = v26;
+          v45 = v26;
           _os_log_impl(&dword_242BE1000, v24, v25, "mach_port_insert_right failed, %s", buf, 0xCu);
         }
 
@@ -3745,8 +3724,8 @@ uint64_t ServerConnectionCreate(uint64_t a1, uint64_t a2, int a3, const __CFDict
 
       else
       {
-        v44 = 1;
-        v28 = MEMORY[0x245D22D50](*v16, name, 1, &v44, 1);
+        v43 = 1;
+        v28 = MEMORY[0x245D22D50](*v16, name, 1, &v43, 1);
         if (v28)
         {
           v29 = v28;
@@ -3756,7 +3735,7 @@ uint64_t ServerConnectionCreate(uint64_t a1, uint64_t a2, int a3, const __CFDict
           {
             v32 = mach_error_string(v29);
             *buf = 136315138;
-            v46 = v32;
+            v45 = v32;
             _os_log_impl(&dword_242BE1000, v30, v31, "mach_port_set_attributes(MACH_PORT_LIMITS_INFO) failed, %s", buf, 0xCu);
           }
         }
@@ -3790,14 +3769,14 @@ uint64_t ServerConnectionCreate(uint64_t a1, uint64_t a2, int a3, const __CFDict
     }
 
     v35 = *G_conn;
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 0x40000000;
-    v38[2] = __ServerConnectionCreate_block_invoke;
-    v38[3] = &unk_278D89C68;
-    v38[4] = &v39;
-    dispatch_sync(v35, v38);
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 0x40000000;
+    v37[2] = __ServerConnectionCreate_block_invoke;
+    v37[3] = &unk_278D89C68;
+    v37[4] = &v38;
+    dispatch_sync(v35, v37);
     v6 = G_conn;
-    if (!*(v40 + 24))
+    if (!*(v39 + 24))
     {
       ServerConnectionDeallocate(G_conn);
 LABEL_31:
@@ -3806,8 +3785,7 @@ LABEL_31:
     }
   }
 
-  _Block_object_dispose(&v39, 8);
-  v36 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v38, 8);
   return v6;
 }
 
@@ -3820,42 +3798,42 @@ uint64_t __ServerConnectionCreate_block_invoke(uint64_t a1)
 
 uint64_t ServerConnectionConnect(uint64_t a1, int a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   if (*(a1 + 40))
   {
-    goto LABEL_2;
+    return 0;
   }
 
-  v38 = 0;
-  v6 = 0;
+  v37 = 0;
+  v5 = 0;
   token = 0;
   __errnum = 0;
-  v7 = MEMORY[0x277D85F18];
-  v8 = 1000000;
+  v6 = MEMORY[0x277D85F18];
+  v7 = 1000000;
   while (2)
   {
-    v9 = v6;
+    v8 = v5;
     while (1)
     {
-      v6 = v9;
-      if (v9)
+      v5 = v8;
+      if (v8)
       {
         out_token = 0;
         *handler = MEMORY[0x277D85DD0];
         *&handler[8] = 0x40000000;
         *&handler[16] = __ServerConnectionRegisterForStartNotification_block_invoke;
         *&handler[24] = &__block_descriptor_tmp_4;
-        v44 = a1;
-        v8 = notify_register_dispatch(*(a1 + 16), &out_token, *a1, handler);
-        if (v8)
+        v43 = a1;
+        v7 = notify_register_dispatch(*(a1 + 16), &out_token, *a1, handler);
+        if (v7)
         {
           logger = mysyslog_get_logger();
-          v11 = _SC_syslog_os_log_mapping();
-          if (os_log_type_enabled(logger, v11))
+          v10 = _SC_syslog_os_log_mapping();
+          if (os_log_type_enabled(logger, v10))
           {
             *buf = 67109120;
-            *&buf[4] = v8;
-            _os_log_impl(&dword_242BE1000, logger, v11, "notify_register_dispatch failed with %d", buf, 8u);
+            *&buf[4] = v7;
+            _os_log_impl(&dword_242BE1000, logger, v10, "notify_register_dispatch failed with %d", buf, 8u);
           }
         }
 
@@ -3865,30 +3843,30 @@ uint64_t ServerConnectionConnect(uint64_t a1, int a2)
         }
       }
 
-      v12 = *(a1 + 8);
+      v11 = *(a1 + 8);
       *buf = 0;
-      v13 = bootstrap_look_up(*v7, v12, buf);
-      if (v13)
+      v12 = bootstrap_look_up(*v6, v11, buf);
+      if (v12)
       {
-        v14 = v13;
-        v15 = mysyslog_get_logger();
-        v16 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v15, v16))
+        v13 = v12;
+        v14 = mysyslog_get_logger();
+        v15 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v14, v15))
         {
-          v17 = mach_error_string(v14);
+          v16 = mach_error_string(v13);
           *handler = 136315650;
-          *&handler[4] = v12;
+          *&handler[4] = v11;
           *&handler[12] = 1024;
-          *&handler[14] = v14;
+          *&handler[14] = v13;
           *&handler[18] = 2080;
-          *&handler[20] = v17;
-          _os_log_impl(&dword_242BE1000, v15, v16, "bootstrap_look_up(%s) %d (%s)", handler, 0x1Cu);
+          *&handler[20] = v16;
+          _os_log_impl(&dword_242BE1000, v14, v15, "bootstrap_look_up(%s) %d (%s)", handler, 0x1Cu);
         }
 
         goto LABEL_15;
       }
 
-      v18 = *buf;
+      v17 = *buf;
       if (*buf)
       {
         break;
@@ -3898,124 +3876,121 @@ LABEL_15:
       result = 0;
       if (a2)
       {
-        v9 = 1;
-        if (!v6)
+        v8 = 1;
+        if (!v5)
         {
           continue;
         }
       }
 
-      goto LABEL_3;
+      return result;
     }
 
-    if (!v8)
+    if (!v7)
     {
       notify_cancel(token);
     }
 
-    v19 = *(a1 + 56);
-    if (v19)
+    v18 = *(a1 + 56);
+    if (v18)
     {
-      mach_port_deallocate(*MEMORY[0x277D85F48], v19);
+      mach_port_deallocate(*MEMORY[0x277D85F48], v18);
       *(a1 + 56) = 0;
     }
 
-    v46 = 0;
+    v45 = 0;
     *handler = @"Class";
     *&handler[8] = 0;
     *buf = CFNumberCreate(0, kCFNumberSInt32Type, (a1 + 24));
-    v20 = *(a1 + 32);
-    if (v20)
+    v19 = *(a1 + 32);
+    if (v19)
     {
       *&handler[8] = @"Information";
-      v46 = v20;
-      v21 = 2;
+      v45 = v19;
+      v20 = 2;
     }
 
     else
     {
-      v21 = 1;
+      v20 = 1;
     }
 
-    v22 = CFDictionaryCreate(0, handler, buf, v21, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    v21 = CFDictionaryCreate(0, handler, buf, v20, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     CFRelease(*buf);
-    Data = my_CFPropertyListCreateData(v22);
-    CFRelease(v22);
+    Data = my_CFPropertyListCreateData(v21);
+    CFRelease(v21);
     BytePtr = CFDataGetBytePtr(Data);
     Length = CFDataGetLength(Data);
-    v26 = ConnectionEstablish(v18, BytePtr, Length, *(a1 + 72), (a1 + 56), &__errnum);
+    v25 = ConnectionEstablish(v17, BytePtr, Length, *(a1 + 72), (a1 + 56), &__errnum);
     CFRelease(Data);
-    if (!(v26 | __errnum))
+    if (!(v25 | __errnum))
     {
-      *(a1 + 40) = v18;
-      v31 = dispatch_source_create(MEMORY[0x277D85D10], *(a1 + 56), 1uLL, *a1);
-      *(a1 + 48) = v31;
-      if (v31)
+      *(a1 + 40) = v17;
+      v30 = dispatch_source_create(MEMORY[0x277D85D10], *(a1 + 56), 1uLL, *a1);
+      *(a1 + 48) = v30;
+      if (v30)
       {
-        v40[0] = MEMORY[0x277D85DD0];
-        v40[1] = 0x40000000;
-        v40[2] = __ServerConnectionConnect_block_invoke;
-        v40[3] = &__block_descriptor_tmp_2_0;
-        v40[4] = a1;
-        dispatch_source_set_event_handler(v31, v40);
+        v39[0] = MEMORY[0x277D85DD0];
+        v39[1] = 0x40000000;
+        v39[2] = __ServerConnectionConnect_block_invoke;
+        v39[3] = &__block_descriptor_tmp_2_0;
+        v39[4] = a1;
+        dispatch_source_set_event_handler(v30, v39);
         dispatch_resume(*(a1 + 48));
-        v32 = *(a1 + 88);
-        if (v32)
+        v31 = *(a1 + 88);
+        if (v31)
         {
-          (*(v32 + 16))(v32, a1, 1);
+          (*(v31 + 16))(v31, a1, 1);
         }
 
-        v33 = mysyslog_get_logger();
-        v34 = _SC_syslog_os_log_mapping();
-        if (os_log_type_enabled(v33, v34))
+        v32 = mysyslog_get_logger();
+        v33 = _SC_syslog_os_log_mapping();
+        if (os_log_type_enabled(v32, v33))
         {
           *handler = 0;
-          _os_log_impl(&dword_242BE1000, v33, v34, "Connected", handler, 2u);
+          _os_log_impl(&dword_242BE1000, v32, v33, "Connected", handler, 2u);
         }
 
-        result = 1;
-        goto LABEL_3;
+        return 1;
       }
 
-      v35 = mysyslog_get_logger();
-      v36 = _SC_syslog_os_log_mapping();
-      if (os_log_type_enabled(v35, v36))
+      v34 = mysyslog_get_logger();
+      v35 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v34, v35))
       {
         *handler = 0;
-        _os_log_impl(&dword_242BE1000, v35, v36, "failed to allocate server_died_source", handler, 2u);
+        _os_log_impl(&dword_242BE1000, v34, v35, "failed to allocate server_died_source", handler, 2u);
       }
 
       ServerConnectionCleanup(a1);
-LABEL_2:
-      result = 0;
-      goto LABEL_3;
+      return 0;
     }
 
-    v27 = mysyslog_get_logger();
-    v28 = _SC_syslog_os_log_mapping();
-    if (os_log_type_enabled(v27, v28))
+    v26 = mysyslog_get_logger();
+    v27 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v26, v27))
     {
-      v37 = mach_error_string(v26);
-      v29 = strerror(__errnum);
+      v36 = mach_error_string(v25);
+      v28 = strerror(__errnum);
       *handler = 136315394;
-      *&handler[4] = v37;
+      *&handler[4] = v36;
       *&handler[12] = 2080;
-      *&handler[14] = v29;
-      _os_log_impl(&dword_242BE1000, v27, v28, "ConnectionEstablish failed, %s, %s", handler, 0x16u);
+      *&handler[14] = v28;
+      _os_log_impl(&dword_242BE1000, v26, v27, "ConnectionEstablish failed, %s, %s", handler, 0x16u);
     }
 
-    mach_port_deallocate(*MEMORY[0x277D85F48], v18);
-    if (v26 == -308 || v26 == 268435459)
+    mach_port_deallocate(*MEMORY[0x277D85F48], v17);
+    if (v25 == -308 || v25 == 268435459)
     {
       result = 0;
       if (!a2)
       {
-        goto LABEL_3;
+        return result;
       }
 
-      if (v38++ >= 5)
+      if (v37++ >= 5)
       {
-        goto LABEL_3;
+        return result;
       }
 
       continue;
@@ -4024,20 +3999,18 @@ LABEL_2:
     break;
   }
 
-  if (v26 || !a2)
+  if (v25 || !a2)
   {
-    goto LABEL_2;
+    return 0;
   }
 
   result = *(a1 + 88);
   if (result)
   {
     (*(result + 16))(result, a1, 0);
-    goto LABEL_2;
+    return 0;
   }
 
-LABEL_3:
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4102,10 +4075,10 @@ void ServerConnectionResume(uint64_t a1)
 
 BOOL ServerConnectionProvideResponse(uint64_t a1, CFPropertyListRef propertyList)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!propertyList)
   {
-    goto LABEL_5;
+    return 0;
   }
 
   __errnum = 0;
@@ -4115,39 +4088,35 @@ BOOL ServerConnectionProvideResponse(uint64_t a1, CFPropertyListRef propertyList
   Length = CFDataGetLength(Data);
   v6 = ConnectionProvideResponse(a1, BytePtr, Length, &__errnum);
   CFRelease(Data);
-  if (!(v6 | __errnum))
+  if (v6 | __errnum)
   {
-    result = 1;
-    goto LABEL_7;
-  }
+    logger = mysyslog_get_logger();
+    v8 = _SC_syslog_os_log_mapping();
+    result = os_log_type_enabled(logger, v8);
+    if (!result)
+    {
+      return result;
+    }
 
-  logger = mysyslog_get_logger();
-  v8 = _SC_syslog_os_log_mapping();
-  result = os_log_type_enabled(logger, v8);
-  if (result)
-  {
     v10 = mach_error_string(v6);
     v11 = strerror(__errnum);
     *buf = 136315394;
-    v15 = v10;
-    v16 = 2080;
-    v17 = v11;
+    v14 = v10;
+    v15 = 2080;
+    v16 = v11;
     _os_log_impl(&dword_242BE1000, logger, v8, "ConnectionProvideResponse failed, %s, %s", buf, 0x16u);
-LABEL_5:
-    result = 0;
+    return 0;
   }
 
-LABEL_7:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 BOOL ServerConnectionSendCmdAck(uint64_t a1, CFPropertyListRef propertyList)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!propertyList)
   {
-    goto LABEL_5;
+    return 0;
   }
 
   __errnum = 0;
@@ -4157,36 +4126,32 @@ BOOL ServerConnectionSendCmdAck(uint64_t a1, CFPropertyListRef propertyList)
   Length = CFDataGetLength(Data);
   v6 = ConnectionSendCmdAck(a1, BytePtr, Length, &__errnum);
   CFRelease(Data);
-  if (!(v6 | __errnum))
+  if (v6 | __errnum)
   {
-    result = 1;
-    goto LABEL_7;
-  }
+    logger = mysyslog_get_logger();
+    v8 = _SC_syslog_os_log_mapping();
+    result = os_log_type_enabled(logger, v8);
+    if (!result)
+    {
+      return result;
+    }
 
-  logger = mysyslog_get_logger();
-  v8 = _SC_syslog_os_log_mapping();
-  result = os_log_type_enabled(logger, v8);
-  if (result)
-  {
     v10 = mach_error_string(v6);
     v11 = strerror(__errnum);
     *buf = 136315394;
-    v15 = v10;
-    v16 = 2080;
-    v17 = v11;
+    v14 = v10;
+    v15 = 2080;
+    v16 = v11;
     _os_log_impl(&dword_242BE1000, logger, v8, "ServerConnectionProvideAck failed, %s, %s", buf, 0x16u);
-LABEL_5:
-    result = 0;
+    return 0;
   }
 
-LABEL_7:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 BOOL ServerConnectionProcessControl(uint64_t a1, CFPropertyListRef propertyList, const __CFData **a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     *a3 = 0;
@@ -4194,7 +4159,7 @@ BOOL ServerConnectionProcessControl(uint64_t a1, CFPropertyListRef propertyList,
 
   if (!propertyList)
   {
-    goto LABEL_7;
+    return 0;
   }
 
   *__errnum = 0;
@@ -4210,37 +4175,32 @@ BOOL ServerConnectionProcessControl(uint64_t a1, CFPropertyListRef propertyList,
     logger = mysyslog_get_logger();
     v11 = _SC_syslog_os_log_mapping();
     result = os_log_type_enabled(logger, v11);
-    if (result)
+    if (!result)
     {
-      v13 = mach_error_string(v9);
-      v14 = strerror(__errnum[0]);
-      *buf = 136315394;
-      v19 = v13;
-      v20 = 2080;
-      v21 = v14;
-      _os_log_impl(&dword_242BE1000, logger, v11, "ConnectionProcessControl failed, %s, %s", buf, 0x16u);
-LABEL_7:
-      result = 0;
+      return result;
     }
+
+    v13 = mach_error_string(v9);
+    v14 = strerror(__errnum[0]);
+    *buf = 136315394;
+    v18 = v13;
+    v19 = 2080;
+    v20 = v14;
+    _os_log_impl(&dword_242BE1000, logger, v11, "ConnectionProcessControl failed, %s, %s", buf, 0x16u);
+    return 0;
   }
 
-  else
+  if (bytes)
   {
-    if (bytes)
+    if (a3)
     {
-      if (a3)
-      {
-        *a3 = my_CFPropertyListCreateWithBytePtrAndLength(bytes, __errnum[1]);
-      }
-
-      MEMORY[0x245D22EB0](*MEMORY[0x277D85F48]);
+      *a3 = my_CFPropertyListCreateWithBytePtrAndLength(bytes, __errnum[1]);
     }
 
-    result = 1;
+    MEMORY[0x245D22EB0](*MEMORY[0x277D85F48]);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 void ServerConnectionCleanup(uint64_t a1)
@@ -4318,7 +4278,7 @@ void ServerConnectionDeallocateSync(uint64_t a1)
 void __add_signal_port_source_block_invoke_2()
 {
   v0 = MEMORY[0x28223BE20]();
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v1 = *(v0 + 32);
   *__errnum = 0;
   bytes = 0;
@@ -4336,7 +4296,7 @@ void __add_signal_port_source_block_invoke_2()
     if (os_log_type_enabled(logger, v6))
     {
       *buf = 136315138;
-      v18 = mach_error_string(v4);
+      v17 = mach_error_string(v4);
       _os_log_impl(&dword_242BE1000, logger, v6, "mach_msg: %s", buf, 0xCu);
     }
   }
@@ -4378,8 +4338,6 @@ void __add_signal_port_source_block_invoke_2()
       CFRelease(v13);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 const char *CNPCommandTypeGetString(unsigned int a1)
@@ -4451,7 +4409,7 @@ uint64_t CNScanListFilterStart(uint64_t a1, dispatch_object_t object, void *aBlo
   return result;
 }
 
-uint64_t CNScanListFilterStop()
+uint64_t CNScanListFilterStop(uint64_t a1)
 {
   if (CNScanListFilterGet_once != -1)
   {
@@ -4471,7 +4429,7 @@ _OWORD *__CNScanListFilterGet_block_invoke()
 
 void CNScanListFilterHandleCommand(uint64_t a1, CFDictionaryRef theDict)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
   Value = CFDictionaryGetValue(theDict, @"Type");
   TypeID = CFNumberGetTypeID();
@@ -4481,86 +4439,84 @@ void CNScanListFilterHandleCommand(uint64_t a1, CFDictionaryRef theDict)
     v12 = _SC_syslog_os_log_mapping();
     if (!os_log_type_enabled(logger, v12))
     {
-      goto LABEL_12;
+      return;
     }
 
     *buf = 138412290;
-    v25 = theDict;
+    v24 = theDict;
     v13 = "command type invalid/missing in %@";
     v14 = logger;
     v15 = v12;
     v16 = 12;
-LABEL_11:
-    _os_log_impl(&dword_242BE1000, v14, v15, v13, buf, v16);
-    goto LABEL_12;
-  }
-
-  if (valuePtr != 1)
-  {
-    v18 = mysyslog_get_logger();
-    v19 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(v18, v19))
-    {
-      goto LABEL_12;
-    }
-
-    *buf = 67109120;
-    LODWORD(v25) = valuePtr;
-    v13 = "command type %d unrecognized";
-    v14 = v18;
-    v15 = v19;
-    v16 = 8;
     goto LABEL_11;
   }
 
-  v6 = CFDictionaryGetValue(theDict, @"InterfaceName");
-  v7 = CFStringGetTypeID();
-  if (!v6 || CFGetTypeID(v6) != v7)
+  if (valuePtr == 1)
   {
-    v20 = mysyslog_get_logger();
-    v21 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(v20, v21))
+    v6 = CFDictionaryGetValue(theDict, @"InterfaceName");
+    v7 = CFStringGetTypeID();
+    if (v6 && CFGetTypeID(v6) == v7)
     {
-      goto LABEL_12;
+      v8 = CFDictionaryGetValue(theDict, @"NetworkList");
+      v9 = CNNetworkListCreate(v8, v6);
+      if (v9)
+      {
+        v10 = v9;
+        CFRetain(v6);
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 0x40000000;
+        v21[2] = __CNScanListFilterHandleCommand_block_invoke;
+        v21[3] = &__block_descriptor_tmp_9_1;
+        v21[4] = a1;
+        v21[5] = v6;
+        v21[6] = v10;
+        CNMonitorPerformBlock(a1, v21);
+        return;
+      }
+
+      v19 = mysyslog_get_logger();
+      v20 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v19, v20))
+      {
+        *buf = 0;
+        v13 = "couldn't get the network list";
+        goto LABEL_17;
+      }
     }
 
-    *buf = 0;
-    v13 = "interface name is missing/invalid";
-    goto LABEL_17;
-  }
-
-  v8 = CFDictionaryGetValue(theDict, @"NetworkList");
-  v9 = CNNetworkListCreate(v8, v6);
-  if (!v9)
-  {
-    v20 = mysyslog_get_logger();
-    v21 = _SC_syslog_os_log_mapping();
-    if (!os_log_type_enabled(v20, v21))
+    else
     {
-      goto LABEL_12;
-    }
-
-    *buf = 0;
-    v13 = "couldn't get the network list";
+      v19 = mysyslog_get_logger();
+      v20 = _SC_syslog_os_log_mapping();
+      if (os_log_type_enabled(v19, v20))
+      {
+        *buf = 0;
+        v13 = "interface name is missing/invalid";
 LABEL_17:
-    v14 = v20;
-    v15 = v21;
-    v16 = 2;
-    goto LABEL_11;
+        v14 = v19;
+        v15 = v20;
+        v16 = 2;
+        goto LABEL_11;
+      }
+    }
   }
 
-  v10 = v9;
-  CFRetain(v6);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 0x40000000;
-  v22[2] = __CNScanListFilterHandleCommand_block_invoke;
-  v22[3] = &__block_descriptor_tmp_9_1;
-  v22[4] = a1;
-  v22[5] = v6;
-  v22[6] = v10;
-  CNMonitorPerformBlock(a1, v22);
-LABEL_12:
-  v17 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v17 = mysyslog_get_logger();
+    v18 = _SC_syslog_os_log_mapping();
+    if (os_log_type_enabled(v17, v18))
+    {
+      *buf = 67109120;
+      LODWORD(v24) = valuePtr;
+      v13 = "command type %d unrecognized";
+      v14 = v17;
+      v15 = v18;
+      v16 = 8;
+LABEL_11:
+      _os_log_impl(&dword_242BE1000, v14, v15, v13, buf, v16);
+    }
+  }
 }
 
 CFDictionaryRef CNScanListFilterCopyControl(int a1)
@@ -4686,8 +4642,6 @@ _DWORD *_XLogoffReply(_DWORD *result, uint64_t a2)
 
   else
   {
-    v3 = result[3];
-    v4 = result[8];
     result = CNSClientLogoffReply();
     *(a2 + 32) = result;
   }
@@ -4747,27 +4701,27 @@ uint64_t ParsePost()
   v7 = v6;
   v9 = v8;
   v10 = v0;
-  v42 = *MEMORY[0x277D85DE8];
-  memset(v41, 0, 480);
+  v41 = *MEMORY[0x277D85DE8];
+  memset(v40, 0, 480);
   *reply_port = 0u;
-  v40 = 0u;
-  *(&v40 + 1) = *MEMORY[0x277D85EF8];
-  LODWORD(v41[0]) = v11;
+  v39 = 0u;
+  *(&v39 + 1) = *MEMORY[0x277D85EF8];
+  LODWORD(v40[0]) = v11;
   if (MEMORY[0x28223BE50])
   {
-    v12 = mig_strncpy_zerofill(v41 + 12, v1, 4096);
+    v12 = mig_strncpy_zerofill(v40 + 12, v1, 4096);
   }
 
   else
   {
-    v12 = mig_strncpy(v41 + 12, v1, 4096);
+    v12 = mig_strncpy(v40 + 12, v1, 4096);
   }
 
-  DWORD1(v41[0]) = 0;
-  DWORD2(v41[0]) = v12;
+  DWORD1(v40[0]) = 0;
+  DWORD2(v40[0]) = v12;
   v13 = (v12 + 3) & 0xFFFFFFFC;
   v14 = &reply_port[-1024] + v13;
-  v15 = &v41[1] + v13 + 4;
+  v15 = &v40[1] + v13 + 4;
   if (MEMORY[0x28223BE50])
   {
     v16 = mig_strncpy_zerofill(v15, v9, 4096);
@@ -4820,7 +4774,7 @@ uint64_t ParsePost()
   reply_port[2] = v10;
   reply_port[3] = v31;
   reply_port[0] = 5395;
-  *&v40 = 0x1ABF95600000000;
+  *&v39 = 0x1ABF95600000000;
   if (MEMORY[0x28223BE58])
   {
     voucher_mach_msg_set(reply_port);
@@ -4839,15 +4793,15 @@ uint64_t ParsePost()
     if (v33)
     {
       mig_dealloc_reply_port(reply_port[3]);
-      goto LABEL_39;
+      return v34;
     }
 
-    if (DWORD1(v40) == 71)
+    if (DWORD1(v39) == 71)
     {
       v34 = 4294966988;
     }
 
-    else if (DWORD1(v40) == 28047802)
+    else if (DWORD1(v39) == 28047802)
     {
       if ((reply_port[0] & 0x80000000) == 0)
       {
@@ -4855,11 +4809,11 @@ uint64_t ParsePost()
         {
           if (!reply_port[2])
           {
-            v34 = LODWORD(v41[0]);
-            if (!LODWORD(v41[0]))
+            v34 = LODWORD(v40[0]);
+            if (!LODWORD(v40[0]))
             {
-              *v3 = DWORD1(v41[0]);
-              goto LABEL_39;
+              *v3 = DWORD1(v40[0]);
+              return v34;
             }
 
             goto LABEL_38;
@@ -4875,7 +4829,7 @@ uint64_t ParsePost()
 
           else
           {
-            v36 = LODWORD(v41[0]) == 0;
+            v36 = LODWORD(v40[0]) == 0;
           }
 
           if (v36)
@@ -4885,7 +4839,7 @@ uint64_t ParsePost()
 
           else
           {
-            v34 = LODWORD(v41[0]);
+            v34 = LODWORD(v40[0]);
           }
 
           goto LABEL_38;
@@ -4902,41 +4856,39 @@ uint64_t ParsePost()
 
 LABEL_38:
     mach_msg_destroy(reply_port);
-    goto LABEL_39;
+    return v34;
   }
 
   mig_put_reply_port(reply_port[3]);
-LABEL_39:
-  v37 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
 uint64_t Logoff()
 {
   v1 = MEMORY[0x28223BE20]();
-  v13 = *MEMORY[0x277D85DE8];
-  memset(v12, 0, 480);
+  v12 = *MEMORY[0x277D85DE8];
+  memset(v11, 0, 480);
   *reply_port = 0u;
-  v11 = 0u;
-  *(&v11 + 1) = *MEMORY[0x277D85EF8];
+  v10 = 0u;
+  *(&v10 + 1) = *MEMORY[0x277D85EF8];
   if (MEMORY[0x28223BE50])
   {
-    v2 = mig_strncpy_zerofill(v12 + 8, v0, 4096);
+    v2 = mig_strncpy_zerofill(v11 + 8, v0, 4096);
   }
 
   else
   {
-    v2 = mig_strncpy(v12 + 8, v0, 4096);
+    v2 = mig_strncpy(v11 + 8, v0, 4096);
   }
 
-  LODWORD(v12[0]) = 0;
-  DWORD1(v12[0]) = v2;
+  LODWORD(v11[0]) = 0;
+  DWORD1(v11[0]) = v2;
   v3 = (v2 + 3) & 0xFFFFFFFC;
   v4 = mig_get_reply_port();
   reply_port[2] = v1;
   reply_port[3] = v4;
   reply_port[0] = 5395;
-  *&v11 = 0x1ABF95700000000;
+  *&v10 = 0x1ABF95700000000;
   if (MEMORY[0x28223BE58])
   {
     voucher_mach_msg_set(reply_port);
@@ -4953,24 +4905,24 @@ uint64_t Logoff()
   if ((v6 - 268435458) <= 0xE && ((1 << (v6 - 2)) & 0x4003) != 0)
   {
     mig_put_reply_port(reply_port[3]);
-    goto LABEL_22;
+    return v7;
   }
 
   if (v6)
   {
     mig_dealloc_reply_port(reply_port[3]);
-    goto LABEL_22;
+    return v7;
   }
 
-  if (DWORD1(v11) == 71)
+  if (DWORD1(v10) == 71)
   {
     v7 = 4294966988;
 LABEL_21:
     mach_msg_destroy(reply_port);
-    goto LABEL_22;
+    return v7;
   }
 
-  if (DWORD1(v11) != 28047803)
+  if (DWORD1(v10) != 28047803)
   {
     v7 = 4294966995;
     goto LABEL_21;
@@ -4992,35 +4944,32 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v7 = LODWORD(v12[0]);
-  if (LODWORD(v12[0]))
+  v7 = LODWORD(v11[0]);
+  if (LODWORD(v11[0]))
   {
     goto LABEL_21;
   }
 
-LABEL_22:
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t ForgetNetwork(int a1, uint64_t a2, unsigned int a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v35 = 0u;
-  memset(v36, 0, sizeof(v36));
-  v33 = 0u;
+  v36 = *MEMORY[0x277D85DE8];
   v34 = 0u;
-  v31 = 0u;
+  memset(v35, 0, sizeof(v35));
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
+  v25 = 0u;
   v22 = 0u;
+  v23 = 0u;
   v21 = 0u;
   v20 = 0u;
   v19 = 0u;
@@ -5035,51 +4984,45 @@ uint64_t ForgetNetwork(int a1, uint64_t a2, unsigned int a3)
   v10 = 0u;
   v9 = 0u;
   v8 = 0u;
+  v7 = 0u;
   memset(&msg[4], 0, 32);
   *&msg[24] = *MEMORY[0x277D85EF8];
-  if (a3 <= 0x400)
+  if (a3 > 0x400)
   {
-    __memcpy_chk();
-    *msg = 19;
-    *&msg[8] = a1;
-    *&msg[32] = a3;
-    *&msg[20] = 28047705;
-    *&msg[12] = 0;
-    if (MEMORY[0x28223BE58])
-    {
-      voucher_mach_msg_set(msg);
-    }
-
-    result = mach_msg(msg, 1, ((a3 + 3) & 0xFFC) + 36, 0, 0, 0, 0);
+    return 4294966989;
   }
 
-  else
+  __memcpy_chk();
+  *msg = 19;
+  *&msg[8] = a1;
+  *&msg[32] = a3;
+  *&msg[20] = 28047705;
+  *&msg[12] = 0;
+  if (MEMORY[0x28223BE58])
   {
-    result = 4294966989;
+    voucher_mach_msg_set(msg);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return mach_msg(msg, 1, ((a3 + 3) & 0xFFC) + 36, 0, 0, 0, 0);
 }
 
 uint64_t PurgeAccountRecord(int a1, uint64_t a2, unsigned int a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v35 = 0u;
-  memset(v36, 0, sizeof(v36));
-  v33 = 0u;
+  v36 = *MEMORY[0x277D85DE8];
   v34 = 0u;
-  v31 = 0u;
+  memset(v35, 0, sizeof(v35));
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
+  v25 = 0u;
   v22 = 0u;
+  v23 = 0u;
   v21 = 0u;
   v20 = 0u;
   v19 = 0u;
@@ -5094,51 +5037,46 @@ uint64_t PurgeAccountRecord(int a1, uint64_t a2, unsigned int a3)
   v10 = 0u;
   v9 = 0u;
   v8 = 0u;
+  v7 = 0u;
   memset(&msg[4], 0, 32);
   *&msg[24] = *MEMORY[0x277D85EF8];
-  if (a3 <= 0x400)
+  if (a3 > 0x400)
   {
-    __memcpy_chk();
-    *msg = 19;
-    *&msg[8] = a1;
-    *&msg[32] = a3;
-    *&msg[20] = 28047706;
-    *&msg[12] = 0;
-    if (MEMORY[0x28223BE58])
-    {
-      voucher_mach_msg_set(msg);
-    }
-
-    result = mach_msg(msg, 1, ((a3 + 3) & 0xFFC) + 36, 0, 0, 0, 0);
+    return 4294966989;
   }
 
-  else
+  __memcpy_chk();
+  *msg = 19;
+  *&msg[8] = a1;
+  *&msg[32] = a3;
+  *&msg[20] = 28047706;
+  *&msg[12] = 0;
+  if (MEMORY[0x28223BE58])
   {
-    result = 4294966989;
+    voucher_mach_msg_set(msg);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return mach_msg(msg, 1, ((a3 + 3) & 0xFFC) + 36, 0, 0, 0, 0);
 }
 
 uint64_t DebugLaunchWebsheet(mach_port_t a1, uint64_t a2, int a3, int *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v14 = 1;
-  v15 = a2;
-  v16 = 16777472;
-  v17 = a3;
-  v18 = *MEMORY[0x277D85EF8];
-  v19 = a3;
+  v19 = *MEMORY[0x277D85DE8];
+  v13 = 1;
+  v14 = a2;
+  v15 = 16777472;
+  v16 = a3;
+  v17 = *MEMORY[0x277D85EF8];
+  v18 = a3;
   reply_port = mig_get_reply_port();
-  *&v13.msgh_bits = 2147489043;
-  v13.msgh_remote_port = a1;
-  v13.msgh_local_port = reply_port;
-  *&v13.msgh_voucher_port = 0x1ABF95B00000000;
+  *&v12.msgh_bits = 2147489043;
+  v12.msgh_remote_port = a1;
+  v12.msgh_local_port = reply_port;
+  *&v12.msgh_voucher_port = 0x1ABF95B00000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v13);
-    msgh_local_port = v13.msgh_local_port;
+    voucher_mach_msg_set(&v12);
+    msgh_local_port = v12.msgh_local_port;
   }
 
   else
@@ -5146,50 +5084,50 @@ uint64_t DebugLaunchWebsheet(mach_port_t a1, uint64_t a2, int a3, int *a4)
     msgh_local_port = reply_port;
   }
 
-  v8 = mach_msg(&v13, 3, 0x38u, 0x30u, msgh_local_port, 0, 0);
+  v8 = mach_msg(&v12, 3, 0x38u, 0x30u, msgh_local_port, 0, 0);
   v9 = v8;
   if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
     if (v8)
     {
-      mig_dealloc_reply_port(v13.msgh_local_port);
-      goto LABEL_25;
+      mig_dealloc_reply_port(v12.msgh_local_port);
+      return v9;
     }
 
-    if (v13.msgh_id == 71)
+    if (v12.msgh_id == 71)
     {
       v9 = 4294966988;
     }
 
-    else if (v13.msgh_id == 28047807)
+    else if (v12.msgh_id == 28047807)
     {
-      if ((v13.msgh_bits & 0x80000000) == 0)
+      if ((v12.msgh_bits & 0x80000000) == 0)
       {
-        if (v13.msgh_size == 40)
+        if (v12.msgh_size == 40)
         {
-          if (!v13.msgh_remote_port)
+          if (!v12.msgh_remote_port)
           {
-            v9 = HIDWORD(v15);
-            if (!HIDWORD(v15))
+            v9 = HIDWORD(v14);
+            if (!HIDWORD(v14))
             {
-              *a4 = v16;
-              goto LABEL_25;
+              *a4 = v15;
+              return v9;
             }
 
             goto LABEL_24;
           }
         }
 
-        else if (v13.msgh_size == 36)
+        else if (v12.msgh_size == 36)
         {
-          if (v13.msgh_remote_port)
+          if (v12.msgh_remote_port)
           {
             v10 = 1;
           }
 
           else
           {
-            v10 = HIDWORD(v15) == 0;
+            v10 = HIDWORD(v14) == 0;
           }
 
           if (v10)
@@ -5199,7 +5137,7 @@ uint64_t DebugLaunchWebsheet(mach_port_t a1, uint64_t a2, int a3, int *a4)
 
           else
           {
-            v9 = HIDWORD(v15);
+            v9 = HIDWORD(v14);
           }
 
           goto LABEL_24;
@@ -5215,13 +5153,11 @@ uint64_t DebugLaunchWebsheet(mach_port_t a1, uint64_t a2, int a3, int *a4)
     }
 
 LABEL_24:
-    mach_msg_destroy(&v13);
-    goto LABEL_25;
+    mach_msg_destroy(&v12);
+    return v9;
   }
 
-  mig_put_reply_port(v13.msgh_local_port);
-LABEL_25:
-  v11 = *MEMORY[0x277D85DE8];
+  mig_put_reply_port(v12.msgh_local_port);
   return v9;
 }
 
@@ -5242,9 +5178,9 @@ uint64_t DumpState(mach_port_t a1)
 
 uint64_t CopySupportedInterfaces(int a1, void *a2, _DWORD *a3, _DWORD *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v17 = 0u;
+  v17 = *MEMORY[0x277D85DE8];
   v16 = 0u;
+  v15 = 0u;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   reply_port = mig_get_reply_port();
@@ -5284,16 +5220,16 @@ uint64_t CopySupportedInterfaces(int a1, void *a2, _DWORD *a3, _DWORD *a4)
         if ((*msg & 0x80000000) != 0)
         {
           v11 = 4294966996;
-          if (*&msg[24] == 1 && *&msg[4] == 60 && !*&msg[8] && BYTE3(v16) == 1)
+          if (*&msg[24] == 1 && *&msg[4] == 60 && !*&msg[8] && BYTE3(v15) == 1)
           {
-            v12 = DWORD1(v16);
-            if (DWORD1(v16) == v17)
+            v12 = DWORD1(v15);
+            if (DWORD1(v15) == v16)
             {
               v11 = 0;
               *a2 = *&msg[28];
               *a3 = v12;
-              *a4 = DWORD1(v17);
-              goto LABEL_27;
+              *a4 = DWORD1(v16);
+              return v11;
             }
           }
         }
@@ -5327,14 +5263,12 @@ uint64_t CopySupportedInterfaces(int a1, void *a2, _DWORD *a3, _DWORD *a4)
       }
 
       mach_msg_destroy(msg);
-      goto LABEL_27;
+      return v11;
     }
 
     mig_dealloc_reply_port(*&msg[12]);
   }
 
-LABEL_27:
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -5345,59 +5279,59 @@ uint64_t CopyCurrentNetworkInfo()
   v5 = v4;
   v7 = v6;
   v8 = v0;
-  v50 = *MEMORY[0x277D85DE8];
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
+  v49 = *MEMORY[0x277D85DE8];
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  *&v20[16] = 0u;
+  v24 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  *&v19[16] = 0u;
+  v20 = 0u;
   *reply_port = 0u;
-  *v20 = 0u;
-  *&v20[8] = *MEMORY[0x277D85EF8];
-  *&v20[16] = v9;
+  *v19 = 0u;
+  *&v19[8] = *MEMORY[0x277D85EF8];
+  *&v19[16] = v9;
   if (MEMORY[0x28223BE50])
   {
-    v10 = mig_strncpy_zerofill(&v20[28], v1, 4096);
+    v10 = mig_strncpy_zerofill(&v19[28], v1, 4096);
   }
 
   else
   {
-    v10 = mig_strncpy(&v20[28], v1, 4096);
+    v10 = mig_strncpy(&v19[28], v1, 4096);
   }
 
-  *&v20[20] = 0;
-  *&v20[24] = v10;
+  *&v19[20] = 0;
+  *&v19[24] = v10;
   v11 = (v10 + 3) & 0xFFFFFFFC;
   v12 = mig_get_reply_port();
   reply_port[2] = v8;
   reply_port[3] = v12;
   reply_port[0] = 5395;
-  *v20 = 0x1ABF96100000000;
+  *v19 = 0x1ABF96100000000;
   if (MEMORY[0x28223BE58])
   {
     voucher_mach_msg_set(reply_port);
@@ -5420,26 +5354,26 @@ uint64_t CopyCurrentNetworkInfo()
   {
     if (!v14)
     {
-      if (*&v20[4] == 71)
+      if (*&v19[4] == 71)
       {
         v15 = 4294966988;
       }
 
-      else if (*&v20[4] == 28047813)
+      else if (*&v19[4] == 28047813)
       {
         if ((reply_port[0] & 0x80000000) != 0)
         {
           v15 = 4294966996;
-          if (*&v20[8] == 1 && reply_port[1] == 60 && !reply_port[2] && v20[23] == 1)
+          if (*&v19[8] == 1 && reply_port[1] == 60 && !reply_port[2] && v19[23] == 1)
           {
-            v16 = *&v20[24];
-            if (*&v20[24] == DWORD1(v21))
+            v16 = *&v19[24];
+            if (*&v19[24] == DWORD1(v20))
             {
               v15 = 0;
-              *v7 = *&v20[12];
+              *v7 = *&v19[12];
               *v5 = v16;
-              *v3 = DWORD2(v21);
-              goto LABEL_30;
+              *v3 = DWORD2(v20);
+              return v15;
             }
           }
         }
@@ -5447,7 +5381,7 @@ uint64_t CopyCurrentNetworkInfo()
         else if (reply_port[1] == 36)
         {
           v15 = 4294966996;
-          if (*&v20[16])
+          if (*&v19[16])
           {
             if (reply_port[2])
             {
@@ -5456,7 +5390,7 @@ uint64_t CopyCurrentNetworkInfo()
 
             else
             {
-              v15 = *&v20[16];
+              v15 = *&v19[16];
             }
           }
         }
@@ -5473,22 +5407,20 @@ uint64_t CopyCurrentNetworkInfo()
       }
 
       mach_msg_destroy(reply_port);
-      goto LABEL_30;
+      return v15;
     }
 
     mig_dealloc_reply_port(reply_port[3]);
   }
 
-LABEL_30:
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 uint64_t CopyAccountList(int a1, void *a2, _DWORD *a3, _DWORD *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v17 = 0u;
+  v17 = *MEMORY[0x277D85DE8];
   v16 = 0u;
+  v15 = 0u;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   reply_port = mig_get_reply_port();
@@ -5528,16 +5460,16 @@ uint64_t CopyAccountList(int a1, void *a2, _DWORD *a3, _DWORD *a4)
         if ((*msg & 0x80000000) != 0)
         {
           v11 = 4294966996;
-          if (*&msg[24] == 1 && *&msg[4] == 60 && !*&msg[8] && BYTE3(v16) == 1)
+          if (*&msg[24] == 1 && *&msg[4] == 60 && !*&msg[8] && BYTE3(v15) == 1)
           {
-            v12 = DWORD1(v16);
-            if (DWORD1(v16) == v17)
+            v12 = DWORD1(v15);
+            if (DWORD1(v15) == v16)
             {
               v11 = 0;
               *a2 = *&msg[28];
               *a3 = v12;
-              *a4 = DWORD1(v17);
-              goto LABEL_27;
+              *a4 = DWORD1(v16);
+              return v11;
             }
           }
         }
@@ -5571,14 +5503,12 @@ uint64_t CopyAccountList(int a1, void *a2, _DWORD *a3, _DWORD *a4)
       }
 
       mach_msg_destroy(msg);
-      goto LABEL_27;
+      return v11;
     }
 
     mig_dealloc_reply_port(*&msg[12]);
   }
 
-LABEL_27:
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -5592,7 +5522,7 @@ uint64_t AddAccount()
   v11 = v10;
   v13 = v12;
   v14 = v0;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   memset(msg, 0, 512);
   *&msg[1].msgh_bits = *MEMORY[0x277D85EF8];
   if (MEMORY[0x28223BE50])
@@ -5609,9 +5539,9 @@ uint64_t AddAccount()
   msg[1].msgh_local_port = v15;
   if (v11 <= 0x400)
   {
-    v40 = v5;
+    v39 = v5;
     v17 = v14;
-    v39 = v3;
+    v38 = v3;
     v18 = MEMORY[0x28223BE50];
     v19 = (v15 + 3) & 0xFFFFFFFC;
     v20 = msg + v19;
@@ -5645,9 +5575,10 @@ uint64_t AddAccount()
     *(v27 + 9268) = 0;
     v30 = (v28 + 3) & 0xFFFFFFFC;
     v31 = v21 + v19 + v26 + v30;
-    *(v27 + v30 + 9276) = v40;
+    *(v27 + v30 + 9276) = v39;
     reply_port = mig_get_reply_port();
-    *&msg[0].msgh_remote_port = __PAIR64__(reply_port, v17);
+    msg[0].msgh_remote_port = v17;
+    msg[0].msgh_local_port = reply_port;
     msg[0].msgh_bits = 5395;
     *&msg[0].msgh_voucher_port = 0x1ABF96300000000;
     if (MEMORY[0x28223BE58])
@@ -5666,13 +5597,13 @@ uint64_t AddAccount()
     if ((v34 - 268435458) <= 0xE && ((1 << (v34 - 2)) & 0x4003) != 0)
     {
       mig_put_reply_port(msg[0].msgh_local_port);
-      goto LABEL_35;
+      return msgh_remote_port;
     }
 
     if (v34)
     {
       mig_dealloc_reply_port(msg[0].msgh_local_port);
-      goto LABEL_35;
+      return msgh_remote_port;
     }
 
     if (msg[0].msgh_id == 71)
@@ -5691,8 +5622,8 @@ uint64_t AddAccount()
             msgh_remote_port = msg[1].msgh_remote_port;
             if (!msg[1].msgh_remote_port)
             {
-              *v39 = msg[1].msgh_local_port;
-              goto LABEL_35;
+              *v38 = msg[1].msgh_local_port;
+              return msgh_remote_port;
             }
 
             goto LABEL_34;
@@ -5735,13 +5666,10 @@ uint64_t AddAccount()
 
 LABEL_34:
     mach_msg_destroy(msg);
-    goto LABEL_35;
+    return msgh_remote_port;
   }
 
-  msgh_remote_port = 4294966989;
-LABEL_35:
-  v37 = *MEMORY[0x277D85DE8];
-  return msgh_remote_port;
+  return 4294966989;
 }
 
 uint64_t ResolveAccount()
@@ -5749,29 +5677,29 @@ uint64_t ResolveAccount()
   v0 = MEMORY[0x28223BE20]();
   v3 = v2;
   v4 = v0;
-  v17 = *MEMORY[0x277D85DE8];
-  memset(v16, 0, 480);
+  v16 = *MEMORY[0x277D85DE8];
+  memset(v15, 0, 480);
   *reply_port = 0u;
-  v15 = 0u;
-  *(&v15 + 1) = *MEMORY[0x277D85EF8];
+  v14 = 0u;
+  *(&v14 + 1) = *MEMORY[0x277D85EF8];
   if (MEMORY[0x28223BE50])
   {
-    v5 = mig_strncpy_zerofill(v16 + 8, v1, 4096);
+    v5 = mig_strncpy_zerofill(v15 + 8, v1, 4096);
   }
 
   else
   {
-    v5 = mig_strncpy(v16 + 8, v1, 4096);
+    v5 = mig_strncpy(v15 + 8, v1, 4096);
   }
 
-  LODWORD(v16[0]) = 0;
-  DWORD1(v16[0]) = v5;
+  LODWORD(v15[0]) = 0;
+  DWORD1(v15[0]) = v5;
   v6 = (v5 + 3) & 0xFFFFFFFC;
   v7 = mig_get_reply_port();
   reply_port[2] = v4;
   reply_port[3] = v7;
   reply_port[0] = 5395;
-  *&v15 = 0x1ABF96400000000;
+  *&v14 = 0x1ABF96400000000;
   if (MEMORY[0x28223BE58])
   {
     voucher_mach_msg_set(reply_port);
@@ -5790,15 +5718,15 @@ uint64_t ResolveAccount()
     if (v9)
     {
       mig_dealloc_reply_port(reply_port[3]);
-      goto LABEL_28;
+      return v10;
     }
 
-    if (DWORD1(v15) == 71)
+    if (DWORD1(v14) == 71)
     {
       v10 = 4294966988;
     }
 
-    else if (DWORD1(v15) == 28047816)
+    else if (DWORD1(v14) == 28047816)
     {
       if ((reply_port[0] & 0x80000000) == 0)
       {
@@ -5806,11 +5734,11 @@ uint64_t ResolveAccount()
         {
           if (!reply_port[2])
           {
-            v10 = LODWORD(v16[0]);
-            if (!LODWORD(v16[0]))
+            v10 = LODWORD(v15[0]);
+            if (!LODWORD(v15[0]))
             {
-              *v3 = DWORD1(v16[0]);
-              goto LABEL_28;
+              *v3 = DWORD1(v15[0]);
+              return v10;
             }
 
             goto LABEL_27;
@@ -5826,7 +5754,7 @@ uint64_t ResolveAccount()
 
           else
           {
-            v11 = LODWORD(v16[0]) == 0;
+            v11 = LODWORD(v15[0]) == 0;
           }
 
           if (v11)
@@ -5836,7 +5764,7 @@ uint64_t ResolveAccount()
 
           else
           {
-            v10 = LODWORD(v16[0]);
+            v10 = LODWORD(v15[0]);
           }
 
           goto LABEL_27;
@@ -5853,12 +5781,10 @@ uint64_t ResolveAccount()
 
 LABEL_27:
     mach_msg_destroy(reply_port);
-    goto LABEL_28;
+    return v10;
   }
 
   mig_put_reply_port(reply_port[3]);
-LABEL_28:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -5868,30 +5794,30 @@ uint64_t AuthenticateUsing()
   v3 = v2;
   v5 = v4;
   v6 = v0;
-  v28 = *MEMORY[0x277D85DE8];
-  memset(v27, 0, 448);
+  v27 = *MEMORY[0x277D85DE8];
+  memset(v26, 0, 448);
+  v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   memset(&reply_port, 0, sizeof(reply_port));
-  v23 = 1;
-  v24 = v7;
-  DWORD1(v25) = 1376256;
-  *(&v25 + 1) = *MEMORY[0x277D85EF8];
+  v22 = 1;
+  v23 = v7;
+  DWORD1(v24) = 1376256;
+  *(&v24 + 1) = *MEMORY[0x277D85EF8];
   if (MEMORY[0x28223BE50])
   {
-    v8 = mig_strncpy_zerofill(&v26 + 8, v1, 4096);
+    v8 = mig_strncpy_zerofill(&v25 + 8, v1, 4096);
   }
 
   else
   {
-    v8 = mig_strncpy(&v26 + 8, v1, 4096);
+    v8 = mig_strncpy(&v25 + 8, v1, 4096);
   }
 
-  LODWORD(v26) = 0;
-  DWORD1(v26) = v8;
+  LODWORD(v25) = 0;
+  DWORD1(v25) = v8;
   v9 = (v8 + 3) & 0xFFFFFFFC;
   v10 = &reply_port + v9 - 4096;
-  v11 = v27 + v9;
+  v11 = v26 + v9;
   if (MEMORY[0x28223BE50])
   {
     v12 = mig_strncpy_zerofill(v11, v5, 4096);
@@ -5929,7 +5855,7 @@ uint64_t AuthenticateUsing()
     if (v17)
     {
       mig_dealloc_reply_port(reply_port.msgh_local_port);
-      goto LABEL_31;
+      return v18;
     }
 
     if (reply_port.msgh_id == 71)
@@ -5945,11 +5871,11 @@ uint64_t AuthenticateUsing()
         {
           if (!reply_port.msgh_remote_port)
           {
-            v18 = v25;
-            if (!v25)
+            v18 = v24;
+            if (!v24)
             {
-              *v3 = DWORD1(v25);
-              goto LABEL_31;
+              *v3 = DWORD1(v24);
+              return v18;
             }
 
             goto LABEL_30;
@@ -5965,7 +5891,7 @@ uint64_t AuthenticateUsing()
 
           else
           {
-            v19 = v25 == 0;
+            v19 = v24 == 0;
           }
 
           if (v19)
@@ -5975,7 +5901,7 @@ uint64_t AuthenticateUsing()
 
           else
           {
-            v18 = v25;
+            v18 = v24;
           }
 
           goto LABEL_30;
@@ -5992,12 +5918,10 @@ uint64_t AuthenticateUsing()
 
 LABEL_30:
     mach_msg_destroy(&reply_port);
-    goto LABEL_31;
+    return v18;
   }
 
   mig_put_reply_port(reply_port.msgh_local_port);
-LABEL_31:
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -6008,31 +5932,31 @@ uint64_t AuthenticateUsingToken()
   v5 = v4;
   v7 = v6;
   v8 = v0;
-  v25 = *MEMORY[0x277D85DE8];
-  v23 = 0u;
-  memset(v24, 0, 464);
+  v24 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
+  memset(v23, 0, 464);
   memset(&reply_port, 0, sizeof(reply_port));
-  v21 = 1;
-  v22 = v9;
-  DWORD1(v23) = 1376256;
-  *(&v23 + 1) = *MEMORY[0x277D85EF8];
+  v20 = 1;
+  v21 = v9;
+  DWORD1(v22) = 1376256;
+  *(&v22 + 1) = *MEMORY[0x277D85EF8];
   if (MEMORY[0x28223BE50])
   {
-    v10 = mig_strncpy_zerofill(v24 + 8, v1, 4096);
+    v10 = mig_strncpy_zerofill(v23 + 8, v1, 4096);
   }
 
   else
   {
-    v10 = mig_strncpy(v24 + 8, v1, 4096);
+    v10 = mig_strncpy(v23 + 8, v1, 4096);
   }
 
-  LODWORD(v24[0]) = 0;
-  DWORD1(v24[0]) = v10;
+  LODWORD(v23[0]) = 0;
+  DWORD1(v23[0]) = v10;
   if (v5 <= 0x400)
   {
     v12 = (v10 + 3) & 0xFFFFFFFC;
-    memcpy(v24 + v12 + 12, v7, v5);
-    *(v24 + v12 + 8) = v5;
+    memcpy(v23 + v12 + 12, v7, v5);
+    *(v23 + v12 + 8) = v5;
     v13 = ((v5 + 3) & 0xFFC) + v12;
     v14 = mig_get_reply_port();
     reply_port.msgh_remote_port = v8;
@@ -6055,13 +5979,13 @@ uint64_t AuthenticateUsingToken()
     if ((v16 - 268435458) <= 0xE && ((1 << (v16 - 2)) & 0x4003) != 0)
     {
       mig_put_reply_port(reply_port.msgh_local_port);
-      goto LABEL_30;
+      return v11;
     }
 
     if (v16)
     {
       mig_dealloc_reply_port(reply_port.msgh_local_port);
-      goto LABEL_30;
+      return v11;
     }
 
     if (reply_port.msgh_id == 71)
@@ -6077,11 +6001,11 @@ uint64_t AuthenticateUsingToken()
         {
           if (!reply_port.msgh_remote_port)
           {
-            v11 = v23;
-            if (!v23)
+            v11 = v22;
+            if (!v22)
             {
-              *v3 = DWORD1(v23);
-              goto LABEL_30;
+              *v3 = DWORD1(v22);
+              return v11;
             }
 
             goto LABEL_29;
@@ -6097,7 +6021,7 @@ uint64_t AuthenticateUsingToken()
 
           else
           {
-            v17 = v23 == 0;
+            v17 = v22 == 0;
           }
 
           if (v17)
@@ -6107,7 +6031,7 @@ uint64_t AuthenticateUsingToken()
 
           else
           {
-            v11 = v23;
+            v11 = v22;
           }
 
           goto LABEL_29;
@@ -6124,28 +6048,25 @@ uint64_t AuthenticateUsingToken()
 
 LABEL_29:
     mach_msg_destroy(&reply_port);
-    goto LABEL_30;
+    return v11;
   }
 
-  v11 = 4294966989;
-LABEL_30:
-  v18 = *MEMORY[0x277D85DE8];
-  return v11;
+  return 4294966989;
 }
 
 uint64_t ConnectionEstablish(mach_port_t a1, uint64_t a2, int a3, unsigned int a4, _DWORD *a5, _DWORD *a6)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   msg.msgh_id = 0;
   *&msg.msgh_size = 0u;
-  v17 = 2;
-  v18 = a2;
-  v19 = 16777472;
-  v20 = a3;
-  v21 = a4;
-  v22 = 1245184;
-  v23 = *MEMORY[0x277D85EF8];
-  v24 = a3;
+  v16 = 2;
+  v17 = a2;
+  v18 = 16777472;
+  v19 = a3;
+  v20 = a4;
+  v21 = 1245184;
+  v22 = *MEMORY[0x277D85EF8];
+  v23 = a3;
   reply_port = mig_get_reply_port();
   msg.msgh_remote_port = a1;
   msg.msgh_local_port = reply_port;
@@ -6183,20 +6104,20 @@ uint64_t ConnectionEstablish(mach_port_t a1, uint64_t a2, int a3, unsigned int a
         if ((msg.msgh_bits & 0x80000000) != 0)
         {
           v12 = 4294966996;
-          if (v17 == 1 && msg.msgh_size == 52 && !msg.msgh_remote_port && HIWORD(v19) << 16 == 1114112)
+          if (v16 == 1 && msg.msgh_size == 52 && !msg.msgh_remote_port && HIWORD(v18) << 16 == 1114112)
           {
             v12 = 0;
-            v13 = HIDWORD(v21);
-            *a5 = v18;
+            v13 = HIDWORD(v20);
+            *a5 = v17;
             *a6 = v13;
-            goto LABEL_26;
+            return v12;
           }
         }
 
         else if (msg.msgh_size == 36)
         {
           v12 = 4294966996;
-          if (HIDWORD(v18))
+          if (HIDWORD(v17))
           {
             if (msg.msgh_remote_port)
             {
@@ -6205,7 +6126,7 @@ uint64_t ConnectionEstablish(mach_port_t a1, uint64_t a2, int a3, unsigned int a
 
             else
             {
-              v12 = HIDWORD(v18);
+              v12 = HIDWORD(v17);
             }
           }
         }
@@ -6222,22 +6143,20 @@ uint64_t ConnectionEstablish(mach_port_t a1, uint64_t a2, int a3, unsigned int a
       }
 
       mach_msg_destroy(&msg);
-      goto LABEL_26;
+      return v12;
     }
 
     mig_dealloc_reply_port(msg.msgh_local_port);
   }
 
-LABEL_26:
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 uint64_t ConnectionGetCommandInfo(int a1, void *a2, _DWORD *a3, _DWORD *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v17 = 0u;
+  v17 = *MEMORY[0x277D85DE8];
   v16 = 0u;
+  v15 = 0u;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   reply_port = mig_get_reply_port();
@@ -6277,16 +6196,16 @@ uint64_t ConnectionGetCommandInfo(int a1, void *a2, _DWORD *a3, _DWORD *a4)
         if ((*msg & 0x80000000) != 0)
         {
           v11 = 4294966996;
-          if (*&msg[24] == 1 && *&msg[4] == 60 && !*&msg[8] && BYTE3(v16) == 1)
+          if (*&msg[24] == 1 && *&msg[4] == 60 && !*&msg[8] && BYTE3(v15) == 1)
           {
-            v12 = DWORD1(v16);
-            if (DWORD1(v16) == v17)
+            v12 = DWORD1(v15);
+            if (DWORD1(v15) == v16)
             {
               v11 = 0;
               *a2 = *&msg[28];
               *a3 = v12;
-              *a4 = DWORD1(v17);
-              goto LABEL_27;
+              *a4 = DWORD1(v16);
+              return v11;
             }
           }
         }
@@ -6320,35 +6239,33 @@ uint64_t ConnectionGetCommandInfo(int a1, void *a2, _DWORD *a3, _DWORD *a4)
       }
 
       mach_msg_destroy(msg);
-      goto LABEL_27;
+      return v11;
     }
 
     mig_dealloc_reply_port(*&msg[12]);
   }
 
-LABEL_27:
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t ConnectionProvideResponse(mach_port_t a1, uint64_t a2, int a3, int *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v14 = 1;
-  v15 = a2;
-  v16 = 16777472;
-  v17 = a3;
-  v18 = *MEMORY[0x277D85EF8];
-  v19 = a3;
+  v19 = *MEMORY[0x277D85DE8];
+  v13 = 1;
+  v14 = a2;
+  v15 = 16777472;
+  v16 = a3;
+  v17 = *MEMORY[0x277D85EF8];
+  v18 = a3;
   reply_port = mig_get_reply_port();
-  *&v13.msgh_bits = 2147489043;
-  v13.msgh_remote_port = a1;
-  v13.msgh_local_port = reply_port;
-  *&v13.msgh_voucher_port = 0x1ABF96A00000000;
+  *&v12.msgh_bits = 2147489043;
+  v12.msgh_remote_port = a1;
+  v12.msgh_local_port = reply_port;
+  *&v12.msgh_voucher_port = 0x1ABF96A00000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v13);
-    msgh_local_port = v13.msgh_local_port;
+    voucher_mach_msg_set(&v12);
+    msgh_local_port = v12.msgh_local_port;
   }
 
   else
@@ -6356,50 +6273,50 @@ uint64_t ConnectionProvideResponse(mach_port_t a1, uint64_t a2, int a3, int *a4)
     msgh_local_port = reply_port;
   }
 
-  v8 = mach_msg(&v13, 3, 0x38u, 0x30u, msgh_local_port, 0, 0);
+  v8 = mach_msg(&v12, 3, 0x38u, 0x30u, msgh_local_port, 0, 0);
   v9 = v8;
   if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
     if (v8)
     {
-      mig_dealloc_reply_port(v13.msgh_local_port);
-      goto LABEL_25;
+      mig_dealloc_reply_port(v12.msgh_local_port);
+      return v9;
     }
 
-    if (v13.msgh_id == 71)
+    if (v12.msgh_id == 71)
     {
       v9 = 4294966988;
     }
 
-    else if (v13.msgh_id == 28047822)
+    else if (v12.msgh_id == 28047822)
     {
-      if ((v13.msgh_bits & 0x80000000) == 0)
+      if ((v12.msgh_bits & 0x80000000) == 0)
       {
-        if (v13.msgh_size == 40)
+        if (v12.msgh_size == 40)
         {
-          if (!v13.msgh_remote_port)
+          if (!v12.msgh_remote_port)
           {
-            v9 = HIDWORD(v15);
-            if (!HIDWORD(v15))
+            v9 = HIDWORD(v14);
+            if (!HIDWORD(v14))
             {
-              *a4 = v16;
-              goto LABEL_25;
+              *a4 = v15;
+              return v9;
             }
 
             goto LABEL_24;
           }
         }
 
-        else if (v13.msgh_size == 36)
+        else if (v12.msgh_size == 36)
         {
-          if (v13.msgh_remote_port)
+          if (v12.msgh_remote_port)
           {
             v10 = 1;
           }
 
           else
           {
-            v10 = HIDWORD(v15) == 0;
+            v10 = HIDWORD(v14) == 0;
           }
 
           if (v10)
@@ -6409,7 +6326,7 @@ uint64_t ConnectionProvideResponse(mach_port_t a1, uint64_t a2, int a3, int *a4)
 
           else
           {
-            v9 = HIDWORD(v15);
+            v9 = HIDWORD(v14);
           }
 
           goto LABEL_24;
@@ -6425,34 +6342,32 @@ uint64_t ConnectionProvideResponse(mach_port_t a1, uint64_t a2, int a3, int *a4)
     }
 
 LABEL_24:
-    mach_msg_destroy(&v13);
-    goto LABEL_25;
+    mach_msg_destroy(&v12);
+    return v9;
   }
 
-  mig_put_reply_port(v13.msgh_local_port);
-LABEL_25:
-  v11 = *MEMORY[0x277D85DE8];
+  mig_put_reply_port(v12.msgh_local_port);
   return v9;
 }
 
 uint64_t ConnectionSendCmdAck(mach_port_t a1, uint64_t a2, int a3, int *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v14 = 1;
-  v15 = a2;
-  v16 = 16777472;
-  v17 = a3;
-  v18 = *MEMORY[0x277D85EF8];
-  v19 = a3;
+  v19 = *MEMORY[0x277D85DE8];
+  v13 = 1;
+  v14 = a2;
+  v15 = 16777472;
+  v16 = a3;
+  v17 = *MEMORY[0x277D85EF8];
+  v18 = a3;
   reply_port = mig_get_reply_port();
-  *&v13.msgh_bits = 2147489043;
-  v13.msgh_remote_port = a1;
-  v13.msgh_local_port = reply_port;
-  *&v13.msgh_voucher_port = 0x1ABF96B00000000;
+  *&v12.msgh_bits = 2147489043;
+  v12.msgh_remote_port = a1;
+  v12.msgh_local_port = reply_port;
+  *&v12.msgh_voucher_port = 0x1ABF96B00000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v13);
-    msgh_local_port = v13.msgh_local_port;
+    voucher_mach_msg_set(&v12);
+    msgh_local_port = v12.msgh_local_port;
   }
 
   else
@@ -6460,50 +6375,50 @@ uint64_t ConnectionSendCmdAck(mach_port_t a1, uint64_t a2, int a3, int *a4)
     msgh_local_port = reply_port;
   }
 
-  v8 = mach_msg(&v13, 3, 0x38u, 0x30u, msgh_local_port, 0, 0);
+  v8 = mach_msg(&v12, 3, 0x38u, 0x30u, msgh_local_port, 0, 0);
   v9 = v8;
   if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
     if (v8)
     {
-      mig_dealloc_reply_port(v13.msgh_local_port);
-      goto LABEL_25;
+      mig_dealloc_reply_port(v12.msgh_local_port);
+      return v9;
     }
 
-    if (v13.msgh_id == 71)
+    if (v12.msgh_id == 71)
     {
       v9 = 4294966988;
     }
 
-    else if (v13.msgh_id == 28047823)
+    else if (v12.msgh_id == 28047823)
     {
-      if ((v13.msgh_bits & 0x80000000) == 0)
+      if ((v12.msgh_bits & 0x80000000) == 0)
       {
-        if (v13.msgh_size == 40)
+        if (v12.msgh_size == 40)
         {
-          if (!v13.msgh_remote_port)
+          if (!v12.msgh_remote_port)
           {
-            v9 = HIDWORD(v15);
-            if (!HIDWORD(v15))
+            v9 = HIDWORD(v14);
+            if (!HIDWORD(v14))
             {
-              *a4 = v16;
-              goto LABEL_25;
+              *a4 = v15;
+              return v9;
             }
 
             goto LABEL_24;
           }
         }
 
-        else if (v13.msgh_size == 36)
+        else if (v12.msgh_size == 36)
         {
-          if (v13.msgh_remote_port)
+          if (v12.msgh_remote_port)
           {
             v10 = 1;
           }
 
           else
           {
-            v10 = HIDWORD(v15) == 0;
+            v10 = HIDWORD(v14) == 0;
           }
 
           if (v10)
@@ -6513,7 +6428,7 @@ uint64_t ConnectionSendCmdAck(mach_port_t a1, uint64_t a2, int a3, int *a4)
 
           else
           {
-            v9 = HIDWORD(v15);
+            v9 = HIDWORD(v14);
           }
 
           goto LABEL_24;
@@ -6529,22 +6444,20 @@ uint64_t ConnectionSendCmdAck(mach_port_t a1, uint64_t a2, int a3, int *a4)
     }
 
 LABEL_24:
-    mach_msg_destroy(&v13);
-    goto LABEL_25;
+    mach_msg_destroy(&v12);
+    return v9;
   }
 
-  mig_put_reply_port(v13.msgh_local_port);
-LABEL_25:
-  v11 = *MEMORY[0x277D85DE8];
+  mig_put_reply_port(v12.msgh_local_port);
   return v9;
 }
 
 uint64_t CopyLandingPageURL(int a1, void *a2, _DWORD *a3, void *a4, _DWORD *a5)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v20 = 0;
+  v20 = *MEMORY[0x277D85DE8];
+  v19 = 0;
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   *&msg[4] = 0;
   *&msg[20] = 0u;
   reply_port = mig_get_reply_port();
@@ -6584,17 +6497,17 @@ uint64_t CopyLandingPageURL(int a1, void *a2, _DWORD *a3, void *a4, _DWORD *a5)
         if ((*msg & 0x80000000) != 0)
         {
           v13 = 4294966996;
-          if (*&msg[24] == 1 && *&msg[4] == 68 && !*&msg[8] && BYTE3(v18) == 1)
+          if (*&msg[24] == 1 && *&msg[4] == 68 && !*&msg[8] && BYTE3(v17) == 1)
           {
-            v14 = DWORD1(v18);
-            if (DWORD1(v18) == v19)
+            v14 = DWORD1(v17);
+            if (DWORD1(v17) == v18)
             {
               v13 = 0;
               *a2 = *&msg[28];
               *a3 = v14;
-              *a4 = *(&v19 + 4);
-              *a5 = HIDWORD(v19);
-              goto LABEL_27;
+              *a4 = *(&v18 + 4);
+              *a5 = HIDWORD(v18);
+              return v13;
             }
           }
         }
@@ -6628,18 +6541,16 @@ uint64_t CopyLandingPageURL(int a1, void *a2, _DWORD *a3, void *a4, _DWORD *a5)
       }
 
       mach_msg_destroy(msg);
-      goto LABEL_27;
+      return v13;
     }
 
     mig_dealloc_reply_port(*&msg[12]);
   }
 
-LABEL_27:
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
-uint64_t ConnectionProcessControl(mach_port_t a1, uint64_t a2, int a3, void *a4, _DWORD *a5, _DWORD *a6)
+uint64_t ConnectionProcessControl(mach_port_t a1, uint64_t a2, int a3, uint64_t *a4, int *a5, _DWORD *a6)
 {
   msg.msgh_id = 0;
   v21 = 0;

@@ -443,48 +443,48 @@
   {
     v8 = result;
     Data = CGBitmapContextGetData(result);
-    SRGB = _CUIColorSpaceGetSRGB();
+    SRGB = _CUIColorSpaceGetSRGB(Data, v10);
     if (height > 0.0)
     {
-      v11 = SRGB;
-      v12 = 0;
-      v13 = 0.0;
-      v23 = vdupq_n_s64(0x406FE00000000000uLL);
+      v12 = SRGB;
+      v13 = 0;
+      v14 = 0.0;
+      v24 = vdupq_n_s64(0x406FE00000000000uLL);
       do
       {
         if (width > 0.0)
         {
-          v14 = v13 - height * 0.5;
-          v15 = 0.0;
-          v16 = 1;
+          v15 = v14 - height * 0.5;
+          v16 = 0.0;
+          v17 = 1;
           do
           {
-            v17 = atan2(v14, v15 - width * 0.5);
-            if (v14 < 0.0)
+            v18 = atan2(v15, v16 - width * 0.5);
+            if (v15 < 0.0)
             {
-              v17 = v17 + 6.28318531;
+              v18 = v18 + 6.28318531;
             }
 
-            v18 = [(CUIThemeGradient *)self interpolatedColorAtLocation:v17 / 6.28318531, *&v23];
-            cGColor = [v18 CGColor];
-            if (CGColorGetColorSpace(cGColor) != v11)
+            v19 = [(CUIThemeGradient *)self interpolatedColorAtLocation:v18 / 6.28318531, *&v24];
+            cGColor = [v19 CGColor];
+            if (CGColorGetColorSpace(cGColor) != v12)
             {
-              cGColor = [objc_msgSend(v18 colorUsingCGColorSpace:{v11), "CGColor"}];
+              cGColor = [objc_msgSend(v19 colorUsingCGColorSpace:{v12), "CGColor"}];
             }
 
             Components = CGColorGetComponents(cGColor);
-            v21 = vshl_u32(vmovn_s64(vcvtq_s64_f64(vmulq_f64(*(Components + 1), v23))), 0x800000010);
-            *Data++ = v21.i32[0] | ((*Components * 255.0) << 24) | (Components[3] * 255.0) | v21.i32[1];
-            v15 = v16++;
+            v22 = vshl_u32(vmovn_s64(vcvtq_s64_f64(vmulq_f64(*(Components + 1), v24))), 0x800000010);
+            *Data++ = v22.i32[0] | ((*Components * 255.0) << 24) | (Components[3] * 255.0) | v22.i32[1];
+            v16 = v17++;
           }
 
-          while (v15 < width);
+          while (v16 < width);
         }
 
-        v13 = ++v12;
+        v14 = ++v13;
       }
 
-      while (v12 < height);
+      while (v13 < height);
     }
 
     Image = CGBitmapContextCreateImage(v8);
@@ -503,7 +503,7 @@
   }
 
   v5 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [a2 count]);
-  v13 = OUTLINED_FUNCTION_4_2(v5, v6, v7, v8, v9, v10, v11, v12, 0, 0, 0, 0, 0, 0, 0, 0, v42);
+  v13 = OUTLINED_FUNCTION_4_2(v5, v6, v7, v8, v9, v10, v11, v12, 0, 0, 0, 0, 0, 0, 0, 0);
   if (v13)
   {
     v14 = v13;
@@ -534,7 +534,7 @@
       }
 
       while (v14 != v17);
-      v14 = OUTLINED_FUNCTION_4_2(v25, v26, v27, v28, v29, v30, v31, v32, v34, v35, v36, v37, v38, v39, v40, v41, v43);
+      v14 = OUTLINED_FUNCTION_4_2(v25, v26, v27, v28, v29, v30, v31, v32, v34, v35, v36, v37, v38, v39, v40, v41);
     }
 
     while (v14);

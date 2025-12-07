@@ -9,11 +9,11 @@
 
 - (_BlastDoorLPAppleNewsMetadata)initWithCoder:(id)coder
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = _BlastDoorLPAppleNewsMetadata;
-  v5 = [(_BlastDoorLPAppleNewsMetadata *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = _BlastDoorLPAppleNewsMetadata;
+  v5 = [(_BlastDoorLPAppleNewsMetadata *)&v12 init];
   if (v5)
   {
     v6 = decodeStringForKey(coderCopy, @"source");
@@ -27,21 +27,18 @@
     v10 = v5;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6.receiver = self;
-  v6.super_class = _BlastDoorLPAppleNewsMetadata;
+  v6 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = _BlastDoorLPAppleNewsMetadata;
   coderCopy = coder;
-  [(_BlastDoorLPSpecializationMetadata *)&v6 encodeWithCoder:coderCopy];
+  [(_BlastDoorLPSpecializationMetadata *)&v5 encodeWithCoder:coderCopy];
   [coderCopy _bd_lp_encodeObjectIfNotNil:self->_source forKey:@"source"];
   [coderCopy _bd_lp_encodeObjectIfNotNil:self->_title forKey:@"title"];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -63,11 +60,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v11.receiver = self;
-  v11.super_class = _BlastDoorLPAppleNewsMetadata;
-  if ([(_BlastDoorLPAppleNewsMetadata *)&v11 isEqual:equalCopy])
+  v10.receiver = self;
+  v10.super_class = _BlastDoorLPAppleNewsMetadata;
+  if ([(_BlastDoorLPAppleNewsMetadata *)&v10 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -105,7 +102,6 @@
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

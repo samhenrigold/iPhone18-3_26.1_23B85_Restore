@@ -128,7 +128,7 @@
   timeline = [requestCopy timeline];
   if (timeline)
   {
-    [timeline timeRangeForSegmentWithIdentifier:segment];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(timeline);
   }
 
   [requestCopy timeline];
@@ -138,7 +138,7 @@
 
 void __107__PXStoryResourcesPreloader__timelineReadingQueue_loadResourcesForClipsInSegment_request_clipLoadingGroup___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6)
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v96 = *MEMORY[0x1E69E9840];
   if (a2 >= 1)
   {
     v6 = a3;
@@ -150,31 +150,31 @@ void __107__PXStoryResourcesPreloader__timelineReadingQueue_loadResourcesForClip
     do
     {
       v13 = *(v12 - 20);
-      v88 = *(v12 - 9);
-      v89 = *(v12 - 7);
-      v90 = *(v12 - 5);
-      v91 = *(v12 - 3);
-      v84 = *(v12 - 17);
-      v85 = *(v12 - 15);
-      v86 = *(v12 - 13);
-      v87 = *(v12 - 11);
-      v83 = *(v12 - 19);
+      v90 = *(v12 - 9);
+      v91 = *(v12 - 7);
+      v92 = *(v12 - 5);
+      v93 = *(v12 - 3);
+      v86 = *(v12 - 17);
+      v87 = *(v12 - 15);
+      v88 = *(v12 - 13);
+      v89 = *(v12 - 11);
+      v85 = *(v12 - 19);
       v14 = *(v12 - 1);
       memcpy(__dst, v12, sizeof(__dst));
       v15 = *(a1 + 32);
-      v76 = *(v12 - 9);
-      v77 = *(v12 - 7);
-      v78 = *(v12 - 5);
-      v79 = *(v12 - 3);
-      *&v73[24] = *(v12 - 17);
-      *&v73[40] = *(v12 - 15);
-      v74 = *(v12 - 13);
-      v75 = *(v12 - 11);
-      *&v73[8] = *(v12 - 19);
-      *v73 = v13;
-      v80 = v14;
-      memcpy(v81, v12, sizeof(v81));
-      if ([v15 _isClipPreloadable:v73])
+      v78 = *(v12 - 9);
+      v79 = *(v12 - 7);
+      v80 = *(v12 - 5);
+      v81 = *(v12 - 3);
+      *&v75[24] = *(v12 - 17);
+      *&v75[40] = *(v12 - 15);
+      v76 = *(v12 - 13);
+      v77 = *(v12 - 11);
+      *&v75[8] = *(v12 - 19);
+      *v75 = v13;
+      v82 = v14;
+      memcpy(v83, v12, sizeof(v83));
+      if ([v15 _isClipPreloadable:v75])
       {
         if ([*(a1 + 40) isCancelled])
         {
@@ -184,70 +184,70 @@ void __107__PXStoryResourcesPreloader__timelineReadingQueue_loadResourcesForClip
 
         v16 = [*(a1 + 48) clipWithIdentifier:v13];
         v17 = [v16 identifier];
-        v42 = v16;
-        v44 = [v16 resource];
+        v44 = v16;
+        v46 = [v16 resource];
         [*(a1 + 56) notifyStartedPreloadingClipIdentifier:v17];
         aBlock[0] = MEMORY[0x1E69E9820];
         aBlock[1] = 3221225472;
         aBlock[2] = __107__PXStoryResourcesPreloader__timelineReadingQueue_loadResourcesForClipsInSegment_request_clipLoadingGroup___block_invoke_2;
         aBlock[3] = &unk_1E7745B78;
         v18 = *(a1 + 64);
-        v53 = *(a1 + 88);
-        v54 = v17;
-        v55 = v6;
-        v56 = v9;
+        v55 = *(a1 + 88);
+        v56 = v17;
+        v57 = v6;
+        v58 = v9;
         v19 = *(a1 + 32);
-        v49 = v18;
-        v50 = v19;
-        v63 = v88;
-        v64 = v89;
+        v51 = v18;
+        v52 = v19;
         v65 = v90;
         v66 = v91;
-        v59 = v84;
-        v60 = v85;
+        v67 = v92;
+        v68 = v93;
         v61 = v86;
         v62 = v87;
-        v58 = v83;
-        v57 = v13;
-        v67 = v14;
-        memcpy(v68, __dst, sizeof(v68));
-        v69 = *(a1 + 96);
+        v63 = v88;
+        v64 = v89;
+        v60 = v85;
+        v59 = v13;
+        v69 = v14;
+        memcpy(v70, __dst, sizeof(v70));
+        v71 = *(a1 + 96);
         v20 = *(a1 + 120);
-        v70 = *(a1 + 104);
-        v71 = v20;
-        v72 = *(a1 + 136);
-        v51 = *(a1 + 72);
-        v52 = *(a1 + 80);
-        v43 = _Block_copy(aBlock);
+        v72 = *(a1 + 104);
+        v73 = v20;
+        v74 = *(a1 + 136);
+        v53 = *(a1 + 72);
+        v54 = *(a1 + 80);
+        v45 = _Block_copy(aBlock);
         v21 = *(a1 + 32);
-        v76 = v88;
-        v77 = v89;
         v78 = v90;
         v79 = v91;
-        *&v73[24] = v84;
-        *&v73[40] = v85;
-        v74 = v86;
-        v75 = v87;
-        *&v73[8] = v83;
-        *v73 = v13;
-        v80 = v14;
-        memcpy(v81, __dst, sizeof(v81));
-        v22 = [v21 _isImagePreloadingNeededForClipInfo:v73];
+        v80 = v92;
+        v81 = v93;
+        *&v75[24] = v86;
+        *&v75[40] = v87;
+        v76 = v88;
+        v77 = v89;
+        *&v75[8] = v85;
+        *v75 = v13;
+        v82 = v14;
+        memcpy(v83, __dst, sizeof(v83));
+        v22 = [v21 _isImagePreloadingNeededForClipInfo:v75];
         v23 = *(a1 + 32);
-        v76 = v88;
-        v77 = v89;
         v78 = v90;
         v79 = v91;
-        *&v73[24] = v84;
-        *&v73[40] = v85;
-        v74 = v86;
-        v75 = v87;
-        *&v73[8] = v83;
-        *v73 = v13;
-        v41 = v14;
-        v80 = v14;
-        memcpy(v81, __dst, sizeof(v81));
-        if ([v23 _isVideoPreloadingNeededForClipInfo:v73])
+        v80 = v92;
+        v81 = v93;
+        *&v75[24] = v86;
+        *&v75[40] = v87;
+        v76 = v88;
+        v77 = v89;
+        *&v75[8] = v85;
+        *v75 = v13;
+        v43 = v14;
+        v82 = v14;
+        memcpy(v83, __dst, sizeof(v83));
+        if ([v23 _isVideoPreloadingNeededForClipInfo:v75])
         {
           v24 = [*(a1 + 40) timelineAttributes] & 1;
         }
@@ -257,70 +257,71 @@ void __107__PXStoryResourcesPreloader__timelineReadingQueue_loadResourcesForClip
           v24 = 0;
         }
 
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = __107__PXStoryResourcesPreloader__timelineReadingQueue_loadResourcesForClipsInSegment_request_clipLoadingGroup___block_invoke_64;
-        v45[3] = &unk_1E7745BA0;
-        v46 = *(a1 + 56);
-        v47 = v17;
-        v25 = _Block_copy(v45);
+        v47[0] = MEMORY[0x1E69E9820];
+        v47[1] = 3221225472;
+        v47[2] = __107__PXStoryResourcesPreloader__timelineReadingQueue_loadResourcesForClipsInSegment_request_clipLoadingGroup___block_invoke_64;
+        v47[3] = &unk_1E7745BA0;
+        v48 = *(a1 + 56);
+        v49 = v17;
+        v25 = _Block_copy(v47);
         if (v22)
         {
           [*(a1 + 32) displayScale];
-          v76 = v88;
-          v77 = v89;
+          v27 = v26;
           v78 = v90;
           v79 = v91;
-          *&v73[24] = v84;
-          *&v73[40] = v85;
-          v74 = v86;
-          v75 = v87;
-          *&v73[8] = v83;
-          *v73 = v13;
-          v80 = v41;
-          memcpy(v81, __dst, sizeof(v81));
-          PXStoryMediaSizeForDisplayAssetClipInfo(v73);
+          v80 = v92;
+          v81 = v93;
+          *&v75[24] = v86;
+          *&v75[40] = v87;
+          v76 = v88;
+          v77 = v89;
+          *&v75[8] = v85;
+          *v75 = v13;
+          v82 = v43;
+          memcpy(v83, __dst, sizeof(v83));
+          PXStoryMediaSizeForDisplayAssetClipInfo(v75, v27);
         }
 
         if (v24)
         {
-          memset(v73, 0, 48);
-          PXStoryClipVideoSegmentTimeRange(v42, v73);
-          v26 = PLStoryGetLog();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+          memset(v75, 0, 48);
+          PXStoryClipVideoSegmentTimeRange(v44, v75);
+          v28 = PLStoryGetLog();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
           {
-            *buf = *v73;
-            *&buf[16] = *&v73[16];
-            v93 = *&v73[32];
-            v27 = PXStoryTimeRangeDescription(buf);
+            *buf = *v75;
+            *&buf[16] = *&v75[16];
+            v95 = *&v75[32];
+            v29 = PXStoryTimeRangeDescription(buf);
             *buf = 138412546;
-            *&buf[4] = v27;
+            *&buf[4] = v29;
             *&buf[12] = 2112;
-            *&buf[14] = v44;
-            _os_log_impl(&dword_1A3C1C000, v26, OS_LOG_TYPE_INFO, "[Buffering] preload time range %@ for video asset resource %@", buf, 0x16u);
+            *&buf[14] = v46;
+            _os_log_impl(&dword_1A3C1C000, v28, OS_LOG_TYPE_INFO, "[Buffering] preload time range %@ for video asset resource %@", buf, 0x16u);
           }
 
-          v28 = [PXStoryVideoAssetResourcePreloadingOperation alloc];
-          v29 = [*(a1 + 32) mediaProvider];
-          *buf = *v73;
-          *&buf[16] = *&v73[16];
-          v93 = *&v73[32];
-          v30 = [*(a1 + 32) videoSessionManager];
-          v31 = [*(a1 + 32) isExporting];
-          v32 = [*(a1 + 32) isInline];
-          LOBYTE(v37) = [*(a1 + 32) limitVideoDownloadQuality];
-          v33 = [(PXStoryVideoAssetResourcePreloadingOperation *)v28 initWithVideoAssetResource:v44 mediaProvider:v29 downloadTimeRange:buf videoSessionManager:v30 isExporting:v31 isInline:v32 limitVideoDownloadQuality:v37];
+          v30 = [PXStoryVideoAssetResourcePreloadingOperation alloc];
+          v31 = [*(a1 + 32) mediaProvider];
+          *buf = *v75;
+          *&buf[16] = *&v75[16];
+          v95 = *&v75[32];
+          v32 = [*(a1 + 32) videoSessionManager];
+          v33 = [*(a1 + 32) isExporting];
+          v34 = [*(a1 + 32) isInline];
+          LOBYTE(v39) = [*(a1 + 32) limitVideoDownloadQuality];
+          v35 = [(PXStoryVideoAssetResourcePreloadingOperation *)v30 initWithVideoAssetResource:v46 mediaProvider:v31 downloadTimeRange:buf videoSessionManager:v32 isExporting:v33 isInline:v34 limitVideoDownloadQuality:v39];
 
-          [(PXStoryDisplayAssetResourcePreloadingOperation *)v33 setProgressHandler:v25];
-          v34 = v43[2];
-          v35.n128_u64[1] = *&v73[24];
-          *buf = *v73;
-          *&buf[16] = *&v73[16];
-          v36.n128_u64[1] = *&v73[40];
-          v93 = *&v73[32];
-          v36.n128_u64[0] = v10;
-          v35.n128_u64[0] = v11;
-          v34(v36, v35);
+          [(PXStoryDisplayAssetResourcePreloadingOperation *)v35 setProgressHandler:v25];
+          v36 = v45[2];
+          v37.n128_u64[1] = *&v75[24];
+          *buf = *v75;
+          *&buf[16] = *&v75[16];
+          v38.n128_u64[1] = *&v75[40];
+          v95 = *&v75[32];
+          v38.n128_u64[0] = v10;
+          v37.n128_u64[0] = v11;
+          v36(v38, v37);
           v6 = a3;
         }
 
@@ -521,7 +522,7 @@ void __82__PXStoryResourcesPreloader__timelineReadingQueue_processRequest_previo
         v16 = *(a1 + 32);
         if (v16)
         {
-          [v16 timeRangeForSegmentWithIdentifier:v12];
+          objc_msgSend_timeRangeForSegmentWithIdentifier_(v16);
           v16 = *(a1 + 32);
         }
 
@@ -544,7 +545,7 @@ void __82__PXStoryResourcesPreloader__timelineReadingQueue_processRequest_previo
   }
 }
 
-uint64_t __82__PXStoryResourcesPreloader__timelineReadingQueue_processRequest_previousRequest___block_invoke_3(uint64_t result, uint64_t a2, int a3, int a4, char *__src)
+void *__82__PXStoryResourcesPreloader__timelineReadingQueue_processRequest_previousRequest___block_invoke_3(void *result, uint64_t a2, int a3, int a4, char *__src)
 {
   if (a2 >= 1)
   {
@@ -554,19 +555,19 @@ uint64_t __82__PXStoryResourcesPreloader__timelineReadingQueue_processRequest_pr
     v9 = result;
     do
     {
-      v10 = *(v9 + 32);
+      v10 = v9[4];
       memcpy(v14, __src, sizeof(v14));
       result = [v10 _isClipPreloadable:v14];
       if (result)
       {
-        v11 = *(v9 + 32);
+        v11 = v9[4];
         memcpy(v14, __src, sizeof(v14));
         if ([v11 _isImagePreloadingNeededForClipInfo:v14])
         {
-          ++*(*(*(v9 + 40) + 8) + 32);
+          ++*(*(v9[5] + 8) + 32);
         }
 
-        v12 = *(v9 + 32);
+        v12 = v9[4];
         memcpy(v14, __src, sizeof(v14));
         result = [v12 _isVideoPreloadingNeededForClipInfo:v14];
         if (result)
@@ -581,7 +582,7 @@ uint64_t __82__PXStoryResourcesPreloader__timelineReadingQueue_processRequest_pr
             v13 = 48;
           }
 
-          ++*(*(*(v9 + 40) + 8) + v13);
+          ++*(*(v9[5] + 8) + v13);
         }
       }
 
@@ -624,20 +625,20 @@ uint64_t __82__PXStoryResourcesPreloader__timelineReadingQueue_processRequest_pr
 
 void __137__PXStoryResourcesPreloader__timelineReadingQueue_sessionStartedWithAlreadyLoadedSegments_segmentsToLoad_preloadableClipsCounts_request___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 32);
-  v4 = [*(a1 + 40) timeline];
-  v5 = v4;
-  if (v4)
+  v2 = *(a1 + 32);
+  v3 = [*(a1 + 40) timeline];
+  v4 = v3;
+  if (v3)
   {
-    [v4 timeRangeForSegmentWithIdentifier:a2];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(v3);
   }
 
   else
   {
-    memset(v6, 0, sizeof(v6));
+    memset(v5, 0, sizeof(v5));
   }
 
-  [v3 _accumulateLoadedTimeRange:v6 moreExpected:1];
+  [v2 _accumulateLoadedTimeRange:v5 moreExpected:1];
 }
 
 - (void)_estimationQueue_updateEstimation
@@ -685,7 +686,8 @@ void __137__PXStoryResourcesPreloader__timelineReadingQueue_sessionStartedWithAl
 
       time2.start.value = 0;
       *&time2.start.timescale = &time2;
-      *&time2.start.epoch = 0x2020000000uLL;
+      time2.start.epoch = 0x2020000000;
+      time2.duration.value = 0;
       *&v64 = 0;
       *(&v64 + 1) = &v64;
       v65 = 0x2020000000;
@@ -726,11 +728,11 @@ void __137__PXStoryResourcesPreloader__timelineReadingQueue_sessionStartedWithAl
     {
       v64 = 0uLL;
       v65 = 0;
-      [(PXStoryResourcesPreloader *)self currentPlaybackTime];
+      objc_msgSend_currentPlaybackTime(self);
       memset(&v75, 0, sizeof(v75));
       if (v8)
       {
-        [(PXStoryTimeline *)v8 timeRange];
+        objc_msgSend_timeRange(v8);
       }
 
       else
@@ -924,7 +926,7 @@ void __137__PXStoryResourcesPreloader__timelineReadingQueue_sessionStartedWithAl
   }
 }
 
-uint64_t __62__PXStoryResourcesPreloader__estimationQueue_updateEstimation__block_invoke(uint64_t a1, uint64_t a2)
+void *__62__PXStoryResourcesPreloader__estimationQueue_updateEstimation__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) indexOfSegmentWithIdentifier:a2];
   if (result - *(a1 + 56) >= 2)
@@ -944,7 +946,7 @@ uint64_t __62__PXStoryResourcesPreloader__estimationQueue_updateEstimation__bloc
 {
   if (*(a1 + 44) == 1)
   {
-    [*(a1 + 32) setIsLoadingLikelyToKeepUpWithPlayback:*(a1 + 45)];
+    [*(a1 + 32) setIsLoadingLikelyToKeepUpWithPlayback:{*(a1 + 45), a2}];
   }
 
   LODWORD(a2) = *(a1 + 40);
@@ -1369,7 +1371,8 @@ void __65__PXStoryResourcesPreloader__noteLoadingStartedForClipInSegment___block
         stateQueue_loadedTimeRanges = self->_stateQueue_loadedTimeRanges;
         v17 = [PXStoryTimeRangeValue alloc];
         *time1 = value;
-        *&time1[8] = __PAIR64__(flags, timescale);
+        *&time1[8] = timescale;
+        *&time1[12] = flags;
         *&time1[16] = epoch;
         *&time1[24] = v9;
         v24 = __PAIR64__(v7, v13);

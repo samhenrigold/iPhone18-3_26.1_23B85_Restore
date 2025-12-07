@@ -53,12 +53,11 @@
 - (NSString)description
 {
   v3 = [BSDescriptionBuilder builderWithObject:self];
-  authType = self->_authType;
-  v5 = CPSAuthenticationTypeDescription();
-  [v3 appendString:v5 withName:@"authType"];
+  v4 = CPSAuthenticationTypeDescription();
+  [v3 appendString:v4 withName:@"authType"];
 
-  v6 = [v3 appendBool:self->_sandboxPurchase withName:@"sandboxPurchase" ifEqualTo:1];
-  v7 = [v3 appendInteger:self->_authFlags withName:@"authFlags"];
+  v5 = [v3 appendBool:self->_sandboxPurchase withName:@"sandboxPurchase" ifEqualTo:1];
+  v6 = [v3 appendInteger:self->_authFlags withName:@"authFlags"];
   build = [v3 build];
 
   return build;

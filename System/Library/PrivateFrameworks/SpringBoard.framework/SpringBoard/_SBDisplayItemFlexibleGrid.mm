@@ -58,69 +58,70 @@
   v7 = v6;
   v8 = v6 + minimumWidth;
   v9 = objc_opt_new();
+  v10 = v9;
   if (v8 > 0.0)
   {
-    v26 = floor(width / v8);
-    v10 = vcvtmd_u64_f64(width / v8);
-    v11 = floor(((width - v7) * 0.5 + (width - v7) * 0.5) * 0.5);
-    v12 = (v11 + v11) * 0.5;
+    v27 = floor(width / v8);
+    v11 = vcvtmd_u64_f64(width / v8);
+    v12 = floor(((width - v7) * 0.5 + (width - v7) * 0.5) * 0.5);
+    v13 = (v12 + v12) * 0.5;
     while (1)
     {
-      v13 = v10 - 1;
-      if (v10 == 1)
+      v14 = v11 - 1;
+      if (v11 == 1)
       {
-        v20 = MEMORY[0x277CCABB0];
+        v21 = MEMORY[0x277CCABB0];
         widthCopy = width;
         goto LABEL_10;
       }
 
-      if (v10 == 2)
+      if (v11 == 2)
       {
         break;
       }
 
-      if (!v10)
+      if (!v11)
       {
         goto LABEL_15;
       }
 
-      v14 = v10;
-      v15 = floor((width - (v10 + -1.0) * v7) / v10);
-      v16 = floor((v15 + v15) * 0.5);
-      v17 = [MEMORY[0x277CCABB0] numberWithDouble:(v16 + v16) * 0.5];
-      [v9 addObject:v17];
+      v15 = v11;
+      v16 = floor((width - (v11 + -1.0) * v7) / v11);
+      v17 = floor((v16 + v16) * 0.5);
+      v18 = [MEMORY[0x277CCABB0] numberWithDouble:(v17 + v17) * 0.5];
+      [v10 addObject:v18];
 
-      v18 = floor((width - v7 - v15 + width - v7 - v15) * 0.5);
-      v19 = [MEMORY[0x277CCABB0] numberWithDouble:(v18 + v18) * 0.5];
-      [v9 addObject:v19];
+      v19 = floor((width - v7 - v16 + width - v7 - v16) * 0.5);
+      v20 = [MEMORY[0x277CCABB0] numberWithDouble:(v19 + v19) * 0.5];
+      [v10 addObject:v20];
 
-      if (v26 == v14)
+      if (v27 == v15)
       {
-        v20 = MEMORY[0x277CCABB0];
-        v21 = floor((width - v15 * 0.5 + width - v15 * 0.5) * 0.5);
-        widthCopy = (v21 + v21) * 0.5;
+        v21 = MEMORY[0x277CCABB0];
+        v22 = floor((width - v16 * 0.5 + width - v16 * 0.5) * 0.5);
+        widthCopy = (v22 + v22) * 0.5;
 LABEL_10:
-        v23 = [v20 numberWithDouble:widthCopy];
-        [v9 addObject:v23];
+        v24 = [v21 numberWithDouble:widthCopy];
+        [v10 addObject:v24];
       }
 
-      v10 = v13;
+      v11 = v14;
     }
 
-    v20 = MEMORY[0x277CCABB0];
-    widthCopy = v12;
+    v21 = MEMORY[0x277CCABB0];
+    widthCopy = v13;
     goto LABEL_10;
   }
 
-  v24 = SBLogAppSwitcher();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v25 = SBLogAppSwitcher(v9);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    [_SBDisplayItemFlexibleGrid _gridWidthsForSafeWidth:v24 minimumWidth:?];
+    [_SBDisplayItemFlexibleGrid _gridWidthsForSafeWidth:v25 minimumWidth:?];
   }
 
 LABEL_15:
 
-  return v9;
+  return v10;
 }
 
 - (id)_gridHeightsForSafeHeight:(double)height minimumHeight:(double)minimumHeight

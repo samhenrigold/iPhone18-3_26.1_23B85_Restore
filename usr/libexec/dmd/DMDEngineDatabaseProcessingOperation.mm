@@ -14,13 +14,13 @@
   contextCopy = context;
   v5 = objc_opt_new();
   v6 = +[DMDConfigurationOrganization fetchRequest];
-  v57 = 0;
-  v7 = [v6 execute:&v57];
-  v8 = v57;
+  v52 = 0;
+  v7 = [v6 execute:&v52];
+  v8 = v52;
   if (!v7)
   {
-    v39 = DMFConfigurationEngineLog();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v35 = DMFConfigurationEngineLog();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       sub_100083178();
     }
@@ -28,150 +28,139 @@
     goto LABEL_36;
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
-  v54 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   obj = v7;
-  v46 = [obj countByEnumeratingWithState:&v53 objects:v60 count:16];
-  if (v46)
+  v41 = [obj countByEnumeratingWithState:&v48 objects:v55 count:16];
+  if (v41)
   {
-    v47 = *v54;
-    v10 = &selRef_arbitratePolicyForPrioritizedPolicies_;
-    v11 = &selRef_arbitratePolicyForPrioritizedPolicies_;
+    v42 = *v49;
     *&v9 = 138412290;
-    v41 = v9;
-    v48 = contextCopy;
-    v42 = v7;
-    v43 = v6;
+    v37 = v9;
+    v43 = contextCopy;
+    v38 = v7;
+    v39 = v6;
     while (2)
     {
-      v12 = 0;
-      v13 = v11[347];
-      v45 = v10[348];
-      do
+      for (i = 0; i != v41; i = i + 1)
       {
-        v14 = v5;
-        if (*v54 != v47)
+        v11 = v5;
+        if (*v49 != v42)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v53 + 1) + 8 * v12);
-        if (([v15 active] & 1) != 0 || (objc_msgSend(v15, "payloadMetadatas"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "count"), v16, v17))
+        v12 = *(*(&v48 + 1) + 8 * i);
+        if (([v12 active] & 1) != 0 || (objc_msgSend(v12, "payloadMetadatas"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "count"), v13, v14))
         {
-          v52 = v8;
-          v18 = [(DMDEngineDatabaseProcessingOperation *)self preprocessDatabaseInContext:contextCopy forOrganization:v15 error:&v52];
-          v19 = v52;
+          v47 = v8;
+          v15 = [(DMDEngineDatabaseProcessingOperation *)self preprocessDatabaseInContext:contextCopy forOrganization:v12 error:&v47];
+          v16 = v47;
 
-          if ((v18 & 1) == 0)
+          if ((v15 & 1) == 0)
           {
-            v40 = DMFConfigurationEngineLog();
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+            v36 = DMFConfigurationEngineLog();
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
               sub_100083058();
             }
 
-            [(DMDEngineDatabaseProcessingOperation *)self setError:v19];
+            [(DMDEngineDatabaseProcessingOperation *)self setError:v16];
             goto LABEL_33;
           }
 
           delegate = [(DMDEngineDatabaseProcessingOperation *)self delegate];
-          v21 = objc_opt_respondsToSelector();
+          v18 = objc_opt_respondsToSelector();
 
-          if (v21)
+          if (v18)
           {
             delegate2 = [(DMDEngineDatabaseProcessingOperation *)self delegate];
-            identifier = [v15 identifier];
-            v24 = [delegate2 engineProcessingOperation:self enqueuedOperationsForOrganizationWithIdentifier:identifier];
-            v25 = [NSMutableArray arrayWithArray:v24];
+            identifier = [v12 identifier];
+            v21 = [delegate2 engineProcessingOperation:self enqueuedOperationsForOrganizationWithIdentifier:identifier];
+            v22 = [NSMutableArray arrayWithArray:v21];
 
-            contextCopy = v48;
+            contextCopy = v43;
           }
 
           else
           {
-            v25 = 0;
+            v22 = 0;
           }
 
           delegate3 = [(DMDEngineDatabaseProcessingOperation *)self delegate];
-          v27 = objc_opt_respondsToSelector();
+          v24 = objc_opt_respondsToSelector();
 
-          if (v27)
+          if (v24)
           {
             delegate4 = [(DMDEngineDatabaseProcessingOperation *)self delegate];
-            identifier2 = [v15 identifier];
-            v30 = [delegate4 engineProcessingOperation:self assetResolverForOrganizationWithIdentifier:identifier2];
+            identifier2 = [v12 identifier];
+            v27 = [delegate4 engineProcessingOperation:self assetResolverForOrganizationWithIdentifier:identifier2];
           }
 
           else
           {
-            v30 = 0;
+            v27 = 0;
           }
 
-          v51 = v19;
-          v31 = [(DMDEngineDatabaseProcessingOperation *)self processCommandPayloadsInContext:contextCopy forOrganization:v15 enqueuedOperations:v25 assetResolver:v30 error:&v51];
-          v32 = contextCopy;
-          v33 = v51;
+          v46 = v16;
+          v28 = [(DMDEngineDatabaseProcessingOperation *)self processCommandPayloadsInContext:contextCopy forOrganization:v12 enqueuedOperations:v22 assetResolver:v27 error:&v46];
+          v29 = contextCopy;
+          v30 = v46;
 
-          if (!v31)
+          if (!v28)
           {
             goto LABEL_32;
           }
 
-          v5 = v14;
-          [v14 addObjectsFromArray:v31];
-          v50 = v33;
-          v34 = [(DMDEngineDatabaseProcessingOperation *)self processDeclarationPayloadsInContext:v32 forOrganization:v15 enqueuedOperations:v25 assetResolver:v30 error:&v50];
-          v8 = v50;
+          v5 = v11;
+          [v11 addObjectsFromArray:v28];
+          v45 = v30;
+          v31 = [(DMDEngineDatabaseProcessingOperation *)self processDeclarationPayloadsInContext:v29 forOrganization:v12 enqueuedOperations:v22 assetResolver:v27 error:&v45];
+          v8 = v45;
 
-          if (!v34)
+          if (!v31)
           {
-            v33 = v8;
+            v30 = v8;
 LABEL_32:
-            [(DMDEngineDatabaseProcessingOperation *)self setError:v33];
+            [(DMDEngineDatabaseProcessingOperation *)self setError:v30];
 
-            v19 = v33;
-            contextCopy = v48;
+            v16 = v30;
+            contextCopy = v43;
 LABEL_33:
-            v7 = v42;
-            v6 = v43;
+            v7 = v38;
+            v6 = v39;
 
-            v8 = v19;
-            v5 = v14;
+            v8 = v16;
+            v5 = v11;
             goto LABEL_37;
           }
 
-          [v14 addObjectsFromArray:v34];
+          [v11 addObjectsFromArray:v31];
 
-          contextCopy = v48;
+          contextCopy = v43;
         }
 
         else
         {
-          v35 = DMFConfigurationEngineLog();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          v32 = DMFConfigurationEngineLog();
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v41;
-            v59 = v15;
-            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Deleting deactivated organization %@", buf, 0xCu);
+            *buf = v37;
+            v54 = v12;
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Deleting deactivated organization %@", buf, 0xCu);
           }
 
-          [contextCopy deleteObject:v15];
-          v5 = v14;
+          [contextCopy deleteObject:v12];
+          v5 = v11;
         }
-
-        v12 = v12 + 1;
       }
 
-      while (v46 != v12);
-      v36 = [obj countByEnumeratingWithState:&v53 objects:v60 count:16];
-      v7 = v42;
-      v6 = v43;
-      v10 = &selRef_arbitratePolicyForPrioritizedPolicies_;
-      v11 = &selRef_arbitratePolicyForPrioritizedPolicies_;
-      v46 = v36;
-      if (v36)
+      v7 = v38;
+      v6 = v39;
+      v41 = [obj countByEnumeratingWithState:&v48 objects:v55 count:16];
+      if (v41)
       {
         continue;
       }
@@ -180,16 +169,16 @@ LABEL_33:
     }
   }
 
-  v37 = v8;
+  v33 = v8;
 
-  v49 = v8;
-  v38 = [contextCopy save:&v49];
-  v8 = v49;
+  v44 = v8;
+  v34 = [contextCopy save:&v44];
+  v8 = v44;
 
-  if (!v38)
+  if (!v34)
   {
-    v39 = DMFConfigurationEngineLog();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v35 = DMFConfigurationEngineLog();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       sub_1000830EC(v8);
     }

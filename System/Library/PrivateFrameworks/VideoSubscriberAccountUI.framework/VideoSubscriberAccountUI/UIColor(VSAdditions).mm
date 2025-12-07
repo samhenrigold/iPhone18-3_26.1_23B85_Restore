@@ -38,9 +38,9 @@
     +[UIColor(VSAdditions) vsa_opacityADarkColor];
   }
 
-  v1 = vsa_opacityADarkColor___color;
+  v2 = vsa_opacityADarkColor___color;
 
-  return v1;
+  return v2;
 }
 
 + (id)vsa_opacityALightColor
@@ -50,9 +50,9 @@
     +[UIColor(VSAdditions) vsa_opacityALightColor];
   }
 
-  v1 = vsa_opacityALightColor___color;
+  v2 = vsa_opacityALightColor___color;
 
-  return v1;
+  return v2;
 }
 
 + (id)vsa_opacityADynamicColor
@@ -71,9 +71,9 @@
     +[UIColor(VSAdditions) vsa_opacityBDarkColor];
   }
 
-  v1 = vsa_opacityBDarkColor___color;
+  v2 = vsa_opacityBDarkColor___color;
 
-  return v1;
+  return v2;
 }
 
 + (id)vsa_opacityBLightColor
@@ -83,9 +83,9 @@
     +[UIColor(VSAdditions) vsa_opacityBLightColor];
   }
 
-  v1 = vsa_opacityBLightColor___color;
+  v2 = vsa_opacityBLightColor___color;
 
-  return v1;
+  return v2;
 }
 
 + (id)vsa_opacityBDynamicColor
@@ -104,9 +104,9 @@
     +[UIColor(VSAdditions) vsa_opacityCDarkColor];
   }
 
-  v1 = vsa_opacityCDarkColor___color;
+  v2 = vsa_opacityCDarkColor___color;
 
-  return v1;
+  return v2;
 }
 
 + (id)vsa_opacityCLightColor
@@ -116,9 +116,9 @@
     +[UIColor(VSAdditions) vsa_opacityCLightColor];
   }
 
-  v1 = vsa_opacityCLightColor___color;
+  v2 = vsa_opacityCLightColor___color;
 
-  return v1;
+  return v2;
 }
 
 + (id)vsa_opacityCDynamicColor

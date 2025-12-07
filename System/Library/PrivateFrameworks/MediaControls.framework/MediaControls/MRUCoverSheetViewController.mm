@@ -254,35 +254,35 @@ uint64_t __96__MRUCoverSheetViewController_coordinatedUpdateController_processCo
 
 - (void)updatePreferredContentSize
 {
-  v21 = *MEMORY[0x1E69E9840];
-  [(MRUCoverSheetViewController *)self preferredContentSize];
-  v4 = v3;
-  v6 = v5;
-  v7 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v22 = *MEMORY[0x1E69E9840];
+  preferredContentSize = [(MRUCoverSheetViewController *)self preferredContentSize];
+  v5 = v4;
+  v7 = v6;
+  v8 = MCLogCategoryDefault(preferredContentSize);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = objc_opt_class();
-    v22.width = v4;
-    v22.height = v6;
-    v9 = NSStringFromCGSize(v22);
+    v9 = objc_opt_class();
+    v23.width = v5;
+    v23.height = v7;
+    v10 = NSStringFromCGSize(v23);
     view = [(MRUCoverSheetViewController *)self view];
     [view frame];
-    v23.width = v11;
-    v23.height = v12;
-    v13 = NSStringFromCGSize(v23);
-    v15 = 138543874;
-    v16 = v8;
-    v17 = 2114;
-    v18 = v9;
-    v19 = 2114;
-    v20 = v13;
-    _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ preferred content size: %{public}@ | current: %{public}@", &v15, 0x20u);
+    v24.width = v12;
+    v24.height = v13;
+    v14 = NSStringFromCGSize(v24);
+    v16 = 138543874;
+    v17 = v9;
+    v18 = 2114;
+    v19 = v10;
+    v20 = 2114;
+    v21 = v14;
+    _os_log_impl(&dword_1A20FC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ preferred content size: %{public}@ | current: %{public}@", &v16, 0x20u);
   }
 
   delegate = [(MRUCoverSheetViewController *)self delegate];
   if (objc_opt_respondsToSelector())
   {
-    [delegate coverSheetViewController:self didUpdatePreferredContentSize:{v4, v6}];
+    [delegate coverSheetViewController:self didUpdatePreferredContentSize:{v5, v7}];
   }
 }
 

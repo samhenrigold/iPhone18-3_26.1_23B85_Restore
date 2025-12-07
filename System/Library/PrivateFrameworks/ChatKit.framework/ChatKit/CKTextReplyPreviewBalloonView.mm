@@ -22,7 +22,7 @@
   [(CKTextBalloonView *)&v6 configureForMessagePart:partCopy];
   if (partCopy)
   {
-    [partCopy balloonDescriptor];
+    objc_msgSend_balloonDescriptor(partCopy);
   }
 
   else

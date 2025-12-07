@@ -13,7 +13,7 @@
   selfCopy = self;
   sub_100316274();
 
-  sub_1000054A4(0, &qword_1006C6400);
+  sub_1000054A4(0, &qword_1006C6400, UIMenuElement_ptr);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -56,7 +56,7 @@
   itemCopy = item;
   managerCopy = manager;
   v17 = sub_1003178AC(containerCopy, controllerCopy, item, managerCopy, v11, v12);
-  sub_10000C840(v11);
+  sub_10000C840(v11, v12);
 
   return v17;
 }
@@ -81,7 +81,7 @@
   itemCopy = item;
   managerCopy = manager;
   v17 = sub_100317A64(folderCopy, controllerCopy, item, managerCopy, v11, v12);
-  sub_10000C840(v11);
+  sub_10000C840(v11, v12);
 
   return v17;
 }

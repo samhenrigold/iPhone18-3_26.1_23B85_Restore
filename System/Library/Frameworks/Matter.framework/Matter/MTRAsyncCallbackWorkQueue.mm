@@ -57,7 +57,7 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "MTRAsyncCallbackWorkQueue enqueueWorkItem: item cannot be enqueued twice");
     }
   }
 
@@ -76,44 +76,43 @@
 
 - (void)invalidate
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   v3 = self->_items;
   items = self->_items;
   self->_items = 0;
 
   os_unfair_lock_unlock(&self->_lock);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v5 = v3;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v6)
   {
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) cancel];
+        [*(*(&v9 + 1) + 8 * v8++) cancel];
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
 
   [(NSMutableArray *)v5 removeAllObjects];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postProcessWorkItem:(id)item retry:(BOOL)retry
@@ -148,7 +147,7 @@
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "MTRAsyncCallbackWorkQueue endWork: work item is not first on work queue");
       }
     }
   }
@@ -164,7 +163,7 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "MTRAsyncCallbackWorkQueue endWork: no work is running on work queue");
     }
   }
 

@@ -40,34 +40,35 @@
   v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = [NSSet setWithObjects:v4, v5, objc_opt_class(), 0];
-  v15 = 0;
-  v7 = [lostModeDataArchiver readDictionaryAndClasses:v6 error:&v15];
-  v8 = v15;
+  v16 = 0;
+  v7 = [lostModeDataArchiver readDictionaryAndClasses:v6 error:&v16];
+  v8 = v16;
 
-  if (([v8 fm_isFileNotFoundError] & 1) == 0 && (!v7 || v8))
+  fm_isFileNotFoundError = [v8 fm_isFileNotFoundError];
+  if ((fm_isFileNotFoundError & 1) == 0 && (!v7 || v8))
   {
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100002880(fm_isFileNotFoundError);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10022F5D4();
     }
   }
 
-  v10 = sub_10000BE38();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_10000BE38(fm_isFileNotFoundError);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [v7 objectForKeyedSubscript:@"accessoryList"];
-    v12 = [v11 count];
+    v12 = [v7 objectForKeyedSubscript:@"accessoryList"];
+    v13 = [v12 count];
     *buf = 134218242;
-    v17 = v12;
-    v18 = 2112;
-    v19 = v7;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "readLostModeAccessoriesList total = %lu accessories = %@", buf, 0x16u);
+    v18 = v13;
+    v19 = 2112;
+    v20 = v7;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "readLostModeAccessoriesList total = %lu accessories = %@", buf, 0x16u);
   }
 
-  v13 = [v7 objectForKeyedSubscript:@"version"];
+  v14 = [v7 objectForKeyedSubscript:@"version"];
 
-  return v13;
+  return v14;
 }
 
 + (id)magSafeContainerURL
@@ -82,7 +83,7 @@
 
   else
   {
-    v6 = sub_100002880();
+    v6 = sub_100002880(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10022F4E4(v6);
@@ -130,9 +131,9 @@
 
 - (FMDMagSafeDataStore)init
 {
-  v18.receiver = self;
-  v18.super_class = FMDMagSafeDataStore;
-  v2 = [(FMDMagSafeDataStore *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = FMDMagSafeDataStore;
+  v2 = [(FMDMagSafeDataStore *)&v19 init];
   if (v2)
   {
     v3 = dispatch_queue_create("FMDMagSafeDataStore.serialQueue", 0);
@@ -166,10 +167,10 @@
     lostModeDataArchiver3 = [(FMDMagSafeDataStore *)v2 lostModeDataArchiver];
     [lostModeDataArchiver3 setCreateDirectories:1];
 
-    v16 = sub_100002880();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = sub_100002880(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      sub_10022F53C(v2, v16);
+      sub_10022F53C(v2, v17);
     }
   }
 
@@ -244,15 +245,16 @@
   dataArchiver = [(FMDMagSafeDataStore *)self dataArchiver];
   v4 = objc_opt_class();
   v5 = [NSSet setWithObjects:v4, objc_opt_class(), 0];
-  v13 = 0;
-  v6 = [dataArchiver readDictionaryAndClasses:v5 error:&v13];
-  v7 = v13;
+  v15 = 0;
+  v6 = [dataArchiver readDictionaryAndClasses:v5 error:&v15];
+  v7 = v15;
 
-  if (([v7 fm_isFileNotFoundError] & 1) == 0 && (!v6 || v7 != 0))
+  fm_isFileNotFoundError = [v7 fm_isFileNotFoundError];
+  if ((fm_isFileNotFoundError & 1) == 0 && (!v6 || v7 != 0))
   {
 
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = sub_100002880(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10022F5D4();
     }
@@ -260,15 +262,15 @@
     v6 = &__NSDictionary0__struct;
   }
 
-  v10 = sub_10000BE38();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_10000BE38(fm_isFileNotFoundError);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [v6 count];
+    v13 = [v6 count];
     *buf = 134218242;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v6;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "readAllAccessoriesFromDisk total = %lu accessories = %@", buf, 0x16u);
+    v17 = v13;
+    v18 = 2112;
+    v19 = v6;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "readAllAccessoriesFromDisk total = %lu accessories = %@", buf, 0x16u);
   }
 
   return v6;
@@ -312,34 +314,35 @@
   v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = [NSSet setWithObjects:v4, v5, objc_opt_class(), 0];
-  v15 = 0;
-  v7 = [lostModeDataArchiver readDictionaryAndClasses:v6 error:&v15];
-  v8 = v15;
+  v16 = 0;
+  v7 = [lostModeDataArchiver readDictionaryAndClasses:v6 error:&v16];
+  v8 = v16;
 
-  if (([v8 fm_isFileNotFoundError] & 1) == 0 && (!v7 || v8))
+  fm_isFileNotFoundError = [v8 fm_isFileNotFoundError];
+  if ((fm_isFileNotFoundError & 1) == 0 && (!v7 || v8))
   {
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100002880(fm_isFileNotFoundError);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10022F5D4();
     }
   }
 
-  v10 = sub_10000BE38();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_10000BE38(fm_isFileNotFoundError);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [v7 objectForKeyedSubscript:@"accessoryList"];
-    v12 = [v11 count];
+    v12 = [v7 objectForKeyedSubscript:@"accessoryList"];
+    v13 = [v12 count];
     *buf = 134218242;
-    v17 = v12;
-    v18 = 2112;
-    v19 = v7;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "readLostModeAccessoriesList total = %lu accessories = %@", buf, 0x16u);
+    v18 = v13;
+    v19 = 2112;
+    v20 = v7;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "readLostModeAccessoriesList total = %lu accessories = %@", buf, 0x16u);
   }
 
-  v13 = [v7 objectForKeyedSubscript:@"accessoryList"];
+  v14 = [v7 objectForKeyedSubscript:@"accessoryList"];
 
-  return v13;
+  return v14;
 }
 
 - (void)updateLostModeKeyRollTimeFor:(id)for lastLostModeKeyRollTime:(id)time withCompletion:(id)completion

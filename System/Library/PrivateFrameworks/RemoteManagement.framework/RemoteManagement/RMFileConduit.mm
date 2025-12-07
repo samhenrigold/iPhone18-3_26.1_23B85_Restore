@@ -624,17 +624,8 @@ LABEL_57:
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
           v71 = off_1000D0438;
-          if (isKindOfClass)
+          if (isKindOfClass & 1) != 0 || (objc_opt_class(), v72 = objc_opt_isKindOfClass(), v71 = off_1000D0430, (v72) || (objc_opt_class(), v73 = objc_opt_isKindOfClass(), v71 = off_1000D0440, (v73) || (objc_opt_class(), v74 = objc_opt_isKindOfClass(), v71 = &off_1000D0478, (v74))
           {
-            goto LABEL_50;
-          }
-
-          objc_opt_class();
-          v72 = objc_opt_isKindOfClass();
-          v71 = off_1000D0430;
-          if (v72 & 1) != 0 || (objc_opt_class(), v73 = objc_opt_isKindOfClass(), v71 = off_1000D0440, (v73) || (objc_opt_class(), v74 = objc_opt_isKindOfClass(), v71 = &off_1000D0478, (v74))
-          {
-LABEL_50:
             v75 = [objc_alloc(*v71) initWithContext:context];
             [v75 setManagementSource:v93];
             [v75 setIdentifier:declarationIdentifier];

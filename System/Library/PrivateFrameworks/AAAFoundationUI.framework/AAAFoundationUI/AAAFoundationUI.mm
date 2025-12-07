@@ -3,65 +3,48 @@ uint64_t AAFTestableEnvironment.init(_:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   v3 = (*a1 + *MEMORY[0x29EDC9E18]);
   v4 = *v3;
   v5 = *(*v3 - 8);
-  v6 = (*(v5 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x2A1C7C4A8]();
-  v8 = &v19 - v7;
-  v10 = *(v9 + 8);
-  v11 = (*(*(sub_29EB32938() - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x2A1C7C4A8]();
-  v13 = &v19 - v12;
-  v14 = sub_29EB32828();
-  v15 = (*(*(v14 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x2A1C7C4A8]();
-  v17 = &v19 - v16;
+  MEMORY[0x2A1C7C4A8](a1);
+  v7 = &v18 - v6;
+  v9 = *(v8 + 8);
+  v10 = sub_29EB32938();
+  MEMORY[0x2A1C7C4A8](v10 - 8);
+  v12 = &v18 - v11;
+  v13 = sub_29EB32828();
+  MEMORY[0x2A1C7C4A8](v13);
+  v15 = &v18 - v14;
 
   sub_29EB32838();
   sub_29EB328B8();
   swift_getAtKeyPath();
-  (*(v5 + 8))(v8, v4);
-  (*(*(v10 - 8) + 56))(v13, 0, 1, v10);
-  swift_getWitnessTable();
-  sub_29EB30F14(v17, v13, v14, a2);
+  (*(v5 + 8))(v7, v4);
+  (*(*(v9 - 8) + 56))(v12, 0, 1, v9);
+  WitnessTable = swift_getWitnessTable();
+  sub_29EB30F14(v15, v12, v13, WitnessTable, a2);
 }
 
-uint64_t AAFTestableEnvironment.init<A>(_:)@<X0>(uint64_t a1@<X8>)
+uint64_t AAFTestableEnvironment.init<A>(_:)@<X0>(uint64_t a2@<X8>)
 {
-  v7 = 0;
-  v8 = sub_29EB32848();
-  v9 = v2 & 1;
-  v3 = sub_29EB32828();
-  swift_getWitnessTable();
-  result = sub_29EB30F14(&v8, &v7, v3, &v10);
-  v5 = v11;
-  v6 = v12;
-  *a1 = v10;
-  *(a1 + 8) = v5;
-  *(a1 + 16) = v6;
+  v9 = 0;
+  v10 = sub_29EB32848();
+  v11 = v3 & 1;
+  v4 = sub_29EB32828();
+  WitnessTable = swift_getWitnessTable();
+  result = sub_29EB30F14(&v10, &v9, v4, WitnessTable, &v12);
+  v7 = v13;
+  v8 = v14;
+  *a2 = v12;
+  *(a2 + 8) = v7;
+  *(a2 + 16) = v8;
   return result;
 }
 
-uint64_t AAFTestableEnvironment.wrappedValue.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t AAFTestableEnvironment.wrappedValue.getter@<X0>(uint64_t x8_0@<X8>)
 {
-  v3 = *(a1 + 16);
-  sub_29EB32828();
-  swift_getWitnessTable();
-  v4 = type metadata accessor for OverridableProperty();
+  v3 = sub_29EB32828();
+  WitnessTable = swift_getWitnessTable();
+  v6 = type metadata accessor for OverridableProperty(0, v3, WitnessTable, v5);
 
-  return sub_29EB310E4(v4, a2);
-}
-
-uint64_t sub_29EB2F5D8@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X8>)
-{
-  v4 = *(a1 + a2 - 8);
-  v5 = type metadata accessor for AAFTestableEnvironment();
-  return AAFTestableEnvironment.wrappedValue.getter(v5, a3);
-}
-
-uint64_t sub_29EB2F614(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v5 = *(a3 + a4 - 8);
-  v6 = type metadata accessor for AAFTestableEnvironment();
-  return sub_29EB2F8D0(a1, v6);
+  return sub_29EB310E4(v6, x8_0);
 }
 
 uint64_t AAFTestableEnvironment.wrappedValue.setter(uint64_t a1, uint64_t a2)
@@ -107,7 +90,7 @@ void (*AAFTestableEnvironment.wrappedValue.modify(void *a1, uint64_t a2))(uint64
   }
 
   v7[5] = v11;
-  AAFTestableEnvironment.wrappedValue.getter(a2, v11);
+  AAFTestableEnvironment.wrappedValue.getter(v11);
   return sub_29EB2F7CC;
 }
 
@@ -118,20 +101,19 @@ void sub_29EB2F7CC(uint64_t **a1, char a2)
   v4 = (*a1)[5];
   v5 = (*a1)[2];
   v6 = (*a1)[3];
-  v8 = **a1;
-  v7 = (*a1)[1];
+  v7 = **a1;
   if (a2)
   {
     (*(v6 + 16))((*a1)[4], v4, v5);
-    sub_29EB2F8D0(v3, v8);
-    v9 = *(v6 + 8);
-    v9(v3, v5);
-    v9(v4, v5);
+    sub_29EB2F8D0(v3, v7);
+    v8 = *(v6 + 8);
+    v8(v3, v5);
+    v8(v4, v5);
   }
 
   else
   {
-    sub_29EB2F8D0((*a1)[5], v8);
+    sub_29EB2F8D0((*a1)[5], v7);
     (*(v6 + 8))(v4, v5);
   }
 
@@ -144,23 +126,21 @@ void sub_29EB2F7CC(uint64_t **a1, char a2)
 uint64_t sub_29EB2F8D0(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 16);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x2A1C7C4A8](a1);
-  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v6 + 16))(v5, v7, v2);
-  sub_29EB32828();
-  swift_getWitnessTable();
-  v8 = type metadata accessor for OverridableProperty();
-  return sub_29EB31198(v5, v8);
+  v4 = &v12 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v5 + 16))(v4, v6, v2);
+  v7 = sub_29EB32828();
+  WitnessTable = swift_getWitnessTable();
+  v10 = type metadata accessor for OverridableProperty(0, v7, WitnessTable, v9);
+  return sub_29EB31198(v4, v10);
 }
 
 uint64_t sub_29EB2F9F0(uint64_t a1)
 {
-  v1 = *(a1 + 16);
-  sub_29EB32828();
-  swift_getWitnessTable();
-  result = type metadata accessor for OverridableProperty();
-  if (v3 <= 0x3F)
+  v1 = sub_29EB32828();
+  WitnessTable = swift_getWitnessTable();
+  result = type metadata accessor for OverridableProperty(319, v1, WitnessTable, v3);
+  if (v5 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -446,60 +426,49 @@ void type metadata accessor for os_unfair_lock_s()
   }
 }
 
-double AAFTestableEnvironmentObject.init()@<D0>(uint64_t a1@<X8>)
+double AAFTestableEnvironmentObject.init()@<D0>(uint64_t a3@<X8>)
 {
-  v7[0] = sub_29EB32898();
-  v7[1] = v2;
-  v6 = 0;
-  v3 = sub_29EB328A8();
-  swift_getWitnessTable();
-  sub_29EB30F14(v7, &v6, v3, &v8);
-  v4 = v9;
-  result = *&v8;
-  *a1 = v8;
-  *(a1 + 16) = v4;
+  v10[0] = sub_29EB32898();
+  v10[1] = v4;
+  v9 = 0;
+  v5 = sub_29EB328A8();
+  WitnessTable = swift_getWitnessTable();
+  sub_29EB30F14(v10, &v9, v5, WitnessTable, &v11);
+  v7 = v12;
+  result = *&v11;
+  *a3 = v11;
+  *(a3 + 16) = v7;
   return result;
 }
 
 uint64_t AAFTestableEnvironmentObject.wrappedValue.getter(uint64_t a1)
 {
   v2 = *(v1 + 2);
-  v8 = *v1;
-  v9 = v2;
-  v3 = *(a1 + 16);
-  v4 = *(a1 + 24);
-  sub_29EB328A8();
-  swift_getWitnessTable();
-  v5 = type metadata accessor for OverridableProperty();
-  sub_29EB310E4(v5, &v7);
-  return v7;
+  v9 = *v1;
+  v10 = v2;
+  v3 = sub_29EB328A8();
+  WitnessTable = swift_getWitnessTable();
+  v6 = type metadata accessor for OverridableProperty(0, v3, WitnessTable, v5);
+  sub_29EB310E4(v6, &v8);
+  return v8;
 }
 
-uint64_t sub_29EB2FECC@<X0>(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+uint64_t sub_29EB2FECC@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t *a3@<X8>, uint64_t a4@<X3>)
 {
-  v5 = a2 + a3;
-  v6 = *(a2 + a3 - 16);
-  v7 = *(v5 - 8);
-  v10 = *a1;
-  v11 = *(a1 + 2);
-  v8 = type metadata accessor for AAFTestableEnvironmentObject();
-  result = AAFTestableEnvironmentObject.wrappedValue.getter(v8);
-  *a4 = result;
+  v5 = type metadata accessor for AAFTestableEnvironmentObject(0, *(a1 + a2 - 16), *(a1 + a2 - 8), a4);
+  result = AAFTestableEnvironmentObject.wrappedValue.getter(v5);
+  *a3 = result;
   return result;
 }
 
 uint64_t sub_29EB2FF20(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(a3 + a4 - 16);
-  v4 = *(a3 + a4 - 8);
-  v6 = *a1;
-  v10 = a2[2];
-  v7 = *a2;
-  v8 = type metadata accessor for AAFTestableEnvironmentObject();
+  v4 = *a1;
+  v5 = type metadata accessor for AAFTestableEnvironmentObject(0, *(a3 + a4 - 16), *(a3 + a4 - 8), a4);
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
 
-  AAFTestableEnvironmentObject.wrappedValue.setter(v6, v8);
+  AAFTestableEnvironmentObject.wrappedValue.setter(v4, v5);
 
   return swift_unknownObjectRelease();
 }
@@ -507,15 +476,13 @@ uint64_t sub_29EB2FF20(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 uint64_t AAFTestableEnvironmentObject.wrappedValue.setter(uint64_t a1, uint64_t a2)
 {
   v3 = *(v2 + 2);
-  v9 = *v2;
-  v10 = v3;
-  v8 = a1;
-  v5 = *(a2 + 16);
-  v4 = *(a2 + 24);
-  sub_29EB328A8();
-  swift_getWitnessTable();
-  v6 = type metadata accessor for OverridableProperty();
-  return sub_29EB31198(&v8, v6);
+  v10 = *v2;
+  v11 = v3;
+  v9 = a1;
+  v4 = sub_29EB328A8();
+  WitnessTable = swift_getWitnessTable();
+  v7 = type metadata accessor for OverridableProperty(0, v4, WitnessTable, v6);
+  return sub_29EB31198(&v9, v7);
 }
 
 void (*AAFTestableEnvironmentObject.wrappedValue.modify(void *a1, uint64_t a2))(uint64_t a1, char a2)
@@ -549,19 +516,15 @@ void sub_29EB300E8(uint64_t a1, char a2)
 {
   v2 = *a1;
   v3 = *(*a1 + 24);
-  v5 = *(*a1 + 32);
-  v4 = *(*a1 + 40);
-  v7 = *(*a1 + 48);
-  v8 = *(*a1 + 56);
+  v4 = *(*a1 + 32);
   if (a2)
   {
 
     swift_unknownObjectRetain();
     swift_unknownObjectRetain();
-    AAFTestableEnvironmentObject.wrappedValue.setter(v3, v5);
+    AAFTestableEnvironmentObject.wrappedValue.setter(v3, v4);
     swift_unknownObjectRelease();
 
-    v6 = v2[3];
     swift_unknownObjectRelease();
   }
 
@@ -569,7 +532,7 @@ void sub_29EB300E8(uint64_t a1, char a2)
   {
 
     swift_unknownObjectRetain();
-    AAFTestableEnvironmentObject.wrappedValue.setter(v3, v5);
+    AAFTestableEnvironmentObject.wrappedValue.setter(v3, v4);
     swift_unknownObjectRelease();
   }
 
@@ -579,15 +542,13 @@ void sub_29EB300E8(uint64_t a1, char a2)
 uint64_t AAFTestableEnvironmentObject.projectedValue.getter(uint64_t a1)
 {
   v2 = *(v1 + 2);
-  v8 = *v1;
-  v9 = v2;
-  v3 = *(a1 + 16);
-  v4 = *(a1 + 24);
-  sub_29EB328A8();
-  swift_getWitnessTable();
-  v5 = type metadata accessor for OverridableProperty();
-  sub_29EB3150C(v5, &v7);
-  return v7;
+  v9 = *v1;
+  v10 = v2;
+  v3 = sub_29EB328A8();
+  WitnessTable = swift_getWitnessTable();
+  v6 = type metadata accessor for OverridableProperty(0, v3, WitnessTable, v5);
+  sub_29EB3150C(v6, &v8);
+  return v8;
 }
 
 __n128 sub_29EB30264(__n128 *a1, __n128 *a2)
@@ -597,7 +558,7 @@ __n128 sub_29EB30264(__n128 *a1, __n128 *a2)
   return result;
 }
 
-uint64_t sub_29EB30270()
+uint64_t sub_29EB30270(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -671,25 +632,22 @@ uint64_t sub_29EB30328(uint64_t result, unsigned int a2, unsigned int a3)
 uint64_t AAFTestableState.init(wrappedValue:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v6 = sub_29EB32938();
-  v7 = *(*(v6 - 8) + 64);
-  v8 = MEMORY[0x2A1C7C4A8](v6 - 8);
-  v10 = &v21 - v9;
-  v11 = *(a2 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x2A1C7C4A8](v8);
-  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = sub_29EB328F8();
-  v16 = *(*(v15 - 8) + 64);
-  MEMORY[0x2A1C7C4A8](v15);
-  v18 = &v21 - v17;
-  v19 = *(v11 + 16);
-  v19(v14, a1, a2);
+  v7 = MEMORY[0x2A1C7C4A8](v6 - 8);
+  v9 = &v19 - v8;
+  v10 = *(a2 - 8);
+  MEMORY[0x2A1C7C4A8](v7);
+  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = sub_29EB328F8();
+  MEMORY[0x2A1C7C4A8](v13);
+  v15 = &v19 - v14;
+  v16 = *(v10 + 16);
+  v16(v12, a1, a2);
   sub_29EB328C8();
-  v19(v10, a1, a2);
-  (*(v11 + 56))(v10, 0, 1, a2);
-  swift_getWitnessTable();
-  sub_29EB30F14(v18, v10, v15, a3);
-  return (*(v11 + 8))(a1, a2);
+  v16(v9, a1, a2);
+  (*(v10 + 56))(v9, 0, 1, a2);
+  WitnessTable = swift_getWitnessTable();
+  sub_29EB30F14(v15, v9, v13, WitnessTable, a3);
+  return (*(v10 + 8))(a1, a2);
 }
 
 uint64_t AAFTestableState.wrappedValue.setter(uint64_t a1, uint64_t a2)
@@ -746,20 +704,19 @@ void sub_29EB30720(uint64_t **a1, char a2)
   v4 = (*a1)[5];
   v5 = (*a1)[2];
   v6 = (*a1)[3];
-  v8 = **a1;
-  v7 = (*a1)[1];
+  v7 = **a1;
   if (a2)
   {
     (*(v6 + 16))((*a1)[4], v4, v5);
-    sub_29EB308B0(v3, v8);
-    v9 = *(v6 + 8);
-    v9(v3, v5);
-    v9(v4, v5);
+    sub_29EB308B0(v3, v7);
+    v8 = *(v6 + 8);
+    v8(v3, v5);
+    v8(v4, v5);
   }
 
   else
   {
-    sub_29EB308B0((*a1)[5], v8);
+    sub_29EB308B0((*a1)[5], v7);
     (*(v6 + 8))(v4, v5);
   }
 
@@ -771,48 +728,31 @@ void sub_29EB30720(uint64_t **a1, char a2)
 
 uint64_t sub_29EB30824(uint64_t a1, uint64_t (*a2)(uint64_t))
 {
-  v2 = *(a1 + 16);
-  sub_29EB328F8();
-  swift_getWitnessTable();
-  v3 = type metadata accessor for OverridableProperty();
+  v2 = sub_29EB328F8();
+  WitnessTable = swift_getWitnessTable();
+  v5 = type metadata accessor for OverridableProperty(0, v2, WitnessTable, v4);
 
-  return a2(v3);
+  return a2(v5);
 }
 
 uint64_t sub_29EB308B0(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 16);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x2A1C7C4A8](a1);
-  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v6 + 16))(v5, v7, v2);
-  sub_29EB328F8();
-  swift_getWitnessTable();
-  v8 = type metadata accessor for OverridableProperty();
-  return sub_29EB31198(v5, v8);
-}
-
-uint64_t sub_29EB309B0(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a2 + a3 - 8);
-  v4 = type metadata accessor for AAFTestableState();
-  return AAFTestableState.wrappedValue.getter(v4);
-}
-
-uint64_t sub_29EB309EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v5 = *(a3 + a4 - 8);
-  v6 = type metadata accessor for AAFTestableState();
-  return sub_29EB308B0(a1, v6);
+  v4 = &v12 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v5 + 16))(v4, v6, v2);
+  v7 = sub_29EB328F8();
+  WitnessTable = swift_getWitnessTable();
+  v10 = type metadata accessor for OverridableProperty(0, v7, WitnessTable, v9);
+  return sub_29EB31198(v4, v10);
 }
 
 uint64_t sub_29EB30A44(uint64_t a1)
 {
-  v1 = *(a1 + 16);
-  sub_29EB328F8();
-  swift_getWitnessTable();
-  result = type metadata accessor for OverridableProperty();
-  if (v3 <= 0x3F)
+  v1 = sub_29EB328F8();
+  WitnessTable = swift_getWitnessTable();
+  result = type metadata accessor for OverridableProperty(319, v1, WitnessTable, v3);
+  if (v5 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -910,7 +850,7 @@ uint64_t sub_29EB30AE4(_DWORD *a1, unsigned int a2, uint64_t a3)
 LABEL_28:
     if (v5 >= 0x7FFFFFFE)
     {
-      return (*(v4 + 48))();
+      return (*(v4 + 48))(a1);
     }
 
     v17 = *((a1 + v6 + 7) & 0xFFFFFFFFFFFFFFF8);
@@ -1107,24 +1047,21 @@ LABEL_33:
   return result;
 }
 
-uint64_t sub_29EB30E24@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_29EB30E24@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = v2[1];
-  v4 = *(a1 + 16);
-  v5 = *(a1 + 24);
-  *a2 = sub_29EB30EAC(*v2);
+  *a2 = sub_29EB30EAC(*v2, v2[1]);
 
   return swift_unknownObjectRetain();
 }
 
-uint64_t sub_29EB30E6C(uint64_t a1)
+uint64_t sub_29EB30E6C(uint64_t a1, uint64_t a2)
 {
   result = swift_getWitnessTable();
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t sub_29EB30EAC(uint64_t result)
+uint64_t sub_29EB30EAC(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
@@ -1135,24 +1072,23 @@ uint64_t sub_29EB30EAC(uint64_t result)
   return result;
 }
 
-uint64_t sub_29EB30F14@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t sub_29EB30F14@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   swift_getAssociatedTypeWitness();
-  v8 = sub_29EB32938();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x2A1C7C4A8]();
-  v12 = &v16 - v11;
-  v13 = *(a3 - 8);
-  (*(v13 + 16))(a4, a1, a3);
-  type metadata accessor for OverridableProperty.Override();
-  (*(v9 + 16))(v12, a2, v8);
+  v10 = sub_29EB32938();
+  v11 = *(v10 - 8);
+  MEMORY[0x2A1C7C4A8](v10);
+  v13 = &v19 - v12;
+  v14 = *(a3 - 8);
+  (*(v14 + 16))(a5, a1, a3);
+  type metadata accessor for OverridableProperty.Override(0, a3, a4, v15);
+  (*(v11 + 16))(v13, a2, v10);
   swift_allocObject();
-  v14 = sub_29EB31AB8(v12);
-  (*(v9 + 8))(a2, v8);
-  (*(v13 + 8))(a1, a3);
-  result = type metadata accessor for OverridableProperty();
-  *(a4 + *(result + 36)) = v14;
+  v16 = sub_29EB31AB8(v13);
+  (*(v11 + 8))(a2, v10);
+  (*(v14 + 8))(a1, a3);
+  result = type metadata accessor for OverridableProperty(0, a3, a4, v17);
+  *(a5 + *(result + 36)) = v16;
   return result;
 }
 
@@ -1160,8 +1096,6 @@ uint64_t sub_29EB310E4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   if (*(v2 + *(a1 + 36)))
   {
-    v4 = *(a1 + 16);
-    v3 = *(a1 + 24);
     AssociatedTypeWitness = swift_getAssociatedTypeWitness();
 
     sub_29EB31BF0(AssociatedTypeWitness, a2);
@@ -1169,76 +1103,73 @@ uint64_t sub_29EB310E4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
   else
   {
-    v9 = a1 + 16;
-    v8 = *(a1 + 16);
-    v10 = *(*(v9 + 8) + 16);
+    v7 = a1 + 16;
+    v6 = *(a1 + 16);
+    v8 = *(*(v7 + 8) + 16);
 
-    return v10(v8);
+    return v8(v6);
   }
 }
 
 uint64_t sub_29EB31198(uint64_t a1, uint64_t a2)
 {
-  v29 = a1;
-  v4 = *(a2 + 24);
-  v5 = *(a2 + 16);
-  v6 = *(swift_getAssociatedTypeWitness() - 8);
-  v7 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v8 = (MEMORY[0x2A1C7C4A8])();
-  v10 = &v27 - v9;
-  v28 = *(v5 - 8);
-  v11 = *(v28 + 64);
-  MEMORY[0x2A1C7C4A8](v8);
-  v13 = &v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = v14;
-  v16 = sub_29EB32938();
-  v17 = *(v16 - 8);
-  v18 = (*(v17 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x2A1C7C4A8](v16);
-  v20 = &v27 - v19;
+  v26 = a1;
+  v4 = *(a2 + 16);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v6 = *(AssociatedTypeWitness - 8);
+  v7 = MEMORY[0x2A1C7C4A8](AssociatedTypeWitness);
+  v9 = &v24 - v8;
+  v25 = *(v4 - 8);
+  MEMORY[0x2A1C7C4A8](v7);
+  v11 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = v12;
+  v14 = sub_29EB32938();
+  v15 = *(v14 - 8);
+  MEMORY[0x2A1C7C4A8](v14);
+  v17 = &v24 - v16;
   if (*(v2 + *(a2 + 36)))
   {
-    v21 = v29;
-    (*(v6 + 16))(v20, v29, v15);
-    (*(v6 + 56))(v20, 0, 1, v15);
+    v18 = v26;
+    (*(v6 + 16))(v17, v26, v13);
+    (*(v6 + 56))(v17, 0, 1, v13);
 
     sub_29EB326BC();
-    (*(v17 + 8))(v20, v16);
+    (*(v15 + 8))(v17, v14);
 
-    return (*(v6 + 8))(v21, v15);
+    return (*(v6 + 8))(v18, v13);
   }
 
-  v23 = v29;
-  (*(v28 + 16))(v13);
-  v30 = v15;
+  v20 = v26;
+  (*(v25 + 16))(v11);
+  v27 = v13;
   swift_getExtendedExistentialTypeMetadata_unique();
   if (swift_dynamicCast())
   {
-    sub_29EB32660(&v31, v34);
-    v24 = v35;
-    v25 = v36;
-    __swift_project_boxed_opaque_existential_1(v34, v35);
-    (*(v6 + 16))(v10, v23, v15);
-    (*(v25 + 16))(v10, v24, v25);
-    (*(v6 + 8))(v23, v15);
-    v26 = v34;
+    sub_29EB32660(&v28, v31);
+    v21 = v32;
+    v22 = v33;
+    __swift_project_boxed_opaque_existential_1(v31, v32);
+    (*(v6 + 16))(v9, v20, v13);
+    (*(v22 + 16))(v9, v21, v22);
+    (*(v6 + 8))(v20, v13);
+    v23 = v31;
   }
 
   else
   {
-    v33 = 0;
-    v31 = 0u;
-    v32 = 0u;
-    result = (*(v6 + 8))(v23, v15);
-    if (!*(&v32 + 1))
+    v30 = 0;
+    v28 = 0u;
+    v29 = 0u;
+    result = (*(v6 + 8))(v20, v13);
+    if (!*(&v29 + 1))
     {
       return result;
     }
 
-    v26 = &v31;
+    v23 = &v28;
   }
 
-  return __swift_destroy_boxed_opaque_existential_1(v26);
+  return __swift_destroy_boxed_opaque_existential_1(v23);
 }
 
 uint64_t sub_29EB3150C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -1275,22 +1206,19 @@ uint64_t sub_29EB3150C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return sub_29EB32908();
 }
 
-uint64_t sub_29EB31754(uint64_t a1)
+uint64_t sub_29EB31754(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v3 = *(*(AssociatedTypeWitness - 8) + 64);
   MEMORY[0x2A1C7C4A8](AssociatedTypeWitness);
-  v5 = &v9 - v4;
-  (*(v6 + 16))(&v9 - v4, a1);
-  v7 = type metadata accessor for OverridableProperty();
-  return sub_29EB31198(v5, v7);
+  v11 = &v16 - v10;
+  (*(v12 + 16))(&v16 - v10, a1);
+  v14 = type metadata accessor for OverridableProperty(0, a5, a6, v13);
+  return sub_29EB31198(v11, v14);
 }
 
 void sub_29EB31858(uint64_t a1@<X8>)
 {
-  v3 = v1[2];
-  v6 = *(*v1 + 80);
-  v7 = *(*v1 + 88);
+  v3 = *(v1 + 16);
   swift_getAssociatedTypeWitness();
   sub_29EB32938();
   v4 = *(*v3 + *MEMORY[0x29EDC9DE8] + 16);
@@ -1300,20 +1228,20 @@ void sub_29EB31858(uint64_t a1@<X8>)
   os_unfair_lock_unlock((v3 + v5));
 }
 
-uint64_t sub_29EB31954@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_29EB31954@<X0>(uint64_t a1@<X0>, uint64_t a4@<X8>)
 {
   swift_getAssociatedTypeWitness();
-  v4 = sub_29EB32938();
-  return (*(*(v4 - 8) + 16))(a2, a1, v4);
+  v6 = sub_29EB32938();
+  return (*(*(v6 - 8) + 16))(a4, a1, v6);
 }
 
-uint64_t sub_29EB319EC(uint64_t a1, uint64_t a2)
+uint64_t sub_29EB319EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   swift_getAssociatedTypeWitness();
-  v4 = sub_29EB32938();
-  v5 = *(v4 - 8);
-  (*(v5 + 8))(a1, v4);
-  return (*(v5 + 16))(a1, a2, v4);
+  v6 = sub_29EB32938();
+  v7 = *(v6 - 8);
+  (*(v7 + 8))(a1, v6);
+  return (*(v7 + 16))(a1, a2, v6);
 }
 
 uint64_t *sub_29EB31AB8(uint64_t a1)
@@ -1327,7 +1255,7 @@ uint64_t *sub_29EB31AB8(uint64_t a1)
   if (v4)
   {
     v8 = v7;
-    v9 = sub_29EB322F0();
+    v9 = sub_29EB322F0(a1, v7);
     (*(*(v8 - 8) + 8))(a1, v8);
     v1[2] = v9;
   }
@@ -1335,7 +1263,7 @@ uint64_t *sub_29EB31AB8(uint64_t a1)
   else
   {
     (*(*(v7 - 8) + 8))(a1);
-    type metadata accessor for OverridableProperty.Override();
+    type metadata accessor for OverridableProperty.Override(0, v6, v5, v10);
     swift_deallocPartialClassInstance();
     return 0;
   }
@@ -1345,40 +1273,36 @@ uint64_t *sub_29EB31AB8(uint64_t a1)
 
 uint64_t sub_29EB31BF0@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
-  v5 = *v2;
-  v6 = sub_29EB32938();
-  v7 = *(v6 - 8);
-  v8 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x2A1C7C4A8]();
-  v10 = v22 - v9;
-  v11 = *(v5 + 88);
-  v12 = *(v5 + 80);
+  v4 = sub_29EB32938();
+  v5 = *(v4 - 8);
+  MEMORY[0x2A1C7C4A8](v4);
+  v7 = v17 - v6;
   swift_getAssociatedTypeWitness();
-  v13 = (*(*(sub_29EB32938() - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x2A1C7C4A8]();
-  sub_29EB31858(v22 - v14);
-  v15 = swift_dynamicCast();
-  v16 = *(*(a1 - 8) + 56);
-  if (v15)
+  v8 = sub_29EB32938();
+  MEMORY[0x2A1C7C4A8](v8);
+  sub_29EB31858(v17 - v9);
+  v10 = swift_dynamicCast();
+  v11 = *(*(a1 - 8) + 56);
+  if (v10)
   {
-    v17 = *(a1 - 8);
-    v16(v10, 0, 1, a1);
-    return (*(v17 + 32))(a2, v10, a1);
+    v12 = *(a1 - 8);
+    v11(v7, 0, 1, a1);
+    return (*(v12 + 32))(a2, v7, a1);
   }
 
   else
   {
-    v16(v10, 1, 1, a1);
-    (*(v7 + 8))(v10, v6);
-    v22[0] = a1;
+    v11(v7, 1, 1, a1);
+    (*(v5 + 8))(v7, v4);
+    v17[0] = a1;
     swift_getMetatypeMetadata();
-    v19 = sub_29EB32918();
-    v21 = v20;
-    v22[0] = 0;
-    v22[1] = 0xE000000000000000;
+    v14 = sub_29EB32918();
+    v16 = v15;
+    v17[0] = 0;
+    v17[1] = 0xE000000000000000;
     sub_29EB32948();
     MEMORY[0x29EDA8370](0xD000000000000039, 0x800000029EB33470);
-    MEMORY[0x29EDA8370](v19, v21);
+    MEMORY[0x29EDA8370](v14, v16);
     MEMORY[0x29EDA8370](0xD000000000000048, 0x800000029EB334B0);
     result = sub_29EB32978();
     __break(1u);
@@ -1387,30 +1311,20 @@ uint64_t sub_29EB31BF0@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_29EB31EBC()
-{
-  v1 = *(v0 + 16);
-
-  return v0;
-}
-
 uint64_t sub_29EB31EDC()
 {
-  v1 = *(v0 + 16);
 
   return MEMORY[0x2A1C73398](v0, 24, 7);
 }
 
 uint64_t sub_29EB31F34(uint64_t a1)
 {
-  v2 = *(a1 + 16);
   result = swift_checkMetadataState();
   if (v4 <= 0x3F)
   {
-    v5 = *(a1 + 24);
-    type metadata accessor for OverridableProperty.Override();
+    type metadata accessor for OverridableProperty.Override(255, result, *(a1 + 24), v3);
     result = sub_29EB32938();
-    if (v6 <= 0x3F)
+    if (v5 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -1509,7 +1423,7 @@ uint64_t sub_29EB31FD0(_DWORD *a1, unsigned int a2, uint64_t a3)
 LABEL_28:
     if (v5 >= 0x7FFFFFFE)
     {
-      return (*(v4 + 48))();
+      return (*(v4 + 48))(a1);
     }
 
     v17 = *((a1 + v6 + 7) & 0xFFFFFFFFFFFFFFF8);
@@ -1700,7 +1614,7 @@ LABEL_36:
   return result;
 }
 
-uint64_t sub_29EB322F0()
+uint64_t sub_29EB322F0(uint64_t a1, uint64_t a2)
 {
   type metadata accessor for os_unfair_lock_s();
   sub_29EB32968();
@@ -1715,58 +1629,42 @@ uint64_t sub_29EB3236C@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   return (*(*(*(v4 + *MEMORY[0x29EDC9DE8]) - 8) + 16))(a2, v3);
 }
 
-uint64_t sub_29EB32404@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t objectdestroyTm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *(v2 + 16);
-  v4 = *(v2 + 24);
-  return sub_29EB31954(a1, a2);
-}
-
-uint64_t sub_29EB32424@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + 32);
-  v4 = *(v1 + 40);
-  v5 = type metadata accessor for OverridableProperty();
-  v6 = v1 + ((*(*(v5 - 8) + 80) + 48) & ~*(*(v5 - 8) + 80));
-  return sub_29EB310E4(v5, a1);
-}
-
-uint64_t objectdestroyTm()
-{
-  v2 = *(v0 + 4);
-  v1 = *(v0 + 5);
-  v3 = (type metadata accessor for OverridableProperty() - 8);
-  v4 = *(*v3 + 80);
-  v5 = (v4 + 48) & ~v4;
-  v6 = *(*v3 + 64);
-  v7 = *(v0 + 2);
+  v5 = *(v4 + 32);
+  v6 = *(type metadata accessor for OverridableProperty(0, v5, *(v4 + 40), a4) - 8);
+  v7 = *(v6 + 80);
+  v8 = (v7 + 48) & ~v7;
+  v9 = *(v6 + 64);
   swift_unknownObjectRelease();
-  (*(*(v2 - 8) + 8))(&v0[v5], v2);
-  v8 = *&v0[v5 + v3[11]];
+  (*(*(v5 - 8) + 8))(v4 + v8, v5);
 
-  return MEMORY[0x2A1C733A0](v0, v5 + v6, v4 | 7);
+  return MEMORY[0x2A1C733A0](v4, v8 + v9, v7 | 7);
 }
 
-uint64_t sub_29EB32584(uint64_t a1)
+uint64_t sub_29EB32584(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = v1[4];
-  v4 = v1[5];
-  v5 = *(*(type metadata accessor for OverridableProperty() - 8) + 80);
-  v6 = v1[2];
-  v7 = v1[3];
+  v6 = v4[4];
+  v7 = v4[5];
+  v8 = *(type metadata accessor for OverridableProperty(0, v6, v7, a4) - 8);
+  v9 = v4[2];
+  v10 = v4[3];
+  v11 = v4 + ((*(v8 + 80) + 48) & ~*(v8 + 80));
 
-  return sub_29EB31754(a1);
+  return sub_29EB31754(a1, v9, v10, v11, v6, v7);
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_29EB32660(__int128 *a1, uint64_t a2)
@@ -1791,9 +1689,7 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
 
 void sub_29EB326BC()
 {
-  v1 = v0[2];
-  v4 = *(*v0 + 80);
-  v5 = *(*v0 + 88);
+  v1 = *(v0 + 16);
   swift_getAssociatedTypeWitness();
   sub_29EB32938();
   v2 = *(*v1 + *MEMORY[0x29EDC9DE8] + 16);
@@ -1801,11 +1697,4 @@ void sub_29EB326BC()
   os_unfair_lock_lock((v1 + v3));
   sub_29EB327A8(v1 + v2);
   os_unfair_lock_unlock((v1 + v3));
-}
-
-uint64_t sub_29EB327A8(uint64_t a1)
-{
-  v2 = v1[2];
-  v3 = v1[3];
-  return sub_29EB319EC(a1, v1[4]);
 }

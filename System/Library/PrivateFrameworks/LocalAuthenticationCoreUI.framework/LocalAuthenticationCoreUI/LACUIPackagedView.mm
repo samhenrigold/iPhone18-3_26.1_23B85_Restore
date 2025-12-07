@@ -7,6 +7,7 @@
 - (void)_updateRootLayer;
 - (void)didMoveToWindow;
 - (void)layoutSubviews;
+- (void)setStateNamed:(id)named animated:(BOOL)animated completion:(id)completion;
 @end
 
 @implementation LACUIPackagedView
@@ -14,22 +15,22 @@
 - (LACUIPackagedView)initWithURL:(id)l error:(id *)error
 {
   lCopy = l;
-  v23.receiver = self;
-  v23.super_class = LACUIPackagedView;
-  v7 = [(LACUIPackagedView *)&v23 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v22.receiver = self;
+  v22.super_class = LACUIPackagedView;
+  v7 = [(LACUIPackagedView *)&v22 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   if (!v7)
   {
     goto LABEL_6;
   }
 
   v8 = *MEMORY[0x277CDA7F8];
-  v22 = 0;
-  v9 = [MEMORY[0x277CD9F28] packageWithContentsOfURL:lCopy type:v8 options:0 error:&v22];
-  v10 = v22;
+  v21 = 0;
+  v9 = [MEMORY[0x277CD9F28] packageWithContentsOfURL:lCopy type:v8 options:0 error:&v21];
+  v10 = v21;
   v11 = v10;
   if (error)
   {
-    v12 = v10;
+    v10 = v10;
     *error = v11;
   }
 
@@ -46,25 +47,35 @@
     layer2 = [(LACUIPackagedView *)v7 layer];
     [layer2 addSublayer:v7->_rootLayer];
 
-    v17 = [[LACUIPackagedViewStateController alloc] initWithLayer:v7->_rootLayer];
+    v16 = [[LACUIPackagedViewStateController alloc] initWithLayer:v7->_rootLayer];
     stateController = v7->_stateController;
-    v7->_stateController = v17;
+    v7->_stateController = v16;
 
 LABEL_6:
-    v19 = v7;
+    v18 = v7;
     goto LABEL_10;
   }
 
-  v20 = LA_LOG_LACUIPackagedView();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  v19 = LA_LOG_LACUIPackagedView(v10);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    [(LACUIPackagedView *)lCopy initWithURL:v11 error:v20];
+    [(LACUIPackagedView *)lCopy initWithURL:v11 error:v19];
   }
 
-  v19 = 0;
+  v18 = 0;
 LABEL_10:
 
-  return v19;
+  return v18;
+}
+
+- (void)setStateNamed:(id)named animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  namedCopy = named;
+  v10 = [[LACUIPackagedViewState alloc] initWithName:namedCopy];
+
+  [(LACUIPackagedView *)self setState:v10 animated:animatedCopy completion:completionCopy];
 }
 
 - (CGRect)convertRectFromSublayerCoordinates:(CGRect)coordinates
@@ -72,7 +83,7 @@ LABEL_10:
   rootLayer = self->_rootLayer;
   if (rootLayer)
   {
-    [(CALayer *)rootLayer transform:coordinates.origin.x];
+    objc_msgSend_transform(rootLayer, a2, coordinates.origin.x, coordinates.origin.y, coordinates.size.width, coordinates.size.height);
   }
 
   CA_CGRectApplyTransform();
@@ -88,7 +99,7 @@ LABEL_10:
   rootLayer = self->_rootLayer;
   if (rootLayer)
   {
-    [(CALayer *)rootLayer transform:coordinates.x];
+    objc_msgSend_transform(rootLayer, a2, coordinates.x, coordinates.y);
   }
 
   else
@@ -138,7 +149,7 @@ LABEL_10:
         if (animated)
         {
           objc_initWeak(location, self);
-          v12 = dispatch_time(0, 10000000);
+          v13 = dispatch_time(0, 10000000);
           v19[0] = MEMORY[0x277D85DD0];
           v19[1] = 3221225472;
           v19[2] = __62__LACUIPackagedView__setState_animated_allowRetry_completion___block_invoke;
@@ -147,51 +158,49 @@ LABEL_10:
           v20 = v9;
           stateCopy = state;
           v21 = retryCopy;
-          dispatch_after(v12, MEMORY[0x277D85CD0], v19);
+          dispatch_after(v13, MEMORY[0x277D85CD0], v19);
 
           objc_destroyWeak(&v22);
           objc_destroyWeak(location);
           goto LABEL_15;
         }
 
-        v15 = LA_LOG_LACUIPackagedView();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = LA_LOG_LACUIPackagedView(v12);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           *location = 138412546;
           *&location[4] = self;
           v25 = 2112;
           v26 = v9;
-          _os_log_error_impl(&dword_256063000, v15, OS_LOG_TYPE_ERROR, "%@ animated transition to '%@' state will be skipped because view is not rendered", location, 0x16u);
+          _os_log_error_impl(&dword_256063000, v16, OS_LOG_TYPE_ERROR, "%@ animated transition to '%@' state will be skipped because view is not rendered", location, 0x16u);
         }
       }
 
-      v14 = self[51];
+      v15 = self[51];
       window2 = [self window];
-      v13 = window2 != 0;
+      v14 = window2 != 0;
     }
 
     else
     {
-      v13 = 0;
-      v14 = self[51];
+      v14 = 0;
+      v15 = self[51];
     }
 
     if (retryCopy)
     {
-      v17 = retryCopy;
+      v18 = retryCopy;
     }
 
     else
     {
-      v17 = &__block_literal_global_12;
+      v18 = &__block_literal_global_12;
     }
 
-    [v14 setState:v9 animated:v13 completion:v17];
+    [v15 setState:v9 animated:v14 completion:v18];
   }
 
 LABEL_15:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateRootLayer
@@ -226,13 +235,12 @@ void __62__LACUIPackagedView__setState_animated_allowRetry_completion___block_in
 
 - (void)initWithURL:(os_log_t)log error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_256063000, log, OS_LOG_TYPE_ERROR, "Failed to load %{public}@: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_256063000, log, OS_LOG_TYPE_ERROR, "Failed to load %{public}@: %{public}@", &v3, 0x16u);
 }
 
 @end

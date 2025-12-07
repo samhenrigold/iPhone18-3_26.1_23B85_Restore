@@ -119,7 +119,7 @@ float CMMsl::FitnessMachineSample::FitnessMachineSample(uint64_t a1, uint64_t a2
   return result;
 }
 
-CMMsl *CMMsl::FitnessMachineSample::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::FitnessMachineSample::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -4486,7 +4486,7 @@ float CMMsl::FlickFeatures::FlickFeatures(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::FlickFeatures::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::FlickFeatures::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -7131,12 +7131,12 @@ void CMMsl::FlickGyroMaxima::~FlickGyroMaxima(CMMsl::FlickGyroMaxima *this)
   operator delete();
 }
 
-uint64_t CMMsl::FlickGyroMaxima::FlickGyroMaxima(uint64_t this, const CMMsl::FlickGyroMaxima *a2)
+CMMsl::FlickGyroMaxima *CMMsl::FlickGyroMaxima::FlickGyroMaxima(CMMsl::FlickGyroMaxima *this, const CMMsl::FlickMaxima **a2)
 {
   *this = off_10041E658;
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -7145,22 +7145,22 @@ uint64_t CMMsl::FlickGyroMaxima::FlickGyroMaxima(uint64_t this, const CMMsl::Fli
   {
     v2 = *(a2 + 4);
     *(this + 20) |= 1u;
-    *(this + 16) = v2;
+    *(this + 4) = v2;
   }
 
   return this;
 }
 
-const CMMsl::FlickGyroMaxima *CMMsl::FlickGyroMaxima::operator=(const CMMsl::FlickGyroMaxima *a1, const CMMsl::FlickGyroMaxima *a2)
+uint64_t CMMsl::FlickGyroMaxima::operator=(uint64_t a1, const CMMsl::FlickMaxima **a2)
 {
   if (a1 != a2)
   {
     CMMsl::FlickGyroMaxima::FlickGyroMaxima(v6, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v7;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v7;
     v7 = v3;
-    v4 = *(a1 + 2);
-    *(a1 + 2) = v8;
+    v4 = *(a1 + 16);
+    *(a1 + 16) = v8;
     v8 = v4;
     CMMsl::FlickGyroMaxima::~FlickGyroMaxima(v6);
   }
@@ -7654,9 +7654,9 @@ unint64_t CMMsl::FlickGyroMaxima::hash_value(CMMsl::FlickGyroMaxima *this)
   return v3 ^ v2;
 }
 
-uint64_t CMMsl::FlickGyroMaxima::makeSuper(uint64_t this)
+void *CMMsl::FlickGyroMaxima::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }

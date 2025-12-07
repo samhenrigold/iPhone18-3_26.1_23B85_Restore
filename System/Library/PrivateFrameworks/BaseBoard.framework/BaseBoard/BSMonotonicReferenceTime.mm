@@ -37,10 +37,10 @@
 + (double)_timeIntervalSinceInternalClockReference
 {
   objc_opt_self();
-  v1.tv_sec = 0;
-  v1.tv_nsec = 0;
-  clock_gettime(_CLOCK_MONOTONIC, &v1);
-  return v1.tv_sec + v1.tv_nsec * 0.000000001;
+  v2.tv_sec = 0;
+  v2.tv_nsec = 0;
+  clock_gettime(_CLOCK_MONOTONIC, &v2);
+  return v2.tv_sec + v2.tv_nsec * 0.000000001;
 }
 
 + (id)distantPast

@@ -127,11 +127,11 @@ LABEL_7:
 
 - (id)exportToLegacyDictionary
 {
-  timeRange = [(VCPProtoMovieUtteranceResult *)self timeRange];
-  v3 = timeRange;
-  if (timeRange)
+  v2 = objc_msgSend_timeRange(self, a2);
+  v3 = v2;
+  if (v2)
   {
-    [timeRange timeRangeValue];
+    objc_msgSend_timeRangeValue(v2);
   }
 
   else

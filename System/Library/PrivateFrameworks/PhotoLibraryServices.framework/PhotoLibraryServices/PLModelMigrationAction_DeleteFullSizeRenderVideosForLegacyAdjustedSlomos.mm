@@ -6,7 +6,7 @@
 
 - (int64_t)performActionWithManagedObjectContext:(id)context error:(id *)error
 {
-  v86[4] = *MEMORY[0x1E69E9840];
+  v88[4] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v7 = MEMORY[0x1E695D5E0];
   v8 = +[PLInternalResource entityName];
@@ -14,34 +14,34 @@
 
   v10 = MEMORY[0x1E696AB28];
   0xFFFFFFFFLL = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == %d", @"localAvailability", 0xFFFFFFFFLL];
-  v86[0] = 0xFFFFFFFFLL;
+  v88[0] = 0xFFFFFFFFLL;
   v12 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == %d", @"localAvailabilityTarget", 0];
-  v86[1] = v12;
+  v88[1] = v12;
   0x20000 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K == %d", @"recipeID", 0x20000];
-  v86[2] = 0x20000;
+  v88[2] = 0x20000;
   v14 = [MEMORY[0x1E696AE18] predicateWithFormat:@"noindex:(%K) == %d", @"cloudLocalState", 0];
-  v86[3] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v86 count:4];
+  v88[3] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v88 count:4];
   v16 = [v10 andPredicateWithSubpredicates:v15];
   [v9 setPredicate:v16];
 
   [v9 setFetchBatchSize:100];
-  v51 = 0;
-  v17 = [contextCopy executeFetchRequest:v9 error:&v51];
-  v18 = v51;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x2020000000;
-  v50 = 0;
+  v53 = 0;
+  v17 = [contextCopy executeFetchRequest:v9 error:&v53];
+  v18 = v53;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2020000000;
+  v52 = 0;
   if (v17)
   {
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __120__PLModelMigrationAction_DeleteFullSizeRenderVideosForLegacyAdjustedSlomos_performActionWithManagedObjectContext_error___block_invoke;
-    v44[3] = &unk_1E7569708;
-    v45 = contextCopy;
-    v46 = &v47;
-    v19 = [v45 enumerateWithIncrementalSaveUsingObjects:v17 withBlock:v44];
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __120__PLModelMigrationAction_DeleteFullSizeRenderVideosForLegacyAdjustedSlomos_performActionWithManagedObjectContext_error___block_invoke;
+    v46[3] = &unk_1E7569708;
+    v47 = contextCopy;
+    v48 = &v49;
+    v19 = [v47 enumerateWithIncrementalSaveUsingObjects:v17 withBlock:v46];
     v20 = PLMigrationGetLog();
     v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
 
@@ -52,18 +52,20 @@
 
       if (v23)
       {
-        v35 = PLMigrationGetLog();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v37 = PLMigrationGetLog();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
-          v36 = v48[3];
+          v38 = v50[3];
           *buf = 134217984;
-          *&buf[4] = v36;
-          _os_log_impl(&dword_19BF1F000, v35, OS_LOG_TYPE_DEFAULT, "Deleted %lu full size render video resources attached to legacy slomo assets", buf, 0xCu);
+          *&buf[4] = v38;
+          _os_log_impl(&dword_19BF1F000, v37, OS_LOG_TYPE_DEFAULT, "Deleted %lu full size render video resources attached to legacy slomo assets", buf, 0xCu);
         }
       }
 
       else
       {
+        v86 = 0u;
+        v87 = 0u;
         v84 = 0u;
         v85 = 0u;
         v82 = 0u;
@@ -92,24 +94,30 @@
         v61 = 0u;
         v58 = 0u;
         v59 = 0u;
-        v56 = 0u;
-        v57 = 0u;
         *buf = 0u;
-        v55 = 0u;
+        v57 = 0u;
         v24 = PLMigrationGetLog();
-        os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-        v25 = v48[3];
-        v52 = 134217984;
-        v53 = v25;
-        LODWORD(v43) = 12;
-        v26 = _os_log_send_and_compose_impl();
-
-        v27 = [(PLModelMigrationActionCore *)self logger:&v52];
-        [v27 logWithMessage:v26 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1747, 0}];
-
-        if (v26 != buf)
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          free(v26);
+          v25 = 3;
+        }
+
+        else
+        {
+          v25 = 2;
+        }
+
+        v26 = v50[3];
+        v54 = 134217984;
+        v55 = v26;
+        v27 = _os_log_send_and_compose_impl(v25, 0, buf, 512, &dword_19BF1F000, v24, 0, "Deleted %lu full size render video resources attached to legacy slomo assets", &v54);
+
+        logger2 = [(PLModelMigrationActionCore *)self logger];
+        [logger2 logWithMessage:v27 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1747, 0}];
+
+        if (v27 != buf)
+        {
+          free(v27);
         }
       }
     }
@@ -117,27 +125,29 @@
 
   else
   {
-    v28 = PLMigrationGetLog();
-    v29 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
+    v29 = PLMigrationGetLog();
+    v30 = os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
 
-    if (v29)
+    if (v30)
     {
-      logger2 = [(PLModelMigrationActionCore *)self logger];
-      v31 = logger2 == 0;
+      logger3 = [(PLModelMigrationActionCore *)self logger];
+      v32 = logger3 == 0;
 
-      if (v31)
+      if (v32)
       {
-        v42 = PLMigrationGetLog();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        v44 = PLMigrationGetLog();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
           *&buf[4] = v18;
-          _os_log_impl(&dword_19BF1F000, v42, OS_LOG_TYPE_ERROR, "Fetch request for non-local full size render video resources failed, error: %@", buf, 0xCu);
+          _os_log_impl(&dword_19BF1F000, v44, OS_LOG_TYPE_ERROR, "Fetch request for non-local full size render video resources failed, error: %@", buf, 0xCu);
         }
       }
 
       else
       {
+        v86 = 0u;
+        v87 = 0u;
         v84 = 0u;
         v85 = 0u;
         v82 = 0u;
@@ -166,49 +176,56 @@
         v61 = 0u;
         v58 = 0u;
         v59 = 0u;
-        v56 = 0u;
-        v57 = 0u;
         *buf = 0u;
-        v55 = 0u;
-        v32 = PLMigrationGetLog();
-        os_log_type_enabled(v32, OS_LOG_TYPE_ERROR);
-        v52 = 138412290;
-        v53 = v18;
-        LODWORD(v43) = 12;
-        v33 = _os_log_send_and_compose_impl();
-
-        v34 = [(PLModelMigrationActionCore *)self logger:&v52];
-        [v34 logWithMessage:v33 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1749, 16}];
-
-        if (v33 != buf)
+        v57 = 0u;
+        v33 = PLMigrationGetLog();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          free(v33);
+          v34 = 3;
+        }
+
+        else
+        {
+          v34 = 2;
+        }
+
+        v54 = 138412290;
+        v55 = v18;
+        LODWORD(v45) = 12;
+        v35 = _os_log_send_and_compose_impl(v34, 0, buf, 512, &dword_19BF1F000, v33, 16, "Fetch request for non-local full size render video resources failed, error: %@", &v54, v45);
+
+        logger4 = [(PLModelMigrationActionCore *)self logger];
+        [logger4 logWithMessage:v35 fromCodeLocation:"PLModelMigrationActions_19000.m" type:{1749, 16}];
+
+        if (v35 != buf)
+        {
+          free(v35);
         }
       }
     }
   }
 
   [(PLModelMigrationActionCore *)self finalizeProgress];
-  v37 = v18;
-  v38 = v37;
+  v39 = v18;
+  v40 = v39;
   if (v17)
   {
-    v39 = 1;
+    v41 = 1;
   }
 
   else
   {
     if (error)
     {
-      v40 = v37;
-      *error = v38;
+      v42 = v39;
+      *error = v40;
     }
 
-    v39 = 3;
+    v41 = 3;
   }
 
-  _Block_object_dispose(&v47, 8);
-  return v39;
+  _Block_object_dispose(&v49, 8);
+  return v41;
 }
 
 @end

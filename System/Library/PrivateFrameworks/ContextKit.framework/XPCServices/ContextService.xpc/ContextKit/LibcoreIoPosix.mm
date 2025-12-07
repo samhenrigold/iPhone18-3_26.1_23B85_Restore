@@ -16,6 +16,8 @@
 - (id)getsockoptTimevalWithJavaIoFileDescriptor:(id)descriptor withInt:(int)int withInt:(int)withInt;
 - (id)if_indextonameWithInt:(int)int;
 - (id)inet_ptonWithInt:(int)int withNSString:(id)string;
+- (id)ioctlInetAddressWithJavaIoFileDescriptor:(id)descriptor withInt:(int)int withNSString:(id)string;
+- (id)openWithNSString:(id)string withInt:(int)int withInt:(int)withInt;
 - (id)pipe;
 - (id)realpathWithNSString:(id)string;
 - (id)socketWithInt:(int)int withInt:(int)withInt withInt:(int)a5;
@@ -532,112 +534,112 @@ LABEL_8:
   {
     v5 = *(addrinfo + 3);
     v6 = *(addrinfo + 4);
-    v28.ai_flags = *(addrinfo + 2);
-    v28.ai_family = v5;
+    v29.ai_flags = *(addrinfo + 2);
+    v29.ai_family = v5;
     v7 = *(addrinfo + 5);
-    memset(&v28.ai_addrlen, 0, 32);
-    v28.ai_socktype = v6;
-    v28.ai_protocol = v7;
-    v27 = 0;
+    memset(&v29.ai_addrlen, 0, 32);
+    v29.ai_socktype = v6;
+    v29.ai_protocol = v7;
+    v28 = 0;
     *__error() = 0;
-    v8 = getaddrinfo([(IOSObjectArray *)stringCopy UTF8String], 0, &v28, &v27);
+    v8 = getaddrinfo([(IOSObjectArray *)stringCopy UTF8String], 0, &v29, &v28);
     if (v8)
     {
       objc_exception_throw([[LibcoreIoGaiException alloc] initWithNSString:@"getaddrinfo" withInt:v8]);
     }
 
-    v9 = v27;
-    if (!v27)
+    v10 = v28;
+    if (!v28)
     {
       goto LABEL_24;
     }
 
-    v10 = 0;
+    v11 = 0;
     do
     {
-      ai_family = v9->ai_family;
+      ai_family = v10->ai_family;
       if (ai_family == 30 || ai_family == 2)
       {
-        ++v10;
+        ++v11;
       }
 
       else
       {
-        JavaLangSystem_logEWithNSString_([NSString stringWithFormat:@"getaddrinfo unexpected ai_family %i", v9->ai_family]);
+        v8 = JavaLangSystem_logEWithNSString_([NSString stringWithFormat:@"getaddrinfo unexpected ai_family %i", v10->ai_family]);
       }
 
-      v9 = v9->ai_next;
+      v10 = v10->ai_next;
     }
 
-    while (v9);
-    if (v10)
+    while (v10);
+    if (v11)
     {
-      stringCopy = [IOSObjectArray arrayWithLength:v10 type:JavaNetInetAddress_class_()];
-      v13 = v27;
-      if (v27)
+      stringCopy = [IOSObjectArray arrayWithLength:v11 type:JavaNetInetAddress_class_(v8, v9)];
+      v14 = v28;
+      if (v28)
       {
-        v14 = 0;
+        v15 = 0;
         do
         {
-          v15 = v13->ai_family;
-          if (v15 == 2 || v15 == 30)
+          v16 = v14->ai_family;
+          if (v16 == 2 || v16 == 30)
           {
-            v35 = 0;
             v36 = 0;
-            v34 = 0;
-            v32 = 0;
+            v37 = 0;
+            v35 = 0;
             v33 = 0;
-            v30 = 0;
+            v34 = 0;
             v31 = 0;
-            v29 = 0;
-            ai_addr = v13->ai_addr;
-            v19 = *ai_addr;
-            v18 = ai_addr[1];
-            v20 = ai_addr[3];
-            v31 = ai_addr[2];
-            v21 = ai_addr[4];
-            v22 = ai_addr[5];
-            v23 = ai_addr[7];
-            v35 = ai_addr[6];
-            v36 = v23;
-            v34 = v22;
-            v29 = v19;
-            v30 = v18;
-            v32 = v20;
+            v32 = 0;
+            v30 = 0;
+            ai_addr = v14->ai_addr;
+            v20 = *ai_addr;
+            v19 = ai_addr[1];
+            v21 = ai_addr[3];
+            v32 = ai_addr[2];
+            v22 = ai_addr[4];
+            v23 = ai_addr[5];
+            v24 = ai_addr[7];
+            v36 = ai_addr[6];
+            v37 = v24;
+            v35 = v23;
+            v30 = v20;
+            v31 = v19;
             v33 = v21;
-            v24 = sockaddrToInetAddress(&v29, 0);
-            if (!v24)
+            v34 = v22;
+            v25 = sockaddrToInetAddress(&v30, 0);
+            if (!v25)
             {
               goto LABEL_24;
             }
 
-            [(IOSObjectArray *)stringCopy replaceObjectAtIndex:v14++ withObject:v24];
+            [(IOSObjectArray *)stringCopy replaceObjectAtIndex:v15++ withObject:v25];
           }
 
           else
           {
-            JavaLangSystem_logEWithNSString_([NSString stringWithFormat:@"getaddrinfo unexpected ai_family %i", v13->ai_family]);
+            JavaLangSystem_logEWithNSString_([NSString stringWithFormat:@"getaddrinfo unexpected ai_family %i", v14->ai_family]);
           }
 
-          v13 = v13->ai_next;
+          v14 = v14->ai_next;
         }
 
-        while (v13);
-        v25 = v27;
+        while (v14);
+        v26 = v28;
       }
 
       else
       {
-        v25 = 0;
+        v26 = 0;
       }
 
-      freeaddrinfo(v25);
+      freeaddrinfo(v26);
     }
 
     else
     {
 LABEL_24:
-      freeaddrinfo(v27);
+      freeaddrinfo(v28);
       return 0;
     }
   }
@@ -812,6 +814,88 @@ LABEL_24:
   return sockaddrToInetAddress(v6, 0);
 }
 
+- (id)ioctlInetAddressWithJavaIoFileDescriptor:(id)descriptor withInt:(int)int withNSString:(id)string
+{
+  if (string)
+  {
+    v6 = *&int;
+    v21[0] = 0;
+    v21[1] = 0;
+    strncpy(__dst, [string UTF8String], 0x10uLL);
+    __dst[15] = 0;
+    while (1)
+    {
+      v8 = ioctl([descriptor getInt$], v6, __dst);
+      if (v8 != -1)
+      {
+        break;
+      }
+
+      if (*__error() != 4)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    if (!v8)
+    {
+      return sockaddrToInetAddress(v21, 0);
+    }
+
+LABEL_8:
+    v10 = *__error();
+    string = [NSString stringWithFormat:@"ioctl (%d, %@)", v6, string];
+    if (v10 != 45 && v10 != 102)
+    {
+      goto LABEL_22;
+    }
+
+    v19 = 0;
+    if (getifaddrs(&v19))
+    {
+      v13 = v19;
+    }
+
+    else
+    {
+      uTF8String = [string UTF8String];
+      v13 = v19;
+      if (v19)
+      {
+        v14 = uTF8String;
+        v15 = 0;
+        v16 = v19;
+        do
+        {
+          ifa_addr = v16->ifa_addr;
+          if (ifa_addr->sa_family == 2 && !strcmp(v16->ifa_name, v14))
+          {
+            v15 = &ifa_addr->sa_data[2];
+          }
+
+          v16 = v16->ifa_next;
+        }
+
+        while (v16);
+        freeifaddrs(v13);
+        if (v15)
+        {
+          return JavaNetInetAddress_getByAddressWithNSString_withByteArray_withInt_(0, [IOSByteArray arrayWithBytes:v15 count:4], 0);
+        }
+
+LABEL_22:
+        v18 = new_LibcoreIoErrnoException_initWithNSString_withInt_(string, v10);
+        objc_exception_throw(v18);
+      }
+    }
+
+    freeifaddrs(v13);
+    goto LABEL_22;
+  }
+
+  return 0;
+}
+
 - (int)ioctlIntWithJavaIoFileDescriptor:(id)descriptor withInt:(int)int withLibcoreUtilMutableInt:(id)mutableInt
 {
   v10 = *(mutableInt + 2);
@@ -964,6 +1048,36 @@ LABEL_24:
       sub_1001FB6D0(@"munmap", *v6);
     }
   }
+}
+
+- (id)openWithNSString:(id)string withInt:(int)int withInt:(int)withInt
+{
+  if (!string)
+  {
+    return 0;
+  }
+
+  v5 = *&withInt;
+  v7 = absolutePath(string);
+  while (1)
+  {
+    v8 = open(v7, int, v5);
+    if (v8 != -1)
+    {
+      break;
+    }
+
+    if (*__error() != 4)
+    {
+      v9 = __error();
+      sub_1001FB6D0(@"open", *v9);
+    }
+  }
+
+  v10 = v8;
+  v11 = objc_alloc_init(JavaIoFileDescriptor);
+  [(JavaIoFileDescriptor *)v11 setInt$WithInt:v10];
+  return v11;
 }
 
 - (id)pipe

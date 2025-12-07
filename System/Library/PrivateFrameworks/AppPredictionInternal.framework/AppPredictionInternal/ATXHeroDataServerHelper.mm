@@ -10,7 +10,7 @@
 
 + (id)bundleIdForPrediction:(id)prediction
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   predictionCopy = prediction;
   bundleId = [predictionCopy bundleId];
   v5 = *MEMORY[0x277D131F8];
@@ -34,12 +34,12 @@ LABEL_5:
   v10 = [MEMORY[0x277CEB3B8] bundleIdForAdamIdIfInstalled:{objc_msgSend(predictionCopy, "adamId")}];
   if (!v10)
   {
-    v13 = __atxlog_handle_hero();
+    v13 = __atxlog_handle_hero(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       bundleId3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(predictionCopy, "adamId")}];
-      v18 = 138412290;
-      v19 = bundleId3;
+      v17 = 138412290;
+      v18 = bundleId3;
       v15 = "Adam id: %@ is not installed or is restricted.";
       goto LABEL_12;
     }
@@ -54,15 +54,15 @@ LABEL_13:
   v12 = v10;
   if (v11)
   {
-    v13 = __atxlog_handle_hero();
+    v13 = __atxlog_handle_hero(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       bundleId3 = [predictionCopy bundleId];
-      v18 = 138412290;
-      v19 = bundleId3;
+      v17 = 138412290;
+      v18 = bundleId3;
       v15 = "App clip predicted as a Hero App. Ignoring. BundleId: %@";
 LABEL_12:
-      _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_INFO, v15, &v18, 0xCu);
+      _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_INFO, v15, &v17, 0xCu);
 
       goto LABEL_13;
     }
@@ -74,7 +74,6 @@ LABEL_14:
   v9 = v12;
 
 LABEL_15:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -131,17 +130,17 @@ LABEL_15:
 
 + (BOOL)canPredictClipsGivenRecentMotion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = +[_ATXGlobals sharedInstance];
   disableLocationQualityChecksForHeroApp = [v2 disableLocationQualityChecksForHeroApp];
 
   if (disableLocationQualityChecksForHeroApp)
   {
-    v4 = __atxlog_handle_hero();
-    if (os_log_type_enabled(&v4->super, OS_LOG_TYPE_DEFAULT))
+    v5 = __atxlog_handle_hero(v4);
+    if (os_log_type_enabled(&v5->super, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_2263AA000, &v4->super, OS_LOG_TYPE_DEFAULT, "Not filtering by motion because testing mode is enabled", &v13, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_2263AA000, &v5->super, OS_LOG_TYPE_DEFAULT, "Not filtering by motion because testing mode is enabled", &v14, 2u);
     }
 
     LOBYTE(canPredictClipsGivenRecentMotion) = 1;
@@ -149,26 +148,26 @@ LABEL_15:
 
   else
   {
-    v4 = objc_alloc_init(ATXPredictionContextBuilder);
-    predictionContextForCurrentContext = [(ATXPredictionContextBuilder *)v4 predictionContextForCurrentContext];
-    v7 = predictionContextForCurrentContext;
+    v5 = objc_alloc_init(ATXPredictionContextBuilder);
+    predictionContextForCurrentContext = [(ATXPredictionContextBuilder *)v5 predictionContextForCurrentContext];
+    v8 = predictionContextForCurrentContext;
     if (predictionContextForCurrentContext)
     {
       locationMotionContext = [predictionContextForCurrentContext locationMotionContext];
       canPredictClipsGivenRecentMotion = [locationMotionContext canPredictClipsGivenRecentMotion];
 
-      v9 = __atxlog_handle_hero();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = __atxlog_handle_hero(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = @"NO";
+        v12 = @"NO";
         if (canPredictClipsGivenRecentMotion)
         {
-          v10 = @"YES";
+          v12 = @"YES";
         }
 
-        v13 = 138412290;
-        v14 = v10;
-        _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Are clips eligible according to motion: %@", &v13, 0xCu);
+        v14 = 138412290;
+        v15 = v12;
+        _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "Are clips eligible according to motion: %@", &v14, 0xCu);
       }
     }
 
@@ -178,7 +177,6 @@ LABEL_15:
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return canPredictClipsGivenRecentMotion;
 }
 
@@ -186,7 +184,7 @@ LABEL_15:
 {
   distanceCopy = distance;
   locationCopy = location;
-  v7 = __atxlog_handle_hero();
+  v7 = __atxlog_handle_hero(locationCopy);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (locationCopy)
   {

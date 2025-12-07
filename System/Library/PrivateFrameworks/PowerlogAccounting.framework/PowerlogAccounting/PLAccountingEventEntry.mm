@@ -134,18 +134,14 @@ void __35__PLAccountingEventEntry_setRange___block_invoke(uint64_t a1)
     [*(a1 + 40) setObject:v6 forKeyedSubscript:@"StartOffset"];
   }
 
-  if (*(a1 + 48))
+  if (*(a1 + 48) && [objc_opt_class() classDirectionality] != 4)
   {
-    v7 = *(a1 + 40);
-    if ([objc_opt_class() classDirectionality] != 4)
-    {
-      v8 = MEMORY[0x277CCABB0];
-      v9 = *(a1 + 48);
-      v12 = [*(a1 + 40) entryDate];
-      [v9 timeIntervalSinceDate:v12];
-      v11 = [v8 numberWithDouble:v10 * 1000.0];
-      [*(a1 + 40) setObject:v11 forKeyedSubscript:@"EndOffset"];
-    }
+    v7 = MEMORY[0x277CCABB0];
+    v8 = *(a1 + 48);
+    v11 = [*(a1 + 40) entryDate];
+    [v8 timeIntervalSinceDate:v11];
+    v10 = [v7 numberWithDouble:v9 * 1000.0];
+    [*(a1 + 40) setObject:v10 forKeyedSubscript:@"EndOffset"];
   }
 }
 
@@ -362,35 +358,35 @@ LABEL_35:
   return v43;
 }
 
-uint64_t __42__PLAccountingEventEntry_rangeSinceEvent___block_invoke(uint64_t a1)
+void *__42__PLAccountingEventEntry_rangeSinceEvent___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   rangeSinceEvent__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __42__PLAccountingEventEntry_rangeSinceEvent___block_invoke_25(uint64_t a1)
+void *__42__PLAccountingEventEntry_rangeSinceEvent___block_invoke_25(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   rangeSinceEvent__classDebugEnabled_24 = result;
   return result;
 }
 
-uint64_t __42__PLAccountingEventEntry_rangeSinceEvent___block_invoke_31(uint64_t a1)
+void *__42__PLAccountingEventEntry_rangeSinceEvent___block_invoke_31(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   rangeSinceEvent__classDebugEnabled_30 = result;
   return result;
 }
 
-uint64_t __42__PLAccountingEventEntry_rangeSinceEvent___block_invoke_37(uint64_t a1)
+void *__42__PLAccountingEventEntry_rangeSinceEvent___block_invoke_37(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   rangeSinceEvent__classDebugEnabled_36 = result;
   return result;
 }
 
-uint64_t __42__PLAccountingEventEntry_rangeSinceEvent___block_invoke_43(uint64_t a1)
+void *__42__PLAccountingEventEntry_rangeSinceEvent___block_invoke_43(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   rangeSinceEvent__classDebugEnabled_42 = result;
@@ -558,28 +554,28 @@ LABEL_35:
   }
 }
 
-uint64_t __41__PLAccountingEventEntry_mergeWithEvent___block_invoke(uint64_t a1)
+void *__41__PLAccountingEventEntry_mergeWithEvent___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   mergeWithEvent__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __41__PLAccountingEventEntry_mergeWithEvent___block_invoke_49(uint64_t a1)
+void *__41__PLAccountingEventEntry_mergeWithEvent___block_invoke_49(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   mergeWithEvent__classDebugEnabled_48 = result;
   return result;
 }
 
-uint64_t __41__PLAccountingEventEntry_mergeWithEvent___block_invoke_52(uint64_t a1)
+void *__41__PLAccountingEventEntry_mergeWithEvent___block_invoke_52(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   mergeWithEvent__classDebugEnabled_51 = result;
   return result;
 }
 
-uint64_t __41__PLAccountingEventEntry_mergeWithEvent___block_invoke_55(uint64_t a1)
+void *__41__PLAccountingEventEntry_mergeWithEvent___block_invoke_55(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   mergeWithEvent__classDebugEnabled_54 = result;

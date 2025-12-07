@@ -17,23 +17,23 @@ void ___AXSShouldLoadInvertBundles_block_invoke()
     {
       v0 = CFPreferencesCopyValue(@"AXSSystemUIProcessAppSmartInvertEnabledPreference", kAXSAccessibilityPreferenceDomain, *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        _kAXSystemUIProcessShouldLoadInvertBundles = [v0 BOOLValue];
+        isKindOfClass = [v0 BOOLValue];
+        _kAXSystemUIProcessShouldLoadInvertBundles = isKindOfClass;
       }
 
-      v1 = AXLogInvertColorsLoadBundles();
-      if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+      v2 = AXLogInvertColorsLoadBundles(isKindOfClass);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
-        v2 = [MEMORY[0x1E696AD98] numberWithBool:_kAXSystemUIProcessShouldLoadInvertBundles];
+        v3 = [MEMORY[0x1E696AD98] numberWithBool:_kAXSystemUIProcessShouldLoadInvertBundles];
         v4 = 138412290;
-        v5 = v2;
-        _os_log_impl(&dword_186307000, v1, OS_LOG_TYPE_DEFAULT, "SystemUIProcessShouldLoadInvertBundles: %@", &v4, 0xCu);
+        v5 = v3;
+        _os_log_impl(&dword_186307000, v2, OS_LOG_TYPE_DEFAULT, "SystemUIProcessShouldLoadInvertBundles: %@", &v4, 0xCu);
       }
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 @end

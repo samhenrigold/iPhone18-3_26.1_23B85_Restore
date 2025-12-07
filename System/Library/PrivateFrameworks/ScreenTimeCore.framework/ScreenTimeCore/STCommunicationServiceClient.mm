@@ -123,7 +123,7 @@ void __103__STCommunicationServiceClient_authenticateForCommunicationConfigurati
 
 - (id)currentConfigurationWithError:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = +[STLog communicationClient];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -132,55 +132,53 @@ void __103__STCommunicationServiceClient_authenticateForCommunicationConfigurati
   }
 
   *buf = 0;
-  v23 = buf;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__13;
-  v26 = __Block_byref_object_dispose__13;
-  v27 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__13;
-  v20 = __Block_byref_object_dispose__13;
-  v21 = 0;
+  v22 = buf;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__13;
+  v25 = __Block_byref_object_dispose__13;
+  v26 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__13;
+  v19 = __Block_byref_object_dispose__13;
+  v20 = 0;
   connection = [(STCommunicationServiceClient *)self connection];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __62__STCommunicationServiceClient_currentConfigurationWithError___block_invoke;
-  v15[3] = &unk_1E7CE6BA8;
-  v15[4] = buf;
-  v7 = [connection synchronousRemoteObjectProxyWithErrorHandler:v15];
-
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
-  v14[2] = __62__STCommunicationServiceClient_currentConfigurationWithError___block_invoke_2;
-  v14[3] = &unk_1E7CE7150;
-  v14[4] = &v16;
-  v14[5] = buf;
-  [v7 currentCommunicationConfigurationWithCompletionHandler:v14];
+  v14[2] = __62__STCommunicationServiceClient_currentConfigurationWithError___block_invoke;
+  v14[3] = &unk_1E7CE6BA8;
+  v14[4] = buf;
+  v7 = [connection synchronousRemoteObjectProxyWithErrorHandler:v14];
+
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __62__STCommunicationServiceClient_currentConfigurationWithError___block_invoke_2;
+  v13[3] = &unk_1E7CE7150;
+  v13[4] = &v15;
+  v13[5] = buf;
+  [v7 currentCommunicationConfigurationWithCompletionHandler:v13];
   v8 = +[STLog communicationClient];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = v17[5];
-    v10 = *(v23 + 5);
-    *v28 = 138543618;
-    v29 = v9;
-    v30 = 2114;
-    v31 = v10;
-    _os_log_impl(&dword_1B831F000, v8, OS_LOG_TYPE_DEFAULT, "Got current communication configuration: %{public}@ - Error: %{public}@", v28, 0x16u);
+    v9 = v16[5];
+    v10 = *(v22 + 5);
+    *v27 = 138543618;
+    v28 = v9;
+    v29 = 2114;
+    v30 = v10;
+    _os_log_impl(&dword_1B831F000, v8, OS_LOG_TYPE_DEFAULT, "Got current communication configuration: %{public}@ - Error: %{public}@", v27, 0x16u);
   }
 
   if (error)
   {
-    *error = *(v23 + 5);
+    *error = *(v22 + 5);
   }
 
-  v11 = v17[5];
+  v11 = v16[5];
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
   _Block_object_dispose(buf, 8);
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -212,7 +210,7 @@ void __62__STCommunicationServiceClient_currentConfigurationWithError___block_in
     {
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 0;
+        v14[0] = 0;
         _os_log_impl(&dword_1B831F000, v10, OS_LOG_TYPE_DEFAULT, "Resolving pending completion with authentication result", v14, 2u);
       }
 
@@ -311,12 +309,11 @@ void __67__STCommunicationServiceClient_listener_shouldAcceptNewConnection___blo
 
 - (void)authenticateForCommunicationConfigurationOverrideWithCompletionHandler:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*a1 + 40);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to authenticate for communication configuration override: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to authenticate for communication configuration override: %{public}@", &v3, 0xCu);
 }
 
 @end

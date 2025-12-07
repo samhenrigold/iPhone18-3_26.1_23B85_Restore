@@ -22,6 +22,7 @@
 - (void)releaseCriticalSectionLock;
 - (void)stepComplete:(int)complete stateMachine:(id)machine status:(BOOL)status error:(id)error info:(id)info;
 - (void)stepProgress:(int)progress stateMachine:(id)machine progress:(double)a5 overallProgress:(double)overallProgress;
+- (void)stepWillBegin:(int)begin stateMachine:(id)machine;
 @end
 
 @implementation AUDStateMachineManager
@@ -898,6 +899,29 @@ LABEL_90:
   }
 }
 
+- (void)stepWillBegin:(int)begin stateMachine:(id)machine
+{
+  v4 = *&begin;
+  machineCopy = machine;
+  if ([(AUDStateMachineManager *)self shouldBlockCriticalSectionDuringStep:v4])
+  {
+    [(AUDStateMachineManager *)self aquireCriticalSectionLock];
+  }
+
+  if (self->_isActive)
+  {
+    workQueue = self->_workQueue;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10000FA04;
+    block[3] = &unk_100081578;
+    v10 = v4;
+    block[4] = self;
+    v9 = machineCopy;
+    dispatch_sync(workQueue, block);
+  }
+}
+
 - (void)addCommandToQueue:(id)queue withFilter:(id)filter stateMachine:(id)machine
 {
   queueCopy = queue;
@@ -1024,7 +1048,7 @@ LABEL_23:
 
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
-    sub_10004A394(&self->_queuedEvents);
+    sub_10004A394();
   }
 }
 

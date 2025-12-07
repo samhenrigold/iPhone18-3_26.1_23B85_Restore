@@ -1310,7 +1310,7 @@ LABEL_22:
   return v4;
 }
 
-uint64_t __63__MKTransitDeparturesDataProvider_indexOfFirstSectionWithType___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__63__MKTransitDeparturesDataProvider_indexOfFirstSectionWithType___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 integerValue];
   if (result == *(a1 + 40))

@@ -30,15 +30,14 @@
 
 - (unint64_t)accessibilityTraits
 {
-  v8.receiver = self;
-  v8.super_class = _CNAtomFieldEditorAccessibility;
-  [(_CNAtomFieldEditorAccessibility *)&v8 accessibilityTraits];
-  v3 = *MEMORY[0x29EDBDC00];
-  v4 = _AXTraitsRemoveTrait();
+  v7.receiver = self;
+  v7.super_class = _CNAtomFieldEditorAccessibility;
+  [(_CNAtomFieldEditorAccessibility *)&v7 accessibilityTraits];
+  v3 = _AXTraitsRemoveTrait();
   _axAtomTextViewAncestor = [(_CNAtomFieldEditorAccessibility *)self _axAtomTextViewAncestor];
   accessibilityTraits = [_axAtomTextViewAncestor accessibilityTraits];
 
-  return accessibilityTraits | v4;
+  return accessibilityTraits | v3;
 }
 
 - (id)accessibilityPlaceholderValue

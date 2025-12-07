@@ -28,34 +28,33 @@
 
 + (tvec3<float>)adjustedScaleForInfoChartScale:(void *)scale chartType:(id)type barShape:(int)shape
 {
-  v6 = *&shape;
-  v8 = v5;
+  v7 = v5;
   typeCopy = type;
   if (!typeCopy)
   {
-    v14 = MEMORY[0x277D81150];
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v11, v12, v13, "+[TSCH3DChartType adjustedScaleForInfoChartScale:chartType:barShape:]");
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartType.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v21, v22, v23, v24, v15, v20, 1246, 0, "invalid nil value for '%{public}s'", "chartType");
+    v13 = MEMORY[0x277D81150];
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v10, v11, v12, "+[TSCH3DChartType adjustedScaleForInfoChartScale:chartType:barShape:]");
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartType.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v20, v21, v22, v23, v14, v19, 1246, 0, "invalid nil value for '%{public}s'", "chartType");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27, v28);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26, v27);
   }
 
-  *v8 = *scale;
-  *(v8 + 8) = *(scale + 2);
+  *v7 = *scale;
+  *(v7 + 8) = *(scale + 2);
   objc_opt_class();
-  v29 = TSUDynamicCast();
-  v34 = v29;
-  if (v29)
+  v28 = TSUDynamicCast();
+  v32 = v28;
+  if (v28)
   {
-    objc_msgSend_adjustedScaleForInfoChartScale_barShape_(v29, v30, v31, v32, v33, scale, v6);
-    *v8 = v37;
-    *(v8 + 8) = v38;
+    objc_msgSend_adjustedScaleForInfoChartScale_barShape_(v28, v29, v30, v31);
+    *v7 = v35;
+    *(v7 + 8) = v36;
   }
 
-  result.var0 = v35;
-  result.var1 = *(&v35 + 4);
-  result.var2 = v36;
+  result.var0 = v33;
+  result.var1 = *(&v33 + 4);
+  result.var2 = v34;
   return result;
 }
 

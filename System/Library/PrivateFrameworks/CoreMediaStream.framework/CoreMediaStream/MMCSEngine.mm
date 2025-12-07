@@ -9,8 +9,10 @@
 - (id)_assetWithItemID:(unint64_t)d;
 - (unint64_t)_nextItemID;
 - (void)_getItemDoneItemID:(unint64_t)d path:(id)path requestorContext:(id)context error:(id)error;
+- (void)_getItemProgressItemID:(unint64_t)d state:(int)state progress:(double)progress requestorContext:(id)context error:(id)error;
 - (void)_initItemIDPersistence;
 - (void)_putItemDoneItemID:(unint64_t)d requestorContext:(id)context putReceipt:(id)receipt error:(id)error;
+- (void)_putItemProgressItemID:(unint64_t)d state:(int)state progress:(double)progress requestorContext:(id)context error:(id)error;
 - (void)_registerAsset:(id)asset;
 - (void)_registerRequestorContext:(id)context;
 - (void)_removeAssetForItemID:(unint64_t)d;
@@ -19,6 +21,7 @@
 - (void)cancelAllOperations;
 - (void)cancelOperationsWithContext:(id)context;
 - (void)getAssets:(id)assets requestURL:(id)l DSID:(id)d options:(id)options;
+- (void)performBlockOnWorkThread:(id)thread waitUntilDone:(BOOL)done;
 - (void)putAssets:(id)assets requestURL:(id)l DSID:(id)d options:(id)options;
 - (void)registerAssetForUpload:(id)upload completionBlock:(id)block;
 - (void)registerAssets:(id)assets forDownloadCompletionBlock:(id)block;
@@ -84,9 +87,7 @@ uint64_t __25__MMCSEngine__nextItemID__block_invoke(uint64_t a1)
     autoItemIDPersistenceURL = self->_autoItemIDPersistenceURL;
     self->_autoItemIDPersistenceURL = v4;
 
-    v6 = [MEMORY[0x277CBEB38] dictionaryWithContentsOfURL:self->_autoItemIDPersistenceURL];
-    autoItemIDDictionary = self->_autoItemIDDictionary;
-    self->_autoItemIDDictionary = v6;
+    self->_autoItemIDDictionary = [MEMORY[0x277CBEB38] dictionaryWithContentsOfURL:self->_autoItemIDPersistenceURL];
 
     MEMORY[0x2821F96F8]();
   }
@@ -188,7 +189,7 @@ void __31__MMCSEngine__assetWithItemID___block_invoke(void *a1)
 
 void __29__MMCSEngine__registerAsset___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(*(a1 + 32), "MMCSItemID")}];
   v3 = [*(*(a1 + 40) + 112) objectForKey:v2];
   v4 = v3;
@@ -196,12 +197,12 @@ void __29__MMCSEngine__registerAsset___block_invoke(uint64_t a1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = 138543618;
-      v15 = v13;
-      v16 = 2114;
-      v17 = v4;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Attempting to register two different assets under the same MMCS ID. Rejecting.\nNew asset: %{public}@\nOld asset: %{public}@", &v14, 0x16u);
+      v12 = *(a1 + 32);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2114;
+      v16 = v4;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Attempting to register two different assets under the same MMCS ID. Rejecting.\nNew asset: %{public}@\nOld asset: %{public}@", &v13, 0x16u);
     }
   }
 
@@ -213,8 +214,6 @@ void __29__MMCSEngine__registerAsset___block_invoke(uint64_t a1)
     v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "MMCSItemID")}];
     [v10 setObject:v8 forKey:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)putAssets:(id)assets requestURL:(id)l DSID:(id)d options:(id)options
@@ -241,7 +240,7 @@ void __29__MMCSEngine__registerAsset___block_invoke(uint64_t a1)
 
 void __48__MMCSEngine_putAssets_requestURL_DSID_options___block_invoke(uint64_t a1)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) count];
   v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
   if (v2)
@@ -249,28 +248,28 @@ void __48__MMCSEngine_putAssets_requestURL_DSID_options___block_invoke(uint64_t 
     if (v3)
     {
       *buf = 134217984;
-      v45 = v2;
+      v40 = v2;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Begin putting %lu assets.", buf, 0xCu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v32 = *(a1 + 32);
-      v33 = *(a1 + 48);
-      v34 = *(a1 + 56);
-      v35 = *(a1 + 64);
+      v27 = *(a1 + 32);
+      v28 = *(a1 + 48);
+      v29 = *(a1 + 56);
+      v30 = *(a1 + 64);
       *buf = 138544130;
-      v45 = v32;
-      v46 = 2114;
-      v47 = v33;
-      v48 = 2112;
-      v49 = v34;
-      v50 = 2114;
-      v51 = v35;
+      v40 = v27;
+      v41 = 2114;
+      v42 = v28;
+      v43 = 2112;
+      v44 = v29;
+      v45 = 2114;
+      v46 = v30;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Assets: %{public}@\nURL: %{public}@\nDSID: %@\nOptions: %{public}@\n", buf, 0x2Au);
     }
 
-    v37 = [MMCSRequestorContext contextWithEngine:*(a1 + 40) type:1];
+    v32 = [MMCSRequestorContext contextWithEngine:*(a1 + 40) type:1];
     v4 = malloc_type_malloc(8 * v2, 0x100004000313F17uLL);
     v5 = malloc_type_malloc(4 * v2, 0x100004052888210uLL);
     v6 = malloc_type_malloc(8 * v2, 0x10040436913F5uLL);
@@ -300,67 +299,63 @@ void __48__MMCSEngine_putAssets_requestURL_DSID_options___block_invoke(uint64_t 
       }
     }
 
-    v15 = v37;
-    [v37 setCount:v2];
-    [v37 setItemIDs:v4];
-    [v37 setItemFlags:v5];
-    [v37 setSignatures:v6];
-    [v37 setAuthTokens:v7];
-    [*(a1 + 40) _registerRequestorContext:v37];
+    v15 = v32;
+    [v32 setCount:v2];
+    [v32 setItemIDs:v4];
+    [v32 setItemFlags:v5];
+    [v32 setSignatures:v6];
+    [v32 setAuthTokens:v7];
+    [*(a1 + 40) _registerRequestorContext:v32];
     WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 176));
-    [WeakRetained MMCSEngine:*(a1 + 40) didCreateRequestorContext:v37 forAssets:*(a1 + 32)];
+    [WeakRetained MMCSEngine:*(a1 + 40) didCreateRequestorContext:v32 forAssets:*(a1 + 32)];
 
-    v42 = 0;
-    v17 = *(a1 + 48);
-    v18 = *(*(a1 + 40) + 40);
-    v19 = *(a1 + 56);
-    v20 = *(a1 + 64);
-    [v37 itemIDs];
-    [v37 signatures];
-    v21 = [v37 authTokens];
-    v36 = [v37 itemFlags];
+    v37 = 0;
+    [v32 itemIDs];
+    [v32 signatures];
+    v17 = [v32 authTokens];
+    v31 = [v32 itemFlags];
     if (!MMCSPutItems())
     {
-      v22 = v42;
+      v18 = v37;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v45 = v42;
+        v40 = v37;
         _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Put items failed with error: %{public}@", buf, 0xCu);
       }
 
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
-      v39 = 0u;
-      v23 = *(a1 + 32);
-      v24 = [v23 countByEnumeratingWithState:&v38 objects:v43 count:{16, v21, v36, &v42}];
-      if (v24)
+      v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
+      v19 = *(a1 + 32);
+      v20 = [v19 countByEnumeratingWithState:&v33 objects:v38 count:{16, v17, v31, &v37}];
+      if (v20)
       {
-        v25 = v24;
-        v26 = *v39;
+        v21 = v20;
+        v22 = *v34;
         do
         {
-          for (j = 0; j != v25; ++j)
+          for (j = 0; j != v21; ++j)
           {
-            if (*v39 != v26)
+            if (*v34 != v22)
             {
-              objc_enumerationMutation(v23);
+              objc_enumerationMutation(v19);
             }
 
-            v28 = *(*(&v38 + 1) + 8 * j);
-            v29 = objc_loadWeakRetained((*(a1 + 40) + 176));
-            [v29 MMCSEngine:*(a1 + 40) didFinishPuttingAsset:v28 putReceipt:0 error:v22];
+            v24 = *(*(&v33 + 1) + 8 * j);
+            v25 = objc_loadWeakRetained((*(a1 + 40) + 176));
+            [v25 MMCSEngine:*(a1 + 40) didFinishPuttingAsset:v24 putReceipt:0 error:v18];
           }
 
-          v25 = [v23 countByEnumeratingWithState:&v38 objects:v43 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v33 objects:v38 count:16];
         }
 
-        while (v25);
+        while (v21);
       }
 
-      v30 = objc_loadWeakRetained((*(a1 + 40) + 176));
-      [v30 didFinishPuttingAllAssets];
+      v26 = objc_loadWeakRetained((*(a1 + 40) + 176));
+      [v26 didFinishPuttingAllAssets];
     }
   }
 
@@ -375,8 +370,6 @@ void __48__MMCSEngine_putAssets_requestURL_DSID_options___block_invoke(uint64_t 
     v15 = objc_loadWeakRetained((*(a1 + 40) + 176));
     [v15 didFinishPuttingAllAssets];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAssets:(id)assets requestURL:(id)l DSID:(id)d options:(id)options
@@ -403,35 +396,35 @@ void __48__MMCSEngine_putAssets_requestURL_DSID_options___block_invoke(uint64_t 
 
 void __48__MMCSEngine_getAssets_requestURL_DSID_options___block_invoke(uint64_t a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) count])
   {
     v2 = [*(a1 + 32) count];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v41 = v2;
+      v36 = v2;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Begin getting %lu assets.", buf, 0xCu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v28 = *(a1 + 32);
-      v29 = *(a1 + 48);
-      v30 = *(a1 + 56);
-      v31 = *(a1 + 64);
+      v23 = *(a1 + 32);
+      v24 = *(a1 + 48);
+      v25 = *(a1 + 56);
+      v26 = *(a1 + 64);
       *buf = 138544130;
-      v41 = v28;
-      v42 = 2114;
-      v43 = v29;
-      v44 = 2112;
-      v45 = v30;
-      v46 = 2114;
-      v47 = v31;
+      v36 = v23;
+      v37 = 2114;
+      v38 = v24;
+      v39 = 2112;
+      v40 = v25;
+      v41 = 2114;
+      v42 = v26;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Assets: %{public}@\nURL: %{public}@\nDSID: %@\nOptions:%{public}@", buf, 0x2Au);
     }
 
-    v33 = [MMCSRequestorContext contextWithEngine:*(a1 + 40) type:0];
+    v28 = [MMCSRequestorContext contextWithEngine:*(a1 + 40) type:0];
     v3 = malloc_type_malloc(8 * v2, 0x100004000313F17uLL);
     v4 = malloc_type_malloc(8 * v2, 0x10040436913F5uLL);
     v5 = malloc_type_malloc(8 * v2, 0x10040436913F5uLL);
@@ -462,62 +455,58 @@ void __48__MMCSEngine_getAssets_requestURL_DSID_options___block_invoke(uint64_t 
       }
     }
 
-    v13 = v33;
-    [v33 setCount:v2];
-    [v33 setItemIDs:v3];
-    [v33 setSignatures:v4];
-    [v33 setAuthTokens:v5];
-    [*(a1 + 40) _registerRequestorContext:v33];
-    v38 = 0;
-    v14 = *(a1 + 48);
-    v15 = *(*(a1 + 40) + 40);
-    v16 = *(a1 + 56);
-    v17 = *(a1 + 64);
-    [v33 itemIDs];
-    [v33 signatures];
-    v32 = [v33 authTokens];
+    v13 = v28;
+    [v28 setCount:v2];
+    [v28 setItemIDs:v3];
+    [v28 setSignatures:v4];
+    [v28 setAuthTokens:v5];
+    [*(a1 + 40) _registerRequestorContext:v28];
+    v33 = 0;
+    [v28 itemIDs];
+    [v28 signatures];
+    v27 = [v28 authTokens];
     if (!MMCSGetItems())
     {
-      v18 = v38;
+      v14 = v33;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v41 = v38;
+        v36 = v33;
         _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Get Items failed with error: %{public}@", buf, 0xCu);
       }
 
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
-      v35 = 0u;
-      v19 = *(a1 + 32);
-      v20 = [v19 countByEnumeratingWithState:&v34 objects:v39 count:{16, v32, &v38}];
-      if (v20)
+      v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
+      v15 = *(a1 + 32);
+      v16 = [v15 countByEnumeratingWithState:&v29 objects:v34 count:{16, v27, &v33}];
+      if (v16)
       {
-        v21 = v20;
-        v22 = *v35;
+        v17 = v16;
+        v18 = *v30;
         do
         {
-          for (j = 0; j != v21; ++j)
+          for (j = 0; j != v17; ++j)
           {
-            if (*v35 != v22)
+            if (*v30 != v18)
             {
-              objc_enumerationMutation(v19);
+              objc_enumerationMutation(v15);
             }
 
-            v24 = *(*(&v34 + 1) + 8 * j);
+            v20 = *(*(&v29 + 1) + 8 * j);
             WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 176));
-            [WeakRetained MMCSEngine:*(a1 + 40) didFinishGettingAsset:v24 path:0 error:v18];
+            [WeakRetained MMCSEngine:*(a1 + 40) didFinishGettingAsset:v20 path:0 error:v14];
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v34 objects:v39 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v29 objects:v34 count:16];
         }
 
-        while (v21);
+        while (v17);
       }
 
-      v26 = objc_loadWeakRetained((*(a1 + 40) + 176));
-      [v26 didFinishGettingAllAssets];
+      v22 = objc_loadWeakRetained((*(a1 + 40) + 176));
+      [v22 didFinishGettingAllAssets];
     }
   }
 
@@ -532,8 +521,6 @@ void __48__MMCSEngine_getAssets_requestURL_DSID_options___block_invoke(uint64_t 
     v13 = objc_loadWeakRetained((*(a1 + 40) + 176));
     [v13 didFinishGettingAllAssets];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterAssets:(id)assets
@@ -551,7 +538,7 @@ void __48__MMCSEngine_getAssets_requestURL_DSID_options___block_invoke(uint64_t 
 
 void __31__MMCSEngine_unregisterAssets___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = malloc_type_malloc(8 * [*(a1 + 32) count], 0x100004000313F17uLL);
   if ([*(a1 + 32) count])
   {
@@ -572,51 +559,49 @@ void __31__MMCSEngine_unregisterAssets___block_invoke(uint64_t a1)
     __assert_rtn("[MMCSEngine unregisterAssets:]_block_invoke", "MMCSEngine.m", 563, "count <= UINT32_MAX");
   }
 
-  v5 = *(*(a1 + 40) + 40);
-  v14 = v2;
+  v12 = v2;
   MMCSUnregisterFiles();
-  v17 = 0u;
-  v18 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
-  if (v7)
+  v13 = 0u;
+  v14 = 0u;
+  v5 = *(a1 + 32);
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v16;
-    v10 = MEMORY[0x277D86220];
+    v7 = v6;
+    v8 = *v14;
+    v9 = MEMORY[0x277D86220];
     do
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v14 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v11 = *(*(&v13 + 1) + 8 * v10);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v20 = v12;
-          _os_log_debug_impl(&dword_245B99000, v10, OS_LOG_TYPE_DEBUG, "Unregistered asset: %{public}@", buf, 0xCu);
+          v18 = v11;
+          _os_log_debug_impl(&dword_245B99000, v9, OS_LOG_TYPE_DEBUG, "Unregistered asset: %{public}@", buf, 0xCu);
         }
 
-        [*(a1 + 40) _removeAssetForItemID:{objc_msgSend(v12, "MMCSItemID")}];
-        ++v11;
+        [*(a1 + 40) _removeAssetForItemID:{objc_msgSend(v11, "MMCSItemID")}];
+        ++v10;
       }
 
-      while (v8 != v11);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      while (v7 != v10);
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
-  free(v14);
-  v13 = *MEMORY[0x277D85DE8];
+  free(v12);
 }
 
 - (void)unregisterAsset:(id)asset
@@ -634,21 +619,18 @@ void __31__MMCSEngine_unregisterAssets___block_invoke(uint64_t a1)
 
 uint64_t __30__MMCSEngine_unregisterAsset___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v5 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v5;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Unregistered asset: %{public}@", &v6, 0xCu);
+    v3 = *(a1 + 32);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Unregistered asset: %{public}@", &v4, 0xCu);
   }
 
-  v2 = *(*(a1 + 40) + 40);
   [*(a1 + 32) MMCSItemID];
   MMCSUnregisterFile();
-  result = [*(a1 + 40) _removeAssetForItemID:{objc_msgSend(*(a1 + 32), "MMCSItemID")}];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _removeAssetForItemID:{objc_msgSend(*(a1 + 32), "MMCSItemID")}];
 }
 
 - (void)registerAssets:(id)assets forDownloadCompletionBlock:(id)block
@@ -669,31 +651,31 @@ uint64_t __30__MMCSEngine_unregisterAsset___block_invoke(uint64_t a1)
 
 uint64_t __56__MMCSEngine_registerAssets_forDownloadCompletionBlock___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v15;
+    v6 = *v14;
     v7 = MEMORY[0x277D86220];
     *&v4 = 138543362;
-    v13 = v4;
+    v12 = v4;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
+        v9 = *(*(&v13 + 1) + 8 * v8);
         v10 = *(a1 + 40);
         if (v10[168] == 1)
         {
@@ -701,11 +683,11 @@ uint64_t __56__MMCSEngine_registerAssets_forDownloadCompletionBlock___block_invo
           v10 = *(a1 + 40);
         }
 
-        [v10 _registerAsset:{v9, v13, v14}];
+        [v10 _registerAsset:{v9, v12, v13}];
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v13;
-          v19 = v9;
+          *buf = v12;
+          v18 = v9;
           _os_log_debug_impl(&dword_245B99000, v7, OS_LOG_TYPE_DEBUG, "Registered asset for download: %{public}@ ", buf, 0xCu);
         }
 
@@ -713,15 +695,13 @@ uint64_t __56__MMCSEngine_registerAssets_forDownloadCompletionBlock___block_invo
       }
 
       while (v5 != v8);
-      v5 = [v2 countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v5);
   }
 
-  result = (*(*(a1 + 48) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)reregisterAssetForDownload:(id)download
@@ -768,7 +748,7 @@ uint64_t __56__MMCSEngine_registerAssets_forDownloadCompletionBlock___block_invo
 
 void __53__MMCSEngine_registerAssetForUpload_completionBlock___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2[168] == 1)
   {
@@ -777,20 +757,19 @@ void __53__MMCSEngine_registerAssetForUpload_completionBlock___block_invoke(uint
   }
 
   [v2 _registerAsset:*(a1 + 40)];
-  v3 = *(*(a1 + 32) + 40);
   [*(a1 + 40) MMCSItemID];
   MMCSRegisterFile();
   [*(a1 + 32) _removeAssetForItemID:{objc_msgSend(*(a1 + 40), "MMCSItemID")}];
-  v4 = [MEMORY[0x277CCA9B8] MMCSErrorWithDomain:@"kMMCSKitErrorDomain" code:2 description:@"ERROR_CANNOT_REGISTER_FILE"];
-  if (v4)
+  v3 = [MEMORY[0x277CCA9B8] MMCSErrorWithDomain:@"kMMCSKitErrorDomain" code:2 description:@"ERROR_CANNOT_REGISTER_FILE"];
+  if (v3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 40);
+      v5 = *(a1 + 40);
       *buf = 138543618;
-      v9 = v7;
-      v10 = 2114;
-      v11 = v4;
+      v7 = v5;
+      v8 = 2114;
+      v9 = v3;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not register asset: %{public}@\nError: %{public}@", buf, 0x16u);
     }
   }
@@ -799,18 +778,16 @@ void __53__MMCSEngine_registerAssetForUpload_completionBlock___block_invoke(uint
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v6 = *(a1 + 40);
+      v4 = *(a1 + 40);
       *buf = 138543362;
-      v9 = v6;
+      v7 = v4;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Registered asset for upload: %{public}@", buf, 0xCu);
     }
 
-    v4 = 0;
+    v3 = 0;
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isActive
@@ -833,7 +810,6 @@ void __53__MMCSEngine_registerAssetForUpload_completionBlock___block_invoke(uint
 
 uint64_t __22__MMCSEngine_isActive__block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 40);
   result = MMCSEngineIsActive();
   *(*(*(a1 + 40) + 8) + 24) = result != 0;
   return result;
@@ -858,21 +834,20 @@ uint64_t __38__MMCSEngine_shutDownCompletionBlock___block_invoke(uint64_t a1)
   if (*(v2 + 40))
   {
     MMCSEngineCancelRequests();
-    v3 = *(*(a1 + 32) + 40);
     MMCSEngineDestroy();
     *(*(a1 + 32) + 40) = 0;
     v2 = *(a1 + 32);
   }
 
-  v4 = *(v2 + 160);
+  v3 = *(v2 + 160);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __38__MMCSEngine_shutDownCompletionBlock___block_invoke_2;
   block[3] = &unk_278E926D8;
   block[4] = v2;
-  dispatch_sync(v4, block);
-  v5 = [*(a1 + 32) threadKeepAliveTimer];
-  [v5 invalidate];
+  dispatch_sync(v3, block);
+  v4 = [*(a1 + 32) threadKeepAliveTimer];
+  [v4 invalidate];
 
   [*(a1 + 32) setThreadKeepAliveTimer:0];
   [*(a1 + 32) setIsDone:1];
@@ -917,31 +892,30 @@ void __42__MMCSEngine_cancelOperationsWithContext___block_invoke(uint64_t a1)
 {
   if (*(a1 + 32))
   {
-    v3 = *(*(a1 + 40) + 40);
 
     MMCSEngineCancelRequests();
   }
 
   else
   {
-    v5 = v1;
-    v6 = v2;
+    v4 = v1;
+    v5 = v2;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v4 = 0;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Cancel operations: Could not find context. Ignoring", v4, 2u);
+      *v3 = 0;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Cancel operations: Could not find context. Ignoring", v3, 2u);
     }
   }
 }
 
 - (void)_requestCompletedRequestorContext:(id)context
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    LOWORD(v14[0]) = 0;
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Request completed.", v14, 2u);
+    LOWORD(v12[0]) = 0;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Request completed.", v12, 2u);
   }
 
   if ([(MMCSEngine *)self isMetricsGatheringEnabled])
@@ -951,25 +925,24 @@ void __42__MMCSEngine_cancelOperationsWithContext___block_invoke(uint64_t a1)
 
     if (v6)
     {
-      engine = self->_engine;
       RequestMetrics = MMCSEngineGetRequestMetrics();
-      v9 = MEMORY[0x245D7B420](RequestMetrics);
-      v10 = objc_loadWeakRetained(&self->_delegate);
-      [v10 MMCSEngine:self logPerformanceMetrics:v9];
+      v8 = MEMORY[0x245D7B420](RequestMetrics);
+      v9 = objc_loadWeakRetained(&self->_delegate);
+      [v9 MMCSEngine:self logPerformanceMetrics:v8];
     }
   }
 
   if (![contextCopy type])
   {
-    v11 = objc_loadWeakRetained(&self->_delegate);
-    [v11 didFinishGettingAllAssets];
+    v10 = objc_loadWeakRetained(&self->_delegate);
+    [v10 didFinishGettingAllAssets];
     goto LABEL_10;
   }
 
   if ([contextCopy type] == 1)
   {
-    v11 = objc_loadWeakRetained(&self->_delegate);
-    [v11 didFinishPuttingAllAssets];
+    v10 = objc_loadWeakRetained(&self->_delegate);
+    [v10 didFinishPuttingAllAssets];
 LABEL_10:
 
     goto LABEL_13;
@@ -978,20 +951,18 @@ LABEL_10:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     type = [contextCopy type];
-    v14[0] = 67109120;
-    v14[1] = type;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unknown requestor context type %d found at request completion. Ignoring.", v14, 8u);
+    v12[0] = 67109120;
+    v12[1] = type;
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unknown requestor context type %d found at request completion. Ignoring.", v12, 8u);
   }
 
 LABEL_13:
   [(MMCSEngine *)self _removeRequestorContext:contextCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_putItemDoneItemID:(unint64_t)d requestorContext:(id)context putReceipt:(id)receipt error:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   receiptCopy = receipt;
   errorCopy = error;
   v11 = [(MMCSEngine *)self _assetWithItemID:d];
@@ -1001,19 +972,19 @@ LABEL_13:
     {
       if (([errorCopy MMCSIsAuthorizationError] & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v14 = 138543618;
+        v13 = 138543618;
         dCopy = errorCopy;
-        v16 = 2114;
-        v17 = v11;
-        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Put item failed. Error: %{public}@\nAsset: %{public}@", &v14, 0x16u);
+        v15 = 2114;
+        v16 = v11;
+        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Put item failed. Error: %{public}@\nAsset: %{public}@", &v13, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v14 = 138543362;
+      v13 = 138543362;
       dCopy = v11;
-      _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Put item completed. Asset: %{public}@", &v14, 0xCu);
+      _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Put item completed. Asset: %{public}@", &v13, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1022,17 +993,72 @@ LABEL_13:
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v14 = 134217984;
+    v13 = 134217984;
     dCopy = d;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Put item done: Could not get asset for item ID %lld.", &v14, 0xCu);
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Put item done: Could not get asset for item ID %lld.", &v13, 0xCu);
+  }
+}
+
+- (void)_putItemProgressItemID:(unint64_t)d state:(int)state progress:(double)progress requestorContext:(id)context error:(id)error
+{
+  v8 = *&state;
+  v25 = *MEMORY[0x277D85DE8];
+  error = [(MMCSEngine *)self _assetWithItemID:d, *&state, context, error];
+  if (error)
+  {
+    v12 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
+    if (progress == -1.0)
+    {
+      if (v12)
+      {
+        v13 = [MMCSEngine logStringForPutItemState:v8];
+        v19 = 138543618;
+        progressCopy = *&v13;
+        v21 = 2048;
+        v22 = error;
+        v14 = MEMORY[0x277D86220];
+        v15 = "Put item progress state: %{public}@ asset: %p";
+        v16 = 22;
+        goto LABEL_11;
+      }
+    }
+
+    else if (v12)
+    {
+      v13 = [MMCSEngine logStringForPutItemState:v8];
+      v19 = 134218498;
+      progressCopy = progress;
+      v21 = 2114;
+      v22 = v13;
+      v23 = 2048;
+      v24 = error;
+      v14 = MEMORY[0x277D86220];
+      v15 = "Put item progress: %f state: %{public}@ asset: %p";
+      v16 = 32;
+LABEL_11:
+      _os_log_debug_impl(&dword_245B99000, v14, OS_LOG_TYPE_DEBUG, v15, &v19, v16);
+    }
+
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    *&v18 = progress;
+    [WeakRetained MMCSEngine:self didMakePutProgress:v8 state:error onAsset:v18];
+
+    goto LABEL_9;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v19 = 134217984;
+    progressCopy = *&d;
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Put item progress: Could not get asset for item ID %lld. Ignoring.", &v19, 0xCu);
+  }
+
+LABEL_9:
 }
 
 - (void)_getItemDoneItemID:(unint64_t)d path:(id)path requestorContext:(id)context error:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   errorCopy = error;
   v11 = [(MMCSEngine *)self _assetWithItemID:d];
@@ -1042,21 +1068,21 @@ LABEL_13:
     {
       if (([errorCopy MMCSIsAuthorizationError] & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v14 = 138543618;
+        v13 = 138543618;
         dCopy = errorCopy;
-        v16 = 2114;
-        v17 = v11;
-        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Get item failed. Error: %{public}@\nAsset: %{public}@", &v14, 0x16u);
+        v15 = 2114;
+        v16 = v11;
+        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Get item failed. Error: %{public}@\nAsset: %{public}@", &v13, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v14 = 138543618;
+      v13 = 138543618;
       dCopy = v11;
-      v16 = 2112;
-      v17 = pathCopy;
-      _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Get item completed. Asset: %{public}@. Path: %@", &v14, 0x16u);
+      v15 = 2112;
+      v16 = pathCopy;
+      _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Get item completed. Asset: %{public}@. Path: %@", &v13, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1065,21 +1091,76 @@ LABEL_13:
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v14 = 134217984;
+    v13 = 134217984;
     dCopy = d;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Get item done: Could not get asset for item ID %lld.", &v14, 0xCu);
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Get item done: Could not get asset for item ID %lld.", &v13, 0xCu);
+  }
+}
+
+- (void)_getItemProgressItemID:(unint64_t)d state:(int)state progress:(double)progress requestorContext:(id)context error:(id)error
+{
+  v8 = *&state;
+  v25 = *MEMORY[0x277D85DE8];
+  error = [(MMCSEngine *)self _assetWithItemID:d, *&state, context, error];
+  if (error)
+  {
+    v12 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
+    if (progress == -1.0)
+    {
+      if (v12)
+      {
+        v13 = [MMCSEngine logStringForGetItemState:v8];
+        v19 = 138543618;
+        progressCopy = *&v13;
+        v21 = 2048;
+        v22 = error;
+        v14 = MEMORY[0x277D86220];
+        v15 = "Get item progress state: %{public}@ asset: %p";
+        v16 = 22;
+        goto LABEL_11;
+      }
+    }
+
+    else if (v12)
+    {
+      v13 = [MMCSEngine logStringForGetItemState:v8];
+      v19 = 134218498;
+      progressCopy = progress;
+      v21 = 2114;
+      v22 = v13;
+      v23 = 2048;
+      v24 = error;
+      v14 = MEMORY[0x277D86220];
+      v15 = "Get item progress: %f state: %{public}@ asset: %p";
+      v16 = 32;
+LABEL_11:
+      _os_log_debug_impl(&dword_245B99000, v14, OS_LOG_TYPE_DEBUG, v15, &v19, v16);
+    }
+
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    *&v18 = progress;
+    [WeakRetained MMCSEngine:self didMakeGetProgress:v8 state:error onAsset:v18];
+
+    goto LABEL_9;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v19 = 134217984;
+    progressCopy = *&d;
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Get item progress: Could not get asset for item ID %lld. Ignoring.", &v19, 0xCu);
+  }
+
+LABEL_9:
 }
 
 - (BOOL)_getFileDescriptorAndContentTypeFromItemID:(unint64_t)d outFD:(int *)fD outItemType:(id *)type outError:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    *v22 = d;
+    *v21 = d;
     _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Getting file descriptor for itemID %lld", buf, 0xCu);
   }
 
@@ -1108,9 +1189,9 @@ LABEL_13:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 134218242;
-      *v22 = d;
-      *&v22[8] = 2114;
-      *&v22[10] = v16;
+      *v21 = d;
+      *&v21[8] = 2114;
+      *&v21[10] = v16;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not get file descriptor for itemID %lld. Error: %{public}@", buf, 0x16u);
       if (error)
       {
@@ -1144,11 +1225,11 @@ LABEL_13:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109634;
-    *v22 = v14;
-    *&v22[4] = 2048;
-    *&v22[6] = d;
-    *&v22[14] = 2114;
-    *&v22[16] = mMCSItemType;
+    *v21 = v14;
+    *&v21[4] = 2048;
+    *&v21[6] = d;
+    *&v21[14] = 2114;
+    *&v21[16] = mMCSItemType;
     _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Got file descriptor %d for itemID %lld. UTI: %{public}@", buf, 0x1Cu);
   }
 
@@ -1168,7 +1249,6 @@ LABEL_19:
 
 LABEL_20:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v14 != -1;
 }
 
@@ -1185,30 +1265,28 @@ LABEL_20:
 
 void __43__MMCSEngine_setIsMetricsGatheringEnabled___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  if (*(a1 + 40) != *(v1 + 169))
+  if (*(a1 + 40) != *(*(a1 + 32) + 169))
   {
-    v3 = *(v1 + 40);
     MMCSEngineSetMetricsEnabled();
     *(*(a1 + 32) + 169) = *(a1 + 40);
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 176));
-    v5 = objc_opt_respondsToSelector();
+    v3 = objc_opt_respondsToSelector();
 
-    if (v5)
+    if (v3)
     {
-      v6 = objc_loadWeakRetained((*(a1 + 32) + 176));
-      v8 = v6;
+      v4 = objc_loadWeakRetained((*(a1 + 32) + 176));
+      v6 = v4;
       if (*(a1 + 40))
       {
-        v7 = @"Performance logging enabled.";
+        v5 = @"Performance logging enabled.";
       }
 
       else
       {
-        v7 = @"Performance logging disabled.";
+        v5 = @"Performance logging disabled.";
       }
 
-      [v6 MMCSEngine:*(a1 + 32) logPerformanceMetrics:v7];
+      [v4 MMCSEngine:*(a1 + 32) logPerformanceMetrics:v5];
     }
   }
 }
@@ -1281,6 +1359,29 @@ void __43__MMCSEngine_setIsMetricsGatheringEnabled___block_invoke(uint64_t a1)
   }
 
   objc_autoreleasePoolPop(v5);
+}
+
+- (void)performBlockOnWorkThread:(id)thread waitUntilDone:(BOOL)done
+{
+  doneCopy = done;
+  v6 = MEMORY[0x277CCACC8];
+  threadCopy = thread;
+  currentThread = [v6 currentThread];
+  v8 = [currentThread isEqual:self->_workThread];
+
+  if (v8)
+  {
+    threadCopy[2]();
+  }
+
+  else
+  {
+    workThread = self->_workThread;
+    v10 = [threadCopy copy];
+
+    [(MMCSEngine *)self performSelector:sel_performBlock_ onThread:workThread withObject:v10 waitUntilDone:doneCopy];
+    threadCopy = v10;
+  }
 }
 
 - (MMCSEngine)initWithWorkPath:(id)path appIDHeader:(id)header dataClass:(id)class options:(id)options

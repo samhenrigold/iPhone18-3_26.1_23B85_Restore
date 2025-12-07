@@ -5,7 +5,6 @@
 - (BOOL)startVPNTunnelWithOptions:(NSDictionary *)options andReturnError:(NSError *)error;
 - (NEVPNManager)manager;
 - (id)initWithType:(void *)type;
-- (uint64_t)reload;
 - (void)createSessionWithConfigurationIdentifier:(uint64_t)identifier forceInfoFetch:(void *)fetch completionHandler:;
 - (void)dealloc;
 - (void)destroySession;
@@ -14,10 +13,11 @@
 - (void)fetchServerParameters;
 - (void)fetchStatisticsWithCompletionHandler:(id)handler;
 - (void)notifyStatusChanged;
+- (void)reload;
 - (void)resetCache;
 - (void)resetLastDisconnectError:(void *)error;
 - (void)stopVPNTunnel;
-- (void)updateSessionInfoForce:(uint64_t)force notify:(void *)notify withCompletionHandler:;
+- (void)updateSessionInfoForce:(char)force notify:(void *)notify withCompletionHandler:;
 @end
 
 @implementation NEVPNConnection
@@ -67,13 +67,7 @@
 - (void)fetchStatisticsWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  if (self)
-  {
-    session = self->_session;
-  }
-
-  v7 = handlerCopy;
-  v6 = handlerCopy;
+  v3 = handlerCopy;
   ne_session_get_info();
 }
 
@@ -105,7 +99,7 @@ void __56__NEVPNConnection_fetchStatisticsWithCompletionHandler___block_invoke(u
   [(NEVPNConnection *)self updateSessionInfoForce:0 notify:v6 withCompletionHandler:?];
 }
 
-- (void)updateSessionInfoForce:(uint64_t)force notify:(void *)notify withCompletionHandler:
+- (void)updateSessionInfoForce:(char)force notify:(void *)notify withCompletionHandler:
 {
   notifyCopy = notify;
   v6 = notifyCopy;
@@ -113,7 +107,6 @@ void __56__NEVPNConnection_fetchStatisticsWithCompletionHandler___block_invoke(u
   {
     if (*(self + 56))
     {
-      v10 = *(self + 56);
       v9 = notifyCopy;
       ne_session_get_info2();
     }
@@ -139,59 +132,57 @@ void __71__NEVPNConnection_updateSessionInfoForce_notify_withCompletionHandler__
   v4 = v3;
   if (!v3 || (v5 = MEMORY[0x1BFAFC5E0](v3), v6 = MEMORY[0x1E69E9E80], v5 != MEMORY[0x1E69E9E80]))
   {
-    v7 = *(a1 + 48);
-    v46 = *(a1 + 32);
-    v45 = *(a1 + 40);
-    v8 = v45;
+    v44 = *(a1 + 40);
+    v7 = v44;
     ne_session_get_status();
 
     goto LABEL_36;
   }
 
   int64 = xpc_dictionary_get_int64(v4, "NEStatus");
-  v10 = xpc_dictionary_get_value(v4, "IPv4");
-  v11 = xpc_dictionary_get_value(v4, "IPv6");
-  if (v10 && MEMORY[0x1BFAFC5E0](v10) == v6)
+  v9 = xpc_dictionary_get_value(v4, "IPv4");
+  v10 = xpc_dictionary_get_value(v4, "IPv6");
+  if (v9 && MEMORY[0x1BFAFC5E0](v9) == v6)
   {
-    v12 = 1;
+    v11 = 1;
     goto LABEL_10;
   }
 
-  if (v11)
+  if (v10)
   {
-    v12 = MEMORY[0x1BFAFC5E0](v11) == v6;
+    v11 = MEMORY[0x1BFAFC5E0](v10) == v6;
 LABEL_10:
-    LODWORD(v44) = v12;
+    LODWORD(v43) = v11;
     goto LABEL_11;
   }
 
-  LODWORD(v44) = 0;
+  LODWORD(v43) = 0;
 LABEL_11:
-  v13 = xpc_dictionary_get_value(v4, "IPSec");
-  v14 = v13;
-  if ((v13 && MEMORY[0x1BFAFC5E0](v13) == v6 || (xpc_dictionary_get_value(v4, "PPP"), v15 = objc_claimAutoreleasedReturnValue(), v14, (v14 = v15) != 0)) && MEMORY[0x1BFAFC5E0](v14) == v6)
+  v12 = xpc_dictionary_get_value(v4, "IPSec");
+  v13 = v12;
+  if ((v12 && MEMORY[0x1BFAFC5E0](v12) == v6 || (xpc_dictionary_get_value(v4, "PPP"), v14 = objc_claimAutoreleasedReturnValue(), v13, (v13 = v14) != 0)) && MEMORY[0x1BFAFC5E0](v13) == v6)
   {
-    v19 = xpc_dictionary_get_int64(v4, "Status") + 1;
-    if (v19 <= 4)
+    v18 = xpc_dictionary_get_int64(v4, "Status") + 1;
+    if (v18 <= 4)
     {
-      int64 = qword_1BAA4FAB8[v19];
+      int64 = qword_1BAA4FAB8[v18];
     }
 
-    v18 = xpc_dictionary_get_int64(v14, "ConnectTime");
+    v17 = xpc_dictionary_get_int64(v13, "ConnectTime");
   }
 
   else
   {
-    v16 = xpc_dictionary_get_value(v4, "VPN");
-    v17 = v16;
-    if (v16 && MEMORY[0x1BFAFC5E0](v16) == v6)
+    v15 = xpc_dictionary_get_value(v4, "VPN");
+    v16 = v15;
+    if (v15 && MEMORY[0x1BFAFC5E0](v15) == v6)
     {
-      v18 = xpc_dictionary_get_int64(v17, "ConnectTime");
+      v17 = xpc_dictionary_get_int64(v16, "ConnectTime");
     }
 
     else
     {
-      v18 = 0;
+      v17 = 0;
     }
   }
 
@@ -199,49 +190,49 @@ LABEL_11:
   data = xpc_dictionary_get_data(v4, "LastDisconnectError", &length);
   if (data)
   {
-    v21 = data;
-    v22 = objc_alloc(MEMORY[0x1E695DEF0]);
-    v23 = [v22 initWithBytesNoCopy:v21 length:length freeWhenDone:0];
-    v48 = 0;
-    v24 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v23 error:&v48];
-    if (v48)
+    v20 = data;
+    v21 = objc_alloc(MEMORY[0x1E695DEF0]);
+    v22 = [v21 initWithBytesNoCopy:v20 length:length freeWhenDone:0];
+    v46 = 0;
+    v23 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v22 error:&v46];
+    if (v46)
     {
-      v25 = ne_log_obj();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v24 = ne_log_obj();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_ERROR, "Failed to decode the last disconnect error", buf, 2u);
+        _os_log_error_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_ERROR, "Failed to decode the last disconnect error", buf, 2u);
       }
     }
   }
 
   else
   {
-    v24 = 0;
+    v23 = 0;
   }
 
-  v26 = *(a1 + 32);
-  if (v26)
+  v25 = *(a1 + 32);
+  if (v25)
   {
-    v27 = v26[7];
+    v26 = v25[7];
   }
 
   else
   {
-    v27 = 0;
+    v26 = 0;
   }
 
-  if (v27 != *(a1 + 48))
+  if (v26 != *(a1 + 48))
   {
     goto LABEL_33;
   }
 
-  [(NEVPNConnection *)v26 resetLastDisconnectError:v24];
-  v29 = [*(a1 + 32) status];
-  v30 = *(a1 + 32);
-  if (v29 == int64)
+  [(NEVPNConnection *)v25 resetLastDisconnectError:v23];
+  v28 = [*(a1 + 32) status];
+  v29 = *(a1 + 32);
+  if (v28 == int64)
   {
-    if (v44 == [v30 installed])
+    if (v43 == [v29 installed])
     {
       goto LABEL_33;
     }
@@ -249,51 +240,51 @@ LABEL_11:
     goto LABEL_49;
   }
 
-  v30[2] = int64;
-  v31 = [*(a1 + 32) connectedDate];
-  if (v31)
+  v29[2] = int64;
+  v30 = [*(a1 + 32) connectedDate];
+  if (v30)
   {
-    v32 = *(*(a1 + 32) + 16);
+    v31 = *(*(a1 + 32) + 16);
 
-    if (v32 == 1)
+    if (v31 == 1)
     {
-      v33 = *(a1 + 32);
-      v34 = *(v33 + 24);
-      *(v33 + 24) = 0;
+      v32 = *(a1 + 32);
+      v33 = *(v32 + 24);
+      *(v32 + 24) = 0;
 LABEL_47:
 
-      v35 = *(a1 + 32);
+      v34 = *(a1 + 32);
       goto LABEL_48;
     }
   }
 
-  v35 = *(a1 + 32);
-  if (!v35[3] && v35[2] == 3 && v18 >= 1)
+  v34 = *(a1 + 32);
+  if (!v34[3] && v34[2] == 3 && v17 >= 1)
   {
-    v36 = [MEMORY[0x1E696AE30] processInfo];
-    [v36 systemUptime];
-    v38 = v37;
+    v35 = [MEMORY[0x1E696AE30] processInfo];
+    [v35 systemUptime];
+    v37 = v36;
 
-    v34 = [MEMORY[0x1E695DF00] date];
-    v39 = [v34 dateByAddingTimeInterval:v18 - v38];
-    v40 = *(a1 + 32);
-    v41 = *(v40 + 24);
-    *(v40 + 24) = v39;
+    v33 = [MEMORY[0x1E695DF00] date];
+    v38 = [v33 dateByAddingTimeInterval:v17 - v37];
+    v39 = *(a1 + 32);
+    v40 = *(v39 + 24);
+    *(v39 + 24) = v38;
 
     goto LABEL_47;
   }
 
 LABEL_48:
-  v42 = [v35 installed];
-  if (v44 == v42)
+  v41 = [v34 installed];
+  if (v43 == v41)
   {
     goto LABEL_51;
   }
 
 LABEL_49:
-  [*(a1 + 32) setInstalled:{v44, v44}];
-  v43 = [*(a1 + 32) installNotify];
-  if (v29 != int64 || v43)
+  [*(a1 + 32) setInstalled:{v43, v43}];
+  v42 = [*(a1 + 32) installNotify];
+  if (v28 != int64 || v42)
   {
 LABEL_51:
     if (*(a1 + 56) == 1)
@@ -305,7 +296,7 @@ LABEL_51:
 LABEL_33:
   if (*(a1 + 40))
   {
-    v28 = _CFXPCCreateCFObjectFromXPCObject();
+    v27 = _CFXPCCreateCFObjectFromXPCObject();
     (*(*(a1 + 40) + 16))();
   }
 
@@ -314,7 +305,7 @@ LABEL_36:
 
 - (void)resetLastDisconnectError:(void *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (error)
   {
@@ -369,13 +360,13 @@ LABEL_11:
 
         localizedDescription2 = @"none";
 LABEL_18:
-        v20 = 138412802;
-        v21 = v8;
-        v22 = 2112;
-        v23 = localizedDescription;
-        v24 = 2112;
-        v25 = localizedDescription2;
-        _os_log_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_DEFAULT, "Last disconnect error for %@ changed from %@ to %@", &v20, 0x20u);
+        v19 = 138412802;
+        v20 = v8;
+        v21 = 2112;
+        v22 = localizedDescription;
+        v23 = 2112;
+        v24 = localizedDescription2;
+        _os_log_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_DEFAULT, "Last disconnect error for %@ changed from %@ to %@", &v19, 0x20u);
         if (v4)
         {
         }
@@ -427,11 +418,11 @@ LABEL_15:
 
     localizedDescription3 = @"none";
 LABEL_24:
-    v20 = 138412546;
-    v21 = localizedDescription;
-    v22 = 2112;
-    v23 = localizedDescription3;
-    _os_log_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_DEFAULT, "Last disconnect error changed from %@ to %@", &v20, 0x16u);
+    v19 = 138412546;
+    v20 = localizedDescription;
+    v21 = 2112;
+    v22 = localizedDescription3;
+    _os_log_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_DEFAULT, "Last disconnect error changed from %@ to %@", &v19, 0x16u);
     if (v4)
     {
     }
@@ -447,8 +438,6 @@ LABEL_27:
   }
 
 LABEL_29:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyStatusChanged
@@ -512,9 +501,9 @@ void __65__NEVPNConnection_fetchLastDisconnectErrorWithCompletionHandler___block
   {
     v15 = v3;
     v5 = [v15 domain];
-    v6 = [v5 isEqualToString:@"NEVPNConnectionErrorDomainPlugin"];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-    if (v6)
+    if (isEqualToString)
     {
       v7 = [v15 code];
       if (v7 <= 19)
@@ -611,7 +600,7 @@ void __65__NEVPNConnection_fetchLastDisconnectErrorWithCompletionHandler___block
     }
 
     v9 = [v15 domain];
-    v10 = [v9 isEqualToString:@"NEVPNConnectionErrorDomainIPSec"];
+    v10 = objc_msgSend_isEqualToString_(v9);
 
     if (v10)
     {
@@ -758,7 +747,6 @@ LABEL_27:
     v15 = 0;
   }
 
-  session = selfCopy->_session;
   ne_session_start_with_options();
   v16 = 1;
 LABEL_28:
@@ -793,13 +781,13 @@ LABEL_28:
   return v2;
 }
 
-- (uint64_t)reload
+- (void)reload
 {
   if (result)
   {
     v1 = result;
-    *(result + 16) = 0;
-    if (*(result + 56))
+    result[2] = 0;
+    if (result[7])
     {
       ne_session_cancel();
       v1[7] = 0;
@@ -820,7 +808,7 @@ LABEL_28:
 
 void __25__NEVPNConnection_reload__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -829,7 +817,7 @@ void __25__NEVPNConnection_reload__block_invoke(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v6;
+      v19 = v6;
       _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "reloadWithCompletionHandler: failed to load configurations: %@", buf, 0xCu);
     }
 
@@ -843,7 +831,7 @@ void __25__NEVPNConnection_reload__block_invoke(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    if (v5 && (v18[0] = MEMORY[0x1E69E9820], v18[1] = 3221225472, v18[2] = __25__NEVPNConnection_reload__block_invoke_118, v18[3] = &unk_1E7F0B078, v18[4] = *(a1 + 32), v9 = [v5 indexOfObjectPassingTest:v18], v9 != 0x7FFFFFFFFFFFFFFFLL))
+    if (v5 && (v17[0] = MEMORY[0x1E69E9820], v17[1] = 3221225472, v17[2] = __25__NEVPNConnection_reload__block_invoke_118, v17[3] = &unk_1E7F0B078, v17[4] = *(a1 + 32), v9 = [v5 indexOfObjectPassingTest:v17], v9 != 0x7FFFFFFFFFFFFFFFLL))
     {
       v10 = [v5 objectAtIndexedSubscript:v9];
       v12 = [v10 name];
@@ -855,12 +843,12 @@ void __25__NEVPNConnection_reload__block_invoke(uint64_t a1, void *a2, void *a3)
 
       v14 = *(a1 + 32);
       v15 = [v10 identifier];
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __25__NEVPNConnection_reload__block_invoke_2;
-      v17[3] = &unk_1E7F0B4A8;
-      v17[4] = *(a1 + 32);
-      [(NEVPNConnection *)v14 createSessionWithConfigurationIdentifier:v15 forceInfoFetch:1 completionHandler:v17];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __25__NEVPNConnection_reload__block_invoke_2;
+      v16[3] = &unk_1E7F0B4A8;
+      v16[4] = *(a1 + 32);
+      [(NEVPNConnection *)v14 createSessionWithConfigurationIdentifier:v15 forceInfoFetch:1 completionHandler:v16];
     }
 
     else
@@ -874,8 +862,6 @@ void __25__NEVPNConnection_reload__block_invoke(uint64_t a1, void *a2, void *a3)
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __25__NEVPNConnection_reload__block_invoke_118(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -918,9 +904,9 @@ LABEL_12:
 
       v16 = v15;
       v17 = [v6 name];
-      v18 = [v16 isEqualToString:v17];
+      isEqualToString = objc_msgSend_isEqualToString_(v16);
 
-      if (!v18)
+      if (!isEqualToString)
       {
         goto LABEL_12;
       }
@@ -936,7 +922,7 @@ LABEL_13:
 
 void __25__NEVPNConnection_reload__block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   v5 = *(a1 + 32);
@@ -950,114 +936,109 @@ void __25__NEVPNConnection_reload__block_invoke_2(uint64_t a1, void *a2)
     v6 = ne_log_obj();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412290;
-      v9 = v4;
-      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "Failed to create a connection for the current enterprise configuration: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v4;
+      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "Failed to create a connection for the current enterprise configuration: %@", &v7, 0xCu);
     }
 
     [(NEVPNConnection *)*(a1 + 32) resetLastDisconnectError:v4];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createSessionWithConfigurationIdentifier:(uint64_t)identifier forceInfoFetch:(void *)fetch completionHandler:
 {
-  v38[2] = *MEMORY[0x1E69E9840];
+  v36[2] = *MEMORY[0x1E69E9840];
   v7 = a2;
   fetchCopy = fetch;
   if (self)
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v38[0] = 0;
-    v38[1] = 0;
+    v36[0] = 0;
+    v36[1] = 0;
     if (v7)
     {
-      if (*(selfCopy + 7))
+      if (selfCopy[7])
       {
         ne_session_cancel();
-        *(selfCopy + 7) = 0;
+        selfCopy[7] = 0;
       }
 
-      [v7 getUUIDBytes:v38];
-      v10 = selfCopy[3];
-      v11 = ne_session_create();
-      if (v11)
+      [v7 getUUIDBytes:v36];
+      v10 = ne_session_create();
+      if (v10)
       {
-        v12 = MEMORY[0x1E69E96A0];
-        v22 = MEMORY[0x1E69E9820];
-        v23 = 3221225472;
-        v24 = __93__NEVPNConnection_createSessionWithConfigurationIdentifier_forceInfoFetch_completionHandler___block_invoke_2;
-        v25 = &unk_1E7F0B028;
-        v26 = selfCopy;
-        v27 = v11;
+        v11 = MEMORY[0x1E69E96A0];
+        v20 = MEMORY[0x1E69E9820];
+        v21 = 3221225472;
+        v22 = __93__NEVPNConnection_createSessionWithConfigurationIdentifier_forceInfoFetch_completionHandler___block_invoke_2;
+        v23 = &unk_1E7F0B028;
+        v24 = selfCopy;
+        v25 = v10;
         ne_session_set_event_handler();
 
-        *(selfCopy + 7) = v11;
-        v20[0] = MEMORY[0x1E69E9820];
-        v20[1] = 3221225472;
-        v20[2] = __93__NEVPNConnection_createSessionWithConfigurationIdentifier_forceInfoFetch_completionHandler___block_invoke_3;
-        v20[3] = &unk_1E7F0B050;
-        v21 = fetchCopy;
-        [(NEVPNConnection *)selfCopy updateSessionInfoForce:identifier notify:1 withCompletionHandler:v20];
+        selfCopy[7] = v10;
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 3221225472;
+        v18[2] = __93__NEVPNConnection_createSessionWithConfigurationIdentifier_forceInfoFetch_completionHandler___block_invoke_3;
+        v18[3] = &unk_1E7F0B050;
+        v19 = fetchCopy;
+        [(NEVPNConnection *)selfCopy updateSessionInfoForce:identifier notify:1 withCompletionHandler:v18];
       }
 
       else
       {
-        v16 = ne_log_obj();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v15 = ne_log_obj();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v35 = "[NEVPNConnection createSessionWithConfigurationIdentifier:forceInfoFetch:completionHandler:]";
-          v36 = 2112;
-          v37 = v7;
-          _os_log_error_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_ERROR, "%s: Cannot create ne_session for configID: %@", buf, 0x16u);
+          v33 = "[NEVPNConnection createSessionWithConfigurationIdentifier:forceInfoFetch:completionHandler:]";
+          v34 = 2112;
+          v35 = v7;
+          _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "%s: Cannot create ne_session for configID: %@", buf, 0x16u);
         }
 
         if (fetchCopy)
         {
-          v17 = [MEMORY[0x1E696ABC0] errorWithDomain:@"NEVPNErrorDomain" code:1 userInfo:0];
-          v28[0] = MEMORY[0x1E69E9820];
-          v28[1] = 3221225472;
-          v28[2] = __93__NEVPNConnection_createSessionWithConfigurationIdentifier_forceInfoFetch_completionHandler___block_invoke_30;
-          v28[3] = &unk_1E7F0B588;
-          v29 = v17;
-          v30 = fetchCopy;
-          v18 = v17;
-          dispatch_async(MEMORY[0x1E69E96A0], v28);
+          v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"NEVPNErrorDomain" code:1 userInfo:0];
+          v26[0] = MEMORY[0x1E69E9820];
+          v26[1] = 3221225472;
+          v26[2] = __93__NEVPNConnection_createSessionWithConfigurationIdentifier_forceInfoFetch_completionHandler___block_invoke_30;
+          v26[3] = &unk_1E7F0B588;
+          v27 = v16;
+          v28 = fetchCopy;
+          v17 = v16;
+          dispatch_async(MEMORY[0x1E69E96A0], v26);
         }
       }
     }
 
     else
     {
-      v13 = ne_log_obj();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v12 = ne_log_obj();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v35 = "[NEVPNConnection createSessionWithConfigurationIdentifier:forceInfoFetch:completionHandler:]";
-        _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "%s: Cannot create ne_session for nil configID", buf, 0xCu);
+        v33 = "[NEVPNConnection createSessionWithConfigurationIdentifier:forceInfoFetch:completionHandler:]";
+        _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "%s: Cannot create ne_session for nil configID", buf, 0xCu);
       }
 
       if (fetchCopy)
       {
-        v14 = [MEMORY[0x1E696ABC0] errorWithDomain:@"NEVPNErrorDomain" code:1 userInfo:0];
+        v13 = [MEMORY[0x1E696ABC0] errorWithDomain:@"NEVPNErrorDomain" code:1 userInfo:0];
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __93__NEVPNConnection_createSessionWithConfigurationIdentifier_forceInfoFetch_completionHandler___block_invoke;
         block[3] = &unk_1E7F0B588;
-        v32 = v14;
-        v33 = fetchCopy;
-        v15 = v14;
+        v30 = v13;
+        v31 = fetchCopy;
+        v14 = v13;
         dispatch_async(MEMORY[0x1E69E96A0], block);
       }
     }
 
     objc_sync_exit(selfCopy);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __93__NEVPNConnection_createSessionWithConfigurationIdentifier_forceInfoFetch_completionHandler___block_invoke_2(uint64_t a1, int a2)
@@ -1065,7 +1046,6 @@ void __93__NEVPNConnection_createSessionWithConfigurationIdentifier_forceInfoFet
   if (a2 == 2)
   {
     [(NEVPNConnection *)*(a1 + 32) notifyStatusChanged];
-    v5 = *(a1 + 40);
 
     ne_session_release();
   }
@@ -1094,7 +1074,7 @@ void __93__NEVPNConnection_createSessionWithConfigurationIdentifier_forceInfoFet
   }
 }
 
-uint64_t __47__NEVPNConnection_createConnectionForURLFilter__block_invoke()
+void *__47__NEVPNConnection_createConnectionForURLFilter__block_invoke()
 {
   v0 = [NEVPNConnection alloc];
   if (v0)
@@ -1185,7 +1165,7 @@ uint64_t __47__NEVPNConnection_createConnectionForURLFilter__block_invoke()
   return v6;
 }
 
-uint64_t __77__NEVPNConnection_createConnectionForEnabledEnterpriseConfigurationWithName___block_invoke(uint64_t a1)
+void *__77__NEVPNConnection_createConnectionForEnabledEnterpriseConfigurationWithName___block_invoke(uint64_t a1)
 {
   v2 = [NEVPNConnection alloc];
   v3 = *(a1 + 32);
@@ -1232,9 +1212,9 @@ uint64_t __77__NEVPNConnection_createConnectionForEnabledEnterpriseConfiguration
 
 + (id)createDisconnectErrorWithDomain:(id)domain code:(unsigned int)code
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   domainCopy = domain;
-  if ([domainCopy isEqualToString:@"NEVPNConnectionErrorDomainPlugin"])
+  if (objc_msgSend_isEqualToString_(domainCopy))
   {
     v6 = 0;
     v7 = 0;
@@ -1317,7 +1297,7 @@ uint64_t __77__NEVPNConnection_createConnectionForEnabledEnterpriseConfiguration
   else
   {
     v6 = 0;
-    if ([domainCopy isEqualToString:@"NEVPNConnectionErrorDomainIPSec"])
+    if (objc_msgSend_isEqualToString_(domainCopy))
     {
       v7 = 0;
       switch(code)
@@ -1408,9 +1388,9 @@ LABEL_32:
           }
 
           v9 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v13 = *MEMORY[0x1E696A578];
-          v14[0] = v6;
-          v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+          v12 = *MEMORY[0x1E696A578];
+          v13[0] = v6;
+          v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
           v7 = [v9 initWithDomain:domainCopy code:code userInfo:v10];
 
           break;
@@ -1428,7 +1408,6 @@ LABEL_34:
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

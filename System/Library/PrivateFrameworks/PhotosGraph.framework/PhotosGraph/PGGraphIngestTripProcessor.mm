@@ -12,7 +12,7 @@
 
 - (void)ingestLocationFeaturesForTripNodes:(id)nodes graph:(id)graph loggingConnection:(id)connection progressBlock:(id)block isResumingFullAnalysis:(BOOL)analysis
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   graphCopy = graph;
   connectionCopy = connection;
@@ -25,72 +25,72 @@
     v18 = [MEMORY[0x277D22C80] progressReporterWithProgressBlock:blockCopy];
     v19 = [objc_alloc(MEMORY[0x277D22C88]) initWithProgressReporter:v18];
     *buf = 0;
-    v49 = buf;
-    v50 = 0x2020000000;
-    v51 = 0;
+    v48 = buf;
+    v49 = 0x2020000000;
+    v50 = 0;
     targets2 = [nodesCopy targets];
     v21 = [targets2 count];
 
     v22 = [[PGGraphLocationHelper alloc] initWithGraph:graphCopy];
     v23 = v18;
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x2020000000;
-    v47 = 0;
-    v30 = MEMORY[0x277D85DD0];
-    v31 = 3221225472;
-    v32 = __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_loggingConnection_progressBlock_isResumingFullAnalysis___block_invoke;
-    v33 = &unk_2788893F8;
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x2020000000;
+    v46 = 0;
+    v29 = MEMORY[0x277D85DD0];
+    v30 = 3221225472;
+    v31 = __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_loggingConnection_progressBlock_isResumingFullAnalysis___block_invoke;
+    v32 = &unk_2788893F8;
     v24 = v19;
-    v34 = v24;
-    v40 = buf;
-    v42 = 1.0 / v21;
-    v35 = graphCopy;
+    v33 = v24;
+    v39 = buf;
+    v41 = 1.0 / v21;
+    v34 = graphCopy;
     v25 = v22;
-    v36 = v25;
-    v37 = connectionCopy;
-    v41 = &v44;
+    v35 = v25;
+    v36 = connectionCopy;
+    v40 = &v43;
     v26 = v23;
     analysisCopy = analysis;
-    v38 = v26;
+    v37 = v26;
     selfCopy = self;
-    [nodesCopy enumerateTargetsBySourceWithBlock:&v30];
-    if (*(v45 + 24) == 1)
+    [nodesCopy enumerateTargetsBySourceWithBlock:&v29];
+    if (*(v44 + 24) == 1)
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
 LABEL_11:
 
-        _Block_object_dispose(&v44, 8);
+        _Block_object_dispose(&v43, 8);
         _Block_object_dispose(buf, 8);
 
         goto LABEL_12;
       }
 
-      *v52 = 67109378;
-      v53 = 175;
-      v54 = 2080;
-      v55 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestTripProcessor.m";
+      *v51 = 67109378;
+      v52 = 175;
+      v53 = 2080;
+      v54 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestTripProcessor.m";
       v27 = MEMORY[0x277D86220];
     }
 
     else
     {
-      v28 = [v26 isCancelledWithProgress:{1.0, v30, v31, v32, v33, v34, v35, v36, v37}];
-      *(v45 + 24) = v28;
+      v28 = [v26 isCancelledWithProgress:{1.0, v29, v30, v31, v32, v33, v34, v35, v36}];
+      *(v44 + 24) = v28;
       if (!v28 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         goto LABEL_11;
       }
 
-      *v52 = 67109378;
-      v53 = 176;
-      v54 = 2080;
-      v55 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestTripProcessor.m";
+      *v51 = 67109378;
+      v52 = 176;
+      v53 = 2080;
+      v54 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestTripProcessor.m";
       v27 = MEMORY[0x277D86220];
     }
 
-    _os_log_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v52, 0x12u);
+    _os_log_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v51, 0x12u);
     goto LABEL_11;
   }
 
@@ -101,13 +101,11 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_loggingConnection_progressBlock_isResumingFullAnalysis___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = *(a1 + 32);
   v9 = *(*(*(a1 + 80) + 8) + 24) + *(a1 + 96) * 0.9;
@@ -119,16 +117,16 @@ void __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_
   v14 = [PGTripFeatureProcessor alloc];
   v15 = *(a1 + 40);
   v16 = *(a1 + 48);
-  v54 = 0;
-  v17 = [(PGTripFeatureProcessor *)v14 initWithMomentNodes:v10 graph:v15 locationHelper:v16 error:&v54];
+  v53 = 0;
+  v17 = [(PGTripFeatureProcessor *)v14 initWithMomentNodes:v10 graph:v15 locationHelper:v16 error:&v53];
 
-  v18 = v54;
+  v18 = v53;
   v19 = v18;
   if (v17)
   {
-    v53 = v18;
-    v20 = [(PGTripFeatureProcessor *)v17 processTripLocationsWithReporter:v11 error:&v53];
-    v21 = v53;
+    v52 = v18;
+    v20 = [(PGTripFeatureProcessor *)v17 processTripLocationsWithReporter:v11 error:&v52];
+    v21 = v52;
 
     v22 = *(*(a1 + 88) + 8);
     if (*(v22 + 24))
@@ -157,7 +155,7 @@ void __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_
 
       if (v20)
       {
-        v45 = a4;
+        v44 = a4;
         v25 = [v20 count];
         v26 = *(a1 + 56);
         v27 = os_log_type_enabled(v26, OS_LOG_TYPE_INFO);
@@ -168,9 +166,9 @@ void __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_
             v28 = v26;
             v29 = [v20 count];
             *buf = 138412546;
-            v56 = v13;
-            v57 = 2048;
-            v58 = v29;
+            v55 = v13;
+            v56 = 2048;
+            v57 = v29;
             _os_log_impl(&dword_22F0FC000, v28, OS_LOG_TYPE_INFO, "[PGGraphIngestTripProcessor] Trip with uuid %@ does have %lu featuredLocationNodes retrieved from processor.", buf, 0x16u);
           }
         }
@@ -178,42 +176,42 @@ void __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_
         else if (v27)
         {
           *buf = 138412290;
-          v56 = v13;
+          v55 = v13;
           _os_log_impl(&dword_22F0FC000, v26, OS_LOG_TYPE_INFO, "[PGGraphIngestTripProcessor] Trip with uuid %@ does not have any featuredLocationNodes.", buf, 0xCu);
         }
 
-        v49 = objc_alloc_init(MEMORY[0x277D22C50]);
+        v48 = objc_alloc_init(MEMORY[0x277D22C50]);
         v31 = [*(a1 + 72) featuredLocationNodesByHighlightGroupNode];
         v32 = [v31 targetsForSources:v7];
 
-        v47 = [(MAElementCollection *)[PGGraphFeatureNodeCollection alloc] initWithArray:v20 graph:*(a1 + 40)];
-        v48 = v32;
-        v46 = [(MAElementCollection *)v47 collectionBySubtracting:v32];
-        v33 = v45;
-        if ([v46 count])
+        v46 = [(MAElementCollection *)[PGGraphFeatureNodeCollection alloc] initWithArray:v20 graph:*(a1 + 40)];
+        v47 = v32;
+        v45 = [(MAElementCollection *)v46 collectionBySubtracting:v32];
+        v33 = v44;
+        if ([v45 count])
         {
           v34 = *(a1 + 56);
           if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
           {
             v35 = v34;
-            v36 = [v46 count];
+            v36 = [v45 count];
             *buf = 134218242;
-            v56 = v36;
-            v57 = 2112;
-            v58 = v13;
+            v55 = v36;
+            v56 = 2112;
+            v57 = v13;
             _os_log_impl(&dword_22F0FC000, v35, OS_LOG_TYPE_INFO, "[PGGraphIngestTripProcessor] adding %lu featured location nodes to trip with uuid @%@", buf, 0x16u);
           }
 
-          v50[0] = MEMORY[0x277D85DD0];
-          v50[1] = 3221225472;
-          v50[2] = __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_loggingConnection_progressBlock_isResumingFullAnalysis___block_invoke_235;
-          v50[3] = &unk_2788893D0;
-          v51 = v12;
-          v52 = v49;
-          [v46 enumerateNodesUsingBlock:v50];
+          v49[0] = MEMORY[0x277D85DD0];
+          v49[1] = 3221225472;
+          v49[2] = __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_loggingConnection_progressBlock_isResumingFullAnalysis___block_invoke_235;
+          v49[3] = &unk_2788893D0;
+          v50 = v12;
+          v51 = v48;
+          [v45 enumerateNodesUsingBlock:v49];
         }
 
-        v37 = [v48 collectionBySubtracting:v47];
+        v37 = [v47 collectionBySubtracting:v46];
         if ([v37 count])
         {
           v38 = *(a1 + 56);
@@ -222,19 +220,19 @@ void __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_
             v39 = v38;
             v40 = [v37 count];
             *buf = 134218242;
-            v56 = v40;
-            v57 = 2112;
-            v58 = v13;
+            v55 = v40;
+            v56 = 2112;
+            v57 = v13;
             _os_log_impl(&dword_22F0FC000, v39, OS_LOG_TYPE_INFO, "[PGGraphIngestTripProcessor] removing %lu featured location nodes to trip with uuid @%@", buf, 0x16u);
           }
 
           v41 = [(PGGraphEdgeCollection *)PGGraphTripFeatureEdgeCollection edgesFromNodes:v7 toNodes:v37];
-          [v49 removeEdges:v41];
+          [v48 removeEdges:v41];
 
-          v33 = v45;
+          v33 = v44;
         }
 
-        [*(a1 + 40) executeGraphChangeRequest:v49];
+        [*(a1 + 40) executeGraphChangeRequest:v48];
         v42 = *(*(a1 + 88) + 8);
         if (*(v42 + 24))
         {
@@ -260,9 +258,9 @@ void __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_
         if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v56 = v21;
-          v57 = 2112;
-          v58 = v13;
+          v55 = v21;
+          v56 = 2112;
+          v57 = v13;
           _os_log_error_impl(&dword_22F0FC000, v30, OS_LOG_TYPE_ERROR, "[PGGraphIngestTripProcessor] Cannot retrieve featuredLocationNodes with error %@ on trip with uuid %@", buf, 0x16u);
         }
       }
@@ -275,16 +273,14 @@ void __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v56 = v19;
-      v57 = 2112;
-      v58 = v13;
+      v55 = v19;
+      v56 = 2112;
+      v57 = v13;
       _os_log_error_impl(&dword_22F0FC000, v24, OS_LOG_TYPE_ERROR, "[PGGraphIngestTripProcessor] PGTripFeatureProcessor init failed with error %@ on trip with uuid %@", buf, 0x16u);
     }
 
     v21 = v19;
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_loggingConnection_progressBlock_isResumingFullAnalysis___block_invoke_235(uint64_t a1, void *a2)
@@ -297,7 +293,7 @@ void __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_
 
 - (void)runWithGraphUpdate:(id)update progressBlock:(id)block
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   blockCopy = block;
   graph = [(PGGraphBuilder *)self->_graphBuilder graph];
@@ -314,7 +310,7 @@ void __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_
 
   info = 0;
   mach_timebase_info(&info);
-  v38 = mach_absolute_time();
+  v37 = mach_absolute_time();
   isResumingFullAnalysis = [updateCopy isResumingFullAnalysis];
   if (isResumingFullAnalysis)
   {
@@ -328,18 +324,18 @@ void __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_
     if ([v14 count])
     {
       [v14 highlightNodes];
-      v15 = v34 = allTripNodes;
+      v15 = v33 = allTripNodes;
       [v15 highlightGroupNodes];
-      v16 = v35 = v8 - 1;
+      v16 = v34 = v8 - 1;
       [(PGGraphIngestTripProcessor *)self allTripNodes];
       v18 = v17 = updateCopy;
       [v16 collectionByIntersecting:v18];
       v19 = spida = v8;
 
       updateCopy = v17;
-      allTripNodes = [v34 collectionByFormingUnionWith:v19];
+      allTripNodes = [v33 collectionByFormingUnionWith:v19];
 
-      v11 = v35;
+      v11 = v34;
       v8 = spida;
     }
   }
@@ -360,9 +356,9 @@ void __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v43 = "PGGraphIngestTripProcessor";
-      v44 = 2048;
-      v45 = ((((v20 - v38) * numer) / denom) / 1000000.0);
+      v42 = "PGGraphIngestTripProcessor";
+      v43 = 2048;
+      v44 = ((((v20 - v37) * numer) / denom) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v24, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
   }
@@ -389,14 +385,12 @@ void __126__PGGraphIngestTripProcessor_ingestLocationFeaturesForTripNodes_graph_
     if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v43 = "PGGraphIngestTripProcessor";
-      v44 = 2048;
-      v45 = ((((v28 - v38) * v30) / v29) / 1000000.0);
+      v42 = "PGGraphIngestTripProcessor";
+      v43 = 2048;
+      v44 = ((((v28 - v37) * v30) / v29) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v32, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldRunWithGraphUpdate:(id)update

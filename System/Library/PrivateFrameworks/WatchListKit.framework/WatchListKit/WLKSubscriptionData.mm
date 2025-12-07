@@ -62,7 +62,7 @@
 
   else
   {
-    v21 = WLKSubscriptionSyncLogObject();
+    v21 = WLKSubscriptionSyncLogObject(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;

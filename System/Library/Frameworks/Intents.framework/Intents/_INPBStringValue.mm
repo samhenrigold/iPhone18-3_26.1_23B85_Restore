@@ -139,7 +139,6 @@ LABEL_13:
 
   if (value)
   {
-    value = self->_value;
     PBDataWriterWriteStringField();
   }
 

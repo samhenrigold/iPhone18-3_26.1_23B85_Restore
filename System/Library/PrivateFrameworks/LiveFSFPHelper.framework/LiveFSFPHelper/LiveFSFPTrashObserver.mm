@@ -71,7 +71,6 @@ void __43__LiveFSFPTrashObserver_didEnumerateItems___block_invoke(uint64_t a1, v
   v5 = pageCopy;
   if (!pageCopy)
   {
-    items = self->_items;
     (*(self->_completionHandler + 2))();
     v5 = 0;
   }

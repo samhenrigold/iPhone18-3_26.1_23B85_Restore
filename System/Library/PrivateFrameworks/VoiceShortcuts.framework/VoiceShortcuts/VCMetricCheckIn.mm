@@ -12,40 +12,34 @@
 
 - (id)checkInKey
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   mode = [(VCMetricCheckIn *)self mode];
   if (mode == 1)
   {
-    result = @"VCDailyMetricCheckInLastCheckInKey";
+    return @"VCDailyMetricCheckInLastCheckInKey";
   }
 
-  else if (mode == 2)
+  if (mode == 2)
   {
-    result = @"VCWeeklyMetricCheckInLastCheckInKey";
+    return @"VCWeeklyMetricCheckInLastCheckInKey";
   }
 
-  else
+  v5 = getWFEventTrackerLogObject();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    v5 = getWFEventTrackerLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-    {
-      v7 = 136315394;
-      v8 = "[VCMetricCheckIn checkInKey]";
-      v9 = 2048;
-      mode2 = [(VCMetricCheckIn *)self mode];
-      _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_FAULT, "%s Invalid metric check in mode %lu", &v7, 0x16u);
-    }
-
-    result = @"fiddlesticks";
+    v6 = 136315394;
+    v7 = "[VCMetricCheckIn checkInKey]";
+    v8 = 2048;
+    mode2 = [(VCMetricCheckIn *)self mode];
+    _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_FAULT, "%s Invalid metric check in mode %lu", &v6, 0x16u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return @"fiddlesticks";
 }
 
 - (NSDate)intervalStartDate
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   mode = [(VCMetricCheckIn *)self mode];
   if (mode == 1)
   {
@@ -67,16 +61,15 @@ LABEL_5:
   v8 = getWFEventTrackerLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
-    v11 = 136315394;
-    v12 = "[VCMetricCheckIn intervalStartDate]";
-    v13 = 2048;
+    v10 = 136315394;
+    v11 = "[VCMetricCheckIn intervalStartDate]";
+    v12 = 2048;
     mode2 = [(VCMetricCheckIn *)self mode];
-    _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_FAULT, "%s Invalid metric check in mode %lu", &v11, 0x16u);
+    _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_FAULT, "%s Invalid metric check in mode %lu", &v10, 0x16u);
   }
 
   currentDate2 = [(VCMetricCheckIn *)self currentDate];
 LABEL_9:
-  v9 = *MEMORY[0x277D85DE8];
 
   return currentDate2;
 }
@@ -121,51 +114,44 @@ LABEL_9:
 
 - (BOOL)isCheckInAllowed
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   checkInDate = [(VCMetricCheckIn *)self checkInDate];
 
-  if (checkInDate)
+  if (!checkInDate)
   {
-    mode = [(VCMetricCheckIn *)self mode];
-    if (mode == 1)
-    {
-      v5 = 16;
-      goto LABEL_7;
-    }
+    return 1;
+  }
 
-    if (mode == 2)
-    {
-      v5 = 0x2000;
+  mode = [(VCMetricCheckIn *)self mode];
+  if (mode == 1)
+  {
+    v5 = 16;
+    goto LABEL_7;
+  }
+
+  if (mode == 2)
+  {
+    v5 = 0x2000;
 LABEL_7:
-      calendar = [(VCMetricCheckIn *)self calendar];
-      currentDate = [(VCMetricCheckIn *)self currentDate];
-      checkInDate2 = [(VCMetricCheckIn *)self checkInDate];
-      v6 = [calendar compareDate:currentDate toDate:checkInDate2 toUnitGranularity:v5] == 1;
+    calendar = [(VCMetricCheckIn *)self calendar];
+    currentDate = [(VCMetricCheckIn *)self currentDate];
+    checkInDate2 = [(VCMetricCheckIn *)self checkInDate];
+    v6 = [calendar compareDate:currentDate toDate:checkInDate2 toUnitGranularity:v5] == 1;
 
-      goto LABEL_11;
-    }
-
-    v10 = getWFEventTrackerLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
-    {
-      v13 = 136315394;
-      v14 = "[VCMetricCheckIn isCheckInAllowed]";
-      v15 = 2048;
-      mode2 = [(VCMetricCheckIn *)self mode];
-      _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_FAULT, "%s Invalid metric check in mode %lu", &v13, 0x16u);
-    }
-
-    v6 = 0;
+    return v6;
   }
 
-  else
+  v10 = getWFEventTrackerLogObject();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
   {
-    v6 = 1;
+    v12 = 136315394;
+    v13 = "[VCMetricCheckIn isCheckInAllowed]";
+    v14 = 2048;
+    mode2 = [(VCMetricCheckIn *)self mode];
+    _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_FAULT, "%s Invalid metric check in mode %lu", &v12, 0x16u);
   }
 
-LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
-  return v6;
+  return 0;
 }
 
 - (VCMetricCheckIn)initWithCurrentDate:(id)date mode:(int64_t)mode defaults:(id)defaults

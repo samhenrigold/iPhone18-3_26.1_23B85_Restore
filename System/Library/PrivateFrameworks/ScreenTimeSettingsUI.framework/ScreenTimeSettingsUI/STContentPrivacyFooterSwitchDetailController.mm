@@ -67,11 +67,11 @@
   }
 }
 
-uint64_t __80__STContentPrivacyFooterSwitchDetailController_setItemSpecifierValue_specifier___block_invoke(uint64_t result, int a2)
+id *__80__STContentPrivacyFooterSwitchDetailController_setItemSpecifierValue_specifier___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) setItemSpecifierValue:*(result + 40) specifier:*(result + 48)];
+    return [result[4] setItemSpecifierValue:result[5] specifier:result[6]];
   }
 
   return result;

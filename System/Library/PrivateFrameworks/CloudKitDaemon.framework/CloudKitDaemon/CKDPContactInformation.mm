@@ -190,32 +190,7 @@
 {
   equalCopy = equal;
   v5 = objc_opt_class();
-  if (!objc_msgSend_isMemberOfClass_(equalCopy, v6, v5))
-  {
-    goto LABEL_14;
-  }
-
-  emailAddress = self->_emailAddress;
-  v9 = equalCopy[3];
-  if (emailAddress | v9)
-  {
-    if (!objc_msgSend_isEqual_(emailAddress, v7, v9))
-    {
-      goto LABEL_14;
-    }
-  }
-
-  containerScopedUserId = self->_containerScopedUserId;
-  v11 = equalCopy[2];
-  if (containerScopedUserId | v11)
-  {
-    if (!objc_msgSend_isEqual_(containerScopedUserId, v7, v11))
-    {
-      goto LABEL_14;
-    }
-  }
-
-  if (((firstName = self->_firstName, v13 = equalCopy[4], !(firstName | v13)) || objc_msgSend_isEqual_(firstName, v7, v13)) && ((lastName = self->_lastName, v15 = equalCopy[5], !(lastName | v15)) || objc_msgSend_isEqual_(lastName, v7, v15)) && ((phoneNumber = self->_phoneNumber, v17 = equalCopy[6], !(phoneNumber | v17)) || objc_msgSend_isEqual_(phoneNumber, v7, v17)))
+  if (objc_msgSend_isMemberOfClass_(equalCopy, v6, v5) && ((emailAddress = self->_emailAddress, v9 = equalCopy[3], !(emailAddress | v9)) || objc_msgSend_isEqual_(emailAddress, v7, v9)) && ((containerScopedUserId = self->_containerScopedUserId, v11 = equalCopy[2], !(containerScopedUserId | v11)) || objc_msgSend_isEqual_(containerScopedUserId, v7, v11)) && ((firstName = self->_firstName, v13 = equalCopy[4], !(firstName | v13)) || objc_msgSend_isEqual_(firstName, v7, v13)) && ((lastName = self->_lastName, v15 = equalCopy[5], !(lastName | v15)) || objc_msgSend_isEqual_(lastName, v7, v15)) && ((phoneNumber = self->_phoneNumber, v17 = equalCopy[6], !(phoneNumber | v17)) || objc_msgSend_isEqual_(phoneNumber, v7, v17)))
   {
     canonicalPhoneNumber = self->_canonicalPhoneNumber;
     v19 = equalCopy[1];
@@ -232,7 +207,6 @@
 
   else
   {
-LABEL_14:
     isEqual = 0;
   }
 

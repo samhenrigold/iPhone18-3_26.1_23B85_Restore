@@ -34,7 +34,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10011B4C8();
+  sub_10011B4C8(selfCopy, v2);
 }
 
 - (NSString)accessibilityLabel

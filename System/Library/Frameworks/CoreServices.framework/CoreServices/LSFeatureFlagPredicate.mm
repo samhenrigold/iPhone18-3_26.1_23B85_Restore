@@ -8,7 +8,7 @@
 
 + (id)featureFlagPredicateForBundle:(unsigned int)bundle bundleData:(const LSBundleData *)data database:(id)database error:(id *)error
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v7 = [_LSLazyPropertyList lazyPropertyListWithDatabase:database unit:data->base.infoDictionary];
   v8 = [v7 objectForKey:@"LSRequiredFeatureFlags" ofClass:objc_opt_class()];
   if (v8)
@@ -19,15 +19,13 @@
   else if (error)
   {
     v9 = *MEMORY[0x1E696A768];
-    v13 = *MEMORY[0x1E696A278];
-    v14[0] = @"tried to make reature flag predicate for bundle with no feature flag predicate";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x1E696A278];
+    v13[0] = @"tried to make reature flag predicate for bundle with no feature flag predicate";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     *error = _LSMakeNSErrorImpl(v9, -43, v10, "+[LSFeatureFlagPredicate(LSBundleDataPredicate) featureFlagPredicateForBundle:bundleData:database:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSFeatureFlagPredicateEvaluator+LSData.m", 24);
 
     error = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return error;
 }

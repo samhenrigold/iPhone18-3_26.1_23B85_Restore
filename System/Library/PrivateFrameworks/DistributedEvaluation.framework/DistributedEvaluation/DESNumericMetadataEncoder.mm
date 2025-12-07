@@ -23,15 +23,13 @@
 
 - (id)encodeNumber:(id)number toLength:(unint64_t)length
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   v6 = MEMORY[0x277CBEA60];
   numberCopy2 = number;
   v8 = [v6 arrayWithObjects:&numberCopy count:1];
 
-  v9 = [(DESNumericMetadataEncoder *)self encodeNumberVector:v8 toLength:length, numberCopy, v13];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = [(DESNumericMetadataEncoder *)self encodeNumberVector:v8 toLength:length, numberCopy, v12];
 
   return v9;
 }

@@ -64,7 +64,7 @@
     v11[3] = &unk_1A561E057;
     v12 = 0u;
     v13 = 0u;
-    [(PXFeedSectionContentLayout *)self sectionIndexPath];
+    objc_msgSend_sectionIndexPath(self);
     sublayoutDataStore = [(PXFeedSectionContentLayout *)self sublayoutDataStore];
     v7[0] = MEMORY[0x1E69E9820];
     v7[1] = 3221225472;
@@ -268,7 +268,7 @@ uint64_t __72__PXFeedSectionContentLayout_collectTapToRadarDiagnosticsIntoContai
   dataSource = [(PXFeedSectionContentLayout *)self dataSource];
   v23 = 0u;
   v24 = 0u;
-  [(PXFeedSectionContentLayout *)self sectionIndexPath];
+  objc_msgSend_sectionIndexPath(self);
   if (*off_1E7721F68)
   {
     v9 = *(&v23 + 1) == 0x7FFFFFFFFFFFFFFFLL;
@@ -505,7 +505,7 @@ void __48__PXFeedSectionContentLayout__updateFeedSprites__block_invoke(uint64_t 
   dataSource = [(PXFeedSectionContentLayout *)self dataSource];
   v48 = 0u;
   v49 = 0u;
-  [(PXFeedSectionContentLayout *)self sectionIndexPath];
+  objc_msgSend_sectionIndexPath(self);
   if ([dataSource identifier])
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -941,32 +941,32 @@ void __70__PXFeedSectionContentLayout_itemPlacementControllerForItemReference___
     if (v8)
     {
       itemLayoutFactory = [(PXFeedSectionContentLayout *)self itemLayoutFactory];
-      v10 = [itemLayoutFactory decorationOverlayAnchorSpriteIndexForItemLayout:v8];
+      [itemLayoutFactory decorationOverlayAnchorSpriteIndexForItemLayout:v8];
 
-      [v8 geometryForSpriteAtIndex:v10];
-      v11 = vmul_f32(0, 0x3F0000003F000000);
-      [(PXFeedSectionContentLayout *)self convertRect:v8 fromLayout:0.0 - v11.f32[0], 0.0 - v11.f32[1], 0.0, 0.0];
-      v3 = v12;
-      v4 = v13;
-      v5 = v14;
-      v6 = v15;
+      objc_msgSend_geometryForSpriteAtIndex_(v8);
+      v10 = vmul_f32(0, 0x3F0000003F000000);
+      [(PXFeedSectionContentLayout *)self convertRect:v8 fromLayout:0.0 - v10.f32[0], 0.0 - v10.f32[1], 0.0, 0.0];
+      v3 = v11;
+      v4 = v12;
+      v5 = v13;
+      v6 = v14;
     }
   }
 
-  v16 = v3;
-  v17 = v4;
-  v18 = v5;
-  v19 = v6;
-  result.size.height = v19;
-  result.size.width = v18;
-  result.origin.y = v17;
-  result.origin.x = v16;
+  v15 = v3;
+  v16 = v4;
+  v17 = v5;
+  v18 = v6;
+  result.size.height = v18;
+  result.size.width = v17;
+  result.origin.y = v16;
+  result.origin.x = v15;
   return result;
 }
 
 - (void)setDataSource:(id)source changeDetails:(id)details
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   detailsCopy = details;
   v9 = PLStoryGetLog();
@@ -980,20 +980,16 @@ void __70__PXFeedSectionContentLayout_itemPlacementControllerForItemReference___
     *&buf[14] = v10;
     *&buf[22] = 2048;
     *&buf[24] = identifier;
-    v20 = 2048;
+    v17 = 2048;
     identifier2 = [(PXSectionedDataSource *)sourceCopy identifier];
-    v22 = 2112;
-    v23 = detailsCopy;
+    v19 = 2112;
+    v20 = detailsCopy;
     _os_log_impl(&dword_1A3C1C000, v9, OS_LOG_TYPE_DEFAULT, "[PXFeedSectionContentLayout] %p %@ ds:%lu->%lu changeDetails: %@", buf, 0x34u);
   }
 
-  p_sectionIndexPath = &self->_sectionIndexPath;
   if (detailsCopy)
   {
-    v13 = *&self->_sectionIndexPath.item;
-    v18[0] = *&p_sectionIndexPath->dataSourceIdentifier;
-    v18[1] = v13;
-    [(PXSectionedDataSourceChangeDetails *)detailsCopy indexPathAfterApplyingChangesToIndexPath:v18 hasIncrementalChanges:0 objectChanged:0];
+    objc_msgSend_indexPathAfterApplyingChangesToIndexPath_hasIncrementalChanges_objectChanged_(detailsCopy, self->_sectionIndexPath.dataSourceIdentifier, self->_sectionIndexPath.section, self->_sectionIndexPath.item, self->_sectionIndexPath.subitem);
   }
 
   else
@@ -1001,12 +997,12 @@ void __70__PXFeedSectionContentLayout_itemPlacementControllerForItemReference___
     memset(buf, 0, sizeof(buf));
   }
 
-  v14 = *&buf[16];
-  *&p_sectionIndexPath->dataSourceIdentifier = *buf;
-  *&self->_sectionIndexPath.item = v14;
+  v12 = *&buf[16];
+  *&self->_sectionIndexPath.dataSourceIdentifier = *buf;
+  *&self->_sectionIndexPath.item = v12;
   dataSource = self->_dataSource;
   self->_dataSource = sourceCopy;
-  v16 = sourceCopy;
+  v14 = sourceCopy;
 
   lastChangeDetails = self->_lastChangeDetails;
   self->_lastChangeDetails = detailsCopy;
@@ -1028,7 +1024,7 @@ void __70__PXFeedSectionContentLayout_itemPlacementControllerForItemReference___
     {
       if (dataSource)
       {
-        [dataSource indexPathForObjectReference:v10];
+        objc_msgSend_indexPathForObjectReference_(dataSource);
       }
     }
 
@@ -1038,7 +1034,7 @@ void __70__PXFeedSectionContentLayout_itemPlacementControllerForItemReference___
       v20 = *(off_1E7722228 + 1);
     }
 
-    if (v19 != *off_1E7721F68 && ([(PXFeedSectionContentLayout *)self sectionIndexPath], v19 == v16) && (v11 = 0x7FFFFFFFFFFFFFFFLL, v17 == 0x7FFFFFFFFFFFFFFFLL))
+    if (v19 != *off_1E7721F68 && (objc_msgSend_sectionIndexPath(self), v19 == v16) && (v11 = 0x7FFFFFFFFFFFFFFFLL, v17 == 0x7FFFFFFFFFFFFFFFLL))
     {
       if (v18 == 0x7FFFFFFFFFFFFFFFLL)
       {
@@ -1086,7 +1082,7 @@ void __70__PXFeedSectionContentLayout_itemPlacementControllerForItemReference___
   {
     v10 = 0u;
     v11 = 0u;
-    [(PXFeedSectionContentLayout *)self sectionIndexPath];
+    objc_msgSend_sectionIndexPath(self);
     *&v11 = v3;
     dataSource = [(PXFeedSectionContentLayout *)self dataSource];
     v9[0] = v10;
@@ -1174,7 +1170,7 @@ void __70__PXFeedSectionContentLayout_itemPlacementControllerForItemReference___
 {
   v11 = 0u;
   v12 = 0u;
-  [(PXFeedSectionContentLayout *)self sectionIndexPath];
+  objc_msgSend_sectionIndexPath(self, a2);
   *&v12 = index;
   viewModel = [(PXFeedSectionContentLayout *)self viewModel];
   actionPerformer = [viewModel actionPerformer];
@@ -1228,7 +1224,7 @@ void __70__PXFeedSectionContentLayout_itemPlacementControllerForItemReference___
     v9 = [(PXFeedHitTestResult *)v5 presentMenuAction:v18];
     v16 = 0u;
     v17 = 0u;
-    [(PXFeedSectionContentLayout *)self sectionIndexPath];
+    objc_msgSend_sectionIndexPath(self);
     *&v17 = v3;
     dataSource = [(PXFeedSectionContentLayout *)self dataSource];
     v14 = v16;

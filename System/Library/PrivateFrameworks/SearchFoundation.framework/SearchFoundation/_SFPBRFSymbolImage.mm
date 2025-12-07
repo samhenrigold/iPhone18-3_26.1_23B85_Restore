@@ -553,9 +553,7 @@ LABEL_25:
 
 - (void)setName:(id)name
 {
-  v4 = [name copy];
-  name = self->_name;
-  self->_name = v4;
+  self->_name = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }

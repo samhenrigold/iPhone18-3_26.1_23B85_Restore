@@ -33,8 +33,7 @@
   if (v6)
   {
     [(NTKCFaceDetailEnumeratedEditOptionCell *)v6 setSelectionStyle:3];
-    [(NTKCDetailTableViewCell *)v7 setShowsSeparator:1];
-    v8 = NTKCActionColor();
+    v8 = NTKCActionColor([(NTKCDetailTableViewCell *)v7 setShowsSeparator:1]);
     [(NTKCFaceDetailEnumeratedEditOptionCell *)v7 setTintColor:v8];
 
     objc_storeStrong(&v7->_editOption, option);

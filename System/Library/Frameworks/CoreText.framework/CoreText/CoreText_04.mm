@@ -97,7 +97,7 @@ void ConvertToMorxSync(atomic_uint *a1)
 
     else
     {
-      CommonTable = TBaseFont::GetCommonTable(a1, 0x47535542u, 0);
+      CommonTable = TBaseFont::GetCommonTable(a1, 1196643650, 0);
       if (CommonTable)
       {
         v3 = CommonTable;
@@ -3609,7 +3609,7 @@ void TFont::~TFont(TFont *this)
   }
 }
 
-uint64_t CTFontGetUIFontType(const void *a1)
+uint64_t CTFontGetUIFontType(const __CTFont *a1)
 {
   TextStyle = CTFontGetTextStyle(a1);
   if (!TextStyle)
@@ -3897,7 +3897,7 @@ void TFontFeatures::SettingsByNormalizing(atomic_ullong *a1@<X0>, const TBaseFon
         LODWORD(v46) = 0;
       }
 
-      CopyFeatureSettingForTag(v11, a2, &v48, &v47, v16, &values);
+      CopyFeatureSettingForTag(&values, v11, a2, &v48, &v47, v16);
 
       v18 = 1;
     }
@@ -4256,12 +4256,12 @@ uint64_t *std::__tree_balance_after_insert[abi:fn200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -4275,22 +4275,22 @@ uint64_t *std::__tree_balance_after_insert[abi:fn200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -4324,13 +4324,13 @@ uint64_t *std::__tree_balance_after_insert[abi:fn200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -4656,11 +4656,11 @@ uint64_t IsFontSpecificFeatureSetting(CTFeatureSetting *a1)
 {
   v1 = a1;
   v14 = 0;
-  v2 = [(CTFeatureSetting *)a1 type];
+  v2 = [(CTFeatureSetting *)&a1->super.super.isa type];
   if (v2)
   {
     v3 = v2;
-    v4 = [(CTFeatureSetting *)v1 selector];
+    v4 = [(CTFeatureSetting *)&v1->super.super.isa selector];
     LOWORD(v13) = -21846;
     CFNumberGetValue(v3, kCFNumberShortType, &v13);
     v5 = v13;
@@ -4690,7 +4690,7 @@ uint64_t IsFontSpecificFeatureSetting(CTFeatureSetting *a1)
   }
 
 LABEL_8:
-  v9 = [(CTFeatureSetting *)v1 tag];
+  v9 = [(CTFeatureSetting *)&v1->super.super.isa tag];
   if (!v9 || (v10 = FourCharCodeFromString(v9), (IsOTFeatureFontSpecific(v10) & 1) == 0))
   {
     v11 = 0;
@@ -4840,7 +4840,7 @@ NSNumber *ValidatedValue(NSNumber *a1)
   return v1;
 }
 
-uint64_t IsOTFeatureFontSpecific(unsigned int a1)
+uint64_t IsOTFeatureFontSpecific(uint64_t a1)
 {
   v3 = 0xAAAAAAAAAAAAAAAALL;
   v1 = ConvertOTFeatureToAATFeature(a1, &v3);
@@ -4863,7 +4863,7 @@ uint64_t IsOTFeatureFontSpecific(unsigned int a1)
 
 uint64_t *std::__tree<std::__value_type<unsigned short,AATFeaturePair>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,AATFeaturePair>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,AATFeaturePair>>>::__equal_range_multi<unsigned short>(uint64_t a1, unsigned __int16 *a2)
 {
-  v2 = (a1 + 8);
+  v2 = a1 + 8;
   v3 = *(a1 + 8);
   if (!v3)
   {
@@ -4873,7 +4873,7 @@ uint64_t *std::__tree<std::__value_type<unsigned short,AATFeaturePair>,std::__ma
   v4 = *a2;
   while (1)
   {
-    v5 = *(v3 + 16);
+    v5 = *(v3 + 32);
     if (v4 >= v5)
     {
       break;
@@ -4890,7 +4890,7 @@ LABEL_7:
 
   if (v5 < v4)
   {
-    ++v3;
+    v3 += 8;
     goto LABEL_7;
   }
 
@@ -4901,7 +4901,7 @@ LABEL_7:
     result = v3;
     do
     {
-      v8 = *(v7 + 16);
+      v8 = *(v7 + 32);
       v9 = v8 >= v4;
       v10 = v8 < v4;
       if (v9)
@@ -4909,7 +4909,7 @@ LABEL_7:
         result = v7;
       }
 
-      v7 = v7[v10];
+      v7 = *(v7 + 8 * v10);
     }
 
     while (v7);
@@ -4977,7 +4977,7 @@ uint64_t ConvertOTFeatureToAATFeature(unsigned int a1, uint64_t a2)
   v7 = v4[2];
   if ((~v7 & 0xE) != 0)
   {
-    if (v4 != &unk_18477A6C4)
+    if (v4 != &dword_18477A6C4)
     {
       while (*v4 <= a1)
       {
@@ -4987,14 +4987,14 @@ uint64_t ConvertOTFeatureToAATFeature(unsigned int a1, uint64_t a2)
         }
 
         v4 += 3;
-        if (v4 == &unk_18477A6C4)
+        if (v4 == &dword_18477A6C4)
         {
           break;
         }
       }
     }
 
-    v4 = &unk_18477A6C4;
+    v4 = &dword_18477A6C4;
 LABEL_15:
     if ((v4[2] & 8) == 0)
     {
@@ -5032,8 +5032,8 @@ LABEL_15:
 
 int *std::equal_range[abi:fn200100]<anonymous namespace::FeatureMapEntry const*,unsigned int>(unsigned int *a1)
 {
-  result = &kMasterFeatureMap;
-  v3 = &unk_18477A6C4;
+  result = kMasterFeatureMap;
+  v3 = &dword_18477A6C4;
   v4 = *a1;
   v5 = 165;
   while (1)
@@ -5191,7 +5191,7 @@ LABEL_10:
   return a3 == 0;
 }
 
-uint64_t OTL::GSUB::ApplyChainContextSubstFormat3(uint64_t result, unint64_t a2, uint64_t a3, _WORD *a4, uint64_t a5, uint64_t a6)
+uint64_t OTL::GSUB::ApplyChainContextSubstFormat3(uint64_t result, unint64_t a2, uint64_t a3, _WORD *a4, uint64_t a5, unint64_t a6)
 {
   v6 = *(result + 40);
   v7 = (a2 + 4);
@@ -5400,27 +5400,27 @@ void GetPossiblyCompressedDataForAttribute(const __CFString *a1@<X0>, const __CF
   }
 }
 
-void std::__hash_table<std::__hash_value_type<TRun const*,long>,std::__unordered_map_hasher<TRun const*,std::__hash_value_type<TRun const*,long>,std::hash<TRun const*>,std::equal_to<TRun const*>,true>,std::__unordered_map_equal<TRun const*,std::__hash_value_type<TRun const*,long>,std::equal_to<TRun const*>,std::hash<TRun const*>,true>,std::allocator<std::__hash_value_type<TRun const*,long>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<TRun const*,long>,std::__unordered_map_hasher<TRun const*,std::__hash_value_type<TRun const*,long>,std::hash<TRun const*>,std::equal_to<TRun const*>,true>,std::__unordered_map_equal<TRun const*,std::__hash_value_type<TRun const*,long>,std::equal_to<TRun const*>,std::hash<TRun const*>,true>,std::allocator<std::__hash_value_type<TRun const*,long>>>::__rehash<true>(unint64_t prime, size_t __n)
 {
   if (__n == 1)
   {
-    prime = 2;
+    v3 = 2;
   }
 
   else
   {
-    prime = __n;
+    v3 = __n;
     if ((__n & (__n - 1)) != 0)
     {
-      prime = std::__next_prime(__n);
+      v3 = std::__next_prime(__n);
     }
   }
 
-  v4 = *(a1 + 8);
-  if (prime > *&v4)
+  v4 = *(prime + 8);
+  if (v3 > *&v4)
   {
 LABEL_6:
-    if (!(prime >> 61))
+    if (!(v3 >> 61))
     {
       operator new();
     }
@@ -5428,9 +5428,9 @@ LABEL_6:
     std::__throw_bad_array_new_length[abi:fn200100]();
   }
 
-  if (prime < *&v4)
+  if (v3 < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(prime + 24) / *(prime + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -5445,26 +5445,26 @@ LABEL_6:
       }
     }
 
-    if (prime <= v5)
+    if (v3 <= v5)
     {
-      prime = v5;
+      v3 = v5;
     }
 
-    if (prime < *&v4)
+    if (v3 < *&v4)
     {
-      if (prime)
+      if (v3)
       {
         goto LABEL_6;
       }
 
-      v8 = *a1;
-      *a1 = 0;
+      v8 = *prime;
+      *prime = 0;
       if (v8)
       {
         operator delete(v8);
       }
 
-      *(a1 + 8) = 0;
+      *(prime + 8) = 0;
     }
   }
 }
@@ -5528,10 +5528,10 @@ void TBaseFont::AccessAttributes(uint64_t a1, uint64_t a2)
 
   explicit = atomic_load_explicit((a1 + 120), memory_order_acquire);
   v5 = *(a2 + 24);
-  v7 = explicit;
+  v8 = explicit;
   if (v5)
   {
-    (*(*v5 + 48))(v5, &v7);
+    (*(*v5 + 48))(v5, &v8);
 
     os_unfair_lock_unlock((a1 + 112));
   }
@@ -5539,7 +5539,7 @@ void TBaseFont::AccessAttributes(uint64_t a1, uint64_t a2)
   else
   {
     v6 = std::__throw_bad_function_call[abi:fn200100]();
-    std::__function::__func<TFont::InitShapingGlyphs(void)::$_0,std::allocator<TFont::InitShapingGlyphs(void)::$_0>,void ()(__CFDictionary *)>::operator()(v6);
+    std::__function::__func<TFont::InitShapingGlyphs(void)::$_0,std::allocator<TFont::InitShapingGlyphs(void)::$_0>,void ()(__CFDictionary *)>::operator()(v6, v7);
   }
 }
 
@@ -5600,7 +5600,7 @@ uint64_t *FindMasterFeatureMapEntry(unsigned int a1)
   return result;
 }
 
-void *std::__split_buffer<long,TInlineBufferAllocator<long,30ul> &>::__split_buffer(void *a1, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::__split_buffer<long,TInlineBufferAllocator<long,30ul> &>::__split_buffer(uint64_t *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   a1[3] = 0;
   a1[4] = a4;
@@ -5636,14 +5636,14 @@ void *std::__split_buffer<long,TInlineBufferAllocator<long,30ul> &>::__split_buf
   return a1;
 }
 
-void *TInlineVector<std::pair<unsigned short,unsigned short>,30ul>::TInlineVector(void *a1, int **a2)
+uint64_t *TInlineVector<std::pair<unsigned short,unsigned short>,30ul>::TInlineVector(uint64_t *a1, int **a2)
 {
   v3 = *a2;
   v4 = a2[1];
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  a1[18] = a1 + 3;
+  a1[18] = (a1 + 3);
   if (v4 != v3)
   {
     std::vector<unsigned int,TInlineBufferAllocator<unsigned int,30ul>>::__vallocate[abi:fn200100](a1, v4 - v3);
@@ -5731,33 +5731,33 @@ BOOL IsOTFeatureTurnedOnByShapingEngine(unsigned int a1)
   return std::__hash_table<std::__hash_value_type<unsigned int,OTL::Lookup>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,OTL::Lookup>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,OTL::Lookup>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,OTL::Lookup>>>::find<unsigned int>(&xmmword_1ED567ED0, &v2) != 0;
 }
 
-uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(void *a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -5765,44 +5765,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void std::vector<anonymous namespace::FeatureMapEntry,TInlineBufferAllocator<anonymous namespace::FeatureMapEntry,10ul>>::push_back[abi:fn200100](uint64_t a1, uint64_t *a2)
@@ -6509,7 +6509,7 @@ LABEL_19:
           if (v51 && v51 != *v22)
           {
             memset(valuePtr, 170, 24);
-            TFontFeatureSettingList::IndexesOfAATSetting(a2, *(v22 + 2), *(v22 + 3), valuePtr);
+            TFontFeatureSettingList::IndexesOfAATSetting(valuePtr, a2, *(v22 + 2), *(v22 + 3));
             v52 = *valuePtr;
             v53 = (*valuePtr + 8);
             if (*&valuePtr[8] == *valuePtr + 8)
@@ -7433,33 +7433,33 @@ unint64_t *HashFilterCombiner<IdentityHashFilter,MultiplicativeHashFilter>::AddR
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,OTL::Lookup>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,OTL::Lookup>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,OTL::Lookup>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,OTL::Lookup>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<OTL::Lookup&&>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,OTL::Lookup>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,OTL::Lookup>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,OTL::Lookup>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,OTL::Lookup>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<OTL::Lookup&&>>(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4, uint64_t *a5)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v5 = *a2;
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v8 = *a2;
+    if (*&v6 <= v5)
     {
-      v5 = v2 % v3.i32[0];
+      v8 = v5 % v6.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v8 = (v6.i32[0] - 1) & v5;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -7467,44 +7467,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v11 >= *&v6)
       {
-        v8 %= *&v3;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v8 != v5)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v10 + 4) != v5)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v10;
 }
 
 uint64_t std::vector<std::pair<OTL::LookupSubtable const*,OTL::Coverage>,TInlineBufferAllocator<std::pair<OTL::LookupSubtable const*,OTL::Coverage>,4ul>>::__vallocate[abi:fn200100](uint64_t *a1, unint64_t a2)
@@ -7742,7 +7742,7 @@ _DWORD *OTL::CoverageBitmap::Reset(_DWORD *this, int a2, int a3)
     if (v7 > 0x20)
     {
       this = malloc_type_calloc(1uLL, v7, 0x100004077774924uLL);
-      v3[1] = this;
+      *(v3 + 1) = this;
     }
 
     else
@@ -7969,12 +7969,12 @@ unsigned __int16 **OTL::Lookup::Lookup<OTL::GPOS>(unsigned __int16 **a1, void *a
   a1[3] = 0;
   a1[4] = 0;
   a1[6] = (a1 + 7);
-  v5 = (a1 + 15);
+  v5 = a1 + 15;
   *(a1 + 13) = 0u;
   *(a1 + 11) = 0u;
   a1[47] = (a1 + 15);
   v6 = a3 + 3;
-  if ((a3 + 3) <= v4)
+  if (a3 + 3 <= v4)
   {
     LODWORD(v7) = bswap32(a3[2]) >> 16;
     v8 = &a3[v7 + 3] + ((a3[1] >> 11) & 2);
@@ -7983,7 +7983,7 @@ unsigned __int16 **OTL::Lookup::Lookup<OTL::GPOS>(unsigned __int16 **a1, void *a
       v11 = &v6[v7];
       if (v11 < v6 || v11 > v4)
       {
-        if ((a3 + 4) > v4)
+        if (a3 + 4 > v4)
         {
           return a1;
         }
@@ -8004,7 +8004,7 @@ unsigned __int16 **OTL::Lookup::Lookup<OTL::GPOS>(unsigned __int16 **a1, void *a
           if (v14 == 2304)
           {
             v17 = a1[1];
-            if ((v16 + 8) > v17 || *v16 != 256)
+            if (v16 + 8 > v17 || *v16 != 256)
             {
               return a1;
             }
@@ -8020,7 +8020,7 @@ unsigned __int16 **OTL::Lookup::Lookup<OTL::GPOS>(unsigned __int16 **a1, void *a
             {
               v19 = __rev16(v18);
               v20 = &v16[bswap32(*(v16 + 1))];
-              if ((v20 + 2) <= v17)
+              if (v20 + 2 <= v17)
               {
                 v16 = v20;
               }
@@ -8030,7 +8030,7 @@ unsigned __int16 **OTL::Lookup::Lookup<OTL::GPOS>(unsigned __int16 **a1, void *a
                 v16 = 0;
               }
 
-              if ((v20 + 2) <= v17)
+              if (v20 + 2 <= v17)
               {
                 v21 = v19;
               }
@@ -8101,7 +8101,7 @@ unsigned __int16 **OTL::Lookup::Lookup<OTL::GPOS>(unsigned __int16 **a1, void *a
             *(v32 + 56) = v47;
             v25 = (v32 + 64);
             v35 = a1[12];
-            v36 = a1[13] - v35;
+            v36 = (a1[13] - v35);
             v37 = (v32 - v36);
             memcpy((v32 - v36), v35, v36);
             v38 = a1[12];
@@ -8215,7 +8215,7 @@ LABEL_19:
   return OTL::Coverage::Coverage(a5, (this + (bswap32(v10) >> 16)), v7, 0, a6, a7);
 }
 
-double std::function<BOOL ()(unsigned short,unsigned short,unsigned short)>::operator()(uint64_t a1, __int16 a2, __int16 a3, __int16 a4)
+double std::function<BOOL ()(unsigned short,unsigned short,unsigned short)>::operator()(uint64_t a1, uint64_t a2, __int16 a3, __int16 a4)
 {
   v10 = a2;
   v9 = a3;
@@ -8297,8 +8297,8 @@ BOOL OTL::Coverage::IterateFmt1(void *a1, uint64_t a2)
     v13 = 1;
   }
 
-  v14 = bswap32(*v4) >> 16;
-  std::function<BOOL ()(unsigned short,unsigned short,unsigned short)>::operator()(a2, v14, v14, 0);
+  v14 = bswap32(*v4);
+  std::function<BOOL ()(unsigned short,unsigned short,unsigned short)>::operator()(a2, HIWORD(v14), SHIWORD(v14), 0);
   v16 = v15;
   result = 0;
   if (v16)
@@ -8314,8 +8314,8 @@ BOOL OTL::Coverage::IterateFmt1(void *a1, uint64_t a2)
       }
 
       v21 = *v18++;
-      v22 = bswap32(v21) >> 16;
-      std::function<BOOL ()(unsigned short,unsigned short,unsigned short)>::operator()(a2, v22, v22, v19);
+      v22 = bswap32(v21);
+      std::function<BOOL ()(unsigned short,unsigned short,unsigned short)>::operator()(a2, HIWORD(v22), SHIWORD(v22), v20);
       v19 = v20 + 1;
     }
 
@@ -8535,44 +8535,44 @@ uint64_t std::__function::__value_func<void ()(unsigned short,unsigned short)>::
   return a1;
 }
 
-uint64_t TOpenTypeMorph::AddShapingGlyphs(uint64_t a1)
+uint64_t TOpenTypeMorph::AddShapingGlyphs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   CommonTable = TBaseFont::GetCommonTable(*(a1 + 408), 1196643650, 0);
-  v13 = CommonTable;
+  v17 = CommonTable;
   if (CommonTable)
   {
-    v3 = CommonTable;
-    v4 = TBaseFont::GetCommonTable(*(a1 + 408), 1195656518, 0);
-    v12 = 0xAAAAAAAAAAAAAAAALL;
-    *&v5 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v11[3] = v5;
-    v11[4] = v5;
-    v11[1] = v5;
-    v11[2] = v5;
-    v11[0] = v5;
-    OTL::GDEF::GDEF(v11, v4);
-    BytePtr = CFDataGetBytePtr(v3);
-    v6 = CFDataGetBytePtr(v3);
-    if (v6)
+    v7 = CommonTable;
+    v8 = TBaseFont::GetCommonTable(*(a1 + 408), 1195656518, 0);
+    v16 = 0xAAAAAAAAAAAAAAAALL;
+    *&v9 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v15[3] = v9;
+    v15[4] = v9;
+    v15[1] = v9;
+    v15[2] = v9;
+    v15[0] = v9;
+    OTL::GDEF::GDEF(v15, v8);
+    BytePtr = CFDataGetBytePtr(v7);
+    v10 = CFDataGetBytePtr(v7);
+    if (v10)
     {
-      v7 = &v6[CFDataGetLength(v3)];
+      v11 = &v10[CFDataGetLength(v7)];
     }
 
     else
     {
-      v7 = 0;
+      v11 = 0;
     }
 
-    v9 = v7;
+    v13 = v11;
     operator new();
   }
 
   return 1;
 }
 
-uint64_t OTL::GCommon::IterateScriptTables(unsigned __int16 *a1, unint64_t a2, uint64_t a3)
+BOOL OTL::GCommon::IterateScriptTables(unsigned __int16 *a1, unint64_t a2, uint64_t a3)
 {
   if ((a1 + 5) > a2 || bswap32(*a1) >> 16 > 1)
   {
@@ -8598,7 +8598,7 @@ uint64_t OTL::GCommon::IterateScriptTables(unsigned __int16 *a1, unint64_t a2, u
   }
 
   v11 = __rev16(*v6);
-  v12 = v7 + 6 * v11;
+  v12 = &v7[6 * v11];
   if (v12 >= v7 && v12 <= a2)
   {
     goto LABEL_31;
@@ -8656,18 +8656,18 @@ LABEL_31:
   return v8;
 }
 
-uint64_t std::function<BOOL ()(unsigned int,OTL::ScriptTable const*,BOOL &)>::operator()(uint64_t a1, int a2, uint64_t a3)
+uint64_t std::function<BOOL ()(unsigned int,OTL::ScriptTable const*,BOOL &)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = a2;
-  v6 = a3;
+  v9 = a2;
+  v8 = a3;
   v3 = *(a1 + 24);
   if (v3)
   {
-    return (*(*v3 + 48))(v3, &v7, &v6);
+    return (*(*v3 + 48))(v3, &v9, &v8);
   }
 
   v5 = std::__throw_bad_function_call[abi:fn200100]();
-  return std::__function::__func<TOpenTypeMorph::AddShapingGlyphs(TFont const&,std::function<void ()(unsigned short,unsigned short)>,std::function<void ()(unsigned short,unsigned short)>,std::function<void ()>,std::function<void ()(void)>)::$_0,std::allocator<TOpenTypeMorph::AddShapingGlyphs(TFont const&,std::function<void ()(unsigned short,unsigned short)>,std::function<void ()(unsigned short,unsigned short)>,std::function<void ()>,std::function<void ()(void)>)::$_0>,BOOL ()(unsigned int,OTL::ScriptTable const*,BOOL &)>::operator()(v5);
+  return std::__function::__func<TOpenTypeMorph::AddShapingGlyphs(TFont const&,std::function<void ()(unsigned short,unsigned short)>,std::function<void ()(unsigned short,unsigned short)>,std::function<void ()>,std::function<void ()(void)>)::$_0,std::allocator<TOpenTypeMorph::AddShapingGlyphs(TFont const&,std::function<void ()(unsigned short,unsigned short)>,std::function<void ()(unsigned short,unsigned short)>,std::function<void ()>,std::function<void ()(void)>)::$_0>,BOOL ()(unsigned int,OTL::ScriptTable const*,BOOL &)>::operator()(v5, v6, v7);
 }
 
 uint64_t std::__function::__func<TOpenTypeMorph::AddShapingGlyphs(TFont const&,std::function<void ()(unsigned short,unsigned short)>,std::function<void ()(unsigned short,unsigned short)>,std::function<void ()(unsigned int)>,std::function<void ()(void)>)::$_0::operator() const(unsigned int,OTL::ScriptTable const*,BOOL &)::{lambda(unsigned int,OTL::LangSysTable const*,BOOL &)#1},std::allocator<TOpenTypeMorph::AddShapingGlyphs(TFont const&,std::function<void ()(unsigned short,unsigned short)>,std::function<void ()(unsigned short,unsigned short)>,std::function<void ()(unsigned int)>,std::function<void ()(void)>)::$_0::operator() const(unsigned int,OTL::ScriptTable const*,BOOL &)::{lambda(unsigned int,OTL::LangSysTable const*,BOOL &)#1}>,BOOL ()(unsigned int,OTL::LangSysTable const*,BOOL &)>::operator()(uint64_t a1, unsigned int *a2)
@@ -8923,17 +8923,17 @@ LABEL_25:
   return v5;
 }
 
-uint64_t std::function<BOOL ()(unsigned int,OTL::LangSysTable const*,BOOL &)>::operator()(uint64_t a1, int a2, uint64_t a3)
+uint64_t std::function<BOOL ()(unsigned int,OTL::LangSysTable const*,BOOL &)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = a2;
-  v5 = a3;
+  v9 = a2;
+  v8 = a3;
   if (a1)
   {
-    return (*(*a1 + 48))(a1, &v6, &v5);
+    return (*(*a1 + 48))(a1, &v9, &v8);
   }
 
   v4 = std::__throw_bad_function_call[abi:fn200100]();
-  return OTL::GCommon::IterateLangSysTables(v4);
+  return OTL::GCommon::IterateLangSysTables(v4, v5, v6, v7);
 }
 
 uint64_t OTL::GCommon::IterateLangSysTables(unint64_t a1, unsigned __int16 *a2, unint64_t a3, uint64_t a4)
@@ -8974,15 +8974,15 @@ uint64_t OTL::GCommon::IterateLangSysTables(unint64_t a1, unsigned __int16 *a2, 
   }
 
   v14 = a2 + __rev16(*a2);
-  v15 = v14 + 6;
-  if (v14 + 4 < a1 || v15 > a3)
+  v15 = (v14 + 6);
+  if ((v14 + 4) < a1 || v15 > a3)
   {
     return 0;
   }
 
-  v17 = bswap32(*(v14 + 4)) >> 16;
+  v17 = bswap32(*(v14 + 2)) >> 16;
   v18 = v15 + 2 * v17;
-  v19 = v14 + 8 <= a3 ? (a3 - v15) >> 1 : 0;
+  v19 = (v14 + 8) <= a3 ? (a3 - v15) >> 1 : 0;
   v20 = v18 <= a3 && v18 >= v15;
   v21 = v20 || v19 == v17;
   if (!v21 || (std::function<BOOL ()(unsigned int,OTL::LangSysTable const*,BOOL &)>::operator()(*(a4 + 24), 0, v14) & 1) == 0)
@@ -9012,15 +9012,15 @@ LABEL_32:
       if (*v25)
       {
         v27 = a2 + __rev16(*v25);
-        v28 = v27 + 6;
-        if (v27 + 4 < a1 || v28 > a3)
+        v28 = (v27 + 6);
+        if ((v27 + 4) < a1 || v28 > a3)
         {
           return 0;
         }
 
-        v30 = bswap32(*(v27 + 4)) >> 16;
+        v30 = bswap32(*(v27 + 2)) >> 16;
         v31 = v28 + 2 * v30;
-        v32 = v27 + 8 <= a3 ? (a3 - v28) >> 1 : 0;
+        v32 = (v27 + 8) <= a3 ? (a3 - v28) >> 1 : 0;
         v33 = v31 <= a3 && v31 >= v28;
         if (!v33 && v32 != v30)
         {
@@ -9082,14 +9082,15 @@ __n128 std::__function::__func<TFont::InitShapingGlyphs(void)::$_1,std::allocato
   return result;
 }
 
-uint64_t UniversalShapingEngine::AddShapingGlyphsForScript(uint64_t result, int a2, uint64_t a3)
+uint64_t UniversalShapingEngine::AddShapingGlyphsForScript(uint64_t result, uint64_t a2, uint64_t a3)
 {
   v6 = *MEMORY[0x1E69E9840];
   if (a2 != 1145457748)
   {
+    v3 = a2;
     v4 = result;
     std::__function::__value_func<void ()(unsigned short,unsigned short)>::__value_func[abi:fn200100](v5, a3);
-    UniversalClassTable::AddShapingGlyphsForScript(v4, a2, v5);
+    UniversalClassTable::AddShapingGlyphsForScript(v4, v3, v5);
     return std::__function::__value_func<void ()(unsigned short,unsigned short)>::~__value_func[abi:fn200100](v5);
   }
 
@@ -9104,7 +9105,7 @@ uint64_t *IsOTFeatureTurnedOnByShapingEngine(unsigned int)::$_0::__invoke()
   {
     if (v0[2] == 14)
     {
-      result = std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&xmmword_1ED567ED0, v0);
+      result = std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&xmmword_1ED567ED0, v0, v0);
     }
 
     v0 += 3;
@@ -9207,7 +9208,7 @@ const void **std::vector<std::pair<OTL::LookupSubtable const*,OTL::Coverage>,TIn
     v12[4] = result + 3;
     v4 = std::__allocate_at_least[abi:fn200100]<TInlineBufferAllocator<std::pair<OTL::LookupSubtable const*,OTL::Coverage>,4ul>>((result + 3), a2);
     v5 = (v4 + v3);
-    v7 = v4 + (v6 << 6);
+    v7 = (v4 + (v6 << 6));
     v8 = v2[1] - *v2;
     v9 = (v4 + v3 - v8);
     memcpy(v9, *v2, v8);
@@ -9237,12 +9238,12 @@ unsigned __int16 **OTL::Lookup::Lookup<OTL::GSUB>(unsigned __int16 **a1, void *a
   a1[3] = 0;
   a1[4] = 0;
   a1[6] = (a1 + 7);
-  v5 = (a1 + 15);
+  v5 = a1 + 15;
   *(a1 + 13) = 0u;
   *(a1 + 11) = 0u;
   a1[47] = (a1 + 15);
   v6 = a3 + 3;
-  if ((a3 + 3) <= v4)
+  if (a3 + 3 <= v4)
   {
     LODWORD(v7) = bswap32(a3[2]) >> 16;
     v8 = &a3[v7 + 3] + ((a3[1] >> 11) & 2);
@@ -9251,7 +9252,7 @@ unsigned __int16 **OTL::Lookup::Lookup<OTL::GSUB>(unsigned __int16 **a1, void *a
       v11 = &v6[v7];
       if (v11 < v6 || v11 > v4)
       {
-        if ((a3 + 4) > v4)
+        if (a3 + 4 > v4)
         {
           return a1;
         }
@@ -9272,7 +9273,7 @@ unsigned __int16 **OTL::Lookup::Lookup<OTL::GSUB>(unsigned __int16 **a1, void *a
           if (v14 == 1792)
           {
             v17 = a1[1];
-            if ((v16 + 8) > v17 || *v16 != 256)
+            if (v16 + 8 > v17 || *v16 != 256)
             {
               return a1;
             }
@@ -9288,7 +9289,7 @@ unsigned __int16 **OTL::Lookup::Lookup<OTL::GSUB>(unsigned __int16 **a1, void *a
             {
               v19 = __rev16(v18);
               v20 = &v16[bswap32(*(v16 + 1))];
-              if ((v20 + 2) <= v17)
+              if (v20 + 2 <= v17)
               {
                 v16 = v20;
               }
@@ -9298,7 +9299,7 @@ unsigned __int16 **OTL::Lookup::Lookup<OTL::GSUB>(unsigned __int16 **a1, void *a
                 v16 = 0;
               }
 
-              if ((v20 + 2) <= v17)
+              if (v20 + 2 <= v17)
               {
                 v21 = v19;
               }
@@ -9369,7 +9370,7 @@ unsigned __int16 **OTL::Lookup::Lookup<OTL::GSUB>(unsigned __int16 **a1, void *a
             *(v32 + 56) = v47;
             v25 = (v32 + 64);
             v35 = a1[12];
-            v36 = a1[13] - v35;
+            v36 = (a1[13] - v35);
             v37 = (v32 - v36);
             memcpy((v32 - v36), v35, v36);
             v38 = a1[12];
@@ -9629,8 +9630,8 @@ LABEL_36:
 
                         else
                         {
-                          v43 = bswap32(*v37) >> 16;
-                          std::function<void ()(unsigned short,unsigned short)>::operator()(a3, v43, v43);
+                          v43 = bswap32(*v37);
+                          std::function<void ()(unsigned short,unsigned short)>::operator()(a3, HIWORD(v43), SHIWORD(v43));
                         }
                       }
 
@@ -9670,7 +9671,7 @@ LABEL_87:
   return v48;
 }
 
-uint64_t OTL::GSUB::AddShapingGlyphsForLookup(OTL::Lookup const&,std::function<void ()(unsigned short,unsigned short)>,std::function<void ()(void)>)const::$_1::operator()(uint64_t *a1, unsigned int a2)
+uint64_t OTL::GSUB::AddShapingGlyphsForLookup(OTL::Lookup const&,std::function<void ()(unsigned short,unsigned short)>,std::function<void ()(void)>)const::$_1::operator()(void *a1, unsigned int a2)
 {
   v4 = *MEMORY[0x1E69E9840];
   if (a2 < ((*(*a1 + 104) - *(*a1 + 96)) >> 6))
@@ -9714,14 +9715,14 @@ uint64_t OTL::Lookup::PopulateIgnoreSet(OTL::Lookup *this, const OTL::GDEF *a2)
   return result;
 }
 
-void OTL::GDEF::IterateGlyphsWithClassMask(uint64_t a1, uint64_t a2, uint64_t a3)
+void OTL::GDEF::IterateGlyphsWithClassMask(uint64_t a1, int a2, uint64_t a3)
 {
   v3[8] = *MEMORY[0x1E69E9840];
   std::__function::__value_func<void ()(unsigned short)>::__value_func[abi:fn200100](v3, a3);
   operator new();
 }
 
-uint64_t std::function<void ()(unsigned short,unsigned short)>::operator()(uint64_t a1, __int16 a2, __int16 a3)
+uint64_t std::function<void ()(unsigned short,unsigned short)>::operator()(uint64_t a1, uint64_t a2, __int16 a3)
 {
   v8 = a2;
   v7 = a3;

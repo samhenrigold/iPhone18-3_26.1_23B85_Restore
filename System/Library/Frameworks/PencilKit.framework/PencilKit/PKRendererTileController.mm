@@ -43,9 +43,9 @@
     dispatch_once(&_MergedGlobals_119, &__block_literal_global_4);
   }
 
-  v0 = qword_1ED6A4F68;
+  v1 = qword_1ED6A4F68;
 
-  return v0;
+  return v1;
 }
 
 void __44__PKRendererTileController_sharedController__block_invoke()

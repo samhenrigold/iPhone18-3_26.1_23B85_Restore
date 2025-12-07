@@ -176,7 +176,7 @@ LABEL_15:
       {
         v10 = numberOfRectangles;
         memset(&v11[1], 0, sizeof(CGAffineTransform));
-        [(UIPDFSelection *)v8 transform];
+        objc_msgSend_transform(v8);
         v11[0] = v11[1];
         if (CGAffineTransformIsIdentity(v11))
         {
@@ -205,7 +205,7 @@ LABEL_15:
       {
         v8 = numberOfRectangles;
         memset(&v9[1], 0, sizeof(CGAffineTransform));
-        [(UIPDFSelection *)v6 transform];
+        objc_msgSend_transform(v6);
         v9[0] = v9[1];
         if (CGAffineTransformIsIdentity(v9))
         {

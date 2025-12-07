@@ -303,7 +303,7 @@ LABEL_33:
 
 - (id)preferencesCapabilityAnswer:(id)answer
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   answerCopy = answer;
   if ([answerCopy isEqualToString:@"PSDisplayZoomCapability"])
   {
@@ -468,19 +468,19 @@ LABEL_53:
 
   if (v9)
   {
-    v10 = MEMORY[0x1E696AD98];
+    v11 = MEMORY[0x1E696AD98];
     axCapabilityManager2 = [(PSCapabilityManager *)self axCapabilityManager];
-    v6 = [v10 numberWithBool:{objc_msgSend(axCapabilityManager2, "isCapabilityAvailable:", answerCopy)}];
+    v6 = [v11 numberWithBool:{objc_msgSend(axCapabilityManager2, "isCapabilityAvailable:", answerCopy)}];
   }
 
   else
   {
-    v12 = _PSLoggingFacility();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = _PSLoggingFacility(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = answerCopy;
-      _os_log_impl(&dword_18B008000, v12, OS_LOG_TYPE_DEFAULT, "No capability found for key %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = answerCopy;
+      _os_log_impl(&dword_18B008000, v13, OS_LOG_TYPE_DEFAULT, "No capability found for key %@", &v14, 0xCu);
     }
 
     v6 = 0;
@@ -537,45 +537,45 @@ LABEL_54:
 
 - (id)supportsLightningAdapterCapability
 {
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2050000000;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2050000000;
   v2 = getADASManagerClass_softClass;
-  v25 = getADASManagerClass_softClass;
+  v26 = getADASManagerClass_softClass;
   if (!getADASManagerClass_softClass)
   {
-    v17 = MEMORY[0x1E69E9820];
-    v18 = 3221225472;
-    v19 = __getADASManagerClass_block_invoke;
-    v20 = &unk_1E71DBC78;
-    v21 = &v22;
-    __getADASManagerClass_block_invoke(&v17);
-    v2 = v23[3];
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __getADASManagerClass_block_invoke;
+    v21 = &unk_1E71DBC78;
+    v22 = &v23;
+    __getADASManagerClass_block_invoke(&v18);
+    v2 = v24[3];
   }
 
   v3 = v2;
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v23, 8);
   v4 = objc_alloc_init(v2);
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
   v5 = getADAFPreferenceKeyHAENKnownAccessoriesSymbolLoc_ptr;
-  v25 = getADAFPreferenceKeyHAENKnownAccessoriesSymbolLoc_ptr;
+  v26 = getADAFPreferenceKeyHAENKnownAccessoriesSymbolLoc_ptr;
   if (!getADAFPreferenceKeyHAENKnownAccessoriesSymbolLoc_ptr)
   {
-    v17 = MEMORY[0x1E69E9820];
-    v18 = 3221225472;
-    v19 = __getADAFPreferenceKeyHAENKnownAccessoriesSymbolLoc_block_invoke;
-    v20 = &unk_1E71DBC78;
-    v21 = &v22;
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __getADAFPreferenceKeyHAENKnownAccessoriesSymbolLoc_block_invoke;
+    v21 = &unk_1E71DBC78;
+    v22 = &v23;
     v6 = AudioDataAnalysisLibrary();
     v7 = dlsym(v6, "ADAFPreferenceKeyHAENKnownAccessories");
-    *(v21[1] + 24) = v7;
-    getADAFPreferenceKeyHAENKnownAccessoriesSymbolLoc_ptr = *(v21[1] + 24);
-    v5 = v23[3];
+    *(v22[1] + 24) = v7;
+    getADAFPreferenceKeyHAENKnownAccessoriesSymbolLoc_ptr = *(v22[1] + 24);
+    v5 = v24[3];
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v23, 8);
   if (!v5)
   {
     [PSContactsAuthorizationLevelController dealloc];
@@ -590,32 +590,33 @@ LABEL_54:
     goto LABEL_12;
   }
 
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
   v11 = getADAFPreferenceKeyConnectedWiredDeviceIsHeadphoneSymbolLoc_ptr;
-  v25 = getADAFPreferenceKeyConnectedWiredDeviceIsHeadphoneSymbolLoc_ptr;
+  v26 = getADAFPreferenceKeyConnectedWiredDeviceIsHeadphoneSymbolLoc_ptr;
   if (!getADAFPreferenceKeyConnectedWiredDeviceIsHeadphoneSymbolLoc_ptr)
   {
-    v17 = MEMORY[0x1E69E9820];
-    v18 = 3221225472;
-    v19 = __getADAFPreferenceKeyConnectedWiredDeviceIsHeadphoneSymbolLoc_block_invoke;
-    v20 = &unk_1E71DBC78;
-    v21 = &v22;
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __getADAFPreferenceKeyConnectedWiredDeviceIsHeadphoneSymbolLoc_block_invoke;
+    v21 = &unk_1E71DBC78;
+    v22 = &v23;
     v12 = AudioDataAnalysisLibrary();
     v13 = dlsym(v12, "ADAFPreferenceKeyConnectedWiredDeviceIsHeadphone");
-    *(v21[1] + 24) = v13;
-    getADAFPreferenceKeyConnectedWiredDeviceIsHeadphoneSymbolLoc_ptr = *(v21[1] + 24);
-    v11 = v23[3];
+    *(v22[1] + 24) = v13;
+    getADAFPreferenceKeyConnectedWiredDeviceIsHeadphoneSymbolLoc_ptr = *(v22[1] + 24);
+    v11 = v24[3];
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v23, 8);
   if (!v11)
   {
 LABEL_16:
-    v16 = [PSContactsAuthorizationLevelController dealloc];
-    _Block_object_dispose(&v22, 8);
-    _Unwind_Resume(v16);
+    [PSContactsAuthorizationLevelController dealloc];
+    v17 = v16;
+    _Block_object_dispose(&v23, 8);
+    _Unwind_Resume(v17);
   }
 
   v14 = [v4 getPreferenceFor:*v11];

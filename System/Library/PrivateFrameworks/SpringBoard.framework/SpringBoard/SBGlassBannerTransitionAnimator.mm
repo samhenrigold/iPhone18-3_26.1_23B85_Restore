@@ -171,7 +171,7 @@ void __43__SBGlassBannerTransitionAnimator_settings__block_invoke()
   [v35 perform:v51 finalCompletion:v47];
 }
 
-void __63__SBGlassBannerTransitionAnimator_performActionsForTransition___block_invoke(uint64_t a1, void (**a2)(id, __CFString *))
+void __63__SBGlassBannerTransitionAnimator_performActionsForTransition___block_invoke(uint64_t a1, uint64_t (**a2)(id, __CFString *))
 {
   v4 = MEMORY[0x277D75D18];
   v5 = *(a1 + 88);

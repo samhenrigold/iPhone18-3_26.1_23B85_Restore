@@ -303,10 +303,49 @@ LABEL_10:
 
 - (__CFDictionary)createPersonalizationManifestCFDict:(id)dict
 {
-  if (![dict requestName] || !objc_msgSend(dict, "chipID") || !objc_msgSend(dict, "ecID") && !objc_msgSend(dict, "extEcID") && !objc_msgSend(dict, "globalSigning") || !objc_msgSend(dict, "isProductionModeSet") || !objc_msgSend(dict, "nonceHash") || !objc_msgSend(dict, "objectList") || (Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks)) == 0)
+  if (![dict requestName])
   {
-    sub_100013648();
+    v26 = @"%s(): name=nil\n";
+LABEL_55:
+    sub_100013648(v26);
     return 0;
+  }
+
+  if (![dict chipID])
+  {
+    v26 = @"%s(): chipID=0\n";
+    goto LABEL_55;
+  }
+
+  if (![dict ecID] && !objc_msgSend(dict, "extEcID") && !objc_msgSend(dict, "globalSigning"))
+  {
+    v26 = @"%s(): ecID/globalSigning invalid\n";
+    goto LABEL_55;
+  }
+
+  if (![dict isProductionModeSet])
+  {
+    v26 = @"%s(): cpro not set\n";
+    goto LABEL_55;
+  }
+
+  if (![dict nonceHash])
+  {
+    v26 = @"%s(): nonceHash=nil\n";
+    goto LABEL_55;
+  }
+
+  if (![dict objectList])
+  {
+    v26 = @"%s(): objectList=nil\n";
+    goto LABEL_55;
+  }
+
+  Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  if (!Mutable)
+  {
+    v26 = @"%s(): error creating cfdict\n";
+    goto LABEL_55;
   }
 
   v6 = Mutable;
@@ -428,26 +467,26 @@ LABEL_20:
     CFDictionarySetValue(v6, @"ApAllowMixAndMatch", v17);
   }
 
-  v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
   objectList = [dict objectList];
-  v19 = [objectList countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v19 = [objectList countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v27;
+    v21 = *v28;
     do
     {
       for (i = 0; i != v20; i = i + 1)
       {
-        if (*v27 != v21)
+        if (*v28 != v21)
         {
           objc_enumerationMutation(objectList);
         }
 
-        v23 = *(*(&v26 + 1) + 8 * i);
+        v23 = *(*(&v27 + 1) + 8 * i);
         v24 = [(FudPersonalizer *)self createPersonalizationObjectCFDict:v23];
         if (v24)
         {
@@ -455,7 +494,7 @@ LABEL_20:
         }
       }
 
-      v20 = [objectList countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v20 = [objectList countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v20);
@@ -470,12 +509,12 @@ LABEL_20:
   self->_manifestDict = v5;
   if (!v5)
   {
-    v36 = 2;
-    v37 = @"Failed to build manifest dictionary";
+    v29 = 2;
+    v30 = @"Failed to build manifest dictionary";
     goto LABEL_37;
   }
 
-  v41 = v5;
+  v34 = v5;
   FudLog();
   if (!self->_amai)
   {
@@ -483,8 +522,8 @@ LABEL_20:
     self->_amai = v6;
     if (!v6)
     {
-      v36 = 1;
-      v37 = @"Failed to create Signing Request";
+      v29 = 1;
+      v30 = @"Failed to create Signing Request";
       goto LABEL_37;
     }
 
@@ -497,15 +536,13 @@ LABEL_20:
 
       else
       {
-        amai = self->_amai;
         if (AMAuthInstallSsoEnable())
         {
-          v36 = 1;
-          v37 = @"Failed to enable SSO";
+          v29 = 1;
+          v30 = @"Failed to enable SSO";
           goto LABEL_37;
         }
 
-        v10 = self->_amai;
         if (self->_serverURL)
         {
           serverURL = self->_serverURL;
@@ -519,8 +556,8 @@ LABEL_20:
         CFURLCreateWithString(kCFAllocatorDefault, serverURL, 0);
         if (AMAuthInstallSetSigningServerURL())
         {
-          v36 = 1;
-          v37 = @"Failed to set Signing Server URL";
+          v29 = 1;
+          v30 = @"Failed to set Signing Server URL";
           goto LABEL_37;
         }
       }
@@ -531,7 +568,6 @@ LABEL_20:
       v7 = self->_serverURL;
       if (v7)
       {
-        v8 = self->_amai;
         CFURLCreateWithString(kCFAllocatorDefault, v7, 0);
         AMAuthInstallSetSigningServerURL();
       }
@@ -540,19 +576,17 @@ LABEL_20:
     AMAuthInstallLogSetHandler();
   }
 
-  v12 = self->_serverURL;
-  if (v12)
+  v9 = self->_serverURL;
+  if (v9)
   {
-    CFStringGetCStringPtr(v12, 0x8000100u);
+    CFStringGetCStringPtr(v9, 0x8000100u);
     FudLog();
   }
 
-  v13 = self->_amai;
-  manifestDict = self->_manifestDict;
   if (AMAuthInstallApSetParameters())
   {
-    v36 = 1;
-    v37 = @"Failed to add manifest properties to Signing Request";
+    v29 = 1;
+    v30 = @"Failed to add manifest properties to Signing Request";
     goto LABEL_37;
   }
 
@@ -560,13 +594,11 @@ LABEL_20:
   MutableCopy = CFDictionaryCreateMutableCopy(kCFAllocatorDefault, Count, self->_manifestDict);
   self->_serverRequestDict = MutableCopy;
   CFDictionaryRemoveValue(MutableCopy, @"APTagOverrides");
-  v17 = self->_amai;
-  serverRequestDict = self->_serverRequestDict;
   PersonalizedResponse = AMAuthInstallApCreatePersonalizedResponse();
-  v20 = PersonalizedResponse;
-  v42 = PersonalizedResponse;
+  v13 = PersonalizedResponse;
+  v35 = PersonalizedResponse;
   FudLog();
-  if (v20 == 3194 && ([server useSSOCredentials] & 1) == 0)
+  if (v13 == 3194 && ([server useSSOCredentials] & 1) == 0)
   {
     [server setUseSSOCredentials:1];
     return 0;
@@ -575,20 +607,20 @@ LABEL_20:
   serverResponseDict = self->_serverResponseDict;
   if (!serverResponseDict)
   {
-    v36 = 3;
-    v37 = @"Failed to generate signed manifest";
+    v29 = 3;
+    v30 = @"Failed to generate signed manifest";
     goto LABEL_37;
   }
 
   Value = CFDictionaryGetValue(serverResponseDict, self->_ticketName);
   if (!Value)
   {
-    v36 = 3;
-    v37 = @"Failed to retrieve signed manifest";
+    v29 = 3;
+    v30 = @"Failed to retrieve signed manifest";
     goto LABEL_37;
   }
 
-  v23 = Value;
+  v16 = Value;
   responseFormat = [server responseFormat];
   if (responseFormat)
   {
@@ -602,8 +634,8 @@ LABEL_20:
       self->_responseData = StitchTicket;
       if (!StitchTicket)
       {
-        v36 = 4;
-        v37 = @"Failed to stitch img4 response";
+        v29 = 4;
+        v30 = @"Failed to stitch img4 response";
         goto LABEL_37;
       }
     }
@@ -612,22 +644,22 @@ LABEL_20:
     {
       if (responseFormat != 1)
       {
-        v36 = 2;
-        v37 = @"Invalid response format";
+        v29 = 2;
+        v30 = @"Invalid response format";
         goto LABEL_37;
       }
 
       payload = [server payload];
       Length = CFDataGetLength(payload);
-      v27 = CFDataGetLength(v23);
-      v28 = CFDataCreateMutableCopy(kCFAllocatorDefault, 0, payload);
+      v20 = CFDataGetLength(v16);
+      v21 = CFDataCreateMutableCopy(kCFAllocatorDefault, 0, payload);
       responseFormat3 = [server responseFormat];
       FudLog();
-      BytePtr = CFDataGetBytePtr(v23);
-      CFDataAppendBytes(v28, BytePtr, v27);
-      MutableBytePtr = CFDataGetMutableBytePtr(v28);
+      BytePtr = CFDataGetBytePtr(v16);
+      CFDataAppendBytes(v21, BytePtr, v20);
+      MutableBytePtr = CFDataGetMutableBytePtr(v21);
       *(MutableBytePtr + 4) = Length;
-      *(MutableBytePtr + 5) = v27;
+      *(MutableBytePtr + 5) = v20;
       if ([server chipID] == 8194)
       {
         *(MutableBytePtr + 1) = 0x1234567898765432;
@@ -637,33 +669,33 @@ LABEL_20:
       {
         responseAlignment = [server responseAlignment];
         responseAlignment2 = [server responseAlignment];
-        CFDataIncreaseLength(v28, (responseAlignment + (v27 + Length) / responseAlignment2 * responseAlignment2 - (v27 + Length)) % [server responseAlignment]);
+        CFDataIncreaseLength(v21, (responseAlignment + (v20 + Length) / responseAlignment2 * responseAlignment2 - (v20 + Length)) % [server responseAlignment]);
       }
 
-      v33 = CFDataGetBytePtr(v28);
-      v34 = CFDataGetLength(v28);
-      StitchTicket = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, v33, v34, kCFAllocatorDefault);
+      v26 = CFDataGetBytePtr(v21);
+      v27 = CFDataGetLength(v21);
+      StitchTicket = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, v26, v27, kCFAllocatorDefault);
       self->_responseData = StitchTicket;
       if (!StitchTicket)
       {
-        v36 = 4;
-        v37 = @"Failed to stitch ftab response";
+        v29 = 4;
+        v30 = @"Failed to stitch ftab response";
 LABEL_37:
-        sub_10001367C(v36, v37, self, server);
+        sub_10001367C(v29, v30, self, server);
         return 1;
       }
     }
 
-    [(FudPersonalizerDelegate *)self->_delegate personalizationDone:server response:StitchTicket error:0, v40, v44];
+    [(FudPersonalizerDelegate *)self->_delegate personalizationDone:server response:StitchTicket error:0, v33, v37];
   }
 
   else
   {
     responseFormat4 = [server responseFormat];
     FudLog();
-    v39 = CFRetain(v23);
-    self->_responseData = v39;
-    [(FudPersonalizerDelegate *)self->_delegate personalizationDone:server response:v39 error:0, "[FudPersonalizer personalizeWithServer:]", responseFormat4];
+    v32 = CFRetain(v16);
+    self->_responseData = v32;
+    [(FudPersonalizerDelegate *)self->_delegate personalizationDone:server response:v32 error:0, "[FudPersonalizer personalizeWithServer:]", responseFormat4];
   }
 
   return 1;

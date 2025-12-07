@@ -538,7 +538,7 @@ void __55__PKInboxDataSource__accountUserInvitationsCompletion___block_invoke_2(
   (*(*(a1 + 40) + 16))();
 }
 
-uint64_t __55__PKInboxDataSource__accountUserInvitationsCompletion___block_invoke_3(uint64_t a1, void *a2)
+BOOL __55__PKInboxDataSource__accountUserInvitationsCompletion___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
   v3 = [v2 applicationState];

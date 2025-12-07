@@ -24,7 +24,7 @@ int main(int argc, const char **argv, const char **envp)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v7[0]);
     }
 
     free(v3);
@@ -41,15 +41,14 @@ LABEL_4:
 
 uint64_t sub_1000012B0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000C7C0 = result;
   return result;
 }
 
-void sub_10000199C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_10000199C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -79,7 +78,7 @@ void *sub_1000019BC(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -96,7 +95,6 @@ LABEL_5:
 
 uint64_t sub_100001AFC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000C7E0 = result;
   return result;
@@ -173,9 +171,9 @@ LABEL_9:
 LABEL_10:
 }
 
-void sub_100002A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100002A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -204,7 +202,7 @@ Class sub_100002AA0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -215,7 +213,7 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "INUIImageSizeProvider");
   }
 
   qword_10000C7C8 = *(*(*(a1 + 32) + 8) + 24);
@@ -224,7 +222,6 @@ LABEL_4:
 
 uint64_t sub_100002BF4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000C7D0 = result;
   return result;

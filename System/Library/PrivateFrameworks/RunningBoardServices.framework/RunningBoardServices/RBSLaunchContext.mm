@@ -7,6 +7,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)encodeWithRBSXPCCoder:(id)coder;
 - (void)setBundleIdentifier:(id)identifier;
+- (void)setDextCheckInPort:(unsigned int)port;
 - (void)setIdentity:(id)identity;
 - (void)setLaunchAssertionIdentifier:(id)identifier;
 @end
@@ -63,11 +64,16 @@
   }
 }
 
+- (void)setDextCheckInPort:(unsigned int)port
+{
+  self->_dextCheckInPort = [RBSMachPort portForPort:*&port];
+
+  MEMORY[0x1EEE66BB8]();
+}
+
 - (void)setLaunchAssertionIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  launchAssertionIdentifier = self->_launchAssertionIdentifier;
-  self->_launchAssertionIdentifier = v4;
+  self->_launchAssertionIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

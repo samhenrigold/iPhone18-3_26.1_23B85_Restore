@@ -45,21 +45,21 @@
 
 - (id)outputImage
 {
-  v652[2] = *MEMORY[0x1E69E9840];
+  v664[2] = *MEMORY[0x1E69E9840];
   [(CIVector *)self->inputOriginLeft X];
-  v574.origin.x = v3;
+  v586.origin.x = v3;
   [(CIVector *)self->inputOriginLeft Y];
-  v571 = v4;
+  v583 = v4;
   [(CIVector *)self->inputSize X];
-  v572 = v5;
+  v584 = v5;
   [(CIVector *)self->inputSize Y];
-  v573 = v6;
+  v585 = v6;
   [(CIVector *)self->inputOriginRight X];
-  v568 = v7;
+  v580 = v7;
   [(CIVector *)self->inputOriginRight Y];
   v9 = v8;
   [(CIVector *)self->inputSize X];
-  v569 = v10;
+  v581 = v10;
   [(CIVector *)self->inputSize Y];
   v12 = v11;
   p_inputAxisLongLeft = &self->inputAxisLongLeft;
@@ -68,10 +68,10 @@
   [(CIVector *)self->inputAxisLongRight _norm];
   v16 = v15;
   [(CIVector *)self->inputAxisShortLeft _norm];
-  v534 = v17;
+  v546 = v17;
   p_inputAxisShortRight = &self->inputAxisShortRight;
   [(CIVector *)self->inputAxisShortRight _norm];
-  LODWORD(v574.origin.y) = v18;
+  LODWORD(v586.origin.y) = v18;
   if (v14 > v16)
   {
     v16 = v14;
@@ -80,312 +80,313 @@
   [(NSNumber *)self->inputScale floatValue];
   v20 = CIRedEyeUtilsSizeFromScale(v16 * v19);
   v21 = tagForEye(v20);
-  if (CI_LOG_DUALRED())
+  v22 = CI_LOG_DUALRED();
+  if (v22)
   {
-    v22 = ci_logger_api();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v24 = ci_logger_api(v22, v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [(CIRedEyeRaw *)v21 outputImage];
     }
   }
 
   [(NSNumber *)self->inputAbortDensityDiff floatValue];
-  v514 = v23;
+  v526 = v25;
   [(NSNumber *)self->inputAbortDensityLo floatValue];
-  v532 = v24;
+  v544 = v26;
   [(NSNumber *)self->inputSpecMax floatValue];
-  v503 = v25;
+  v515 = v27;
   [(NSNumber *)self->inputSpecular floatValue];
-  v537 = v26;
+  v549 = v28;
   [(NSNumber *)self->inputSpecMin floatValue];
-  v28 = v27;
+  v30 = v29;
   [(NSNumber *)self->inputClosingErosion floatValue];
-  v509 = v29;
+  v521 = v31;
   [(NSNumber *)self->inputClosingDilation floatValue];
-  v558 = v30;
+  v570 = v32;
   [(NSNumber *)self->inputSplat floatValue];
-  v528 = v31;
+  v540 = v33;
   [(CIVector *)self->inputSize X];
-  v530 = v32;
+  v542 = v34;
   [(CIVector *)self->inputSize Y];
-  v527 = v33;
+  v539 = v35;
   [(NSNumber *)self->inputRepairDarken floatValue];
-  v35 = v34;
-  [(NSNumber *)self->inputRepairDither floatValue];
   v37 = v36;
+  [(NSNumber *)self->inputRepairDither floatValue];
+  v39 = v38;
   [(NSNumber *)self->inputRepairChroma floatValue];
-  v538 = v38;
+  v550 = v40;
   [(NSNumber *)self->inputRadiusRepair floatValue];
-  v548 = v39;
+  v560 = v41;
   [(NSNumber *)self->inputRepairPercentile floatValue];
-  v541 = v40;
+  v553 = v42;
   [(NSNumber *)self->inputRepairPercent floatValue];
-  v42 = v41;
+  v44 = v43;
   [(NSNumber *)self->inputClipMin floatValue];
-  v540 = v43;
+  v552 = v45;
   [(NSNumber *)self->inputCircularity floatValue];
-  v539 = v44;
+  v551 = v46;
   [(NSNumber *)self->inputFalloffRepair floatValue];
-  v546 = v45;
+  v558 = v47;
   [(NSNumber *)self->inputWhiteCutoff floatValue];
-  v47 = v46;
+  v49 = v48;
   [(NSNumber *)self->inputSpecArea floatValue];
-  v524 = v48;
+  v536 = v50;
   [(NSNumber *)self->inputSpecularCutoff floatValue];
-  v551 = v49;
+  v563 = v51;
   [(NSNumber *)self->inputCentroidGamma floatValue];
-  v543 = v50;
+  v555 = v52;
   [(NSNumber *)self->inputCentroidRadius floatValue];
-  v542 = v51;
+  v554 = v53;
   [(NSNumber *)self->inputSpecIntensity floatValue];
-  v536 = v52;
+  v548 = v54;
   [(NSNumber *)self->inputScleraThreshold floatValue];
-  v505 = v53;
+  v517 = v55;
   [(NSNumber *)self->inputMinInterDispersion floatValue];
-  v511 = v54;
+  v523 = v56;
   [(NSNumber *)self->inputMaxInterDispersion floatValue];
-  v512 = v55;
+  v524 = v57;
   [(NSNumber *)self->inputMinMaskDiff floatValue];
-  v513 = v56;
+  v525 = v58;
   [(NSNumber *)self->inputGlintThreshold floatValue];
-  v502 = v57;
-  v501 = v57;
-  if (v57 > 0.00001)
+  v514 = v59;
+  v513 = v59;
+  if (v59 > 0.00001)
   {
-    v47 = 4.0;
+    v49 = 4.0;
   }
 
   [(NSNumber *)self->inputTargetClosing floatValue];
-  v506 = v58;
+  v518 = v60;
   if (v20 == 90)
   {
-    v507 = v37 * 0.5;
-    v522 = v42 + -0.02;
-    v558 = v558 * 10.0;
-    v47 = v47 * 0.5;
-    v65 = v28;
-    v504 = 0.0;
-    v515 = 0.0;
-    v517 = 1.0;
-    v519 = 1.0;
-    v66 = 1028443341;
-    v551 = 0.0;
+    v519 = v39 * 0.5;
+    v534 = v44 + -0.02;
+    v570 = v570 * 10.0;
+    v49 = v49 * 0.5;
+    v67 = v30;
+    v516 = 0.0;
+    v527 = 0.0;
+    v529 = 1.0;
+    v531 = 1.0;
+    v68 = 1028443341;
+    v563 = 0.0;
   }
 
   else if (v20 == 35)
   {
-    v59 = v37 * 0.3;
-    v507 = v59;
-    v60 = v539 * 0.4;
-    v519 = (v16 + -35.0) / 55.0;
-    v539 = interpolate(v60, v539 * 0.75, v519);
-    v61 = v540 * 0.55;
-    v540 = v61;
-    v543 = v543 * 0.75;
-    v522 = v42 * 0.95;
-    v62 = v541 * 0.9;
-    v541 = v62;
-    v63 = v548 * 0.9;
-    v548 = v63;
-    v538 = v538 * 0.75;
-    if ((v35 + v35) <= 1.0)
+    v61 = v39 * 0.3;
+    v519 = v61;
+    v62 = v551 * 0.4;
+    v531 = (v16 + -35.0) / 55.0;
+    v551 = interpolate(v62, v551 * 0.75, v531);
+    v63 = v552 * 0.55;
+    v552 = v63;
+    v555 = v555 * 0.75;
+    v534 = v44 * 0.95;
+    v64 = v553 * 0.9;
+    v553 = v64;
+    v65 = v560 * 0.9;
+    v560 = v65;
+    v550 = v550 * 0.75;
+    if ((v37 + v37) <= 1.0)
     {
-      v35 = v35 + v35;
+      v37 = v37 + v37;
     }
 
     else
     {
-      v35 = 1.0;
+      v37 = 1.0;
     }
 
-    v64 = v546 + 0.3;
-    v546 = v64;
-    v65 = 0.0;
-    v517 = 2.0;
-    v66 = 1036831949;
-    v515 = 0.8;
-    v504 = 0.0;
+    v66 = v558 + 0.3;
+    v558 = v66;
+    v67 = 0.0;
+    v529 = 2.0;
+    v68 = 1036831949;
+    v527 = 0.8;
+    v516 = 0.0;
   }
 
   else
   {
-    v519 = v16 / 35.0;
+    v531 = v16 / 35.0;
     [(NSNumber *)self->inputCentroidRadiusSmall floatValue];
-    v542 = v67;
-    v68 = v37 * 0.3;
-    v507 = v68;
-    v539 = v539 * 0.25;
-    v522 = v42 * 0.2;
-    v69 = v541 * 0.9;
-    v541 = v69;
-    v70 = v537 * 0.2;
+    v554 = v69;
+    v70 = v39 * 0.3;
+    v519 = v70;
+    v551 = v551 * 0.25;
+    v534 = v44 * 0.2;
+    v71 = v553 * 0.9;
+    v553 = v71;
+    v72 = v549 * 0.2;
+    v560 = v560 * 0.75;
+    v552 = v552 * 0.75;
+    v37 = v37 * 0.75;
     v548 = v548 * 0.75;
-    v540 = v540 * 0.75;
-    v35 = v35 * 0.75;
-    v536 = v536 * 0.75;
-    v71 = v546 + 0.2;
-    v546 = v71;
-    v504 = v70;
-    v65 = 0.0;
-    v538 = 0.0;
-    v517 = 2.0;
-    v66 = 1036831949;
-    v515 = 0.8;
-    v537 = 0.0;
+    v73 = v558 + 0.2;
+    v558 = v73;
+    v516 = v72;
+    v67 = 0.0;
+    v550 = 0.0;
+    v529 = 2.0;
+    v68 = 1036831949;
+    v527 = 0.8;
+    v549 = 0.0;
   }
 
-  v554 = 1.0;
-  if (v47 <= 1.0)
+  v566 = 1.0;
+  if (v49 <= 1.0)
   {
-    v72 = v47;
+    v74 = v49;
   }
 
   else
   {
-    v72 = 1.0;
+    v74 = 1.0;
   }
 
-  v545 = v12;
-  v570 = v9;
+  v557 = v12;
+  v582 = v9;
   p_inputAxisShortLeft = &self->inputAxisShortLeft;
   p_inputAxisLongRight = &self->inputAxisLongRight;
-  v508 = v35;
-  v535 = v16;
-  v510 = v65;
-  v521 = v66;
+  v520 = v37;
+  v547 = v16;
+  v522 = v67;
+  v533 = v68;
   if ([(NSNumber *)self->inputUseFaceSegmentationMask BOOLValue])
   {
     if (v20 == 90)
     {
-      v73 = &OBJC_IVAR___CIRedEyeRaw_inputSkinProtectionThresholdLarge;
-      v74 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdSkinLarge;
-      v75 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdScleraLarge;
-      v76 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdIrisLarge;
-      v77 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdSkinLarge;
-      v78 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdScleraLarge;
-      v79 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdIrisLarge;
+      v75 = &OBJC_IVAR___CIRedEyeRaw_inputSkinProtectionThresholdLarge;
+      v76 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdSkinLarge;
+      v77 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdScleraLarge;
+      v78 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdIrisLarge;
+      v79 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdSkinLarge;
+      v80 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdScleraLarge;
+      v81 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdIrisLarge;
     }
 
     else if (v20 == 35)
     {
-      v73 = &OBJC_IVAR___CIRedEyeRaw_inputSkinProtectionThresholdMedium;
-      v74 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdSkinMedium;
-      v75 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdScleraMedium;
-      v76 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdIrisMedium;
-      v77 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdSkinMedium;
-      v78 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdScleraMedium;
-      v79 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdIrisMedium;
+      v75 = &OBJC_IVAR___CIRedEyeRaw_inputSkinProtectionThresholdMedium;
+      v76 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdSkinMedium;
+      v77 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdScleraMedium;
+      v78 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdIrisMedium;
+      v79 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdSkinMedium;
+      v80 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdScleraMedium;
+      v81 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdIrisMedium;
     }
 
     else
     {
-      v73 = &OBJC_IVAR___CIRedEyeRaw_inputSkinProtectionThresholdSmall;
-      v74 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdSkinSmall;
-      v75 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdScleraSmall;
-      v76 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdIrisSmall;
-      v77 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdSkinSmall;
-      v78 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdScleraSmall;
-      v79 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdIrisSmall;
+      v75 = &OBJC_IVAR___CIRedEyeRaw_inputSkinProtectionThresholdSmall;
+      v76 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdSkinSmall;
+      v77 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdScleraSmall;
+      v78 = &OBJC_IVAR___CIRedEyeRaw_inputScleraProtectionThresholdIrisSmall;
+      v79 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdSkinSmall;
+      v80 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdScleraSmall;
+      v81 = &OBJC_IVAR___CIRedEyeRaw_inputDetectionThresholdIrisSmall;
     }
 
-    [*(&self->super.super.isa + *v79) floatValue];
-    v175 = v174;
-    [*(&self->super.super.isa + *v78) floatValue];
-    v177 = v176;
-    [*(&self->super.super.isa + *v77) floatValue];
-    v179 = v178;
-    [*(&self->super.super.isa + *v76) floatValue];
+    [*(&self->super.super.isa + *v81) floatValue];
     v181 = v180;
-    [*(&self->super.super.isa + *v75) floatValue];
+    [*(&self->super.super.isa + *v80) floatValue];
     v183 = v182;
-    [*(&self->super.super.isa + *v74) floatValue];
+    [*(&self->super.super.isa + *v79) floatValue];
     v185 = v184;
-    [*(&self->super.super.isa + *v73) floatValue];
+    [*(&self->super.super.isa + *v78) floatValue];
     v187 = v186;
-    LODWORD(v188) = v175;
-    LODWORD(v189) = v177;
-    LODWORD(v190) = v179;
-    v81 = [(CIRedEyeRaw *)self irisProtectionMaskWithThresholdIris:v188 thresholdSclera:v189 thresholdSkin:v190];
-    LODWORD(v191) = v181;
-    LODWORD(v192) = v183;
-    LODWORD(v193) = v185;
-    v194 = [(CIRedEyeRaw *)self irisProtectionMaskWithThresholdIris:v191 thresholdSclera:v192 thresholdSkin:v193];
-    LODWORD(v195) = v187;
-    v80 = [(CIRedEyeRaw *)self skinProtectionMaskWithThreshold:v195];
+    [*(&self->super.super.isa + *v77) floatValue];
+    v189 = v188;
+    [*(&self->super.super.isa + *v76) floatValue];
+    v191 = v190;
+    [*(&self->super.super.isa + *v75) floatValue];
+    v193 = v192;
+    LODWORD(v194) = v181;
+    LODWORD(v195) = v183;
+    LODWORD(v196) = v185;
+    v83 = [(CIRedEyeRaw *)self irisProtectionMaskWithThresholdIris:v194 thresholdSclera:v195 thresholdSkin:v196];
+    LODWORD(v197) = v187;
+    LODWORD(v198) = v189;
+    LODWORD(v199) = v191;
+    v200 = [(CIRedEyeRaw *)self irisProtectionMaskWithThresholdIris:v197 thresholdSclera:v198 thresholdSkin:v199];
+    LODWORD(v201) = v193;
+    v82 = [(CIRedEyeRaw *)self skinProtectionMaskWithThreshold:v201];
     if ([(NSNumber *)self->inputShowMask intValue]== 14)
     {
-      v573 = [(CIImage *)v81 imageByCroppingToRect:v574.origin.x, v571, v572, v573];
-      v137 = v81;
-      v170 = v568;
+      v585 = [(CIImage *)v83 imageByCroppingToRect:v586.origin.x, v583, v584, v585];
+      v143 = v83;
+      v176 = v580;
 LABEL_108:
-      v172 = v569;
-      v171 = v570;
-      v173 = v545;
+      v178 = v581;
+      v177 = v582;
+      v179 = v557;
       goto LABEL_148;
     }
 
     if ([(NSNumber *)self->inputShowMask intValue]== 15)
     {
-      v573 = [(CIImage *)v194 imageByCroppingToRect:v574.origin.x, v571, v572, v573];
-      v137 = v194;
+      v585 = [(CIImage *)v200 imageByCroppingToRect:v586.origin.x, v583, v584, v585];
+      v143 = v200;
 LABEL_111:
-      v170 = v568;
-      v172 = v569;
-      v171 = v570;
-      v173 = v545;
+      v176 = v580;
+      v178 = v581;
+      v177 = v582;
+      v179 = v557;
       goto LABEL_148;
     }
 
     if ([(NSNumber *)self->inputShowMask intValue]== 16)
     {
-      v573 = [(CIImage *)v80 imageByCroppingToRect:v574.origin.x, v571, v572, v573];
-      v137 = v80;
+      v585 = [(CIImage *)v82 imageByCroppingToRect:v586.origin.x, v583, v584, v585];
+      v143 = v82;
       goto LABEL_111;
     }
 
-    v498 = v194;
+    v510 = v200;
   }
 
   else
   {
-    v80 = 0;
-    v498 = 0;
-    v81 = 0;
+    v82 = 0;
+    v510 = 0;
+    v83 = 0;
   }
 
-  v82 = *&v530;
-  v531 = v80;
-  v83 = dbl_19CF260B0[v20 == 35] * v532;
-  v84 = v528 * 0.015 * v82 * v527;
-  v85 = v524 * 0.1;
+  v84 = *&v542;
+  v543 = v82;
+  v85 = dbl_19CF260B0[v20 == 35] * v544;
+  v86 = v540 * 0.015 * v84 * v539;
+  v87 = v536 * 0.1;
   integerValue = [(NSNumber *)self->inputRepairSource integerValue];
-  v87 = &OBJC_IVAR___CIRedEyeRaw_inputSecondary;
+  v89 = &OBJC_IVAR___CIRedEyeRaw_inputSecondary;
   if (!integerValue)
   {
-    v87 = &OBJC_IVAR___CIRedEyeRaw_inputPrimary;
+    v89 = &OBJC_IVAR___CIRedEyeRaw_inputPrimary;
   }
 
-  v88 = *(&self->super.super.isa + *v87);
-  v89 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_drr_boost];
-  [v88 extent];
-  v652[0] = v88;
-  v652[1] = &unk_1F1085368;
-  inputPrimary = -[CIColorKernel applyWithExtent:arguments:](v89, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v652 count:2], v90, v91, v92, v93);
+  v90 = *(&self->super.super.isa + *v89);
+  v91 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_drr_boost];
+  [v90 extent];
+  v664[0] = v90;
+  v664[1] = &unk_1F1085368;
+  inputPrimary = -[CIColorKernel applyWithExtent:arguments:](v91, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v664 count:2], v92, v93, v94, v95);
   [(NSNumber *)self->inputMidSpectrumWhiteOffsetsX floatValue];
-  v96 = v95;
+  v98 = v97;
   [(NSNumber *)self->inputMidSpectrumWhiteOffsetsY floatValue];
-  v529 = v20;
-  v496 = v72;
-  v500 = inputPrimary;
-  v525 = v81;
+  v541 = v20;
+  v508 = v74;
+  v512 = inputPrimary;
+  v537 = v83;
   if (v20 == 90)
   {
     inputPrimary = self->inputPrimary;
     [(NSNumber *)self->inputDetectWhite floatValue];
-    v100 = v101;
+    v102 = v103;
     selfCopy2 = self;
     [(NSNumber *)self->inputDetectRed floatValue];
-    v554 = v102;
+    v566 = v104;
   }
 
   else
@@ -393,1366 +394,1366 @@ LABEL_111:
     selfCopy2 = self;
     if (v20 == 35)
     {
-      v99 = v96 + 0.3;
-      v554 = interpolate(v99, v97 + 0.0, v519);
-      v100 = interpolate(0.3, 0.7, v519);
+      v101 = v98 + 0.3;
+      v566 = interpolate(v101, v99 + 0.0, v531);
+      v102 = interpolate(0.3, 0.7, v531);
     }
 
     else
     {
-      v100 = 0.6272;
+      v102 = 0.6272;
     }
   }
 
-  v103 = v522;
-  v104 = v83;
-  v523 = v104;
-  v105 = v84;
-  v497 = v105;
+  v105 = v534;
   v106 = v85;
-  v499 = v106;
-  v107 = v103;
-  v520 = v107;
-  v108 = &v592;
-  v109 = 1;
+  v535 = v106;
+  v107 = v86;
+  v509 = v107;
+  v108 = v87;
+  v511 = v108;
+  v109 = v105;
+  v532 = v109;
+  v110 = &v604;
+  v111 = 1;
   do
   {
-    v110 = v109;
-    if (v109)
+    v112 = v111;
+    if (v111)
     {
-      v111 = v534;
+      v113 = v546;
     }
 
     else
     {
-      v111 = *&v574.origin.y;
+      v113 = *&v586.origin.y;
     }
 
-    v112 = v111 * 0.0;
+    v114 = v113 * 0.0;
     [(NSNumber *)selfCopy2->inputFlooding floatValue];
-    v114 = (v113 + v113) * 0.5 * v111;
-    v115 = v112 * 3.14159265 * v112;
-    v116 = llroundf(v115);
+    v116 = (v115 + v115) * 0.5 * v113;
     v117 = v114 * 3.14159265 * v114;
     v118 = llroundf(v117);
-    *v108 = [CIVector vectorWithX:v116 Y:v118];
-    if (CI_LOG_DUALRED())
+    v119 = v116 * 3.14159265 * v116;
+    v120 = llroundf(v119);
+    *v110 = [CIVector vectorWithX:v118 Y:v120];
+    v121 = CI_LOG_DUALRED();
+    if (v121)
     {
-      v119 = ci_logger_api();
-      if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
+      v123 = ci_logger_api(v121, v122);
+      if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446978;
         *&buf[4] = "[CIRedEyeRaw outputImage]";
         *&buf[12] = 1024;
-        *&buf[14] = v114;
+        *&buf[14] = v116;
         *&buf[18] = 1024;
-        *&buf[20] = v116;
+        *&buf[20] = v118;
         *&buf[24] = 1024;
-        *&buf[26] = v118;
-        _os_log_error_impl(&dword_19CC36000, v119, OS_LOG_TYPE_ERROR, "%{public}s Convex area threshold range for radius %d = [%d, %d]", buf, 0x1Eu);
+        *&buf[26] = v120;
+        _os_log_error_impl(&dword_19CC36000, v123, OS_LOG_TYPE_ERROR, "%{public}s Convex area threshold range for radius %d = [%d, %d]", buf, 0x1Eu);
       }
     }
 
-    v109 = 0;
-    v108 = &v591;
+    v111 = 0;
+    v110 = &v603;
   }
 
-  while ((v110 & 1) != 0);
-  v120 = v592;
-  v121 = v591;
-  v122 = v535 * 0.1;
-  if (v529 == 90)
+  while ((v112 & 1) != 0);
+  v124 = v604;
+  v125 = v603;
+  v126 = v547 * 0.1;
+  if (v541 == 90)
   {
-    v123 = RRrawRedWhiteResponseLarge(inputPrimary, v100, v554);
+    v127 = RRrawRedWhiteResponseLarge(inputPrimary, v102, v566);
   }
 
   else
   {
-    v123 = RRrawRedWhiteResponseSmallMedium(inputPrimary, v100, v554);
+    v127 = RRrawRedWhiteResponseSmallMedium(inputPrimary, v102, v566);
   }
 
-  v125 = v123;
-  v126 = v568;
-  *&v124 = v558;
-  if (v558 > 0.0)
+  v129 = v127;
+  v130 = v580;
+  *&v128 = v570;
+  if (v570 > 0.0)
   {
-    v127 = v122;
-    v125 = RRcloseByDilation(v123, roundf(v558 * v127));
+    v131 = v126;
+    v129 = RRcloseByDilation(v127, roundf(v570 * v131));
   }
 
-  if (v80)
+  if (v82)
   {
-    if (CI_LOG_DUALRED())
+    v132 = CI_LOG_DUALRED();
+    if (v132)
     {
-      v128 = ci_logger_api();
-      if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
+      v134 = ci_logger_api(v132, v133);
+      if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
       {
-        [(CIRedEyeRaw *)v128 outputImage:v129];
+        [(CIRedEyeRaw *)v134 outputImage:v135];
       }
     }
 
-    v125 = RRmultiplyRh(v125, v525);
+    v129 = RRmultiplyRh(v129, v537);
   }
 
   if ([(NSNumber *)selfCopy2->inputShowMask intValue]== 1)
   {
-    v573 = [(CIImage *)v125 imageByCroppingToRect:v574.origin.x, v571, v572, v573];
-    v137 = v125;
+    v585 = [(CIImage *)v129 imageByCroppingToRect:v586.origin.x, v583, v584, v585];
+    v143 = v129;
 LABEL_77:
-    v170 = v126;
-    v172 = v569;
-    v171 = v570;
-    v173 = v545;
+    v176 = v130;
+    v178 = v581;
+    v177 = v582;
+    v179 = v557;
 LABEL_148:
-    v545 = [v137 imageByCroppingToRect:{v170, v171, v172, v173}];
-    v298 = v573;
-    return [v298 imageByCompositingOverImage:v545];
+    v557 = [v143 imageByCroppingToRect:{v176, v177, v178, v179}];
+    v308 = v585;
+    return [v308 imageByCompositingOverImage:v557];
   }
 
   [(NSNumber *)selfCopy2->inputCentroidIterations floatValue];
-  v138 = (*&v139 * 5.0);
-  *&v139 = v551;
-  v140 = v125;
-  if (v551 > 0.0)
+  v144 = (*&v145 * 5.0);
+  *&v145 = v563;
+  v146 = v129;
+  if (v563 > 0.0)
   {
-    v141 = RRspecularMask(selfCopy2->inputPrimary, selfCopy2->inputSecondary, v551, v515);
-    v142 = v141;
-    if (fabs(v517 + -1.0) > 0.01)
+    v147 = RRspecularMask(selfCopy2->inputPrimary, selfCopy2->inputSecondary, v563, v527);
+    v148 = v147;
+    if (fabs(v529 + -1.0) > 0.01)
     {
-      v142 = [(CIImage *)v141 _imageByApplyingGamma:?];
+      v148 = [(CIImage *)v147 _imageByApplyingGamma:?];
     }
 
-    v140 = RRmultiplyRh(v125, v142);
+    v146 = RRmultiplyRh(v129, v148);
   }
 
-  v516 = v122;
-  v518 = v121;
-  v495 = v120;
-  v533 = v125;
+  v528 = v126;
+  v530 = v125;
+  v507 = v124;
+  v545 = v129;
   [(NSNumber *)selfCopy2->inputSearchLong floatValue];
-  v555 = v143;
+  v567 = v149;
   [(NSNumber *)selfCopy2->inputSearchShort floatValue];
-  v552 = v144;
-  v145 = &v590;
-  v146 = 1;
-  v147 = selfCopy2;
-  v148 = v138;
+  v564 = v150;
+  v151 = &v602;
+  v152 = 1;
+  v153 = selfCopy2;
+  v154 = v144;
   do
   {
-    v149 = v146 & 1;
-    if (v146)
+    v155 = v152 & 1;
+    if (v152)
     {
-      x = v574.origin.x;
+      x = v586.origin.x;
     }
 
     else
     {
-      x = v126;
+      x = v130;
     }
 
-    if (v146)
+    if (v152)
     {
-      v151 = v571;
+      v157 = v583;
     }
 
     else
     {
-      v151 = v570;
+      v157 = v582;
     }
 
-    if (v146)
+    if (v152)
     {
-      v152 = v572;
+      v158 = v584;
     }
 
     else
     {
-      v152 = v569;
+      v158 = v581;
     }
 
-    if (v146)
+    if (v152)
     {
-      v153 = v573;
+      v159 = v585;
     }
 
     else
     {
-      v153 = v545;
+      v159 = v557;
     }
 
-    v154 = &OBJC_IVAR___CIRedEyeRaw_inputPupilCenterRight;
-    if (v149)
+    v160 = &OBJC_IVAR___CIRedEyeRaw_inputPupilCenterRight;
+    if (v155)
     {
-      v154 = &OBJC_IVAR___CIRedEyeRaw_inputPupilCenterLeft;
+      v160 = &OBJC_IVAR___CIRedEyeRaw_inputPupilCenterLeft;
     }
 
-    v155 = *(&v147->super.super.isa + *v154);
-    v156 = p_inputAxisLongLeft;
-    if (!v149)
+    v161 = *(&v153->super.super.isa + *v160);
+    v162 = p_inputAxisLongLeft;
+    if (!v155)
     {
-      v156 = p_inputAxisLongRight;
+      v162 = p_inputAxisLongRight;
     }
 
-    v157 = *v156;
-    v158 = p_inputAxisShortLeft;
-    if (!v149)
+    v163 = *v162;
+    v164 = p_inputAxisShortLeft;
+    if (!v155)
     {
-      v158 = p_inputAxisShortRight;
+      v164 = p_inputAxisShortRight;
     }
 
-    v159 = v140;
-    v160 = *v158;
-    v650[0] = @"inputIterations";
-    v651[0] = [MEMORY[0x1E696AD98] numberWithInt:v148];
-    v651[1] = &unk_1F1085378;
-    v650[1] = @"inputScale";
-    v650[2] = @"inputDecay";
-    v651[2] = &unk_1F1085388;
-    v650[3] = @"inputGamma";
-    *&v161 = v543;
-    v651[3] = [MEMORY[0x1E696AD98] numberWithFloat:v161];
-    v650[4] = @"inputClip";
-    LODWORD(v162) = v521;
-    v651[4] = [MEMORY[0x1E696AD98] numberWithFloat:v162];
-    v650[5] = @"inputLocalizationRadius";
-    LODWORD(v163) = v542;
-    v651[5] = [MEMORY[0x1E696AD98] numberWithFloat:v163];
-    v650[6] = @"inputExtent";
-    v164 = v151;
-    v126 = v568;
-    v651[6] = [CIVector vectorWithCGRect:x, v164, v152, v153];
-    v650[7] = @"inputDebug";
-    v651[7] = [MEMORY[0x1E696AD98] numberWithBool:{-[NSNumber intValue](v147->inputShowMask, "intValue") == 2}];
-    v651[8] = v157;
-    v650[8] = @"inputAxisLong";
-    v650[9] = @"inputAxisShort";
-    v651[9] = v160;
-    v140 = v159;
-    v651[10] = v155;
-    v650[10] = @"inputPupilCenter";
-    v650[11] = @"inputSearchAxisLong";
-    LODWORD(v165) = v555;
-    v651[11] = [MEMORY[0x1E696AD98] numberWithFloat:v165];
-    v650[12] = @"inputSearchAxisShort";
-    LODWORD(v166) = v552;
-    v651[12] = [MEMORY[0x1E696AD98] numberWithFloat:v166];
-    v167 = -[CIImage imageByApplyingFilter:withInputParameters:](v159, "imageByApplyingFilter:withInputParameters:", @"RedPupilLocalizer", [MEMORY[0x1E695DF20] dictionaryWithObjects:v651 forKeys:v650 count:13]);
-    v146 = 0;
-    *v145 = v167;
-    v145 = &v589;
+    v165 = v146;
+    v166 = *v164;
+    v662[0] = @"inputIterations";
+    v663[0] = [MEMORY[0x1E696AD98] numberWithInt:v154];
+    v663[1] = &unk_1F1085378;
+    v662[1] = @"inputScale";
+    v662[2] = @"inputDecay";
+    v663[2] = &unk_1F1085388;
+    v662[3] = @"inputGamma";
+    *&v167 = v555;
+    v663[3] = [MEMORY[0x1E696AD98] numberWithFloat:v167];
+    v662[4] = @"inputClip";
+    LODWORD(v168) = v533;
+    v663[4] = [MEMORY[0x1E696AD98] numberWithFloat:v168];
+    v662[5] = @"inputLocalizationRadius";
+    LODWORD(v169) = v554;
+    v663[5] = [MEMORY[0x1E696AD98] numberWithFloat:v169];
+    v662[6] = @"inputExtent";
+    v170 = v157;
+    v130 = v580;
+    v663[6] = [CIVector vectorWithCGRect:x, v170, v158, v159];
+    v662[7] = @"inputDebug";
+    v663[7] = [MEMORY[0x1E696AD98] numberWithBool:{-[NSNumber intValue](v153->inputShowMask, "intValue") == 2}];
+    v663[8] = v163;
+    v662[8] = @"inputAxisLong";
+    v662[9] = @"inputAxisShort";
+    v663[9] = v166;
+    v146 = v165;
+    v663[10] = v161;
+    v662[10] = @"inputPupilCenter";
+    v662[11] = @"inputSearchAxisLong";
+    LODWORD(v171) = v567;
+    v663[11] = [MEMORY[0x1E696AD98] numberWithFloat:v171];
+    v662[12] = @"inputSearchAxisShort";
+    LODWORD(v172) = v564;
+    v663[12] = [MEMORY[0x1E696AD98] numberWithFloat:v172];
+    v173 = -[CIImage imageByApplyingFilter:withInputParameters:](v165, "imageByApplyingFilter:withInputParameters:", @"RedPupilLocalizer", [MEMORY[0x1E695DF20] dictionaryWithObjects:v663 forKeys:v662 count:13]);
+    v152 = 0;
+    *v151 = v173;
+    v151 = &v601;
   }
 
-  while (v149);
-  v168 = v590;
-  v169 = v589;
-  if ([(NSNumber *)v147->inputShowMask intValue]== 2)
+  while (v155);
+  v174 = v602;
+  v175 = v601;
+  if ([(NSNumber *)v153->inputShowMask intValue]== 2)
   {
-    v573 = [(CIImage *)v168 imageByCroppingToRect:v574.origin.x, v571, v572, v573];
-    v137 = v169;
+    v585 = [(CIImage *)v174 imageByCroppingToRect:v586.origin.x, v583, v584, v585];
+    v143 = v175;
     goto LABEL_77;
   }
 
-  v526 = v147;
-  v196 = &v588;
-  v197 = 1;
-  v199 = v571;
-  v198 = v572;
-  v200 = p_inputAxisShortRight;
-  v553 = v169;
-  v556 = v168;
+  v538 = v153;
+  v202 = &v600;
+  v203 = 1;
+  v205 = v583;
+  v204 = v584;
+  v206 = p_inputAxisShortRight;
+  v565 = v175;
+  v568 = v174;
   do
   {
-    v201 = v197;
-    v202 = (v197 & 1) == 0;
-    if (v197)
+    v207 = v203;
+    v208 = (v203 & 1) == 0;
+    if (v203)
     {
-      v169 = v168;
-      v203 = v574.origin.x;
+      v175 = v174;
+      v209 = v586.origin.x;
     }
 
     else
     {
-      v203 = v126;
+      v209 = v130;
     }
 
-    if (v197)
+    if (v203)
     {
-      v204 = v199;
-    }
-
-    else
-    {
-      v204 = v570;
-    }
-
-    if (v197)
-    {
-      v205 = v198;
+      v210 = v205;
     }
 
     else
     {
-      v205 = v569;
+      v210 = v582;
     }
 
-    if (v197)
+    if (v203)
     {
-      v206 = v573;
+      v211 = v204;
     }
 
     else
     {
-      v206 = v545;
+      v211 = v581;
     }
 
-    v207 = p_inputAxisLongRight;
-    if (!v202)
+    if (v203)
     {
-      v207 = p_inputAxisLongLeft;
+      v212 = v585;
     }
 
-    v208 = *v207;
-    v209 = p_inputAxisShortLeft;
-    if (v202)
+    else
     {
-      v209 = v200;
+      v212 = v557;
     }
 
-    v210 = *v209;
-    [(CIVector *)v208 _norm];
-    v212 = v211;
-    [v210 _norm];
-    v214 = v213;
-    v215 = v213 / v212;
-    v216 = stretch(v213 / v212, 0.0, 0.4, 0.25, 0.8);
-    if (CI_LOG_DUALRED())
+    v213 = p_inputAxisLongRight;
+    if (!v208)
     {
-      v217 = ci_logger_api();
-      if (os_log_type_enabled(v217, OS_LOG_TYPE_ERROR))
+      v213 = p_inputAxisLongLeft;
+    }
+
+    v214 = *v213;
+    v215 = p_inputAxisShortLeft;
+    if (v208)
+    {
+      v215 = v206;
+    }
+
+    v216 = *v215;
+    [(CIVector *)v214 _norm];
+    v218 = v217;
+    [v216 _norm];
+    v220 = v219;
+    v221 = v219 / v218;
+    v222 = stretch(v219 / v218, 0.0, 0.4, 0.25, 0.8);
+    v223 = CI_LOG_DUALRED();
+    if (v223)
+    {
+      v225 = ci_logger_api(v223, v224);
+      if (os_log_type_enabled(v225, OS_LOG_TYPE_ERROR))
       {
         *buf = 136447234;
         *&buf[4] = "[CIRedEyeRaw outputImage]";
         *&buf[12] = 2048;
-        *&buf[14] = v212;
+        *&buf[14] = v218;
         *&buf[22] = 2048;
-        *&buf[24] = v214;
-        *v649 = 2048;
-        *&v649[2] = (v215 * 100.0);
-        *&v649[10] = 2048;
-        *&v649[12] = v216;
-        _os_log_error_impl(&dword_19CC36000, v217, OS_LOG_TYPE_ERROR, "%{public}s Long %.2f | Short %.2f | Ratio %.0f | Conf %.2f", buf, 0x34u);
+        *&buf[24] = v220;
+        *v661 = 2048;
+        *&v661[2] = (v221 * 100.0);
+        *&v661[10] = 2048;
+        *&v661[12] = v222;
+        _os_log_error_impl(&dword_19CC36000, v225, OS_LOG_TYPE_ERROR, "%{public}s Long %.2f | Short %.2f | Ratio %.0f | Conf %.2f", buf, 0x34u);
       }
     }
 
-    v653.origin.x = v203;
-    v653.origin.y = v204;
-    v653.size.width = v205;
-    v653.size.height = v206;
-    v218 = RRradialEllipticalMask(v653, v208, v169, v548, v548 * v216, v546, 1.0);
-    v219 = RRmultiplyRh(v533, v218);
-    v197 = 0;
-    *v196 = v219;
-    v196 = &v587;
-    v126 = v568;
-    v199 = v571;
-    v198 = v572;
-    v169 = v553;
-    v168 = v556;
-    v200 = p_inputAxisShortRight;
+    v665.origin.x = v209;
+    v665.origin.y = v210;
+    v665.size.width = v211;
+    v665.size.height = v212;
+    v226 = RRradialEllipticalMask(v665, v214, v175, v560, v560 * v222, v558, 1.0);
+    v227 = RRmultiplyRh(v545, v226);
+    v203 = 0;
+    *v202 = v227;
+    v202 = &v599;
+    v130 = v580;
+    v205 = v583;
+    v204 = v584;
+    v175 = v565;
+    v174 = v568;
+    v206 = p_inputAxisShortRight;
   }
 
-  while ((v201 & 1) != 0);
-  v220 = v588;
-  v221 = v587;
-  if ([(NSNumber *)v147->inputShowMask intValue]== 3)
+  while ((v207 & 1) != 0);
+  v228 = v600;
+  v229 = v599;
+  if ([(NSNumber *)v153->inputShowMask intValue]== 3)
   {
-    v573 = [(CIImage *)v220 imageByCroppingToRect:v574.origin.x, v571, v572, v573];
-    v137 = v221;
-    v170 = v568;
+    v585 = [(CIImage *)v228 imageByCroppingToRect:v586.origin.x, v583, v584, v585];
+    v143 = v229;
+    v176 = v580;
     goto LABEL_108;
   }
 
-  v561 = v220;
-  [(NSNumber *)v147->inputRadiusSpecular floatValue];
-  v223 = v222;
-  integerValue2 = [(NSNumber *)v147->inputRepairSource integerValue];
-  v225 = v500;
+  v573 = v228;
+  [(NSNumber *)v153->inputRadiusSpecular floatValue];
+  v231 = v230;
+  integerValue2 = [(NSNumber *)v153->inputRepairSource integerValue];
+  v233 = v512;
   if (!integerValue2)
   {
-    v225 = v147->inputPrimary;
+    v233 = v153->inputPrimary;
   }
 
-  v565 = RRspecularResponse(v225);
-  v226 = &v586;
-  v227 = 1;
+  v577 = RRspecularResponse(v233);
+  v234 = &v598;
+  v235 = 1;
   do
   {
-    v228 = v227 & 1;
-    if (v227)
+    v236 = v235 & 1;
+    if (v235)
     {
-      v229 = v556;
+      v237 = v568;
     }
 
     else
     {
-      v229 = v553;
+      v237 = v565;
     }
 
-    v230 = v574.origin.x;
-    if (v228)
+    v238 = v586.origin.x;
+    if (v236)
     {
-      v231 = v571;
+      v239 = v583;
     }
 
     else
     {
-      v230 = v568;
-      v231 = v570;
+      v238 = v580;
+      v239 = v582;
     }
 
-    if (v228)
+    if (v236)
     {
-      v232 = v572;
+      v240 = v584;
     }
 
     else
     {
-      v232 = v569;
+      v240 = v581;
     }
 
-    if (v228)
+    if (v236)
     {
-      v233 = v573;
+      v241 = v585;
     }
 
     else
     {
-      v233 = v545;
+      v241 = v557;
     }
 
-    v647[0] = v229;
-    v646[0] = @"inputCenter";
-    v646[1] = @"inputExtent";
-    v233 = [CIVector vectorWithCGRect:v230, v231, v232, v233];
-    inputFalloffSpecular = v147->inputFalloffSpecular;
-    v647[1] = v233;
-    v647[2] = inputFalloffSpecular;
-    v646[2] = @"inputFalloff";
-    v646[3] = @"inputRadius";
-    LODWORD(v236) = v223;
-    v237 = [MEMORY[0x1E696AD98] numberWithFloat:v236];
-    v646[4] = @"inputAnisotropic";
-    v647[3] = v237;
-    v647[4] = MEMORY[0x1E695E110];
-    v238 = -[CIFilter outputImage](+[CIFilter filterWithName:withInputParameters:](CIFilter, "filterWithName:withInputParameters:", @"RadialFalloffFilter", [MEMORY[0x1E695DF20] dictionaryWithObjects:v647 forKeys:v646 count:5]), "outputImage");
-    v227 = 0;
-    *v226 = v238;
-    v226 = &v585;
+    v659[0] = v237;
+    v658[0] = @"inputCenter";
+    v658[1] = @"inputExtent";
+    v241 = [CIVector vectorWithCGRect:v238, v239, v240, v241];
+    inputFalloffSpecular = v153->inputFalloffSpecular;
+    v659[1] = v241;
+    v659[2] = inputFalloffSpecular;
+    v658[2] = @"inputFalloff";
+    v658[3] = @"inputRadius";
+    LODWORD(v244) = v231;
+    v245 = [MEMORY[0x1E696AD98] numberWithFloat:v244];
+    v658[4] = @"inputAnisotropic";
+    v659[3] = v245;
+    v659[4] = MEMORY[0x1E695E110];
+    v246 = -[CIFilter outputImage](+[CIFilter filterWithName:withInputParameters:](CIFilter, "filterWithName:withInputParameters:", @"RadialFalloffFilter", [MEMORY[0x1E695DF20] dictionaryWithObjects:v659 forKeys:v658 count:5]), "outputImage");
+    v235 = 0;
+    *v234 = v246;
+    v234 = &v597;
   }
 
-  while (v228);
-  v239 = v585;
-  v240 = RRmultiplyRh(v565, v586);
-  v241 = RRmultiplyRh(v565, v239);
-  v242 = RRmaxRhScalar(v240, 0.001);
-  v243 = RRmaxRhScalar(v241, 0.001);
-  [(NSNumber *)v147->inputCenterSpecRad floatValue];
-  if (v244 <= 0.0)
+  while (v236);
+  v247 = v597;
+  v248 = RRmultiplyRh(v577, v598);
+  v249 = RRmultiplyRh(v577, v247);
+  v250 = RRmaxRhScalar(v248, 0.001);
+  v251 = RRmaxRhScalar(v249, 0.001);
+  [(NSNumber *)v153->inputCenterSpecRad floatValue];
+  if (v252 <= 0.0)
   {
-    v251 = 0x1E75C0000uLL;
-    v252 = 0x1E695D000uLL;
-    v247 = v569;
-    v248 = v570;
-    v249 = v545;
+    v259 = 0x1E75C0000uLL;
+    v260 = 0x1E695D000uLL;
+    v255 = v581;
+    v256 = v582;
+    v257 = v557;
   }
 
   else
   {
-    v245 = v244;
-    v654.size.height = v573;
-    v654.origin.x = v574.origin.x;
-    v654.origin.y = v571;
-    v654.size.width = v572;
-    v246 = RRradialMask(v147->inputPupilCenterLeft, v654, v245, -0.8, 1);
-    v242 = RRmultiplyRh(v242, v246);
-    v655.origin.x = v568;
-    v247 = v569;
-    v248 = v570;
-    v655.origin.y = v570;
-    v655.size.width = v569;
-    v249 = v545;
-    v655.size.height = v545;
-    v250 = RRradialMask(v147->inputPupilCenterRight, v655, v245, -0.8, 1);
-    v243 = RRmultiplyRh(v243, v250);
-    v251 = 0x1E75C0000;
-    v252 = 0x1E695D000;
+    v253 = v252;
+    v666.size.height = v585;
+    v666.origin.x = v586.origin.x;
+    v666.origin.y = v583;
+    v666.size.width = v584;
+    v254 = RRradialMask(v153->inputPupilCenterLeft, v666, v253, -0.8, 1);
+    v250 = RRmultiplyRh(v250, v254);
+    v667.origin.x = v580;
+    v255 = v581;
+    v256 = v582;
+    v667.origin.y = v582;
+    v667.size.width = v581;
+    v257 = v557;
+    v667.size.height = v557;
+    v258 = RRradialMask(v153->inputPupilCenterRight, v667, v253, -0.8, 1);
+    v251 = RRmultiplyRh(v251, v258);
+    v259 = 0x1E75C0000;
+    v260 = 0x1E695D000;
   }
 
-  if ([(NSNumber *)v147->inputShowMask intValue]== 6)
+  if ([(NSNumber *)v153->inputShowMask intValue]== 6)
   {
-    v573 = [(CIImage *)v242 imageByCroppingToRect:v574.origin.x, v571, v572, v573];
-    v137 = v243;
-    v170 = v568;
-    v171 = v248;
-    v172 = v247;
+    v585 = [(CIImage *)v250 imageByCroppingToRect:v586.origin.x, v583, v584, v585];
+    v143 = v251;
+    v176 = v580;
+    v177 = v256;
+    v178 = v255;
 LABEL_147:
-    v173 = v249;
+    v179 = v257;
     goto LABEL_148;
   }
 
-  v566 = [*(v251 + 2960) vectorWithX:v540 Y:v510 Z:v540 W:v510];
-  [(CIVector *)v147->inputSize X];
-  v254 = v253;
-  [(CIVector *)v147->inputSize Y];
-  *&v255 = v254 * v255;
-  v549 = [*(v251 + 2960) vectorWithX:0.0 Y:(v499 * *&v255) Z:0.0 W:(v499 * *&v255)];
-  *v649 = 0u;
+  v578 = [*(v259 + 2960) vectorWithX:v552 Y:v522 Z:v552 W:v522];
+  [(CIVector *)v153->inputSize X];
+  v262 = v261;
+  [(CIVector *)v153->inputSize Y];
+  *&v263 = v262 * v263;
+  v561 = [*(v259 + 2960) vectorWithX:0.0 Y:(v511 * *&v263) Z:0.0 W:(v511 * *&v263)];
+  *v661 = 0u;
   memset(buf, 0, sizeof(buf));
-  CGAffineTransformMakeTranslation(buf, -(v568 - v574.origin.x), -(v248 - v571));
-  *&v583.a = *buf;
-  *&v583.c = *&buf[16];
-  *&v583.tx = *v649;
-  memset(&v584, 0, sizeof(v584));
-  CGAffineTransformInvert(&v584, &v583);
-  *&v583.a = *buf;
-  *&v583.c = *&buf[16];
-  *&v583.tx = *v649;
-  v256 = [v221 imageByApplyingTransform:&v583];
-  *&v583.a = *buf;
-  *&v583.c = *&buf[16];
-  *&v583.tx = *v649;
-  v257 = [(CIImage *)v243 imageByApplyingTransform:&v583];
-  *&v583.a = *buf;
-  *&v583.c = *&buf[16];
-  *&v583.tx = *v649;
-  v258 = [(CIImage *)v533 imageByApplyingTransform:&v583];
-  v259 = v572;
-  v5732 = [(CIImage *)RRcombineRGBA(v561 imageByCroppingToRect:v242, v256, v257), "imageByCroppingToRect:", v574.origin.x, v571, v572, v573];
-  v644[0] = @"inputPercentileRepair";
-  *&v261 = v541;
-  v645[0] = [MEMORY[0x1E696AD98] numberWithFloat:v261];
-  v644[1] = @"inputPercentileSpecular";
-  *&v262 = v537;
-  v645[1] = [MEMORY[0x1E696AD98] numberWithFloat:v262];
-  v644[2] = @"inputPercentRepair";
-  *&v263 = v520;
-  v645[2] = [MEMORY[0x1E696AD98] numberWithFloat:v263];
-  v645[3] = &unk_1F1081B78;
-  inputInterPeakMin = v147->inputInterPeakMin;
-  v644[3] = @"inputPercentSpecular";
-  v644[4] = @"inputInterPeakMinRepair";
-  v645[4] = inputInterPeakMin;
-  v645[5] = v566;
-  v644[5] = @"inputMinimum";
-  v644[6] = @"inputMaxArea";
-  inputSpecAreaScale = v147->inputSpecAreaScale;
-  v266 = v553;
-  v645[6] = v549;
-  v645[7] = inputSpecAreaScale;
-  v644[7] = @"inputMaxAreaRatio";
-  v644[8] = @"inputCenterLeft";
-  v645[8] = v556;
-  v645[9] = v553;
-  v644[9] = @"inputCenterRight";
-  v644[10] = @"inputCenterExtentLeft";
-  v267 = v569;
-  v249 = v545;
-  v645[10] = [*(v251 + 2960) vectorWithCGRect:{v574.origin.x, v571, v572, v573}];
-  v644[11] = @"inputCenterExtentRight";
-  v645[11] = [*(v251 + 2960) vectorWithCGRect:{v568, v248, v569, v545}];
-  v644[12] = @"inputCenterOffsetLeft";
-  v645[12] = [*(v251 + 2960) vectorWithCGPoint:{*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8)}];
-  v644[13] = @"inputCenterOffsetRight";
-  v645[13] = [*(v251 + 2960) vectorWithCGPoint:{v568 - v574.origin.x, v248 - v571}];
-  v645[14] = &unk_1F1085398;
-  v644[14] = @"inputAbortMaxCenterDist";
-  v644[15] = @"inputMinDensity";
-  *&v268 = v523;
-  v645[15] = [MEMORY[0x1E696AD98] numberWithFloat:v268];
-  v644[16] = @"inputMaxRelDensity";
-  LODWORD(v269) = v514;
-  v270 = [MEMORY[0x1E696AD98] numberWithFloat:v269];
-  inputFalloffDensity = v147->inputFalloffDensity;
-  v645[16] = v270;
-  v645[17] = inputFalloffDensity;
-  v644[17] = @"inputDensityRadius";
-  v644[18] = @"inputDetectionLeft";
-  v645[18] = v533;
-  v645[19] = v258;
-  v644[19] = @"inputDetectionRight";
-  v644[20] = @"inputMinInterDispersion";
-  LODWORD(v272) = v511;
-  v645[20] = [MEMORY[0x1E696AD98] numberWithFloat:v272];
-  v644[21] = @"inputMaxInterDispersion";
-  LODWORD(v273) = v512;
-  v645[21] = [MEMORY[0x1E696AD98] numberWithFloat:v273];
-  v644[22] = @"inputMinGobalLocalMeanDiff";
-  LODWORD(v274) = v513;
-  v275 = [MEMORY[0x1E696AD98] numberWithFloat:v274];
-  v644[23] = @"inputTuning";
-  inputParam2 = v147->inputParam2;
-  v645[22] = v275;
-  v645[23] = inputParam2;
-  v277 = -[CIImage imageByApplyingFilter:withInputParameters:](v5732, "imageByApplyingFilter:withInputParameters:", @"HistoClip_RGBA8_CPU", [*(v252 + 3872) dictionaryWithObjects:v645 forKeys:v644 count:24]);
-  v278 = RRextractR8(v277);
-  v279 = RRextractG8(v277);
-  v280 = RRextractB8(v277);
-  v583 = v584;
-  v281 = [(CIImage *)v280 imageByApplyingTransform:&v583];
-  v282 = RRextractA8(v277);
-  v583 = v584;
-  v283 = [(CIImage *)v282 imageByApplyingTransform:&v583];
-  if (v531)
+  CGAffineTransformMakeTranslation(buf, -(v580 - v586.origin.x), -(v256 - v583));
+  *&v595.a = *buf;
+  *&v595.c = *&buf[16];
+  *&v595.tx = *v661;
+  memset(&v596, 0, sizeof(v596));
+  CGAffineTransformInvert(&v596, &v595);
+  *&v595.a = *buf;
+  *&v595.c = *&buf[16];
+  *&v595.tx = *v661;
+  v264 = [v229 imageByApplyingTransform:&v595];
+  *&v595.a = *buf;
+  *&v595.c = *&buf[16];
+  *&v595.tx = *v661;
+  v265 = [(CIImage *)v251 imageByApplyingTransform:&v595];
+  *&v595.a = *buf;
+  *&v595.c = *&buf[16];
+  *&v595.tx = *v661;
+  v266 = [(CIImage *)v545 imageByApplyingTransform:&v595];
+  v267 = v584;
+  v5852 = [(CIImage *)RRcombineRGBA(v573 imageByCroppingToRect:v250, v264, v265), "imageByCroppingToRect:", v586.origin.x, v583, v584, v585];
+  v656[0] = @"inputPercentileRepair";
+  *&v269 = v553;
+  v657[0] = [MEMORY[0x1E696AD98] numberWithFloat:v269];
+  v656[1] = @"inputPercentileSpecular";
+  *&v270 = v549;
+  v657[1] = [MEMORY[0x1E696AD98] numberWithFloat:v270];
+  v656[2] = @"inputPercentRepair";
+  *&v271 = v532;
+  v657[2] = [MEMORY[0x1E696AD98] numberWithFloat:v271];
+  v657[3] = &unk_1F1081B78;
+  inputInterPeakMin = v153->inputInterPeakMin;
+  v656[3] = @"inputPercentSpecular";
+  v656[4] = @"inputInterPeakMinRepair";
+  v657[4] = inputInterPeakMin;
+  v657[5] = v578;
+  v656[5] = @"inputMinimum";
+  v656[6] = @"inputMaxArea";
+  inputSpecAreaScale = v153->inputSpecAreaScale;
+  v274 = v565;
+  v657[6] = v561;
+  v657[7] = inputSpecAreaScale;
+  v656[7] = @"inputMaxAreaRatio";
+  v656[8] = @"inputCenterLeft";
+  v657[8] = v568;
+  v657[9] = v565;
+  v656[9] = @"inputCenterRight";
+  v656[10] = @"inputCenterExtentLeft";
+  v275 = v581;
+  v257 = v557;
+  v657[10] = [*(v259 + 2960) vectorWithCGRect:{v586.origin.x, v583, v584, v585}];
+  v656[11] = @"inputCenterExtentRight";
+  v657[11] = [*(v259 + 2960) vectorWithCGRect:{v580, v256, v581, v557}];
+  v656[12] = @"inputCenterOffsetLeft";
+  v657[12] = [*(v259 + 2960) vectorWithCGPoint:{*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8)}];
+  v656[13] = @"inputCenterOffsetRight";
+  v657[13] = [*(v259 + 2960) vectorWithCGPoint:{v580 - v586.origin.x, v256 - v583}];
+  v657[14] = &unk_1F1085398;
+  v656[14] = @"inputAbortMaxCenterDist";
+  v656[15] = @"inputMinDensity";
+  *&v276 = v535;
+  v657[15] = [MEMORY[0x1E696AD98] numberWithFloat:v276];
+  v656[16] = @"inputMaxRelDensity";
+  LODWORD(v277) = v526;
+  v278 = [MEMORY[0x1E696AD98] numberWithFloat:v277];
+  inputFalloffDensity = v153->inputFalloffDensity;
+  v657[16] = v278;
+  v657[17] = inputFalloffDensity;
+  v656[17] = @"inputDensityRadius";
+  v656[18] = @"inputDetectionLeft";
+  v657[18] = v545;
+  v657[19] = v266;
+  v656[19] = @"inputDetectionRight";
+  v656[20] = @"inputMinInterDispersion";
+  LODWORD(v280) = v523;
+  v657[20] = [MEMORY[0x1E696AD98] numberWithFloat:v280];
+  v656[21] = @"inputMaxInterDispersion";
+  LODWORD(v281) = v524;
+  v657[21] = [MEMORY[0x1E696AD98] numberWithFloat:v281];
+  v656[22] = @"inputMinGobalLocalMeanDiff";
+  LODWORD(v282) = v525;
+  v283 = [MEMORY[0x1E696AD98] numberWithFloat:v282];
+  v656[23] = @"inputTuning";
+  inputParam2 = v153->inputParam2;
+  v657[22] = v283;
+  v657[23] = inputParam2;
+  v285 = -[CIImage imageByApplyingFilter:withInputParameters:](v5852, "imageByApplyingFilter:withInputParameters:", @"HistoClip_RGBA8_CPU", [*(v260 + 3872) dictionaryWithObjects:v657 forKeys:v656 count:24]);
+  v286 = RRextractR8(v285);
+  v287 = RRextractG8(v285);
+  v288 = RRextractB8(v285);
+  v595 = v596;
+  v289 = [(CIImage *)v288 imageByApplyingTransform:&v595];
+  v290 = RRextractA8(v285);
+  v595 = v596;
+  v291 = [(CIImage *)v290 imageByApplyingTransform:&v595];
+  if (v543)
   {
-    if (CI_LOG_DUALRED())
+    v292 = CI_LOG_DUALRED();
+    if (v292)
     {
-      v284 = ci_logger_api();
-      if (os_log_type_enabled(v284, OS_LOG_TYPE_ERROR))
+      v294 = ci_logger_api(v292, v293);
+      if (os_log_type_enabled(v294, OS_LOG_TYPE_ERROR))
       {
-        [(CIRedEyeRaw *)v284 outputImage:v285];
+        [(CIRedEyeRaw *)v294 outputImage:v295];
       }
     }
 
-    v278 = RRminimumRh(v278, v498);
-    v281 = RRminimumRh(v281, v498);
+    v286 = RRminimumRh(v286, v510);
+    v289 = RRminimumRh(v289, v510);
   }
 
-  if ([v526[15]._priv intValue] == 7)
+  if ([v538[15]._priv intValue] == 7)
   {
-    v573 = [(CIImage *)v279 imageByCroppingToRect:v574.origin.x, v571, v572, v573];
-    v137 = v283;
+    v585 = [(CIImage *)v287 imageByCroppingToRect:v586.origin.x, v583, v584, v585];
+    v143 = v291;
 LABEL_146:
-    v170 = v568;
-    v171 = v248;
-    v172 = v569;
+    v176 = v580;
+    v177 = v256;
+    v178 = v581;
     goto LABEL_147;
   }
 
-  if (v509 <= 0.0)
+  if (v521 <= 0.0)
   {
-    v567 = v281;
+    v579 = v289;
   }
 
   else
   {
-    v292 = roundf(v509 * v516);
-    v293 = RRcloseByErosion(v278, v292);
-    v294 = v292;
-    v259 = v572;
-    v295 = RRcloseByErosion(v281, v294);
-    v278 = RRmaxIfGreaterThanZeroRh(v293, v278);
-    v296 = v295;
-    v266 = v553;
-    v567 = RRmaxIfGreaterThanZeroRh(v296, v281);
+    v302 = roundf(v521 * v528);
+    v303 = RRcloseByErosion(v286, v302);
+    v304 = v302;
+    v267 = v584;
+    v305 = RRcloseByErosion(v289, v304);
+    v286 = RRmaxIfGreaterThanZeroRh(v303, v286);
+    v306 = v305;
+    v274 = v565;
+    v579 = RRmaxIfGreaterThanZeroRh(v306, v289);
   }
 
-  if ([v526[15]._priv intValue] == 4)
+  if ([v538[15]._priv intValue] == 4)
   {
-    v573 = [(CIImage *)v278 imageByCroppingToRect:v574.origin.x, v571, v259, v573];
-    v137 = v567;
+    v585 = [(CIImage *)v286 imageByCroppingToRect:v586.origin.x, v583, v267, v585];
+    v143 = v579;
     goto LABEL_146;
   }
 
-  if ([v526[15]._priv intValue] == 10)
+  if ([v538[15]._priv intValue] == 10)
   {
-    v300 = v573;
-    v301 = v259;
-    v302 = RRbinarizeAlphaInverse(v526[5].super.isa, [(CIImage *)v278 imageByClampingToExtent], 0.2);
-    v303 = RRbinarizeAlphaInverse(v526[5].super.isa, [(CIImage *)v567 imageByClampingToExtent], 0.2);
-    v642 = @"inputExtent";
-    v304 = v574.origin.x;
-    v643 = [*(v251 + 2960) vectorWithCGRect:{v574.origin.x, v571, v301, v573}];
-    v305 = -[CIImage imageByApplyingFilter:withInputParameters:](v302, "imageByApplyingFilter:withInputParameters:", @"CIAreaAverage", [*(v252 + 3872) dictionaryWithObjects:&v643 forKeys:&v642 count:1]);
-    v640 = @"inputExtent";
-    v641 = [*(v251 + 2960) vectorWithCGRect:{v568, v248, v569, v545}];
-    v306 = *(v252 + 3872);
-    v307 = &v641;
-    v308 = &v640;
+    v310 = v585;
+    v311 = v267;
+    v312 = RRbinarizeAlphaInverse(v538[5].super.isa, [(CIImage *)v286 imageByClampingToExtent], 0.2);
+    v313 = RRbinarizeAlphaInverse(v538[5].super.isa, [(CIImage *)v579 imageByClampingToExtent], 0.2);
+    v654 = @"inputExtent";
+    v314 = v586.origin.x;
+    v655 = [*(v259 + 2960) vectorWithCGRect:{v586.origin.x, v583, v311, v585}];
+    v315 = -[CIImage imageByApplyingFilter:withInputParameters:](v312, "imageByApplyingFilter:withInputParameters:", @"CIAreaAverage", [*(v260 + 3872) dictionaryWithObjects:&v655 forKeys:&v654 count:1]);
+    v652 = @"inputExtent";
+    v653 = [*(v259 + 2960) vectorWithCGRect:{v580, v256, v581, v557}];
+    v316 = *(v260 + 3872);
+    v317 = &v653;
+    v318 = &v652;
 LABEL_154:
-    v310 = -[CIImage imageByApplyingFilter:withInputParameters:](v303, "imageByApplyingFilter:withInputParameters:", @"CIAreaAverage", [v306 dictionaryWithObjects:v307 forKeys:v308 count:1]);
-    imageByUnpremultiplyingAlpha = [(CIImage *)v305 imageByUnpremultiplyingAlpha];
-    imageByUnpremultiplyingAlpha2 = [(CIImage *)v310 imageByUnpremultiplyingAlpha];
+    v320 = -[CIImage imageByApplyingFilter:withInputParameters:](v313, "imageByApplyingFilter:withInputParameters:", @"CIAreaAverage", [v316 dictionaryWithObjects:v317 forKeys:v318 count:1]);
+    imageByUnpremultiplyingAlpha = [(CIImage *)v315 imageByUnpremultiplyingAlpha];
+    imageByUnpremultiplyingAlpha2 = [(CIImage *)v320 imageByUnpremultiplyingAlpha];
     [(CIImage *)imageByUnpremultiplyingAlpha extent];
-    v313 = [(CIImage *)imageByUnpremultiplyingAlpha imageBySettingAlphaOneInExtent:?];
+    v323 = [(CIImage *)imageByUnpremultiplyingAlpha imageBySettingAlphaOneInExtent:?];
     [(CIImage *)imageByUnpremultiplyingAlpha2 extent];
-    v314 = [(CIImage *)imageByUnpremultiplyingAlpha2 imageBySettingAlphaOneInExtent:?];
-    imageByClampingToExtent = [(CIImage *)v313 imageByClampingToExtent];
-    imageByClampingToExtent2 = [(CIImage *)v314 imageByClampingToExtent];
-    v317 = imageByClampingToExtent;
-    v318 = v304;
-    v319 = v571;
-    v320 = v301;
-    v321 = v300;
+    v324 = [(CIImage *)imageByUnpremultiplyingAlpha2 imageBySettingAlphaOneInExtent:?];
+    imageByClampingToExtent = [(CIImage *)v323 imageByClampingToExtent];
+    imageByClampingToExtent2 = [(CIImage *)v324 imageByClampingToExtent];
+    v327 = imageByClampingToExtent;
+    v328 = v314;
+    v329 = v583;
+    v330 = v311;
+    v331 = v310;
 LABEL_155:
-    v322 = [v317 imageByCroppingToRect:{v318, v319, v320, v321}];
-    v545 = [(CIImage *)imageByClampingToExtent2 imageByCroppingToRect:v568, v248, v569, v545];
-    v298 = v322;
-    return [v298 imageByCompositingOverImage:v545];
+    v332 = [v327 imageByCroppingToRect:{v328, v329, v330, v331}];
+    v557 = [(CIImage *)imageByClampingToExtent2 imageByCroppingToRect:v580, v256, v581, v557];
+    v308 = v332;
+    return [v308 imageByCompositingOverImage:v557];
   }
 
-  if ([v526[15]._priv intValue] == 11)
+  if ([v538[15]._priv intValue] == 11)
   {
-    v300 = v573;
-    v301 = v259;
-    v309 = RRbinarizeAlpha(v526[5].super.isa, [(CIImage *)v278 imageByClampingToExtent], 0.2);
-    v303 = RRbinarizeAlpha(v526[5].super.isa, [(CIImage *)v567 imageByClampingToExtent], 0.2);
-    v638 = @"inputExtent";
-    v304 = v574.origin.x;
-    v639 = [*(v251 + 2960) vectorWithCGRect:{v574.origin.x, v571, v301, v573}];
-    v305 = -[CIImage imageByApplyingFilter:withInputParameters:](v309, "imageByApplyingFilter:withInputParameters:", @"CIAreaAverage", [*(v252 + 3872) dictionaryWithObjects:&v639 forKeys:&v638 count:1]);
-    v636 = @"inputExtent";
-    v637 = [*(v251 + 2960) vectorWithCGRect:{v568, v248, v569, v545}];
-    v306 = *(v252 + 3872);
-    v307 = &v637;
-    v308 = &v636;
+    v310 = v585;
+    v311 = v267;
+    v319 = RRbinarizeAlpha(v538[5].super.isa, [(CIImage *)v286 imageByClampingToExtent], 0.2);
+    v313 = RRbinarizeAlpha(v538[5].super.isa, [(CIImage *)v579 imageByClampingToExtent], 0.2);
+    v650 = @"inputExtent";
+    v314 = v586.origin.x;
+    v651 = [*(v259 + 2960) vectorWithCGRect:{v586.origin.x, v583, v311, v585}];
+    v315 = -[CIImage imageByApplyingFilter:withInputParameters:](v319, "imageByApplyingFilter:withInputParameters:", @"CIAreaAverage", [*(v260 + 3872) dictionaryWithObjects:&v651 forKeys:&v650 count:1]);
+    v648 = @"inputExtent";
+    v649 = [*(v259 + 2960) vectorWithCGRect:{v580, v256, v581, v557}];
+    v316 = *(v260 + 3872);
+    v317 = &v649;
+    v318 = &v648;
     goto LABEL_154;
   }
 
-  if ([v526[15]._priv intValue] == 12)
+  if ([v538[15]._priv intValue] == 12)
   {
-    v323 = RRbinarize(v278);
-    v324 = RRbinarize(v567);
-    v325 = +[CIImage imageWithColor:](CIImage, "imageWithColor:", +[CIColor blackColor]);
-    isa = v526[5].super.isa;
-    v634[0] = @"inputBackgroundImage";
-    v634[1] = @"inputMaskImage";
-    v635[0] = v325;
-    v635[1] = v323;
-    v327 = -[objc_class imageByApplyingFilter:withInputParameters:](isa, "imageByApplyingFilter:withInputParameters:", @"CIBlendWithRedMask", [*(v252 + 3872) dictionaryWithObjects:v635 forKeys:v634 count:2]);
-    v328 = v526[5].super.isa;
-    v632[0] = @"inputBackgroundImage";
-    v632[1] = @"inputMaskImage";
-    v633[0] = v325;
-    v633[1] = v324;
-    v329 = *(v252 + 3872);
-    v330 = v633;
-    v331 = v632;
+    v333 = RRbinarize(v286);
+    v334 = RRbinarize(v579);
+    v335 = +[CIImage imageWithColor:](CIImage, "imageWithColor:", +[CIColor blackColor]);
+    isa = v538[5].super.isa;
+    v646[0] = @"inputBackgroundImage";
+    v646[1] = @"inputMaskImage";
+    v647[0] = v335;
+    v647[1] = v333;
+    v337 = -[objc_class imageByApplyingFilter:withInputParameters:](isa, "imageByApplyingFilter:withInputParameters:", @"CIBlendWithRedMask", [*(v260 + 3872) dictionaryWithObjects:v647 forKeys:v646 count:2]);
+    v338 = v538[5].super.isa;
+    v644[0] = @"inputBackgroundImage";
+    v644[1] = @"inputMaskImage";
+    v645[0] = v335;
+    v645[1] = v334;
+    v339 = *(v260 + 3872);
+    v340 = v645;
+    v341 = v644;
 LABEL_160:
-    imageByClampingToExtent2 = -[objc_class imageByApplyingFilter:withInputParameters:](v328, "imageByApplyingFilter:withInputParameters:", @"CIBlendWithRedMask", [v329 dictionaryWithObjects:v330 forKeys:v331 count:2]);
-    v317 = v327;
-    v318 = v574.origin.x;
-    v319 = v571;
-    v320 = v259;
-    v321 = v573;
+    imageByClampingToExtent2 = -[objc_class imageByApplyingFilter:withInputParameters:](v338, "imageByApplyingFilter:withInputParameters:", @"CIBlendWithRedMask", [v339 dictionaryWithObjects:v340 forKeys:v341 count:2]);
+    v327 = v337;
+    v328 = v586.origin.x;
+    v329 = v583;
+    v330 = v267;
+    v331 = v585;
     goto LABEL_155;
   }
 
-  if ([v526[15]._priv intValue] == 13)
+  if ([v538[15]._priv intValue] == 13)
   {
-    v333 = RRbinarizeInverse(v278);
-    v334 = RRbinarizeInverse(v567);
-    v335 = +[CIImage imageWithColor:](CIImage, "imageWithColor:", +[CIColor blackColor]);
-    v336 = v526[5].super.isa;
-    v630[0] = @"inputBackgroundImage";
-    v630[1] = @"inputMaskImage";
-    v631[0] = v335;
-    v631[1] = v333;
-    v327 = -[objc_class imageByApplyingFilter:withInputParameters:](v336, "imageByApplyingFilter:withInputParameters:", @"CIBlendWithRedMask", [*(v252 + 3872) dictionaryWithObjects:v631 forKeys:v630 count:2]);
-    v328 = v526[5].super.isa;
-    v628[0] = @"inputBackgroundImage";
-    v628[1] = @"inputMaskImage";
-    v629[0] = v335;
-    v629[1] = v334;
-    v329 = *(v252 + 3872);
-    v330 = v629;
-    v331 = v628;
+    v343 = RRbinarizeInverse(v286);
+    v344 = RRbinarizeInverse(v579);
+    v345 = +[CIImage imageWithColor:](CIImage, "imageWithColor:", +[CIColor blackColor]);
+    v346 = v538[5].super.isa;
+    v642[0] = @"inputBackgroundImage";
+    v642[1] = @"inputMaskImage";
+    v643[0] = v345;
+    v643[1] = v343;
+    v337 = -[objc_class imageByApplyingFilter:withInputParameters:](v346, "imageByApplyingFilter:withInputParameters:", @"CIBlendWithRedMask", [*(v260 + 3872) dictionaryWithObjects:v643 forKeys:v642 count:2]);
+    v338 = v538[5].super.isa;
+    v640[0] = @"inputBackgroundImage";
+    v640[1] = @"inputMaskImage";
+    v641[0] = v345;
+    v641[1] = v344;
+    v339 = *(v260 + 3872);
+    v340 = v641;
+    v341 = v640;
     goto LABEL_160;
   }
 
-  v547 = v283;
-  v550 = v279;
-  if (v529 == 35)
+  v559 = v291;
+  v562 = v287;
+  if (v541 == 35)
   {
-    v338 = &OBJC_IVAR___CIRedEyeRaw_inputSkinThresholdMed;
-    v337 = v495;
+    v348 = &OBJC_IVAR___CIRedEyeRaw_inputSkinThresholdMed;
+    v347 = v507;
     goto LABEL_165;
   }
 
-  LODWORD(v332) = 1.0;
-  v337 = v495;
-  if (v529 == 90)
+  LODWORD(v342) = 1.0;
+  v347 = v507;
+  if (v541 == 90)
   {
-    v338 = &OBJC_IVAR___CIRedEyeRaw_inputSkinThreshold;
+    v348 = &OBJC_IVAR___CIRedEyeRaw_inputSkinThreshold;
 LABEL_165:
-    [*(&v526->super.isa + *v338) floatValue];
+    [*(&v538->super.isa + *v348) floatValue];
   }
 
-  v562 = *&v332;
-  v339 = &v582;
-  v340 = 1;
+  v574 = *&v342;
+  v349 = &v594;
+  v350 = 1;
   do
   {
-    v341 = v340;
-    if (v340)
+    v351 = v350;
+    if (v350)
     {
-      v342 = v574.origin.x;
+      v352 = v586.origin.x;
     }
 
     else
     {
-      v342 = v568;
+      v352 = v580;
     }
 
-    if (v340)
+    if (v350)
     {
-      v343 = v571;
+      v353 = v583;
     }
 
     else
     {
-      v343 = v248;
+      v353 = v256;
     }
 
-    if (v340)
+    if (v350)
     {
-      v344 = v572;
+      v354 = v584;
     }
 
     else
     {
-      v344 = v267;
+      v354 = v275;
     }
 
-    if (v340)
+    if (v350)
     {
-      v345 = v573;
+      v355 = v585;
     }
 
     else
     {
-      v345 = v545;
+      v355 = v557;
     }
 
-    if (v340)
+    if (v350)
     {
-      v346 = v337;
+      v356 = v347;
     }
 
     else
     {
-      v346 = v518;
+      v356 = v530;
     }
 
-    if (v340)
+    if (v350)
     {
-      v347 = v278;
+      v357 = v286;
     }
 
     else
     {
-      v347 = v567;
+      v357 = v579;
     }
 
-    if (v340)
+    if (v350)
     {
-      v348 = v556;
+      v358 = v568;
     }
 
     else
     {
-      v348 = v266;
+      v358 = v274;
     }
 
-    v626[0] = @"inputExtent";
-    v349 = *(v251 + 2960);
-    [(CIImage *)v347 extent];
-    v350 = [v349 vectorWithCGRect:?];
-    v626[1] = @"inputCentroid";
-    v627[0] = v350;
-    v627[1] = v348;
-    v351 = RRconditionalZero(v347, -[CIImage imageByClampingToExtent](-[CIImage imageByApplyingFilter:withInputParameters:](v347, "imageByApplyingFilter:withInputParameters:", @"CICircularityDescriptor", [MEMORY[0x1E695DF20] dictionaryWithObjects:v627 forKeys:v626 count:2]), "imageByClampingToExtent"), v539);
-    v624[0] = @"inputCenter";
-    v624[1] = @"inputThreshold";
-    v625[0] = v348;
-    v625[1] = &unk_1F1081B90;
-    v625[2] = v346;
-    v624[2] = @"inputAreaThresholdLoHi";
-    v624[3] = @"inputSplat";
-    *&v352 = v497;
-    v625[3] = [MEMORY[0x1E696AD98] numberWithFloat:v352];
-    v353 = -[CIImage imageByApplyingFilter:withInputParameters:](v351, "imageByApplyingFilter:withInputParameters:", @"CIConvexFill", [MEMORY[0x1E695DF20] dictionaryWithObjects:v625 forKeys:v624 count:4]);
-    [(objc_class *)v526[21].super.isa floatValue];
-    if (v354 > 0.0 && fabs(v354 + -1.0) > 0.001)
+    v638[0] = @"inputExtent";
+    v359 = *(v259 + 2960);
+    [(CIImage *)v357 extent];
+    v360 = [v359 vectorWithCGRect:?];
+    v638[1] = @"inputCentroid";
+    v639[0] = v360;
+    v639[1] = v358;
+    v361 = RRconditionalZero(v357, -[CIImage imageByClampingToExtent](-[CIImage imageByApplyingFilter:withInputParameters:](v357, "imageByApplyingFilter:withInputParameters:", @"CICircularityDescriptor", [MEMORY[0x1E695DF20] dictionaryWithObjects:v639 forKeys:v638 count:2]), "imageByClampingToExtent"), v551);
+    v636[0] = @"inputCenter";
+    v636[1] = @"inputThreshold";
+    v637[0] = v358;
+    v637[1] = &unk_1F1081B90;
+    v637[2] = v356;
+    v636[2] = @"inputAreaThresholdLoHi";
+    v636[3] = @"inputSplat";
+    *&v362 = v509;
+    v637[3] = [MEMORY[0x1E696AD98] numberWithFloat:v362];
+    v363 = -[CIImage imageByApplyingFilter:withInputParameters:](v361, "imageByApplyingFilter:withInputParameters:", @"CIConvexFill", [MEMORY[0x1E695DF20] dictionaryWithObjects:v637 forKeys:v636 count:4]);
+    [(objc_class *)v538[21].super.isa floatValue];
+    if (v364 > 0.0 && fabs(v364 + -1.0) > 0.001)
     {
-      v355 = [(CIImage *)v353 _imageByApplyingGamma:?];
-      [(objc_class *)v526[13].super.isa floatValue];
-      v353 = RRsmoothstep(v355, v356);
+      v365 = [(CIImage *)v363 _imageByApplyingGamma:?];
+      [(objc_class *)v538[13].super.isa floatValue];
+      v363 = RRsmoothstep(v365, v366);
     }
 
-    v266 = v553;
-    v345 = [(CIImage *)v353 imageByCroppingToRect:v342, v343, v344, v345];
-    v340 = 0;
-    *v339 = v345;
-    v339 = &v581;
-    v267 = v569;
-    v248 = v570;
+    v274 = v565;
+    v355 = [(CIImage *)v363 imageByCroppingToRect:v352, v353, v354, v355];
+    v350 = 0;
+    *v349 = v355;
+    v349 = &v593;
+    v275 = v581;
+    v256 = v582;
   }
 
-  while ((v341 & 1) != 0);
-  v358 = v582;
-  v359 = v581;
-  if (v531)
+  while ((v351 & 1) != 0);
+  v368 = v594;
+  v369 = v593;
+  if (v543)
   {
-    v360 = v545;
-    v361 = v572;
-    v362 = 0x1E695D000;
-    v363 = v529;
-    v364 = v533;
-    if (CI_LOG_DUALRED())
+    v370 = CI_LOG_DUALRED();
+    v372 = v557;
+    v373 = v584;
+    v374 = 0x1E695D000;
+    v375 = v541;
+    v376 = v545;
+    if (v370)
     {
-      v365 = ci_logger_api();
-      if (os_log_type_enabled(v365, OS_LOG_TYPE_ERROR))
+      v377 = ci_logger_api(v370, v371);
+      if (os_log_type_enabled(v377, OS_LOG_TYPE_ERROR))
       {
-        [(CIRedEyeRaw *)v365 outputImage:v366];
+        [(CIRedEyeRaw *)v377 outputImage:v378];
       }
     }
 
-    v358 = RRminimumRh(v358, v531);
-    v359 = RRminimumRh(v359, v531);
+    v368 = RRminimumRh(v368, v543);
+    v369 = RRminimumRh(v369, v543);
   }
 
   else
   {
-    v360 = v545;
-    v361 = v572;
-    v362 = 0x1E695D000uLL;
-    v363 = v529;
-    v364 = v533;
+    v372 = v557;
+    v373 = v584;
+    v374 = 0x1E695D000uLL;
+    v375 = v541;
+    v376 = v545;
   }
 
-  if (v361 >= v573)
+  if (v373 >= v585)
   {
-    v373 = v573;
-  }
-
-  else
-  {
-    v373 = v361;
-  }
-
-  v374 = v373;
-  if (v569 >= v360)
-  {
-    v375 = v360;
+    v385 = v585;
   }
 
   else
   {
-    v375 = v569;
+    v385 = v373;
   }
 
-  v376 = v375;
-  [v526[21]._priv floatValue];
-  v656.size.width = v361;
-  v378 = v377;
-  v656.origin.x = v574.origin.x;
-  v656.origin.y = v571;
-  v656.size.height = v573;
-  v379 = feather(v358, v656, v374, v378, 0.5);
-  v657.origin.x = v568;
-  v657.origin.y = v570;
-  v657.size.width = v569;
-  v657.size.height = v360;
-  v380 = feather(v359, v657, v376, v378, 0.5);
-  [(objc_class *)v526[38].super.isa floatValue];
-  v382 = 50.0;
-  if ((v535 * v381) <= 50.0)
+  v386 = v385;
+  if (v581 >= v372)
   {
-    [(objc_class *)v526[38].super.isa floatValue];
-    v382 = v535 * v383;
-  }
-
-  [v526[38]._priv floatValue];
-  v385 = v384 * 0.1;
-  if (v363 == 90)
-  {
-    v385 = v385 * 1.5;
-    v386 = 2.5;
-    v387 = v568;
+    v387 = v372;
   }
 
   else
   {
-    v386 = 1.0;
-    v387 = v568;
-    if (v363 == 35)
+    v387 = v581;
+  }
+
+  v388 = v387;
+  [v538[21]._priv floatValue];
+  v668.size.width = v373;
+  v390 = v389;
+  v668.origin.x = v586.origin.x;
+  v668.origin.y = v583;
+  v668.size.height = v585;
+  v391 = feather(v368, v668, v386, v390, 0.5);
+  v669.origin.x = v580;
+  v669.origin.y = v582;
+  v669.size.width = v581;
+  v669.size.height = v372;
+  v392 = feather(v369, v669, v388, v390, 0.5);
+  [(objc_class *)v538[38].super.isa floatValue];
+  v394 = 50.0;
+  if ((v547 * v393) <= 50.0)
+  {
+    [(objc_class *)v538[38].super.isa floatValue];
+    v394 = v547 * v395;
+  }
+
+  [v538[38]._priv floatValue];
+  v397 = v396 * 0.1;
+  if (v375 == 90)
+  {
+    v397 = v397 * 1.5;
+    v398 = 2.5;
+    v399 = v580;
+  }
+
+  else
+  {
+    v398 = 1.0;
+    v399 = v580;
+    if (v375 == 35)
     {
-      v364 = refilterChannel(v526[5].super.isa);
-      v385 = v385 * 5.0;
-      v382 = v382 * 1.5;
-      v386 = 0.400000006;
+      v376 = refilterChannel(v538[5].super.isa);
+      v397 = v397 * 5.0;
+      v394 = v394 * 1.5;
+      v398 = 0.400000006;
     }
   }
 
-  v388 = [(CIImage *)v364 _imageByApplyingGamma:v386];
-  v389 = refilter(v379, v388, v382, v385);
-  v390 = refilter(v380, v388, v382, v385);
-  [(objc_class *)v526[22].super.isa floatValue];
-  v392 = v391;
-  v658.origin.x = v574.origin.x;
-  v658.origin.y = v571;
-  v658.size.width = v572;
-  v658.size.height = v573;
-  v393 = feather(v389, v658, v374, 0.0, v392);
-  v659.origin.x = v387;
-  v659.origin.y = v570;
-  v659.size.width = v569;
-  v659.size.height = v545;
-  v394 = feather(v390, v659, v376, 0.0, v392);
-  if (v562 < 1.0)
+  v400 = [(CIImage *)v376 _imageByApplyingGamma:v398];
+  v401 = refilter(v391, v400, v394, v397);
+  v402 = refilter(v392, v400, v394, v397);
+  [(objc_class *)v538[22].super.isa floatValue];
+  v404 = v403;
+  v670.origin.x = v586.origin.x;
+  v670.origin.y = v583;
+  v670.size.width = v584;
+  v670.size.height = v585;
+  v405 = feather(v401, v670, v386, 0.0, v404);
+  v671.origin.x = v399;
+  v671.origin.y = v582;
+  v671.size.width = v581;
+  v671.size.height = v557;
+  v406 = feather(v402, v671, v388, 0.0, v404);
+  if (v574 < 1.0)
   {
-    v660.origin.x = v574.origin.x;
-    v660.origin.y = v571;
-    v660.size.width = v572;
-    v660.size.height = v573;
-    v395 = chromaExclusion(v526[5].super.isa, v278, v660, v562, 0.2, v505, 0.35);
-    v661.origin.x = v568;
-    v661.origin.y = v570;
-    v661.size.width = v569;
-    v661.size.height = v545;
-    v396 = chromaExclusion(v526[5].super.isa, v567, v661, v562, 0.2, v505, 0.35);
-    v393 = RRmultiplyRh(v393, v395);
-    v394 = RRmultiplyRh(v394, v396);
+    v672.origin.x = v586.origin.x;
+    v672.origin.y = v583;
+    v672.size.width = v584;
+    v672.size.height = v585;
+    v407 = chromaExclusion(v538[5].super.isa, v286, v672, v574, 0.2, v517, 0.35);
+    v673.origin.x = v580;
+    v673.origin.y = v582;
+    v673.size.width = v581;
+    v673.size.height = v557;
+    v408 = chromaExclusion(v538[5].super.isa, v579, v673, v574, 0.2, v517, 0.35);
+    v405 = RRmultiplyRh(v405, v407);
+    v406 = RRmultiplyRh(v406, v408);
   }
 
-  v397 = v570;
-  if ([v526[15]._priv intValue] == 5)
+  v409 = v582;
+  if ([v538[15]._priv intValue] == 5)
   {
-    v573 = [(CIImage *)v393 imageByCroppingToRect:v574.origin.x, v571, v572, v573];
-    v137 = v394;
+    v585 = [(CIImage *)v405 imageByCroppingToRect:v586.origin.x, v583, v584, v585];
+    v143 = v406;
 LABEL_226:
-    v170 = v568;
+    v176 = v580;
 LABEL_227:
-    v171 = v397;
-    v172 = v569;
-    v173 = v545;
+    v177 = v409;
+    v178 = v581;
+    v179 = v557;
     goto LABEL_148;
   }
 
-  v398 = v571;
-  v399 = v574.origin.x;
-  if (v504 <= 0.0)
+  v410 = v583;
+  v411 = v586.origin.x;
+  if (v516 <= 0.0)
   {
-    *&v399 = v503;
-    if (v503 > 0.0)
+    *&v411 = v515;
+    if (v515 > 0.0)
     {
-      v408 = v535 * 0.5 * v503;
-      v409 = v408;
-      v622 = @"inputRadius";
-      *&v408 = v409;
-      v623 = [MEMORY[0x1E696AD98] numberWithFloat:v408];
-      v410 = -[CIImage imageByApplyingFilter:withInputParameters:](v550, "imageByApplyingFilter:withInputParameters:", @"CIMorphologyMaximum", [*(v362 + 3872) dictionaryWithObjects:&v623 forKeys:&v622 count:1]);
-      v620 = @"inputRadius";
-      *&v411 = v409;
-      v621 = [MEMORY[0x1E696AD98] numberWithFloat:v411];
-      v550 = -[CIImage imageByCroppingToRect:](-[CIImage imageByApplyingFilter:withInputParameters:](v410, "imageByApplyingFilter:withInputParameters:", @"CIMorphologyMinimum", [*(v362 + 3872) dictionaryWithObjects:&v621 forKeys:&v620 count:1]), "imageByCroppingToRect:", v574.origin.x, v571, v572, v573);
-      v618 = @"inputRadius";
-      *&v412 = v409;
-      v619 = [MEMORY[0x1E696AD98] numberWithFloat:v412];
-      v413 = [v547 imageByApplyingFilter:@"CIMorphologyMaximum" withInputParameters:{objc_msgSend(*(v362 + 3872), "dictionaryWithObjects:forKeys:count:", &v619, &v618, 1)}];
-      v616 = @"inputRadius";
-      *&v414 = v409;
-      v617 = [MEMORY[0x1E696AD98] numberWithFloat:v414];
-      v547 = [objc_msgSend(v413 imageByApplyingFilter:@"CIMorphologyMinimum" withInputParameters:{objc_msgSend(*(v362 + 3872), "dictionaryWithObjects:forKeys:count:", &v617, &v616, 1)), "imageByCroppingToRect:", v568, v570, v569, v545}];
+      v420 = v547 * 0.5 * v515;
+      v421 = v420;
+      v634 = @"inputRadius";
+      *&v420 = v421;
+      v635 = [MEMORY[0x1E696AD98] numberWithFloat:v420];
+      v422 = -[CIImage imageByApplyingFilter:withInputParameters:](v562, "imageByApplyingFilter:withInputParameters:", @"CIMorphologyMaximum", [*(v374 + 3872) dictionaryWithObjects:&v635 forKeys:&v634 count:1]);
+      v632 = @"inputRadius";
+      *&v423 = v421;
+      v633 = [MEMORY[0x1E696AD98] numberWithFloat:v423];
+      v562 = -[CIImage imageByCroppingToRect:](-[CIImage imageByApplyingFilter:withInputParameters:](v422, "imageByApplyingFilter:withInputParameters:", @"CIMorphologyMinimum", [*(v374 + 3872) dictionaryWithObjects:&v633 forKeys:&v632 count:1]), "imageByCroppingToRect:", v586.origin.x, v583, v584, v585);
+      v630 = @"inputRadius";
+      *&v424 = v421;
+      v631 = [MEMORY[0x1E696AD98] numberWithFloat:v424];
+      v425 = [v559 imageByApplyingFilter:@"CIMorphologyMaximum" withInputParameters:{objc_msgSend(*(v374 + 3872), "dictionaryWithObjects:forKeys:count:", &v631, &v630, 1)}];
+      v628 = @"inputRadius";
+      *&v426 = v421;
+      v629 = [MEMORY[0x1E696AD98] numberWithFloat:v426];
+      v559 = [objc_msgSend(v425 imageByApplyingFilter:@"CIMorphologyMinimum" withInputParameters:{objc_msgSend(*(v374 + 3872), "dictionaryWithObjects:forKeys:count:", &v629, &v628, 1)), "imageByCroppingToRect:", v580, v582, v581, v557}];
     }
 
-    v614 = @"inputRadius";
-    v615 = &unk_1F1085368;
-    v406 = -[CIImage imageByApplyingFilter:withInputParameters:](v550, "imageByApplyingFilter:withInputParameters:", @"CIBoxBlur", [*(v362 + 3872) dictionaryWithObjects:&v615 forKeys:&v614 count:{1, v399}]);
-    v612 = @"inputRadius";
-    v613 = &unk_1F1085368;
-    v407 = [v547 imageByApplyingFilter:@"CIBoxBlur" withInputParameters:{objc_msgSend(*(v362 + 3872), "dictionaryWithObjects:forKeys:count:", &v613, &v612, 1)}];
+    v626 = @"inputRadius";
+    v627 = &unk_1F1085368;
+    v418 = -[CIImage imageByApplyingFilter:withInputParameters:](v562, "imageByApplyingFilter:withInputParameters:", @"CIBoxBlur", [*(v374 + 3872) dictionaryWithObjects:&v627 forKeys:&v626 count:{1, v411}]);
+    v624 = @"inputRadius";
+    v625 = &unk_1F1085368;
+    v419 = [v559 imageByApplyingFilter:@"CIBoxBlur" withInputParameters:{objc_msgSend(*(v374 + 3872), "dictionaryWithObjects:forKeys:count:", &v625, &v624, 1)}];
   }
 
   else
   {
-    if (v534 <= *&v574.origin.y)
+    if (v546 <= *&v586.origin.y)
     {
-      v400 = *&v574.origin.y;
+      v412 = *&v586.origin.y;
     }
 
     else
     {
-      v400 = v534;
+      v412 = v546;
     }
 
-    v401 = 2.0 / v400;
-    if (v504 > v401)
+    v413 = 2.0 / v412;
+    if (v516 > v413)
     {
-      v401 = v504;
+      v413 = v516;
     }
 
-    v402 = v401;
-    v403 = v571;
-    v404 = v572;
-    v405 = v573;
-    v406 = RRradialCenterMask(v556, *&v399, v400, v402, -0.5);
-    v662.origin.x = v568;
-    v662.origin.y = v570;
-    v662.size.width = v569;
-    v662.size.height = v545;
-    v407 = RRradialCenterMask(v553, v662, v400, v402, -0.5);
+    v414 = v413;
+    v415 = v583;
+    v416 = v584;
+    v417 = v585;
+    v418 = RRradialCenterMask(v568, *&v411, v412, v414, -0.5);
+    v674.origin.x = v580;
+    v674.origin.y = v582;
+    v674.size.width = v581;
+    v674.size.height = v557;
+    v419 = RRradialCenterMask(v565, v674, v412, v414, -0.5);
   }
 
-  v415 = v407;
-  v416 = RRmultiplyRh(v406, v393);
-  v417 = RRmultiplyRh(v415, v394);
-  if ([v526[15]._priv intValue] == 8)
+  v427 = v419;
+  v428 = RRmultiplyRh(v418, v405);
+  v429 = RRmultiplyRh(v427, v406);
+  if ([v538[15]._priv intValue] == 8)
   {
-    v573 = [(CIImage *)v416 imageByCroppingToRect:v574.origin.x, v571, v572, v573];
-    v137 = v417;
+    v585 = [(CIImage *)v428 imageByCroppingToRect:v586.origin.x, v583, v584, v585];
+    v143 = v429;
     goto LABEL_226;
   }
 
-  v557 = v416;
-  v563 = v393;
-  v418 = &v580;
-  v419 = 1;
-  v420 = v568;
-  v421 = v526;
+  v569 = v428;
+  v575 = v405;
+  v430 = &v592;
+  v431 = 1;
+  v432 = v580;
+  v433 = v538;
   do
   {
-    v422 = v419;
-    if (v419)
+    v434 = v431;
+    if (v431)
     {
-      v423 = v393;
+      v435 = v405;
     }
 
     else
     {
-      v423 = v394;
+      v435 = v406;
     }
 
-    if (v419)
+    if (v431)
     {
-      v420 = v574.origin.x;
+      v432 = v586.origin.x;
     }
 
-    v424 = v397;
-    if (v419)
+    v436 = v409;
+    if (v431)
     {
-      v425 = v398;
+      v437 = v410;
     }
 
     else
     {
-      v425 = v397;
+      v437 = v409;
     }
 
-    if (v419)
+    if (v431)
     {
-      v426 = v572;
+      v438 = v584;
     }
 
     else
     {
-      v426 = v569;
+      v438 = v581;
     }
 
-    if (v419)
+    if (v431)
     {
-      v427 = v573;
+      v439 = v585;
     }
 
     else
     {
-      v427 = v545;
+      v439 = v557;
     }
 
-    v428 = v421[5].super.isa;
-    if (v506 > 0.0)
+    v440 = v433[5].super.isa;
+    if (v518 > 0.0)
     {
-      v610 = @"inputRadius";
-      v611 = &unk_1F1085368;
-      v429 = -[objc_class imageByApplyingFilter:withInputParameters:](v428, "imageByApplyingFilter:withInputParameters:", @"CIBoxBlur", [MEMORY[0x1E695DF20] dictionaryWithObjects:&v611 forKeys:&v610 count:{1, v573}]);
-      v608 = @"inputRadius";
-      v609 = &unk_1F1085368;
-      v430 = [v429 imageByApplyingFilter:@"CIBoxBlur" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v609, &v608, 1)}];
-      v606 = @"inputRadius";
-      *&v431 = v506;
-      v607 = [MEMORY[0x1E696AD98] numberWithFloat:v431];
-      v428 = [v430 imageByApplyingFilter:@"CIMorphologyMinimum" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v607, &v606, 1)}];
+      v622 = @"inputRadius";
+      v623 = &unk_1F1085368;
+      v441 = -[objc_class imageByApplyingFilter:withInputParameters:](v440, "imageByApplyingFilter:withInputParameters:", @"CIBoxBlur", [MEMORY[0x1E695DF20] dictionaryWithObjects:&v623 forKeys:&v622 count:{1, v585}]);
+      v620 = @"inputRadius";
+      v621 = &unk_1F1085368;
+      v442 = [v441 imageByApplyingFilter:@"CIBoxBlur" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v621, &v620, 1)}];
+      v618 = @"inputRadius";
+      *&v443 = v518;
+      v619 = [MEMORY[0x1E696AD98] numberWithFloat:v443];
+      v440 = [v442 imageByApplyingFilter:@"CIMorphologyMinimum" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v619, &v618, 1)}];
     }
 
-    v604 = @"inputRadius";
-    v605 = &unk_1F1085368;
-    v432 = -[objc_class imageByApplyingFilter:withInputParameters:](v428, "imageByApplyingFilter:withInputParameters:", @"CIBoxBlur", [MEMORY[0x1E695DF20] dictionaryWithObjects:&v605 forKeys:&v604 count:1]);
-    v602 = @"inputRadius";
-    v603 = &unk_1F1085368;
-    v433 = [v432 imageByApplyingFilter:@"CIBoxBlur" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v603, &v602, 1)}];
-    v421 = v526;
-    v434 = v526[5].super.isa;
-    v600[0] = @"inputSource";
-    v600[1] = @"inputMask";
-    v601[0] = v434;
-    v601[1] = v423;
-    v600[2] = @"inputNoiseAmount";
-    *&v435 = v507;
-    v601[2] = [MEMORY[0x1E696AD98] numberWithFloat:v435];
-    v600[3] = @"inputBrightness";
-    *&v436 = v508;
-    v437 = [MEMORY[0x1E696AD98] numberWithFloat:v436];
-    v438 = v526[23].super.isa;
-    v601[3] = v437;
-    v601[4] = v438;
-    v600[4] = @"inputRecovery";
-    v600[5] = @"inputExtent";
-    v601[5] = [CIVector vectorWithCGRect:v420, v425, v426, v427];
-    v600[6] = @"inputWhiteCutoff";
-    *&v439 = v496;
-    v601[6] = [MEMORY[0x1E696AD98] numberWithFloat:v439];
-    v600[7] = @"inputChroma";
-    *&v440 = v538;
-    v601[7] = [MEMORY[0x1E696AD98] numberWithFloat:v440];
-    v441 = [v433 imageByApplyingFilter:@"RedEyeRecolor" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v601, v600, 8)}];
-    v419 = 0;
-    *v418 = v441;
-    v418 = &v579;
-    v420 = v568;
-    v398 = v571;
-    v393 = v563;
-    v397 = v424;
+    v616 = @"inputRadius";
+    v617 = &unk_1F1085368;
+    v444 = -[objc_class imageByApplyingFilter:withInputParameters:](v440, "imageByApplyingFilter:withInputParameters:", @"CIBoxBlur", [MEMORY[0x1E695DF20] dictionaryWithObjects:&v617 forKeys:&v616 count:1]);
+    v614 = @"inputRadius";
+    v615 = &unk_1F1085368;
+    v445 = [v444 imageByApplyingFilter:@"CIBoxBlur" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v615, &v614, 1)}];
+    v433 = v538;
+    v446 = v538[5].super.isa;
+    v612[0] = @"inputSource";
+    v612[1] = @"inputMask";
+    v613[0] = v446;
+    v613[1] = v435;
+    v612[2] = @"inputNoiseAmount";
+    *&v447 = v519;
+    v613[2] = [MEMORY[0x1E696AD98] numberWithFloat:v447];
+    v612[3] = @"inputBrightness";
+    *&v448 = v520;
+    v449 = [MEMORY[0x1E696AD98] numberWithFloat:v448];
+    v450 = v538[23].super.isa;
+    v613[3] = v449;
+    v613[4] = v450;
+    v612[4] = @"inputRecovery";
+    v612[5] = @"inputExtent";
+    v613[5] = [CIVector vectorWithCGRect:v432, v437, v438, v439];
+    v612[6] = @"inputWhiteCutoff";
+    *&v451 = v508;
+    v613[6] = [MEMORY[0x1E696AD98] numberWithFloat:v451];
+    v612[7] = @"inputChroma";
+    *&v452 = v550;
+    v613[7] = [MEMORY[0x1E696AD98] numberWithFloat:v452];
+    v453 = [v445 imageByApplyingFilter:@"RedEyeRecolor" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v613, v612, 8)}];
+    v431 = 0;
+    *v430 = v453;
+    v430 = &v591;
+    v432 = v580;
+    v410 = v583;
+    v405 = v575;
+    v409 = v436;
   }
 
-  while ((v422 & 1) != 0);
-  v442 = v580;
-  v443 = v579;
-  if ([v526[15]._priv intValue] == 9)
+  while ((v434 & 1) != 0);
+  v454 = v592;
+  v455 = v591;
+  if ([v538[15]._priv intValue] == 9)
   {
-    v573 = [v442 imageByCroppingToRect:{v574.origin.x, v571, v572, v573}];
-    v137 = v443;
-    v170 = v568;
+    v585 = [v454 imageByCroppingToRect:{v586.origin.x, v583, v584, v585}];
+    v143 = v455;
+    v176 = v580;
     goto LABEL_227;
   }
 
-  v445 = &v578;
-  v446 = 1;
+  v457 = &v590;
+  v458 = 1;
   do
   {
-    v447 = v446;
-    if (v446)
+    v459 = v458;
+    if (v458)
     {
-      v448 = v442;
+      v460 = v454;
     }
 
     else
     {
-      v448 = v443;
+      v460 = v455;
     }
 
-    if (v501 <= 0.00001)
+    if (v513 <= 0.00001)
     {
-      v467 = v417;
-      if (v447)
+      v479 = v429;
+      if (v459)
       {
-        v467 = v557;
+        v479 = v569;
       }
 
-      priv = v526[5]._priv;
-      v597[0] = @"inputSource";
-      v597[1] = @"inputSpecularMask";
-      v598[0] = priv;
-      v598[1] = v467;
-      v598[2] = &unk_1F10853A8;
-      v597[2] = @"inputSpecularThreshold";
-      v597[3] = @"inputSpecIntensity";
-      *&v444 = v536;
-      v469 = [MEMORY[0x1E696AD98] numberWithFloat:v444];
-      v597[4] = @"inputDebugFlag";
-      v598[3] = v469;
-      v598[4] = &unk_1F1081BA8;
-      v466 = [v448 imageByApplyingFilter:@"RedEyeSpecular" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v598, v597, 5)}];
+      priv = v538[5]._priv;
+      v609[0] = @"inputSource";
+      v609[1] = @"inputSpecularMask";
+      v610[0] = priv;
+      v610[1] = v479;
+      v610[2] = &unk_1F10853A8;
+      v609[2] = @"inputSpecularThreshold";
+      v609[3] = @"inputSpecIntensity";
+      *&v456 = v548;
+      v481 = [MEMORY[0x1E696AD98] numberWithFloat:v456];
+      v609[4] = @"inputDebugFlag";
+      v610[3] = v481;
+      v610[4] = &unk_1F1081BA8;
+      v478 = [v460 imageByApplyingFilter:@"RedEyeSpecular" withInputParameters:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v610, v609, 5)}];
     }
 
     else
     {
-      v449 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_rer_glint];
-      [(objc_class *)v526[5].super.isa extent];
-      v451 = v450;
-      v453 = v452;
-      v455 = v454;
-      v457 = v456;
-      [v448 extent];
-      v665.origin.x = v458;
-      v665.origin.y = v459;
-      v665.size.width = v460;
-      v665.size.height = v461;
-      v663.origin.x = v451;
-      v663.origin.y = v453;
-      v663.size.width = v455;
-      v663.size.height = v457;
-      v664 = CGRectUnion(v663, v665);
-      v462 = v664.origin.x;
-      y = v664.origin.y;
-      width = v664.size.width;
-      height = v664.size.height;
-      v599[0] = v526[5].super.isa;
-      v599[1] = v448;
-      *&v664.origin.x = v502;
-      v599[2] = [MEMORY[0x1E696AD98] numberWithFloat:v664.origin.x];
-      v466 = -[CIColorKernel applyWithExtent:arguments:](v449, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v599 count:3], v462, y, width, height);
+      v461 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_rer_glint];
+      [(objc_class *)v538[5].super.isa extent];
+      v463 = v462;
+      v465 = v464;
+      v467 = v466;
+      v469 = v468;
+      [v460 extent];
+      v677.origin.x = v470;
+      v677.origin.y = v471;
+      v677.size.width = v472;
+      v677.size.height = v473;
+      v675.origin.x = v463;
+      v675.origin.y = v465;
+      v675.size.width = v467;
+      v675.size.height = v469;
+      v676 = CGRectUnion(v675, v677);
+      v474 = v676.origin.x;
+      y = v676.origin.y;
+      width = v676.size.width;
+      height = v676.size.height;
+      v611[0] = v538[5].super.isa;
+      v611[1] = v460;
+      *&v676.origin.x = v514;
+      v611[2] = [MEMORY[0x1E696AD98] numberWithFloat:v676.origin.x];
+      v478 = -[CIColorKernel applyWithExtent:arguments:](v461, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v611 count:3], v474, y, width, height);
     }
 
-    v446 = 0;
-    *v445 = v466;
-    v445 = &v577;
+    v458 = 0;
+    *v457 = v478;
+    v457 = &v589;
   }
 
-  while ((v447 & 1) != 0);
-  v470 = v577;
-  v471 = v578;
-  [(objc_class *)v526[27].super.isa floatValue];
-  if (v472 > 0.0)
+  while ((v459 & 1) != 0);
+  v482 = v589;
+  v483 = v590;
+  [(objc_class *)v538[27].super.isa floatValue];
+  if (v484 > 0.0)
   {
-    [(objc_class *)v526[27].super.isa floatValue];
-    v474 = v473;
-    memset(&v583, 0, sizeof(v583));
-    CGAffineTransformMakeTranslation(&v583, v574.origin.x - v568, v571 - v570);
-    v574.size = *&v583.a;
-    v575 = *&v583.c;
-    v576 = *&v583.tx;
-    v475 = RRmultiplyRh(v563, [(CIImage *)v394 imageByApplyingTransform:&v574.size]);
-    v595 = @"inputExtent";
-    v5733 = [CIVector vectorWithCGRect:v574.origin.x, v571, v572, v573];
-    v476 = -[CIImage imageByClampingToExtent](-[CIImage imageByApplyingFilter:withInputParameters:](v475, "imageByApplyingFilter:withInputParameters:", @"CIAreaAverage", [MEMORY[0x1E695DF20] dictionaryWithObjects:&v5733 forKeys:&v595 count:1]), "imageByClampingToExtent");
-    v477 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_drr_threshold];
-    [(CIImage *)v471 extent];
-    v479 = v478;
-    v481 = v480;
-    v483 = v482;
-    v485 = v484;
-    v594[0] = v471;
-    v594[1] = v476;
-    LODWORD(v478) = v474;
-    v594[2] = [MEMORY[0x1E696AD98] numberWithFloat:v478];
-    v471 = -[CIColorKernel applyWithExtent:arguments:](v477, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v594 count:3], v479, v481, v483, v485);
-    [(CIImage *)v470 extent];
-    v487 = v486;
-    v489 = v488;
+    [(objc_class *)v538[27].super.isa floatValue];
+    v486 = v485;
+    memset(&v595, 0, sizeof(v595));
+    CGAffineTransformMakeTranslation(&v595, v586.origin.x - v580, v583 - v582);
+    v586.size = *&v595.a;
+    v587 = *&v595.c;
+    v588 = *&v595.tx;
+    v487 = RRmultiplyRh(v575, [(CIImage *)v406 imageByApplyingTransform:&v586.size]);
+    v607 = @"inputExtent";
+    v5853 = [CIVector vectorWithCGRect:v586.origin.x, v583, v584, v585];
+    v488 = -[CIImage imageByClampingToExtent](-[CIImage imageByApplyingFilter:withInputParameters:](v487, "imageByApplyingFilter:withInputParameters:", @"CIAreaAverage", [MEMORY[0x1E695DF20] dictionaryWithObjects:&v5853 forKeys:&v607 count:1]), "imageByClampingToExtent");
+    v489 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_drr_threshold];
+    [(CIImage *)v483 extent];
     v491 = v490;
     v493 = v492;
-    v593[0] = v470;
-    v593[1] = v476;
-    LODWORD(v486) = v474;
-    v593[2] = [MEMORY[0x1E696AD98] numberWithFloat:v486];
-    v470 = -[CIColorKernel applyWithExtent:arguments:](v477, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v593 count:3], v487, v489, v491, v493);
+    v495 = v494;
+    v497 = v496;
+    v606[0] = v483;
+    v606[1] = v488;
+    LODWORD(v490) = v486;
+    v606[2] = [MEMORY[0x1E696AD98] numberWithFloat:v490];
+    v483 = -[CIColorKernel applyWithExtent:arguments:](v489, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v606 count:3], v491, v493, v495, v497);
+    [(CIImage *)v482 extent];
+    v499 = v498;
+    v501 = v500;
+    v503 = v502;
+    v505 = v504;
+    v605[0] = v482;
+    v605[1] = v488;
+    LODWORD(v498) = v486;
+    v605[2] = [MEMORY[0x1E696AD98] numberWithFloat:v498];
+    v482 = -[CIColorKernel applyWithExtent:arguments:](v489, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:v605 count:3], v499, v501, v503, v505);
   }
 
-  v494 = [objc_msgSend(-[CIImage _imageByRenderingToIntermediate](v471 "_imageByRenderingToIntermediate")];
-  [(objc_class *)v526[5].super.isa extent];
-  return [v494 imageByCroppingToRect:?];
+  v506 = [objc_msgSend(-[CIImage _imageByRenderingToIntermediate](v483 "_imageByRenderingToIntermediate")];
+  [(objc_class *)v538[5].super.isa extent];
+  return [v506 imageByCroppingToRect:?];
 }
 
 - (void)outputImage
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v3 = 136446722;
-  v4 = "[CIRedEyeRaw outputImage]";
-  v5 = 2048;
-  v6 = a3;
-  v7 = 2112;
-  selfCopy = self;
-  _os_log_error_impl(&dword_19CC36000, a2, OS_LOG_TYPE_ERROR, "%{public}s Eye size: major axis %.0f -> %@", &v3, 0x20u);
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[CIRedEyeRaw outputImage]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, self, a3, "%{public}s Masking repair mask with face segmentation", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

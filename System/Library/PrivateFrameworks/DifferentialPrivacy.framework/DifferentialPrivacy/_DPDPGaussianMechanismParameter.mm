@@ -769,19 +769,9 @@ LABEL_75:
 
 - (void)initWithV1Metadata:maxCentralEpsilon:maxCentralDelta:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithV1Metadata:maxCentralEpsilon:maxCentralDelta:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithV1Metadata:maxCentralEpsilon:maxCentralDelta:.cold.3()
@@ -800,20 +790,11 @@ LABEL_75:
 
 - (void)initWithV2Metadata:maxCentralEpsilon:maxCentralDelta:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  OUTLINED_FUNCTION_4_1(&dword_22622D000, v1, v1, "Malformed metadata entry %@.%@", v3);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithV2Metadata:maxCentralEpsilon:maxCentralDelta:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
   v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1();
+  v3 = 2112;
+  v4 = v0;
+  OUTLINED_FUNCTION_4_1(&dword_22622D000, v1, v1, "Malformed metadata entry %@.%@", v2);
 }
 
 - (void)isValid

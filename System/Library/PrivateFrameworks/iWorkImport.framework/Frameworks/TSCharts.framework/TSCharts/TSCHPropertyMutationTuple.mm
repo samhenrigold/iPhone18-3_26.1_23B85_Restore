@@ -79,13 +79,13 @@ LABEL_3:
   v6 = objc_msgSend_styleOwnerRef(self, a2, v2, v3, v4);
   v7 = [TSCHPropertyMutationIndirectTuple alloc];
   v12 = objc_msgSend_type(v6, v8, v9, v10, v11);
-  v17 = objc_msgSend_index(v6, v13, v14, v15, v16);
-  v22 = objc_msgSend_styleOwner(self, v18, v19, v20, v21);
-  v27 = objc_msgSend_chartInfo(v22, v23, v24, v25, v26);
-  v32 = objc_msgSend_mutations(self, v28, v29, v30, v31);
-  v37 = objc_msgSend_initWithStyleOwnerType_index_inChart_mutations_(v7, v33, v34, v35, v36, v12, v17, v27, v32);
+  v16 = objc_msgSend_index(v6, v13, v14, v15);
+  v21 = objc_msgSend_styleOwner(self, v17, v18, v19, v20);
+  v26 = objc_msgSend_chartInfo(v21, v22, v23, v24, v25);
+  v31 = objc_msgSend_mutations(self, v27, v28, v29, v30);
+  v36 = objc_msgSend_initWithStyleOwnerType_index_inChart_mutations_(v7, v32, v33, v34, v35, v12, v16, v26, v31);
 
-  return v37;
+  return v36;
 }
 
 - (id)styleOwnerRef

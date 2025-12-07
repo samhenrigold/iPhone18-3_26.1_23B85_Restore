@@ -85,42 +85,38 @@ LABEL_5:
 
 + (id)entryEventPointDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"MetricMonitorInstantKeys";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"MetricMonitorInstantKeys";
   v2 = +[PLGasGaugeAgent entryEventPointDefinitionGasGaugePower];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryEventPointDefinitionGasGaugePower
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = *MEMORY[0x277D3F4E8];
-  v11 = *MEMORY[0x277D3F568];
-  v12 = &unk_28714BB48;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[0] = v2;
-  v13[1] = *MEMORY[0x277D3F540];
-  v9 = @"GasGaugePower";
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277D3F4E8];
+  v10 = *MEMORY[0x277D3F568];
+  v11 = &unk_28714BB48;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v2;
+  v12[1] = *MEMORY[0x277D3F540];
+  v8 = @"GasGaugePower";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat = [mEMORY[0x277D3F198] commonTypeDict_RealFormat];
-  v10 = commonTypeDict_RealFormat;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-  v14[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = commonTypeDict_RealFormat;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v13[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v6;
 }
 
 - (void)logEventPointMetricMonitorInstantKeys
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v3 = [(PLOperator *)PLGasGaugeAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"MetricMonitorInstantKeys"];
   v4 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v3];
   conn = [(PLIOKitOperatorComposition *)self->_ggComposition conn];
@@ -152,8 +148,8 @@ LABEL_5:
   if (v12)
   {
     [v4 setObject:v12 forKeyedSubscript:@"GasGaugePower"];
-    v23[0] = v4;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+    v22[0] = v4;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
     [(PLOperator *)self postEntries:v13];
   }
 
@@ -165,8 +161,6 @@ LABEL_5:
       [(PLGasGaugeAgent *)v14 logEventPointMetricMonitorInstantKeys:v15];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

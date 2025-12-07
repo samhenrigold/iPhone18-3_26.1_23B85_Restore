@@ -38,7 +38,7 @@
 
 + (void)collectRemoteContentForRootViews:(id)views withRemoteContextWrapper:(id)wrapper
 {
-  sub_188A34624(0, &qword_1ED48F680);
+  sub_188A34624(0, &qword_1ED48F680, off_1E70EAD78);
   v5 = sub_18A4A7548();
   swift_unknownObjectRetain();
   sub_18917F238(v5, wrapper);

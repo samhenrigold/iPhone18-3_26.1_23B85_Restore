@@ -15,28 +15,28 @@
   [(ULMeasurementMO_deprecated *)v5 setScanCFTimestamp:*(o + 2)];
   [(ULMeasurementMO_deprecated *)v5 setScanMCTimestamp:*(o + 3)];
   [(ULMeasurementMO_deprecated *)v5 setFlags:*(o + 28)];
-  CLMicroLocationProto::Measurement::ByteSize((o + 32));
+  CLMicroLocationProto::Measurement::ByteSize((o + 32), v8);
   operator new[]();
 }
 
 - (optional<ULMeasurementDO>)convertToDO
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   recordingUUID = [(ULMeasurementMO_deprecated *)self recordingUUID];
   v5 = recordingUUID;
   if (recordingUUID)
   {
-    [recordingUUID boostUUID];
+    objc_msgSend_boostUUID(recordingUUID);
   }
 
   else
   {
+    v20 = 0;
     v21 = 0;
     v22 = 0;
-    v23 = 0;
   }
 
-  if (v23)
+  if (v22)
   {
     [(ULMeasurementMO_deprecated *)self scanCFTimestamp];
     v7 = v6;
@@ -47,19 +47,19 @@
     bytes = [data bytes];
     data2 = [(ULMeasurementMO_deprecated *)self data];
     [data2 length];
-    LOBYTE(bytes) = wireless_diagnostics::google::protobuf::MessageLite::ParseFromArray(v18, bytes);
+    LOBYTE(bytes) = wireless_diagnostics::google::protobuf::MessageLite::ParseFromArray(v17, bytes);
 
     if (bytes)
     {
-      if ((v23 & 1) == 0)
+      if ((v22 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      ULMeasurementDO::ULMeasurementDO(buf, v21, v22, scanMCTimestamp, v18, flags | 0x100000000, v7);
+      ULMeasurementDO::ULMeasurementDO(buf, v20, v21, scanMCTimestamp, v17, flags | 0x100000000, v7);
       ULMeasurementDO::ULMeasurementDO(retstr, buf);
       *(&retstr[1].var0.var4 + 40) = 1;
-      CLMicroLocationProto::Measurement::~Measurement(&v20);
+      CLMicroLocationProto::Measurement::~Measurement(&v19);
     }
 
     else
@@ -80,7 +80,7 @@
       *(&retstr[1].var0.var4 + 40) = 0;
     }
 
-    CLMicroLocationProto::Measurement::~Measurement(v18);
+    CLMicroLocationProto::Measurement::~Measurement(v17);
   }
 
   else
@@ -102,7 +102,6 @@
     *(&retstr[1].var0.var4 + 40) = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 

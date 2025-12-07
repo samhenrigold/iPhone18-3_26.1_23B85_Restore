@@ -56,7 +56,7 @@
 
 - (void)_enableForPairLegacySupport
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = [[CORoleDefaultsMonitor alloc] initWithDelegate:self];
   defaultsMonitor = self->_defaultsMonitor;
   self->_defaultsMonitor = v3;
@@ -65,15 +65,14 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     defaultsMonitor = [(CORoleAddOn *)self defaultsMonitor];
-    v8 = 134218240;
+    v7 = 134218240;
     selfCopy = self;
-    v10 = 2048;
-    v11 = defaultsMonitor;
-    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p add-on using monitor %p for local role in pair", &v8, 0x16u);
+    v9 = 2048;
+    v10 = defaultsMonitor;
+    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p add-on using monitor %p for local role in pair", &v7, 0x16u);
   }
 
   [(CORoleDefaultsMonitor *)self->_defaultsMonitor activate];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)meshController:(id)controller didTransitionToState:(unint64_t)state
@@ -128,32 +127,32 @@
 
 void __27__CORoleAddOn__updateState__block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
   v3 = [*(a1 + 32) meshController];
   v4 = [v3 nodes];
   v5 = [v2 setWithArray:v4];
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v6 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v32;
+    v8 = *v31;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v32 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * i);
+        v10 = *(*(&v30 + 1) + 8 * i);
         v11 = [*(a1 + 32) _memberForNode:v10];
         v12 = [*(a1 + 32) _roleForNode:v10];
         v13 = [objc_alloc(MEMORY[0x277CFD090]) initWithMember:v11 role:v12];
@@ -167,7 +166,7 @@ void __27__CORoleAddOn__updateState__block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v7 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v7);
@@ -175,32 +174,32 @@ void __27__CORoleAddOn__updateState__block_invoke(uint64_t a1)
 
   v16 = [*(*(a1 + 32) + 56) mutableCopy];
   [v16 minusSet:obj];
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v17 = v16;
-  v18 = [v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v28;
+    v20 = *v27;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v28 != v20)
+        if (*v27 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = [*(*(&v27 + 1) + 8 * j) memberSnapshot];
+        v22 = [*(*(&v26 + 1) + 8 * j) memberSnapshot];
         [v22 setStale:1];
 
         *(*(a1 + 32) + 28) = 1;
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v19);
@@ -209,8 +208,6 @@ void __27__CORoleAddOn__updateState__block_invoke(uint64_t a1)
   v23 = *(a1 + 32);
   v24 = *(v23 + 56);
   *(v23 + 56) = obj;
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCurrentDeviceState
@@ -230,7 +227,7 @@ void __27__CORoleAddOn__updateState__block_invoke(uint64_t a1)
 
 void __40__CORoleAddOn__updateCurrentDeviceState__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _roleForCurrentDevice];
   v3 = [*(*(a1 + 32) + 48) role];
   if (([v3 isEqual:v2] & 1) == 0)
@@ -256,11 +253,11 @@ LABEL_6:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v13 = 134218242;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v2;
-      _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p add-on updated local device Role(%@)", &v13, 0x16u);
+      v12 = 134218242;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v2;
+      _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p add-on updated local device Role(%@)", &v12, 0x16u);
     }
 
     v3 = [*(*(a1 + 32) + 48) member];
@@ -278,8 +275,6 @@ LABEL_6:
   }
 
 LABEL_10:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_memberForNode:(id)node
@@ -550,7 +545,7 @@ void __27__CORoleAddOn_setDelegate___block_invoke(uint64_t a1)
 
 void __30__CORoleAddOn__notifyDelegate__block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (*(v1 + 28) == 1)
   {
@@ -560,26 +555,26 @@ void __30__CORoleAddOn__notifyDelegate__block_invoke(uint64_t a1)
     {
       v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
       [v4 addObject:*(*(a1 + 32) + 48)];
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       v5 = *(*(a1 + 32) + 56);
-      v6 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v18 objects:v23 count:16];
       if (v6)
       {
-        v7 = *v20;
+        v7 = *v19;
         do
         {
           v8 = 0;
           do
           {
-            if (*v20 != v7)
+            if (*v19 != v7)
             {
               objc_enumerationMutation(v5);
             }
 
-            v9 = [*(*(&v19 + 1) + 8 * v8) memberSnapshot];
+            v9 = [*(*(&v18 + 1) + 8 * v8) memberSnapshot];
             if (v9)
             {
               [v4 addObject:v9];
@@ -589,7 +584,7 @@ void __30__CORoleAddOn__notifyDelegate__block_invoke(uint64_t a1)
           }
 
           while (v6 != v8);
-          v6 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
+          v6 = [v5 countByEnumeratingWithState:&v18 objects:v23 count:16];
         }
 
         while (v6);
@@ -603,17 +598,15 @@ void __30__CORoleAddOn__notifyDelegate__block_invoke(uint64_t a1)
       block[3] = &unk_278E15728;
       v11 = v3;
       v12 = *(a1 + 32);
-      v16 = v11;
-      v17 = v12;
-      v18 = v4;
+      v15 = v11;
+      v16 = v12;
+      v17 = v4;
       v13 = v4;
       dispatch_async(v10, block);
     }
 
     objc_destroyWeak(&to);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

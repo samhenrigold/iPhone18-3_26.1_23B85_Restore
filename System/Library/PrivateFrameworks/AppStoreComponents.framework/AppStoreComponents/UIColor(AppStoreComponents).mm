@@ -13,9 +13,9 @@
     +[UIColor(AppStoreComponents) _asc_highlightBlendColor];
   }
 
-  v1 = _asc_highlightBlendColor_highlightBlendColor;
+  v2 = _asc_highlightBlendColor_highlightBlendColor;
 
-  return v1;
+  return v2;
 }
 
 + (id)asc_colorWithLightColor:()AppStoreComponents darkColor:

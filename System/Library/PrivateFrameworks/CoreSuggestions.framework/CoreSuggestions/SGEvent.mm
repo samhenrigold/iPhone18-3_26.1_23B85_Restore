@@ -33,9 +33,7 @@
 
 - (void)setAttributeSetForEvent:(id)event
 {
-  v4 = [event copy];
-  attributeSetForEvent = self->_attributeSetForEvent;
-  self->_attributeSetForEvent = v4;
+  self->_attributeSetForEvent = [event copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -70,29 +68,29 @@
 
 - (id)_naturalLanguageEventTagsInTags:(id)tags
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   tagsCopy = tags;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v4 = [tagsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [tagsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     longLongValue = 0;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(tagsCopy);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         if ([v10 isNaturalLanguageEventTypeIdentifier])
         {
           value = [v10 value];
@@ -107,7 +105,7 @@
         }
       }
 
-      v5 = [tagsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [tagsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
@@ -122,8 +120,6 @@
   v13 = MEMORY[0x1E69C5D98];
   v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:longLongValue];
   v15 = [v13 tupleWithFirst:v6 second:v14];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -145,11 +141,11 @@
   endDateCopy = endDate;
   zoneCopy = zone;
   dateCopy = date;
-  v28 = [SGEvent alloc];
+  v27 = [SGEvent alloc];
   recordId = [(SGObject *)self recordId];
   origin = [(SGObject *)self origin];
   uniqueKey = self->_uniqueKey;
-  v26 = origin;
+  v25 = origin;
   opaqueKey = self->_opaqueKey;
   title = self->_title;
   notes = self->_notes;
@@ -158,35 +154,34 @@
   lastModifiedDate = self->_lastModifiedDate;
   tags = self->_tags;
   v19 = [(SGEvent *)self URL];
-  naturalLanguageEventAttributes = self->_naturalLanguageEventAttributes;
-  LOBYTE(v23) = zone;
-  v21 = [(SGEvent *)v28 initWithRecordId:recordId origin:v26 uniqueKey:uniqueKey opaqueKey:opaqueKey title:title notes:notes start:dateCopy startTimeZone:zoneCopy end:endDateCopy endTimeZone:timeZoneCopy isAllDay:v23 creationDate:creationDate lastModifiedDate:lastModifiedDate locations:locationsCopy tagStrings:tags URL:v19 naturalLanguageEventIdentifier:self->_naturalLanguageEventTypeIdentifier naturalLanguageEventAttributes:naturalLanguageEventAttributes schemaOrg:self->_schemaOrg];
+  LOBYTE(v22) = zone;
+  v20 = [(SGEvent *)v27 initWithRecordId:recordId origin:v25 uniqueKey:uniqueKey opaqueKey:opaqueKey title:title notes:notes start:dateCopy startTimeZone:zoneCopy end:endDateCopy endTimeZone:timeZoneCopy isAllDay:v22 creationDate:creationDate lastModifiedDate:lastModifiedDate locations:locationsCopy tagStrings:tags URL:v19 naturalLanguageEventIdentifier:self->_naturalLanguageEventTypeIdentifier naturalLanguageEventAttributes:self->_naturalLanguageEventAttributes schemaOrg:self->_schemaOrg];
 
-  return v21;
+  return v20;
 }
 
 - (id)poiFilters
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = self->_tags;
-  value = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  value = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (value)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != value; i = i + 1)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = [SGEntityTag resolveName:*(*(&v9 + 1) + 8 * i), v9];
+        v6 = [SGEntityTag resolveName:*(*(&v8 + 1) + 8 * i), v8];
         if ([v6 isPOIFilters])
         {
           value = [v6 value];
@@ -195,7 +190,7 @@
         }
       }
 
-      value = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      value = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (value)
       {
         continue;
@@ -207,20 +202,18 @@
 
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return value;
 }
 
 - (unint64_t)geocodingMode
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v2 = self->_tags;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (!v3)
   {
     v14 = 0;
@@ -228,17 +221,17 @@ LABEL_11:
   }
 
   v4 = v3;
-  v5 = *v18;
+  v5 = *v17;
   while (2)
   {
     for (i = 0; i != v4; ++i)
     {
-      if (*v18 != v5)
+      if (*v17 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      v7 = [SGEntityTag resolveName:*(*(&v17 + 1) + 8 * i), v17];
+      v7 = [SGEntityTag resolveName:*(*(&v16 + 1) + 8 * i), v16];
       v8 = +[SGEntityTag geocodingModeAddressOnly];
       v9 = [v7 isEqualToEntityTag:v8];
 
@@ -269,7 +262,7 @@ LABEL_15:
       }
     }
 
-    v4 = [(NSArray *)v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v4 = [(NSArray *)v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     v14 = 0;
     if (v4)
     {
@@ -281,33 +274,32 @@ LABEL_15:
 
 LABEL_17:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (id)firstLocationForType:(unint64_t)type
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_locations;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([v9 locationType] == type)
         {
           v10 = v9;
@@ -315,7 +307,7 @@ LABEL_17:
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -328,14 +320,12 @@ LABEL_17:
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (void)mergeIntoEKEvent:(id)event withStore:(id)store preservingValuesDifferentFrom:(id)from
 {
-  v194[2] = *MEMORY[0x1E69E9840];
+  v193[2] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   storeCopy = store;
   fromCopy = from;
@@ -363,13 +353,13 @@ LABEL_11:
   v20 = [v18 sortedArrayUsingSelector:sel_compare_];
   firstObject = [v20 firstObject];
 
-  v176 = firstObject;
+  v175 = firstObject;
   [eventCopy setCreationDate:firstObject];
   [eventCopy setLastModifiedDate:self->_lastModifiedDate];
   origin = [(SGObject *)self origin];
-  v178 = v15;
-  v179 = v12;
-  v177 = v18;
+  v177 = v15;
+  v178 = v12;
+  v176 = v18;
   if ([origin type] == 1)
   {
     goto LABEL_14;
@@ -392,25 +382,25 @@ LABEL_14:
   }
 
   [(SGObject *)self origin];
-  v163 = v162 = self;
-  if ([v163 type] == 5)
+  v162 = v161 = self;
+  if ([v162 type] == 5)
   {
 
-    self = v162;
+    self = v161;
     goto LABEL_14;
   }
 
-  origin4 = [(SGObject *)v162 origin];
-  v173 = fromCopy;
+  origin4 = [(SGObject *)v161 origin];
+  v172 = fromCopy;
   type = [origin4 type];
 
-  v166 = type == 7;
-  fromCopy = v173;
-  self = v162;
-  if (!v166)
+  v165 = type == 7;
+  fromCopy = v172;
+  self = v161;
+  if (!v165)
   {
     origin = [MEMORY[0x1E696AAA8] currentHandler];
-    [origin handleFailureInMethod:a2 object:v162 file:@"SGEvent.m" lineNumber:534 description:{@"Suggested events can only come from Mail, Messages, Safari, Interactions or schema.org"}];
+    [origin handleFailureInMethod:a2 object:v161 file:@"SGEvent.m" lineNumber:534 description:{@"Suggested events can only come from Mail, Messages, Safari, Interactions or schema.org"}];
     goto LABEL_14;
   }
 
@@ -433,20 +423,8 @@ LABEL_15:
 
   v28 = [(SGEvent *)self URL];
   selfCopy = self;
-  if (!v28)
+  if (!v28 || (v30 = v28, -[SGEvent tags](self, "tags"), v31 = objc_claimAutoreleasedReturnValue(), +[SGEntityTag fromCalendarAttachment](SGEntityTag, "fromCalendarAttachment"), v32 = objc_claimAutoreleasedReturnValue(), [v32 name], v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v31, "containsObject:", v33), v33, v32, v31, v30, !v34))
   {
-    goto LABEL_21;
-  }
-
-  v30 = v28;
-  tags = [(SGEvent *)self tags];
-  v32 = +[SGEntityTag fromCalendarAttachment];
-  name = [v32 name];
-  v34 = [tags containsObject:name];
-
-  if (!v34)
-  {
-LABEL_21:
     origin7 = [(SGObject *)selfCopy origin];
     self = selfCopy;
     if ([origin7 type] == 1)
@@ -516,24 +494,24 @@ LABEL_29:
       label = [v44 label];
       if (label)
       {
-        v152 = label;
+        v151 = label;
         address = [v44 address];
         if (address)
         {
-          v154 = address;
+          v153 = address;
           label2 = [v44 label];
           address2 = [v44 address];
-          v157 = [label2 isEqualToString:address2];
+          v156 = [label2 isEqualToString:address2];
 
-          if ((v157 & 1) == 0)
+          if ((v156 & 1) == 0)
           {
             label3 = [v44 label];
-            v194[0] = label3;
+            v193[0] = label3;
             address3 = [v44 address];
-            v194[1] = address3;
-            v160 = [MEMORY[0x1E695DEC8] arrayWithObjects:v194 count:2];
-            v161 = [v160 _pas_componentsJoinedByString:@"\n"];
-            [eventCopy setLocation:v161];
+            v193[1] = address3;
+            v159 = [MEMORY[0x1E695DEC8] arrayWithObjects:v193 count:2];
+            v160 = [v159 _pas_componentsJoinedByString:@"\n"];
+            [eventCopy setLocation:v160];
 
             self = selfCopy2;
             goto LABEL_49;
@@ -555,10 +533,10 @@ LABEL_29:
       else
       {
         label4 = [v44 label];
-        v169 = [label4 length];
+        v168 = [label4 length];
 
         self = selfCopy2;
-        if (!v169)
+        if (!v168)
         {
           goto LABEL_49;
         }
@@ -690,11 +668,11 @@ LABEL_49:
     }
   }
 
-  v175 = v44;
+  v174 = v44;
   tags = self->_tags;
   v84 = +[SGEntityTag extractedFlight];
-  name2 = [v84 name];
-  LODWORD(tags) = [(NSArray *)tags containsObject:name2];
+  name = [v84 name];
+  LODWORD(tags) = [(NSArray *)tags containsObject:name];
 
   if (tags)
   {
@@ -703,8 +681,8 @@ LABEL_49:
 
   v86 = self->_tags;
   v87 = +[SGEntityTag fromSync];
-  name3 = [v87 name];
-  LODWORD(v86) = [(NSArray *)v86 containsObject:name3];
+  name2 = [v87 name];
+  LODWORD(v86) = [(NSArray *)v86 containsObject:name2];
 
   if (v86)
   {
@@ -716,11 +694,11 @@ LABEL_49:
   if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    v193 = ekEventAvailabilityState;
+    v192 = ekEventAvailabilityState;
     _os_log_debug_impl(&dword_1BA729000, v90, OS_LOG_TYPE_DEBUG, "EKEvent Availability: %ld", buf, 0xCu);
   }
 
-  v174 = v65;
+  v173 = v65;
 
   v91 = [MEMORY[0x1E696AD98] numberWithInteger:ekEventAvailabilityState];
   [eventCopy setLocalCustomObject:v91 forKey:@"EKEventAvailabilityState"];
@@ -731,26 +709,26 @@ LABEL_49:
     [eventCopy setCustomObject:schemaOrg forKey:@"SuggestionsSchemaOrg"];
   }
 
-  v188 = 0u;
-  v189 = 0u;
-  v186 = 0u;
   v187 = 0u;
+  v188 = 0u;
+  v185 = 0u;
+  v186 = 0u;
   v93 = self->_tags;
-  v94 = [(NSArray *)v93 countByEnumeratingWithState:&v186 objects:v191 count:16];
+  v94 = [(NSArray *)v93 countByEnumeratingWithState:&v185 objects:v190 count:16];
   if (v94)
   {
     v95 = v94;
-    v96 = *v187;
+    v96 = *v186;
     while (2)
     {
       for (i = 0; i != v95; ++i)
       {
-        if (*v187 != v96)
+        if (*v186 != v96)
         {
           objc_enumerationMutation(v93);
         }
 
-        v98 = [SGEntityTag resolveName:*(*(&v186 + 1) + 8 * i)];
+        v98 = [SGEntityTag resolveName:*(*(&v185 + 1) + 8 * i)];
         if ([v98 isEventMetadata])
         {
           eventMetadata = [v98 eventMetadata];
@@ -764,7 +742,7 @@ LABEL_49:
         }
       }
 
-      v95 = [(NSArray *)v93 countByEnumeratingWithState:&v186 objects:v191 count:16];
+      v95 = [(NSArray *)v93 countByEnumeratingWithState:&v185 objects:v190 count:16];
       self = selfCopy2;
       if (v95)
       {
@@ -779,10 +757,10 @@ LABEL_82:
 
   if ([(SGEvent *)self isNaturalLanguageEvent])
   {
-    v171 = eventCopy;
-    v172 = fromCopy;
-    v170 = storeCopy;
-    v181 = objc_opt_new();
+    v170 = eventCopy;
+    v171 = fromCopy;
+    v169 = storeCopy;
+    v180 = objc_opt_new();
     v100 = objc_opt_new();
     [v100 setObject:self->_naturalLanguageEventTypeIdentifier forKeyedSubscript:@"SuggestionsNLEventDictionaryEventTypeKey"];
     v101 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_naturalLanguageEventAttributes];
@@ -792,14 +770,14 @@ LABEL_82:
     v103 = self->_tags;
     v104 = 0x1E7EFA000uLL;
     v105 = +[SGEntityTag significantSender];
-    name4 = [v105 name];
-    v107 = [v102 numberWithBool:{-[NSArray containsObject:](v103, "containsObject:", name4)}];
+    name3 = [v105 name];
+    v107 = [v102 numberWithBool:{-[NSArray containsObject:](v103, "containsObject:", name3)}];
     [v100 setObject:v107 forKeyedSubscript:@"SuggestionsNLEventDictionaryEventSignificantSenderKey"];
 
     v108 = selfCopy2->_tags;
     v109 = +[SGEntityTag titleGeneratedFromTemplate];
-    name5 = [v109 name];
-    LOBYTE(v108) = [(NSArray *)v108 containsObject:name5];
+    name4 = [v109 name];
+    LOBYTE(v108) = [(NSArray *)v108 containsObject:name4];
 
     if (v108)
     {
@@ -810,36 +788,36 @@ LABEL_82:
     {
       v112 = selfCopy2->_tags;
       v113 = +[SGEntityTag titleGeneratedFromSubject];
-      name6 = [v113 name];
-      LODWORD(v112) = [(NSArray *)v112 containsObject:name6];
+      name5 = [v113 name];
+      LODWORD(v112) = [(NSArray *)v112 containsObject:name5];
 
       if (!v112)
       {
 LABEL_88:
-        v184 = 0u;
-        v185 = 0u;
-        v182 = 0u;
         v183 = 0u;
+        v184 = 0u;
+        v181 = 0u;
+        v182 = 0u;
         v115 = selfCopy2->_tags;
-        v116 = [(NSArray *)v115 countByEnumeratingWithState:&v182 objects:v190 count:16];
+        v116 = [(NSArray *)v115 countByEnumeratingWithState:&v181 objects:v189 count:16];
         if (!v116)
         {
           goto LABEL_112;
         }
 
         v117 = v116;
-        v118 = *v183;
+        v118 = *v182;
         while (1)
         {
           v119 = 0;
           do
           {
-            if (*v183 != v118)
+            if (*v182 != v118)
             {
               objc_enumerationMutation(v115);
             }
 
-            v120 = [*(v104 + 1224) resolveName:{*(*(&v182 + 1) + 8 * v119), v170}];
+            v120 = [*(v104 + 1224) resolveName:{*(*(&v181 + 1) + 8 * v119), v169}];
             if ([v120 isConfidenceScore])
             {
               v121 = MEMORY[0x1E696AD98];
@@ -876,7 +854,7 @@ LABEL_88:
               value = [v120 value];
               [value floatValue];
               v123 = [v128 numberWithFloat:?];
-              v124 = v181;
+              v124 = v180;
               v125 = v123;
               v126 = @"SuggestionsNLEventDictionaryCalendarAppUsageLevelKey";
               goto LABEL_97;
@@ -887,7 +865,7 @@ LABEL_88:
               v129 = MEMORY[0x1E696AD98];
               value = [v120 value];
               v123 = [v129 numberWithInteger:{objc_msgSend(value, "integerValue")}];
-              v124 = v181;
+              v124 = v180;
               v125 = v123;
               v126 = @"SuggestionsNLEventDictionaryMailAppUsageLevelKey";
               goto LABEL_97;
@@ -898,7 +876,7 @@ LABEL_88:
               v130 = MEMORY[0x1E696AD98];
               value = [v120 value];
               v123 = [v130 numberWithInteger:{objc_msgSend(value, "integerValue")}];
-              v124 = v181;
+              v124 = v180;
               v125 = v123;
               v126 = @"SuggestionsNLEventDictionaryMessagesAppUsageLevelKey";
               goto LABEL_97;
@@ -909,7 +887,7 @@ LABEL_88:
               v131 = MEMORY[0x1E696AD98];
               value = [v120 value];
               v123 = [v131 numberWithInteger:{objc_msgSend(value, "integerValue")}];
-              v124 = v181;
+              v124 = v180;
               v125 = v123;
               v126 = @"SuggestionsNLEventDictionaryEventUsedBubblesCountKey";
 LABEL_97:
@@ -923,21 +901,21 @@ LABEL_98:
           }
 
           while (v117 != v119);
-          v132 = [(NSArray *)v115 countByEnumeratingWithState:&v182 objects:v190 count:16];
+          v132 = [(NSArray *)v115 countByEnumeratingWithState:&v181 objects:v189 count:16];
           v117 = v132;
           if (!v132)
           {
 LABEL_112:
 
-            v133 = [v181 copy];
-            eventCopy = v171;
-            [v171 setLocalCustomObject:v133 forKey:@"SuggestionsNLEventDictionaryKey"];
+            v133 = [v180 copy];
+            eventCopy = v170;
+            [v170 setLocalCustomObject:v133 forKey:@"SuggestionsNLEventDictionaryKey"];
 
             v134 = [v100 copy];
-            [v171 setCustomObject:v134 forKey:@"SuggestionsNLEventDictionaryKey"];
+            [v170 setCustomObject:v134 forKey:@"SuggestionsNLEventDictionaryKey"];
 
-            storeCopy = v170;
-            fromCopy = v172;
+            storeCopy = v169;
+            fromCopy = v171;
             self = selfCopy2;
             goto LABEL_113;
           }
@@ -976,35 +954,34 @@ LABEL_113:
   [suggestionInfo setTimestamp:v148];
 
   [(SGEvent *)v144 _mergeTagsIntoEKEvent:eventCopy withStore:storeCopy];
-  v150 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_mergeTagsIntoEKEvent:(id)event withStore:(id)store
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   storeCopy = store;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   tags = [(SGEvent *)self tags];
-  v7 = [tags countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [tags countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(tags);
         }
 
-        v12 = [SGEntityTag resolveName:*(*(&v19 + 1) + 8 * i)];
+        v12 = [SGEntityTag resolveName:*(*(&v18 + 1) + 8 * i)];
         name = [v12 name];
         v14 = [name hasPrefix:@"TZID"];
 
@@ -1016,7 +993,7 @@ LABEL_113:
         }
       }
 
-      v8 = [tags countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [tags countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
@@ -1028,7 +1005,6 @@ LABEL_113:
   }
 
   [(SGEvent *)self _applyTimeRangeToEKEvent:eventCopy withTZID:v9];
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_applyTimeRangeToEKEvent:(id)event withTZID:(id)d
@@ -1070,7 +1046,7 @@ LABEL_7:
 
 - (BOOL)shouldAllowNotificationsInCalendarForBundleId:(id)id appIsInForeground:(BOOL)foreground allowListOverride:(id)override
 {
-  v54[2] = *MEMORY[0x1E69E9840];
+  v53[2] = *MEMORY[0x1E69E9840];
   idCopy = id;
   overrideCopy = override;
   if ([(SGEvent *)self isNaturalLanguageEvent])
@@ -1117,122 +1093,122 @@ LABEL_9:
   }
 
   lowercaseString = [@"com.apple.MobileSMS" lowercaseString];
-  v54[0] = lowercaseString;
+  v53[0] = lowercaseString;
   lowercaseString2 = [@"com.apple.mobilemail" lowercaseString];
-  v54[1] = lowercaseString2;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
+  v53[1] = lowercaseString2;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:2];
 
-  v40 = overrideCopy;
-  v41 = idCopy;
+  v39 = overrideCopy;
+  v40 = idCopy;
   if (overrideCopy)
   {
-    v10 = [v17 mutableCopy];
+    v10 = [v16 mutableCopy];
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
-    v18 = overrideCopy;
-    v19 = [v18 countByEnumeratingWithState:&v47 objects:v53 count:16];
-    if (v19)
+    v17 = overrideCopy;
+    v18 = [v17 countByEnumeratingWithState:&v46 objects:v52 count:16];
+    if (v18)
     {
-      v20 = v19;
-      v21 = *v48;
+      v19 = v18;
+      v20 = *v47;
       do
       {
-        for (i = 0; i != v20; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v48 != v21)
+          if (*v47 != v20)
           {
-            objc_enumerationMutation(v18);
+            objc_enumerationMutation(v17);
           }
 
-          v23 = *(*(&v47 + 1) + 8 * i);
-          lowercaseString3 = [v23 lowercaseString];
-          v25 = [v17 containsObject:lowercaseString3];
+          v22 = *(*(&v46 + 1) + 8 * i);
+          lowercaseString3 = [v22 lowercaseString];
+          v24 = [v16 containsObject:lowercaseString3];
 
-          if (v25)
+          if (v24)
           {
-            lowercaseString4 = [v23 lowercaseString];
+            lowercaseString4 = [v22 lowercaseString];
             [v10 removeObject:lowercaseString4];
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v47 objects:v53 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v46 objects:v52 count:16];
       }
 
-      while (v20);
+      while (v19);
     }
 
-    idCopy = v41;
+    idCopy = v40;
   }
 
   else
   {
-    v10 = v17;
+    v10 = v16;
   }
 
   lowercaseString5 = [idCopy lowercaseString];
-  v28 = [v10 containsObject:lowercaseString5];
+  v27 = [v10 containsObject:lowercaseString5];
 
-  if (v28)
+  if (v27)
   {
-    v29 = sgLogHandle();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    v28 = sgLogHandle();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BA729000, v29, OS_LOG_TYPE_INFO, "SGEvent-shouldAllowNotificationsInCalendarForBundleId: Not allowing notification from excluded bundleId.", buf, 2u);
+      _os_log_impl(&dword_1BA729000, v28, OS_LOG_TYPE_INFO, "SGEvent-shouldAllowNotificationsInCalendarForBundleId: Not allowing notification from excluded bundleId.", buf, 2u);
     }
 
     v12 = 0;
-    overrideCopy = v40;
+    overrideCopy = v39;
   }
 
   else
   {
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     obj = [(SGEvent *)self tags];
-    v30 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
-    if (v30)
+    v29 = [obj countByEnumeratingWithState:&v42 objects:v51 count:16];
+    if (v29)
     {
-      v31 = v30;
-      v32 = *v44;
+      v30 = v29;
+      v31 = *v43;
       while (2)
       {
-        for (j = 0; j != v31; ++j)
+        for (j = 0; j != v30; ++j)
         {
-          if (*v44 != v32)
+          if (*v43 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v34 = [SGEntityTag resolveName:*(*(&v43 + 1) + 8 * j)];
-          name = [v34 name];
-          v36 = +[SGEntityTag fromSync];
-          name2 = [v36 name];
-          v38 = [name isEqualToString:name2];
+          v33 = [SGEntityTag resolveName:*(*(&v42 + 1) + 8 * j)];
+          name = [v33 name];
+          v35 = +[SGEntityTag fromSync];
+          name2 = [v35 name];
+          v37 = [name isEqualToString:name2];
 
-          if (v38)
+          if (v37)
           {
-            v39 = sgLogHandle();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+            v38 = sgLogHandle();
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_1BA729000, v39, OS_LOG_TYPE_INFO, "SGEvent-shouldAllowNotificationsInCalendarForBundleId: Not allowing notification from synced event.", buf, 2u);
+              _os_log_impl(&dword_1BA729000, v38, OS_LOG_TYPE_INFO, "SGEvent-shouldAllowNotificationsInCalendarForBundleId: Not allowing notification from synced event.", buf, 2u);
             }
 
             v12 = 0;
-            overrideCopy = v40;
-            idCopy = v41;
-            v29 = obj;
+            overrideCopy = v39;
+            idCopy = v40;
+            v28 = obj;
             goto LABEL_44;
           }
         }
 
-        v31 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
-        if (v31)
+        v30 = [obj countByEnumeratingWithState:&v42 objects:v51 count:16];
+        if (v30)
         {
           continue;
         }
@@ -1241,22 +1217,21 @@ LABEL_9:
       }
     }
 
-    v29 = sgLogHandle();
+    v28 = sgLogHandle();
     v12 = 1;
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BA729000, v29, OS_LOG_TYPE_INFO, "SGEvent-shouldAllowNotificationsInCalendarForBundleId: Allowing notification.", buf, 2u);
+      _os_log_impl(&dword_1BA729000, v28, OS_LOG_TYPE_INFO, "SGEvent-shouldAllowNotificationsInCalendarForBundleId: Allowing notification.", buf, 2u);
     }
 
-    overrideCopy = v40;
-    idCopy = v41;
+    overrideCopy = v39;
+    idCopy = v40;
   }
 
 LABEL_44:
 
 LABEL_10:
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -1328,13 +1303,13 @@ LABEL_10:
 
 - (int64_t)ekEventAvailabilityState
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = self->_tags;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (!v3)
   {
     v6 = 3;
@@ -1342,18 +1317,18 @@ LABEL_10:
   }
 
   v4 = v3;
-  v5 = *v15;
+  v5 = *v14;
   v6 = 3;
   while (2)
   {
     for (i = 0; i != v4; ++i)
     {
-      if (*v15 != v5)
+      if (*v14 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      v8 = [SGEntityTag resolveName:*(*(&v14 + 1) + 8 * i), v14];
+      v8 = [SGEntityTag resolveName:*(*(&v13 + 1) + 8 * i), v13];
       if ([v8 isEKEventAvailabilityState])
       {
         value = [v8 value];
@@ -1408,7 +1383,7 @@ LABEL_25:
       }
     }
 
-    v4 = [(NSArray *)v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v4 = [(NSArray *)v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v4)
     {
       continue;
@@ -1419,7 +1394,6 @@ LABEL_25:
 
 LABEL_26:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1859,7 +1833,7 @@ LABEL_42:
 
 - (SGEvent)initWithRecordId:(id)id origin:(id)origin uniqueKey:(id)key opaqueKey:(id)opaqueKey title:(id)title notes:(id)notes start:(id)start startTimeZone:(id)self0 end:(id)self1 endTimeZone:(id)self2 isAllDay:(BOOL)self3 creationDate:(id)self4 lastModifiedDate:(id)self5 locations:(id)self6 tags:(id)self7 URL:(id)self8
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   idCopy = id;
   originCopy = origin;
   keyCopy = key;
@@ -1875,7 +1849,7 @@ LABEL_42:
   locationsCopy = locations;
   tagsCopy = tags;
   lCopy = l;
-  v47 = sgMapSelector(tagsCopy, sel_name);
+  v46 = sgMapSelector(tagsCopy, sel_name);
   v27 = +[SGEntityTag naturalLanguageEvent];
   v28 = [tagsCopy containsObject:v27];
 
@@ -1893,36 +1867,36 @@ LABEL_42:
     first = 0;
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   v33 = tagsCopy;
-  v34 = [v33 countByEnumeratingWithState:&v64 objects:v68 count:16];
-  v56 = zoneCopy;
-  v57 = notesCopy;
+  v34 = [v33 countByEnumeratingWithState:&v63 objects:v67 count:16];
+  v55 = zoneCopy;
+  v56 = notesCopy;
   if (v34)
   {
-    v46 = unsignedIntegerValue;
-    v35 = *v65;
+    v45 = unsignedIntegerValue;
+    v35 = *v64;
     while (2)
     {
       for (i = 0; i != v34; i = i + 1)
       {
-        if (*v65 != v35)
+        if (*v64 != v35)
         {
           objc_enumerationMutation(v33);
         }
 
-        v37 = *(*(&v64 + 1) + 8 * i);
+        v37 = *(*(&v63 + 1) + 8 * i);
         if ([v37 isSchemaOrg])
         {
           v38 = MEMORY[0x1E696ACB0];
           value = [v37 value];
           v40 = [value dataUsingEncoding:4];
-          v63 = 0;
-          v41 = [v38 JSONObjectWithData:v40 options:0 error:&v63];
-          v42 = v63;
+          v62 = 0;
+          v41 = [v38 JSONObjectWithData:v40 options:0 error:&v62];
+          v42 = v62;
 
           v34 = 0;
           if (!v42)
@@ -1934,7 +1908,7 @@ LABEL_42:
         }
       }
 
-      v34 = [v33 countByEnumeratingWithState:&v64 objects:v68 count:16];
+      v34 = [v33 countByEnumeratingWithState:&v63 objects:v67 count:16];
       if (v34)
       {
         continue;
@@ -1944,14 +1918,13 @@ LABEL_42:
     }
 
 LABEL_16:
-    unsignedIntegerValue = v46;
+    unsignedIntegerValue = v45;
   }
 
-  LOBYTE(v45) = day;
-  v55 = [(SGEvent *)self initWithRecordId:idCopy origin:originCopy uniqueKey:keyCopy opaqueKey:opaqueKeyCopy title:titleCopy notes:v57 start:startCopy startTimeZone:v56 end:endCopy endTimeZone:timeZoneCopy isAllDay:v45 creationDate:dateCopy lastModifiedDate:modifiedDateCopy locations:locationsCopy tagStrings:v47 URL:lCopy naturalLanguageEventIdentifier:first naturalLanguageEventAttributes:unsignedIntegerValue schemaOrg:v34];
+  LOBYTE(v44) = day;
+  v54 = [(SGEvent *)self initWithRecordId:idCopy origin:originCopy uniqueKey:keyCopy opaqueKey:opaqueKeyCopy title:titleCopy notes:v56 start:startCopy startTimeZone:v55 end:endCopy endTimeZone:timeZoneCopy isAllDay:v44 creationDate:dateCopy lastModifiedDate:modifiedDateCopy locations:locationsCopy tagStrings:v46 URL:lCopy naturalLanguageEventIdentifier:first naturalLanguageEventAttributes:unsignedIntegerValue schemaOrg:v34];
 
-  v43 = *MEMORY[0x1E69E9840];
-  return v55;
+  return v54;
 }
 
 - (SGEvent)initWithRecordId:(id)id origin:(id)origin uniqueKey:(id)key opaqueKey:(id)opaqueKey title:(id)title notes:(id)notes start:(id)start startTimeZone:(id)self0 end:(id)self1 endTimeZone:(id)self2 isAllDay:(BOOL)self3 creationDate:(id)self4 lastModifiedDate:(id)self5 locations:(id)self6 tagStrings:(id)self7 URL:(id)self8 naturalLanguageEventIdentifier:(id)self9 naturalLanguageEventAttributes:(unint64_t)attributes schemaOrg:(id)org

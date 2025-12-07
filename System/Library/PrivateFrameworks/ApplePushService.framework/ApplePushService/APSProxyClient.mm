@@ -7,12 +7,14 @@
 - (BOOL)needsToDisconnect;
 - (BOOL)needsToDisconnectOnInterface:(id)interface;
 - (BOOL)shouldOnlySendFilterOnPreferredInterface;
+- (id)_createRequestForPubSubData:(id)data messageID:(unsigned int)d connectionType:(int64_t)type environment:(id)environment;
 - (id)aps_prettyDescription;
 - (unint64_t)filterModeOnInterface:(id)interface;
 - (unint64_t)stateOnInterface:(id)interface;
 - (void)_adjustConnectedStateWithInterfaceHint:(BOOL)hint;
 - (void)dealloc;
 - (void)handleAppTokenGenerateResponse:(id)response error:(id)error;
+- (void)handleExpiredNonceWithServerTime:(id)time shouldRollToken:(BOOL)token;
 - (void)handleResult:(id)result forSendingOutgoingMessage:(id)message;
 - (void)incomingPresenceWithCertificates:(id)certificates nonce:(id)nonce signature:(id)signature token:(id)token hwVersion:(id)version swVersion:(id)swVersion swBuild:(id)build additionalFlags:(int)self0;
 - (void)invalidate;
@@ -20,7 +22,9 @@
 - (void)proxyManager:(id)manager inactiveReceivedForGuid:(id)guid environmentName:(id)name;
 - (void)proxyManager:(id)manager incomingFilterForGuid:(id)guid environmentName:(id)name enabledTopics:(id)topics ignoredTopics:(id)ignoredTopics opportunisticTopics:(id)opportunisticTopics nonWakingTopics:(id)wakingTopics topicSalts:(id)self0;
 - (void)proxyManager:(id)manager isNearbyChanged:(BOOL)changed;
+- (void)proxyManager:(id)manager messageTracingWithStatus:(int)status topic:(id)topic tracingUUID:(id)d token:(id)token guid:(id)guid environmentName:(id)name;
 - (void)proxyManager:(id)manager receivedPushAckResponse:(id)response messageId:(id)id token:(id)token connectionType:(id)type generation:(id)generation guid:(id)guid environmentName:(id)self0;
+- (void)proxyManager:(id)manager sendPubSubChannelList:(id)list messageID:(unsigned int)d token:(id)token connectionType:(int64_t)type environmentName:(id)name guid:(id)guid;
 - (void)proxyManager:(id)manager sendReversePush:(id)push guid:(id)guid environmentName:(id)name;
 - (void)proxyManager:(id)manager tokenGenerateWithTopicHash:(id)hash baseToken:(id)token appId:(id)id expirationTTL:(id)l vapidPublicKeyHash:(id)keyHash type:(id)type guid:(id)self0 environmentName:(id)self1;
 - (void)receivedPush:(id)push onConnectionType:(int64_t)type withGeneration:(unint64_t)generation;
@@ -103,27 +107,25 @@
     v4 = @"NO";
   }
 
-  v21 = v4;
-  v22 = v3;
-  stateByInterfaceIdentifier = self->_stateByInterfaceIdentifier;
-  v18 = APSPrettyPrintCollection();
-  filterModeByInterfaceIdentifier = self->_filterModeByInterfaceIdentifier;
-  v17 = APSPrettyPrintCollection();
+  v19 = v4;
+  v20 = v3;
+  v16 = APSPrettyPrintCollection();
+  v15 = APSPrettyPrintCollection();
   group = [(APSTopicManager *)self->_topicManager group];
   enabledTopics = [group enabledTopics];
-  v7 = APSPrettyPrintCollection();
+  v5 = APSPrettyPrintCollection();
   group2 = [(APSTopicManager *)self->_topicManager group];
   ignoredTopics = [group2 ignoredTopics];
-  v8 = APSPrettyPrintCollection();
+  v6 = APSPrettyPrintCollection();
   group3 = [(APSTopicManager *)self->_topicManager group];
   opportunisticTopics = [group3 opportunisticTopics];
-  v11 = APSPrettyPrintCollection();
+  v9 = APSPrettyPrintCollection();
   group4 = [(APSTopicManager *)self->_topicManager group];
   nonWakingTopics = [group4 nonWakingTopics];
-  v14 = APSPrettyPrintCollection();
-  v15 = [NSString stringWithFormat:@"<%p guid: %@ isActive: %@; invalid: %@ stateByInterfaceIdentifier: %@; filterModeByInterfaceIdentifier: %@; enabledTopics: %@, ignoredTopics: %@, opportunisticTopics: %@, nonWakingTopics: %@>", self, guid, v22, v21, v18, v17, v7, v8, v11, v14];;
+  v12 = APSPrettyPrintCollection();
+  v13 = [NSString stringWithFormat:@"<%p guid: %@ isActive: %@; invalid: %@ stateByInterfaceIdentifier: %@; filterModeByInterfaceIdentifier: %@; enabledTopics: %@, ignoredTopics: %@, opportunisticTopics: %@, nonWakingTopics: %@>", self, guid, v20, v19, v16, v15, v5, v6, v9, v12];;
 
-  return v15;
+  return v13;
 }
 
 - (void)setProxyManager:(id)manager
@@ -182,6 +184,17 @@
   self->_lastPresence = v24;
 
   [(APSProxyClient *)self setActive:1];
+}
+
+- (void)handleExpiredNonceWithServerTime:(id)time shouldRollToken:(BOOL)token
+{
+  tokenCopy = token;
+  proxyManager = self->_proxyManager;
+  guid = self->_guid;
+  environment = self->_environment;
+  timeCopy = time;
+  name = [(APSEnvironment *)environment name];
+  [(APSIDSProxyManager *)proxyManager sendExpiredNonceWithServerTime:timeCopy shouldRollToken:tokenCopy guid:guid environmentName:name];
 }
 
 - (void)receivedPush:(id)push onConnectionType:(int64_t)type withGeneration:(unint64_t)generation
@@ -965,6 +978,78 @@ LABEL_5:
   }
 }
 
+- (void)proxyManager:(id)manager messageTracingWithStatus:(int)status topic:(id)topic tracingUUID:(id)d token:(id)token guid:(id)guid environmentName:(id)name
+{
+  v12 = *&status;
+  topicCopy = topic;
+  dCopy = d;
+  tokenCopy = token;
+  guidCopy = guid;
+  nameCopy = name;
+  v19 = +[APSLog proxy];
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  {
+    guid = self->_guid;
+    name = [(APSEnvironment *)self->_environment name];
+    v25 = 138413314;
+    selfCopy = self;
+    v27 = 2112;
+    v28 = guidCopy;
+    v29 = 2112;
+    guidCopy2 = guid;
+    v31 = 2112;
+    v32 = nameCopy;
+    v33 = 2112;
+    v34 = name;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%@ message tracing guid %@ myGuid %@  envName %@  myEnvName %@", &v25, 0x34u);
+  }
+
+  if ([guidCopy isEqualToString:self->_guid])
+  {
+    name2 = [(APSEnvironment *)self->_environment name];
+    v23 = [nameCopy isEqualToString:name2];
+
+    if (v23)
+    {
+      WeakRetained = objc_loadWeakRetained(&self->_delegate);
+      [WeakRetained client:self messageTracingWithStatus:v12 topic:topicCopy tracingUUID:dCopy token:tokenCopy];
+    }
+  }
+}
+
+- (void)proxyManager:(id)manager sendPubSubChannelList:(id)list messageID:(unsigned int)d token:(id)token connectionType:(int64_t)type environmentName:(id)name guid:(id)guid
+{
+  v12 = *&d;
+  listCopy = list;
+  tokenCopy = token;
+  nameCopy = name;
+  guidCopy = guid;
+  v18 = +[APSLog proxy];
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    v23 = 138412802;
+    selfCopy = self;
+    v25 = 2112;
+    v26 = guidCopy;
+    v27 = 2112;
+    v28 = nameCopy;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%@ sendPubSubChannelList request guid %@ envName %@", &v23, 0x20u);
+  }
+
+  if ([guidCopy isEqualToString:self->_guid])
+  {
+    name = [(APSEnvironment *)self->_environment name];
+    v20 = [nameCopy isEqualToString:name];
+
+    if (v20)
+    {
+      v21 = [(APSProxyClient *)self _createRequestForPubSubData:listCopy messageID:v12 connectionType:type environment:nameCopy];
+      WeakRetained = objc_loadWeakRetained(&self->_delegate);
+      [WeakRetained client:self sendPubSubChannelList:v21 token:tokenCopy];
+    }
+  }
+}
+
 - (void)sendPubSubChannelListResponse:(id)response
 {
   if (self->_active)
@@ -982,6 +1067,33 @@ LABEL_5:
     name = [(APSEnvironment *)self->_environment name];
     [(APSIDSProxyManager *)proxyManager sendPubSubChannelListResponse:responseCopy environmentName:name guid:self->_guid];
   }
+}
+
+- (id)_createRequestForPubSubData:(id)data messageID:(unsigned int)d connectionType:(int64_t)type environment:(id)environment
+{
+  v7 = *&d;
+  environment = self->_environment;
+  dataCopy = data;
+  v11 = [APSConfiguration configurationForEnvironment:environment connectionType:type];
+  pubSubRetryAttemptsCount = [v11 pubSubRetryAttemptsCount];
+  unsignedIntegerValue = [pubSubRetryAttemptsCount unsignedIntegerValue];
+  if (unsignedIntegerValue)
+  {
+    v14 = unsignedIntegerValue;
+  }
+
+  else
+  {
+    v14 = 3;
+  }
+
+  v15 = [APSPubSubRequest alloc];
+  v16 = [NSNumber numberWithUnsignedInt:v7];
+  v17 = PKNonMacTokenName;
+  publicToken = [(APSProxyClient *)self publicToken];
+  v19 = [(APSPubSubRequest *)v15 initWithMetadata:dataCopy messageID:v16 userName:v17 token:publicToken subscriptionType:0 connectionType:type retryCount:v14];
+
+  return v19;
 }
 
 - (void)sendPubSubUpdateMessage:(id)message forConnectionType:(int64_t)type

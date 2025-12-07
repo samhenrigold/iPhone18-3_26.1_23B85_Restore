@@ -41,7 +41,7 @@
 
 - (BOOL)copyAndPrepareLog
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   getListOfRequiredBDCFiles = [(PLSubmissionFileBDC *)self getListOfRequiredBDCFiles];
   if ([getListOfRequiredBDCFiles count])
   {
@@ -53,165 +53,168 @@
 
     if (v7)
     {
-      v8 = PLLogSubmission();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = PLLogSubmission(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileBG copyAndPrepareLog];
       }
 
-      v9 = 0;
+      v10 = 0;
       goto LABEL_54;
     }
 
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    v75 = 0;
-    v11 = [defaultManager2 createDirectoryAtPath:v5 withIntermediateDirectories:1 attributes:0 error:&v75];
-    v8 = v75;
+    v83 = 0;
+    v12 = [defaultManager2 createDirectoryAtPath:v5 withIntermediateDirectories:1 attributes:0 error:&v83];
+    v9 = v83;
 
-    if ((v11 & 1) == 0)
+    if ((v12 & 1) == 0)
     {
-      v25 = PLLogSubmission();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v28 = PLLogSubmission(v13);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileBDC copyAndPrepareLog];
       }
 
-      v9 = 0;
+      v10 = 0;
       goto LABEL_53;
     }
 
     selfCopy = self;
-    v63 = getListOfRequiredBDCFiles;
-    v12 = v5;
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
-    v72 = 0u;
+    v71 = getListOfRequiredBDCFiles;
+    v14 = v5;
+    v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
     obj = getListOfRequiredBDCFiles;
-    v13 = [obj countByEnumeratingWithState:&v71 objects:v84 count:16];
-    if (v13)
+    v15 = [obj countByEnumeratingWithState:&v79 objects:v92 count:16];
+    if (v15)
     {
-      v14 = v13;
-      v15 = *v72;
+      v16 = v15;
+      v17 = *v80;
       do
       {
-        v16 = 0;
-        v17 = v8;
+        v18 = 0;
+        v19 = v9;
         do
         {
-          if (*v72 != v15)
+          if (*v80 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v71 + 1) + 8 * v16);
-          v19 = [@"/var/db/Battery/BDC" stringByAppendingPathComponent:v18];
-          v20 = [v12 stringByAppendingPathComponent:v18];
+          v20 = *(*(&v79 + 1) + 8 * v18);
+          v21 = [@"/var/db/Battery/BDC" stringByAppendingPathComponent:v20];
+          v22 = [v14 stringByAppendingPathComponent:v20];
           defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-          v70 = v17;
-          v22 = [defaultManager3 copyItemAtPath:v19 toPath:v20 error:&v70];
-          v8 = v70;
+          v78 = v19;
+          v24 = [defaultManager3 copyItemAtPath:v21 toPath:v22 error:&v78];
+          v9 = v78;
 
-          if ((v22 & 1) == 0)
+          if ((v24 & 1) == 0)
           {
-            v23 = PLLogSubmission();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            v26 = PLLogSubmission(v25);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412802;
-              v79 = v19;
-              v80 = 2112;
-              v81 = v20;
-              v82 = 2112;
-              v83 = v8;
-              _os_log_error_impl(&dword_1D8611000, v23, OS_LOG_TYPE_ERROR, "Error trying to copy bdc file from %@ to %@, %@", buf, 0x20u);
+              v87 = v21;
+              v88 = 2112;
+              v89 = v22;
+              v90 = 2112;
+              v91 = v9;
+              _os_log_error_impl(&dword_1D8611000, v26, OS_LOG_TYPE_ERROR, "Error trying to copy bdc file from %@ to %@, %@", buf, 0x20u);
             }
           }
 
-          ++v16;
-          v17 = v8;
+          ++v18;
+          v19 = v9;
         }
 
-        while (v14 != v16);
-        v14 = [obj countByEnumeratingWithState:&v71 objects:v84 count:16];
+        while (v16 != v18);
+        v16 = [obj countByEnumeratingWithState:&v79 objects:v92 count:16];
       }
 
-      while (v14);
+      while (v16);
     }
 
     getEPSQLFile = [(PLSubmissionFileBDC *)selfCopy getEPSQLFile];
-    v5 = v12;
-    v25 = [v12 stringByAppendingPathComponent:getEPSQLFile];
+    v5 = v14;
+    v28 = [v14 stringByAppendingPathComponent:getEPSQLFile];
 
-    v26 = [v25 stringByAppendingFormat:@".gz"];
-    v27 = +[PPSCoreStorage sharedSQLStorage];
-    ePSQLConnection = [v27 EPSQLConnection];
+    v29 = [v28 stringByAppendingFormat:@".gz"];
+    v30 = +[PPSCoreStorage sharedSQLStorage];
+    ePSQLConnection = [v30 EPSQLConnection];
 
-    v65 = ePSQLConnection;
-    if ([ePSQLConnection copyDatabaseToPath:v25 fromDate:0 toDate:0 withTableFilters:0 vacuumDB:0])
+    v32 = [ePSQLConnection copyDatabaseToPath:v28 fromDate:0 toDate:0 withTableFilters:0 vacuumDB:0];
+    v73 = ePSQLConnection;
+    if (v32)
     {
-      if (![PLUtilities compressWithSource:v25 withDestination:v26 withLevel:4])
+      v33 = [PLUtilities compressWithSource:v28 withDestination:v29 withLevel:4];
+      if ((v33 & 1) == 0)
       {
-        v29 = PLLogSubmission();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v34 = PLLogSubmission(v33);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
           [PLSubmissionFileBG copyAndPrepareLog];
         }
       }
 
       defaultManager4 = [MEMORY[0x1E696AC08] defaultManager];
-      [defaultManager4 removeItemAtPath:v25 error:0];
+      [defaultManager4 removeItemAtPath:v28 error:0];
 
       defaultManager5 = [MEMORY[0x1E696AC08] defaultManager];
-      v32 = [v25 stringByAppendingString:@"-shm"];
-      [defaultManager5 removeItemAtPath:v32 error:0];
+      v37 = [v28 stringByAppendingString:@"-shm"];
+      [defaultManager5 removeItemAtPath:v37 error:0];
     }
 
     else
     {
-      defaultManager5 = PLLogSubmission();
+      defaultManager5 = PLLogSubmission(v32);
       if (os_log_type_enabled(defaultManager5, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileBDC copyAndPrepareLog];
       }
     }
 
-    getListOfRequiredBDCFiles = v63;
+    getListOfRequiredBDCFiles = v71;
 
-    v33 = [v5 stringByAppendingPathComponent:@"tag.json"];
-    v34 = [MEMORY[0x1E695DF70] arrayWithArray:obj];
-    lastPathComponent = [v26 lastPathComponent];
-    [v34 addObject:lastPathComponent];
+    v38 = [v5 stringByAppendingPathComponent:@"tag.json"];
+    v39 = [MEMORY[0x1E695DF70] arrayWithArray:obj];
+    lastPathComponent = [v29 lastPathComponent];
+    [v39 addObject:lastPathComponent];
 
-    v76 = @"LogFiles";
-    v77 = v34;
-    v61 = v34;
-    v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
-    if (![(PLSubmissionFile *)selfCopy createTagFileWithPath:v33 withInfo:?])
+    v84 = @"LogFiles";
+    v85 = v39;
+    v69 = v39;
+    v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+    v41 = [(PLSubmissionFile *)selfCopy createTagFileWithPath:v38 withInfo:?];
+    if ((v41 & 1) == 0)
     {
-      v36 = PLLogSubmission();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v42 = PLLogSubmission(v41);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileBG copyAndPrepareLog];
       }
     }
 
-    obja = v26;
+    obja = v29;
     getBDCPlistFile = [(PLSubmissionFileBDC *)selfCopy getBDCPlistFile];
-    v64 = v33;
-    v59 = getBDCPlistFile;
+    v72 = v38;
+    v67 = getBDCPlistFile;
     if (getBDCPlistFile)
     {
-      v38 = getBDCPlistFile;
-      v39 = [v5 stringByAppendingPathComponent:@"com.apple.powerd.bdc.plist"];
-      v40 = [MEMORY[0x1E695DFF8] fileURLWithPath:v39];
-      v69 = v8;
-      v41 = [v38 writeToURL:v40 error:&v69];
-      v42 = v69;
+      v44 = getBDCPlistFile;
+      v45 = [v5 stringByAppendingPathComponent:@"com.apple.powerd.bdc.plist"];
+      v46 = [MEMORY[0x1E695DFF8] fileURLWithPath:v45];
+      v77 = v9;
+      v47 = [v44 writeToURL:v46 error:&v77];
+      v48 = v77;
 
-      if ((v41 & 1) == 0)
+      if ((v47 & 1) == 0)
       {
-        v43 = PLLogSubmission();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+        v50 = PLLogSubmission(v49);
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
         {
           [PLSubmissionFileBDC copyAndPrepareLog];
         }
@@ -220,34 +223,34 @@
 
     else
     {
-      v39 = PLLogSubmission();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v45 = PLLogSubmission(0);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileBDC copyAndPrepareLog];
       }
 
-      v42 = v8;
+      v48 = v9;
     }
 
-    v44 = MEMORY[0x1E6999F68];
-    v45 = [MEMORY[0x1E695DFF8] fileURLWithPath:v5];
-    v46 = [v44 archiveDirectoryAt:v45 deleteOriginal:1];
+    v51 = MEMORY[0x1E6999F68];
+    v52 = [MEMORY[0x1E695DFF8] fileURLWithPath:v5];
+    v53 = [v51 archiveDirectoryAt:v52 deleteOriginal:1];
 
-    if (v46)
+    if (v53)
     {
       defaultManager6 = [MEMORY[0x1E696AC08] defaultManager];
-      path = [v46 path];
+      path = [v53 path];
       filePath2 = [(PLSubmissionFile *)selfCopy filePath];
-      v68 = v42;
-      v50 = [defaultManager6 moveItemAtPath:path toPath:filePath2 error:&v68];
-      v8 = v68;
+      v76 = v48;
+      v58 = [defaultManager6 moveItemAtPath:path toPath:filePath2 error:&v76];
+      v9 = v76;
 
-      if (v50)
+      if (v58)
       {
         [(PLSubmissionFile *)selfCopy decorateFile];
-        v9 = 1;
-        v51 = v59;
-        v52 = obja;
+        v10 = 1;
+        v60 = v67;
+        v61 = obja;
 LABEL_52:
 
 LABEL_53:
@@ -256,40 +259,39 @@ LABEL_54:
         goto LABEL_55;
       }
 
-      v53 = PLLogSubmission();
-      v51 = v59;
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+      v62 = PLLogSubmission(v59);
+      v60 = v67;
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileBDC copyAndPrepareLog];
       }
 
       defaultManager7 = [MEMORY[0x1E696AC08] defaultManager];
-      path2 = [v46 path];
+      path2 = [v53 path];
       [defaultManager7 removeItemAtPath:path2 error:0];
     }
 
     else
     {
-      v8 = v42;
-      v51 = v59;
+      v9 = v48;
+      v60 = v67;
     }
 
-    v56 = PLLogSubmission();
-    v52 = obja;
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+    v65 = PLLogSubmission(v54);
+    v61 = obja;
+    if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
     {
       [PLSubmissionFileBDC copyAndPrepareLog];
     }
 
-    v9 = 0;
+    v10 = 0;
     goto LABEL_52;
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_55:
 
-  v57 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v10;
 }
 
 - (id)getListOfRequiredBDCFiles
@@ -301,17 +303,18 @@ LABEL_55:
   v4 = v21;
 
   array = [MEMORY[0x1E695DF70] array];
+  v6 = array;
   if (v4)
   {
-    v6 = PLLogSubmission();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = PLLogSubmission(array);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [PLSubmissionFileBDC getListOfRequiredBDCFiles];
     }
 
 LABEL_4:
 
-    v7 = 0;
+    v8 = 0;
     goto LABEL_16;
   }
 
@@ -319,36 +322,36 @@ LABEL_4:
   v20 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v8 = v3;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
-  if (v9)
+  v9 = v3;
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = *v18;
+    v11 = v10;
+    v12 = *v18;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v11)
+        if (*v18 != v12)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v9);
         }
 
-        [array addObject:{*(*(&v17 + 1) + 8 * i), v17}];
+        [v6 addObject:{*(*(&v17 + 1) + 8 * i), v17}];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
 
-  v13 = [array count];
-  v14 = PLLogSubmission();
-  v6 = v14;
-  if (!v13)
+  v14 = [v6 count];
+  v15 = PLLogSubmission(v14);
+  v7 = v15;
+  if (!v14)
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [PLSubmissionFileBDC getListOfRequiredBDCFiles];
     }
@@ -356,17 +359,15 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [PLSubmissionFileBDC getListOfRequiredBDCFiles];
   }
 
-  v7 = array;
+  v8 = v6;
 LABEL_16:
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v8;
 }
 
 - (id)getEPSQLFile
@@ -389,7 +390,7 @@ LABEL_16:
   }
 
   v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"log_%@.EPSQL", v9];
-  v13 = PLLogSubmission();
+  v13 = PLLogSubmission(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [PLSubmissionFileBDC getEPSQLFile];
@@ -404,8 +405,8 @@ LABEL_16:
   v3 = mach_service;
   if (!mach_service)
   {
-    v14 = PLLogSubmission();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = PLLogSubmission(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [PLSubmissionFileBDC getBDCPlistFile];
     }
@@ -421,15 +422,15 @@ LABEL_16:
   v5 = xpc_dictionary_create(0, 0, 0);
   if (!v5)
   {
-    v15 = PLLogSubmission();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = PLLogSubmission(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [PLSubmissionFileBDC getBDCPlistFile];
     }
 
     xpc_connection_cancel(v3);
 LABEL_14:
-    v16 = 0;
+    v18 = 0;
     goto LABEL_21;
   }
 
@@ -438,20 +439,20 @@ LABEL_14:
   v7 = [PLTimer alloc];
   v8 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:5.0];
   v9 = dispatch_get_global_queue(2, 0);
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __38__PLSubmissionFileBDC_getBDCPlistFile__block_invoke_50;
-  v23[3] = &unk_1E8519A18;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __38__PLSubmissionFileBDC_getBDCPlistFile__block_invoke_50;
+  v26[3] = &unk_1E8519A18;
   v10 = v3;
-  v24 = v10;
-  v11 = [(PLTimer *)v7 initWithFireDate:v8 withInterval:0 withTolerance:0 repeats:v9 withUserInfo:v23 withQueue:0.0 withBlock:0.0];
+  v27 = v10;
+  v11 = [(PLTimer *)v7 initWithFireDate:v8 withInterval:0 withTolerance:0 repeats:v9 withUserInfo:v26 withQueue:0.0 withBlock:0.0];
 
   v12 = xpc_connection_send_message_with_reply_sync(v10, v6);
-  [(PLTimer *)v11 invalidate];
+  invalidate = [(PLTimer *)v11 invalidate];
   if (!v12)
   {
-    v13 = PLLogSubmission();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = PLLogSubmission(invalidate);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [PLSubmissionFileBDC getBDCPlistFile];
     }
@@ -461,15 +462,16 @@ LABEL_14:
 
   if (MEMORY[0x1DA71B8B0](v12) != MEMORY[0x1E69E9E80])
   {
-    if (MEMORY[0x1DA71B8B0](v12) != MEMORY[0x1E69E9E98])
+    v14 = MEMORY[0x1DA71B8B0](v12);
+    if (v14 != MEMORY[0x1E69E9E98])
     {
 LABEL_18:
       xpc_connection_cancel(v10);
       goto LABEL_19;
     }
 
-    v13 = PLLogSubmission();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = PLLogSubmission(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [PLSubmissionFileBDC getBDCPlistFile];
     }
@@ -479,45 +481,45 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v18 = _CFXPCCreateCFObjectFromXPCObject();
-  v19 = PLLogSubmission();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v20 = _CFXPCCreateCFObjectFromXPCObject();
+  v21 = PLLogSubmission(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     [PLSubmissionFileBDC getBDCPlistFile];
   }
 
   xpc_connection_cancel(v10);
-  if (v18)
+  if (v20)
   {
-    v20 = [v18 objectForKeyedSubscript:@"returnCode"];
-    intValue = [v20 intValue];
+    v22 = [v20 objectForKeyedSubscript:@"returnCode"];
+    intValue = [v22 intValue];
 
     if (!intValue)
     {
-      v16 = [v18 objectForKeyedSubscript:@"BDCXPCCopyDefaults"];
+      v18 = [v20 objectForKeyedSubscript:@"BDCXPCCopyDefaults"];
 
       goto LABEL_20;
     }
 
-    v22 = PLLogSubmission();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v25 = PLLogSubmission(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       [PLSubmissionFileBDC getBDCPlistFile];
     }
   }
 
 LABEL_19:
-  v16 = 0;
+  v18 = 0;
 LABEL_20:
 
 LABEL_21:
 
-  return v16;
+  return v18;
 }
 
 void __38__PLSubmissionFileBDC_getBDCPlistFile__block_invoke_50(uint64_t a1)
 {
-  v2 = PLLogSubmission();
+  v2 = PLLogSubmission(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __38__PLSubmissionFileBDC_getBDCPlistFile__block_invoke_50_cold_1();
@@ -542,10 +544,9 @@ void __38__PLSubmissionFileBDC_getBDCPlistFile__block_invoke_50(uint64_t a1)
 
 - (void)getEPSQLFile
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_1D8611000, v0, OS_LOG_TYPE_DEBUG, "Requested BDC EPSQL file: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1D8611000, v0, OS_LOG_TYPE_DEBUG, "Requested BDC EPSQL file: %@", v1, 0xCu);
 }
 
 - (void)getBDCPlistFile

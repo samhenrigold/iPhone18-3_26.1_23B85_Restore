@@ -264,7 +264,7 @@ LABEL_14:
 
 - (void)_deviceFound:(id)found
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   foundCopy = found;
   if (onceTokenDSScanManager != -1)
   {
@@ -274,9 +274,9 @@ LABEL_14:
   v5 = logObjDSScanManager;
   if (os_log_type_enabled(logObjDSScanManager, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = foundCopy;
-    _os_log_impl(&dword_249027000, v5, OS_LOG_TYPE_DEFAULT, "Device found %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = foundCopy;
+    _os_log_impl(&dword_249027000, v5, OS_LOG_TYPE_DEFAULT, "Device found %@", &v7, 0xCu);
   }
 
   deviceFoundHandler = self->_deviceFoundHandler;
@@ -284,13 +284,11 @@ LABEL_14:
   {
     deviceFoundHandler[2](deviceFoundHandler, foundCopy);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deviceLost:(id)lost
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   lostCopy = lost;
   if (onceTokenDSScanManager != -1)
   {
@@ -300,9 +298,9 @@ LABEL_14:
   v5 = logObjDSScanManager;
   if (os_log_type_enabled(logObjDSScanManager, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = lostCopy;
-    _os_log_impl(&dword_249027000, v5, OS_LOG_TYPE_DEFAULT, "Device lost %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = lostCopy;
+    _os_log_impl(&dword_249027000, v5, OS_LOG_TYPE_DEFAULT, "Device lost %@", &v7, 0xCu);
   }
 
   deviceLostHandler = self->_deviceLostHandler;
@@ -310,8 +308,6 @@ LABEL_14:
   {
     deviceLostHandler[2](deviceLostHandler, lostCopy);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

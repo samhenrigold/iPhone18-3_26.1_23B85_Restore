@@ -16,21 +16,21 @@
 
 - (RPBroadcastExtensionProxy)initWithBroadcastUploadExtension:(id)extension
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
-  v10.receiver = self;
-  v10.super_class = RPBroadcastExtensionProxy;
-  v5 = [(RPBroadcastExtensionProxy *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = RPBroadcastExtensionProxy;
+  v5 = [(RPBroadcastExtensionProxy *)&v9 init];
   if (v5)
   {
     if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446722;
-      v12 = "[RPBroadcastExtensionProxy initWithBroadcastUploadExtension:]";
-      v13 = 1024;
-      v14 = 41;
-      v15 = 2048;
-      v16 = v5;
+      v11 = "[RPBroadcastExtensionProxy initWithBroadcastUploadExtension:]";
+      v12 = 1024;
+      v13 = 41;
+      v14 = 2048;
+      v15 = v5;
       _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %p", buf, 0x1Cu);
     }
 
@@ -45,27 +45,26 @@
     [(RPBroadcastExtensionProxy *)v5 setBroadcastUploadExtension:extensionCopy];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (RPBroadcastExtensionProxy)initWithBroadcastUploadListenerEndpoint:(id)endpoint
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   endpointCopy = endpoint;
-  v9.receiver = self;
-  v9.super_class = RPBroadcastExtensionProxy;
-  v5 = [(RPBroadcastExtensionProxy *)&v9 init];
+  v8.receiver = self;
+  v8.super_class = RPBroadcastExtensionProxy;
+  v5 = [(RPBroadcastExtensionProxy *)&v8 init];
   if (v5)
   {
     if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446722;
-      v11 = "[RPBroadcastExtensionProxy initWithBroadcastUploadListenerEndpoint:]";
-      v12 = 1024;
-      v13 = 53;
-      v14 = 2048;
-      v15 = v5;
+      v10 = "[RPBroadcastExtensionProxy initWithBroadcastUploadListenerEndpoint:]";
+      v11 = 1024;
+      v12 = 53;
+      v13 = 2048;
+      v14 = v5;
       _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %p", buf, 0x1Cu);
     }
 
@@ -76,63 +75,59 @@
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v6 = "[RPBroadcastExtensionProxy dealloc]";
-    v7 = 1024;
-    v8 = 63;
-    v9 = 2048;
+    v5 = "[RPBroadcastExtensionProxy dealloc]";
+    v6 = 1024;
+    v7 = 63;
+    v8 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %p", buf, 0x1Cu);
   }
 
-  v4.receiver = self;
-  v4.super_class = RPBroadcastExtensionProxy;
-  [(RPBroadcastExtensionProxy *)&v4 dealloc];
-  v3 = *MEMORY[0x277D85DE8];
+  v3.receiver = self;
+  v3.super_class = RPBroadcastExtensionProxy;
+  [(RPBroadcastExtensionProxy *)&v3 dealloc];
 }
 
 - (void)establishConnectionWithHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v14 = "[RPBroadcastExtensionProxy establishConnectionWithHandler:]";
-    v15 = 1024;
-    v16 = 67;
+    v13 = "[RPBroadcastExtensionProxy establishConnectionWithHandler:]";
+    v14 = 1024;
+    v15 = 67;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d establishing connection to extension", buf, 0x12u);
   }
 
   [(RPBroadcastExtensionProxy *)self setConnectionReadyHandler:handlerCopy];
   v5 = objc_alloc_init(MEMORY[0x277CCA9D8]);
   broadcastUploadExtension = self->_broadcastUploadExtension;
-  v12 = v5;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __60__RPBroadcastExtensionProxy_establishConnectionWithHandler___block_invoke;
-  v10[3] = &unk_278B623D0;
-  v10[4] = self;
-  v11 = handlerCopy;
+  v11 = v5;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __60__RPBroadcastExtensionProxy_establishConnectionWithHandler___block_invoke;
+  v9[3] = &unk_278B623D0;
+  v9[4] = self;
+  v10 = handlerCopy;
   v8 = handlerCopy;
-  [(NSExtension *)broadcastUploadExtension beginExtensionRequestWithInputItems:v7 completion:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(NSExtension *)broadcastUploadExtension beginExtensionRequestWithInputItems:v7 completion:v9];
 }
 
 void __60__RPBroadcastExtensionProxy_establishConnectionWithHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -150,9 +145,9 @@ void __60__RPBroadcastExtensionProxy_establishConnectionWithHandler___block_invo
     if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v17 = "[RPBroadcastExtensionProxy establishConnectionWithHandler:]_block_invoke";
-      v18 = 1024;
-      v19 = 78;
+      v16 = "[RPBroadcastExtensionProxy establishConnectionWithHandler:]_block_invoke";
+      v17 = 1024;
+      v18 = 78;
       _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d beginExtensionRequestWithInputItems returned", buf, 0x12u);
     }
 
@@ -164,13 +159,13 @@ void __60__RPBroadcastExtensionProxy_establishConnectionWithHandler___block_invo
     if (v10)
     {
       v11 = *(*(a1 + 32) + 72);
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __60__RPBroadcastExtensionProxy_establishConnectionWithHandler___block_invoke_6;
-      v14[3] = &unk_278B61B70;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __60__RPBroadcastExtensionProxy_establishConnectionWithHandler___block_invoke_6;
+      v13[3] = &unk_278B61B70;
       v12 = v7;
-      v15 = v12;
-      [v10 setEndpoint:v11 completionHandler:v14];
+      v14 = v12;
+      [v10 setEndpoint:v11 completionHandler:v13];
       dispatch_semaphore_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
     }
 
@@ -184,42 +179,38 @@ void __60__RPBroadcastExtensionProxy_establishConnectionWithHandler___block_invo
       (*(*(a1 + 40) + 16))();
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 intptr_t __60__RPBroadcastExtensionProxy_establishConnectionWithHandler___block_invoke_6(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136446466;
-    v5 = "[RPBroadcastExtensionProxy establishConnectionWithHandler:]_block_invoke";
-    v6 = 1024;
-    v7 = 87;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Remote endpoint set.", &v4, 0x12u);
+    v3 = 136446466;
+    v4 = "[RPBroadcastExtensionProxy establishConnectionWithHandler:]_block_invoke";
+    v5 = 1024;
+    v6 = 87;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Remote endpoint set.", &v3, 0x12u);
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 32));
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 32));
 }
 
 - (void)invalidateConnection
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     connection = self->_connection;
-    v9 = 136446978;
-    v10 = "[RPBroadcastExtensionProxy invalidateConnection]";
-    v11 = 1024;
-    v12 = 100;
-    v13 = 2048;
+    v8 = 136446978;
+    v9 = "[RPBroadcastExtensionProxy invalidateConnection]";
+    v10 = 1024;
+    v11 = 100;
+    v12 = 2048;
     selfCopy = self;
-    v15 = 2048;
-    v16 = connection;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %p invalidating connection=%p with extension", &v9, 0x26u);
+    v14 = 2048;
+    v15 = connection;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %p invalidating connection=%p with extension", &v8, 0x26u);
   }
 
   [(RPBroadcastExtensionProxy *)self setConnectionReadyHandler:0];
@@ -242,7 +233,6 @@ intptr_t __60__RPBroadcastExtensionProxy_establishConnectionWithHandler___block_
   [broadcastUploadExtension _kill:9];
 
   [(RPBroadcastExtensionProxy *)self setBroadcastUploadExtension:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupNewConnection:(id)connection
@@ -298,15 +288,15 @@ void __48__RPBroadcastExtensionProxy_setupNewConnection___block_invoke_64()
 
 - (void)updateServiceInfo:(id)info
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446466;
-    v8 = "[RPBroadcastExtensionProxy updateServiceInfo:]";
-    v9 = 1024;
-    v10 = 145;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d received serviceInfo", &v7, 0x12u);
+    v6 = 136446466;
+    v7 = "[RPBroadcastExtensionProxy updateServiceInfo:]";
+    v8 = 1024;
+    v9 = 145;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d received serviceInfo", &v6, 0x12u);
   }
 
   serviceInfoHandler = self->_serviceInfoHandler;
@@ -314,21 +304,19 @@ void __48__RPBroadcastExtensionProxy_setupNewConnection___block_invoke_64()
   {
     serviceInfoHandler[2](serviceInfoHandler, infoCopy);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateBroadcastURL:(id)l
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446466;
-    v8 = "[RPBroadcastExtensionProxy updateBroadcastURL:]";
-    v9 = 1024;
-    v10 = 152;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d received broadcastURL", &v7, 0x12u);
+    v6 = 136446466;
+    v7 = "[RPBroadcastExtensionProxy updateBroadcastURL:]";
+    v8 = 1024;
+    v9 = 152;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d received broadcastURL", &v6, 0x12u);
   }
 
   broadcastURLHandler = self->_broadcastURLHandler;
@@ -336,20 +324,18 @@ void __48__RPBroadcastExtensionProxy_setupNewConnection___block_invoke_64()
   {
     broadcastURLHandler[2](broadcastURLHandler, lCopy);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ping
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136446466;
-    v13 = "[RPBroadcastExtensionProxy ping]";
-    v14 = 1024;
-    v15 = 159;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d received ping from extension, notifying handler that connection is ready", &v12, 0x12u);
+    v11 = 136446466;
+    v12 = "[RPBroadcastExtensionProxy ping]";
+    v13 = 1024;
+    v14 = 159;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d received ping from extension, notifying handler that connection is ready", &v11, 0x12u);
   }
 
   connectionReadyHandler = self->_connectionReadyHandler;
@@ -366,19 +352,19 @@ void __48__RPBroadcastExtensionProxy_setupNewConnection___block_invoke_64()
   {
     if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136446978;
-      v13 = "[RPBroadcastExtensionProxy ping]";
-      v14 = 1024;
-      v15 = 172;
-      v16 = 2048;
+      v11 = 136446978;
+      v12 = "[RPBroadcastExtensionProxy ping]";
+      v13 = 1024;
+      v14 = 172;
+      v15 = 2048;
       selfCopy2 = self;
-      v18 = 2048;
-      v19 = currentConnection;
+      v17 = 2048;
+      v18 = currentConnection;
       v7 = MEMORY[0x277D86220];
       v8 = " [INFO] %{public}s:%d %p connection=%p";
       v9 = 38;
 LABEL_13:
-      _os_log_impl(&dword_23A863000, v7, OS_LOG_TYPE_DEFAULT, v8, &v12, v9);
+      _os_log_impl(&dword_23A863000, v7, OS_LOG_TYPE_DEFAULT, v8, &v11, v9);
     }
   }
 
@@ -388,39 +374,37 @@ LABEL_13:
     if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       enableMixedRealityCamera = self->_enableMixedRealityCamera;
-      v12 = 136447234;
-      v13 = "[RPBroadcastExtensionProxy ping]";
-      v14 = 1024;
-      v15 = 170;
-      v16 = 2048;
+      v11 = 136447234;
+      v12 = "[RPBroadcastExtensionProxy ping]";
+      v13 = 1024;
+      v14 = 170;
+      v15 = 2048;
       selfCopy2 = self;
-      v18 = 2048;
-      v19 = currentConnection;
-      v20 = 1024;
-      v21 = enableMixedRealityCamera;
+      v17 = 2048;
+      v18 = currentConnection;
+      v19 = 1024;
+      v20 = enableMixedRealityCamera;
       v7 = MEMORY[0x277D86220];
       v8 = " [INFO] %{public}s:%d %p connection=%p enableMixedRealityCamera=%d";
       v9 = 44;
       goto LABEL_13;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishBroadcastWithError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446722;
-    v8 = "[RPBroadcastExtensionProxy finishBroadcastWithError:]";
-    v9 = 1024;
-    v10 = 177;
-    v11 = 2112;
-    v12 = errorCopy;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d received finish request from service due to error %@", &v7, 0x1Cu);
+    v6 = 136446722;
+    v7 = "[RPBroadcastExtensionProxy finishBroadcastWithError:]";
+    v8 = 1024;
+    v9 = 177;
+    v10 = 2112;
+    v11 = errorCopy;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d received finish request from service due to error %@", &v6, 0x1Cu);
   }
 
   errorHandler = self->_errorHandler;
@@ -428,8 +412,6 @@ LABEL_13:
   {
     errorHandler[2](errorHandler, errorCopy);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processPayload:(id)payload completion:(id)completion
@@ -476,49 +458,39 @@ void __55__RPBroadcastExtensionProxy_processPayload_completion___block_invoke(ui
 
 void __60__RPBroadcastExtensionProxy_establishConnectionWithHandler___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __60__RPBroadcastExtensionProxy_establishConnectionWithHandler___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __48__RPBroadcastExtensionProxy_setupNewConnection___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __48__RPBroadcastExtensionProxy_setupNewConnection___block_invoke_64_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __55__RPBroadcastExtensionProxy_processPayload_completion___block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

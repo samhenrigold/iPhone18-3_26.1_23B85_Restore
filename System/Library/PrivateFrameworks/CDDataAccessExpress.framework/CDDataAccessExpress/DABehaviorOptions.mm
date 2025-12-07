@@ -243,7 +243,7 @@ void __52__DABehaviorOptions__startListeningForNotifications__block_invoke_6(uin
 
 + (BOOL)cookiesEnabled
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (cookiesEnabled___flagChecked != 1 || cookiesEnabled___lastToken != sDABehaviorToken)
   {
     cookiesEnabled___lastToken = sDABehaviorToken;
@@ -261,9 +261,9 @@ void __52__DABehaviorOptions__startListeningForNotifications__block_invoke_6(uin
     }
   }
 
-  v10 = 0;
-  v4 = [DABehaviorOptions _shouldForceCookies:&v10];
-  if (v10 == 1)
+  v9 = 0;
+  v4 = [DABehaviorOptions _shouldForceCookies:&v9];
+  if (v9 == 1)
   {
     v5 = v4;
     v6 = DALoggingwithCategory(0);
@@ -276,7 +276,7 @@ void __52__DABehaviorOptions__startListeningForNotifications__block_invoke_6(uin
       }
 
       *buf = 138412290;
-      v12 = v7;
+      v11 = v7;
       _os_log_impl(&dword_242505000, v6, OS_LOG_TYPE_DEFAULT, "Due to a profile setting, we are forcing cookies to be %@abled", buf, 0xCu);
     }
   }
@@ -286,7 +286,6 @@ void __52__DABehaviorOptions__startListeningForNotifications__block_invoke_6(uin
     LOBYTE(v5) = cookiesEnabled___cookiesEnabled ^ 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5 & 1;
 }
 
@@ -892,38 +891,38 @@ void __43__DABehaviorOptions__daManagedDefaultsPath__block_invoke()
 
 + (void)removeDAManagedDefaults:(id)defaults
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   defaultsCopy = defaults;
   dAManagedDefaults = [objc_opt_class() DAManagedDefaults];
   v5 = [dAManagedDefaults mutableCopy];
 
   if (v5)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v6 = defaultsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [v5 removeObjectForKey:{*(*(&v12 + 1) + 8 * v10++), v12}];
+          [v5 removeObjectForKey:{*(*(&v11 + 1) + 8 * v10++), v11}];
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
@@ -931,8 +930,6 @@ void __43__DABehaviorOptions__daManagedDefaultsPath__block_invoke()
 
     [objc_opt_class() setDAManagedDefaults:v5];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (int64_t)rem_changeTrackingBehaviors

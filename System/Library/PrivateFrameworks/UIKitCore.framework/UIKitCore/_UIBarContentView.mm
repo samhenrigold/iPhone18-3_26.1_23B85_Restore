@@ -431,7 +431,7 @@ LABEL_15:
     v11 = *off_1E70EC918;
     v12 = [_ui_attributesForDictionaryContainingUIStringDrawingKeys objectForKey:*off_1E70EC918];
     v13 = [v10 objectForKey:v11];
-    if (v12 | v13 && ([v12 isEqual:v13] & 1) == 0)
+    if (v12 | v13 && (objc_msgSend_isEqual_(v12) & 1) == 0)
     {
       [(_UIBarContentView *)self _appearanceChanged];
     }

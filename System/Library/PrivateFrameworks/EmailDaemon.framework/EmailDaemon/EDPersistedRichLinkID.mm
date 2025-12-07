@@ -12,12 +12,10 @@
 
 - (NSString)stringValue
 {
-  v2 = *(self + OBJC_IVAR___EDPersistedRichLinkID_stringValue);
-  v3 = *(self + OBJC_IVAR___EDPersistedRichLinkID_stringValue + 8);
 
-  v4 = sub_1C645C844();
+  v2 = sub_1C645C844();
 
-  return v4;
+  return v2;
 }
 
 - (EDPersistedRichLinkID)initWithDatabaseID:(int64_t)d

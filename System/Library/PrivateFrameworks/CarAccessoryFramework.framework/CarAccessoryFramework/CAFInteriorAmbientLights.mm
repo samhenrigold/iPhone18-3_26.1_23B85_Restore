@@ -12,7 +12,9 @@
 - (CAFUInt32Range)brightnessRange;
 - (NSString)primaryColor;
 - (unsigned)brightness;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setBrightness:(unsigned int)brightness;
 - (void)setPrimaryColor:(id)color;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -137,6 +139,13 @@
   return uint32Value;
 }
 
+- (void)setBrightness:(unsigned int)brightness
+{
+  v3 = *&brightness;
+  brightnessCharacteristic = [(CAFInteriorAmbientLights *)self brightnessCharacteristic];
+  [brightnessCharacteristic setUint32Value:v3];
+}
+
 - (CAFUInt32Range)brightnessRange
 {
   brightnessCharacteristic = [(CAFInteriorAmbientLights *)self brightnessCharacteristic];
@@ -193,6 +202,80 @@
   v3 = supportedColorsCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000052000001"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    primaryColorCharacteristic = [(CAFInteriorAmbientLights *)self primaryColorCharacteristic];
+    uniqueIdentifier2 = [primaryColorCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      primaryColor = [(CAFInteriorAmbientLights *)self primaryColor];
+      [observers interiorAmbientLightsService:self didUpdatePrimaryColor:primaryColor];
+LABEL_12:
+
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000052000002"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    brightnessCharacteristic = [(CAFInteriorAmbientLights *)self brightnessCharacteristic];
+    uniqueIdentifier4 = [brightnessCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      [observers interiorAmbientLightsService:self didUpdateBrightness:{-[CAFInteriorAmbientLights brightness](self, "brightness")}];
+LABEL_13:
+
+      goto LABEL_14;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000052000003"])
+  {
+    goto LABEL_13;
+  }
+
+  uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+  supportedColorsCharacteristic = [(CAFInteriorAmbientLights *)self supportedColorsCharacteristic];
+  uniqueIdentifier6 = [supportedColorsCharacteristic uniqueIdentifier];
+  v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+  if (v22)
+  {
+    observers = [(CAFService *)self observers];
+    primaryColor = [(CAFInteriorAmbientLights *)self supportedColors];
+    [observers interiorAmbientLightsService:self didUpdateSupportedColors:primaryColor];
+    goto LABEL_12;
+  }
+
+LABEL_14:
+  v23.receiver = self;
+  v23.super_class = CAFInteriorAmbientLights;
+  [(CAFService *)&v23 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForPrimaryColor

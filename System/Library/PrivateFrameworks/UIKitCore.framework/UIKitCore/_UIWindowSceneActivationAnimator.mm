@@ -359,7 +359,7 @@
   [v7 setCenter:{v24, v26}];
   if (target)
   {
-    [target transform];
+    objc_msgSend_transform(target);
   }
 
   else
@@ -526,8 +526,8 @@
 - (id)_sourceViewContainer
 {
   configuration = [(_UIWindowSceneActivationAnimator *)self configuration];
-  preview = [configuration preview];
-  target = [preview target];
+  v3 = objc_msgSend_preview(configuration);
+  target = [v3 target];
   container = [target container];
 
   return container;

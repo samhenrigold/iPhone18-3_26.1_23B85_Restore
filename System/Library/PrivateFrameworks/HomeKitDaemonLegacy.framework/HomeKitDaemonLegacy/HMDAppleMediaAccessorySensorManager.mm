@@ -63,21 +63,20 @@
 
 - (void)managerIsReadyToBePaired
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@HPSManagerDelegate: manager is ready to be paired", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@HPSManagerDelegate: manager is ready to be paired", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDAppleMediaAccessorySensorManager *)selfCopy cleanUpExistingAccessoriesAndStartADKIfReady];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanUpExistingAccessoriesAndStartADKIfReady
@@ -96,7 +95,7 @@
 
 void __83__HMDAppleMediaAccessorySensorManager_cleanUpExistingAccessoriesAndStartADKIfReady__block_invoke(uint64_t a1, const char *a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -112,12 +111,12 @@ void __83__HMDAppleMediaAccessorySensorManager_cleanUpExistingAccessoriesAndStar
         {
           v6 = [v5 hostUUIDForAppleMediaAccessorySensorManager:v2];
           v7 = [v5 accessoriesWithHostUUID:v6 forAppleMediaAccessorySensorManager:v2];
-          *&v43 = MEMORY[0x277D85DD0];
-          *(&v43 + 1) = 3221225472;
-          v44 = __84__HMDAppleMediaAccessorySensorManager__cleanUpExistingAccessoriesAndStartADKIfReady__block_invoke;
-          v45 = &unk_27972C828;
-          v46 = v2;
-          v8 = [v7 na_filter:&v43];
+          *&v42 = MEMORY[0x277D85DD0];
+          *(&v42 + 1) = 3221225472;
+          v43 = __84__HMDAppleMediaAccessorySensorManager__cleanUpExistingAccessoriesAndStartADKIfReady__block_invoke;
+          v44 = &unk_27972C828;
+          v45 = v2;
+          v8 = [v7 na_filter:&v42];
 
           if ([v8 count])
           {
@@ -132,9 +131,9 @@ void __83__HMDAppleMediaAccessorySensorManager_cleanUpExistingAccessoriesAndStar
               if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
               {
                 v32 = HMFGetLogIdentifier();
-                LODWORD(v39) = 138543362;
-                *(&v39 + 4) = v32;
-                _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Removing unexpected sensor accessories as no sensor should be paired", &v39, 0xCu);
+                LODWORD(v38) = 138543362;
+                *(&v38 + 4) = v32;
+                _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Removing unexpected sensor accessories as no sensor should be paired", &v38, 0xCu);
               }
 
               objc_autoreleasePoolPop(v29);
@@ -142,12 +141,12 @@ void __83__HMDAppleMediaAccessorySensorManager_cleanUpExistingAccessoriesAndStar
               goto LABEL_29;
             }
 
-            *&v39 = MEMORY[0x277D85DD0];
-            *(&v39 + 1) = 3221225472;
-            v40 = __84__HMDAppleMediaAccessorySensorManager__cleanUpExistingAccessoriesAndStartADKIfReady__block_invoke_25;
-            v41 = &unk_27972C828;
-            v42 = v2;
-            v11 = [v8 na_filter:&v39];
+            *&v38 = MEMORY[0x277D85DD0];
+            *(&v38 + 1) = 3221225472;
+            v39 = __84__HMDAppleMediaAccessorySensorManager__cleanUpExistingAccessoriesAndStartADKIfReady__block_invoke_25;
+            v40 = &unk_27972C828;
+            v41 = v2;
+            v11 = [v8 na_filter:&v38];
             if ([v11 count])
             {
               v12 = objc_autoreleasePoolPush();
@@ -191,12 +190,12 @@ void __83__HMDAppleMediaAccessorySensorManager_cleanUpExistingAccessoriesAndStar
             v28 = objc_getProperty(v2, v27, 40, 1);
             *&buf = MEMORY[0x277D85DD0];
             *(&buf + 1) = 3221225472;
-            v36 = __84__HMDAppleMediaAccessorySensorManager__cleanUpExistingAccessoriesAndStartADKIfReady__block_invoke_26;
-            v37 = &unk_27972C850;
-            objc_copyWeak(v38, &location);
+            v35 = __84__HMDAppleMediaAccessorySensorManager__cleanUpExistingAccessoriesAndStartADKIfReady__block_invoke_26;
+            v36 = &unk_27972C850;
+            objc_copyWeak(v37, &location);
             [v28 isReadyToPairWithCompletion:&buf];
 
-            objc_destroyWeak(v38);
+            objc_destroyWeak(v37);
             objc_destroyWeak(&location);
           }
 
@@ -211,9 +210,9 @@ LABEL_29:
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
           v26 = HMFGetLogIdentifier();
-          LODWORD(v43) = 138543362;
-          *(&v43 + 4) = v26;
-          _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Cannot pair/check sensors yet as data source is not ready for pairing", &v43, 0xCu);
+          LODWORD(v42) = 138543362;
+          *(&v42 + 4) = v26;
+          _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Cannot pair/check sensors yet as data source is not ready for pairing", &v42, 0xCu);
         }
       }
 
@@ -225,9 +224,9 @@ LABEL_29:
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
           v25 = HMFGetLogIdentifier();
-          LODWORD(v43) = 138543362;
-          *(&v43 + 4) = v25;
-          _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Cannot pair/check sensors yet as no primary is confirmed", &v43, 0xCu);
+          LODWORD(v42) = 138543362;
+          *(&v42 + 4) = v25;
+          _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Cannot pair/check sensors yet as no primary is confirmed", &v42, 0xCu);
         }
       }
     }
@@ -240,17 +239,15 @@ LABEL_29:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         v24 = HMFGetLogIdentifier();
-        LODWORD(v43) = 138543362;
-        *(&v43 + 4) = v24;
-        _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Cannot check and clean up existing HomePod sensor pairings with nil data source", &v43, 0xCu);
+        LODWORD(v42) = 138543362;
+        *(&v42 + 4) = v24;
+        _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Cannot check and clean up existing HomePod sensor pairings with nil data source", &v42, 0xCu);
       }
     }
 
     objc_autoreleasePoolPop(v21);
 LABEL_30:
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeExistingSensorAccessoriesAndPair:(void *)pair
@@ -280,8 +277,8 @@ uint64_t __84__HMDAppleMediaAccessorySensorManager__cleanUpExistingAccessoriesAn
 
 - (void)_removeExistingSensorAccessories:(void *)accessories completion:
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v21 = a2;
+  v36 = *MEMORY[0x277D85DE8];
+  v20 = a2;
   accessoriesCopy = accessories;
   if (self)
   {
@@ -295,50 +292,50 @@ uint64_t __84__HMDAppleMediaAccessorySensorManager__cleanUpExistingAccessoriesAn
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v34 = v11;
-      v35 = 2112;
-      v36 = v21;
+      v33 = v11;
+      v34 = 2112;
+      v35 = v20;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Removing HomePod sensor accessories %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     objc_initWeak(buf, selfCopy);
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
-    v12 = v21;
-    v13 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v12 = v20;
+    v13 = [v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v13)
     {
-      v14 = *v29;
+      v14 = *v28;
       do
       {
         v15 = 0;
         do
         {
-          if (*v29 != v14)
+          if (*v28 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v28 + 1) + 8 * v15);
+          v16 = *(*(&v27 + 1) + 8 * v15);
           dispatch_group_enter(v7);
-          v24[0] = MEMORY[0x277D85DD0];
-          v24[1] = 3221225472;
-          v24[2] = __83__HMDAppleMediaAccessorySensorManager__removeExistingSensorAccessories_completion___block_invoke;
-          v24[3] = &unk_279731988;
-          objc_copyWeak(&v27, buf);
-          v25 = v7;
-          v26 = v16;
-          [v16 sendRemovalRequestWithCompletion:v24];
+          v23[0] = MEMORY[0x277D85DD0];
+          v23[1] = 3221225472;
+          v23[2] = __83__HMDAppleMediaAccessorySensorManager__removeExistingSensorAccessories_completion___block_invoke;
+          v23[3] = &unk_279731988;
+          objc_copyWeak(&v26, buf);
+          v24 = v7;
+          v25 = v16;
+          [v16 sendRemovalRequestWithCompletion:v23];
 
-          objc_destroyWeak(&v27);
+          objc_destroyWeak(&v26);
           ++v15;
         }
 
         while (v13 != v15);
-        v13 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v13);
@@ -350,18 +347,16 @@ uint64_t __84__HMDAppleMediaAccessorySensorManager__cleanUpExistingAccessoriesAn
     block[2] = __83__HMDAppleMediaAccessorySensorManager__removeExistingSensorAccessories_completion___block_invoke_31;
     block[3] = &unk_279735738;
     block[4] = selfCopy;
-    v23 = accessoriesCopy;
+    v22 = accessoriesCopy;
     dispatch_group_notify(v7, v18, block);
 
     objc_destroyWeak(buf);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __84__HMDAppleMediaAccessorySensorManager__cleanUpExistingAccessoriesAndStartADKIfReady__block_invoke_26(uint64_t a1, char a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
   if (a2)
@@ -377,15 +372,13 @@ void __84__HMDAppleMediaAccessorySensorManager__cleanUpExistingAccessoriesAndSta
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Not starting HomePod Sensor pairing as homepodsensed is not ready", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Not starting HomePod Sensor pairing as homepodsensed is not ready", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkPairingStateAndStartADKIfUnpaired:(void *)unpaired
@@ -406,7 +399,7 @@ void __84__HMDAppleMediaAccessorySensorManager__cleanUpExistingAccessoriesAndSta
 
 void __78__HMDAppleMediaAccessorySensorManager_checkPairingStateAndStartADKIfUnpaired___block_invoke(uint64_t a1, const char *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -439,23 +432,21 @@ void __78__HMDAppleMediaAccessorySensorManager_checkPairingStateAndStartADKIfUnp
       v10 = objc_getProperty(v2, v9, 40, 1);
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v14 = __79__HMDAppleMediaAccessorySensorManager__checkPairingStateAndStartADKIfUnpaired___block_invoke;
-      v15 = &unk_27972C8A0;
-      objc_copyWeak(&v16, &location);
-      v17 = v3;
+      v13 = __79__HMDAppleMediaAccessorySensorManager__checkPairingStateAndStartADKIfUnpaired___block_invoke;
+      v14 = &unk_27972C8A0;
+      objc_copyWeak(&v15, &location);
+      v16 = v3;
       [v10 isPairedWithCompletion:&buf];
 
-      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v15);
       objc_destroyWeak(&location);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HMDAppleMediaAccessorySensorManager__checkPairingStateAndStartADKIfUnpaired___block_invoke(uint64_t a1, char a2, char a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -467,24 +458,24 @@ void __79__HMDAppleMediaAccessorySensorManager__checkPairingStateAndStartADKIfUn
       if ((a3 & 1) != 0 || (*(a1 + 40) & 1) == 0)
       {
         Property = objc_getProperty(WeakRetained, v7, 72, 1);
-        *&v17 = MEMORY[0x277D85DD0];
-        *(&v17 + 1) = 3221225472;
-        v18 = __71__HMDAppleMediaAccessorySensorManager_performPairingFromPairingStatus___block_invoke;
-        v19 = &unk_279735D28;
-        v20 = WeakRetained;
-        v21 = a3;
+        *&v16 = MEMORY[0x277D85DD0];
+        *(&v16 + 1) = 3221225472;
+        v17 = __71__HMDAppleMediaAccessorySensorManager_performPairingFromPairingStatus___block_invoke;
+        v18 = &unk_279735D28;
+        v19 = WeakRetained;
+        v20 = a3;
 LABEL_13:
-        dispatch_async(Property, &v17);
+        dispatch_async(Property, &v16);
         goto LABEL_14;
       }
 
 LABEL_12:
       Property = objc_getProperty(WeakRetained, v7, 72, 1);
-      *&v17 = MEMORY[0x277D85DD0];
-      *(&v17 + 1) = 3221225472;
-      v18 = __67__HMDAppleMediaAccessorySensorManager_startADKAndCheckPairingState__block_invoke;
-      v19 = &unk_279735D00;
-      v20 = WeakRetained;
+      *&v16 = MEMORY[0x277D85DD0];
+      *(&v16 + 1) = 3221225472;
+      v17 = __67__HMDAppleMediaAccessorySensorManager_startADKAndCheckPairingState__block_invoke;
+      v18 = &unk_279735D00;
+      v19 = WeakRetained;
       goto LABEL_13;
     }
 
@@ -494,9 +485,9 @@ LABEL_12:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      LODWORD(v17) = 138543362;
-      *(&v17 + 4) = v15;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unable to check sensor pairing due to xpc client error", &v17, 0xCu);
+      LODWORD(v16) = 138543362;
+      *(&v16 + 4) = v15;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unable to check sensor pairing due to xpc client error", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -513,26 +504,24 @@ LABEL_12:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      LODWORD(v17) = 138543362;
-      *(&v17 + 4) = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Self became nil in _checkPairingStateAndStartADKIfUnpaired", &v17, 0xCu);
+      LODWORD(v16) = 138543362;
+      *(&v16 + 4) = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Self became nil in _checkPairingStateAndStartADKIfUnpaired", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
 
 LABEL_14:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HMDAppleMediaAccessorySensorManager_performPairingFromPairingStatus___block_invoke(uint64_t a1, const char *a2)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (!v2)
   {
-    goto LABEL_42;
+    return;
   }
 
   v3 = *(a1 + 40);
@@ -681,16 +670,16 @@ void __71__HMDAppleMediaAccessorySensorManager_performPairingFromPairingStatus__
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __54__HMDAppleMediaAccessorySensorManager__performPairing__block_invoke;
-          v63 = &unk_279735918;
-          v64 = v45;
-          v65 = v2;
+          v62 = &unk_279735918;
+          v63 = v45;
+          v64 = v2;
           v53 = [v52 addSuccessBlock:buf];
-          v61[0] = MEMORY[0x277D85DD0];
-          v61[1] = 3221225472;
-          v61[2] = __54__HMDAppleMediaAccessorySensorManager__performPairing__block_invoke_42;
-          v61[3] = &unk_2797359D8;
-          v61[4] = v2;
-          v54 = [v52 addFailureBlock:v61];
+          v60[0] = MEMORY[0x277D85DD0];
+          v60[1] = 3221225472;
+          v60[2] = __54__HMDAppleMediaAccessorySensorManager__performPairing__block_invoke_42;
+          v60[3] = &unk_2797359D8;
+          v60[4] = v2;
+          v54 = [v52 addFailureBlock:v60];
         }
 
         else
@@ -750,7 +739,7 @@ void __71__HMDAppleMediaAccessorySensorManager_performPairingFromPairingStatus__
 LABEL_40:
 
 LABEL_41:
-    goto LABEL_42;
+    return;
   }
 
   v6 = objc_autoreleasePoolPush();
@@ -765,8 +754,6 @@ LABEL_41:
   }
 
   objc_autoreleasePoolPop(v6);
-LABEL_42:
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logPairingSuccess:(void *)success error:(uint64_t)error setupFailureReason:
@@ -806,7 +793,7 @@ LABEL_42:
 
 - (void)_updateServiceNameIfRequired
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (self)
   {
     Property = objc_getProperty(self, a2, 72, 1);
@@ -837,44 +824,44 @@ LABEL_42:
 
         if (v10)
         {
-          v30 = 0u;
-          v31 = 0u;
-          v28 = 0u;
           v29 = 0u;
-          v23 = v8;
+          v30 = 0u;
+          v27 = 0u;
+          v28 = 0u;
+          v22 = v8;
           services = [v8 services];
-          v12 = [services countByEnumeratingWithState:&v28 objects:v33 count:16];
+          v12 = [services countByEnumeratingWithState:&v27 objects:v32 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v29;
+            v14 = *v28;
             do
             {
               v15 = 0;
               do
               {
-                if (*v29 != v14)
+                if (*v28 != v14)
                 {
                   objc_enumerationMutation(services);
                 }
 
-                v16 = *(*(&v28 + 1) + 8 * v15);
+                v16 = *(*(&v27 + 1) + 8 * v15);
+                v23 = 0u;
                 v24 = 0u;
                 v25 = 0u;
                 v26 = 0u;
-                v27 = 0u;
                 characteristics = [v16 characteristics];
-                v18 = [characteristics countByEnumeratingWithState:&v24 objects:v32 count:16];
+                v18 = [characteristics countByEnumeratingWithState:&v23 objects:v31 count:16];
                 if (v18)
                 {
                   v19 = v18;
-                  v20 = *v25;
+                  v20 = *v24;
                   do
                   {
                     v21 = 0;
                     do
                     {
-                      if (*v25 != v20)
+                      if (*v24 != v20)
                       {
                         objc_enumerationMutation(characteristics);
                       }
@@ -883,7 +870,7 @@ LABEL_42:
                     }
 
                     while (v19 != v21);
-                    v19 = [characteristics countByEnumeratingWithState:&v24 objects:v32 count:16];
+                    v19 = [characteristics countByEnumeratingWithState:&v23 objects:v31 count:16];
                   }
 
                   while (v19);
@@ -893,24 +880,22 @@ LABEL_42:
               }
 
               while (v15 != v13);
-              v13 = [services countByEnumeratingWithState:&v28 objects:v33 count:16];
+              v13 = [services countByEnumeratingWithState:&v27 objects:v32 count:16];
             }
 
             while (v13);
           }
 
-          v8 = v23;
+          v8 = v22;
         }
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkIfCharacteristicsUpdateServiceName:(void *)name sensorUUID:
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v5 = a2;
   nameCopy = name;
   Property = objc_getProperty(self, v7, 72, 1);
@@ -969,11 +954,11 @@ LABEL_42:
                 if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
                 {
                   v36 = HMFGetLogIdentifier();
-                  v38 = 138543618;
-                  v39 = v36;
-                  v40 = 2112;
-                  v41 = service;
-                  _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@Renaming sensor service as it has no configured name: %@ ", &v38, 0x16u);
+                  v37 = 138543618;
+                  v38 = v36;
+                  v39 = 2112;
+                  v40 = service;
+                  _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@Renaming sensor service as it has no configured name: %@ ", &v37, 0x16u);
                 }
 
                 objc_autoreleasePoolPop(v33);
@@ -989,13 +974,13 @@ LABEL_42:
               if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
               {
                 v32 = HMFGetLogIdentifier();
-                v38 = 138543874;
-                v39 = v32;
-                v40 = 2112;
-                v41 = service;
-                v42 = 2112;
-                v43 = v5;
-                _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Name for sensor service is nil %@/%@", &v38, 0x20u);
+                v37 = 138543874;
+                v38 = v32;
+                v39 = 2112;
+                v40 = service;
+                v41 = 2112;
+                v42 = v5;
+                _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Name for sensor service is nil %@/%@", &v37, 0x20u);
               }
 
               objc_autoreleasePoolPop(v29);
@@ -1017,11 +1002,11 @@ LABEL_42:
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           v28 = HMFGetLogIdentifier();
-          v38 = 138543618;
-          v39 = v28;
-          v40 = 2112;
-          v41 = v5;
-          _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@No accessory for characteristic: %@", &v38, 0x16u);
+          v37 = 138543618;
+          v38 = v28;
+          v39 = 2112;
+          v40 = v5;
+          _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@No accessory for characteristic: %@", &v37, 0x16u);
         }
 
         objc_autoreleasePoolPop(v25);
@@ -1037,22 +1022,20 @@ LABEL_42:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       v24 = HMFGetLogIdentifier();
-      v38 = 138543618;
-      v39 = v24;
-      v40 = 2112;
-      v41 = v5;
-      _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@No service for characteristic: %@", &v38, 0x16u);
+      v37 = 138543618;
+      v38 = v24;
+      v39 = 2112;
+      v40 = v5;
+      _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@No service for characteristic: %@", &v37, 0x16u);
     }
 
     objc_autoreleasePoolPop(v21);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_readCharacteristicAndUpdateNameIfNeeded:(void *)needed
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
   Property = objc_getProperty(needed, v4, 72, 1);
   dispatch_assert_queue_V2(Property);
@@ -1068,26 +1051,26 @@ LABEL_42:
       v11 = HMFGetLogIdentifier();
       service = [v3 service];
       *buf = 138543874;
-      v23 = v11;
-      v24 = 2112;
-      v25 = service;
-      v26 = 2112;
-      v27 = v3;
+      v22 = v11;
+      v23 = 2112;
+      v24 = service;
+      v25 = 2112;
+      v26 = v3;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Locally reading name for sensor service %@/%@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
     v13 = [HMDCharacteristicRequest requestWithCharacteristic:v3];
-    v21 = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+    v20 = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
     v16 = objc_getProperty(neededCopy, v15, 72, 1);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __80__HMDAppleMediaAccessorySensorManager__readCharacteristicAndUpdateNameIfNeeded___block_invoke;
-    v19[3] = &unk_279733A70;
-    v19[4] = neededCopy;
-    v20 = v3;
-    [accessory readCharacteristicValues:v14 source:1160 queue:v16 completionHandler:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __80__HMDAppleMediaAccessorySensorManager__readCharacteristicAndUpdateNameIfNeeded___block_invoke;
+    v18[3] = &unk_279733A70;
+    v18[4] = neededCopy;
+    v19 = v3;
+    [accessory readCharacteristicValues:v14 source:1160 queue:v16 completionHandler:v18];
   }
 
   else
@@ -1096,21 +1079,19 @@ LABEL_42:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v17;
-      v24 = 2112;
-      v25 = v3;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v3;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@No accessory for characteristic: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateServiceName:(void *)name service:(void *)service accessoryUUID:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v7 = a2;
   nameCopy = name;
   serviceCopy = service;
@@ -1141,15 +1122,15 @@ LABEL_42:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         v19 = HMFGetLogIdentifier();
-        v22 = 138544130;
-        v23 = v19;
-        v24 = 2112;
-        v25 = nameCopy;
-        v26 = 2112;
-        v27 = serviceCopy;
-        v28 = 2112;
-        v29 = v7;
-        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Renaming service %@ on accessory %@ to %@ after sensor pairing", &v22, 0x2Au);
+        v21 = 138544130;
+        v22 = v19;
+        v23 = 2112;
+        v24 = nameCopy;
+        v25 = 2112;
+        v26 = serviceCopy;
+        v27 = 2112;
+        v28 = v7;
+        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Renaming service %@ on accessory %@ to %@ after sensor pairing", &v21, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -1157,8 +1138,6 @@ LABEL_42:
       [WeakRetained renameService:nameCopy name:v7];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_readDefaultSensorNameAndUpdateToNameIfNeeded:(void *)needed service:(void *)service accessoryUUID:
@@ -1185,7 +1164,7 @@ LABEL_42:
 
 void __107__HMDAppleMediaAccessorySensorManager__readDefaultSensorNameAndUpdateToNameIfNeeded_service_accessoryUUID___block_invoke(id *a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -1226,10 +1205,10 @@ void __107__HMDAppleMediaAccessorySensorManager__readDefaultSensorNameAndUpdateT
       block[2] = __107__HMDAppleMediaAccessorySensorManager__readDefaultSensorNameAndUpdateToNameIfNeeded_service_accessoryUUID___block_invoke_61;
       block[3] = &unk_2797352C0;
       block[4] = v15;
-      v18 = a1[6];
-      v19 = v4;
-      v20 = a1[5];
-      v21 = a1[7];
+      v17 = a1[6];
+      v18 = v4;
+      v19 = a1[5];
+      v20 = a1[7];
       dispatch_async(Property, block);
     }
   }
@@ -1243,7 +1222,7 @@ void __107__HMDAppleMediaAccessorySensorManager__readDefaultSensorNameAndUpdateT
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v10;
+      v22 = v10;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Fetched nil sensor name from adk", buf, 0xCu);
     }
 
@@ -1251,13 +1230,11 @@ void __107__HMDAppleMediaAccessorySensorManager__readDefaultSensorNameAndUpdateT
   }
 
 LABEL_12:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __107__HMDAppleMediaAccessorySensorManager__readDefaultSensorNameAndUpdateToNameIfNeeded_service_accessoryUUID___block_invoke_61(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1267,20 +1244,19 @@ void __107__HMDAppleMediaAccessorySensorManager__readDefaultSensorNameAndUpdateT
     v6 = [*(a1 + 40) name];
     v7 = [*(a1 + 40) getConfiguredName];
     v8 = *(a1 + 48);
-    v10 = 138544130;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v8;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Renaming sensor service as name (%@) or configured name (%@) matches default accessory name: %@", &v10, 0x2Au);
+    v9 = 138544130;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v8;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Renaming sensor service as name (%@) or configured name (%@) matches default accessory name: %@", &v9, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v2);
   [(HMDAppleMediaAccessorySensorManager *)*(a1 + 32) _updateServiceName:*(a1 + 40) service:*(a1 + 64) accessoryUUID:?];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __80__HMDAppleMediaAccessorySensorManager__readCharacteristicAndUpdateNameIfNeeded___block_invoke(uint64_t a1, void *a2)
@@ -1309,26 +1285,24 @@ void __80__HMDAppleMediaAccessorySensorManager__readCharacteristicAndUpdateNameI
 
   else
   {
-    v9 = objc_autoreleasePoolPush();
-    v10 = *(a1 + 32);
-    v11 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = objc_autoreleasePoolPush();
+    v11 = *(a1 + 32);
+    v12 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v12 = HMFGetLogIdentifier();
-      v13 = *(a1 + 40);
+      v13 = HMFGetLogIdentifier();
+      v14 = *(a1 + 40);
       v15 = 138543874;
-      v16 = v12;
+      v16 = v13;
       v17 = 2112;
-      v18 = v13;
+      v18 = v14;
       v19 = 2112;
       v20 = v3;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Local read of name for %@ did not succeed: %@", &v15, 0x20u);
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Local read of name for %@ did not succeed: %@", &v15, 0x20u);
     }
 
-    objc_autoreleasePoolPop(v9);
+    objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __80__HMDAppleMediaAccessorySensorManager__readCharacteristicAndUpdateNameIfNeeded___block_invoke_58(uint64_t a1, void *a2)
@@ -1375,16 +1349,14 @@ void __65__HMDAppleMediaAccessorySensorManager__resetSensorPairingAndPair__block
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = HMFGetLogIdentifier();
+      v10 = HMFGetLogIdentifier();
       v11 = 138543362;
-      v12 = v9;
+      v12 = v10;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unable to reset HomePod sensor due to xpc client error", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetWithCompletion:(void *)completion
@@ -1409,7 +1381,7 @@ void __65__HMDAppleMediaAccessorySensorManager__resetSensorPairingAndPair__block
 
 void __54__HMDAppleMediaAccessorySensorManager__performPairing__block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1 + 32) accountHasSentinelZoneForAppleMediaAccessorySensorManager:*(a1 + 40)])
   {
@@ -1420,7 +1392,7 @@ void __54__HMDAppleMediaAccessorySensorManager__performPairing__block_invoke(uin
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v7;
+      v26 = v7;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Cannot pair HomePod sensor as sentinel zone was detected in HH1, relaunch imminent", buf, 0xCu);
     }
 
@@ -1443,7 +1415,7 @@ void __54__HMDAppleMediaAccessorySensorManager__performPairing__block_invoke(uin
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v15;
+      v26 = v15;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Starting HomePod Sensor pairing", buf, 0xCu);
     }
 
@@ -1456,27 +1428,25 @@ void __54__HMDAppleMediaAccessorySensorManager__performPairing__block_invoke(uin
     }
 
     v18 = Property;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __54__HMDAppleMediaAccessorySensorManager__performPairing__block_invoke_33;
-    v22[3] = &unk_27972C8C8;
-    objc_copyWeak(&v25, buf);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __54__HMDAppleMediaAccessorySensorManager__performPairing__block_invoke_33;
+    v21[3] = &unk_27972C8C8;
+    objc_copyWeak(&v24, buf);
     v19 = v10;
-    v23 = v19;
+    v22 = v19;
     v20 = v11;
-    v24 = v20;
-    [v18 setupPairing:v19 uuid:v20 completion:v22];
+    v23 = v20;
+    [v18 setupPairing:v19 uuid:v20 completion:v21];
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(buf);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDAppleMediaAccessorySensorManager__performPairing__block_invoke_42(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1484,9 +1454,9 @@ void __54__HMDAppleMediaAccessorySensorManager__performPairing__block_invoke_42(
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v7;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Cannot pair HomePod sensor as zone fetch succeeded future failed", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v7;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Cannot pair HomePod sensor as zone fetch succeeded future failed", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -1495,12 +1465,11 @@ void __54__HMDAppleMediaAccessorySensorManager__performPairing__block_invoke_42(
   [(HMDAppleMediaAccessorySensorManager *)v8 logPairingSuccess:v9 error:11 setupFailureReason:?];
 
   [HMDAppleMediaAccessorySensorManager setIsCurrentlyPairing:?];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDAppleMediaAccessorySensorManager__performPairing__block_invoke_33(uint64_t a1, int a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v7 = objc_autoreleasePoolPush();
@@ -1510,18 +1479,18 @@ void __54__HMDAppleMediaAccessorySensorManager__performPairing__block_invoke_33(
   {
     v10 = HMFGetLogIdentifier();
     v11 = @"failed with xpc error";
-    *v21 = 138543874;
-    *&v21[4] = v10;
-    *&v21[12] = 2112;
+    *v20 = 138543874;
+    *&v20[4] = v10;
+    *&v20[12] = 2112;
     if (a2)
     {
       v11 = @"completed";
     }
 
-    *&v21[14] = v11;
-    *&v21[22] = 2112;
-    v22 = v5;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@HomePod Sensor pairing %@ - pairing URI: %@", v21, 0x20u);
+    *&v20[14] = v11;
+    *&v20[22] = 2112;
+    v21 = v5;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@HomePod Sensor pairing %@ - pairing URI: %@", v20, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -1535,37 +1504,35 @@ void __54__HMDAppleMediaAccessorySensorManager__performPairing__block_invoke_33(
     if (v8)
     {
       Property = objc_getProperty(v8, v16, 72, 1);
-      *v21 = MEMORY[0x277D85DD0];
-      *&v21[8] = 3221225472;
-      *&v21[16] = __75__HMDAppleMediaAccessorySensorManager_pairWithURI_authToken_authTokenUUID___block_invoke;
-      v22 = &unk_279734870;
-      v23 = v8;
-      v24 = v14;
-      v25 = v15;
-      v26 = v17;
-      dispatch_async(Property, v21);
+      *v20 = MEMORY[0x277D85DD0];
+      *&v20[8] = 3221225472;
+      *&v20[16] = __75__HMDAppleMediaAccessorySensorManager_pairWithURI_authToken_authTokenUUID___block_invoke;
+      v21 = &unk_279734870;
+      v22 = v8;
+      v23 = v14;
+      v24 = v15;
+      v25 = v17;
+      dispatch_async(Property, v20);
     }
   }
 
   else
   {
-    v19 = [MEMORY[0x277CCA9B8] hmErrorWithCode:{-1, *v21, *&v21[8]}];
+    v19 = [MEMORY[0x277CCA9B8] hmErrorWithCode:{-1, *v20, *&v20[8]}];
     [(HMDAppleMediaAccessorySensorManager *)v8 logPairingSuccess:v19 error:4 setupFailureReason:?];
 
     [HMDAppleMediaAccessorySensorManager setIsCurrentlyPairing:v8];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HMDAppleMediaAccessorySensorManager_pairWithURI_authToken_authTokenUUID___block_invoke(uint64_t a1)
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 48);
   v3 = *(a1 + 56);
   v4 = *(a1 + 40);
-  v42 = v2;
+  v41 = v2;
   v6 = v3;
   if (v1)
   {
@@ -1636,10 +1603,10 @@ LABEL_15:
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __86__HMDAppleMediaAccessorySensorManager_performLocalAddWithDataSource_setupDescription___block_invoke;
-          v45 = &unk_279734708;
-          objc_copyWeak(v46, &location);
+          v44 = &unk_279734708;
+          objc_copyWeak(v45, &location);
           [v34 performLocalAddAccessoryWithDescription:v35 progressHandlerDelegate:v28 completion:buf];
-          objc_destroyWeak(v46);
+          objc_destroyWeak(v45);
           objc_destroyWeak(&location);
         }
 
@@ -1706,8 +1673,6 @@ LABEL_23:
   }
 
 LABEL_24:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __86__HMDAppleMediaAccessorySensorManager_performLocalAddWithDataSource_setupDescription___block_invoke(uint64_t a1, void *a2)
@@ -1730,7 +1695,7 @@ void __86__HMDAppleMediaAccessorySensorManager_performLocalAddWithDataSource_set
 
 void __72__HMDAppleMediaAccessorySensorManager_handleLocalAddCompletedWithError___block_invoke(uint64_t a1)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v3 = *(a1 + 40);
   if (v1)
@@ -1753,7 +1718,7 @@ void __72__HMDAppleMediaAccessorySensorManager_handleLocalAddCompletedWithError_
         *&buf[12] = 2112;
         *&buf[14] = objc_getProperty(v8, v12, 56, 1);
         *&buf[22] = 2112;
-        v27 = v3;
+        v26 = v3;
         _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to add HomePod sensor accessory: %@ - %@", buf, 0x20u);
       }
 
@@ -1766,10 +1731,10 @@ void __72__HMDAppleMediaAccessorySensorManager_handleLocalAddCompletedWithError_
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __73__HMDAppleMediaAccessorySensorManager__handleLocalAddCompletedWithError___block_invoke;
-      v27 = &unk_27972C850;
-      objc_copyWeak(v28, &location);
+      v26 = &unk_27972C850;
+      objc_copyWeak(v27, &location);
       [(HMDAppleMediaAccessorySensorManager *)v8 _resetWithCompletion:buf];
-      objc_destroyWeak(v28);
+      objc_destroyWeak(v27);
       objc_destroyWeak(&location);
       v16 = 7;
     }
@@ -1804,13 +1769,11 @@ void __72__HMDAppleMediaAccessorySensorManager_handleLocalAddCompletedWithError_
     [v6 stopDiscoveringForUnpairedAccessoriesWithLinkType:1];
     [(HMDAppleMediaAccessorySensorManager *)v8 logPairingSuccess:v3 error:v16 setupFailureReason:?];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HMDAppleMediaAccessorySensorManager__handleLocalAddCompletedWithError___block_invoke(uint64_t a1, char a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [HMDAppleMediaAccessorySensorManager setIsCurrentlyPairing:?];
   v4 = objc_autoreleasePoolPush();
@@ -1822,21 +1785,21 @@ void __73__HMDAppleMediaAccessorySensorManager__handleLocalAddCompletedWithError
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = HMFGetLogIdentifier();
-      LODWORD(v13) = 138543362;
-      *(&v13 + 4) = v8;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Reset HomePod sensor after failed pairing", &v13, 0xCu);
+      LODWORD(v12) = 138543362;
+      *(&v12 + 4) = v8;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Reset HomePod sensor after failed pairing", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     if (v5)
     {
       Property = objc_getProperty(v5, v9, 72, 1);
-      *&v13 = MEMORY[0x277D85DD0];
-      *(&v13 + 1) = 3221225472;
-      v14 = __60__HMDAppleMediaAccessorySensorManager_scheduleRetryIfNeeded__block_invoke;
-      v15 = &unk_279735D00;
-      v16 = v5;
-      dispatch_async(Property, &v13);
+      *&v12 = MEMORY[0x277D85DD0];
+      *(&v12 + 1) = 3221225472;
+      v13 = __60__HMDAppleMediaAccessorySensorManager_scheduleRetryIfNeeded__block_invoke;
+      v14 = &unk_279735D00;
+      v15 = v5;
+      dispatch_async(Property, &v12);
     }
   }
 
@@ -1845,20 +1808,18 @@ void __73__HMDAppleMediaAccessorySensorManager__handleLocalAddCompletedWithError
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      LODWORD(v13) = 138543362;
-      *(&v13 + 4) = v11;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unable to reset HomePod sensor due to xpc client error", &v13, 0xCu);
+      LODWORD(v12) = 138543362;
+      *(&v12 + 4) = v11;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unable to reset HomePod sensor due to xpc client error", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HMDAppleMediaAccessorySensorManager_scheduleRetryIfNeeded__block_invoke(uint64_t a1, const char *a2)
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -1895,7 +1856,7 @@ void __60__HMDAppleMediaAccessorySensorManager_scheduleRetryIfNeeded__block_invo
           *&buf[12] = 2048;
           *&buf[14] = v5;
           *&buf[22] = 2048;
-          v22 = [v6 integerValue];
+          v21 = [v6 integerValue];
           _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Will retry (# %ld) HomePod sensor pairing after %ld sec", buf, 0x20u);
         }
 
@@ -1906,13 +1867,13 @@ void __60__HMDAppleMediaAccessorySensorManager_scheduleRetryIfNeeded__block_invo
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __61__HMDAppleMediaAccessorySensorManager__scheduleRetryIfNeeded__block_invoke;
-        v22 = &unk_279731C88;
-        objc_copyWeak(v23, &location);
-        v23[1] = v5;
+        v21 = &unk_279731C88;
+        objc_copyWeak(v22, &location);
+        v22[1] = v5;
         v14 = objc_getProperty(v8, v13, 72, 1);
         [WeakRetained performAfterDelay:buf block:v14 queue:v12];
 
-        objc_destroyWeak(v23);
+        objc_destroyWeak(v22);
         objc_destroyWeak(&location);
       }
     }
@@ -1933,8 +1894,6 @@ void __60__HMDAppleMediaAccessorySensorManager_scheduleRetryIfNeeded__block_invo
       objc_autoreleasePoolPop(v15);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HMDAppleMediaAccessorySensorManager__scheduleRetryIfNeeded__block_invoke(uint64_t a1)
@@ -1963,13 +1922,11 @@ void __61__HMDAppleMediaAccessorySensorManager__scheduleRetryIfNeeded__block_inv
     objc_autoreleasePoolPop(v3);
     [(HMDAppleMediaAccessorySensorManager *)v4 cleanUpExistingAccessoriesAndStartADKIfReady];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HMDAppleMediaAccessorySensorManager_startADKAndCheckPairingState__block_invoke(uint64_t a1, const char *a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -1999,21 +1956,19 @@ void __67__HMDAppleMediaAccessorySensorManager_startADKAndCheckPairingState__blo
       objc_initWeak(&location, v2);
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v12 = __68__HMDAppleMediaAccessorySensorManager__startADKAndCheckPairingState__block_invoke;
-      v13 = &unk_27972C850;
-      objc_copyWeak(v14, &location);
+      v11 = __68__HMDAppleMediaAccessorySensorManager__startADKAndCheckPairingState__block_invoke;
+      v12 = &unk_27972C850;
+      objc_copyWeak(v13, &location);
       [(HMDAppleMediaAccessorySensorManager *)v2 startSensorClientWithCompletion:?];
-      objc_destroyWeak(v14);
+      objc_destroyWeak(v13);
       objc_destroyWeak(&location);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HMDAppleMediaAccessorySensorManager__startADKAndCheckPairingState__block_invoke(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
   if (a2 && WeakRetained)
@@ -2029,20 +1984,18 @@ void __68__HMDAppleMediaAccessorySensorManager__startADKAndCheckPairingState__bl
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Starting the HomePod sensor manager to check pairing failed", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Starting the HomePod sensor manager to check pairing failed", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSensorClientWithCompletion:(uint64_t)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (completion)
   {
@@ -2060,7 +2013,7 @@ void __68__HMDAppleMediaAccessorySensorManager__startADKAndCheckPairingState__bl
       {
         v10 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v23 = v10;
+        v22 = v10;
         _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Already in the process of pairing, not starting adk again", buf, 0xCu);
       }
     }
@@ -2073,17 +2026,17 @@ void __68__HMDAppleMediaAccessorySensorManager__startADKAndCheckPairingState__bl
         *(completion + 14) = 1;
         os_unfair_lock_unlock((completion + 8));
         objc_initWeak(buf, completion);
-        v16 = MEMORY[0x277D85DD0];
-        v17 = 3221225472;
-        v18 = __71__HMDAppleMediaAccessorySensorManager_startSensorClientWithCompletion___block_invoke;
-        v19 = &unk_279730A10;
-        objc_copyWeak(&v21, buf);
-        v20 = v4;
-        v12 = _Block_copy(&v16);
+        v15 = MEMORY[0x277D85DD0];
+        v16 = 3221225472;
+        v17 = __71__HMDAppleMediaAccessorySensorManager_startSensorClientWithCompletion___block_invoke;
+        v18 = &unk_279730A10;
+        objc_copyWeak(&v20, buf);
+        v19 = v4;
+        v12 = _Block_copy(&v15);
         v14 = objc_getProperty(completion, v13, 40, 1);
-        [v14 startWithCompletion:{v12, v16, v17, v18, v19}];
+        [v14 startWithCompletion:{v12, v15, v16, v17, v18}];
 
-        objc_destroyWeak(&v21);
+        objc_destroyWeak(&v20);
         objc_destroyWeak(buf);
         goto LABEL_11;
       }
@@ -2096,7 +2049,7 @@ void __68__HMDAppleMediaAccessorySensorManager__startADKAndCheckPairingState__bl
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v23 = v11;
+        v22 = v11;
         _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Not starting the ADK while a start is already in progress", buf, 0xCu);
       }
     }
@@ -2106,13 +2059,11 @@ void __68__HMDAppleMediaAccessorySensorManager__startADKAndCheckPairingState__bl
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HMDAppleMediaAccessorySensorManager_startSensorClientWithCompletion___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -2129,20 +2080,18 @@ void __71__HMDAppleMediaAccessorySensorManager_startSensorClientWithCompletion__
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = HMFGetLogIdentifier();
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_ERROR, "%{public}@Self became nil in startSensorClientWithCompletion", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_ERROR, "%{public}@Self became nil in startSensorClientWithCompletion", &v6, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __83__HMDAppleMediaAccessorySensorManager__removeExistingSensorAccessories_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   dispatch_group_leave(*(a1 + 32));
@@ -2156,18 +2105,18 @@ void __83__HMDAppleMediaAccessorySensorManager__removeExistingSensorAccessories_
     {
       v9 = HMFGetLogIdentifier();
       v10 = *(a1 + 40);
-      v17 = 138543874;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v10;
-      v21 = 2112;
-      v22 = v3;
+      v16 = 138543874;
+      v17 = v9;
+      v18 = 2112;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v3;
       v11 = "%{public}@Unable to remove existing HomePod sensor accessory: %@ - %@";
       v12 = v8;
       v13 = OS_LOG_TYPE_ERROR;
       v14 = 32;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v12, v13, v11, &v17, v14);
+      _os_log_impl(&dword_2531F8000, v12, v13, v11, &v16, v14);
     }
   }
 
@@ -2175,10 +2124,10 @@ LABEL_6:
   {
     v9 = HMFGetLogIdentifier();
     v15 = *(a1 + 40);
-    v17 = 138543618;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v15;
+    v16 = 138543618;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v15;
     v11 = "%{public}@Removed HomePod sensor accessory %@";
     v12 = v8;
     v13 = OS_LOG_TYPE_INFO;
@@ -2187,37 +2136,35 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v5);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __83__HMDAppleMediaAccessorySensorManager__removeExistingSensorAccessories_completion___block_invoke_31(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Removed HomePod sensor accessories", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Removed HomePod sensor accessories", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __79__HMDAppleMediaAccessorySensorManager__removeExistingSensorAccessoriesAndPair___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = objc_autoreleasePoolPush();
   v3 = WeakRetained;
@@ -2226,7 +2173,7 @@ void __79__HMDAppleMediaAccessorySensorManager__removeExistingSensorAccessoriesA
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v11 = v5;
+    v10 = v5;
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Resetting sensor uuid after sensor removal", buf, 0xCu);
   }
 
@@ -2242,14 +2189,12 @@ void __79__HMDAppleMediaAccessorySensorManager__removeExistingSensorAccessoriesA
     Property = 0;
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __79__HMDAppleMediaAccessorySensorManager__removeExistingSensorAccessoriesAndPair___block_invoke_32;
-  v9[3] = &unk_2797359D8;
-  v9[4] = v3;
-  [Property saveSensorUUID:0 completion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __79__HMDAppleMediaAccessorySensorManager__removeExistingSensorAccessoriesAndPair___block_invoke_32;
+  v8[3] = &unk_2797359D8;
+  v8[4] = v3;
+  [Property saveSensorUUID:0 completion:v8];
 }
 
 void __79__HMDAppleMediaAccessorySensorManager__removeExistingSensorAccessoriesAndPair___block_invoke_32(uint64_t a1, const char *a2)
@@ -2292,35 +2237,30 @@ void __79__HMDAppleMediaAccessorySensorManager__removeExistingSensorAccessoriesA
 
 uint64_t __70__HMDAppleMediaAccessorySensorManager_fetchADKSensorStatusCompletion___block_invoke(uint64_t a1, char a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
-    v5 = *MEMORY[0x277D85DE8];
+    v3 = *(*(a1 + 40) + 16);
 
-    return v4();
+    return v3();
   }
 
   else
   {
-    v7 = objc_autoreleasePoolPush();
-    v8 = *(a1 + 32);
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v5 = objc_autoreleasePoolPush();
+    v6 = *(a1 + 32);
+    v7 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch sensor status from adk", &v12, 0xCu);
+      v8 = HMFGetLogIdentifier();
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch sensor status from adk", &v9, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v7);
-    result = (*(*(a1 + 40) + 16))();
-    v11 = *MEMORY[0x277D85DE8];
+    objc_autoreleasePoolPop(v5);
+    return (*(*(a1 + 40) + 16))();
   }
-
-  return result;
 }
 
 - (void)handleCharacteristicsChangedNotification:(id)notification
@@ -2348,9 +2288,9 @@ uint64_t __70__HMDAppleMediaAccessorySensorManager_fetchADKSensorStatusCompletio
 
 void __80__HMDAppleMediaAccessorySensorManager_handleCharacteristicsChangedNotification___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v11 = [*(a1 + 40) userInfo];
+  v10 = [*(a1 + 40) userInfo];
   if (v1)
   {
     Property = objc_getProperty(v1, v2, 72, 1);
@@ -2358,21 +2298,21 @@ void __80__HMDAppleMediaAccessorySensorManager_handleCharacteristicsChangedNotif
     v4 = [v1 sensorAccessoryUUID];
     if (v4)
     {
-      v5 = [v11 hmf_arrayForKey:@"kModifiedCharacteristicsKey"];
+      v5 = [v10 hmf_arrayForKey:@"kModifiedCharacteristicsKey"];
+      v11 = 0u;
       v12 = 0u;
       v13 = 0u;
       v14 = 0u;
-      v15 = 0u;
-      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v13;
+        v8 = *v12;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v13 != v8)
+            if (*v12 != v8)
             {
               objc_enumerationMutation(v5);
             }
@@ -2380,15 +2320,13 @@ void __80__HMDAppleMediaAccessorySensorManager_handleCharacteristicsChangedNotif
             [(HMDAppleMediaAccessorySensorManager *)v1 _checkIfCharacteristicsUpdateServiceName:v4 sensorUUID:?];
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
         }
 
         while (v7);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryAdded:(id)added
@@ -2463,7 +2401,7 @@ LABEL_15:
 
 - (void)localAccessoryAddRequiresConsent:(id)consent
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   consentCopy = consent;
   if (self)
   {
@@ -2487,11 +2425,11 @@ LABEL_15:
             v13 = HMFGetLogIdentifier();
             sensorAccessoryUUID2 = [(HMDAppleMediaAccessorySensorManager *)selfCopy sensorAccessoryUUID];
             *buf = 138543874;
-            v36 = v13;
-            v37 = 2112;
-            v38 = consentCopy;
-            v39 = 2112;
-            v40 = sensorAccessoryUUID2;
+            v35 = v13;
+            v36 = 2112;
+            v37 = consentCopy;
+            v38 = 2112;
+            v39 = sensorAccessoryUUID2;
             _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Pairing sensor UUID %@ when we already have a paired sensor: %@", buf, 0x20u);
           }
 
@@ -2511,9 +2449,9 @@ LABEL_15:
         {
           v32 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v36 = v32;
-          v37 = 2112;
-          v38 = consentCopy;
+          v35 = v32;
+          v36 = 2112;
+          v37 = consentCopy;
           _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Confirming HomePod sensor with UUID %@ is allowed to be added locally", buf, 0x16u);
         }
 
@@ -2533,9 +2471,9 @@ LABEL_15:
         {
           v27 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v36 = v27;
-          v37 = 2112;
-          v38 = consentCopy;
+          v35 = v27;
+          v36 = 2112;
+          v37 = consentCopy;
           _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Not consenting to accessory local add for %@ as data source is no longer ready for pairing", buf, 0x16u);
         }
 
@@ -2559,16 +2497,14 @@ LABEL_18:
   {
     v23 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v36 = v23;
-    v37 = 2112;
-    v38 = consentCopy;
+    v35 = v23;
+    v36 = 2112;
+    v37 = consentCopy;
     _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Not consenting to accessory local add for %@ with nil data source", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v20);
 LABEL_19:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleErrorCaseTestMessage:(id)message
@@ -2730,20 +2666,20 @@ void __66__HMDAppleMediaAccessorySensorManager_handleErrorCaseTestMessage___bloc
 
 void __66__HMDAppleMediaAccessorySensorManager_handleErrorCaseTestMessage___block_invoke_5(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 56) == 1)
   {
     dispatch_group_enter(*(a1 + 32));
     v2 = *(a1 + 40);
-    v14[0] = *(a1 + 48);
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __66__HMDAppleMediaAccessorySensorManager_handleErrorCaseTestMessage___block_invoke_6;
-    v11[3] = &unk_279735D00;
-    v4 = &v12;
-    v12 = *(a1 + 32);
-    [(HMDAppleMediaAccessorySensorManager *)v2 _removeExistingSensorAccessories:v3 completion:v11];
+    v13[0] = *(a1 + 48);
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __66__HMDAppleMediaAccessorySensorManager_handleErrorCaseTestMessage___block_invoke_6;
+    v10[3] = &unk_279735D00;
+    v4 = &v11;
+    v11 = *(a1 + 32);
+    [(HMDAppleMediaAccessorySensorManager *)v2 _removeExistingSensorAccessories:v3 completion:v10];
 
     v5 = [MEMORY[0x277CCAD78] UUID];
     [*(a1 + 40) setSensorAccessoryUUID:v5];
@@ -2756,15 +2692,15 @@ LABEL_5:
   {
     dispatch_group_enter(*(a1 + 32));
     v6 = *(a1 + 40);
-    v13 = *(a1 + 48);
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __66__HMDAppleMediaAccessorySensorManager_handleErrorCaseTestMessage___block_invoke_7;
-    v9[3] = &unk_279735D00;
-    v4 = &v10;
-    v10 = *(a1 + 32);
-    [(HMDAppleMediaAccessorySensorManager *)v6 _removeExistingSensorAccessories:v7 completion:v9];
+    v12 = *(a1 + 48);
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __66__HMDAppleMediaAccessorySensorManager_handleErrorCaseTestMessage___block_invoke_7;
+    v8[3] = &unk_279735D00;
+    v4 = &v9;
+    v9 = *(a1 + 32);
+    [(HMDAppleMediaAccessorySensorManager *)v6 _removeExistingSensorAccessories:v7 completion:v8];
 
     [*(a1 + 40) setSensorAccessoryUUID:0];
     goto LABEL_5;
@@ -2772,7 +2708,6 @@ LABEL_5:
 
 LABEL_6:
   dispatch_group_leave(*(a1 + 32));
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__HMDAppleMediaAccessorySensorManager_handleErrorCaseTestMessage___block_invoke_8(uint64_t a1, const char *a2)
@@ -2785,20 +2720,20 @@ uint64_t __66__HMDAppleMediaAccessorySensorManager_handleErrorCaseTestMessage___
 
 void __66__HMDAppleMediaAccessorySensorManager_handleErrorCaseTestMessage___block_invoke_2(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 56) == 1)
   {
     dispatch_group_enter(*(a1 + 32));
     v2 = *(a1 + 40);
-    v14[0] = *(a1 + 48);
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __66__HMDAppleMediaAccessorySensorManager_handleErrorCaseTestMessage___block_invoke_3;
-    v11[3] = &unk_279735D00;
-    v4 = &v12;
-    v12 = *(a1 + 32);
-    [(HMDAppleMediaAccessorySensorManager *)v2 _removeExistingSensorAccessories:v3 completion:v11];
+    v13[0] = *(a1 + 48);
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __66__HMDAppleMediaAccessorySensorManager_handleErrorCaseTestMessage___block_invoke_3;
+    v10[3] = &unk_279735D00;
+    v4 = &v11;
+    v11 = *(a1 + 32);
+    [(HMDAppleMediaAccessorySensorManager *)v2 _removeExistingSensorAccessories:v3 completion:v10];
 
     v5 = [MEMORY[0x277CCAD78] UUID];
     [*(a1 + 40) setSensorAccessoryUUID:v5];
@@ -2811,15 +2746,15 @@ LABEL_5:
   {
     dispatch_group_enter(*(a1 + 32));
     v6 = *(a1 + 40);
-    v13 = *(a1 + 48);
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __66__HMDAppleMediaAccessorySensorManager_handleErrorCaseTestMessage___block_invoke_4;
-    v9[3] = &unk_279735D00;
-    v4 = &v10;
-    v10 = *(a1 + 32);
-    [(HMDAppleMediaAccessorySensorManager *)v6 _removeExistingSensorAccessories:v7 completion:v9];
+    v12 = *(a1 + 48);
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __66__HMDAppleMediaAccessorySensorManager_handleErrorCaseTestMessage___block_invoke_4;
+    v8[3] = &unk_279735D00;
+    v4 = &v9;
+    v9 = *(a1 + 32);
+    [(HMDAppleMediaAccessorySensorManager *)v6 _removeExistingSensorAccessories:v7 completion:v8];
 
     [*(a1 + 40) setSensorAccessoryUUID:0];
     goto LABEL_5;
@@ -2827,7 +2762,6 @@ LABEL_5:
 
 LABEL_6:
   dispatch_group_leave(*(a1 + 32));
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (NSUUID)messageTargetUUID
@@ -2862,7 +2796,7 @@ LABEL_6:
 {
   dCopy = d;
   os_unfair_lock_lock_with_options();
-  v4 = [dCopy copy];
+  v4 = objc_msgSend_copy(dCopy);
   sensorAccessoryUUID = self->_sensorAccessoryUUID;
   self->_sensorAccessoryUUID = v4;
 
@@ -2920,7 +2854,7 @@ uint64_t __86__HMDAppleMediaAccessorySensorManager_configureWithDataSource_hpsXP
 
 void __86__HMDAppleMediaAccessorySensorManager_configureWithDataSource_hpsXPCClient_dataStore___block_invoke_2(uint64_t a1, const char *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     Property = *(a1 + 32);
@@ -2952,19 +2886,17 @@ void __86__HMDAppleMediaAccessorySensorManager_configureWithDataSource_hpsXPCCli
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v12 = v8;
+      v11 = v8;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Cannot start HomePod sensor manager with failed migration", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __86__HMDAppleMediaAccessorySensorManager_configureWithDataSource_hpsXPCClient_dataStore___block_invoke_3(uint64_t a1, const char *a2)
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -2977,23 +2909,23 @@ void __86__HMDAppleMediaAccessorySensorManager_configureWithDataSource_hpsXPCCli
       if ([objc_opt_class() supportSensory])
       {
         objc_initWeak(&location, v2);
-        objc_initWeak(&v14, WeakRetained);
+        objc_initWeak(&v13, WeakRetained);
         v7 = objc_getProperty(v2, v6, 64, 1);
         *&buf = MEMORY[0x277D85DD0];
         *(&buf + 1) = 3221225472;
-        v17 = __45__HMDAppleMediaAccessorySensorManager__start__block_invoke;
-        v18 = &unk_27972C800;
-        objc_copyWeak(&v19, &location);
-        objc_copyWeak(v20, &v14);
+        v16 = __45__HMDAppleMediaAccessorySensorManager__start__block_invoke;
+        v17 = &unk_27972C800;
+        objc_copyWeak(&v18, &location);
+        objc_copyWeak(v19, &v13);
         [v7 fetchSensorUUIDWithCompletion:&buf];
 
-        objc_destroyWeak(v20);
-        objc_destroyWeak(&v19);
-        objc_destroyWeak(&v14);
+        objc_destroyWeak(v19);
+        objc_destroyWeak(&v18);
+        objc_destroyWeak(&v13);
         objc_destroyWeak(&location);
 LABEL_11:
 
-        goto LABEL_12;
+        return;
       }
 
       v8 = objc_autoreleasePoolPush();
@@ -3025,14 +2957,11 @@ LABEL_11:
     objc_autoreleasePoolPop(v8);
     goto LABEL_11;
   }
-
-LABEL_12:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __45__HMDAppleMediaAccessorySensorManager__start__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_loadWeakRetained((a1 + 40));
@@ -3046,9 +2975,9 @@ void __45__HMDAppleMediaAccessorySensorManager__start__block_invoke(uint64_t a1,
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v9;
-      v21 = 2112;
-      v22 = v3;
+      v19 = v9;
+      v20 = 2112;
+      v21 = v3;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Local HomePod paired sensor UUID: %@", buf, 0x16u);
     }
 
@@ -3060,12 +2989,12 @@ void __45__HMDAppleMediaAccessorySensorManager__start__block_invoke(uint64_t a1,
     block[3] = &unk_279733938;
     block[4] = v7;
     v12 = Property;
-    objc_copyWeak(&v17, (a1 + 32));
-    objc_copyWeak(&v18, (a1 + 40));
+    objc_copyWeak(&v16, (a1 + 32));
+    objc_copyWeak(&v17, (a1 + 40));
     dispatch_async(v12, block);
 
-    objc_destroyWeak(&v18);
     objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
   }
 
   else
@@ -3075,14 +3004,12 @@ void __45__HMDAppleMediaAccessorySensorManager__start__block_invoke(uint64_t a1,
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v20 = v14;
+      v19 = v14;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Cannot continue starting HomePod sensor manager with nil data source", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __45__HMDAppleMediaAccessorySensorManager__start__block_invoke_12(uint64_t a1)
@@ -3101,7 +3028,7 @@ void __45__HMDAppleMediaAccessorySensorManager__start__block_invoke_12(uint64_t 
 
 void __45__HMDAppleMediaAccessorySensorManager__start__block_invoke_2(uint64_t a1, char a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_loadWeakRetained((a1 + 40));
   if (v5 && WeakRetained)
@@ -3114,9 +3041,9 @@ void __45__HMDAppleMediaAccessorySensorManager__start__block_invoke_2(uint64_t a
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         v9 = HMFGetLogIdentifier();
-        *v26 = 138543362;
-        *&v26[4] = v9;
-        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Starting the HomePod sensor manager failed", v26, 0xCu);
+        *v25 = 138543362;
+        *&v25[4] = v9;
+        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Starting the HomePod sensor manager failed", v25, 0xCu);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -3142,8 +3069,8 @@ void __45__HMDAppleMediaAccessorySensorManager__start__block_invoke_2(uint64_t a
       v16 = [HMDXPCMessagePolicy policyWithEntitlements:5];
       v17 = [v10 messageDispatcherForAppleMediaAccessorySensorManager:WeakRetained];
       v18 = *MEMORY[0x277CCF230];
-      *v26 = v16;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+      *v25 = v16;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
       [v17 registerForMessage:v18 receiver:WeakRetained policies:v19 selector:sel_handleErrorCaseTestMessage_];
     }
 
@@ -3158,15 +3085,13 @@ void __45__HMDAppleMediaAccessorySensorManager__start__block_invoke_2(uint64_t a
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       v24 = HMFGetLogIdentifier();
-      *v26 = 138543362;
-      *&v26[4] = v24;
-      _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Cannot start HomePod sensor manager with nil data source or nil self", v26, 0xCu);
+      *v25 = 138543362;
+      *&v25[4] = v24;
+      _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Cannot start HomePod sensor manager with nil data source or nil self", v25, 0xCu);
     }
 
     objc_autoreleasePoolPop(v21);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAppleMediaAccessorySensorManager)initWithWorkQueue:(id)queue
@@ -3207,12 +3132,11 @@ void __45__HMDAppleMediaAccessorySensorManager__start__block_invoke_2(uint64_t a
 
 uint64_t __50__HMDAppleMediaAccessorySensorManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v95;
-  logCategory__hmf_once_v95 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v95;
+  logCategory__hmf_once_v95 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

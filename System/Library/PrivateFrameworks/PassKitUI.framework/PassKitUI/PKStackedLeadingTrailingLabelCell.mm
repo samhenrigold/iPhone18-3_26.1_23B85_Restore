@@ -482,12 +482,12 @@ LABEL_17:
   [(PKStackedLeadingTrailingLabelCell *)&v4 layoutSubviews];
   contentView = [(PKStackedLeadingTrailingLabelCell *)self contentView];
   [contentView bounds];
-  [(PKStackedLeadingTrailingLabelCell *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKStackedLeadingTrailingLabelCell *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;
@@ -503,7 +503,7 @@ LABEL_17:
   v10 = PKTableViewCellTextInset();
   v11 = x + v10;
   v12 = y + 15.0;
-  v49 = width;
+  v65 = width;
   v13 = width - (v10 + PKTableViewCellTextInset());
   v14 = height + -30.0;
   [(PKStackedLeadingTrailingLabelCell *)self _shouldReverseLayoutDirection];
@@ -544,46 +544,59 @@ LABEL_17:
 
     v27 = v27 + 20.0;
     CGRectDivide(remainder, &slice, &remainder, 20.0, CGRectMinYEdge);
-    PKSizeAlignedInRect();
-    v47 = v29;
-    v48 = v28;
-    v31 = v30;
-    v33 = v32;
+    v28.n128_u64[0] = *&slice.origin.x;
+    v29.n128_u64[0] = *&slice.origin.y;
+    v30.n128_u64[0] = *&slice.size.width;
+    v31.n128_u64[0] = *&slice.size.height;
+    v32.n128_u64[0] = 20.0;
+    v33.n128_f64[0] = v13;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v33, v32, v28, v29, v30, v31, v34);
+    v63 = v36;
+    v64 = v35;
+    v38 = v37;
+    v40 = v39;
   }
 
   else
   {
-    v47 = v15[1];
-    v48 = *v15;
-    v31 = v15[2];
-    v33 = v15[3];
+    v63 = v15[1];
+    v64 = *v15;
+    v38 = v15[2];
+    v40 = v15[3];
   }
 
   [(UILabel *)self->_detailLabel sizeThatFits:v13, 3.40282347e38];
-  v35 = v34;
-  if (v36 > 0.0 && self->_showProgressBar)
+  v42 = *&v41;
+  v44 = v43;
+  if (v41 > 0.0 && self->_showProgressBar)
   {
     CGRectDivide(remainder, &slice, &remainder, 12.0, CGRectMinYEdge);
     v27 = v27 + 12.0;
   }
 
-  CGRectDivide(remainder, &slice, &remainder, v35, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  CGRectDivide(remainder, &slice, &remainder, v44, CGRectMinYEdge);
+  v45 = PKContentAlignmentMake();
+  v46.n128_u64[0] = *&slice.origin.x;
+  v47.n128_u64[0] = *&slice.origin.y;
+  v48.n128_u64[0] = *&slice.size.width;
+  v49.n128_u64[0] = *&slice.size.height;
+  v50.n128_u64[0] = v42;
+  v51.n128_f64[0] = v44;
+  PKSizeAlignedInRect(v45, v50, v51, v46, v47, v48, v49, v52);
   if (!layoutCopy)
   {
-    v41 = v37;
-    v42 = v38;
-    v43 = v39;
-    v44 = v40;
-    [(PKProgressBar *)self->_progressBar setFrame:v48, v47, v31, v33];
-    [(UILabel *)self->_detailLabel setFrame:v41, v42, v43, v44];
+    v57 = v53;
+    v58 = v54;
+    v59 = v55;
+    v60 = v56;
+    [(PKProgressBar *)self->_progressBar setFrame:v64, v63, v38, v40];
+    [(UILabel *)self->_detailLabel setFrame:v57, v58, v59, v60];
   }
 
-  v45 = v35 + v27 + 15.0 + 15.0;
-  v46 = v49;
-  result.height = v45;
-  result.width = v46;
+  v61 = v44 + v27 + 15.0 + 15.0;
+  v62 = v65;
+  result.height = v61;
+  result.width = v62;
   return result;
 }
 
@@ -610,54 +623,80 @@ LABEL_17:
   remainder.size.height = height;
   [(UILabel *)self->_leadingPrimaryLabel sizeThatFits:width, 3.40282347e38];
   v17 = v16;
-  [(UILabel *)self->_trailingPrimaryLabel sizeThatFits:width, 3.40282347e38];
   v19 = v18;
-  v21 = fmax(v17, v20);
-  v59.origin.x = x;
-  v59.origin.y = y;
-  v59.size.width = width;
-  v59.size.height = height;
-  CGRectDivide(v59, &slice, &remainder, v21, CGRectMinYEdge);
-  memset(&v56, 0, sizeof(v56));
-  CGRectDivide(slice, &v56, &slice, v19, v15);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v56.origin.x = v22;
-  v56.origin.y = v23;
-  v56.size.width = v24;
-  v56.size.height = v25;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v53 = v27;
-  v54 = v26;
-  v29 = v28;
-  v31 = v30;
+  [(UILabel *)self->_trailingPrimaryLabel sizeThatFits:width, 3.40282347e38];
+  v21 = v20;
+  v23 = fmax(v19, v22);
+  v95.origin.x = x;
+  v95.origin.y = y;
+  v95.size.width = width;
+  v95.size.height = height;
+  CGRectDivide(v95, &slice, &remainder, v23, CGRectMinYEdge);
+  memset(&v92, 0, sizeof(v92));
+  CGRectDivide(slice, &v92, &slice, v21, v15);
+  v24 = PKContentAlignmentMake();
+  v25.n128_u64[0] = *&v92.origin.x;
+  v26.n128_u64[0] = *&v92.origin.y;
+  v27.n128_u64[0] = *&v92.size.width;
+  v28.n128_u64[0] = *&v92.size.height;
+  v29.n128_f64[0] = v21;
+  v30.n128_f64[0] = v23;
+  PKSizeAlignedInRect(v24, v29, v30, v25, v26, v27, v28, v31);
+  v92.origin.x = v32;
+  v92.origin.y = v33;
+  v92.size.width = v34;
+  v92.size.height = v35;
+  v36 = PKContentAlignmentMake();
+  v37.n128_u64[0] = *&slice.origin.x;
+  v38.n128_u64[0] = *&slice.origin.y;
+  v39.n128_u64[0] = *&slice.size.width;
+  v40.n128_u64[0] = *&slice.size.height;
+  v41.n128_u64[0] = v17;
+  v42.n128_f64[0] = v23;
+  PKSizeAlignedInRect(v36, v41, v42, v37, v38, v39, v40, v43);
+  v89 = v45;
+  v90 = v44;
+  v47 = v46;
+  v49 = v48;
   [(UILabel *)self->_leadingSecondaryLabel sizeThatFits:width, 3.40282347e38];
-  v33 = v32;
+  v51 = v50;
+  v53 = v52;
   [(UILabel *)self->_trailingSecondaryLabel sizeThatFits:width, 3.40282347e38];
-  v35 = v34;
-  v37 = fmax(v33, v36);
-  CGRectDivide(remainder, &slice, &remainder, v37, CGRectMinYEdge);
-  memset(&v55, 0, sizeof(v55));
-  CGRectDivide(slice, &v55, &slice, v35, v15);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v55.origin.x = v38;
-  v55.origin.y = v39;
-  v55.size.width = v40;
-  v55.size.height = v41;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v55 = v54;
+  v57 = fmax(v53, v56);
+  CGRectDivide(remainder, &slice, &remainder, v57, CGRectMinYEdge);
+  memset(&v91, 0, sizeof(v91));
+  CGRectDivide(slice, &v91, &slice, v55, v15);
+  v58 = PKContentAlignmentMake();
+  v59.n128_u64[0] = *&v91.origin.x;
+  v60.n128_u64[0] = *&v91.origin.y;
+  v61.n128_u64[0] = *&v91.size.width;
+  v62.n128_u64[0] = *&v91.size.height;
+  v63.n128_f64[0] = v55;
+  v64.n128_f64[0] = v57;
+  PKSizeAlignedInRect(v58, v63, v64, v59, v60, v61, v62, v65);
+  v91.origin.x = v66;
+  v91.origin.y = v67;
+  v91.size.width = v68;
+  v91.size.height = v69;
+  v70 = PKContentAlignmentMake();
+  v71.n128_u64[0] = *&slice.origin.x;
+  v72.n128_u64[0] = *&slice.origin.y;
+  v73.n128_u64[0] = *&slice.size.width;
+  v74.n128_u64[0] = *&slice.size.height;
+  v75.n128_u64[0] = v51;
+  v76.n128_f64[0] = v57;
+  PKSizeAlignedInRect(v70, v75, v76, v71, v72, v73, v74, v77);
   if (!layout)
   {
-    v46 = v42;
-    v47 = v43;
-    v48 = v44;
-    v49 = v45;
-    [(UILabel *)self->_leadingPrimaryLabel setFrame:v54, v53, v29, v31];
-    [(UILabel *)self->_trailingPrimaryLabel setFrame:v56.origin.x, v56.origin.y, v56.size.width, v56.size.height];
-    [(UILabel *)self->_leadingSecondaryLabel setFrame:v46, v47, v48, v49];
-    [(UILabel *)self->_trailingSecondaryLabel setFrame:v55.origin.x, v55.origin.y, v55.size.width, v55.size.height];
+    v82 = v78;
+    v83 = v79;
+    v84 = v80;
+    v85 = v81;
+    [(UILabel *)self->_leadingPrimaryLabel setFrame:v90, v89, v47, v49];
+    [(UILabel *)self->_trailingPrimaryLabel setFrame:v92.origin.x, v92.origin.y, v92.size.width, v92.size.height];
+    [(UILabel *)self->_leadingSecondaryLabel setFrame:v82, v83, v84, v85];
+    [(UILabel *)self->_trailingSecondaryLabel setFrame:v91.origin.x, v91.origin.y, v91.size.width, v91.size.height];
   }
 
   if (allocated)
@@ -669,12 +708,12 @@ LABEL_17:
 
   if (unallocated)
   {
-    v51 = remainder.size;
+    v87 = remainder.size;
     unallocated->origin = remainder.origin;
-    unallocated->size = v51;
+    unallocated->size = v87;
   }
 
-  return v21 + 0.0 + v37;
+  return v23 + 0.0 + v57;
 }
 
 - (double)_layoutLabelsStacked:(CGRect)stacked allocated:(CGRect *)allocated unallocated:(CGRect *)unallocated isTemplateLayout:(BOOL)layout
@@ -691,48 +730,79 @@ LABEL_17:
   remainder.size.height = height;
   [(UILabel *)self->_leadingPrimaryLabel sizeThatFits:width, 3.40282347e38];
   v15 = v14;
-  v56.origin.x = x;
-  v56.origin.y = y;
-  v56.size.width = width;
-  v56.size.height = height;
-  CGRectDivide(v56, &slice, &remainder, v15, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v51 = v17;
-  v52 = v16;
-  v50 = v18;
-  v53 = v19;
+  v17 = v16;
+  v99.origin.x = x;
+  v99.origin.y = y;
+  v99.size.width = width;
+  v99.size.height = height;
+  CGRectDivide(v99, &slice, &remainder, v17, CGRectMinYEdge);
+  v18 = PKContentAlignmentMake();
+  v19.n128_u64[0] = *&slice.origin.x;
+  v20.n128_u64[0] = *&slice.origin.y;
+  v21.n128_u64[0] = *&slice.size.width;
+  v22.n128_u64[0] = *&slice.size.height;
+  v23.n128_u64[0] = v15;
+  v24.n128_f64[0] = v17;
+  PKSizeAlignedInRect(v18, v23, v24, v19, v20, v21, v22, v25);
+  v94 = v27;
+  v95 = v26;
+  v93 = v28;
+  v96 = v29;
   [(UILabel *)self->_leadingSecondaryLabel sizeThatFits:width, 3.40282347e38];
-  CGRectDivide(remainder, &slice, &remainder, v20, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v48 = v22;
-  v49 = v21;
-  v47 = v23;
-  v25 = v24;
+  v31 = v30;
+  v33 = *&v32;
+  CGRectDivide(remainder, &slice, &remainder, v32, CGRectMinYEdge);
+  v34 = PKContentAlignmentMake();
+  v35.n128_u64[0] = *&slice.origin.x;
+  v36.n128_u64[0] = *&slice.origin.y;
+  v37.n128_u64[0] = *&slice.size.width;
+  v38.n128_u64[0] = *&slice.size.height;
+  v39.n128_u64[0] = v31;
+  v40.n128_u64[0] = v33;
+  PKSizeAlignedInRect(v34, v39, v40, v35, v36, v37, v38, v41);
+  v91 = v43;
+  v92 = v42;
+  v90 = v44;
+  v46 = v45;
   CGRectDivide(remainder, &slice, &remainder, 10.0, CGRectMinYEdge);
   [(UILabel *)self->_trailingPrimaryLabel sizeThatFits:width, 3.40282347e38];
-  CGRectDivide(remainder, &slice, &remainder, v26, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v46 = v27;
-  v29 = v28;
-  v31 = v30;
-  v33 = v32;
+  v48 = v47;
+  v50 = *&v49;
+  CGRectDivide(remainder, &slice, &remainder, v49, CGRectMinYEdge);
+  v51 = PKContentAlignmentMake();
+  v52.n128_u64[0] = *&slice.origin.x;
+  v53.n128_u64[0] = *&slice.origin.y;
+  v54.n128_u64[0] = *&slice.size.width;
+  v55.n128_u64[0] = *&slice.size.height;
+  v56.n128_u64[0] = v48;
+  v57.n128_u64[0] = v50;
+  PKSizeAlignedInRect(v51, v56, v57, v52, v53, v54, v55, v58);
+  v89 = v59;
+  v61 = v60;
+  v63 = v62;
+  v65 = v64;
   [(UILabel *)self->_trailingSecondaryLabel sizeThatFits:width, 3.40282347e38];
-  CGRectDivide(remainder, &slice, &remainder, v34, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v67 = v66;
+  v69 = *&v68;
+  CGRectDivide(remainder, &slice, &remainder, v68, CGRectMinYEdge);
+  v70 = PKContentAlignmentMake();
+  v71.n128_u64[0] = *&slice.origin.x;
+  v72.n128_u64[0] = *&slice.origin.y;
+  v73.n128_u64[0] = *&slice.size.width;
+  v74.n128_u64[0] = *&slice.size.height;
+  v75.n128_u64[0] = v67;
+  v76.n128_u64[0] = v69;
+  PKSizeAlignedInRect(v70, v75, v76, v71, v72, v73, v74, v77);
   if (!layout)
   {
-    v39 = v35;
-    v40 = v36;
-    v41 = v37;
-    v42 = v38;
-    [(UILabel *)self->_leadingPrimaryLabel setFrame:v52, v51, v50, v53];
-    [(UILabel *)self->_trailingPrimaryLabel setFrame:v46, v29, v31, v33];
-    [(UILabel *)self->_leadingSecondaryLabel setFrame:v49, v48, v47, v25];
-    [(UILabel *)self->_trailingSecondaryLabel setFrame:v39, v40, v41, v42];
+    v82 = v78;
+    v83 = v79;
+    v84 = v80;
+    v85 = v81;
+    [(UILabel *)self->_leadingPrimaryLabel setFrame:v95, v94, v93, v96];
+    [(UILabel *)self->_trailingPrimaryLabel setFrame:v89, v61, v63, v65];
+    [(UILabel *)self->_leadingSecondaryLabel setFrame:v92, v91, v90, v46];
+    [(UILabel *)self->_trailingSecondaryLabel setFrame:v82, v83, v84, v85];
   }
 
   if (allocated)
@@ -744,12 +814,12 @@ LABEL_17:
 
   if (unallocated)
   {
-    v44 = remainder.size;
+    v87 = remainder.size;
     unallocated->origin = remainder.origin;
-    unallocated->size = v44;
+    unallocated->size = v87;
   }
 
-  return v25 + v53 + 0.0 + v25 + 10.0 + v33;
+  return v46 + v96 + 0.0 + v46 + 10.0 + v65;
 }
 
 - (void)prepareForReuse

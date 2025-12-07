@@ -33,13 +33,11 @@
 
 + (void)assertCurrentProcessHasEntitlement
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = +[ELSEntitlementUtilities entitlementMissingMessage];
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_24A07C000, self, OS_LOG_TYPE_ERROR, "%@", &v4, 0xCu);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_24A07C000, self, OS_LOG_TYPE_ERROR, "%@", &v3, 0xCu);
 }
 
 + (BOOL)auditToken:(id *)token hasEntitlement:(id)entitlement

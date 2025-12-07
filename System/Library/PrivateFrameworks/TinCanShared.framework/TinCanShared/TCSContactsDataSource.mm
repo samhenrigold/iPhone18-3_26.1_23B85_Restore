@@ -33,9 +33,9 @@
 {
   storeCopy = store;
   contactsCopy = contacts;
-  v22.receiver = self;
-  v22.super_class = TCSContactsDataSource;
-  v9 = [(TCSContactsDataSource *)&v22 init];
+  v24.receiver = self;
+  v24.super_class = TCSContactsDataSource;
+  v9 = [(TCSContactsDataSource *)&v24 init];
   v10 = v9;
   if (v9)
   {
@@ -50,31 +50,32 @@
     handler[1] = 3221225472;
     handler[2] = __55__TCSContactsDataSource_initWithContactStore_contacts___block_invoke;
     handler[3] = &unk_279DC1A78;
-    objc_copyWeak(&v20, &location);
+    objc_copyWeak(&v22, &location);
     notify_register_dispatch(uTF8String, &v10->_namePrefChangeToken, v12, handler);
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:v10 selector:sel__handleContactStoreDidChange_ name:*MEMORY[0x277CBD140] object:0];
-    if (+[TCSBehavior isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot])
+    v15 = +[TCSBehavior isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot];
+    if (v15)
     {
       [(TCSContactsDataSource *)v10 _updateSortedContactsAndNotifyIfChanged:0];
     }
 
     else
     {
-      _TCSInitializeLogging();
-      v15 = TCSLogDefault;
+      _TCSInitializeLogging(v15, v16);
+      v17 = TCSLogDefault;
       if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
       {
-        *v18 = 0;
-        _os_log_impl(&dword_26F110000, v15, OS_LOG_TYPE_DEFAULT, "TCSContactsDataSource will need to wait for first device unlock before it can generate Walkie-Talkie contacts for display.", v18, 2u);
+        *v20 = 0;
+        _os_log_impl(&dword_26F110000, v17, OS_LOG_TYPE_DEFAULT, "TCSContactsDataSource will need to wait for first device unlock before it can generate Walkie-Talkie contacts for display.", v20, 2u);
       }
 
-      v16 = +[TCSBehavior sharedBehavior];
-      [defaultCenter addObserver:v10 selector:sel__handleDeviceFirstUnlock name:@"TCSFirstUnlockNotification" object:v16];
+      v18 = +[TCSBehavior sharedBehavior];
+      [defaultCenter addObserver:v10 selector:sel__handleDeviceFirstUnlock name:@"TCSFirstUnlockNotification" object:v18];
     }
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(&location);
   }
 
@@ -149,143 +150,141 @@ void __55__TCSContactsDataSource_initWithContactStore_contacts___block_invoke(ui
 
 void __50__TCSContactsDataSource_descriptorForRequiredKeys__block_invoke()
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBDA58];
   v1 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:0];
-  v9[0] = v1;
+  v8[0] = v1;
   v2 = [MEMORY[0x277CBDA58] descriptorForAllComparatorKeys];
   v3 = *MEMORY[0x277CBD098];
-  v9[1] = v2;
-  v9[2] = v3;
-  v9[3] = *MEMORY[0x277CBCFC0];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
+  v8[1] = v2;
+  v8[2] = v3;
+  v8[3] = *MEMORY[0x277CBCFC0];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[TCSContactsDataSource descriptorForRequiredKeys]_block_invoke"];
   v6 = [v0 descriptorWithKeyDescriptors:v4 description:v5];
   v7 = descriptorForRequiredKeys_cn_once_object_1;
   descriptorForRequiredKeys_cn_once_object_1 = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)inviteContact:(id)contact
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   sortedInvitees = [(TCSContactsDataSource *)self sortedInvitees];
   v6 = [sortedInvitees mutableCopy];
 
-  if (![v6 containsObject:contactCopy])
+  v7 = [v6 containsObject:contactCopy];
+  if (!v7)
   {
     sortedInviters = [(TCSContactsDataSource *)self sortedInviters];
-    v9 = [sortedInviters containsObject:contactCopy];
+    v11 = [sortedInviters containsObject:contactCopy];
 
-    if (v9)
+    if (v11)
     {
-      _TCSInitializeLogging();
-      v10 = TCSLogDefault;
+      _TCSInitializeLogging(v12, v13);
+      v14 = TCSLogDefault;
       if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
       {
-        [TCSContactsDataSource inviteContact:v10];
+        [TCSContactsDataSource inviteContact:v14];
       }
 
       goto LABEL_10;
     }
 
     sortedContacts = [(TCSContactsDataSource *)self sortedContacts];
-    v12 = [sortedContacts containsObject:contactCopy];
+    v16 = [sortedContacts containsObject:contactCopy];
 
-    if (v12)
+    if (v16)
     {
-      _TCSInitializeLogging();
-      v13 = TCSLogDefault;
+      _TCSInitializeLogging(v17, v18);
+      v19 = TCSLogDefault;
       if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
       {
-        [TCSContactsDataSource inviteContact:v13];
+        [TCSContactsDataSource inviteContact:v19];
       }
 
       goto LABEL_10;
     }
 
-    v17 = +[TCSContactsDataSource descriptorForRequiredKeys];
-    v37[0] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+    v22 = +[TCSContactsDataSource descriptorForRequiredKeys];
+    v46[0] = v22;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
 
-    if ([contactCopy areKeysAvailable:v18])
+    if ([contactCopy areKeysAvailable:v23])
     {
-      v19 = contactCopy;
+      v24 = contactCopy;
     }
 
     else
     {
       contactStore = self->_contactStore;
       identifier = [contactCopy identifier];
-      v34 = 0;
-      v19 = [(CNContactStore *)contactStore unifiedContactWithIdentifier:identifier keysToFetch:v18 error:&v34];
-      v22 = v34;
+      v43 = 0;
+      v24 = [(CNContactStore *)contactStore unifiedContactWithIdentifier:identifier keysToFetch:v23 error:&v43];
+      v27 = v43;
 
-      if (v22)
+      if (v27)
       {
-        _TCSInitializeLogging();
+        _TCSInitializeLogging(v28, v29);
         if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
         {
           [TCSContactsDataSource inviteContact:];
         }
 
-        v14 = 0x7FFFFFFFFFFFFFFFLL;
+        v20 = 0x7FFFFFFFFFFFFFFFLL;
         goto LABEL_21;
       }
     }
 
-    [v6 addObject:v19];
-    v23 = [(TCSContactsDataSource *)self _sortedContactsArrayFromArray:v6];
+    [v6 addObject:v24];
+    v30 = [(TCSContactsDataSource *)self _sortedContactsArrayFromArray:v6];
     sortedInvitees = self->_sortedInvitees;
-    self->_sortedInvitees = v23;
+    self->_sortedInvitees = v30;
 
-    v25 = [(TCSContactsDataSource *)self _contactMapFromArray:self->_sortedInvitees];
+    v32 = [(TCSContactsDataSource *)self _contactMapFromArray:self->_sortedInvitees];
     inviteeContactMap = self->_inviteeContactMap;
-    self->_inviteeContactMap = v25;
+    self->_inviteeContactMap = v32;
 
     allowedContactIdentifiers = self->_allowedContactIdentifiers;
-    identifier2 = [v19 identifier];
+    identifier2 = [v24 identifier];
     [(NSMutableSet *)allowedContactIdentifiers addObject:identifier2];
 
-    _TCSInitializeLogging();
-    v29 = TCSLogDefault;
+    _TCSInitializeLogging(v36, v37);
+    v38 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = v29;
-      v31 = [TCSContacts _safeContactDetailStringForLogging:v19];
+      v39 = v38;
+      v40 = [TCSContacts _safeContactDetailStringForLogging:v24];
       *buf = 138412290;
-      v36 = v31;
-      _os_log_impl(&dword_26F110000, v30, OS_LOG_TYPE_DEFAULT, "TCSContactsDataSource added an invited contact %@", buf, 0xCu);
+      v45 = v40;
+      _os_log_impl(&dword_26F110000, v39, OS_LOG_TYPE_DEFAULT, "TCSContactsDataSource added an invited contact %@", buf, 0xCu);
     }
 
     [(TCSContacts *)self->_contacts removeObserver:self];
     contacts = self->_contacts;
-    v33 = [TCSContacts canonicalDestinationsForContact:v19];
-    [(TCSContacts *)contacts addDestinations:v33];
+    v42 = [TCSContacts canonicalDestinationsForContact:v24];
+    [(TCSContacts *)contacts addDestinations:v42];
 
     [(TCSContacts *)self->_contacts addObserver:self];
-    v14 = [(NSArray *)self->_sortedInvitees indexOfObject:v19];
+    v20 = [(NSArray *)self->_sortedInvitees indexOfObject:v24];
 LABEL_21:
 
-    contactCopy = v19;
+    contactCopy = v24;
     goto LABEL_11;
   }
 
-  _TCSInitializeLogging();
-  v7 = TCSLogDefault;
+  _TCSInitializeLogging(v7, v8);
+  v9 = TCSLogDefault;
   if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
   {
-    [TCSContactsDataSource inviteContact:v7];
+    [TCSContactsDataSource inviteContact:v9];
   }
 
 LABEL_10:
-  v14 = 0x7FFFFFFFFFFFFFFFLL;
+  v20 = 0x7FFFFFFFFFFFFFFFLL;
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v20;
 }
 
 - (void)removeContact:(id)contact
@@ -294,11 +293,11 @@ LABEL_11:
   v5 = [(TCSContactsDataSource *)self _sectionForContact:contactCopy];
   if (v5 == -1)
   {
-    _TCSInitializeLogging();
-    v6 = TCSLogDefault;
+    _TCSInitializeLogging(-1, v6);
+    v7 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
     {
-      [TCSContactsDataSource removeContact:v6];
+      [TCSContactsDataSource removeContact:v7];
     }
   }
 
@@ -310,24 +309,25 @@ LABEL_11:
 
 - (void)removeContact:(id)contact inSection:(int64_t)section
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   v7 = [(TCSContactsDataSource *)self _contactsForSection:section];
   v8 = [v7 mutableCopy];
 
-  if ([v8 containsObject:contactCopy])
+  v9 = [v8 containsObject:contactCopy];
+  if (v9)
   {
     [v8 removeObject:contactCopy];
     if (section <= 2)
     {
-      v9 = [v8 copy];
-      v10 = &self->super.isa + section;
-      v11 = v10[10];
-      v10[10] = v9;
+      v11 = [v8 copy];
+      v12 = &self->super.isa + section;
+      v13 = v12[10];
+      v12[10] = v11;
 
-      v12 = [(TCSContactsDataSource *)self _contactMapFromArray:v10[10]];
-      v13 = v10[4];
-      v10[4] = v12;
+      v14 = [(TCSContactsDataSource *)self _contactMapFromArray:v12[10]];
+      v15 = v12[4];
+      v12[4] = v14;
     }
 
     allowedContactIdentifiers = self->_allowedContactIdentifiers;
@@ -338,21 +338,21 @@ LABEL_11:
     identifier2 = [contactCopy identifier];
     [(NSMutableSet *)inviterContactIdentifiers removeObject:identifier2];
 
-    _TCSInitializeLogging();
-    v18 = TCSLogDefault;
+    _TCSInitializeLogging(v20, v21);
+    v22 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = v18;
-      v20 = [TCSContacts _safeContactDetailStringForLogging:contactCopy];
-      v25 = 138412290;
-      v26 = v20;
-      _os_log_impl(&dword_26F110000, v19, OS_LOG_TYPE_DEFAULT, "TCSContactsDataSource removed contact %@", &v25, 0xCu);
+      v23 = v22;
+      v24 = [TCSContacts _safeContactDetailStringForLogging:contactCopy];
+      v28 = 138412290;
+      v29 = v24;
+      _os_log_impl(&dword_26F110000, v23, OS_LOG_TYPE_DEFAULT, "TCSContactsDataSource removed contact %@", &v28, 0xCu);
     }
 
     [(TCSContacts *)self->_contacts removeObserver:self];
     contacts = self->_contacts;
-    v22 = [TCSContacts canonicalDestinationsForContact:contactCopy];
-    [(TCSContacts *)contacts removeDestinations:v22];
+    v26 = [TCSContacts canonicalDestinationsForContact:contactCopy];
+    [(TCSContacts *)contacts removeDestinations:v26];
 
     [(TCSContacts *)self->_contacts addObserver:self];
     [(TCSContactsDataSource *)self _updateSortedContactsAndNotifyIfChanged:0];
@@ -360,15 +360,13 @@ LABEL_11:
 
   else
   {
-    _TCSInitializeLogging();
-    v23 = TCSLogDefault;
+    _TCSInitializeLogging(v9, v10);
+    v27 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
     {
-      [TCSContactsDataSource removeContact:v23];
+      [TCSContactsDataSource removeContact:v27];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isContactAllowed:(id)allowed
@@ -395,197 +393,217 @@ LABEL_11:
   v5 = [(NSDictionary *)self->_allowedContactMap objectForKeyedSubscript:identifierCopy];
   if (v5 || ([(NSDictionary *)self->_inviterContactMap objectForKeyedSubscript:identifierCopy], (v5 = objc_claimAutoreleasedReturnValue()) != 0) || ([(NSDictionary *)self->_inviteeContactMap objectForKeyedSubscript:identifierCopy], (v5 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v6 = v5;
+    v7 = v5;
   }
 
   else
   {
-    _TCSInitializeLogging();
-    v8 = TCSLogDefault;
+    _TCSInitializeLogging(0, v6);
+    v9 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
     {
-      [(TCSContactsDataSource *)v8 contactWithIdentifier:identifierCopy];
+      [(TCSContactsDataSource *)v9 contactWithIdentifier:identifierCopy];
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)logSortedContacts
 {
   selfCopy = self;
-  v55 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v3 = [(NSArray *)self->_sortedContacts count];
   v4 = [(NSArray *)selfCopy->_sortedInviters count]+ v3;
-  if (v4 + [(NSArray *)selfCopy->_sortedInvitees count])
+  v5 = [(NSArray *)selfCopy->_sortedInvitees count];
+  if (v4 + v5)
   {
-    v37 = selfCopy;
-    if ([(NSArray *)selfCopy->_sortedContacts count])
+    v8 = [(NSArray *)selfCopy->_sortedContacts count];
+    v47 = selfCopy;
+    if (v8)
     {
-      _TCSInitializeLogging();
-      v6 = TCSLogDefault;
+      _TCSInitializeLogging(v8, v9);
+      v10 = TCSLogDefault;
       if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_26F110000, v6, OS_LOG_TYPE_DEFAULT, "TCSContactsDataSource has allowed contacts:", buf, 2u);
+        _os_log_impl(&dword_26F110000, v10, OS_LOG_TYPE_DEFAULT, "TCSContactsDataSource has allowed contacts:", buf, 2u);
       }
 
+      v58 = 0u;
+      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
+      v11 = selfCopy->_sortedContacts;
+      v12 = [(NSArray *)v11 countByEnumeratingWithState:&v56 objects:v64 count:16];
+      if (v12)
+      {
+        v14 = v12;
+        v15 = *v57;
+        do
+        {
+          v16 = 0;
+          do
+          {
+            if (*v57 != v15)
+            {
+              objc_enumerationMutation(v11);
+            }
+
+            v17 = *(*(&v56 + 1) + 8 * v16);
+            _TCSInitializeLogging(v12, v13);
+            v18 = TCSLogDefault;
+            v12 = os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT);
+            if (v12)
+            {
+              v19 = v18;
+              v20 = [TCSContacts _safeContactDetailStringForLogging:v17];
+              *buf = 138412290;
+              v63 = v20;
+              _os_log_impl(&dword_26F110000, v19, OS_LOG_TYPE_DEFAULT, "    %@", buf, 0xCu);
+            }
+
+            ++v16;
+          }
+
+          while (v14 != v16);
+          v12 = [(NSArray *)v11 countByEnumeratingWithState:&v56 objects:v64 count:16];
+          v14 = v12;
+        }
+
+        while (v12);
+      }
+
+      selfCopy = v47;
+    }
+
+    v21 = [(NSArray *)selfCopy->_sortedInviters count];
+    if (v21)
+    {
+      _TCSInitializeLogging(v21, v22);
+      v23 = TCSLogDefault;
+      if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_26F110000, v23, OS_LOG_TYPE_DEFAULT, "TCSContactsDataSource has contacts with unresolved incoming invites:", buf, 2u);
+      }
+
+      v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
+      v24 = selfCopy->_sortedInviters;
+      v25 = [(NSArray *)v24 countByEnumeratingWithState:&v52 objects:v61 count:16];
+      if (v25)
+      {
+        v27 = v25;
+        v28 = *v53;
+        do
+        {
+          v29 = 0;
+          do
+          {
+            if (*v53 != v28)
+            {
+              objc_enumerationMutation(v24);
+            }
+
+            v30 = *(*(&v52 + 1) + 8 * v29);
+            _TCSInitializeLogging(v25, v26);
+            v31 = TCSLogDefault;
+            v25 = os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT);
+            if (v25)
+            {
+              v32 = v31;
+              v33 = [TCSContacts _safeContactDetailStringForLogging:v30];
+              *buf = 138412290;
+              v63 = v33;
+              _os_log_impl(&dword_26F110000, v32, OS_LOG_TYPE_DEFAULT, "    %@", buf, 0xCu);
+            }
+
+            ++v29;
+          }
+
+          while (v27 != v29);
+          v25 = [(NSArray *)v24 countByEnumeratingWithState:&v52 objects:v61 count:16];
+          v27 = v25;
+        }
+
+        while (v25);
+      }
+
+      selfCopy = v47;
+    }
+
+    v34 = [(NSArray *)selfCopy->_sortedInvitees count];
+    if (v34)
+    {
+      _TCSInitializeLogging(v34, v35);
+      v36 = TCSLogDefault;
+      if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_26F110000, v36, OS_LOG_TYPE_DEFAULT, "TCSContactsDataSource has contacts with unresolved outgoing invites:", buf, 2u);
+      }
+
+      v50 = 0u;
+      v51 = 0u;
       v48 = 0u;
       v49 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v7 = selfCopy->_sortedContacts;
-      v8 = [(NSArray *)v7 countByEnumeratingWithState:&v46 objects:v54 count:16];
-      if (v8)
+      v37 = selfCopy->_sortedInvitees;
+      v38 = [(NSArray *)v37 countByEnumeratingWithState:&v48 objects:v60 count:16];
+      if (v38)
       {
-        v9 = v8;
-        v10 = *v47;
+        v40 = v38;
+        v41 = *v49;
         do
         {
-          for (i = 0; i != v9; ++i)
+          v42 = 0;
+          do
           {
-            if (*v47 != v10)
+            if (*v49 != v41)
             {
-              objc_enumerationMutation(v7);
+              objc_enumerationMutation(v37);
             }
 
-            v12 = *(*(&v46 + 1) + 8 * i);
-            _TCSInitializeLogging();
-            v13 = TCSLogDefault;
-            if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
+            v43 = *(*(&v48 + 1) + 8 * v42);
+            _TCSInitializeLogging(v38, v39);
+            v44 = TCSLogDefault;
+            v38 = os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT);
+            if (v38)
             {
-              v14 = v13;
-              v15 = [TCSContacts _safeContactDetailStringForLogging:v12];
+              v45 = v44;
+              v46 = [TCSContacts _safeContactDetailStringForLogging:v43];
               *buf = 138412290;
-              v53 = v15;
-              _os_log_impl(&dword_26F110000, v14, OS_LOG_TYPE_DEFAULT, "    %@", buf, 0xCu);
+              v63 = v46;
+              _os_log_impl(&dword_26F110000, v45, OS_LOG_TYPE_DEFAULT, "    %@", buf, 0xCu);
             }
+
+            ++v42;
           }
 
-          v9 = [(NSArray *)v7 countByEnumeratingWithState:&v46 objects:v54 count:16];
+          while (v40 != v42);
+          v38 = [(NSArray *)v37 countByEnumeratingWithState:&v48 objects:v60 count:16];
+          v40 = v38;
         }
 
-        while (v9);
-      }
-
-      selfCopy = v37;
-    }
-
-    if ([(NSArray *)selfCopy->_sortedInviters count])
-    {
-      _TCSInitializeLogging();
-      v16 = TCSLogDefault;
-      if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_26F110000, v16, OS_LOG_TYPE_DEFAULT, "TCSContactsDataSource has contacts with unresolved incoming invites:", buf, 2u);
-      }
-
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v17 = selfCopy->_sortedInviters;
-      v18 = [(NSArray *)v17 countByEnumeratingWithState:&v42 objects:v51 count:16];
-      if (v18)
-      {
-        v19 = v18;
-        v20 = *v43;
-        do
-        {
-          for (j = 0; j != v19; ++j)
-          {
-            if (*v43 != v20)
-            {
-              objc_enumerationMutation(v17);
-            }
-
-            v22 = *(*(&v42 + 1) + 8 * j);
-            _TCSInitializeLogging();
-            v23 = TCSLogDefault;
-            if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
-            {
-              v24 = v23;
-              v25 = [TCSContacts _safeContactDetailStringForLogging:v22];
-              *buf = 138412290;
-              v53 = v25;
-              _os_log_impl(&dword_26F110000, v24, OS_LOG_TYPE_DEFAULT, "    %@", buf, 0xCu);
-            }
-          }
-
-          v19 = [(NSArray *)v17 countByEnumeratingWithState:&v42 objects:v51 count:16];
-        }
-
-        while (v19);
-      }
-
-      selfCopy = v37;
-    }
-
-    if ([(NSArray *)selfCopy->_sortedInvitees count])
-    {
-      _TCSInitializeLogging();
-      v26 = TCSLogDefault;
-      if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_26F110000, v26, OS_LOG_TYPE_DEFAULT, "TCSContactsDataSource has contacts with unresolved outgoing invites:", buf, 2u);
-      }
-
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
-      v39 = 0u;
-      v27 = selfCopy->_sortedInvitees;
-      v28 = [(NSArray *)v27 countByEnumeratingWithState:&v38 objects:v50 count:16];
-      if (v28)
-      {
-        v29 = v28;
-        v30 = *v39;
-        do
-        {
-          for (k = 0; k != v29; ++k)
-          {
-            if (*v39 != v30)
-            {
-              objc_enumerationMutation(v27);
-            }
-
-            v32 = *(*(&v38 + 1) + 8 * k);
-            _TCSInitializeLogging();
-            v33 = TCSLogDefault;
-            if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
-            {
-              v34 = v33;
-              v35 = [TCSContacts _safeContactDetailStringForLogging:v32];
-              *buf = 138412290;
-              v53 = v35;
-              _os_log_impl(&dword_26F110000, v34, OS_LOG_TYPE_DEFAULT, "    %@", buf, 0xCu);
-            }
-          }
-
-          v29 = [(NSArray *)v27 countByEnumeratingWithState:&v38 objects:v50 count:16];
-        }
-
-        while (v29);
+        while (v38);
       }
     }
   }
 
   else
   {
-    _TCSInitializeLogging();
-    v5 = TCSLogDefault;
+    _TCSInitializeLogging(v5, v6);
+    v7 = TCSLogDefault;
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_26F110000, v5, OS_LOG_TYPE_DEFAULT, "TCSContactsDataSource has no contacts to display.", buf, 2u);
+      _os_log_impl(&dword_26F110000, v7, OS_LOG_TYPE_DEFAULT, "TCSContactsDataSource has no contacts to display.", buf, 2u);
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)destinationsDidChange:(id)change
@@ -629,63 +647,60 @@ uint64_t __42__TCSContactsDataSource_recencyDidChange___block_invoke(uint64_t a1
   TCSGuaranteeMainThread(v6);
 }
 
-uint64_t __47__TCSContactsDataSource_contactBecameAccepted___block_invoke(uint64_t a1)
+uint64_t __47__TCSContactsDataSource_contactBecameAccepted___block_invoke(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
-  _TCSInitializeLogging();
-  v2 = TCSLogDefault;
+  _TCSInitializeLogging(a1, a2);
+  v3 = TCSLogDefault;
   if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = [TCSContacts _safeContactDetailStringForLogging:v3];
+    v4 = *(a1 + 32);
+    v5 = v3;
+    v6 = [TCSContacts _safeContactDetailStringForLogging:v4];
     v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_26F110000, v4, OS_LOG_TYPE_DEFAULT, "Contact was promoted to the allowlist: %@", &v8, 0xCu);
+    v9 = v6;
+    _os_log_impl(&dword_26F110000, v5, OS_LOG_TYPE_DEFAULT, "Contact was promoted to the allowlist: %@", &v8, 0xCu);
   }
 
-  result = [*(a1 + 40) _updateSortedContactsAndNotifyIfChanged:1];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _updateSortedContactsAndNotifyIfChanged:1];
 }
 
 - (id)_contactMapFromArray:(id)array
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = arrayCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         identifier = [v10 identifier];
         [dictionary setObject:v10 forKeyedSubscript:identifier];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   v12 = [dictionary copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -693,7 +708,7 @@ uint64_t __47__TCSContactsDataSource_contactBecameAccepted___block_invoke(uint64
 - (void)_updateSortedContactsAndNotifyIfChanged:(BOOL)changed
 {
   changedCopy = changed;
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   _unsortedContactsArray = [(TCSContactsDataSource *)self _unsortedContactsArray];
   v6 = [(TCSContactsDataSource *)self _sortedContactsArrayFromArray:_unsortedContactsArray forSection:0];
   v7 = [(TCSContactsDataSource *)self _sortedContactsArrayFromArray:_unsortedContactsArray forSection:1];
@@ -742,68 +757,68 @@ uint64_t __47__TCSContactsDataSource_contactBecameAccepted___block_invoke(uint64
     self->_inviteeContactMap = v17;
   }
 
-  v45 = v7;
-  v46 = changedCopy;
-  v47 = v6;
+  v44 = v7;
+  v45 = changedCopy;
+  v46 = v6;
   v19 = [MEMORY[0x277CBEB58] set];
   allowedContactIdentifiers = self->_allowedContactIdentifiers;
   self->_allowedContactIdentifiers = v19;
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v21 = self->_sortedContacts;
-  v22 = [(NSArray *)v21 countByEnumeratingWithState:&v56 objects:v62 count:16];
+  v22 = [(NSArray *)v21 countByEnumeratingWithState:&v55 objects:v61 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v57;
+    v24 = *v56;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v57 != v24)
+        if (*v56 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
         v26 = self->_allowedContactIdentifiers;
-        identifier = [*(*(&v56 + 1) + 8 * i) identifier];
+        identifier = [*(*(&v55 + 1) + 8 * i) identifier];
         [(NSMutableSet *)v26 addObject:identifier];
       }
 
-      v23 = [(NSArray *)v21 countByEnumeratingWithState:&v56 objects:v62 count:16];
+      v23 = [(NSArray *)v21 countByEnumeratingWithState:&v55 objects:v61 count:16];
     }
 
     while (v23);
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   v28 = self->_sortedInvitees;
-  v29 = [(NSArray *)v28 countByEnumeratingWithState:&v52 objects:v61 count:16];
+  v29 = [(NSArray *)v28 countByEnumeratingWithState:&v51 objects:v60 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v53;
+    v31 = *v52;
     do
     {
       for (j = 0; j != v30; ++j)
       {
-        if (*v53 != v31)
+        if (*v52 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
         v33 = self->_allowedContactIdentifiers;
-        identifier2 = [*(*(&v52 + 1) + 8 * j) identifier];
+        identifier2 = [*(*(&v51 + 1) + 8 * j) identifier];
         [(NSMutableSet *)v33 addObject:identifier2];
       }
 
-      v30 = [(NSArray *)v28 countByEnumeratingWithState:&v52 objects:v61 count:16];
+      v30 = [(NSArray *)v28 countByEnumeratingWithState:&v51 objects:v60 count:16];
     }
 
     while (v30);
@@ -813,47 +828,45 @@ uint64_t __47__TCSContactsDataSource_contactBecameAccepted___block_invoke(uint64
   inviterContactIdentifiers = self->_inviterContactIdentifiers;
   self->_inviterContactIdentifiers = v35;
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v37 = self->_sortedInviters;
-  v38 = [(NSArray *)v37 countByEnumeratingWithState:&v48 objects:v60 count:16];
+  v38 = [(NSArray *)v37 countByEnumeratingWithState:&v47 objects:v59 count:16];
   if (v38)
   {
     v39 = v38;
-    v40 = *v49;
+    v40 = *v48;
     do
     {
       for (k = 0; k != v39; ++k)
       {
-        if (*v49 != v40)
+        if (*v48 != v40)
         {
           objc_enumerationMutation(v37);
         }
 
         v42 = self->_inviterContactIdentifiers;
-        identifier3 = [*(*(&v48 + 1) + 8 * k) identifier];
+        identifier3 = [*(*(&v47 + 1) + 8 * k) identifier];
         [(NSMutableSet *)v42 addObject:identifier3];
       }
 
-      v39 = [(NSArray *)v37 countByEnumeratingWithState:&v48 objects:v60 count:16];
+      v39 = [(NSArray *)v37 countByEnumeratingWithState:&v47 objects:v59 count:16];
     }
 
     while (v39);
   }
 
   [(TCSContactsDataSource *)self logSortedContacts];
-  v6 = v47;
-  v7 = v45;
-  if (v46)
+  v6 = v46;
+  v7 = v44;
+  if (v45)
   {
     [(TCSContactsDataSource *)self _notifyDelegateContactsChanged];
   }
 
 LABEL_35:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyDelegateContactsChanged
@@ -882,35 +895,35 @@ LABEL_35:
 
 - (id)_unsortedContactsArray
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   destinations = [(TCSContacts *)self->_contacts destinations];
   v4 = [destinations copy];
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v5 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         contactStore = [(TCSContactsDataSource *)self contactStore];
         v11 = +[TCSContactsDataSource descriptorForRequiredKeys];
-        v24 = v11;
-        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+        v23 = v11;
+        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
         v13 = [TCSContacts _unifiedContactWithIdentifier:0 orDestination:v9 usingContactStore:contactStore keysToFetch:v12];
 
         if (v13)
@@ -920,15 +933,13 @@ LABEL_35:
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v6 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v6);
   }
 
   allValues = [dictionary allValues];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return allValues;
 }
@@ -1107,7 +1118,7 @@ LABEL_13:
 
 - (void)_handleDeviceFirstUnlock
 {
-  _TCSInitializeLogging();
+  _TCSInitializeLogging(self, a2);
   v3 = TCSLogDefault;
   if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
   {
@@ -1127,65 +1138,50 @@ LABEL_13:
 
 - (void)inviteContact:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_26F110000, v0, OS_LOG_TYPE_ERROR, "Error remaking contact: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26F110000, v0, OS_LOG_TYPE_ERROR, "Error remaking contact: %@", v1, 0xCu);
 }
 
 - (void)inviteContact:(void *)a1 .cold.2(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() _safeContactDetailStringForLogging:?];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_26F110000, v4, v5, "Attempt to add an invited contact that is already allowed: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_26F110000, v4, v5, "Attempt to add an invited contact that is already allowed: %@", v6, v7, v8, v9);
 }
 
 - (void)inviteContact:(void *)a1 .cold.3(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() _safeContactDetailStringForLogging:?];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_26F110000, v4, v5, "Attempt to add an invited contact that has a pending remote invite awaiting user response: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_26F110000, v4, v5, "Attempt to add an invited contact that has a pending remote invite awaiting user response: %@", v6, v7, v8, v9);
 }
 
 - (void)inviteContact:(void *)a1 .cold.4(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() _safeContactDetailStringForLogging:?];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_26F110000, v4, v5, "Attempt to add an invited contact that was already marked as such: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_26F110000, v4, v5, "Attempt to add an invited contact that was already marked as such: %@", v6, v7, v8, v9);
 }
 
 - (void)removeContact:(void *)a1 .cold.1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() _safeContactDetailStringForLogging:?];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_26F110000, v4, v5, "Attempt to remove a contact not contained within the contacts data source: %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_26F110000, v4, v5, "Attempt to remove a contact not contained within the contacts data source: %@", v6, v7, v8, v9);
 }
 
 - (void)contactWithIdentifier:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = TCSLogSafeDescription(a2);
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_26F110000, v3, OS_LOG_TYPE_ERROR, "Map lookup for contact identifier %@ did not find any contact.", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26F110000, v3, OS_LOG_TYPE_ERROR, "Map lookup for contact identifier %@ did not find any contact.", v5, 0xCu);
 }
 
 @end

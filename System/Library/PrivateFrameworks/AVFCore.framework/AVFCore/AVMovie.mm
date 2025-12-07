@@ -728,7 +728,7 @@ void __17__AVMovie_tracks__block_invoke(uint64_t a1)
 
     else
     {
-      v17 = -12782;
+      v17 = 4294954514;
       if (!outError)
       {
 LABEL_12:
@@ -791,7 +791,7 @@ LABEL_18:
   v20 = v19;
   if (!v19)
   {
-    v22 = 0;
+    LODWORD(v22) = 0;
     goto LABEL_14;
   }
 
@@ -813,7 +813,7 @@ LABEL_11:
     goto LABEL_13;
   }
 
-  v22 = -12782;
+  v22 = 4294954514;
   if (outError)
   {
     goto LABEL_11;

@@ -10,7 +10,7 @@ uint64_t Logger.siriPhoneUI.unsafeMutableAddressor()
 {
   if (one-time initialization token for siriPhoneUI != -1)
   {
-    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_0(&one-time initialization token for siriPhoneUI);
   }
 
   v0 = type metadata accessor for Logger();
@@ -32,7 +32,7 @@ uint64_t static Logger.siriPhoneUI.getter@<X0>(uint64_t a1@<X8>)
 {
   if (one-time initialization token for siriPhoneUI != -1)
   {
-    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_0(&one-time initialization token for siriPhoneUI);
   }
 
   v2 = type metadata accessor for Logger();
@@ -47,8 +47,8 @@ uint64_t Logger.logAndCrash(_:file:line:)(uint64_t a1, unint64_t a2, uint64_t a3
   v7 = v6;
   v32 = a6;
   v33 = a4;
-  v11 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s2os6LoggerVSgMd, &_s2os6LoggerVSgMR) - 8) + 64);
-  v12 = (__chkstk_darwin)();
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s2os6LoggerVSgMd, &_s2os6LoggerVSgMR);
+  v12 = __chkstk_darwin(v11 - 8);
   v14 = &v29 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v12);
   v16 = &v29 - v15;
@@ -109,7 +109,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -246,16 +245,14 @@ uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
 
 char *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
 {
-  v4 = HIBYTE(a2) & 0xF;
+  v4 = (HIBYTE(a2) & 0xF);
   if ((a2 & 0x1000000000000000) != 0)
   {
     goto LABEL_19;
@@ -305,8 +302,8 @@ char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t
       {
         if ((a1 & 0x1000000000000000) != 0)
         {
-          v8 = (a2 & 0xFFFFFFFFFFFFFFFLL) + 32;
-          v4 = a1 & 0xFFFFFFFFFFFFLL;
+          v8 = ((a2 & 0xFFFFFFFFFFFFFFFLL) + 32);
+          v4 = (a1 & 0xFFFFFFFFFFFFLL);
         }
 
         else
@@ -358,21 +355,20 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (!result || v5 > *(v3 + 24) >> 1)
   {
     if (v4 <= v5)
     {
-      v8 = v4 + v2;
+      v7 = v4 + v2;
     }
 
     else
     {
-      v8 = v4;
+      v7 = v4;
     }
 
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v8, 1, v3);
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v7, 1, v3);
     v3 = result;
   }
 
@@ -387,15 +383,15 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v9 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v9 < v2)
+  v8 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v8 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v9 + 32), (v6 + 32), v2);
+  memcpy((v3 + v8 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -404,12 +400,12 @@ LABEL_14:
     return result;
   }
 
-  v10 = *(v3 + 16);
-  v11 = __OFADD__(v10, v2);
-  v12 = v10 + v2;
-  if (!v11)
+  v9 = *(v3 + 16);
+  v10 = __OFADD__(v9, v2);
+  v11 = v9 + v2;
+  if (!v10)
   {
-    *(v3 + 16) = v12;
+    *(v3 + 16) = v11;
     goto LABEL_14;
   }
 
@@ -518,20 +514,17 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
 }
 
-uint64_t OUTLINED_FUNCTION_0()
+uint64_t OUTLINED_FUNCTION_0(uint64_t a1)
 {
 
   return swift_once();
@@ -540,211 +533,189 @@ uint64_t OUTLINED_FUNCTION_0()
 uint64_t (**PhoneUIPlugin.snippet(for:mode:idiom:)(uint64_t a1))(void)
 {
   v3 = type metadata accessor for SingleResultCallHistoryView();
-  v4 = OUTLINED_FUNCTION_2(v3);
-  v6 = *(v5 + 64);
+  OUTLINED_FUNCTION_2();
   __chkstk_darwin(v4);
-  v8 = &v198 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for SingleResultCallHistoryModel();
-  v10 = OUTLINED_FUNCTION_16(v9);
-  v12 = *(v11 + 64);
+  v6 = &v150 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for SingleResultCallHistoryModel();
+  v8 = OUTLINED_FUNCTION_16(v7);
+  __chkstk_darwin(v8);
+  OUTLINED_FUNCTION_1();
+  v174 = v9;
+  OUTLINED_FUNCTION_12();
   __chkstk_darwin(v10);
-  OUTLINED_FUNCTION_1();
-  v222 = v13;
-  OUTLINED_FUNCTION_12();
-  __chkstk_darwin(v14);
   OUTLINED_FUNCTION_15();
-  v225 = v15;
+  v177 = v11;
   OUTLINED_FUNCTION_5();
-  v224 = type metadata accessor for SingleResultVoicemailView();
-  v16 = OUTLINED_FUNCTION_2(v224);
-  v18 = *(v17 + 64);
-  __chkstk_darwin(v16);
+  v176 = type metadata accessor for SingleResultVoicemailView();
+  OUTLINED_FUNCTION_2();
+  __chkstk_darwin(v12);
   OUTLINED_FUNCTION_0_0();
-  v223 = v19;
+  v175 = v13;
   OUTLINED_FUNCTION_5();
-  v20 = type metadata accessor for SingleResultVoicemailModel();
-  v21 = OUTLINED_FUNCTION_16(v20);
-  v23 = *(v22 + 64);
-  __chkstk_darwin(v21);
+  v14 = type metadata accessor for SingleResultVoicemailModel();
+  v15 = OUTLINED_FUNCTION_16(v14);
+  __chkstk_darwin(v15);
   OUTLINED_FUNCTION_1();
-  v218 = v24;
+  v170 = v16;
   OUTLINED_FUNCTION_12();
-  __chkstk_darwin(v25);
+  __chkstk_darwin(v17);
   OUTLINED_FUNCTION_15();
-  v221 = v26;
+  v173 = v18;
   OUTLINED_FUNCTION_5();
-  v220 = type metadata accessor for ShowPlayVoicemailListView();
-  v27 = OUTLINED_FUNCTION_2(v220);
-  v29 = *(v28 + 64);
-  __chkstk_darwin(v27);
+  v172 = type metadata accessor for ShowPlayVoicemailListView();
+  OUTLINED_FUNCTION_2();
+  __chkstk_darwin(v19);
   OUTLINED_FUNCTION_0_0();
-  v219 = v30;
+  v171 = v20;
   OUTLINED_FUNCTION_5();
-  v31 = type metadata accessor for PlayVoicemailModel();
-  v32 = OUTLINED_FUNCTION_16(v31);
-  v34 = *(v33 + 64);
+  v21 = type metadata accessor for PlayVoicemailModel();
+  v22 = OUTLINED_FUNCTION_16(v21);
+  __chkstk_darwin(v22);
+  OUTLINED_FUNCTION_1();
+  v166 = v23;
+  OUTLINED_FUNCTION_12();
+  __chkstk_darwin(v24);
+  OUTLINED_FUNCTION_15();
+  v169 = v25;
+  OUTLINED_FUNCTION_5();
+  v168 = type metadata accessor for ShowCallHistoryListView();
+  OUTLINED_FUNCTION_2();
+  __chkstk_darwin(v26);
+  OUTLINED_FUNCTION_0_0();
+  v167 = v27;
+  OUTLINED_FUNCTION_5();
+  v28 = type metadata accessor for SearchCallHistoryModel();
+  v29 = OUTLINED_FUNCTION_16(v28);
+  __chkstk_darwin(v29);
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_6();
+  __chkstk_darwin(v30);
+  OUTLINED_FUNCTION_15();
+  v165 = v31;
+  OUTLINED_FUNCTION_5();
+  v164 = type metadata accessor for StackedButtonsView();
+  OUTLINED_FUNCTION_2();
   __chkstk_darwin(v32);
-  OUTLINED_FUNCTION_1();
-  v214 = v35;
-  OUTLINED_FUNCTION_12();
-  __chkstk_darwin(v36);
-  OUTLINED_FUNCTION_15();
-  v217 = v37;
-  OUTLINED_FUNCTION_5();
-  v216 = type metadata accessor for ShowCallHistoryListView();
-  v38 = OUTLINED_FUNCTION_2(v216);
-  v40 = *(v39 + 64);
-  __chkstk_darwin(v38);
   OUTLINED_FUNCTION_0_0();
-  v215 = v41;
-  OUTLINED_FUNCTION_5();
-  v42 = type metadata accessor for SearchCallHistoryModel();
+  OUTLINED_FUNCTION_4(v33);
+  v163 = type metadata accessor for LocalEmergencyCallDisambiguationView();
+  OUTLINED_FUNCTION_2();
+  __chkstk_darwin(v34);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4(v35);
+  v36 = type metadata accessor for LocalEmergencyCallDisambiguationModel();
+  v37 = OUTLINED_FUNCTION_16(v36);
+  __chkstk_darwin(v37);
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_6();
+  __chkstk_darwin(v38);
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_4(v39);
+  v161 = type metadata accessor for ForeignEmergencyCallDisambiguationView();
+  OUTLINED_FUNCTION_2();
+  __chkstk_darwin(v40);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4(v41);
+  v42 = type metadata accessor for ForeignEmergencyCallDisambiguationModel();
   v43 = OUTLINED_FUNCTION_16(v42);
-  v45 = *(v44 + 64);
   __chkstk_darwin(v43);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_6();
-  __chkstk_darwin(v46);
+  __chkstk_darwin(v44);
   OUTLINED_FUNCTION_15();
-  v213 = v47;
-  OUTLINED_FUNCTION_5();
-  v212 = type metadata accessor for StackedButtonsView();
-  v48 = OUTLINED_FUNCTION_2(v212);
-  v50 = *(v49 + 64);
-  __chkstk_darwin(v48);
+  OUTLINED_FUNCTION_4(v45);
+  v159 = type metadata accessor for EmergencyCountdownView();
+  OUTLINED_FUNCTION_2();
+  __chkstk_darwin(v46);
   OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4(v47);
+  v48 = type metadata accessor for EmergencyCountdownModel();
+  v49 = OUTLINED_FUNCTION_16(v48);
+  __chkstk_darwin(v49);
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_6();
+  __chkstk_darwin(v50);
+  OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_4(v51);
-  v211 = type metadata accessor for LocalEmergencyCallDisambiguationView();
-  v52 = OUTLINED_FUNCTION_2(v211);
-  v54 = *(v53 + 64);
+  v155 = type metadata accessor for AppDisambiguationView();
+  OUTLINED_FUNCTION_2();
   __chkstk_darwin(v52);
   OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4(v53);
+  v154 = type metadata accessor for AppDisambiguationViewSMART();
+  OUTLINED_FUNCTION_2();
+  __chkstk_darwin(v54);
+  OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4(v55);
-  v56 = type metadata accessor for LocalEmergencyCallDisambiguationModel();
-  v57 = OUTLINED_FUNCTION_16(v56);
-  v59 = *(v58 + 64);
-  __chkstk_darwin(v57);
+  v157 = type metadata accessor for YesNoConfirmationCarPlayView();
+  OUTLINED_FUNCTION_2();
+  __chkstk_darwin(v56);
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4(v57);
+  v179 = type metadata accessor for YesNoConfirmationView();
+  OUTLINED_FUNCTION_2();
+  __chkstk_darwin(v58);
+  OUTLINED_FUNCTION_0_0();
+  v180 = v59;
+  OUTLINED_FUNCTION_5();
+  v60 = type metadata accessor for YesNoConfirmationModel();
+  v61 = OUTLINED_FUNCTION_16(v60);
+  __chkstk_darwin(v61);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_6();
-  __chkstk_darwin(v60);
-  OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_4(v61);
-  v209 = type metadata accessor for ForeignEmergencyCallDisambiguationView();
-  v62 = OUTLINED_FUNCTION_2(v209);
-  v64 = *(v63 + 64);
   __chkstk_darwin(v62);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(v65);
-  v66 = type metadata accessor for ForeignEmergencyCallDisambiguationModel();
-  v67 = OUTLINED_FUNCTION_16(v66);
-  v69 = *(v68 + 64);
-  __chkstk_darwin(v67);
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  __chkstk_darwin(v70);
-  OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_4(v71);
-  v207 = type metadata accessor for EmergencyCountdownView();
-  v72 = OUTLINED_FUNCTION_2(v207);
-  v74 = *(v73 + 64);
-  __chkstk_darwin(v72);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(v75);
-  v76 = type metadata accessor for EmergencyCountdownModel();
-  v77 = OUTLINED_FUNCTION_16(v76);
-  v79 = *(v78 + 64);
-  __chkstk_darwin(v77);
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  __chkstk_darwin(v80);
-  OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_4(v81);
-  v203 = type metadata accessor for AppDisambiguationView();
-  v82 = OUTLINED_FUNCTION_2(v203);
-  v84 = *(v83 + 64);
-  __chkstk_darwin(v82);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(v85);
-  v202 = type metadata accessor for AppDisambiguationViewSMART();
-  v86 = OUTLINED_FUNCTION_2(v202);
-  v88 = *(v87 + 64);
-  __chkstk_darwin(v86);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(v89);
-  v205 = type metadata accessor for YesNoConfirmationCarPlayView();
-  v90 = OUTLINED_FUNCTION_2(v205);
-  v92 = *(v91 + 64);
-  __chkstk_darwin(v90);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(v93);
-  v227 = type metadata accessor for YesNoConfirmationView();
-  v94 = OUTLINED_FUNCTION_2(v227);
-  v96 = *(v95 + 64);
-  __chkstk_darwin(v94);
-  OUTLINED_FUNCTION_0_0();
-  v228 = v97;
-  OUTLINED_FUNCTION_5();
-  v98 = type metadata accessor for YesNoConfirmationModel();
-  v99 = OUTLINED_FUNCTION_16(v98);
-  v101 = *(v100 + 64);
-  __chkstk_darwin(v99);
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6();
-  __chkstk_darwin(v102);
-  v229 = &v198 - v103;
+  v181 = &v150 - v63;
   OUTLINED_FUNCTION_12();
-  __chkstk_darwin(v104);
+  __chkstk_darwin(v64);
   OUTLINED_FUNCTION_15();
-  v226 = v105;
+  v178 = v65;
   OUTLINED_FUNCTION_5();
-  v233 = type metadata accessor for PhoneSnippetDataModels();
-  v106 = OUTLINED_FUNCTION_2(v233);
-  v108 = *(v107 + 64);
-  __chkstk_darwin(v106);
+  v184[1] = type metadata accessor for PhoneSnippetDataModels();
+  OUTLINED_FUNCTION_2();
+  __chkstk_darwin(v66);
   OUTLINED_FUNCTION_1();
-  v231 = v109;
+  v183 = v67;
   OUTLINED_FUNCTION_12();
-  v111 = __chkstk_darwin(v110);
-  v113 = &v198 - v112;
-  __chkstk_darwin(v111);
-  v115 = &v198 - v114;
-  v116 = type metadata accessor for Logger();
-  v117 = *(v116 - 8);
-  v118 = *(v117 + 64);
-  __chkstk_darwin(v116);
-  v120 = &v198 - ((v119 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v121 = Logger.phoneSnippetUI.unsafeMutableAddressor();
-  v122 = *(v117 + 16);
-  v230 = v116;
-  v122(v120, v121, v116);
+  v69 = __chkstk_darwin(v68);
+  v71 = &v150 - v70;
+  __chkstk_darwin(v69);
+  v73 = &v150 - v72;
+  v74 = type metadata accessor for Logger();
+  v75 = *(v74 - 8);
+  __chkstk_darwin(v74);
+  v77 = &v150 - ((v76 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v78 = Logger.phoneSnippetUI.unsafeMutableAddressor();
+  v79 = *(v75 + 16);
+  v182 = v74;
+  v79(v77, v78, v74);
   OUTLINED_FUNCTION_3();
-  v232 = a1;
-  outlined init with copy of PhoneSnippetDataModels(a1, v115, v123);
-  v124 = Logger.logObject.getter();
-  v125 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v124, v125))
+  v184[0] = a1;
+  outlined init with copy of PhoneSnippetDataModels(a1, v73, v80);
+  v81 = Logger.logObject.getter();
+  v82 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v81, v82))
   {
-    v126 = swift_slowAlloc();
-    v201 = v1;
-    v127 = v126;
-    v128 = swift_slowAlloc();
-    v200 = v3;
-    v129 = v128;
-    v234 = v128;
-    *v127 = 136315138;
+    v83 = swift_slowAlloc();
+    v153 = v1;
+    v84 = v83;
+    v85 = swift_slowAlloc();
+    v152 = v3;
+    v86 = v85;
+    v185 = v85;
+    *v84 = 136315138;
     OUTLINED_FUNCTION_3();
-    outlined init with copy of PhoneSnippetDataModels(v115, v113, v130);
-    v131 = String.init<A>(describing:)();
-    v199 = v8;
-    v133 = v132;
+    outlined init with copy of PhoneSnippetDataModels(v73, v71, v87);
+    v88 = String.init<A>(describing:)();
+    v151 = v6;
+    v90 = v89;
     OUTLINED_FUNCTION_13();
-    v134 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v131, v133, &v234);
-    v8 = v199;
+    v91 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v88, v90, &v185);
+    v6 = v151;
 
-    *(v127 + 4) = v134;
-    _os_log_impl(&dword_0, v124, v125, "#PhoneUIPlugin getting snippet for %s", v127, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v129);
-    v3 = v200;
+    *(v84 + 4) = v91;
+    _os_log_impl(&dword_0, v81, v82, "#PhoneUIPlugin getting snippet for %s", v84, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v86);
+    v3 = v152;
   }
 
   else
@@ -753,183 +724,178 @@ uint64_t (**PhoneUIPlugin.snippet(for:mode:idiom:)(uint64_t a1))(void)
     OUTLINED_FUNCTION_13();
   }
 
-  (*(v117 + 8))(v120, v230);
+  (*(v75 + 8))(v77, v182);
   OUTLINED_FUNCTION_3();
-  v135 = v231;
-  outlined init with copy of PhoneSnippetDataModels(v232, v231, v136);
+  v92 = v183;
+  outlined init with copy of PhoneSnippetDataModels(v184[0], v183, v93);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
-      v164 = *v135;
-      v165 = v135[1];
-      v166 = v135[2];
       if (static RFFeatureFlags.ResponseFramework.SMART.getter())
       {
-        OUTLINED_FUNCTION_19(&v223);
+        OUTLINED_FUNCTION_19();
         AppDisambiguationViewSMART.init(model:)();
-        lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type AppDisambiguationViewSMART and conformance AppDisambiguationViewSMART, &type metadata accessor for AppDisambiguationViewSMART);
-        v125 = View.eraseToAnyView()();
-        v157 = &type metadata accessor for AppDisambiguationViewSMART;
+        lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type AppDisambiguationViewSMART and conformance AppDisambiguationViewSMART, &type metadata accessor for AppDisambiguationViewSMART, &protocol conformance descriptor for AppDisambiguationViewSMART);
+        v82 = View.eraseToAnyView()();
+        v114 = &type metadata accessor for AppDisambiguationViewSMART;
       }
 
       else
       {
-        OUTLINED_FUNCTION_19(&v225);
+        OUTLINED_FUNCTION_19();
         AppDisambiguationView.init(model:)();
-        lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type AppDisambiguationView and conformance AppDisambiguationView, &type metadata accessor for AppDisambiguationView);
-        v125 = View.eraseToAnyView()();
-        v157 = &type metadata accessor for AppDisambiguationView;
+        lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type AppDisambiguationView and conformance AppDisambiguationView, &type metadata accessor for AppDisambiguationView, &protocol conformance descriptor for AppDisambiguationView);
+        v82 = View.eraseToAnyView()();
+        v114 = &type metadata accessor for AppDisambiguationView;
       }
 
       goto LABEL_22;
     case 2u:
       OUTLINED_FUNCTION_8();
-      v167 = OUTLINED_FUNCTION_7();
-      OUTLINED_FUNCTION_20(v167, v168, &v227);
-      v169 = v228;
+      v121 = OUTLINED_FUNCTION_7();
+      OUTLINED_FUNCTION_20(v121, v122, &v179);
+      v123 = v180;
       OUTLINED_FUNCTION_18();
       YesNoConfirmationView.init(model:)();
       OUTLINED_FUNCTION_10();
-      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(v170, v171);
+      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(v124, v125, &protocol conformance descriptor for YesNoConfirmationView);
       View.eraseToAnyView()();
       OUTLINED_FUNCTION_9();
       goto LABEL_18;
     case 3u:
-      v147 = OUTLINED_FUNCTION_11();
-      v3 = v206;
-      outlined init with take of SingleResultCallHistoryModel(v147, v206, v148);
-      v149 = OUTLINED_FUNCTION_14();
-      OUTLINED_FUNCTION_20(v149, v150, &v230);
+      v104 = OUTLINED_FUNCTION_11();
+      v3 = v158;
+      outlined init with take of SingleResultCallHistoryModel(v104, v158, v105);
+      v106 = OUTLINED_FUNCTION_14();
+      OUTLINED_FUNCTION_20(v106, v107, &v182);
       OUTLINED_FUNCTION_18();
       EmergencyCountdownView.init(model:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type EmergencyCountdownView and conformance EmergencyCountdownView, &type metadata accessor for EmergencyCountdownView);
-      v125 = View.eraseToAnyView()();
-      v151 = OUTLINED_FUNCTION_17();
-      outlined destroy of PhoneSnippetDataModels(v151, v152);
-      v140 = &type metadata accessor for EmergencyCountdownModel;
+      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type EmergencyCountdownView and conformance EmergencyCountdownView, &type metadata accessor for EmergencyCountdownView, &protocol conformance descriptor for EmergencyCountdownView);
+      v82 = View.eraseToAnyView()();
+      v108 = OUTLINED_FUNCTION_17();
+      outlined destroy of PhoneSnippetDataModels(v108, v109);
+      v97 = &type metadata accessor for EmergencyCountdownModel;
       goto LABEL_19;
     case 4u:
-      v177 = OUTLINED_FUNCTION_11();
-      v3 = v208;
-      outlined init with take of SingleResultCallHistoryModel(v177, v208, v178);
-      v179 = OUTLINED_FUNCTION_14();
-      OUTLINED_FUNCTION_20(v179, v180, &v232);
+      v129 = OUTLINED_FUNCTION_11();
+      v3 = v160;
+      outlined init with take of SingleResultCallHistoryModel(v129, v160, v130);
+      v131 = OUTLINED_FUNCTION_14();
+      OUTLINED_FUNCTION_20(v131, v132, v184);
       OUTLINED_FUNCTION_18();
       ForeignEmergencyCallDisambiguationView.init(model:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type ForeignEmergencyCallDisambiguationView and conformance ForeignEmergencyCallDisambiguationView, &type metadata accessor for ForeignEmergencyCallDisambiguationView);
-      v125 = View.eraseToAnyView()();
-      v181 = OUTLINED_FUNCTION_17();
-      outlined destroy of PhoneSnippetDataModels(v181, v182);
-      v140 = &type metadata accessor for ForeignEmergencyCallDisambiguationModel;
+      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type ForeignEmergencyCallDisambiguationView and conformance ForeignEmergencyCallDisambiguationView, &type metadata accessor for ForeignEmergencyCallDisambiguationView, &protocol conformance descriptor for ForeignEmergencyCallDisambiguationView);
+      v82 = View.eraseToAnyView()();
+      v133 = OUTLINED_FUNCTION_17();
+      outlined destroy of PhoneSnippetDataModels(v133, v134);
+      v97 = &type metadata accessor for ForeignEmergencyCallDisambiguationModel;
       goto LABEL_19;
     case 5u:
-      v183 = OUTLINED_FUNCTION_11();
-      v3 = v210;
-      outlined init with take of SingleResultCallHistoryModel(v183, v210, v184);
-      v185 = OUTLINED_FUNCTION_14();
-      OUTLINED_FUNCTION_20(v185, v186, &v234);
+      v135 = OUTLINED_FUNCTION_11();
+      v3 = v162;
+      outlined init with take of SingleResultCallHistoryModel(v135, v162, v136);
+      v137 = OUTLINED_FUNCTION_14();
+      OUTLINED_FUNCTION_20(v137, v138, &v185);
       OUTLINED_FUNCTION_18();
       LocalEmergencyCallDisambiguationView.init(model:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type LocalEmergencyCallDisambiguationView and conformance LocalEmergencyCallDisambiguationView, &type metadata accessor for LocalEmergencyCallDisambiguationView);
-      v125 = View.eraseToAnyView()();
-      v187 = OUTLINED_FUNCTION_17();
-      outlined destroy of PhoneSnippetDataModels(v187, v188);
-      v140 = &type metadata accessor for LocalEmergencyCallDisambiguationModel;
+      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type LocalEmergencyCallDisambiguationView and conformance LocalEmergencyCallDisambiguationView, &type metadata accessor for LocalEmergencyCallDisambiguationView, &protocol conformance descriptor for LocalEmergencyCallDisambiguationView);
+      v82 = View.eraseToAnyView()();
+      v139 = OUTLINED_FUNCTION_17();
+      outlined destroy of PhoneSnippetDataModels(v139, v140);
+      v97 = &type metadata accessor for LocalEmergencyCallDisambiguationModel;
       goto LABEL_19;
     case 6u:
-      v173 = *v135;
-      v174 = *(v135 + 8);
       StackedButtonsView.init(model:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type StackedButtonsView and conformance StackedButtonsView, &type metadata accessor for StackedButtonsView);
-      v125 = View.eraseToAnyView()();
-      v175 = OUTLINED_FUNCTION_17();
+      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type StackedButtonsView and conformance StackedButtonsView, &type metadata accessor for StackedButtonsView, &protocol conformance descriptor for StackedButtonsView);
+      v82 = View.eraseToAnyView()();
+      v127 = OUTLINED_FUNCTION_17();
       goto LABEL_20;
     case 8u:
       OUTLINED_FUNCTION_8();
-      v195 = OUTLINED_FUNCTION_7();
-      v169 = v204;
-      outlined init with copy of PhoneSnippetDataModels(v195, v204, v196);
-      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type YesNoConfirmationCarPlayView and conformance YesNoConfirmationCarPlayView, &type metadata accessor for YesNoConfirmationCarPlayView);
-      v125 = View.eraseToAnyView()();
-      v172 = &type metadata accessor for YesNoConfirmationCarPlayView;
+      v147 = OUTLINED_FUNCTION_7();
+      v123 = v156;
+      outlined init with copy of PhoneSnippetDataModels(v147, v156, v148);
+      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type YesNoConfirmationCarPlayView and conformance YesNoConfirmationCarPlayView, &type metadata accessor for YesNoConfirmationCarPlayView, &protocol conformance descriptor for YesNoConfirmationCarPlayView);
+      v82 = View.eraseToAnyView()();
+      v126 = &type metadata accessor for YesNoConfirmationCarPlayView;
 LABEL_18:
-      outlined destroy of PhoneSnippetDataModels(v169, v172);
-      v140 = &type metadata accessor for YesNoConfirmationModel;
+      outlined destroy of PhoneSnippetDataModels(v123, v126);
+      v97 = &type metadata accessor for YesNoConfirmationModel;
       goto LABEL_19;
     case 9u:
-      v158 = OUTLINED_FUNCTION_11();
-      v3 = v213;
-      outlined init with take of SingleResultCallHistoryModel(v158, v213, v159);
-      v160 = OUTLINED_FUNCTION_14();
-      OUTLINED_FUNCTION_20(v160, v161, &v235);
+      v115 = OUTLINED_FUNCTION_11();
+      v3 = v165;
+      outlined init with take of SingleResultCallHistoryModel(v115, v165, v116);
+      v117 = OUTLINED_FUNCTION_14();
+      OUTLINED_FUNCTION_20(v117, v118, &v186);
       OUTLINED_FUNCTION_18();
       ShowCallHistoryListView.init(model:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type ShowCallHistoryListView and conformance ShowCallHistoryListView, &type metadata accessor for ShowCallHistoryListView);
-      v125 = View.eraseToAnyView()();
-      v162 = OUTLINED_FUNCTION_17();
-      outlined destroy of PhoneSnippetDataModels(v162, v163);
-      v140 = &type metadata accessor for SearchCallHistoryModel;
+      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type ShowCallHistoryListView and conformance ShowCallHistoryListView, &type metadata accessor for ShowCallHistoryListView, &protocol conformance descriptor for ShowCallHistoryListView);
+      v82 = View.eraseToAnyView()();
+      v119 = OUTLINED_FUNCTION_17();
+      outlined destroy of PhoneSnippetDataModels(v119, v120);
+      v97 = &type metadata accessor for SearchCallHistoryModel;
       goto LABEL_19;
     case 0xAu:
-      v189 = OUTLINED_FUNCTION_11();
-      v3 = v217;
-      outlined init with take of SingleResultCallHistoryModel(v189, v217, v190);
-      v191 = OUTLINED_FUNCTION_14();
-      outlined init with copy of PhoneSnippetDataModels(v191, v214, v192);
+      v141 = OUTLINED_FUNCTION_11();
+      v3 = v169;
+      outlined init with take of SingleResultCallHistoryModel(v141, v169, v142);
+      v143 = OUTLINED_FUNCTION_14();
+      outlined init with copy of PhoneSnippetDataModels(v143, v166, v144);
       OUTLINED_FUNCTION_18();
       ShowPlayVoicemailListView.init(model:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type ShowPlayVoicemailListView and conformance ShowPlayVoicemailListView, &type metadata accessor for ShowPlayVoicemailListView);
-      v125 = View.eraseToAnyView()();
-      v193 = OUTLINED_FUNCTION_17();
-      outlined destroy of PhoneSnippetDataModels(v193, v194);
-      v140 = &type metadata accessor for PlayVoicemailModel;
-      goto LABEL_19;
-    case 0xBu:
-      v141 = OUTLINED_FUNCTION_11();
-      v3 = v221;
-      outlined init with take of SingleResultCallHistoryModel(v141, v221, v142);
-      v143 = OUTLINED_FUNCTION_14();
-      outlined init with copy of PhoneSnippetDataModels(v143, v218, v144);
-      OUTLINED_FUNCTION_18();
-      SingleResultVoicemailView.init(singleVoicemailModel:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type SingleResultVoicemailView and conformance SingleResultVoicemailView, &type metadata accessor for SingleResultVoicemailView);
-      v125 = View.eraseToAnyView()();
+      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type ShowPlayVoicemailListView and conformance ShowPlayVoicemailListView, &type metadata accessor for ShowPlayVoicemailListView, &protocol conformance descriptor for ShowPlayVoicemailListView);
+      v82 = View.eraseToAnyView()();
       v145 = OUTLINED_FUNCTION_17();
       outlined destroy of PhoneSnippetDataModels(v145, v146);
-      v140 = &type metadata accessor for SingleResultVoicemailModel;
+      v97 = &type metadata accessor for PlayVoicemailModel;
+      goto LABEL_19;
+    case 0xBu:
+      v98 = OUTLINED_FUNCTION_11();
+      v3 = v173;
+      outlined init with take of SingleResultCallHistoryModel(v98, v173, v99);
+      v100 = OUTLINED_FUNCTION_14();
+      outlined init with copy of PhoneSnippetDataModels(v100, v170, v101);
+      OUTLINED_FUNCTION_18();
+      SingleResultVoicemailView.init(singleVoicemailModel:)();
+      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type SingleResultVoicemailView and conformance SingleResultVoicemailView, &type metadata accessor for SingleResultVoicemailView, &protocol conformance descriptor for SingleResultVoicemailView);
+      v82 = View.eraseToAnyView()();
+      v102 = OUTLINED_FUNCTION_17();
+      outlined destroy of PhoneSnippetDataModels(v102, v103);
+      v97 = &type metadata accessor for SingleResultVoicemailModel;
       goto LABEL_19;
     case 0xCu:
-      v153 = OUTLINED_FUNCTION_11();
-      v135 = v225;
-      outlined init with take of SingleResultCallHistoryModel(v153, v225, v154);
-      v155 = OUTLINED_FUNCTION_11();
-      outlined init with copy of PhoneSnippetDataModels(v155, v222, v156);
+      v110 = OUTLINED_FUNCTION_11();
+      v92 = v177;
+      outlined init with take of SingleResultCallHistoryModel(v110, v177, v111);
+      v112 = OUTLINED_FUNCTION_11();
+      outlined init with copy of PhoneSnippetDataModels(v112, v174, v113);
       SingleResultCallHistoryView.init(singleResultCallHistoryModel:)();
-      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView, &type metadata accessor for SingleResultCallHistoryView);
-      v125 = View.eraseToAnyView()();
-      outlined destroy of PhoneSnippetDataModels(v8, &type metadata accessor for SingleResultCallHistoryView);
-      v157 = &type metadata accessor for SingleResultCallHistoryModel;
+      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(&lazy protocol witness table cache variable for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView, &type metadata accessor for SingleResultCallHistoryView, &protocol conformance descriptor for SingleResultCallHistoryView);
+      v82 = View.eraseToAnyView()();
+      outlined destroy of PhoneSnippetDataModels(v6, &type metadata accessor for SingleResultCallHistoryView);
+      v114 = &type metadata accessor for SingleResultCallHistoryModel;
 LABEL_22:
-      v176 = v157;
-      v175 = v135;
+      v128 = v114;
+      v127 = v92;
       goto LABEL_20;
     default:
-      v125 = &type metadata accessor for YesNoConfirmationModel;
-      v137 = v226;
-      outlined init with take of SingleResultCallHistoryModel(v135, v226, &type metadata accessor for YesNoConfirmationModel);
-      outlined init with take of SingleResultCallHistoryModel(v137, v229, &type metadata accessor for YesNoConfirmationModel);
-      v3 = v228;
+      v82 = &type metadata accessor for YesNoConfirmationModel;
+      v94 = v178;
+      outlined init with take of SingleResultCallHistoryModel(v92, v178, &type metadata accessor for YesNoConfirmationModel);
+      outlined init with take of SingleResultCallHistoryModel(v94, v181, &type metadata accessor for YesNoConfirmationModel);
+      v3 = v180;
       YesNoConfirmationView.init(model:)();
       OUTLINED_FUNCTION_10();
-      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(v138, v139);
+      lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(v95, v96, &protocol conformance descriptor for YesNoConfirmationView);
       View.eraseToAnyView()();
       OUTLINED_FUNCTION_9();
 LABEL_19:
-      v176 = v140;
-      v175 = v3;
+      v128 = v97;
+      v127 = v3;
 LABEL_20:
-      outlined destroy of PhoneSnippetDataModels(v175, v176);
-      return v125;
+      outlined destroy of PhoneSnippetDataModels(v127, v128);
+      return v82;
   }
 }
 
@@ -940,31 +906,31 @@ uint64_t protocol witness for SnippetProviding.init() in conformance PhoneUIPlug
   return result;
 }
 
-uint64_t outlined init with take of SingleResultCallHistoryModel(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t outlined init with take of SingleResultCallHistoryModel(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
-  v5 = a3(0);
-  OUTLINED_FUNCTION_2(v5);
-  (*(v6 + 32))(a2, a1);
+  a3(0);
+  OUTLINED_FUNCTION_2();
+  (*(v5 + 32))(a2, a1);
   return a2;
 }
 
-uint64_t outlined init with copy of PhoneSnippetDataModels(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t outlined init with copy of PhoneSnippetDataModels(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
-  v5 = a3(0);
-  OUTLINED_FUNCTION_2(v5);
-  (*(v6 + 16))(a2, a1);
+  a3(0);
+  OUTLINED_FUNCTION_2();
+  (*(v5 + 16))(a2, a1);
   return a2;
 }
 
 uint64_t outlined destroy of PhoneSnippetDataModels(uint64_t a1, uint64_t (*a2)(void))
 {
-  v3 = a2(0);
-  OUTLINED_FUNCTION_2(v3);
-  (*(v4 + 8))(a1);
+  a2(0);
+  OUTLINED_FUNCTION_2();
+  (*(v3 + 8))(a1);
   return a1;
 }
 
-uint64_t lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type SingleResultCallHistoryView and conformance SingleResultCallHistoryView(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -990,7 +956,7 @@ uint64_t OUTLINED_FUNCTION_13()
   return outlined destroy of PhoneSnippetDataModels(v0, &type metadata accessor for PhoneSnippetDataModels);
 }
 
-uint64_t OUTLINED_FUNCTION_20@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X2>, uint64_t a3@<X8>)
+uint64_t OUTLINED_FUNCTION_20@<X0>(uint64_t a1@<X0>, void (*a2)(void)@<X2>, uint64_t a3@<X8>)
 {
   v4 = *(a3 - 256);
 
@@ -1013,34 +979,35 @@ unint64_t PhoneUIPlugin.view(for:data:mode:)(uint64_t a1, unint64_t a2, uint64_t
 
   if (os_log_type_enabled(v11, v12))
   {
-    v31 = a3;
+    v33 = a3;
     v13 = swift_slowAlloc();
     v14 = swift_slowAlloc();
-    v27[0] = v14;
+    v29[0] = v14;
     *v13 = 136315138;
-    *(v13 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, v27);
+    *(v13 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, v29);
     _os_log_impl(&dword_0, v11, v12, "#PhoneUIPlugin creating view for id=%s", v13, 0xCu);
     __swift_destroy_boxed_opaque_existential_0(v14);
-    OUTLINED_FUNCTION_0_1();
+    OUTLINED_FUNCTION_0_1(v14);
+    v15 = v13;
     v5 = v4;
-    a3 = v31;
-    OUTLINED_FUNCTION_0_1();
+    a3 = v33;
+    OUTLINED_FUNCTION_0_1(v15);
   }
 
-  v27[0] = &type metadata for PhoneContactHeader;
+  v29[0] = &type metadata for PhoneContactHeader;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s14PhoneSnippetUI0A13ContactHeaderVmMd, &_s14PhoneSnippetUI0A13ContactHeaderVmMR);
-  if (String.init<A>(describing:)() == a1 && v15 == a2)
+  if (String.init<A>(describing:)() == a1 && v16 == a2)
   {
   }
 
   else
   {
-    v17 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if ((v17 & 1) == 0)
+    if ((v18 & 1) == 0)
     {
       lazy protocol witness table accessor for type PhoneUIPlugin.Error and conformance PhoneUIPlugin.Error();
-      v18 = swift_allocError();
+      v19 = swift_allocError();
       swift_willThrow();
       goto LABEL_13;
     }
@@ -1050,45 +1017,46 @@ unint64_t PhoneUIPlugin.view(for:data:mode:)(uint64_t a1, unint64_t a2, uint64_t
   lazy protocol witness table accessor for type PhoneContactHeader and conformance PhoneContactHeader();
   lazy protocol witness table accessor for type PhoneContactHeader and conformance PhoneContactHeader();
   CustomCanvasModel<>.init(serializedData:)();
-  v18 = v5;
+  v19 = v5;
   if (!v5)
   {
     memcpy(__dst, __src, 0x41uLL);
     PhoneContactHeader.view.getter();
     outlined destroy of PhoneContactHeader(__dst);
-    memcpy(v26, v29, 0x59uLL);
+    memcpy(v28, v31, 0x59uLL);
     lazy protocol witness table accessor for type ContactHeaderView and conformance ContactHeaderView();
     a2 = View.eraseToAnyView()();
-    memcpy(v27, v26, 0x59uLL);
-    outlined destroy of ContactHeaderView(v27);
+    memcpy(v29, v28, 0x59uLL);
+    outlined destroy of ContactHeaderView(v29);
     return a2;
   }
 
 LABEL_13:
 
   swift_errorRetain();
-  v19 = Logger.logObject.getter();
-  v20 = static os_log_type_t.error.getter();
+  v20 = Logger.logObject.getter();
+  v21 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v19, v20))
+  if (os_log_type_enabled(v20, v21))
   {
-    v21 = swift_slowAlloc();
-    v27[0] = swift_slowAlloc();
-    *v21 = 136315394;
-    *(v21 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, v27);
-    *(v21 + 12) = 2080;
-    v26[0] = v18;
+    v22 = swift_slowAlloc();
+    v23 = swift_slowAlloc();
+    v29[0] = v23;
+    *v22 = 136315394;
+    *(v22 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, v29);
+    *(v22 + 12) = 2080;
+    v28[0] = v19;
     swift_errorRetain();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-    v22 = String.init<A>(describing:)();
-    a2 = v23;
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, v27);
+    v24 = String.init<A>(describing:)();
+    a2 = v25;
+    v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v25, v29);
 
-    *(v21 + 14) = v24;
-    _os_log_impl(&dword_0, v19, v20, "#PhoneUIPlugin failed to create view component for id=%s: %s.", v21, 0x16u);
+    *(v22 + 14) = v26;
+    _os_log_impl(&dword_0, v20, v21, "#PhoneUIPlugin failed to create view component for id=%s: %s.", v22, 0x16u);
     swift_arrayDestroy();
-    OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_0_1();
+    OUTLINED_FUNCTION_0_1(v23);
+    OUTLINED_FUNCTION_0_1(v22);
   }
 
   swift_willThrow();
@@ -1102,7 +1070,7 @@ Swift::Int PhoneUIPlugin.Error.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PhoneUIPlugin.Error()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PhoneUIPlugin.Error(uint64_t a1)
 {
   Hasher.init(_seed:)();
   PhoneUIPlugin.Error.hash(into:)();
@@ -1132,13 +1100,13 @@ unint64_t lazy protocol witness table accessor for type PhoneUIPlugin.Error and 
   return result;
 }
 
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+void outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return;
     }
   }
 }
@@ -1292,6 +1260,6 @@ LABEL_19:
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_0_1()
+uint64_t OUTLINED_FUNCTION_0_1(uint64_t a1)
 {
 }

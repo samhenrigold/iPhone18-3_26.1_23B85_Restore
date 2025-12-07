@@ -97,9 +97,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v10 = [(NSArray *)v8 isEqual:v9];
+  isEqual = objc_msgSend_isEqual_(v8, v9, v9);
 
-  if ((v10 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_items, items);

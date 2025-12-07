@@ -44,12 +44,12 @@
   AXPerformSafeBlock();
 }
 
-uint64_t __57__PUTiltWheelControlAccessibility_accessibilityIncrement__block_invoke(uint64_t result)
+void *__57__PUTiltWheelControlAccessibility_accessibilityIncrement__block_invoke(void *result)
 {
-  v1 = *(result + 40);
-  if (v1 < *(result + 48))
+  v1 = *(result + 5);
+  if (v1 < *(result + 6))
   {
-    return [*(result + 32) _setTiltAngleFromUserInteraction:v1 + 0.0174532925];
+    return [*(result + 4) _setTiltAngleFromUserInteraction:v1 + 0.0174532925];
   }
 
   return result;
@@ -66,12 +66,12 @@ uint64_t __57__PUTiltWheelControlAccessibility_accessibilityIncrement__block_inv
   AXPerformSafeBlock();
 }
 
-uint64_t __57__PUTiltWheelControlAccessibility_accessibilityDecrement__block_invoke(uint64_t result)
+void *__57__PUTiltWheelControlAccessibility_accessibilityDecrement__block_invoke(void *result)
 {
-  v1 = *(result + 40);
-  if (v1 > *(result + 48))
+  v1 = *(result + 5);
+  if (v1 > *(result + 6))
   {
-    return [*(result + 32) _setTiltAngleFromUserInteraction:v1 + -0.0174532925];
+    return [*(result + 4) _setTiltAngleFromUserInteraction:v1 + -0.0174532925];
   }
 
   return result;

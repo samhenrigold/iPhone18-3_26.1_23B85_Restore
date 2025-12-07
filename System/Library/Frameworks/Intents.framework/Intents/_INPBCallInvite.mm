@@ -3,6 +3,7 @@
 - (_INPBCallInvite)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)inviteTypeAsString:(int)string;
 - (int)StringAsInviteType:(id)type;
 - (unint64_t)hash;
 - (void)addParticipants:(id)participants;
@@ -16,7 +17,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   callURL = [(_INPBCallInvite *)self callURL];
   dictionaryRepresentation = [callURL dictionaryRepresentation];
@@ -41,30 +42,30 @@
   if ([(NSArray *)self->_participants count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v9 = self->_participants;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation2 = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v16 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v11);
@@ -72,8 +73,6 @@
 
     [dictionary setObject:array forKeyedSubscript:@"participants"];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -224,7 +223,7 @@ LABEL_17:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   callURL = [(_INPBCallInvite *)self callURL];
 
@@ -236,43 +235,39 @@ LABEL_17:
 
   if ([(_INPBCallInvite *)self hasInviteType])
   {
-    inviteType = self->_inviteType;
     PBDataWriterWriteInt32Field();
   }
 
-  v17 = 0u;
-  v18 = 0u;
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v8 = self->_participants;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v9)
+  v12 = 0u;
+  v13 = 0u;
+  v7 = self->_participants;
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
   {
-    v10 = v9;
-    v11 = *v16;
+    v9 = v8;
+    v10 = *v13;
     do
     {
-      v12 = 0;
+      v11 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v13 != v10)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * v12);
         PBDataWriterWriteSubmessage();
-        ++v12;
+        ++v11;
       }
 
-      while (v10 != v12);
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v9 != v11);
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v10);
+    while (v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addParticipants:(id)participants
@@ -323,6 +318,21 @@ LABEL_17:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)inviteTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72889B0[string - 1];
   }
 
   return v4;

@@ -85,7 +85,7 @@
         MidY = CGRectGetMidY(v152);
         *&v146 = round(MidX + v16 * v107);
         *(&v146 + 1) = round(MidY + v22 * v26);
-        std::__tree<boost::polygon::point_data<double>>::__emplace_unique_key_args<boost::polygon::point_data<double>,boost::polygon::point_data<double> const&>(&v139, &v146);
+        std::__tree<boost::polygon::point_data<double>>::__emplace_unique_key_args<boost::polygon::point_data<double>,boost::polygon::point_data<double> const&>(&v139, &v146, &v146);
         v32 = v142;
         if (v142 >= v143)
         {
@@ -142,7 +142,7 @@
       *(&v146 + 1) = round(v37);
       if (v140 == std::__tree<boost::polygon::point_data<double>>::find<boost::polygon::point_data<double>>(&v139, &v146))
       {
-        std::__tree<boost::polygon::point_data<double>>::__emplace_unique_key_args<boost::polygon::point_data<double>,boost::polygon::point_data<double> const&>(&v139, &v146);
+        std::__tree<boost::polygon::point_data<double>>::__emplace_unique_key_args<boost::polygon::point_data<double>,boost::polygon::point_data<double> const&>(&v139, &v146, &v146);
         v38 = v142;
         if (v142 >= v143)
         {

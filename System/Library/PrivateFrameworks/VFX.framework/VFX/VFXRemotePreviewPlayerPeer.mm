@@ -30,9 +30,9 @@
 - (VFXRemotePreviewPlayerPeer)initWithDelegate:(id)delegate
 {
   swift_unknownObjectRetain();
-  v3 = sub_1AF868F78();
+  v4 = sub_1AF868F78(delegate);
   swift_unknownObjectRelease();
-  return v3;
+  return v4;
 }
 
 - (NSString)debugDescription
@@ -55,13 +55,13 @@
 {
   v2 = sub_1AFDFC128();
   v3 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2, v4);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  static RemotePreviewPlayerPeer.projectFolder.getter(v6);
-  v7 = sub_1AFDFC048();
-  (*(v3 + 8))(v6, v2);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  static RemotePreviewPlayerPeer.projectFolder.getter(v5);
+  v6 = sub_1AFDFC048();
+  (*(v3 + 8))(v5, v2);
 
-  return v7;
+  return v6;
 }
 
 - (VFXRemotePreviewPlayerPeer)init
@@ -75,13 +75,13 @@
 {
   v4 = sub_1AFDFC128();
   v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4, v6);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1AFDFC0B8();
   selfCopy = self;
-  RemotePreviewPlayerPeer.openPackage(url:)(v8);
+  RemotePreviewPlayerPeer.openPackage(url:)(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 @end

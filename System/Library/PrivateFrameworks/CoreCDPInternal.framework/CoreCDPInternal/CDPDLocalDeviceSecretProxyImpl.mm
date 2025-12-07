@@ -20,13 +20,12 @@
 
 - (void)hasLocalSecret
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 1024;
-  v7 = a2 & 1;
-  _os_log_debug_impl(&dword_24510B000, log, OS_LOG_TYPE_DEBUG, "Managed config (%@) reports isPasscodeSet=%i", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 1024;
+  v6 = a2 & 1;
+  _os_log_debug_impl(&dword_24510B000, log, OS_LOG_TYPE_DEBUG, "Managed config (%@) reports isPasscodeSet=%i", &v3, 0x12u);
 }
 
 @end

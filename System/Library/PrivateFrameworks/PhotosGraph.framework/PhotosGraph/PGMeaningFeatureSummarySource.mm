@@ -7,7 +7,7 @@
 
 - (id)summarizedFeaturesForMomentNodes:(id)nodes
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   temporarySet = [nodesCopy temporarySet];
   v6 = [PGHighlightTitleGenerator commonMeaningLabelForTitleUsingMomentNodes:temporarySet];
@@ -22,8 +22,8 @@
       {
         [v6 isEqualToString:@"HolidayEvent"];
 LABEL_5:
-        v21[0] = v6;
-        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+        v20[0] = v6;
+        v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
         v10 = [PGGraphMeaningNodeCollection meaningNodesWithMeaningLabels:v9 inGraph:self->_graph];
 
         momentNodes = [v10 momentNodes];
@@ -33,8 +33,8 @@ LABEL_5:
         universalDateIntervals = [v12 universalDateIntervals];
         v15 = [(PGMeaningSummarizedFeature *)v13 initWithIntervalsPresent:universalDateIntervals isMandatoryForKeyAsset:0 meaningLabel:v6];
 
-        v20 = v15;
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+        v19 = v15;
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
 
         goto LABEL_9;
       }
@@ -49,8 +49,6 @@ LABEL_5:
 
   v16 = MEMORY[0x277CBEBF8];
 LABEL_9:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

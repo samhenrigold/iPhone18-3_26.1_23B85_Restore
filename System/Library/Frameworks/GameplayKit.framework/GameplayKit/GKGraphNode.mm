@@ -3,7 +3,6 @@
 - (GKGraphNode)init;
 - (GKGraphNode)initWithCoder:(id)coder;
 - (NSArray)findPathFromNode:(GKGraphNode *)startNode;
-- (NSArray)findPathToNode:(GKGraphNode *)goalNode;
 - (void)addConnection:(id)connection bidirectional:(BOOL)bidirectional;
 - (void)addConnectionsToNodes:(NSArray *)nodes bidirectional:(BOOL)bidirectional;
 - (void)dealloc;
@@ -70,37 +69,35 @@
 - (void)addConnectionsToNodes:(NSArray *)nodes bidirectional:(BOOL)bidirectional
 {
   v4 = bidirectional;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v6 = nodes;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        GKCGraphNode::addConnectionToNode(self->_cGraphNode, [*(*(&v11 + 1) + 8 * v9++) cGraphNode], v4);
+        GKCGraphNode::addConnectionToNode(self->_cGraphNode, [*(*(&v10 + 1) + 8 * v9++) cGraphNode], v4);
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeConnection:(id)connection
@@ -128,14 +125,6 @@
   }
 }
 
-- (NSArray)findPathToNode:(GKGraphNode *)goalNode
-{
-  v4 = goalNode;
-  [(GKGraphNode *)self cGraphNode];
-  [(GKGraphNode *)v4 cGraphNode];
-  GKFindPath();
-}
-
 - (NSArray)findPathFromNode:(GKGraphNode *)startNode
 {
   v3 = [(GKGraphNode *)startNode findPathFromNode:self];
@@ -145,12 +134,13 @@
 
 - (GKGraphNode)initWithCoder:(id)coder
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(GKGraphNode *)self init];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v13 = objc_opt_class();
     v14 = objc_opt_class();
     v15 = objc_opt_class();
     v16 = objc_opt_class();
@@ -161,9 +151,8 @@
     v21 = objc_opt_class();
     v22 = objc_opt_class();
     v23 = objc_opt_class();
-    v24 = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:11];
-    [v6 addObjectsFromArray:{v7, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23}];
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:11];
+    [v6 addObjectsFromArray:{v7, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22}];
 
     allowedClasses = [coderCopy allowedClasses];
     [v6 unionSet:allowedClasses];
@@ -185,7 +174,6 @@
     *(v5->_cGraphNode + 12) = [coderCopy decodeIntForKey:@"_vertIndex"];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

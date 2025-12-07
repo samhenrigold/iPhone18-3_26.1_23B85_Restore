@@ -90,138 +90,136 @@ float _CFXFindAdaptation(float *a1, uint64_t *a2)
 
 uint64_t _CFXUpdateColorFadeInternal(uint64_t a1, double *a2, char a3, double a4)
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v40 = a1;
-  v39 = a4;
-  v38 = a2;
-  v37 = a3;
-  v36 = a4 - a2[1];
-  v35 = v36 / *a2;
-  v34 = 0;
-  if (*a2 == 0.0 || v35 >= 1.0 || v36 < 0.0)
+  v43 = *MEMORY[0x1E69E9840];
+  v39 = a1;
+  v38 = a4;
+  v37 = a2;
+  v36 = a3;
+  v35 = a4 - a2[1];
+  v34 = v35 / *a2;
+  v33 = 0;
+  if (*a2 == 0.0 || v34 >= 1.0 || v35 < 0.0)
   {
-    memcpy(__dst, v38 + 20, sizeof(__dst));
-    *v38 = 0.0;
-    *(v38 + 16) = 1;
+    memcpy(__dst, v37 + 20, sizeof(__dst));
+    *v37 = 0.0;
+    *(v37 + 16) = 1;
   }
 
   else
   {
-    v33 = *(v40 + 360) - 1;
-    v35 = v35 * v33;
-    v32 = v35;
-    v31 = v35 + 1;
-    v30 = v35 - v35;
-    v35 = (1.0 - v30) * *(*(v40 + 352) + 4 * v35) + v30 * *(*(v40 + 352) + 4 * v31);
+    v32 = *(v39 + 360) - 1;
+    v34 = v34 * v32;
+    v31 = v34;
+    v30 = v34 + 1;
+    v29 = v34 - v34;
+    v34 = (1.0 - v29) * *(*(v39 + 352) + 4 * v34) + v29 * *(*(v39 + 352) + 4 * v30);
     for (i = 0; i < 3; ++i)
     {
       for (j = 0; j < 3; ++j)
       {
-        v4 = *(v38 + 3 * i + j + 23) + v35 * (*(v38 + 3 * i + j + 5) - *(v38 + 3 * i + j + 23));
+        v4 = *(v37 + 3 * i + j + 23) + v34 * (*(v37 + 3 * i + j + 5) - *(v37 + 3 * i + j + 23));
         __dst[3 * i + j] = v4;
       }
     }
 
-    v34 = 1;
+    v33 = 1;
   }
 
   __memcpy_chk();
-  if ((v37 & 1) != 0 && *(v40 + 96))
+  if ((v36 & 1) != 0 && *(v39 + 96))
   {
-    v27 = *(v40 + 96);
-    v14 = &v26;
-    v26 = 0;
+    v26 = *(v39 + 96);
+    v13 = &v25;
     v25 = 0;
-    _CFXGetWPFromMatrix(v40, __dst, &v26, &v25);
-    v16 = v24;
-    memset(v24, 0, sizeof(v24));
-    v15 = &v41;
+    v24 = 0;
+    _CFXGetWPFromMatrix(v39, __dst, &v25, &v24);
+    v15 = v23;
+    memset(v23, 0, sizeof(v23));
+    v14 = &v40;
+    v40 = 0;
     v41 = 0;
-    v42 = 0;
-    CFXChromaticity2Tristimulus(&v26, &v41, 100.0);
-    CFXTristimulus2Lab(&v41, v24);
-    if (*(v27 + 56))
+    CFXChromaticity2Tristimulus(&v25, &v40, 100.0);
+    CFXTristimulus2Lab(&v40, v23);
+    if (*(v26 + 56))
     {
-      v23 = *&v24[4];
-      _CFXStickToPolygon(*(v27 + 56), *(v27 + 148), &dword_1DEACD84C, &v24[4], &v24[4]);
-      if (*&v23 != *&v24[4] && *(&v23 + 1) != *&v24[8])
+      v22 = *&v23[4];
+      _CFXStickToPolygon(*(v26 + 56), *(v26 + 148), &dword_1DEACD84C, &v23[4], &v23[4]);
+      if (*&v22 != *&v23[4] && *(&v22 + 1) != *&v23[8])
       {
-        syslog(7, "Restrict: (%f, %f) -> (%f, %f)\n", *&v23, *&v23, *&v24[4], *&v24[8]);
+        syslog(7, "Restrict: (%f, %f) -> (%f, %f)\n", *&v22, *&v22, *&v23[4], *&v23[8]);
       }
     }
 
-    v22 = 0.0;
     v21 = 0.0;
-    if (*(*(v40 + 96) + 303))
+    v20 = 0.0;
+    if (*(*(v39 + 96) + 303))
     {
-      v21 = fminf(*(v27 + 336), *(v27 + 280));
+      v20 = fminf(*(v26 + 336), *(v26 + 280));
     }
 
     else
     {
-      v21 = *(v27 + 280);
+      v20 = *(v26 + 280);
     }
 
-    *(v27 + 308) = v21;
-    if (*(v27 + 144))
+    *(v26 + 308) = v20;
+    if (*(v26 + 144))
     {
-      v22 = _CFXFindAdaptation(&v24[4], (v27 + 64));
-      v20 = 0.0;
-      if (*(v27 + 145))
+      v21 = _CFXFindAdaptation(&v23[4], (v26 + 64));
+      v19 = 0.0;
+      if (*(v26 + 145))
       {
-        v20 = _CFXFindAdaptation(&v24[4], (v27 + 104));
-        if (v21 > 0.35)
+        v19 = _CFXFindAdaptation(&v23[4], (v26 + 104));
+        if (v20 > 0.35)
         {
-          if (v21 > 0.7)
+          if (v20 > 0.7)
           {
-            if (v21 > 0.85)
+            if (v20 > 0.85)
             {
-              v22 = 0.0;
+              v21 = 0.0;
             }
 
             else
             {
-              v7 = (0.85 - v21) / 0.15;
-              v17 = v7;
-              v22 = ((1.0 - v7) * 0.0) + (v7 * v22);
+              v7 = (0.85 - v20) / 0.15;
+              v16 = v7;
+              v21 = ((1.0 - v7) * 0.0) + (v7 * v21);
             }
           }
 
           else
           {
-            v6 = (0.7 - v21) / 0.35;
-            v18 = v6;
-            v22 = ((1.0 - v6) * v22) + (v6 * v20);
+            v6 = (0.7 - v20) / 0.35;
+            v17 = v6;
+            v21 = ((1.0 - v6) * v21) + (v6 * v19);
           }
         }
 
         else
         {
-          v5 = (0.35 - v21) / 0.35;
-          v19 = v5;
-          v22 = ((1.0 - v5) * v20) + (v5 * 1.0);
+          v5 = (0.35 - v20) / 0.35;
+          v18 = v5;
+          v21 = ((1.0 - v5) * v19) + (v5 * 1.0);
         }
       }
     }
 
-    v8 = (v22 * 0.0) + (1.0 - v22) * *&v24[4];
-    *&v24[4] = v8;
-    v9 = (v22 * 0.0) + (1.0 - v22) * *&v24[8];
-    *&v24[8] = v9;
-    *&v24[4] = v8 + (v21 * *(v27 + 292));
-    *&v24[8] = v9 + (v21 * *(v27 + 296));
-    v13 = &v41;
-    CFXLab2Tristimulus(v24, &v41);
-    v10 = v13;
-    *(v40 + 2100) = v22;
-    CFXTristimulus2Chromaticity_0(v10, (v40 + 2108));
-    _CFXGetMatrix(v40, v13, __dst, (v40 + 2128));
+    v8 = (v21 * 0.0) + (1.0 - v21) * *&v23[4];
+    *&v23[4] = v8;
+    v9 = (v21 * 0.0) + (1.0 - v21) * *&v23[8];
+    *&v23[8] = v9;
+    *&v23[4] = v8 + (v20 * *(v26 + 292));
+    *&v23[8] = v9 + (v20 * *(v26 + 296));
+    v12 = &v40;
+    CFXLab2Tristimulus(v23, &v40);
+    v10 = v12;
+    *(v39 + 2100) = v21;
+    CFXTristimulus2Chromaticity_0(v10, (v39 + 2108));
+    _CFXGetMatrix(v39, v12, __dst, (v39 + 2128));
   }
 
   __memcpy_chk();
-  v12 = v34;
-  *MEMORY[0x1E69E9840];
-  return v34 & 1;
+  return v33 & 1;
 }
 
 uint64_t CFXUpdateColorFade(uint64_t a1, double a2)
@@ -406,18 +404,18 @@ uint64_t CFXUpdateColorFade(uint64_t a1, double a2)
       }
     }
 
-    v3 = _CFXRampInit(__b, 0.0, *(v35 + 740), v17[0], v17[1], Current, v45, 0);
+    v3 = _CFXRampInit(__b, v45, 0, 0.0, *(v35 + 740), v17[0], v17[1], Current);
     (*(v35 + 328))(*(v35 + 336), __b, v3);
     if (*(v35 + 1800))
     {
       _CFXGetWPFromMatrix(v35, v47, v17, &v18);
-      v4 = _CFXRampInit(__b, 0.0, *(v35 + 740), v17[0], v17[1], Current, v47, 2);
+      v4 = _CFXRampInit(__b, v47, 2, 0.0, *(v35 + 740), v17[0], v17[1], Current);
       (*(v35 + 328))(*(v35 + 336), __b, v4);
       _CFXGetWPFromMatrix(v35, __dst, v17, &v18);
-      v5 = _CFXRampInit(__b, 0.0, *(v35 + 740), v17[0], v17[1], Current, __dst, 1);
+      v5 = _CFXRampInit(__b, __dst, 1, 0.0, *(v35 + 740), v17[0], v17[1], Current);
       (*(v35 + 328))(*(v35 + 336), __b, v5);
       _CFXGetWPFromMatrix(v35, (v35 + 2320), v17, &v18);
-      v6 = _CFXRampInit(__b, 0.0, *(v35 + 740), v17[0], v17[1], Current, v35 + 2320, 3);
+      v6 = _CFXRampInit(__b, v35 + 2320, 3, 0.0, *(v35 + 740), v17[0], v17[1], Current);
       (*(v35 + 328))(*(v35 + 336), __b, v6);
     }
 
@@ -471,16 +469,15 @@ uint64_t CFXUpdateColorFade(uint64_t a1, double a2)
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v11 & 1;
 }
 
 uint64_t _CFXUpdateStrengthFade(double a1, uint64_t a2, uint64_t a3)
 {
-  v8 = a1 - *(a3 + 8);
-  v7 = v8 / *a3;
-  v6 = 0;
-  if (*a3 == 0.0 || (v3 = v8 / *a3, v7 >= 1.0) || v8 < 0.0)
+  v7 = a1 - *(a3 + 8);
+  v6 = v7 / *a3;
+  v5 = 0;
+  if (*a3 == 0.0 || v6 >= 1.0 || v7 < 0.0)
   {
     *(a3 + 24) = *(a3 + 20);
     *a3 = 0;
@@ -489,12 +486,12 @@ uint64_t _CFXUpdateStrengthFade(double a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v4 = *(a3 + 28) + v7 * (*(a3 + 20) - *(a3 + 28));
-    *(a3 + 24) = v4;
-    v6 = 1;
+    v3 = *(a3 + 28) + v6 * (*(a3 + 20) - *(a3 + 28));
+    *(a3 + 24) = v3;
+    v5 = 1;
   }
 
-  return v6 & 1;
+  return v5 & 1;
 }
 
 void _CFXApplyTwilightNightShiftAdjustment(uint64_t a1, float *a2)
@@ -526,8 +523,6 @@ void _CFXApplyTwilightNightShiftAdjustment(uint64_t a1, float *a2)
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 float _CFXMagic(float *a1, float *a2, float *a3)
@@ -548,7 +543,6 @@ float _CFXMagic(float *a1, float *a2, float *a3)
   a2[7] = a3[5] * a1[7];
   result = (v5[2] - a2[6]) - a2[7];
   a2[8] = result;
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -612,7 +606,6 @@ float _CFXGetWPFromMatrix(uint64_t a1, float *a2, void *a3, _DWORD *a4)
   *v7 = v5;
   result = *(&v10 + 1);
   *v6 = HIDWORD(v10);
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -636,10 +629,10 @@ float _CFXStickToPolygon(uint64_t a1, int a2, float *a3, float *a4, float *a5)
         *&v5 = (*(a1 + 8 * i) - *a4) * (*a4 - *(a1 + 8 * (i + 1)));
         if (*&v5 >= 0.0)
         {
-          v23 = *(a1 + 8 * i + 4) + (((*(a1 + 8 * (i + 1) + 4) - *(a1 + 8 * i + 4)) / (*(a1 + 8 * (i + 1)) - *(a1 + 8 * i))) * (*a4 - *(a1 + 8 * i)));
-          v22 = v23 - a4[1];
-          v21 = a4[1] - a3[1];
-          if ((v22 * v21) > 0.0)
+          v18 = *(a1 + 8 * i + 4) + (((*(a1 + 8 * (i + 1) + 4) - *(a1 + 8 * i + 4)) / (*(a1 + 8 * (i + 1)) - *(a1 + 8 * i))) * (*a4 - *(a1 + 8 * i)));
+          v17 = v18 - a4[1];
+          v16 = a4[1] - a3[1];
+          if ((v17 * v16) > 0.0)
           {
             a5[1] = a4[1];
             *&v5 = *a4;
@@ -647,10 +640,10 @@ float _CFXStickToPolygon(uint64_t a1, int a2, float *a3, float *a4, float *a5)
             return *&v5;
           }
 
-          v5 = fabs(v22);
-          if (v5 < fabs(v21))
+          v5 = fabs(v17);
+          if (v5 < fabs(v16))
           {
-            a5[1] = v23;
+            a5[1] = v18;
             *&v5 = *a4;
             *a5 = *a4;
             return *&v5;
@@ -664,54 +657,46 @@ float _CFXStickToPolygon(uint64_t a1, int a2, float *a3, float *a4, float *a5)
   {
     for (j = 0; j < a2 - 1; ++j)
     {
-      v19 = (a4[1] - a3[1]) / (*a4 - *a3);
-      v18 = a3[1] - (v19 * *a3);
+      v14 = (a4[1] - a3[1]) / (*a4 - *a3);
+      v13 = a3[1] - (v14 * *a3);
       if ((*(a1 + 8 * (j + 1)) - *(a1 + 8 * j)) == 0.0)
       {
-        v17 = *(a1 + 8 * (j + 1));
+        v12 = *(a1 + 8 * (j + 1));
       }
 
       else
       {
-        v15 = (*(a1 + 8 * (j + 1) + 4) - *(a1 + 8 * j + 4)) / (*(a1 + 8 * (j + 1)) - *(a1 + 8 * j));
-        v6 = (a4[1] - a3[1]) / (*a4 - *a3);
-        v17 = (v18 - (*(a1 + 8 * j + 4) - (v15 * *(a1 + 8 * j)))) / (v15 - v19);
+        v10 = (*(a1 + 8 * (j + 1) + 4) - *(a1 + 8 * j + 4)) / (*(a1 + 8 * (j + 1)) - *(a1 + 8 * j));
+        v12 = (v13 - (*(a1 + 8 * j + 4) - (v10 * *(a1 + 8 * j)))) / (v10 - v14);
       }
 
-      v16 = v18 + (v19 * v17);
-      *&v5 = (*(a1 + 8 * j) - v17) * (v17 - *(a1 + 8 * (j + 1)));
+      v11 = v13 + (v14 * v12);
+      *&v5 = (*(a1 + 8 * j) - v12) * (v12 - *(a1 + 8 * (j + 1)));
       if (*&v5 >= 0.0)
       {
-        *&v5 = (*(a1 + 8 * j + 4) - v16) * (v16 - *(a1 + 8 * (j + 1) + 4));
+        *&v5 = (*(a1 + 8 * j + 4) - v11) * (v11 - *(a1 + 8 * (j + 1) + 4));
         if (*&v5 >= 0.0)
         {
-          v14 = ((a3[1] - v16) * (a3[1] - v16)) + ((*a3 - v17) * (*a3 - v17));
-          v13 = ((a3[1] - a4[1]) * (a3[1] - a4[1])) + ((*a3 - *a4) * (*a3 - *a4));
-          v12 = ((a4[1] - v16) * (a4[1] - v16)) + ((*a4 - v17) * (*a4 - v17));
-          if (v14 >= v13)
+          v9 = ((a3[1] - v11) * (a3[1] - v11)) + ((*a3 - v12) * (*a3 - v12));
+          v8 = ((a3[1] - a4[1]) * (a3[1] - a4[1])) + ((*a3 - *a4) * (*a3 - *a4));
+          v7 = ((a4[1] - v11) * (a4[1] - v11)) + ((*a4 - v12) * (*a4 - v12));
+          if (v9 >= v8 && v9 >= v7)
           {
-            v7 = ((a3[1] - v16) * (a3[1] - v16)) + ((*a3 - v17) * (*a3 - v17));
-            v8 = ((a4[1] - v16) * (a4[1] - v16)) + ((*a4 - v17) * (*a4 - v17));
-            if (v14 >= v12)
-            {
-              a5[1] = a4[1];
-              *&v5 = *a4;
-              *a5 = *a4;
-              return *&v5;
-            }
+            a5[1] = a4[1];
+            *&v5 = *a4;
+            *a5 = *a4;
+            return *&v5;
           }
 
           *&v5 = ((a3[1] - a4[1]) * (a3[1] - a4[1])) + ((*a3 - *a4) * (*a3 - *a4));
-          v9 = ((a3[1] - v16) * (a3[1] - v16)) + ((*a3 - v17) * (*a3 - v17));
-          if (v13 >= v14)
+          if (v8 >= v9)
           {
             *&v5 = ((a3[1] - a4[1]) * (a3[1] - a4[1])) + ((*a3 - *a4) * (*a3 - *a4));
-            v10 = ((a4[1] - v16) * (a4[1] - v16)) + ((*a4 - v17) * (*a4 - v17));
-            if (v13 >= v12)
+            if (v8 >= v7)
             {
-              a5[1] = v16;
-              *&v5 = v17;
-              *a5 = v17;
+              a5[1] = v11;
+              *&v5 = v12;
+              *a5 = v12;
               return *&v5;
             }
           }
@@ -771,7 +756,6 @@ float CFXTristimulus2Chromaticity_1(float *a1, float *a2)
 
 float CFXTristimulus2Lab(float *a1, float *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v6 = F(*a1 / 95.05);
   v7 = F(a1[1] / 100.0);
   v2 = F(a1[2] / 108.9);
@@ -779,7 +763,6 @@ float CFXTristimulus2Lab(float *a1, float *a2)
   a2[1] = 500.0 * (v6 - v7);
   result = 200.0 * (v7 - v2);
   a2[2] = result;
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -829,9 +812,7 @@ uint64_t _CFXGetMatrix(uint64_t a1, float *a2, uint64_t a3, float *a4)
   v11 = 0;
   Mul33MatrixBy31Vector(v13, v12, &v10);
   v4 = MaxOfVector(&v10);
-  result = Div33MatrixByScalar(v13, a3, v4);
-  *MEMORY[0x1E69E9840];
-  return result;
+  return Div33MatrixByScalar(v13, a3, v4);
 }
 
 uint64_t Div33MatrixByScalar(uint64_t result, uint64_t a2, float a3)
@@ -882,185 +863,176 @@ float Div31VectorBy31Vector(float *a1, float *a2, float *a3)
 void AABC::setPropertyForClient(AABC *this, const __CFString *a2, const void *a3, const void *a4)
 {
   v4 = MEMORY[0x1EEE9AC00](this, a2, a3, a4);
-  v562 = v586;
-  v563 = AABC::_RampDoneCallback;
-  v564 = AABC::_setInternalProperty;
+  v530 = v554;
+  v531 = AABC::_RampDoneCallback;
+  v532 = AABC::_setInternalProperty;
   applier = AABC::UpdateSensorOverride;
-  v653 = *MEMORY[0x1E69E9840];
-  v631 = v4;
-  v630 = v5;
-  v629 = v6;
-  v628 = v7;
+  v621 = *MEMORY[0x1E69E9840];
+  v599 = v4;
+  v598 = v5;
+  v597 = v6;
+  v596 = v7;
   context = v4;
   if (_logHandle)
   {
-    v561 = _logHandle;
+    v529 = _logHandle;
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v560 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v528 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
       inited = init_default_corebrightness_log();
-      v560 = inited;
+      v528 = inited;
     }
 
-    v561 = v560;
+    v529 = v528;
   }
 
-  v8 = v562;
-  *(v562 + 109) = v561;
+  v8 = v530;
+  *(v530 + 109) = v529;
   type = OS_LOG_TYPE_DEBUG;
   if (os_log_type_enabled(v8[109], OS_LOG_TYPE_DEBUG))
   {
-    log = *(v562 + 109);
-    *v557 = type;
-    buf = v652;
-    __os_log_helper_16_0_1_4_0(v652, 4);
-    _os_log_debug_impl(&dword_1DE8E5000, log, v557[0], "[%x]: ", v652, 8u);
+    log = *(v530 + 109);
+    *v525 = type;
+    buf = v620;
+    __os_log_helper_16_0_1_4_0(v620, 4);
+    _os_log_debug_impl(&dword_1DE8E5000, log, v525[0], "[%x]: ", v620, 8u);
   }
 
-  v9 = v562;
-  *(v562 + 107) = *(v562 + 111);
+  v9 = v530;
+  *(v530 + 107) = *(v530 + 111);
   *(v9 + 106) = *(v9 + 112);
-  v555 = CFEqual(*(v9 + 112), @"IOHIDEventSystemClientIsUnresponsive");
-  if (!v555 && *(context + 92))
+  v523 = CFEqual(*(v9 + 112), @"IOHIDEventSystemClientIsUnresponsive");
+  if (!v523 && *(context + 92))
   {
-    if (CFEqual(*(v562 + 112), @"AABSensorOverride"))
+    if (CFEqual(*(v530 + 112), @"AABSensorOverride"))
     {
-      if (*(v562 + 111))
+      if (*(v530 + 111))
       {
-        CFDictionaryApplyFunction(*(context + 52), applier, *(v562 + 111));
+        CFDictionaryApplyFunction(*(context + 52), applier, *(v530 + 111));
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"ALSInternalSettings"))
+    if (CFEqual(*(v530 + 112), @"ALSInternalSettings"))
     {
-      if (*(v562 + 111))
+      if (*(v530 + 111))
       {
-        v552 = CFGetTypeID(*(v562 + 111));
+        v520 = CFGetTypeID(*(v530 + 111));
         TypeID = CFDictionaryGetTypeID();
-        if (v552 == TypeID)
+        if (v520 == TypeID)
         {
-          CFDictionaryApplyFunction(*(v562 + 111), v564, context);
+          CFDictionaryApplyFunction(*(v530 + 111), v532, context);
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"CBSoftWakeActive"))
+    if (CFEqual(*(v530 + 112), @"CBSoftWakeActive"))
     {
       if (*(context + 485))
       {
-        if (*(v562 + 111))
+        if (*(v530 + 111))
         {
-          v548 = *(v562 + 111);
-          v549 = objc_opt_class();
+          v516 = *(v530 + 111);
+          v517 = objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
           if (isKindOfClass)
           {
-            v546 = [*(v562 + 111) intValue];
-            v10 = v562;
+            v514 = [*(v530 + 111) intValue];
+            v10 = v530;
             v11 = context;
-            *(v562 + 211) = v546;
+            *(v530 + 211) = v514;
             if (![v11[485] action:*(v10 + 211)])
             {
-              v544 = AABC::IlluminanceToLuminance(context, context + 264, *(context + 156));
-              AABC::UpdateDisplayBrightness_Block6(context, 1, 2, 1, v544);
+              v512 = AABC::IlluminanceToLuminance(context, context + 264, *(context + 156));
+              AABC::UpdateDisplayBrightness_Block6(context, 1, 2, 1, v512);
             }
           }
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"CBHasExternalDisplay"))
+    if (CFEqual(*(v530 + 112), @"CBHasExternalDisplay"))
     {
-      if (*(v562 + 111))
+      if (*(v530 + 111))
       {
-        v541 = *(v562 + 111);
-        v542 = objc_opt_class();
-        v540 = objc_opt_isKindOfClass();
-        if (v540)
+        v509 = *(v530 + 111);
+        v510 = objc_opt_class();
+        v508 = objc_opt_isKindOfClass();
+        if (v508 & 1) != 0 && *(context + 487) && ([*(context + 487) setActive:{objc_msgSend(*(v530 + 111), "BOOLValue")}])
         {
-          if (*(context + 487))
-          {
-            v538 = *(context + 487);
-            v539 = [*(v562 + 111) BOOLValue];
-            v537 = [v538 setActive:v539];
-            if (v537)
-            {
-              AABC::_UpdateNitsRestrictions(context, -1.0, 1.5, 1);
-            }
-          }
+          AABC::_UpdateNitsRestrictions(context, -1.0, 1.5, 1);
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"BrightnessCurveLevel"))
+    if (CFEqual(*(v530 + 112), @"BrightnessCurveLevel"))
     {
-      if (*(v562 + 111))
+      if (*(v530 + 111))
       {
-        v535 = CFGetTypeID(*(v562 + 111));
-        v534 = CFNumberGetTypeID();
-        if (v535 == v534)
+        v506 = CFGetTypeID(*(v530 + 111));
+        v505 = CFNumberGetTypeID();
+        if (v506 == v505)
         {
-          v12 = v562;
-          *(v562 + 210) = 0;
+          v12 = v530;
+          *(v530 + 210) = 0;
           if (CFNumberGetValue(v12[111], kCFNumberIntType, valuePtr))
           {
-            if (*(v562 + 210) > 2u)
+            if (*(v530 + 210) > 2u)
             {
               if (_logHandle)
               {
-                v532 = _logHandle;
+                v503 = _logHandle;
               }
 
               else
               {
                 if (_COREBRIGHTNESS_LOG_DEFAULT)
                 {
-                  v531 = _COREBRIGHTNESS_LOG_DEFAULT;
+                  v502 = _COREBRIGHTNESS_LOG_DEFAULT;
                 }
 
                 else
                 {
-                  v530 = init_default_corebrightness_log();
-                  v531 = v530;
+                  v501 = init_default_corebrightness_log();
+                  v502 = v501;
                 }
 
-                v532 = v531;
+                v503 = v502;
               }
 
-              v13 = v562;
-              *(v562 + 104) = v532;
-              v625 = OS_LOG_TYPE_DEBUG;
+              v13 = v530;
+              *(v530 + 104) = v503;
+              v593 = OS_LOG_TYPE_DEBUG;
               if (os_log_type_enabled(v13[104], OS_LOG_TYPE_DEBUG))
               {
-                v527 = *(v562 + 104);
-                *v528 = v625;
-                v529 = v651;
-                __os_log_helper_16_0_1_4_0(v651, 2);
-                _os_log_debug_impl(&dword_1DE8E5000, v527, v528[0], "[%x]: invalid curve level - setting to default.", v651, 8u);
+                v498 = *(v530 + 104);
+                *v499 = v593;
+                v500 = v619;
+                __os_log_helper_16_0_1_4_0(v619, 2);
+                _os_log_debug_impl(&dword_1DE8E5000, v498, v499[0], "[%x]: invalid curve level - setting to default.", v619, 8u);
               }
 
               *(context + 853) = 1;
             }
 
-            else if (*(v562 + 210) != *(context + 853))
+            else if (*(v530 + 210) != *(context + 853))
             {
-              *(context + 853) = *(v562 + 210);
+              *(context + 853) = *(v530 + 210);
             }
 
             [CBAnalytics curveLevel:*(context + 853)];
@@ -1074,99 +1046,99 @@ void AABC::setPropertyForClient(AABC *this, const __CFString *a2, const void *a3
             if (*(context + 719) != 1)
             {
               AABC::CancelRamp(context);
-              v526 = AABC::IlluminanceToLuminance(context, context + 264, *(context + 156));
+              v497 = AABC::IlluminanceToLuminance(context, context + 264, *(context + 156));
               v14 = context;
-              v15 = v562;
-              *(v562 + 206) = v526;
-              v525 = clamp(v15[206], v14[180], v14[182]);
+              v15 = v530;
+              *(v530 + 206) = v497;
+              v496 = clamp(v15[206], v14[180], v14[182]);
               v16 = context;
-              v17 = v562;
-              *(v562 + 206) = v525;
+              v17 = v530;
+              *(v530 + 206) = v496;
               AABC::UpdateDisplayBrightness_Block6(v16, 1, 2, 1, v17[206]);
             }
           }
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"CBAOTStateUpdate"))
+    if (CFEqual(*(v530 + 112), @"CBAOTStateUpdate"))
     {
-      v18 = v562;
-      *(v562 + 205) = 255;
+      v18 = v530;
+      *(v530 + 205) = 255;
       *(v18 + 204) = 0;
-      if (*(v18 + 111) && (v523 = CFGetTypeID(*(v562 + 111)), v522 = CFNumberGetTypeID(), v523 == v522))
+      if (*(v18 + 111) && (v494 = CFGetTypeID(*(v530 + 111)), v493 = CFNumberGetTypeID(), v494 == v493))
       {
-        CFNumberGetValue(*(v562 + 111), kCFNumberIntType, v624);
-        *(v562 + 204) = 1.0;
+        CFNumberGetValue(*(v530 + 111), kCFNumberIntType, v592);
+        *(v530 + 204) = 1.0;
       }
 
-      else if (*(v562 + 111))
+      else if (*(v530 + 111))
       {
-        v521 = CFGetTypeID(*(v562 + 111));
-        v520 = CFDictionaryGetTypeID();
-        if (v521 == v520)
+        v492 = CFGetTypeID(*(v530 + 111));
+        v491 = CFDictionaryGetTypeID();
+        if (v492 == v491)
         {
-          Value = CFDictionaryGetValue(*(v562 + 111), @"AOTState");
-          v19 = v562;
-          *(v562 + 101) = Value;
-          v518 = CFDictionaryGetValue(v19[111], @"AOTTransitionTime");
-          v20 = v562;
-          *(v562 + 100) = v518;
+          Value = CFDictionaryGetValue(*(v530 + 111), @"AOTState");
+          v19 = v530;
+          *(v530 + 101) = Value;
+          v489 = CFDictionaryGetValue(v19[111], @"AOTTransitionTime");
+          v20 = v530;
+          *(v530 + 100) = v489;
           if (*(v20 + 101))
           {
-            v517 = CFGetTypeID(*(v562 + 101));
-            v516 = CFNumberGetTypeID();
-            if (v517 == v516)
+            v488 = CFGetTypeID(*(v530 + 101));
+            v487 = CFNumberGetTypeID();
+            if (v488 == v487)
             {
-              CFNumberGetValue(*(v562 + 101), kCFNumberIntType, v624);
+              CFNumberGetValue(*(v530 + 101), kCFNumberIntType, v592);
             }
           }
 
-          if (*(v562 + 100))
+          if (*(v530 + 100))
           {
-            v515 = CFGetTypeID(*(v562 + 100));
-            v514 = CFNumberGetTypeID();
-            if (v515 == v514)
+            v486 = CFGetTypeID(*(v530 + 100));
+            v485 = CFNumberGetTypeID();
+            if (v486 == v485)
             {
-              CFNumberGetValue(*(v562 + 100), kCFNumberFloatType, v623);
+              CFNumberGetValue(*(v530 + 100), kCFNumberFloatType, v591);
             }
           }
         }
       }
 
-      if (*(v562 + 205) != *(context + 719))
+      if (*(v530 + 205) != *(context + 719))
       {
         if (_logHandle)
         {
-          v513 = _logHandle;
+          v484 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v512 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v483 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v511 = init_default_corebrightness_log();
-            v512 = v511;
+            v482 = init_default_corebrightness_log();
+            v483 = v482;
           }
 
-          v513 = v512;
+          v484 = v483;
         }
 
-        v21 = v562;
-        *(v562 + 99) = v513;
-        v622 = OS_LOG_TYPE_DEFAULT;
+        v21 = v530;
+        *(v530 + 99) = v484;
+        v590 = OS_LOG_TYPE_DEFAULT;
         if (os_log_type_enabled(v21[99], OS_LOG_TYPE_DEFAULT))
         {
-          v508 = *(v562 + 99);
-          *v509 = v622;
-          if (*(v562 + 205))
+          v479 = *(v530 + 99);
+          *v480 = v590;
+          if (*(v530 + 205))
           {
             v22 = "Entering AOT";
           }
@@ -1176,13 +1148,13 @@ void AABC::setPropertyForClient(AABC *this, const __CFString *a2, const void *a3
             v22 = "Exiting AOT";
           }
 
-          *&v23 = *(v562 + 204);
-          v510 = v650;
-          __os_log_helper_16_2_2_8_32_8_0(v650, v22, v23);
-          _os_log_impl(&dword_1DE8E5000, v508, v509[0], "AOT State update, %s, transitionTime: %f", v650, 0x16u);
+          *&v23 = *(v530 + 204);
+          v481 = v618;
+          __os_log_helper_16_2_2_8_32_8_0(v618, v22, v23);
+          _os_log_impl(&dword_1DE8E5000, v479, v480[0], "AOT State update, %s, transitionTime: %f", v618, 0x16u);
         }
 
-        if (*(context + 500) && *(context + 40) && (*(context + 2896) & 1) == 0 && (*(context + 719) != 2 || *(v562 + 205) != 1) && (*(context + 719) != 3 || *(v562 + 205)))
+        if (*(context + 500) && *(context + 40) && (*(context + 2896) & 1) == 0 && (*(context + 719) != 2 || *(v530 + 205) != 1) && (*(context + 719) != 3 || *(v530 + 205)))
         {
           if ((*(context + 4008) & 1) == 0)
           {
@@ -1190,63 +1162,63 @@ void AABC::setPropertyForClient(AABC *this, const __CFString *a2, const void *a3
             *(context + 4008) = 1;
           }
 
-          AABC::handleAODStateUpdateProperty(context, *(v562 + 205), *(v562 + 204));
+          AABC::handleAODStateUpdateProperty(context, *(v530 + 205), *(v530 + 204));
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"AOTCurve"))
+    if (CFEqual(*(v530 + 112), @"AOTCurve"))
     {
-      v506 = objc_autoreleasePoolPush();
-      if (*(v562 + 111))
+      v477 = objc_autoreleasePoolPush();
+      if (*(v530 + 111))
       {
-        v505 = CFGetTypeID(*(v562 + 111));
-        v504 = CFDictionaryGetTypeID();
-        if (v505 == v504)
+        v476 = CFGetTypeID(*(v530 + 111));
+        v475 = CFDictionaryGetTypeID();
+        if (v476 == v475)
         {
           if (_logHandle)
           {
-            v503 = _logHandle;
+            v474 = _logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v502 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v473 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v501 = init_default_corebrightness_log();
-              v502 = v501;
+              v472 = init_default_corebrightness_log();
+              v473 = v472;
             }
 
-            v503 = v502;
+            v474 = v473;
           }
 
-          v24 = v562;
-          *(v562 + 97) = v503;
-          v621 = OS_LOG_TYPE_DEFAULT;
+          v24 = v530;
+          *(v530 + 97) = v474;
+          v589 = OS_LOG_TYPE_DEFAULT;
           if (os_log_type_enabled(v24[97], OS_LOG_TYPE_DEFAULT))
           {
-            v498 = *(v562 + 97);
-            *v499 = v621;
-            v25 = *(v562 + 111);
-            v500 = v649;
-            __os_log_helper_16_2_1_8_66(v649, v25);
-            _os_log_impl(&dword_1DE8E5000, v498, v499[0], "Custom Curve: %{public}@", v649, 0xCu);
+            v469 = *(v530 + 97);
+            *v470 = v589;
+            v25 = *(v530 + 111);
+            v471 = v617;
+            __os_log_helper_16_2_1_8_66(v617, v25);
+            _os_log_impl(&dword_1DE8E5000, v469, v470[0], "Custom Curve: %{public}@", v617, 0xCu);
           }
 
-          *(v562 + 95) = *(v562 + 111);
-          v497 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:3];
-          v26 = v562;
+          *(v530 + 95) = *(v530 + 111);
+          v468 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:3];
+          v26 = v530;
           v27 = context;
-          *(v562 + 94) = v497;
+          *(v530 + 94) = v468;
           *(v26 + 90) = 0;
-          *(v26 + 91) = v620;
+          *(v26 + 91) = v588;
           *(v26 + 184) = 0x20000000;
           *(v26 + 185) = 32;
           *(v26 + 186) = 0;
@@ -1257,7 +1229,7 @@ void AABC::setPropertyForClient(AABC *this, const __CFString *a2, const void *a3
           *(v26 + 85) = ___ZN4AABC20setPropertyForClientEPK10__CFStringPKvS4__block_invoke;
           *(v26 + 86) = &unk_1E867D030;
           *(v26 + 89) = v27;
-          *(v26 + 88) = v620;
+          *(v26 + 88) = v588;
           *(v26 + 87) = *(v26 + 94);
           [v28 enumerateKeysAndObjectsUsingBlock:?];
           if (*(context + 500))
@@ -1266,298 +1238,293 @@ void AABC::setPropertyForClient(AABC *this, const __CFString *a2, const void *a3
           }
 
           memcpy(context + 2548, context + 164 * *(context + 853) + 2056, 0xA4uLL);
-          CFDictionarySetValue(*(context + 47), *(v562 + 112), *(v562 + 111));
-          _Block_object_dispose(v620, 8);
+          CFDictionarySetValue(*(context + 47), *(v530 + 112), *(v530 + 111));
+          _Block_object_dispose(v588, 8);
         }
       }
 
-      objc_autoreleasePoolPop(v506);
-      goto LABEL_511;
+      objc_autoreleasePoolPop(v477);
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"DelayedALSOverride"))
+    if (CFEqual(*(v530 + 112), @"DelayedALSOverride"))
     {
-      if (*(v562 + 111))
+      if (*(v530 + 111))
       {
-        v495 = CFGetTypeID(*(v562 + 111));
-        v494 = CFDictionaryGetTypeID();
-        if (v495 == v494)
+        v466 = CFGetTypeID(*(v530 + 111));
+        v465 = CFDictionaryGetTypeID();
+        if (v466 == v465)
         {
-          v29 = v562;
-          *(v562 + 80) = 0;
+          v29 = v530;
+          *(v530 + 80) = 0;
           *(v29 + 79) = *(v29 + 111);
-          v493 = [*(v29 + 79) objectForKey:@"AABSensorOverrideOrientation"];
-          v30 = v562;
-          *(v562 + 78) = v493;
-          v492 = [v30[79] objectForKey:@"AABSensorOverrideValue"];
-          v31 = v562;
-          *(v562 + 77) = v492;
-          v491 = [v31[79] objectForKey:@"OverrideDelay"];
-          v32 = v562;
-          *(v562 + 76) = v491;
+          v464 = [*(v29 + 79) objectForKey:@"AABSensorOverrideOrientation"];
+          v30 = v530;
+          *(v530 + 78) = v464;
+          v463 = [v30[79] objectForKey:@"AABSensorOverrideValue"];
+          v31 = v530;
+          *(v530 + 77) = v463;
+          v462 = [v31[79] objectForKey:@"OverrideDelay"];
+          v32 = v530;
+          *(v530 + 76) = v462;
           [v32[77] floatValue];
-          v490 = v33;
-          v34 = v562;
-          *(v562 + 151) = (v33 * 65536.0);
+          v461 = v33;
+          v34 = v530;
+          *(v530 + 151) = (v33 * 65536.0);
           [v34[76] floatValue];
-          v489 = v35;
-          *(v562 + 150) = (v35 * 65536.0);
-          v488 = objc_alloc(MEMORY[0x1E696AD98]);
-          v487 = [v488 initWithInt:*(v562 + 151)];
-          *(v562 + 74) = v487;
-          v486 = objc_alloc(MEMORY[0x1E696AD98]);
-          v485 = [v486 initWithInt:*(v562 + 150)];
-          v36 = v562;
-          *(v562 + 73) = v485;
+          v460 = v35;
+          *(v530 + 150) = (v35 * 65536.0);
+          v459 = objc_alloc(MEMORY[0x1E696AD98]);
+          v458 = [v459 initWithInt:*(v530 + 151)];
+          *(v530 + 74) = v458;
+          v457 = objc_alloc(MEMORY[0x1E696AD98]);
+          v456 = [v457 initWithInt:*(v530 + 150)];
+          v36 = v530;
+          *(v530 + 73) = v456;
           [v36[77] floatValue];
-          v484 = v37;
+          v455 = v37;
           if (v37 == -1.0)
           {
-            v483 = objc_alloc(MEMORY[0x1E696AD98]);
-            v482 = [v483 initWithInt:0];
-            *(v562 + 80) = v482;
+            v454 = objc_alloc(MEMORY[0x1E696AD98]);
+            v453 = [v454 initWithInt:0];
+            *(v530 + 80) = v453;
           }
 
           else
           {
-            v481 = objc_alloc(MEMORY[0x1E696AD98]);
-            v480 = [v481 initWithInt:1];
-            *(v562 + 80) = v480;
+            v452 = objc_alloc(MEMORY[0x1E696AD98]);
+            v451 = [v452 initWithInt:1];
+            *(v530 + 80) = v451;
           }
 
-          v479 = objc_alloc(MEMORY[0x1E695DF20]);
-          v38 = *(v562 + 80);
-          v39 = *(v562 + 78);
-          v40 = *(v562 + 74);
-          v41 = *(v562 + 73);
-          v477 = v164;
-          v478 = [v479 initWithObjectsAndKeys:{v38, @"ALSOverrideState", v39, @"AABSensorOverrideOrientation", v40, @"AABSensorOverrideValue", v41, @"OverrideDelay", 0}];
+          v450 = objc_alloc(MEMORY[0x1E695DF20]);
+          v38 = *(v530 + 80);
+          v39 = *(v530 + 78);
+          v40 = *(v530 + 74);
+          v41 = *(v530 + 73);
+          v448 = v153;
+          v449 = [v450 initWithObjectsAndKeys:{v38, @"ALSOverrideState", v39, @"AABSensorOverrideOrientation", v40, @"AABSensorOverrideValue", v41, @"OverrideDelay", 0}];
           v42 = context;
-          *(v562 + 72) = v478;
+          *(v530 + 72) = v449;
           if (v42[40])
           {
-            IOHIDServiceClientSetProperty(*(context + 40), @"DelayedALSOverride", *(v562 + 72));
+            IOHIDServiceClientSetProperty(*(context + 40), @"DelayedALSOverride", *(v530 + 72));
           }
 
-          MEMORY[0x1E69E5920](*(v562 + 72));
-          MEMORY[0x1E69E5920](*(v562 + 80));
-          MEMORY[0x1E69E5920](*(v562 + 73));
-          MEMORY[0x1E69E5920](*(v562 + 74));
+          MEMORY[0x1E69E5920](*(v530 + 72));
+          MEMORY[0x1E69E5920](*(v530 + 80));
+          MEMORY[0x1E69E5920](*(v530 + 73));
+          MEMORY[0x1E69E5920](*(v530 + 74));
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"ALSResetCurve"))
+    if (CFEqual(*(v530 + 112), @"ALSResetCurve"))
     {
       AABC::CreateDefaultCurves(context);
       AAB::Reset(context);
       AABC::writeOutlierRemovalPreferences(context, 0);
       if (_logHandle)
       {
-        v475 = _logHandle;
+        v446 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v474 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v445 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v473 = init_default_corebrightness_log();
-          v474 = v473;
+          v444 = init_default_corebrightness_log();
+          v445 = v444;
         }
 
-        v475 = v474;
+        v446 = v445;
       }
 
-      v43 = v562;
-      *(v562 + 71) = v475;
-      v619 = OS_LOG_TYPE_DEFAULT;
+      v43 = v530;
+      *(v530 + 71) = v446;
+      v587 = OS_LOG_TYPE_DEFAULT;
       if (os_log_type_enabled(v43[71], OS_LOG_TYPE_DEFAULT))
       {
-        v470 = *(v562 + 71);
-        *v471 = v619;
+        v441 = *(v530 + 71);
+        *v442 = v587;
         *&v44 = *(context + 268);
         *&v45 = *(context + 270);
         *&v46 = *(context + 269);
         *&v47 = *(context + 271);
         v48 = *(context + 288);
-        v472 = v648;
-        __os_log_helper_16_0_5_8_0_8_0_8_0_8_0_4_0(v648, v44, v45, v46, v47, v48);
-        _os_log_impl(&dword_1DE8E5000, v470, v471[0], "Reseted curve E1: %0.2f L1: %0.4f E2: %0.2f L2: %0.4f Type: %d", v648, 0x30u);
+        v443 = v616;
+        __os_log_helper_16_0_5_8_0_8_0_8_0_8_0_4_0(v616, v44, v45, v46, v47, v48);
+        _os_log_impl(&dword_1DE8E5000, v441, v442[0], "Reseted curve E1: %0.2f L1: %0.4f E2: %0.2f L2: %0.4f Type: %d", v616, 0x30u);
       }
 
       if (_logHandle)
       {
-        v469 = _logHandle;
+        v440 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v468 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v439 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v467 = init_default_corebrightness_log();
-          v468 = v467;
+          v438 = init_default_corebrightness_log();
+          v439 = v438;
         }
 
-        v469 = v468;
+        v440 = v439;
       }
 
-      v49 = v562;
-      *(v562 + 69) = v469;
-      v618 = OS_LOG_TYPE_DEFAULT;
+      v49 = v530;
+      *(v530 + 69) = v440;
+      v586 = OS_LOG_TYPE_DEFAULT;
       if (os_log_type_enabled(v49[69], OS_LOG_TYPE_DEFAULT))
       {
-        v464 = *(v562 + 69);
-        *v465 = v618;
+        v435 = *(v530 + 69);
+        *v436 = v586;
         *&v50 = *(context + 264);
         *&v51 = *(context + 265);
         *&v52 = *(context + 266);
         *&v53 = *(context + 267);
-        v466 = v647;
-        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v647, v50, v51, v52, v53);
-        _os_log_impl(&dword_1DE8E5000, v464, v465[0], "Reseted dark curve E0a: %0.2f L0a: %0.4f E0b: %0.2f L0b: %0.4f", v647, 0x2Au);
+        v437 = v615;
+        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v615, v50, v51, v52, v53);
+        _os_log_impl(&dword_1DE8E5000, v435, v436[0], "Reseted dark curve E0a: %0.2f L0a: %0.4f E0b: %0.2f L0b: %0.4f", v615, 0x2Au);
       }
 
       if (_logHandle)
       {
-        v463 = _logHandle;
+        v434 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v462 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v433 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v461 = init_default_corebrightness_log();
-          v462 = v461;
+          v432 = init_default_corebrightness_log();
+          v433 = v432;
         }
 
-        v463 = v462;
+        v434 = v433;
       }
 
-      v54 = v562;
-      *(v562 + 67) = v463;
-      v617 = OS_LOG_TYPE_DEFAULT;
+      v54 = v530;
+      *(v530 + 67) = v434;
+      v585 = OS_LOG_TYPE_DEFAULT;
       if (os_log_type_enabled(v54[67], OS_LOG_TYPE_DEFAULT))
       {
-        v458 = *(v562 + 67);
-        *v459 = v617;
+        v429 = *(v530 + 67);
+        *v430 = v585;
         *&v55 = *(context + 756);
         *&v56 = *(context + 758);
         *&v57 = *(context + 757);
         *&v58 = *(context + 759);
         v59 = *(context + 776);
-        v460 = v646;
-        __os_log_helper_16_0_5_8_0_8_0_8_0_8_0_4_0(v646, v55, v56, v57, v58, v59);
-        _os_log_impl(&dword_1DE8E5000, v458, v459[0], "Reseted alternative curve E1: %0.2f L1: %0.4f E2: %0.2f L2: %0.4f Type: %d", v646, 0x30u);
+        v431 = v614;
+        __os_log_helper_16_0_5_8_0_8_0_8_0_8_0_4_0(v614, v55, v56, v57, v58, v59);
+        _os_log_impl(&dword_1DE8E5000, v429, v430[0], "Reseted alternative curve E1: %0.2f L1: %0.4f E2: %0.2f L2: %0.4f Type: %d", v614, 0x30u);
       }
 
       if (_logHandle)
       {
-        v457 = _logHandle;
+        v428 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v456 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v427 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v455 = init_default_corebrightness_log();
-          v456 = v455;
+          v426 = init_default_corebrightness_log();
+          v427 = v426;
         }
 
-        v457 = v456;
+        v428 = v427;
       }
 
-      v60 = v562;
-      *(v562 + 65) = v457;
-      v616 = OS_LOG_TYPE_DEFAULT;
+      v60 = v530;
+      *(v530 + 65) = v428;
+      v584 = OS_LOG_TYPE_DEFAULT;
       if (os_log_type_enabled(v60[65], OS_LOG_TYPE_DEFAULT))
       {
-        v452 = *(v562 + 65);
-        *v453 = v616;
-        *&v61 = *(context + 752);
-        *&v62 = *(context + 753);
-        *&v63 = *(context + 754);
-        *&v64 = *(context + 755);
-        v454 = v645;
-        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v645, v61, v62, v63, v64);
-        _os_log_impl(&dword_1DE8E5000, v452, v453[0], "Reseted alternative dark curve E0a: %0.2f L0a: %0.4f E0b: %0.2f L0b: %0.4f", v645, 0x2Au);
+        v424 = *(v530 + 65);
+        *v425 = v584;
+        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v613, COERCE__INT64(*(context + 752)), COERCE__INT64(*(context + 753)), COERCE__INT64(*(context + 754)), COERCE__INT64(*(context + 755)));
+        _os_log_impl(&dword_1DE8E5000, v424, v425[0], "Reseted alternative dark curve E0a: %0.2f L0a: %0.4f E0b: %0.2f L0b: %0.4f", v613, 0x2Au);
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"ALSUserPreference"))
+    if (CFEqual(*(v530 + 112), @"ALSUserPreference"))
     {
-      if (*(v562 + 111))
+      if (*(v530 + 111))
       {
-        v450 = CFGetTypeID(*(v562 + 111));
-        v449 = CFDictionaryGetTypeID();
-        if (v450 == v449 && !*(context + 162))
+        v422 = CFGetTypeID(*(v530 + 111));
+        v421 = CFDictionaryGetTypeID();
+        if (v422 == v421 && !*(context + 162))
         {
-          AABC::readCurveFromDictionary(context, *(v562 + 111), context + 264);
-          v448 = CFDictionaryGetValue(*(v562 + 111), @"AlternativeCurve");
-          v65 = v562;
-          *(v562 + 63) = v448;
-          if (*(v65 + 63))
+          AABC::readCurveFromDictionary(context, *(v530 + 111), context + 264);
+          v420 = CFDictionaryGetValue(*(v530 + 111), @"AlternativeCurve");
+          v61 = v530;
+          *(v530 + 63) = v420;
+          if (*(v61 + 63))
           {
-            v447 = CFGetTypeID(*(v562 + 63));
-            v446 = CFDictionaryGetTypeID();
-            if (v447 == v446)
+            v419 = CFGetTypeID(*(v530 + 63));
+            v418 = CFDictionaryGetTypeID();
+            if (v419 == v418)
             {
-              AABC::readCurveFromDictionary(context, *(v562 + 63), context + 752);
+              AABC::readCurveFromDictionary(context, *(v530 + 63), context + 752);
               if (_logHandle)
               {
-                v445 = _logHandle;
+                v417 = _logHandle;
               }
 
               else
               {
                 if (_COREBRIGHTNESS_LOG_DEFAULT)
                 {
-                  v444 = _COREBRIGHTNESS_LOG_DEFAULT;
+                  v416 = _COREBRIGHTNESS_LOG_DEFAULT;
                 }
 
                 else
                 {
-                  v443 = init_default_corebrightness_log();
-                  v444 = v443;
+                  v415 = init_default_corebrightness_log();
+                  v416 = v415;
                 }
 
-                v445 = v444;
+                v417 = v416;
               }
 
-              v66 = v562;
-              *(v562 + 62) = v445;
-              v615 = OS_LOG_TYPE_INFO;
-              if (os_log_type_enabled(v66[62], OS_LOG_TYPE_INFO))
+              v62 = v530;
+              *(v530 + 62) = v417;
+              v583 = OS_LOG_TYPE_INFO;
+              if (os_log_type_enabled(v62[62], OS_LOG_TYPE_INFO))
               {
-                v440 = *(v562 + 62);
-                *v441 = v615;
-                v67 = *(v562 + 63);
-                v442 = v644;
-                __os_log_helper_16_2_1_8_64(v644, v67);
-                _os_log_impl(&dword_1DE8E5000, v440, v441[0], "Set kIOHIDALSUserPreferenceKey: AlternativeCurve = %@", v644, 0xCu);
+                v412 = *(v530 + 62);
+                *v413 = v583;
+                v63 = *(v530 + 63);
+                v414 = v612;
+                __os_log_helper_16_2_1_8_64(v612, v63);
+                _os_log_impl(&dword_1DE8E5000, v412, v413[0], "Set kIOHIDALSUserPreferenceKey: AlternativeCurve = %@", v612, 0xCu);
               }
 
               AABC::AlignCurveTypeWithStrategy(context, context + 264, context + 752);
@@ -1566,182 +1533,182 @@ void AABC::setPropertyForClient(AABC *this, const __CFString *a2, const void *a3
 
           if (_logHandle)
           {
-            v439 = _logHandle;
+            v411 = _logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v438 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v410 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v437 = init_default_corebrightness_log();
-              v438 = v437;
+              v409 = init_default_corebrightness_log();
+              v410 = v409;
             }
 
-            v439 = v438;
+            v411 = v410;
           }
 
-          v68 = v562;
-          *(v562 + 60) = v439;
-          v614 = OS_LOG_TYPE_DEFAULT;
-          if (os_log_type_enabled(v68[60], OS_LOG_TYPE_DEFAULT))
+          v64 = v530;
+          *(v530 + 60) = v411;
+          v582 = OS_LOG_TYPE_DEFAULT;
+          if (os_log_type_enabled(v64[60], OS_LOG_TYPE_DEFAULT))
           {
-            v433 = *(v562 + 60);
-            *v434 = v614;
-            v435 = *(context + 288);
-            v436 = (*(**(context + 8) + 104))(*(context + 8));
-            v431 = *(context + 776);
-            v432 = (*(**(context + 8) + 112))(*(context + 8));
-            v430 = v643;
-            __os_log_helper_16_0_4_4_0_4_0_4_0_4_0(v643, v435, v436, v431, v432);
-            _os_log_impl(&dword_1DE8E5000, v433, v434[0], "Curve type = %d (%d), Alternative curve type = %d (%d)", v643, 0x1Au);
+            v405 = *(v530 + 60);
+            *v406 = v582;
+            v407 = *(context + 288);
+            v408 = (*(**(context + 8) + 104))(*(context + 8));
+            v403 = *(context + 776);
+            v404 = (*(**(context + 8) + 112))(*(context + 8));
+            v402 = v611;
+            __os_log_helper_16_0_4_4_0_4_0_4_0_4_0(v611, v407, v408, v403, v404);
+            _os_log_impl(&dword_1DE8E5000, v405, v406[0], "Curve type = %d (%d), Alternative curve type = %d (%d)", v611, 0x1Au);
           }
 
-          v429 = (*(**(context + 8) + 104))(*(context + 8));
-          v69 = context;
-          *(context + 288) = v429;
-          v428 = (*(*v69[8] + 112))(v69[8]);
-          v70 = context;
-          *(context + 776) = v428;
-          if (v70[3409])
+          v401 = (*(**(context + 8) + 104))(*(context + 8));
+          v65 = context;
+          *(context + 288) = v401;
+          v400 = (*(*v65[8] + 112))(v65[8]);
+          v66 = context;
+          *(context + 776) = v400;
+          if (v66[3409])
           {
-            v427 = CFDictionaryGetValue(*(v562 + 111), @"CurveUpdates");
-            v71 = v562;
-            *(v562 + 58) = v427;
-            if (*(v71 + 58))
+            v399 = CFDictionaryGetValue(*(v530 + 111), @"CurveUpdates");
+            v67 = v530;
+            *(v530 + 58) = v399;
+            if (*(v67 + 58))
             {
-              v426 = CFGetTypeID(*(v562 + 58));
-              v425 = CFArrayGetTypeID();
-              if (v426 == v425)
+              v398 = CFGetTypeID(*(v530 + 58));
+              v397 = CFArrayGetTypeID();
+              if (v398 == v397)
               {
                 if (_logHandle)
                 {
-                  v424 = _logHandle;
+                  v396 = _logHandle;
                 }
 
                 else
                 {
                   if (_COREBRIGHTNESS_LOG_DEFAULT)
                   {
-                    v423 = _COREBRIGHTNESS_LOG_DEFAULT;
+                    v395 = _COREBRIGHTNESS_LOG_DEFAULT;
                   }
 
                   else
                   {
-                    v422 = init_default_corebrightness_log();
-                    v423 = v422;
+                    v394 = init_default_corebrightness_log();
+                    v395 = v394;
                   }
 
-                  v424 = v423;
+                  v396 = v395;
                 }
 
-                v72 = v562;
-                *(v562 + 57) = v424;
-                v613 = OS_LOG_TYPE_DEFAULT;
-                if (os_log_type_enabled(v72[57], OS_LOG_TYPE_DEFAULT))
+                v68 = v530;
+                *(v530 + 57) = v396;
+                v581 = OS_LOG_TYPE_DEFAULT;
+                if (os_log_type_enabled(v68[57], OS_LOG_TYPE_DEFAULT))
                 {
-                  v419 = *(v562 + 57);
-                  *v420 = v613;
-                  v73 = *(v562 + 58);
-                  v421 = v642;
-                  __os_log_helper_16_2_1_8_64(v642, v73);
-                  _os_log_impl(&dword_1DE8E5000, v419, v420[0], "Set kIOHIDALSUserPreferenceKey: CurveUpdates = %@", v642, 0xCu);
+                  v391 = *(v530 + 57);
+                  *v392 = v581;
+                  v69 = *(v530 + 58);
+                  v393 = v610;
+                  __os_log_helper_16_2_1_8_64(v610, v69);
+                  _os_log_impl(&dword_1DE8E5000, v391, v392[0], "Set kIOHIDALSUserPreferenceKey: CurveUpdates = %@", v610, 0xCu);
                 }
 
-                AABC::getCurveUpdatesFromArray(context, *(v562 + 58), v612);
-                AAB::SetCurveUpdates(context, v612);
-                std::list<AAB::CurveUpdate>::~list(v612);
+                AABC::getCurveUpdatesFromArray(v580, context, *(v530 + 58));
+                AAB::SetCurveUpdates(context, v580);
+                std::list<AAB::CurveUpdate>::~list(v580);
               }
             }
 
-            v418 = CFDictionaryGetValue(*(v562 + 111), @"ReplacementCurve");
-            v74 = v562;
-            *(v562 + 52) = v418;
-            if (*(v74 + 52))
+            v390 = CFDictionaryGetValue(*(v530 + 111), @"ReplacementCurve");
+            v70 = v530;
+            *(v530 + 52) = v390;
+            if (*(v70 + 52))
             {
-              v417 = CFGetTypeID(*(v562 + 52));
-              v416 = CFDictionaryGetTypeID();
-              if (v417 == v416)
+              v389 = CFGetTypeID(*(v530 + 52));
+              v388 = CFDictionaryGetTypeID();
+              if (v389 == v388)
               {
-                AABC::readCurveFromDictionary(context, *(v562 + 52), context + 726);
+                AABC::readCurveFromDictionary(context, *(v530 + 52), context + 726);
                 if (_logHandle)
                 {
-                  v415 = _logHandle;
+                  v387 = _logHandle;
                 }
 
                 else
                 {
                   if (_COREBRIGHTNESS_LOG_DEFAULT)
                   {
-                    v414 = _COREBRIGHTNESS_LOG_DEFAULT;
+                    v386 = _COREBRIGHTNESS_LOG_DEFAULT;
                   }
 
                   else
                   {
-                    v413 = init_default_corebrightness_log();
-                    v414 = v413;
+                    v385 = init_default_corebrightness_log();
+                    v386 = v385;
                   }
 
-                  v415 = v414;
+                  v387 = v386;
                 }
 
-                v75 = v562;
-                *(v562 + 51) = v415;
-                v611 = OS_LOG_TYPE_DEFAULT;
-                if (os_log_type_enabled(v75[51], OS_LOG_TYPE_DEFAULT))
+                v71 = v530;
+                *(v530 + 51) = v387;
+                v579 = OS_LOG_TYPE_DEFAULT;
+                if (os_log_type_enabled(v71[51], OS_LOG_TYPE_DEFAULT))
                 {
-                  v410 = *(v562 + 51);
-                  *v411 = v611;
-                  v76 = *(v562 + 52);
-                  v412 = v641;
-                  __os_log_helper_16_2_1_8_64(v641, v76);
-                  _os_log_impl(&dword_1DE8E5000, v410, v411[0], "Set kIOHIDALSUserPreferenceKey: ReplacementCurve = %@", v641, 0xCu);
+                  v382 = *(v530 + 51);
+                  *v383 = v579;
+                  v72 = *(v530 + 52);
+                  v384 = v609;
+                  __os_log_helper_16_2_1_8_64(v609, v72);
+                  _os_log_impl(&dword_1DE8E5000, v382, v383[0], "Set kIOHIDALSUserPreferenceKey: ReplacementCurve = %@", v609, 0xCu);
                 }
               }
             }
 
-            v409 = CFDictionaryGetValue(*(v562 + 111), @"AlternativeReplacementCurve");
-            v77 = v562;
-            *(v562 + 49) = v409;
-            if (*(v77 + 49) && (v408 = CFGetTypeID(*(v562 + 49)), v407 = CFDictionaryGetTypeID(), v408 == v407))
+            v381 = CFDictionaryGetValue(*(v530 + 111), @"AlternativeReplacementCurve");
+            v73 = v530;
+            *(v530 + 49) = v381;
+            if (*(v73 + 49) && (v380 = CFGetTypeID(*(v530 + 49)), v379 = CFDictionaryGetTypeID(), v380 == v379))
             {
-              AABC::readCurveFromDictionary(context, *(v562 + 49), context + 778);
+              AABC::readCurveFromDictionary(context, *(v530 + 49), context + 778);
               if (_logHandle)
               {
-                v406 = _logHandle;
+                v378 = _logHandle;
               }
 
               else
               {
                 if (_COREBRIGHTNESS_LOG_DEFAULT)
                 {
-                  v405 = _COREBRIGHTNESS_LOG_DEFAULT;
+                  v377 = _COREBRIGHTNESS_LOG_DEFAULT;
                 }
 
                 else
                 {
-                  v404 = init_default_corebrightness_log();
-                  v405 = v404;
+                  v376 = init_default_corebrightness_log();
+                  v377 = v376;
                 }
 
-                v406 = v405;
+                v378 = v377;
               }
 
-              v78 = v562;
-              *(v562 + 48) = v406;
-              v610 = OS_LOG_TYPE_DEFAULT;
-              if (os_log_type_enabled(v78[48], OS_LOG_TYPE_DEFAULT))
+              v74 = v530;
+              *(v530 + 48) = v378;
+              v578 = OS_LOG_TYPE_DEFAULT;
+              if (os_log_type_enabled(v74[48], OS_LOG_TYPE_DEFAULT))
               {
-                v401 = *(v562 + 48);
-                *v402 = v610;
-                v79 = *(v562 + 49);
-                v403 = v640;
-                __os_log_helper_16_2_1_8_64(v640, v79);
-                _os_log_impl(&dword_1DE8E5000, v401, v402[0], "Set kIOHIDALSUserPreferenceKey: AlternativeReplacementCurve = %@", v640, 0xCu);
+                v373 = *(v530 + 48);
+                *v374 = v578;
+                v75 = *(v530 + 49);
+                v375 = v608;
+                __os_log_helper_16_2_1_8_64(v608, v75);
+                _os_log_impl(&dword_1DE8E5000, v373, v374[0], "Set kIOHIDALSUserPreferenceKey: AlternativeReplacementCurve = %@", v608, 0xCu);
               }
 
               AABC::AlignCurveTypeWithStrategy(context, context + 726, context + 778);
@@ -1754,75 +1721,75 @@ void AABC::setPropertyForClient(AABC *this, const __CFString *a2, const void *a3
 
             if (_logHandle)
             {
-              v400 = _logHandle;
+              v372 = _logHandle;
             }
 
             else
             {
               if (_COREBRIGHTNESS_LOG_DEFAULT)
               {
-                v399 = _COREBRIGHTNESS_LOG_DEFAULT;
+                v371 = _COREBRIGHTNESS_LOG_DEFAULT;
               }
 
               else
               {
-                v398 = init_default_corebrightness_log();
-                v399 = v398;
+                v370 = init_default_corebrightness_log();
+                v371 = v370;
               }
 
-              v400 = v399;
+              v372 = v371;
             }
 
-            v80 = v562;
-            *(v562 + 46) = v400;
-            v609 = OS_LOG_TYPE_DEFAULT;
-            if (os_log_type_enabled(v80[46], OS_LOG_TYPE_DEFAULT))
+            v76 = v530;
+            *(v530 + 46) = v372;
+            v577 = OS_LOG_TYPE_DEFAULT;
+            if (os_log_type_enabled(v76[46], OS_LOG_TYPE_DEFAULT))
             {
-              v394 = *(v562 + 46);
-              *v395 = v609;
-              v396 = *(context + 750);
-              v397 = (*(**(context + 8) + 104))(*(context + 8));
-              v392 = *(context + 802);
-              v393 = (*(**(context + 8) + 112))(*(context + 8));
-              v391 = v639;
-              __os_log_helper_16_0_4_4_0_4_0_4_0_4_0(v639, v396, v397, v392, v393);
-              _os_log_impl(&dword_1DE8E5000, v394, v395[0], "Good curve type = %d (%d), Alternative good curve type = %d (%d)", v639, 0x1Au);
+              v366 = *(v530 + 46);
+              *v367 = v577;
+              v368 = *(context + 750);
+              v369 = (*(**(context + 8) + 104))(*(context + 8));
+              v364 = *(context + 802);
+              v365 = (*(**(context + 8) + 112))(*(context + 8));
+              v363 = v607;
+              __os_log_helper_16_0_4_4_0_4_0_4_0_4_0(v607, v368, v369, v364, v365);
+              _os_log_impl(&dword_1DE8E5000, v366, v367[0], "Good curve type = %d (%d), Alternative good curve type = %d (%d)", v607, 0x1Au);
             }
 
-            v390 = (*(**(context + 8) + 104))(*(context + 8));
-            v81 = context;
-            *(context + 750) = v390;
-            v389 = (*(*v81[8] + 112))(v81[8]);
-            v82 = context;
-            *(context + 802) = v389;
-            AABC::revertToGoodCurve(v82, 2);
+            v362 = (*(**(context + 8) + 104))(*(context + 8));
+            v77 = context;
+            *(context + 750) = v362;
+            v361 = (*(*v77[8] + 112))(v77[8]);
+            v78 = context;
+            *(context + 802) = v361;
+            AABC::revertToGoodCurve(v78, 2);
           }
 
           if (*(context + 3376))
           {
-            v388 = CFDictionaryGetValue(*(v562 + 111), @"ReplacementCurve");
-            v83 = v562;
-            *(v562 + 44) = v388;
-            if (*(v83 + 44))
+            v360 = CFDictionaryGetValue(*(v530 + 111), @"ReplacementCurve");
+            v79 = v530;
+            *(v530 + 44) = v360;
+            if (*(v79 + 44))
             {
-              v387 = CFGetTypeID(*(v562 + 44));
-              v386 = CFDictionaryGetTypeID();
-              if (v387 == v386)
+              v359 = CFGetTypeID(*(v530 + 44));
+              v358 = CFDictionaryGetTypeID();
+              if (v359 == v358)
               {
-                AABC::readCurveFromDictionary(context, *(v562 + 44), context + 726);
+                AABC::readCurveFromDictionary(context, *(v530 + 44), context + 726);
               }
             }
 
-            v385 = CFDictionaryGetValue(*(v562 + 111), @"Descriptor");
-            v84 = v562;
-            *(v562 + 44) = v385;
-            if (*(v84 + 44))
+            v357 = CFDictionaryGetValue(*(v530 + 111), @"Descriptor");
+            v80 = v530;
+            *(v530 + 44) = v357;
+            if (*(v80 + 44))
             {
-              v384 = CFGetTypeID(*(v562 + 44));
-              v383 = CFDictionaryGetTypeID();
-              if (v384 == v383)
+              v356 = CFGetTypeID(*(v530 + 44));
+              v355 = CFDictionaryGetTypeID();
+              if (v356 == v355)
               {
-                AABC::readCurveDescriptorFromDictionary(context, *(v562 + 44), context + 834);
+                AABC::readCurveDescriptorFromDictionary(context, *(v530 + 44), context + 834);
               }
             }
 
@@ -1840,360 +1807,351 @@ void AABC::setPropertyForClient(AABC *this, const __CFString *a2, const void *a3
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"CurveUpdates"))
+    if (CFEqual(*(v530 + 112), @"CurveUpdates"))
     {
-      if (*(v562 + 111))
+      if (*(v530 + 111))
       {
-        v381 = CFGetTypeID(*(v562 + 111));
-        v380 = CFArrayGetTypeID();
-        if (v381 == v380)
+        v353 = CFGetTypeID(*(v530 + 111));
+        v352 = CFArrayGetTypeID();
+        if (v353 == v352)
         {
-          AABC::getCurveUpdatesFromArray(context, *(v562 + 111), v608);
-          AAB::SetCurveUpdates(context, v608);
+          AABC::getCurveUpdatesFromArray(v576, context, *(v530 + 111));
+          AAB::SetCurveUpdates(context, v576);
           AABC::revertToGoodCurve(context, 1);
-          std::list<AAB::CurveUpdate>::~list(v608);
+          std::list<AAB::CurveUpdate>::~list(v576);
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"OutlierRemoval"))
+    if (CFEqual(*(v530 + 112), @"OutlierRemoval"))
     {
-      if (*(v562 + 111))
+      if (*(v530 + 111))
       {
-        v378 = CFGetTypeID(*(v562 + 111));
-        v377 = CFDictionaryGetTypeID();
-        if (v378 == v377)
+        v350 = CFGetTypeID(*(v530 + 111));
+        v349 = CFDictionaryGetTypeID();
+        if (v350 == v349)
         {
-          AABC::readOutlierRemovalFromDictionary(context, *(v562 + 111), context + 3376);
+          AABC::readOutlierRemovalFromDictionary(context, *(v530 + 111), context + 3376);
           OutlierRemovalDictionary = AABC::createOutlierRemovalDictionary(context, context + 3376);
-          v85 = v562;
-          v86 = context;
-          *(v562 + 40) = OutlierRemovalDictionary;
-          CFDictionarySetValue(v86[47], v85[112], v85[40]);
-          CFRelease(*(v562 + 40));
+          v81 = v530;
+          v82 = context;
+          *(v530 + 40) = OutlierRemovalDictionary;
+          CFDictionarySetValue(v82[47], v81[112], v81[40]);
+          CFRelease(*(v530 + 40));
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"ALSLockScreenAutoBrightness"))
+    if (CFEqual(*(v530 + 112), @"ALSLockScreenAutoBrightness"))
     {
-      CFBooleanValue = GetCFBooleanValue(*(v562 + 111));
+      CFBooleanValue = GetCFBooleanValue(*(v530 + 111));
       *(context + 862) = CFBooleanValue;
       if (_logHandle)
       {
-        v373 = _logHandle;
+        v345 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v372 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v344 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v371 = init_default_corebrightness_log();
-          v372 = v371;
+          v343 = init_default_corebrightness_log();
+          v344 = v343;
         }
 
-        v373 = v372;
+        v345 = v344;
       }
 
-      v87 = v562;
-      *(v562 + 39) = v373;
-      v607 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v87[39], OS_LOG_TYPE_DEBUG))
+      v83 = v530;
+      *(v530 + 39) = v345;
+      v575 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v83[39], OS_LOG_TYPE_DEBUG))
       {
-        v368 = *(v562 + 39);
-        *v369 = v607;
-        v88 = *(context + 862);
-        v370 = v638;
-        __os_log_helper_16_0_2_4_0_4_0(v638, 2, v88);
-        _os_log_debug_impl(&dword_1DE8E5000, v368, v369[0], "[%x]: _settings._internal._lockScreenAutoBrightness=%x", v638, 0xEu);
+        v340 = *(v530 + 39);
+        *v341 = v575;
+        v84 = *(context + 862);
+        v342 = v606;
+        __os_log_helper_16_0_2_4_0_4_0(v606, 2, v84);
+        _os_log_debug_impl(&dword_1DE8E5000, v340, v341[0], "[%x]: _settings._internal._lockScreenAutoBrightness=%x", v606, 0xEu);
       }
 
-      CFDictionarySetValue(*(context + 47), *(v562 + 112), *(v562 + 111));
-      goto LABEL_511;
+      CFDictionarySetValue(*(context + 47), *(v530 + 112), *(v530 + 111));
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"ALSAccessoryAbsoluteThreshold"))
+    if (CFEqual(*(v530 + 112), @"ALSAccessoryAbsoluteThreshold"))
     {
-      v366 = CFGetTypeID(*(v562 + 111));
-      v365 = CFNumberGetTypeID();
-      if (v366 == v365)
+      v338 = CFGetTypeID(*(v530 + 111));
+      v337 = CFNumberGetTypeID();
+      if (v338 == v337)
       {
-        v89 = v562;
-        *(v562 + 76) = *(context + 35);
-        if (CFNumberGetValue(v89[111], kCFNumberFloatType, v606))
+        v85 = v530;
+        *(v530 + 76) = *(context + 35);
+        if (CFNumberGetValue(v85[111], kCFNumberFloatType, v574))
         {
-          *(context + 35) = *(v562 + 76);
+          *(context + 35) = *(v530 + 76);
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"LogLevel"))
+    if (CFEqual(*(v530 + 112), @"LogLevel"))
     {
       if (_logHandle)
       {
-        v362 = _logHandle;
+        v334 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v361 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v333 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v360 = init_default_corebrightness_log();
-          v361 = v360;
+          v332 = init_default_corebrightness_log();
+          v333 = v332;
         }
 
-        v362 = v361;
+        v334 = v333;
       }
 
-      v90 = v562;
-      *(v562 + 37) = v362;
-      v605 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v90[37], OS_LOG_TYPE_DEBUG))
+      v86 = v530;
+      *(v530 + 37) = v334;
+      v573 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v86[37], OS_LOG_TYPE_DEBUG))
       {
-        v357 = *(v562 + 37);
-        *v358 = v605;
-        *&v91 = *(context + 268);
-        *&v92 = *(context + 270);
-        *&v93 = *(context + 269);
-        *&v94 = *(context + 271);
-        v359 = v637;
-        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v637, v91, v92, v93, v94);
-        _os_log_debug_impl(&dword_1DE8E5000, v357, v358[0], "curve E1: %0.2f L1: %0.4f E2: %0.2f L2: %0.4f", v637, 0x2Au);
+        v329 = *(v530 + 37);
+        *v330 = v573;
+        *&v87 = *(context + 268);
+        *&v88 = *(context + 270);
+        *&v89 = *(context + 269);
+        *&v90 = *(context + 271);
+        v331 = v605;
+        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v605, v87, v88, v89, v90);
+        _os_log_debug_impl(&dword_1DE8E5000, v329, v330[0], "curve E1: %0.2f L1: %0.4f E2: %0.2f L2: %0.4f", v605, 0x2Au);
       }
 
       if (_logHandle)
       {
-        v356 = _logHandle;
+        v328 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v355 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v327 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v354 = init_default_corebrightness_log();
-          v355 = v354;
+          v326 = init_default_corebrightness_log();
+          v327 = v326;
         }
 
-        v356 = v355;
+        v328 = v327;
       }
 
-      v95 = v562;
-      *(v562 + 35) = v356;
-      v604 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v95[35], OS_LOG_TYPE_DEBUG))
+      v91 = v530;
+      *(v530 + 35) = v328;
+      v572 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v91[35], OS_LOG_TYPE_DEBUG))
       {
-        v351 = *(v562 + 35);
-        *v352 = v604;
-        *&v96 = *(context + 264);
-        *&v97 = *(context + 265);
-        *&v98 = *(context + 266);
-        *&v99 = *(context + 267);
-        v353 = v636;
-        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v636, v96, v97, v98, v99);
-        _os_log_debug_impl(&dword_1DE8E5000, v351, v352[0], "dark curve E0a: %0.2f L0a: %0.4f E0b: %0.2f L0b: %0.4f", v636, 0x2Au);
+        v324 = *(v530 + 35);
+        *v325 = v572;
+        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v604, COERCE__INT64(*(context + 264)), COERCE__INT64(*(context + 265)), COERCE__INT64(*(context + 266)), COERCE__INT64(*(context + 267)));
+        _os_log_debug_impl(&dword_1DE8E5000, v324, v325[0], "dark curve E0a: %0.2f L0a: %0.4f E0b: %0.2f L0b: %0.4f", v604, 0x2Au);
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"AutoBrightnessProxEnabled"))
+    if (CFEqual(*(v530 + 112), @"AutoBrightnessProxEnabled"))
     {
-      v349 = GetCFBooleanValue(*(v562 + 111));
-      *(context + 3757) = v349 != 0;
-      goto LABEL_511;
+      *(context + 3757) = GetCFBooleanValue(*(v530 + 111)) != 0;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"AutoBrightnessProxDelay"))
+    if (CFEqual(*(v530 + 112), @"AutoBrightnessProxDelay"))
     {
-      v347 = CFGetTypeID(*(v562 + 111));
-      v346 = CFNumberGetTypeID();
-      if (v347 == v346)
+      v321 = CFGetTypeID(*(v530 + 111));
+      v320 = CFNumberGetTypeID();
+      if (v321 == v320)
       {
-        v100 = v562;
-        *(v562 + 68) = *(context + 940);
-        if (CFNumberGetValue(v100[111], kCFNumberFloatType, v603))
+        v92 = v530;
+        *(v530 + 68) = *(context + 940);
+        if (CFNumberGetValue(v92[111], kCFNumberFloatType, v571))
         {
-          *(context + 940) = *(v562 + 68);
+          *(context + 940) = *(v530 + 68);
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    v344 = CFEqual(*(v562 + 112), @"AutoBrightnessTouchEnabled");
-    if (v344 || (v343 = CFEqual(*(v562 + 112), @"AutoBrightnessTouchDelay")) != 0 || (v342 = CFEqual(*(v562 + 112), @"AutoBrightnessTouchBufferPivot")) != 0 || (v341 = CFEqual(*(v562 + 112), @"AutoBrightnessTouchBufferMaxCount")) != 0 || (v340 = CFEqual(*(v562 + 112), @"AutoBrightnessTouchBufferWindowS")) != 0 || (v339 = CFEqual(*(v562 + 112), @"AutoBrightnessTouchRadius")) != 0)
+    v318 = CFEqual(*(v530 + 112), @"AutoBrightnessTouchEnabled");
+    if (v318 || (v317 = CFEqual(*(v530 + 112), @"AutoBrightnessTouchDelay")) != 0 || (v316 = CFEqual(*(v530 + 112), @"AutoBrightnessTouchBufferPivot")) != 0 || (v315 = CFEqual(*(v530 + 112), @"AutoBrightnessTouchBufferMaxCount")) != 0 || (v314 = CFEqual(*(v530 + 112), @"AutoBrightnessTouchBufferWindowS")) != 0 || (v313 = CFEqual(*(v530 + 112), @"AutoBrightnessTouchRadius")) != 0)
     {
-      v101 = context;
-      v102 = v562;
-      *(v562 + 28) = MEMORY[0x1E69E9820];
-      *(v102 + 58) = -1073741824;
-      *(v102 + 59) = 0;
-      *(v102 + 30) = ___ZN4AABC20setPropertyForClientEPK10__CFStringPKvS4__block_invoke_742;
-      *(v102 + 31) = &__block_descriptor_48_e35_v24__0____IOHIDServiceClient__8_v16l;
-      *(v102 + 32) = *(v102 + 111);
-      *(v102 + 33) = *(v102 + 112);
-      AABC::enumerateALSes(v101, v602);
-      goto LABEL_511;
+      v93 = context;
+      v94 = v530;
+      *(v530 + 28) = MEMORY[0x1E69E9820];
+      *(v94 + 58) = -1073741824;
+      *(v94 + 59) = 0;
+      *(v94 + 30) = ___ZN4AABC20setPropertyForClientEPK10__CFStringPKvS4__block_invoke_742;
+      *(v94 + 31) = &__block_descriptor_48_e35_v24__0____IOHIDServiceClient__8_v16l;
+      *(v94 + 32) = *(v94 + 111);
+      *(v94 + 33) = *(v94 + 112);
+      AABC::enumerateALSes(v93, v570);
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"AutoBrightnessLogMask"))
+    if (CFEqual(*(v530 + 112), @"AutoBrightnessLogMask"))
     {
-      v337 = CFGetTypeID(*(v562 + 111));
-      v336 = CFNumberGetTypeID();
-      if (v337 == v336)
+      v311 = CFGetTypeID(*(v530 + 111));
+      v310 = CFNumberGetTypeID();
+      if (v311 == v310)
       {
-        v103 = v562;
-        *(v562 + 55) = *(context + 79);
-        if (CFNumberGetValue(v103[111], kCFNumberIntType, v601))
+        v95 = v530;
+        *(v530 + 55) = *(context + 79);
+        if (CFNumberGetValue(v95[111], kCFNumberIntType, v569))
         {
-          *(context + 79) = *(v562 + 55) | 1;
+          *(context + 79) = *(v530 + 55) | 1;
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"AutoBrightnessLuxFilter"))
+    if (CFEqual(*(v530 + 112), @"AutoBrightnessLuxFilter"))
     {
-      v333 = CFGetTypeID(*(v562 + 111));
-      v332 = CFNumberGetTypeID();
-      if (v333 == v332)
+      v307 = CFGetTypeID(*(v530 + 111));
+      v306 = CFNumberGetTypeID();
+      if (v307 == v306)
       {
-        v104 = v562;
-        *(v562 + 54) = *(context + 866);
-        if (CFNumberGetValue(v104[111], kCFNumberIntType, v600))
+        v96 = v530;
+        *(v530 + 54) = *(context + 866);
+        if (CFNumberGetValue(v96[111], kCFNumberIntType, v568))
         {
-          if ((*(v562 + 54) & 0x80000000) == 0 && *(v562 + 54) <= 3)
+          if ((*(v530 + 54) & 0x80000000) == 0 && *(v530 + 54) <= 3)
           {
-            *(context + 866) = *(v562 + 54);
+            *(context + 866) = *(v530 + 54);
           }
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"ALSIntPeriod"))
+    if (CFEqual(*(v530 + 112), @"ALSIntPeriod"))
     {
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"DisplayBrightnessAuto"))
+    if (CFEqual(*(v530 + 112), @"DisplayBrightnessAuto"))
     {
-      AABC::UpdateAutoBrightnessEnabledStatus(context, *(v562 + 111));
-      goto LABEL_511;
+      AABC::UpdateAutoBrightnessEnabledStatus(context, *(v530 + 111));
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"CBDisplayPresetDisableAutoBrightness"))
+    if (CFEqual(*(v530 + 112), @"CBDisplayPresetDisableAutoBrightness"))
     {
-      v327 = GetCFBooleanValue(*(v562 + 111));
-      v599 = v327 == 0;
-      if ((v327 == 0) != *(context + 127))
+      v301 = GetCFBooleanValue(*(v530 + 111));
+      v567 = v301 == 0;
+      if ((v301 == 0) != *(context + 127))
       {
-        v105 = context;
-        *(context + 127) = v599;
-        AABC::_UpdateNitsRestrictions(v105, 0.0, 0.0, 1);
-        if (v599)
+        v97 = context;
+        *(context + 127) = v567;
+        AABC::_UpdateNitsRestrictions(v97, 0.0, 0.0, 1);
+        if (v567)
         {
-          v326 = AABC::IlluminanceToLuminance(context, context + 264, *(context + 135), *(context + 138));
-          v106 = context;
-          v107 = v562;
-          *(v562 + 52) = v326;
-          v107[52] = fmaxf(v107[52], v106[180]);
-          v107[52] = fminf(v107[52], v106[182]);
-          AABC::UpdateDisplayBrightness_Block6(v106, 1, 2, 1, v107[52]);
+          v300 = AABC::IlluminanceToLuminance(context, context + 264, *(context + 135), *(context + 138));
+          v98 = context;
+          v99 = v530;
+          *(v530 + 52) = v300;
+          v99[52] = fmaxf(v99[52], v98[180]);
+          v99[52] = fminf(v99[52], v98[182]);
+          AABC::UpdateDisplayBrightness_Block6(v98, 1, 2, 1, v99[52]);
         }
 
         if (*(context + 43))
         {
-          v323 = *(context + 43);
-          v324 = *(context + 44);
-          v325 = [MEMORY[0x1E696AD98] numberWithBool:v599];
-          v323(v324, @"CBAutoBrightnessAvailable", v325);
+          (*(context + 43))(*(context + 44), @"CBAutoBrightnessAvailable", [MEMORY[0x1E696AD98] numberWithBool:v567]);
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"DisplayOrientation"))
+    if (CFEqual(*(v530 + 112), @"DisplayOrientation"))
     {
-      v321 = CFGetTypeID(*(v562 + 111));
-      v320 = CFNumberGetTypeID();
-      if (v321 == v320)
+      v298 = CFGetTypeID(*(v530 + 111));
+      v297 = CFNumberGetTypeID();
+      if (v298 == v297)
       {
-        v108 = v562;
-        *(v562 + 51) = 0;
-        CFNumberGetValue(v108[111], kCFNumberIntType, v598);
-        AABC::SetDisplayOrientation(context, *(v562 + 51));
+        v100 = v530;
+        *(v530 + 51) = 0;
+        CFNumberGetValue(v100[111], kCFNumberIntType, v566);
+        AABC::SetDisplayOrientation(context, *(v530 + 51));
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"DisplayBrightness"))
+    if (CFEqual(*(v530 + 112), @"DisplayBrightness"))
     {
-      v318 = CFGetTypeID(*(v562 + 111));
-      v317 = CFDictionaryGetTypeID();
-      if (v318 == v317)
+      v295 = CFGetTypeID(*(v530 + 111));
+      v294 = CFDictionaryGetTypeID();
+      if (v295 == v294)
       {
-        v109 = v562;
-        *(v562 + 50) = *(context + 131);
-        *(v109 + 49) = 0;
-        v316 = CFDictionaryGetValue(*(v109 + 111), @"Brightness");
-        v110 = v562;
-        *(v562 + 23) = v316;
-        if (*(v110 + 23))
+        v101 = v530;
+        *(v530 + 50) = *(context + 131);
+        *(v101 + 49) = 0;
+        v293 = CFDictionaryGetValue(*(v101 + 111), @"Brightness");
+        v102 = v530;
+        *(v530 + 23) = v293;
+        if (*(v102 + 23))
         {
-          v315 = CFNumberGetTypeID();
-          v314 = CFGetTypeID(*(v562 + 23));
-          if (v315 == v314)
+          v292 = CFNumberGetTypeID();
+          v291 = CFGetTypeID(*(v530 + 23));
+          if (v292 == v291)
           {
-            CFNumberGetValue(*(v562 + 23), kCFNumberFloatType, v597);
+            CFNumberGetValue(*(v530 + 23), kCFNumberFloatType, v565);
           }
         }
 
-        v313 = CFDictionaryGetValue(*(v562 + 111), @"Commit");
-        v111 = v562;
-        *(v562 + 22) = v313;
-        if (*(v111 + 22))
+        v290 = CFDictionaryGetValue(*(v530 + 111), @"Commit");
+        v103 = v530;
+        *(v530 + 22) = v290;
+        if (*(v103 + 22))
         {
-          v312 = GetCFBooleanValue(*(v562 + 22));
-          *(v562 + 49) = v312;
+          v289 = GetCFBooleanValue(*(v530 + 22));
+          *(v530 + 49) = v289;
         }
 
-        AABC::SetUserBrightness(context, *(v562 + 50), *(v562 + 49));
-        if ((*(context + 3425) & 1) == 0 && *(v562 + 49))
+        AABC::SetUserBrightness(context, *(v530 + 50), *(v530 + 49));
+        if ((*(context + 3425) & 1) == 0 && *(v530 + 49))
         {
-          v311 = DisplaySliderToLogicalBrightness(*(context + 50), *(context + 131));
-          *(context + 857) = v311;
+          v288 = DisplaySliderToLogicalBrightness(*(context + 50), *(context + 131));
+          *(context + 857) = v288;
         }
 
-        if (*(v562 + 49))
+        if (*(v530 + 49))
         {
           AABC::setAABCurveUpdateReason(context, 0);
         }
@@ -2201,253 +2159,250 @@ void AABC::setPropertyForClient(AABC *this, const __CFString *a2, const void *a3
 
       else
       {
-        v310 = CFGetTypeID(*(v562 + 111));
-        v309 = CFNumberGetTypeID();
-        if (v310 == v309)
+        v287 = CFGetTypeID(*(v530 + 111));
+        v286 = CFNumberGetTypeID();
+        if (v287 == v286)
         {
-          v112 = v562;
-          *(v562 + 43) = *(context + 131);
-          CFNumberGetValue(v112[111], kCFNumberFloatType, v596);
-          AABC::SetUserBrightness(context, *(v562 + 43), 1);
+          v104 = v530;
+          *(v530 + 43) = *(context + 131);
+          CFNumberGetValue(v104[111], kCFNumberFloatType, v564);
+          AABC::SetUserBrightness(context, *(v530 + 43), 1);
           if ((*(context + 3425) & 1) == 0)
           {
-            v308 = DisplaySliderToLogicalBrightness(*(context + 50), *(context + 131));
-            *(context + 857) = v308;
+            *(context + 857) = DisplaySliderToLogicalBrightness(*(context + 50), *(context + 131));
           }
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"DisplayNitsKey"))
+    if (CFEqual(*(v530 + 112), @"DisplayNitsKey"))
     {
-      v306 = CFGetTypeID(*(v562 + 111));
-      v305 = CFDictionaryGetTypeID();
-      if (v306 == v305)
+      v284 = CFGetTypeID(*(v530 + 111));
+      v283 = CFDictionaryGetTypeID();
+      if (v284 == v283)
       {
-        v113 = v562;
-        *(v562 + 42) = *(context + 131);
-        *(v113 + 41) = 0;
-        v304 = CFDictionaryGetValue(*(v113 + 111), @"Brightness");
-        v114 = v562;
-        *(v562 + 19) = v304;
-        if (*(v114 + 19))
+        v105 = v530;
+        *(v530 + 42) = *(context + 131);
+        *(v105 + 41) = 0;
+        v282 = CFDictionaryGetValue(*(v105 + 111), @"Brightness");
+        v106 = v530;
+        *(v530 + 19) = v282;
+        if (*(v106 + 19))
         {
-          v303 = CFNumberGetTypeID();
-          v302 = CFGetTypeID(*(v562 + 19));
-          if (v303 == v302)
+          v281 = CFNumberGetTypeID();
+          v280 = CFGetTypeID(*(v530 + 19));
+          if (v281 == v280)
           {
-            v115 = v562;
-            *(v562 + 37) = 0;
-            if (CFNumberGetValue(v115[19], kCFNumberFloatType, v595))
+            v107 = v530;
+            *(v530 + 37) = 0;
+            if (CFNumberGetValue(v107[19], kCFNumberFloatType, v563))
             {
-              v300 = DisplayLogicalToSliderBrightness(*(context + 50), *(v562 + 37));
-              *(v562 + 42) = v300;
+              v278 = DisplayLogicalToSliderBrightness(*(context + 50), *(v530 + 37));
+              *(v530 + 42) = v278;
             }
           }
         }
 
-        v299 = CFDictionaryGetValue(*(v562 + 111), @"Commit");
-        v116 = v562;
-        *(v562 + 17) = v299;
-        if (*(v116 + 17))
+        v277 = CFDictionaryGetValue(*(v530 + 111), @"Commit");
+        v108 = v530;
+        *(v530 + 17) = v277;
+        if (*(v108 + 17))
         {
-          v298 = GetCFBooleanValue(*(v562 + 17));
-          *(v562 + 41) = v298;
+          v276 = GetCFBooleanValue(*(v530 + 17));
+          *(v530 + 41) = v276;
         }
 
-        AABC::SetUserBrightness(context, *(v562 + 42), *(v562 + 41));
+        AABC::SetUserBrightness(context, *(v530 + 42), *(v530 + 41));
       }
 
       else
       {
-        v297 = CFGetTypeID(*(v562 + 111));
-        v296 = CFNumberGetTypeID();
-        if (v297 == v296)
+        v275 = CFGetTypeID(*(v530 + 111));
+        v274 = CFNumberGetTypeID();
+        if (v275 == v274)
         {
-          v117 = v562;
-          *(v562 + 33) = 0;
-          if (CFNumberGetValue(v117[111], kCFNumberFloatType, v594))
+          v109 = v530;
+          *(v530 + 33) = 0;
+          if (CFNumberGetValue(v109[111], kCFNumberFloatType, v562))
           {
-            v294 = DisplayLogicalToSliderBrightness(*(context + 50), *(v562 + 33));
-            AABC::SetUserBrightness(context, v294, 1);
+            v272 = DisplayLogicalToSliderBrightness(*(context + 50), *(v530 + 33));
+            AABC::SetUserBrightness(context, v272, 1);
             if (*(context + 857) < *(context + 180))
             {
-              *(context + 857) = *(v562 + 33);
+              *(context + 857) = *(v530 + 33);
             }
           }
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"DisplayAutoBrightnessStatus"))
+    if (CFEqual(*(v530 + 112), @"DisplayAutoBrightnessStatus"))
     {
-      v292 = CFGetTypeID(*(v562 + 111));
-      v291 = CFDictionaryGetTypeID();
-      if (v292 == v291)
+      v270 = CFGetTypeID(*(v530 + 111));
+      v269 = CFDictionaryGetTypeID();
+      if (v270 == v269)
       {
-        v118 = v562;
-        *(v562 + 32) = 0;
-        *(v118 + 31) = 0;
-        *(v118 + 14) = 0;
-        v290 = CFDictionaryGetValue(*(v118 + 111), @"DisplayAutoBrightnessActive");
-        v119 = v562;
-        *(v562 + 14) = v290;
-        if (*(v119 + 14))
+        v110 = v530;
+        *(v530 + 32) = 0;
+        *(v110 + 31) = 0;
+        *(v110 + 14) = 0;
+        v268 = CFDictionaryGetValue(*(v110 + 111), @"DisplayAutoBrightnessActive");
+        v111 = v530;
+        *(v530 + 14) = v268;
+        if (*(v111 + 14))
         {
-          v289 = CFGetTypeID(*(v562 + 14));
-          v288 = CFBooleanGetTypeID();
-          if (v289 == v288)
+          v267 = CFGetTypeID(*(v530 + 14));
+          v266 = CFBooleanGetTypeID();
+          if (v267 == v266)
           {
-            v287 = CFBooleanGetValue(*(v562 + 14));
-            *(v562 + 32) = v287;
+            v265 = CFBooleanGetValue(*(v530 + 14));
+            *(v530 + 32) = v265;
           }
         }
 
-        v286 = CFDictionaryGetValue(*(v562 + 111), @"DisplayAutoBrightnessDelay");
-        v120 = v562;
-        *(v562 + 14) = v286;
-        if (*(v120 + 14))
+        v264 = CFDictionaryGetValue(*(v530 + 111), @"DisplayAutoBrightnessDelay");
+        v112 = v530;
+        *(v530 + 14) = v264;
+        if (*(v112 + 14))
         {
-          v285 = CFGetTypeID(*(v562 + 14));
-          v284 = CFNumberGetTypeID();
-          if (v285 == v284)
+          v263 = CFGetTypeID(*(v530 + 14));
+          v262 = CFNumberGetTypeID();
+          if (v263 == v262)
           {
-            CFNumberGetValue(*(v562 + 14), kCFNumberFloatType, v593);
+            CFNumberGetValue(*(v530 + 14), kCFNumberFloatType, v561);
           }
         }
 
-        AABC::SetAutoBrightnessStatus(context, *(v562 + 32), *(v562 + 31));
+        AABC::SetAutoBrightnessStatus(context, *(v530 + 32), *(v530 + 31));
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"DisplayBrightnessFadePeriod"))
+    if (CFEqual(*(v530 + 112), @"DisplayBrightnessFadePeriod"))
     {
-      v282 = CFNumberGetTypeID();
-      v281 = CFGetTypeID(*(v562 + 111));
-      if (v282 == v281)
+      v260 = CFNumberGetTypeID();
+      v259 = CFGetTypeID(*(v530 + 111));
+      if (v260 == v259)
       {
-        CFNumberGetValue(*(v562 + 111), kCFNumberFloatType, context + 492);
+        CFNumberGetValue(*(v530 + 111), kCFNumberFloatType, context + 492);
         if (_logHandle)
         {
-          v280 = _logHandle;
+          v258 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v279 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v257 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v278 = init_default_corebrightness_log();
-            v279 = v278;
+            v256 = init_default_corebrightness_log();
+            v257 = v256;
           }
 
-          v280 = v279;
+          v258 = v257;
         }
 
-        v121 = v562;
-        *(v562 + 13) = v280;
-        v592 = OS_LOG_TYPE_DEBUG;
-        if (os_log_type_enabled(v121[13], OS_LOG_TYPE_DEBUG))
+        v113 = v530;
+        *(v530 + 13) = v258;
+        v560 = OS_LOG_TYPE_DEBUG;
+        if (os_log_type_enabled(v113[13], OS_LOG_TYPE_DEBUG))
         {
-          v275 = *(v562 + 13);
-          *v276 = v592;
-          *&v122 = *(context + 123);
-          v277 = v635;
-          __os_log_helper_16_0_2_4_0_8_0(v635, 2, v122);
-          _os_log_debug_impl(&dword_1DE8E5000, v275, v276[0], "[%x]: _fadePeriod=%f", v635, 0x12u);
+          v254 = *(v530 + 13);
+          *v255 = v560;
+          __os_log_helper_16_0_2_4_0_8_0(v603, 2, COERCE__INT64(*(context + 123)));
+          _os_log_debug_impl(&dword_1DE8E5000, v254, v255[0], "[%x]: _fadePeriod=%f", v603, 0x12u);
         }
       }
 
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"DisplayBrightnessFactorWithFade"))
+    if (CFEqual(*(v530 + 112), @"DisplayBrightnessFactorWithFade"))
     {
-      v273 = CFNumberGetTypeID();
-      v272 = CFGetTypeID(*(v562 + 111));
-      if (v273 == v272)
+      v252 = CFNumberGetTypeID();
+      v251 = CFGetTypeID(*(v530 + 111));
+      if (v252 == v251)
       {
-        v123 = v562;
-        *(v562 + 24) = *(context + 122);
-        CFNumberGetValue(v123[111], kCFNumberFloatType, v591);
-        AABC::SetDisplayFactor(context, *(v562 + 24), 0);
+        v114 = v530;
+        *(v530 + 24) = *(context + 122);
+        CFNumberGetValue(v114[111], kCFNumberFloatType, v559);
+        AABC::SetDisplayFactor(context, *(v530 + 24), 0);
       }
 
-      else if (*(v562 + 111))
+      else if (*(v530 + 111))
       {
-        v271 = CFDictionaryGetTypeID();
-        v270 = CFGetTypeID(*(v562 + 111));
-        if (v271 == v270)
+        v250 = CFDictionaryGetTypeID();
+        v249 = CFGetTypeID(*(v530 + 111));
+        if (v250 == v249)
         {
-          v269 = CFDictionaryGetValue(*(v562 + 111), @"DisplayBrightnessFadePeriod");
-          v124 = v562;
-          *(v562 + 11) = v269;
-          if (*(v124 + 11))
+          v248 = CFDictionaryGetValue(*(v530 + 111), @"DisplayBrightnessFadePeriod");
+          v115 = v530;
+          *(v530 + 11) = v248;
+          if (*(v115 + 11))
           {
-            v268 = CFNumberGetTypeID();
-            v267 = CFGetTypeID(*(v562 + 11));
-            if (v268 == v267)
+            v247 = CFNumberGetTypeID();
+            v246 = CFGetTypeID(*(v530 + 11));
+            if (v247 == v246)
             {
-              CFNumberGetValue(*(v562 + 11), kCFNumberFloat32Type, context + 492);
+              CFNumberGetValue(*(v530 + 11), kCFNumberFloat32Type, context + 492);
               if (_logHandle)
               {
-                v266 = _logHandle;
+                v245 = _logHandle;
               }
 
               else
               {
                 if (_COREBRIGHTNESS_LOG_DEFAULT)
                 {
-                  v265 = _COREBRIGHTNESS_LOG_DEFAULT;
+                  v244 = _COREBRIGHTNESS_LOG_DEFAULT;
                 }
 
                 else
                 {
-                  v264 = init_default_corebrightness_log();
-                  v265 = v264;
+                  v243 = init_default_corebrightness_log();
+                  v244 = v243;
                 }
 
-                v266 = v265;
+                v245 = v244;
               }
 
-              v125 = v562;
-              *(v562 + 10) = v266;
-              v590 = OS_LOG_TYPE_DEBUG;
-              if (os_log_type_enabled(v125[10], OS_LOG_TYPE_DEBUG))
+              v116 = v530;
+              *(v530 + 10) = v245;
+              v558 = OS_LOG_TYPE_DEBUG;
+              if (os_log_type_enabled(v116[10], OS_LOG_TYPE_DEBUG))
               {
-                v261 = *(v562 + 10);
-                *v262 = v590;
-                *&v126 = *(context + 123);
-                v263 = v634;
-                __os_log_helper_16_0_2_4_0_8_0(v634, 2, v126);
-                _os_log_debug_impl(&dword_1DE8E5000, v261, v262[0], "[%x]: _fadePeriod=%f", v634, 0x12u);
+                v240 = *(v530 + 10);
+                *v241 = v558;
+                *&v117 = *(context + 123);
+                v242 = v602;
+                __os_log_helper_16_0_2_4_0_8_0(v602, 2, v117);
+                _os_log_debug_impl(&dword_1DE8E5000, v240, v241[0], "[%x]: _fadePeriod=%f", v602, 0x12u);
               }
             }
           }
 
-          v260 = CFDictionaryGetValue(*(v562 + 111), @"DisplayBrightnessFactor");
-          v127 = v562;
-          *(v562 + 8) = v260;
-          if (*(v127 + 8))
+          v239 = CFDictionaryGetValue(*(v530 + 111), @"DisplayBrightnessFactor");
+          v118 = v530;
+          *(v530 + 8) = v239;
+          if (*(v118 + 8))
           {
-            v259 = CFNumberGetTypeID();
-            v258 = CFGetTypeID(*(v562 + 8));
-            if (v259 == v258)
+            v238 = CFNumberGetTypeID();
+            v237 = CFGetTypeID(*(v530 + 8));
+            if (v238 == v237)
             {
-              v128 = v562;
-              *(v562 + 15) = *(context + 122);
-              CFNumberGetValue(v128[8], kCFNumberFloat32Type, v589);
-              AABC::SetDisplayFactor(context, *(v562 + 15), 0);
+              v119 = v530;
+              *(v530 + 15) = *(context + 122);
+              CFNumberGetValue(v119[8], kCFNumberFloat32Type, v557);
+              AABC::SetDisplayFactor(context, *(v530 + 15), 0);
             }
           }
         }
@@ -2455,174 +2410,172 @@ void AABC::setPropertyForClient(AABC *this, const __CFString *a2, const void *a3
 
 LABEL_386:
       AABC::NotifyCPMSWhenDisplayChangeState(context, *(context + 122) > 0.0);
-      goto LABEL_511;
+      return;
     }
 
-    if (CFEqual(*(v562 + 112), @"DisplayBrightnessFactor"))
+    if (CFEqual(*(v530 + 112), @"DisplayBrightnessFactor"))
     {
-      v256 = CFNumberGetTypeID();
-      v255 = CFGetTypeID(*(v562 + 111));
-      if (v256 == v255)
+      v235 = CFNumberGetTypeID();
+      v234 = CFGetTypeID(*(v530 + 111));
+      if (v235 == v234)
       {
-        v129 = v562;
-        *(v562 + 14) = *(context + 122);
-        CFNumberGetValue(v129[111], kCFNumberFloatType, v588);
-        AABC::SetDisplayFactor(context, *(v562 + 14), 0);
+        v120 = v530;
+        *(v530 + 14) = *(context + 122);
+        CFNumberGetValue(v120[111], kCFNumberFloatType, v556);
+        AABC::SetDisplayFactor(context, *(v530 + 14), 0);
       }
 
       goto LABEL_386;
     }
 
-    if (CFEqual(*(v562 + 112), @"DominoStateUpdate"))
+    if (CFEqual(*(v530 + 112), @"DominoStateUpdate"))
     {
-      v253 = CFBooleanGetTypeID();
-      v252 = CFGetTypeID(*(v562 + 111));
-      if (v253 == v252)
+      v232 = CFBooleanGetTypeID();
+      v231 = CFGetTypeID(*(v530 + 111));
+      if (v232 == v231)
       {
-        v251 = CFBooleanGetValue(*(v562 + 111));
-        v587 = v251;
-        if ((*(context + 3425) & 1) != v251)
+        v230 = CFBooleanGetValue(*(v530 + 111));
+        v555 = v230;
+        if ((*(context + 3425) & 1) != v230)
         {
-          v130 = context;
-          *(context + 3425) = v587 != 0;
-          if (v130[3425])
+          v121 = context;
+          *(context + 3425) = v555 != 0;
+          if (v121[3425])
           {
-            v139 = context;
+            v130 = context;
             *(context + 3426) = *(context + 128) == 0;
-            LogicalBrightness = DisplayGetLogicalBrightness(v139[50]);
-            v140 = context;
+            LogicalBrightness = DisplayGetLogicalBrightness(v130[50]);
+            v131 = context;
             *(context + 857) = LogicalBrightness;
-            AABC::UpdateAutoBrightnessEnabledStatus(v140, *MEMORY[0x1E695E4D0]);
+            AABC::UpdateAutoBrightnessEnabledStatus(v131, *MEMORY[0x1E695E4D0]);
             DisplaySetProperty(*(context + 50), @"DisplayBrightnessAuto", MEMORY[0x1E695E118]);
-            v245 = AABC::IlluminanceToLuminance(context, context + 264, *(context + 135), *(context + 138));
-            v141 = context;
-            *(v562 + 7) = v245;
-            v244 = AABC::IlluminanceToLuminance(v141, v141 + 804, v141[135], v141[138]);
-            v142 = context;
-            v143 = v562;
-            *(v562 + 6) = v244;
-            v143[7] = fminf(v143[7], v143[6]);
-            if ((v142[3426] & 1) == 0)
+            v226 = AABC::IlluminanceToLuminance(context, context + 264, *(context + 135), *(context + 138));
+            v132 = context;
+            *(v530 + 7) = v226;
+            v225 = AABC::IlluminanceToLuminance(v132, v132 + 804, v132[135], v132[138]);
+            v133 = context;
+            v134 = v530;
+            *(v530 + 6) = v225;
+            v134[7] = fminf(v134[7], v134[6]);
+            if ((v133[3426] & 1) == 0)
             {
-              *(v562 + 7) = fminf(*(context + 857), *(v562 + 7));
+              *(v530 + 7) = fminf(*(context + 857), *(v530 + 7));
             }
 
-            v144 = context;
-            v145 = v562;
-            *(v562 + 7) = fmaxf(*(v562 + 7), *(context + 180));
-            v145[7] = fminf(v145[7], v144[182]);
-            AABC::UpdateDisplayBrightness_Block6(v144, 1, 2, 1, v145[7]);
+            v135 = context;
+            v136 = v530;
+            *(v530 + 7) = fmaxf(*(v530 + 7), *(context + 180));
+            v136[7] = fminf(v136[7], v135[182]);
+            AABC::UpdateDisplayBrightness_Block6(v135, 1, 2, 1, v136[7]);
           }
 
           else
           {
             if (*(context + 3426))
             {
-              v250 = AABC::IlluminanceToLuminance(context, context + 264, *(context + 135), *(context + 138));
-              v134 = context;
-              v135 = v562;
-              *(v562 + 11) = v250;
-              v135[11] = fmaxf(v135[11], v134[180]);
-              v135[11] = fminf(v135[11], v134[182]);
-              AABC::UpdateDisplayBrightness_Block6(v134, 1, 2, 1, v135[11]);
+              v229 = AABC::IlluminanceToLuminance(context, context + 264, *(context + 135), *(context + 138));
+              v125 = context;
+              v126 = v530;
+              *(v530 + 11) = v229;
+              v126[11] = fmaxf(v126[11], v125[180]);
+              v126[11] = fminf(v126[11], v125[182]);
+              AABC::UpdateDisplayBrightness_Block6(v125, 1, 2, 1, v126[11]);
             }
 
             else
             {
               AABC::CancelRamp(context);
-              v131 = context;
-              v132 = v563;
-              v133 = v562;
-              *(v562 + 12) = 10;
-              AABC::SetBrightness(v131, v131[857], 0.5, *(v133 + 12), v132, v131);
+              v122 = context;
+              v123 = v531;
+              v124 = v530;
+              *(v530 + 12) = 10;
+              AABC::SetBrightness(v122, v122[857], 0.5, *(v124 + 12), v123, v122);
             }
 
-            v136 = v562;
-            *(v562 + 10) = *(context + 3426) & 1;
-            if (*(v136 + 10))
+            v127 = v530;
+            *(v530 + 10) = *(context + 3426) & 1;
+            if (*(v127 + 10))
             {
-              v249 = *MEMORY[0x1E695E4D0];
+              v228 = *MEMORY[0x1E695E4D0];
             }
 
             else
             {
-              v249 = *MEMORY[0x1E695E4C0];
+              v228 = *MEMORY[0x1E695E4C0];
             }
 
-            v137 = context;
-            v138 = v562;
-            *(v562 + 4) = v249;
-            AABC::UpdateAutoBrightnessEnabledStatus(v137, v138[4]);
-            v247 = *(context + 50);
-            v248 = [MEMORY[0x1E696AD98] numberWithInt:*(v562 + 10)];
-            DisplaySetProperty(v247, @"DisplayBrightnessAuto", v248);
+            v128 = context;
+            v129 = v530;
+            *(v530 + 4) = v228;
+            AABC::UpdateAutoBrightnessEnabledStatus(v128, v129[4]);
+            DisplaySetProperty(*(context + 50), @"DisplayBrightnessAuto", [MEMORY[0x1E696AD98] numberWithInt:*(v530 + 10)]);
           }
         }
       }
     }
 
-    else if (CFEqual(*(v562 + 112), @"ActivateALS"))
+    else if (CFEqual(*(v530 + 112), @"ActivateALS"))
     {
-      v242 = CFBooleanGetTypeID();
-      v241 = CFGetTypeID(*(v562 + 111));
-      if (v242 == v241)
+      v223 = CFBooleanGetTypeID();
+      v222 = CFGetTypeID(*(v530 + 111));
+      if (v223 == v222)
       {
-        v240 = CFBooleanGetValue(*(v562 + 111));
-        v146 = context;
-        v147 = v562;
-        v586[23] = v240;
-        v148 = 1.0;
-        if (!v240)
+        v221 = CFBooleanGetValue(*(v530 + 111));
+        v137 = context;
+        v138 = v530;
+        v554[23] = v221;
+        v139 = 1.0;
+        if (!v221)
         {
-          v148 = 0.0;
+          v139 = 0.0;
         }
 
-        v149 = v148;
-        *(v562 + 4) = v149;
-        AABC::SetDisplayFactor(v146, v147[4], 1);
+        v140 = v139;
+        *(v530 + 4) = v140;
+        AABC::SetDisplayFactor(v137, v138[4], 1);
       }
     }
 
-    else if (!CFEqual(*(v562 + 112), @"DisplayBrightnessFactorPending"))
+    else if (!CFEqual(*(v530 + 112), @"DisplayBrightnessFactorPending"))
     {
-      if (CFEqual(*(v562 + 112), @"UserInteractedWithUI"))
+      if (CFEqual(*(v530 + 112), @"UserInteractedWithUI"))
       {
         Current = CFAbsoluteTimeGetCurrent();
-        v150 = v562;
-        v151 = context;
-        *(v562 + 1) = Current;
-        if (v151[85] + 3.0 >= v150[1])
+        v141 = v530;
+        v142 = context;
+        *(v530 + 1) = Current;
+        if (v142[85] + 3.0 >= v141[1])
         {
           if (_logHandle)
           {
-            v230 = _logHandle;
+            v211 = _logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v229 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v210 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v228 = init_default_corebrightness_log();
-              v229 = v228;
+              v209 = init_default_corebrightness_log();
+              v210 = v209;
             }
 
-            v230 = v229;
+            v211 = v210;
           }
 
-          oslog = v230;
-          v582 = OS_LOG_TYPE_DEFAULT;
-          if (os_log_type_enabled(v230, OS_LOG_TYPE_DEFAULT))
+          oslog = v211;
+          v550 = OS_LOG_TYPE_DEFAULT;
+          if (os_log_type_enabled(v211, OS_LOG_TYPE_DEFAULT))
           {
-            v225 = oslog;
-            *v226 = v582;
-            v227 = v633;
-            __os_log_helper_16_0_1_8_0(v633, 0x4008000000000000);
-            _os_log_impl(&dword_1DE8E5000, oslog, v582, "User interacted with UI in first %f sec of fast ramp mode -> postpone switching to slow mode.", v633, 0xCu);
+            v206 = oslog;
+            *v207 = v550;
+            v208 = v601;
+            __os_log_helper_16_0_1_8_0(v601, 0x4008000000000000);
+            _os_log_impl(&dword_1DE8E5000, oslog, v550, "User interacted with UI in first %f sec of fast ramp mode -> postpone switching to slow mode.", v601, 0xCu);
           }
 
           *(context + 86) = *(context + 85) + 3.0;
@@ -2632,35 +2585,35 @@ LABEL_386:
         {
           if (_logHandle)
           {
-            v236 = _logHandle;
+            v217 = _logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v235 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v216 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v234 = init_default_corebrightness_log();
-              v235 = v234;
+              v215 = init_default_corebrightness_log();
+              v216 = v215;
             }
 
-            v236 = v235;
+            v217 = v216;
           }
 
-          v152 = v562;
-          *v562 = v236;
-          v585 = OS_LOG_TYPE_INFO;
-          if (os_log_type_enabled(*v152, OS_LOG_TYPE_INFO))
+          v143 = v530;
+          *v530 = v217;
+          v553 = OS_LOG_TYPE_INFO;
+          if (os_log_type_enabled(*v143, OS_LOG_TYPE_INFO))
           {
-            v231 = *v562;
-            *v232 = v585;
-            v233 = v584;
-            __os_log_helper_16_0_0(v584);
-            _os_log_impl(&dword_1DE8E5000, v231, v232[0], "User interacted with UI -> end fast ramp mode", v584, 2u);
+            v212 = *v530;
+            *v213 = v553;
+            v214 = v552;
+            __os_log_helper_16_0_0(v552);
+            _os_log_impl(&dword_1DE8E5000, v212, v213[0], "User interacted with UI -> end fast ramp mode", v552, 2u);
           }
 
           if (*(context + 435))
@@ -2677,104 +2630,102 @@ LABEL_386:
         *(context + 3328) = 1;
       }
 
-      else if (CFEqual(*(v562 + 112), @"ALSTurnOn"))
+      else if (CFEqual(*(v530 + 112), @"ALSTurnOn"))
       {
-        v581 = 0;
-        v223 = CFGetTypeID(*(v562 + 111));
-        v222 = CFBooleanGetTypeID();
-        if (v223 == v222)
+        v549 = 0;
+        v204 = CFGetTypeID(*(v530 + 111));
+        v203 = CFBooleanGetTypeID();
+        if (v204 == v203)
         {
-          v221 = CFBooleanGetValue(*(v562 + 111));
-          v581 = v221;
-          if (v221 != *(context + 129))
+          v549 = CFBooleanGetValue(*(v530 + 111));
+          if (v549 != *(context + 129))
           {
-            v153 = context;
-            *(context + 129) = v581;
-            *(v153 + 160) = v581 != 0;
-            v153[102] = 1.0;
-            AABC::UpdateALSState(v153, 4);
+            v144 = context;
+            *(context + 129) = v549;
+            *(v144 + 160) = v549 != 0;
+            v144[102] = 1.0;
+            AABC::UpdateALSState(v144, 4);
           }
         }
       }
 
-      else if (CFEqual(*(v562 + 112), @"IOHIDALSTestMode"))
+      else if (CFEqual(*(v530 + 112), @"IOHIDALSTestMode"))
       {
-        v219 = CFNumberGetTypeID();
-        v218 = CFGetTypeID(*(v562 + 111));
-        if (v219 == v218)
+        v201 = CFNumberGetTypeID();
+        v200 = CFGetTypeID(*(v530 + 111));
+        if (v201 == v200)
         {
-          v154 = context;
-          v155 = v562;
+          v145 = context;
+          v146 = v530;
           *(context + 160) = 0;
-          CFNumberGetValue(v155[111], kCFNumberSInt32Type, v154 + 640);
+          CFNumberGetValue(v146[111], kCFNumberSInt32Type, v145 + 640);
           AABC::UpdateALSState(context, 4);
         }
       }
 
       else
       {
-        v217 = CFEqual(*(v562 + 112), @"Aggressivity");
-        if (v217 && (v215 = *(v562 + 107), v216 = objc_opt_class(), v214 = objc_opt_isKindOfClass(), (v214 & 1) != 0))
+        v199 = CFEqual(*(v530 + 112), @"Aggressivity");
+        if (v199 && (v197 = *(v530 + 107), v198 = objc_opt_class(), v196 = objc_opt_isKindOfClass(), (v196 & 1) != 0))
         {
-          v213 = [*(v562 + 107) unsignedIntValue];
-          AABC::SetAggressivity(context, v213);
+          AABC::SetAggressivity(context, [*(v530 + 107) unsignedIntValue]);
         }
 
-        else if (CFEqual(*(v562 + 112), @"EcoMode"))
+        else if (CFEqual(*(v530 + 112), @"EcoMode"))
         {
-          v580 = 0;
-          v211 = CFGetTypeID(*(v562 + 111));
-          v210 = CFBooleanGetTypeID();
-          if (v211 == v210)
+          v548 = 0;
+          v194 = CFGetTypeID(*(v530 + 111));
+          v193 = CFBooleanGetTypeID();
+          if (v194 == v193)
           {
-            v209 = CFBooleanGetValue(*(v562 + 111));
-            v580 = v209 != 0;
+            v192 = CFBooleanGetValue(*(v530 + 111));
+            v548 = v192 != 0;
           }
 
           else
           {
-            v208 = CFGetTypeID(*(v562 + 111));
-            v207 = CFNumberGetTypeID();
-            if (v208 == v207)
+            v191 = CFGetTypeID(*(v530 + 111));
+            v190 = CFNumberGetTypeID();
+            if (v191 == v190)
             {
-              v579 = 0;
-              CFNumberGetValue(*(v562 + 111), kCFNumberIntType, &v579);
-              v580 = v579 != 0;
+              v547 = 0;
+              CFNumberGetValue(*(v530 + 111), kCFNumberIntType, &v547);
+              v548 = v547 != 0;
             }
           }
 
-          AABC::_UpdateEcoModeState(context, v580);
-          v206 = _os_feature_enabled_impl();
-          if ((v206 & 1) == 0)
+          AABC::_UpdateEcoModeState(context, v548);
+          v189 = _os_feature_enabled_impl();
+          if ((v189 & 1) == 0)
           {
-            if (v580)
+            if (v548)
             {
-              v156 = 70;
+              v147 = 70;
             }
 
             else
             {
-              v156 = 0;
+              v147 = 0;
             }
 
-            [*(context + 486) forceMitigationLevel:v156];
+            [*(context + 486) forceMitigationLevel:v147];
           }
         }
 
-        else if (CFEqual(*(v562 + 112), @"PreStrobe"))
+        else if (CFEqual(*(v530 + 112), @"PreStrobe"))
         {
-          if (*(v562 + 111))
+          if (*(v530 + 111))
           {
-            v204 = CFNumberGetTypeID();
-            v203 = CFGetTypeID(*(v562 + 111));
-            if (v204 == v203)
+            v187 = CFNumberGetTypeID();
+            v186 = CFGetTypeID(*(v530 + 111));
+            if (v187 == v186)
             {
-              v578 = 0;
-              CFNumberGetValue(*(v562 + 111), kCFNumberIntType, &v578);
+              v546 = 0;
+              CFNumberGetValue(*(v530 + 111), kCFNumberIntType, &v546);
               if (*(context + 58))
               {
                 service = *(context + 58);
-                if (v578)
+                if (v546)
                 {
                   property = *MEMORY[0x1E695E4D0];
                 }
@@ -2787,64 +2738,62 @@ LABEL_386:
                 IOHIDServiceClientSetProperty(service, @"MuonEnabled", property);
               }
 
-              *(context + 497) = v578 != 0;
+              *(context + 497) = v546 != 0;
             }
           }
         }
 
-        else if (*(v562 + 111) && (v200 = CFEqual(*(v562 + 112), @"BrightnessWeakCap")) != 0)
+        else if (*(v530 + 111) && (v183 = CFEqual(*(v530 + 112), @"BrightnessWeakCap")) != 0)
         {
-          v199 = CFNumberGetTypeID();
-          v198 = CFGetTypeID(*(v562 + 111));
-          if (v199 == v198)
+          v182 = CFNumberGetTypeID();
+          v181 = CFGetTypeID(*(v530 + 111));
+          if (v182 == v181)
           {
-            v577 = 100.0;
-            CFNumberGetValue(*(v562 + 111), kCFNumberFloatType, &v577);
+            v545 = 100.0;
+            CFNumberGetValue(*(v530 + 111), kCFNumberFloatType, &v545);
             AABC::CancelRamp(context);
-            if (v577 >= 100.0)
+            if (v545 >= 100.0)
             {
-              v158 = context;
+              v149 = context;
               *(context + 978) = *(context + 182);
-              v158[3916] = 0;
+              v149[3916] = 0;
             }
 
             else
             {
-              v197 = DisplaySliderToLogicalBrightness(*(context + 50), v577);
-              v157 = context;
-              *(context + 978) = v197;
-              v157[3916] = 1;
-              *(v157 + 980) = *(v157 + 135);
+              v180 = DisplaySliderToLogicalBrightness(*(context + 50), v545);
+              v148 = context;
+              *(context + 978) = v180;
+              v148[3916] = 1;
+              *(v148 + 980) = *(v148 + 135);
               if (_logHandle)
               {
-                v196 = _logHandle;
+                v179 = _logHandle;
               }
 
               else
               {
                 if (_COREBRIGHTNESS_LOG_DEFAULT)
                 {
-                  v195 = _COREBRIGHTNESS_LOG_DEFAULT;
+                  v178 = _COREBRIGHTNESS_LOG_DEFAULT;
                 }
 
                 else
                 {
-                  v194 = init_default_corebrightness_log();
-                  v195 = v194;
+                  v178 = init_default_corebrightness_log();
                 }
 
-                v196 = v195;
+                v179 = v178;
               }
 
-              v576 = v196;
-              v575 = OS_LOG_TYPE_INFO;
-              if (os_log_type_enabled(v196, OS_LOG_TYPE_INFO))
+              v544 = v179;
+              v543 = OS_LOG_TYPE_INFO;
+              if (os_log_type_enabled(v179, OS_LOG_TYPE_INFO))
               {
-                v191 = v576;
-                *v192 = v575;
-                v193 = v574;
-                __os_log_helper_16_0_0(v574);
-                _os_log_impl(&dword_1DE8E5000, v191, v192[0], "Enabling weak cap\n", v574, 2u);
+                v176 = v544;
+                *v177 = v543;
+                __os_log_helper_16_0_0(v542);
+                _os_log_impl(&dword_1DE8E5000, v176, v177[0], "Enabling weak cap\n", v542, 2u);
               }
             }
 
@@ -2852,71 +2801,68 @@ LABEL_386:
           }
         }
 
-        else if (*(v562 + 111) && (v190 = CFEqual(*(v562 + 112), @"RLuxEnable")) != 0)
+        else if (*(v530 + 111) && (v175 = CFEqual(*(v530 + 112), @"RLuxEnable")) != 0)
         {
-          v189 = CFBooleanGetTypeID();
-          v188 = CFGetTypeID(*(v562 + 111));
-          if (v189 == v188)
+          v174 = CFBooleanGetTypeID();
+          v173 = CFGetTypeID(*(v530 + 111));
+          if (v174 == v173)
           {
-            v573 = 0;
-            v187 = CFBooleanGetValue(*(v562 + 111));
-            v573 = v187;
-            v186 = v187 == 0;
-            v572[0] = std::bitset<3ul>::operator[][abi:de200100](context + 296, 2uLL);
-            v572[1] = v159;
-            std::__bit_reference<std::__bitset<1ul,3ul>,true>::operator=[abi:de200100](v572, v186);
+            v541 = 0;
+            v541 = CFBooleanGetValue(*(v530 + 111));
+            v540[0] = std::bitset<3ul>::operator[][abi:de200100](context + 296, 2uLL);
+            v540[1] = v150;
+            std::__bit_reference<std::__bitset<1ul,3ul>,true>::operator=[abi:de200100](v540, v541 == 0);
             AABC::evaluateAABRearConditions(context);
           }
         }
 
-        else if (*(v562 + 111) && (v185 = CFEqual(*(v562 + 112), @"AliasingMitigationFilterDuration")) != 0)
+        else if (*(v530 + 111) && (v172 = CFEqual(*(v530 + 112), @"AliasingMitigationFilterDuration")) != 0)
         {
-          v184 = CFNumberGetTypeID();
-          v183 = CFGetTypeID(*(v562 + 111));
-          if (v184 == v183)
+          v171 = CFNumberGetTypeID();
+          v170 = CFGetTypeID(*(v530 + 111));
+          if (v171 == v170)
           {
-            v571 = 0;
-            CFNumberGetValue(*(v562 + 111), kCFNumberIntType, &v571);
+            v539 = 0;
+            CFNumberGetValue(*(v530 + 111), kCFNumberIntType, &v539);
             AABC::resetFilter(context, context + 27);
-            if (v571 < 0)
+            if (v539 < 0)
             {
               AABC::setFilterDuration(context, context + 216, 5);
             }
 
             else
             {
-              AABC::setFilterDuration(context, context + 216, v571);
+              AABC::setFilterDuration(context, context + 216, v539);
             }
           }
         }
 
         else
         {
-          v182 = [@"CBDynamicSliderScaler" isEqualToString:*(v562 + 106)];
-          if (v182 & 1) != 0 && (v180 = *(v562 + 107), v181 = objc_opt_class(), v179 = objc_opt_isKindOfClass(), (v179))
+          v169 = [@"CBDynamicSliderScaler" isEqualToString:*(v530 + 106)];
+          if (v169 & 1) != 0 && (v167 = *(v530 + 107), v168 = objc_opt_class(), v166 = objc_opt_isKindOfClass(), (v166))
           {
-            [*(v562 + 107) floatValue];
-            v178 = v160;
-            AABC::UpdateAmbrosiaFactor(context, v160);
+            [*(v530 + 107) floatValue];
+            AABC::UpdateAmbrosiaFactor(context, v151);
           }
 
           else
           {
-            v177 = [@"CBPowerMitigationLevel" isEqualToString:*(v562 + 106)];
-            if (v177 & 1) != 0 && (v175 = *(v562 + 107), v176 = objc_opt_class(), v174 = objc_opt_isKindOfClass(), (v174))
+            v165 = [@"CBPowerMitigationLevel" isEqualToString:*(v530 + 106)];
+            if (v165 & 1) != 0 && (v163 = *(v530 + 107), v164 = objc_opt_class(), v162 = objc_opt_isKindOfClass(), (v162))
             {
-              v173 = [*(v562 + 107) unsignedIntValue];
-              v570 = v173;
-              v569[0] = xmmword_1DEACE618;
-              v569[1] = xmmword_1DEACE628;
-              if (v173)
+              v161 = [*(v530 + 107) unsignedIntValue];
+              v538 = v161;
+              v537[0] = xmmword_1DEACE618;
+              v537[1] = xmmword_1DEACE628;
+              if (v161)
               {
                 [*(context + 486) stop];
-                v170 = *(context + 486);
-                v171 = v570;
-                v161 = std::array<PMMitigationLevel,4ul>::size[abi:de200100]();
-                v172 = clamp(v570, 0.0, (v161 - 1));
-                [v170 forceMitigationLevel:{*std::array<PMMitigationLevel, 4ul>::operator[][abi:de200100](v569, v172)}];
+                v158 = *(context + 486);
+                v159 = v538;
+                v152 = std::array<PMMitigationLevel,4ul>::size[abi:de200100]();
+                v160 = clamp(v538, 0.0, (v152 - 1));
+                [v158 forceMitigationLevel:{*std::array<PMMitigationLevel, 4ul>::operator[][abi:de200100](v537, v160)}];
               }
 
               else
@@ -2929,36 +2875,33 @@ LABEL_386:
             {
               if (_logHandle)
               {
-                v169 = _logHandle;
+                v157 = _logHandle;
               }
 
               else
               {
                 if (_COREBRIGHTNESS_LOG_DEFAULT)
                 {
-                  v168 = _COREBRIGHTNESS_LOG_DEFAULT;
+                  v156 = _COREBRIGHTNESS_LOG_DEFAULT;
                 }
 
                 else
                 {
-                  v167 = init_default_corebrightness_log();
-                  v168 = v167;
+                  v155 = init_default_corebrightness_log();
+                  v156 = v155;
                 }
 
-                v169 = v168;
+                v157 = v156;
               }
 
-              v568 = v169;
-              v567 = OS_LOG_TYPE_DEBUG;
-              if (os_log_type_enabled(v169, OS_LOG_TYPE_DEBUG))
+              v536 = v157;
+              v535 = OS_LOG_TYPE_DEBUG;
+              if (os_log_type_enabled(v157, OS_LOG_TYPE_DEBUG))
               {
-                v164[9] = v568;
-                *v165 = v567;
-                v162 = *(v562 + 112);
-                v163 = *(v562 + 111);
-                v166 = v632;
-                __os_log_helper_16_2_3_4_0_8_64_8_64(v632, 1, v162, v163);
-                _os_log_debug_impl(&dword_1DE8E5000, v568, v567, "[%x]: unknown key=%@ property=%@", v632, 0x1Cu);
+                v153[9] = v536;
+                *v154 = v535;
+                __os_log_helper_16_2_3_4_0_8_64_8_64(v600, 1, *(v530 + 112), *(v530 + 111));
+                _os_log_debug_impl(&dword_1DE8E5000, v536, v535, "[%x]: unknown key=%@ property=%@", v600, 0x1Cu);
               }
             }
           }
@@ -2966,74 +2909,72 @@ LABEL_386:
       }
     }
   }
-
-LABEL_511:
-  *MEMORY[0x1E69E9840];
 }
 
 void CFXAnimateAmbientAdaptationModes(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5, float *a6, float a7, float a8)
 {
   if (a1 && *(a1 + 96) && a4 && a5 > 0)
   {
-    v18 = 1.0;
-    v17 = 0;
-    v16 = *(*(a1 + 96) + 248);
+    v19 = 1.0;
+    v18 = 0;
+    v17 = *(*(a1 + 96) + 248);
     for (i = 0; i < a5; ++i)
     {
-      v14 = _CFXGetStrengthFromMode(a1, *(a4 + 4 * i));
-      if (v14 <= v18)
+      v15 = _CFXGetStrengthFromMode(a1, *(a4 + 4 * i));
+      if (v15 <= v19)
       {
-        v18 = v14;
-        v16 = *(a4 + 4 * i);
-        v17 = 1;
+        v19 = v15;
+        v17 = *(a4 + 4 * i);
+        v18 = 1;
       }
     }
 
-    v13 = 1.0;
-    v12 = 0;
-    v11 = *(*(a1 + 96) + 248);
+    v14 = 1.0;
+    v13 = 0;
+    v12 = *(*(a1 + 96) + 248);
     if (a2)
     {
       for (j = 0; j < a3; ++j)
       {
-        v9 = _CFXGetStrengthFromMode(a1, *(a2 + 4 * j));
-        if (v9 <= v13)
+        v10 = _CFXGetStrengthFromMode(a1, *(a2 + 4 * j));
+        if (v10 <= v14)
         {
-          v13 = v9;
-          v11 = *(a2 + 4 * j);
-          v12 = 1;
+          v14 = v10;
+          v12 = *(a2 + 4 * j);
+          v13 = 1;
         }
       }
     }
 
-    if ((v12 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
-      v13 = _CFXGetStrengthFromMode(a1, *(*(a1 + 96) + 248));
+      v14 = _CFXGetStrengthFromMode(a1, *(*(a1 + 96) + 248));
     }
 
-    if (v17)
+    if (v18)
     {
-      v23 = fminf(1.0, fmaxf(0.0, a7));
-      v8 = v13 + (v23 * (v18 - v13));
+      v24 = fminf(1.0, fmaxf(0.0, a7));
+      v9 = v14 + (v24 * (v19 - v14));
       if (a6)
       {
-        *a6 = v8;
+        *a6 = v9;
       }
 
-      syslog(7, "ANIMATING from mode %d to mode %d with ratio %f and period %f -> strength %f", v11, v16, (v23 * 100.0), a8, v8);
+      syslog(7, "ANIMATING from mode %d to mode %d with ratio %f and period %f -> strength %f", v12, v17, (v24 * 100.0), a8, v9);
       if (*(*(a1 + 96) + 184))
       {
+        *&v8 = v14 + (v24 * (v19 - v14));
         CFXSetAmbientAdaptationStrength(a1, v8, a8);
       }
 
-      if (v23 >= 1.0)
+      if (v24 >= 1.0)
       {
-        *(*(a1 + 96) + 248) = v16;
+        *(*(a1 + 96) + 248) = v17;
       }
 
       else
       {
-        *(*(a1 + 96) + 248) = v11;
+        *(*(a1 + 96) + 248) = v12;
       }
     }
   }
@@ -3050,37 +2991,41 @@ float _CFXGetStrengthFromMode(uint64_t a1, unsigned int a2)
   return v3;
 }
 
-void CFXSetAmbientAdaptationStrength(uint64_t a1, float a2, float a3)
+double CFXSetAmbientAdaptationStrength(uint64_t a1, double result, float a3)
 {
   v14 = *MEMORY[0x1E69E9840];
+  v12 = *&result;
   if (a1)
   {
-    if (*(a1 + 2252) >= 0.0)
+    LODWORD(result) = *(a1 + 2252);
+    if (*&result >= 0.0)
     {
-      a3 = *(a1 + 2252);
+      LODWORD(result) = *(a1 + 2252);
+      a3 = *&result;
     }
 
     if (*(a1 + 96))
     {
       v11 = *(*(a1 + 96) + 252) * a3;
-      if (a2 != **(a1 + 96))
+      *&result = v12;
+      if (v12 != **(a1 + 96))
       {
         v8 = **(a1 + 96);
-        **(a1 + 96) = a2;
+        **(a1 + 96) = v12;
         if (*(*(a1 + 96) + 56))
         {
           free(*(*(a1 + 96) + 56));
           *(*(a1 + 96) + 56) = 0;
         }
 
-        syslog(7, "Set strength %f\n", a2);
+        syslog(7, "Set strength %f\n", v12);
         *(*(a1 + 96) + 56) = _CFXPolygonFromStrength((*(a1 + 96) + 40), *(*(a1 + 96) + 148), 0.85);
         Current = CFAbsoluteTimeGetCurrent();
         if ((*(a1 + 364) & 1) != 0 && (*(*(a1 + 96) + 301) & 1) == 0)
         {
           *(*(a1 + 96) + 272) = 0;
           *(*(a1 + 96) + 284) = *(*(a1 + 96) + 280);
-          *(*(a1 + 96) + 276) = a2;
+          *(*(a1 + 96) + 276) = v12;
           *(*(a1 + 96) + 264) = Current;
           *(*(a1 + 96) + 256) = v11;
           if (*(*(a1 + 96) + 303))
@@ -3130,13 +3075,14 @@ void CFXSetAmbientAdaptationStrength(uint64_t a1, float a2, float a3)
 
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
-          __os_log_helper_16_2_4_8_32_8_0_8_0_8_0(v13, "Harmony Strength", COERCE__INT64(v8), COERCE__INT64(a2), *(*(a1 + 96) + 312));
+          __os_log_helper_16_2_4_8_32_8_0_8_0_8_0(v13, "Harmony Strength", COERCE__INT64(v8), COERCE__INT64(v12), *(*(a1 + 96) + 312));
           _os_log_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEFAULT, "[WP update: %s]: %f -> %f t: %f", v13, 0x2Au);
         }
 
         if (*(*(a1 + 96) + 184))
         {
-          v6 = (a2 * 10.0);
+          *&result = v12 * 10.0;
+          v6 = (v12 * 10.0);
           if (v6 > 9)
           {
             v6 = 9;
@@ -3145,6 +3091,7 @@ void CFXSetAmbientAdaptationStrength(uint64_t a1, float a2, float a3)
           if (v6 != *(a1 + 1736))
           {
             *(a1 + 1656 + 8 * *(a1 + 1736)) = *(a1 + 1656 + 8 * *(a1 + 1736)) + MachTimeToSeconds((Current - *(a1 + 1744)));
+            result = Current;
             *(a1 + 1744) = Current;
             *(a1 + 1736) = v6;
           }
@@ -3153,7 +3100,7 @@ void CFXSetAmbientAdaptationStrength(uint64_t a1, float a2, float a3)
     }
   }
 
-  *MEMORY[0x1E69E9840];
+  return result;
 }
 
 uint64_t CFXGetAmbientAdaptationMode(uint64_t a1, float *a2)
@@ -3228,20 +3175,20 @@ uint64_t DisplaySetProperty(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void __DisplaySetProperty_block_invoke(uint64_t a1)
 {
-  v646 = *MEMORY[0x1E69E9840];
-  v582 = a1;
-  v581 = a1;
-  v580 = 0.0;
+  v651 = *MEMORY[0x1E69E9840];
+  v587 = a1;
+  v586 = a1;
+  v585 = 0.0;
   if (*(a1 + 40) && CFEqual(*(a1 + 48), @"DisplayBrightness"))
   {
     TypeID = CFNumberGetTypeID();
     if (TypeID == CFGetTypeID(*(a1 + 40)))
     {
-      v580 = *(*(a1 + 56) + 336);
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v580);
+      v585 = *(*(a1 + 56) + 336);
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v585);
       if (_logHandle)
       {
-        v274 = _logHandle;
+        v279 = _logHandle;
       }
 
       else
@@ -3256,101 +3203,101 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
           inited = init_default_corebrightness_log();
         }
 
-        v274 = inited;
+        v279 = inited;
       }
 
-      v579 = v274;
-      v578 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v274, OS_LOG_TYPE_DEBUG))
+      v584 = v279;
+      v583 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v279, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_32_8_0(v645, "DisplayBrightness", COERCE__INT64(v580));
-        _os_log_debug_impl(&dword_1DE8E5000, v579, v578, "DisplaySetProperty: %s = %f\n", v645, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_0(v650, "DisplayBrightness", COERCE__INT64(v585));
+        _os_log_debug_impl(&dword_1DE8E5000, v584, v583, "DisplaySetProperty: %s = %f\n", v650, 0x16u);
       }
 
-      v577[0] = 1;
-      *&v577[1] = v580;
-      __DisplayUpdateAAPStateInternal(*(a1 + 56), v577, 1);
-      v576 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), v580);
-      if (v576 > *(*(a1 + 56) + 528))
+      v582[0] = 1;
+      *&v582[1] = v585;
+      __DisplayUpdateAAPStateInternal(*(a1 + 56), v582, 1);
+      v581 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), v585);
+      if (v581 > *(*(a1 + 56) + 528))
       {
-        _DisplaySetBrightnessWeakCapWithFade(*(a1 + 56), 0, v576, 0.0);
+        _DisplaySetBrightnessWeakCapWithFade(*(a1 + 56), 0, v581, 0.0);
       }
 
-      __DisplaySetBrightnessWithFade(*(a1 + 56), 12296, v580, 0.0);
+      __DisplaySetBrightnessWithFade(*(a1 + 56), 12296, v585, 0.0);
     }
 
     else
     {
-      v272 = CFDictionaryGetTypeID();
-      if (v272 == CFGetTypeID(*(a1 + 40)))
+      v277 = CFDictionaryGetTypeID();
+      if (v277 == CFGetTypeID(*(a1 + 40)))
       {
         Value = CFDictionaryGetValue(*(a1 + 40), @"Brightness");
-        v574 = CFDictionaryGetValue(*(a1 + 40), @"Commit");
-        v573 = CFDictionaryGetValue(*(a1 + 40), @"Period");
+        v579 = CFDictionaryGetValue(*(a1 + 40), @"Commit");
+        v578 = CFDictionaryGetValue(*(a1 + 40), @"Period");
         if (Value)
         {
-          v271 = CFGetTypeID(Value);
-          if (v271 == CFNumberGetTypeID())
+          v276 = CFGetTypeID(Value);
+          if (v276 == CFNumberGetTypeID())
           {
-            v572 = *(*(a1 + 56) + 276);
-            if (v573)
+            v577 = *(*(a1 + 56) + 276);
+            if (v578)
             {
-              v270 = CFGetTypeID(v573);
-              if (v270 == CFNumberGetTypeID())
+              v275 = CFGetTypeID(v578);
+              if (v275 == CFNumberGetTypeID())
               {
-                if (CFNumberIsFloatType(v573))
+                if (CFNumberIsFloatType(v578))
                 {
-                  CFNumberGetValue(v573, kCFNumberFloat32Type, &v572);
+                  CFNumberGetValue(v578, kCFNumberFloat32Type, &v577);
                 }
               }
             }
 
-            v580 = *(*(a1 + 56) + 336);
-            CFNumberGetValue(Value, kCFNumberFloatType, &v580);
-            v580 = v580 / *(*(a1 + 56) + 12728);
-            v571[0] = 1;
-            *&v571[1] = v580;
-            __DisplayUpdateAAPStateInternal(*(a1 + 56), v571, v574 == *MEMORY[0x1E695E4D0]);
-            v570 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), v580);
-            if (v570 > *(*(a1 + 56) + 528))
+            v585 = *(*(a1 + 56) + 336);
+            CFNumberGetValue(Value, kCFNumberFloatType, &v585);
+            v585 = v585 / *(*(a1 + 56) + 12728);
+            v576[0] = 1;
+            *&v576[1] = v585;
+            __DisplayUpdateAAPStateInternal(*(a1 + 56), v576, v579 == *MEMORY[0x1E695E4D0]);
+            v575 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), v585);
+            if (v575 > *(*(a1 + 56) + 528))
             {
-              _DisplaySetBrightnessWeakCapWithFade(*(a1 + 56), 0, v570, v572);
+              _DisplaySetBrightnessWeakCapWithFade(*(a1 + 56), 0, v575, v577);
             }
 
             if (_logHandle)
             {
-              v269 = _logHandle;
+              v274 = _logHandle;
             }
 
             else
             {
               if (_COREBRIGHTNESS_LOG_DEFAULT)
               {
-                v268 = _COREBRIGHTNESS_LOG_DEFAULT;
+                v273 = _COREBRIGHTNESS_LOG_DEFAULT;
               }
 
               else
               {
-                v268 = init_default_corebrightness_log();
+                v273 = init_default_corebrightness_log();
               }
 
-              v269 = v268;
+              v274 = v273;
             }
 
-            v569 = v269;
-            v568 = OS_LOG_TYPE_DEBUG;
-            if (os_log_type_enabled(v269, OS_LOG_TYPE_DEBUG))
+            v574 = v274;
+            v573 = OS_LOG_TYPE_DEBUG;
+            if (os_log_type_enabled(v274, OS_LOG_TYPE_DEBUG))
             {
-              __os_log_helper_16_2_3_8_32_8_0_8_0(v644, "DisplayBrightness", COERCE__INT64(v580), COERCE__INT64(v570));
-              _os_log_debug_impl(&dword_1DE8E5000, v569, v568, "DisplaySetProperty: %s = %f (nits=%f)\n", v644, 0x20u);
+              __os_log_helper_16_2_3_8_32_8_0_8_0(v649, "DisplayBrightness", COERCE__INT64(v585), COERCE__INT64(v575));
+              _os_log_debug_impl(&dword_1DE8E5000, v574, v573, "DisplaySetProperty: %s = %f (nits=%f)\n", v649, 0x20u);
             }
 
-            if (v574 == *MEMORY[0x1E695E4D0])
+            if (v579 == *MEMORY[0x1E695E4D0])
             {
-              __DisplayReportCommit(*(a1 + 56), v580);
+              __DisplayReportCommit(*(a1 + 56), v585);
             }
 
-            if (v574 == *MEMORY[0x1E695E4D0])
+            if (v579 == *MEMORY[0x1E695E4D0])
             {
               v1 = 12296;
             }
@@ -3360,52 +3307,52 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
               v1 = 8200;
             }
 
-            v567 = v1;
+            v572 = v1;
             if (*(*(a1 + 56) + 323))
             {
-              v566 = v572;
-              v565 = _DisplayLuminanceToPerceptualLuminanceInternal(*(a1 + 56), *(*(a1 + 56) + 1256));
-              v564 = _DisplayLuminanceToPerceptualLuminanceInternal(*(a1 + 56), v570);
-              v563 = v564 - v565;
-              if ((v564 - v565) < 0.0 && v566 <= 0.0)
+              v571 = v577;
+              v570 = _DisplayLuminanceToPerceptualLuminanceInternal(*(a1 + 56), *(*(a1 + 56) + 1256));
+              v569 = _DisplayLuminanceToPerceptualLuminanceInternal(*(a1 + 56), v575);
+              v568 = v569 - v570;
+              if ((v569 - v570) < 0.0 && v571 <= 0.0)
               {
-                v566 = 0.4;
+                v571 = 0.4;
               }
 
-              if (v566 <= 0.0)
+              if (v571 <= 0.0)
               {
                 *(*(a1 + 56) + 280) = -1.0;
               }
 
               else
               {
-                v563 = fminf(fmaxf(fabsf(v563), 0.0), 1.0);
-                *(*(a1 + 56) + 280) = v580;
-                v567 |= 0x80u;
-                v572 = v566 * v563;
+                v568 = fminf(fmaxf(fabsf(v568), 0.0), 1.0);
+                *(*(a1 + 56) + 280) = v585;
+                v572 |= 0x80u;
+                v577 = v571 * v568;
               }
             }
 
-            __DisplaySetBrightnessWithFade(*(a1 + 56), v567, v580, v572);
-            if (v574 == *MEMORY[0x1E695E4D0])
+            __DisplaySetBrightnessWithFade(*(a1 + 56), v572, v585, v577);
+            if (v579 == *MEMORY[0x1E695E4D0])
             {
               if (_logHandle)
               {
-                v267 = _logHandle;
+                v272 = _logHandle;
               }
 
               else
               {
-                v266 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-                v267 = v266;
+                v271 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+                v272 = v271;
               }
 
-              v562 = v267;
-              v561 = OS_LOG_TYPE_DEFAULT;
-              if (os_log_type_enabled(v267, OS_LOG_TYPE_DEFAULT))
+              v567 = v272;
+              v566 = OS_LOG_TYPE_DEFAULT;
+              if (os_log_type_enabled(v272, OS_LOG_TYPE_DEFAULT))
               {
-                __os_log_helper_16_2_5_8_32_8_0_8_0_8_0_4_0(v643, "User change", COERCE__INT64(v580), COERCE__INT64(v570), COERCE__INT64(*(*(a1 + 56) + 1260)), v574 == *MEMORY[0x1E695E4D0]);
-                _os_log_impl(&dword_1DE8E5000, v562, v561, "[BRT update: %s]: slider value = %f, nits = %f, nits physical = %f, commit = %d", v643, 0x30u);
+                __os_log_helper_16_2_5_8_32_8_0_8_0_8_0_4_0(v648, "User change", COERCE__INT64(v585), COERCE__INT64(v575), COERCE__INT64(*(*(a1 + 56) + 1260)), v579 == *MEMORY[0x1E695E4D0]);
+                _os_log_impl(&dword_1DE8E5000, v567, v566, "[BRT update: %s]: slider value = %f, nits = %f, nits physical = %f, commit = %d", v648, 0x30u);
               }
             }
           }
@@ -3418,105 +3365,105 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
   else if (*(a1 + 40) && CFEqual(*(a1 + 48), @"DisplayNitsKey"))
   {
-    v265 = CFNumberGetTypeID();
-    if (v265 == CFGetTypeID(*(a1 + 40)))
+    v270 = CFNumberGetTypeID();
+    if (v270 == CFGetTypeID(*(a1 + 40)))
     {
-      v580 = *(*(a1 + 56) + 1256);
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v580);
+      v585 = *(*(a1 + 56) + 1256);
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v585);
       if (_logHandle)
       {
-        v264 = _logHandle;
+        v269 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v263 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v268 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v263 = init_default_corebrightness_log();
+          v268 = init_default_corebrightness_log();
         }
 
-        v264 = v263;
+        v269 = v268;
       }
 
-      v560 = v264;
-      v559 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v264, OS_LOG_TYPE_DEBUG))
+      v565 = v269;
+      v564 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v269, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_32_8_0(v642, "DisplayNitsKey", COERCE__INT64(v580));
-        _os_log_debug_impl(&dword_1DE8E5000, v560, v559, "DisplaySetProperty: %s = %f\n", v642, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_0(v647, "DisplayNitsKey", COERCE__INT64(v585));
+        _os_log_debug_impl(&dword_1DE8E5000, v565, v564, "DisplaySetProperty: %s = %f\n", v647, 0x16u);
       }
 
-      _DisplaySetLogicalBrightnessWithFade(*(a1 + 56), 12296, 0, 0, v580, 0.0);
+      _DisplaySetLogicalBrightnessWithFade(*(a1 + 56), 12296, 0, 0, v585, 0.0);
     }
 
     else
     {
-      v262 = CFDictionaryGetTypeID();
-      if (v262 == CFGetTypeID(*(a1 + 40)))
+      v267 = CFDictionaryGetTypeID();
+      if (v267 == CFGetTypeID(*(a1 + 40)))
       {
-        v558 = CFDictionaryGetValue(*(a1 + 40), @"Brightness");
-        v557 = CFDictionaryGetValue(*(a1 + 40), @"Commit");
-        v556 = CFDictionaryGetValue(*(a1 + 40), @"Period");
-        if (v558)
+        v563 = CFDictionaryGetValue(*(a1 + 40), @"Brightness");
+        v562 = CFDictionaryGetValue(*(a1 + 40), @"Commit");
+        v561 = CFDictionaryGetValue(*(a1 + 40), @"Period");
+        if (v563)
         {
-          v261 = CFGetTypeID(v558);
-          if (v261 == CFNumberGetTypeID())
+          v266 = CFGetTypeID(v563);
+          if (v266 == CFNumberGetTypeID())
           {
-            v555 = *(*(a1 + 56) + 276);
-            if (v556)
+            v560 = *(*(a1 + 56) + 276);
+            if (v561)
             {
-              v260 = CFGetTypeID(v556);
-              if (v260 == CFNumberGetTypeID())
+              v265 = CFGetTypeID(v561);
+              if (v265 == CFNumberGetTypeID())
               {
-                if (CFNumberIsFloatType(v556))
+                if (CFNumberIsFloatType(v561))
                 {
-                  CFNumberGetValue(v556, kCFNumberFloat32Type, &v555);
+                  CFNumberGetValue(v561, kCFNumberFloat32Type, &v560);
                 }
               }
             }
 
-            v580 = *(*(a1 + 56) + 1256);
-            CFNumberGetValue(v558, kCFNumberFloatType, &v580);
-            if (v557 == *MEMORY[0x1E695E4D0])
+            v585 = *(*(a1 + 56) + 1256);
+            CFNumberGetValue(v563, kCFNumberFloatType, &v585);
+            if (v562 == *MEMORY[0x1E695E4D0])
             {
-              v554 = _DisplayLogicalToSliderBrightnessInternal(*(a1 + 56), v580);
-              __DisplayReportCommit(*(a1 + 56), v554);
+              v559 = _DisplayLogicalToSliderBrightnessInternal(*(a1 + 56), v585);
+              __DisplayReportCommit(*(a1 + 56), v559);
             }
 
             if (_logHandle)
             {
-              v259 = _logHandle;
+              v264 = _logHandle;
             }
 
             else
             {
               if (_COREBRIGHTNESS_LOG_DEFAULT)
               {
-                v258 = _COREBRIGHTNESS_LOG_DEFAULT;
+                v263 = _COREBRIGHTNESS_LOG_DEFAULT;
               }
 
               else
               {
-                v258 = init_default_corebrightness_log();
+                v263 = init_default_corebrightness_log();
               }
 
-              v259 = v258;
+              v264 = v263;
             }
 
-            v553 = v259;
-            v552 = OS_LOG_TYPE_DEBUG;
-            if (os_log_type_enabled(v259, OS_LOG_TYPE_DEBUG))
+            v558 = v264;
+            v557 = OS_LOG_TYPE_DEBUG;
+            if (os_log_type_enabled(v264, OS_LOG_TYPE_DEBUG))
             {
-              __os_log_helper_16_2_2_8_32_8_0(v641, "DisplayNitsKey", COERCE__INT64(v580));
-              _os_log_debug_impl(&dword_1DE8E5000, v553, v552, "DisplaySetProperty: %s = %f\n", v641, 0x16u);
+              __os_log_helper_16_2_2_8_32_8_0(v646, "DisplayNitsKey", COERCE__INT64(v585));
+              _os_log_debug_impl(&dword_1DE8E5000, v558, v557, "DisplaySetProperty: %s = %f\n", v646, 0x16u);
             }
 
-            if (v557 == *MEMORY[0x1E695E4D0])
+            if (v562 == *MEMORY[0x1E695E4D0])
             {
               v2 = 12296;
             }
@@ -3526,7 +3473,7 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
               v2 = 8200;
             }
 
-            _DisplaySetLogicalBrightnessWithFade(*(a1 + 56), v2, 0, 0, v580, v555);
+            _DisplaySetLogicalBrightnessWithFade(*(a1 + 56), v2, 0, 0, v585, v560);
           }
         }
       }
@@ -3537,38 +3484,38 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
   else if (CFEqual(*(a1 + 48), @"kIOHIDDisplaySliderMovementFadePeriodKey"))
   {
-    v257 = CFNumberGetTypeID();
-    if (v257 == CFGetTypeID(*(a1 + 40)) && CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v580))
+    v262 = CFNumberGetTypeID();
+    if (v262 == CFGetTypeID(*(a1 + 40)) && CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v585))
     {
-      *(*(a1 + 56) + 276) = v580;
+      *(*(a1 + 56) + 276) = v585;
       if (_logHandle)
       {
-        v256 = _logHandle;
+        v261 = _logHandle;
       }
 
       else
       {
-        v255 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-        v256 = v255;
+        v260 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+        v261 = v260;
       }
 
-      v551 = v256;
-      v550 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v256, OS_LOG_TYPE_DEBUG))
+      v556 = v261;
+      v555 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v261, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_32_8_0(v640, "kIOHIDDisplaySliderMovementFadePeriodKey", COERCE__INT64(v580));
-        _os_log_debug_impl(&dword_1DE8E5000, v551, v550, "DisplaySetProperty: %s = %f\n", v640, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_0(v645, "kIOHIDDisplaySliderMovementFadePeriodKey", COERCE__INT64(v585));
+        _os_log_debug_impl(&dword_1DE8E5000, v556, v555, "DisplaySetProperty: %s = %f\n", v645, 0x16u);
       }
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"CPMSToggleHDRCap"))
   {
-    v254 = CFBooleanGetTypeID();
-    if (v254 == CFGetTypeID(*(a1 + 40)))
+    v259 = CFBooleanGetTypeID();
+    if (v259 == CFGetTypeID(*(a1 + 40)))
     {
       v3 = *(a1 + 40) == *MEMORY[0x1E695E4D0];
-      v549 = v3;
+      v554 = v3;
       if (v3)
       {
         *(*(a1 + 56) + 12081) = 0;
@@ -3589,72 +3536,72 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
   else if (CFEqual(*(a1 + 48), @"CPMSPowerAccumulator"))
   {
-    v544 = 0;
-    v545 = &v544;
-    v546 = 0x20000000;
-    v547 = 32;
-    v548 = 0;
+    v549 = 0;
+    v550 = &v549;
+    v551 = 0x20000000;
+    v552 = 32;
+    v553 = 0;
     if (DisplayHasDCP(*(a1 + 56)))
     {
-      v540[0] = 0;
-      v540[1] = v540;
-      v541 = 0x20000000;
-      v542 = 32;
-      v543 = 0;
+      v545[0] = 0;
+      v545[1] = v545;
+      v546 = 0x20000000;
+      v547 = 32;
+      v548 = 0;
       v4 = *(*(a1 + 56) + 152);
-      v532 = MEMORY[0x1E69E9820];
-      v533 = -1073741824;
-      v534 = 0;
-      v535 = __DisplaySetProperty_block_invoke_458;
-      v536 = &unk_1E867C9D8;
-      v537 = &v544;
-      v539 = *(a1 + 56);
-      v538 = v540;
-      dispatch_sync(v4, &v532);
-      _Block_object_dispose(v540, 8);
+      v537 = MEMORY[0x1E69E9820];
+      v538 = -1073741824;
+      v539 = 0;
+      v540 = __DisplaySetProperty_block_invoke_458;
+      v541 = &unk_1E867C9D8;
+      v542 = &v549;
+      v544 = *(a1 + 56);
+      v543 = v545;
+      dispatch_sync(v4, &v537);
+      _Block_object_dispose(v545, 8);
     }
 
     else
     {
-      v545[3] = __DisplayGetPowerAccumulator(*(a1 + 56));
+      v550[3] = __DisplayGetPowerAccumulator(*(a1 + 56));
     }
 
-    v531 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberLongLongType, v545 + 3);
-    if (v531)
+    v536 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberLongLongType, v550 + 3);
+    if (v536)
     {
-      CFDictionarySetValue(*(*(a1 + 56) + 192), @"CPMSPowerAccumulatorValue", v531);
-      CFRelease(v531);
+      CFDictionarySetValue(*(*(a1 + 56) + 192), @"CPMSPowerAccumulatorValue", v536);
+      CFRelease(v536);
     }
 
-    _Block_object_dispose(&v544, 8);
+    _Block_object_dispose(&v549, 8);
   }
 
   else if (CFEqual(*(a1 + 48), @"CoreBrightnessBDMEnabled"))
   {
     if (*(a1 + 40))
     {
-      v253 = CFNumberGetTypeID();
-      if (v253 == CFGetTypeID(*(a1 + 40)))
+      v258 = CFNumberGetTypeID();
+      if (v258 == CFGetTypeID(*(a1 + 40)))
       {
-        v530 = *(*(a1 + 56) + 1176) & 1;
-        CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v530);
-        *(*(a1 + 56) + 1176) = v530 != 0;
+        v535 = *(*(a1 + 56) + 1176) & 1;
+        CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v535);
+        *(*(a1 + 56) + 1176) = v535 != 0;
         if (_logHandle)
         {
-          v252 = _logHandle;
+          v257 = _logHandle;
         }
 
         else
         {
-          v251 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-          v252 = v251;
+          v256 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+          v257 = v256;
         }
 
-        v529 = v252;
-        v528 = OS_LOG_TYPE_DEBUG;
-        if (os_log_type_enabled(v252, OS_LOG_TYPE_DEBUG))
+        v534 = v257;
+        v533 = OS_LOG_TYPE_DEBUG;
+        if (os_log_type_enabled(v257, OS_LOG_TYPE_DEBUG))
         {
-          if (v530)
+          if (v535)
           {
             v5 = "enabled";
           }
@@ -3664,8 +3611,8 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
             v5 = "disabled";
           }
 
-          __os_log_helper_16_2_1_8_32(v639, v5);
-          _os_log_debug_impl(&dword_1DE8E5000, v529, v528, "BrightDotMitigation %s", v639, 0xCu);
+          __os_log_helper_16_2_1_8_32(v644, v5);
+          _os_log_debug_impl(&dword_1DE8E5000, v534, v533, "BrightDotMitigation %s", v644, 0xCu);
         }
       }
     }
@@ -3673,112 +3620,98 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
   else if (CFEqual(*(a1 + 48), @"DisplayInitialBrightness"))
   {
-    v250 = CFNumberGetTypeID();
-    if (v250 == CFGetTypeID(*(a1 + 40)))
+    v255 = CFNumberGetTypeID();
+    if (v255 == CFGetTypeID(*(a1 + 40)))
     {
-      v580 = *(*(a1 + 56) + 336);
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v580);
+      v585 = *(*(a1 + 56) + 336);
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v585);
       if (_logHandle)
       {
-        v249 = _logHandle;
+        v254 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v248 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v253 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v248 = init_default_corebrightness_log();
+          v253 = init_default_corebrightness_log();
         }
 
-        v249 = v248;
+        v254 = v253;
       }
 
-      v527 = v249;
-      v526 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v249, OS_LOG_TYPE_DEBUG))
+      v532 = v254;
+      v531 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v254, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_32_8_0(v638, "DisplayInitialBrightness", COERCE__INT64(v580));
-        _os_log_debug_impl(&dword_1DE8E5000, v527, v526, "DisplaySetProperty: %s = %f\n", v638, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_0(v643, "DisplayInitialBrightness", COERCE__INT64(v585));
+        _os_log_debug_impl(&dword_1DE8E5000, v532, v531, "DisplaySetProperty: %s = %f\n", v643, 0x16u);
       }
 
-      if (*(*(a1 + 56) + 348) == 0.0)
+      v6.n128_f64[0] = *(*(a1 + 56) + 348);
+      if (v6.n128_f64[0] == 0.0)
       {
-        _DisplaySetBrightness(*(a1 + 56), v580);
+        v6.n128_f32[0] = v585;
+        _DisplaySetBrightness(*(a1 + 56), v6);
       }
 
       else if (*(*(a1 + 56) + 1384) != 0.0 && *(*(a1 + 56) + 1400) == 0.0)
       {
-        *(*(a1 + 56) + 12496) = v580;
+        *(*(a1 + 56) + 12496) = v585;
         *(*(a1 + 56) + 12500) = 4096;
       }
     }
 
     else
     {
-      v247 = CFDictionaryGetTypeID();
-      if (v247 == CFGetTypeID(*(a1 + 40)))
+      v252 = CFDictionaryGetTypeID();
+      if (v252 == CFGetTypeID(*(a1 + 40)))
       {
-        v525 = CFDictionaryGetValue(*(a1 + 40), @"Brightness");
-        v524 = CFDictionaryGetValue(*(a1 + 40), @"Commit");
-        if (v525)
+        v530 = CFDictionaryGetValue(*(a1 + 40), @"Brightness");
+        v529 = CFDictionaryGetValue(*(a1 + 40), @"Commit");
+        if (v530)
         {
-          v246 = CFGetTypeID(v525);
-          if (v246 == CFNumberGetTypeID())
+          v251 = CFGetTypeID(v530);
+          if (v251 == CFNumberGetTypeID())
           {
-            v580 = *(*(a1 + 56) + 336);
-            CFNumberGetValue(v525, kCFNumberFloatType, &v580);
+            v585 = *(*(a1 + 56) + 336);
+            CFNumberGetValue(v530, kCFNumberFloatType, &v585);
             if (_logHandle)
             {
-              v245 = _logHandle;
+              v250 = _logHandle;
             }
 
             else
             {
               if (_COREBRIGHTNESS_LOG_DEFAULT)
               {
-                v244 = _COREBRIGHTNESS_LOG_DEFAULT;
+                v249 = _COREBRIGHTNESS_LOG_DEFAULT;
               }
 
               else
               {
-                v244 = init_default_corebrightness_log();
+                v249 = init_default_corebrightness_log();
               }
 
-              v245 = v244;
+              v250 = v249;
             }
 
-            v523 = v245;
-            v522 = OS_LOG_TYPE_DEBUG;
-            if (os_log_type_enabled(v245, OS_LOG_TYPE_DEBUG))
+            v528 = v250;
+            v527 = OS_LOG_TYPE_DEBUG;
+            if (os_log_type_enabled(v250, OS_LOG_TYPE_DEBUG))
             {
-              __os_log_helper_16_2_2_8_32_8_0(v637, "DisplayInitialBrightness", COERCE__INT64(v580));
-              _os_log_debug_impl(&dword_1DE8E5000, v523, v522, "DisplaySetProperty: %s = %f\n", v637, 0x16u);
+              __os_log_helper_16_2_2_8_32_8_0(v642, "DisplayInitialBrightness", COERCE__INT64(v585));
+              _os_log_debug_impl(&dword_1DE8E5000, v528, v527, "DisplaySetProperty: %s = %f\n", v642, 0x16u);
             }
 
             if (*(*(a1 + 56) + 348) == 0.0)
             {
-              if (v524 == *MEMORY[0x1E695E4D0])
-              {
-                v6 = 4096;
-              }
-
-              else
-              {
-                v6 = 0;
-              }
-
-              __DisplaySetBrightness(*(a1 + 56), v6, v580);
-            }
-
-            else if (*(*(a1 + 56) + 1384) != 0.0 && *(*(a1 + 56) + 1400) == 0.0)
-            {
-              *(*(a1 + 56) + 12496) = v580;
-              if (v524 == *MEMORY[0x1E695E4D0])
+              if (v529 == *MEMORY[0x1E695E4D0])
               {
                 v7 = 4096;
               }
@@ -3788,7 +3721,23 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
                 v7 = 0;
               }
 
-              *(*(a1 + 56) + 12500) = v7;
+              __DisplaySetBrightness(*(a1 + 56), v7, v585);
+            }
+
+            else if (*(*(a1 + 56) + 1384) != 0.0 && *(*(a1 + 56) + 1400) == 0.0)
+            {
+              *(*(a1 + 56) + 12496) = v585;
+              if (v529 == *MEMORY[0x1E695E4D0])
+              {
+                v8 = 4096;
+              }
+
+              else
+              {
+                v8 = 0;
+              }
+
+              *(*(a1 + 56) + 12500) = v8;
             }
           }
         }
@@ -3800,74 +3749,74 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (*(a1 + 40))
     {
-      v243 = CFDictionaryGetTypeID();
-      if (v243 == CFGetTypeID(*(a1 + 40)))
+      v248 = CFDictionaryGetTypeID();
+      if (v248 == CFGetTypeID(*(a1 + 40)))
       {
-        v521 = 0;
-        v520 = CFDictionaryGetValue(*(a1 + 40), @"AmbientAdaptiveDimmingEnable");
-        if (v520)
+        v526 = 0;
+        v525 = CFDictionaryGetValue(*(a1 + 40), @"AmbientAdaptiveDimmingEnable");
+        if (v525)
         {
-          v242 = CFNumberGetTypeID();
-          if (v242 == CFGetTypeID(v520))
+          v247 = CFNumberGetTypeID();
+          if (v247 == CFGetTypeID(v525))
           {
-            CFNumberGetValue(v520, kCFNumberIntType, &v521);
+            CFNumberGetValue(v525, kCFNumberIntType, &v526);
           }
         }
 
-        v519 = 0.0;
-        v518 = CFDictionaryGetValue(*(a1 + 40), @"AmbientAdaptiveDimmingPeriod");
-        if (v518)
+        v524 = 0.0;
+        v523 = CFDictionaryGetValue(*(a1 + 40), @"AmbientAdaptiveDimmingPeriod");
+        if (v523)
         {
-          v241 = CFNumberGetTypeID();
-          if (v241 == CFGetTypeID(v518))
+          v246 = CFNumberGetTypeID();
+          if (v246 == CFGetTypeID(v523))
           {
-            CFNumberGetValue(v518, kCFNumberFloatType, &v519);
+            CFNumberGetValue(v523, kCFNumberFloatType, &v524);
           }
         }
 
         if (_logHandle)
         {
-          v240 = _logHandle;
+          v245 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v239 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v244 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v239 = init_default_corebrightness_log();
+            v244 = init_default_corebrightness_log();
           }
 
-          v240 = v239;
+          v245 = v244;
         }
 
-        v517 = v240;
-        v516 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v240, OS_LOG_TYPE_DEFAULT))
+        v522 = v245;
+        v521 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v245, OS_LOG_TYPE_DEFAULT))
         {
-          __os_log_helper_16_0_2_4_0_8_0(v636, v521, COERCE__INT64(v519));
-          _os_log_impl(&dword_1DE8E5000, v517, v516, "AutoDim request received with enable:%i, period:%f", v636, 0x12u);
+          __os_log_helper_16_0_2_4_0_8_0(v641, v526, COERCE__INT64(v524));
+          _os_log_impl(&dword_1DE8E5000, v522, v521, "AutoDim request received with enable:%i, period:%f", v641, 0x12u);
         }
 
-        if (*(*(a1 + 56) + 228) != v521)
+        if (*(*(a1 + 56) + 228) != v526)
         {
-          *(*(a1 + 56) + 228) = v521;
-          if (v521)
+          *(*(a1 + 56) + 228) = v526;
+          if (v526)
           {
-            v238 = 100.0;
+            v243 = 100.0;
           }
 
           else
           {
-            v238 = *(*(a1 + 56) + 1312);
+            v243 = *(*(a1 + 56) + 1312);
           }
 
-          v515 = v238;
-          _DisplaySetAdaptiveDimmingLimitWithFade(*(a1 + 56), v238, v519);
+          v520 = v243;
+          _DisplaySetAdaptiveDimmingLimitWithFade(*(a1 + 56), v243, v524);
         }
       }
     }
@@ -3878,72 +3827,67 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
     if (*(*(a1 + 56) + 36))
     {
       __DisplayUpdateAmbientProperties(*(a1 + 56), *(*(a1 + 56) + 336));
-      v514 = __DisplayCalculateBrightnessAtAmbient(*(a1 + 56), *(*(a1 + 56) + 1184));
-      __DisplaySetLogicalBrightnessLegacy(*(a1 + 56), 2u, v514, -1.0);
+      v519 = __DisplayCalculateBrightnessAtAmbient(*(a1 + 56), *(*(a1 + 56) + 1184));
+      __DisplaySetLogicalBrightnessLegacy(*(a1 + 56), 2u, v519, -1.0);
       if (_logHandle)
       {
-        v237 = _logHandle;
+        v242 = _logHandle;
       }
 
       else
       {
-        v236 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-        v237 = v236;
+        v241 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+        v242 = v241;
       }
 
-      v513 = v237;
-      v512 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v237, OS_LOG_TYPE_DEBUG))
+      v518 = v242;
+      v517 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v242, OS_LOG_TYPE_DEBUG))
       {
         if (*(*(a1 + 56) + 1204) == 0.0)
         {
-          v8 = "false";
+          v9 = "false";
         }
 
         else
         {
-          v8 = "true";
+          v9 = "true";
         }
 
-        __os_log_helper_16_2_2_8_32_8_32(v635, "UserInteractedWithUI", v8);
-        _os_log_debug_impl(&dword_1DE8E5000, v513, v512, "DisplaySetProperty: %s = %s\n", v635, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_32(v640, "UserInteractedWithUI", v9);
+        _os_log_debug_impl(&dword_1DE8E5000, v518, v517, "DisplaySetProperty: %s = %s\n", v640, 0x16u);
       }
-    }
-
-    if ((*(*(a1 + 56) + 12520) & 1) == 0)
-    {
-      v9 = *(*(a1 + 56) + 12514);
     }
 
     *(*(a1 + 56) + 584) = 1;
     if (_logHandle)
     {
-      v235 = _logHandle;
+      v240 = _logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v234 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v239 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v234 = init_default_corebrightness_log();
+        v239 = init_default_corebrightness_log();
       }
 
-      v235 = v234;
+      v240 = v239;
     }
 
-    v511 = v235;
-    v510 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v235, OS_LOG_TYPE_DEFAULT))
+    v516 = v240;
+    v515 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v240, OS_LOG_TYPE_DEFAULT))
     {
-      v232 = v511;
-      v233 = v510;
-      __os_log_helper_16_0_0(v509);
-      _os_log_impl(&dword_1DE8E5000, v232, v233, "Weak cap: user interacted\n", v509, 2u);
+      v237 = v516;
+      v238 = v515;
+      __os_log_helper_16_0_0(v514);
+      _os_log_impl(&dword_1DE8E5000, v237, v238, "Weak cap: user interacted\n", v514, 2u);
     }
   }
 
@@ -3957,12 +3901,66 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
     }
 
     v11 = v10;
-    v580 = v11;
+    v585 = v11;
     if (v11 == 1.0)
     {
-      v508 = MGGetBoolAnswer();
-      if ((v508 & 1) == 0)
+      v513 = MGGetBoolAnswer();
+      if ((v513 & 1) == 0)
       {
+        if (_logHandle)
+        {
+          v235 = _logHandle;
+        }
+
+        else
+        {
+          if (_COREBRIGHTNESS_LOG_DEFAULT)
+          {
+            v234 = _COREBRIGHTNESS_LOG_DEFAULT;
+          }
+
+          else
+          {
+            v234 = init_default_corebrightness_log();
+          }
+
+          v235 = v234;
+        }
+
+        v512 = v235;
+        v511 = 16;
+        if (os_log_type_enabled(v235, OS_LOG_TYPE_ERROR))
+        {
+          v232 = v512;
+          v233 = v511;
+          __os_log_helper_16_0_0(v510);
+          _os_log_error_impl(&dword_1DE8E5000, v232, v233, "Refuse to turn on AAB without ALS", v510, 2u);
+        }
+
+        v585 = 0.0;
+        *(*(*(a1 + 32) + 8) + 24) = 0;
+      }
+    }
+
+    if (v585 != *(*(a1 + 56) + 1204))
+    {
+      theDict = *(*(a1 + 56) + 192);
+      if (v585 == 0.0)
+      {
+        CFDictionarySetValue(theDict, @"DisplayBrightnessAuto", *MEMORY[0x1E695E4C0]);
+      }
+
+      else
+      {
+        CFDictionarySetValue(theDict, @"DisplayBrightnessAuto", *MEMORY[0x1E695E4D0]);
+      }
+
+      *(*(a1 + 56) + 1204) = v585;
+      __DisplayUpdateAmbientProperties(*(a1 + 56), *(*(a1 + 56) + 336));
+      if (*(*(a1 + 56) + 36))
+      {
+        v509 = __DisplayCalculateBrightnessAtAmbient(*(a1 + 56), *(*(a1 + 56) + 1184));
+        __DisplaySetLogicalBrightnessLegacy(*(a1 + 56), 2u, v509, -1.0);
         if (_logHandle)
         {
           v230 = _logHandle;
@@ -3983,63 +3981,9 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
           v230 = v229;
         }
 
-        v507 = v230;
-        v506 = 16;
-        if (os_log_type_enabled(v230, OS_LOG_TYPE_ERROR))
-        {
-          v227 = v507;
-          v228 = v506;
-          __os_log_helper_16_0_0(v505);
-          _os_log_error_impl(&dword_1DE8E5000, v227, v228, "Refuse to turn on AAB without ALS", v505, 2u);
-        }
-
-        v580 = 0.0;
-        *(*(*(a1 + 32) + 8) + 24) = 0;
-      }
-    }
-
-    if (v580 != *(*(a1 + 56) + 1204))
-    {
-      theDict = *(*(a1 + 56) + 192);
-      if (v580 == 0.0)
-      {
-        CFDictionarySetValue(theDict, @"DisplayBrightnessAuto", *MEMORY[0x1E695E4C0]);
-      }
-
-      else
-      {
-        CFDictionarySetValue(theDict, @"DisplayBrightnessAuto", *MEMORY[0x1E695E4D0]);
-      }
-
-      *(*(a1 + 56) + 1204) = v580;
-      __DisplayUpdateAmbientProperties(*(a1 + 56), *(*(a1 + 56) + 336));
-      if (*(*(a1 + 56) + 36))
-      {
-        v504 = __DisplayCalculateBrightnessAtAmbient(*(a1 + 56), *(*(a1 + 56) + 1184));
-        __DisplaySetLogicalBrightnessLegacy(*(a1 + 56), 2u, v504, -1.0);
-        if (_logHandle)
-        {
-          v225 = _logHandle;
-        }
-
-        else
-        {
-          if (_COREBRIGHTNESS_LOG_DEFAULT)
-          {
-            v224 = _COREBRIGHTNESS_LOG_DEFAULT;
-          }
-
-          else
-          {
-            v224 = init_default_corebrightness_log();
-          }
-
-          v225 = v224;
-        }
-
-        v503 = v225;
-        v502 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v225, OS_LOG_TYPE_DEFAULT))
+        v508 = v230;
+        v507 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v230, OS_LOG_TYPE_DEFAULT))
         {
           if (*(*(a1 + 56) + 1204) == 0.0)
           {
@@ -4051,14 +3995,14 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
             v12 = "true";
           }
 
-          __os_log_helper_16_2_2_8_32_8_32(v634, "DisplayBrightnessAuto", v12);
-          _os_log_impl(&dword_1DE8E5000, v503, v502, "DisplaySetProperty: %s = %s\n", v634, 0x16u);
+          __os_log_helper_16_2_2_8_32_8_32(v639, "DisplayBrightnessAuto", v12);
+          _os_log_impl(&dword_1DE8E5000, v508, v507, "DisplaySetProperty: %s = %s\n", v639, 0x16u);
         }
       }
 
       else
       {
-        *(*(a1 + 56) + 40) = v580 < 1.0;
+        *(*(a1 + 56) + 40) = v585 < 1.0;
       }
     }
   }
@@ -4066,7 +4010,7 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   else if (CFEqual(*(a1 + 48), @"kCoreBrightnessDisplayPresetNitsOverride"))
   {
     [*(a1 + 40) floatValue];
-    v501 = v13;
+    v506 = v13;
     if (v13 == 0.0)
     {
       *(*(a1 + 56) + 1144) = 0;
@@ -4074,9 +4018,9 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
     else
     {
-      *(*(a1 + 56) + 1148) = v501;
+      *(*(a1 + 56) + 1148) = v506;
       *(*(a1 + 56) + 1144) = 1;
-      __DisplaySetLogicalBrightnessInternal(*(a1 + 56), 28682, *(*(a1 + 56) + 1256));
+      __DisplaySetLogicalBrightnessInternal(*(a1 + 56), 0x700Au, *(*(a1 + 56) + 1256));
     }
   }
 
@@ -4084,59 +4028,59 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (*(a1 + 40))
     {
-      v223 = CFDictionaryGetTypeID();
-      if (v223 == CFGetTypeID(*(a1 + 40)))
+      v228 = CFDictionaryGetTypeID();
+      if (v228 == CFGetTypeID(*(a1 + 40)))
       {
-        v500 = 0;
-        v499 = CFDictionaryGetValue(*(a1 + 40), @"ClientBrightnessOverrideEnable");
-        if (v499)
+        v505 = 0;
+        v504 = CFDictionaryGetValue(*(a1 + 40), @"ClientBrightnessOverrideEnable");
+        if (v504)
         {
-          v222 = CFBooleanGetTypeID();
-          if (v222 == CFGetTypeID(v499))
+          v227 = CFBooleanGetTypeID();
+          if (v227 == CFGetTypeID(v504))
           {
-            v500 = CFBooleanGetValue(v499);
+            v505 = CFBooleanGetValue(v504);
           }
         }
 
-        v498 = CFDictionaryGetValue(*(a1 + 40), @"ClientBrightnessOverrideNits");
-        if (v498)
+        v503 = CFDictionaryGetValue(*(a1 + 40), @"ClientBrightnessOverrideNits");
+        if (v503)
         {
-          v221 = CFNumberGetTypeID();
-          if (v221 == CFGetTypeID(v498))
+          v226 = CFNumberGetTypeID();
+          if (v226 == CFGetTypeID(v503))
           {
-            CFNumberGetValue(v498, kCFNumberFloatType, &v580);
+            CFNumberGetValue(v503, kCFNumberFloatType, &v585);
           }
         }
 
-        v497 = 0;
-        v496 = CFDictionaryGetValue(*(a1 + 40), @"ClientBrightnessOverrideType");
-        if (v496)
+        v502 = 0;
+        v501 = CFDictionaryGetValue(*(a1 + 40), @"ClientBrightnessOverrideType");
+        if (v501)
         {
-          v220 = CFNumberGetTypeID();
-          if (v220 == CFGetTypeID(v496))
+          v225 = CFNumberGetTypeID();
+          if (v225 == CFGetTypeID(v501))
           {
-            CFNumberGetValue(v496, kCFNumberIntType, &v497);
+            CFNumberGetValue(v501, kCFNumberIntType, &v502);
           }
         }
 
-        setClientOverrideState(*(a1 + 56), v497, v500 != 0);
-        if (v497)
+        setClientOverrideState(*(a1 + 56), v502, v505 != 0);
+        if (v502)
         {
-          if (v497 == 1)
+          if (v502 == 1)
           {
-            *(*(a1 + 56) + 968) = v580;
+            *(*(a1 + 56) + 968) = v585;
           }
         }
 
         else
         {
-          *(*(a1 + 56) + 964) = v580;
+          *(*(a1 + 56) + 964) = v585;
         }
 
-        v495 = evaluateClientOverrides(*(a1 + 56));
-        if (v495)
+        v500 = evaluateClientOverrides(*(a1 + 56));
+        if (v500)
         {
-          switch(v495)
+          switch(v500)
           {
             case 1:
               _DisplaySetBrightnessMinPhysicalWithFade(*(a1 + 56), *(*(a1 + 56) + 968), 0.0);
@@ -4154,33 +4098,33 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
           }
         }
 
-        __DisplaySetLogicalBrightnessInternal(*(a1 + 56), 12298, *(*(a1 + 56) + 1256));
+        __DisplaySetLogicalBrightnessInternal(*(a1 + 56), 0x300Au, *(*(a1 + 56) + 1256));
         if (_logHandle)
         {
-          v219 = _logHandle;
+          v224 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v218 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v223 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v218 = init_default_corebrightness_log();
+            v223 = init_default_corebrightness_log();
           }
 
-          v219 = v218;
+          v224 = v223;
         }
 
-        v494 = v219;
-        v493 = OS_LOG_TYPE_DEBUG;
-        if (os_log_type_enabled(v219, OS_LOG_TYPE_DEBUG))
+        v499 = v224;
+        v498 = OS_LOG_TYPE_DEBUG;
+        if (os_log_type_enabled(v224, OS_LOG_TYPE_DEBUG))
         {
-          __os_log_helper_16_2_6_8_32_4_0_8_0_8_0_8_0_8_0(v633, "ClientBrightnessOverride", *(*(a1 + 56) + 960), COERCE__INT64(*(*(a1 + 56) + 964)), COERCE__INT64(*(*(a1 + 56) + 968)), COERCE__INT64(*(*(a1 + 56) + 396)), COERCE__INT64(*(*(a1 + 56) + 400)));
-          _os_log_debug_impl(&dword_1DE8E5000, v494, v493, "DisplaySetProperty: %s activeFlags = %#x overrideL = %f overrideLmin = %f Lmin = %f LminCurrent = %f", v633, 0x3Au);
+          __os_log_helper_16_2_6_8_32_4_0_8_0_8_0_8_0_8_0(v638, "ClientBrightnessOverride", *(*(a1 + 56) + 960), COERCE__INT64(*(*(a1 + 56) + 964)), COERCE__INT64(*(*(a1 + 56) + 968)), COERCE__INT64(*(*(a1 + 56) + 396)), COERCE__INT64(*(*(a1 + 56) + 400)));
+          _os_log_debug_impl(&dword_1DE8E5000, v499, v498, "DisplaySetProperty: %s activeFlags = %#x overrideL = %f overrideLmin = %f Lmin = %f LminCurrent = %f", v638, 0x3Au);
         }
       }
     }
@@ -4190,138 +4134,140 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (_logHandle)
     {
-      v217 = _logHandle;
+      v222 = _logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v216 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v221 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v216 = init_default_corebrightness_log();
+        v221 = init_default_corebrightness_log();
       }
 
-      v217 = v216;
+      v222 = v221;
     }
 
-    v492 = v217;
-    v491 = OS_LOG_TYPE_DEBUG;
-    if (os_log_type_enabled(v217, OS_LOG_TYPE_DEBUG))
+    v497 = v222;
+    v496 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v222, OS_LOG_TYPE_DEBUG))
     {
-      __os_log_helper_16_2_1_8_32(v632, "ForceModuleUpdate");
-      _os_log_debug_impl(&dword_1DE8E5000, v492, v491, "DisplaySetProperty: %s\n", v632, 0xCu);
+      __os_log_helper_16_2_1_8_32(v637, "ForceModuleUpdate");
+      _os_log_debug_impl(&dword_1DE8E5000, v497, v496, "DisplaySetProperty: %s\n", v637, 0xCu);
     }
 
-    __DisplaySetLogicalBrightnessInternal(*(a1 + 56), 12298, *(*(a1 + 56) + 1256));
+    __DisplaySetLogicalBrightnessInternal(*(a1 + 56), 0x300Au, *(*(a1 + 56) + 1256));
   }
 
   else if (CFEqual(*(a1 + 48), @"DisplayBrightnessMin"))
   {
-    v580 = *(*(a1 + 56) + 340);
-    v215 = CFNumberGetTypeID();
-    if (v215 != CFGetTypeID(*(a1 + 40)))
+    v585 = *(*(a1 + 56) + 340);
+    v220 = CFNumberGetTypeID();
+    if (v220 != CFGetTypeID(*(a1 + 40)))
     {
-      goto LABEL_1185;
+      return;
     }
 
-    CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v580);
-    if (v580 != *(*(a1 + 56) + 340))
+    CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v585);
+    if (v585 != *(*(a1 + 56) + 340))
     {
-      *(*(a1 + 56) + 340) = v580;
+      *(*(a1 + 56) + 340) = v585;
       if (_logHandle)
       {
-        v214 = _logHandle;
+        v219 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v213 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v218 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v213 = init_default_corebrightness_log();
+          v218 = init_default_corebrightness_log();
         }
 
-        v214 = v213;
+        v219 = v218;
       }
 
-      v490 = v214;
-      v489 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v214, OS_LOG_TYPE_DEBUG))
+      v495 = v219;
+      v494 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v219, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_32_8_0(v631, "DisplayBrightnessMin", COERCE__INT64(v580));
-        _os_log_debug_impl(&dword_1DE8E5000, v490, v489, "DisplaySetProperty: %s = %f\n", v631, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_0(v636, "DisplayBrightnessMin", COERCE__INT64(v585));
+        _os_log_debug_impl(&dword_1DE8E5000, v495, v494, "DisplaySetProperty: %s = %f\n", v636, 0x16u);
       }
 
-      _DisplaySetBrightness(*(a1 + 56), *(*(a1 + 56) + 336));
+      v14.n128_u32[0] = *(*(a1 + 56) + 336);
+      _DisplaySetBrightness(*(a1 + 56), v14);
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"DisplayBrightnessMax"))
   {
-    v580 = *(*(a1 + 56) + 344);
-    v212 = CFNumberGetTypeID();
-    if (v212 != CFGetTypeID(*(a1 + 40)))
+    v585 = *(*(a1 + 56) + 344);
+    v217 = CFNumberGetTypeID();
+    if (v217 != CFGetTypeID(*(a1 + 40)))
     {
-      goto LABEL_1185;
+      return;
     }
 
-    CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v580);
-    if (v580 != *(*(a1 + 56) + 344))
+    CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v585);
+    if (v585 != *(*(a1 + 56) + 344))
     {
-      *(*(a1 + 56) + 344) = v580;
+      *(*(a1 + 56) + 344) = v585;
       if (_logHandle)
       {
-        v211 = _logHandle;
+        v216 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v210 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v215 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v210 = init_default_corebrightness_log();
+          v215 = init_default_corebrightness_log();
         }
 
-        v211 = v210;
+        v216 = v215;
       }
 
-      v488 = v211;
-      v487 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v211, OS_LOG_TYPE_DEBUG))
+      v493 = v216;
+      v492 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v216, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_32_8_0(v630, "DisplayBrightnessMax", COERCE__INT64(v580));
-        _os_log_debug_impl(&dword_1DE8E5000, v488, v487, "DisplaySetProperty: %s = %f\n", v630, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_0(v635, "DisplayBrightnessMax", COERCE__INT64(v585));
+        _os_log_debug_impl(&dword_1DE8E5000, v493, v492, "DisplaySetProperty: %s = %f\n", v635, 0x16u);
       }
 
-      _DisplaySetBrightness(*(a1 + 56), *(*(a1 + 56) + 336));
+      v15.n128_u32[0] = *(*(a1 + 56) + 336);
+      _DisplaySetBrightness(*(a1 + 56), v15);
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"DisplayBrightnessAutoWeightMax"))
   {
-    v580 = *(*(a1 + 56) + 1200);
-    v209 = CFNumberGetTypeID();
-    if (v209 != CFGetTypeID(*(a1 + 40)))
+    v585 = *(*(a1 + 56) + 1200);
+    v214 = CFNumberGetTypeID();
+    if (v214 != CFGetTypeID(*(a1 + 40)))
     {
-      goto LABEL_1185;
+      return;
     }
 
-    CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v580);
-    if (v580 != *(*(a1 + 56) + 1200))
+    CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v585);
+    if (v585 != *(*(a1 + 56) + 1200))
     {
-      *(*(a1 + 56) + 1200) = v580;
+      *(*(a1 + 56) + 1200) = v585;
       __DisplayUpdateAmbientProperties(*(a1 + 56), *(*(a1 + 56) + 336));
       _DisplaySetAmbient(*(a1 + 56), 0, *(*(a1 + 56) + 1184));
     }
@@ -4329,17 +4275,17 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
   else if (CFEqual(*(a1 + 48), @"DisplayBrightnessAutoWeightMin"))
   {
-    v580 = *(*(a1 + 56) + 1196);
-    v208 = CFNumberGetTypeID();
-    if (v208 != CFGetTypeID(*(a1 + 40)))
+    v585 = *(*(a1 + 56) + 1196);
+    v213 = CFNumberGetTypeID();
+    if (v213 != CFGetTypeID(*(a1 + 40)))
     {
-      goto LABEL_1185;
+      return;
     }
 
-    CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v580);
-    if (v580 != *(*(a1 + 56) + 1196))
+    CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v585);
+    if (v585 != *(*(a1 + 56) + 1196))
     {
-      *(*(a1 + 56) + 1196) = v580;
+      *(*(a1 + 56) + 1196) = v585;
       __DisplayUpdateAmbientProperties(*(a1 + 56), *(*(a1 + 56) + 336));
       _DisplaySetAmbient(*(a1 + 56), 0, *(*(a1 + 56) + 1184));
     }
@@ -4358,57 +4304,57 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (!*(*(a1 + 56) + 36))
     {
-      v207 = CFBooleanGetTypeID();
-      if (v207 == CFGetTypeID(*(a1 + 40)))
+      v212 = CFBooleanGetTypeID();
+      if (v212 == CFGetTypeID(*(a1 + 40)))
       {
-        v486 = CFBooleanGetValue(*(a1 + 40));
-        if (*(*(a1 + 56) + 220) != v486)
+        v491 = CFBooleanGetValue(*(a1 + 40));
+        if (*(*(a1 + 56) + 220) != v491)
         {
-          *(*(a1 + 56) + 220) = v486;
-          v206 = *(*(a1 + 56) + 640);
-          if (v206)
+          *(*(a1 + 56) + 220) = v491;
+          v211 = *(*(a1 + 56) + 640);
+          if (v211)
           {
-            if (v206 == 1)
+            if (v211 == 1)
             {
               if (*(*(a1 + 56) + 220))
               {
-                v205 = *(*(a1 + 56) + 656);
+                v210 = *(*(a1 + 56) + 656);
               }
 
               else
               {
-                v205 = 1.0;
+                v210 = 1.0;
               }
 
-              v14 = v205;
-              v485 = v14;
-              _DisplaySetBrightnessEcoModeFactorWithFade(*(a1 + 56), v14, 0.5);
+              v16 = v210;
+              v490 = v16;
+              _DisplaySetBrightnessEcoModeFactorWithFade(*(a1 + 56), v16, 0.5);
             }
 
-            else if (v206 == 2)
+            else if (v211 == 2)
             {
               if (*(*(a1 + 56) + 220))
               {
-                v204 = *(*(a1 + 56) + 776);
+                v209 = *(*(a1 + 56) + 776);
               }
 
               else
               {
-                v204 = *(*(a1 + 56) + 1312);
+                v209 = *(*(a1 + 56) + 1312);
               }
 
-              v484 = v204;
-              _DisplaySetBrightnessEcoModeLimitWithFade(*(a1 + 56), v204, 0.5);
+              v489 = v209;
+              _DisplaySetBrightnessEcoModeLimitWithFade(*(a1 + 56), v209, 0.5);
             }
 
             else
             {
-              v480 = _logHandle;
-              v479 = OS_LOG_TYPE_FAULT;
+              v485 = _logHandle;
+              v484 = OS_LOG_TYPE_FAULT;
               if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_FAULT))
               {
-                __os_log_helper_16_0_1_4_0(v629, *(*(a1 + 56) + 640));
-                _os_log_fault_impl(&dword_1DE8E5000, v480, v479, "Unexpected eco mode behaviour = %d, ignoring", v629, 8u);
+                __os_log_helper_16_0_1_4_0(v634, *(*(a1 + 56) + 640));
+                _os_log_fault_impl(&dword_1DE8E5000, v485, v484, "Unexpected eco mode behaviour = %d, ignoring", v634, 8u);
               }
             }
           }
@@ -4417,32 +4363,32 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
           {
             if (_logHandle)
             {
-              v203 = _logHandle;
+              v208 = _logHandle;
             }
 
             else
             {
               if (_COREBRIGHTNESS_LOG_DEFAULT)
               {
-                v202 = _COREBRIGHTNESS_LOG_DEFAULT;
+                v207 = _COREBRIGHTNESS_LOG_DEFAULT;
               }
 
               else
               {
-                v202 = init_default_corebrightness_log();
+                v207 = init_default_corebrightness_log();
               }
 
-              v203 = v202;
+              v208 = v207;
             }
 
-            v483 = v203;
-            v482 = 2;
-            if (os_log_type_enabled(v203, OS_LOG_TYPE_DEBUG))
+            v488 = v208;
+            v487 = 2;
+            if (os_log_type_enabled(v208, OS_LOG_TYPE_DEBUG))
             {
-              v200 = v483;
-              v201 = v482;
-              __os_log_helper_16_0_0(v481);
-              _os_log_debug_impl(&dword_1DE8E5000, v200, v201, "Eco mode is not enabled on this device - ignoring", v481, 2u);
+              v205 = v488;
+              v206 = v487;
+              __os_log_helper_16_0_0(v486);
+              _os_log_debug_impl(&dword_1DE8E5000, v205, v206, "Eco mode is not enabled on this device - ignoring", v486, 2u);
             }
           }
         }
@@ -4456,16 +4402,16 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
     {
       if (*(a1 + 40))
       {
-        v199 = CFNumberGetTypeID();
-        if (v199 == CFGetTypeID(*(a1 + 40)))
+        v204 = CFNumberGetTypeID();
+        if (v204 == CFGetTypeID(*(a1 + 40)))
         {
-          v478 = 0.0;
-          CFNumberGetValue(*(a1 + 40), kCFNumberDoubleType, &v478);
-          *(*(a1 + 56) + 656) = 1.0 - v478 / 100.0;
+          v483 = 0.0;
+          CFNumberGetValue(*(a1 + 40), kCFNumberDoubleType, &v483);
+          *(*(a1 + 56) + 656) = 1.0 - v483 / 100.0;
           if (*(*(a1 + 56) + 220))
           {
-            v15 = *(*(a1 + 56) + 656);
-            _DisplaySetBrightnessEcoModeFactorWithFade(*(a1 + 56), v15, 0.5);
+            v17 = *(*(a1 + 56) + 656);
+            _DisplaySetBrightnessEcoModeFactorWithFade(*(a1 + 56), v17, 0.5);
           }
         }
       }
@@ -4474,101 +4420,102 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
   else if (CFEqual(*(a1 + 48), @"DominoStateUpdate"))
   {
-    v198 = CFBooleanGetTypeID();
-    if (v198 == CFGetTypeID(*(a1 + 40)))
+    v203 = CFBooleanGetTypeID();
+    if (v203 == CFGetTypeID(*(a1 + 40)))
     {
-      v477 = CFBooleanGetValue(*(a1 + 40));
-      if (*(*(a1 + 56) + 224) != v477)
+      v482 = CFBooleanGetValue(*(a1 + 40));
+      if (*(*(a1 + 56) + 224) != v482)
       {
-        *(*(a1 + 56) + 224) = v477;
+        *(*(a1 + 56) + 224) = v482;
         if (_logHandle)
         {
-          v197 = _logHandle;
+          v202 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v196 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v201 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v196 = init_default_corebrightness_log();
+            v201 = init_default_corebrightness_log();
           }
 
-          v197 = v196;
+          v202 = v201;
         }
 
-        v476 = v197;
-        v475 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v197, OS_LOG_TYPE_DEFAULT))
+        v481 = v202;
+        v480 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v202, OS_LOG_TYPE_DEFAULT))
         {
-          __os_log_helper_16_0_1_4_0(v628, v477);
-          _os_log_impl(&dword_1DE8E5000, v476, v475, "Domino State Change: %d", v628, 8u);
+          __os_log_helper_16_0_1_4_0(v633, v482);
+          _os_log_impl(&dword_1DE8E5000, v481, v480, "Domino State Change: %d", v633, 8u);
         }
 
         if (*(*(a1 + 56) + 224))
         {
-          v195 = *(*(a1 + 56) + 720);
+          v200 = *(*(a1 + 56) + 720);
         }
 
         else
         {
-          v195 = *(*(a1 + 56) + 1312);
+          v200 = *(*(a1 + 56) + 1312);
         }
 
-        v474 = v195;
-        _DisplaySetBrightnessDominoModeLimitWithFade(*(a1 + 56), v195, 0.5);
+        v479 = v200;
+        _DisplaySetBrightnessDominoModeLimitWithFade(*(a1 + 56), v200, 0.5);
       }
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"DisplayBrightnessFactor"))
   {
-    v580 = *(*(a1 + 56) + 348);
-    v194 = CFNumberGetTypeID();
-    if (v194 != CFGetTypeID(*(a1 + 40)))
+    v585 = *(*(a1 + 56) + 348);
+    v199 = CFNumberGetTypeID();
+    if (v199 != CFGetTypeID(*(a1 + 40)))
     {
-      goto LABEL_1185;
+      return;
     }
 
-    CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v580);
-    __DisplayCancelFactorFade(*(a1 + 56));
-    if (v580 != *(*(a1 + 56) + 348))
+    CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v585);
+    __DisplayCancelFactorFade(*(a1 + 56), v18);
+    if (v585 != *(*(a1 + 56) + 348))
     {
-      v473 = *(*(a1 + 56) + 348);
-      _DisplayUpdateWeakCapOnFactorChange(*(a1 + 56), v580);
-      _DisplaySetBrightnessFactor(*(a1 + 56), v580);
+      v478 = *(*(a1 + 56) + 348);
+      _DisplayUpdateWeakCapOnFactorChange(*(a1 + 56), v585);
+      _DisplaySetBrightnessFactor(*(a1 + 56), v585);
       if (*(*(a1 + 56) + 36))
       {
-        v192 = *(a1 + 56);
-        v193 = __DisplayCalculateBrightnessFromFactorChange(v192, *(v192 + 204));
-        __DisplaySetLogicalBrightnessLegacy(v192, 7u, v193, 0.0);
+        v197 = *(a1 + 56);
+        v198 = __DisplayCalculateBrightnessFromFactorChange(v197, *(v197 + 204));
+        __DisplaySetLogicalBrightnessLegacy(v197, 7u, v198, 0.0);
         *(*(a1 + 56) + 356) = *(*(a1 + 56) + 352);
       }
 
       else
       {
-        v472 = 4098;
+        v477 = 4098;
         if (*(*(a1 + 56) + 348) == 1.0)
         {
-          v472 |= 8u;
+          v477 |= 8u;
         }
 
-        v471 = *(*(a1 + 56) + 1252);
-        v470 = *(*(a1 + 56) + 1492);
-        if (*(*(a1 + 56) + 348) <= 0.0)
+        v476 = *(*(a1 + 56) + 1252);
+        v475 = *(*(a1 + 56) + 1492);
+        v19 = *(*(a1 + 56) + 348);
+        if (v19 <= 0.0)
         {
           if (*(*(a1 + 56) + 12282))
           {
-            __DisplayCancelAAPFade(*(a1 + 56));
+            __DisplayCancelAAPFade(*(a1 + 56), v19);
           }
 
           else
           {
-            __DisplayCancelReflectedBrightnessFadeInternal(*(a1 + 56));
+            __DisplayCancelReflectedBrightnessFadeInternal(*(a1 + 56), v19);
           }
 
           *(*(a1 + 56) + 12300) = 0;
@@ -4576,40 +4523,40 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
         else
         {
-          v471 = fmaxf(v471, *(*(a1 + 56) + 1320));
-          v470 = fmaxf(v470, *(*(a1 + 56) + 1320));
-          *(*(a1 + 56) + 1488) = v470;
+          v476 = fmaxf(v476, *(*(a1 + 56) + 1320));
+          v475 = fmaxf(v475, *(*(a1 + 56) + 1320));
+          *(*(a1 + 56) + 1488) = v475;
         }
 
         if (_logHandle)
         {
-          v191 = _logHandle;
+          v196 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v190 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v195 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v190 = init_default_corebrightness_log();
+            v195 = init_default_corebrightness_log();
           }
 
-          v191 = v190;
+          v196 = v195;
         }
 
-        v469 = v191;
-        v468 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v191, OS_LOG_TYPE_DEFAULT))
+        v474 = v196;
+        v473 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v196, OS_LOG_TYPE_DEFAULT))
         {
-          __os_log_helper_16_2_7_8_32_8_32_8_0_8_0_8_0_8_0_8_0(v627, "Factor", "DisplayBrightnessFactor", COERCE__INT64(v473), COERCE__INT64(*(*(a1 + 56) + 348)), COERCE__INT64(*(*(a1 + 56) + 1260)), COERCE__INT64(*(*(a1 + 56) + 1252)), COERCE__INT64(v471));
-          _os_log_impl(&dword_1DE8E5000, v469, v468, "[BRT update: %s]: %s: %f -> %f LcurrentDevice: %f Lpending: %f L_logical: %f", v627, 0x48u);
+          __os_log_helper_16_2_7_8_32_8_32_8_0_8_0_8_0_8_0_8_0(v632, "Factor", "DisplayBrightnessFactor", COERCE__INT64(v478), COERCE__INT64(*(*(a1 + 56) + 348)), COERCE__INT64(*(*(a1 + 56) + 1260)), COERCE__INT64(*(*(a1 + 56) + 1252)), COERCE__INT64(v476));
+          _os_log_impl(&dword_1DE8E5000, v474, v473, "[BRT update: %s]: %s: %f -> %f LcurrentDevice: %f Lpending: %f L_logical: %f", v632, 0x48u);
         }
 
-        __DisplaySetLogicalBrightnessWithFadeInternal(*(a1 + 56), v472 | 0x2000, 0, 0, v471, 0.0);
+        __DisplaySetLogicalBrightnessWithFadeInternal(*(a1 + 56), v477 | 0x2000, 0, 0, v476, 0.0);
         *(*(a1 + 56) + 12392) = 0;
       }
     }
@@ -4617,88 +4564,89 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
   else if (CFEqual(*(a1 + 48), @"MinNits"))
   {
-    v189 = CFDictionaryGetTypeID();
-    if (v189 == CFGetTypeID(*(a1 + 40)))
+    v194 = CFDictionaryGetTypeID();
+    if (v194 == CFGetTypeID(*(a1 + 40)))
     {
-      v467 = *(*(a1 + 56) + 1256);
-      v466 = 0.0;
-      v465 = CFDictionaryGetValue(*(a1 + 40), @"period");
-      if (v465)
+      v472 = *(*(a1 + 56) + 1256);
+      v471 = 0.0;
+      v470 = CFDictionaryGetValue(*(a1 + 40), @"period");
+      if (v470)
       {
-        v188 = CFNumberGetTypeID();
-        if (v188 == CFGetTypeID(v465))
+        v193 = CFNumberGetTypeID();
+        if (v193 == CFGetTypeID(v470))
         {
-          CFNumberGetValue(v465, kCFNumberFloatType, &v466);
+          CFNumberGetValue(v470, kCFNumberFloatType, &v471);
         }
       }
 
-      v464 = CFDictionaryGetValue(*(a1 + 40), @"nits");
-      if (v464)
+      v469 = CFDictionaryGetValue(*(a1 + 40), @"nits");
+      if (v469)
       {
-        v187 = CFNumberGetTypeID();
-        if (v187 == CFGetTypeID(v464))
+        v192 = CFNumberGetTypeID();
+        if (v192 == CFGetTypeID(v469))
         {
-          CFNumberGetValue(v464, kCFNumberFloatType, &v467);
+          CFNumberGetValue(v469, kCFNumberFloatType, &v472);
         }
       }
 
       if (getClientOverrideState(*(a1 + 56), 1))
       {
-        v467 = fmaxf(v467, *(*(a1 + 56) + 968));
+        v472 = fmaxf(v472, *(*(a1 + 56) + 968));
       }
 
-      _DisplaySetBrightnessMinPhysicalWithFade(*(a1 + 56), v467, v466);
+      _DisplaySetBrightnessMinPhysicalWithFade(*(a1 + 56), v472, v471);
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"DisplayBrightnessFactorWithFade"))
   {
     kdebug_trace();
-    v580 = *(*(a1 + 56) + 348);
-    v186 = CFDictionaryGetTypeID();
-    if (v186 == CFGetTypeID(*(a1 + 40)))
+    v585 = *(*(a1 + 56) + 348);
+    v191 = CFDictionaryGetTypeID();
+    if (v191 == CFGetTypeID(*(a1 + 40)))
     {
-      v463 = CFDictionaryGetValue(*(a1 + 40), @"DisplayBrightnessFadePeriod");
-      if (v463)
+      v468 = CFDictionaryGetValue(*(a1 + 40), @"DisplayBrightnessFadePeriod");
+      if (v468)
       {
-        v185 = CFNumberGetTypeID();
-        if (v185 == CFGetTypeID(v463))
+        v190 = CFNumberGetTypeID();
+        if (v190 == CFGetTypeID(v468))
         {
-          CFNumberGetValue(v463, kCFNumberFloat32Type, (*(a1 + 56) + 372));
+          CFNumberGetValue(v468, kCFNumberFloat32Type, (*(a1 + 56) + 372));
         }
       }
 
-      v462 = CFDictionaryGetValue(*(a1 + 40), @"DisplayBrightnessFactor");
-      if (v462)
+      v467 = CFDictionaryGetValue(*(a1 + 40), @"DisplayBrightnessFactor");
+      if (v467)
       {
-        v184 = CFNumberGetTypeID();
-        if (v184 == CFGetTypeID(v462))
+        v189 = CFNumberGetTypeID();
+        if (v189 == CFGetTypeID(v467))
         {
-          CFNumberGetValue(v462, kCFNumberFloat32Type, &v580);
-          v461 = *(*(a1 + 56) + 1384) > 0.0;
-          if (v580 != *(*(a1 + 56) + 348) || v461)
+          CFNumberGetValue(v467, kCFNumberFloat32Type, &v585);
+          v466 = *(*(a1 + 56) + 1384) > 0.0;
+          if (v585 != *(*(a1 + 56) + 348) || v466)
           {
             if (*(*(a1 + 56) + 36))
             {
-              _DisplaySetBrightnessFactor(*(a1 + 56), v580);
-              v182 = *(a1 + 56);
-              v183 = __DisplayCalculateBrightnessFromFactorChange(v182, *(v182 + 204));
-              __DisplaySetLogicalBrightnessLegacy(v182, 6u, v183, *(*(a1 + 56) + 372));
+              _DisplaySetBrightnessFactor(*(a1 + 56), v585);
+              v187 = *(a1 + 56);
+              v188 = __DisplayCalculateBrightnessFromFactorChange(v187, *(v187 + 204));
+              __DisplaySetLogicalBrightnessLegacy(v187, 6u, v188, *(*(a1 + 56) + 372));
               *(*(a1 + 56) + 356) = *(*(a1 + 56) + 352);
             }
 
             else
             {
-              if (v580 == 0.0)
+              v20 = v585;
+              if (v585 == 0.0)
               {
                 if (*(*(a1 + 56) + 12282))
                 {
-                  __DisplayCancelAAPFade(*(a1 + 56));
+                  __DisplayCancelAAPFade(*(a1 + 56), v20);
                 }
 
                 else
                 {
-                  __DisplayCancelReflectedBrightnessFadeInternal(*(a1 + 56));
+                  __DisplayCancelReflectedBrightnessFadeInternal(*(a1 + 56), v20);
                 }
 
                 if ((*(*(a1 + 56) + 12282) & 1) == 0)
@@ -4709,12 +4657,12 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
                 *(*(a1 + 56) + 12300) = 0;
               }
 
-              _DisplayUpdateWeakCapOnFactorChange(*(a1 + 56), v580);
-              _DisplaySetFactorWithFade(*(a1 + 56), v580, *(*(a1 + 56) + 372));
+              _DisplayUpdateWeakCapOnFactorChange(*(a1 + 56), v585);
+              _DisplaySetFactorWithFade(*(a1 + 56), v585, *(*(a1 + 56) + 372));
             }
 
             *(*(a1 + 56) + 356) = *(*(a1 + 56) + 352);
-            CFDictionarySetValue(*(*(a1 + 56) + 192), @"DisplayBrightnessFactor", v462);
+            CFDictionarySetValue(*(*(a1 + 56) + 192), @"DisplayBrightnessFactor", v467);
           }
         }
       }
@@ -4722,34 +4670,35 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
     else
     {
-      v181 = CFNumberGetTypeID();
-      if (v181 == CFGetTypeID(*(a1 + 40)))
+      v186 = CFNumberGetTypeID();
+      if (v186 == CFGetTypeID(*(a1 + 40)))
       {
-        CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v580);
-        v460 = *(*(a1 + 56) + 1384) > 0.0;
-        if (v580 != *(*(a1 + 56) + 348) || v460)
+        CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v585);
+        v465 = *(*(a1 + 56) + 1384) > 0.0;
+        if (v585 != *(*(a1 + 56) + 348) || v465)
         {
           if (*(*(a1 + 56) + 36))
           {
-            _DisplaySetBrightnessFactor(*(a1 + 56), v580);
-            v179 = *(a1 + 56);
-            v180 = __DisplayCalculateBrightnessFromFactorChange(v179, *(v179 + 204));
-            __DisplaySetLogicalBrightnessLegacy(v179, 6u, v180, *(*(a1 + 56) + 372));
+            _DisplaySetBrightnessFactor(*(a1 + 56), v585);
+            v184 = *(a1 + 56);
+            v185 = __DisplayCalculateBrightnessFromFactorChange(v184, *(v184 + 204));
+            __DisplaySetLogicalBrightnessLegacy(v184, 6u, v185, *(*(a1 + 56) + 372));
             *(*(a1 + 56) + 356) = *(*(a1 + 56) + 352);
           }
 
           else
           {
-            if (v580 == 0.0)
+            v21 = v585;
+            if (v585 == 0.0)
             {
               if (*(*(a1 + 56) + 12282))
               {
-                __DisplayCancelAAPFade(*(a1 + 56));
+                __DisplayCancelAAPFade(*(a1 + 56), v21);
               }
 
               else
               {
-                __DisplayCancelReflectedBrightnessFadeInternal(*(a1 + 56));
+                __DisplayCancelReflectedBrightnessFadeInternal(*(a1 + 56), v21);
               }
 
               *(*(a1 + 56) + 12300) = 0;
@@ -4759,8 +4708,8 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
               }
             }
 
-            _DisplayUpdateWeakCapOnFactorChange(*(a1 + 56), v580);
-            _DisplaySetFactorWithFade(*(a1 + 56), v580, *(*(a1 + 56) + 372));
+            _DisplayUpdateWeakCapOnFactorChange(*(a1 + 56), v585);
+            _DisplaySetFactorWithFade(*(a1 + 56), v585, *(*(a1 + 56) + 372));
           }
 
           *(*(a1 + 56) + 356) = *(*(a1 + 56) + 352);
@@ -4772,85 +4721,85 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
   else if (CFEqual(*(a1 + 48), @"DisplayBrightnessFadePeriod"))
   {
-    v580 = *(*(a1 + 56) + 372);
-    v178 = CFNumberGetTypeID();
-    if (v178 != CFGetTypeID(*(a1 + 40)))
+    v585 = *(*(a1 + 56) + 372);
+    v183 = CFNumberGetTypeID();
+    if (v183 != CFGetTypeID(*(a1 + 40)))
     {
-      goto LABEL_1185;
+      return;
     }
 
-    CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v580);
-    *(*(a1 + 56) + 372) = v580;
+    CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v585);
+    *(*(a1 + 56) + 372) = v585;
     if (_logHandle)
     {
-      v177 = _logHandle;
+      v182 = _logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v176 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v181 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v176 = init_default_corebrightness_log();
+        v181 = init_default_corebrightness_log();
       }
 
-      v177 = v176;
+      v182 = v181;
     }
 
-    v459 = v177;
-    v458 = OS_LOG_TYPE_DEBUG;
-    if (os_log_type_enabled(v177, OS_LOG_TYPE_DEBUG))
+    v464 = v182;
+    v463 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v182, OS_LOG_TYPE_DEBUG))
     {
-      __os_log_helper_16_2_2_8_32_8_0(v626, "DisplayBrightnessFadePeriod", COERCE__INT64(v580));
-      _os_log_debug_impl(&dword_1DE8E5000, v459, v458, "DisplaySetProperty: %s = %f\n", v626, 0x16u);
+      __os_log_helper_16_2_2_8_32_8_0(v631, "DisplayBrightnessFadePeriod", COERCE__INT64(v585));
+      _os_log_debug_impl(&dword_1DE8E5000, v464, v463, "DisplaySetProperty: %s = %f\n", v631, 0x16u);
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"LogLevel"))
   {
-    v457 = *(*(a1 + 56) + 200);
-    v175 = CFNumberGetTypeID();
-    if (v175 != CFGetTypeID(*(a1 + 40)))
+    v462 = *(*(a1 + 56) + 200);
+    v180 = CFNumberGetTypeID();
+    if (v180 != CFGetTypeID(*(a1 + 40)))
     {
-      goto LABEL_1185;
+      return;
     }
 
-    CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v457);
+    CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v462);
     if (_logHandle)
     {
-      v174 = _logHandle;
+      v179 = _logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v173 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v178 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v173 = init_default_corebrightness_log();
+        v178 = init_default_corebrightness_log();
       }
 
-      v174 = v173;
+      v179 = v178;
     }
 
-    v456 = v174;
-    v455 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v174, OS_LOG_TYPE_DEFAULT))
+    v461 = v179;
+    v460 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v179, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_2_2_8_32_4_0(v625, "LogLevel", v457);
-      _os_log_impl(&dword_1DE8E5000, v456, v455, "DisplaySetProperty: %s = %x\n", v625, 0x12u);
+      __os_log_helper_16_2_2_8_32_4_0(v630, "LogLevel", v462);
+      _os_log_impl(&dword_1DE8E5000, v461, v460, "DisplaySetProperty: %s = %x\n", v630, 0x12u);
     }
 
-    if (*(*(a1 + 56) + 200) != v457)
+    if (*(*(a1 + 56) + 200) != v462)
     {
-      *(*(a1 + 56) + 200) = v457;
+      *(*(a1 + 56) + 200) = v462;
     }
 
     __DisplaySetBLDriverProperty(*(a1 + 56), *(a1 + 48), *(a1 + 40));
@@ -4858,15 +4807,15 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
   else if (CFEqual(*(a1 + 48), @"PLCEnable"))
   {
-    v454 = (*(*(a1 + 56) + 288) & 1) != 0;
-    v172 = CFNumberGetTypeID();
-    if (v172 != CFGetTypeID(*(a1 + 40)))
+    v459 = (*(*(a1 + 56) + 288) & 1) != 0;
+    v177 = CFNumberGetTypeID();
+    if (v177 != CFGetTypeID(*(a1 + 40)))
     {
-      goto LABEL_1185;
+      return;
     }
 
-    CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v454);
-    if (v454)
+    CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v459);
+    if (v459)
     {
       if (*(*(a1 + 56) + 284) && *(*(a1 + 56) + 1260) > *(*(a1 + 56) + 284))
       {
@@ -4877,46 +4826,112 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
     else if (*(*(a1 + 56) + 289))
     {
       __DisplaySendPLCUpdate(*(a1 + 56), 0);
-      v453 = (*(*(a1 + 56) + 1260) * 65536.0);
-      SetBLDriverNitsValueIfNotInLPM(*(a1 + 56), v453);
+      v458 = (*(*(a1 + 56) + 1260) * 65536.0);
+      SetBLDriverNitsValueIfNotInLPM(*(a1 + 56), v458);
     }
 
-    *(*(a1 + 56) + 288) = v454;
+    *(*(a1 + 56) + 288) = v459;
     if (_logHandle)
     {
-      v171 = _logHandle;
+      v176 = _logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v170 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v175 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v170 = init_default_corebrightness_log();
+        v175 = init_default_corebrightness_log();
       }
 
-      v171 = v170;
+      v176 = v175;
     }
 
-    v452 = v171;
-    v451 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v171, OS_LOG_TYPE_DEFAULT))
+    v457 = v176;
+    v456 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v176, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_0_1_4_0(v624, *(*(a1 + 56) + 288) & 1);
-      _os_log_impl(&dword_1DE8E5000, v452, v451, "PLCEnabled=%d", v624, 8u);
+      __os_log_helper_16_0_1_4_0(v629, *(*(a1 + 56) + 288) & 1);
+      _os_log_impl(&dword_1DE8E5000, v457, v456, "PLCEnabled=%d", v629, 8u);
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"DisplayBrightnessFadeSlope"))
   {
+    v174 = CFGetTypeID(*(a1 + 40));
+    if (v174 == CFNumberGetTypeID())
+    {
+      v455 = *(*(a1 + 56) + 1228);
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v455);
+      if (_logHandle)
+      {
+        v173 = _logHandle;
+      }
+
+      else
+      {
+        if (_COREBRIGHTNESS_LOG_DEFAULT)
+        {
+          v172 = _COREBRIGHTNESS_LOG_DEFAULT;
+        }
+
+        else
+        {
+          v172 = init_default_corebrightness_log();
+        }
+
+        v173 = v172;
+      }
+
+      v454 = v173;
+      v453 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v173, OS_LOG_TYPE_DEBUG))
+      {
+        __os_log_helper_16_0_1_8_0(v628, COERCE__INT64(v455));
+        _os_log_debug_impl(&dword_1DE8E5000, v454, v453, "display->brightness.als.duration.customSlope = %f\n", v628, 0xCu);
+      }
+
+      *(*(a1 + 56) + 1228) = v455;
+    }
+  }
+
+  else if (CFEqual(*(a1 + 48), @"DisplayMedianFilterLength"))
+  {
+    v171 = CFGetTypeID(*(a1 + 40));
+    if (v171 == CFNumberGetTypeID())
+    {
+      v452 = 0;
+      CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v452);
+      if (v452 <= 50)
+      {
+        *(*(a1 + 56) + 12740) = v452;
+        *(*(a1 + 56) + 12736) = 0;
+        *(*(a1 + 56) + 12732) = 0;
+      }
+    }
+  }
+
+  else if (CFEqual(*(a1 + 48), @"CabalFactorOverride"))
+  {
+    v170 = CFGetTypeID(*(a1 + 40));
+    if (v170 == CFNumberGetTypeID())
+    {
+      v451 = -1.0;
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v451);
+      DisplaySetCabalFactorOverride(*(a1 + 56), v451);
+    }
+  }
+
+  else if (CFEqual(*(a1 + 48), @"DisplayAAPFactor"))
+  {
     v169 = CFGetTypeID(*(a1 + 40));
     if (v169 == CFNumberGetTypeID())
     {
-      v450 = *(*(a1 + 56) + 1228);
+      v450 = *(*(a1 + 56) + 12392);
       CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v450);
       if (_logHandle)
       {
@@ -4939,668 +4954,602 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
       }
 
       v449 = v168;
-      v448 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v168, OS_LOG_TYPE_DEBUG))
+      v448 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v168, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_1_8_0(v623, COERCE__INT64(v450));
-        _os_log_debug_impl(&dword_1DE8E5000, v449, v448, "display->brightness.als.duration.customSlope = %f\n", v623, 0xCu);
+        __os_log_helper_16_2_2_8_32_8_0(v627, "DisplayAAPFactor", COERCE__INT64(v450));
+        _os_log_impl(&dword_1DE8E5000, v449, v448, "%s = %f\n", v627, 0x16u);
       }
 
-      *(*(a1 + 56) + 1228) = v450;
-    }
-  }
-
-  else if (CFEqual(*(a1 + 48), @"DisplayMedianFilterLength"))
-  {
-    v166 = CFGetTypeID(*(a1 + 40));
-    if (v166 == CFNumberGetTypeID())
-    {
-      v447 = 0;
-      CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v447);
-      if (v447 <= 50)
-      {
-        *(*(a1 + 56) + 12740) = v447;
-        *(*(a1 + 56) + 12736) = 0;
-        *(*(a1 + 56) + 12732) = 0;
-      }
-    }
-  }
-
-  else if (CFEqual(*(a1 + 48), @"CabalFactorOverride"))
-  {
-    v165 = CFGetTypeID(*(a1 + 40));
-    if (v165 == CFNumberGetTypeID())
-    {
-      v446 = -1.0;
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v446);
-      DisplaySetCabalFactorOverride(*(a1 + 56), v446);
-    }
-  }
-
-  else if (CFEqual(*(a1 + 48), @"DisplayAAPFactor"))
-  {
-    v164 = CFGetTypeID(*(a1 + 40));
-    if (v164 == CFNumberGetTypeID())
-    {
-      v445 = *(*(a1 + 56) + 12392);
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v445);
-      if (_logHandle)
-      {
-        v163 = _logHandle;
-      }
-
-      else
-      {
-        if (_COREBRIGHTNESS_LOG_DEFAULT)
-        {
-          v162 = _COREBRIGHTNESS_LOG_DEFAULT;
-        }
-
-        else
-        {
-          v162 = init_default_corebrightness_log();
-        }
-
-        v163 = v162;
-      }
-
-      v444 = v163;
-      v443 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v163, OS_LOG_TYPE_DEFAULT))
-      {
-        __os_log_helper_16_2_2_8_32_8_0(v622, "DisplayAAPFactor", COERCE__INT64(v445));
-        _os_log_impl(&dword_1DE8E5000, v444, v443, "%s = %f\n", v622, 0x16u);
-      }
-
-      __DisplaySetAAPFactor(*(a1 + 56), v445);
+      __DisplaySetAAPFactor(*(a1 + 56), v450);
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"DisplayAAPFactorMin"))
   {
-    v161 = CFGetTypeID(*(a1 + 40));
-    if (v161 == CFNumberGetTypeID())
+    v166 = CFGetTypeID(*(a1 + 40));
+    if (v166 == CFNumberGetTypeID())
     {
-      v442 = *(*(a1 + 56) + 12456);
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v442);
+      v447 = *(*(a1 + 56) + 12456);
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v447);
       if (_logHandle)
       {
-        v160 = _logHandle;
+        v165 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v159 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v164 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v159 = init_default_corebrightness_log();
+          v164 = init_default_corebrightness_log();
         }
 
-        v160 = v159;
+        v165 = v164;
       }
 
-      v441 = v160;
-      v440 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v160, OS_LOG_TYPE_DEFAULT))
+      v446 = v165;
+      v445 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v165, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_2_2_8_32_8_0(v621, "DisplayAAPFactorMin", COERCE__INT64(v442));
-        _os_log_impl(&dword_1DE8E5000, v441, v440, "%s = %f\n", v621, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_0(v626, "DisplayAAPFactorMin", COERCE__INT64(v447));
+        _os_log_impl(&dword_1DE8E5000, v446, v445, "%s = %f\n", v626, 0x16u);
       }
 
-      *(*(a1 + 56) + 12456) = v442;
+      *(*(a1 + 56) + 12456) = v447;
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"DisplayAAPFactorMax"))
   {
-    v158 = CFGetTypeID(*(a1 + 40));
-    if (v158 == CFNumberGetTypeID())
+    v163 = CFGetTypeID(*(a1 + 40));
+    if (v163 == CFNumberGetTypeID())
     {
-      v439 = *(*(a1 + 56) + 12460);
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v439);
+      v444 = *(*(a1 + 56) + 12460);
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v444);
       if (_logHandle)
       {
-        v157 = _logHandle;
+        v162 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v156 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v161 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v156 = init_default_corebrightness_log();
+          v161 = init_default_corebrightness_log();
         }
 
-        v157 = v156;
+        v162 = v161;
       }
 
-      v438 = v157;
-      v437 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
+      v443 = v162;
+      v442 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v162, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_2_2_8_32_8_0(v620, "DisplayAAPFactorMax", COERCE__INT64(v439));
-        _os_log_impl(&dword_1DE8E5000, v438, v437, "%s = %f\n", v620, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_0(v625, "DisplayAAPFactorMax", COERCE__INT64(v444));
+        _os_log_impl(&dword_1DE8E5000, v443, v442, "%s = %f\n", v625, 0x16u);
       }
 
-      *(*(a1 + 56) + 12460) = v439;
+      *(*(a1 + 56) + 12460) = v444;
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"AAPDBMin"))
   {
-    v155 = CFGetTypeID(*(a1 + 40));
-    if (v155 == CFNumberGetTypeID())
+    v160 = CFGetTypeID(*(a1 + 40));
+    if (v160 == CFNumberGetTypeID())
     {
-      v436 = *(*(a1 + 56) + 12256);
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v436);
+      v441 = *(*(a1 + 56) + 12256);
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v441);
       if (_logHandle)
       {
-        v154 = _logHandle;
+        v159 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v153 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v158 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v153 = init_default_corebrightness_log();
+          v158 = init_default_corebrightness_log();
         }
 
-        v154 = v153;
+        v159 = v158;
       }
 
-      v435 = v154;
-      v434 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v154, OS_LOG_TYPE_DEBUG))
+      v440 = v159;
+      v439 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v159, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_32_8_0(v619, "AAPDBMin", COERCE__INT64(v436));
-        _os_log_debug_impl(&dword_1DE8E5000, v435, v434, "%s = %f\n", v619, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_0(v624, "AAPDBMin", COERCE__INT64(v441));
+        _os_log_debug_impl(&dword_1DE8E5000, v440, v439, "%s = %f\n", v624, 0x16u);
       }
 
-      *(*(a1 + 56) + 12256) = v436;
-      v433 = 1;
-      HIDWORD(v433) = *(*(a1 + 56) + 12304);
-      __DisplayUpdateAAPStateInternal(*(a1 + 56), &v433, 0);
+      *(*(a1 + 56) + 12256) = v441;
+      v438 = 1;
+      HIDWORD(v438) = *(*(a1 + 56) + 12304);
+      __DisplayUpdateAAPStateInternal(*(a1 + 56), &v438, 0);
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"AAPK_0"))
   {
-    v152 = CFGetTypeID(*(a1 + 40));
-    if (v152 == CFNumberGetTypeID())
+    v157 = CFGetTypeID(*(a1 + 40));
+    if (v157 == CFNumberGetTypeID())
     {
-      v432 = *(*(a1 + 56) + 12260);
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v432);
+      v437 = *(*(a1 + 56) + 12260);
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v437);
       if (_logHandle)
       {
-        v151 = _logHandle;
+        v156 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v150 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v155 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v150 = init_default_corebrightness_log();
+          v155 = init_default_corebrightness_log();
         }
 
-        v151 = v150;
+        v156 = v155;
       }
 
-      v431 = v151;
-      v430 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v151, OS_LOG_TYPE_DEBUG))
+      v436 = v156;
+      v435 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v156, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_32_8_0(v618, "AAPK_0", COERCE__INT64(v432));
-        _os_log_debug_impl(&dword_1DE8E5000, v431, v430, "%s = %f\n", v618, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_0(v623, "AAPK_0", COERCE__INT64(v437));
+        _os_log_debug_impl(&dword_1DE8E5000, v436, v435, "%s = %f\n", v623, 0x16u);
       }
 
-      *(*(a1 + 56) + 12260) = v432;
-      v429 = 2;
-      HIDWORD(v429) = *(*(a1 + 56) + 12300);
-      __DisplayUpdateAAPStateInternal(*(a1 + 56), &v429, 0);
+      *(*(a1 + 56) + 12260) = v437;
+      v434 = 2;
+      HIDWORD(v434) = *(*(a1 + 56) + 12300);
+      __DisplayUpdateAAPStateInternal(*(a1 + 56), &v434, 0);
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"AAPK_1"))
   {
-    v149 = CFGetTypeID(*(a1 + 40));
-    if (v149 == CFNumberGetTypeID())
+    v154 = CFGetTypeID(*(a1 + 40));
+    if (v154 == CFNumberGetTypeID())
     {
-      v428 = *(*(a1 + 56) + 12264);
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v428);
+      v433 = *(*(a1 + 56) + 12264);
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v433);
       if (_logHandle)
       {
-        v148 = _logHandle;
+        v153 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v147 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v152 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v147 = init_default_corebrightness_log();
+          v152 = init_default_corebrightness_log();
         }
 
-        v148 = v147;
+        v153 = v152;
       }
 
-      v427 = v148;
-      v426 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v148, OS_LOG_TYPE_DEBUG))
+      v432 = v153;
+      v431 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v153, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_32_8_0(v617, "AAPK_1", COERCE__INT64(v428));
-        _os_log_debug_impl(&dword_1DE8E5000, v427, v426, "%s = %f\n", v617, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_0(v622, "AAPK_1", COERCE__INT64(v433));
+        _os_log_debug_impl(&dword_1DE8E5000, v432, v431, "%s = %f\n", v622, 0x16u);
       }
 
-      *(*(a1 + 56) + 12264) = v428;
-      v425 = 2;
-      HIDWORD(v425) = *(*(a1 + 56) + 12300);
-      __DisplayUpdateAAPStateInternal(*(a1 + 56), &v425, 0);
+      *(*(a1 + 56) + 12264) = v433;
+      v430 = 2;
+      HIDWORD(v430) = *(*(a1 + 56) + 12300);
+      __DisplayUpdateAAPStateInternal(*(a1 + 56), &v430, 0);
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"AAPManualB"))
   {
-    v146 = CFGetTypeID(*(a1 + 40));
-    if (v146 == CFNumberGetTypeID())
+    v151 = CFGetTypeID(*(a1 + 40));
+    if (v151 == CFNumberGetTypeID())
     {
-      v424 = CFBooleanGetValue(*(a1 + 40)) != 0;
+      v429 = CFBooleanGetValue(*(a1 + 40)) != 0;
       if (_logHandle)
       {
-        v145 = _logHandle;
+        v150 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v144 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v149 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v144 = init_default_corebrightness_log();
+          v149 = init_default_corebrightness_log();
         }
 
-        v145 = v144;
+        v150 = v149;
       }
 
-      v423 = v145;
-      v422 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v145, OS_LOG_TYPE_DEBUG))
+      v428 = v150;
+      v427 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v150, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_32_4_0(v616, "AAPManualB", v424);
-        _os_log_debug_impl(&dword_1DE8E5000, v423, v422, "%s = %d\n", v616, 0x12u);
+        __os_log_helper_16_2_2_8_32_4_0(v621, "AAPManualB", v429);
+        _os_log_debug_impl(&dword_1DE8E5000, v428, v427, "%s = %d\n", v621, 0x12u);
       }
 
-      *(*(a1 + 56) + 12284) = v424;
-      v421 = 0;
-      BYTE4(v421) = *(*(a1 + 56) + 1232) & 1;
-      __DisplayUpdateAAPStateInternal(*(a1 + 56), &v421, 0);
+      *(*(a1 + 56) + 12284) = v429;
+      v426 = 0;
+      BYTE4(v426) = *(*(a1 + 56) + 1232) & 1;
+      __DisplayUpdateAAPStateInternal(*(a1 + 56), &v426, 0);
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"AAPHDRMode"))
   {
-    v143 = CFGetTypeID(*(a1 + 40));
-    if (v143 == CFBooleanGetTypeID())
+    v148 = CFGetTypeID(*(a1 + 40));
+    if (v148 == CFBooleanGetTypeID())
     {
-      v420 = CFBooleanGetValue(*(a1 + 40)) != 0;
+      v425 = CFBooleanGetValue(*(a1 + 40)) != 0;
       if (_logHandle)
       {
-        v142 = _logHandle;
+        v147 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v141 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v146 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v141 = init_default_corebrightness_log();
+          v146 = init_default_corebrightness_log();
         }
 
-        v142 = v141;
+        v147 = v146;
       }
 
-      v419 = v142;
-      v418 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v142, OS_LOG_TYPE_DEBUG))
+      v424 = v147;
+      v423 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v147, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_32_4_0(v615, "AAPHDRMode", v420);
-        _os_log_debug_impl(&dword_1DE8E5000, v419, v418, "%s = %d\n", v615, 0x12u);
+        __os_log_helper_16_2_2_8_32_4_0(v620, "AAPHDRMode", v425);
+        _os_log_debug_impl(&dword_1DE8E5000, v424, v423, "%s = %d\n", v620, 0x12u);
       }
 
-      *(*(a1 + 56) + 12292) = v420;
+      *(*(a1 + 56) + 12292) = v425;
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"AAPLuxDelta"))
   {
-    v140 = CFGetTypeID(*(a1 + 40));
-    if (v140 == CFNumberGetTypeID())
+    v145 = CFGetTypeID(*(a1 + 40));
+    if (v145 == CFNumberGetTypeID())
     {
-      v417 = *(*(a1 + 56) + 12268);
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v417);
+      v422 = *(*(a1 + 56) + 12268);
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v422);
       if (_logHandle)
       {
-        v139 = _logHandle;
+        v144 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v138 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v143 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v138 = init_default_corebrightness_log();
+          v143 = init_default_corebrightness_log();
         }
 
-        v139 = v138;
+        v144 = v143;
       }
 
-      v416 = v139;
-      v415 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v139, OS_LOG_TYPE_DEBUG))
+      v421 = v144;
+      v420 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v144, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_32_8_0(v614, "AAPLuxDelta", COERCE__INT64(v417));
-        _os_log_debug_impl(&dword_1DE8E5000, v416, v415, "%s = %f\n", v614, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_0(v619, "AAPLuxDelta", COERCE__INT64(v422));
+        _os_log_debug_impl(&dword_1DE8E5000, v421, v420, "%s = %f\n", v619, 0x16u);
       }
 
-      *(*(a1 + 56) + 12268) = v417;
+      *(*(a1 + 56) + 12268) = v422;
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"AAPRampUpTime"))
   {
-    v137 = CFGetTypeID(*(a1 + 40));
-    if (v137 == CFNumberGetTypeID())
+    v142 = CFGetTypeID(*(a1 + 40));
+    if (v142 == CFNumberGetTypeID())
     {
-      v414 = *(*(a1 + 56) + 12272);
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v414);
+      v419 = *(*(a1 + 56) + 12272);
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v419);
       if (_logHandle)
       {
-        v136 = _logHandle;
+        v141 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v135 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v140 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v135 = init_default_corebrightness_log();
+          v140 = init_default_corebrightness_log();
         }
 
-        v136 = v135;
+        v141 = v140;
       }
 
-      v413 = v136;
-      v412 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v136, OS_LOG_TYPE_DEBUG))
+      v418 = v141;
+      v417 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v141, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_32_8_0(v613, "AAPRampUpTime", COERCE__INT64(v414));
-        _os_log_debug_impl(&dword_1DE8E5000, v413, v412, "%s = %f\n", v613, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_0(v618, "AAPRampUpTime", COERCE__INT64(v419));
+        _os_log_debug_impl(&dword_1DE8E5000, v418, v417, "%s = %f\n", v618, 0x16u);
       }
 
-      *(*(a1 + 56) + 12272) = v414;
+      *(*(a1 + 56) + 12272) = v419;
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"AAPRampDownTime"))
   {
-    v134 = CFGetTypeID(*(a1 + 40));
-    if (v134 == CFNumberGetTypeID())
+    v139 = CFGetTypeID(*(a1 + 40));
+    if (v139 == CFNumberGetTypeID())
     {
-      v411 = *(*(a1 + 56) + 12276);
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v411);
+      v416 = *(*(a1 + 56) + 12276);
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v416);
       if (_logHandle)
       {
-        v133 = _logHandle;
+        v138 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v132 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v137 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v132 = init_default_corebrightness_log();
+          v137 = init_default_corebrightness_log();
         }
 
-        v133 = v132;
+        v138 = v137;
       }
 
-      v410 = v133;
-      v409 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v133, OS_LOG_TYPE_DEBUG))
+      v415 = v138;
+      v414 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v138, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_32_8_0(v612, "AAPRampDownTime", COERCE__INT64(v411));
-        _os_log_debug_impl(&dword_1DE8E5000, v410, v409, "%s = %f\n", v612, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_0(v617, "AAPRampDownTime", COERCE__INT64(v416));
+        _os_log_debug_impl(&dword_1DE8E5000, v415, v414, "%s = %f\n", v617, 0x16u);
       }
 
-      *(*(a1 + 56) + 12276) = v411;
+      *(*(a1 + 56) + 12276) = v416;
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"AAPRampDisableTime"))
   {
-    v131 = CFGetTypeID(*(a1 + 40));
-    if (v131 == CFNumberGetTypeID())
+    v136 = CFGetTypeID(*(a1 + 40));
+    if (v136 == CFNumberGetTypeID())
     {
-      v408 = *(*(a1 + 56) + 12252);
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v408);
+      v413 = *(*(a1 + 56) + 12252);
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v413);
       if (_logHandle)
       {
-        v130 = _logHandle;
+        v135 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v129 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v134 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v129 = init_default_corebrightness_log();
+          v134 = init_default_corebrightness_log();
         }
 
-        v130 = v129;
+        v135 = v134;
       }
 
-      v407 = v130;
-      v406 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v130, OS_LOG_TYPE_DEBUG))
+      v412 = v135;
+      v411 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v135, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_32_8_0(v611, "AAPRampDisableTime", COERCE__INT64(v408));
-        _os_log_debug_impl(&dword_1DE8E5000, v407, v406, "%s = %f\n", v611, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_0(v616, "AAPRampDisableTime", COERCE__INT64(v413));
+        _os_log_debug_impl(&dword_1DE8E5000, v412, v411, "%s = %f\n", v616, 0x16u);
       }
 
-      *(*(a1 + 56) + 12252) = v408;
+      *(*(a1 + 56) + 12252) = v413;
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"MaxBrightness"))
   {
-    v128 = CFGetTypeID(*(a1 + 40));
-    if (v128 == CFNumberGetTypeID())
+    v133 = CFGetTypeID(*(a1 + 40));
+    if (v133 == CFNumberGetTypeID())
     {
-      v405 = 100.0;
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v405);
-      v405 = v405 / 100.0;
+      v410 = 100.0;
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v410);
+      v410 = v410 / 100.0;
       if (_logHandle)
       {
-        v127 = _logHandle;
+        v132 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v126 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v131 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v126 = init_default_corebrightness_log();
+          v131 = init_default_corebrightness_log();
         }
 
-        v127 = v126;
+        v132 = v131;
       }
 
-      v404 = v127;
-      v403 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
+      v409 = v132;
+      v408 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_1_8_0(v610, COERCE__INT64(v405));
-        _os_log_impl(&dword_1DE8E5000, v404, v403, "Set MaxBrightness=%f", v610, 0xCu);
+        __os_log_helper_16_0_1_8_0(v615, COERCE__INT64(v410));
+        _os_log_impl(&dword_1DE8E5000, v409, v408, "Set MaxBrightness=%f", v615, 0xCu);
       }
 
-      if (v405 >= 0.0)
+      if (v410 >= 0.0)
       {
-        v402 = 0.0;
+        v407 = 0.0;
         if (_DisplayCLTMRev2Applicable(*(a1 + 56)))
         {
-          v401 = 0;
-          if (v405 <= 0.95)
+          v406 = 0;
+          if (v410 <= 0.95)
           {
-            if (v405 <= 0.15)
+            if (v410 <= 0.15)
             {
-              v401 = 2;
+              v406 = 2;
             }
 
             else
             {
-              v401 = 1;
+              v406 = 1;
             }
           }
 
           else
           {
-            v401 = 0;
+            v406 = 0;
           }
 
           if (_logHandle)
           {
-            v125 = _logHandle;
+            v130 = _logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v124 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v129 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v124 = init_default_corebrightness_log();
+              v129 = init_default_corebrightness_log();
             }
 
-            v125 = v124;
+            v130 = v129;
           }
 
-          v400 = v125;
-          v399 = OS_LOG_TYPE_DEFAULT;
-          if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
+          v405 = v130;
+          v404 = OS_LOG_TYPE_DEFAULT;
+          if (os_log_type_enabled(v130, OS_LOG_TYPE_DEFAULT))
           {
-            __os_log_helper_16_0_1_4_0(v609, v401);
-            _os_log_impl(&dword_1DE8E5000, v400, v399, "CLTM mode=%d", v609, 8u);
+            __os_log_helper_16_0_1_4_0(v614, v406);
+            _os_log_impl(&dword_1DE8E5000, v405, v404, "CLTM mode=%d", v614, 8u);
           }
 
-          if (v401 != *(*(a1 + 56) + 1560))
+          if (v406 != *(*(a1 + 56) + 1560))
           {
-            v608 = 0x1F59A2570;
-            v607 = 0;
-            v607 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &v401);
-            if (v608)
+            v613 = 0x1F59A2570;
+            v612 = 0;
+            v612 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &v406);
+            if (v613)
             {
-              if (v607)
+              if (v612)
               {
                 allocator = CFGetAllocator(*(a1 + 56));
-                v398 = CFDictionaryCreate(allocator, &v608, &v607, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-                if (v398)
+                v403 = CFDictionaryCreate(allocator, &v613, &v612, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+                if (v403)
                 {
-                  v16 = *(*(a1 + 56) + 144);
-                  v391 = MEMORY[0x1E69E9820];
-                  v392 = -1073741824;
-                  v393 = 0;
-                  v394 = __DisplaySetProperty_block_invoke_591;
-                  v395 = &__block_descriptor_48_e5_v8__0l;
-                  v396 = *(a1 + 56);
-                  v397 = v398;
-                  dispatch_async(v16, &v391);
+                  v22 = *(*(a1 + 56) + 144);
+                  v396 = MEMORY[0x1E69E9820];
+                  v397 = -1073741824;
+                  v398 = 0;
+                  v399 = __DisplaySetProperty_block_invoke_591;
+                  v400 = &__block_descriptor_48_e5_v8__0l;
+                  v401 = *(a1 + 56);
+                  v402 = v403;
+                  dispatch_async(v22, &v396);
                 }
               }
             }
 
-            if (v607)
+            if (v612)
             {
-              CFRelease(v607);
+              CFRelease(v612);
             }
           }
 
-          *(*(a1 + 56) + 1560) = v401;
-          v390 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, (*(a1 + 56) + 1560));
-          if (v390)
+          *(*(a1 + 56) + 1560) = v406;
+          v395 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, (*(a1 + 56) + 1560));
+          if (v395)
           {
-            CFDictionarySetValue(*(*(a1 + 56) + 192), @"BrightnessCLTMMode", v390);
-            CFRelease(v390);
+            CFDictionarySetValue(*(*(a1 + 56) + 192), @"BrightnessCLTMMode", v395);
+            CFRelease(v395);
           }
 
-          *(*(a1 + 56) + 1552) = v405;
-          if (v405 == 0.0)
+          *(*(a1 + 56) + 1552) = v410;
+          if (v410 == 0.0)
           {
-            v402 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), v405);
-            _DisplaySetBrightnessMaxPhysicalZeroWithFade(*(a1 + 56), _DisplayRampDoneCallback, *(a1 + 56), v402, 4.0);
+            v407 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), v410);
+            _DisplaySetBrightnessMaxPhysicalZeroWithFade(*(a1 + 56), _DisplayRampDoneCallback, *(a1 + 56), v407, 4.0);
           }
 
           else
           {
-            v402 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), v405);
-            _DisplaySetBrightnessMaxPhysicalWithFade(*(a1 + 56), v402, 4.0);
+            v407 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), v410);
+            _DisplaySetBrightnessMaxPhysicalWithFade(*(a1 + 56), v407, 4.0);
           }
         }
 
         else
         {
-          v402 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), v405);
-          _DisplaySetBrightnessMaxPhysicalWithFade(*(a1 + 56), v402, 0.0);
+          v407 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), v410);
+          _DisplaySetBrightnessMaxPhysicalWithFade(*(a1 + 56), v407, 0.0);
         }
       }
     }
@@ -5610,112 +5559,112 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (_DisplayCLTMRev2Applicable(*(a1 + 56)))
     {
-      v122 = CFGetTypeID(*(a1 + 40));
-      if (v122 == CFDictionaryGetTypeID())
+      v127 = CFGetTypeID(*(a1 + 40));
+      if (v127 == CFDictionaryGetTypeID())
       {
-        v389 = 0.0;
-        v388 = 1;
-        v387 = CFDictionaryGetValue(*(a1 + 40), @"BrightnessCLTMEnable");
-        if (v387)
+        v394 = 0.0;
+        v393 = 1;
+        v392 = CFDictionaryGetValue(*(a1 + 40), @"BrightnessCLTMEnable");
+        if (v392)
         {
-          v121 = CFGetTypeID(v387);
-          if (v121 == CFBooleanGetTypeID())
+          v126 = CFGetTypeID(v392);
+          if (v126 == CFBooleanGetTypeID())
           {
-            v388 = CFBooleanGetValue(v387) != 0;
+            v393 = CFBooleanGetValue(v392) != 0;
           }
         }
 
-        *(*(a1 + 56) + 1556) = v388;
-        v386 = 0.0;
-        v385 = CFDictionaryGetValue(*(a1 + 40), @"BrightnessCLTMRampRate");
-        if (v385)
+        *(*(a1 + 56) + 1556) = v393;
+        v391 = 0.0;
+        v390 = CFDictionaryGetValue(*(a1 + 40), @"BrightnessCLTMRampRate");
+        if (v390)
         {
-          v120 = CFGetTypeID(v385);
-          if (v120 == CFNumberGetTypeID())
+          v125 = CFGetTypeID(v390);
+          if (v125 == CFNumberGetTypeID())
           {
-            CFNumberGetValue(v385, kCFNumberFloatType, &v386);
+            CFNumberGetValue(v390, kCFNumberFloatType, &v391);
           }
         }
 
         if (_logHandle)
         {
-          v119 = _logHandle;
+          v124 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v118 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v123 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v118 = init_default_corebrightness_log();
+            v123 = init_default_corebrightness_log();
           }
 
-          v119 = v118;
+          v124 = v123;
         }
 
-        v384 = v119;
-        v383 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
+        v389 = v124;
+        v388 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v124, OS_LOG_TYPE_DEFAULT))
         {
           if (*(*(a1 + 56) + 1556))
           {
-            v17 = "Enable";
+            v23 = "Enable";
           }
 
           else
           {
-            v17 = "Disable";
+            v23 = "Disable";
           }
 
-          __os_log_helper_16_2_2_8_32_8_0(v606, v17, COERCE__INT64(v386));
-          _os_log_impl(&dword_1DE8E5000, v384, v383, "%s CLTM with period %f", v606, 0x16u);
+          __os_log_helper_16_2_2_8_32_8_0(v611, v23, COERCE__INT64(v391));
+          _os_log_impl(&dword_1DE8E5000, v389, v388, "%s CLTM with period %f", v611, 0x16u);
         }
 
-        if (v388)
+        if (v393)
         {
-          v389 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), *(*(a1 + 56) + 1552));
+          v394 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), *(*(a1 + 56) + 1552));
           if (*(*(a1 + 56) + 1552) == 0.0)
           {
-            _DisplaySetBrightnessMaxPhysicalZeroWithFade(*(a1 + 56), _DisplayRampDoneCallback, *(a1 + 56), v389, v386);
+            _DisplaySetBrightnessMaxPhysicalZeroWithFade(*(a1 + 56), _DisplayRampDoneCallback, *(a1 + 56), v394, v391);
           }
 
           else
           {
-            _DisplaySetBrightnessMaxPhysicalWithFade(*(a1 + 56), v389, v386);
+            _DisplaySetBrightnessMaxPhysicalWithFade(*(a1 + 56), v394, v391);
           }
         }
 
         else
         {
-          v382 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), 1.0);
-          _DisplaySetBrightnessMaxPhysicalWithFade(*(a1 + 56), v382, v386);
+          v387 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), 1.0);
+          _DisplaySetBrightnessMaxPhysicalWithFade(*(a1 + 56), v387, v391);
         }
 
-        v605 = xmmword_1E867CA00;
-        v603 = 0;
-        v604 = 0;
-        v603 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, (*(a1 + 56) + 1556));
-        v604 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, &v386);
-        v117 = CFGetAllocator(*(a1 + 56));
-        v381 = CFDictionaryCreate(v117, &v605, &v603, 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-        if (v381)
+        v610 = xmmword_1E867CA00;
+        v608 = 0;
+        v609 = 0;
+        v608 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, (*(a1 + 56) + 1556));
+        v609 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, &v391);
+        v122 = CFGetAllocator(*(a1 + 56));
+        v386 = CFDictionaryCreate(v122, &v610, &v608, 2, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+        if (v386)
         {
-          CFDictionarySetValue(*(*(a1 + 56) + 192), @"BrightnessCLTM", v381);
-          CFRelease(v381);
+          CFDictionarySetValue(*(*(a1 + 56) + 192), @"BrightnessCLTM", v386);
+          CFRelease(v386);
         }
 
-        if (v603)
+        if (v608)
         {
-          CFRelease(v603);
+          CFRelease(v608);
         }
 
-        if (v604)
+        if (v609)
         {
-          CFRelease(v604);
+          CFRelease(v609);
         }
       }
     }
@@ -5723,55 +5672,55 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
   else if (CFEqual(*(a1 + 48), @"BrightnessWeakCap"))
   {
-    v116 = CFGetTypeID(*(a1 + 40));
-    if (v116 == CFNumberGetTypeID())
+    v121 = CFGetTypeID(*(a1 + 40));
+    if (v121 == CFNumberGetTypeID())
     {
-      v380 = 100.0;
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v380);
-      v380 = v380 / 100.0;
+      v385 = 100.0;
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v385);
+      v385 = v385 / 100.0;
       if (_logHandle)
       {
-        v115 = _logHandle;
+        v120 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v114 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v119 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v114 = init_default_corebrightness_log();
+          v119 = init_default_corebrightness_log();
         }
 
-        v115 = v114;
+        v120 = v119;
       }
 
-      v379 = v115;
-      v378 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
+      v384 = v120;
+      v383 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_1_8_0(v602, COERCE__INT64(v380));
-        _os_log_impl(&dword_1DE8E5000, v379, v378, "Set BrightnessWeakCap=%f", v602, 0xCu);
+        __os_log_helper_16_0_1_8_0(v607, COERCE__INT64(v385));
+        _os_log_impl(&dword_1DE8E5000, v384, v383, "Set BrightnessWeakCap=%f", v607, 0xCu);
       }
 
-      if (v380 >= 0.0)
+      if (v385 >= 0.0)
       {
-        v377 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), v380);
-        v376 = 0.0;
-        if (v377 < *(*(a1 + 56) + 528))
+        v382 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), v385);
+        v381 = 0.0;
+        if (v382 < *(*(a1 + 56) + 528))
         {
-          v376 = 7.0;
+          v381 = 7.0;
         }
 
         else
         {
-          v376 = 2.5;
+          v381 = 2.5;
         }
 
-        _DisplaySetBrightnessWeakCapWithFade(*(a1 + 56), 1, v377, v376);
+        _DisplaySetBrightnessWeakCapWithFade(*(a1 + 56), 1, v382, v381);
       }
     }
   }
@@ -5780,82 +5729,82 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (*(*(a1 + 56) + 320))
     {
-      v113 = CFGetTypeID(*(a1 + 40));
-      if (v113 == CFNumberGetTypeID())
+      v118 = CFGetTypeID(*(a1 + 40));
+      if (v118 == CFNumberGetTypeID())
       {
-        v375 = *(*(a1 + 56) + 396);
-        CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v375);
+        v380 = *(*(a1 + 56) + 396);
+        CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v380);
         if (_logHandle)
         {
-          v112 = _logHandle;
+          v117 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v111 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v116 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v111 = init_default_corebrightness_log();
+            v116 = init_default_corebrightness_log();
           }
 
-          v112 = v111;
+          v117 = v116;
         }
 
-        v374 = v112;
-        v373 = OS_LOG_TYPE_DEBUG;
-        if (os_log_type_enabled(v112, OS_LOG_TYPE_DEBUG))
+        v379 = v117;
+        v378 = OS_LOG_TYPE_DEBUG;
+        if (os_log_type_enabled(v117, OS_LOG_TYPE_DEBUG))
         {
-          __os_log_helper_16_2_2_8_32_8_0(v601, "BrightnessMinPhysicalWithFade", COERCE__INT64(v375));
-          _os_log_debug_impl(&dword_1DE8E5000, v374, v373, "DisplaySetProperty: %s = %f\n", v601, 0x16u);
+          __os_log_helper_16_2_2_8_32_8_0(v606, "BrightnessMinPhysicalWithFade", COERCE__INT64(v380));
+          _os_log_debug_impl(&dword_1DE8E5000, v379, v378, "DisplaySetProperty: %s = %f\n", v606, 0x16u);
         }
 
         if (getClientOverrideState(*(a1 + 56), 1))
         {
-          v375 = fmaxf(v375, *(*(a1 + 56) + 968));
+          v380 = fmaxf(v380, *(*(a1 + 56) + 968));
         }
 
-        _DisplaySetBrightnessMinPhysicalWithFade(*(a1 + 56), v375, *(*(a1 + 56) + 372));
+        _DisplaySetBrightnessMinPhysicalWithFade(*(a1 + 56), v380, *(*(a1 + 56) + 372));
       }
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"DisplayBrightnessFactorRamp"))
   {
-    v110 = CFDictionaryGetTypeID();
-    if (v110 == CFGetTypeID(*(a1 + 40)))
+    v115 = CFDictionaryGetTypeID();
+    if (v115 == CFGetTypeID(*(a1 + 40)))
     {
-      v372 = CFDictionaryGetValue(*(a1 + 40), @"DisplayBrightnessFactorCoeffA");
-      if (v372)
+      v377 = CFDictionaryGetValue(*(a1 + 40), @"DisplayBrightnessFactorCoeffA");
+      if (v377)
       {
-        v109 = CFGetTypeID(v372);
-        if (v109 == CFNumberGetTypeID())
+        v114 = CFGetTypeID(v377);
+        if (v114 == CFNumberGetTypeID())
         {
-          v580 = *(*(a1 + 56) + 1420);
-          CFNumberGetValue(v372, kCFNumberFloatType, &v580);
-          *(*(a1 + 56) + 1420) = v580;
+          v585 = *(*(a1 + 56) + 1420);
+          CFNumberGetValue(v377, kCFNumberFloatType, &v585);
+          *(*(a1 + 56) + 1420) = v585;
           *(*(a1 + 56) + 1416) = 1.0 - *(*(a1 + 56) + 1420);
           *(*(a1 + 56) + 1412) = 0;
           if (_logHandle)
           {
-            v108 = _logHandle;
+            v113 = _logHandle;
           }
 
           else
           {
-            v107 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-            v108 = v107;
+            v112 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+            v113 = v112;
           }
 
-          v371 = v108;
-          v370 = OS_LOG_TYPE_DEBUG;
-          if (os_log_type_enabled(v108, OS_LOG_TYPE_DEBUG))
+          v376 = v113;
+          v375 = OS_LOG_TYPE_DEBUG;
+          if (os_log_type_enabled(v113, OS_LOG_TYPE_DEBUG))
           {
-            __os_log_helper_16_0_3_8_0_8_0_8_0(v600, COERCE__INT64(*(*(a1 + 56) + 1420)), COERCE__INT64(*(*(a1 + 56) + 1416)), COERCE__INT64(*(*(a1 + 56) + 1412)));
-            _os_log_debug_impl(&dword_1DE8E5000, v371, v370, "DisplaySetProperty: Changing Factor ramp to: %fx^2 + %fx + %f\n", v600, 0x20u);
+            __os_log_helper_16_0_3_8_0_8_0_8_0(v605, COERCE__INT64(*(*(a1 + 56) + 1420)), COERCE__INT64(*(*(a1 + 56) + 1416)), COERCE__INT64(*(*(a1 + 56) + 1412)));
+            _os_log_debug_impl(&dword_1DE8E5000, v376, v375, "DisplaySetProperty: Changing Factor ramp to: %fx^2 + %fx + %f\n", v605, 0x20u);
           }
         }
       }
@@ -5866,12 +5815,12 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (*(a1 + 40))
     {
-      v106 = CFNumberGetTypeID();
-      if (v106 == CFGetTypeID(*(a1 + 40)))
+      v111 = CFNumberGetTypeID();
+      if (v111 == CFGetTypeID(*(a1 + 40)))
       {
-        v369 = *(*(a1 + 56) + 244);
-        CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v369);
-        *(*(a1 + 56) + 244) = v369;
+        v374 = *(*(a1 + 56) + 244);
+        CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v374);
+        *(*(a1 + 56) + 244) = v374;
       }
     }
   }
@@ -5883,14 +5832,13 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
     {
       if (*(a1 + 40))
       {
-        v105 = *(a1 + 40);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v368 = [*(a1 + 40) intValue];
-          if (![*(*(a1 + 56) + 328) action:v368])
+          v373 = [*(a1 + 40) intValue];
+          if (![*(*(a1 + 56) + 328) action:v373])
           {
-            __DisplaySetLogicalBrightnessInternal(*(a1 + 56), 4098, *(*(a1 + 56) + 1256));
+            __DisplaySetLogicalBrightnessInternal(*(a1 + 56), 0x1002u, *(*(a1 + 56) + 1256));
             *(*(*(a1 + 32) + 8) + 24) = 1;
           }
         }
@@ -5906,26 +5854,26 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
       {
         if (*(a1 + 40))
         {
-          v104 = CFDictionaryGetTypeID();
-          if (v104 == CFGetTypeID(*(a1 + 40)))
+          v110 = CFDictionaryGetTypeID();
+          if (v110 == CFGetTypeID(*(a1 + 40)))
           {
-            v367 = *(a1 + 40);
-            v366 = [v367 objectForKeyedSubscript:@"DisplayBrightnessFactor"];
-            v365 = [v367 objectForKeyedSubscript:@"DisplayBrightnessFadePeriod"];
-            if (v366)
+            v372 = *(a1 + 40);
+            v371 = [v372 objectForKeyedSubscript:@"DisplayBrightnessFactor"];
+            v370 = [v372 objectForKeyedSubscript:@"DisplayBrightnessFadePeriod"];
+            if (v371)
             {
-              if (v365)
+              if (v370)
               {
-                v102 = *(*(a1 + 56) + 328);
-                [v366 floatValue];
-                v103 = v18;
-                [v365 floatValue];
-                LODWORD(v20) = v19;
-                LODWORD(v21) = v103;
-                if (![v102 setFactor:v21 withFade:v20])
+                v108 = *(*(a1 + 56) + 328);
+                [v371 floatValue];
+                v109 = v24;
+                [v370 floatValue];
+                LODWORD(v26) = v25;
+                LODWORD(v27) = v109;
+                if (![v108 setFactor:v27 withFade:v26])
                 {
-                  LODWORD(v22) = 1015580809;
-                  __DisplayStartFadeWithType(*(a1 + 56), 12, v22);
+                  LODWORD(v28) = 1015580809;
+                  __DisplayStartFadeWithType(*(a1 + 56), 12, v28);
                 }
               }
             }
@@ -5939,61 +5887,61 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (*(a1 + 40))
     {
-      v101 = CFDictionaryGetTypeID();
-      if (v101 == CFGetTypeID(*(a1 + 40)))
+      v107 = CFDictionaryGetTypeID();
+      if (v107 == CFGetTypeID(*(a1 + 40)))
       {
-        v364 = *(a1 + 40);
+        v369 = *(a1 + 40);
         if (*(*(a1 + 56) + 248))
         {
-          v362 = 0;
-          v361 = 0;
-          v363 = CFDictionaryGetValue(v364, @"PreStrobeConfigCurrent");
-          if (v363 && (v100 = CFNumberGetTypeID(), v100 == CFGetTypeID(v363)))
+          v367 = 0;
+          v366 = 0;
+          v368 = CFDictionaryGetValue(v369, @"PreStrobeConfigCurrent");
+          if (v368 && (v106 = CFNumberGetTypeID(), v106 == CFGetTypeID(v368)))
           {
-            v362 = 1;
-            v361 = 1;
+            v367 = 1;
+            v366 = 1;
           }
 
           else
           {
-            v363 = CFDictionaryGetValue(v364, @"PreStrobeConfigNits");
-            if (v363)
+            v368 = CFDictionaryGetValue(v369, @"PreStrobeConfigNits");
+            if (v368)
             {
-              v99 = CFNumberGetTypeID();
-              if (v99 == CFGetTypeID(v363))
+              v105 = CFNumberGetTypeID();
+              if (v105 == CFGetTypeID(v368))
               {
-                v361 = 1;
+                v366 = 1;
               }
             }
           }
 
-          if (v361)
+          if (v366)
           {
-            v360 = -1.0;
-            if (CFNumberGetValue(v363, kCFNumberFloatType, &v360))
+            v365 = -1.0;
+            if (CFNumberGetValue(v368, kCFNumberFloatType, &v365))
             {
-              v359 = (v360 * 65536.0);
-              v358 = 0;
-              v358 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &v359);
-              if (v358)
+              v364 = (v365 * 65536.0);
+              v363 = 0;
+              v363 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &v364);
+              if (v363)
               {
-                if (v362)
+                if (v367)
                 {
-                  v23 = @"PreStrobeConfigCurrent";
+                  v29 = @"PreStrobeConfigCurrent";
                 }
 
                 else
                 {
-                  v23 = @"PreStrobeConfigNits";
+                  v29 = @"PreStrobeConfigNits";
                 }
 
-                __DisplaySetBLDriverProperty(*(a1 + 56), v23, v358);
-                if ((v362 & 1) == 0)
+                __DisplaySetBLDriverProperty(*(a1 + 56), v29, v363);
+                if ((v367 & 1) == 0)
                 {
-                  *(*(a1 + 56) + 256) = v359;
+                  *(*(a1 + 56) + 256) = v364;
                 }
 
-                CFRelease(v358);
+                CFRelease(v363);
               }
             }
           }
@@ -6001,13 +5949,13 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
           else
           {
             *(*(a1 + 56) + 256) = *(*(a1 + 56) + 252);
-            v357 = -1;
-            v356 = 0;
-            v356 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &v357);
-            if (v356)
+            v362 = -1;
+            v361 = 0;
+            v361 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &v362);
+            if (v361)
             {
-              __DisplaySetBLDriverProperty(*(a1 + 56), @"PreStrobeConfigCurrent", v356);
-              CFRelease(v356);
+              __DisplaySetBLDriverProperty(*(a1 + 56), @"PreStrobeConfigCurrent", v361);
+              CFRelease(v361);
             }
           }
         }
@@ -6019,119 +5967,117 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (*(a1 + 40))
     {
-      v98 = CFNumberGetTypeID();
-      if (v98 == CFGetTypeID(*(a1 + 40)))
+      v104 = CFNumberGetTypeID();
+      if (v104 == CFGetTypeID(*(a1 + 40)))
       {
-        v355 = *(*(a1 + 56) + 244);
-        v354 = 0;
-        CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v354);
-        if (v354)
+        v360 = *(*(a1 + 56) + 244);
+        v359 = 0;
+        CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v359);
+        if (v359)
         {
-          v97 = 0.0;
+          v103 = 0.0;
         }
 
         else
         {
-          v97 = fmaxf(0.0, v355);
+          v103 = fmaxf(0.0, v360);
         }
 
-        v353 = v97;
-        if (v355 >= 0.0)
+        v358 = v103;
+        if (v360 >= 0.0)
         {
-          if (v354)
+          if (v359)
           {
-            v95 = *(*(a1 + 56) + 1312);
+            v101 = *(*(a1 + 56) + 1312);
           }
 
           else
           {
-            v95 = 0.0;
+            v101 = 0.0;
           }
 
-          v349 = v95;
+          v354 = v101;
           if (*(*(a1 + 56) + 248))
           {
             __DisplaySetBLDriverProperty(*(a1 + 56), @"PreStrobe", *(a1 + 40));
-            SetPreStrobeState(*(a1 + 56), v354 != 0);
+            SetPreStrobeState(*(a1 + 56), v359 != 0);
           }
 
-          if (v354)
+          if (v359)
           {
-            v94 = (*(*(a1 + 56) + 1312) * 65536.0);
+            v100 = (*(*(a1 + 56) + 1312) * 65536.0);
           }
 
           else
           {
-            v94 = *(*(a1 + 56) + 1128);
+            v100 = *(*(a1 + 56) + 1128);
           }
 
-          v348 = v94;
+          v353 = v100;
           if (_logHandle)
           {
-            v93 = _logHandle;
+            v99 = _logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v92 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v98 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v92 = init_default_corebrightness_log();
+              v98 = init_default_corebrightness_log();
             }
 
-            v93 = v92;
+            v99 = v98;
           }
 
-          v347 = v93;
-          v346 = 2;
-          if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
+          v352 = v99;
+          v351 = 2;
+          if (os_log_type_enabled(v99, OS_LOG_TYPE_DEBUG))
           {
-            v90 = v347;
-            v91 = v346;
-            __os_log_helper_16_0_0(v345);
-            _os_log_debug_impl(&dword_1DE8E5000, v90, v91, "SetBLDriverNitsCap for preStrobe", v345, 2u);
+            v96 = v352;
+            v97 = v351;
+            __os_log_helper_16_0_0(v350);
+            _os_log_debug_impl(&dword_1DE8E5000, v96, v97, "SetBLDriverNitsCap for preStrobe", v350, 2u);
           }
 
-          SetBLDriverNitsCapIfNotInLPM(*(a1 + 56), v348);
-          _DisplaySetBrightnessMinPhysicalWithFade(*(a1 + 56), v349, v353);
+          SetBLDriverNitsCapIfNotInLPM(*(a1 + 56), v353);
+          _DisplaySetBrightnessMinPhysicalWithFade(*(a1 + 56), v354, v358);
         }
 
         else
         {
-          if (v354 && *(*(a1 + 56) + 252) > 0)
+          if (v359 && *(*(a1 + 56) + 252) > 0)
           {
-            v96 = *(*(a1 + 56) + 256) < *(*(a1 + 56) + 252) ? 44236800 : *(*(a1 + 56) + 252);
-            v352 = v96;
-            if (*(*(a1 + 56) + 260) != v96)
+            v102 = *(*(a1 + 56) + 256) < *(*(a1 + 56) + 252) ? 44236800 : *(*(a1 + 56) + 252);
+            v357 = v102;
+            if (*(*(a1 + 56) + 260) != v102)
             {
-              *(*(a1 + 56) + 256) = v352;
-              *(*(a1 + 56) + 260) = v352;
-              v351 = 0;
-              v351 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &v352);
-              if (v351)
+              *(*(a1 + 56) + 256) = v357;
+              *(*(a1 + 56) + 260) = v357;
+              v356 = 0;
+              v356 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, &v357);
+              if (v356)
               {
-                __DisplaySetBLDriverProperty(*(a1 + 56), @"PreStrobeConfigNits", v351);
-                CFRelease(v351);
-                v350 = v352 / *(*(a1 + 56) + 252);
-                v351 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, &v350);
-                if (v351)
+                __DisplaySetBLDriverProperty(*(a1 + 56), @"PreStrobeConfigNits", v356);
+                CFRelease(v356);
+                v355 = v357 / *(*(a1 + 56) + 252);
+                v356 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, &v355);
+                if (v356)
                 {
-                  CFDictionarySetValue(*(*(a1 + 56) + 192), @"PreStrobeBrightnessRatio", v351);
-                  CFRelease(v351);
+                  CFDictionarySetValue(*(*(a1 + 56) + 192), @"PreStrobeBrightnessRatio", v356);
+                  CFRelease(v356);
                 }
               }
             }
           }
 
           __DisplaySetBLDriverProperty(*(a1 + 56), @"PreStrobe", *(a1 + 40));
-          SetPreStrobeState(*(a1 + 56), v354 != 0);
+          SetPreStrobeState(*(a1 + 56), v359 != 0);
         }
-
-        v24 = *(*(a1 + 56) + 12504);
       }
     }
   }
@@ -6140,30 +6086,30 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (*(a1 + 40))
     {
-      v344 = 0;
-      v343 = 0;
-      v89 = CFNumberGetTypeID();
-      if (v89 == CFGetTypeID(*(a1 + 40)))
+      v349 = 0;
+      v348 = 0;
+      v95 = CFNumberGetTypeID();
+      if (v95 == CFGetTypeID(*(a1 + 40)))
       {
-        v342 = 0;
-        CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v342);
-        v344 = v342 != 0;
-        v343 = 1;
+        v347 = 0;
+        CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v347);
+        v349 = v347 != 0;
+        v348 = 1;
       }
 
       else
       {
-        v88 = CFBooleanGetTypeID();
-        if (v88 == CFGetTypeID(*(a1 + 40)))
+        v94 = CFBooleanGetTypeID();
+        if (v94 == CFGetTypeID(*(a1 + 40)))
         {
-          v344 = CFBooleanGetValue(*(a1 + 40)) != 0;
-          v343 = 1;
+          v349 = CFBooleanGetValue(*(a1 + 40)) != 0;
+          v348 = 1;
         }
       }
 
-      if ((v343 & 1) == 1 && *(*(a1 + 56) + 12504))
+      if ((v348 & 1) == 1 && *(*(a1 + 56) + 12504))
       {
-        CFXEnableFades(*(*(a1 + 56) + 12504), v344);
+        CFXEnableFades(*(*(a1 + 56) + 12504), v349);
       }
 
       else
@@ -6177,12 +6123,12 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (*(a1 + 40))
     {
-      v87 = CFNumberGetTypeID();
-      if (v87 == CFGetTypeID(*(a1 + 40)))
+      v93 = CFNumberGetTypeID();
+      if (v93 == CFGetTypeID(*(a1 + 40)))
       {
-        v341 = 0;
-        CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v341);
-        CFXEnableLog(*(*(a1 + 56) + 12504), v341 != 0);
+        v346 = 0;
+        CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v346);
+        CFXEnableLog(*(*(a1 + 56) + 12504), v346 != 0);
         if (CFPreferencesAppSynchronize(*MEMORY[0x1E695E8A8]))
         {
           CFPreferencesSetAppValue(@"CBCarryLogEnabled", *(a1 + 40), *MEMORY[0x1E695E8A8]);
@@ -6195,8 +6141,8 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (*(a1 + 40))
     {
-      v86 = CFStringGetTypeID();
-      if (v86 == CFGetTypeID(*(a1 + 40)))
+      v92 = CFStringGetTypeID();
+      if (v92 == CFGetTypeID(*(a1 + 40)))
       {
         CFXStoreComment(*(*(a1 + 56) + 12504), *(a1 + 40));
       }
@@ -6217,34 +6163,34 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
     else if (*(a1 + 40))
     {
-      v85 = CFDictionaryGetTypeID();
-      if (v85 == CFGetTypeID(*(a1 + 40)))
+      v91 = CFDictionaryGetTypeID();
+      if (v91 == CFGetTypeID(*(a1 + 40)))
       {
-        v340 = CFDictionaryGetValue(*(a1 + 40), @"FreezeBrightnessPeriod");
-        if (v340)
+        v345 = CFDictionaryGetValue(*(a1 + 40), @"FreezeBrightnessPeriod");
+        if (v345)
         {
-          v84 = CFNumberGetTypeID();
-          if (v84 == CFGetTypeID(v340))
+          v90 = CFNumberGetTypeID();
+          if (v90 == CFGetTypeID(v345))
           {
-            CFNumberGetValue(v340, kCFNumberFloatType, (*(a1 + 56) + 12544));
+            CFNumberGetValue(v345, kCFNumberFloatType, (*(a1 + 56) + 12544));
           }
         }
 
-        v339 = 0;
-        v340 = CFDictionaryGetValue(*(a1 + 40), @"FreezeBrightnessEnable");
-        if (v340 && (v83 = CFNumberGetTypeID(), v83 == CFGetTypeID(v340)))
+        v344 = 0;
+        v345 = CFDictionaryGetValue(*(a1 + 40), @"FreezeBrightnessEnable");
+        if (v345 && (v89 = CFNumberGetTypeID(), v89 == CFGetTypeID(v345)))
         {
-          v338 = 0;
-          CFNumberGetValue(v340, kCFNumberIntType, &v338);
-          v339 = v338 != 0;
+          v343 = 0;
+          CFNumberGetValue(v345, kCFNumberIntType, &v343);
+          v344 = v343 != 0;
         }
 
-        else if (v340)
+        else if (v345)
         {
-          v82 = CFBooleanGetTypeID();
-          if (v82 == CFGetTypeID(v340))
+          v88 = CFBooleanGetTypeID();
+          if (v88 == CFGetTypeID(v345))
           {
-            v339 = CFBooleanGetValue(v340) != 0;
+            v344 = CFBooleanGetValue(v345) != 0;
           }
         }
 
@@ -6254,41 +6200,41 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
           Count = CFArrayGetCount(*(*(a1 + 56) + 12536));
         }
 
-        v336 = Count;
-        if (Count > 0 || v339)
+        v341 = Count;
+        if (Count > 0 || v344)
         {
-          v340 = CFDictionaryGetValue(*(a1 + 40), @"FreezeBrightnessRequestors");
-          if (v340)
+          v345 = CFDictionaryGetValue(*(a1 + 40), @"FreezeBrightnessRequestors");
+          if (v345)
           {
-            v81 = CFArrayGetTypeID();
-            if (v81 == CFGetTypeID(v340))
+            v87 = CFArrayGetTypeID();
+            if (v87 == CFGetTypeID(v345))
             {
-              v335 = v340;
-              v334 = CFArrayGetCount(v340);
-              if (v334 > 0)
+              v340 = v345;
+              v339 = CFArrayGetCount(v345);
+              if (v339 > 0)
               {
-                if (v339 && !*(*(a1 + 56) + 12536))
+                if (v344 && !*(*(a1 + 56) + 12536))
                 {
-                  *(*(a1 + 56) + 12536) = CFArrayCreateMutable(*MEMORY[0x1E695E480], v334, MEMORY[0x1E695E9C0]);
+                  *(*(a1 + 56) + 12536) = CFArrayCreateMutable(*MEMORY[0x1E695E480], v339, MEMORY[0x1E695E9C0]);
                 }
 
                 if (*(*(a1 + 56) + 12536))
                 {
                   ValueAtIndex = 0;
-                  for (i = 0; i < v334; ++i)
+                  for (i = 0; i < v339; ++i)
                   {
-                    ValueAtIndex = CFArrayGetValueAtIndex(v335, i);
+                    ValueAtIndex = CFArrayGetValueAtIndex(v340, i);
                     if (ValueAtIndex)
                     {
-                      v331 = 0;
+                      v336 = 0;
                       Count = CFArrayGetCount(*(*(a1 + 56) + 12536));
                       for (j = 0; j < Count; ++j)
                       {
-                        v329 = CFArrayGetValueAtIndex(*(*(a1 + 56) + 12536), j);
-                        if (CFEqual(ValueAtIndex, v329))
+                        v334 = CFArrayGetValueAtIndex(*(*(a1 + 56) + 12536), j);
+                        if (CFEqual(ValueAtIndex, v334))
                         {
-                          v331 = 1;
-                          if (!v339)
+                          v336 = 1;
+                          if (!v344)
                           {
                             CFArrayRemoveValueAtIndex(*(*(a1 + 56) + 12536), j);
                             break;
@@ -6296,7 +6242,7 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
                         }
                       }
 
-                      if (v339 && (v331 & 1) == 0)
+                      if (v344 && (v336 & 1) == 0)
                       {
                         CFArrayAppendValue(*(*(a1 + 56) + 12536), ValueAtIndex);
                       }
@@ -6310,112 +6256,112 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
         if (*(*(a1 + 56) + 12536))
         {
-          v80 = CFArrayGetCount(*(*(a1 + 56) + 12536));
+          v86 = CFArrayGetCount(*(*(a1 + 56) + 12536));
         }
 
         else
         {
-          v80 = 0;
+          v86 = 0;
         }
 
-        Count = v80;
-        if (v336 || Count <= 0)
+        Count = v86;
+        if (v341 || Count <= 0)
         {
-          if (v336 > 0 && !Count)
+          if (v341 > 0 && !Count)
           {
             *(*(a1 + 56) + 1256) = *(*(a1 + 56) + 12556);
             *(*(a1 + 56) + 12548) = 0;
-            v326 = *(*(a1 + 56) + 12552) >= *(*(a1 + 56) + 1256);
-            v25 = 2.5;
-            if (!v326)
+            v331 = *(*(a1 + 56) + 12552) >= *(*(a1 + 56) + 1256);
+            v30 = 2.5;
+            if (!v331)
             {
-              v25 = 5.0;
+              v30 = 5.0;
             }
 
-            v325 = v25;
-            v597 = xmmword_1DEACE57C;
-            v598 = -1820426635;
-            v595 = xmmword_1DEACE590;
-            v596 = -937652876;
-            v324 = (MGIsDeviceOneOfType() & 1) != 0;
-            v593 = xmmword_1DEACE5A4;
-            v594 = 1874287171;
-            v591 = xmmword_1DEACE5B8;
-            v592 = -781324731;
+            v330 = v30;
+            v602 = xmmword_1DEACE57C;
+            v603 = -1820426635;
+            v600 = xmmword_1DEACE590;
+            v601 = -937652876;
+            v329 = (MGIsDeviceOneOfType() & 1) != 0;
+            v598 = xmmword_1DEACE5A4;
+            v599 = 1874287171;
+            v596 = xmmword_1DEACE5B8;
+            v597 = -781324731;
             if (MGIsDeviceOneOfType())
             {
-              v324 = 1;
+              v329 = 1;
             }
 
-            if (v324)
+            if (v329)
             {
-              v323 = CFDictionaryGetValue(*(*(a1 + 56) + 192), @"CBStoreDemoModeIsPresent");
-              if (v323)
+              v328 = CFDictionaryGetValue(*(*(a1 + 56) + 192), @"CBStoreDemoModeIsPresent");
+              if (v328)
               {
-                if (CFBooleanGetValue(v323))
+                if (CFBooleanGetValue(v328))
                 {
                   if (_logHandle)
                   {
-                    v77 = _logHandle;
+                    v83 = _logHandle;
                   }
 
                   else
                   {
                     if (_COREBRIGHTNESS_LOG_DEFAULT)
                     {
-                      v76 = _COREBRIGHTNESS_LOG_DEFAULT;
+                      v82 = _COREBRIGHTNESS_LOG_DEFAULT;
                     }
 
                     else
                     {
-                      v76 = init_default_corebrightness_log();
+                      v82 = init_default_corebrightness_log();
                     }
 
-                    v77 = v76;
+                    v83 = v82;
                   }
 
-                  v322 = v77;
-                  v321 = OS_LOG_TYPE_DEFAULT;
-                  if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+                  v327 = v83;
+                  v326 = OS_LOG_TYPE_DEFAULT;
+                  if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
                   {
-                    __os_log_helper_16_0_2_8_0_8_0(v590, COERCE__INT64(v325), 0);
-                    _os_log_impl(&dword_1DE8E5000, v322, v321, "Store Demo is present! The unfreeze period will be altered: %f -> %f.", v590, 0x16u);
+                    __os_log_helper_16_0_2_8_0_8_0(v595, COERCE__INT64(v330), 0);
+                    _os_log_impl(&dword_1DE8E5000, v327, v326, "Store Demo is present! The unfreeze period will be altered: %f -> %f.", v595, 0x16u);
                   }
 
-                  v325 = 0.0;
+                  v330 = 0.0;
                 }
               }
             }
 
             if (_logHandle)
             {
-              v75 = _logHandle;
+              v81 = _logHandle;
             }
 
             else
             {
               if (_COREBRIGHTNESS_LOG_DEFAULT)
               {
-                v74 = _COREBRIGHTNESS_LOG_DEFAULT;
+                v80 = _COREBRIGHTNESS_LOG_DEFAULT;
               }
 
               else
               {
-                v74 = init_default_corebrightness_log();
+                v80 = init_default_corebrightness_log();
               }
 
-              v75 = v74;
+              v81 = v80;
             }
 
-            v320 = v75;
-            v319 = OS_LOG_TYPE_DEFAULT;
-            if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+            v325 = v81;
+            v324 = OS_LOG_TYPE_DEFAULT;
+            if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
             {
-              __os_log_helper_16_0_1_8_0(v589, COERCE__INT64(*(*(a1 + 56) + 12552)));
-              _os_log_impl(&dword_1DE8E5000, v320, v319, "The brightness has been unfrozen. L cached = %f", v589, 0xCu);
+              __os_log_helper_16_0_1_8_0(v594, COERCE__INT64(*(*(a1 + 56) + 12552)));
+              _os_log_impl(&dword_1DE8E5000, v325, v324, "The brightness has been unfrozen. L cached = %f", v594, 0xCu);
             }
 
-            _DisplaySetLogicalBrightnessWithFade(*(a1 + 56), 74, 0, 0, *(*(a1 + 56) + 12552), v325);
+            _DisplaySetLogicalBrightnessWithFade(*(a1 + 56), 74, 0, 0, *(*(a1 + 56) + 12552), v330);
           }
         }
 
@@ -6425,30 +6371,30 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
           *(*(a1 + 56) + 12556) = *(*(a1 + 56) + 1256);
           if (_logHandle)
           {
-            v79 = _logHandle;
+            v85 = _logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v78 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v84 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v78 = init_default_corebrightness_log();
+              v84 = init_default_corebrightness_log();
             }
 
-            v79 = v78;
+            v85 = v84;
           }
 
-          v328 = v79;
-          v327 = OS_LOG_TYPE_DEFAULT;
-          if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+          v333 = v85;
+          v332 = OS_LOG_TYPE_DEFAULT;
+          if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
           {
-            __os_log_helper_16_0_1_8_0(v599, COERCE__INT64(*(*(a1 + 56) + 12556)));
-            _os_log_impl(&dword_1DE8E5000, v328, v327, "The brightness has been frozen. L = %f", v599, 0xCu);
+            __os_log_helper_16_0_1_8_0(v604, COERCE__INT64(*(*(a1 + 56) + 12556)));
+            _os_log_impl(&dword_1DE8E5000, v333, v332, "The brightness has been frozen. L = %f", v604, 0xCu);
           }
         }
 
@@ -6460,11 +6406,11 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
             CFDictionarySetValue(Mutable, @"FreezeBrightnessRequestors", *(*(a1 + 56) + 12536));
           }
 
-          v317 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, (*(a1 + 56) + 12544));
-          if (v317)
+          v322 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, (*(a1 + 56) + 12544));
+          if (v322)
           {
-            CFDictionarySetValue(Mutable, @"FreezeBrightnessPeriod", v317);
-            CFRelease(v317);
+            CFDictionarySetValue(Mutable, @"FreezeBrightnessPeriod", v322);
+            CFRelease(v322);
           }
 
           CFDictionarySetValue(*(*(a1 + 56) + 192), *(a1 + 48), Mutable);
@@ -6480,8 +6426,8 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (*(a1 + 40))
     {
-      v73 = CFGetTypeID(*(a1 + 40));
-      if (v73 == CFNumberGetTypeID())
+      v79 = CFGetTypeID(*(a1 + 40));
+      if (v79 == CFNumberGetTypeID())
       {
         CFNumberGetValue(*(a1 + 40), kCFNumberIntType, (*(a1 + 56) + 12584));
         *(*(*(a1 + 32) + 8) + 24) = 1;
@@ -6493,12 +6439,12 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (*(a1 + 40))
     {
-      v72 = CFGetTypeID(*(a1 + 40));
-      if (v72 == CFNumberGetTypeID())
+      v78 = CFGetTypeID(*(a1 + 40));
+      if (v78 == CFNumberGetTypeID())
       {
-        v316 = -1.0;
-        CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v316);
-        CFXOverrideRampPeriod(*(*(a1 + 56) + 12504), v316);
+        v321 = -1.0;
+        CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v321);
+        CFXOverrideRampPeriod(*(*(a1 + 56) + 12504), v321);
         *(*(*(a1 + 32) + 8) + 24) = 1;
       }
     }
@@ -6508,14 +6454,14 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (*(a1 + 40))
     {
-      v71 = CFGetTypeID(*(a1 + 40));
-      if (v71 == CFNumberGetTypeID())
+      v77 = CFGetTypeID(*(a1 + 40));
+      if (v77 == CFNumberGetTypeID())
       {
-        v315 = 1;
-        CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v315);
-        *(*(a1 + 56) + 1048) = v315 == 0;
-        *(*(a1 + 56) + 1120) = v315 == 0;
-        if (!v315)
+        v320 = 1;
+        CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v320);
+        *(*(a1 + 56) + 1048) = v320 == 0;
+        *(*(a1 + 56) + 1120) = v320 == 0;
+        if (!v320)
         {
           if (*(*(a1 + 56) + 1064) > 0.0)
           {
@@ -6530,7 +6476,7 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
           }
         }
 
-        __DisplaySetLogicalBrightnessInternal(*(a1 + 56), 12290, *(*(a1 + 56) + 1256));
+        __DisplaySetLogicalBrightnessInternal(*(a1 + 56), 0x3002u, *(*(a1 + 56) + 1256));
         *(*(*(a1 + 32) + 8) + 24) = 1;
       }
     }
@@ -6540,12 +6486,12 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (*(a1 + 40))
     {
-      v70 = CFGetTypeID(*(a1 + 40));
-      if (v70 == CFNumberGetTypeID())
+      v76 = CFGetTypeID(*(a1 + 40));
+      if (v76 == CFNumberGetTypeID())
       {
-        v314 = 1;
-        CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v314);
-        *(*(a1 + 56) + 1284) = v314 != 0;
+        v319 = 1;
+        CFNumberGetValue(*(a1 + 40), kCFNumberIntType, &v319);
+        *(*(a1 + 56) + 1284) = v319 != 0;
         *(*(*(a1 + 32) + 8) + 24) = 1;
       }
     }
@@ -6555,8 +6501,8 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (*(a1 + 40))
     {
-      v69 = CFGetTypeID(*(a1 + 40));
-      if (v69 == CFDictionaryGetTypeID())
+      v75 = CFGetTypeID(*(a1 + 40));
+      if (v75 == CFDictionaryGetTypeID())
       {
         GlobalScalarFromDictionary = _DisplayGetGlobalScalarFromDictionary(*(a1 + 56), *(*(a1 + 56) + 80), *(a1 + 40));
         if (GlobalScalarFromDictionary > 0.0)
@@ -6571,8 +6517,8 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
   else if (*(a1 + 40) && CFEqual(*(a1 + 48), @"ProductTypeAccessory"))
   {
-    v68 = CFBooleanGetTypeID();
-    if (v68 == CFGetTypeID(*(a1 + 40)))
+    v74 = CFBooleanGetTypeID();
+    if (v74 == CFGetTypeID(*(a1 + 40)))
     {
       *(*(a1 + 56) + 312) = CFBooleanGetValue(*(a1 + 40)) != 0;
     }
@@ -6582,12 +6528,12 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (*(a1 + 40))
     {
-      v67 = CFGetTypeID(*(a1 + 40));
-      if (v67 == CFNumberGetTypeID())
+      v73 = CFGetTypeID(*(a1 + 40));
+      if (v73 == CFNumberGetTypeID())
       {
-        v312 = -1.0;
-        CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v312);
-        if (v312 >= 0.0)
+        v317 = -1.0;
+        CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v317);
+        if (v317 >= 0.0)
         {
           __DisplaySetBLDriverProperty(*(a1 + 56), @"pcc-enable", *MEMORY[0x1E695E4D0]);
         }
@@ -6599,31 +6545,31 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
         if (_logHandle)
         {
-          v66 = _logHandle;
+          v72 = _logHandle;
         }
 
         else
         {
-          v65 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-          v66 = v65;
+          v71 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+          v72 = v71;
         }
 
-        v311 = v66;
-        v310 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+        v316 = v72;
+        v315 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
         {
-          if (v312 == 0.0)
+          if (v317 == 0.0)
           {
-            v26 = "disabled";
+            v31 = "disabled";
           }
 
           else
           {
-            v26 = "enabled";
+            v31 = "enabled";
           }
 
-          __os_log_helper_16_2_1_8_32(v588, v26);
-          _os_log_impl(&dword_1DE8E5000, v311, v310, "PCC %s", v588, 0xCu);
+          __os_log_helper_16_2_1_8_32(v593, v31);
+          _os_log_impl(&dword_1DE8E5000, v316, v315, "PCC %s", v593, 0xCu);
         }
       }
     }
@@ -6633,48 +6579,48 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   {
     if (*(a1 + 40))
     {
-      v64 = CFGetTypeID(*(a1 + 40));
-      if (v64 == CFNumberGetTypeID())
+      v70 = CFGetTypeID(*(a1 + 40));
+      if (v70 == CFNumberGetTypeID())
       {
-        v309 = -1.0;
-        CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v309);
-        if (v309 >= 0.0)
+        v314 = -1.0;
+        CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v314);
+        if (v314 >= 0.0)
         {
           if (_logHandle)
           {
-            v63 = _logHandle;
+            v69 = _logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v62 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v68 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v62 = init_default_corebrightness_log();
+              v68 = init_default_corebrightness_log();
             }
 
-            v63 = v62;
+            v69 = v68;
           }
 
-          v308 = v63;
-          v307 = OS_LOG_TYPE_DEFAULT;
-          if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+          v313 = v69;
+          v312 = OS_LOG_TYPE_DEFAULT;
+          if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
           {
-            __os_log_helper_16_0_1_8_0(v587, COERCE__INT64(v309));
-            _os_log_impl(&dword_1DE8E5000, v308, v307, "Set PCC brightness = %f", v587, 0xCu);
+            __os_log_helper_16_0_1_8_0(v592, COERCE__INT64(v314));
+            _os_log_impl(&dword_1DE8E5000, v313, v312, "Set PCC brightness = %f", v592, 0xCu);
           }
 
-          v306 = (v309 * 65536.0);
-          v61 = CFGetAllocator(*(a1 + 56));
-          v305 = CFNumberCreate(v61, kCFNumberSInt32Type, &v306);
-          if (v305)
+          v311 = (v314 * 65536.0);
+          v67 = CFGetAllocator(*(a1 + 56));
+          v310 = CFNumberCreate(v67, kCFNumberSInt32Type, &v311);
+          if (v310)
           {
-            __DisplaySetBLDriverProperty(*(a1 + 56), @"pcc-brightness", v305);
-            CFRelease(v305);
+            __DisplaySetBLDriverProperty(*(a1 + 56), @"pcc-brightness", v310);
+            CFRelease(v310);
           }
         }
       }
@@ -6683,73 +6629,73 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
   else if (CFEqual(*(a1 + 48), @"CoreBrightnessFeaturesDisabled"))
   {
-    v304 = *(a1 + 40);
+    v309 = *(a1 + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if ([v304 objectForKey:@"OverrideBrightnessWithFixedNits"] || objc_msgSend(v304, "objectForKey:", @"OverrideBrightnessWithFixedSliderPosition"))
+      if ([v309 objectForKey:@"OverrideBrightnessWithFixedNits"] || objc_msgSend(v309, "objectForKey:", @"OverrideBrightnessWithFixedSliderPosition"))
       {
-        v303 = [v304 objectForKey:@"OverrideBrightnessWithFixedNits"];
-        v302 = [v304 objectForKey:@"OverrideBrightnessWithFixedSliderPosition"];
-        v301 = 0.0;
+        v308 = [v309 objectForKey:@"OverrideBrightnessWithFixedNits"];
+        v307 = [v309 objectForKey:@"OverrideBrightnessWithFixedSliderPosition"];
+        v306 = 0.0;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v303 floatValue];
-          v301 = v27;
+          [v308 floatValue];
+          v306 = v32;
         }
 
         else
         {
-          v300 = 1.0;
+          v305 = 1.0;
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v302 floatValue];
-            v300 = v28;
+            [v307 floatValue];
+            v305 = v33;
           }
 
           else
           {
-            v300 = 1.0;
+            v305 = 1.0;
           }
 
-          v301 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), v300);
+          v306 = _DisplaySliderToLogicalBrightnessInternal(*(a1 + 56), v305);
         }
 
         *(*(a1 + 56) + 1504) = 1;
-        v299 = (*(*(a1 + 56) + 1312) * 65536.0);
-        SetBLDriverNitsCap(*(a1 + 56), v299);
-        v298 = (v301 * 65536.0);
+        v304 = (*(*(a1 + 56) + 1312) * 65536.0);
+        SetBLDriverNitsCap(*(a1 + 56), v304);
+        v303 = (v306 * 65536.0);
         if (_logHandle)
         {
-          v60 = _logHandle;
+          v66 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v59 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v65 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v59 = init_default_corebrightness_log();
+            v65 = init_default_corebrightness_log();
           }
 
-          v60 = v59;
+          v66 = v65;
         }
 
-        v297 = v60;
-        v296 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+        v302 = v66;
+        v301 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
         {
-          __os_log_helper_16_0_1_8_0(v586, COERCE__INT64(v301));
-          _os_log_impl(&dword_1DE8E5000, v297, v296, "Display.m CoreBrightnessFeaturesDisabled overriden brightness, desired fixed brightness is = %f", v586, 0xCu);
+          __os_log_helper_16_0_1_8_0(v591, COERCE__INT64(v306));
+          _os_log_impl(&dword_1DE8E5000, v302, v301, "Display.m CoreBrightnessFeaturesDisabled overriden brightness, desired fixed brightness is = %f", v591, 0xCu);
         }
 
-        SetBLDriverNitsValue(*(a1 + 56), v298);
+        SetBLDriverNitsValue(*(a1 + 56), v303);
       }
 
       else
@@ -6759,32 +6705,32 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
         SetBLDriverNitsValueIfNotInLPM(*(a1 + 56), *(*(a1 + 56) + 1508));
         if (_logHandle)
         {
-          v58 = _logHandle;
+          v64 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v57 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v63 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v57 = init_default_corebrightness_log();
+            v63 = init_default_corebrightness_log();
           }
 
-          v58 = v57;
+          v64 = v63;
         }
 
-        v295 = v58;
-        v294 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+        v300 = v64;
+        v299 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
         {
-          v55 = v295;
-          v56 = v294;
-          __os_log_helper_16_0_0(v293);
-          _os_log_impl(&dword_1DE8E5000, v55, v56, "Display.m CoreBrightnessFeaturesDisabled brightness override off", v293, 2u);
+          v61 = v300;
+          v62 = v299;
+          __os_log_helper_16_0_0(v298);
+          _os_log_impl(&dword_1DE8E5000, v61, v62, "Display.m CoreBrightnessFeaturesDisabled brightness override off", v298, 2u);
         }
       }
     }
@@ -6792,58 +6738,49 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
   else if (CFEqual(*(a1 + 48), @"BrightDotsMitigationParameters"))
   {
-    v292 = *(a1 + 40);
+    v297 = *(a1 + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if ([v292 objectForKey:@"brightDotsMitigationLux1"] && objc_msgSend(v292, "objectForKey:", @"brightDotsMitigationLux2") && objc_msgSend(v292, "objectForKey:", @"brightDotsMitigationNits1") && objc_msgSend(v292, "objectForKey:", @"brightDotsMitigationNits2"))
+      if ([v297 objectForKey:@"brightDotsMitigationLux1"] && objc_msgSend(v297, "objectForKey:", @"brightDotsMitigationLux2") && objc_msgSend(v297, "objectForKey:", @"brightDotsMitigationNits1") && objc_msgSend(v297, "objectForKey:", @"brightDotsMitigationNits2"))
       {
-        [objc_msgSend(v292 objectForKey:{@"brightDotsMitigationLux1", "floatValue"}];
-        *(*(a1 + 56) + 1152) = v29;
-        [objc_msgSend(v292 objectForKey:{@"brightDotsMitigationLux2", "floatValue"}];
-        *(*(a1 + 56) + 1160) = v30;
-        [objc_msgSend(v292 objectForKey:{@"brightDotsMitigationNits1", "floatValue"}];
-        *(*(a1 + 56) + 1156) = v31;
-        [objc_msgSend(v292 objectForKey:{@"brightDotsMitigationNits2", "floatValue"}];
-        *(*(a1 + 56) + 1164) = v32;
+        [objc_msgSend(v297 objectForKey:{@"brightDotsMitigationLux1", "floatValue"}];
+        *(*(a1 + 56) + 1152) = v34;
+        [objc_msgSend(v297 objectForKey:{@"brightDotsMitigationLux2", "floatValue"}];
+        *(*(a1 + 56) + 1160) = v35;
+        [objc_msgSend(v297 objectForKey:{@"brightDotsMitigationNits1", "floatValue"}];
+        *(*(a1 + 56) + 1156) = v36;
+        [objc_msgSend(v297 objectForKey:{@"brightDotsMitigationNits2", "floatValue"}];
+        *(*(a1 + 56) + 1164) = v37;
       }
 
       if (*(*(a1 + 56) + 192))
       {
-        v291 = *(*(a1 + 56) + 192);
-        [v291 setObject:v292 forKey:@"BrightDotsMitigationParameters"];
+        v296 = *(*(a1 + 56) + 192);
+        [v296 setObject:v297 forKey:@"BrightDotsMitigationParameters"];
       }
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"FullBrightnessRangeOverrideEnabled"))
   {
-    v290 = *(a1 + 40);
+    v295 = *(a1 + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if ([v290 objectForKey:@"Status"] && (objc_msgSend(objc_msgSend(v290, "objectForKey:", @"Status"), "BOOLValue") & 1) != 0)
-      {
-        DisplayEnableFullBrightnessRangeAccessOverride(*(a1 + 56), 1);
-      }
-
-      else
-      {
-        DisplayEnableFullBrightnessRangeAccessOverride(*(a1 + 56), 0);
-      }
-
+      *&v38 = [v295 objectForKey:@"Status"] && (objc_msgSend(objc_msgSend(v295, "objectForKey:", @"Status"), "BOOLValue") & 1) != 0 ? DisplayEnableFullBrightnessRangeAccessOverride(*(a1 + 56), 1) : DisplayEnableFullBrightnessRangeAccessOverride(*(a1 + 56), 0);
       if (*(*(a1 + 56) + 192))
       {
-        v289 = *(*(a1 + 56) + 192);
-        [v289 setObject:v290 forKey:@"FullBrightnessRangeOverrideEnabled"];
+        v294 = *(*(a1 + 56) + 192);
+        [v294 setObject:v295 forKey:{@"FullBrightnessRangeOverrideEnabled", v38}];
       }
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"DisplaySyncBrightnessTransactions"))
   {
-    v54 = CFBooleanGetTypeID();
-    if (v54 == CFGetTypeID(*(a1 + 40)))
+    v60 = CFBooleanGetTypeID();
+    if (v60 == CFGetTypeID(*(a1 + 40)))
     {
       *(*(a1 + 56) + 321) = CFBooleanGetValue(*(a1 + 40)) != 0;
       if (*(*(a1 + 56) + 321))
@@ -6856,8 +6793,8 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
   else if (CFEqual(*(a1 + 48), @"DisplayFasterEDREngaged"))
   {
-    v53 = CFBooleanGetTypeID();
-    if (v53 == CFGetTypeID(*(a1 + 40)) && (*(*(a1 + 56) + 321) & 1) != 0)
+    v59 = CFBooleanGetTypeID();
+    if (v59 == CFGetTypeID(*(a1 + 40)) && (*(*(a1 + 56) + 321) & 1) != 0)
     {
       *(*(a1 + 56) + 322) = CFBooleanGetValue(*(a1 + 40)) != 0;
       if (*(*(a1 + 56) + 322))
@@ -6878,218 +6815,218 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
 
   else if (CFEqual(*(a1 + 48), @"DisplayBrightnessMinRefreshRate"))
   {
-    v580 = *(*(a1 + 56) + 384);
-    v52 = CFNumberGetTypeID();
-    if (v52 != CFGetTypeID(*(a1 + 40)))
+    v585 = *(*(a1 + 56) + 384);
+    v58 = CFNumberGetTypeID();
+    if (v58 != CFGetTypeID(*(a1 + 40)))
     {
-      goto LABEL_1185;
+      return;
     }
 
-    CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v580);
-    *(*(a1 + 56) + 384) = v580;
+    CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v585);
+    *(*(a1 + 56) + 384) = v585;
     if (_logHandle)
     {
-      v51 = _logHandle;
+      v57 = _logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v50 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v56 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v50 = init_default_corebrightness_log();
+        v56 = init_default_corebrightness_log();
       }
 
-      v51 = v50;
+      v57 = v56;
     }
 
-    oslog = v51;
-    v287 = OS_LOG_TYPE_DEBUG;
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+    oslog = v57;
+    v292 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
     {
-      __os_log_helper_16_2_2_8_32_8_0(v585, "DisplayBrightnessMinRefreshRate", COERCE__INT64(v580));
-      _os_log_debug_impl(&dword_1DE8E5000, oslog, v287, "MinRefreshRate: %s = %f\n", v585, 0x16u);
+      __os_log_helper_16_2_2_8_32_8_0(v590, "DisplayBrightnessMinRefreshRate", COERCE__INT64(v585));
+      _os_log_debug_impl(&dword_1DE8E5000, oslog, v292, "MinRefreshRate: %s = %f\n", v590, 0x16u);
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"DisplayBrightnessMaxRefreshRate"))
   {
-    v580 = *(*(a1 + 56) + 388);
-    v49 = CFNumberGetTypeID();
-    if (v49 != CFGetTypeID(*(a1 + 40)))
+    v585 = *(*(a1 + 56) + 388);
+    v55 = CFNumberGetTypeID();
+    if (v55 != CFGetTypeID(*(a1 + 40)))
     {
-      goto LABEL_1185;
+      return;
     }
 
-    CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v580);
-    *(*(a1 + 56) + 388) = v580;
+    CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v585);
+    *(*(a1 + 56) + 388) = v585;
     if (_logHandle)
     {
-      v48 = _logHandle;
+      v54 = _logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v47 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v53 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v47 = init_default_corebrightness_log();
+        v53 = init_default_corebrightness_log();
       }
 
-      v48 = v47;
+      v54 = v53;
     }
 
-    v286 = v48;
-    v285 = OS_LOG_TYPE_DEBUG;
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+    v291 = v54;
+    v290 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
     {
-      __os_log_helper_16_2_2_8_32_8_0(v584, "DisplayBrightnessMaxRefreshRate", COERCE__INT64(v580));
-      _os_log_debug_impl(&dword_1DE8E5000, v286, v285, "MaxRefreshRate: %s = %f\n", v584, 0x16u);
+      __os_log_helper_16_2_2_8_32_8_0(v589, "DisplayBrightnessMaxRefreshRate", COERCE__INT64(v585));
+      _os_log_debug_impl(&dword_1DE8E5000, v291, v290, "MaxRefreshRate: %s = %f\n", v589, 0x16u);
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"AuroraRamp"))
   {
-    v580 = *(*(a1 + 56) + 12952);
-    v284 = 0.0;
-    v283 = *(a1 + 40);
+    v585 = *(*(a1 + 56) + 12952);
+    v289 = 0.0;
+    v288 = *(a1 + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v282 = [v283 objectForKey:@"Factor"];
-      if (v282)
+      v287 = [v288 objectForKey:@"Factor"];
+      if (v287)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v282 floatValue];
-          v580 = v33;
+          [v287 floatValue];
+          v585 = v39;
         }
       }
 
-      v281 = [v283 objectForKey:@"Period"];
-      if (v281)
+      v286 = [v288 objectForKey:@"Period"];
+      if (v286)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v281 floatValue];
-          v284 = v34;
+          [v286 floatValue];
+          v289 = v40;
         }
       }
 
-      _DisplaySetAuroraFactorWithFade(*(a1 + 56), v580, v284);
+      _DisplaySetAuroraFactorWithFade(*(a1 + 56), v585, v289);
       if (*(*(a1 + 56) + 192))
       {
-        v280 = *(*(a1 + 56) + 192);
-        [v280 setObject:v283 forKey:@"AuroraRamp"];
+        v285 = *(*(a1 + 56) + 192);
+        [v285 setObject:v288 forKey:@"AuroraRamp"];
       }
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"AuroraCLTMActivationThreshold"))
   {
-    v46 = CFNumberGetTypeID();
-    if (v46 == CFGetTypeID(*(a1 + 40)))
+    v52 = CFNumberGetTypeID();
+    if (v52 == CFGetTypeID(*(a1 + 40)))
     {
       [*(a1 + 40) floatValue];
-      *(*(a1 + 56) + 13024) = v35;
+      *(*(a1 + 56) + 13024) = v41;
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"AuroraRampUpTimeSecondsPerStop"))
   {
-    v45 = CFNumberGetTypeID();
-    if (v45 == CFGetTypeID(*(a1 + 40)))
+    v51 = CFNumberGetTypeID();
+    if (v51 == CFGetTypeID(*(a1 + 40)))
     {
       [*(a1 + 40) floatValue];
-      *(*(a1 + 56) + 13028) = v36;
+      *(*(a1 + 56) + 13028) = v42;
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"AuroraRampDownTimeSecondsPerStop"))
   {
-    v44 = CFNumberGetTypeID();
-    if (v44 == CFGetTypeID(*(a1 + 40)))
+    v50 = CFNumberGetTypeID();
+    if (v50 == CFGetTypeID(*(a1 + 40)))
     {
       [*(a1 + 40) floatValue];
-      *(*(a1 + 56) + 13032) = v37;
+      *(*(a1 + 56) + 13032) = v43;
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"ExternalRampIsRunning"))
   {
-    v279 = *(a1 + 40);
+    v284 = *(a1 + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [*(*(a1 + 56) + 264) handleRampStart:v279];
+      [*(*(a1 + 56) + 264) handleRampStart:v284];
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"ExternalRampHasFinished"))
   {
-    v278 = *(a1 + 40);
+    v283 = *(a1 + 40);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [*(*(a1 + 56) + 264) handleRampEnd:v278];
+      [*(*(a1 + 56) + 264) handleRampEnd:v283];
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"DisplayDisplayStartFade"))
   {
-    v43 = CFNumberGetTypeID();
-    if (v43 == CFGetTypeID(*(a1 + 40)))
+    v49 = CFNumberGetTypeID();
+    if (v49 == CFGetTypeID(*(a1 + 40)))
     {
-      v42 = *(a1 + 56);
+      v48 = *(a1 + 56);
       [*(a1 + 40) floatValue];
-      __DisplayStartFadeWithType(v42, 21, v38);
+      __DisplayStartFadeWithType(v48, 21, v44);
     }
   }
 
   else if (CFEqual(*(a1 + 48), @"DisplayBrightnessFadePeriodOverride"))
   {
-    v277 = *(*(a1 + 56) + 376);
-    v41 = CFNumberGetTypeID();
-    if (v41 == CFGetTypeID(*(a1 + 40)))
+    v282 = *(*(a1 + 56) + 376);
+    v47 = CFNumberGetTypeID();
+    if (v47 == CFGetTypeID(*(a1 + 40)))
     {
-      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v277);
-      if (v277 < 0.0)
+      CFNumberGetValue(*(a1 + 40), kCFNumberFloatType, &v282);
+      if (v282 < 0.0)
       {
-        *(*(a1 + 56) + 376) = v277;
+        *(*(a1 + 56) + 376) = v282;
         *(*(a1 + 56) + 380) = 0;
       }
 
       else
       {
-        *(*(a1 + 56) + 376) = v277;
+        *(*(a1 + 56) + 376) = v282;
         *(*(a1 + 56) + 380) = 1;
       }
 
       if (_logHandle)
       {
-        v40 = _logHandle;
+        v46 = _logHandle;
       }
 
       else
       {
-        v39 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-        v40 = v39;
+        v45 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+        v46 = v45;
       }
 
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_2_2_8_32_8_0(v583, "DisplayBrightnessFadePeriodOverride", COERCE__INT64(v277));
-        _os_log_debug_impl(&dword_1DE8E5000, v40, OS_LOG_TYPE_DEBUG, "FadePeriodOverride: %s = %f\n", v583, 0x16u);
+        __os_log_helper_16_2_2_8_32_8_0(v588, "DisplayBrightnessFadePeriodOverride", COERCE__INT64(v282));
+        _os_log_debug_impl(&dword_1DE8E5000, v46, OS_LOG_TYPE_DEBUG, "FadePeriodOverride: %s = %f\n", v588, 0x16u);
       }
     }
   }
@@ -7119,18 +7056,16 @@ void __DisplaySetProperty_block_invoke(uint64_t a1)
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 1;
-LABEL_1185:
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __DisplayGetPowerAccumulatorDCP(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v29 = a1;
-  v28 = a2;
+  v29 = *MEMORY[0x1E69E9840];
+  v27 = a1;
+  v26 = a2;
   if (_logHandle)
   {
-    v12 = _logHandle;
+    v10 = _logHandle;
   }
 
   else
@@ -7145,37 +7080,35 @@ uint64_t __DisplayGetPowerAccumulatorDCP(uint64_t a1, void *a2)
       inited = init_default_corebrightness_log();
     }
 
-    v12 = inited;
+    v10 = inited;
   }
 
-  v27 = v12;
-  v26 = 1;
-  v25 = 0xEEEEB0B5B2B2EEEELL;
-  if (os_signpost_enabled(v12))
+  v25 = v10;
+  v24 = 1;
+  v23 = 0xEEEEB0B5B2B2EEEELL;
+  if (os_signpost_enabled(v10))
   {
-    log = v27;
-    type = v26;
-    spid = v25;
-    __os_log_helper_16_0_0(v24);
-    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, log, type, spid, "DisplayGetPowerAccumulatorDCP", &unk_1DEAD656F, v24, 2u);
+    log = v25;
+    type = v24;
+    spid = v23;
+    __os_log_helper_16_0_0(v22);
+    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, log, type, spid, "DisplayGetPowerAccumulatorDCP", &unk_1DEAD656F, v22, 2u);
   }
 
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x20000000;
-  v22 = 32;
-  v23 = 0x8000000000000000;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x20000000;
-  v17 = 32;
-  v18 = 0;
-  if (*(v29 + 12144))
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x20000000;
+  v20 = 32;
+  v21 = 0x8000000000000000;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x20000000;
+  v15 = 32;
+  v16 = 0;
+  if (*(v27 + 12144))
   {
-    if (*(v29 + 12136))
+    if (*(v27 + 12136))
     {
-      v2 = *(v29 + 12144);
-      v3 = *(v29 + 12136);
       Samples = IOReportCreateSamples();
       if (Samples)
       {
@@ -7185,42 +7118,41 @@ uint64_t __DisplayGetPowerAccumulatorDCP(uint64_t a1, void *a2)
     }
   }
 
-  if (v28)
+  if (v26)
   {
-    *v28 = v15[3];
+    *v26 = v13[3];
   }
 
   if (_logHandle)
   {
-    v7 = _logHandle;
+    v5 = _logHandle;
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v6 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v4 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
-      v6 = init_default_corebrightness_log();
+      v4 = init_default_corebrightness_log();
     }
 
-    v7 = v6;
+    v5 = v4;
   }
 
-  if (os_signpost_enabled(v7))
+  if (os_signpost_enabled(v5))
   {
-    __os_log_helper_16_0_1_8_0(v30, v20[3]);
-    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v7, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "DisplayGetPowerAccumulatorDCP", "power accumulator = %llu", v30, 0xCu);
+    __os_log_helper_16_0_1_8_0(v28, v18[3]);
+    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "DisplayGetPowerAccumulatorDCP", "power accumulator = %llu", v28, 0xCu);
   }
 
-  v5 = v20[3];
-  _Block_object_dispose(&v14, 8);
-  _Block_object_dispose(&v19, 8);
-  *MEMORY[0x1E69E9840];
-  return v5;
+  v3 = v18[3];
+  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v17, 8);
+  return v3;
 }
 
 _BYTE *__os_log_helper_16_0_0(_BYTE *result)
@@ -7230,39 +7162,39 @@ _BYTE *__os_log_helper_16_0_0(_BYTE *result)
   return result;
 }
 
-void __DisplayCPMSHDRCallback(uint64_t a1)
+void __DisplayCPMSHDRCallback(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    if (DisplayHasDCP(a1))
+    if (DisplayHasDCP(result))
     {
-      __DisplayCPMSHDRCallbackDCPStage1(a1);
+      __DisplayCPMSHDRCallbackDCPStage1(result);
     }
 
     else
     {
       Current = CFAbsoluteTimeGetCurrent();
-      v4 = Current - *(a1 + 12088);
-      PowerAccumulator = __DisplayGetPowerAccumulator(a1);
-      v1 = (PowerAccumulator - *(a1 + 12096)) / (1000.0 * v4);
+      v4 = Current - *(result + 12088);
+      PowerAccumulator = __DisplayGetPowerAccumulator(result);
+      v1 = (PowerAccumulator - *(result + 12096)) / (1000.0 * v4);
       InstantPower = v1;
       if (v1 == 0.0)
       {
-        InstantPower = __DisplayGetInstantPower(a1);
+        InstantPower = __DisplayGetInstantPower(result);
       }
 
       else
       {
-        *(a1 + 12096) = PowerAccumulator;
-        *(a1 + 12088) = Current;
+        *(result + 12096) = PowerAccumulator;
+        *(result + 12088) = Current;
       }
 
-      if (*(a1 + 12081))
+      if (*(result + 12081))
       {
-        __DisplayEvaluateCPMSHDRPowerConstraint(a1, InstantPower);
+        __DisplayEvaluateCPMSHDRPowerConstraint(result, InstantPower);
       }
 
-      *(a1 + 12081) = 1;
+      *(result + 12081) = 1;
     }
   }
 }
@@ -7360,8 +7292,6 @@ void __DisplayEvaluateCPMSHDRPowerConstraint(uint64_t a1, float a2)
   {
     __DisplayUpdateHDRCap(a1);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __DisplayCPMSHDRCallbackDCPStage2(uint64_t a1, uint64_t a2, unint64_t a3, double a4)
@@ -7430,9 +7360,9 @@ float __DisplayGetCPMSPowerConstraint(uint64_t a1)
   }
 }
 
-uint64_t __DisplayGetIndexFromValue(unsigned int a1, unsigned int a2, uint64_t a3, float a4)
+uint64_t __DisplayGetIndexFromValue(signed int a1, signed int a2, uint64_t a3, float a4)
 {
-  if ((a1 & 0x80000000) != 0 || (a2 & 0x80000000) != 0)
+  if (a1 < 0 || a2 < 0)
   {
     return 0;
   }
@@ -7444,7 +7374,7 @@ uint64_t __DisplayGetIndexFromValue(unsigned int a1, unsigned int a2, uint64_t a
     {
       if (a4 >= *(a3 + 4 * (v5 + 1)))
       {
-        return __DisplayGetIndexFromValue((v5 + 1), a2, a3, a4);
+        return __DisplayGetIndexFromValue(v5 + 1, a2, a3, a4);
       }
 
       else
@@ -7499,7 +7429,7 @@ float __DisplayPhysicalBrightnessToPowerInternal(uint64_t a1, unsigned int a2, f
   }
 }
 
-void ColorRampCallback(_BYTE *a1, float *a2)
+void ColorRampCallback(_BYTE *a1, int *a2)
 {
   v34 = *MEMORY[0x1E69E9840];
   v30 = a1;
@@ -7556,10 +7486,10 @@ void ColorRampCallback(_BYTE *a1, float *a2)
         SetLibEDRBrightness(v28, v21, v20, *(v28 + 298), v22);
       }
 
-      theArray = CFArrayCreateMutable(*MEMORY[0x1E695E480], *(v29 + 10), MEMORY[0x1E695E9C0]);
+      theArray = CFArrayCreateMutable(*MEMORY[0x1E695E480], v29[10], MEMORY[0x1E695E9C0]);
       if (theArray)
       {
-        for (i = 0; i < *(v29 + 10); ++i)
+        for (i = 0; i < v29[10]; ++i)
         {
           value = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, &v29[i + 1]);
           if (value)
@@ -7650,8 +7580,6 @@ void ColorRampCallback(_BYTE *a1, float *a2)
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void *ColorRampCallback_0(void *result, uint64_t a2)
@@ -7691,9 +7619,9 @@ float AABC::calculateMovingAverage(AABC *this, float a2)
   v2 = std::array<float,3ul>::size[abi:de200100]();
   *std::array<float,3ul>::operator[][abi:de200100](this + 268, v6 % v2) = a2;
   ++*(this + 35);
-  std::array<float,3ul>::cbegin[abi:de200100]();
+  std::array<float,3ul>::cbegin[abi:de200100](this + 268);
   v8 = v3;
-  v4 = std::array<float,3ul>::cend[abi:de200100]();
+  v4 = std::array<float,3ul>::cend[abi:de200100](this + 268);
   v12 = std::accumulate[abi:de200100]<float const*,float>(v8, v4, 0.0);
   v10 = v12;
   v11 = std::array<float,3ul>::size[abi:de200100]();
@@ -7723,631 +7651,615 @@ uint64_t init_default_corebrightness_log()
 
 uint64_t AABC::getPropertyForClient(AABC *this, const __CFString *a2, const void *a3)
 {
-  v240 = v260;
-  v281 = *MEMORY[0x1E69E9840];
-  v269 = this;
-  v268 = a2;
-  v267 = a3;
-  v241 = this;
+  v238 = v258;
+  v279 = *MEMORY[0x1E69E9840];
+  v267 = this;
+  v266 = a2;
+  v265 = a3;
+  v239 = this;
   if (_logHandle)
   {
-    v239 = _logHandle;
+    v237 = _logHandle;
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v238 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v236 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
       inited = init_default_corebrightness_log();
-      v238 = inited;
+      v236 = inited;
     }
 
-    v239 = v238;
+    v237 = v236;
   }
 
-  v3 = v240;
-  v240[18] = v239;
+  v3 = v238;
+  v238[18] = v237;
   type = OS_LOG_TYPE_DEBUG;
   if (os_log_type_enabled(v3[18], OS_LOG_TYPE_DEBUG))
   {
-    log = v240[18];
-    *v235 = type;
-    buf = v280;
-    __os_log_helper_16_0_1_4_0(v280, 4);
-    _os_log_debug_impl(&dword_1DE8E5000, log, v235[0], "[%x]: ", v280, 8u);
+    log = v238[18];
+    *v233 = type;
+    buf = v278;
+    __os_log_helper_16_0_1_4_0(v278, 4);
+    _os_log_debug_impl(&dword_1DE8E5000, log, v233[0], "[%x]: ", v278, 8u);
   }
 
   if (_logHandle)
   {
-    v233 = _logHandle;
+    v231 = _logHandle;
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v232 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v230 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
-      v231 = init_default_corebrightness_log();
-      v232 = v231;
+      v229 = init_default_corebrightness_log();
+      v230 = v229;
     }
 
-    v233 = v232;
+    v231 = v230;
   }
 
-  v4 = v240;
-  v240[16] = v233;
-  v265 = OS_LOG_TYPE_DEBUG;
+  v4 = v238;
+  v238[16] = v231;
+  v263 = OS_LOG_TYPE_DEBUG;
   if (os_log_type_enabled(v4[16], OS_LOG_TYPE_DEBUG))
   {
-    v228 = v240[16];
-    *v229 = v265;
-    v5 = v240[20];
-    v230 = v279;
-    __os_log_helper_16_2_2_4_0_8_64(v279, 2, v5);
-    _os_log_debug_impl(&dword_1DE8E5000, v228, v229[0], "[%x]: %@", v279, 0x12u);
+    v226 = v238[16];
+    *v227 = v263;
+    v5 = v238[20];
+    v228 = v277;
+    __os_log_helper_16_2_2_4_0_8_64(v277, 2, v5);
+    _os_log_debug_impl(&dword_1DE8E5000, v226, v227[0], "[%x]: %@", v277, 0x12u);
   }
 
-  v6 = v241;
-  v240[14] = 0;
+  v6 = v239;
+  v238[14] = 0;
   if (*(v6 + 92))
   {
-    if (CFEqual(v240[20], @"ALSUserPreference"))
+    if (CFEqual(v238[20], @"ALSUserPreference"))
     {
-      v226 = (*(**(v241 + 8) + 104))(*(v241 + 8));
-      v7 = v241;
-      *(v241 + 288) = v226;
+      v224 = (*(**(v239 + 8) + 104))(*(v239 + 8));
+      v7 = v239;
+      *(v239 + 288) = v224;
       CurveDictionary = AABC::createCurveDictionary(v7, v7 + 1056);
-      v8 = v240;
-      v240[13] = CurveDictionary;
+      v8 = v238;
+      v238[13] = CurveDictionary;
       MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x1E695E480], 0, v8[13]);
-      v9 = v240;
-      v240[12] = MutableCopy;
+      v9 = v238;
+      v238[12] = MutableCopy;
       CFRelease(v9[13]);
-      if (*(v241 + 3409))
+      if (*(v239 + 3409))
       {
-        v223 = (*(**(v241 + 8) + 104))(*(v241 + 8));
-        v10 = v241;
-        *(v241 + 750) = v223;
-        v222 = AABC::createCurveDictionary(v10, v10 + 2904);
-        v11 = v240;
-        v240[13] = v222;
+        v221 = (*(**(v239 + 8) + 104))(*(v239 + 8));
+        v10 = v239;
+        *(v239 + 750) = v221;
+        v220 = AABC::createCurveDictionary(v10, v10 + 2904);
+        v11 = v238;
+        v238[13] = v220;
         CFDictionaryAddValue(v11[12], @"ReplacementCurve", v11[13]);
-        CFRelease(v240[13]);
-        v221 = (*(**(v241 + 8) + 112))(*(v241 + 8));
-        v12 = v241;
-        *(v241 + 776) = v221;
-        v220 = AABC::createCurveDictionary(v12, v12 + 3008);
-        v13 = v240;
-        v240[13] = v220;
+        CFRelease(v238[13]);
+        v219 = (*(**(v239 + 8) + 112))(*(v239 + 8));
+        v12 = v239;
+        *(v239 + 776) = v219;
+        v218 = AABC::createCurveDictionary(v12, v12 + 3008);
+        v13 = v238;
+        v238[13] = v218;
         CFDictionaryAddValue(v13[12], @"AlternativeCurve", v13[13]);
         if (_logHandle)
         {
-          v219 = _logHandle;
+          v217 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v218 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v216 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v217 = init_default_corebrightness_log();
-            v218 = v217;
+            v215 = init_default_corebrightness_log();
+            v216 = v215;
           }
 
-          v219 = v218;
+          v217 = v216;
         }
 
-        v14 = v240;
-        v240[11] = v219;
-        v263 = OS_LOG_TYPE_INFO;
+        v14 = v238;
+        v238[11] = v217;
+        v261 = OS_LOG_TYPE_INFO;
         if (os_log_type_enabled(v14[11], OS_LOG_TYPE_INFO))
         {
-          v214 = v240[11];
-          *v215 = v263;
-          v15 = v240[13];
-          v216 = v278;
-          __os_log_helper_16_2_1_8_64(v278, v15);
-          _os_log_impl(&dword_1DE8E5000, v214, v215[0], "Get ALSUserPreference - AlternativeCurve = %@ ", v278, 0xCu);
+          v212 = v238[11];
+          *v213 = v261;
+          v15 = v238[13];
+          v214 = v276;
+          __os_log_helper_16_2_1_8_64(v276, v15);
+          _os_log_impl(&dword_1DE8E5000, v212, v213[0], "Get ALSUserPreference - AlternativeCurve = %@ ", v276, 0xCu);
         }
 
-        CFRelease(v240[13]);
-        v213 = (*(**(v241 + 8) + 112))(*(v241 + 8));
-        v16 = v241;
-        *(v241 + 802) = v213;
-        v212 = AABC::createCurveDictionary(v16, v16 + 3112);
-        v17 = v240;
-        v240[13] = v212;
+        CFRelease(v238[13]);
+        v211 = (*(**(v239 + 8) + 112))(*(v239 + 8));
+        v16 = v239;
+        *(v239 + 802) = v211;
+        v210 = AABC::createCurveDictionary(v16, v16 + 3112);
+        v17 = v238;
+        v238[13] = v210;
         CFDictionaryAddValue(v17[12], @"AlternativeReplacementCurve", v17[13]);
         if (_logHandle)
         {
-          v211 = _logHandle;
+          v209 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v210 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v208 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v209 = init_default_corebrightness_log();
-            v210 = v209;
+            v207 = init_default_corebrightness_log();
+            v208 = v207;
           }
 
-          v211 = v210;
+          v209 = v208;
         }
 
-        v18 = v240;
-        v240[9] = v211;
-        v262 = OS_LOG_TYPE_INFO;
+        v18 = v238;
+        v238[9] = v209;
+        v260 = OS_LOG_TYPE_INFO;
         if (os_log_type_enabled(v18[9], OS_LOG_TYPE_INFO))
         {
-          v206 = v240[9];
-          *v207 = v262;
-          v19 = v240[13];
-          v208 = v277;
-          __os_log_helper_16_2_1_8_64(v277, v19);
-          _os_log_impl(&dword_1DE8E5000, v206, v207[0], "Get ALSUserPreference - AlternativeReplacementCurve = %@ ", v277, 0xCu);
+          v204 = v238[9];
+          *v205 = v260;
+          v19 = v238[13];
+          v206 = v275;
+          __os_log_helper_16_2_1_8_64(v275, v19);
+          _os_log_impl(&dword_1DE8E5000, v204, v205[0], "Get ALSUserPreference - AlternativeReplacementCurve = %@ ", v275, 0xCu);
         }
 
-        CFRelease(v240[13]);
-        AAB::GetCurveUpdates(v241, v261);
-        if (!std::list<AAB::CurveUpdate>::empty[abi:de200100](v261))
+        CFRelease(v238[13]);
+        AAB::GetCurveUpdates(v259, v239);
+        if (!std::list<AAB::CurveUpdate>::empty[abi:de200100](v259))
         {
           context = objc_autoreleasePoolPush();
-          v204 = [MEMORY[0x1E695DF70] array];
-          v20 = v240;
-          v240[4] = v204;
-          v20[1] = v261;
+          v202 = [MEMORY[0x1E695DF70] array];
+          v20 = v238;
+          v238[4] = v202;
+          v20[1] = v259;
           v21 = std::list<AAB::CurveUpdate>::begin[abi:de200100](v20[1]);
-          v22 = v240;
-          *v240 = v21;
-          v23 = v22[1];
-          v259 = std::list<AAB::CurveUpdate>::end[abi:de200100]();
-          while (std::operator!=[abi:de200100](v260, &v259))
+          v22 = v238;
+          *v238 = v21;
+          v257 = std::list<AAB::CurveUpdate>::end[abi:de200100](v22[1]);
+          while (std::operator!=[abi:de200100](v258, &v257))
           {
-            v202 = std::__list_iterator<AAB::CurveUpdate,void *>::operator*[abi:de200100](v260);
-            v258 = v202;
-            v200 = v240[4];
-            v240[86] = @"Lux";
-            LODWORD(v24) = *v258;
-            v201 = [MEMORY[0x1E696AD98] numberWithFloat:v24];
-            v25 = v240;
-            v240[89] = v201;
-            v25[87] = @"Nits";
-            LODWORD(v26) = *(v258 + 4);
-            v199 = [MEMORY[0x1E696AD98] numberWithFloat:v26];
-            v27 = v240;
-            v240[90] = v199;
-            v27[88] = @"Timestamp";
-            v198 = [MEMORY[0x1E696AD98] numberWithLongLong:*(v258 + 8)];
-            v240[91] = v198;
-            v197 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v276 forKeys:v275 count:3];
-            [v200 addObject:v197];
-            std::__list_iterator<AAB::CurveUpdate,void *>::operator++[abi:de200100](v260);
+            v200 = std::__list_iterator<AAB::CurveUpdate,void *>::operator*[abi:de200100](v258);
+            v256 = v200;
+            v198 = v238[4];
+            v238[86] = @"Lux";
+            LODWORD(v23) = *v256;
+            v199 = [MEMORY[0x1E696AD98] numberWithFloat:v23];
+            v24 = v238;
+            v238[89] = v199;
+            v24[87] = @"Nits";
+            LODWORD(v25) = *(v256 + 4);
+            v197 = [MEMORY[0x1E696AD98] numberWithFloat:v25];
+            v26 = v238;
+            v238[90] = v197;
+            v26[88] = @"Timestamp";
+            v196 = [MEMORY[0x1E696AD98] numberWithLongLong:*(v256 + 8)];
+            v238[91] = v196;
+            v195 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v274 forKeys:v273 count:3];
+            [v198 addObject:v195];
+            std::__list_iterator<AAB::CurveUpdate,void *>::operator++[abi:de200100](v258);
           }
 
-          CFDictionaryAddValue(v240[12], @"CurveUpdates", v240[4]);
+          CFDictionaryAddValue(v238[12], @"CurveUpdates", v238[4]);
           objc_autoreleasePoolPop(context);
         }
 
-        (*(**(v241 + 8) + 96))(*(v241 + 8));
-        std::list<AAB::CurveUpdate>::~list(v261);
+        (*(**(v239 + 8) + 96))(*(v239 + 8));
+        std::list<AAB::CurveUpdate>::~list(v259);
       }
 
-      if (*(v241 + 3376))
+      if (*(v239 + 3376))
       {
-        v196 = AABC::createCurveDictionary(v241, v241 + 2904);
-        v28 = v240;
-        v240[13] = v196;
-        CFDictionaryAddValue(v28[12], @"ReplacementCurve", v28[13]);
-        CFRelease(v240[13]);
-        CurveDescriptorDictionary = AABC::createCurveDescriptorDictionary(v241, v241 + 834);
+        v194 = AABC::createCurveDictionary(v239, v239 + 2904);
+        v27 = v238;
+        v238[13] = v194;
+        CFDictionaryAddValue(v27[12], @"ReplacementCurve", v27[13]);
+        CFRelease(v238[13]);
+        CurveDescriptorDictionary = AABC::createCurveDescriptorDictionary(v239, v239 + 834);
         value = CurveDescriptorDictionary;
-        CFDictionaryAddValue(v240[12], @"Descriptor", CurveDescriptorDictionary);
+        CFDictionaryAddValue(v238[12], @"Descriptor", CurveDescriptorDictionary);
         CFRelease(CurveDescriptorDictionary);
-        if (!v240[19])
+        if (!v238[19])
         {
-          if (AABC::isCurveGood(v241, v241 + 1056))
+          if (AABC::isCurveGood(v239, v239 + 1056))
           {
-            AABC::writeOutlierRemovalPreferences(v241, 0);
+            AABC::writeOutlierRemovalPreferences(v239, 0);
           }
 
           else
           {
-            *(v241 + 3408) = 1;
+            *(v239 + 3408) = 1;
           }
         }
       }
 
-      CFDictionarySetValue(*(v241 + 47), @"ALSUserPreference", v240[12]);
-      v29 = v240;
-      v240[14] = v240[12];
-      CFRelease(v29[12]);
+      CFDictionarySetValue(*(v239 + 47), @"ALSUserPreference", v238[12]);
+      v28 = v238;
+      v238[14] = v238[12];
+      CFRelease(v28[12]);
     }
 
-    else if (CFEqual(v240[20], @"OutlierRemoval"))
+    else if (CFEqual(v238[20], @"OutlierRemoval"))
     {
-      if (!CFDictionaryGetValueIfPresent(*(v241 + 47), @"OutlierRemoval", &v264))
+      if (!CFDictionaryGetValueIfPresent(*(v239 + 47), @"OutlierRemoval", &v262))
       {
-        v240[14] = 0;
+        v238[14] = 0;
       }
     }
 
-    else if (CFEqual(v240[20], @"ALSRequiresProx"))
+    else if (CFEqual(v238[20], @"ALSRequiresProx"))
     {
-      v240[14] = *MEMORY[0x1E695E4D0];
+      v238[14] = *MEMORY[0x1E695E4D0];
     }
 
-    else if (CFEqual(v240[20], @"ALSDimPolicy"))
+    else if (CFEqual(v238[20], @"ALSDimPolicy"))
     {
-      v190 = CFDictionaryGetValue(*(v241 + 48), @"ALSDimPolicy");
-      v240[14] = v190;
+      v188 = CFDictionaryGetValue(*(v239 + 48), @"ALSDimPolicy");
+      v238[14] = v188;
     }
 
-    else if (CFEqual(v240[20], @"ALSSpikeFilterDuration"))
+    else if (CFEqual(v238[20], @"ALSSpikeFilterDuration"))
     {
-      v188 = CFDictionaryGetValue(*(v241 + 48), @"ALSSpikeFilterDuration");
-      v240[14] = v188;
+      v186 = CFDictionaryGetValue(*(v239 + 48), @"ALSSpikeFilterDuration");
+      v238[14] = v186;
     }
 
-    else if (CFEqual(v240[20], @"ALSMaxBrightenDuration"))
+    else if (CFEqual(v238[20], @"ALSMaxBrightenDuration"))
     {
-      v186 = CFDictionaryGetValue(*(v241 + 48), @"ALSMaxBrightenDuration");
-      v240[14] = v186;
+      v184 = CFDictionaryGetValue(*(v239 + 48), @"ALSMaxBrightenDuration");
+      v238[14] = v184;
     }
 
-    else if (CFEqual(v240[20], @"ALSInternalSettings"))
+    else if (CFEqual(v238[20], @"ALSInternalSettings"))
     {
-      v240[14] = *(v241 + 48);
+      v238[14] = *(v239 + 48);
     }
 
-    else if (CFEqual(v240[20], @"BrightnessCurveLevel"))
+    else if (CFEqual(v238[20], @"BrightnessCurveLevel"))
     {
-      v183 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, v241 + 3412);
-      v30 = v240;
-      v240[14] = v183;
+      v181 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, v239 + 3412);
+      v29 = v238;
+      v238[14] = v181;
+      if (v29[14])
+      {
+        CFDictionarySetValue(*(v239 + 48), @"BrightnessCurveLevel", v238[14]);
+        CFRelease(v238[14]);
+        v180 = CFDictionaryGetValue(*(v239 + 48), @"BrightnessCurveLevel");
+        v238[14] = v180;
+      }
+    }
+
+    else if (CFEqual(v238[20], @"AutoBrightnessLuxFilter"))
+    {
+      v178 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, v239 + 3464);
+      v238[14] = v178;
+    }
+
+    else if (CFEqual(v238[20], @"SemanticAmbientLightLevel"))
+    {
+      v176 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, v239 + 584);
+      v30 = v238;
+      v238[14] = v176;
       if (v30[14])
       {
-        CFDictionarySetValue(*(v241 + 48), @"BrightnessCurveLevel", v240[14]);
-        CFRelease(v240[14]);
-        v182 = CFDictionaryGetValue(*(v241 + 48), @"BrightnessCurveLevel");
-        v240[14] = v182;
+        CFDictionarySetValue(*(v239 + 47), @"SemanticAmbientLightLevel", v238[14]);
+        CFRelease(v238[14]);
+        v175 = CFDictionaryGetValue(*(v239 + 47), @"SemanticAmbientLightLevel");
+        v238[14] = v175;
       }
     }
 
-    else if (CFEqual(v240[20], @"AutoBrightnessLuxFilter"))
+    else if (CFEqual(v238[20], @"TrustedLux32"))
     {
-      v180 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, v241 + 3464);
-      v240[14] = v180;
-    }
-
-    else if (CFEqual(v240[20], @"SemanticAmbientLightLevel"))
-    {
-      v178 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, v241 + 584);
-      v31 = v240;
-      v240[14] = v178;
+      v173 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloat32Type, v239 + 540);
+      v31 = v238;
+      v238[14] = v173;
       if (v31[14])
       {
-        CFDictionarySetValue(*(v241 + 47), @"SemanticAmbientLightLevel", v240[14]);
-        CFRelease(v240[14]);
-        v177 = CFDictionaryGetValue(*(v241 + 47), @"SemanticAmbientLightLevel");
-        v240[14] = v177;
+        CFDictionarySetValue(*(v239 + 48), @"TrustedLux32", v238[14]);
+        CFRelease(v238[14]);
+        v172 = CFDictionaryGetValue(*(v239 + 48), @"TrustedLux32");
+        v238[14] = v172;
       }
     }
 
-    else if (CFEqual(v240[20], @"TrustedLux32"))
+    else if (CFEqual(v238[20], @"TrustedLux"))
     {
-      v175 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloat32Type, v241 + 540);
-      v32 = v240;
-      v240[14] = v175;
+      v170 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v239 + 540);
+      v32 = v238;
+      v238[14] = v170;
       if (v32[14])
       {
-        CFDictionarySetValue(*(v241 + 48), @"TrustedLux32", v240[14]);
-        CFRelease(v240[14]);
-        v174 = CFDictionaryGetValue(*(v241 + 48), @"TrustedLux32");
-        v240[14] = v174;
+        CFDictionarySetValue(*(v239 + 48), @"TrustedLux", v238[14]);
+        CFRelease(v238[14]);
+        v169 = CFDictionaryGetValue(*(v239 + 48), @"TrustedLux");
+        v238[14] = v169;
       }
     }
 
-    else if (CFEqual(v240[20], @"TrustedLux"))
+    else if (CFEqual(v238[20], @"TrustedFrontLux"))
     {
-      v172 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v241 + 540);
-      v33 = v240;
-      v240[14] = v172;
+      v167 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v239 + 544);
+      v33 = v238;
+      v238[14] = v167;
       if (v33[14])
       {
-        CFDictionarySetValue(*(v241 + 48), @"TrustedLux", v240[14]);
-        CFRelease(v240[14]);
-        v171 = CFDictionaryGetValue(*(v241 + 48), @"TrustedLux");
-        v240[14] = v171;
-      }
-    }
-
-    else if (CFEqual(v240[20], @"TrustedFrontLux"))
-    {
-      v169 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v241 + 544);
-      v34 = v240;
-      v240[14] = v169;
-      if (v34[14])
-      {
-        CFDictionarySetValue(*(v241 + 48), @"TrustedFrontLux", v240[14]);
-        CFRelease(v240[14]);
-        v168 = CFDictionaryGetValue(*(v241 + 48), @"TrustedFrontLux");
-        v240[14] = v168;
+        CFDictionarySetValue(*(v239 + 48), @"TrustedFrontLux", v238[14]);
+        CFRelease(v238[14]);
+        v166 = CFDictionaryGetValue(*(v239 + 48), @"TrustedFrontLux");
+        v238[14] = v166;
       }
     }
 
     else
     {
-      v167 = CFEqual(v240[20], @"Lux");
-      if (v167 || (v166 = CFEqual(v240[20], @"AggregatedLux")) != 0)
+      v165 = CFEqual(v238[20], @"Lux");
+      if (v165 || (v164 = CFEqual(v238[20], @"AggregatedLux")) != 0)
       {
-        v165 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v241 + 528);
-        v35 = v240;
-        v240[14] = v165;
+        v163 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v239 + 528);
+        v34 = v238;
+        v238[14] = v163;
+        if (v34[14])
+        {
+          CFDictionarySetValue(*(v239 + 48), @"Lux", v238[14]);
+          CFRelease(v238[14]);
+          v162 = CFDictionaryGetValue(*(v239 + 48), @"Lux");
+          v238[14] = v162;
+        }
+      }
+
+      else if (CFEqual(v238[20], @"VirtualLux"))
+      {
+        v160 = AABC::LuminanceToIlluminance(v239, v239 + 264, *(v239 + 155));
+        valuePtr = v160;
+        v159 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, &valuePtr);
+        v35 = v238;
+        v238[14] = v159;
         if (v35[14])
         {
-          CFDictionarySetValue(*(v241 + 48), @"Lux", v240[14]);
-          CFRelease(v240[14]);
-          v164 = CFDictionaryGetValue(*(v241 + 48), @"Lux");
-          v240[14] = v164;
+          CFDictionarySetValue(*(v239 + 48), @"VirtualLux", v238[14]);
+          CFRelease(v238[14]);
+          v158 = CFDictionaryGetValue(*(v239 + 48), @"VirtualLux");
+          v238[14] = v158;
         }
       }
 
-      else if (CFEqual(v240[20], @"VirtualLux"))
+      else if (CFEqual(v238[20], @"ALSCurveInfo"))
       {
-        v162 = AABC::LuminanceToIlluminance(v241, v241 + 264, *(v241 + 155));
-        valuePtr = v162;
-        v161 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, &valuePtr);
-        v36 = v240;
-        v240[14] = v161;
-        if (v36[14])
-        {
-          CFDictionarySetValue(*(v241 + 48), @"VirtualLux", v240[14]);
-          CFRelease(v240[14]);
-          v160 = CFDictionaryGetValue(*(v241 + 48), @"VirtualLux");
-          v240[14] = v160;
-        }
-      }
-
-      else if (CFEqual(v240[20], @"ALSCurveInfo"))
-      {
-        v157 = &v255;
-        v255 = 2;
+        v155 = &v253;
+        v253 = 2;
         __len = 120;
         memcpy(__dst, off_1E867CF10, sizeof(__dst));
         memset(__b, 0, sizeof(__b));
-        v158 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &v255);
-        v37 = v241;
-        v240[56] = v158;
-        v155 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v37 + 1072);
-        v38 = v241;
-        v240[57] = v155;
-        v154 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v38 + 1080);
-        v39 = v241;
-        v240[58] = v154;
-        v153 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v39 + 1076);
-        v40 = v241;
-        v240[59] = v153;
-        v152 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v40 + 1084);
-        v41 = v241;
-        v240[60] = v152;
-        v151 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v41 + 1056);
-        v42 = v241;
-        v240[61] = v151;
-        v150 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v42 + 1060);
-        v43 = v241;
-        v240[62] = v150;
-        v149 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v43 + 1064);
-        v44 = v241;
-        v240[63] = v149;
-        v148 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v44 + 1068);
-        v45 = v241;
-        v240[64] = v148;
-        v147 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v45 + 28);
-        v46 = v241;
-        v240[65] = v147;
-        v146 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v46 + 20);
-        v47 = v241;
-        v240[66] = v146;
-        v145 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v47 + 24);
-        v48 = v241;
-        v240[67] = v145;
-        v144 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v48 + 32);
-        v49 = v241;
-        v240[68] = v144;
-        v143 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v49 + 36);
-        v50 = v241;
-        v240[69] = v143;
-        CurvePrefsDictionary = AABC::createCurvePrefsDictionary(v50, v50 + 1088);
-        v240[70] = CurvePrefsDictionary;
-        v141 = CFDictionaryCreate(*MEMORY[0x1E695E480], __dst, __b, 15, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-        theDict = v141;
-        CFRelease(v240[70]);
-        CFRelease(v240[69]);
-        CFRelease(v240[68]);
-        CFRelease(v240[67]);
-        CFRelease(v240[66]);
-        CFRelease(v240[65]);
-        CFRelease(v240[64]);
-        CFRelease(v240[63]);
-        CFRelease(v240[62]);
-        CFRelease(v240[61]);
-        CFRelease(v240[60]);
-        CFRelease(v240[59]);
-        CFRelease(v240[58]);
-        CFRelease(v240[57]);
-        CFRelease(v240[56]);
-        if (*(v241 + 3376))
+        v156 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &v253);
+        v36 = v239;
+        v238[56] = v156;
+        v153 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v36 + 1072);
+        v37 = v239;
+        v238[57] = v153;
+        v152 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v37 + 1080);
+        v38 = v239;
+        v238[58] = v152;
+        v151 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v38 + 1076);
+        v39 = v239;
+        v238[59] = v151;
+        v150 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v39 + 1084);
+        v40 = v239;
+        v238[60] = v150;
+        v149 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v40 + 1056);
+        v41 = v239;
+        v238[61] = v149;
+        v148 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v41 + 1060);
+        v42 = v239;
+        v238[62] = v148;
+        v147 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v42 + 1064);
+        v43 = v239;
+        v238[63] = v147;
+        v146 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v43 + 1068);
+        v44 = v239;
+        v238[64] = v146;
+        v145 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v44 + 28);
+        v45 = v239;
+        v238[65] = v145;
+        v144 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v45 + 20);
+        v46 = v239;
+        v238[66] = v144;
+        v143 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v46 + 24);
+        v47 = v239;
+        v238[67] = v143;
+        v142 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v47 + 32);
+        v48 = v239;
+        v238[68] = v142;
+        v141 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v48 + 36);
+        v49 = v239;
+        v238[69] = v141;
+        CurvePrefsDictionary = AABC::createCurvePrefsDictionary(v49, v49 + 1088);
+        v238[70] = CurvePrefsDictionary;
+        v139 = CFDictionaryCreate(*MEMORY[0x1E695E480], __dst, __b, 15, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+        theDict = v139;
+        CFRelease(v238[70]);
+        CFRelease(v238[69]);
+        CFRelease(v238[68]);
+        CFRelease(v238[67]);
+        CFRelease(v238[66]);
+        CFRelease(v238[65]);
+        CFRelease(v238[64]);
+        CFRelease(v238[63]);
+        CFRelease(v238[62]);
+        CFRelease(v238[61]);
+        CFRelease(v238[60]);
+        CFRelease(v238[59]);
+        CFRelease(v238[58]);
+        CFRelease(v238[57]);
+        CFRelease(v238[56]);
+        if (*(v239 + 3376))
         {
-          v140 = CFDictionaryCreateMutableCopy(*MEMORY[0x1E695E480], 0, theDict);
-          v253 = v140;
+          v138 = CFDictionaryCreateMutableCopy(*MEMORY[0x1E695E480], 0, theDict);
+          v251 = v138;
           CFRelease(theDict);
-          v139 = AABC::createCurveDescriptorDictionary(v241, v241 + 834);
-          cf = v139;
-          CFDictionaryAddValue(v140, @"Descriptor", v139);
-          CFRelease(v139);
-          theDict = v140;
+          v137 = AABC::createCurveDescriptorDictionary(v239, v239 + 834);
+          cf = v137;
+          CFDictionaryAddValue(v138, @"Descriptor", v137);
+          CFRelease(v137);
+          theDict = v138;
         }
 
-        CFDictionarySetValue(*(v241 + 47), @"ALSCurveInfo", theDict);
-        v240[14] = theDict;
+        CFDictionarySetValue(*(v239 + 47), @"ALSCurveInfo", theDict);
+        v238[14] = theDict;
         CFRelease(theDict);
       }
 
-      else if (CFEqual(v240[20], @"ALSAlternativeCurveInfo"))
+      else if (CFEqual(v238[20], @"ALSAlternativeCurveInfo"))
       {
-        v136 = &v251;
-        v251 = 2;
-        v135 = 120;
+        v134 = &v249;
+        v249 = 2;
+        v133 = 120;
         memcpy(keys, off_1E867CF88, sizeof(keys));
         memset(values, 0, sizeof(values));
-        v137 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &v251);
-        v51 = v241;
-        v240[26] = v137;
-        v134 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v51 + 3024);
-        v52 = v241;
-        v240[27] = v134;
-        v133 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v52 + 3032);
-        v53 = v241;
-        v240[28] = v133;
-        v132 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v53 + 3028);
-        v54 = v241;
-        v240[29] = v132;
-        v131 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v54 + 3036);
-        v55 = v241;
-        v240[30] = v131;
-        v130 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v55 + 3008);
-        v56 = v241;
-        v240[31] = v130;
-        v129 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v56 + 3012);
-        v57 = v241;
-        v240[32] = v129;
-        v128 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v57 + 3016);
-        v58 = v241;
-        v240[33] = v128;
-        v127 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v58 + 3020);
-        v59 = v241;
-        v240[34] = v127;
-        v126 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v59 + 28);
-        v60 = v241;
-        v240[35] = v126;
-        v125 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v60 + 20);
-        v61 = v241;
-        v240[36] = v125;
-        v124 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v61 + 24);
-        v62 = v241;
-        v240[37] = v124;
-        v123 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v62 + 32);
-        v63 = v241;
-        v240[38] = v123;
-        v122 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v63 + 36);
-        v64 = v241;
-        v240[39] = v122;
-        v121 = AABC::createCurvePrefsDictionary(v64, v64 + 3040);
-        v240[40] = v121;
-        v120 = CFDictionaryCreate(*MEMORY[0x1E695E480], keys, values, 15, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-        v250 = v120;
-        CFRelease(v240[40]);
-        CFRelease(v240[39]);
-        CFRelease(v240[38]);
-        CFRelease(v240[37]);
-        CFRelease(v240[36]);
-        CFRelease(v240[35]);
-        CFRelease(v240[34]);
-        CFRelease(v240[33]);
-        CFRelease(v240[32]);
-        CFRelease(v240[31]);
-        CFRelease(v240[30]);
-        CFRelease(v240[29]);
-        CFRelease(v240[28]);
-        CFRelease(v240[27]);
-        CFRelease(v240[26]);
-        CFDictionarySetValue(*(v241 + 47), @"ALSAlternativeCurveInfo", v120);
-        v240[14] = v120;
-        CFRelease(v250);
+        v135 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &v249);
+        v50 = v239;
+        v238[26] = v135;
+        v132 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v50 + 3024);
+        v51 = v239;
+        v238[27] = v132;
+        v131 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v51 + 3032);
+        v52 = v239;
+        v238[28] = v131;
+        v130 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v52 + 3028);
+        v53 = v239;
+        v238[29] = v130;
+        v129 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v53 + 3036);
+        v54 = v239;
+        v238[30] = v129;
+        v128 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v54 + 3008);
+        v55 = v239;
+        v238[31] = v128;
+        v127 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v55 + 3012);
+        v56 = v239;
+        v238[32] = v127;
+        v126 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v56 + 3016);
+        v57 = v239;
+        v238[33] = v126;
+        v125 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v57 + 3020);
+        v58 = v239;
+        v238[34] = v125;
+        v124 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v58 + 28);
+        v59 = v239;
+        v238[35] = v124;
+        v123 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v59 + 20);
+        v60 = v239;
+        v238[36] = v123;
+        v122 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v60 + 24);
+        v61 = v239;
+        v238[37] = v122;
+        v121 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v61 + 32);
+        v62 = v239;
+        v238[38] = v121;
+        v120 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v62 + 36);
+        v63 = v239;
+        v238[39] = v120;
+        v119 = AABC::createCurvePrefsDictionary(v63, v63 + 3040);
+        v238[40] = v119;
+        v118 = CFDictionaryCreate(*MEMORY[0x1E695E480], keys, values, 15, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+        v248 = v118;
+        CFRelease(v238[40]);
+        CFRelease(v238[39]);
+        CFRelease(v238[38]);
+        CFRelease(v238[37]);
+        CFRelease(v238[36]);
+        CFRelease(v238[35]);
+        CFRelease(v238[34]);
+        CFRelease(v238[33]);
+        CFRelease(v238[32]);
+        CFRelease(v238[31]);
+        CFRelease(v238[30]);
+        CFRelease(v238[29]);
+        CFRelease(v238[28]);
+        CFRelease(v238[27]);
+        CFRelease(v238[26]);
+        CFDictionarySetValue(*(v239 + 47), @"ALSAlternativeCurveInfo", v118);
+        v238[14] = v118;
+        CFRelease(v248);
       }
 
-      else if (CFEqual(v240[20], @"AODDarkerCurve"))
+      else if (CFEqual(v238[20], @"AODDarkerCurve"))
       {
-        if (*(v241 + 718) > 0)
+        if (*(v239 + 718) > 0)
         {
-          v118 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          v249 = v118;
-          v117 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          v248 = v117;
-          for (i = 0; i < *(v241 + 718); ++i)
+          v116 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v247 = v116;
+          v115 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v246 = v115;
+          for (i = 0; i < *(v239 + 718); ++i)
           {
-            v116 = objc_alloc(MEMORY[0x1E696AD98]);
-            LODWORD(v65) = *(v241 + i + 678);
-            v115 = [v116 initWithFloat:v65];
-            v246 = v115;
             v114 = objc_alloc(MEMORY[0x1E696AD98]);
-            LODWORD(v66) = *(v241 + i + 698);
-            v113 = [v114 initWithFloat:v66];
-            v245 = v113;
-            [v249 addObject:v115];
-            [v248 addObject:v113];
-            MEMORY[0x1E69E5920](v115);
+            LODWORD(v64) = *(v239 + i + 678);
+            v113 = [v114 initWithFloat:v64];
+            v244 = v113;
+            v112 = objc_alloc(MEMORY[0x1E696AD98]);
+            LODWORD(v65) = *(v239 + i + 698);
+            v111 = [v112 initWithFloat:v65];
+            v243 = v111;
+            [v247 addObject:v113];
+            [v246 addObject:v111];
             MEMORY[0x1E69E5920](v113);
+            MEMORY[0x1E69E5920](v111);
           }
 
-          v112 = objc_alloc(MEMORY[0x1E695DF20]);
-          v111 = [v112 initWithObjectsAndKeys:{v249, @"lux", v248, @"nits", 0}];
-          v244 = v111;
-          v240[14] = v111;
-          MEMORY[0x1E69E5920](v249);
-          MEMORY[0x1E69E5920](v248);
-          if (v240[14])
+          v110 = objc_alloc(MEMORY[0x1E695DF20]);
+          v109 = [v110 initWithObjectsAndKeys:{v247, @"lux", v246, @"nits", 0}];
+          v242 = v109;
+          v238[14] = v109;
+          MEMORY[0x1E69E5920](v247);
+          MEMORY[0x1E69E5920](v246);
+          if (v238[14])
           {
-            CFDictionarySetValue(*(v241 + 48), @"AODDarkerCurve", v240[14]);
-            CFRelease(v240[14]);
-            v110 = CFDictionaryGetValue(*(v241 + 48), @"AODDarkerCurve");
-            v240[14] = v110;
+            CFDictionarySetValue(*(v239 + 48), @"AODDarkerCurve", v238[14]);
+            CFRelease(v238[14]);
+            v108 = CFDictionaryGetValue(*(v239 + 48), @"AODDarkerCurve");
+            v238[14] = v108;
           }
         }
       }
 
-      else if (CFEqual(v240[20], @"ALSDefaultCurves"))
+      else if (CFEqual(v238[20], @"ALSDefaultCurves"))
       {
-        v108 = CFDictionaryGetValue(*(v241 + 47), v240[20]);
-        v240[14] = v108;
+        v106 = CFDictionaryGetValue(*(v239 + 47), v238[20]);
+        v238[14] = v106;
       }
 
-      else if (CFEqual(v240[20], @"EcoMode"))
+      else if (CFEqual(v238[20], @"EcoMode"))
       {
-        if (*(v241 + 3424))
-        {
-          v106 = *MEMORY[0x1E695E4D0];
-        }
-
-        else
-        {
-          v106 = *MEMORY[0x1E695E4C0];
-        }
-
-        v240[14] = v106;
-      }
-
-      else if (CFEqual(v240[20], @"CBAutoBrightnessAvailable"))
-      {
-        if (*(v241 + 127))
+        if (*(v239 + 3424))
         {
           v104 = *MEMORY[0x1E695E4D0];
         }
@@ -8357,156 +8269,169 @@ uint64_t AABC::getPropertyForClient(AABC *this, const __CFString *a2, const void
           v104 = *MEMORY[0x1E695E4C0];
         }
 
-        v240[14] = v104;
+        v238[14] = v104;
       }
 
-      else if (CFEqual(v240[20], @"ALSBrightenPdeltaSlow"))
+      else if (CFEqual(v238[20], @"CBAutoBrightnessAvailable"))
       {
-        v102 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v241 + 3816);
-        v67 = v240;
-        v240[14] = v102;
+        if (*(v239 + 127))
+        {
+          v102 = *MEMORY[0x1E695E4D0];
+        }
+
+        else
+        {
+          v102 = *MEMORY[0x1E695E4C0];
+        }
+
+        v238[14] = v102;
+      }
+
+      else if (CFEqual(v238[20], @"ALSBrightenPdeltaSlow"))
+      {
+        v100 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v239 + 3816);
+        v66 = v238;
+        v238[14] = v100;
+        if (v66[14])
+        {
+          CFDictionarySetValue(*(v239 + 48), @"ALSBrightenPdeltaSlow", v238[14]);
+          CFRelease(v238[14]);
+          v99 = CFDictionaryGetValue(*(v239 + 48), @"ALSBrightenPdeltaSlow");
+          v238[14] = v99;
+        }
+      }
+
+      else if (CFEqual(v238[20], @"ALSBrightenPdeltaFast"))
+      {
+        v97 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v239 + 3812);
+        v67 = v238;
+        v238[14] = v97;
         if (v67[14])
         {
-          CFDictionarySetValue(*(v241 + 48), @"ALSBrightenPdeltaSlow", v240[14]);
-          CFRelease(v240[14]);
-          v101 = CFDictionaryGetValue(*(v241 + 48), @"ALSBrightenPdeltaSlow");
-          v240[14] = v101;
+          CFDictionarySetValue(*(v239 + 48), @"ALSBrightenPdeltaFast", v238[14]);
+          CFRelease(v238[14]);
+          v96 = CFDictionaryGetValue(*(v239 + 48), @"ALSBrightenPdeltaFast");
+          v238[14] = v96;
         }
       }
 
-      else if (CFEqual(v240[20], @"ALSBrightenPdeltaFast"))
+      else if (CFEqual(v238[20], @"ALSDimPdeltaSlow"))
       {
-        v99 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v241 + 3812);
-        v68 = v240;
-        v240[14] = v99;
+        v94 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v239 + 3804);
+        v68 = v238;
+        v238[14] = v94;
         if (v68[14])
         {
-          CFDictionarySetValue(*(v241 + 48), @"ALSBrightenPdeltaFast", v240[14]);
-          CFRelease(v240[14]);
-          v98 = CFDictionaryGetValue(*(v241 + 48), @"ALSBrightenPdeltaFast");
-          v240[14] = v98;
+          CFDictionarySetValue(*(v239 + 48), @"ALSDimPdeltaSlow", v238[14]);
+          CFRelease(v238[14]);
+          v93 = CFDictionaryGetValue(*(v239 + 48), @"ALSDimPdeltaSlow");
+          v238[14] = v93;
         }
       }
 
-      else if (CFEqual(v240[20], @"ALSDimPdeltaSlow"))
+      else if (CFEqual(v238[20], @"Aggressivity"))
       {
-        v96 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberFloatType, v241 + 3804);
-        v69 = v240;
-        v240[14] = v96;
+        v91 = objc_alloc(MEMORY[0x1E696AD98]);
+        v90 = [v91 initWithInt:PerceptualLuminanceThresholding::GetAggressivity(*(v239 + 479))];
+        v238[14] = v90;
+      }
+
+      else if (CFEqual(v238[20], @"ProxMitigationTriggered"))
+      {
+        if (*(v239 + 59) && (*(v239 + 3757) & 1) != 0 && *(v239 + 942))
+        {
+          v88 = *MEMORY[0x1E695E4D0];
+        }
+
+        else
+        {
+          v88 = *MEMORY[0x1E695E4C0];
+        }
+
+        v238[14] = v88;
+      }
+
+      else if (CFEqual(v238[20], @"TouchMitigationTriggered"))
+      {
+        if (*(v239 + 56) && (isTouchObstructed = AABC::ALS::isTouchObstructed(*(v239 + 56)), (isTouchObstructed & 1) != 0))
+        {
+          v85 = *MEMORY[0x1E695E4D0];
+        }
+
+        else
+        {
+          v85 = *MEMORY[0x1E695E4C0];
+        }
+
+        v238[14] = v85;
+      }
+
+      else if (CFEqual(v238[20], @"BrightnessCapabilities"))
+      {
+        v83 = CFDictionaryGetValue(*(v239 + 48), @"BrightnessCapabilities");
+        v238[14] = v83;
+      }
+
+      else if (CFEqual(v238[20], @"ALSIntegrationMode"))
+      {
+        v81 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, v239 + 668);
+        v69 = v238;
+        v238[14] = v81;
         if (v69[14])
         {
-          CFDictionarySetValue(*(v241 + 48), @"ALSDimPdeltaSlow", v240[14]);
-          CFRelease(v240[14]);
-          v95 = CFDictionaryGetValue(*(v241 + 48), @"ALSDimPdeltaSlow");
-          v240[14] = v95;
-        }
-      }
-
-      else if (CFEqual(v240[20], @"Aggressivity"))
-      {
-        v93 = objc_alloc(MEMORY[0x1E696AD98]);
-        v92 = [v93 initWithInt:PerceptualLuminanceThresholding::GetAggressivity(*(v241 + 479))];
-        v240[14] = v92;
-      }
-
-      else if (CFEqual(v240[20], @"ProxMitigationTriggered"))
-      {
-        if (*(v241 + 59) && (*(v241 + 3757) & 1) != 0 && *(v241 + 942))
-        {
-          v90 = *MEMORY[0x1E695E4D0];
-        }
-
-        else
-        {
-          v90 = *MEMORY[0x1E695E4C0];
-        }
-
-        v240[14] = v90;
-      }
-
-      else if (CFEqual(v240[20], @"TouchMitigationTriggered"))
-      {
-        if (*(v241 + 56) && (isTouchObstructed = AABC::ALS::isTouchObstructed(*(v241 + 56)), (isTouchObstructed & 1) != 0))
-        {
-          v87 = *MEMORY[0x1E695E4D0];
-        }
-
-        else
-        {
-          v87 = *MEMORY[0x1E695E4C0];
-        }
-
-        v240[14] = v87;
-      }
-
-      else if (CFEqual(v240[20], @"BrightnessCapabilities"))
-      {
-        v85 = CFDictionaryGetValue(*(v241 + 48), @"BrightnessCapabilities");
-        v240[14] = v85;
-      }
-
-      else if (CFEqual(v240[20], @"ALSIntegrationMode"))
-      {
-        v83 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, v241 + 668);
-        v70 = v240;
-        v240[14] = v83;
-        if (v70[14])
-        {
-          CFDictionarySetValue(*(v241 + 48), @"ALSIntegrationMode", v240[14]);
-          CFRelease(v240[14]);
-          v82 = CFDictionaryGetValue(*(v241 + 48), @"ALSIntegrationMode");
-          v240[14] = v82;
+          CFDictionarySetValue(*(v239 + 48), @"ALSIntegrationMode", v238[14]);
+          CFRelease(v238[14]);
+          v80 = CFDictionaryGetValue(*(v239 + 48), @"ALSIntegrationMode");
+          v238[14] = v80;
         }
       }
 
       else
       {
-        v81 = CFDictionaryGetValue(*(v241 + 47), v240[20]);
-        v240[14] = v81;
+        v79 = CFDictionaryGetValue(*(v239 + 47), v238[20]);
+        v238[14] = v79;
       }
     }
   }
 
   if (_logHandle)
   {
-    v80 = _logHandle;
+    v78 = _logHandle;
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v79 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v77 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
-      v78 = init_default_corebrightness_log();
-      v79 = v78;
+      v76 = init_default_corebrightness_log();
+      v77 = v76;
     }
 
-    v80 = v79;
+    v78 = v77;
   }
 
-  oslog = v80;
-  v242 = OS_LOG_TYPE_DEBUG;
-  if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+  oslog = v78;
+  v240 = OS_LOG_TYPE_DEBUG;
+  if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
   {
-    v75 = oslog;
-    *v76 = v242;
-    v71 = v240[20];
-    v72 = v240[14];
-    v77 = v270;
-    __os_log_helper_16_2_3_4_0_8_64_8_64(v270, 2, v71, v72);
-    _os_log_debug_impl(&dword_1DE8E5000, v75, v76[0], "[%x]: %@ result=%@", v77, 0x1Cu);
+    v73 = oslog;
+    *v74 = v240;
+    v70 = v238[20];
+    v71 = v238[14];
+    v75 = v268;
+    __os_log_helper_16_2_3_4_0_8_64_8_64(v268, 2, v70, v71);
+    _os_log_debug_impl(&dword_1DE8E5000, v73, v74[0], "[%x]: %@ result=%@", v75, 0x1Cu);
   }
 
-  v74 = v240[14];
-  *MEMORY[0x1E69E9840];
-  return v74;
+  return v238[14];
 }
 
-__IOHIDEvent *AABC::filter(AABC *this, __IOHIDServiceClient *a2, __IOHIDEvent *a3)
+__IOHIDEvent *AABC::filter(CFDictionaryRef *this, __IOHIDServiceClient *a2, __IOHIDEvent *a3)
 {
   v11 = *MEMORY[0x1E69E9840];
   if (_logHandle)
@@ -8546,21 +8471,21 @@ __IOHIDEvent *AABC::filter(AABC *this, __IOHIDServiceClient *a2, __IOHIDEvent *a
           AABC::HandleKeyboardEvent(this, a2, a3);
           break;
         case 11:
-          if (*(this + 58) && a2 == *(this + 58))
+          if (this[58] && a2 == this[58])
           {
             AABC::HandleDigitizerEvent(this, a2, a3);
           }
 
           break;
         case 12:
-          if (*(this + 52) && a2 && CFDictionaryContainsKey(*(this + 52), a2))
+          if (this[52] && a2 && CFDictionaryContainsKey(this[52], a2))
           {
             AABC::HandleALSEvent(this, a2, a3);
           }
 
           break;
         default:
-          if (Type == 14 && *(this + 59) && a2 == *(this + 59))
+          if (Type == 14 && this[59] && a2 == this[59])
           {
             AABC::HandleProxEvent(this, a2, a3);
           }
@@ -8570,711 +8495,738 @@ __IOHIDEvent *AABC::filter(AABC *this, __IOHIDServiceClient *a2, __IOHIDEvent *a
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return a3;
 }
 
 void AABC::HandleALSEvent(AABC *this, __IOHIDServiceClient *a2, __IOHIDEvent *a3)
 {
-  v428 = *MEMORY[0x1E69E9840];
-  v405 = this;
-  v404 = a2;
-  v403 = a3;
-  v292 = this;
+  v421 = *MEMORY[0x1E69E9840];
+  v398 = this;
+  v397 = a2;
+  v396 = a3;
+  v285 = this;
   if (_logHandle)
   {
-    v291 = _logHandle;
+    v284 = _logHandle;
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v290 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v283 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
       inited = init_default_corebrightness_log();
-      v290 = inited;
+      v283 = inited;
     }
 
-    v291 = v290;
+    v284 = v283;
   }
 
-  v402 = v291;
-  v401 = OS_LOG_TYPE_DEBUG;
-  if (os_log_type_enabled(v291, OS_LOG_TYPE_DEBUG))
+  v395 = v284;
+  v394 = OS_LOG_TYPE_DEBUG;
+  if (os_log_type_enabled(v284, OS_LOG_TYPE_DEBUG))
   {
-    v286 = v402;
-    v287 = v401;
-    v288 = v427;
-    __os_log_helper_16_0_3_4_0_8_0_8_0(v427, 4, v404, v403);
-    _os_log_debug_impl(&dword_1DE8E5000, v402, v401, "[%x]: %p %p", v427, 0x1Cu);
+    v279 = v395;
+    v280 = v394;
+    v281 = v420;
+    __os_log_helper_16_0_3_4_0_8_0_8_0(v420, 4, v397, v396);
+    _os_log_debug_impl(&dword_1DE8E5000, v395, v394, "[%x]: %p %p", v420, 0x1Cu);
   }
 
-  v400 = 0;
-  v398 = 0.0;
-  v397 = 0;
+  v393 = 0;
+  v391 = 0.0;
+  v390 = 0;
   TimeStamp = IOHIDEventGetTimeStamp();
   v3 = TimeStamp * *&AABC::_sMachTimebaseFactor;
-  v399 = v3;
-  v396 = 0.0;
-  if (*(v292 + 168) < v3 || *(v292 + 90))
+  v392 = v3;
+  v389 = 0.0;
+  if (*(v285 + 168) < v3 || *(v285 + 90))
   {
-    if (v292[496] & 1) != 0 && (v292[497])
+    if (v285[496] & 1) != 0 && (v285[497])
     {
       if (_logHandle)
       {
-        v278 = _logHandle;
+        v275 = _logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v277 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v274 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v276 = init_default_corebrightness_log();
-          v277 = v276;
+          v274 = init_default_corebrightness_log();
         }
 
-        v278 = v277;
+        v275 = v274;
       }
 
-      v393 = v278;
-      v392 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v278, OS_LOG_TYPE_DEBUG))
+      v386 = v275;
+      v385 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v275, OS_LOG_TYPE_DEBUG))
       {
-        v273 = v393;
-        v274 = v392;
-        v275 = v425;
-        __os_log_helper_16_0_1_4_0(v425, 4);
-        _os_log_debug_impl(&dword_1DE8E5000, v393, v392, "[%x]: throwing away sample, preStrobe is in progress", v425, 8u);
+        __os_log_helper_16_0_1_4_0(v418, 4);
+        _os_log_debug_impl(&dword_1DE8E5000, v386, v385, "[%x]: throwing away sample, preStrobe is in progress", v418, 8u);
       }
     }
 
     else
     {
-      v272 = +[CBAODState sharedInstance];
-      v271 = [(CBAODState *)v272 AODState];
-      if (AABC::ignoreALSEventsInAOD(v292, v271))
+      v273 = +[CBAODState sharedInstance];
+      v272 = [(CBAODState *)v273 AODState];
+      if (AABC::ignoreALSEventsInAOD(v285, v272))
       {
         if (_logHandle)
         {
-          v270 = _logHandle;
+          v271 = _logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v269 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v270 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v268 = init_default_corebrightness_log();
-            v269 = v268;
+            v270 = init_default_corebrightness_log();
           }
 
-          v270 = v269;
+          v271 = v270;
         }
 
-        v391 = v270;
-        v390 = 0;
-        if (os_log_type_enabled(v270, OS_LOG_TYPE_DEFAULT))
+        v384 = v271;
+        v383 = 0;
+        if (os_log_type_enabled(v271, OS_LOG_TYPE_DEFAULT))
         {
-          v265 = v391;
-          v266 = v390;
-          v267 = v389;
-          __os_log_helper_16_0_0(v389);
-          _os_log_impl(&dword_1DE8E5000, v265, v266, "Ongoing AOD transition IN/OUT -> Ignoring ALS Events!!", v389, 2u);
+          v268 = v384;
+          v269 = v383;
+          __os_log_helper_16_0_0(v382);
+          _os_log_impl(&dword_1DE8E5000, v268, v269, "Ongoing AOD transition IN/OUT -> Ignoring ALS Events!!", v382, 2u);
         }
       }
 
-      else if (*(v292 + 719) != 1 && *(v292 + 719) != 2 && *(v292 + 719) != 3)
+      else if (*(v285 + 719) != 1 && *(v285 + 719) != 2 && *(v285 + 719) != 3)
       {
-        Value = CFDictionaryGetValue(*(v292 + 52), v404);
-        v400 = Value;
+        Value = CFDictionaryGetValue(*(v285 + 52), v397);
+        v393 = Value;
         if (Value[4])
         {
-          v263 = [CBALSEvent alloc];
-          v262 = [(CBALSEvent *)v263 initWithHIDEvent:v403 andNode:v400[5]];
-          v388 = v262;
-          [v400[4] filterEvent:v262];
+          v266 = [CBALSEvent alloc];
+          v265 = [(CBALSEvent *)v266 initWithHIDEvent:v396 andNode:v393[5]];
+          v381 = v265;
+          [v393[4] filterEvent:v265];
         }
 
-        isStrobePolluted = AABC::ALS::isStrobePolluted(v400);
+        isStrobePolluted = AABC::ALS::isStrobePolluted(v393);
         if (isStrobePolluted)
         {
           if (_logHandle)
           {
-            v260 = _logHandle;
+            v263 = _logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v259 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v262 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v258 = init_default_corebrightness_log();
-              v259 = v258;
+              v262 = init_default_corebrightness_log();
             }
 
-            v260 = v259;
+            v263 = v262;
           }
 
-          v387 = v260;
-          v386 = OS_LOG_TYPE_DEBUG;
-          if (os_log_type_enabled(v260, OS_LOG_TYPE_DEBUG))
+          v380 = v263;
+          v379 = OS_LOG_TYPE_DEBUG;
+          if (os_log_type_enabled(v263, OS_LOG_TYPE_DEBUG))
           {
-            v255 = v387;
-            v256 = v386;
-            v257 = v424;
-            __os_log_helper_16_0_1_4_0(v424, 4);
-            _os_log_debug_impl(&dword_1DE8E5000, v387, v386, "[%x]: Rear ALS in Strobe coex state -> Ignoring ALS Events", v424, 8u);
+            __os_log_helper_16_0_1_4_0(v417, 4);
+            _os_log_debug_impl(&dword_1DE8E5000, v380, v379, "[%x]: Rear ALS in Strobe coex state -> Ignoring ALS Events", v417, 8u);
           }
         }
 
         else
         {
-          if ((v292[436] & 1) == 0)
+          if ((v285[436] & 1) == 0)
           {
-            v4 = v292;
-            v292[436] = 1;
+            v4 = v285;
+            v285[436] = 1;
             if (*(v4 + 56))
             {
-              if (*(*(v292 + 56) + 8) == 8 || *(*(v292 + 56) + 8) == 9)
+              if (*(*(v285 + 56) + 8) == 8 || *(*(v285 + 56) + 8) == 9)
               {
                 if (_logHandle)
                 {
-                  v254 = _logHandle;
+                  v261 = _logHandle;
                 }
 
                 else
                 {
                   if (_COREBRIGHTNESS_LOG_DEFAULT)
                   {
-                    v253 = _COREBRIGHTNESS_LOG_DEFAULT;
+                    v260 = _COREBRIGHTNESS_LOG_DEFAULT;
                   }
 
                   else
                   {
-                    v252 = init_default_corebrightness_log();
-                    v253 = v252;
+                    v259 = init_default_corebrightness_log();
+                    v260 = v259;
                   }
 
-                  v254 = v253;
+                  v261 = v260;
                 }
 
-                v385 = v254;
-                v384 = OS_LOG_TYPE_DEFAULT;
-                if (os_log_type_enabled(v254, OS_LOG_TYPE_DEFAULT))
+                v378 = v261;
+                v377 = OS_LOG_TYPE_DEFAULT;
+                if (os_log_type_enabled(v261, OS_LOG_TYPE_DEFAULT))
                 {
-                  v249 = v385;
-                  v250 = v384;
-                  *&v5 = *(v292 + 854);
-                  v251 = v423;
-                  __os_log_helper_16_0_2_8_0_8_0(v423, v5, 0x3FE0000000000000);
-                  _os_log_impl(&dword_1DE8E5000, v385, v384, "AABC has received the first ALS sample since the initialization. ALS TIMEOUT will change: %fms -> %fms.", v423, 0x16u);
+                  v256 = v378;
+                  v257 = v377;
+                  *&v5 = *(v285 + 854);
+                  v258 = v416;
+                  __os_log_helper_16_0_2_8_0_8_0(v416, v5, 0x3FE0000000000000);
+                  _os_log_impl(&dword_1DE8E5000, v378, v377, "AABC has received the first ALS sample since the initialization. ALS TIMEOUT will change: %fms -> %fms.", v416, 0x16u);
                 }
 
-                *(v292 + 854) = 1056964608;
+                *(v285 + 854) = 1056964608;
               }
             }
           }
 
-          if ((v292[435] & 1) == 0)
+          if ((v285[435] & 1) == 0)
           {
-            v248 = mach_absolute_time();
-            v383 = v248 * *&AABC::_sMachTimebaseFactor;
-            v247 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberDoubleType, &v383);
-            v382 = v247;
-            if (v247)
+            v255 = mach_absolute_time();
+            v376 = v255 * *&AABC::_sMachTimebaseFactor;
+            v254 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberDoubleType, &v376);
+            v375 = v254;
+            if (v254)
             {
-              if (*(v292 + 47))
+              if (*(v285 + 47))
               {
-                CFDictionarySetValue(*(v292 + 47), @"EventTimestampFirstALSSample", v382);
+                CFDictionarySetValue(*(v285 + 47), @"EventTimestampFirstALSSample", v375);
               }
 
               if (_logHandle)
               {
-                v246 = _logHandle;
+                v253 = _logHandle;
               }
 
               else
               {
                 if (_COREBRIGHTNESS_LOG_DEFAULT)
                 {
-                  v245 = _COREBRIGHTNESS_LOG_DEFAULT;
+                  v252 = _COREBRIGHTNESS_LOG_DEFAULT;
                 }
 
                 else
                 {
-                  v244 = init_default_corebrightness_log();
-                  v245 = v244;
+                  v251 = init_default_corebrightness_log();
+                  v252 = v251;
                 }
 
-                v246 = v245;
+                v253 = v252;
               }
 
-              v381 = v246;
-              v380 = OS_LOG_TYPE_DEFAULT;
-              if (os_log_type_enabled(v246, OS_LOG_TYPE_DEFAULT))
+              v374 = v253;
+              v373 = OS_LOG_TYPE_DEFAULT;
+              if (os_log_type_enabled(v253, OS_LOG_TYPE_DEFAULT))
               {
-                v241 = v381;
-                v242 = v380;
-                v243 = v422;
-                __os_log_helper_16_0_1_8_0(v422, *&v383);
-                _os_log_impl(&dword_1DE8E5000, v381, v380, "ts=%f kCBEventTimestampFirstALSSampleKey", v422, 0xCu);
+                v248 = v374;
+                v249 = v373;
+                v250 = v415;
+                __os_log_helper_16_0_1_8_0(v415, *&v376);
+                _os_log_impl(&dword_1DE8E5000, v374, v373, "ts=%f kCBEventTimestampFirstALSSampleKey", v415, 0xCu);
               }
 
-              CFRelease(v382);
+              CFRelease(v375);
             }
           }
 
-          v6 = v292;
-          v292[435] = 1;
+          v6 = v285;
+          v285[435] = 1;
           if (*(v6 + 110) == 1)
           {
-            v292[432] = 1;
+            v285[432] = 1;
           }
 
-          if ((v292[432] & 1) == 0 && *(v292 + 53))
+          if ((v285[432] & 1) == 0 && *(v285 + 53))
           {
-            CFDictionarySetValue(*(v292 + 53), v404, v403);
-            Count = CFDictionaryGetCount(*(v292 + 53));
-            v379 = Count;
-            v238 = Count;
-            v239 = CFDictionaryGetCount(*(v292 + 52));
-            if (Count == v239)
+            CFDictionarySetValue(*(v285 + 53), v397, v396);
+            Count = CFDictionaryGetCount(*(v285 + 53));
+            v372 = Count;
+            v245 = Count;
+            v7 = CFDictionaryGetCount(*(v285 + 52));
+            v246 = v7;
+            if (Count == v7)
             {
-              v292[432] = 1;
+              v285[432] = 1;
             }
 
-            v378 = &v55;
-            v230 = 8 * v379;
-            MEMORY[0x1EEE9AC00]();
-            v236 = (&v55 - ((v230 + 15) & 0xFFFFFFFF0));
-            v231 = v236;
-            v377 = v7;
-            v232 = 512;
-            if (v230 <= 0x200)
+            v371 = &v62;
+            v237 = 8 * v372;
+            MEMORY[0x1EEE9AC00](v7, v8, v9, v10);
+            v243 = (&v62 - ((v237 + 15) & 0xFFFFFFFF0));
+            v238 = v243;
+            v370 = v11;
+            v239 = 512;
+            if (v237 <= 0x200)
             {
-              v8 = v230;
-            }
-
-            else
-            {
-              v8 = 512;
-            }
-
-            bzero(&v55 - ((v230 + 15) & 0xFFFFFFFF0), v8);
-            v233 = v379;
-            v234 = 8 * v379;
-            MEMORY[0x1EEE9AC00]();
-            v237 = (&v55 - ((v234 + 15) & 0xFFFFFFFF0));
-            v235 = v237;
-            v376 = v233;
-            if (v234 <= 0x200)
-            {
-              v10 = v234;
+              v12 = v237;
             }
 
             else
             {
-              v10 = v9;
+              v12 = 512;
             }
 
-            bzero(&v55 - ((v234 + 15) & 0xFFFFFFFF0), v10);
-            CFDictionaryGetKeysAndValues(*(v292 + 53), v236, v237);
-            v375 = -1;
-            v374 = -1.0;
-            for (i = 0; i < v379; ++i)
+            bzero(&v62 - ((v237 + 15) & 0xFFFFFFFF0), v12);
+            v240 = v372;
+            v241 = 8 * v372;
+            MEMORY[0x1EEE9AC00](v13, v14, v15, v16);
+            v244 = (&v62 - ((v241 + 15) & 0xFFFFFFFF0));
+            v242 = v244;
+            v369 = v240;
+            if (v241 <= 0x200)
             {
-              if (v235[i])
+              v18 = v241;
+            }
+
+            else
+            {
+              v18 = v17;
+            }
+
+            bzero(&v62 - ((v241 + 15) & 0xFFFFFFFF0), v18);
+            CFDictionaryGetKeysAndValues(*(v285 + 53), v243, v244);
+            v368 = -1;
+            v367 = -1.0;
+            for (i = 0; i < v372; ++i)
+            {
+              if (v242[i])
               {
-                v11 = v235[i];
-                if (v292[3756])
+                if (v285[3756])
                 {
                   IOHIDEventGetDoubleValue();
-                  v229 = v12;
-                  v228 = v12;
+                  v236 = v19;
+                  v235 = v19;
                 }
 
                 else
                 {
                   IntegerValue = IOHIDEventGetIntegerValue();
-                  v228 = IntegerValue;
+                  v235 = IntegerValue;
                 }
 
-                v372 = v228;
-                v13 = v228;
-                v371 = v13;
-                if (v13 > v374)
+                v365 = v235;
+                v20 = v235;
+                v364 = v20;
+                if (v20 > v367)
                 {
-                  v374 = v371;
-                  v375 = i;
+                  v367 = v364;
+                  v368 = i;
                 }
               }
             }
 
-            if ((v375 & 0x80000000) == 0)
+            if ((v368 & 0x80000000) == 0)
             {
-              v403 = v235[v375];
+              v396 = v242[v368];
               Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 1, MEMORY[0x1E695E9D8], 0);
-              v397 = Mutable;
-              v225 = CFDictionaryGetValue(*(v292 + 52), v231[v375]);
-              v370 = v225;
-              if (v397)
+              v390 = Mutable;
+              v232 = CFDictionaryGetValue(*(v285 + 52), v238[v368]);
+              v363 = v232;
+              if (v390)
               {
-                if (v370)
+                if (v363)
                 {
-                  CFDictionaryAddValue(v397, v231[v375], v370);
+                  CFDictionaryAddValue(v390, v238[v368], v363);
                 }
               }
             }
           }
 
-          if (v292[432])
+          if (v285[432])
           {
-            v292[433] = 0;
+            v285[433] = 0;
           }
 
-          if (v292[437])
+          if (v285[437])
           {
-            AABC::lazyLoadIntegrationTimes(v292, v404, v400);
+            AABC::lazyLoadIntegrationTimes(v285, v397, v393);
           }
 
-          v396 = *(v400 + 40);
-          if (v292[3756])
+          v389 = *(v393 + 40);
+          if (v285[3756])
           {
             IOHIDEventGetDoubleValue();
-            v224 = v14;
-            v223 = v14;
+            v231 = v21;
+            v230 = v21;
           }
 
           else
           {
-            v222 = IOHIDEventGetIntegerValue();
-            v223 = v222;
+            v229 = IOHIDEventGetIntegerValue();
+            v230 = v229;
           }
 
-          v369 = v223;
-          if (*(v400 + 76))
+          v362 = v230;
+          if (*(v393 + 76))
           {
-            v221 = *(v400 + 18);
+            v228 = *(v393 + 18);
           }
 
           else
           {
-            v15 = v369;
-            v221 = v15;
+            v22 = v362;
+            v228 = v22;
           }
 
-          v398 = v221;
+          v391 = v228;
           if (_logHandle)
           {
-            v220 = _logHandle;
+            v227 = _logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v219 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v226 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v218 = init_default_corebrightness_log();
-              v219 = v218;
+              v225 = init_default_corebrightness_log();
+              v226 = v225;
             }
 
-            v220 = v219;
+            v227 = v226;
           }
 
-          v368 = v220;
-          v367 = 2;
-          if (os_log_type_enabled(v220, OS_LOG_TYPE_DEBUG))
+          v361 = v227;
+          v360 = 2;
+          if (os_log_type_enabled(v227, OS_LOG_TYPE_DEBUG))
           {
-            v215 = v368;
-            v216 = v367;
-            if (*(v400 + 76))
+            v222 = v361;
+            v223 = v360;
+            if (*(v393 + 76))
             {
-              v16 = "(override)";
+              v23 = "(override)";
             }
 
             else
             {
-              v16 = "";
+              v23 = "";
             }
 
-            v217 = v421;
-            __os_log_helper_16_2_3_4_0_8_0_8_32(v421, 16, COERCE__INT64(v398), v16);
-            _os_log_debug_impl(&dword_1DE8E5000, v215, v216, "[%x]: %0.4f %s", v217, 0x1Cu);
+            v224 = v414;
+            __os_log_helper_16_2_3_4_0_8_0_8_32(v414, 16, COERCE__INT64(v391), v23);
+            _os_log_debug_impl(&dword_1DE8E5000, v222, v223, "[%x]: %0.4f %s", v224, 0x1Cu);
           }
 
-          if (v292[432] & 1) != 0 || (v292[434] & 1) != 0 || (v292[433])
+          if (v285[432] & 1) != 0 || (v285[434] & 1) != 0 || (v285[433])
           {
-            AABC::CancelFirstSampleTimeout(v292);
+            AABC::CancelFirstSampleTimeout(v285);
           }
 
-          *(v400 + 17) = v398;
+          *(v393 + 17) = v391;
           if (_logHandle)
           {
-            v214 = _logHandle;
+            v221 = _logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v213 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v220 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v212 = init_default_corebrightness_log();
-              v213 = v212;
+              v219 = init_default_corebrightness_log();
+              v220 = v219;
             }
 
-            v214 = v213;
+            v221 = v220;
           }
 
-          v366 = v214;
-          v365 = 2;
-          if (os_log_type_enabled(v214, OS_LOG_TYPE_DEBUG))
+          v359 = v221;
+          v358 = 2;
+          if (os_log_type_enabled(v221, OS_LOG_TYPE_DEBUG))
           {
-            v209 = v366;
-            v210 = v365;
-            *&v17 = *(v400 + 17);
-            v211 = v420;
-            __os_log_helper_16_0_2_4_0_8_0(v420, 16, v17);
-            _os_log_debug_impl(&dword_1DE8E5000, v209, v210, "[%x]: als->_Esensor_device=%0.4f", v211, 0x12u);
+            v216 = v359;
+            v217 = v358;
+            *&v24 = *(v393 + 17);
+            v218 = v413;
+            __os_log_helper_16_0_2_4_0_8_0(v413, 16, v24);
+            _os_log_debug_impl(&dword_1DE8E5000, v216, v217, "[%x]: als->_Esensor_device=%0.4f", v218, 0x12u);
           }
 
-          v364 = 0.0;
-          if (*(v292 + 59) && *(v292 + 942) == 2 && (v399 - *(v292 + 941)) > *(v292 + 940))
+          v357 = 0.0;
+          if (*(v285 + 59) && *(v285 + 942) == 2 && (v392 - *(v285 + 941)) > *(v285 + 940))
           {
             if (_logHandle)
             {
-              v208 = _logHandle;
+              v215 = _logHandle;
             }
 
             else
             {
               if (_COREBRIGHTNESS_LOG_DEFAULT)
               {
-                v207 = _COREBRIGHTNESS_LOG_DEFAULT;
+                v214 = _COREBRIGHTNESS_LOG_DEFAULT;
               }
 
               else
               {
-                v206 = init_default_corebrightness_log();
-                v207 = v206;
+                v213 = init_default_corebrightness_log();
+                v214 = v213;
               }
 
-              v208 = v207;
+              v215 = v214;
             }
 
-            v363 = v208;
-            v362 = 2;
-            if (os_log_type_enabled(v208, OS_LOG_TYPE_DEBUG))
+            v356 = v215;
+            v355 = 2;
+            if (os_log_type_enabled(v215, OS_LOG_TYPE_DEBUG))
             {
-              v203 = v363;
-              v204 = v362;
-              v18 = *(v292 + 941);
-              *&v19 = *(v292 + 940);
-              v205 = v419;
-              __os_log_helper_16_0_5_4_0_8_0_8_0_8_0_8_0(v419, 64, COERCE__INT64(v399), COERCE__INT64(v18), COERCE__INT64((v399 - v18)), v19);
-              _os_log_debug_impl(&dword_1DE8E5000, v203, v204, "[%x]: setting _proxState = kProxNone (timestamp=%f _proxReleaseTime=%f delta=%f _proxTriggerDelay=%f)", v205, 0x30u);
+              v210 = v356;
+              v211 = v355;
+              v25 = *(v285 + 941);
+              *&v26 = *(v285 + 940);
+              v212 = v412;
+              __os_log_helper_16_0_5_4_0_8_0_8_0_8_0_8_0(v412, 64, COERCE__INT64(v392), COERCE__INT64(v25), COERCE__INT64((v392 - v25)), v26);
+              _os_log_debug_impl(&dword_1DE8E5000, v210, v211, "[%x]: setting _proxState = kProxNone (timestamp=%f _proxReleaseTime=%f delta=%f _proxTriggerDelay=%f)", v212, 0x30u);
             }
 
-            v20 = v292;
-            *(v292 + 942) = 0;
-            if (v20[3757])
+            v27 = v285;
+            *(v285 + 942) = 0;
+            if (v27[3757])
             {
-              v21 = v292;
-              v292[3992] = 1;
-              VirtualBrightness = DisplayGetVirtualBrightness(v21[50]);
-              *(v292 + 154) = VirtualBrightness;
+              v28 = v285;
+              v285[3992] = 1;
+              VirtualBrightness = DisplayGetVirtualBrightness(v28[50]);
+              *(v285 + 154) = VirtualBrightness;
             }
           }
 
-          if (v400[3])
+          if (v393[3])
           {
-            v201 = [CBALSEvent alloc];
-            v200 = [(CBALSEvent *)v201 initWithHIDEvent:v403 andNode:v400[5]];
-            v361 = v200;
-            v360 = v400[3];
-            v199 = [v360 isObstructed];
-            v359 = v199 & 1;
-            [v360 filterEvent:v361];
-            v198 = [v360 isActive];
-            if (v198)
+            v208 = [CBALSEvent alloc];
+            v207 = [(CBALSEvent *)v208 initWithHIDEvent:v396 andNode:v393[5]];
+            v354 = v207;
+            v353 = v393[3];
+            v206 = [v353 isObstructed];
+            v352 = v206 & 1;
+            [v353 filterEvent:v354];
+            v205 = [v353 isActive];
+            if (v205)
             {
-              v197 = [v360 isObstructed];
-              if (v197 & 1) == 0 && (v359)
+              v204 = [v353 isObstructed];
+              if (v204 & 1) == 0 && (v352)
               {
-                v22 = v292;
-                v292[3992] = 1;
-                if (v400 == v22[56])
+                v29 = v285;
+                v285[3992] = 1;
+                if (v393 == v29[56])
                 {
-                  v196 = DisplayGetVirtualBrightness(*(v292 + 50));
-                  *(v292 + 154) = v196;
+                  v203 = DisplayGetVirtualBrightness(*(v285 + 50));
+                  *(v285 + 154) = v203;
                 }
               }
             }
           }
 
-          v358 = v398;
+          v351 = v391;
           Current = CFAbsoluteTimeGetCurrent();
-          v357 = Current;
-          if (*(v292 + 169) && v357 > *(v292 + 86))
+          v350 = Current;
+          if (*(v285 + 169) && v350 > *(v285 + 86))
           {
-            AABC::CancelFastRampMode(v292);
-            v292[3328] = 1;
+            AABC::CancelFastRampMode(v285);
+            v285[3328] = 1;
           }
 
-          v358 = fmaxf(v358, *(v400 + 15));
-          if (v292[3376] & 1) != 0 && *(v292 + 834) && *(v292 + 834) < *(v292 + 845) && !*(v292 + 842) && v357 > *&v292[8 * (*(v292 + 834) - 1) + 3344] + *(v292 + 425) && (v292[3408])
+          v351 = fmaxf(v351, *(v393 + 15));
+          if (v285[3376] & 1) != 0 && *(v285 + 834) && *(v285 + 834) < *(v285 + 845) && !*(v285 + 842) && v350 > *&v285[8 * (*(v285 + 834) - 1) + 3344] + *(v285 + 425) && (v285[3408])
           {
-            AABC::writeOutlierRemovalPreferences(v292, 1);
-            *(v292 + 834) = *(v292 + 845);
+            AABC::writeOutlierRemovalPreferences(v285, 1);
+            *(v285 + 834) = *(v285 + 845);
           }
 
-          if (v292[432] & 1) != 0 || (v292[434] & 1) != 0 || (v292[433])
+          if (v285[432] & 1) != 0 || (v285[434] & 1) != 0 || (v285[433])
           {
-            ++*(v292 + 150);
+            ++*(v285 + 150);
           }
 
           if (_logHandle)
           {
-            v194 = _logHandle;
+            v201 = _logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v193 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v200 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v192 = init_default_corebrightness_log();
-              v193 = v192;
+              v199 = init_default_corebrightness_log();
+              v200 = v199;
             }
 
-            v194 = v193;
+            v201 = v200;
           }
 
-          v356 = v194;
-          v355 = 2;
-          if (os_log_type_enabled(v194, OS_LOG_TYPE_DEBUG))
+          v349 = v201;
+          v348 = 2;
+          if (os_log_type_enabled(v201, OS_LOG_TYPE_DEBUG))
           {
-            v189 = v356;
-            v190 = v355;
-            v23 = *(v292 + 866);
-            v24 = *(v400 + 22);
-            v191 = v418;
-            __os_log_helper_16_0_3_4_0_4_0_4_0(v418, 2, v23, v24);
-            _os_log_debug_impl(&dword_1DE8E5000, v189, v190, "[%x]: _luxFilter=%x als->_Ehistory_max=%d", v191, 0x14u);
+            v196 = v349;
+            v197 = v348;
+            v30 = *(v285 + 866);
+            v31 = *(v393 + 22);
+            v198 = v411;
+            __os_log_helper_16_0_3_4_0_4_0_4_0(v411, 2, v30, v31);
+            _os_log_debug_impl(&dword_1DE8E5000, v196, v197, "[%x]: _luxFilter=%x als->_Ehistory_max=%d", v198, 0x14u);
           }
 
-          if (*(v292 + 866))
+          if (*(v285 + 866))
           {
-            v354 = 0;
-            if (*(v400 + 40) <= 0.01)
+            v347 = 0;
+            if (*(v393 + 40) <= 0.01)
             {
-              v354 = 1;
+              v347 = 1;
             }
 
             else
             {
-              v354 = std::__math::round[abi:de200100](v396 / *(v400 + 40));
-              if (v354 < 1)
+              v347 = std::__math::round[abi:de200100](v389 / *(v393 + 40));
+              if (v347 < 1)
               {
-                v188 = 1;
+                v195 = 1;
               }
 
               else
               {
-                v188 = v354;
+                v195 = v347;
               }
 
-              v354 = v188;
+              v347 = v195;
             }
 
-            if (v292[264])
+            if (v285[264])
             {
-              v187 = AABC::calculateMovingAverage(v292, v358);
-              v358 = v187;
+              v194 = AABC::calculateMovingAverage(v285, v351);
+              v351 = v194;
             }
 
-            for (j = 0; j < v354; ++j)
+            for (j = 0; j < v347; ++j)
             {
-              if (*(v400 + 22))
+              if (*(v393 + 22))
               {
-                v186 = v358;
-                v25 = std::vector<float>::operator[][abi:de200100](v400 + 12, *(v400 + 20));
-                *v25 = v186;
-                *(v400 + 20) = (*(v400 + 20) + 1) % *(v400 + 22);
-                if (*(v400 + 21) < *(v400 + 22))
+                v193 = v351;
+                v32 = std::vector<float>::operator[][abi:de200100](v393 + 12, *(v393 + 20));
+                *v32 = v193;
+                *(v393 + 20) = (*(v393 + 20) + 1) % *(v393 + 22);
+                if (*(v393 + 21) < *(v393 + 22))
                 {
-                  ++*(v400 + 21);
+                  ++*(v393 + 21);
                 }
               }
             }
 
-            if ((v292[136] & 1) != 0 && *(v292 + 722) == 1)
+            if ((v285[136] & 1) != 0 && *(v285 + 722) == 1)
             {
-              if (!*(v400 + 32))
+              if (!*(v393 + 32))
               {
-                *(v400 + 32) = 5;
-                std::vector<float>::resize(v400 + 17, *(v400 + 32));
+                *(v393 + 32) = 5;
+                std::vector<float>::resize(v393 + 17, *(v393 + 32));
               }
 
-              v185 = v358;
-              v26 = std::vector<float>::operator[][abi:de200100](v400 + 17, *(v400 + 30));
-              *v26 = v185;
-              *(v400 + 30) = (*(v400 + 30) + 1) % *(v400 + 32);
-              if (*(v400 + 31) < *(v400 + 32))
+              v192 = v351;
+              v33 = std::vector<float>::operator[][abi:de200100](v393 + 17, *(v393 + 30));
+              *v33 = v192;
+              *(v393 + 30) = (*(v393 + 30) + 1) % *(v393 + 32);
+              if (*(v393 + 31) < *(v393 + 32))
               {
-                ++*(v400 + 31);
+                ++*(v393 + 31);
               }
             }
 
-            if (v292[160])
+            if (v285[160])
             {
-              AABC::addToFilter(v292, (v292 + 168), v358);
+              AABC::addToFilter(v285, (v285 + 168), v351);
             }
           }
 
-          if (*(v292 + 866) == 3)
+          if (*(v285 + 866) == 3)
           {
-            v352 = v358;
-            if (std::vector<float>::size[abi:de200100](v400 + 12))
+            v345 = v351;
+            if (std::vector<float>::size[abi:de200100](v393 + 12))
             {
-              if (*(v400 + 21) >= 2u)
+              if (*(v393 + 21) >= 2u)
               {
-                std::vector<float>::vector[abi:de200100](v351, v400 + 12);
-                v184 = v351;
-                v350 = std::vector<float>::begin[abi:de200100](v351);
-                v349 = std::vector<float>::end[abi:de200100](v184);
-                std::sort[abi:de200100]<std::__wrap_iter<float *>>(v350, v349);
-                if (std::vector<float>::size[abi:de200100](v400 + 12) == 2)
+                std::vector<float>::vector[abi:de200100](v344, v393 + 12);
+                v191 = v344;
+                v343 = std::vector<float>::begin[abi:de200100](v344);
+                v342 = std::vector<float>::end[abi:de200100](v191);
+                std::sort[abi:de200100]<std::__wrap_iter<float *>>(v343, v342);
+                if (std::vector<float>::size[abi:de200100](v393 + 12) == 2)
                 {
-                  v352 = *std::vector<float>::operator[][abi:de200100](v351, 0);
+                  v345 = *std::vector<float>::operator[][abi:de200100](v344, 0);
+                  if (_logHandle)
+                  {
+                    v190 = _logHandle;
+                  }
+
+                  else
+                  {
+                    if (_COREBRIGHTNESS_LOG_DEFAULT)
+                    {
+                      v189 = _COREBRIGHTNESS_LOG_DEFAULT;
+                    }
+
+                    else
+                    {
+                      v188 = init_default_corebrightness_log();
+                      v189 = v188;
+                    }
+
+                    v190 = v189;
+                  }
+
+                  v341 = v190;
+                  v340 = 2;
+                  if (os_log_type_enabled(v190, OS_LOG_TYPE_DEBUG))
+                  {
+                    v185 = v341;
+                    v186 = v340;
+                    v187 = v339;
+                    __os_log_helper_16_0_0(v339);
+                    _os_log_debug_impl(&dword_1DE8E5000, v185, v186, "Median filter computed on 2 samples - defaulting to minimum", v187, 2u);
+                  }
+                }
+
+                else
+                {
+                  v184 = v344;
+                  v34 = std::vector<float>::size[abi:de200100](v344);
+                  v345 = *std::vector<float>::operator[][abi:de200100](v184, v34 - ((*(v393 + 21) + 1) >> 1));
                   if (_logHandle)
                   {
                     v183 = _logHandle;
@@ -9296,342 +9248,304 @@ void AABC::HandleALSEvent(AABC *this, __IOHIDServiceClient *a2, __IOHIDEvent *a3
                     v183 = v182;
                   }
 
-                  v348 = v183;
-                  v347 = 2;
+                  v338 = v183;
+                  v337 = 2;
                   if (os_log_type_enabled(v183, OS_LOG_TYPE_DEBUG))
                   {
-                    v178 = v348;
-                    v179 = v347;
-                    v180 = v346;
-                    __os_log_helper_16_0_0(v346);
-                    _os_log_debug_impl(&dword_1DE8E5000, v178, v179, "Median filter computed on 2 samples - defaulting to minimum", v180, 2u);
+                    v178 = v338;
+                    v179 = v337;
+                    v35 = *(v393 + 21);
+                    v180 = v410;
+                    __os_log_helper_16_0_2_4_0_4_0(v410, 16, v35);
+                    _os_log_debug_impl(&dword_1DE8E5000, v178, v179, "[%x]: Median filter computed on %d samples", v180, 0xEu);
                   }
-                }
 
-                else
-                {
-                  v177 = v351;
-                  v27 = std::vector<float>::size[abi:de200100](v351);
-                  v352 = *std::vector<float>::operator[][abi:de200100](v177, v27 - ((*(v400 + 21) + 1) >> 1));
                   if (_logHandle)
                   {
-                    v176 = _logHandle;
+                    v177 = _logHandle;
                   }
 
                   else
                   {
                     if (_COREBRIGHTNESS_LOG_DEFAULT)
                     {
-                      v175 = _COREBRIGHTNESS_LOG_DEFAULT;
+                      v176 = _COREBRIGHTNESS_LOG_DEFAULT;
                     }
 
                     else
                     {
-                      v174 = init_default_corebrightness_log();
-                      v175 = v174;
+                      v175 = init_default_corebrightness_log();
+                      v176 = v175;
                     }
 
-                    v176 = v175;
+                    v177 = v176;
                   }
 
-                  v345 = v176;
-                  v344 = 2;
-                  if (os_log_type_enabled(v176, OS_LOG_TYPE_DEBUG))
+                  v336 = v177;
+                  v335 = 2;
+                  if (os_log_type_enabled(v177, OS_LOG_TYPE_DEBUG))
                   {
-                    v171 = v345;
-                    v172 = v344;
-                    v28 = *(v400 + 21);
-                    v173 = v417;
-                    __os_log_helper_16_0_2_4_0_4_0(v417, 16, v28);
-                    _os_log_debug_impl(&dword_1DE8E5000, v171, v172, "[%x]: Median filter computed on %d samples", v173, 0xEu);
-                  }
-
-                  if (_logHandle)
-                  {
-                    v170 = _logHandle;
-                  }
-
-                  else
-                  {
-                    if (_COREBRIGHTNESS_LOG_DEFAULT)
-                    {
-                      v169 = _COREBRIGHTNESS_LOG_DEFAULT;
-                    }
-
-                    else
-                    {
-                      v168 = init_default_corebrightness_log();
-                      v169 = v168;
-                    }
-
-                    v170 = v169;
-                  }
-
-                  v343 = v170;
-                  v342 = 2;
-                  if (os_log_type_enabled(v170, OS_LOG_TYPE_DEBUG))
-                  {
-                    v165 = v343;
-                    v166 = v342;
-                    v29 = *(v400 + 21);
-                    v167 = v416;
-                    __os_log_helper_16_0_1_4_0(v416, v29);
-                    _os_log_debug_impl(&dword_1DE8E5000, v165, v166, "Median filter computed on %d samples", v167, 8u);
+                    v172 = v336;
+                    v173 = v335;
+                    v36 = *(v393 + 21);
+                    v174 = v409;
+                    __os_log_helper_16_0_1_4_0(v409, v36);
+                    _os_log_debug_impl(&dword_1DE8E5000, v172, v173, "Median filter computed on %d samples", v174, 8u);
                   }
                 }
 
-                std::vector<float>::~vector[abi:de200100](v351);
+                std::vector<float>::~vector[abi:de200100](v344);
               }
 
-              if (*(v292 + 169) && (v292[3468] & 1) == 0)
+              if (*(v285 + 169) && (v285[3468] & 1) == 0)
               {
-                *(v400 + 41) = v352;
+                *(v393 + 41) = v345;
               }
 
               else
               {
-                *(v400 + 41) = v352;
+                *(v393 + 41) = v345;
               }
             }
 
             else
             {
-              *(v400 + 41) = v358;
+              *(v393 + 41) = v351;
             }
 
             if (_logHandle)
             {
-              v164 = _logHandle;
+              v171 = _logHandle;
             }
 
             else
             {
               if (_COREBRIGHTNESS_LOG_DEFAULT)
               {
-                v163 = _COREBRIGHTNESS_LOG_DEFAULT;
+                v170 = _COREBRIGHTNESS_LOG_DEFAULT;
               }
 
               else
               {
-                v162 = init_default_corebrightness_log();
-                v163 = v162;
+                v169 = init_default_corebrightness_log();
+                v170 = v169;
               }
 
-              v164 = v163;
+              v171 = v170;
             }
 
-            v341 = v164;
-            v340 = 2;
-            if (os_log_type_enabled(v164, OS_LOG_TYPE_DEBUG))
+            v334 = v171;
+            v333 = 2;
+            if (os_log_type_enabled(v171, OS_LOG_TYPE_DEBUG))
             {
-              v159 = v341;
-              v160 = v340;
-              v161 = v415;
-              __os_log_helper_16_0_4_4_0_8_0_8_0_8_0(v415, 16, COERCE__INT64(v399), COERCE__INT64(v358), COERCE__INT64(v352));
-              _os_log_debug_impl(&dword_1DE8E5000, v159, v160, "[%x]: ts=%f Esensor=%f Emedian=%f", v161, 0x26u);
+              v166 = v334;
+              v167 = v333;
+              v168 = v408;
+              __os_log_helper_16_0_4_4_0_8_0_8_0_8_0(v408, 16, COERCE__INT64(v392), COERCE__INT64(v351), COERCE__INT64(v345));
+              _os_log_debug_impl(&dword_1DE8E5000, v166, v167, "[%x]: ts=%f Esensor=%f Emedian=%f", v168, 0x26u);
             }
 
-            if (v292[160])
+            if (v285[160])
             {
-              v158 = AABC::calculate95thPercentile(v292, (v292 + 168));
-              v30 = v158 * 1.25;
-              *(v400 + 41) = v30;
+              v165 = AABC::calculate95thPercentile(v285, (v285 + 168));
+              v37 = v165 * 1.25;
+              *(v393 + 41) = v37;
               if (_logHandle)
               {
-                v157 = _logHandle;
+                v164 = _logHandle;
               }
 
               else
               {
                 if (_COREBRIGHTNESS_LOG_DEFAULT)
                 {
-                  v156 = _COREBRIGHTNESS_LOG_DEFAULT;
+                  v163 = _COREBRIGHTNESS_LOG_DEFAULT;
                 }
 
                 else
                 {
-                  v155 = init_default_corebrightness_log();
-                  v156 = v155;
+                  v162 = init_default_corebrightness_log();
+                  v163 = v162;
                 }
 
-                v157 = v156;
+                v164 = v163;
               }
 
-              v339 = v157;
-              v338 = 0;
-              if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
+              v332 = v164;
+              v331 = 0;
+              if (os_log_type_enabled(v164, OS_LOG_TYPE_DEFAULT))
               {
-                v152 = v339;
-                v153 = v338;
-                *&v31 = *(v400 + 41);
-                v154 = v414;
-                __os_log_helper_16_0_1_8_0(v414, v31);
-                _os_log_impl(&dword_1DE8E5000, v152, v153, "Scaled 95th percentile lux value: %f, scale factor:1.25", v154, 0xCu);
+                v159 = v332;
+                v160 = v331;
+                *&v38 = *(v393 + 41);
+                v161 = v407;
+                __os_log_helper_16_0_1_8_0(v407, v38);
+                _os_log_impl(&dword_1DE8E5000, v159, v160, "Scaled 95th percentile lux value: %f, scale factor:1.25", v161, 0xCu);
               }
             }
 
-            if (v292[161])
+            if (v285[161])
             {
-              AABC::addToFilter(v292, (v292 + 216), *(v400 + 41));
-              v337 = *(v400 + 41);
-              v151 = AABC::calculate95thPercentile(v292, (v292 + 216));
-              v336 = v151;
-              v335 = v292[162] & 1;
-              if (v151 >= 100.0)
+              AABC::addToFilter(v285, (v285 + 216), *(v393 + 41));
+              v330 = *(v393 + 41);
+              v158 = AABC::calculate95thPercentile(v285, (v285 + 216));
+              v329 = v158;
+              v328 = v285[162] & 1;
+              if (v158 >= 100.0)
               {
-                v34 = v292;
-                *(v400 + 41) = fmaxf(*(v400 + 41), 100.0);
-                v34[162] = v337 < 100.0;
+                v41 = v285;
+                *(v393 + 41) = fmaxf(*(v393 + 41), 100.0);
+                v41[162] = v330 < 100.0;
               }
 
               else
               {
-                *(v400 + 41) = v336;
+                *(v393 + 41) = v329;
                 if (_logHandle)
                 {
-                  v150 = _logHandle;
+                  v157 = _logHandle;
                 }
 
                 else
                 {
                   if (_COREBRIGHTNESS_LOG_DEFAULT)
                   {
-                    v149 = _COREBRIGHTNESS_LOG_DEFAULT;
+                    v156 = _COREBRIGHTNESS_LOG_DEFAULT;
                   }
 
                   else
                   {
-                    v148 = init_default_corebrightness_log();
-                    v149 = v148;
+                    v155 = init_default_corebrightness_log();
+                    v156 = v155;
                   }
 
-                  v150 = v149;
+                  v157 = v156;
                 }
 
-                v334 = v150;
-                v333 = 2;
-                if (os_log_type_enabled(v150, OS_LOG_TYPE_DEBUG))
+                v327 = v157;
+                v326 = 2;
+                if (os_log_type_enabled(v157, OS_LOG_TYPE_DEBUG))
                 {
-                  v145 = v334;
-                  v146 = v333;
-                  *&v32 = *(v400 + 41);
-                  v147 = v413;
-                  __os_log_helper_16_0_1_8_0(v413, v32);
-                  _os_log_debug_impl(&dword_1DE8E5000, v145, v146, "Aliasing Mitigation: using 95th percentile lux value: %f", v147, 0xCu);
+                  v152 = v327;
+                  v153 = v326;
+                  *&v39 = *(v393 + 41);
+                  v154 = v406;
+                  __os_log_helper_16_0_1_8_0(v406, v39);
+                  _os_log_debug_impl(&dword_1DE8E5000, v152, v153, "Aliasing Mitigation: using 95th percentile lux value: %f", v154, 0xCu);
                 }
 
-                v33 = v292;
-                v292[162] = 1;
-                if (v33[135] == 100.0)
+                v40 = v285;
+                v285[162] = 1;
+                if (v40[135] == 100.0)
                 {
-                  ++*(v292 + 938);
+                  ++*(v285 + 938);
                 }
               }
 
-              if (*(v292 + 43) && (v292[162] & 1) != (v335 & 1))
+              if (*(v285 + 43) && (v285[162] & 1) != (v328 & 1))
               {
-                if (v292[162])
+                if (v285[162])
                 {
-                  v144 = *MEMORY[0x1E695E4D0];
+                  v151 = *MEMORY[0x1E695E4D0];
                 }
 
                 else
                 {
-                  v144 = *MEMORY[0x1E695E4C0];
+                  v151 = *MEMORY[0x1E695E4C0];
                 }
 
-                v332 = v144;
-                (*(v292 + 43))(*(v292 + 44), @"AliasingMitigationActive", v144);
+                v325 = v151;
+                (*(v285 + 43))(*(v285 + 44), @"AliasingMitigationActive", v151);
               }
             }
           }
 
-          else if (*(v292 + 866) == 2)
+          else if (*(v285 + 866) == 2)
           {
-            v331 = v358;
-            if (std::vector<float>::size[abi:de200100](v400 + 17) && *(v400 + 31) >= 2u)
+            v324 = v351;
+            if (std::vector<float>::size[abi:de200100](v393 + 17) && *(v393 + 31) >= 2u)
             {
-              std::vector<float>::vector[abi:de200100](v330, v400 + 17);
-              v143 = v330;
-              v329 = std::vector<float>::begin[abi:de200100](v330);
-              v328 = std::vector<float>::end[abi:de200100](v143);
-              std::sort[abi:de200100]<std::__wrap_iter<float *>>(v329, v328);
-              v142 = v330;
-              v35 = std::vector<float>::size[abi:de200100](v330);
-              v331 = *std::vector<float>::operator[][abi:de200100](v142, v35 - ((*(v400 + 31) + 1) >> 1));
+              std::vector<float>::vector[abi:de200100](v323, v393 + 17);
+              v150 = v323;
+              v322 = std::vector<float>::begin[abi:de200100](v323);
+              v321 = std::vector<float>::end[abi:de200100](v150);
+              std::sort[abi:de200100]<std::__wrap_iter<float *>>(v322, v321);
+              v149 = v323;
+              v42 = std::vector<float>::size[abi:de200100](v323);
+              v324 = *std::vector<float>::operator[][abi:de200100](v149, v42 - ((*(v393 + 31) + 1) >> 1));
               if (_logHandle)
               {
-                v141 = _logHandle;
+                v148 = _logHandle;
               }
 
               else
               {
                 if (_COREBRIGHTNESS_LOG_DEFAULT)
                 {
-                  v140 = _COREBRIGHTNESS_LOG_DEFAULT;
+                  v147 = _COREBRIGHTNESS_LOG_DEFAULT;
                 }
 
                 else
                 {
-                  v139 = init_default_corebrightness_log();
-                  v140 = v139;
+                  v146 = init_default_corebrightness_log();
+                  v147 = v146;
                 }
 
-                v141 = v140;
+                v148 = v147;
               }
 
-              v327 = v141;
-              v326 = 2;
-              if (os_log_type_enabled(v141, OS_LOG_TYPE_DEBUG))
+              v320 = v148;
+              v319 = 2;
+              if (os_log_type_enabled(v148, OS_LOG_TYPE_DEBUG))
               {
-                v136 = v327;
-                v137 = v326;
-                v36 = *(v400 + 31);
-                v138 = v412;
-                __os_log_helper_16_2_3_4_0_8_32_4_0(v412, 16, "HandleALSEvent", v36);
-                _os_log_debug_impl(&dword_1DE8E5000, v136, v137, "[%x]: %s: Accessory filter computed on %d samples", v138, 0x18u);
+                v143 = v320;
+                v144 = v319;
+                v43 = *(v393 + 31);
+                v145 = v405;
+                __os_log_helper_16_2_3_4_0_8_32_4_0(v405, 16, "HandleALSEvent", v43);
+                _os_log_debug_impl(&dword_1DE8E5000, v143, v144, "[%x]: %s: Accessory filter computed on %d samples", v145, 0x18u);
               }
 
-              std::vector<float>::~vector[abi:de200100](v330);
+              std::vector<float>::~vector[abi:de200100](v323);
             }
 
-            if (*(v400 + 33) <= -1.0)
+            if (*(v393 + 33) <= -1.0)
             {
-              v135 = 0.0;
-            }
-
-            else
-            {
-              v135 = vabds_f32(*(v400 + 33), v358);
-            }
-
-            v325 = v135;
-            if (v331 <= 0.0)
-            {
-              v134 = 2.0;
+              v142 = 0.0;
             }
 
             else
             {
-              v134 = vabds_f32(v331, v358) / v331;
+              v142 = vabds_f32(*(v393 + 33), v351);
             }
 
-            v324 = v134;
-            if (*(v400 + 33) == -1.0)
+            v318 = v142;
+            if (v324 <= 0.0)
             {
-              *(v400 + 41) = v358;
-              *(v400 + 33) = v358;
-            }
-
-            else if (v324 < 1.0 && v325 > *(v292 + 35) || v358 == 0.0)
-            {
-              *(v400 + 41) = v358;
-              *(v400 + 33) = v358;
+              v141 = 2.0;
             }
 
             else
             {
-              *(v400 + 41) = *(v400 + 33);
+              v141 = vabds_f32(v324, v351) / v324;
+            }
+
+            v317 = v141;
+            if (*(v393 + 33) == -1.0)
+            {
+              *(v393 + 41) = v351;
+              *(v393 + 33) = v351;
+            }
+
+            else if (v317 < 1.0 && v318 > *(v285 + 35) || v351 == 0.0)
+            {
+              *(v393 + 41) = v351;
+              *(v393 + 33) = v351;
+            }
+
+            else
+            {
+              *(v393 + 41) = *(v393 + 33);
             }
           }
 
@@ -9639,296 +9553,296 @@ void AABC::HandleALSEvent(AABC *this, __IOHIDServiceClient *a2, __IOHIDEvent *a3
           {
             if (_logHandle)
             {
-              v133 = _logHandle;
+              v140 = _logHandle;
             }
 
             else
             {
               if (_COREBRIGHTNESS_LOG_DEFAULT)
               {
-                v132 = _COREBRIGHTNESS_LOG_DEFAULT;
+                v139 = _COREBRIGHTNESS_LOG_DEFAULT;
               }
 
               else
               {
-                v131 = init_default_corebrightness_log();
-                v132 = v131;
+                v138 = init_default_corebrightness_log();
+                v139 = v138;
               }
 
-              v133 = v132;
+              v140 = v139;
             }
 
-            v323 = v133;
-            v322 = 2;
-            if (os_log_type_enabled(v133, OS_LOG_TYPE_DEBUG))
+            v316 = v140;
+            v315 = 2;
+            if (os_log_type_enabled(v140, OS_LOG_TYPE_DEBUG))
             {
-              v128 = v323;
-              v129 = v322;
-              v130 = v411;
-              __os_log_helper_16_0_3_4_0_8_0_8_0(v411, 16, COERCE__INT64(v399), COERCE__INT64(v358));
-              _os_log_debug_impl(&dword_1DE8E5000, v128, v129, "[%x]: ts=%f Esensor=%f", v130, 0x1Cu);
+              v135 = v316;
+              v136 = v315;
+              v137 = v404;
+              __os_log_helper_16_0_3_4_0_8_0_8_0(v404, 16, COERCE__INT64(v392), COERCE__INT64(v351));
+              _os_log_debug_impl(&dword_1DE8E5000, v135, v136, "[%x]: ts=%f Esensor=%f", v137, 0x1Cu);
             }
 
-            *(v400 + 41) = v358;
+            *(v393 + 41) = v351;
           }
 
-          if (v292[432] & 1) != 0 || (v292[434] & 1) != 0 || (v292[433])
+          if (v285[432] & 1) != 0 || (v285[434] & 1) != 0 || (v285[433])
           {
-            v37 = v292;
-            *(v292 + 132) = 0;
-            *(v37 + 133) = 0;
-            if (v397)
+            v44 = v285;
+            *(v285 + 132) = 0;
+            *(v44 + 133) = 0;
+            if (v390)
             {
-              CFDictionaryApplyFunction(v397, AABC::UpdateAggregateFunction, v292);
+              CFDictionaryApplyFunction(v390, AABC::UpdateAggregateFunction, v285);
             }
 
             else
             {
-              CFDictionaryApplyFunction(*(v292 + 52), AABC::UpdateAggregateFunction, v292);
+              CFDictionaryApplyFunction(*(v285 + 52), AABC::UpdateAggregateFunction, v285);
             }
 
-            AABC::_ReportEsensorAggregated(v292);
-            v125 = *(v292 + 135);
-            v38 = *(v292 + 150);
-            v39 = -1.0;
-            if (v38 <= 1)
+            AABC::_ReportEsensorAggregated(v285);
+            v132 = *(v285 + 135);
+            v45 = *(v285 + 150);
+            v46 = -1.0;
+            if (v45 <= 1)
             {
-              v39 = 0.1;
+              v46 = 0.1;
             }
 
-            v40 = v39;
-            v126 = v40;
-            v127 = 1;
-            if (v38 >= 2)
+            v47 = v46;
+            v133 = v47;
+            v134 = 1;
+            if (v45 >= 2)
             {
-              v127 = v292[3992];
+              v134 = v285[3992];
             }
 
-            AABC::_UpdateNitsRestrictions(v292, v125, v126, v127 & 1);
-            v123 = *(v292 + 468);
-            v41 = *(v292 + 59);
-            v124 = 0;
-            if (v41)
+            AABC::_UpdateNitsRestrictions(v285, v132, v133, v134 & 1);
+            v130 = *(v285 + 468);
+            v48 = *(v285 + 59);
+            v131 = 0;
+            if (v48)
             {
-              v124 = *(v292 + 942) != 0;
+              v131 = *(v285 + 942) != 0;
             }
 
-            v121 = v124;
-            v42 = *(*(v292 + 56) + 24);
-            v122 = 0;
-            if (v42)
+            v128 = v131;
+            v49 = *(*(v285 + 56) + 24);
+            v129 = 0;
+            if (v49)
             {
-              v120 = [*(*(v292 + 56) + 24) isObstructedIgnoreActive];
-              v122 = v120;
+              v127 = [*(*(v285 + 56) + 24) isObstructedIgnoreActive];
+              v129 = v127;
             }
 
-            [v123 recordOcclusionByProx:v121 andByTouch:v122 & 1];
+            [v130 recordOcclusionByProx:v128 andByTouch:v129 & 1];
             if (_logHandle)
             {
-              v119 = _logHandle;
+              v126 = _logHandle;
             }
 
             else
             {
               if (_COREBRIGHTNESS_LOG_DEFAULT)
               {
-                v118 = _COREBRIGHTNESS_LOG_DEFAULT;
+                v125 = _COREBRIGHTNESS_LOG_DEFAULT;
               }
 
               else
               {
-                v117 = init_default_corebrightness_log();
-                v118 = v117;
+                v124 = init_default_corebrightness_log();
+                v125 = v124;
               }
 
-              v119 = v118;
+              v126 = v125;
             }
 
-            v321 = v119;
-            v320 = 2;
-            if (os_log_type_enabled(v119, OS_LOG_TYPE_DEBUG))
+            v314 = v126;
+            v313 = 2;
+            if (os_log_type_enabled(v126, OS_LOG_TYPE_DEBUG))
             {
-              v110 = v321;
-              v111 = v320;
-              v112 = &v410;
-              *&v113 = *(v292 + 135);
-              v114 = (&kAABStateStr)[*(v292 + 90)];
-              v115 = (&kProxStateStr)[*(v292 + 942)];
-              isTouchObstructed = AABC::ALS::isTouchObstructed(*(v292 + 56));
-              __os_log_helper_16_2_8_4_0_8_0_8_32_8_32_4_0_8_32_4_0_8_32(v112, 16, v113, v114, v115, isTouchObstructed & 1, (&kDimPolicyStr)[*(v292 + 861)], *(v292 + 861), (&kOrientationString)[*(v292 + 176)]);
-              _os_log_debug_impl(&dword_1DE8E5000, v110, v111, "[%x]: _Esensor_trusted=%f _state=%s _proxState=%s _touchIsObstucted=%d _settings._internal._dimPolicy=%s %d _orientation=%s", v112, 0x46u);
+              v117 = v314;
+              v118 = v313;
+              v119 = &v403;
+              *&v120 = *(v285 + 135);
+              v121 = (&kAABStateStr)[*(v285 + 90)];
+              v122 = (&kProxStateStr)[*(v285 + 942)];
+              isTouchObstructed = AABC::ALS::isTouchObstructed(*(v285 + 56));
+              __os_log_helper_16_2_8_4_0_8_0_8_32_8_32_4_0_8_32_4_0_8_32(v119, 16, v120, v121, v122, isTouchObstructed & 1, (&kDimPolicyStr)[*(v285 + 861)], *(v285 + 861), (&kOrientationString)[*(v285 + 176)]);
+              _os_log_debug_impl(&dword_1DE8E5000, v117, v118, "[%x]: _Esensor_trusted=%f _state=%s _proxState=%s _touchIsObstucted=%d _settings._internal._dimPolicy=%s %d _orientation=%s", v119, 0x46u);
             }
 
-            if (*(v292 + 121) == 0.0 || *(v292 + 121) == 1.0)
+            if (*(v285 + 121) == 0.0 || *(v285 + 121) == 1.0)
             {
-              v109 = *(v292 + 90);
-              if (v109 >= 2 && v109 - 2 < 2)
+              v116 = *(v285 + 90);
+              if (v116 >= 2 && v116 - 2 < 2)
               {
-                v319 = 0.0;
-                v318 = 0.0;
-                if (*(v292 + 128))
+                v312 = 0.0;
+                v311 = 0.0;
+                if (*(v285 + 128))
                 {
-                  LogicalBrightness = DisplayGetLogicalBrightness(*(v292 + 50));
-                  v319 = LogicalBrightness;
-                  if (v292[3425])
+                  LogicalBrightness = DisplayGetLogicalBrightness(*(v285 + 50));
+                  v312 = LogicalBrightness;
+                  if (v285[3425])
                   {
-                    v107 = AABC::IlluminanceToLuminance(v292, v292 + 804, *(v292 + 135), *(v292 + 138));
-                    v317 = v107;
-                    if (v43 || (v292[3426] & 1) == 0)
+                    v114 = AABC::IlluminanceToLuminance(v285, v285 + 804, *(v285 + 135), *(v285 + 138));
+                    v310 = v114;
+                    if (v50 | ((v285[3426] & 1) == 0))
                     {
-                      v319 = fminf(*(v292 + 857), v317);
+                      v312 = fminf(*(v285 + 857), v310);
                     }
                   }
 
-                  v106 = AABC::IlluminanceToLuminance(v292, v292 + 264, *(v292 + 135), *(v292 + 138));
-                  v318 = v106;
+                  v113 = AABC::IlluminanceToLuminance(v285, v285 + 264, *(v285 + 135), *(v285 + 138));
+                  v311 = v113;
                 }
 
                 else
                 {
-                  v105 = AABC::IlluminanceToLuminance(v292, v292 + 264, *(v292 + 135), *(v292 + 138));
-                  v319 = v105;
-                  if (v292[3425])
+                  v112 = AABC::IlluminanceToLuminance(v285, v285 + 264, *(v285 + 135), *(v285 + 138));
+                  v312 = v112;
+                  if (v285[3425])
                   {
-                    v104 = AABC::IlluminanceToLuminance(v292, v292 + 804, *(v292 + 135), *(v292 + 138));
-                    v316 = v104;
-                    v319 = fminf(v319, v104);
-                    if (v43 || (v292[3426] & 1) == 0)
+                    v111 = AABC::IlluminanceToLuminance(v285, v285 + 804, *(v285 + 135), *(v285 + 138));
+                    v309 = v111;
+                    v312 = fminf(v312, v111);
+                    if (v50 | ((v285[3426] & 1) == 0))
                     {
-                      v319 = fminf(*(v292 + 857), v316);
+                      v312 = fminf(*(v285 + 857), v309);
                     }
                   }
                 }
 
-                v319 = fmaxf(v319, *(v292 + 180));
-                v319 = fminf(v319, *(v292 + 182));
-                if (*(v292 + 128))
+                v312 = fmaxf(v312, *(v285 + 180));
+                v312 = fminf(v312, *(v285 + 182));
+                if (*(v285 + 128))
                 {
-                  v318 = fmaxf(v318, *(v292 + 180));
-                  v318 = fminf(v318, *(v292 + 182));
-                  DisplaySetABBrightnessForPowerReport(*(v292 + 50), 1, v318);
+                  v311 = fmaxf(v311, *(v285 + 180));
+                  v311 = fminf(v311, *(v285 + 182));
+                  DisplaySetABBrightnessForPowerReport(*(v285 + 50), 1, v311);
                 }
 
                 else
                 {
-                  DisplaySetABBrightnessForPowerReport(*(v292 + 50), 0, v319);
+                  DisplaySetABBrightnessForPowerReport(*(v285 + 50), 0, v312);
                 }
 
-                v364 = AABC::IlluminanceToReflectivity(v292, *(v292 + 138));
+                v357 = AABC::IlluminanceToReflectivity(v285, *(v285 + 138));
                 if (_logHandle)
                 {
-                  v103 = _logHandle;
+                  v110 = _logHandle;
                 }
 
                 else
                 {
                   if (_COREBRIGHTNESS_LOG_DEFAULT)
                   {
-                    v102 = _COREBRIGHTNESS_LOG_DEFAULT;
+                    v109 = _COREBRIGHTNESS_LOG_DEFAULT;
                   }
 
                   else
                   {
-                    v101 = init_default_corebrightness_log();
-                    v102 = v101;
+                    v108 = init_default_corebrightness_log();
+                    v109 = v108;
                   }
 
-                  v103 = v102;
+                  v110 = v109;
                 }
 
-                v315 = v103;
-                v314 = 2;
-                if (os_log_type_enabled(v103, OS_LOG_TYPE_DEBUG))
+                v308 = v110;
+                v307 = 2;
+                if (os_log_type_enabled(v110, OS_LOG_TYPE_DEBUG))
                 {
-                  v98 = v315;
-                  v99 = v314;
-                  v44 = *v400;
-                  v45 = *(v400 + 1);
-                  *&v46 = *(v400 + 41);
-                  *&v47 = *(v292 + 135);
-                  v100 = v409;
-                  __os_log_helper_16_0_7_4_0_4_0_8_0_8_0_8_0_8_0_8_0(v409, v44, v45, COERCE__INT64(v398), v46, v47, COERCE__INT64(v319), COERCE__INT64(v364));
-                  _os_log_debug_impl(&dword_1DE8E5000, v98, v99, "[%02x/%02x] Esensor_device: %0.2f als->_Esensor_filtered: %0.2f _Esensor_trusted: %0.2f  L: %0.4f L_reflected: %0.4f", v100, 0x40u);
+                  v105 = v308;
+                  v106 = v307;
+                  v51 = *v393;
+                  v52 = *(v393 + 1);
+                  *&v53 = *(v393 + 41);
+                  *&v54 = *(v285 + 135);
+                  v107 = v402;
+                  __os_log_helper_16_0_7_4_0_4_0_8_0_8_0_8_0_8_0_8_0(v402, v51, v52, COERCE__INT64(v391), v53, v54, COERCE__INT64(v312), COERCE__INT64(v357));
+                  _os_log_debug_impl(&dword_1DE8E5000, v105, v106, "[%02x/%02x] Esensor_device: %0.2f als->_Esensor_filtered: %0.2f _Esensor_trusted: %0.2f  L: %0.4f L_reflected: %0.4f", v107, 0x40u);
                 }
 
-                v97 = [*(v292 + 467) E];
-                [v97 pushNumberWeighted:v398 withWeight:*(v292 + 158)];
-                [*(v292 + 464) recordTime];
-                v313 = 2;
-                v96 = AABC::ALS::isTouchObstructed(*(v292 + 56));
-                if (v96)
+                v104 = [*(v285 + 467) E];
+                [v104 pushNumberWeighted:v391 withWeight:*(v285 + 158)];
+                [*(v285 + 464) recordTime];
+                v306 = 2;
+                v103 = AABC::ALS::isTouchObstructed(*(v285 + 56));
+                if (v103)
                 {
-                  v313 = *(v292 + 59) == 0;
+                  v306 = *(v285 + 59) == 0;
                 }
 
-                v95 = *(v292 + 861);
-                if (v95)
+                v102 = *(v285 + 861);
+                if (v102)
                 {
-                  if (v95 == 1)
+                  if (v102 == 1)
                   {
-                    v313 = 1;
-                    if (*(v292 + 58))
+                    v306 = 1;
+                    if (*(v285 + 58))
                     {
-                      v94 = IOHIDServiceClientCopyProperty(*(v292 + 58), @"GraphicsOrientation");
-                      v312 = v94;
-                      if (v94)
+                      v101 = IOHIDServiceClientCopyProperty(*(v285 + 58), @"GraphicsOrientation");
+                      v305 = v101;
+                      if (v101)
                       {
-                        v311 = 0;
-                        v93 = CFGetTypeID(v312);
+                        v304 = 0;
+                        v100 = CFGetTypeID(v305);
                         TypeID = CFNumberGetTypeID();
-                        if (v93 == TypeID)
+                        if (v100 == TypeID)
                         {
-                          CFNumberGetValue(v312, kCFNumberIntType, &v311);
+                          CFNumberGetValue(v305, kCFNumberIntType, &v304);
                         }
 
-                        CFRelease(v312);
-                        if (v311 != *(v292 + 139) && v311 == 1)
+                        CFRelease(v305);
+                        if (v304 != *(v285 + 139) && v304 == 1)
                         {
-                          *(v292 + 946) = 0;
+                          *(v285 + 946) = 0;
                         }
 
-                        *(v292 + 139) = v311;
-                        if (v311 == 1 && *(v292 + 946) < *(v292 + 947))
+                        *(v285 + 139) = v304;
+                        if (v304 == 1 && *(v285 + 946) < *(v285 + 947))
                         {
-                          v48 = v292;
-                          ++*(v292 + 946);
-                          if (*(v48 + 946) == *(v48 + 947))
+                          v55 = v285;
+                          ++*(v285 + 946);
+                          if (*(v55 + 946) == *(v55 + 947))
                           {
-                            v49 = v292;
-                            *(v292 + 943) = 0;
-                            *(v49 + 944) = 0;
-                            *(v49 + 151) = 0;
+                            v56 = v285;
+                            *(v285 + 943) = 0;
+                            *(v56 + 944) = 0;
+                            *(v56 + 151) = 0;
                             if (_logHandle)
                             {
-                              v91 = _logHandle;
+                              v98 = _logHandle;
                             }
 
                             else
                             {
                               if (_COREBRIGHTNESS_LOG_DEFAULT)
                               {
-                                v90 = _COREBRIGHTNESS_LOG_DEFAULT;
+                                v97 = _COREBRIGHTNESS_LOG_DEFAULT;
                               }
 
                               else
                               {
-                                v89 = init_default_corebrightness_log();
-                                v90 = v89;
+                                v96 = init_default_corebrightness_log();
+                                v97 = v96;
                               }
 
-                              v91 = v90;
+                              v98 = v97;
                             }
 
-                            v310 = v91;
-                            v309 = 2;
-                            if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
+                            v303 = v98;
+                            v302 = 2;
+                            if (os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
                             {
-                              v86 = v310;
-                              v87 = v309;
-                              v50 = *(v292 + 947);
-                              v88 = v408;
-                              __os_log_helper_16_0_1_4_0(v408, v50);
-                              _os_log_debug_impl(&dword_1DE8E5000, v86, v87, "Stayed in portrait mode for %d samples, resetting dimming", v88, 8u);
+                              v93 = v303;
+                              v94 = v302;
+                              v57 = *(v285 + 947);
+                              v95 = v401;
+                              __os_log_helper_16_0_1_4_0(v401, v57);
+                              _os_log_debug_impl(&dword_1DE8E5000, v93, v94, "Stayed in portrait mode for %d samples, resetting dimming", v95, 8u);
                             }
                           }
                         }
@@ -9936,148 +9850,148 @@ void AABC::HandleALSEvent(AABC *this, __IOHIDServiceClient *a2, __IOHIDEvent *a3
                     }
                   }
 
-                  else if (v95 == 2)
+                  else if (v102 == 2)
                   {
-                    if (*(v292 + 176) == 3 || *(v292 + 176) == 4)
+                    if (*(v285 + 176) == 3 || *(v285 + 176) == 4)
                     {
-                      v313 = 1;
+                      v306 = 1;
                     }
                   }
 
-                  else if (v95 != 3)
+                  else if (v102 != 3)
                   {
-                    if (v95 == 4)
+                    if (v102 == 4)
                     {
-                      if (*(v292 + 950) >= 1)
+                      if (*(v285 + 950) >= 1)
                       {
-                        v313 = 0;
+                        v306 = 0;
                       }
                     }
 
-                    else if (v95 == 5)
+                    else if (v102 == 5)
                     {
-                      if (*(v292 + 950) >= 1)
+                      if (*(v285 + 950) >= 1)
                       {
-                        v313 = 1;
+                        v306 = 1;
                       }
                     }
 
-                    else if ((v95 - 6) < 2)
+                    else if ((v102 - 6) < 2)
                     {
-                      v308 = 1;
-                      if (*(v292 + 58))
+                      v301 = 1;
+                      if (*(v285 + 58))
                       {
-                        v85 = IOHIDServiceClientCopyProperty(*(v292 + 58), @"GraphicsOrientation");
-                        v307 = v85;
-                        if (v85)
+                        v92 = IOHIDServiceClientCopyProperty(*(v285 + 58), @"GraphicsOrientation");
+                        v300 = v92;
+                        if (v92)
                         {
-                          v306 = 0;
-                          v84 = CFGetTypeID(v307);
-                          v83 = CFNumberGetTypeID();
-                          if (v84 == v83)
+                          v299 = 0;
+                          v91 = CFGetTypeID(v300);
+                          v90 = CFNumberGetTypeID();
+                          if (v91 == v90)
                           {
-                            CFNumberGetValue(v307, kCFNumberIntType, &v306);
+                            CFNumberGetValue(v300, kCFNumberIntType, &v299);
                           }
 
-                          CFRelease(v307);
-                          if (*(v292 + 861) == 7 && v306 == 1)
+                          CFRelease(v300);
+                          if (*(v285 + 861) == 7 && v299 == 1)
                           {
-                            *(v292 + 152) = 0;
-                            v308 = 0;
+                            *(v285 + 152) = 0;
+                            v301 = 0;
                           }
 
-                          else if (v306 != *(v292 + 139))
+                          else if (v299 != *(v285 + 139))
                           {
                             if (_logHandle)
                             {
-                              v82 = _logHandle;
+                              v89 = _logHandle;
                             }
 
                             else
                             {
                               if (_COREBRIGHTNESS_LOG_DEFAULT)
                               {
-                                v81 = _COREBRIGHTNESS_LOG_DEFAULT;
+                                v88 = _COREBRIGHTNESS_LOG_DEFAULT;
                               }
 
                               else
                               {
-                                v80 = init_default_corebrightness_log();
-                                v81 = v80;
+                                v87 = init_default_corebrightness_log();
+                                v88 = v87;
                               }
 
-                              v82 = v81;
+                              v89 = v88;
                             }
 
-                            v305 = v82;
-                            v304 = 1;
-                            if (os_log_type_enabled(v82, OS_LOG_TYPE_INFO))
+                            v298 = v89;
+                            v297 = 1;
+                            if (os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
                             {
-                              v77 = v305;
-                              v78 = v304;
-                              v79 = v303;
-                              __os_log_helper_16_0_0(v303);
-                              _os_log_impl(&dword_1DE8E5000, v77, v78, "Orientation changed. Allowing dimming", v79, 2u);
+                              v84 = v298;
+                              v85 = v297;
+                              v86 = v296;
+                              __os_log_helper_16_0_0(v296);
+                              _os_log_impl(&dword_1DE8E5000, v84, v85, "Orientation changed. Allowing dimming", v86, 2u);
                             }
 
-                            v51 = v292;
-                            *(v292 + 943) = 0;
-                            v51[944] = 0;
-                            v51[151] = 0;
-                            v313 = 1;
-                            v51[152] = 0;
-                            v51[140] = 0;
-                            v308 = 0;
+                            v58 = v285;
+                            *(v285 + 943) = 0;
+                            v58[944] = 0;
+                            v58[151] = 0;
+                            v306 = 1;
+                            v58[152] = 0;
+                            v58[140] = 0;
+                            v301 = 0;
                           }
 
-                          *(v292 + 139) = v306;
+                          *(v285 + 139) = v299;
                         }
                       }
 
-                      if (v308)
+                      if (v301)
                       {
-                        v302 = 0;
-                        IsProxEmulationTriggered = AABC::IsProxEmulationTriggered(v292, &v302);
-                        if (IsProxEmulationTriggered && *(v292 + 154) < *(v292 + 155))
+                        v295 = 0;
+                        IsProxEmulationTriggered = AABC::IsProxEmulationTriggered(v285, &v295);
+                        if (IsProxEmulationTriggered && *(v285 + 154) < *(v285 + 155))
                         {
                           if (_logHandle)
                           {
-                            v75 = _logHandle;
+                            v82 = _logHandle;
                           }
 
                           else
                           {
                             if (_COREBRIGHTNESS_LOG_DEFAULT)
                             {
-                              v74 = _COREBRIGHTNESS_LOG_DEFAULT;
+                              v81 = _COREBRIGHTNESS_LOG_DEFAULT;
                             }
 
                             else
                             {
-                              v73 = init_default_corebrightness_log();
-                              v74 = v73;
+                              v80 = init_default_corebrightness_log();
+                              v81 = v80;
                             }
 
-                            v75 = v74;
+                            v82 = v81;
                           }
 
-                          v301 = v75;
-                          v300 = 1;
-                          if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
+                          v294 = v82;
+                          v293 = 1;
+                          if (os_log_type_enabled(v82, OS_LOG_TYPE_INFO))
                           {
-                            v70 = v301;
-                            v71 = v300;
-                            v72 = v299;
-                            __os_log_helper_16_0_0(v299);
-                            _os_log_impl(&dword_1DE8E5000, v70, v71, "Cancel ramp, ALS covered mitigation", v72, 2u);
+                            v77 = v294;
+                            v78 = v293;
+                            v79 = v292;
+                            __os_log_helper_16_0_0(v292);
+                            _os_log_impl(&dword_1DE8E5000, v77, v78, "Cancel ramp, ALS covered mitigation", v79, 2u);
                           }
 
-                          AABC::CancelRamp(v292);
+                          AABC::CancelRamp(v285);
                         }
 
-                        if (v302)
+                        if (v295)
                         {
-                          v313 = 1;
+                          v306 = 1;
                         }
                       }
                     }
@@ -10086,91 +10000,91 @@ void AABC::HandleALSEvent(AABC *this, __IOHIDServiceClient *a2, __IOHIDEvent *a3
 
                 else
                 {
-                  v313 = 0;
+                  v306 = 0;
                 }
 
-                v298 = 0;
+                v291 = 0;
                 if (_logHandle)
                 {
-                  v69 = _logHandle;
+                  v76 = _logHandle;
                 }
 
                 else
                 {
                   if (_COREBRIGHTNESS_LOG_DEFAULT)
                   {
-                    v68 = _COREBRIGHTNESS_LOG_DEFAULT;
+                    v75 = _COREBRIGHTNESS_LOG_DEFAULT;
                   }
 
                   else
                   {
-                    v67 = init_default_corebrightness_log();
-                    v68 = v67;
+                    v74 = init_default_corebrightness_log();
+                    v75 = v74;
                   }
 
-                  v69 = v68;
+                  v76 = v75;
                 }
 
-                v297 = v69;
-                v296 = 2;
-                if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+                v290 = v76;
+                v289 = 2;
+                if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
                 {
-                  v64 = v297;
-                  v65 = v296;
-                  v52 = (&kDimRestrictionStr)[v313];
-                  v66 = v407;
-                  __os_log_helper_16_2_2_4_0_8_32(v407, 16, v52);
-                  _os_log_debug_impl(&dword_1DE8E5000, v64, v65, "[%x]: dimRestriction=%s", v66, 0x12u);
+                  v71 = v290;
+                  v72 = v289;
+                  v59 = (&kDimRestrictionStr)[v306];
+                  v73 = v400;
+                  __os_log_helper_16_2_2_4_0_8_32(v400, 16, v59);
+                  _os_log_debug_impl(&dword_1DE8E5000, v71, v72, "[%x]: dimRestriction=%s", v73, 0x12u);
                 }
 
-                DisplaySetCurrentAmbient(*(v292 + 50), *(v292 + 135));
-                if (*(v292 + 122) > 0.0)
+                DisplaySetCurrentAmbient(*(v285 + 50), *(v285 + 135));
+                if (*(v285 + 122) > 0.0)
                 {
-                  if (*(v292 + 150) == 1)
+                  if (*(v285 + 150) == 1)
                   {
                     if (_logHandle)
                     {
-                      v63 = _logHandle;
+                      v70 = _logHandle;
                     }
 
                     else
                     {
                       if (_COREBRIGHTNESS_LOG_DEFAULT)
                       {
-                        v62 = _COREBRIGHTNESS_LOG_DEFAULT;
+                        v69 = _COREBRIGHTNESS_LOG_DEFAULT;
                       }
 
                       else
                       {
-                        v61 = init_default_corebrightness_log();
-                        v62 = v61;
+                        v68 = init_default_corebrightness_log();
+                        v69 = v68;
                       }
 
-                      v63 = v62;
+                      v70 = v69;
                     }
 
-                    v295 = v63;
-                    v294 = 2;
-                    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
+                    v288 = v70;
+                    v287 = 2;
+                    if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
                     {
-                      v58 = v295;
-                      v59 = v294;
-                      v60 = v406;
-                      __os_log_helper_16_0_1_8_0(v406, COERCE__INT64(v319));
-                      _os_log_debug_impl(&dword_1DE8E5000, v58, v59, "Display on L=%0.4f", v60, 0xCu);
+                      v65 = v288;
+                      v66 = v287;
+                      v67 = v399;
+                      __os_log_helper_16_0_1_8_0(v399, COERCE__INT64(v312));
+                      _os_log_debug_impl(&dword_1DE8E5000, v65, v66, "Display on L=%0.4f", v67, 0xCu);
                     }
 
-                    updated = AABC::UpdateDisplayBrightness_Block6(v292, 0, 2, 0, v319);
-                    v298 = updated & 1;
+                    updated = AABC::UpdateDisplayBrightness_Block6(v285, 0, 2, 0, v312);
+                    v291 = updated & 1;
                   }
 
                   else
                   {
-                    v56 = AABC::UpdateDisplayBrightness_Block6(v292, 1, v313, 0, v319);
-                    v298 = v56 & 1;
+                    v63 = AABC::UpdateDisplayBrightness_Block6(v285, 1, v306, 0, v312);
+                    v291 = v63 & 1;
                   }
 
-                  if (v298)
+                  if (v291)
                   {
                     IOHIDEventSetIntegerValue();
                   }
@@ -10178,51 +10092,51 @@ void AABC::HandleALSEvent(AABC *this, __IOHIDServiceClient *a2, __IOHIDEvent *a3
               }
             }
 
-            if (*(v292 + 122) > 0.0 && *(v292 + 85) != v364 && std::__math::fabs[abi:de200100](1.0 - (v364 / *(v292 + 85))) > 0.1)
+            if (*(v285 + 122) > 0.0 && *(v285 + 85) != v357 && std::__math::fabs[abi:de200100](1.0 - (v357 / *(v285 + 85))) > 0.1)
             {
-              v293 = 0.0;
-              if (v364 <= *(v292 + 85))
+              v286 = 0.0;
+              if (v357 <= *(v285 + 85))
               {
-                v293 = 45.0;
+                v286 = 45.0;
               }
 
               else
               {
-                v293 = 3.0;
+                v286 = 3.0;
               }
 
-              DisplaySetReflectedBrightnessWithFade(*(v292 + 50), 0, 0, v364, v293);
-              *(v292 + 85) = v364;
+              DisplaySetReflectedBrightnessWithFade(*(v285 + 50), 0, 0, v357, v286);
+              *(v285 + 85) = v357;
             }
 
-            if (*(v292 + 150) == 1 && *(v292 + 167) == 1)
+            if (*(v285 + 150) == 1 && *(v285 + 167) == 1)
             {
-              if (*(v292 + 90) == 3)
+              if (*(v285 + 90) == 3)
               {
-                v53 = v292;
-                *(v292 + 158) = *(v400 + 14);
-                *(v53 + 167) = 3;
+                v60 = v285;
+                *(v285 + 158) = *(v393 + 14);
+                *(v60 + 167) = 3;
               }
 
-              else if (*(v292 + 90) == 2)
+              else if (*(v285 + 90) == 2)
               {
-                v54 = v292;
-                *(v292 + 158) = *(v400 + 13);
-                *(v54 + 167) = 2;
+                v61 = v285;
+                *(v285 + 158) = *(v393 + 13);
+                *(v61 + 167) = 2;
               }
 
-              if (*(v292 + 160) && *(v292 + 158) < 0.05)
+              if (*(v285 + 160) && *(v285 + 158) < 0.05)
               {
-                *(v292 + 158) = 1045220557;
+                *(v285 + 158) = 1045220557;
               }
 
-              AABC::UpdateALSState(v292, 17);
+              AABC::UpdateALSState(v285, 17);
             }
           }
 
-          if (v397)
+          if (v390)
           {
-            CFRelease(v397);
+            CFRelease(v390);
           }
         }
       }
@@ -10233,36 +10147,30 @@ void AABC::HandleALSEvent(AABC *this, __IOHIDServiceClient *a2, __IOHIDEvent *a3
   {
     if (_logHandle)
     {
-      v284 = _logHandle;
+      v277 = _logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v283 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v276 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v282 = init_default_corebrightness_log();
-        v283 = v282;
+        v276 = init_default_corebrightness_log();
       }
 
-      v284 = v283;
+      v277 = v276;
     }
 
-    v395 = v284;
-    v394 = OS_LOG_TYPE_DEBUG;
-    if (os_log_type_enabled(v284, OS_LOG_TYPE_DEBUG))
+    v388 = v277;
+    v387 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v277, OS_LOG_TYPE_DEBUG))
     {
-      v279 = v395;
-      v280 = v394;
-      v281 = v426;
-      __os_log_helper_16_0_1_4_0(v426, 4);
-      _os_log_debug_impl(&dword_1DE8E5000, v395, v394, "[%x]: throwing away stale sample", v426, 8u);
+      __os_log_helper_16_0_1_4_0(v419, 4);
+      _os_log_debug_impl(&dword_1DE8E5000, v388, v387, "[%x]: throwing away stale sample", v419, 8u);
     }
   }
-
-  v43 = __OFSUB__(*MEMORY[0x1E69E9840], v428);
 }

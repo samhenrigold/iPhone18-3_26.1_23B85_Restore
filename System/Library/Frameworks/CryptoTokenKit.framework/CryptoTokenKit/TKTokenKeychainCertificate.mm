@@ -9,10 +9,10 @@
 
 - (TKTokenKeychainCertificate)initWithCertificate:(SecCertificateRef)certificateRef objectID:(TKTokenObjectID)objectID
 {
-  v33[1] = *MEMORY[0x1E69E9840];
-  v29.receiver = self;
-  v29.super_class = TKTokenKeychainCertificate;
-  v5 = [(TKTokenKeychainItem *)&v29 initWithObjectID:objectID];
+  v32[1] = *MEMORY[0x1E69E9840];
+  v28.receiver = self;
+  v28.super_class = TKTokenKeychainCertificate;
+  v5 = [(TKTokenKeychainItem *)&v28 initWithObjectID:objectID];
   if (v5)
   {
     v6 = SecCertificateCopyData(certificateRef);
@@ -22,9 +22,9 @@
     v8 = SecCertificateCopySubjectSummary(certificateRef);
     [(TKTokenKeychainItem *)v5 setLabel:v8];
 
-    v32 = &unk_1F5A85150;
-    v33[0] = MEMORY[0x1E695E118];
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v31 = &unk_1F5A85150;
+    v32[0] = MEMORY[0x1E695E118];
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
     [(TKTokenKeychainItem *)v5 setConstraints:v9];
 
     v10 = SecCertificateCopyAttributeDictionary();
@@ -62,11 +62,11 @@
 
     else
     {
-      v26 = TK_LOG_token_2();
+      v26 = TK_LOG_token_2(0);
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v31 = certificateRef;
+        v30 = certificateRef;
         _os_log_impl(&dword_1DF413000, v26, OS_LOG_TYPE_DEFAULT, "Failed to get attributes from certificate %{public}@", buf, 0xCu);
       }
 
@@ -75,7 +75,6 @@
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

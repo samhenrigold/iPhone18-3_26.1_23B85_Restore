@@ -6,17 +6,17 @@
 
 - (id)queryPathsForPersona:(id)persona withError:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   personaCopy = persona;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__47;
-  v20 = __Block_byref_object_dispose__47;
-  v21 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__47;
+  v19 = __Block_byref_object_dispose__47;
+  v20 = 0;
   v6 = objc_opt_new();
   BRPerformWithPersonaAndError();
-  v7 = v17[5];
+  v7 = v16[5];
   if (v7)
   {
     v8 = v7;
@@ -24,20 +24,20 @@
     v10 = brc_default_log();
     if (os_log_type_enabled(v10, 0x90u))
     {
-      v15 = "(passed to caller)";
+      v14 = "(passed to caller)";
       *buf = 136315906;
-      v23 = "[BRDaemonCloudDocsHelper queryPathsForPersona:withError:]";
-      v24 = 2080;
+      v22 = "[BRDaemonCloudDocsHelper queryPathsForPersona:withError:]";
+      v23 = 2080;
       if (!error)
       {
-        v15 = "(ignored by caller)";
+        v14 = "(ignored by caller)";
       }
 
-      v25 = v15;
-      v26 = 2112;
-      v27 = v8;
-      v28 = 2112;
-      v29 = v9;
+      v24 = v14;
+      v25 = 2112;
+      v26 = v8;
+      v27 = 2112;
+      v28 = v9;
       _os_log_error_impl(&dword_223E7A000, v10, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
 
@@ -55,8 +55,7 @@
     v12 = v6;
   }
 
-  _Block_object_dispose(&v16, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
 
   return v12;
 }

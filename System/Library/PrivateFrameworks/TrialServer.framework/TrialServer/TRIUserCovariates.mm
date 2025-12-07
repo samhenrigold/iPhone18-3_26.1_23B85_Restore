@@ -30,25 +30,23 @@
 
 - (id)_applicationRecordForBundleId:(id)id
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   idCopy = id;
-  v9 = 0;
-  v4 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:idCopy allowPlaceholder:0 error:&v9];
-  v5 = v9;
+  v8 = 0;
+  v4 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:idCopy allowPlaceholder:0 error:&v8];
+  v5 = v8;
   if (!v4)
   {
     v6 = TRILogCategory_Server();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v11 = idCopy;
-      v12 = 2114;
-      v13 = v5;
+      v10 = idCopy;
+      v11 = 2114;
+      v12 = v5;
       _os_log_debug_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEBUG, "application not found for bundle id {public}%@ -- %{public}@", buf, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

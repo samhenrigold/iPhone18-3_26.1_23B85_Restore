@@ -1,15 +1,12 @@
 uint64_t sub_2724B5E70()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t sub_2724B5EA8()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
@@ -17,7 +14,6 @@ uint64_t sub_2724B5EA8()
 uint64_t sub_2724B5EE8()
 {
   _Block_release(*(v0 + 24));
-  v1 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
@@ -26,7 +22,6 @@ uint64_t sub_2724B5F2C()
 {
   _Block_release(*(v0 + 16));
   _Block_release(*(v0 + 24));
-  v1 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
@@ -43,7 +38,7 @@ uint64_t sub_2724B9134(uint64_t a1, uint64_t a2)
   v3[6] = a2;
   v3[7] = v2;
   v3[5] = a1;
-  v4 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_280898898, &qword_272755E00) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280898898, &qword_272755E00);
   v3[8] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](sub_2724B91D4, v2, 0);
@@ -62,17 +57,16 @@ uint64_t sub_2724B91D4()
   v7 = OBJC_IVAR___vp_services_Model_Manager_Impl_mEventObservers;
   swift_beginAccess();
 
-  v8 = *(v2 + v7);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v29 = *(v2 + v7);
+  v25 = *(v2 + v7);
   *(v2 + v7) = 0x8000000000000000;
   sub_2724BBD60(sub_2724BC274, v6, v5, isUniquelyReferenced_nonNull_native);
-  *(v2 + v7) = v29;
+  *(v2 + v7) = v25;
   swift_endAccess();
-  v10 = *(v2 + v4);
-  v11 = __OFADD__(v10, 1);
-  v12 = v10 + 1;
-  if (v11)
+  v9 = *(v2 + v4);
+  v10 = __OFADD__(v9, 1);
+  v11 = v9 + 1;
+  if (v10)
   {
     __break(1u);
 LABEL_11:
@@ -80,24 +74,22 @@ LABEL_11:
     goto LABEL_5;
   }
 
-  v13 = v0[7];
-  *(v2 + v4) = v12;
-  v14 = OBJC_IVAR___vp_services_Model_Manager_Impl_mInferenceTask;
-  if (!*(v13 + OBJC_IVAR___vp_services_Model_Manager_Impl_mInferenceTask))
+  v12 = v0[7];
+  *(v2 + v4) = v11;
+  v13 = OBJC_IVAR___vp_services_Model_Manager_Impl_mInferenceTask;
+  if (!*(v12 + OBJC_IVAR___vp_services_Model_Manager_Impl_mInferenceTask))
   {
-    v16 = v0[7];
-    v15 = v0[8];
-    v17 = sub_27275302C();
-    (*(*(v17 - 8) + 56))(v15, 1, 1, v17);
-    v18 = sub_2724BC514(&qword_28133BFC8, type metadata accessor for vp_services_Model_Manager_Impl);
-    v19 = swift_allocObject();
-    v19[2] = v16;
-    v19[3] = v18;
-    v19[4] = v16;
+    v15 = v0[7];
+    v14 = v0[8];
+    v16 = sub_27275302C();
+    (*(*(v16 - 8) + 56))(v14, 1, 1, v16);
+    v17 = sub_2724BC514(&qword_28133BFC8, type metadata accessor for vp_services_Model_Manager_Impl, &unk_272755DD0);
+    v18 = swift_allocObject();
+    v18[2] = v15;
+    v18[3] = v17;
+    v18[4] = v15;
     swift_retain_n();
-    v20 = sub_2724B9FA8(0, 0, v15, &unk_272755E10, v19);
-    v21 = *(v13 + v14);
-    *(v13 + v14) = v20;
+    *(v12 + v13) = sub_2724B9FA8(0, 0, v14, &unk_272755E10, v18);
   }
 
   if (qword_28133C420 != -1)
@@ -106,24 +98,22 @@ LABEL_11:
   }
 
 LABEL_5:
-  v22 = sub_272752FCC();
-  __swift_project_value_buffer(v22, qword_28133C4F8);
-  v23 = sub_272752FBC();
-  v24 = sub_27275305C();
-  if (os_log_type_enabled(v23, v24))
+  v19 = sub_272752FCC();
+  __swift_project_value_buffer(v19, qword_28133C4F8);
+  v20 = sub_272752FBC();
+  v21 = sub_27275305C();
+  if (os_log_type_enabled(v20, v21))
   {
-    v25 = swift_slowAlloc();
-    *v25 = 134217984;
-    *(v25 + 4) = v5;
-    _os_log_impl(&dword_2724B4000, v23, v24, "ModelManagerMonitor:: added observer[%ld]", v25, 0xCu);
-    MEMORY[0x2743CCC50](v25, -1, -1);
+    v22 = swift_slowAlloc();
+    *v22 = 134217984;
+    *(v22 + 4) = v5;
+    _os_log_impl(&dword_2724B4000, v20, v21, "ModelManagerMonitor:: added observer[%ld]", v22, 0xCu);
+    MEMORY[0x2743CCC50](v22, -1, -1);
   }
 
-  v26 = v0[8];
+  v23 = v0[1];
 
-  v27 = v0[1];
-
-  return v27(v5);
+  return v23(v5);
 }
 
 uint64_t sub_2724B94C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -131,18 +121,14 @@ uint64_t sub_2724B94C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v4[7] = a4;
   v6 = sub_272752F8C();
   v4[8] = v6;
-  v7 = *(v6 - 8);
-  v4[9] = v7;
-  v8 = *(v7 + 64) + 15;
+  v4[9] = *(v6 - 8);
   v4[10] = swift_task_alloc();
   v4[11] = swift_task_alloc();
-  v9 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808988A0, &qword_272755E30) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2808988A0, &qword_272755E30);
   v4[12] = swift_task_alloc();
-  v10 = sub_272752FAC();
-  v4[13] = v10;
-  v11 = *(v10 - 8);
-  v4[14] = v11;
-  v12 = *(v11 + 64) + 15;
+  v7 = sub_272752FAC();
+  v4[13] = v7;
+  v4[14] = *(v7 - 8);
   v4[15] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](sub_2724B9624, a4, 0);
@@ -157,80 +143,70 @@ uint64_t sub_2724B9624()
   v4 = sub_272752F6C();
   (*(v2 + 8))(v1, v3);
   *(v0 + 40) = v4;
-  v5 = sub_2724BC514(&qword_28133BFC8, type metadata accessor for vp_services_Model_Manager_Impl);
+  v5 = sub_2724BC514(&qword_28133BFC8, type metadata accessor for vp_services_Model_Manager_Impl, &unk_272755DD0);
   v6 = OBJC_IVAR___vp_services_Model_Manager_Impl_mEventObservers;
   *(v0 + 128) = v5;
   *(v0 + 136) = v6;
   swift_beginAccess();
   *(v0 + 160) = *MEMORY[0x277D29E10];
   v7 = sub_272752F5C();
-  v8 = sub_2724BC514(&qword_28133BFC0, MEMORY[0x277D29E00]);
-  v9 = *(MEMORY[0x277D856D0] + 4);
-  v10 = swift_task_alloc();
-  *(v0 + 144) = v10;
-  *v10 = v0;
-  v10[1] = sub_2724B97D8;
-  v11 = *(v0 + 96);
+  v8 = sub_2724BC514(&qword_28133BFC0, MEMORY[0x277D29E00], MEMORY[0x277D29E08]);
+  v9 = swift_task_alloc();
+  *(v0 + 144) = v9;
+  *v9 = v0;
+  v9[1] = sub_2724B97D8;
+  v10 = *(v0 + 96);
 
-  return MEMORY[0x282200308](v11, v7, v8);
+  return MEMORY[0x282200308](v10, v7, v8);
 }
 
 uint64_t sub_2724B97D8()
 {
   v2 = *v1;
-  v3 = *(*v1 + 144);
-  v4 = *v1;
   *(*v1 + 152) = v0;
 
   if (v0)
   {
     if (*(v2 + 56))
     {
-      v5 = *(v2 + 128);
       swift_getObjectType();
-      v6 = sub_272752FFC();
-      v8 = v7;
+      v3 = sub_272752FFC();
+      v5 = v4;
     }
 
     else
     {
-      v6 = 0;
-      v8 = 0;
+      v3 = 0;
+      v5 = 0;
     }
 
-    v9 = sub_2724B9D3C;
-    v10 = v6;
+    v6 = sub_2724B9D3C;
+    v7 = v3;
   }
 
   else
   {
-    v9 = sub_2724B9944;
-    v10 = *(v2 + 56);
-    v8 = 0;
+    v6 = sub_2724B9944;
+    v7 = *(v2 + 56);
+    v5 = 0;
   }
 
-  return MEMORY[0x2822009F8](v9, v10, v8);
+  return MEMORY[0x2822009F8](v6, v7, v5);
 }
 
 uint64_t sub_2724B9944()
 {
-  v41 = v0;
+  v33 = v0;
   v1 = *(v0 + 96);
   v2 = *(v0 + 64);
   v3 = *(v0 + 72);
   if ((*(v3 + 48))(v1, 1, v2) == 1)
   {
 LABEL_4:
-    v4 = *(v0 + 40);
 
-    v5 = *(v0 + 120);
-    v6 = *(v0 + 88);
-    v7 = *(v0 + 96);
-    v8 = *(v0 + 80);
+    v4 = *(v0 + 8);
 
-    v9 = *(v0 + 8);
-
-    return v9();
+    return v4();
   }
 
   (*(v3 + 32))(*(v0 + 88), v1, v2);
@@ -240,96 +216,93 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v11 = *(*(v0 + 56) + *(v0 + 136));
-  v14 = *(v11 + 64);
-  v13 = v11 + 64;
-  v12 = v14;
-  v15 = -1;
-  v16 = -1 << *(*(*(v0 + 56) + *(v0 + 136)) + 32);
-  if (-v16 < 64)
+  v6 = *(*(v0 + 56) + *(v0 + 136));
+  v9 = *(v6 + 64);
+  v8 = v6 + 64;
+  v7 = v9;
+  v10 = -1;
+  v11 = -1 << *(*(*(v0 + 56) + *(v0 + 136)) + 32);
+  if (-v11 < 64)
   {
-    v15 = ~(-1 << -v16);
+    v10 = ~(-1 << -v11);
   }
 
-  v17 = v15 & v12;
-  v18 = (63 - v16) >> 6;
-  v37 = *(*(v0 + 56) + *(v0 + 136));
+  v12 = v10 & v7;
+  v13 = (63 - v11) >> 6;
+  v29 = *(*(v0 + 56) + *(v0 + 136));
 
-  v22 = 0;
-  while (v17)
+  v17 = 0;
+  while (v12)
   {
 LABEL_16:
-    v24 = *(v0 + 80);
-    v25 = *(v0 + 64);
-    v26 = *(v0 + 72);
-    v27 = *(v37 + 56) + ((v22 << 10) | (16 * __clz(__rbit64(v17))));
-    v28 = *(v27 + 8);
-    v39 = *v27;
-    (*(v26 + 104))(v24, *(v0 + 160), v25);
+    v19 = *(v0 + 80);
+    v20 = *(v0 + 64);
+    v21 = *(v0 + 72);
+    v31 = *(*(v29 + 56) + ((v17 << 10) | (16 * __clz(__rbit64(v12)))));
+    (*(v21 + 104))(v19, *(v0 + 160), v20);
 
-    v38 = sub_272752F7C();
-    (*(v26 + 8))(v24, v25);
+    v30 = sub_272752F7C();
+    (*(v21 + 8))(v19, v20);
     if (qword_28133C420 != -1)
     {
       swift_once();
     }
 
-    v29 = sub_272752FCC();
-    __swift_project_value_buffer(v29, qword_28133C4F8);
-    v30 = sub_272752FBC();
-    v31 = sub_27275305C();
-    if (os_log_type_enabled(v30, v31))
+    v22 = sub_272752FCC();
+    __swift_project_value_buffer(v22, qword_28133C4F8);
+    v23 = sub_272752FBC();
+    v24 = sub_27275305C();
+    if (os_log_type_enabled(v23, v24))
     {
-      v32 = swift_slowAlloc();
-      *v32 = 67109120;
-      *(v32 + 4) = v38 & 1;
-      _os_log_impl(&dword_2724B4000, v30, v31, "ModelManagerMonitor::register calling observer with inferencesRunning  = %{BOOL}d", v32, 8u);
-      MEMORY[0x2743CCC50](v32, -1, -1);
+      v25 = swift_slowAlloc();
+      *v25 = 67109120;
+      *(v25 + 4) = v30 & 1;
+      _os_log_impl(&dword_2724B4000, v23, v24, "ModelManagerMonitor::register calling observer with inferencesRunning  = %{BOOL}d", v25, 8u);
+      MEMORY[0x2743CCC50](v25, -1, -1);
     }
 
-    v17 &= v17 - 1;
+    v12 &= v12 - 1;
 
-    v40 = v38 & 1;
-    v39(&v40);
+    v32 = v30 & 1;
+    v31(&v32);
   }
 
   while (1)
   {
-    v23 = v22 + 1;
-    if (__OFADD__(v22, 1))
+    v18 = v17 + 1;
+    if (__OFADD__(v17, 1))
     {
       __break(1u);
-      return MEMORY[0x282200308](v19, v20, v21);
+      return MEMORY[0x282200308](v14, v15, v16);
     }
 
-    if (v23 >= v18)
+    if (v18 >= v13)
     {
       break;
     }
 
-    v17 = *(v13 + 8 * v23);
-    ++v22;
-    if (v17)
+    v12 = *(v8 + 8 * v18);
+    ++v17;
+    if (v12)
     {
-      v22 = v23;
+      v17 = v18;
       goto LABEL_16;
     }
   }
 
   (*(*(v0 + 72) + 8))(*(v0 + 88), *(v0 + 64));
 
-  v33 = sub_272752F5C();
-  v34 = sub_2724BC514(&qword_28133BFC0, MEMORY[0x277D29E00]);
-  v35 = *(MEMORY[0x277D856D0] + 4);
-  v36 = swift_task_alloc();
-  *(v0 + 144) = v36;
-  *v36 = v0;
-  v36[1] = sub_2724B97D8;
-  v19 = *(v0 + 96);
-  v20 = v33;
-  v21 = v34;
+  v26 = sub_272752F5C();
+  v27 = sub_2724BC514(&qword_28133BFC0, MEMORY[0x277D29E00], MEMORY[0x277D29E08]);
+  v28 = swift_task_alloc();
+  *(v0 + 144) = v28;
+  *v28 = v0;
+  v28[1] = sub_2724B97D8;
+  v14 = *(v0 + 96);
+  v15 = v26;
+  v16 = v27;
 
-  return MEMORY[0x282200308](v19, v20, v21);
+  return MEMORY[0x282200308](v14, v15, v16);
 }
 
 uint64_t sub_2724B9D3C()
@@ -344,57 +317,51 @@ uint64_t sub_2724B9D3C()
 
 uint64_t sub_2724B9DD4()
 {
-  v1 = v0[5];
 
   if (qword_28133C420 != -1)
   {
     swift_once();
   }
 
-  v2 = v0[19];
-  v3 = sub_272752FCC();
-  __swift_project_value_buffer(v3, qword_28133C4F8);
-  v4 = v2;
-  v5 = sub_272752FBC();
-  v6 = sub_27275305C();
+  v1 = *(v0 + 152);
+  v2 = sub_272752FCC();
+  __swift_project_value_buffer(v2, qword_28133C4F8);
+  v3 = v1;
+  v4 = sub_272752FBC();
+  v5 = sub_27275305C();
 
-  v7 = os_log_type_enabled(v5, v6);
-  v8 = v0[19];
-  if (v7)
+  v6 = os_log_type_enabled(v4, v5);
+  v7 = *(v0 + 152);
+  if (v6)
   {
+    v8 = swift_slowAlloc();
     v9 = swift_slowAlloc();
-    v10 = swift_slowAlloc();
-    *v9 = 138412290;
-    v11 = v8;
-    v12 = _swift_stdlib_bridgeErrorToNSError();
-    *(v9 + 4) = v12;
-    *v10 = v12;
-    _os_log_impl(&dword_2724B4000, v5, v6, "ModelManagerMonitor:: exception while executing Task...%@", v9, 0xCu);
-    sub_2724BC55C(v10, &qword_2808988B0, &qword_272755E40);
-    MEMORY[0x2743CCC50](v10, -1, -1);
+    *v8 = 138412290;
+    v10 = v7;
+    v11 = _swift_stdlib_bridgeErrorToNSError();
+    *(v8 + 4) = v11;
+    *v9 = v11;
+    _os_log_impl(&dword_2724B4000, v4, v5, "ModelManagerMonitor:: exception while executing Task...%@", v8, 0xCu);
+    sub_2724BC55C(v9, &qword_2808988B0, &qword_272755E40);
     MEMORY[0x2743CCC50](v9, -1, -1);
+    MEMORY[0x2743CCC50](v8, -1, -1);
   }
 
   else
   {
   }
 
-  v13 = v0[15];
-  v14 = v0[11];
-  v15 = v0[12];
-  v16 = v0[10];
+  v12 = *(v0 + 8);
 
-  v17 = v0[1];
-
-  return v17();
+  return v12();
 }
 
 uint64_t sub_2724B9FA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_280898898, &qword_272755E00) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v11 = v26 - v10;
-  sub_2724BC334(a3, v26 - v10);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280898898, &qword_272755E00);
+  MEMORY[0x28223BE20](v9 - 8);
+  v11 = v25 - v10;
+  sub_2724BC334(a3, v25 - v10);
   v12 = sub_27275302C();
   v13 = *(v12 - 8);
   v14 = (*(v13 + 48))(v11, 1, v12);
@@ -410,53 +377,52 @@ uint64_t sub_2724B9FA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     (*(v13 + 8))(v11, v12);
   }
 
-  v16 = *(a5 + 16);
-  v15 = *(a5 + 24);
+  v15 = *(a5 + 16);
   swift_unknownObjectRetain();
 
-  if (v16)
+  if (v15)
   {
     swift_getObjectType();
-    v17 = sub_272752FFC();
-    v19 = v18;
+    v16 = sub_272752FFC();
+    v18 = v17;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v20 = sub_272752FEC() + 32;
-      v21 = swift_allocObject();
-      *(v21 + 16) = a4;
-      *(v21 + 24) = a5;
+      v19 = sub_272752FEC() + 32;
+      v20 = swift_allocObject();
+      *(v20 + 16) = a4;
+      *(v20 + 24) = a5;
 
-      if (v19 | v17)
+      if (v18 | v16)
       {
-        v27[0] = 0;
-        v27[1] = 0;
-        v22 = v27;
-        v27[2] = v17;
-        v27[3] = v19;
+        v26[0] = 0;
+        v26[1] = 0;
+        v21 = v26;
+        v26[2] = v16;
+        v26[3] = v18;
       }
 
       else
       {
-        v22 = 0;
+        v21 = 0;
       }
 
-      v26[1] = 7;
-      v26[2] = v22;
-      v26[3] = v20;
-      v24 = swift_task_create();
+      v25[1] = 7;
+      v25[2] = v21;
+      v25[3] = v19;
+      v23 = swift_task_create();
 
       sub_2724BC55C(a3, &qword_280898898, &qword_272755E00);
 
-      return v24;
+      return v23;
     }
   }
 
   else
   {
-    v17 = 0;
-    v19 = 0;
+    v16 = 0;
+    v18 = 0;
     if (a2)
     {
       goto LABEL_6;
@@ -464,15 +430,15 @@ LABEL_6:
   }
 
   sub_2724BC55C(a3, &qword_280898898, &qword_272755E00);
-  v23 = swift_allocObject();
-  *(v23 + 16) = a4;
-  *(v23 + 24) = a5;
-  if (v19 | v17)
+  v22 = swift_allocObject();
+  *(v22 + 16) = a4;
+  *(v22 + 24) = a5;
+  if (v18 | v16)
   {
-    v27[4] = 0;
-    v27[5] = 0;
-    v27[6] = v17;
-    v27[7] = v19;
+    v26[4] = 0;
+    v26[5] = 0;
+    v26[6] = v16;
+    v26[7] = v18;
   }
 
   return swift_task_create();
@@ -498,17 +464,14 @@ uint64_t sub_2724BA42C(const void *a1, const void *a2, uint64_t a3)
 uint64_t sub_2724BA524(uint64_t a1)
 {
   v3 = *v1;
-  v4 = *(*v1 + 40);
-  v5 = *(*v1 + 32);
-  v6 = *(*v1 + 24);
-  v7 = *(*v1 + 16);
-  v10 = *v1;
+  v4 = *(*v1 + 24);
+  v7 = *v1;
 
-  (*(v6 + 16))(v6, a1);
+  (*(v4 + 16))(v4, a1);
   _Block_release(*(v3 + 24));
-  v8 = *(v10 + 8);
+  v5 = *(v7 + 8);
 
-  return v8();
+  return v5();
 }
 
 uint64_t sub_2724BA698(uint64_t a1)
@@ -551,14 +514,15 @@ uint64_t sub_2724BA6B8()
 
       swift_beginAccess();
       v10 = sub_2724BB8E8(v9);
+      v12 = v11;
       swift_endAccess();
-      sub_2724BC1B4(v10);
+      sub_2724BC1B4(v10, v12);
     }
   }
 
-  v11 = v0[1];
+  v13 = v0[1];
 
-  return v11();
+  return v13();
 }
 
 uint64_t sub_2724BA9E4(uint64_t a1, void *aBlock, uint64_t a3)
@@ -577,41 +541,34 @@ uint64_t sub_2724BA9E4(uint64_t a1, void *aBlock, uint64_t a3)
 uint64_t sub_2724BAAA0()
 {
   v1 = *v0;
-  v2 = *(*v0 + 32);
-  v3 = *(*v0 + 24);
-  v4 = *(*v0 + 16);
-  v7 = *v0;
+  v2 = *(*v0 + 24);
+  v5 = *v0;
 
-  (*(v3 + 16))(v3);
+  (*(v2 + 16))(v2);
   _Block_release(*(v1 + 24));
-  v5 = *(v7 + 8);
+  v3 = *(v5 + 8);
 
-  return v5();
+  return v3();
 }
 
 uint64_t sub_2724BABE8()
 {
-  v1 = OBJC_IVAR___vp_services_Model_Manager_Impl_mInferenceTask;
   if (*(v0 + OBJC_IVAR___vp_services_Model_Manager_Impl_mInferenceTask))
   {
-    v2 = *(v0 + OBJC_IVAR___vp_services_Model_Manager_Impl_mInferenceTask);
 
     sub_27275303C();
   }
 
-  v3 = OBJC_IVAR___vp_services_Model_Manager_Impl_mInferenceMonitor;
-  v4 = sub_272752FAC();
-  (*(*(v4 - 8) + 8))(v0 + v3, v4);
-  v5 = *(v0 + v1);
-
-  v6 = *(v0 + OBJC_IVAR___vp_services_Model_Manager_Impl_mEventObservers);
+  v1 = OBJC_IVAR___vp_services_Model_Manager_Impl_mInferenceMonitor;
+  v2 = sub_272752FAC();
+  (*(*(v2 - 8) + 8))(v0 + v1, v2);
 
   swift_defaultActor_destroy();
 
   return MEMORY[0x282200960](v0);
 }
 
-uint64_t type metadata accessor for vp_services_Model_Manager_Impl()
+uint64_t type metadata accessor for vp_services_Model_Manager_Impl(uint64_t a1)
 {
   result = qword_28133C4B8;
   if (!qword_28133C4B8)
@@ -624,26 +581,23 @@ uint64_t type metadata accessor for vp_services_Model_Manager_Impl()
 
 id sub_2724BAD14()
 {
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  v3 = swift_allocObject();
+  v1 = swift_allocObject();
   swift_defaultActor_initialize();
   sub_272752F9C();
-  *&v3[OBJC_IVAR___vp_services_Model_Manager_Impl_mInferenceTask] = 0;
-  v4 = OBJC_IVAR___vp_services_Model_Manager_Impl_mEventObservers;
-  *&v3[v4] = sub_2724BC024(MEMORY[0x277D84F90]);
-  *&v3[OBJC_IVAR___vp_services_Model_Manager_Impl_mCounter] = 0;
-  v6.receiver = v3;
-  v6.super_class = v0;
-  return objc_msgSendSuper2(&v6, sel_init);
+  *&v1[OBJC_IVAR___vp_services_Model_Manager_Impl_mInferenceTask] = 0;
+  v2 = OBJC_IVAR___vp_services_Model_Manager_Impl_mEventObservers;
+  *&v1[v2] = sub_2724BC024(MEMORY[0x277D84F90]);
+  *&v1[OBJC_IVAR___vp_services_Model_Manager_Impl_mCounter] = 0;
+  v4.receiver = v1;
+  v4.super_class = v0;
+  return objc_msgSendSuper2(&v4, sel_init);
 }
 
-uint64_t sub_2724BAE3C()
+uint64_t sub_2724BAE3C(uint64_t a1)
 {
   result = sub_272752FAC();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -666,66 +620,61 @@ uint64_t sub_2724BAF08()
 
 uint64_t sub_2724BAFA0(uint64_t a1, int *a2)
 {
-  v7 = (a2 + *a2);
-  v4 = a2[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = sub_2724BB098;
+  v6 = (a2 + *a2);
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = sub_2724BB098;
 
-  return v7(a1);
+  return v6(a1);
 }
 
 uint64_t sub_2724BB098()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_2724BB190(uint64_t a1, uint64_t a2, int *a3)
 {
-  v7 = (a3 + *a3);
-  v4 = a3[1];
-  v5 = swift_task_alloc();
-  *(v3 + 16) = v5;
-  *v5 = v3;
-  v5[1] = sub_2724BC9D8;
+  v6 = (a3 + *a3);
+  v4 = swift_task_alloc();
+  *(v3 + 16) = v4;
+  *v4 = v3;
+  v4[1] = sub_2724BC9D8;
 
-  return v7();
+  return v6();
 }
 
 uint64_t sub_2724BB278(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
 {
-  v8 = (a4 + *a4);
-  v5 = a4[1];
-  v6 = swift_task_alloc();
-  *(v4 + 16) = v6;
-  *v6 = v4;
-  v6[1] = sub_2724BB360;
+  v7 = (a4 + *a4);
+  v5 = swift_task_alloc();
+  *(v4 + 16) = v5;
+  *v5 = v4;
+  v5[1] = sub_2724BB360;
 
-  return v8();
+  return v7();
 }
 
 uint64_t sub_2724BB360()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_2724BB454(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_280898898, &qword_272755E00) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v11 = v24 - v10;
-  sub_2724BC334(a3, v24 - v10);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280898898, &qword_272755E00);
+  MEMORY[0x28223BE20](v9 - 8);
+  v11 = v23 - v10;
+  sub_2724BC334(a3, v23 - v10);
   v12 = sub_27275302C();
   v13 = *(v12 - 8);
   if ((*(v13 + 48))(v11, 1, v12) == 1)
@@ -737,8 +686,8 @@ uint64_t sub_2724BB454(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     }
 
 LABEL_7:
-    v15 = 0;
-    v17 = 0;
+    v14 = 0;
+    v16 = 0;
     if (a2)
     {
       goto LABEL_4;
@@ -755,55 +704,54 @@ LABEL_7:
   }
 
 LABEL_3:
-  v14 = *(a5 + 24);
   swift_getObjectType();
   swift_unknownObjectRetain();
-  v15 = sub_272752FFC();
-  v17 = v16;
+  v14 = sub_272752FFC();
+  v16 = v15;
   swift_unknownObjectRelease();
   if (a2)
   {
 LABEL_4:
-    v18 = sub_272752FEC() + 32;
-    v19 = swift_allocObject();
-    *(v19 + 16) = a4;
-    *(v19 + 24) = a5;
+    v17 = sub_272752FEC() + 32;
+    v18 = swift_allocObject();
+    *(v18 + 16) = a4;
+    *(v18 + 24) = a5;
 
-    if (v17 | v15)
+    if (v16 | v14)
     {
-      v25[0] = 0;
-      v25[1] = 0;
-      v20 = v25;
-      v25[2] = v15;
-      v25[3] = v17;
+      v24[0] = 0;
+      v24[1] = 0;
+      v19 = v24;
+      v24[2] = v14;
+      v24[3] = v16;
     }
 
     else
     {
-      v20 = 0;
+      v19 = 0;
     }
 
-    v24[1] = 7;
-    v24[2] = v20;
-    v24[3] = v18;
-    v22 = swift_task_create();
+    v23[1] = 7;
+    v23[2] = v19;
+    v23[3] = v17;
+    v21 = swift_task_create();
 
     sub_2724BC55C(a3, &qword_280898898, &qword_272755E00);
 
-    return v22;
+    return v21;
   }
 
 LABEL_8:
   sub_2724BC55C(a3, &qword_280898898, &qword_272755E00);
-  v21 = swift_allocObject();
-  *(v21 + 16) = a4;
-  *(v21 + 24) = a5;
-  if (v17 | v15)
+  v20 = swift_allocObject();
+  *(v20 + 16) = a4;
+  *(v20 + 24) = a5;
+  if (v16 | v14)
   {
-    v25[4] = 0;
-    v25[5] = 0;
-    v25[6] = v15;
-    v25[7] = v17;
+    v24[4] = 0;
+    v24[5] = 0;
+    v24[6] = v14;
+    v24[7] = v16;
   }
 
   return swift_task_create();
@@ -811,22 +759,20 @@ LABEL_8:
 
 uint64_t sub_2724BB740(uint64_t a1, int *a2)
 {
-  v7 = (a2 + *a2);
-  v4 = a2[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = sub_2724BC9DC;
+  v6 = (a2 + *a2);
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = sub_2724BC9DC;
 
-  return v7(a1);
+  return v6(a1);
 }
 
 unint64_t sub_2724BB838(uint64_t a1)
 {
-  v3 = *(v1 + 40);
-  v4 = sub_2727530CC();
+  v2 = sub_2727530CC();
 
-  return sub_2724BB87C(a1, v4);
+  return sub_2724BB87C(a1, v2);
 }
 
 unint64_t sub_2724BB87C(uint64_t a1, uint64_t a2)
@@ -855,164 +801,155 @@ unint64_t sub_2724BB87C(uint64_t a1, uint64_t a2)
 uint64_t sub_2724BB8E8(uint64_t a1)
 {
   v2 = v1;
-  v3 = *v1;
-  v4 = sub_2724BB838(a1);
-  if ((v5 & 1) == 0)
+  v3 = sub_2724BB838(a1);
+  if ((v4 & 1) == 0)
   {
     return 0;
   }
 
-  v6 = v4;
-  v7 = *v2;
+  v5 = v3;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *v2;
-  v15 = *v2;
+  v7 = *v1;
+  v11 = *v2;
   if (!isUniquelyReferenced_nonNull_native)
   {
     sub_2724BBEC0();
-    v9 = v15;
+    v7 = v11;
   }
 
-  v10 = v6;
-  v11 = (*(v9 + 56) + 16 * v6);
-  v12 = *v11;
-  v13 = v11[1];
-  sub_2724BBBF0(v10, v9);
-  *v2 = v9;
-  return v12;
+  v8 = v5;
+  v9 = *(*(v7 + 56) + 16 * v5);
+  sub_2724BBBF0(v8, v7);
+  *v2 = v7;
+  return v9;
 }
 
-uint64_t sub_2724BB97C(uint64_t a1, char a2)
+uint64_t sub_2724BB97C(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280898890, &qword_272755DF8);
   result = sub_27275309C();
-  v8 = result;
+  v7 = result;
   if (*(v5 + 16))
   {
-    v31 = v3;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
+    v29 = v3;
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
     {
-      v17 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v20 = v17 | (v9 << 6);
-      v21 = *(*(v5 + 48) + 8 * v20);
-      v32 = *(*(v5 + 56) + 16 * v20);
-      if ((a2 & 1) == 0)
+      v16 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v19 = v16 | (v8 << 6);
+      v20 = *(*(v5 + 48) + 8 * v19);
+      v30 = *(*(v5 + 56) + 16 * v19);
+      if ((v4 & 1) == 0)
       {
       }
 
-      v22 = *(v8 + 40);
       result = sub_2727530CC();
-      v23 = -1 << *(v8 + 32);
-      v24 = result & ~v23;
-      v25 = v24 >> 6;
-      if (((-1 << v24) & ~*(v15 + 8 * (v24 >> 6))) == 0)
+      v21 = -1 << *(v7 + 32);
+      v22 = result & ~v21;
+      v23 = v22 >> 6;
+      if (((-1 << v22) & ~*(v14 + 8 * (v22 >> 6))) == 0)
       {
-        v26 = 0;
-        v27 = (63 - v23) >> 6;
-        while (++v25 != v27 || (v26 & 1) == 0)
+        v24 = 0;
+        v25 = (63 - v21) >> 6;
+        while (++v23 != v25 || (v24 & 1) == 0)
         {
-          v28 = v25 == v27;
-          if (v25 == v27)
+          v26 = v23 == v25;
+          if (v23 == v25)
           {
-            v25 = 0;
+            v23 = 0;
           }
 
-          v26 |= v28;
-          v29 = *(v15 + 8 * v25);
-          if (v29 != -1)
+          v24 |= v26;
+          v27 = *(v14 + 8 * v23);
+          if (v27 != -1)
           {
-            v16 = __clz(__rbit64(~v29)) + (v25 << 6);
-            goto LABEL_9;
+            v15 = __clz(__rbit64(~v27)) + (v23 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_37:
+LABEL_35:
         __break(1u);
         return result;
       }
 
-      v16 = __clz(__rbit64((-1 << v24) & ~*(v15 + 8 * (v24 >> 6)))) | v24 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      *(*(v8 + 48) + 8 * v16) = v21;
-      *(*(v8 + 56) + 16 * v16) = v32;
-      ++*(v8 + 16);
+      v15 = __clz(__rbit64((-1 << v22) & ~*(v14 + 8 * (v22 >> 6)))) | v22 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      *(*(v7 + 48) + 8 * v15) = v20;
+      *(*(v7 + 56) + 16 * v15) = v30;
+      ++*(v7 + 16);
     }
 
-    v18 = v9;
+    v17 = v8;
     while (1)
     {
-      v9 = v18 + 1;
-      if (__OFADD__(v18, 1))
+      v8 = v17 + 1;
+      if (__OFADD__(v17, 1))
       {
         __break(1u);
-        goto LABEL_37;
+        goto LABEL_35;
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v19 = v10[v9];
-      ++v18;
-      if (v19)
+      v18 = v9[v8];
+      ++v17;
+      if (v18)
       {
-        v17 = __clz(__rbit64(v19));
-        v13 = (v19 - 1) & v19;
-        goto LABEL_17;
+        v16 = __clz(__rbit64(v18));
+        v12 = (v18 - 1) & v18;
+        goto LABEL_15;
       }
     }
 
-    if (a2)
+    if (v4)
     {
-      v30 = 1 << *(v5 + 32);
-      if (v30 >= 64)
+      v28 = 1 << *(v5 + 32);
+      if (v28 >= 64)
       {
-        bzero((v5 + 64), ((v30 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+        bzero((v5 + 64), ((v28 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
       }
 
       else
       {
-        *v10 = -1 << v30;
+        *v9 = -1 << v28;
       }
 
       *(v5 + 16) = 0;
     }
 
-    v3 = v31;
+    v3 = v29;
   }
 
   else
   {
   }
 
-  *v3 = v8;
+  *v3 = v7;
   return result;
 }
 
@@ -1028,35 +965,33 @@ uint64_t sub_2724BBBF0(uint64_t result, uint64_t a2)
     v8 = (sub_27275307C() + 1) & ~v5;
     do
     {
-      v9 = *(a2 + 40);
-      v10 = *(a2 + 48);
-      v11 = (v10 + 8 * v6);
-      v12 = *v11;
+      v9 = *(a2 + 48);
+      v10 = (v9 + 8 * v6);
       result = sub_2727530CC();
-      v13 = result & v7;
+      v11 = result & v7;
       if (v3 >= v8)
       {
-        if (v13 >= v8 && v3 >= v13)
+        if (v11 >= v8 && v3 >= v11)
         {
 LABEL_15:
-          v16 = (v10 + 8 * v3);
-          if (v3 != v6 || v16 >= v11 + 1)
+          v14 = (v9 + 8 * v3);
+          if (v3 != v6 || v14 >= v10 + 1)
           {
-            *v16 = *v11;
+            *v14 = *v10;
           }
 
-          v17 = *(a2 + 56);
-          v18 = (v17 + 16 * v3);
-          v19 = (v17 + 16 * v6);
-          if (v3 != v6 || v18 >= v19 + 1)
+          v15 = *(a2 + 56);
+          v16 = (v15 + 16 * v3);
+          v17 = (v15 + 16 * v6);
+          if (v3 != v6 || v16 >= v17 + 1)
           {
-            *v18 = *v19;
+            *v16 = *v17;
             v3 = v6;
           }
         }
       }
 
-      else if (v13 >= v8 || v3 >= v13)
+      else if (v11 >= v8 || v3 >= v11)
       {
         goto LABEL_15;
       }
@@ -1068,17 +1003,17 @@ LABEL_15:
   }
 
   *(v4 + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v3) - 1;
-  v20 = *(a2 + 16);
-  v21 = __OFSUB__(v20, 1);
-  v22 = v20 - 1;
-  if (v21)
+  v18 = *(a2 + 16);
+  v19 = __OFSUB__(v18, 1);
+  v20 = v18 - 1;
+  if (v19)
   {
     __break(1u);
   }
 
   else
   {
-    *(a2 + 16) = v22;
+    *(a2 + 16) = v20;
     ++*(a2 + 36);
   }
 
@@ -1109,9 +1044,8 @@ LABEL_15:
     if (v18 < v16 || (a4 & 1) != 0)
     {
       sub_2724BB97C(v16, a4 & 1);
-      v20 = *v5;
       result = sub_2724BB838(a3);
-      if ((v17 & 1) != (v21 & 1))
+      if ((v17 & 1) != (v20 & 1))
       {
 LABEL_16:
         result = sub_2727530BC();
@@ -1128,30 +1062,29 @@ LABEL_16:
     }
   }
 
-  v22 = *v5;
+  v21 = *v5;
   if ((v17 & 1) == 0)
   {
-    v22[(result >> 6) + 8] |= 1 << result;
-    *(v22[6] + 8 * result) = a3;
-    v25 = (v22[7] + 16 * result);
-    *v25 = a1;
-    v25[1] = a2;
-    v26 = v22[2];
-    v15 = __OFADD__(v26, 1);
-    v27 = v26 + 1;
+    v21[(result >> 6) + 8] |= 1 << result;
+    *(v21[6] + 8 * result) = a3;
+    v23 = (v21[7] + 16 * result);
+    *v23 = a1;
+    v23[1] = a2;
+    v24 = v21[2];
+    v15 = __OFADD__(v24, 1);
+    v25 = v24 + 1;
     if (!v15)
     {
-      v22[2] = v27;
+      v21[2] = v25;
       return result;
     }
 
     goto LABEL_15;
   }
 
-  v23 = (v22[7] + 16 * result);
-  v24 = v23[1];
-  *v23 = a1;
-  v23[1] = a2;
+  v22 = (v21[7] + 16 * result);
+  *v22 = a1;
+  v22[1] = a2;
 }
 
 void *sub_2724BBEC0()
@@ -1298,7 +1231,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1316,7 +1248,7 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_2724BC1B4(uint64_t result)
+uint64_t sub_2724BC1B4(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -1327,14 +1259,11 @@ uint64_t sub_2724BC1B4(uint64_t result)
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -1351,13 +1280,6 @@ unint64_t sub_2724BC228()
   }
 
   return result;
-}
-
-uint64_t sub_2724BC274(unsigned __int8 *a1)
-{
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  return v2(*a1);
 }
 
 uint64_t sub_2724BC2A0()
@@ -1380,29 +1302,27 @@ uint64_t sub_2724BC334(uint64_t a1, uint64_t a2)
 
 uint64_t sub_2724BC3A4(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_2724BC9D8;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_2724BC9D8;
 
-  return sub_2724BAFA0(a1, v5);
+  return sub_2724BAFA0(a1, v4);
 }
 
 uint64_t sub_2724BC45C(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_2724BB360;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_2724BB360;
 
-  return sub_2724BAFA0(a1, v5);
+  return sub_2724BAFA0(a1, v4);
 }
 
-uint64_t sub_2724BC514(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_2724BC514(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1439,40 +1359,37 @@ uint64_t sub_2724BC670()
 {
   v2 = v0[2];
   v3 = v0[3];
-  v5 = v0[4];
-  v4 = v0[5];
-  v6 = swift_task_alloc();
-  *(v1 + 16) = v6;
-  *v6 = v1;
-  v6[1] = sub_2724BC9D8;
+  v4 = v0[4];
+  v5 = swift_task_alloc();
+  *(v1 + 16) = v5;
+  *v5 = v1;
+  v5[1] = sub_2724BC9D8;
 
-  return sub_2724BB190(v2, v3, v5);
+  return sub_2724BB190(v2, v3, v4);
 }
 
 uint64_t sub_2724BC730(uint64_t a1)
 {
   v4 = v1[2];
   v5 = v1[3];
-  v7 = v1[4];
-  v6 = v1[5];
-  v8 = swift_task_alloc();
-  *(v2 + 16) = v8;
-  *v8 = v2;
-  v8[1] = sub_2724BC9D8;
+  v6 = v1[4];
+  v7 = swift_task_alloc();
+  *(v2 + 16) = v7;
+  *v7 = v2;
+  v7[1] = sub_2724BC9D8;
 
-  return sub_2724BB278(a1, v4, v5, v7);
+  return sub_2724BB278(a1, v4, v5, v6);
 }
 
 uint64_t sub_2724BC7FC(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_2724BC9D8;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_2724BC9D8;
 
-  return sub_2724BB740(a1, v5);
+  return sub_2724BB740(a1, v4);
 }
 
 uint64_t sub_2724BC8B4()
@@ -1490,9 +1407,7 @@ uint64_t sub_2724BC8B4()
 
 uint64_t objectdestroy_33Tm()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
@@ -1509,9 +1424,9 @@ uint64_t VoiceProcessorGetVersion()
   return VoiceProcessorVersion;
 }
 
-void sub_2724BCA6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2724BCA6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__VPContext const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
@@ -1527,18 +1442,11 @@ const void **applesauce::CF::ObjectRef<__VPContext const*>::~ObjectRef(const voi
   return a1;
 }
 
-void sub_2724BCB34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2724BCB34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__VPContext const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
-}
-
-void VoiceProcessorCreateWithContext(uint64_t a1)
-{
-  v2 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 8);
-  operator new();
 }
 
 void sub_2724BD5F0(_Unwind_Exception *exception_object, int a2)
@@ -1551,9 +1459,9 @@ void sub_2724BD5F0(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_2724BD614(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2724BD614(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a10);
+  va_start(va, a18);
   CADeprecated::CAMutex::Locker::~Locker(va);
   JUMPOUT(0x2724BD620);
 }
@@ -2045,7 +1953,6 @@ void vp::Context::~Context(vp::Context *this)
 void _ZNSt3__110__function6__funcIZN2vp28Decorator_Assembler_TemplateI18VoiceProcessorBaseE13add_decoratorINS2_10decorators12CPU_ProfilerEJRKNS2_7ContextERNS2_27Decorator_Assembler_ProductERNS_10shared_ptrIN5caulk10concurrent9messengerEEEEEEvDpOT0_EUlT_E_NS_9allocatorISO_EEFNS_10unique_ptrIS4_NS_14default_deleteIS4_EEEESU_EEclEOSU_(uint64_t a1, uint64_t *a2)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v3 = *a2;
   *a2 = 0;
   vp::Context::Context(v5, (a1 + 16));
   v4 = *(a1 + 216);
@@ -2077,9 +1984,9 @@ void sub_2724BE514()
   JUMPOUT(0x2724BE50CLL);
 }
 
-void _ZNSt3__110__function6__funcIZN2vp28Decorator_Assembler_TemplateI18VoiceProcessorBaseE13add_decoratorINS2_10decorators12CPU_ProfilerEJRKNS2_7ContextERNS2_27Decorator_Assembler_ProductERNS_10shared_ptrIN5caulk10concurrent9messengerEEEEEEvDpOT0_EUlT_E_NS_9allocatorISO_EEFNS_10unique_ptrIS4_NS_14default_deleteIS4_EEEESU_EE18destroy_deallocateEv(void *a1)
+void _ZNSt3__110__function6__funcIZN2vp28Decorator_Assembler_TemplateI18VoiceProcessorBaseE13add_decoratorINS2_10decorators12CPU_ProfilerEJRKNS2_7ContextERNS2_27Decorator_Assembler_ProductERNS_10shared_ptrIN5caulk10concurrent9messengerEEEEEEvDpOT0_EUlT_E_NS_9allocatorISO_EEFNS_10unique_ptrIS4_NS_14default_deleteIS4_EEEESU_EE18destroy_deallocateEv(char *a1)
 {
-  _ZNSt3__110__function12__alloc_funcIZN2vp28Decorator_Assembler_TemplateI18VoiceProcessorBaseE13add_decoratorINS2_10decorators12CPU_ProfilerEJRKNS2_7ContextERNS2_27Decorator_Assembler_ProductERNS_10shared_ptrIN5caulk10concurrent9messengerEEEEEEvDpOT0_EUlT_E_NS_9allocatorISO_EEFNS_10unique_ptrIS4_NS_14default_deleteIS4_EEEESU_EE7destroyB8ne200100Ev(a1 + 8);
+  _ZNSt3__110__function12__alloc_funcIZN2vp28Decorator_Assembler_TemplateI18VoiceProcessorBaseE13add_decoratorINS2_10decorators12CPU_ProfilerEJRKNS2_7ContextERNS2_27Decorator_Assembler_ProductERNS_10shared_ptrIN5caulk10concurrent9messengerEEEEEEvDpOT0_EUlT_E_NS_9allocatorISO_EEFNS_10unique_ptrIS4_NS_14default_deleteIS4_EEEESU_EE7destroyB8ne200100Ev((a1 + 8));
 
   operator delete(a1);
 }
@@ -2346,11 +2253,10 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-void _ZNSt3__110__function6__funcIZN2vp28Decorator_Assembler_TemplateI18VoiceProcessorBaseE13add_decoratorINS2_10decorators17Xcode_InstrumentsEJRNS2_27Decorator_Assembler_ProductEEEEvDpOT0_EUlT_E_NS_9allocatorISF_EEFNS_10unique_ptrIS4_NS_14default_deleteIS4_EEEESL_EEclEOSL_(uint64_t a1, uint64_t *a2)
+void _ZNSt3__110__function6__funcIZN2vp28Decorator_Assembler_TemplateI18VoiceProcessorBaseE13add_decoratorINS2_10decorators17Xcode_InstrumentsEJRNS2_27Decorator_Assembler_ProductEEEEvDpOT0_EUlT_E_NS_9allocatorISF_EEFNS_10unique_ptrIS4_NS_14default_deleteIS4_EEEESL_EEclEOSL_(void x0_0, vp **a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  *a2 = 0;
+  v2 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
   operator new();
 }
 
@@ -2433,11 +2339,11 @@ void (****std::unique_ptr<vp::vx::Voice_Processor_Interface,vp::Allocator_Delete
   return result;
 }
 
-unsigned int *boost::container::flat_map<unsigned int,std::unique_ptr<vp::Service>,std::less<unsigned int>,boost::container::small_vector<std::pair<unsigned int,std::unique_ptr<vp::Service>>,16ul,vp::Allocator<std::pair<unsigned int,std::unique_ptr<vp::Service>>>,void>>::priv_subscript(uint64_t a1, unsigned int a2)
+unsigned int *boost::container::flat_map<unsigned int,std::unique_ptr<vp::Service>,std::less<unsigned int>,boost::container::small_vector<std::pair<unsigned int,std::unique_ptr<vp::Service>>,16ul,vp::Allocator<std::pair<unsigned int,std::unique_ptr<vp::Service>>>,void>>::priv_subscript(char *a1, unsigned int a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v43 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 1);
+  v4 = *(a1 + 2);
   if (v3)
   {
     v5 = 1;
@@ -2457,7 +2363,7 @@ unsigned int *boost::container::flat_map<unsigned int,std::unique_ptr<vp::Servic
   if (v4)
   {
     v6 = v3;
-    v7 = *(a1 + 16);
+    v7 = *(a1 + 2);
     do
     {
       if (v7 != 1 && !v6)
@@ -2492,20 +2398,20 @@ unsigned int *boost::container::flat_map<unsigned int,std::unique_ptr<vp::Servic
   v12 = v3 + 16 * v4;
   if (v6 == v12)
   {
-    v42 = a2;
-    v43 = 0;
+    v41 = a2;
+    v42 = 0;
     if (v3 <= v6)
     {
-      v40 = 0;
+      v39 = 0;
       v14 = v12;
       goto LABEL_27;
     }
 
 LABEL_59:
-    v35 = "this->priv_in_range_or_end(hint)";
-    v36 = 879;
-    v37 = "flat_tree.hpp";
-    v38 = "insert_unique";
+    v34 = "this->priv_in_range_or_end(hint)";
+    v35 = 879;
+    v36 = "flat_tree.hpp";
+    v37 = "insert_unique";
     goto LABEL_64;
   }
 
@@ -2516,63 +2422,63 @@ LABEL_59:
 
   if (*v6 > a2)
   {
-    v42 = a2;
-    v43 = 0;
+    v41 = a2;
+    v42 = 0;
     if (v3 <= v6 && v6 <= v12)
     {
-      v40 = 0;
+      v39 = 0;
       v14 = v6;
       if (*v6 <= a2)
       {
-        v41 = v12;
-        if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,16ul,vp::Allocator<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>>,void>>::priv_insert_unique_prepare(v6, &v41, &v42, &v40))
+        v40 = v12;
+        if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,16ul,vp::Allocator<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>>,void>>::priv_insert_unique_prepare(v6, &v40, &v41, &v39))
         {
           goto LABEL_49;
         }
 
 LABEL_30:
-        v18 = v40;
-        v19 = *(a1 + 8);
-        if (v19 > v40)
+        v18 = v39;
+        v19 = *(a1 + 1);
+        if (v19 > v39)
         {
           goto LABEL_61;
         }
 
-        v20 = *(a1 + 16);
+        v20 = *(a1 + 2);
         if (!v19 && v20)
         {
           __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
         }
 
         v21 = v19 + 16 * v20;
-        if (v40 > v21)
+        if (v39 > v21)
         {
 LABEL_61:
-          v35 = "this->priv_in_range_or_end(position)";
-          v36 = 1862;
-          v37 = "vector.hpp";
-          v38 = "emplace";
+          v34 = "this->priv_in_range_or_end(position)";
+          v35 = 1862;
+          v36 = "vector.hpp";
+          v37 = "emplace";
         }
 
         else
         {
-          v22 = *(a1 + 24);
+          v22 = *(a1 + 3);
           if (v22 >= v20)
           {
             if (v22 == v20)
             {
-              boost::container::vector<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,vp::Allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,vp::Allocator<void>,void>,boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>*,boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>>>(&v39, a1, v40, &v42);
+              boost::container::vector<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,vp::Allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,vp::Allocator<void>,void>,boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>*,boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>>>(&v38, a1, v39, &v41);
             }
 
             else
             {
-              if (v21 == v40)
+              if (v21 == v39)
               {
-                *v21 = v42;
-                v31 = v43;
-                v43 = 0;
+                *v21 = v41;
+                v31 = v42;
+                v42 = 0;
                 *(v21 + 8) = v31;
-                *(a1 + 16) = v20 + 1;
+                *(a1 + 2) = v20 + 1;
               }
 
               else
@@ -2582,7 +2488,7 @@ LABEL_61:
                 v24 = *(v21 - 8);
                 *(v21 - 8) = 0;
                 *(v21 + 8) = v24;
-                *(a1 + 16) = v20 + 1;
+                *(a1 + 2) = v20 + 1;
                 if ((v21 - 16) != v18)
                 {
                   v25 = (v21 - 16);
@@ -2606,9 +2512,9 @@ LABEL_61:
                   while (v25 != v18);
                 }
 
-                *v18 = v42;
-                v29 = v43;
-                v43 = 0;
+                *v18 = v41;
+                v29 = v42;
+                v42 = 0;
                 v30 = *(v18 + 1);
                 *(v18 + 1) = v29;
                 if (v30)
@@ -2617,24 +2523,24 @@ LABEL_61:
                 }
               }
 
-              v39 = v18;
+              v38 = v18;
             }
 
             goto LABEL_52;
           }
 
-          v35 = "this->m_holder.capacity() >= this->m_holder.m_size";
-          v36 = 2821;
-          v37 = "vector.hpp";
-          v38 = "priv_insert_forward_range";
+          v34 = "this->m_holder.capacity() >= this->m_holder.m_size";
+          v35 = 2821;
+          v36 = "vector.hpp";
+          v37 = "priv_insert_forward_range";
         }
 
 LABEL_64:
-        __assert_rtn(v38, v37, v36, v35);
+        __assert_rtn(v37, v36, v35, v34);
       }
 
 LABEL_27:
-      v40 = v6;
+      v39 = v6;
       if (v14 != v3)
       {
         if (!v14)
@@ -2649,35 +2555,35 @@ LABEL_27:
         {
           if (!v17)
           {
-            v40 = v15;
+            v39 = v15;
             goto LABEL_49;
           }
 
-          v41 = v15;
-          if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,16ul,vp::Allocator<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>>,void>>::priv_insert_unique_prepare(v3, &v41, &v42, &v40))
+          v40 = v15;
+          if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,16ul,vp::Allocator<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>>,void>>::priv_insert_unique_prepare(v3, &v40, &v41, &v39))
           {
 LABEL_49:
-            if (!*(a1 + 8) && v40)
+            if (!*(a1 + 1) && v39)
             {
               __assert_rtn("operator+", "vector.hpp", 188, "x.m_ptr || !off");
             }
 
-            v39 = v40;
+            v38 = v39;
 LABEL_52:
-            v32 = v43;
-            v43 = 0;
+            v32 = v42;
+            v42 = 0;
             if (v32)
             {
               (*(*v32 + 8))(v32);
             }
 
-            v6 = v39;
-            if (!v39)
+            v6 = v38;
+            if (!v38)
             {
               __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
             }
 
-            goto LABEL_55;
+            return v6 + 2;
           }
         }
       }
@@ -2688,8 +2594,6 @@ LABEL_52:
     goto LABEL_59;
   }
 
-LABEL_55:
-  v33 = *MEMORY[0x277D85DE8];
   return v6 + 2;
 }
 
@@ -2766,9 +2670,9 @@ LABEL_30:
       *v20 = *v21;
       v22 = *(v21 + 8);
       *(v21 + 8) = 0;
-      v20[1] = v22;
+      *(v20 + 8) = v22;
       v21 += 16;
-      v20 += 2;
+      v20 += 16;
     }
 
     while (v21 != a3);
@@ -2777,10 +2681,10 @@ LABEL_30:
   *v20 = *a4;
   v23 = *(a4 + 8);
   *(a4 + 8) = 0;
-  v20[1] = v23;
+  *(v20 + 8) = v23;
   if (v19 != a3)
   {
-    v24 = v20 + 3;
+    v24 = (v20 + 24);
     v25 = a3;
     do
     {
@@ -2816,13 +2720,12 @@ LABEL_30:
       while (v18);
     }
 
-    v29 = *(a2 + 3);
     result = boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,std::unique_ptr<vp::Service>>,vp::Allocator<void>,void>::deallocate(a2, *(a2 + 1));
   }
 
-  v30 = *(a2 + 2) + 1;
+  v29 = *(a2 + 2) + 1;
   *(a2 + 1) = v16;
-  *(a2 + 2) = v30;
+  *(a2 + 2) = v29;
   *(a2 + 3) = v9;
   *a1 = v16 + a3 - v14;
   return result;
@@ -2948,17 +2851,17 @@ CFPropertyListRef vp::services::User_Defaults_Impl::get_object@<X0>(CFStringRef 
 
 void vp::services::User_Defaults_Impl::get_all_keys(CFStringRef *a1@<X1>, void *a2@<X8>)
 {
-  v5 = CFPreferencesCopyKeyList(*a1, *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
-  v6 = v5;
-  if (!v5)
+  v4 = CFPreferencesCopyKeyList(*a1, *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+  v5 = v4;
+  if (!v4)
   {
     goto LABEL_25;
   }
 
-  v7 = CFGetTypeID(v5);
-  if (v7 != CFArrayGetTypeID())
+  v6 = CFGetTypeID(v4);
+  if (v6 != CFArrayGetTypeID())
   {
-    CFRelease(v6);
+    CFRelease(v5);
 LABEL_25:
     *a2 = 0;
     a2[1] = 0;
@@ -2966,20 +2869,20 @@ LABEL_25:
     return;
   }
 
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
   TypeID = CFArrayGetTypeID();
-  if (TypeID == CFGetTypeID(v6))
+  if (TypeID == CFGetTypeID(v5))
   {
-    Count = CFArrayGetCount(v6);
-    v23 = 0uLL;
-    v24 = 0;
+    Count = CFArrayGetCount(v5);
+    v22 = 0uLL;
+    v23 = 0;
     if (Count << 32)
     {
       if (!(Count >> 61))
       {
-        v29 = &v23;
+        v28 = &v22;
         std::allocator<applesauce::CF::StringRef>::allocate_at_least[abi:ne200100](Count);
       }
 
@@ -2990,142 +2893,142 @@ LABEL_37:
     if (Count < 1)
     {
 LABEL_23:
+      v25 = v22;
       v26 = v23;
-      v27 = v24;
-      v24 = 0;
-      v23 = 0uLL;
-      v18 = 1;
-      LOBYTE(v28) = 1;
-      v3 = *(&v26 + 1);
+      v23 = 0;
+      v22 = 0uLL;
+      v17 = 1;
+      LOBYTE(v27) = 1;
+      v2 = *(&v25 + 1);
     }
 
     else
     {
-      v10 = 0;
-      v11 = Count & 0x7FFFFFFF;
+      v9 = 0;
+      v10 = Count & 0x7FFFFFFF;
       while (1)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v6, v10);
-        v13 = ValueAtIndex;
+        ValueAtIndex = CFArrayGetValueAtIndex(v5, v9);
+        v12 = ValueAtIndex;
         if (!ValueAtIndex)
         {
           break;
         }
 
         CFRetain(ValueAtIndex);
-        v3 = CFGetTypeID(v13);
-        if (v3 != CFStringGetTypeID())
+        v2 = CFGetTypeID(v12);
+        if (v2 != CFStringGetTypeID())
         {
-          CFRelease(v13);
+          CFRelease(v12);
           break;
         }
 
-        v14 = *(&v23 + 1);
-        if (*(&v23 + 1) >= v24)
+        v13 = *(&v22 + 1);
+        if (*(&v22 + 1) >= v23)
         {
-          v15 = (*(&v23 + 1) - v23) >> 3;
-          if ((v15 + 1) >> 61)
+          v14 = (*(&v22 + 1) - v22) >> 3;
+          if ((v14 + 1) >> 61)
           {
             goto LABEL_37;
           }
 
-          v16 = (v24 - v23) >> 2;
-          if (v16 <= v15 + 1)
+          v15 = (v23 - v22) >> 2;
+          if (v15 <= v14 + 1)
           {
-            v16 = v15 + 1;
+            v15 = v14 + 1;
           }
 
-          if (v24 - v23 >= 0x7FFFFFFFFFFFFFF8)
+          if (v23 - v22 >= 0x7FFFFFFFFFFFFFF8)
           {
-            v17 = 0x1FFFFFFFFFFFFFFFLL;
+            v16 = 0x1FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v17 = v16;
+            v16 = v15;
           }
 
-          v29 = &v23;
-          if (v17)
+          v28 = &v22;
+          if (v16)
           {
-            std::allocator<applesauce::CF::StringRef>::allocate_at_least[abi:ne200100](v17);
+            std::allocator<applesauce::CF::StringRef>::allocate_at_least[abi:ne200100](v16);
           }
 
-          *&v26 = 0;
-          *(&v26 + 1) = 8 * v15;
-          v28 = 0;
-          **(&v26 + 1) = v13;
-          v27 = 8 * v15 + 8;
-          std::vector<applesauce::CF::StringRef>::__swap_out_circular_buffer(&v23, &v26);
-          v3 = *(&v23 + 1);
-          std::__split_buffer<applesauce::CF::StringRef>::~__split_buffer(&v26);
+          *&v25 = 0;
+          *(&v25 + 1) = 8 * v14;
+          v27 = 0;
+          **(&v25 + 1) = v12;
+          v26 = 8 * v14 + 8;
+          std::vector<applesauce::CF::StringRef>::__swap_out_circular_buffer(&v22, &v25);
+          v2 = *(&v22 + 1);
+          std::__split_buffer<applesauce::CF::StringRef>::~__split_buffer(&v25);
         }
 
         else
         {
-          **(&v23 + 1) = v13;
-          v3 = v14 + 8;
+          **(&v22 + 1) = v12;
+          v2 = v13 + 8;
         }
 
-        *(&v23 + 1) = v3;
-        if (v11 == ++v10)
+        *(&v22 + 1) = v2;
+        if (v10 == ++v9)
         {
           goto LABEL_23;
         }
       }
 
-      v18 = 0;
-      LOBYTE(v28) = 0;
-      LOBYTE(v26) = 0;
+      v17 = 0;
+      LOBYTE(v27) = 0;
+      LOBYTE(v25) = 0;
     }
 
-    v25 = &v23;
-    std::vector<applesauce::CF::StringRef>::__destroy_vector::operator()[abi:ne200100](&v25);
+    v24 = &v22;
+    std::vector<applesauce::CF::StringRef>::__destroy_vector::operator()[abi:ne200100](&v24);
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    if (v18)
+    if (v17)
     {
-      *&v23 = a2;
-      BYTE8(v23) = 0;
-      v19 = v3 - v26;
-      if (v3 != v26)
+      *&v22 = a2;
+      BYTE8(v22) = 0;
+      v18 = v2 - v25;
+      if (v2 != v25)
       {
-        if (!((v19 >> 3) >> 61))
+        if (!((v18 >> 3) >> 61))
         {
-          std::allocator<applesauce::CF::StringRef>::allocate_at_least[abi:ne200100](v19 >> 3);
+          std::allocator<applesauce::CF::StringRef>::allocate_at_least[abi:ne200100](v18 >> 3);
         }
 
         std::vector<std::function<std::unique_ptr<VoiceProcessorBase> ()(std::unique_ptr<VoiceProcessorBase>)>>::__throw_length_error[abi:ne200100]();
       }
 
-      *&v23 = &v26;
-      std::vector<applesauce::CF::StringRef>::__destroy_vector::operator()[abi:ne200100](&v23);
+      *&v22 = &v25;
+      std::vector<applesauce::CF::StringRef>::__destroy_vector::operator()[abi:ne200100](&v22);
       goto LABEL_35;
     }
   }
 
   else
   {
-    LOBYTE(v26) = 0;
-    LOBYTE(v28) = 0;
+    LOBYTE(v25) = 0;
+    LOBYTE(v27) = 0;
     a2[1] = 0;
     a2[2] = 0;
     *a2 = 0;
   }
 
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
 LABEL_35:
-  *&v26 = &v20;
-  std::vector<applesauce::CF::StringRef>::__destroy_vector::operator()[abi:ne200100](&v26);
-  CFRelease(v6);
+  *&v25 = &v19;
+  std::vector<applesauce::CF::StringRef>::__destroy_vector::operator()[abi:ne200100](&v25);
+  CFRelease(v5);
 }
 
-void sub_2724C1ECC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2724C1ECC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::vector<applesauce::CF::StringRef>::__destroy_vector::operator()[abi:ne200100](va);
   __clang_call_terminate(a1);
 }
@@ -3272,14 +3175,14 @@ uint64_t vp::services::Legacy_Smart_Cover_Detector_Impl::is_smart_cover_attached
 
 void vp::services::Power_Log_Impl::log_speaker_amp_power(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
+  v36 = 0;
   v37 = 0;
   v38 = 0;
-  v39 = 0;
   if ((a2 & 0x100000000) != 0)
   {
     v5 = *&a2;
-    applesauce::CF::StringRef::from_get(v32, @"Avg Watts Measured");
+    applesauce::CF::StringRef::from_get(v31, @"Avg Watts Measured");
     valuePtr = v5;
     cf = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
     if (!cf)
@@ -3288,27 +3191,27 @@ void vp::services::Power_Log_Impl::log_speaker_amp_power(uint64_t a1, uint64_t a
       std::runtime_error::runtime_error(exception, "Could not construct");
     }
 
-    v6 = v38;
-    if (v38 >= v39)
+    v6 = v37;
+    if (v37 >= v38)
     {
-      v7 = std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<applesauce::CF::StringRef const,applesauce::CF::NumberRef const>(&v37, v32, &cf);
+      v7 = std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<applesauce::CF::StringRef const,applesauce::CF::NumberRef const>(&v36, v31, &cf);
     }
 
     else
     {
-      std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::construct[abi:ne200100]<applesauce::CF::TypeRefPair,applesauce::CF::StringRef const,applesauce::CF::NumberRef const,void,0>(v38, v32[0], &cf);
-      v7 = v6 + 2;
+      std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::construct[abi:ne200100]<applesauce::CF::TypeRefPair,applesauce::CF::StringRef const,applesauce::CF::NumberRef const,void,0>(v37, v31[0], &cf);
+      v7 = v6 + 16;
     }
 
-    v38 = v7;
+    v37 = v7;
     v8 = vp::get_log(v7);
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
     if (v9)
     {
       log_context_info = vp::get_log_context_info(&__p, a1, "vp::services::Power_Log_Impl]", 28);
-      v11 = v35;
-      v12 = v34;
+      v11 = v34;
+      v12 = v33;
       v13 = vp::get_log(log_context_info);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
@@ -3323,7 +3226,7 @@ void vp::services::Power_Log_Impl::log_speaker_amp_power(uint64_t a1, uint64_t a
         }
 
         p_p = __p;
-        if ((v35 & 0x80u) == 0)
+        if ((v34 & 0x80u) == 0)
         {
           p_p = &__p;
         }
@@ -3340,14 +3243,14 @@ void vp::services::Power_Log_Impl::log_speaker_amp_power(uint64_t a1, uint64_t a
 
         *buf = 136315650;
         *&buf[4] = p_p;
-        v42 = 2080;
-        v43 = v16;
-        v44 = 2048;
-        v45 = v5;
+        v41 = 2080;
+        v42 = v16;
+        v43 = 2048;
+        v44 = v5;
         _os_log_impl(&dword_2724B4000, v13, OS_LOG_TYPE_DEFAULT, "%s%saverage measured power is %f watts", buf, 0x20u);
       }
 
-      if (v35 < 0)
+      if (v34 < 0)
       {
         operator delete(__p);
       }
@@ -3358,44 +3261,44 @@ void vp::services::Power_Log_Impl::log_speaker_amp_power(uint64_t a1, uint64_t a
       CFRelease(cf);
     }
 
-    if (v32[0])
+    if (v31[0])
     {
-      CFRelease(v32[0]);
+      CFRelease(v31[0]);
     }
   }
 
   if ((a3 & 0x100000000) != 0)
   {
-    applesauce::CF::StringRef::from_get(v32, @"Avg Watts Modelled");
+    applesauce::CF::StringRef::from_get(v31, @"Avg Watts Modelled");
     valuePtr = *&a3;
     cf = CFNumberCreate(0, kCFNumberFloatType, &valuePtr);
     if (!cf)
     {
-      v31 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v31, "Could not construct");
+      v30 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v30, "Could not construct");
     }
 
-    v17 = v38;
-    if (v38 >= v39)
+    v17 = v37;
+    if (v37 >= v38)
     {
-      v18 = std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<applesauce::CF::StringRef const,applesauce::CF::NumberRef const>(&v37, v32, &cf);
+      v18 = std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<applesauce::CF::StringRef const,applesauce::CF::NumberRef const>(&v36, v31, &cf);
     }
 
     else
     {
-      std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::construct[abi:ne200100]<applesauce::CF::TypeRefPair,applesauce::CF::StringRef const,applesauce::CF::NumberRef const,void,0>(v38, v32[0], &cf);
-      v18 = v17 + 2;
+      std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::construct[abi:ne200100]<applesauce::CF::TypeRefPair,applesauce::CF::StringRef const,applesauce::CF::NumberRef const,void,0>(v37, v31[0], &cf);
+      v18 = v17 + 16;
     }
 
-    v38 = v18;
+    v37 = v18;
     v19 = vp::get_log(v18);
     v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
 
     if (v20)
     {
       v21 = vp::get_log_context_info(&__p, a1, "vp::services::Power_Log_Impl]", 28);
-      v22 = v35;
-      v23 = v34;
+      v22 = v34;
+      v23 = v33;
       v24 = vp::get_log(v21);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
@@ -3410,7 +3313,7 @@ void vp::services::Power_Log_Impl::log_speaker_amp_power(uint64_t a1, uint64_t a
         }
 
         v26 = __p;
-        if ((v35 & 0x80u) == 0)
+        if ((v34 & 0x80u) == 0)
         {
           v26 = &__p;
         }
@@ -3427,14 +3330,14 @@ void vp::services::Power_Log_Impl::log_speaker_amp_power(uint64_t a1, uint64_t a
 
         *buf = 136315650;
         *&buf[4] = v26;
-        v42 = 2080;
-        v43 = v27;
-        v44 = 2048;
-        v45 = *&a3;
+        v41 = 2080;
+        v42 = v27;
+        v43 = 2048;
+        v44 = *&a3;
         _os_log_impl(&dword_2724B4000, v24, OS_LOG_TYPE_DEFAULT, "%s%saverage modelled power is %f watts", buf, 0x20u);
       }
 
-      if (v35 < 0)
+      if (v34 < 0)
       {
         operator delete(__p);
       }
@@ -3445,26 +3348,25 @@ void vp::services::Power_Log_Impl::log_speaker_amp_power(uint64_t a1, uint64_t a
       CFRelease(cf);
     }
 
-    if (v32[0])
+    if (v31[0])
     {
-      CFRelease(v32[0]);
+      CFRelease(v31[0]);
     }
   }
 
-  if (v37 != v38)
+  if (v36 != v37)
   {
-    CFDictionaryRef = applesauce::CF::details::make_CFDictionaryRef(&v37);
+    CFDictionaryRef = applesauce::CF::details::make_CFDictionaryRef(&v36);
     *buf = CFDictionaryRef;
     PLLogRegisteredEvent();
     CFRelease(CFDictionaryRef);
   }
 
-  *buf = &v37;
+  *buf = &v36;
   std::vector<applesauce::CF::TypeRefPair>::__destroy_vector::operator()[abi:ne200100](buf);
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2724C263C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, const void *a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void **buf, int a26, __int16 a27, uint64_t a28, __int16 a29, uint64_t a30)
+void sub_2724C263C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void **buf, int a26, __int16 a27, uint64_t a28, __int16 a29, uint64_t a30)
 {
   if (a2)
   {
@@ -3569,16 +3471,16 @@ void *std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::constr
   return result;
 }
 
-uint64_t std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<applesauce::CF::StringRef const,applesauce::CF::NumberRef const>(uint64_t a1, CFTypeRef *a2, const void **a3)
+uint64_t std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<applesauce::CF::StringRef const,applesauce::CF::NumberRef const>(void *a1, CFTypeRef *a2, const void **a3)
 {
-  v3 = (*(a1 + 8) - *a1) >> 4;
+  v3 = (a1[1] - *a1) >> 4;
   v4 = v3 + 1;
   if ((v3 + 1) >> 60)
   {
     std::vector<std::function<std::unique_ptr<VoiceProcessorBase> ()(std::unique_ptr<VoiceProcessorBase>)>>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 3 > v4)
   {
     v4 = v6 >> 3;
@@ -3604,14 +3506,14 @@ uint64_t std::vector<applesauce::CF::TypeRefPair>::__emplace_back_slow_path<appl
   v15 = 16 * v3;
   std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::construct[abi:ne200100]<applesauce::CF::TypeRefPair,applesauce::CF::StringRef const,applesauce::CF::NumberRef const,void,0>((16 * v3), *a2, a3);
   v16 = (16 * v3 + 16);
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = (16 * v3 + *a1 - v8);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<applesauce::CF::TypeRefPair>,applesauce::CF::TypeRefPair*>(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -3637,7 +3539,7 @@ void applesauce::CF::NumberRef::~NumberRef(const void **this)
   }
 }
 
-CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
+CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(char **a1)
 {
   v2 = (a1[1] - *a1) >> 4;
   keys = 0;
@@ -3663,7 +3565,7 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
     do
     {
       v11 = *v4;
-      if (!*v4 || !v4[1])
+      if (!*v4 || !*(v4 + 1))
       {
         keys = v5;
         values = v6;
@@ -3722,7 +3624,7 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
         v7 += 8;
       }
 
-      v17 = v4[1];
+      v17 = *(v4 + 1);
       if (v10 >= v9)
       {
         v18 = v10 - v6;
@@ -3774,7 +3676,7 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
         v10 += 8;
       }
 
-      v4 += 2;
+      v4 += 16;
     }
 
     while (v4 != v28);
@@ -3858,22 +3760,22 @@ void std::vector<applesauce::CF::TypeRefPair>::__destroy_vector::operator()[abi:
   }
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::dump(void *a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::dump(void *a1, uint64_t a2, int a3)
 {
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
   operator new();
 }
 
-void sub_2724C2FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2724C2FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~serializer(va);
-  if (*(v4 + 23) < 0)
+  if (*(v7 + 23) < 0)
   {
-    operator delete(*v4);
+    operator delete(*v7);
   }
 
   _Unwind_Resume(a1);
@@ -3939,7 +3841,7 @@ LABEL_15:
   return result;
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(uint64_t **a1, int a2)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(void ****a1, int a2)
 {
   v32 = 0;
   v33 = 0;
@@ -4029,7 +3931,7 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
     v17 = v33;
     v18 = v33 - 16;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant((v33 - 16));
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v17 - 8, *(v17 - 16));
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy((v17 - 8), *(v17 - 16));
     v33 = v18;
     if (v15 == 1)
     {
@@ -4045,22 +3947,22 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
         {
           if (v18 >= v34)
           {
-            v18 = std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(&v32, (v24 + 7));
+            v18 = std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(&v32, (v24 + 56));
           }
 
           else
           {
-            *v18 = *(v24 + 56);
-            *(v18 + 8) = v24[8];
+            *v18 = v24[56];
+            *(v18 + 8) = *(v24 + 8);
             nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v24 + 56);
-            *(v24 + 56) = 0;
-            v24[8] = 0;
+            v24[56] = 0;
+            *(v24 + 8) = 0;
             nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v18);
             v18 += 16;
           }
 
           v33 = v18;
-          v25 = v24[1];
+          v25 = *(v24 + 1);
           if (v25)
           {
             do
@@ -4076,7 +3978,7 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
           {
             do
             {
-              v26 = v24[2];
+              v26 = *(v24 + 2);
               v11 = *v26 == v24;
               v24 = v26;
             }
@@ -4093,7 +3995,7 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
       }
 
       std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(v16[1]);
-      *v16 = (v16 + 1);
+      *v16 = v16 + 1;
       v16[2] = 0;
       v16[1] = 0;
     }
@@ -4117,14 +4019,14 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
 
       if (v20 != v19)
       {
-        v21 = (v20 - 16);
+        v21 = v20 - 16;
         v22 = v21;
         do
         {
           nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v21);
           v23 = *v22;
           v22 -= 16;
-          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v21 + 8, v23);
+          nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v21 + 1, v23);
           v11 = v21 == v19;
           v21 = v22;
         }
@@ -4196,14 +4098,12 @@ LABEL_56:
   std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v30);
 }
 
-void *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::allocate_at_least[abi:ne200100](a2);
     }
 
@@ -4213,17 +4113,17 @@ void *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,lon
   return result;
 }
 
-void sub_2724C3550(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2724C3550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  if (v4 >= *(a1 + 16))
+  v4 = a1[1];
+  if (v4 >= a1[2])
   {
     result = std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(a1, a2);
   }
@@ -4239,20 +4139,20 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
     result = v4 + 16;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
-uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(uint64_t *a1, uint64_t a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 4;
+  v2 = (a1[1] - *a1) >> 4;
   v3 = v2 + 1;
   if ((v2 + 1) >> 60)
   {
     std::vector<std::function<std::unique_ptr<VoiceProcessorBase> ()(std::unique_ptr<VoiceProcessorBase>)>>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 3 > v3)
   {
     v3 = v6 >> 3;
@@ -4285,14 +4185,14 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   *(a2 + 8) = 0;
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v8);
   *&v17 = v8 + 16;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = v8 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -4301,21 +4201,21 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return v14;
 }
 
-void sub_2724C36EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2724C36EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(char *a1)
+void std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(unsigned __int8 *a1)
 {
   if (a1)
   {
     std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(*a1);
     std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(*(a1 + 1));
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a1 + 56);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(a1 + 64, a1[56]);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(a1 + 8, a1[56]);
     if (a1[55] < 0)
     {
       operator delete(*(a1 + 4));
@@ -4325,7 +4225,7 @@ void std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std
   }
 }
 
-void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](unsigned __int8 ***a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -4342,7 +4242,7 @@ void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v6);
         v8 = *v7;
         v7 -= 16;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v6 + 8, v8);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v6 + 1, v8);
         v9 = v6 == v2;
         v6 = v7;
       }
@@ -4405,7 +4305,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nl
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v6);
       v9 = *v8;
       v8 += 16;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v6 + 8, v9);
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v6 + 1, v9);
       v6 = v8;
     }
 
@@ -4422,7 +4322,7 @@ uint64_t std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::stri
   {
     *(a1 + 16) = i - 16;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant((i - 16));
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(i - 8, *(i - 16));
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy((i - 8), *(i - 16));
   }
 
   if (*a1)
@@ -4448,7 +4348,7 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v4);
         v6 = *v5;
         v5 -= 16;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v4 + 8, v6);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v4 + 1, v6);
         v7 = v4 == v3;
         v4 = v5;
       }
@@ -4532,7 +4432,7 @@ void sub_2724C3B3C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(void (****a1)(void), uint64_t **a2, int a3, uint64_t a4, uint64_t a5)
+uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(void (****a1)(void), uint64_t ***a2, int a3, uint64_t a4, uint64_t a5)
 {
   v9 = *a2;
   if (v9 <= 4)
@@ -4545,370 +4445,360 @@ uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,
         {
           if (v9 == 4)
           {
-            v10 = *a1;
-            v11 = (**a1)[1];
-            *(a2 + 8);
-            goto LABEL_266;
+            v10 = (**a1)[1];
+            goto LABEL_262;
           }
 
-LABEL_322:
+LABEL_318:
           __assert_rtn("dump", "serializer.hpp", 363, "false");
         }
 
-        v25 = *a1;
         (***a1)();
         nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, a2[1]);
-        v11 = ***a1;
-LABEL_159:
+        v10 = ***a1;
+LABEL_155:
 
-        return v11();
+        return v10();
       }
 
-      v33 = *a1;
-      v34 = **a1;
+      v28 = **a1;
       if (*a2[1] != a2[1][1])
       {
         if (!a3)
         {
-          (*v34)();
-          v61 = a2[1];
-          v63 = *v61;
-          v62 = v61[1];
-          if (v63 != v62 - 16)
+          (*v28)();
+          v51 = a2[1];
+          v53 = *v51;
+          v52 = v51[1];
+          if (v53 != v52 - 16)
           {
             do
             {
-              nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v63, 0, a4, a5);
+              nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v53, 0, a4, a5);
               (***a1)();
-              v63 += 16;
-              v64 = a2[1];
-              v62 = v64[1];
+              v53 += 16;
+              v54 = a2[1];
+              v52 = v54[1];
             }
 
-            while (v63 != v62 - 16);
-            v63 = *v64;
+            while (v53 != v52 - 16);
+            v53 = *v54;
           }
 
-          if (v63 == v62)
+          if (v53 == v52)
           {
             __assert_rtn("dump", "serializer.hpp", 229, "not val.m_value.array->empty()");
           }
 
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v62 - 16, 0, a4, a5);
-          goto LABEL_142;
+          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v52 - 16, 0, a4, a5);
+          goto LABEL_140;
         }
 
-        v34[1]();
-        v35 = a5 + a4;
-        v36 = a1 + 76;
-        v37 = *(a1 + 631);
-        if ((v37 & 0x80000000) != 0)
+        v28[1]();
+        v29 = a5 + a4;
+        v30 = a1 + 76;
+        v31 = *(a1 + 631);
+        if ((v31 & 0x80000000) != 0)
         {
-          v38 = a1[77];
-          if (v38 < v35)
+          v32 = a1[77];
+          if (v32 < v29)
           {
-            goto LABEL_296;
+            goto LABEL_292;
           }
         }
 
-        else if (v35 > v37)
+        else if (v29 > v31)
         {
-          v38 = *(a1 + 631);
-LABEL_296:
-          std::string::resize((a1 + 76), 2 * v38, 32);
+          v32 = *(a1 + 631);
+LABEL_292:
+          std::string::resize((a1 + 76), 2 * v32, 32);
         }
 
-        v92 = a2[1];
-        v94 = *v92;
-        v93 = v92[1];
-        if (v94 != v93 - 16)
+        v80 = a2[1];
+        v82 = *v80;
+        v81 = v80[1];
+        if (v82 != v81 - 16)
         {
           do
           {
-            v95 = a1 + 76;
+            v83 = a1 + 76;
             if (*(a1 + 631) < 0)
             {
-              v95 = *v36;
+              v83 = *v30;
             }
 
-            ((**a1)[1])(*a1, v95, (a5 + a4));
-            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v94, 1, a4, (a5 + a4));
+            ((**a1)[1])(*a1, v83, (a5 + a4));
+            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v82, 1, a4, (a5 + a4));
             ((**a1)[1])(*a1, ",\n", 2);
-            v94 += 16;
-            v96 = a2[1];
-            v93 = v96[1];
+            v82 += 16;
+            v84 = a2[1];
+            v81 = v84[1];
           }
 
-          while (v94 != v93 - 16);
-          v94 = *v96;
+          while (v82 != v81 - 16);
+          v82 = *v84;
         }
 
-        if (v94 == v93)
+        if (v82 == v81)
         {
           __assert_rtn("dump", "serializer.hpp", 208, "not val.m_value.array->empty()");
         }
 
-        v97 = a1 + 76;
+        v85 = a1 + 76;
         if (*(a1 + 631) < 0)
         {
-          v97 = *v36;
+          v85 = *v30;
         }
 
-        ((**a1)[1])(*a1, v97, (a5 + a4));
+        ((**a1)[1])(*a1, v85, (a5 + a4));
         nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, a2[1][1] - 16, 1, a4, (a5 + a4));
         (***a1)();
         if (*(a1 + 631) < 0)
         {
-          v36 = *v36;
+          v30 = *v30;
         }
 
-        ((**a1)[1])(*a1, v36, a5);
-LABEL_142:
-        v11 = ***a1;
-        goto LABEL_159;
+        ((**a1)[1])(*a1, v30, a5);
+LABEL_140:
+        v10 = ***a1;
+        goto LABEL_155;
       }
 
-      v49 = v34[1];
+      v39 = v28[1];
       goto LABEL_52;
     }
 
     if (*a2)
     {
-      v13 = *a1;
-      v14 = **a1;
+      v11 = **a1;
       if (!a2[1][2])
       {
-        v49 = v14[1];
+        v39 = *(v11 + 8);
 LABEL_52:
 
-        return v49();
+        return v39();
       }
 
       if (!a3)
       {
-        (*v14)();
-        v52 = a2[1];
-        v53 = *v52;
-        if (v52[2] != 1)
+        (*v11)();
+        v42 = a2[1];
+        v43 = *v42;
+        if (v42[2] != 1)
         {
-          v54 = 0;
+          v44 = 0;
           do
           {
             (***a1)(*a1, 34);
-            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v53 + 4);
+            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v43 + 4);
             ((**a1)[1])(*a1, ":", 2);
-            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v53 + 7, 0, a4, a5);
+            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v43 + 56, 0, a4, a5);
             (***a1)();
-            v55 = v53[1];
-            v56 = v53;
-            if (v55)
+            v45 = v43[1];
+            v46 = v43;
+            if (v45)
             {
               do
               {
-                v53 = v55;
-                v55 = *v55;
+                v43 = v45;
+                v45 = *v45;
               }
 
-              while (v55);
+              while (v45);
             }
 
             else
             {
               do
               {
-                v53 = v56[2];
-                v57 = *v53 == v56;
-                v56 = v53;
+                v43 = v46[2];
+                v47 = *v43 == v46;
+                v46 = v43;
               }
 
-              while (!v57);
+              while (!v47);
             }
 
-            ++v54;
-            v52 = a2[1];
+            ++v44;
+            v42 = a2[1];
           }
 
-          while (v54 < v52[2] - 1);
+          while (v44 < v42[2] - 1);
         }
 
-        v58 = v52 + 1;
-        if (v53 == v58)
+        v48 = (v42 + 1);
+        if (v43 == v48)
         {
           __assert_rtn("dump", "serializer.hpp", 166, "i != val.m_value.object->cend()");
         }
 
-        v59 = v53[1];
-        if (v59)
+        v49 = v43[1];
+        if (v49)
         {
           do
           {
-            v60 = v59;
-            v59 = *v59;
+            v50 = v49;
+            v49 = *v49;
           }
 
-          while (v59);
+          while (v49);
         }
 
         else
         {
-          v98 = v53;
+          v86 = v43;
           do
           {
-            v60 = v98[2];
-            v57 = *v60 == v98;
-            v98 = v60;
+            v50 = v86[2];
+            v47 = *v50 == v86;
+            v86 = v50;
           }
 
-          while (!v57);
+          while (!v47);
         }
 
-        if (v60 != v58)
+        if (v50 != v48)
         {
           __assert_rtn("dump", "serializer.hpp", 167, "std::next(i) == val.m_value.object->cend()");
         }
 
         (***a1)(*a1, 34);
-        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v53 + 4);
+        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v43 + 4);
         ((**a1)[1])(*a1, ":", 2);
-        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v53 + 7, 0, a4, a5);
-        goto LABEL_158;
+        nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v43 + 56, 0, a4, a5);
+        goto LABEL_154;
       }
 
-      v14[1]();
-      v15 = a5 + a4;
-      v16 = a1 + 76;
-      v17 = *(a1 + 631);
-      if ((v17 & 0x80000000) != 0)
+      (*(v11 + 8))();
+      v12 = a5 + a4;
+      v13 = a1 + 76;
+      v14 = *(a1 + 631);
+      if ((v14 & 0x80000000) != 0)
       {
-        v18 = a1[77];
-        if (v18 < v15)
+        v15 = a1[77];
+        if (v15 < v12)
         {
-          goto LABEL_294;
+          goto LABEL_290;
         }
       }
 
-      else if (v15 > v17)
+      else if (v12 > v14)
       {
-        v18 = *(a1 + 631);
-LABEL_294:
-        std::string::resize((a1 + 76), 2 * v18, 32);
+        v15 = *(a1 + 631);
+LABEL_290:
+        std::string::resize((a1 + 76), 2 * v15, 32);
       }
 
-      v83 = a2[1];
-      v84 = *v83;
-      if (v83[2] == 1)
+      v71 = a2[1];
+      v72 = *v71;
+      if (v71[2] == 1)
       {
-        v85 = *v83;
+        v73 = *v71;
       }
 
       else
       {
-        v86 = 0;
+        v74 = 0;
         do
         {
-          v87 = a1 + 76;
+          v75 = a1 + 76;
           if (*(a1 + 631) < 0)
           {
-            v87 = *v16;
+            v75 = *v13;
           }
 
-          ((**a1)[1])(*a1, v87, (a5 + a4));
+          ((**a1)[1])(*a1, v75, (a5 + a4));
           (***a1)();
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v84 + 4);
+          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v72 + 4);
           ((**a1)[1])(*a1, ": ", 3);
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v84 + 7, 1, a4, (a5 + a4));
+          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v72 + 56, 1, a4, (a5 + a4));
           ((**a1)[1])(*a1, ",\n", 2);
-          v88 = v84[1];
-          if (v88)
+          v76 = v72[1];
+          if (v76)
           {
             do
             {
-              v85 = v88;
-              v88 = *v88;
+              v73 = v76;
+              v76 = *v76;
             }
 
-            while (v88);
+            while (v76);
           }
 
           else
           {
             do
             {
-              v85 = v84[2];
-              v57 = *v85 == v84;
-              v84 = v85;
+              v73 = v72[2];
+              v47 = *v73 == v72;
+              v72 = v73;
             }
 
-            while (!v57);
+            while (!v47);
           }
 
-          ++v86;
-          v83 = a2[1];
-          v84 = v85;
+          ++v74;
+          v71 = a2[1];
+          v72 = v73;
         }
 
-        while (v86 < v83[2] - 1);
+        while (v74 < v71[2] - 1);
       }
 
-      v89 = v83 + 1;
-      if (v85 == v89)
+      v77 = (v71 + 1);
+      if (v73 == v77)
       {
         __assert_rtn("dump", "serializer.hpp", 138, "i != val.m_value.object->cend()");
       }
 
-      v90 = v85[1];
-      if (v90)
+      v78 = v73[1];
+      if (v78)
       {
         do
         {
-          v91 = v90;
-          v90 = *v90;
+          v79 = v78;
+          v78 = *v78;
         }
 
-        while (v90);
+        while (v78);
       }
 
       else
       {
-        v99 = v85;
+        v87 = v73;
         do
         {
-          v91 = v99[2];
-          v57 = *v91 == v99;
-          v99 = v91;
+          v79 = v87[2];
+          v47 = *v79 == v87;
+          v87 = v79;
         }
 
-        while (!v57);
+        while (!v47);
       }
 
-      if (v91 != v89)
+      if (v79 != v77)
       {
         __assert_rtn("dump", "serializer.hpp", 139, "std::next(i) == val.m_value.object->cend()");
       }
 
-      v100 = a1 + 76;
+      v88 = a1 + 76;
       if (*(a1 + 631) < 0)
       {
-        v100 = *v16;
+        v88 = *v13;
       }
 
-      ((**a1)[1])(*a1, v100, (a5 + a4));
+      ((**a1)[1])(*a1, v88, (a5 + a4));
       (***a1)();
-      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v85 + 4);
+      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(a1, v73 + 4);
       ((**a1)[1])(*a1, ": ", 3);
-      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v85 + 7, 1, a4, (a5 + a4));
+      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump(a1, v73 + 56, 1, a4, (a5 + a4));
       (***a1)();
-      if (*(a1 + 631) < 0)
-      {
-        v101 = *v16;
-      }
-
-      v76 = (**a1)[1];
-LABEL_157:
-      v76();
-LABEL_158:
-      v11 = ***a1;
-      goto LABEL_159;
+      v64 = (**a1)[1];
+LABEL_153:
+      v64();
+LABEL_154:
+      v10 = ***a1;
+      goto LABEL_155;
     }
 
     goto LABEL_43;
@@ -4918,108 +4808,108 @@ LABEL_158:
   {
     if (v9 == 5)
     {
-      v19 = a2[1];
-      if (v19)
+      v16 = a2[1];
+      if (v16)
       {
-        v23 = a1 + 2;
-        if ((v19 & 0x8000000000000000) != 0)
+        v20 = a1 + 2;
+        if ((v16 & 0x8000000000000000) != 0)
         {
-          *v23 = 45;
-          v19 = -v19;
-          v65 = 1;
-          if (v19 >= 0xA)
+          *v20 = 45;
+          v16 = -v16;
+          v55 = 1;
+          if (v16 >= 0xA)
           {
-            v66 = v19;
+            v56 = v16;
             while (1)
             {
-              if (v66 <= 0x63)
+              if (v56 <= 0x63)
               {
-                ++v65;
-                goto LABEL_199;
+                ++v55;
+                goto LABEL_195;
               }
 
-              if (v66 <= 0x3E7)
+              if (v56 <= 0x3E7)
               {
-                v65 += 2;
-                goto LABEL_199;
+                v55 += 2;
+                goto LABEL_195;
               }
 
-              if (v66 >> 4 <= 0x270)
+              if (v56 >> 4 <= 0x270)
               {
                 break;
               }
 
-              v65 += 4;
-              v22 = v66 >= 0x186A0;
-              v66 /= 0x2710uLL;
-              if (!v22)
+              v55 += 4;
+              v19 = v56 >= 0x186A0;
+              v56 /= 0x2710uLL;
+              if (!v19)
               {
-                goto LABEL_199;
+                goto LABEL_195;
               }
             }
 
-            v65 += 3;
+            v55 += 3;
           }
         }
 
         else
         {
-          if (v19 < 0xA)
+          if (v16 < 0xA)
           {
             goto LABEL_31;
           }
 
-          v65 = 1;
-          v67 = a2[1];
-          while (v67 > 0x63)
+          v55 = 1;
+          v57 = a2[1];
+          while (v57 > 0x63)
           {
-            if (v67 <= 0x3E7)
+            if (v57 <= 0x3E7)
             {
-              v65 += 2;
-              goto LABEL_200;
+              v55 += 2;
+              goto LABEL_196;
             }
 
-            if (v67 >> 4 <= 0x270)
+            if (v57 >> 4 <= 0x270)
             {
-              v65 += 3;
-              goto LABEL_200;
+              v55 += 3;
+              goto LABEL_196;
             }
 
-            v65 += 4;
-            v22 = v67 >= 0x186A0;
-            v67 /= 0x2710uLL;
-            if (!v22)
+            v55 += 4;
+            v19 = v57 >= 0x186A0;
+            v57 /= 0x2710uLL;
+            if (!v19)
             {
-              goto LABEL_200;
+              goto LABEL_196;
             }
           }
         }
 
-LABEL_199:
-        ++v65;
-LABEL_200:
-        if (v65 < 0x3F)
+LABEL_195:
+        ++v55;
+LABEL_196:
+        if (v55 < 0x3F)
         {
-          v24 = &v23[v65];
-          if (v19 >= 0x64)
+          v21 = v20 + v55;
+          if (v16 >= 0x64)
           {
             do
             {
-              v103 = v19 / 0x64;
-              *(v24 - 2) = *&nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[2 * (v19 % 0x64)];
-              v24 -= 2;
-              v139 = v19 >> 4;
-              v19 /= 0x64uLL;
+              v90 = v16 / 0x64;
+              *(v21 - 1) = *&nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[2 * (v16 % 0x64)];
+              v21 -= 2;
+              v125 = v16 >> 4;
+              v16 /= 0x64uLL;
             }
 
-            while (v139 > 0x270);
-            goto LABEL_205;
+            while (v125 > 0x270);
+            goto LABEL_201;
           }
 
-          goto LABEL_204;
+          goto LABEL_200;
         }
 
-LABEL_288:
+LABEL_284:
         __assert_rtn("dump_integer", "serializer.hpp", 726, "n_chars < number_buffer.size() - 1");
       }
     }
@@ -5028,654 +4918,647 @@ LABEL_288:
     {
       if (v9 != 6)
       {
-        goto LABEL_322;
+        goto LABEL_318;
       }
 
-      v19 = a2[1];
-      if (v19)
+      v16 = a2[1];
+      if (v16)
       {
-        if (v19 >= 0xA)
+        if (v16 >= 0xA)
         {
-          v20 = 1;
-          v21 = a2[1];
+          v17 = 1;
+          v18 = a2[1];
           while (1)
           {
-            if (v21 <= 0x63)
+            if (v18 <= 0x63)
             {
-              ++v20;
-              goto LABEL_168;
+              ++v17;
+              goto LABEL_164;
             }
 
-            if (v21 <= 0x3E7)
+            if (v18 <= 0x3E7)
             {
-              v20 += 2;
-              goto LABEL_168;
+              v17 += 2;
+              goto LABEL_164;
             }
 
-            if (v21 >> 4 <= 0x270)
+            if (v18 >> 4 <= 0x270)
             {
               break;
             }
 
-            v20 += 4;
-            v22 = v21 >= 0x186A0;
-            v21 /= 0x2710uLL;
-            if (!v22)
+            v17 += 4;
+            v19 = v18 >= 0x186A0;
+            v18 /= 0x2710uLL;
+            if (!v19)
             {
-              goto LABEL_168;
+              goto LABEL_164;
             }
           }
 
-          v20 += 3;
-LABEL_168:
-          if (v20 < 0x3F)
+          v17 += 3;
+LABEL_164:
+          if (v17 < 0x3F)
           {
-            v24 = a1 + v20 + 16;
-            if (v19 >= 0x64)
+            v21 = a1 + v17 + 16;
+            if (v16 >= 0x64)
             {
               do
               {
-                v103 = v19 / 0x64;
-                *(v24 - 2) = *&nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[2 * (v19 % 0x64)];
-                v24 -= 2;
-                v104 = v19 >> 4;
-                v19 /= 0x64uLL;
+                v90 = v16 / 0x64;
+                *(v21 - 1) = *&nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[2 * (v16 % 0x64)];
+                v21 -= 2;
+                v91 = v16 >> 4;
+                v16 /= 0x64uLL;
               }
 
-              while (v104 > 0x270);
-              goto LABEL_205;
+              while (v91 > 0x270);
+              goto LABEL_201;
             }
 
-LABEL_204:
-            v103 = v19;
-LABEL_205:
-            if (v103 >= 0xA)
+LABEL_200:
+            v90 = v16;
+LABEL_201:
+            if (v90 >= 0xA)
             {
-              *(v24 - 2) = *&nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[2 * v103];
-LABEL_209:
-              v140 = *a1;
-LABEL_265:
-              v11 = (*v140)[1];
-              goto LABEL_266;
+              *(v21 - 1) = *&nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned long long,0>(unsigned long long)::digits_to_99[2 * v90];
+LABEL_205:
+              v126 = *a1;
+LABEL_261:
+              v10 = (*v126)[1];
+              goto LABEL_262;
             }
 
-            LOBYTE(v19) = v103;
-LABEL_208:
-            *(v24 - 1) = v19 | 0x30;
-            goto LABEL_209;
+            LOBYTE(v16) = v90;
+LABEL_204:
+            *(v21 - 1) = v16 | 0x30;
+            goto LABEL_205;
           }
 
-          goto LABEL_288;
+          goto LABEL_284;
         }
 
 LABEL_31:
-        v24 = a1 + 17;
-        goto LABEL_208;
+        v21 = a1 + 17;
+        goto LABEL_204;
       }
     }
 
-    v41 = *a1;
-    v42 = ***a1;
+    v34 = ***a1;
     goto LABEL_58;
   }
 
   if (v9 == 7)
   {
-    v39 = *(a2 + 1);
-    if ((*&v39 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
+    v33 = *(a2 + 1);
+    if ((*&v33 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
     {
 LABEL_43:
-      v40 = *a1;
-      v11 = (**a1)[1];
-      goto LABEL_266;
+      v10 = (**a1)[1];
+      goto LABEL_262;
     }
 
-    v47 = a2[1];
-    if ((*&v39 & 0x8000000000000000) != 0)
+    if ((*&v33 & 0x8000000000000000) != 0)
     {
-      v39 = -v39;
-      v48 = a1 + 17;
+      v33 = -v33;
+      v38 = (a1 + 17);
       *(a1 + 16) = 45;
     }
 
     else
     {
-      v48 = a1 + 2;
+      v38 = a1 + 2;
     }
 
-    if (v39 == 0.0)
+    if (v33 == 0.0)
     {
-      *v48 = 11824;
-      v48[2] = 48;
-LABEL_264:
-      v140 = *a1;
-      goto LABEL_265;
+      *v38 = 11824;
+      *(v38 + 2) = 48;
+LABEL_260:
+      v126 = *a1;
+      goto LABEL_261;
     }
 
-    if ((a1 + 10) - v48 <= 16)
+    if ((a1 + 10) - v38 <= 16)
     {
       __assert_rtn("to_chars", "to_chars.hpp", 1082, "last - first >= std::numeric_limits<FloatType>::max_digits10");
     }
 
-    if (v39 <= 0.0)
+    if (v33 <= 0.0)
     {
       __assert_rtn("grisu2", "to_chars.hpp", 890, "value > 0");
     }
 
-    v169 = (a1 + 10) - v48;
-    v77 = *&v39 & 0xFFFFFFFFFFFFFLL;
-    if (*&v39 >> 52)
+    v155 = ((a1 + 10) - v38);
+    v65 = *&v33 & 0xFFFFFFFFFFFFFLL;
+    if (*&v33 >> 52)
     {
-      v81 = (*&v39 >> 52) - 1075;
-      v79 = 2 * (v77 | 0x10000000000000);
-      v80 = (2 * (*&v39 & 0xFFFFFFFFFFFFFLL | 0x10000000000000)) | 1;
-      v78 = (*&v39 >> 52) - 1076;
-      v82 = (*&v39 >> 52) - 1076;
-      if (*&v39 >> 53 && !v77)
+      v69 = (*&v33 >> 52) - 1075;
+      v67 = 2 * (v65 | 0x10000000000000);
+      v68 = (2 * (*&v33 & 0xFFFFFFFFFFFFFLL | 0x10000000000000)) | 1;
+      v66 = (*&v33 >> 52) - 1076;
+      v70 = (*&v33 >> 52) - 1076;
+      if (*&v33 >> 53 && !v65)
       {
-        v82 = (*&v39 >> 52) - 1077;
-        v77 = 0x10000000000000;
-        v102 = 0x3FFFFFFFFFFFFFLL;
-        goto LABEL_176;
+        v70 = (*&v33 >> 52) - 1077;
+        v65 = 0x10000000000000;
+        v89 = 0x3FFFFFFFFFFFFFLL;
+        goto LABEL_172;
       }
 
-      v77 |= 0x10000000000000uLL;
+      v65 |= 0x10000000000000uLL;
     }
 
     else
     {
-      v78 = 4294966221;
-      v79 = 2 * *&v39;
-      v80 = (2 * (*&v39 & 0x3FFFFFFFFFFFFFFFLL)) | 1;
-      v81 = 4294966222;
-      v82 = -1075;
+      v66 = 4294966221;
+      v67 = 2 * *&v33;
+      v68 = (2 * (*&v33 & 0x3FFFFFFFFFFFFFFFLL)) | 1;
+      v69 = 4294966222;
+      v70 = -1075;
     }
 
-    v102 = v79 - 1;
-LABEL_176:
-    v105 = nlohmann::detail::dtoa_impl::diyfp::normalize(v80, v78);
-    v107 = v106;
-    v108 = v82 - v106;
-    if (v82 - v106 < 0)
+    v89 = v67 - 1;
+LABEL_172:
+    v92 = nlohmann::detail::dtoa_impl::diyfp::normalize(v68, v66);
+    v94 = v93;
+    v95 = v70 - v93;
+    if (v70 - v93 < 0)
     {
-      v167 = "delta >= 0";
-      v168 = 162;
+      v153 = "delta >= 0";
+      v154 = 162;
     }
 
     else
     {
-      v109 = v102 << v108;
-      if ((v102 << v108) >> v108 == v102)
+      v96 = v89 << v95;
+      if ((v89 << v95) >> v95 == v89)
       {
-        v110 = v105;
-        v111 = nlohmann::detail::dtoa_impl::diyfp::normalize(v77, v81);
-        if (v107 != v112)
+        v97 = v92;
+        v98 = nlohmann::detail::dtoa_impl::diyfp::normalize(v65, v69);
+        if (v94 != v99)
         {
           __assert_rtn("grisu2", "to_chars.hpp", 828, "m_plus.e == v.e");
         }
 
-        if (v107 <= -1501)
+        if (v94 <= -1501)
         {
           __assert_rtn("get_cached_power_for_binary_exponent", "to_chars.hpp", 466, "e >= -1500");
         }
 
-        if (v107 >= 1501)
+        if (v94 >= 1501)
         {
           __assert_rtn("get_cached_power_for_binary_exponent", "to_chars.hpp", 467, "e <= 1500");
         }
 
-        v113 = 78913 * (-61 - v107) / 0x40000;
-        if (v107 < -61)
+        v100 = 78913 * (-61 - v94) / 0x40000;
+        if (v94 < -61)
         {
-          ++v113;
+          ++v100;
         }
 
-        if (v113 <= -315)
+        if (v100 <= -315)
         {
           __assert_rtn("get_cached_power_for_binary_exponent", "to_chars.hpp", 472, "index >= 0");
         }
 
-        v114 = ((v113 + 307 + (((v113 + 307) >> 28) & 7)) << 16) >> 19;
-        if (v114 >= 0x4F)
+        v101 = ((v100 + 307 + (((v100 + 307) >> 28) & 7)) << 16) >> 19;
+        if (v101 >= 0x4F)
         {
           __assert_rtn("get_cached_power_for_binary_exponent", "to_chars.hpp", 473, "static_cast<std::size_t>(index) < kCachedPowers.size()");
         }
 
-        v115 = (&nlohmann::detail::dtoa_impl::get_cached_power_for_binary_exponent(int)::kCachedPowers + 16 * v114);
-        v116 = v115[1];
-        if (v116 + v107 <= -125)
+        v102 = (&nlohmann::detail::dtoa_impl::get_cached_power_for_binary_exponent(int)::kCachedPowers + 16 * v101);
+        v103 = v102[1];
+        if (v103 + v94 <= -125)
         {
           __assert_rtn("get_cached_power_for_binary_exponent", "to_chars.hpp", 476, "kAlpha <= cached.e + e + 64");
         }
 
-        if (v116 + v107 >= -95)
+        if (v103 + v94 >= -95)
         {
           __assert_rtn("get_cached_power_for_binary_exponent", "to_chars.hpp", 477, "kGamma >= cached.e + e + 64");
         }
 
-        v117 = *v115;
-        v118 = v115[1];
-        v119 = nlohmann::detail::dtoa_impl::diyfp::mul(v111, v107, *v115);
-        v121 = v120;
-        v122 = nlohmann::detail::dtoa_impl::diyfp::mul(v109, v107, v117);
-        v124 = v123;
-        v125 = nlohmann::detail::dtoa_impl::diyfp::mul(v110, v107, v117);
-        v127 = v126;
-        if (v126 <= -61)
+        v104 = *v102;
+        v105 = nlohmann::detail::dtoa_impl::diyfp::mul(v98, v94, *v102);
+        v107 = v106;
+        v108 = nlohmann::detail::dtoa_impl::diyfp::mul(v96, v94, v104);
+        v110 = v109;
+        v111 = nlohmann::detail::dtoa_impl::diyfp::mul(v97, v94, v104);
+        v113 = v112;
+        if (v112 <= -61)
         {
           __assert_rtn("grisu2_digit_gen", "to_chars.hpp", 601, "M_plus.e >= kAlpha");
         }
 
-        if (v126 >= -31)
+        if (v112 >= -31)
         {
           __assert_rtn("grisu2_digit_gen", "to_chars.hpp", 602, "M_plus.e <= kGamma");
         }
 
-        v128 = v125 - 1;
-        v129 = nlohmann::detail::dtoa_impl::diyfp::sub(v125 - 1, v126, v122 + 1, v124);
-        v130 = nlohmann::detail::dtoa_impl::diyfp::sub(v128, v127, v119, v121);
-        v131 = -v127;
-        v132 = v128 >> -v127;
-        if (!v132)
+        v114 = v111 - 1;
+        v115 = nlohmann::detail::dtoa_impl::diyfp::sub(v111 - 1, v112, v108 + 1, v110);
+        v116 = nlohmann::detail::dtoa_impl::diyfp::sub(v114, v113, v105, v107);
+        v117 = -v113;
+        v118 = v114 >> -v113;
+        if (!v118)
         {
           __assert_rtn("grisu2_digit_gen", "to_chars.hpp", 623, "p1 > 0");
         }
 
-        v133 = v130;
-        v134 = HIDWORD(v116);
-        v135 = (1 << v131) - 1;
-        v136 = v135 & v128;
-        if (v132 <= 0x3B9AC9FF)
+        v119 = v116;
+        v120 = HIDWORD(v103);
+        v121 = (1 << v117) - 1;
+        v122 = v121 & v114;
+        if (v118 <= 0x3B9AC9FF)
         {
-          if (v132 <= 0x5F5E0FF)
+          if (v118 <= 0x5F5E0FF)
           {
-            if (v132 <= 0x98967F)
+            if (v118 <= 0x98967F)
             {
-              if (v132 <= 0xF423F)
+              if (v118 <= 0xF423F)
               {
-                v141 = v132 >> 5;
-                v142 = v132 >> 4;
-                if (v132 <= 9)
+                v127 = v118 >> 5;
+                v128 = v118 >> 4;
+                if (v118 <= 9)
                 {
-                  v143 = 1;
+                  v129 = 1;
                 }
 
                 else
                 {
-                  v143 = 10;
+                  v129 = 10;
                 }
 
-                if (v132 <= 9)
+                if (v118 <= 9)
                 {
-                  v144 = 1;
-                }
-
-                else
-                {
-                  v144 = 2;
-                }
-
-                if (v132 <= 0x63)
-                {
-                  v145 = v144;
+                  v130 = 1;
                 }
 
                 else
                 {
-                  v145 = 3;
+                  v130 = 2;
                 }
 
-                if (v132 <= 0x63)
+                if (v118 <= 0x63)
                 {
-                  v146 = v143;
-                }
-
-                else
-                {
-                  v146 = 100;
-                }
-
-                if (v132 <= 0x3E7)
-                {
-                  v147 = v145;
+                  v131 = v130;
                 }
 
                 else
                 {
-                  v147 = 4;
+                  v131 = 3;
                 }
 
-                if (v132 <= 0x3E7)
+                if (v118 <= 0x63)
                 {
-                  v148 = v146;
-                }
-
-                else
-                {
-                  v148 = 1000;
-                }
-
-                if (v142 <= 0x270)
-                {
-                  v149 = v147;
+                  v132 = v129;
                 }
 
                 else
                 {
-                  v149 = 5;
+                  v132 = 100;
                 }
 
-                if (v142 <= 0x270)
+                if (v118 <= 0x3E7)
                 {
-                  v150 = v148;
-                }
-
-                else
-                {
-                  v150 = 10000;
-                }
-
-                if (v141 <= 0xC34)
-                {
-                  v138 = v149;
+                  v133 = v131;
                 }
 
                 else
                 {
-                  v138 = 6;
+                  v133 = 4;
                 }
 
-                if (v141 > 0xC34)
+                if (v118 <= 0x3E7)
                 {
-                  v137 = 100000;
+                  v134 = v132;
                 }
 
                 else
                 {
-                  v137 = v150;
+                  v134 = 1000;
+                }
+
+                if (v128 <= 0x270)
+                {
+                  v135 = v133;
+                }
+
+                else
+                {
+                  v135 = 5;
+                }
+
+                if (v128 <= 0x270)
+                {
+                  v136 = v134;
+                }
+
+                else
+                {
+                  v136 = 10000;
+                }
+
+                if (v127 <= 0xC34)
+                {
+                  v124 = v135;
+                }
+
+                else
+                {
+                  v124 = 6;
+                }
+
+                if (v127 > 0xC34)
+                {
+                  v123 = 100000;
+                }
+
+                else
+                {
+                  v123 = v136;
                 }
               }
 
               else
               {
-                v137 = 1000000;
-                v138 = 7;
+                v123 = 1000000;
+                v124 = 7;
               }
             }
 
             else
             {
-              v137 = 10000000;
-              v138 = 8;
+              v123 = 10000000;
+              v124 = 8;
             }
           }
 
           else
           {
-            v137 = 100000000;
-            v138 = 9;
+            v123 = 100000000;
+            v124 = 9;
           }
         }
 
         else
         {
-          v137 = 1000000000;
-          v138 = 10;
+          v123 = 1000000000;
+          v124 = 10;
         }
 
-        v151 = 0;
-        v152 = -v138;
-        v153 = v138 - 1;
+        v137 = 0;
+        v138 = -v124;
+        v139 = v124 - 1;
         do
         {
-          v154 = v132 / v137;
-          if (v132 / v137 >= 0xA)
+          v140 = v118 / v123;
+          if (v118 / v123 >= 0xA)
           {
             __assert_rtn("grisu2_digit_gen", "to_chars.hpp", 659, "d <= 9");
           }
 
-          v132 = v132 % v137;
-          v155 = v151 + 1;
-          v48[v151] = v154 | 0x30;
-          if ((v132 << v131) + v136 <= v129)
+          v118 = v118 % v123;
+          v141 = v137 + 1;
+          *(v38 + v137) = v140 | 0x30;
+          if ((v118 << v117) + v122 <= v115)
           {
-            nlohmann::detail::dtoa_impl::grisu2_round(v48, (v151 + 1), v133, v129, (v132 << v131) + v136, v137 << v131);
-            LODWORD(v159) = v155;
-            goto LABEL_253;
+            nlohmann::detail::dtoa_impl::grisu2_round(v38, (v137 + 1), v119, v115, (v118 << v117) + v122, v123 << v117);
+            LODWORD(v145) = v141;
+            goto LABEL_249;
           }
 
-          v137 /= 0xAu;
-          --v153;
-          ++v151;
+          v123 /= 0xAu;
+          --v139;
+          ++v137;
         }
 
-        while (v152 + v155);
-        if (v136 <= v129)
+        while (v138 + v141);
+        if (v122 <= v115)
         {
           __assert_rtn("grisu2_digit_gen", "to_chars.hpp", 746, "p2 > delta");
         }
 
-        v156 = -1;
+        v142 = -1;
         do
         {
-          if (v136 >= 0x199999999999999ALL)
+          if (v122 >= 0x199999999999999ALL)
           {
             __assert_rtn("grisu2_digit_gen", "to_chars.hpp", 757, "p2 <= (std::numeric_limits<std::uint64_t>::max)() / 10");
           }
 
-          v157 = (10 * v136) >> v131;
-          if (v157 >= 0xA)
+          v143 = (10 * v122) >> v117;
+          if (v143 >= 0xA)
           {
             __assert_rtn("grisu2_digit_gen", "to_chars.hpp", 766, "d <= 9");
           }
 
-          v48[v155] = v157 | 0x30;
-          v136 = (10 * v136) & v135;
-          v158 = 5 * v129;
-          v159 = (v155 + 1);
-          v129 *= 10;
-          v133 *= 10;
-          ++v156;
-          ++v155;
+          *(v38 + v141) = v143 | 0x30;
+          v122 = (10 * v122) & v121;
+          v144 = 5 * v115;
+          v145 = (v141 + 1);
+          v115 *= 10;
+          v119 *= 10;
+          ++v142;
+          ++v141;
         }
 
-        while (v136 > 2 * v158);
-        v153 = ~v156;
-        nlohmann::detail::dtoa_impl::grisu2_round(v48, v159, v133, v129, v136, 1 << v131);
-LABEL_253:
-        if (v159 >= 18)
+        while (v122 > 2 * v144);
+        v139 = ~v142;
+        nlohmann::detail::dtoa_impl::grisu2_round(v38, v145, v119, v115, v122, 1 << v117);
+LABEL_249:
+        if (v145 >= 18)
         {
           __assert_rtn("to_chars", "to_chars.hpp", 1092, "len <= std::numeric_limits<FloatType>::max_digits10");
         }
 
-        if (v169 <= 0x15)
+        if (v155 <= 0x15)
         {
           __assert_rtn("to_chars", "to_chars.hpp", 1100, "last - first >= 2 + (-kMinExp - 1) + std::numeric_limits<FloatType>::max_digits10");
         }
 
-        if (v169 == 22)
+        if (v155 == 22)
         {
           __assert_rtn("to_chars", "to_chars.hpp", 1101, "last - first >= std::numeric_limits<FloatType>::max_digits10 + 6");
         }
 
-        v160 = v153 - v134;
-        v161 = v153 - v134 + v159;
-        if (v153 - v134 < 0 || v161 > 15)
+        v146 = v139 - v120;
+        v147 = v139 - v120 + v145;
+        if (v139 - v120 < 0 || v147 > 15)
         {
-          if ((v161 - 16) >= 0xFFFFFFF1)
+          if ((v147 - 16) >= 0xFFFFFFF1)
           {
-            if ((v160 & 0x80000000) == 0)
+            if ((v146 & 0x80000000) == 0)
             {
               __assert_rtn("format_buffer", "to_chars.hpp", 1006, "k > n");
             }
 
-            v162 = &v48[v161];
-            memmove(v162 + 1, v162, v159 - v161);
-            *v162 = 46;
+            v148 = v38 + v147;
+            memmove(v148 + 1, v148, v145 - v147);
+            *v148 = 46;
           }
 
-          else if (v161 != 0 && v161 < 0xFFFFFFFD)
+          else if (v147 != 0 && v147 < 0xFFFFFFFD)
           {
-            if (v159 != 1)
+            if (v145 != 1)
             {
-              memmove(v48 + 2, v48 + 1, v159 - 1);
-              v48[1] = 46;
-              v48 += v159;
+              memmove(v38 + 2, v38 + 1, v145 - 1);
+              *(v38 + 1) = 46;
+              v38 = (v38 + v145);
             }
 
-            v48[1] = 101;
-            if (v161 <= -999)
+            *(v38 + 1) = 101;
+            if (v147 <= -999)
             {
               __assert_rtn("append_exponent", "to_chars.hpp", 926, "e > -1000");
             }
 
-            if (v161 >= 1001)
+            if (v147 >= 1001)
             {
               __assert_rtn("append_exponent", "to_chars.hpp", 927, "e < 1000");
             }
 
-            v163 = v161 - 1;
-            if (v161 >= 1)
+            v149 = v147 - 1;
+            if (v147 >= 1)
             {
-              v164 = 43;
+              v150 = 43;
             }
 
             else
             {
-              v164 = 45;
+              v150 = 45;
             }
 
-            if (v163 < 0)
+            if (v149 < 0)
             {
-              v163 = 1 - v161;
+              v149 = 1 - v147;
             }
 
-            v48[2] = v164;
-            if (v163 > 9)
+            *(v38 + 2) = v150;
+            if (v149 > 9)
             {
-              if (v163 > 0x63)
+              if (v149 > 0x63)
               {
-                v48[3] = v163 / 0x64u + 48;
-                LOBYTE(v163) = v163 % 0x64u;
-                v166 = v163 / 0xAu;
-                v165 = v48 + 5;
-                v48[4] = (v163 / 0xAu) | 0x30;
+                *(v38 + 3) = v149 / 0x64u + 48;
+                LOBYTE(v149) = v149 % 0x64u;
+                v152 = v149 / 0xAu;
+                v151 = v38 + 5;
+                *(v38 + 4) = (v149 / 0xAu) | 0x30;
               }
 
               else
               {
-                v166 = v163 / 0xAu;
-                v165 = v48 + 4;
-                v48[3] = (v163 / 0xAu) | 0x30;
+                v152 = v149 / 0xAu;
+                v151 = v38 + 4;
+                *(v38 + 3) = (v149 / 0xAu) | 0x30;
               }
 
-              LOBYTE(v163) = v163 - 10 * v166;
+              LOBYTE(v149) = v149 - 10 * v152;
             }
 
             else
             {
-              v165 = v48 + 4;
-              v48[3] = 48;
+              v151 = v38 + 4;
+              *(v38 + 3) = 48;
             }
 
-            *v165 = v163 | 0x30;
+            *v151 = v149 | 0x30;
           }
 
           else
           {
-            memmove(&v48[-v161 + 2], v48, v159);
-            *v48 = 11824;
-            memset(v48 + 2, 48, -v161);
+            memmove(v38 + -v147 + 2, v38, v145);
+            *v38 = 11824;
+            memset(v38 + 2, 48, -v147);
           }
         }
 
         else
         {
-          memset(&v48[v159], 48, v160);
-          *&v48[v161] = 12334;
+          memset(v38 + v145, 48, v146);
+          *(v38 + v147) = 12334;
         }
 
-        goto LABEL_264;
+        goto LABEL_260;
       }
 
-      v167 = "((x.f << delta) >> delta) == x.f";
-      v168 = 163;
+      v153 = "((x.f << delta) >> delta) == x.f";
+      v154 = 163;
     }
 
-    __assert_rtn("normalize_to", "to_chars.hpp", v168, v167);
+    __assert_rtn("normalize_to", "to_chars.hpp", v154, v153);
   }
 
   if (v9 != 8)
   {
     if (v9 != 9)
     {
-      goto LABEL_322;
+      goto LABEL_318;
     }
 
-    v12 = *a1;
-    v11 = (**a1)[1];
-LABEL_266:
+    v10 = (**a1)[1];
+LABEL_262:
 
-    return v11();
+    return v10();
   }
 
-  v26 = *a1;
-  v27 = (**a1)[1];
+  v22 = (**a1)[1];
   if (a3)
   {
-    v27();
-    v28 = (a5 + a4);
-    v29 = a1 + 76;
-    v30 = *(a1 + 631);
-    if ((v30 & 0x80000000) != 0)
+    v22();
+    v23 = (a5 + a4);
+    v24 = a1 + 76;
+    v25 = *(a1 + 631);
+    if ((v25 & 0x80000000) != 0)
     {
-      v68 = a1[77];
-      if (v68 >= v28)
+      v58 = a1[77];
+      if (v58 >= v23)
       {
-        v31 = *a1;
+        v26 = *a1;
 LABEL_94:
-        v32 = *v29;
+        v27 = *v24;
         goto LABEL_95;
       }
     }
 
     else
     {
-      if (v28 <= v30)
+      if (v23 <= v25)
       {
-        v31 = *a1;
-        v32 = a1 + 76;
+        v26 = *a1;
+        v27 = a1 + 76;
 LABEL_95:
-        ((*v31)[1])(v31, v32, v28);
+        ((*v26)[1])(v26, v27, v23);
         ((**a1)[1])(*a1, "bytes: [", 10);
-        v69 = *a2[1];
-        v70 = a2[1][1];
-        v71 = *a2[1];
-        if (v71 != v70)
+        v59 = a2[1][1];
+        v60 = *a2[1];
+        if (v60 != v59)
         {
-          for (; v71 != v70 - 1; v70 = a2[1][1])
+          for (; v60 != v59 - 1; v59 = a2[1][1])
           {
-            v72 = *v71++;
-            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, v72);
+            v61 = *v60++;
+            nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, v61);
             ((**a1)[1])(*a1, ", ", 2);
           }
 
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v70 - 1));
+          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v59 - 1));
         }
 
         ((**a1)[1])(*a1, "],\n", 3);
-        v73 = a1 + 76;
+        v62 = a1 + 76;
         if (*(a1 + 631) < 0)
         {
-          v73 = *v29;
+          v62 = *v24;
         }
 
-        ((**a1)[1])(*a1, v73, v28);
+        ((**a1)[1])(*a1, v62, v23);
         ((**a1)[1])(*a1, "subtype: ", 11);
-        v74 = a2[1];
-        if (*(v74 + 25) == 1)
+        v63 = a2[1];
+        if (*(v63 + 25) == 1)
         {
-          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v74 + 24));
+          nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v63 + 24));
         }
 
         else
@@ -5684,21 +5567,16 @@ LABEL_95:
         }
 
         (***a1)(*a1, 10);
-        if (*(a1 + 631) < 0)
-        {
-          v75 = *v29;
-        }
-
-        v76 = (**a1)[1];
-        goto LABEL_157;
+        v64 = (**a1)[1];
+        goto LABEL_153;
       }
 
-      v68 = *(a1 + 631);
+      v58 = *(a1 + 631);
     }
 
-    std::string::resize((a1 + 76), 2 * v68, 32);
-    v31 = *a1;
-    v32 = a1 + 76;
+    std::string::resize((a1 + 76), 2 * v58, 32);
+    v26 = *a1;
+    v27 = a1 + 76;
     if ((*(a1 + 631) & 0x80000000) == 0)
     {
       goto LABEL_95;
@@ -5707,36 +5585,35 @@ LABEL_95:
     goto LABEL_94;
   }
 
-  v27();
-  v43 = *a2[1];
-  v44 = a2[1][1];
-  v45 = *a2[1];
-  if (v45 != v44)
+  v22();
+  v35 = a2[1][1];
+  v36 = *a2[1];
+  if (v36 != v35)
   {
-    while (v45 != v44 - 1)
+    while (v36 != v35 - 1)
     {
-      v46 = *v45++;
-      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, v46);
+      v37 = *v36++;
+      nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, v37);
       (***a1)(*a1, 44);
-      v44 = a2[1][1];
+      v35 = a2[1][1];
     }
 
-    nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v44 - 1));
+    nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v35 - 1));
   }
 
   ((**a1)[1])(*a1, "],subtype:", 12);
-  v51 = a2[1];
-  if (*(v51 + 25) != 1)
+  v41 = a2[1];
+  if (*(v41 + 25) != 1)
   {
-    v11 = (**a1)[1];
-    goto LABEL_266;
+    v10 = (**a1)[1];
+    goto LABEL_262;
   }
 
-  nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v51 + 24));
-  v42 = ***a1;
+  nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_integer<unsigned char,0>(a1, *(v41 + 24));
+  v34 = ***a1;
 LABEL_58:
 
-  return v42();
+  return v34();
 }
 
 uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~serializer(uint64_t a1)
@@ -5755,7 +5632,7 @@ uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,
   return a1;
 }
 
-uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(uint64_t result, uint64_t *a2)
+uint64_t nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump_escaped(uint64_t result, uint64_t **a2)
 {
   v2 = *(a2 + 23);
   v3 = a2[1];
@@ -6209,10 +6086,11 @@ __n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<c
   return result;
 }
 
-void nlohmann::detail::type_error::create(nlohmann::detail::exception *a1, int a2, uint64_t a3)
+void nlohmann::detail::type_error::create(nlohmann::detail::exception *a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   std::string::basic_string[abi:ne200100]<0>(__p, "type_error");
-  nlohmann::detail::exception::name(&v14, __p, a2);
+  nlohmann::detail::exception::name(&v14, __p, v4);
   v6 = *(a3 + 23);
   if (v6 >= 0)
   {
@@ -6261,7 +6139,7 @@ void nlohmann::detail::type_error::create(nlohmann::detail::exception *a1, int a
     v11 = v15[0];
   }
 
-  nlohmann::detail::exception::exception(a1, a2, v11);
+  nlohmann::detail::exception::exception(a1, v4, v11);
   *a1 = &unk_2881C1800;
   if (SHIBYTE(v16) < 0)
   {
@@ -6279,7 +6157,7 @@ void sub_2724C62F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -6291,11 +6169,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void nlohmann::detail::type_error::~type_error(std::exception *this)
@@ -6330,7 +6208,7 @@ void nlohmann::detail::exception::~exception(std::exception *this)
   std::exception::~exception(this);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -6344,13 +6222,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -6486,20 +6364,17 @@ void std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::destroy
   }
 }
 
-void *std::vector<void const*>::reserve(void *result, unint64_t a2)
+void std::vector<void const*>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
       std::allocator<void const*>::allocate_at_least[abi:ne200100](a2);
     }
 
     std::vector<std::function<std::unique_ptr<VoiceProcessorBase> ()(std::unique_ptr<VoiceProcessorBase>)>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::allocator<void const*>::allocate_at_least[abi:ne200100](unint64_t a1)
@@ -6542,7 +6417,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<apples
     do
     {
       std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::destroy[abi:ne200100]<applesauce::CF::TypeRefPair,void,0>(v5);
-      v5 += 16;
+      v5 += 2;
     }
 
     while (v5 != a3);
@@ -6645,13 +6520,13 @@ void vp::services::Personal_Audio_Impl::get_personal_media_preset(applesauce::CF
 {
   if (objc_opt_class())
   {
-    v3 = [MEMORY[0x277D3A1D0] sharedInstance];
-    v7 = [v3 personalMediaConfiguration];
+    v2 = [MEMORY[0x277D3A1D0] sharedInstance];
+    v6 = [v2 personalMediaConfiguration];
 
-    v4 = [v7 presetAdjustments];
-    v5 = *MEMORY[0x277D3A1E8];
-    v6 = [v4 objectForKey:v5];
-    applesauce::CF::DictionaryRef::from_ns_noexcept(a1, v6);
+    v3 = [v6 presetAdjustments];
+    v4 = *MEMORY[0x277D3A1E8];
+    v5 = [v3 objectForKey:v4];
+    applesauce::CF::DictionaryRef::from_ns_noexcept(a1, v5);
   }
 
   else
@@ -6706,73 +6581,67 @@ unint64_t vp::services::Personal_Audio_Impl::is_personal_media_enabled(vp::servi
 
 uint64_t vp::services::Orientation_Impl::unregister_ui_orientation_listener(vp::services::Orientation_Impl *this)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = CAUnregisterUIOrientation();
   v3 = v2;
-  if (v2)
+  if (!v2)
   {
-    v6 = vp::get_log(v2);
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    return 1;
+  }
 
-    if (v7)
+  v5 = vp::get_log(v2);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+
+  if (v6)
+  {
+    log_context_info = vp::get_log_context_info(__p, this, "vp::services::Orientation_Impl]", 30);
+    v8 = v15;
+    v9 = __p[1];
+    v10 = vp::get_log(log_context_info);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      log_context_info = vp::get_log_context_info(__p, this, "vp::services::Orientation_Impl]", 30);
-      v9 = v16;
-      v10 = __p[1];
-      v11 = vp::get_log(log_context_info);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if ((v8 & 0x80u) == 0)
       {
-        if ((v9 & 0x80u) == 0)
-        {
-          v12 = v9;
-        }
-
-        else
-        {
-          v12 = v10;
-        }
-
-        v13 = __p[0];
-        if ((v9 & 0x80u) == 0)
-        {
-          v13 = __p;
-        }
-
-        *buf = 136315650;
-        v18 = v13;
-        if (v12)
-        {
-          v14 = " ";
-        }
-
-        else
-        {
-          v14 = "";
-        }
-
-        v19 = 2080;
-        v20 = v14;
-        v21 = 1024;
-        v22 = v3;
-        _os_log_impl(&dword_2724B4000, v11, OS_LOG_TYPE_ERROR, "%s%sfailed to unregister UI orientation listener with status %u", buf, 0x1Cu);
+        v11 = v8;
       }
 
-      if (v16 < 0)
+      else
       {
-        operator delete(__p[0]);
+        v11 = v9;
       }
+
+      v12 = __p[0];
+      if ((v8 & 0x80u) == 0)
+      {
+        v12 = __p;
+      }
+
+      *buf = 136315650;
+      v17 = v12;
+      if (v11)
+      {
+        v13 = " ";
+      }
+
+      else
+      {
+        v13 = "";
+      }
+
+      v18 = 2080;
+      v19 = v13;
+      v20 = 1024;
+      v21 = v3;
+      _os_log_impl(&dword_2724B4000, v10, OS_LOG_TYPE_ERROR, "%s%sfailed to unregister UI orientation listener with status %u", buf, 0x1Cu);
     }
 
-    result = 0;
+    if (v15 < 0)
+    {
+      operator delete(__p[0]);
+    }
   }
 
-  else
-  {
-    result = 1;
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void sub_2724C7190(_Unwind_Exception *a1, int a2)
@@ -6799,83 +6668,82 @@ void sub_2724C71A0(_Unwind_Exception *a1, int a2)
 
 BOOL vp::services::Orientation_Impl::register_ui_orientation_listener(uint64_t a1, uint64_t *a2)
 {
-  v32[4] = *MEMORY[0x277D85DE8];
-  v26 = MEMORY[0x277D85DD0];
-  v27 = 3321888768;
-  v28 = ___ZN2vp8services16Orientation_Impl32register_ui_orientation_listenerEN5caulk16inplace_functionIFv13CAOrientationELm32ELm8ENS2_23inplace_function_detail6vtableEEE_block_invoke;
-  v29 = &__block_descriptor_80_ea8_40c95_ZTSN5caulk16inplace_functionIFv13CAOrientationELm32ELm8ENS_23inplace_function_detail6vtableEEE_e8_v12__0i8l;
+  v31[4] = *MEMORY[0x277D85DE8];
+  v25 = MEMORY[0x277D85DD0];
+  v26 = 3321888768;
+  v27 = ___ZN2vp8services16Orientation_Impl32register_ui_orientation_listenerEN5caulk16inplace_functionIFv13CAOrientationELm32ELm8ENS2_23inplace_function_detail6vtableEEE_block_invoke;
+  v28 = &__block_descriptor_80_ea8_40c95_ZTSN5caulk16inplace_functionIFv13CAOrientationELm32ELm8ENS_23inplace_function_detail6vtableEEE_e8_v12__0i8l;
   v3 = *a2;
-  v30 = a1;
-  v31 = v3;
-  (*(v3 + 8))(v32, a2 + 1);
+  v29 = a1;
+  v30 = v3;
+  (*(v3 + 8))(v31, a2 + 1);
   v4 = CARegisterUIOrientation();
   v5 = v4;
   v6 = v4 == 0;
   if (v4)
   {
-    v9 = vp::get_log(v4);
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+    v8 = vp::get_log(v4);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
 
-    if (v10)
+    if (v9)
     {
       log_context_info = vp::get_log_context_info(__p, a1, "vp::services::Orientation_Impl]", 30);
-      v12 = v19;
-      v13 = __p[1];
-      v14 = vp::get_log(log_context_info);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v11 = v18;
+      v12 = __p[1];
+      v13 = vp::get_log(log_context_info);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        if ((v12 & 0x80u) == 0)
+        if ((v11 & 0x80u) == 0)
         {
-          v15 = v12;
+          v14 = v11;
         }
 
         else
         {
-          v15 = v13;
+          v14 = v12;
         }
 
-        v16 = __p[0];
-        if ((v12 & 0x80u) == 0)
+        v15 = __p[0];
+        if ((v11 & 0x80u) == 0)
         {
-          v16 = __p;
+          v15 = __p;
         }
 
         *buf = 136315650;
-        v21 = v16;
-        if (v15)
+        v20 = v15;
+        if (v14)
         {
-          v17 = " ";
+          v16 = " ";
         }
 
         else
         {
-          v17 = "";
+          v16 = "";
         }
 
-        v22 = 2080;
-        v23 = v17;
-        v24 = 1024;
-        v25 = v5;
-        _os_log_impl(&dword_2724B4000, v14, OS_LOG_TYPE_ERROR, "%s%sfailed to register UI orientation listener with status %u", buf, 0x1Cu);
+        v21 = 2080;
+        v22 = v16;
+        v23 = 1024;
+        v24 = v5;
+        _os_log_impl(&dword_2724B4000, v13, OS_LOG_TYPE_ERROR, "%s%sfailed to register UI orientation listener with status %u", buf, 0x1Cu);
       }
 
-      if (v19 < 0)
+      if (v18 < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
 
-  (*(v31 + 24))(v32);
-  v7 = *MEMORY[0x277D85DE8];
+  (*(v30 + 24))(v31);
   return v6;
 }
 
-void sub_2724C73AC(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
+void sub_2724C73AC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   if (a2)
   {
-    (*(a23 + 24))(v23 + 48);
+    (*(a23 + 24))(v23 + 48, a2, a3, a4, a5, a6, a7, a8);
     __cxa_begin_catch(a1);
     __cxa_end_catch();
     JUMPOUT(0x2724C7264);
@@ -6884,9 +6752,10 @@ void sub_2724C73AC(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
   JUMPOUT(0x2724C739CLL);
 }
 
-uint64_t ___ZN2vp8services16Orientation_Impl32register_ui_orientation_listenerEN5caulk16inplace_functionIFv13CAOrientationELm32ELm8ENS2_23inplace_function_detail6vtableEEE_block_invoke(uint64_t a1, int a2)
+uint64_t ___ZN2vp8services16Orientation_Impl32register_ui_orientation_listenerEN5caulk16inplace_functionIFv13CAOrientationELm32ELm8ENS2_23inplace_function_detail6vtableEEE_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = vp::get_log(a1);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
@@ -6900,7 +6769,7 @@ uint64_t ___ZN2vp8services16Orientation_Impl32register_ui_orientation_listenerEN
     if (v9)
     {
       log_context_info = vp::get_log_context_info(__p, v4, "vp::services::Orientation_Impl]", 30);
-      v11 = v20;
+      v11 = v19;
       v12 = __p[1];
       v13 = vp::get_log(log_context_info);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
@@ -6922,7 +6791,7 @@ uint64_t ___ZN2vp8services16Orientation_Impl32register_ui_orientation_listenerEN
         }
 
         *buf = 136315650;
-        v22 = v15;
+        v21 = v15;
         if (v14)
         {
           v16 = " ";
@@ -6933,14 +6802,14 @@ uint64_t ___ZN2vp8services16Orientation_Impl32register_ui_orientation_listenerEN
           v16 = "";
         }
 
-        v23 = 2080;
-        v24 = v16;
-        v25 = 2112;
-        v26 = v7;
+        v22 = 2080;
+        v23 = v16;
+        v24 = 2112;
+        v25 = v7;
         _os_log_impl(&dword_2724B4000, v13, OS_LOG_TYPE_INFO, "%s%sUI orientation changed to %@", buf, 0x20u);
       }
 
-      if (v20 < 0)
+      if (v19 < 0)
       {
         operator delete(__p[0]);
       }
@@ -6949,10 +6818,8 @@ uint64_t ___ZN2vp8services16Orientation_Impl32register_ui_orientation_listenerEN
     CFRelease(v7);
   }
 
-  *buf = a2;
-  result = (**(a1 + 40))(a1 + 48, buf);
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  *buf = v2;
+  return (**(a1 + 40))(a1 + 48, buf);
 }
 
 uint64_t __copy_helper_block_ea8_40c95_ZTSN5caulk16inplace_functionIFv13CAOrientationELm32ELm8ENS_23inplace_function_detail6vtableEEE(uint64_t a1, uint64_t a2)
@@ -6964,73 +6831,67 @@ uint64_t __copy_helper_block_ea8_40c95_ZTSN5caulk16inplace_functionIFv13CAOrient
 
 uint64_t vp::services::Orientation_Impl::unregister_device_orientation_listener(vp::services::Orientation_Impl *this)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = CAUnregisterDeviceOrientation();
   v3 = v2;
-  if (v2)
+  if (!v2)
   {
-    v6 = vp::get_log(v2);
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    return 1;
+  }
 
-    if (v7)
+  v5 = vp::get_log(v2);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+
+  if (v6)
+  {
+    log_context_info = vp::get_log_context_info(__p, this, "vp::services::Orientation_Impl]", 30);
+    v8 = v15;
+    v9 = __p[1];
+    v10 = vp::get_log(log_context_info);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      log_context_info = vp::get_log_context_info(__p, this, "vp::services::Orientation_Impl]", 30);
-      v9 = v16;
-      v10 = __p[1];
-      v11 = vp::get_log(log_context_info);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if ((v8 & 0x80u) == 0)
       {
-        if ((v9 & 0x80u) == 0)
-        {
-          v12 = v9;
-        }
-
-        else
-        {
-          v12 = v10;
-        }
-
-        v13 = __p[0];
-        if ((v9 & 0x80u) == 0)
-        {
-          v13 = __p;
-        }
-
-        *buf = 136315650;
-        v18 = v13;
-        if (v12)
-        {
-          v14 = " ";
-        }
-
-        else
-        {
-          v14 = "";
-        }
-
-        v19 = 2080;
-        v20 = v14;
-        v21 = 1024;
-        v22 = v3;
-        _os_log_impl(&dword_2724B4000, v11, OS_LOG_TYPE_ERROR, "%s%sfailed to unregister device orientation listener with status %u", buf, 0x1Cu);
+        v11 = v8;
       }
 
-      if (v16 < 0)
+      else
       {
-        operator delete(__p[0]);
+        v11 = v9;
       }
+
+      v12 = __p[0];
+      if ((v8 & 0x80u) == 0)
+      {
+        v12 = __p;
+      }
+
+      *buf = 136315650;
+      v17 = v12;
+      if (v11)
+      {
+        v13 = " ";
+      }
+
+      else
+      {
+        v13 = "";
+      }
+
+      v18 = 2080;
+      v19 = v13;
+      v20 = 1024;
+      v21 = v3;
+      _os_log_impl(&dword_2724B4000, v10, OS_LOG_TYPE_ERROR, "%s%sfailed to unregister device orientation listener with status %u", buf, 0x1Cu);
     }
 
-    result = 0;
+    if (v15 < 0)
+    {
+      operator delete(__p[0]);
+    }
   }
 
-  else
-  {
-    result = 1;
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void sub_2724C7744(_Unwind_Exception *a1, int a2)
@@ -7057,83 +6918,82 @@ void sub_2724C7754(_Unwind_Exception *a1, int a2)
 
 BOOL vp::services::Orientation_Impl::register_device_orientation_listener(uint64_t a1, uint64_t *a2)
 {
-  v32[4] = *MEMORY[0x277D85DE8];
-  v26 = MEMORY[0x277D85DD0];
-  v27 = 3321888768;
-  v28 = ___ZN2vp8services16Orientation_Impl36register_device_orientation_listenerEN5caulk16inplace_functionIFv13CAOrientationELm32ELm8ENS2_23inplace_function_detail6vtableEEE_block_invoke;
-  v29 = &__block_descriptor_80_ea8_40c95_ZTSN5caulk16inplace_functionIFv13CAOrientationELm32ELm8ENS_23inplace_function_detail6vtableEEE_e8_v12__0i8l;
+  v31[4] = *MEMORY[0x277D85DE8];
+  v25 = MEMORY[0x277D85DD0];
+  v26 = 3321888768;
+  v27 = ___ZN2vp8services16Orientation_Impl36register_device_orientation_listenerEN5caulk16inplace_functionIFv13CAOrientationELm32ELm8ENS2_23inplace_function_detail6vtableEEE_block_invoke;
+  v28 = &__block_descriptor_80_ea8_40c95_ZTSN5caulk16inplace_functionIFv13CAOrientationELm32ELm8ENS_23inplace_function_detail6vtableEEE_e8_v12__0i8l;
   v3 = *a2;
-  v30 = a1;
-  v31 = v3;
-  (*(v3 + 8))(v32, a2 + 1);
+  v29 = a1;
+  v30 = v3;
+  (*(v3 + 8))(v31, a2 + 1);
   v4 = CARegisterDeviceOrientation();
   v5 = v4;
   v6 = v4 == 0;
   if (v4)
   {
-    v9 = vp::get_log(v4);
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+    v8 = vp::get_log(v4);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
 
-    if (v10)
+    if (v9)
     {
       log_context_info = vp::get_log_context_info(__p, a1, "vp::services::Orientation_Impl]", 30);
-      v12 = v19;
-      v13 = __p[1];
-      v14 = vp::get_log(log_context_info);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v11 = v18;
+      v12 = __p[1];
+      v13 = vp::get_log(log_context_info);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        if ((v12 & 0x80u) == 0)
+        if ((v11 & 0x80u) == 0)
         {
-          v15 = v12;
+          v14 = v11;
         }
 
         else
         {
-          v15 = v13;
+          v14 = v12;
         }
 
-        v16 = __p[0];
-        if ((v12 & 0x80u) == 0)
+        v15 = __p[0];
+        if ((v11 & 0x80u) == 0)
         {
-          v16 = __p;
+          v15 = __p;
         }
 
         *buf = 136315650;
-        v21 = v16;
-        if (v15)
+        v20 = v15;
+        if (v14)
         {
-          v17 = " ";
+          v16 = " ";
         }
 
         else
         {
-          v17 = "";
+          v16 = "";
         }
 
-        v22 = 2080;
-        v23 = v17;
-        v24 = 1024;
-        v25 = v5;
-        _os_log_impl(&dword_2724B4000, v14, OS_LOG_TYPE_ERROR, "%s%sfailed to register device orientation listener with status %u", buf, 0x1Cu);
+        v21 = 2080;
+        v22 = v16;
+        v23 = 1024;
+        v24 = v5;
+        _os_log_impl(&dword_2724B4000, v13, OS_LOG_TYPE_ERROR, "%s%sfailed to register device orientation listener with status %u", buf, 0x1Cu);
       }
 
-      if (v19 < 0)
+      if (v18 < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
 
-  (*(v31 + 24))(v32);
-  v7 = *MEMORY[0x277D85DE8];
+  (*(v30 + 24))(v31);
   return v6;
 }
 
-void sub_2724C7960(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
+void sub_2724C7960(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   if (a2)
   {
-    (*(a23 + 24))(v23 + 48);
+    (*(a23 + 24))(v23 + 48, a2, a3, a4, a5, a6, a7, a8);
     __cxa_begin_catch(a1);
     __cxa_end_catch();
     JUMPOUT(0x2724C7818);
@@ -7142,9 +7002,10 @@ void sub_2724C7960(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint
   JUMPOUT(0x2724C7950);
 }
 
-uint64_t ___ZN2vp8services16Orientation_Impl36register_device_orientation_listenerEN5caulk16inplace_functionIFv13CAOrientationELm32ELm8ENS2_23inplace_function_detail6vtableEEE_block_invoke(uint64_t a1, int a2)
+uint64_t ___ZN2vp8services16Orientation_Impl36register_device_orientation_listenerEN5caulk16inplace_functionIFv13CAOrientationELm32ELm8ENS2_23inplace_function_detail6vtableEEE_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = vp::get_log(a1);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
@@ -7158,7 +7019,7 @@ uint64_t ___ZN2vp8services16Orientation_Impl36register_device_orientation_listen
     if (v9)
     {
       log_context_info = vp::get_log_context_info(__p, v4, "vp::services::Orientation_Impl]", 30);
-      v11 = v20;
+      v11 = v19;
       v12 = __p[1];
       v13 = vp::get_log(log_context_info);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
@@ -7180,7 +7041,7 @@ uint64_t ___ZN2vp8services16Orientation_Impl36register_device_orientation_listen
         }
 
         *buf = 136315650;
-        v22 = v15;
+        v21 = v15;
         if (v14)
         {
           v16 = " ";
@@ -7191,14 +7052,14 @@ uint64_t ___ZN2vp8services16Orientation_Impl36register_device_orientation_listen
           v16 = "";
         }
 
-        v23 = 2080;
-        v24 = v16;
-        v25 = 2112;
-        v26 = v7;
+        v22 = 2080;
+        v23 = v16;
+        v24 = 2112;
+        v25 = v7;
         _os_log_impl(&dword_2724B4000, v13, OS_LOG_TYPE_INFO, "%s%sdevice orientation changed to %@", buf, 0x20u);
       }
 
-      if (v20 < 0)
+      if (v19 < 0)
       {
         operator delete(__p[0]);
       }
@@ -7207,31 +7068,31 @@ uint64_t ___ZN2vp8services16Orientation_Impl36register_device_orientation_listen
     CFRelease(v7);
   }
 
-  *buf = a2;
-  result = (**(a1 + 40))(a1 + 48, buf);
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  *buf = v2;
+  return (**(a1 + 40))(a1 + 48, buf);
 }
 
 uint64_t vp::services::Mobile_Gestalt_Impl::copy_answer@<X0>(int a1@<W1>, uint64_t *a2@<X2>, uint64_t *a3@<X8>)
 {
   if (a1 == 1)
   {
-    v4 = *a2;
-    return vp::services::Mobile_Gestalt_Impl::copy_answer<__CFString const*>(a3);
+    v3 = *a2;
+    v4 = @"meicxSe0OZJaae1hEiOV5Q";
+    return vp::services::Mobile_Gestalt_Impl::copy_answer<__CFString const*>(a3, v4, v3);
   }
 
   if (!a1)
   {
     v3 = *a2;
-    return vp::services::Mobile_Gestalt_Impl::copy_answer<__CFString const*>(a3);
+    v4 = @"jxx29Cq5bGHDnkcha4y/Rw";
+    return vp::services::Mobile_Gestalt_Impl::copy_answer<__CFString const*>(a3, v4, v3);
   }
 
   *a3 = 0;
   return result;
 }
 
-uint64_t vp::services::Mobile_Gestalt_Impl::copy_answer<__CFString const*>(uint64_t *a1)
+uint64_t vp::services::Mobile_Gestalt_Impl::copy_answer<__CFString const*>(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   result = MGCopyAnswer();
   *a1 = result;
@@ -7248,16 +7109,16 @@ void sub_2724C7BC8(void *a1)
 
 void vp::services::Core_Media_Impl::get_fig_capture_speaker_interference_mitigation_cf_notification_key(void *a1@<X8>)
 {
-  v3 = *MEMORY[0x277CF3BB8];
-  if (*MEMORY[0x277CF3BB8] && (CFRetain(*MEMORY[0x277CF3BB8]), v4 = CFGetTypeID(v3), v4 != CFStringGetTypeID()))
+  v2 = *MEMORY[0x277CF3BB8];
+  if (*MEMORY[0x277CF3BB8] && (CFRetain(*MEMORY[0x277CF3BB8]), v3 = CFGetTypeID(v2), v3 != CFStringGetTypeID()))
   {
     *a1 = 0;
-    CFRelease(v3);
+    CFRelease(v2);
   }
 
   else
   {
-    *a1 = v3;
+    *a1 = v2;
   }
 }
 
@@ -7295,41 +7156,33 @@ void ___ZL27getSTMediaStatusDomainClassv_block_invoke(uint64_t a1)
 
 uint64_t SystemStatusLibraryCore(char **a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
   if (!SystemStatusLibraryCore(char **)::frameworkLibrary)
   {
     SystemStatusLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
   }
 
-  result = SystemStatusLibraryCore(char **)::frameworkLibrary;
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  return SystemStatusLibraryCore(char **)::frameworkLibrary;
 }
 
 uint64_t ___ZL23SystemStatusLibraryCorePPc_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SystemStatusLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t vp::services::System_Status_Impl::Media_Status_Domain::observe_camera_capture_attributions(uint64_t a1, uint64_t a2)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3321888768;
   aBlock[2] = ___ZNK2vp8services18System_Status_Impl19Media_Status_Domain35observe_camera_capture_attributionsENSt3__18functionIFvNS3_6vectorINS0_13System_Status19Media_Status_Domain26Camera_Capture_AttributionENS_9AllocatorIS8_EEEEEEE_block_invoke;
   aBlock[3] = &__block_descriptor_64_ea8_32c137_ZTSNSt3__18functionIFvNS_6vectorIN2vp8services13System_Status19Media_Status_Domain26Camera_Capture_AttributionENS2_9AllocatorIS6_EEEEEEE_e33_v16__0__STMediaStatusDomainData_8l;
-  std::__function::__value_func<void ()(std::vector<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution,vp::Allocator<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution>>)>::__value_func[abi:ne200100](v7, a2);
+  std::__function::__value_func<void ()(std::vector<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution,vp::Allocator<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution>>)>::__value_func[abi:ne200100](v6, a2);
   v3 = _Block_copy(aBlock);
   [*(a1 + 8) observeDataWithBlock:v3];
 
-  result = std::__function::__value_func<void ()(std::vector<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution,vp::Allocator<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution>>)>::~__value_func[abi:ne200100](v7);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__function::__value_func<void ()(std::vector<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution,vp::Allocator<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution>>)>::~__value_func[abi:ne200100](v6);
 }
 
 void sub_2724C8058(_Unwind_Exception *a1, int a2)
@@ -7344,38 +7197,38 @@ void sub_2724C8058(_Unwind_Exception *a1, int a2)
 
 void ___ZNK2vp8services18System_Status_Impl19Media_Status_Domain35observe_camera_capture_attributionsENSt3__18functionIFvNS3_6vectorINS0_13System_Status19Media_Status_Domain26Camera_Capture_AttributionENS_9AllocatorIS8_EEEEEEE_block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v18 = 0;
   v19 = 0;
   v20 = 0;
-  v21 = 0;
   default_resource = std::pmr::get_default_resource(v3);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = [(std::pmr *)v3 cameraAttributions];
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v24 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v23 count:16];
   if (v5)
   {
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = [*(*(&v15 + 1) + 8 * i) activityAttribution];
+        v8 = [*(*(&v14 + 1) + 8 * i) activityAttribution];
         v9 = [v8 attributedEntity];
         v10 = [v9 bundleIdentifier];
         applesauce::CF::StringRef::from_get(&cf, v10);
-        v11 = v20;
-        if (v20 >= v21)
+        v11 = v19;
+        if (v19 >= v20)
         {
-          v20 = std::vector<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution,vp::Allocator<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution>>::__emplace_back_slow_path<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution>(&v19, &cf);
+          v19 = std::vector<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution,vp::Allocator<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution>>::__emplace_back_slow_path<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution>(&v18, &cf);
           if (cf)
           {
             CFRelease(cf);
@@ -7384,34 +7237,32 @@ void ___ZNK2vp8services18System_Status_Impl19Media_Status_Domain35observe_camera
 
         else
         {
-          *v20 = cf;
+          *v19 = cf;
           cf = 0;
-          v20 = v11 + 1;
+          v19 = v11 + 1;
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v15 objects:v24 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v14 objects:v23 count:16];
     }
 
     while (v5);
   }
 
-  memset(v14, 0, 24);
-  v14[3] = default_resource;
-  std::vector<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution,vp::Allocator<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution>>::__init_with_size[abi:ne200100]<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution*,vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution*>(v14, v19, v20, v20 - v19);
+  memset(v13, 0, 24);
+  v13[3] = default_resource;
+  std::vector<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution,vp::Allocator<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution>>::__init_with_size[abi:ne200100]<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution*,vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution*>(v13, v18, v19, v19 - v18);
   v12 = *(a1 + 56);
   if (!v12)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  (*(*v12 + 48))(v12, v14);
-  cf = v14;
+  (*(*v12 + 48))(v12, v13);
+  cf = v13;
   std::vector<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution,vp::Allocator<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution>>::__destroy_vector::operator()[abi:ne200100](&cf);
-  cf = &v19;
+  cf = &v18;
   std::vector<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution,vp::Allocator<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution>>::__destroy_vector::operator()[abi:ne200100](&cf);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2724C8274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char *a25)
@@ -7544,7 +7395,7 @@ void *std::vector<vp::services::System_Status::Media_Status_Domain::Camera_Captu
   return v14;
 }
 
-uint64_t std::vector<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution,vp::Allocator<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution>>::__init_with_size[abi:ne200100]<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution*,vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution*>(uint64_t result, CFTypeRef *a2, CFTypeRef *a3, unint64_t a4)
+void *std::vector<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution,vp::Allocator<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution>>::__init_with_size[abi:ne200100]<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution*,vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution*>(void *result, CFTypeRef *a2, CFTypeRef *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7554,11 +7405,11 @@ uint64_t std::vector<vp::services::System_Status::Media_Status_Domain::Camera_Ca
     }
 
     v7 = result;
-    result = std::pmr::polymorphic_allocator<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution>::allocate[abi:ne200100](result + 24, a4);
+    result = std::pmr::polymorphic_allocator<vp::services::System_Status::Media_Status_Domain::Camera_Capture_Attribution>::allocate[abi:ne200100]((result + 3), a4);
     v8 = result;
     *v7 = result;
     v7[1] = result;
-    v7[2] = result + 8 * a4;
+    v7[2] = &result[a4];
     while (a2 != a3)
     {
       v9 = *a2;
@@ -7642,7 +7493,7 @@ uint64_t std::pmr::polymorphic_allocator<vp::services::System_Status::Media_Stat
 
 void vp::services::System_Status_Impl::Media_Status_Domain::get_camera_capture_attributions(id *this@<X0>, void *a2@<X8>)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v4 = SystemStatusLibraryCore(0);
   if (!v4)
   {
@@ -7652,7 +7503,7 @@ void vp::services::System_Status_Impl::Media_Status_Domain::get_camera_capture_a
     if (v6)
     {
       log_context_info = vp::get_log_context_info(__p, this, "vp::services::System_Status_Impl::Media_Status_Domain]", 53);
-      v8 = v30;
+      v8 = v29;
       v9 = __p[1];
       v10 = vp::get_log(log_context_info);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
@@ -7684,13 +7535,13 @@ void vp::services::System_Status_Impl::Media_Status_Domain::get_camera_capture_a
         }
 
         *buf = 136315394;
-        v33 = v12;
-        v34 = 2080;
-        v35 = v13;
+        v32 = v12;
+        v33 = 2080;
+        v34 = v13;
         _os_log_impl(&dword_2724B4000, v10, OS_LOG_TYPE_DEFAULT, "%s%sSystemStatus framework is unavailable and camera status indicator will not function", buf, 0x16u);
       }
 
-      if (v30 < 0)
+      if (v29 < 0)
       {
         operator delete(__p[0]);
       }
@@ -7701,28 +7552,28 @@ void vp::services::System_Status_Impl::Media_Status_Domain::get_camera_capture_a
   a2[1] = 0;
   a2[2] = 0;
   a2[3] = std::pmr::get_default_resource(v4);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v14 = [this[1] data];
   v15 = [v14 cameraAttributions];
 
-  v16 = [v15 countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v16)
   {
     v17 = 0;
-    v18 = *v26;
+    v18 = *v25;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v26 != v18)
+        if (*v25 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = [*(*(&v25 + 1) + 8 * i) activityAttribution];
+        v20 = [*(*(&v24 + 1) + 8 * i) activityAttribution];
         v21 = [v20 attributedEntity];
         v22 = [v21 bundleIdentifier];
         applesauce::CF::StringRef::from_get(__p, v22);
@@ -7745,13 +7596,11 @@ void vp::services::System_Status_Impl::Media_Status_Domain::get_camera_capture_a
         }
       }
 
-      v16 = [v15 countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
     while (v16);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2724C8A3C(_Unwind_Exception *a1, int a2)
@@ -7810,16 +7659,16 @@ void vp::services::Control_Center_Impl::get_automatic_mic_mode_is_enabled_notifi
 
 vp *vp::services::Control_Center_Impl::get_automatic_mic_mode_is_enabled_for_bundle_id(vp *a1, const __CFString **a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v4 = vp::get_log(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
 
   if (v5)
   {
-    v7 = &v34;
-    log_context_info = vp::get_log_context_info(&v34, a1, "vp::services::Control_Center_Impl]", 33);
-    v9 = v36;
-    v10 = v35;
+    v7 = &v32;
+    log_context_info = vp::get_log_context_info(&v32, a1, "vp::services::Control_Center_Impl]", 33);
+    v9 = v34;
+    v10 = v33;
     v11 = vp::get_log(log_context_info);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
@@ -7835,7 +7684,7 @@ vp *vp::services::Control_Center_Impl::get_automatic_mic_mode_is_enabled_for_bun
 
       if ((v9 & 0x80u) != 0)
       {
-        v7 = v34;
+        v7 = v32;
       }
 
       if (v12)
@@ -7855,7 +7704,7 @@ vp *vp::services::Control_Center_Impl::get_automatic_mic_mode_is_enabled_for_bun
       }
 
       applesauce::CF::convert_to<std::string,0>(__p, *a2);
-      if (v33 >= 0)
+      if (v31 >= 0)
       {
         v14 = __p;
       }
@@ -7866,123 +7715,121 @@ vp *vp::services::Control_Center_Impl::get_automatic_mic_mode_is_enabled_for_bun
       }
 
       *buf = 136315650;
-      v38 = v7;
+      v36 = v7;
+      v37 = 2080;
+      v38 = v13;
       v39 = 2080;
-      v40 = v13;
-      v41 = 2080;
-      v42 = v14;
+      v40 = v14;
       _os_log_impl(&dword_2724B4000, v11, OS_LOG_TYPE_INFO, "%s%sgetting automatic mic mode is enabled for bundle ID %s", buf, 0x20u);
-      if (v33 < 0)
+      if (v31 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    if (v36 < 0)
+    if (v34 < 0)
     {
-      operator delete(v34);
+      operator delete(v32);
     }
   }
 
   if (*(a1 + 16) == 1)
   {
-    v15 = *a2;
     v6 = AVAUVoiceIOIsAutoChatFlavorEnabledForBundleID();
-    v16 = v6;
+    v15 = v6;
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  v17 = vp::get_log(v6);
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
+  v16 = vp::get_log(v6);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
 
-  if (v18)
+  if (v17)
   {
-    v19 = &v34;
-    v20 = vp::get_log_context_info(&v34, a1, "vp::services::Control_Center_Impl]", 33);
-    v21 = v36;
-    v22 = v35;
-    v23 = vp::get_log(v20);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v18 = &v32;
+    v19 = vp::get_log_context_info(&v32, a1, "vp::services::Control_Center_Impl]", 33);
+    v20 = v34;
+    v21 = v33;
+    v22 = vp::get_log(v19);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      if ((v21 & 0x80u) == 0)
+      if ((v20 & 0x80u) == 0)
       {
-        v24 = v21;
+        v23 = v20;
       }
 
       else
       {
-        v24 = v22;
+        v23 = v21;
       }
 
-      if ((v21 & 0x80u) != 0)
+      if ((v20 & 0x80u) != 0)
       {
-        v19 = v34;
+        v18 = v32;
       }
 
-      if (v24)
+      if (v23)
       {
-        v25 = " ";
-      }
-
-      else
-      {
-        v25 = "";
-      }
-
-      if (v16)
-      {
-        v26 = "enabled";
+        v24 = " ";
       }
 
       else
       {
-        v26 = "disabled";
+        v24 = "";
+      }
+
+      if (v15)
+      {
+        v25 = "enabled";
+      }
+
+      else
+      {
+        v25 = "disabled";
       }
 
       if (!*a2)
       {
-        v31 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v31, "Could not construct");
+        v29 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v29, "Could not construct");
       }
 
       applesauce::CF::convert_to<std::string,0>(__p, *a2);
-      if (v33 >= 0)
+      if (v31 >= 0)
       {
-        v27 = __p;
+        v26 = __p;
       }
 
       else
       {
-        v27 = __p[0];
+        v26 = __p[0];
       }
 
       *buf = 136315906;
-      v38 = v19;
+      v36 = v18;
+      v37 = 2080;
+      v38 = v24;
       v39 = 2080;
       v40 = v25;
       v41 = 2080;
       v42 = v26;
-      v43 = 2080;
-      v44 = v27;
-      _os_log_impl(&dword_2724B4000, v23, OS_LOG_TYPE_INFO, "%s%sautomatic mic mode is %s for bundle ID %s", buf, 0x2Au);
-      if (v33 < 0)
+      _os_log_impl(&dword_2724B4000, v22, OS_LOG_TYPE_INFO, "%s%sautomatic mic mode is %s for bundle ID %s", buf, 0x2Au);
+      if (v31 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    if (v36 < 0)
+    if (v34 < 0)
     {
-      operator delete(v34);
+      operator delete(v32);
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v15;
 }
 
 void sub_2724C8F44(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -8022,7 +7869,7 @@ void sub_2724C8F44(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-_BYTE *applesauce::CF::convert_to<std::string,0>(UInt8 *a1, const __CFString *a2)
+void *applesauce::CF::convert_to<std::string,0>(uint64_t a1, const __CFString *a2)
 {
   if (!a2 || (TypeID = CFStringGetTypeID(), TypeID != CFGetTypeID(a2)))
   {
@@ -8033,7 +7880,7 @@ _BYTE *applesauce::CF::convert_to<std::string,0>(UInt8 *a1, const __CFString *a2
   return applesauce::CF::details::CFString_get_value<true>(a1, a2);
 }
 
-_BYTE *applesauce::CF::details::CFString_get_value<true>(UInt8 *a1, CFStringRef theString)
+void *applesauce::CF::details::CFString_get_value<true>(uint64_t a1, CFStringRef theString)
 {
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
   if (CStringPtr)
@@ -8050,7 +7897,7 @@ _BYTE *applesauce::CF::details::CFString_get_value<true>(UInt8 *a1, CFStringRef 
     v10.length = Length;
     CFStringGetBytes(theString, v10, 0x8000100u, 0, 0, 0, 0, &maxBufLen);
     std::string::basic_string[abi:ne200100](a1, maxBufLen, 0);
-    if ((a1[23] & 0x80u) == 0)
+    if (*(a1 + 23) >= 0)
     {
       v7 = a1;
     }
@@ -8076,7 +7923,7 @@ void sub_2724C92A8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c)
+void *std::string::basic_string[abi:ne200100](void *__b, size_t __len, int __c)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -8088,39 +7935,36 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c
     operator new();
   }
 
-  __b[23] = __len;
+  *(__b + 23) = __len;
   if (__len)
   {
     memset(__b, __c, __len);
   }
 
-  __b[__len] = 0;
+  *(__b + __len) = 0;
   return __b;
 }
 
-void vp::services::Control_Center_Impl::set_supported_chat_flavors_for_bundle_id(vp *a1, uint64_t *a2, uint64_t a3, unint64_t a4)
+void vp::services::Control_Center_Impl::set_supported_chat_flavors_for_bundle_id(vp *a1, const __CFString **a2, uint64_t a3, unint64_t a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v7 = vp::get_log(a1);
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
+  buf[7] = *MEMORY[0x277D85DE8];
+  v6 = vp::get_log(a1);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
 
-  if (v8)
+  if (v7)
   {
     operator new();
   }
 
-  v9 = *a2;
   vp::services::Control_Center_Impl::convert_chat_flavors(buf, a3, a4);
   AVAUVoiceIOSetSupportedChatFlavorsForBundleID();
-  if (*buf)
+  if (buf[0])
   {
-    CFRelease(*buf);
+    CFRelease(buf[0]);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2724C96B4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+void sub_2724C96B4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24)
 {
   if (a2)
   {
@@ -8676,29 +8520,26 @@ char *vp::detail::reflect_value_name<(vp::services::Control_Center::Chat_Flavor)
   return result;
 }
 
-void vp::services::Control_Center_Impl::set_hidden_chat_flavors_for_bundle_id(vp *a1, uint64_t *a2, uint64_t a3, unint64_t a4)
+void vp::services::Control_Center_Impl::set_hidden_chat_flavors_for_bundle_id(vp *a1, const __CFString **a2, uint64_t a3, unint64_t a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v7 = vp::get_log(a1);
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
+  buf[7] = *MEMORY[0x277D85DE8];
+  v6 = vp::get_log(a1);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
 
-  if (v8)
+  if (v7)
   {
     operator new();
   }
 
-  v9 = *a2;
   vp::services::Control_Center_Impl::convert_chat_flavors(buf, a3, a4);
   AVAUVoiceIOSetHiddenChatFlavorsForBundleID();
-  if (*buf)
+  if (buf[0])
   {
-    CFRelease(*buf);
+    CFRelease(buf[0]);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2724CA4A4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+void sub_2724CA4A4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24)
 {
   if (a2)
   {
@@ -8740,18 +8581,19 @@ void sub_2724CA4A4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-uint64_t vp::services::Control_Center_Impl::set_voice_processing_bypassed_for_bundle_id(vp *a1, const __CFString **a2, int a3)
+uint64_t vp::services::Control_Center_Impl::set_voice_processing_bypassed_for_bundle_id(vp *a1, const __CFString **a2, uint64_t a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v3 = a3;
+  v34 = *MEMORY[0x277D85DE8];
   v6 = vp::get_log(a1);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
 
   if (v7)
   {
-    v8 = v26;
-    log_context_info = vp::get_log_context_info(v26, a1, "vp::services::Control_Center_Impl]", 33);
-    v10 = v27;
-    v11 = v26[1];
+    v8 = v24;
+    log_context_info = vp::get_log_context_info(v24, a1, "vp::services::Control_Center_Impl]", 33);
+    v10 = v25;
+    v11 = v24[1];
     v12 = vp::get_log(log_context_info);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
@@ -8767,7 +8609,7 @@ uint64_t vp::services::Control_Center_Impl::set_voice_processing_bypassed_for_bu
 
       if ((v10 & 0x80u) != 0)
       {
-        v8 = v26[0];
+        v8 = v24[0];
       }
 
       if (v13)
@@ -8787,58 +8629,55 @@ uint64_t vp::services::Control_Center_Impl::set_voice_processing_bypassed_for_bu
       }
 
       applesauce::CF::convert_to<std::string,0>(__p, *a2);
-      v15 = v25;
+      v15 = v23;
       v16 = __p[0];
-      std::to_string(&v23, a3);
+      std::to_string(&v21, v3);
       v17 = __p;
       if (v15 < 0)
       {
         v17 = v16;
       }
 
-      if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v18 = &v23;
+        v18 = &v21;
       }
 
       else
       {
-        v18 = v23.__r_.__value_.__r.__words[0];
+        v18 = v21.__r_.__value_.__r.__words[0];
       }
 
       *buf = 136315906;
-      v29 = v8;
+      v27 = v8;
+      v28 = 2080;
+      v29 = v14;
       v30 = 2080;
-      v31 = v14;
+      v31 = v17;
       v32 = 2080;
-      v33 = v17;
-      v34 = 2080;
-      v35 = v18;
+      v33 = v18;
       _os_log_impl(&dword_2724B4000, v12, OS_LOG_TYPE_INFO, "%s%ssetting bypass for bundle ID %s to %s", buf, 0x2Au);
-      if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v23.__r_.__value_.__l.__data_);
+        operator delete(v21.__r_.__value_.__l.__data_);
       }
 
-      if (v25 < 0)
+      if (v23 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    if (v27 < 0)
+    if (v25 < 0)
     {
-      operator delete(v26[0]);
+      operator delete(v24[0]);
     }
   }
 
-  v19 = *a2;
-  result = AVAUVoiceIOSetVoiceProcessingBypassedForBundleID();
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return AVAUVoiceIOSetVoiceProcessingBypassedForBundleID();
 }
 
-void sub_2724CA888(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_2724CA888(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   if (a2)
   {
@@ -8877,16 +8716,16 @@ void sub_2724CA888(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
 uint64_t vp::services::Control_Center_Impl::remove_active_chat_flavor_for_bundle_id(vp *a1, const __CFString **a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = vp::get_log(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
 
   if (v5)
   {
-    v6 = v20;
-    log_context_info = vp::get_log_context_info(v20, a1, "vp::services::Control_Center_Impl]", 33);
-    v8 = v21;
-    v9 = v20[1];
+    v6 = v18;
+    log_context_info = vp::get_log_context_info(v18, a1, "vp::services::Control_Center_Impl]", 33);
+    v8 = v19;
+    v9 = v18[1];
     v10 = vp::get_log(log_context_info);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
@@ -8902,7 +8741,7 @@ uint64_t vp::services::Control_Center_Impl::remove_active_chat_flavor_for_bundle
 
       if ((v8 & 0x80u) != 0)
       {
-        v6 = v20[0];
+        v6 = v18[0];
       }
 
       if (v11)
@@ -8922,7 +8761,7 @@ uint64_t vp::services::Control_Center_Impl::remove_active_chat_flavor_for_bundle
       }
 
       applesauce::CF::convert_to<std::string,0>(__p, *a2);
-      if (v19 >= 0)
+      if (v17 >= 0)
       {
         v13 = __p;
       }
@@ -8933,28 +8772,25 @@ uint64_t vp::services::Control_Center_Impl::remove_active_chat_flavor_for_bundle
       }
 
       *buf = 136315650;
-      v23 = v6;
+      v21 = v6;
+      v22 = 2080;
+      v23 = v12;
       v24 = 2080;
-      v25 = v12;
-      v26 = 2080;
-      v27 = v13;
+      v25 = v13;
       _os_log_impl(&dword_2724B4000, v10, OS_LOG_TYPE_INFO, "%s%sremoving active chat flavor for bundle ID %s", buf, 0x20u);
-      if (v19 < 0)
+      if (v17 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    if (v21 < 0)
+    if (v19 < 0)
     {
-      operator delete(v20[0]);
+      operator delete(v18[0]);
     }
   }
 
-  v14 = *a2;
-  result = AVAUVoiceIORemoveActiveChatFlavorForBundleID();
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return AVAUVoiceIORemoveActiveChatFlavorForBundleID();
 }
 
 void sub_2724CABFC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -8994,9 +8830,9 @@ void sub_2724CABFC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-uint64_t vp::services::Control_Center_Impl::set_active_chat_flavor_for_bundle_id(uint64_t a1, const __CFString **a2, int a3)
+uint64_t vp::services::Control_Center_Impl::set_active_chat_flavor_for_bundle_id(uint64_t a1, const __CFString **a2, uint64_t a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = vp::reflect_value_name_tag<vp::services::Control_Center::Chat_Flavor,128ul>(a3);
   v7 = v6;
   v8 = vp::get_log(v5);
@@ -9004,9 +8840,9 @@ uint64_t vp::services::Control_Center_Impl::set_active_chat_flavor_for_bundle_id
 
   if (v9)
   {
-    log_context_info = vp::get_log_context_info(v27, a1, "vp::services::Control_Center_Impl]", 33);
-    v11 = v28;
-    v12 = v27[1];
+    log_context_info = vp::get_log_context_info(v25, a1, "vp::services::Control_Center_Impl]", 33);
+    v11 = v26;
+    v12 = v25[1];
     v13 = vp::get_log(log_context_info);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
@@ -9022,12 +8858,12 @@ uint64_t vp::services::Control_Center_Impl::set_active_chat_flavor_for_bundle_id
 
       if ((v11 & 0x80u) == 0)
       {
-        v15 = v27;
+        v15 = v25;
       }
 
       else
       {
-        v15 = v27[0];
+        v15 = v25[0];
       }
 
       if (v14)
@@ -9048,7 +8884,7 @@ uint64_t vp::services::Control_Center_Impl::set_active_chat_flavor_for_bundle_id
 
       v17 = __p;
       applesauce::CF::convert_to<std::string,0>(__p, *a2);
-      if (v26 < 0)
+      if (v24 < 0)
       {
         v17 = __p[0];
       }
@@ -9063,7 +8899,7 @@ uint64_t vp::services::Control_Center_Impl::set_active_chat_flavor_for_bundle_id
         operator new();
       }
 
-      v24 = v7;
+      v22 = v7;
       if (v7)
       {
         memmove(&__dst, v5, v7);
@@ -9071,44 +8907,41 @@ uint64_t vp::services::Control_Center_Impl::set_active_chat_flavor_for_bundle_id
 
       *(&__dst + v7) = 0;
       p_dst = &__dst;
-      if (v24 < 0)
+      if (v22 < 0)
       {
         p_dst = __dst;
       }
 
       *buf = 136315906;
-      v30 = v15;
+      v28 = v15;
+      v29 = 2080;
+      v30 = v16;
       v31 = 2080;
-      v32 = v16;
+      v32 = v17;
       v33 = 2080;
-      v34 = v17;
-      v35 = 2080;
-      v36 = p_dst;
+      v34 = p_dst;
       _os_log_impl(&dword_2724B4000, v13, OS_LOG_TYPE_INFO, "%s%ssetting active chat flavor for bundle ID %s to %s", buf, 0x2Au);
-      if (v24 < 0)
+      if (v22 < 0)
       {
         operator delete(__dst);
       }
 
-      if (v26 < 0)
+      if (v24 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    if (v28 < 0)
+    if (v26 < 0)
     {
-      operator delete(v27[0]);
+      operator delete(v25[0]);
     }
   }
 
-  v19 = *a2;
-  result = AVAUVoiceIOSetActiveChatFlavorForBundleID();
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return AVAUVoiceIOSetActiveChatFlavorForBundleID();
 }
 
-void sub_2724CB028(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_2724CB028(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   if (a2)
   {
@@ -9147,46 +8980,46 @@ void sub_2724CB028(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
 void vp::services::Control_Center_Impl::get_notification_dictionary_bundle_id_key(void *a1@<X8>)
 {
-  v3 = *MEMORY[0x277CE5828];
-  if (*MEMORY[0x277CE5828] && (CFRetain(*MEMORY[0x277CE5828]), v4 = CFGetTypeID(v3), v4 != CFStringGetTypeID()))
+  v2 = *MEMORY[0x277CE5828];
+  if (*MEMORY[0x277CE5828] && (CFRetain(*MEMORY[0x277CE5828]), v3 = CFGetTypeID(v2), v3 != CFStringGetTypeID()))
   {
     *a1 = 0;
-    CFRelease(v3);
+    CFRelease(v2);
   }
 
   else
   {
-    *a1 = v3;
+    *a1 = v2;
   }
 }
 
 void vp::services::Control_Center_Impl::get_preferred_chat_flavor_notification(void *a1@<X8>)
 {
-  v3 = *MEMORY[0x277CE5830];
-  if (*MEMORY[0x277CE5830] && (CFRetain(*MEMORY[0x277CE5830]), v4 = CFGetTypeID(v3), v4 != CFStringGetTypeID()))
+  v2 = *MEMORY[0x277CE5830];
+  if (*MEMORY[0x277CE5830] && (CFRetain(*MEMORY[0x277CE5830]), v3 = CFGetTypeID(v2), v3 != CFStringGetTypeID()))
   {
     *a1 = 0;
-    CFRelease(v3);
+    CFRelease(v2);
   }
 
   else
   {
-    *a1 = v3;
+    *a1 = v2;
   }
 }
 
 vp *vp::services::Control_Center_Impl::get_preferred_chat_flavor_for_bundle_id(vp *a1, const __CFString **a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v4 = vp::get_log(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
 
   if (v5)
   {
-    v6 = &v31;
-    log_context_info = vp::get_log_context_info(&v31, a1, "vp::services::Control_Center_Impl]", 33);
-    v8 = v33;
-    v9 = v32;
+    v6 = &v29;
+    log_context_info = vp::get_log_context_info(&v29, a1, "vp::services::Control_Center_Impl]", 33);
+    v8 = v31;
+    v9 = v30;
     v10 = vp::get_log(log_context_info);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
@@ -9202,7 +9035,7 @@ vp *vp::services::Control_Center_Impl::get_preferred_chat_flavor_for_bundle_id(v
 
       if ((v8 & 0x80u) != 0)
       {
-        v6 = v31;
+        v6 = v29;
       }
 
       if (v11)
@@ -9222,7 +9055,7 @@ vp *vp::services::Control_Center_Impl::get_preferred_chat_flavor_for_bundle_id(v
       }
 
       applesauce::CF::convert_to<std::string,0>(__p, *a2);
-      if (v30 >= 0)
+      if (v28 >= 0)
       {
         v13 = __p;
       }
@@ -9233,86 +9066,84 @@ vp *vp::services::Control_Center_Impl::get_preferred_chat_flavor_for_bundle_id(v
       }
 
       *buf = 136315650;
-      v35 = v6;
+      v33 = v6;
+      v34 = 2080;
+      v35 = v12;
       v36 = 2080;
-      v37 = v12;
-      v38 = 2080;
-      v39 = v13;
+      v37 = v13;
       _os_log_impl(&dword_2724B4000, v10, OS_LOG_TYPE_INFO, "%s%sgetting preferred chat flavor for bundle ID %s", buf, 0x20u);
-      if (v30 < 0)
+      if (v28 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    if (v33 < 0)
+    if (v31 < 0)
     {
-      operator delete(v31);
+      operator delete(v29);
     }
   }
 
-  v14 = *a2;
-  v15 = AVAUVoiceIOGetPreferredChatFlavorForBundleID();
-  v16 = v15;
-  if (v15 >= 3)
+  v14 = AVAUVoiceIOGetPreferredChatFlavorForBundleID();
+  v15 = v14;
+  if (v14 >= 3)
   {
-    v19 = vp::get_log(v15);
-    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_FAULT);
+    v17 = vp::get_log(v14);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_FAULT);
 
-    if (v20)
+    if (v18)
     {
-      v21 = vp::get_log_context_info(&v31, a1, "vp::services::Control_Center_Impl]", 33);
-      v22 = v33;
-      v23 = v32;
-      v24 = vp::get_log(v21);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+      v19 = vp::get_log_context_info(&v29, a1, "vp::services::Control_Center_Impl]", 33);
+      v20 = v31;
+      v21 = v30;
+      v22 = vp::get_log(v19);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
-        if ((v22 & 0x80u) == 0)
+        if ((v20 & 0x80u) == 0)
         {
-          v25 = v22;
+          v23 = v20;
         }
 
         else
         {
-          v25 = v23;
+          v23 = v21;
         }
 
-        v26 = v31;
-        if ((v22 & 0x80u) == 0)
+        v24 = v29;
+        if ((v20 & 0x80u) == 0)
         {
-          v26 = &v31;
+          v24 = &v29;
         }
 
         *buf = 136315650;
-        v35 = v26;
-        if (v25)
+        v33 = v24;
+        if (v23)
         {
-          v27 = " ";
+          v25 = " ";
         }
 
         else
         {
-          v27 = "";
+          v25 = "";
         }
 
-        v36 = 2080;
-        v37 = v27;
-        v38 = 1024;
-        LODWORD(v39) = v16;
-        _os_log_impl(&dword_2724B4000, v24, OS_LOG_TYPE_FAULT, "%s%shandling unknown chat flavor %u", buf, 0x1Cu);
+        v34 = 2080;
+        v35 = v25;
+        v36 = 1024;
+        LODWORD(v37) = v15;
+        _os_log_impl(&dword_2724B4000, v22, OS_LOG_TYPE_FAULT, "%s%shandling unknown chat flavor %u", buf, 0x1Cu);
       }
 
-      if (v33 < 0)
+      if (v31 < 0)
       {
-        operator delete(v31);
+        operator delete(v29);
       }
     }
 
-    v16 = 0;
+    return 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v15;
 }
 
 void sub_2724CB598(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -9354,16 +9185,16 @@ void sub_2724CB598(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
 uint64_t vp::services::Control_Center_Impl::initialize_listeners_for_bundle_id(vp *a1, const __CFString **a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = vp::get_log(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
 
   if (v5)
   {
-    v6 = v20;
-    log_context_info = vp::get_log_context_info(v20, a1, "vp::services::Control_Center_Impl]", 33);
-    v8 = v21;
-    v9 = v20[1];
+    v6 = v18;
+    log_context_info = vp::get_log_context_info(v18, a1, "vp::services::Control_Center_Impl]", 33);
+    v8 = v19;
+    v9 = v18[1];
     v10 = vp::get_log(log_context_info);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
@@ -9379,7 +9210,7 @@ uint64_t vp::services::Control_Center_Impl::initialize_listeners_for_bundle_id(v
 
       if ((v8 & 0x80u) != 0)
       {
-        v6 = v20[0];
+        v6 = v18[0];
       }
 
       if (v11)
@@ -9399,7 +9230,7 @@ uint64_t vp::services::Control_Center_Impl::initialize_listeners_for_bundle_id(v
       }
 
       applesauce::CF::convert_to<std::string,0>(__p, *a2);
-      if (v19 >= 0)
+      if (v17 >= 0)
       {
         v13 = __p;
       }
@@ -9410,28 +9241,25 @@ uint64_t vp::services::Control_Center_Impl::initialize_listeners_for_bundle_id(v
       }
 
       *buf = 136315650;
-      v23 = v6;
+      v21 = v6;
+      v22 = 2080;
+      v23 = v12;
       v24 = 2080;
-      v25 = v12;
-      v26 = 2080;
-      v27 = v13;
+      v25 = v13;
       _os_log_impl(&dword_2724B4000, v10, OS_LOG_TYPE_INFO, "%s%sinitializing listeners for bundle ID %s", buf, 0x20u);
-      if (v19 < 0)
+      if (v17 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    if (v21 < 0)
+    if (v19 < 0)
     {
-      operator delete(v20[0]);
+      operator delete(v18[0]);
     }
   }
 
-  v14 = *a2;
-  result = AVAUVoiceIOInitializeListenersForBundleID();
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return AVAUVoiceIOInitializeListenersForBundleID();
 }
 
 void sub_2724CB8F0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -9473,37 +9301,33 @@ void sub_2724CB8F0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
 void vp::services::Audio_Statistics_Impl::copy_configuration(uint64_t a1@<X1>, void *a2@<X8>)
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (AudioStatisticsLibraryLoader(void)::once != -1)
   {
     dispatch_once(&AudioStatisticsLibraryLoader(void)::once, &__block_literal_global_211);
   }
 
-  if (!AudioStatisticsLibraryLoader(void)::libSym)
+  if (AudioStatisticsLibraryLoader(void)::libSym)
   {
-    v6 = 0;
-LABEL_8:
-    *a2 = v6;
-    goto LABEL_9;
+    v4 = AudioStatisticsLibraryLoader(void)::libSym(a1);
+    v5 = v4;
+    if (v4)
+    {
+      v6 = CFGetTypeID(v4);
+      if (v6 != CFDictionaryGetTypeID())
+      {
+        *a2 = 0;
+        CFRelease(v5);
+        return;
+      }
+    }
   }
 
-  v5 = AudioStatisticsLibraryLoader(void)::libSym(a1);
-  v6 = v5;
-  if (!v5)
+  else
   {
-    goto LABEL_8;
+    v5 = 0;
   }
 
-  v7 = CFGetTypeID(v5);
-  if (v7 == CFDictionaryGetTypeID())
-  {
-    goto LABEL_8;
-  }
-
-  *a2 = 0;
-  CFRelease(v6);
-LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
+  *a2 = v5;
 }
 
 void sub_2724CBBAC(_Unwind_Exception *a1, int a2)
@@ -9544,7 +9368,6 @@ void *___Z28AudioStatisticsLibraryLoaderv_block_invoke()
 
 uint64_t vp::services::Audio_Statistics_Impl::get_audio_service_type(vp::services::Audio_Statistics_Impl *this, uint64_t a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
   if (AudioStatisticsLibraryLoader(void)::once != -1)
   {
     dispatch_once(&AudioStatisticsLibraryLoader(void)::once, &__block_literal_global_211);
@@ -9552,16 +9375,13 @@ uint64_t vp::services::Audio_Statistics_Impl::get_audio_service_type(vp::service
 
   if (AudioStatisticsLibraryLoader(void)::libSym)
   {
-    result = AudioStatisticsLibraryLoader(void)::libSym(a2);
+    return AudioStatisticsLibraryLoader(void)::libSym(a2);
   }
 
   else
   {
-    result = 0xFFFFLL;
+    return 0xFFFFLL;
   }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void sub_2724CC094(void *a1, int a2)
@@ -9576,7 +9396,6 @@ void sub_2724CC094(void *a1, int a2)
 
 void vp::services::Audio_Statistics_Impl::report_event(vp::services::Audio_Statistics_Impl *this, const vp::services::Audio_Statistics::Event *a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 1);
   v5 = *a2;
   v6 = *(a2 + 2);
@@ -9589,8 +9408,6 @@ void vp::services::Audio_Statistics_Impl::report_event(vp::services::Audio_Stati
   {
     AudioStatisticsLibraryLoader(void)::libSym(a3, v4, v5, v6);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2724CC160(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -9625,7 +9442,6 @@ void sub_2724CC160(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
 void vp::services::Audio_Statistics_Impl::report_event(vp::services::Audio_Statistics_Impl *this, const vp::services::Audio_Statistics::Event *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
   v2 = *(a2 + 1);
   v3 = *a2;
   v4 = *(a2 + 2);
@@ -9638,8 +9454,6 @@ void vp::services::Audio_Statistics_Impl::report_event(vp::services::Audio_Stati
   {
     AudioStatisticsLibraryLoader(void)::libSym(v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2724CC370(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -9674,7 +9488,6 @@ void sub_2724CC370(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 
 void vp::services::Audio_Issue_Detector_Impl::set_downlink_route_specific_gain_adjustment(vp::services::Audio_Issue_Detector_Impl *this, float a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
   if (AudioIssueDetectorLibraryLoader(void)::once != -1)
   {
     dispatch_once(&AudioIssueDetectorLibraryLoader(void)::once, &__block_literal_global_181);
@@ -9684,8 +9497,6 @@ void vp::services::Audio_Issue_Detector_Impl::set_downlink_route_specific_gain_a
   {
     AudioIssueDetectorLibraryLoader(void)::libSym(a2);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2724CC584(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -9756,7 +9567,6 @@ void *___Z31AudioIssueDetectorLibraryLoaderv_block_invoke()
 
 void vp::services::Audio_Issue_Detector_Impl::set_downlink_volume(vp::services::Audio_Issue_Detector_Impl *this, float a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
   if (AudioIssueDetectorLibraryLoader(void)::once != -1)
   {
     dispatch_once(&AudioIssueDetectorLibraryLoader(void)::once, &__block_literal_global_181);
@@ -9766,6 +9576,203 @@ void vp::services::Audio_Issue_Detector_Impl::set_downlink_volume(vp::services::
   {
     AudioIssueDetectorLibraryLoader(void)::libSym(a2);
   }
+}
 
-  v3 = *MEMORY[0x277D85DE8];
+void sub_2724CC954(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+{
+  if (a2)
+  {
+    v20 = __cxa_begin_catch(a1);
+    v21 = vp::get_log(v20);
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+
+    if (v22)
+    {
+      log_context_info = vp::get_log_context_info(&__p, v19, "vp::services::Audio_Issue_Detector_Impl]", 39);
+      v24 = vp::get_log(log_context_info);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      {
+        vp::get_log_exception_info(&a9);
+      }
+
+      if (a19 < 0)
+      {
+        operator delete(__p);
+      }
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x2724CC904);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void vp::services::Audio_Issue_Detector_Impl::set_uplink_mute(vp::services::Audio_Issue_Detector_Impl *this, uint64_t a2)
+{
+  if (AudioIssueDetectorLibraryLoader(void)::once != -1)
+  {
+    dispatch_once(&AudioIssueDetectorLibraryLoader(void)::once, &__block_literal_global_181);
+  }
+
+  if (AudioIssueDetectorLibraryLoader(void)::libSym)
+  {
+    AudioIssueDetectorLibraryLoader(void)::libSym(a2);
+  }
+}
+
+void sub_2724CCB48(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+{
+  if (a2)
+  {
+    v20 = __cxa_begin_catch(a1);
+    v21 = vp::get_log(v20);
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+
+    if (v22)
+    {
+      log_context_info = vp::get_log_context_info(&__p, v19, "vp::services::Audio_Issue_Detector_Impl]", 39);
+      v24 = vp::get_log(log_context_info);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      {
+        vp::get_log_exception_info(&a9);
+      }
+
+      if (a19 < 0)
+      {
+        operator delete(__p);
+      }
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x2724CCAFCLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_2724CCDA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *__p, uint64_t a24, int a25, __int16 a26, __int16 a27, uint64_t a28)
+{
+  if (a2)
+  {
+    if (__p)
+    {
+      a24 = __p;
+      operator delete(__p);
+    }
+
+    v30 = __cxa_begin_catch(exception_object);
+    v31 = vp::get_log(v30);
+    v32 = os_log_type_enabled(v31, OS_LOG_TYPE_ERROR);
+
+    if (v32)
+    {
+      log_context_info = vp::get_log_context_info(&a17, v28, "vp::services::Audio_Issue_Detector_Impl::Client]", 47);
+      v34 = vp::get_log(log_context_info);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      {
+        vp::get_log_exception_info(&a9);
+      }
+
+      if (a22 < 0)
+      {
+        operator delete(a17);
+      }
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x2724CCD54);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t vp::services::Audio_Issue_Detector_Impl::Client::analyze(vp *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v10 = a1;
+  v32 = *MEMORY[0x277D85DE8];
+  if ((a2 - 1) > 2)
+  {
+    v11 = 51;
+  }
+
+  else
+  {
+    v11 = dword_272756978[a2 - 1];
+  }
+
+  v12 = *(a1 + 1);
+  if (AudioIssueDetectorLibraryLoader(void)::once != -1)
+  {
+    dispatch_once(&AudioIssueDetectorLibraryLoader(void)::once, &__block_literal_global_181);
+  }
+
+  if (AudioIssueDetectorLibraryLoader(void)::libSym)
+  {
+    a1 = AudioIssueDetectorLibraryLoader(void)::libSym(v12, v11, a3, a4, a5, a6);
+    v13 = a1;
+    if (!a1)
+    {
+      return 1;
+    }
+  }
+
+  else
+  {
+    v13 = -1;
+  }
+
+  v15 = vp::get_log(a1);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+
+  if (v16)
+  {
+    log_context_info = vp::get_log_context_info(__p, v10, "vp::services::Audio_Issue_Detector_Impl::Client]", 47);
+    v18 = v25;
+    v19 = __p[1];
+    v20 = vp::get_log(log_context_info);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      if ((v18 & 0x80u) == 0)
+      {
+        v21 = v18;
+      }
+
+      else
+      {
+        v21 = v19;
+      }
+
+      v22 = __p[0];
+      if ((v18 & 0x80u) == 0)
+      {
+        v22 = __p;
+      }
+
+      *buf = 136315650;
+      v27 = v22;
+      if (v21)
+      {
+        v23 = " ";
+      }
+
+      else
+      {
+        v23 = "";
+      }
+
+      v28 = 2080;
+      v29 = v23;
+      v30 = 1024;
+      v31 = v13;
+      _os_log_impl(&dword_2724B4000, v20, OS_LOG_TYPE_ERROR, "%s%sfailed to analyze buffer due to error - %u", buf, 0x1Cu);
+    }
+
+    if (v25 < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  return 0;
 }

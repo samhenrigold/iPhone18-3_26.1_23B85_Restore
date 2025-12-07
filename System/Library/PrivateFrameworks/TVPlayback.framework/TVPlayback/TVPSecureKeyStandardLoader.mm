@@ -54,7 +54,7 @@ uint64_t __40__TVPSecureKeyStandardLoader_initialize__block_invoke()
 
 - (void)setHoldKeyResponses:(BOOL)responses
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (self->_holdKeyResponses != responses)
   {
     responsesCopy = responses;
@@ -77,7 +77,7 @@ uint64_t __40__TVPSecureKeyStandardLoader_initialize__block_invoke()
         v7 = v5;
         pendingKeyResponses = [(TVPSecureKeyStandardLoader *)self pendingKeyResponses];
         *buf = 134217984;
-        v29 = [pendingKeyResponses count];
+        v28 = [pendingKeyResponses count];
         _os_log_impl(&dword_26CEDD000, v7, OS_LOG_TYPE_DEFAULT, "No longer holding key responses.  Sending responses for %lu pending responses", buf, 0xCu);
       }
 
@@ -87,27 +87,27 @@ uint64_t __40__TVPSecureKeyStandardLoader_initialize__block_invoke()
       pendingKeyResponses3 = [(TVPSecureKeyStandardLoader *)self pendingKeyResponses];
       [pendingKeyResponses3 removeAllObjects];
 
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v12 = v10;
-      v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v24;
+        v15 = *v23;
         do
         {
           v16 = 0;
           do
           {
-            if (*v24 != v15)
+            if (*v23 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v23 + 1) + 8 * v16);
+            v17 = *(*(&v22 + 1) + 8 * v16);
             delegate = [(TVPSecureKeyLoader *)self delegate];
             keyData = [v17 keyData];
             renewalDate = [v17 renewalDate];
@@ -118,15 +118,13 @@ uint64_t __40__TVPSecureKeyStandardLoader_initialize__block_invoke()
           }
 
           while (v14 != v16);
-          v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
         }
 
         while (v14);
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_assetIdentifierForKeyRequest:(id)request
@@ -417,7 +415,7 @@ void __68__TVPSecureKeyStandardLoader_startLoadingCertificateDataForRequest___bl
 
 void __68__TVPSecureKeyStandardLoader_startLoadingKeyResponseDataForRequest___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v127 = *MEMORY[0x277D85DE8];
+  v126 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -454,12 +452,12 @@ LABEL_31:
       goto LABEL_30;
     }
 
-    v124 = *(a1 + 32);
+    v123 = *(a1 + 32);
     *buf = 0;
     v11 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:0 error:buf];
-    v120 = *buf;
-    v122 = v11;
-    v119 = v9;
+    v119 = *buf;
+    v121 = v11;
+    v118 = v9;
     if (!v11 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       v27 = TVPSKDErrorWithCode(-345008);
@@ -473,7 +471,7 @@ LABEL_31:
     }
 
     v12 = [v11 objectForKey:@"fairplay-streaming-response"];
-    v118 = v12;
+    v117 = v12;
     if (!v12 || (v13 = v12, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       v27 = TVPSKDErrorWithCode(-345008);
@@ -486,8 +484,8 @@ LABEL_31:
 LABEL_37:
 
 LABEL_38:
-      v125 = v29;
-      v123 = v30;
+      v124 = v29;
+      v122 = v30;
       v38 = v31;
       v39 = v32;
       v40 = v27;
@@ -498,16 +496,16 @@ LABEL_38:
         v54 = [(TVPSecureKeyResponse *)v53 delegate];
         v55 = objc_loadWeakRetained((a1 + 40));
         [v54 secureKeyLoader:v55 didFailWithError:v40 forRequest:*(a1 + 32)];
-        v56 = v123;
-        v57 = v125;
+        v56 = v122;
+        v57 = v124;
 LABEL_65:
 
-        v9 = v119;
+        v9 = v118;
         goto LABEL_66;
       }
 
       objc_opt_class();
-      v121 = v40;
+      v120 = v40;
       if (objc_opt_isKindOfClass())
       {
         v41 = [v8 allHeaderFields];
@@ -610,7 +608,7 @@ LABEL_59:
         if (v80)
         {
           v81 = sStandardLoaderLogObject;
-          v57 = v125;
+          v57 = v124;
           if (os_log_type_enabled(sStandardLoaderLogObject, OS_LOG_TYPE_DEFAULT))
           {
             v82 = *(a1 + 32);
@@ -628,11 +626,11 @@ LABEL_59:
           [v85 setRequestCompletionTime:v87];
 
           v53 = objc_alloc_init(TVPSecureKeyResponse);
-          [(TVPSecureKeyResponse *)v53 setKeyData:v125];
-          [(TVPSecureKeyResponse *)v53 setRenewalDate:v123];
+          [(TVPSecureKeyResponse *)v53 setKeyData:v124];
+          [(TVPSecureKeyResponse *)v53 setRenewalDate:v122];
           [(TVPSecureKeyResponse *)v53 setRequest:*(a1 + 32)];
           v88 = (a1 + 40);
-          v56 = v123;
+          v56 = v122;
           v54 = objc_loadWeakRetained(v88);
           v55 = [v54 pendingKeyResponses];
           [v55 addObject:v53];
@@ -644,12 +642,12 @@ LABEL_59:
           v54 = [(TVPSecureKeyResponse *)v53 delegate];
           v55 = objc_loadWeakRetained((a1 + 40));
           v89 = *(a1 + 32);
-          v56 = v123;
-          v57 = v125;
-          [v54 secureKeyLoader:v55 didLoadKeyResponseData:v125 renewalDate:v123 forRequest:v89];
+          v56 = v122;
+          v57 = v124;
+          [v54 secureKeyLoader:v55 didLoadKeyResponseData:v124 renewalDate:v122 forRequest:v89];
         }
 
-        v40 = v121;
+        v40 = v120;
         goto LABEL_65;
       }
 
@@ -669,8 +667,8 @@ LABEL_57:
       goto LABEL_59;
     }
 
-    v117 = [v13 objectForKey:@"version"];
-    if (!v117 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    v116 = [v13 objectForKey:@"version"];
+    if (!v116 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       v27 = TVPSKDErrorWithCode(-345008);
       v36 = v27;
@@ -685,7 +683,7 @@ LABEL_36:
     }
 
     v14 = [v13 objectForKey:@"streaming-keys"];
-    v116 = v14;
+    v115 = v14;
     if (!v14 || (v15 = v14, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ![v15 count])
     {
       v27 = TVPSKDErrorWithCode(-345008);
@@ -701,11 +699,11 @@ LABEL_35:
     }
 
     v16 = [v15 objectAtIndex:0];
-    v115 = v16;
+    v114 = v16;
     if (!v16 || (v17 = v16, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       v27 = TVPSKDErrorWithCode(-345008);
-      v91 = v27;
+      v90 = v27;
       v29 = 0;
       v30 = 0;
       v31 = 0;
@@ -717,7 +715,7 @@ LABEL_72:
     }
 
     v18 = [v17 objectForKey:@"status"];
-    v114 = v18;
+    v113 = v18;
     if (v18)
     {
       v19 = v18;
@@ -727,16 +725,16 @@ LABEL_72:
         v20 = [v19 integerValue];
         if (!v20)
         {
-          v113 = [v115 objectForKey:@"ckc"];
-          if (v113 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v113 length])
+          v112 = [v114 objectForKey:@"ckc"];
+          if (v112 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v112 length])
           {
-            v93 = [v115 objectForKey:@"renew-after"];
-            if (v93 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            v92 = [v114 objectForKey:@"renew-after"];
+            if (v92 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v94 = [v124 startDate];
-              [v93 doubleValue];
-              v30 = [v94 dateByAddingTimeInterval:?];
-              v95 = v30;
+              v93 = [v123 startDate];
+              [v92 doubleValue];
+              v30 = [v93 dateByAddingTimeInterval:?];
+              v94 = v30;
             }
 
             else
@@ -744,13 +742,13 @@ LABEL_72:
               v30 = 0;
             }
 
-            v105 = [v115 objectForKey:@"expiration-time"];
-            if (v105 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            v104 = [v114 objectForKey:@"expiration-time"];
+            if (v104 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v106 = objc_alloc(MEMORY[0x277CBEAA8]);
-              [v105 doubleValue];
-              v31 = [v106 initWithTimeIntervalSince1970:v107 / 1000.0];
-              v108 = v31;
+              v105 = objc_alloc(MEMORY[0x277CBEAA8]);
+              [v104 doubleValue];
+              v31 = [v105 initWithTimeIntervalSince1970:v106 / 1000.0];
+              v107 = v31;
             }
 
             else
@@ -758,13 +756,13 @@ LABEL_72:
               v31 = 0;
             }
 
-            v109 = [v115 objectForKey:@"playback-start-time"];
-            if (v109 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+            v108 = [v114 objectForKey:@"playback-start-time"];
+            if (v108 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v110 = objc_alloc(MEMORY[0x277CBEAA8]);
-              [v109 doubleValue];
-              v32 = [v110 initWithTimeIntervalSince1970:v111 / 1000.0];
-              v112 = v32;
+              v109 = objc_alloc(MEMORY[0x277CBEAA8]);
+              [v108 doubleValue];
+              v32 = [v109 initWithTimeIntervalSince1970:v110 / 1000.0];
+              v111 = v32;
             }
 
             else
@@ -773,23 +771,23 @@ LABEL_72:
             }
 
             v33 = 1;
-            v96 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v113 options:1];
+            v95 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v112 options:1];
             v27 = 0;
-            v29 = v96;
+            v29 = v95;
           }
 
           else
           {
-            v96 = TVPSKDErrorWithCode(-345008);
+            v95 = TVPSKDErrorWithCode(-345008);
             v29 = 0;
             v30 = 0;
             v31 = 0;
             v32 = 0;
             v33 = 0;
-            v27 = v96;
+            v27 = v95;
           }
 
-          v97 = v96;
+          v96 = v95;
 
           goto LABEL_71;
         }
@@ -829,7 +827,7 @@ LABEL_72:
             v23 = -345016;
 LABEL_69:
             v27 = TVPSKDErrorWithCode(v23);
-            v92 = v27;
+            v91 = v27;
 LABEL_70:
             v29 = 0;
             v30 = 0;
@@ -842,16 +840,16 @@ LABEL_71:
           }
         }
 
-        v98 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"com.apple.fpsRequest" code:v21 userInfo:0];
-        v99 = TVPSKDErrorWithCode(-345013);
-        v100 = [v99 userInfo];
-        v101 = [v100 mutableCopy];
+        v97 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"com.apple.fpsRequest" code:v21 userInfo:0];
+        v98 = TVPSKDErrorWithCode(-345013);
+        v99 = [v98 userInfo];
+        v100 = [v99 mutableCopy];
 
-        [v101 setObject:v98 forKey:*MEMORY[0x277CCA7E8]];
-        v102 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v103 = [v99 domain];
-        v27 = [v102 initWithDomain:v103 code:objc_msgSend(v99 userInfo:{"code"), v101}];
-        v104 = v27;
+        [v100 setObject:v97 forKey:*MEMORY[0x277CCA7E8]];
+        v101 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v102 = [v98 domain];
+        v27 = [v101 initWithDomain:v102 code:objc_msgSend(v98 userInfo:{"code"), v100}];
+        v103 = v27;
 
         goto LABEL_70;
       }
@@ -862,8 +860,6 @@ LABEL_71:
   }
 
 LABEL_66:
-
-  v90 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendStopRequest
@@ -891,11 +887,10 @@ LABEL_66:
 
 void __68__TVPSecureKeyStandardLoader_startLoadingKeyResponseDataForRequest___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_26CEDD000, a2, OS_LOG_TYPE_ERROR, "Received FPS response error status of %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_26CEDD000, a2, OS_LOG_TYPE_ERROR, "Received FPS response error status of %ld", &v2, 0xCu);
 }
 
 @end

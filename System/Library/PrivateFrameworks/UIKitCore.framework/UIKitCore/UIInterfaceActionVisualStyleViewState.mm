@@ -150,29 +150,29 @@
   stateCopy = state;
   screen = self->_screen;
   screen = [stateCopy screen];
-  if ([(UIScreen *)screen isEqual:screen])
+  if (objc_msgSend_isEqual_(screen))
   {
     traitCollection = self->_traitCollection;
     traitCollection = [stateCopy traitCollection];
-    if ([(UITraitCollection *)traitCollection isEqual:traitCollection])
+    if (objc_msgSend_isEqual_(traitCollection))
     {
       tintColor = self->_tintColor;
       tintColor = [stateCopy tintColor];
-      v11 = [(UIColor *)tintColor isEqual:tintColor];
+      isEqual = objc_msgSend_isEqual_(tintColor);
     }
 
     else
     {
-      v11 = 0;
+      isEqual = 0;
     }
   }
 
   else
   {
-    v11 = 0;
+    isEqual = 0;
   }
 
-  return v11;
+  return isEqual;
 }
 
 @end

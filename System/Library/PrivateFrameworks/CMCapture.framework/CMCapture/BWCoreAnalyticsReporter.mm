@@ -132,72 +132,72 @@ BWCoreAnalyticsReporter *__41__BWCoreAnalyticsReporter_sharedInstance__block_inv
     return 0;
   }
 
-  if ([type isEqualToString:0x1F216ED50])
+  if (objc_msgSend_isEqualToString_(type, a2, 0x1F216ED50))
   {
     return 3;
   }
 
-  if ([type isEqualToString:0x1F2185210])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 4;
   }
 
-  if ([type isEqualToString:0x1F2185490])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 5;
   }
 
-  if ([type isEqualToString:0x1F2185330])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 10;
   }
 
-  if ([type isEqualToString:0x1F21852D0])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 23;
   }
 
-  if ([type isEqualToString:0x1F21854F0])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 27;
   }
 
-  if ([type isEqualToString:0x1F21854B0])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 28;
   }
 
-  if ([type isEqualToString:0x1F21855B0])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 33;
   }
 
-  if ([type isEqualToString:0x1F2185250])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 34;
   }
 
-  if ([type isEqualToString:0x1F2185270])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 35;
   }
 
-  if ([type isEqualToString:0x1F2185530] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", 0x1F2185550))
+  if (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type))
   {
     return 44;
   }
 
-  if ([type isEqualToString:0x1F2185430])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 45;
   }
 
-  if ([type isEqualToString:0x1F2185410])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 46;
   }
 
-  if ([type isEqualToString:0x1F21851F0])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 48;
   }
@@ -207,162 +207,162 @@ BWCoreAnalyticsReporter *__41__BWCoreAnalyticsReporter_sharedInstance__block_inv
     return 2;
   }
 
-  if ([type isEqualToString:@"net.whatsapp.WhatsApp"] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"desktop.WhatsApp") & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"net.whatsapp.WhatsAppSMB") & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"WhatsApp"))
+  if (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type))
   {
     return 6;
   }
 
-  if ([type isEqualToString:@"com.facebook.Messenger"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 7;
   }
 
-  if ([type isEqualToString:@"com.skype.skype"] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.skype.SkypeForiPad"))
+  if (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type))
   {
     return 8;
   }
 
-  if ([type isEqualToString:@"com.tencent.xin"] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.tencent.xinWeChat"))
+  if (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type))
   {
     return 9;
   }
 
-  if ([type isEqualToString:@"com.burbn.instagram"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 11;
   }
 
-  if ([type isEqualToString:@"com.toyopagroup.picaboo"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 12;
   }
 
-  if ([type isEqualToString:@"com.zhiliaoapp.musically"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 13;
   }
 
-  if ([type isEqualToString:@"com.webex.meeting"] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.webex.meetingmanager") & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.cisco.squared") & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.cisco.squared.intune") & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.cisco.webexcalling") & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"Cisco-Systems.Spark"))
+  if (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type))
   {
     return 14;
   }
 
-  if ([type isEqualToString:@"us.zoom.videomeetings"] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"us.zoom.xos"))
+  if (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type))
   {
     return 15;
   }
 
-  if ([type isEqualToString:@"com.google.hangouts"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 16;
   }
 
-  if ([type isEqualToString:@"com.bluejeansnet.Blue-Jeans"] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.bluejeansnet.Huddle") & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.bluejeansnet.Blue"))
+  if (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type))
   {
     return 17;
   }
 
-  if ([type isEqualToString:@"com.logmein.gotomeeting"] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.logmein.GoToMeeting"))
+  if (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type))
   {
     return 18;
   }
 
-  if ([type isEqualToString:@"com.logmein.joinme"] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.logmein.join.me"))
+  if (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type))
   {
     return 19;
   }
 
-  if ([type isEqualToString:@"com.herzick.houseparty"] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.herzick.mac"))
+  if (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type))
   {
     return 20;
   }
 
-  if ([type isEqualToString:@"com.cisco.jabberIM"] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.cisco.jabberIMintune") & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.cisco.JabberGuest") & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.cisco.jabberIMbb"))
+  if (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type))
   {
     return 21;
   }
 
-  if ([type isEqualToString:@"com.microsoft.skype.teams"] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.microsoft.teams") & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.microsoft.teams2"))
+  if (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type))
   {
     return 22;
   }
 
-  if ([type isEqualToString:@"com.meetinone.meetinone"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 24;
   }
 
-  if ([type isEqualToString:@"com.google.meetings"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 25;
   }
 
-  if ([type isEqualToString:@"com.tinyspeck.slackmacgap"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 26;
   }
 
-  if ([type isEqualToString:@"com.tencent.tencentmeeting"] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.tencent.meeting"))
+  if (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type))
   {
     return 29;
   }
 
-  if ([type isEqualToString:@"com.hnc.Discord"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 30;
   }
 
-  if ([type isEqualToString:@"com.obsproject.obs-studio"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 31;
   }
 
-  if ([type isEqualToString:@"com.alibaba.DingTalkMac"] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", @"com.alibaba.DingTalkMacLite"))
+  if (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type))
   {
     return 32;
   }
 
-  if ([type isEqualToString:@"com.brave.Browser"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 36;
   }
 
-  if ([type isEqualToString:@"com.google.Chrome"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 37;
   }
 
-  if ([type isEqualToString:@"com.microsoft.edgemac"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 38;
   }
 
-  if ([type isEqualToString:@"org.mozilla.firefox"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 39;
   }
 
-  if ([type isEqualToString:@"ru.keepcoder.Telegram"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 40;
   }
 
-  if ([type isEqualToString:@"jp.naver.line.mac"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 41;
   }
 
-  if ([type isEqualToString:@"com.ecamm.EcammLive"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 42;
   }
 
-  if ([type isEqualToString:@"com.reincubate.macos.cam"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 43;
   }
 
-  if ([type isEqualToString:@"com.blackmagic-design.DaVinciCamera"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 47;
   }
@@ -430,7 +430,7 @@ BWCoreAnalyticsReporter *__41__BWCoreAnalyticsReporter_sharedInstance__block_inv
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  v13 = OUTLINED_FUNCTION_2_82(array, v6, v7, v8, v9, v10, v11, v12, v33, v35, v37, v39, v40, v42, v44, v46, v47, v49, v51, v53, v54, v55, v57, v59, v60, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91);
+  v13 = OUTLINED_FUNCTION_2_82(array, v6, v7, v8, v9, v10, v11, v12, v33, v35, v37, v39, v40, v42, v44, v46, v47, v49, v51, v53, v54, v55, v57, v59, v60, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89);
   if (v13)
   {
     v15 = v13;
@@ -504,7 +504,7 @@ BWCoreAnalyticsReporter *__41__BWCoreAnalyticsReporter_sharedInstance__block_inv
       }
 
       while (v15 != v16);
-      v15 = OUTLINED_FUNCTION_2_82(isKindOfClass, v20, v21, v22, v23, v24, v25, v26, v34, v36, v38, *(&v38 + 1), v41, v43, v45, *(&v45 + 1), v48, v50, *v52, *&v52[8], *&v52[16], v56, *v58, *&v58[8], *&v58[16], v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92);
+      v15 = OUTLINED_FUNCTION_2_82(isKindOfClass, v20, v21, v22, v23, v24, v25, v26, v34, v36, v38, *(&v38 + 1), v41, v43, v45, *(&v45 + 1), v48, v50, *v52, *&v52[8], *&v52[16], v56, *v58, *&v58[8], *&v58[16], v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90);
     }
 
     while (v15);

@@ -11,7 +11,7 @@
   height = fits.height;
   width = fits.width;
   selfCopy = self;
-  sub_1E3EAF2CC(width, height);
+  sub_1E3EAF2CC(selfCopy, width, height);
   v7 = v6;
   v9 = v8;
 

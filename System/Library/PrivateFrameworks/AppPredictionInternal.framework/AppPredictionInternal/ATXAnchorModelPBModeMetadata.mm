@@ -74,31 +74,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_modeId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    isStart = self->_isStart;
     PBDataWriterWriteBOOLField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_modeHistory)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    relativeTimeSinceAnchorInSeconds = self->_relativeTimeSinceAnchorInSeconds;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -175,7 +173,6 @@
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 32);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 32) & 2) == 0)
@@ -183,7 +180,6 @@
       goto LABEL_14;
     }
 
-    v11 = *(equalCopy + 28);
     if (self->_isStart)
     {
       if ((*(equalCopy + 28) & 1) == 0)
@@ -214,22 +210,22 @@
     has = self->_has;
   }
 
-  v9 = (*(equalCopy + 32) & 1) == 0;
+  v8 = (*(equalCopy + 32) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 32) & 1) != 0 && self->_relativeTimeSinceAnchorInSeconds == *(equalCopy + 6))
     {
-      v9 = 1;
+      v8 = 1;
       goto LABEL_15;
     }
 
 LABEL_14:
-    v9 = 0;
+    v8 = 0;
   }
 
 LABEL_15:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash
@@ -284,7 +280,7 @@ LABEL_15:
       goto LABEL_11;
     }
 
-    [(ATXAnchorModelPBLaunchHistoryMetadata *)modeHistory mergeFrom:?];
+    modeHistory = [(ATXAnchorModelPBLaunchHistoryMetadata *)modeHistory mergeFrom:?];
   }
 
   else
@@ -294,7 +290,7 @@ LABEL_15:
       goto LABEL_11;
     }
 
-    [(ATXAnchorModelPBModeMetadata *)self setModeHistory:?];
+    modeHistory = [(ATXAnchorModelPBModeMetadata *)self setModeHistory:?];
   }
 
   fromCopy = v7;
@@ -305,7 +301,7 @@ LABEL_11:
     *&self->_has |= 1u;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](modeHistory, fromCopy);
 }
 
 @end

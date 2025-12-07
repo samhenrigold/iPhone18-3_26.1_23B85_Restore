@@ -33,7 +33,7 @@ void __32__MSPDFAttachmentController_log__block_invoke(uint64_t a1)
 
 - (void)updateToInlinePDFAttachmentIfNeeded:(id)needed
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   uttype = [neededCopy uttype];
   v7 = [uttype conformsToType:*MEMORY[0x277CE1E08]];
@@ -49,9 +49,9 @@ void __32__MSPDFAttachmentController_log__block_invoke(uint64_t a1)
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           contentID = [neededCopy contentID];
-          v24 = 138543362;
-          v25 = contentID;
-          _os_log_impl(&dword_257FBF000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@) Lockdown Mode detected, disabling PDF parsing", &v24, 0xCu);
+          v23 = 138543362;
+          v24 = contentID;
+          _os_log_impl(&dword_257FBF000, v9, OS_LOG_TYPE_DEFAULT, "(%{public}@) Lockdown Mode detected, disabling PDF parsing", &v23, 0xCu);
         }
       }
 
@@ -64,7 +64,7 @@ void __32__MSPDFAttachmentController_log__block_invoke(uint64_t a1)
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             contentID2 = [neededCopy contentID];
-            [(MSPDFAttachmentController *)contentID2 updateToInlinePDFAttachmentIfNeeded:v30, v13];
+            [(MSPDFAttachmentController *)contentID2 updateToInlinePDFAttachmentIfNeeded:v29, v13];
           }
         }
 
@@ -74,13 +74,13 @@ void __32__MSPDFAttachmentController_log__block_invoke(uint64_t a1)
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           contentID3 = [neededCopy contentID];
-          v24 = 138543874;
-          v25 = contentID3;
-          v26 = 2048;
-          v27 = pageCount;
-          v28 = 1024;
-          v29 = isLocked;
-          _os_log_impl(&dword_257FBF000, v17, OS_LOG_TYPE_DEFAULT, "(%{public}@) Attached PDF has %lu pages, isLocked=%{BOOL}d", &v24, 0x1Cu);
+          v23 = 138543874;
+          v24 = contentID3;
+          v25 = 2048;
+          v26 = pageCount;
+          v27 = 1024;
+          v28 = isLocked;
+          _os_log_impl(&dword_257FBF000, v17, OS_LOG_TYPE_DEFAULT, "(%{public}@) Attached PDF has %lu pages, isLocked=%{BOOL}d", &v23, 0x1Cu);
         }
 
         if (!((pageCount != 1) | isLocked & 1))
@@ -120,8 +120,6 @@ void __32__MSPDFAttachmentController_log__block_invoke(uint64_t a1)
       [(MSPDFAttachmentController *)contentID5 updateToInlinePDFAttachmentIfNeeded:data];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (MSPDFAttachmentControllerDelegate)delegate

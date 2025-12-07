@@ -29,7 +29,7 @@
 
 - (void)remote_createProfileOfType:(int64_t)type displayName:(id)name completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   nameCopy = name;
   _HKInitializeLogging();
@@ -42,16 +42,14 @@
   }
 
   _profileManager = [(HDHealthStoreProviderServer *)self _profileManager];
-  v15 = 0;
-  v12 = [_profileManager createProfileOfType:type displayName:nameCopy error:&v15];
+  v14 = 0;
+  v12 = [_profileManager createProfileOfType:type displayName:nameCopy error:&v14];
 
-  v13 = v15;
+  v13 = v14;
   if (completionCopy)
   {
     completionCopy[2](completionCopy, v12, v13);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_deleteProfile:(id)profile completion:(id)completion
@@ -171,39 +169,39 @@
 
 - (void)remote_profileIdentifierForNRDeviceUUID:(id)d ownerAppleID:(id)iD completion:(id)completion
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   completionCopy = completion;
   v10 = completionCopy;
   if (completionCopy)
   {
-    v59 = completionCopy;
+    v58 = completionCopy;
     if (dCopy)
     {
       _profileManager = [(HDHealthStoreProviderServer *)self _profileManager];
       allProfileIdentifiers = [_profileManager allProfileIdentifiers];
 
-      v76 = 0u;
-      v77 = 0u;
-      v74 = 0u;
       v75 = 0u;
+      v76 = 0u;
+      v73 = 0u;
+      v74 = 0u;
       obj = allProfileIdentifiers;
-      v13 = [obj countByEnumeratingWithState:&v74 objects:v89 count:16];
+      v13 = [obj countByEnumeratingWithState:&v73 objects:v88 count:16];
       if (v13)
       {
         v14 = 0;
-        v15 = *v75;
+        v15 = *v74;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v75 != v15)
+            if (*v74 != v15)
             {
               objc_enumerationMutation(obj);
             }
 
-            v17 = *(*(&v74 + 1) + 8 * i);
+            v17 = *(*(&v73 + 1) + 8 * i);
             _profileManager2 = [(HDHealthStoreProviderServer *)self _profileManager];
             v19 = [_profileManager2 profileForIdentifier:v17];
 
@@ -219,14 +217,14 @@
                 }
 
                 v19 = v19;
-                v73 = 0;
-                v20 = [v19 pairedNRDeviceUUIDWithError:&v73];
-                v21 = v73;
+                v72 = 0;
+                v20 = [v19 pairedNRDeviceUUIDWithError:&v72];
+                v21 = v72;
                 if (v20)
                 {
                   if ([v20 isEqual:dCopy])
                   {
-                    v59[2](v59, v17, 0);
+                    v58[2](v58, v17, 0);
 
                     goto LABEL_51;
                   }
@@ -261,7 +259,7 @@
             }
           }
 
-          v13 = [obj countByEnumeratingWithState:&v74 objects:v89 count:16];
+          v13 = [obj countByEnumeratingWithState:&v73 objects:v88 count:16];
         }
 
         while (v13);
@@ -279,8 +277,8 @@
 
           if (!iDCopy)
           {
-            v52 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:@"Owner appleID is nil."];
-            (v59)[2](v59, 0, v52);
+            v51 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:@"Owner appleID is nil."];
+            (v58)[2](v58, 0, v51);
 
             goto LABEL_51;
           }
@@ -288,23 +286,23 @@
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x3032000000;
-          v86 = __Block_byref_object_copy__112;
-          v87 = __Block_byref_object_dispose__112;
-          v88 = 0;
-          v56 = [objc_alloc(MEMORY[0x277CBC7C8]) initWithEmailAddress:iDCopy];
+          v85 = __Block_byref_object_copy__112;
+          v86 = __Block_byref_object_dispose__112;
+          v87 = 0;
+          v55 = [objc_alloc(MEMORY[0x277CBC7C8]) initWithEmailAddress:iDCopy];
           v26 = dispatch_semaphore_create(0);
           profile = [(HDStandardTaskServer *)self profile];
           cloudSyncManager = [profile cloudSyncManager];
-          v69[0] = MEMORY[0x277D85DD0];
-          v69[1] = 3221225472;
-          v69[2] = __88__HDProfileStoreServer_remote_profileIdentifierForNRDeviceUUID_ownerAppleID_completion___block_invoke;
-          v69[3] = &unk_2786230C8;
-          v69[4] = self;
-          v70 = iDCopy;
-          v72 = buf;
+          v68[0] = MEMORY[0x277D85DD0];
+          v68[1] = 3221225472;
+          v68[2] = __88__HDProfileStoreServer_remote_profileIdentifierForNRDeviceUUID_ownerAppleID_completion___block_invoke;
+          v68[3] = &unk_2786230C8;
+          v68[4] = self;
+          v69 = iDCopy;
+          v71 = buf;
           dsema = v26;
-          v71 = dsema;
-          v29 = [cloudSyncManager lookupParticipantWithIdentityLookUpInfo:v56 completion:v69];
+          v70 = dsema;
+          v29 = [cloudSyncManager lookupParticipantWithIdentityLookUpInfo:v55 completion:v68];
 
           v30 = dispatch_time(0, 15000000000);
           if (dispatch_semaphore_wait(dsema, v30))
@@ -313,37 +311,37 @@
             v31 = *MEMORY[0x277CCC328];
             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
             {
-              *v78 = 138543362;
+              *v77 = 138543362;
               selfCopy2 = self;
-              _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "%{public}@ Timed out waiting for owner participant from CloudKit.", v78, 0xCu);
+              _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "%{public}@ Timed out waiting for owner participant from CloudKit.", v77, 0xCu);
             }
           }
 
-          v67 = 0u;
-          v68 = 0u;
-          v65 = 0u;
           v66 = 0u;
+          v67 = 0u;
+          v64 = 0u;
+          v65 = 0u;
           v32 = v14;
-          v33 = [v32 countByEnumeratingWithState:&v65 objects:v84 count:16];
+          v33 = [v32 countByEnumeratingWithState:&v64 objects:v83 count:16];
           if (v33)
           {
-            v57 = v32;
-            v58 = *v66;
+            v56 = v32;
+            v57 = *v65;
             while (2)
             {
               v34 = v33;
               for (j = 0; j != v34; ++j)
               {
-                if (*v66 != v58)
+                if (*v65 != v57)
                 {
-                  objc_enumerationMutation(v57);
+                  objc_enumerationMutation(v56);
                 }
 
-                v36 = *(*(&v65 + 1) + 8 * j);
+                v36 = *(*(&v64 + 1) + 8 * j);
                 cloudSyncManager2 = [v36 cloudSyncManager];
-                v64 = 0;
-                v38 = [cloudSyncManager2 shareOwnerParticipantWithError:&v64];
-                v39 = v64;
+                v63 = 0;
+                v38 = [cloudSyncManager2 shareOwnerParticipantWithError:&v63];
+                v39 = v63;
 
                 if (v38)
                 {
@@ -367,11 +365,11 @@
 
                   if (emailAddress && [emailAddress isEqualToString:emailAddress2])
                   {
-                    v63 = 0;
-                    [v36 setPairedNRDeviceUUID:dCopy error:&v63];
-                    v53 = v63;
+                    v62 = 0;
+                    [v36 setPairedNRDeviceUUID:dCopy error:&v62];
+                    v52 = v62;
                     profileIdentifier = [v36 profileIdentifier];
-                    v59[2](v59, profileIdentifier, 0);
+                    v58[2](v58, profileIdentifier, 0);
 
                     v49 = 0;
                     goto LABEL_55;
@@ -385,18 +383,18 @@
                   if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
                   {
                     profileIdentifier2 = [v36 profileIdentifier];
-                    *v78 = 138543874;
+                    *v77 = 138543874;
                     selfCopy2 = self;
-                    v80 = 2114;
-                    v81 = profileIdentifier2;
-                    v82 = 2114;
-                    v83 = v39;
-                    _os_log_error_impl(&dword_228986000, v38, OS_LOG_TYPE_ERROR, "%{public}@ Error retrieving share owner participant for tinker profile %{public}@, %{public}@", v78, 0x20u);
+                    v79 = 2114;
+                    v80 = profileIdentifier2;
+                    v81 = 2114;
+                    v82 = v39;
+                    _os_log_error_impl(&dword_228986000, v38, OS_LOG_TYPE_ERROR, "%{public}@ Error retrieving share owner participant for tinker profile %{public}@, %{public}@", v77, 0x20u);
                   }
                 }
               }
 
-              v33 = [v57 countByEnumeratingWithState:&v65 objects:v84 count:16];
+              v33 = [v56 countByEnumeratingWithState:&v64 objects:v83 count:16];
               if (v33)
               {
                 continue;
@@ -407,7 +405,7 @@
 
             v49 = 1;
 LABEL_55:
-            v32 = v57;
+            v32 = v56;
           }
 
           else
@@ -431,26 +429,24 @@ LABEL_55:
         v14 = 0;
       }
 
-      v59[2](v59, 0, 0);
+      v58[2](v58, 0, 0);
 LABEL_51:
 
-      v10 = v59;
+      v10 = v58;
       goto LABEL_52;
     }
 
     v50 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:@"NRDevice must not be nil."];
-    v10 = v59;
-    (v59)[2](v59, 0, v50);
+    v10 = v58;
+    (v58)[2](v58, 0, v50);
   }
 
 LABEL_52:
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 void __88__HDProfileStoreServer_remote_profileIdentifierForNRDeviceUUID_ownerAppleID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -462,15 +458,15 @@ void __88__HDProfileStoreServer_remote_profileIdentifierForNRDeviceUUID_ownerApp
       v8 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v13 = *(a1 + 32);
-        v14 = *(a1 + 40);
-        v15 = 138543874;
-        v16 = v13;
-        v17 = 2114;
-        v18 = v14;
-        v19 = 2114;
-        v20 = v7;
-        _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@ Error retrieving share owner participant for owner ID %{public}@, %{public}@", &v15, 0x20u);
+        v12 = *(a1 + 32);
+        v13 = *(a1 + 40);
+        v14 = 138543874;
+        v15 = v12;
+        v16 = 2114;
+        v17 = v13;
+        v18 = 2114;
+        v19 = v7;
+        _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@ Error retrieving share owner participant for owner ID %{public}@, %{public}@", &v14, 0x20u);
       }
     }
   }
@@ -481,7 +477,6 @@ void __88__HDProfileStoreServer_remote_profileIdentifierForNRDeviceUUID_ownerApp
   v11 = v5;
 
   dispatch_semaphore_signal(*(a1 + 48));
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_fetchDisplayNameWithCompletion:(id)completion
@@ -634,29 +629,26 @@ uint64_t __62__HDProfileStoreServer_remote_fetchDisplayNameWithCompletion___bloc
 
 void __44__HDProfileStoreServer_profileListDidChange__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC318];
   if (os_log_type_enabled(*MEMORY[0x277CCC318], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: failed to notify client of profile changes due to: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: failed to notify client of profile changes due to: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }

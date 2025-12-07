@@ -23,7 +23,7 @@
   v12 = (self + OBJC_IVAR___CAMFocusLockGestureRecognizer_beganHandler);
   *v12 = sub_100020B08;
   v12[1] = v10;
-  v13 = (self + OBJC_IVAR___CAMFocusLockGestureRecognizer_endedHandler);
+  v13 = (&self->super.isa + OBJC_IVAR___CAMFocusLockGestureRecognizer_endedHandler);
   *v13 = sub_100020B58;
   v13[1] = v11;
   v15.receiver = self;

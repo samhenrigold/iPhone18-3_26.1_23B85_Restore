@@ -260,7 +260,7 @@ void __80__MediaControlsEndpointController_representsLongFormVideoContentWithCom
 
 - (void)connectAllowingAuthenticationWithCompletion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   connectionDelegate = [(MediaControlsEndpointController *)self connectionDelegate];
   route = [(MediaControlsEndpointController *)self route];
@@ -282,41 +282,41 @@ void __80__MediaControlsEndpointController_representsLongFormVideoContentWithCom
     uUID = [MEMORY[0x1E696AFB0] UUID];
     uUIDString = [uUID UUIDString];
 
-    v11 = MCLogCategoryRouting();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = MCLogCategoryRouting(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       route3 = [(MediaControlsEndpointController *)self route];
       routeName = [route3 routeName];
       delegate = [(MediaControlsEndpointController *)self delegate];
       *buf = 134218754;
       selfCopy = self;
-      v27 = 2112;
-      v28 = routeName;
-      v29 = 2048;
-      v30 = delegate;
-      v31 = 2114;
-      v32 = uUIDString;
-      _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p> <%{public}@> Attempting connect with authentication", buf, 0x2Au);
+      v28 = 2112;
+      v29 = routeName;
+      v30 = 2048;
+      v31 = delegate;
+      v32 = 2114;
+      v33 = uUIDString;
+      _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p> <%{public}@> Attempting connect with authentication", buf, 0x2Au);
     }
 
-    v15 = *MEMORY[0x1E696F858];
-    v23[0] = *MEMORY[0x1E696F848];
-    v23[1] = v15;
-    v24[0] = uUIDString;
-    v24[1] = @"MediaControlsEndpointController-allowAuthentication";
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __79__MediaControlsEndpointController_connectAllowingAuthenticationWithCompletion___block_invoke;
-    v17[3] = &unk_1E7664A40;
-    objc_copyWeak(&v19, &location);
-    v17[4] = self;
-    objc_copyWeak(&v20, &from);
-    v18 = completionCopy;
-    [connection connectWithOptions:1 userInfo:v16 completion:v17];
+    v16 = *MEMORY[0x1E696F858];
+    v24[0] = *MEMORY[0x1E696F848];
+    v24[1] = v16;
+    v25[0] = uUIDString;
+    v25[1] = @"MediaControlsEndpointController-allowAuthentication";
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __79__MediaControlsEndpointController_connectAllowingAuthenticationWithCompletion___block_invoke;
+    v18[3] = &unk_1E7664A40;
+    objc_copyWeak(&v20, &location);
+    v18[4] = self;
+    objc_copyWeak(&v21, &from);
+    v19 = completionCopy;
+    [connection connectWithOptions:1 userInfo:v17 completion:v18];
 
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&v20);
-    objc_destroyWeak(&v19);
 
     objc_destroyWeak(&from);
     objc_destroyWeak(&location);
@@ -333,7 +333,7 @@ void __79__MediaControlsEndpointController_connectAllowingAuthenticationWithComp
 {
   v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = MCLogCategoryRouting();
+  v4 = MCLogCategoryRouting(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -408,13 +408,12 @@ LABEL_12:
       [WeakRetained setAttemptingConnection:0];
       v24 = 0;
       v23 = 0;
-      [WeakRetained _getConnected:&v24 + 1 connecting:&v23 invalid:&v24];
-      v4 = MCLogCategoryRouting();
+      v4 = MCLogCategoryRouting([WeakRetained _getConnected:&v24 + 1 connecting:&v23 invalid:&v24]);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         v22 = [WeakRetained route];
         v21 = [v22 routeName];
-        v10 = [WeakRetained state];
+        v10 = objc_msgSend_state(WeakRetained);
         if (v10 > 3)
         {
           v11 = @"?";
@@ -485,145 +484,147 @@ LABEL_13:
 
 - (void)launchNowPlayingApp
 {
-  v52[3] = *MEMORY[0x1E69E9840];
+  v55[3] = *MEMORY[0x1E69E9840];
   route = [(MediaControlsEndpointController *)self route];
 
   if (route)
   {
-    v4 = MEMORY[0x1E6970490];
+    v5 = MEMORY[0x1E6970490];
     route2 = [(MediaControlsEndpointController *)self route];
-    [v4 setActiveRoute:route2 reason:@"Analytics: Launch now playing app" completion:0];
+    [v5 setActiveRoute:route2 reason:@"Analytics: Launch now playing app" completion:0];
 
-    v6 = SBSCreateOpenApplicationService();
-    v7 = objc_alloc(MEMORY[0x1E695DF90]);
-    v8 = *MEMORY[0x1E699F990];
-    v51[0] = *MEMORY[0x1E699F970];
-    v51[1] = v8;
-    v52[0] = MEMORY[0x1E695E118];
-    v52[1] = MEMORY[0x1E695E118];
-    v51[2] = *MEMORY[0x1E699F940];
+    v7 = SBSCreateOpenApplicationService();
+    v8 = objc_alloc(MEMORY[0x1E695DF90]);
+    v9 = *MEMORY[0x1E699F990];
+    v54[0] = *MEMORY[0x1E699F970];
+    v54[1] = v9;
+    v55[0] = MEMORY[0x1E695E118];
+    v55[1] = MEMORY[0x1E695E118];
+    v54[2] = *MEMORY[0x1E699F940];
     route3 = [(MediaControlsEndpointController *)self route];
     routeName = [route3 routeName];
-    v52[2] = routeName;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:3];
-    v12 = [v7 initWithDictionary:v11];
+    v55[2] = routeName;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:3];
+    v13 = [v8 initWithDictionary:v12];
 
     representedBundleID = [(MediaControlsEndpointController *)self representedBundleID];
     if (![representedBundleID length])
     {
       bundleID = [(MediaControlsEndpointController *)self bundleID];
-      v15 = bundleID;
+      v16 = bundleID;
       if (bundleID)
       {
-        v16 = bundleID;
+        v17 = bundleID;
       }
 
       else
       {
-        v16 = MRMediaRemoteCopyLocalDeviceSystemMediaApplicationDisplayID();
+        v17 = MRMediaRemoteCopyLocalDeviceSystemMediaApplicationDisplayID();
       }
 
-      v20 = v16;
+      v21 = v17;
 
-      representedBundleID = v20;
+      representedBundleID = v21;
     }
 
-    if ([representedBundleID length] && !MRMediaRemoteApplicationIsSystemMediaApplication())
+    IsSystemMediaApplication = [representedBundleID length];
+    if (IsSystemMediaApplication && (IsSystemMediaApplication = MRMediaRemoteApplicationIsSystemMediaApplication(), !IsSystemMediaApplication))
     {
-      if (!MRMediaRemoteApplicationIsSystemPodcastApplication())
+      IsSystemPodcastApplication = MRMediaRemoteApplicationIsSystemPodcastApplication();
+      if (!IsSystemPodcastApplication)
       {
         goto LABEL_15;
       }
 
-      v33 = MCLogCategoryRouting();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v36 = MCLogCategoryRouting(IsSystemPodcastApplication);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
         route4 = [(MediaControlsEndpointController *)self route];
         routeName2 = [route4 routeName];
         delegate = [(MediaControlsEndpointController *)self delegate];
         *buf = 134218754;
         selfCopy4 = self;
-        v45 = 2112;
-        v46 = routeName2;
-        v47 = 2048;
-        v48 = delegate;
-        v49 = 2112;
-        v50 = representedBundleID;
-        _os_log_impl(&dword_1A20FC000, v33, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p>  given %@ bundleID. Launching Podcasts", buf, 0x2Au);
+        v48 = 2112;
+        v49 = routeName2;
+        v50 = 2048;
+        v51 = delegate;
+        v52 = 2112;
+        v53 = representedBundleID;
+        _os_log_impl(&dword_1A20FC000, v36, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p>  given %@ bundleID. Launching Podcasts", buf, 0x2Au);
       }
 
-      v25 = @"podcasts://nowPlaying";
-      v26 = MRMediaRemoteCopyLocalDeviceSystemPodcastApplicationDisplayID();
+      v27 = @"podcasts://nowPlaying";
+      v28 = MRMediaRemoteCopyLocalDeviceSystemPodcastApplicationDisplayID();
     }
 
     else
     {
-      v21 = MCLogCategoryRouting();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v23 = MCLogCategoryRouting(IsSystemMediaApplication);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         route5 = [(MediaControlsEndpointController *)self route];
         routeName3 = [route5 routeName];
         delegate2 = [(MediaControlsEndpointController *)self delegate];
         *buf = 134218754;
         selfCopy4 = self;
-        v45 = 2112;
-        v46 = routeName3;
-        v47 = 2048;
-        v48 = delegate2;
-        v49 = 2112;
-        v50 = representedBundleID;
-        _os_log_impl(&dword_1A20FC000, v21, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p>  given %@ bundleID. Launching Music", buf, 0x2Au);
+        v48 = 2112;
+        v49 = routeName3;
+        v50 = 2048;
+        v51 = delegate2;
+        v52 = 2112;
+        v53 = representedBundleID;
+        _os_log_impl(&dword_1A20FC000, v23, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p>  given %@ bundleID. Launching Music", buf, 0x2Au);
       }
 
-      v25 = @"music://show-now-playing";
-      v26 = MRMediaRemoteCopyLocalDeviceSystemMediaApplicationDisplayID();
+      v27 = @"music://show-now-playing";
+      v28 = MRMediaRemoteCopyLocalDeviceSystemMediaApplicationDisplayID();
     }
 
-    v27 = v26;
+    v29 = v28;
 
-    v28 = [MEMORY[0x1E695DFF8] URLWithString:v25];
-    [v12 setObject:v28 forKey:*MEMORY[0x1E699F960]];
+    v30 = [MEMORY[0x1E695DFF8] URLWithString:v27];
+    [v13 setObject:v30 forKey:*MEMORY[0x1E699F960]];
 
-    representedBundleID = v27;
+    representedBundleID = v29;
 LABEL_15:
-    v29 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v32 = MCLogCategoryDefault(IsSystemPodcastApplication);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = objc_opt_class();
+      v33 = objc_opt_class();
       *buf = 138543618;
-      selfCopy4 = v30;
-      v45 = 2114;
-      v46 = representedBundleID;
-      _os_log_impl(&dword_1A20FC000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@ launching now playing app: %{public}@", buf, 0x16u);
+      selfCopy4 = v33;
+      v48 = 2114;
+      v49 = representedBundleID;
+      _os_log_impl(&dword_1A20FC000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@ launching now playing app: %{public}@", buf, 0x16u);
     }
 
-    v31 = [MEMORY[0x1E699FB70] optionsWithDictionary:v12];
-    v37 = MEMORY[0x1E69E9820];
-    v38 = 3221225472;
-    v39 = __54__MediaControlsEndpointController_launchNowPlayingApp__block_invoke;
-    v40 = &unk_1E7664A68;
+    v34 = [MEMORY[0x1E699FB70] optionsWithDictionary:v13];
+    v40 = MEMORY[0x1E69E9820];
+    v41 = 3221225472;
+    v42 = __54__MediaControlsEndpointController_launchNowPlayingApp__block_invoke;
+    v43 = &unk_1E7664A68;
     selfCopy3 = self;
-    v42 = representedBundleID;
-    v32 = representedBundleID;
-    [v6 openApplication:v32 withOptions:v31 completion:&v37];
-    [MediaControlsAnalytics postAnalyticKind:9, v37, v38, v39, v40, selfCopy3];
+    v45 = representedBundleID;
+    v35 = representedBundleID;
+    [v7 openApplication:v35 withOptions:v34 completion:&v40];
+    [MediaControlsAnalytics postAnalyticKind:9, v40, v41, v42, v43, selfCopy3];
 
     goto LABEL_18;
   }
 
-  v6 = MCLogCategoryRouting();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = MCLogCategoryRouting(v4);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     route6 = [(MediaControlsEndpointController *)self route];
     routeName4 = [route6 routeName];
     delegate3 = [(MediaControlsEndpointController *)self delegate];
     *buf = 134218498;
     selfCopy4 = self;
-    v45 = 2112;
-    v46 = routeName4;
-    v47 = 2048;
-    v48 = delegate3;
-    _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p>  cannot launch Now Playing App with nil route", buf, 0x20u);
+    v48 = 2112;
+    v49 = routeName4;
+    v50 = 2048;
+    v51 = delegate3;
+    _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p>  cannot launch Now Playing App with nil route", buf, 0x20u);
   }
 
 LABEL_18:
@@ -634,7 +635,7 @@ void __54__MediaControlsEndpointController_launchNowPlayingApp__block_invoke(uin
   v18 = *MEMORY[0x1E69E9840];
   if (a3)
   {
-    v4 = MCLogCategoryRouting();
+    v4 = MCLogCategoryRouting(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
@@ -704,7 +705,7 @@ LABEL_7:
 void __72__MediaControlsEndpointController_controller_defersResponseReplacement___block_invoke(uint64_t a1)
 {
   v50 = *MEMORY[0x1E69E9840];
-  v2 = MCLogCategoryRouting();
+  v2 = MCLogCategoryRouting(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -722,14 +723,13 @@ void __72__MediaControlsEndpointController_controller_defersResponseReplacement_
 
   v27 = 0;
   v26 = 0;
-  [*(a1 + 32) _getConnected:&v27 + 1 connecting:&v26 invalid:&v27];
-  v7 = MCLogCategoryRouting();
+  v7 = MCLogCategoryRouting([*(a1 + 32) _getConnected:&v27 + 1 connecting:&v26 invalid:&v27]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
     v25 = [v8 route];
     v24 = [v25 routeName];
-    v9 = [*(a1 + 32) state];
+    v9 = objc_msgSend_state(*(a1 + 32));
     if (v9 > 3)
     {
       v10 = @"?";
@@ -788,7 +788,7 @@ void __72__MediaControlsEndpointController_controller_defersResponseReplacement_
   v48 = *MEMORY[0x1E69E9840];
   if (self->_state != state)
   {
-    v5 = MCLogCategoryRouting();
+    v5 = MCLogCategoryRouting(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       route = [(MediaControlsEndpointController *)self route];
@@ -832,21 +832,20 @@ void __72__MediaControlsEndpointController_controller_defersResponseReplacement_
     self->_state = state;
     v29 = 0;
     v28 = 0;
-    [(MediaControlsEndpointController *)self _getConnected:&v29 + 1 connecting:&v28 invalid:&v29];
-    v13 = MCLogCategoryRouting();
+    v13 = MCLogCategoryRouting([(MediaControlsEndpointController *)self _getConnected:&v29 + 1 connecting:&v28 invalid:&v29]);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       route2 = [(MediaControlsEndpointController *)self route];
       routeName2 = [route2 routeName];
-      state = [(MediaControlsEndpointController *)self state];
-      if (state > 3)
+      v14 = objc_msgSend_state(self);
+      if (v14 > 3)
       {
         v15 = @"?";
       }
 
       else
       {
-        v15 = off_1E7664B28[state];
+        v15 = off_1E7664B28[v14];
       }
 
       v24 = v15;
@@ -979,7 +978,7 @@ void __47__MediaControlsEndpointController_setOnScreen___block_invoke(uint64_t a
 
 void __47__MediaControlsEndpointController_setOnScreen___block_invoke_2(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) playerPath];
   v3 = [*(*(a1 + 40) + 56) response];
   v4 = [v3 playerPath];
@@ -987,32 +986,32 @@ void __47__MediaControlsEndpointController_setOnScreen___block_invoke_2(uint64_t
 
   if ((v5 & 1) == 0)
   {
-    v6 = MCLogCategoryRouting();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = MCLogCategoryRouting(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 40);
-      v8 = [v7 route];
-      v9 = [v8 routeName];
-      v10 = [*(a1 + 40) delegate];
-      v11 = [*(a1 + 32) playerPath];
-      v12 = [*(*(a1 + 40) + 56) response];
-      v13 = [v12 playerPath];
-      v16 = 134219010;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v9;
-      v20 = 2048;
-      v21 = v10;
-      v22 = 2112;
-      v23 = v11;
-      v24 = 2112;
-      v25 = v13;
-      _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p> Reloading because re-request returned %@ and does not equal %@", &v16, 0x34u);
+      v8 = *(a1 + 40);
+      v9 = [v8 route];
+      v10 = [v9 routeName];
+      v11 = [*(a1 + 40) delegate];
+      v12 = [*(a1 + 32) playerPath];
+      v13 = [*(*(a1 + 40) + 56) response];
+      v14 = [v13 playerPath];
+      v17 = 134219010;
+      v18 = v8;
+      v19 = 2112;
+      v20 = v10;
+      v21 = 2048;
+      v22 = v11;
+      v23 = 2112;
+      v24 = v12;
+      v25 = 2112;
+      v26 = v14;
+      _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p> Reloading because re-request returned %@ and does not equal %@", &v17, 0x34u);
     }
 
-    v14 = *(a1 + 40);
-    v15 = [v14 route];
-    [v14 _reloadPlayerPathWithRoute:v15];
+    v15 = *(a1 + 40);
+    v16 = [v15 route];
+    [v15 _reloadPlayerPathWithRoute:v16];
   }
 }
 
@@ -1181,21 +1180,21 @@ void __47__MediaControlsEndpointController_setOnScreen___block_invoke_2(uint64_t
 
 - (void)_connectIfNeeded
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   connectionDelegate = [(MediaControlsEndpointController *)self connectionDelegate];
   route = [(MediaControlsEndpointController *)self route];
   [connectionDelegate endpointController:self willAttemptToConnectToRoute:route];
 
-  v20 = 0;
-  [(MediaControlsEndpointController *)self _getConnected:&v20 + 1 invalid:&v20];
+  v21 = 0;
+  [(MediaControlsEndpointController *)self _getConnected:&v21 + 1 invalid:&v21];
   if (!self->_allowsAutomaticResponseLoading)
   {
     goto LABEL_8;
   }
 
-  if ((v20 & 0x100) != 0)
+  if ((v21 & 0x100) != 0)
   {
-    if ((v20 & 1) == 0 && !self->_attemptingConnection)
+    if ((v21 & 1) == 0 && !self->_attemptingConnection)
     {
       [(MediaControlsEndpointController *)self setAutomaticResponseLoading:1];
       return;
@@ -1204,7 +1203,7 @@ void __47__MediaControlsEndpointController_setOnScreen___block_invoke_2(uint64_t
     goto LABEL_8;
   }
 
-  if ((v20 & 1) != 0 || self->_attemptingConnection)
+  if ((v21 & 1) != 0 || self->_attemptingConnection)
   {
 LABEL_8:
     [(MediaControlsEndpointController *)self setAutomaticResponseLoading:0];
@@ -1220,39 +1219,39 @@ LABEL_8:
   uUID = [MEMORY[0x1E696AFB0] UUID];
   uUIDString = [uUID UUIDString];
 
-  v9 = MCLogCategoryRouting();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = MCLogCategoryRouting(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     route3 = [(MediaControlsEndpointController *)self route];
     routeName = [route3 routeName];
     delegate = [(MediaControlsEndpointController *)self delegate];
     *buf = 134218754;
     selfCopy = self;
-    v25 = 2112;
-    v26 = routeName;
-    v27 = 2048;
-    v28 = delegate;
-    v29 = 2114;
-    v30 = uUIDString;
-    _os_log_impl(&dword_1A20FC000, v9, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p> <%{public}@> Attempting connect without authentication", buf, 0x2Au);
+    v26 = 2112;
+    v27 = routeName;
+    v28 = 2048;
+    v29 = delegate;
+    v30 = 2114;
+    v31 = uUIDString;
+    _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p> <%{public}@> Attempting connect without authentication", buf, 0x2Au);
   }
 
-  v13 = *MEMORY[0x1E696F858];
-  v21[0] = *MEMORY[0x1E696F848];
-  v21[1] = v13;
-  v22[0] = uUIDString;
-  v22[1] = @"MediaControlsEndpointController";
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __51__MediaControlsEndpointController__connectIfNeeded__block_invoke;
-  v15[3] = &unk_1E7664B08;
-  objc_copyWeak(&v16, &location);
-  v15[4] = self;
-  objc_copyWeak(&v17, &from);
-  [connection connectWithUserInfo:v14 completion:v15];
+  v14 = *MEMORY[0x1E696F858];
+  v22[0] = *MEMORY[0x1E696F848];
+  v22[1] = v14;
+  v23[0] = uUIDString;
+  v23[1] = @"MediaControlsEndpointController";
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __51__MediaControlsEndpointController__connectIfNeeded__block_invoke;
+  v16[3] = &unk_1E7664B08;
+  objc_copyWeak(&v17, &location);
+  v16[4] = self;
+  objc_copyWeak(&v18, &from);
+  [connection connectWithUserInfo:v15 completion:v16];
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&v17);
-  objc_destroyWeak(&v16);
 
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
@@ -1262,7 +1261,7 @@ void __51__MediaControlsEndpointController__connectIfNeeded__block_invoke(uint64
 {
   v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = MCLogCategoryRouting();
+  v4 = MCLogCategoryRouting(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1401,82 +1400,81 @@ void __51__MediaControlsEndpointController__connectIfNeeded__block_invoke_43(uin
 
 void __60__MediaControlsEndpointController__connectionDidInvalidate___block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) object];
   v3 = [*(a1 + 40) route];
   v4 = [v3 connection];
 
   if (v2 == v4)
   {
-    v5 = MCLogCategoryRouting();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = MCLogCategoryRouting(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
-      v7 = [v6 route];
-      v8 = [v7 routeName];
-      v9 = [*(a1 + 40) delegate];
+      v7 = *(a1 + 40);
+      v8 = [v7 route];
+      v9 = [v8 routeName];
+      v10 = [*(a1 + 40) delegate];
       *buf = 134218498;
-      v29 = v6;
-      v30 = 2112;
-      v31 = v8;
-      v32 = 2048;
-      v33 = v9;
-      _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p> connectionDidInvalidate", buf, 0x20u);
+      v30 = v7;
+      v31 = 2112;
+      v32 = v9;
+      v33 = 2048;
+      v34 = v10;
+      _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p> connectionDidInvalidate", buf, 0x20u);
     }
 
+    v28 = 0;
     v27 = 0;
-    v26 = 0;
-    [*(a1 + 40) _getConnected:&v27 + 1 connecting:&v26 invalid:&v27];
-    v10 = MCLogCategoryRouting();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = MCLogCategoryRouting([*(a1 + 40) _getConnected:&v28 + 1 connecting:&v27 invalid:&v28]);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 40);
-      v25 = [v11 route];
-      v24 = [v25 routeName];
-      v12 = [*(a1 + 40) state];
-      if (v12 > 3)
+      v12 = *(a1 + 40);
+      v26 = [v12 route];
+      v25 = [v26 routeName];
+      v13 = objc_msgSend_state(*(a1 + 40));
+      if (v13 > 3)
       {
-        v13 = @"?";
+        v14 = @"?";
       }
 
       else
       {
-        v13 = off_1E7664B28[v12];
+        v14 = off_1E7664B28[v13];
       }
 
-      v23 = v13;
-      v14 = HIBYTE(v27);
-      v15 = v26;
+      v24 = v14;
+      v15 = HIBYTE(v28);
       v16 = v27;
-      v17 = *(a1 + 40);
-      v18 = *(v17 + 8);
-      v19 = *(v17 + 14);
-      v21 = *(v17 + 12);
-      v22 = *(v17 + 13);
-      WeakRetained = objc_loadWeakRetained((v17 + 40));
+      v17 = v28;
+      v18 = *(a1 + 40);
+      v19 = *(v18 + 8);
+      v20 = *(v18 + 14);
+      v22 = *(v18 + 12);
+      v23 = *(v18 + 13);
+      WeakRetained = objc_loadWeakRetained((v18 + 40));
       *buf = 134220546;
-      v29 = v11;
-      v30 = 2112;
-      v31 = v24;
-      v32 = 2112;
-      v33 = v23;
-      v34 = 1024;
-      v35 = v14;
-      v36 = 1024;
-      v37 = v15;
-      v38 = 1024;
-      v39 = v16;
-      v40 = 1024;
-      v41 = v18;
-      v42 = 1024;
-      v43 = v19;
-      v44 = 1024;
-      v45 = v21;
-      v46 = 1024;
-      v47 = v22;
-      v48 = 2048;
-      v49 = WeakRetained;
-      _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@)> [state: %@, connected: %{BOOL}u, connecting: %{BOOL}u invalid: %{BOOL}u, allowsAutoload: %{BOOL}u, autoload: %{BOOL}u, everHadResponse: %{BOOL}u, attemptConnect: %{BOOL}u, delegate: %p]", buf, 0x54u);
+      v30 = v12;
+      v31 = 2112;
+      v32 = v25;
+      v33 = 2112;
+      v34 = v24;
+      v35 = 1024;
+      v36 = v15;
+      v37 = 1024;
+      v38 = v16;
+      v39 = 1024;
+      v40 = v17;
+      v41 = 1024;
+      v42 = v19;
+      v43 = 1024;
+      v44 = v20;
+      v45 = 1024;
+      v46 = v22;
+      v47 = 1024;
+      v48 = v23;
+      v49 = 2048;
+      v50 = WeakRetained;
+      _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@)> [state: %@, connected: %{BOOL}u, connecting: %{BOOL}u invalid: %{BOOL}u, allowsAutoload: %{BOOL}u, autoload: %{BOOL}u, everHadResponse: %{BOOL}u, attemptConnect: %{BOOL}u, delegate: %p]", buf, 0x54u);
     }
 
     [*(a1 + 40) _connectionHasBecomeInvalid];
@@ -1498,82 +1496,81 @@ void __60__MediaControlsEndpointController__connectionDidInvalidate___block_invo
 
 void __57__MediaControlsEndpointController__connectionDidConnect___block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) object];
   v3 = [*(a1 + 40) route];
   v4 = [v3 connection];
 
   if (v2 == v4)
   {
-    v5 = MCLogCategoryRouting();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = MCLogCategoryRouting(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
-      v7 = [v6 route];
-      v8 = [v7 routeName];
-      v9 = [*(a1 + 40) delegate];
+      v7 = *(a1 + 40);
+      v8 = [v7 route];
+      v9 = [v8 routeName];
+      v10 = [*(a1 + 40) delegate];
       *buf = 134218498;
-      v29 = v6;
-      v30 = 2112;
-      v31 = v8;
-      v32 = 2048;
-      v33 = v9;
-      _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p> connectionDidConnect", buf, 0x20u);
+      v30 = v7;
+      v31 = 2112;
+      v32 = v9;
+      v33 = 2048;
+      v34 = v10;
+      _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p> connectionDidConnect", buf, 0x20u);
     }
 
+    v28 = 0;
     v27 = 0;
-    v26 = 0;
-    [*(a1 + 40) _getConnected:&v27 + 1 connecting:&v26 invalid:&v27];
-    v10 = MCLogCategoryRouting();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = MCLogCategoryRouting([*(a1 + 40) _getConnected:&v28 + 1 connecting:&v27 invalid:&v28]);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 40);
-      v25 = [v11 route];
-      v24 = [v25 routeName];
-      v12 = [*(a1 + 40) state];
-      if (v12 > 3)
+      v12 = *(a1 + 40);
+      v26 = [v12 route];
+      v25 = [v26 routeName];
+      v13 = objc_msgSend_state(*(a1 + 40));
+      if (v13 > 3)
       {
-        v13 = @"?";
+        v14 = @"?";
       }
 
       else
       {
-        v13 = off_1E7664B28[v12];
+        v14 = off_1E7664B28[v13];
       }
 
-      v23 = v13;
-      v14 = HIBYTE(v27);
-      v15 = v26;
+      v24 = v14;
+      v15 = HIBYTE(v28);
       v16 = v27;
-      v17 = *(a1 + 40);
-      v18 = *(v17 + 8);
-      v19 = *(v17 + 14);
-      v21 = *(v17 + 12);
-      v22 = *(v17 + 13);
-      WeakRetained = objc_loadWeakRetained((v17 + 40));
+      v17 = v28;
+      v18 = *(a1 + 40);
+      v19 = *(v18 + 8);
+      v20 = *(v18 + 14);
+      v22 = *(v18 + 12);
+      v23 = *(v18 + 13);
+      WeakRetained = objc_loadWeakRetained((v18 + 40));
       *buf = 134220546;
-      v29 = v11;
-      v30 = 2112;
-      v31 = v24;
-      v32 = 2112;
-      v33 = v23;
-      v34 = 1024;
-      v35 = v14;
-      v36 = 1024;
-      v37 = v15;
-      v38 = 1024;
-      v39 = v16;
-      v40 = 1024;
-      v41 = v18;
-      v42 = 1024;
-      v43 = v19;
-      v44 = 1024;
-      v45 = v21;
-      v46 = 1024;
-      v47 = v22;
-      v48 = 2048;
-      v49 = WeakRetained;
-      _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@)> [state: %@, connected: %{BOOL}u, connecting: %{BOOL}u invalid: %{BOOL}u, allowsAutoload: %{BOOL}u, autoload: %{BOOL}u, everHadResponse: %{BOOL}u, attemptConnect: %{BOOL}u, delegate: %p]", buf, 0x54u);
+      v30 = v12;
+      v31 = 2112;
+      v32 = v25;
+      v33 = 2112;
+      v34 = v24;
+      v35 = 1024;
+      v36 = v15;
+      v37 = 1024;
+      v38 = v16;
+      v39 = 1024;
+      v40 = v17;
+      v41 = 1024;
+      v42 = v19;
+      v43 = 1024;
+      v44 = v20;
+      v45 = 1024;
+      v46 = v22;
+      v47 = 1024;
+      v48 = v23;
+      v49 = 2048;
+      v50 = WeakRetained;
+      _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@)> [state: %@, connected: %{BOOL}u, connecting: %{BOOL}u invalid: %{BOOL}u, allowsAutoload: %{BOOL}u, autoload: %{BOOL}u, everHadResponse: %{BOOL}u, attemptConnect: %{BOOL}u, delegate: %p]", buf, 0x54u);
     }
 
     [*(a1 + 40) _connectIfNeeded];
@@ -1596,82 +1593,81 @@ void __57__MediaControlsEndpointController__connectionDidConnect___block_invoke(
 
 void __67__MediaControlsEndpointController__connectionDidAttemptConnection___block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) object];
   v3 = [*(a1 + 40) route];
   v4 = [v3 connection];
 
   if (v2 == v4)
   {
-    v5 = MCLogCategoryRouting();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = MCLogCategoryRouting(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
-      v7 = [v6 route];
-      v8 = [v7 routeName];
-      v9 = [*(a1 + 40) delegate];
+      v7 = *(a1 + 40);
+      v8 = [v7 route];
+      v9 = [v8 routeName];
+      v10 = [*(a1 + 40) delegate];
       *buf = 134218498;
-      v29 = v6;
-      v30 = 2112;
-      v31 = v8;
-      v32 = 2048;
-      v33 = v9;
-      _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p> connectionDidAttemptConnection", buf, 0x20u);
+      v30 = v7;
+      v31 = 2112;
+      v32 = v9;
+      v33 = 2048;
+      v34 = v10;
+      _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@) | Delegate:%p> connectionDidAttemptConnection", buf, 0x20u);
     }
 
+    v28 = 0;
     v27 = 0;
-    v26 = 0;
-    [*(a1 + 40) _getConnected:&v27 + 1 connecting:&v26 invalid:&v27];
-    v10 = MCLogCategoryRouting();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = MCLogCategoryRouting([*(a1 + 40) _getConnected:&v28 + 1 connecting:&v27 invalid:&v28]);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 40);
-      v25 = [v11 route];
-      v24 = [v25 routeName];
-      v12 = [*(a1 + 40) state];
-      if (v12 > 3)
+      v12 = *(a1 + 40);
+      v26 = [v12 route];
+      v25 = [v26 routeName];
+      v13 = objc_msgSend_state(*(a1 + 40));
+      if (v13 > 3)
       {
-        v13 = @"?";
+        v14 = @"?";
       }
 
       else
       {
-        v13 = off_1E7664B28[v12];
+        v14 = off_1E7664B28[v13];
       }
 
-      v23 = v13;
-      v14 = HIBYTE(v27);
-      v15 = v26;
+      v24 = v14;
+      v15 = HIBYTE(v28);
       v16 = v27;
-      v17 = *(a1 + 40);
-      v18 = *(v17 + 8);
-      v19 = *(v17 + 14);
-      v21 = *(v17 + 12);
-      v22 = *(v17 + 13);
-      WeakRetained = objc_loadWeakRetained((v17 + 40));
+      v17 = v28;
+      v18 = *(a1 + 40);
+      v19 = *(v18 + 8);
+      v20 = *(v18 + 14);
+      v22 = *(v18 + 12);
+      v23 = *(v18 + 13);
+      WeakRetained = objc_loadWeakRetained((v18 + 40));
       *buf = 134220546;
-      v29 = v11;
-      v30 = 2112;
-      v31 = v24;
-      v32 = 2112;
-      v33 = v23;
-      v34 = 1024;
-      v35 = v14;
-      v36 = 1024;
-      v37 = v15;
-      v38 = 1024;
-      v39 = v16;
-      v40 = 1024;
-      v41 = v18;
-      v42 = 1024;
-      v43 = v19;
-      v44 = 1024;
-      v45 = v21;
-      v46 = 1024;
-      v47 = v22;
-      v48 = 2048;
-      v49 = WeakRetained;
-      _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@)> [state: %@, connected: %{BOOL}u, connecting: %{BOOL}u invalid: %{BOOL}u, allowsAutoload: %{BOOL}u, autoload: %{BOOL}u, everHadResponse: %{BOOL}u, attemptConnect: %{BOOL}u, delegate: %p]", buf, 0x54u);
+      v30 = v12;
+      v31 = 2112;
+      v32 = v25;
+      v33 = 2112;
+      v34 = v24;
+      v35 = 1024;
+      v36 = v15;
+      v37 = 1024;
+      v38 = v16;
+      v39 = 1024;
+      v40 = v17;
+      v41 = 1024;
+      v42 = v19;
+      v43 = 1024;
+      v44 = v20;
+      v45 = 1024;
+      v46 = v22;
+      v47 = 1024;
+      v48 = v23;
+      v49 = 2048;
+      v50 = WeakRetained;
+      _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_DEFAULT, "<EndpointController:%p (%@)> [state: %@, connected: %{BOOL}u, connecting: %{BOOL}u invalid: %{BOOL}u, allowsAutoload: %{BOOL}u, autoload: %{BOOL}u, everHadResponse: %{BOOL}u, attemptConnect: %{BOOL}u, delegate: %p]", buf, 0x54u);
     }
 
     [*(a1 + 40) _updateState];

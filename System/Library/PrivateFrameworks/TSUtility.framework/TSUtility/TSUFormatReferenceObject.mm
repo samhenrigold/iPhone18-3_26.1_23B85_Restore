@@ -44,7 +44,7 @@
 {
   if (equal)
   {
-    [equal getFormatStruct];
+    objc_msgSend_getFormatStruct(equal, a2);
     v4 = v14[0];
   }
 

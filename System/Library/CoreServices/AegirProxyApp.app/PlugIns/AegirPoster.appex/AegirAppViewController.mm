@@ -10,6 +10,7 @@
 - (void)scrollViewDidScroll:(id)scroll;
 - (void)scrollViewWillEndDragging:(id)dragging withVelocity:(CGPoint)velocity targetContentOffset:(CGPoint *)offset;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AegirAppViewController
@@ -18,6 +19,14 @@
 {
   selfCopy = self;
   sub_10002DF0C();
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for AegirAppViewController();
+  [(AegirAppViewController *)&v4 viewWillAppear:appearCopy];
 }
 
 - (void)dealloc
@@ -84,7 +93,7 @@
 {
   preferenceCopy = preference;
   selfCopy = self;
-  sub_100030EEC();
+  sub_100030EEC(preferenceCopy);
 }
 
 - (_TtC11AegirPoster22AegirAppViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -109,20 +118,19 @@
 {
   v0 = sub_100034874();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100034804();
-  v5 = sub_100034854();
-  v6 = sub_100034C44();
-  if (os_log_type_enabled(v5, v6))
+  v4 = sub_100034854();
+  v5 = sub_100034C44();
+  if (os_log_type_enabled(v4, v5))
   {
-    v7 = swift_slowAlloc();
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v5, v6, "astronomyVistaViewContentsAnimationFinished", v7, 2u);
+    v6 = swift_slowAlloc();
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v4, v5, "astronomyVistaViewContentsAnimationFinished", v6, 2u);
   }
 
-  return (*(v1 + 8))(v4, v0);
+  return (*(v1 + 8))(v3, v0);
 }
 
 @end

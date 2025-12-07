@@ -29,8 +29,9 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_10002233C(highlighted, &selRef_setHighlighted_);
+  sub_10002233C(highlightedCopy, &selRef_setHighlighted_);
 }
 
 - (BOOL)isSelected
@@ -43,8 +44,9 @@
 
 - (void)setSelected:(BOOL)selected
 {
+  selectedCopy = selected;
   selfCopy = self;
-  sub_10002233C(selected, &selRef_setSelected_);
+  sub_10002233C(selectedCopy, &selRef_setSelected_);
 }
 
 @end

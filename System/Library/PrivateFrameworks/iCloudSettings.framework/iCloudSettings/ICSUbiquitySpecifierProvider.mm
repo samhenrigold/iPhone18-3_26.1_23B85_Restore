@@ -262,10 +262,10 @@
 
 - (id)_groupUbiquityServices:(id)services
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   array = [MEMORY[0x277CBEB18] array];
-  v39 = servicesCopy;
+  v38 = servicesCopy;
   v5 = [servicesCopy mutableCopy];
   v6 = [v5 specifierForID:@"com.apple.iBooks"];
   if (v6)
@@ -314,27 +314,27 @@
     [v5 removeObject:v11];
   }
 
-  v36 = v11;
+  v35 = v11;
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   v12 = [v5 copy];
-  v13 = [v12 countByEnumeratingWithState:&v47 objects:v52 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v46 objects:v51 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v48;
+    v15 = *v47;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v48 != v15)
+        if (*v47 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v47 + 1) + 8 * i);
+        v17 = *(*(&v46 + 1) + 8 * i);
         identifier = [v17 identifier];
         v19 = [identifier hasPrefix:@"com.apple."];
 
@@ -345,7 +345,7 @@
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v47 objects:v52 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v46 objects:v51 count:16];
     }
 
     while (v14);
@@ -363,31 +363,31 @@
     [v5 insertObject:v21 atIndex:0];
   }
 
-  v37 = v5;
-  v38 = array;
+  v36 = v5;
+  v37 = array;
   [array arrayByAddingObjectsFromArray:v5];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  obj = v46 = 0u;
-  v22 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
+  obj = v45 = 0u;
+  v22 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v44;
+    v24 = *v43;
     v25 = *MEMORY[0x277D3FFB8];
-    v41 = *MEMORY[0x277D3FE58];
-    v40 = *MEMORY[0x277D40160];
+    v40 = *MEMORY[0x277D3FE58];
+    v39 = *MEMORY[0x277D40160];
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v44 != v24)
+        if (*v43 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = *(*(&v43 + 1) + 8 * j);
+        v27 = *(*(&v42 + 1) + 8 * j);
         v28 = [v27 objectForKeyedSubscript:v25];
         if (v28)
         {
@@ -404,27 +404,25 @@
 
             if ((v32 & 1) == 0)
             {
-              [v27 setObject:objc_opt_class() forKeyedSubscript:v41];
-              [v27 setObject:&stru_288487370 forKeyedSubscript:v40];
+              [v27 setObject:objc_opt_class() forKeyedSubscript:v40];
+              [v27 setObject:&stru_288487370 forKeyedSubscript:v39];
             }
           }
         }
       }
 
-      v23 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
+      v23 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
     }
 
     while (v23);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return obj;
 }
 
 - (id)_appSpecifiersForUbiquityServices
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   if ([MEMORY[0x277CEC7B8] isMultiUserMode])
   {
@@ -435,27 +433,24 @@
   else
   {
     allBundleIDs = [(ICSUbiquityAccessManager *)self->_ubiquityAccessManager allBundleIDs];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __65__ICSUbiquitySpecifierProvider__appSpecifiersForUbiquityServices__block_invoke;
-    v11[3] = &unk_27A666668;
-    v11[4] = self;
-    v7 = [allBundleIDs aaf_map:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __65__ICSUbiquitySpecifierProvider__appSpecifiersForUbiquityServices__block_invoke;
+    v10[3] = &unk_27A666668;
+    v10[4] = self;
+    v7 = [allBundleIDs aaf_map:v10];
     v5 = [v7 mutableCopy];
 
-    [v5 sortUsingComparator:&__block_literal_global_0];
-    v8 = LogSubsystem();
+    v8 = LogSubsystem([v5 sortUsingComparator:&__block_literal_global_0]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v5;
+      v12 = v5;
       _os_log_impl(&dword_275819000, v8, OS_LOG_TYPE_DEFAULT, "Returning TCC/Ubiquity Specifiers: %@", buf, 0xCu);
     }
 
     v4 = [v5 copy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -595,22 +590,22 @@ uint64_t __65__ICSUbiquitySpecifierProvider__appSpecifiersForUbiquityServices__b
 
   if (v6)
   {
-    v7 = objc_loadWeakRetained(&self->_delegate);
-    v8 = [v7 specifierProvider:self isDataclassAvailableForSpecifier:enabledCopy];
+    v8 = objc_loadWeakRetained(&self->_delegate);
+    v9 = [v8 specifierProvider:self isDataclassAvailableForSpecifier:enabledCopy];
 
-    if (v8)
+    if (v9)
     {
-      v9 = MEMORY[0x277CCABB0];
+      v10 = MEMORY[0x277CCABB0];
       _account = [(ICSUbiquitySpecifierProvider *)self _account];
       if ([_account isEnabledForDataclass:*MEMORY[0x277CB91D8]])
       {
         _account2 = [(ICSUbiquitySpecifierProvider *)self _account];
-        v12 = [v9 numberWithInt:{objc_msgSend(_account2, "aa_isUsingCloudDocs")}];
+        v13 = [v10 numberWithInt:{objc_msgSend(_account2, "aa_isUsingCloudDocs")}];
       }
 
       else
       {
-        v12 = [v9 numberWithInt:0];
+        v13 = [v10 numberWithInt:0];
       }
 
       goto LABEL_11;
@@ -619,17 +614,17 @@ uint64_t __65__ICSUbiquitySpecifierProvider__appSpecifiersForUbiquityServices__b
 
   else
   {
-    v13 = LogSubsystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = LogSubsystem(v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ICSUbiquitySpecifierProvider _isDocumentsAndDataEnabled:?];
     }
   }
 
-  v12 = MEMORY[0x277CBEC28];
+  v13 = MEMORY[0x277CBEC28];
 LABEL_11:
 
-  return v12;
+  return v13;
 }
 
 - (void)_setDocumentsAndDataEnabled:(id)enabled forSpecifier:(id)specifier
@@ -643,31 +638,31 @@ LABEL_11:
 
   if (aa_isUsingCloudDocs)
   {
-    v10 = LogSubsystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = LogSubsystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       _account2 = [(ICSUbiquitySpecifierProvider *)self _account];
       bOOLValue = [enabledCopy BOOLValue];
-      v13 = @"NO";
+      v14 = @"NO";
       if (bOOLValue)
       {
-        v13 = @"YES";
+        v14 = @"YES";
       }
 
       v18 = 138412546;
       v19 = _account2;
       v20 = 2112;
-      v21 = v13;
-      _os_log_impl(&dword_275819000, v10, OS_LOG_TYPE_DEFAULT, "Updating account %@ ubiquity state to %@.", &v18, 0x16u);
+      v21 = v14;
+      _os_log_impl(&dword_275819000, v11, OS_LOG_TYPE_DEFAULT, "Updating account %@ ubiquity state to %@.", &v18, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v15 = objc_opt_respondsToSelector();
+    v16 = objc_opt_respondsToSelector();
 
-    if (v15)
+    if (v16)
     {
-      v16 = objc_loadWeakRetained(&self->_delegate);
-      [v16 specifierProvider:self dataclassSwitchStateDidChange:enabledCopy withSpecifier:specifierCopy];
+      v17 = objc_loadWeakRetained(&self->_delegate);
+      [v17 specifierProvider:self dataclassSwitchStateDidChange:enabledCopy withSpecifier:specifierCopy];
     }
   }
 
@@ -675,8 +670,6 @@ LABEL_11:
   {
     [(ICSUbiquitySpecifierProvider *)self _presentiCloudUpgradeFlowForSpecifier:specifierCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startUsingiCloudDriveWithSpecifier:(id)specifier
@@ -772,13 +765,14 @@ void __70__ICSUbiquitySpecifierProvider__presentiCloudUpgradeFlowForSpecifier___
 
   v4 = [v3 stringByAppendingPathComponent:@"iCloudDriveSettings.bundle"];
   v5 = [MEMORY[0x277CCA8D8] bundleWithPath:v4];
-  if (([v5 isLoaded] & 1) == 0)
+  isLoaded = [v5 isLoaded];
+  if ((isLoaded & 1) == 0)
   {
-    v6 = LogSubsystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = LogSubsystem(isLoaded);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_275819000, v6, OS_LOG_TYPE_DEFAULT, "iCloud Drive settings bundle not loaded. Loading...", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_275819000, v7, OS_LOG_TYPE_DEFAULT, "iCloud Drive settings bundle not loaded. Loading...", v8, 2u);
     }
 
     [v5 load];
@@ -795,32 +789,32 @@ void __70__ICSUbiquitySpecifierProvider__presentiCloudUpgradeFlowForSpecifier___
   handler[1] = 3221225472;
   handler[2] = __63__ICSUbiquitySpecifierProvider__startObservingTCCAccessChanges__block_invoke;
   handler[3] = &unk_27A6666B0;
-  objc_copyWeak(&v8, &location);
+  objc_copyWeak(&v9, &location);
   LODWORD(selfCopy) = notify_register_dispatch("com.apple.tcc.access.changed", &selfCopy->_tccObserverToken, v3, handler);
 
   if (selfCopy)
   {
-    v5 = LogSubsystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LogSubsystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_275819000, v5, OS_LOG_TYPE_DEFAULT, "Error registering for TCC notification.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_275819000, v6, OS_LOG_TYPE_DEFAULT, "Error registering for TCC notification.", v7, 2u);
     }
   }
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(&location);
 }
 
 void __63__ICSUbiquitySpecifierProvider__startObservingTCCAccessChanges__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
   {
     v3 = *(WeakRetained + 5);
-    v4 = LogSubsystem();
+    v4 = LogSubsystem(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = @"YES";
@@ -829,17 +823,15 @@ void __63__ICSUbiquitySpecifierProvider__startObservingTCCAccessChanges__block_i
         v5 = @"NO";
       }
 
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_275819000, v4, OS_LOG_TYPE_DEFAULT, "ICSUbiquitySpecifierProvider received TCC access changed notification (has old specifiers: %@)", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_275819000, v4, OS_LOG_TYPE_DEFAULT, "ICSUbiquitySpecifierProvider received TCC access changed notification (has old specifiers: %@)", &v7, 0xCu);
     }
 
     [v2 _clearSpecifiers];
     v6 = [v2 delegate];
     [v6 replaceContiguousSpecifiers:v3 withSpecifiers:v2[5] animated:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopObservingTCCAccessChanges
@@ -860,13 +852,13 @@ void __63__ICSUbiquitySpecifierProvider__startObservingTCCAccessChanges__block_i
 
   if (v6)
   {
-    v7 = objc_loadWeakRetained(&self->_delegate);
-    v8 = [v7 specifierProvider:self isDataclassAvailableForSpecifier:specifierCopy];
+    v8 = objc_loadWeakRetained(&self->_delegate);
+    v9 = [v8 specifierProvider:self isDataclassAvailableForSpecifier:specifierCopy];
 
-    if (v8)
+    if (v9)
     {
       identifier = [specifierCopy identifier];
-      v10 = [ICSUbiquitySpecifierProvider appAccessGrantedForBundleID:identifier ubiquityAccessManager:self->_ubiquityAccessManager];
+      v11 = [ICSUbiquitySpecifierProvider appAccessGrantedForBundleID:identifier ubiquityAccessManager:self->_ubiquityAccessManager];
 
       goto LABEL_8;
     }
@@ -874,17 +866,17 @@ void __63__ICSUbiquitySpecifierProvider__startObservingTCCAccessChanges__block_i
 
   else
   {
-    v11 = LogSubsystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = LogSubsystem(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ICSUbiquitySpecifierProvider _isDocumentsAndDataEnabled:?];
     }
   }
 
-  v10 = MEMORY[0x277CBEC28];
+  v11 = MEMORY[0x277CBEC28];
 LABEL_8:
 
-  return v10;
+  return v11;
 }
 
 + (id)appAccessGrantedForBundleID:(id)d ubiquityAccessManager:(id)manager
@@ -965,11 +957,10 @@ void __66__ICSUbiquitySpecifierProvider__setAppAccessGranted_forSpecifier___bloc
 
 - (void)_isDocumentsAndDataEnabled:(id *)a1 .cold.1(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1);
-  OUTLINED_FUNCTION_0_1(&dword_275819000, v2, v3, "Delegate (%@) does not respond to 'specifierProvider:isDataclassAvailableForSpecifier:'", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = WeakRetained;
+  OUTLINED_FUNCTION_0_1(&dword_275819000, v2, v3, "Delegate (%@) does not respond to 'specifierProvider:isDataclassAvailableForSpecifier:'", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

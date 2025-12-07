@@ -8,7 +8,6 @@
 - (id)_localizedHistoricalDurationStringFromDate:(id)date toDate:(id)toDate;
 - (id)dateOfLastBackup;
 - (int64_t)_numberOfWeeksSinceLastBackup:(id)backup;
-- (void)dateOfLastBackup;
 - (void)fetchBackupDetailLabelWithCompletion:(id)completion;
 - (void)fetchBackupStatusDotColorWithCompletion:(id)completion;
 - (void)fetchBackupSubtitleWithCompletion:(id)completion;
@@ -20,22 +19,22 @@
 - (ICSBackupManager)initWithAccount:(id)account
 {
   accountCopy = account;
-  v13.receiver = self;
-  v13.super_class = ICSBackupManager;
-  v5 = [(ICSBackupManager *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = ICSBackupManager;
+  v5 = [(ICSBackupManager *)&v14 init];
   if (v5)
   {
     v6 = objc_alloc(MEMORY[0x277D28A40]);
-    v12 = 0;
-    v7 = [v6 initWithAccount:accountCopy delegate:v5 eventQueue:MEMORY[0x277D85CD0] error:&v12];
-    v8 = v12;
+    v13 = 0;
+    v7 = [v6 initWithAccount:accountCopy delegate:v5 eventQueue:MEMORY[0x277D85CD0] error:&v13];
+    v8 = v13;
     mbManager = v5->_mbManager;
     v5->_mbManager = v7;
 
     if (v8)
     {
-      v10 = LogSubsystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = LogSubsystem(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [ICSBackupManager initWithAccount:];
       }
@@ -66,7 +65,7 @@
 
 void __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -84,84 +83,84 @@ void __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke(
         if ([v3[1] isBackupEnabled])
         {
           v11 = v3[1];
-          v30 = 0;
-          v12 = [v11 dateOfLastBackupWithError:&v30];
-          v7 = v30;
-          if (v7)
+          v29 = 0;
+          v12 = [v11 dateOfLastBackupWithError:&v29];
+          v13 = v29;
+          v7 = v13;
+          if (v13)
           {
-            v13 = LogSubsystem();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+            v14 = LogSubsystem(v13);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_cold_1();
             }
           }
 
-          v14 = LogSubsystem();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v15 = LogSubsystem(v13);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v38 = v12;
-            _os_log_impl(&dword_275819000, v14, OS_LOG_TYPE_DEFAULT, "Last backup date: %@", buf, 0xCu);
+            v37 = v12;
+            _os_log_impl(&dword_275819000, v15, OS_LOG_TYPE_DEFAULT, "Last backup date: %@", buf, 0xCu);
           }
 
           if (v12)
           {
-            v23[0] = MEMORY[0x277D85DD0];
-            v23[1] = 3221225472;
-            v23[2] = __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_2_55;
-            v23[3] = &unk_27A6665B0;
-            v24 = v12;
-            v15 = *(a1 + 40);
-            v25 = *(a1 + 32);
-            v26 = v15;
-            dispatch_async(MEMORY[0x277D85CD0], v23);
+            v22[0] = MEMORY[0x277D85DD0];
+            v22[1] = 3221225472;
+            v22[2] = __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_2_55;
+            v22[3] = &unk_27A6665B0;
+            v23 = v12;
+            v16 = *(a1 + 40);
+            v24 = *(a1 + 32);
+            v25 = v16;
+            dispatch_async(MEMORY[0x277D85CD0], v22);
 
-            v16 = v24;
+            v17 = v23;
           }
 
           else
           {
-            v18 = *(a1 + 32);
             v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
             v20 = [v19 localizedStringForKey:@"SUBTITLE_ON" value:&stru_288487370 table:@"Localizable-iCloud"];
 
-            v27[0] = MEMORY[0x277D85DD0];
-            v27[1] = 3221225472;
-            v27[2] = __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_54;
-            v27[3] = &unk_27A666588;
+            v26[0] = MEMORY[0x277D85DD0];
+            v26[1] = 3221225472;
+            v26[2] = __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_54;
+            v26[3] = &unk_27A666588;
             v21 = *(a1 + 40);
-            v28 = v20;
-            v29 = v21;
-            v16 = v20;
-            dispatch_async(MEMORY[0x277D85CD0], v27);
+            v27 = v20;
+            v28 = v21;
+            v17 = v20;
+            dispatch_async(MEMORY[0x277D85CD0], v26);
           }
         }
 
         else
         {
-          v31[0] = MEMORY[0x277D85DD0];
-          v31[1] = 3221225472;
-          v31[2] = __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_4;
-          v31[3] = &unk_27A666588;
-          v17 = *(a1 + 40);
-          v31[4] = *(a1 + 32);
-          v32 = v17;
-          dispatch_async(MEMORY[0x277D85CD0], v31);
-          v7 = v32;
+          v30[0] = MEMORY[0x277D85DD0];
+          v30[1] = 3221225472;
+          v30[2] = __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_4;
+          v30[3] = &unk_27A666588;
+          v18 = *(a1 + 40);
+          v30[4] = *(a1 + 32);
+          v31 = v18;
+          dispatch_async(MEMORY[0x277D85CD0], v30);
+          v7 = v31;
         }
       }
 
       else
       {
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_3;
-        v33[3] = &unk_27A666588;
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_3;
+        v32[3] = &unk_27A666588;
         v10 = *(a1 + 40);
-        v33[4] = *(a1 + 32);
-        v34 = v10;
-        dispatch_async(MEMORY[0x277D85CD0], v33);
-        v7 = v34;
+        v32[4] = *(a1 + 32);
+        v33 = v10;
+        dispatch_async(MEMORY[0x277D85CD0], v32);
+        v7 = v33;
       }
     }
 
@@ -173,61 +172,53 @@ void __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke(
       block[3] = &unk_27A666588;
       v6 = *(a1 + 40);
       block[4] = *(a1 + 32);
-      v36 = v6;
+      v35 = v6;
       dispatch_async(MEMORY[0x277D85CD0], block);
-      v7 = v36;
+      v7 = v35;
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v3 = a1 + 32;
-  v1 = *(a1 + 32);
-  v2 = *(v3 + 8);
-  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v4 = [v5 localizedStringForKey:@"IN_PROGRESS_SUBTITLE" value:&stru_288487370 table:@"Localizable-iCloud"];
-  (*(v2 + 16))(v2, v4);
+  v1 = *(a1 + 40);
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v2 = [v3 localizedStringForKey:@"IN_PROGRESS_SUBTITLE" value:&stru_288487370 table:@"Localizable-iCloud"];
+  (*(v1 + 16))(v1, v2);
 }
 
 void __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_3(uint64_t a1)
 {
-  v3 = a1 + 32;
-  v1 = *(a1 + 32);
-  v2 = *(v3 + 8);
-  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v4 = [v5 localizedStringForKey:@"SUBTITLE_RESTORE_IN_PROGRESS" value:&stru_288487370 table:@"Localizable-iCloud"];
-  (*(v2 + 16))(v2, v4);
+  v1 = *(a1 + 40);
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v2 = [v3 localizedStringForKey:@"SUBTITLE_RESTORE_IN_PROGRESS" value:&stru_288487370 table:@"Localizable-iCloud"];
+  (*(v1 + 16))(v1, v2);
 }
 
 void __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_4(uint64_t a1)
 {
-  v3 = a1 + 32;
-  v1 = *(a1 + 32);
-  v2 = *(v3 + 8);
-  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v4 = [v5 localizedStringForKey:@"SUBTITLE_OFF" value:&stru_288487370 table:@"Localizable-iCloud"];
-  (*(v2 + 16))(v2, v4);
+  v1 = *(a1 + 40);
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v2 = [v3 localizedStringForKey:@"SUBTITLE_OFF" value:&stru_288487370 table:@"Localizable-iCloud"];
+  (*(v1 + 16))(v1, v2);
 }
 
 void __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_2_55(uint64_t a1)
 {
-  [*(a1 + 32) timeIntervalSinceNow];
-  v3 = v2;
-  v4 = LogSubsystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v2 = [*(a1 + 32) timeIntervalSinceNow];
+  v4 = v3;
+  v5 = LogSubsystem(v2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_2_55_cold_1(v4, v3);
+    __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_2_55_cold_1(v5, v4);
   }
 
-  v6 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v7 = *(a1 + 32);
-  v8 = [MEMORY[0x277CBEAA8] date];
-  v9 = [v6 _localizedHistoricalDurationStringFromDate:v7 toDate:v8];
-  (*(v5 + 16))(v5, v9);
+  v7 = *(a1 + 40);
+  v6 = *(a1 + 48);
+  v8 = *(a1 + 32);
+  v9 = [MEMORY[0x277CBEAA8] date];
+  v10 = [v7 _localizedHistoricalDurationStringFromDate:v8 toDate:v9];
+  (*(v6 + 16))(v6, v10);
 }
 
 - (void)fetchBackupSubtitleWithCompletion:(id)completion
@@ -251,76 +242,78 @@ void __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_
 
 void __54__ICSBackupManager_fetchBackupSubtitleWithCompletion___block_invoke(id *a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   v3 = WeakRetained;
   if (WeakRetained)
   {
     v4 = WeakRetained[1];
-    v20 = 0;
-    v5 = [v4 dateOfLastBackupWithError:&v20];
-    v6 = v20;
+    v21 = 0;
+    v5 = [v4 dateOfLastBackupWithError:&v21];
+    v6 = v21;
+    v7 = v6;
     if (v6)
     {
-      v7 = LogSubsystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = LogSubsystem(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_cold_1();
       }
     }
 
-    v8 = LogSubsystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LogSubsystem(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = v5;
-      _os_log_impl(&dword_275819000, v8, OS_LOG_TYPE_DEFAULT, "Last backup date: %@", buf, 0xCu);
+      v23 = v5;
+      _os_log_impl(&dword_275819000, v9, OS_LOG_TYPE_DEFAULT, "Last backup date: %@", buf, 0xCu);
     }
 
     if (v5)
     {
-      v9 = a1 + 4;
-      if ([a1[4] _numberOfWeeksSinceLastBackup:v5] > 12)
+      v10 = a1 + 4;
+      v11 = [a1[4] _numberOfWeeksSinceLastBackup:v5];
+      if (v11 > 12)
       {
-        v15 = v19;
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __54__ICSBackupManager_fetchBackupSubtitleWithCompletion___block_invoke_57;
-        v19[3] = &unk_27A666588;
-        v19[5] = a1[5];
+        v17 = v20;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __54__ICSBackupManager_fetchBackupSubtitleWithCompletion___block_invoke_57;
+        v20[3] = &unk_27A666588;
+        v20[5] = a1[5];
 LABEL_21:
-        v15[4] = *v9;
-        dispatch_async(MEMORY[0x277D85CD0], v15);
+        v17[4] = *v10;
+        dispatch_async(MEMORY[0x277D85CD0], v17);
 
         goto LABEL_22;
       }
 
-      v10 = LogSubsystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v12 = LogSubsystem(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        __54__ICSBackupManager_fetchBackupSubtitleWithCompletion___block_invoke_cold_2(v10);
+        __54__ICSBackupManager_fetchBackupSubtitleWithCompletion___block_invoke_cold_2(v12);
       }
     }
 
     if ([v3[1] isBackupEnabled])
     {
-      v11 = [v3[1] backupState];
-      if ([v11 state] == 6)
+      v13 = [v3[1] backupState];
+      if ([v13 state] == 6)
       {
-        v12 = [v3[1] backupState];
-        v13 = [v12 error];
-        v14 = [v3 _shouldShowFailedMessageForErrorCode:{objc_msgSend(v13, "code")}];
+        v14 = [v3[1] backupState];
+        v15 = [v14 error];
+        v16 = [v3 _shouldShowFailedMessageForErrorCode:{objc_msgSend(v15, "code")}];
 
-        if (v14)
+        if (v16)
         {
-          v15 = v18;
-          v18[0] = MEMORY[0x277D85DD0];
-          v18[1] = 3221225472;
-          v18[2] = __54__ICSBackupManager_fetchBackupSubtitleWithCompletion___block_invoke_61;
-          v18[3] = &unk_27A666588;
-          v18[5] = a1[5];
+          v17 = v19;
+          v19[0] = MEMORY[0x277D85DD0];
+          v19[1] = 3221225472;
+          v19[2] = __54__ICSBackupManager_fetchBackupSubtitleWithCompletion___block_invoke_61;
+          v19[3] = &unk_27A666588;
+          v19[5] = a1[5];
 LABEL_20:
-          v9 = a1 + 4;
+          v10 = a1 + 4;
           goto LABEL_21;
         }
       }
@@ -330,47 +323,39 @@ LABEL_20:
       }
     }
 
-    v15 = v17;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __54__ICSBackupManager_fetchBackupSubtitleWithCompletion___block_invoke_2;
-    v17[3] = &unk_27A666588;
-    v17[5] = a1[5];
+    v17 = v18;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __54__ICSBackupManager_fetchBackupSubtitleWithCompletion___block_invoke_2;
+    v18[3] = &unk_27A666588;
+    v18[5] = a1[5];
     goto LABEL_20;
   }
 
 LABEL_22:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __54__ICSBackupManager_fetchBackupSubtitleWithCompletion___block_invoke_57(uint64_t a1)
 {
-  v3 = a1 + 32;
-  v1 = *(a1 + 32);
-  v2 = *(v3 + 8);
-  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v4 = [v5 localizedStringForKey:@"BACKUP_NEEDED" value:&stru_288487370 table:@"Localizable-iCloud"];
-  (*(v2 + 16))(v2, v4);
+  v1 = *(a1 + 40);
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v2 = [v3 localizedStringForKey:@"BACKUP_NEEDED" value:&stru_288487370 table:@"Localizable-iCloud"];
+  (*(v1 + 16))(v1, v2);
 }
 
 void __54__ICSBackupManager_fetchBackupSubtitleWithCompletion___block_invoke_61(uint64_t a1)
 {
-  v3 = a1 + 32;
-  v1 = *(a1 + 32);
-  v2 = *(v3 + 8);
-  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v4 = [v5 localizedStringForKey:@"FAILED_SUBTITLE" value:&stru_288487370 table:@"Localizable-iCloud"];
-  (*(v2 + 16))(v2, v4);
+  v1 = *(a1 + 40);
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v2 = [v3 localizedStringForKey:@"FAILED_SUBTITLE" value:&stru_288487370 table:@"Localizable-iCloud"];
+  (*(v1 + 16))(v1, v2);
 }
 
 void __54__ICSBackupManager_fetchBackupSubtitleWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v3 = a1 + 32;
-  v1 = *(a1 + 32);
-  v2 = *(v3 + 8);
-  v4 = [objc_opt_class() defaultSubtitle];
-  (*(v2 + 16))(v2, v4);
+  v1 = *(a1 + 40);
+  v2 = [objc_opt_class() defaultSubtitle];
+  (*(v1 + 16))(v1, v2);
 }
 
 - (void)fetchBackupStatusDotColorWithCompletion:(id)completion
@@ -461,32 +446,32 @@ void __60__ICSBackupManager_fetchBackupStatusDotColorWithCompletion___block_invo
 
 void __47__ICSBackupManager_fetchVisibleDomainInfoList___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] array];
   v3 = [*(*(a1 + 32) + 8) domainInfoList];
   v4 = v3;
   if (v3)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
-    v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         v8 = 0;
         do
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v12 + 1) + 8 * v8);
+          v9 = *(*(&v11 + 1) + 8 * v8);
           v10 = [getPSGBackupUtilsClass() bundleIdForDomainInfo:v9];
           if (([getPSGBackupUtilsClass() shouldIgnoreBundleId:v10] & 1) == 0)
           {
@@ -497,7 +482,7 @@ void __47__ICSBackupManager_fetchVisibleDomainInfoList___block_invoke(uint64_t a
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
@@ -505,8 +490,6 @@ void __47__ICSBackupManager_fetchVisibleDomainInfoList___block_invoke(uint64_t a
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (NSString)defaultSubtitle
@@ -567,26 +550,27 @@ void __47__ICSBackupManager_fetchVisibleDomainInfoList___block_invoke(uint64_t a
 - (id)dateOfLastBackup
 {
   mbManager = self->_mbManager;
-  v8 = 0;
-  v3 = [(MBManager *)mbManager dateOfLastBackupWithError:&v8];
-  v4 = v8;
+  v9 = 0;
+  v3 = [(MBManager *)mbManager dateOfLastBackupWithError:&v9];
+  v4 = v9;
+  v5 = v4;
   if (v4)
   {
-    v5 = LogSubsystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = LogSubsystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [ICSBackupManager dateOfLastBackup];
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = v3;
+    v7 = v3;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)_localizedHistoricalDurationStringFromDate:(id)date toDate:(id)toDate
@@ -677,40 +661,14 @@ LABEL_14:
   return weekOfYear;
 }
 
-- (void)initWithAccount:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_275819000, v0, v1, "Error initializing MBManager: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_275819000, v0, v1, "Failed to fetch last backup date w/ error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __57__ICSBackupManager_fetchBackupDetailLabelWithCompletion___block_invoke_2_55_cold_1(NSObject *a1, double a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CBEAA8] date];
   OUTLINED_FUNCTION_1_0();
-  v7 = 2048;
-  v8 = a2;
-  _os_log_debug_impl(&dword_275819000, a1, OS_LOG_TYPE_DEBUG, "NSDate.date: %@, lastBackupInterval: %f", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)dateOfLastBackup
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_275819000, v0, v1, "ICSBackupManager error while fetching date of last backup: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 2048;
+  v7 = a2;
+  _os_log_debug_impl(&dword_275819000, a1, OS_LOG_TYPE_DEBUG, "NSDate.date: %@, lastBackupInterval: %f", v5, 0x16u);
 }
 
 @end

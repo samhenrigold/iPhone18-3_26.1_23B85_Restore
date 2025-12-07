@@ -142,7 +142,7 @@
     v9 = self->_values;
     if (v9)
     {
-      [(BSUIVibrancyShadowValues *)v9 vibrantColorMatrix];
+      objc_msgSend_vibrantColorMatrix(v9);
     }
 
     v12[2] = v15;

@@ -12,7 +12,6 @@
 - (void)_delayedLoadIfNeeded;
 - (void)_familyMemberCellWasTapped:(id)tapped;
 - (void)_pendingFamilyMemberCellWasTapped:(id)tapped;
-- (void)reloadSpecifiers;
 - (void)setFamilyCircle:(id)circle;
 @end
 
@@ -47,24 +46,25 @@
 {
   lCopy = l;
   v6 = [(FAFamilySettingsMemberSpecifierProvider *)self _launchWithResourceDictionary:lCopy];
-  if (!v6)
+  v7 = v6;
+  if ((v6 & 1) == 0)
   {
-    v7 = _FALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _FALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_21BB35000, v7, OS_LOG_TYPE_DEFAULT, "FAFamilySettingsMemberSpecifierProvider doesn't have the specifier, will try again upon response.", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEFAULT, "FAFamilySettingsMemberSpecifierProvider doesn't have the specifier, will try again upon response.", v10, 2u);
     }
 
     objc_storeStrong(&self->_cachedResourceDictionary, l);
   }
 
-  return v6;
+  return v7;
 }
 
 - (BOOL)_launchWithResourceDictionary:(id)dictionary
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = [dictionary objectForKeyedSubscript:*MEMORY[0x277D08130]];
   if (!v4)
   {
@@ -77,15 +77,15 @@ LABEL_8:
   v6 = v5;
   if (!v5 || ([v5 identifier], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqualToString:", @"AddMember"), v7, !v8))
   {
-    v10 = _FALogSystem();
+    v10 = _FALogSystem(v5);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       specifiers = self->_specifiers;
-      v14 = 138412546;
-      v15 = v4;
-      v16 = 2112;
-      v17 = specifiers;
-      _os_log_impl(&dword_21BB35000, v10, OS_LOG_TYPE_DEFAULT, "A specifier for %@ was not found in: %@", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v4;
+      v15 = 2112;
+      v16 = specifiers;
+      _os_log_impl(&dword_21BB35000, v10, OS_LOG_TYPE_DEFAULT, "A specifier for %@ was not found in: %@", &v13, 0x16u);
     }
 
     goto LABEL_8;
@@ -96,7 +96,6 @@ LABEL_8:
   v9 = 1;
 LABEL_9:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -104,7 +103,7 @@ LABEL_9:
 {
   if (self->_cachedResourceDictionary)
   {
-    v3 = _FALogSystem();
+    v3 = _FALogSystem(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -119,7 +118,7 @@ LABEL_9:
 
 - (NSArray)specifiers
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (([(FAFamilyCircle *)self->_familyCircle canAddMembers]& 1) == 0 && [(FAFamilyCircle *)self->_familyCircle showAddMemberButton])
   {
@@ -130,65 +129,65 @@ LABEL_9:
     [v3 addObject:v4];
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   members = [(FAFamilyCircle *)self->_familyCircle members];
-  v7 = [members countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v7 = [members countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v40;
+    v9 = *v39;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v40 != v9)
+        if (*v39 != v9)
         {
           objc_enumerationMutation(members);
         }
 
-        v11 = [(FAFamilySettingsMemberSpecifierProvider *)self _createSpecifierForFamilyMemberCell:*(*(&v39 + 1) + 8 * i)];
+        v11 = [(FAFamilySettingsMemberSpecifierProvider *)self _createSpecifierForFamilyMemberCell:*(*(&v38 + 1) + 8 * i)];
         if (v11)
         {
           [v3 addObject:v11];
         }
       }
 
-      v8 = [members countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v8 = [members countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v8);
   }
 
   pendingMembers = [(FAFamilyCircle *)self->_familyCircle pendingMembers];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v13 = [pendingMembers countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v13 = [pendingMembers countByEnumeratingWithState:&v34 objects:v42 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v36;
+    v15 = *v35;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v36 != v15)
+        if (*v35 != v15)
         {
           objc_enumerationMutation(pendingMembers);
         }
 
-        v17 = [(FAFamilySettingsMemberSpecifierProvider *)self _createSpecifierForPendingMember:*(*(&v35 + 1) + 8 * j)];
+        v17 = [(FAFamilySettingsMemberSpecifierProvider *)self _createSpecifierForPendingMember:*(*(&v34 + 1) + 8 * j)];
         if (v17)
         {
           [v3 addObject:v17];
         }
       }
 
-      v14 = [pendingMembers countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v14 = [pendingMembers countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
     while (v14);
@@ -244,7 +243,6 @@ LABEL_9:
   v31 = self->_specifiers;
   v32 = v31;
 
-  v33 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -461,27 +459,27 @@ LABEL_11:
 
 - (id)_specifierWithID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_specifiers;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
         v11 = [identifier isEqualToString:dCopy];
 
@@ -492,7 +490,7 @@ LABEL_11:
         }
       }
 
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -504,16 +502,7 @@ LABEL_11:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
-}
-
-- (void)reloadSpecifiers
-{
-  specifiers = self->_specifiers;
-  self->_specifiers = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 - (FAFamilySettingsMemberSpecifierProviderDelegeate)delegate

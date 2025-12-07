@@ -1,8 +1,8 @@
 @interface PKSqueezePaletteViewExpandedColorsLayout
 - (PKSqueezePaletteView)paletteView;
 - (id)_currentSelectedButton;
+- (id)_updateColorUIStyle;
 - (id)initWithContext:(void *)context colorButtons:(void *)buttons selectedColorIndex:(void *)index backButton:;
-- (uint64_t)_updateColorUIStyle;
 - (void)_performBackButtonTapAction;
 - (void)_performColorButtonTapAction:(uint64_t)action;
 - (void)_performMulticolorButtonTapAction:(id *)action;
@@ -392,12 +392,12 @@ LABEL_4:
   }
 }
 
-- (uint64_t)_updateColorUIStyle
+- (id)_updateColorUIStyle
 {
   if (result)
   {
     v1 = result;
-    WeakRetained = objc_loadWeakRetained((result + 48));
+    WeakRetained = objc_loadWeakRetained(result + 6);
     v3 = WeakRetained;
     if (WeakRetained)
     {
@@ -409,10 +409,10 @@ LABEL_4:
       v4 = 0;
     }
 
-    v5 = *(v1 + 56);
+    v5 = v1[7];
     if (v5)
     {
-      v6 = *(v5 + 16);
+      v6 = v5[2];
       v7 = v6;
       if (v6)
       {
@@ -429,7 +429,7 @@ LABEL_4:
       v7 = 0;
     }
 
-    v8 = *(v1 + 64);
+    v8 = v1[8];
     v9[0] = MEMORY[0x1E69E9820];
     v9[1] = 3221225472;
     v9[2] = __63__PKSqueezePaletteViewExpandedColorsLayout__updateColorUIStyle__block_invoke;
@@ -577,7 +577,7 @@ void __63__PKSqueezePaletteViewExpandedColorsLayout__updateColorUIStyle__block_i
     [v35 activateConstraints:v32];
 
     v33 = objc_loadWeakRetained(&self->_paletteView);
-    [(PKSqueezePaletteView *)v33 updateUIStartAngle:1 endAngle:self->_backButtonAngle clockwise:multicolorButtonAngle animated:?];
+    [(PKSqueezePaletteView *)v33 updateUIStartAngle:self->_backButtonAngle endAngle:multicolorButtonAngle clockwise:1u animated:?];
 
     _Block_object_dispose(&v41, 8);
   }
@@ -675,7 +675,7 @@ void __51__PKSqueezePaletteViewExpandedColorsLayout_setupUI__block_invoke(uint64
   backButton = self->_backButton;
   v6 = v7;
   [(UIButton *)backButton setTransform:&v6];
-  [(PKSqueezePaletteViewExpandedColorsLayout *)self _updateColorUIStyle];
+  [(PKSqueezePaletteViewExpandedColorsLayout *)&self->super.isa _updateColorUIStyle];
 }
 
 - (void)willTransitionToLayout:(id)layout

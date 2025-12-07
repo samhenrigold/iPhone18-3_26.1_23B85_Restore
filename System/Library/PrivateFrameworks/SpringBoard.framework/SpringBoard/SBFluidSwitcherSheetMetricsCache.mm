@@ -38,7 +38,7 @@ void __52__SBFluidSwitcherSheetMetricsCache__displayEdgeInfo__block_invoke()
   v8 = v7;
   if (v7)
   {
-    [v7 CGAffineTransformValue];
+    objc_msgSend_CGAffineTransformValue(v7);
   }
 
   else

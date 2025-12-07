@@ -110,10 +110,7 @@ void sub_11E0(uint64_t a1)
 
 uint64_t sub_13A4(uint64_t a1)
 {
-  v2 = [[NSPointerArray alloc] initWithOptions:5];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 16);
-  *(v3 + 16) = v2;
+  *(*(a1 + 32) + 16) = [[NSPointerArray alloc] initWithOptions:5];
 
   return _objc_release_x1();
 }
@@ -127,10 +124,7 @@ uint64_t sub_21F0(uint64_t result, uint64_t a2)
 
 uint64_t sub_2208(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) copy];
 
   return _objc_release_x1();
 }
@@ -222,13 +216,6 @@ void sub_2630(uint64_t a1, void *a2)
     v27 = v23;
     dispatch_async(v19, block);
   }
-}
-
-BOOL sub_2968(uint64_t a1, void *a2)
-{
-  v3 = [a2 mediaRemoteDeviceID];
-  v4 = *(a1 + 32);
-  return v3 == MRVirtualVoiceInputDeviceGetUniqueIdentifier();
 }
 
 void sub_29A4(uint64_t a1)

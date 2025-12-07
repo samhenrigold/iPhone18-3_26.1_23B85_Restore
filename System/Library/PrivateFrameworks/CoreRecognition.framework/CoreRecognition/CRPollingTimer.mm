@@ -14,22 +14,20 @@
 - (CRPollingTimer)initWithTarget:(id)target selector:(SEL)selector
 {
   targetCopy = target;
-  v12.receiver = self;
-  v12.super_class = CRPollingTimer;
-  v7 = [(CRPollingTimer *)&v12 init];
-  v8 = v7;
-  if (v7)
+  v9.receiver = self;
+  v9.super_class = CRPollingTimer;
+  v6 = [(CRPollingTimer *)&v9 init];
+  v7 = v6;
+  if (v6)
   {
-    [(CRPollingTimer *)v7 setTarget:targetCopy];
-    [(CRPollingTimer *)v8 setSelector:selector];
-    v10 = *MEMORY[0x277CC08B0];
-    v11 = *(MEMORY[0x277CC08B0] + 16);
-    [(CRPollingTimer *)v8 setFireTime:&v10];
-    [(CRPollingTimer *)v8 setFired:0];
-    [(CRPollingTimer *)v8 setValid:1];
+    [(CRPollingTimer *)v6 setTarget:?];
+    [(CRPollingTimer *)v7 setSelector:?];
+    [(CRPollingTimer *)v7 setFireTime:*MEMORY[0x277CC08B0], *(MEMORY[0x277CC08B0] + 16)];
+    [(CRPollingTimer *)v7 setFired:?];
+    [(CRPollingTimer *)v7 setValid:?];
   }
 
-  return v8;
+  return v7;
 }
 
 - (void)setFireTime:(id *)time
@@ -60,16 +58,17 @@
   {
     if (![(CRPollingTimer *)selfCopy fired])
     {
-      [(CRPollingTimer *)selfCopy fireTime];
+      [&time2 fireTime];
       v8 = *time;
       if (CMTimeCompare(&v8, &time2) >= 1)
       {
         target = [(CRPollingTimer *)selfCopy target];
-        v6 = [target methodForSelector:{-[CRPollingTimer selector](selfCopy, "selector")}];
+        [(CRPollingTimer *)selfCopy selector];
+        v6 = [target methodForSelector:?];
         target2 = [(CRPollingTimer *)selfCopy target];
         v6(target2, [(CRPollingTimer *)selfCopy selector]);
 
-        [(CRPollingTimer *)selfCopy setFired:1];
+        [(CRPollingTimer *)selfCopy setFired:?];
       }
     }
   }
@@ -81,7 +80,7 @@
 {
   obj = self;
   objc_sync_enter(obj);
-  [(CRPollingTimer *)obj setValid:0];
+  [(CRPollingTimer *)obj setValid:?];
   objc_sync_exit(obj);
 }
 

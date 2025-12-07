@@ -18,24 +18,25 @@
 
 - (TUSimulatedConversationControllerXPCClient)init
 {
-  v8.receiver = self;
-  v8.super_class = TUSimulatedConversationControllerXPCClient;
-  v2 = [(TUSimulatedConversationControllerXPCClient *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = TUSimulatedConversationControllerXPCClient;
+  v2 = [(TUSimulatedConversationControllerXPCClient *)&v9 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = TUDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = TUDefaultLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Initializing TUSimulatedConversationControllerXPCClient", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Initializing TUSimulatedConversationControllerXPCClient", v8, 2u);
     }
 
-    v4 = dispatch_queue_create("com.apple.telephonyutilities.simulatedconversationcontrollerxpcclient", 0);
-    queue = v2->_queue;
-    v2->_queue = v4;
+    v5 = dispatch_queue_create("com.apple.telephonyutilities.simulatedconversationcontrollerxpcclient", 0);
+    queue = v3->_queue;
+    v3->_queue = v5;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
@@ -59,17 +60,15 @@
 
 void __90__TUSimulatedConversationControllerXPCClient_updateParticipant_withUpdate_onConversation___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Updating simulated participant failed with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Updating simulated participant failed with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addRemoteParticipantWithHandle:(id)handle update:(id)update toConversation:(id)conversation
@@ -85,17 +84,15 @@ void __90__TUSimulatedConversationControllerXPCClient_updateParticipant_withUpda
 
 void __99__TUSimulatedConversationControllerXPCClient_addRemoteParticipantWithHandle_update_toConversation___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Adding remote participant failed with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Adding remote participant failed with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeRemoteParticipant:(id)participant fromConversation:(id)conversation
@@ -110,17 +107,15 @@ void __99__TUSimulatedConversationControllerXPCClient_addRemoteParticipantWithHa
 
 void __87__TUSimulatedConversationControllerXPCClient_removeRemoteParticipant_fromConversation___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Remove remote participant failed with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Remove remote participant failed with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createIncomingConversationWithHandles:(id)handles
@@ -132,17 +127,15 @@ void __87__TUSimulatedConversationControllerXPCClient_removeRemoteParticipant_fr
 
 void __84__TUSimulatedConversationControllerXPCClient_createIncomingConversationWithHandles___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Creating incoming simulated conversation failed with error %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Creating incoming simulated conversation failed with error %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
@@ -188,7 +181,7 @@ void __59__TUSimulatedConversationControllerXPCClient_xpcConnection__block_invok
 {
   if (!*(*(a1 + 32) + 8))
   {
-    v2 = TUDefaultLog();
+    v2 = TUDefaultLog(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -200,31 +193,29 @@ void __59__TUSimulatedConversationControllerXPCClient_xpcConnection__block_invok
     v5 = *(v4 + 8);
     *(v4 + 8) = v3;
 
-    v6 = *(a1 + 32);
-    v7 = [objc_opt_class() simulatedConversationControllerServerXPCInterface];
-    [*(*(a1 + 32) + 8) setRemoteObjectInterface:v7];
+    v6 = [objc_opt_class() simulatedConversationControllerServerXPCInterface];
+    [*(*(a1 + 32) + 8) setRemoteObjectInterface:v6];
 
-    v8 = *(a1 + 32);
-    v9 = [objc_opt_class() simulatedConversationControllerClientXPCInterface];
-    [*(*(a1 + 32) + 8) setExportedInterface:v9];
+    v7 = [objc_opt_class() simulatedConversationControllerClientXPCInterface];
+    [*(*(a1 + 32) + 8) setExportedInterface:v7];
 
     [*(*(a1 + 32) + 8) setExportedObject:?];
     objc_initWeak(buf, *(a1 + 32));
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __59__TUSimulatedConversationControllerXPCClient_xpcConnection__block_invoke_12;
-    v15[3] = &unk_1E7424998;
-    objc_copyWeak(&v16, buf);
-    [*(*(a1 + 32) + 8) setInvalidationHandler:v15];
-    v10 = MEMORY[0x1E69E9820];
-    v11 = 3221225472;
-    v12 = __59__TUSimulatedConversationControllerXPCClient_xpcConnection__block_invoke_13;
-    v13 = &unk_1E7424998;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __59__TUSimulatedConversationControllerXPCClient_xpcConnection__block_invoke_12;
+    v13[3] = &unk_1E7424998;
     objc_copyWeak(&v14, buf);
-    [*(*(a1 + 32) + 8) setInterruptionHandler:&v10];
+    [*(*(a1 + 32) + 8) setInvalidationHandler:v13];
+    v8 = MEMORY[0x1E69E9820];
+    v9 = 3221225472;
+    v10 = __59__TUSimulatedConversationControllerXPCClient_xpcConnection__block_invoke_13;
+    v11 = &unk_1E7424998;
+    objc_copyWeak(&v12, buf);
+    [*(*(a1 + 32) + 8) setInterruptionHandler:&v8];
     [*(*(a1 + 32) + 8) resume];
+    objc_destroyWeak(&v12);
     objc_destroyWeak(&v14);
-    objc_destroyWeak(&v16);
     objc_destroyWeak(buf);
   }
 }
@@ -247,7 +238,7 @@ void __59__TUSimulatedConversationControllerXPCClient_xpcConnection__block_invok
 
 void __59__TUSimulatedConversationControllerXPCClient_xpcConnection__block_invoke_2(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -277,7 +268,7 @@ void __59__TUSimulatedConversationControllerXPCClient_xpcConnection__block_invok
 
 uint64_t __59__TUSimulatedConversationControllerXPCClient_xpcConnection__block_invoke_2_14(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

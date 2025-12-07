@@ -9,7 +9,7 @@
 
 + (id)resizeImageData:(id)data forFittingSize:(CGSize)size error:(id *)error
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v7 = _MRLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -18,11 +18,11 @@
     _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRImageUtilities] resizeImageData", buf, 2u);
   }
 
-  v35 = 0;
-  [MRImageUtilities imageDimensionsForImageData:dataCopy error:&v35];
+  v34 = 0;
+  [MRImageUtilities imageDimensionsForImageData:dataCopy error:&v34];
   v9 = v8;
   v11 = v10;
-  v12 = v35;
+  v12 = v34;
   v13 = v12;
   if (v12)
   {
@@ -46,10 +46,10 @@
     v19 = v18;
     v20 = dataCopy;
     v21 = *MEMORY[0x1E696E0A8];
-    v39 = *MEMORY[0x1E696E0A8];
+    v38 = *MEMORY[0x1E696E0A8];
     v22 = MEMORY[0x1E695E110];
-    v40[0] = MEMORY[0x1E695E110];
-    v23 = CGImageSourceCreateWithData(v20, [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1]);
+    v39[0] = MEMORY[0x1E695E110];
+    v23 = CGImageSourceCreateWithData(v20, [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1]);
     if (v17 <= v19)
     {
       v24 = v19;
@@ -62,18 +62,18 @@
 
     v25 = v24;
     v26 = [MRImageUtilities subsampleFactorForMaxPixelSize:v24 imageSize:v9, v11];
-    v38[0] = v22;
+    v37[0] = v22;
     v27 = *MEMORY[0x1E696E0F8];
-    v37[0] = v21;
-    v37[1] = v27;
+    v36[0] = v21;
+    v36[1] = v27;
     v28 = [MEMORY[0x1E696AD98] numberWithInteger:v26];
-    v38[1] = v28;
-    v37[2] = *MEMORY[0x1E696D328];
+    v37[1] = v28;
+    v36[2] = *MEMORY[0x1E696D328];
     v29 = [MEMORY[0x1E696AD98] numberWithInteger:v25];
-    v37[3] = *MEMORY[0x1E696D338];
-    v38[2] = v29;
-    v38[3] = &unk_1F1577B68;
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:4];
+    v36[3] = *MEMORY[0x1E696D338];
+    v37[2] = v29;
+    v37[3] = &unk_1F1577B68;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:4];
 
     v31 = objc_opt_new();
     v32 = CGImageDestinationCreateWithData(v31, @"public.jpeg", 1uLL, v30);
@@ -98,19 +98,17 @@
     }
   }
 
-  v33 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 + (CGSize)imageDimensionsForImageData:(id)data error:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
-  v15 = *MEMORY[0x1E696E0A8];
-  v16[0] = MEMORY[0x1E695E110];
+  v15[1] = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E696E0A8];
+  v15[0] = MEMORY[0x1E695E110];
   v5 = MEMORY[0x1E695DF20];
   dataCopy = data;
-  v7 = CGImageSourceCreateWithData(dataCopy, [v5 dictionaryWithObjects:v16 forKeys:&v15 count:1]);
+  v7 = CGImageSourceCreateWithData(dataCopy, [v5 dictionaryWithObjects:v15 forKeys:&v14 count:1]);
 
   if (v7)
   {
@@ -131,20 +129,19 @@
     v11 = *(MEMORY[0x1E695F060] + 8);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-  v13 = v9;
-  v14 = v11;
-  result.height = v14;
-  result.width = v13;
+  v12 = v9;
+  v13 = v11;
+  result.height = v13;
+  result.width = v12;
   return result;
 }
 
 + (CGSize)sizeFromSource:(CGImageSource *)source error:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
-  v15 = *MEMORY[0x1E696E0A8];
-  v16[0] = MEMORY[0x1E695E110];
-  v5 = CGImageSourceCopyPropertiesAtIndex(source, 0, [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1]);
+  v15[1] = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E696E0A8];
+  v15[0] = MEMORY[0x1E695E110];
+  v5 = CGImageSourceCopyPropertiesAtIndex(source, 0, [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1]);
   v6 = [(__CFDictionary *)v5 objectForKeyedSubscript:*MEMORY[0x1E696DED8]];
   v7 = [(__CFDictionary *)v5 objectForKeyedSubscript:*MEMORY[0x1E696DEC8]];
   v8 = v7;
@@ -175,11 +172,10 @@
     integerValue2 = [v8 integerValue];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-  v13 = integerValue;
-  v14 = integerValue2;
-  result.height = v14;
-  result.width = v13;
+  v12 = integerValue;
+  v13 = integerValue2;
+  result.height = v13;
+  result.width = v12;
   return result;
 }
 

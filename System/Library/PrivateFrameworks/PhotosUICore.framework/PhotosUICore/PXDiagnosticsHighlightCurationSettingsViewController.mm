@@ -14,8 +14,8 @@
 - (void)_done:(id)_done
 {
   delegate = self->_delegate;
-  options = [(PXDiagnosticsHighlightCurationSettingsViewController *)self options];
-  [(PXDiagnosticsHighlightCurationSettingsViewControllerDelegate *)delegate applySettings:options globally:0];
+  v5 = objc_msgSend_options(self, a2, _done);
+  [(PXDiagnosticsHighlightCurationSettingsViewControllerDelegate *)delegate applySettings:v5 globally:0];
 
   navigationController = [(PXDiagnosticsHighlightCurationSettingsViewController *)self navigationController];
   v6 = [navigationController popViewControllerAnimated:1];
@@ -30,8 +30,8 @@
 - (void)_applySettingsGlobally:(id)globally
 {
   delegate = self->_delegate;
-  options = [(PXDiagnosticsHighlightCurationSettingsViewController *)self options];
-  [(PXDiagnosticsHighlightCurationSettingsViewControllerDelegate *)delegate applySettings:options globally:1];
+  v4 = objc_msgSend_options(self, a2, globally);
+  [(PXDiagnosticsHighlightCurationSettingsViewControllerDelegate *)delegate applySettings:v4 globally:1];
 }
 
 - (void)setOptions:(id)options

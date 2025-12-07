@@ -56,27 +56,24 @@
 
 - (NSDictionary)errors
 {
-  v3 = OBJC_IVAR____TtC38com_apple_mobilenotes_SharingExtension17ICArchiveImporter_errors;
   swift_beginAccess();
-  v4 = *(self + v3);
   sub_1000B4DB0();
 
   sub_100030480(&qword_100106EB8, &qword_1000CAD80);
-  sub_100044D20(&unk_100107790, &type metadata accessor for URL);
-  v5.super.isa = sub_1000B5570().super.isa;
+  sub_100044D20(&unk_100107790, &type metadata accessor for URL, &protocol conformance descriptor for URL);
+  v2.super.isa = sub_1000B5570().super.isa;
 
-  return v5.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setErrors:(id)errors
 {
   sub_1000B4DB0();
   sub_100030480(&qword_100106EB8, &qword_1000CAD80);
-  sub_100044D20(&unk_100107790, &type metadata accessor for URL);
+  sub_100044D20(&unk_100107790, &type metadata accessor for URL, &protocol conformance descriptor for URL);
   v4 = sub_1000B5580();
   v5 = OBJC_IVAR____TtC38com_apple_mobilenotes_SharingExtension17ICArchiveImporter_errors;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -84,14 +81,12 @@
 {
   v9 = sub_1000B4DB0();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = &v19[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v9, v11);
+  v13 = &v18[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
   sub_1000B4D50();
-  v14 = *(self + OBJC_IVAR____TtC38com_apple_mobilenotes_SharingExtension17ICArchiveImporter_context);
   selfCopy = self;
   dCopy = d;
-  v22 = v13;
+  v21 = v13;
   progressCopy = progress;
   dCopy2 = d;
   progressCopy2 = progress;

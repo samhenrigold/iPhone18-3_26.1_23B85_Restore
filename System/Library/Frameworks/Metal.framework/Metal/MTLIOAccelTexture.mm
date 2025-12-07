@@ -5,6 +5,7 @@
 - (MTLIOAccelTexture)initWithBuffer:(id)buffer descriptor:(id)descriptor offset:(unint64_t)offset bytesPerRow:(unint64_t)row;
 - (MTLIOAccelTexture)initWithBuffer:(id)buffer descriptor:(id)descriptor sysMemOffset:(unint64_t)offset sysMemRowBytes:(unint64_t)bytes vidMemSize:(unint64_t)size vidMemRowBytes:(unint64_t)rowBytes args:(IOAccelNewResourceArgs *)args argsSize:(unsigned int)self0;
 - (MTLIOAccelTexture)initWithBuffer:(id)buffer descriptor:(id)descriptor sysMemOffset:(unint64_t)offset sysMemRowBytes:(unint64_t)bytes vidMemSize:(unint64_t)size vidMemRowBytes:(unint64_t)rowBytes args:(IOAccelNewResourceArgs *)args argsSize:(unsigned int)self0 isStrideTexture:(BOOL)self1;
+- (MTLIOAccelTexture)initWithDevice:(id)device descriptor:(id)descriptor iosurface:(__IOSurface *)iosurface plane:(unsigned int)plane field:(unsigned int)field args:(IOAccelNewResourceArgs *)args argsSize:(unsigned int)size;
 - (MTLIOAccelTexture)initWithDevice:(id)device descriptor:(id)descriptor sysMemPointer:(void *)pointer sysMemSize:(unint64_t)size sysMemLength:(unint64_t)length sysMemRowBytes:(unint64_t)bytes args:(IOAccelNewResourceArgs *)args argsSize:(unsigned int)self0 deallocator:(id)aBlock;
 - (MTLIOAccelTexture)initWithDevice:(id)device descriptor:(id)descriptor sysMemSize:(unint64_t)size sysMemRowBytes:(unint64_t)bytes vidMemSize:(unint64_t)memSize vidMemRowBytes:(unint64_t)rowBytes args:(IOAccelNewResourceArgs *)args argsSize:(unsigned int)self0;
 - (MTLIOAccelTexture)initWithHeap:(id)heap resource:(id)resource offset:(unint64_t)offset length:(unint64_t)length device:(id)device descriptor:(id)descriptor;
@@ -15,6 +16,7 @@
 - (__IOSurface)iosurface;
 - (id)formattedDescription:(unint64_t)description;
 - (id)newSharedTextureHandle;
+- (int)setOwnerWithIdentity:(unsigned int)identity;
 - (unint64_t)allocatedSize;
 - (unint64_t)bufferBytesPerRow;
 - (unint64_t)bufferOffset;
@@ -30,15 +32,15 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v19[84] = *MEMORY[0x1E69E9840];
+  v18[84] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   retainedLabel = [(MTLIOAccelResource *)self retainedLabel];
   v7 = MEMORY[0x1E696AEC0];
-  v18.receiver = self;
-  v18.super_class = MTLIOAccelTexture;
-  v8 = [(MTLIOAccelTexture *)&v18 description];
-  v19[0] = v5;
-  v19[1] = @"label =";
+  v17.receiver = self;
+  v17.super_class = MTLIOAccelTexture;
+  v8 = [(MTLIOAccelTexture *)&v17 description];
+  v18[0] = v5;
+  v18[1] = @"label =";
   if (retainedLabel)
   {
     v9 = retainedLabel;
@@ -49,63 +51,63 @@
     v9 = @"<none>";
   }
 
-  v19[2] = v9;
-  v19[3] = v5;
-  v19[4] = @"textureType =";
-  v19[5] = MTLTextureTypeString(self->_textureType);
-  v19[6] = v5;
-  v19[7] = @"pixelFormat =";
-  v19[8] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName(self->_pixelFormat)];
-  v19[9] = v5;
-  v19[10] = @"width =";
-  v19[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_width];
-  v19[12] = v5;
-  v19[13] = @"height =";
-  v19[14] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_height];
-  v19[15] = v5;
-  v19[16] = @"depth =";
-  v19[17] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_depth];
-  v19[18] = v5;
-  v19[19] = @"arrayLength =";
-  v19[20] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_arrayLength];
-  v19[21] = v5;
-  v19[22] = @"mipmapLevelCount =";
-  v19[23] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_mipmapLevelCount];
-  v19[24] = v5;
-  v19[25] = @"sampleCount =";
-  v19[26] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_sampleCount];
-  v19[27] = v5;
-  v19[28] = @"cpuCacheMode =";
-  v19[29] = MTLCPUCacheModeString(*&self->super._anon_50[112]);
-  v19[30] = v5;
-  v19[31] = @"storageMode =";
-  v19[32] = MTLStorageModeString(*&self->super._anon_50[104]);
-  v19[33] = v5;
-  v19[34] = @"hazardTrackingMode =";
-  v19[35] = MTLHazardTrackingModeString([(MTLIOAccelTexture *)self hazardTrackingMode]);
-  v19[36] = v5;
-  v19[37] = @"resourceOptions =";
-  v19[38] = MTLResourceOptionsString([(MTLIOAccelResource *)self resourceOptions]);
-  v19[39] = v5;
-  v19[40] = @"usage =";
-  v19[41] = MTLTextureUsageString(self->_usage);
-  v19[42] = v5;
-  v19[43] = @"shareable =";
-  v19[44] = [MEMORY[0x1E696AD98] numberWithBool:self->_shareable];
-  v19[45] = v5;
-  v19[46] = @"framebufferOnly =";
-  v19[47] = [MEMORY[0x1E696AD98] numberWithBool:self->_framebufferOnly];
-  v19[48] = v5;
-  v19[49] = @"purgeableState =";
-  v19[50] = MTLPurgeableStateString(*&self->super._anon_50[128]);
-  v19[51] = v5;
-  v19[52] = @"swizzle =";
-  v19[53] = MTLTextureSwizzleString(self->_swizzle);
-  v19[54] = v5;
-  v19[55] = @"isCompressed =";
-  v19[56] = [MEMORY[0x1E696AD98] numberWithBool:self->_isCompressed];
-  v19[57] = v5;
-  v19[58] = @"parentTexture =";
+  v18[2] = v9;
+  v18[3] = v5;
+  v18[4] = @"textureType =";
+  v18[5] = MTLTextureTypeString(self->_textureType);
+  v18[6] = v5;
+  v18[7] = @"pixelFormat =";
+  v18[8] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName(self->_pixelFormat)];
+  v18[9] = v5;
+  v18[10] = @"width =";
+  v18[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_width];
+  v18[12] = v5;
+  v18[13] = @"height =";
+  v18[14] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_height];
+  v18[15] = v5;
+  v18[16] = @"depth =";
+  v18[17] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_depth];
+  v18[18] = v5;
+  v18[19] = @"arrayLength =";
+  v18[20] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_arrayLength];
+  v18[21] = v5;
+  v18[22] = @"mipmapLevelCount =";
+  v18[23] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_mipmapLevelCount];
+  v18[24] = v5;
+  v18[25] = @"sampleCount =";
+  v18[26] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_sampleCount];
+  v18[27] = v5;
+  v18[28] = @"cpuCacheMode =";
+  v18[29] = MTLCPUCacheModeString(*&self->super._anon_50[112]);
+  v18[30] = v5;
+  v18[31] = @"storageMode =";
+  v18[32] = MTLStorageModeString(*&self->super._anon_50[104]);
+  v18[33] = v5;
+  v18[34] = @"hazardTrackingMode =";
+  v18[35] = MTLHazardTrackingModeString([(MTLIOAccelTexture *)self hazardTrackingMode]);
+  v18[36] = v5;
+  v18[37] = @"resourceOptions =";
+  v18[38] = MTLResourceOptionsString([(MTLIOAccelResource *)self resourceOptions]);
+  v18[39] = v5;
+  v18[40] = @"usage =";
+  v18[41] = MTLTextureUsageString(self->_usage);
+  v18[42] = v5;
+  v18[43] = @"shareable =";
+  v18[44] = [MEMORY[0x1E696AD98] numberWithBool:self->_shareable];
+  v18[45] = v5;
+  v18[46] = @"framebufferOnly =";
+  v18[47] = [MEMORY[0x1E696AD98] numberWithBool:self->_framebufferOnly];
+  v18[48] = v5;
+  v18[49] = @"purgeableState =";
+  v18[50] = MTLPurgeableStateString(*&self->super._anon_50[128]);
+  v18[51] = v5;
+  v18[52] = @"swizzle =";
+  v18[53] = MTLTextureSwizzleString(self->_swizzle);
+  v18[54] = v5;
+  v18[55] = @"isCompressed =";
+  v18[56] = [MEMORY[0x1E696AD98] numberWithBool:self->_isCompressed];
+  v18[57] = v5;
+  v18[58] = @"parentTexture =";
   parentTexture = self->_parentTexture;
   if (parentTexture)
   {
@@ -117,37 +119,37 @@
     v11 = @"<null>";
   }
 
-  v19[59] = v11;
-  v19[60] = v5;
-  v19[61] = @"parentRelativeLevel =";
-  v19[62] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_parentRelativeLevel];
-  v19[63] = v5;
-  v19[64] = @"parentRelativeSlice =";
-  v19[65] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_parentRelativeSlice];
-  v19[66] = v5;
-  v19[67] = @"buffer =";
+  v18[59] = v11;
+  v18[60] = v5;
+  v18[61] = @"parentRelativeLevel =";
+  v18[62] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_parentRelativeLevel];
+  v18[63] = v5;
+  v18[64] = @"parentRelativeSlice =";
+  v18[65] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_parentRelativeSlice];
+  v18[66] = v5;
+  v18[67] = @"buffer =";
   buffer = [(MTLIOAccelTexture *)self buffer];
   if (!buffer)
   {
     buffer = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[68] = buffer;
-  v19[69] = v5;
-  v19[70] = @"bufferOffset =";
-  v19[71] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[MTLIOAccelTexture bufferOffset](self, "bufferOffset")}];
-  v19[72] = v5;
-  v19[73] = @"bufferBytesPerRow =";
-  v19[74] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[MTLIOAccelTexture bufferBytesPerRow](self, "bufferBytesPerRow")}];
-  v19[75] = v5;
-  v19[76] = @"iosurface =";
-  v19[77] = [MEMORY[0x1E696AEC0] stringWithFormat:@"%p", self->_iosurface];
-  v19[78] = v5;
-  v19[79] = @"iosurfacePlane =";
-  v19[80] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_iosurfacePlane];
-  v19[81] = v5;
+  v18[68] = buffer;
+  v18[69] = v5;
+  v18[70] = @"bufferOffset =";
+  v18[71] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[MTLIOAccelTexture bufferOffset](self, "bufferOffset")}];
+  v18[72] = v5;
+  v18[73] = @"bufferBytesPerRow =";
+  v18[74] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[MTLIOAccelTexture bufferBytesPerRow](self, "bufferBytesPerRow")}];
+  v18[75] = v5;
+  v18[76] = @"iosurface =";
+  v18[77] = [MEMORY[0x1E696AEC0] stringWithFormat:@"%p", self->_iosurface];
+  v18[78] = v5;
+  v18[79] = @"iosurfacePlane =";
+  v18[80] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_iosurfacePlane];
+  v18[81] = v5;
   allowGPUOptimizedContents = self->_allowGPUOptimizedContents;
-  v19[82] = @"allowGPUOptimizedContents =";
+  v18[82] = @"allowGPUOptimizedContents =";
   if (allowGPUOptimizedContents)
   {
     v14 = @"YES";
@@ -158,10 +160,9 @@
     v14 = @"NO";
   }
 
-  v19[83] = v14;
-  v15 = [v7 stringWithFormat:@"%@%@", v8, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v19, 84), "componentsJoinedByString:", @" "];
+  v18[83] = v14;
+  v15 = [v7 stringWithFormat:@"%@%@", v8, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v18, 84), "componentsJoinedByString:", @" "];
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -376,7 +377,7 @@ LABEL_11:
 - (MTLIOAccelTexture)initWithDevice:(id)device descriptor:(id)descriptor sysMemSize:(unint64_t)size sysMemRowBytes:(unint64_t)bytes vidMemSize:(unint64_t)memSize vidMemRowBytes:(unint64_t)rowBytes args:(IOAccelNewResourceArgs *)args argsSize:(unsigned int)self0
 {
   descriptorPrivate = [descriptor descriptorPrivate];
-  v25 = *descriptorPrivate;
+  v22 = *descriptorPrivate;
   [MTLIOAccelTexture initNewTextureDataWithDevice:device descriptor:descriptor sysMemSize:size sysMemRowBytes:bytes vidMemSize:memSize vidMemRowBytes:rowBytes args:args];
   v18 = [(MTLIOAccelResource *)self initWithDevice:device options:*(descriptorPrivate + 112) args:args argsSize:argsSize];
   v19 = v18;
@@ -389,7 +390,7 @@ LABEL_11:
     v18->_mipmapLevelCount = *(descriptorPrivate + 40);
     v20 = 6;
     v18->_sampleCount = *(descriptorPrivate + 48);
-    if (v25 - 5 >= 2)
+    if (v22 - 5 >= 2)
     {
       v20 = 1;
     }
@@ -409,9 +410,6 @@ LABEL_11:
     if (**MEMORY[0x1E69A8488])
     {
       [device deviceRef];
-      v21 = *&v19->super._anon_50[48];
-      v22 = v19->_height | (v19->_width << 32);
-      v23 = ((v19->_textureType & 0xF) << 48) | (v19->_pixelFormat << 32);
       [device registryID];
       IOAccelDeviceTraceEvent();
     }
@@ -424,7 +422,7 @@ LABEL_11:
 {
   descriptorPrivate = [descriptor descriptorPrivate];
   v18 = *(descriptorPrivate + 112);
-  v27 = *descriptorPrivate;
+  v24 = *descriptorPrivate;
   [MTLIOAccelTexture initNewTextureDataWithDevice:device descriptor:descriptor sysMemSize:size sysMemRowBytes:bytes vidMemSize:0 vidMemRowBytes:0 args:args];
   args->var0.var0 = 128;
   args->var0.var16.var0.var0 = pointer;
@@ -440,7 +438,7 @@ LABEL_11:
     v19->_mipmapLevelCount = *(descriptorPrivate + 40);
     v21 = 6;
     v19->_sampleCount = *(descriptorPrivate + 48);
-    if (v27 - 5 >= 2)
+    if (v24 - 5 >= 2)
     {
       v21 = 1;
     }
@@ -466,9 +464,6 @@ LABEL_11:
     if (**MEMORY[0x1E69A8488])
     {
       [device deviceRef];
-      v22 = *&v20->super._anon_50[48];
-      v23 = v20->_height | (v20->_width << 32);
-      v24 = ((v20->_textureType & 0xF) << 48) | (v20->_pixelFormat << 32);
       [device registryID];
       IOAccelDeviceTraceEvent();
     }
@@ -477,82 +472,267 @@ LABEL_11:
   return v20;
 }
 
+- (MTLIOAccelTexture)initWithDevice:(id)device descriptor:(id)descriptor iosurface:(__IOSurface *)iosurface plane:(unsigned int)plane field:(unsigned int)field args:(IOAccelNewResourceArgs *)args argsSize:(unsigned int)size
+{
+  v10 = *&plane;
+  *(&args->var0.var16.var3 + 4) = 0;
+  *&args->var0.var16.var0.var0 = 0u;
+  *&args->var0.var16.var3.var2[1] = 0u;
+  *&args->var0.var8 = 0u;
+  *&args->var0.var14 = 0u;
+  *&args->var0.var0 = 0u;
+  *&args->var0.var6 = 0u;
+  descriptorPrivate = [descriptor descriptorPrivate];
+  v19 = descriptorPrivate;
+  if (*(descriptorPrivate + 72) >= 5uLL)
+  {
+    MTLReportFailure(0, "[MTLIOAccelTexture initWithDevice:descriptor:iosurface:plane:field:args:argsSize:]", 630, @"IOSurface texture has invalid rotation %u", v15, v16, v17, v18, *(descriptorPrivate + 72));
+  }
+
+  v20 = IOSurfaceCopyValue(iosurface, *MEMORY[0x1E696CEF8]);
+  if (v20)
+  {
+    v21 = v20;
+    v22 = [v20 objectForKeyedSubscript:kMetalRegistryID] != 0;
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  v89 = 0;
+  v87 = 0u;
+  v88 = 0u;
+  v86 = 0u;
+  MTLPixelFormatGetInfoForDevice(device, *(v19 + 8), &v86);
+  v31 = *(v19 + 72);
+  if (v31 <= 4 && ((1 << v31) & 0x1A) != 0)
+  {
+    v32 = (v19 + 16);
+    v33 = (v19 + 24);
+  }
+
+  else
+  {
+    v33 = (v19 + 16);
+    v32 = (v19 + 24);
+  }
+
+  v34 = *v33;
+  v35 = *v32;
+  if (!iosurface)
+  {
+    [(MTLIOAccelTexture *)v23 initWithDevice:v24 descriptor:v25 iosurface:v26 plane:v27 field:v28 args:v29 argsSize:v30];
+  }
+
+  v77 = v22;
+  if (IOSurfaceGetPlaneCount(iosurface) == 0 && !v22)
+  {
+    BaseAddress = IOSurfaceGetBaseAddress(iosurface);
+    BytesPerRow = IOSurfaceGetBytesPerRow(iosurface);
+    _mtlValidateStrideTextureParameters(device, descriptor, v34, BaseAddress, BytesPerRow, 1);
+    if (v10)
+    {
+      [(MTLIOAccelTexture *)v10 initWithDevice:v38 descriptor:v39 iosurface:v40 plane:v41 field:v42 args:v43 argsSize:v44];
+    }
+
+    v85 = 0;
+    v83 = 0u;
+    v84 = 0u;
+    v82 = 0u;
+    memset(v81, 0, sizeof(v81));
+    MTLGetTextureLevelInfoForDeviceWithOptions(device, [descriptor pixelFormat], v34, v35, 1uLL, 1, 0, 0, v81);
+    v45 = v84;
+    if (v45 > IOSurfaceGetBytesPerRow(iosurface))
+    {
+      MTLReportFailure(0, "[MTLIOAccelTexture initWithDevice:descriptor:iosurface:plane:field:args:argsSize:]", 682, @"Descriptor rowBytes (%lu) > IOSurface rowBytes (%lu)", v46, v47, v48, v49, v45);
+    }
+
+    v50 = *(v19 + 56) * *(&v82 + 1);
+    Height = IOSurfaceGetHeight(iosurface);
+    ElementHeight = IOSurfaceGetElementHeight(iosurface);
+    if (v50 > ElementHeight * Height)
+    {
+      [(MTLIOAccelTexture *)ElementHeight initWithDevice:v53 descriptor:v54 iosurface:v55 plane:v56 field:v57 args:v58 argsSize:v59];
+    }
+
+    if (!IOSurfaceAllowsPixelSizeCasting(iosurface))
+    {
+      BytesPerElement = IOSurfaceGetBytesPerElement(iosurface);
+      if (*(&v83 + 1) != BytesPerElement)
+      {
+        [(MTLIOAccelTexture *)BytesPerElement initWithDevice:v61 descriptor:v62 iosurface:v63 plane:v64 field:v65 args:v66 argsSize:v67];
+      }
+    }
+  }
+
+  deviceCopy = device;
+  v68 = v10;
+  v69 = *v19;
+  if ((*v19 - 5) >= 2)
+  {
+    v70 = 1;
+  }
+
+  else
+  {
+    v70 = 6;
+  }
+
+  *&args->var0.var0 = 130;
+  v71 = *(v19 + 24);
+  args->var0.var2 = *(v19 + 16);
+  args->var0.var3 = v71;
+  if (v69 == 6)
+  {
+    args->var0.var4 = 6 * *(v19 + 56);
+    fieldCopy2 = field;
+    goto LABEL_33;
+  }
+
+  fieldCopy2 = field;
+  if (v69 == 3)
+  {
+    v73 = *(v19 + 56);
+LABEL_32:
+    args->var0.var4 = v73;
+    goto LABEL_33;
+  }
+
+  if (v69 != 1)
+  {
+    v73 = *(v19 + 32);
+    goto LABEL_32;
+  }
+
+  args->var0.var3 = *(v19 + 56);
+LABEL_33:
+  args->var0.var6 = 0;
+  args->var0.var7 = 0;
+  args->var0.var8 = v70;
+  args->var0.var9 = *(v19 + 40);
+  args->var0.var11 = BYTE8(v87);
+  args->var0.var12 = 0;
+  args->var0.var16.var1.var0 = IOSurfaceGetID(iosurface);
+  args->var0.var16.var1.var1 = v68;
+  args->var0.var16.var2.var2 = fieldCopy2;
+  args->var0.var16.var2.var3 = 0;
+  v74 = [(MTLIOAccelResource *)self initWithDevice:deviceCopy options:*(v19 + 112) args:args argsSize:size];
+  v75 = v74;
+  if (v74)
+  {
+    v74->_textureType = *v19;
+    v74->_width = *(v19 + 16);
+    v74->_height = *(v19 + 24);
+    v74->_depth = *(v19 + 32);
+    v74->_mipmapLevelCount = *(v19 + 40);
+    v74->_sampleCount = *(v19 + 48);
+    v74->_arrayLength = *(v19 + 56);
+    v74->_numFaces = v70;
+    v74->_pixelFormat = *(v19 + 8);
+    v74->_usage = *(v19 + 192);
+    v74->_rotation = *(v19 + 72);
+    v74->_swizzle = *(v19 + 84);
+    v74->_writeSwizzleEnabled = *(v19 + 88);
+    v74->_shareable = v77;
+    v74->_framebufferOnly = *(v19 + 80);
+    CFRetain(iosurface);
+    v75->_iosurface = iosurface;
+    v75->_iosurfacePlane = v68;
+    v75->_isDrawable = *(v19 + 81);
+    v75->super._res.info.iosurface = iosurface;
+    *(&v75->super._res.var1 + 3) = fieldCopy2;
+    *&v75->super._res.var0 = IOSurfaceGetAllocSize(iosurface) & 0xFFFFFFFFFFFFFFLL | (*(&v75->super._res.var1 + 3) << 56);
+    v75->_allowGPUOptimizedContents = *(v19 + 128);
+    if (**MEMORY[0x1E69A8488])
+    {
+      [deviceCopy deviceRef];
+      [deviceCopy registryID];
+      IOAccelDeviceTraceEvent();
+    }
+  }
+
+  return v75;
+}
+
 - (MTLIOAccelTexture)initWithTextureInternal:(id)internal pixelFormat:(unint64_t)format textureType:(unint64_t)type levels:(_NSRange)levels slices:(_NSRange)slices swizzle:(id)swizzle compressedView:(BOOL)view
 {
   length = levels.length;
   location = levels.location;
-  v15 = MTLTextureSwizzleChannelsToKey(*&swizzle);
-  _mtlValidateMTLTextureSwizzleKey(v15, v16, v17, v18, v19, v20, v21, v22);
+  MTLTextureSwizzleChannelsToKey();
+  v16 = v15;
+  _mtlValidateMTLTextureSwizzleKey(v15, v17, v18, v19, v20, v21, v22, v23);
   _mtlValidateArgumentsForTextureViewOnDevice([internal device], internal, format, type, location, length, slices.location, slices.length, view);
-  v23 = [(MTLIOAccelResource *)self initWithResource:internal];
-  if (v23)
+  v24 = [(MTLIOAccelResource *)self initWithResource:internal];
+  if (v24)
   {
-    v23->_parentTexture = internal;
-    v23->_buffer = *(internal + 41);
-    v23->_parentRelativeLevel = location;
-    v23->_parentRelativeSlice = slices.location;
-    v23->_bufferOffset = [internal bufferOffset];
-    v23->_bufferBytesPerRow = [internal bufferBytesPerRow];
-    v23->_textureType = type;
-    v24 = *(internal + 50) >> location;
-    if (v24 <= 1)
-    {
-      v24 = 1;
-    }
-
-    v23->_width = v24;
-    v25 = *(internal + 51) >> location;
+    v24->_parentTexture = internal;
+    v24->_buffer = *(internal + 41);
+    v24->_parentRelativeLevel = location;
+    v24->_parentRelativeSlice = slices.location;
+    v24->_bufferOffset = [internal bufferOffset];
+    v24->_bufferBytesPerRow = [internal bufferBytesPerRow];
+    v24->_textureType = type;
+    v25 = *(internal + 50) >> location;
     if (v25 <= 1)
     {
       v25 = 1;
     }
 
-    v23->_height = v25;
-    v26 = *(internal + 52) >> location;
+    v24->_width = v25;
+    v26 = *(internal + 51) >> location;
     if (v26 <= 1)
     {
       v26 = 1;
     }
 
-    v23->_depth = v26;
-    v23->_pixelFormat = format;
-    v23->_usage = *(internal + 48);
-    v27 = 6;
-    if (type - 5 >= 2)
+    v24->_height = v26;
+    v27 = *(internal + 52) >> location;
+    if (v27 <= 1)
     {
       v27 = 1;
     }
 
-    v23->_numFaces = v27;
-    v23->_arrayLength = slices.length / v27;
-    v23->_mipmapLevelCount = length;
-    v23->_sampleCount = *(internal + 54);
-    v23->_rotation = *(internal + 49);
-    v23->_swizzle = v15;
-    v23->_writeSwizzleEnabled = *(internal + 340);
-    if ([objc_msgSend(internal "device")] && v23->_swizzle != 84148994)
+    v24->_depth = v27;
+    v24->_pixelFormat = format;
+    v24->_usage = *(internal + 48);
+    v28 = 6;
+    if (type - 5 >= 2)
     {
-      v28 = v23->_usage & ~MTLGetDisallowedTextureUsagesWhenSwizzling([internal device], v23->_writeSwizzleEnabled);
-      v23->_usage = v28;
-      _mtlValidateTextureUsage(v28, v29, v30, v31, v32, v33, v34, v35);
+      v28 = 1;
     }
 
-    v23->_shareable = 0;
-    v23->_framebufferOnly = *(internal + 457);
-    v23->_iosurface = *(internal + 44);
-    v23->_iosurfacePlane = *(internal + 45);
-    v23->_isDrawable = *(internal + 458);
-    v23->_allowGPUOptimizedContents = *(internal + 512);
-    v36 = (internal + 32);
-    v37 = v36[26];
-    v38 = v36[27];
-    *&v23->super._anon_50[160] = v37;
-    *&v23->super._anon_50[168] = v38;
-    *&v23->super._anon_50[176] = *(v36 + 14);
-    v23->super._anon_50[192] = *(v36 + 240);
-    *&v23->super._anon_50[88] = v36[17];
-    *&v23->super._anon_50[24] = v36[9];
-    iosurface = v23->_iosurface;
+    v24->_numFaces = v28;
+    v24->_arrayLength = slices.length / v28;
+    v24->_mipmapLevelCount = length;
+    v24->_sampleCount = *(internal + 54);
+    v24->_rotation = *(internal + 49);
+    v24->_swizzle = v16;
+    v24->_writeSwizzleEnabled = *(internal + 340);
+    if ([objc_msgSend(internal "device")] && v24->_swizzle != 84148994)
+    {
+      v29 = v24->_usage & ~MTLGetDisallowedTextureUsagesWhenSwizzling([internal device], v24->_writeSwizzleEnabled);
+      v24->_usage = v29;
+      _mtlValidateTextureUsage(v29, v30, v31, v32, v33, v34, v35, v36);
+    }
+
+    v24->_shareable = 0;
+    v24->_framebufferOnly = *(internal + 457);
+    v24->_iosurface = *(internal + 44);
+    v24->_iosurfacePlane = *(internal + 45);
+    v24->_isDrawable = *(internal + 458);
+    v24->_allowGPUOptimizedContents = *(internal + 512);
+    v37 = (internal + 32);
+    v38 = v37[26];
+    v39 = v37[27];
+    *&v24->super._anon_50[160] = v38;
+    *&v24->super._anon_50[168] = v39;
+    *&v24->super._anon_50[176] = *(v37 + 14);
+    v24->super._anon_50[192] = *(v37 + 240);
+    *&v24->super._anon_50[88] = v37[17];
+    *&v24->super._anon_50[24] = v37[9];
+    iosurface = v24->_iosurface;
     if (iosurface)
     {
       CFRetain(iosurface);
@@ -560,17 +740,13 @@ LABEL_11:
 
     if (**MEMORY[0x1E69A8488])
     {
-      [*&v23->super._anon_50[32] deviceRef];
-      v40 = *&v23->super._anon_50[48];
-      v41 = v23->_height | (v23->_width << 32);
-      v42 = ((v23->_textureType & 0xF) << 48) | (v23->_pixelFormat << 32);
-      [*&v23->super._anon_50[32] registryID];
-      v43 = *&v23->_parentTexture->super._anon_50[48];
+      [*&v24->super._anon_50[32] deviceRef];
+      [*&v24->super._anon_50[32] registryID];
       IOAccelDeviceTraceEvent();
     }
   }
 
-  return v23;
+  return v24;
 }
 
 - (MTLIOAccelTexture)initWithBuffer:(id)buffer descriptor:(id)descriptor sysMemOffset:(unint64_t)offset sysMemRowBytes:(unint64_t)bytes vidMemSize:(unint64_t)size vidMemRowBytes:(unint64_t)rowBytes args:(IOAccelNewResourceArgs *)args argsSize:(unsigned int)self0 isStrideTexture:(BOOL)self1
@@ -1175,6 +1351,25 @@ LABEL_28:
   }
 
   return heap;
+}
+
+- (int)setOwnerWithIdentity:(unsigned int)identity
+{
+  if (self->_iosurface)
+  {
+    iosurface = self->_iosurface;
+
+    return MEMORY[0x1EEDC89F0](iosurface, *&identity, 4, 0);
+  }
+
+  else
+  {
+    v8 = v3;
+    v9 = v4;
+    v7.receiver = self;
+    v7.super_class = MTLIOAccelTexture;
+    return [(MTLIOAccelResource *)&v7 setOwnerWithIdentity:*&identity];
+  }
 }
 
 @end

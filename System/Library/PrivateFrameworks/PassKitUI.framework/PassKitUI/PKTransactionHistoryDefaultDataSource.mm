@@ -3530,7 +3530,7 @@ void __87__PKTransactionHistoryDefaultDataSource__loadPeerPaymentPendingRequestF
     v11[4] = WeakRetained;
     v13 = v7;
     v12 = v6;
-    PKPeerPaymentMessagesChatNameAndImageDataForGroupIdentifier(v10, v11);
+    PKPeerPaymentMessagesChatNameAndImageDataForGroupIdentifier(v10, v11, *MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8));
   }
 
   else

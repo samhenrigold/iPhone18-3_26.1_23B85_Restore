@@ -1,13 +1,41 @@
 @interface VSApplicationControllerRequestFactory
 + (id)_attributeQuerySAMLRequestStringWithAttributeNames:(id)names channelID:(id)d authenticationToken:(id)token error:(id *)error;
++ (id)_authNRequestSAMLStringWithAuthenticationToken:(id)token forced:(BOOL)forced error:(id *)error;
 + (id)_logoutSAMLRequestStringWithError:(id *)error;
 - (id)STBOptOutApplicationControllerRequest;
 - (id)accountMetadataApplicationControllerRequestWithAccountMetadataRequest:(id)request authenticationToken:(id)token;
+- (id)authenticationApplicationControllerRequestWithAuthenticationToken:(id)token forcedAuthentication:(BOOL)authentication;
 - (id)logoutApplicationControllerRequestWithAuthenticationToken:(id)token;
 - (id)silentAuthenticationApplicationControllerRequest;
+- (id)silentAuthenticationApplicationControllerRequestWithAuthenticationToken:(id)token forcedAuthentication:(BOOL)authentication;
 @end
 
 @implementation VSApplicationControllerRequestFactory
+
+- (id)silentAuthenticationApplicationControllerRequestWithAuthenticationToken:(id)token forcedAuthentication:(BOOL)authentication
+{
+  authenticationCopy = authentication;
+  tokenCopy = token;
+  if ([tokenCopy isOpaque])
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v7 = objc_opt_class();
+    body = [tokenCopy body];
+    v6 = [v7 _authNRequestSAMLStringWithAuthenticationToken:body forced:authenticationCopy error:0];
+  }
+
+  v9 = objc_alloc_init(VSApplicationControllerRequest);
+  [(VSApplicationControllerRequest *)v9 setType:2];
+  [(VSApplicationControllerRequest *)v9 setSAMLRequest:v6];
+  body2 = [tokenCopy body];
+  [(VSApplicationControllerRequest *)v9 setAuthenticationToken:body2];
+
+  return v9;
+}
 
 - (id)silentAuthenticationApplicationControllerRequest
 {
@@ -15,6 +43,31 @@
   [(VSApplicationControllerRequest *)v2 setType:2];
 
   return v2;
+}
+
+- (id)authenticationApplicationControllerRequestWithAuthenticationToken:(id)token forcedAuthentication:(BOOL)authentication
+{
+  authenticationCopy = authentication;
+  tokenCopy = token;
+  if ([tokenCopy isOpaque])
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v7 = objc_opt_class();
+    body = [tokenCopy body];
+    v6 = [v7 _authNRequestSAMLStringWithAuthenticationToken:body forced:authenticationCopy error:0];
+  }
+
+  v9 = objc_alloc_init(VSApplicationControllerRequest);
+  [(VSApplicationControllerRequest *)v9 setType:1];
+  [(VSApplicationControllerRequest *)v9 setSAMLRequest:v6];
+  body2 = [tokenCopy body];
+  [(VSApplicationControllerRequest *)v9 setAuthenticationToken:body2];
+
+  return v9;
 }
 
 - (id)accountMetadataApplicationControllerRequestWithAccountMetadataRequest:(id)request authenticationToken:(id)token
@@ -69,6 +122,14 @@
   [(VSApplicationControllerRequest *)v2 setType:5];
 
   return v2;
+}
+
++ (id)_authNRequestSAMLStringWithAuthenticationToken:(id)token forced:(BOOL)forced error:(id *)error
+{
+  v6 = [VSSAMLRequestFactory authNRequestWithResponse:token forced:forced error:?];
+  v7 = [v6 xmlString:error];
+
+  return v7;
 }
 
 + (id)_attributeQuerySAMLRequestStringWithAttributeNames:(id)names channelID:(id)d authenticationToken:(id)token error:(id *)error

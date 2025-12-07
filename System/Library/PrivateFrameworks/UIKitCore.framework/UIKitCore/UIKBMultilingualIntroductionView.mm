@@ -8,7 +8,7 @@
 + (BOOL)shouldShowIntroductionForInputMode:(id)mode
 {
   v3 = +[UIKeyboard keyboardBundleIdentifier];
-  if (([v3 isEqualToString:@"com.apple.purplebuddy"] & 1) != 0 || +[UIKeyboardImpl isSplit](UIKeyboardImpl, "isSplit"))
+  if ((objc_msgSend_isEqualToString_(v3) & 1) != 0 || +[UIKeyboardImpl isSplit])
   {
     LOBYTE(isPredictionViewControllerVisible) = 0;
   }

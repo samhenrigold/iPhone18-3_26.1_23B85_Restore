@@ -26,54 +26,54 @@
 
 - (void)setReadyForDisplayReceived
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = JFXLog_DebugPlayback();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
+    v10 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_242A3B000, v3, OS_LOG_TYPE_DEFAULT, "Request %{public}@ ready for display", &v8, 0xCu);
+    _os_log_impl(&dword_242A3B000, v3, OS_LOG_TYPE_DEFAULT, "Request %{public}@ ready for display", &v10, 0xCu);
   }
 
   self->_readyForDisplayReceived = 1;
-  v4 = JFXPlaybackEventSignpostPointCategory();
+  v6 = JFXPlaybackEventSignpostPointCategory(v4, v5);
   signPostID = [(JFXCompositionPlayerRequest *)self signPostID];
   if (signPostID - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v6 = signPostID;
-    if (os_signpost_enabled(v4))
+    v8 = signPostID;
+    if (os_signpost_enabled(v6))
     {
       uniqueID = [(JFXCompositionPlayerRequest *)self uniqueID];
-      v8 = 138412290;
+      v10 = 138412290;
       selfCopy = uniqueID;
-      _os_signpost_emit_with_name_impl(&dword_242A3B000, v4, OS_SIGNPOST_EVENT, v6, "CompositionUpdateRequest", "ready for display received from AV layer for request id %@", &v8, 0xCu);
+      _os_signpost_emit_with_name_impl(&dword_242A3B000, v6, OS_SIGNPOST_EVENT, v8, "CompositionUpdateRequest", "ready for display received from AV layer for request id %@", &v10, 0xCu);
     }
   }
 }
 
 - (void)setRefreshCompletedReceived
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = JFXLog_DebugPlayback();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
+    v10 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_242A3B000, v3, OS_LOG_TYPE_DEFAULT, "Request %{public}@ refresh completed", &v8, 0xCu);
+    _os_log_impl(&dword_242A3B000, v3, OS_LOG_TYPE_DEFAULT, "Request %{public}@ refresh completed", &v10, 0xCu);
   }
 
   self->_refreshCompletedReceived = 1;
-  v4 = JFXPlaybackEventSignpostPointCategory();
+  v6 = JFXPlaybackEventSignpostPointCategory(v4, v5);
   signPostID = [(JFXCompositionPlayerRequest *)self signPostID];
   if (signPostID - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v6 = signPostID;
-    if (os_signpost_enabled(v4))
+    v8 = signPostID;
+    if (os_signpost_enabled(v6))
     {
       uniqueID = [(JFXCompositionPlayerRequest *)self uniqueID];
-      v8 = 138412290;
+      v10 = 138412290;
       selfCopy = uniqueID;
-      _os_signpost_emit_with_name_impl(&dword_242A3B000, v4, OS_SIGNPOST_EVENT, v6, "CompositionUpdateRequest", "refresh completed received from compositor for request id %@", &v8, 0xCu);
+      _os_signpost_emit_with_name_impl(&dword_242A3B000, v6, OS_SIGNPOST_EVENT, v8, "CompositionUpdateRequest", "refresh completed received from compositor for request id %@", &v10, 0xCu);
     }
   }
 }
@@ -81,7 +81,7 @@
 - (void)didEnqueue
 {
   v8 = *MEMORY[0x277D85DE8];
-  v3 = JFXPlaybackEventSignpostPointCategory();
+  v3 = JFXPlaybackEventSignpostPointCategory(self, a2);
   signPostID = [(JFXCompositionPlayerRequest *)self signPostID];
   if (signPostID - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {

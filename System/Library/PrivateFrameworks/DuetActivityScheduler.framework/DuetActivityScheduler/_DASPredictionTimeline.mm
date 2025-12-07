@@ -80,13 +80,13 @@
 
 - (_DASPredictionTimeline)initWithValues:(id)values forDurations:(id)durations startingAt:(id)at
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   valuesCopy = values;
   durationsCopy = durations;
   atCopy = at;
-  v32.receiver = self;
-  v32.super_class = _DASPredictionTimeline;
-  v11 = [(_DASPredictionTimeline *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = _DASPredictionTimeline;
+  v11 = [(_DASPredictionTimeline *)&v31 init];
   v12 = v11;
   if (v11)
   {
@@ -96,28 +96,28 @@
     v12->_values = v13;
 
     array = [MEMORY[0x1E695DF70] array];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v16 = durationsCopy;
-    v17 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v29;
+      v19 = *v28;
       v20 = 0.0;
       do
       {
         v21 = 0;
         do
         {
-          if (*v29 != v19)
+          if (*v28 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          [*(*(&v28 + 1) + 8 * v21) doubleValue];
+          [*(*(&v27 + 1) + 8 * v21) doubleValue];
           v20 = v20 + v22;
           v23 = [atCopy dateByAddingTimeInterval:v20];
           [array addObject:v23];
@@ -126,7 +126,7 @@
         }
 
         while (v18 != v21);
-        v18 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v18);
@@ -137,7 +137,6 @@
     v12->_transitionDates = v24;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -166,22 +165,22 @@
 
 - (id)valueAtDate:(id)date
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   [(NSDate *)self->_startDate timeIntervalSinceDate:dateCopy];
   if (v5 <= 0.0)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = self->_transitionDates;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v11 = *v18;
+      v11 = *v17;
       while (2)
       {
         v12 = 0;
@@ -189,12 +188,12 @@
         v10 += v9;
         do
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(*(&v17 + 1) + 8 * v12) timeIntervalSinceDate:{dateCopy, v17}];
+          [*(*(&v16 + 1) + 8 * v12) timeIntervalSinceDate:{dateCopy, v16}];
           if (v14 > 0.0)
           {
             v6 = [(NSArray *)self->_values objectAtIndexedSubscript:v13];
@@ -206,7 +205,7 @@
         }
 
         while (v9 != v12);
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v9)
         {
           continue;
@@ -224,8 +223,6 @@ LABEL_13:
   {
     v6 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

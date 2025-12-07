@@ -43,8 +43,8 @@
   locationDescriptorLastEdit = [(MTREcosystemInformationClusterEcosystemLocationStruct *)self locationDescriptorLastEdit];
   [(MTREcosystemInformationClusterEcosystemLocationStruct *)v4 setLocationDescriptorLastEdit:locationDescriptorLastEdit];
 
-  fabricIndex = [(MTREcosystemInformationClusterEcosystemLocationStruct *)self fabricIndex];
-  [(MTREcosystemInformationClusterEcosystemLocationStruct *)v4 setFabricIndex:fabricIndex];
+  v8 = objc_msgSend_fabricIndex(self);
+  [(MTREcosystemInformationClusterEcosystemLocationStruct *)v4 setFabricIndex:v8];
 
   return v4;
 }

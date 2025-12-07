@@ -305,37 +305,35 @@
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    sourceType = self->_sourceType;
     PBDataWriterWriteInt32Field();
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v6 = self->_groupNames;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v7)
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v5 = self->_groupNames;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v27;
+    v7 = v6;
+    v8 = *v21;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v9)
+        if (*v21 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (self->_vcardData)
@@ -351,14 +349,12 @@
   has = self->_has;
   if ((has & 8) != 0)
   {
-    isMe = self->_isMe;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if (has)
   {
-    modDate = self->_modDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -372,33 +368,32 @@
     PBDataWriterWriteDataField();
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v15 = self->_linkTos;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
-  if (v16)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v11 = self->_linkTos;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v12)
   {
-    v17 = v16;
-    v18 = *v23;
+    v13 = v12;
+    v14 = *v17;
     do
     {
-      for (j = 0; j != v17; j = j + 1)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v23 != v18)
+        if (*v17 != v14)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v11);
         }
 
-        v20 = *(*(&v22 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
-    while (v17);
+    while (v13);
   }
 
   if (self->_fastEncodingData)
@@ -463,7 +458,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    sharedPhotoDisplayPreference = self->_sharedPhotoDisplayPreference;
     PBDataWriterWriteInt64Field();
   }
 
@@ -831,7 +825,6 @@
     goto LABEL_58;
   }
 
-  v5 = *(equalCopy + 204);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 204) & 4) == 0 || self->_sourceType != *(equalCopy + 40))
@@ -869,7 +862,6 @@
     }
   }
 
-  v9 = *(equalCopy + 204);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 204) & 8) == 0)
@@ -877,7 +869,6 @@
       goto LABEL_58;
     }
 
-    v10 = *(equalCopy + 200);
     if (self->_isMe)
     {
       if ((*(equalCopy + 200) & 1) == 0)
@@ -1042,7 +1033,6 @@
     }
   }
 
-  v26 = *(equalCopy + 204);
   if ((*&self->_has & 2) == 0)
   {
     if ((*(equalCopy + 204) & 2) == 0)
@@ -1051,7 +1041,7 @@
     }
 
 LABEL_58:
-    v27 = 0;
+    v23 = 0;
     goto LABEL_59;
   }
 
@@ -1079,17 +1069,17 @@ LABEL_62:
   sensitiveContentConfiguration = self->_sensitiveContentConfiguration;
   if (sensitiveContentConfiguration | *(equalCopy + 19))
   {
-    v27 = [(NSData *)sensitiveContentConfiguration isEqual:?];
+    v23 = [(NSData *)sensitiveContentConfiguration isEqual:?];
   }
 
   else
   {
-    v27 = 1;
+    v23 = 1;
   }
 
 LABEL_59:
 
-  return v27;
+  return v23;
 }
 
 - (unint64_t)hash

@@ -1,6 +1,7 @@
 @interface TradeInToolViewController
 - (CGRect)frameForConfirmation;
 - (CGRect)frameForPage:(int)page;
+- (id)imageViewForPage:(int)page;
 - (int)maxNumPages;
 - (void)didUpdateCurrentImageView:(id)view;
 - (void)endTestWithStatusCode:(id)code;
@@ -8,6 +9,8 @@
 - (void)setupView;
 - (void)setupWithInputs:(id)inputs responder:(id)responder;
 - (void)start;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TradeInToolViewController
@@ -204,6 +207,37 @@ LABEL_18:
   [view setAccessibilityElements:v9];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = TradeInToolViewController;
+  [(TradeInToolViewController *)&v8 viewWillAppear:appear];
+  objc_initWeak(&location, self);
+  animatedScrollingQueue = [(DisplayViewController *)self animatedScrollingQueue];
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_100002D30;
+  v5[3] = &unk_100008288;
+  objc_copyWeak(&v6, &location);
+  dispatch_async(animatedScrollingQueue, v5);
+
+  objc_destroyWeak(&v6);
+  objc_destroyWeak(&location);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = TradeInToolViewController;
+  [(TradeInToolViewController *)&v6 viewDidAppear:appear];
+  scrollView = [(DisplayViewController *)self scrollView];
+  [scrollView becomeFirstResponder];
+
+  LODWORD(scrollView) = UIAccessibilityScreenChangedNotification;
+  currentImageView = [(DisplayViewController *)self currentImageView];
+  UIAccessibilityPostNotification(scrollView, currentImageView);
+}
+
 - (void)start
 {
   v4 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, -1);
@@ -272,6 +306,45 @@ LABEL_18:
   v3 = [tradeInImages count];
 
   return v3;
+}
+
+- (id)imageViewForPage:(int)page
+{
+  v3 = *&page;
+  v5 = [UIImageView alloc];
+  [(TradeInToolViewController *)self frameForPage:v3];
+  v6 = [v5 initWithFrame:?];
+  tradeInImages = [(TradeInToolViewController *)self tradeInImages];
+  v8 = [tradeInImages objectAtIndexedSubscript:v3];
+
+  path = [v8 path];
+  v10 = [UIImage imageWithContentsOfFile:path];
+  [v6 setImage:v10];
+
+  [v6 setIsAccessibilityElement:1];
+  if (v3)
+  {
+    if (v3 != 1)
+    {
+      goto LABEL_6;
+    }
+
+    v11 = @"TRADE_IN_TOOL_LIGHT_QR_CODE";
+  }
+
+  else
+  {
+    v11 = @"TRADE_IN_TOOL_DARK_QR_CODE";
+  }
+
+  v12 = +[NSBundle mainBundle];
+  v13 = [v12 localizedStringForKey:v11 value:&stru_100008398 table:0];
+  [v6 setAccessibilityLabel:v13];
+
+LABEL_6:
+  [v6 setAccessibilityTraits:UIAccessibilityTraitImage];
+
+  return v6;
 }
 
 - (void)didUpdateCurrentImageView:(id)view

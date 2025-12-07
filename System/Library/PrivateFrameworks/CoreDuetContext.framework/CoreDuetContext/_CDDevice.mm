@@ -5,6 +5,7 @@
 - (BOOL)matchesDeviceTypes:(unint64_t)types;
 - (_CDDevice)initWithCoder:(id)coder;
 - (_CDDevice)initWithName:(id)name deviceID:(id)d deviceClass:(int64_t)class model:(id)model companion:(BOOL)companion;
+- (_CDDevice)initWithName:(id)name deviceID:(id)d model:(id)model companion:(BOOL)companion;
 - (_CDDevice)initWithName:(id)name identifier:(unint64_t)identifier deviceClass:(int64_t)class;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
@@ -71,6 +72,74 @@
   }
 
   return v11;
+}
+
+- (_CDDevice)initWithName:(id)name deviceID:(id)d model:(id)model companion:(BOOL)companion
+{
+  companionCopy = companion;
+  v19 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  dCopy = d;
+  modelCopy = model;
+  if ([modelCopy localizedCaseInsensitiveContainsString:@"Mac"])
+  {
+    if ([modelCopy localizedCaseInsensitiveContainsString:@"book"])
+    {
+      v13 = 4;
+    }
+
+    else
+    {
+      v13 = 3;
+    }
+  }
+
+  else if ([modelCopy localizedCaseInsensitiveContainsString:@"iPhone"])
+  {
+    v13 = 1;
+  }
+
+  else if ([modelCopy localizedCaseInsensitiveContainsString:@"iPad"])
+  {
+    v13 = 0;
+  }
+
+  else if ([modelCopy localizedCaseInsensitiveContainsString:@"Watch"])
+  {
+    v13 = 6;
+  }
+
+  else if ([modelCopy localizedCaseInsensitiveContainsString:@"AppleTV"])
+  {
+    v13 = 5;
+  }
+
+  else if ([modelCopy localizedCaseInsensitiveContainsString:@"AudioAccessory"])
+  {
+    v13 = 7;
+  }
+
+  else if ([modelCopy localizedCaseInsensitiveContainsString:@"iPod"])
+  {
+    v13 = 2;
+  }
+
+  else
+  {
+    mdcsChannel = [MEMORY[0x1E6997908] mdcsChannel];
+    if (os_log_type_enabled(mdcsChannel, OS_LOG_TYPE_INFO))
+    {
+      v17 = 138412290;
+      v18 = modelCopy;
+      _os_log_impl(&dword_1A9611000, mdcsChannel, OS_LOG_TYPE_INFO, "Unrecognized model: %@", &v17, 0xCu);
+    }
+
+    v13 = -1;
+  }
+
+  v15 = [(_CDDevice *)self initWithName:nameCopy deviceID:dCopy deviceClass:v13 model:modelCopy companion:companionCopy];
+
+  return v15;
 }
 
 - (BOOL)matchesDeviceTypes:(unint64_t)types

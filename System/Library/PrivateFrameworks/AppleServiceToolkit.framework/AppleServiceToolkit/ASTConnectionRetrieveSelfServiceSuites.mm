@@ -22,13 +22,11 @@
 
 - (id)parameters
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"configCode";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"configCode";
   configCode = [(ASTConnectionRetrieveSelfServiceSuites *)self configCode];
-  v7[0] = configCode;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = configCode;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

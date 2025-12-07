@@ -10,11 +10,14 @@
 - (void)handleNetworkConfigurationChange:(int64_t)change;
 - (void)handleNetworkDetectionNotification:(int)notification;
 - (void)handleStartMessage:(id)message;
+- (void)handleStopMessageWithReason:(int)reason;
 - (void)handleUserLogin;
 - (void)install;
+- (void)plugin:(id)plugin didStartWithPID:(int)d error:(id)error;
 - (void)prepareNetwork;
 - (void)resetProviderDesignatedRequirementInConfiguration:(id)configuration;
 - (void)setProviderDesignatedRequirement:(id)requirement;
+- (void)setStatus:(int)status;
 - (void)uninstall;
 @end
 
@@ -25,6 +28,29 @@
   sub_10002EB30(self, a2);
 
   [(NESMSession *)self startWithCommand:0 isOnDemand:0];
+}
+
+- (void)plugin:(id)plugin didStartWithPID:(int)d error:(id)error
+{
+  v6 = *&d;
+  pluginCopy = plugin;
+  v11.receiver = self;
+  v11.super_class = NESMDNSProxySession;
+  [(NESMVPNSession *)&v11 plugin:pluginCopy didStartWithPID:v6 error:error];
+  if (v6 >= 1)
+  {
+    primaryTunnelPlugin = [(NESMVPNSession *)self primaryTunnelPlugin];
+
+    if (primaryTunnelPlugin == pluginCopy)
+    {
+      v10 = mach_absolute_time();
+      if (self)
+      {
+        self->_pluginStartTicks = v10;
+        sub_10002EF6C(self);
+      }
+    }
+  }
 }
 
 - (void)uninstall
@@ -112,8 +138,7 @@ LABEL_9:
       perApp4 = [dnsProxy5 perApp];
       appRules2 = [perApp4 appRules];
       v25 = [(NESMSession *)self uid];
-      [v25 intValue];
-      sub_100040988(policySession, appRules2);
+      sub_100040988(policySession, appRules2, [v25 intValue]);
     }
 
     configuration7 = [(NESMSession *)self configuration];
@@ -134,6 +159,19 @@ LABEL_9:
 {
   stateHandler = [(NESMVPNSession *)self stateHandler];
   [stateHandler handleNetworkPrepareResult:&stru_1000EBA68];
+}
+
+- (void)handleStopMessageWithReason:(int)reason
+{
+  v4.receiver = self;
+  v4.super_class = NESMDNSProxySession;
+  [(NESMVPNSession *)&v4 handleStopMessageWithReason:*&reason];
+  sub_10002F624(self, 0);
+  if (self)
+  {
+    self->_externallyStopped = 1;
+    self->_restartIntervalSecs = 1;
+  }
 }
 
 - (void)handleStartMessage:(id)message
@@ -256,6 +294,104 @@ LABEL_26:
   }
 
 LABEL_28:
+}
+
+- (void)setStatus:(int)status
+{
+  v3 = *&status;
+  status = [(NESMSession *)self status];
+  v19.receiver = self;
+  v19.super_class = NESMDNSProxySession;
+  [(NESMVPNSession *)&v19 setStatus:v3];
+  if ([(NESMSession *)self status]== 1 && status != 1 && (!self || !self->_externallyStopped) && [(NESMSession *)self lastStopReason]!= 3 && [(NESMSession *)self lastStopReason]!= 6 && [(NESMVPNSession *)self state]!= 9)
+  {
+    if (qword_1000FD518 != -1)
+    {
+      dispatch_once(&qword_1000FD518, &stru_1000E9C28);
+    }
+
+    v6 = mach_absolute_time();
+    if (self && (v6 - self->_pluginStartTicks) / qword_1000FCD28 >= 0x3C)
+    {
+      self->_restartIntervalSecs = 1;
+    }
+
+    v7 = ne_log_obj();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      [(NESMSession *)self lastStopReason];
+      v8 = ne_session_stop_reason_to_string();
+      if (self)
+      {
+        restartIntervalSecs = self->_restartIntervalSecs;
+      }
+
+      else
+      {
+        restartIntervalSecs = 0;
+      }
+
+      *buf = 138412802;
+      selfCopy = self;
+      v22 = 2080;
+      v23 = v8;
+      v24 = 2048;
+      v25 = restartIntervalSecs;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@: unexpected disconnect (%s), restarting in ~%lu seconds", buf, 0x20u);
+    }
+
+    sub_10002F624(self, 0);
+    if (self)
+    {
+      v10 = 1000000000 * self->_restartIntervalSecs;
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    v11 = dispatch_time(0, v10);
+    queue = [(NESMSession *)self queue];
+    v13 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, queue);
+
+    if (self)
+    {
+      v14 = 100000000 * self->_restartIntervalSecs;
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    dispatch_source_set_timer(v13, v11, 0xFFFFFFFFFFFFFFFFLL, v14);
+    objc_initWeak(buf, self);
+    handler[0] = _NSConcreteStackBlock;
+    handler[1] = 3221225472;
+    handler[2] = sub_10002FDA4;
+    handler[3] = &unk_1000E9C50;
+    objc_copyWeak(&v18, buf);
+    dispatch_source_set_event_handler(v13, handler);
+    dispatch_activate(v13);
+    sub_10002F624(self, v13);
+    if (self)
+    {
+      v15 = self->_restartIntervalSecs;
+      if (v15 != 60)
+      {
+        v16 = 3 * v15;
+        self->_restartIntervalSecs = v16;
+        if (v16 >= 0x3D)
+        {
+          self->_restartIntervalSecs = 60;
+        }
+      }
+    }
+
+    objc_destroyWeak(&v18);
+    objc_destroyWeak(buf);
+  }
 }
 
 - (void)handleNetworkDetectionNotification:(int)notification

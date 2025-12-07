@@ -28,15 +28,16 @@
     sub_100034D34();
   }
 
-  if (self->znProcessData)
+  znProcessData = self->znProcessData;
+  if (znProcessData)
   {
-    znTerminate();
-    znCleanup();
+    znTerminate(znProcessData, v3);
+    znCleanup(0, v5, v6, v7, v8);
   }
 
-  v3.receiver = self;
-  v3.super_class = PrintBandService;
-  [(PrintBandService *)&v3 dealloc];
+  v9.receiver = self;
+  v9.super_class = PrintBandService;
+  [(PrintBandService *)&v9 dealloc];
 }
 
 - (void)znProcessBand:(id)band withBandDescription:(id *)description reply:(id)reply
@@ -59,25 +60,25 @@
     initZn(&self->znProcessData, &self->bandCombo);
   }
 
-  v12 = znProcessImageData(self->znProcessData, &self->bandCombo, 0);
+  v13 = znProcessImageData(self->znProcessData, &self->bandCombo.imageParams, 0, v12);
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
     sub_100034E3C();
   }
 
-  if (!v12)
+  if (!v13)
   {
-    v12 = znAcknowledge(self->bandCombo.token, 0, self->znProcessData);
+    v13 = znAcknowledge(self->bandCombo.token, 0, self->znProcessData, v14);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
     {
-      sub_100034EB8(&self->bandCombo.token);
+      sub_100034EB8();
     }
 
-    if (!v12)
+    if (!v13)
     {
       if (description->var6 + description->var7 >= description->var1)
       {
-        v12 = znTerminateBanding(self->znProcessData);
+        v13 = znTerminateBanding(self->znProcessData, v15);
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
         {
           sub_100034F44();
@@ -86,7 +87,7 @@
 
       else
       {
-        v12 = 0;
+        v13 = 0;
       }
     }
   }
@@ -97,37 +98,37 @@
     var7 = description->var7;
     var1 = description->var1;
     bandIsOkay = self->bandCombo.bandIsOkay;
-    v18 = 136316418;
-    v19 = "[PrintBandService znProcessBand:withBandDescription:reply:]";
-    v20 = 1024;
-    v21 = var7;
-    v22 = 1024;
-    v23 = var6;
-    v24 = 1024;
-    v25 = var1;
-    v26 = 1024;
-    v27 = v12;
-    v28 = 1024;
-    v29 = bandIsOkay;
-    _os_log_debug_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEBUG, "%s: bandY=%d bandHeight=%d pageHeight=%d result=%d bandOkay=%d", &v18, 0x2Au);
+    v21 = 136316418;
+    v22 = "[PrintBandService znProcessBand:withBandDescription:reply:]";
+    v23 = 1024;
+    v24 = var7;
+    v25 = 1024;
+    v26 = var6;
+    v27 = 1024;
+    v28 = var1;
+    v29 = 1024;
+    v30 = v13;
+    v31 = 1024;
+    v32 = bandIsOkay;
+    _os_log_debug_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEBUG, "%s: bandY=%d bandHeight=%d pageHeight=%d result=%d bandOkay=%d", &v21, 0x2Au);
   }
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_100034FC0(self);
+    sub_100034FC0();
   }
 
   if (self->bandCombo.bandIsOkay)
   {
-    v13 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v13 = 0xFFFFFFFFLL;
+    v16 = 0xFFFFFFFFLL;
   }
 
-  replyCopy[2](replyCopy, v13);
+  replyCopy[2](replyCopy, v16);
 }
 
 @end

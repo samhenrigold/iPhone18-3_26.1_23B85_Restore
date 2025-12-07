@@ -9,9 +9,10 @@
 
 - (void)screenSharingStateMonitor:(id)monitor didUpdateScreenSharingBroadcastingState:(BOOL)state
 {
+  stateCopy = state;
   swift_unknownObjectRetain();
   selfCopy = self;
-  ScreenSharingInteractionController.screenSharingStateMonitor(_:didUpdateScreenSharingBroadcastingState:)();
+  ScreenSharingInteractionController.screenSharingStateMonitor(_:didUpdateScreenSharingBroadcastingState:)(selfCopy, stateCopy);
   swift_unknownObjectRelease();
 }
 
@@ -25,16 +26,16 @@
 
 - (NSDate)latestRemoteControlDate
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v4 = &v8 - v3;
-  ScreenSharingInteractionController.latestRemoteControlDate.getter(&v8 - v3);
-  v5 = type metadata accessor for Date();
+  v4 = &v9 - v3;
+  ScreenSharingInteractionController.latestRemoteControlDate.getter(v5, &v9 - v3);
+  v6 = type metadata accessor for Date();
   isa = 0;
-  if (__swift_getEnumTagSinglePayload(v4, 1, v5) != 1)
+  if (__swift_getEnumTagSinglePayload(v4, 1, v6) != 1)
   {
     isa = Date._bridgeToObjectiveC()().super.isa;
-    (*(*(v5 - 8) + 8))(v4, v5);
+    (*(*(v6 - 8) + 8))(v4, v6);
   }
 
   return isa;
@@ -42,7 +43,7 @@
 
 - (void)setLatestRemoteControlDate:(id)date
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v11 - v6;
   if (date)

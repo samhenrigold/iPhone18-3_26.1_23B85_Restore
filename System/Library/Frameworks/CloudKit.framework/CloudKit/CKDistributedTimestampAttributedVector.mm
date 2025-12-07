@@ -5,6 +5,7 @@
 + (unsigned)atomStateFromPClockTypeAndAtomState:(int)state;
 + (unsigned)clockTypeFromPClockTypeAndAtomState:(int)state;
 + (void)initialize;
+- (BOOL)clockVector_hasTimestampsNotInVector:(id)vector withExpansionState:(unsigned __int8)state;
 - (BOOL)clockVector_includesTimestamp:(id)timestamp;
 - (BOOL)isEqual:(id)equal;
 - (CKDistributedTimestampAttributedVector)init;
@@ -20,8 +21,10 @@
 - (id)clockVector_vectorFilteredByAtomState:(unsigned __int8)state;
 - (id)clockVector_vectorFilteredByClockType:(unsigned __int8)type;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
+- (id)vectorFilteredByAttribute:(unsigned __int16)attribute;
 - (id)vectorFilteredByModifier:(id)modifier;
 - (id)vectorFilteredBySiteIdentifiers:(id)identifiers;
+- (int64_t)clockVector_compareToVector:(id)vector withExpansionState:(unsigned __int8)state;
 - (unint64_t)clockVector_timestampCountForAtomState:(unsigned __int8)state;
 - (unint64_t)hash;
 - (unint64_t)timestampCount;
@@ -52,37 +55,35 @@
 
 - (id)allModifiers
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   objc_msgSend_allSiteIdentifiers(self, v4, v5);
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v6 = v18 = 0u;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v17, v21, 16);
+  v16 = 0u;
+  v6 = v17 = 0u;
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v16, v20, 16);
   if (v10)
   {
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = objc_msgSend_modifier(*(*(&v17 + 1) + 8 * i), v8, v9, v17);
+        v13 = objc_msgSend_modifier(*(*(&v16 + 1) + 8 * i), v8, v9, v16);
         objc_msgSend_addObject_(v3, v14, v13);
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v8, &v17, v21, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v8, &v16, v20, 16);
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -147,13 +148,11 @@
 
 + (void)initialize
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
-  v7[0] = objc_opt_class();
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v7, 1);
+  v6[0] = objc_opt_class();
+  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v6, 1);
   sub_1886CEE50(self, v3, v5, 0, 1);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (CKDistributedTimestampAttributedVector)initWithCoder:(id)coder
@@ -331,30 +330,30 @@
 
 - (unsigned)attributeForTimestamp:(id)timestamp
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   timestampCopy = timestamp;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v8 = objc_msgSend_mutableAttributeToSparseVector(selfCopy, v6, v7);
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v34, v38, 16);
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v33, v37, 16);
   if (v12)
   {
     obj = v8;
-    v13 = *v35;
+    v13 = *v34;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v35 != v13)
+        if (*v34 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v34 + 1) + 8 * i);
+        v15 = *(*(&v33 + 1) + 8 * i);
         v16 = objc_msgSend_mutableAttributeToSparseVector(selfCopy, v10, v11);
         v18 = objc_msgSend_objectForKeyedSubscript_(v16, v17, v15);
 
@@ -371,7 +370,7 @@
         }
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v34, v38, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v33, v37, 16);
       if (v12)
       {
         continue;
@@ -385,7 +384,6 @@ LABEL_11:
   }
 
   objc_sync_exit(selfCopy);
-  v31 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -487,45 +485,45 @@ LABEL_11:
 
 - (void)enumerateAllClockValuesUsingBlock:(id)block
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   objc_msgSend_allSiteIdentifiers(selfCopy, v6, v7);
+  v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  obj = v26 = 0u;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v25, v29, 16);
+  v24 = 0u;
+  obj = v25 = 0u;
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v24, v28, 16);
   if (v9)
   {
-    v10 = *v26;
+    v10 = *v25;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v26 != v10)
+      if (*v25 != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v25 + 1) + 8 * v11);
-      v21 = 0;
-      v22 = &v21;
-      v23 = 0x2020000000;
-      v24 = 0;
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = sub_1885588A8;
-      v18[3] = &unk_1E70BD420;
+      v12 = *(*(&v24 + 1) + 8 * v11);
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x2020000000;
+      v23 = 0;
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = sub_1885588A8;
+      v17[3] = &unk_1E70BD420;
       v13 = blockCopy;
-      v18[4] = v12;
-      v19 = v13;
-      v20 = &v21;
-      objc_msgSend_enumerateClockValuesForSiteIdentifier_usingBlock_(selfCopy, v14, v12, v18);
-      LOBYTE(v12) = *(v22 + 24);
+      v17[4] = v12;
+      v18 = v13;
+      v19 = &v20;
+      objc_msgSend_enumerateClockValuesForSiteIdentifier_usingBlock_(selfCopy, v14, v12, v17);
+      LOBYTE(v12) = *(v21 + 24);
 
-      _Block_object_dispose(&v21, 8);
+      _Block_object_dispose(&v20, 8);
       if (v12)
       {
         break;
@@ -533,7 +531,7 @@ LABEL_3:
 
       if (v9 == ++v11)
       {
-        v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v25, v29, 16);
+        v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v24, v28, 16);
         if (v9)
         {
           goto LABEL_3;
@@ -545,7 +543,6 @@ LABEL_3:
   }
 
   objc_sync_exit(selfCopy);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)vectorFilteredBySiteIdentifiers:(id)identifiers
@@ -592,6 +589,26 @@ LABEL_3:
   objc_sync_exit(selfCopy);
 
   return v15;
+}
+
+- (id)vectorFilteredByAttribute:(unsigned __int16)attribute
+{
+  attributeCopy = attribute;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v5 = objc_opt_new();
+  v8 = objc_msgSend_mutableAttributeToSparseVector(selfCopy, v6, v7);
+  v10 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x1E696AD98], v9, attributeCopy);
+  v12 = objc_msgSend_objectForKeyedSubscript_(v8, v11, v10);
+  v15 = objc_msgSend_mutableCopy(v12, v13, v14);
+  v18 = objc_msgSend_mutableAttributeToSparseVector(v5, v16, v17);
+  v20 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x1E696AD98], v19, attributeCopy);
+  objc_msgSend_setObject_forKeyedSubscript_(v18, v21, v15, v20);
+
+  v24 = objc_msgSend_copy(v5, v22, v23);
+  objc_sync_exit(selfCopy);
+
+  return v24;
 }
 
 - (CKDistributedTimestampAttributedVector)vectorWithAttributeReplacementBlock:(id)block
@@ -849,6 +866,59 @@ LABEL_3:
   _Block_object_dispose(v34, 8);
 
   return v15;
+}
+
+- (int64_t)clockVector_compareToVector:(id)vector withExpansionState:(unsigned __int8)state
+{
+  stateCopy = state;
+  vectorCopy = vector;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v8 = vectorCopy;
+  objc_sync_enter(v8);
+  hasTimestampsNotInVector_withExpansionState = objc_msgSend_clockVector_hasTimestampsNotInVector_withExpansionState_(selfCopy, v9, v8, stateCopy);
+  v12 = objc_msgSend_clockVector_hasTimestampsNotInVector_withExpansionState_(v8, v11, selfCopy, stateCopy);
+  v13 = 2;
+  if (((v12 | hasTimestampsNotInVector_withExpansionState) & 1) == 0)
+  {
+    v13 = 0;
+  }
+
+  if (hasTimestampsNotInVector_withExpansionState & 1 | ((v12 & 1) == 0))
+  {
+    v14 = v13;
+  }
+
+  else
+  {
+    v14 = -1;
+  }
+
+  if (v12 & 1 | ((hasTimestampsNotInVector_withExpansionState & 1) == 0))
+  {
+    v15 = v14;
+  }
+
+  else
+  {
+    v15 = 1;
+  }
+
+  objc_sync_exit(v8);
+
+  objc_sync_exit(selfCopy);
+  return v15;
+}
+
+- (BOOL)clockVector_hasTimestampsNotInVector:(id)vector withExpansionState:(unsigned __int8)state
+{
+  stateCopy = state;
+  vectorCopy = vector;
+  v9 = objc_msgSend_mutableCopy(self, v7, v8);
+  objc_msgSend_clockVector_minusVector_withExpansionState_(v9, v10, vectorCopy, stateCopy);
+  LOBYTE(stateCopy) = objc_msgSend_timestampCount(v9, v11, v12) != 0;
+
+  return stateCopy;
 }
 
 + (id)attributedVectorFromPDistributedTimestamps:(id)timestamps error:(id *)error

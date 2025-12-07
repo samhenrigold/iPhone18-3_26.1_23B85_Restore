@@ -374,7 +374,7 @@ LABEL_10:
     return 1;
   }
 
-  [(SKProductPageExtension *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   return [SKEntitlementChecker isProcessEntitled:&v4 entitlementName:@"com.apple.itunesstored.private"];
 }
 

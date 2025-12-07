@@ -74,7 +74,7 @@ LABEL_7:
 
 - (void)_loadEventDescriptors
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   config = [(TIEventDescriptorRegistry *)self config];
 
   if (!config)
@@ -86,7 +86,7 @@ LABEL_7:
     {
       v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Loading event descriptor configuration.", "-[TIEventDescriptorRegistry _loadEventDescriptors]"];
       *buf = 138412290;
-      v25 = v7;
+      v24 = v7;
       _os_log_impl(&dword_22CA55000, v6, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
     }
 
@@ -100,9 +100,9 @@ LABEL_7:
       v10 = IXADefaultLogFacility();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Unable to load the event descriptor configuration from %@.plist.", "-[TIEventDescriptorRegistry _loadEventDescriptors]", @"EventDescriptors"];
+        v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Unable to load the event descriptor configuration from %@.plist.", "-[TIEventDescriptorRegistry _loadEventDescriptors]", @"EventDescriptors"];
         *buf = 138412290;
-        v25 = v22;
+        v24 = v21;
         _os_log_error_impl(&dword_22CA55000, v10, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
       }
     }
@@ -117,7 +117,7 @@ LABEL_7:
     {
       v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Loading event descriptors.", "-[TIEventDescriptorRegistry _loadEventDescriptors]"];
       *buf = 138412290;
-      v25 = v13;
+      v24 = v13;
       _os_log_impl(&dword_22CA55000, v12, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
     }
 
@@ -133,42 +133,38 @@ LABEL_7:
       v19 = IXADefaultLogFacility();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s The following errors occurred while parsing the event descriptor configuration.", "-[TIEventDescriptorRegistry _loadEventDescriptors]"];
+        v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s The following errors occurred while parsing the event descriptor configuration.", "-[TIEventDescriptorRegistry _loadEventDescriptors]"];
         *buf = 138412290;
-        v25 = v21;
+        v24 = v20;
         _os_log_error_impl(&dword_22CA55000, v19, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
       }
 
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __50__TIEventDescriptorRegistry__loadEventDescriptors__block_invoke;
-      v23[3] = &unk_2787319C8;
-      v23[4] = self;
-      [v15 enumerateObjectsUsingBlock:v23];
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __50__TIEventDescriptorRegistry__loadEventDescriptors__block_invoke;
+      v22[3] = &unk_2787319C8;
+      v22[4] = self;
+      [v15 enumerateObjectsUsingBlock:v22];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __50__TIEventDescriptorRegistry__loadEventDescriptors__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = IXADefaultLogFacility();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = MEMORY[0x277CCACA8];
-    v7 = [*(a1 + 32) contextFromError:v3];
-    v8 = [v3 userInfo];
-    v9 = [v8 objectForKey:@"message"];
-    v10 = [v6 stringWithFormat:@"%s   %@%@", "-[TIEventDescriptorRegistry _loadEventDescriptors]_block_invoke", v7, v9];
+    v5 = MEMORY[0x277CCACA8];
+    v6 = [*(a1 + 32) contextFromError:v3];
+    v7 = [v3 userInfo];
+    v8 = [v7 objectForKey:@"message"];
+    v9 = [v5 stringWithFormat:@"%s   %@%@", "-[TIEventDescriptorRegistry _loadEventDescriptors]_block_invoke", v6, v8];
     *buf = 138412290;
-    v12 = v10;
+    v11 = v9;
     _os_log_error_impl(&dword_22CA55000, v4, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadEventDescriptorsIfNecessary

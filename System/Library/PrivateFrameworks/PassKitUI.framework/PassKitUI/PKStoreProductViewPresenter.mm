@@ -147,16 +147,16 @@ void __88__PKStoreProductViewPresenter_loadProductForItemIdentifier_customProduc
   }
 }
 
-uint64_t __57__PKStoreProductViewPresenter_presentStoreViewWithBlock___block_invoke(uint64_t result)
+id *__57__PKStoreProductViewPresenter_presentStoreViewWithBlock___block_invoke(id *result)
 {
-  if (*(*(result + 32) + 9) == 1)
+  if (*(result[4] + 9) == 1)
   {
     v1 = result;
-    result = [*(result + 40) isBeingDismissed];
+    result = [result[5] isBeingDismissed];
     if ((result & 1) == 0)
     {
-      v2 = *(v1 + 32);
-      v3 = *(v1 + 40);
+      v2 = v1[4];
+      v3 = v1[5];
 
       return [v2 productViewControllerDidFinish:v3];
     }

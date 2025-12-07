@@ -28,7 +28,7 @@
 {
   v0 = sub_1AF276CB4();
   Count = CFArrayGetCount(v0[2]);
-  v2 = Count;
+  v3 = Count;
   if (Count < 2)
   {
     if (Count == 1)
@@ -39,26 +39,28 @@
 
   else
   {
-    v3 = sub_1AF0D5194();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_1AF0D5194(Count, v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF11F8();
     }
 
-    if (*(CFArrayGetValueAtIndex(v0[2], v2 - 1) + 5) == 0.0)
+    Count = CFArrayGetValueAtIndex(v0[2], v3 - 1);
+    if (*(Count + 40) == 0.0)
     {
-      v4 = sub_1AF0D5194();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = sub_1AF0D5194(Count, v2);
+      Count = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+      if (Count)
       {
         sub_1AFDF122C();
       }
     }
   }
 
-  v5 = sub_1AF0D5194();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v6 = sub_1AF0D5194(Count, v2);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
-    sub_1AFDF1260(v5, v6, v7, v8, v9, v10, v11, v12);
+    sub_1AFDF1260(v6, v7, v8, v9, v10, v11, v12, v13);
   }
 }
 
@@ -99,9 +101,9 @@
   {
     v3 = result;
     v4 = [VFXTimingFunction alloc];
-    v7 = objc_msgSend_initWithTimingFunctionRef_(v4, v5, v3, v6);
+    v6 = objc_msgSend_initWithTimingFunctionRef_(v4, v5, v3);
 
-    return v7;
+    return v6;
   }
 
   return result;
@@ -109,9 +111,9 @@
 
 + (void)setTimingFunction:(id)function
 {
-  v4 = objc_msgSend_cfxTimingFunction(function, a2, function, v3);
+  v3 = objc_msgSend_cfxTimingFunction(function, a2, function);
 
-  sub_1AF277EF8(v4);
+  sub_1AF277EF8(v3);
 }
 
 + (id)animationTimingFunction
@@ -120,7 +122,7 @@
   if (result)
   {
 
-    return sub_1AF36FD0C(result);
+    return sub_1AF36FD0C(result, v3);
   }
 
   return result;
@@ -208,16 +210,16 @@
   v6 = sub_1AF276C70();
   if (sub_1AF2780EC(v6))
   {
-    v10 = sub_1AF336580(object, v7, v8, v9);
+    v9 = sub_1AF336580(object, v7, v8);
 
-    sub_1AF336414(block, v10, v11);
+    sub_1AF336414(block, v9, v10);
   }
 
   else
   {
-    v12 = objc_msgSend___CFObject(object, v7, v8, v9);
+    v11 = objc_msgSend___CFObject(object, v7, v8);
 
-    sub_1AF278390(v6, object, v12, 0, 1, block);
+    sub_1AF278390(v6, object, v11, 0, 1, block);
   }
 }
 
@@ -226,17 +228,17 @@
   v8 = sub_1AF276C70();
   if (sub_1AF2780EC(v8))
   {
-    v12 = sub_1AF336580(object, v9, v10, v11);
-    v16 = objc_msgSend___CFObject(object, v13, v14, v15);
+    v11 = sub_1AF336580(object, v9, v10);
+    v14 = objc_msgSend___CFObject(object, v12, v13);
 
-    sub_1AF277660(v12, v16, path, v8, block);
+    sub_1AF277660(v11, v14, path, v8, block);
   }
 
   else
   {
-    v17 = objc_msgSend___CFObject(object, v9, v10, v11);
+    v15 = objc_msgSend___CFObject(object, v9, v10);
 
-    sub_1AF278390(v8, object, v17, path, 1, block);
+    sub_1AF278390(v8, object, v15, path, 1, block);
   }
 }
 
@@ -245,17 +247,17 @@
   v12 = sub_1AF276C70();
   if (sub_1AF2780EC(v12))
   {
-    v16 = sub_1AF336580(object, v13, v14, v15);
-    v20 = objc_msgSend___CFObject(object, v17, v18, v19);
+    v15 = sub_1AF336580(object, v13, v14);
+    v18 = objc_msgSend___CFObject(object, v16, v17);
 
-    sub_1AF27779C(v16, v20, key, index, v12, block);
+    sub_1AF27779C(v15, v18, key, index, v12, block);
   }
 
   else
   {
-    v21 = objc_msgSend___CFObject(object, v13, v14, v15);
+    v19 = objc_msgSend___CFObject(object, v13, v14);
 
-    sub_1AF278390(v12, object, v21, path, 1, block);
+    sub_1AF278390(v12, object, v19, path, 1, block);
   }
 }
 
@@ -264,17 +266,17 @@
   v12 = sub_1AF276C70();
   if (sub_1AF2780EC(v12))
   {
-    v16 = sub_1AF336580(object, v13, v14, v15);
-    v20 = objc_msgSend___CFObject(object, v17, v18, v19);
+    v15 = sub_1AF336580(object, v13, v14);
+    v18 = objc_msgSend___CFObject(object, v16, v17);
 
-    sub_1AF2778F4(v16, v20, key, subscriptKey, v12, block);
+    sub_1AF2778F4(v15, v18, key, subscriptKey, v12, block);
   }
 
   else
   {
-    v21 = objc_msgSend___CFObject(object, v13, v14, v15);
+    v19 = objc_msgSend___CFObject(object, v13, v14);
 
-    sub_1AF278390(v12, object, v21, path, 1, block);
+    sub_1AF278390(v12, object, v19, path, 1, block);
   }
 }
 
@@ -283,54 +285,55 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    object = objc_msgSend_world(object, v8, v9, v10);
+    object = objc_msgSend_world(object, v8, v9);
   }
 
-  if (objc_opt_respondsToSelector())
+  v10 = objc_opt_respondsToSelector();
+  if (v10)
   {
-    if (!objc_msgSend_worldRef(object, v11, v12, v13))
+    if (!objc_msgSend_worldRef(object, v11, v12))
     {
-      v15 = sub_1AF0D5194();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v14 = sub_1AF0D5194(0, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
-        sub_1AFDF9144(v15);
+        sub_1AFDF9144(v14);
       }
     }
 
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = sub_1AF336964;
-    v17[3] = &unk_1E7A7F250;
-    v17[4] = block;
-    v17[5] = a2;
-    objc_msgSend_postCommandWithObject_applyBlock_(self, v14, object, v17);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = sub_1AF336964;
+    v16[3] = &unk_1E7A7F250;
+    v16[4] = block;
+    v16[5] = a2;
+    objc_msgSend_postCommandWithObject_applyBlock_(self, v13, object, v16);
   }
 
   else
   {
-    v16 = sub_1AF0D5194();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = sub_1AF0D5194(v10, v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_1AFDF90C4();
+      sub_1AFDF90C4(object, v15);
     }
   }
 }
 
 + (void)performPresentationObjectQueriesInWorld:(id)world usingBlock:(id)block
 {
-  v5 = objc_msgSend_worldRef(world, a2, world, block);
-  v7 = v5;
+  v5 = objc_msgSend_worldRef(world, a2, world);
+  v9 = v5;
   if (v5)
   {
-    v6 = v5;
-    sub_1AF1CEA20(v5);
-    (*(block + 2))(block, &v7);
-    sub_1AF1CEA9C(v6);
+    v7 = v5;
+    sub_1AF1CEA20(v5, v6);
+    (*(block + 2))(block, &v9);
+    sub_1AF1CEA9C(v7, v8);
   }
 
   else
   {
-    (*(block + 2))(block, &v7);
+    (*(block + 2))(block, &v9);
   }
 }
 
@@ -339,10 +342,10 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    function = objc_msgSend_functionWithName_(MEMORY[0x1E69793D0], v4, function, v5);
+    function = objc_msgSend_functionWithName_(MEMORY[0x1E69793D0], v4, function);
   }
 
-  MEMORY[0x1EEE66B58](VFXTransaction, sel_setAnimationTimingFunction_, function, v5);
+  MEMORY[0x1EEE66B58](VFXTransaction, sel_setAnimationTimingFunction_, function);
 }
 
 @end

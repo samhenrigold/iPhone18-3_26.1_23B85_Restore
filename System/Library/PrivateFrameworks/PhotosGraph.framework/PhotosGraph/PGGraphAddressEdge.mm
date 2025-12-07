@@ -8,6 +8,7 @@
 - (CLLocationCoordinate2D)photoCoordinate;
 - (MAEdgeFilter)uniquelyIdentifyingFilter;
 - (PGGraphAddressEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties;
+- (PGGraphAddressEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (double)timestampUTCEnd;
 - (double)timestampUTCStart;
 - (id)edgeDescription;
@@ -89,32 +90,30 @@
 
 - (id)propertyDictionary
 {
-  v15[6] = *MEMORY[0x277D85DE8];
-  v14[0] = @"relevance";
+  v14[6] = *MEMORY[0x277D85DE8];
+  v13[0] = @"relevance";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:self->_relevance];
-  v15[0] = v3;
-  v14[1] = @"utcs";
+  v14[0] = v3;
+  v13[1] = @"utcs";
   v4 = MEMORY[0x277CCABB0];
   [(PGGraphAddressEdge *)self timestampUTCStart];
   v5 = [v4 numberWithDouble:?];
-  v15[1] = v5;
-  v14[2] = @"utce";
+  v14[1] = v5;
+  v13[2] = @"utce";
   v6 = MEMORY[0x277CCABB0];
   [(PGGraphAddressEdge *)self timestampUTCEnd];
   v7 = [v6 numberWithDouble:?];
-  v15[2] = v7;
-  v14[3] = @"lat";
+  v14[2] = v7;
+  v13[3] = @"lat";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:self->_photoCoordinate.latitude];
-  v15[3] = v8;
-  v14[4] = @"lng";
+  v14[3] = v8;
+  v13[4] = @"lng";
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:self->_photoCoordinate.longitude];
-  v15[4] = v9;
-  v14[5] = @"noa";
+  v14[4] = v9;
+  v13[5] = @"noa";
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfAssets];
-  v15[5] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:6];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[5] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:6];
 
   return v11;
 }
@@ -127,74 +126,40 @@
   {
     v6 = [v5 objectForKeyedSubscript:@"relevance"];
     v7 = v6;
-    if (v6)
+    v22 = 0;
+    if (!v6 || ([v6 doubleValue], v8 == self->_relevance))
     {
-      [v6 doubleValue];
-      if (v8 != self->_relevance)
+
+      v9 = [v5 objectForKeyedSubscript:@"utcs"];
+      v7 = v9;
+      if (!v9 || ([v9 doubleValue], v11 = v10, -[PGGraphAddressEdge timestampUTCStart](self, "timestampUTCStart"), v11 == v12))
       {
-        goto LABEL_17;
+
+        v13 = [v5 objectForKeyedSubscript:@"utce"];
+        v7 = v13;
+        if (!v13 || ([v13 doubleValue], v15 = v14, -[PGGraphAddressEdge timestampUTCEnd](self, "timestampUTCEnd"), v15 == v16))
+        {
+
+          v17 = [v5 objectForKeyedSubscript:@"lat"];
+          v7 = v17;
+          if (!v17 || ([v17 doubleValue], v18 == self->_photoCoordinate.latitude))
+          {
+
+            v19 = [v5 objectForKeyedSubscript:@"lng"];
+            v7 = v19;
+            if (!v19 || ([v19 doubleValue], v20 == self->_photoCoordinate.longitude))
+            {
+
+              v21 = [v5 objectForKeyedSubscript:@"noa"];
+              v7 = v21;
+              if (!v21 || [v21 unsignedIntegerValue] == self->_numberOfAssets)
+              {
+                v22 = 1;
+              }
+            }
+          }
+        }
       }
-    }
-
-    v9 = [v5 objectForKeyedSubscript:@"utcs"];
-    v7 = v9;
-    if (v9)
-    {
-      [v9 doubleValue];
-      v11 = v10;
-      [(PGGraphAddressEdge *)self timestampUTCStart];
-      if (v11 != v12)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v13 = [v5 objectForKeyedSubscript:@"utce"];
-    v7 = v13;
-    if (v13)
-    {
-      [v13 doubleValue];
-      v15 = v14;
-      [(PGGraphAddressEdge *)self timestampUTCEnd];
-      if (v15 != v16)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v17 = [v5 objectForKeyedSubscript:@"lat"];
-    v7 = v17;
-    if (v17)
-    {
-      [v17 doubleValue];
-      if (v18 != self->_photoCoordinate.latitude)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v19 = [v5 objectForKeyedSubscript:@"lng"];
-    v7 = v19;
-    if (v19)
-    {
-      [v19 doubleValue];
-      if (v20 != self->_photoCoordinate.longitude)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v21 = [v5 objectForKeyedSubscript:@"noa"];
-    v7 = v21;
-    if (v21 && [v21 unsignedIntegerValue] != self->_numberOfAssets)
-    {
-LABEL_17:
-      v22 = 0;
-    }
-
-    else
-    {
-      v22 = 1;
     }
   }
 
@@ -202,6 +167,30 @@ LABEL_17:
   {
     v22 = 1;
   }
+
+  return v22;
+}
+
+- (PGGraphAddressEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  nodeCopy = node;
+  targetNodeCopy = targetNode;
+  propertiesCopy = properties;
+  v18 = [propertiesCopy objectForKeyedSubscript:@"relevance"];
+
+  if (!v18)
+  {
+    v19 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:propertiesCopy];
+    *&v20 = weight;
+    v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
+    [v19 setObject:v21 forKeyedSubscript:@"relevance"];
+
+    propertiesCopy = v19;
+  }
+
+  v22 = [(PGGraphAddressEdge *)self initWithLabel:labelCopy sourceNode:nodeCopy targetNode:targetNodeCopy domain:domainCopy properties:propertiesCopy];
 
   return v22;
 }

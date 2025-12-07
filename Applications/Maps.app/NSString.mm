@@ -787,7 +787,7 @@ LABEL_8:
   }
 
   v3 = [(NSString *)self substringWithRange:escaped.location - 1, 1];
-  v4 = [v3 isEqualToString:@"\\""];
+  v4 = [v3 isEqualToString:@"\"];
 
   return v4;
 }

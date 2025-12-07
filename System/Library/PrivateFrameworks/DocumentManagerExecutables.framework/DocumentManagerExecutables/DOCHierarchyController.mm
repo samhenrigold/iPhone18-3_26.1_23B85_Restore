@@ -51,7 +51,7 @@
 - (NSArray)locations
 {
   swift_beginAccess();
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -60,7 +60,7 @@
 
 - (void)setLocations:(id)locations
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   DOCHierarchyController.locations.setter(v4);
@@ -71,7 +71,7 @@
   selfCopy = self;
   DOCHierarchyController.effectiveLocations.getter();
 
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for DOCConcreteLocation, 0x277D05EA8);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -93,15 +93,15 @@
 
 - (BOOL)hasPendingLocationChange
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   MEMORY[0x28223BE20](v3 - 8, v4);
   v6 = &v10 - v5;
   v7 = OBJC_IVAR____TtC26DocumentManagerExecutables22DOCHierarchyController_localOperation;
   swift_beginAccess();
-  outlined init with copy of DOCGridLayout.Spec?(self + v7, v6, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(self + v7, v6, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   v8 = type metadata accessor for DOCHierarchyController.FetchingOperationToken(0);
   LOBYTE(self) = (*(*(v8 - 8) + 48))(v6, 1, v8) != 1;
-  outlined destroy of CharacterSet?(v6, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd);
+  outlined destroy of CharacterSet?(v6, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMd, &_s26DocumentManagerExecutables22DOCHierarchyControllerC22FetchingOperationToken33_3085D686B27B1518531DD3257B8A8BC0LLVSgMR);
   return self;
 }
 
@@ -326,7 +326,7 @@ LABEL_8:
   selfCopy = self;
   DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(withCopy, with, animatedCopy, 1, 0, v8, v9);
 
-  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v8);
+  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v8, v9);
 }
 
 - (void)resetWith:(id)with effectiveRootLocation:(id)location animated:(BOOL)animated completionHandler:(id)handler
@@ -350,7 +350,7 @@ LABEL_8:
   selfCopy = self;
   DOCHierarchyController.reset(with:effectiveRootLocation:animated:shouldSave:shouldShowPlaceholder:completionHandler:)(withCopy, location, animatedCopy, 1, 0, v10, v11);
 
-  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v10);
+  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v10, v11);
 }
 
 - (void)resetFromRootWith:(id)with animated:(BOOL)animated completionHandler:(id)handler
@@ -371,7 +371,7 @@ LABEL_8:
   withCopy = with;
   selfCopy = self;
   DOCHierarchyController.resetFromRoot(with:animated:completionHandler:)(withCopy, animated, v8, v9);
-  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v8);
+  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v8, v9);
 }
 
 - (void)revealLocation:(id)location animated:(BOOL)animated completion:(id)completion
@@ -393,7 +393,7 @@ LABEL_8:
   locationCopy = location;
   selfCopy = self;
   DOCHierarchyController.revealLocation(_:animated:completion:)(locationCopy, animatedCopy, v8, v9);
-  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v8);
+  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v8, v9);
 }
 
 - (void)reset

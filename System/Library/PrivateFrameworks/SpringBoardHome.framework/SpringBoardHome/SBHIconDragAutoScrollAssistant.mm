@@ -152,7 +152,7 @@
     v10 = 50.0;
   }
 
-  [(UIView *)self->_referenceView bounds];
+  objc_msgSend_bounds(self->_referenceView);
   v12 = v11;
   v14 = v13;
   v16 = v15;

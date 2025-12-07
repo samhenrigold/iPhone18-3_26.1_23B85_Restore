@@ -3,7 +3,7 @@
 
 @implementation SetRate
 
-CFTypeRef __audioHoseManagerBuffered_SetRate_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+CFTypeRef __audioHoseManagerBuffered_SetRate_block_invoke(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v5 = malloc_type_calloc(1uLL, 0x60uLL, 0x10A0040428D2481uLL);
   v6 = *(a1 + 32);
@@ -19,7 +19,7 @@ CFTypeRef __audioHoseManagerBuffered_SetRate_block_invoke(uint64_t a1, uint64_t 
   v7 = *(a1 + 76);
   *(v5 + 40) = *(a1 + 88);
   *(v5 + 28) = v7;
-  *(a3 + 44) = *(a1 + 72);
+  *(a3 + 11) = *(a1 + 72);
   if (gLogCategory_APAudioHoseManagerBuffered <= 50 && (gLogCategory_APAudioHoseManagerBuffered != -1 || _LogCategory_Initialize()))
   {
     __audioHoseManagerBuffered_SetRate_block_invoke_cold_1(a1);
@@ -71,19 +71,26 @@ CFTypeRef __audioHoseManagerBuffered_SetRate_block_invoke(uint64_t a1, uint64_t 
   }
 
   *(*(a1 + 64) + 440) = result;
-  *(a3 + 92) = 0;
+  *(a3 + 23) = 0;
   return result;
 }
 
 uint64_t __audioHoseManagerBuffered_SetRate_block_invoke_cold_1(uint64_t a1)
 {
-  if (*(a1 + 56))
+  v1 = *(a1 + 56);
+  if (v1)
   {
-    CMBaseObjectGetDerivedStorage();
+    DerivedStorage = CMBaseObjectGetDerivedStorage();
   }
 
+  else
+  {
+    DerivedStorage = "";
+  }
+
+  v8 = DerivedStorage;
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v3, v4, v5, v6, v1, v8);
 }
 
 @end

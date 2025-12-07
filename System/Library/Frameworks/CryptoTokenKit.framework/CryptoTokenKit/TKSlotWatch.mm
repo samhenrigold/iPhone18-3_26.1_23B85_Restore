@@ -20,9 +20,9 @@
   endpointCopy = endpoint;
   typeCopy = type;
   watcherCopy = watcher;
-  v32.receiver = self;
-  v32.super_class = TKSlotWatch;
-  v15 = [(TKSlotWatch *)&v32 init];
+  v33.receiver = self;
+  v33.super_class = TKSlotWatch;
+  v15 = [(TKSlotWatch *)&v33 init];
   v16 = v15;
   if (v15)
   {
@@ -35,9 +35,9 @@
     tokenConnections = v16->_tokenConnections;
     v16->_tokenConnections = v17;
 
-    v31 = 0;
-    v19 = [[TKSmartCardSlot alloc] initWithEndpoint:endpointCopy error:&v31];
-    v20 = v31;
+    v32 = 0;
+    v19 = [[TKSmartCardSlot alloc] initWithEndpoint:endpointCopy error:&v32];
+    v20 = v32;
     smartCardSlot = v16->_smartCardSlot;
     v16->_smartCardSlot = v19;
 
@@ -45,24 +45,24 @@
     {
       nameCopy = [NSString stringWithFormat:@"slotwatch:%@", nameCopy];
       [nameCopy UTF8String];
-      v23 = os_transaction_create();
+      v24 = os_transaction_create();
       transaction = v16->_transaction;
-      v16->_transaction = v23;
+      v16->_transaction = v24;
 
       nameCopy2 = [NSString stringWithFormat:@"slotwatch:%@", nameCopy];
       uTF8String = [nameCopy2 UTF8String];
-      v27 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-      v28 = dispatch_queue_create(uTF8String, v27);
+      v28 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+      v29 = dispatch_queue_create(uTF8String, v28);
       queue = v16->_queue;
-      v16->_queue = v28;
+      v16->_queue = v29;
     }
 
     else
     {
-      v27 = sub_10000B0B8();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v28 = sub_10000B0B8(v22);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        sub_10001E98C(v20, v27);
+        sub_10001E98C(v20, v28);
       }
 
       nameCopy2 = v16;
@@ -295,68 +295,69 @@ LABEL_7:
   v8 = v7;
   if (v7)
   {
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x3032000000;
-    v41 = sub_10000BAD8;
-    v42 = sub_10000BAE8;
-    v43 = 0;
-    v34 = 0u;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x3032000000;
+    v42 = sub_10000BAD8;
+    v43 = sub_10000BAE8;
+    v44 = 0;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
     obj = v7;
-    v9 = [obj countByEnumeratingWithState:&v34 objects:v48 count:16];
+    v9 = [obj countByEnumeratingWithState:&v35 objects:v49 count:16];
     if (v9)
     {
-      v10 = *v35;
+      v10 = *v36;
       while (2)
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v35 != v10)
+          if (*v36 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v34 + 1) + 8 * i);
-          v33 = 0;
-          v29[0] = _NSConcreteStackBlock;
-          v29[1] = 3221225472;
-          v29[2] = sub_10000BAF0;
-          v29[3] = &unk_100038B48;
+          v12 = *(*(&v35 + 1) + 8 * i);
+          v34 = 0;
+          v30[0] = _NSConcreteStackBlock;
+          v30[1] = 3221225472;
+          v30[2] = sub_10000BAF0;
+          v30[3] = &unk_100038B48;
           v13 = cardCopy;
-          v30 = v13;
-          v31 = v12;
-          v32 = &v38;
-          v14 = [v13 inSessionWithError:&v33 executeBlock:v29];
-          v15 = v33;
+          v31 = v13;
+          v32 = v12;
+          v33 = &v39;
+          v14 = [v13 inSessionWithError:&v34 executeBlock:v30];
+          v15 = v34;
+          v16 = v15;
           if ((v14 & 1) == 0)
           {
-            v18 = sub_10000B0B8();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+            v19 = sub_10000B0B8(v15);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               slot = [v13 slot];
               name = [slot name];
               *buf = 138543618;
-              v45 = name;
-              v46 = 2114;
-              v47 = v15;
-              _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Error connecting SmartCard in slot %{public}@: %{public}@", buf, 0x16u);
+              v46 = name;
+              v47 = 2114;
+              v48 = v16;
+              _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Error connecting SmartCard in slot %{public}@: %{public}@", buf, 0x16u);
             }
 
             goto LABEL_16;
           }
 
-          v16 = v39[5] == 0;
+          v17 = v40[5] == 0;
 
-          if (!v16)
+          if (!v17)
           {
             goto LABEL_16;
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v34 objects:v48 count:16];
+        v9 = [obj countByEnumeratingWithState:&v35 objects:v49 count:16];
         if (v9)
         {
           continue;
@@ -368,230 +369,230 @@ LABEL_7:
 
 LABEL_16:
 
-    v19 = v39[5];
-    v17 = v19 != 0;
-    if (v19)
+    v20 = v40[5];
+    v18 = v20 != 0;
+    if (v20)
     {
-      *d = v19;
+      *d = v20;
     }
 
     else
     {
-      v20 = sub_10000B0B8();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v21 = sub_10000B0B8(0);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         identifier = [extensionCopy identifier];
-        sub_10001EA18(identifier, buf, v20);
+        sub_10001EA18(identifier, buf, v21);
       }
     }
 
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v39, 8);
   }
 
   else
   {
-    v17 = 1;
+    v18 = 1;
   }
 
-  return v17;
+  return v18;
 }
 
 - (void)tokenArrived
 {
   state.opaque[0] = 0;
   state.opaque[1] = 0;
-  v48 = _os_activity_create(&_mh_execute_header, "token inserted", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v48, &state);
-  v2 = sub_10000B0B8();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v51 = _os_activity_create(&_mh_execute_header, "token inserted", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
+  os_activity_scope_enter(v51, &state);
+  v3 = sub_10000B0B8(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001EA68(self, v2, v3);
+    sub_10001EA68(self, v3, v4);
   }
 
   makeSmartCard = [(TKSmartCardSlot *)self->_smartCardSlot makeSmartCard];
   WeakRetained = objc_loadWeakRetained(&self->_slotWatcher);
   registry = [WeakRetained registry];
 
-  v5 = objc_loadWeakRetained(&self->_slotWatcher);
-  registry2 = [v5 registry];
-  v50 = [registry2 beginTransaction:@"tokenArrived"];
+  v6 = objc_loadWeakRetained(&self->_slotWatcher);
+  registry2 = [v6 registry];
+  v53 = [registry2 beginTransaction:@"tokenArrived"];
 
-  tokenExtensions = [v50 tokenExtensions];
-  v60 = [&__NSArray0__struct mutableCopy];
-  v69 = 0u;
+  tokenExtensions = [v53 tokenExtensions];
+  v63 = [&__NSArray0__struct mutableCopy];
+  v72 = 0u;
+  v73 = 0u;
   v70 = 0u;
-  v67 = 0u;
-  v68 = 0u;
+  v71 = 0u;
   allValues = [tokenExtensions allValues];
-  v8 = [allValues countByEnumeratingWithState:&v67 objects:v81 count:16];
-  if (v8)
+  v9 = [allValues countByEnumeratingWithState:&v70 objects:v84 count:16];
+  if (v9)
   {
-    v9 = *v68;
-    v10 = TKTokenTypeKey;
-    v58 = TKTokenClassDriverProprietaryCardUsage;
+    v10 = *v71;
+    v11 = TKTokenTypeKey;
+    v61 = TKTokenClassDriverProprietaryCardUsage;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v9; i = i + 1)
       {
-        if (*v68 != v9)
+        if (*v71 != v10)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v12 = *(*(&v67 + 1) + 8 * i);
-        attributes = [v12 attributes];
-        v14 = [attributes objectForKeyedSubscript:v10];
-        v15 = [v14 isEqual:@"smartcard"];
+        v13 = *(*(&v70 + 1) + 8 * i);
+        attributes = [v13 attributes];
+        v15 = [attributes objectForKeyedSubscript:v11];
+        v16 = [v15 isEqual:@"smartcard"];
 
-        if (v15)
+        if (v16)
         {
-          attributes2 = [v12 attributes];
-          v17 = [attributes2 objectForKeyedSubscript:v58];
-          v18 = [v17 isEqual:&__kCFBooleanTrue];
+          attributes2 = [v13 attributes];
+          v18 = [attributes2 objectForKeyedSubscript:v61];
+          v19 = [v18 isEqual:&__kCFBooleanTrue];
 
-          if (v18)
+          if (v19)
           {
-            [v60 insertObject:v12 atIndex:0];
+            [v63 insertObject:v13 atIndex:0];
           }
 
           else
           {
-            [v60 addObject:v12];
+            [v63 addObject:v13];
           }
         }
       }
 
-      v8 = [allValues countByEnumeratingWithState:&v67 objects:v81 count:16];
+      v9 = [allValues countByEnumeratingWithState:&v70 objects:v84 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
-  v65 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   v66 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  v19 = v60;
-  v20 = [v19 countByEnumeratingWithState:&v63 objects:v80 count:16];
-  v21 = 0;
-  if (v20)
+  v67 = 0u;
+  v20 = v63;
+  v21 = [v20 countByEnumeratingWithState:&v66 objects:v83 count:16];
+  v22 = 0;
+  if (v21)
   {
-    v53 = *v64;
-    v52 = TKTokenClassDriverProprietaryCardUsage;
-    v51 = v19;
+    v56 = *v67;
+    v55 = TKTokenClassDriverProprietaryCardUsage;
+    v54 = v20;
     do
     {
-      v54 = v20;
-      for (j = 0; j != v54; j = j + 1)
+      v57 = v21;
+      for (j = 0; j != v57; j = j + 1)
       {
-        if (*v64 != v53)
+        if (*v67 != v56)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v20);
         }
 
-        v23 = *(*(&v63 + 1) + 8 * j);
-        v24 = objc_opt_class();
-        v62 = 0;
-        v25 = [v24 smartCard:makeSmartCard mightHandleAIDFromExtension:v23 foundAID:&v62];
-        v61 = v62;
-        if (v25)
+        v24 = *(*(&v66 + 1) + 8 * j);
+        v25 = objc_opt_class();
+        v65 = 0;
+        v26 = [v25 smartCard:makeSmartCard mightHandleAIDFromExtension:v24 foundAID:&v65];
+        v64 = v65;
+        if (v26)
         {
-          attributes3 = [v23 attributes];
-          v27 = [attributes3 objectForKeyedSubscript:v52];
-          v28 = [v27 isEqual:&__kCFBooleanTrue];
+          attributes3 = [v24 attributes];
+          v28 = [attributes3 objectForKeyedSubscript:v55];
+          v29 = [v28 isEqual:&__kCFBooleanTrue];
 
           driverCache = [registry driverCache];
-          v59 = [driverCache hostTokenDriverFromExtension:v23];
+          v62 = [driverCache hostTokenDriverFromExtension:v24];
 
-          v30 = [[TKHostTokenConnection alloc] initWithDriver:v59 slot:self->_endpoint AID:v61 proprietaryCardUsage:v28 registry:registry error:0];
-          if (v30)
+          v31 = [[TKHostTokenConnection alloc] initWithDriver:v62 slot:self->_endpoint AID:v64 proprietaryCardUsage:v29 registry:registry error:0];
+          if (v31)
           {
             selfCopy = self;
             objc_sync_enter(selfCopy);
             tokenConnections = self->_tokenConnections;
-            token = [(TKHostTokenConnection *)v30 token];
+            token = [(TKHostTokenConnection *)v31 token];
             tokenID = [token tokenID];
-            [(NSMutableDictionary *)tokenConnections setObject:v30 forKey:tokenID];
+            [(NSMutableDictionary *)tokenConnections setObject:v31 forKey:tokenID];
 
-            v35 = sub_10000B0B8();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+            v37 = sub_10000B0B8(v36);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
             {
               name = self->_name;
-              identifier = [v23 identifier];
-              token2 = [(TKHostTokenConnection *)v30 token];
+              identifier = [v24 identifier];
+              token2 = [(TKHostTokenConnection *)v31 token];
               tokenID2 = [token2 tokenID];
-              v40 = [NSNumber numberWithBool:v28];
+              v42 = [NSNumber numberWithBool:v29];
               *buf = 138544130;
-              v73 = name;
-              v74 = 2114;
-              v75 = identifier;
-              v76 = 2114;
-              v77 = tokenID2;
-              v78 = 2112;
-              v79 = v40;
-              _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "%{public}@: %{public}@ is handling %{public}@ with proprietary card usage %@", buf, 0x2Au);
+              v76 = name;
+              v77 = 2114;
+              v78 = identifier;
+              v79 = 2114;
+              v80 = tokenID2;
+              v81 = 2112;
+              v82 = v42;
+              _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "%{public}@: %{public}@ is handling %{public}@ with proprietary card usage %@", buf, 0x2Au);
 
-              v19 = v51;
+              v20 = v54;
             }
 
             objc_sync_exit(selfCopy);
-            if (v28)
+            if (v29)
             {
 
-              v21 = 1;
+              v22 = 1;
               goto LABEL_34;
             }
 
 LABEL_26:
-            v21 = 1;
+            v22 = 1;
           }
 
           else
           {
-            if (v21)
+            if (v22)
             {
               goto LABEL_26;
             }
 
-            v41 = sub_10000B0B8();
-            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+            v43 = sub_10000B0B8(0);
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
             {
-              identifier2 = [v23 identifier];
-              v43 = self->_name;
+              identifier2 = [v24 identifier];
+              v45 = self->_name;
               *buf = 138543618;
-              v73 = identifier2;
-              v74 = 2114;
-              v75 = v43;
-              _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "%{public}@ cannot handle token in slot %{public}@", buf, 0x16u);
+              v76 = identifier2;
+              v77 = 2114;
+              v78 = v45;
+              _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "%{public}@ cannot handle token in slot %{public}@", buf, 0x16u);
             }
 
-            v21 = 0;
+            v22 = 0;
           }
         }
       }
 
-      v20 = [v19 countByEnumeratingWithState:&v63 objects:v80 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v66 objects:v83 count:16];
     }
 
-    while (v20);
+    while (v21);
   }
 
 LABEL_34:
 
-  [v50 commit];
-  if ((v21 & 1) == 0)
+  commit = [v53 commit];
+  if ((v22 & 1) == 0)
   {
-    v44 = sub_10000B0B8();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v47 = sub_10000B0B8(commit);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
-      v45 = [(TKSmartCardSlot *)self->_smartCardSlot ATR];
-      v46 = [(TKSmartCardSlot *)self->_smartCardSlot ATR];
-      bytes = [v46 bytes];
+      v48 = [(TKSmartCardSlot *)self->_smartCardSlot ATR];
+      v49 = [(TKSmartCardSlot *)self->_smartCardSlot ATR];
+      bytes = [v49 bytes];
       *buf = 138543618;
-      v73 = v45;
-      v74 = 2114;
-      v75 = bytes;
-      _os_log_error_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "No token driver found for card %{public}@ (ATR: %{public}@)", buf, 0x16u);
+      v76 = v48;
+      v77 = 2114;
+      v78 = bytes;
+      _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "No token driver found for card %{public}@ (ATR: %{public}@)", buf, 0x16u);
     }
   }
 
@@ -600,7 +601,7 @@ LABEL_34:
 
 - (void)tokenRemoved
 {
-  v3 = sub_10000B0B8();
+  v3 = sub_10000B0B8(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10001EADC(self, v3, v4);

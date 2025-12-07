@@ -11,9 +11,9 @@
     +[WKProcessPool(IAMMessages) webContentProcessPool];
   }
 
-  v1 = webContentProcessPool_contentProcessPool;
+  v2 = webContentProcessPool_contentProcessPool;
 
-  return v1;
+  return v2;
 }
 
 @end

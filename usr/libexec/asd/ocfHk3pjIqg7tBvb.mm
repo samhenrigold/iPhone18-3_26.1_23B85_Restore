@@ -101,25 +101,18 @@
 - (unsigned)hi5ump20ke7n4x6o:(id)hi5ump20ke7n4x6o hikv315wqxcu0dpl:(id)hikv315wqxcu0dpl
 {
   hikv315wqxcu0dplCopy = hikv315wqxcu0dpl;
-  if (![hi5ump20ke7n4x6o isEqualToString:@"/var/mobile/Library/Accounts/Accounts3.sqlite"])
+  v9 = 1;
+  if ([hi5ump20ke7n4x6o isEqualToString:@"/var/mobile/Library/Accounts/Accounts3.sqlite"])
   {
-    goto LABEL_4;
-  }
+    v6 = [NSString stringWithFormat:@"%@\\s*%@\\s*%@", @"zusername", @"(IS|IS NOT|LIKE|GLOB|=|<|>)", @"[A-Z0-9a-z\\._%+-]+"];
+    v11 = 0;
+    v7 = [NSRegularExpression regularExpressionWithPattern:v6 options:1 error:&v11];
+    v8 = [v7 numberOfMatchesInString:hikv315wqxcu0dplCopy options:8 range:{0, objc_msgSend(hikv315wqxcu0dplCopy, "length")}];
 
-  v6 = [NSString stringWithFormat:@"%@\\s*%@\\s*%@", @"zusername", @"(IS|IS NOT|LIKE|GLOB|=|<|>)", @"[A-Z0-9a-z\\._%+-]+"];
-  v11 = 0;
-  v7 = [NSRegularExpression regularExpressionWithPattern:v6 options:1 error:&v11];
-  v8 = [v7 numberOfMatchesInString:hikv315wqxcu0dplCopy options:8 range:{0, objc_msgSend(hikv315wqxcu0dplCopy, "length")}];
-
-  if (v8)
-  {
-    v9 = 0;
-  }
-
-  else
-  {
-LABEL_4:
-    v9 = 1;
+    if (v8)
+    {
+      v9 = 0;
+    }
   }
 
   return v9;

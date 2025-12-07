@@ -79,7 +79,7 @@
 void __48__AXPTranslatorResponse_allowedDecodableClasses__block_invoke(uint64_t a1)
 {
   v1 = MEMORY[0x277CBEB98];
-  v2 = *(a1 + 32);
+  v2 = objc_opt_class();
   v3 = objc_opt_class();
   v4 = objc_opt_class();
   v5 = objc_opt_class();
@@ -87,12 +87,11 @@ void __48__AXPTranslatorResponse_allowedDecodableClasses__block_invoke(uint64_t 
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  v10 = objc_opt_class();
-  v14 = [v1 setWithObjects:{v3, v4, v5, v6, v7, v8, v9, v10, objc_opt_class(), 0}];
-  v11 = +[AXPTranslationObject allowedDecodableClasses];
-  v12 = [v14 setByAddingObjectsFromSet:v11];
-  v13 = allowedDecodableClasses_Allowed_1;
-  allowedDecodableClasses_Allowed_1 = v12;
+  v13 = [v1 setWithObjects:{v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
+  v10 = +[AXPTranslationObject allowedDecodableClasses];
+  v11 = [v13 setByAddingObjectsFromSet:v10];
+  v12 = allowedDecodableClasses_Allowed_1;
+  allowedDecodableClasses_Allowed_1 = v11;
 }
 
 - (AXPTranslatorResponse)initWithCoder:(id)coder
@@ -143,29 +142,17 @@ void __48__AXPTranslatorResponse_allowedDecodableClasses__block_invoke(uint64_t 
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
-  if ((isKindOfClass & 1) == 0)
+  if ((isKindOfClass & 1) != 0 && (-[AXPTranslatorResponse resultData](self, "resultData"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 count], -[AXPTranslatorResponse resultData](self, "resultData"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "indexesOfObjectsPassingTest:", &__block_literal_global_3), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "count"), v8, v7, v5, v6 == v9))
   {
-    goto LABEL_4;
-  }
-
-  resultData2 = [(AXPTranslatorResponse *)self resultData];
-  v6 = [resultData2 count];
-  resultData3 = [(AXPTranslatorResponse *)self resultData];
-  v8 = [resultData3 indexesOfObjectsPassingTest:&__block_literal_global_3];
-  v9 = [v8 count];
-
-  if (v6 == v9)
-  {
-    resultData4 = [(AXPTranslatorResponse *)self resultData];
+    resultData2 = [(AXPTranslatorResponse *)self resultData];
   }
 
   else
   {
-LABEL_4:
-    resultData4 = 0;
+    resultData2 = 0;
   }
 
-  return resultData4;
+  return resultData2;
 }
 
 uint64_t __45__AXPTranslatorResponse_translationsResponse__block_invoke(uint64_t a1, void *a2)

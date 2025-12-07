@@ -103,44 +103,43 @@ void __68__UNCOneTimeCodeServiceListener_listener_shouldAcceptNewConnection___bl
 
 - (void)detectedOneTimeCodes:(id)codes
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   codesCopy = codes;
   v5 = self->_connections;
   objc_sync_enter(v5);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = self->_connections;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        remoteObjectProxy = [*(*(&v12 + 1) + 8 * v9) remoteObjectProxy];
+        remoteObjectProxy = [*(*(&v11 + 1) + 8 * v9) remoteObjectProxy];
         [remoteObjectProxy detectedOneTimeCodes:codesCopy];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(v5);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_currentConnection
@@ -160,37 +159,33 @@ void __68__UNCOneTimeCodeServiceListener_listener_shouldAcceptNewConnection___bl
 
 - (void)_handleClientConnectionInterrupted:(id)interrupted
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   interruptedCopy = interrupted;
   v4 = *MEMORY[0x1E6983358];
   if (os_log_type_enabled(*MEMORY[0x1E6983358], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = interruptedCopy;
-    _os_log_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_DEFAULT, "Client XPC connection was interrupted: connection=%{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = interruptedCopy;
+    _os_log_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_DEFAULT, "Client XPC connection was interrupted: connection=%{public}@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleClientConnectionInvalidated:(id)invalidated
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   invalidatedCopy = invalidated;
   v5 = *MEMORY[0x1E6983358];
   if (os_log_type_enabled(*MEMORY[0x1E6983358], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = invalidatedCopy;
-    _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "Client XPC connection was invalidated: connection=%{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = invalidatedCopy;
+    _os_log_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_DEFAULT, "Client XPC connection was invalidated: connection=%{public}@", &v7, 0xCu);
   }
 
   v6 = self->_connections;
   objc_sync_enter(v6);
   [(NSMutableArray *)self->_connections removeObject:invalidatedCopy];
   objc_sync_exit(v6);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_connectionIsAllowedToObserveOTC:(id)c
@@ -210,11 +205,10 @@ void __68__UNCOneTimeCodeServiceListener_listener_shouldAcceptNewConnection___bl
 
 - (void)_connectionIsAllowedToObserveOTC:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138543362;
-  v3 = @"otc";
-  _os_log_error_impl(&dword_1DA7A9000, log, OS_LOG_TYPE_ERROR, "Entitlement '%{public}@' required to observe otc", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138543362;
+  v2 = @"otc";
+  _os_log_error_impl(&dword_1DA7A9000, log, OS_LOG_TYPE_ERROR, "Entitlement '%{public}@' required to observe otc", &v1, 0xCu);
 }
 
 @end

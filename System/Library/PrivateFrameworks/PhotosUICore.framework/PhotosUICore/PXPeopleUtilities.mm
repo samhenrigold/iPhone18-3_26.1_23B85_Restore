@@ -468,14 +468,14 @@ void __87__PXPeopleUtilities_UI__alertControllerForRevertingSuggestLess_undoMana
   }
 }
 
-void __87__PXPeopleUtilities_UI__alertControllerForRevertingSuggestLess_undoManager_completion___block_invoke_440(uint64_t a1, uint64_t a2, void *a3)
+void __87__PXPeopleUtilities_UI__alertControllerForRevertingSuggestLess_undoManager_completion___block_invoke_440(void *a1, uint64_t a2, void *a3)
 {
   v13[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
     v6 = MEMORY[0x1E6991F28];
-    v7 = *(a1 + 32);
+    v7 = a1[4];
     v12 = *MEMORY[0x1E6991E20];
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
@@ -484,7 +484,7 @@ void __87__PXPeopleUtilities_UI__alertControllerForRevertingSuggestLess_undoMana
     [v6 sendEvent:v7 withPayload:v10];
   }
 
-  v11 = *(a1 + 40);
+  v11 = a1[5];
   if (v11)
   {
     (*(v11 + 16))(v11, a2, v5);
@@ -2802,7 +2802,7 @@ void __59__PXPeopleUtilities_unlinkContactInfoForPerson_completion___block_invok
   return isGreenTeaAndContactsAccessDenied_isGreenTeaAndAccessDenied;
 }
 
-uint64_t __54__PXPeopleUtilities_isGreenTeaAndContactsAccessDenied__block_invoke()
+char *__54__PXPeopleUtilities_isGreenTeaAndContactsAccessDenied__block_invoke()
 {
   result = PLIsChinaSKU();
   if (result)

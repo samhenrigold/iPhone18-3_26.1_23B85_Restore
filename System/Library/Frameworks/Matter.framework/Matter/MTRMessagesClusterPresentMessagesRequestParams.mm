@@ -93,28 +93,28 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   LOBYTE(unsignedIntValue) = 0;
-  v36 = 0;
+  v35 = 0;
   LOBYTE(unsignedLongLongValue) = 0;
-  v38 = 0;
-  v33 = 0uLL;
-  v34 = 0;
-  v39 = 0uLL;
-  v40 = 0;
-  v32[0] = 0;
-  v32[1] = 0;
-  v31 = v32;
+  v37 = 0;
+  v32 = 0uLL;
+  v33 = 0;
+  v38 = 0uLL;
+  v39 = 0;
+  v31[0] = 0;
+  v31[1] = 0;
+  v30 = v31;
   messageID = [(MTRMessagesClusterPresentMessagesRequestParams *)self messageID];
   v5 = messageID;
   sub_238DB6950(buf, [messageID bytes], objc_msgSend(messageID, "length"));
 
-  v33 = *buf;
+  v32 = *buf;
   priority = [(MTRMessagesClusterPresentMessagesRequestParams *)self priority];
-  LOBYTE(v34) = [priority unsignedCharValue];
+  LOBYTE(v33) = [priority unsignedCharValue];
 
   messageControl = [(MTRMessagesClusterPresentMessagesRequestParams *)self messageControl];
-  HIBYTE(v34) = [messageControl unsignedCharValue];
+  HIBYTE(v33) = [messageControl unsignedCharValue];
 
   startTime = [(MTRMessagesClusterPresentMessagesRequestParams *)self startTime];
   v9 = startTime == 0;
@@ -122,7 +122,7 @@
   if (!v9)
   {
     unsignedIntValue = 0;
-    v36 = 1;
+    v35 = 1;
     startTime2 = [(MTRMessagesClusterPresentMessagesRequestParams *)self startTime];
     unsignedIntValue = [startTime2 unsignedIntValue];
   }
@@ -133,7 +133,7 @@
   if (!v12)
   {
     unsignedLongLongValue = 0;
-    v38 = 1;
+    v37 = 1;
     duration2 = [(MTRMessagesClusterPresentMessagesRequestParams *)self duration];
     unsignedLongLongValue = [duration2 unsignedLongLongValue];
   }
@@ -142,15 +142,15 @@
   v15 = messageText;
   sub_238DB9BD8(buf, [messageText UTF8String], objc_msgSend(messageText, "lengthOfBytesUsingEncoding:", 4));
 
-  v39 = *buf;
+  v38 = *buf;
   responses = [(MTRMessagesClusterPresentMessagesRequestParams *)self responses];
   v17 = responses == 0;
 
   if (!v17)
   {
-    v40 = 1;
+    v39 = 1;
+    v40 = 0;
     v41 = 0;
-    v42 = 0;
     responses2 = [(MTRMessagesClusterPresentMessagesRequestParams *)self responses];
     v19 = [responses2 count] == 0;
 
@@ -159,39 +159,39 @@
       operator new();
     }
 
+    v40 = 0;
     v41 = 0;
-    v42 = 0;
   }
 
-  sub_2393D9C18(0x62FuLL, 0, &v30);
-  if (v30)
+  sub_2393D9C18(0x62FuLL, 0, &v29);
+  if (v29)
   {
     sub_2393C7B90(buf);
+    v44 = 0;
     v45 = 0;
+    v43 = &unk_284BB83A8;
     v46 = 0;
-    v44 = &unk_284BB83A8;
-    v47 = 0;
-    sub_238EA16C4(&v44, &v30, 0);
-    sub_2393C7BF0(buf, &v44, 0xFFFFFFFF);
-    v20 = sub_238F1EAA4(&v33, buf, 0x100uLL);
+    sub_238EA16C4(&v43, &v29, 0);
+    sub_2393C7BF0(buf, &v43, 0xFFFFFFFF);
+    v20 = sub_238F1EAA4(&v32, buf, 0x100uLL);
     v22 = v20;
-    if (v20 || (v20 = sub_238DD2EFC(buf, &v30), v22 = v20, v20))
+    if (v20 || (v20 = sub_238DD2EFC(buf, &v29), v22 = v20, v20))
     {
       v23 = v21;
     }
 
     else
     {
-      sub_238DD2F90(reader, &v30);
+      sub_238DD2F90(reader, &v29);
       v20 = sub_2393C7114(reader, 21, 256);
-      v23 = v28;
+      v23 = v27;
       v22 = v20;
     }
 
     v24 = v20 & 0xFFFFFFFF00000000;
-    v44 = &unk_284BB83A8;
-    sub_238EA1758(&v46);
+    v43 = &unk_284BB83A8;
     sub_238EA1758(&v45);
+    sub_238EA1758(&v44);
   }
 
   else
@@ -201,14 +201,13 @@
     v22 = 11;
   }
 
-  sub_238EA1758(&v30);
-  sub_238EA1790(&v31);
-  v25 = *MEMORY[0x277D85DE8];
-  v26 = v22 | v24;
-  v27 = v23;
-  result.mFile = v27;
-  result.mError = v26;
-  result.mLine = HIDWORD(v26);
+  sub_238EA1758(&v29);
+  sub_238EA1790(&v30);
+  v25 = v22 | v24;
+  v26 = v23;
+  result.mFile = v26;
+  result.mError = v25;
+  result.mLine = HIDWORD(v25);
   return result;
 }
 

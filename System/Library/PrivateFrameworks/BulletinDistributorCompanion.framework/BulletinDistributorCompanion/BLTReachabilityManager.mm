@@ -1,6 +1,7 @@
 @interface BLTReachabilityManager
 + (id)sharedInstance;
 - (BLTReachabilityManager)init;
+- (void)interfaceLinkQualityChanged:(id)changed previousLinkQuality:(int)quality;
 - (void)interfaceRadioHotnessChanged:(id)changed;
 - (void)interfaceReachabilityChanged:(id)changed;
 @end
@@ -26,9 +27,11 @@
 
 uint64_t __40__BLTReachabilityManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance___sharedInstance_0 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedInstance___sharedInstance_0;
+  sharedInstance___sharedInstance_0 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (BLTReachabilityManager)init
@@ -64,23 +67,22 @@ uint64_t __40__BLTReachabilityManager_sharedInstance__block_invoke(uint64_t a1)
       p_internetReachable = &v2->_internetReachable;
     }
 
-    v11 = blt_ids_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = blt_ids_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = [MEMORY[0x277D3A170] sharedInstanceForIdentifier:1];
-      v13 = [MEMORY[0x277D3A170] sharedInstanceForIdentifier:0];
-      v14 = [MEMORY[0x277CCABB0] numberWithBool:*p_internetReachable];
+      v13 = [MEMORY[0x277D3A170] sharedInstanceForIdentifier:1];
+      v14 = [MEMORY[0x277D3A170] sharedInstanceForIdentifier:0];
+      v15 = [MEMORY[0x277CCABB0] numberWithBool:*p_internetReachable];
       *buf = 138412802;
-      v19 = v12;
+      v19 = v13;
       v20 = 2112;
-      v21 = v13;
+      v21 = v14;
       v22 = 2112;
-      v23 = v14;
-      _os_log_impl(&dword_241FB3000, v11, OS_LOG_TYPE_DEFAULT, "according to sPCInterfaceMonitorWWAN=%@ sPCInterfaceMonitorNonCellular=%@ internet reachability = %@", buf, 0x20u);
+      v23 = v15;
+      _os_log_impl(&dword_241FB3000, v12, OS_LOG_TYPE_DEFAULT, "according to sPCInterfaceMonitorWWAN=%@ sPCInterfaceMonitorNonCellular=%@ internet reachability = %@", buf, 0x20u);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -98,44 +100,60 @@ uint64_t __40__BLTReachabilityManager_sharedInstance__block_invoke(uint64_t a1)
 
   if (self->_internetReachable != isInternetReachable)
   {
-    v8 = blt_ids_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = blt_ids_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithBool:self->_internetReachable];
-      v10 = [MEMORY[0x277CCABB0] numberWithBool:isInternetReachable];
+      v10 = [MEMORY[0x277CCABB0] numberWithBool:self->_internetReachable];
+      v11 = [MEMORY[0x277CCABB0] numberWithBool:isInternetReachable];
       v13 = 138412802;
       v14 = changedCopy;
       v15 = 2112;
-      v16 = v9;
+      v16 = v10;
       v17 = 2112;
-      v18 = v10;
-      _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_DEFAULT, "Internet reachability via %@ changed from %@ to %@", &v13, 0x20u);
+      v18 = v11;
+      _os_log_impl(&dword_241FB3000, v9, OS_LOG_TYPE_DEFAULT, "Internet reachability via %@ changed from %@ to %@", &v13, 0x20u);
     }
 
     [(BLTReachabilityManager *)self setInternetReachable:isInternetReachable];
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter postNotificationName:@"BLTIDSDeviceConnectionStatusChangedNotification" object:0];
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)interfaceLinkQualityChanged:(id)changed previousLinkQuality:(int)quality
+{
+  v4 = *&quality;
+  v15 = *MEMORY[0x277D85DE8];
+  changedCopy = changed;
+  v6 = blt_ids_log(changedCopy);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    v7 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+    v8 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(changedCopy, "linkQuality")}];
+    v9 = 138412802;
+    v10 = changedCopy;
+    v11 = 2112;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_impl(&dword_241FB3000, v6, OS_LOG_TYPE_INFO, "interfaceLinkQualityChanged %@ previousLinkQuality %@ currentLinkQuality %@", &v9, 0x20u);
+  }
 }
 
 - (void)interfaceRadioHotnessChanged:(id)changed
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
-  v4 = blt_ids_log();
+  v4 = blt_ids_log(changedCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(changedCopy, "isRadioHot")}];
-    v7 = 138412546;
-    v8 = changedCopy;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_241FB3000, v4, OS_LOG_TYPE_INFO, "interfaceLinkQualityChanged %@ hotness %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = changedCopy;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_241FB3000, v4, OS_LOG_TYPE_INFO, "interfaceLinkQualityChanged %@ hotness %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -24,59 +24,61 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v5 = [equal isMemberOfClass:objc_opt_class()];
-  if (v5)
+  v5 = objc_opt_class();
+  isMemberOfClass = objc_msgSend_isMemberOfClass_(equal, v6, v5, v7);
+  if (isMemberOfClass)
   {
     rotationToTrueNorth_rad = self->_rotationToTrueNorth_rad;
-    [equal rotationToTrueNorth_rad];
-    if (rotationToTrueNorth_rad == v7)
+    objc_msgSend_rotationToTrueNorth_rad(equal, v9, v10, v11);
+    if (rotationToTrueNorth_rad == v16)
     {
       scaleFactor = self->_scaleFactor;
-      [equal scaleFactor];
-      LOBYTE(v5) = scaleFactor == v9;
+      objc_msgSend_scaleFactor(equal, v13, v14, v15);
+      LOBYTE(isMemberOfClass) = scaleFactor == v18;
     }
 
     else
     {
-      LOBYTE(v5) = 0;
+      LOBYTE(isMemberOfClass) = 0;
     }
   }
 
-  return v5;
+  return isMemberOfClass;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
-  [(CLBIO_Calibration *)self rotationToTrueNorth_rad];
-  [(CLBIO_Calibration *)self scaleFactor];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  objc_msgSend_rotationToTrueNorth_rad(self, v9, v10, v11);
+  objc_msgSend_scaleFactor(self, v12, v13, v14);
 
-  return MEMORY[0x1EEE66B58](v4, sel_initWithRotationToTrueNorth_scaleFactor_);
+  return MEMORY[0x1EEE66B58](v8, sel_initWithRotationToTrueNorth_scaleFactor_, v15, v16);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [(CLBIO_Calibration *)self rotationToTrueNorth_rad];
-  [coder encodeFloat:@"calibrationRotationToTrueNorth" forKey:?];
-  [(CLBIO_Calibration *)self scaleFactor];
+  objc_msgSend_rotationToTrueNorth_rad(self, a2, coder, v3);
+  objc_msgSend_encodeFloat_forKey_(coder, v6, @"calibrationRotationToTrueNorth", v7);
+  objc_msgSend_scaleFactor(self, v8, v9, v10);
 
-  [coder encodeFloat:@"calibrationScaleFactor" forKey:?];
+  objc_msgSend_encodeFloat_forKey_(coder, v11, @"calibrationScaleFactor", v12);
 }
 
 - (CLBIO_Calibration)initWithCoder:(id)coder
 {
-  v8.receiver = self;
-  v8.super_class = CLBIO_Calibration;
-  v4 = [(CLBIO_Calibration *)&v8 init];
-  if (v4)
+  v12.receiver = self;
+  v12.super_class = CLBIO_Calibration;
+  v6 = [(CLBIO_Calibration *)&v12 init];
+  if (v6)
   {
-    [coder decodeFloatForKey:@"calibrationRotationToTrueNorth"];
-    v4->_rotationToTrueNorth_rad = v5;
-    [coder decodeFloatForKey:@"calibrationScaleFactor"];
-    v4->_scaleFactor = v6;
+    objc_msgSend_decodeFloatForKey_(coder, v4, @"calibrationRotationToTrueNorth", v5);
+    v6->_rotationToTrueNorth_rad = v7;
+    objc_msgSend_decodeFloatForKey_(coder, v8, @"calibrationScaleFactor", v9);
+    v6->_scaleFactor = v10;
   }
 
-  return v4;
+  return v6;
 }
 
 @end

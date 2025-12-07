@@ -11,14 +11,14 @@
 + (void)addHorizontalTransformToProperties:(id)properties
 {
   propertiesCopy = properties;
-  v8 = objc_msgSend_transform(TSCH3DTransform, v4, v5, v6, v7);
-  v19 = 0x3F0000003F000000;
-  v20 = 0;
-  objc_msgSend_setCenter_(v8, v9, 0.0000305175853, v10, v11, &v19);
-  LODWORD(v12) = -1087044365;
-  LODWORD(v13) = 1060439283;
-  objc_msgSend_setRotation_(v8, v14, COERCE_DOUBLE(0x8000000080000000), COERCE_DOUBLE(0x8000000080000000), v12, v13);
-  objc_msgSend_setElementsTransform_(propertiesCopy, v15, v16, v17, v18, v8);
+  v7 = objc_msgSend_transform(TSCH3DTransform, v4, v5, v6);
+  v18 = 0x3F0000003F000000;
+  v19 = 0;
+  objc_msgSend_setCenter_(v7, v8, 0.0000305175853, v9, v10, &v18);
+  LODWORD(v11) = -1087044365;
+  LODWORD(v12) = 1060439283;
+  objc_msgSend_setRotation_(v7, v13, COERCE_DOUBLE(0x8000000080000000), COERCE_DOUBLE(0x8000000080000000), v11, v12);
+  objc_msgSend_setElementsTransform_(propertiesCopy, v14, v15, v16, v17, v7);
 }
 
 + (void)updateLightingEffectsState:(id)state scene:(id)scene
@@ -26,92 +26,94 @@
   stateCopy = state;
   sceneCopy = scene;
   v11 = objc_msgSend_camera(sceneCopy, v7, v8, v9, v10);
-  v16 = v11;
+  v15 = v11;
   if (v11)
   {
-    objc_msgSend_space(v11, v12, v13, v14, v15);
+    objc_msgSend_space(v11, v12, v13, v14);
   }
 
   else
   {
-    memset(v57, 0, sizeof(v57));
+    memset(v54, 0, sizeof(v54));
   }
 
-  v21 = objc_msgSend_nonNilAccessorWithScene_(TSCH3DChartScenePropertyAccessor, v17, v18, v19, v20, sceneCopy);
-  v27 = v21;
-  if (v21)
+  v20 = objc_msgSend_nonNilAccessorWithScene_(TSCH3DChartScenePropertyAccessor, v16, v17, v18, v19, sceneCopy);
+  v25 = v20;
+  if (v20)
   {
-    objc_msgSend_stageXYCenter(v21, v22, v23, v24, v25);
-    v28 = v55;
-    v29 = v56;
+    objc_msgSend_stageXYCenter(v20, v21, v22, v23);
+    v26 = v52;
+    v27 = v53;
   }
 
   else
   {
-    v56 = 0.0;
-    v55 = 0;
-    v28 = 0;
-    v29 = 0.0;
+    v53 = 0.0;
+    v52 = 0;
+    v26 = 0;
+    v27 = 0.0;
   }
 
-  *&v52[4] = 0uLL;
-  *v52 = 1065353216;
-  *&v52[20] = 1065353216;
-  *&v52[24] = 0;
-  *&v53 = 0;
-  v30 = vmul_f32(v28, 0);
-  v31 = vrev64_s32(v30);
-  v30.f32[0] = vaddv_f32(v30);
-  *v26.i32 = v29 * 0.0;
-  *(&v53 + 1) = 1065353216;
-  *&v54 = vadd_f32(vadd_f32(vadd_f32(v28, v31), vdup_lane_s32(v26, 0)), 0);
-  *(&v54 + 2) = (v29 + v30.f32[0]) + 0.0;
-  *(&v54 + 3) = (v30.f32[0] + (v29 * 0.0)) + 1.0;
-  *v47 = xmmword_2764D6210;
-  *&v47[16] = 0xB33BBD2E3F800000;
-  v48 = 0;
-  v49 = 0;
-  *&v50[4] = 0uLL;
-  *v50 = 1065353215;
-  v51 = 1.0;
-  sub_2761558A0(v52, v47, &v43);
-  *v52 = v43;
-  *&v52[16] = v44;
-  v53 = v45;
-  v54 = *v46;
-  *v32.i32 = v56 * -0.0;
-  v33 = vmul_f32(v55, 0x8000000080000000);
-  v34 = vadd_f32(vsub_f32(v33, vrev64_s32(v55)), vdup_lane_s32(v32, 0));
+  *&v49[12] = 0;
+  *&v49[4] = 0;
+  *v49 = 1065353216;
+  *&v49[20] = 1065353216;
+  *&v49[24] = 0;
+  *&v50 = 0;
+  v28 = vmul_f32(v26, 0);
+  v29 = vrev64_s32(v28);
+  v28.f32[0] = vaddv_f32(v28);
+  *v24.i32 = v27 * 0.0;
+  *(&v50 + 1) = 1065353216;
+  *&v51 = vadd_f32(vadd_f32(vadd_f32(v26, v29), vdup_lane_s32(v24, 0)), 0);
+  *(&v51 + 2) = (v27 + v28.f32[0]) + 0.0;
+  *(&v51 + 3) = (v28.f32[0] + (v27 * 0.0)) + 1.0;
+  *v44 = xmmword_2764D6210;
+  *&v44[16] = 0xB33BBD2E3F800000;
+  v45 = 0;
+  v46 = 0;
   *&v47[12] = 0;
   *&v47[4] = 0;
+  *v47 = 1065353215;
+  v48 = 1.0;
+  sub_2761558A0(v49, v44, &v40);
+  *v49 = v40;
+  *&v49[16] = v41;
+  v50 = v42;
+  v51 = *v43;
+  *v30.i32 = v53 * -0.0;
+  v31 = vmul_f32(v52, 0x8000000080000000);
+  v32 = vadd_f32(vsub_f32(v31, vrev64_s32(v52)), vdup_lane_s32(v30, 0));
+  *&v44[12] = 0;
+  *&v44[4] = 0;
+  *v44 = 1065353216;
+  *&v44[20] = 1065353216;
+  v45 = 0;
+  v46 = 0;
+  v31.f32[0] = vaddv_f32(v31);
   *v47 = 1065353216;
-  *&v47[20] = 1065353216;
-  v48 = 0;
-  v49 = 0;
-  v33.f32[0] = vaddv_f32(v33);
-  *v50 = 1065353216;
-  *&v50[8] = vadd_f32(v34, 0);
-  *&v50[16] = (v33.f32[0] - v56) + 0.0;
-  v51 = (v33.f32[0] + (v56 * -0.0)) + 1.0;
-  sub_2761558A0(v52, v47, &v43);
-  *v52 = v43;
-  *&v52[16] = v44;
-  v53 = v45;
-  v54 = *v46;
+  *&v47[8] = vadd_f32(v32, 0);
+  *&v47[16] = (v31.f32[0] - v53) + 0.0;
+  v48 = (v31.f32[0] + (v53 * -0.0)) + 1.0;
+  sub_2761558A0(v49, v44, &v40);
+  *v49 = v40;
+  *&v49[16] = v41;
+  v50 = v42;
+  v51 = *v43;
   if (sceneCopy)
   {
-    objc_msgSend_transform(sceneCopy, v35, *&v45, v46[0], v36);
+    objc_msgSend_transform(sceneCopy, *&v42, v43[0], v33);
   }
 
   else
   {
-    memset(v41, 0, sizeof(v41));
+    memset(v38, 0, sizeof(v38));
   }
 
-  sub_2761558A0(v57, v41, v42);
-  sub_2761558A0(v42, v52, v47);
-  *&v37 = sub_27617F7E4(&v43, v57, v47);
-  objc_msgSend_setLightingPackageEffectState_effectsStates_(TSCH3DLightingPackageShaderEffect, v38, v37, v39, v40, &v43, stateCopy);
+  sub_2761558A0(v54, v38, v39);
+  sub_2761558A0(v39, v49, v44);
+  *&v34 = sub_27617F7E4(&v40, v54, v44);
+  objc_msgSend_setLightingPackageEffectState_effectsStates_(TSCH3DLightingPackageShaderEffect, v35, v34, v36, v37, &v40, stateCopy);
 }
 
 + (id)partWithEnumerator:(id)enumerator layoutSettings:(id *)settings

@@ -24,14 +24,11 @@
 {
   height = size.height;
   width = size.width;
-  v11.receiver = self;
-  v11.super_class = swift_getObjectType();
+  v8.receiver = self;
+  v8.super_class = swift_getObjectType();
   swift_unknownObjectRetain();
-  v7 = v11.receiver;
-  [(_ViewSizeReader.Reader *)&v11 viewWillTransitionToSize:coordinator withTransitionCoordinator:width, height];
-  v8 = *&v7[OBJC_IVAR____TtCV8Settings15_ViewSizeReader6Reader__size];
-  v9 = *&v7[OBJC_IVAR____TtCV8Settings15_ViewSizeReader6Reader__size + 8];
-  v10 = *&v7[OBJC_IVAR____TtCV8Settings15_ViewSizeReader6Reader__size + 16];
+  v7 = v8.receiver;
+  [(_ViewSizeReader.Reader *)&v8 viewWillTransitionToSize:coordinator withTransitionCoordinator:width, height];
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE40BB8, &qword_21CE73210);
   sub_21CE6CA60();

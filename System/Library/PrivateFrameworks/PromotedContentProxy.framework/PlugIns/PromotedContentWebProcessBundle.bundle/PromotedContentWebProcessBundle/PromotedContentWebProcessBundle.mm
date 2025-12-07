@@ -1,13 +1,13 @@
-id sub_1008()
+id sub_1008(uint64_t a1)
 {
   if (qword_16280 != -1)
   {
     sub_69B8();
   }
 
-  v1 = qword_16288;
+  v2 = qword_16288;
 
-  return v1;
+  return v2;
 }
 
 void sub_2A04(id a1)
@@ -17,22 +17,23 @@ void sub_2A04(id a1)
   _objc_release_x1();
 }
 
-void sub_2A5C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_2A5C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-id sub_2E2C()
+id sub_2E2C(uint64_t a1)
 {
   if (qword_16290 != -1)
   {
     sub_6E10();
   }
 
-  v1 = qword_16298;
+  v2 = qword_16298;
 
-  return v1;
+  return v2;
 }
 
 void sub_2EC0(id a1)
@@ -42,16 +43,16 @@ void sub_2EC0(id a1)
   _objc_release_x1();
 }
 
-id sub_3260()
+id sub_3260(uint64_t a1)
 {
   if (qword_162A0 != -1)
   {
     sub_6EC4();
   }
 
-  v1 = qword_162A8;
+  v2 = qword_162A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_4444(id a1)
@@ -130,16 +131,16 @@ void sub_5978(id a1)
   _objc_release_x1();
 }
 
-id sub_5A4C()
+id sub_5A4C(uint64_t a1)
 {
   if (qword_162C0 != -1)
   {
     sub_6EEC();
   }
 
-  v1 = qword_162C8;
+  v2 = qword_162C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_5D7C(id a1)
@@ -152,8 +153,12 @@ void sub_5D7C(id a1)
 void sub_6924()
 {
   sub_2A7C();
-  v0 = objc_opt_class();
-  sub_2A5C(&dword_0, v1, v2, "[%{private}@] The following URL was not valid: %{private}@", v3, v4, v5, v6, 3u);
+  *v8 = 138478083;
+  *&v8[4] = objc_opt_class();
+  *&v8[12] = 2113;
+  *&v8[14] = v0;
+  v1 = *&v8[4];
+  sub_2A5C(&dword_0, v2, v3, "[%{private}@] The following URL was not valid: %{private}@", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16]);
 }
 
 void sub_69CC()
@@ -162,7 +167,7 @@ void sub_69CC()
   objc_opt_class();
   sub_2A48();
   v1 = v0;
-  sub_2A5C(&dword_0, v2, v3, "[%{private}@] Action failed with error: %{public}@", v4, v5, v6, v7, v8);
+  sub_2A5C(&dword_0, v2, v3, "[%{private}@] Action failed with error: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_6A54()
@@ -171,7 +176,7 @@ void sub_6A54()
   objc_opt_class();
   sub_2A48();
   v1 = v0;
-  sub_2A5C(&dword_0, v2, v3, "[%{private}@] %{public}@", v4, v5, v6, v7, v8);
+  sub_2A5C(&dword_0, v2, v3, "[%{private}@] %{public}@", v4, v5, v6, v7);
 }
 
 void sub_6ADC()
@@ -180,7 +185,7 @@ void sub_6ADC()
   objc_opt_class();
   sub_2A48();
   v1 = v0;
-  sub_2A5C(&dword_0, v2, v3, "[%{private}@] MRAID.expand URL was not valid: %{public}@", v4, v5, v6, v7, v8);
+  sub_2A5C(&dword_0, v2, v3, "[%{private}@] MRAID.expand URL was not valid: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_6B64()
@@ -189,38 +194,38 @@ void sub_6B64()
   objc_opt_class();
   sub_2A48();
   v1 = v0;
-  sub_2A5C(&dword_0, v2, v3, "[%{private}@] MRAID.open URL was not valid: %{public}@", v4, v5, v6, v7, v8);
+  sub_2A5C(&dword_0, v2, v3, "[%{private}@] MRAID.open URL was not valid: %{public}@", v4, v5, v6, v7);
 }
 
-void sub_6BEC()
+void sub_6BEC(uint64_t a1)
 {
   objc_opt_class();
   sub_2A48();
-  v1 = v0;
-  sub_2A5C(&dword_0, v2, v3, "[%{private}@] %{public}@", v4, v5, v6, v7, v8);
+  v2 = v1;
+  sub_2A5C(&dword_0, v3, v4, "[%{private}@] %{public}@", v5, v6, v7, v8);
 }
 
-void sub_6C7C()
+void sub_6C7C(uint64_t a1)
 {
   objc_opt_class();
   sub_2A48();
-  v1 = v0;
-  sub_2A5C(&dword_0, v2, v3, "[%{private}@] %{public}@", v4, v5, v6, v7, v8);
+  v2 = v1;
+  sub_2A5C(&dword_0, v3, v4, "[%{private}@] %{public}@", v5, v6, v7, v8);
 }
 
-void sub_6D0C()
+void sub_6D0C(uint64_t a1)
 {
   objc_opt_class();
   sub_2A48();
-  v1 = v0;
-  sub_2A5C(&dword_0, v2, v3, "[%{private}@] No expand properties provided: %{public}@", v4, v5, v6, v7, v8);
+  v2 = v1;
+  sub_2A5C(&dword_0, v3, v4, "[%{private}@] No expand properties provided: %{public}@", v5, v6, v7, v8);
 }
 
-void sub_6D94()
+void sub_6D94(uint64_t a1)
 {
   objc_opt_class();
   sub_2F04();
-  sub_2A5C(&dword_0, v0, v1, "[%{private}@] %{public}@", v2, v3, v4, v5, v6);
+  sub_2A5C(&dword_0, v1, v2, "[%{private}@] %{public}@", v3, v4, v5, v6);
 }
 
 void sub_6E24(uint64_t a1, NSObject *a2)

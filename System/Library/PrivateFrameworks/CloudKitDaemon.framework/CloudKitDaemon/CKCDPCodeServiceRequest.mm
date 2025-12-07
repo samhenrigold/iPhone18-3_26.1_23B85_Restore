@@ -208,7 +208,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2);
   v6 = v4;
   serviceName = self->_serviceName;
@@ -256,30 +256,30 @@
     v15 = objc_alloc(MEMORY[0x277CBEB18]);
     v18 = objc_msgSend_count(self->_clientConfigs, v16, v17);
     v20 = objc_msgSend_initWithCapacity_(v15, v19, v18);
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
     v21 = self->_clientConfigs;
-    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v57, v61, 16);
+    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v56, v60, 16);
     if (v23)
     {
       v26 = v23;
-      v27 = *v58;
+      v27 = *v57;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v58 != v27)
+          if (*v57 != v27)
           {
             objc_enumerationMutation(v21);
           }
 
-          v29 = objc_msgSend_dictionaryRepresentation(*(*(&v57 + 1) + 8 * i), v24, v25);
+          v29 = objc_msgSend_dictionaryRepresentation(*(*(&v56 + 1) + 8 * i), v24, v25);
           objc_msgSend_addObject_(v20, v30, v29);
         }
 
-        v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v57, v61, 16);
+        v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v56, v60, 16);
       }
 
       while (v26);
@@ -352,8 +352,6 @@
 
     objc_msgSend_setObject_forKey_(v6, v13, v54, @"DataProtection");
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -647,7 +645,7 @@ LABEL_74:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_serviceName)
   {
@@ -666,40 +664,38 @@ LABEL_74:
 
   if ((*&self->_has & 2) != 0)
   {
-    serializationFormat = self->_serializationFormat;
     PBDataWriterWriteInt32Field();
   }
 
-  v17 = 0u;
-  v18 = 0u;
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v6 = self->_clientConfigs;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v15, v19, 16);
-  if (v8)
+  v12 = 0u;
+  v13 = 0u;
+  v5 = self->_clientConfigs;
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v12, v16, 16);
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v16;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
-        ++v11;
+        ++v10;
       }
 
-      while (v9 != v11);
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v13, &v15, v19, 16);
+      while (v8 != v10);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v11, &v12, v16, 16);
     }
 
-    while (v9);
+    while (v8);
   }
 
   if (self->_accountConfig)
@@ -736,8 +732,6 @@ LABEL_74:
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -844,7 +838,7 @@ LABEL_74:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   v10 = objc_msgSend_init(v7, v8, v9);
@@ -873,30 +867,30 @@ LABEL_74:
     *(v12 + 112) |= 2u;
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v21 = self->_clientConfigs;
-  v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v53, v57, 16);
+  v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v52, v56, 16);
   if (v23)
   {
     v25 = v23;
-    v26 = *v54;
+    v26 = *v53;
     do
     {
       for (i = 0; i != v25; ++i)
       {
-        if (*v54 != v26)
+        if (*v53 != v26)
         {
           objc_enumerationMutation(v21);
         }
 
-        v28 = objc_msgSend_copyWithZone_(*(*(&v53 + 1) + 8 * i), v24, zone, v53);
+        v28 = objc_msgSend_copyWithZone_(*(*(&v52 + 1) + 8 * i), v24, zone, v52);
         objc_msgSend_addClientConfig_(v12, v29, v28);
       }
 
-      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v53, v57, 16);
+      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v52, v56, 16);
     }
 
     while (v25);
@@ -930,7 +924,6 @@ LABEL_74:
   v50 = *(v12 + 32);
   *(v12 + 32) = v49;
 
-  v51 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -943,7 +936,6 @@ LABEL_74:
     goto LABEL_34;
   }
 
-  v8 = *(equalCopy + 112);
   if (*&self->_has)
   {
     if ((equalCopy[14] & 1) == 0 || self->_dataProtection != *(equalCopy + 12))
@@ -960,33 +952,32 @@ LABEL_34:
   }
 
   serviceName = self->_serviceName;
-  v10 = equalCopy[12];
-  if (serviceName | v10 && !objc_msgSend_isEqual_(serviceName, v7, v10))
+  v9 = equalCopy[12];
+  if (serviceName | v9 && !objc_msgSend_isEqual_(serviceName, v7, v9))
   {
     goto LABEL_34;
   }
 
   functionName = self->_functionName;
-  v12 = equalCopy[7];
-  if (functionName | v12)
+  v11 = equalCopy[7];
+  if (functionName | v11)
   {
-    if (!objc_msgSend_isEqual_(functionName, v7, v12))
+    if (!objc_msgSend_isEqual_(functionName, v7, v11))
     {
       goto LABEL_34;
     }
   }
 
   serializedParameters = self->_serializedParameters;
-  v14 = equalCopy[11];
-  if (serializedParameters | v14)
+  v13 = equalCopy[11];
+  if (serializedParameters | v13)
   {
-    if (!objc_msgSend_isEqual_(serializedParameters, v7, v14))
+    if (!objc_msgSend_isEqual_(serializedParameters, v7, v13))
     {
       goto LABEL_34;
     }
   }
 
-  v15 = *(equalCopy + 112);
   if ((*&self->_has & 2) != 0)
   {
     if ((equalCopy[14] & 2) == 0 || self->_serializationFormat != *(equalCopy + 20))
@@ -1001,77 +992,77 @@ LABEL_34:
   }
 
   clientConfigs = self->_clientConfigs;
-  v17 = equalCopy[5];
-  if (clientConfigs | v17 && !objc_msgSend_isEqual_(clientConfigs, v7, v17))
+  v15 = equalCopy[5];
+  if (clientConfigs | v15 && !objc_msgSend_isEqual_(clientConfigs, v7, v15))
   {
     goto LABEL_34;
   }
 
   accountConfig = self->_accountConfig;
-  v19 = equalCopy[1];
-  if (accountConfig | v19)
+  v17 = equalCopy[1];
+  if (accountConfig | v17)
   {
-    if (!objc_msgSend_isEqual_(accountConfig, v7, v19))
+    if (!objc_msgSend_isEqual_(accountConfig, v7, v17))
     {
       goto LABEL_34;
     }
   }
 
   requestContext = self->_requestContext;
-  v21 = equalCopy[9];
-  if (requestContext | v21)
+  v19 = equalCopy[9];
+  if (requestContext | v19)
   {
-    if (!objc_msgSend_isEqual_(requestContext, v7, v21))
+    if (!objc_msgSend_isEqual_(requestContext, v7, v19))
     {
       goto LABEL_34;
     }
   }
 
   assetAuthorizeGetRequestOptions = self->_assetAuthorizeGetRequestOptions;
-  v23 = equalCopy[2];
-  if (assetAuthorizeGetRequestOptions | v23)
+  v21 = equalCopy[2];
+  if (assetAuthorizeGetRequestOptions | v21)
   {
-    if (!objc_msgSend_isEqual_(assetAuthorizeGetRequestOptions, v7, v23))
+    if (!objc_msgSend_isEqual_(assetAuthorizeGetRequestOptions, v7, v21))
     {
       goto LABEL_34;
     }
   }
 
   protectedCloudComputeMetadata = self->_protectedCloudComputeMetadata;
-  v25 = equalCopy[8];
-  if (protectedCloudComputeMetadata | v25)
+  v23 = equalCopy[8];
+  if (protectedCloudComputeMetadata | v23)
   {
-    if (!objc_msgSend_isEqual_(protectedCloudComputeMetadata, v7, v25))
+    if (!objc_msgSend_isEqual_(protectedCloudComputeMetadata, v7, v23))
     {
       goto LABEL_34;
     }
   }
 
   attestationRequest = self->_attestationRequest;
-  v27 = equalCopy[3];
-  if (attestationRequest | v27)
+  v25 = equalCopy[3];
+  if (attestationRequest | v25)
   {
-    if (!objc_msgSend_isEqual_(attestationRequest, v7, v27))
+    if (!objc_msgSend_isEqual_(attestationRequest, v7, v25))
     {
       goto LABEL_34;
     }
   }
 
   trustedTargetCryptoMetadata = self->_trustedTargetCryptoMetadata;
-  v29 = equalCopy[13];
-  if (trustedTargetCryptoMetadata | v29)
+  v27 = equalCopy[13];
+  if (trustedTargetCryptoMetadata | v27)
   {
-    if (!objc_msgSend_isEqual_(trustedTargetCryptoMetadata, v7, v29))
+    if (!objc_msgSend_isEqual_(trustedTargetCryptoMetadata, v7, v27))
     {
       goto LABEL_34;
     }
   }
 
   authInformation = self->_authInformation;
-  v31 = equalCopy[4];
-  if (authInformation | v31)
+  v29 = equalCopy[4];
+  if (authInformation | v29)
   {
-    isEqual = objc_msgSend_isEqual_(authInformation, v7, v31);
+    isEqual = objc_msgSend_isEqual_(authInformation, v7, v29);
   }
 
   else
@@ -1122,7 +1113,7 @@ LABEL_35:
 
 - (void)mergeFrom:(id)from
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v6 = fromCopy;
   if (*(fromCopy + 112))
@@ -1155,29 +1146,29 @@ LABEL_35:
     *&self->_has |= 2u;
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v10 = *(v6 + 5);
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v33, v37, 16);
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v32, v36, 16);
   if (v12)
   {
     v14 = v12;
-    v15 = *v34;
+    v15 = *v33;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v34 != v15)
+        if (*v33 != v15)
         {
           objc_enumerationMutation(v10);
         }
 
-        objc_msgSend_addClientConfig_(self, v13, *(*(&v33 + 1) + 8 * i), v33);
+        objc_msgSend_addClientConfig_(self, v13, *(*(&v32 + 1) + 8 * i), v32);
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v33, v37, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v32, v36, 16);
     }
 
     while (v14);
@@ -1287,8 +1278,6 @@ LABEL_35:
   {
     objc_msgSend_setAuthInformation_(self, v17, v31);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 @end

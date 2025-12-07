@@ -109,7 +109,7 @@ void __43__NTKPigmentEditOptionStore_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)_setupPlistLoader
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(NTKPlistPigmentEditOptionLoader);
   plistLoader = self->_plistLoader;
   self->_plistLoader = v3;
@@ -129,9 +129,9 @@ void __43__NTKPigmentEditOptionStore_sharedInstance__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [(NTKPlistPigmentEditOptionLoader *)self->_plistLoader sku];
-      v23 = 138543362;
-      v24 = v10;
-      _os_log_impl(&dword_22D9C5000, v9, OS_LOG_TYPE_DEFAULT, "#store Plist loader configured with deviceBrand %{public}@", &v23, 0xCu);
+      v24 = 138543362;
+      v25 = v10;
+      _os_log_impl(&dword_22D9C5000, v9, OS_LOG_TYPE_DEFAULT, "#store Plist loader configured with deviceBrand %{public}@", &v24, 0xCu);
     }
   }
 
@@ -145,40 +145,40 @@ void __43__NTKPigmentEditOptionStore_sharedInstance__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       clhs = [(NTKPlistPigmentEditOptionLoader *)self->_plistLoader clhs];
-      v23 = 138543362;
-      v24 = clhs;
-      _os_log_impl(&dword_22D9C5000, v13, OS_LOG_TYPE_DEFAULT, "#store Plist loader configured with material %{public}@", &v23, 0xCu);
+      v24 = 138543362;
+      v25 = clhs;
+      _os_log_impl(&dword_22D9C5000, v13, OS_LOG_TYPE_DEFAULT, "#store Plist loader configured with material %{public}@", &v24, 0xCu);
     }
   }
 
   productFamilyType = [(CLKDevice *)self->_device productFamilyType];
   if (productFamilyType != -1)
   {
-    v16 = [MEMORY[0x277CCABB0] numberWithInteger:productFamilyType];
-    [(NTKPlistPigmentEditOptionLoader *)self->_plistLoader setFamily:v16];
+    v17 = [MEMORY[0x277CCABB0] numberWithInteger:productFamilyType];
+    [(NTKPlistPigmentEditOptionLoader *)self->_plistLoader setFamily:v17];
 
-    v17 = _NTKLoggingObjectForDomain(46, "NTKLoggingDomainPigment");
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = _NTKLoggingObjectForDomain(46, "NTKLoggingDomainPigment");
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       family = [(NTKPlistPigmentEditOptionLoader *)self->_plistLoader family];
-      v23 = 138543362;
-      v24 = family;
-      _os_log_impl(&dword_22D9C5000, v17, OS_LOG_TYPE_DEFAULT, "#store Plist loader configured with family %{public}@", &v23, 0xCu);
+      v24 = 138543362;
+      v25 = family;
+      _os_log_impl(&dword_22D9C5000, v18, OS_LOG_TYPE_DEFAULT, "#store Plist loader configured with family %{public}@", &v24, 0xCu);
     }
   }
 
-  [(NTKPlistPigmentEditOptionLoader *)self->_plistLoader setIncludesAllDeviceSpecificColors:NTKShowHardwareSpecificFaces()];
-  v19 = +[NTKColorBundleLoader sharedInstance];
-  loadColorBundles = [v19 loadColorBundles];
+  [(NTKPlistPigmentEditOptionLoader *)self->_plistLoader setIncludesAllDeviceSpecificColors:NTKShowHardwareSpecificFaces(productFamilyType, v16)];
+  v20 = +[NTKColorBundleLoader sharedInstance];
+  loadColorBundles = [v20 loadColorBundles];
   [(NTKPlistPigmentEditOptionLoader *)self->_plistLoader setAdditionalBundles:loadColorBundles];
 
-  v21 = _NTKLoggingObjectForDomain(46, "NTKLoggingDomainPigment");
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v22 = _NTKLoggingObjectForDomain(46, "NTKLoggingDomainPigment");
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     additionalBundles = [(NTKPlistPigmentEditOptionLoader *)self->_plistLoader additionalBundles];
-    v23 = 138543362;
-    v24 = additionalBundles;
-    _os_log_impl(&dword_22D9C5000, v21, OS_LOG_TYPE_DEFAULT, "#store Additional color bundles loaded: %{public}@", &v23, 0xCu);
+    v24 = 138543362;
+    v25 = additionalBundles;
+    _os_log_impl(&dword_22D9C5000, v22, OS_LOG_TYPE_DEFAULT, "#store Additional color bundles loaded: %{public}@", &v24, 0xCu);
   }
 }
 
@@ -333,7 +333,7 @@ LABEL_14:
     return 1;
   }
 
-  return NTKShowHardwareSpecificFaces();
+  return NTKShowHardwareSpecificFaces(v5, v6);
 }
 
 - (void)_companion_setupPersistentStorage

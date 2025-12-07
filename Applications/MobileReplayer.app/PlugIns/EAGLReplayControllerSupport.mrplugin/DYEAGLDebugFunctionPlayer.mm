@@ -1,6 +1,7 @@
 @interface DYEAGLDebugFunctionPlayer
 + (void)_resolveDepthWithWidth:(int)width height:(int)height numSamples:(int)samples buffer:(float *)buffer;
 + (void)_resolveStencilWithWidth:(int)width height:(int)height numSamples:(int)samples buffer:(char *)buffer;
+- (BOOL)_isBoundObjectAlive:(unsigned int)alive isObjectFunc:(void *)func;
 - (BOOL)_isContextModifiable;
 - (BOOL)_switchToWireframeFramebuffer;
 - (BOOL)isFunctionEnabled;
@@ -8,11 +9,18 @@
 - (DYEAGLDebugFunctionPlayer)initWithCaptureStore:(id)store;
 - (DYLayerManager)strongLayerManager;
 - (id).cxx_construct;
+- (void)_changeTextureToWidth:(int)width height:(int)height imageFormatInfo:(ImageFormatInfo *)info texels:(char *)texels;
+- (void)_copyColorAttachmentToPresentTexture:(unsigned int)texture imageInfo:(ImageInfo *)info;
+- (void)_copyDepthOrStencilAttachmentToPresent:(unsigned int)present type:(unsigned int)type;
+- (void)_copyRenderbufferColorAttachmentToPresent:(unsigned int)present color:(unsigned int)color isWireframe:(BOOL)wireframe;
+- (void)_copyTextureColorAttachmentToPresent:(unsigned int)present;
 - (void)_imageInfoForAttachment:(unsigned int)attachment outImageInfo:(ImageInfo *)info;
+- (void)_onResourceUpdated:(unsigned int)updated target:(unsigned int)target dispatcher:(Dispatcher *)dispatcher;
 - (void)_presentFramebufferWithWireframe:(BOOL)wireframe wireframeLineColor:(unsigned int)color;
 - (void)_renderPresentTextureWithColor:(unsigned int)color enableBlend:(BOOL)blend texBlitProgram:(unsigned int)program;
 - (void)dealloc;
 - (void)executePlatformFunction;
+- (void)performPostGraphicsFunctionDispatchActions:(BOOL)actions;
 - (void)prepareForCaptureExecution;
 - (void)setEngine:(id)engine;
 @end
@@ -231,6 +239,232 @@ LABEL_22:
   return shouldExecuteGraphicsFunction;
 }
 
+- (void)performPostGraphicsFunctionDispatchActions:(BOOL)actions
+{
+  actionsCopy = actions;
+  v5 = OBJC_IVAR___DYFunctionPlayer__engine;
+  delegate = [*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYFunctionPlayer__engine] delegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    delegate2 = [*&self->super.DYGLFunctionPlayer_opaque[v5] delegate];
+    [delegate2 performPostGraphicsFunctionDispatchActions:actionsCopy];
+
+    delegate3 = [*&self->super.DYGLFunctionPlayer_opaque[v5] delegate];
+    shouldCallSuper = [delegate3 shouldCallSuper];
+
+    if (shouldCallSuper)
+    {
+      v52.receiver = self;
+      v52.super_class = DYEAGLDebugFunctionPlayer;
+      [(DYEAGLDebugFunctionPlayer *)&v52 performPostGraphicsFunctionDispatchActions:actionsCopy];
+    }
+
+    delegate4 = [*&self->super.DYGLFunctionPlayer_opaque[v5] delegate];
+    shouldReturn = [delegate4 shouldReturn];
+
+    if (shouldReturn)
+    {
+      return;
+    }
+  }
+
+  v13 = OBJC_IVAR___DYFunctionPlayer__function;
+  v14 = *&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYFunctionPlayer__function];
+  v15 = *v14;
+  if (*v14 <= 381)
+  {
+    v18 = (v15 - 139) <= 7 && ((1 << (v15 + 117)) & 0x91) != 0 || v15 == 28;
+    if (!v18 && v15 != 36)
+    {
+      goto LABEL_34;
+    }
+
+LABEL_22:
+    v19 = *&self->super.DYGLFunctionPlayer_opaque[v5];
+    _isContextModifiable = [(DYEAGLDebugFunctionPlayer *)self _isContextModifiable];
+    v21 = *&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYFunctionPlayer__currentExecutionModeFunctionIndex];
+    if (((v21 + 1 == [v19 targetFunctionIndex]) & _isContextModifiable) != 1)
+    {
+LABEL_62:
+
+      return;
+    }
+
+    v22 = 0;
+    LOBYTE(v51[0]) = 0;
+    LOBYTE(v49) = 0;
+    v23 = OBJC_IVAR___DYGLFunctionPlayer__currentContextInfo;
+    if (*(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__currentContextInfo] + 104) >= 3uLL)
+    {
+      v24 = OBJC_IVAR___DYGLFunctionPlayer__disp;
+      v25 = OBJC_IVAR___DYGLFunctionPlayer__gli_ctx;
+      v22 = (*(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__disp] + 1144))(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__gli_ctx], 35977);
+      (*(*&self->super.DYGLFunctionPlayer_opaque[v24] + 792))(*&self->super.DYGLFunctionPlayer_opaque[v25], 36388, v51);
+      (*(*&self->super.DYGLFunctionPlayer_opaque[v24] + 792))(*&self->super.DYGLFunctionPlayer_opaque[v25], 36387, &v49);
+      if (LOBYTE(v51[0]) == 1 && !v49)
+      {
+        (*(*&self->super.DYGLFunctionPlayer_opaque[v24] + 7256))(*&self->super.DYGLFunctionPlayer_opaque[v25]);
+      }
+    }
+
+    if (![(DYEAGLDebugFunctionPlayer *)self _switchToWireframeFramebuffer])
+    {
+LABEL_57:
+      if ([v19 enableDrawCallPresent])
+      {
+        -[DYEAGLDebugFunctionPlayer _presentFramebufferWithWireframe:wireframeLineColor:](self, "_presentFramebufferWithWireframe:wireframeLineColor:", [v19 enableWireframePresent], objc_msgSend(v19, "wireframeLineColor"));
+      }
+
+      if (LOBYTE(v51[0]) == 1 && !v49)
+      {
+        (*(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__disp] + 7264))(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__gli_ctx]);
+      }
+
+      goto LABEL_62;
+    }
+
+    v26 = *&self->super.DYGLFunctionPlayer_opaque[v13];
+    v27 = *v26;
+    if (*v26 <= 145)
+    {
+      if (v27 == 139)
+      {
+        v31 = 0;
+        v32 = 0;
+        v29 = (v26 + 120);
+        v28 = **(v26 + 96);
+        goto LABEL_45;
+      }
+
+      if (v27 != 143)
+      {
+        goto LABEL_56;
+      }
+
+      v28 = 0;
+      v29 = (v26 + 96);
+      v31 = **(v26 + 120);
+      v35 = *&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYFunctionPlayer__argumentPointers + 32];
+    }
+
+    else
+    {
+      if (v27 != 146)
+      {
+        if (v27 == 823)
+        {
+          v31 = 0;
+          v32 = 0;
+          v29 = (v26 + 120);
+          v30 = *(v26 + 144);
+          v28 = **(v26 + 96);
+          goto LABEL_43;
+        }
+
+        if (v27 == 824)
+        {
+          v28 = 0;
+          v29 = (v26 + 96);
+          v30 = *(v26 + 168);
+          v31 = **(v26 + 120);
+          v32 = **&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYFunctionPlayer__argumentPointers + 32];
+LABEL_43:
+          v36 = *v30;
+LABEL_46:
+          if (!actionsCopy)
+          {
+            v37 = **v29;
+            if (v37 >= 1 && v22 == 0)
+            {
+              v39 = **(v26 + 72);
+              if (*(*&self->super.DYGLFunctionPlayer_opaque[v23] + 104) == 1)
+              {
+                v40 = &OBJC_IVAR___DYEAGLDebugFunctionPlayer__fixedWireframeRenderer;
+              }
+
+              else
+              {
+                v40 = &OBJC_IVAR___DYEAGLDebugFunctionPlayer__shaderWireframeRenderer;
+              }
+
+              v41 = *v40;
+              [v19 wireframeLineWidth];
+              (*(*&self->super.DYGLFunctionPlayer_opaque[v41] + 16))(&self->super.DYGLFunctionPlayer_opaque[v41], self, v39, v28, v37, v31, v32, v36);
+            }
+          }
+        }
+
+LABEL_56:
+        [(DYEAGLDebugFunctionPlayer *)self _switchToOriginalFramebuffer];
+        goto LABEL_57;
+      }
+
+      v28 = 0;
+      v29 = (v26 + 144);
+      v31 = **(v26 + 168);
+      v35 = *&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYFunctionPlayer__argumentPointers + 48];
+    }
+
+    v32 = *v35;
+LABEL_45:
+    v36 = 1;
+    goto LABEL_46;
+  }
+
+  v16 = (v15 - 823) > 0x1F || ((1 << (v15 - 55)) & 0xF0784003) == 0;
+  if (!v16 || v15 == 384 || v15 == 382)
+  {
+    goto LABEL_22;
+  }
+
+LABEL_34:
+  if (v15 == 93 && !actionsCopy)
+  {
+    v33 = *(v14 + 72);
+    context = [(DYEAGLDebugFunctionPlayer *)self context];
+    sub_4528(v51, context);
+
+    v49 = v51;
+    gliDispatch = [(DYEAGLDebugFunctionPlayer *)self gliDispatch];
+    sub_3A60(&self->_shaderWireframeRenderer, &v49, *v33);
+LABEL_70:
+
+    return;
+  }
+
+  if (v15 == 349 && !actionsCopy)
+  {
+    v42 = *(v14 + 72);
+    context2 = [(DYEAGLDebugFunctionPlayer *)self context];
+    sub_4528(v51, context2);
+
+    v49 = v51;
+    gliDispatch = [(DYEAGLDebugFunctionPlayer *)self gliDispatch];
+    sub_3FC8(&self->_shaderWireframeRenderer, &v49, *v42);
+    goto LABEL_70;
+  }
+
+  if (v15 == 888 && !actionsCopy)
+  {
+    v44 = *(v14 + 72);
+    v45 = *(v14 + 96);
+    v46 = *(v14 + 24);
+    context3 = [(DYEAGLDebugFunctionPlayer *)self context];
+    sub_4528(v51, context3);
+
+    v49 = v51;
+    gliDispatch = [(DYEAGLDebugFunctionPlayer *)self gliDispatch];
+    sub_4380(&self->_shaderWireframeRenderer, &v49, *v46, *v44, *v45, *(v14 + 120));
+    goto LABEL_70;
+  }
+
+  v48.receiver = self;
+  v48.super_class = DYEAGLDebugFunctionPlayer;
+  [(DYEAGLDebugFunctionPlayer *)&v48 performPostGraphicsFunctionDispatchActions:actionsCopy];
+}
+
 - (void)executePlatformFunction
 {
   v3 = OBJC_IVAR___DYFunctionPlayer__engine;
@@ -250,9 +484,9 @@ LABEL_22:
 
   if (shouldCallSuper)
   {
-    v29.receiver = self;
-    v29.super_class = DYEAGLDebugFunctionPlayer;
-    [(DYEAGLFunctionPlayer *)&v29 executePlatformFunction];
+    v23.receiver = self;
+    v23.super_class = DYEAGLDebugFunctionPlayer;
+    [(DYEAGLFunctionPlayer *)&v23 executePlatformFunction];
   }
 
   delegate4 = [*&self->super.DYGLFunctionPlayer_opaque[v3] delegate];
@@ -278,41 +512,35 @@ LABEL_20:
         switch(v12)
         {
           case -12287:
-            v27.receiver = self;
-            v27.super_class = DYEAGLDebugFunctionPlayer;
-            [(DYEAGLFunctionPlayer *)&v27 executePlatformFunction];
-            v20 = **(v11 + 96);
+            v21.receiver = self;
+            v21.super_class = DYEAGLDebugFunctionPlayer;
+            [(DYEAGLFunctionPlayer *)&v21 executePlatformFunction];
+            v14 = **(v11 + 96);
             strongLayerManager = [(DYEAGLDebugFunctionPlayer *)self strongLayerManager];
-            v22 = [strongLayerManager layerForID:v20];
+            v16 = [strongLayerManager layerForID:v14];
 
-            drawableProperties = [v22 drawableProperties];
-            v24 = [drawableProperties mutableCopy];
+            drawableProperties = [v16 drawableProperties];
+            v18 = [drawableProperties mutableCopy];
 
-            v25 = [NSNumber numberWithBool:1];
-            [v24 setObject:v25 forKey:kEAGLDrawablePropertyRetainedBacking];
+            v19 = [NSNumber numberWithBool:1];
+            [v18 setObject:v19 forKey:kEAGLDrawablePropertyRetainedBacking];
 
-            [v22 setDrawableProperties:v24];
+            [v16 setDrawableProperties:v18];
             return;
           case -8190:
             return;
           case -8188:
-            v28.receiver = self;
-            v28.super_class = DYEAGLDebugFunctionPlayer;
-            [(DYEAGLFunctionPlayer *)&v28 executePlatformFunction];
+            v22.receiver = self;
+            v22.super_class = DYEAGLDebugFunctionPlayer;
+            [(DYEAGLFunctionPlayer *)&v22 executePlatformFunction];
             v13 = [[NSNumber alloc] initWithUnsignedLongLong:**(v11 + 120)];
             if (([(NSMutableSet *)self->_sharegroupSet containsObject:v13]& 1) == 0)
             {
               [(NSMutableSet *)self->_sharegroupSet addObject:v13];
-              v14 = OBJC_IVAR___DYGLFunctionPlayer__ctx;
-              v15 = *&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__ctx];
               DYReserveGLObjects();
-              v16 = *&self->super.DYGLFunctionPlayer_opaque[v14];
               DYReserveGLObjects();
-              v17 = *&self->super.DYGLFunctionPlayer_opaque[v14];
               DYReserveGLObjects();
-              v18 = *&self->super.DYGLFunctionPlayer_opaque[v14];
               DYReserveGLObjects();
-              v19 = *&self->super.DYGLFunctionPlayer_opaque[v14];
               DYReserveGLObjects();
             }
 
@@ -325,10 +553,23 @@ LABEL_20:
         }
       }
 
-      v26.receiver = self;
-      v26.super_class = DYEAGLDebugFunctionPlayer;
-      [(DYEAGLFunctionPlayer *)&v26 executePlatformFunction];
+      v20.receiver = self;
+      v20.super_class = DYEAGLDebugFunctionPlayer;
+      [(DYEAGLFunctionPlayer *)&v20 executePlatformFunction];
     }
+  }
+}
+
+- (void)_onResourceUpdated:(unsigned int)updated target:(unsigned int)target dispatcher:(Dispatcher *)dispatcher
+{
+  if (target == 35648)
+  {
+    sub_3FC8(&self->_shaderWireframeRenderer, dispatcher, *&updated);
+  }
+
+  else if (target == 35656)
+  {
+    sub_3A60(&self->_shaderWireframeRenderer, dispatcher, *&updated);
   }
 }
 
@@ -411,17 +652,17 @@ LABEL_17:
 - (void)_presentFramebufferWithWireframe:(BOOL)wireframe wireframeLineColor:(unsigned int)color
 {
   wireframeCopy = wireframe;
-  v84 = 0;
-  v83 = 0uLL;
+  v77 = 0;
+  v76 = 0uLL;
   v5 = OBJC_IVAR___DYGLFunctionPlayer__disp;
   v6 = OBJC_IVAR___DYGLFunctionPlayer__gli_ctx;
-  (*(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__disp] + 832))(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__gli_ctx], 36006, &v84 + 4);
-  if (HIDWORD(v84))
+  (*(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__disp] + 832))(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__gli_ctx], 36006, &v77 + 4);
+  if (HIDWORD(v77))
   {
-    (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 832))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36007, &v84);
-    (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5440))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36009, 36064, 36049, &v83 + 12);
-    (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5440))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36009, 36064, 36048, &v83 + 8);
-    if (DWORD2(v83))
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 832))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36007, &v77);
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5440))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36009, 36064, 36049, &v76 + 12);
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5440))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36009, 36064, 36048, &v76 + 8);
+    if (DWORD2(v76))
     {
       v69 = 0uLL;
       *&v70[8] = 0;
@@ -442,10 +683,10 @@ LABEL_17:
       }
 
       v59 = v8;
-      if (DWORD2(v83) == 36161)
+      if (DWORD2(v76) == 36161)
       {
         currentRenderbufferDrawableMap = [(DYEAGLFunctionPlayer *)self currentRenderbufferDrawableMap];
-        v10 = [NSNumber numberWithUnsignedInt:HIDWORD(v83)];
+        v10 = [NSNumber numberWithUnsignedInt:HIDWORD(v76)];
         v11 = [currentRenderbufferDrawableMap objectForKey:v10];
 
         if (v11)
@@ -504,35 +745,15 @@ LABEL_14:
     drawableProperties = [v19 drawableProperties];
     v21 = [drawableProperties objectForKeyedSubscript:kEAGLDrawablePropertyColorFormat];
 
-    if (v19 != currentTopLayer)
+    if (v19 != currentTopLayer || ([v19 bounds], v23 = v22, v25 = v24, v27 = v26, v29 = v28, objc_msgSend(currentTopLayer, "bounds"), v82.origin.x = v30, v82.origin.y = v31, v82.size.width = v32, v82.size.height = v33, v81.origin.x = v23, v81.origin.y = v25, v81.size.width = v27, v81.size.height = v29, !CGRectEqualToRect(v81, v82)) || (objc_msgSend(v19, "contentsScale"), v35 = v34, objc_msgSend(currentTopLayer, "contentsScale"), v35 != v36) || (objc_msgSend(v21, "isEqualToString:", v59) & 1) == 0)
     {
-      goto LABEL_21;
-    }
-
-    [v19 bounds];
-    v23 = v22;
-    v25 = v24;
-    v27 = v26;
-    v29 = v28;
-    [currentTopLayer bounds];
-    v89.origin.x = v30;
-    v89.origin.y = v31;
-    v89.size.width = v32;
-    v89.size.height = v33;
-    v88.origin.x = v23;
-    v88.origin.y = v25;
-    v88.size.width = v27;
-    v88.size.height = v29;
-    if (!CGRectEqualToRect(v88, v89) || ([v19 contentsScale], v35 = v34, objc_msgSend(currentTopLayer, "contentsScale"), v35 != v36) || (objc_msgSend(v21, "isEqualToString:", v59) & 1) == 0)
-    {
-LABEL_21:
-      v86 = kEAGLDrawablePropertyColorFormat;
-      v87 = v59;
-      v37 = [NSDictionary dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+      v79 = kEAGLDrawablePropertyColorFormat;
+      v80 = v59;
+      v37 = [NSDictionary dictionaryWithObjects:&v80 forKeys:&v79 count:1];
       if (v19)
       {
-        sub_A3F4(v85, 1, 1);
-        [currentTopLayer transform];
+        sub_A3F4(v78, 1, 1);
+        objc_msgSend_transform(currentTopLayer);
         v71 = v65;
         v72 = v66;
         v73 = v67;
@@ -562,22 +783,22 @@ LABEL_21:
         [currentTopLayer contentsScale];
         v19 = [strongLayerManager4 createLayerWithID:sharegroup contentRect:v37 contentsScale:0 properties:v40 isCoreAnimationSurface:{v42, v44, v46, v47}];
 
-        sub_A3F4(v85, 1, 1);
-        [currentTopLayer transform];
-        v71 = v79;
-        v72 = v80;
-        v73 = v81;
-        v74 = v82;
-        v69 = v75;
-        *v70 = v76;
-        *&v70[16] = v77;
-        *&v70[32] = v78;
+        sub_A3F4(v78, 1, 1);
+        objc_msgSend_transform(currentTopLayer);
+        v71 = v75[4];
+        v72 = v75[5];
+        v73 = v75[6];
+        v74 = v75[7];
+        v69 = v75[0];
+        *v70 = v75[1];
+        *&v70[16] = v75[2];
+        *&v70[32] = v75[3];
         [v19 setTransform:&v69];
         [currentTopLayer anchorPoint];
         [v19 setAnchorPoint:?];
       }
 
-      sub_A4C0(v85);
+      sub_A4C0(v78);
       (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5328))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36161, self->_presentRenderbuffer);
       [*&self->super.DYGLFunctionPlayer_opaque[v56] renderbufferStorage:36161 fromDrawable:v19];
       +[CATransaction flush];
@@ -595,12 +816,12 @@ LABEL_21:
       (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5360))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36161, 36163, &self->_presentRenderbufferResolution[1]);
       (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5376))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36009, self->_presentFramebuffer);
       (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5432))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36009, 36064, 36161, self->_presentRenderbuffer);
-      (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5376))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36009, HIDWORD(v84));
+      (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5376))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36009, HIDWORD(v77));
     }
 
-    (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5440))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36009, 36096, 36048, &v83 + 4);
-    (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5440))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36009, 36128, 36048, &v83);
-    if (*(&v83 + 4) || v83)
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5440))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36009, 36096, 36048, &v76 + 4);
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5440))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36009, 36128, 36048, &v76);
+    if (*(&v76 + 4) || v76)
     {
       v60[0] = _NSConcreteStackBlock;
       v60[1] = 3221225472;
@@ -608,10 +829,10 @@ LABEL_21:
       v60[3] = &unk_24730;
       v60[4] = self;
       v53 = objc_retainBlock(v60);
-      if (DWORD2(v83))
+      if (DWORD2(v76))
       {
         v54 = GPUTools::GL::DYIsAttachmentWritable();
-        if (DWORD2(v83) == 36161)
+        if (DWORD2(v76) == 36161)
         {
           [(DYEAGLDebugFunctionPlayer *)self _copyRenderbufferColorAttachmentToPresent:36064 color:0xFFFFFFFFLL isWireframe:0];
         }
@@ -622,16 +843,16 @@ LABEL_21:
         }
       }
 
-      else if (DWORD1(v83))
+      else if (DWORD1(v76))
       {
         v54 = GPUTools::GL::DYIsAttachmentWritable();
-        [(DYEAGLDebugFunctionPlayer *)self _copyDepthOrStencilAttachmentToPresent:36096 type:DWORD1(v83)];
+        [(DYEAGLDebugFunctionPlayer *)self _copyDepthOrStencilAttachmentToPresent:36096 type:DWORD1(v76)];
       }
 
       else
       {
         v54 = GPUTools::GL::DYIsAttachmentWritable();
-        [(DYEAGLDebugFunctionPlayer *)self _copyDepthOrStencilAttachmentToPresent:36128 type:v83];
+        [(DYEAGLDebugFunctionPlayer *)self _copyDepthOrStencilAttachmentToPresent:36128 type:v76];
       }
 
       if (v54)
@@ -650,10 +871,303 @@ LABEL_21:
       [*&self->super.DYGLFunctionPlayer_opaque[v56] presentRenderbuffer:36161];
     }
 
-    (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5328))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36161, v84);
-    (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5376))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36009, HIDWORD(v84));
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5328))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36161, v77);
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v5] + 5376))(*&self->super.DYGLFunctionPlayer_opaque[v6], 36009, HIDWORD(v77));
 
     goto LABEL_39;
+  }
+}
+
+- (void)_copyRenderbufferColorAttachmentToPresent:(unsigned int)present color:(unsigned int)color isWireframe:(BOOL)wireframe
+{
+  wireframeCopy = wireframe;
+  v6 = *&color;
+  v7 = *&present;
+  v27 = 0;
+  v9 = OBJC_IVAR___DYGLFunctionPlayer__disp;
+  v10 = OBJC_IVAR___DYGLFunctionPlayer__gli_ctx;
+  (*(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__disp] + 5440))(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__gli_ctx], 36009, *&present, 36049, &v27);
+  (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 5328))(*&self->super.DYGLFunctionPlayer_opaque[v10], 36161, v27);
+  v21 = 0;
+  v22 = 0;
+  v24 = 0;
+  v23 = 0;
+  v25 = 0x100000001;
+  v26[0] = 0;
+  *(v26 + 5) = 0;
+  [(DYEAGLDebugFunctionPlayer *)self _imageInfoForAttachment:v7 outImageInfo:&v21];
+  if (wireframeCopy)
+  {
+    v12 = 1;
+  }
+
+  else if (GPUTools::GL::IsIntegerFormat(HIDWORD(v21), v11))
+  {
+    if (GPUTools::GL::IsSignedType(v22, v13))
+    {
+      v12 = 2;
+    }
+
+    else
+    {
+      v12 = 3;
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  if (SHIDWORD(v26[0]) < 1)
+  {
+    [(DYEAGLDebugFunctionPlayer *)self _copyColorAttachmentToPresentTexture:v7 imageInfo:&v21];
+    [(DYEAGLDebugFunctionPlayer *)self _renderPresentTextureWithColor:v6 enableBlend:wireframeCopy texBlitProgram:v12];
+  }
+
+  else
+  {
+    v20 = 0;
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 832))(*&self->super.DYGLFunctionPlayer_opaque[v10], 36006, &v20);
+    v19 = 0;
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 832))(*&self->super.DYGLFunctionPlayer_opaque[v10], 36010, &v19);
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 5376))(*&self->super.DYGLFunctionPlayer_opaque[v10], 36008, v20);
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 5376))(*&self->super.DYGLFunctionPlayer_opaque[v10], 36009, self->_presentFramebuffer);
+    if (self->_presentRenderbufferResolution[0] == v24 && self->_presentRenderbufferResolution[1] == v25 && self->_presentRenderbufferInternalFormatInfo.internalFormat == HIDWORD(v22))
+    {
+      v14 = *&self->super.DYGLFunctionPlayer_opaque[v9];
+      v15 = *&self->super.DYGLFunctionPlayer_opaque[v10];
+      if (*(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__currentContextInfo] + 104) < 3uLL)
+      {
+        (*(v14 + 8208))(v15);
+      }
+
+      else
+      {
+        (*(v14 + 6040))(v15, 0, 0);
+      }
+    }
+
+    else
+    {
+      v18 = 0;
+      (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 832))(*&self->super.DYGLFunctionPlayer_opaque[v10], 32873, &v18);
+      (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 40))(*&self->super.DYGLFunctionPlayer_opaque[v10], 3553, self->_presentTexture);
+      [(DYEAGLDebugFunctionPlayer *)self _changeTextureToWidth:v24 height:v25 imageFormatInfo:&v21 texels:0];
+      (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 5416))(*&self->super.DYGLFunctionPlayer_opaque[v10], 36009, v7, 3553, self->_presentTexture, 0);
+      v16 = *&self->super.DYGLFunctionPlayer_opaque[v9];
+      v17 = *&self->super.DYGLFunctionPlayer_opaque[v10];
+      if (*(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__currentContextInfo] + 104) < 3uLL)
+      {
+        (*(v16 + 8208))(v17);
+      }
+
+      else
+      {
+        (*(v16 + 6040))(v17, 0, 0);
+      }
+
+      (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 5432))(*&self->super.DYGLFunctionPlayer_opaque[v10], 36009, v7, 36161, self->_presentRenderbuffer);
+      (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 40))(*&self->super.DYGLFunctionPlayer_opaque[v10], 3553, v18);
+      [(DYEAGLDebugFunctionPlayer *)self _renderPresentTextureWithColor:v6 enableBlend:wireframeCopy texBlitProgram:v12];
+    }
+
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 5376))(*&self->super.DYGLFunctionPlayer_opaque[v10], 36008, v19);
+  }
+}
+
+- (void)_copyTextureColorAttachmentToPresent:(unsigned int)present
+{
+  v3 = *&present;
+  v9 = 0;
+  v10 = 0;
+  v12 = 0;
+  v11 = 0;
+  v13 = 0x100000001;
+  v14[0] = 0;
+  *(v14 + 5) = 0;
+  [(DYEAGLDebugFunctionPlayer *)self _imageInfoForAttachment:*&present outImageInfo:&v9];
+  [(DYEAGLDebugFunctionPlayer *)self _copyColorAttachmentToPresentTexture:v3 imageInfo:&v9];
+  IsIntegerFormat = GPUTools::GL::IsIntegerFormat(HIDWORD(v9), v5);
+  v8 = 0;
+  if (IsIntegerFormat)
+  {
+    if (GPUTools::GL::IsSignedType(v10, v7))
+    {
+      v8 = 2;
+    }
+
+    else
+    {
+      v8 = 3;
+    }
+  }
+
+  [(DYEAGLDebugFunctionPlayer *)self _renderPresentTextureWithColor:0xFFFFFFFFLL enableBlend:0 texBlitProgram:v8];
+}
+
+- (void)_copyColorAttachmentToPresentTexture:(unsigned int)texture imageInfo:(ImageInfo *)info
+{
+  v5 = *&texture;
+  v12 = 0;
+  v7 = OBJC_IVAR___DYGLFunctionPlayer__disp;
+  v8 = OBJC_IVAR___DYGLFunctionPlayer__gli_ctx;
+  (*(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__disp] + 832))(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__gli_ctx], 36006, &v12);
+  v11 = 0;
+  (*(*&self->super.DYGLFunctionPlayer_opaque[v7] + 832))(*&self->super.DYGLFunctionPlayer_opaque[v8], 36010, &v11);
+  (*(*&self->super.DYGLFunctionPlayer_opaque[v7] + 5376))(*&self->super.DYGLFunctionPlayer_opaque[v8], 36008, v12);
+  v10 = 0;
+  (*(*&self->super.DYGLFunctionPlayer_opaque[v7] + 832))(*&self->super.DYGLFunctionPlayer_opaque[v8], 32873, &v10);
+  (*(*&self->super.DYGLFunctionPlayer_opaque[v7] + 40))(*&self->super.DYGLFunctionPlayer_opaque[v8], 3553, self->_presentTexture);
+  [(DYEAGLDebugFunctionPlayer *)self _changeTextureToWidth:info->var2 height:info->var3 imageFormatInfo:info texels:0];
+  if (*(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__currentContextInfo] + 104) < 3uLL)
+  {
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v7] + 448))(*&self->super.DYGLFunctionPlayer_opaque[v8], 3553, 0, 0, 0, 0, 0, info->var2, info->var3);
+  }
+
+  else
+  {
+    v9 = 0;
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v7] + 832))(*&self->super.DYGLFunctionPlayer_opaque[v8], 3074, &v9);
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v7] + 1888))(*&self->super.DYGLFunctionPlayer_opaque[v8], v5);
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v7] + 448))(*&self->super.DYGLFunctionPlayer_opaque[v8], 3553, 0, 0, 0, 0, 0, info->var2, info->var3);
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v7] + 1888))(*&self->super.DYGLFunctionPlayer_opaque[v8], v9);
+  }
+
+  (*(*&self->super.DYGLFunctionPlayer_opaque[v7] + 40))(*&self->super.DYGLFunctionPlayer_opaque[v8], 3553, v10);
+  (*(*&self->super.DYGLFunctionPlayer_opaque[v7] + 5376))(*&self->super.DYGLFunctionPlayer_opaque[v8], 36008, v11);
+}
+
+- (void)_copyDepthOrStencilAttachmentToPresent:(unsigned int)present type:(unsigned int)type
+{
+  v38[0] = 0;
+  v6 = [(DYEAGLDebugFunctionPlayer *)self context:*&present];
+  sub_4528(v37, v6);
+
+  v36[0] = v37;
+  v36[1] = [(DYEAGLDebugFunctionPlayer *)self gliDispatch];
+  captureSessionInfo = [(DYEAGLDebugFunctionPlayer *)self captureSessionInfo];
+  v8 = [captureSessionInfo contextInfoForContext:{-[DYEAGLDebugFunctionPlayer ctxID](self, "ctxID")}];
+  [v8 api];
+
+  GPUTools::GL::GetFramebufferAttachmentInfo();
+  v28 = 0;
+  v29 = 0x100000001;
+  memset(v30, 0, 13);
+  GPUTools::GL::GetImageInfo();
+  memset(memptr, 0, sizeof(memptr));
+  malloc_type_posix_memalign(memptr, 8uLL, 0, 0x6591EAD8uLL);
+  if (memptr[0])
+  {
+    if (v32 == 36161)
+    {
+      v9 = OBJC_IVAR___DYGLFunctionPlayer__disp;
+      v10 = OBJC_IVAR___DYGLFunctionPlayer__gli_ctx;
+      (*(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__disp] + 832))(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__gli_ctx], 36007, v38);
+      (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 5328))(*&self->super.DYGLFunctionPlayer_opaque[v10], 36161, v31);
+    }
+
+    else
+    {
+      *(&v23 + 7) = 0;
+      *&v23 = 0;
+      GPUTools::GL::DYGetTextureTargetInfo();
+      v9 = OBJC_IVAR___DYGLFunctionPlayer__disp;
+      v10 = OBJC_IVAR___DYGLFunctionPlayer__gli_ctx;
+      (*(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__disp] + 832))(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__gli_ctx], 0, v38);
+      (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 40))(*&self->super.DYGLFunctionPlayer_opaque[v10], v32, v31);
+    }
+
+    if (v32 == 34067)
+    {
+      v11 = v33;
+    }
+
+    else
+    {
+      v11 = v32;
+    }
+
+    if (present == 36096)
+    {
+      v12 = 6402;
+    }
+
+    else
+    {
+      v12 = 6401;
+    }
+
+    if (present == 36096)
+    {
+      v13 = 5126;
+    }
+
+    else
+    {
+      v13 = 5121;
+    }
+
+    v23 = xmmword_21080;
+    v24 = 0;
+    v25 = 0;
+    v26 = 0;
+    v22 = 0;
+    v14 = (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 936))(*&self->super.DYGLFunctionPlayer_opaque[v10], 7939);
+    strstr(v14, "GL_APPLE_row_bytes");
+    GPUTools::GL::SavePixelStorePackState();
+    memset(v20, 0, sizeof(v20));
+    HIDWORD(v20[0]) = 1;
+    v21 = 0;
+    GPUTools::GL::ApplyPixelStorePackState();
+    v16 = OBJC_IVAR___DYGLFunctionPlayer__currentContextInfo;
+    if (*(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__currentContextInfo] + 104) >= 3uLL)
+    {
+      (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 832))(*&self->super.DYGLFunctionPlayer_opaque[v10], 35053, &v22);
+      (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 5136))(*&self->super.DYGLFunctionPlayer_opaque[v10], 35051, 0);
+      (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 1560))(*&self->super.DYGLFunctionPlayer_opaque[v10], 32875, v35);
+    }
+
+    ShouldUseGLIReadTextureData = GPUTools::GL::ShouldUseGLIReadTextureData(v36, v15);
+    GPUTools::GL::GetImageData(v36, v11, v34, v12, v13, ShouldUseGLIReadTextureData, memptr[0], v18);
+    if (*(*&self->super.DYGLFunctionPlayer_opaque[v16] + 104) >= 3uLL)
+    {
+      (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 5136))(*&self->super.DYGLFunctionPlayer_opaque[v10], 35051, v22);
+    }
+
+    GPUTools::GL::ApplyPixelStorePackState();
+    if (present == 36096)
+    {
+      [DYEAGLDebugFunctionPlayer _resolveDepthWithWidth:v28 height:v29 numSamples:v30[1] buffer:memptr[0]];
+    }
+
+    else
+    {
+      [DYEAGLDebugFunctionPlayer _resolveStencilWithWidth:v28 height:v29 numSamples:v30[1] buffer:memptr[0]];
+    }
+
+    v19 = 40;
+    if (v32 == 36161)
+    {
+      v19 = 5328;
+    }
+
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + v19))(*&self->super.DYGLFunctionPlayer_opaque[v10]);
+    LODWORD(v20[0]) = 0;
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 832))(*&self->super.DYGLFunctionPlayer_opaque[v10], 32873, v20);
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 40))(*&self->super.DYGLFunctionPlayer_opaque[v10], 3553, self->_presentTexture);
+    *&v23 = vdup_n_s32(0x1909u);
+    DWORD2(v23) = v13;
+    [(DYEAGLDebugFunctionPlayer *)self _changeTextureToWidth:v28 height:v29 imageFormatInfo:&v23 texels:memptr[0]];
+    free(memptr[0]);
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v9] + 40))(*&self->super.DYGLFunctionPlayer_opaque[v10], 3553, LODWORD(v20[0]));
+    [(DYEAGLDebugFunctionPlayer *)self _renderPresentTextureWithColor:0xFFFFFFFFLL enableBlend:0 texBlitProgram:0];
+  }
+
+  else
+  {
+    dy_abort("Unable to allocate %lu bytes for depth buffer\n", 0);
+    __break(1u);
   }
 }
 
@@ -708,6 +1222,58 @@ LABEL_21:
   [(DYEAGLFunctionPlayer *)self drawTexture:self->_presentTexture target:3553 framebuffer:self->_presentFramebuffer bounds:((v22 - v29) / 2) | (((v24 - v30) / 2) << 32) clearBits:v29 | (v30 << 32) modulateColor:v31 enableBlend:v32 rotated:v33 texBlitProgram:?];
 }
 
+- (void)_changeTextureToWidth:(int)width height:(int)height imageFormatInfo:(ImageFormatInfo *)info texels:(char *)texels
+{
+  v8 = *&height;
+  v9 = *&width;
+  v23 = 0;
+  v24 = 0;
+  *v26 = 0;
+  v25 = 0;
+  *&v26[4] = 0x100000001;
+  v27[0] = 0;
+  *(v27 + 5) = 0;
+  context = [(DYEAGLDebugFunctionPlayer *)self context];
+  sub_4528(v22, context);
+
+  v20 = v22;
+  gliDispatch = [(DYEAGLDebugFunctionPlayer *)self gliDispatch];
+  captureSessionInfo = [(DYEAGLDebugFunctionPlayer *)self captureSessionInfo];
+  v13 = [captureSessionInfo contextInfoForContext:{-[DYEAGLDebugFunctionPlayer ctxID](self, "ctxID")}];
+  [v13 api];
+
+  GPUTools::GL::GetImageInfo();
+  if (*v26 != __PAIR64__(v8, v9) || texels || v23 != info->var0)
+  {
+    v19 = 0;
+    v14 = OBJC_IVAR___DYGLFunctionPlayer__currentContextInfo;
+    v15 = OBJC_IVAR___DYGLFunctionPlayer__disp;
+    v16 = OBJC_IVAR___DYGLFunctionPlayer__gli_ctx;
+    if (*(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__currentContextInfo] + 104) > 2uLL)
+    {
+      (*(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__disp] + 832))(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__gli_ctx], 35055, &v19);
+      (*(*&self->super.DYGLFunctionPlayer_opaque[v15] + 5136))(*&self->super.DYGLFunctionPlayer_opaque[v16], 35052, 0);
+    }
+
+    v17 = (*(*&self->super.DYGLFunctionPlayer_opaque[v15] + 936))(*&self->super.DYGLFunctionPlayer_opaque[v16], 7939);
+    strstr(v17, "GL_APPLE_row_bytes");
+    GPUTools::GL::SavePixelStoreUnpackState();
+    v18 = 0u;
+    HIDWORD(v18) = 1;
+    GPUTools::GL::ApplyPixelStoreUnpackState();
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v15] + 2432))(*&self->super.DYGLFunctionPlayer_opaque[v16], 3553, 10241, 9728);
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v15] + 2432))(*&self->super.DYGLFunctionPlayer_opaque[v16], 3553, 10240, 9728);
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v15] + 2432))(*&self->super.DYGLFunctionPlayer_opaque[v16], 3553, 10242, 33071);
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v15] + 2432))(*&self->super.DYGLFunctionPlayer_opaque[v16], 3553, 10243, 33071);
+    (*(*&self->super.DYGLFunctionPlayer_opaque[v15] + 2408))(*&self->super.DYGLFunctionPlayer_opaque[v16], 3553, 0, *(&info->var0 + (*(*&self->super.DYGLFunctionPlayer_opaque[v14] + 104) < 3uLL)), v9, v8, 0, info->var1, info->var2, texels, 0, *(&v18 + 1), 0, 0, 0);
+    GPUTools::GL::ApplyPixelStoreUnpackState();
+    if (*(*&self->super.DYGLFunctionPlayer_opaque[v14] + 104) >= 3uLL)
+    {
+      (*(*&self->super.DYGLFunctionPlayer_opaque[v15] + 5136))(*&self->super.DYGLFunctionPlayer_opaque[v16], 35052, v19);
+    }
+  }
+}
+
 - (void)_imageInfoForAttachment:(unsigned int)attachment outImageInfo:(ImageInfo *)info
 {
   context = [(DYEAGLDebugFunctionPlayer *)self context];
@@ -720,6 +1286,14 @@ LABEL_21:
 
   GPUTools::GL::GetFramebufferAttachmentInfo();
   GPUTools::GL::GetImageInfo();
+}
+
+- (BOOL)_isBoundObjectAlive:(unsigned int)alive isObjectFunc:(void *)func
+{
+  v8 = 0;
+  v6 = OBJC_IVAR___DYGLFunctionPlayer__gli_ctx;
+  (*(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__disp] + 832))(*&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYGLFunctionPlayer__gli_ctx], *&alive, &v8);
+  return !v8 || (func)(*&self->super.DYGLFunctionPlayer_opaque[v6]) == 1;
 }
 
 - (BOOL)_isContextModifiable

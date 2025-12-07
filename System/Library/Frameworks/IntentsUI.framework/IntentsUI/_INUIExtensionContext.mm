@@ -99,7 +99,7 @@
 
 - (id)interfaceParametersDescription
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
   interfaceSections = [(_INUIExtensionContextState *)self->_currentExtensionContextState interfaceSections];
   v5 = [interfaceSections count];
@@ -120,32 +120,32 @@
 
       [string appendFormat:@"Section %zd:\n", ++v6];
       [string appendString:@"\tParameters:\n"];
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       parameters = [v8 parameters];
-      v10 = [parameters countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v10 = [parameters countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v26;
+        v12 = *v25;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v26 != v12)
+            if (*v25 != v12)
             {
               objc_enumerationMutation(parameters);
             }
 
-            v14 = *(*(&v25 + 1) + 8 * i);
+            v14 = *(*(&v24 + 1) + 8 * i);
             v15 = NSStringFromClass([v14 parameterClass]);
             parameterKeyPath = [v14 parameterKeyPath];
             [string appendFormat:@"\t\t%@ - %@\n", v15, parameterKeyPath];
           }
 
-          v11 = [parameters countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v11 = [parameters countByEnumeratingWithState:&v24 objects:v28 count:16];
         }
 
         while (v11);
@@ -169,8 +169,6 @@
   }
 
   v21 = [string copy];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

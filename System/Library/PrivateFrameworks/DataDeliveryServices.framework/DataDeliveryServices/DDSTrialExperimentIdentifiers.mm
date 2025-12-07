@@ -1,9 +1,17 @@
 @interface DDSTrialExperimentIdentifiers
 - (DDSTrialExperimentIdentifiers)initWithCoder:(id)coder;
+- (DDSTrialExperimentIdentifiers)initWithExperimentId:(id)id treatmentId:(id)treatmentId deploymentId:(int)deploymentId;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation DDSTrialExperimentIdentifiers
+
+- (DDSTrialExperimentIdentifiers)initWithExperimentId:(id)id treatmentId:(id)treatmentId deploymentId:(int)deploymentId
+{
+  v6.receiver = self;
+  v6.super_class = DDSTrialExperimentIdentifiers;
+  return [(TRIExperimentIdentifiers *)&v6 initWithExperimentId:id deploymentId:*&deploymentId treatmentId:treatmentId];
+}
 
 - (void)encodeWithCoder:(id)coder
 {

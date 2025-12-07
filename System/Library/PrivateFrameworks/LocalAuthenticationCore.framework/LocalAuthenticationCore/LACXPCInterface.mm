@@ -106,9 +106,11 @@
 
 uint64_t __43__LACXPCInterface_interfaceForXPCProtocol___block_invoke()
 {
-  interfaceForXPCProtocol__protocolCache = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = interfaceForXPCProtocol__protocolCache;
+  interfaceForXPCProtocol__protocolCache = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)interfaceForRemoteUI

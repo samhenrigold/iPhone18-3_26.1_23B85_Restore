@@ -48,16 +48,15 @@
   if (_init)
   {
     objc_storeStrong(_init + 9, channel);
-    v8 = MRLogCategoryConnections();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = MRLogCategoryConnections(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412290;
       v12 = v7;
-      _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRAirPlayTransportConnection] Creating new connection with APChannel %@", &v11, 0xCu);
+      _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRAirPlayTransportConnection] Creating new connection with APChannel %@", &v11, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -77,8 +76,8 @@
     v13 = [firstObject ID];
     [(MRExternalDeviceTransportConnection *)v10 setDestinationOutputDeviceUID:v13];
 
-    v14 = MRLogCategoryConnections();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = MRLogCategoryConnections(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v17 = 138543874;
       v18 = contextCopy;
@@ -86,34 +85,31 @@
       v20 = firstObject;
       v21 = 2114;
       v22 = v10;
-      _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "[MRAirPlayTransportConnection] Creating new connection with outputContext %{public}@ with pilotOutputDevice <%{public}@> with outputContextChannel %{public}@", &v17, 0x20u);
+      _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "[MRAirPlayTransportConnection] Creating new connection with outputContext %{public}@ with pilotOutputDevice <%{public}@> with outputContextChannel %{public}@", &v17, 0x20u);
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (MRAirPlayTransportConnection)initWithOutputDeviceCommunicationChannel:(id)channel
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   channelCopy = channel;
   _init = [(MRAirPlayTransportConnection *)self _init];
   v7 = _init;
   if (_init)
   {
     objc_storeStrong(_init + 11, channel);
-    [(AVOutputDeviceCommunicationChannel *)v7->_outputDeviceCommunicationChannel setDelegate:v7];
-    v8 = MRLogCategoryConnections();
+    v8 = MRLogCategoryConnections([(AVOutputDeviceCommunicationChannel *)v7->_outputDeviceCommunicationChannel setDelegate:v7]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = v7;
-      _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRAirPlayTransportConnection] Creating new connection with OutputDeviceChannel %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v7;
+      _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRAirPlayTransportConnection] Creating new connection with OutputDeviceChannel %{public}@", &v10, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -144,26 +140,25 @@
   totalBytesSentCount = selfCopy->_totalBytesSentCount;
   mostRecentMessageReceivedDate = selfCopy->_mostRecentMessageReceivedDate;
   [(NSDate *)mostRecentMessageReceivedDate timeIntervalSinceNow];
-  totalMessagesReceivedCount = selfCopy->_totalMessagesReceivedCount;
-  v17 = [v3 initWithFormat:@"<%@:%p {\n  communicationChannel = %@\n  dateCreated = %@ (%lf seconds ago)\n  mostRecentMessageSentDate = %@ (%lf seconds ago)\n  totalMessagesSent = %lu\n  totalBytesSent = %lu\n  mostRecentMessageReceivedDate = %@ (%lf seconds ago)\n  totalMessagesReceived = %lu\n  totalBytesReceived = %lu\n}>", v4, selfCopy, effectiveChannel, dateCreated, -v8, mostRecentMessageSentDate, -v11, totalMessagesSentCount, totalBytesSentCount, mostRecentMessageReceivedDate, -v16, totalMessagesReceivedCount, selfCopy->_totalBytesReceivedCount];
+  v16 = [v3 initWithFormat:@"<%@:%p {\n  communicationChannel = %@\n  dateCreated = %@ (%lf seconds ago)\n  mostRecentMessageSentDate = %@ (%lf seconds ago)\n  totalMessagesSent = %lu\n  totalBytesSent = %lu\n  mostRecentMessageReceivedDate = %@ (%lf seconds ago)\n  totalMessagesReceived = %lu\n  totalBytesReceived = %lu\n}>", v4, selfCopy, effectiveChannel, dateCreated, -v8, mostRecentMessageSentDate, -v11, totalMessagesSentCount, totalBytesSentCount, mostRecentMessageReceivedDate, -v15, selfCopy->_totalMessagesReceivedCount, selfCopy->_totalBytesReceivedCount];
 
   objc_sync_exit(selfCopy);
 
-  return v17;
+  return v16;
 }
 
 - (void)ingestData:(id)data
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v5 = MRLogCategoryConnections();
+  v5 = MRLogCategoryConnections(dataCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = dataCopy;
-    v12 = 2114;
+    v9 = 138412546;
+    v10 = dataCopy;
+    v11 = 2114;
     selfCopy = self;
-    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRAirPlayTransportConnection] Connection received data %@ from %{public}@", &v10, 0x16u);
+    _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRAirPlayTransportConnection] Connection received data %@ from %{public}@", &v9, 0x16u);
   }
 
   selfCopy2 = self;
@@ -176,8 +171,6 @@
 
   objc_sync_exit(selfCopy2);
   [(MRExternalDeviceTransportConnection *)selfCopy2 _notifyDelegateDidReceiveData:dataCopy];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isValid
@@ -200,35 +193,34 @@
 
   if (effectiveChannel)
   {
-    v9 = MRLogCategoryConnections();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = MRLogCategoryConnections(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 138412546;
       v17 = dataCopy;
       v18 = 2114;
       selfCopy = self;
-      _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRAirPlayTransportConnection] Connection sent data %@ to %{public}@", &v16, 0x16u);
+      _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "[MRAirPlayTransportConnection] Connection sent data %@ to %{public}@", &v16, 0x16u);
     }
 
     selfCopy2 = self;
     objc_sync_enter(selfCopy2);
     ++selfCopy2->_totalMessagesSentCount;
     selfCopy2->_totalBytesSentCount += [dataCopy length];
-    v11 = [MEMORY[0x1E695DF00] now];
+    v12 = [MEMORY[0x1E695DF00] now];
     mostRecentMessageSentDate = selfCopy2->_mostRecentMessageSentDate;
-    selfCopy2->_mostRecentMessageSentDate = v11;
+    selfCopy2->_mostRecentMessageSentDate = v12;
 
     objc_sync_exit(selfCopy2);
-    v13 = [(MRAirPlayTransportConnection *)selfCopy2 _sendTransportData:dataCopy];
+    v14 = [(MRAirPlayTransportConnection *)selfCopy2 _sendTransportData:dataCopy];
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-  return v13;
+  return v14;
 }
 
 - (unint64_t)_sendTransportData:(id)data
@@ -257,24 +249,22 @@
 
 void __51__MRAirPlayTransportConnection__sendTransportData___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
   if (v3 && WeakRetained)
   {
-    v6 = MRLogCategoryConnections();
+    v6 = MRLogCategoryConnections(WeakRetained);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412546;
-      v9 = v3;
-      v10 = 2114;
-      v11 = v5;
-      _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "[MRAirPlayTransportConnection] Connection error %@ sending data to %{public}@", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = v3;
+      v9 = 2114;
+      v10 = v5;
+      _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "[MRAirPlayTransportConnection] Connection error %@ sending data to %{public}@", &v7, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)closeWithError:(id)error

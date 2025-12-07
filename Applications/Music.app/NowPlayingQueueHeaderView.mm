@@ -10,7 +10,7 @@
 - (void)applyLayoutAttributes:(id)attributes
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for NowPlayingQueueHeaderView();
+  v6.super_class = type metadata accessor for NowPlayingQueueHeaderView(0);
   attributesCopy = attributes;
   v5 = v6.receiver;
   [(NowPlayingQueueHeaderView *)&v6 applyLayoutAttributes:attributesCopy];
@@ -20,7 +20,7 @@
 - (void)layoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for NowPlayingQueueHeaderView();
+  v5.super_class = type metadata accessor for NowPlayingQueueHeaderView(0);
   v2 = v5.receiver;
   [(NowPlayingQueueHeaderView *)&v5 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC5Music25NowPlayingQueueHeaderView_gradientView];

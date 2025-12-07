@@ -156,7 +156,6 @@ LABEL_21:
 
         v25 = objc_opt_class();
         v24 = NSStringFromClass(v25);
-        v26 = *&v5[*v10];
         v8 = CCSkipFieldErrorForMessage();
 LABEL_29:
 
@@ -201,50 +200,48 @@ LABEL_25:
 LABEL_35:
   v8 = 0;
 LABEL_36:
-  v27 = [v9 copy];
+  v26 = [v9 copy];
   values = self->_values;
-  self->_values = v27;
+  self->_values = v26;
 
   if (v8)
   {
     CCSetError();
-    v29 = 0;
-    v30 = dataCopy;
+    v28 = 0;
+    v29 = dataCopy;
   }
 
   else
   {
-    v31 = MEMORY[0x1E6993AA8];
-    v30 = dataCopy;
+    v29 = dataCopy;
     if (*&v5[*MEMORY[0x1E6993AA8]])
     {
-      v32 = objc_opt_class();
-      v33 = NSStringFromClass(v32);
-      v34 = *&v5[*v31];
-      v35 = CCInvalidBufferErrorForMessage();
+      v30 = objc_opt_class();
+      v31 = NSStringFromClass(v30);
+      v32 = CCInvalidBufferErrorForMessage();
       CCSetError();
 
-      v29 = 0;
+      v28 = 0;
     }
 
     else
     {
-      v29 = 1;
+      v28 = 1;
     }
   }
 
-  return v29;
+  return v28;
 }
 
 - (CCToolKitToolSystemToolProtocolShowInAppStringSearchResults)initWithValues:(id)values error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   valuesCopy = values;
   v7 = objc_opt_new();
   if (valuesCopy)
   {
     objc_opt_class();
-    v24 = 0;
+    v22 = 0;
     v8 = CCValidateArrayValues();
     v9 = 0;
     if (!v8)
@@ -254,33 +251,32 @@ LABEL_36:
       goto LABEL_14;
     }
 
-    v22 = 0u;
-    v23 = 0u;
     v20 = 0u;
     v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = valuesCopy;
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v19;
       do
       {
         v14 = 0;
         do
         {
-          if (*v21 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * v14);
           CCPBDataWriterWriteStringField();
           ++v14;
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v12);
@@ -298,7 +294,6 @@ LABEL_36:
   selfCopy = self;
 LABEL_14:
 
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

@@ -85,7 +85,7 @@ void figTimelineCoordinator_timelineControlCommandCompletion(void *context, Opaq
   }
 }
 
-uint64_t FigTimelineCoordinatorCopyParticipantSnapshotForUUID(uint64_t a1, const void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigTimelineCoordinatorCopyParticipantSnapshotForUUID(uint64_t a1, const void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (!a1)
   {
@@ -121,7 +121,7 @@ uint64_t FigTimelineCoordinatorCopyParticipantSnapshotForUUID(uint64_t a1, const
   return result;
 }
 
-uint64_t FigTimelineCoordinatorCopyParticipantSnapshots(uint64_t a1, CFArrayRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigTimelineCoordinatorCopyParticipantSnapshots(uint64_t a1, CFArrayRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1)
   {
@@ -180,7 +180,7 @@ uint64_t FigTimelineCoordinatorHandleRemovalOfParticipantStateFromMedium(dispatc
 
 void figTimelineCoordinator_removeParticipantStateOnQueue(CFTypeRef *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   if (CFDictionaryContainsKey(*(*a1 + 41), a1[1]))
   {
@@ -190,10 +190,11 @@ void figTimelineCoordinator_removeParticipantStateOnQueue(CFTypeRef *a1)
       v5 = FigCFCopyCompactDescription(Value[2]);
       if (dword_1EAF1CF08)
       {
-        v12[0] = 0;
+        v12 = 0;
         type = OS_LOG_TYPE_DEFAULT;
-        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, v12, &type);
-        v7 = v12[0];
+        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v12, &type);
+        v7 = v12;
+        v8 = type;
         if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
         {
           v9 = v7;
@@ -206,14 +207,14 @@ void figTimelineCoordinator_removeParticipantStateOnQueue(CFTypeRef *a1)
 
         if (v9)
         {
-          v12[1] = 136315650;
-          v13 = "figTimelineCoordinator_removeParticipantStateOnQueue";
-          v14 = 2112;
-          v15 = v2;
-          v16 = 2114;
-          v17 = v5;
-          v10 = _os_log_send_and_compose_impl();
-          LOBYTE(v7) = v12[0];
+          v13 = 136315650;
+          v14 = "figTimelineCoordinator_removeParticipantStateOnQueue";
+          v15 = 2112;
+          v16 = v2;
+          v17 = 2114;
+          v18 = v5;
+          v10 = _os_log_send_and_compose_impl(v9, 0, v19, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v8, "<<<< FigTimelineCoordinator >>>> %s: %@ Removed participant %{public}@", &v13, 32);
+          LOBYTE(v7) = v12;
         }
 
         else
@@ -221,7 +222,7 @@ void figTimelineCoordinator_removeParticipantStateOnQueue(CFTypeRef *a1)
           v10 = 0;
         }
 
-        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1u, 1, v10, v10 != &v18, v7, 0, v8);
+        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1, 1, v10, v10 != v19, v7);
       }
 
       if (v5)
@@ -340,7 +341,7 @@ uint64_t figTimelineCoordinator_removeSuspension(uint64_t a1, const void *a2)
 
 void figTimelineCoordinator_endSuspensionOnQueue(char *a1)
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   cf = 0;
   v3 = &sVCCPreallocationSaveToSymlinkCString[720];
@@ -405,9 +406,9 @@ void figTimelineCoordinator_endSuspensionOnQueue(char *a1)
       {
         v15 = CFArrayGetValueAtIndex(v11, i);
         v16 = *(v2 + 432);
-        v68.length = CFArrayGetCount(v16);
-        v68.location = 0;
-        FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v16, v68, v15);
+        v70.length = CFArrayGetCount(v16);
+        v70.location = 0;
+        FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v16, v70, v15);
         if (FirstIndexOfValue == -1)
         {
           if (!figTimelineCoordinator_endSuspensionOnQueue_cold_1(-1, v18, v19, v20, v21, v22, v23, v24))
@@ -437,10 +438,11 @@ void figTimelineCoordinator_endSuspensionOnQueue(char *a1)
       goto LABEL_43;
     }
 
-    LODWORD(v57) = 0;
+    LODWORD(v59) = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v57, &type);
-    LODWORD(v27) = v57;
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v59, &type);
+    LODWORD(v27) = v59;
+    v28 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v29 = v27;
@@ -465,18 +467,19 @@ void figTimelineCoordinator_endSuspensionOnQueue(char *a1)
 
       time = *(a1 + 20);
       Seconds = CMTimeGetSeconds(&time);
-      *v60 = 136316162;
-      *&v60[4] = "figTimelineCoordinator_endSuspensionOnQueue";
-      *&v60[12] = 2112;
-      *&v60[14] = v2;
-      *&v60[22] = 2114;
-      v61 = Mutable;
-      v62 = 2080;
-      v63 = v27;
-      v64 = 2048;
-      v65 = Seconds;
-      v31 = _os_log_send_and_compose_impl();
-      LOBYTE(v27) = v57;
+      *v62 = 136316162;
+      *&v62[4] = "figTimelineCoordinator_endSuspensionOnQueue";
+      *&v62[12] = 2112;
+      *&v62[14] = v2;
+      *&v62[22] = 2114;
+      v63 = Mutable;
+      v64 = 2080;
+      v65 = v27;
+      v66 = 2048;
+      v67 = Seconds;
+      LODWORD(v58) = 52;
+      v31 = _os_log_send_and_compose_impl(v29, 0, &time, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v28, "<<<< FigTimelineCoordinator >>>> %s: %@ Ending suspensions for %{public}@ (%s seek to %.3f)", v62, v58);
+      LOBYTE(v27) = v59;
     }
 
     else
@@ -484,9 +487,9 @@ void figTimelineCoordinator_endSuspensionOnQueue(char *a1)
       v31 = 0;
     }
 
-    v35 = qword_1EAF1CF00;
-    v36 = v31 != &time;
-    v37 = v27;
+    v36 = qword_1EAF1CF00;
+    v37 = v31 != &time;
+    v38 = v27;
   }
 
   else
@@ -496,30 +499,32 @@ void figTimelineCoordinator_endSuspensionOnQueue(char *a1)
       goto LABEL_43;
     }
 
-    LODWORD(v57) = 0;
+    LODWORD(v59) = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    v32 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v57, &type);
-    v33 = v57;
+    v32 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v59, &type);
+    v33 = v59;
+    v34 = type;
     if (os_log_type_enabled(v32, type))
     {
-      v34 = v33;
+      v35 = v33;
     }
 
     else
     {
-      v34 = v33 & 0xFFFFFFFE;
+      v35 = v33 & 0xFFFFFFFE;
     }
 
-    if (v34)
+    if (v35)
     {
-      *v60 = 136315650;
-      *&v60[4] = "figTimelineCoordinator_endSuspensionOnQueue";
-      *&v60[12] = 2112;
-      *&v60[14] = v2;
-      *&v60[22] = 2114;
-      v61 = Mutable;
-      v31 = _os_log_send_and_compose_impl();
-      LOBYTE(v33) = v57;
+      *v62 = 136315650;
+      *&v62[4] = "figTimelineCoordinator_endSuspensionOnQueue";
+      *&v62[12] = 2112;
+      *&v62[14] = v2;
+      *&v62[22] = 2114;
+      v63 = Mutable;
+      LODWORD(v58) = 32;
+      v31 = _os_log_send_and_compose_impl(v35, 0, &time, 128, &dword_196FA7000, v32, v34, "<<<< FigTimelineCoordinator >>>> %s: %@ Ending suspensions for %{public}@", v62, v58);
+      LOBYTE(v33) = v59;
     }
 
     else
@@ -527,31 +532,31 @@ void figTimelineCoordinator_endSuspensionOnQueue(char *a1)
       v31 = 0;
     }
 
-    v35 = qword_1EAF1CF00;
-    v36 = v31 != &time;
-    v37 = v33;
+    v36 = qword_1EAF1CF00;
+    v37 = v31 != &time;
+    v38 = v33;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(v35, 1u, 1, v31, v36, v37, 0, v28);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(v36, 1, 1, v31, v37, v38);
 LABEL_43:
   if (CFArrayGetCount(*(v2 + 432)) > 0 || *(v2 + 440) && !FigCFDictionaryGetCount(*(v2 + 328)))
   {
     goto LABEL_71;
   }
 
-  v43 = *(v2 + 352);
-  if (!v43)
+  v44 = *(v2 + 352);
+  if (!v44)
   {
     goto LABEL_71;
   }
 
-  v44 = *(a1 + 11);
-  v45 = *(a1 + 8) & 0x1D;
-  if (v44 != 3.4028e38)
+  v45 = *(a1 + 11);
+  v46 = *(a1 + 8) & 0x1D;
+  if (v45 != 3.4028e38)
   {
-    if (v45 == 1)
+    if (v46 == 1)
     {
-      v57 = 0;
+      v59 = 0;
       if (!*(v2 + 200) || !a1[16])
       {
         goto LABEL_53;
@@ -559,20 +564,20 @@ LABEL_43:
 
       if (figTimelineCoordinator_othersAreSuspended(v2))
       {
-        v43 = *(v2 + 352);
-        v44 = *(a1 + 11);
+        v44 = *(v2 + 352);
+        v45 = *(a1 + 11);
 LABEL_53:
-        v46 = *MEMORY[0x1E695E480];
-        v47 = *(v2 + 344);
-        v48 = *(a1 + 7);
+        v47 = *MEMORY[0x1E695E480];
+        v48 = *(v2 + 344);
+        v49 = *(a1 + 7);
         time = *(a1 + 20);
-        memset(v60, 0, sizeof(v60));
-        if (figTimelineCoordinatorTimelineStateCreateInternal(v44, 0.0, v46, v43, &time, v60, 0, v47, v48, 0xFFFFFFFFLL, 0, 0, &v57))
+        memset(v62, 0, sizeof(v62));
+        if (figTimelineCoordinatorTimelineStateCreateInternal(v47, v44, &time.value, v62, 0, v48, v49, 0xFFFFFFFF, v45, 0.0, 0, &v59))
         {
           goto LABEL_74;
         }
 
-        figTimelineCoordinator_endSuspensionOnQueue_cold_3(v2, &v57);
+        figTimelineCoordinator_endSuspensionOnQueue_cold_3(v2, &v59);
         goto LABEL_71;
       }
 
@@ -588,7 +593,7 @@ LABEL_62:
     goto LABEL_63;
   }
 
-  if (v45 != 1)
+  if (v46 != 1)
   {
     goto LABEL_62;
   }
@@ -600,43 +605,43 @@ LABEL_62:
 
   if (v10 || figTimelineCoordinator_othersAreSuspended(v2) || !*(v2 + 200))
   {
-    v49 = *(a1 + 7);
+    v50 = *(a1 + 7);
     time = *(a1 + 20);
-    figTimelineCoordinator_coordinateTimeJumpOnQueue(v2, &time, 1, 0, v49, 0, v41, v42);
+    figTimelineCoordinator_coordinateTimeJumpOnQueue(v2, &time, 1, 0, v50, 0, v42, v43);
     goto LABEL_71;
   }
 
 LABEL_63:
-  v50 = *(v2 + 200);
-  if (v50)
+  v51 = *(v2 + 200);
+  if (v51)
   {
-    v51 = figTimelineCoordinatorTimelineStateCopy(*MEMORY[0x1E695E480], v50, &cf, v38, v39, v40, v41, v42);
-    v52 = cf;
-    if (v51)
+    v52 = figTimelineCoordinatorTimelineStateCopy(*MEMORY[0x1E695E480], v51, &cf, v39, v40, v41, v42, v43);
+    v53 = cf;
+    if (v52)
     {
       goto LABEL_72;
     }
 
     *(cf + 2) = *(a1 + 7);
     FigSimpleMutexLock(*(v2 + 184));
-    v53 = *(v2 + 200);
-    v54 = cf;
+    v54 = *(v2 + 200);
+    v55 = cf;
     *(v2 + 200) = cf;
-    if (v54)
+    if (v55)
     {
-      CFRetain(v54);
+      CFRetain(v55);
     }
 
-    if (v53)
+    if (v54)
     {
-      CFRelease(v53);
+      CFRelease(v54);
     }
 
     FigSimpleMutexUnlock(*(v2 + 184));
-    v55 = *(v2 + 200);
-    if (v55)
+    v56 = *(v2 + 200);
+    if (v56)
     {
-      figTimelineCoordinator_transitionToNewExpectedTimelineIssuingCommandsWhenAppropriateOnQueue(v2, v55, 5u, 1, 1, 0, 0, 1);
+      figTimelineCoordinator_transitionToNewExpectedTimelineIssuingCommandsWhenAppropriateOnQueue(v2, v56, 5u, 1, 1, 0, 0, 1);
     }
   }
 
@@ -647,19 +652,19 @@ LABEL_63:
 
 LABEL_71:
   figTimelineCoordinator_sendParticipantStateToGroupOnQueue(v2);
-  v52 = cf;
+  v53 = cf;
 LABEL_72:
-  if (v52)
+  if (v53)
   {
-    CFRelease(v52);
+    CFRelease(v53);
   }
 
 LABEL_74:
   CFRelease(v2);
-  v56 = *(a1 + 1);
-  if (v56)
+  v57 = *(a1 + 1);
+  if (v57)
   {
-    CFRelease(v56);
+    CFRelease(v57);
   }
 
   if (Mutable)
@@ -672,7 +677,7 @@ LABEL_74:
 
 CFStringRef *figTimelineCoordinator_getActiveSuspensionWithReason(uint64_t a1, const __CFString *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 432);
   if (v4 && (Count = CFArrayGetCount(v4), Count >= 1))
   {
@@ -701,10 +706,11 @@ LABEL_6:
 
   if (dword_1EAF1CF08)
   {
-    v16[0] = 0;
+    v16 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, v16, &type);
-    v10 = v16[0];
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v16, &type);
+    v10 = v16;
+    v11 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v12 = v10;
@@ -717,16 +723,16 @@ LABEL_6:
 
     if (v12)
     {
-      v16[1] = 136315906;
-      v17 = "figTimelineCoordinator_getActiveSuspensionWithReason";
-      v18 = 2112;
-      v19 = a1;
-      v20 = 2112;
-      v21 = ValueAtIndex;
-      v22 = 2112;
-      v23 = a2;
-      v13 = _os_log_send_and_compose_impl();
-      LOBYTE(v10) = v16[0];
+      v17 = 136315906;
+      v18 = "figTimelineCoordinator_getActiveSuspensionWithReason";
+      v19 = 2112;
+      v20 = a1;
+      v21 = 2112;
+      v22 = ValueAtIndex;
+      v23 = 2112;
+      v24 = a2;
+      v13 = _os_log_send_and_compose_impl(v12, 0, v25, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v11, "<<<< FigTimelineCoordinator >>>> %s: %@ Found suspension %@ with reason %@", &v17, 42);
+      LOBYTE(v10) = v16;
     }
 
     else
@@ -734,13 +740,13 @@ LABEL_6:
       v13 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1u, 1, v13, v13 != &v24, v10, 0, v11);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1, 1, v13, v13 != v25, v10);
   }
 
   return ValueAtIndex;
 }
 
-uint64_t FigTimelineCoordinatorGetExpectedGroupTimeForIdentifier(uint64_t a1, const void *a2, CMTime *a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigTimelineCoordinatorGetExpectedGroupTimeForIdentifier(uint64_t a1, const void *a2, CMTime *a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   theArray = 0;
   if (!a1)
@@ -837,7 +843,7 @@ LABEL_20:
   return value_low;
 }
 
-uint64_t FigTimelineCoordinatorGetExpectedTimeAtHostTime(uint64_t a1, uint64_t a2, CMTime *a3)
+uint64_t FigTimelineCoordinatorGetExpectedTimeAtHostTime(uint64_t a1, __int128 *a2, CMTime *a3)
 {
   memset(&v7, 0, sizeof(v7));
   FigSimpleMutexLock(*(a1 + 184));
@@ -871,7 +877,7 @@ LABEL_4:
   return 0;
 }
 
-uint64_t FigTimelineCoordinatorSetWeakMediumAndCallbacks(dispatch_queue_t *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigTimelineCoordinatorSetWeakMediumAndCallbacks(dispatch_queue_t *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (*a3)
   {
@@ -1015,6 +1021,7 @@ void figTimelineCoordinator_handleNewParticipantUUIDFromMediumOnQueue(uint64_t *
         type = OS_LOG_TYPE_DEFAULT;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 0, &v22, &type);
         v6 = v22;
+        v7 = type;
         if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
         {
           v8 = v6;
@@ -1031,7 +1038,7 @@ void figTimelineCoordinator_handleNewParticipantUUIDFromMediumOnQueue(uint64_t *
           v24 = "figTimelineCoordinator_handleNewParticipantUUIDFromMediumOnQueue";
           v25 = 1024;
           v26 = v4;
-          v9 = _os_log_send_and_compose_impl();
+          v9 = _os_log_send_and_compose_impl(v8, 0, v27, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v7, "<<<< FigTimelineCoordinator >>>> %s: failed to create clock, err = %d", &v23, 18);
           LOBYTE(v6) = v22;
         }
 
@@ -1040,7 +1047,7 @@ void figTimelineCoordinator_handleNewParticipantUUIDFromMediumOnQueue(uint64_t *
           v9 = 0;
         }
 
-        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 0, 1, v9, v9 != v27, v6, 0, v7);
+        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 0, 1, v9, v9 != v27, v6);
       }
     }
   }
@@ -1066,6 +1073,7 @@ void figTimelineCoordinator_handleNewParticipantUUIDFromMediumOnQueue(uint64_t *
     type = OS_LOG_TYPE_DEFAULT;
     v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 0, &v22, &type);
     v16 = v22;
+    v17 = type;
     if (os_log_type_enabled(v15, type))
     {
       v18 = v16;
@@ -1082,7 +1090,7 @@ void figTimelineCoordinator_handleNewParticipantUUIDFromMediumOnQueue(uint64_t *
       v24 = "figTimelineCoordinator_handleNewParticipantUUIDFromMediumOnQueue";
       v25 = 1024;
       v26 = v14;
-      v19 = _os_log_send_and_compose_impl();
+      v19 = _os_log_send_and_compose_impl(v18, 0, v27, 128, &dword_196FA7000, v15, v17, "<<<< FigTimelineCoordinator >>>> %s: reset group expectations failed, err = %d", &v23, 18);
       LOBYTE(v16) = v22;
     }
 
@@ -1091,7 +1099,7 @@ void figTimelineCoordinator_handleNewParticipantUUIDFromMediumOnQueue(uint64_t *
       v19 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 0, 1, v19, v19 != v27, v16, 0, v17);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 0, 1, v19, v19 != v27, v16);
   }
 
   CFRelease(v3);
@@ -1123,10 +1131,10 @@ uint64_t FigTimelineCoordinatorReapplyGroupStateViaTimelineControl(dispatch_queu
   return 0;
 }
 
-void figTimelineCoordinator_reapplyExpectedTimelineDispatch(uint64_t a1)
+void figTimelineCoordinator_reapplyExpectedTimelineDispatch(uint64_t *a1)
 {
   v2 = *a1;
-  figTimelineCoordinator_reapplyExpectedTimelineOnQueue(*a1, *(a1 + 8), 2u);
+  figTimelineCoordinator_reapplyExpectedTimelineOnQueue(*a1, *(a1 + 8), 2);
   if (v2)
   {
     CFRelease(v2);
@@ -1199,7 +1207,7 @@ LABEL_13:
   return v13;
 }
 
-uint64_t figTimelineCoordinatorTimelineStateCreateFromTimebase(uint64_t a1, const void *a2, CMTimebaseRef timebase, uint64_t a4, void *a5)
+uint64_t figTimelineCoordinatorTimelineStateCreateFromTimebase(uint64_t a1, const void *a2, CMTimebaseRef timebase, size_t a4, void *a5)
 {
   v19 = 0;
   memset(&v18, 0, sizeof(v18));
@@ -1235,7 +1243,7 @@ uint64_t figTimelineCoordinatorTimelineStateCreateFromTimebase(uint64_t a1, cons
 
   time = v18;
   v15 = v17;
-  Internal = figTimelineCoordinatorTimelineStateCreateInternal(0.0, Rate, a1, a2, &time, &v15, 0, 0, a4, 0xFFFFFFFFLL, 0, 1, &v19);
+  Internal = figTimelineCoordinatorTimelineStateCreateInternal(a1, a2, &time.value, &v15.value, 0, 0, a4, 0xFFFFFFFF, 0.0, Rate, 256, &v19);
   if (Internal)
   {
     if (v19)
@@ -1255,13 +1263,13 @@ uint64_t figTimelineCoordinatorTimelineStateCreateFromTimebase(uint64_t a1, cons
 void figTimelineCoordinator_switchToProposedTimelineWithNewIdentifierOnQueue(uint64_t *a1)
 {
   v1 = a1;
-  v99 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   v3 = a1[1];
-  v87 = 0;
+  v90 = 0;
   v4 = *(v2 + 360);
   cf = 0;
-  v84 = v4;
+  v87 = v4;
   if (v3)
   {
     v5 = *(v3 + 88);
@@ -1275,10 +1283,11 @@ void figTimelineCoordinator_switchToProposedTimelineWithNewIdentifierOnQueue(uin
   v6 = &sVCCPreallocationSaveToSymlinkCString[720];
   if (dword_1EAF1CF08)
   {
-    v89 = 0;
+    v92 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v89, &type);
-    v8 = v89;
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v92, &type);
+    v8 = v92;
+    v9 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v10 = v8;
@@ -1291,14 +1300,14 @@ void figTimelineCoordinator_switchToProposedTimelineWithNewIdentifierOnQueue(uin
 
     if (v10)
     {
-      v90 = 136315650;
-      v91 = "figTimelineCoordinator_switchToProposedTimelineWithNewIdentifierOnQueue";
-      v92 = 2112;
-      v93 = v2;
-      v94 = 2114;
-      v95 = v5;
-      v11 = _os_log_send_and_compose_impl();
-      LOBYTE(v8) = v89;
+      v93 = 136315650;
+      v94 = "figTimelineCoordinator_switchToProposedTimelineWithNewIdentifierOnQueue";
+      v95 = 2112;
+      v96 = v2;
+      v97 = 2114;
+      v98 = v5;
+      v11 = _os_log_send_and_compose_impl(v10, 0, &context, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v9, "<<<< FigTimelineCoordinator >>>> %s: %@ Switching to new timeline with identifier: %{public}@", &v93, 32);
+      LOBYTE(v8) = v92;
     }
 
     else
@@ -1306,7 +1315,7 @@ void figTimelineCoordinator_switchToProposedTimelineWithNewIdentifierOnQueue(uin
       v11 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1u, 1, v11, v11 != &context, v8, 0, v9);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1, 1, v11, v11 != &context, v8);
   }
 
   v12 = FigCFEqual(v5, *(v2 + 352));
@@ -1343,10 +1352,11 @@ void figTimelineCoordinator_switchToProposedTimelineWithNewIdentifierOnQueue(uin
   {
     if (dword_1EAF1CF08)
     {
-      v89 = 0;
+      v92 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v89, &type);
-      v22 = v89;
+      v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v92, &type);
+      v22 = v92;
+      v23 = type;
       if (os_log_type_enabled(v21, type))
       {
         v24 = v22;
@@ -1359,12 +1369,13 @@ void figTimelineCoordinator_switchToProposedTimelineWithNewIdentifierOnQueue(uin
 
       if (v24)
       {
-        v90 = 136315394;
-        v91 = "figTimelineCoordinator_switchToProposedTimelineWithNewIdentifierOnQueue";
-        v92 = 2112;
-        v93 = v2;
-        v25 = _os_log_send_and_compose_impl();
-        LOBYTE(v22) = v89;
+        v93 = 136315394;
+        v94 = "figTimelineCoordinator_switchToProposedTimelineWithNewIdentifierOnQueue";
+        v95 = 2112;
+        v96 = v2;
+        LODWORD(v78) = 22;
+        v25 = _os_log_send_and_compose_impl(v24, 0, &context, 128, &dword_196FA7000, v21, v23, "<<<< FigTimelineCoordinator >>>> %s: %@ Other playback coordinator may be using timeline states. Keeping all.", &v93, v78);
+        LOBYTE(v22) = v92;
       }
 
       else
@@ -1372,19 +1383,20 @@ void figTimelineCoordinator_switchToProposedTimelineWithNewIdentifierOnQueue(uin
         v25 = 0;
       }
 
-      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1u, 1, v25, v25 != &context, v22, 0, v23);
+      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1, 1, v25, v25 != &context, v22);
     }
   }
 
   else
   {
-    v81 = v1;
-    v78 = FigCFDictionaryCopyArrayOfKeys(*(v2 + 216));
-    MutableCopy = FigCFArrayCreateMutableCopy(*MEMORY[0x1E695E480], v78);
+    v80 = v12;
+    v84 = v1;
+    v79 = FigCFDictionaryCopyArrayOfKeys(*(v2 + 216));
+    MutableCopy = FigCFArrayCreateMutableCopy(*MEMORY[0x1E695E480], v79);
     v56 = FigCFDictionaryCopyArrayOfValues(*(v2 + 328));
     figTimelineCoordinator_removeValueFromArray(MutableCopy, *(v2 + 352));
     v57 = 0;
-    v80 = v56;
+    v82 = v56;
     do
     {
       if (v56)
@@ -1417,10 +1429,12 @@ void figTimelineCoordinator_switchToProposedTimelineWithNewIdentifierOnQueue(uin
 
       if (!v62)
       {
-        v89 = 0;
+        v92 = 0;
         type = OS_LOG_TYPE_DEFAULT;
-        v63 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v89, &type);
-        v64 = v89;
+        v63 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v92, &type);
+        v64 = v92;
+        v65 = v63;
+        HIDWORD(v78) = type;
         if (os_log_type_enabled(v63, type))
         {
           v66 = v64;
@@ -1434,16 +1448,17 @@ void figTimelineCoordinator_switchToProposedTimelineWithNewIdentifierOnQueue(uin
         if (v66)
         {
           StateLoggingIdentifier = FigParticipantStateDictionaryGetStateLoggingIdentifier(ValueAtIndex[2]);
-          v90 = 136315906;
-          v91 = "figTimelineCoordinator_removeUnusedExpectations";
-          v92 = 2112;
-          v93 = v2;
-          v94 = 2112;
-          v95 = StateLoggingIdentifier;
-          v96 = 2112;
-          v97 = v61;
-          v67 = _os_log_send_and_compose_impl();
-          LOBYTE(v64) = v89;
+          v93 = 136315906;
+          v94 = "figTimelineCoordinator_removeUnusedExpectations";
+          v95 = 2112;
+          v96 = v2;
+          v97 = 2112;
+          v98 = StateLoggingIdentifier;
+          v99 = 2112;
+          v100 = v61;
+          LODWORD(v78) = 42;
+          v67 = _os_log_send_and_compose_impl(v66, 0, &context, 128, &dword_196FA7000, v65, HIDWORD(v78), "<<<< FigTimelineCoordinator >>>> %s: %@ Participant state '%@' still indicates use of timeline state '%@'. Keeping it.", &v93, v78);
+          LOBYTE(v64) = v92;
         }
 
         else
@@ -1451,11 +1466,11 @@ void figTimelineCoordinator_switchToProposedTimelineWithNewIdentifierOnQueue(uin
           v67 = 0;
         }
 
-        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1u, 1, v67, v67 != &context, v64, 0, v65);
+        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1, 1, v67, v67 != &context, v64);
       }
 
       v6 = sVCCPreallocationSaveToSymlinkCString + 720;
-      v56 = v80;
+      v56 = v82;
       if (!MutableCopy)
       {
         break;
@@ -1478,10 +1493,11 @@ LABEL_114:
       CFDictionaryRemoveValue(*(v2 + 216), v71);
       if (*(v6 + 962))
       {
-        v89 = 0;
+        v92 = 0;
         type = OS_LOG_TYPE_DEFAULT;
-        v72 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v89, &type);
-        v73 = v89;
+        v72 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v92, &type);
+        v73 = v92;
+        v74 = type;
         if (os_log_type_enabled(v72, type))
         {
           v75 = v73;
@@ -1494,14 +1510,15 @@ LABEL_114:
 
         if (v75)
         {
-          v90 = 136315650;
-          v91 = "figTimelineCoordinator_removeUnusedExpectations";
-          v92 = 2112;
-          v93 = v2;
-          v94 = 2112;
-          v95 = v71;
-          v76 = _os_log_send_and_compose_impl();
-          LOBYTE(v73) = v89;
+          v93 = 136315650;
+          v94 = "figTimelineCoordinator_removeUnusedExpectations";
+          v95 = 2112;
+          v96 = v2;
+          v97 = 2112;
+          v98 = v71;
+          LODWORD(v78) = 32;
+          v76 = _os_log_send_and_compose_impl(v75, 0, &context, 128, &dword_196FA7000, v72, v74, "<<<< FigTimelineCoordinator >>>> %s: %@ No other participant indicated use of timeline state '%@'. Forgetting it.", &v93, v78);
+          LOBYTE(v73) = v92;
         }
 
         else
@@ -1509,7 +1526,7 @@ LABEL_114:
           v76 = 0;
         }
 
-        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1u, 1, v76, v76 != &context, v73, 0, v74);
+        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1, 1, v76, v76 != &context, v73);
         v6 = sVCCPreallocationSaveToSymlinkCString + 720;
       }
 
@@ -1523,20 +1540,21 @@ LABEL_115:
       ;
     }
 
-    if (v78)
+    if (v79)
     {
-      CFRelease(v78);
+      CFRelease(v79);
     }
 
+    v12 = v80;
     if (MutableCopy)
     {
       CFRelease(MutableCopy);
     }
 
-    v1 = v81;
-    if (v80)
+    v1 = v84;
+    if (v82)
     {
-      CFRelease(v80);
+      CFRelease(v82);
     }
   }
 
@@ -1552,7 +1570,7 @@ LABEL_115:
     CFRelease(v26);
   }
 
-  v83 = v5;
+  v86 = v5;
   if (!v5 || (v27 = CFDictionaryGetValue(*(v2 + 216), v5)) == 0)
   {
     if (!v12)
@@ -1580,7 +1598,7 @@ LABEL_115:
     v31 = v12;
     v36 = 1;
     *(v2 + 304) = 1;
-    v87 = 1;
+    v90 = 1;
     if (v3)
     {
       v28 = 0;
@@ -1591,7 +1609,7 @@ LABEL_115:
         v39 = 1;
         v35 = 1;
         v37 = v3;
-        v82 = 1;
+        v85 = 1;
         v34 = 1;
         if (*(v3 + 36) != 0.0)
         {
@@ -1612,7 +1630,7 @@ LABEL_115:
       v38 = 0;
     }
 
-    v82 = 1;
+    v85 = 1;
     v34 = 1;
     goto LABEL_55;
   }
@@ -1632,20 +1650,20 @@ LABEL_115:
     v30 = *(v3 + 32);
   }
 
-  v82 = v30 == v29;
+  v85 = v30 == v29;
   v32 = 1;
   *(v2 + 280) = 1;
   v33 = *(v27 + 25);
   *(v2 + 456) = v33;
   FigCFDictionarySetInt32(*(v2 + 464), *(v27 + 11), v33, v16, v17, v18, v19, v20);
   CMTimeMake(&context, 1, 10);
-  v34 = figTimelineCoordinator_timelinesMatch(v3, v28, &context, &v87);
+  v34 = figTimelineCoordinator_timelinesMatch(v3, v28, &context.value, &v90);
   v35 = 0;
   v36 = 0;
   *(v2 + 304) = v34;
   v37 = v28;
   v38 = 1;
-  v39 = v84;
+  v39 = v87;
   if (v31)
   {
 LABEL_45:
@@ -1662,15 +1680,17 @@ LABEL_55:
 
   if (v37)
   {
-    v79 = v38;
-    v85 = v34;
+    v81 = v38;
+    v88 = v34;
     v42 = CFArrayGetCount(*(v2 + 432));
     if (v42 >= 1 && dword_1EAF1CF08)
     {
-      v89 = 0;
+      v83 = v1;
+      v92 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      v43 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v89, &type);
-      v44 = v89;
+      v43 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v92, &type);
+      v44 = v92;
+      v45 = type;
       if (os_log_type_enabled(v43, type))
       {
         v46 = v44;
@@ -1683,12 +1703,13 @@ LABEL_55:
 
       if (v46)
       {
-        v90 = 136315394;
-        v91 = "figTimelineCoordinator_switchToProposedTimelineWithNewIdentifierOnQueue";
-        v92 = 2112;
-        v93 = v2;
-        v47 = _os_log_send_and_compose_impl();
-        LOBYTE(v44) = v89;
+        v93 = 136315394;
+        v94 = "figTimelineCoordinator_switchToProposedTimelineWithNewIdentifierOnQueue";
+        v95 = 2112;
+        v96 = v2;
+        LODWORD(v78) = 22;
+        v47 = _os_log_send_and_compose_impl(v46, 0, &context, 128, &dword_196FA7000, v43, v45, "<<<< FigTimelineCoordinator >>>> %s: %@ Suspended. Separating local and group timeline.", &v93, v78);
+        LOBYTE(v44) = v92;
       }
 
       else
@@ -1696,7 +1717,8 @@ LABEL_55:
         v47 = 0;
       }
 
-      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1u, 1, v47, v47 != &context, v44, 0, v45);
+      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1, 1, v47, v47 != &context, v44);
+      v1 = v83;
     }
 
     FigSimpleMutexLock(*(v2 + 184));
@@ -1734,7 +1756,7 @@ LABEL_55:
     FigSimpleMutexUnlock(*(v2 + 184));
     if (v42 <= 0)
     {
-      figTimelineCoordinator_transitionToNewExpectedTimelineIssuingCommandsWhenAppropriateOnQueue(v2, v37, 6u, 1, v79, v87, v85, v82);
+      figTimelineCoordinator_transitionToNewExpectedTimelineIssuingCommandsWhenAppropriateOnQueue(v2, v37, 6u, 1, v81, v90, v88, v85);
       if (v31)
       {
         goto LABEL_87;
@@ -1776,7 +1798,7 @@ LABEL_55:
   {
 LABEL_134:
     Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
-    context.value = v83;
+    context.value = v86;
     *&context.timescale = 0;
     CFDictionaryApplyFunction(*(v2 + 328), figTimelineCoordinator_updateParticipantsWithNewLocalIdentifierApply, &context);
     if (LOBYTE(context.timescale))
@@ -1826,7 +1848,7 @@ uint64_t FigTimelineCoordinatorHandleTransitionToNewTimelineFromTimelineControlP
     v21 = *(a3 + 2);
     v18 = *&kCMTimeInvalid.value;
     v19 = 0;
-    Internal = figTimelineCoordinatorTimelineStateCreateInternal(a5, 0.0, v11, a2, &v20, &v18, 0, v12, v10, 0xFFFFFFFFLL, 0, 1, &cf);
+    v13 = figTimelineCoordinatorTimelineStateCreateInternal(v11, a2, &v20, &v18, 0, v12, v10, 0xFFFFFFFF, a5, 0.0, 256, &cf);
     v14 = malloc_type_malloc(0x18uLL, 0x1020040A95220FAuLL);
 LABEL_4:
     v15 = CFRetain(a1);
@@ -1834,7 +1856,7 @@ LABEL_4:
   }
 
   v14 = malloc_type_malloc(0x18uLL, 0x1020040A95220FAuLL);
-  Internal = 0;
+  v13 = 0;
   if (a1)
   {
     goto LABEL_4;
@@ -1862,42 +1884,41 @@ LABEL_5:
     CFRelease(cf);
   }
 
-  return Internal;
+  return v13;
 }
 
-uint64_t figTimelineCoordinatorTimelineStateCreateInternal(float a1, float a2, uint64_t a3, const void *a4, uint64_t a5, uint64_t a6, uint64_t a7, const void *a8, uint64_t a9, CMBlockBufferRef *a10, char a11, char a12, uint64_t *a13)
+uint64_t figTimelineCoordinatorTimelineStateCreateInternal(uint64_t a1, const void *a2, __int128 *a3, __int128 *a4, uint64_t a5, const void *a6, size_t a7, CMBlockBufferFlags a8, float a9, float a10, __int16 a11, uint64_t *a12)
 {
-  if (!a13)
+  if (!a12)
   {
-    figTimelineCoordinatorTimelineStateCreateInternal_cold_5(&v36, a4, a5, a6, a7, a8, a9, a10);
-    return v36;
+    figTimelineCoordinatorTimelineStateCreateInternal_cold_5(&v35, a2, a3, a4, a5, a6, a7, a8);
+    return v35;
   }
 
-  v13 = a10;
-  v16 = a7;
-  if (a4)
+  v15 = a5;
+  if (a2)
   {
-    if (a2 == 0.0)
+    if (a10 == 0.0)
     {
-      if (*(a6 + 12))
+      if (*(a4 + 12))
       {
-        *a6 = *&kCMTimeInvalid.value;
-        *(a6 + 16) = 0;
+        *a4 = *&kCMTimeInvalid.value;
+        *(a4 + 2) = 0;
       }
     }
 
-    else if (a12)
+    else if (HIBYTE(a11))
     {
-      if ((*(a6 + 12) & 0x1D) != 1)
+      if ((*(a4 + 3) & 0x1D) != 1)
       {
-        figTimelineCoordinatorTimelineStateCreateInternal_cold_1(&v36, a4, a5, a6, a7, a8, a9, a10);
-        return v36;
+        figTimelineCoordinatorTimelineStateCreateInternal_cold_1(&v35, a2, a3, a4, a5, a6, a7, a8);
+        return v35;
       }
 
-      if ((*(a5 + 12) & 0x1D) != 1)
+      if ((*(a3 + 3) & 0x1D) != 1)
       {
-        figTimelineCoordinatorTimelineStateCreateInternal_cold_2(&v36, a4, a5, a6, a7, a8, a9, a10);
-        return v36;
+        figTimelineCoordinatorTimelineStateCreateInternal_cold_2(&v35, a2, a3, a4, a5, a6, a7, a8);
+        return v35;
       }
     }
   }
@@ -1910,22 +1931,33 @@ uint64_t figTimelineCoordinatorTimelineStateCreateInternal(float a1, float a2, u
   Instance = _CFRuntimeCreateInstance();
   if (!Instance)
   {
-    figTimelineCoordinatorTimelineStateCreateInternal_cold_4(&v36, v23, v24, v25, v26, v27, v28, v29);
-    return v36;
+    figTimelineCoordinatorTimelineStateCreateInternal_cold_4(&v35, v22, v23, v24, v25, v26, v27, v28);
+    return v35;
   }
 
-  v30 = Instance;
-  *(Instance + 32) = a1;
-  *(Instance + 36) = a2;
-  v31 = *a5;
-  *(Instance + 56) = *(a5 + 16);
-  *(Instance + 40) = v31;
-  v32 = *a6;
-  *(Instance + 80) = *(a6 + 16);
-  *(Instance + 64) = v32;
-  if (a4)
+  v29 = Instance;
+  *(Instance + 32) = a9;
+  *(Instance + 36) = a10;
+  v30 = *a3;
+  *(Instance + 56) = *(a3 + 2);
+  *(Instance + 40) = v30;
+  v31 = *a4;
+  *(Instance + 80) = *(a4 + 2);
+  *(Instance + 64) = v31;
+  if (a2)
   {
-    v33 = CFRetain(a4);
+    v32 = CFRetain(a2);
+  }
+
+  else
+  {
+    v32 = 0;
+  }
+
+  *(v29 + 88) = v32;
+  if (a6)
+  {
+    v33 = CFRetain(a6);
   }
 
   else
@@ -1933,24 +1965,13 @@ uint64_t figTimelineCoordinatorTimelineStateCreateInternal(float a1, float a2, u
     v33 = 0;
   }
 
-  *(v30 + 88) = v33;
-  if (a8)
-  {
-    v34 = CFRetain(a8);
-  }
-
-  else
-  {
-    v34 = 0;
-  }
-
   result = 0;
-  *(v30 + 16) = a9;
-  *(v30 + 24) = v34;
-  *(v30 + 96) = v16;
-  *(v30 + 100) = v13;
-  *(v30 + 104) = a11;
-  *a13 = v30;
+  *(v29 + 16) = a7;
+  *(v29 + 24) = v33;
+  *(v29 + 96) = v15;
+  *(v29 + 100) = a8;
+  *(v29 + 104) = a11;
+  *a12 = v29;
   return result;
 }
 
@@ -1987,19 +2008,19 @@ void figTimelineCoordinator_setReadinessHintFromTimelineControlOnQueue(_DWORD *a
   free(a1);
 }
 
-uint64_t FigTimelineCoordinatorSetProperty(uint64_t a1, CFTypeRef cf1, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigTimelineCoordinatorSetProperty(uint64_t a1, CFTypeRef cf1, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    FigTimelineCoordinatorSetProperty_cold_6(&v73, cf1, a3, a4, a5, a6, a7, a8);
-    return LODWORD(v73.value);
+    FigTimelineCoordinatorSetProperty_cold_6(&v74, cf1, a3, a4, a5, a6, a7, a8);
+    return LODWORD(v74.value);
   }
 
   if (!cf1)
   {
-    FigTimelineCoordinatorSetProperty_cold_5(&v73, 0, a3, a4, a5, a6, a7, a8);
-    return LODWORD(v73.value);
+    FigTimelineCoordinatorSetProperty_cold_5(&v74, 0, a3, a4, a5, a6, a7, a8);
+    return LODWORD(v74.value);
   }
 
   if (!FigCFEqual(cf1, @"SuspensionWaitingPolicies"))
@@ -2021,7 +2042,7 @@ LABEL_21:
         }
       }
 
-      FigTimelineCoordinatorSetProperty_cold_3(&v73, v38, v39, v40, v41, v42, v43, v44);
+      FigTimelineCoordinatorSetProperty_cold_3(&v74, v38, v39, v40, v41, v42, v43, v44);
     }
 
     else
@@ -2046,10 +2067,11 @@ LABEL_21:
           v58 = *MEMORY[0x1E695E4D0] == a3;
           if (dword_1EAF1CF08)
           {
-            v67[0] = 0;
+            v67 = 0;
             type = OS_LOG_TYPE_DEFAULT;
-            os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, v67, &type);
-            v60 = v67[0];
+            os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v67, &type);
+            v60 = v67;
+            v61 = type;
             if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
             {
               v62 = v60;
@@ -2063,19 +2085,19 @@ LABEL_21:
             if (v62)
             {
               v63 = "is NOT";
-              v68 = "figTimelineCoordinator_setLocallyCoordinatedProperties";
-              v67[1] = 136315650;
+              v69 = "figTimelineCoordinator_setLocallyCoordinatedProperties";
+              v68 = 136315650;
               if (v57 == a3)
               {
                 v63 = "IS";
               }
 
-              v69 = 2112;
-              v70 = a1;
-              v71 = 2080;
-              v72 = v63;
-              v64 = _os_log_send_and_compose_impl();
-              LOBYTE(v60) = v67[0];
+              v70 = 2112;
+              v71 = a1;
+              v72 = 2080;
+              v73 = v63;
+              v64 = _os_log_send_and_compose_impl(v62, 0, &v74, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v61, "<<<< FigTimelineCoordinator >>>> %s: %@ Coordinator %s locally coordinated", &v68, 32);
+              LOBYTE(v60) = v67;
             }
 
             else
@@ -2083,7 +2105,7 @@ LABEL_21:
               v64 = 0;
             }
 
-            fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1u, 1, v64, v64 != &v73, v60, 0, v61);
+            fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1, 1, v64, v64 != &v74, v60);
           }
 
           *(a1 + 544) = v58;
@@ -2098,17 +2120,17 @@ LABEL_21:
             v65 = 1;
           }
 
-          CMTimeMake(&v73, 1, v65);
-          *(a1 + 480) = v73;
+          CMTimeMake(&v74, 1, v65);
+          *(a1 + 480) = v74;
           v47 = *(a1 + 472);
           goto LABEL_21;
         }
       }
 
-      FigTimelineCoordinatorSetProperty_cold_4(&v73, v49, v50, v51, v52, v53, v54, v55);
+      FigTimelineCoordinatorSetProperty_cold_4(&v74, v49, v50, v51, v52, v53, v54, v55);
     }
 
-    return LODWORD(v73.value);
+    return LODWORD(v74.value);
   }
 
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -2152,7 +2174,7 @@ LABEL_16:
     ValueAtIndex = CFArrayGetValueAtIndex(a3, v14);
     if (!ValueAtIndex || (v23 = ValueAtIndex, v24 = CFGetTypeID(ValueAtIndex), v24 != CFDictionaryGetTypeID()))
     {
-      FigTimelineCoordinatorSetProperty_cold_2(&v73, v16, v17, v18, v19, v20, v21, v22);
+      FigTimelineCoordinatorSetProperty_cold_2(&v74, v16, v17, v18, v19, v20, v21, v22);
       goto LABEL_40;
     }
 
@@ -2176,9 +2198,9 @@ LABEL_16:
     }
   }
 
-  FigTimelineCoordinatorSetProperty_cold_1(&v73, v26, v27, v28, v29, v30, v31, v32);
+  FigTimelineCoordinatorSetProperty_cold_1(&v74, v26, v27, v28, v29, v30, v31, v32);
 LABEL_40:
-  value_low = LODWORD(v73.value);
+  value_low = LODWORD(v74.value);
   if (Mutable)
   {
     goto LABEL_16;
@@ -2187,7 +2209,7 @@ LABEL_40:
   return value_low;
 }
 
-size_t FigTimelineCoordinatorCopyProperty(uint64_t a1, CFTypeRef cf1, uint64_t a3, CFArrayRef *a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigTimelineCoordinatorCopyProperty(uint64_t a1, CFTypeRef cf1, uint64_t a3, CFArrayRef *a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (!a1)
   {
@@ -2258,7 +2280,7 @@ LABEL_6:
     v21 = *(a1 + 176);
     if (v21)
     {
-      v12 = CMTimeSyncCoPresenceNTPClockCopyDeviceIdentifier(v21, a4, v15, v16, v17, v18, v19, v20);
+      v12 = CMTimeSyncCoPresenceNTPClockCopyDeviceIdentifier(v21, a4, v15, v16, v17, v18, v19, v20, v24.value);
     }
 
     else
@@ -2274,7 +2296,7 @@ LABEL_6:
 
 uint64_t figTimelineCoordinator_setNetworkToHostTimeOffset(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   memset(cf, 0, 32);
   FigSimpleMutexLock(*(a1 + 168));
   if (*(a1 + 176))
@@ -2306,42 +2328,50 @@ LABEL_8:
       HostTimeForClockTime = 0;
       *(a1 + 508) = *&kCMTimeZero.value;
       *(a1 + 524) = 0;
-      goto LABEL_27;
+      goto LABEL_29;
     }
 
-    *&v24.value = *&kCMTimeZero.value;
-    v24.epoch = 0;
+    *&v26.value = *&kCMTimeZero.value;
+    v26.epoch = 0;
     HostTimeForClockTime = CMTimeSyncCoPresenceNTPClockGetHostTimeForClockTime();
     if (!HostTimeForClockTime)
     {
       lhs = *&cf[1];
       *&rhs.value = *&kCMTimeZero.value;
       rhs.epoch = 0;
-      CMTimeSubtract(&v24, &lhs, &rhs);
-      *(a1 + 508) = v24;
-      goto LABEL_27;
+      CMTimeSubtract(&v26, &lhs, &rhs);
+      *(a1 + 508) = v26;
+      goto LABEL_29;
     }
 
     LODWORD(rhs.value) = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 0, &rhs, &type);
     value = rhs.value;
+    v19 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
-      v18 = value;
+      v20 = value;
     }
 
     else
     {
-      v18 = value & 0xFFFFFFFE;
+      v20 = value & 0xFFFFFFFE;
     }
 
-    if (!v18)
+    if (v20)
     {
-      goto LABEL_25;
+      LODWORD(lhs.value) = 136315394;
+      *(&lhs.value + 4) = "figTimelineCoordinator_setNetworkToHostTimeOffset";
+      LOWORD(lhs.flags) = 1024;
+      *(&lhs.flags + 2) = HostTimeForClockTime;
+      v16 = _os_log_send_and_compose_impl(v20, 0, &v26, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v19, "<<<< FigTimelineCoordinator >>>> %s: failed to convert networkTime to hostTime with CoPresenceNTP clock, err = %d", &lhs, 18);
+      goto LABEL_18;
     }
 
-    goto LABEL_17;
+LABEL_27:
+    v17 = 0;
+    goto LABEL_28;
   }
 
   v4 = CFGetAllocator(a1);
@@ -2363,6 +2393,7 @@ LABEL_8:
   type = OS_LOG_TYPE_DEFAULT;
   v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 0, &rhs, &type);
   value = rhs.value;
+  v14 = type;
   if (os_log_type_enabled(v12, type))
   {
     v15 = value;
@@ -2375,21 +2406,20 @@ LABEL_8:
 
   if (!v15)
   {
-LABEL_25:
-    v16 = 0;
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
-LABEL_17:
   LODWORD(lhs.value) = 136315394;
   *(&lhs.value + 4) = "figTimelineCoordinator_setNetworkToHostTimeOffset";
   LOWORD(lhs.flags) = 1024;
   *(&lhs.flags + 2) = HostTimeForClockTime;
-  v16 = _os_log_send_and_compose_impl();
+  v16 = _os_log_send_and_compose_impl(v15, 0, &v26, 128, &dword_196FA7000, v12, v14, "<<<< FigTimelineCoordinator >>>> %s: failed to create CoPresenceNTP clock, err = %d", &lhs, 18);
+LABEL_18:
+  v17 = v16;
   LOBYTE(value) = rhs.value;
-LABEL_26:
-  fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 0, 1, v16, v16 != &v24, value, 0, v14);
-LABEL_27:
+LABEL_28:
+  fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 0, 1, v17, v17 != &v26, value);
+LABEL_29:
   FigSimpleMutexUnlock(*(a1 + 168));
   if (cf[0])
   {
@@ -2401,10 +2431,10 @@ LABEL_27:
 
 uint64_t FigTimelineCoordinatorCreate(const __CFAllocator *a1, uint64_t a2, void *a3, NSObject *a4, const __CFDictionary *a5, uint64_t a6)
 {
-  v182 = *MEMORY[0x1E69E9840];
-  HIBYTE(v178) = 0;
+  v183 = *MEMORY[0x1E69E9840];
+  HIBYTE(v179) = 0;
   cf = 0;
-  v11 = FigNote_AllowInternalDefaultLogs() != 0;
+  v11 = FigNote_AllowInternalDefaultLogs(a1, a2) != 0;
   fig_note_initialize_category_with_default_work_cf(&gFigTimelineCoordinatorTrace[1], @"timelinecoordinator_trace", @"com.apple.coremedia", "", "com.apple.coremedia", v11, 0, gFigTimelineCoordinatorTrace);
   fig_note_initialize_category_with_default_work_cf(&dword_1EAF1CF08, @"timelinecoordinator_trace", @"com.apple.coremedia", "", "com.apple.coremedia", 1u, 0, &qword_1EAF1CF00);
   if (FigTimelineCoordinatorGetTypeID_sRegisterFigTimelineCoordinatorTypeOnce != -1)
@@ -2415,20 +2445,20 @@ uint64_t FigTimelineCoordinatorCreate(const __CFAllocator *a1, uint64_t a2, void
   Instance = _CFRuntimeCreateInstance();
   if (!Instance)
   {
-    FigTimelineCoordinatorCreate_cold_23(0, v13, v14, v15, v16, v17, v18, v19);
+    FigTimelineCoordinatorCreate_cold_23(0, v13, v14, v15, v16, v17, v18, v19, v163);
     return 0;
   }
 
   v20 = Instance;
   if (*a3)
   {
-    FigTimelineCoordinatorCreate_cold_2(Instance, v13, v14, v15, v16, v17, v18, v19);
+    FigTimelineCoordinatorCreate_cold_2(Instance, v13, v14, v15, v16, v17, v18, v19, v163);
     goto LABEL_42;
   }
 
   if (!a3[1])
   {
-    FigTimelineCoordinatorCreate_cold_22(Instance, v13, v14, v15, v16, v17, v18, v19);
+    FigTimelineCoordinatorCreate_cold_22(Instance, v13, v14, v15, v16, v17, v18, v19, v163);
 LABEL_42:
     CFRelease(v20);
     return 0;
@@ -2436,40 +2466,40 @@ LABEL_42:
 
   if (!a3[4])
   {
-    FigTimelineCoordinatorCreate_cold_21(Instance, v13, v14, v15, v16, v17, v18, v19);
+    FigTimelineCoordinatorCreate_cold_21(Instance, v13, v14, v15, v16, v17, v18, v19, v163);
     goto LABEL_42;
   }
 
   if (!a3[2])
   {
-    FigTimelineCoordinatorCreate_cold_20(Instance, v13, v14, v15, v16, v17, v18, v19);
+    FigTimelineCoordinatorCreate_cold_20(Instance, v13, v14, v15, v16, v17, v18, v19, v163);
     goto LABEL_42;
   }
 
   if (!a3[3])
   {
-    FigTimelineCoordinatorCreate_cold_19(Instance, v13, v14, v15, v16, v17, v18, v19);
+    FigTimelineCoordinatorCreate_cold_19(Instance, v13, v14, v15, v16, v17, v18, v19, v163);
     goto LABEL_42;
   }
 
   if (!a2)
   {
-    FigTimelineCoordinatorCreate_cold_18(Instance, v13, v14, v15, v16, v17, v18, v19);
+    FigTimelineCoordinatorCreate_cold_18(Instance, v13, v14, v15, v16, v17, v18, v19, v163);
     goto LABEL_42;
   }
 
   if (!a4)
   {
-    FigTimelineCoordinatorCreate_cold_17(Instance, v13, v14, v15, v16, v17, v18, v19);
+    FigTimelineCoordinatorCreate_cold_17(Instance, v13, v14, v15, v16, v17, v18, v19, v163);
     goto LABEL_42;
   }
 
   *(Instance + 104) = 1;
-  FigCFDictionaryGetBooleanIfPresent(a5, @"OnlySendFullyDefinedCommands", Instance + 104, v15, v16, v17, v18, v19, v163, v167, a6, v176, cf, v178, *v179, *&v179[8], *&v179[16], v180);
-  FigCFDictionaryGetBooleanIfPresent(a5, @"SkipEndSuspensionCommandsWhenAlone", v20 + 440, v21, v22, v23, v24, v25, v164, v168, v172, v176, cf, v178, *v179, *&v179[8], *&v179[16], v180);
-  FigCFDictionaryGetBooleanIfPresent(a5, @"IsInterstitialTimelineCoordinator", v20 + 504, v26, v27, v28, v29, v30, v165, v169, v173, v176, cf, v178, *v179, *&v179[8], *&v179[16], v180);
+  FigCFDictionaryGetBooleanIfPresent(a5, @"OnlySendFullyDefinedCommands", Instance + 104, v15, v16, v17, v18, v19, v163, v167, a6, v177, cf, v179, *v180, *&v180[8], *&v180[16], v181);
+  FigCFDictionaryGetBooleanIfPresent(a5, @"SkipEndSuspensionCommandsWhenAlone", v20 + 440, v21, v22, v23, v24, v25, v164, v168, v173, v177, cf, v179, *v180, *&v180[8], *&v180[16], v181);
+  FigCFDictionaryGetBooleanIfPresent(a5, @"IsInterstitialTimelineCoordinator", v20 + 504, v26, v27, v28, v29, v30, v165, v169, v174, v177, cf, v179, *v180, *&v180[8], *&v180[16], v181);
   FigCFDictionaryGetValueIfPresent(a5, @"InitialLamportTimestamps", &cf);
-  FigCFDictionaryGetBooleanIfPresent(a5, @"ShouldOverrideGroupState", &v178 + 7, v31, v32, v33, v34, v35, v166, v170, v174, v176, cf, v178, *v179, *&v179[8], *&v179[16], v180);
+  FigCFDictionaryGetBooleanIfPresent(a5, @"ShouldOverrideGroupState", &v179 + 7, v31, v32, v33, v34, v35, v166, v170, v175, v177, cf, v179, *v180, *&v180[8], *&v180[16], v181);
   Mutable = CFDictionaryCreateMutable(a1, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   *(v20 + 216) = Mutable;
   if (!Mutable)
@@ -2594,9 +2624,9 @@ LABEL_42:
     goto LABEL_42;
   }
 
-  CMTimeMake(&v181, 1, 1);
-  *(v20 + 480) = v181;
-  *(v20 + 281) = HIBYTE(v178);
+  CMTimeMake(&v182, 1, 1);
+  *(v20 + 480) = v182;
+  *(v20 + 281) = HIBYTE(v179);
   *(v20 + 544) = 0;
   v150 = FigCFWeakReferenceHolderCreateWithReferencedObject(v20);
   v151 = MEMORY[0x1E69E9710];
@@ -2622,11 +2652,12 @@ LABEL_42:
   *(v20 + 80) = FigCFWeakReferenceHolderCreateWithReferencedObject(a2);
   if (dword_1EAF1CF08)
   {
-    HIDWORD(v176) = 0;
-    BYTE3(v176) = 0;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v176 + 1, &v176 + 3);
-    v157 = HIDWORD(v176);
-    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, BYTE3(v176)))
+    HIDWORD(v177) = 0;
+    BYTE3(v177) = 0;
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v177 + 1, &v177 + 3);
+    v157 = HIDWORD(v177);
+    v158 = BYTE3(v177);
+    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, BYTE3(v177)))
     {
       v159 = v157;
     }
@@ -2639,14 +2670,15 @@ LABEL_42:
     if (v159)
     {
       v160 = *(v20 + 504);
-      *v179 = 136315650;
-      *&v179[4] = "FigTimelineCoordinatorCreate";
-      *&v179[12] = 2048;
-      *&v179[14] = v20;
-      *&v179[22] = 1024;
-      LODWORD(v180) = v160;
-      v161 = _os_log_send_and_compose_impl();
-      LOBYTE(v157) = BYTE4(v176);
+      *v180 = 136315650;
+      *&v180[4] = "FigTimelineCoordinatorCreate";
+      *&v180[12] = 2048;
+      *&v180[14] = v20;
+      *&v180[22] = 1024;
+      LODWORD(v181) = v160;
+      LODWORD(v171) = 28;
+      v161 = _os_log_send_and_compose_impl(v159, 0, &v182, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v158, "<<<< FigTimelineCoordinator >>>> %s:  Created timelineCoordinator %p, type %d", v180, v171, v176);
+      LOBYTE(v157) = BYTE4(v177);
     }
 
     else
@@ -2654,10 +2686,10 @@ LABEL_42:
       v161 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1u, 1, v161, v161 != &v181, v157, 0, v158);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1, 1, v161, v161 != &v182, v157);
   }
 
-  *v175 = v20;
+  *v176 = v20;
   return 0;
 }
 
@@ -2688,7 +2720,7 @@ void *__copy_assignment_8_8_t0w8_pa0_17997_8_pa0_38372_16_pa0_19900_24_pa0_16123
   return result;
 }
 
-uint64_t FigXPCMessageSetTimelineCoordinatorSuspension(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigXPCMessageSetTimelineCoordinatorSuspension(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a3)
   {
@@ -2706,7 +2738,7 @@ uint64_t FigXPCMessageSetTimelineCoordinatorSuspension(void *a1, const char *a2,
   }
 }
 
-uint64_t FigXPCMessageCopyTimelineCoordinatorSuspension(void *a1, const char *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigXPCMessageCopyTimelineCoordinatorSuspension(void *a1, const char *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   cf = 0;
   if (!a3)
@@ -2739,7 +2771,7 @@ LABEL_4:
   return v16;
 }
 
-uint64_t FigXPCMessageSetTimelineCoordinatorParticipantSnapshot(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigXPCMessageSetTimelineCoordinatorParticipantSnapshot(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a3)
   {
@@ -2775,7 +2807,7 @@ xpc_object_t createXPCDictionaryFromParticipantSnapshot(uint64_t a1)
   return v2;
 }
 
-size_t FigXPCMessageCopyTimelineCoordinatorParticipantSnapshot(void *a1, const char *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigXPCMessageCopyTimelineCoordinatorParticipantSnapshot(void *a1, const char *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a3)
   {
@@ -2819,7 +2851,7 @@ size_t figTimelineCoordinatorParticipantCreateFromXPCDictionary(void *a1, uint64
   return v6;
 }
 
-uint64_t FigXPCMessageSetTimelineCoordinatorParticipantSnapshots(void *a1, const char *a2, const __CFArray *a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigXPCMessageSetTimelineCoordinatorParticipantSnapshots(void *a1, const char *a2, const __CFArray *a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a3)
   {
@@ -2879,7 +2911,7 @@ LABEL_9:
   return v24;
 }
 
-size_t FigXPCMessageCopyTimelineCoordinatorParticipantSnapshots(void *a1, const char *a2, __CFArray **a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigXPCMessageCopyTimelineCoordinatorParticipantSnapshots(void *a1, const char *a2, __CFArray **a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (!a3)
   {
@@ -3309,7 +3341,7 @@ CFHashCode FigTimelineCoordinationParticipantSnapshot_Hash(uint64_t a1)
   v2 = FigTimelineCoordinationParticipantSnapshotCopySuspensionReasons(a1);
   v3 = CFHash(v2);
   v4 = CFHash(*(a1 + 32));
-  IsReadyToSetNonZeroRate = FigTimelineCoordinationParticipantSnapshotIsReadyToSetNonZeroRate(a1, v5);
+  IsReadyToSetNonZeroRate = FigTimelineCoordinationParticipantSnapshotIsReadyToSetNonZeroRate(a1);
   if (v2)
   {
     CFRelease(v2);
@@ -3364,7 +3396,7 @@ BOOL figTimelineCoordinator_newTimelineStateShouldOverrideExistingState(uint64_t
   return FigCFEqual(*(a3 + 24), *(a1 + 344)) != 0;
 }
 
-uint64_t figTimelineCoordinator_timelinesMatch(uint64_t a1, uint64_t a2, CMTime *a3, BOOL *a4)
+uint64_t figTimelineCoordinator_timelinesMatch(uint64_t a1, uint64_t a2, __int128 *a3, BOOL *a4)
 {
   v4 = 0;
   memset(&v19, 0, sizeof(v19));
@@ -3540,7 +3572,7 @@ __CFString *figTimelineCoordinator_createStateLoggingIdentifier(uint64_t a1, con
   return Mutable;
 }
 
-uint64_t figTimelineCoordinatorTimelineStateCopy(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t figTimelineCoordinatorTimelineStateCopy(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   v20 = 0;
   if (a3)
@@ -3554,8 +3586,8 @@ uint64_t figTimelineCoordinatorTimelineStateCopy(uint64_t a1, uint64_t a2, void 
     v16 = *(a2 + 64);
     v13 = *(a2 + 88);
     v17 = *(a2 + 80);
-    Internal = figTimelineCoordinatorTimelineStateCreateInternal(v9, v10, a1, v13, &v18, &v16, v11, 0, v12, 0xFFFFFFFFLL, 0, 0, &v20);
-    if (Internal)
+    v14 = figTimelineCoordinatorTimelineStateCreateInternal(a1, v13, &v18, &v16, v11, 0, v12, 0xFFFFFFFF, v9, v10, 0, &v20);
+    if (v14)
     {
       if (v20)
       {
@@ -3575,7 +3607,7 @@ uint64_t figTimelineCoordinatorTimelineStateCopy(uint64_t a1, uint64_t a2, void 
     return v18;
   }
 
-  return Internal;
+  return v14;
 }
 
 BOOL figTimelineCoordinator_timelineControlMustPrepareForCoordinatedStart(uint64_t a1)
@@ -3876,6 +3908,7 @@ LABEL_11:
     BYTE3(v29) = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v29 + 1, &v29 + 3);
     v21 = HIDWORD(v29);
+    v22 = BYTE3(v29);
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, BYTE3(v29)))
     {
       v23 = v21;
@@ -3894,7 +3927,8 @@ LABEL_11:
       *&v30[14] = a1;
       *&v30[22] = 2112;
       v31 = v19;
-      v24 = _os_log_send_and_compose_impl();
+      LODWORD(v27) = 32;
+      v24 = _os_log_send_and_compose_impl(v23, 0, v33, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v22, "<<<< FigTimelineCoordinator >>>> %s: %@ Participant '%@' with a greater UUID appears to be coordinating start, so we no longer are.", v30, v27);
       LOBYTE(v21) = BYTE4(v29);
     }
 
@@ -3903,7 +3937,7 @@ LABEL_11:
       v24 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1u, 1, v24, v24 != v33, v21, 0, v22);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1, 1, v24, v24 != v33, v21);
   }
 
   if (v19)
@@ -3923,7 +3957,7 @@ LABEL_31:
 
 uint64_t figTimelineCoordinator_isReadyToPickAnchorTimeOnQueue(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   cf = 0;
   if (!figTimelineCoordinator_isResponsibleForPickingAnchorTimeDuringCoordinatedStart(a1))
   {
@@ -3936,7 +3970,7 @@ uint64_t figTimelineCoordinator_isReadyToPickAnchorTimeOnQueue(uint64_t a1)
     v3 = v2;
     if (CFArrayGetCount(v2) < 1)
     {
-      v20 = 0;
+      v19 = 0;
     }
 
     else
@@ -3948,67 +3982,70 @@ uint64_t figTimelineCoordinator_isReadyToPickAnchorTimeOnQueue(uint64_t a1)
       {
         ValueAtIndex = CFArrayGetValueAtIndex(v3, v4);
         Value = CFDictionaryGetValue(*(a1 + 328), ValueAtIndex);
-        if (FigTimelineCoordinationParticipantSnapshotIsReadyToSetNonZeroRate(Value, v9))
+        if (FigTimelineCoordinationParticipantSnapshotIsReadyToSetNonZeroRate(Value))
         {
           ++v5;
         }
 
         else
         {
-          v10 = FigTimelineCoordinationParticipantSnapshotCopySuspensionReasons(Value);
-          if (v10)
+          v9 = FigTimelineCoordinationParticipantSnapshotCopySuspensionReasons(Value);
+          if (v9)
           {
-            v11 = v10;
-            if (CFArrayGetCount(v10) >= 1)
+            v10 = v9;
+            if (CFArrayGetCount(v9) >= 1)
             {
-              if (figTimelineCoordinator_groupShouldWaitForAllSuspensions(a1, v11))
+              if (figTimelineCoordinator_groupShouldWaitForAllSuspensions(a1, v10))
               {
                 if (*(v6 + 962))
                 {
-                  v12 = FigCFCopyCompactDescription(v11);
+                  v11 = FigCFCopyCompactDescription(v10);
                   if (*(v6 + 962))
                   {
-                    v25[0] = 0;
+                    v26 = 0;
                     type = OS_LOG_TYPE_DEFAULT;
-                    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, v25, &type);
-                    v14 = v25[0];
+                    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v26, &type);
+                    v13 = v26;
+                    v14 = type;
+                    v23 = os_log_and_send_and_compose_flags_and_os_log_type;
                     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
                     {
-                      v16 = v14;
+                      v15 = v13;
                     }
 
                     else
                     {
-                      v16 = v14 & 0xFFFFFFFE;
+                      v15 = v13 & 0xFFFFFFFE;
                     }
 
-                    if (v16)
+                    if (v15)
                     {
                       StateLoggingIdentifier = FigParticipantStateDictionaryGetStateLoggingIdentifier(Value[2]);
-                      v25[1] = 136315906;
-                      v26 = "figTimelineCoordinator_areAllOtherParticipantsReady";
-                      v27 = 2112;
-                      v28 = a1;
-                      v29 = 2114;
-                      v30 = v12;
+                      v27 = 136315906;
+                      v28 = "figTimelineCoordinator_areAllOtherParticipantsReady";
+                      v29 = 2112;
+                      v30 = a1;
                       v31 = 2114;
-                      v32 = StateLoggingIdentifier;
-                      v17 = _os_log_send_and_compose_impl();
-                      LOBYTE(v14) = v25[0];
+                      v32 = v11;
+                      v33 = 2114;
+                      v34 = StateLoggingIdentifier;
+                      LODWORD(v22) = 42;
+                      v16 = _os_log_send_and_compose_impl(v15, 0, v35, 128, &dword_196FA7000, v23, v14, "<<<< FigTimelineCoordinator >>>> %s: %@ Want to wait for suspension(s) %{public}@ reported by participant state '%{public}@'", &v27, v22);
+                      LOBYTE(v13) = v26;
                     }
 
                     else
                     {
-                      v17 = 0;
+                      v16 = 0;
                     }
 
-                    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1u, 1, v17, v17 != &v33, v14, 0, v15);
+                    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1, 1, v16, v16 != v35, v13);
                     v6 = sVCCPreallocationSaveToSymlinkCString + 720;
                   }
 
-                  if (v12)
+                  if (v11)
                   {
-                    CFRelease(v12);
+                    CFRelease(v11);
                   }
                 }
               }
@@ -4019,7 +4056,7 @@ uint64_t figTimelineCoordinator_isReadyToPickAnchorTimeOnQueue(uint64_t a1)
               }
             }
 
-            CFRelease(v11);
+            CFRelease(v10);
           }
         }
 
@@ -4027,12 +4064,12 @@ uint64_t figTimelineCoordinator_isReadyToPickAnchorTimeOnQueue(uint64_t a1)
       }
 
       while (v4 < CFArrayGetCount(v3));
-      v20 = v5;
+      v19 = v5;
     }
 
     Count = CFArrayGetCount(v3);
     CFRelease(v3);
-    if (Count != v20)
+    if (Count != v19)
     {
       goto LABEL_31;
     }
@@ -4041,12 +4078,12 @@ uint64_t figTimelineCoordinator_isReadyToPickAnchorTimeOnQueue(uint64_t a1)
   if (CFArrayGetCount(*(a1 + 432)) >= 1 && ((figTimelineCoordinator_copyActiveSuspensionReasonsOnQueue(a1, &cf), figTimelineCoordinator_groupShouldWaitForAllSuspensions(a1, cf)) || figTimelineCoordinator_suspensionReasonsContainInternalSuspensionReasons(a1, cf)))
   {
 LABEL_31:
-    v19 = 0;
+    v18 = 0;
   }
 
   else
   {
-    v19 = 1;
+    v18 = 1;
   }
 
   if (cf)
@@ -4054,7 +4091,7 @@ LABEL_31:
     CFRelease(cf);
   }
 
-  return v19;
+  return v18;
 }
 
 uint64_t figTimelineCoordinator_groupShouldWaitForAllSuspensions(uint64_t a1, CFArrayRef theArray)
@@ -4081,13 +4118,12 @@ uint64_t figTimelineCoordinator_groupShouldWaitForAllSuspensions(uint64_t a1, CF
         break;
       }
 
-      FigCFDictionaryGetInt32IfPresent(v9, @"ParticipantLimit", &v21, v10, v11, v12, v13, v14, v19, v20, v22, v23, v24, v25, v26, v27, v28, v29);
-      if (v15)
+      if (FigCFDictionaryGetInt32IfPresent(v9, @"ParticipantLimit", &v20, v10, v11, v12, v13, v14, v18, v19, v21, v22, v23, v24, v25, v26, v27, v28))
       {
-        v16 = FigCFDictionaryGetCount(*(a1 + 328));
-        v17 = v21;
+        v15 = FigCFDictionaryGetCount(*(a1 + 328));
+        v16 = v20;
         FigSimpleMutexUnlock(*(a1 + 392));
-        if (v16 >= v17)
+        if (v15 >= v16)
         {
           return 0;
         }
@@ -4112,16 +4148,17 @@ uint64_t figTimelineCoordinator_groupShouldWaitForAllSuspensions(uint64_t a1, CF
 
 void figTimelineCoordinator_fetchCompleteCallbackOnQueue(CFTypeRef *a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   if (FigCFEqual(a1[1], *(*a1 + 44)))
   {
     if (dword_1EAF1CF08)
     {
-      v21 = 0;
+      v27 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v21, &type);
-      v4 = v21;
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v27, &type);
+      v4 = v27;
+      v5 = type;
       if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
       {
         v6 = v4;
@@ -4145,16 +4182,16 @@ void figTimelineCoordinator_fetchCompleteCallbackOnQueue(CFTypeRef *a1)
           v8 = "Did";
         }
 
-        v22 = 136315906;
-        v23 = "figTimelineCoordinator_fetchCompleteCallbackOnQueue";
-        v24 = 2112;
-        v25 = v2;
-        v26 = 2114;
-        v27 = v7;
-        v28 = 2082;
-        v29 = v8;
-        v9 = _os_log_send_and_compose_impl();
-        LOBYTE(v4) = v21;
+        v28 = 136315906;
+        v29 = "figTimelineCoordinator_fetchCompleteCallbackOnQueue";
+        v30 = 2112;
+        v31 = v2;
+        v32 = 2114;
+        v33 = v7;
+        v34 = 2082;
+        v35 = v8;
+        v9 = _os_log_send_and_compose_impl(v6, 0, v36, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v5, "<<<< FigTimelineCoordinator >>>> %s: %@ Completed fetch of existing states for identifier %{public}@ and it is still current. %{public}s receive state for this identifier.", &v28, 42);
+        LOBYTE(v4) = v27;
       }
 
       else
@@ -4162,7 +4199,7 @@ void figTimelineCoordinator_fetchCompleteCallbackOnQueue(CFTypeRef *a1)
         v9 = 0;
       }
 
-      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1u, 1, v9, v9 != v30, v4, 0, v5);
+      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1, 1, v9, v9 != v36, v4);
     }
 
     *(v2 + 280) = 1;
@@ -4176,10 +4213,11 @@ void figTimelineCoordinator_fetchCompleteCallbackOnQueue(CFTypeRef *a1)
 
   else if (dword_1EAF1CF08)
   {
-    v21 = 0;
+    v27 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v21, &type);
-    v11 = v21;
+    v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v27, &type);
+    v11 = v27;
+    v12 = type;
     if (os_log_type_enabled(v10, type))
     {
       v13 = v11;
@@ -4193,14 +4231,14 @@ void figTimelineCoordinator_fetchCompleteCallbackOnQueue(CFTypeRef *a1)
     if (v13)
     {
       v14 = *(v2 + 352);
-      v22 = 136315650;
-      v23 = "figTimelineCoordinator_fetchCompleteCallbackOnQueue";
-      v24 = 2112;
-      v25 = v2;
-      v26 = 2114;
-      v27 = v14;
-      v15 = _os_log_send_and_compose_impl();
-      LOBYTE(v11) = v21;
+      v28 = 136315650;
+      v29 = "figTimelineCoordinator_fetchCompleteCallbackOnQueue";
+      v30 = 2112;
+      v31 = v2;
+      v32 = 2114;
+      v33 = v14;
+      v15 = _os_log_send_and_compose_impl(v13, 0, v36, 128, &dword_196FA7000, v10, v12, "<<<< FigTimelineCoordinator >>>> %s: %@ Completed fetch of existing states for identifier %{public}@, but it is no longer current.", &v28, 32);
+      LOBYTE(v11) = v27;
     }
 
     else
@@ -4208,7 +4246,7 @@ void figTimelineCoordinator_fetchCompleteCallbackOnQueue(CFTypeRef *a1)
       v15 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1u, 1, v15, v15 != v30, v11, 0, v12);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1, 1, v15, v15 != v36, v11);
   }
 
   if (FigCFEqual(a1[1], *(v2 + 272)))
@@ -4224,20 +4262,20 @@ void figTimelineCoordinator_fetchCompleteCallbackOnQueue(CFTypeRef *a1)
   v18 = *(v2 + 288);
   if (v18 && v18 == *(v2 + 200) && FigCFEqual(a1[1], *(v18 + 88)))
   {
-    figTimelineCoordinator_fetchCompleteCallbackOnQueue_cold_1(v2, (v2 + 288));
+    figTimelineCoordinator_fetchCompleteCallbackOnQueue_cold_1(v2, (v2 + 288), v19, v20, v21, v22, v23, v24);
   }
 
-  v19 = a1[1];
-  if (v19)
+  v25 = a1[1];
+  if (v25)
   {
-    CFRelease(v19);
+    CFRelease(v25);
   }
 
   CFRelease(v2);
   free(a1);
 }
 
-void figTimelineCoordinator_startTimeoutForTimelineControlCommandOnQueue(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+void figTimelineCoordinator_startTimeoutForTimelineControlCommandOnQueue(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   v8 = *(a1 + 112);
   if (v8)
@@ -4249,7 +4287,7 @@ void figTimelineCoordinator_startTimeoutForTimelineControlCommandOnQueue(uint64_
 
   else
   {
-    figTimelineCoordinator_startTimeoutForTimelineControlCommandOnQueue_cold_1(a1, a2, a3, a4, a5, a6, a7, a8);
+    figTimelineCoordinator_startTimeoutForTimelineControlCommandOnQueue_cold_1(a1, a2, a3, a4, a5, a6, a7, a8, v10);
   }
 }
 
@@ -4278,21 +4316,21 @@ uint64_t figTimelineCoordinator_createDidIssueCommandNotificationPayload(const v
   return result;
 }
 
-size_t figTimelineCoordinator_postDidIssueCommandNotification(uint64_t a1, const void *a2)
+uint64_t figTimelineCoordinator_postDidIssueCommandNotification(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
-  result = CMNotificationCenterPostNotification(DefaultLocalCenter, @"DidIssueCommandToTimelineControl", a1, a2);
+  result = CMNotificationCenterPostNotification(DefaultLocalCenter, @"DidIssueCommandToTimelineControl", a1, a2, 0, v13, v14, v15, v20);
   if (result)
   {
-    v9 = qword_1EAF1CF00;
+    v19 = qword_1EAF1CF00;
 
-    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, result, "<<<< FigTimelineCoordinator >>>>", 0xAE9, v2, v7, v8);
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v19, result, "<<<< FigTimelineCoordinator >>>>", 0xAE9, v9, v17, v18, a9);
   }
 
   return result;
 }
 
-size_t figTimelineCoordinatorParticipantCreateFromDictionary(int a1, CFDictionaryRef theDict, const void *a3, uint64_t *a4)
+size_t figTimelineCoordinatorParticipantCreateFromDictionary(uint64_t a1, CFDictionaryRef theDict, const void *a3, uint64_t *a4)
 {
   Value = CFDictionaryGetValue(theDict, @"UUID");
   v16 = Value;
@@ -4320,7 +4358,7 @@ size_t figTimelineCoordinatorParticipantCreateFromDictionary(int a1, CFDictionar
   {
     v30 = 2100;
 LABEL_19:
-    v28 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CF00, 0xFFFFC2A1uLL, "<<<< FigTimelineCoordinator >>>>", v30, v4, v14, v15);
+    v28 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CF00, 0xFFFFC2A1uLL, "<<<< FigTimelineCoordinator >>>>", v30, v4, v14, v15, v31);
     if (!v16)
     {
       return v28;
@@ -4331,8 +4369,8 @@ LABEL_19:
 
   if (!v16)
   {
-    figTimelineCoordinatorParticipantCreateFromDictionary_cold_3(&v32, v9, v10, v11, v12, v13, v14, v15);
-    return v32;
+    figTimelineCoordinatorParticipantCreateFromDictionary_cold_3(&v33, v9, v10, v11, v12, v13, v14, v15);
+    return v33;
   }
 
   if (_MergedGlobals_55 != -1)
@@ -4363,8 +4401,8 @@ LABEL_19:
 
   else
   {
-    figTimelineCoordinatorParticipantCreateFromDictionary_cold_2(&v31, v19, v20, v21, v22, v23, v24, v25);
-    v28 = v31;
+    figTimelineCoordinatorParticipantCreateFromDictionary_cold_2(&v32, v19, v20, v21, v22, v23, v24, v25);
+    v28 = v32;
   }
 
 LABEL_15:
@@ -4372,23 +4410,23 @@ LABEL_15:
   return v28;
 }
 
-void figTimelineCoordinator_integrateParticipantStateOnQueue(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+void figTimelineCoordinator_integrateParticipantStateOnQueue(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   v8 = *(a2 + 32);
   cf = 0;
   if (!v8)
   {
-    figTimelineCoordinator_integrateParticipantStateOnQueue_cold_2(a1, a2, a3, a4, a5, a6, a7, a8);
+    figTimelineCoordinator_integrateParticipantStateOnQueue_cold_2(a1, a2, a3, a4, a5, a6, a7, a8, v61);
     goto LABEL_5;
   }
 
   if (FigCFEqual(*(a1 + 344), v8))
   {
     v17 = *(a2 + 16);
-    LOBYTE(v76) = 0;
-    FigCFDictionaryGetBooleanIfPresent(v17, @"CoordinatingStart", &v76, v12, v13, v14, v15, v16, v63, v64, v65, v67, v68, cf, *v70, *&v70[8], *&v70[16], v71);
-    if (v76)
+    LOBYTE(v74) = 0;
+    FigCFDictionaryGetBooleanIfPresent(v17, @"CoordinatingStart", &v74, v12, v13, v14, v15, v16, v61, v62, v63, v65, v66, cf, *v68, *&v68[8], *&v68[16], v69);
+    if (v74)
     {
       *(a1 + 360) = 1;
     }
@@ -4409,18 +4447,18 @@ void figTimelineCoordinator_integrateParticipantStateOnQueue(uint64_t a1, uint64
   v29 = FigTimelineCoordinationParticipantSnapshotCopySuspensionReasons(v19);
   v30 = FigTimelineCoordinationParticipantSnapshotCopySuspensionReasons(a2);
   v31 = FigCFEqual(v29, v30) != 0;
-  IsReadyToSetNonZeroRate = FigTimelineCoordinationParticipantSnapshotIsReadyToSetNonZeroRate(v19, v32);
-  v35 = IsReadyToSetNonZeroRate == FigTimelineCoordinationParticipantSnapshotIsReadyToSetNonZeroRate(a2, v34);
+  IsReadyToSetNonZeroRate = FigTimelineCoordinationParticipantSnapshotIsReadyToSetNonZeroRate(v19);
+  v33 = IsReadyToSetNonZeroRate == FigTimelineCoordinationParticipantSnapshotIsReadyToSetNonZeroRate(a2);
   v21 = v31;
-  v20 = v35;
+  v20 = v33;
   if (v28)
   {
-    v36 = v20 & v21;
+    v34 = v20 & v21;
   }
 
   else
   {
-    v36 = 0;
+    v34 = 0;
   }
 
   if (v29)
@@ -4430,7 +4468,7 @@ void figTimelineCoordinator_integrateParticipantStateOnQueue(uint64_t a1, uint64
 
   if (!v30)
   {
-    if (v36)
+    if (v34)
     {
       goto LABEL_29;
     }
@@ -4441,12 +4479,13 @@ LABEL_10:
       v22 = FigCFCopyCompactDescription(*(a2 + 16));
       if (dword_1EAF1CF08)
       {
-        v66 = v21;
-        LODWORD(v68) = 0;
-        BYTE4(v67) = 0;
-        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v68, &v67 + 4);
-        v24 = v68;
-        if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, BYTE4(v67)))
+        v64 = v21;
+        LODWORD(v66) = 0;
+        BYTE4(v65) = 0;
+        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v66, &v65 + 4);
+        v24 = v66;
+        v25 = BYTE4(v65);
+        if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, BYTE4(v65)))
         {
           v26 = v24;
         }
@@ -4458,30 +4497,30 @@ LABEL_10:
 
         if (v26)
         {
-          v38 = " [Suspensions]";
-          *&v70[4] = "figTimelineCoordinator_integrateParticipantStateOnQueue";
-          v39 = "";
-          *v70 = 136316162;
-          if (v66)
+          v36 = " [Suspensions]";
+          *&v68[4] = "figTimelineCoordinator_integrateParticipantStateOnQueue";
+          v37 = "";
+          *v68 = 136316162;
+          if (v64)
           {
-            v38 = "";
+            v36 = "";
           }
 
-          *&v70[12] = 2112;
-          *&v70[14] = a1;
-          v71 = v38;
-          *&v70[22] = 2082;
+          *&v68[12] = 2112;
+          *&v68[14] = a1;
+          v69 = v36;
+          *&v68[22] = 2082;
           if (!v20)
           {
-            v39 = " [Readiness]";
+            v37 = " [Readiness]";
           }
 
-          v72 = 2082;
-          v73 = v39;
-          v74 = 2114;
-          v75 = v22;
-          v27 = _os_log_send_and_compose_impl();
-          LOBYTE(v24) = v68;
+          v70 = 2082;
+          v71 = v37;
+          v72 = 2114;
+          v73 = v22;
+          v27 = _os_log_send_and_compose_impl(v26, 0, &v74, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v25, "<<<< FigTimelineCoordinator >>>> %s: %@ Received participant state that changed%{public}s%{public}s. %{public}@", v68, 52);
+          LOBYTE(v24) = v66;
         }
 
         else
@@ -4489,7 +4528,7 @@ LABEL_10:
           v27 = 0;
         }
 
-        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1u, 1, v27, v27 != &v76, v24, 0, v25);
+        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1, 1, v27, v27 != &v74, v24);
       }
 
       if (v22)
@@ -4498,7 +4537,7 @@ LABEL_10:
       }
     }
 
-    v37 = 1;
+    v35 = 1;
     if (!v19)
     {
       goto LABEL_40;
@@ -4508,18 +4547,18 @@ LABEL_10:
   }
 
   CFRelease(v30);
-  if ((v36 & 1) == 0)
+  if ((v34 & 1) == 0)
   {
     goto LABEL_10;
   }
 
 LABEL_29:
-  v37 = 0;
+  v35 = 0;
 LABEL_39:
   if (participantState_isSuspended(*(v19 + 16)))
   {
 LABEL_41:
-    v40 = 0;
+    v38 = 0;
     goto LABEL_51;
   }
 
@@ -4531,42 +4570,44 @@ LABEL_40:
 
   if (dword_1EAF1CF08)
   {
-    LODWORD(v68) = 0;
-    BYTE4(v67) = 0;
-    v41 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v68, &v67 + 4);
-    v42 = v68;
-    if (os_log_type_enabled(v41, BYTE4(v67)))
+    LODWORD(v66) = 0;
+    BYTE4(v65) = 0;
+    v39 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v66, &v65 + 4);
+    v40 = v66;
+    v41 = BYTE4(v65);
+    if (os_log_type_enabled(v39, BYTE4(v65)))
     {
-      v44 = v42;
+      v42 = v40;
     }
 
     else
     {
-      v44 = v42 & 0xFFFFFFFE;
+      v42 = v40 & 0xFFFFFFFE;
     }
 
-    if (v44)
+    if (v42)
     {
-      *v70 = 136315394;
-      *&v70[4] = "figTimelineCoordinator_integrateParticipantStateOnQueue";
-      *&v70[12] = 2112;
-      *&v70[14] = a1;
-      v45 = _os_log_send_and_compose_impl();
-      LOBYTE(v42) = v68;
+      *v68 = 136315394;
+      *&v68[4] = "figTimelineCoordinator_integrateParticipantStateOnQueue";
+      *&v68[12] = 2112;
+      *&v68[14] = a1;
+      LODWORD(v62) = 22;
+      v43 = _os_log_send_and_compose_impl(v42, 0, &v74, 128, &dword_196FA7000, v39, v41, "<<<< FigTimelineCoordinator >>>> %s: %@ Participant became suspended", v68, v62);
+      LOBYTE(v40) = v66;
     }
 
     else
     {
-      v45 = 0;
+      v43 = 0;
     }
 
-    v40 = 1;
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1u, 1, v45, v45 != &v76, v42, 0, v43);
+    v38 = 1;
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1, 1, v43, v43 != &v74, v40);
   }
 
   else
   {
-    v40 = 1;
+    v38 = 1;
   }
 
 LABEL_51:
@@ -4575,7 +4616,7 @@ LABEL_51:
   FigSimpleMutexUnlock(*(a1 + 320));
   figTimelineCoordinator_copyActiveSuspensionReasonsOnQueue(a1, &cf);
   IsSuspended = figTimelineCoordinator_everyoneIsSuspended(a1);
-  if (!v40)
+  if (!v38)
   {
     goto LABEL_66;
   }
@@ -4590,75 +4631,77 @@ LABEL_51:
     goto LABEL_66;
   }
 
-  v47 = *(a1 + 200);
-  if (v47)
+  v45 = *(a1 + 200);
+  if (v45)
   {
-    if (*(v47 + 36) == 0.0)
+    if (*(v45 + 36) == 0.0)
     {
       goto LABEL_66;
     }
   }
 
-  v68 = 0;
+  v66 = 0;
   if (dword_1EAF1CF08)
   {
-    HIDWORD(v67) = 0;
-    BYTE3(v67) = 0;
-    v48 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v67 + 1, &v67 + 3);
-    v49 = HIDWORD(v67);
-    if (os_log_type_enabled(v48, BYTE3(v67)))
+    HIDWORD(v65) = 0;
+    BYTE3(v65) = 0;
+    v46 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF00, 1, &v65 + 1, &v65 + 3);
+    v47 = HIDWORD(v65);
+    v48 = BYTE3(v65);
+    if (os_log_type_enabled(v46, BYTE3(v65)))
     {
-      v51 = v49;
+      v49 = v47;
     }
 
     else
     {
-      v51 = v49 & 0xFFFFFFFE;
+      v49 = v47 & 0xFFFFFFFE;
     }
 
-    if (v51)
+    if (v49)
     {
-      v52 = *(a1 + 200);
-      v53 = *(a1 + 208);
-      *v70 = 136315906;
-      *&v70[4] = "figTimelineCoordinator_integrateParticipantStateOnQueue";
-      *&v70[12] = 2112;
-      *&v70[14] = a1;
-      *&v70[22] = 2112;
-      v71 = v52;
-      v72 = 2112;
-      v73 = v53;
-      v54 = _os_log_send_and_compose_impl();
-      LOBYTE(v49) = BYTE4(v67);
+      v50 = *(a1 + 200);
+      v51 = *(a1 + 208);
+      *v68 = 136315906;
+      *&v68[4] = "figTimelineCoordinator_integrateParticipantStateOnQueue";
+      *&v68[12] = 2112;
+      *&v68[14] = a1;
+      *&v68[22] = 2112;
+      v69 = v50;
+      v70 = 2112;
+      v71 = v51;
+      LODWORD(v62) = 42;
+      v52 = _os_log_send_and_compose_impl(v49, 0, &v74, 128, &dword_196FA7000, v46, v48, "<<<< FigTimelineCoordinator >>>> %s: %@ group timeline %@ does not reflect that all participants are suspended, proposing timeline %@", v68, v62);
+      LOBYTE(v47) = BYTE4(v65);
     }
 
     else
     {
-      v54 = 0;
+      v52 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1u, 1, v54, v54 != &v76, v49, 0, v50);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF00, 1, 1, v52, v52 != &v74, v47);
   }
 
   FigSimpleMutexLock(*(a1 + 16));
-  v55 = *(a1 + 16);
-  v56 = *(a1 + 24);
-  *(a1 + 24) = v56 + 1;
-  FigSimpleMutexUnlock(v55);
-  v57 = *MEMORY[0x1E695E480];
-  v58 = *(a1 + 208);
-  v59 = *(v58 + 32);
-  v60 = *(v58 + 36);
-  v62 = *(a1 + 344);
-  v61 = *(a1 + 352);
-  v76 = *(v58 + 40);
-  v77 = *(v58 + 56);
-  memset(v70, 0, sizeof(v70));
-  if (!figTimelineCoordinatorTimelineStateCreateInternal(v59, v60, v57, v61, &v76, v70, 0, v62, v56, 0xFFFFFFFFLL, 0, 0, &v68))
+  v53 = *(a1 + 16);
+  v54 = *(a1 + 24);
+  *(a1 + 24) = v54 + 1;
+  FigSimpleMutexUnlock(v53);
+  v55 = *MEMORY[0x1E695E480];
+  v56 = *(a1 + 208);
+  v57 = *(v56 + 32);
+  v58 = *(v56 + 36);
+  v60 = *(a1 + 344);
+  v59 = *(a1 + 352);
+  v74 = *(v56 + 40);
+  v75 = *(v56 + 56);
+  memset(v68, 0, sizeof(v68));
+  if (!figTimelineCoordinatorTimelineStateCreateInternal(v55, v59, &v74, v68, 0, v60, v54, 0xFFFFFFFF, v57, v58, 0, &v66))
   {
-    figTimelineCoordinator_integrateParticipantStateOnQueue_cold_1(a1, &v68, (a1 + 208));
+    figTimelineCoordinator_integrateParticipantStateOnQueue_cold_1(a1, &v66, (a1 + 208));
 LABEL_66:
-    *a3 = v37;
+    *a3 = v35;
   }
 
 LABEL_5:
@@ -4681,7 +4724,7 @@ void figTimelineCoordinator_postParticipantsDidChange(uint64_t a1)
     }
 
     DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
-    CMNotificationCenterPostNotification(DefaultLocalCenter, @"ParticipantsDidChange", a1, v11);
+    CMNotificationCenterPostNotification(DefaultLocalCenter, @"ParticipantsDidChange", a1, v11, 0, v13, v14, v15, v16);
     if (v2)
     {
       goto LABEL_5;
@@ -4690,7 +4733,7 @@ void figTimelineCoordinator_postParticipantsDidChange(uint64_t a1)
 
   else
   {
-    figTimelineCoordinator_postParticipantsDidChange_cold_1(0, v4, v5, v6, v7, v8, v9, v10);
+    figTimelineCoordinator_postParticipantsDidChange_cold_1(0, v4, v5, v6, v7, v8, v9, v10, v16);
     if (v2)
     {
 LABEL_5:
@@ -4705,39 +4748,40 @@ LABEL_5:
   }
 }
 
-void figTimelineCoordinator_reapplyExpectedTimelineOnQueue(uint64_t a1, char a2, unsigned int a3)
+void figTimelineCoordinator_reapplyExpectedTimelineOnQueue(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a1 + 200);
+  v3 = a3;
+  v4 = *(result + 200);
   if (v4)
   {
-    figTimelineCoordinator_reapplyExpectedTimelineOnQueue_cold_1(a2, a1, v4, a3);
+    figTimelineCoordinator_reapplyExpectedTimelineOnQueue_cold_1(a2, result, v4, v3);
   }
 }
 
-void figTimelineCoordinator_timelineControlCommandCompletionOnQueue(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+void figTimelineCoordinator_timelineControlCommandCompletionOnQueue(CFTypeRef *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   v9 = *a1;
   figTimelineCoordinator_suspendTimelineControlCommandCompletionTimer(*a1, a2, a3, a4, a5, a6, a7, a8);
   *(*a1 + 96) = 0;
-  v10 = *(a1 + 16);
-  if (v10 != *(v9 + 100))
+  v10 = *(a1 + 4);
+  if (v10 != *(v9 + 25))
   {
-    v11 = *(a1 + 24);
+    v11 = a1[3];
     if (v11)
     {
       CFRelease(v11);
-      *(a1 + 24) = 0;
+      a1[3] = 0;
     }
 
-    v10 = *(v9 + 100);
+    v10 = *(v9 + 25);
   }
 
-  *(v9 + 100) = v10 + 1;
-  v12 = *(a1 + 8);
-  v13 = *(v9 + 224);
+  *(v9 + 25) = v10 + 1;
+  v12 = a1[1];
+  v13 = *(v9 + 28);
   if (v12 != v13)
   {
-    if (v12 && v13 && FigCFEqual(*(v13 + 88), *(v12 + 88)))
+    if (v12 && v13 && FigCFEqual(*(v13 + 88), *(v12 + 11)))
     {
       v30 = *(v13 + 88);
       if (v30)
@@ -4745,19 +4789,19 @@ void figTimelineCoordinator_timelineControlCommandCompletionOnQueue(uint64_t a1,
         LOBYTE(v30) = (*(v13 + 36) == 0.0 || (*(v13 + 76) & 0x1D) == 1) && (*(v13 + 52) & 0x1D) == 1;
       }
 
-      if (*(v12 + 88) && (*(v12 + 36) == 0.0 || (*(v12 + 76) & 0x1D) == 1))
+      if (*(v12 + 11) && (*(v12 + 9) == 0.0 || (*(v12 + 19) & 0x1D) == 1))
       {
-        LOBYTE(v30) = v30 ^ ((*(v12 + 52) & 0x1D) == 1);
+        LOBYTE(v30) = v30 ^ ((*(v12 + 13) & 0x1D) == 1);
       }
 
       if ((v30 & 1) == 0)
       {
         time1 = *(v13 + 40);
         v31 = *(v12 + 40);
-        if (!CMTimeCompare(&time1, &v31) && *(v13 + 100) - *(v12 + 100) == 1 && *(v13 + 36) == *(v12 + 32) && (*(v13 + 76) & 1) != 0)
+        if (!CMTimeCompare(&time1, &v31) && *(v13 + 100) - *(v12 + 25) == 1 && *(v13 + 36) == *(v12 + 8) && (*(v13 + 76) & 1) != 0)
         {
-          *(v9 + 256) = 0;
-          *(v9 + 258) = 0;
+          *(v9 + 128) = 0;
+          v9[258] = 0;
         }
       }
     }
@@ -4765,9 +4809,9 @@ void figTimelineCoordinator_timelineControlCommandCompletionOnQueue(uint64_t a1,
     goto LABEL_59;
   }
 
-  v14 = *(v9 + 296);
-  v15 = *(a1 + 24);
-  *(v9 + 296) = v15;
+  v14 = *(v9 + 37);
+  v15 = a1[3];
+  *(v9 + 37) = v15;
   if (v15)
   {
     CFRetain(v15);
@@ -4778,14 +4822,14 @@ void figTimelineCoordinator_timelineControlCommandCompletionOnQueue(uint64_t a1,
     CFRelease(v14);
   }
 
-  v16 = *(v9 + 296);
+  v16 = *(v9 + 37);
   if (v16)
   {
-    v17 = *(a1 + 8);
-    if (*(v17 + 88) && (*(v17 + 36) == 0.0 || (*(v17 + 76) & 0x1D) == 1) && (*(v17 + 52) & 0x1D) == 1)
+    v17 = a1[1];
+    if (*(v17 + 11) && (v17[9] == 0.0 || (v17[19] & 0x1D) == 1) && (v17[13] & 0x1D) == 1)
     {
       CMTimeMake(&time1, 5, 1);
-      if (!figTimelineCoordinator_timelinesMatch(v16, v17, &time1, 0))
+      if (!figTimelineCoordinator_timelinesMatch(v16, v17, &time1.value, 0))
       {
         memset(&time1, 0, sizeof(time1));
         HostTimeClock = CMClockGetHostTimeClock();
@@ -4793,31 +4837,31 @@ void figTimelineCoordinator_timelineControlCommandCompletionOnQueue(uint64_t a1,
       }
     }
 
-    v19 = *(v9 + 224);
+    v19 = *(v9 + 28);
     if (!*(v19 + 88) || *(v19 + 36) != 0.0 && (*(v19 + 76) & 0x1D) != 1 || (*(v19 + 52) & 0x1D) != 1)
     {
-      v20 = *(v9 + 296);
+      v20 = *(v9 + 37);
       *(v19 + 36) = *(v20 + 36);
       v21 = *(v20 + 40);
       *(v19 + 56) = *(v20 + 56);
       *(v19 + 40) = v21;
-      v22 = *(v9 + 224);
-      v23 = *(v9 + 296);
+      v22 = *(v9 + 28);
+      v23 = *(v9 + 37);
       v24 = *(v23 + 64);
       *(v22 + 80) = *(v23 + 80);
       *(v22 + 64) = v24;
     }
 
-    *(v9 + 304) = 1;
+    v9[304] = 1;
   }
 
-  else if (!*(v9 + 104))
+  else if (!v9[104])
   {
-    v25 = *(v9 + 224);
+    v25 = *(v9 + 28);
     if (v25)
     {
       CFRelease(v25);
-      *(v9 + 224) = 0;
+      *(v9 + 28) = 0;
     }
   }
 
@@ -4826,7 +4870,7 @@ void figTimelineCoordinator_timelineControlCommandCompletionOnQueue(uint64_t a1,
     goto LABEL_59;
   }
 
-  v26 = *(v9 + 336);
+  v26 = *(v9 + 84);
   if ((v26 & 2) != 0)
   {
     v27 = 2;
@@ -4837,9 +4881,9 @@ void figTimelineCoordinator_timelineControlCommandCompletionOnQueue(uint64_t a1,
     v27 = 1;
   }
 
-  if (v27 != *(v9 + 340))
+  if (v27 != *(v9 + 85))
   {
-    *(v9 + 340) = v27;
+    *(v9 + 85) = v27;
     figTimelineCoordinator_sendParticipantStateToGroupOnQueue(v9);
   }
 
@@ -4850,13 +4894,13 @@ LABEL_59:
     figTimelineCoordinator_triggerTimelineChangesAfterParticipantChangeOnQueue(v9);
   }
 
-  v28 = *(a1 + 24);
+  v28 = a1[3];
   if (v28)
   {
     CFRelease(v28);
   }
 
-  v29 = *(a1 + 8);
+  v29 = a1[1];
   if (v29)
   {
     CFRelease(v29);
@@ -4870,18 +4914,18 @@ LABEL_59:
   free(a1);
 }
 
-void figTimelineCoordinator_suspendTimelineControlCommandCompletionTimer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+void figTimelineCoordinator_suspendTimelineControlCommandCompletionTimer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  v9 = *(a1 + 112);
-  if (v9)
+  v10 = *(a1 + 112);
+  if (v10)
   {
 
-    dispatch_source_set_timer(v9, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0x5F5E100uLL);
+    dispatch_source_set_timer(v10, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0x5F5E100uLL);
   }
 
   else
   {
-    figTimelineCoordinator_suspendTimelineControlCommandCompletionTimer_cold_1(v9, a2, a3, a4, a5, a6, a7, a8);
+    figTimelineCoordinator_suspendTimelineControlCommandCompletionTimer_cold_1(v10, a2, a3, a4, a5, a6, a7, a8, v8);
   }
 }
 
@@ -4904,20 +4948,20 @@ uint64_t figTimelineCoordinatorRemoveSuspensionInternal(uint64_t a1, const void 
   }
 }
 
-void figTimelineCoordinator_issueProposeTimelineForIdentifierOnQueue(uint64_t a1)
+void figTimelineCoordinator_issueProposeTimelineForIdentifierOnQueue(void *a1)
 {
-  v2 = FigCFWeakReferenceHolderCopyReferencedObject(*(a1 + 80));
+  v2 = FigCFWeakReferenceHolderCopyReferencedObject(a1[10]);
   v10 = v2;
-  v11 = *(a1 + 72);
+  v11 = a1[9];
   if (v11)
   {
     if (!v2)
     {
-      figTimelineCoordinator_issueProposeTimelineForIdentifierOnQueue_cold_1(0, v3, v4, v5, v6, v7, v8, v9);
+      figTimelineCoordinator_issueProposeTimelineForIdentifierOnQueue_cold_1(0, v3, v4, v5, v6, v7, v8, v9, v12);
       return;
     }
 
-    v11(v2, *(a1 + 352));
+    v11(v2, a1[44]);
   }
 
   else if (!v2)
@@ -4957,10 +5001,10 @@ void *OUTLINED_FUNCTION_9_15()
   return malloc_type_malloc(0x20uLL, 0x10200405C7134C3uLL);
 }
 
-uint64_t OUTLINED_FUNCTION_14_12(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19)
+uint64_t OUTLINED_FUNCTION_14_12(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19)
 {
   a19 = 0;
-  a15 = 0;
+  LOBYTE(a15) = 0;
   v21 = *(v19 + 3840);
 
   return fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(v21, 1, &a19, &a15);
@@ -5020,7 +5064,7 @@ uint64_t RegisterFigCaptionGroupType()
   return result;
 }
 
-uint64_t FigCaptionGroupCreate(const __CFAllocator *a1, CFArrayRef theArray, CMTime *a3, CMTime *a4, uint64_t *a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigCaptionGroupCreate(const __CFAllocator *a1, CFArrayRef theArray, CMTime *a3, CMTime *a4, uint64_t *a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (!theArray)
   {
@@ -5139,77 +5183,77 @@ uint64_t FigCaptionGroupCreateEmpty(const __CFAllocator *a1, uint64_t *a2)
   return v8;
 }
 
-CFIndex FigCaptionGroupGetSliceCount(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+CFIndex FigCaptionGroupGetSliceCount(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1)
   {
-    v9 = *(a1 + 16);
+    v10 = *(a1 + 16);
 
-    return CFArrayGetCount(v9);
+    return CFArrayGetCount(v10);
   }
 
   else
   {
-    FigCaptionGroupGetSliceCount_cold_1(a1, a2, a3, a4, a5, a6, a7, a8);
+    FigCaptionGroupGetSliceCount_cold_1(a1, a2, a3, a4, a5, a6, a7, a8, v8);
     return 0;
   }
 }
 
-const void *FigCaptionGroupGetCaptionData(uint64_t a1, CFIndex a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+const void *FigCaptionGroupGetCaptionData(uint64_t a1, CFIndex a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1)
   {
-    v9 = *(a1 + 16);
+    v10 = *(a1 + 16);
 
-    return CFArrayGetValueAtIndex(v9, a2);
+    return CFArrayGetValueAtIndex(v10, a2);
   }
 
   else
   {
-    FigCaptionGroupGetCaptionData_cold_1(a1, a2, a3, a4, a5, a6, a7, a8);
+    FigCaptionGroupGetCaptionData_cold_1(a1, a2, a3, a4, a5, a6, a7, a8, v8);
     return 0;
   }
 }
 
-CFIndex FigCaptionGroupGetDurationBeforeSlice@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, CMBlockBufferFlags a7@<W6>, CMBlockBufferRef *a8@<X7>, uint64_t a9@<X8>)
+CFIndex FigCaptionGroupGetDurationBeforeSlice@<X0>(uint64_t a1@<X0>, CFIndex a2@<X1>, uint64_t a3@<X8>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, size_t a8@<X6>, CMBlockBufferFlags a9@<W7>)
 {
-  *a9 = *&kCMTimeInvalid.value;
-  *(a9 + 16) = 0;
+  *a3 = *&kCMTimeInvalid.value;
+  *(a3 + 16) = 0;
   if (!a1)
   {
-    return FigCaptionGroupGetDurationBeforeSlice_cold_2(0, a2, a3, a4, a5, a6, a7, a8);
+    return FigCaptionGroupGetDurationBeforeSlice_cold_2(0, a2, a4, a5, a6, a7, a8, a9, v21);
   }
 
   result = CFArrayGetCount(*(a1 + 16));
   if (result <= a2)
   {
-    return FigCaptionGroupGetDurationBeforeSlice_cold_1(result, v13, v14, v15, v16, v17, v18, v19);
+    return FigCaptionGroupGetDurationBeforeSlice_cold_1(result, v13, v14, v15, v16, v17, v18, v19, v21);
   }
 
   v20 = *(a1 + 24) + 24 * a2;
-  *a9 = *v20;
-  *(a9 + 16) = *(v20 + 16);
+  *a3 = *v20;
+  *(a3 + 16) = *(v20 + 16);
   return result;
 }
 
-CFIndex FigCaptionGroupGetDurationAfterSlice@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, CMBlockBufferFlags a7@<W6>, CMBlockBufferRef *a8@<X7>, uint64_t a9@<X8>)
+CFIndex FigCaptionGroupGetDurationAfterSlice@<X0>(uint64_t a1@<X0>, CFIndex a2@<X1>, uint64_t a3@<X8>, uint64_t a4@<X2>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, size_t a8@<X6>, CMBlockBufferFlags a9@<W7>)
 {
-  *a9 = *&kCMTimeInvalid.value;
-  *(a9 + 16) = 0;
+  *a3 = *&kCMTimeInvalid.value;
+  *(a3 + 16) = 0;
   if (!a1)
   {
-    return FigCaptionGroupGetDurationAfterSlice_cold_2(0, a2, a3, a4, a5, a6, a7, a8);
+    return FigCaptionGroupGetDurationAfterSlice_cold_2(0, a2, a4, a5, a6, a7, a8, a9, v21);
   }
 
   result = CFArrayGetCount(*(a1 + 16));
   if (result <= a2)
   {
-    return FigCaptionGroupGetDurationAfterSlice_cold_1(result, v13, v14, v15, v16, v17, v18, v19);
+    return FigCaptionGroupGetDurationAfterSlice_cold_1(result, v13, v14, v15, v16, v17, v18, v19, v21);
   }
 
   v20 = *(a1 + 32) + 24 * a2;
-  *a9 = *v20;
-  *(a9 + 16) = *(v20 + 16);
+  *a3 = *v20;
+  *(a3 + 16) = *(v20 + 16);
   return result;
 }
 
@@ -5253,9 +5297,9 @@ __CFString *CaptionGroupCopyDebugDesc(uint64_t a1)
       }
 
       v4 = CFCopyDescription(ValueAtIndex);
-      FigCaptionGroupGetDurationBeforeSlice(a1, i, v7, v8, v9, v10, v11, v12, &time);
+      FigCaptionGroupGetDurationBeforeSlice(a1, i, &time, v7, v8, v9, v10, v11, v12);
       Seconds = CMTimeGetSeconds(&time);
-      FigCaptionGroupGetDurationAfterSlice(a1, i, v14, v15, v16, v17, v18, v19, &time);
+      FigCaptionGroupGetDurationAfterSlice(a1, i, &time, v14, v15, v16, v17, v18, v19);
       v20 = CMTimeGetSeconds(&time);
       CFStringAppendFormat(Mutable, 0, @"BeforeSlice<%4.2f> AfterSlice<%4.2f> %@\n", *&Seconds, *&v20, v4);
     }
@@ -5269,7 +5313,7 @@ __CFString *CaptionGroupCopyDebugDesc(uint64_t a1)
   return Mutable;
 }
 
-uint64_t FigEndpointAudioSinkGetClassID()
+uint64_t FigEndpointAudioSinkGetClassID(uint64_t a1, uint64_t a2)
 {
   if (FigEndpointAudioSinkGetClassID_sRegisterOnce != -1)
   {
@@ -5279,23 +5323,23 @@ uint64_t FigEndpointAudioSinkGetClassID()
   return FigEndpointAudioSinkGetClassID_sClassID;
 }
 
-size_t __FigEndpointAudioSinkGetClassID_block_invoke()
+size_t __FigEndpointAudioSinkGetClassID_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   ClassID = CMBaseGetClassID();
 
-  return FigBaseClassRegisterClass(&FigEndpointAudioSinkGetClassID_sClassDesc, ClassID, 1, &FigEndpointAudioSinkGetClassID_sClassID, v1, v2, v3, v4);
+  return FigBaseClassRegisterClass(&FigEndpointAudioSinkGetClassID_sClassDesc, ClassID, 1, &FigEndpointAudioSinkGetClassID_sClassID, v10, v11, v12, v13, a9);
 }
 
-uint64_t FigEndpointAudioSinkGetTypeID()
+uint64_t FigEndpointAudioSinkGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (FigEndpointAudioSinkGetClassID_sRegisterOnce != -1)
   {
     FigEndpointAudioSinkGetClassID_cold_1();
   }
 
-  v1 = FigEndpointAudioSinkGetClassID_sClassID;
+  v3 = FigEndpointAudioSinkGetClassID_sClassID;
 
-  return CMBaseClassGetCFTypeID(v1);
+  return CMBaseClassGetCFTypeID(v3);
 }
 
 uint64_t FigRemote_LookUpServerTimeoutPort()
@@ -5435,7 +5479,7 @@ LABEL_12:
 
 uint64_t FigRPCTimeoutServer_KillAndForceCrashReport(uint64_t a1, uint64_t a2, const char *a3, _OWORD *a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v7 = getpid();
   v8 = getpid();
   if (gFigServerSideRPCTimeoutNanoseconds)
@@ -5446,14 +5490,15 @@ uint64_t FigRPCTimeoutServer_KillAndForceCrashReport(uint64_t a1, uint64_t a2, c
     }
 
     v10 = a4[1];
-    v22[0] = *a4;
-    v22[1] = v10;
-    ClientPIDFromAuditToken = FigServer_GetClientPIDFromAuditToken(v22);
+    v23[0] = *a4;
+    v23[1] = v10;
+    ClientPIDFromAuditToken = FigServer_GetClientPIDFromAuditToken(v23);
     FigRPCServer_TimeoutCrashReport(ClientPIDFromAuditToken, a3);
-    v18[0] = 0;
+    v18 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1ED4CC338, 0, v18, &type);
-    v13 = v18[0];
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1ED4CC338, 0, &v18, &type);
+    v13 = v18;
+    v14 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v15 = v13;
@@ -5466,12 +5511,12 @@ uint64_t FigRPCTimeoutServer_KillAndForceCrashReport(uint64_t a1, uint64_t a2, c
 
     if (v15)
     {
-      v18[1] = 136315394;
-      v19 = "FigRPCTimeoutServer_KillAndForceCrashReport";
-      v20 = 1024;
-      v21 = v7;
-      v16 = _os_log_send_and_compose_impl();
-      LOBYTE(v13) = v18[0];
+      v19 = 136315394;
+      v20 = "FigRPCTimeoutServer_KillAndForceCrashReport";
+      v21 = 1024;
+      v22 = v7;
+      v16 = _os_log_send_and_compose_impl(v15, 0, v23, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v14, "<<<< FigRPCTimeoutClientServer >>>> %s: TERMINATING our process [%d]", &v19, 18);
+      LOBYTE(v13) = v18;
     }
 
     else
@@ -5479,7 +5524,7 @@ uint64_t FigRPCTimeoutServer_KillAndForceCrashReport(uint64_t a1, uint64_t a2, c
       v16 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1ED4CC338, 0, 1, v16, v16 != v22, v13, 0, v14);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1ED4CC338, 0, 1, v16, v16 != v23, v13);
     kill(v7, 9);
   }
 
@@ -6256,7 +6301,7 @@ LABEL_14:
     {
 LABEL_20:
       emitter = fig_log_get_emitter("com.apple.coremedia", "");
-      v14 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFB347uLL, "<<<< FigSampleBufferSerialization >>>>", 0x1301, v4, v17, v18);
+      v14 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFB347uLL, "<<<< FigSampleBufferSerialization >>>>", 0x1301, v4, v17, v18, v19);
       if (v9)
       {
         CFRelease(v9);
@@ -6295,7 +6340,7 @@ CFMutableDictionaryRef figRemote_copyMutableDictionaryOfAttachments(CMAttachment
   return MutableCopy;
 }
 
-size_t FigRemote_CreateSerializedAtomDataForSampleBufferWithOptions(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, mach_port_t *a5, vm_address_t *a6, vm_size_t a7, vm_size_t *a8, const opaqueCMFormatDescription **a9, uint64_t *a10)
+IOSurfaceRef FigRemote_CreateSerializedAtomDataForSampleBufferWithOptions(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, mach_port_t *a5, vm_address_t *a6, OpaqueCMBlockBuffer *a7, CMBlockBufferRef *a8, const opaqueCMFormatDescription **a9, uint64_t *a10)
 {
   buffer = 0;
   if (a5)
@@ -6337,7 +6382,7 @@ size_t FigRemote_CreateSerializedAtomDataForSampleBufferWithOptions(uint64_t a1,
   return result;
 }
 
-size_t FigRemote_CreateSerializedAtomDataAndSurfaceForSampleBufferWithOptions(const __CFAllocator *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, vm_address_t *a7, vm_size_t a8, vm_size_t *a9, const opaqueCMFormatDescription **a10, uint64_t *a11)
+size_t FigRemote_CreateSerializedAtomDataAndSurfaceForSampleBufferWithOptions(const __CFAllocator *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, vm_address_t *a7, OpaqueCMBlockBuffer *a8, CMBlockBufferRef *a9, const opaqueCMFormatDescription **a10, uint64_t *a11)
 {
   cf = 0;
   v12 = FigRemote_CreateSerializedAtomDataAndSurfaceArrayForSampleBufferWithOptions(a1, a2, a3, a4, a5, &cf, a7, a8, a9, a10, a11);
@@ -6367,25 +6412,25 @@ void _bbufBlockSourceFree(uint64_t a1, uint64_t a2)
   }
 }
 
-size_t sbufAtom_createSampleBufferFromSerializedAtomDataAndSurface(const __CFAllocator *a1, __IOSurface *a2, uint64_t a3, char *a4, int a5, const opaqueCMFormatDescription **a6, void **a7, _BYTE *a8, void *a9, uint64_t *a10, void *a11)
+size_t sbufAtom_createSampleBufferFromSerializedAtomDataAndSurface(const __CFAllocator *a1, __IOSurface *a2, uint64_t a3, char *a4, int a5, const opaqueCMFormatDescription **a6, const __CFAllocator **a7, _BYTE *a8, void *a9, uint64_t *a10, void *a11)
 {
   v11 = a11;
   formatDescriptionOut = 0;
   sampleBufferOut = 0;
-  v116 = 0;
+  v118 = 0;
   pixelBufferOut = 0;
-  v115 = 0;
-  v114 = 0;
+  v117 = 0;
+  v116 = 0;
   taggedBufferGroup = 0;
-  memset(&v112[1] + 4, 0, 12);
-  v111 = 0;
-  v112[0] = 0;
+  memset(&v114[1] + 4, 0, 12);
+  v113 = 0;
+  v114[0] = 0;
   theAttachments = 0;
+  v112 = 0;
   v110 = 0;
-  v108 = 0;
-  v106 = *&kCMTimeInvalid.value;
+  v108 = *&kCMTimeInvalid.value;
+  v109 = 0;
   v107 = 0;
-  v105 = 0;
   if (!a11)
   {
     sbufAtom_createSampleBufferFromSerializedAtomDataAndSurface_cold_23(&sbufPTS);
@@ -6425,8 +6470,8 @@ LABEL_278:
     FormatDescription = 0;
   }
 
-  v89 = a8;
-  v90 = a6;
+  v91 = a8;
+  v92 = a6;
   if (a7)
   {
     v17 = *a7;
@@ -6438,7 +6483,7 @@ LABEL_278:
   }
 
   v18 = FigThreadRunOnce(&sKnownSBufKeysInit, sbufAtom_InitializeKnownKeys);
-  if (v18 || (v87 = a11, v88 = a7, v18 = figReadNEAtomHeader(v12, 0, v13, &v105 + 1, &v105), v18))
+  if (v18 || (v89 = a11, v90 = a7, v18 = figReadNEAtomHeader(v12, 0, v13, &v107 + 1, &v107), v18))
   {
     isa_low = v18;
     v13 = 0;
@@ -6447,42 +6492,42 @@ LABEL_278:
     goto LABEL_250;
   }
 
-  if (HIDWORD(v105) != 1935832422)
+  if (HIDWORD(v107) != 1935832422)
   {
     sbufAtom_createSampleBufferFromSerializedAtomDataAndSurface_cold_1(&sbufPTS);
     goto LABEL_277;
   }
 
-  v22 = v105;
-  if (v105 > v13)
+  v22 = v107;
+  if (v107 > v13)
   {
     sbufAtom_createSampleBufferFromSerializedAtomDataAndSurface_cold_20(&sbufPTS);
     goto LABEL_277;
   }
 
-  HIDWORD(v86) = a5;
-  if (v105 < 9)
+  HIDWORD(v88) = a5;
+  if (v107 < 9)
   {
-    v49 = 0;
+    v51 = 0;
     v13 = 0;
     v11 = 0;
     numSampleTimingEntries = 0;
-    v93 = 0;
-    sampleTiming = 0;
-    v94 = 0;
     v95 = 0;
-    v24 = 0;
-    v91 = 0;
+    sampleTiming = 0;
     v96 = 0;
+    v97 = 0;
+    v24 = 0;
+    v93 = 0;
+    v98 = 0;
     LOBYTE(v23) = 0;
 LABEL_122:
-    v104 = v13;
-    if (!a2 || v49)
+    v106 = v13;
+    if (!a2 || v51)
     {
 LABEL_145:
-      if (v49 && (Count = CFArrayGetCount(v49), Count >= 1))
+      if (v51 && (Count = CFArrayGetCount(v51), Count >= 1))
       {
-        v54 = Count;
+        v56 = Count;
         Mutable = CFArrayCreateMutable(a1, Count, MEMORY[0x1E695E9C0]);
         if (!Mutable)
         {
@@ -6490,24 +6535,24 @@ LABEL_145:
           goto LABEL_287;
         }
 
-        if (a2 && v54 == 1)
+        if (a2 && v56 == 1)
         {
-          v121 = 0;
-          v55 = CVPixelBufferCreateWithIOSurface(a1, a2, 0, &v121);
-          if (v55)
+          v123 = 0;
+          v57 = CVPixelBufferCreateWithIOSurface(a1, a2, 0, &v123);
+          if (v57)
           {
-            isa_low = v55;
+            isa_low = v57;
             goto LABEL_205;
           }
 
-          sbufAtom_createSampleBufferFromSerializedAtomDataAndSurface_cold_24(&v121, Mutable);
-          v13 = v104;
+          sbufAtom_createSampleBufferFromSerializedAtomDataAndSurface_cold_24(&v123, Mutable);
+          v13 = v106;
         }
 
         else
         {
-          CVPixelBufferCreate(a1, 0x10uLL, 0x10uLL, 0x20u, 0, &v114);
-          if (!v114)
+          CVPixelBufferCreate(a1, 0x10uLL, 0x10uLL, 0x20u, 0, &v116);
+          if (!v116)
           {
             sbufAtom_createSampleBufferFromSerializedAtomDataAndSurface_cold_11(&sbufPTS);
             goto LABEL_287;
@@ -6515,21 +6560,21 @@ LABEL_145:
 
           do
           {
-            CFArrayAppendValue(Mutable, v114);
-            --v54;
+            CFArrayAppendValue(Mutable, v116);
+            --v56;
           }
 
-          while (v54);
-          v13 = v104;
-          if (v114)
+          while (v56);
+          v13 = v106;
+          if (v116)
           {
-            CFRelease(v114);
-            v114 = 0;
+            CFRelease(v116);
+            v116 = 0;
           }
         }
 
-        v56 = FigTaggedBufferGroupCreate(a1, v49, Mutable, &taggedBufferGroup);
-        if (v56)
+        v58 = FigTaggedBufferGroupCreate(a1, v51, Mutable);
+        if (v58)
         {
           goto LABEL_283;
         }
@@ -6542,15 +6587,15 @@ LABEL_145:
             formatDescriptionOut = 0;
           }
 
-          v56 = FigTaggedBufferGroupFormatDescriptionCreate(a1, 1952606066, &formatDescriptionOut);
-          if (!v56)
+          v58 = FigTaggedBufferGroupFormatDescriptionCreate(a1, 1952606066, &formatDescriptionOut);
+          if (!v58)
           {
             FormatDescription = formatDescriptionOut;
             goto LABEL_163;
           }
 
 LABEL_283:
-          isa_low = v56;
+          isa_low = v58;
           goto LABEL_206;
         }
       }
@@ -6568,11 +6613,11 @@ LABEL_163:
 
       else
       {
-        v85 = v12;
-        v102 = v24;
+        v87 = v12;
+        v104 = v24;
         if (pixelBufferOut)
         {
-          v57 = CMSampleBufferCreateForImageBuffer(a1, pixelBufferOut, !(v86 & 0x100000000), 0, 0, FormatDescription, sampleTiming, &sampleBufferOut);
+          v59 = CMSampleBufferCreateForImageBuffer(a1, pixelBufferOut, !(v88 & 0x100000000), 0, 0, FormatDescription, sampleTiming, &sampleBufferOut);
           goto LABEL_171;
         }
 
@@ -6580,16 +6625,16 @@ LABEL_163:
         {
           *&sbufPTS.isa = *&sampleTiming->presentationTimeStamp.value;
           sbufPTS.data = sampleTiming->presentationTimeStamp.epoch;
-          v58 = *&sampleTiming->duration.value;
+          v60 = *&sampleTiming->duration.value;
           sbufDuration.epoch = sampleTiming->duration.epoch;
-          *&sbufDuration.value = v58;
-          v57 = CMSampleBufferCreateForTaggedBufferGroup(a1, taggedBufferGroup, &sbufPTS, &sbufDuration, FormatDescription, &sampleBufferOut);
+          *&sbufDuration.value = v60;
+          v59 = CMSampleBufferCreateForTaggedBufferGroup(a1, taggedBufferGroup, &sbufPTS, &sbufDuration, FormatDescription, &sampleBufferOut);
           goto LABEL_171;
         }
 
-        if (v116)
+        if (v118)
         {
-          v57 = CMSampleBufferCreateReadyForCVDataBuffer(a1, v116, FormatDescription, sampleTiming, &sampleBufferOut, v19, v20, v21);
+          v59 = CMSampleBufferCreateReadyForCVDataBuffer(a1, v118, FormatDescription, sampleTiming, &sampleBufferOut, v19, v20, v21);
           goto LABEL_171;
         }
 
@@ -6599,13 +6644,13 @@ LABEL_163:
           {
             *&sbufPTS.isa = *&sampleTiming->presentationTimeStamp.value;
             sbufPTS.data = sampleTiming->presentationTimeStamp.epoch;
-            v76 = *&sampleTiming->duration.value;
+            v78 = *&sampleTiming->duration.value;
             sbufDuration.epoch = sampleTiming->duration.epoch;
-            *&sbufDuration.value = v76;
-            v77 = FigSampleBufferCreateForCaptionGroup(a1, v11, &sbufPTS, &sbufDuration, &sampleBufferOut, v19, v20, v21);
-            if (v77)
+            *&sbufDuration.value = v78;
+            v79 = FigSampleBufferCreateForCaptionGroup(a1, v11, &sbufPTS, &sbufDuration, &sampleBufferOut, v19, v20, v21);
+            if (v79)
             {
-              isa_low = v77;
+              isa_low = v79;
             }
 
             else
@@ -6620,59 +6665,59 @@ LABEL_172:
                 isa = v11;
                 a1 = v17;
                 FigSampleBufferSetDecryptor(sampleBufferOut, v17);
-                if (BYTE12(v106))
+                if (BYTE12(v108))
                 {
-                  *&sbufPTS.isa = v106;
-                  sbufPTS.data = v107;
+                  *&sbufPTS.isa = v108;
+                  sbufPTS.data = v109;
                   CMSampleBufferSetOutputPresentationTimeStamp(sampleBufferOut, &sbufPTS);
                 }
 
-                v59 = sampleBufferOut;
-                v60 = v111;
-                v61 = v112[0];
-                v62 = v108;
-                if (v108)
+                v61 = sampleBufferOut;
+                v62 = v113;
+                v63 = v114[0];
+                v64 = v110;
+                if (v110)
                 {
                   SampleAttachmentsArray = CMSampleBufferGetSampleAttachmentsArray(sampleBufferOut, 1u);
-                  v64 = CFArrayGetCount(v62);
+                  v66 = CFArrayGetCount(v64);
                   if (SampleAttachmentsArray)
                   {
-                    v65 = CFArrayGetCount(SampleAttachmentsArray);
+                    v67 = CFArrayGetCount(SampleAttachmentsArray);
                   }
 
                   else
                   {
-                    v65 = 0;
+                    v67 = 0;
                   }
 
-                  if (v64 != v65)
+                  if (v66 != v67)
                   {
 LABEL_282:
                     sbufAtom_createSampleBufferFromSerializedAtomDataAndSurface_cold_17(&sbufPTS);
                     goto LABEL_258;
                   }
 
-                  if (v64 >= 1)
+                  if (v66 >= 1)
                   {
-                    v66 = 0;
+                    v68 = 0;
                     while (1)
                     {
-                      ValueAtIndex = CFArrayGetValueAtIndex(v62, v66);
+                      ValueAtIndex = CFArrayGetValueAtIndex(v64, v68);
                       if (!ValueAtIndex)
                       {
                         break;
                       }
 
-                      v68 = ValueAtIndex;
-                      v69 = CFGetTypeID(ValueAtIndex);
-                      if (v69 != CFDictionaryGetTypeID())
+                      v70 = ValueAtIndex;
+                      v71 = CFGetTypeID(ValueAtIndex);
+                      if (v71 != CFDictionaryGetTypeID())
                       {
                         break;
                       }
 
-                      v70 = CFArrayGetValueAtIndex(SampleAttachmentsArray, v66);
-                      CFDictionaryApplyFunction(v68, CopyEntry, v70);
-                      if (v64 == ++v66)
+                      v72 = CFArrayGetValueAtIndex(SampleAttachmentsArray, v68);
+                      CFDictionaryApplyFunction(v70, CopyEntry, v72);
+                      if (v66 == ++v68)
                       {
                         goto LABEL_184;
                       }
@@ -6681,11 +6726,11 @@ LABEL_282:
                     sbufAtom_createSampleBufferFromSerializedAtomDataAndSurface_cold_18(&sbufPTS);
 LABEL_258:
                     isa_low = LODWORD(sbufPTS.isa);
-                    v13 = v104;
-                    v71 = v88;
-                    v72 = v85;
+                    v13 = v106;
+                    v73 = v90;
+                    v74 = v87;
                     Mutable = v24;
-                    v24 = v102;
+                    v24 = v104;
                     if (LODWORD(sbufPTS.isa))
                     {
 LABEL_271:
@@ -6699,65 +6744,65 @@ LABEL_271:
 
 LABEL_184:
                 Mutable = v24;
-                if (v61)
+                if (v63)
                 {
-                  CMSetAttachments(v59, v61, 1u);
+                  CMSetAttachments(v61, v63, 1u);
                 }
 
-                v71 = v88;
-                v72 = v85;
-                v24 = v102;
-                if (v60)
+                v73 = v90;
+                v74 = v87;
+                v24 = v104;
+                if (v62)
                 {
-                  CMSetAttachments(v59, v60, 0);
+                  CMSetAttachments(v61, v62, 0);
                 }
 
 LABEL_188:
-                if (v89)
+                if (v91)
                 {
-                  *v89 = allocator;
+                  *v91 = allocator;
                 }
 
                 if (a9)
                 {
-                  *a9 = v95 - v72;
+                  *a9 = v97 - v74;
                 }
 
                 if (a10)
                 {
-                  *a10 = v96;
+                  *a10 = v98;
                 }
 
-                *v87 = sampleBufferOut;
+                *v89 = sampleBufferOut;
                 sampleBufferOut = 0;
                 v11 = isa;
-                if (v90)
+                if (v92)
                 {
-                  v73 = *v90;
-                  *v90 = cf;
+                  v75 = *v92;
+                  *v92 = cf;
                   if (cf)
                   {
                     CFRetain(cf);
                   }
 
-                  if (v73)
+                  if (v75)
                   {
-                    CFRelease(v73);
+                    CFRelease(v75);
                   }
                 }
 
-                if (v71)
+                if (v73)
                 {
-                  v74 = *v71;
-                  *v71 = a1;
+                  v76 = *v73;
+                  *v73 = a1;
                   if (a1)
                   {
                     CFRetain(a1);
                   }
 
-                  if (v74)
+                  if (v76)
                   {
-                    CFRelease(v74);
+                    CFRelease(v76);
                   }
                 }
 
@@ -6770,7 +6815,7 @@ LABEL_188:
             }
 
 LABEL_291:
-            v13 = v104;
+            v13 = v106;
             goto LABEL_206;
           }
 
@@ -6778,24 +6823,24 @@ LABEL_291:
           goto LABEL_287;
         }
 
-        if (!v93 || numSampleTimingEntries < 1)
+        if (!v95 || numSampleTimingEntries < 1)
         {
-          v78 = v94;
-          if (HIDWORD(v112[1]))
+          v80 = v96;
+          if (HIDWORD(v114[1]))
           {
-            v79 = v24;
+            v81 = v24;
           }
 
           else
           {
-            v78 = 0;
-            v79 = 0;
+            v80 = 0;
+            v81 = 0;
           }
 
-          v57 = CMSampleBufferCreate(a1, 0, !(v86 & 0x100000000), 0, 0, FormatDescription, HIDWORD(v112[1]), numSampleTimingEntries, sampleTiming, v78, v79, &sampleBufferOut);
+          v59 = CMSampleBufferCreate(a1, 0, !(v88 & 0x100000000), 0, 0, FormatDescription, HIDWORD(v114[1]), numSampleTimingEntries, sampleTiming, v80, v81, &sampleBufferOut);
 LABEL_171:
-          isa_low = v57;
-          if (!v57)
+          isa_low = v59;
+          if (!v59)
           {
             goto LABEL_172;
           }
@@ -6803,13 +6848,13 @@ LABEL_171:
           goto LABEL_291;
         }
 
-        if (HIDWORD(v112[1]))
+        if (HIDWORD(v114[1]))
         {
-          if (v91 >= 16 * HIDWORD(v112[1]))
+          if (v93 >= 16 * HIDWORD(v114[1]))
           {
             *&sbufPTS.isa = *&sampleTiming->presentationTimeStamp.value;
             sbufPTS.data = sampleTiming->presentationTimeStamp.epoch;
-            v57 = CMAudioSampleBufferCreateWithPacketDescriptions(a1, 0, (v23 | BYTE4(v86) & 1) == 0, 0, 0, FormatDescription, HIDWORD(v112[1]), &sbufPTS, v93, &sampleBufferOut);
+            v59 = CMAudioSampleBufferCreateWithPacketDescriptions(a1, 0, (v23 | BYTE4(v88) & 1) == 0, 0, 0, FormatDescription, HIDWORD(v114[1]), &sbufPTS, v95, &sampleBufferOut);
             goto LABEL_171;
           }
 
@@ -6827,18 +6872,18 @@ LABEL_171:
 LABEL_287:
       isa_low = LODWORD(sbufPTS.isa);
 LABEL_205:
-      v13 = v104;
+      v13 = v106;
       goto LABEL_206;
     }
 
-    if (v115)
+    if (v117)
     {
-      v50 = CVDataBufferCreateWithIOSurface();
-      if (!v50)
+      v52 = CVDataBufferCreateWithIOSurface();
+      if (!v52)
       {
         if (theAttachments)
         {
-          CVBufferSetAttachments(v116, theAttachments, kCVAttachmentMode_ShouldPropagate);
+          CVBufferSetAttachments(v118, theAttachments, kCVAttachmentMode_ShouldPropagate);
         }
 
         if (!FormatDescription)
@@ -6852,21 +6897,21 @@ LABEL_205:
       }
 
 LABEL_284:
-      isa_low = v50;
+      isa_low = v52;
       goto LABEL_250;
     }
 
     if (IOSurfaceGetProhibitUseCount())
     {
-      v52 = CFDictionaryCreateMutable(a1, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      CFDictionarySetValue(v52, *MEMORY[0x1E6966058], *MEMORY[0x1E695E4D0]);
-      isa_low = CVPixelBufferCreateWithIOSurface(a1, a2, v52, &pixelBufferOut);
-      if (v52)
+      v54 = CFDictionaryCreateMutable(a1, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+      CFDictionarySetValue(v54, *MEMORY[0x1E6966058], *MEMORY[0x1E695E4D0]);
+      isa_low = CVPixelBufferCreateWithIOSurface(a1, a2, v54, &pixelBufferOut);
+      if (v54)
       {
-        CFRelease(v52);
+        CFRelease(v54);
       }
 
-      v13 = v104;
+      v13 = v106;
       if (isa_low)
       {
         goto LABEL_250;
@@ -6882,9 +6927,9 @@ LABEL_284:
       }
     }
 
-    if (v110)
+    if (v112)
     {
-      CVBufferSetAttachments(pixelBufferOut, v110, kCVAttachmentMode_ShouldPropagate);
+      CVBufferSetAttachments(pixelBufferOut, v112, kCVAttachmentMode_ShouldPropagate);
     }
 
     if (!FormatDescription || !CMVideoFormatDescriptionMatchesImageBuffer(FormatDescription, pixelBufferOut))
@@ -6895,8 +6940,8 @@ LABEL_284:
         formatDescriptionOut = 0;
       }
 
-      v50 = CMVideoFormatDescriptionCreateForImageBuffer(a1, pixelBufferOut, &formatDescriptionOut);
-      if (v50)
+      v52 = CMVideoFormatDescriptionCreateForImageBuffer(a1, pixelBufferOut, &formatDescriptionOut);
+      if (v52)
       {
         goto LABEL_284;
       }
@@ -6905,29 +6950,29 @@ LABEL_284:
     }
 
 LABEL_144:
-    v49 = v112[2];
+    v51 = v114[2];
     goto LABEL_145;
   }
 
-  v96 = 0;
+  v98 = 0;
   cf = FormatDescription;
   v23 = 0;
-  v94 = 0;
-  v95 = 0;
-  v91 = 0;
-  numSampleTimingEntries = 0;
+  v96 = 0;
+  v97 = 0;
   v93 = 0;
+  numSampleTimingEntries = 0;
+  v95 = 0;
   v24 = 0;
   sampleTiming = 0;
   isa = 0;
   v13 = 0;
-  v104 = (v12 + 8);
+  v106 = (v12 + 8);
   allocator = *MEMORY[0x1E695E480];
   p_data = &sbufPTS.data;
   v25 = 8;
   while (1)
   {
-    v26 = figReadNEAtomHeader(v12, v25, v22, &v105 + 1, &v105);
+    v26 = figReadNEAtomHeader(v12, v25, v22, &v107 + 1, &v107);
     if (v26)
     {
 LABEL_255:
@@ -6937,36 +6982,36 @@ LABEL_256:
       goto LABEL_271;
     }
 
-    v28 = &v104[v25];
-    v29 = v105 - 8;
-    if (SHIDWORD(v105) <= 1885631330)
+    v30 = &v106[v25];
+    v31 = v107 - 8;
+    if (SHIDWORD(v107) <= 1885631330)
     {
       break;
     }
 
-    if (SHIDWORD(v105) <= 1935958387)
+    if (SHIDWORD(v107) <= 1935958387)
     {
-      if (SHIDWORD(v105) > 1935766577)
+      if (SHIDWORD(v107) > 1935766577)
       {
-        if (HIDWORD(v105) != 1935897200)
+        if (HIDWORD(v107) != 1935897200)
         {
-          if (HIDWORD(v105) == 1935766578)
+          if (HIDWORD(v107) == 1935766578)
           {
-            p_theAttachments = &v111;
+            p_theAttachments = &v113;
           }
 
           else
           {
-            if (HIDWORD(v105) != 1935766644)
+            if (HIDWORD(v107) != 1935766644)
             {
               goto LABEL_91;
             }
 
-            p_theAttachments = v112;
+            p_theAttachments = v114;
           }
 
 LABEL_116:
-          sbufAtom_copyDictionaryFromAtom(a1, v104 + v25, v105 - 8, p_theAttachments, v27, v19, v20, v21, packetDescriptions, v81, sampleSizeArray, v83, p_data, v85, v86, v87, v88, v89, v90, v91, numSampleTimingEntries, v93, v94, v95);
+          sbufAtom_copyDictionaryFromAtom(a1, v106 + v25, v107 - 8, p_theAttachments, v29, v19, v20, v21, packetDescriptions, v83, sampleSizeArray, v85, p_data, v87, v88, v89, v90, v91, v92, v93, numSampleTimingEntries, v95, v96, v97);
           if (v26)
           {
             goto LABEL_255;
@@ -6976,40 +7021,40 @@ LABEL_116:
         }
 
 LABEL_43:
-        v121 = 0;
-        v120 = 0;
-        if (v105 != 8)
+        v123 = 0;
+        v122 = 0;
+        if (v107 != 8)
         {
-          v29 = CFDataCreate(allocator, v28, v29);
+          v31 = CFDataCreate(allocator, v30, v31);
           if (!v17)
           {
             goto LABEL_79;
           }
 
-          v33 = *(CMBaseObjectGetVTable(v17) + 16);
-          if (*v33 >= 8uLL && (v34 = v33[34]) != 0)
+          v35 = *(CMBaseObjectGetVTable(v17) + 16);
+          if (*v35 >= 8uLL && (v36 = v35[34]) != 0)
           {
-            v35 = v34(v17, v29, &v120);
-            if (v35)
+            v37 = v36(v17, v31, &v122);
+            if (v37)
             {
-              isa_low = v35;
+              isa_low = v37;
             }
 
             else
             {
-              if (v120 == 1)
+              if (v122 == 1)
               {
                 v13 = CFRetain(v17);
                 goto LABEL_84;
               }
 
 LABEL_79:
-              v42 = v13;
+              v44 = v13;
               sbufDuration.value = 0;
               *&sbufDuration.timescale = &sbufDuration;
               sbufDuration.epoch = 0x2000000000;
-              v43 = getFigCPECryptorCreateCryptorFromSerializedRecipeSymbolLoc_ptr;
-              v125 = getFigCPECryptorCreateCryptorFromSerializedRecipeSymbolLoc_ptr;
+              v45 = getFigCPECryptorCreateCryptorFromSerializedRecipeSymbolLoc_ptr;
+              v127 = getFigCPECryptorCreateCryptorFromSerializedRecipeSymbolLoc_ptr;
               if (!getFigCPECryptorCreateCryptorFromSerializedRecipeSymbolLoc_ptr)
               {
                 sbufPTS.isa = MEMORY[0x1E69E9820];
@@ -7018,29 +7063,29 @@ LABEL_79:
                 sbufPTS.length = &unk_1E74A4E78;
                 p_sbufDuration = &sbufDuration;
                 __getFigCPECryptorCreateCryptorFromSerializedRecipeSymbolLoc_block_invoke(&sbufPTS);
-                v43 = *(*&sbufDuration.timescale + 24);
+                v45 = *(*&sbufDuration.timescale + 24);
               }
 
               _Block_object_dispose(&sbufDuration, 8);
-              if (!v43)
+              if (!v45)
               {
                 sbufAtom_createSampleBufferFromSerializedAtomDataAndSurface_cold_2();
                 goto LABEL_282;
               }
 
-              v44 = v43(a1, v29, &v121);
-              if (v44)
+              v46 = v45(a1, v31, &v123);
+              if (v46)
               {
-                isa_low = v44;
-                v13 = v42;
+                isa_low = v46;
+                v13 = v44;
               }
 
               else
               {
-                v13 = v121;
+                v13 = v123;
 LABEL_84:
                 isa_low = 0;
-                v121 = 0;
+                v123 = 0;
               }
             }
           }
@@ -7050,14 +7095,14 @@ LABEL_84:
             isa_low = 4294954514;
           }
 
-          if (v29)
+          if (v31)
           {
-            CFRelease(v29);
+            CFRelease(v31);
           }
 
-          if (v121)
+          if (v123)
           {
-            CFRelease(v121);
+            CFRelease(v123);
           }
 
           if (isa_low)
@@ -7073,14 +7118,14 @@ LABEL_84:
         goto LABEL_84;
       }
 
-      if (HIDWORD(v105) == 1885631331)
+      if (HIDWORD(v107) == 1885631331)
       {
-        if (HIDWORD(v112[1]))
+        if (HIDWORD(v114[1]))
         {
-          if (((16 * HIDWORD(v112[1])) | 8uLL) <= v105)
+          if (((16 * HIDWORD(v114[1])) | 8uLL) <= v107)
           {
-            v93 = &v104[v25];
-            v91 = v105 - 8;
+            v95 = &v106[v25];
+            v93 = v107 - 8;
             goto LABEL_91;
           }
 
@@ -7098,9 +7143,9 @@ LABEL_270:
         goto LABEL_271;
       }
 
-      if (HIDWORD(v105) == 1935766137)
+      if (HIDWORD(v107) == 1935766137)
       {
-        sbufAtom_copyArrayFromAtom(a1, v104 + v25, v105 - 8, &v108, v27, v19, v20, v21, packetDescriptions, v81, sampleSizeArray, v83, p_data, v85, v86, v87, v88, v89, v90, v91, numSampleTimingEntries, v93, v94, v95);
+        v26 = sbufAtom_copyArrayFromAtom(a1, v106 + v25, v107 - 8, &v110, v29, v19, v20, v21, packetDescriptions, v83, sampleSizeArray, v85, p_data, v87, v88, v89, v90, v91, v92, v93, numSampleTimingEntries, v95, v96, v97);
         if (v26)
         {
           goto LABEL_255;
@@ -7108,14 +7153,14 @@ LABEL_270:
       }
     }
 
-    else if (SHIDWORD(v105) > 1937008992)
+    else if (SHIDWORD(v107) > 1937008992)
     {
-      if (HIDWORD(v105) == 1937008993)
+      if (HIDWORD(v107) == 1937008993)
       {
-        if (v105 > 0x4F)
+        if (v107 > 0x4F)
         {
-          numSampleTimingEntries = v29 / 0x48;
-          sampleTiming = &v104[v25];
+          numSampleTimingEntries = v31 / 0x48;
+          sampleTiming = &v106[v25];
           goto LABEL_91;
         }
 
@@ -7123,9 +7168,9 @@ LABEL_270:
         goto LABEL_270;
       }
 
-      if (HIDWORD(v105) == 1952673644)
+      if (HIDWORD(v107) == 1952673644)
       {
-        v26 = sbufAtom_copyTagCollectionArrayFromAtom(a1, &v104[v25], v105 - 8, &v112[2]);
+        v26 = sbufAtom_copyTagCollectionArrayFromAtom(a1, &v106[v25], v107 - 8, &v114[2]);
         if (v26)
         {
           goto LABEL_255;
@@ -7135,22 +7180,22 @@ LABEL_270:
 
     else
     {
-      if (HIDWORD(v105) == 1935958388)
+      if (HIDWORD(v107) == 1935958388)
       {
         v23 = 1;
-        if (!HIDWORD(v112[1]))
+        if (!HIDWORD(v114[1]))
         {
-          HIDWORD(v112[1]) = 1;
+          HIDWORD(v114[1]) = 1;
         }
 
-        v95 = &v104[v25];
-        v96 = v105 - 8;
+        v97 = &v106[v25];
+        v98 = v107 - 8;
         goto LABEL_91;
       }
 
-      if (HIDWORD(v105) == 1936943482)
+      if (HIDWORD(v107) == 1936943482)
       {
-        if (v105 <= 0xB)
+        if (v107 <= 0xB)
         {
           sbufAtom_createSampleBufferFromSerializedAtomDataAndSurface_cold_7(&sbufPTS);
           goto LABEL_270;
@@ -7161,30 +7206,30 @@ LABEL_270:
           free(v24);
         }
 
-        v31 = v29 >> 2;
-        v94 = v29 >> 2;
-        if (v29 >= 4)
+        v33 = v31 >> 2;
+        v96 = v31 >> 2;
+        if (v31 >= 4)
         {
-          if (8 * v31)
+          if (8 * v33)
           {
-            v45 = malloc_type_malloc(8 * v31, 0x100004000313F17uLL);
-            if (v45)
+            v47 = malloc_type_malloc(8 * v33, 0x100004000313F17uLL);
+            if (v47)
             {
-              v24 = v45;
-              v46 = 0;
-              v47 = v29 >> 2;
-              if (v94 <= 1)
+              v24 = v47;
+              v48 = 0;
+              v49 = v31 >> 2;
+              if (v96 <= 1)
               {
-                v47 = 1;
+                v49 = 1;
               }
 
               do
               {
-                *(v45 + v46) = *&v28[4 * v46];
-                ++v46;
+                *(v47 + v48) = *&v30[4 * v48];
+                ++v48;
               }
 
-              while (v47 != v46);
+              while (v49 != v48);
               goto LABEL_91;
             }
           }
@@ -7195,34 +7240,34 @@ LABEL_260:
           goto LABEL_270;
         }
 
-        v32 = malloc_type_malloc(0, 0x100004000313F17uLL);
-        if (!v32)
+        v34 = malloc_type_malloc(0, 0x100004000313F17uLL);
+        if (!v34)
         {
           goto LABEL_260;
         }
 
-        v24 = v32;
+        v24 = v34;
       }
     }
 
 LABEL_91:
-    v25 += v105;
+    v25 += v107;
     if (v25 >= v22)
     {
-      v49 = v112[2];
+      v51 = v114[2];
       v11 = isa;
       FormatDescription = cf;
       goto LABEL_122;
     }
   }
 
-  if (SHIDWORD(v105) > 1818456687)
+  if (SHIDWORD(v107) > 1818456687)
   {
-    if (HIDWORD(v105) != 1818456688)
+    if (HIDWORD(v107) != 1818456688)
     {
-      if (HIDWORD(v105) == 1853058416)
+      if (HIDWORD(v107) == 1853058416)
       {
-        if (v105 != 12)
+        if (v107 != 12)
         {
           sbufAtom_createSampleBufferFromSerializedAtomDataAndSurface_cold_8(&sbufPTS);
           goto LABEL_270;
@@ -7231,12 +7276,12 @@ LABEL_91:
 
       else
       {
-        if (HIDWORD(v105) != 1869640819)
+        if (HIDWORD(v107) != 1869640819)
         {
           goto LABEL_91;
         }
 
-        if (v105 != 32)
+        if (v107 != 32)
         {
           sbufAtom_createSampleBufferFromSerializedAtomDataAndSurface_cold_10(&sbufPTS);
           goto LABEL_270;
@@ -7251,16 +7296,16 @@ LABEL_76:
     goto LABEL_43;
   }
 
-  if (SHIDWORD(v105) > 1684108403)
+  if (SHIDWORD(v107) > 1684108403)
   {
-    if (SHIDWORD(v105) > 1768911715)
+    if (SHIDWORD(v107) > 1768911715)
     {
-      if (HIDWORD(v105) != 1768911716)
+      if (HIDWORD(v107) != 1768911716)
       {
         goto LABEL_91;
       }
 
-      if (v105 != 9)
+      if (v107 != 9)
       {
         sbufAtom_createSampleBufferFromSerializedAtomDataAndSurface_cold_3(&sbufPTS);
         goto LABEL_270;
@@ -7269,13 +7314,13 @@ LABEL_76:
       goto LABEL_76;
     }
 
-    switch(HIDWORD(v105))
+    switch(HIDWORD(v107))
     {
       case 0x64617474:
         p_theAttachments = &theAttachments;
         break;
       case 0x66647363:
-        v26 = sbufAtom_copyFormatDescriptionFromAtom(a1, &v104[v25], v105 - 8, &formatDescriptionOut);
+        v26 = sbufAtom_copyFormatDescriptionFromAtom(a1, &v106[v25], v107 - 8, &formatDescriptionOut);
         if (v26)
         {
           goto LABEL_255;
@@ -7284,7 +7329,7 @@ LABEL_76:
         cf = formatDescriptionOut;
         goto LABEL_91;
       case 0x69617474:
-        p_theAttachments = &v110;
+        p_theAttachments = &v112;
         break;
       default:
         goto LABEL_91;
@@ -7293,25 +7338,25 @@ LABEL_76:
     goto LABEL_116;
   }
 
-  if (HIDWORD(v105) == 1667330151)
+  if (HIDWORD(v107) == 1667330151)
   {
-    v102 = v24;
-    v36 = v23;
-    v37 = v12;
-    v38 = v13;
+    v104 = v24;
+    v38 = v23;
+    v39 = v12;
+    v40 = v13;
     sbufPTS.isa = 0;
     sbufDuration.value = 0;
-    v39 = FigCaptionSerializerCreate(allocator, &sbufDuration);
-    if (v39)
+    v41 = FigCaptionSerializerCreate(allocator, &sbufDuration);
+    if (v41)
     {
-      isa_low = v39;
-      v40 = 0;
+      isa_low = v41;
+      v42 = 0;
     }
 
     else
     {
-      v40 = CFDataCreate(a1, v28, v29);
-      isa_low = FigCaptionSerializerCreateCaptionGroupFromCFData(sbufDuration.value, v40, &sbufPTS);
+      v42 = CFDataCreate(a1, v30, v31);
+      isa_low = FigCaptionSerializerCreateCaptionGroupFromCFData(sbufDuration.value, v42, &sbufPTS);
       if (!isa_low)
       {
         isa = sbufPTS.isa;
@@ -7324,9 +7369,9 @@ LABEL_76:
       CFRelease(sbufDuration.value);
     }
 
-    if (v40)
+    if (v42)
     {
-      CFRelease(v40);
+      CFRelease(v42);
     }
 
     if (sbufPTS.isa)
@@ -7334,50 +7379,50 @@ LABEL_76:
       CFRelease(sbufPTS.isa);
     }
 
-    v13 = v38;
+    v13 = v40;
     if (isa_low)
     {
       Mutable = 0;
       v11 = isa;
-      v24 = v102;
+      v24 = v104;
       goto LABEL_206;
     }
 
-    v12 = v37;
-    v23 = v36;
-    v24 = v102;
+    v12 = v39;
+    v23 = v38;
+    v24 = v104;
     goto LABEL_91;
   }
 
-  if (HIDWORD(v105) != 1668310371)
+  if (HIDWORD(v107) != 1668310371)
   {
     goto LABEL_91;
   }
 
   v17 = 0;
   sbufPTS.isa = 0;
-  if (v105 == 8)
+  if (v107 == 8)
   {
     goto LABEL_25;
   }
 
-  if (v105 != 16)
+  if (v107 != 16)
   {
     isa_low = 4294966630;
     v11 = isa;
     goto LABEL_250;
   }
 
-  v30 = FigCPECopyCryptorForSerializationToken(*v28, &sbufPTS.isa);
+  v32 = FigCPECopyCryptorForSerializationToken(*v30, &sbufPTS.isa, v27, v28, v29, v19, v20, v21, packetDescriptions);
   v17 = sbufPTS.isa;
-  if (!v30)
+  if (!v32)
   {
 LABEL_25:
     v13 = v17;
     goto LABEL_91;
   }
 
-  isa_low = v30;
+  isa_low = v32;
   v11 = isa;
   if (sbufPTS.isa)
   {
@@ -7392,9 +7437,9 @@ LABEL_206:
     CFRelease(sampleBufferOut);
   }
 
-  if (v108)
+  if (v110)
   {
-    CFRelease(v108);
+    CFRelease(v110);
   }
 
   if (pixelBufferOut)
@@ -7402,9 +7447,9 @@ LABEL_206:
     CFRelease(pixelBufferOut);
   }
 
-  if (v116)
+  if (v118)
   {
-    CFRelease(v116);
+    CFRelease(v118);
   }
 
   if (v11)
@@ -7412,9 +7457,9 @@ LABEL_206:
     CFRelease(v11);
   }
 
-  if (v114)
+  if (v116)
   {
-    CFRelease(v114);
+    CFRelease(v116);
   }
 
   if (taggedBufferGroup)
@@ -7422,9 +7467,9 @@ LABEL_206:
     CFRelease(taggedBufferGroup);
   }
 
-  if (v112[2])
+  if (v114[2])
   {
-    CFRelease(v112[2]);
+    CFRelease(v114[2]);
   }
 
   if (Mutable)
@@ -7432,19 +7477,19 @@ LABEL_206:
     CFRelease(Mutable);
   }
 
-  if (v112[0])
+  if (v114[0])
   {
-    CFRelease(v112[0]);
+    CFRelease(v114[0]);
   }
 
-  if (v111)
+  if (v113)
   {
-    CFRelease(v111);
+    CFRelease(v113);
   }
 
-  if (v110)
+  if (v112)
   {
-    CFRelease(v110);
+    CFRelease(v112);
   }
 
   if (theAttachments)
@@ -7466,7 +7511,7 @@ LABEL_206:
   return isa_low;
 }
 
-size_t FigRemote_CreateSampleBufferFromSerializedAtomDataWithDataBufferAndLastCryptor(const __CFAllocator *a1, uint64_t a2, char *a3, int a4, OpaqueCMBlockBuffer *a5, const opaqueCMFormatDescription **a6, void **a7, CMSampleBufferRef *a8)
+size_t FigRemote_CreateSampleBufferFromSerializedAtomDataWithDataBufferAndLastCryptor(const __CFAllocator *a1, uint64_t a2, char *a3, int a4, OpaqueCMBlockBuffer *a5, const opaqueCMFormatDescription **a6, const __CFAllocator **a7, CMSampleBufferRef *a8)
 {
   sbuf = 0;
   v11 = sbufAtom_createSampleBufferFromSerializedAtomDataAndSurface(a1, 0, a2, a3, 1, a6, a7, 0, 0, 0, &sbuf);
@@ -8087,7 +8132,7 @@ void _pixelbufferreleasebbufcallback(CFTypeRef cf)
   }
 }
 
-uint64_t sbufAtom_copyKeyValuePairFromAtom(const __CFAllocator *a1, uint64_t a2, unint64_t a3, void *a4, void *a5)
+uint64_t sbufAtom_copyKeyValuePairFromAtom(const __CFAllocator *a1, uint64_t a2, unint64_t a3, CMBlockBufferRef *a4, void *a5)
 {
   if (!a4)
   {
@@ -8177,7 +8222,7 @@ LABEL_26:
       }
 
       emitter = fig_log_get_emitter("com.apple.coremedia", "");
-      v24 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFB343uLL, "<<<< FigSampleBufferSerialization >>>>", 0x100F, v30, v22, v23);
+      v24 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFB343uLL, "<<<< FigSampleBufferSerialization >>>>", 0x100F, v30, v22, v23, v28);
     }
 
     v25 = v24;
@@ -8263,7 +8308,7 @@ size_t FigNEAtomWriterEndAtom(uint64_t a1)
     if (HIDWORD(v3))
     {
       emitter = fig_log_get_emitter("com.apple.coremedia", "");
-      result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFB33FuLL, "<<<< FigSampleBufferSerialization >>>>", 0x416, v1, v5, v6);
+      result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFB33FuLL, "<<<< FigSampleBufferSerialization >>>>", 0x416, v1, v5, v6, v10);
     }
 
     else
@@ -8603,19 +8648,19 @@ size_t sbufAtom_appendURLAtom(const __CFURL *a1, void *a2)
   return appended;
 }
 
-CMItemCount sbufAtom_appendNumSamples(opaqueCMSampleBuffer *a1)
+CMItemCount sbufAtom_appendNumSamples(opaqueCMSampleBuffer *a1, uint64_t a2)
 {
   result = CMSampleBufferGetNumSamples(a1);
-  v2 = result;
+  v3 = result;
   if (result)
   {
-    return sbufAtom_appendAtomWithMemoryBlock(&v2, 4uLL);
+    return sbufAtom_appendAtomWithMemoryBlock(&v3, 4uLL);
   }
 
   return result;
 }
 
-size_t sbufAtom_appendPacketDescriptions(opaqueCMSampleBuffer *a1)
+size_t sbufAtom_appendPacketDescriptions(opaqueCMSampleBuffer *a1, uint64_t a2)
 {
   packetDescriptionsSizeOut = 0;
   packetDescriptionsPointerOut = 0;
@@ -8630,8 +8675,8 @@ size_t sbufAtom_appendPacketDescriptions(opaqueCMSampleBuffer *a1)
 
     else
     {
-      sbufAtom_appendPacketDescriptions_cold_1(&v6);
-      return v6;
+      sbufAtom_appendPacketDescriptions_cold_1(&v7);
+      return v7;
     }
   }
 
@@ -8644,8 +8689,8 @@ size_t sbufAtom_copyBackingIOSurfacesFromTaggedBufferGroup(OpaqueCMTaggedBufferG
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], Count, MEMORY[0x1E695E9C0]);
   if (!Mutable)
   {
-    sbufAtom_copyBackingIOSurfacesFromTaggedBufferGroup_cold_2(&v21);
-    return v21;
+    sbufAtom_copyBackingIOSurfacesFromTaggedBufferGroup_cold_2(&v22);
+    return v22;
   }
 
   v7 = Mutable;
@@ -8674,7 +8719,7 @@ LABEL_11:
       v17 = v2;
       v18 = 2991;
 LABEL_14:
-      v13 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFB345uLL, "<<<< FigSampleBufferSerialization >>>>", v18, v17, v15, v16);
+      v13 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFB345uLL, "<<<< FigSampleBufferSerialization >>>>", v18, v17, v15, v16, v20);
       goto LABEL_15;
     }
 
@@ -8702,16 +8747,16 @@ LABEL_9:
     }
   }
 
-  sbufAtom_copyBackingIOSurfacesFromTaggedBufferGroup_cold_1(&v20);
-  v13 = v20;
+  sbufAtom_copyBackingIOSurfacesFromTaggedBufferGroup_cold_1(&v21);
+  v13 = v21;
 LABEL_15:
   CFRelease(v7);
   return v13;
 }
 
-size_t sbufAtom_appendTagCollectionFromTaggedBufferGroup(uint64_t a1, uint64_t a2, void *a3)
+size_t sbufAtom_appendTagCollectionFromTaggedBufferGroup(OpaqueCMTaggedBufferGroup *a1, uint64_t a2, uint64_t *a3)
 {
-  Count = FigTaggedBufferGroupGetCount();
+  Count = FigTaggedBufferGroupGetCount(a1);
   if (Count <= 0)
   {
     sbufAtom_appendTagCollectionFromTaggedBufferGroup_cold_4(&v17);
@@ -8798,7 +8843,7 @@ void *__getFigCPECryptorCreateCryptorFromSerializedRecipeSymbolLoc_block_invoke(
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -8813,7 +8858,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t __MediaToolboxLibraryCore_block_invoke_1()
+uint64_t __MediaToolboxLibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   MediaToolboxLibraryCore_frameworkLibrary_1 = result;
@@ -8832,11 +8877,11 @@ uint64_t OUTLINED_FUNCTION_6_26(int a1, int a2, int a3, const __CFAllocator *a4,
   return CMBlockBufferCreateWithMemoryBlock(v9, v11, v12, a4, 0, 0, a7, 0, v10);
 }
 
-uint64_t OUTLINED_FUNCTION_27_7(uint64_t a1, uint64_t a2, uint64_t a3, ...)
+uint64_t OUTLINED_FUNCTION_27_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a3);
+  va_start(va, a6);
 
-  return figReadNEAtomHeader(v4, v5, v3, (v6 | 4), va);
+  return figReadNEAtomHeader(v7, v8, v6, (v9 | 4), va);
 }
 
 uint64_t OUTLINED_FUNCTION_28_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, int a12, int a13)
@@ -8845,10 +8890,10 @@ uint64_t OUTLINED_FUNCTION_28_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
   return figReadNEAtomHeader(a11, 0, a10, &a13, &a12);
 }
 
-size_t OUTLINED_FUNCTION_29_5(const char *a1, uint64_t *a2, uint64_t a3, const __CFAllocator *a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t OUTLINED_FUNCTION_29_5(const char *a1, uint64_t *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8, CMBlockBufferRef *a9)
 {
 
-  return FigSignalErrorAtGM(a1, a2, 0xFFFFB348uLL, a4, v8, a6, a7, a8);
+  return FigSignalErrorAtGM(a1, a2, 0xFFFFB348uLL, a4, v9, a6, a7, a8, a9);
 }
 
 uint64_t OUTLINED_FUNCTION_40_1(uint64_t a1)
@@ -8857,7 +8902,7 @@ uint64_t OUTLINED_FUNCTION_40_1(uint64_t a1)
   return FigNEAtomWriterBeginAtom(a1, 1717859171);
 }
 
-uint64_t FigTestSupportIsAllowed()
+uint64_t FigTestSupportIsAllowed(uint64_t a1, uint64_t a2)
 {
   if (FigTestSupportIsAllowed_onceToken != -1)
   {
@@ -8867,15 +8912,15 @@ uint64_t FigTestSupportIsAllowed()
   return FigTestSupportIsAllowed_isInternalBuild;
 }
 
-uint64_t __FigTestSupportIsAllowed_block_invoke()
+uint64_t __FigTestSupportIsAllowed_block_invoke(uint64_t a1, uint64_t a2)
 {
-  FigTestSupportIsAllowed_isInternalBuild = FigDebugIsInternalBuild();
+  FigTestSupportIsAllowed_isInternalBuild = FigDebugIsInternalBuild(a1, a2);
   result = os_variant_has_internal_content();
   FigTestSupportIsAllowed_isInternalBuild |= result;
   return result;
 }
 
-uint64_t FigTestSupportIsActive()
+uint64_t FigTestSupportIsActive(uint64_t a1, uint64_t a2)
 {
   if (FigTestSupportIsAllowed_onceToken != -1)
   {
@@ -8893,11 +8938,11 @@ uint64_t FigTestSupportIsActive()
   }
 }
 
-size_t RegisterFigVirtualCaptureCardBaseType()
+size_t RegisterFigVirtualCaptureCardBaseType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   ClassID = CMBaseGetClassID();
 
-  return FigBaseClassRegisterClass(&sFigVirtualCaptureCardClassDesc, ClassID, 1, &sFigVirtualCaptureCardClassID, v1, v2, v3, v4);
+  return FigBaseClassRegisterClass(&sFigVirtualCaptureCardClassDesc, ClassID, 1, &sFigVirtualCaptureCardClassID, v10, v11, v12, v13, a9);
 }
 
 uint64_t FigVirtualCaptureCardGetTypeID()
@@ -8908,14 +8953,14 @@ uint64_t FigVirtualCaptureCardGetTypeID()
   return CMBaseClassGetCFTypeID(v0);
 }
 
-size_t FigTaggedBufferGroupFormatDescriptionRegisterOnce(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigTaggedBufferGroupFormatDescriptionRegisterOnce(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  v9 = 0;
-  v13 = figTaggedBufferGroupFormatDescriptionFinalize;
-  v12 = figTaggedBufferGroupFormatDescriptionCopyDebugDesc;
-  v10 = 16;
-  v11 = figTaggedBufferGroupFormatDescriptionEqual;
-  return FigDerivedFormatDescriptionRegister(0x74626772u, &v9, a3, a4, a5, a6, a7, a8);
+  v10 = 0;
+  v14 = figTaggedBufferGroupFormatDescriptionFinalize;
+  v13 = figTaggedBufferGroupFormatDescriptionCopyDebugDesc;
+  v11 = 16;
+  v12 = figTaggedBufferGroupFormatDescriptionEqual;
+  return FigDerivedFormatDescriptionRegister(0x74626772u, &v10, a3, a4, a5, a6, a7, a8, v9);
 }
 
 size_t FigTaggedBufferGroupFormatDescriptionCreateWithExtensions(const __CFAllocator *a1, int a2, const __CFArray *a3, const void *a4, CFTypeRef *a5)
@@ -8961,7 +9006,7 @@ size_t FigTaggedBufferGroupFormatDescriptionCreateWithExtensions(const __CFAlloc
   }
 
 LABEL_8:
-  v25 = FigDerivedFormatDescriptionCreate(a1, 0x74626772, a2, a4, &cf, v10, v11, v12);
+  v25 = FigDerivedFormatDescriptionCreate(a1, 0x74626772, a2, a4, &cf, v10, v11, v12, cf);
   if (v25)
   {
     if (cf)
@@ -8987,14 +9032,14 @@ Boolean CMTaggedBufferGroupFormatDescriptionMatchesTaggedBufferGroup(CMTaggedBuf
   if (!desc)
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE5AuLL, "(Fig)", 0xF1, v2, v18, v19);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE5AuLL, "(Fig)", 0xF1, v2, v25, v26, v31);
     return v3;
   }
 
   if (!taggedBufferGroup)
   {
-    v20 = fig_log_get_emitter("com.apple.coremedia", "");
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v20, 0xFFFFCE5AuLL, "(Fig)", 0xF6, v2, v21, v22);
+    v27 = fig_log_get_emitter("com.apple.coremedia", "");
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v27, 0xFFFFCE5AuLL, "(Fig)", 0xF6, v2, v28, v29, v31);
 LABEL_11:
     LOBYTE(v3) = 0;
     return v3;
@@ -9003,27 +9048,27 @@ LABEL_11:
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
   if (!Mutable)
   {
-    CMTaggedBufferGroupFormatDescriptionMatchesTaggedBufferGroup_cold_1();
+    CMTaggedBufferGroupFormatDescriptionMatchesTaggedBufferGroup_cold_1(0, v6, v7, v8, v9, v10, v11, v12, v31);
     goto LABEL_11;
   }
 
-  v6 = Mutable;
+  v13 = Mutable;
   if (CMTaggedBufferGroupGetCount(taggedBufferGroup) >= 1)
   {
-    v14 = 0;
+    v21 = 0;
     do
     {
-      TagCollectionAtIndex = CMTaggedBufferGroupGetTagCollectionAtIndex(taggedBufferGroup, v14);
-      CFArrayAppendValue(v6, TagCollectionAtIndex);
-      ++v14;
+      TagCollectionAtIndex = CMTaggedBufferGroupGetTagCollectionAtIndex(taggedBufferGroup, v21);
+      CFArrayAppendValue(v13, TagCollectionAtIndex);
+      ++v21;
     }
 
-    while (v14 < CMTaggedBufferGroupGetCount(taggedBufferGroup));
+    while (v21 < CMTaggedBufferGroupGetCount(taggedBufferGroup));
   }
 
-  DerivedStorage = FigDerivedFormatDescriptionGetDerivedStorage(v3, v7, v8, v9, v10, v11, v12, v13);
-  LOBYTE(v3) = *DerivedStorage == 1952606066 && compareTagCollections(v6, *(DerivedStorage + 8)) != 0;
-  CFRelease(v6);
+  DerivedStorage = FigDerivedFormatDescriptionGetDerivedStorage(v3, v14, v15, v16, v17, v18, v19, v20);
+  LOBYTE(v3) = *DerivedStorage == 1952606066 && compareTagCollections(v13, *(DerivedStorage + 8)) != 0;
+  CFRelease(v13);
   return v3;
 }
 
@@ -9114,7 +9159,7 @@ LABEL_15:
   return 1;
 }
 
-uint64_t FigTaggedBufferGroupFormatDescriptionCopyTagCollections(uint64_t a1, const __CFAllocator *a2, CFArrayRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigTaggedBufferGroupFormatDescriptionCopyTagCollections(uint64_t a1, const __CFAllocator *a2, CFArrayRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   DerivedStorage = FigDerivedFormatDescriptionGetDerivedStorage(a1, a2, a3, a4, a5, a6, a7, a8);
   if (a1)
@@ -9151,7 +9196,7 @@ uint64_t FigTaggedBufferGroupFormatDescriptionCopyTagCollections(uint64_t a1, co
   return result;
 }
 
-void figTaggedBufferGroupFormatDescriptionFinalize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+void figTaggedBufferGroupFormatDescriptionFinalize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   v8 = *(FigDerivedFormatDescriptionGetDerivedStorage(a1, a2, a3, a4, a5, a6, a7, a8) + 8);
   if (v8)
@@ -9161,7 +9206,7 @@ void figTaggedBufferGroupFormatDescriptionFinalize(uint64_t a1, uint64_t a2, uin
   }
 }
 
-__CFString *figTaggedBufferGroupFormatDescriptionCopyDebugDesc(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+__CFString *figTaggedBufferGroupFormatDescriptionCopyDebugDesc(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   DerivedStorage = FigDerivedFormatDescriptionGetDerivedStorage(a1, a2, a3, a4, a5, a6, a7, a8);
   v10 = CFGetAllocator(a1);
@@ -9170,7 +9215,7 @@ __CFString *figTaggedBufferGroupFormatDescriptionCopyDebugDesc(const void *a1, u
   return Mutable;
 }
 
-BOOL figTaggedBufferGroupFormatDescriptionEqual(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+BOOL figTaggedBufferGroupFormatDescriptionEqual(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   DerivedStorage = FigDerivedFormatDescriptionGetDerivedStorage(a1, a2, a3, a4, a5, a6, a7, a8);
   v17 = FigDerivedFormatDescriptionGetDerivedStorage(a2, v10, v11, v12, v13, v14, v15, v16);
@@ -9179,19 +9224,19 @@ BOOL figTaggedBufferGroupFormatDescriptionEqual(uint64_t a1, uint64_t a2, uint64
 
 size_t FigEndpointRemoteControlSessionStartServer()
 {
-  v8[0] = 1;
-  v8[1] = HandleEndpointRemoteControlSessionRemoteMessage;
-  v9 = 0u;
-  v10 = 0u;
+  v12[0] = 1;
+  v12[1] = HandleEndpointRemoteControlSessionRemoteMessage;
+  v13 = 0u;
+  v14 = 0u;
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   FigCFDictionarySetInt32(Mutable, @"xpcServerOption_SelfTerminationTimeout", 30, v1, v2, v3, v4, v5);
-  v6 = FigXPCServerStart("com.apple.coremedia.endpointremotecontrolsession.xpc", v8, Mutable, &gEndpointRemoteControlSessionServer);
+  v10 = FigXPCServerStart("com.apple.coremedia.endpointremotecontrolsession.xpc", v12, Mutable, &gEndpointRemoteControlSessionServer, v6, v7, v8, v9);
   if (Mutable)
   {
     CFRelease(Mutable);
   }
 
-  return v6;
+  return v10;
 }
 
 uint64_t FigXPCEndpointRemoteControlSessionServerAssociateNeighborFigEndpointRemoteControlSession(uint64_t a1, const void *a2, uint64_t a3)
@@ -9352,7 +9397,7 @@ uint64_t fig_initializeCommonMemoryPoolManagement()
   return result;
 }
 
-uint64_t FigCustomURLHandlerServerEnsure()
+uint64_t FigCustomURLHandlerServerEnsure(uint64_t a1, uint64_t a2)
 {
   if (FigCustomURLHandlerServerEnsure_sFigCustomURLHandlerServerOnce != -1)
   {
@@ -9366,13 +9411,13 @@ dispatch_queue_t __FigCustomURLHandlerServerEnsure_block_invoke()
 {
   fig_note_initialize_category_with_default_work_cf(&gFigCustomURLHandler2RemoteNote[1], @"customurlhandler_xpc_trace", @"com.apple.coremedia", "", "com.apple.coremedia", 0, 0, gFigCustomURLHandler2RemoteNote);
   fig_note_initialize_category_with_default_work_cf(&dword_1ED4CC360, @"customurlhandler_xpc_trace", @"com.apple.coremedia", "", "com.apple.coremedia", 0, 0, &qword_1ED4CC358);
-  FigCustomURLHandlerServerEnsure_sFigCustomURLHandlerStartError = FigXPCServerStartWithNewXPCEndpoint("com.apple.coremedia.customurlhandler.xpc", figCustomURLHandlerServerStart_callbacks, 0, &gFigCustomURLHandlerServer);
+  FigCustomURLHandlerServerEnsure_sFigCustomURLHandlerStartError = FigXPCServerStartWithNewXPCEndpoint("com.apple.coremedia.customurlhandler.xpc", figCustomURLHandlerServerStart_callbacks, 0, &gFigCustomURLHandlerServer, v0, v1, v2, v3);
   result = dispatch_queue_create("com.apple.coremedia.customurlhandlerserver.data", 0);
   _MergedGlobals_56 = result;
   return result;
 }
 
-uint64_t FigCustomURLHandlerServerAssociateObjectAndContentKeySessionByPID(uint64_t a1, uint64_t a2, const void *a3, void *a4)
+uint64_t FigCustomURLHandlerServerAssociateObjectAndContentKeySessionByPID(uint64_t a1, uint64_t a2, const void *a3, uint64_t *a4)
 {
   v20 = 0;
   v8 = malloc_type_calloc(1uLL, 0x18uLL, 0x20040960023A9uLL);
@@ -9617,7 +9662,7 @@ void handlerServerShimCompletionRec_dealloc(NSObject **a1)
   free(a1);
 }
 
-uint64_t FigEndpointExtendedGetClassID()
+uint64_t FigEndpointExtendedGetClassID(uint64_t a1, uint64_t a2)
 {
   if (_MergedGlobals_57 != -1)
   {
@@ -9627,11 +9672,11 @@ uint64_t FigEndpointExtendedGetClassID()
   return qword_1ED4CCEB0;
 }
 
-size_t FigEndpointExtendedGetClassIDCallback(void *a1)
+size_t FigEndpointExtendedGetClassIDCallback(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
-  ClassID = FigEndpointGetClassID();
+  ClassID = FigEndpointGetClassID(a1, a2);
 
-  return FigBaseClassRegisterClass(&FigEndpointExtendedGetClassIDCallback_sFigEndpointExtendedClassDesc, ClassID, 0, a1, v3, v4, v5, v6);
+  return FigBaseClassRegisterClass(&FigEndpointExtendedGetClassIDCallback_sFigEndpointExtendedClassDesc, ClassID, 0, a1, v11, v12, v13, v14, a9);
 }
 
 uint64_t RegisterFigCaptionSerializerType()
@@ -9645,45 +9690,45 @@ uint64_t FigCaptionSerializerCreate(uint64_t a1, void ***a2)
 {
   if (!a2)
   {
-    FigCaptionSerializerCreate_cold_3(&v20);
-    return v20;
+    FigCaptionSerializerCreate_cold_3(&v28);
+    return v28;
   }
 
   FigThreadRunOnce(&sRegisterFigCaptionSerializerTypeOnce, RegisterFigCaptionSerializerType);
   Instance = _CFRuntimeCreateInstance();
   if (!Instance)
   {
-    FigCaptionSerializerCreate_cold_2();
+    FigCaptionSerializerCreate_cold_2(0, v4, v5, v6, v7, v8, v9, v10, v26);
     return 0;
   }
 
-  v4 = Instance;
+  v11 = Instance;
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  v4[2] = Mutable;
+  v11[2] = Mutable;
   if (!Mutable)
   {
-    FigCaptionSerializerCreate_cold_1(&v19);
-    v17 = v19;
+    FigCaptionSerializerCreate_cold_1(&v27);
+    v24 = v27;
     goto LABEL_12;
   }
 
-  v11 = FigCFDictionarySetInt32(Mutable, @"FigCaptionSerializerVersion", 1, v6, v7, v8, v9, v10);
-  if (v11)
+  v18 = FigCFDictionarySetInt32(Mutable, @"FigCaptionSerializerVersion", 1, v13, v14, v15, v16, v17);
+  if (v18)
   {
-    v17 = v11;
+    v24 = v18;
     goto LABEL_12;
   }
 
-  v17 = FigCFDictionarySetInt32(v4[2], @"FigCaptionSerializerFormat", 1, v12, v13, v14, v15, v16);
-  if (v17)
+  v24 = FigCFDictionarySetInt32(v11[2], @"FigCaptionSerializerFormat", 1, v19, v20, v21, v22, v23);
+  if (v24)
   {
 LABEL_12:
-    CFRelease(v4);
-    return v17;
+    CFRelease(v11);
+    return v24;
   }
 
-  *a2 = v4;
-  return v17;
+  *a2 = v11;
+  return v24;
 }
 
 uint64_t FigCaptionSerializerCopyProperty(uint64_t a1, CFTypeRef cf1, uint64_t a3, void *a4)

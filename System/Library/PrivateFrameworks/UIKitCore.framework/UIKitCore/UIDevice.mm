@@ -173,10 +173,10 @@ void __29__UIDevice__isWatchCompanion__block_invoke()
     if (isKindOfClass)
     {
       v4 = [v6 objectForKey:@"NSExtensionPointIdentifier"];
-      v5 = [v4 isEqualToString:@"com.apple.watchkit"];
+      isEqualToString = objc_msgSend_isEqualToString_(v4);
 
       v2 = v6;
-      if (v5)
+      if (isEqualToString)
       {
         byte_1ED49E753 = 1;
       }
@@ -195,7 +195,7 @@ void __44__UIDevice_UIDeviceInternal___hasHomeButton__block_invoke()
   }
 
   byte_1ED49E757 = v2 != 2;
-  if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_ForceHasNoHomeButton, @"ForceHasNoHomeButton") & 1) == 0 && byte_1ED48B1CC)
+  if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_ForceHasNoHomeButton, @"ForceHasNoHomeButton") && byte_1ED48B1CC)
   {
     byte_1ED49E757 = 0;
   }
@@ -246,7 +246,7 @@ uint64_t __48__UIDevice_UIDevicePrivate___supportsForceTouch__block_invoke()
 - (NSString)model
 {
   v2 = [(UIDevice *)self _deviceInfoForKey:@"DeviceName"];
-  if ([(__CFString *)v2 isEqualToString:@"iPod"])
+  if (objc_msgSend_isEqualToString_(v2))
   {
 
     v2 = @"iPod touch";
@@ -1370,7 +1370,7 @@ LABEL_31:
   keyCopy = key;
   if (pthread_main_np() == 1)
   {
-    if ([keyCopy isEqualToString:@"orientation"])
+    if (objc_msgSend_isEqualToString_(keyCopy))
     {
       v8 = *(__UILogGetCategoryCachedImpl("Orientation", &setValue_forKey____s_category) + 8);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -1519,7 +1519,7 @@ uint64_t __65__UIDevice__performShimmedRequestIfPossibleForDeviceOrientation___b
 
 - (BOOL)_hasTouchPad
 {
-  if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_DeviceHasTouchPadOverride, @"DeviceHasTouchPadOverride") & 1) == 0 && byte_1ED48B1C4)
+  if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_DeviceHasTouchPadOverride, @"DeviceHasTouchPadOverride") && byte_1ED48B1C4)
   {
     goto LABEL_3;
   }

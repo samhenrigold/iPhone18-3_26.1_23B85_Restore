@@ -5,6 +5,7 @@
 - (WBSSQLiteStoreDelegate)delegate;
 - (id)_databaseCoordinationLockURLForDatabaseURL:(id)l;
 - (int)_migrateToCurrentSchemaVersionIfNecessary;
+- (int)_setDatabaseSchemaVersion:(int)version;
 - (void)_closeDatabase;
 - (void)_confirmDatabaseIntegrityIsOK;
 - (void)_handleOpenFailureWithStatus:(int64_t)status completionHandler:(id)handler;
@@ -20,20 +21,20 @@
 
 - (BOOL)_confirmDatabaseIntegrityIsOK
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   checkIntegrity = [(WBSSQLiteDatabase *)self->_database checkIntegrity];
+  v4 = checkIntegrity;
   if (checkIntegrity)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXSQLiteStore();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXSQLiteStore(checkIntegrity, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      safari_privacyPreservingDescription = [checkIntegrity safari_privacyPreservingDescription];
+      safari_privacyPreservingDescription = [v4 safari_privacyPreservingDescription];
       [(WBSSQLiteStore *)safari_privacyPreservingDescription _confirmDatabaseIntegrityIsOK];
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-  return checkIntegrity == 0;
+  return v4 == 0;
 }
 
 - (int)_migrateToCurrentSchemaVersionIfNecessary
@@ -190,34 +191,39 @@ void __116__WBSSQLiteStore_openAndCheckIntegrity_createIfNeeded_fallBackToMemory
   }
 
   protectionType = self->_protectionType;
-  v41 = 0;
-  v18 = [(WBSSQLiteDatabase *)v15 openWithAccessType:v16 protectionType:protectionType vfs:0 error:&v41];
-  v19 = v41;
+  v46 = 0;
+  v18 = [(WBSSQLiteDatabase *)v15 openWithAccessType:v16 protectionType:protectionType vfs:0 error:&v46];
+  v19 = v46;
+  v21 = v19;
   if (!v18)
   {
-    v24 = WBS_LOG_CHANNEL_PREFIXSQLiteStore();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v30 = WBS_LOG_CHANNEL_PREFIXSQLiteStore(v19, v20);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      safari_privacyPreservingDescription = [v19 safari_privacyPreservingDescription];
+      safari_privacyPreservingDescription = [v21 safari_privacyPreservingDescription];
       [WBSSQLiteStore _openDatabase:databaseCopy createIfNeeded:safari_privacyPreservingDescription checkIntegrity:location completionHandler:?];
     }
 
-    v26 = 1;
+    v32 = 1;
     goto LABEL_23;
   }
 
-  if (self->_databaseLockingPolicy == 1 && ![(WBSSQLiteStore *)self _acquireDatabaseCoordinationLockForDatabaseURL:databaseCopy])
+  if (self->_databaseLockingPolicy == 1)
   {
-    v30 = WBS_LOG_CHANNEL_PREFIXSQLiteStore();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v22 = [(WBSSQLiteStore *)self _acquireDatabaseCoordinationLockForDatabaseURL:databaseCopy];
+    if ((v22 & 1) == 0)
     {
-      [WBSSQLiteStore _openDatabase:databaseCopy createIfNeeded:v30 checkIntegrity:? completionHandler:?];
-    }
+      v36 = WBS_LOG_CHANNEL_PREFIXSQLiteStore(v22, v23);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      {
+        [WBSSQLiteStore _openDatabase:databaseCopy createIfNeeded:v36 checkIntegrity:? completionHandler:?];
+      }
 
-    v26 = 2;
+      v32 = 2;
 LABEL_23:
-    [(WBSSQLiteStore *)self _handleOpenFailureWithStatus:v26 completionHandler:handlerCopy];
-    goto LABEL_24;
+      [(WBSSQLiteStore *)self _handleOpenFailureWithStatus:v32 completionHandler:handlerCopy];
+      goto LABEL_24;
+    }
   }
 
   if (integrityCopy && ![(WBSSQLiteStore *)self _confirmDatabaseIntegrityIsOK])
@@ -227,19 +233,19 @@ LABEL_23:
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     if (WeakRetained)
     {
-      v33 = dispatch_get_global_queue(21, 0);
+      v38 = dispatch_get_global_queue(21, 0);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __80__WBSSQLiteStore__openDatabase_createIfNeeded_checkIntegrity_completionHandler___block_invoke;
       block[3] = &unk_1E7CF52B0;
-      objc_copyWeak(&v39, location);
-      v36 = WeakRetained;
-      v37 = databaseCopy;
-      v40 = neededCopy;
-      v38 = handlerCopy;
-      dispatch_async(v33, block);
+      objc_copyWeak(&v44, location);
+      v41 = WeakRetained;
+      v42 = databaseCopy;
+      v45 = neededCopy;
+      v43 = handlerCopy;
+      dispatch_async(v38, block);
 
-      objc_destroyWeak(&v39);
+      objc_destroyWeak(&v44);
     }
 
     else
@@ -252,46 +258,44 @@ LABEL_23:
 
   else
   {
-    v20 = self->_database;
-    v34 = v19;
-    v21 = [(WBSSQLiteDatabase *)v20 enableWAL:&v34];
-    v22 = v34;
+    v24 = self->_database;
+    v39 = v21;
+    v25 = [(WBSSQLiteDatabase *)v24 enableWAL:&v39];
+    v26 = v39;
 
-    if (v21)
+    if (v25)
     {
       SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(self->_database, 0, @"PRAGMA foreign_keys = ON");
       if ([(WBSSQLiteStore *)self _migrateToCurrentSchemaVersionIfNecessary])
       {
-        v23 = 0;
+        v29 = 0;
       }
 
       else
       {
-        v23 = 3;
+        v29 = 3;
       }
 
-      v19 = v22;
-      (*(handlerCopy + 2))(handlerCopy, v23);
+      v21 = v26;
+      (*(handlerCopy + 2))(handlerCopy, v29);
     }
 
     else
     {
-      v27 = WBS_LOG_CHANNEL_PREFIXSQLiteStore();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v33 = WBS_LOG_CHANNEL_PREFIXSQLiteStore(v27, v28);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         lastPathComponent = [databaseCopy lastPathComponent];
-        safari_privacyPreservingDescription2 = [v22 safari_privacyPreservingDescription];
+        safari_privacyPreservingDescription2 = [v26 safari_privacyPreservingDescription];
         [WBSSQLiteStore _openDatabase:lastPathComponent createIfNeeded:safari_privacyPreservingDescription2 checkIntegrity:location completionHandler:?];
       }
 
-      v19 = v22;
+      v21 = v26;
       [(WBSSQLiteStore *)self _handleOpenFailureWithStatus:3 completionHandler:handlerCopy];
     }
   }
 
 LABEL_24:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __80__WBSSQLiteStore__openDatabase_createIfNeeded_checkIntegrity_completionHandler___block_invoke(uint64_t a1)
@@ -336,17 +340,17 @@ void __80__WBSSQLiteStore__openDatabase_createIfNeeded_checkIntegrity_completion
 - (void)_handleOpenFailureWithStatus:(int64_t)status completionHandler:(id)handler
 {
   handlerCopy = handler;
-  [(WBSSQLiteStore *)self _closeDatabase];
+  _closeDatabase = [(WBSSQLiteStore *)self _closeDatabase];
   if (self->_fallBackToMemoryStoreIfError)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXSQLiteStore();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXSQLiteStore(_closeDatabase, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [WBSSQLiteStore _handleOpenFailureWithStatus:v7 completionHandler:?];
+      [WBSSQLiteStore _handleOpenFailureWithStatus:v9 completionHandler:?];
     }
 
-    v8 = +[WBSSQLiteDatabase inMemoryDatabaseURL];
-    [(WBSSQLiteStore *)self _openDatabase:v8 createIfNeeded:1 checkIntegrity:0 completionHandler:handlerCopy];
+    v10 = +[WBSSQLiteDatabase inMemoryDatabaseURL];
+    [(WBSSQLiteStore *)self _openDatabase:v10 createIfNeeded:1 checkIntegrity:0 completionHandler:handlerCopy];
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     [WeakRetained sqliteStoreDidFallBackToInMemoryStore:self];
@@ -407,6 +411,26 @@ uint64_t __45__WBSSQLiteStore_closeWithCompletionHandler___block_invoke(uint64_t
   }
 }
 
+- (int)_setDatabaseSchemaVersion:(int)version
+{
+  v14 = *MEMORY[0x1E69E9840];
+  database = self->_database;
+  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PRAGMA user_version = %d", *&version];
+  v7 = SafariShared::_WBSSQLiteDatabaseExecuteAndReturnError<>(database, 0, v6);
+
+  if (v7 != 101)
+  {
+    v10 = WBS_LOG_CHANNEL_PREFIXSQLiteStore(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      lastPathComponent = [(NSURL *)self->_databaseURL lastPathComponent];
+      [(WBSSQLiteStore *)lastPathComponent _setDatabaseSchemaVersion:v13, version];
+    }
+  }
+
+  return v7;
+}
+
 - (id)_databaseCoordinationLockURLForDatabaseURL:(id)l
 {
   v3 = MEMORY[0x1E695DFF8];
@@ -419,7 +443,7 @@ uint64_t __45__WBSSQLiteStore_closeWithCompletionHandler___block_invoke(uint64_t
 
 - (BOOL)_acquireDatabaseCoordinationLockForDatabaseURL:(id)l
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v5 = +[WBSSQLiteDatabase inMemoryDatabaseURL];
   v6 = [lCopy isEqual:v5];
@@ -435,48 +459,49 @@ uint64_t __45__WBSSQLiteStore_closeWithCompletionHandler___block_invoke(uint64_t
     fileSystemRepresentation = [v8 fileSystemRepresentation];
 
     self->_databaseCoordinationLockFileDescriptor = open(fileSystemRepresentation, 512, 438);
-    if ([(WBSSQLiteStore *)self _isDatabaseLocked])
+    _isDatabaseLocked = [(WBSSQLiteStore *)self _isDatabaseLocked];
+    if (_isDatabaseLocked)
     {
       value = -1;
-      if (fsetxattr(self->_databaseCoordinationLockFileDescriptor, "com.apple.runningboard.can-suspend-locked", &value, 1uLL, 0, 0) == -1)
+      v12 = fsetxattr(self->_databaseCoordinationLockFileDescriptor, "com.apple.runningboard.can-suspend-locked", &value, 1uLL, 0, 0);
+      if (v12 == -1)
       {
-        v10 = WBS_LOG_CHANNEL_PREFIXSQLiteStore();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v14 = WBS_LOG_CHANNEL_PREFIXSQLiteStore(v12, v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          v11 = __error();
-          [(WBSSQLiteStore *)fileSystemRepresentation _acquireDatabaseCoordinationLockForDatabaseURL:v11];
+          __error();
+          [WBSSQLiteStore _acquireDatabaseCoordinationLockForDatabaseURL:];
         }
       }
 
-      v12 = flock(self->_databaseCoordinationLockFileDescriptor, 6);
-      v7 = v12 != -1;
-      if (v12 == -1)
+      v15 = flock(self->_databaseCoordinationLockFileDescriptor, 6);
+      v7 = v15 != -1;
+      if (v15 == -1)
       {
-        close(self->_databaseCoordinationLockFileDescriptor);
+        v16 = close(self->_databaseCoordinationLockFileDescriptor);
         self->_databaseCoordinationLockFileDescriptor = -1;
-        v13 = WBS_LOG_CHANNEL_PREFIXSQLiteStore();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v18 = WBS_LOG_CHANNEL_PREFIXSQLiteStore(v16, v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v14 = __error();
-          [(WBSSQLiteStore *)fileSystemRepresentation _acquireDatabaseCoordinationLockForDatabaseURL:v14];
+          __error();
+          [WBSSQLiteStore _acquireDatabaseCoordinationLockForDatabaseURL:];
         }
       }
     }
 
     else
     {
-      v15 = WBS_LOG_CHANNEL_PREFIXSQLiteStore();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v19 = WBS_LOG_CHANNEL_PREFIXSQLiteStore(_isDatabaseLocked, v11);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v16 = __error();
-        [(WBSSQLiteStore *)fileSystemRepresentation _acquireDatabaseCoordinationLockForDatabaseURL:v16];
+        __error();
+        [WBSSQLiteStore _acquireDatabaseCoordinationLockForDatabaseURL:];
       }
 
       v7 = 0;
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -504,11 +529,10 @@ uint64_t __45__WBSSQLiteStore_closeWithCompletionHandler___block_invoke(uint64_t
 
 - (void)_openDatabase:(uint64_t)a1 createIfNeeded:(NSObject *)a2 checkIntegrity:completionHandler:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138477827;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Failed to acquire exclusive access to database at %{private}@.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138477827;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Failed to acquire exclusive access to database at %{private}@.", &v2, 0xCu);
 }
 
 - (void)_openDatabase:(uint64_t)a3 createIfNeeded:checkIntegrity:completionHandler:.cold.3(void *a1, void *a2, uint64_t a3)
@@ -535,28 +559,28 @@ uint64_t __45__WBSSQLiteStore_closeWithCompletionHandler___block_invoke(uint64_t
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
 }
 
-- (void)_acquireDatabaseCoordinationLockForDatabaseURL:(uint64_t)a1 .cold.1(uint64_t a1, unsigned int *a2)
+- (void)_acquireDatabaseCoordinationLockForDatabaseURL:.cold.1()
 {
-  OUTLINED_FUNCTION_2_3(a1, a2);
-  OUTLINED_FUNCTION_0_11(v2, 4.8151e-34, v3, v4);
+  OUTLINED_FUNCTION_2_3();
+  OUTLINED_FUNCTION_0_11(v0, 4.8151e-34, v1, v2);
   OUTLINED_FUNCTION_1_5();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x12u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
 }
 
-- (void)_acquireDatabaseCoordinationLockForDatabaseURL:(uint64_t)a1 .cold.2(uint64_t a1, unsigned int *a2)
+- (void)_acquireDatabaseCoordinationLockForDatabaseURL:.cold.2()
 {
-  OUTLINED_FUNCTION_2_3(a1, a2);
-  OUTLINED_FUNCTION_0_11(v2, 4.8151e-34, v3, v4);
+  OUTLINED_FUNCTION_2_3();
+  OUTLINED_FUNCTION_0_11(v0, 4.8151e-34, v1, v2);
   OUTLINED_FUNCTION_1_5();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x12u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
 }
 
-- (void)_acquireDatabaseCoordinationLockForDatabaseURL:(uint64_t)a1 .cold.3(uint64_t a1, unsigned int *a2)
+- (void)_acquireDatabaseCoordinationLockForDatabaseURL:.cold.3()
 {
-  OUTLINED_FUNCTION_2_3(a1, a2);
-  OUTLINED_FUNCTION_0_11(v2, 4.8151e-34, v3, v4);
+  OUTLINED_FUNCTION_2_3();
+  OUTLINED_FUNCTION_0_11(v0, 4.8151e-34, v1, v2);
   OUTLINED_FUNCTION_1_5();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x12u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
 }
 
 @end

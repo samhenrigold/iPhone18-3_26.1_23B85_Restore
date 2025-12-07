@@ -23,7 +23,7 @@
 
 - (void)handleContentSizeCategoryDidChange:(id)change
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12NotificationVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12NotificationVSgMd, &_s10Foundation12NotificationVSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v11 - v6;
   if (change)
@@ -43,7 +43,7 @@
   selfCopy = self;
   InCallControlsCollectionViewController.handleContentSizeCategoryDidChange(_:)();
 
-  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v7, &_s10Foundation12NotificationVSgMd);
+  outlined destroy of ConversationControlsMoreMenuButtonDelegate?(v7, &_s10Foundation12NotificationVSgMd, &_s10Foundation12NotificationVSgMR);
 }
 
 - (_TtC15ConversationKit38InCallControlsCollectionViewController)initWithNibName:(id)name bundle:(id)bundle

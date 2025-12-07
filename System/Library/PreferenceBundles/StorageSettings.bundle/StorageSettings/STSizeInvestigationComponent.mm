@@ -53,30 +53,29 @@
   appSize = [(STStorageApp *)self->_app appSize];
   fixed = [appSize fixed];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = self->_filePaths;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
         STMSizeOfFileTree();
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -89,13 +88,13 @@
   self->_realSize.hasSizingError = 0;
   *(&self->_realSize.hasSizingError + 1) = 0;
   *(&self->_realSize.hasSizingError + 1) = 0;
-  v11 = [NSNumber numberWithLongLong:fixed];
+  v10 = [NSNumber numberWithLongLong:fixed];
   realSizeComputed = self->_realSizeComputed;
-  self->_realSizeComputed = v11;
+  self->_realSizeComputed = v10;
 
-  v13 = [NSNumber numberWithLongLong:[(NSNumber *)self->_realSizeComputed longLongValue]- [(NSNumber *)self->_reportedSize longLongValue]];
+  v12 = [NSNumber numberWithLongLong:[(NSNumber *)self->_realSizeComputed longLongValue]- [(NSNumber *)self->_reportedSize longLongValue]];
   diff = self->_diff;
-  self->_diff = v13;
+  self->_diff = v12;
 
   self->_isFetched = 1;
 }

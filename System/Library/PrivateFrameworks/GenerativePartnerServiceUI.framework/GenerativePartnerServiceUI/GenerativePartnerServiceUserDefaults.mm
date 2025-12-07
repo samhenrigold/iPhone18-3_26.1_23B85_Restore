@@ -15,7 +15,7 @@
     }
 
 LABEL_6:
-    memset(v13, 0, sizeof(v13));
+    memset(v20, 0, sizeof(v20));
     changeCopy = change;
     selfCopy = self;
     if (!change)
@@ -40,15 +40,15 @@ LABEL_3:
   if (change)
   {
 LABEL_4:
-    type metadata accessor for NSKeyValueChangeKey();
-    sub_1BE5419A8();
+    type metadata accessor for NSKeyValueChangeKey(0, v11, v12, v13);
+    sub_1BE5419A8(v14, v15, v16, v17);
     sub_1BE54C5FC();
   }
 
 LABEL_7:
   sub_1BE5412EC();
 
-  sub_1BE537874(v13);
+  sub_1BE537874(v20);
 }
 
 @end

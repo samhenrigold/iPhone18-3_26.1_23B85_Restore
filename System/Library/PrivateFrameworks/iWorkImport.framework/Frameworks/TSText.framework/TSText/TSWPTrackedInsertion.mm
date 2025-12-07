@@ -84,8 +84,8 @@
     objc_msgSend_range(storageCopy, 0, v24);
     v87.location = NSExpandedRange();
     v87.length = v28;
-    TSWPAttributeArray::begin(v21, &v87, &v85);
-    TSWPAttributeArray::end(v21, &v87, v29, &v83);
+    TSWPAttributeArray::begin(&v85, v21, &v87);
+    TSWPAttributeArray::end(&v83, v21, &v87, v29);
     for (i = v86; ; i = ++v86)
     {
       if (i == v84)
@@ -165,8 +165,8 @@ LABEL_15:
     objc_msgSend_range(storageCopy, v53, v54);
     v87.location = NSExpandedRange();
     v87.length = v56;
-    TSWPAttributeArray::begin(v55, &v87, &v85);
-    TSWPAttributeArray::end(v55, &v87, v57, &v83);
+    TSWPAttributeArray::begin(&v85, v55, &v87);
+    TSWPAttributeArray::end(&v83, v55, &v87, v57);
     for (j = v86; j != v84; j = ++v86)
     {
       v59 = TSWPAttributeArray::iterator::operator*(&v85);

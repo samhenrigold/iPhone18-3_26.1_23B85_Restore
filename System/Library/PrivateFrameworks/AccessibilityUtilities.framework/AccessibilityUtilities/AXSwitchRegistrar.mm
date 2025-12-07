@@ -412,9 +412,7 @@ LABEL_13:
       v8 = IOHIDEventSystemClientCreate();
       if (!v8)
       {
-        v24 = @"Could not create event system client";
-        LOBYTE(v23) = 1;
-        _AXLogWithFacility();
+        _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not create event system client");
         if (!manager)
         {
 LABEL_6:
@@ -428,32 +426,28 @@ LABEL_6:
             Current = CFRunLoopGetCurrent();
             IOHIDManagerScheduleWithRunLoop(v14, Current, *MEMORY[0x1E695E8E0]);
             IOHIDManagerRegisterDeviceMatchingCallback(v14, _ASUIDeviceMatchingCallback, self);
-            v17 = IOHIDManagerOpen(v14, 0);
-            if (v17)
+            if (IOHIDManagerOpen(v14, 0))
             {
-              v24 = @"Could not open HID manager: %d";
-              v25 = v17;
-              LOBYTE(v23) = 1;
-              _AXLogWithFacility();
+              _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not open HID manager: %d");
             }
 
-            [(AXSwitchRegistrar *)self setManager:v14, v23, v24, v25];
+            [(AXSwitchRegistrar *)self setManager:v14];
             CFRelease(v14);
           }
         }
 
 LABEL_20:
         objc_initWeak(&location, self);
-        v21 = [AXMIDIManager alloc];
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = __35__AXSwitchRegistrar__filterEvents___block_invoke;
-        v26[3] = &unk_1E71EB9F0;
-        objc_copyWeak(&v27, &location);
-        v22 = [(AXMIDIManager *)v21 initWithIdentifier:@"AXEventRegistrar" eventHandler:v26];
-        [(AXSwitchRegistrar *)self setMidiManager:v22];
+        v20 = [AXMIDIManager alloc];
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __35__AXSwitchRegistrar__filterEvents___block_invoke;
+        v22[3] = &unk_1E71EB9F0;
+        objc_copyWeak(&v23, &location);
+        v21 = [(AXMIDIManager *)v20 initWithIdentifier:@"AXEventRegistrar" eventHandler:v22];
+        [(AXSwitchRegistrar *)self setMidiManager:v21];
 
-        objc_destroyWeak(&v27);
+        objc_destroyWeak(&v23);
         objc_destroyWeak(&location);
         return;
       }
@@ -479,11 +473,11 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v18 = MEMORY[0x1E695E8E0];
+  v17 = MEMORY[0x1E695E8E0];
   if (device)
   {
-    v19 = CFRunLoopGetCurrent();
-    IOHIDDeviceUnscheduleFromRunLoop(device, v19, *v18);
+    v18 = CFRunLoopGetCurrent();
+    IOHIDDeviceUnscheduleFromRunLoop(device, v18, *v17);
     IOHIDDeviceClose(device, 0);
     [(AXSwitchRegistrar *)self setDevice:0];
   }
@@ -498,8 +492,8 @@ LABEL_20:
 
   if (manager)
   {
-    v20 = CFRunLoopGetCurrent();
-    IOHIDManagerUnscheduleFromRunLoop(manager, v20, *v18);
+    v19 = CFRunLoopGetCurrent();
+    IOHIDManagerUnscheduleFromRunLoop(manager, v19, *v17);
     IOHIDManagerClose(manager, 0);
     [(AXSwitchRegistrar *)self setManager:0];
   }

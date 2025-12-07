@@ -107,7 +107,7 @@ LABEL_19:
 
       leadingWidths = [(UISlidingBarConfiguration *)self leadingWidths];
       leadingWidths2 = [v5 leadingWidths];
-      if (![leadingWidths isEqual:leadingWidths2])
+      if (!objc_msgSend_isEqual_(leadingWidths))
       {
         v37 = 0;
 LABEL_26:
@@ -117,7 +117,7 @@ LABEL_26:
 
       trailingWidths = [(UISlidingBarConfiguration *)self trailingWidths];
       trailingWidths2 = [v5 trailingWidths];
-      if (![trailingWidths isEqual:trailingWidths2])
+      if (!objc_msgSend_isEqual_(trailingWidths))
       {
         v37 = 0;
 LABEL_25:
@@ -127,7 +127,7 @@ LABEL_25:
 
       supplementaryWidths = [(UISlidingBarConfiguration *)self supplementaryWidths];
       supplementaryWidths2 = [v5 supplementaryWidths];
-      if (![supplementaryWidths isEqual:supplementaryWidths2] || (-[UISlidingBarConfiguration _rawLeadingBorderWidth](self, "_rawLeadingBorderWidth"), v26 = v25, objc_msgSend(v5, "_rawLeadingBorderWidth"), v26 != v27) || (-[UISlidingBarConfiguration _rawTrailingBorderWidth](self, "_rawTrailingBorderWidth"), v29 = v28, objc_msgSend(v5, "_rawTrailingBorderWidth"), v29 != v30))
+      if (!objc_msgSend_isEqual_(supplementaryWidths) || (-[UISlidingBarConfiguration _rawLeadingBorderWidth](self, "_rawLeadingBorderWidth"), v26 = v25, [v5 _rawLeadingBorderWidth], v26 != v27) || (-[UISlidingBarConfiguration _rawTrailingBorderWidth](self, "_rawTrailingBorderWidth"), v29 = v28, objc_msgSend(v5, "_rawTrailingBorderWidth"), v29 != v30))
       {
         v37 = 0;
 LABEL_24:
@@ -150,7 +150,7 @@ LABEL_24:
         v42 = borderColor3;
         v34 = borderColor3;
         v35 = borderColor4;
-        if (![v34 isEqual:borderColor4])
+        if (!objc_msgSend_isEqual_(v34))
         {
           v37 = 0;
 LABEL_34:

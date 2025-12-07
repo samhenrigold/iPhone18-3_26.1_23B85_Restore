@@ -19,36 +19,23 @@
 - (Class)toolkitValueClass
 {
   resultType = [(WFDateFieldParameter *)self resultType];
-  v4 = [resultType isEqualToString:@"WFDetectedDate"];
+  isEqualToString = objc_msgSend_isEqualToString_(resultType);
 
-  if (v4)
-  {
-    v5 = 0x1E6996DD0;
-  }
-
-  else
+  if ((isEqualToString & 1) == 0)
   {
     resultType2 = [(WFDateFieldParameter *)self resultType];
-    v7 = [resultType2 isEqualToString:@"String"];
+    v6 = objc_msgSend_isEqualToString_(resultType2);
 
-    if (v7)
-    {
-      v5 = 0x1E696AEC0;
-    }
-
-    else
+    if ((v6 & 1) == 0)
     {
       resultType3 = [(WFDateFieldParameter *)self resultType];
-      [resultType3 isEqualToString:@"Date"];
-
-      v5 = 0x1E695DF00;
+      objc_msgSend_isEqualToString_(resultType3);
     }
   }
 
-  v9 = *v5;
-  v10 = objc_opt_class();
+  v8 = objc_opt_class();
 
-  return v10;
+  return v8;
 }
 
 - (id)parameterStateFromDialogResponse:(id)response
@@ -354,17 +341,17 @@ LABEL_4:
 - (BOOL)dateOnlyMode
 {
   hintDateMode = [(WFDateFieldParameter *)self hintDateMode];
-  v3 = [hintDateMode isEqualToString:@"Date"];
+  isEqualToString = objc_msgSend_isEqualToString_(hintDateMode);
 
-  return v3;
+  return isEqualToString;
 }
 
 - (BOOL)timeOnlyMode
 {
   hintDateMode = [(WFDateFieldParameter *)self hintDateMode];
-  v3 = [hintDateMode isEqualToString:@"Time"];
+  isEqualToString = objc_msgSend_isEqualToString_(hintDateMode);
 
-  return v3;
+  return isEqualToString;
 }
 
 - (WFDateFieldParameter)initWithDefinition:(id)definition

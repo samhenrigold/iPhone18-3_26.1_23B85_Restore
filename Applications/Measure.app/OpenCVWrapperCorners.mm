@@ -19,10 +19,10 @@
   v5 = v4;
   if (v4)
   {
-    p_corners = &v4->_corners;
+    p_begin = &v4->_corners.__begin_;
     if (&v5->_corners != corners)
     {
-      sub_10000AD58(p_corners, *corners, *(corners + 1), 0xAAAAAAAAAAAAAAABLL * ((*(corners + 1) - *corners) >> 3));
+      sub_10000AD58(p_begin, *corners, *(corners + 1), 0xAAAAAAAAAAAAAAABLL * ((*(corners + 1) - *corners) >> 3));
     }
   }
 

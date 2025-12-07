@@ -5,9 +5,11 @@
 - (FILocalStorageNode)initWithStorageNode:(id)node domain:(id)domain displayName:(id)name;
 - (id)fpItem;
 - (id)propertyAsString:(unsigned int)string async:(BOOL)async options:(unsigned int)options error:(id *)error;
+- (unsigned)nodePermissions:(unsigned int)permissions error:(id *)error;
 - (void)encodeWithCoder:(id)coder;
 - (void)fetchFPItemIfNeeded;
 - (void)setFpItem:(id)item;
+- (void)synchronizeWithOptions:(unsigned int)options async:(BOOL)async;
 @end
 
 @implementation FILocalStorageNode
@@ -24,7 +26,7 @@
 
 + (id)sharedInstanceWithDisplayName:(id)name domain:(id)domain
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   domainCopy = domain;
   v8 = objc_opt_class();
@@ -48,9 +50,9 @@ LABEL_2:
       v14 = LogObj(7);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v22 = 138543362;
-        v23 = nameCopy;
-        _os_log_impl(&dword_1E5674000, v14, OS_LOG_TYPE_DEBUG, "Creating FILocalStorageNode - %{public}@", &v22, 0xCu);
+        v21 = 138543362;
+        v22 = nameCopy;
+        _os_log_impl(&dword_1E5674000, v14, OS_LOG_TYPE_DEBUG, "Creating FILocalStorageNode - %{public}@", &v21, 0xCu);
       }
 
       v15 = [[self alloc] initWithStorageNode:v13 domain:domainCopy displayName:nameCopy];
@@ -63,11 +65,11 @@ LABEL_2:
         v18 = LogObj(7);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v22 = 138543618;
-          v23 = nameCopy;
-          v24 = 2114;
-          v25 = displayName;
-          _os_log_impl(&dword_1E5674000, v18, OS_LOG_TYPE_ERROR, "LocalStorage node name not set. Expected: %{public}@, actual: %{public}@", &v22, 0x16u);
+          v21 = 138543618;
+          v22 = nameCopy;
+          v23 = 2114;
+          v24 = displayName;
+          _os_log_impl(&dword_1E5674000, v18, OS_LOG_TYPE_ERROR, "LocalStorage node name not set. Expected: %{public}@, actual: %{public}@", &v21, 0x16u);
         }
       }
 
@@ -79,36 +81,34 @@ LABEL_2:
   v19 = LogObj(7);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    v22 = 138543362;
-    v23 = domainCopy;
-    _os_log_impl(&dword_1E5674000, v19, OS_LOG_TYPE_ERROR, "Unable to load local storage root storageURL from domain %{public}@", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = domainCopy;
+    _os_log_impl(&dword_1E5674000, v19, OS_LOG_TYPE_ERROR, "Unable to load local storage root storageURL from domain %{public}@", &v21, 0xCu);
   }
 
   v10 = 0;
 LABEL_15:
   objc_sync_exit(v8);
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (FILocalStorageNode)initWithStorageNode:(id)node domain:(id)domain displayName:(id)name
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   nodeCopy = node;
   domainCopy = domain;
   nameCopy = name;
   v12 = MEMORY[0x1E695DFD8];
-  v23[0] = nodeCopy;
+  v22[0] = nodeCopy;
   v13 = +[FILocalAppContainerCollection sharedInstance];
-  v23[1] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+  v22[1] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
   v15 = [v12 setWithArray:v14];
 
-  v22.receiver = self;
-  v22.super_class = FILocalStorageNode;
-  v16 = [(FICompoundNode *)&v22 initWithNodes:v15 subject:nodeCopy];
+  v21.receiver = self;
+  v21.super_class = FILocalStorageNode;
+  v16 = [(FICompoundNode *)&v21 initWithNodes:v15 subject:nodeCopy];
   objc_storeStrong(&v16->_storageNode, node);
   v17 = [FIProviderDomain providerDomainForDomain:domainCopy];
   providerDomain = v16->_providerDomain;
@@ -119,7 +119,6 @@ LABEL_15:
   [v19 registerPresentationNode:v16 forNode:nodeCopy];
 
   [(FILocalStorageNode *)v16 fetchFPItemIfNeeded];
-  v20 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -170,7 +169,7 @@ LABEL_15:
 
 void __41__FILocalStorageNode_fetchFPItemIfNeeded__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v5;
@@ -185,13 +184,11 @@ void __41__FILocalStorageNode_fetchFPItemIfNeeded__block_invoke(uint64_t a1, voi
     v9 = LogObj(7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_1E5674000, v9, OS_LOG_TYPE_ERROR, "Unable to get root item for local storage %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_impl(&dword_1E5674000, v9, OS_LOG_TYPE_ERROR, "Unable to get root item for local storage %{public}@", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setFpItem:(id)item
@@ -213,6 +210,23 @@ void __41__FILocalStorageNode_fetchFPItemIfNeeded__block_invoke(uint64_t a1, voi
   objc_sync_exit(selfCopy);
 
   return v3;
+}
+
+- (unsigned)nodePermissions:(unsigned int)permissions error:(id *)error
+{
+  v5.receiver = self;
+  v5.super_class = FILocalStorageNode;
+  return [(FICompoundNode *)&v5 nodePermissions:*&permissions error:error]& 0xFFEDDC04;
+}
+
+- (void)synchronizeWithOptions:(unsigned int)options async:(BOOL)async
+{
+  asyncCopy = async;
+  v5 = *&options;
+  [(FILocalStorageNode *)self fetchFPItemIfNeeded];
+  v7.receiver = self;
+  v7.super_class = FILocalStorageNode;
+  [(FICompoundNode *)&v7 synchronizeWithOptions:v5 async:asyncCopy];
 }
 
 - (id)propertyAsString:(unsigned int)string async:(BOOL)async options:(unsigned int)options error:(id *)error

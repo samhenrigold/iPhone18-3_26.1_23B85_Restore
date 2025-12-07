@@ -26,7 +26,7 @@
     v10 = *&selfCopy->connection[OBJC_IVAR____TtCV20TranslationUIService20AppExtensionHostView15HostCoordinator_remoteConnectionDidChange];
 
     v9(0);
-    sub_100009F24(v9);
+    sub_100009F24(v9, v10);
   }
 }
 

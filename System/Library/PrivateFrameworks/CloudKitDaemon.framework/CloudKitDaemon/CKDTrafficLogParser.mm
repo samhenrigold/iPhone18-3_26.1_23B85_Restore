@@ -19,7 +19,7 @@
   selfCopy = self;
   sub_2250FF80C();
 
-  type metadata accessor for TrafficLogMessage();
+  type metadata accessor for TrafficLogMessage(0);
   v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;

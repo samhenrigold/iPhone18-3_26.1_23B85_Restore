@@ -380,29 +380,28 @@ LABEL_8:
 - (BOOL)_lock_loadCertificateWithError:(id *)error
 {
   os_unfair_lock_assert_owner(&self->_ivarLock);
-  certString = self->_certString;
-  v6 = HKHealthWrapDERDataFromString();
-  if (!v6)
+  v5 = HKHealthWrapDERDataFromString();
+  if (!v5)
   {
-    v9 = @"Failed to decode base64 certificate data.";
+    v8 = @"Failed to decode base64 certificate data.";
 LABEL_6:
-    [NSError hk_assignError:error code:100 format:v9];
-    v8 = 0;
+    [NSError hk_assignError:error code:100 format:v8];
+    v7 = 0;
     goto LABEL_7;
   }
 
-  v7 = SecCertificateCreateWithData(0, v6);
-  self->_certificate = v7;
-  if (!v7)
+  v6 = SecCertificateCreateWithData(0, v5);
+  self->_certificate = v6;
+  if (!v6)
   {
-    v9 = @"Failed to create certificate.";
+    v8 = @"Failed to create certificate.";
     goto LABEL_6;
   }
 
-  v8 = 1;
+  v7 = 1;
 LABEL_7:
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)_submitAnalyticsData:(id)data error:(id *)error

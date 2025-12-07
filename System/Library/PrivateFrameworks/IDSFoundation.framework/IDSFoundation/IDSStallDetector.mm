@@ -18,7 +18,7 @@
 
 + (id)newDetectorWithName:(id)name stallDetectedBlock:(id)block stallWarningBlock:(id)warningBlock
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   blockCopy = block;
   warningBlockCopy = warningBlock;
@@ -52,9 +52,9 @@
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v29 = nameCopy;
-        v30 = 2048;
-        v31 = [qword_1EB2BC1A0 count];
+        v37 = nameCopy;
+        v38 = 2048;
+        v39 = [qword_1EB2BC1A0 count];
         _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "Created new detector %@ (total %lu)", buf, 0x16u);
       }
 
@@ -62,18 +62,18 @@
       {
         if (_IDSShouldLogTransport())
         {
-          v27 = [qword_1EB2BC1A0 count];
-          _IDSLogTransport(@"StallDetection", @"IDS", @"Created new detector %@ (total %lu)");
-          if (_IDSShouldLog())
+          [qword_1EB2BC1A0 count];
+          _IDSLogTransport(@"StallDetection", @"IDS", @"Created new detector %@ (total %lu)", v25, v26, v27, v28, v29, nameCopy);
+          if (_IDSShouldLog(0))
           {
             [qword_1EB2BC1A0 count];
-            _IDSLogV(0, @"IDSFoundation", @"StallDetection", @"Created new detector %@ (total %lu)");
+            _IDSLogV(0, @"IDSFoundation", @"StallDetection", @"Created new detector %@ (total %lu)", v30, v31, v32, v33, nameCopy);
           }
         }
       }
 
       os_unfair_lock_unlock(&unk_1EB2BC198);
-      v25 = v14;
+      v34 = v14;
     }
 
     else
@@ -147,7 +147,7 @@
 
 - (BOOL)consumeTimeCheckForEvent:(id)event produceTime:(unint64_t)time consumeTime:(unint64_t)consumeTime
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if (!self->_consumeDelayThreshold)
   {
@@ -163,51 +163,51 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138413058;
-        v17 = eventCopy;
-        v18 = 2048;
-        timeCopy = time;
-        v20 = 2048;
-        consumeTimeCopy = consumeTime;
+        v21 = eventCopy;
         v22 = 2048;
-        v23 = time - consumeTime;
+        timeCopy = time;
+        v24 = 2048;
+        consumeTimeCopy = consumeTime;
+        v26 = 2048;
+        v27 = time - consumeTime;
         _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "Checking time for %@: %llu ~ %llu = %llu", buf, 0x2Au);
       }
 
-      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"StallDetection", @"Checking time for %@: %llu ~ %llu = %llu");
+        _IDSLogV(0, @"IDSFoundation", @"StallDetection", @"Checking time for %@: %llu ~ %llu = %llu", v11, v12, v13, v14, eventCopy);
       }
     }
 
-    v11 = time - consumeTime;
-    if (v11 > 0x3FFFFFFFFFFFFFFELL)
+    v15 = time - consumeTime;
+    if (v15 > 0x3FFFFFFFFFFFFFFELL)
     {
       goto LABEL_18;
     }
 
     os_unfair_lock_lock(&self->_lock);
     consumeDelayThreshold = self->_consumeDelayThreshold;
-    if (v11 <= consumeDelayThreshold)
+    if (v15 <= consumeDelayThreshold)
     {
-      if (v11 <= consumeDelayThreshold >> 1)
+      if (v15 <= consumeDelayThreshold >> 1)
       {
         os_unfair_lock_unlock(&self->_lock);
         goto LABEL_18;
       }
 
-      v13 = 24;
+      v17 = 24;
     }
 
     else
     {
-      v13 = 16;
+      v17 = 16;
     }
 
-    v14 = _Block_copy(*(&self->super.isa + v13));
+    v18 = _Block_copy(*(&self->super.isa + v17));
     os_unfair_lock_unlock(&self->_lock);
-    if (v14)
+    if (v18)
     {
-      v14[2](v14, eventCopy);
+      v18[2](v18, eventCopy);
 
       v9 = 1;
       goto LABEL_19;
@@ -277,7 +277,7 @@ LABEL_11:
 - (void)produceBytes:(int)bytes
 {
   v3 = *&bytes;
-  v15 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = ids_monotonic_time();
   os_unfair_lock_lock(&self->_lock);
   bytesHistory = self->_bytesHistory;
@@ -295,17 +295,17 @@ LABEL_11:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      v12 = v3;
-      v13 = 2048;
-      v14 = v5;
+      v16 = v3;
+      v17 = 2048;
+      v18 = v5;
       _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "Producing bytes %d at time %f", buf, 0x12u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
-      if (_IDSShouldLog())
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"StallDetection", @"Producing bytes %d at time %f");
+        _IDSLogV(0, @"IDSFoundation", @"StallDetection", @"Producing bytes %d at time %f", v11, v12, v13, v14, v3);
       }
     }
   }

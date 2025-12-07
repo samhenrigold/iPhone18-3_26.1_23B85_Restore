@@ -49,39 +49,37 @@ LABEL_10:
 
 + (id)_relativeContextsForFeatures:(id)features currentTime:(double)time
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   featuresCopy = features;
   v6 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = featuresCopy;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = -[PRSRankingItemRelativeFeatureContext initWithFeature:currentTime:]([PRSRankingItemRelativeFeatureContext alloc], "initWithFeature:currentTime:", [*(*(&v15 + 1) + 8 * i) unsignedIntegerValue], time);
+        v12 = -[PRSRankingItemRelativeFeatureContext initWithFeature:currentTime:]([PRSRankingItemRelativeFeatureContext alloc], "initWithFeature:currentTime:", [*(*(&v14 + 1) + 8 * i) unsignedIntegerValue], time);
         [v6 addObject:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -253,14 +251,14 @@ uint64_t __76__PRSRankingItemRelativeFeatureContext__resultComparatorForRelative
 
 uint64_t __76__PRSRankingItemRelativeFeatureContext__resultComparatorForRelativeFeature___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [a2 attributes];
   v6 = [v4 attributes];
   memset(__dst, 0, sizeof(__dst));
-  memset(v15, 0, sizeof(v15));
+  memset(v14, 0, sizeof(v14));
   ArrayInt64 = SSCompactRankingAttrsGetArrayInt64(v5, 0x165uLL, __dst, 4);
-  v8 = SSCompactRankingAttrsGetArrayInt64(v6, 0x165uLL, v15, 4);
+  v8 = SSCompactRankingAttrsGetArrayInt64(v6, 0x165uLL, v14, 4);
   if (ArrayInt64 && v8)
   {
     v9 = 0;
@@ -268,7 +266,7 @@ uint64_t __76__PRSRankingItemRelativeFeatureContext__resultComparatorForRelative
     while (1)
     {
       v11 = *(__dst + v9);
-      v12 = *(v15 + v9);
+      v12 = *(v14 + v9);
       if (v11 > v12)
       {
         break;
@@ -299,20 +297,19 @@ uint64_t __76__PRSRankingItemRelativeFeatureContext__resultComparatorForRelative
     v10 = v8 << 63 >> 63;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 uint64_t __76__PRSRankingItemRelativeFeatureContext__resultComparatorForRelativeFeature___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [a2 attributes];
   v6 = [v4 attributes];
   memset(__dst, 0, sizeof(__dst));
-  memset(v15, 0, sizeof(v15));
+  memset(v14, 0, sizeof(v14));
   ArrayInt64 = SSCompactRankingAttrsGetArrayInt64(v5, 0x164uLL, __dst, 4);
-  v8 = SSCompactRankingAttrsGetArrayInt64(v6, 0x164uLL, v15, 4);
+  v8 = SSCompactRankingAttrsGetArrayInt64(v6, 0x164uLL, v14, 4);
   if (ArrayInt64 && v8)
   {
     v9 = 0;
@@ -320,7 +317,7 @@ uint64_t __76__PRSRankingItemRelativeFeatureContext__resultComparatorForRelative
     while (1)
     {
       v11 = *(__dst + v9);
-      v12 = *(v15 + v9);
+      v12 = *(v14 + v9);
       if (v11 > v12)
       {
         break;
@@ -351,7 +348,6 @@ uint64_t __76__PRSRankingItemRelativeFeatureContext__resultComparatorForRelative
     v10 = v8 << 63 >> 63;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -371,50 +367,19 @@ uint64_t __76__PRSRankingItemRelativeFeatureContext__resultComparatorForRelative
     v13 = v12;
     [v11 scoreForFeature:342];
     v15 = v13 <= v14;
-    if (v13 != v14)
-    {
-      goto LABEL_7;
-    }
-
-    [v10 scoreForFeature:341];
-    v17 = v16;
-    [v11 scoreForFeature:341];
-    v15 = v17 <= v18;
-    if (v17 != v18)
-    {
-      goto LABEL_7;
-    }
-
-    [v10 scoreForFeature:340];
-    v20 = v19;
-    [v11 scoreForFeature:340];
-    v15 = v20 <= v21;
-    if (v20 != v21)
-    {
-      goto LABEL_7;
-    }
-
-    [v10 scoreForFeature:340];
-    v23 = v22;
-    [v11 scoreForFeature:340];
-    v15 = v23 <= v24;
-    if (v23 == v24)
+    if (v13 == v14 && ([v10 scoreForFeature:341], v17 = v16, objc_msgSend(v11, "scoreForFeature:", 341), v15 = v17 <= v18, v17 == v18) && (objc_msgSend(v10, "scoreForFeature:", 340), v20 = v19, objc_msgSend(v11, "scoreForFeature:", 340), v15 = v20 <= v21, v20 == v21) && (objc_msgSend(v10, "scoreForFeature:", 340), v23 = v22, objc_msgSend(v11, "scoreForFeature:", 340), v15 = v23 <= v24, v23 == v24))
     {
       v25 = 0;
     }
 
+    else if (v15)
+    {
+      v25 = -1;
+    }
+
     else
     {
-LABEL_7:
-      if (v15)
-      {
-        v25 = -1;
-      }
-
-      else
-      {
-        v25 = 1;
-      }
+      v25 = 1;
     }
   }
 
@@ -447,50 +412,19 @@ uint64_t __76__PRSRankingItemRelativeFeatureContext__resultComparatorForRelative
     v13 = v12;
     [v11 scoreForFeature:346];
     v15 = v13 <= v14;
-    if (v13 != v14)
-    {
-      goto LABEL_7;
-    }
-
-    [v10 scoreForFeature:345];
-    v17 = v16;
-    [v11 scoreForFeature:345];
-    v15 = v17 <= v18;
-    if (v17 != v18)
-    {
-      goto LABEL_7;
-    }
-
-    [v10 scoreForFeature:344];
-    v20 = v19;
-    [v11 scoreForFeature:344];
-    v15 = v20 <= v21;
-    if (v20 != v21)
-    {
-      goto LABEL_7;
-    }
-
-    [v10 scoreForFeature:343];
-    v23 = v22;
-    [v11 scoreForFeature:343];
-    v15 = v23 <= v24;
-    if (v23 == v24)
+    if (v13 == v14 && ([v10 scoreForFeature:345], v17 = v16, objc_msgSend(v11, "scoreForFeature:", 345), v15 = v17 <= v18, v17 == v18) && (objc_msgSend(v10, "scoreForFeature:", 344), v20 = v19, objc_msgSend(v11, "scoreForFeature:", 344), v15 = v20 <= v21, v20 == v21) && (objc_msgSend(v10, "scoreForFeature:", 343), v23 = v22, objc_msgSend(v11, "scoreForFeature:", 343), v15 = v23 <= v24, v23 == v24))
     {
       v25 = 0;
     }
 
+    else if (v15)
+    {
+      v25 = -1;
+    }
+
     else
     {
-LABEL_7:
-      if (v15)
-      {
-        v25 = -1;
-      }
-
-      else
-      {
-        v25 = 1;
-      }
+      v25 = 1;
     }
   }
 
@@ -523,50 +457,19 @@ uint64_t __76__PRSRankingItemRelativeFeatureContext__resultComparatorForRelative
     v13 = v12;
     [v11 scoreForFeature:338];
     v15 = v13 <= v14;
-    if (v13 != v14)
-    {
-      goto LABEL_7;
-    }
-
-    [v10 scoreForFeature:337];
-    v17 = v16;
-    [v11 scoreForFeature:337];
-    v15 = v17 <= v18;
-    if (v17 != v18)
-    {
-      goto LABEL_7;
-    }
-
-    [v10 scoreForFeature:336];
-    v20 = v19;
-    [v11 scoreForFeature:336];
-    v15 = v20 <= v21;
-    if (v20 != v21)
-    {
-      goto LABEL_7;
-    }
-
-    [v10 scoreForFeature:335];
-    v23 = v22;
-    [v11 scoreForFeature:335];
-    v15 = v23 <= v24;
-    if (v23 == v24)
+    if (v13 == v14 && ([v10 scoreForFeature:337], v17 = v16, objc_msgSend(v11, "scoreForFeature:", 337), v15 = v17 <= v18, v17 == v18) && (objc_msgSend(v10, "scoreForFeature:", 336), v20 = v19, objc_msgSend(v11, "scoreForFeature:", 336), v15 = v20 <= v21, v20 == v21) && (objc_msgSend(v10, "scoreForFeature:", 335), v23 = v22, objc_msgSend(v11, "scoreForFeature:", 335), v15 = v23 <= v24, v23 == v24))
     {
       v25 = 0;
     }
 
+    else if (v15)
+    {
+      v25 = -1;
+    }
+
     else
     {
-LABEL_7:
-      if (v15)
-      {
-        v25 = -1;
-      }
-
-      else
-      {
-        v25 = 1;
-      }
+      v25 = 1;
     }
   }
 
@@ -599,50 +502,19 @@ uint64_t __76__PRSRankingItemRelativeFeatureContext__resultComparatorForRelative
     v13 = v12;
     [v11 scoreForFeature:334];
     v15 = v13 <= v14;
-    if (v13 != v14)
-    {
-      goto LABEL_7;
-    }
-
-    [v10 scoreForFeature:333];
-    v17 = v16;
-    [v11 scoreForFeature:333];
-    v15 = v17 <= v18;
-    if (v17 != v18)
-    {
-      goto LABEL_7;
-    }
-
-    [v10 scoreForFeature:332];
-    v20 = v19;
-    [v11 scoreForFeature:332];
-    v15 = v20 <= v21;
-    if (v20 != v21)
-    {
-      goto LABEL_7;
-    }
-
-    [v10 scoreForFeature:331];
-    v23 = v22;
-    [v11 scoreForFeature:331];
-    v15 = v23 <= v24;
-    if (v23 == v24)
+    if (v13 == v14 && ([v10 scoreForFeature:333], v17 = v16, objc_msgSend(v11, "scoreForFeature:", 333), v15 = v17 <= v18, v17 == v18) && (objc_msgSend(v10, "scoreForFeature:", 332), v20 = v19, objc_msgSend(v11, "scoreForFeature:", 332), v15 = v20 <= v21, v20 == v21) && (objc_msgSend(v10, "scoreForFeature:", 331), v23 = v22, objc_msgSend(v11, "scoreForFeature:", 331), v15 = v23 <= v24, v23 == v24))
     {
       v25 = 0;
     }
 
+    else if (v15)
+    {
+      v25 = -1;
+    }
+
     else
     {
-LABEL_7:
-      if (v15)
-      {
-        v25 = -1;
-      }
-
-      else
-      {
-        v25 = 1;
-      }
+      v25 = 1;
     }
   }
 
@@ -795,7 +667,7 @@ BOOL __81__PRSRankingItemRelativeFeatureContext__predicateForRelativeFeature_cur
 BOOL __81__PRSRankingItemRelativeFeatureContext__predicateForRelativeFeature_currentTime___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = SSCompactRankingAttrsGetValue([a2 attributes], 0x43uLL);
-  v3 = [v2 count] != 0;
+  v3 = objc_msgSend_count(v2) != 0;
 
   return v3;
 }

@@ -278,7 +278,7 @@ void __64__HMDMediaAccessory_transactionObjectUpdated_newValues_message___block_
 
 void __68__HMDMediaAccessory_notifyConnectivityChangedWithReachabilityState___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) home];
   v3 = [v2 isResidentSupported];
   v4 = objc_autoreleasePoolPush();
@@ -290,13 +290,12 @@ void __68__HMDMediaAccessory_notifyConnectivityChangedWithReachabilityState___bl
     if (v7)
     {
       v8 = HMFGetLogIdentifier();
-      v9 = *(a1 + 40);
-      v10 = HMFBooleanToString();
-      v13 = 138543618;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Notifying clients of updated media accessory reachability: %@", &v13, 0x16u);
+      v9 = HMFBooleanToString();
+      v11 = 138543618;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v9;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Notifying clients of updated media accessory reachability: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -307,21 +306,19 @@ void __68__HMDMediaAccessory_notifyConnectivityChangedWithReachabilityState___bl
   {
     if (v7)
     {
-      v11 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Ignoring non-remote reachability change while remote access is enabled", &v13, 0xCu);
+      v10 = HMFGetLogIdentifier();
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Ignoring non-remote reachability change while remote access is enabled", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdatedAdvertisement:(id)advertisement
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   advertisementCopy = advertisement;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -329,22 +326,20 @@ void __68__HMDMediaAccessory_notifyConnectivityChangedWithReachabilityState___bl
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = advertisementCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Updated with advertisement: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = advertisementCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Updated with advertisement: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAdvertisement:(id)advertisement
 {
   advertisementCopy = advertisement;
   os_unfair_recursive_lock_lock_with_options();
-  advertisement = self->_advertisement;
   if (HMFEqualObjects())
   {
     os_unfair_recursive_lock_unlock();
@@ -478,11 +473,11 @@ void __68__HMDMediaAccessory_notifyConnectivityChangedWithReachabilityState___bl
 
 - (void)removeAdvertisement:(id)advertisement
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   advertisementCopy = advertisement;
-  v19.receiver = self;
-  v19.super_class = HMDMediaAccessory;
-  [(HMDAccessory *)&v19 removeAdvertisement:advertisementCopy];
+  v18.receiver = self;
+  v18.super_class = HMDMediaAccessory;
+  [(HMDAccessory *)&v18 removeAdvertisement:advertisementCopy];
   v5 = advertisementCopy;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -511,9 +506,9 @@ void __68__HMDMediaAccessory_notifyConnectivityChangedWithReachabilityState___bl
       v12 = HMFGetLogIdentifier();
       identifier = [(HMDAccessory *)selfCopy identifier];
       *buf = 138543618;
-      v21 = v12;
-      v22 = 2112;
-      v23 = identifier;
+      v20 = v12;
+      v21 = 2112;
+      v22 = identifier;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Remove advertisement for %@", buf, 0x16u);
     }
 
@@ -530,25 +525,23 @@ void __68__HMDMediaAccessory_notifyConnectivityChangedWithReachabilityState___bl
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v21 = v17;
-      v22 = 2112;
-      v23 = v5;
+      v20 = v17;
+      v21 = 2112;
+      v22 = v5;
       _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid removed advertisement: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAdvertisement:(id)advertisement
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   advertisementCopy = advertisement;
-  v13.receiver = self;
-  v13.super_class = HMDMediaAccessory;
-  [(HMDAccessory *)&v13 addAdvertisement:advertisementCopy];
+  v12.receiver = self;
+  v12.super_class = HMDMediaAccessory;
+  [(HMDAccessory *)&v12 addAdvertisement:advertisementCopy];
   v5 = advertisementCopy;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -578,16 +571,14 @@ void __68__HMDMediaAccessory_notifyConnectivityChangedWithReachabilityState___bl
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v5;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v5;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Invalid added advertisement: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createMediaProfile
@@ -656,7 +647,7 @@ void __68__HMDMediaAccessory_notifyConnectivityChangedWithReachabilityState___bl
 
 - (HMDMediaAccessory)initWithTransaction:(id)transaction home:(id)home
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   homeCopy = home;
   v8 = transactionCopy;
@@ -682,7 +673,7 @@ void __68__HMDMediaAccessory_notifyConnectivityChangedWithReachabilityState___bl
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v21;
+      v26 = v21;
       v22 = "%{public}@Cannot initialize a media accessory without an media model.";
 LABEL_13:
       _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, v22, buf, 0xCu);
@@ -706,7 +697,7 @@ LABEL_14:
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v21;
+      v26 = v21;
       v22 = "%{public}@The media identifier is required";
       goto LABEL_13;
     }
@@ -714,9 +705,9 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v25.receiver = self;
-  v25.super_class = HMDMediaAccessory;
-  v12 = [(HMDAccessory *)&v25 initWithTransaction:v8 home:homeCopy];
+  v24.receiver = self;
+  v24.super_class = HMDMediaAccessory;
+  v12 = [(HMDAccessory *)&v24 initWithTransaction:v8 home:homeCopy];
   if (v12)
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -734,7 +725,6 @@ LABEL_14:
   v18 = selfCopy2;
 LABEL_15:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -749,10 +739,10 @@ LABEL_15:
 
 - (NSDictionary)assistantObject
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = HMDMediaAccessory;
-  assistantObject = [(HMDAccessory *)&v22 assistantObject];
+  v28 = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = HMDMediaAccessory;
+  assistantObject = [(HMDAccessory *)&v21 assistantObject];
   v4 = [assistantObject mutableCopy];
 
   category = [(HMDAccessory *)self category];
@@ -787,11 +777,11 @@ LABEL_5:
 
     if (!v14)
     {
-      v23[0] = @"objectServiceType";
-      v23[1] = @"objectServiceSubType";
-      v24[0] = v11;
-      v24[1] = v12;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+      v22[0] = @"objectServiceType";
+      v22[1] = @"objectServiceSubType";
+      v23[0] = v11;
+      v23[1] = v12;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
       [v4 addEntriesFromDictionary:v15];
     }
 
@@ -806,9 +796,9 @@ LABEL_5:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v18;
-      v27 = 2112;
-      v28 = category;
+      v25 = v18;
+      v26 = 2112;
+      v27 = category;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Media accessory with invalid accessory category: %@", buf, 0x16u);
     }
 
@@ -818,9 +808,7 @@ LABEL_5:
   v11 = 0;
   v13 = 0;
 LABEL_15:
-  v19 = [v4 copy];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = objc_msgSend_copy(v4);
 
   return v19;
 }

@@ -1,3165 +1,1871 @@
-void re::FrameManager::freeForFrame(void *a1, uint64_t a2)
+uint64_t re::MaterialTechnique::tryGetFallbackVariant(re::MaterialTechnique *this)
 {
-  std::mutex::lock((a2 + 24));
-  if (*(a2 + 88) == 1)
+  if (*(this + 40) == 1)
   {
-
-    std::mutex::unlock((a2 + 24));
+    v2 = this + 48;
   }
 
   else
   {
-    *(a2 + 88) = 1;
-    std::mutex::unlock((a2 + 24));
-    v4 = *a2 & 0xFFFFFFFFFFFFFFFLL | (a1[2] << 60);
-    v5 = a1[20];
-    if (v5)
-    {
-      v8 = v4;
-      v5 = (*(*v5 + 16))(v5, &v8);
-    }
-
-    v6 = re::globalAllocators(v5);
-    re::PerFrameAllocatorManager::freeAllocatorsForFrame(v6[6], v4);
-    v7 = a1[25];
-    if (v7)
-    {
-      v8 = v4;
-      (*(*v7 + 16))(v7, &v8);
-    }
-  }
-}
-
-void re::updateFrameCountCommon(re *this, unint64_t *a2, uint64_t a3, const char *a4)
-{
-  v22 = *MEMORY[0x1E69E9840];
-  if (*this <= a2)
-  {
-    if (*this != a2 || *this == 1)
-    {
-      goto LABEL_12;
-    }
-
-    if (a4)
-    {
-      goto LABEL_12;
-    }
-
-    v13 = *re::graphicsLogObjects(this);
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_12;
-    }
-
-    v14 = *this;
-    v16 = 136315394;
-    v17 = a3;
-    v18 = 2048;
-    v19 = v14;
-    v9 = "%s same frame more than once %llu";
-    v10 = v13;
-    v11 = 22;
+    v2 = (*this + 8);
   }
 
-  else
+  v6 = *(v2 + 4);
+  v3 = re::HashTable<unsigned long,unsigned long,re::Hash<unsigned long>,re::EqualTo<unsigned long>,true,false>::tryGet(this + 88, &v6);
+  if (*(*this + 2845) != 1 || v3 == 0)
   {
-    v7 = *re::graphicsLogObjects(this);
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_12;
-    }
-
-    v8 = *this;
-    v16 = 136315650;
-    v17 = a3;
-    v18 = 2048;
-    v19 = v8;
-    v20 = 2048;
-    v21 = a2;
-    v9 = "%s update out of order %llu to %llu";
-    v10 = v7;
-    v11 = 32;
+    return 0;
   }
 
-  _os_log_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_DEFAULT, v9, &v16, v11);
-LABEL_12:
-  v15 = *this;
-  if (*this <= a2)
+  if (*(*v3 + 16))
   {
-    v15 = a2;
-  }
-
-  *this = v15;
-}
-
-double re::FrameManager::deinitRenderFrameCounting(re::FrameManager *this)
-{
-  v2 = re::globalAllocators(this);
-  v3 = re::PerFrameAllocatorManager::freeAllocatorsForFrame(v2[6], *(this + 6) & 0xFFFFFFFFFFFFFFFLL | (*(this + 5) << 60));
-  v4 = re::globalAllocators(v3);
-  re::PerFrameAllocatorManager::removeOwner(v4[6], *(this + 5));
-  *&result = 16;
-  *(this + 40) = xmmword_1E30DB2E0;
-  return result;
-}
-
-re *re::FrameManager::getFrameRefCount(re::FrameManager *this, uint64_t a2)
-{
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = a2 & 7;
-  if (*(this + 42) <= v2)
-  {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
-    v10 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  v3 = a2;
-  result = (*(this + 43) + 384 * v2);
-  if (*result == a2)
-  {
-    return result;
-  }
-
-  v6 = *re::graphicsLogObjects(result);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    if (*(this + 42) > v2)
-    {
-      v7 = *(*(this + 43) + 384 * v2);
-      *buf = 67109376;
-      *&buf[4] = v3;
-      *&buf[8] = 1024;
-      *&buf[10] = v7;
-      _os_log_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_DEFAULT, "getFrameRefCount() called with fc=%d, but found fc=%d instead", buf, 0xEu);
-      return 0;
-    }
-
-LABEL_9:
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
-    v10 = 0u;
-    *buf = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
+    return *v3;
   }
 
   return 0;
 }
 
-uint64_t re::FrameManager::tryExecuteCallbackWithAllocatedFrame(re::FrameManager *a1, uint64_t a2, uint64_t a3)
+_anonymous_namespace_ *re::EncoderState::setVertexAmplificationCountForState(_anonymous_namespace_ *result, _anonymous_namespace_ *a2, int a3, uint64_t a4, int a5, int a6, uint64_t a7)
 {
-  FrameRefCount = re::FrameManager::getFrameRefCount(a1, a2);
-  if (!FrameRefCount)
+  v12 = result;
+  if ((~*result & 0x60) != 0 || *(result + 21) != a5 || *(result + 11) != a6)
+  {
+    if (*(a4 + 8) != a5 && (atomic_exchange(re::EncoderState::setVertexAmplificationCountForState(BOOL,BOOL,re::FixedArray<re::mtl::Viewport> const&,unsigned char,unsigned char,re::mtl::RenderCommandEncoder &)::__FILE____LINE___logged, 1u) & 1) == 0)
+    {
+      v13 = *re::graphicsLogObjects(result);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      {
+        *v15 = 0;
+        _os_log_impl(&dword_1E1C61000, v13, OS_LOG_TYPE_DEFAULT, "The viewport count and size must match", v15, 2u);
+      }
+    }
+
+    re::mtl::RenderCommandEncoder::setViewports(a7);
+    result = re::setVertexAmplificationCount(a2, a3, a5, a6, a7, v14);
+    *(v12 + 21) = a5;
+    *(v12 + 11) = a6;
+    *v12 |= 0x60u;
+  }
+
+  return result;
+}
+
+uint64_t re::resolveStencilInfo(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v6 = *(a2 + 72);
+  v7 = v6[8];
+  if (v7)
+  {
+    v4 = *(v7 + 1080);
+    if (v4 == 1)
+    {
+      v4 = *(v7 + 1081);
+      LODWORD(v7) = 1;
+    }
+
+    else
+    {
+      LODWORD(v7) = 0;
+    }
+  }
+
+  v8 = v6[9];
+  if (v8)
+  {
+    v5 = *(v8 + 1080);
+    if (v5 == 1)
+    {
+      v5 = *(v8 + 1081);
+      LODWORD(v8) = 1;
+    }
+
+    else
+    {
+      LODWORD(v8) = 0;
+    }
+  }
+
+  v9 = v6[11];
+  if (v9 && (v10 = *(v9 + 1080), v10 == 1))
+  {
+    v9 = *(v9 + 1081);
+    if (!a4)
+    {
+LABEL_12:
+      LODWORD(v11) = 255;
+      goto LABEL_15;
+    }
+  }
+
+  else
+  {
+    v10 = 0;
+    if (!a4)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  LODWORD(v11) = *(**a4 + 78);
+LABEL_15:
+  *result = *a3;
+  *(result + 16) = *(a3 + 16);
+  v12 = *(a2 + 147);
+  if (v12 != 255)
+  {
+    *result = v12 == 1;
+    *(result + 1) = *(a2 + 148);
+    *(result + 5) = *(a2 + 152);
+    *(result + 8) = *result;
+    *(result + 16) = *(a2 + 154);
+  }
+
+  if ((v7 | v8 | v10))
+  {
+    if (v8)
+    {
+      v13 = v5;
+    }
+
+    else
+    {
+      v13 = v9;
+    }
+
+    if (v7)
+    {
+      v14 = v4;
+    }
+
+    else
+    {
+      v14 = v13;
+    }
+
+    *result = v14 == 1;
+    *(result + 1) = BYTE1(v14);
+    *(result + 2) = BYTE2(v14);
+    *(result + 3) = BYTE3(v14);
+    *(result + 4) = BYTE4(v14);
+    *(result + 5) = BYTE5(v14);
+    *(result + 6) = BYTE6(v14);
+    *(result + 8) = *result;
+    v11 = HIBYTE(v14);
+  }
+
+  else if (v11 == 255)
+  {
+    return result;
+  }
+
+  *(result + 16) = v11;
+  return result;
+}
+
+uint64_t re::ShaderResourceBindState::reset(uint64_t this)
+{
+  v1 = 0;
+  v2 = 1488;
+  v3 = 1984;
+  do
+  {
+    v4 = this + v1;
+    *v4 = 0;
+    *(v4 + 8) = 0;
+    if ((*(this + v1 + 16) & 1) == 0)
+    {
+      *(v4 + 16) = 1;
+    }
+
+    *(v4 + 18) = 0;
+    *(v4 + 20) = 0;
+    *(v4 + 744) = 0uLL;
+    if ((*(v4 + 760) & 1) == 0)
+    {
+      *(v4 + 760) = 1;
+    }
+
+    v5 = this + v1;
+    *(v5 + 762) = 0;
+    *(v5 + 764) = 0;
+    if (*(this + v3) == 1)
+    {
+      *(this + v3) = 0;
+    }
+
+    if (*(this + v3 + 496) == 1)
+    {
+      *(this + v3 + 496) = 0;
+    }
+
+    v6 = (this + v2);
+    *v6 = 0;
+    v6[31] = 0;
+    v1 += 24;
+    v2 += 8;
+    v3 += 16;
+  }
+
+  while (v1 != 744);
+  return this;
+}
+
+void re::getOrCreateEncoderStates(uint64_t a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char *a11, unsigned __int8 a12, uint64_t a13, uint64_t a14, uint64_t a15)
+{
+  v96 = *MEMORY[0x1E69E9840];
+  v81 = 0;
+  v82 = 0;
+  v80 = 0;
+  v22 = *a2;
+  v21 = a2[1];
+  v23 = **a2;
+  v63[0] = a3;
+  v63[1] = a4;
+  v63[2] = *(a4 + 112);
+  v63[3] = a5;
+  v64 = v21;
+  if (v21)
+  {
+    v24 = v21 + 1;
+    v22 = *a2;
+  }
+
+  v65 = v23;
+  v25 = v22[1];
+  if (v25)
+  {
+    v26 = *(v25 + 1432);
+  }
+
+  else
+  {
+    v26 = 0;
+  }
+
+  v66 = v26;
+  v67 = *(a2 + 16);
+  v68 = 0;
+  v69 = a7;
+  v70 = a9;
+  v71 = a10;
+  v72 = (*a6 >> 1) & 7;
+  v73 = *(v25 + 1440);
+  v74 = 0;
+  v75 = a13;
+  v76 = a14;
+  v77 = a15;
+  v78 = 0;
+  v79 = 0;
+  re::getOrCreatePipelineState(v63, a6[80], &v62);
+  v61 = v62;
+  v27 = (v62 + 8);
+  v28 = re::HashTable<re::PipelineStateCacheKey,re::SharedPtr<re::CachedPipelineState>,re::Hash<re::PipelineStateCacheKey>,re::EqualTo<re::PipelineStateCacheKey>,true,false>::addNew((a2 + 3), (v62 + 24), &v61);
+  if (v61)
+  {
+
+    v61 = 0;
+  }
+
+  if (!v62)
+  {
+    v40 = *re::graphicsLogObjects(v28);
+    if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_34;
+    }
+
+    v41 = ***a2;
+    *buf = 136315138;
+    *v84 = v41;
+    v42 = "Failed to obtain cached pipeline state for technique %s";
+LABEL_49:
+    _os_log_error_impl(&dword_1E1C61000, v40, OS_LOG_TYPE_ERROR, v42, buf, 0xCu);
+    goto LABEL_34;
+  }
+
+  v31 = a6[80];
+  v32 = *(a5 + 36);
+  v33 = a11[1];
+  v34 = a11[2];
+  v29.i32[0] = *(a11 + 3);
+  v35 = vmovl_u8(v29).u64[0];
+  v36 = a11[9];
+  v37 = a11[10];
+  v30.i32[0] = *(a11 + 11);
+  v38 = vmovl_u8(v30).u64[0];
+  if ((v31 & 4) != 0)
+  {
+    v39 = 7;
+  }
+
+  else if (!*(v23 + 82) || *(v23 + 82) == 7 || (v39 = 7, (v32 - 250) <= 0xA) && ((1 << (v32 + 6)) & 0x425) != 0)
+  {
+    v39 = *(v23 + 82);
+  }
+
+  v43 = 0;
+  v44 = *(a5 + 40);
+  v88 = v39;
+  v45 = *a11;
+  v46 = a11[8];
+  buf[0] = 0;
+  v47 = vuzp1_s16(v35, vrev32_s16(v35));
+  v48 = vuzp1_s8(v47, v47);
+  v48.i32[1] = vuzp1_s8(vuzp1_s16(v38, vrev32_s16(v38)), v48).u32[0];
+  v87 = v48;
+  v89 = v33;
+  v90 = v34;
+  v91 = v36;
+  v92 = v37;
+  v49 = v32 - 250;
+  if (v49 <= 0xA && ((1 << v49) & 0x425) != 0)
+  {
+    v43 = *(v23 + 74) & ~v31;
+  }
+
+  v93 = v43;
+  v50 = ((v44 - 253) < 0xA) & (0x385u >> (v44 + 3));
+  v94 = v50 & v45;
+  v95 = v50 & v46;
+  DepthStencilState = re::getOrCreateDepthStencilState(a4, *(a4 + 112), buf);
+  v52 = DepthStencilState;
+  if (buf[0] == 1)
+  {
+    DepthStencilState = *&v84[4];
+    if (*&v84[4])
+    {
+      if (v85)
+      {
+        DepthStencilState = (*(**&v84[4] + 40))(*&v84[4], v86);
+      }
+    }
+  }
+
+  if (!v52)
+  {
+    v40 = *re::graphicsLogObjects(DepthStencilState);
+    if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_34;
+    }
+
+    v60 = ***a2;
+    *buf = 136315138;
+    *v84 = v60;
+    v42 = "Failed to obtain cached depth stencil state for technique %s";
+    goto LABEL_49;
+  }
+
+  v53 = a12;
+  v54 = atomic_load((v62 + 208));
+  if (v53 && v54 == 1)
+  {
+    v55 = (v62 + 208);
+    do
+    {
+      __ulock_wait();
+      v56 = atomic_load(v55);
+    }
+
+    while (v56 == 1);
+    v54 = atomic_load((v62 + 208));
+  }
+
+  if (!v54)
+  {
+    NS::SharedPtr<MTL::Buffer>::operator=(&v82, (v62 + 16));
+    NS::SharedPtr<MTL::Buffer>::operator=(&v81, v52);
+    NS::SharedPtr<MTL::Buffer>::operator=(&v80, (v62 + 96));
+    v57 = v82;
+    v58 = v81;
+    v59 = v80;
+    *a1 = 1;
+    *(a1 + 8) = v57;
+    *(a1 + 16) = v58;
+    *(a1 + 24) = v59;
+    goto LABEL_35;
+  }
+
+LABEL_34:
+  *a1 = 0;
+LABEL_35:
+  if (v62)
+  {
+  }
+
+  if (v79)
+  {
+  }
+
+  if (v64)
+  {
+  }
+
+  if (v80)
+  {
+  }
+
+  if (v81)
+  {
+  }
+
+  if (v82)
+  {
+  }
+}
+
+uint64_t re::Optional<re::DrawCallEncoderStates>::operator=(uint64_t a1, uint64_t a2)
+{
+  if (*a1)
+  {
+    if (*a2)
+    {
+      NS::SharedPtr<MTL::Buffer>::operator=((a1 + 8), (a2 + 8));
+      NS::SharedPtr<MTL::Buffer>::operator=((a1 + 16), (a2 + 16));
+      NS::SharedPtr<MTL::Buffer>::operator=((a1 + 24), (a2 + 24));
+    }
+
+    else
+    {
+      v4 = *(a1 + 24);
+      if (v4)
+      {
+
+        *(a1 + 24) = 0;
+      }
+
+      v5 = *(a1 + 16);
+      if (v5)
+      {
+
+        *(a1 + 16) = 0;
+      }
+
+      v6 = *(a1 + 8);
+      if (v6)
+      {
+
+        *(a1 + 8) = 0;
+      }
+
+      *a1 = 0;
+    }
+  }
+
+  else if (*a2)
+  {
+    *a1 = 1;
+    *(a1 + 8) = *(a2 + 8);
+    *(a1 + 16) = *(a2 + 16);
+    *(a1 + 24) = *(a2 + 24);
+  }
+
+  return a1;
+}
+
+uint64_t re::Optional<re::DrawCallEncoderStates>::~Optional(uint64_t a1)
+{
+  if (*a1 == 1)
+  {
+    v2 = *(a1 + 24);
+    if (v2)
+    {
+
+      *(a1 + 24) = 0;
+    }
+
+    v3 = *(a1 + 16);
+    if (v3)
+    {
+
+      *(a1 + 16) = 0;
+    }
+
+    v4 = *(a1 + 8);
+    if (v4)
+    {
+
+      *(a1 + 8) = 0;
+    }
+  }
+
+  return a1;
+}
+
+__n128 re::StandardEngineResources::populate(uint64_t a1, uint64_t a2, _DWORD *a3, __int128 *a4, uint64_t a5, const void *a6, uint64_t a7)
+{
+  v13 = *a4;
+  *(a1 + 16) = *(a4 + 2);
+  *a1 = v13;
+  re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer(&v27, (*a2 + 16), 0xA0uLL, 0x20uLL);
+  *(a1 + 24) = v27;
+  *(a1 + 40) = v28;
+  v14 = (*(a1 + 24) + *(a1 + 32));
+  v14[1] = *(a5 + 16);
+  v15 = *(a5 + 80);
+  v17 = *(a5 + 32);
+  v16 = *(a5 + 48);
+  v14[4] = *(a5 + 64);
+  v14[5] = v15;
+  v14[2] = v17;
+  v14[3] = v16;
+  v18 = *(a5 + 144);
+  v20 = *(a5 + 96);
+  v19 = *(a5 + 112);
+  v14[8] = *(a5 + 128);
+  v14[9] = v18;
+  v14[6] = v20;
+  v14[7] = v19;
+  result = *a5;
+  *v14 = *a5;
+  if (!*(a1 + 60))
+  {
+    re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer(&v27, (*a2 + 16), 0x400uLL, 0x100uLL);
+    *(a1 + 48) = v27;
+    *(a1 + 64) = v28;
+    v22 = *(a1 + 48);
+    v23 = *(a1 + 56);
+    memcpy((v22 + v23), a6, 0x400uLL);
+    if (a3)
+    {
+      result.n128_f64[0] = re::ViewConstantsLateLatch::trackViewConstantsBuffer(a3, v22 + v23);
+    }
+  }
+
+  if (!*(a1 + 84))
+  {
+    re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer(&v27, (*a2 + 16), 0x40uLL, 0x10uLL);
+    *(a1 + 72) = v27;
+    *(a1 + 88) = v28;
+    v24 = *(a1 + 72) + *(a1 + 80);
+    result = *a7;
+    v25 = *(a7 + 16);
+    v26 = *(a7 + 48);
+    *(v24 + 32) = *(a7 + 32);
+    *(v24 + 48) = v26;
+    *v24 = result;
+    *(v24 + 16) = v25;
+  }
+
+  return result;
+}
+
+id *re::encodeDrawCalls(id *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, re::mtl *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, unsigned __int8 a18, unsigned int a19, unsigned int a20, uint64_t a21)
+{
+  v80 = *MEMORY[0x1E69E9840];
+  if (a2 && *(a2 + 16))
+  {
+    HIDWORD(v45) = a18;
+    v46 = result;
+    v26 = re::ProfilerTimeGuard<(re::ProfilerStatistic)20>::ProfilerTimeGuard(v58);
+    v59 = a2;
+    v60 = a14;
+    v61 = a3;
+    v62 = a4;
+    v63 = a6;
+    v64 = a7;
+    v65 = a12;
+    v66 = a13;
+    v67 = 0;
+    v68[0] = a17;
+    *&v68[4] = a15;
+    *&v68[12] = a15;
+    *&v68[20] = a15;
+    *&v68[28] = a15;
+    v68[36] = a18;
+    v71 = 0u;
+    LODWORD(v69) = a19;
+    LODWORD(v72) = a20;
+    BYTE4(v72) = 0;
+    LODWORD(v73) = 0;
+    BYTE4(v73) = 0;
+    v74 = a9;
+    v75 = a11;
+    v76 = a10;
+    v78 = 0;
+    v79 = 0;
+    location = 0;
+    v27 = re::globalAllocators(v26);
+    v28 = (*(*v27[2] + 32))(v27[2], 272, 8);
+    *v28 = 0u;
+    v28[1] = 0u;
+    v28[2] = 0u;
+    v28[3] = 0u;
+    v28[4] = 0u;
+    v28[5] = 0u;
+    v28[6] = 0u;
+    v28[7] = 0u;
+    v28[8] = 0u;
+    v28[9] = 0u;
+    v28[10] = 0u;
+    v28[11] = 0u;
+    v28[12] = 0u;
+    v28[13] = 0u;
+    v28[14] = 0u;
+    v28[15] = 0u;
+    v28[16] = 0u;
+    v57 = 0;
+    v54 = 0;
+    v55 = 0;
+    v50 = v28;
+    re::mtl::RenderCommandEncoder::operator=(&location, v46);
+    v51 = a5 + 48;
+    v52 = a5 + 104;
+    v29 = *(a2 + 16);
+    v53 = *(a4 + 24);
+    v54 = 0;
+    v55 = v29;
+    v56 = a3 + 104;
+    v57 = a21;
+    (v50[20])(*v50, sel_pushDebugGroup_, [MEMORY[0x1E696AEC0] stringWithCString:a8 encoding:4]);
+    re::mtl::RenderCommandEncoder::insertDebugSignpost(&location, a8);
+    v43 = *(a4 + 112);
+    if (v43)
+    {
+      re::RenderStat::sampleRenderEncoderMTLCounterBegin(v43 + 864, &location, 1u);
+    }
+
+    re::encodeDrawCalls(&location, &v59, a16, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, a13, v45, a9, a10, a11, __SPAIR64__(a20, a19), v46, a5, a8, a21, a16, location, v50, v51, v52, v53, v54, v55, v56, v57, v58[0], v58[1], v59, v60, v61, v62, v63, v64, *(&v64 + 1), v65, v66, v67, *v68, *&v68[8], *&v68[16], *&v68[24], *&v68[32], v69, v70, v71, *(&v71 + 1), v72, v73, v74, v75, v76, v77);
+    v44 = *(a4 + 112);
+    if (v44)
+    {
+      re::RenderStat::sampleRenderEncoderMTLCounterEnd(v44 + 864, &location, 1u);
+    }
+
+    (v50[21])(*v50, sel_popDebugGroup);
+    re::mtl::RenderCommandEncoder::~RenderCommandEncoder(&location);
+    return re::ProfilerTimeGuard<(re::ProfilerStatistic)79>::end(v58);
+  }
+
+  return result;
+}
+
+uint64_t re::EngineConstantSource::lookup(re::EngineConstantSource *this, const re::WeakStringID *a2)
+{
+  v2 = *(this + 1);
+  if (!v2)
   {
     return 0;
   }
 
-  v6 = FrameRefCount;
-  std::mutex::lock((FrameRefCount + 24));
-  if (*v6 == a2 && (*(v6 + 88) & 1) == 0)
+  v3 = re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(*(this + 1), a2);
+  if (v3 == -1)
   {
-    v9 = a2;
-    (*(**(a3 + 32) + 16))(*(a3 + 32), &v9);
-    v7 = 1;
+    return 0;
   }
 
   else
   {
-    v7 = 0;
+    return *(v2 + 8) + 16 * v3 + 8;
   }
-
-  std::mutex::unlock((v6 + 24));
-  return v7;
 }
 
-void *re::allocInfo_FrameManager(re *this)
+uint64_t re::EngineConstantSource::layoutHash(re::EngineConstantSource *this)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_471, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_471))
+  v1 = *(this + 1);
+  if (v1)
   {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1BAC38, "FrameManager");
-    __cxa_guard_release(&_MergedGlobals_471);
-  }
-
-  return &unk_1EE1BAC38;
-}
-
-void re::initInfo_FrameManager(re *this, re::IntrospectionBase *a2)
-{
-  v6[0] = 0x34087BE954749B40;
-  v6[1] = "FrameManager";
-  if (v6[0])
-  {
-    if (v6[0])
-    {
-    }
-  }
-
-  *(this + 2) = v7;
-  *(this + 2) = 0x17000000008;
-  *(this + 6) = 8;
-  *(this + 14) = 0;
-  *(this + 14) = 0;
-  *(this + 8) = &re::initInfo_FrameManager(re::IntrospectionBase *)::structureAttributes;
-  *(this + 9) = re::internal::defaultConstruct<re::FrameManager>;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 10) = re::internal::defaultDestruct<re::FrameManager>;
-  *(this + 13) = re::internal::defaultConstructV2<re::FrameManager>;
-  *(this + 14) = re::internal::defaultDestructV2<re::FrameManager>;
-  *(this + 15) = 0;
-  *(this + 16) = 0;
-  *(this + 17) = 0;
-  re::internal::prepare(this, v4);
-  v5 = v7;
-}
-
-void re::FrameManager::~FrameManager(re::FrameManager *this)
-{
-  re::FrameManager::~FrameManager(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-{
-  *this = &unk_1F5D098B8;
-  if (*(this + 41))
-  {
-    v2 = *(this + 42);
-    if (v2)
-    {
-      v3 = 384 * v2;
-      v4 = (*(this + 43) + 24);
-      do
-      {
-        std::mutex::~mutex(v4);
-        v4 = v5 + 6;
-        v3 -= 384;
-      }
-
-      while (v3);
-      (*(**(this + 41) + 40))(*(this + 41), *(this + 43));
-      *(this + 42) = 0;
-      *(this + 43) = 0;
-    }
-
-    *(this + 41) = 0;
-  }
-
-  re::FunctionBase<24ul,void ()(void)>::destroyCallable(this + 288);
-  re::FunctionBase<24ul,void ()(void)>::destroyCallable(this + 248);
-  re::FunctionBase<24ul,void ()(void)>::destroyCallable(this + 208);
-  re::FunctionBase<24ul,void ()(re::FrameCount)>::destroyCallable(this + 168);
-  re::FunctionBase<24ul,void ()(re::FrameCount)>::destroyCallable(this + 128);
-  re::FixedArray<re::DelayedDestructorsForFrame>::deinit(this + 12);
-  re::FixedArray<re::DelayedDestructorsForFrame>::deinit(this + 8);
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-}
-
-uint64_t re::FunctionBase<24ul,void ()(re::FrameCount)>::operator=<24ul>(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    re::FunctionBase<24ul,void ()(re::FrameCount)>::destroyCallable(a1);
-    v4 = *(a2 + 32);
-    if (v4)
-    {
-      v5 = (*(*v4 + 40))(v4);
-      v6 = a1;
-      if (v5 >= 0x19)
-      {
-        v7 = v5;
-        v8 = *(a1 + 24);
-        if (v8)
-        {
-          v6 = (*(*v8 + 32))(v8, v7, 0);
-        }
-
-        else
-        {
-          v6 = 0;
-        }
-      }
-
-      *(a1 + 32) = v6;
-      (*(**(a2 + 32) + 24))(*(a2 + 32));
-    }
-  }
-
-  return a1;
-}
-
-uint64_t re::FixedArray<re::DelayedDestructorsForFrame>::init<>(void *a1, uint64_t a2)
-{
-  *a1 = a2;
-  a1[1] = 8;
-  result = (*(*a2 + 32))(a2, 384, 8);
-  a1[2] = result;
-  if (result)
-  {
-    v5 = (result + 40);
-    v6 = 7;
-    do
-    {
-      *(v5 - 4) = 0;
-      *(v5 - 3) = 0;
-      *(v5 - 5) = 0;
-      *(v5 - 4) = 0;
-      *(v5 - 1) = 0;
-      *v5 = 0xFFFFFFFFFFFFFFFLL;
-      v5 += 6;
-      --v6;
-    }
-
-    while (v6);
-    *(v5 - 4) = 0;
-    *(v5 - 3) = 0;
-    *(v5 - 5) = 0;
-    *(v5 - 4) = 0;
-    *(v5 - 1) = 0;
-    *v5 = 0xFFFFFFFFFFFFFFFLL;
+    return *(v1 + 48);
   }
 
   else
   {
-    re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
-    result = _os_crash();
-    __break(1u);
+    return 0;
+  }
+}
+
+unint64_t re::HashBrown<unsigned long,unsigned int,re::Hash<unsigned long>,re::EqualTo<unsigned long>,re::Hash<unsigned int>,false>::addOrReplace(uint64_t *a1, void *a2, _DWORD *a3)
+{
+  v6 = re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(a1, a2);
+  if (v6 == -1)
+  {
+
+    return re::HashBrown<unsigned long,unsigned int,re::Hash<unsigned long>,re::EqualTo<unsigned long>,re::Hash<unsigned int>,false>::internalAdd(a1, a2, a3);
+  }
+
+  else
+  {
+    v7 = v6;
+    re::HashBrown<re::WeakStringID,unsigned int,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<unsigned int>,false>::updateKvpsHash(a1, a1[1] + 16 * v6);
+    v8 = a1[1] + 16 * v7;
+    *(v8 + 8) = *a3;
+    re::HashBrown<re::WeakStringID,unsigned int,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<unsigned int>,false>::updateKvpsHash(a1, v8);
+    return a1[1] + 16 * v7 + 8;
+  }
+}
+
+{
+  v6 = re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(a1, a2);
+  if (v6 == -1)
+  {
+
+    return re::HashBrown<unsigned long,unsigned int,re::Hash<unsigned long>,re::EqualTo<unsigned long>,re::Hash<unsigned int>,false>::internalAdd(a1, a2, a3);
+  }
+
+  else
+  {
+    v7 = v6;
+    re::HashBrown<re::WeakStringID,unsigned int,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<unsigned int>,false>::updateKvpsHash(a1, a1[1] + 16 * v6);
+    v8 = a1[1] + 16 * v7;
+    *(v8 + 8) = *a3;
+    re::HashBrown<re::WeakStringID,unsigned int,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<unsigned int>,false>::updateKvpsHash(a1, v8);
+    return a1[1] + 16 * v7 + 8;
+  }
+}
+
+double re::HashBrown<unsigned long,unsigned long long,re::Hash<unsigned long>,re::EqualTo<unsigned long>,void,false>::addNew(uint64_t *a1, void *a2, void *a3)
+{
+  if (re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(a1, a2) == -1)
+  {
+
+    *&result = re::HashBrown<unsigned long,unsigned long long,re::Hash<unsigned long>,re::EqualTo<unsigned long>,void,false>::internalAdd(a1, a2, a3).u64[0];
   }
 
   return result;
 }
 
-void *re::DynamicArray<re::MoveOnlyFunction<void ()(void)>>::setCapacity(void *result, unint64_t a2)
+int64x2_t re::HashBrown<unsigned long,unsigned long long,re::Hash<unsigned long>,re::EqualTo<unsigned long>,void,false>::internalAdd(uint64_t *a1, void *a2, void *a3)
 {
-  v3 = result[1];
-  if (v3 != a2)
+  if (!a1[7])
   {
-    v5 = result;
-    if (result[2] <= a2)
-    {
-      result = *result;
-      if (!*v5)
-      {
-        result = re::DynamicArray<re::MoveOnlyFunction<void ()(void)>>::setCapacity(v5, a2);
-        ++*(v5 + 6);
-        return result;
-      }
-
-      if (a2)
-      {
-        if (is_mul_ok(a2, 0x28uLL))
-        {
-          v2 = 40 * a2;
-          result = (*(*result + 32))(result, 40 * a2, 8);
-          if (result)
-          {
-            v7 = result;
-            if (!v5[1])
-            {
-              goto LABEL_16;
-            }
-
-            goto LABEL_11;
-          }
-        }
-
-        else
-        {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 40, a2);
-          _os_crash();
-          __break(1u);
-        }
-
-        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
-        __break(1u);
-        return result;
-      }
-
-      v7 = 0;
-      if (!v3)
-      {
-LABEL_16:
-        v5[4] = v7;
-        v5[1] = a2;
-        return result;
-      }
-
-LABEL_11:
-      v8 = v5[4];
-      v9 = v5[2];
-      if (v9)
-      {
-        v10 = 40 * v9;
-        v11 = v7;
-        do
-        {
-          *(v11 + 24) = *(v8 + 24);
-          *(v11 + 32) = 0;
-          re::MoveOnlyFunctionBase<24ul,void ()(void)>::operator=<24ul>(v11, v8);
-          re::MoveOnlyFunctionBase<24ul,void ()(void)>::destroyCallable(v8);
-          v8 += 40;
-          v11 += 40;
-          v10 -= 40;
-        }
-
-        while (v10);
-        v8 = v5[4];
-      }
-
-      result = (*(**v5 + 40))(*v5, v8);
-      goto LABEL_16;
-    }
   }
 
-  return result;
-}
-
-uint64_t re::MoveOnlyFunctionBase<24ul,void ()(void)>::operator=<24ul>(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
+  v6 = a1[4];
+  if (!v6 || (v7 = a1[2], v7 > 8 * v6))
   {
-    re::MoveOnlyFunctionBase<24ul,void ()(void)>::destroyCallable(a1);
-    v4 = *(a2 + 32);
-    if (*(a1 + 24) != *(a2 + 24) || v4 == a2)
+    re::HashBrown<unsigned long,unsigned long long,re::Hash<unsigned long>,re::EqualTo<unsigned long>,void,false>::resize(a1, 1);
+    v7 = a1[2];
+  }
+
+  v8 = 0xBF58476D1CE4E5B9;
+  v9 = 0x94D049BB133111EBLL;
+  v10 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  v11 = (0x94D049BB133111EBLL * (v10 ^ (v10 >> 27))) ^ ((0x94D049BB133111EBLL * (v10 ^ (v10 >> 27))) >> 31);
+  v12 = v7 >> 4;
+  v13 = *a1;
+  v14 = v11 % v12;
+  while (1)
+  {
+    v15 = __clz(__rbit64(*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(v13 + 16 * v14)), xmmword_1E304FAD0)))), 0x3830282018100800)));
+    if (v15 < 0x40)
     {
-      if (v4)
-      {
-        v6 = (*(*v4 + 32))(v4);
-        v7 = a1;
-        if (v6 >= 0x19)
-        {
-          v8 = v6;
-          v9 = *(a1 + 24);
-          if (v9)
-          {
-            v7 = (*(*v9 + 32))(v9, v8, 0);
-          }
+      break;
+    }
 
-          else
-          {
-            v7 = 0;
-          }
-        }
-
-        *(a1 + 32) = v7;
-        (*(**(a2 + 32) + 24))(*(a2 + 32));
-        re::MoveOnlyFunctionBase<24ul,void ()(void)>::destroyCallable(a2);
-      }
+    if (v14 + 1 == v12)
+    {
+      v14 = 0;
     }
 
     else
     {
-      *(a1 + 32) = v4;
-      *(a2 + 32) = 0;
-    }
-  }
-
-  return a1;
-}
-
-void *re::InlineRenderGraphProvider::InlineRenderGraphProvider(void *a1, const re::DynamicString *a2, uint64_t a3, uint64_t a4)
-{
-  re::DynamicString::DynamicString(v8, a2);
-  *a1 = &unk_1F5CC5700;
-  re::DynamicString::DynamicString((a1 + 1), v8);
-  if (*&v8[0])
-  {
-    if (BYTE8(v8[0]))
-    {
-      (*(**&v8[0] + 40))();
-    }
-
-    memset(v8, 0, sizeof(v8));
-  }
-
-  *a1 = &unk_1F5D09918;
-  a1[8] = *(a3 + 24);
-  a1[9] = 0;
-  re::FunctionBase<24ul,unsigned long long ()(char const*,char const*,re::RenderFrame &)>::operator=<24ul>((a1 + 5), a3);
-  a1[13] = *(a4 + 24);
-  a1[14] = 0;
-  re::FunctionBase<24ul,void ()(char const*,char const*,re::RenderFrame &)>::operator=<24ul>((a1 + 10), a4);
-  return a1;
-}
-
-uint64_t re::InlineRenderGraphProvider::provide(re::InlineRenderGraphProvider *this, const char *a2, const char *a3, re::RenderFrame *a4)
-{
-  v5 = a3;
-  v6 = a2;
-  return (*(**(this + 14) + 16))(*(this + 14), &v6, &v5, a4);
-}
-
-unint64_t re::InlineRenderGraphProvider::prepareFrame(re::InlineRenderGraphProvider *this, char *a2, const char *a3, re::RenderFrame *a4)
-{
-  v10[0] = 0x2FD78E65604013F0;
-  v10[1] = "InlineRenderGraphProvider";
-  ScopeHash = re::RenderGraphProviderBase::generateScopeHash(v10, a2, a3);
-  v10[0] = a2;
-  v11 = a3;
-  return ((ScopeHash << 6) + (ScopeHash >> 2) - 0x61C8864680B583E9 + (*(**(this + 9) + 16))(*(this + 9), v10, &v11, a4)) ^ ScopeHash;
-}
-
-void re::InlineRenderGraphProvider::~InlineRenderGraphProvider(re::InlineRenderGraphProvider *this)
-{
-  *this = &unk_1F5D09918;
-  v2 = this + 40;
-  re::FunctionBase<24ul,void ()(char const*,char const*,re::RenderFrame &)>::destroyCallable(this + 80);
-  re::FunctionBase<24ul,unsigned long long ()(char const*,char const*,re::RenderFrame &)>::destroyCallable(v2);
-  *this = &unk_1F5CC5700;
-  re::DynamicString::deinit((this + 8));
-}
-
-{
-  *this = &unk_1F5D09918;
-  v2 = this + 40;
-  re::FunctionBase<24ul,void ()(char const*,char const*,re::RenderFrame &)>::destroyCallable(this + 80);
-  re::FunctionBase<24ul,unsigned long long ()(char const*,char const*,re::RenderFrame &)>::destroyCallable(v2);
-  *this = &unk_1F5CC5700;
-  re::DynamicString::deinit((this + 8));
-
-  JUMPOUT(0x1E6906520);
-}
-
-void re::IBLContext::createConstantBuffer(uint64_t a1, uint64_t a2, re::BufferTable *a3, __int128 *a4)
-{
-  re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer((a2 + 16), 0xD0uLL, 0x10uLL, &v39);
-  v7 = v40;
-  v8 = v39 + v40;
-  v38 = 0x262DF9A294ABAC1CLL;
-  v39 = v41;
-  LODWORD(v40) = 0;
-  v41 = v7;
-  re::BufferTable::setBuffer(a3, &v38, &v39);
-  *(v8 + 8) = 0;
-  *v8 = 1065353216;
-  *(v8 + 24) = 0;
-  *(v8 + 16) = 0x3F80000000000000;
-  *(v8 + 40) = 1065353216;
-  *(v8 + 32) = 0;
-  *(v8 + 48) = 0;
-  *(v8 + 64) = 0u;
-  v9 = *a4;
-  v10 = a4[1];
-  v11 = a4[2];
-  *(v8 + 88) = *(a4 + 1);
-  *(v8 + 80) = v9;
-  *(v8 + 104) = DWORD2(v10);
-  *(v8 + 96) = v10;
-  *(v8 + 120) = DWORD2(v11);
-  *(v8 + 112) = v11;
-  *(v8 + 128) = 0;
-  *(v8 + 152) = 0;
-  *(v8 + 144) = 1065353216;
-  *(v8 + 168) = 0;
-  *(v8 + 160) = 0x3F80000000000000;
-  *(v8 + 184) = 1065353216;
-  *(v8 + 176) = 0;
-  *(v8 + 192) = 0;
-  v12 = *(a1 + 16);
-  if (v12)
-  {
-    v13 = *(a1 + 32);
-    v32 = (v13 + 224 * v12);
-    for (i = (v13 + 192); ; i += 28)
-    {
-      v15 = (i - 24);
-      v16 = *(i - 24);
-      v17 = *(i - 23);
-      v18 = *(i - 22);
-      v19 = *(i - 42);
-      *&v20 = *(i - 20);
-      DWORD2(v20) = *(i - 38);
-      v37 = v20;
-      *&v20 = *(i - 18);
-      DWORD2(v20) = *(i - 34);
-      v36 = v20;
-      *&v20 = *(i - 16);
-      DWORD2(v20) = *(i - 30);
-      v35 = v20;
-      v21 = *(i - 28);
-      v34 = *(i - 6);
-      v22 = *(i - 20);
-      v23 = *(i - 9);
-      v24 = *(i - 8);
-      v25 = *(i - 7);
-      v26 = *(i - 6);
-      v27 = *(i - 5);
-      v28 = v27;
-      if (*(i + 17))
-      {
-        break;
-      }
-
-      if (v27)
-      {
-      }
-
-      if (v26)
-      {
-      }
-
-      if (v24)
-      {
-      }
-
-      if (v23)
-      {
-      }
-
-      if (v18)
-      {
-      }
-
-      if (v17)
-      {
-      }
-
-      if (v16)
-      {
-      }
-
-      if (v15 + 14 == v32)
-      {
-        return;
-      }
-    }
-
-    v31 = *(i - 1);
-    v33 = *i;
-    v30 = *(i - 2);
-    v29 = exp2f(v19);
-    *(v8 + 8) = DWORD2(v37);
-    *v8 = v37;
-    *(v8 + 24) = DWORD2(v36);
-    *(v8 + 16) = v36;
-    *(v8 + 40) = DWORD2(v35);
-    *(v8 + 32) = v35;
-    *(v8 + 48) = v29;
-    *(v8 + 52) = v21;
-    *(v8 + 64) = v34;
-    *(v8 + 128) = v22 * 0.5;
-    *(v8 + 152) = DWORD2(v30);
-    *(v8 + 144) = v30;
-    *(v8 + 168) = DWORD2(v31);
-    *(v8 + 160) = v31;
-    *(v8 + 184) = DWORD2(v33);
-    *(v8 + 176) = v33;
-    *(v8 + 192) = v25;
-    if (v28)
-    {
-    }
-
-    if (v26)
-    {
-    }
-
-    if (v24)
-    {
-    }
-
-    if (v23)
-    {
-    }
-
-    if (v18)
-    {
-    }
-
-    if (v17)
-    {
-    }
-
-    if (v16)
-    {
-    }
-  }
-}
-
-void re::IBLContext::updateSceneTextures(id *this, int8x16_t **a2)
-{
-  v45 = *MEMORY[0x1E69E9840];
-  v28 = 0xE459D7324435E49;
-  re::TextureTable::setTexture(a2, &v28, this + 5);
-  v28 = 0;
-  v4 = this[2];
-  if (v4)
-  {
-    v5 = this[4];
-    v6 = &v5[224 * v4];
-    while (1)
-    {
-      v7 = *v5;
-      v29 = v7;
-      v8 = *(v5 + 1);
-      v30 = v8;
-      v9 = *(v5 + 2);
-      v31 = v9;
-      v10 = *(v5 + 40);
-      v32 = *(v5 + 24);
-      v33 = v10;
-      v11 = *(v5 + 72);
-      v12 = *(v5 + 88);
-      v13 = *(v5 + 102);
-      v34 = *(v5 + 56);
-      *&v36[14] = v13;
-      *v36 = v12;
-      v35 = v11;
-      v14 = *(v5 + 15);
-      v37 = v14;
-      v15 = *(v5 + 16);
-      v17 = *(v5 + 17);
-      v16 = *(v5 + 18);
-      v38[0] = v15;
-      v38[1] = v17;
-      v18 = v16;
-      v39 = v18;
-      v19 = *(v5 + 19);
-      v40 = v19;
-      v21 = *(v5 + 11);
-      v20 = *(v5 + 12);
-      v22 = *(v5 + 10);
-      v44 = *(v5 + 104);
-      v42 = v21;
-      v43 = v20;
-      v41 = v22;
-      if (HIBYTE(v44) == 1)
-      {
-        break;
-      }
-
-      if (v19)
-      {
-
-        v40 = 0;
-      }
-
-      if (v18)
-      {
-      }
-
-      if (v15)
-      {
-      }
-
-      if (v14)
-      {
-      }
-
-      if (v9)
-      {
-      }
-
-      if (v8)
-      {
-      }
-
-      if (v7)
-      {
-      }
-
-      v5 += 224;
-      if (v5 == v6)
-      {
-        return;
-      }
-    }
-
-    v27 = 0xC0489AC946E8FF4;
-    re::TextureTable::setTexture(a2, &v27, &v30);
-    v26 = 0x74B9011688CA44FFLL;
-    v27 = 0;
-    re::TextureTable::setTexture(a2, &v26, &v29);
-    v25 = 0x200BEB41406E4973;
-    v26 = 0;
-    re::TextureTable::setTexture(a2, &v25, &v31);
-    v25 = 0;
-    if (v36[29] == 1)
-    {
-      v24 = 0x23C1563FB78C78B1;
-      re::TextureTable::setTexture(a2, &v24, v38);
-      v23 = 0x5495C6E7C96973E2;
-      v24 = 0;
-      re::TextureTable::setTexture(a2, &v23, &v37);
-      v23 = 0;
-    }
-
-    if (v40)
-    {
-
-      v40 = 0;
-    }
-
-    if (v39)
-    {
-
-      v39 = 0;
-    }
-
-    if (v38[0])
-    {
-
-      v38[0] = 0;
-    }
-
-    if (v37)
-    {
-
-      v37 = 0;
-    }
-
-    if (v31)
-    {
-
-      v31 = 0;
-    }
-
-    if (v30)
-    {
-
-      v30 = 0;
-    }
-
-    if (v29)
-    {
-    }
-  }
-}
-
-void re::IBLContext::updateRenderSceneContextFlags(re::IBLContext *this, BOOL *a2, BOOL *a3)
-{
-  v3 = *(this + 2);
-  if (v3)
-  {
-    v4 = *(this + 4);
-    v5 = v4 + 224 * v3;
-    do
-    {
-      v6 = *v4;
-      v7 = *(v4 + 8);
-      v8 = *(v4 + 16);
-      v9 = *(v4 + 116);
-      v10 = *(v4 + 117);
-      v11 = *(v4 + 120);
-      v12 = *(v4 + 128);
-      v13 = *(v4 + 144);
-      v14 = *(v4 + 152);
-      if (*(v4 + 209))
-      {
-        *a2 = (v9 | *a2) & 1;
-        *a3 = (v10 | *a3) & 1;
-      }
-
-      if (v14)
-      {
-      }
-
-      if (v13)
-      {
-      }
-
-      if (v12)
-      {
-      }
-
-      if (v11)
-      {
-      }
-
-      if (v8)
-      {
-      }
-
-      if (v7)
-      {
-      }
-
-      if (v6)
-      {
-      }
-
-      v4 += 224;
-    }
-
-    while (v4 != v5);
-  }
-}
-
-void re::VirtualEnvironmentProbeContext::updateSceneTextures(uint64_t a1, int8x16_t **a2, uint64_t a3)
-{
-  v22 = *MEMORY[0x1E69E9840];
-  v6 = -2;
-  for (i = -48; ; i += 24)
-  {
-    if (v6 + 2 >= *(a1 + 16))
-    {
-      goto LABEL_10;
-    }
-
-    if (v6 == -1)
-    {
-      v11 = *(a1 + 32);
-      *&v17 = 0x456D423E25537F71;
-      re::TextureTable::setTexture(a2, &v17, (v11 + 24));
-      if (*(a1 + 16) <= 1uLL)
-      {
-        goto LABEL_22;
-      }
-
-      v12 = *(a1 + 32);
-      *&v17 = 0x456D423E247CF467;
-      v10 = (v12 + 32);
-    }
-
-    else
-    {
-      if (v6 != -2)
-      {
-        goto LABEL_10;
-      }
-
-      v8 = *(a1 + 32);
-      *&v17 = 0x456D423E25537F70;
-      re::TextureTable::setTexture(a2, &v17, v8);
-      if (!*(a1 + 16))
-      {
-        v20 = 0u;
-        v21 = 0u;
-        v18 = 0u;
-        v19 = 0u;
-        v17 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_22:
-        v20 = 0u;
-        v21 = 0u;
-        v18 = 0u;
-        v19 = 0u;
-        v17 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_23:
-        v20 = 0u;
-        v21 = 0u;
-        v18 = 0u;
-        v19 = 0u;
-        v17 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_24:
-        v20 = 0u;
-        v21 = 0u;
-        v18 = 0u;
-        v19 = 0u;
-        v17 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      v9 = *(a1 + 32);
-      *&v17 = 0x456D423E247CF466;
-      v10 = (v9 + 8);
-    }
-
-    re::TextureTable::setTexture(a2, &v17, v10);
-LABEL_10:
-    if (a3 && v6 < *(a3 + 16))
-    {
-      if (!v6)
-      {
-        v13 = *(a3 + 32);
-        *&v17 = 0x44E5F300C8804435;
-        re::TextureTable::setTexture(a2, &v17, (v13 + i));
-        if (!*(a3 + 16))
-        {
-          goto LABEL_23;
-        }
-
-        v14 = *(a3 + 32) + i;
-        *&v17 = 0x44E5F300C7A9B92BLL;
-        re::TextureTable::setTexture(a2, &v17, (v14 + 8));
-        goto LABEL_17;
-      }
-
-      if (v6 == 1)
-      {
-        break;
-      }
-    }
-
-LABEL_17:
-    if (++v6 == 2)
-    {
-      return;
-    }
-  }
-
-  v15 = *(a3 + 32);
-  *&v17 = 0x44E5F300C8804436;
-  re::TextureTable::setTexture(a2, &v17, (v15 + i));
-  if (*(a3 + 16) <= 1uLL)
-  {
-    goto LABEL_24;
-  }
-
-  v16 = *(a3 + 32) + i;
-  *&v17 = 0x44E5F300C7A9B92CLL;
-  re::TextureTable::setTexture(a2, &v17, (v16 + 8));
-}
-
-uint64_t re::VirtualEnvironmentProbeContext::createTextureBuffer(unint64_t a1, uint64_t a2, re::BufferTable *a3, uint64_t a4)
-{
-  v55 = *MEMORY[0x1E69E9840];
-  if (([*a2 supportsFamily:5001] & 1) == 0 && *(a1 + 16))
-  {
-    v42 = 0;
-    v39 = 0;
-    v40 = 0;
-    v41 = 0;
-    v38 = *(a2 + 32);
-    re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(&v38, 2uLL);
-    ++v41;
-    v37 = [objc_msgSend(MEMORY[0x1E6973FD8] alloc)];
-    [v37 setIndex_];
-    [v37 setDataType_];
-    v8 = &selRef_iosurface;
-    [v37 setAccess_];
-    [v37 setTextureType_];
-    [v37 setArrayLength_];
-    re::DynamicArray<NS::SharedPtr<MTL::Fence>>::add(&v38, &v37);
-    v36 = [objc_msgSend(MEMORY[0x1E6973FD8] alloc)];
-    [v36 setIndex_];
-    [v36 setDataType_];
-    [v36 setAccess_];
-    [v36 setTextureType_];
-    [v36 setArrayLength_];
-    re::DynamicArray<NS::SharedPtr<MTL::Fence>>::add(&v38, &v36);
-    re::DynamicArray<NS::SharedPtr<MTL::ArgumentDescriptor>>::DynamicArray(v34, &v38);
-    re::mtl::Device::makeArgumentEncoder(a2, v34, &v35);
-    re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v34);
-    v9 = v35;
-    re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer((a2 + 16), [v35 encodedLength], 0x10uLL, &v31);
-    *v44 = 0x458FBDFDF334653DLL;
-    v10 = v33;
-    *&v50 = v33;
-    DWORD2(v50) = 0;
-    v30 = v32;
-    *&v51 = v32;
-    v11 = a3;
-    re::BufferTable::setBuffer(a3, v44, &v50);
-    [v9 setArgumentBuffer:v10 offset:v30];
-    v12 = *(a2 + 32);
-    *&v46[2] = 0;
-    memset(&v44[8], 0, 20);
-    *v44 = v12;
-    re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(v44, 4uLL);
-    v13 = 0;
-    v14 = 0;
-    ++*&v44[24];
-    do
-    {
-      if (v14 < *(a1 + 16))
-      {
-        [v9 setTexture:*(*(a1 + 32) + v13) atIndex:v14];
-        v15 = *(a1 + 16);
-        if (v15 <= v14)
-        {
-          goto LABEL_63;
-        }
-
-        [v9 setTexture:*(*(a1 + 32) + v13 + 8) atIndex:v14 + 4];
-        v15 = *(a1 + 16);
-        if (v15 <= v14)
-        {
-          goto LABEL_64;
-        }
-
-        *&v50 = *(*(a1 + 32) + v13);
-        re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v44, &v50);
-        if (v50)
-        {
-        }
-
-        v15 = *(a1 + 16);
-        if (v15 <= v14)
-        {
-          goto LABEL_65;
-        }
-
-        *&v50 = *(*(a1 + 32) + v13 + 8);
-        re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v44, &v50);
-        if (v50)
-        {
-        }
-      }
-
       ++v14;
-      v13 += 24;
     }
 
-    while (v14 != 4);
-    v16 = 0;
-    a1 = 2;
-    do
+    if (v14 == v11 % v12)
     {
-      v17 = v16;
-      if (a4)
-      {
-        v14 = a1 - 2;
-        if (a1 - 2 < *(a4 + 16))
-        {
-          [v9 setTexture:*(*(a4 + 32) + 24 * v14) atIndex:a1];
-          v8 = *(a4 + 16);
-          if (v8 <= v14)
-          {
-            goto LABEL_66;
-          }
-
-          [v9 setTexture:*(*(a4 + 32) + 24 * v14 + 8) atIndex:a1 | 4];
-          a1 = *(a4 + 16);
-          if (a1 <= v14)
-          {
-            goto LABEL_67;
-          }
-
-          *&v50 = *(*(a4 + 32) + 24 * v14);
-          re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v44, &v50);
-          if (v50)
-          {
-          }
-
-          a1 = *(a4 + 16);
-          if (a1 <= v14)
-          {
-            goto LABEL_68;
-          }
-
-          *&v50 = *(*(a4 + 32) + 24 * v14 + 8);
-          re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v44, &v50);
-          if (v50)
-          {
-          }
-        }
-      }
-
-      v16 = 1;
-      a1 = 3;
+      re::internal::assertLog(4, a2, -1.79399301e-307, 4.74803907e-38, "assertion failure: '%s' (%s:line %i) Unexpected full hash-table", "blockIndex != h1(key) % blockCount()", "internalAdd", 658);
+      _os_crash("assertion failure: (blockIndex != h1(key) % blockCount()) Unexpected full hash-table");
+      __break(1u);
+      break;
     }
-
-    while ((v17 & 1) == 0);
-    *&v50 = 0x458FBDFDF334653DLL;
-    re::BufferTable::setBufferUsedResources(v11, &v50, *&v46[2], *&v44[16]);
-    re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v44);
-    if (v9)
-    {
-    }
-
-    if (v36)
-    {
-    }
-
-    if (v37)
-    {
-    }
-
-    return re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(&v38);
   }
 
-  re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer((a2 + 16), 0x40uLL, 0x10uLL, v47);
-  v38 = 0x458FBDFDF334653DLL;
-  v19 = *&v47[8];
-  v20 = *&v47[12];
-  *&v50 = *&v47[16];
-  DWORD2(v50) = 0;
-  *&v51 = *&v47[8];
-  re::BufferTable::setBuffer(a3, &v38, &v50);
-  if (v20 <= 0x3F)
+  v16 = v13 + 16 * v14;
+  v17 = *(v16 + v15);
+  *(v16 + v15) = v11 & 0x7F;
+  v18 = v15 + 16 * v14;
+  v19 = a1[1];
+  v20 = v19 + 16 * v18;
+  v21 = 16 * v18;
+  *(v19 + v21) = *a2;
+  *(v20 + 8) = *a3;
+  if (v17 == 255)
   {
-LABEL_69:
-    re::internal::assertLog(6, v21, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 671, 0, 0);
-    _os_crash();
-    __break(1u);
+    v22 = -1;
   }
 
-  v22 = a3;
-  v23 = *v47 + v19;
-  v24 = *(a2 + 32);
-  v42 = 0;
-  v39 = 0;
-  v40 = 0;
-  v41 = 0;
-  v38 = v24;
-  re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(&v38, 8uLL);
-  v25 = 0;
-  v26 = 0;
-  ++v41;
-  v15 = v23 + 32;
-  v8 = &unk_1E8723000;
-  v14 = v23 + 32;
-  do
+  else
   {
-    if (v26 >= *(a1 + 16))
-    {
-      *(v14 - 32) = 0;
-      *v14 = 0;
-      goto LABEL_42;
-    }
-
-    *(v14 - 32) = [*(*(a1 + 32) + v25) gpuResourceID];
-    v27 = *(a1 + 16);
-    if (v27 <= v26)
-    {
-      v31 = 0;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v50 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v44 = 136315906;
-      *&v44[4] = "operator[]";
-      *&v44[12] = 1024;
-      *&v44[14] = 797;
-      *&v44[18] = 2048;
-      *&v44[20] = v26;
-      v45 = 2048;
-      *v46 = v27;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_58:
-      v31 = 0;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v50 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v44 = 136315906;
-      *&v44[4] = "operator[]";
-      *&v44[12] = 1024;
-      *&v44[14] = 797;
-      *&v44[18] = 2048;
-      *&v44[20] = v26;
-      v45 = 2048;
-      *v46 = v27;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_59:
-      v31 = 0;
-      a1 = v44;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v50 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v44 = 136315906;
-      *&v44[4] = "operator[]";
-      *&v44[12] = 1024;
-      *&v44[14] = 797;
-      *&v44[18] = 2048;
-      *&v44[20] = v26;
-      v45 = 2048;
-      *v46 = v27;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_60:
-      v31 = 0;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v50 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v44 = 136315906;
-      *&v44[4] = "operator[]";
-      *&v44[12] = 1024;
-      *&v44[14] = 797;
-      *&v44[18] = 2048;
-      *&v44[20] = a1;
-      v45 = 2048;
-      *v46 = v25;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_61:
-      v31 = 0;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v50 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v44 = 136315906;
-      *&v44[4] = "operator[]";
-      *&v44[12] = 1024;
-      *&v44[14] = 797;
-      *&v44[18] = 2048;
-      *&v44[20] = a1;
-      v45 = 2048;
-      *v46 = v25;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_62:
-      v31 = 0;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v50 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v44 = 136315906;
-      *&v44[4] = "operator[]";
-      *&v44[12] = 1024;
-      *&v44[14] = 797;
-      *&v44[18] = 2048;
-      *&v44[20] = a1;
-      v45 = 2048;
-      *v46 = v25;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_63:
-      v43 = 0;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v50 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v47 = 136315906;
-      *&v47[4] = "operator[]";
-      *&v47[12] = 1024;
-      *&v47[14] = 797;
-      *&v47[18] = 2048;
-      *&v47[20] = v14;
-      v48 = 2048;
-      v49 = v15;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_64:
-      v43 = 0;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v50 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v47 = 136315906;
-      *&v47[4] = "operator[]";
-      *&v47[12] = 1024;
-      *&v47[14] = 797;
-      *&v47[18] = 2048;
-      *&v47[20] = v14;
-      v48 = 2048;
-      v49 = v15;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_65:
-      v43 = 0;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v50 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v47 = 136315906;
-      *&v47[4] = "operator[]";
-      *&v47[12] = 1024;
-      *&v47[14] = 797;
-      *&v47[18] = 2048;
-      *&v47[20] = v14;
-      v48 = 2048;
-      v49 = v15;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_66:
-      v43 = 0;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v50 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v47 = 136315906;
-      *&v47[4] = "operator[]";
-      *&v47[12] = 1024;
-      *&v47[14] = 797;
-      *&v47[18] = 2048;
-      *&v47[20] = v14;
-      v48 = 2048;
-      v49 = v8;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_67:
-      v43 = 0;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v50 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v47 = 136315906;
-      *&v47[4] = "operator[]";
-      *&v47[12] = 1024;
-      *&v47[14] = 797;
-      *&v47[18] = 2048;
-      *&v47[20] = v14;
-      v48 = 2048;
-      v49 = a1;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_68:
-      v43 = 0;
-      v53 = 0u;
-      v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v50 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v47 = 136315906;
-      *&v47[4] = "operator[]";
-      *&v47[12] = 1024;
-      *&v47[14] = 797;
-      *&v47[18] = 2048;
-      *&v47[20] = v14;
-      v48 = 2048;
-      v49 = a1;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-      goto LABEL_69;
-    }
-
-    *v14 = [*(*(a1 + 32) + v25 + 8) gpuResourceID];
-    v27 = *(a1 + 16);
-    if (v27 <= v26)
-    {
-      goto LABEL_58;
-    }
-
-    *&v50 = *(*(a1 + 32) + v25);
-    re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(&v38, &v50);
-    if (v50)
-    {
-    }
-
-    v27 = *(a1 + 16);
-    if (v27 <= v26)
-    {
-      goto LABEL_59;
-    }
-
-    *&v50 = *(*(a1 + 32) + v25 + 8);
-    re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(&v38, &v50);
-    if (v50)
-    {
-    }
-
-LABEL_42:
-    ++v26;
-    v25 += 24;
-    v14 += 8;
+    v22 = 0;
   }
 
-  while (v26 != 4);
-  v28 = 0;
-  v29 = 2;
-  do
-  {
-    v14 = v28;
-    if (a4 && (a1 = v29 - 2, (v29 - 2) < *(a4 + 16)))
-    {
-      *(v23 + 8 * v29) = [*(*(a4 + 32) + 24 * a1) gpuResourceID];
-      v25 = *(a4 + 16);
-      if (v25 <= a1)
-      {
-        goto LABEL_60;
-      }
-
-      *(v15 + 8 * v29) = [*(*(a4 + 32) + 24 * a1 + 8) gpuResourceID];
-      v25 = *(a4 + 16);
-      if (v25 <= a1)
-      {
-        goto LABEL_61;
-      }
-
-      *&v50 = *(*(a4 + 32) + 24 * a1);
-      re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(&v38, &v50);
-      if (v50)
-      {
-      }
-
-      v25 = *(a4 + 16);
-      if (v25 <= a1)
-      {
-        goto LABEL_62;
-      }
-
-      *&v50 = *(*(a4 + 32) + 24 * a1 + 8);
-      re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(&v38, &v50);
-      if (v50)
-      {
-      }
-    }
-
-    else
-    {
-      *(v23 + 8 * v29) = 0;
-      *(v15 + 8 * v29) = 0;
-    }
-
-    v28 = 1;
-    v29 = 3;
-  }
-
-  while ((v14 & 1) == 0);
-  *&v50 = 0x458FBDFDF334653DLL;
-  re::BufferTable::setBufferUsedResources(v22, &v50, v42, v40);
-  return re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(&v38);
-}
-
-uint64_t re::BufferTable::setBufferUsedResources(uint64_t a1, void *a2, uint64_t a3, unint64_t a4)
-{
-  result = re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(a1, a2);
-  if (result != -1)
-  {
-    v8 = *(*(a1 + 8) + 16 * result + 8);
-    if (*(a1 + 280) > v8)
-    {
-
-      return re::BufferTable::setBufferIndirectResources(a1, v8, a3, a4);
-    }
-  }
-
+  v23.i64[0] = vdupq_n_s64(1uLL).u64[0];
+  v23.i64[1] = v22;
+  result = vaddq_s64(*(a1 + 3), v23);
+  *(a1 + 3) = result;
+  v25 = *(v19 + v21) ^ (*(v19 + v21) >> 30);
+  v26 = ((v25 * v8) ^ ((v25 * v8) >> 27)) * v9;
+  a1[5] ^= (v26 >> 31) ^ v26;
   return result;
 }
 
-void re::VirtualEnvironmentProbeContext::createConstantBuffer(uint64_t a1, uint64_t a2, re::BufferTable *a3, uint64_t a4, float a5, float a6)
 {
-  re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer((a2 + 16), 0x80uLL, 0x10uLL, &v37);
-  v11 = v37;
-  v12 = v38;
-  v35 = v38;
-  v36 = 0x6C67F4CE96CFCB6ALL;
-  v37 = v39;
-  LODWORD(v38) = 0;
-  v39 = v12;
-  re::BufferTable::setBuffer(a3, &v36, &v37);
-  v13 = v11 + v35;
-  v14 = *(a1 + 48);
-  v15 = *(a1 + 64);
-  v16 = *(a1 + 80);
-  *(v13 + 8) = DWORD2(v14);
-  *v13 = v14;
-  *(v13 + 24) = DWORD2(v15);
-  *(v13 + 16) = v15;
-  *(v13 + 40) = DWORD2(v16);
-  *(v13 + 32) = v16;
-  *(v13 + 112) = *(a1 + 16);
-  if (a4)
+  if (!a1[7])
   {
-    v17 = *(a4 + 48);
-    v18 = *(a4 + 64);
-    v19 = *(a4 + 80);
-    *(v13 + 56) = DWORD2(v17);
-    *(v13 + 48) = v17;
-    *(v13 + 72) = DWORD2(v18);
-    *(v13 + 64) = v18;
-    *(v13 + 88) = DWORD2(v19);
-    *(v13 + 80) = v19;
-    v20 = *(a4 + 16);
+  }
+
+  v6 = a1[4];
+  if (!v6 || (v7 = a1[2], v7 > 8 * v6))
+  {
+    re::HashBrown<unsigned long,unsigned long long,re::Hash<unsigned long>,re::EqualTo<unsigned long>,void,false>::resize(a1, 1);
+    v7 = a1[2];
+  }
+
+  v8 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  v9 = (0x94D049BB133111EBLL * (v8 ^ (v8 >> 27))) ^ ((0x94D049BB133111EBLL * (v8 ^ (v8 >> 27))) >> 31);
+  v10 = v7 >> 4;
+  v11 = v9 % (v7 >> 4);
+  v12 = *a1;
+  v13 = __clz(__rbit64(*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(*a1 + 16 * v11)), xmmword_1E304FAD0)))), 0x3830282018100800)));
+  if (v13 >= 0x40)
+  {
+    do
+    {
+      if (v11 + 1 == v10)
+      {
+        v11 = 0;
+      }
+
+      else
+      {
+        ++v11;
+      }
+
+      v13 = __clz(__rbit64(*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(v12 + 16 * v11)), xmmword_1E304FAD0)))), 0x3830282018100800)));
+    }
+
+    while (v13 > 0x3F);
+  }
+
+  v14 = v12 + 16 * v11;
+  v15 = *(v14 + v13);
+  *(v14 + v13) = v9 & 0x7F;
+  v16 = v13 + 16 * v11;
+  v17 = a1[1];
+  v18 = v17 + 16 * v16;
+  v19 = 16 * v16;
+  *(v17 + v19) = *a2;
+  *(v18 + 8) = *a3;
+  if (v15 == 255)
+  {
+    v20 = -1;
   }
 
   else
   {
     v20 = 0;
-    v21 = *MEMORY[0x1E69E9B10];
-    v22 = *(MEMORY[0x1E69E9B10] + 32);
-    *(v13 + 64) = *(MEMORY[0x1E69E9B10] + 16);
-    *(v13 + 80) = v22;
-    *(v13 + 48) = v21;
   }
 
-  v23 = 0;
-  v24 = 0;
-  *(v13 + 116) = v20;
-  v25 = *(a1 + 16);
-  do
-  {
-    v26 = 0.0;
-    if (v24 < v25)
-    {
-      v27 = *(a1 + 32) + v23;
-      v28 = *(v27 + 20);
-      v26 = (v28 * exp2f(*(v27 + 16))) * a5;
-    }
-
-    *(v13 + 96 + 4 * v24++) = v26;
-    v23 += 24;
-  }
-
-  while (v23 != 96);
-  if (a4 && (v29 = *(a4 + 16)) != 0)
-  {
-    v30 = *(a4 + 32);
-    v31 = *(v30 + 20);
-    *(v13 + 104) = (v31 * exp2f(*(v30 + 16))) * a6;
-    v32 = 0.0;
-    if (v29 != 1)
-    {
-      v33 = *(a4 + 32);
-      v34 = *(v33 + 44);
-      v32 = (v34 * exp2f(*(v33 + 40))) * a6;
-    }
-  }
-
-  else
-  {
-    *(v13 + 104) = 0;
-    v32 = 0.0;
-  }
-
-  *(v13 + 108) = v32;
+  v21.i64[0] = vdupq_n_s64(1uLL).u64[0];
+  v21.i64[1] = v20;
+  result = vaddq_s64(*(a1 + 3), v21);
+  *(a1 + 3) = result;
+  v23 = *(v17 + v19) ^ (*(v17 + v19) >> 30);
+  v24 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * v23) ^ ((0xBF58476D1CE4E5B9 * v23) >> 27));
+  a1[5] ^= (v24 >> 31) ^ v24;
+  return result;
 }
 
-void re::generatePrefilteredDiffuseIblTexture(id *this@<X0>, const re::RenderManager *a2@<X1>, const re::TextureData *a3@<X2>, re::WrappedError *a4@<X7>, int a5@<W3>, const re::TextureData *a6@<X4>, char a7@<W5>, uint8_t *a8@<X6>, uint64_t a9@<X8>, BOOL a10)
+double re::HashBrown<unsigned long,unsigned long long,re::Hash<unsigned long>,re::EqualTo<unsigned long>,void,false>::resize(uint64_t a1, int a2)
 {
-  v14 = this;
-  v137 = *MEMORY[0x1E69E9840];
-  v77 = a4;
-  if (this)
+  v2 = *(a1 + 16);
+  v3 = *(a1 + 24) + a2;
+  v4 = (((151 * v3) >> 7) + 15) & 0x3FFFFFFFFFFFFF0;
+  if (v4 > v2)
   {
-    this = this[26];
-  }
-
-  v91 = this;
-  v15 = 256;
-  if (a3 < 0x100)
-  {
-    v15 = a3;
-  }
-
-  if (v15 <= 1)
-  {
-    v16 = 1;
-  }
-
-  else
-  {
-    v16 = v15;
-  }
-
-  v17 = re::TextureData::width(a2);
-  v18 = re::TextureData::height(a2);
-  if (v16 >= v17)
-  {
-    v20 = v17;
-  }
-
-  else
-  {
-    v20 = v16;
-  }
-
-  if (v16 >= v18)
-  {
-    v21 = v18;
-  }
-
-  else
-  {
-    v21 = v16;
-  }
-
-  v90 = 0;
-  v22 = re::internal::chooseWritableTextureFormat(&v91, a2, a6, a7, &v90, v19);
-  v23 = *re::graphicsLogObjects(v22);
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 134218496;
-    *&buf[4] = v20;
-    *&buf[12] = 2048;
-    *&buf[14] = v21;
-    *&buf[22] = 1024;
-    *&buf[24] = v22;
-    _os_log_impl(&dword_1E1C61000, v23, OS_LOG_TYPE_DEFAULT, "Generating diffuse prefiltered %zux%zux6 cubemap of format %d\n", buf, 0x1Cu);
-  }
-
-  v24 = v90;
-  if (v90 == 1)
-  {
-    LODWORD(v25) = re::translateSRGBPixelFormatToLinear(v22);
-    v26 = 19;
-  }
-
-  else
-  {
-    v26 = 3;
-    LODWORD(v25) = v22;
-  }
-
-  if (re::TextureData::isShareable(a2))
-  {
-    v27 = 2;
-  }
-
-  else
-  {
-    v27 = 0;
-  }
-
-  v28 = [objc_msgSend(MEMORY[0x1E69741C0] alloc)];
-  v89 = v28;
-  [v28 setTextureType_];
-  [v28 setWidth_];
-  [v28 setHeight_];
-  [v28 setPixelFormat_];
-  [v28 setMipmapLevelCount_];
-  [v28 setUsage_];
-  [v28 setStorageMode_];
-  v87 = 0;
-  v88 = 0;
-  if (v91)
-  {
-    if (re::TextureData::isShareable(a2))
+    v5 = 3 * v2;
+    v6 = v5 << 6;
+    v7 = (v5 >> 1) & 0x1FFFFFFFFFFFFFFLL;
+    if (v4 > v6 >> 7)
     {
-      SharedTexture = re::mtl::Device::makeSharedTexture(v28, &v91, v93);
+      v7 = (((151 * v3) >> 7) + 15) & 0x3FFFFFFFFFFFFF0;
+    }
+
+    v3 = (v7 << 7) / 0x97;
+  }
+
+  return re::HashBrown<unsigned long,unsigned long long,re::Hash<unsigned long>,re::EqualTo<unsigned long>,void,false>::doResize(a1, v3);
+}
+
+double re::HashBrown<unsigned long,unsigned long long,re::Hash<unsigned long>,re::EqualTo<unsigned long>,void,false>::doResize(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 56);
+  memset(v21, 0, sizeof(v21));
+  re::HashBrown<re::ecs2::Scene const*,unsigned long,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,void,false>::init(v21, v4, a2);
+  v19[0] = a1;
+  v5 = *(a1 + 16);
+  if (v5 >= 0x10)
+  {
+    v6 = 0;
+    v7 = *a1;
+    v8 = v5 >> 4;
+    while (1)
+    {
+      v9 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v7), xmmword_1E304FAD0)))), 0x3830282018100800).u16[0];
+      v19[1] = v9 ^ 0xFFFFLL;
+      if (v9 != 0xFFFFLL)
+      {
+        break;
+      }
+
+      v6 -= 16;
+      ++v7;
+      if (!--v8)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    v10 = __clz(__rbit64(v9 ^ 0xFFFFLL));
+    v11 = v10 - v6;
+    v20 = v10 - v6;
+    if (v10 + 1 != v6)
+    {
+      do
+      {
+        re::HashBrown<unsigned long,unsigned long long,re::Hash<unsigned long>,re::EqualTo<unsigned long>,void,false>::internalAdd(v21, (*(v19[0] + 8) + 16 * v11), (*(v19[0] + 8) + 16 * v11 + 8));
+        re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned long long const&,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>&>>::operator++(v19);
+        v11 = v20;
+      }
+
+      while (v20 != -1);
+      v5 = *(a1 + 16);
+    }
+  }
+
+LABEL_9:
+  v12 = *(&v21[3] + 1);
+  *(&v21[3] + 1) = *(a1 + 56);
+  v13 = v21[0];
+  v14 = v21[1];
+  v21[0] = *a1;
+  *&v21[1] = v5;
+  v15 = v21[2];
+  v16 = *(a1 + 40);
+  *(a1 + 48) = *&v21[3];
+  *(a1 + 56) = v12;
+  *(&v21[2] + 8) = v16;
+  v17 = *(a1 + 24);
+  *a1 = v13;
+  *(a1 + 16) = v14;
+  *(a1 + 32) = v15;
+  *(&v21[1] + 8) = v17;
+  return re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit(v21);
+}
+
+_anonymous_namespace_ *re::DynamicArray<unsigned long>::insert(_anonymous_namespace_ *this, unint64_t a2, void *a3)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  v4 = *(this + 2);
+  v5 = v4 + 1;
+  if (v4 + 1 <= a2)
+  {
+    v15 = 0;
+    memset(v24, 0, sizeof(v24));
+    v12 = MEMORY[0x1E69E9C10];
+    v16 = 136315906;
+    v17 = "insert";
+    v18 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v13 = 3;
     }
 
     else
     {
-      SharedTexture = re::mtl::Device::makeTexture(v28, &v91, v93);
+      v13 = 2;
     }
 
-    LODWORD(v26) = v77;
-    if (v24)
-    {
-      v33 = "generatePrefilteredDiffuseMapWithLinearToSRGB";
-    }
-
-    else
-    {
-      v33 = "generatePrefilteredDiffuseMap";
-    }
-
-    v116[0] = 0;
-    v117[16] = 0;
-    *&v121 = 0;
-    v120 = 0uLL;
-    DWORD2(v121) = 0;
-    v123[1] = 0;
-    LOBYTE(v124) = 0;
-    v122 = 0uLL;
-    LOBYTE(v123[0]) = 0;
-    if (!v77)
-    {
-LABEL_72:
-      v14 = *re::getOrCreateComputePipelineState(v14, buf);
-      v82[0] = [v91 newCommandQueue];
-
-      if ((atomic_load_explicit(&qword_1EE1BACD0, memory_order_acquire) & 1) == 0)
-      {
-        goto LABEL_126;
-      }
-
-      while (1)
-      {
-        v57 = _MergedGlobals_472;
-        [v82[0] setLabel:v57];
-
-        if (v26)
-        {
-          if ((atomic_load_explicit(&qword_1EE1BACE0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BACE0))
-          {
-            v74 = re::ns::String::String(&qword_1EE1BACD8, "generatePrefilteredSSSDiffuseMapQueue");
-            __cxa_guard_release(v74 + 1);
-          }
-
-          v58 = qword_1EE1BACD8;
-          [v82[0] setLabel:v58];
-        }
-
-        re::mtl::CommandQueue::makeCommandBuffer(v82, v100);
-        re::mtl::CommandBuffer::makeComputeCommandEncoder(v100, v130);
-        if ((atomic_load_explicit(&qword_1EE1BACF0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BACF0))
-        {
-          v73 = re::ns::String::String(&qword_1EE1BACE8, "Generate Diffuse IBL Texture");
-          __cxa_guard_release(v73 + 1);
-        }
-
-        v59 = qword_1EE1BACE8;
-        [*v130 setLabel:v59];
-
-        if (v26)
-        {
-          if ((atomic_load_explicit(&qword_1EE1BAD00, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BAD00))
-          {
-            v75 = re::ns::String::String(&qword_1EE1BACF8, "Generate SSS Diffuse IBL Texture");
-            __cxa_guard_release(v75 + 1);
-          }
-
-          v60 = qword_1EE1BACF8;
-          [*v130 setLabel:v60];
-        }
-
-        v61 = [(re *)v14 threadExecutionWidth];
-        v26 = [(re *)v14 maxTotalThreadsPerThreadgroup]/ v61;
-        v25 = [v93[0] newTextureViewWithPixelFormat:v25 textureType:3 levels:0 slices:1, 0, 6];
-        v62 = ([v25 width] + v61 - 1) / v61;
-        v63 = [v25 height];
-        v64 = (v26 + v63 - 1) / v26;
-        v65 = *re::graphicsLogObjects(v63);
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
-        {
-          *v103 = 67110400;
-          *&v103[4] = v62;
-          *&v103[8] = 1024;
-          *&v103[10] = v64;
-          *&v103[14] = 1024;
-          LODWORD(v104) = 6;
-          WORD2(v104) = 1024;
-          *(&v104 + 6) = v61;
-          WORD5(v104) = 1024;
-          HIDWORD(v104) = v26;
-          LOWORD(v105[0]) = 1024;
-          *(v105 + 2) = 1;
-          _os_log_impl(&dword_1E1C61000, v65, OS_LOG_TYPE_DEFAULT, "Dispatching %dx%dx%d thread groups of size %dx%dx%d\n", v103, 0x26u);
-        }
-
-        [*v130 setComputePipelineState:v14];
-        if (!*(a2 + 2))
-        {
-          break;
-        }
-
-LABEL_125:
-        std::__throw_bad_variant_access[abi:nn200100]();
-LABEL_126:
-        if (__cxa_guard_acquire(&qword_1EE1BACD0))
-        {
-          v72 = re::ns::String::String(&_MergedGlobals_472, "generatePrefilteredDiffuseMapQueue");
-          __cxa_guard_release(v72 + 1);
-        }
-      }
-
-      [*v130 setTexture:*a2 atIndex:0];
-      [*v130 setTexture:v25 atIndex:1];
-      LODWORD(v92) = a5;
-      v66 = [v91 newBufferWithBytes:&v92 length:4 options:0];
-      [*v130 setBuffer:v66 offset:0 atIndex:0];
-      *v103 = v62;
-      *&v103[8] = v64;
-      *&v104 = 6;
-      v86[0] = v61;
-      v86[1] = v26;
-      v86[2] = 1;
-      [*v130 dispatchThreadgroups:v103 threadsPerThreadgroup:v86];
-      [*v130 endEncoding];
-      if ([v93[0] storageMode] == 1)
-      {
-        re::mtl::CommandBuffer::makeBlitCommandEncoder(v100, v103);
-        [*v103 endEncoding];
-      }
-
-      [*v100 commit];
-      [*v100 waitUntilCompleted];
-      re::mtl::CommandBuffer::error(v100, v103);
-      v67 = [*v103 code];
-
-      v56 = a9;
-      if (v67)
-      {
-        if (a8)
-        {
-          re::mtl::CommandBuffer::error(v100, v103);
-          if (v103 != a8)
-          {
-            v69 = *v103;
-            *v103 = 0;
-            v70 = *a8;
-            *a8 = v69;
-          }
-        }
-
-        v71 = *re::graphicsLogObjects(v68);
-        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
-        {
-          *v103 = 0;
-          _os_log_error_impl(&dword_1E1C61000, v71, OS_LOG_TYPE_ERROR, "Internal Metal error while generating specular IBL cubemap. Execution likely took too long - Try again, and if the issue persists, lower samplesPerTexel.", v103, 2u);
-        }
-      }
-
-      *v103 = v93[0];
-      *&v103[8] = 0;
-      std::__variant_detail::__assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Texture>,re::SharedPtr<re::CPUTexture>>>::__generic_assign[abi:nn200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Texture>,re::SharedPtr<re::CPUTexture>>,(std::__variant_detail::_Trait)1>>(&v87, v103);
-      if (*&v103[8] != -1)
-      {
-        (off_1F5D09950[*&v103[8]])(v86, v103);
-      }
-
-      if (v66)
-      {
-      }
-
-      if (v25)
-      {
-      }
-
-      if (v14)
-      {
-      }
-
-      if (v123[1])
-      {
-
-        v123[1] = 0;
-      }
-
-      re::DynamicArray<re::TechniqueFunctionConstant>::deinit(&v120);
-      if (v117[16] == 1 && v118)
-      {
-        if (BYTE8(v118))
-        {
-          (*(*v118 + 40))();
-        }
-
-        v118 = 0u;
-        v119 = 0u;
-      }
-
-      if (v116[0] == 1 && *&v116[8])
-      {
-        if (v116[16])
-        {
-          (*(**&v116[8] + 40))();
-        }
-
-        *v117 = 0u;
-        *&v116[8] = 0u;
-      }
-
-      if (*buf && (buf[8] & 1) != 0)
-      {
-        (*(**buf + 40))();
-      }
-
-      if (v93[0])
-      {
-      }
-
-      goto LABEL_117;
-    }
-
-    LOBYTE(v105[0]) = 0;
-    BYTE8(v105[2]) = 0;
-    *&v109 = 0;
-    v108 = 0uLL;
-    DWORD2(v109) = 0;
-    v111[1] = 0;
-    LOBYTE(v112) = 0;
-    v110 = 0uLL;
-    LOBYTE(v111[0]) = 0;
-    re::DynamicString::operator=(buf, v103);
-    re::Optional<re::DynamicString>::operator=(v116, v105);
-    re::Optional<re::DynamicString>::operator=(&v117[16], &v105[2] + 8);
-    re::DynamicArray<re::TechniqueFunctionConstant>::operator=(&v120, &v108);
-    *(&v122 + 1) = *(&v110 + 1);
-    LOBYTE(v123[0]) = v111[0];
-    NS::SharedPtr<MTL::Texture>::operator=(&v123[1], &v111[1]);
-    if (v124)
-    {
-      if ((v112 & 1) == 0)
-      {
-        LOBYTE(v124) = 0;
-LABEL_57:
-        if (v111[1])
-        {
-
-          v111[1] = 0;
-        }
-
-        re::DynamicArray<re::TechniqueFunctionConstant>::deinit(&v108);
-        if (BYTE8(v105[2]) == 1 && v106)
-        {
-          if (BYTE8(v106))
-          {
-            (*(*v106 + 40))();
-          }
-
-          v106 = 0u;
-          v107 = 0u;
-        }
-
-        if (LOBYTE(v105[0]) == 1 && *(&v105[0] + 1))
-        {
-          if (v105[1])
-          {
-            (*(**(&v105[0] + 1) + 40))();
-          }
-
-          memset(v105 + 8, 0, 32);
-        }
-
-        if (*v103 && (v103[8] & 1) != 0)
-        {
-          (*(**v103 + 40))();
-        }
-
-        goto LABEL_72;
-      }
-    }
-
-    else
-    {
-      if ((v112 & 1) == 0)
-      {
-        goto LABEL_57;
-      }
-
-      LOBYTE(v124) = 1;
-    }
-
-    BYTE1(v124) = BYTE1(v112);
-    goto LABEL_57;
-  }
-
-  v30 = re::TextureData::pixelFormat(a2);
-  memset(v116, 0, sizeof(v116));
-  memset(buf, 0, sizeof(buf));
-  MTLPixelFormatGetInfoForDevice();
-  if ((*&buf[8] & 0x400) == 0 || (memset(v116, 0, sizeof(v116)), memset(buf, 0, sizeof(buf)), InfoForDevice = MTLPixelFormatGetInfoForDevice(), (*&buf[8] & 0x800) != 0))
-  {
-    v129 = a5;
-    re::StackScratchAllocator::StackScratchAllocator(v86);
-    v85 = 0;
-    v82[1] = 0;
-    v83 = 0;
-    v84 = 0;
-    v82[0] = v86;
-    re::DynamicArray<MetalEmulation::TextureMip>::setCapacity(v82, 0);
-    ++v84;
-    v35 = re::TextureData::mipmapLevelCount(a2);
-    re::DynamicArray<MetalEmulation::TextureMip>::resize(v82, v35);
-    if (*(a2 + 2) != 1)
-    {
-      goto LABEL_125;
-    }
-
-    v36 = *a2;
-    v37 = re::TextureData::mipmapLevelCount(a2);
-    v38 = v85;
-    v39 = v83;
-    if (v37)
-    {
-      v40 = 0;
-      v41 = 0;
-      while (1)
-      {
-        re::wrapAsTextureMip(v36, v41, v103);
-        if (v39 <= v40)
-        {
-          break;
-        }
-
-        v42 = v38 + 224 * v40;
-        v43 = v104;
-        *v42 = *v103;
-        *(v42 + 16) = v43;
-        v44 = v105[0];
-        v45 = v105[1];
-        v46 = v106;
-        *(v42 + 64) = v105[2];
-        *(v42 + 80) = v46;
-        *(v42 + 32) = v44;
-        *(v42 + 48) = v45;
-        v47 = v107;
-        v48 = v108;
-        v49 = v110;
-        *(v42 + 128) = v109;
-        *(v42 + 144) = v49;
-        *(v42 + 96) = v47;
-        *(v42 + 112) = v48;
-        v50 = *v111;
-        v51 = v112;
-        v52 = v113;
-        *(v42 + 208) = v114;
-        *(v42 + 176) = v51;
-        *(v42 + 192) = v52;
-        *(v42 + 160) = v50;
-        v40 = ++v41;
-        if (re::TextureData::mipmapLevelCount(a2) <= v41)
-        {
-          goto LABEL_43;
-        }
-      }
-
-      *v130 = 0;
-      v96 = 0u;
-      v97 = 0u;
-      v94 = 0u;
-      v95 = 0u;
-      *v93 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v100 = 136315906;
-      *&v100[4] = "operator[]";
-      *&v100[12] = 1024;
-      *&v100[14] = 789;
-      *&v100[18] = 2048;
-      *&v100[20] = v40;
-      v101 = 2048;
-      *v102 = v39;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    else
-    {
-LABEL_43:
-      MetalEmulation::wrapTexture(v38, v39, buf);
-      *&v102[2] = 0;
-      memset(v100, 0, sizeof(v100));
-      re::CPUTexture::Data::allocateMips(v100, &v89);
-      re::make::shared::object<re::CPUTexture,NS::SharedPtr<MTL::TextureDescriptor> &,re::CPUTexture::Data>(&v89, v100, &v81);
-      v99 = 0;
-      v97 = 0u;
-      v98 = 0u;
-      v95 = 0u;
-      v96 = 0u;
-      *v93 = 0u;
-      v94 = 0u;
-      v80 = vmovn_s64(v98);
-      if (*(v81 + 48))
-      {
-        MetalEmulation::wrapRenderTargetMip(v89, 0, &v80, *(*(v81 + 64) + 32), *(*(v81 + 64) + 16), v103);
-        v125 = v109;
-        v126 = v110;
-        v127 = *v111;
-        v128 = v112;
-        v121 = v105[2];
-        v122 = v106;
-        *v123 = v107;
-        v124 = v108;
-        *&v117[8] = *v103;
-        v118 = v104;
-        v119 = v105[0];
-        v120 = v105[1];
-        v53 = vmovn_s64(*v93);
-        HIDWORD(v54) = 393222;
-        LOWORD(v54) = v53.i16[0];
-        WORD1(v54) = v53.i16[2];
-        MetalEmulation::internal::_executeShader(MetalEmulation::generatePrefilteredDiffuseMap, buf, v54);
-        *v103 = v81;
-        if (v81)
-        {
-          v55 = (v81 + 8);
-        }
-
-        *&v103[8] = 1;
-        std::__variant_detail::__assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Texture>,re::SharedPtr<re::CPUTexture>>>::__generic_assign[abi:nn200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Texture>,re::SharedPtr<re::CPUTexture>>,(std::__variant_detail::_Trait)1>>(&v87, v103);
-        v56 = a9;
-        if (*&v103[8] != -1)
-        {
-          (off_1F5D09950[*&v103[8]])(v130, v103);
-        }
-
-        if (v81)
-        {
-        }
-
-        re::DynamicArray<re::DynamicArray<unsigned char>>::deinit(v100);
-        if (v38 && v82[0])
-        {
-          (*(*v82[0] + 40))(v82[0], v38);
-        }
-
-        re::StackScratchAllocator::~StackScratchAllocator(v86);
-LABEL_117:
-        *v56 = 0;
-        *(v56 + 8) = -1;
-        std::__variant_detail::__ctor<std::__variant_detail::__traits<NS::SharedPtr<MTL::Texture>,re::SharedPtr<re::CPUTexture>>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<NS::SharedPtr<MTL::Texture>,re::SharedPtr<re::CPUTexture>>,(std::__variant_detail::_Trait)1>>(v56, &v87);
-        goto LABEL_118;
-      }
-    }
-
-    v92 = 0;
-    v104 = 0u;
-    memset(v105, 0, sizeof(v105));
-    *v103 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v130 = 136315906;
-    *&v130[4] = "operator[]";
-    v131 = 1024;
-    v132 = 797;
-    v133 = 2048;
-    v134 = 0;
-    v135 = 2048;
-    v136 = 0;
-    _os_log_send_and_compose_impl();
+    v19 = 855;
+    v20 = 2048;
+    v21 = a2;
+    v22 = 2048;
+    v23 = v5;
+    _os_log_send_and_compose_impl(v13, &v15, v24, 80, &dword_1E1C61000, v12, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v16, 38, v14);
     _os_crash_msg();
     __break(1u);
   }
 
-  v32 = *re::graphicsLogObjects(InfoForDevice);
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+  v7 = this;
+  if (v4 >= *(this + 1))
   {
-    *buf = 67109120;
-    *&buf[4] = v30;
-    _os_log_error_impl(&dword_1E1C61000, v32, OS_LOG_TYPE_ERROR, "Unsupported pixel format for CPU Metal emulation: %d.", buf, 8u);
+    this = re::DynamicArray<unsigned long>::growCapacity(this, v4 + 1);
+    v4 = *(v7 + 2);
   }
 
-  *a9 = 0;
-  *(a9 + 8) = 0;
-LABEL_118:
-  if (v88 != -1)
+  v8 = *(v7 + 4);
+  v9 = (v8 + 8 * v4);
+  if (v4 <= a2)
   {
-    (off_1F5D09950[v88])(buf, &v87);
+    *v9 = *a3;
   }
 
-  if (v89)
+  else
   {
+    *v9 = *(v9 - 1);
+    v10 = v8 + 8 * a2;
+    v11 = v8 + 8 * *(v7 + 2) - 8;
+    if (v11 != v10)
+    {
+      this = memmove((v10 + 8), v10, v11 - v10);
+      v8 = *(v7 + 4);
+    }
+
+    *(v8 + 8 * a2) = *a3;
   }
+
+  ++*(v7 + 2);
+  ++*(v7 + 6);
+  return this;
 }
 
-uint64_t re::internal::chooseWritableTextureFormat(re::internal *this, const re::mtl::Device *a2, const re::TextureData *a3, char a4, _BYTE *a5, BOOL *a6)
+uint64_t re::ShaderResourceBindState::bindVertexResource(uint64_t a1, re::BufferSlice *this, unsigned int a3, uint64_t a4, unsigned __int8 *a5)
 {
-  v7 = a3;
-  *a5 = 0;
-  v9 = re::TextureData::pixelFormat(a2);
-  if ((a4 & 1) == 0 && (re::isHDR(v9) & 1) == 0)
+  v9 = *a5;
+  if (a3 < 0x1F)
   {
-    MTLPixelFormatGetInfoForDevice();
-    v10 = 0;
-    if (v7)
+    if (*a5)
     {
-      goto LABEL_4;
+      v32 = *(a5 + 4);
     }
 
-LABEL_6:
-    v11 = re::getComponentCount() == 1;
-    goto LABEL_7;
-  }
-
-  v10 = 1;
-  if ((v7 & 1) == 0)
-  {
-    goto LABEL_6;
-  }
-
-LABEL_4:
-  v11 = 1;
-LABEL_7:
-  if (re::TextureData::swizzle(a2) != 84148994 && re::TextureData::swizzle(a2) != 17040130)
-  {
-    v11 = v7;
-  }
-
-  if (v10)
-  {
-    v12 = 115;
-    v13 = 25;
-  }
-
-  else
-  {
-    v12 = 70;
-    v13 = 10;
-  }
-
-  if (v11)
-  {
-    return v13;
-  }
-
-  else
-  {
-    return v12;
-  }
-}
-
-void *re::DynamicArray<MetalEmulation::TextureMip>::resize(void *result, unint64_t a2)
-{
-  v3 = result;
-  v4 = result[2];
-  if (v4 >= a2)
-  {
-    if (v4 <= a2)
+    result = re::BufferSlice::buffer(this, this);
+    v19 = *this;
+    v20 = *(this + 8);
+    v21 = (a1 + 24 * a3);
+    v22 = *v21;
+    if (v21[1])
     {
-      return result;
-    }
-  }
-
-  else
-  {
-    if (result[1] < a2)
-    {
-      result = re::DynamicArray<MetalEmulation::TextureMip>::setCapacity(result, a2);
-      v4 = v3[2];
+      v23 = 0;
     }
 
-    if (a2 > v4)
+    else
     {
-      v5 = 224 * (a2 - v4);
-      if (v5 >= 1)
+      v23 = v22 == v19;
+    }
+
+    if (v23 && *(v21 + 5) == v20)
+    {
+      if (*(v21 + 16) == 1)
       {
-        v6 = v3[4] + 224 * v4;
-        v7 = (((v5 >> 5) * 0x2492492492492493uLL) >> 64) + 1;
-        do
+        if (v9 && *(v21 + 9) == v32)
         {
-          *(v6 + 208) = 0;
-          *(v6 + 176) = 0uLL;
-          *(v6 + 192) = 0uLL;
-          *(v6 + 144) = 0uLL;
-          *(v6 + 160) = 0uLL;
-          *(v6 + 112) = 0uLL;
-          *(v6 + 128) = 0uLL;
-          *(v6 + 80) = 0uLL;
-          *(v6 + 96) = 0uLL;
-          *(v6 + 48) = 0uLL;
-          *(v6 + 64) = 0uLL;
-          *(v6 + 16) = 0uLL;
-          *(v6 + 32) = 0uLL;
-          *v6 = 0uLL;
-          v6 += 224;
-          --v7;
+          return result;
         }
+      }
 
-        while (v7 > 1);
+      else if (!v9)
+      {
+        return result;
       }
     }
+
+    re::BufferSlice::buffer(this, v18);
+    v28 = *a5;
+    if (v22 == *this)
+    {
+      v31 = *(this + 8);
+      if (*a5)
+      {
+        result = (*(*(a4 + 8) + 40))(**(a4 + 8), sel_setVertexBufferOffset_attributeStride_atIndex_, v31, *(a5 + 1), a3);
+      }
+
+      else
+      {
+        result = (*(*(a4 + 8) + 24))(**(a4 + 8), sel_setVertexBufferOffset_atIndex_, v31, a3);
+      }
+    }
+
+    else
+    {
+      re::BufferSlice::buffer(this, v27);
+      v29 = *this;
+      v30 = *(this + 8);
+      if (v28)
+      {
+        result = (*(*(a4 + 8) + 32))(**(a4 + 8), sel_setVertexBuffer_offset_attributeStride_atIndex_, v29, v30, *(a5 + 1), a3);
+      }
+
+      else
+      {
+        result = (*(*(a4 + 8) + 16))(**(a4 + 8), sel_setVertexBuffer_offset_atIndex_, v29, v30, a3);
+      }
+    }
+
+    *v21 = v19;
+    v21[1] = 0;
+    if (v21[2])
+    {
+      if ((v9 & 1) == 0)
+      {
+        *(v21 + 16) = 0;
+LABEL_35:
+        *(v21 + 5) = v20;
+        return result;
+      }
+    }
+
+    else
+    {
+      if ((v9 & 1) == 0)
+      {
+        goto LABEL_35;
+      }
+
+      *(v21 + 16) = 1;
+    }
+
+    *(v21 + 9) = v32;
+    goto LABEL_35;
   }
 
-  v3[2] = a2;
-  ++*(v3 + 6);
+  re::BufferSlice::buffer(this, this);
+  v10 = *this;
+  v11 = *(this + 8);
+  if (v9)
+  {
+    v12 = *(a5 + 1);
+    v13 = *(a4 + 8);
+    v14 = *v13;
+    v15 = v13[4];
+
+    return v15(v14, sel_setVertexBuffer_offset_attributeStride_atIndex_, v10, v11, v12, a3);
+  }
+
+  else
+  {
+    v24 = *(a4 + 8);
+    v25 = *v24;
+    v26 = v24[2];
+
+    return v26(v25, sel_setVertexBuffer_offset_atIndex_, v10, v11, a3);
+  }
+}
+
+uint64_t re::ShaderResourceBindState::bindVertexResource(uint64_t result, uint64_t a2, unsigned int a3, unsigned int a4, void *a5, char a6, uint64_t a7)
+{
+  if (a4 < 0x1F)
+  {
+    v13 = (result + 24 * a4);
+    v14 = *v13;
+    if (v13[1])
+    {
+      v15 = 0;
+    }
+
+    else
+    {
+      v15 = v14 == a2;
+    }
+
+    if (v15 && *(v13 + 5) == a3)
+    {
+      if (*(v13 + 16) == 1)
+      {
+        if (a6)
+        {
+          if (*(v13 + 9) == a7)
+          {
+            return result;
+          }
+
+          goto LABEL_26;
+        }
+
+LABEL_23:
+        result = (a5[3])(*a5, sel_setVertexBufferOffset_atIndex_, a3, a4);
+        goto LABEL_27;
+      }
+
+      if ((a6 & 1) == 0)
+      {
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v14 != a2)
+      {
+        v16 = *a5;
+        if (a6)
+        {
+          result = (a5[4])(v16, sel_setVertexBuffer_offset_attributeStride_atIndex_, a2, a3, a7);
+        }
+
+        else
+        {
+          result = (a5[2])(v16, sel_setVertexBuffer_offset_atIndex_, a2, a3, a4);
+        }
+
+LABEL_27:
+        *v13 = a2;
+        v13[1] = 0;
+        if (v13[2])
+        {
+          if ((a6 & 1) == 0)
+          {
+            *(v13 + 16) = 0;
+LABEL_33:
+            *(v13 + 5) = a3;
+            return result;
+          }
+        }
+
+        else
+        {
+          if ((a6 & 1) == 0)
+          {
+            goto LABEL_33;
+          }
+
+          *(v13 + 16) = 1;
+        }
+
+        *(v13 + 9) = a7;
+        goto LABEL_33;
+      }
+
+      if ((a6 & 1) == 0)
+      {
+        goto LABEL_23;
+      }
+    }
+
+LABEL_26:
+    result = (a5[5])(*a5, sel_setVertexBufferOffset_attributeStride_atIndex_, a3, a7, a4);
+    goto LABEL_27;
+  }
+
+  v11 = *a5;
+  if (a6)
+  {
+    v12 = a5[4];
+
+    return v12(v11, sel_setVertexBuffer_offset_attributeStride_atIndex_, a2, a3, a7, a4);
+  }
+
+  else
+  {
+    v17 = a5[2];
+
+    return v17(v11, sel_setVertexBuffer_offset_atIndex_, a2, a3, a4);
+  }
+}
+
+void re::fillConstantBuffer(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v12 = *(a8 + 106);
+  if (v12 > 1)
+  {
+    if (*(a8 + 107) == 1 && ((v17 = *(a7 + 32), v17 >= 2) ? (v18 = *(a7 + 3) == 2) : (v18 = 0), v18))
+    {
+      re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer(result, (a2 + 16), *(a8 + 100) * v17, *(a8 + 98));
+      v42 = *result;
+      v44 = *(result + 2);
+      v43 = *(result + 3);
+      v45 = *(a8 + 100);
+      v46 = *(a7 + 32);
+      v47 = *(a8 + 24);
+      *&v55 = *(a8 + 40);
+      *(&v55 + 1) = v47;
+      v48 = *(a8 + 72);
+      v53 = *(a8 + 88);
+      v54 = v48;
+      re::ConstantTableCollection::fillInstanceArray(a6, v42 + v44, v43, v45, v46, &v55, &v53);
+      v49 = *(a7 + 32);
+      v50 = *(a3 + 24);
+      *(a3 + 20) += v49 * *(a8 + 100);
+      v30 = v50 + v49 * *(a8 + 24);
+    }
+
+    else
+    {
+      re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer(result, (a2 + 16), *(a8 + 100), *(a8 + 98));
+      v19 = *result;
+      v20 = *(result + 2);
+      v21 = *(a8 + 100);
+      v22 = *(a8 + 24);
+      *&v55 = *(a8 + 40);
+      *(&v55 + 1) = v22;
+      v23 = *(a8 + 72);
+      v53 = *(a8 + 88);
+      v54 = v23;
+      re::ConstantTableCollection::fill(a6, v19 + v20, v21, &v55, &v53);
+      if (a5)
+      {
+        if ((*(a8 + 104) & 2) != 0)
+        {
+          v24 = *(result + 3);
+          v25 = *(a8 + 24);
+          *&v55 = *(a8 + 40);
+          *(&v55 + 1) = v25;
+          re::ViewConstantsLateLatch::trackViewConstantsBuffer(a5, v19 + v20, v24, &v55);
+        }
+
+        v26 = *(a7 + 9);
+        if (v26 && (*(a8 + 104) & 8) != 0)
+        {
+          v27 = *(result + 3);
+          v28 = *(a8 + 24);
+          *&v55 = *(a8 + 40);
+          *(&v55 + 1) = v28;
+          re::InstanceConstantsLateLatch::trackInstanceConstantsBuffer((a5 + 1536), v19 + v20, v27, &v55, v26);
+        }
+      }
+
+      v29 = *(a3 + 24);
+      *(a3 + 20) += *(a8 + 100);
+      v30 = v29 + *(a8 + 24);
+    }
+
+    *(a3 + 24) = v30;
+  }
+
+  else
+  {
+    v14 = (a4 + 56 * *(a8 + 106));
+    if (__PAIR128__(*(a8 + 48), *a8) == *(v14 + 3))
+    {
+      *(v14 + 11) += *(a8 + 100);
+LABEL_20:
+      v41 = a4 + 56 * v12;
+      *result = *v41;
+      result[2] = *(v41 + 16);
+      return;
+    }
+
+    re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer(&v55, (a2 + 16), *(a8 + 100), *(a8 + 98));
+    *v14 = v55;
+    v14[2] = v56;
+    v31 = *v14;
+    v32 = *(v14 + 2);
+    v33 = *(a8 + 100);
+    v34 = *(a8 + 24);
+    *&v55 = *(a8 + 40);
+    *(&v55 + 1) = v34;
+    v35 = *(a8 + 72);
+    v53 = *(a8 + 88);
+    v54 = v35;
+    re::ConstantTableCollection::fill(a6, v31 + v32, v33, &v55, &v53);
+    if (a5)
+    {
+      if ((*(a8 + 104) & 2) != 0)
+      {
+        v37 = *v14;
+        v39 = *(v14 + 2);
+        v38 = *(v14 + 3);
+        v40 = *(a8 + 24);
+        *&v55 = *(a8 + 40);
+        *(&v55 + 1) = v40;
+        re::ViewConstantsLateLatch::trackViewConstantsBuffer(a5, v37 + v39, v38, &v55);
+      }
+    }
+
+    *(v14 + 10) += *(a8 + 100);
+    *(v14 + 12) += *(a8 + 24);
+    v14[3] = *a8;
+    v14[4] = *(a8 + 48);
+    v12 = *(a8 + 106);
+    if (v12 < 2)
+    {
+      goto LABEL_20;
+    }
+
+    re::internal::assertLog(6, v36, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < N", "operator[]", 173, *(a8 + 106), 2);
+    _os_crash("assertion failure: (index < N) Index out of range. index = %zu, size = %zu", v51, v52);
+    __break(1u);
+  }
+}
+
+unint64_t re::SamplerTableReference::samplerAt(re::SamplerTableReference *this, unint64_t a2)
+{
+  v4 = *(this + 1);
+  if (v4 > a2)
+  {
+    return *this + 8 * a2;
+  }
+
+  re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, a2, v4, v2, v3);
+  result = _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v6, v7);
+  __break(1u);
   return result;
 }
 
-void re::generatePrefilteredSpecularIblTexture(id *this@<X0>, const re::RenderManager *a2@<X1>, const re::TextureData *a3@<X2>, uint64_t a4@<X3>, const re::TextureData *a5@<X4>, char a6@<W5>, __int128 *a7@<X6>, uint64_t a8@<X8>)
+uint64_t re::ShaderResourceBindState::bindFragmentResource(uint64_t this, const BufferView *a2, unsigned int a3, RenderCommandEncoder *a4)
 {
-  v14 = this;
-  v173 = *MEMORY[0x1E69E9840];
-  if (this)
+  if (a3 < 0x1F)
   {
-    this = this[26];
-  }
-
-  v127 = this;
-  v15 = 1024;
-  if (a3 < 0x400)
-  {
-    v15 = a3;
-  }
-
-  if (v15 <= 1)
-  {
-    v16 = 1;
-  }
-
-  else
-  {
-    v16 = v15;
-  }
-
-  v17 = re::TextureData::width(a2);
-  v18 = re::TextureData::height(a2);
-  if (v16 >= v17)
-  {
-    v19 = v17;
-  }
-
-  else
-  {
-    v19 = v16;
-  }
-
-  if (v16 >= v18)
-  {
-    v20 = v18;
-  }
-
-  else
-  {
-    v20 = v16;
-  }
-
-  v108 = v19;
-  v109 = (floor(log2(v19)) + 1.0);
-  v126 = 0;
-  v22 = re::internal::chooseWritableTextureFormat(&v127, a2, a5, a6, &v126, v21);
-  v23 = v22;
-  v24 = v126;
-  if (v126 == 1)
-  {
-    v22 = re::translateSRGBPixelFormatToLinear(v22);
-    v104 = v22;
-    v25 = 19;
-  }
-
-  else
-  {
-    v25 = 3;
-    v104 = v22;
-  }
-
-  v26 = *re::graphicsLogObjects(v22);
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 134218752;
-    *&buf[4] = v108;
-    *&buf[12] = 2048;
-    *&buf[14] = v20;
-    *&buf[22] = 1024;
-    *&buf[24] = v23;
-    *&buf[28] = 2048;
-    *&buf[30] = v109;
-    _os_log_impl(&dword_1E1C61000, v26, OS_LOG_TYPE_DEFAULT, "Generating prefiltered %zux%zux6 cubemap of format %d with %zu mip-levels\n", buf, 0x26u);
-  }
-
-  v27 = [objc_msgSend(MEMORY[0x1E69741C0] alloc)];
-  v125 = v27;
-  [v27 setTextureType_];
-  [v27 setWidth_];
-  [v27 setHeight_];
-  [v27 setPixelFormat_];
-  [v27 setMipmapLevelCount_];
-  [v27 setUsage_];
-  if (re::TextureData::isShareable(a2))
-  {
-    v28 = 2;
-  }
-
-  else
-  {
-    v28 = 0;
-  }
-
-  [v27 setStorageMode_];
-  v123 = 0;
-  v124 = 0;
-  v119 = 0;
-  v120 = 0;
-  v121 = v109;
-  v29 = re::TextureData::width(a2);
-  v30 = 1.0;
-  if ((v29 / v108) >= 1.0)
-  {
-    v30 = re::TextureData::width(a2) / v108;
-  }
-
-  v31 = vcvts_n_u32_f32(v30 * v30, 4uLL);
-  if (v31 >= a4)
-  {
-    LODWORD(v31) = a4;
-  }
-
-  v106 = v31;
-  v107 = re::TextureData::width(a2);
-  if (!v127)
-  {
-    v33 = re::TextureData::pixelFormat(a2);
-    memset(buf, 0, sizeof(buf));
-    MTLPixelFormatGetInfoForDevice();
-    if ((*&buf[8] & 0x400) != 0)
+    v10 = this + 24 * a3;
+    v11 = v10 + 744;
+    v12 = *a2;
+    v13 = *(v10 + 752);
+    v14 = *(v10 + 744);
+    if (v13)
     {
-      memset(buf, 0, sizeof(buf));
-      InfoForDevice = MTLPixelFormatGetInfoForDevice();
-      if ((*&buf[8] & 0x800) == 0)
-      {
-        v35 = *re::graphicsLogObjects(InfoForDevice);
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 67109120;
-          *&buf[4] = v33;
-          _os_log_error_impl(&dword_1E1C61000, v35, OS_LOG_TYPE_ERROR, "Unsupported pixel format for CPU Metal emulation: %d.", buf, 8u);
-        }
-
-        *a8 = 0;
-        *(a8 + 8) = 0;
-        goto LABEL_148;
-      }
+      v15 = 0;
     }
 
-    v164 = v119;
-    v165 = v120;
-    v167 = v109;
-    re::StackScratchAllocator::StackScratchAllocator(&v116);
-    v115 = 0;
-    v112[1] = 0;
-    v113 = 0;
-    v114 = 0;
-    v112[0] = &v116;
-    re::DynamicArray<MetalEmulation::TextureMip>::setCapacity(v112, 0);
-    ++v114;
-    v54 = re::TextureData::mipmapLevelCount(a2);
-    re::DynamicArray<MetalEmulation::TextureMip>::resize(v112, v54);
-    if (*(a2 + 2) == 1)
+    else
     {
-      v55 = *a2;
-      v56 = re::TextureData::mipmapLevelCount(a2);
-      v57 = v115;
-      v58 = v113;
-      if (v56)
-      {
-        v59 = 0;
-        v60 = 0;
-        while (1)
-        {
-          re::wrapAsTextureMip(v55, v60, &v139);
-          if (v58 <= v59)
-          {
-            break;
-          }
+      v15 = v14 == v12;
+    }
 
-          v61 = v57 + 224 * v59;
-          v62 = v140;
-          *v61 = v139;
-          *(v61 + 16) = v62;
-          v63 = v141[0];
-          v64 = v141[1];
-          v65 = v142;
-          *(v61 + 64) = v141[2];
-          *(v61 + 80) = v65;
-          *(v61 + 32) = v63;
-          *(v61 + 48) = v64;
-          v66 = v143;
-          v67 = v144;
-          v68 = v146;
-          *(v61 + 128) = v145;
-          *(v61 + 144) = v68;
-          *(v61 + 96) = v66;
-          *(v61 + 112) = v67;
-          v69 = v147;
-          v70 = v148;
-          v71 = v149;
-          *(v61 + 208) = v150;
-          *(v61 + 176) = v70;
-          *(v61 + 192) = v71;
-          *(v61 + 160) = v69;
-          v60 = (v60 + 1);
-          v59 = v60;
-          if (re::TextureData::mipmapLevelCount(a2) <= v60)
-          {
-            goto LABEL_62;
-          }
+    if (!v15 || *(v11 + 20) != *(a2 + 4) || *(v11 + 16) != 1 || *(v11 + 18))
+    {
+      m_object = a4->m_object;
+      if (v14 == v12)
+      {
+        this = (a4[6].m_object)(m_object, sel_setFragmentBufferOffset_atIndex_, *(a2 + 4), a3);
+      }
+
+      else
+      {
+        this = (a4[5].var0)(m_object, sel_setFragmentBuffer_offset_atIndex_);
+      }
+
+      v17 = *(a2 + 4);
+      *v11 = *a2;
+      *(v11 + 8) = 0;
+      if ((*(v11 + 16) & 1) == 0)
+      {
+        *(v11 + 16) = 1;
+      }
+
+      *(v11 + 18) = 0;
+      *(v11 + 20) = v17;
+    }
+  }
+
+  else
+  {
+    v6 = *a2;
+    v7 = a4->m_object;
+    var0 = a4[5].var0;
+    v9 = *(a2 + 4);
+
+    return (var0)(v7, sel_setFragmentBuffer_offset_atIndex_, v6, v9, a3);
+  }
+
+  return this;
+}
+
+uint64_t re::Optional<re::TechniqueState>::operator=(uint64_t a1, uint64_t a2)
+{
+  if ((*a1 & 1) == 0)
+  {
+    if (*a2)
+    {
+      *a1 = 1;
+      v6 = *(a2 + 8);
+      v7 = *(a2 + 24);
+      v8 = *(a2 + 40);
+      *(a1 + 56) = *(a2 + 56);
+      *(a1 + 40) = v8;
+      *(a1 + 24) = v7;
+      *(a1 + 8) = v6;
+      v9 = *(a2 + 60);
+      *(a1 + 60) = v9;
+      if (v9 == 1)
+      {
+        *(a1 + 61) = *(a2 + 61);
+      }
+
+      *(a1 + 96) = 0;
+      *(a1 + 72) = 0;
+      *(a1 + 80) = 0;
+      *(a1 + 64) = 0;
+      *(a1 + 88) = 0;
+      v10 = *(a2 + 72);
+      *(a1 + 64) = *(a2 + 64);
+      *(a1 + 72) = v10;
+      *(a2 + 64) = 0;
+      *(a2 + 72) = 0;
+      goto LABEL_19;
+    }
+
+    return a1;
+  }
+
+  if ((*a2 & 1) == 0)
+  {
+    re::DynamicArray<unsigned long>::deinit(a1 + 64);
+    *a1 = 0;
+    return a1;
+  }
+
+  v3 = *(a2 + 8);
+  v4 = *(a2 + 24);
+  v5 = *(a2 + 40);
+  *(a1 + 56) = *(a2 + 56);
+  *(a1 + 40) = v5;
+  *(a1 + 24) = v4;
+  *(a1 + 8) = v3;
+  if (*(a1 + 60))
+  {
+    if ((*(a2 + 60) & 1) == 0)
+    {
+      *(a1 + 60) = 0;
+      goto LABEL_14;
+    }
+  }
+
+  else
+  {
+    if ((*(a2 + 60) & 1) == 0)
+    {
+      goto LABEL_14;
+    }
+
+    *(a1 + 60) = 1;
+  }
+
+  *(a1 + 61) = *(a2 + 61);
+LABEL_14:
+  if (a1 == a2)
+  {
+    return a1;
+  }
+
+  v11 = *(a1 + 64);
+  v12 = *(a2 + 64);
+  if (!v11 || !v12 || v11 == v12)
+  {
+    v13 = *(a1 + 72);
+    v14 = *(a2 + 72);
+    *(a1 + 64) = v12;
+    *(a1 + 72) = v14;
+    *(a2 + 64) = v11;
+    *(a2 + 72) = v13;
+LABEL_19:
+    v15 = *(a1 + 80);
+    *(a1 + 80) = *(a2 + 80);
+    *(a2 + 80) = v15;
+    v16 = *(a1 + 96);
+    *(a1 + 96) = *(a2 + 96);
+    *(a2 + 96) = v16;
+    ++*(a2 + 88);
+    ++*(a1 + 88);
+    return a1;
+  }
+
+  re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "!isInitialized() || !other.isInitialized() || m_allocator == other.m_allocator", "operator=", 503);
+  result = _os_crash("assertion failure: (!isInitialized() || !other.isInitialized() || m_allocator == other.m_allocator) ");
+  __break(1u);
+  return result;
+}
+
+uint64_t re::Optional<re::TechniqueState>::Optional(uint64_t a1, unsigned __int8 *a2)
+{
+  v3 = *a2;
+  *a1 = v3;
+  if (v3 == 1)
+  {
+    v4 = *(a2 + 8);
+    v5 = *(a2 + 24);
+    v6 = *(a2 + 40);
+    *(a1 + 56) = *(a2 + 14);
+    *(a1 + 40) = v6;
+    *(a1 + 24) = v5;
+    *(a1 + 8) = v4;
+    v7 = a2[60];
+    *(a1 + 60) = v7;
+    if (v7 == 1)
+    {
+      *(a1 + 61) = a2[61];
+    }
+
+    re::DynamicArray<re::RenderAttachmentState>::DynamicArray(a1 + 64, a2 + 8);
+  }
+
+  return a1;
+}
+
+uint64_t re::HashTable<unsigned long long,re::BufferTable,re::PrecalculatedHash,re::EqualTo<unsigned long long>,false,false>::allocEntry(uint64_t *a1, unsigned int a2, unint64_t a3)
+{
+  v4 = *(a1 + 9);
+  if (v4 == 0x7FFFFFFF)
+  {
+    v4 = *(a1 + 8);
+    v5 = v4;
+    if (v4 == *(a1 + 6))
+    {
+      v7 = *(a1 + 7);
+      v8 = 2 * v7;
+      v9 = *a1;
+      if (*a1)
+      {
+        if (v8)
+        {
+          v10 = v4 == v8;
         }
 
-        v169 = 0;
-        v132 = 0u;
-        v133 = 0u;
-        v130 = 0u;
-        v131 = 0u;
-        v129 = 0u;
-        v73 = MEMORY[0x1E69E9C10];
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v136 = 136315906;
-        *&v136[4] = "operator[]";
-        *&v136[12] = 1024;
-        *&v136[14] = 789;
-        *&v136[18] = 2048;
-        *&v136[20] = v59;
-        v137 = 2048;
-        *v138 = v58;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
+        else
+        {
+          v10 = 1;
+        }
+
+        if (!v10 && (v7 & 0x80000000) == 0)
+        {
+          memset(v25, 0, 36);
+          *&v25[36] = 0x7FFFFFFFLL;
+          re::HashTable<unsigned long long,re::BufferTable,re::PrecalculatedHash,re::EqualTo<unsigned long long>,false,false>::init(v25, v9, v8);
+          v11 = *v25;
+          *v25 = *a1;
+          *a1 = v11;
+          v12 = *&v25[16];
+          v13 = a1[2];
+          *&v25[16] = v13;
+          a1[2] = v12;
+          v15 = *&v25[24];
+          *&v25[24] = *(a1 + 3);
+          v14 = *&v25[32];
+          *(a1 + 3) = v15;
+          ++*&v25[40];
+          v16 = v14;
+          if (v14)
+          {
+            v17 = v13 + 16;
+            do
+            {
+              if ((*(v17 - 16) & 0x80000000) != 0)
+              {
+                v18 = re::HashTable<unsigned long long,re::BufferTable,re::PrecalculatedHash,re::EqualTo<unsigned long long>,false,false>::allocEntry(a1, *(v17 - 8) % *(a1 + 6), *(v17 - 8));
+                *(v18 + 8) = *(v17 - 8);
+                re::BufferTable::BufferTable(v18 + 16, v17);
+              }
+
+              v17 += 304;
+              --v16;
+            }
+
+            while (v16);
+          }
+
+          re::HashTable<unsigned long long,re::BufferTable,re::PrecalculatedHash,re::EqualTo<unsigned long long>,false,false>::deinit(v25);
+        }
+      }
+
+      else
+      {
+        if (v8)
+        {
+          v21 = 2 * v7;
+        }
+
+        else
+        {
+          v21 = 3;
+        }
+      }
+
+      a2 = a3 % *(a1 + 6);
+      v5 = *(a1 + 8);
+    }
+
+    *(a1 + 8) = v5 + 1;
+    v19 = a1[2];
+    v20 = *(v19 + 304 * v4);
+  }
+
+  else
+  {
+    v19 = a1[2];
+    v20 = *(v19 + 304 * v4);
+    *(a1 + 9) = v20 & 0x7FFFFFFF;
+  }
+
+  v22 = 304 * v4;
+  *(v19 + v22) = v20 | 0x80000000;
+  v23 = a1[1];
+  *(v19 + v22) = *(v23 + 4 * a2) | 0x80000000;
+  *(v23 + 4 * a2) = v4;
+  ++*(a1 + 7);
+  return v19 + 304 * v4;
+}
+
+void re::HashTable<unsigned long long,re::BufferTable,re::PrecalculatedHash,re::EqualTo<unsigned long long>,false,false>::init(uint64_t a1, uint64_t a2, signed int a3)
+{
+  v4 = 245;
+  v5 = &re::internal::PrimeHelper::s_primes;
+  do
+  {
+    v6 = v4 >> 1;
+    v7 = &v5[v4 >> 1];
+    v9 = *v7;
+    v8 = (v7 + 1);
+    v4 += ~(v4 >> 1);
+    if (v9 < a3)
+    {
+      v5 = v8;
+    }
+
+    else
+    {
+      v4 = v6;
+    }
+  }
+
+  while (v4);
+  v10 = *v5;
+  *a1 = a2;
+  v11 = (4 * v10 + 15) & 0x7FFFFFFF0;
+  v12 = (*(*a2 + 32))(a2, v11 + 304 * v10, 16);
+  if (v12)
+  {
+    v14 = v12;
+    *(a1 + 8) = v12;
+    if (v10)
+    {
+      memset_pattern16(v12, &memset_pattern_61, 4 * v10);
+    }
+
+    *(a1 + 16) = &v14[v11];
+    *(a1 + 24) = v10;
+    *(a1 + 40) = 0;
+  }
+
+  else
+  {
+    re::internal::assertLog(4, v13, "assertion failure: '%s' (%s:line %i) Out of memory.", "temp", "init", 750);
+    _os_crash("assertion failure: (temp) Out of memory.");
+    __break(1u);
+  }
+}
+
+void *re::FixedArray<unsigned char>::init<int>(void *result, uint64_t a2, uint64_t a3, _DWORD *a4)
+{
+  *result = a2;
+  result[1] = a3;
+  if (a3)
+  {
+    v6 = result;
+    result = (*(*a2 + 32))(a2, a3, 1);
+    v6[2] = result;
+    if (result)
+    {
+      v8 = a3 - 1;
+      if (a3 != 1)
+      {
+        do
+        {
+          *result = *a4;
+          result = (result + 1);
+          --v8;
+        }
+
+        while (v8);
+      }
+
+      *result = *a4;
+    }
+
+    else
+    {
+      re::internal::assertLog(4, v7, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
+      result = _os_crash("assertion failure: (m_data) Out of memory.");
+      __break(1u);
+    }
+  }
+
+  return result;
+}
+
+double re::HashTable<unsigned long long,re::BufferTable,re::PrecalculatedHash,re::EqualTo<unsigned long long>,false,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    v3 = *(a1 + 8);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = a1[2];
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          *(v6 + v4) = v7 & 0x7FFFFFFF;
+          re::BufferTable::~BufferTable((v6 + v4 + 16));
+          v3 = *(a1 + 8);
+        }
+
+        v4 += 304;
+      }
+
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
+  return result;
+}
+
+void *re::DynamicArray<re::ConstantSource const*>::setCapacity(void *result, unint64_t a2)
+{
+  v2 = result[1];
+  if (v2 != a2)
+  {
+    v4 = result;
+    if (result[2] <= a2)
+    {
+      result = *result;
+      if (*v4)
+      {
+        if (!a2)
+        {
+          v6 = 0;
+          if (!v2)
+          {
+            goto LABEL_8;
+          }
+
+          goto LABEL_7;
+        }
+
+        result = (*(*result + 32))(result, 8 * a2, 8);
+        if (result)
+        {
+          v6 = result;
+          if (!v4[1])
+          {
+LABEL_8:
+            v4[4] = v6;
+            v4[1] = a2;
+            return result;
+          }
+
+LABEL_7:
+          memcpy(v6, v4[4], 8 * v4[2]);
+          result = (*(**v4 + 40))(*v4, v4[4]);
+          goto LABEL_8;
+        }
+
+        re::internal::assertLog(6, v5, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, 8 * a2, *(*v4 + 8));
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v7, v8);
         __break(1u);
       }
 
       else
       {
-LABEL_62:
-        MetalEmulation::wrapTexture(v57, v58, buf);
-        *&v138[2] = 0;
-        memset(v136, 0, sizeof(v136));
-        re::CPUTexture::Data::allocateMips(v136, &v125);
-        re::make::shared::object<re::CPUTexture,NS::SharedPtr<MTL::TextureDescriptor> &,re::CPUTexture::Data>(&v125, v136, &v111);
-        if (!v109)
-        {
-LABEL_73:
-          *&v139 = v111;
-          if (v111)
-          {
-            v77 = (v111 + 8);
-          }
-
-          DWORD2(v139) = 1;
-          std::__variant_detail::__assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Texture>,re::SharedPtr<re::CPUTexture>>>::__generic_assign[abi:nn200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Texture>,re::SharedPtr<re::CPUTexture>>,(std::__variant_detail::_Trait)1>>(&v123, &v139);
-          if (DWORD2(v139) != -1)
-          {
-            (off_1F5D09950[DWORD2(v139)])(&v129, &v139);
-          }
-
-          if (v111)
-          {
-          }
-
-          re::DynamicArray<re::DynamicArray<unsigned char>>::deinit(v136);
-          if (v57 && v112[0])
-          {
-            (*(*v112[0] + 40))(v112[0], v57);
-          }
-
-          re::StackScratchAllocator::~StackScratchAllocator(&v116);
-          goto LABEL_147;
-        }
-
-        v72 = 0;
-        v73 = 0;
-        v60 = &v169;
-        while (1)
-        {
-          v74 = v106;
-          if (v73)
-          {
-            v74 = a4;
-          }
-
-          v168 = v74;
-          v166 = v73;
-          v135 = 0;
-          v133 = 0u;
-          v134 = 0u;
-          v131 = 0u;
-          v132 = 0u;
-          v129 = 0u;
-          v130 = 0u;
-          v110 = vmovn_s64(v134);
-          a2 = *(v111 + 48);
-          if (a2 <= v73)
-          {
-            break;
-          }
-
-          MetalEmulation::wrapRenderTargetMip(v125, v73, &v110, *(*(v111 + 64) + v72 + 32), *(*(v111 + 64) + v72 + 16), &v139);
-          v160 = v145;
-          v161 = v146;
-          v162 = v147;
-          v163 = v148;
-          v156 = v141[2];
-          v157 = v142;
-          v158 = v143;
-          v159 = v144;
-          *&v152[8] = v139;
-          v153 = v140;
-          v154 = v141[0];
-          v155 = v141[1];
-          if (v73 || v108 != v107)
-          {
-            v75 = vmovn_s64(v129);
-            HIDWORD(v76) = 393222;
-            LOWORD(v76) = v75.i16[0];
-            WORD1(v76) = v75.i16[2];
-            MetalEmulation::internal::_executeShader(MetalEmulation::generatePrefilteredSpecularMap, buf, v76);
-          }
-
-          else
-          {
-            if (!v58)
-            {
-              goto LABEL_161;
-            }
-
-            MetalEmulation::copy(v57, &v152[8]);
-          }
-
-          ++v73;
-          v72 += 40;
-          if (v109 == v73)
-          {
-            goto LABEL_73;
-          }
-        }
+        result = re::DynamicArray<re::ConstantSource const*>::setCapacity(v4, a2);
+        ++*(v4 + 6);
       }
-
-      v128 = 0;
-      v140 = 0u;
-      memset(v141, 0, sizeof(v141));
-      v139 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      LODWORD(v169) = 136315906;
-      *(v60 + 4) = "operator[]";
-      v170 = 1024;
-      *(v60 + 14) = 797;
-      v171 = 2048;
-      *(v60 + 20) = v73;
-      v172 = 2048;
-      *(v60 + 30) = a2;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_161:
-      v128 = 0;
-      v140 = 0u;
-      memset(v141, 0, sizeof(v141));
-      v139 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      LODWORD(v169) = 136315906;
-      *(v60 + 4) = "operator[]";
-      v170 = 1024;
-      *(v60 + 14) = 789;
-      v171 = 2048;
-      *(v60 + 20) = 0;
-      v172 = 2048;
-      *(v60 + 30) = 0;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    goto LABEL_162;
-  }
-
-  v102 = [v127 supportsFamily:1004];
-  if (re::TextureData::isShareable(a2))
-  {
-    SharedTexture = re::mtl::Device::makeSharedTexture(v27, &v127, &v129);
-  }
-
-  else
-  {
-    SharedTexture = re::mtl::Device::makeTexture(v27, &v127, &v129);
-  }
-
-  if (v24)
-  {
-    v36 = "generatePrefilteredSpecularMapWithLinearToSRGB";
-  }
-
-  else
-  {
-    v36 = "generatePrefilteredSpecularMap";
-  }
-
-  buf[32] = 0;
-  v152[16] = 0;
-  *&v156 = 0;
-  v155 = 0uLL;
-  DWORD2(v156) = 0;
-  *(&v158 + 1) = 0;
-  LOBYTE(v159) = 0;
-  v157 = 0uLL;
-  LOBYTE(v158) = 0;
-  v112[0] = *re::getOrCreateComputePipelineState(v14, buf);
-  *v136 = [v127 newCommandQueue];
-
-  if ((atomic_load_explicit(&qword_1EE1BAD10, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BAD10))
-  {
-    re::ns::String::String(&qword_1EE1BAD08, "generatePrefilteredSpecularMapQueue");
-    __cxa_guard_release(&qword_1EE1BAD10);
-  }
-
-  v37 = qword_1EE1BAD08;
-  [*v136 setLabel:v37];
-
-  re::mtl::CommandQueue::makeCommandBuffer(v136, &v169);
-  re::mtl::CommandBuffer::makeComputeCommandEncoder(&v169, &v128);
-  if ((atomic_load_explicit(&qword_1EE1BAD20, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BAD20))
-  {
-    v100 = re::ns::String::String(&qword_1EE1BAD18, "Generate Specular IBL Texture");
-    __cxa_guard_release(v100 + 1);
-  }
-
-  v38 = qword_1EE1BAD18;
-  [v128 setLabel:v38];
-
-  v39 = [v112[0] threadExecutionWidth];
-  v40 = [v112[0] maxTotalThreadsPerThreadgroup];
-  if (v109)
-  {
-    v41 = 0;
-    v42 = v40 / v39;
-    do
-    {
-      if (v41 || v108 != v107)
-      {
-        v43 = a4;
-        v44 = v106;
-        if (v41)
-        {
-          v44 = a4;
-        }
-
-        v122 = v44;
-        v45 = [v129.i64[0] newTextureViewWithPixelFormat:v104 textureType:3 levels:v41 slices:1, 0, 6];
-        v46 = ([v45 width] + v39 - 1) / v39;
-        v47 = [v45 height];
-        v48 = (v42 - 1 + v47) / v42;
-        v49 = *re::graphicsLogObjects(v47);
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
-        {
-          LODWORD(v139) = 67110400;
-          DWORD1(v139) = v46;
-          WORD4(v139) = 1024;
-          *(&v139 + 10) = v48;
-          HIWORD(v139) = 1024;
-          LODWORD(v140) = 6;
-          WORD2(v140) = 1024;
-          *(&v140 + 6) = v39;
-          WORD5(v140) = 1024;
-          HIDWORD(v140) = v42;
-          LOWORD(v141[0]) = 1024;
-          *(v141 + 2) = 1;
-          _os_log_impl(&dword_1E1C61000, v49, OS_LOG_TYPE_DEFAULT, "Dispatching %dx%dx%d thread groups of size %dx%dx%d\n", &v139, 0x26u);
-        }
-
-        [v128 setComputePipelineState:v112[0]];
-        if (*(a2 + 2))
-        {
-          goto LABEL_162;
-        }
-
-        [v128 setTexture:*a2 atIndex:0];
-        [v128 setTexture:v45 atIndex:1];
-        HIDWORD(v120) = v41;
-        v50 = [v127 newBufferWithBytes:&v119 length:24 options:0];
-        [v128 setBuffer:v50 offset:0 atIndex:0];
-        *&v139 = v46;
-        *(&v139 + 1) = v48;
-        *&v140 = 6;
-        v116 = v39;
-        v117 = v42;
-        v118 = 1;
-        [v128 dispatchThreadgroups:&v139 threadsPerThreadgroup:&v116];
-        if (v50)
-        {
-        }
-
-        a4 = v43;
-        if (v45)
-        {
-        }
-      }
-
-      ++v41;
-    }
-
-    while (v109 != v41);
-  }
-
-  v51 = [v128 endEncoding];
-  if (v108 != v107)
-  {
-    goto LABEL_115;
-  }
-
-  if (v102)
-  {
-    v52 = "copyCubeMap";
-    v53 = "copyCubeMapWithLinearToSRGB";
-  }
-
-  else
-  {
-    v52 = "copyCubeMapWithSampler";
-    v53 = "copyCubeMapWithLinearToSRGBWithSampler";
-  }
-
-  if (v126)
-  {
-    v78 = v53;
-  }
-
-  else
-  {
-    v78 = v52;
-  }
-
-  LOBYTE(v141[0]) = 0;
-  BYTE8(v141[2]) = 0;
-  *&v145 = 0;
-  v144 = 0uLL;
-  DWORD2(v145) = 0;
-  *(&v147 + 1) = 0;
-  LOBYTE(v148) = 0;
-  v146 = 0uLL;
-  LOBYTE(v147) = 0;
-  re::DynamicString::operator=(buf, &v139);
-  re::Optional<re::DynamicString>::operator=(&buf[32], v141);
-  re::Optional<re::DynamicString>::operator=(&v152[16], &v141[2] + 8);
-  re::DynamicArray<re::TechniqueFunctionConstant>::operator=(&v155, &v144);
-  *(&v157 + 1) = *(&v146 + 1);
-  LOBYTE(v158) = v147;
-  NS::SharedPtr<MTL::Texture>::operator=(&v158 + 1, &v147 + 1);
-  if (v159)
-  {
-    v79 = v14;
-    if ((v148 & 1) == 0)
-    {
-      LOBYTE(v159) = 0;
-      goto LABEL_93;
     }
   }
 
-  else
-  {
-    v79 = v14;
-    if ((v148 & 1) == 0)
-    {
-      goto LABEL_93;
-    }
-
-    LOBYTE(v159) = 1;
-  }
-
-  BYTE1(v159) = BYTE1(v148);
-LABEL_93:
-  if (*(&v147 + 1))
-  {
-
-    *(&v147 + 1) = 0;
-  }
-
-  re::DynamicArray<re::TechniqueFunctionConstant>::deinit(&v144);
-  if (BYTE8(v141[2]) == 1 && v142)
-  {
-    if (BYTE8(v142))
-    {
-      (*(*v142 + 40))();
-    }
-
-    v142 = 0u;
-    v143 = 0u;
-  }
-
-  if (LOBYTE(v141[0]) == 1 && *(&v141[0] + 1))
-  {
-    if (v141[1])
-    {
-      (*(**(&v141[0] + 1) + 40))();
-    }
-
-    memset(v141 + 8, 0, 32);
-  }
-
-  if (v139 && (BYTE8(v139) & 1) != 0)
-  {
-    (*(*v139 + 40))();
-  }
-
-  ComputePipelineState = re::getOrCreateComputePipelineState(v79, buf);
-  v81 = NS::SharedPtr<MTL::Buffer>::operator=(v112, ComputePipelineState);
-  if (v112[0])
-  {
-    re::mtl::CommandBuffer::makeComputeCommandEncoder(&v169, &v139);
-    v82 = v139;
-    *&v139 = 0;
-    v83 = v128;
-    v128 = v82;
-
-    if ((atomic_load_explicit(&qword_1EE1BAD30, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1BAD30))
-    {
-      v101 = re::ns::String::String(&qword_1EE1BAD28, "Copy Specular Mip0 IBL Texture");
-      __cxa_guard_release(v101 + 1);
-    }
-
-    v84 = qword_1EE1BAD28;
-    [v128 setLabel:v84];
-
-    v85 = [v112[0] threadExecutionWidth];
-    v86 = [v112[0] maxTotalThreadsPerThreadgroup] / v85;
-    v87 = [v129.i64[0] newTextureViewWithPixelFormat:v104 textureType:3 levels:0 slices:1, 0, 6];
-    v88 = ([v87 width] + v85 - 1) / v85;
-    v89 = [v87 height];
-    v90 = (v86 + v89 - 1) / v86;
-    v91 = *re::graphicsLogObjects(v89);
-    if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
-    {
-      LODWORD(v139) = 67110400;
-      DWORD1(v139) = v88;
-      WORD4(v139) = 1024;
-      *(&v139 + 10) = v90;
-      HIWORD(v139) = 1024;
-      LODWORD(v140) = 6;
-      WORD2(v140) = 1024;
-      *(&v140 + 6) = v85;
-      WORD5(v140) = 1024;
-      HIDWORD(v140) = v86;
-      LOWORD(v141[0]) = 1024;
-      *(v141 + 2) = 1;
-      _os_log_impl(&dword_1E1C61000, v91, OS_LOG_TYPE_DEFAULT, "Dispatching %dx%dx%d thread groups of size %dx%dx%d\n", &v139, 0x26u);
-    }
-
-    [v128 setComputePipelineState:v112[0]];
-    if (!*(a2 + 2))
-    {
-      [v128 setTexture:*a2 atIndex:0];
-      [v128 setTexture:v87 atIndex:1];
-      *&v139 = v88;
-      *(&v139 + 1) = v90;
-      *&v140 = 6;
-      v116 = v85;
-      v117 = v86;
-      v118 = 1;
-      [v128 dispatchThreadgroups:&v139 threadsPerThreadgroup:&v116];
-      [v128 endEncoding];
-      if (v87)
-      {
-      }
-
-LABEL_115:
-      if ([v129.i64[0] storageMode] == 1)
-      {
-        re::mtl::CommandBuffer::makeBlitCommandEncoder(&v169, &v139);
-        [v139 endEncoding];
-      }
-
-      [v169 commit];
-      [v169 waitUntilCompleted];
-      re::mtl::CommandBuffer::error(&v169, &v139);
-      v92 = [v139 code];
-
-      if (v92)
-      {
-        if (a7)
-        {
-          re::mtl::CommandBuffer::error(&v169, &v139);
-          if (&v139 != a7)
-          {
-            v94 = v139;
-            *&v139 = 0;
-            v95 = *a7;
-            *a7 = v94;
-          }
-        }
-
-        v96 = *re::graphicsLogObjects(v93);
-        if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
-        {
-          LOWORD(v139) = 0;
-          _os_log_error_impl(&dword_1E1C61000, v96, OS_LOG_TYPE_ERROR, "Internal Metal error while generating specular IBL cubemap. Execution likely took too long - Try again, and if the issue persists, lower samplesPerTexel.", &v139, 2u);
-        }
-      }
-
-      *&v139 = v129.i64[0];
-      DWORD2(v139) = 0;
-      std::__variant_detail::__assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Texture>,re::SharedPtr<re::CPUTexture>>>::__generic_assign[abi:nn200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Texture>,re::SharedPtr<re::CPUTexture>>,(std::__variant_detail::_Trait)1>>(&v123, &v139);
-      if (DWORD2(v139) != -1)
-      {
-        (off_1F5D09950[DWORD2(v139)])(&v116, &v139);
-      }
-
-      v97 = 1;
-      goto LABEL_127;
-    }
-
-LABEL_162:
-    std::__throw_bad_variant_access[abi:nn200100]();
-  }
-
-  v98 = *re::graphicsLogObjects(v81);
-  if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
-  {
-    if (buf[8])
-    {
-      v99 = *&buf[16];
-    }
-
-    else
-    {
-      v99 = &buf[9];
-    }
-
-    LODWORD(v139) = 136315138;
-    *(&v139 + 4) = v99;
-    _os_log_error_impl(&dword_1E1C61000, v98, OS_LOG_TYPE_ERROR, "Failed to get or create compute pipeline %s", &v139, 0xCu);
-  }
-
-  v97 = 0;
-  *a8 = 0;
-  *(a8 + 8) = 0;
-LABEL_127:
-
-  if (v112[0])
-  {
-  }
-
-  if (*(&v158 + 1))
-  {
-
-    *(&v158 + 1) = 0;
-  }
-
-  re::DynamicArray<re::TechniqueFunctionConstant>::deinit(&v155);
-  if (v152[16] == 1 && v153)
-  {
-    if (BYTE8(v153))
-    {
-      (*(*v153 + 40))();
-    }
-
-    v153 = 0u;
-    v154 = 0u;
-  }
-
-  if (buf[32] == 1 && *&buf[40])
-  {
-    if (buf[48])
-    {
-      (*(**&buf[40] + 40))();
-    }
-
-    *v152 = 0u;
-    *&buf[40] = 0u;
-  }
-
-  if (*buf && (buf[8] & 1) != 0)
-  {
-    (*(**buf + 40))();
-  }
-
-  if (v129.i64[0])
-  {
-  }
-
-  if (v97)
-  {
-LABEL_147:
-    *a8 = 0;
-    *(a8 + 8) = -1;
-    std::__variant_detail::__ctor<std::__variant_detail::__traits<NS::SharedPtr<MTL::Texture>,re::SharedPtr<re::CPUTexture>>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<NS::SharedPtr<MTL::Texture>,re::SharedPtr<re::CPUTexture>>,(std::__variant_detail::_Trait)1>>(a8, &v123);
-  }
-
-LABEL_148:
-  if (v124 != -1)
-  {
-    (off_1F5D09950[v124])(buf, &v123);
-  }
-
-  if (v125)
-  {
-  }
+  return result;
 }
 
-void *re::DynamicArray<MetalEmulation::TextureMip>::setCapacity(void *result, unint64_t a2)
+void *re::DynamicArray<re::InstanceConstants>::setCapacity(void *result, unint64_t a2)
 {
   v3 = result[1];
   if (v3 != a2)
@@ -3181,10 +1887,17 @@ void *re::DynamicArray<MetalEmulation::TextureMip>::setCapacity(void *result, un
           goto LABEL_8;
         }
 
-        if (is_mul_ok(a2, 0xE0uLL))
+        if (HIBYTE(a2))
         {
-          v2 = 224 * a2;
-          result = (*(*result + 32))(result, 224 * a2, 16);
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 256, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v8, v10);
+          __break(1u);
+        }
+
+        else
+        {
+          v2 = a2 << 8;
+          result = (*(*result + 32))(result, a2 << 8, 256);
           if (result)
           {
             v7 = result;
@@ -3197,27 +1910,20 @@ LABEL_9:
             }
 
 LABEL_8:
-            memcpy(v7, v5[4], 224 * v5[2]);
+            memcpy(v7, v5[4], v5[2] << 8);
             result = (*(**v5 + 40))(*v5, v5[4]);
             goto LABEL_9;
           }
         }
 
-        else
-        {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 224, a2);
-          _os_crash();
-          __break(1u);
-        }
-
         re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v9, v11);
         __break(1u);
       }
 
       else
       {
-        result = re::DynamicArray<MetalEmulation::TextureMip>::setCapacity(v5, a2);
+        result = re::DynamicArray<re::InstanceConstants>::setCapacity(v5, a2);
         ++*(v5 + 6);
       }
     }
@@ -3226,6761 +1932,7934 @@ LABEL_8:
   return result;
 }
 
-uint64_t re::make::shared::object<re::CPUTexture,NS::SharedPtr<MTL::TextureDescriptor> &,re::CPUTexture::Data>@<X0>(re *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+re::mtl::mps::ImageGuidedFilter *re::mtl::mps::ImageGuidedFilter::ImageGuidedFilter(re::mtl::mps::ImageGuidedFilter *this, const re::mtl::Device *a2, uint64_t a3)
 {
-  v6 = re::globalAllocators(a1);
-  v7 = (*(*v6[2] + 32))(v6[2], 104, 8);
-  result = re::CPUTexture::CPUTexture(v7, a1, a2);
+  v4 = [objc_alloc(MEMORY[0x1E69745D0]) initWithDevice:*a2 kernelDiameter:a3];
+  *this = v4;
+
+  return this;
+}
+
+uint64_t re::mtl::mps::UnaryImageKernel::encodeToCommandBuffer(id *a1, void *a2, id *a3)
+{
+  v7 = *a3;
+  v5 = [*a1 encodeToCommandBuffer:*a2 inPlaceTexture:&v7 fallbackCopyAllocator:0];
+
+  return v5;
+}
+
+void re::mtl::mps::UnaryImageKernel::encodeToCommandBuffer(void **a1, uint64_t *a2, id *a3, uint64_t *a4)
+{
+  v4 = *a1;
+  v5 = *a2;
+  v6 = *a4;
+  v7 = *a3;
+  [v4 encodeToCommandBuffer:v5 sourceTexture:v7 destinationTexture:v6];
+}
+
+re::mtl::mps::ImageGaussianBlur *re::mtl::mps::ImageGaussianBlur::ImageGaussianBlur(re::mtl::mps::ImageGaussianBlur *this, const re::mtl::Device *a2, float a3)
+{
+  v6 = objc_alloc(MEMORY[0x1E69745C0]);
+  *&v7 = a3;
+  v8 = [v6 initWithDevice:*a2 sigma:v7];
+  *this = v8;
+
+  return this;
+}
+
+re::mtl::mps::ImageBilinearScale *re::mtl::mps::ImageBilinearScale::ImageBilinearScale(re::mtl::mps::ImageBilinearScale *this, const re::mtl::Device *a2)
+{
+  v3 = [objc_alloc(MEMORY[0x1E6974578]) initWithDevice:*a2];
+  *this = v3;
+
+  return this;
+}
+
+re::mtl::mps::ImageAreaMax *re::mtl::mps::ImageAreaMax::ImageAreaMax(re::mtl::mps::ImageAreaMax *this, const re::mtl::Device *a2, uint64_t a3, uint64_t a4)
+{
+  v5 = [objc_alloc(MEMORY[0x1E6974568]) initWithDevice:*a2 kernelWidth:a3 kernelHeight:a4];
+  *this = v5;
+
+  return this;
+}
+
+re::mtl::mps::ImageTent *re::mtl::mps::ImageTent::ImageTent(re::mtl::mps::ImageTent *this, const re::mtl::Device *a2, uint64_t a3, uint64_t a4)
+{
+  v5 = [objc_alloc(MEMORY[0x1E6974638]) initWithDevice:*a2 kernelWidth:a3 kernelHeight:a4];
+  *this = v5;
+
+  return this;
+}
+
+uint64_t re::mtl::getTypeSize(int a1)
+{
+  if ((a1 - 3) > 0x52)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return dword_1E30B5CE0[(a1 - 3)];
+  }
+}
+
+void re::FramePersistentPooledGPUBuffer::replace(void **__return_ptr a1@<X8>, re::FramePersistentPooledGPUBuffer *this@<X0>, re::FrameManager *a3@<X1>)
+{
+  v78 = *MEMORY[0x1E69E9840];
+  v6 = *(a3 + 3) & 0xFFFFFFFFFFFFFFFLL | (*(a3 + 2) << 60);
+  v7 = *(a3 + 4);
+  *a1 = 0;
+  v8 = *(this + 1);
+  if (!v8)
+  {
+    goto LABEL_39;
+  }
+
+  v9 = 0;
+  v10 = v7 & 0xFFFFFFFFFFFFFFFLL;
+  do
+  {
+    v11 = *(this + 4);
+    v12 = this + 24;
+    if ((v11 & 1) == 0)
+    {
+      v12 = *(this + 4);
+    }
+
+    v13 = *&v12[8 * v9] & 0xFFFFFFFFFFFFFFFLL;
+    if (*a1)
+    {
+      v14 = 0;
+    }
+
+    else
+    {
+      v14 = v10 >= v13;
+    }
+
+    if (v14)
+    {
+      v8 = *(this + 6);
+      if (v8 <= v9)
+      {
+        v64 = 0;
+        v76 = 0u;
+        v77 = 0u;
+        v74 = 0u;
+        v75 = 0u;
+        *v73 = 0u;
+        v52 = MEMORY[0x1E69E9C10];
+        v65 = 136315906;
+        v66 = "operator[]";
+        v67 = 1024;
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          v53 = 3;
+        }
+
+        else
+        {
+          v53 = 2;
+        }
+
+        v68 = 858;
+        v69 = 2048;
+        v70 = v9;
+        v71 = 2048;
+        v72 = v8;
+        _os_log_send_and_compose_impl(v53, &v64, v73, 80, &dword_1E1C61000, v52, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v65, 38, v63);
+        _os_crash_msg();
+        __break(1u);
+LABEL_79:
+        v64 = 0;
+        v76 = 0u;
+        v77 = 0u;
+        v74 = 0u;
+        v75 = 0u;
+        *v73 = 0u;
+        v54 = MEMORY[0x1E69E9C10];
+        v55 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        v65 = 136315906;
+        v66 = "operator[]";
+        v67 = 1024;
+        if (v55)
+        {
+          v56 = 3;
+        }
+
+        else
+        {
+          v56 = 2;
+        }
+
+        v68 = 858;
+        v69 = 2048;
+        v70 = v9;
+        v71 = 2048;
+        v72 = v8;
+        _os_log_send_and_compose_impl(v56, &v64, v73, 80, &dword_1E1C61000, v54, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v65, 38, v63);
+        _os_crash_msg();
+        __break(1u);
+LABEL_83:
+        v64 = 0;
+        v76 = 0u;
+        v77 = 0u;
+        v74 = 0u;
+        v75 = 0u;
+        *v73 = 0u;
+        v57 = MEMORY[0x1E69E9C10];
+        v58 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        v65 = 136315906;
+        v66 = "removeStableAt";
+        v67 = 1024;
+        if (v58)
+        {
+          v59 = 3;
+        }
+
+        else
+        {
+          v59 = 2;
+        }
+
+        v68 = 1038;
+        v69 = 2048;
+        v70 = v9;
+        v71 = 2048;
+        v72 = v8;
+        _os_log_send_and_compose_impl(v59, &v64, v73, 80, &dword_1E1C61000, v57, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v65, 38, v63);
+        _os_crash_msg();
+        __break(1u);
+LABEL_87:
+        v64 = 0;
+        v76 = 0u;
+        v77 = 0u;
+        v74 = 0u;
+        v75 = 0u;
+        *v73 = 0u;
+        v60 = MEMORY[0x1E69E9C10];
+        v61 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        v65 = 136315906;
+        v66 = "removeStableAt";
+        v67 = 1024;
+        if (v61)
+        {
+          v62 = 3;
+        }
+
+        else
+        {
+          v62 = 2;
+        }
+
+        v68 = 1038;
+        v69 = 2048;
+        v70 = v9;
+        v71 = 2048;
+        v72 = v3;
+        _os_log_send_and_compose_impl(v62, &v64, v73, 80, &dword_1E1C61000, v60, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v65, 38, v63);
+        _os_crash_msg();
+        __break(1u);
+      }
+
+      v29 = this + 64;
+      if ((*(this + 56) & 1) == 0)
+      {
+        v29 = *(this + 9);
+      }
+
+      NS::SharedPtr<MTL::Buffer>::operator=(a1, &v29[8 * v9]);
+      v8 = *(this + 1);
+      if (v8 <= v9)
+      {
+        goto LABEL_79;
+      }
+
+      v30 = this + 24;
+      if ((*(this + 16) & 1) == 0)
+      {
+        v30 = *(this + 4);
+      }
+
+      *&v30[8 * v9] = v6;
+    }
+
+    else if (v9 >= 2 && *a1 && v10 - v13 >= 3)
+    {
+      if (v8 <= v9)
+      {
+        goto LABEL_83;
+      }
+
+      v15 = *(this + 4) & 1;
+      v16 = v8 - 1;
+      if (v8 - 1 > v9)
+      {
+        v17 = this + 24;
+        if ((v11 & 1) == 0)
+        {
+          v17 = *(this + 4);
+        }
+
+        v18 = &v17[8 * v9];
+        v19 = &v17[8 * v8];
+        if (v19 != v18 + 8)
+        {
+          memmove(v18, v18 + 8, v19 - (v18 + 8));
+          v16 = *(this + 1) - 1;
+          v11 = *(this + 4);
+          v15 = v11 & 1;
+        }
+      }
+
+      *(this + 1) = v16;
+      *(this + 4) = (v11 & 0xFFFFFFFE | v15) + 2;
+      v3 = *(this + 6);
+      if (v3 <= v9)
+      {
+        goto LABEL_87;
+      }
+
+      v20 = *(this + 14);
+      if (v3 - 1 > v9)
+      {
+        v21 = this + 64;
+        if ((v20 & 1) == 0)
+        {
+          v21 = *(this + 9);
+        }
+
+        v22 = &v21[8 * v9];
+        v23 = &v21[8 * v3];
+        if (v22 + 1 != v23)
+        {
+          do
+          {
+            v3 = (v22 + 1);
+            NS::SharedPtr<MTL::Texture>::operator=(v22, v22 + 1);
+            v24 = v22 + 2;
+            ++v22;
+          }
+
+          while (v24 != v23);
+          v20 = *(this + 14);
+        }
+      }
+
+      v25 = this + 64;
+      if ((v20 & 1) == 0)
+      {
+        v25 = *(this + 9);
+      }
+
+      v26 = *(this + 6);
+      v27 = &v25[8 * v26];
+      v28 = *(v27 - 1);
+      if (v28)
+      {
+
+        *(v27 - 1) = 0;
+        v26 = *(this + 6);
+        v20 = *(this + 14);
+      }
+
+      *(this + 6) = v26 - 1;
+      *(this + 14) = v20 + 2;
+    }
+
+    ++v9;
+    v8 = *(this + 1);
+  }
+
+  while (v9 < v8);
+  if (!*a1)
+  {
+LABEL_39:
+    v73[0] = [*(this + 10) newBufferWithLength:*(this + 11) options:0];
+    NS::SharedPtr<MTL::Texture>::operator=(a1, v73);
+    v31 = v73[0];
+    if (v73[0])
+    {
+    }
+
+    if (*(this + 5))
+    {
+      v32 = *(this + 6);
+      v33 = *(this + 14);
+      if (v33)
+      {
+        v35 = v32 + 1;
+        if (v35 >= 3)
+        {
+          v36 = 4;
+LABEL_52:
+          if (v36 <= v35)
+          {
+            v40 = v35;
+          }
+
+          else
+          {
+            v40 = v36;
+          }
+
+          re::DynamicOverflowArray<re::SharedPtr<re::InputStreamSource>,2ul>::setCapacity(this + 5, v40);
+          if (*(this + 14))
+          {
+            goto LABEL_56;
+          }
+
+LABEL_50:
+          v39 = *(this + 9);
+          goto LABEL_57;
+        }
+      }
+
+      else
+      {
+        v34 = *(this + 8);
+        if (v32 >= v34)
+        {
+          v35 = v32 + 1;
+          if (v34 < v35)
+          {
+            v36 = 2 * v34;
+            goto LABEL_52;
+          }
+        }
+      }
+
+      if ((v33 & 1) == 0)
+      {
+        goto LABEL_50;
+      }
+    }
+
+    else
+    {
+      v37 = *(this + 6);
+      re::DynamicOverflowArray<re::SharedPtr<re::InputStreamSource>,2ul>::setCapacity(this + 5, v37 + 1);
+      v38 = *(this + 14) + 2;
+      *(this + 14) = v38;
+      if ((v38 & 1) == 0)
+      {
+        goto LABEL_50;
+      }
+    }
+
+LABEL_56:
+    v39 = this + 64;
+LABEL_57:
+    v41 = *(this + 6);
+    v42 = *a1;
+    *&v39[8 * v41] = v42;
+    ++*(this + 6);
+    *(this + 14) += 2;
+    if (*this)
+    {
+      v43 = *(this + 1);
+      v44 = *(this + 4);
+      if (v44)
+      {
+        v46 = v43 + 1;
+        if (v46 >= 3)
+        {
+          v47 = 4;
+LABEL_68:
+          if (v47 <= v46)
+          {
+            v51 = v46;
+          }
+
+          else
+          {
+            v51 = v47;
+          }
+
+          re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(this, v51);
+          if (*(this + 4))
+          {
+            goto LABEL_72;
+          }
+
+LABEL_66:
+          v50 = *(this + 4);
+LABEL_73:
+          *&v50[8 * (*(this + 1))++] = v6;
+          *(this + 4) += 2;
+          return;
+        }
+      }
+
+      else
+      {
+        v45 = *(this + 3);
+        if (v43 >= v45)
+        {
+          v46 = v43 + 1;
+          if (v45 < v46)
+          {
+            v47 = 2 * v45;
+            goto LABEL_68;
+          }
+        }
+      }
+
+      if ((v44 & 1) == 0)
+      {
+        goto LABEL_66;
+      }
+    }
+
+    else
+    {
+      v48 = *(this + 1);
+      re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(this, v48 + 1);
+      v49 = *(this + 4) + 2;
+      *(this + 4) = v49;
+      if ((v49 & 1) == 0)
+      {
+        goto LABEL_66;
+      }
+    }
+
+LABEL_72:
+    v50 = this + 24;
+    goto LABEL_73;
+  }
+}
+
+id re::FramePersistentPooledGPUBuffer::read@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+{
+  v34 = *MEMORY[0x1E69E9840];
+  v4 = *(a1 + 8);
+  if (!v4)
+  {
+    goto LABEL_15;
+  }
+
+  v5 = 0;
+  v6 = a1 + 24;
+  v7 = *(a1 + 16);
+  v8 = -1;
+  v9 = -1;
+  do
+  {
+    v10 = a1 + 24;
+    if ((v7 & 1) == 0)
+    {
+      v10 = *(a1 + 32);
+    }
+
+    v11 = (a2 & 0xFFFFFFFFFFFFFFFLL) - (*(v10 + 8 * v5) & 0xFFFFFFFFFFFFFFFLL);
+    if (v11 < v8)
+    {
+      v9 = v5;
+      v8 = v11;
+    }
+
+    ++v5;
+  }
+
+  while (v4 != v5);
+  if (v9 == -1)
+  {
+LABEL_15:
+    result = 0;
+    goto LABEL_18;
+  }
+
+  if (v4 <= v9)
+  {
+    v20 = 0;
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v29 = 0u;
+    v14 = MEMORY[0x1E69E9C10];
+    v21 = 136315906;
+    v22 = "operator[]";
+    v23 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v15 = 3;
+    }
+
+    else
+    {
+      v15 = 2;
+    }
+
+    v24 = 858;
+    v25 = 2048;
+    v26 = v9;
+    v27 = 2048;
+    v28 = v4;
+    _os_log_send_and_compose_impl(v15, &v20, &v29, 80, &dword_1E1C61000, v14, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v21, 38, v19);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_23;
+  }
+
+  if ((v7 & 1) == 0)
+  {
+    v6 = *(a1 + 32);
+  }
+
+  *(v6 + 8 * v9) = a2;
+  v4 = *(a1 + 48);
+  if (v4 <= v9)
+  {
+LABEL_23:
+    v20 = 0;
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v29 = 0u;
+    v16 = MEMORY[0x1E69E9C10];
+    v17 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v21 = 136315906;
+    v22 = "operator[]";
+    v23 = 1024;
+    if (v17)
+    {
+      v18 = 3;
+    }
+
+    else
+    {
+      v18 = 2;
+    }
+
+    v24 = 858;
+    v25 = 2048;
+    v26 = v9;
+    v27 = 2048;
+    v28 = v4;
+    _os_log_send_and_compose_impl(v18, &v20, &v29, 80, &dword_1E1C61000, v16, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v21, 38, v19);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  if (*(a1 + 56))
+  {
+    v12 = a1 + 64;
+  }
+
+  else
+  {
+    v12 = *(a1 + 72);
+  }
+
+  result = *(v12 + 8 * v9);
+LABEL_18:
   *a3 = result;
   return result;
 }
 
-uint64_t std::__function::__value_func<void ()(re::BackgroundTask &)>::__value_func[abi:nn200100](uint64_t a1, uint64_t a2)
+re::MeshNameMap *re::MeshNameMap::init(re::MeshNameMap *result, unint64_t a2, unint64_t a3, uint64_t *a4, unint64_t a5)
 {
-  v3 = *(a2 + 24);
-  if (v3)
+  v180 = *MEMORY[0x1E69E9840];
+  v6 = *(a3 + 8);
+  v7 = *(a2 + 16);
+  if (v7)
   {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
+    v8 = v6 == 0;
   }
 
   else
   {
-    *(a1 + 24) = 0;
+    v8 = 1;
   }
 
-  return a1;
-}
-
-uint64_t std::__function::__value_func<re::BackgroundTaskResult ()(re::BackgroundTask &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(re::BackgroundTask &)>::~__value_func[abi:nn200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-re::MeshShadowGenerationBacklog *re::MeshShadowGenerationBacklog::MeshShadowGenerationBacklog(re::MeshShadowGenerationBacklog *this)
-{
-  *(this + 5) = 0;
-  *(this + 2) = 0;
-  *(this + 3) = 0;
-  *(this + 8) = 0;
-  *(this + 1) = 0;
-  v2 = re::Queue<re::ShadowPair>::setCapacity(this, 0);
-  *(this + 2) = 0;
-  *(this + 3) = 0;
-  *(this + 8) = 0;
-  *(this + 20) = 0;
-  *(this + 4) = 0u;
-  *(this + 3) = 0u;
-  *(this + 84) = 0x7FFFFFFFLL;
-  return this;
-}
-
-void re::MeshShadowGenerationBacklog::~MeshShadowGenerationBacklog(re::MeshShadowGenerationBacklog *this)
-{
-  v2 = re::HashSetBase<re::TriggerPair,re::TriggerPair,re::internal::ValueAsKey<re::TriggerPair>,re::Hash<re::TriggerPair>,re::EqualTo<re::TriggerPair>,true,false>::deinit(this + 6);
-  if (*this)
-  {
-    if (*(this + 5))
-    {
-      (*(**this + 40))(*this, v2);
-    }
-
-    *(this + 5) = 0;
-    *this = 0u;
-    *(this + 1) = 0u;
-    *(this + 8) = 0;
-  }
-}
-
-unint64_t re::MeshShadowGenerationBacklog::pushBack(uint64_t a1, __n128 *a2)
-{
-  result = re::HashSetBase<re::ShadowPair,re::ShadowPair,re::internal::ValueAsKey<re::ShadowPair>,re::Hash<re::ShadowPair>,re::EqualTo<re::ShadowPair>,true,false>::contains(a1 + 48, a2);
-  if (result)
+  if (v8)
   {
     return result;
   }
 
-  re::Queue<re::ShadowPair>::enqueue(a1, a2);
-  result = re::Hash<re::ShadowPair>::operator()(&v12, a2);
-  v5 = *(a1 + 72);
-  if (!v5)
+  var1 = a3;
+  v11 = a2;
+  v12 = result;
+  v13 = &v175;
+  v14 = a4[1];
+  v15 = v6;
+  if (v6)
   {
-    LODWORD(v6) = 0;
-    goto LABEL_11;
-  }
-
-  v6 = result % v5;
-  v7 = *(*(a1 + 56) + 4 * (result % v5));
-  if (v7 == 0x7FFFFFFF)
-  {
-LABEL_11:
-    result = re::HashSetBase<re::ShadowPair,re::ShadowPair,re::internal::ValueAsKey<re::ShadowPair>,re::Hash<re::ShadowPair>,re::EqualTo<re::ShadowPair>,true,false>::addAsCopy(a1 + 48, v6, result, a2, a2);
-    ++*(a1 + 88);
-    return result;
-  }
-
-  v8 = *(a1 + 64);
-  while (1)
-  {
-    v9 = v8 + 40 * v7;
-    v11 = *(v9 + 16);
-    v10 = v9 + 16;
-    if (v11 == a2->n128_u64[0] && *(v10 + 8) == a2->n128_u64[1] && *(v10 + 16) == a2[1].n128_u64[0])
+    v16 = 0;
+    v17 = 0;
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
+    v21 = *a4;
+    do
     {
-      return result;
-    }
-
-    v7 = *(v8 + 40 * v7 + 8) & 0x7FFFFFFF;
-    if (v7 == 0x7FFFFFFF)
-    {
-      goto LABEL_11;
-    }
-  }
-}
-
-__n128 re::Queue<re::ShadowPair>::enqueue(_anonymous_namespace_ *this, __n128 *a2)
-{
-  v5 = *(this + 1);
-  v4 = *(this + 2);
-  if (v4 + 1 >= v5)
-  {
-    re::Queue<re::ShadowPair>::growCapacity(this, v4 + 1);
-    v5 = *(this + 1);
-    v4 = *(this + 2);
-  }
-
-  v6 = (*(this + 5) + 24 * ((*(this + 3) + v4) % v5));
-  result = *a2;
-  v6[1].n128_u64[0] = a2[1].n128_u64[0];
-  *v6 = result;
-  ++*(this + 2);
-  ++*(this + 8);
-  return result;
-}
-
-uint64_t re::MeshShadowGenerationBacklog::popFront@<X0>(uint64_t this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v4 = *(this + 16);
-  if (v4)
-  {
-    v5 = this;
-    while (1)
-    {
-      v6 = 0uLL;
-      v7 = 0;
-      re::Queue<re::ShadowPair>::dequeue(v5, a2, &v6);
-      this = re::HashSetBase<re::ShadowPair,re::ShadowPair,re::internal::ValueAsKey<re::ShadowPair>,re::Hash<re::ShadowPair>,re::EqualTo<re::ShadowPair>,true,false>::contains(v5 + 48, &v6);
-      if (this)
+      if (v20 == v6)
       {
-        break;
+        goto LABEL_139;
       }
 
-      v4 = *(v5 + 16);
-      if (!v4)
+      v5 = *(*var1 + 96 * v20 + 80);
+      if (v7 <= v5)
       {
-        goto LABEL_7;
+        goto LABEL_140;
       }
+
+      v22 = *(v11 + 32) + 864 * v5;
+      v23 = *(v22 + 224);
+      if (v23)
+      {
+        v24 = *(v23 + 8);
+        if (v24)
+        {
+          ++v17;
+          a2 = 0;
+          v25 = 4;
+          do
+          {
+            if (v24 <= a2)
+            {
+              v26 = 0xFFFFFFFFLL;
+            }
+
+            else
+            {
+              v26 = *(*(v23 + 16) + v25);
+            }
+
+            if (v14 > v26)
+            {
+              ++v16;
+              v18 += *(v21 + 184 * v26 + 24);
+            }
+
+            ++a2;
+            v25 += 88;
+          }
+
+          while (v24 != a2);
+        }
+      }
+
+      v19 += *(v22 + 56);
+      ++v20;
     }
 
-    *(a3 + 8) = v6;
-    *(a3 + 24) = v7;
-    this = re::HashSetBase<re::ShadowPair,re::ShadowPair,re::internal::ValueAsKey<re::ShadowPair>,re::Hash<re::ShadowPair>,re::EqualTo<re::ShadowPair>,true,false>::remove(v5 + 48, &v6);
-    LOBYTE(v4) = 1;
-  }
-
-LABEL_7:
-  *a3 = v4;
-  return this;
-}
-
-uint64_t re::Queue<re::ShadowPair>::dequeue@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v5 = *(result + 16);
-  if (v5)
-  {
-    v6 = *(result + 24);
-    v7 = *(result + 40) + 24 * v6;
-    *a3 = *v7;
-    *(a3 + 16) = *(v7 + 16);
-    if ((v6 + 1) < *(result + 8))
+    while (v20 != v6);
+    if (v16 > 0xFFFFFFFE)
     {
-      v8 = v6 + 1;
+      goto LABEL_193;
     }
 
-    else
+    if (v17 >= 0xFFFFFFFF)
     {
-      v8 = 0;
+LABEL_194:
+      re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) The number of skinned instances exceeds expectations.", "skinnedMeshInstanceCount < 4294967295U", "init", 253);
+      _os_crash("assertion failure: (skinnedMeshInstanceCount < 4294967295U) The number of skinned instances exceeds expectations.");
+      __break(1u);
+      goto LABEL_195;
     }
 
-    *(result + 16) = v5 - 1;
-    *(result + 24) = v8;
-    ++*(result + 32);
-  }
+    if (v18 >= 0xFFFFFFFF)
+    {
+LABEL_195:
+      re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) The number of skinned joints exceeds expectations.", "skinnedMeshPartJointCount < 4294967295U", "init", 254);
+      _os_crash("assertion failure: (skinnedMeshPartJointCount < 4294967295U) The number of skinned joints exceeds expectations.");
+      __break(1u);
+LABEL_196:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v140 = MEMORY[0x1E69E9C10];
+      v141 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v141)
+      {
+        v142 = 3;
+      }
 
-  else
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Queue<T> is empty", "m_size > 0", "dequeue", 569, v3, v4);
-    result = _os_crash();
+      else
+      {
+        v142 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v15;
+      v173 = 2048;
+      v174 = v5;
+      _os_log_send_and_compose_impl(v142, &v166, &v175, 80, &dword_1E1C61000, v140, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+      goto LABEL_200;
+    }
+
+    if (v19 < 0xFFFFFFFF)
+    {
+      goto LABEL_27;
+    }
+
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) The number of mesh parts exceeds expectations.", "meshPartInstanceCount < 4294967295U", "init", 255);
+    _os_crash("assertion failure: (meshPartInstanceCount < 4294967295U) The number of mesh parts exceeds expectations.");
     __break(1u);
   }
 
-  return result;
-}
-
-void *re::Queue<re::ShadowPair>::setCapacity(void *result, unint64_t a2)
-{
-  v3 = result[1];
-  if (v3 != a2)
+  v19 = 0;
+  v17 = 0;
+  v16 = 0;
+LABEL_27:
+  v161 = v11;
+  v159 = v6;
+  re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v12 + 16, a5, 2 * v6);
+  re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v12 + 64, a5, 2 * v7);
+  v5 = v7;
+  re::FixedArray<unsigned short>::init<>(v12 + 14, a5, v7);
+  re::FixedArray<re::FixedArray<unsigned int>>::init<>(v12 + 17, a5, v7);
+  re::FixedArray<re::StringID>::init<>(v12 + 20, a5, v7);
+  re::FixedArray<re::StringID>::init<>(v12 + 23, a5, v15);
+  v157 = v15;
+  re::FixedArray<int>::init<>(v12 + 26, a5, v15);
+  re::FixedArray<int>::init<>(v12 + 29, a5, v17);
+  re::FixedArray<int>::init<>(v12 + 32, a5, v16);
+  re::FixedArray<unsigned int>::init<unsigned int const&>(v12 + 35, a5, v19, re::MeshNameMap::kInvalidSkinnedPartIndex);
+  re::FixedArray<re::HashTable<re::StringID,unsigned short,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>>::init<>(v12 + 304, a5, v7);
+  re::FixedArray<int>::init<>(v12 + 41, a5, v159 + 1);
+  re::FixedArray<int>::init<>(v12 + 44, a5, (v7 + 1));
+  re::FixedArray<int>::init<>(v12 + 47, a5, v159 + 1);
+  re::FixedArray<int>::init<>(v12 + 50, a5, v19);
+  v163 = 0;
+  v164 = 0;
+  v165 = 0;
+  v160 = v7;
+  v7 = 0;
+  v29 = 0;
+  v30 = 0;
+  v31 = 0;
+  v162 = 0;
+  v15 = 88;
+  v158 = var1;
+  do
   {
-    v5 = result;
-    v6 = result + 2;
-    if (result[2] <= a2)
+    v32 = v31;
+    v33 = *(var1 + 8);
+    if (v33 <= v31)
     {
-      result = *result;
-      if (!*v5)
-      {
-        result = re::Queue<re::ShadowPair>::setCapacity(v5, a2);
-        *v6 = 0;
-        v6[1] = 0;
-        *(v6 + 4) = 0;
-        return result;
-      }
+      goto LABEL_114;
+    }
 
-      if (a2)
+    a5 = *var1 + 96 * v31;
+    v17 = *(a5 + 80);
+    v5 = v164;
+    if (v164 <= v17)
+    {
+      goto LABEL_115;
+    }
+
+    ++*(v165 + 4 * v17);
+    v5 = v162;
+    var1 = *(v12 + 42);
+    if (var1 <= v162)
+    {
+      goto LABEL_119;
+    }
+
+    *(*(v12 + 43) + 4 * v162) = v7;
+    v5 = v162;
+    var1 = *(v12 + 24);
+    if (var1 <= v162)
+    {
+      goto LABEL_123;
+    }
+
+    re::StringID::operator=((*(v12 + 25) + 16 * v162), a5);
+    v5 = v162;
+    var1 = *(v12 + 27);
+    if (var1 <= v162)
+    {
+      goto LABEL_127;
+    }
+
+    *(*(v12 + 28) + 4 * v162) = v17;
+    v5 = v162;
+    var1 = *(v12 + 48);
+    if (var1 <= v162)
+    {
+      goto LABEL_131;
+    }
+
+    *(*(v12 + 49) + 4 * v162) = v30;
+    v34 = re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::add(v12 + 16, a5, &v162);
+    v35 = v161;
+    v5 = *(v161 + 16);
+    if (v5 <= v17)
+    {
+      goto LABEL_135;
+    }
+
+    v36 = *(v161 + 32);
+    v37 = *(v36 + 864 * v17 + 224);
+    if (v37)
+    {
+      v38 = *(v37 + 8);
+      var1 = v158;
+      v39 = v159;
+      if (v38)
       {
-        if (is_mul_ok(a2, 0x18uLL))
+        v5 = v29;
+        a5 = *(v12 + 30);
+        if (a5 <= v29)
         {
-          v2 = 24 * a2;
-          result = (*(*result + 32))(result, 24 * a2, 8);
-          if (result)
-          {
-            v8 = result;
-            if (!v5[1])
-            {
-              goto LABEL_18;
-            }
-
-            goto LABEL_11;
-          }
+          goto LABEL_189;
         }
 
-        else
-        {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in Queue<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 440, 24, a2);
-          _os_crash();
-          __break(1u);
-        }
-
-        re::internal::assertLog(6, v7, "assertion failure: '%s' (%s:line %i) Queue<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 444, v2, *(*v5 + 8));
-        result = _os_crash();
-        __break(1u);
-        return result;
-      }
-
-      v8 = 0;
-      if (!v3)
-      {
-LABEL_18:
-        v5[5] = v8;
-        v5[1] = a2;
-        return result;
-      }
-
-LABEL_11:
-      if (v5[2])
-      {
-        v9 = 0;
-        v10 = v5[3];
+        v40 = 0;
+        *(*(v12 + 31) + 4 * v29) = v162;
+        v41 = 1;
         do
         {
-          v11 = v5[5] + 24 * ((v9 + v5[3]) % v5[1]);
-          v12 = &v8[3 * v10];
-          v13 = *v11;
-          v12[2] = *(v11 + 16);
-          *v12 = v13;
-          if (v10 + 1 < a2)
+          if (v38 <= v40)
           {
-            ++v10;
+            v42 = 0xFFFFFFFFLL;
           }
 
           else
           {
-            v10 = 0;
+            v42 = *(*(v37 + 16) + 88 * v40 + 4);
           }
 
-          ++v9;
+          if (v14 > v42)
+          {
+            v5 = v30;
+            a5 = *(v12 + 33);
+            if (a5 <= v30)
+            {
+              goto LABEL_106;
+            }
+
+            a5 = v7 + v41 - 1;
+            *(*(v12 + 34) + 4 * v30) = a5;
+            v5 = *(v12 + 36);
+            if (v5 <= a5)
+            {
+              goto LABEL_110;
+            }
+
+            *(*(v12 + 37) + 4 * a5) = v30;
+            v30 = (v30 + 1);
+          }
+
+          v40 = v41;
         }
 
-        while (v9 != v5[2]);
+        while (v38 > v41++);
+        ++v29;
       }
-
-      result = (*(**v5 + 40))(*v5, v5[5]);
-      goto LABEL_18;
-    }
-  }
-
-  return result;
-}
-
-void *re::Queue<re::ShadowPair>::growCapacity(void *this, unint64_t a2)
-{
-  v2 = this[1];
-  if (v2 < a2)
-  {
-    v3 = a2;
-    v4 = this;
-    if (*this)
-    {
-      v5 = 2 * v2;
-      v6 = v2 == 0;
-      v7 = 8;
-      if (!v6)
-      {
-        v7 = v5;
-      }
-
-      if (v7 > a2)
-      {
-        a2 = v7;
-      }
-
-      return re::Queue<re::ShadowPair>::setCapacity(this, a2);
     }
 
     else
     {
-      this = re::Queue<re::ShadowPair>::setCapacity(v4, v3);
-      v4[2] = 0;
-      v4[3] = 0;
-      *(v4 + 8) = 0;
+      var1 = v158;
+      v39 = v159;
     }
+
+    v44 = *(v36 + 864 * v17 + 56);
+    v45 = v44;
+    if (v44)
+    {
+      v17 = v7;
+      a5 = *(v12 + 51);
+      v46 = a5 - v7;
+      if (a5 < v7)
+      {
+        v46 = 0;
+      }
+
+      while (v46)
+      {
+        v47 = v162;
+        *(*(v12 + 52) + 4 * v17) = v162;
+        --v46;
+        ++v17;
+        if (!--v45)
+        {
+          goto LABEL_56;
+        }
+      }
+
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v65 = MEMORY[0x1E69E9C10];
+      v66 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v66)
+      {
+        v67 = 3;
+      }
+
+      else
+      {
+        v67 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v17;
+      v173 = 2048;
+      v174 = a5;
+      _os_log_send_and_compose_impl(v67, &v166, &v175, 80, &dword_1E1C61000, v65, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+      goto LABEL_94;
+    }
+
+    v47 = v162;
+LABEL_56:
+    v7 = (v7 + v44);
+    v31 = v47 + 1;
+    v162 = v47 + 1;
   }
 
-  return this;
-}
-
-uint64_t re::getOrCreateArgumentBuffer(uint64_t a1)
-{
-  v1 = a1;
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 24);
-  *&v60 = *(v3 + 128);
-  *(&v60 + 1) = v3;
-  v4 = *(a1 + 8);
-  *v61 = *(v2 + 1456);
-  *&v61[8] = *(a1 + 40);
-  v5 = *(v4 + 112);
-  v6 = re::HashBrown<re::ArgumentBufferCacheKey,re::CachedArgumentBuffer *,re::Hash<re::ArgumentBufferCacheKey>,re::EqualTo<re::ArgumentBufferCacheKey>,void,false>::find((v5 + 104), &v60);
-  if (v6 == -1 || (v7 = *(*(v5 + 112) + 48 * v6 + 40)) == 0)
+  while (v47 + 1 < v39);
+  v5 = *(v12 + 42);
+  v15 = v157;
+  if (v5 <= v157)
   {
-    v22 = re::globalAllocators(v6);
-    v7 = (*(*v22[2] + 32))(v22[2], 80, 8);
-    *v7 = 0u;
-    *(v7 + 16) = 0u;
-    *(v7 + 32) = 0u;
-    *(v7 + 48) = 0u;
-    *(v7 + 64) = 0u;
-    objc_initWeak((v7 + 64), 0);
-    v23 = *(v1 + 24);
-    *(v7 + 75) = 0;
-    re::createArgumentBuffer(v1, (v23 + 120), v7);
-    re::encodeArgumentBuffer(v1, &v60, v7);
-    *(v7 + 56) = -1;
-    v24 = *(v1 + 72);
-    if (v24)
+    goto LABEL_196;
+  }
+
+  *(*(v12 + 43) + 4 * v157) = v7;
+  v5 = *(v12 + 48);
+  if (v5 <= v157)
+  {
+LABEL_200:
+    v166 = 0;
+    v178 = 0u;
+    v179 = 0u;
+    v176 = 0u;
+    v177 = 0u;
+    v175 = 0u;
+    v143 = MEMORY[0x1E69E9C10];
+    v144 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v167 = 136315906;
+    v168 = "operator[]";
+    v169 = 1024;
+    if (v144)
     {
-      v25 = (v24 + 8);
+      v145 = 3;
     }
 
     else
     {
-      v25 = 0;
+      v145 = 2;
     }
 
-    objc_storeWeak((v7 + 64), v25);
-    re::CachedArgumentBuffer::updateWritableBufferVersions(v7, *(v1 + 65), *(v1 + 64));
-    *(v7 + 76) = 1;
-    v1 = *v1;
-    v26 = re::HashBrown<re::ArgumentBufferCacheKey,re::CachedArgumentBuffer *,re::Hash<re::ArgumentBufferCacheKey>,re::EqualTo<re::ArgumentBufferCacheKey>,void,false>::find(v1, &v60);
-    if (v26 != -1)
+    v170 = 468;
+    v171 = 2048;
+    v172 = v15;
+    v173 = 2048;
+    v174 = v5;
+    _os_log_send_and_compose_impl(v145, &v166, &v175, 80, &dword_1E1C61000, v143, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_204;
+  }
+
+  v48 = 0;
+  v49 = 0;
+  a5 = 0;
+  v7 = 0;
+  v15 = 0;
+  *(*(v12 + 49) + 4 * v157) = v30;
+  do
+  {
+    v5 = *(v35 + 16);
+    if (v5 <= v7)
     {
-      goto LABEL_56;
+      goto LABEL_144;
     }
 
-    if (*(v1 + 56))
+    v5 = *(v12 + 15);
+    if (v5 <= v7)
     {
-LABEL_31:
-      v27 = *(v1 + 32);
-      if (!v27 || (v28 = *(v1 + 16), v28 > 8 * v27))
-      {
-        re::HashBrown<re::ArgumentBufferCacheKey,re::CachedArgumentBuffer *,re::Hash<re::ArgumentBufferCacheKey>,re::EqualTo<re::ArgumentBufferCacheKey>,void,false>::resize(v1, 1);
-        v28 = *(v1 + 16);
-      }
+      goto LABEL_148;
+    }
 
-      v29 = (*v61 + (v60 << 6) + (v60 >> 2) - 0x61C8864680B583E9) ^ v60;
-      v30 = ((*&v61[16] + (*&v61[8] << 6) + (*&v61[8] >> 2) - 0x61C8864680B583E9) ^ *&v61[8]) + (v29 >> 2);
-      v31 = v28 >> 4;
-      v32 = ((v30 + (v29 << 6) - 0x61C8864680B583E9) ^ v29) % (v28 >> 4);
-      v33 = *v1;
-      v34 = xmmword_1E304FAD0;
-      v35 = 4.74803907e-38;
+    v50 = (*(v35 + 32) + v48);
+    v5 = v50[7];
+    *(*(v12 + 16) + 2 * v7) = v5;
+    v14 = *(v12 + 18);
+    if (v14 <= v7)
+    {
+      goto LABEL_152;
+    }
+
+    v14 = v164;
+    if (v164 <= v7)
+    {
+      goto LABEL_156;
+    }
+
+    v51 = *(v12 + 19);
+    v52 = *(v165 + 4 * v7);
+    v14 = *(v12 + 21);
+    if (v14 <= v7)
+    {
+      goto LABEL_160;
+    }
+
+    v34 = re::StringID::operator=((*(v12 + 22) + a5), v50);
+    v14 = *(v12 + 45);
+    if (v14 <= v7)
+    {
+      goto LABEL_164;
+    }
+
+    v54 = *(v12 + 46);
+    *(v54 + 4 * v7) = v15;
+    v15 = (v15 + v5);
+    ++v7;
+    a5 += 16;
+    v49 += 24;
+    v48 += 864;
+    v35 = v161;
+  }
+
+  while (v160 != v7);
+  v5 = v160;
+  if (v14 <= v160)
+  {
+LABEL_204:
+    v166 = 0;
+    v178 = 0u;
+    v179 = 0u;
+    v176 = 0u;
+    v177 = 0u;
+    v175 = 0u;
+    v146 = MEMORY[0x1E69E9C10];
+    v147 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v167 = 136315906;
+    v168 = "operator[]";
+    v169 = 1024;
+    if (v147)
+    {
+      v148 = 3;
+    }
+
+    else
+    {
+      v148 = 2;
+    }
+
+    v170 = 468;
+    v171 = 2048;
+    v172 = v5;
+    v173 = 2048;
+    v174 = v14;
+    _os_log_send_and_compose_impl(v148, &v166, &v175, 80, &dword_1E1C61000, v146, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  v55 = 0;
+  *(v54 + 4 * v160) = v15;
+  v15 = v164;
+  v56 = v165;
+  v57 = v158[1];
+  v58 = (*v158 + 80);
+  do
+  {
+    if (v57 == v55)
+    {
+      goto LABEL_168;
+    }
+
+    v7 = *v58;
+    v5 = *(v12 + 18);
+    if (v5 <= v7)
+    {
+      goto LABEL_169;
+    }
+
+    if (v15 <= v7)
+    {
+      goto LABEL_173;
+    }
+
+    v59 = *(v12 + 19) + 24 * v7;
+    v5 = *(v59 + 8);
+    v60 = *(v56 + 4 * v7);
+    v14 = v5 - v60;
+    if (v5 <= v5 - v60)
+    {
+      goto LABEL_177;
+    }
+
+    *(*(v59 + 16) + 4 * v14) = v55;
+    --*(v56 + 4 * v7);
+    ++v55;
+    v58 += 24;
+  }
+
+  while (v157 != v55);
+  v7 = 0;
+  v14 = 864;
+  v17 = 544;
+  while (2)
+  {
+    v5 = *(v35 + 16);
+    if (v5 <= v7)
+    {
+      goto LABEL_181;
+    }
+
+    v61 = (*(v35 + 32) + 864 * v7);
+    var1 = v61[3].var1;
+    re::MeshNameMap::addMeshAssetModelNameToMap(v12, v61, v7);
+    v5 = *(v12 + 39);
+    if (v5 <= v7)
+    {
+      goto LABEL_185;
+    }
+
+    if ((2 * var1) <= 1)
+    {
+      a5 = 1;
+    }
+
+    else
+    {
+      a5 = (2 * var1);
+    }
+
+    v63 = *(v12 + 40) + 48 * v7;
+    LOWORD(v162) = 0;
+    if (var1)
+    {
+      v5 = 0;
+      a5 = 0;
       while (1)
       {
-        v36 = __clz(__rbit64(*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(v33 + 16 * v32)), v34)))), *&v35)));
-        if (v36 < 0x40)
+        v30 = *(v161 + 16);
+        if (v30 <= v7)
         {
           break;
         }
 
-        v52 = v34;
-        v56 = v35;
-        v54 = v30;
-        v55 = v33;
-        v57 = v32 + 1;
-        v53 = v31;
-        if (v32 + 1 == v31)
+        v64 = *(v161 + 32) + 864 * v7;
+        v30 = *(v64 + 56);
+        if (v30 <= a5)
         {
-          v57 = 0;
+          goto LABEL_98;
         }
 
-        v37 = re::HashBrown<re::ArgumentBufferCacheKey,re::CachedArgumentBuffer *,re::Hash<re::ArgumentBufferCacheKey>,re::EqualTo<re::ArgumentBufferCacheKey>,void,false>::h1(&v60);
-        v31 = v53;
-        v32 = v57;
-        v30 = v54;
-        v33 = v55;
-        v35 = v56;
-        v34 = v52;
-        if (v57 == v37 % v53)
+        v30 = *(v12 + 39);
+        if (v30 <= v7)
         {
-          goto LABEL_62;
+          goto LABEL_102;
+        }
+
+        re::HashTable<re::StringID,unsigned short,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::add(*(v12 + 40) + 48 * v7, (*(v64 + 64) + 544 * a5 + 488), &v162);
+        v5 = (v5 + 1);
+        LOWORD(v162) = v5;
+        a5 = v5;
+        if (var1 <= v5)
+        {
+          goto LABEL_86;
         }
       }
 
-      v39 = v33 + 16 * v32;
-      v40 = *(v39 + v36);
-      *(v39 + v36) = ((v30 + (v29 << 6) + 23) ^ v29) & 0x7F;
-      v41 = 3 * (v36 + 16 * v32);
-      v42 = *(v1 + 8) + 16 * v41;
-      v43 = v60;
-      v44 = *v61;
-      *(v42 + 32) = *&v61[16];
-      *v42 = v43;
-      *(v42 + 16) = v44;
-      *(*(v1 + 8) + 16 * v41 + 40) = v7;
-      if (v40 == 255)
+LABEL_94:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v68 = MEMORY[0x1E69E9C10];
+      v69 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v69)
       {
-        v45 = -1;
+        v70 = 3;
       }
 
       else
       {
-        v45 = 0;
+        v70 = 2;
       }
 
-      v46.i64[0] = vdupq_n_s64(1uLL).u64[0];
-      v46.i64[1] = v45;
-      *(v1 + 24) = vaddq_s64(*(v1 + 24), v46);
-      re::HashBrown<re::ArgumentBufferCacheKey,re::CachedArgumentBuffer *,re::Hash<re::ArgumentBufferCacheKey>,re::EqualTo<re::ArgumentBufferCacheKey>,void,false>::updateHashes(v1, (*(v1 + 8) + 16 * v41));
-      goto LABEL_56;
-    }
-
-LABEL_60:
-    goto LABEL_31;
-  }
-
-  v8 = *(v1 + 72);
-  WeakRetained = objc_loadWeakRetained((v7 + 64));
-  if (WeakRetained)
-  {
-    v11 = WeakRetained - 8;
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  if (WeakRetained)
-  {
-  }
-
-  if (v8 != v11)
-  {
-    *(v7 + 56) = -1;
-    v12 = *(v1 + 72);
-    if (v12)
-    {
-      v13 = (v12 + 8);
-    }
-
-    else
-    {
-      v13 = 0;
-    }
-
-    objc_storeWeak((v7 + 64), v13);
-  }
-
-  v14 = *(v7 + 75);
-  if (v14 >= 2)
-  {
-    re::internal::assertLog(6, v10, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < N", "operator[]", 173, *(v7 + 75), 2);
-    _os_crash();
-    __break(1u);
-LABEL_59:
-    re::internal::assertLog(6, v10, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < N", "operator[]", 173, v8, 2);
-    v26 = _os_crash();
-    __break(1u);
-    goto LABEL_60;
-  }
-
-  if (*(v1 + 64) == *(v7 + 56 + 2 * v14) && *(v1 + 65) == *(v7 + 2 * v14 + 60) && (*(v7 + 73) & 1) != 0)
-  {
-    goto LABEL_56;
-  }
-
-  v8 = *(v7 + 76);
-  if (v8 >= 2)
-  {
-    goto LABEL_59;
-  }
-
-  v15 = *(v1 + 24);
-  if (!*(v7 + 8 * v8))
-  {
-    re::createArgumentBuffer(v1, (v15 + 120), v7);
-    re::encodeArgumentBuffer(v1, &v60, v7);
-LABEL_55:
-    re::CachedArgumentBuffer::updateWritableBufferVersions(v7, *(v1 + 65), *(v1 + 64));
-    v50 = *(v7 + 76);
-    *(v7 + 75) = v50;
-    *(v7 + 76) = (v50 & 1) == 0;
-LABEL_56:
-    *(v7 + 73) = 1;
-    return v7;
-  }
-
-  v58 = *(v15 + 120);
-  v16 = *(v7 + 8 * v8);
-  v59 = 0;
-  NS::SharedPtr<MTL::Buffer>::operator=(&v59, &v58);
-  [v59 setArgumentBuffer:v16 offset:0];
-  if (v16)
-  {
-  }
-
-  if (v58)
-  {
-
-    v58 = 0;
-  }
-
-  v18 = *(v7 + 76);
-  if (v18 < 2)
-  {
-    v19 = 2 * v18;
-    v20 = *(v7 + 2 * v18 + 60);
-    if (*(v1 + 64) == *(v7 + 56 + v19))
-    {
-      v21 = *(v7 + 73) ^ 1;
-    }
-
-    else
-    {
-      v21 = 1;
-    }
-
-    if (*(v1 + 65) != v20)
-    {
-      re::encodeConstants(*(v1 + 32), *(*(&v60 + 1) + 96), *(*(&v60 + 1) + 112), &v59, 0);
-    }
-
-    if (v21)
-    {
-      v47 = *(v7 + 32);
-      *(v7 + 32) = 0;
-      if (v47)
+      v170 = 797;
+      v171 = 2048;
+      v172 = v7;
+      v173 = 2048;
+      v174 = v30;
+      _os_log_send_and_compose_impl(v70, &v166, &v175, 80, &dword_1E1C61000, v68, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_98:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v71 = MEMORY[0x1E69E9C10];
+      v72 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v72)
       {
-        v48 = *(v7 + 48);
-        v49 = 8 * v47;
-        do
-        {
-          if (*v48)
-          {
-
-            *v48 = 0;
-          }
-
-          ++v48;
-          v49 -= 8;
-        }
-
-        while (v49);
-      }
-
-      ++*(v7 + 40);
-      re::encodeTextures(v1, &v60, &v59, v7);
-    }
-
-    re::ArgumentEncoderBufferPair::~ArgumentEncoderBufferPair(&v59);
-    goto LABEL_55;
-  }
-
-  re::internal::assertLog(6, v17, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < N", "operator[]", 173, *(v7 + 76), 2);
-  _os_crash();
-  __break(1u);
-LABEL_62:
-  re::internal::assertLog(4, v38, v35, "assertion failure: '%s' (%s:line %i) Unexpected full hash-table", "blockIndex != h1(key) % blockCount()", "internalAdd", 658);
-  result = _os_crash();
-  __break(1u);
-  return result;
-}
-
-void re::createArgumentBuffer(uint64_t a1, id *a2, uint64_t a3)
-{
-  v6 = *(a3 + 76);
-  v7 = *(a1 + 8);
-  re::ensureHeapInitialized(*a1, (v7 + 208));
-  v8 = *(*(*a1 + 96) + 8 * *(*a1 + 80) - 8);
-  v19 = v8;
-  v9 = [*(v7 + 208) heapBufferSizeAndAlignWithLength:objc_msgSend(*a2 options:{sel_encodedLength), 256}];
-  if ([v8 maxAvailableSizeWithAlignment_] < v9)
-  {
-    re::createNewHeap((v7 + 208), &v18);
-    v11 = *a1;
-    v12 = *(*a1 + 80);
-    if (v12 >= *(*a1 + 72))
-    {
-      re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::growCapacity((v11 + 64), v12 + 1);
-      v12 = *(v11 + 80);
-    }
-
-    v13 = *(v11 + 96);
-    v14 = v18;
-    *(v13 + 8 * v12) = v18;
-    ++*(v11 + 80);
-    ++*(v11 + 88);
-    [**(a1 + 56) useHeap:v14 stages:3];
-    NS::SharedPtr<MTL::Buffer>::operator=(&v19, (*(*a1 + 96) + 8 * *(*a1 + 80) - 8));
-    if (v14)
-    {
-    }
-
-    v8 = v19;
-  }
-
-  v18 = [v8 newBufferWithLength:objc_msgSend(*a2 options:{sel_encodedLength), 256}];
-  if (v6 >= 2)
-  {
-    re::internal::assertLog(6, v15, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < N", "operator[]", 173, v6, 2);
-    _os_crash();
-    __break(1u);
-LABEL_15:
-    re::internal::assertLog(4, v17, "assertion failure: '%s' (%s:line %i) makeBuffer returned null for argument buffer! Have we run out of memory?", "cachedArgumentBuffer->argumentBufferChain[indexToWrite]", "createArgumentBuffer", 193);
-    _os_crash();
-    __break(1u);
-    return;
-  }
-
-  v16 = (a3 + 8 * v6);
-  NS::SharedPtr<MTL::Texture>::operator=(v16, &v18);
-  if (v18)
-  {
-  }
-
-  if (!*v16)
-  {
-    goto LABEL_15;
-  }
-
-  if (v19)
-  {
-  }
-}
-
-void re::encodeArgumentBuffer(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = *(a3 + 76);
-  v16 = *(*(a1 + 24) + 120);
-  if (v6 < 2)
-  {
-    v8 = *(a3 + 8 * v6);
-    v17 = 0;
-    NS::SharedPtr<MTL::Buffer>::operator=(&v17, &v16);
-    [v17 setArgumentBuffer:v8 offset:0];
-    if (v8)
-    {
-    }
-
-    if (v16)
-    {
-
-      v16 = 0;
-    }
-
-    re::encodeTextures(a1, a2, &v17, a3);
-    v10 = *(a2 + 8);
-    v11 = v10[7];
-    if (!v11)
-    {
-LABEL_11:
-      re::encodeConstants(*(a1 + 32), v10[12], v10[14], &v17, 1);
-      re::ArgumentEncoderBufferPair::~ArgumentEncoderBufferPair(&v17);
-      return;
-    }
-
-    v12 = 8 * v11;
-    v6 = *(a1 + 32);
-    v13 = (v10[9] + 4);
-    while (1)
-    {
-      v14 = (*(v6 + 16) + 48 * *(v13 - 1));
-      v15 = v14[1];
-      if (v15 <= *v13)
-      {
-        break;
-      }
-
-      [v17 setBuffer:*(*v14 + 24 * *v13) offset:*(*v14 + 24 * *v13 + 16) atIndex:*(v13 - 2)];
-      v13 += 4;
-      v12 -= 8;
-      if (!v12)
-      {
-        v10 = *(a2 + 8);
-        goto LABEL_11;
-      }
-    }
-
-    re::internal::assertLog(6, v9, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, *v13, v15);
-    _os_crash();
-    __break(1u);
-  }
-
-  re::internal::assertLog(6, v7, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < N", "operator[]", 173, v6, 2, v16);
-  _os_crash();
-  __break(1u);
-}
-
-uint64_t re::CachedArgumentBuffer::updateWritableBufferVersions(uint64_t this, uint64_t a2, __int16 a3)
-{
-  v5 = *(this + 76);
-  if (v5 >= 2)
-  {
-    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < N", "operator[]", 173, v5, 2, v3, v4);
-    this = _os_crash();
-    __break(1u);
-  }
-
-  else
-  {
-    v6 = this + 2 * v5;
-    *(v6 + 60) = a2;
-    *(v6 + 56) = a3;
-    *(this + 72) = 1;
-  }
-
-  return this;
-}
-
-void re::encodeConstants(uint64_t *a1, uint64_t a2, uint64_t a3, id *a4, char a5)
-{
-  v32 = *MEMORY[0x1E69E9840];
-  if (a2)
-  {
-    v6 = a3;
-    v8 = a3 + 112 * a2;
-    do
-    {
-      if ((a5 & 1) != 0 || (*(v6 + 104) & 0x200) != 0)
-      {
-        v9 = [*a4 constantDataAtIndex_];
-        v10 = v9;
-        v11 = *(v6 + 24);
-        if (v11)
-        {
-          v12 = *(v6 + 40);
-          v13 = 16 * v11;
-          do
-          {
-            if ((*v12 - 4) >= 4 && *v12 != 9)
-            {
-              v15 = *re::graphicsLogObjects(v9);
-              v9 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-              if (v9)
-              {
-                v16 = *(v6 + 96);
-                v17 = *v12;
-                *buf = 67109376;
-                *&buf[4] = v16;
-                LOWORD(v31) = 1024;
-                *(&v31 + 2) = v17;
-                _os_log_impl(&dword_1E1C61000, v15, OS_LOG_TYPE_DEFAULT, "Cannot encode a constant at argument index %d. Table at index %d does not support argument buffers.", buf, 0xEu);
-              }
-            }
-
-            v12 += 4;
-            v13 -= 16;
-          }
-
-          while (v13);
-        }
-
-        v18 = *(v6 + 88);
-        v19 = *(v6 + 72);
-        if (v19)
-        {
-          v20 = 16 * v19;
-          do
-          {
-            if ((*v18 - 4) >= 4 && *v18 != 9)
-            {
-              v22 = *re::graphicsLogObjects(v9);
-              v9 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
-              if (v9)
-              {
-                v23 = *(v6 + 96);
-                v24 = *v18;
-                *buf = 67109376;
-                *&buf[4] = v23;
-                LOWORD(v31) = 1024;
-                *(&v31 + 2) = v24;
-                _os_log_impl(&dword_1E1C61000, v22, OS_LOG_TYPE_DEFAULT, "Cannot encode a constant at argument index %d. Table at index %d does not support argument buffers.", buf, 0xEu);
-              }
-            }
-
-            ++v18;
-            v20 -= 16;
-          }
-
-          while (v20);
-          v18 = *(v6 + 88);
-          v19 = *(v6 + 72);
-        }
-
-        v25 = *a1;
-        v26 = *(v6 + 100);
-        v27 = *(v6 + 24);
-        *buf = *(v6 + 40);
-        v31 = v27;
-        v29[0] = v18;
-        v29[1] = v19;
-        re::ConstantTableCollection::fill(v25, v10, v26, buf, v29);
-      }
-
-      v6 += 112;
-    }
-
-    while (v6 != v8);
-  }
-}
-
-void re::encodeTextures(uint64_t a1, uint64_t a2, id *a3, uint64_t a4)
-{
-  v48 = *MEMORY[0x1E69E9840];
-  if ((re::mtl::Device::needsArgumentBufferTextureEmulation((*(a1 + 8) + 208)) & 1) == 0)
-  {
-    v8 = *(a2 + 8);
-    v9 = *(v8 + 16);
-    if (v9)
-    {
-      v10 = *(v8 + 32);
-      v11 = &v10[4 * v9];
-      v12 = *(a1 + 32);
-      v13 = &selRef_setOwnerWithIdentity_;
-      do
-      {
-        if (*(v10 + 6) == 1)
-        {
-          [*a3 v13[71]];
-        }
-
-        else
-        {
-          (*(**(*(v12 + 8) + 8 * v10[1]) + 24))(v34);
-          [*a3 v13[71]];
-          if (v10[1])
-          {
-            v14 = *(a4 + 48);
-            v15 = *(a4 + 32);
-            v16 = v14;
-            while (v15)
-            {
-              v17 = v15 >> 1;
-              v18 = &v16[v15 >> 1];
-              v20 = *v18;
-              v19 = v18 + 1;
-              v15 += ~(v15 >> 1);
-              if (v20 < v34[0])
-              {
-                v16 = v19;
-              }
-
-              else
-              {
-                v15 = v17;
-              }
-            }
-
-            v21 = v16 - v14;
-            v22 = v16 - v14;
-            v23 = v34[0];
-            v33 = v23;
-            v24 = *(a4 + 32);
-            v25 = v24 + 1;
-            if (v24 + 1 <= v21 >> 3)
-            {
-              v34[1] = 0;
-              v46 = 0u;
-              v47 = 0u;
-              v44 = 0u;
-              v45 = 0u;
-              v43 = 0u;
-              os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-              v35 = 136315906;
-              v36 = "insert";
-              v37 = 1024;
-              v38 = 887;
-              v39 = 2048;
-              v40 = v22;
-              v41 = 2048;
-              v42 = v25;
-              _os_log_send_and_compose_impl();
-              _os_crash_msg();
-              __break(1u);
-            }
-
-            v26 = v23;
-            if (v24 >= *(a4 + 24))
-            {
-              re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::growCapacity((a4 + 16), v24 + 1);
-              v24 = *(a4 + 32);
-            }
-
-            v27 = *(a4 + 48);
-            v28 = (v27 + 8 * v24);
-            if (v24 <= v22)
-            {
-              *v28 = v26;
-              *(a4 + 32) = v24 + 1;
-              ++*(a4 + 40);
-              v13 = &selRef_setOwnerWithIdentity_;
-            }
-
-            else
-            {
-              v29 = (v28 - 1);
-              *v28 = *(v28 - 1);
-              *(v28 - 1) = 0;
-              if (v28 - 1 != (v27 + v21))
-              {
-                v30 = v21 - 8 * v24 + 8;
-                do
-                {
-                  v31 = v29 - 1;
-                  NS::SharedPtr<MTL::Texture>::operator=(v29, v29 - 1);
-                  v29 = v31;
-                  v30 += 8;
-                }
-
-                while (v30);
-                v27 = *(a4 + 48);
-              }
-
-              NS::SharedPtr<MTL::Texture>::operator=((v27 + 8 * v22), &v33);
-              v32 = v33;
-              ++*(a4 + 32);
-              ++*(a4 + 40);
-              v13 = &selRef_setOwnerWithIdentity_;
-              if (v32)
-              {
-              }
-            }
-          }
-
-          else
-          {
-            *(a4 + 74) = 1;
-          }
-
-          if (v34[0])
-          {
-          }
-        }
-
-        v10 += 4;
-      }
-
-      while (v10 != v11);
-    }
-  }
-}
-
-void re::ensureHeapInitialized(uint64_t a1, id *this)
-{
-  if (!*(a1 + 80))
-  {
-    v5[3] = v2;
-    v5[4] = v3;
-    re::createNewHeap(this, v5);
-    re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add((a1 + 64), v5);
-    if (v5[0])
-    {
-    }
-  }
-}
-
-void re::createNewHeap(id *this@<X0>, void *a2@<X8>)
-{
-  v5 = [objc_msgSend(MEMORY[0x1E69740E8] alloc)];
-  [v5 setCpuCacheMode_];
-  [v5 setStorageMode_];
-  [v5 setSize_];
-  [v5 setHazardTrackingMode_];
-  *a2 = [*this newHeapWithDescriptor_];
-  if (v5)
-  {
-  }
-}
-
-re::ArgumentBufferCacheReferences *re::ArgumentBufferCacheReferences::ArgumentBufferCacheReferences(re::ArgumentBufferCacheReferences *this, re::Allocator *a2)
-{
-  *(this + 4) = 0;
-  *(this + 1) = 0;
-  *(this + 2) = 0;
-  *(this + 6) = 0;
-  *this = a2;
-  re::DynamicArray<re::EvaluationRegisterId<int>>::setCapacity(this, 0);
-  ++*(this + 6);
-  *(this + 9) = 0;
-  *(this + 6) = 0;
-  *(this + 7) = 0;
-  *(this + 16) = 0;
-  *(this + 5) = a2;
-  re::DynamicArray<re::EvaluationRegisterId<int>>::setCapacity(this + 5, 0);
-  ++*(this + 16);
-  *(this + 40) = 0;
-  return this;
-}
-
-void *re::ArgumentBufferCacheReferences::addAndUseResourcePtrs(void *this, id *a2, uint64_t a3)
-{
-  v4 = this;
-  v5 = *(a3 + 16);
-  if (v5)
-  {
-    v6 = 0;
-    v7 = *(a3 + 32);
-    v8 = &v7[v5];
-    do
-    {
-      v9 = *v7;
-      v13 = *v7;
-      v10 = *(v4 + 16);
-      if (v6 >= v10)
-      {
-        v11 = 0;
+        v73 = 3;
       }
 
       else
       {
-        while (1)
-        {
-          v11 = *(*(v4 + 32) + 8 * v6);
-          if (v11 >= v9)
-          {
-            break;
-          }
-
-          if (v10 == ++v6)
-          {
-            v6 = *(v4 + 16);
-            break;
-          }
-        }
+        v73 = 2;
       }
 
-      if (v11 != v9)
+      v170 = 476;
+      v171 = 2048;
+      v172 = a5;
+      v173 = 2048;
+      v174 = v30;
+      _os_log_send_and_compose_impl(v73, &v166, &v175, 80, &dword_1E1C61000, v71, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_102:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v74 = MEMORY[0x1E69E9C10];
+      v75 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v75)
       {
-        re::DynamicArray<unsigned long>::insert(v4, v6, &v13);
-        this = re::DynamicArray<unsigned long>::add((v4 + 40), &v13);
+        v76 = 3;
       }
 
-      ++v7;
-    }
-
-    while (v7 != v8);
-  }
-
-  v12 = *(v4 + 56);
-  if (v12)
-  {
-    this = [*a2 useResources:*(v4 + 72) count:v12 usage:1 stages:3];
-    *(v4 + 56) = 0;
-    ++*(v4 + 64);
-  }
-
-  return this;
-}
-
-uint64_t re::processArgumentBufferContextAndUseResources(uint64_t a1, uint64_t a2, id *a3)
-{
-  ArgumentBuffer = re::getOrCreateArgumentBuffer(a1);
-  if (*(ArgumentBuffer + 74) == 1 && (*(a2 + 81) & 1) == 0)
-  {
-    [*a3 useHeap:*(*(*(a1 + 8) + 56) + 8) stages:3];
-    *(a2 + 81) = 1;
-  }
-
-  re::ArgumentBufferCacheReferences::addAndUseResourcePtrs(a2, a3, ArgumentBuffer + 16);
-  return ArgumentBuffer;
-}
-
-void re::ArgumentEncoderBufferPair::~ArgumentEncoderBufferPair(id *this)
-{
-  v2 = *this;
-  if (v2)
-  {
-    [v2 setArgumentBuffer:0 offset:0];
-    if (*this)
-    {
-
-      *this = 0;
-    }
-  }
-}
-
-uint64_t re::FunctionConstantsEnumerator::hasMatchingValueInLayer(re::FunctionConstantsEnumerator *this, const char *__s2, uint64_t a3)
-{
-  v3 = *(this + 1);
-  if (!v3)
-  {
-    return 0;
-  }
-
-  v6 = *(this + 2);
-  v7 = &v6[11 * v3];
-  while (1)
-  {
-    v8 = (v6[1] & 1) != 0 ? v6[2] : v6 + 9;
-    if (!strcmp(v8, __s2))
-    {
-      v9 = v6[7];
-      if (v9)
+      else
       {
-        break;
+        v76 = 2;
       }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v7;
+      v173 = 2048;
+      v174 = v30;
+      _os_log_send_and_compose_impl(v76, &v166, &v175, 80, &dword_1E1C61000, v74, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_106:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v77 = MEMORY[0x1E69E9C10];
+      v78 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v78)
+      {
+        v79 = 3;
+      }
+
+      else
+      {
+        v79 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v5;
+      v173 = 2048;
+      v174 = a5;
+      _os_log_send_and_compose_impl(v79, &v166, &v175, 80, &dword_1E1C61000, v77, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_110:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v80 = MEMORY[0x1E69E9C10];
+      v81 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v81)
+      {
+        v82 = 3;
+      }
+
+      else
+      {
+        v82 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = a5;
+      v173 = 2048;
+      v174 = v5;
+      _os_log_send_and_compose_impl(v82, &v166, &v175, 80, &dword_1E1C61000, v80, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_114:
+      re::internal::assertLog(6, v28, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v32, v33);
+      _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v149, v152);
+      __break(1u);
+LABEL_115:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v83 = MEMORY[0x1E69E9C10];
+      v84 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v84)
+      {
+        v85 = 3;
+      }
+
+      else
+      {
+        v85 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v17;
+      v173 = 2048;
+      v174 = v5;
+      _os_log_send_and_compose_impl(v85, &v166, &v175, 80, &dword_1E1C61000, v83, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_119:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v86 = MEMORY[0x1E69E9C10];
+      v87 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v87)
+      {
+        v88 = 3;
+      }
+
+      else
+      {
+        v88 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v5;
+      v173 = 2048;
+      v174 = var1;
+      _os_log_send_and_compose_impl(v88, &v166, &v175, 80, &dword_1E1C61000, v86, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_123:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v89 = MEMORY[0x1E69E9C10];
+      v90 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v90)
+      {
+        v91 = 3;
+      }
+
+      else
+      {
+        v91 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v5;
+      v173 = 2048;
+      v174 = var1;
+      _os_log_send_and_compose_impl(v91, &v166, &v175, 80, &dword_1E1C61000, v89, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_127:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v92 = MEMORY[0x1E69E9C10];
+      v93 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v93)
+      {
+        v94 = 3;
+      }
+
+      else
+      {
+        v94 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v5;
+      v173 = 2048;
+      v174 = var1;
+      _os_log_send_and_compose_impl(v94, &v166, &v175, 80, &dword_1E1C61000, v92, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_131:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v95 = MEMORY[0x1E69E9C10];
+      v96 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v96)
+      {
+        v97 = 3;
+      }
+
+      else
+      {
+        v97 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v5;
+      v173 = 2048;
+      v174 = var1;
+      _os_log_send_and_compose_impl(v97, &v166, &v175, 80, &dword_1E1C61000, v95, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_135:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v98 = MEMORY[0x1E69E9C10];
+      v99 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v99)
+      {
+        v100 = 3;
+      }
+
+      else
+      {
+        v100 = 2;
+      }
+
+      v170 = 797;
+      v171 = 2048;
+      v172 = v17;
+      v173 = 2048;
+      v174 = v5;
+      _os_log_send_and_compose_impl(v100, &v166, &v175, 80, &dword_1E1C61000, v98, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_139:
+      re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v6, v6);
+      _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v150, v153);
+      __break(1u);
+LABEL_140:
+      v163 = 0;
+      v13[3] = 0u;
+      v13[4] = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v101 = MEMORY[0x1E69E9C10];
+      v102 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v102)
+      {
+        v103 = 3;
+      }
+
+      else
+      {
+        v103 = 2;
+      }
+
+      v170 = 797;
+      v171 = 2048;
+      v172 = v5;
+      v173 = 2048;
+      v174 = v7;
+      _os_log_send_and_compose_impl(v103, &v163, &v175, 80, &dword_1E1C61000, v101, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_144:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v104 = MEMORY[0x1E69E9C10];
+      v105 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v105)
+      {
+        v106 = 3;
+      }
+
+      else
+      {
+        v106 = 2;
+      }
+
+      v170 = 797;
+      v171 = 2048;
+      v172 = v7;
+      v173 = 2048;
+      v174 = v5;
+      _os_log_send_and_compose_impl(v106, &v166, &v175, 80, &dword_1E1C61000, v104, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_148:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v107 = MEMORY[0x1E69E9C10];
+      v108 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v108)
+      {
+        v109 = 3;
+      }
+
+      else
+      {
+        v109 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v7;
+      v173 = 2048;
+      v174 = v5;
+      _os_log_send_and_compose_impl(v109, &v166, &v175, 80, &dword_1E1C61000, v107, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_152:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v110 = MEMORY[0x1E69E9C10];
+      v111 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v111)
+      {
+        v112 = 3;
+      }
+
+      else
+      {
+        v112 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v7;
+      v173 = 2048;
+      v174 = v14;
+      _os_log_send_and_compose_impl(v112, &v166, &v175, 80, &dword_1E1C61000, v110, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_156:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v113 = MEMORY[0x1E69E9C10];
+      v114 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v114)
+      {
+        v115 = 3;
+      }
+
+      else
+      {
+        v115 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v7;
+      v173 = 2048;
+      v174 = v14;
+      _os_log_send_and_compose_impl(v115, &v166, &v175, 80, &dword_1E1C61000, v113, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_160:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v116 = MEMORY[0x1E69E9C10];
+      v117 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v117)
+      {
+        v118 = 3;
+      }
+
+      else
+      {
+        v118 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v7;
+      v173 = 2048;
+      v174 = v14;
+      _os_log_send_and_compose_impl(v118, &v166, &v175, 80, &dword_1E1C61000, v116, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_164:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v119 = MEMORY[0x1E69E9C10];
+      v120 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v120)
+      {
+        v121 = 3;
+      }
+
+      else
+      {
+        v121 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v7;
+      v173 = 2048;
+      v174 = v14;
+      _os_log_send_and_compose_impl(v121, &v166, &v175, 80, &dword_1E1C61000, v119, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_168:
+      re::internal::assertLog(6, v53, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v57, v57);
+      _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v151, v154);
+      __break(1u);
+LABEL_169:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v122 = MEMORY[0x1E69E9C10];
+      v123 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v123)
+      {
+        v124 = 3;
+      }
+
+      else
+      {
+        v124 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v7;
+      v173 = 2048;
+      v174 = v5;
+      _os_log_send_and_compose_impl(v124, &v166, &v175, 80, &dword_1E1C61000, v122, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_173:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v125 = MEMORY[0x1E69E9C10];
+      v126 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v126)
+      {
+        v127 = 3;
+      }
+
+      else
+      {
+        v127 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v7;
+      v173 = 2048;
+      v174 = v15;
+      _os_log_send_and_compose_impl(v127, &v166, &v175, 80, &dword_1E1C61000, v125, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_177:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v128 = MEMORY[0x1E69E9C10];
+      v129 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v129)
+      {
+        v130 = 3;
+      }
+
+      else
+      {
+        v130 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v14;
+      v173 = 2048;
+      v174 = v5;
+      _os_log_send_and_compose_impl(v130, &v166, &v175, 80, &dword_1E1C61000, v128, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_181:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v131 = MEMORY[0x1E69E9C10];
+      v132 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v132)
+      {
+        v133 = 3;
+      }
+
+      else
+      {
+        v133 = 2;
+      }
+
+      v170 = 797;
+      v171 = 2048;
+      v172 = v7;
+      v173 = 2048;
+      v174 = v5;
+      _os_log_send_and_compose_impl(v133, &v166, &v175, 80, &dword_1E1C61000, v131, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_185:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v134 = MEMORY[0x1E69E9C10];
+      v135 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v135)
+      {
+        v136 = 3;
+      }
+
+      else
+      {
+        v136 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v7;
+      v173 = 2048;
+      v174 = v5;
+      _os_log_send_and_compose_impl(v136, &v166, &v175, 80, &dword_1E1C61000, v134, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_189:
+      v166 = 0;
+      v178 = 0u;
+      v179 = 0u;
+      v176 = 0u;
+      v177 = 0u;
+      v175 = 0u;
+      v137 = MEMORY[0x1E69E9C10];
+      v138 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v167 = 136315906;
+      v168 = "operator[]";
+      v169 = 1024;
+      if (v138)
+      {
+        v139 = 3;
+      }
+
+      else
+      {
+        v139 = 2;
+      }
+
+      v170 = 468;
+      v171 = 2048;
+      v172 = v5;
+      v173 = 2048;
+      v174 = a5;
+      _os_log_send_and_compose_impl(v139, &v166, &v175, 80, &dword_1E1C61000, v137, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v167, 38, v155, v156);
+      _os_crash_msg();
+      __break(1u);
+LABEL_193:
+      re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) The number of skinned parts exceeds expectations.", "skinnedMeshPartCount < 4294967295U", "init", 252);
+      _os_crash("assertion failure: (skinnedMeshPartCount < 4294967295U) The number of skinned parts exceeds expectations.");
+      __break(1u);
+      goto LABEL_194;
     }
 
-LABEL_7:
-    v6 += 11;
-    if (v6 == v7)
+LABEL_86:
+    ++v7;
+    v35 = v161;
+    if (v7 != v160)
     {
-      return 0;
+      continue;
     }
+
+    break;
   }
 
-  v10 = 16 * v9;
-  v11 = (v6[8] + 8);
-  while (*(v11 - 8) != 1 || *v11 != a3)
+  ++*v12;
+  re::MeshNameMap::calculateHash(v12);
+  result = v163;
+  if (v163)
   {
-    v11 += 2;
-    v10 -= 16;
-    if (!v10)
+    if (v164)
     {
-      goto LABEL_7;
+      return (*(*v163 + 40))();
     }
-  }
-
-  return 1;
-}
-
-uint64_t *re::FunctionConstantsEnumerator::createLayerToIndexMap(_anonymous_namespace_ *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  *(a1 + 2) = 0;
-  v8 = *(a2 + 8);
-  *(a1 + 1) = v8;
-  if (v8)
-  {
-    if (v8 >> 62)
-    {
-      goto LABEL_21;
-    }
-
-    *(a1 + 2) = result;
-    if (result)
-    {
-      v12 = result;
-      v13 = result;
-      v14 = v8 - 1;
-      if (v8 != 1)
-      {
-        do
-        {
-          *v13 = 0;
-          v13 += 4;
-          --v14;
-        }
-
-        while (v14);
-      }
-
-      v15 = 0;
-      *v13 = 0;
-      while (1)
-      {
-        if (a4)
-        {
-          if (*(a2 + 8) <= v15)
-          {
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_20:
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_21:
-            re::internal::assertLog(6, v9, "assertion failure: '%s' (%s:line %i) Size overflow in FixedArray<T>::init(). Element size = %zu, count = %zu", "!overflow", "init", 324, 4, v8);
-            _os_crash();
-            __break(1u);
-            break;
-          }
-
-          v16 = 0;
-          v17 = *(a2 + 16) + 88 * v15;
-          v18 = a3;
-          while (1)
-          {
-            result = re::DynamicString::operator==(v18, v17);
-            if (result)
-            {
-              break;
-            }
-
-            ++v16;
-            v18 += 104;
-            if (a4 == v16)
-            {
-              goto LABEL_17;
-            }
-          }
-
-          if (v8 <= v15)
-          {
-            goto LABEL_20;
-          }
-
-          v19 = v12 + 4 * v15;
-          if ((*v19 & 1) == 0)
-          {
-            *v19 = 1;
-          }
-
-          *(v19 + 1) = v16;
-        }
-
-LABEL_17:
-        if (++v15 == v8)
-        {
-          return result;
-        }
-      }
-    }
-
-    re::internal::assertLog(4, v11, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
-    _os_crash();
-    __break(1u);
   }
 
   return result;
 }
 
-uint64_t re::FunctionConstantsEnumerator::enumerateFunctionConstantSet(uint64_t a1, void *a2)
+re::MeshNameMap *re::MeshNameMap::init(re::MeshNameMap *result, re::_anonymous_namespace_::MeshAssetAccessor *this, uint64_t a3, unint64_t a4, uint64_t a5)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v5 = a4;
+  v171 = *MEMORY[0x1E69E9840];
+  v6 = *(this + 76);
+  if (v6)
   {
-    return 0;
+    v7 = a4 == 0;
   }
 
-  v4 = 0;
-  v5 = *(a1 + 16);
-  v6 = &v5[11 * v2];
-  do
+  else
   {
-    v7 = re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(a2, v5 + 4);
-    if (v7 == -1)
-    {
-LABEL_9:
-      v12 = 0;
-    }
-
-    else
-    {
-      v9 = v5[7];
-      v8 = v5[8];
-      if (v9)
-      {
-        v10 = 16 * v9;
-        v11 = v5[8];
-        while (*v11 != 1 || *(v11 + 8) != *(a2[1] + 16 * v7 + 8))
-        {
-          v11 += 16;
-          v10 -= 16;
-          if (!v10)
-          {
-            goto LABEL_9;
-          }
-        }
-      }
-
-      else
-      {
-        v11 = v5[8];
-      }
-
-      v13 = v8 + 16 * v9;
-      v12 = (v11 - v8) >> 4;
-      if (v11 == v13)
-      {
-        v12 = 0;
-      }
-    }
-
-    v4 += v5[9] * v12;
-    v5 += 11;
+    v7 = 1;
   }
 
-  while (v5 != v6);
-  return v4;
-}
+  if (v7)
+  {
+    return result;
+  }
 
-uint64_t re::FunctionConstantsEnumerator::createPermutation@<X0>(_anonymous_namespace_ *a1@<X0>, unint64_t a2@<X1>, re::DynamicString *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v50 = *MEMORY[0x1E69E9840];
-  *(a5 + 32) = 0;
-  *(a5 + 8) = 0;
-  *(a5 + 16) = 0;
-  *a5 = 0;
-  *(a5 + 24) = 0;
+  v8 = a5;
+  v10 = result;
+  v11 = *(this + 156);
+  v12 = a4;
+  v145 = a4;
   if (a4)
   {
-    v9 = a4;
-    re::DynamicArray<re::TechniqueFunctionConstant>::setCapacity(a5, v9);
-    ++*(a5 + 24);
-    re::DynamicArray<re::TechniqueFunctionConstant>::copy(a5, 0, a3, v9);
-    v11 = *(a5 + 32);
-    a4 = *(a5 + 16);
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  LayerToIndexMap = re::FunctionConstantsEnumerator::createLayerToIndexMap(&v33, a1, v11, a4);
-  if (*(a1 + 1))
-  {
+    v143 = *(this + 76);
     v13 = 0;
     v14 = 0;
     v15 = 0;
-    v16 = a2 % *(a1 + 4);
-    while (1)
+    v16 = 0;
+    v17 = 0;
+    do
     {
-      v17 = (*(a1 + 2) + v14);
-      v18 = v17[9];
-      v19 = v17[7];
-      if (v19 <= v16 / v18)
+      if (v17 == v5)
       {
-        break;
+        goto LABEL_128;
       }
 
-      v20 = (v17[8] + 16 * (v16 / v18));
-      v21 = *v20;
-      if (v21 == 1)
+      v18 = *(a3 + 96 * v17 + 80);
+      if (v19)
       {
-        v5 = *(v20 + 1);
+        ++v14;
       }
 
-      v19 = v34;
-      if (v34 <= v15)
+      v148 = v14;
+      if (v19)
       {
-        goto LABEL_36;
-      }
-
-      if (*(v35 + v13) == 1)
-      {
-        v32 = v5;
-        v19 = *(v35 + v13 + 2);
-        v5 = *(a5 + 16);
-        if (v21)
+        v20 = v19;
+        for (i = 0; i != v20; ++i)
         {
-          if (v5 <= v19)
+          if (v22 < v11)
           {
-            goto LABEL_38;
+            ++v13;
+            v15 += *(re::MeshAsset::skeletonAtIndex(this, v22) + 24);
           }
-
-          v22 = *(a5 + 32) + 104 * *(v35 + v13 + 2);
-          *(v22 + 76) = 0u;
-          *(v22 + 92) = 0;
-          *(v22 + 60) = 0u;
-          *(v22 + 44) = 0u;
-          v5 = v32;
-          *(v22 + 36) = v32;
-        }
-
-        else
-        {
-          if (v5 <= v19)
-          {
-            goto LABEL_39;
-          }
-
-          if (v5 - 1 > v19)
-          {
-            v24 = *(a5 + 32);
-            v25 = v24 + 104 * v5;
-            v26 = re::DynamicString::operator=((v24 + 104 * *(v35 + v13 + 2)), (v25 - 104));
-            *(v26 + 2) = *(v25 - 72);
-            v27 = *(v25 - 40);
-            v28 = *(v25 - 24);
-            v29 = *(v25 - 56);
-            *(v26 + 24) = *(v25 - 8);
-            *(v26 + 4) = v27;
-            *(v26 + 5) = v28;
-            *(v26 + 3) = v29;
-            v5 = *(a5 + 16);
-          }
-
-          re::DynamicString::deinit((*(a5 + 32) + 104 * v5 - 104));
-          v30 = *(a5 + 16) - 1;
-          *(a5 + 16) = v30;
-          ++*(a5 + 24);
-          re::FunctionConstantsEnumerator::createLayerToIndexMap(&v37, a1, *(a5 + 32), v30);
-          re::FixedArray<float>::operator=(&v33, &v37);
-          LayerToIndexMap = v37;
-          if (v37 && *(&v37 + 1))
-          {
-            LayerToIndexMap = (*(*v37 + 40))();
-          }
-
-          v5 = v32;
         }
       }
 
-      else if (v21)
-      {
-        v37 = 0u;
-        v38 = 0u;
-        re::DynamicString::setCapacity(&v37, 0);
-        v23 = 0uLL;
-        memset(v39 + 4, 0, 64);
-        v19 = *(a1 + 1);
-        if (v19 <= v15)
-        {
-          goto LABEL_37;
-        }
-
-        re::DynamicString::operator=(&v37, (*(a1 + 2) + v14));
-        v19 = *(a1 + 1);
-        if (v19 <= v15)
-        {
-          goto LABEL_40;
-        }
-
-        LODWORD(v39[0]) = *(*(a1 + 2) + v14 + 40);
-        memset(v39 + 12, 0, 56);
-        *(v39 + 4) = v5;
-        re::DynamicArray<re::TechniqueFunctionConstant>::add(a5, &v37);
-        re::FunctionConstantsEnumerator::createLayerToIndexMap(v47, a1, *(a5 + 32), *(a5 + 16));
-        re::FixedArray<float>::operator=(&v33, v47);
-        if (*&v47[0] && *(&v47[0] + 1))
-        {
-          (*(**&v47[0] + 40))(*&v47[0], *&v47[1]);
-        }
-
-        LayerToIndexMap = v37;
-        if (v37 && (BYTE8(v37) & 1) != 0)
-        {
-          LayerToIndexMap = (*(*v37 + 40))();
-        }
-      }
-
-      v16 %= v18;
-      ++v15;
-      v14 += 88;
-      v13 += 4;
-      if (*(a1 + 1) <= v15)
-      {
-        goto LABEL_31;
-      }
+      v12 = v145;
+      v16 += v146;
+      ++v17;
+      v5 = a4;
+      v14 = v148;
     }
 
-    *v40 = 0;
-    v38 = 0u;
-    memset(v39, 0, 48);
-    v37 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v47[0]) = 136315906;
-    *(v47 + 4) = "operator[]";
-    WORD6(v47[0]) = 1024;
-    *(v47 + 14) = 476;
-    WORD1(v47[1]) = 2048;
-    *(&v47[1] + 4) = v16 / v18;
-    WORD6(v47[1]) = 2048;
-    *(&v47[1] + 14) = v19;
-    _os_log_send_and_compose_impl();
+    while (v17 != v145);
+    if (v13 > 0xFFFFFFFE)
+    {
+      goto LABEL_178;
+    }
+
+    if (v148 >= 0xFFFFFFFF)
+    {
+LABEL_179:
+      re::internal::assertLog(4, this, "assertion failure: '%s' (%s:line %i) The number of skinned instances exceeds expectations.", "skinnedMeshInstanceCount < 4294967295U", "init", 253);
+      _os_crash("assertion failure: (skinnedMeshInstanceCount < 4294967295U) The number of skinned instances exceeds expectations.");
+      __break(1u);
+      goto LABEL_180;
+    }
+
+    if (v15 >= 0xFFFFFFFF)
+    {
+LABEL_180:
+      re::internal::assertLog(4, this, "assertion failure: '%s' (%s:line %i) The number of skinned joints exceeds expectations.", "skinnedMeshPartJointCount < 4294967295U", "init", 254);
+      _os_crash("assertion failure: (skinnedMeshPartJointCount < 4294967295U) The number of skinned joints exceeds expectations.");
+      __break(1u);
+LABEL_181:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v124 = MEMORY[0x1E69E9C10];
+      v125 = v36;
+      v126 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v126)
+      {
+        v127 = 3;
+      }
+
+      else
+      {
+        v127 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v125;
+      v164 = 2048;
+      v165 = v12;
+      _os_log_send_and_compose_impl(v127, &v157, &v166, 80, &dword_1E1C61000, v124, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+      goto LABEL_185;
+    }
+
+    v23 = v148;
+    v6 = v143;
+    v8 = a5;
+    if (v16 < 0xFFFFFFFF)
+    {
+      goto LABEL_24;
+    }
+
+    re::internal::assertLog(4, this, "assertion failure: '%s' (%s:line %i) The number of mesh parts exceeds expectations.", "meshPartInstanceCount < 4294967295U", "init", 255);
+    _os_crash("assertion failure: (meshPartInstanceCount < 4294967295U) The number of mesh parts exceeds expectations.");
+    __break(1u);
+  }
+
+  v16 = 0;
+  v23 = 0;
+  v13 = 0;
+LABEL_24:
+  v149 = v23;
+  re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v10 + 16, v8, 2 * v5);
+  re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v10 + 64, v8, 2 * v6);
+  v17 = v6;
+  re::FixedArray<unsigned short>::init<>(v10 + 14, v8, v6);
+  re::FixedArray<re::FixedArray<unsigned int>>::init<>(v10 + 17, v8, v6);
+  re::FixedArray<re::StringID>::init<>(v10 + 20, v8, v6);
+  re::FixedArray<re::StringID>::init<>(v10 + 23, v8, v12);
+  re::FixedArray<int>::init<>(v10 + 26, v8, v12);
+  re::FixedArray<int>::init<>(v10 + 29, v8, v149);
+  re::FixedArray<int>::init<>(v10 + 32, v8, v13);
+  re::FixedArray<unsigned int>::init<unsigned int const&>(v10 + 35, v8, v16, re::MeshNameMap::kInvalidSkinnedPartIndex);
+  re::FixedArray<re::HashTable<re::StringID,unsigned short,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>>::init<>(v10 + 304, v8, v6);
+  v12 = (v5 + 1);
+  re::FixedArray<int>::init<>(v10 + 41, v8, v12);
+  re::FixedArray<int>::init<>(v10 + 44, v8, (v6 + 1));
+  re::FixedArray<int>::init<>(v10 + 47, v8, v12);
+  re::FixedArray<int>::init<>(v10 + 50, v8, v16);
+  v154 = 0;
+  v155 = 0;
+  v156 = 0;
+  v147 = v6;
+  v26 = 0;
+  v150 = 0;
+  v14 = 0;
+  v27 = 0;
+  v153 = 0;
+  do
+  {
+    v28 = v27;
+    if (v5 <= v27)
+    {
+      goto LABEL_107;
+    }
+
+    v12 = a3 + 96 * v27;
+    v5 = *(v12 + 80);
+    v17 = v155;
+    if (v155 <= v5)
+    {
+      goto LABEL_108;
+    }
+
+    ++*(v156 + 4 * v5);
+    v17 = v153;
+    v13 = *(v10 + 42);
+    if (v13 <= v153)
+    {
+      goto LABEL_112;
+    }
+
+    *(*(v10 + 43) + 4 * v153) = v26;
+    v17 = v153;
+    v13 = *(v10 + 24);
+    if (v13 <= v153)
+    {
+      goto LABEL_116;
+    }
+
+    re::StringID::operator=((*(v10 + 25) + 16 * v153), v12);
+    v17 = v153;
+    v13 = *(v10 + 27);
+    if (v13 <= v153)
+    {
+      goto LABEL_120;
+    }
+
+    *(*(v10 + 28) + 4 * v153) = v5;
+    v17 = v153;
+    v13 = *(v10 + 48);
+    if (v13 <= v153)
+    {
+      goto LABEL_124;
+    }
+
+    *(*(v10 + 49) + 4 * v153) = v14;
+    re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::add(v10 + 16, v12, &v153);
+    {
+      v12 = v150;
+      v17 = *(v10 + 30);
+      if (v17 <= v150)
+      {
+        goto LABEL_166;
+      }
+
+      *(*(v10 + 31) + 4 * v150) = v153;
+      if (v29)
+      {
+        v12 = v29;
+        v30 = 0;
+        v17 = 1;
+        do
+        {
+          {
+            v6 = v14;
+            v13 = *(v10 + 33);
+            if (v13 <= v14)
+            {
+              goto LABEL_99;
+            }
+
+            v13 = (v26 + v17 - 1);
+            *(*(v10 + 34) + 4 * v14) = v13;
+            v6 = *(v10 + 36);
+            if (v6 <= v13)
+            {
+              goto LABEL_103;
+            }
+
+            *(*(v10 + 37) + 4 * v13) = v14;
+            v14 = (v14 + 1);
+          }
+
+          v30 = v17;
+          v31 = v12 > v17;
+          v17 = (v17 + 1);
+        }
+
+        while (v31);
+      }
+
+      ++v150;
+    }
+
+    v33 = v32;
+    if (v32)
+    {
+      v17 = v26;
+      v12 = *(v10 + 51);
+      v34 = v12 - v26;
+      if (v12 < v26)
+      {
+        v34 = 0;
+      }
+
+      v5 = a4;
+      while (v34)
+      {
+        v35 = v153;
+        *(*(v10 + 52) + 4 * v17) = v153;
+        --v34;
+        ++v17;
+        if (!--v33)
+        {
+          goto LABEL_49;
+        }
+      }
+
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v55 = MEMORY[0x1E69E9C10];
+      v56 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v56)
+      {
+        v57 = 3;
+      }
+
+      else
+      {
+        v57 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v17;
+      v164 = 2048;
+      v165 = v12;
+      _os_log_send_and_compose_impl(v57, &v157, &v166, 80, &dword_1E1C61000, v55, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+      goto LABEL_87;
+    }
+
+    v35 = v153;
+    v5 = a4;
+LABEL_49:
+    v26 = v26 + v32;
+    v27 = v35 + 1;
+    v153 = v35 + 1;
+  }
+
+  while (v35 + 1 < v5);
+  v12 = *(v10 + 42);
+  v36 = v145;
+  if (v12 <= v145)
+  {
+    goto LABEL_181;
+  }
+
+  *(*(v10 + 43) + 4 * v145) = v26;
+  v12 = *(v10 + 48);
+  if (v12 <= v145)
+  {
+LABEL_185:
+    v157 = 0;
+    v169 = 0u;
+    v170 = 0u;
+    v167 = 0u;
+    v168 = 0u;
+    v166 = 0u;
+    v128 = MEMORY[0x1E69E9C10];
+    v129 = v36;
+    v130 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v158 = 136315906;
+    v159 = "operator[]";
+    v160 = 1024;
+    if (v130)
+    {
+      v131 = 3;
+    }
+
+    else
+    {
+      v131 = 2;
+    }
+
+    v161 = 468;
+    v162 = 2048;
+    v163 = v129;
+    v164 = 2048;
+    v165 = v12;
+    _os_log_send_and_compose_impl(v131, &v157, &v166, 80, &dword_1E1C61000, v128, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
     _os_crash_msg();
     __break(1u);
-LABEL_36:
-    *v40 = 0;
-    v38 = 0u;
-    memset(v39, 0, 48);
-    v37 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v47[0]) = 136315906;
-    *(v47 + 4) = "operator[]";
-    WORD6(v47[0]) = 1024;
-    *(v47 + 14) = 468;
-    WORD1(v47[1]) = 2048;
-    *(&v47[1] + 4) = v15;
-    WORD6(v47[1]) = 2048;
-    *(&v47[1] + 14) = v19;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_37:
-    v36 = 0;
-    v48 = v23;
-    v49 = v23;
-    v47[1] = v23;
-    v47[2] = v23;
-    v47[0] = v23;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v40 = 136315906;
-    *&v40[4] = "operator[]";
-    v41 = 1024;
-    v42 = 476;
-    v43 = 2048;
-    v44 = v15;
-    v45 = 2048;
-    v46 = v19;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_38:
-    *v40 = 0;
-    v38 = 0u;
-    memset(v39, 0, 48);
-    v37 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v47[0]) = 136315906;
-    *(v47 + 4) = "operator[]";
-    WORD6(v47[0]) = 1024;
-    *(v47 + 14) = 789;
-    WORD1(v47[1]) = 2048;
-    *(&v47[1] + 4) = v19;
-    WORD6(v47[1]) = 2048;
-    *(&v47[1] + 14) = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_39:
-    *v40 = 0;
-    v38 = 0u;
-    memset(v39, 0, 48);
-    v37 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v47[0]) = 136315906;
-    *(v47 + 4) = "removeAt";
-    WORD6(v47[0]) = 1024;
-    *(v47 + 14) = 931;
-    WORD1(v47[1]) = 2048;
-    *(&v47[1] + 4) = v19;
-    WORD6(v47[1]) = 2048;
-    *(&v47[1] + 14) = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_40:
-    v36 = 0;
-    v48 = 0u;
-    v49 = 0u;
-    memset(v47, 0, sizeof(v47));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v40 = 136315906;
-    *&v40[4] = "operator[]";
-    v41 = 1024;
-    v42 = 476;
-    v43 = 2048;
-    v44 = v15;
-    v45 = 2048;
-    v46 = v19;
-    _os_log_send_and_compose_impl();
+    goto LABEL_189;
+  }
+
+  v37 = 0;
+  v17 = 0;
+  v5 = 0;
+  v11 = 0;
+  *(*(v10 + 49) + 4 * v145) = v14;
+  do
+  {
+    v12 = *(this + 76);
+    if (v12 <= v5)
+    {
+      goto LABEL_129;
+    }
+
+    v38 = re::DataArray<re::MeshModel>::get(*(this + 79) + 8, *(*(this + 78) + 8 * v5));
+    v14 = *(v10 + 15);
+    if (v14 <= v5)
+    {
+      goto LABEL_133;
+    }
+
+    v12 = v39;
+    *(*(v10 + 16) + 2 * v5) = v39;
+    v14 = *(v10 + 18);
+    if (v14 <= v5)
+    {
+      goto LABEL_137;
+    }
+
+    v14 = v155;
+    if (v155 <= v5)
+    {
+      goto LABEL_141;
+    }
+
+    v40 = *(v10 + 19);
+    v41 = *(v156 + 4 * v5);
+    v14 = *(v10 + 21);
+    if (v14 <= v5)
+    {
+      goto LABEL_145;
+    }
+
+    re::StringID::operator=((*(v10 + 22) + v17), v38);
+    v14 = *(v10 + 45);
+    if (v14 <= v5)
+    {
+      goto LABEL_149;
+    }
+
+    v43 = *(v10 + 46);
+    *(v43 + 4 * v5) = v11;
+    v11 = (v11 + v12);
+    ++v5;
+    v17 += 16;
+    v37 += 24;
+    v12 = v147;
+  }
+
+  while (v147 != v5);
+  if (v14 <= v147)
+  {
+LABEL_189:
+    v157 = 0;
+    v169 = 0u;
+    v170 = 0u;
+    v167 = 0u;
+    v168 = 0u;
+    v166 = 0u;
+    v132 = MEMORY[0x1E69E9C10];
+    v133 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v158 = 136315906;
+    v159 = "operator[]";
+    v160 = 1024;
+    if (v133)
+    {
+      v134 = 3;
+    }
+
+    else
+    {
+      v134 = 2;
+    }
+
+    v161 = 468;
+    v162 = 2048;
+    v163 = v12;
+    v164 = 2048;
+    v165 = v14;
+    _os_log_send_and_compose_impl(v134, &v157, &v166, 80, &dword_1E1C61000, v132, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
     _os_crash_msg();
     __break(1u);
   }
 
-LABEL_31:
-  result = v33;
-  if (v33)
+  v44 = 0;
+  *(v43 + 4 * v147) = v11;
+  v11 = v155;
+  v45 = v156;
+  v17 = *(v10 + 18);
+  v46 = (a3 + 80);
+  do
   {
-    if (v34)
+    v47 = a4;
+    if (a4 == v44)
     {
-      return (*(*v33 + 40))();
+      goto LABEL_153;
+    }
+
+    v12 = *v46;
+    if (v17 <= v12)
+    {
+      goto LABEL_154;
+    }
+
+    if (v11 <= v12)
+    {
+      goto LABEL_158;
+    }
+
+    v48 = *(v10 + 19) + 24 * v12;
+    v14 = *(v48 + 8);
+    v49 = *(v45 + 4 * v12);
+    v5 = v14 - v49;
+    if (v14 <= v14 - v49)
+    {
+      goto LABEL_162;
+    }
+
+    *(*(v48 + 16) + 4 * v5) = v44;
+    --*(v45 + 4 * v12);
+    ++v44;
+    v46 += 24;
+  }
+
+  while (v145 != v44);
+  v12 = 0;
+  v13 = 48;
+  v6 = 544;
+  while (2)
+  {
+    v17 = *(this + 76);
+    if (v17 <= v12)
+    {
+      goto LABEL_170;
+    }
+
+    v50 = re::DataArray<re::MeshModel>::get(*(this + 79) + 8, *(*(this + 78) + 8 * v12));
+    re::MeshNameMap::addMeshAssetModelNameToMap(v10, v50, v12);
+    v17 = *(v10 + 39);
+    if (v17 <= v12)
+    {
+      goto LABEL_174;
+    }
+
+    if ((2 * v14) <= 1)
+    {
+      v52 = 1;
+    }
+
+    else
+    {
+      v52 = 2 * v14;
+    }
+
+    v53 = *(v10 + 40) + 48 * v12;
+    LOWORD(v153) = 0;
+    if (v14)
+    {
+      v5 = 0;
+      v17 = 0;
+      while (1)
+      {
+        v26 = *(this + 76);
+        if (v26 <= v12)
+        {
+          break;
+        }
+
+        v54 = re::DataArray<re::MeshModel>::get(*(this + 79) + 8, *(*(this + 78) + 8 * v12));
+        v26 = *(v54 + 56);
+        if (v26 <= v17)
+        {
+          goto LABEL_91;
+        }
+
+        v26 = *(v10 + 39);
+        if (v26 <= v12)
+        {
+          goto LABEL_95;
+        }
+
+        re::HashTable<re::StringID,unsigned short,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::add(*(v10 + 40) + 48 * v12, (*(v54 + 64) + 544 * v17 + 488), &v153);
+        v5 = (v5 + 1);
+        LOWORD(v153) = v5;
+        v17 = v5;
+        if (v14 <= v5)
+        {
+          goto LABEL_79;
+        }
+      }
+
+LABEL_87:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v58 = MEMORY[0x1E69E9C10];
+      v59 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v59)
+      {
+        v60 = 3;
+      }
+
+      else
+      {
+        v60 = 2;
+      }
+
+      v161 = 797;
+      v162 = 2048;
+      v163 = v12;
+      v164 = 2048;
+      v165 = v26;
+      _os_log_send_and_compose_impl(v60, &v157, &v166, 80, &dword_1E1C61000, v58, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_91:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v61 = MEMORY[0x1E69E9C10];
+      v62 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v62)
+      {
+        v63 = 3;
+      }
+
+      else
+      {
+        v63 = 2;
+      }
+
+      v161 = 476;
+      v162 = 2048;
+      v163 = v17;
+      v164 = 2048;
+      v165 = v26;
+      _os_log_send_and_compose_impl(v63, &v157, &v166, 80, &dword_1E1C61000, v61, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_95:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v64 = MEMORY[0x1E69E9C10];
+      v65 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v65)
+      {
+        v66 = 3;
+      }
+
+      else
+      {
+        v66 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v12;
+      v164 = 2048;
+      v165 = v26;
+      _os_log_send_and_compose_impl(v66, &v157, &v166, 80, &dword_1E1C61000, v64, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_99:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v67 = MEMORY[0x1E69E9C10];
+      v68 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v68)
+      {
+        v69 = 3;
+      }
+
+      else
+      {
+        v69 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v6;
+      v164 = 2048;
+      v165 = v13;
+      _os_log_send_and_compose_impl(v69, &v157, &v166, 80, &dword_1E1C61000, v67, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_103:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v70 = MEMORY[0x1E69E9C10];
+      v71 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v71)
+      {
+        v72 = 3;
+      }
+
+      else
+      {
+        v72 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v13;
+      v164 = 2048;
+      v165 = v6;
+      _os_log_send_and_compose_impl(v72, &v157, &v166, 80, &dword_1E1C61000, v70, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_107:
+      re::internal::assertLog(6, v25, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v28, v5);
+      _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v135, v138);
+      __break(1u);
+LABEL_108:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v73 = MEMORY[0x1E69E9C10];
+      v74 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v74)
+      {
+        v75 = 3;
+      }
+
+      else
+      {
+        v75 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v5;
+      v164 = 2048;
+      v165 = v17;
+      _os_log_send_and_compose_impl(v75, &v157, &v166, 80, &dword_1E1C61000, v73, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_112:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v76 = MEMORY[0x1E69E9C10];
+      v77 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v77)
+      {
+        v78 = 3;
+      }
+
+      else
+      {
+        v78 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v17;
+      v164 = 2048;
+      v165 = v13;
+      _os_log_send_and_compose_impl(v78, &v157, &v166, 80, &dword_1E1C61000, v76, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_116:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v79 = MEMORY[0x1E69E9C10];
+      v80 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v80)
+      {
+        v81 = 3;
+      }
+
+      else
+      {
+        v81 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v17;
+      v164 = 2048;
+      v165 = v13;
+      _os_log_send_and_compose_impl(v81, &v157, &v166, 80, &dword_1E1C61000, v79, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_120:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v82 = MEMORY[0x1E69E9C10];
+      v83 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v83)
+      {
+        v84 = 3;
+      }
+
+      else
+      {
+        v84 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v17;
+      v164 = 2048;
+      v165 = v13;
+      _os_log_send_and_compose_impl(v84, &v157, &v166, 80, &dword_1E1C61000, v82, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_124:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v85 = MEMORY[0x1E69E9C10];
+      v86 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v86)
+      {
+        v87 = 3;
+      }
+
+      else
+      {
+        v87 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v17;
+      v164 = 2048;
+      v165 = v13;
+      _os_log_send_and_compose_impl(v87, &v157, &v166, 80, &dword_1E1C61000, v85, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_128:
+      re::internal::assertLog(6, this, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v5, v5);
+      _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v136, v139);
+      __break(1u);
+LABEL_129:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v88 = MEMORY[0x1E69E9C10];
+      v89 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v89)
+      {
+        v90 = 3;
+      }
+
+      else
+      {
+        v90 = 2;
+      }
+
+      v161 = 797;
+      v162 = 2048;
+      v163 = v5;
+      v164 = 2048;
+      v165 = v12;
+      _os_log_send_and_compose_impl(v90, &v157, &v166, 80, &dword_1E1C61000, v88, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_133:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v91 = MEMORY[0x1E69E9C10];
+      v92 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v92)
+      {
+        v93 = 3;
+      }
+
+      else
+      {
+        v93 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v5;
+      v164 = 2048;
+      v165 = v14;
+      _os_log_send_and_compose_impl(v93, &v157, &v166, 80, &dword_1E1C61000, v91, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_137:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v94 = MEMORY[0x1E69E9C10];
+      v95 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v95)
+      {
+        v96 = 3;
+      }
+
+      else
+      {
+        v96 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v5;
+      v164 = 2048;
+      v165 = v14;
+      _os_log_send_and_compose_impl(v96, &v157, &v166, 80, &dword_1E1C61000, v94, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_141:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v97 = MEMORY[0x1E69E9C10];
+      v98 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v98)
+      {
+        v99 = 3;
+      }
+
+      else
+      {
+        v99 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v5;
+      v164 = 2048;
+      v165 = v14;
+      _os_log_send_and_compose_impl(v99, &v157, &v166, 80, &dword_1E1C61000, v97, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_145:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v100 = MEMORY[0x1E69E9C10];
+      v101 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v101)
+      {
+        v102 = 3;
+      }
+
+      else
+      {
+        v102 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v5;
+      v164 = 2048;
+      v165 = v14;
+      _os_log_send_and_compose_impl(v102, &v157, &v166, 80, &dword_1E1C61000, v100, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_149:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v103 = MEMORY[0x1E69E9C10];
+      v104 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v104)
+      {
+        v105 = 3;
+      }
+
+      else
+      {
+        v105 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v5;
+      v164 = 2048;
+      v165 = v14;
+      _os_log_send_and_compose_impl(v105, &v157, &v166, 80, &dword_1E1C61000, v103, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_153:
+      re::internal::assertLog(6, v42, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v47, v47);
+      _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v137, v140);
+      __break(1u);
+LABEL_154:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v106 = MEMORY[0x1E69E9C10];
+      v107 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v107)
+      {
+        v108 = 3;
+      }
+
+      else
+      {
+        v108 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v12;
+      v164 = 2048;
+      v165 = v17;
+      _os_log_send_and_compose_impl(v108, &v157, &v166, 80, &dword_1E1C61000, v106, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_158:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v109 = MEMORY[0x1E69E9C10];
+      v110 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v110)
+      {
+        v111 = 3;
+      }
+
+      else
+      {
+        v111 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v12;
+      v164 = 2048;
+      v165 = v11;
+      _os_log_send_and_compose_impl(v111, &v157, &v166, 80, &dword_1E1C61000, v109, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_162:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v112 = MEMORY[0x1E69E9C10];
+      v113 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v113)
+      {
+        v114 = 3;
+      }
+
+      else
+      {
+        v114 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v5;
+      v164 = 2048;
+      v165 = v14;
+      _os_log_send_and_compose_impl(v114, &v157, &v166, 80, &dword_1E1C61000, v112, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_166:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v115 = MEMORY[0x1E69E9C10];
+      v116 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v116)
+      {
+        v117 = 3;
+      }
+
+      else
+      {
+        v117 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v12;
+      v164 = 2048;
+      v165 = v17;
+      _os_log_send_and_compose_impl(v117, &v157, &v166, 80, &dword_1E1C61000, v115, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_170:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v118 = MEMORY[0x1E69E9C10];
+      v119 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v119)
+      {
+        v120 = 3;
+      }
+
+      else
+      {
+        v120 = 2;
+      }
+
+      v161 = 797;
+      v162 = 2048;
+      v163 = v12;
+      v164 = 2048;
+      v165 = v17;
+      _os_log_send_and_compose_impl(v120, &v157, &v166, 80, &dword_1E1C61000, v118, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_174:
+      v157 = 0;
+      v169 = 0u;
+      v170 = 0u;
+      v167 = 0u;
+      v168 = 0u;
+      v166 = 0u;
+      v121 = MEMORY[0x1E69E9C10];
+      v122 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v158 = 136315906;
+      v159 = "operator[]";
+      v160 = 1024;
+      if (v122)
+      {
+        v123 = 3;
+      }
+
+      else
+      {
+        v123 = 2;
+      }
+
+      v161 = 468;
+      v162 = 2048;
+      v163 = v12;
+      v164 = 2048;
+      v165 = v17;
+      _os_log_send_and_compose_impl(v123, &v157, &v166, 80, &dword_1E1C61000, v121, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v158, 38, v141, v142);
+      _os_crash_msg();
+      __break(1u);
+LABEL_178:
+      re::internal::assertLog(4, this, "assertion failure: '%s' (%s:line %i) The number of skinned parts exceeds expectations.", "skinnedMeshPartCount < 4294967295U", "init", 252);
+      _os_crash("assertion failure: (skinnedMeshPartCount < 4294967295U) The number of skinned parts exceeds expectations.");
+      __break(1u);
+      goto LABEL_179;
+    }
+
+LABEL_79:
+    if (++v12 != v147)
+    {
+      continue;
+    }
+
+    break;
+  }
+
+  ++*v10;
+  re::MeshNameMap::calculateHash(v10);
+  result = v154;
+  if (v154)
+  {
+    if (v155)
+    {
+      return (*(*v154 + 40))();
     }
   }
 
   return result;
 }
 
-void *re::FunctionConstantsEnumerator::appendEnumerator@<X0>(re::FunctionConstantsEnumerator *this@<X0>, const re::FunctionConstantsEnumerator *a2@<X1>, uint64_t a3@<X8>)
+re::MeshNameMap *re::MeshNameMap::init(re::MeshNameMap *result, void *a2, uint64_t a3, unint64_t a4, uint64_t a5)
 {
-  v6 = *(a2 + 1) + *(this + 1);
-  *a3 = 0u;
-  *(a3 + 16) = 0u;
-  *(a3 + 32) = 1;
-  if (v6)
+  v7 = a4;
+  v178 = *MEMORY[0x1E69E9840];
+  v8 = a2[2];
+  if (v8)
   {
-    v7 = 0;
-    for (i = 0; i != v6; ++i)
+    v9 = a4 == 0;
+  }
+
+  else
+  {
+    v9 = 1;
+  }
+
+  if (v9)
+  {
+    return result;
+  }
+
+  v11 = result;
+  v12 = a2[12];
+  v13 = a4;
+  if (a4)
+  {
+    v14 = 0;
+    v15 = 0;
+    v16 = 0;
+    v17 = 0;
+    v18 = 0;
+    do
     {
-      v9 = *(this + 1);
-      if (i >= v9)
+      if (v18 == a4)
       {
-        v10 = a2;
+        goto LABEL_105;
+      }
+
+      v5 = *(a3 + 96 * v18 + 80);
+      if (v8 <= v5)
+      {
+        goto LABEL_106;
+      }
+
+      v19 = (a2[4] + (v5 << 9));
+      v20 = v19[21];
+      if (v20)
+      {
+        ++v15;
+        v21 = v19[23];
+        do
+        {
+          v23 = *v21;
+          v21 += 36;
+          v22 = v23;
+          if (v12 > v23)
+          {
+            ++v14;
+            v16 += *(a2[14] + 112 * v22 + 24);
+          }
+
+          --v20;
+        }
+
+        while (v20);
+      }
+
+      v17 += v19[26];
+      ++v18;
+    }
+
+    while (v18 != a4);
+    if (v14 > 0xFFFFFFFE)
+    {
+      goto LABEL_184;
+    }
+
+    if (v15 >= 0xFFFFFFFF)
+    {
+LABEL_185:
+      re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) The number of skinned instances exceeds expectations.", "skinnedMeshInstanceCount < 4294967295U", "init", 253);
+      _os_crash("assertion failure: (skinnedMeshInstanceCount < 4294967295U) The number of skinned instances exceeds expectations.");
+      __break(1u);
+      goto LABEL_186;
+    }
+
+    if (v16 >= 0xFFFFFFFF)
+    {
+LABEL_186:
+      re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) The number of skinned joints exceeds expectations.", "skinnedMeshPartJointCount < 4294967295U", "init", 254);
+      _os_crash("assertion failure: (skinnedMeshPartJointCount < 4294967295U) The number of skinned joints exceeds expectations.");
+      __break(1u);
+      goto LABEL_187;
+    }
+
+    if (v17 < 0xFFFFFFFF)
+    {
+      goto LABEL_23;
+    }
+
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) The number of mesh parts exceeds expectations.", "meshPartInstanceCount < 4294967295U", "init", 255);
+    v13 = _os_crash("assertion failure: (meshPartInstanceCount < 4294967295U) The number of mesh parts exceeds expectations.");
+    __break(1u);
+  }
+
+  v17 = 0;
+  v15 = 0;
+  v14 = 0;
+LABEL_23:
+  v5 = v13;
+  re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v11 + 16, a5, 2 * v7);
+  re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v11 + 64, a5, 2 * v8);
+  v6 = v8;
+  re::FixedArray<unsigned short>::init<>(v11 + 14, a5, v8);
+  re::FixedArray<re::FixedArray<unsigned int>>::init<>(v11 + 17, a5, v8);
+  re::FixedArray<re::StringID>::init<>(v11 + 20, a5, v8);
+  re::FixedArray<re::StringID>::init<>(v11 + 23, a5, v5);
+  v156 = v5;
+  re::FixedArray<int>::init<>(v11 + 26, a5, v5);
+  re::FixedArray<int>::init<>(v11 + 29, a5, v15);
+  re::FixedArray<int>::init<>(v11 + 32, a5, v14);
+  re::FixedArray<unsigned int>::init<unsigned int const&>(v11 + 35, a5, v17, re::MeshNameMap::kInvalidSkinnedPartIndex);
+  re::FixedArray<re::HashTable<re::StringID,unsigned short,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>>::init<>(v11 + 304, a5, v8);
+  re::FixedArray<int>::init<>(v11 + 41, a5, (v7 + 1));
+  re::FixedArray<int>::init<>(v11 + 44, a5, (v8 + 1));
+  re::FixedArray<int>::init<>(v11 + 47, a5, (v7 + 1));
+  re::FixedArray<int>::init<>(v11 + 50, a5, v17);
+  v161 = 0;
+  v162 = 0;
+  v163 = 0;
+  v155 = v8;
+  v26 = 0;
+  v27 = 0;
+  v8 = 0;
+  v28 = 0;
+  v160 = 0;
+  v15 = 144;
+  v157 = v7;
+  do
+  {
+    v29 = v28;
+    if (v7 <= v28)
+    {
+      goto LABEL_110;
+    }
+
+    v30 = a3 + 96 * v28;
+    v6 = *(v30 + 80);
+    v5 = v162;
+    if (v162 <= v6)
+    {
+      goto LABEL_111;
+    }
+
+    ++*(v163 + 4 * v6);
+    v5 = v160;
+    v7 = *(v11 + 42);
+    if (v7 <= v160)
+    {
+      goto LABEL_115;
+    }
+
+    *(*(v11 + 43) + 4 * v160) = v26;
+    v5 = v160;
+    v7 = *(v11 + 24);
+    if (v7 <= v160)
+    {
+      goto LABEL_119;
+    }
+
+    re::StringID::operator=((*(v11 + 25) + 16 * v160), v30);
+    v5 = v160;
+    v7 = *(v11 + 27);
+    if (v7 <= v160)
+    {
+      goto LABEL_123;
+    }
+
+    *(*(v11 + 28) + 4 * v160) = v6;
+    v5 = v160;
+    v7 = *(v11 + 48);
+    if (v7 <= v160)
+    {
+      goto LABEL_127;
+    }
+
+    *(*(v11 + 49) + 4 * v160) = v8;
+    v31 = re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::add(v11 + 16, v30, &v160);
+    v5 = a2[2];
+    if (v5 <= v6)
+    {
+      goto LABEL_131;
+    }
+
+    v32 = (a2[4] + (v6 << 9));
+    v33 = v32[21];
+    if (v33)
+    {
+      v5 = v27;
+      v7 = *(v11 + 30);
+      if (v7 <= v27)
+      {
+        goto LABEL_172;
+      }
+
+      v34 = 0;
+      *(*(v11 + 31) + 4 * v27) = v160;
+      v35 = v32[23];
+      v36 = 1;
+      do
+      {
+        if (v12 > *(v35 + 144 * v34))
+        {
+          v5 = v8;
+          v7 = *(v11 + 33);
+          if (v7 <= v8)
+          {
+            goto LABEL_85;
+          }
+
+          v7 = v26 + v36 - 1;
+          *(*(v11 + 34) + 4 * v8) = v7;
+          v5 = *(v11 + 36);
+          if (v5 <= v7)
+          {
+            goto LABEL_89;
+          }
+
+          *(*(v11 + 37) + 4 * v7) = v8;
+          v8 = (v8 + 1);
+        }
+
+        v34 = v36;
+      }
+
+      while (v33 > v36++);
+      ++v27;
+    }
+
+    v38 = v32[26];
+    v39 = v38;
+    if (v38)
+    {
+      v6 = v26;
+      v7 = *(v11 + 51);
+      v40 = v7 - v26;
+      if (v7 < v26)
+      {
+        v40 = 0;
+      }
+
+      while (v40)
+      {
+        v41 = v160;
+        *(*(v11 + 52) + 4 * v6) = v160;
+        --v40;
+        ++v6;
+        if (!--v39)
+        {
+          goto LABEL_47;
+        }
+      }
+
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v62 = MEMORY[0x1E69E9C10];
+      v63 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v63)
+      {
+        v64 = 3;
       }
 
       else
       {
-        v10 = this;
+        v64 = 2;
       }
 
-      if (i < v9)
+      v168 = 468;
+      v169 = 2048;
+      v170 = v6;
+      v171 = 2048;
+      v172 = v7;
+      _os_log_send_and_compose_impl(v64, &v164, &v173, 80, &dword_1E1C61000, v62, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_85:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v65 = MEMORY[0x1E69E9C10];
+      v66 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v66)
       {
-        v9 = 0;
+        v67 = 3;
       }
 
-      if (*(v10 + 1) <= i - v9)
+      else
       {
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_15:
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
+        v67 = 2;
       }
 
-      if (*(a3 + 8) <= i)
+      v168 = 468;
+      v169 = 2048;
+      v170 = v5;
+      v171 = 2048;
+      v172 = v7;
+      _os_log_send_and_compose_impl(v67, &v164, &v173, 80, &dword_1E1C61000, v65, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_89:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v68 = MEMORY[0x1E69E9C10];
+      v69 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v69)
       {
-        goto LABEL_15;
+        v70 = 3;
       }
 
-      v11 = *(v10 + 2) - 88 * v9 + v7;
-      v12 = *(a3 + 16) + v7;
-      re::DynamicString::operator=(v12, v11);
-      v13 = *(v11 + 32);
-      *(v12 + 40) = *(v11 + 40);
-      *(v12 + 32) = v13;
-      re::FixedArray<re::Optional<unsigned long long>>::operator=((v12 + 48), v11 + 48);
-      v14 = *(v11 + 80);
-      *(v12 + 72) = *(v11 + 72);
-      *(v12 + 80) = v14;
-      v7 += 88;
+      else
+      {
+        v70 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v7;
+      v171 = 2048;
+      v172 = v5;
+      _os_log_send_and_compose_impl(v70, &v164, &v173, 80, &dword_1E1C61000, v68, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_93:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v71 = MEMORY[0x1E69E9C10];
+      v72 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v72)
+      {
+        v73 = 3;
+      }
+
+      else
+      {
+        v73 = 2;
+      }
+
+      v168 = 797;
+      v169 = 2048;
+      v170 = v8;
+      v171 = 2048;
+      v172 = v30;
+      _os_log_send_and_compose_impl(v73, &v164, &v173, 80, &dword_1E1C61000, v71, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_97:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v74 = MEMORY[0x1E69E9C10];
+      v75 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v75)
+      {
+        v76 = 3;
+      }
+
+      else
+      {
+        v76 = 2;
+      }
+
+      v168 = 797;
+      v169 = 2048;
+      v170 = v6;
+      v171 = 2048;
+      v172 = v30;
+      _os_log_send_and_compose_impl(v76, &v164, &v173, 80, &dword_1E1C61000, v74, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_101:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v77 = MEMORY[0x1E69E9C10];
+      v78 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v78)
+      {
+        v79 = 3;
+      }
+
+      else
+      {
+        v79 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v8;
+      v171 = 2048;
+      v172 = v30;
+      _os_log_send_and_compose_impl(v79, &v164, &v173, 80, &dword_1E1C61000, v77, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_105:
+      re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v7, v7);
+      _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v147, v150);
+      __break(1u);
+LABEL_106:
+      v161 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v80 = MEMORY[0x1E69E9C10];
+      v81 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v81)
+      {
+        v82 = 3;
+      }
+
+      else
+      {
+        v82 = 2;
+      }
+
+      v168 = 797;
+      v169 = 2048;
+      v170 = v5;
+      v171 = 2048;
+      v172 = v8;
+      _os_log_send_and_compose_impl(v82, &v161, &v173, 80, &dword_1E1C61000, v80, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_110:
+      re::internal::assertLog(6, v25, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v29, v7);
+      _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v148, v151);
+      __break(1u);
+LABEL_111:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v83 = MEMORY[0x1E69E9C10];
+      v84 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v84)
+      {
+        v85 = 3;
+      }
+
+      else
+      {
+        v85 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v6;
+      v171 = 2048;
+      v172 = v5;
+      _os_log_send_and_compose_impl(v85, &v164, &v173, 80, &dword_1E1C61000, v83, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_115:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v86 = MEMORY[0x1E69E9C10];
+      v87 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v87)
+      {
+        v88 = 3;
+      }
+
+      else
+      {
+        v88 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v5;
+      v171 = 2048;
+      v172 = v7;
+      _os_log_send_and_compose_impl(v88, &v164, &v173, 80, &dword_1E1C61000, v86, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_119:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v89 = MEMORY[0x1E69E9C10];
+      v90 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v90)
+      {
+        v91 = 3;
+      }
+
+      else
+      {
+        v91 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v5;
+      v171 = 2048;
+      v172 = v7;
+      _os_log_send_and_compose_impl(v91, &v164, &v173, 80, &dword_1E1C61000, v89, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_123:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v92 = MEMORY[0x1E69E9C10];
+      v93 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v93)
+      {
+        v94 = 3;
+      }
+
+      else
+      {
+        v94 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v5;
+      v171 = 2048;
+      v172 = v7;
+      _os_log_send_and_compose_impl(v94, &v164, &v173, 80, &dword_1E1C61000, v92, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_127:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v95 = MEMORY[0x1E69E9C10];
+      v96 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v96)
+      {
+        v97 = 3;
+      }
+
+      else
+      {
+        v97 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v5;
+      v171 = 2048;
+      v172 = v7;
+      _os_log_send_and_compose_impl(v97, &v164, &v173, 80, &dword_1E1C61000, v95, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_131:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v98 = MEMORY[0x1E69E9C10];
+      v99 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v99)
+      {
+        v100 = 3;
+      }
+
+      else
+      {
+        v100 = 2;
+      }
+
+      v168 = 797;
+      v169 = 2048;
+      v170 = v6;
+      v171 = 2048;
+      v172 = v5;
+      _os_log_send_and_compose_impl(v100, &v164, &v173, 80, &dword_1E1C61000, v98, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_135:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v101 = MEMORY[0x1E69E9C10];
+      v102 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v102)
+      {
+        v103 = 3;
+      }
+
+      else
+      {
+        v103 = 2;
+      }
+
+      v168 = 797;
+      v169 = 2048;
+      v170 = v12;
+      v171 = 2048;
+      v172 = v5;
+      _os_log_send_and_compose_impl(v103, &v164, &v173, 80, &dword_1E1C61000, v101, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_139:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v104 = MEMORY[0x1E69E9C10];
+      v105 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v105)
+      {
+        v106 = 3;
+      }
+
+      else
+      {
+        v106 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v12;
+      v171 = 2048;
+      v172 = v5;
+      _os_log_send_and_compose_impl(v106, &v164, &v173, 80, &dword_1E1C61000, v104, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_143:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v107 = MEMORY[0x1E69E9C10];
+      v108 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v108)
+      {
+        v109 = 3;
+      }
+
+      else
+      {
+        v109 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v12;
+      v171 = 2048;
+      v172 = v8;
+      _os_log_send_and_compose_impl(v109, &v164, &v173, 80, &dword_1E1C61000, v107, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_147:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v110 = MEMORY[0x1E69E9C10];
+      v111 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v111)
+      {
+        v112 = 3;
+      }
+
+      else
+      {
+        v112 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v12;
+      v171 = 2048;
+      v172 = v8;
+      _os_log_send_and_compose_impl(v112, &v164, &v173, 80, &dword_1E1C61000, v110, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_151:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v113 = MEMORY[0x1E69E9C10];
+      v114 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v114)
+      {
+        v115 = 3;
+      }
+
+      else
+      {
+        v115 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v12;
+      v171 = 2048;
+      v172 = v8;
+      _os_log_send_and_compose_impl(v115, &v164, &v173, 80, &dword_1E1C61000, v113, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_155:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v116 = MEMORY[0x1E69E9C10];
+      v117 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v117)
+      {
+        v118 = 3;
+      }
+
+      else
+      {
+        v118 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v12;
+      v171 = 2048;
+      v172 = v8;
+      _os_log_send_and_compose_impl(v118, &v164, &v173, 80, &dword_1E1C61000, v116, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_159:
+      re::internal::assertLog(6, v48, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v53, v53);
+      _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v149, v152);
+      __break(1u);
+LABEL_160:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v119 = MEMORY[0x1E69E9C10];
+      v120 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v120)
+      {
+        v121 = 3;
+      }
+
+      else
+      {
+        v121 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v8;
+      v171 = 2048;
+      v172 = v12;
+      _os_log_send_and_compose_impl(v121, &v164, &v173, 80, &dword_1E1C61000, v119, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_164:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v122 = MEMORY[0x1E69E9C10];
+      v123 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v123)
+      {
+        v124 = 3;
+      }
+
+      else
+      {
+        v124 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v8;
+      v171 = 2048;
+      v172 = v7;
+      _os_log_send_and_compose_impl(v124, &v164, &v173, 80, &dword_1E1C61000, v122, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_168:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v125 = MEMORY[0x1E69E9C10];
+      v126 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v126)
+      {
+        v127 = 3;
+      }
+
+      else
+      {
+        v127 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v6;
+      v171 = 2048;
+      v172 = v5;
+      _os_log_send_and_compose_impl(v127, &v164, &v173, 80, &dword_1E1C61000, v125, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_172:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v128 = MEMORY[0x1E69E9C10];
+      v129 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v129)
+      {
+        v130 = 3;
+      }
+
+      else
+      {
+        v130 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v5;
+      v171 = 2048;
+      v172 = v7;
+      _os_log_send_and_compose_impl(v130, &v164, &v173, 80, &dword_1E1C61000, v128, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_176:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v131 = MEMORY[0x1E69E9C10];
+      v132 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v132)
+      {
+        v133 = 3;
+      }
+
+      else
+      {
+        v133 = 2;
+      }
+
+      v168 = 797;
+      v169 = 2048;
+      v170 = v8;
+      v171 = 2048;
+      v172 = v5;
+      _os_log_send_and_compose_impl(v133, &v164, &v173, 80, &dword_1E1C61000, v131, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_180:
+      v164 = 0;
+      v176 = 0u;
+      v177 = 0u;
+      v174 = 0u;
+      v175 = 0u;
+      v173 = 0u;
+      v134 = MEMORY[0x1E69E9C10];
+      v135 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v165 = 136315906;
+      v166 = "operator[]";
+      v167 = 1024;
+      if (v135)
+      {
+        v136 = 3;
+      }
+
+      else
+      {
+        v136 = 2;
+      }
+
+      v168 = 468;
+      v169 = 2048;
+      v170 = v8;
+      v171 = 2048;
+      v172 = v5;
+      _os_log_send_and_compose_impl(v136, &v164, &v173, 80, &dword_1E1C61000, v134, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+      _os_crash_msg();
+      __break(1u);
+LABEL_184:
+      re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) The number of skinned parts exceeds expectations.", "skinnedMeshPartCount < 4294967295U", "init", 252);
+      _os_crash("assertion failure: (skinnedMeshPartCount < 4294967295U) The number of skinned parts exceeds expectations.");
+      __break(1u);
+      goto LABEL_185;
     }
+
+    v41 = v160;
+LABEL_47:
+    v26 += v38;
+    v28 = v41 + 1;
+    v160 = v41 + 1;
+    v7 = v157;
   }
 
-  return re::FunctionConstantsEnumerator::calculateDerivedFields(a3);
-}
-
-void *re::FunctionConstantsEnumerator::calculateDerivedFields(void *this)
-{
-  v1 = this[1];
-  if (v1)
+  while (v41 + 1 < v157);
+  v5 = *(v11 + 42);
+  v42 = v156;
+  if (v5 <= v156)
   {
-    v2 = this[2];
-    v3 = v2 + 88 * v1;
-    v4 = 88 * v1;
-    v5 = (v2 + 56);
-    v6 = 1;
-    do
+LABEL_187:
+    v164 = 0;
+    v176 = 0u;
+    v177 = 0u;
+    v174 = 0u;
+    v175 = 0u;
+    v173 = 0u;
+    v137 = MEMORY[0x1E69E9C10];
+    v138 = v42;
+    v139 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v165 = 136315906;
+    v166 = "operator[]";
+    v167 = 1024;
+    if (v139)
     {
-      v7 = *v5;
-      v5 += 11;
-      v6 *= v7;
-      v4 -= 88;
+      v140 = 3;
     }
 
-    while (v4);
-    this[4] = v6;
-    v8 = (v2 + 72);
-    v9 = v1;
-    do
+    else
     {
-      v6 /= *(v8 - 2);
-      *v8 = v6;
-      v8 += 11;
-      --v9;
+      v140 = 2;
     }
 
-    while (v9);
-    do
+    v168 = 468;
+    v169 = 2048;
+    v170 = v138;
+    v171 = 2048;
+    v172 = v5;
+    _os_log_send_and_compose_impl(v140, &v164, &v173, 80, &dword_1E1C61000, v137, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_191;
+  }
+
+  *(*(v11 + 43) + 4 * v156) = v26;
+  v5 = *(v11 + 48);
+  if (v5 <= v156)
+  {
+LABEL_191:
+    v164 = 0;
+    v176 = 0u;
+    v177 = 0u;
+    v174 = 0u;
+    v175 = 0u;
+    v173 = 0u;
+    v141 = MEMORY[0x1E69E9C10];
+    v8 = v42;
+    v142 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v165 = 136315906;
+    v166 = "operator[]";
+    v167 = 1024;
+    if (v142)
     {
-      v10 = *(v2 + 56);
-      v11 = (v10 - 0x61C8864680B583E9 + (*(v2 + 32) << 6) + (*(v2 + 32) >> 2)) ^ *(v2 + 32);
-      if (v10)
+      v143 = 3;
+    }
+
+    else
+    {
+      v143 = 2;
+    }
+
+    v168 = 468;
+    v169 = 2048;
+    v170 = v8;
+    v171 = 2048;
+    v172 = v5;
+    _os_log_send_and_compose_impl(v143, &v164, &v173, 80, &dword_1E1C61000, v141, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_195;
+  }
+
+  v15 = 0;
+  v43 = 0;
+  v7 = 0;
+  v12 = 0;
+  v6 = 0;
+  *(*(v11 + 49) + 4 * v156) = v8;
+  v44 = a2;
+  do
+  {
+    v5 = v44[2];
+    if (v5 <= v12)
+    {
+      goto LABEL_135;
+    }
+
+    v5 = *(v11 + 15);
+    if (v5 <= v12)
+    {
+      goto LABEL_139;
+    }
+
+    v45 = (v44[4] + v15);
+    v5 = v45[26];
+    *(*(v11 + 16) + 2 * v12) = v5;
+    v8 = *(v11 + 18);
+    if (v8 <= v12)
+    {
+      goto LABEL_143;
+    }
+
+    v8 = v162;
+    if (v162 <= v12)
+    {
+      goto LABEL_147;
+    }
+
+    v46 = *(v11 + 19);
+    v47 = *(v163 + 4 * v12);
+    v8 = *(v11 + 21);
+    if (v8 <= v12)
+    {
+      goto LABEL_151;
+    }
+
+    v31 = re::StringID::operator=((*(v11 + 22) + v7), v45);
+    v8 = *(v11 + 45);
+    v44 = a2;
+    if (v8 <= v12)
+    {
+      goto LABEL_155;
+    }
+
+    v49 = *(v11 + 46);
+    *(v49 + 4 * v12) = v6;
+    v6 = (v6 + v5);
+    ++v12;
+    v7 += 16;
+    v43 += 24;
+    v15 += 512;
+  }
+
+  while (v155 != v12);
+  v15 = v155;
+  if (v8 <= v155)
+  {
+LABEL_195:
+    v164 = 0;
+    v176 = 0u;
+    v177 = 0u;
+    v174 = 0u;
+    v175 = 0u;
+    v173 = 0u;
+    v144 = MEMORY[0x1E69E9C10];
+    v145 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v165 = 136315906;
+    v166 = "operator[]";
+    v167 = 1024;
+    if (v145)
+    {
+      v146 = 3;
+    }
+
+    else
+    {
+      v146 = 2;
+    }
+
+    v168 = 468;
+    v169 = 2048;
+    v170 = v15;
+    v171 = 2048;
+    v172 = v8;
+    _os_log_send_and_compose_impl(v146, &v164, &v173, 80, &dword_1E1C61000, v144, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v165, 38, v153, v154);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  v50 = 0;
+  *(v49 + 4 * v155) = v6;
+  v7 = v162;
+  v51 = v163;
+  v12 = *(v11 + 18);
+  v52 = (a3 + 80);
+  do
+  {
+    v53 = v157;
+    if (v157 == v50)
+    {
+      goto LABEL_159;
+    }
+
+    v8 = *v52;
+    if (v12 <= v8)
+    {
+      goto LABEL_160;
+    }
+
+    if (v7 <= v8)
+    {
+      goto LABEL_164;
+    }
+
+    v54 = *(v11 + 19) + 24 * v8;
+    v5 = *(v54 + 8);
+    v55 = *(v51 + 4 * v8);
+    v6 = v5 - v55;
+    if (v5 <= v5 - v55)
+    {
+      goto LABEL_168;
+    }
+
+    *(*(v54 + 16) + 4 * v6) = v50;
+    --*(v51 + 4 * v8);
+    ++v50;
+    v52 += 24;
+  }
+
+  while (v156 != v50);
+  v8 = 0;
+  v12 = 48;
+  while (2)
+  {
+    v5 = a2[2];
+    if (v5 <= v8)
+    {
+      goto LABEL_176;
+    }
+
+    v56 = a2[4] + (v8 << 9);
+    v57 = *(v56 + 208);
+    re::MeshNameMap::addMeshAssetModelNameToMap(v11, v56, v8);
+    v5 = *(v11 + 39);
+    if (v5 <= v8)
+    {
+      goto LABEL_180;
+    }
+
+    if ((2 * v57) <= 1)
+    {
+      v59 = 1;
+    }
+
+    else
+    {
+      v59 = 2 * v57;
+    }
+
+    v60 = *(v11 + 40) + 48 * v8;
+    LOWORD(v160) = 0;
+    if (v57)
+    {
+      v5 = 0;
+      v6 = 0;
+      do
       {
-        v12 = (*(v2 + 64) + 8);
-        v13 = 16 * v10;
-        do
+        v30 = a2[2];
+        if (v30 <= v8)
         {
-          v14 = *(v12 - 8);
-          v15 = (v11 << 6) - 0x61C8864680B583E9;
-          if (v14)
-          {
-            v11 ^= v15 + (v11 >> 2) + v14;
-            v16 = (v11 << 6) - 0x61C8864680B583E9 + (v11 >> 2) + *v12;
-          }
-
-          else
-          {
-            v16 = v15 + (v11 >> 2);
-          }
-
-          v11 ^= v16;
-          v12 += 2;
-          v13 -= 16;
+          goto LABEL_93;
         }
 
-        while (v13);
+        v61 = a2[4] + (v8 << 9);
+        v30 = *(v61 + 208);
+        if (v30 <= v6)
+        {
+          goto LABEL_97;
+        }
+
+        v30 = *(v11 + 39);
+        if (v30 <= v8)
+        {
+          goto LABEL_101;
+        }
+
+        re::HashTable<re::StringID,unsigned short,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::add(*(v11 + 40) + 48 * v8, (*(v61 + 224) + (v6 << 8) + 72), &v160);
+        v5 = (v5 + 1);
+        LOWORD(v160) = v5;
+        v6 = v5;
       }
 
-      v17 = (*(v2 + 42) - 0x61C8864680B583E9 + ((((v11 << 6) - 0x61C8864680B583E9 + (v11 >> 2) + *(v2 + 72)) ^ v11) << 6) + ((((v11 << 6) - 0x61C8864680B583E9 + (v11 >> 2) + *(v2 + 72)) ^ v11) >> 2)) ^ ((v11 << 6) - 0x61C8864680B583E9 + (v11 >> 2) + *(v2 + 72)) ^ v11;
-      v1 ^= (v1 << 6) - 0x61C8864680B583E9 + (v1 >> 2) + ((*(v2 + 40) - 0x61C8864680B583E9 + (v17 << 6) + (v17 >> 2)) ^ v17);
-      v2 += 88;
+      while (v57 > v5);
     }
 
-    while (v2 != v3);
+    if (++v8 != v155)
+    {
+      continue;
+    }
+
+    break;
   }
 
-  else
+  ++*v11;
+  re::MeshNameMap::calculateHash(v11);
+  result = v161;
+  if (v161)
   {
-    this[4] = 1;
+    if (v162)
+    {
+      return (*(*v161 + 40))();
+    }
   }
 
-  this[3] = v1;
-  return this;
+  return result;
 }
 
-void *re::FunctionConstantsEnumerator::overrideEnumerator@<X0>(void *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t re::MeshNameMap::deinit(re::MeshNameMap *this)
 {
-  v4 = result;
-  v88 = *MEMORY[0x1E69E9840];
-  v6 = *(a2 + 32);
-  if (v6)
+  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(this + 2);
+  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(this + 8);
+  re::FixedArray<CoreIKTransform>::deinit(this + 14);
+  re::FixedArray<re::FixedArray<unsigned int>>::deinit(this + 17);
+  re::FixedArray<re::StringID>::deinit(this + 20);
+  re::FixedArray<re::StringID>::deinit(this + 23);
+  re::FixedArray<CoreIKTransform>::deinit(this + 26);
+  re::FixedArray<CoreIKTransform>::deinit(this + 29);
+  re::FixedArray<CoreIKTransform>::deinit(this + 32);
+  re::FixedArray<CoreIKTransform>::deinit(this + 35);
+  re::FixedArray<re::HashTable<re::StringID,unsigned short,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>>::deinit(this + 38);
+  re::FixedArray<CoreIKTransform>::deinit(this + 41);
+  re::FixedArray<CoreIKTransform>::deinit(this + 44);
+  re::FixedArray<CoreIKTransform>::deinit(this + 47);
+  result = re::FixedArray<CoreIKTransform>::deinit(this + 50);
+  ++*this;
+  *(this + 1) = 0;
+  return result;
+}
+
+uint64_t re::MeshNameMap::meshPartInstanceCount(re::MeshNameMap *this, unsigned int a2)
+{
+  v26 = *MEMORY[0x1E69E9840];
+  v3 = a2 + 1;
+  v4 = *(this + 42);
+  if (v4 <= v3)
   {
-    v7 = 0;
-    v8 = *(a2 + 16);
-    while (1)
+    v12 = 0;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v21 = 0u;
+    v6 = MEMORY[0x1E69E9C10];
+    v13 = 136315906;
+    v14 = "operator[]";
+    v15 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = *v8;
-      v8 += 38;
-      if (v9 < 0)
-      {
-        break;
-      }
-
-      if (v6 == ++v7)
-      {
-        LODWORD(v7) = *(a2 + 32);
-        break;
-      }
+      v7 = 3;
     }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    v16 = 476;
+    v17 = 2048;
+    v18 = v3;
+    v19 = 2048;
+    v20 = v4;
+    _os_log_send_and_compose_impl(v7, &v12, &v21, 80, &dword_1E1C61000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v13, 38, v11);
+    _os_crash_msg();
+    __break(1u);
+LABEL_8:
+    v12 = 0;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v21 = 0u;
+    v8 = MEMORY[0x1E69E9C10];
+    v9 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v13 = 136315906;
+    v14 = "operator[]";
+    v15 = 1024;
+    if (v9)
+    {
+      v10 = 3;
+    }
+
+    else
+    {
+      v10 = 2;
+    }
+
+    v16 = 476;
+    v17 = 2048;
+    v18 = v2;
+    v19 = 2048;
+    v20 = v4;
+    _os_log_send_and_compose_impl(v10, &v12, &v21, 80, &dword_1E1C61000, v8, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v13, 38, v11);
+    _os_crash_msg();
+    __break(1u);
   }
 
-  else
-  {
-    LODWORD(v7) = 0;
-  }
-
-  if (v7 == v6)
+  v2 = a2;
+  if (v4 <= a2)
   {
     goto LABEL_8;
   }
 
-  v10 = *(a2 + 16);
-  v11 = *(a2 + 32);
-LABEL_10:
-  v12 = *(v4 + 8);
-  if (!v12)
+  return (*(*(this + 43) + 4 * v3) - *(*(this + 43) + 4 * a2));
+}
+
+uint64_t re::MeshNameMap::instanceIndex(re::MeshNameMap *this, const re::StringID *a2)
+{
+  v3 = 0xBF58476D1CE4E5B9 * ((*a2 >> 31) ^ (*a2 >> 1));
+  re::HashTable<re::StringID,re::StateParameterInt *,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(this + 16, a2, (0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) ^ ((0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) >> 31), v5);
+  if (v6 == 0x7FFFFFFF)
   {
-    goto LABEL_15;
-  }
-
-  v13 = v10 + 152 * v7;
-  v14 = 88 * v12;
-  v15 = (*(v4 + 16) + 32);
-  while (1)
-  {
-    result = re::Hash<re::DynamicString>::operator()(&v72, v13 + 8);
-    v16 = *v15;
-    v15 += 11;
-    if (result == v16)
-    {
-      break;
-    }
-
-    v14 -= 88;
-    if (!v14)
-    {
-      v11 = *(a2 + 32);
-      v10 = *(a2 + 16);
-LABEL_15:
-      if (v11 <= v7 + 1)
-      {
-        v17 = v7 + 1;
-      }
-
-      else
-      {
-        v17 = v11;
-      }
-
-      while (v17 - 1 != v7)
-      {
-        LODWORD(v7) = v7 + 1;
-        if ((*(v10 + 152 * v7) & 0x80000000) != 0)
-        {
-          goto LABEL_22;
-        }
-      }
-
-      LODWORD(v7) = v17;
-LABEL_22:
-      if (v7 == v6)
-      {
-LABEL_8:
-        *a3 = 0;
-        return result;
-      }
-
-      goto LABEL_10;
-    }
-  }
-
-  re::FixedArray<re::FunctionConstantsEnumerator::PermutationLayer>::FixedArray(&v68, v4);
-  v70 = *(v4 + 24);
-  v18 = *(a2 + 32);
-  if (v18)
-  {
-    v19 = 0;
-    v20 = *(a2 + 16);
-    while (1)
-    {
-      v21 = *v20;
-      v20 += 38;
-      if (v21 < 0)
-      {
-        break;
-      }
-
-      if (v18 == ++v19)
-      {
-        LODWORD(v19) = *(a2 + 32);
-        break;
-      }
-    }
+    return 0xFFFFLL;
   }
 
   else
   {
-    LODWORD(v19) = 0;
+    return *(*(this + 4) + 32 * v6 + 24);
+  }
+}
+
+uint64_t re::MeshNameMap::modelIndex(re::MeshNameMap *this, const re::StringID *a2)
+{
+  v4 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((*a2 >> 31) ^ (*a2 >> 1))) ^ ((0xBF58476D1CE4E5B9 * ((*a2 >> 31) ^ (*a2 >> 1))) >> 27));
+  re::HashTable<re::StringID,re::StateParameterInt *,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(this + 64, a2, v4 ^ (v4 >> 31), v16);
+  if (v17 != 0x7FFFFFFF)
+  {
+    return *(*(this + 10) + 32 * v17 + 24);
   }
 
-  if (v19 != v18)
+  v5 = *(a2 + 1);
+  v6 = strlen(v5);
+  v9 = v8;
+  v14 = 0;
+  v15 = &str_67;
+  v10 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((v14 >> 31) ^ (v14 >> 1))) ^ ((0xBF58476D1CE4E5B9 * ((v14 >> 31) ^ (v14 >> 1))) >> 27));
+  v11 = re::HashTable<re::StringID,re::StateParameterInt *,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(this + 64, &v14, v10 ^ (v10 >> 31), v16);
+  if (v17 == 0x7FFFFFFF)
   {
-    v22 = *(a2 + 16);
-    v23 = *(v4 + 8);
-    v24 = *(a2 + 32);
-    v63 = v24;
-    v64 = a2;
-    while (!v23)
+    if (v14)
     {
-LABEL_90:
-      if (v24 <= v19 + 1)
+      if (v14)
       {
-        v59 = v19 + 1;
-      }
-
-      else
-      {
-        v59 = v24;
-      }
-
-      while (v59 - 1 != v19)
-      {
-        LODWORD(v19) = v19 + 1;
-        if ((*(v22 + 152 * v19) & 0x80000000) != 0)
-        {
-          goto LABEL_97;
-        }
-      }
-
-      LODWORD(v19) = v59;
-LABEL_97:
-      if (v19 == v18)
-      {
-        goto LABEL_98;
       }
     }
 
-    v26 = 0;
-    v27 = v22 + 152 * v19;
-    while (1)
+    return 0xFFFFLL;
+  }
+
+  else
+  {
+    v13 = *(this + 10) + 32 * v17;
+    if (v14)
     {
-      v28 = *(v4 + 16) + 88 * v26;
-      v29 = re::Hash<re::DynamicString>::operator()(&v72, v27 + 8);
-      if (v29 == *(v28 + 32))
+      if (v14)
       {
-        v31 = *(v28 + 56);
-        v30 = *(v28 + 64);
-        if (v31)
+      }
+    }
+
+    return *(v13 + 24);
+  }
+}
+
+uint64_t re::anonymous namespace::meshModelTrimmedName(uint64_t result, unint64_t a2)
+{
+  v6[0] = result;
+  v6[1] = a2;
+  v3 = a2 + 1;
+  for (i = a2; i; --i)
+  {
+    v5 = *(result - 1 + i);
+    --v3;
+    if (v5 == 47)
+    {
+      return re::Slice<char>::range(v6, v3, a2);
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::MeshNameMap::modelIndex(re::MeshNameMap *this, unsigned int a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = *(this + 27);
+  if (v3 <= a2)
+  {
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x1E69E9C10];
+    v9 = 136315906;
+    v10 = "operator[]";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v12 = 476;
+    v13 = 2048;
+    v14 = v2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_1E1C61000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(*(this + 28) + 4 * a2);
+}
+
+uint64_t re::MeshNameMap::partIndex(re::MeshNameMap *this, unsigned int a2, const re::StringID *a3)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v4 = *(this + 39);
+  if (v4 <= a2)
+  {
+    v10 = 0;
+    memset(v19, 0, sizeof(v19));
+    v7 = MEMORY[0x1E69E9C10];
+    v11 = 136315906;
+    v12 = "operator[]";
+    v13 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v8 = 3;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+
+    v14 = 476;
+    v15 = 2048;
+    v16 = v3;
+    v17 = 2048;
+    v18 = v4;
+    _os_log_send_and_compose_impl(v8, &v10, v19, 80, &dword_1E1C61000, v7, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v11, 38, v9);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  v5 = *(this + 40) + 48 * a2;
+  re::HashTable<re::StringID,re::RenderGraphDataNodeConnection const*,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(v19, v5, a3);
+  if (HIDWORD(v19[0]) == 0x7FFFFFFF)
+  {
+    return 0xFFFFLL;
+  }
+
+  else
+  {
+    return *(*(v5 + 16) + 32 * HIDWORD(v19[0]) + 24);
+  }
+}
+
+uint64_t re::MeshNameMap::meshPartStartIndexForInstance(re::MeshNameMap *this, unsigned int a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = *(this + 42);
+  if (v3 <= a2)
+  {
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x1E69E9C10];
+    v9 = 136315906;
+    v10 = "operator[]";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v12 = 476;
+    v13 = 2048;
+    v14 = v2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_1E1C61000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(*(this + 43) + 4 * a2);
+}
+
+uint64_t re::MeshNameMap::skinnedPartIndexForPartInstance(re::MeshNameMap *this, unsigned int a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = *(this + 36);
+  if (v3 <= a2)
+  {
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x1E69E9C10];
+    v9 = 136315906;
+    v10 = "operator[]";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v12 = 476;
+    v13 = 2048;
+    v14 = v2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_1E1C61000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(*(this + 37) + 4 * a2);
+}
+
+uint64_t *re::MeshNameMap::meshInstancePartsForIdentifier@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t this@<X0>, unsigned __int8 *a3@<X1>)
+{
+  v4 = this;
+  v79 = *MEMORY[0x1E69E9840];
+  v6 = *a3;
+  if (v6 == 3)
+  {
+    v7 = *(this + 408);
+    if (v7)
+    {
+      v8 = *(this + 416);
+      v10 = *(this + 336);
+      v9 = *(this + 344);
+      v11 = re::globalAllocators(this)[2];
+      *(&v75 + 1) = v11;
+      v12 = (*(*v11 + 32))(v11, 40, 0);
+      *v12 = &unk_1F5D06640;
+      v12[1] = v8;
+      v12[2] = v7;
+      v12[3] = v9;
+      v12[4] = v10;
+      *&v76 = v12;
+      *a1 = v7;
+LABEL_4:
+      a1[4] = v11;
+LABEL_5:
+      a1[5] = 0;
+      re::FunctionBase<24ul,re::MeshInstanceAndPartIndex ()(unsigned long)>::operator=<24ul>((a1 + 1), buf);
+      return re::FunctionBase<24ul,re::MeshInstanceAndPartIndex ()(unsigned long)>::destroyCallable(buf);
+    }
+
+    goto LABEL_39;
+  }
+
+  v14 = a3;
+  v15 = *(a3 + 4);
+  if (v15 && *v15)
+  {
+    if (v6 == 2)
+    {
+      this = re::MeshNameMap::modelIndex(this, (a3 + 8));
+      if (this == 0xFFFF)
+      {
+        goto LABEL_39;
+      }
+
+      v3 = this;
+      v17 = v4[39];
+      if (v17 > this)
+      {
+        v32 = v4[40] + 48 * this;
+        this = re::HashTable<re::StringID,re::RenderGraphDataNodeConnection const*,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(buf, v32, (v14 + 24));
+        if (*&buf[12] == 0x7FFFFFFF)
         {
-          v32 = 16 * v31;
-          v33 = *(v28 + 64);
-          while (*v33 != 1 || *(v33 + 8) != *(v27 + 76))
-          {
-            v33 += 16;
-            v32 -= 16;
-            if (!v32)
-            {
-              goto LABEL_48;
-            }
-          }
+          goto LABEL_39;
+        }
+
+        v14 = v4[18];
+        if (v14 > v3)
+        {
+          v33 = *(v32 + 16) + 32 * *&buf[12];
+          v34 = v4[19] + 24 * v3;
+          v36 = *(v34 + 8);
+          v35 = *(v34 + 16);
+          v37 = *(v33 + 24);
+          v11 = re::globalAllocators(this)[2];
+          *(&v75 + 1) = v11;
+          v38 = (*(*v11 + 32))(v11, 32, 0);
+          *v38 = &unk_1F5D065E8;
+          *(v38 + 8) = v35;
+          *(v38 + 16) = v36;
+          *(v38 + 24) = v37;
+          *&v76 = v38;
+          *a1 = v36;
+          goto LABEL_4;
+        }
+
+LABEL_69:
+        v65 = 0;
+        v77 = 0u;
+        v78 = 0u;
+        v75 = 0u;
+        v76 = 0u;
+        *buf = 0u;
+        v61 = MEMORY[0x1E69E9C10];
+        v62 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        v66 = 136315906;
+        v67 = "operator[]";
+        v68 = 1024;
+        if (v62)
+        {
+          v63 = 3;
         }
 
         else
         {
-          v33 = *(v28 + 64);
+          v63 = 2;
         }
 
-        v34 = v30 + 16 * v31;
-        if (v33 == v34)
+        v69 = 476;
+        v70 = 2048;
+        v71 = v3;
+        v72 = 2048;
+        v73 = v14;
+        _os_log_send_and_compose_impl(v63, &v65, buf, 80, &dword_1E1C61000, v61, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v66, 38, v64);
+        _os_crash_msg();
+        __break(1u);
+      }
+
+      goto LABEL_53;
+    }
+
+    if (v6 == 1)
+    {
+      v16 = 0xBF58476D1CE4E5B9 * ((*(a3 + 1) >> 31) ^ (*(a3 + 1) >> 1));
+      this = re::HashTable<re::StringID,re::StateParameterInt *,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(this + 16, a3 + 1, (0x94D049BB133111EBLL * (v16 ^ (v16 >> 27))) ^ ((0x94D049BB133111EBLL * (v16 ^ (v16 >> 27))) >> 31), buf);
+      if (*&buf[12] == 0x7FFFFFFF)
+      {
+        goto LABEL_39;
+      }
+
+      v17 = *(v4[4] + 32 * *&buf[12] + 24);
+      v3 = v4[27];
+      if (v3 > v17)
+      {
+        v3 = *(v4[28] + 4 * v17);
+        v18 = v4[39];
+        if (v18 > v3)
         {
-LABEL_48:
-          v65 = 0;
-          v66 = 0;
-          v67 = 0;
-          v40 = v25;
-          v41 = *(v28 + 56);
-          v42 = v41 + 1;
-          v25 = v40;
-          v43 = re::FixedArray<re::Optional<unsigned long long>>::init<>(&v65, v40, v42);
-          if (!v66)
+          v19 = v4[40] + 48 * v3;
+          this = re::HashTable<re::StringID,re::RenderGraphDataNodeConnection const*,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(buf, v19, (v14 + 24));
+          if (*&buf[12] == 0x7FFFFFFF)
           {
-            re::internal::assertLog(4, v44, "assertion failure: '%s' (%s:line %i) Array is empty", "m_size > 0", "first", 440);
-            _os_crash();
-            __break(1u);
-LABEL_103:
-            re::internal::assertLog(7, v44, "assertion failure: '%s' (%s:line %i) Size overflow in FixedArray<T>::copy(). size = %zu, pos = %zu, count = %zu", "!overflow", "copy", 362, v48, 1, v47);
-            _os_crash();
-            __break(1u);
-LABEL_104:
-            re::internal::assertLog(4, v44, "assertion failure: '%s' (%s:line %i) Too much data to copy.", "requiredSize <= m_size", "copy", 363);
-            _os_crash();
-            __break(1u);
-LABEL_105:
-            v71 = 0;
-            v86 = 0u;
-            v87 = 0u;
-            memset(v85, 0, sizeof(v85));
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            *v78 = 136315906;
-            *&v78[4] = "operator[]";
-            v79 = 1024;
-            v80 = 468;
-            v81 = 2048;
-            v82 = v26;
-            v83 = 2048;
-            v84 = v28;
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_106:
-            *v78 = 0;
-            v76 = 0u;
-            v74 = 0u;
-            v75 = 0u;
-            v72 = 0u;
-            v73 = 0u;
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            v85[0] = 136315906;
-            *&v85[1] = "operator[]";
-            LOWORD(v85[3]) = 1024;
-            *(&v85[3] + 2) = 468;
-            HIWORD(v85[4]) = 2048;
-            *&v85[5] = v26;
-            LOWORD(v85[7]) = 2048;
-            *(&v85[7] + 2) = v28;
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_107:
-            v62 = v35 >> 4;
-            *v78 = 0;
-            v76 = 0u;
-            v74 = 0u;
-            v75 = 0u;
-            v72 = 0u;
-            v73 = 0u;
-            os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-            v85[0] = 136315906;
-            *&v85[1] = "operator[]";
-            LOWORD(v85[3]) = 1024;
-            *(&v85[3] + 2) = 468;
-            HIWORD(v85[4]) = 2048;
-            *&v85[5] = v62;
-            LOWORD(v85[7]) = 2048;
-            *(&v85[7] + 2) = v28;
-            _os_log_send_and_compose_impl();
-            _os_crash_msg();
-            __break(1u);
-LABEL_108:
-            re::internal::assertLog(4, v53, "assertion failure: '%s' (%s:line %i) ", "!isInitialized() || m_allocator == other.m_allocator", "operator=", 296);
-            _os_crash();
-            __break(1u);
+            goto LABEL_39;
           }
 
-          v45 = *(v27 + 76);
-          v46 = v67;
-          if ((*v67 & 1) == 0)
+          v20 = *(*(v19 + 16) + 32 * *&buf[12] + 24);
+          v21 = re::globalAllocators(this)[2];
+          *(&v75 + 1) = v21;
+          *&v76 = buf;
+          *buf = &unk_1F5D06590;
+          *&buf[8] = v17 | (v20 << 32);
+          *a1 = 1;
+LABEL_23:
+          a1[4] = v21;
+          goto LABEL_5;
+        }
+
+        goto LABEL_57;
+      }
+
+      goto LABEL_49;
+    }
+
+    v30 = *re::graphicsLogObjects(this);
+    this = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+    if (!this)
+    {
+      goto LABEL_39;
+    }
+
+    v39 = *v14;
+    *buf = 67109120;
+    *&buf[4] = v39;
+LABEL_38:
+    _os_log_impl(&dword_1E1C61000, v30, OS_LOG_TYPE_DEFAULT, "Invalid mesh identifier type detected: %u.", buf, 8u);
+    goto LABEL_39;
+  }
+
+  if (v6 != 2)
+  {
+    if (v6 == 1)
+    {
+      v22 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((*(a3 + 1) >> 31) ^ (*(a3 + 1) >> 1))) ^ ((0xBF58476D1CE4E5B9 * ((*(a3 + 1) >> 31) ^ (*(a3 + 1) >> 1))) >> 27));
+      this = re::HashTable<re::StringID,re::StateParameterInt *,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(this + 16, a3 + 1, v22 ^ (v22 >> 31), buf);
+      if (*&buf[12] == 0x7FFFFFFF)
+      {
+        goto LABEL_39;
+      }
+
+      v14 = *(v4[4] + 32 * *&buf[12] + 24);
+      if (v14 == 0xFFFF)
+      {
+        goto LABEL_39;
+      }
+
+      v17 = v4[27];
+      if (v17 > v14)
+      {
+        v17 = *(v4[28] + 4 * v14);
+        v3 = v4[15];
+        if (v3 > v17)
+        {
+          v23 = v4[16];
+          v24 = *(v23 + 2 * v17);
+          if (!*(v23 + 2 * v17))
           {
-            *v67 = 1;
+            goto LABEL_39;
           }
 
-          *(v46 + 1) = v45;
-          v47 = *(v28 + 56);
-          v48 = v66;
-          if (v47 == -1)
-          {
-            goto LABEL_103;
-          }
+          v21 = re::globalAllocators(this)[2];
+          *buf = &unk_1F5D064D0;
+          *&buf[8] = v14;
+          *(&v75 + 1) = v21;
+          *&v76 = buf;
+          *a1 = v24;
+          goto LABEL_23;
+        }
 
-          if (v47 + 1 > v66)
-          {
-            goto LABEL_104;
-          }
-
-          if (!v47)
-          {
-LABEL_62:
-            v72 = 0u;
-            v73 = 0u;
-            *&v72 = v40;
-            re::DynamicString::setCapacity(&v72, 0);
-            *&v74 = *(v28 + 32);
-            DWORD2(v74) = 0;
-            *&v76 = 0;
-            v75 = 0uLL;
-            if (v65)
-            {
-              re::FixedArray<re::Optional<unsigned long long>>::init<>(&v75, v65, v66);
-              re::FixedArray<re::Optional<unsigned long long>>::copy(&v75, &v65);
-            }
-
-            *(&v76 + 1) = *(v28 + 72);
-            v77 = 0;
-            v28 = *(&v68 + 1);
-            if (*(&v68 + 1) <= v26)
-            {
-              goto LABEL_105;
-            }
-
-            v52 = re::DynamicString::operator=((v69 + 88 * v26), &v72);
-            v54 = v74;
-            *(v52 + 10) = DWORD2(v74);
-            *(v52 + 4) = v54;
-            if (v52 != &v72)
-            {
-              v55 = *(v52 + 6);
-              if (v55 && v55 != v75)
-              {
-                goto LABEL_108;
-              }
-
-              *(v52 + 6) = v75;
-              *&v75 = v55;
-              v56 = *(v52 + 7);
-              *(v52 + 7) = *(&v75 + 1);
-              *(&v75 + 1) = v56;
-              v57 = *(v52 + 8);
-              *(v52 + 8) = v76;
-              *&v76 = v57;
-            }
-
-            v58 = *(&v76 + 1);
-            *(v52 + 80) = v77;
-            *(v52 + 9) = v58;
-            if (v75)
-            {
-              if (*(&v75 + 1))
-              {
-                (*(*v75 + 40))();
-                *(&v75 + 1) = 0;
-                *&v76 = 0;
-              }
-
-              *&v75 = 0;
-            }
-
-            if (v72 && (BYTE8(v72) & 1) != 0)
-            {
-              (*(*v72 + 40))();
-            }
-
-            if (v65 && v66)
-            {
-              (*(*v65 + 40))();
-            }
-
-            goto LABEL_88;
-          }
-
-          v49 = v67 + 16;
-          v50 = (*(v28 + 64) + 8);
-          v51 = 16 * v47;
-          while (2)
-          {
-            if (*v49)
-            {
-              if ((*(v50 - 1) & 1) == 0)
-              {
-                *v49 = 0;
-                goto LABEL_61;
-              }
-
-LABEL_60:
-              *(v49 + 1) = *v50;
-            }
-
-            else if (*(v50 - 1))
-            {
-              *v49 = 1;
-              goto LABEL_60;
-            }
+        goto LABEL_65;
+      }
 
 LABEL_61:
-            v49 += 16;
-            v50 += 2;
-            v51 -= 16;
-            if (!v51)
-            {
-              goto LABEL_62;
-            }
-
-            continue;
-          }
-        }
-
-        v28 = *(&v68 + 1);
-        if (*(&v68 + 1) <= v26)
-        {
-          goto LABEL_106;
-        }
-
-        v35 = v33 - v30;
-        v36 = v69 + 88 * v26;
-        v28 = *(v36 + 56);
-        if (v28 <= v35 >> 4)
-        {
-          goto LABEL_107;
-        }
-
-        v37 = *(v36 + 64);
-        v38 = v37 + v35;
-        v39 = *(v37 + v35);
-        if (v39)
-        {
-          v34 = *(v38 + 8);
-          if (*v37)
-          {
-            *(v38 + 8) = *(v37 + 8);
-          }
-
-          else
-          {
-            *v38 = 0;
-          }
-        }
-
-        else if (*v37)
-        {
-          *v38 = 1;
-          v34 = *(v37 + 8);
-          *(v38 + 8) = v34;
-        }
-
-        if (*v37)
-        {
-          if (v39)
-          {
-            goto LABEL_87;
-          }
-
-          *v37 = 0;
-        }
-
-        else if (v39)
-        {
-          *v37 = 1;
-LABEL_87:
-          *(v37 + 8) = v34;
-        }
-      }
-
-LABEL_88:
-      ++v26;
-      v23 = *(v4 + 8);
-      if (v23 <= v26)
+      v65 = 0;
+      v77 = 0u;
+      v78 = 0u;
+      v75 = 0u;
+      v76 = 0u;
+      *buf = 0u;
+      v55 = MEMORY[0x1E69E9C10];
+      v56 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v66 = 136315906;
+      v67 = "operator[]";
+      v68 = 1024;
+      if (v56)
       {
-        LODWORD(v18) = v63;
-        v24 = *(v64 + 32);
-        v22 = *(v64 + 16);
-        goto LABEL_90;
-      }
-    }
-  }
-
-LABEL_98:
-  re::FunctionConstantsEnumerator::calculateDerivedFields(&v68);
-  if (*(v4 + 24) == v70)
-  {
-    v60 = 0;
-    v61 = a3;
-  }
-
-  else
-  {
-    v61 = a3;
-    *(a3 + 8) = v68;
-    v68 = 0uLL;
-    *(a3 + 24) = v69;
-    v69 = 0;
-    *(a3 + 32) = v70;
-    v60 = 1;
-  }
-
-  *v61 = v60;
-  return re::FixedArray<re::FunctionConstantsEnumerator::PermutationLayer>::deinit(&v68);
-}
-
-void re::FunctionConstantsEnumerator::createEnumerator(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X4>, uint64_t a6@<X8>)
-{
-  v76 = *MEMORY[0x1E69E9840];
-  *a6 = 0u;
-  *(a6 + 16) = 0u;
-  *(a6 + 32) = 1;
-  v11 = re::HashBrown<re::DynamicString,re::VariedFunctionConstant,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::HashBrown(v61, a1);
-  if (a3)
-  {
-    v12 = &a2[a3];
-    do
-    {
-      v59[0] = *a2;
-      v11 = re::HashBrown<unsigned long,re::HashBrown<unsigned long,unsigned short,re::Hash<unsigned long>,re::EqualTo<unsigned long>,void,false>,re::Hash<unsigned long>,re::EqualTo<unsigned long>,void,false>::find(a5, v59);
-      if (v11 != -1)
-      {
-        v13 = a5[1] + 72 * v11;
-        v14 = (v13 + 8);
-        *v73 = v13 + 8;
-        *&v73[8] = 0;
-        v15 = *(v13 + 24);
-        if (v15 >= 0x10)
-        {
-          v16 = 0;
-          v17 = *v14;
-          v18 = v15 >> 4;
-          while (1)
-          {
-            v19 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v17), xmmword_1E304FAD0)))), 0x3830282018100800).u16[0];
-            *&v73[8] = v19 ^ 0xFFFF;
-            if (v19 != 0xFFFF)
-            {
-              break;
-            }
-
-            v16 -= 16;
-            ++v17;
-            if (!--v18)
-            {
-              goto LABEL_20;
-            }
-          }
-
-          v20 = __clz(__rbit64(v19 ^ 0xFFFF));
-          v21 = v20 - v16;
-          *&v73[16] = v20 - v16;
-          if (v20 + 1 != v16)
-          {
-            do
-            {
-              v22 = *(*v73 + 8) + 96 * v21;
-              re::DynamicString::DynamicString(&v66, v22);
-              LODWORD(v68) = *(v22 + 32);
-              re::DynamicArray<char const*>::DynamicArray(&v68 + 8, (v22 + 40));
-              v23 = *(v22 + 80);
-              v72 = *(v22 + 88);
-              v71 = v23;
-              if (re::HashBrown<re::DynamicString,re::VariedFunctionConstant,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::find(v61, &v66) == -1)
-              {
-                re::HashBrown<re::DynamicString,re::VariedFunctionConstant,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::addNew(v61, &v66, &v68);
-              }
-
-              if (*(&v68 + 1))
-              {
-                if (*(&v70 + 1))
-                {
-                  (*(**(&v68 + 1) + 40))();
-                }
-
-                *(&v70 + 1) = 0;
-                v69 = 0uLL;
-                *(&v68 + 1) = 0;
-                LODWORD(v70) = v70 + 1;
-              }
-
-              if (v66 && (BYTE8(v66) & 1) != 0)
-              {
-                (*(*v66 + 40))();
-              }
-
-              v11 = re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned long long const&,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>&>>::operator++(v73);
-              v21 = *&v73[16];
-            }
-
-            while (*&v73[16] != -1);
-          }
-        }
-      }
-
-LABEL_20:
-      ++a2;
-    }
-
-    while (a2 != v12);
-  }
-
-  v24 = v73;
-  v25 = *(a4 + 16);
-  if (v25)
-  {
-    v26 = *(a4 + 32);
-    v27 = v26 + 104 * v25;
-    do
-    {
-      v11 = re::HashBrown<re::DynamicString,re::VariedFunctionConstant,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::find(v61, v26);
-      if (v11 != -1)
-      {
-        v28 = v61[1] + 96 * v11;
-        v29 = *(v26 + 36);
-        v30 = *(v28 + 72);
-        v31 = *(v28 + 56);
-        v32 = v30;
-        if (v31)
-        {
-          v33 = 8 * v31;
-          v32 = *(v28 + 72);
-          while (*v32 != v29)
-          {
-            v32 += 8;
-            v33 -= 8;
-            if (!v33)
-            {
-              goto LABEL_32;
-            }
-          }
-        }
-
-        if (v32 == &v30[8 * v31])
-        {
-LABEL_32:
-          if (v31 == -1)
-          {
-            goto LABEL_75;
-          }
-
-          if (v31 >= *(v28 + 48))
-          {
-            v11 = re::DynamicArray<float *>::growCapacity((v28 + 40), v31 + 1);
-            v31 = *(v28 + 56);
-            v30 = *(v28 + 72);
-          }
-
-          v36 = &v30[8 * v31];
-          if (v31)
-          {
-            *v36 = *(v36 - 1);
-            if (v36 - 8 != v30)
-            {
-              v11 = memmove(v30 + 8, v30, 8 * v31 - 8);
-              v30 = *(v28 + 72);
-              v31 = *(v28 + 56);
-            }
-
-            *v30 = v29;
-            v37 = v31 + 1;
-          }
-
-          else
-          {
-            *v36 = v29;
-            v37 = 1;
-          }
-
-          *(v28 + 56) = v37;
-          ++*(v28 + 64);
-        }
-
-        else
-        {
-          v34 = v32 - v30;
-          if (v31 <= v34 >> 3)
-          {
-            goto LABEL_76;
-          }
-
-          v35 = *&v30[v34];
-          *&v30[v34] = *v30;
-          *v30 = v35;
-        }
-
-        *(v28 + 88) = 1;
-      }
-
-      v26 += 104;
-    }
-
-    while (v26 != v27);
-  }
-
-  if (v64)
-  {
-    v38 = v63;
-    if (v63)
-    {
-      v59[0] = v61;
-      if (v62 >= 0x10)
-      {
-        v39 = 0;
-        v40 = v61[0];
-        v41 = v62 >> 4;
-        while (1)
-        {
-          v42 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v40), xmmword_1E304FAD0)))), 0x3830282018100800).u16[0];
-          v59[1] = v42 ^ 0xFFFFLL;
-          if (v42 != 0xFFFFLL)
-          {
-            break;
-          }
-
-          v39 -= 16;
-          ++v40;
-          if (!--v41)
-          {
-            goto LABEL_71;
-          }
-        }
-
-        v43 = __clz(__rbit64(v42 ^ 0xFFFFLL));
-        v44 = v43 - v39;
-        v60 = v43 - v39;
-        if (v43 + 1 != v39)
-        {
-          v28 = 0;
-          v31 = 96;
-          do
-          {
-            v27 = *(a6 + 8);
-            if (v27 <= v28)
-            {
-              goto LABEL_77;
-            }
-
-            v27 = *(v59[0] + 8) + 96 * v44;
-            v45 = *(a6 + 16) + 88 * v28;
-            *(v45 + 32) = re::Hash<re::DynamicString>::operator()(&v66, v27);
-            *(v45 + 40) = *(v27 + 32);
-            v46 = re::DynamicString::operator=(v45, v27);
-            v47 = *(v27 + 88);
-            *(v45 + 80) = v47;
-            v48 = *(v27 + 56);
-            if (v47 == 1)
-            {
-              if (*(v27 + 56))
-              {
-                v49 = 0;
-                v50 = 0;
-                while (1)
-                {
-                  v24 = *(v45 + 56);
-                  if (v24 <= v50)
-                  {
-                    break;
-                  }
-
-                  v51 = *(*(v27 + 72) + 8 * v50);
-                  v52 = *(v45 + 64);
-                  if ((*(v52 + v49) & 1) == 0)
-                  {
-                    *(v52 + v49) = 1;
-                  }
-
-                  *(v52 + v49 + 8) = v51;
-                  ++v50;
-                  v49 += 16;
-                  if (*(v27 + 56) <= v50)
-                  {
-                    goto LABEL_70;
-                  }
-                }
-
-                v65 = 0;
-                v69 = 0u;
-                v70 = 0u;
-                v67 = 0u;
-                v68 = 0u;
-                v66 = 0u;
-                os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                *v73 = 136315906;
-                *&v73[4] = "operator[]";
-                *&v73[12] = 1024;
-                *&v73[14] = 468;
-                *&v73[18] = 2048;
-                *&v73[20] = v50;
-                v74 = 2048;
-                v75 = v24;
-                _os_log_send_and_compose_impl();
-                _os_crash_msg();
-                __break(1u);
-                goto LABEL_74;
-              }
-            }
-
-            else
-            {
-              if (!*(v45 + 56))
-              {
-                goto LABEL_78;
-              }
-
-              v53 = *(v45 + 64);
-              if (*v53 == 1)
-              {
-                *v53 = 0;
-              }
-
-              if (*(v27 + 56))
-              {
-                v54 = 0;
-                v55 = 0;
-                while (1)
-                {
-                  v50 = v55 + 1;
-                  v24 = *(v45 + 56);
-                  if (v24 <= v55 + 1)
-                  {
-                    break;
-                  }
-
-                  v56 = *(*(v27 + 72) + 8 * v55);
-                  v57 = *(v45 + 64) + v54;
-                  if ((*(v57 + 16) & 1) == 0)
-                  {
-                    *(v57 + 16) = 1;
-                  }
-
-                  *(v57 + 24) = v56;
-                  v54 += 16;
-                  v55 = v50;
-                  if (*(v27 + 56) <= v50)
-                  {
-                    goto LABEL_70;
-                  }
-                }
-
-LABEL_74:
-                v65 = 0;
-                v69 = 0u;
-                v70 = 0u;
-                v67 = 0u;
-                v68 = 0u;
-                v66 = 0u;
-                os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                *v73 = 136315906;
-                *&v73[4] = "operator[]";
-                *&v73[12] = 1024;
-                *&v73[14] = 468;
-                *&v73[18] = 2048;
-                *&v73[20] = v50;
-                v74 = 2048;
-                v75 = v24;
-                _os_log_send_and_compose_impl();
-                _os_crash_msg();
-                __break(1u);
-LABEL_75:
-                v59[0] = 0;
-                v69 = 0u;
-                v70 = 0u;
-                v67 = 0u;
-                v68 = 0u;
-                v66 = 0u;
-                os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                *v73 = 136315906;
-                *(v24 + 4) = "insert";
-                *&v73[12] = 1024;
-                *(v24 + 14) = 855;
-                *&v73[18] = 2048;
-                *(v24 + 20) = 0;
-                v74 = 2048;
-                *(v24 + 30) = 0;
-                _os_log_send_and_compose_impl();
-                _os_crash_msg();
-                __break(1u);
-LABEL_76:
-                v58 = v34 >> 3;
-                v59[0] = 0;
-                v69 = 0u;
-                v70 = 0u;
-                v67 = 0u;
-                v68 = 0u;
-                v66 = 0u;
-                os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                *v73 = 136315906;
-                *(v24 + 4) = "operator[]";
-                *&v73[12] = 1024;
-                *(v24 + 14) = 789;
-                *&v73[18] = 2048;
-                *(v24 + 20) = v58;
-                v74 = 2048;
-                *(v24 + 30) = v31;
-                _os_log_send_and_compose_impl();
-                _os_crash_msg();
-                __break(1u);
-LABEL_77:
-                v65 = 0;
-                v69 = 0u;
-                v70 = 0u;
-                v67 = 0u;
-                v68 = 0u;
-                v66 = 0u;
-                os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                *v73 = 136315906;
-                *&v73[4] = "operator[]";
-                *&v73[12] = 1024;
-                *&v73[14] = 468;
-                *&v73[18] = 2048;
-                *&v73[20] = v28;
-                v74 = 2048;
-                v75 = v27;
-                _os_log_send_and_compose_impl();
-                _os_crash_msg();
-                __break(1u);
-LABEL_78:
-                v65 = 0;
-                v69 = 0u;
-                v70 = 0u;
-                v67 = 0u;
-                v68 = 0u;
-                v66 = 0u;
-                os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                *v73 = 136315906;
-                *&v73[4] = "operator[]";
-                *&v73[12] = 1024;
-                *&v73[14] = 468;
-                *&v73[18] = 2048;
-                *&v73[20] = 0;
-                v74 = 2048;
-                v75 = 0;
-                _os_log_send_and_compose_impl();
-                _os_crash_msg();
-                __break(1u);
-              }
-            }
-
-LABEL_70:
-            ++v28;
-            re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned long long const&,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>&>>::operator++(v59);
-            v44 = v60;
-          }
-
-          while (v60 != -1);
-        }
-      }
-
-LABEL_71:
-      re::FunctionConstantsEnumerator::calculateDerivedFields(a6);
-    }
-  }
-
-  re::HashBrown<re::DynamicString,re::VariedFunctionConstant,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::deinit(v61);
-}
-
-uint64_t re::FunctionConstantsEnumerator::printDebugData(re::FunctionConstantsEnumerator *this)
-{
-  puts("    variations:");
-  v2 = *(this + 1);
-  if (v2)
-  {
-    v3 = 88 * v2;
-    v4 = *(this + 2) + 56;
-    do
-    {
-      if (*(v4 - 48))
-      {
-        v5 = *(v4 - 40);
+        v57 = 3;
       }
 
       else
       {
-        v5 = (v4 - 47);
+        v57 = 2;
       }
 
-      printf("      %s %zu", v5, *v4);
-      if (*(v4 + 24))
-      {
-        putchar(10);
-      }
-
-      else
-      {
-        puts(" no default");
-      }
-
-      v4 += 88;
-      v3 -= 88;
-    }
-
-    while (v3);
-  }
-
-  return printf("    permutations: %zu\n", *(this + 4));
-}
-
-void re::createVertexFetchArgumentBuffer<re::mtl::RenderCommandEncoder>(id *a1@<X0>, id *a2@<X1>, re::AttributeTable **a3@<X2>, uint64_t a4@<X3>, id *a5@<X4>, void *a6@<X8>)
-{
-  v11 = [*a1 newBufferWithLength:360 options:0];
-  *a6 = v11;
-  v12 = [v11 contents];
-  v13 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::RenderCommandEncoder>(v12, a3, *a4, *(a4 + 8), v13, a2, 0);
-  if (v13)
-  {
-  }
-
-  v14 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::RenderCommandEncoder>(v12, a3, *a4, *(a4 + 8), v14, a2, 1u);
-  if (v14)
-  {
-  }
-
-  v15 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::RenderCommandEncoder>(v12, a3, *a4, *(a4 + 8), v15, a2, 2u);
-  if (v15)
-  {
-  }
-
-  v16 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::RenderCommandEncoder>(v12, a3, *a4, *(a4 + 8), v16, a2, 3u);
-  if (v16)
-  {
-  }
-
-  v17 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::RenderCommandEncoder>(v12, a3, *a4, *(a4 + 8), v17, a2, 4u);
-  if (v17)
-  {
-  }
-
-  v18 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::RenderCommandEncoder>(v12, a3, *a4, *(a4 + 8), v18, a2, 5u);
-  if (v18)
-  {
-  }
-
-  v19 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::RenderCommandEncoder>(v12, a3, *a4, *(a4 + 8), v19, a2, 6u);
-  if (v19)
-  {
-  }
-
-  v20 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::RenderCommandEncoder>(v12, a3, *a4, *(a4 + 8), v20, a2, 7u);
-  if (v20)
-  {
-  }
-
-  v21 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::RenderCommandEncoder>(v12, a3, *a4, *(a4 + 8), v21, a2, 8u);
-  if (v21)
-  {
-  }
-
-  v22 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::RenderCommandEncoder>(v12, a3, *a4, *(a4 + 8), v22, a2, 9u);
-  if (v22)
-  {
-  }
-
-  v23 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::RenderCommandEncoder>(v12, a3, *a4, *(a4 + 8), v23, a2, 0xAu);
-  if (v23)
-  {
-  }
-
-  v24 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::RenderCommandEncoder>(v12, a3, *a4, *(a4 + 8), v24, a2, 0xBu);
-  if (v24)
-  {
-  }
-
-  v25 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::RenderCommandEncoder>(v12, a3, *a4, *(a4 + 8), v25, a2, 0xCu);
-  if (v25)
-  {
-  }
-
-  v26 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::RenderCommandEncoder>(v12, a3, *a4, *(a4 + 8), v26, a2, 0xDu);
-  if (v26)
-  {
-  }
-
-  v27 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::RenderCommandEncoder>(v12, a3, *a4, *(a4 + 8), v27, a2, 0xEu);
-  if (v27)
-  {
-  }
-}
-
-char *re::fillArgBufferForSemantic<re::mtl::RenderCommandEncoder>(uint64_t a1, re::AttributeTable **this, uint64_t a3, unint64_t a4, id a5, id *a6, unsigned int a7)
-{
-  if (a7 >= a4)
-  {
-    re::internal::assertLog(6, this, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, a7, a4);
-    _os_crash();
-    __break(1u);
-LABEL_17:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_18;
-  }
-
-  v10 = a5;
-  v12 = a3 + 10 * a7;
-  v7 = *(v12 + 4);
-  v13 = *(v12 + 8);
-  v14 = this;
-  do
-  {
-    v15 = v14;
-    v14 = *v14;
-    v16 = v15[3];
-    if (v14)
-    {
-      v17 = v16 == 0;
-    }
-
-    else
-    {
-      v17 = 0;
-    }
-  }
-
-  while (v17);
-  if (v16 <= v7)
-  {
-    goto LABEL_17;
-  }
-
-  v18 = (v15[4] + 16 * v7);
-  v19 = *v18;
-  v20 = *(v18 + 12);
-  if (v13)
-  {
-    [a5 length];
-    v21 = 0;
-    v22 = 0;
-    goto LABEL_12;
-  }
-
-  v21 = *(v18 + 2);
-  v23 = re::AttributeTable::buffers(this);
-  if (v24 <= v7)
-  {
-LABEL_18:
-    re::internal::assertLog(6, v24, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v7, v24);
-    _os_crash();
-    __break(1u);
-  }
-
-  v25 = v23 + 24 * v7;
-  v10 = *v25;
-  v22 = *(v25 + 4);
-LABEL_12:
-  [*a6 useResource:v10 usage:1 stages:1];
-  result = [v10 gpuAddress];
-  v27 = a1 + 24 * a7;
-  *v27 = &result[v22];
-  if (v13)
-  {
-    v28 = 0;
-  }
-
-  else
-  {
-    v28 = v19;
-  }
-
-  *(v27 + 8) = v21;
-  *(v27 + 12) = v28;
-  *(v27 + 16) = v20;
-  return result;
-}
-
-void re::createVertexFetchArgumentBuffer<re::mtl::ComputeCommandEncoder>(id *a1@<X0>, id *a2@<X1>, re::AttributeTable **a3@<X2>, uint64_t a4@<X3>, id *a5@<X4>, void *a6@<X8>)
-{
-  v11 = [*a1 newBufferWithLength:360 options:0];
-  *a6 = v11;
-  v12 = [v11 contents];
-  v13 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::ComputeCommandEncoder>(v12, a3, *a4, *(a4 + 8), v13, a2, 0);
-  if (v13)
-  {
-  }
-
-  v14 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::ComputeCommandEncoder>(v12, a3, *a4, *(a4 + 8), v14, a2, 1u);
-  if (v14)
-  {
-  }
-
-  v15 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::ComputeCommandEncoder>(v12, a3, *a4, *(a4 + 8), v15, a2, 2u);
-  if (v15)
-  {
-  }
-
-  v16 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::ComputeCommandEncoder>(v12, a3, *a4, *(a4 + 8), v16, a2, 3u);
-  if (v16)
-  {
-  }
-
-  v17 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::ComputeCommandEncoder>(v12, a3, *a4, *(a4 + 8), v17, a2, 4u);
-  if (v17)
-  {
-  }
-
-  v18 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::ComputeCommandEncoder>(v12, a3, *a4, *(a4 + 8), v18, a2, 5u);
-  if (v18)
-  {
-  }
-
-  v19 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::ComputeCommandEncoder>(v12, a3, *a4, *(a4 + 8), v19, a2, 6u);
-  if (v19)
-  {
-  }
-
-  v20 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::ComputeCommandEncoder>(v12, a3, *a4, *(a4 + 8), v20, a2, 7u);
-  if (v20)
-  {
-  }
-
-  v21 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::ComputeCommandEncoder>(v12, a3, *a4, *(a4 + 8), v21, a2, 8u);
-  if (v21)
-  {
-  }
-
-  v22 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::ComputeCommandEncoder>(v12, a3, *a4, *(a4 + 8), v22, a2, 9u);
-  if (v22)
-  {
-  }
-
-  v23 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::ComputeCommandEncoder>(v12, a3, *a4, *(a4 + 8), v23, a2, 0xAu);
-  if (v23)
-  {
-  }
-
-  v24 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::ComputeCommandEncoder>(v12, a3, *a4, *(a4 + 8), v24, a2, 0xBu);
-  if (v24)
-  {
-  }
-
-  v25 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::ComputeCommandEncoder>(v12, a3, *a4, *(a4 + 8), v25, a2, 0xCu);
-  if (v25)
-  {
-  }
-
-  v26 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::ComputeCommandEncoder>(v12, a3, *a4, *(a4 + 8), v26, a2, 0xDu);
-  if (v26)
-  {
-  }
-
-  v27 = *a5;
-  re::fillArgBufferForSemantic<re::mtl::ComputeCommandEncoder>(v12, a3, *a4, *(a4 + 8), v27, a2, 0xEu);
-  if (v27)
-  {
-  }
-}
-
-char *re::fillArgBufferForSemantic<re::mtl::ComputeCommandEncoder>(uint64_t a1, re::AttributeTable **this, uint64_t a3, unint64_t a4, id a5, id *a6, unsigned int a7)
-{
-  if (a7 >= a4)
-  {
-    re::internal::assertLog(6, this, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, a7, a4);
-    _os_crash();
-    __break(1u);
-LABEL_17:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_18;
-  }
-
-  v10 = a5;
-  v12 = a3 + 10 * a7;
-  v7 = *(v12 + 4);
-  v13 = *(v12 + 8);
-  v14 = this;
-  do
-  {
-    v15 = v14;
-    v14 = *v14;
-    v16 = v15[3];
-    if (v14)
-    {
-      v17 = v16 == 0;
-    }
-
-    else
-    {
-      v17 = 0;
-    }
-  }
-
-  while (v17);
-  if (v16 <= v7)
-  {
-    goto LABEL_17;
-  }
-
-  v18 = (v15[4] + 16 * v7);
-  v19 = *v18;
-  v20 = *(v18 + 12);
-  if (v13)
-  {
-    [a5 length];
-    v21 = 0;
-    v22 = 0;
-    goto LABEL_12;
-  }
-
-  v21 = *(v18 + 2);
-  v23 = re::AttributeTable::buffers(this);
-  if (v24 <= v7)
-  {
-LABEL_18:
-    re::internal::assertLog(6, v24, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v7, v24);
-    _os_crash();
-    __break(1u);
-  }
-
-  v25 = v23 + 24 * v7;
-  v10 = *v25;
-  v22 = *(v25 + 4);
-LABEL_12:
-  [*a6 useResource:v10 usage:1];
-  result = [v10 gpuAddress];
-  v27 = a1 + 24 * a7;
-  *v27 = &result[v22];
-  if (v13)
-  {
-    v28 = 0;
-  }
-
-  else
-  {
-    v28 = v19;
-  }
-
-  *(v27 + 8) = v21;
-  *(v27 + 12) = v28;
-  *(v27 + 16) = v20;
-  return result;
-}
-
-uint64_t re::createComputeVertexFetchPipeline(re *this, re::RenderManager *a2, re::ShaderManager *a3)
-{
-  v4 = *(*(this + 4) + 136);
-  v5 = [objc_msgSend(MEMORY[0x1E6974100] alloc)];
-  v10 = 0;
-  v13 = 0;
-  memset(v16, 0, sizeof(v16));
-  v17 = 0;
-  v18 = 0;
-  v19 = 0;
-  v20 = 1;
-  v21 = v5;
-  v22 = 257;
-  ComputePipelineState = re::getOrCreateComputePipelineState(this, &v8);
-  if (v21)
-  {
-
-    v21 = 0;
-  }
-
-  re::DynamicArray<re::TechniqueFunctionConstant>::deinit(v16);
-  if (v13 == 1 && v14)
-  {
-    if (BYTE8(v14))
-    {
-      (*(*v14 + 40))();
-    }
-
-    v14 = 0u;
-    v15 = 0u;
-  }
-
-  if (v10 == 1 && v11)
-  {
-    if (BYTE8(v11))
-    {
-      (*(*v11 + 40))();
-    }
-
-    v12 = 0u;
-    v11 = 0u;
-  }
-
-  if (v8 && (v9 & 1) != 0)
-  {
-    (*(*v8 + 40))();
-  }
-
-  if (v5)
-  {
-  }
-
-  if (v4)
-  {
-  }
-
-  return ComputePipelineState;
-}
-
-void re::createVertexFetchReflection(re *this@<X0>, void *a2@<X8>)
-{
-  v27 = *MEMORY[0x1E69E9840];
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v4 = 0;
-  v5 = 16;
-  do
-  {
-    v6 = re::StandardMaterialVertexInNames[v4];
-    *&v9.var0 = 0;
-    v9.var1 = &str_67;
-    LOWORD(v6) = re::StandardMaterialVertexInDataTypes[v4];
-    re::StringID::StringID(&v10, &v9);
-    LOWORD(v12) = v4;
-    HIWORD(v12) = v6;
-    v7 = a2[1];
-    if (v7 <= v4)
-    {
-      v13 = 0;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      v22 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v14 = 136315906;
-      v15 = "operator[]";
-      v16 = 1024;
-      v17 = 468;
-      v18 = 2048;
-      v19 = v4;
-      v20 = 2048;
-      v21 = v7;
-      _os_log_send_and_compose_impl();
+      v69 = 476;
+      v70 = 2048;
+      v71 = v14;
+      v72 = 2048;
+      v73 = v17;
+      _os_log_send_and_compose_impl(v57, &v65, buf, 80, &dword_1E1C61000, v55, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v66, 38, v64);
       _os_crash_msg();
       __break(1u);
-    }
-
-    v8 = (a2[2] + v5);
-    v3 = re::StringID::operator=((v8 - 4), &v10);
-    *v8 = v12;
-    if (v10)
-    {
-      if (v10)
+LABEL_65:
+      v65 = 0;
+      v77 = 0u;
+      v78 = 0u;
+      v75 = 0u;
+      v76 = 0u;
+      *buf = 0u;
+      v58 = MEMORY[0x1E69E9C10];
+      v59 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v66 = 136315906;
+      v67 = "operator[]";
+      v68 = 1024;
+      if (v59)
       {
+        v60 = 3;
       }
-    }
 
-    v10 = 0;
-    v11 = &str_67;
-    if (*&v9.var0)
-    {
-      if (*&v9.var0)
+      else
       {
+        v60 = 2;
       }
+
+      v69 = 476;
+      v70 = 2048;
+      v71 = v17;
+      v72 = 2048;
+      v73 = v3;
+      _os_log_send_and_compose_impl(v60, &v65, buf, 80, &dword_1E1C61000, v58, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v66, 38, v64);
+      _os_crash_msg();
+      __break(1u);
+      goto LABEL_69;
     }
 
-    ++v4;
-    v5 += 24;
+    v30 = *re::graphicsLogObjects(this);
+    this = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+    if (!this)
+    {
+      goto LABEL_39;
+    }
+
+    v31 = *v14;
+    *buf = 67109120;
+    *&buf[4] = v31;
+    goto LABEL_38;
   }
 
-  while (v4 != 15);
-}
-
-void re::compileFetchTypeFunction(re *this, id *a2, const char *a3)
-{
-  v6 = a2[45];
-  v8 = v6;
-  re::ShaderManager::makeFunctionDescriptor(a2, &v7);
-  [v7 setName_];
-  re::mtl::Library::makeFunctionWithDescriptor(&v8, v7, this);
-  if (v7)
+  this = re::MeshNameMap::modelIndex(this, (a3 + 8));
+  if (this == 0xFFFF)
   {
+    goto LABEL_39;
   }
-}
 
-void re::getVertexFetchFunctionNames(re *this@<X0>, void *a2@<X8>)
-{
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v3 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromInvalid", 0, 0, 33);
-  if (!a2[1])
+  v14 = this;
+  v17 = v4[18];
+  if (v17 <= this)
   {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v65 = 0;
+    v77 = 0u;
+    v78 = 0u;
+    v75 = 0u;
+    v76 = 0u;
+    *buf = 0u;
+    v40 = MEMORY[0x1E69E9C10];
+    v66 = 136315906;
+    v67 = "operator[]";
+    v68 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v41 = 3;
+    }
+
+    else
+    {
+      v41 = 2;
+    }
+
+    v69 = 476;
+    v70 = 2048;
+    v71 = v14;
+    v72 = 2048;
+    v73 = v17;
+    _os_log_send_and_compose_impl(v41, &v65, buf, 80, &dword_1E1C61000, v40, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v66, 38, v64);
     _os_crash_msg();
     __break(1u);
-    goto LABEL_57;
+    goto LABEL_45;
   }
 
-  v4 = v3;
-  v5 = a2[2];
-  re::StringID::destroyString(v5);
-  *v5 = 2 * v4;
-  *(v5 + 1) = "re::vertexfetch::fetchFromInvalid";
-  v6 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromUChar2", 0, 0, 32);
-  if (a2[1] <= 1uLL)
+  v17 = v4[15];
+  if (v17 <= this)
   {
+LABEL_45:
+    v65 = 0;
+    v77 = 0u;
+    v78 = 0u;
+    v75 = 0u;
+    v76 = 0u;
+    *buf = 0u;
+    v42 = MEMORY[0x1E69E9C10];
+    v43 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v66 = 136315906;
+    v67 = "operator[]";
+    v68 = 1024;
+    if (v43)
+    {
+      v44 = 3;
+    }
+
+    else
+    {
+      v44 = 2;
+    }
+
+    v69 = 476;
+    v70 = 2048;
+    v71 = v14;
+    v72 = 2048;
+    v73 = v17;
+    _os_log_send_and_compose_impl(v44, &v65, buf, 80, &dword_1E1C61000, v42, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v66, 38, v64);
+    _os_crash_msg();
+    __break(1u);
+LABEL_49:
+    v65 = 0;
+    v77 = 0u;
+    v78 = 0u;
+    v75 = 0u;
+    v76 = 0u;
+    *buf = 0u;
+    v45 = MEMORY[0x1E69E9C10];
+    v46 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v66 = 136315906;
+    v67 = "operator[]";
+    v68 = 1024;
+    if (v46)
+    {
+      v47 = 3;
+    }
+
+    else
+    {
+      v47 = 2;
+    }
+
+    v69 = 476;
+    v70 = 2048;
+    v71 = v17;
+    v72 = 2048;
+    v73 = v3;
+    _os_log_send_and_compose_impl(v47, &v65, buf, 80, &dword_1E1C61000, v45, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v66, 38, v64);
+    _os_crash_msg();
+    __break(1u);
+LABEL_53:
+    v65 = 0;
+    v77 = 0u;
+    v78 = 0u;
+    v75 = 0u;
+    v76 = 0u;
+    *buf = 0u;
+    v48 = MEMORY[0x1E69E9C10];
+    v49 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v66 = 136315906;
+    v67 = "operator[]";
+    v68 = 1024;
+    if (v49)
+    {
+      v50 = 3;
+    }
+
+    else
+    {
+      v50 = 2;
+    }
+
+    v69 = 476;
+    v70 = 2048;
+    v71 = v3;
+    v72 = 2048;
+    v73 = v17;
+    _os_log_send_and_compose_impl(v50, &v65, buf, 80, &dword_1E1C61000, v48, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v66, 38, v64);
+    _os_crash_msg();
+    __break(1u);
 LABEL_57:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_58;
-  }
+    v65 = 0;
+    v77 = 0u;
+    v78 = 0u;
+    v75 = 0u;
+    v76 = 0u;
+    *buf = 0u;
+    v51 = MEMORY[0x1E69E9C10];
+    v52 = v18;
+    v53 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v66 = 136315906;
+    v67 = "operator[]";
+    v68 = 1024;
+    if (v53)
+    {
+      v54 = 3;
+    }
 
-  v7 = v6;
-  v8 = a2[2];
-  re::StringID::destroyString((v8 + 16));
-  *(v8 + 16) = 2 * v7;
-  *(v8 + 24) = "re::vertexfetch::fetchFromUChar2";
-  v9 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromUChar3", 0, 0, 32);
-  if (a2[1] <= 2uLL)
-  {
-LABEL_58:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_59;
-  }
+    else
+    {
+      v54 = 2;
+    }
 
-  v10 = v9;
-  v11 = a2[2];
-  re::StringID::destroyString((v11 + 32));
-  *(v11 + 32) = 2 * v10;
-  *(v11 + 40) = "re::vertexfetch::fetchFromUChar3";
-  v12 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromUChar4", 0, 0, 32);
-  if (a2[1] <= 3uLL)
-  {
-LABEL_59:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_60;
-  }
-
-  v13 = v12;
-  v14 = a2[2];
-  re::StringID::destroyString((v14 + 48));
-  *(v14 + 48) = 2 * v13;
-  *(v14 + 56) = "re::vertexfetch::fetchFromUChar4";
-  v15 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromChar2", 0, 0, 31);
-  if (a2[1] <= 4uLL)
-  {
-LABEL_60:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v69 = 476;
+    v70 = 2048;
+    v71 = v3;
+    v72 = 2048;
+    v73 = v52;
+    _os_log_send_and_compose_impl(v54, &v65, buf, 80, &dword_1E1C61000, v51, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v66, 38, v64);
     _os_crash_msg();
     __break(1u);
     goto LABEL_61;
   }
 
-  v16 = v15;
-  v17 = a2[2];
-  re::StringID::destroyString((v17 + 64));
-  *(v17 + 64) = 2 * v16;
-  *(v17 + 72) = "re::vertexfetch::fetchFromChar2";
-  v18 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromChar3", 0, 0, 31);
-  if (a2[1] <= 5uLL)
+  v25 = v4[19] + 24 * this;
+  v26 = *(v25 + 8);
+  v27 = *(v4[16] + 2 * this);
+  if (v26 * v27)
   {
-LABEL_61:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_62;
+    v28 = *(v25 + 16);
+    v11 = re::globalAllocators(this)[2];
+    *(&v75 + 1) = v11;
+    v29 = (*(*v11 + 32))(v11, 32, 0);
+    *v29 = &unk_1F5D06538;
+    *(v29 + 8) = v28;
+    *(v29 + 16) = v26;
+    *(v29 + 24) = v27;
+    *&v76 = v29;
+    *a1 = v26 * v27;
+    goto LABEL_4;
   }
 
-  v19 = v18;
-  v20 = a2[2];
-  re::StringID::destroyString((v20 + 80));
-  *(v20 + 80) = 2 * v19;
-  *(v20 + 88) = "re::vertexfetch::fetchFromChar3";
-  v21 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromChar4", 0, 0, 31);
-  if (a2[1] <= 6uLL)
-  {
-LABEL_62:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_63;
-  }
-
-  v22 = v21;
-  v23 = a2[2];
-  re::StringID::destroyString((v23 + 96));
-  *(v23 + 96) = 2 * v22;
-  *(v23 + 104) = "re::vertexfetch::fetchFromChar4";
-  if (a2[1] <= 7uLL)
-  {
-LABEL_63:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_64;
-  }
-
-  v24 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromUChar2Norm", 0, 0, 36);
-  v25 = a2[2];
-  re::StringID::destroyString((v25 + 112));
-  *(v25 + 112) = 2 * v24;
-  *(v25 + 120) = "re::vertexfetch::fetchFromUChar2Norm";
-  if (a2[1] <= 8uLL)
-  {
-LABEL_64:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_65;
-  }
-
-  v26 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromUChar3Norm", 0, 0, 36);
-  v27 = a2[2];
-  re::StringID::destroyString((v27 + 128));
-  *(v27 + 128) = 2 * v26;
-  *(v27 + 136) = "re::vertexfetch::fetchFromUChar3Norm";
-  if (a2[1] <= 9uLL)
-  {
-LABEL_65:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_66;
-  }
-
-  v28 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromUChar4Norm", 0, 0, 36);
-  v29 = a2[2];
-  re::StringID::destroyString((v29 + 144));
-  *(v29 + 144) = 2 * v28;
-  *(v29 + 152) = "re::vertexfetch::fetchFromUChar4Norm";
-  if (a2[1] <= 0xAuLL)
-  {
-LABEL_66:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_67;
-  }
-
-  v30 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromChar2Norm", 0, 0, 35);
-  v31 = a2[2];
-  re::StringID::destroyString((v31 + 160));
-  *(v31 + 160) = 2 * v30;
-  *(v31 + 168) = "re::vertexfetch::fetchFromChar2Norm";
-  if (a2[1] <= 0xBuLL)
-  {
-LABEL_67:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_68;
-  }
-
-  v32 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromChar3Norm", 0, 0, 35);
-  v33 = a2[2];
-  re::StringID::destroyString((v33 + 176));
-  *(v33 + 176) = 2 * v32;
-  *(v33 + 184) = "re::vertexfetch::fetchFromChar3Norm";
-  if (a2[1] <= 0xCuLL)
-  {
-LABEL_68:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_69;
-  }
-
-  v34 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromChar4Norm", 0, 0, 35);
-  v35 = a2[2];
-  re::StringID::destroyString((v35 + 192));
-  *(v35 + 192) = 2 * v34;
-  *(v35 + 200) = "re::vertexfetch::fetchFromChar4Norm";
-  v36 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromUShort2", 0, 0, 33);
-  if (a2[1] <= 0xDuLL)
-  {
-LABEL_69:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_70;
-  }
-
-  v37 = v36;
-  v38 = a2[2];
-  re::StringID::destroyString((v38 + 208));
-  *(v38 + 208) = 2 * v37;
-  *(v38 + 216) = "re::vertexfetch::fetchFromUShort2";
-  v39 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromUShort3", 0, 0, 33);
-  if (a2[1] <= 0xEuLL)
-  {
-LABEL_70:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_71;
-  }
-
-  v40 = v39;
-  v41 = a2[2];
-  re::StringID::destroyString((v41 + 224));
-  *(v41 + 224) = 2 * v40;
-  *(v41 + 232) = "re::vertexfetch::fetchFromUShort3";
-  v42 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromUShort4", 0, 0, 33);
-  if (a2[1] <= 0xFuLL)
-  {
-LABEL_71:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_72;
-  }
-
-  v43 = v42;
-  v44 = a2[2];
-  re::StringID::destroyString((v44 + 240));
-  *(v44 + 240) = 2 * v43;
-  *(v44 + 248) = "re::vertexfetch::fetchFromUShort4";
-  v45 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromShort2", 0, 0, 32);
-  if (a2[1] <= 0x10uLL)
-  {
-LABEL_72:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_73;
-  }
-
-  v46 = v45;
-  v47 = a2[2];
-  re::StringID::destroyString((v47 + 256));
-  *(v47 + 256) = 2 * v46;
-  *(v47 + 264) = "re::vertexfetch::fetchFromShort2";
-  v48 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromShort3", 0, 0, 32);
-  if (a2[1] <= 0x11uLL)
-  {
-LABEL_73:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_74;
-  }
-
-  v49 = v48;
-  v50 = a2[2];
-  re::StringID::destroyString((v50 + 272));
-  *(v50 + 272) = 2 * v49;
-  *(v50 + 280) = "re::vertexfetch::fetchFromShort3";
-  v51 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromShort4", 0, 0, 32);
-  if (a2[1] <= 0x12uLL)
-  {
-LABEL_74:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_75;
-  }
-
-  v52 = v51;
-  v53 = a2[2];
-  re::StringID::destroyString((v53 + 288));
-  *(v53 + 288) = 2 * v52;
-  *(v53 + 296) = "re::vertexfetch::fetchFromShort4";
-  if (a2[1] <= 0x13uLL)
-  {
-LABEL_75:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_76;
-  }
-
-  v54 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromUShort2Norm", 0, 0, 37);
-  v55 = a2[2];
-  re::StringID::destroyString((v55 + 304));
-  *(v55 + 304) = 2 * v54;
-  *(v55 + 312) = "re::vertexfetch::fetchFromUShort2Norm";
-  if (a2[1] <= 0x14uLL)
-  {
-LABEL_76:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_77;
-  }
-
-  v56 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromUShort3Norm", 0, 0, 37);
-  v57 = a2[2];
-  re::StringID::destroyString((v57 + 320));
-  *(v57 + 320) = 2 * v56;
-  *(v57 + 328) = "re::vertexfetch::fetchFromUShort3Norm";
-  if (a2[1] <= 0x15uLL)
-  {
-LABEL_77:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_78;
-  }
-
-  v58 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromUShort4Norm", 0, 0, 37);
-  v59 = a2[2];
-  re::StringID::destroyString((v59 + 336));
-  *(v59 + 336) = 2 * v58;
-  *(v59 + 344) = "re::vertexfetch::fetchFromUShort4Norm";
-  if (a2[1] <= 0x16uLL)
-  {
-LABEL_78:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_79;
-  }
-
-  v60 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromShort2Norm", 0, 0, 36);
-  v61 = a2[2];
-  re::StringID::destroyString((v61 + 352));
-  *(v61 + 352) = 2 * v60;
-  *(v61 + 360) = "re::vertexfetch::fetchFromShort2Norm";
-  if (a2[1] <= 0x17uLL)
-  {
-LABEL_79:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_80;
-  }
-
-  v62 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromShort3Norm", 0, 0, 36);
-  v63 = a2[2];
-  re::StringID::destroyString((v63 + 368));
-  *(v63 + 368) = 2 * v62;
-  *(v63 + 376) = "re::vertexfetch::fetchFromShort3Norm";
-  if (a2[1] <= 0x18uLL)
-  {
-LABEL_80:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_81;
-  }
-
-  v64 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromShort4Norm", 0, 0, 36);
-  v65 = a2[2];
-  re::StringID::destroyString((v65 + 384));
-  *(v65 + 384) = 2 * v64;
-  *(v65 + 392) = "re::vertexfetch::fetchFromShort4Norm";
-  v66 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromHalf2", 0, 0, 31);
-  if (a2[1] <= 0x19uLL)
-  {
-LABEL_81:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_82;
-  }
-
-  v67 = v66;
-  v68 = a2[2];
-  re::StringID::destroyString((v68 + 400));
-  *(v68 + 400) = 2 * v67;
-  *(v68 + 408) = "re::vertexfetch::fetchFromHalf2";
-  v69 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromHalf3", 0, 0, 31);
-  if (a2[1] <= 0x1AuLL)
-  {
-LABEL_82:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_83;
-  }
-
-  v70 = v69;
-  v71 = a2[2];
-  re::StringID::destroyString((v71 + 416));
-  *(v71 + 416) = 2 * v70;
-  *(v71 + 424) = "re::vertexfetch::fetchFromHalf3";
-  v72 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromHalf4", 0, 0, 31);
-  if (a2[1] <= 0x1BuLL)
-  {
-LABEL_83:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_84;
-  }
-
-  v73 = v72;
-  v74 = a2[2];
-  re::StringID::destroyString((v74 + 432));
-  *(v74 + 432) = 2 * v73;
-  *(v74 + 440) = "re::vertexfetch::fetchFromHalf4";
-  v75 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromFloat", 0, 0, 31);
-  if (a2[1] <= 0x1CuLL)
-  {
-LABEL_84:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_85;
-  }
-
-  v76 = v75;
-  v77 = a2[2];
-  re::StringID::destroyString((v77 + 448));
-  *(v77 + 448) = 2 * v76;
-  *(v77 + 456) = "re::vertexfetch::fetchFromFloat";
-  v78 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromFloat2", 0, 0, 32);
-  if (a2[1] <= 0x1DuLL)
-  {
-LABEL_85:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_86;
-  }
-
-  v79 = v78;
-  v80 = a2[2];
-  re::StringID::destroyString((v80 + 464));
-  *(v80 + 464) = 2 * v79;
-  *(v80 + 472) = "re::vertexfetch::fetchFromFloat2";
-  v81 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromFloat3", 0, 0, 32);
-  if (a2[1] <= 0x1EuLL)
-  {
-LABEL_86:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_87;
-  }
-
-  v82 = v81;
-  v83 = a2[2];
-  re::StringID::destroyString((v83 + 480));
-  *(v83 + 480) = 2 * v82;
-  *(v83 + 488) = "re::vertexfetch::fetchFromFloat3";
-  v84 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromFloat4", 0, 0, 32);
-  if (a2[1] <= 0x1FuLL)
-  {
-LABEL_87:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_88;
-  }
-
-  v85 = v84;
-  v86 = a2[2];
-  re::StringID::destroyString((v86 + 496));
-  *(v86 + 496) = 2 * v85;
-  *(v86 + 504) = "re::vertexfetch::fetchFromFloat4";
-  v87 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromInt", 0, 0, 29);
-  if (a2[1] <= 0x20uLL)
-  {
-LABEL_88:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_89;
-  }
-
-  v88 = v87;
-  v89 = a2[2];
-  re::StringID::destroyString((v89 + 512));
-  *(v89 + 520) = "re::vertexfetch::fetchFromInt";
-  *(v89 + 512) = 2 * v88;
-  if (a2[1] <= 0x21uLL)
-  {
-LABEL_89:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_90;
-  }
-
-  v90 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromInt2", 0, 0, 30);
-  v91 = a2[2];
-  re::StringID::destroyString((v91 + 528));
-  *(v91 + 536) = "re::vertexfetch::fetchFromInt2";
-  *(v91 + 528) = 2 * v90;
-  if (a2[1] <= 0x22uLL)
-  {
-LABEL_90:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_91;
-  }
-
-  v92 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromInt3", 0, 0, 30);
-  v93 = a2[2];
-  re::StringID::destroyString((v93 + 544));
-  *(v93 + 552) = "re::vertexfetch::fetchFromInt3";
-  *(v93 + 544) = 2 * v92;
-  if (a2[1] <= 0x23uLL)
-  {
-LABEL_91:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_92;
-  }
-
-  v94 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromInt4", 0, 0, 30);
-  v95 = a2[2];
-  re::StringID::destroyString((v95 + 560));
-  *(v95 + 568) = "re::vertexfetch::fetchFromInt4";
-  *(v95 + 560) = 2 * v94;
-  if (a2[1] <= 0x24uLL)
-  {
-LABEL_92:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_93;
-  }
-
-  v96 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromUInt", 0, 0, 30);
-  v97 = a2[2];
-  re::StringID::destroyString((v97 + 576));
-  *(v97 + 584) = "re::vertexfetch::fetchFromUInt";
-  *(v97 + 576) = 2 * v96;
-  v98 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromUInt2", 0, 0, 31);
-  if (a2[1] <= 0x25uLL)
-  {
-LABEL_93:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_94;
-  }
-
-  v99 = v98;
-  v100 = a2[2];
-  re::StringID::destroyString((v100 + 592));
-  *(v100 + 600) = "re::vertexfetch::fetchFromUInt2";
-  *(v100 + 592) = 2 * v99;
-  v101 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromUInt3", 0, 0, 31);
-  if (a2[1] <= 0x26uLL)
-  {
-LABEL_94:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_95;
-  }
-
-  v102 = v101;
-  v103 = a2[2];
-  re::StringID::destroyString((v103 + 608));
-  *(v103 + 616) = "re::vertexfetch::fetchFromUInt3";
-  *(v103 + 608) = 2 * v102;
-  v104 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromUInt4", 0, 0, 31);
-  if (a2[1] <= 0x27uLL)
-  {
-LABEL_95:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_96;
-  }
-
-  v105 = v104;
-  v106 = a2[2];
-  re::StringID::destroyString((v106 + 624));
-  *(v106 + 632) = "re::vertexfetch::fetchFromUInt4";
-  *(v106 + 624) = 2 * v105;
-  if (a2[1] <= 0x28uLL)
-  {
-LABEL_96:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_97;
-  }
-
-  v107 = re::internal::compileTimeHornerHash<41ul>(0, 0, 40);
-  v108 = a2[2];
-  re::StringID::destroyString((v108 + 640));
-  *(v108 + 648) = "re::vertexfetch::fetchFromInt1010102Norm";
-  *(v108 + 640) = 2 * v107;
-  if (a2[1] <= 0x29uLL)
-  {
-LABEL_97:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_98;
-  }
-
-  v109 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromUInt1010102Norm", 0, 0, 41);
-  v110 = a2[2];
-  re::StringID::destroyString((v110 + 656));
-  *(v110 + 664) = "re::vertexfetch::fetchFromUInt1010102Norm";
-  *(v110 + 656) = 2 * v109;
-  if (a2[1] <= 0x2AuLL)
-  {
-LABEL_98:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_99;
-  }
-
-  v111 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromUChar4Norm_BGRA", 0, 0, 41);
-  v112 = a2[2];
-  re::StringID::destroyString((v112 + 672));
-  *(v112 + 680) = "re::vertexfetch::fetchFromUChar4Norm_BGRA";
-  *(v112 + 672) = 2 * v111;
-  v113 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromUChar", 0, 0, 31);
-  if (a2[1] <= 0x2DuLL)
-  {
-LABEL_99:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_100;
-  }
-
-  v114 = v113;
-  v115 = a2[2];
-  re::StringID::destroyString((v115 + 720));
-  *(v115 + 728) = "re::vertexfetch::fetchFromUChar";
-  *(v115 + 720) = 2 * v114;
-  if (a2[1] <= 0x2EuLL)
-  {
-LABEL_100:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_101;
-  }
-
-  v116 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromChar", 0, 0, 30);
-  v117 = a2[2];
-  re::StringID::destroyString((v117 + 736));
-  *(v117 + 744) = "re::vertexfetch::fetchFromChar";
-  *(v117 + 736) = 2 * v116;
-  if (a2[1] <= 0x2FuLL)
-  {
-LABEL_101:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_102;
-  }
-
-  v118 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromUCharNorm", 0, 0, 35);
-  v119 = a2[2];
-  re::StringID::destroyString((v119 + 752));
-  *(v119 + 760) = "re::vertexfetch::fetchFromUCharNorm";
-  *(v119 + 752) = 2 * v118;
-  v120 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromCharNorm", 0, 0, 34);
-  if (a2[1] <= 0x30uLL)
-  {
-LABEL_102:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_103;
-  }
-
-  v121 = v120;
-  v122 = a2[2];
-  re::StringID::destroyString((v122 + 768));
-  *(v122 + 776) = "re::vertexfetch::fetchFromCharNorm";
-  *(v122 + 768) = 2 * v121;
-  v123 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromUShort", 0, 0, 32);
-  if (a2[1] <= 0x31uLL)
-  {
-LABEL_103:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_104;
-  }
-
-  v124 = v123;
-  v125 = a2[2];
-  re::StringID::destroyString((v125 + 784));
-  *(v125 + 792) = "re::vertexfetch::fetchFromUShort";
-  *(v125 + 784) = 2 * v124;
-  v126 = re::internal::compileTimeHornerHash<15ul>(31, "re::vertexfetch::fetchFromShort", 0, 0, 31);
-  if (a2[1] <= 0x32uLL)
-  {
-LABEL_104:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_105;
-  }
-
-  v127 = v126;
-  v128 = a2[2];
-  re::StringID::destroyString((v128 + 800));
-  *(v128 + 808) = "re::vertexfetch::fetchFromShort";
-  *(v128 + 800) = 2 * v127;
-  if (a2[1] <= 0x33uLL)
-  {
-LABEL_105:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_106;
-  }
-
-  v129 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromUShortNorm", 0, 0, 36);
-  v130 = a2[2];
-  re::StringID::destroyString((v130 + 816));
-  *(v130 + 824) = "re::vertexfetch::fetchFromUShortNorm";
-  *(v130 + 816) = 2 * v129;
-  if (a2[1] <= 0x34uLL)
-  {
-LABEL_106:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_107;
-  }
-
-  v131 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromShortNorm", 0, 0, 35);
-  v132 = a2[2];
-  re::StringID::destroyString((v132 + 832));
-  *(v132 + 840) = "re::vertexfetch::fetchFromShortNorm";
-  *(v132 + 832) = 2 * v131;
-  if (a2[1] <= 0x35uLL)
-  {
-LABEL_107:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_108;
-  }
-
-  v133 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromHalf", 0, 0, 30);
-  v134 = a2[2];
-  re::StringID::destroyString((v134 + 848));
-  *(v134 + 856) = "re::vertexfetch::fetchFromHalf";
-  *(v134 + 848) = 2 * v133;
-  if (a2[1] <= 0x36uLL)
-  {
-LABEL_108:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_109:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v135 = re::internal::compileTimeHornerHash<39ul>(0, 0, 38);
-  v136 = a2[2];
-  re::StringID::destroyString((v136 + 864));
-  *(v136 + 872) = "re::vertexfetch::fetchFromFloatRG11B10";
-  *(v136 + 864) = 2 * v135;
-  if (a2[1] <= 0x37uLL)
-  {
-    goto LABEL_109;
-  }
-
-  v137 = re::internal::compileTimeHornerHash<37ul>("re::vertexfetch::fetchFromFloatRGB9E5", 0, 0, 37);
-  v138 = a2[2];
-  re::StringID::destroyString((v138 + 880));
-  *(v138 + 888) = "re::vertexfetch::fetchFromFloatRGB9E5";
-  *(v138 + 880) = 2 * v137;
+LABEL_39:
+  *a1 = 0;
+  result = re::globalAllocators(this);
+  a1[4] = result[2];
+  a1[5] = 0;
+  return result;
 }
 
-void *re::compileAllFetchTypeFunctions@<X0>(re *this@<X0>, void **a2@<X8>)
+void re::MeshNameMap::addMeshAssetModelNameToMap(re::MeshNameMap *this, StringID *a2, int a3)
 {
-  v45 = *MEMORY[0x1E69E9840];
-  *a2 = 0;
-  a2[1] = 0;
-  re::getVertexFetchFunctionNames(this, &v28);
-  v27 = 0;
-  v24[1] = 0;
-  v25 = 0;
-  v24[0] = 0;
-  v26 = 0;
-  v5 = v29;
-  if (v29)
-  {
-    re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(v24, v29);
-    if (v5 > v25)
-    {
-      bzero((v27 + 8 * v25), 8 * (v5 - v25));
-    }
-
-    v25 = v5;
-    ++v26;
-  }
-
-  re::compileFetchTypeFunction(&v23, this, "re::vertexfetch::fetchFromInvalid");
-  v22 = 0;
-  v19[1] = 0;
-  v20 = 0;
-  v19[0] = 0;
-  v21 = 0;
-  if (v25)
-  {
-    v6 = 0;
-    v7 = 0;
-    v8 = 0;
-    while (1)
-    {
-      v9 = v29;
-      if (v29 <= v8)
-      {
-        break;
-      }
-
-      v10 = *(v30 + v6 + 8);
-      if (*(v30 + v6) <= 1uLL && v10 && !*v10)
-      {
-        NS::SharedPtr<MTL::Buffer>::operator=((v27 + v7), &v23);
-        *&v40 = v8;
-        re::DynamicArray<re::TransitionCondition *>::add(v19, &v40);
-      }
-
-      else
-      {
-        re::compileFetchTypeFunction(&v18, this, v10);
-        v9 = v25;
-        if (v25 <= v8)
-        {
-          goto LABEL_37;
-        }
-
-        NS::SharedPtr<MTL::Texture>::operator=((v27 + v7), &v18);
-        if (v18)
-        {
-        }
-      }
-
-      ++v8;
-      v7 += 8;
-      v6 += 16;
-      if (v8 >= v25)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v31 = 0;
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v40 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v32 = 136315906;
-    v33 = "operator[]";
-    v34 = 1024;
-    v35 = 468;
-    v36 = 2048;
-    v37 = v8;
-    v38 = 2048;
-    v39 = v9;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_36:
-    v31 = 0;
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v40 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v32 = 136315906;
-    v33 = "removeAt";
-    v34 = 1024;
-    v35 = 931;
-    v36 = 2048;
-    v37 = v9;
-    v38 = 2048;
-    v39 = v6;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_37:
-    v31 = 0;
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v40 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v32 = 136315906;
-    v33 = "operator[]";
-    v34 = 1024;
-    v35 = 789;
-    v36 = 2048;
-    v37 = v8;
-    v38 = 2048;
-    v39 = v9;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-LABEL_17:
-  v11 = [MEMORY[0x1E695DEC8] alloc];
-  v8 = &unk_1E8723000;
-  *&v40 = [v11 initWithObjects:v27 count:v25];
-  NS::SharedPtr<MTL::Texture>::operator=(a2 + 1, &v40);
-  if (v40)
-  {
-  }
-
-  if (v20)
+  v14 = a3;
+  re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::add(this + 64, a2, &v14);
+  v5 = strlen(a2->var1);
+  v8 = v7;
+  var1 = a2->var1;
+  v10 = strlen(var1);
+  if (v10 != v8 || (v10 = memcmp(v6, var1, v8), v10))
   {
     v12 = 0;
-    v6 = v25;
-    do
-    {
-      v9 = *(v22 + 8 * v12);
-      if (v6 <= v9)
-      {
-        goto LABEL_36;
-      }
-
-      v13 = v27;
-      if (v6 - 1 > v9)
-      {
-        NS::SharedPtr<MTL::Texture>::operator=((v27 + 8 * v9), (v27 + 8 * v6 - 8));
-        v6 = v25;
-        v13 = v27;
-      }
-
-      v14 = v13 + 8 * v6;
-      v15 = *(v14 - 8);
-      if (v15)
-      {
-
-        *(v14 - 8) = 0;
-        v6 = v25;
-      }
-
-      v25 = --v6;
-      ++v26;
-    }
-
-    while (++v12 < v20);
-  }
-
-  v16 = [MEMORY[0x1E695DEC8] alloc];
-  *&v40 = [v16 initWithObjects:v27 count:v25];
-  NS::SharedPtr<MTL::Texture>::operator=(a2, &v40);
-  if (v40)
-  {
-  }
-
-  if (v19[0] && v22)
-  {
-    (*(*v19[0] + 40))();
-  }
-
-  if (v23)
-  {
-  }
-
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v24);
-  return re::FixedArray<re::StringID>::deinit(&v28);
-}
-
-void re::createVertexFetchComputePipeline(re *this@<X0>, void *a2@<X8>)
-{
-  re::make::shared::object<re::VertexFetchComputePipeline>(this, a2);
-  Pipeline = re::createComputeVertexFetchPipeline(this, v6, v7);
-  NS::SharedPtr<MTL::Buffer>::operator=((*a2 + 16), Pipeline);
-  v9 = *(*(this + 4) + 144);
-  v10 = [objc_msgSend(MEMORY[0x1E69741E8] alloc)];
-  [v10 setFunctionCount_];
-  v11 = [*(*a2 + 16) newVisibleFunctionTableWithDescriptor_];
-  v15 = v11;
-  if ([v9 count])
-  {
-    v12 = 0;
-    do
-    {
-      v13 = [v9 objectAtIndex_];
-      v14 = [*(*a2 + 16) functionHandleWithFunction_];
-      [v11 setFunction:v14 atIndex:v12];
-      if (v14)
-      {
-      }
-
-      if (v13)
-      {
-      }
-
-      ++v12;
-    }
-
-    while ([v9 count] > v12);
-  }
-
-  NS::SharedPtr<MTL::Buffer>::operator=((*a2 + 24), &v15);
-  if (v15)
-  {
-  }
-
-  if (v10)
-  {
-  }
-
-  if (v9)
-  {
-  }
-}
-
-uint64_t re::internal::compileTimeHornerHash<37ul>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v5 = a3;
-  result = a4 - a3;
-  if (a4 - a3 <= 4)
-  {
-    if (result <= 1)
-    {
-      if (!result)
-      {
-        return result;
-      }
-
-      if (result == 1)
-      {
-        v8 = 31 * a2;
-        return v8 + *(a1 + v5);
-      }
-    }
-
-    else
-    {
-      switch(result)
-      {
-        case 2:
-          v8 = 961 * a2 - *(a1 + a3) + 32 * *(a1 + a3);
-          v5 = a3 + 1;
-          return v8 + *(a1 + v5);
-        case 3:
-          v8 = 29791 * a2 + 961 * *(a1 + a3) - *(a1 + a3 + 1) + 32 * *(a1 + a3 + 1);
-          v5 = a3 + 2;
-          return v8 + *(a1 + v5);
-        case 4:
-          v8 = 923521 * a2 + 29791 * *(a1 + a3) + 961 * *(a1 + a3 + 1) - *(a1 + a3 + 2) + 32 * *(a1 + a3 + 2);
-          v5 = a3 + 3;
-          return v8 + *(a1 + v5);
-      }
-    }
-
-LABEL_25:
-    v9 = a3 + (result >> 1);
-    v10 = re::internal::compileTimeHornerHash<37ul>(a1, a2, a3, v9 - 1);
-    v5 = a4 - 1;
-    v8 = 31 * re::internal::compileTimeHornerHash<37ul>(a1, *(a1 + v9 - 1) - v10 + 32 * v10, v9, a4 - 1);
-    return v8 + *(a1 + v5);
-  }
-
-  if (result > 7)
-  {
-    switch(result)
-    {
-      case 8:
-        v8 = 0xC694446F01 * a2 + 0x667E12CDFLL * *(a1 + a3) + 887503681 * *(a1 + a3 + 1) + 28629151 * *(a1 + a3 + 2) + 923521 * *(a1 + a3 + 3) + 29791 * *(a1 + a3 + 4) + 961 * *(a1 + a3 + 5) - *(a1 + a3 + 6) + 32 * *(a1 + a3 + 6);
-        v5 = a3 + 7;
-        return v8 + *(a1 + v5);
-      case 9:
-        v8 = 0x180BF449711FLL * a2 + 0xC694446F01 * *(a1 + a3) + 0x667E12CDFLL * *(a1 + a3 + 1) + 887503681 * *(a1 + a3 + 2) + 28629151 * *(a1 + a3 + 3) + 923521 * *(a1 + a3 + 4) + 29791 * *(a1 + a3 + 5) + 961 * *(a1 + a3 + 6) - *(a1 + a3 + 7) + 32 * *(a1 + a3 + 7);
-        v5 = a3 + 8;
-        return v8 + *(a1 + v5);
-      case 10:
-        v8 = 0x2E97294E4B2C1 * a2 + 0x180BF449711FLL * *(a1 + a3) + 0xC694446F01 * *(a1 + a3 + 1) + 0x667E12CDFLL * *(a1 + a3 + 2) + 887503681 * *(a1 + a3 + 3) + 28629151 * *(a1 + a3 + 4) + 923521 * *(a1 + a3 + 5) + 29791 * *(a1 + a3 + 6) + 961 * *(a1 + a3 + 7) - *(a1 + a3 + 8) + 32 * *(a1 + a3 + 8);
-        v5 = a3 + 9;
-        return v8 + *(a1 + v5);
-    }
-
-    goto LABEL_25;
-  }
-
-  if (result == 5)
-  {
-    v8 = 28629151 * a2 + 923521 * *(a1 + a3) + 29791 * *(a1 + a3 + 1) + 961 * *(a1 + a3 + 2) - *(a1 + a3 + 3) + 32 * *(a1 + a3 + 3);
-    v5 = a3 + 4;
-    return v8 + *(a1 + v5);
-  }
-
-  if (result == 6)
-  {
-    v8 = 887503681 * a2 + 28629151 * *(a1 + a3) + 923521 * *(a1 + a3 + 1) + 29791 * *(a1 + a3 + 2) + 961 * *(a1 + a3 + 3) - *(a1 + a3 + 4) + 32 * *(a1 + a3 + 4);
-    v5 = a3 + 5;
-    return v8 + *(a1 + v5);
-  }
-
-  if (result != 7)
-  {
-    goto LABEL_25;
-  }
-
-  v8 = 0x667E12CDFLL * a2 + 887503681 * *(a1 + a3) + 28629151 * *(a1 + a3 + 1) + 923521 * *(a1 + a3 + 2) + 29791 * *(a1 + a3 + 3) + 961 * *(a1 + a3 + 4) - *(a1 + a3 + 5) + 32 * *(a1 + a3 + 5);
-  v5 = a3 + 6;
-  return v8 + *(a1 + v5);
-}
-
-uint64_t re::internal::compileTimeHornerHash<41ul>(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = a2;
-  v5 = a3 - a2;
-  if (a3 - a2 > 4)
-  {
-    if (v5 > 7)
-    {
-      switch(v5)
-      {
-        case 8:
-          v6 = 0xC694446F01 * a1 + 0x667E12CDFLL * aReVertexfetchF_39[a2] + 887503681 * aReVertexfetchF_39[a2 + 1] + 28629151 * aReVertexfetchF_39[a2 + 2] + 923521 * aReVertexfetchF_39[a2 + 3] + 29791 * aReVertexfetchF_39[a2 + 4] + 961 * aReVertexfetchF_39[a2 + 5] - aReVertexfetchF_39[a2 + 6] + 32 * aReVertexfetchF_39[a2 + 6];
-          v4 = a2 + 7;
-          return v6 + aReVertexfetchF_39[v4];
-        case 9:
-          v6 = 0x180BF449711FLL * a1 + 0xC694446F01 * aReVertexfetchF_39[a2] + 0x667E12CDFLL * aReVertexfetchF_39[a2 + 1] + 887503681 * aReVertexfetchF_39[a2 + 2] + 28629151 * aReVertexfetchF_39[a2 + 3] + 923521 * aReVertexfetchF_39[a2 + 4] + 29791 * aReVertexfetchF_39[a2 + 5] + 961 * aReVertexfetchF_39[a2 + 6] - aReVertexfetchF_39[a2 + 7] + 32 * aReVertexfetchF_39[a2 + 7];
-          v4 = a2 + 8;
-          return v6 + aReVertexfetchF_39[v4];
-        case 10:
-          v6 = 0x2E97294E4B2C1 * a1 + 0x180BF449711FLL * aReVertexfetchF_39[a2] + 0xC694446F01 * aReVertexfetchF_39[a2 + 1] + 0x667E12CDFLL * aReVertexfetchF_39[a2 + 2] + 887503681 * aReVertexfetchF_39[a2 + 3] + 28629151 * aReVertexfetchF_39[a2 + 4] + 923521 * aReVertexfetchF_39[a2 + 5] + 29791 * aReVertexfetchF_39[a2 + 6] + 961 * aReVertexfetchF_39[a2 + 7] - aReVertexfetchF_39[a2 + 8] + 32 * aReVertexfetchF_39[a2 + 8];
-          v4 = a2 + 9;
-          return v6 + aReVertexfetchF_39[v4];
-      }
-    }
-
-    else
-    {
-      switch(v5)
-      {
-        case 5:
-          v6 = 28629151 * a1 + 923521 * aReVertexfetchF_39[a2] + 29791 * aReVertexfetchF_39[a2 + 1] + 961 * aReVertexfetchF_39[a2 + 2] - aReVertexfetchF_39[a2 + 3] + 32 * aReVertexfetchF_39[a2 + 3];
-          v4 = a2 + 4;
-          return v6 + aReVertexfetchF_39[v4];
-        case 6:
-          v6 = 887503681 * a1 + 28629151 * aReVertexfetchF_39[a2] + 923521 * aReVertexfetchF_39[a2 + 1] + 29791 * aReVertexfetchF_39[a2 + 2] + 961 * aReVertexfetchF_39[a2 + 3] - aReVertexfetchF_39[a2 + 4] + 32 * aReVertexfetchF_39[a2 + 4];
-          v4 = a2 + 5;
-          return v6 + aReVertexfetchF_39[v4];
-        case 7:
-          v6 = 0x667E12CDFLL * a1 + 887503681 * aReVertexfetchF_39[a2] + 28629151 * aReVertexfetchF_39[a2 + 1] + 923521 * aReVertexfetchF_39[a2 + 2] + 29791 * aReVertexfetchF_39[a2 + 3] + 961 * aReVertexfetchF_39[a2 + 4] - aReVertexfetchF_39[a2 + 5] + 32 * aReVertexfetchF_39[a2 + 5];
-          v4 = a2 + 6;
-          return v6 + aReVertexfetchF_39[v4];
-      }
-    }
-
-    goto LABEL_18;
-  }
-
-  if (v5 > 1)
-  {
-    switch(v5)
-    {
-      case 2:
-        v6 = 961 * a1 - aReVertexfetchF_39[a2] + 32 * aReVertexfetchF_39[a2];
-        v4 = a2 + 1;
-        return v6 + aReVertexfetchF_39[v4];
-      case 3:
-        v6 = 29791 * a1 + 961 * aReVertexfetchF_39[a2] - aReVertexfetchF_39[a2 + 1] + 32 * aReVertexfetchF_39[a2 + 1];
-        v4 = a2 + 2;
-        return v6 + aReVertexfetchF_39[v4];
-      case 4:
-        v6 = 923521 * a1 + 29791 * aReVertexfetchF_39[a2] + 961 * aReVertexfetchF_39[a2 + 1] - aReVertexfetchF_39[a2 + 2] + 32 * aReVertexfetchF_39[a2 + 2];
-        v4 = a2 + 3;
-        return v6 + aReVertexfetchF_39[v4];
-    }
-
-    goto LABEL_18;
-  }
-
-  if (v5)
-  {
-    if (v5 == 1)
-    {
-LABEL_19:
-      v6 = 31 * a1;
-      return v6 + aReVertexfetchF_39[v4];
-    }
-
-LABEL_18:
-    v7 = a2 + (v5 >> 1);
-    v8 = re::internal::compileTimeHornerHash<41ul>(a1, a2, v7 - 1);
-    v4 = a3 - 1;
-    a1 = re::internal::compileTimeHornerHash<41ul>(aReVertexfetchF_39[v7 - 1] - v8 + 32 * v8, v7, a3 - 1);
-    goto LABEL_19;
-  }
-
-  return v5;
-}
-
-uint64_t re::internal::compileTimeHornerHash<39ul>(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = a2;
-  v5 = a3 - a2;
-  if (a3 - a2 > 4)
-  {
-    if (v5 > 7)
-    {
-      switch(v5)
-      {
-        case 8:
-          v6 = 0xC694446F01 * a1 + 0x667E12CDFLL * aReVertexfetchF_51[a2] + 887503681 * aReVertexfetchF_51[a2 + 1] + 28629151 * aReVertexfetchF_51[a2 + 2] + 923521 * aReVertexfetchF_51[a2 + 3] + 29791 * aReVertexfetchF_51[a2 + 4] + 961 * aReVertexfetchF_51[a2 + 5] - aReVertexfetchF_51[a2 + 6] + 32 * aReVertexfetchF_51[a2 + 6];
-          v4 = a2 + 7;
-          return v6 + aReVertexfetchF_51[v4];
-        case 9:
-          v6 = 0x180BF449711FLL * a1 + 0xC694446F01 * aReVertexfetchF_51[a2] + 0x667E12CDFLL * aReVertexfetchF_51[a2 + 1] + 887503681 * aReVertexfetchF_51[a2 + 2] + 28629151 * aReVertexfetchF_51[a2 + 3] + 923521 * aReVertexfetchF_51[a2 + 4] + 29791 * aReVertexfetchF_51[a2 + 5] + 961 * aReVertexfetchF_51[a2 + 6] - aReVertexfetchF_51[a2 + 7] + 32 * aReVertexfetchF_51[a2 + 7];
-          v4 = a2 + 8;
-          return v6 + aReVertexfetchF_51[v4];
-        case 10:
-          v6 = 0x2E97294E4B2C1 * a1 + 0x180BF449711FLL * aReVertexfetchF_51[a2] + 0xC694446F01 * aReVertexfetchF_51[a2 + 1] + 0x667E12CDFLL * aReVertexfetchF_51[a2 + 2] + 887503681 * aReVertexfetchF_51[a2 + 3] + 28629151 * aReVertexfetchF_51[a2 + 4] + 923521 * aReVertexfetchF_51[a2 + 5] + 29791 * aReVertexfetchF_51[a2 + 6] + 961 * aReVertexfetchF_51[a2 + 7] - aReVertexfetchF_51[a2 + 8] + 32 * aReVertexfetchF_51[a2 + 8];
-          v4 = a2 + 9;
-          return v6 + aReVertexfetchF_51[v4];
-      }
-    }
-
-    else
-    {
-      switch(v5)
-      {
-        case 5:
-          v6 = 28629151 * a1 + 923521 * aReVertexfetchF_51[a2] + 29791 * aReVertexfetchF_51[a2 + 1] + 961 * aReVertexfetchF_51[a2 + 2] - aReVertexfetchF_51[a2 + 3] + 32 * aReVertexfetchF_51[a2 + 3];
-          v4 = a2 + 4;
-          return v6 + aReVertexfetchF_51[v4];
-        case 6:
-          v6 = 887503681 * a1 + 28629151 * aReVertexfetchF_51[a2] + 923521 * aReVertexfetchF_51[a2 + 1] + 29791 * aReVertexfetchF_51[a2 + 2] + 961 * aReVertexfetchF_51[a2 + 3] - aReVertexfetchF_51[a2 + 4] + 32 * aReVertexfetchF_51[a2 + 4];
-          v4 = a2 + 5;
-          return v6 + aReVertexfetchF_51[v4];
-        case 7:
-          v6 = 0x667E12CDFLL * a1 + 887503681 * aReVertexfetchF_51[a2] + 28629151 * aReVertexfetchF_51[a2 + 1] + 923521 * aReVertexfetchF_51[a2 + 2] + 29791 * aReVertexfetchF_51[a2 + 3] + 961 * aReVertexfetchF_51[a2 + 4] - aReVertexfetchF_51[a2 + 5] + 32 * aReVertexfetchF_51[a2 + 5];
-          v4 = a2 + 6;
-          return v6 + aReVertexfetchF_51[v4];
-      }
-    }
-
-    goto LABEL_18;
-  }
-
-  if (v5 > 1)
-  {
-    switch(v5)
-    {
-      case 2:
-        v6 = 961 * a1 - aReVertexfetchF_51[a2] + 32 * aReVertexfetchF_51[a2];
-        v4 = a2 + 1;
-        return v6 + aReVertexfetchF_51[v4];
-      case 3:
-        v6 = 29791 * a1 + 961 * aReVertexfetchF_51[a2] - aReVertexfetchF_51[a2 + 1] + 32 * aReVertexfetchF_51[a2 + 1];
-        v4 = a2 + 2;
-        return v6 + aReVertexfetchF_51[v4];
-      case 4:
-        v6 = 923521 * a1 + 29791 * aReVertexfetchF_51[a2] + 961 * aReVertexfetchF_51[a2 + 1] - aReVertexfetchF_51[a2 + 2] + 32 * aReVertexfetchF_51[a2 + 2];
-        v4 = a2 + 3;
-        return v6 + aReVertexfetchF_51[v4];
-    }
-
-    goto LABEL_18;
-  }
-
-  if (v5)
-  {
-    if (v5 == 1)
-    {
-LABEL_19:
-      v6 = 31 * a1;
-      return v6 + aReVertexfetchF_51[v4];
-    }
-
-LABEL_18:
-    v7 = a2 + (v5 >> 1);
-    v8 = re::internal::compileTimeHornerHash<39ul>(a1, a2, v7 - 1);
-    v4 = a3 - 1;
-    a1 = re::internal::compileTimeHornerHash<39ul>(aReVertexfetchF_51[v7 - 1] - v8 + 32 * v8, v7, a3 - 1);
-    goto LABEL_19;
-  }
-
-  return v5;
-}
-
-void re::make::shared::object<re::VertexFetchComputePipeline>(re *a1@<X0>, void *a2@<X8>)
-{
-  v3 = re::globalAllocators(a1);
-  v4 = (*(*v3[2] + 32))(v3[2], 32, 8);
-  *v4 = 0u;
-  *(v4 + 1) = 0u;
-  ArcSharedObject::ArcSharedObject(v4, 0);
-  *v5 = &unk_1F5D09970;
-  v5[2] = 0;
-  v5[3] = 0;
-  *a2 = v5;
-}
-
-void re::VertexFetchComputePipeline::~VertexFetchComputePipeline(re::VertexFetchComputePipeline *this)
-{
-  *this = &unk_1F5D09970;
-  v2 = *(this + 3);
-  if (v2)
-  {
-
-    *(this + 3) = 0;
-  }
-
-  v3 = *(this + 2);
-  if (v3)
-  {
-
-    *(this + 2) = 0;
-  }
-
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-}
-
-{
-  *this = &unk_1F5D09970;
-  v2 = *(this + 3);
-  if (v2)
-  {
-
-    *(this + 3) = 0;
-  }
-
-  v3 = *(this + 2);
-  if (v3)
-  {
-
-    *(this + 2) = 0;
-  }
-
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-
-  JUMPOUT(0x1E6906520);
-}
-
-re::JiggleDeformerModelBuilder *re::JiggleDeformerModelBuilder::JiggleDeformerModelBuilder(re::JiggleDeformerModelBuilder *this, re::Allocator *a2, unsigned int a3, unsigned int a4, DeformationModelData *a5)
-{
-  *this = a5;
-  v9 = re::DeformationModelData::create<re::JiggleDeformer,re::JiggleDeformerModel>(a5, a2);
-  re::FixedArray<re::StringID>::init<>(v9, a2, a4);
-  re::FixedArray<re::StringID>::init<>(v9 + 3, a2, a4);
-  re::FixedArray<int>::init<>(v9 + 6, a2, a4);
-  re::FixedArray<int>::init<>(v9 + 9, a2, a4);
-  re::FixedArray<unsigned short>::init<unsigned short const&>(v9 + 12, a2, a3, &re::JiggleDeformerModel::kInvalidIndex);
-  return this;
-}
-
-uint64_t re::DeformationModelData::create<re::JiggleDeformer,re::JiggleDeformerModel>(uint64_t a1, uint64_t a2)
-{
-  v8[4] = *MEMORY[0x1E69E9840];
-  v4 = (*(*a2 + 32))(a2, 120, 8);
-  *v4 = 0u;
-  *(v4 + 16) = 0u;
-  *(v4 + 32) = 0u;
-  *(v4 + 48) = 0u;
-  *(v4 + 64) = 0u;
-  *(v4 + 80) = 0u;
-  *(v4 + 96) = 0u;
-  *(v4 + 112) = 0;
-  v6[0] = &unk_1F5D09AA8;
-  v6[1] = a2;
-  v6[3] = v6;
-  v7 = v4;
-  v8[3] = v8;
-  v8[0] = &unk_1F5D09AA8;
-  v8[1] = a2;
-  std::unique_ptr<void,std::function<void ()(void *)>>::operator=[abi:nn200100]((a1 + 640), &v7);
-  std::unique_ptr<void,std::function<void ()(void *)>>::~unique_ptr[abi:nn200100](&v7);
-  std::__function::__value_func<void ()(void *)>::~__value_func[abi:nn200100](v6);
-  return *(a1 + 640);
-}
-
-unint64_t *re::JiggleDeformerModelBuilder::setData(re::JiggleDeformerModelBuilder *this, unsigned int a2, unsigned int a3, const re::StringID *a4, const re::StringID *a5, float a6, float a7)
-{
-  v7 = *(*this + 640);
-  if (v7[13] <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_8;
-  }
-
-  *(v7[14] + 2 * a2) = a3;
-  v8 = a3;
-  if (v7[1] <= a3)
-  {
-LABEL_8:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  re::StringID::operator=((v7[2] + 16 * a3), a4);
-  if (v7[4] <= v8)
-  {
-LABEL_9:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_10;
-  }
-
-  result = re::StringID::operator=((v7[5] + 16 * v8), a5);
-  if (v7[7] <= v8)
-  {
-LABEL_10:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_11:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  *(v7[8] + 4 * v8) = a6;
-  if (v7[10] <= v8)
-  {
-    goto LABEL_11;
-  }
-
-  *(v7[11] + 4 * v8) = a7;
-  return result;
-}
-
-void *re::JiggleDeformer::init(void *result, uint64_t a2)
-{
-  if ((result[1] & 1) == 0)
-  {
-    v3 = result;
-    *(result + 8) = 1;
-    result[2] = *(a2 + 16);
-    re::DynamicArray<re::RigNodeConstraint>::setCapacity(v3 + 10, 0);
-    ++*(v3 + 26);
-    *(v3 + 31) = 64;
-    re::DataArray<re::SharedPtr<re::ecs2::System>>::allocBlock(v3 + 20);
-    v6 = *(a2 + 16);
-    if (v6)
-    {
-      if (*(v6 + 208) && v3[2])
-      {
-        v10 = 0;
-        v13 = 0;
-        memset(v16, 0, sizeof(v16));
-        v17 = 0;
-        v21 = 0;
-        v22 = 0;
-        v18 = 0;
-        v19 = 0;
-        v20 = 0;
-        ComputePipelineState = re::getOrCreateComputePipelineState(v3[2], &v8);
-        NS::SharedPtr<MTL::Buffer>::operator=(v3 + 25, ComputePipelineState);
-        if (v21)
-        {
-
-          v21 = 0;
-        }
-
-        re::DynamicArray<re::TechniqueFunctionConstant>::deinit(v16);
-        if (v13 == 1 && v14)
-        {
-          if (BYTE8(v14))
-          {
-            (*(*v14 + 40))();
-          }
-
-          v14 = 0u;
-          v15 = 0u;
-        }
-
-        if (v10 == 1 && v11)
-        {
-          if (BYTE8(v11))
-          {
-            (*(*v11 + 40))();
-          }
-
-          v12 = 0u;
-          v11 = 0u;
-        }
-
-        result = v8;
-        if (v8)
-        {
-          if (v9)
-          {
-            return (*(*v8 + 40))();
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-unint64_t re::JiggleDeformer::addDeformationInstance@<X0>(uint64_t a1@<X0>, unsigned __int8 *a2@<X2>, uint64_t a3@<X8>)
-{
-  v16 = *MEMORY[0x1E69E9840];
-  v6 = *(a1 + 64);
-  if (v6)
-  {
-    v7 = *re::BucketArray<re::CachedMetalFunction,64ul>::operator[](a1 + 24, v6 - 1);
-    re::BucketArray<re::CachedMetalFunction,64ul>::operator[](a1 + 24, *(a1 + 64) - 1);
-    --*(a1 + 64);
-    ++*(a1 + 72);
-  }
-
-  else
-  {
-    v7 = *(a1 + 184);
-    v8 = *(a1 + 152);
-    if (v7 + 1 > v8 << 6)
-    {
-      re::BucketArray<re::JiggleDeformer::DynamicsState,64ul>::setBucketsCapacity((a1 + 144), (v7 + 64) >> 6);
-      v8 = *(a1 + 152);
-    }
-
-    if (v8 <= v7 >> 6)
-    {
-      memset(v15, 0, sizeof(v15));
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    if (*(a1 + 160))
-    {
-      v9 = a1 + 168;
-    }
-
-    else
-    {
-      v9 = *(a1 + 176);
-    }
-
-    v10 = *(v9 + 8 * (v7 >> 6));
-    ++*(a1 + 184);
-    ++*(a1 + 192);
-    v11 = (v10 + 16 * (v7 & 0x3F));
-    *v11 = 0;
-    v11[1] = 0;
-  }
-
-  *&v15[0] = v7;
-  result = re::DataArray<unsigned long>::create<unsigned long &>(a1 + 80, v15);
-  *a3 = result;
-  *(a3 + 8) = vdupq_n_s64(2uLL);
-  v13 = *a2;
-  if (v13 == 255)
-  {
-    v14 = *(a2 + 2);
-    LOBYTE(v13) = 3;
-    if (v14)
-    {
-      if (*(v14 + 208))
-      {
-        LOBYTE(v13) = 1;
-      }
-
-      else
-      {
-        LOBYTE(v13) = 3;
-      }
-    }
-  }
-
-  *(a3 + 24) = v13;
-  *(a3 + 32) = -1;
-  *(a3 + 40) = 0;
-  *(a3 + 48) = 0;
-  *(a3 + 56) = 0;
-  return result;
-}
-
-unint64_t re::DataArray<unsigned long>::create<unsigned long &>(uint64_t a1, void *a2)
-{
-  v4 = *(a1 + 56);
-  if ((v4 + 1) >> 24)
-  {
-    v5 = 1;
-  }
-
-  else
-  {
-    v5 = v4 + 1;
-  }
-
-  *(a1 + 56) = v5;
-  v6 = *(a1 + 52);
-  v7 = *(a1 + 54);
-  if (v6 == 0xFFFF && v7 == 0xFFFF)
-  {
-    if (*(a1 + 48) >= *(a1 + 44))
-    {
-      re::DataArray<re::SharedPtr<re::ecs2::System>>::allocBlock(a1);
-    }
-
-    v12 = *(a1 + 16);
-    v7 = (v12 - 1);
+    v13 = &str_67;
+    v11 = re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::add(this + 64, &v12, &v14);
     if (v12)
     {
-      v6 = *(a1 + 48);
-      if (v6 < 0x10000)
+      if (v12)
       {
-        v13 = (*(a1 + 32) + 16 * v7);
-        *(a1 + 48) = v6 + 1;
-        v11 = *(a1 + 56);
-        *(v13[1] + 4 * v6) = v11;
-        v10 = (*v13 + 8 * v6);
-        goto LABEL_15;
       }
-
-LABEL_18:
-      re::internal::assertLog(5, a2, "assertion failure: '%s' (%s:line %i) m_tailBlockLinearAllocationCount (%u) is too large for a 16-bit unsigned integer", "!overflow", "create", 601, v6, v15, v16);
-      _os_crash();
-      __break(1u);
     }
-
-LABEL_17:
-    v15 = 0;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v16) = 136315906;
-    *(&v16 + 4) = "operator[]";
-    WORD6(v16) = 1024;
-    HIWORD(v16) = 789;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_18;
   }
-
-  if (*(a1 + 16) <= v7)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_17;
-  }
-
-  v9 = (*(a1 + 32) + 16 * v7);
-  *(v9[1] + 4 * v6) = v5;
-  v10 = (*v9 + 8 * v6);
-  *(a1 + 52) = *v10;
-  v11 = *(a1 + 56);
-LABEL_15:
-  ++*(a1 + 40);
-  *v10 = *a2;
-  return ((v7 << 16) | ((v11 & 0xFFFFFF) << 32)) + v6;
 }
 
-_DWORD *re::JiggleDeformer::removeDeformationInstance(uint64_t a1, unint64_t a2)
+uint64_t re::MeshNameMap::estimateFootprint(re::MeshNameMap *this)
 {
-  v4 = *re::DataArray<unsigned long>::get(a1 + 80, a2);
-  *re::BucketArray<unsigned long,64ul>::addUninitialized(a1 + 24) = v4;
-  v5 = re::BucketArray<re::StitchedDeformer::ComputePipelineData,64ul>::operator[](a1 + 144, v4);
-
-  *v5 = 0;
-  v5[1] = 0;
-
-  return re::DataArray<re::ecs2::Component *>::destroy(a1 + 80, a2);
-}
-
-uint64_t re::DataArray<unsigned long>::get(uint64_t a1, int a2)
-{
-  if (*(a1 + 16) <= HIWORD(a2))
+  v2 = (*(this + 10) << 6) + 424;
+  v3 = *(this + 12);
+  if (v3)
   {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return *(*(a1 + 32) + 16 * HIWORD(a2)) + 8 * a2;
-}
-
-uint64_t re::JiggleDeformer::allocateBuffers(re *a1, uint64_t a2, re::PerFrameAllocatorGPU **a3, unsigned int a4, void *a5, uint64_t a6)
-{
-  v9 = a1;
-  v94 = *MEMORY[0x1E69E9840];
-  *a6 |= 2uLL;
-  *(a6 + 9) = 1;
-  re::globalAllocators(a1);
-  v10 = (*(*a2 + 32))(a2, 24, 8);
-  v12 = v10;
-  v13 = *(*a5 + 48);
-  v10[1] = v13;
-  v10[2] = 0;
-  *v10 = a2;
-  if (v13)
-  {
-    if (v13 >= 0x1AF286BCA1AF287)
-    {
-LABEL_58:
-      re::internal::assertLog(6, v11, "assertion failure: '%s' (%s:line %i) Size overflow in FixedArray<T>::init(). Element size = %zu, count = %zu", "!overflow", "init", 324, 152, v13);
-      _os_crash();
-      __break(1u);
-LABEL_59:
-      re::internal::assertLog(4, v14, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
-      _os_crash();
-      __break(1u);
-    }
-
-    v10 = (*(*a2 + 32))(a2, 152 * v13, 8);
-    v12[2] = v10;
-    if (!v10)
-    {
-      goto LABEL_59;
-    }
-
-    v6 = v10;
-    if (v13 != 1)
-    {
-      bzero(v10, 152 * v13 - 152);
-      v6 += 152 * v13 - 152;
-    }
-
-    *(v6 + 144) = 0;
-    *(v6 + 112) = 0u;
-    *(v6 + 128) = 0u;
-    *(v6 + 80) = 0u;
-    *(v6 + 96) = 0u;
-    *(v6 + 48) = 0u;
-    *(v6 + 64) = 0u;
-    *(v6 + 16) = 0u;
-    *(v6 + 32) = 0u;
-    *v6 = 0u;
-  }
-
-  *(&v90 + 1) = re::globalAllocators(v10)[2];
-  *&v91 = v89;
-  v89[0] = &unk_1F5D09A40;
-  v70 = (*(*a2 + 16))(a2, v12, v89);
-  re::FunctionBase<24ul,void ()(void *)>::destroyCallable(v89);
-  v67 = *(*a5 + 48);
-  if (v67)
-  {
-    v15 = 0;
+    v4 = 0;
+    v5 = *(this + 4);
     while (1)
     {
-      re::DeformationInstanceIterator::Instance::Instance(&v76, a5, v15);
-      v16 = v79;
-      v17 = re::DeformationInstanceIterator::Instance::meshPart(&v76, *(*(v9 + 2) + 32));
-      v18 = re::DeformationVertexBufferState::inputVertexCount(v16, 1u);
-      v19 = *(*(v78 + 344) + 640);
-      v20 = *(v78 + 392);
-      v13 = v19[13];
-      if (v13 <= v20)
+      v6 = *v5;
+      v5 += 8;
+      if (v6 < 0)
       {
         break;
       }
 
-      v6 = *(v19[14] + 2 * v20);
-      v20 = v19[4];
-      if (v20 <= v6)
+      if (v3 == ++v4)
       {
-        goto LABEL_51;
-      }
-
-      v74 = v18;
-      v21 = 12 * v18;
-      re::StringID::StringID(&v75, (v19[5] + 16 * v6));
-      v73 = v17;
-      v22 = v17;
-      do
-      {
-        v23 = v22;
-        v22 = *v22;
-      }
-
-      while (v22 && !v23[8]);
-      v89[0] = (v75 >> 1);
-      v24 = re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(v23 + 5, v89);
-      if (v24 == -1)
-      {
-        v72 = 0;
-      }
-
-      else
-      {
-        v72 = (v23[6] + 16 * v24 + 8);
-      }
-
-      v25 = re::DeformationInstanceIterator::Instance::handle(&v76);
-      v26 = re::DataArray<unsigned long>::get(v9 + 80, v25);
-      v27 = re::BucketArray<re::StitchedDeformer::ComputePipelineData,64ul>::operator[](v9 + 144, *v26);
-      if (!*v27)
-      {
-        v28 = v73;
-        do
-        {
-          v29 = v28;
-          v28 = *v28;
-        }
-
-        while (v28 && !v29[8]);
-        v89[0] = 0x2B3FAC222C23CAEDLL;
-        v30 = re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(v29 + 5, v89);
-        if (v30 == -1)
-        {
-          v13 = 0;
-        }
-
-        else
-        {
-          v13 = v29[6] + 16 * v30 + 8;
-        }
-
-        v31 = *(v9 + 2);
-        v32 = re::AttributeTable::buffers(v73);
-        v34 = *v13;
-        if (v33 <= v34)
-        {
-          goto LABEL_57;
-        }
-
-        v89[0] = [*(v31 + 208) newBufferWithBytes:re::BufferView::contents((v32 + 24 * *v13)) length:v21 options:0];
-        NS::SharedPtr<MTL::Texture>::operator=(v27, v89);
-        if (v89[0])
-        {
-        }
-      }
-
-      v20 = (v27 + 1);
-      if (!v27[1])
-      {
-        v89[0] = [*(*(v9 + 2) + 208) newBufferWithLength:v21 options:0];
-        NS::SharedPtr<MTL::Texture>::operator=(v27 + 1, v89);
-        if (v89[0])
-        {
-        }
-      }
-
-      v13 = v19[7];
-      if (v13 <= v6)
-      {
-        goto LABEL_52;
-      }
-
-      v13 = v19[10];
-      if (v13 <= v6)
-      {
-        goto LABEL_53;
-      }
-
-      v71 = v21;
-      v35 = v16;
-      v36 = v15;
-      v37 = v9;
-      v38 = a5;
-      a5 = v77;
-      v13 = *(v70 + 8);
-      if (v13 <= v77)
-      {
-        goto LABEL_54;
-      }
-
-      v39 = *(v19[8] + 4 * v6);
-      v40 = **(*(v78 + 352) + 152);
-      v41 = *(v19[11] + 4 * v6);
-      v42 = *(v70 + 16) + 152 * v77;
-      v13 = a3;
-      re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer(a3, 0x10uLL, 4uLL, v89);
-      v43 = v89[0];
-      v44 = v90;
-      v45 = v89[1];
-      v46 = v89[0] + LODWORD(v89[1]);
-      *v46 = v74;
-      v46[1] = v39;
-      v46[2] = v41;
-      v46[3] = v40;
-      *v42 = v43;
-      *(v42 + 8) = v45;
-      *(v42 + 16) = v44;
-      v89[0] = *v27;
-      DWORD2(v90) = 0;
-      LODWORD(v91) = 0;
-      DWORD1(v91) = [*v27 length];
-      std::__variant_detail::__assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Buffer>,re::BufferSliceSourceCPU>>::__generic_assign[abi:nn200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Buffer>,re::BufferSliceSourceCPU>,(std::__variant_detail::_Trait)1> const&>(v42 + 24, v89);
-      *(v42 + 56) = v91;
-      if (DWORD2(v90) != -1)
-      {
-        (off_1F5D09A88[DWORD2(v90)])(&v81, v89);
-      }
-
-      v89[0] = *v20;
-      DWORD2(v90) = 0;
-      LODWORD(v91) = 0;
-      DWORD1(v91) = [*v20 length];
-      std::__variant_detail::__assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Buffer>,re::BufferSliceSourceCPU>>::__generic_assign[abi:nn200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Buffer>,re::BufferSliceSourceCPU>,(std::__variant_detail::_Trait)1> const&>(v42 + 64, v89);
-      *(v42 + 96) = v91;
-      a5 = v38;
-      if (DWORD2(v90) != -1)
-      {
-        (off_1F5D09A88[DWORD2(v90)])(&v81, v89);
-      }
-
-      v47 = 4 * v74;
-      re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer(a3, 4 * v74, 4uLL, v89);
-      v48 = v89[0];
-      v6 = LODWORD(v89[1]);
-      v49 = HIDWORD(v89[1]);
-      v50 = v90;
-      *(v42 + 128) = v89[0];
-      *(v42 + 136) = v6;
-      *(v42 + 140) = v49;
-      *(v42 + 144) = v50;
-      v9 = v37;
-      if (v72)
-      {
-        v51 = re::AttributeTable::buffers(v73);
-        v53 = *v72;
-        if (v52 <= v53)
-        {
-          goto LABEL_56;
-        }
-
-        v54 = v36;
-        v55 = re::BufferView::contents((v51 + 24 * *v72));
-        memcpy(&v48[v6], v55, v47);
-      }
-
-      else
-      {
-        v54 = v36;
-        if (v49 >= 4)
-        {
-          memset_pattern16(&v48[v6], &unk_1E30D6460, v49 & 0xFFFFFFFC);
-        }
-      }
-
-      re::PerFrameGPUDataAllocator::perFrameAllocCpuToGpuBuffer(a3, v47, 4uLL, v89);
-      v56 = v89[0];
-      v57 = LODWORD(v89[1]);
-      v58 = HIDWORD(v89[1]);
-      v59 = v90;
-      *(v42 + 104) = v89[0];
-      *(v42 + 112) = v57;
-      *(v42 + 116) = v58;
-      *(v42 + 120) = v59;
-      if (v58 >= 4)
-      {
-        memset_pattern16(&v56[v57], &unk_1E30D6460, v58 & 0xFFFFFFFC);
-      }
-
-      v60 = v78;
-      v61 = re::BucketArray<re::DeformationInstanceIndex,64ul>::operator[](*v76 + 8, v77);
-      v62 = re::DeformationBufferAllocator::alloc(*(v60 + 360), a5[2], 1, 0x1010001000CLL, 0x1E00000000, *(v61 + 16), v71);
-      v63 = *(v60 + 360);
-      v20 = *(v61 + 16);
-      v13 = *(v63 + 8);
-      if (v13 <= v20)
-      {
-        goto LABEL_55;
-      }
-
-      v64 = re::BucketArray<re::DeformationBufferAllocator::VertexBufferAllocation,4ul>::operator[](*(v63 + 16) + 72 * *(v61 + 16) + 16, v62);
-      WORD2(v89[0]) = 257;
-      LODWORD(v89[0]) = 65548;
-      BYTE4(v89[1]) = 30;
-      LODWORD(v89[1]) = 0;
-      v65 = re::DeformationVertexBufferState::setOutputBuffer(v35, 1, a4, (v64 + 24), v89);
-      if (v75)
-      {
-        if (v75)
-        {
-        }
-      }
-
-      v15 = v54 + 1;
-      if (v15 == v67)
-      {
-        return v70;
+        LODWORD(v4) = *(this + 12);
+        break;
       }
     }
-
-    v75 = 0;
-    v92 = 0u;
-    v93 = 0u;
-    v91 = 0u;
-    *v89 = 0u;
-    v90 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v81 = 136315906;
-    v82 = "operator[]";
-    v83 = 1024;
-    v84 = 476;
-    v85 = 2048;
-    v86 = v20;
-    v87 = 2048;
-    v88 = v13;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_51:
-    v75 = 0;
-    v92 = 0u;
-    v93 = 0u;
-    v91 = 0u;
-    *v89 = 0u;
-    v90 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v81 = 136315906;
-    v82 = "operator[]";
-    v83 = 1024;
-    v84 = 476;
-    v85 = 2048;
-    v86 = v6;
-    v87 = 2048;
-    v88 = v20;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_52:
-    v80 = 0;
-    v92 = 0u;
-    v93 = 0u;
-    v91 = 0u;
-    *v89 = 0u;
-    v90 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v81 = 136315906;
-    v82 = "operator[]";
-    v83 = 1024;
-    v84 = 476;
-    v85 = 2048;
-    v86 = v6;
-    v87 = 2048;
-    v88 = v13;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_53:
-    v80 = 0;
-    v92 = 0u;
-    v93 = 0u;
-    v91 = 0u;
-    *v89 = 0u;
-    v90 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v81 = 136315906;
-    v82 = "operator[]";
-    v83 = 1024;
-    v84 = 476;
-    v85 = 2048;
-    v86 = v6;
-    v87 = 2048;
-    v88 = v13;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_54:
-    v80 = 0;
-    v92 = 0u;
-    v93 = 0u;
-    v91 = 0u;
-    *v89 = 0u;
-    v90 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v81 = 136315906;
-    v82 = "operator[]";
-    v83 = 1024;
-    v84 = 468;
-    v85 = 2048;
-    v86 = a5;
-    v87 = 2048;
-    v88 = v13;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_55:
-    v80 = 0;
-    v92 = 0u;
-    v93 = 0u;
-    v91 = 0u;
-    *v89 = 0u;
-    v90 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v81 = 136315906;
-    v82 = "operator[]";
-    v83 = 1024;
-    v84 = 476;
-    v85 = 2048;
-    v86 = v20;
-    v87 = 2048;
-    v88 = v13;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_56:
-    re::internal::assertLog(6, v52, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v53, v52);
-    _os_crash();
-    __break(1u);
-LABEL_57:
-    re::internal::assertLog(6, v33, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v34, v33);
-    _os_crash();
-    __break(1u);
-    goto LABEL_58;
   }
 
-  return v70;
-}
-
-uint64_t re::JiggleDeformer::deformGPU(uint64_t a1, uint64_t a2, void **this, void *a4)
-{
-  v34 = *MEMORY[0x1E69E9840];
-  re::mtl::ComputeCommandEncoder::pushDebugGroup(this, "Jiggle Deformer");
-  v25 = a1;
-  v8 = [*(a1 + 200) maxTotalThreadsPerThreadgroup];
-  v9 = *(*a4 + 48);
-  if (v9)
+  else
   {
-    v10 = 0;
-    v11 = v8;
-    v24 = v8 - 1;
+    LODWORD(v4) = 0;
+  }
+
+  if (v4 != v3)
+  {
+    v7 = *(this + 4);
     do
     {
-      re::DeformationInstanceIterator::Instance::Instance(&v26, a4, v10);
-      v12 = v28;
-      v13 = re::DeformationVertexBufferState::inputVertexCount(v28, 1u);
-      v14 = v27;
-      v15 = *(a2 + 8);
-      if (v15 <= v27)
+      v8 = v7 + 32 * v4;
+      v10 = *(v8 + 8);
+      v9 = v8 + 8;
+      if (v10)
       {
-        v29 = 0;
-        memset(v33, 0, sizeof(v33));
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v30 = 136315906;
-        *&v30[4] = "operator[]";
-        *&v30[12] = 1024;
-        *&v30[14] = 468;
-        *&v30[18] = 2048;
-        *&v30[20] = v14;
-        v31 = 2048;
-        v32 = v15;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      v16 = *(a2 + 16) + 152 * v27;
-      v17 = (v24 + v13) / v11;
-      [*this setComputePipelineState:*(v25 + 200)];
-      LOBYTE(v33[0]) = 1;
-      re::DeformationVertexBufferState::ensureVertexBufferInitialized(v12, 1u);
-      v18 = *(v12[24] + 32 * re::HashBrown<re::VertexBufferID,re::PerFrameGPUDataBuffer,re::Hash<re::VertexBufferID>,re::EqualTo<re::VertexBufferID>,void,false>::find(v12 + 23, v33) + 24);
-      LOBYTE(v33[0]) = 1;
-      re::DeformationVertexBufferState::ensureVertexBufferInitialized(v12, 1u);
-      [*this setBuffer:v18 offset:*(v12[24] + 32 * re::HashBrown<re::VertexBufferID atIndex:{re::PerFrameGPUDataBuffer, re::Hash<re::VertexBufferID>, re::EqualTo<re::VertexBufferID>, void, false>::find(v12 + 23, v33) + 16), 0}];
-      LOBYTE(v33[0]) = 1;
-      re::DeformationVertexBufferState::ensureVertexBufferInitialized(v12, 1u);
-      v19 = *(v12[8] + 32 * re::HashBrown<re::VertexBufferID,re::PerFrameGPUDataBuffer,re::Hash<re::VertexBufferID>,re::EqualTo<re::VertexBufferID>,void,false>::find(v12 + 7, v33) + 24);
-      LOBYTE(v33[0]) = 1;
-      re::DeformationVertexBufferState::ensureVertexBufferInitialized(v12, 1u);
-      [*this setBuffer:v19 offset:*(v12[8] + 32 * re::HashBrown<re::VertexBufferID atIndex:{re::PerFrameGPUDataBuffer, re::Hash<re::VertexBufferID>, re::EqualTo<re::VertexBufferID>, void, false>::find(v12 + 7, v33) + 16), 1}];
-      re::BufferSlice::buffer(v16 + 24, v20);
-      [*this setBuffer:*(v16 + 24) offset:*(v16 + 56) atIndex:2];
-      re::BufferSlice::buffer(v16 + 64, v21);
-      [*this setBuffer:*(v16 + 64) offset:*(v16 + 96) atIndex:3];
-      [*this setBuffer:*(v16 + 120) offset:*(v16 + 112) atIndex:4];
-      [*this setBuffer:*(v16 + 144) offset:*(v16 + 136) atIndex:5];
-      [*this setBuffer:*(v16 + 16) offset:*(v16 + 8) atIndex:6];
-      v22 = *this;
-      *&v33[0] = v17;
-      *(v33 + 8) = vdupq_n_s64(1uLL);
-      *v30 = v11;
-      *&v30[8] = *(v33 + 8);
-      [v22 dispatchThreadgroups:v33 threadsPerThreadgroup:v30];
-      ++v10;
-    }
-
-    while (v9 != v10);
-  }
-
-  return [*this popDebugGroup];
-}
-
-void re::JiggleDeformer::deformCPU(uint64_t a1, uint64_t a2)
-{
-  re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) The Jiggle deformer does not support a CPU path.", "!Unreachable code", "deformCPU", 250);
-  _os_crash();
-  __break(1u);
-}
-
-re::StringID *re::JiggleDeformerModelUtil::envelopeBufferNameForJiggleDataIndex@<X0>(re::JiggleDeformerModelUtil *this@<X0>, const DeformationModelData *a2@<X1>, re::StringID *a3@<X8>)
-{
-  v3 = *(this + 80);
-  if (v3 && *(v3 + 32) > a2)
-  {
-    return re::StringID::StringID(a3, (*(v3 + 40) + 16 * a2));
-  }
-
-  else
-  {
-    return re::StringID::invalid(a3);
-  }
-}
-
-re::StringID *re::JiggleDeformerModelUtil::massBufferNameForJiggleDataIndex@<X0>(re::JiggleDeformerModelUtil *this@<X0>, const DeformationModelData *a2@<X1>, re::StringID *a3@<X8>)
-{
-  v3 = *(this + 80);
-  if (v3 && *(v3 + 8) > a2)
-  {
-    return re::StringID::StringID(a3, (*(v3 + 16) + 16 * a2));
-  }
-
-  else
-  {
-    return re::StringID::invalid(a3);
-  }
-}
-
-uint64_t re::JiggleDeformerModelUtil::computeJiggleDeformerModelSizeExcludingMetalBuffers(re::JiggleDeformerModelUtil *this, const DeformationModelData *a2)
-{
-  v2 = *(this + 80);
-  if (!v2)
-  {
-    return 0;
-  }
-
-  v3 = v2[1];
-  v4 = 4 * (v2[7] + v2[10]) + 16 * v3 + 120;
-  if (v3)
-  {
-    v5 = (v2[2] + 8);
-    do
-    {
-      if (*(v5 - 1))
-      {
-        v6 = strlen(*v5) + 1;
+        v11 = strlen(*(v9 + 8)) + 1;
       }
 
       else
       {
-        v6 = 0;
+        v11 = 0;
       }
 
-      v4 += v6;
-      v5 += 2;
-      --v3;
-    }
-
-    while (v3);
-  }
-
-  v7 = v2[4];
-  v8 = v4 + 16 * v7;
-  if (v7)
-  {
-    v9 = (v2[5] + 8);
-    do
-    {
-      if (*(v9 - 1))
+      v2 += v11;
+      if (v3 <= v4 + 1)
       {
-        v10 = strlen(*v9) + 1;
+        v12 = v4 + 1;
       }
 
       else
       {
-        v10 = 0;
+        v12 = v3;
       }
 
-      v8 += v10;
-      v9 += 2;
-      --v7;
-    }
-
-    while (v7);
-  }
-
-  return v8;
-}
-
-uint64_t re::internal::Callable<re::JiggleDeformer::allocateBuffers(re::PerFrameAllocator &,re::PerFrameGPUDataAllocator &,re::DeformationExecutionMode,re::DeformationParameters &,re::BufferInitializationOptions &,re::DynamicArray<re::PostDeformationBlit> &,re::DynamicArray<re::EventWait> &)::$_0,void ()(void *)>::operator()(uint64_t a1, void **a2)
-{
-  v2 = *a2;
-  if (**a2)
-  {
-    v3 = v2[1];
-    if (v3)
-    {
-      v4 = 152 * v3;
-      v5 = (v2[2] + 88);
-      do
+      while (v12 - 1 != v4)
       {
-        v6 = *v5;
-        if (v6 != -1)
+        LODWORD(v4) = v4 + 1;
+        if ((*(v7 + 32 * v4) & 0x80000000) != 0)
         {
-          (off_1F5D09A88[v6])(&v9, v5 - 6);
+          goto LABEL_20;
         }
-
-        *v5 = -1;
-        v7 = *(v5 - 10);
-        if (v7 != -1)
-        {
-          (off_1F5D09A88[v7])(&v10, v5 - 16);
-        }
-
-        *(v5 - 10) = -1;
-        v5 += 38;
-        v4 -= 152;
       }
 
-      while (v4);
-      result = (*(**v2 + 40))(*v2, v2[2]);
-      v2[1] = 0;
-      v2[2] = 0;
-    }
-
-    *v2 = 0;
-  }
-
-  return result;
-}
-
-void *re::internal::Callable<re::JiggleDeformer::allocateBuffers(re::PerFrameAllocator &,re::PerFrameGPUDataAllocator &,re::DeformationExecutionMode,re::DeformationParameters &,re::BufferInitializationOptions &,re::DynamicArray<re::PostDeformationBlit> &,re::DynamicArray<re::EventWait> &)::$_0,void ()(void *)>::cloneInto(uint64_t a1, void *a2)
-{
-  result = a2;
-  *a2 = &unk_1F5D09A40;
-  return result;
-}
-
-void *re::internal::Callable<re::JiggleDeformer::allocateBuffers(re::PerFrameAllocator &,re::PerFrameGPUDataAllocator &,re::DeformationExecutionMode,re::DeformationParameters &,re::BufferInitializationOptions &,re::DynamicArray<re::PostDeformationBlit> &,re::DynamicArray<re::EventWait> &)::$_0,void ()(void *)>::moveInto(uint64_t a1, void *a2)
-{
-  result = a2;
-  *a2 = &unk_1F5D09A40;
-  return result;
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN2re20DeformationModelData6createINS2_14JiggleDeformerENS2_19JiggleDeformerModelEJEEEPT0_PNS2_9AllocatorEDpOT1_EUlPvE_NS_9allocatorISF_EEFvSE_EE7__cloneEPNS0_6__baseISI_EE(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F5D09AA8;
-  a2[1] = v2;
-  return result;
-}
-
-uint64_t _ZNSt3__110__function6__funcIZN2re20DeformationModelData6createINS2_14JiggleDeformerENS2_19JiggleDeformerModelEJEEEPT0_PNS2_9AllocatorEDpOT1_EUlPvE_NS_9allocatorISF_EEFvSE_EEclEOSE_(uint64_t result, uint64_t **a2)
-{
-  v2 = *a2;
-  if (*a2)
-  {
-    v3 = *(result + 8);
-    re::FixedArray<CoreIKTransform>::deinit(v2 + 12);
-    re::FixedArray<CoreIKTransform>::deinit(v2 + 9);
-    re::FixedArray<CoreIKTransform>::deinit(v2 + 6);
-    re::FixedArray<re::StringID>::deinit(v2 + 3);
-    re::FixedArray<re::StringID>::deinit(v2);
-    v4 = *(*v3 + 40);
-
-    return v4(v3, v2);
-  }
-
-  return result;
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN2re20DeformationModelData6createINS2_14JiggleDeformerENS2_19JiggleDeformerModelEJEEEPT0_PNS2_9AllocatorEDpOT1_EUlPvE_NS_9allocatorISF_EEFvSE_EE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t *re::BucketArray<unsigned long,64ul>::init(uint64_t a1, uint64_t a2, unint64_t a3)
-{
-  *a1 = a2;
-  re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(a1, a3);
-  *(a1 + 16) += 2;
-  *(a1 + 40) = 0;
-  result = re::BucketArray<unsigned long,64ul>::setBucketsCapacity(a1, a3);
-  ++*(a1 + 48);
-  return result;
-}
-
-uint64_t *re::BucketArray<unsigned long,64ul>::setBucketsCapacity(uint64_t *result, unint64_t a2)
-{
-  v3 = result;
-  if (*result)
-  {
-    if (result[5] < a2 << 6)
-    {
-      while (1)
-      {
-        v4 = v3[1];
-        if (v4 <= a2)
-        {
-          break;
-        }
-
-        result = re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(v3);
-      }
-
-      while (v4 < a2)
-      {
-        v5 = (*(**v3 + 32))(*v3, 512, 0);
-        result = re::DynamicOverflowArray<RESubscriptionHandle *,2ul>::add(v3, &v5);
-        v4 = v3[1];
-      }
-    }
-  }
-
-  else
-  {
-  }
-
-  return result;
-}
-
-void *re::BucketArray<re::JiggleDeformer::DynamicsState,64ul>::init(uint64_t a1, uint64_t a2, unint64_t a3)
-{
-  *a1 = a2;
-  re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(a1, a3);
-  *(a1 + 16) += 2;
-  *(a1 + 40) = 0;
-  result = re::BucketArray<re::JiggleDeformer::DynamicsState,64ul>::setBucketsCapacity(a1, a3);
-  ++*(a1 + 48);
-  return result;
-}
-
-void *re::BucketArray<re::JiggleDeformer::DynamicsState,64ul>::setBucketsCapacity(void *result, unint64_t a2)
-{
-  v3 = result;
-  if (*result)
-  {
-    if (result[5] < a2 << 6)
-    {
-      while (1)
-      {
-        v4 = v3[1];
-        if (v4 <= a2)
-        {
-          break;
-        }
-
-        result = re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(v3);
-      }
-
-      if (v4 < a2)
-      {
-        v5 = v3 + 3;
-        do
-        {
-          result = (*(**v3 + 32))(*v3, 1024, 0);
-          v6 = result;
-          if (*v3)
-          {
-            v7 = v3[1];
-            v8 = *(v3 + 4);
-            if ((v8 & 1) == 0)
-            {
-              v9 = *v5;
-              v11 = v7 >= *v5;
-              v10 = v7 + 1;
-              v11 = !v11 || v9 >= v10;
-              if (v11)
-              {
-                goto LABEL_24;
-              }
-
-              v12 = 2 * v9;
-              goto LABEL_20;
-            }
-
-            v10 = v7 + 1;
-            if (v10 >= 3)
-            {
-              v12 = 4;
+      LODWORD(v4) = v12;
 LABEL_20:
-              if (v12 <= v10)
-              {
-                v14 = v10;
-              }
+      ;
+    }
 
-              else
-              {
-                v14 = v12;
-              }
+    while (v4 != v3);
+  }
 
-              result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v14);
-              v8 = *(v3 + 4);
-            }
+  v13 = v2 + (*(this + 22) << 6);
+  v14 = *(this + 24);
+  if (v14)
+  {
+    v15 = 0;
+    v16 = *(this + 10);
+    while (1)
+    {
+      v17 = *v16;
+      v16 += 8;
+      if (v17 < 0)
+      {
+        break;
+      }
+
+      if (v14 == ++v15)
+      {
+        LODWORD(v15) = *(this + 24);
+        break;
+      }
+    }
+  }
+
+  else
+  {
+    LODWORD(v15) = 0;
+  }
+
+  if (v15 != v14)
+  {
+    v18 = *(this + 10);
+    do
+    {
+      v19 = v18 + 32 * v15;
+      v21 = *(v19 + 8);
+      v20 = v19 + 8;
+      if (v21)
+      {
+        v22 = strlen(*(v20 + 8)) + 1;
+      }
+
+      else
+      {
+        v22 = 0;
+      }
+
+      v13 += v22;
+      if (v14 <= v15 + 1)
+      {
+        v23 = v15 + 1;
+      }
+
+      else
+      {
+        v23 = *(this + 24);
+      }
+
+      while (v23 - 1 != v15)
+      {
+        LODWORD(v15) = v15 + 1;
+        if ((*(v18 + 32 * v15) & 0x80000000) != 0)
+        {
+          goto LABEL_40;
+        }
+      }
+
+      LODWORD(v15) = v23;
+LABEL_40:
+      ;
+    }
+
+    while (v15 != v14);
+  }
+
+  v24 = *(this + 18);
+  v25 = v13 + 2 * *(this + 15) + 24 * v24;
+  if (v24)
+  {
+    v26 = (*(this + 19) + 8);
+    do
+    {
+      v27 = *v26;
+      v26 += 3;
+      v25 += 4 * v27;
+      --v24;
+    }
+
+    while (v24);
+  }
+
+  v28 = *(this + 21);
+  v29 = v25 + 16 * v28;
+  if (v28)
+  {
+    v30 = 16 * v28;
+    v31 = (*(this + 22) + 8);
+    do
+    {
+      if (*(v31 - 1))
+      {
+        v32 = strlen(*v31) + 1;
+      }
+
+      else
+      {
+        v32 = 0;
+      }
+
+      v29 += v32;
+      v31 += 2;
+      v30 -= 16;
+    }
+
+    while (v30);
+  }
+
+  v33 = *(this + 24);
+  v34 = v29 + 16 * v33;
+  if (v33)
+  {
+    v35 = (*(this + 25) + 8);
+    do
+    {
+      if (*(v35 - 1))
+      {
+        v36 = strlen(*v35) + 1;
+      }
+
+      else
+      {
+        v36 = 0;
+      }
+
+      v34 += v36;
+      v35 += 2;
+      --v33;
+    }
+
+    while (v33);
+  }
+
+  v37 = *(this + 39);
+  v38 = v34 + 48 * v37 + 4 * (*(this + 30) + *(this + 27) + *(this + 33) + *(this + 36));
+  if (v37)
+  {
+    for (i = 0; i != v37; ++i)
+    {
+      v40 = *(this + 40) + 48 * i;
+      v41 = *(v40 + 32);
+      if (v41)
+      {
+        v42 = 0;
+        v43 = *(v40 + 16);
+        while (1)
+        {
+          v44 = *v43;
+          v43 += 8;
+          if (v44 < 0)
+          {
+            break;
+          }
+
+          if (v41 == ++v42)
+          {
+            LODWORD(v42) = *(v40 + 32);
+            break;
+          }
+        }
+      }
+
+      else
+      {
+        LODWORD(v42) = 0;
+      }
+
+      v38 += 30 * *(v40 + 24) + ((30 * *(v40 + 24) + 15) & 0x3FFFFFFFF0);
+      if (v42 != v41)
+      {
+        v45 = *(v40 + 16);
+        do
+        {
+          v46 = v45 + 32 * v42;
+          v48 = *(v46 + 8);
+          v47 = v46 + 8;
+          if (v48)
+          {
+            v49 = strlen(*(v47 + 8)) + 1;
           }
 
           else
           {
-            v13 = v3[1];
-            result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v13 + 1);
-            v8 = *(v3 + 4) + 2;
-            *(v3 + 4) = v8;
+            v49 = 0;
           }
 
-LABEL_24:
-          v15 = v3 + 3;
-          if ((v8 & 1) == 0)
+          v38 += v49;
+          if (v41 <= v42 + 1)
           {
-            v15 = v3[4];
+            v50 = v42 + 1;
           }
 
-          v16 = v3[1];
-          v15[v16++] = v6;
-          v3[1] = v16;
-          *(v3 + 4) += 2;
-        }
-
-        while (v16 < a2);
-      }
-    }
-  }
-
-  else
-  {
-  }
-
-  return result;
-}
-
-uint64_t re::BucketArray<unsigned long,64ul>::addUninitialized(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 8);
-  if (v2 + 1 > v3 << 6)
-  {
-    re::BucketArray<unsigned long,64ul>::setBucketsCapacity(a1, (v2 + 64) >> 6);
-    v3 = *(a1 + 8);
-  }
-
-  if (v3 <= v2 >> 6)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  if (*(a1 + 16))
-  {
-    v4 = a1 + 24;
-  }
-
-  else
-  {
-    v4 = *(a1 + 32);
-  }
-
-  v5 = *(v4 + 8 * (v2 >> 6));
-  ++*(a1 + 40);
-  ++*(a1 + 48);
-  return v5 + 8 * (v2 & 0x3F);
-}
-
-uint64_t re::LateLatch::shouldApplyHeadPoseLateLatching(re::LateLatch *this)
-{
-  {
-    re::Defaults::BOOLValue("enableHeadPoseLateLatching", v7, v10);
-    if (v10[0])
-    {
-      v8 = v10[1];
-    }
-
-    else
-    {
-      v8 = 1;
-    }
-
-    re::LateLatch::shouldApplyHeadPoseLateLatching(void)::kEnable = v8;
-  }
-
-  v9[0] = 0x95A75B43D56D48D6;
-  v9[1] = "overrides:enableHeadPoseLateLatching";
-  v2 = re::s_debugSettingsManager;
-  if (re::s_debugSettingsManager && (v10[0] = 0, v2 = re::DebugSettingsManager::getWithErrorCode<BOOL>(re::s_debugSettingsManager, v9, v10), !v2))
-  {
-    v1 = v10[0];
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  v4 = re::LateLatch::shouldApplyHeadPoseLateLatching(void)::kEnable;
-  if (v9[0])
-  {
-    if (v9[0])
-    {
-    }
-  }
-
-  if (v3)
-  {
-    v5 = v1;
-  }
-
-  else
-  {
-    v5 = v4;
-  }
-
-  return v5 & 1;
-}
-
-uint64_t re::LateLatch::shouldApplyAnchorLateLatching(re::LateLatch *this)
-{
-  {
-    re::Defaults::BOOLValue("enableAnchorLateLatching", v7, v10);
-    if (v10[0])
-    {
-      v8 = v10[1];
-    }
-
-    else
-    {
-      v8 = 1;
-    }
-
-    re::LateLatch::shouldApplyAnchorLateLatching(void)::kEnable = v8;
-  }
-
-  v9[0] = 0x2BE47D8679B6881ELL;
-  v9[1] = "overrides:enableAnchorLateLatching";
-  v2 = re::s_debugSettingsManager;
-  if (re::s_debugSettingsManager && (v10[0] = 0, v2 = re::DebugSettingsManager::getWithErrorCode<BOOL>(re::s_debugSettingsManager, v9, v10), !v2))
-  {
-    v1 = v10[0];
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  v4 = re::LateLatch::shouldApplyAnchorLateLatching(void)::kEnable;
-  if (v9[0])
-  {
-    if (v9[0])
-    {
-    }
-  }
-
-  if (v3)
-  {
-    v5 = v1;
-  }
-
-  else
-  {
-    v5 = v4;
-  }
-
-  return v5 & 1;
-}
-
-uint64_t re::LateLatch::shouldUseLegacyCodepathForHeadPoseLateLatching(re::LateLatch *this)
-{
-  {
-    re::Defaults::BOOLValue("useLegacyHeadPoseLateLatching", v7, v10);
-    if (v10[0])
-    {
-      v8 = v10[1];
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-
-    re::LateLatch::shouldUseLegacyCodepathForHeadPoseLateLatching(void)::kEnable = v8;
-  }
-
-  v9[0] = 0x4B73D1551D23FEA4;
-  v9[1] = "overrides:useLegacyHeadPoseLateLatching";
-  v2 = re::s_debugSettingsManager;
-  if (re::s_debugSettingsManager && (v10[0] = 0, v2 = re::DebugSettingsManager::getWithErrorCode<BOOL>(re::s_debugSettingsManager, v9, v10), !v2))
-  {
-    v1 = v10[0];
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  v4 = re::LateLatch::shouldUseLegacyCodepathForHeadPoseLateLatching(void)::kEnable;
-  if (v9[0])
-  {
-    if (v9[0])
-    {
-    }
-  }
-
-  if (v3)
-  {
-    v5 = v1;
-  }
-
-  else
-  {
-    v5 = v4;
-  }
-
-  return v5 & 1;
-}
-
-uint64_t re::LateLatch::shouldApplyVisualDepthLateLatching(re::LateLatch *this)
-{
-  {
-    re::Defaults::BOOLValue("enableVisualDepthLateLatching", v7, v10);
-    if (v10[0])
-    {
-      v8 = v10[1];
-    }
-
-    else
-    {
-      v8 = 1;
-    }
-
-    re::LateLatch::shouldApplyVisualDepthLateLatching(void)::kEnable = v8;
-  }
-
-  v9[0] = 0x9D6295447F5A27A2;
-  v9[1] = "overrides:enableVisualDepthLateLatching";
-  v2 = re::s_debugSettingsManager;
-  if (re::s_debugSettingsManager && (v10[0] = 0, v2 = re::DebugSettingsManager::getWithErrorCode<BOOL>(re::s_debugSettingsManager, v9, v10), !v2))
-  {
-    v1 = v10[0];
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  v4 = re::LateLatch::shouldApplyVisualDepthLateLatching(void)::kEnable;
-  if (v9[0])
-  {
-    if (v9[0])
-    {
-    }
-  }
-
-  if (v3)
-  {
-    v5 = v1;
-  }
-
-  else
-  {
-    v5 = v4;
-  }
-
-  return v5 & 1;
-}
-
-void re::ViewConstantsLateLatch::copyOriginalViewConstants(uint64_t a1, _OWORD *a2)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  shouldApplyHeadPoseLateLatching = re::LateLatch::shouldApplyHeadPoseLateLatching(a1);
-  if (shouldApplyHeadPoseLateLatching)
-  {
-    if (re::LateLatch::shouldUseLegacyCodepathForHeadPoseLateLatching(shouldApplyHeadPoseLateLatching))
-    {
-      memcpy(v10, a2, sizeof(v10));
-      if (*a1)
-      {
-        memmove((a1 + 256), a2, 0x400uLL);
-      }
-
-      else
-      {
-        *a1 = 1;
-        memcpy((a1 + 256), v10, 0x400uLL);
-      }
-    }
-
-    else
-    {
-      v5 = a2[33];
-      v9[0] = a2[32];
-      v9[1] = v5;
-      v6 = a2[35];
-      v9[2] = a2[34];
-      v9[3] = v6;
-      v7 = a2[37];
-      v9[4] = a2[36];
-      v9[5] = v7;
-      v8 = a2[39];
-      v9[6] = a2[38];
-      v9[7] = v8;
-      re::DynamicArray<re::FixedInlineArray<re::Matrix4x4<float>,2ul>>::add((a1 + 1360), v9);
-    }
-  }
-}
-
-__n128 re::DynamicArray<re::FixedInlineArray<re::Matrix4x4<float>,2ul>>::add(_anonymous_namespace_ *this, __int128 *a2)
-{
-  v4 = *(this + 2);
-  if (v4 >= *(this + 1))
-  {
-    re::DynamicArray<re::FixedInlineArray<re::Matrix4x4<float>,2ul>>::growCapacity(this, v4 + 1);
-    v4 = *(this + 2);
-  }
-
-  v5 = *(this + 4) + (v4 << 7);
-  v6 = *a2;
-  v7 = a2[1];
-  v8 = a2[3];
-  *(v5 + 32) = a2[2];
-  *(v5 + 48) = v8;
-  *v5 = v6;
-  *(v5 + 16) = v7;
-  result = a2[4];
-  v10 = a2[5];
-  v11 = a2[7];
-  *(v5 + 96) = a2[6];
-  *(v5 + 112) = v11;
-  *(v5 + 64) = result;
-  *(v5 + 80) = v10;
-  ++*(this + 2);
-  ++*(this + 6);
-  return result;
-}
-
-re::LateLatch *re::ViewConstantsLateLatch::trackViewConstantsBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
-{
-  result = re::LateLatch::shouldApplyHeadPoseLateLatching(a1);
-  if (!result)
-  {
-    return result;
-  }
-
-  result = re::LateLatch::shouldUseLegacyCodepathForHeadPoseLateLatching(result);
-  v8 = *a4;
-  v9 = a4[1];
-  if (!result)
-  {
-    if (!v9)
-    {
-      return result;
-    }
-
-    v21 = 16 * v9;
-    for (i = (v8 + 12); ; i += 4)
-    {
-      if (*(i - 3) != 1)
-      {
-        goto LABEL_45;
-      }
-
-      v23 = *(i - 2);
-      if (v23)
-      {
-        if (v23 > 0x100)
-        {
-          if (v23 > 0x300)
+          else
           {
-            v24 = 0;
-            v25 = 0;
-            v26 = 0;
-            goto LABEL_37;
+            v50 = v41;
           }
 
-          v25 = 0;
-          v26 = 0;
-          v28 = *i + v23;
-          goto LABEL_35;
+          while (v50 - 1 != v42)
+          {
+            LODWORD(v42) = v42 + 1;
+            if ((*(v45 + 32 * v42) & 0x80000000) != 0)
+            {
+              goto LABEL_77;
+            }
+          }
+
+          LODWORD(v42) = v50;
+LABEL_77:
+          ;
         }
 
-        v26 = 0;
-        v27 = *i;
-      }
-
-      else
-      {
-        v27 = *i;
-        if (*i >= 0x80)
-        {
-          v26 = a2 + *(i - 1);
-        }
-
-        else
-        {
-          v26 = 0;
-        }
-      }
-
-      v28 = v27 + v23;
-      if (v28 < 0x180)
-      {
-        v24 = 0;
-        v25 = 0;
-        goto LABEL_37;
-      }
-
-      v25 = a2 + 256 - v23 + *(i - 1);
-LABEL_35:
-      if (v28 < 0x320)
-      {
-        v24 = 0;
-LABEL_37:
-        v29 = 0;
-        if (v26)
-        {
-          goto LABEL_42;
-        }
-
-        goto LABEL_40;
-      }
-
-      v24 = a2 + 768 - v23 + *(i - 1);
-      v29 = v24 != 0;
-      if (v26)
-      {
-        goto LABEL_42;
-      }
-
-LABEL_40:
-      if (v25 || v29)
-      {
-LABEL_42:
-        v30 = *(a1 + 1376);
-        v31 = *(a1 + 1336);
-        if (v31 >= *(a1 + 1328))
-        {
-          result = re::DynamicArray<re::ViewConstantsLateLatch::LateLatchEntry>::growCapacity((a1 + 1320), v31 + 1);
-          v31 = *(a1 + 1336);
-        }
-
-        v32 = *(a1 + 1352) + 32 * v31;
-        *v32 = v26;
-        *(v32 + 8) = v25;
-        *(v32 + 16) = v24;
-        *(v32 + 24) = v30 - 1;
-        *(a1 + 1336) = v31 + 1;
-        ++*(a1 + 1344);
-      }
-
-LABEL_45:
-      v21 -= 16;
-      if (!v21)
-      {
-        return result;
+        while (v42 != v41);
       }
     }
   }
 
-  if (v9)
+  return v38 + 4 * (*(this + 45) + *(this + 42) + *(this + 48));
+}
+
+void *re::MeshNameMap::calculateHash(void *this)
+{
+  v1 = this;
+  v14[2] = *MEMORY[0x1E69E9840];
+  v2 = this[21];
+  if (v2)
   {
-    v10 = 16 * v9;
-    v11 = (v8 + 8);
+    v3 = 0;
+    v4 = this[22];
+    v5 = 16 * v2;
     do
     {
-      if (*(v11 - 2) == 1)
-      {
-        v13 = *(v11 - 1);
-        v12 = *v11;
-        v14 = v11[1];
-        v15 = *(a1 + 1296);
-        v16 = *(a1 + 1288);
-        if (v15 >= v16)
-        {
-          v17 = v15 + 1;
-          if (v16 < v15 + 1)
-          {
-            if (*(a1 + 1280))
-            {
-              v18 = 2 * v16;
-              if (!v16)
-              {
-                v18 = 8;
-              }
+      v6 = *v4;
+      v4 += 2;
+      v7 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((v6 >> 31) ^ (v6 >> 1))) ^ ((0xBF58476D1CE4E5B9 * ((v6 >> 31) ^ (v6 >> 1))) >> 27));
+      v3 ^= (v3 << 6) - 0x61C8864680B583E9 + (v3 >> 2) + (v7 ^ (v7 >> 31));
+      v5 -= 16;
+    }
 
-              if (v18 <= v17)
-              {
-                v19 = v17;
-              }
+    while (v5);
+  }
 
-              else
-              {
-                v19 = v18;
-              }
+  else
+  {
+    v3 = 0;
+  }
 
-              result = re::DynamicArray<re::ViewConstantsLateLatch::LegacyPatchCommand>::setCapacity((a1 + 1280), v19);
-            }
-
-            else
-            {
-              result = re::DynamicArray<re::ViewConstantsLateLatch::LegacyPatchCommand>::setCapacity((a1 + 1280), v17);
-              ++*(a1 + 1304);
-            }
-          }
-
-          v15 = *(a1 + 1296);
-        }
-
-        v20 = *(a1 + 1312) + 16 * v15;
-        *v20 = a2 + v12;
-        *(v20 + 8) = v13;
-        *(v20 + 12) = v14;
-        *(a1 + 1296) = v15 + 1;
-        ++*(a1 + 1304);
-      }
-
-      v11 += 4;
+  v8 = this[24];
+  if (v8)
+  {
+    v9 = this[25];
+    v10 = 16 * v8;
+    do
+    {
+      v11 = *v9;
+      v9 += 2;
+      v12 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((v11 >> 31) ^ (v11 >> 1))) ^ ((0xBF58476D1CE4E5B9 * ((v11 >> 31) ^ (v11 >> 1))) >> 27));
+      v3 ^= (v3 << 6) - 0x61C8864680B583E9 + (v3 >> 2) + (v12 ^ (v12 >> 31));
       v10 -= 16;
     }
 
     while (v10);
   }
 
-  return result;
-}
-
-double re::ViewConstantsLateLatch::trackViewConstantsBuffer(_DWORD *a1, uint64_t a2)
-{
-  if (re::LateLatch::shouldApplyHeadPoseLateLatching(a1))
+  v13 = this[36];
+  if (v13)
   {
-    v5 = a1[344] - 1;
-    v6[0] = a2;
-    v6[1] = a2 + 256;
-    v6[2] = a2 + 768;
-    v7 = v5;
-    *&result = re::DynamicArray<re::ViewConstantsLateLatch::LateLatchEntry>::add((a1 + 330), v6).n128_u64[0];
+    this = MurmurHash3_x64_128(this[37], v13, 0, v14);
+    v3 ^= (v3 << 6) - 0x61C8864680B583E9 + (v3 >> 2) + ((v14[1] - 0x61C8864680B583E9 + (v14[0] << 6) + (v14[0] >> 2)) ^ v14[0]);
   }
 
-  return result;
+  v1[1] = v3;
+  return this;
 }
 
-__n128 re::DynamicArray<re::ViewConstantsLateLatch::LateLatchEntry>::add(_anonymous_namespace_ *this, uint64_t a2)
+void *re::allocInfo_MeshInstanceAndPartIndex(re *this)
 {
-  v4 = *(this + 2);
-  if (v4 >= *(this + 1))
+  if ((atomic_load_explicit(&_MergedGlobals_453, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_453))
   {
-    re::DynamicArray<re::ViewConstantsLateLatch::LateLatchEntry>::growCapacity(this, v4 + 1);
-    v4 = *(this + 2);
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1B99C8, "MeshInstanceAndPartIndex");
+    __cxa_guard_release(&_MergedGlobals_453);
   }
 
-  v5 = (*(this + 4) + 32 * v4);
-  result = *a2;
-  v7 = *(a2 + 16);
-  *v5 = *a2;
-  v5[1] = v7;
-  ++*(this + 2);
-  ++*(this + 6);
-  return result;
+  return &unk_1EE1B99C8;
 }
 
-void re::ViewConstantsLateLatch::patchTrackedViewConstantsBuffers(void *a1, float32x4_t *a2, unint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, __int128 __dst, __int128 a30, __int128 a31, __int128 a32, __int128 a33, __int128 a34, __int128 a35, __int128 a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53)
+void re::initInfo_MeshInstanceAndPartIndex(re *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
 {
-  LODWORD(v53) = a4;
-  STACK[0xE98] = *MEMORY[0x1E69E9840];
-  shouldApplyHeadPoseLateLatching = re::LateLatch::shouldApplyHeadPoseLateLatching(a1);
-  if (shouldApplyHeadPoseLateLatching)
+  v16[0] = 0xCB11BF4FA32C06D4;
+  v16[1] = "MeshInstanceAndPartIndex";
+  if (v16[0])
   {
-    v58 = a1[172] && a1[167] != 0;
-    i = (*a1 == 1 && (a1[162] != 0));
-    shouldUseLegacyCodepathForHeadPoseLateLatching = re::LateLatch::shouldUseLegacyCodepathForHeadPoseLateLatching(shouldApplyHeadPoseLateLatching);
-    v61 = shouldUseLegacyCodepathForHeadPoseLateLatching ? i : v58;
-    if (v61 == 1)
+    if (v16[0])
     {
-      if (re::LateLatch::shouldUseLegacyCodepathForHeadPoseLateLatching(shouldUseLegacyCodepathForHeadPoseLateLatching))
+    }
+  }
+
+  *(this + 2) = v17;
+  if ((atomic_load_explicit(&qword_1EE1B99B0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1B99B0))
+  {
+    v7 = re::introspectionAllocator();
+    v9 = re::introspect_uint32_t(1, v8);
+    v10 = (*(*v7 + 32))(v7, 72, 8);
+    *v10 = 1;
+    *(v10 + 8) = "instanceIndex";
+    *(v10 + 16) = v9;
+    *(v10 + 24) = 0;
+    *(v10 + 32) = 1;
+    *(v10 + 40) = 0;
+    *(v10 + 48) = 0;
+    *(v10 + 56) = 0;
+    *(v10 + 64) = 0;
+    qword_1EE1B99B8 = v10;
+    v11 = re::introspectionAllocator();
+    v13 = re::introspect_uint16_t(1, v12);
+    v14 = (*(*v11 + 32))(v11, 72, 8);
+    *v14 = 1;
+    *(v14 + 8) = "partIndex";
+    *(v14 + 16) = v13;
+    *(v14 + 24) = 0;
+    *(v14 + 32) = 0x400000002;
+    *(v14 + 40) = 0;
+    *(v14 + 48) = 0;
+    *(v14 + 56) = 0;
+    *(v14 + 64) = 0;
+    qword_1EE1B99C0 = v14;
+    __cxa_guard_release(&qword_1EE1B99B0);
+  }
+
+  *(this + 2) = 0x800000008;
+  *(this + 6) = 4;
+  *(this + 14) = 1;
+  *(this + 14) = 2;
+  *(this + 8) = &qword_1EE1B99B8;
+  *(this + 9) = re::internal::defaultConstruct<re::MeshInstanceAndPartIndex>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::MeshInstanceAndPartIndex>;
+  *(this + 13) = re::internal::defaultConstructV2<re::MeshInstanceAndPartIndex>;
+  *(this + 14) = re::internal::defaultDestructV2<re::MeshInstanceAndPartIndex>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v6);
+  v15 = v17;
+}
+
+uint64_t re::internal::defaultConstructV2<re::MeshInstanceAndPartIndex>(uint64_t result)
+{
+  *result = -1;
+  *(result + 4) = -1;
+  return result;
+}
+
+uint64_t re::internal::Callable<re::MeshNameMap::meshInstancePartsForInstance(re::StringID const&)::$_0,re::MeshInstanceAndPartIndex ()(unsigned long)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D064D0;
+  *(a2 + 8) = *(a1 + 8);
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::MeshNameMap::meshInstancePartsForInstance(re::StringID const&)::$_0,re::MeshInstanceAndPartIndex ()(unsigned long)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D064D0;
+  *(a2 + 8) = *(a1 + 8);
+  return a2;
+}
+
+unint64_t re::internal::Callable<re::MeshNameMap::meshInstancePartsForModel(re::StringID const&)::$_0,re::MeshInstanceAndPartIndex ()(unsigned long)>::operator()(uint64_t a1, void *a2)
+{
+  v4 = *(a1 + 24);
+  v5 = *a2 / v4;
+  v6 = *(a1 + 16);
+  if (v6 > v5)
+  {
+    return *(*(a1 + 8) + 4 * (*a2 / v4)) | ((*a2 % v4) << 32);
+  }
+
+  re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v5, v6, v2, v3);
+  result = _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v8, v9);
+  __break(1u);
+  return result;
+}
+
+uint64_t re::internal::Callable<re::MeshNameMap::meshInstancePartsForModel(re::StringID const&)::$_0,re::MeshInstanceAndPartIndex ()(unsigned long)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D06538;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::MeshNameMap::meshInstancePartsForModel(re::StringID const&)::$_0,re::MeshInstanceAndPartIndex ()(unsigned long)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D06538;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+void *re::internal::Callable<re::MeshNameMap::meshInstancePartsForIdentifier(re::MeshIdentifierAsset const&)::$_0,re::MeshInstanceAndPartIndex ()(unsigned long)>::cloneInto(uint64_t a1, void *a2)
+{
+  *a2 = &unk_1F5D06590;
+  a2[1] = *(a1 + 8);
+  return a2;
+}
+
+void *re::internal::Callable<re::MeshNameMap::meshInstancePartsForIdentifier(re::MeshIdentifierAsset const&)::$_0,re::MeshInstanceAndPartIndex ()(unsigned long)>::moveInto(uint64_t a1, void *a2)
+{
+  *a2 = &unk_1F5D06590;
+  a2[1] = *(a1 + 8);
+  return a2;
+}
+
+unint64_t re::internal::Callable<re::MeshNameMap::meshInstancePartsForIdentifier(re::MeshIdentifierAsset const&)::$_1,re::MeshInstanceAndPartIndex ()(unsigned long)>::operator()(uint64_t a1, unint64_t *a2)
+{
+  v4 = *a2;
+  v5 = *(a1 + 16);
+  if (v5 > *a2)
+  {
+    return *(*(a1 + 8) + 4 * v4) | (*(a1 + 24) << 32);
+  }
+
+  re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v4, v5, v2, v3);
+  result = _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v7, v8);
+  __break(1u);
+  return result;
+}
+
+uint64_t re::internal::Callable<re::MeshNameMap::meshInstancePartsForIdentifier(re::MeshIdentifierAsset const&)::$_1,re::MeshInstanceAndPartIndex ()(unsigned long)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D065E8;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::MeshNameMap::meshInstancePartsForIdentifier(re::MeshIdentifierAsset const&)::$_1,re::MeshInstanceAndPartIndex ()(unsigned long)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D065E8;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+unint64_t re::internal::Callable<re::MeshNameMap::meshInstancePartsForIdentifier(re::MeshIdentifierAsset const&)::$_2,re::MeshInstanceAndPartIndex ()(unsigned long)>::operator()(void *a1, unint64_t *a2)
+{
+  v2 = *a2;
+  v3 = a1[2];
+  if (v3 <= *a2)
+  {
+    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, *a2, v3);
+    v5 = _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v8, v10);
+    __break(1u);
+  }
+
+  else
+  {
+    v5 = *(a1[1] + 4 * v2);
+    v6 = a1[4];
+    if (v6 > v5)
+    {
+      return v5 & 0xFFFF0000FFFFFFFFLL | ((v2 - *(a1[3] + 4 * v5)) << 32);
+    }
+  }
+
+  re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v5, v6);
+  result = _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v9, v11);
+  __break(1u);
+  return result;
+}
+
+uint64_t re::internal::Callable<re::MeshNameMap::meshInstancePartsForIdentifier(re::MeshIdentifierAsset const&)::$_2,re::MeshInstanceAndPartIndex ()(unsigned long)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D06640;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::Callable<re::MeshNameMap::meshInstancePartsForIdentifier(re::MeshIdentifierAsset const&)::$_2,re::MeshInstanceAndPartIndex ()(unsigned long)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D06640;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::FixedArray<re::HashTable<re::StringID,unsigned short,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>>::init<>(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  *result = a2;
+  *(result + 8) = a3;
+  if (a3)
+  {
+    v4 = result;
+    result = (*(*a2 + 32))(a2, 48 * a3, 8);
+    *(v4 + 16) = result;
+    if (result)
+    {
+      v6 = a3 - 1;
+      if (a3 != 1)
       {
-        *&STACK[0xE30] = 0uLL;
-        *&STACK[0xE40] = 0uLL;
-        *&STACK[0xE10] = 0uLL;
-        *&STACK[0xE20] = 0uLL;
-        *&STACK[0xDF0] = 0uLL;
-        *&STACK[0xE00] = 0uLL;
-        *&STACK[0xDD0] = 0uLL;
-        *&STACK[0xDE0] = 0uLL;
-        memcpy(&__dst, a1 + 32, 0x400uLL);
-        if (*(a3 + 8) >= v53)
+        do
         {
-          v64 = v53;
+          *(result + 16) = 0uLL;
+          *(result + 32) = 0uLL;
+          *result = 0uLL;
+          *(result + 36) = 0x7FFFFFFF;
+          result += 48;
+          --v6;
+        }
+
+        while (v6);
+      }
+
+      *(result + 16) = 0u;
+      *(result + 32) = 0u;
+      *result = 0u;
+      *(result + 36) = 0x7FFFFFFF;
+    }
+
+    else
+    {
+      re::internal::assertLog(4, v5, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
+      result = _os_crash("assertion failure: (m_data) Out of memory.");
+      __break(1u);
+    }
+  }
+
+  return result;
+}
+
+re::StringID *re::HashTable<re::StringID,unsigned short,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::add(uint64_t a1, StringID *a2, _WORD *a3)
+{
+  v8 = 0;
+  v9 = 0;
+  v10 = 0;
+  result = re::HashTable<re::StringID,re::RenderGraphDataNodeConnection const*,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(&v8, a1, a2);
+  if (HIDWORD(v9) == 0x7FFFFFFF)
+  {
+    v7 = re::HashTable<re::StringID,unsigned short,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::allocEntry(a1, v9, v8);
+    result = re::StringID::StringID((v7 + 8), a2);
+    *(v7 + 24) = *a3;
+    ++*(a1 + 40);
+  }
+
+  return result;
+}
+
+uint64_t re::HashTable<re::StringID,unsigned short,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
+{
+  v4 = *(a1 + 36);
+  if (v4 == 0x7FFFFFFF)
+  {
+    v4 = *(a1 + 32);
+    v5 = v4;
+    if (v4 == *(a1 + 24))
+    {
+      v7 = *(a1 + 28);
+      v8 = 2 * v7;
+      v9 = *a1;
+      if (*a1)
+      {
+        if (v8)
+        {
+          v10 = v4 == v8;
         }
 
         else
         {
-          v64 = *(a3 + 8);
+          v10 = 1;
         }
 
-        if (v64)
+        if (!v10 && (v7 & 0x80000000) == 0)
         {
-          v53 = 0;
-          i = &STACK[0xD90];
-          while (v53 != 2)
+          memset(v30, 0, 36);
+          *&v30[36] = 0x7FFFFFFFLL;
+          re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v30, v9, v8);
+          v11 = *v30;
+          *v30 = *a1;
+          *a1 = v11;
+          v12 = *&v30[16];
+          v13 = *(a1 + 16);
+          *&v30[16] = v13;
+          *(a1 + 16) = v12;
+          v15 = *&v30[24];
+          *&v30[24] = *(a1 + 24);
+          v14 = *&v30[32];
+          *(a1 + 24) = v15;
+          ++*&v30[40];
+          v16 = v14;
+          if (v14)
           {
-            v65 = &STACK[0xAA0] + 8 * v53;
-            v66 = &STACK[0xDD0] + 8 * v53;
-            v67 = *(v65 + 1);
-            *v66 = *v65;
-            *(v66 + 1) = v67;
-            v68 = *(v65 + 3);
-            *(v66 + 2) = *(v65 + 2);
-            *(v66 + 3) = v68;
-            v69 = *(a3 + 8);
-            if (v69 <= v53)
-            {
-              goto LABEL_65;
-            }
-
-            v70 = 0;
-            v71 = *a2;
-            v71.i32[3] = 1.0;
-            v72 = *(*a3 + (v53 << 6));
-            *&STACK[0xD90] = xmmword_1E3047670;
-            *&STACK[0xDA0] = xmmword_1E3047680;
-            *&STACK[0xDB0] = xmmword_1E30476A0;
-            *&STACK[0xDC0] = v71;
+            v17 = 0;
+            v18 = 0;
             do
             {
-              *(&STACK[0xE50] + v70) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v72.columns[0], COERCE_FLOAT(*(&STACK[0xD90] + v70))), v72.columns[1], *(&STACK[0xD90] + v70), 1), v72.columns[2], *(&STACK[0xD90] + v70), 2), v72.columns[3], *(&STACK[0xD90] + v70), 3);
-              v70 += 16;
+              if ((*(v13 + v17) & 0x80000000) != 0)
+              {
+                v19 = v13 + v17;
+                v20 = 0xBF58476D1CE4E5B9 * ((*(v13 + v17 + 8) >> 31) ^ (*(v13 + v17 + 8) >> 1));
+                v21 = (0x94D049BB133111EBLL * (v20 ^ (v20 >> 27))) ^ ((0x94D049BB133111EBLL * (v20 ^ (v20 >> 27))) >> 31);
+                v22 = re::HashTable<re::StringID,unsigned short,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::allocEntry(a1, v21 % *(a1 + 24), v21);
+                v23 = *(v19 + 8);
+                *(v22 + 8) = *(v22 + 8) & 0xFFFFFFFFFFFFFFFELL | v23 & 1;
+                *(v22 + 8) = *(v19 + 8) & 0xFFFFFFFFFFFFFFFELL | v23 & 1;
+                *(v22 + 16) = *(v19 + 16);
+                *(v19 + 8) = 0;
+                *(v19 + 16) = &str_67;
+                v13 = *&v30[16];
+                *(v22 + 24) = *(*&v30[16] + v17 + 24);
+                v16 = *&v30[32];
+              }
+
+              ++v18;
+              v17 += 32;
             }
 
-            while (v70 != 64);
-            v73 = 0;
-            v74 = *&STACK[0xE50];
-            v75 = *&STACK[0xE60];
-            v76 = *&STACK[0xE70];
-            v77 = *&STACK[0xE80];
-            v78 = &__dst + 4 * v53;
-            *v78 = *&STACK[0xE50];
-            v78[1] = v75;
-            v78[2] = v76;
-            v78[3] = v77;
-            v79 = *v66;
-            v80 = *(v66 + 1);
-            v81 = *(v66 + 2);
-            v82 = *(v66 + 3);
-            *&STACK[0xD90] = v74;
-            *&STACK[0xDA0] = v75;
-            *&STACK[0xDB0] = v76;
-            *&STACK[0xDC0] = v77;
-            do
-            {
-              *(&STACK[0xE50] + v73) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v79, COERCE_FLOAT(*(&STACK[0xD90] + v73))), v80, *(&STACK[0xD90] + v73), 1), v81, *(&STACK[0xD90] + v73), 2), v82, *(&STACK[0xD90] + v73), 3);
-              v73 += 16;
-            }
-
-            while (v73 != 64);
-            v83 = *&STACK[0xE60];
-            v84 = *&STACK[0xE70];
-            v85 = *&STACK[0xE80];
-            v86 = &a53 + 8 * v53;
-            *v86 = *&STACK[0xE50];
-            *(v86 + 1) = v83;
-            *(v86 + 2) = v84;
-            *(v86 + 3) = v85;
-            v121 = __invert_f4(v72);
-            *(&STACK[0xBA0] + v53) = vsubq_f32(v121.columns[3], *a2);
-            v53 = (v53 + 1);
-            if (v53 == v64)
-            {
-              goto LABEL_25;
-            }
+            while (v18 < v16);
           }
 
-          goto LABEL_62;
-        }
-
-LABEL_25:
-        v87 = a1[162];
-        if (v87)
-        {
-          v88 = a1[164];
-          v89 = v88 + 16 * v87;
-          do
-          {
-            memcpy(*v88, &__dst + *(v88 + 8), *(v88 + 12));
-            v88 += 16;
-          }
-
-          while (v88 != v89);
+          re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(v30);
         }
       }
 
       else
       {
-        a35 = 0uLL;
-        a36 = 0uLL;
-        a33 = 0uLL;
-        a34 = 0uLL;
-        a31 = 0uLL;
-        a32 = 0uLL;
-        __dst = 0uLL;
-        a30 = 0uLL;
-        *&STACK[0xD90] = 0uLL;
-        *&STACK[0xDA0] = 0uLL;
-        if (*(a3 + 8) >= v53)
+        if (v8)
         {
-          v53 = v53;
+          v26 = 2 * v7;
         }
 
         else
         {
-          v53 = *(a3 + 8);
+          v26 = 3;
         }
+      }
 
-        if (v53)
-        {
-          for (i = 0; i != v53; i = (i + 1))
-          {
-            v90 = *(a3 + 8);
-            if (v90 <= i)
-            {
-              goto LABEL_63;
-            }
+      a2 = a3 % *(a1 + 24);
+      v5 = *(a1 + 32);
+    }
 
-            v91 = 0;
-            v92 = *a2;
-            v92.i32[3] = 1.0;
-            v93 = *(*a3 + (i << 6));
-            *&STACK[0xE50] = xmmword_1E3047670;
-            *&STACK[0xE60] = xmmword_1E3047680;
-            *&STACK[0xE70] = xmmword_1E30476A0;
-            *&STACK[0xE80] = v92;
-            do
-            {
-              *(&STACK[0xDD0] + v91) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v93.columns[0], COERCE_FLOAT(*(&STACK[0xE50] + v91))), v93.columns[1], *(&STACK[0xE50] + v91), 1), v93.columns[2], *(&STACK[0xE50] + v91), 2), v93.columns[3], *(&STACK[0xE50] + v91), 3);
-              v91 += 16;
-            }
+    *(a1 + 32) = v5 + 1;
+    v24 = *(a1 + 16);
+    v25 = *(v24 + 32 * v4);
+  }
 
-            while (v91 != 64);
-            if (i == 2)
-            {
-LABEL_64:
-              re::internal::assertLog(6, v62, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < N", "operator[]", 173, 2, 2);
-              _os_crash();
-              __break(1u);
-LABEL_65:
-              re::internal::assertLog(6, v63, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v53, v69);
-              _os_crash();
-              __break(1u);
-            }
+  else
+  {
+    v24 = *(a1 + 16);
+    v25 = *(v24 + 32 * v4);
+    *(a1 + 36) = v25 & 0x7FFFFFFF;
+  }
 
-            v94 = *&STACK[0xDE0];
-            v95 = *&STACK[0xDF0];
-            v96 = *&STACK[0xE00];
-            v97 = &__dst + 4 * i;
-            *v97 = *&STACK[0xDD0];
-            v97[1] = v94;
-            v97[2] = v95;
-            v97[3] = v96;
-            v122 = __invert_f4(v93);
-            *(&STACK[0xD90] + i) = vsubq_f32(v122.columns[3], *a2);
-          }
-        }
+  v27 = 32 * v4;
+  *(v24 + v27) = v25 | 0x80000000;
+  v28 = *(a1 + 8);
+  *(v24 + v27) = *(v28 + 4 * a2) | 0x80000000;
+  *(v28 + 4 * a2) = v4;
+  ++*(a1 + 28);
+  return v24 + 32 * v4;
+}
 
-        v98 = a1[167];
-        if (v98)
-        {
-          v99 = a1[169];
-          v100 = v99 + 32 * v98;
-          do
-          {
-            if (v53)
-            {
-              for (j = 0; j != v53; ++j)
-              {
-                v102 = &__dst + 4 * j;
-                if (*v99)
-                {
-                  if (j >= 2)
-                  {
-                    re::internal::assertLog(6, v62, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < N", "operator[]", 173, j, 2);
-                    _os_crash();
-                    __break(1u);
-LABEL_59:
-                    *&STACK[0xE00] = 0u;
-                    *&STACK[0xE10] = 0u;
-                    *&STACK[0xDE0] = 0u;
-                    *&STACK[0xDF0] = 0u;
-                    *&STACK[0xDD0] = 0u;
-                    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-                    LODWORD(STACK[0xE50]) = 136315906;
-                    STACK[0xE54] = "operator[]";
-                    LOWORD(STACK[0xE5C]) = 1024;
-                    LODWORD(STACK[0xE5E]) = 797;
-                    LOWORD(STACK[0xE62]) = 2048;
-                    STACK[0xE64] = a3;
-                    LOWORD(STACK[0xE6C]) = 2048;
-                    STACK[0xE6E] = a2;
-                    _os_log_send_and_compose_impl();
-                    _os_crash_msg();
-                    __break(1u);
-LABEL_60:
-                    re::internal::assertLog(6, v62, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < N", "operator[]", 181, j, 2);
-                    _os_crash();
-                    __break(1u);
-LABEL_61:
-                    re::internal::assertLog(6, v62, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < N", "operator[]", 173, j, 2);
-                    _os_crash();
-                    __break(1u);
-LABEL_62:
-                    re::internal::assertLog(6, v63, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < N", "operator[]", 173, 2, 2);
-                    _os_crash();
-                    __break(1u);
-LABEL_63:
-                    re::internal::assertLog(6, v62, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, i, v90);
-                    _os_crash();
-                    __break(1u);
-                    goto LABEL_64;
-                  }
+uint64_t re::anonymous namespace::MeshAssetAccessor::partCount(re::_anonymous_namespace_::MeshAssetAccessor *this, unint64_t a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = *(this + 76);
+  if (v3 <= a2)
+  {
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x1E69E9C10];
+    v9 = 136315906;
+    v10 = "operator[]";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
 
-                  v103 = (*v99 + (j << 6));
-                  v104 = v102[1];
-                  *v103 = *v102;
-                  v103[1] = v104;
-                  v105 = v102[3];
-                  v103[2] = v102[2];
-                  v103[3] = v105;
-                }
+    else
+    {
+      v6 = 2;
+    }
 
-                v106 = *(v99 + 8);
-                if (v106)
-                {
-                  a3 = *(v99 + 24);
-                  a2 = a1[172];
-                  if (a2 <= a3)
-                  {
-                    goto LABEL_59;
-                  }
+    v12 = 797;
+    v13 = 2048;
+    v14 = a2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_1E1C61000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
+    _os_crash_msg();
+    __break(1u);
+  }
 
-                  if (j >= 2)
-                  {
-                    goto LABEL_60;
-                  }
+  return *(re::DataArray<re::MeshModel>::get(*(this + 79) + 8, *(*(this + 78) + 8 * a2)) + 56);
+}
 
-                  v107 = 0;
-                  v108 = (a1[174] + (a3 << 7) + (j << 6));
-                  v109 = *v108;
-                  v110 = v108[1];
-                  v111 = v108[2];
-                  v112 = v108[3];
-                  v113 = v102[1];
-                  v114 = v102[2];
-                  v115 = v102[3];
-                  *&STACK[0xE50] = *v102;
-                  *&STACK[0xE60] = v113;
-                  *&STACK[0xE70] = v114;
-                  *&STACK[0xE80] = v115;
-                  do
-                  {
-                    *(&STACK[0xDD0] + v107) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v109, COERCE_FLOAT(*(&STACK[0xE50] + v107))), v110, *(&STACK[0xE50] + v107), 1), v111, *(&STACK[0xE50] + v107), 2), v112, *(&STACK[0xE50] + v107), 3);
-                    v107 += 16;
-                  }
+uint64_t re::anonymous namespace::MeshAssetAccessor::skinnedPartCount(re::_anonymous_namespace_::MeshAssetAccessor *this, unint64_t a2)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v3 = *(this + 76);
+  if (v3 <= a2)
+  {
+    v9 = 0;
+    memset(v18, 0, sizeof(v18));
+    v6 = MEMORY[0x1E69E9C10];
+    v10 = 136315906;
+    v11 = "operator[]";
+    v12 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v7 = 3;
+    }
 
-                  while (v107 != 64);
-                  v116 = *&STACK[0xDE0];
-                  v117 = *&STACK[0xDF0];
-                  v118 = *&STACK[0xE00];
-                  v119 = (v106 + (j << 6));
-                  *v119 = *&STACK[0xDD0];
-                  v119[1] = v116;
-                  v119[2] = v117;
-                  v119[3] = v118;
-                }
+    else
+    {
+      v7 = 2;
+    }
 
-                v120 = *(v99 + 16);
-                if (v120)
-                {
-                  if (j >= 2)
-                  {
-                    goto LABEL_61;
-                  }
+    v13 = 797;
+    v14 = 2048;
+    v15 = a2;
+    v16 = 2048;
+    v17 = v3;
+    _os_log_send_and_compose_impl(v7, &v9, v18, 80, &dword_1E1C61000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v10, 38, v8);
+    _os_crash_msg();
+    __break(1u);
+  }
 
-                  *(v120 + 16 * j) = *(&STACK[0xD90] + j);
-                }
-              }
-            }
+  v4 = *(re::DataArray<re::MeshModel>::get(*(this + 79) + 8, *(*(this + 78) + 8 * a2)) + 224);
+  if (v4)
+  {
+    return *(v4 + 8);
+  }
 
-            v99 += 32;
-          }
+  else
+  {
+    return 0;
+  }
+}
 
-          while (v99 != v100);
-        }
+uint64_t re::anonymous namespace::MeshAssetAccessor::skeletonIndexForModelPart(re::_anonymous_namespace_::MeshAssetAccessor *this, unint64_t a2, unint64_t a3)
+{
+  v21 = *MEMORY[0x1E69E9840];
+  v4 = *(this + 76);
+  if (v4 <= a2)
+  {
+    v11 = 0;
+    memset(v20, 0, sizeof(v20));
+    v8 = MEMORY[0x1E69E9C10];
+    v12 = 136315906;
+    v13 = "operator[]";
+    v14 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v9 = 3;
+    }
+
+    else
+    {
+      v9 = 2;
+    }
+
+    v15 = 797;
+    v16 = 2048;
+    v17 = a2;
+    v18 = 2048;
+    v19 = v4;
+    _os_log_send_and_compose_impl(v9, &v11, v20, 80, &dword_1E1C61000, v8, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v12, 38, v10);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  v6 = *(re::DataArray<re::MeshModel>::get(*(this + 79) + 8, *(*(this + 78) + 8 * a2)) + 224);
+  if (v6 && *(v6 + 8) > a3)
+  {
+    return *(*(v6 + 16) + 88 * a3 + 4);
+  }
+
+  else
+  {
+    return 0xFFFFFFFFLL;
+  }
+}
+
+re::ShaderManager *re::ShaderManager::ShaderManager(re::ShaderManager *this)
+{
+  *this = 0u;
+  *(this + 4) = 1;
+  *(this + 3) = 0;
+  *(this + 12) = 0;
+  *(this + 2) = 0u;
+  *(this + 56) = 0u;
+  *(this + 72) = 0u;
+  *(this + 22) = 0;
+  *(this + 92) = 0x7FFFFFFFLL;
+  *(this + 104) = 0u;
+  *(this + 120) = 0u;
+  *(this + 34) = 0;
+  *(this + 140) = 0x7FFFFFFFLL;
+  *(this + 38) = 0;
+  *(this + 10) = 0u;
+  *(this + 11) = 0u;
+  *(this + 48) = 0;
+  *(this + 196) = 0x7FFFFFFFLL;
+  *(this + 13) = 0u;
+  *(this + 14) = 0u;
+  *(this + 60) = 0;
+  *(this + 244) = 0x7FFFFFFFLL;
+  *(this + 16) = 0u;
+  *(this + 17) = 0u;
+  *(this + 72) = 0;
+  *(this + 292) = 0x7FFFFFFFLL;
+  *(this + 19) = 0u;
+  *(this + 20) = 0u;
+  *(this + 84) = 0;
+  *(this + 340) = 0x7FFFFFFFLL;
+  *(this + 376) = 0u;
+  *(this + 392) = 0u;
+  *(this + 102) = 0;
+  *(this + 44) = 0;
+  *(this + 45) = 0;
+  *(this + 412) = 0x7FFFFFFFLL;
+  *(this + 114) = 0;
+  *(this + 424) = 0u;
+  *(this + 440) = 0u;
+  *(this + 492) = 0u;
+  *(this + 29) = 0u;
+  *(this + 30) = 0u;
+  *(this + 508) = 0x7FFFFFFFLL;
+  *(this + 260) = 0;
+  *(this + 131) = 0;
+  *(this + 264) = 256;
+  *(this + 530) = 0;
+  re::makeDepthPixelFormatPredictions(this + 67);
+  re::makeStencilPixelFormatPredictions(this + 73);
+  re::makeSampleCountPredictions(this + 79);
+  re::makePixel0FormatsPredictions(this + 85);
+  re::makePixel1FormatsPredictions(this + 91);
+  Pixel2FormatsPredictions = re::makePixel2FormatsPredictions(this + 97);
+  *(this + 824) = 0;
+  *(this + 52) = 0u;
+  *(this + 53) = 0u;
+  *(this + 108) = 850045863;
+  *(this + 872) = 0u;
+  *(this + 888) = 0u;
+  *(this + 904) = 0u;
+  *(this + 115) = 0;
+  v3 = re::globalAllocators(Pixel2FormatsPredictions);
+  *(this + 120) = v3[2];
+  *(this + 121) = 0;
+  *(this + 125) = re::globalAllocators(v3)[2];
+  *(this + 126) = 0;
+  return this;
+}
+
+void re::ShaderManager::~ShaderManager(re::ShaderManager *this)
+{
+  re::FunctionBase<24ul,void ()(unsigned long long,re::Function<void ()(void)> const&)>::destroyCallable(this + 976);
+  re::FunctionBase<24ul,void ()(re::Function<void ()(void)> const&)>::destroyCallable(this + 936);
+  std::mutex::~mutex((this + 864));
+
+  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(this + 97);
+  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(this + 91);
+  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(this + 85);
+  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(this + 79);
+  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(this + 73);
+  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(this + 67);
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(this + 59);
+  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(this + 432);
+  re::HashTable<unsigned long,re::ShaderManager::LibraryEntry,re::Hash<unsigned long>,re::EqualTo<unsigned long>,true,false>::deinit(this + 47);
+
+  re::HashTable<unsigned long,re::HashSet<unsigned short,re::Hash<unsigned short>,re::EqualTo<unsigned short>,true,false>,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::deinit(this + 38);
+  re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::deinit(this + 32);
+  re::HashTable<unsigned long,re::CachedTileRenderPipelineState,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::deinit(this + 26);
+  re::HashTable<unsigned long,re::CachedTileRenderPipelineState,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::deinit(this + 20);
+  re::HashTable<unsigned long,re::CachedTileRenderPipelineState,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::deinit(this + 13);
+  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(this + 7);
+  re::BucketArray<re::CachedMetalFunction,64ul>::deinit(this);
+  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this);
+}
+
+BOOL re::ShaderManager::init(re::ShaderManager *this, id *a2, char a3)
+{
+  re::ObjCObject::operator=(this + 44, a2 + 26);
+  v44 = 0x100000001;
+  LODWORD(v45) = 0;
+  v46 = 0;
+  re::dispatch::Queue::make("com.apple.re.specializedPSOCompiler", &v44, &v40);
+  v6 = (this + 832);
+  if ((this + 832) != &v40)
+  {
+    v7 = v40;
+    v40 = 0;
+    v8 = *v6;
+    *v6 = v7;
+  }
+
+  re::dispatch::Queue::global(&v48, 0x21, 0);
+  v44 = 0x100000000;
+  LODWORD(v45) = 1;
+  v46 = &v48;
+  re::dispatch::Queue::make("com.apple.re.fallbackPSOCompiler", &v44, &v40);
+  v9 = (this + 848);
+  if ((this + 848) != &v40)
+  {
+    v10 = v40;
+    v40 = 0;
+    v11 = *v9;
+    *v9 = v10;
+  }
+
+  v44 = 0x100000000;
+  LODWORD(v45) = 0;
+  v46 = 0;
+  re::dispatch::Queue::make("com.apple.re.fallbackPSOProducer", &v44, &v40);
+  v12 = (this + 856);
+  if ((this + 856) != &v40)
+  {
+    v13 = v40;
+    v40 = 0;
+    v14 = *v12;
+    *v12 = v13;
+  }
+
+  if ((atomic_load_explicit(&qword_1EE1B9A60, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1B9A60))
+  {
+    re::Defaults::intValue(&v44, "compilationQueueWidth", v36);
+    if (v44)
+    {
+      v37 = HIDWORD(v44);
+    }
+
+    else
+    {
+      v37 = 2;
+    }
+
+    dword_1EE1B9A5C = v37;
+    __cxa_guard_release(&qword_1EE1B9A60);
+  }
+
+  v15 = dispatch_semaphore_create(dword_1EE1B9A5C);
+
+  v16 = *(this + 105);
+  *(this + 105) = v15;
+
+  re::Bundle::testData(&v47);
+  if (!v47)
+  {
+    re::Bundle::application(&v44);
+    v18 = v44;
+    v44 = 0;
+    v19 = v47;
+    v47 = v18;
+  }
+
+  re::Defaults::BOOLValue(&v44, "useSolariumMetallib", v17);
+  if (v44)
+  {
+    v20 = BYTE1(v44);
+  }
+
+  else
+  {
+    v20 = a3;
+  }
+
+  re::Bundle::findFile(&v44, &v47, "default.metallib");
+  if (v45)
+  {
+    v21 = v46;
+  }
+
+  else
+  {
+    v21 = (&v45 + 1);
+  }
+
+  re::mtl::Device::newLibraryWithURL(&v40, this + 44, v21);
+  v22 = (this + 360);
+  if ((this + 360) != &v40)
+  {
+    v23 = v40;
+    v40 = 0;
+    v24 = *v22;
+    *v22 = v23;
+  }
+
+  if (*v22)
+  {
+    if (v45)
+    {
+      v25 = v46;
+    }
+
+    else
+    {
+      v25 = &v45 + 1;
+    }
+
+    LibraryHash = re::ShaderManager::getLibraryHash(this, v25);
+    re::ShaderManager::installLibrary(this, LibraryHash, this + 45);
+    if (v45)
+    {
+      v27 = v46;
+    }
+
+    else
+    {
+      v27 = &v45 + 1;
+    }
+
+    v40 = re::ShaderManager::getLibraryHash(this, v27);
+    v28 = re::HashTable<unsigned long long,re::FrameAnalysisManager::RenderState,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(this + 376, &v40);
+    v29 = v40;
+    if (!v28)
+    {
+      v29 = 0;
+    }
+
+    *(this + 46) = v29;
+  }
+
+  if (v20)
+  {
+    re::Bundle::findFile(&v40, &v47, "mxi.metallib");
+    if (v41)
+    {
+      v30 = v43;
+    }
+
+    else
+    {
+      v30 = v42;
+    }
+
+    re::mtl::Device::newLibraryWithURL(&v39, this + 44, v30);
+    v31 = v39;
+    if (v39)
+    {
+      if (v41)
+      {
+        v32 = v43;
+      }
+
+      else
+      {
+        v32 = v42;
+      }
+
+      v33 = re::ShaderManager::getLibraryHash(this, v32);
+      re::ShaderManager::installLibrary(this, v33, &v39);
+      v31 = v39;
+    }
+
+    if (v40 && (v41 & 1) != 0)
+    {
+      (*(v40->isa + 5))();
+    }
+  }
+
+  if (*(a2 + 205) == 1)
+  {
+    re::ShaderManager::loadBinaryArchives(this, &v47, v20 & 1);
+  }
+
+  atomic_store(0, this + 232);
+  v34 = *(this + 45);
+  if (v34 && (v20 & 1) == 0)
+  {
+    v38 = v34;
+    re::APIFunctionCache::init(this + 256, &v38);
+  }
+
+  if (v44 && (v45 & 1) != 0)
+  {
+    (*(*v44 + 40))();
+  }
+
+  return v34 != 0;
+}
+
+uint64_t re::ShaderManager::loadBinaryArchives(re::ShaderManager *this, const re::Bundle *a2, int a3)
+{
+  re::Defaults::BOOLValue(&v33, "generateBinaryArchiveOnDevice", a2);
+  if (v33)
+  {
+    v7 = BYTE1(v33);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  *(this + 520) = v7;
+  re::Defaults::BOOLValue(&v33, "disableBinaryArchives", v6);
+  if (v33)
+  {
+    v9 = BYTE1(v33);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  *(this + 521) = v9;
+  re::Defaults::BOOLValue(&v33, "harvestAllPipelines", v8);
+  if (v33)
+  {
+    v11 = BYTE1(v33);
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  *(this + 528) = v11;
+  if (*(this + 520) == 1)
+  {
+    re::ShaderManager::makeAndAddBinaryArchive(this, 0, "testOnDeviceArchive");
+  }
+
+  re::Defaults::stringValue(&v33, "binaryArchiveInputPath", v10);
+  if (v33 == 1)
+  {
+    if (v35)
+    {
+      v13 = *&v36[7];
+    }
+
+    else
+    {
+      v13 = v36;
+    }
+
+    v12 = re::ShaderManager::makeAndAddBinaryArchive(this, v13, "testInputArchive");
+  }
+
+  if (a3)
+  {
+    v26 = "mxi-binaryarchive.metallib";
+    v27 = 26;
+    re::DynamicString::operator=(&v29, &v26);
+  }
+
+  if (v30)
+  {
+    v14 = v32;
+  }
+
+  else
+  {
+    v14 = v31;
+  }
+
+  re::Bundle::findFile(&v26, a2, v14);
+  v16 = v27 >> 1;
+  if ((v27 & 1) == 0)
+  {
+    v16 = v27 >> 1;
+  }
+
+  if (v16)
+  {
+    if (v27)
+    {
+      v17 = v28;
+    }
+
+    else
+    {
+      v17 = &v27 + 1;
+    }
+
+    if (v30)
+    {
+      v18 = v32;
+    }
+
+    else
+    {
+      v18 = v31;
+    }
+
+    re::ShaderManager::makeAndAddBinaryArchive(this, v17, v18);
+  }
+
+  if (a3)
+  {
+    *(this + 529) = 0;
+  }
+
+  re::Defaults::BOOLValue(&v24, "useMPSBinaryArchive", v15);
+  if (v24 == 1 && (BYTE1(v24) & 1) != 0)
+  {
+    v24 = "mps-binaryarchive.metallib";
+    v25 = 26;
+    re::DynamicString::operator=(&v29, &v24);
+    if (v30)
+    {
+      v19 = v32;
+    }
+
+    else
+    {
+      v19 = v31;
+    }
+
+    re::Bundle::findFile(&v24, a2, v19);
+    re::DynamicString::operator=(&v26, &v24);
+    if (v24 && (v25 & 1) != 0)
+    {
+      (*(*v24 + 40))();
+    }
+
+    v20 = v27 >> 1;
+    if ((v27 & 1) == 0)
+    {
+      v20 = v27 >> 1;
+    }
+
+    if (v20)
+    {
+      v21 = (v27 & 1) != 0 ? v28 : &v27 + 1;
+      v22 = (v30 & 1) != 0 ? v32 : v31;
+      if (re::ShaderManager::makeAndAddBinaryArchive(this, v21, v22))
+      {
+        re::mtl::Device::setMPSBinaryArchives(this + 44, this + 432);
       }
     }
   }
+
+  *(this + 530) = 1;
+  if (v26 && (v27 & 1) != 0)
+  {
+    (*(*v26 + 40))();
+  }
+
+  result = v29;
+  if (v29 && (v30 & 1) != 0)
+  {
+    result = (*(*v29 + 40))();
+  }
+
+  if (v33 == 1)
+  {
+    result = v34;
+    if (v34)
+    {
+      if (v35)
+      {
+        return (*(*v34 + 40))();
+      }
+    }
+  }
+
+  return result;
+}
+
+void re::ShaderManager::prepareForDeinit(re::ShaderManager *this)
+{
+  std::mutex::lock((this + 864));
+  atomic_store(1u, this + 824);
+  std::mutex::unlock((this + 864));
+  v2 = (this + 928);
+  v3 = atomic_load(v2);
+  if (v3 >= 1)
+  {
+    do
+    {
+      do
+      {
+        __ulock_wait();
+        v4 = atomic_load(v2);
+      }
+
+      while (v4 == v3);
+      v3 = atomic_load(v2);
+    }
+
+    while (v3 > 0);
+  }
+}
+
+re *re::ShaderManager::deinit(re::ShaderManager *this, const char *a2)
+{
+  re::ShaderManager::serializeBinaryArchive(this, a2);
+  v3 = *(this + 45);
+  *(this + 45) = 0;
+
+  re::HashTable<unsigned long,re::ShaderManager::LibraryEntry,re::Hash<unsigned long>,re::EqualTo<unsigned long>,true,false>::clear(this + 376);
+  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(this + 85);
+  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(this + 91);
+  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(this + 67);
+  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(this + 73);
+  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(this + 79);
+
+  return re::APIFunctionCache::deinit((this + 256));
+}
+
+void re::ShaderManager::serializeBinaryArchive(re::ShaderManager *this, const char *a2)
+{
+  v31 = *MEMORY[0x1E69E9840];
+  if (*(this + 520) != 1)
+  {
+    return;
+  }
+
+  re::Defaults::stringValue(&v13, "binaryArchiveOutputPath", a2);
+  if (v13 == 1)
+  {
+    if (v15)
+    {
+      v4 = *&v16[7];
+    }
+
+    else
+    {
+      v4 = v16;
+    }
+
+    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v4 encoding:4];
+    v6 = [MEMORY[0x1E695DFF8] fileURLWithPath_];
+    if (!*(this + 56))
+    {
+      v17 = 0;
+      v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      *buf = 0u;
+      v10 = MEMORY[0x1E69E9C10];
+      v11 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v18 = 136315906;
+      v19 = "operator[]";
+      v20 = 1024;
+      if (v11)
+      {
+        v12 = 3;
+      }
+
+      else
+      {
+        v12 = 2;
+      }
+
+      v21 = 789;
+      v22 = 2048;
+      v23 = 0;
+      v24 = 2048;
+      v25 = 0;
+      _os_log_send_and_compose_impl(v12, &v17, buf, 80, &dword_1E1C61000, v10, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v18, 38, v13, v14);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+    v7 = [**(this + 58) serializeToURL:v6 error:0];
+    if (!v7)
+    {
+      goto LABEL_13;
+    }
+
+    v8 = *re::graphicsLogObjects(v7);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_13;
+    }
+
+    *buf = 0;
+    v9 = "Binary archive serialization successful!";
+    goto LABEL_12;
+  }
+
+  v8 = *re::graphicsLogObjects(v3);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    v9 = "Generated binary archive on device, but no output URL was provided.";
+LABEL_12:
+    _os_log_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 2u);
+  }
+
+LABEL_13:
+  if (v13 == 1 && v14 && (v15 & 1) != 0)
+  {
+    (*(*v14 + 40))();
+  }
+}
+
+void re::HashTable<unsigned long,re::ShaderManager::LibraryEntry,re::Hash<unsigned long>,re::EqualTo<unsigned long>,true,false>::clear(uint64_t a1)
+{
+  if (*(a1 + 28))
+  {
+    v2 = *(a1 + 24);
+    if (v2)
+    {
+      memset_pattern16(*(a1 + 8), &memset_pattern_74, 4 * v2);
+    }
+
+    v3 = *(a1 + 32);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = *(a1 + 16);
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          v8 = v6 + v4;
+          *v8 = v7 & 0x7FFFFFFF;
+
+          v3 = *(a1 + 32);
+        }
+
+        v4 += 40;
+      }
+    }
+
+    *(a1 + 28) = 0;
+    *(a1 + 32) = 0;
+    v9 = *(a1 + 40) + 1;
+    *(a1 + 36) = 0x7FFFFFFF;
+    *(a1 + 40) = v9;
+  }
+}
+
+void re::ShaderManager::ensureEngineBinaryArchivesAreLoaded(re::ShaderManager *this)
+{
+  if ((*(this + 530) & 1) == 0)
+  {
+    re::Bundle::testData(&v5);
+    if (!v5)
+    {
+      re::Bundle::application(&v4);
+      v2 = v4;
+      v3 = v5;
+      v4 = 0;
+      v5 = v2;
+    }
+
+    re::ShaderManager::loadBinaryArchives(this, &v5, 0);
+  }
+}
+
+BOOL re::ShaderManager::makeAndAddBinaryArchive(re::ShaderManager *this, const char *a2, const char *a3)
+{
+  v41 = *MEMORY[0x1E69E9840];
+  os_unfair_lock_lock(this + 131);
+  if (a2 && (v6 = strlen(a2)) != 0)
+  {
+    MurmurHash3_x64_128(a2, v6, 0, buf);
+    v7 = (*&buf[8] + (*buf << 6) + (*buf >> 2) - 0x61C8864680B583E9) ^ *buf;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v39 = v7;
+  v8 = re::HashSetBase<unsigned long long,unsigned long long,re::internal::ValueAsKey<unsigned long long>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::contains(this + 472, &v39);
+  if (v8)
+  {
+LABEL_6:
+    v9 = 1;
+    goto LABEL_7;
+  }
+
+  if ((*(this + 529) & 1) == 0)
+  {
+    v22 = *re::graphicsLogObjects(v8);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      *&buf[4] = a2;
+      _os_log_impl(&dword_1E1C61000, v22, OS_LOG_TYPE_DEFAULT, "Skipping MTLBinaryArchive load from %s", buf, 0xCu);
+    }
+
+    goto LABEL_6;
+  }
+
+  v11 = mach_absolute_time();
+  v12 = [objc_msgSend(MEMORY[0x1E6973FE8] alloc)];
+  v38 = v12;
+  [v12 setOptions_];
+  if (a2)
+  {
+    v13 = [MEMORY[0x1E696AEC0] stringWithCString:a2 encoding:4];
+    [v12 setUrl_];
+  }
+
+  re::mtl::Device::makeBinaryArchive(this + 44, &v38, &v37);
+  v9 = v37 != 0;
+  if (v37)
+  {
+    if (a3)
+    {
+      v14 = [v37 setLabel_];
+    }
+
+    v15 = *(this + 55);
+    v16 = *(this + 56);
+    if (v16 >= v15)
+    {
+      v17 = v16 + 1;
+      if (v15 < v17)
+      {
+        if (*(this + 54))
+        {
+          v18 = 2 * v15;
+          v19 = v15 == 0;
+          v20 = 8;
+          if (!v19)
+          {
+            v20 = v18;
+          }
+
+          if (v20 <= v17)
+          {
+            v21 = v17;
+          }
+
+          else
+          {
+            v21 = v20;
+          }
+
+          re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(this + 54, v21);
+        }
+
+        else
+        {
+          re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(this + 54, v17);
+          ++*(this + 114);
+        }
+      }
+
+      v16 = *(this + 56);
+    }
+
+    v23 = *(this + 58);
+    *(v23 + 8 * v16) = v37;
+    ++*(this + 56);
+    ++*(this + 114);
+    v24 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v39 ^ (v39 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v39 ^ (v39 >> 30))) >> 27));
+    v25 = v24 ^ (v24 >> 31);
+    v26 = *(this + 124);
+    if (v26)
+    {
+      v27 = v25 % v26;
+      v28 = *(*(this + 60) + 4 * (v25 % v26));
+      if (v28 != 0x7FFFFFFF)
+      {
+        v29 = *(this + 61);
+        if (*(v29 + 24 * v28 + 16) == v39)
+        {
+          goto LABEL_35;
+        }
+
+        while (1)
+        {
+          LODWORD(v28) = *(v29 + 24 * v28 + 8) & 0x7FFFFFFF;
+          if (v28 == 0x7FFFFFFF)
+          {
+            break;
+          }
+
+          if (*(v29 + 24 * v28 + 16) == v39)
+          {
+            goto LABEL_35;
+          }
+        }
+      }
+    }
+
+    else
+    {
+      LODWORD(v27) = 0;
+    }
+
+    re::HashSetBase<unsigned long,unsigned long,re::internal::ValueAsKey<unsigned long>,re::Hash<unsigned long>,re::EqualTo<unsigned long>,true,false>::addAsCopy(this + 472, v27, v25, &v39, &v39);
+    ++*(this + 128);
+LABEL_35:
+    v30 = mach_absolute_time();
+    v31 = v30;
+    v32 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
+    if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+    {
+      v30 = mach_timebase_info(buf);
+      if (v30)
+      {
+        v35 = NAN;
+LABEL_40:
+        v36 = *re::graphicsLogObjects(v30);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136315394;
+          *&buf[4] = a2;
+          *&buf[12] = 1024;
+          *&buf[14] = (v35 / 1000000.0);
+          _os_log_impl(&dword_1E1C61000, v36, OS_LOG_TYPE_DEFAULT, "MTLBinaryArchive loaded from %s in %dms", buf, 0x12u);
+        }
+
+        if (v37)
+        {
+        }
+
+        goto LABEL_44;
+      }
+
+      LODWORD(v33) = *buf;
+      LODWORD(v34) = *&buf[4];
+      v32 = v33 / v34;
+      re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v32;
+    }
+
+    v35 = v32 * (v31 - v11);
+    goto LABEL_40;
+  }
+
+LABEL_44:
+  if (v38)
+  {
+  }
+
+LABEL_7:
+  os_unfair_lock_unlock(this + 131);
+  return v9;
+}
+
+void re::ShaderManager::makeLibraryWithURL(void **this, const char *a2, re::mtl *a3, const char *a4)
+{
+  re::mtl::Device::newLibraryWithURL(&v7, this + 44, a3);
+  LibraryHash = re::ShaderManager::getLibraryHash(this, a2);
+  re::ShaderManager::installLibrary(this, LibraryHash, &v7);
+}
+
+void re::ShaderManager::makeLibraryWithData(void **this, const char *a2, re::mtl *a3, const char *a4)
+{
+  re::mtl::Device::newLibraryWithData(this + 44, a3, &v7);
+  LibraryHash = re::ShaderManager::getLibraryHash(this, a2);
+  re::ShaderManager::installLibrary(this, LibraryHash, &v7);
+}
+
+void re::ShaderManager::defaultBinaryArchive(uint64_t *__return_ptr a1@<X8>, re::ShaderManager *this@<X0>)
+{
+  if (*(this + 521) == 1)
+  {
+    *a1 = 0;
+  }
+
+  else
+  {
+    re::ShaderManager::ensureEngineBinaryArchivesAreLoaded(this);
+    os_unfair_lock_lock(this + 131);
+    if (*(this + 56))
+    {
+      v4 = **(this + 58);
+    }
+
+    else
+    {
+      v4 = 0;
+    }
+
+    *a1 = v4;
+
+    os_unfair_lock_unlock(this + 131);
+  }
+}
+
+unint64_t re::ShaderManager::getLibraryHash(re::ShaderManager *this, const char *__s)
+{
+  v13[2] = *MEMORY[0x1E69E9840];
+  if (!__s)
+  {
+    return *(this + 46);
+  }
+
+  v3 = *(this + 53);
+  if (v3 && ((**v3)(&v9), v9 == 1))
+  {
+    if (v11)
+    {
+      v4 = *&v12[7];
+    }
+
+    else
+    {
+      v4 = v12;
+    }
+
+    v5 = strlen(v4);
+    if (v5)
+    {
+      MurmurHash3_x64_128(v4, v5, 0, v13);
+      v6 = (v13[1] + (v13[0] << 6) + (v13[0] >> 2) - 0x61C8864680B583E9) ^ v13[0];
+      if ((v9 & 1) == 0)
+      {
+        return v6;
+      }
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    if (v10 && (v11 & 1) != 0)
+    {
+      (*(*v10 + 40))();
+    }
+  }
+
+  else
+  {
+    v7 = strlen(__s);
+    if (v7)
+    {
+      MurmurHash3_x64_128(__s, v7, 0, &v9);
+      return (v10 + (v9 << 6) + (v9 >> 2) - 0x61C8864680B583E9) ^ v9;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return v6;
+}
+
+uint64_t re::ShaderManager::releaseLibrary(uint64_t this, uint64_t a2)
+{
+  if (*(this + 368) != a2)
+  {
+    v7[3] = v2;
+    v7[4] = v3;
+    v5 = this;
+    v7[0] = a2;
+    this = re::HashTable<unsigned long long,re::FrameAnalysisManager::RenderState,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(this + 376, v7);
+    if (this)
+    {
+      if (!*this || (v6 = *this - 1, (*this = v6) == 0))
+      {
+        v7[0] = a2;
+        return re::HashTable<unsigned long,re::ShaderManager::LibraryEntry,re::Hash<unsigned long>,re::EqualTo<unsigned long>,true,false>::remove(v5 + 376, v7);
+      }
+    }
+  }
+
+  return this;
+}
+
+BOOL re::HashTable<unsigned long,re::ShaderManager::LibraryEntry,re::Hash<unsigned long>,re::EqualTo<unsigned long>,true,false>::remove(uint64_t a1, void *a2)
+{
+  v3 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  re::HashTable<unsigned long long,re::FrameAnalysisManager::RenderState,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::findEntry<unsigned long long>(a1, a2, (0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) ^ ((0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) >> 31), v5);
+  return re::HashTable<unsigned long,re::ShaderManager::LibraryEntry,re::Hash<unsigned long>,re::EqualTo<unsigned long>,true,false>::removeInternal(a1, v5);
+}
+
+void re::ShaderManager::makeFunction(re::ShaderManager *a1@<X0>, uint64_t a2@<X1>, re::mtl *a3@<X2>, void *a4@<X3>, uint64_t *a5@<X8>)
+{
+  v12 = a2;
+  v9 = re::HashTable<unsigned long long,re::FrameAnalysisManager::RenderState,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(a1 + 376, &v12);
+  if (v9)
+  {
+    if (a4)
+    {
+      re::ShaderManager::makeFunctionDescriptor(&v11, a1);
+      v10 = v11;
+      [v11 setName_];
+      [v10 setConstantValues_];
+      re::ShaderManager::makeFunctionWithDescriptor(a1, *(a1 + 46), &v11, a5);
+      if (v10)
+      {
+      }
+    }
+
+    else
+    {
+      re::mtl::Library::makeFunction(a5, (v9 + 8), a3);
+    }
+  }
+
+  else
+  {
+    *a5 = 0;
+  }
+}
+
+void re::ShaderManager::makeFunctionDescriptor(uint64_t *__return_ptr a1@<X8>, re::ShaderManager *this@<X0>)
+{
+  v4 = [objc_msgSend(MEMORY[0x1E6974070] alloc)];
+  *a1 = v4;
+  v5 = v4;
+  v6 = v5;
+  re::ShaderManager::addBinaryArchivesToFunction(this, &v6, 0);
+  if (v5)
+  {
+  }
+}
+
+void re::ShaderManager::makeFunctionWithDescriptor(uint64_t a1@<X0>, uint64_t a2@<X1>, void **a3@<X2>, void *a4@<X8>)
+{
+  if (a2)
+  {
+    v9 = a2;
+    v6 = re::HashTable<unsigned long long,re::FrameAnalysisManager::RenderState,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(a1 + 376, &v9);
+    if (v6)
+    {
+      re::mtl::Library::makeFunctionWithDescriptor((v6 + 8), *a3, a4);
+    }
+
+    else
+    {
+      *a4 = 0;
+    }
+  }
+
+  else
+  {
+    v7 = *a3;
+    v8 = (a1 + 360);
+
+    re::mtl::Library::makeFunctionWithDescriptor(v8, v7, a4);
+  }
+}
+
+void re::ShaderManager::scheduleAsyncFuncOnCompilationQueue(uint64_t a1, int a2, uint64_t a3, char a4, StringID *a5, uint64_t a6)
+{
+  v29 = *MEMORY[0x1E69E9840];
+  re::StringID::StringID(&v19, a5);
+  v21 = *(a6 + 24);
+  v22 = 0;
+  re::FunctionBase<24ul,void ()(void)>::operator=<24ul>(v20, a6);
+  std::mutex::lock((a1 + 864));
+  v11 = mach_absolute_time();
+  v12 = atomic_load((a1 + 824));
+  if ((v12 & 1) == 0)
+  {
+    v13 = v11;
+    atomic_fetch_add((a1 + 928), 1u);
+    if (a2)
+    {
+      v14 = v28;
+      v15 = (a1 + 856);
+      v16 = v26;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 1174405120;
+      v26[2] = ___ZNK2re13ShaderManager29resolveShaderCompilationQueueIZNKS0_35scheduleAsyncFuncOnCompilationQueueEbyNS_15CompilationTypeENS_8StringIDENS_8FunctionIFvvEEEE3__0EEvbyS2_S3_S6_T__block_invoke;
+      v26[3] = &__block_descriptor_tmp_48;
+      v26[4] = a1;
+      v26[5] = a3;
+      v17 = v27;
+      v27[3] = v21;
+      v27[4] = 0;
+      re::FunctionBase<24ul,void ()(void)>::operator=<24ul>(v27, v20);
+      v27[5] = v13;
+      v28[17] = a4;
+    }
+
+    else
+    {
+      v14 = v25;
+      v15 = (a1 + 832);
+      v16 = v23;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 1174405120;
+      v23[2] = ___ZNK2re13ShaderManager29resolveShaderCompilationQueueIZNKS0_35scheduleAsyncFuncOnCompilationQueueEbyNS_15CompilationTypeENS_8StringIDENS_8FunctionIFvvEEEE3__0EEvbyS2_S3_S6_T__block_invoke_49;
+      v23[3] = &__block_descriptor_tmp_52_0;
+      v23[4] = a1;
+      v23[5] = a3;
+      v17 = v24;
+      v24[3] = v21;
+      v24[4] = 0;
+      re::FunctionBase<24ul,void ()(void)>::operator=<24ul>(v24, v20);
+      v24[5] = v13;
+      v25[16] = a4;
+    }
+
+    re::StringID::StringID(v14, &v19);
+    dispatch_async(*v15, v16);
+    re::StringID::destroyString(v14);
+    re::FunctionBase<24ul,void ()(void)>::destroyCallable(v17);
+  }
+
+  std::mutex::unlock((a1 + 864));
+  v18 = re::FunctionBase<24ul,void ()(void)>::destroyCallable(v20);
+  if (*&v19.var0)
+  {
+    if (*&v19.var0)
+    {
+    }
+  }
+}
+
+void re::ShaderManager::scheduleGroupNotifyOnCompilationQueue(uint64_t a1, int a2, void *a3, id *a4, char a5, StringID *a6, uint64_t a7)
+{
+  v41 = *MEMORY[0x1E69E9840];
+  re::StringID::StringID(&v22, a6);
+  v25 = *(a7 + 24);
+  v26 = 0;
+  re::FunctionBase<24ul,void ()(void)>::operator=<24ul>(v24, a7);
+  v21 = *a4;
+  std::mutex::lock((a1 + 864));
+  v13 = mach_absolute_time();
+  v14 = atomic_load((a1 + 824));
+  if ((v14 & 1) == 0)
+  {
+    v15 = v13;
+    atomic_fetch_add((a1 + 928), 1u);
+    if (a2)
+    {
+      v27 = MEMORY[0x1E69E9820];
+      v28 = 1174405120;
+      v29 = ___ZNK2re13ShaderManager29resolveShaderCompilationQueueIZNKS0_37scheduleGroupNotifyOnCompilationQueueEbyNS_8dispatch5GroupENS_15CompilationTypeENS_8StringIDENS_8FunctionIFvvEEEE3__0EEvbyS4_S5_S8_T__block_invoke;
+      v30 = &__block_descriptor_tmp_56;
+      v31 = a1;
+      v32 = v21;
+      v33 = a3;
+      v35 = v25;
+      v36 = 0;
+      re::FunctionBase<24ul,void ()(void)>::operator=<24ul>(v34, v24);
+      v37 = v15;
+      v40 = a5;
+      re::StringID::StringID(&v38, &v22);
+      v16 = *(a1 + 856);
+      v23 = v16;
+      re::dispatch::Group::notify(&v21, &v23, &v27);
+
+      if (v38)
+      {
+        if (v38)
+        {
+        }
+      }
+
+      v38 = 0;
+      v39 = &str_67;
+      re::FunctionBase<24ul,void ()(void)>::destroyCallable(v34);
+    }
+
+    else
+    {
+      v27 = MEMORY[0x1E69E9820];
+      v28 = 1174405120;
+      v29 = ___ZNK2re13ShaderManager29resolveShaderCompilationQueueIZNKS0_37scheduleGroupNotifyOnCompilationQueueEbyNS_8dispatch5GroupENS_15CompilationTypeENS_8StringIDENS_8FunctionIFvvEEEE3__0EEvbyS4_S5_S8_T__block_invoke_57;
+      v30 = &__block_descriptor_tmp_60;
+      v31 = a1;
+      v32 = a3;
+      v34[2] = v25;
+      v35 = 0;
+      re::FunctionBase<24ul,void ()(void)>::operator=<24ul>(&v33, v24);
+      v36 = v15;
+      LOBYTE(v39) = a5;
+      re::StringID::StringID(&v37, &v22);
+      v18 = *(a1 + 832);
+      v23 = v18;
+      re::dispatch::Group::notify(&v21, &v23, &v27);
+
+      if (v37)
+      {
+        if (v37)
+        {
+        }
+      }
+
+      v37 = 0;
+      v38 = &str_67;
+      re::FunctionBase<24ul,void ()(void)>::destroyCallable(&v33);
+    }
+  }
+
+  std::mutex::unlock((a1 + 864));
+
+  v20 = re::FunctionBase<24ul,void ()(void)>::destroyCallable(v24);
+  if (*&v22.var0)
+  {
+    if (*&v22.var0)
+    {
+    }
+  }
+}
+
+void re::ShaderManager::scheduleAsyncGroupFuncOnCompilationQueue(uint64_t a1, int a2, void *a3, id *a4, char a5, StringID *a6, uint64_t a7)
+{
+  v41 = *MEMORY[0x1E69E9840];
+  re::StringID::StringID(&v22, a6);
+  v25 = *(a7 + 24);
+  v26 = 0;
+  re::FunctionBase<24ul,void ()(void)>::operator=<24ul>(v24, a7);
+  v21 = *a4;
+  std::mutex::lock((a1 + 864));
+  v13 = mach_absolute_time();
+  v14 = atomic_load((a1 + 824));
+  if ((v14 & 1) == 0)
+  {
+    v15 = v13;
+    atomic_fetch_add((a1 + 928), 1u);
+    if (a2)
+    {
+      v27 = MEMORY[0x1E69E9820];
+      v28 = 1174405120;
+      v29 = ___ZNK2re13ShaderManager29resolveShaderCompilationQueueIZNKS0_40scheduleAsyncGroupFuncOnCompilationQueueEbyNS_8dispatch5GroupENS_15CompilationTypeENS_8StringIDENS_8FunctionIFvvEEEE3__0EEvbyS4_S5_S8_T__block_invoke;
+      v30 = &__block_descriptor_tmp_64_0;
+      v31 = a1;
+      v32 = v21;
+      v33 = a3;
+      v35 = v25;
+      v36 = 0;
+      re::FunctionBase<24ul,void ()(void)>::operator=<24ul>(v34, v24);
+      v37 = v15;
+      v40 = a5;
+      re::StringID::StringID(&v38, &v22);
+      v16 = *(a1 + 856);
+      v23 = v16;
+      re::dispatch::Group::async(&v21, &v23, &v27);
+
+      if (v38)
+      {
+        if (v38)
+        {
+        }
+      }
+
+      v38 = 0;
+      v39 = &str_67;
+      re::FunctionBase<24ul,void ()(void)>::destroyCallable(v34);
+    }
+
+    else
+    {
+      v27 = MEMORY[0x1E69E9820];
+      v28 = 1174405120;
+      v29 = ___ZNK2re13ShaderManager29resolveShaderCompilationQueueIZNKS0_40scheduleAsyncGroupFuncOnCompilationQueueEbyNS_8dispatch5GroupENS_15CompilationTypeENS_8StringIDENS_8FunctionIFvvEEEE3__0EEvbyS4_S5_S8_T__block_invoke_65;
+      v30 = &__block_descriptor_tmp_68_0;
+      v31 = a1;
+      v32 = a3;
+      v34[2] = v25;
+      v35 = 0;
+      re::FunctionBase<24ul,void ()(void)>::operator=<24ul>(&v33, v24);
+      v36 = v15;
+      LOBYTE(v39) = a5;
+      re::StringID::StringID(&v37, &v22);
+      v18 = *(a1 + 832);
+      v23 = v18;
+      re::dispatch::Group::async(&v21, &v23, &v27);
+
+      if (v37)
+      {
+        if (v37)
+        {
+        }
+      }
+
+      v37 = 0;
+      v38 = &str_67;
+      re::FunctionBase<24ul,void ()(void)>::destroyCallable(&v33);
+    }
+  }
+
+  std::mutex::unlock((a1 + 864));
+
+  v20 = re::FunctionBase<24ul,void ()(void)>::destroyCallable(v24);
+  if (*&v22.var0)
+  {
+    if (*&v22.var0)
+    {
+    }
+  }
+}
+
+uint64_t re::ShaderManager::executeWithPrioritizedShaderCompilation(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 968);
+  if (v2)
+  {
+    return (*(*v2 + 16))(v2, a2);
+  }
+
+  else
+  {
+    return (*(**(a2 + 32) + 16))();
+  }
+}
+
+uint64_t re::ShaderManager::executeWithShaderCompilationBlamedToPeer(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a1 && a2)
+  {
+    v6 = a2;
+    return (*(*a1 + 16))(a1, &v6, a3);
+  }
+
+  else
+  {
+    v5 = *(**(a3 + 32) + 16);
+
+    return v5();
+  }
+}
+
+uint64_t re::ShaderManager::tryRequestFunctionReflection(uint64_t a1, uint64_t a2, const char *a3, void *a4, int a5, uint64_t a6, uint64_t a7)
+{
+  v36 = *MEMORY[0x1E69E9840];
+  v23[0] = a2;
+  v14 = re::HashTable<unsigned long long,re::FrameAnalysisManager::RenderState,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::tryGet(a1 + 376, v23);
+  if (v14)
+  {
+    v15 = (v14 + 8);
+  }
+
+  else
+  {
+    v15 = (a1 + 360);
+  }
+
+  v33 = *(a7 + 24);
+  v34 = 0;
+  re::FunctionBase<24ul,void ()(re::Pair<NS::SharedPtr<MTL::Function>,re::DynamicArray<NS::SharedPtr<MTL::Argument>>,true> const&)>::operator=<24ul>(v32, a7);
+  v35 = a1;
+  re::ShaderManager::makeFunctionDescriptor(a1, a3, a4, v15, a2, &v22);
+  *&v21.var0 = 0;
+  v21.var1 = &str_67;
+  v23[3] = v33;
+  v23[4] = 0;
+  re::FunctionBase<24ul,void ()(re::Pair<NS::SharedPtr<MTL::Function>,re::DynamicArray<NS::SharedPtr<MTL::Argument>>,true> const&)>::operator=<24ul>(v23, v32);
+  v23[5] = v35;
+  v17 = v22;
+  v24 = v22;
+  v25 = a3;
+  v26 = a5;
+  v27 = a6;
+  v28 = *v15;
+  v18 = re::globalAllocators(v28)[2];
+  v30 = v18;
+  if (v18)
+  {
+    v18 = (*(*v18 + 32))(v18, 96, 0);
+  }
+
+  v31 = re::internal::Callable<re::ShaderManager::tryRequestFunctionReflection(unsigned long long,char const*,NS::SharedPtr<MTL::FunctionConstantValues> const&,BOOL,unsigned long long,re::Function<void ()(re::Pair<NS::SharedPtr<MTL::Function>,re::DynamicArray<NS::SharedPtr<MTL::Argument>>,true> const&)>)::$_1,void ()(void)>::Callable(v18, v23);
+  re::ShaderManager::scheduleAsyncFuncOnCompilationQueue(a1, a5, a6, 0, &v21, v29);
+  re::FunctionBase<24ul,void ()(void)>::destroyCallable(v29);
+
+  if (v24)
+  {
+
+    v24 = 0;
+  }
+
+  v19 = re::FunctionBase<24ul,void ()(re::Pair<NS::SharedPtr<MTL::Function>,re::DynamicArray<NS::SharedPtr<MTL::Argument>>,true> const&)>::destroyCallable(v23);
+  if (*&v21.var0)
+  {
+    if (*&v21.var0)
+    {
+    }
+  }
+
+  *&v21.var0 = 0;
+  v21.var1 = &str_67;
+  if (v17)
+  {
+  }
+
+  re::FunctionBase<24ul,void ()(re::Pair<NS::SharedPtr<MTL::Function>,re::DynamicArray<NS::SharedPtr<MTL::Argument>>,true> const&)>::destroyCallable(v32);
+  return 1;
+}
+
+void re::ShaderManager::makeFunctionDescriptor(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
+{
+  v27 = *MEMORY[0x1E69E9840];
+  v12 = [objc_msgSend(MEMORY[0x1E6974070] alloc)];
+  *a6 = v12;
+  [v12 setName_];
+  if (*a3)
+  {
+    [v12 setConstantValues_];
+  }
+
+  re::ShaderManager::ensureEngineBinaryArchivesAreLoaded(a1);
+  os_unfair_lock_lock((a1 + 524));
+  if (*(a1 + 448) && (*(a1 + 521) & 1) == 0)
+  {
+    v13 = [objc_msgSend(MEMORY[0x1E695DEC8] alloc)];
+    [v12 setBinaryArchives_];
+    if (*(a1 + 520) == 1 && (*(a1 + 368) == a5 || *(a1 + 528) == 1))
+    {
+      if (!*(a1 + 448))
+      {
+        v17 = 0;
+        memset(v26, 0, sizeof(v26));
+        v14 = MEMORY[0x1E69E9C10];
+        v18 = 136315906;
+        v19 = "operator[]";
+        v20 = 1024;
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          v15 = 3;
+        }
+
+        else
+        {
+          v15 = 2;
+        }
+
+        v21 = 789;
+        v22 = 2048;
+        v23 = 0;
+        v24 = 2048;
+        v25 = 0;
+        _os_log_send_and_compose_impl(v15, &v17, v26, 80, &dword_1E1C61000, v14, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v18, 38, v16);
+        _os_crash_msg();
+        __break(1u);
+      }
+
+      [**(a1 + 464) addFunctionWithDescriptor:v12 library:*a4 error:0];
+    }
+
+    if (v13)
+    {
+    }
+  }
+
+  os_unfair_lock_unlock((a1 + 524));
+}
+
+void re::ShaderManager::addBinaryArchivesToRenderPipeline(uint64_t a1, id *a2, uint64_t a3)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  re::ShaderManager::ensureEngineBinaryArchivesAreLoaded(a1);
+  os_unfair_lock_lock((a1 + 524));
+  if (*(a1 + 448) && (*(a1 + 521) & 1) == 0)
+  {
+    v6 = [objc_msgSend(MEMORY[0x1E695DEC8] alloc)];
+    [*a2 setBinaryArchives_];
+    if (*(a1 + 520) == 1 && (*(a1 + 368) == a3 || *(a1 + 528) == 1))
+    {
+      if (!*(a1 + 448))
+      {
+        v10 = 0;
+        memset(v19, 0, sizeof(v19));
+        v7 = MEMORY[0x1E69E9C10];
+        v11 = 136315906;
+        v12 = "operator[]";
+        v13 = 1024;
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          v8 = 3;
+        }
+
+        else
+        {
+          v8 = 2;
+        }
+
+        v14 = 789;
+        v15 = 2048;
+        v16 = 0;
+        v17 = 2048;
+        v18 = 0;
+        _os_log_send_and_compose_impl(v8, &v10, v19, 80, &dword_1E1C61000, v7, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v11, 38, v9);
+        _os_crash_msg();
+        __break(1u);
+      }
+
+      [**(a1 + 464) addRenderPipelineFunctionsWithDescriptor:*a2 error:0];
+    }
+
+    if (v6)
+    {
+    }
+  }
+
+  os_unfair_lock_unlock((a1 + 524));
+}
+
+void re::ShaderManager::addBinaryArchivesToTilePipeline(uint64_t a1, id *a2, uint64_t a3)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  re::ShaderManager::ensureEngineBinaryArchivesAreLoaded(a1);
+  os_unfair_lock_lock((a1 + 524));
+  if (*(a1 + 448) && (*(a1 + 521) & 1) == 0)
+  {
+    v6 = [objc_msgSend(MEMORY[0x1E695DEC8] alloc)];
+    [*a2 setBinaryArchives_];
+    if (*(a1 + 520) == 1 && (*(a1 + 368) == a3 || *(a1 + 528) == 1))
+    {
+      if (!*(a1 + 448))
+      {
+        v10 = 0;
+        memset(v19, 0, sizeof(v19));
+        v7 = MEMORY[0x1E69E9C10];
+        v11 = 136315906;
+        v12 = "operator[]";
+        v13 = 1024;
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          v8 = 3;
+        }
+
+        else
+        {
+          v8 = 2;
+        }
+
+        v14 = 789;
+        v15 = 2048;
+        v16 = 0;
+        v17 = 2048;
+        v18 = 0;
+        _os_log_send_and_compose_impl(v8, &v10, v19, 80, &dword_1E1C61000, v7, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v11, 38, v9);
+        _os_crash_msg();
+        __break(1u);
+      }
+
+      [**(a1 + 464) addTileRenderPipelineFunctionsWithDescriptor:*a2 error:0];
+    }
+
+    if (v6)
+    {
+    }
+  }
+
+  os_unfair_lock_unlock((a1 + 524));
+}
+
+void re::ShaderManager::addBinaryArchivesToComputePipeline(uint64_t a1, id *a2, uint64_t a3)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  re::ShaderManager::ensureEngineBinaryArchivesAreLoaded(a1);
+  os_unfair_lock_lock((a1 + 524));
+  if (*(a1 + 448) && (*(a1 + 521) & 1) == 0)
+  {
+    v6 = [objc_msgSend(MEMORY[0x1E695DEC8] alloc)];
+    [*a2 setBinaryArchives_];
+    if (*(a1 + 520) == 1 && (*(a1 + 368) == a3 || *(a1 + 528) == 1))
+    {
+      if (!*(a1 + 448))
+      {
+        v10 = 0;
+        memset(v19, 0, sizeof(v19));
+        v7 = MEMORY[0x1E69E9C10];
+        v11 = 136315906;
+        v12 = "operator[]";
+        v13 = 1024;
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+        {
+          v8 = 3;
+        }
+
+        else
+        {
+          v8 = 2;
+        }
+
+        v14 = 789;
+        v15 = 2048;
+        v16 = 0;
+        v17 = 2048;
+        v18 = 0;
+        _os_log_send_and_compose_impl(v8, &v10, v19, 80, &dword_1E1C61000, v7, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v11, 38, v9);
+        _os_crash_msg();
+        __break(1u);
+      }
+
+      [**(a1 + 464) addComputePipelineFunctionsWithDescriptor:*a2 error:0];
+    }
+
+    if (v6)
+    {
+    }
+  }
+
+  os_unfair_lock_unlock((a1 + 524));
 }

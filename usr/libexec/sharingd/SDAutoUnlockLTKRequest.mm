@@ -132,7 +132,6 @@
   toCopy = to;
   if (*&self->_has)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
   }
 
@@ -153,7 +152,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    checkViewState = self->_checkViewState;
     PBDataWriterWriteBOOLField();
   }
 
@@ -165,14 +163,12 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    needsLTK = self->_needsLTK;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    remoteNeedsLTK = self->_remoteNeedsLTK;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -289,7 +285,6 @@
     goto LABEL_38;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_version != *(equalCopy + 10))
@@ -328,7 +323,6 @@
   }
 
   has = self->_has;
-  v10 = *(equalCopy + 48);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 48) & 2) == 0)
@@ -336,7 +330,6 @@
       goto LABEL_38;
     }
 
-    v13 = *(equalCopy + 44);
     if (self->_checkViewState)
     {
       if ((*(equalCopy + 44) & 1) == 0)
@@ -374,7 +367,6 @@
       goto LABEL_38;
     }
 
-    v14 = *(equalCopy + 45);
     if (self->_needsLTK)
     {
       if ((*(equalCopy + 45) & 1) == 0)
@@ -394,7 +386,7 @@
     goto LABEL_38;
   }
 
-  v12 = (*(equalCopy + 48) & 8) == 0;
+  v10 = (*(equalCopy + 48) & 8) == 0;
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 48) & 8) != 0)
@@ -410,18 +402,18 @@
       else if (!*(equalCopy + 46))
       {
 LABEL_40:
-        v12 = 1;
+        v10 = 1;
         goto LABEL_39;
       }
     }
 
 LABEL_38:
-    v12 = 0;
+    v10 = 0;
   }
 
 LABEL_39:
 
-  return v12;
+  return v10;
 }
 
 - (unint64_t)hash

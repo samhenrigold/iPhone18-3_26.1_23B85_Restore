@@ -12,42 +12,53 @@ void ___AirPlayReceiverServerPostMediaControlEvent_block_invoke(uint64_t a1)
     v4 = HTTPMessageCreate();
     if (v4)
     {
-      v5 = v4;
+      v6 = v4;
     }
 
     else
     {
       MEMORY[0x25F0] = _DoEventTransactionCompletion;
+      v5 = *(v3 + 56);
       HTTPHeader_InitRequest();
-      HTTPHeader_SetField();
+      if (v5)
+      {
+        HTTPHeader_SetField(24, "X-Apple-StreamID", "%llu");
+      }
+
+      else
+      {
+        HTTPHeader_SetField(24, "X-Apple-Session-ID", "%#U", v3 + 38);
+      }
+
       CFDataGetLength(v2);
       CFDataGetBytePtr(v2);
       HTTPMessageSetBody();
-      v5 = HTTPClientSendMessage();
-      if (!v5)
+      v6 = HTTPClientSendMessage();
+      if (!v6)
       {
-        goto LABEL_4;
+LABEL_7:
+        if (!v6)
+        {
+          goto LABEL_12;
+        }
+
+        goto LABEL_8;
       }
     }
 
     APSLogErrorAt();
-LABEL_4:
-    if (!v5)
-    {
-      goto LABEL_9;
-    }
-
-    goto LABEL_5;
+    goto LABEL_7;
   }
 
   APSLogErrorAt();
-LABEL_5:
+  v6 = 4294960534;
+LABEL_8:
   if (gLogCategory_AirPlayReceiverServer <= 60 && (gLogCategory_AirPlayReceiverServer != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverServer, "void _AirPlayReceiverServerPostMediaControlEvent(void *)_block_invoke", 33554492, "### Post event failed: %#m\n", v6);
   }
 
-LABEL_9:
+LABEL_12:
   CFRelease(*(a1 + 40));
   CFRelease(*(a1 + 32));
 }

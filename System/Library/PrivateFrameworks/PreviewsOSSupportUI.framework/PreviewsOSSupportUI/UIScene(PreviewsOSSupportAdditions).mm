@@ -8,16 +8,14 @@
 
 - (void)uv_registerActionHandlerForKey:()PreviewsOSSupportAdditions handler:
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = a3;
   v8 = [[_UVBSActionHandler alloc] initWithHandler:v6];
 
-  v11[0] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   [self _registerBSActionResponderArray:v9 forKey:v7];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uv_sendSceneAction:()PreviewsOSSupportAdditions

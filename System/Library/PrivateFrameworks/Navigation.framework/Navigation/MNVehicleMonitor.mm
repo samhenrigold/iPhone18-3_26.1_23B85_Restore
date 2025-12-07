@@ -79,7 +79,7 @@
 
 void __35__MNVehicleMonitor_startMonitoring__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = MNGetMNVehicleMonitorLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -91,12 +91,12 @@ void __35__MNVehicleMonitor_startMonitoring__block_invoke(uint64_t a1)
   v4 = WeakRetained;
   if (WeakRetained)
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __35__MNVehicleMonitor_startMonitoring__block_invoke_5;
-    v7[3] = &unk_1E8430ED8;
-    v7[4] = WeakRetained;
-    MNRunAsyncOnNavigationQueue(v7);
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __35__MNVehicleMonitor_startMonitoring__block_invoke_5;
+    v6[3] = &unk_1E8430ED8;
+    v6[4] = WeakRetained;
+    MNRunAsyncOnNavigationQueue(v6);
   }
 
   else
@@ -105,12 +105,10 @@ void __35__MNVehicleMonitor_startMonitoring__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v9 = "[MNVehicleMonitor startMonitoring]_block_invoke";
+      v8 = "[MNVehicleMonitor startMonitoring]_block_invoke";
       _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "strongSelf went away in %s", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __35__MNVehicleMonitor_startMonitoring__block_invoke_2(uint64_t a1)
@@ -128,7 +126,7 @@ void __35__MNVehicleMonitor_startMonitoring__block_invoke_2(uint64_t a1)
 
 void __35__MNVehicleMonitor_startMonitoring__block_invoke_3(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = +[MNCarPlayConnectionMonitor sharedInstance];
   v3 = [v2 isConnected];
 
@@ -155,12 +153,12 @@ void __35__MNVehicleMonitor_startMonitoring__block_invoke_3(uint64_t a1)
     if (WeakRetained)
     {
       v4 = WeakRetained;
-      v9[0] = MEMORY[0x1E69E9820];
-      v9[1] = 3221225472;
-      v9[2] = __35__MNVehicleMonitor_startMonitoring__block_invoke_10;
-      v9[3] = &unk_1E8430ED8;
-      v9[4] = WeakRetained;
-      MNRunAsyncOnNavigationQueue(v9);
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = __35__MNVehicleMonitor_startMonitoring__block_invoke_10;
+      v8[3] = &unk_1E8430ED8;
+      v8[4] = WeakRetained;
+      MNRunAsyncOnNavigationQueue(v8);
     }
 
     else
@@ -169,15 +167,13 @@ void __35__MNVehicleMonitor_startMonitoring__block_invoke_3(uint64_t a1)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v11 = "[MNVehicleMonitor startMonitoring]_block_invoke";
+        v10 = "[MNVehicleMonitor startMonitoring]_block_invoke";
         _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "strongSelf went away in %s", buf, 0xCu);
       }
 
       v4 = 0;
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __35__MNVehicleMonitor_startMonitoring__block_invoke_10(uint64_t a1)

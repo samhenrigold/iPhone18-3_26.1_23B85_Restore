@@ -1,11 +1,87 @@
 @interface TRIExperimentAllocationStatus
 - (BOOL)isEqualToStatus:(id)status;
 - (TRIExperimentAllocationStatus)initWithCoder:(id)coder;
+- (TRIExperimentAllocationStatus)initWithType:(unsigned __int8)type date:(id)date experimentId:(id)id deploymentId:(int)deploymentId treatmentId:(id)treatmentId namespaces:(id)namespaces;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation TRIExperimentAllocationStatus
+
+- (TRIExperimentAllocationStatus)initWithType:(unsigned __int8)type date:(id)date experimentId:(id)id deploymentId:(int)deploymentId treatmentId:(id)treatmentId namespaces:(id)namespaces
+{
+  typeCopy = type;
+  dateCopy = date;
+  idCopy = id;
+  treatmentIdCopy = treatmentId;
+  namespacesCopy = namespaces;
+  if (dateCopy)
+  {
+    if (idCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"TRIAllocationStatusProvider.m" lineNumber:808 description:{@"Invalid parameter not satisfying: %@", @"date"}];
+
+    if (idCopy)
+    {
+LABEL_3:
+      if (treatmentIdCopy)
+      {
+        goto LABEL_4;
+      }
+
+LABEL_10:
+      currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
+      [currentHandler2 handleFailureInMethod:a2 object:self file:@"TRIAllocationStatusProvider.m" lineNumber:810 description:{@"Invalid parameter not satisfying: %@", @"treatmentId"}];
+
+      if (namespacesCopy)
+      {
+        goto LABEL_5;
+      }
+
+      goto LABEL_11;
+    }
+  }
+
+  currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler3 handleFailureInMethod:a2 object:self file:@"TRIAllocationStatusProvider.m" lineNumber:809 description:{@"Invalid parameter not satisfying: %@", @"experimentId"}];
+
+  if (!treatmentIdCopy)
+  {
+    goto LABEL_10;
+  }
+
+LABEL_4:
+  if (namespacesCopy)
+  {
+    goto LABEL_5;
+  }
+
+LABEL_11:
+  currentHandler4 = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler4 handleFailureInMethod:a2 object:self file:@"TRIAllocationStatusProvider.m" lineNumber:811 description:{@"Invalid parameter not satisfying: %@", @"namespaces"}];
+
+LABEL_5:
+  v26.receiver = self;
+  v26.super_class = TRIExperimentAllocationStatus;
+  v18 = [(TRIAllocationStatus *)&v26 initWithType:typeCopy date:dateCopy];
+  v19 = v18;
+  if (v18)
+  {
+    objc_storeStrong(&v18->_experimentId, id);
+    v19->_deploymentId = deploymentId;
+    objc_storeStrong(&v19->_treatmentId, treatmentId);
+    objc_storeStrong(&v19->_namespaces, namespaces);
+  }
+
+  return v19;
+}
 
 - (BOOL)isEqualToStatus:(id)status
 {
@@ -187,7 +263,7 @@ void __47__TRIExperimentAllocationStatus_initWithCoder___block_invoke(uint64_t a
 
 - (void)encodeWithCoder:(id)coder
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v4 = objc_opt_new();
   type = [(TRIAllocationStatus *)self type];
@@ -203,26 +279,26 @@ void __47__TRIExperimentAllocationStatus_initWithCoder___block_invoke(uint64_t a
   [v4 setExperimentId:self->_experimentId];
   [v4 setDeploymentId:self->_deploymentId];
   [v4 setTreatmentId:self->_treatmentId];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v11 = self->_namespaces;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v26;
+    v14 = *v25;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * i);
+        v16 = *(*(&v24 + 1) + 8 * i);
         v17 = objc_opt_new();
         name = [v16 name];
         [v17 setName:name];
@@ -232,7 +308,7 @@ void __47__TRIExperimentAllocationStatus_initWithCoder___block_invoke(uint64_t a
         [namespaceArray addObject:v17];
       }
 
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v13);
@@ -246,8 +322,6 @@ void __47__TRIExperimentAllocationStatus_initWithCoder___block_invoke(uint64_t a
   }
 
   [coderCopy encodeObject:data forKey:@"data"];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

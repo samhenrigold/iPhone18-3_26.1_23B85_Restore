@@ -9,13 +9,11 @@
 
 + (NSString)bundleIdentifier
 {
-  v2 = sub_903C();
-  v3 = *v2;
-  v4 = *(v2 + 1);
+  sub_903C();
 
-  v5 = sub_99CC();
+  v2 = sub_99CC();
 
-  return v5;
+  return v2;
 }
 
 - (NSArray)supportedSections
@@ -35,13 +33,19 @@
   v5 = _Block_copy(handler);
   if (v5)
   {
-    *(swift_allocObject() + 16) = v5;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
     v5 = sub_1FDC;
   }
 
+  else
+  {
+    v6 = 0;
+  }
+
   selfCopy = self;
-  sub_9498(v5);
-  sub_1D64(v5);
+  sub_9498(v5, v6);
+  sub_1D64(v5, v6);
 }
 
 - (_TtC29MindRelevanceEngineDataSource16SampleDataSource)init

@@ -8,6 +8,7 @@
 - (void)reloadButtonImages;
 - (void)replaceButton:(id)button atIndex:(unint64_t)index;
 - (void)setButtons:(id)buttons;
+- (void)setNumberButtonsEnabled:(BOOL)enabled;
 @end
 
 @implementation TPNumberPad
@@ -62,7 +63,7 @@
 
 - (TPNumberPad)initWithButtons:(id)buttons
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   buttonsCopy = buttons;
   self->_numberButtonsEnabled = 1;
   if ([buttonsCopy count] <= 0xB)
@@ -74,9 +75,9 @@
   [v6 frame];
   v8 = v7 * 3.0;
   [v6 frame];
-  v25.receiver = self;
-  v25.super_class = TPNumberPad;
-  v10 = [(TPNumberPad *)&v25 initWithFrame:0.0, 0.0, v8, v9 * 4.0];
+  v24.receiver = self;
+  v24.super_class = TPNumberPad;
+  v10 = [(TPNumberPad *)&v24 initWithFrame:0.0, 0.0, v8, v9 * 4.0];
   v11 = v10;
   if (v10)
   {
@@ -85,31 +86,31 @@
     [(TPNumberPad *)v11 setBackgroundColor:clearColor];
 
     [(TPNumberPad *)v11 setOpaque:0];
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v13 = buttonsCopy;
-    v14 = [v13 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v22;
+      v16 = *v21;
       do
       {
         v17 = 0;
         do
         {
-          if (*v22 != v16)
+          if (*v21 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          [(TPNumberPad *)v11 _addButton:*(*(&v21 + 1) + 8 * v17++), v21];
+          [(TPNumberPad *)v11 _addButton:*(*(&v20 + 1) + 8 * v17++), v20];
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v15);
@@ -120,34 +121,33 @@
     [defaultCenter addObserver:v11 selector:sel_handleCurrentLocaleDidChangeNotification_ name:*MEMORY[0x1E695D8F0] object:0];
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (void)reloadButtonImages
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   buttons = [(TPNumberPad *)self buttons];
-  v3 = [buttons countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [buttons countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(buttons);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 loadImagesForCurrentCharacter];
@@ -157,13 +157,11 @@
       }
 
       while (v4 != v6);
-      v4 = [buttons countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [buttons countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (CGSize)intrinsicContentSize
@@ -249,6 +247,48 @@
   [v5 setMinimumPressDuration:1.0];
   [buttonCopy addGestureRecognizer:v5];
   [(TPNumberPad *)self addSubview:buttonCopy];
+}
+
+- (void)setNumberButtonsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v16 = *MEMORY[0x1E69E9840];
+  if (self->_numberButtonsEnabled != enabled)
+  {
+    v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v5 = self->_buttons;
+    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    if (v6)
+    {
+      v7 = v6;
+      v8 = *v12;
+      do
+      {
+        for (i = 0; i != v7; ++i)
+        {
+          if (*v12 != v8)
+          {
+            objc_enumerationMutation(v5);
+          }
+
+          v10 = *(*(&v11 + 1) + 8 * i);
+          if ([v10 character] != 12)
+          {
+            [v10 setEnabled:enabledCopy];
+          }
+        }
+
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      }
+
+      while (v7);
+    }
+  }
+
+  self->_numberButtonsEnabled = enabledCopy;
 }
 
 - (void)buttonLongPressedViaGesture:(id)gesture

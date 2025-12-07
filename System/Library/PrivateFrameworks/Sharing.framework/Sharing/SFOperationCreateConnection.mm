@@ -10,7 +10,7 @@ void ___SFOperationCreateConnection_block_invoke(uint64_t a1, void *a2)
   {
     if (a2 == MEMORY[0x1E69E9E20])
     {
-      v12 = framework_log();
+      v12 = framework_log(v4);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v28[0]) = 0;
@@ -21,7 +21,7 @@ void ___SFOperationCreateConnection_block_invoke(uint64_t a1, void *a2)
     else
     {
       v9 = MEMORY[0x1E69E9E18];
-      v10 = framework_log();
+      v10 = framework_log(v4);
       v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
       if (a2 == v9)
       {

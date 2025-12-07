@@ -42,7 +42,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__30__FLTSSUCategory_flatbuffData__bl
 
 - (Offset<SSUCategory>)addObjectToBuffer:(void *)buffer
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   type = [(FLTSSUCategory *)self type];
   groups = [(FLTSSUCategory *)self groups];
   v7 = [groups count];
@@ -56,17 +56,12 @@ apple::aiml::flatbuffers2::DetachedBuffer *__30__FLTSSUCategory_flatbuffData__bl
     std::vector<std::unique_ptr<siricommon::StringValue>>::__throw_length_error[abi:ne200100]();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
+  memset(v21, 0, sizeof(v21));
   obj = [(FLTSSUCategory *)self groups];
-  v21 = type;
-  if ([obj countByEnumeratingWithState:&v23 objects:v27 count:16])
+  v19 = type;
+  if ([obj countByEnumeratingWithState:v21 objects:v22 count:16])
   {
-    *v24;
-    *v24;
-    [**(&v23 + 1) addObjectToBuffer:{buffer, type}];
+    [**(&v21[0] + 1) addObjectToBuffer:{buffer, type}];
     std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(1uLL);
   }
 
@@ -77,13 +72,13 @@ apple::aiml::flatbuffers2::DetachedBuffer *__30__FLTSSUCategory_flatbuffData__bl
   v9 = *(buffer + 8);
   v10 = *(buffer + 12);
   v11 = *(buffer + 10);
-  if (v21 || *(buffer + 80) == 1)
+  if (v19 || *(buffer + 80) == 1)
   {
     apple::aiml::flatbuffers2::FlatBufferBuilder::Align(buffer, 1uLL);
     apple::aiml::flatbuffers2::vector_downward::ensure_space(buffer, 1uLL);
     v12 = *(buffer + 6);
     *(buffer + 6) = v12 - 1;
-    *(v12 - 1) = v21;
+    *(v12 - 1) = v19;
     v14 = *(buffer + 5);
     v13 = *(buffer + 6);
     v15 = *(buffer + 4);
@@ -106,9 +101,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__30__FLTSSUCategory_flatbuffData__bl
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(buffer, 6, v17, 0);
   }
 
-  v18.var0 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v9 - v10 + v11);
-  v19 = *MEMORY[0x1E69E9840];
-  return v18;
+  return apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v9 - v10 + v11);
 }
 
 - (void)groups_enumerateObjectsUsingBlock:(id)block

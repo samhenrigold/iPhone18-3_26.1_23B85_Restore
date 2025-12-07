@@ -142,9 +142,9 @@
 - (id)_descriptionWithIndent:(unint64_t)indent
 {
   v4 = objc_alloc(MEMORY[0x277CCACA8]);
-  v12.receiver = self;
-  v12.super_class = SVXSystemEvent;
-  v5 = [(SVXSystemEvent *)&v12 description];
+  v11.receiver = self;
+  v11.super_class = SVXSystemEvent;
+  v5 = [(SVXSystemEvent *)&v11 description];
   type = self->_type;
   if (type > 0xD)
   {
@@ -157,10 +157,9 @@
   }
 
   v8 = v7;
-  v9 = *&self->_timestamp;
-  v10 = [v4 initWithFormat:@"%@ {type = %@, timestamp = %llu, deviceSetupFlowScene = %@, storeDemo = %@, orderedAlarmAndTimerIDs = %@, speechSynthesisRequest = %@, audioSessionID = %u}", v5, v8, self->_timestamp, self->_deviceSetupFlowScene, self->_storeDemo, self->_orderedAlarmAndTimerIDs, self->_speechSynthesisRequest, self->_audioSessionID];
+  v9 = [v4 initWithFormat:@"%@ {type = %@, timestamp = %llu, deviceSetupFlowScene = %@, storeDemo = %@, orderedAlarmAndTimerIDs = %@, speechSynthesisRequest = %@, audioSessionID = %u}", v5, v8, self->_timestamp, self->_deviceSetupFlowScene, self->_storeDemo, self->_orderedAlarmAndTimerIDs, self->_speechSynthesisRequest, self->_audioSessionID];
 
-  return v10;
+  return v9;
 }
 
 - (SVXSystemEvent)initWithType:(int64_t)type timestamp:(unint64_t)timestamp deviceSetupFlowScene:(id)scene storeDemo:(id)demo orderedAlarmAndTimerIDs:(id)ds speechSynthesisRequest:(id)request audioSessionID:(unsigned int)d

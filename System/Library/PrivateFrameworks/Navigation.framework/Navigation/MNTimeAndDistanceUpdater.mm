@@ -22,7 +22,7 @@
 
 - (void)_logDisplayETAInfo:(id)info
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   mainRoute = self->_mainRoute;
   if (mainRoute)
@@ -58,95 +58,92 @@
           }
 
           routeID3 = [infoCopy routeID];
-          v16 = 138412802;
-          v17 = v13;
-          v18 = 2112;
-          v19 = routeID3;
-          v20 = 2112;
-          v21 = infoCopy;
-          _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_INFO, "Calculating %@ display ETA for route %@: %@", &v16, 0x20u);
+          v15 = 138412802;
+          v16 = v13;
+          v17 = 2112;
+          v18 = routeID3;
+          v19 = 2112;
+          v20 = infoCopy;
+          _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_INFO, "Calculating %@ display ETA for route %@: %@", &v15, 0x20u);
         }
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startTimerToNextMinute
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   [(NSTimer *)self->_minuteTimer invalidate];
   [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
   v4 = 60.0 - (v3 % 0x3C);
   if (v4 < 0.0 || v4 > 60.0)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid update time interval"];
-    v11 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid update time interval"];
+    v10 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *location = 136316162;
       *&location[4] = "[MNTimeAndDistanceUpdater _startTimerToNextMinute]";
-      v16 = 2080;
-      v17 = "/Library/Caches/com.apple.xbs/Sources/Navigation/TrafficETA/MNTimeAndDistanceUpdater.m";
-      v18 = 1024;
-      v19 = 256;
-      v20 = 2080;
-      v21 = "remainingSecondsToNextMinute >= 0 && remainingSecondsToNextMinute <= 60";
-      v22 = 2112;
-      v23 = v10;
-      _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", location, 0x30u);
+      v15 = 2080;
+      v16 = "/Library/Caches/com.apple.xbs/Sources/Navigation/TrafficETA/MNTimeAndDistanceUpdater.m";
+      v17 = 1024;
+      v18 = 256;
+      v19 = 2080;
+      v20 = "remainingSecondsToNextMinute >= 0 && remainingSecondsToNextMinute <= 60";
+      v21 = 2112;
+      v22 = v9;
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", location, 0x30u);
     }
   }
 
   objc_initWeak(location, self);
   v6 = MEMORY[0x1E695DFF0];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __51__MNTimeAndDistanceUpdater__startTimerToNextMinute__block_invoke;
-  v13[3] = &unk_1E8430A38;
-  objc_copyWeak(&v14, location);
-  v7 = [v6 scheduledTimerWithTimeInterval:0 repeats:v13 block:v4];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __51__MNTimeAndDistanceUpdater__startTimerToNextMinute__block_invoke;
+  v12[3] = &unk_1E8430A38;
+  objc_copyWeak(&v13, location);
+  v7 = [v6 scheduledTimerWithTimeInterval:0 repeats:v12 block:v4];
   minuteTimer = self->_minuteTimer;
   self->_minuteTimer = v7;
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(location);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __51__MNTimeAndDistanceUpdater__startTimerToNextMinute__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     v3 = WeakRetained[3];
-    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v10;
+      v6 = *v9;
       do
       {
         v7 = 0;
         do
         {
-          if (*v10 != v6)
+          if (*v9 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [v2 updateDisplayETAForRoute:*(*(&v9 + 1) + 8 * v7++) notificationType:{1, v9}];
+          [v2 updateDisplayETAForRoute:*(*(&v8 + 1) + 8 * v7++) notificationType:{1, v8}];
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v5);
@@ -154,13 +151,11 @@ void __51__MNTimeAndDistanceUpdater__startTimerToNextMinute__block_invoke(uint64
 
     [v2 _startTimerToNextMinute];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_batteryChargeInfoForRoute:(id)route routeCoordinate:(id)coordinate
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   route = [routeCopy route];
   isEVRoute = [route isEVRoute];
@@ -192,17 +187,17 @@ void __51__MNTimeAndDistanceUpdater__startTimerToNextMinute__block_invoke(uint64
       v22 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v25 = 136316162;
-        v26 = "[MNTimeAndDistanceUpdater _batteryChargeInfoForRoute:routeCoordinate:]";
-        v27 = 2080;
-        v28 = "/Library/Caches/com.apple.xbs/Sources/Navigation/TrafficETA/MNTimeAndDistanceUpdater.m";
-        v29 = 1024;
-        v30 = 238;
-        v31 = 2080;
-        v32 = "endOfLegEvInfo && endOfRouteEvInfo";
-        v33 = 2112;
-        v34 = v21;
-        _os_log_impl(&dword_1D311E000, v22, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v25, 0x30u);
+        v24 = 136316162;
+        v25 = "[MNTimeAndDistanceUpdater _batteryChargeInfoForRoute:routeCoordinate:]";
+        v26 = 2080;
+        v27 = "/Library/Caches/com.apple.xbs/Sources/Navigation/TrafficETA/MNTimeAndDistanceUpdater.m";
+        v28 = 1024;
+        v29 = 238;
+        v30 = 2080;
+        v31 = "endOfLegEvInfo && endOfRouteEvInfo";
+        v32 = 2112;
+        v33 = v21;
+        _os_log_impl(&dword_1D311E000, v22, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v24, 0x30u);
       }
 
       v20 = 0;
@@ -213,8 +208,6 @@ void __51__MNTimeAndDistanceUpdater__startTimerToNextMinute__block_invoke(uint64
   {
     v20 = 0;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -248,7 +241,7 @@ void __51__MNTimeAndDistanceUpdater__startTimerToNextMinute__block_invoke(uint64
 
 - (void)updateDisplayETAForRoute:(id)route notificationType:(unint64_t)type
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   if (![(NSArray *)self->_routes containsObject:routeCopy])
   {
@@ -256,17 +249,17 @@ void __51__MNTimeAndDistanceUpdater__startTimerToNextMinute__block_invoke(uint64
     v21 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v69 = 136316162;
-      v70 = "[MNTimeAndDistanceUpdater updateDisplayETAForRoute:notificationType:]";
-      v71 = 2080;
-      v72 = "/Library/Caches/com.apple.xbs/Sources/Navigation/TrafficETA/MNTimeAndDistanceUpdater.m";
-      v73 = 1024;
-      v74 = 114;
-      v75 = 2080;
-      v76 = "NO";
-      v77 = 2112;
-      v78 = v20;
-      _os_log_impl(&dword_1D311E000, v21, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v69, 0x30u);
+      v68 = 136316162;
+      v69 = "[MNTimeAndDistanceUpdater updateDisplayETAForRoute:notificationType:]";
+      v70 = 2080;
+      v71 = "/Library/Caches/com.apple.xbs/Sources/Navigation/TrafficETA/MNTimeAndDistanceUpdater.m";
+      v72 = 1024;
+      v73 = 114;
+      v74 = 2080;
+      v75 = "NO";
+      v76 = 2112;
+      v77 = v20;
+      _os_log_impl(&dword_1D311E000, v21, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v68, 0x30u);
     }
 
     goto LABEL_60;
@@ -297,9 +290,9 @@ void __51__MNTimeAndDistanceUpdater__startTimerToNextMinute__block_invoke(uint64
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           [v17 distanceFromRoute];
-          v69 = 134217984;
-          v70 = v19;
-          _os_log_impl(&dword_1D311E000, v18, OS_LOG_TYPE_INFO, "Unexpected poor route match when computing ETA along route. Attempting to compute ETA anyway but result may be inaccurate. Distance from route: %0.1f meters", &v69, 0xCu);
+          v68 = 134217984;
+          v69 = v19;
+          _os_log_impl(&dword_1D311E000, v18, OS_LOG_TYPE_INFO, "Unexpected poor route match when computing ETA along route. Attempting to compute ETA anyway but result may be inaccurate. Distance from route: %0.1f meters", &v68, 0xCu);
         }
       }
 
@@ -496,19 +489,17 @@ void __51__MNTimeAndDistanceUpdater__startTimerToNextMinute__block_invoke(uint64
 
 LABEL_60:
   }
-
-  v68 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setRoutes:(id)routes mainRoute:(id)route location:(id)location notificationType:(unint64_t)type
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   routesCopy = routes;
   routeCopy = route;
   locationCopy = location;
-  v22 = routesCopy;
+  v21 = routesCopy;
   v14 = [MEMORY[0x1E695DFA8] setWithArray:routesCopy];
-  v21 = [MEMORY[0x1E695DFD8] setWithArray:self->_routes];
+  v20 = [MEMORY[0x1E695DFD8] setWithArray:self->_routes];
   [v14 minusSet:?];
   if (self->_mainRoute != routeCopy)
   {
@@ -520,41 +511,39 @@ LABEL_60:
   objc_storeStrong(&self->_mainRoute, route);
   if (locationCopy)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v15 = v14;
-    v16 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v24;
+      v18 = *v23;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v24 != v18)
+          if (*v23 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          [(MNTimeAndDistanceUpdater *)self updateDisplayETAForRoute:*(*(&v23 + 1) + 8 * i) notificationType:type];
+          [(MNTimeAndDistanceUpdater *)self updateDisplayETAForRoute:*(*(&v22 + 1) + 8 * i) notificationType:type];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v17);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setLocation:(id)location notificationType:(unint64_t)type
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   objc_storeStrong(&self->_location, location);
   routeMatch = [locationCopy routeMatch];
@@ -563,61 +552,59 @@ LABEL_60:
 
   if (route != route2)
   {
-    v17 = MEMORY[0x1E696AEC0];
+    v16 = MEMORY[0x1E696AEC0];
     routeMatch2 = [locationCopy routeMatch];
     route3 = [routeMatch2 route];
     uniqueRouteID = [route3 uniqueRouteID];
     routeID = [(MNActiveRouteInfo *)self->_mainRoute routeID];
-    v22 = [v17 stringWithFormat:@"Location matched to a route that is not the main route. Location route: %@ | Main route: %@", uniqueRouteID, routeID];
+    v21 = [v16 stringWithFormat:@"Location matched to a route that is not the main route. Location route: %@ | Main route: %@", uniqueRouteID, routeID];
 
-    v23 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v22 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v30 = "[MNTimeAndDistanceUpdater setLocation:notificationType:]";
-      v31 = 2080;
-      v32 = "/Library/Caches/com.apple.xbs/Sources/Navigation/TrafficETA/MNTimeAndDistanceUpdater.m";
-      v33 = 1024;
-      v34 = 83;
-      v35 = 2080;
-      v36 = "location.routeMatch.route == _mainRoute.route";
-      v37 = 2112;
-      v38 = v22;
-      _os_log_impl(&dword_1D311E000, v23, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
+      v29 = "[MNTimeAndDistanceUpdater setLocation:notificationType:]";
+      v30 = 2080;
+      v31 = "/Library/Caches/com.apple.xbs/Sources/Navigation/TrafficETA/MNTimeAndDistanceUpdater.m";
+      v32 = 1024;
+      v33 = 83;
+      v34 = 2080;
+      v35 = "location.routeMatch.route == _mainRoute.route";
+      v36 = 2112;
+      v37 = v21;
+      _os_log_impl(&dword_1D311E000, v22, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
     }
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v11 = self->_routes;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v25;
+    v14 = *v24;
     do
     {
       v15 = 0;
       do
       {
-        if (*v25 != v14)
+        if (*v24 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(MNTimeAndDistanceUpdater *)self updateDisplayETAForRoute:*(*(&v24 + 1) + 8 * v15++) notificationType:type];
+        [(MNTimeAndDistanceUpdater *)self updateDisplayETAForRoute:*(*(&v23 + 1) + 8 * v15++) notificationType:type];
       }
 
       while (v13 != v15);
-      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

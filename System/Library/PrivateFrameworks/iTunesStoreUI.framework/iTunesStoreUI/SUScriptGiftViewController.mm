@@ -12,7 +12,7 @@
 
 - (id)newNativeViewController
 {
-  v3 = ISUIMobileStoreUIFramework();
+  v3 = ISUIMobileStoreUIFramework(self, a2);
   v4 = objc_alloc(ISUIWeakLinkedClassForString(&cfstr_Suuigift.isa, v3));
   [(SUScriptObject *)self lock];
   if (self->_item)
@@ -26,13 +26,13 @@
   }
 
   v6 = v5;
-  [(SUScriptObject *)self unlock];
-  v7 = ISUIMobileStoreUIFramework();
-  v8 = [objc_alloc(ISUIWeakLinkedClassForString(&cfstr_Suuigiftviewco.isa v7))];
-  v9 = ISUIMobileStoreUIFramework();
-  [v8 setClientContext:{objc_msgSend(ISUIWeakLinkedClassForString(&cfstr_Suuiclientcont.isa, v9), "defaultContext")}];
+  unlock = [(SUScriptObject *)self unlock];
+  v9 = ISUIMobileStoreUIFramework(unlock, v8);
+  v10 = [objc_alloc(ISUIWeakLinkedClassForString(&cfstr_Suuigiftviewco.isa v9))];
+  v12 = ISUIMobileStoreUIFramework(v10, v11);
+  [v10 setClientContext:{objc_msgSend(ISUIWeakLinkedClassForString(&cfstr_Suuiclientcont.isa, v12), "defaultContext")}];
 
-  return v8;
+  return v10;
 }
 
 - (void)setCreditGiftStyle:(int64_t)style
@@ -46,7 +46,7 @@
 - (void)setProductGiftItem:(id)item
 {
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), !item) || (isKindOfClass)
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), v5 = objc_opt_isKindOfClass(), !item) || (v5)
   {
     [(SUScriptObject *)self lock];
 
@@ -60,24 +60,25 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v9 = [item copyArrayOrDictionaryWithContext:{-[SUScriptObject copyJavaScriptContext](self, "copyJavaScriptContext")}];
+      v11 = [item copyArrayOrDictionaryWithContext:{-[SUScriptObject copyJavaScriptContext](self, "copyJavaScriptContext")}];
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v6 = ISUIMobileStoreUIFramework();
-        v7 = [objc_alloc(ISUIWeakLinkedClassForString(&cfstr_Suuiitem.isa v6))];
+        v8 = ISUIMobileStoreUIFramework(isKindOfClass, v7);
+        v9 = [objc_alloc(ISUIWeakLinkedClassForString(&cfstr_Suuiitem.isa v8))];
         [(SUScriptObject *)self lock];
 
-        self->_item = v7;
+        self->_item = v9;
         [(SUScriptObject *)self unlock];
       }
     }
 
     else
     {
-      v8 = MEMORY[0x1E69E2F88];
+      v10 = MEMORY[0x1E69E2F88];
 
-      [v8 throwException:@"Invalid argument"];
+      [v10 throwException:@"Invalid argument"];
     }
   }
 }

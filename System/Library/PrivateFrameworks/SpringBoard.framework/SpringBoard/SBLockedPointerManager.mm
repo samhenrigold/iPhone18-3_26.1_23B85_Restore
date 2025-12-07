@@ -59,43 +59,43 @@
 
 - (void)clientWithSceneIdentifier:(id)identifier prefersPointerLockStatus:(int64_t)status
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   stateSerialQueue = self->_stateSerialQueue;
-  v11 = MEMORY[0x277D85DD0];
-  v12 = 3221225472;
-  v13 = __77__SBLockedPointerManager_clientWithSceneIdentifier_prefersPointerLockStatus___block_invoke;
-  v14 = &unk_2783AA668;
-  v17 = &v19;
+  v12 = MEMORY[0x277D85DD0];
+  v13 = 3221225472;
+  v14 = __77__SBLockedPointerManager_clientWithSceneIdentifier_prefersPointerLockStatus___block_invoke;
+  v15 = &unk_2783AA668;
+  v18 = &v20;
   statusCopy = status;
   selfCopy = self;
   v8 = identifierCopy;
-  v16 = v8;
-  dispatch_sync(stateSerialQueue, &v11);
-  if (v20[3])
+  v17 = v8;
+  dispatch_sync(stateSerialQueue, &v12);
+  if (v21[3])
   {
-    v9 = SBLogPointer();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogPointer(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [MEMORY[0x277CCABB0] numberWithInteger:{status, v11, v12, v13, v14, selfCopy}];
+      v11 = [MEMORY[0x277CCABB0] numberWithInteger:{status, v12, v13, v14, v15, selfCopy}];
       *buf = 138543618;
-      v24 = v8;
-      v25 = 2114;
-      v26 = v10;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring request from %{public}@ to set pointerLockStatus %{public}@ because I'm invalidated", buf, 0x16u);
+      v25 = v8;
+      v26 = 2114;
+      v27 = v11;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring request from %{public}@ to set pointerLockStatus %{public}@ because I'm invalidated", buf, 0x16u);
     }
   }
 
   else
   {
-    [(SBLockedPointerManager *)self _notInvalidated_updateLockForLayoutState:0, v11, v12, v13, v14, selfCopy];
+    [(SBLockedPointerManager *)self _notInvalidated_updateLockForLayoutState:0, v12, v13, v14, v15, selfCopy];
   }
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
 void __77__SBLockedPointerManager_clientWithSceneIdentifier_prefersPointerLockStatus___block_invoke(void *a1)
@@ -112,80 +112,80 @@ void __77__SBLockedPointerManager_clientWithSceneIdentifier_prefersPointerLockSt
 - (void)clientWithSceneIdentifier:(id)identifier suppressPreferredLockStatus:(BOOL)status
 {
   statusCopy = status;
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
   stateSerialQueue = self->_stateSerialQueue;
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __80__SBLockedPointerManager_clientWithSceneIdentifier_suppressPreferredLockStatus___block_invoke;
-  v18 = &unk_2783B90F0;
-  v21 = &v23;
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __80__SBLockedPointerManager_clientWithSceneIdentifier_suppressPreferredLockStatus___block_invoke;
+  v19 = &unk_2783B90F0;
+  v22 = &v24;
   selfCopy = self;
   v8 = identifierCopy;
-  v20 = v8;
-  v22 = statusCopy;
-  dispatch_sync(stateSerialQueue, &v15);
-  if (v24[3])
+  v21 = v8;
+  v23 = statusCopy;
+  dispatch_sync(stateSerialQueue, &v16);
+  if (v25[3])
   {
-    v9 = SBLogPointer();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogPointer(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [MEMORY[0x277CCABB0] numberWithBool:{statusCopy, v15, v16, v17, v18, selfCopy}];
+      v11 = [MEMORY[0x277CCABB0] numberWithBool:{statusCopy, v16, v17, v18, v19, selfCopy}];
       *buf = 138543618;
-      v28 = v8;
-      v29 = 2114;
-      v30 = v10;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring request from %{public}@ to set suppressPreferredLockStatus %{public}@ because I'm invalidated", buf, 0x16u);
+      v29 = v8;
+      v30 = 2114;
+      v31 = v11;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Ignoring request from %{public}@ to set suppressPreferredLockStatus %{public}@ because I'm invalidated", buf, 0x16u);
     }
   }
 
   else
   {
-    v11 = objc_opt_class();
+    v12 = objc_opt_class();
     WeakRetained = objc_loadWeakRetained(&self->_windowScene);
     switcherController = [WeakRetained switcherController];
     contentViewController = [switcherController contentViewController];
-    v9 = SBSafeCast(v11, contentViewController);
+    v10 = SBSafeCast(v12, contentViewController);
 
-    if (v9)
+    if (v10)
     {
-      [v9 clientWithSceneIdentifier:v8 suppressPreferredPointerLockStatusUpdated:statusCopy];
+      [v10 clientWithSceneIdentifier:v8 suppressPreferredPointerLockStatusUpdated:statusCopy];
     }
 
     [(SBLockedPointerManager *)self _notInvalidated_updateLockForLayoutState:0];
   }
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v24, 8);
 }
 
-void *__80__SBLockedPointerManager_clientWithSceneIdentifier_suppressPreferredLockStatus___block_invoke(void *result)
+void *__80__SBLockedPointerManager_clientWithSceneIdentifier_suppressPreferredLockStatus___block_invoke(void *result, const char *a2)
 {
   *(*(result[6] + 8) + 24) = *(result[4] + 80);
   if ((*(*(result[6] + 8) + 24) & 1) == 0)
   {
-    v1 = result;
-    result = [*(result[4] + 48) containsObject:result[5]];
+    v2 = result;
+    result = objc_msgSend_containsObject_(*(result[4] + 48), a2, result[5]);
     if (result)
     {
-      if ((v1[7] & 1) == 0)
+      if ((v2[7] & 1) == 0)
       {
-        v2 = v1[5];
-        v3 = *(v1[4] + 48);
+        v3 = v2[5];
+        v4 = *(v2[4] + 48);
 
-        return [v3 removeObject:v2];
+        return [v4 removeObject:v3];
       }
     }
 
-    else if (*(v1 + 56))
+    else if (*(v2 + 56))
     {
-      v4 = v1[5];
-      v5 = *(v1[4] + 48);
+      v5 = v2[5];
+      v6 = *(v2[4] + 48);
 
-      return [v5 addObject:v4];
+      return [v6 addObject:v5];
     }
   }
 
@@ -229,25 +229,25 @@ void __36__SBLockedPointerManager_invalidate__block_invoke(uint64_t a1)
 {
   coordinatorCopy = coordinator;
   contextCopy = context;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
   stateSerialQueue = self->_stateSerialQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __99__SBLockedPointerManager_layoutStateTransitionCoordinator_transitionDidBeginWithTransitionContext___block_invoke;
   block[3] = &unk_2783A8CE0;
   block[4] = self;
-  block[5] = &v12;
+  block[5] = &v13;
   dispatch_sync(stateSerialQueue, block);
-  if (v13[3])
+  if (v14[3])
   {
-    toLayoutState = SBLogPointer();
+    toLayoutState = SBLogPointer(v9);
     if (os_log_type_enabled(toLayoutState, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_21ED4E000, toLayoutState, OS_LOG_TYPE_DEFAULT, "Ignoring layout state transition didBegin because I'm invalidated", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_21ED4E000, toLayoutState, OS_LOG_TYPE_DEFAULT, "Ignoring layout state transition didBegin because I'm invalidated", v11, 2u);
     }
   }
 
@@ -257,32 +257,32 @@ void __36__SBLockedPointerManager_invalidate__block_invoke(uint64_t a1)
     [(SBLockedPointerManager *)self _notInvalidated_updateLockForLayoutState:toLayoutState];
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v13, 8);
 }
 
 - (void)layoutStateTransitionCoordinator:(id)coordinator transitionDidEndWithTransitionContext:(id)context
 {
   coordinatorCopy = coordinator;
   contextCopy = context;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
   stateSerialQueue = self->_stateSerialQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __97__SBLockedPointerManager_layoutStateTransitionCoordinator_transitionDidEndWithTransitionContext___block_invoke;
   block[3] = &unk_2783A8CE0;
   block[4] = self;
-  block[5] = &v12;
+  block[5] = &v13;
   dispatch_sync(stateSerialQueue, block);
-  if (v13[3])
+  if (v14[3])
   {
-    toLayoutState = SBLogPointer();
+    toLayoutState = SBLogPointer(v9);
     if (os_log_type_enabled(toLayoutState, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_21ED4E000, toLayoutState, OS_LOG_TYPE_DEFAULT, "Ignoring layout state transition didEnd because I'm invalidated", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_21ED4E000, toLayoutState, OS_LOG_TYPE_DEFAULT, "Ignoring layout state transition didEnd because I'm invalidated", v11, 2u);
     }
   }
 
@@ -292,7 +292,7 @@ void __36__SBLockedPointerManager_invalidate__block_invoke(uint64_t a1)
     [(SBLockedPointerManager *)self _notInvalidated_updateLockForLayoutState:toLayoutState];
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v13, 8);
 }
 
 - (void)sceneManager:(id)manager didAddExternalForegroundApplicationSceneHandle:(id)handle
@@ -444,8 +444,8 @@ void __81__SBLockedPointerManager_sceneHandle_didUpdateSettingsWithDiff_previous
 
   if (v5 >= 2)
   {
-    v6 = SBLogPointer();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = SBLogPointer(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [SBLockedPointerManager _possibleSceneHandleForLockingPointerFromLayoutState:];
     }
@@ -455,8 +455,8 @@ void __81__SBLockedPointerManager_sceneHandle_didUpdateSettingsWithDiff_previous
 
   if (!v5)
   {
-    v6 = SBLogPointer();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = SBLogPointer(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [SBLockedPointerManager _possibleSceneHandleForLockingPointerFromLayoutState:];
     }
@@ -464,10 +464,10 @@ void __81__SBLockedPointerManager_sceneHandle_didUpdateSettingsWithDiff_previous
     goto LABEL_16;
   }
 
-  v7 = objc_opt_class();
-  v8 = SBSafeCast(v7, stateCopy);
-  v6 = v8;
-  if (!v8)
+  v8 = objc_opt_class();
+  v9 = SBSafeCast(v8, stateCopy);
+  v7 = v9;
+  if (!v9)
   {
 LABEL_8:
     elements2 = [stateCopy elements];
@@ -480,15 +480,17 @@ LABEL_8:
     goto LABEL_17;
   }
 
-  if ([v8 unlockedEnvironmentMode]== 3)
+  unlockedEnvironmentMode = [v9 unlockedEnvironmentMode];
+  if (unlockedEnvironmentMode == 3)
   {
-    if ([v6 spaceConfiguration]== 1)
+    spaceConfiguration = [v7 spaceConfiguration];
+    if (spaceConfiguration == 1)
     {
       goto LABEL_8;
     }
 
-    v14 = SBLogPointer();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v17 = SBLogPointer(spaceConfiguration);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       [SBLockedPointerManager _possibleSceneHandleForLockingPointerFromLayoutState:];
     }
@@ -496,8 +498,8 @@ LABEL_8:
 
   else
   {
-    v14 = SBLogPointer();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v17 = SBLogPointer(unlockedEnvironmentMode);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       [SBLockedPointerManager _possibleSceneHandleForLockingPointerFromLayoutState:];
     }
@@ -512,7 +514,7 @@ LABEL_17:
 
 - (BOOL)_shouldAllowPointerLockedForScene:(id)scene
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   WeakRetained = objc_loadWeakRetained(&self->_windowScene);
   controlCenterController = [WeakRetained controlCenterController];
@@ -522,44 +524,45 @@ LABEL_17:
   isPresented2 = [v8 isPresented];
 
   sceneIfExists = [sceneCopy sceneIfExists];
+  v11 = sceneIfExists;
   if (sceneIfExists)
   {
     isEffectivelyForeground = [sceneCopy isEffectivelyForeground];
-    settings = [sceneIfExists settings];
+    settings = [v11 settings];
     if ([settings isUISubclass])
     {
-      v13 = ([settings deactivationReasons] & 0xFFFFFFFFFFFFFEFFLL) == 0;
+      v14 = ([settings deactivationReasons] & 0xFFFFFFFFFFFFFEFFLL) == 0;
     }
 
     else
     {
-      v13 = 1;
+      v14 = 1;
     }
 
-    v14 = isEffectivelyForeground & v13;
+    v15 = isEffectivelyForeground & v14;
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  v15 = ((isPresented | isPresented2) ^ 1) & v14;
-  v16 = SBLogPointer();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v16 = ((isPresented | isPresented2) ^ 1) & v15;
+  v17 = SBLogPointer(sceneIfExists);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v18[0] = 67109888;
-    v18[1] = v15 & 1;
-    v19 = 1024;
-    v20 = isPresented ^ 1;
-    v21 = 1024;
-    v22 = isPresented2 ^ 1;
-    v23 = 1024;
-    v24 = v14;
-    _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_INFO, "shouldAllow:%d isAllowedBasedOnControlCenterState:%d isAllowedBasedOnCoverSheetState:%d isAllowedFromActivationState:%d", v18, 0x1Au);
+    v19[0] = 67109888;
+    v19[1] = v16 & 1;
+    v20 = 1024;
+    v21 = isPresented ^ 1;
+    v22 = 1024;
+    v23 = isPresented2 ^ 1;
+    v24 = 1024;
+    v25 = v15;
+    _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_INFO, "shouldAllow:%d isAllowedBasedOnControlCenterState:%d isAllowedBasedOnCoverSheetState:%d isAllowedFromActivationState:%d", v19, 0x1Au);
   }
 
-  return v15 & 1;
+  return v16 & 1;
 }
 
 - (void)_notInvalidated_updateLockForLayoutState:(id)state
@@ -585,70 +588,72 @@ LABEL_17:
 
 - (void)_queue_updateLockForLayoutState:(id)state
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   dispatch_assert_queue_V2(self->_stateSerialQueue);
   if (self->_queue_isInvalidated)
   {
-    v5 = SBLogPointer();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogPointer(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      *v16 = stateCopy;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Ignoring request to update pointer lock state for layout state: %@ because I'm invalidated", &v15, 0xCu);
+      v17 = 138412290;
+      *v18 = stateCopy;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Ignoring request to update pointer lock state for layout state: %@ because I'm invalidated", &v17, 0xCu);
     }
   }
 
   else
   {
-    v5 = [(SBLockedPointerManager *)self _possibleSceneHandleForLockingPointerFromLayoutState:stateCopy];
-    sceneIdentifier = [v5 sceneIdentifier];
-    v7 = SBLogPointer();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v6 = [(SBLockedPointerManager *)self _possibleSceneHandleForLockingPointerFromLayoutState:stateCopy];
+    sceneIdentifier = [v6 sceneIdentifier];
+    v8 = SBLogPointer(sceneIdentifier);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v15 = 138412290;
-      *v16 = sceneIdentifier;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "Re-evaluating pointer lock state for scene %@", &v15, 0xCu);
+      v17 = 138412290;
+      *v18 = sceneIdentifier;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Re-evaluating pointer lock state for scene %@", &v17, 0xCu);
     }
 
     queue_sceneIdentifierThatHasLockedPointer = self->_queue_sceneIdentifierThatHasLockedPointer;
-    v9 = [(SBLockedPointerManager *)self _queue_prefersLockForSceneIdentifier:sceneIdentifier];
-    v10 = [(NSMutableSet *)self->_queue_sceneIdentifiersThatSuppressPreferredLockStatus containsObject:sceneIdentifier];
-    if (v9)
+    v10 = [(SBLockedPointerManager *)self _queue_prefersLockForSceneIdentifier:sceneIdentifier];
+    v11 = objc_msgSend_containsObject_(self->_queue_sceneIdentifiersThatSuppressPreferredLockStatus);
+    if (v10)
     {
-      v11 = [(SBLockedPointerManager *)self _shouldAllowPointerLockedForScene:v5]& (v10 ^ 1);
+      v12 = v11;
+      v11 = [(SBLockedPointerManager *)self _shouldAllowPointerLockedForScene:v6];
+      v13 = v11 & (v12 ^ 1);
     }
 
     else
     {
-      v11 = 0;
+      v13 = 0;
     }
 
-    v12 = SBLogPointer();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v14 = SBLogPointer(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v15 = 67109632;
-      *v16 = v9;
-      *&v16[4] = 1024;
-      *&v16[6] = v11;
-      v17 = 1024;
-      v18 = queue_sceneIdentifierThatHasLockedPointer != 0;
-      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_INFO, "currentScenePrefersLock:%d shouldBeLocked:%d isCurrentlyLocked:%d", &v15, 0x14u);
+      v17 = 67109632;
+      *v18 = v10;
+      *&v18[4] = 1024;
+      *&v18[6] = v13;
+      v19 = 1024;
+      v20 = queue_sceneIdentifierThatHasLockedPointer != 0;
+      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_INFO, "currentScenePrefersLock:%d shouldBeLocked:%d isCurrentlyLocked:%d", &v17, 0x14u);
     }
 
-    if (!v11 || queue_sceneIdentifierThatHasLockedPointer)
+    if (!v13 || queue_sceneIdentifierThatHasLockedPointer)
     {
       if (queue_sceneIdentifierThatHasLockedPointer)
       {
-        v14 = v11;
+        v16 = v13;
       }
 
       else
       {
-        v14 = 1;
+        v16 = 1;
       }
 
-      if ((v14 & 1) == 0)
+      if ((v16 & 1) == 0)
       {
         [(SBLockedPointerManager *)self _queue_unlockPointer];
       }
@@ -656,7 +661,7 @@ LABEL_17:
 
     else
     {
-      sceneIdentifier2 = [v5 sceneIdentifier];
+      sceneIdentifier2 = [v6 sceneIdentifier];
       [(SBLockedPointerManager *)self _queue_lockPointerForSceneIdentifier:sceneIdentifier2];
     }
   }
@@ -684,15 +689,15 @@ LABEL_17:
 
 - (void)_queue_lockPointerForSceneIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_stateSerialQueue);
-  v5 = SBLogPointer();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = SBLogPointer(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = identifierCopy;
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Locking pointer for scene %{public}@", buf, 0xCu);
+    v19 = identifierCopy;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Locking pointer for scene %{public}@", buf, 0xCu);
   }
 
   if (self->_queue_sceneIdentifierThatHasLockedPointer)
@@ -705,32 +710,32 @@ LABEL_17:
   WeakRetained = objc_loadWeakRetained(&self->_windowScene);
   _fbsDisplayConfiguration = [WeakRetained _fbsDisplayConfiguration];
   hardwareIdentifier = [_fbsDisplayConfiguration hardwareIdentifier];
-  v11 = [mEMORY[0x277CF0720] pointerSuppressionAssertionOnDisplay:hardwareIdentifier forReason:identifierCopy withOptionsMask:2];
+  v12 = [mEMORY[0x277CF0720] pointerSuppressionAssertionOnDisplay:hardwareIdentifier forReason:identifierCopy withOptionsMask:2];
   queue_backboardLockedPointerAssertion = self->_queue_backboardLockedPointerAssertion;
-  self->_queue_backboardLockedPointerAssertion = v11;
+  self->_queue_backboardLockedPointerAssertion = v12;
 
-  v13 = [(PSPointerClientController *)self->_pointerClientController persistentlyHidePointerAssertionForReason:4];
+  v14 = [(PSPointerClientController *)self->_pointerClientController persistentlyHidePointerAssertionForReason:4];
   queue_pointerHiddenAssertion = self->_queue_pointerHiddenAssertion;
-  self->_queue_pointerHiddenAssertion = v13;
+  self->_queue_pointerHiddenAssertion = v14;
 
   queue_sceneIdentifierThatHasLockedPointer = self->_queue_sceneIdentifierThatHasLockedPointer;
   self->_queue_sceneIdentifierThatHasLockedPointer = identifierCopy;
-  v16 = identifierCopy;
+  v17 = identifierCopy;
 
-  [(SBLockedPointerManager *)self _setPointerLockStatus:1 forSceneWithIdentifier:v16];
+  [(SBLockedPointerManager *)self _setPointerLockStatus:1 forSceneWithIdentifier:v17];
 }
 
 - (void)_queue_unlockPointer
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_stateSerialQueue);
-  v3 = SBLogPointer();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = SBLogPointer(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     queue_sceneIdentifierThatHasLockedPointer = self->_queue_sceneIdentifierThatHasLockedPointer;
-    v9 = 138543362;
-    v10 = queue_sceneIdentifierThatHasLockedPointer;
-    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Unlocking pointer locked by scene %{public}@", &v9, 0xCu);
+    v11 = 138543362;
+    v12 = queue_sceneIdentifierThatHasLockedPointer;
+    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Unlocking pointer locked by scene %{public}@", &v11, 0xCu);
   }
 
   if (self->_queue_sceneIdentifierThatHasLockedPointer)
@@ -740,14 +745,14 @@ LABEL_17:
 
   else
   {
-    v5 = SBLogPointer();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = SBLogPointer(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SBLockedPointerManager _queue_unlockPointer];
     }
   }
 
-  v6 = self->_queue_sceneIdentifierThatHasLockedPointer;
+  v8 = self->_queue_sceneIdentifierThatHasLockedPointer;
   self->_queue_sceneIdentifierThatHasLockedPointer = 0;
 
   [(BSInvalidatable *)self->_queue_backboardLockedPointerAssertion invalidate];

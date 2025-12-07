@@ -36,16 +36,16 @@
     v9 = [v7 badgeCountForBundleID:dCopy badgeType:0];
     v10 = [v7 badgeCountForBundleID:dCopy badgeType:2];
 
-    v15[0] = &off_100382388;
+    v15 = &off_100382388;
     v11 = [NSNumber numberWithUnsignedInteger:v9];
-    v16[0] = v11;
-    v15[1] = &off_1003823A0;
+    v18 = v11;
+    v16 = &off_1003823A0;
     v12 = [NSNumber numberWithUnsignedInteger:v8];
-    v16[1] = v12;
-    v15[2] = &off_1003823B8;
+    v19 = v12;
+    v17 = &off_1003823B8;
     v13 = [NSNumber numberWithUnsignedInteger:v10];
-    v16[2] = v13;
-    v14 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:3];
+    v20 = v13;
+    v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     handlerCopy[2](handlerCopy, v14, 0);
   }
 }

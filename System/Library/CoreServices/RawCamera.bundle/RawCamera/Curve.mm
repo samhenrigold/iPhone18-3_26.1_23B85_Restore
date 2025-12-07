@@ -21,19 +21,18 @@
 
 + (id)curve
 {
-  v2 = [Curve alloc];
-  v7 = objc_msgSend_init(v2, v3, v4, v5, v6);
+  v2 = [[Curve alloc] init];
 
-  return v7;
+  return v2;
 }
 
 - (Curve)init
 {
-  v10.receiver = self;
-  v10.super_class = Curve;
-  v2 = [(Curve *)&v10 init];
-  objc_msgSend_setFunction_(v2, v3, &unk_284923A60, v4, v5);
-  objc_msgSend_setInverse_(v2, v6, &unk_284923A80, v7, v8);
+  v4.receiver = self;
+  v4.super_class = Curve;
+  v2 = [(Curve *)&v4 init];
+  [v2 setFunction:&unk_284923A60];
+  [v2 setInverse:&unk_284923A80];
   *(v2 + 24) = xmmword_233909AA0;
   *(v2 + 40) = xmmword_233909AA0;
   return v2;
@@ -48,8 +47,7 @@
 
   else
   {
-    v7 = [Curve alloc];
-    v4 = objc_msgSend_initWithGamma_(v7, v8, v9, v10, v11, gamma);
+    v4 = [[Curve alloc] initWithGamma:gamma];
   }
 
   return v4;
@@ -64,24 +62,24 @@
 
   else
   {
-    v14.receiver = self;
-    v14.super_class = Curve;
-    self = [(Curve *)&v14 init];
+    v8.receiver = self;
+    v8.super_class = Curve;
+    self = [(Curve *)&v8 init];
     selfCopy2 = self;
     if (self)
     {
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = sub_23384E628;
-      v13[3] = &unk_2789EF308;
-      *&v13[4] = gamma;
-      objc_msgSend_setFunction_(self, v5, v13, v6, v7);
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = sub_23384E664;
-      v12[3] = &unk_2789EF308;
-      *&v12[4] = gamma;
-      objc_msgSend_setInverse_(selfCopy2, v8, v12, v9, v10);
+      v7[0] = MEMORY[0x277D85DD0];
+      v7[1] = 3221225472;
+      v7[2] = sub_23384E628;
+      v7[3] = &unk_2789EF308;
+      *&v7[4] = gamma;
+      [(Curve *)self setFunction:v7];
+      v6[0] = MEMORY[0x277D85DD0];
+      v6[1] = 3221225472;
+      v6[2] = sub_23384E664;
+      v6[3] = &unk_2789EF308;
+      *&v6[4] = gamma;
+      [(Curve *)selfCopy2 setInverse:v6];
       self = selfCopy2;
       selfCopy2 = self;
     }
@@ -95,44 +93,43 @@
   if (of)
   {
     ofCopy = of;
-    v4 = [Curve alloc];
-    v8 = objc_msgSend_initWithInverseOf_(v4, v5, ofCopy, v6, v7);
+    v4 = [[Curve alloc] initWithInverseOf:ofCopy];
   }
 
   else
   {
-    v8 = 0;
+    v4 = 0;
   }
 
-  return v8;
+  return v4;
 }
 
 - (Curve)initWithInverseOf:(id)of
 {
   ofCopy = of;
-  if (ofCopy && (v38.receiver = self, v38.super_class = Curve, (self = [(Curve *)&v38 init]) != 0))
+  if (ofCopy && (v16.receiver = self, v16.super_class = Curve, (self = [(Curve *)&v16 init]) != 0))
   {
-    objc_msgSend_rangeMin(ofCopy, v5, v6, v7, v8);
-    self->_domainMin = v9;
-    objc_msgSend_rangeMax(ofCopy, v10, v11, v12, v13);
-    self->_domainMax = v14;
-    objc_msgSend_domainMin(ofCopy, v15, v16, v17, v18);
-    self->_rangeMin = v19;
-    objc_msgSend_domainMax(ofCopy, v20, v21, v22, v23);
-    self->_rangeMax = v24;
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = sub_23384E878;
-    v36[3] = &unk_2789EF330;
-    v25 = ofCopy;
-    v37 = v25;
-    objc_msgSend_setFunction_(self, v26, v36, v27, v28);
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = sub_23384E8CC;
-    v34[3] = &unk_2789EF330;
-    v35 = v25;
-    objc_msgSend_setInverse_(self, v29, v34, v30, v31);
+    [ofCopy rangeMin];
+    self->_domainMin = v5;
+    [ofCopy rangeMax];
+    self->_domainMax = v6;
+    [ofCopy domainMin];
+    self->_rangeMin = v7;
+    [ofCopy domainMax];
+    self->_rangeMax = v8;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = sub_23384E878;
+    v14[3] = &unk_2789EF330;
+    v9 = ofCopy;
+    v15 = v9;
+    [(Curve *)self setFunction:v14];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = sub_23384E8CC;
+    v12[3] = &unk_2789EF330;
+    v13 = v9;
+    [(Curve *)self setInverse:v12];
     self = self;
 
     selfCopy = self;
@@ -153,8 +150,7 @@
   {
     ofCopy = of;
     withCopy = with;
-    v8 = [Curve alloc];
-    v4 = objc_msgSend_initWith_of_(v8, v9, withCopy, ofCopy, v10);
+    v4 = [[Curve alloc] initWith:withCopy of:ofCopy];
   }
 
   return v4;
@@ -168,35 +164,35 @@
   selfCopy = 0;
   if (withCopy && ofCopy)
   {
-    v45.receiver = self;
-    v45.super_class = Curve;
-    self = [(Curve *)&v45 init];
+    v23.receiver = self;
+    v23.super_class = Curve;
+    self = [(Curve *)&v23 init];
     if (self)
     {
-      objc_msgSend_domainMin(v8, v10, v11, v12, v13);
-      self->_domainMin = v14;
-      objc_msgSend_domainMax(v8, v15, v16, v17, v18);
-      self->_domainMax = v19;
-      objc_msgSend_rangeMin(withCopy, v20, v21, v22, v23);
-      self->_rangeMin = v24;
-      objc_msgSend_rangeMax(withCopy, v25, v26, v27, v28);
-      self->_rangeMax = v29;
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = sub_23384EB50;
-      v42[3] = &unk_2789EF358;
-      v30 = withCopy;
-      v43 = v30;
-      v31 = v8;
-      v44 = v31;
-      objc_msgSend_setFunction_(self, v32, v42, v33, v34);
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = sub_23384EBCC;
-      v39[3] = &unk_2789EF358;
-      v40 = v31;
-      v41 = v30;
-      objc_msgSend_setInverse_(self, v35, v39, v36, v37);
+      [v8 domainMin];
+      self->_domainMin = v10;
+      [v8 domainMax];
+      self->_domainMax = v11;
+      [withCopy rangeMin];
+      self->_rangeMin = v12;
+      [withCopy rangeMax];
+      self->_rangeMax = v13;
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = sub_23384EB50;
+      v20[3] = &unk_2789EF358;
+      v14 = withCopy;
+      v21 = v14;
+      v15 = v8;
+      v22 = v15;
+      [(Curve *)self setFunction:v20];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = sub_23384EBCC;
+      v17[3] = &unk_2789EF358;
+      v18 = v15;
+      v19 = v14;
+      [(Curve *)self setInverse:v17];
       self = self;
 
       selfCopy = self;
@@ -218,8 +214,7 @@
   {
     inverseCopy = inverse;
     blockCopy = block;
-    v8 = [Curve alloc];
-    v4 = objc_msgSend_initWithBlock_andInverse_(v8, v9, blockCopy, inverseCopy, v10);
+    v4 = [[Curve alloc] initWithBlock:blockCopy andInverse:inverseCopy];
   }
 
   return v4;
@@ -233,14 +228,14 @@
   selfCopy = 0;
   if (blockCopy && inverseCopy)
   {
-    v18.receiver = self;
-    v18.super_class = Curve;
-    v10 = [(Curve *)&v18 init];
+    v12.receiver = self;
+    v12.super_class = Curve;
+    v10 = [(Curve *)&v12 init];
     self = v10;
     if (v10)
     {
-      objc_msgSend_setFunction_(v10, v11, blockCopy, v12, v13);
-      objc_msgSend_setInverse_(self, v14, v8, v15, v16);
+      [(Curve *)v10 setFunction:blockCopy];
+      [(Curve *)self setInverse:v8];
       self = self;
       selfCopy = self;
     }
@@ -265,8 +260,7 @@
       v9 = 0;
       if (max > min && (*&max & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
       {
-        v10 = [Curve alloc];
-        v9 = objc_msgSend_initWithBlock_domainMin_domainMax_(v10, v11, blockCopy, v12, v13, min, max);
+        v9 = [[Curve alloc] initWithBlock:blockCopy domainMin:min domainMax:max];
       }
     }
   }
@@ -280,18 +274,18 @@
   selfCopy = 0;
   if (blockCopy && (*&min & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && (*&max & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
   {
-    v21.receiver = self;
-    v21.super_class = Curve;
-    v12 = [(Curve *)&v21 init];
+    v15.receiver = self;
+    v15.super_class = Curve;
+    v12 = [(Curve *)&v15 init];
     self = v12;
     if (v12)
     {
       *(v12 + 3) = min;
       *(v12 + 4) = max;
       *(v12 + 40) = xmmword_233909AA0;
-      objc_msgSend_setFunction_(v12, v13, blockCopy, v14, v15);
-      v16 = sub_23384EF3C(blockCopy, min, max);
-      objc_msgSend_setInverse_(self, v17, v16, v18, v19);
+      [v12 setFunction:blockCopy];
+      v13 = sub_23384EF3C(blockCopy, min, max);
+      [(Curve *)self setInverse:v13];
 
       self = self;
       selfCopy = self;
@@ -308,168 +302,163 @@
 
 + (id)curveWithCount:(int)count domainMin:(double)min domainMax:(double)max values:(double *)values
 {
-  v8 = (*&min & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || count < 2 || values == 0;
-  if (v8 || (max > min ? (v10 = (*&max & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000) : (v10 = 1), v10))
+  v7 = (*&min & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || count < 2 || values == 0;
+  if (v7 || (max > min ? (v8 = (*&max & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000) : (v8 = 1), v8))
   {
-    v16 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v12 = *&count;
-    v13 = [Curve alloc];
-    v16 = objc_msgSend_initWithCount_domainMin_domainMax_values_(v13, v14, v12, values, v15, min, max);
+    v9 = [[Curve alloc] initWithCount:*&count domainMin:values domainMax:min values:max];
   }
 
-  return v16;
+  return v9;
 }
 
 - (Curve)initWithCount:(int)count domainMin:(double)min domainMax:(double)max values:(double *)values
 {
   selfCopy = self;
   v9 = (*&min & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || count < 2 || values == 0;
-  if (v9 || (max > min ? (v11 = (*&max & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000) : (v11 = 1), v11 || (v76.receiver = self, v76.super_class = Curve, (selfCopy = [(Curve *)&v76 init]) == 0)))
+  if (v9 || (max > min ? (v11 = (*&max & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000) : (v11 = 1), v11 || (v52.receiver = self, v52.super_class = Curve, (selfCopy = [(Curve *)&v52 init]) == 0)))
   {
-    v52 = 0;
+    v34 = 0;
   }
 
   else
   {
-    v17 = 0;
-    v18 = count - 1;
-    v19 = values + 1;
-    v20 = count - 1;
-    v21 = v20;
+    v14 = 0;
+    v15 = count - 1;
+    v16 = values + 1;
+    v17 = count - 1;
+    v18 = v17;
     do
     {
-      v23 = *(v19 - 1);
-      v22 = *v19;
-      if (*v19 >= v23)
+      v20 = *(v16 - 1);
+      v19 = *v16;
+      if (*v16 >= v20)
       {
-        v24 = 4;
+        v21 = 4;
       }
 
       else
       {
-        v24 = 2;
+        v21 = 2;
       }
 
-      if (*v19 > v23)
+      if (*v16 > v20)
       {
-        v24 = 1;
+        v21 = 1;
       }
 
-      v17 |= v24;
-      ++v19;
-      --v21;
+      v14 |= v21;
+      ++v16;
+      --v18;
     }
 
-    while (v21);
-    v25 = 8 * count;
-    v26 = objc_msgSend_dataWithCapacity_(MEMORY[0x277CBEB28], v14, v25, v15, v16, v22);
-    v27 = v26;
-    v32 = objc_msgSend_mutableBytes(v27, v28, v29, v30, v31);
-    v33 = 0;
+    while (v18);
+    v22 = 8 * count;
+    v23 = [MEMORY[0x277CBEB28] dataWithCapacity:{v22, v19}];
+    mutableBytes = [v23 mutableBytes];
+    v25 = 0;
     do
     {
-      *(v32 + v33) = values[v33 / 8];
-      v33 += 8;
+      *(mutableBytes + v25) = values[v25 / 8];
+      v25 += 8;
     }
 
-    while (v25 != v33);
+    while (v22 != v25);
     selfCopy[3] = min;
     selfCopy[4] = max;
-    v35 = *values;
-    v34 = values + 1;
-    v36 = v35;
-    selfCopy[5] = v35;
-    selfCopy[6] = v35;
-    v37 = v35;
+    v27 = *values;
+    v26 = values + 1;
+    v28 = v27;
+    selfCopy[5] = v27;
+    selfCopy[6] = v27;
+    v29 = v27;
     do
     {
-      v38 = *v34;
-      if (v37 <= *v34)
+      v30 = *v26;
+      if (v29 <= *v26)
       {
-        v39 = *v34;
+        v31 = *v26;
       }
 
       else
       {
-        selfCopy[5] = v38;
-        v39 = *v34;
-        v37 = v38;
+        selfCopy[5] = v30;
+        v31 = *v26;
+        v29 = v30;
       }
 
-      if (v36 < v39)
+      if (v28 < v31)
       {
-        selfCopy[6] = v39;
-        v36 = v39;
+        selfCopy[6] = v31;
+        v28 = v31;
       }
 
-      ++v34;
-      --v20;
+      ++v26;
+      --v17;
     }
 
-    while (v20);
-    v71[0] = MEMORY[0x277D85DD0];
-    v71[1] = 3221225472;
-    v71[2] = sub_23384F3BC;
-    v71[3] = &unk_2789EF380;
-    v40 = v26;
-    v72 = v40;
+    while (v17);
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = sub_23384F3BC;
+    v47[3] = &unk_2789EF380;
+    v32 = v23;
+    v48 = v32;
     minCopy = min;
     maxCopy = max;
-    v75 = v18;
-    objc_msgSend_setFunction_(selfCopy, v41, v71, v42, v43);
-    if (v17 == 1)
+    v51 = v15;
+    [selfCopy setFunction:v47];
+    if (v14 == 1)
     {
-      v66[0] = MEMORY[0x277D85DD0];
-      v66[1] = 3221225472;
-      v66[2] = sub_23384F454;
-      v66[3] = &unk_2789EF380;
-      v67 = v40;
-      v70 = v18;
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = sub_23384F454;
+      v42[3] = &unk_2789EF380;
+      v43 = v32;
+      v46 = v15;
       minCopy2 = min;
       maxCopy2 = max;
-      objc_msgSend_setInverse_(selfCopy, v54, v66, v55, v56);
-      v51 = v67;
+      [selfCopy setInverse:v42];
+      function = v43;
     }
 
-    else if (v17 == 2)
+    else if (v14 == 2)
     {
-      v61[0] = MEMORY[0x277D85DD0];
-      v61[1] = 3221225472;
-      v61[2] = sub_23384F4F4;
-      v61[3] = &unk_2789EF380;
-      v62 = v40;
-      v65 = v18;
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = sub_23384F4F4;
+      v37[3] = &unk_2789EF380;
+      v38 = v32;
+      v41 = v15;
       minCopy3 = min;
       maxCopy3 = max;
-      objc_msgSend_setInverse_(selfCopy, v48, v61, v49, v50);
-      v51 = v62;
+      [selfCopy setInverse:v37];
+      function = v38;
     }
 
     else
     {
-      v51 = objc_msgSend_function(selfCopy, v44, v45, v46, v47);
-      v57 = sub_23384EF3C(v51, min, max);
-      objc_msgSend_setInverse_(selfCopy, v58, v57, v59, v60);
+      function = [selfCopy function];
+      v36 = sub_23384EF3C(function, min, max);
+      [selfCopy setInverse:v36];
     }
 
     selfCopy = selfCopy;
-    v52 = selfCopy;
+    v34 = selfCopy;
   }
 
-  return v52;
+  return v34;
 }
 
 + (id)curveWithCount:(int)count xvalues:(double *)xvalues yvalues:(double *)yvalues
 {
-  v7 = *&count;
-  v8 = [Curve alloc];
-  v10 = objc_msgSend_initWithCount_xvalues_yvalues_(v8, v9, v7, xvalues, yvalues);
+  v5 = [[Curve alloc] initWithCount:*&count xvalues:xvalues yvalues:yvalues];
 
-  return v10;
+  return v5;
 }
 
 - (Curve)initWithCount:(int)count xvalues:(double *)xvalues yvalues:(double *)yvalues
@@ -478,10 +467,10 @@
   if (count >= 2 && xvalues && yvalues)
   {
     v8 = *&count;
-    v9 = objc_msgSend_curveWithCount_domainMin_domainMax_values_(Curve, a2, *&count, xvalues, yvalues, 0.0, 1.0);
-    v13 = objc_msgSend_curveWithInverseOf_(Curve, v10, v9, v11, v12);
-    v16 = objc_msgSend_curveWithCount_domainMin_domainMax_values_(Curve, v14, v8, yvalues, v15, 0.0, 1.0);
-    v6 = objc_msgSend_curveWith_of_(Curve, v17, v13, v16, v18);
+    v9 = [Curve curveWithCount:"curveWithCount:domainMin:domainMax:values:" domainMin:0.0 domainMax:1.0 values:?];
+    v10 = [Curve curveWithInverseOf:v9];
+    v11 = [Curve curveWithCount:v8 domainMin:yvalues domainMax:0.0 values:1.0];
+    v6 = [Curve curveWith:v10 of:v11];
   }
 
   return v6;

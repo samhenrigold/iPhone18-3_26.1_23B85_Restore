@@ -75,7 +75,7 @@ void __62__ICSINDEntry_syncFPItem_observeItemIDs_notifyURL_completion___block_in
   v7[3] = &unk_27A6669D0;
   v8 = *(a1 + 56);
   v5 = [v4 synchronousDaemonWithErrorHandler:v7];
-  v6 = LogSubsystem();
+  v6 = LogSubsystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -88,7 +88,7 @@ void __62__ICSINDEntry_syncFPItem_observeItemIDs_notifyURL_completion___block_in
 void __62__ICSINDEntry_syncFPItem_observeItemIDs_notifyURL_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LogSubsystem();
+  v4 = LogSubsystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __62__ICSINDEntry_syncFPItem_observeItemIDs_notifyURL_completion___block_invoke_2_cold_1(v4);

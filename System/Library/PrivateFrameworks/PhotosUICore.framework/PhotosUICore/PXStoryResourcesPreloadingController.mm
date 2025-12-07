@@ -56,11 +56,11 @@
   }
 }
 
-uint64_t __69__PXStoryResourcesPreloadingController_observable_didChange_context___block_invoke(uint64_t result)
+id *__69__PXStoryResourcesPreloadingController_observable_didChange_context___block_invoke(id *result)
 {
-  if ((*(result + 40) & 7) != 0)
+  if ((result[5] & 7) != 0)
   {
-    return [*(result + 32) _invalidateReadinessStatus];
+    return [result[4] _invalidateReadinessStatus];
   }
 
   return result;
@@ -121,7 +121,7 @@ void __58__PXStoryResourcesPreloadingController_handleModelChange___block_invoke
   [(PXStoryResourcesPreloader *)self->_preloader loadingFractionComplete];
   v4 = v3;
   model = [(PXStoryResourcesPreloadingController *)self model];
-  v6 = [model options] & 1;
+  v6 = objc_msgSend_options(model) & 1;
 
   v7 = v4 >= 1.0;
   if (v4 < 1.0)
@@ -308,7 +308,7 @@ void __77__PXStoryResourcesPreloadingController__updateCurrentPlaybackTimeOnPrel
   v5 = v4;
   if (v4)
   {
-    [v4 nominalPlaybackTime];
+    objc_msgSend_nominalPlaybackTime(v4);
   }
 
   else
@@ -335,9 +335,9 @@ void __77__PXStoryResourcesPreloadingController__updateCurrentPlaybackTimeOnPrel
     model = [(PXStoryResourcesPreloadingController *)self model];
     timeline = [model timeline];
     model2 = [(PXStoryResourcesPreloadingController *)self model];
-    options = [model2 options];
+    v6 = objc_msgSend_options(model2);
 
-    if (options)
+    if (v6)
     {
       v10 = [PXStoryResourcesPreloadingRequest alloc];
       timelineAttributes = [model timelineAttributes];
@@ -430,14 +430,14 @@ LABEL_16:
   }
 
   model = [(PXStoryResourcesPreloadingController *)self model];
-  options = [model options];
+  v5 = objc_msgSend_options(model);
 
   if (isPreloadingEnabled)
   {
     model2 = [(PXStoryResourcesPreloadingController *)self model];
     timelineAttributes = [model2 timelineAttributes];
     v8 = -3;
-    if ((options & 1) == 0)
+    if ((v5 & 1) == 0)
     {
       v8 = -2;
     }
@@ -549,7 +549,7 @@ LABEL_16:
     v7 = timeline;
     if (timeline)
     {
-      [timeline timeRange];
+      objc_msgSend_timeRange(timeline);
     }
 
     else
@@ -638,7 +638,7 @@ LABEL_16:
             v23 = *(*(&v33 + 1) + 8 * j);
             if (v23)
             {
-              [v23 storyTimeRange];
+              objc_msgSend_storyTimeRange(v23);
             }
 
             else

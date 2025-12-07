@@ -73,10 +73,7 @@ uint64_t __33__DNDNotificationsService_resume__block_invoke(uint64_t a1)
 
   [*(*(a1 + 32) + 96) registerObserver:*(a1 + 32) sendingInitialChangeNotification:1];
   [*(*(a1 + 32) + 24) addStateUpdateListener:*(a1 + 32) withCompletionHandler:0];
-  v5 = [*(*(a1 + 32) + 24) queryCurrentStateWithError:0];
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 72);
-  *(v6 + 72) = v5;
+  *(*(a1 + 32) + 72) = [*(*(a1 + 32) + 24) queryCurrentStateWithError:0];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -97,17 +94,17 @@ uint64_t __33__DNDNotificationsService_resume__block_invoke(uint64_t a1)
 
 void __80__DNDNotificationsService_activitySuggestionClient_didSuggestSettingUpActivity___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 72) isActive];
   v3 = DNDLogNotifications;
   if (os_log_type_enabled(DNDLogNotifications, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
-    v29 = 138543618;
-    v30 = v4;
-    v31 = 1024;
-    v32 = v2;
-    _os_log_impl(&dword_249121000, v3, OS_LOG_TYPE_DEFAULT, "Did receive setup suggestion for activity; suggestion=%{public}@, focus=%{BOOL}d", &v29, 0x12u);
+    v28 = 138543618;
+    v29 = v4;
+    v30 = 1024;
+    v31 = v2;
+    _os_log_impl(&dword_249121000, v3, OS_LOG_TYPE_DEFAULT, "Did receive setup suggestion for activity; suggestion=%{public}@, focus=%{BOOL}d", &v28, 0x12u);
   }
 
   if ((v2 & 1) == 0 && (v5 = *(a1 + 40)) != 0 && ([v5 location] & 2) != 0)
@@ -160,28 +157,24 @@ void __80__DNDNotificationsService_activitySuggestionClient_didSuggestSettingUpA
     v6 = DNDLogNotifications;
     if (os_log_type_enabled(DNDLogNotifications, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = 67109120;
-      LODWORD(v30) = v2;
-      _os_log_impl(&dword_249121000, v6, OS_LOG_TYPE_DEFAULT, "Did not post suggestion notifiction; focus=%{BOOL}d", &v29, 8u);
+      v28 = 67109120;
+      LODWORD(v29) = v2;
+      _os_log_impl(&dword_249121000, v6, OS_LOG_TYPE_DEFAULT, "Did not post suggestion notifiction; focus=%{BOOL}d", &v28, 8u);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __80__DNDNotificationsService_activitySuggestionClient_didSuggestSettingUpActivity___block_invoke_392(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = DNDLogNotifications;
   if (os_log_type_enabled(DNDLogNotifications, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_249121000, v3, OS_LOG_TYPE_DEFAULT, "Notification posted: error=%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_249121000, v3, OS_LOG_TYPE_DEFAULT, "Notification posted: error=%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activitySuggestionClient:(id)client didSuggestTriggersForConfiguredActivity:(id)activity
@@ -200,16 +193,16 @@ void __80__DNDNotificationsService_activitySuggestionClient_didSuggestSettingUpA
 
 void __92__DNDNotificationsService_activitySuggestionClient_didSuggestTriggersForConfiguredActivity___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 72) isActive];
   v3 = DNDLogNotifications;
   if (os_log_type_enabled(DNDLogNotifications, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
     *buf = 138543618;
-    v37 = v4;
-    v38 = 1024;
-    v39 = v2;
+    v36 = v4;
+    v37 = 1024;
+    v38 = v2;
     _os_log_impl(&dword_249121000, v3, OS_LOG_TYPE_DEFAULT, "Did receive triggers suggestion for activity; suggestion=%{public}@, focus=%{BOOL}d", buf, 0x12u);
   }
 
@@ -250,8 +243,8 @@ void __92__DNDNotificationsService_activitySuggestionClient_didSuggestTriggersFo
             v15 = MEMORY[0x277CCACA8];
             v16 = [@"NOTIFICATION_SUGGESTION_START_TITLE_" stringByAppendingString:v13];
             v17 = [v10 name];
-            v35 = v17;
-            v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+            v34 = v17;
+            v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
             v19 = [v15 localizedUserNotificationStringForKey:v16 arguments:v18];
             [v14 setTitle:v19];
 
@@ -266,10 +259,10 @@ LABEL_16:
             v25 = [v23 iconForSystemImageNamed:v24];
             [v14 setIcon:v25];
 
-            v33 = @"suggestionUUID";
+            v32 = @"suggestionUUID";
             v26 = [*(a1 + 40) suggestionUUID];
-            v34 = v26;
-            v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+            v33 = v26;
+            v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
             [v14 setUserInfo:v27];
 
             v28 = *(*(a1 + 32) + 96);
@@ -281,7 +274,7 @@ LABEL_16:
             [v30 addNotificationRequest:v31 withCompletionHandler:&__block_literal_global_404];
 
 LABEL_17:
-            goto LABEL_18;
+            return;
           }
         }
 
@@ -304,52 +297,45 @@ LABEL_17:
   if (os_log_type_enabled(DNDLogNotifications, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v37) = v2;
+    LODWORD(v36) = v2;
     _os_log_impl(&dword_249121000, v7, OS_LOG_TYPE_DEFAULT, "Did not post suggestion notifiction; focus=%{BOOL}d", buf, 8u);
   }
-
-LABEL_18:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __92__DNDNotificationsService_activitySuggestionClient_didSuggestTriggersForConfiguredActivity___block_invoke_402(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = DNDLogNotifications;
   if (os_log_type_enabled(DNDLogNotifications, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_249121000, v3, OS_LOG_TYPE_DEFAULT, "Notification posted: error=%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_249121000, v3, OS_LOG_TYPE_DEFAULT, "Notification posted: error=%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stateService:(id)service didReceiveDoNotDisturbStateUpdate:(id)update
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   v6 = DNDLogNotifications;
   if (os_log_type_enabled(DNDLogNotifications, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = updateCopy;
+    v12 = updateCopy;
     _os_log_impl(&dword_249121000, v6, OS_LOG_TYPE_DEFAULT, "Did receive state update; stateUpdate=%{public}@", buf, 0xCu);
   }
 
   queue = self->_queue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __74__DNDNotificationsService_stateService_didReceiveDoNotDisturbStateUpdate___block_invoke;
-  v10[3] = &unk_278F88500;
-  v10[4] = self;
-  v11 = updateCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __74__DNDNotificationsService_stateService_didReceiveDoNotDisturbStateUpdate___block_invoke;
+  v9[3] = &unk_278F88500;
+  v9[4] = self;
+  v10 = updateCopy;
   v8 = updateCopy;
-  dispatch_async(queue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v9);
 }
 
 void __74__DNDNotificationsService_stateService_didReceiveDoNotDisturbStateUpdate___block_invoke(uint64_t a1)
@@ -363,42 +349,37 @@ void __74__DNDNotificationsService_stateService_didReceiveDoNotDisturbStateUpdat
 
 - (void)settingsService:(id)service didReceiveUpdatedBehaviorSettings:(id)settings
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v6 = DNDLogNotifications;
   if (os_log_type_enabled(DNDLogNotifications, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = settingsCopy;
+    v12 = settingsCopy;
     _os_log_impl(&dword_249121000, v6, OS_LOG_TYPE_DEFAULT, "Did receive updated behavior settings; settings=%{public}@", buf, 0xCu);
   }
 
   queue = self->_queue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __77__DNDNotificationsService_settingsService_didReceiveUpdatedBehaviorSettings___block_invoke;
-  v10[3] = &unk_278F88500;
-  v10[4] = self;
-  v11 = settingsCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __77__DNDNotificationsService_settingsService_didReceiveUpdatedBehaviorSettings___block_invoke;
+  v9[3] = &unk_278F88500;
+  v9[4] = self;
+  v10 = settingsCopy;
   v8 = settingsCopy;
-  dispatch_async(queue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v9);
 }
 
 uint64_t __77__DNDNotificationsService_settingsService_didReceiveUpdatedBehaviorSettings___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 80);
-  *(v3 + 80) = v2;
+  *(*(a1 + 32) + 80) = [*(a1 + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   handlerCopy = handler;
   actionIdentifier = [responseCopy actionIdentifier];
@@ -411,9 +392,9 @@ uint64_t __77__DNDNotificationsService_settingsService_didReceiveUpdatedBehavior
   if (os_log_type_enabled(DNDLogNotifications, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v63 = categoryIdentifier;
-    v64 = 2114;
-    v65 = actionIdentifier;
+    v62 = categoryIdentifier;
+    v63 = 2114;
+    v64 = actionIdentifier;
     _os_log_impl(&dword_249121000, v14, OS_LOG_TYPE_DEFAULT, "Did receive notification response; categoryIdentifier = %{public}@; actionIdentifier: %{public}@", buf, 0x16u);
   }
 
@@ -431,22 +412,22 @@ uint64_t __77__DNDNotificationsService_settingsService_didReceiveUpdatedBehavior
       if (os_log_type_enabled(DNDLogNotifications, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v63 = v28;
+        v62 = v28;
         _os_log_impl(&dword_249121000, v29, OS_LOG_TYPE_DEFAULT, "Decline setup suggestion; suggestionUUID=%{public}@", buf, 0xCu);
       }
 
       v30 = dispatch_get_global_queue(25, 0);
-      v54[0] = MEMORY[0x277D85DD0];
-      v54[1] = 3221225472;
-      v54[2] = __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke_407;
-      v54[3] = &unk_278F88550;
-      v54[4] = self;
-      v55 = v28;
-      v56 = handlerCopy;
+      v53[0] = MEMORY[0x277D85DD0];
+      v53[1] = 3221225472;
+      v53[2] = __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke_407;
+      v53[3] = &unk_278F88550;
+      v53[4] = self;
+      v54 = v28;
+      v55 = handlerCopy;
       v22 = v28;
-      dispatch_async(v30, v54);
+      dispatch_async(v30, v53);
 
-      v24 = v55;
+      v24 = v54;
       goto LABEL_25;
     }
 
@@ -462,22 +443,22 @@ uint64_t __77__DNDNotificationsService_settingsService_didReceiveUpdatedBehavior
       if (os_log_type_enabled(DNDLogNotifications, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v63 = v34;
+        v62 = v34;
         _os_log_impl(&dword_249121000, v35, OS_LOG_TYPE_DEFAULT, "Accept start suggestion always; suggestionUUID=%{public}@", buf, 0xCu);
       }
 
       v36 = dispatch_get_global_queue(25, 0);
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke_408;
-      v51[3] = &unk_278F88550;
-      v51[4] = self;
-      v52 = v34;
-      v53 = handlerCopy;
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke_408;
+      v50[3] = &unk_278F88550;
+      v50[4] = self;
+      v51 = v34;
+      v52 = handlerCopy;
       v22 = v34;
-      dispatch_async(v36, v51);
+      dispatch_async(v36, v50);
 
-      v24 = v52;
+      v24 = v51;
       goto LABEL_25;
     }
 
@@ -493,22 +474,22 @@ uint64_t __77__DNDNotificationsService_settingsService_didReceiveUpdatedBehavior
       if (os_log_type_enabled(DNDLogNotifications, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v63 = v40;
+        v62 = v40;
         _os_log_impl(&dword_249121000, v41, OS_LOG_TYPE_DEFAULT, "Decline suggestion; suggestionUUID=%{public}@", buf, 0xCu);
       }
 
       v42 = dispatch_get_global_queue(25, 0);
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke_414;
-      v48[3] = &unk_278F88550;
-      v48[4] = self;
-      v49 = v40;
-      v50 = handlerCopy;
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke_414;
+      v47[3] = &unk_278F88550;
+      v47[4] = self;
+      v48 = v40;
+      v49 = handlerCopy;
       v22 = v40;
-      dispatch_async(v42, v48);
+      dispatch_async(v42, v47);
 
-      v24 = v49;
+      v24 = v48;
       goto LABEL_25;
     }
 
@@ -518,16 +499,16 @@ uint64_t __77__DNDNotificationsService_settingsService_didReceiveUpdatedBehavior
     }
 
     notificationsAssertionService = self->_notificationsAssertionService;
-    v47 = 0;
-    v45 = [(DNDModeAssertionService *)notificationsAssertionService invalidateAllActiveModeAssertionsWithError:&v47];
-    userInfo = v47;
-    v46 = DNDLogNotifications;
-    if (v45)
+    v46 = 0;
+    v44 = [(DNDModeAssertionService *)notificationsAssertionService invalidateAllActiveModeAssertionsWithError:&v46];
+    userInfo = v46;
+    v45 = DNDLogNotifications;
+    if (v44)
     {
       if (os_log_type_enabled(DNDLogNotifications, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_249121000, v46, OS_LOG_TYPE_DEFAULT, "Invalidated all assertions", buf, 2u);
+        _os_log_impl(&dword_249121000, v45, OS_LOG_TYPE_DEFAULT, "Invalidated all assertions", buf, 2u);
         if (!handlerCopy)
         {
           goto LABEL_26;
@@ -568,7 +549,7 @@ LABEL_35:
   if (os_log_type_enabled(DNDLogNotifications, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v63 = v19;
+    v62 = v19;
     _os_log_impl(&dword_249121000, v20, OS_LOG_TYPE_DEFAULT, "Accept setup suggestion; suggestionUUID=%{public}@", buf, 0xCu);
   }
 
@@ -577,38 +558,36 @@ LABEL_35:
   block[1] = 3221225472;
   block[2] = __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke;
   block[3] = &unk_278F88528;
-  v58 = userInfo2;
+  v57 = userInfo2;
   selfCopy = self;
-  v60 = v19;
-  v61 = handlerCopy;
+  v59 = v19;
+  v60 = handlerCopy;
   v22 = v19;
   userInfo = userInfo2;
   dispatch_async(v21, block);
 
-  v24 = v58;
+  v24 = v57;
 LABEL_25:
 
 LABEL_26:
 LABEL_27:
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) objectForKey:@"semanticType"];
   v3 = [MEMORY[0x277CBEBC0] dnd_setupURLWithSemanticType:{objc_msgSend(v2, "integerValue")}];
   v4 = [MEMORY[0x277CC1E80] defaultWorkspace];
   v5 = *MEMORY[0x277D0AC70];
-  v15[0] = *MEMORY[0x277D0AC58];
-  v15[1] = v5;
-  v16[0] = MEMORY[0x277CBEC38];
-  v16[1] = MEMORY[0x277CBEC38];
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-  v12 = 0;
-  v7 = [v4 openSensitiveURL:v3 withOptions:v6 error:&v12];
-  v8 = v12;
+  v14[0] = *MEMORY[0x277D0AC58];
+  v14[1] = v5;
+  v15[0] = MEMORY[0x277CBEC38];
+  v15[1] = MEMORY[0x277CBEC38];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v11 = 0;
+  v7 = [v4 openSensitiveURL:v3 withOptions:v6 error:&v11];
+  v8 = v11;
 
   v9 = DNDLogNotifications;
   if (v7)
@@ -616,7 +595,7 @@ void __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificatio
     if (os_log_type_enabled(DNDLogNotifications, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v14 = v3;
+      v13 = v3;
       _os_log_impl(&dword_249121000, v9, OS_LOG_TYPE_DEFAULT, "Launched URL %{public}@", buf, 0xCu);
     }
   }
@@ -632,8 +611,6 @@ void __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificatio
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke_407(void *a1)
@@ -653,7 +630,7 @@ uint64_t __103__DNDNotificationsService_userNotificationCenter_didReceiveNotific
 void __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke_408(void *a1)
 {
   v1 = a1;
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v2 = [*(a1[4] + 96) suggestionWithUUID:a1[5]];
   v3 = objc_opt_class();
   v4 = v2;
@@ -687,57 +664,57 @@ void __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificatio
 
     if (v11)
     {
-      v30 = v7;
-      v31 = v6;
-      v32 = v1;
-      v33 = v4;
-      v28 = [v11 mutableCopy];
-      v29 = v11;
+      v29 = v7;
+      v30 = v6;
+      v31 = v1;
+      v32 = v4;
+      v27 = [v11 mutableCopy];
+      v28 = v11;
       v12 = [v11 triggers];
-      v36 = [v12 mutableCopy];
+      v35 = [v12 mutableCopy];
 
-      v45 = 0u;
-      v46 = 0u;
-      v43 = 0u;
       v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
       obj = v8;
-      v37 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
-      if (v37)
+      v36 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+      if (v36)
       {
-        v35 = *v44;
+        v34 = *v43;
         do
         {
           v13 = 0;
           do
           {
-            if (*v44 != v35)
+            if (*v43 != v34)
             {
               objc_enumerationMutation(obj);
             }
 
-            v38 = v13;
-            v14 = *(*(&v43 + 1) + 8 * v13);
+            v37 = v13;
+            v14 = *(*(&v42 + 1) + 8 * v13);
             v15 = [MEMORY[0x277CBEB18] array];
+            v38 = 0u;
             v39 = 0u;
             v40 = 0u;
             v41 = 0u;
-            v42 = 0u;
-            v16 = v36;
-            v17 = [v16 countByEnumeratingWithState:&v39 objects:v47 count:16];
+            v16 = v35;
+            v17 = [v16 countByEnumeratingWithState:&v38 objects:v46 count:16];
             if (v17)
             {
               v18 = v17;
-              v19 = *v40;
+              v19 = *v39;
               do
               {
                 for (i = 0; i != v18; ++i)
                 {
-                  if (*v40 != v19)
+                  if (*v39 != v19)
                   {
                     objc_enumerationMutation(v16);
                   }
 
-                  v21 = *(*(&v39 + 1) + 8 * i);
+                  v21 = *(*(&v38 + 1) + 8 * i);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
@@ -752,7 +729,7 @@ void __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificatio
                   }
                 }
 
-                v18 = [v16 countByEnumeratingWithState:&v39 objects:v47 count:16];
+                v18 = [v16 countByEnumeratingWithState:&v38 objects:v46 count:16];
               }
 
               while (v18);
@@ -761,26 +738,26 @@ void __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificatio
             [v16 removeObjectsInArray:v15];
             [v16 addObject:v14];
 
-            v13 = v38 + 1;
+            v13 = v37 + 1;
           }
 
-          while (v38 + 1 != v37);
-          v37 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+          while (v37 + 1 != v36);
+          v36 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
         }
 
-        while (v37);
+        while (v36);
       }
 
-      v25 = [v36 copy];
-      [v28 setTriggers:v25];
+      v25 = [v35 copy];
+      [v27 setTriggers:v25];
 
-      v1 = v32;
-      [v32[4] _setModeConfiguration:v28];
+      v1 = v31;
+      [v31[4] _setModeConfiguration:v27];
 
-      v4 = v33;
-      v7 = v30;
-      v6 = v31;
-      v11 = v29;
+      v4 = v32;
+      v7 = v29;
+      v6 = v30;
+      v11 = v28;
     }
 
     [*(v1[4] + 96) userDidAcceptTriggerSuggestionWithSuggestionUUID:v1[5] acceptedTriggers:v8 location:1];
@@ -791,8 +768,6 @@ void __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificatio
   {
     (*(v26 + 16))();
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke_414(void *a1)
@@ -903,56 +878,21 @@ uint64_t __59__DNDNotificationsService__modeConfigurationForIdentifier___block_i
 
 void __92__DNDNotificationsService_activitySuggestionClient_didSuggestTriggersForConfiguredActivity___block_invoke_cold_1(void **a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = a2;
   v4 = [v2 uuidString];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_249121000, v3, OS_LOG_TYPE_ERROR, "Unable to fetch find mode for suggestion; identifier=: %@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_249121000, v0, v1, "Unable to invalidate all assertions; error=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_249121000, v3, OS_LOG_TYPE_ERROR, "Unable to fetch find mode for suggestion; identifier=: %@", v5, 0xCu);
 }
 
 void __103__DNDNotificationsService_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_error_impl(&dword_249121000, v1, OS_LOG_TYPE_ERROR, "Failed to launch URL %{public}@: %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_modeForIdentifier:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_249121000, v0, v1, "Unable to fetch available modes: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_modeConfigurationForIdentifier:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_249121000, v0, v1, "Unable to fetch mode configurations: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_setModeConfiguration:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_249121000, v0, v1, "Unable to set mode configuration: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_249121000, v1, OS_LOG_TYPE_ERROR, "Failed to launch URL %{public}@: %{public}@", v2, 0x16u);
 }
 
 @end

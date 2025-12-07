@@ -12,7 +12,7 @@
 - (_TtC18ASMessagesProvider16AppPromotionView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC18ASMessagesProvider16AppPromotionView_clickAction;
-  v5 = sub_BD88(&unk_950960);
+  v5 = sub_BD88(&unk_950960, &qword_793110);
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v6 = self + OBJC_IVAR____TtC18ASMessagesProvider16AppPromotionView_initialLongPressLocation;
   *v6 = 0;
@@ -42,28 +42,30 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  v4 = type metadata accessor for AppPromotionCardLayout(0);
-  __chkstk_darwin(v4 - 8);
-  v6 = (&v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = qword_93C808;
+  height = fits.height;
+  width = fits.width;
+  v6 = type metadata accessor for AppPromotionCardLayout(0);
+  __chkstk_darwin(v6 - 8);
+  v8 = (&v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = qword_93C808;
   selfCopy = self;
-  if (v7 != -1)
+  if (v9 != -1)
   {
     swift_once();
   }
 
-  sub_634BBC(&unk_99BE98, selfCopy);
-  v10 = v9;
-  v11 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider16AppPromotionView_appPromotionCardView);
-  sub_214AA8(v6);
-  v12 = sub_634F2C(v11, v6);
-  v14 = v13;
-  sub_216E5C(v6);
+  sub_634BBC(&unk_99BE98, selfCopy, width, height);
+  v12 = v11;
+  v13 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider16AppPromotionView_appPromotionCardView);
+  sub_214AA8(v8);
+  v14 = sub_634F2C(v13, v8, width, height);
+  v16 = v15;
+  sub_216E5C(v8);
 
-  v15 = v10 + v14;
-  v16 = v12;
-  result.height = v15;
-  result.width = v16;
+  v17 = v12 + v16;
+  v18 = v14;
+  result.height = v17;
+  result.width = v18;
   return result;
 }
 
@@ -81,7 +83,7 @@
   selfCopy = self;
   v9 = sub_634324(recognizerCopy, touchCopy);
 
-  return v9 & 1;
+  return v9;
 }
 
 @end

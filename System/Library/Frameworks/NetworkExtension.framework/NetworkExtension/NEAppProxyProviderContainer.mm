@@ -21,7 +21,7 @@
 
 - (void)setInitialFlowDivertControlSocket:(id)socket
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   socketCopy = socket;
   objc_initWeak(&location, self);
   v5 = ne_log_obj();
@@ -29,8 +29,8 @@
   {
     *buf = 138412546;
     selfCopy = self;
-    v24 = 2048;
-    v25 = socketCopy;
+    v19 = 2048;
+    v20 = socketCopy;
     _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@: Setting initial flow divert control socket to %p", buf, 0x16u);
   }
 
@@ -61,29 +61,25 @@
     {
       if (self->_delegateInterfaceIndex)
       {
-        director = self->_director;
         NEFlowDirectorSetDelegateInterface();
-        v15 = self->_director;
       }
 
-      v19[6] = MEMORY[0x1E69E9820];
-      v19[7] = 3221225472;
-      v19[8] = __65__NEAppProxyProviderContainer_setInitialFlowDivertControlSocket___block_invoke;
-      v19[9] = &unk_1E7F0AA58;
-      objc_copyWeak(&v20, &location);
+      v14[6] = MEMORY[0x1E69E9820];
+      v14[7] = 3221225472;
+      v14[8] = __65__NEAppProxyProviderContainer_setInitialFlowDivertControlSocket___block_invoke;
+      v14[9] = &unk_1E7F0AA58;
+      objc_copyWeak(&v15, &location);
       NEFlowDirectorSetOpenControlSocketCallback();
-      v16 = self->_director;
-      v19[1] = MEMORY[0x1E69E9820];
-      v19[2] = 3221225472;
-      v19[3] = __65__NEAppProxyProviderContainer_setInitialFlowDivertControlSocket___block_invoke_2;
-      v19[4] = &unk_1E7F06A10;
-      v19[5] = self;
+      v14[1] = MEMORY[0x1E69E9820];
+      v14[2] = 3221225472;
+      v14[3] = __65__NEAppProxyProviderContainer_setInitialFlowDivertControlSocket___block_invoke_2;
+      v14[4] = &unk_1E7F06A10;
+      v14[5] = self;
       NEFlowDirectorSetMatchRulesCallback();
-      v17 = self->_director;
-      objc_copyWeak(v19, &location);
+      objc_copyWeak(v14, &location);
       NEFlowDirectorSetNewFlowCallback();
-      objc_destroyWeak(v19);
-      objc_destroyWeak(&v20);
+      objc_destroyWeak(v14);
+      objc_destroyWeak(&v15);
     }
   }
 
@@ -92,8 +88,6 @@
   }
 
   objc_destroyWeak(&location);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __65__NEAppProxyProviderContainer_setInitialFlowDivertControlSocket___block_invoke(uint64_t a1)
@@ -115,32 +109,24 @@ void __65__NEAppProxyProviderContainer_setInitialFlowDivertControlSocket___block
 
 uint64_t __65__NEAppProxyProviderContainer_setInitialFlowDivertControlSocket___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = ne_log_obj();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = *(a1 + 32);
-    v12 = 138412546;
-    v13 = v7;
-    v14 = 2112;
-    v15 = a4;
-    _os_log_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_INFO, "%@: Verifying app with signing identifier %@", &v12, 0x16u);
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 2112;
+    v12 = a4;
+    _os_log_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_INFO, "%@: Verifying app with signing identifier %@", &v9, 0x16u);
   }
 
-  v8 = *(a1 + 32);
-  if (v8)
-  {
-    v9 = *(v8 + 40);
-  }
-
-  result = NEFlowDirectorHandleMatchRulesResult();
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return NEFlowDirectorHandleMatchRulesResult();
 }
 
 void __65__NEAppProxyProviderContainer_setInitialFlowDivertControlSocket___block_invoke_7(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
   self = objc_loadWeakRetained((a1 + 32));
   v6 = v5;
@@ -161,7 +147,7 @@ void __65__NEAppProxyProviderContainer_setInitialFlowDivertControlSocket___block
         if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
         {
           *buf = 134217984;
-          v18 = v8;
+          v17 = v8;
           _os_log_fault_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_FAULT, "Unknown flow type %ld", buf, 0xCu);
         }
 
@@ -177,9 +163,9 @@ void __65__NEAppProxyProviderContainer_setInitialFlowDivertControlSocket___block
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v18 = self;
-      v19 = 2112;
-      v20 = v12;
+      v17 = self;
+      v18 = 2112;
+      v19 = v12;
       _os_log_debug_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_DEBUG, "%@: Calling handleNewFlow with %@", buf, 0x16u);
     }
 
@@ -188,13 +174,11 @@ void __65__NEAppProxyProviderContainer_setInitialFlowDivertControlSocket___block
 
 LABEL_11:
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __58__NEAppProxyProviderContainer_flowDivertOpenControlSocket__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -211,11 +195,11 @@ void __58__NEAppProxyProviderContainer_flowDivertOpenControlSocket__block_invoke
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = *(a1 + 32);
-    v10 = 138412546;
-    v11 = v7;
-    v12 = 1024;
-    v13 = v5;
-    _os_log_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_INFO, "%@: Received new flow divert control socket %d", &v10, 0x12u);
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 1024;
+    v12 = v5;
+    _os_log_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_INFO, "%@: Received new flow divert control socket %d", &v9, 0x12u);
   }
 
   v8 = *(a1 + 32);
@@ -223,21 +207,19 @@ void __58__NEAppProxyProviderContainer_flowDivertOpenControlSocket__block_invoke
   {
     NEFlowDirectorHandleNewControlSocket();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDelegateInterface:(unsigned int)interface
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
+    v6 = 138412546;
     selfCopy = self;
-    v9 = 1024;
+    v8 = 1024;
     interfaceCopy = interface;
-    _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@: Setting flow divert delegate interface to %u", &v7, 0x12u);
+    _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@: Setting flow divert delegate interface to %u", &v6, 0x12u);
   }
 
   if (self)
@@ -248,13 +230,11 @@ void __58__NEAppProxyProviderContainer_flowDivertOpenControlSocket__block_invoke
       NEFlowDirectorSetDelegateInterface();
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stop
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -264,19 +244,17 @@ void __58__NEAppProxyProviderContainer_flowDivertOpenControlSocket__block_invoke
   }
 
   provider = [(NEAppProxyProviderContainer *)self provider];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __35__NEAppProxyProviderContainer_stop__block_invoke;
-  v6[3] = &unk_1E7F0B0E8;
-  v6[4] = self;
-  [provider stopProxyWithReason:0 completionHandler:v6];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __35__NEAppProxyProviderContainer_stop__block_invoke;
+  v5[3] = &unk_1E7F0B0E8;
+  v5[4] = self;
+  [provider stopProxyWithReason:0 completionHandler:v5];
 }
 
 void __35__NEAppProxyProviderContainer_stop__block_invoke(uint64_t a1, const char *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (v3)
   {
@@ -292,7 +270,7 @@ void __35__NEAppProxyProviderContainer_stop__block_invoke(uint64_t a1, const cha
       {
         v5 = *(a1 + 32);
         *buf = 138412290;
-        v12 = v5;
+        v11 = v5;
         _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_INFO, "%@: Calling stop completion handler", buf, 0xCu);
       }
 
@@ -310,13 +288,11 @@ void __35__NEAppProxyProviderContainer_stop__block_invoke(uint64_t a1, const cha
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __35__NEAppProxyProviderContainer_stop__block_invoke_2(uint64_t a1, const char *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -330,9 +306,9 @@ void __35__NEAppProxyProviderContainer_stop__block_invoke_2(uint64_t a1, const c
         if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
         {
           v6 = *(a1 + 32);
-          v12 = 138412290;
-          v13 = v6;
-          _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@: Calling stop completion handler", &v12, 0xCu);
+          v11 = 138412290;
+          v12 = v6;
+          _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@: Calling stop completion handler", &v11, 0xCu);
         }
 
         Property = *(a1 + 32);
@@ -350,13 +326,11 @@ void __35__NEAppProxyProviderContainer_stop__block_invoke_2(uint64_t a1, const c
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startWithOptions:(id)options completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   v8 = ne_log_obj();
@@ -364,8 +338,8 @@ void __35__NEAppProxyProviderContainer_stop__block_invoke_2(uint64_t a1, const c
   {
     *buf = 138412546;
     selfCopy = self;
-    v15 = 2048;
-    v16 = optionsCopy;
+    v14 = 2048;
+    v15 = optionsCopy;
     _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_INFO, "%@: Calling startProxyWithOptions with options %p", buf, 0x16u);
   }
 
@@ -375,27 +349,19 @@ void __35__NEAppProxyProviderContainer_stop__block_invoke_2(uint64_t a1, const c
   }
 
   provider = [(NEAppProxyProviderContainer *)self provider];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __66__NEAppProxyProviderContainer_startWithOptions_completionHandler___block_invoke;
-  v12[3] = &unk_1E7F0B4A8;
-  v12[4] = self;
-  [provider startProxyWithOptions:optionsCopy completionHandler:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __66__NEAppProxyProviderContainer_startWithOptions_completionHandler___block_invoke;
+  v11[3] = &unk_1E7F0B4A8;
+  v11[4] = self;
+  [provider startProxyWithOptions:optionsCopy completionHandler:v11];
 }
 
 void __66__NEAppProxyProviderContainer_startWithOptions_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = a2;
-  if (!v8)
+  v6 = a2;
+  if (!v6)
   {
-    v4 = *(a1 + 32);
-    if (v4)
-    {
-      v5 = *(v4 + 40);
-    }
-
     NEFlowDirectorStart();
   }
 
@@ -403,15 +369,15 @@ void __66__NEAppProxyProviderContainer_startWithOptions_completionHandler___bloc
   if (Property)
   {
     Property = objc_getProperty(Property, v3, 24, 1);
-    v7 = *(a1 + 32);
+    v5 = *(a1 + 32);
   }
 
   else
   {
-    v7 = 0;
+    v5 = 0;
   }
 
-  [Property container:v7 didStartWithError:v8];
+  [Property container:v5 didStartWithError:v6];
 }
 
 - (void)wake
@@ -429,11 +395,11 @@ void __66__NEAppProxyProviderContainer_startWithOptions_completionHandler___bloc
 
 - (NEAppProxyProviderContainer)initWithDelegate:(id)delegate providerClass:(Class)class
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
-  v16.receiver = self;
-  v16.super_class = NEAppProxyProviderContainer;
-  v8 = [(NEAppProxyProviderContainer *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = NEAppProxyProviderContainer;
+  v8 = [(NEAppProxyProviderContainer *)&v15 init];
   if (!v8)
   {
     goto LABEL_7;
@@ -457,14 +423,13 @@ LABEL_7:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v18 = v8;
+    v17 = v8;
     _os_log_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_INFO, "%@: failed to init, providerClass is not subclass of NEAppProxyProvider", buf, 0xCu);
   }
 
   v11 = 0;
 LABEL_8:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

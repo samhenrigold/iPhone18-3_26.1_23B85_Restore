@@ -10,7 +10,8 @@
 - (int64_t)copyHistStatFromObject:(id)object;
 - (int64_t)debugHistDataFromLayer:(__IOSurface *)layer;
 - (int64_t)getHistDataFromLayerV0:(__IOSurface *)v0;
-- (int64_t)getHistDataFromLayerV1:(__IOSurface *)v1;
+- (int64_t)getHistStatFromLayer:(__IOSurface *)layer HDRMode:(unsigned int)mode transferFunction:(int)function temporalMode:(int)temporalMode iirAlpha:(float)alpha frameNumber:(unint64_t)number;
+- (int64_t)normalizeHistData:(unsigned int)data transferFunction:(int)function;
 - (int64_t)sanityCheckAndGetDataFromHistV0;
 - (int64_t)sanityCheckAndGetDataFromHistV1;
 - (int64_t)temporalProcessHistStat:(int64_t)stat iirAlpha:(float)alpha;
@@ -33,10 +34,10 @@
 
 - (HistBasedToneMapping)init
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v37.receiver = self;
-  v37.super_class = HistBasedToneMapping;
-  v2 = [(HistBasedToneMapping *)&v37 init];
+  v43 = *MEMORY[0x277D85DE8];
+  v36.receiver = self;
+  v36.super_class = HistBasedToneMapping;
+  v2 = [(HistBasedToneMapping *)&v36 init];
   v3 = v2;
   if (v2)
   {
@@ -141,7 +142,7 @@
                       }
 
                       *buf = 134217984;
-                      v39 = WORD1(v29);
+                      v38 = WORD1(v29);
                       v30 = MEMORY[0x277D86220];
                       v31 = " [1.450.54] #%04llx Memory allocation for prctVal failed";
 LABEL_80:
@@ -181,7 +182,7 @@ LABEL_81:
                       }
 
                       *buf = 134217984;
-                      v39 = WORD1(v29);
+                      v38 = WORD1(v29);
                       v30 = MEMORY[0x277D86220];
                       v31 = " [1.450.54] #%04llx Memory allocation for pcntVal failed";
                       goto LABEL_80;
@@ -218,7 +219,7 @@ LABEL_81:
                     }
 
                     *buf = 134217984;
-                    v39 = WORD1(v29);
+                    v38 = WORD1(v29);
                     v30 = MEMORY[0x277D86220];
                     v31 = " [1.450.54] #%04llx Memory allocation for fullRangeBinIdx failed";
                     goto LABEL_80;
@@ -255,7 +256,7 @@ LABEL_81:
                   }
 
                   *buf = 134217984;
-                  v39 = WORD1(v29);
+                  v38 = WORD1(v29);
                   v30 = MEMORY[0x277D86220];
                   v31 = " [1.450.54] #%04llx Memory allocation for hlgBinCenterInPQ failed";
                   goto LABEL_80;
@@ -292,7 +293,7 @@ LABEL_81:
                 }
 
                 *buf = 134217984;
-                v39 = WORD1(v29);
+                v38 = WORD1(v29);
                 v30 = MEMORY[0x277D86220];
                 v31 = " [1.450.54] #%04llx Memory allocation for  histBinCentroidInLinear failed";
                 goto LABEL_80;
@@ -329,7 +330,7 @@ LABEL_81:
               }
 
               *buf = 134217984;
-              v39 = WORD1(v29);
+              v38 = WORD1(v29);
               v30 = MEMORY[0x277D86220];
               v31 = " [1.450.54] #%04llx Memory allocation for pqBinCenterInPQ failed";
               goto LABEL_80;
@@ -366,7 +367,7 @@ LABEL_81:
             }
 
             *buf = 134217984;
-            v39 = WORD1(v29);
+            v38 = WORD1(v29);
             v30 = MEMORY[0x277D86220];
             v31 = " [1.450.54] #%04llx Memory allocation for histBinCenter failed";
             goto LABEL_80;
@@ -403,7 +404,7 @@ LABEL_81:
           }
 
           *buf = 134217984;
-          v39 = WORD1(v29);
+          v38 = WORD1(v29);
           v30 = MEMORY[0x277D86220];
           v31 = " [1.450.54] #%04llx Memory allocation for normHist failed";
           goto LABEL_80;
@@ -440,7 +441,7 @@ LABEL_81:
         }
 
         *buf = 134217984;
-        v39 = WORD1(v29);
+        v38 = WORD1(v29);
         v30 = MEMORY[0x277D86220];
         v31 = " [1.450.54] #%04llx Memory allocation for histBuff failed";
         goto LABEL_80;
@@ -475,11 +476,11 @@ LABEL_89:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218498;
-      v39 = WORD1(v34);
-      v40 = 2080;
-      v41 = "[HistBasedToneMapping init]";
-      v42 = 2048;
-      v43 = v3;
+      v38 = WORD1(v34);
+      v39 = 2080;
+      v40 = "[HistBasedToneMapping init]";
+      v41 = 2048;
+      v42 = v3;
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s : Initialization Failed, self=%p\n", buf, 0x20u);
     }
 
@@ -492,16 +493,15 @@ LABEL_96:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v39 = "[HistBasedToneMapping init]";
-    v40 = 2048;
-    v41 = v3;
+    v38 = "[HistBasedToneMapping init]";
+    v39 = 2048;
+    v40 = v3;
     _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s : Initialization Failed, self=%p\n", buf, 0x16u);
   }
 
   v28 = 0;
 LABEL_99:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -595,7 +595,7 @@ LABEL_99:
 
 - (int64_t)getHistDataFromLayerV0:(__IOSurface *)v0
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self->_hist)
   {
     if (enableLogInstance)
@@ -612,9 +612,9 @@ LABEL_99:
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 134217984;
-        v9 = WORD1(v5);
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: !_hist warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/hist_based_tone_mapping.mm at line 232\n", &v8, 0xCu);
+        v7 = 134217984;
+        v8 = WORD1(v5);
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: !_hist warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/hist_based_tone_mapping.mm at line 232\n", &v7, 0xCu);
       }
 
       prevLogInstanceID = v5;
@@ -622,15 +622,13 @@ LABEL_99:
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: !_hist warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/hist_based_tone_mapping.mm at line 232\n", &v8, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: !_hist warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/hist_based_tone_mapping.mm at line 232\n", &v7, 2u);
     }
   }
 
   self->_hist = IOSurfaceCopyValue(v0, @"kIOSurfacePixelMetadata");
-  result = [(HistBasedToneMapping *)self sanityCheckAndGetDataFromHistV0];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(HistBasedToneMapping *)self sanityCheckAndGetDataFromHistV0];
 }
 
 - (int64_t)sanityCheckAndGetDataFromHistV0
@@ -705,14 +703,6 @@ LABEL_99:
   {
     return -17001;
   }
-}
-
-- (int64_t)getHistDataFromLayerV1:(__IOSurface *)v1
-{
-  histBuff = self->_histBuff;
-  histBuffSize = self->_histBuffSize;
-  IOSurfaceGetDataProperty();
-  return -17001;
 }
 
 - (int64_t)sanityCheckAndGetDataFromHistV1
@@ -948,6 +938,53 @@ LABEL_99:
 
   while (v3 != 128);
   memcpy(self->_histBinCentroidInPQ, self->_binCenter, 0x200uLL);
+}
+
+- (int64_t)normalizeHistData:(unsigned int)data transferFunction:(int)function
+{
+  switch(data)
+  {
+    case 1u:
+      if (function != 18)
+      {
+        [(HistBasedToneMapping *)self normalizeHistDataForDoViInput];
+        goto LABEL_9;
+      }
+
+      goto LABEL_6;
+    case 3u:
+LABEL_6:
+      [(HistBasedToneMapping *)self normalizeHistDataAndMapToPQForHLGInput:0, *&function];
+      goto LABEL_9;
+    case 2u:
+      [(HistBasedToneMapping *)self normalizeHistDataForHDR10Input:*&data];
+LABEL_9:
+      v5 = -17000;
+      goto LABEL_10;
+  }
+
+  v5 = -17006;
+LABEL_10:
+  v6 = 0;
+  histBinCentroidInPQ = self->_histBinCentroidInPQ;
+  histBinCentroidInLinear = self->_histBinCentroidInLinear;
+  do
+  {
+    v9 = histBinCentroidInPQ[v6];
+    v10 = v9 < 0.00000073096;
+    if (v9 < 0.00000073096)
+    {
+      v9 = -(v9 + -0.0000014619);
+    }
+
+    v11 = flt_2508CD850[v10];
+    v12 = powf(v9, 0.012683);
+    v13 = fmax(((v12 + -0.83594) / ((v12 * -18.688) + 18.852)), 0.0);
+    histBinCentroidInLinear[v6++] = v11 * powf(v13, 6.2774);
+  }
+
+  while (v6 != 128);
+  return v5;
 }
 
 - (void)computeFrameMinFromHistData
@@ -1211,12 +1248,10 @@ LABEL_38:
 
 - (BOOL)testpatchDetection:(unsigned int)detection
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (detection != 2)
   {
-LABEL_37:
-    v19 = 0;
-    goto LABEL_38;
+    return 0;
   }
 
   v4 = 0.0;
@@ -1295,18 +1330,18 @@ LABEL_26:
     }
 
     free(v9);
-    goto LABEL_38;
+    return v19;
   }
 
   if (!enableLogInstance)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v23) = 0;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Memory allocation for testpatchHistBuff failed", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Memory allocation for testpatchHistBuff failed", &v22, 2u);
     }
 
-    goto LABEL_37;
+    return 0;
   }
 
   if (logInstanceID)
@@ -1321,15 +1356,13 @@ LABEL_26:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 134217984;
-    v24 = WORD1(v20);
-    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Memory allocation for testpatchHistBuff failed", &v23, 0xCu);
+    v22 = 134217984;
+    v23 = WORD1(v20);
+    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Memory allocation for testpatchHistBuff failed", &v22, 0xCu);
   }
 
   v19 = 0;
   prevLogInstanceID = v20;
-LABEL_38:
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -1772,6 +1805,173 @@ LABEL_28:
       self->_histMinMaxBinCenter = v7 & 1;
     }
   }
+}
+
+- (int64_t)getHistStatFromLayer:(__IOSurface *)layer HDRMode:(unsigned int)mode transferFunction:(int)function temporalMode:(int)temporalMode iirAlpha:(float)alpha frameNumber:(unint64_t)number
+{
+  v9 = *&temporalMode;
+  v10 = *&function;
+  v11 = *&mode;
+  self->_frameNumber = number;
+  [(HistBasedToneMapping *)self getSettingsFromDefaultsWrite];
+  [(HistBasedToneMapping *)self setHistBasedToneMappingTemporalType:v11 temporalMode:v9];
+  if ((self->_tempMode - 1) <= 2)
+  {
+    if (GetConfig() && (Config = GetConfig(), *HDRConfig::GetConfigEntryValue(Config, 0x3Du, 0) == 1))
+    {
+      v15 = [(HistBasedToneMapping *)self getHistDataFromLayerV0:layer];
+    }
+
+    else
+    {
+      v15 = [(HistBasedToneMapping *)self getHistDataFromLayerV1:layer];
+    }
+
+    v16 = v15;
+    if (v15 != -17000)
+    {
+      goto LABEL_38;
+    }
+
+    computeFrameStatFromHistData = [(HistBasedToneMapping *)self normalizeHistData:v11 transferFunction:v10];
+    if (computeFrameStatFromHistData != -17000)
+    {
+      goto LABEL_37;
+    }
+
+    computeFrameStatFromHistData = [(HistBasedToneMapping *)self computeFrameStatFromHistData];
+    if (computeFrameStatFromHistData != -17000)
+    {
+      goto LABEL_37;
+    }
+
+    computeFrameStatFromHistData = [(HistBasedToneMapping *)self computeFramePrctFromHistData];
+    if (computeFrameStatFromHistData != -17000)
+    {
+      goto LABEL_37;
+    }
+
+    if (!GetConfig() || (v19 = GetConfig(), *HDRConfig::GetConfigEntryValue(v19, 0x20u, 0) != 1) || ![(HistBasedToneMapping *)self testpatchDetection:v11])
+    {
+LABEL_35:
+      *&v18 = alpha;
+      computeFrameStatFromHistData = [(HistBasedToneMapping *)self temporalProcessHistStat:self->_streamId iirAlpha:v18];
+      if (computeFrameStatFromHistData == -17000)
+      {
+        v39 = 1;
+        v16 = -17000;
+        goto LABEL_39;
+      }
+
+LABEL_37:
+      v16 = computeFrameStatFromHistData;
+      goto LABEL_38;
+    }
+
+    maxMasteringNits = self->_maxMasteringNits;
+    if (maxMasteringNits)
+    {
+      v21 = maxMasteringNits;
+    }
+
+    else if (GetConfig())
+    {
+      v28 = GetConfig();
+      v21 = *HDRConfig::GetConfigEntryValue(v28, 0x23u, 0);
+      if (v21 < 0.0)
+      {
+        v29 = powf(v21 * -0.0001, 0.1593);
+        v23 = 0.0000014619 - powf(((v29 * 18.852) + 0.83594) / ((v29 * 18.688) + 1.0), 78.844);
+LABEL_17:
+        self->_maxVal = v23;
+        if (GetConfig())
+        {
+          v24 = GetConfig();
+          v25 = *HDRConfig::GetConfigEntryValue(v24, 0x24u, 0);
+          if (v25 < 0.0)
+          {
+            v26 = powf(v25 * -0.0001, 0.1593);
+            v27 = 0.0000014619 - powf(((v26 * 18.852) + 0.83594) / ((v26 * 18.688) + 1.0), 78.844);
+            goto LABEL_25;
+          }
+        }
+
+        else
+        {
+          v25 = 0.0;
+        }
+
+        v30 = powf(v25 * 0.0001, 0.1593);
+        v27 = powf(((v30 * 18.852) + 0.83594) / ((v30 * 18.688) + 1.0), 78.844);
+LABEL_25:
+        self->_avgVal = v27;
+        minMasteringNits = self->_minMasteringNits;
+        if (minMasteringNits == 0.0)
+        {
+          if (!GetConfig())
+          {
+            minMasteringNits = 0.0;
+            goto LABEL_31;
+          }
+
+          v32 = GetConfig();
+          minMasteringNits = *HDRConfig::GetConfigEntryValue(v32, 0x25u, 0);
+        }
+
+        if (minMasteringNits < 0.0)
+        {
+          v33 = powf(minMasteringNits * -0.0001, 0.1593);
+          *&v18 = 0.0000014619 - powf(((v33 * 18.852) + 0.83594) / ((v33 * 18.688) + 1.0), 78.844);
+          goto LABEL_32;
+        }
+
+LABEL_31:
+        v34 = powf(minMasteringNits * 0.0001, 0.1593);
+        *&v18 = powf(((v34 * 18.852) + 0.83594) / ((v34 * 18.688) + 1.0), 78.844);
+LABEL_32:
+        self->_minVal = *&v18;
+        numPrct = self->_numPrct;
+        if (numPrct >= 1)
+        {
+          pcntVal = self->_pcntVal;
+          prctVal = self->_prctVal;
+          do
+          {
+            v38 = *pcntVal++;
+            *prctVal++ = self->_minVal + (v38 * (self->_maxVal - self->_minVal));
+            --numPrct;
+          }
+
+          while (numPrct);
+        }
+
+        goto LABEL_35;
+      }
+    }
+
+    else
+    {
+      v21 = 0.0;
+    }
+
+    v22 = powf(v21 * 0.0001, 0.1593);
+    v23 = powf(((v22 * 18.852) + 0.83594) / ((v22 * 18.688) + 1.0), 78.844);
+    goto LABEL_17;
+  }
+
+  v16 = -17001;
+LABEL_38:
+  v39 = 0;
+LABEL_39:
+  self->_isDataValid = v39;
+  hist = self->_hist;
+  if (hist)
+  {
+    CFRelease(hist);
+    self->_hist = 0;
+  }
+
+  return v16;
 }
 
 - (int64_t)debugHistDataFromLayer:(__IOSurface *)layer

@@ -69,7 +69,7 @@
 
 - (void)persistCorruptionEvent:(id)event
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   delegate = [(HDDatabaseCorruptionEventStore *)self delegate];
 
@@ -79,9 +79,9 @@
     profileIdentifier = [eventCopy profileIdentifier];
     v8 = [v6 corruptionEventKeyForProfileIdentifier:profileIdentifier component:{objc_msgSend(eventCopy, "component")}];
 
-    v14 = 0;
-    v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:eventCopy requiringSecureCoding:1 error:&v14];
-    v10 = v14;
+    v13 = 0;
+    v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:eventCopy requiringSecureCoding:1 error:&v13];
+    v10 = v13;
     if (v9)
     {
       delegate2 = [(HDDatabaseCorruptionEventStore *)self delegate];
@@ -95,18 +95,16 @@
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v16 = v10;
+        v15 = v10;
         _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "Could not encode corruption event (%@); skipping", buf, 0xCu);
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mostRecentCorruptionEventForProfileIdentifier:(id)identifier component:(int64_t)component
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v7 = [objc_opt_class() corruptionEventKeyForProfileIdentifier:identifierCopy component:component];
 
@@ -115,9 +113,9 @@
 
   if (v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v15 = 0;
-    v10 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v9 error:&v15];
-    v11 = v15;
+    v14 = 0;
+    v10 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v9 error:&v14];
+    v11 = v14;
     if (!v10)
     {
       _HKInitializeLogging();
@@ -125,7 +123,7 @@
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v17 = v11;
+        v16 = v11;
         _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "Could not decode corruption event (%@)", buf, 0xCu);
       }
     }
@@ -135,8 +133,6 @@
   {
     v10 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -171,20 +167,18 @@
 
 - (void)persistMigrationFailureEventForProfile:(id)profile component:(int64_t)component schemaVersion:(int64_t)version
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v7 = [HDDatabaseCorruptionEventStore _migrationFailureEventKeyForProfileIdentifier:profile component:component];
-  v13[0] = @"lastReportedDate";
+  v12[0] = @"lastReportedDate";
   v8 = [MEMORY[0x277CBEAA8] now];
-  v13[1] = @"failedSchemaVersion";
-  v14[0] = v8;
+  v12[1] = @"failedSchemaVersion";
+  v13[0] = v8;
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:version];
-  v14[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   delegate = [(HDDatabaseCorruptionEventStore *)self delegate];
   [delegate store:self setObject:v10 forKey:v7];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mostRecentMigrationFailureEventForProfile:(id)profile component:(int64_t)component schemaVersion:(int64_t *)version
@@ -255,20 +249,18 @@
 
 - (void)persistObliterationForReason:(id)reason
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"reason";
-  v10[1] = @"date";
-  v11[0] = reason;
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"reason";
+  v9[1] = @"date";
+  v10[0] = reason;
   v4 = MEMORY[0x277CBEAA8];
   reasonCopy = reason;
   v6 = [v4 now];
-  v11[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   delegate = [(HDDatabaseCorruptionEventStore *)self delegate];
   [delegate store:self setObject:v7 forKey:@"databaseObliterated"];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dateOfMostRecentObliteration:(id *)obliteration

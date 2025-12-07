@@ -3,6 +3,8 @@
 - (BOOL)pairAppleRemote:(id *)remote;
 - (BOOL)setOSDName:(id)name error:(id *)error;
 - (BOOL)unpairAppleRemote:(id *)remote;
+- (CoreIRDevice)initWithBus:(id)bus local:(BOOL)local;
+- (CoreIRDevice)initWithBus:(id)bus local:(BOOL)local deviceType:(unint64_t)type;
 - (CoreIRDevice)initWithCoder:(id)coder;
 - (CoreIRDevice)initWithDevice:(id)device;
 - (id)debugDescription;
@@ -18,7 +20,7 @@
 {
   if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    [CoreIRDevice setOSDName:error:];
+    [CoreIRDevice setOSDName:name error:?];
   }
 
   [(CoreIRDevice *)self setOSDName:name];
@@ -37,6 +39,42 @@
   v3.receiver = self;
   v3.super_class = CoreIRDevice;
   [(CoreRCDevice *)&v3 dealloc];
+}
+
+- (CoreIRDevice)initWithBus:(id)bus local:(BOOL)local deviceType:(unint64_t)type
+{
+  typeCopy = type;
+  v7.receiver = self;
+  v7.super_class = CoreIRDevice;
+  result = [(CoreRCDevice *)&v7 initWithBus:bus local:local];
+  if (result)
+  {
+    result->_learningSession = 0;
+    result->_isTransmitter = typeCopy & 1;
+    result->_isReceiver = (typeCopy & 0x10) != 0;
+    result->_vendorID = -1;
+    result->_buttons = 0;
+    result->_OSDName = 0;
+  }
+
+  return result;
+}
+
+- (CoreIRDevice)initWithBus:(id)bus local:(BOOL)local
+{
+  localCopy = local;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+
+    return [(CoreIRDevice *)self initWithBus:bus local:localCopy deviceType:0];
+  }
+
+  else
+  {
+
+    return 0;
+  }
 }
 
 - (CoreIRDevice)initWithDevice:(id)device

@@ -113,21 +113,19 @@
 
 - (GCSJSONObject)jsonObject
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v9 = *&self->_name;
-  v8[0] = @"name";
-  v8[1] = @"nameLocalizationKey";
+  v12 = *MEMORY[0x277D85DE8];
+  v8 = *&self->_name;
+  v7[0] = @"name";
+  v7[1] = @"nameLocalizationKey";
   sfSymbolsName = self->_sfSymbolsName;
-  v8[2] = @"sfSymbolsName";
-  v8[3] = @"remappingKey";
+  v7[2] = @"sfSymbolsName";
+  v7[3] = @"remappingKey";
   v3 = [MEMORY[0x277CCABB0] numberWithInt:self->_remappingKey];
-  v11 = v3;
-  v8[4] = @"kind";
+  v10 = v3;
+  v7[4] = @"kind";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:self->_kind];
-  v12 = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:v8 count:5];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v11 = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v8 forKeys:v7 count:5];
 
   return v5;
 }

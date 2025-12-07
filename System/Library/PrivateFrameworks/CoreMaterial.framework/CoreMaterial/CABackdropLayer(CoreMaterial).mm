@@ -3,8 +3,6 @@
 + (id)mt_orderedFilterTypesBlurAtEnd;
 - (double)mt_colorMatrixDrivenInoperativeOpacity;
 - (double)mt_colorMatrixDrivenOpacity;
-- (uint64_t)mt_setColorMatrixDrivenInoperativeOpacity:()CoreMaterial removingIfIdentity:;
-- (uint64_t)mt_setColorMatrixDrivenOpacity:()CoreMaterial removingIfIdentity:;
 - (void)_mt_applyFilterDescription:()CoreMaterial remainingExistingFilters:filterOrder:removingIfIdentity:;
 - (void)_mt_configureFilterOfType:()CoreMaterial ifNecessaryWithFilterOrder:;
 - (void)_mt_configureFilterOfType:()CoreMaterial ifNecessaryWithName:andFilterOrder:;
@@ -12,6 +10,8 @@
 - (void)_mt_setColorMatrix:()CoreMaterial withName:filterOrder:removingIfIdentity:;
 - (void)_mt_setValue:()CoreMaterial forFilterOfType:valueKey:filterOrder:removingIfIdentity:;
 - (void)mt_applyMaterialDescription:()CoreMaterial removingIfIdentity:;
+- (void)mt_setColorMatrixDrivenInoperativeOpacity:()CoreMaterial removingIfIdentity:;
+- (void)mt_setColorMatrixDrivenOpacity:()CoreMaterial removingIfIdentity:;
 @end
 
 @implementation CABackdropLayer(CoreMaterial)
@@ -23,9 +23,9 @@
     +[CABackdropLayer(CoreMaterial) mt_orderedFilterTypes];
   }
 
-  v1 = mt_orderedFilterTypes___sortedFilterTypes;
+  v2 = mt_orderedFilterTypes___sortedFilterTypes;
 
-  return v1;
+  return v2;
 }
 
 + (id)mt_orderedFilterTypesBlurAtEnd
@@ -47,172 +47,156 @@
 
 - (void)mt_applyMaterialDescription:()CoreMaterial removingIfIdentity:
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v4 = a4;
+  v47 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = MTLogMaterials;
   if (os_log_type_enabled(MTLogMaterials, OS_LOG_TYPE_DEBUG))
   {
-    v35 = @"not ";
+    v33 = @"not ";
     *buf = 138543874;
     selfCopy = self;
-    if (a4)
+    if (v4)
     {
-      v35 = &stru_1F3DFC648;
+      v33 = &stru_1F3DFC648;
     }
 
-    v61 = 2112;
-    v62 = v35;
-    v63 = 2114;
-    v64 = v6;
+    v43 = 2112;
+    v44 = v33;
+    v45 = 2114;
+    v46 = v6;
     _os_log_debug_impl(&dword_1BF527000, v7, OS_LOG_TYPE_DEBUG, "%{public}@: applying backdrop settings (%@removing if identity): %{public}@", buf, 0x20u);
   }
 
   filters = [self filters];
   v9 = [filters mutableCopy];
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
   v10 = v6;
-  v11 = [v10 countByEnumeratingWithState:&v52 objects:v58 count:16];
+  v11 = [v10 countByEnumeratingWithState:? objects:? count:?];
   if (v11)
   {
     v12 = v11;
-    v13 = *v53;
-    v36 = @"type";
-    v37 = *v53;
-    v40 = a4;
-    v38 = v10;
-    v39 = v9;
+    v13 = MEMORY[0];
+    v34 = @"type";
+    v35 = MEMORY[0];
+    v36 = v10;
+    v37 = v9;
     do
     {
       v14 = 0;
-      v41 = v12;
+      v38 = v12;
       do
       {
-        if (*v53 != v13)
+        if (MEMORY[0] != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v52 + 1) + 8 * v14);
-        if ([v15 isEqualToString:{@"filters", v36}])
+        if ([*(8 * v14) isEqualToString:v34])
         {
-          v16 = [v10 objectForKey:@"filters"];
-          v17 = [v16 valueForKey:v36];
-          v48 = 0u;
-          v49 = 0u;
-          v50 = 0u;
-          v51 = 0u;
-          v18 = v16;
-          v19 = [v18 countByEnumeratingWithState:&v48 objects:v57 count:16];
-          obj = v18;
-          if (v19)
+          v15 = [v10 objectForKey:?];
+          v16 = [v15 valueForKey:?];
+          v17 = v15;
+          v18 = [v17 countByEnumeratingWithState:? objects:? count:?];
+          obj = v17;
+          if (v18)
           {
-            v20 = v19;
-            v21 = *v49;
+            v19 = v18;
+            v20 = MEMORY[0];
             do
             {
-              for (i = 0; i != v20; ++i)
+              for (i = 0; i != v19; i = (i + 1))
               {
-                if (*v49 != v21)
+                if (MEMORY[0] != v20)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                [self _mt_applyFilterDescription:*(*(&v48 + 1) + 8 * i) remainingExistingFilters:v9 filterOrder:v17 removingIfIdentity:a4];
+                [self _mt_applyFilterDescription:? remainingExistingFilters:? filterOrder:? removingIfIdentity:?];
               }
 
-              v18 = obj;
-              v20 = [obj countByEnumeratingWithState:&v48 objects:v57 count:16];
+              v17 = obj;
+              v19 = [obj countByEnumeratingWithState:? objects:? count:?];
             }
 
-            while (v20);
+            while (v19);
           }
 
-          v42 = v14;
+          v39 = v14;
 
-          v46 = 0u;
-          v47 = 0u;
-          v44 = 0u;
-          v45 = 0u;
-          v23 = v9;
-          v24 = [v23 countByEnumeratingWithState:&v44 objects:v56 count:16];
-          if (v24)
+          v22 = v9;
+          v23 = [v22 countByEnumeratingWithState:? objects:? count:?];
+          if (v23)
           {
-            v25 = v24;
-            v26 = *v45;
+            v24 = v23;
+            v25 = MEMORY[0];
             do
             {
-              for (j = 0; j != v25; ++j)
+              for (j = 0; j != v24; j = (j + 1))
               {
-                if (*v45 != v26)
+                if (MEMORY[0] != v25)
                 {
-                  objc_enumerationMutation(v23);
+                  objc_enumerationMutation(v22);
                 }
 
-                v28 = *(*(&v44 + 1) + 8 * j);
-                name = [v28 name];
-                if (([name isEqualToString:@"opacityColorMatrix"] & 1) == 0)
+                v27 = *(8 * j);
+                name = [v27 name];
+                if (([name isEqualToString:?] & 1) == 0)
                 {
-                  name2 = [v28 name];
-                  v31 = [name2 isEqualToString:@"inoperativeColorMatrix"];
+                  name2 = [v27 name];
+                  v30 = [name2 isEqualToString:?];
 
-                  if (v31)
+                  if (v30)
                   {
                     continue;
                   }
 
-                  name = [v28 type];
-                  name3 = [v28 name];
-                  [self _mt_removeFilterOfType:name ifNecessaryWithName:name3];
+                  name = [v27 type];
+                  name3 = [v27 name];
+                  [self _mt_removeFilterOfType:? ifNecessaryWithName:?];
                 }
               }
 
-              v25 = [v23 countByEnumeratingWithState:&v44 objects:v56 count:16];
+              v24 = [v22 countByEnumeratingWithState:? objects:? count:?];
             }
 
-            while (v25);
+            while (v24);
           }
 
-          a4 = v40;
-          v10 = v38;
-          v9 = v39;
-          v13 = v37;
-          v12 = v41;
-          v14 = v42;
-          v33 = obj;
+          v10 = v36;
+          v9 = v37;
+          v13 = v35;
+          v12 = v38;
+          v14 = v39;
+          v32 = obj;
         }
 
         else
         {
-          v33 = [v10 objectForKey:v15];
-          [self setValue:v33 forKey:v15];
+          v32 = [v10 objectForKey:?];
+          [self setValue:? forKey:?];
         }
 
-        ++v14;
+        v14 = (v14 + 1);
       }
 
       while (v14 != v12);
-      v12 = [v10 countByEnumeratingWithState:&v52 objects:v58 count:16];
+      v12 = [v10 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v12);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (double)mt_colorMatrixDrivenOpacity
 {
   mt_keyPathForColorMatrixDrivenOpacity = [objc_opt_class() mt_keyPathForColorMatrixDrivenOpacity];
-  v3 = [self valueForKeyPath:mt_keyPathForColorMatrixDrivenOpacity];
+  v3 = [self valueForKeyPath:?];
 
   if (v3)
   {
-    [v3 CAColorMatrixValue];
-    v4 = v6;
+    [v6 CAColorMatrixValue];
+    v4 = v6[18];
   }
 
   else
@@ -223,46 +207,40 @@
   return v4;
 }
 
-- (uint64_t)mt_setColorMatrixDrivenOpacity:()CoreMaterial removingIfIdentity:
+- (void)mt_setColorMatrixDrivenOpacity:()CoreMaterial removingIfIdentity:
 {
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
-  v12 = 0u;
+  v9 = 0u;
   v10 = 0u;
-  v7 = objc_opt_class();
-  if (v7)
+  v7 = 0u;
+  v8 = 0u;
+  v6 = 0u;
+  if (objc_opt_class())
   {
-    [v7 mt_colorMatrixForOpacity:a2];
+    [&v6 mt_colorMatrixForOpacity:?];
   }
 
   else
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
+    v9 = 0u;
     v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
+    v6 = 0u;
   }
 
-  [self _mt_removeFilterOfType:*MEMORY[0x1E6979880] ifNecessaryWithName:@"opacityColorMatrix"];
-  v9[2] = v12;
-  v9[3] = v13;
-  v9[4] = v14;
-  v9[0] = v10;
-  v9[1] = v11;
-  return [self _mt_setColorMatrix:v9 withName:@"opacityColorMatrix" filterOrder:0 removingIfIdentity:a4];
+  [self _mt_removeFilterOfType:? ifNecessaryWithName:?];
+  return [self _mt_setColorMatrix:v6 withName:v7 filterOrder:v8 removingIfIdentity:{v9, v10}];
 }
 
 - (double)mt_colorMatrixDrivenInoperativeOpacity
 {
   mt_keyPathForColorMatrixDrivenInoperativeOpacity = [objc_opt_class() mt_keyPathForColorMatrixDrivenInoperativeOpacity];
-  v3 = [self valueForKeyPath:mt_keyPathForColorMatrixDrivenInoperativeOpacity];
+  v3 = [self valueForKeyPath:?];
 
   if (v3)
   {
-    [v3 CAColorMatrixValue];
-    v4 = v6;
+    [v6 CAColorMatrixValue];
+    v4 = v6[18];
   }
 
   else
@@ -273,35 +251,29 @@
   return v4;
 }
 
-- (uint64_t)mt_setColorMatrixDrivenInoperativeOpacity:()CoreMaterial removingIfIdentity:
+- (void)mt_setColorMatrixDrivenInoperativeOpacity:()CoreMaterial removingIfIdentity:
 {
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
-  v12 = 0u;
+  v9 = 0u;
   v10 = 0u;
-  v7 = objc_opt_class();
-  if (v7)
+  v7 = 0u;
+  v8 = 0u;
+  v6 = 0u;
+  if (objc_opt_class())
   {
-    [v7 mt_colorMatrixForOpacity:a2];
+    [&v6 mt_colorMatrixForOpacity:?];
   }
 
   else
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
+    v9 = 0u;
     v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
+    v6 = 0u;
   }
 
-  [self _mt_removeFilterOfType:*MEMORY[0x1E6979880] ifNecessaryWithName:@"inoperativeColorMatrix"];
-  v9[2] = v12;
-  v9[3] = v13;
-  v9[4] = v14;
-  v9[0] = v10;
-  v9[1] = v11;
-  return [self _mt_setColorMatrix:v9 withName:@"inoperativeColorMatrix" filterOrder:0 removingIfIdentity:a4];
+  [self _mt_removeFilterOfType:? ifNecessaryWithName:?];
+  return [self _mt_setColorMatrix:v6 withName:v7 filterOrder:v8 removingIfIdentity:{v9, v10}];
 }
 
 - (void)_mt_configureFilterOfType:()CoreMaterial ifNecessaryWithName:andFilterOrder:
@@ -320,7 +292,7 @@
   }
 
   v12 = MTFilterKeyPathForFilter(v11);
-  v13 = [self valueForKeyPath:v12];
+  v13 = [self valueForKeyPath:?];
   if (!v13)
   {
     filters = [self filters];
@@ -338,26 +310,22 @@
 
     v18 = v17;
 
-    v19 = [MEMORY[0x1E6979378] filterWithType:v8];
+    v19 = [MEMORY[0x1E6979378] filterWithType:?];
     v13 = v19;
     if (v9)
     {
-      [v19 setName:v9];
+      [v19 setName:?];
     }
 
-    [v18 addObject:v13];
+    [v18 addObject:?];
     v20 = [v18 count];
     if (v10 && v20 >= 2)
     {
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __94__CABackdropLayer_CoreMaterial___mt_configureFilterOfType_ifNecessaryWithName_andFilterOrder___block_invoke;
-      v21[3] = &unk_1E80BDC28;
-      v22 = v10;
-      [v18 sortUsingComparator:v21];
+      v21 = v10;
+      [v18 sortUsingComparator:?];
     }
 
-    [self setFilters:v18];
+    [self setFilters:?];
   }
 }
 
@@ -366,11 +334,11 @@
   v9 = a3;
   v6 = a4;
   v7 = MTFilterKeyPathForFilter(v9);
-  v8 = [self valueForKeyPath:v7];
+  v8 = [self valueForKeyPath:?];
 
   if (!v8)
   {
-    [self _mt_configureFilterOfType:v9 ifNecessaryWithName:0 andFilterOrder:v6];
+    [self _mt_configureFilterOfType:? ifNecessaryWithName:? andFilterOrder:?];
   }
 }
 
@@ -392,101 +360,87 @@
   }
 
   v10 = MTFilterKeyPathForFilter(v9);
-  v11 = [self valueForKeyPath:v10];
-  [v8 removeObject:v11];
+  v11 = [self valueForKeyPath:?];
+  [v8 removeObject:?];
 
-  [self setFilters:v8];
+  [self setFilters:?];
 }
 
 - (void)_mt_applyFilterDescription:()CoreMaterial remainingExistingFilters:filterOrder:removingIfIdentity:
 {
-  v44 = *MEMORY[0x1E69E9840];
   v9 = a3;
   v10 = a4;
-  v38 = a5;
+  v32 = a5;
   allKeys = [v9 allKeys];
   v12 = [allKeys mutableCopy];
 
   v13 = v9;
-  v14 = [v9 objectForKey:@"type"];
+  v14 = [v9 objectForKey:?];
   v15 = MTFilterKeyPathForFilter(v14);
-  selfCopy = self;
-  v17 = [self valueForKeyPath:v15];
-  [v10 removeObject:v17];
+  v16 = [self valueForKeyPath:?];
+  [v10 removeObject:?];
 
-  [v12 removeObject:@"type"];
-  v37 = v10;
-  if ([v14 isEqualToString:*MEMORY[0x1E69798B8]])
+  [v12 removeObject:?];
+  v31 = v10;
+  if ([v14 isEqualToString:?])
   {
-    v18 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v12];
-    v19 = objc_alloc(MEMORY[0x1E695DFD8]);
-    v20 = MTCAFilterCurvesInputValuesKeys();
-    v21 = [v19 initWithArray:v20];
-    v22 = [v18 intersectsSet:v21];
+    v17 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:?];
+    v18 = objc_alloc(MEMORY[0x1E695DFD8]);
+    v19 = MTCAFilterCurvesInputValuesKeys(v18);
+    v20 = [v18 initWithArray:?];
+    v21 = [v17 intersectsSet:?];
 
-    v23 = a6;
-    if (!a6 || v22)
+    if (!a6 || v21)
     {
-      [selfCopy _mt_configureFilterOfType:v14 ifNecessaryWithFilterOrder:v38];
+      [self _mt_configureFilterOfType:? ifNecessaryWithFilterOrder:?];
     }
 
     else
     {
-      [selfCopy _mt_removeFilterOfTypeIfNecessary:v14];
+      [self _mt_removeFilterOfTypeIfNecessary:?];
     }
   }
 
   else
   {
-    v24 = _IdentityPropertyForFilterType(v14);
-    [v12 removeObject:v24];
-    if (v24)
+    v22 = _IdentityPropertyForFilterType(v14);
+    [v12 removeObject:?];
+    if (v22)
     {
-      v25 = [v9 objectForKey:v24];
-      selfCopy2 = self;
-      v23 = a6;
-      [selfCopy2 _mt_setValue:v25 forFilterOfType:v14 valueKey:v24 filterOrder:v38 removingIfIdentity:a6];
+      v23 = [v9 objectForKey:?];
+      [self _mt_setValue:? forFilterOfType:? valueKey:? filterOrder:? removingIfIdentity:?];
     }
 
     else
     {
-      selfCopy3 = self;
-      v23 = a6;
-      [selfCopy3 _mt_setValue:0 forFilterOfType:v14 valueKey:0 filterOrder:v38 removingIfIdentity:a6];
+      [self _mt_setValue:? forFilterOfType:? valueKey:? filterOrder:? removingIfIdentity:?];
     }
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v28 = v12;
-  v29 = [v28 countByEnumeratingWithState:&v39 objects:v43 count:16];
-  if (v29)
+  v24 = v12;
+  v25 = [v24 countByEnumeratingWithState:? objects:? count:?];
+  if (v25)
   {
-    v30 = v29;
-    v31 = *v40;
+    v26 = v25;
+    v27 = MEMORY[0];
     do
     {
-      for (i = 0; i != v30; ++i)
+      for (i = 0; i != v26; i = (i + 1))
       {
-        if (*v40 != v31)
+        if (MEMORY[0] != v27)
         {
-          objc_enumerationMutation(v28);
+          objc_enumerationMutation(v24);
         }
 
-        v33 = *(*(&v39 + 1) + 8 * i);
-        v34 = [v13 objectForKey:v33];
-        [selfCopy _mt_setValue:v34 forFilterOfType:v14 valueKey:v33 filterOrder:v38 removingIfIdentity:v23];
+        v29 = [v13 objectForKey:?];
+        [self _mt_setValue:? forFilterOfType:? valueKey:? filterOrder:? removingIfIdentity:?];
       }
 
-      v30 = [v28 countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v26 = [v24 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v30);
+    while (v26);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_mt_setValue:()CoreMaterial forFilterOfType:valueKey:filterOrder:removingIfIdentity:
@@ -495,10 +449,10 @@
   v12 = a4;
   v13 = a5;
   v14 = a6;
-  IsIdentityProperty = _IsIdentityProperty(v12, v13);
+  v15 = _IsIdentityProperty(v12, v13);
   if (v24)
   {
-    if ((a7 & IsIdentityProperty) != 1)
+    if ((a7 & v15) != 1)
     {
       goto LABEL_8;
     }
@@ -506,8 +460,8 @@
 
   else
   {
-    v16 = [v12 isEqualToString:*MEMORY[0x1E6979810]];
-    if ((v16 & a7 & IsIdentityProperty & 1) == 0)
+    v16 = [v12 isEqualToString:?];
+    if ((v16 & a7 & v15 & 1) == 0)
     {
       if (!v16)
       {
@@ -521,27 +475,27 @@
   if (_IsValueIdentity(v24, v12, v13))
   {
 LABEL_6:
-    [self _mt_removeFilterOfTypeIfNecessary:v12];
+    [self _mt_removeFilterOfTypeIfNecessary:?];
     goto LABEL_18;
   }
 
 LABEL_8:
-  if (IsIdentityProperty)
+  if (v15)
   {
-    [self _mt_configureFilterOfType:v12 ifNecessaryWithFilterOrder:v14];
+    [self _mt_configureFilterOfType:? ifNecessaryWithFilterOrder:?];
   }
 
   v17 = MTFilterKeyPathForFilter(v12);
-  v18 = [v17 stringByAppendingFormat:@".%@", v13];
-  v19 = [self valueForKeyPath:v17];
+  v18 = [v17 stringByAppendingFormat:v13];
+  v19 = [self valueForKeyPath:?];
   if (v19)
   {
     v20 = v19;
-    v21 = [self valueForKeyPath:v18];
+    v21 = [self valueForKeyPath:?];
     v22 = v24;
     if (objc_opt_respondsToSelector() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
     {
-      v23 = [v21 isEqual:v22];
+      v23 = [v21 isEqual:?];
     }
 
     else
@@ -551,7 +505,7 @@ LABEL_8:
 
     if ((v23 & 1) == 0)
     {
-      [self setValue:v22 forKeyPath:v18];
+      [self setValue:? forKeyPath:?];
     }
   }
 
@@ -560,29 +514,21 @@ LABEL_18:
 
 - (void)_mt_setColorMatrix:()CoreMaterial withName:filterOrder:removingIfIdentity:
 {
-  v10 = a4;
-  v11 = a5;
-  v12 = a3[3];
-  v19[2] = a3[2];
-  v19[3] = v12;
-  v19[4] = a3[4];
-  v13 = a3[1];
-  v19[0] = *a3;
-  v19[1] = v13;
-  v14 = [MEMORY[0x1E696B098] valueWithBytes:v19 objCType:"{CAColorMatrix=ffffffffffffffffffff}"];
-  v15 = v14;
-  v16 = *MEMORY[0x1E6979880];
-  if (a6 && _IsValueIdentity(v14, *MEMORY[0x1E6979880], @"inputColorMatrix"))
+  v9 = a4;
+  v10 = a5;
+  v11 = [MEMORY[0x1E696B098] valueWithBytes:? objCType:?];
+  v12 = v11;
+  if (a6 && _IsValueIdentity(v11, *MEMORY[0x1E6979880], @"inputColorMatrix"))
   {
-    [self _mt_removeFilterOfType:v16 ifNecessaryWithName:v10];
+    [self _mt_removeFilterOfType:? ifNecessaryWithName:?];
   }
 
   else
   {
-    [self _mt_configureFilterOfType:v16 ifNecessaryWithName:v10 andFilterOrder:v11];
-    v17 = MTFilterKeyPathForFilter(v10);
-    v18 = [v17 stringByAppendingFormat:@".%@", @"inputColorMatrix"];
-    [self setValue:v15 forKeyPath:v18];
+    [self _mt_configureFilterOfType:? ifNecessaryWithName:? andFilterOrder:?];
+    v13 = MTFilterKeyPathForFilter(v9);
+    v14 = [v13 stringByAppendingFormat:@"inputColorMatrix"];
+    [self setValue:? forKeyPath:?];
   }
 }
 

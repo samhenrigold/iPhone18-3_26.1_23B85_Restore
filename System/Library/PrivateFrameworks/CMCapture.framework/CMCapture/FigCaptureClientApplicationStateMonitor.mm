@@ -11,20 +11,18 @@
 - (NSString)mediaEnvironment;
 - (OS_tcc_identity)mediaEnvironmentTCCIdentity;
 - (char)_initWithClient:(void *)client;
+- (id)_updateBKSApplicationStateFromAVAudioSession;
+- (id)_updateBKSApplicationStateFromCMSession;
+- (id)loggingPrefix;
 - (uint64_t)_createAndObserveAVAudioSessionForBKSApplicationStateMonitoring;
 - (uint64_t)_createAndObserveCMSessionForBKSApplicationStateMonitoring;
 - (uint64_t)_resolveAggregateLayoutState;
 - (uint64_t)_resolveApplicationIDForLayoutMonitoring;
 - (uint64_t)_resolveApplicationState;
-- (uint64_t)_updateBKSApplicationStateFromAVAudioSession;
-- (uint64_t)_updateBKSApplicationStateFromCMSession;
-- (uint64_t)loggingPrefix;
 - (void)_deregisterAndReleaseAVAudioSession;
 - (void)_deregisterAndReleaseCMSession;
-- (void)_handleAVAudioSessionApplicationStateDidChangeNotification:(uint64_t)notification;
 - (void)_handleAVAudioSessionMediaServicesWereResetNotification:(uint64_t)notification;
-- (void)_handleBKSApplicationStateChange:;
-- (void)_handleCMSessionApplicationStateDidChangeNotification:(uint64_t)notification;
+- (void)_handleBKSApplicationStateChange:(uint64_t)change;
 - (void)_handleLayout:(uint64_t)layout;
 - (void)_handleMediaEndowmentUpdate:(uint64_t)update;
 - (void)_handleVisibilityEndowmentUpdate:(uint64_t)update;
@@ -62,45 +60,46 @@
     else
     {
       clientType = [v7 clientType];
-      v10 = *(self + 8);
-      if (clientType == 3 && (v11 = [v10 isSecureCaptureExtension], v10 = *(self + 8), (v11 & 1) == 0))
+      v11 = *(self + 8);
+      if (clientType == 3 && (v12 = [v11 isSecureCaptureExtension], v11 = *(self + 8), (v12 & 1) == 0))
       {
-        xpcServiceRootHostApplicationID = [v10 xpcServiceRootHostApplicationID];
+        xpcServiceRootHostApplicationID = [v11 xpcServiceRootHostApplicationID];
       }
 
       else
       {
-        xpcServiceRootHostApplicationID = [v10 applicationID];
+        xpcServiceRootHostApplicationID = [v11 applicationID];
       }
     }
 
     v4 = xpcServiceRootHostApplicationID;
-    v32 = 0;
-    if (FigCaptureAudiomxdSupportEnabled())
+    v60 = 0;
+    if (FigCaptureAudiomxdSupportEnabled(xpcServiceRootHostApplicationID, v9))
     {
       if ((*(self + 80) & 1) == 0)
       {
         goto LABEL_30;
       }
 
-      v12 = [*(self + 24) getMXSessionProperty:*MEMORY[0x1E69B0190] error:&v32];
-      if (v32)
+      v13 = [*(self + 24) getMXSessionProperty:*MEMORY[0x1E69B0190] error:&v60];
+      if (v60)
       {
         OUTLINED_FUNCTION_24_10();
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v30);
+        os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v57);
         OUTLINED_FUNCTION_4_0();
         if (v1)
         {
           [(FigCaptureClientApplicationStateMonitor *)self loggingPrefix];
           OUTLINED_FUNCTION_9_3();
-          OUTLINED_FUNCTION_5_1();
+          OUTLINED_FUNCTION_5_1(v49, v50, v59, v51, &dword_1AC90E000);
         }
 
-        goto LABEL_55;
+        OUTLINED_FUNCTION_1_4();
+        goto LABEL_57;
       }
 
-      intValue = [v12 intValue];
+      intValue = [v13 intValue];
       if (!intValue)
       {
 LABEL_30:
@@ -109,20 +108,20 @@ LABEL_30:
           if (dword_1ED844110)
           {
             OUTLINED_FUNCTION_24_10();
-            v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            os_log_type_enabled(v18, v30);
+            v24 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            os_log_type_enabled(v24, v57);
             OUTLINED_FUNCTION_115_0();
-            if (v20)
+            if (v26)
             {
-              v21 = v19;
+              v27 = v25;
             }
 
             else
             {
-              v21 = v31;
+              v27 = v58;
             }
 
-            if (v21)
+            if (v27)
             {
               [(FigCaptureClientApplicationStateMonitor *)self loggingPrefix];
               OUTLINED_FUNCTION_9_3();
@@ -131,7 +130,7 @@ LABEL_30:
             }
 
             OUTLINED_FUNCTION_2_4();
-            OUTLINED_FUNCTION_13_0();
+            OUTLINED_FUNCTION_13_0(v28, v29, v30, v31, v32);
           }
 
           [*(self + 8) setApplicationIDToInheritAppStateFrom:0];
@@ -149,26 +148,30 @@ LABEL_30:
         goto LABEL_30;
       }
 
-      v31 = 0;
+      v58 = 0;
       if (CMSessionCopyProperty())
       {
-        v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+        v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
         OUTLINED_FUNCTION_30();
         if (v2)
         {
-          v15 = MEMORY[0x1E696AEC0];
+          v16 = MEMORY[0x1E696AEC0];
           [*(self + 8) pid];
           OUTLINED_FUNCTION_67_2();
           OUTLINED_FUNCTION_55_5();
-          [v15 stringWithFormat:@"<%p[%d][%@]>"];
+          [v16 stringWithFormat:@"<%p[%d][%@]>"];
           OUTLINED_FUNCTION_53_6();
           OUTLINED_FUNCTION_9_3();
-          OUTLINED_FUNCTION_11_0();
-          OUTLINED_FUNCTION_141();
+          v17 = OUTLINED_FUNCTION_11_0();
+          OUTLINED_FUNCTION_141(v17, v18, v19, v20, v21);
         }
 
-        goto LABEL_55;
+LABEL_56:
+        OUTLINED_FUNCTION_1_4();
+LABEL_57:
+        fig_log_call_emit_and_clean_up_after_send_and_compose();
+        return v4;
       }
 
       intValue = [0 intValue];
@@ -185,76 +188,73 @@ LABEL_40:
       if (dword_1ED844110)
       {
         OUTLINED_FUNCTION_24_10();
-        v22 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v22, v30);
+        v33 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v33, v57);
         OUTLINED_FUNCTION_115_0();
-        if (v20)
+        if (v26)
         {
-          v24 = v23;
+          v35 = v34;
         }
 
         else
         {
-          v24 = v31;
+          v35 = v58;
         }
 
-        if (v24)
+        if (v35)
         {
           [(FigCaptureClientApplicationStateMonitor *)self loggingPrefix];
           [*(self + 8) applicationIDToInheritAppStateFrom];
           [*(self + 8) pidToInheritAppStateFrom];
           OUTLINED_FUNCTION_9_3();
-          OUTLINED_FUNCTION_18_13();
+          OUTLINED_FUNCTION_18_13(v44, v45, v59, v46, &dword_1AC90E000);
         }
 
         OUTLINED_FUNCTION_2_4();
-        OUTLINED_FUNCTION_13_0();
+        OUTLINED_FUNCTION_13_0(v36, v37, v38, v39, v40);
       }
 
-      v25 = [objc_msgSend(*(self + 8) "applicationIDToInheritAppStateFrom")];
-      v26 = *(self + 8);
-      if (v25)
+      isEqualToString = objc_msgSend_isEqualToString_([*(self + 8) applicationIDToInheritAppStateFrom]);
+      v42 = *(self + 8);
+      if (isEqualToString)
       {
-        return [v26 applicationID];
+        return [v42 applicationID];
       }
 
       else
       {
-        return [v26 applicationIDToInheritAppStateFrom];
+        return [v42 applicationIDToInheritAppStateFrom];
       }
     }
 
-    hostProcess = [MEMORY[0x1E69C75D0] handleForIdentifier:objc_msgSend(MEMORY[0x1E696AD98] error:{"numberWithInt:", intValue), &v32}];
-    if (!v32)
+    hostProcess = [MEMORY[0x1E69C75D0] handleForIdentifier:objc_msgSend(MEMORY[0x1E696AD98] error:{"numberWithInt:", intValue), &v60}];
+    if (!v60)
     {
-      v17 = hostProcess;
+      v23 = hostProcess;
       while ([hostProcess hostProcess])
       {
-        hostProcess = [v17 hostProcess];
-        v17 = hostProcess;
+        hostProcess = [v23 hostProcess];
+        v23 = hostProcess;
       }
 
-      [*(self + 8) setPidToInheritAppStateFrom:{objc_msgSend(v17, "pid")}];
-      [*(self + 8) setApplicationIDToInheritAppStateFrom:{objc_msgSend(objc_msgSend(v17, "bundle"), "identifier")}];
+      [*(self + 8) setPidToInheritAppStateFrom:{objc_msgSend(v23, "pid")}];
+      [*(self + 8) setApplicationIDToInheritAppStateFrom:{objc_msgSend(objc_msgSend(v23, "bundle"), "identifier")}];
       goto LABEL_40;
     }
 
-    v29 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+    v48 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT);
     OUTLINED_FUNCTION_30();
     if (v2)
     {
       [(FigCaptureClientApplicationStateMonitor *)self loggingPrefix];
       OUTLINED_FUNCTION_53_6();
       OUTLINED_FUNCTION_9_3();
-      OUTLINED_FUNCTION_11_0();
-      OUTLINED_FUNCTION_141();
+      v52 = OUTLINED_FUNCTION_11_0();
+      OUTLINED_FUNCTION_141(v52, v53, v54, v55, v56);
     }
 
-LABEL_55:
-    OUTLINED_FUNCTION_1_4();
-    fig_log_call_emit_and_clean_up_after_send_and_compose();
-    return v4;
+    goto LABEL_56;
   }
 
   v6 = *(self + 8);
@@ -262,11 +262,11 @@ LABEL_55:
   return [v6 mediaEnvironmentBundleID];
 }
 
-- (uint64_t)loggingPrefix
+- (id)loggingPrefix
 {
   if (result)
   {
-    return [MEMORY[0x1E696AEC0] stringWithFormat:@"<%p[%d][%@]>", result, objc_msgSend(*(result + 8), "pid"), objc_msgSend(*(result + 8), "applicationID")];
+    return [MEMORY[0x1E696AEC0] stringWithFormat:@"<%p[%d][%@]>", result, objc_msgSend(result[1], "pid"), objc_msgSend(result[1], "applicationID")];
   }
 
   return result;
@@ -404,7 +404,7 @@ LABEL_9:
     v4 = v3;
     if (v2 == 2)
     {
-      if (!v3 || (v5 = [*(v3 + 8) pid], v5 == objc_msgSend(*(self + 8), "pid")) || (objc_msgSend(objc_msgSend(*(v4 + 8), "applicationID"), "isEqualToString:", 0x1F21852F0) & 1) != 0 || (objc_msgSend(objc_msgSend(*(self + 8), "applicationID"), "isEqualToString:", 0x1F21852F0) & 1) != 0 || (objc_msgSend(objc_msgSend(*(self + 8), "applicationID"), "isEqualToString:", 0x1F21855B0) & 1) != 0)
+      if (!v3 || (v5 = [*(v3 + 8) pid], v5 == objc_msgSend(*(self + 8), "pid")) || (objc_msgSend_isEqualToString_(objc_msgSend(*(v4 + 8), "applicationID")) & 1) != 0 || (objc_msgSend_isEqualToString_(objc_msgSend(*(self + 8), "applicationID")) & 1) != 0 || (objc_msgSend_isEqualToString_(objc_msgSend(*(self + 8), "applicationID")) & 1) != 0)
       {
         if ([*(self + 8) xpcServiceRootHostApplicationID])
         {
@@ -414,6 +414,8 @@ LABEL_9:
 
         else if (dword_1ED844110)
         {
+          v25 = 0;
+          v24 = 0;
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
           os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
           OUTLINED_FUNCTION_115_0();
@@ -434,11 +436,11 @@ LABEL_9:
             [*(self + 8) pid];
             OUTLINED_FUNCTION_27_7();
             OUTLINED_FUNCTION_2_1();
-            OUTLINED_FUNCTION_18_13();
+            OUTLINED_FUNCTION_18_13(v12, v13, v23, v14, &dword_1AC90E000);
           }
 
           OUTLINED_FUNCTION_2_4();
-          OUTLINED_FUNCTION_13_0();
+          OUTLINED_FUNCTION_13_0(v16, v17, v18, v19, v20);
         }
 
         v2 = 2;
@@ -451,8 +453,10 @@ LABEL_9:
         [*(self + 8) pid];
         [*(v4 + 8) applicationID];
         [*(v4 + 8) pid];
-        v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+        v25 = 0;
+        v24 = 0;
+        v22 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
         v2 = 1;
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
@@ -478,49 +482,50 @@ LABEL_9:
 {
   if (result)
   {
-    v1 = result;
-    if (FigCaptureAudiomxdSupportEnabled())
+    v3 = result;
+    if (FigCaptureAudiomxdSupportEnabled(result, a2))
     {
-      v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"FigCaptureClient-%d", objc_msgSend(*(v1 + 8), "pid")];
-      v3 = objc_alloc(MEMORY[0x1E698D710]);
-      v4 = *(v1 + 8);
-      if (v4)
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"FigCaptureClient-%d", objc_msgSend(*(v3 + 8), "pid")];
+      v5 = objc_alloc(MEMORY[0x1E698D710]);
+      v6 = *(v3 + 8);
+      if (v6)
       {
-        [v4 auditToken];
+        objc_msgSend_auditToken(v6);
       }
 
       else
       {
-        memset(v16, 0, 32);
+        memset(v42, 0, 32);
       }
 
-      v5 = [v3 initSiblingSession:0xFFFFFFFFLL auditToken:v16 clientIdentifier:v2 autoReconnect:1];
-      *(v1 + 24) = v5;
-      if (!v5)
+      v7 = [v5 initSiblingSession:0xFFFFFFFFLL auditToken:v42 clientIdentifier:v4 autoReconnect:1];
+      *(v3 + 24) = v7;
+      if (!v7)
       {
-        FigDebugAssert3();
+        LODWORD(v35) = 0;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v35, v2, v36, v37, v38, v39, v40, v41);
         return 4294954510;
       }
 
-      [FigWeakReference weakReferenceToObject:v1];
+      [FigWeakReference weakReferenceToObject:v3];
       OUTLINED_FUNCTION_32_7();
-      v7 = [v6 addObserverForType:2 name:? block:?];
-      if (v7)
+      v9 = [v8 addObserverForType:2 name:? block:?];
+      if (v9)
       {
-        *(v1 + 40) = v7;
+        *(v3 + 40) = v9;
         OUTLINED_FUNCTION_33_1();
-        v9 = [v8 addObserverForType:1 name:? block:?];
-        if (v9)
+        v11 = [v10 addObserverForType:1 name:? block:?];
+        if (v11)
         {
-          *(v1 + 48) = v9;
-          [(FigCaptureClientApplicationStateMonitor *)v1 _updateBKSApplicationStateFromAVAudioSession];
+          *(v3 + 48) = v11;
+          [(FigCaptureClientApplicationStateMonitor *)v3 _updateBKSApplicationStateFromAVAudioSession];
           return 0;
         }
 
-        v14 = OUTLINED_FUNCTION_20_9();
-        OUTLINED_FUNCTION_29_4(v14);
+        v22 = OUTLINED_FUNCTION_20_9();
+        OUTLINED_FUNCTION_29_4(v22);
         OUTLINED_FUNCTION_28_6();
-        if (!v15)
+        if (!v23)
         {
           goto LABEL_18;
         }
@@ -528,84 +533,85 @@ LABEL_9:
 
       else
       {
-        v12 = OUTLINED_FUNCTION_20_9();
-        OUTLINED_FUNCTION_29_4(v12);
+        v20 = OUTLINED_FUNCTION_20_9();
+        OUTLINED_FUNCTION_29_4(v20);
         OUTLINED_FUNCTION_28_6();
-        if (!v13)
+        if (!v21)
         {
 LABEL_18:
           OUTLINED_FUNCTION_1_4();
-          OUTLINED_FUNCTION_17_8();
+          OUTLINED_FUNCTION_17_8(v24, v25, v26, v27, v28);
           return 4294954510;
         }
       }
 
       OUTLINED_FUNCTION_50_7();
       OUTLINED_FUNCTION_5_43();
-      OUTLINED_FUNCTION_18_13();
+      OUTLINED_FUNCTION_18_13(v32, v33, v42, v34, &dword_1AC90E000);
       OUTLINED_FUNCTION_54_1();
       goto LABEL_18;
     }
 
-    v10 = OUTLINED_FUNCTION_20_9();
-    OUTLINED_FUNCTION_29_4(v10);
+    v13 = OUTLINED_FUNCTION_20_9();
+    OUTLINED_FUNCTION_29_4(v13);
     OUTLINED_FUNCTION_28_6();
-    if (v11)
+    if (v14)
     {
       OUTLINED_FUNCTION_50_7();
       OUTLINED_FUNCTION_5_43();
-      OUTLINED_FUNCTION_18_13();
+      OUTLINED_FUNCTION_18_13(v29, v30, v42, v31, &dword_1AC90E000);
       OUTLINED_FUNCTION_54_1();
     }
 
     OUTLINED_FUNCTION_1_4();
-    OUTLINED_FUNCTION_17_8();
+    OUTLINED_FUNCTION_17_8(v15, v16, v17, v18, v19);
     return 4294954514;
   }
 
   return result;
 }
 
-- (uint64_t)_updateBKSApplicationStateFromAVAudioSession
+- (id)_updateBKSApplicationStateFromAVAudioSession
 {
   if (result)
   {
-    v2 = result;
-    if (FigCaptureAudiomxdSupportEnabled())
+    v3 = result;
+    v4 = FigCaptureAudiomxdSupportEnabled(result, a2);
+    if (v4)
     {
       FigSimpleMutexLock();
-      v29 = 0;
-      v3 = [*(v2 + 24) getMXSessionProperty:*MEMORY[0x1E69AFCA0] error:&v29];
-      if (v29)
+      v75 = 0;
+      v12 = [v3[3] getMXSessionProperty:*MEMORY[0x1E69AFCA0] error:&v75];
+      if (v75)
       {
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         OUTLINED_FUNCTION_115_0();
-        if (v6)
+        if (v15)
         {
-          v7 = v5;
+          v16 = v14;
         }
 
         else
         {
-          v7 = 0;
+          v16 = 0;
         }
 
-        if (v7)
+        if (v16)
         {
-          [MEMORY[0x1E696AEC0] stringWithFormat:@"<%p[%d][%@]>", v2, objc_msgSend(*(v2 + 8), "pid"), objc_msgSend(*(v2 + 8), "applicationID")];
+          [MEMORY[0x1E696AEC0] stringWithFormat:@"<%p[%d][%@]>", v3, objc_msgSend(v3[1], "pid"), objc_msgSend(v3[1], "applicationID")];
           OUTLINED_FUNCTION_2_1();
-          OUTLINED_FUNCTION_18_13();
+          OUTLINED_FUNCTION_18_13(v17, v18, varC0, v19, &dword_1AC90E000);
         }
 
         OUTLINED_FUNCTION_1_4();
-        OUTLINED_FUNCTION_13_0();
+        OUTLINED_FUNCTION_13_0(v20, v21, v22, v23, v24);
       }
 
       else
       {
-        [v3 intValue];
-        [FigCaptureClientApplicationStateMonitor _handleBKSApplicationStateChange:];
+        intValue = [v12 intValue];
+        [(FigCaptureClientApplicationStateMonitor *)v3 _handleBKSApplicationStateChange:intValue, v26, v27, v28, v29, v30, v31, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v75, varC0[0], varC0[1], varC0[2], varC0[3], varC0[4], varC0[5], varC0[6], varC0[7], varC0[8], varC0[9], varC0[10], varC0[11], varC0[12], varC0[13], varC0[14], varC0[15], varC0[16], varC0[17], varC0[18], varC0[19], varC0[20], varC0[21], varC0[22], varC0[23], varC0[24], varC0[25]];
       }
 
       return FigSimpleMutexUnlock();
@@ -613,43 +619,34 @@ LABEL_18:
 
     else
     {
-      v8 = OUTLINED_FUNCTION_43_7();
-      OUTLINED_FUNCTION_61_3(v8, v9, v10, v11, v12, v13, v14, v15, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, *v28, v28[4], v29);
+      v32 = OUTLINED_FUNCTION_43_7(v4, v5, v6, v7, v8, v9, v10, v11, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, SBYTE4(v72), v75);
+      OUTLINED_FUNCTION_61_3(v32, v33, v34, v35, v36, v37, v38, v39, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v74, v75);
       OUTLINED_FUNCTION_39_7();
-      if (v6)
+      if (v15)
       {
-        v17 = v16;
+        v41 = v40;
       }
 
       else
       {
-        v17 = v1;
+        v41 = v2;
       }
 
-      if (v17)
+      if (v41)
       {
-        [(FigCaptureClientApplicationStateMonitor *)v2 loggingPrefix];
+        [(FigCaptureClientApplicationStateMonitor *)v3 loggingPrefix];
         OUTLINED_FUNCTION_4_42();
         OUTLINED_FUNCTION_2_1();
-        OUTLINED_FUNCTION_9_14();
-        OUTLINED_FUNCTION_18_2();
+        v47 = OUTLINED_FUNCTION_9_14();
+        OUTLINED_FUNCTION_18_2(v47, v48, v49, v50, v51);
       }
 
       OUTLINED_FUNCTION_1_4();
-      return OUTLINED_FUNCTION_17_8();
+      return OUTLINED_FUNCTION_17_8(v42, v43, v44, v45, v46);
     }
   }
 
   return result;
-}
-
-void __106__FigCaptureClientApplicationStateMonitor__createAndObserveAVAudioSessionForBKSApplicationStateMonitoring__block_invoke(uint64_t a1)
-{
-  v2 = objc_autoreleasePoolPush();
-  v3 = [*(a1 + 32) referencedObject];
-  [FigCaptureClientApplicationStateMonitor _handleAVAudioSessionApplicationStateDidChangeNotification:v3];
-
-  objc_autoreleasePoolPop(v2);
 }
 
 + (void)initialize
@@ -684,19 +681,20 @@ uint64_t __53__FigCaptureClientApplicationStateMonitor_initialize__block_invoke(
     FigSimpleMutexUnlock();
   }
 
-  if ([(FigCaptureClientApplicationStateMonitorClient *)self->_client xpcServiceRootHostApplicationID])
+  xpcServiceRootHostApplicationID = [(FigCaptureClientApplicationStateMonitorClient *)self->_client xpcServiceRootHostApplicationID];
+  if (xpcServiceRootHostApplicationID)
   {
     FigSimpleMutexLock();
-    v3 = [objc_msgSend(qword_1ED844F40 objectForKeyedSubscript:{-[FigCaptureClientApplicationStateMonitorClient xpcServiceRootHostApplicationID](self->_client, "xpcServiceRootHostApplicationID")), "referencedObject"}];
-    if (v3 == self || v3 == 0)
+    v5 = [objc_msgSend(qword_1ED844F40 objectForKeyedSubscript:{-[FigCaptureClientApplicationStateMonitorClient xpcServiceRootHostApplicationID](self->_client, "xpcServiceRootHostApplicationID")), "referencedObject"}];
+    if (v5 == self || v5 == 0)
     {
       [qword_1ED844F40 setObject:0 forKeyedSubscript:{-[FigCaptureClientApplicationStateMonitorClient xpcServiceRootHostApplicationID](self->_client, "xpcServiceRootHostApplicationID")}];
     }
 
-    FigSimpleMutexUnlock();
+    xpcServiceRootHostApplicationID = FigSimpleMutexUnlock();
   }
 
-  if (FigCaptureAudiomxdSupportEnabled())
+  if (FigCaptureAudiomxdSupportEnabled(xpcServiceRootHostApplicationID, v4))
   {
     [(FigCaptureClientApplicationStateMonitor *)&self->super.isa _deregisterAndReleaseAVAudioSession];
   }
@@ -802,24 +800,6 @@ uint64_t __53__FigCaptureClientApplicationStateMonitor_initialize__block_invoke(
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   return [v3 stringWithFormat:@"<%@: %p %@>", NSStringFromClass(v4), self, -[FigCaptureClientApplicationStateMonitor debugDescription](self, "debugDescription")];
-}
-
-void __106__FigCaptureClientApplicationStateMonitor__createAndObserveAVAudioSessionForBKSApplicationStateMonitoring__block_invoke_320(uint64_t a1)
-{
-  v2 = objc_autoreleasePoolPush();
-  v3 = [*(a1 + 32) referencedObject];
-  [FigCaptureClientApplicationStateMonitor _handleAVAudioSessionMediaServicesWereResetNotification:v3];
-
-  objc_autoreleasePoolPop(v2);
-}
-
-void __101__FigCaptureClientApplicationStateMonitor__createAndObserveCMSessionForBKSApplicationStateMonitoring__block_invoke(uint64_t a1)
-{
-  v2 = objc_autoreleasePoolPush();
-  v3 = [*(a1 + 32) referencedObject];
-  [FigCaptureClientApplicationStateMonitor _handleCMSessionApplicationStateDidChangeNotification:v3];
-
-  objc_autoreleasePoolPop(v2);
 }
 
 + (uint64_t)_applicationStateForBKSApplicationState:(int)state clientType:(int)type backgroundCameraAccess:
@@ -1015,7 +995,7 @@ uint64_t __95__FigCaptureClientApplicationStateMonitor_startContinuityCaptureTer
 
 void __95__FigCaptureClientApplicationStateMonitor_startContinuityCaptureTerminationMonitorWithHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v5 = [objc_msgSend(objc_msgSend(a4 "exitEvent")];
+  v5 = [objc_msgSend(objc_msgSend(a4 exitEvent];
   if (dword_1ED844110)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1038,33 +1018,33 @@ void __95__FigCaptureClientApplicationStateMonitor_startContinuityCaptureTermina
     return 0;
   }
 
-  v37.receiver = client;
-  v37.super_class = FigCaptureClientApplicationStateMonitor;
-  v4 = objc_msgSendSuper2(&v37, sel_init);
-  if (v4)
+  v53.receiver = client;
+  v53.super_class = FigCaptureClientApplicationStateMonitor;
+  v5 = objc_msgSendSuper2(&v53, sel_init);
+  if (v5)
   {
-    *(v4 + 1) = a2;
+    *(v5 + 1) = a2;
     if (dword_1ED844110)
     {
-      v36 = 0;
-      v35 = 0;
+      v52 = 0;
+      v51 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       OUTLINED_FUNCTION_26_8(os_log_and_send_and_compose_flags_and_os_log_type);
       OUTLINED_FUNCTION_115_0();
-      if (v7)
+      if (v8)
       {
-        v8 = v6;
+        v9 = v7;
       }
 
       else
       {
-        v8 = v2;
+        v9 = v2;
       }
 
-      if (v8)
+      if (v9)
       {
-        [*(v4 + 1) debugDescription];
-        LODWORD(v32) = 136315394;
+        [*(v5 + 1) debugDescription];
+        LODWORD(v48) = 136315394;
         OUTLINED_FUNCTION_5_43();
         OUTLINED_FUNCTION_4_4();
         _os_log_send_and_compose_impl();
@@ -1072,179 +1052,182 @@ void __95__FigCaptureClientApplicationStateMonitor_startContinuityCaptureTermina
       }
 
       OUTLINED_FUNCTION_2_4();
-      OUTLINED_FUNCTION_13_0();
+      OUTLINED_FUNCTION_13_0(v10, v11, v12, v13, v14);
     }
 
-    *(v4 + 2) = FigSimpleMutexCreate();
-    v9 = *(v4 + 1);
-    if ([v9 clientType] == 5 || (objc_msgSend(objc_msgSend(v9, "applicationID"), "isEqualToString:", 0x1F2185170) & 1) != 0 || (objc_msgSend(objc_msgSend(v9, "applicationID"), "isEqualToString:", 0x1F21851F0) & 1) != 0)
+    *(v5 + 2) = FigSimpleMutexCreate();
+    v15 = *(v5 + 1);
+    if ([v15 clientType] == 5 || (objc_msgSend_isEqualToString_(objc_msgSend(v15, "applicationID")) & 1) != 0 || (objc_msgSend_isEqualToString_(objc_msgSend(v15, "applicationID")) & 1) != 0)
     {
-      LOBYTE(v10) = 0;
-    }
-
-    else
-    {
-      v10 = [objc_msgSend(v9 "applicationID")] ^ 1;
-    }
-
-    v4[80] = v10;
-    v4[96] = [*(v4 + 1) isForThirdPartyTorch] ^ 1;
-    if ([*(v4 + 1) isForThirdPartyTorch])
-    {
-      v11 = 0;
+      LOBYTE(v16) = 0;
     }
 
     else
     {
-      v11 = MGGetBoolAnswer();
+      v16 = objc_msgSend_isEqualToString_([v15 applicationID]) ^ 1;
     }
 
-    v4[105] = v11;
-    v12 = *(v4 + 1);
-    v13 = BWDeviceIsiPhone();
-    v4[113] = ([v12 isForThirdPartyTorch] ^ 1) & v13;
-    v14 = *(v4 + 1);
-    if (v14)
+    v5[80] = v16;
+    v5[96] = [*(v5 + 1) isForThirdPartyTorch] ^ 1;
+    if ([*(v5 + 1) isForThirdPartyTorch])
     {
-      [v14 auditToken];
+      v18 = 0;
     }
 
     else
     {
-      v32 = 0u;
-      v33 = 0u;
+      v18 = MGGetBoolAnswer();
     }
 
-    v34[0] = v32;
-    v34[1] = v33;
-    v4[152] = FigCaptureClientIsFacemetricsd(v34);
-    v15 = *(v4 + 1);
-    if ([objc_msgSend(v15 "applicationID")] & 1) != 0 || (objc_msgSend(objc_msgSend(v15, "applicationID"), "isEqualToString:", @"com.apple.MailCompositionService") & 1) != 0 || (objc_msgSend(objc_msgSend(v15, "applicationID"), "isEqualToString:", @"com.apple.mobilenotes") & 1) != 0 || (objc_msgSend(objc_msgSend(v15, "applicationID"), "isEqualToString:", @"com.apple.PassbookUIService") & 1) != 0 || (objc_msgSend(objc_msgSend(v15, "applicationID"), "isEqualToString:", @"com.apple.Stickers.UserGenerated.MessagesExtension") & 1) != 0 || (objc_msgSend(objc_msgSend(v15, "applicationID"), "isEqualToString:", @"com.apple.Diagnostics"))
+    v5[105] = v18;
+    v19 = *(v5 + 1);
+    v20 = BWDeviceIsiPhone(v18, v17);
+    v5[113] = ([v19 isForThirdPartyTorch] ^ 1) & v20;
+    v21 = *(v5 + 1);
+    if (v21)
     {
-      v16 = 1;
+      objc_msgSend_auditToken(v21);
     }
 
     else
     {
-      v16 = [objc_msgSend(v15 "applicationID")];
+      v48 = 0u;
+      v49 = 0u;
     }
 
-    v4[64] = v16;
-    *(v4 + 21) = 0;
-    v4[88] = 0;
-    *(v4 + 23) = 0;
-    if ([*(v4 + 1) mediaEnvironment])
+    v50[0] = v48;
+    v50[1] = v49;
+    v5[152] = FigCaptureClientIsFacemetricsd(v50);
+    v22 = *(v5 + 1);
+    if (objc_msgSend_isEqualToString_([v22 applicationID]) & 1) != 0 || (objc_msgSend_isEqualToString_(objc_msgSend(v22, "applicationID")) & 1) != 0 || (objc_msgSend_isEqualToString_(objc_msgSend(v22, "applicationID")) & 1) != 0 || (objc_msgSend_isEqualToString_(objc_msgSend(v22, "applicationID")) & 1) != 0 || (objc_msgSend_isEqualToString_(objc_msgSend(v22, "applicationID")) & 1) != 0 || (objc_msgSend_isEqualToString_(objc_msgSend(v22, "applicationID")))
     {
-      [*(v4 + 1) processHandle];
+      isEqualToString = 1;
+    }
+
+    else
+    {
+      isEqualToString = objc_msgSend_isEqualToString_([v22 applicationID]);
+    }
+
+    v5[64] = isEqualToString;
+    *(v5 + 21) = 0;
+    v5[88] = 0;
+    *(v5 + 23) = 0;
+    if ([*(v5 + 1) mediaEnvironment])
+    {
+      [*(v5 + 1) processHandle];
       OUTLINED_FUNCTION_32_7();
-      *(v4 + 7) = [v23 rbsProcessMonitorForEndowmentNamespace:? serviceClass:? updateHandler:?];
-      [objc_msgSend(MEMORY[0x1E69C75D0] handleForIdentifier:objc_msgSend(MEMORY[0x1E696AD98] error:{"numberWithInt:", objc_msgSend(*(v4 + 1), "pid")), 0), "endowmentInfoForHandle"}];
-      v24 = OUTLINED_FUNCTION_3_30();
-      [(FigCaptureClientApplicationStateMonitor *)v24 _updateMediaEnvironmentWithEndowmentInfos:v25 evaluateLayout:0, v26, v27, v28, v29, v30];
+      *(v5 + 7) = [v32 rbsProcessMonitorForEndowmentNamespace:? serviceClass:? updateHandler:?];
+      [objc_msgSend(MEMORY[0x1E69C75D0] handleForIdentifier:objc_msgSend(MEMORY[0x1E696AD98] error:{"numberWithInt:", objc_msgSend(*(v5 + 1), "pid")), 0), "endowmentInfoForHandle"}];
+      v33 = OUTLINED_FUNCTION_3_30();
+      [(FigCaptureClientApplicationStateMonitor *)v33 _updateMediaEnvironmentWithEndowmentInfos:v34 evaluateLayout:0, v35, v36, v37, v38, v39];
     }
 
     OUTLINED_FUNCTION_57_5();
-    if (v7)
+    if (v8)
     {
-      if (FigCaptureAudiomxdSupportEnabled() ? [(FigCaptureClientApplicationStateMonitor *)v4 _createAndObserveAVAudioSessionForBKSApplicationStateMonitoring]: [(FigCaptureClientApplicationStateMonitor *)v4 _createAndObserveCMSessionForBKSApplicationStateMonitoring])
+      v41 = FigCaptureAudiomxdSupportEnabled(v24, v25) ? [(FigCaptureClientApplicationStateMonitor *)v5 _createAndObserveAVAudioSessionForBKSApplicationStateMonitoring]: [(FigCaptureClientApplicationStateMonitor *)v5 _createAndObserveCMSessionForBKSApplicationStateMonitoring];
+      if (v41)
       {
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v41, v3, v42, v43, v44, v45, v46, v47);
 
         return 0;
       }
     }
 
-    *(v4 + 31) = 0;
-    *(v4 + 25) = 0;
-    v4[104] = 0;
-    if (v4[96] == 1)
+    *(v5 + 31) = 0;
+    *(v5 + 25) = 0;
+    v5[104] = 0;
+    if (v5[96] == 1)
     {
-      v17 = +[FigCaptureDisplayLayoutMonitor sharedDisplayLayoutMonitor];
-      *(v4 + 16) = v17;
-      [v17 addLayoutObserver:v4];
+      v26 = +[FigCaptureDisplayLayoutMonitor sharedDisplayLayoutMonitor];
+      *(v5 + 16) = v26;
+      [v26 addLayoutObserver:v5];
     }
 
-    *(v4 + 27) = 0;
-    v4[112] = 0;
-    if (v4[105] == 1)
+    *(v5 + 27) = 0;
+    v5[112] = 0;
+    if (v5[105] == 1)
     {
-      v18 = +[FigCaptureDisplayLayoutMonitor sharedExternalDisplayLayoutMonitor];
-      *(v4 + 17) = v18;
-      [v18 addLayoutObserver:v4];
+      v27 = +[FigCaptureDisplayLayoutMonitor sharedExternalDisplayLayoutMonitor];
+      *(v5 + 17) = v27;
+      [v27 addLayoutObserver:v5];
     }
 
-    *(v4 + 29) = 0;
-    v4[120] = 0;
+    *(v5 + 29) = 0;
+    v5[120] = 0;
     OUTLINED_FUNCTION_56_6();
-    if (v7)
+    if (v8)
     {
-      v19 = +[FigCaptureDisplayLayoutMonitor sharedContinuityDisplayLayoutMonitor];
-      *(v4 + 18) = v19;
-      [v19 addLayoutObserver:v4];
+      v28 = +[FigCaptureDisplayLayoutMonitor sharedContinuityDisplayLayoutMonitor];
+      *(v5 + 18) = v28;
+      [v28 addLayoutObserver:v5];
     }
 
-    if (v4[64] == 1)
+    if (v5[64] == 1)
     {
-      [*(v4 + 1) processHandle];
+      [*(v5 + 1) processHandle];
       OUTLINED_FUNCTION_33_1();
-      *(v4 + 9) = [v20 rbsProcessMonitorForEndowmentNamespace:? serviceClass:? updateHandler:?];
+      *(v5 + 9) = [v29 rbsProcessMonitorForEndowmentNamespace:? serviceClass:? updateHandler:?];
     }
 
-    *(v4 + 153) = 0;
-    if (v4[152] == 1)
+    *(v5 + 153) = 0;
+    if (v5[152] == 1)
     {
-      v21 = +[FigCaptureDeviceLockStateMonitor sharedDeviceLockStateMonitor];
-      *(v4 + 20) = v21;
-      [v21 addDeviceLockStateObserver:v4];
+      v30 = +[FigCaptureDeviceLockStateMonitor sharedDeviceLockStateMonitor];
+      *(v5 + 20) = v30;
+      [v30 addDeviceLockStateObserver:v5];
     }
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)_handleMediaEndowmentUpdate:(uint64_t)update
 {
-  if (update)
+  if (self)
   {
     OUTLINED_FUNCTION_59_0();
-    v3 = v2;
-    v5 = v4;
+    a47 = v49;
+    a48 = v50;
+    v52 = v51;
+    v54 = v53;
     if (dword_1ED844110)
     {
       OUTLINED_FUNCTION_3_45();
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       OUTLINED_FUNCTION_19_3(os_log_and_send_and_compose_flags_and_os_log_type);
       OUTLINED_FUNCTION_4_0();
-      if (v1)
+      if (v48)
       {
-        v7 = MEMORY[0x1E696AEC0];
-        [*(v5 + 8) pid];
+        v56 = MEMORY[0x1E696AEC0];
+        [*(v54 + 8) pid];
         OUTLINED_FUNCTION_63_4();
         OUTLINED_FUNCTION_51_6();
-        [v7 stringWithFormat:@"<%p[%d][%@]>"];
+        [v56 stringWithFormat:@"<%p[%d][%@]>"];
         OUTLINED_FUNCTION_0_49();
         OUTLINED_FUNCTION_7_33();
-        OUTLINED_FUNCTION_5_1();
+        OUTLINED_FUNCTION_5_1(v57, v58, &a20, v59, &dword_1AC90E000);
         OUTLINED_FUNCTION_34_8();
       }
 
       OUTLINED_FUNCTION_2_4();
-      OUTLINED_FUNCTION_39_0();
+      OUTLINED_FUNCTION_39_0(v60, v61, v62, v63, v64);
     }
 
-    [objc_msgSend(v3 "state")];
-    v8 = OUTLINED_FUNCTION_3_30();
-    [(FigCaptureClientApplicationStateMonitor *)v8 _updateMediaEnvironmentWithEndowmentInfos:v9 evaluateLayout:1, v10, v11, v12, v13, v14];
+    [objc_msgSend(v52 "state")];
+    v65 = OUTLINED_FUNCTION_3_30();
+    [(FigCaptureClientApplicationStateMonitor *)v65 _updateMediaEnvironmentWithEndowmentInfos:v66 evaluateLayout:1, v67, v68, v69, v70, v71];
     OUTLINED_FUNCTION_58_0();
   }
 }
 
 - (void)_updateMediaEnvironmentWithEndowmentInfos:(uint64_t)infos evaluateLayout:(uint64_t)layout
 {
-  if (self)
+  if (result)
   {
     infosCopy = infos;
-    selfCopy = self;
+    v11 = result;
     if (dword_1ED844110)
     {
       v12 = OUTLINED_FUNCTION_46_6();
@@ -1253,63 +1236,65 @@ void __95__FigCaptureClientApplicationStateMonitor_startContinuityCaptureTermina
       if (endowment)
       {
         v13 = MEMORY[0x1E696AEC0];
-        [*(selfCopy + 8) pid];
+        [*(v11 + 8) pid];
         OUTLINED_FUNCTION_67_2();
         OUTLINED_FUNCTION_55_5();
         [v13 stringWithFormat:@"<%p[%d][%@]>"];
-        *v41 = 136315906;
-        *&v41[4] = "[FigCaptureClientApplicationStateMonitor _updateMediaEnvironmentWithEndowmentInfos:evaluateLayout:]";
+        *v62 = 136315906;
+        *&v62[4] = "[FigCaptureClientApplicationStateMonitor _updateMediaEnvironmentWithEndowmentInfos:evaluateLayout:]";
         OUTLINED_FUNCTION_27_7();
-        *&v41[14] = v14;
-        *&v41[22] = 2112;
-        v45 = a2;
-        LOWORD(v47) = 1024;
-        *(&v47 + 2) = infosCopy;
+        *&v62[14] = v14;
+        *&v62[22] = 2112;
+        v66 = a2;
+        LOWORD(v68) = 1024;
+        *(&v68 + 2) = infosCopy;
         OUTLINED_FUNCTION_2_1();
-        OUTLINED_FUNCTION_11_0();
-        OUTLINED_FUNCTION_141();
+        v15 = OUTLINED_FUNCTION_11_0();
+        OUTLINED_FUNCTION_141(v15, v16, v17, v18, v19);
       }
 
       OUTLINED_FUNCTION_2_4();
-      self = OUTLINED_FUNCTION_56_0();
+      result = OUTLINED_FUNCTION_56_0(v20, v21, v22, v23, v24);
     }
 
-    v15 = OUTLINED_FUNCTION_60_1(self, a2, infos, layout, a5, a6, a7, a8, v33, v35, v37, v39, *v41, *&v41[8], *&v41[16], v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, 0);
-    if (v15)
+    v25 = OUTLINED_FUNCTION_60_1(result, a2, infos, layout, a5, a6, a7, a8, v54, v56, v58, v60, *v62, *&v62[8], *&v62[16], v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102);
+    if (v25)
     {
-      v16 = v15;
-      v17 = infosCopy;
-      v18 = MEMORY[0];
+      v26 = v25;
+      v27 = infosCopy;
+      v28 = MEMORY[0];
       while (2)
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v26; ++i)
         {
-          if (MEMORY[0] != v18)
+          if (MEMORY[0] != v28)
           {
             objc_enumerationMutation(a2);
           }
 
           endowment = *(8 * i);
-          isKindOfClass = [objc_msgSend(endowment "endowmentNamespace")];
-          if (isKindOfClass)
+          isEqualToString = objc_msgSend_isEqualToString_([endowment endowmentNamespace]);
+          if (isEqualToString)
           {
-            isKindOfClass = [objc_msgSend(endowment "environment")];
-            if (isKindOfClass)
+            environment = [endowment environment];
+            [*(v11 + 8) mediaEnvironment];
+            isEqualToString = objc_msgSend_isEqualToString_(environment);
+            if (isEqualToString)
             {
               endowment = [endowment endowment];
               objc_opt_class();
-              isKindOfClass = objc_opt_isKindOfClass();
-              if (isKindOfClass)
+              isEqualToString = objc_opt_isKindOfClass();
+              if (isEqualToString)
               {
-                v28 = [endowment objectForKeyedSubscript:*MEMORY[0x1E69B06F0]];
+                v39 = [endowment objectForKeyedSubscript:*MEMORY[0x1E69B06F0]];
                 goto LABEL_18;
               }
             }
           }
         }
 
-        v16 = OUTLINED_FUNCTION_60_1(isKindOfClass, v21, v22, v23, v24, v25, v26, v27, v34, v36, v38, v40, v42, v43, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v83);
-        if (v16)
+        v26 = OUTLINED_FUNCTION_60_1(isEqualToString, v31, v32, v33, v34, v35, v36, v37, v55, v57, v59, v61, v63, v64, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101, v103);
+        if (v26)
         {
           continue;
         }
@@ -1317,18 +1302,18 @@ void __95__FigCaptureClientApplicationStateMonitor_startContinuityCaptureTermina
         break;
       }
 
-      v28 = 0;
+      v39 = 0;
 LABEL_18:
-      infosCopy = v17;
+      infosCopy = v27;
     }
 
     else
     {
-      v28 = 0;
+      v39 = 0;
     }
 
     FigSimpleMutexLock();
-    if ([*(selfCopy + 8) mediaEnvironmentBundleID] == v28 || (objc_msgSend(objc_msgSend(*(selfCopy + 8), "mediaEnvironmentBundleID"), "isEqualToString:", v28) & 1) != 0)
+    if ([*(v11 + 8) mediaEnvironmentBundleID] == v39 || (objc_msgSend_isEqualToString_(objc_msgSend(*(v11 + 8), "mediaEnvironmentBundleID")) & 1) != 0)
     {
       FigSimpleMutexUnlock();
     }
@@ -1337,46 +1322,46 @@ LABEL_18:
     {
       if (dword_1ED844110)
       {
-        v29 = OUTLINED_FUNCTION_46_6();
-        OUTLINED_FUNCTION_58_8(v29);
+        v40 = OUTLINED_FUNCTION_46_6();
+        OUTLINED_FUNCTION_58_8(v40);
         OUTLINED_FUNCTION_30();
         if (endowment)
         {
-          v30 = MEMORY[0x1E696AEC0];
-          [*(selfCopy + 8) pid];
+          v41 = MEMORY[0x1E696AEC0];
+          [*(v11 + 8) pid];
           OUTLINED_FUNCTION_67_2();
           OUTLINED_FUNCTION_55_5();
-          [v30 stringWithFormat:@"<%p[%d][%@]>"];
-          [*(selfCopy + 8) mediaEnvironmentBundleID];
+          [v41 stringWithFormat:@"<%p[%d][%@]>"];
+          [*(v11 + 8) mediaEnvironmentBundleID];
           OUTLINED_FUNCTION_27_7();
           OUTLINED_FUNCTION_2_1();
-          OUTLINED_FUNCTION_11_0();
-          OUTLINED_FUNCTION_141();
+          v42 = OUTLINED_FUNCTION_11_0();
+          OUTLINED_FUNCTION_141(v42, v43, v44, v45, v46);
         }
 
         OUTLINED_FUNCTION_2_4();
-        OUTLINED_FUNCTION_56_0();
+        OUTLINED_FUNCTION_56_0(v47, v48, v49, v50, v51);
       }
 
-      [*(selfCopy + 8) setMediaEnvironmentBundleID:v28];
-      if (v28)
+      [*(v11 + 8) setMediaEnvironmentBundleID:v39];
+      if (v39)
       {
-        [v28 UTF8String];
-        v31 = tcc_identity_create();
-        [*(selfCopy + 8) setMediaEnvironmentTCCIdentity:v31];
+        [v39 UTF8String];
+        v52 = tcc_identity_create();
+        [*(v11 + 8) setMediaEnvironmentTCCIdentity:v52];
       }
 
       else
       {
-        [*(selfCopy + 8) setMediaEnvironmentTCCIdentity:0];
+        [*(v11 + 8) setMediaEnvironmentTCCIdentity:0];
       }
 
       FigSimpleMutexUnlock();
       if (infosCopy)
       {
-        [*(selfCopy + 128) currentLayout];
-        v32 = OUTLINED_FUNCTION_3_30();
-        [FigCaptureClientApplicationStateMonitor _handleLayout:v32];
+        [*(v11 + 128) currentLayout];
+        v53 = OUTLINED_FUNCTION_3_30();
+        [FigCaptureClientApplicationStateMonitor _handleLayout:v53];
       }
     }
   }
@@ -1389,56 +1374,56 @@ LABEL_18:
     return 0;
   }
 
-  if (FigCaptureAudiomxdSupportEnabled())
+  if (FigCaptureAudiomxdSupportEnabled(self, a2))
   {
-    v15 = OUTLINED_FUNCTION_16_16();
-    OUTLINED_FUNCTION_29_4(v15);
+    v18 = OUTLINED_FUNCTION_16_16();
+    OUTLINED_FUNCTION_29_4(v18);
     OUTLINED_FUNCTION_39_7();
-    if (v17)
+    if (v20)
     {
-      v18 = v16;
+      v21 = v19;
     }
 
     else
     {
-      v18 = v1;
+      v21 = v2;
     }
 
-    if (v18)
+    if (v21)
     {
       [(FigCaptureClientApplicationStateMonitor *)self loggingPrefix];
-      v29 = 136315394;
+      v52 = 136315394;
       OUTLINED_FUNCTION_5_43();
-      OUTLINED_FUNCTION_9_14();
-      OUTLINED_FUNCTION_18_2();
+      v38 = OUTLINED_FUNCTION_9_14();
+      OUTLINED_FUNCTION_18_2(v38, v39, v40, v41, v42);
       OUTLINED_FUNCTION_54_1();
     }
 
     OUTLINED_FUNCTION_1_4();
-    OUTLINED_FUNCTION_17_8();
-    v13 = 4294954514;
+    OUTLINED_FUNCTION_17_8(v22, v23, v24, v25, v26);
+    v16 = 4294954514;
     goto LABEL_28;
   }
 
-  v4 = CMSessionCreate();
-  if (v4)
+  v6 = CMSessionCreate();
+  if (v6)
   {
-    v13 = v4;
-    FigDebugAssert3();
-    v36 = 0;
-    v35 = 0;
+    v16 = v6;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v4, v45, v46, v47, v48, v49, v50);
+    v59 = 0;
+    v58[128] = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     OUTLINED_FUNCTION_4_0();
-    if (v2)
+    if (v3)
     {
-      v29 = 136315650;
-      v30 = "[FigCaptureClientApplicationStateMonitor _createAndObserveCMSessionForBKSApplicationStateMonitoring]";
-      v31 = 2114;
+      v52 = 136315650;
+      v53 = "[FigCaptureClientApplicationStateMonitor _createAndObserveCMSessionForBKSApplicationStateMonitoring]";
+      v54 = 2114;
       loggingPrefix = [(FigCaptureClientApplicationStateMonitor *)self loggingPrefix];
-      v33 = 1024;
-      v34 = v13;
-      OUTLINED_FUNCTION_5_1();
+      v56 = 1024;
+      v57 = v16;
+      OUTLINED_FUNCTION_5_1(loggingPrefix, v43, v58, v44, &dword_1AC90E000);
     }
 
     OUTLINED_FUNCTION_1_4();
@@ -1446,14 +1431,14 @@ LABEL_18:
   }
 
   [MEMORY[0x1E696AEC0] stringWithFormat:@"FigCaptureClient-%d", objc_msgSend(*(self + 8), "pid")];
-  v5 = CMSessionSetProperty();
-  if (v5)
+  v7 = CMSessionSetProperty();
+  if (v7)
   {
-    v13 = v5;
-    v20 = OUTLINED_FUNCTION_16_16();
-    OUTLINED_FUNCTION_36_0(v20);
+    v16 = v7;
+    v28 = OUTLINED_FUNCTION_16_16();
+    OUTLINED_FUNCTION_36_0(v28);
     OUTLINED_FUNCTION_22_9();
-    if (v21)
+    if (v29)
     {
       goto LABEL_22;
     }
@@ -1462,61 +1447,61 @@ LABEL_18:
   else
   {
     [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(*(self + 8), "pid")}];
-    v6 = CMSessionSetProperty();
-    if (!v6)
+    v8 = CMSessionSetProperty();
+    if (!v8)
     {
-      memset(v28, 0, sizeof(v28));
-      v7 = *(self + 8);
-      if (v7)
+      memset(v51, 0, sizeof(v51));
+      v9 = *(self + 8);
+      if (v9)
       {
-        [v7 auditToken];
+        objc_msgSend_auditToken(v9);
       }
 
-      [MEMORY[0x1E695DEF0] dataWithBytes:v28 length:32];
-      v8 = CMSessionSetProperty();
-      if (!v8)
+      [MEMORY[0x1E695DEF0] dataWithBytes:v51 length:32];
+      v10 = CMSessionSetProperty();
+      if (!v10)
       {
-        v9 = [FigWeakReference weakReferenceToObject:self];
+        v11 = [FigWeakReference weakReferenceToObject:self];
         defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-        v11 = *MEMORY[0x1E69AFB00];
-        v12 = *(self + 32);
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __101__FigCaptureClientApplicationStateMonitor__createAndObserveCMSessionForBKSApplicationStateMonitoring__block_invoke;
-        v27[3] = &unk_1E798FC90;
-        v27[4] = v9;
-        *(self + 40) = [defaultCenter addObserverForName:v11 object:v12 queue:0 usingBlock:v27];
+        v13 = *MEMORY[0x1E69AFB00];
+        v14 = *(self + 32);
+        v46 = MEMORY[0x1E69E9820];
+        v47 = 3221225472;
+        v48 = __101__FigCaptureClientApplicationStateMonitor__createAndObserveCMSessionForBKSApplicationStateMonitoring__block_invoke;
+        v49 = &unk_1E798FC90;
+        v50 = v11;
+        *(self + 40) = [defaultCenter addObserverForName:v13 object:v14 queue:0 usingBlock:&v46];
         [(FigCaptureClientApplicationStateMonitor *)self _updateBKSApplicationStateFromCMSession];
         return 0;
       }
 
-      v13 = v8;
-      v24 = OUTLINED_FUNCTION_16_16();
-      OUTLINED_FUNCTION_36_0(v24);
+      v16 = v10;
+      v35 = OUTLINED_FUNCTION_16_16();
+      OUTLINED_FUNCTION_36_0(v35);
       OUTLINED_FUNCTION_22_9();
-      if (!v25)
+      if (!v36)
       {
         goto LABEL_26;
       }
 
       OUTLINED_FUNCTION_65_3();
-      v29 = 136315906;
+      v52 = 136315906;
       OUTLINED_FUNCTION_15_14();
       goto LABEL_31;
     }
 
-    v13 = v6;
-    v22 = OUTLINED_FUNCTION_16_16();
-    OUTLINED_FUNCTION_36_0(v22);
+    v16 = v8;
+    v33 = OUTLINED_FUNCTION_16_16();
+    OUTLINED_FUNCTION_36_0(v33);
     OUTLINED_FUNCTION_22_9();
-    if (v23)
+    if (v34)
     {
 LABEL_22:
       OUTLINED_FUNCTION_65_3();
-      v29 = 136315906;
+      v52 = 136315906;
       OUTLINED_FUNCTION_15_14();
 LABEL_31:
-      OUTLINED_FUNCTION_5_1();
+      OUTLINED_FUNCTION_5_1(v30, v31, v58, v32, &dword_1AC90E000);
     }
   }
 
@@ -1525,65 +1510,67 @@ LABEL_26:
 LABEL_27:
   fig_log_call_emit_and_clean_up_after_send_and_compose();
 LABEL_28:
-  v26 = *(self + 32);
-  if (v26)
+  v37 = *(self + 32);
+  if (v37)
   {
-    CFRelease(v26);
+    CFRelease(v37);
     *(self + 32) = 0;
   }
 
-  return v13;
+  return v16;
 }
 
 - (void)_handleVisibilityEndowmentUpdate:(uint64_t)update
 {
-  if (update)
+  if (self)
   {
     OUTLINED_FUNCTION_59_0();
-    v3 = v2;
+    a47 = v49;
+    a48 = v50;
+    v52 = v51;
     if (dword_1ED844110)
     {
       OUTLINED_FUNCTION_3_45();
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       OUTLINED_FUNCTION_19_3(os_log_and_send_and_compose_flags_and_os_log_type);
       OUTLINED_FUNCTION_4_0();
-      if (v1)
+      if (v48)
       {
-        v5 = MEMORY[0x1E696AEC0];
-        [*(v3 + 8) pid];
+        v54 = MEMORY[0x1E696AEC0];
+        [*(v52 + 8) pid];
         OUTLINED_FUNCTION_63_4();
         OUTLINED_FUNCTION_51_6();
-        [v5 stringWithFormat:@"<%p[%d][%@]>"];
+        [v54 stringWithFormat:@"<%p[%d][%@]>"];
         OUTLINED_FUNCTION_0_49();
         OUTLINED_FUNCTION_7_33();
-        OUTLINED_FUNCTION_5_1();
+        OUTLINED_FUNCTION_5_1(v55, v56, &a20, v57, &dword_1AC90E000);
         OUTLINED_FUNCTION_34_8();
       }
 
       OUTLINED_FUNCTION_2_4();
-      OUTLINED_FUNCTION_39_0();
+      OUTLINED_FUNCTION_39_0(v58, v59, v60, v61, v62);
     }
 
-    if (*(v3 + 96) == 1)
+    if (*(v52 + 96) == 1)
     {
-      [*(v3 + 128) currentLayout];
-      v7 = OUTLINED_FUNCTION_3_30();
-      [FigCaptureClientApplicationStateMonitor _handleLayout:v7];
+      [*(v52 + 128) currentLayout];
+      v64 = OUTLINED_FUNCTION_3_30();
+      [FigCaptureClientApplicationStateMonitor _handleLayout:v64];
     }
 
-    if (*(v3 + 105) == 1)
+    if (*(v52 + 105) == 1)
     {
-      [*(v3 + 136) currentLayout];
-      v8 = OUTLINED_FUNCTION_3_30();
-      [FigCaptureClientApplicationStateMonitor _handleLayout:v8];
+      [*(v52 + 136) currentLayout];
+      v65 = OUTLINED_FUNCTION_3_30();
+      [FigCaptureClientApplicationStateMonitor _handleLayout:v65];
     }
 
     OUTLINED_FUNCTION_56_6();
-    if (v6)
+    if (v63)
     {
-      [*(v3 + 144) currentLayout];
-      v9 = OUTLINED_FUNCTION_3_30();
-      [FigCaptureClientApplicationStateMonitor _handleLayout:v9];
+      [*(v52 + 144) currentLayout];
+      v66 = OUTLINED_FUNCTION_3_30();
+      [FigCaptureClientApplicationStateMonitor _handleLayout:v66];
     }
 
     OUTLINED_FUNCTION_58_0();
@@ -1607,20 +1594,20 @@ LABEL_28:
 {
   if (self)
   {
-    if (FigCaptureAudiomxdSupportEnabled())
+    if (FigCaptureAudiomxdSupportEnabled(self, a2))
     {
       if (self[3])
       {
         OUTLINED_FUNCTION_57_5();
-        if (v3)
+        if (v4)
         {
-          [v2 removeObserverForType:2 observer:self[5] name:*MEMORY[0x1E69AFB00]];
+          [v3 removeObserverForType:2 observer:self[5] name:*MEMORY[0x1E69AFB00]];
 
           self[5] = 0;
           [self[3] removeObserverForType:1 observer:self[6] name:*MEMORY[0x1E698D5C0]];
 
           self[6] = 0;
-          v2 = self[3];
+          v3 = self[3];
         }
 
         self[3] = 0;
@@ -1629,19 +1616,19 @@ LABEL_28:
 
     else
     {
-      v4 = OUTLINED_FUNCTION_40_6();
-      OUTLINED_FUNCTION_8_5(v4);
+      v5 = OUTLINED_FUNCTION_40_6();
+      OUTLINED_FUNCTION_8_5(v5);
       OUTLINED_FUNCTION_28_6();
-      if (v5)
+      if (v6)
       {
         OUTLINED_FUNCTION_50_7();
         OUTLINED_FUNCTION_23_8();
         OUTLINED_FUNCTION_5();
-        OUTLINED_FUNCTION_18_13();
+        OUTLINED_FUNCTION_18_13(v12, v13, v15, v14, &dword_1AC90E000);
       }
 
       OUTLINED_FUNCTION_1_4();
-      OUTLINED_FUNCTION_17_8();
+      OUTLINED_FUNCTION_17_8(v7, v8, v9, v10, v11);
     }
   }
 }
@@ -1650,127 +1637,44 @@ LABEL_28:
 {
   if (self)
   {
-    if (FigCaptureAudiomxdSupportEnabled())
+    if (FigCaptureAudiomxdSupportEnabled(self, a2))
     {
-      v4 = OUTLINED_FUNCTION_40_6();
-      OUTLINED_FUNCTION_8_5(v4);
+      v5 = OUTLINED_FUNCTION_40_6();
+      OUTLINED_FUNCTION_8_5(v5);
       OUTLINED_FUNCTION_28_6();
-      if (v5)
+      if (v6)
       {
         OUTLINED_FUNCTION_50_7();
         OUTLINED_FUNCTION_23_8();
         OUTLINED_FUNCTION_5();
-        OUTLINED_FUNCTION_18_13();
+        OUTLINED_FUNCTION_18_13(v12, v13, v15, v14, &dword_1AC90E000);
       }
 
       OUTLINED_FUNCTION_1_4();
-      OUTLINED_FUNCTION_17_8();
+      OUTLINED_FUNCTION_17_8(v7, v8, v9, v10, v11);
     }
 
     else if (*(self + 32))
     {
       OUTLINED_FUNCTION_57_5();
-      if (!v3 || ([objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")], *(self + 40), *(self + 40) = 0, (v2 = *(self + 32)) != 0))
+      if (!v4 || ([objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")], *(self + 40), *(self + 40) = 0, (v3 = *(self + 32)) != 0))
       {
-        CFRelease(v2);
+        CFRelease(v3);
         *(self + 32) = 0;
       }
     }
   }
 }
 
-- (void)_handleAVAudioSessionApplicationStateDidChangeNotification:(uint64_t)notification
-{
-  if (notification)
-  {
-    OUTLINED_FUNCTION_59_0();
-    v3 = v2;
-    v5 = v4;
-    name = [v2 name];
-    if ([name isEqualToString:*MEMORY[0x1E69AFB00]])
-    {
-      if (dword_1ED844110)
-      {
-        OUTLINED_FUNCTION_3_45();
-        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        OUTLINED_FUNCTION_19_3(os_log_and_send_and_compose_flags_and_os_log_type);
-        OUTLINED_FUNCTION_4_0();
-        if (v1)
-        {
-          v8 = MEMORY[0x1E696AEC0];
-          [*(v5 + 8) pid];
-          [*(v5 + 8) applicationID];
-          [v8 stringWithFormat:@"<%p[%d][%@]>"];
-          OUTLINED_FUNCTION_0_49();
-          OUTLINED_FUNCTION_7_33();
-          OUTLINED_FUNCTION_5_1();
-          OUTLINED_FUNCTION_34_8();
-        }
-
-        OUTLINED_FUNCTION_2_4();
-        OUTLINED_FUNCTION_39_0();
-      }
-
-      userInfo = [v3 userInfo];
-      v10 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69AFA50]];
-      if (v10)
-      {
-        v11 = v10;
-        FigSimpleMutexLock();
-        if ((*(v5 + 168) & 1) == 0)
-        {
-          [v11 intValue];
-          [FigCaptureClientApplicationStateMonitor _handleBKSApplicationStateChange:];
-        }
-
-        FigSimpleMutexUnlock();
-        goto LABEL_11;
-      }
-
-      OUTLINED_FUNCTION_6_37();
-      v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      OUTLINED_FUNCTION_26_8(v14);
-      OUTLINED_FUNCTION_22_9();
-      if (!v15)
-      {
-LABEL_16:
-        OUTLINED_FUNCTION_1_4();
-        OUTLINED_FUNCTION_13_0();
-LABEL_11:
-        OUTLINED_FUNCTION_58_0();
-        return;
-      }
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_6_37();
-      v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      OUTLINED_FUNCTION_26_8(v12);
-      OUTLINED_FUNCTION_22_9();
-      if (!v13)
-      {
-        goto LABEL_16;
-      }
-    }
-
-    OUTLINED_FUNCTION_64_4();
-    OUTLINED_FUNCTION_0_49();
-    OUTLINED_FUNCTION_7_33();
-    OUTLINED_FUNCTION_5_1();
-    OUTLINED_FUNCTION_48_7();
-    goto LABEL_16;
-  }
-}
-
 - (void)_handleAVAudioSessionMediaServicesWereResetNotification:(uint64_t)notification
 {
-  if (notification)
+  if (self)
   {
     OUTLINED_FUNCTION_59_0();
-    v3 = v2;
-    name = [v4 name];
-    if ([name isEqualToString:*MEMORY[0x1E698D5C0]])
+    a47 = v49;
+    a48 = v50;
+    v52 = v51;
+    if (objc_msgSend_isEqualToString_([v53 name]))
     {
       if (dword_1ED844110)
       {
@@ -1778,194 +1682,111 @@ LABEL_11:
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         OUTLINED_FUNCTION_19_3(os_log_and_send_and_compose_flags_and_os_log_type);
         OUTLINED_FUNCTION_4_0();
-        if (v1)
+        if (v48)
         {
-          v7 = MEMORY[0x1E696AEC0];
-          [*(v3 + 8) pid];
+          v56 = MEMORY[0x1E696AEC0];
+          [v52[1] pid];
           OUTLINED_FUNCTION_63_4();
           OUTLINED_FUNCTION_51_6();
-          [v7 stringWithFormat:@"<%p[%d][%@]>"];
+          [v56 stringWithFormat:@"<%p[%d][%@]>"];
           OUTLINED_FUNCTION_0_49();
           OUTLINED_FUNCTION_7_33();
-          OUTLINED_FUNCTION_5_1();
+          OUTLINED_FUNCTION_5_1(v57, v58, &a20, v59, &dword_1AC90E000);
           OUTLINED_FUNCTION_34_8();
         }
 
         OUTLINED_FUNCTION_2_4();
-        OUTLINED_FUNCTION_39_0();
+        OUTLINED_FUNCTION_39_0(v60, v61, v62, v63, v64);
       }
 
-      [(FigCaptureClientApplicationStateMonitor *)v3 _updateBKSApplicationStateFromAVAudioSession];
+      [(FigCaptureClientApplicationStateMonitor *)v52 _updateBKSApplicationStateFromAVAudioSession];
     }
 
     else
     {
       OUTLINED_FUNCTION_6_37();
-      v8 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      OUTLINED_FUNCTION_26_8(v8);
+      v65 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      OUTLINED_FUNCTION_26_8(v65);
       OUTLINED_FUNCTION_22_9();
-      if (v9)
+      if (v66)
       {
         OUTLINED_FUNCTION_65_3();
         OUTLINED_FUNCTION_0_49();
         OUTLINED_FUNCTION_7_33();
-        OUTLINED_FUNCTION_5_1();
+        OUTLINED_FUNCTION_5_1(v72, v73, &a20, v74, &dword_1AC90E000);
         OUTLINED_FUNCTION_48_7();
       }
 
       OUTLINED_FUNCTION_1_4();
-      OUTLINED_FUNCTION_13_0();
+      OUTLINED_FUNCTION_13_0(v67, v68, v69, v70, v71);
     }
 
     OUTLINED_FUNCTION_58_0();
   }
 }
 
-- (void)_handleCMSessionApplicationStateDidChangeNotification:(uint64_t)notification
-{
-  if (notification)
-  {
-    OUTLINED_FUNCTION_59_0();
-    v3 = v2;
-    v5 = v4;
-    name = [v2 name];
-    if ([name isEqualToString:*MEMORY[0x1E69AFB00]])
-    {
-      if (dword_1ED844110)
-      {
-        OUTLINED_FUNCTION_3_45();
-        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        OUTLINED_FUNCTION_19_3(os_log_and_send_and_compose_flags_and_os_log_type);
-        OUTLINED_FUNCTION_4_0();
-        if (v1)
-        {
-          v8 = MEMORY[0x1E696AEC0];
-          [*(v5 + 8) pid];
-          [*(v5 + 8) applicationID];
-          [v8 stringWithFormat:@"<%p[%d][%@]>"];
-          [v3 name];
-          OUTLINED_FUNCTION_27_7();
-          OUTLINED_FUNCTION_7_33();
-          OUTLINED_FUNCTION_5_1();
-          OUTLINED_FUNCTION_34_8();
-        }
-
-        OUTLINED_FUNCTION_2_4();
-        OUTLINED_FUNCTION_39_0();
-      }
-
-      userInfo = [v3 userInfo];
-      v10 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69AFA50]];
-      if (v10)
-      {
-        v11 = v10;
-        FigSimpleMutexLock();
-        if ((*(v5 + 168) & 1) == 0)
-        {
-          [v11 intValue];
-          [FigCaptureClientApplicationStateMonitor _handleBKSApplicationStateChange:];
-        }
-
-        FigSimpleMutexUnlock();
-        goto LABEL_11;
-      }
-
-      OUTLINED_FUNCTION_6_37();
-      v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      OUTLINED_FUNCTION_26_8(v14);
-      OUTLINED_FUNCTION_22_9();
-      if (!v15)
-      {
-LABEL_16:
-        OUTLINED_FUNCTION_1_4();
-        OUTLINED_FUNCTION_13_0();
-LABEL_11:
-        OUTLINED_FUNCTION_58_0();
-        return;
-      }
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_6_37();
-      v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      OUTLINED_FUNCTION_26_8(v12);
-      OUTLINED_FUNCTION_22_9();
-      if (!v13)
-      {
-        goto LABEL_16;
-      }
-    }
-
-    OUTLINED_FUNCTION_64_4();
-    OUTLINED_FUNCTION_0_49();
-    OUTLINED_FUNCTION_7_33();
-    OUTLINED_FUNCTION_5_1();
-    OUTLINED_FUNCTION_48_7();
-    goto LABEL_16;
-  }
-}
-
-- (uint64_t)_updateBKSApplicationStateFromCMSession
+- (id)_updateBKSApplicationStateFromCMSession
 {
   if (result)
   {
-    v3 = result;
-    if (FigCaptureAudiomxdSupportEnabled())
+    v4 = result;
+    v5 = FigCaptureAudiomxdSupportEnabled(result, a2);
+    if (v5)
     {
-      v6 = OUTLINED_FUNCTION_43_7();
-      OUTLINED_FUNCTION_61_3(v6, v7, v8, v9, v10, v11, v12, v13, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, *v27, v27[4], v28);
+      v30 = OUTLINED_FUNCTION_43_7(v5, v6, v7, v8, v9, v10, v11, v12, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, SBYTE4(v71), v74);
+      OUTLINED_FUNCTION_61_3(v30, v31, v32, v33, v34, v35, v36, v37, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v73, v76);
       OUTLINED_FUNCTION_39_7();
-      if (v15)
+      if (v39)
       {
-        v16 = v14;
+        v40 = v38;
       }
 
       else
       {
-        v16 = v1;
+        v40 = v2;
       }
 
-      if (v16)
+      if (v40)
       {
-        [(FigCaptureClientApplicationStateMonitor *)v3 loggingPrefix];
+        [(FigCaptureClientApplicationStateMonitor *)v4 loggingPrefix];
         OUTLINED_FUNCTION_4_42();
         OUTLINED_FUNCTION_2_1();
-        OUTLINED_FUNCTION_9_14();
-        OUTLINED_FUNCTION_18_2();
+        v46 = OUTLINED_FUNCTION_9_14();
+        OUTLINED_FUNCTION_18_2(v46, v47, v48, v49, v50);
       }
 
       OUTLINED_FUNCTION_1_4();
-      return OUTLINED_FUNCTION_17_8();
+      return OUTLINED_FUNCTION_17_8(v41, v42, v43, v44, v45);
     }
 
     else
     {
       FigSimpleMutexLock();
+      v75 = 0;
       if (CMSessionCopyProperty())
       {
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         OUTLINED_FUNCTION_4_0();
-        if (v2)
+        if (v3)
         {
-          v5 = MEMORY[0x1E696AEC0];
-          [*(v3 + 8) pid];
+          v14 = MEMORY[0x1E696AEC0];
+          [v4[1] pid];
           OUTLINED_FUNCTION_63_4();
           OUTLINED_FUNCTION_51_6();
-          [v5 stringWithFormat:@"<%p[%d][%@]>"];
+          [v14 stringWithFormat:@"<%p[%d][%@]>"];
           OUTLINED_FUNCTION_2_1();
-          OUTLINED_FUNCTION_5_1();
+          OUTLINED_FUNCTION_5_1(v15, v16, v77, v17, &dword_1AC90E000);
         }
 
         OUTLINED_FUNCTION_1_4();
-        OUTLINED_FUNCTION_39_0();
+        OUTLINED_FUNCTION_39_0(v18, v19, v20, v21, v22);
       }
 
       else
       {
-        [0 intValue];
-        [FigCaptureClientApplicationStateMonitor _handleBKSApplicationStateChange:];
+        intValue = [0 intValue];
+        [(FigCaptureClientApplicationStateMonitor *)v4 _handleBKSApplicationStateChange:intValue, v24, v25, v26, v27, v28, v29, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, 0, v77[0], v77[1], v77[2], v77[3], v77[4], v77[5], v77[6], v77[7], v77[8], v77[9], v77[10], v77[11], v77[12], v77[13], v77[14], v77[15], v77[16], v77[17], v77[18], v77[19], v77[20], v77[21], v77[22], v77[23], v77[24], v77[25]];
       }
 
       return FigSimpleMutexUnlock();
@@ -1975,46 +1796,48 @@ LABEL_11:
   return result;
 }
 
-- (void)_handleBKSApplicationStateChange:
+- (void)_handleBKSApplicationStateChange:(uint64_t)change
 {
   OUTLINED_FUNCTION_59_0();
-  if (!v1)
+  a45 = v47;
+  a46 = v50;
+  if (!v48)
   {
 LABEL_6:
     OUTLINED_FUNCTION_58_0();
     return;
   }
 
-  v3 = v2;
-  v4 = v1;
+  v51 = v49;
+  v52 = v48;
   FigSimpleMutexCheckIsLockedOnThisThread();
-  if (*(v4 + 80) != 1)
+  if (*(v52 + 80) != 1)
   {
     OUTLINED_FUNCTION_3_45();
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     OUTLINED_FUNCTION_19_3(os_log_and_send_and_compose_flags_and_os_log_type);
     OUTLINED_FUNCTION_4_0();
-    if (v0)
+    if (v46)
     {
-      v6 = MEMORY[0x1E696AEC0];
-      [*(v4 + 8) pid];
-      [*(v4 + 8) applicationID];
-      [v6 stringWithFormat:@"<%p[%d][%@]>"];
+      v54 = MEMORY[0x1E696AEC0];
+      [*(v52 + 8) pid];
+      [*(v52 + 8) applicationID];
+      [v54 stringWithFormat:@"<%p[%d][%@]>"];
       OUTLINED_FUNCTION_4_42();
       OUTLINED_FUNCTION_2_1();
-      OUTLINED_FUNCTION_5_1();
+      OUTLINED_FUNCTION_5_1(v55, v56, &a18 + 3, v57, &dword_1AC90E000);
       OUTLINED_FUNCTION_34_8();
     }
 
     OUTLINED_FUNCTION_1_4();
-    OUTLINED_FUNCTION_39_0();
+    OUTLINED_FUNCTION_39_0(v58, v59, v60, v61, v62);
     goto LABEL_6;
   }
 
-  [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+  [MEMORY[0x1E696AD98] numberWithUnsignedInt:v51];
   OUTLINED_FUNCTION_58_0();
 
-  [(FigCaptureClientApplicationStateMonitor *)v7 _updateClientStateCondition:v8 newValue:v9];
+  [(FigCaptureClientApplicationStateMonitor *)v63 _updateClientStateCondition:v64 newValue:v65];
 }
 
 - (void)_updateClientStateCondition:(void *)condition newValue:
@@ -2029,108 +1852,108 @@ LABEL_6:
   {
     [condition unsignedIntValue];
     OUTLINED_FUNCTION_38_8();
-    if ((!v10 || (*(self + 88) & 1) == 0) && dword_1ED844110)
+    if ((!v15 || (*(self + 88) & 1) == 0) && dword_1ED844110)
     {
-      v11 = OUTLINED_FUNCTION_13_19();
-      OUTLINED_FUNCTION_19_3(v11);
+      v16 = OUTLINED_FUNCTION_13_19();
+      OUTLINED_FUNCTION_19_3(v16);
       OUTLINED_FUNCTION_4_0();
       if (v3)
       {
         [(FigCaptureClientApplicationStateMonitor *)self loggingPrefix];
-        v26 = OUTLINED_FUNCTION_106_0();
-        FigCaptureBKSApplicationStateToString(v26);
+        v62 = OUTLINED_FUNCTION_106_0();
+        FigCaptureBKSApplicationStateToString(v62);
         OUTLINED_FUNCTION_8_27();
-        OUTLINED_FUNCTION_5_1();
+        OUTLINED_FUNCTION_5_1(v63, v64, v89, v65, &dword_1AC90E000);
         OUTLINED_FUNCTION_34_8();
       }
 
       OUTLINED_FUNCTION_2_4();
-      OUTLINED_FUNCTION_39_0();
+      OUTLINED_FUNCTION_39_0(v17, v18, v19, v20, v21);
     }
 
     *(self + 84) = condition;
-    v12 = 88;
+    v22 = 88;
   }
 
   else if (self + 100 == a2)
   {
     [condition intValue];
     OUTLINED_FUNCTION_38_8();
-    if ((!v10 || (*(self + 104) & 1) == 0) && dword_1ED844110)
+    if ((!v15 || (*(self + 104) & 1) == 0) && dword_1ED844110)
     {
-      v13 = OUTLINED_FUNCTION_13_19();
-      OUTLINED_FUNCTION_19_3(v13);
+      v23 = OUTLINED_FUNCTION_13_19();
+      OUTLINED_FUNCTION_19_3(v23);
       OUTLINED_FUNCTION_4_0();
       if (v3)
       {
         [(FigCaptureClientApplicationStateMonitor *)self loggingPrefix];
-        v27 = OUTLINED_FUNCTION_106_0();
-        FigCaptureClientLayoutStateToString(v27);
+        v66 = OUTLINED_FUNCTION_106_0();
+        FigCaptureClientLayoutStateToString(v66);
         OUTLINED_FUNCTION_8_27();
-        OUTLINED_FUNCTION_5_1();
+        OUTLINED_FUNCTION_5_1(v67, v68, v89, v69, &dword_1AC90E000);
         OUTLINED_FUNCTION_34_8();
       }
 
       OUTLINED_FUNCTION_2_4();
-      OUTLINED_FUNCTION_39_0();
+      OUTLINED_FUNCTION_39_0(v24, v25, v26, v27, v28);
     }
 
     *(self + 100) = condition;
-    v12 = 104;
+    v22 = 104;
   }
 
   else if (self + 108 == a2)
   {
     [condition intValue];
     OUTLINED_FUNCTION_38_8();
-    if ((!v10 || (*(self + 112) & 1) == 0) && dword_1ED844110)
+    if ((!v15 || (*(self + 112) & 1) == 0) && dword_1ED844110)
     {
-      v14 = OUTLINED_FUNCTION_13_19();
-      OUTLINED_FUNCTION_19_3(v14);
+      v29 = OUTLINED_FUNCTION_13_19();
+      OUTLINED_FUNCTION_19_3(v29);
       OUTLINED_FUNCTION_4_0();
       if (v3)
       {
         [(FigCaptureClientApplicationStateMonitor *)self loggingPrefix];
-        v28 = OUTLINED_FUNCTION_106_0();
-        FigCaptureClientLayoutStateToString(v28);
+        v75 = OUTLINED_FUNCTION_106_0();
+        FigCaptureClientLayoutStateToString(v75);
         OUTLINED_FUNCTION_8_27();
-        OUTLINED_FUNCTION_5_1();
+        OUTLINED_FUNCTION_5_1(v76, v77, v89, v78, &dword_1AC90E000);
         OUTLINED_FUNCTION_34_8();
       }
 
       OUTLINED_FUNCTION_2_4();
-      OUTLINED_FUNCTION_39_0();
+      OUTLINED_FUNCTION_39_0(v30, v31, v32, v33, v34);
     }
 
     *(self + 108) = condition;
-    v12 = 112;
+    v22 = 112;
   }
 
   else if (self + 116 == a2)
   {
     [condition intValue];
     OUTLINED_FUNCTION_38_8();
-    if ((!v10 || (*(self + 120) & 1) == 0) && dword_1ED844110)
+    if ((!v15 || (*(self + 120) & 1) == 0) && dword_1ED844110)
     {
-      v15 = OUTLINED_FUNCTION_13_19();
-      OUTLINED_FUNCTION_19_3(v15);
+      v35 = OUTLINED_FUNCTION_13_19();
+      OUTLINED_FUNCTION_19_3(v35);
       OUTLINED_FUNCTION_4_0();
       if (v3)
       {
         [(FigCaptureClientApplicationStateMonitor *)self loggingPrefix];
-        v29 = OUTLINED_FUNCTION_106_0();
-        FigCaptureClientLayoutStateToString(v29);
+        v79 = OUTLINED_FUNCTION_106_0();
+        FigCaptureClientLayoutStateToString(v79);
         OUTLINED_FUNCTION_8_27();
-        OUTLINED_FUNCTION_5_1();
+        OUTLINED_FUNCTION_5_1(v80, v81, v89, v82, &dword_1AC90E000);
         OUTLINED_FUNCTION_34_8();
       }
 
       OUTLINED_FUNCTION_2_4();
-      OUTLINED_FUNCTION_39_0();
+      OUTLINED_FUNCTION_39_0(v36, v37, v38, v39, v40);
     }
 
     *(self + 116) = condition;
-    v12 = 120;
+    v22 = 120;
   }
 
   else
@@ -2147,80 +1970,81 @@ LABEL_6:
         [(FigCaptureClientApplicationStateMonitor *)self loggingPrefix];
         OUTLINED_FUNCTION_23_8();
         OUTLINED_FUNCTION_5();
-        OUTLINED_FUNCTION_11_0();
-        OUTLINED_FUNCTION_141();
+        v70 = OUTLINED_FUNCTION_11_0();
+        OUTLINED_FUNCTION_141(v70, v71, v72, v73, v74);
       }
 
       OUTLINED_FUNCTION_1_4();
-      OUTLINED_FUNCTION_56_0();
+      OUTLINED_FUNCTION_56_0(v10, v11, v12, v13, v14);
       return;
     }
 
     bOOLValue = [condition BOOLValue];
     if ((*v8 != bOOLValue || (*(self + 154) & 1) == 0) && dword_1ED844110)
     {
-      v17 = OUTLINED_FUNCTION_13_19();
-      OUTLINED_FUNCTION_19_3(v17);
+      v42 = OUTLINED_FUNCTION_13_19();
+      OUTLINED_FUNCTION_19_3(v42);
       OUTLINED_FUNCTION_4_0();
       if (v3)
       {
         [(FigCaptureClientApplicationStateMonitor *)self loggingPrefix];
         OUTLINED_FUNCTION_5();
-        OUTLINED_FUNCTION_5_1();
+        OUTLINED_FUNCTION_5_1(v83, v84, v89, v85, &dword_1AC90E000);
         OUTLINED_FUNCTION_34_8();
       }
 
       OUTLINED_FUNCTION_2_4();
-      OUTLINED_FUNCTION_39_0();
+      OUTLINED_FUNCTION_39_0(v43, v44, v45, v46, v47);
     }
 
     *v8 = bOOLValue;
-    v12 = 154;
+    v22 = 154;
   }
 
-  *(self + v12) = 1;
+  *(self + v22) = 1;
   OUTLINED_FUNCTION_57_5();
-  if ((!v10 || *(self + 88) == 1) && (*(self + 96) != 1 || *(self + 104) == 1) && (*(self + 105) != 1 || *(self + 112) == 1))
+  if ((!v15 || *(self + 88) == 1) && (*(self + 96) != 1 || *(self + 104) == 1) && (*(self + 105) != 1 || *(self + 112) == 1))
   {
     OUTLINED_FUNCTION_56_6();
-    if ((!v10 || *(self + 120) == 1) && (*(self + 152) != 1 || *(self + 154) == 1))
+    if ((!v15 || *(self + 120) == 1) && (*(self + 152) != 1 || *(self + 154) == 1))
     {
       _resolveApplicationState = [(FigCaptureClientApplicationStateMonitor *)self _resolveApplicationState];
       _resolveAggregateLayoutState = [(FigCaptureClientApplicationStateMonitor *)self _resolveAggregateLayoutState];
-      v20 = *(self + 92);
-      v21 = v20 == 2 && *(self + 124) != _resolveAggregateLayoutState;
-      if (v20 != _resolveApplicationState || v21)
+      v50 = *(self + 92);
+      v51 = v50 == 2 && *(self + 124) != _resolveAggregateLayoutState;
+      if (v50 != _resolveApplicationState || v51)
       {
         *(self + 92) = _resolveApplicationState;
         *(self + 124) = _resolveAggregateLayoutState;
         if (dword_1ED844110)
         {
           OUTLINED_FUNCTION_6_37();
-          v22 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v22, v30);
+          v52 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v53 = v90;
+          os_log_type_enabled(v52, v89[128]);
           OUTLINED_FUNCTION_115_0();
-          if (v10)
+          if (v15)
           {
-            v24 = v23;
+            v55 = v54;
           }
 
           else
           {
-            v24 = v31;
+            v55 = v53;
           }
 
-          if (v24)
+          if (v55)
           {
             [(FigCaptureClientApplicationStateMonitor *)self loggingPrefix];
             FigCaptureClientLayoutStateToString(*(self + 124));
             OUTLINED_FUNCTION_23_8();
             OUTLINED_FUNCTION_5();
-            OUTLINED_FUNCTION_18_13();
+            OUTLINED_FUNCTION_18_13(v86, v87, v89, v88, &dword_1AC90E000);
             OUTLINED_FUNCTION_48_7();
           }
 
           OUTLINED_FUNCTION_2_4();
-          OUTLINED_FUNCTION_13_0();
+          OUTLINED_FUNCTION_13_0(v56, v57, v58, v59, v60);
         }
 
         applicationAndLayoutStateHandler = [*(self + 8) applicationAndLayoutStateHandler];
@@ -2260,33 +2084,33 @@ LABEL_3:
         [v8 stringWithFormat:@"<%p[%d][%@]>"];
         FigCaptureDisplayTypeName([v5 displayType]);
         OUTLINED_FUNCTION_2_1();
-        OUTLINED_FUNCTION_11_0();
-        OUTLINED_FUNCTION_141();
+        v9 = OUTLINED_FUNCTION_11_0();
+        OUTLINED_FUNCTION_141(v9, v10, v11, v12, v13);
       }
 
       OUTLINED_FUNCTION_2_4();
-      OUTLINED_FUNCTION_56_0();
+      OUTLINED_FUNCTION_56_0(v14, v15, v16, v17, v18);
     }
 
     if ([v5 isPaymentServiceVisible])
     {
-      v9 = 6;
+      v19 = 6;
 LABEL_29:
-      v14 = [objc_msgSend(*(v4 + 8) "applicationID")];
+      isEqualToString = objc_msgSend_isEqualToString_([*(v4 + 8) applicationID]);
       displayType = [v5 displayType];
       if (displayType <= 2)
       {
-        if (((v9 == 3) & v14) != 0)
+        if (((v19 == 3) & isEqualToString) != 0)
         {
-          v16 = 2;
+          v26 = 2;
         }
 
         else
         {
-          v16 = v9;
+          v26 = v19;
         }
 
-        -[FigCaptureClientApplicationStateMonitor _updateClientStateCondition:newValue:](v4, v4 + 8 * displayType + 100, [MEMORY[0x1E696AD98] numberWithInt:v16]);
+        -[FigCaptureClientApplicationStateMonitor _updateClientStateCondition:newValue:](v4, v4 + 8 * displayType + 100, [MEMORY[0x1E696AD98] numberWithInt:v26]);
       }
 
       FigSimpleMutexUnlock();
@@ -2295,67 +2119,67 @@ LABEL_29:
 
     if ([*(v4 + 8) clientType] == 5)
     {
-      v10 = [MEMORY[0x1E695DFD8] setWithArray:{objc_msgSend(*(v4 + 8), "avconferenceClientApplicationIDs")}];
-      v11 = [MEMORY[0x1E695DFA8] setWithArray:{objc_msgSend(v5, "foregroundApps")}];
-      [v11 intersectSet:v10];
-      if ([v11 count])
+      v20 = [MEMORY[0x1E695DFD8] setWithArray:{objc_msgSend(*(v4 + 8), "avconferenceClientApplicationIDs")}];
+      v21 = [MEMORY[0x1E695DFA8] setWithArray:{objc_msgSend(v5, "foregroundApps")}];
+      [v21 intersectSet:v20];
+      if ([v21 count])
       {
         if ([objc_msgSend(v5 "foregroundApps")] <= 1)
         {
-          v9 = 2;
+          v19 = 2;
         }
 
         else
         {
-          v9 = 3;
+          v19 = 3;
         }
       }
 
       else
       {
-        v13 = [MEMORY[0x1E695DFA8] setWithArray:{objc_msgSend(v5, "pipApps")}];
-        [v13 intersectSet:v10];
-        v9 = 4 * ([v13 count] != 0);
+        v23 = [MEMORY[0x1E695DFA8] setWithArray:{objc_msgSend(v5, "pipApps")}];
+        [v23 intersectSet:v20];
+        v19 = 4 * ([v23 count] != 0);
       }
 
       goto LABEL_29;
     }
 
-    if ([objc_msgSend(*(v4 + 8) "applicationID")])
+    if (objc_msgSend_isEqualToString_([*(v4 + 8) applicationID]))
     {
-      if ([*(v4 + 128) isOnLockScreen] && !objc_msgSend(objc_msgSend(*(v4 + 8), "xpcServiceRootHostApplicationID"), "isEqualToString:", 0x1F21855F0))
+      if ([*(v4 + 128) isOnLockScreen] && !objc_msgSend_isEqualToString_(objc_msgSend(*(v4 + 8), "xpcServiceRootHostApplicationID")))
       {
-        v9 = 0;
+        v19 = 0;
         goto LABEL_29;
       }
 
       goto LABEL_19;
     }
 
-    if ([objc_msgSend(*(v4 + 8) "applicationID")])
+    if (objc_msgSend_isEqualToString_([*(v4 + 8) applicationID]))
     {
       isSiriVisible = [v5 isSiriVisible];
     }
 
     else
     {
-      if (![objc_msgSend(*(v4 + 8) "applicationID")])
+      if (!objc_msgSend_isEqualToString_([*(v4 + 8) applicationID]))
       {
         if (![objc_msgSend(v5 "foregroundApps")])
         {
           if ([objc_msgSend(v5 "obscuredApps")])
           {
-            v9 = 5;
+            v19 = 5;
           }
 
           else if ([objc_msgSend(v5 "pipApps")])
           {
-            v9 = 4;
+            v19 = 4;
           }
 
           else
           {
-            v9 = [objc_msgSend(v5 "foregroundApps")] != 0;
+            v19 = [objc_msgSend(v5 "foregroundApps")] != 0;
           }
 
           goto LABEL_29;
@@ -2365,19 +2189,19 @@ LABEL_29:
         {
           if ([objc_msgSend(v5 "foregroundApps")] <= 1)
           {
-            v9 = 0;
+            v19 = 0;
           }
 
           else
           {
-            v9 = 3;
+            v19 = 3;
           }
 
           goto LABEL_29;
         }
 
 LABEL_19:
-        v9 = 2;
+        v19 = 2;
         goto LABEL_29;
       }
 
@@ -2386,12 +2210,12 @@ LABEL_19:
 
     if (isSiriVisible)
     {
-      v9 = 2;
+      v19 = 2;
     }
 
     else
     {
-      v9 = 0;
+      v19 = 0;
     }
 
     goto LABEL_29;

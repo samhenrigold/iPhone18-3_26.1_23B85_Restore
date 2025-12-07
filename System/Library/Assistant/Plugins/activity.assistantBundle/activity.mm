@@ -157,10 +157,11 @@ LABEL_21:
   }
 }
 
-void sub_21B0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_21B0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_3780(uint64_t a1, void *a2, void *a3)
@@ -619,6 +620,27 @@ BOOL sub_6DAC(id a1, NSString *a2, id a3, BOOL *a4)
   return v5 == v4;
 }
 
+void sub_7084()
+{
+  v6 = 136315394;
+  sub_21A0();
+  sub_21B0(&dword_0, v0, v1, "%s %@", v2, v3, v4, v5, v6);
+}
+
+void sub_70FC()
+{
+  v6 = 136315394;
+  sub_21A0();
+  sub_21B0(&dword_0, v0, v1, "%s %@", v2, v3, v4, v5, v6);
+}
+
+void sub_7174()
+{
+  v6 = 136315394;
+  sub_21A0();
+  sub_21B0(&dword_0, v0, v1, "%s %@", v2, v3, v4, v5, v6);
+}
+
 void sub_71F8(uint64_t a1, NSObject *a2)
 {
   v2 = 136315394;
@@ -635,6 +657,43 @@ void sub_7284(uint64_t a1, NSObject *a2)
   v4 = 2112;
   v5 = a1;
   _os_log_error_impl(&dword_0, a2, OS_LOG_TYPE_ERROR, "%s %@", &v2, 0x16u);
+}
+
+void sub_7310()
+{
+  v6 = 136315394;
+  sub_532C();
+  sub_21B0(&dword_0, v0, v1, "%s %@", v2, v3, v4, v5, v6);
+}
+
+void sub_7384()
+{
+  v6 = 136315394;
+  sub_532C();
+  sub_21B0(&dword_0, v0, v1, "%s error retrieving actvities to delete. %@", v2, v3, v4, v5, v6);
+}
+
+void sub_73F8()
+{
+  v6 = 136315394;
+  sub_532C();
+  sub_21B0(&dword_0, v0, v1, "%s error retrieving actvities to delete. %@", v2, v3, v4, v5, v6);
+}
+
+void sub_746C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *v8 = 136315394;
+  *&v8[4] = "[ASRecordActivity _recordActivityWithCompletion:]";
+  *&v8[12] = 2112;
+  *&v8[14] = @"can't create Duet event";
+  sub_21B0(&dword_0, a1, a3, "%s %@", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16]);
+}
+
+void sub_74F8()
+{
+  v6 = 136315394;
+  sub_532C();
+  sub_21B0(&dword_0, v0, v1, "%s %@", v2, v3, v4, v5, v6);
 }
 
 void sub_756C(uint64_t a1, NSObject *a2)

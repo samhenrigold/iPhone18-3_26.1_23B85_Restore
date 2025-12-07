@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)duplexModeAsString:(int)string;
 - (int)StringAsDuplexMode:(id)mode;
 - (int)duplexMode;
 - (unint64_t)hash;
@@ -95,6 +96,29 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFB | v3;
+}
+
+- (id)duplexModeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"TDD";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"FDD";
+  }
+
+  return v4;
 }
 
 - (int)StringAsDuplexMode:(id)mode
@@ -670,7 +694,6 @@ LABEL_25:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -690,7 +713,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  hsdpaCapable = self->_hsdpaCapable;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -705,46 +727,42 @@ LABEL_4:
   }
 
 LABEL_47:
-  edchCapable = self->_edchCapable;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_5:
-    duplexMode = self->_duplexMode;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_6:
   if (self->_multiBandInfos.count)
   {
-    v53 = 0;
+    v35 = 0;
     PBDataWriterPlaceMark();
     if (self->_multiBandInfos.count)
     {
-      v7 = 0;
+      v6 = 0;
       do
       {
-        v8 = self->_multiBandInfos.list[v7];
         PBDataWriterWriteUint32Field();
-        ++v7;
+        ++v6;
       }
 
-      while (v7 < self->_multiBandInfos.count);
+      while (v6 < self->_multiBandInfos.count);
     }
 
     PBDataWriterRecallMark();
   }
 
-  v9 = self->_has;
-  if ((v9 & 0x40) != 0)
+  v7 = self->_has;
+  if ((v7 & 0x40) != 0)
   {
-    imsEmergencySupport = self->_imsEmergencySupport;
     PBDataWriterWriteUint32Field();
-    v9 = self->_has;
-    if ((v9 & 2) == 0)
+    v7 = self->_has;
+    if ((v7 & 2) == 0)
     {
 LABEL_13:
-      if ((v9 & 0x10) == 0)
+      if ((v7 & 0x10) == 0)
       {
         goto LABEL_14;
       }
@@ -753,18 +771,17 @@ LABEL_13:
     }
   }
 
-  else if ((v9 & 2) == 0)
+  else if ((v7 & 2) == 0)
   {
     goto LABEL_13;
   }
 
-  cellBarred = self->_cellBarred;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((v9 & 0x10) == 0)
+  v7 = self->_has;
+  if ((v7 & 0x10) == 0)
   {
 LABEL_14:
-    if ((v9 & 0x800) == 0)
+    if ((v7 & 0x800) == 0)
     {
       goto LABEL_15;
     }
@@ -773,13 +790,12 @@ LABEL_14:
   }
 
 LABEL_51:
-  fachMeasOccInfoPresent = self->_fachMeasOccInfoPresent;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((v9 & 0x800) == 0)
+  v7 = self->_has;
+  if ((v7 & 0x800) == 0)
   {
 LABEL_15:
-    if ((v9 & 0x400) == 0)
+    if ((v7 & 0x400) == 0)
     {
       goto LABEL_16;
     }
@@ -788,13 +804,12 @@ LABEL_15:
   }
 
 LABEL_52:
-  sRxlev = self->_sRxlev;
   PBDataWriterWriteSint32Field();
-  v9 = self->_has;
-  if ((v9 & 0x400) == 0)
+  v7 = self->_has;
+  if ((v7 & 0x400) == 0)
   {
 LABEL_16:
-    if ((v9 & 0x200) == 0)
+    if ((v7 & 0x200) == 0)
     {
       goto LABEL_17;
     }
@@ -803,13 +818,12 @@ LABEL_16:
   }
 
 LABEL_53:
-  sQual = self->_sQual;
   PBDataWriterWriteSint32Field();
-  v9 = self->_has;
-  if ((v9 & 0x200) == 0)
+  v7 = self->_has;
+  if ((v7 & 0x200) == 0)
   {
 LABEL_17:
-    if ((v9 & 0x100) == 0)
+    if ((v7 & 0x100) == 0)
     {
       goto LABEL_18;
     }
@@ -818,13 +832,12 @@ LABEL_17:
   }
 
 LABEL_54:
-  sIntrasearch = self->_sIntrasearch;
   PBDataWriterWriteSint32Field();
-  v9 = self->_has;
-  if ((v9 & 0x100) == 0)
+  v7 = self->_has;
+  if ((v7 & 0x100) == 0)
   {
 LABEL_18:
-    if ((v9 & 0x1000) == 0)
+    if ((v7 & 0x1000) == 0)
     {
       goto LABEL_19;
     }
@@ -833,13 +846,12 @@ LABEL_18:
   }
 
 LABEL_55:
-  sIntersearch = self->_sIntersearch;
   PBDataWriterWriteSint32Field();
-  v9 = self->_has;
-  if ((v9 & 0x1000) == 0)
+  v7 = self->_has;
+  if ((v7 & 0x1000) == 0)
   {
 LABEL_19:
-    if ((v9 & 0x80) == 0)
+    if ((v7 & 0x80) == 0)
     {
       goto LABEL_21;
     }
@@ -848,106 +860,100 @@ LABEL_19:
   }
 
 LABEL_56:
-  sSearchRat = self->_sSearchRat;
   PBDataWriterWriteSint32Field();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_20:
-    sCellPrio = self->_sCellPrio;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_21:
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v11 = self->_eutraPrioInfos;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v49 objects:v56 count:16];
-  if (v12)
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v8 = self->_eutraPrioInfos;
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v31 objects:v38 count:16];
+  if (v9)
   {
-    v13 = v12;
-    v14 = *v50;
+    v10 = v9;
+    v11 = *v32;
     do
     {
-      for (i = 0; i != v13; i = i + 1)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v50 != v14)
+        if (*v32 != v11)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v8);
         }
 
-        v16 = *(*(&v49 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v49 objects:v56 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v31 objects:v38 count:16];
     }
 
-    while (v13);
+    while (v10);
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v17 = self->_utraPrioInfos;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v45 objects:v55 count:16];
-  if (v18)
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v13 = self->_utraPrioInfos;
+  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v27 objects:v37 count:16];
+  if (v14)
   {
-    v19 = v18;
-    v20 = *v46;
+    v15 = v14;
+    v16 = *v28;
     do
     {
-      for (j = 0; j != v19; j = j + 1)
+      for (j = 0; j != v15; ++j)
       {
-        if (*v46 != v20)
+        if (*v28 != v16)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v13);
         }
 
-        v22 = *(*(&v45 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v45 objects:v55 count:16];
+      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v27 objects:v37 count:16];
     }
 
-    while (v19);
+    while (v15);
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v23 = self->_gsmPrioInfos;
-  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v41 objects:v54 count:16];
-  if (v24)
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v18 = self->_gsmPrioInfos;
+  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v23 objects:v36 count:16];
+  if (v19)
   {
-    v25 = v24;
-    v26 = *v42;
+    v20 = v19;
+    v21 = *v24;
     do
     {
-      for (k = 0; k != v25; k = k + 1)
+      for (k = 0; k != v20; ++k)
       {
-        if (*v42 != v26)
+        if (*v24 != v21)
         {
-          objc_enumerationMutation(v23);
+          objc_enumerationMutation(v18);
         }
 
-        v28 = *(*(&v41 + 1) + 8 * k);
         PBDataWriterWriteSubmessage();
       }
 
-      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v41 objects:v54 count:16];
+      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v23 objects:v36 count:16];
     }
 
-    while (v25);
+    while (v20);
   }
 
   if ((*&self->_has & 0x2000) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }

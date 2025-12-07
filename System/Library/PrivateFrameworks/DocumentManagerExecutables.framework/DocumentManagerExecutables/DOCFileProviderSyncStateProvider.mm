@@ -12,10 +12,11 @@
   v3 = v2();
   if (v3)
   {
-    v4 = v3;
+    v5 = v4;
+    v6 = v3;
     v3();
 
-    outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v4);
+    outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v6, v5);
   }
 
   else
@@ -30,10 +31,11 @@
   v3 = v2();
   if (v3)
   {
-    v4 = v3;
+    v5 = v4;
+    v6 = v3;
     v3();
 
-    outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v4);
+    outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v6, v5);
   }
 
   else

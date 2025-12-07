@@ -31,7 +31,7 @@
 
 - (id)evaluatePassword:(id)password
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   passwordCopy = password;
   if (([passwordCopy length] - 32) > 0xFFFFFFFFFFFFFFE0)
   {
@@ -41,11 +41,11 @@
     if (v8)
     {
       v10 = [(WBSPasswordPatternMatcher *)patternMatcher patternMatchesForPasscode:passwordCopy withWordListCollection:self->_passcodeWordListCollection];
+      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
-      v11 = [v10 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (!v11)
       {
         goto LABEL_15;
@@ -53,20 +53,20 @@
 
       v12 = v11;
       v13 = 0;
-      v14 = *v26;
+      v14 = *v25;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v26 != v14)
+          if (*v25 != v14)
           {
             objc_enumerationMutation(v10);
           }
 
-          v16 = *(*(&v25 + 1) + 8 * i);
+          v16 = *(*(&v24 + 1) + 8 * i);
           if (v13)
           {
-            [*(*(&v25 + 1) + 8 * i) guessesRequired];
+            [*(*(&v24 + 1) + 8 * i) guessesRequired];
             v18 = v17;
             [(WBSPasswordPatternMatchSolver *)v13 guessesRequired];
             if (v18 >= v19)
@@ -80,7 +80,7 @@
           v13 = v20;
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v12);
@@ -91,8 +91,8 @@ LABEL_15:
       }
 
       v21 = [WBSPasswordEvaluation alloc];
-      v29 = v13;
-      v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
+      v28 = v13;
+      v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
       [(WBSPasswordPatternMatchSolver *)v13 guessesRequired];
       optimalEvaluation = [(WBSPasswordEvaluation *)v21 initWithEvaluationType:1 password:passwordCopy patternMatches:v22 guessesRequired:?];
     }
@@ -112,8 +112,6 @@ LABEL_15:
     v5 = [WBSPasswordEvaluation alloc];
     optimalEvaluation = [(WBSPasswordEvaluation *)v5 initWithEvaluationType:2 password:passwordCopy patternMatches:MEMORY[0x1E695E0F0] guessesRequired:0.0];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return optimalEvaluation;
 }

@@ -45,40 +45,40 @@
   if (mesh)
   {
     v28 = mesh;
-    objc_msgSend_bufferInfo(v28, v29, v30, v31, v32);
+    objc_msgSend_bufferInfo(v28, v29, v30, v31);
 LABEL_9:
-    v42 = 0;
+    v40 = 0;
     goto LABEL_10;
   }
 
-  v33 = objc_loadWeakRetained(&self->super._parent);
-  objc_msgSend_regenerateForChild_(v33, v34, v35, v36, v37, self);
+  v32 = objc_loadWeakRetained(&self->super._parent);
+  objc_msgSend_regenerateForChild_(v32, v33, v34, v35, v36, self);
 
   v28 = self->_mesh;
   if (v28)
   {
-    objc_msgSend_bufferInfo(v28, v38, v39, v40, v41);
+    objc_msgSend_bufferInfo(v28, v37, v38, v39);
     goto LABEL_9;
   }
 
-  v64 = 0u;
-  v65 = 0u;
+  v62 = 0u;
   v63 = 0u;
-  v42 = 1;
+  v61 = 0u;
+  v40 = 1;
 LABEL_10:
-  *&self->super._bufferInfo.componentType = v63;
-  *&self->super._bufferInfo.count = v64;
-  *&self->super._bufferInfo.componentByteSize = v65;
+  *&self->super._bufferInfo.componentType = v61;
+  *&self->super._bufferInfo.count = v62;
+  *&self->super._bufferInfo.componentByteSize = v63;
   objc_sync_exit(v26);
 
-  if (v42)
+  if (v40)
   {
-    v47 = MEMORY[0x277D81150];
-    v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, v44, v45, v46, "[TSCH3DChartMeshSharedResource get]");
-    v53 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, v50, v51, v52, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartMeshResources.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v47, v54, v55, v56, v57, v48, v53, 148, 0, "invalid nil value for '%{public}s'", "result");
+    v45 = MEMORY[0x277D81150];
+    v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, v42, v43, v44, "[TSCH3DChartMeshSharedResource get]");
+    v51 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, v48, v49, v50, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartMeshResources.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v52, v53, v54, v55, v46, v51, 148, 0, "invalid nil value for '%{public}s'", "result");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v58, v59, v60, v61);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v56, v57, v58, v59);
   }
 
   return v28;

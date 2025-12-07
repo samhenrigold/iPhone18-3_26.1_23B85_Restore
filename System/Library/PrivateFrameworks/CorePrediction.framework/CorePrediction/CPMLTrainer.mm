@@ -48,13 +48,13 @@
 
 - (id)init:(id)init withModelDBPath:(id)path withPropertyList:(id)list
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   initCopy = init;
   pathCopy = path;
   listCopy = list;
-  v26.receiver = self;
-  v26.super_class = CPMLTrainer;
-  v11 = [(CPMLTrainer *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = CPMLTrainer;
+  v11 = [(CPMLTrainer *)&v25 init];
   if (v11)
   {
     v12 = [listCopy objectForKey:@"loggingMode"];
@@ -89,15 +89,15 @@
 
         [0 objectForKey:@"mapFunction"];
         v11->mapFunction = [objc_claimAutoreleasedReturnValue() isEqualToString:@"MAP_NORMALIZE"];
-        v24 = [0 objectForKey:@"serializeFunction"];
-        if ([v24 isEqualToString:@"PMML"])
+        v23 = [0 objectForKey:@"serializeFunction"];
+        if ([v23 isEqualToString:@"PMML"])
         {
           NSLog(&cfstr_PmmlNotImpleme.isa);
         }
 
         else
         {
-          if (![v24 isEqualToString:@"MMAP"])
+          if (![v23 isEqualToString:@"MMAP"])
           {
             operator new();
           }
@@ -125,7 +125,6 @@
     v19 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

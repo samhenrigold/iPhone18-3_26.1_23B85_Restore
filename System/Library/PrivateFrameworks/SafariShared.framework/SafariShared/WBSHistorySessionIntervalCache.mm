@@ -56,7 +56,7 @@
   return v4;
 }
 
-uint64_t __67__WBSHistorySessionIntervalCache_beginningOfSessionContainingTime___block_invoke(uint64_t a1)
+void *__67__WBSHistorySessionIntervalCache_beginningOfSessionContainingTime___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _beginningOfSessionContainingTime:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -74,7 +74,7 @@ uint64_t __67__WBSHistorySessionIntervalCache_beginningOfSessionContainingTime__
   }
 
   v8 = v5;
-  v9 = v5 - p_intervalCache->m_buffer;
+  v9 = v5 - *p_intervalCache;
   if (v6 - v5 == 8)
   {
     if ((v9 & 8) == 0)
@@ -108,15 +108,15 @@ uint64_t __67__WBSHistorySessionIntervalCache_beginningOfSessionContainingTime__
     goto LABEL_22;
   }
 
-  m_buffer = p_intervalCache->m_buffer;
+  v14 = *p_intervalCache;
   if (v12 != m_size)
   {
-    v15 = &m_buffer[m_size];
+    v15 = (v14 + 8 * m_size);
     v16 = v11 - 8 * m_size;
     v17 = v15;
     do
     {
-      v18 = *(v17-- - 1);
+      v18 = *--v17;
       *v15 = v18;
       v15 = v17;
       v16 += 8;
@@ -127,7 +127,7 @@ uint64_t __67__WBSHistorySessionIntervalCache_beginningOfSessionContainingTime__
 
   v19 = (m_size + 1);
   result = *v10;
-  *(m_buffer + v11) = *v10;
+  *(v14 + v11) = *v10;
   self->_intervalCache.m_size = v19;
   v20 = v12 + 1;
   if (v19 == self->_intervalCache.m_capacity)
@@ -149,15 +149,15 @@ LABEL_22:
 
   else
   {
-    v22 = p_intervalCache->m_buffer;
+    v22 = *p_intervalCache;
     if (v20 != v19)
     {
-      v23 = &v22[v19];
+      v23 = (v22 + 8 * v19);
       v24 = 8 * v12 - 8 * v19 + 8;
       v25 = v23;
       do
       {
-        v26 = *(v25-- - 1);
+        v26 = *--v25;
         *v23 = v26;
         v23 = v25;
         v24 += 8;
@@ -166,7 +166,7 @@ LABEL_22:
       while (v24);
     }
 
-    v22[v20] = *v21;
+    *(v22 + 8 * v20) = *v21;
     self->_intervalCache.m_size = v19 + 1;
     return v28;
   }

@@ -18,7 +18,7 @@
   return v3;
 }
 
-uint64_t __27__TFBundle_frameworkBundle__block_invoke()
+uint64_t __27__TFBundle_frameworkBundle__block_invoke(uint64_t a1, uint64_t a2)
 {
   frameworkBundle_frameworkBundle = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
 

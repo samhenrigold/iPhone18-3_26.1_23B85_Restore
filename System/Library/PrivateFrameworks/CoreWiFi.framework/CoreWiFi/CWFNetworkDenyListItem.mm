@@ -17,56 +17,56 @@
 
 - (CWFNetworkDenyListItem)initWithDenyListNetwork:(id)network
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   networkCopy = network;
-  v30.receiver = self;
-  v30.super_class = CWFNetworkDenyListItem;
-  v5 = [(CWFNetworkDenyListItem *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = CWFNetworkDenyListItem;
+  v5 = [(CWFNetworkDenyListItem *)&v29 init];
   if (!v5)
   {
-    v19 = CWFGetOSLog();
-    if (v19)
+    v18 = CWFGetOSLog();
+    if (v18)
     {
-      v20 = CWFGetOSLog();
+      v19 = CWFGetOSLog();
     }
 
     else
     {
-      v20 = MEMORY[0x1E69E9C10];
-      v25 = MEMORY[0x1E69E9C10];
+      v19 = MEMORY[0x1E69E9C10];
+      v24 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_34;
+      v30 = 136446210;
+      v31 = "[CWFNetworkDenyListItem initWithDenyListNetwork:]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v19, 16, "[corewifi] %{public}s self nil", &v30, 12);
     }
 
-    v31 = 136446210;
-    v32 = "[CWFNetworkDenyListItem initWithDenyListNetwork:]";
     goto LABEL_33;
   }
 
   if (!networkCopy)
   {
-    v21 = CWFGetOSLog();
-    if (v21)
+    v20 = CWFGetOSLog();
+    if (v20)
     {
-      v20 = CWFGetOSLog();
+      v19 = CWFGetOSLog();
     }
 
     else
     {
-      v20 = MEMORY[0x1E69E9C10];
-      v26 = MEMORY[0x1E69E9C10];
+      v19 = MEMORY[0x1E69E9C10];
+      v25 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_34;
+      v30 = 136446210;
+      v31 = "[CWFNetworkDenyListItem initWithDenyListNetwork:]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v19, 16, "[corewifi] %{public}s network nil", &v30, 12);
     }
 
-    v31 = 136446210;
-    v32 = "[CWFNetworkDenyListItem initWithDenyListNetwork:]";
     goto LABEL_33;
   }
 
@@ -76,25 +76,25 @@
 
   if (!v5->_denyListTriggers)
   {
-    v22 = CWFGetOSLog();
-    if (v22)
+    v21 = CWFGetOSLog();
+    if (v21)
     {
-      v20 = CWFGetOSLog();
+      v19 = CWFGetOSLog();
     }
 
     else
     {
-      v20 = MEMORY[0x1E69E9C10];
-      v27 = MEMORY[0x1E69E9C10];
+      v19 = MEMORY[0x1E69E9C10];
+      v26 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_34;
+      v30 = 136446210;
+      v31 = "[CWFNetworkDenyListItem initWithDenyListNetwork:]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v19, 16, "[corewifi] %{public}s Alloc failed: triggersList", &v30, 12);
     }
 
-    v31 = 136446210;
-    v32 = "[CWFNetworkDenyListItem initWithDenyListNetwork:]";
     goto LABEL_33;
   }
 
@@ -104,25 +104,25 @@
 
   if (!v5->_statesCurrent)
   {
-    v23 = CWFGetOSLog();
-    if (v23)
+    v22 = CWFGetOSLog();
+    if (v22)
     {
-      v20 = CWFGetOSLog();
+      v19 = CWFGetOSLog();
     }
 
     else
     {
-      v20 = MEMORY[0x1E69E9C10];
-      v28 = MEMORY[0x1E69E9C10];
+      v19 = MEMORY[0x1E69E9C10];
+      v27 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_34;
+      v30 = 136446210;
+      v31 = "[CWFNetworkDenyListItem initWithDenyListNetwork:]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v19, 16, "[corewifi] %{public}s Alloc failed: statesList", &v30, 12);
     }
 
-    v31 = 136446210;
-    v32 = "[CWFNetworkDenyListItem initWithDenyListNetwork:]";
     goto LABEL_33;
   }
 
@@ -132,28 +132,26 @@
 
   if (!v5->_statesHistory)
   {
-    v24 = CWFGetOSLog();
-    if (v24)
+    v23 = CWFGetOSLog();
+    if (v23)
     {
-      v20 = CWFGetOSLog();
+      v19 = CWFGetOSLog();
     }
 
     else
     {
-      v20 = MEMORY[0x1E69E9C10];
-      v29 = MEMORY[0x1E69E9C10];
+      v19 = MEMORY[0x1E69E9C10];
+      v28 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_34;
+      v30 = 136446210;
+      v31 = "[CWFNetworkDenyListItem initWithDenyListNetwork:]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v19, 16, "[corewifi] %{public}s Alloc failed: historyList", &v30, 12);
     }
 
-    v31 = 136446210;
-    v32 = "[CWFNetworkDenyListItem initWithDenyListNetwork:]";
 LABEL_33:
-    _os_log_send_and_compose_impl();
-LABEL_34:
 
     v16 = 0;
     goto LABEL_7;
@@ -170,7 +168,6 @@ LABEL_34:
   v16 = v5;
 LABEL_7:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -186,7 +183,7 @@ LABEL_7:
 
 - (void)addDenyListTrigger:(unint64_t)trigger reasonData:(int64_t)data BSSID:(id)d
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
   denyListTriggers = [(CWFNetworkDenyListItem *)self denyListTriggers];
   v10 = [denyListTriggers count];
@@ -223,8 +220,8 @@ LABEL_7:
 
   else
   {
-    v17 = CWFGetOSLog();
-    if (v17)
+    v16 = CWFGetOSLog();
+    if (v16)
     {
       v13 = CWFGetOSLog();
     }
@@ -232,16 +229,16 @@ LABEL_7:
     else
     {
       v13 = MEMORY[0x1E69E9C10];
-      v18 = MEMORY[0x1E69E9C10];
+      v17 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v18 = 136446210;
+      v19 = "[CWFNetworkDenyListItem addDenyListTrigger:reasonData:BSSID:]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 16, "[corewifi] %{public}s ev alloc failed", &v18, 12);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)containsNetwork:(id)network
@@ -259,34 +256,34 @@ LABEL_7:
 
 - (BOOL)hasDenyListState:(unint64_t)state
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   statesCurrent = [(CWFNetworkDenyListItem *)self statesCurrent];
-  v5 = [statesCurrent countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [statesCurrent countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(statesCurrent);
         }
 
-        if ([*(*(&v12 + 1) + 8 * i) state] == state)
+        if ([*(*(&v11 + 1) + 8 * i) state] == state)
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [statesCurrent countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [statesCurrent countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -299,7 +296,6 @@ LABEL_7:
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -314,7 +310,7 @@ LABEL_11:
 
 - (id)_copyCreateDenyListState:(unint64_t)state reason:(unint64_t)reason reasonData:(int64_t)data
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v8 = objc_alloc_init(CWFNetworkDenyListInfo);
   if (v8)
   {
@@ -333,8 +329,8 @@ LABEL_11:
 
   else
   {
-    v14 = CWFGetOSLog();
-    if (v14)
+    v13 = CWFGetOSLog();
+    if (v13)
     {
       v9 = CWFGetOSLog();
     }
@@ -342,27 +338,28 @@ LABEL_11:
     else
     {
       v9 = MEMORY[0x1E69E9C10];
-      v15 = MEMORY[0x1E69E9C10];
+      v14 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v15 = 136446210;
+      v16 = "[CWFNetworkDenyListItem _copyCreateDenyListState:reason:reasonData:]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[corewifi] %{public}s networkDenyListInfo alloc failed", &v15, 12);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)addDenyListState:(unint64_t)state reason:(unint64_t)reason reasonData:(int64_t)data
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v8 = [(CWFNetworkDenyListItem *)self _copyCreateDenyListState:state reason:reason reasonData:data];
   if (!v8)
   {
-    v39 = CWFGetOSLog();
-    if (v39)
+    v38 = CWFGetOSLog();
+    if (v38)
     {
       v12 = CWFGetOSLog();
     }
@@ -370,14 +367,14 @@ LABEL_11:
     else
     {
       v12 = MEMORY[0x1E69E9C10];
-      v40 = MEMORY[0x1E69E9C10];
+      v39 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v48 = 136446210;
-      v49 = "[CWFNetworkDenyListItem addDenyListState:reason:reasonData:]";
-      _os_log_send_and_compose_impl();
+      v47 = 136446210;
+      v48 = "[CWFNetworkDenyListItem addDenyListState:reason:reasonData:]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 16, "[corewifi] %{public}s Failed to add state", &v47, 12);
     }
 
     goto LABEL_31;
@@ -396,31 +393,31 @@ LABEL_11:
 
   if (v16)
   {
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     statesCurrent2 = [(CWFNetworkDenyListItem *)self statesCurrent];
-    v18 = [statesCurrent2 countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v18 = [statesCurrent2 countByEnumeratingWithState:&v42 objects:v46 count:16];
     if (v18)
     {
       v19 = v18;
-      v41 = bSSID;
-      v42 = v12;
+      v40 = bSSID;
+      v41 = v12;
       v20 = 0;
-      v21 = *v44;
+      v21 = *v43;
       while (2)
       {
         v22 = 0;
         v23 = v20;
         do
         {
-          if (*v44 != v21)
+          if (*v43 != v21)
           {
             objc_enumerationMutation(statesCurrent2);
           }
 
-          v20 = *(*(&v43 + 1) + 8 * v22);
+          v20 = *(*(&v42 + 1) + 8 * v22);
 
           state = [v20 state];
           if (state == [v8 state])
@@ -438,26 +435,26 @@ LABEL_11:
               v30 = MEMORY[0x1E69E9C10];
             }
 
-            bSSID = v41;
-            v12 = v42;
+            bSSID = v40;
+            v12 = v41;
 
             if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
             {
               v31 = CWFStringFromDenyListState(state);
               v32 = CWFStringFromDenyListAddReason(reason);
-              v48 = 136316418;
-              v49 = "[CWFNetworkDenyListItem addDenyListState:reason:reasonData:]";
-              v50 = 2114;
-              v51 = v42;
-              v52 = 2114;
-              v53 = v41;
-              v54 = 2114;
-              v55 = v31;
-              v56 = 2114;
-              v57 = v32;
-              v58 = 2048;
+              v47 = 136316418;
+              v48 = "[CWFNetworkDenyListItem addDenyListState:reason:reasonData:]";
+              v49 = 2114;
+              v50 = v41;
+              v51 = 2114;
+              v52 = v40;
+              v53 = 2114;
+              v54 = v31;
+              v55 = 2114;
+              v56 = v32;
+              v57 = 2048;
               reasonCopy3 = reason;
-              _os_log_send_and_compose_impl();
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v28, 16, "[corewifi] %s: '%{public}@[%{public}@]' was already %{public}@. Would have denyListed again due to %{public}@(%lu)", &v47, 62);
             }
 
             goto LABEL_30;
@@ -468,7 +465,7 @@ LABEL_11:
         }
 
         while (v19 != v22);
-        v19 = [statesCurrent2 countByEnumeratingWithState:&v43 objects:v47 count:16];
+        v19 = [statesCurrent2 countByEnumeratingWithState:&v42 objects:v46 count:16];
         if (v19)
         {
           continue;
@@ -477,8 +474,8 @@ LABEL_11:
         break;
       }
 
-      bSSID = v41;
-      v12 = v42;
+      bSSID = v40;
+      v12 = v41;
     }
 
     v25 = CWFGetOSLog();
@@ -500,18 +497,19 @@ LABEL_11:
 
     v34 = CWFStringFromDenyListState(state);
     v35 = CWFStringFromDenyListAddReason(reason);
-    v48 = 136316418;
-    v49 = "[CWFNetworkDenyListItem addDenyListState:reason:reasonData:]";
-    v50 = 2114;
-    v51 = v12;
-    v52 = 2114;
-    v53 = bSSID;
-    v54 = 2114;
-    v55 = v34;
-    v56 = 2114;
-    v57 = v35;
-    v58 = 2048;
+    v47 = 136316418;
+    v48 = "[CWFNetworkDenyListItem addDenyListState:reason:reasonData:]";
+    v49 = 2114;
+    v50 = v12;
+    v51 = 2114;
+    v52 = bSSID;
+    v53 = 2114;
+    v54 = v34;
+    v55 = 2114;
+    v56 = v35;
+    v57 = 2048;
     reasonCopy3 = reason;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v26, 16, "[corewifi] %s: DenyListing and adding '%{public}@[%{public}@]' to %{public}@ due to %{public}@(%lu)", &v47, 62);
     goto LABEL_28;
   }
 
@@ -531,20 +529,20 @@ LABEL_11:
   {
     v34 = CWFStringFromDenyListState(state);
     v35 = CWFStringFromDenyListAddReason(reason);
-    v48 = 136316418;
-    v49 = "[CWFNetworkDenyListItem addDenyListState:reason:reasonData:]";
-    v50 = 2114;
-    v51 = v12;
-    v52 = 2114;
-    v53 = bSSID;
-    v54 = 2114;
-    v55 = v34;
-    v56 = 2114;
-    v57 = v35;
-    v58 = 2048;
+    v47 = 136316418;
+    v48 = "[CWFNetworkDenyListItem addDenyListState:reason:reasonData:]";
+    v49 = 2114;
+    v50 = v12;
+    v51 = 2114;
+    v52 = bSSID;
+    v53 = 2114;
+    v54 = v34;
+    v55 = 2114;
+    v56 = v35;
+    v57 = 2048;
     reasonCopy3 = reason;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v26, 16, "[corewifi] %s: DenyListing and adding '%{public}@[%{public}@]' to %{public}@ due to %{public}@(%lu)", &v47, 62);
 LABEL_28:
-    _os_log_send_and_compose_impl();
   }
 
 LABEL_29:
@@ -556,12 +554,11 @@ LABEL_29:
 LABEL_30:
 
 LABEL_31:
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addDenyListStateHistory:(id)history state:(unint64_t)state reason:(unint64_t)reason reasonData:(int64_t)data
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   historyCopy = history;
   v11 = historyCopy;
   if (historyCopy)
@@ -597,8 +594,16 @@ LABEL_4:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v23 = CWFStringFromDenyListState(state);
-      v28 = CWFStringFromDenyListAddReason(reason);
-      _os_log_send_and_compose_impl();
+      v24 = CWFStringFromDenyListAddReason(reason);
+      v28 = 138544130;
+      v29 = v23;
+      v30 = 2114;
+      v31 = v16;
+      v32 = 2114;
+      v33 = v24;
+      v34 = 2048;
+      reasonCopy = reason;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v21, 16, "[corewifi] Adding to denyListHistory: %{public}@ for '%{public}@' due to %{public}@(%lu)", &v28, 42);
     }
 
     statesHistory3 = [(CWFNetworkDenyListItem *)self statesHistory];
@@ -627,17 +632,17 @@ LABEL_4:
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    _os_log_send_and_compose_impl();
+    v28 = 136446210;
+    v29 = "[CWFNetworkDenyListItem addDenyListStateHistory:state:reason:reasonData:]";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 16, "[corewifi] %{public}s Failed to add state to history", &v28, 12);
   }
 
 LABEL_12:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processDenyListedBSSForMetrics
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if (self->_denyListMetrics)
   {
     scanResultForNetworkDenyListItem = [(CWFNetworkDenyListItem *)self scanResultForNetworkDenyListItem];
@@ -648,32 +653,32 @@ LABEL_12:
     sSID = [scanResultForNetworkDenyListItem2 SSID];
     v7 = [v4 initWithData:sSID encoding:4];
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v8 = self->_denyListMetrics;
-    v33 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v34 objects:v44 count:16];
-    if (!v33)
+    v32 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v33 objects:v43 count:16];
+    if (!v32)
     {
 
       goto LABEL_19;
     }
 
-    v31 = 0;
+    HIDWORD(v30) = 0;
     v9 = @"ssid";
-    v10 = *v35;
+    v10 = *v34;
     v11 = @"prunedCount";
     while (1)
     {
-      for (i = 0; i != v33; ++i)
+      for (i = 0; i != v32; ++i)
       {
-        if (*v35 != v10)
+        if (*v34 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v34 + 1) + 8 * i);
+        v13 = *(*(&v33 + 1) + 8 * i);
         v14 = [v13 objectForKeyedSubscript:v9];
         if ([v14 isEqualToString:v7])
         {
@@ -711,17 +716,17 @@ LABEL_12:
 
           v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v24];
           [v13 setObject:v14 forKeyedSubscript:v11];
-          v31 = 1;
+          HIDWORD(v30) = 1;
         }
 
 LABEL_14:
       }
 
-      v33 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v34 objects:v44 count:16];
-      if (!v33)
+      v32 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v33 objects:v43 count:16];
+      if (!v32)
       {
 
-        if ((v31 & 1) == 0)
+        if ((v30 & 0x100000000) == 0)
         {
 LABEL_19:
           v25 = CWFGetOSLog();
@@ -738,13 +743,14 @@ LABEL_19:
 
           if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
-            v38 = 136446722;
-            v39 = "[CWFNetworkDenyListItem processDenyListedBSSForMetrics]";
-            v40 = 2114;
-            v41 = v7;
-            v42 = 2114;
-            v43 = bSSID;
-            _os_log_send_and_compose_impl();
+            v37 = 136446722;
+            v38 = "[CWFNetworkDenyListItem processDenyListedBSSForMetrics]";
+            v39 = 2114;
+            v40 = v7;
+            v41 = 2114;
+            v42 = bSSID;
+            LODWORD(v30) = 32;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v26, 16, "[corewifi] %{public}s Metric for %{public}@[%{public}@] not found!", &v37, v30);
           }
 
           goto LABEL_24;
@@ -755,8 +761,8 @@ LABEL_19:
     }
   }
 
-  v29 = CWFGetOSLog();
-  if (v29)
+  v28 = CWFGetOSLog();
+  if (v28)
   {
     v26 = CWFGetOSLog();
   }
@@ -764,14 +770,14 @@ LABEL_19:
   else
   {
     v26 = MEMORY[0x1E69E9C10];
-    v30 = MEMORY[0x1E69E9C10];
+    v29 = MEMORY[0x1E69E9C10];
   }
 
   if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
-    v38 = 136446210;
-    v39 = "[CWFNetworkDenyListItem processDenyListedBSSForMetrics]";
-    _os_log_send_and_compose_impl();
+    v37 = 136446210;
+    v38 = "[CWFNetworkDenyListItem processDenyListedBSSForMetrics]";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v26, 16, "[corewifi] %{public}s _denyListMetrics nil", &v37, 12);
   }
 
   v7 = 0;
@@ -779,7 +785,6 @@ LABEL_19:
 LABEL_24:
 
 LABEL_25:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processDenyListStateMetric:(id)metric denyListRemove:(BOOL)remove denyListRemoveReason:(unint64_t)reason
@@ -802,14 +807,14 @@ LABEL_25:
       v75 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_60;
+      v87 = 136446210;
+      v88 = "[CWFNetworkDenyListItem processDenyListStateMetric:denyListRemove:denyListRemoveReason:]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 16, "[corewifi] %{public}s denyListItem nil", &v87, 12);
     }
 
-    v87 = 136446210;
-    v88 = "[CWFNetworkDenyListItem processDenyListStateMetric:denyListRemove:denyListRemoveReason:]";
-    goto LABEL_55;
+    goto LABEL_60;
   }
 
   v8 = metricCopy;
@@ -833,18 +838,14 @@ LABEL_25:
         v76 = MEMORY[0x1E69E9C10];
       }
 
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_60;
+        v87 = 136446210;
+        v88 = "[CWFNetworkDenyListItem processDenyListStateMetric:denyListRemove:denyListRemoveReason:]";
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 16, "[corewifi] %{public}s _denyListMetrics alloc failed", &v87, 12);
       }
 
-      v87 = 136446210;
-      v88 = "[CWFNetworkDenyListItem processDenyListStateMetric:denyListRemove:denyListRemoveReason:]";
-LABEL_55:
-      _os_log_send_and_compose_impl();
-LABEL_60:
-      v8 = v84;
-      goto LABEL_38;
+      goto LABEL_60;
     }
   }
 
@@ -874,10 +875,12 @@ LABEL_60:
     {
       v87 = 136446210;
       v88 = "[CWFNetworkDenyListItem processDenyListStateMetric:denyListRemove:denyListRemoveReason:]";
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v71, 16, "[corewifi] %{public}s BSSID nil", &v87, 12);
     }
 
-    goto LABEL_60;
+LABEL_60:
+    v8 = v84;
+    goto LABEL_38;
   }
 
   if (!v16)
@@ -898,7 +901,7 @@ LABEL_60:
     {
       v87 = 136446210;
       v88 = "[CWFNetworkDenyListItem processDenyListStateMetric:denyListRemove:denyListRemoveReason:]";
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 16, "[corewifi] %{public}s ssid nil", &v87, 12);
     }
 
     goto LABEL_37;
@@ -960,7 +963,7 @@ LABEL_60:
       {
         v65 = [dictionary objectForKeyedSubscript:@"oui"];
         v66 = [dictionary objectForKeyedSubscript:@"reason"];
-        [dictionary objectForKeyedSubscript:@"denyListedSubreason"];
+        v67 = [dictionary objectForKeyedSubscript:@"denyListedSubreason"];
         v87 = 136447490;
         v88 = "[CWFNetworkDenyListItem processDenyListStateMetric:denyListRemove:denyListRemoveReason:]";
         v89 = 2114;
@@ -971,8 +974,10 @@ LABEL_60:
         v94 = v65;
         v95 = 2114;
         v96 = v66;
-        v98 = v97 = 2114;
-        _os_log_send_and_compose_impl();
+        v97 = 2114;
+        v98 = v67;
+        LODWORD(v81) = 62;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v63, 16, "[corewifi] %{public}s Begin capturing metric for %{public}@[%{public}@] - {oui:%{public}@ reason:%{public}@ denyListedSubreason:%{public}@}", &v87, v81);
       }
 
       [(NSMutableArray *)self->_denyListMetrics addObject:dictionary];
@@ -997,7 +1002,7 @@ LABEL_60:
       {
         v87 = 136446210;
         v88 = "[CWFNetworkDenyListItem processDenyListStateMetric:denyListRemove:denyListRemoveReason:]";
-        _os_log_send_and_compose_impl();
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v74, 16, "[corewifi] %{public}s ether_aton returns null. Invalid BSSID", &v87, 12);
       }
     }
 
@@ -1011,7 +1016,7 @@ LABEL_37:
   {
     for (i = 0; i < [(NSMutableArray *)self->_denyListMetrics count]; ++i)
     {
-      v18 = [(NSMutableArray *)self->_denyListMetrics objectAtIndex:i, v80, v81];
+      v18 = [(NSMutableArray *)self->_denyListMetrics objectAtIndex:i];
       v19 = [v18 objectForKeyedSubscript:@"state"];
       unsignedIntegerValue = [v19 unsignedIntegerValue];
       state = [v8 state];
@@ -1049,9 +1054,8 @@ LABEL_15:
             v94 = v16;
             v95 = 2114;
             v96 = v85;
-            LODWORD(v81) = 52;
-            v80 = &v87;
-            _os_log_send_and_compose_impl();
+            LODWORD(v80) = 52;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v36, 16, "[corewifi] %{public}s metric SSID:%{public}@ BSSID:%{public}@ doesnt match with denyListItem SSID:%{public}@ BSSID:%{public}@", &v87, v80);
 
             v8 = v84;
           }
@@ -1113,9 +1117,8 @@ LABEL_15:
           v96 = v42;
           v97 = 2114;
           v98 = v43;
-          LODWORD(v81) = 62;
-          v80 = &v87;
-          _os_log_send_and_compose_impl();
+          LODWORD(v80) = 62;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v34, 16, "[corewifi] %{public}s Finish capturing metric for %{public}@[%{public}@] - {duration:%{public}@ denyListRemoveReason:%{public}@ prunedCount:%{public}@}", &v87, v80);
 
           v8 = v84;
         }
@@ -1138,8 +1141,6 @@ LABEL_25:
 
   v16 = v85;
 LABEL_38:
-
-  v67 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqualToDenyListScanResult:(id)result

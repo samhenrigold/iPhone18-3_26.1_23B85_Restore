@@ -58,11 +58,11 @@
   [_action executeWithUndoManager:undoManager completionHandler:v5];
 }
 
-uint64_t __60__PXPhotoKitHideAssetsActionPerformer_performBackgroundTask__block_invoke(uint64_t result, char a2)
+id *__60__PXPhotoKitHideAssetsActionPerformer_performBackgroundTask__block_invoke(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) stopExcludingAssetsFromDataSource];
+    return [result[4] stopExcludingAssetsFromDataSource];
   }
 
   return result;

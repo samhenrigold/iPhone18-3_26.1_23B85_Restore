@@ -1331,7 +1331,7 @@ LABEL_23:
 LABEL_27:
       v23 = 2;
 LABEL_33:
-      v15 = [NSError errorWithDomain:@"CoreSpeech" code:v23 userInfo:0, *v30, *&v30[16]];
+      v15 = [NSError errorWithDomain:@"CoreSpeech" code:v23 userInfo:0, *v30, *&v30[8]];
       replyCopy[2](replyCopy, 0, v15);
 LABEL_40:
 

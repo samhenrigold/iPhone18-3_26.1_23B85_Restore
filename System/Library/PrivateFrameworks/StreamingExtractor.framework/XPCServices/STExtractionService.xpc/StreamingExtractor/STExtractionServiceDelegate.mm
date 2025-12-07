@@ -11,48 +11,47 @@
   v6 = proc_pidpath(processIdentifier, buffer, 0x1000u);
   if (v6 < 1)
   {
-    v9 = objc_claimAutoreleasedReturnValue([NSString stringWithFormat:@"Unknown Process Name (pid %d)", processIdentifier]);
+    v9 = [NSString stringWithFormat:@"Unknown Process Name (pid %d)", processIdentifier];
   }
 
   else
   {
     v7 = [[NSString alloc] initWithBytes:buffer length:v6 encoding:4];
-    v8 = objc_claimAutoreleasedReturnValue([v7 lastPathComponent]);
-    v9 = objc_claimAutoreleasedReturnValue([NSString stringWithFormat:@"%@ (pid %d)", v8, processIdentifier]);
+    lastPathComponent = [v7 lastPathComponent];
+    v9 = [NSString stringWithFormat:@"%@ (pid %d)", lastPathComponent, processIdentifier];
   }
 
   [connectionCopy processIdentifier];
   memset(buffer, 0, 32);
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
-  v10 = objc_claimAutoreleasedReturnValue([connectionCopy valueForEntitlement:@"com.apple.private.STRemoteExtractor.privileged"]);
+  v10 = [connectionCopy valueForEntitlement:@"com.apple.private.STRemoteExtractor.privileged"];
   if ([v10 BOOLValue])
   {
 
     goto LABEL_9;
   }
 
-  v11 = objc_claimAutoreleasedReturnValue([connectionCopy valueForEntitlement:@"com.apple.private.STRemoteExtractor"]);
-  bOOLValue = [v11 BOOLValue];
+  v13 = [connectionCopy valueForEntitlement:@"com.apple.private.STRemoteExtractor"];
+  bOOLValue = [v13 BOOLValue];
 
   if (bOOLValue)
   {
 LABEL_9:
-    v13 = sub_100000D08();
-    v14 = objc_claimAutoreleasedReturnValue(v13);
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100000D08(v11, v12);
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_28:
 
-      v20 = objc_claimAutoreleasedReturnValue([NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___STExtractionServiceProtocol]);
+      v20 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___STExtractionServiceProtocol];
       [connectionCopy setExportedInterface:v20];
 
       v21 = [[STExtractionService alloc] initForClient:v9 connection:connectionCopy];
       [connectionCopy setExportedObject:v21];
-      v22 = objc_claimAutoreleasedReturnValue([NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___STExtractionOriginatorProtocol]);
+      v22 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___STExtractionOriginatorProtocol];
       [connectionCopy setRemoteObjectInterface:v22];
 
       [v21 setXpcConnection:connectionCopy];
@@ -79,54 +78,53 @@ LABEL_28:
       goto LABEL_29;
     }
 
-    v15 = qos_class_self();
-    if (v15 > 20)
+    v16 = qos_class_self();
+    if (v16 > 20)
     {
-      switch(v15)
+      switch(v16)
       {
         case 0x15:
-          v16 = @"DEFAULT";
+          v17 = @"DEFAULT";
           goto LABEL_27;
         case 0x21:
-          v16 = @"USER_INTERACTIVE";
+          v17 = @"USER_INTERACTIVE";
           goto LABEL_27;
         case 0x19:
-          v16 = @"USER_INITIATED";
+          v17 = @"USER_INITIATED";
           goto LABEL_27;
       }
     }
 
     else
     {
-      switch(v15)
+      switch(v16)
       {
         case 0:
-          v16 = @"UNSPECIFIED";
+          v17 = @"UNSPECIFIED";
           goto LABEL_27;
         case 9:
-          v16 = @"BACKGROUND";
+          v17 = @"BACKGROUND";
           goto LABEL_27;
         case 0x11:
-          v16 = @"UTILITY";
+          v17 = @"UTILITY";
 LABEL_27:
           *buf = 136446722;
           v34 = "[STExtractionServiceDelegate listener:shouldAcceptNewConnection:]";
           v35 = 2112;
           v36 = v9;
           v37 = 2112;
-          v38 = v16;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: Got connection from process %@ at qos %@", buf, 0x20u);
+          v38 = v17;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}s: Got connection from process %@ at qos %@", buf, 0x20u);
 
           goto LABEL_28;
       }
     }
 
-    v16 = objc_claimAutoreleasedReturnValue([NSString stringWithFormat:@"UNKNOWN_QOS: 0x%x", v15]);
+    v17 = [NSString stringWithFormat:@"UNKNOWN_QOS: 0x%x", v16];
     goto LABEL_27;
   }
 
-  v17 = sub_100000D08();
-  v18 = objc_claimAutoreleasedReturnValue(v17);
+  v18 = sub_100000D08(v11, v12);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     sub_100003690(v9, v18);

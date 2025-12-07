@@ -16,7 +16,7 @@
 - (id)generateDerivedData
 {
   selfCopy = self;
-  v3 = sub_1C6C0C894();
+  v3 = sub_1C6C0C894(selfCopy);
 
   return v3;
 }
@@ -24,7 +24,7 @@
 - (id)aggregateStore
 {
   selfCopy = self;
-  v3 = sub_1C6C0C5F0();
+  v3 = sub_1C6C0C5F0(selfCopy);
   v5 = v4;
 
   v6 = v5;

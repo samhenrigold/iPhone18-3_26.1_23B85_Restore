@@ -65,7 +65,7 @@
 
 - (unint64_t)statusForCloudKitError:(id)error
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (!errorCopy)
   {
@@ -75,13 +75,13 @@
   v4 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
   {
-    v11 = v4;
-    *v13 = 138543618;
-    *&v13[4] = objc_opt_class();
-    *&v13[12] = 2114;
-    *&v13[14] = errorCopy;
-    v12 = *&v13[4];
-    _os_log_error_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_ERROR, "command type: %{public}@ encountered error: %{public}@", v13, 0x16u);
+    v10 = v4;
+    *v12 = 138543618;
+    *&v12[4] = objc_opt_class();
+    *&v12[12] = 2114;
+    *&v12[14] = errorCopy;
+    v11 = *&v12[4];
+    _os_log_error_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_ERROR, "command type: %{public}@ encountered error: %{public}@", v12, 0x16u);
   }
 
   if ([errorCopy fc_hasIdentityStillSyncingError])
@@ -130,7 +130,6 @@ LABEL_5:
   v5 = 2;
 LABEL_14:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

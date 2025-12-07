@@ -224,7 +224,6 @@
     goto LABEL_11;
   }
 
-  v8 = *(equalCopy + 32);
   if (*&self->_has)
   {
     if ((equalCopy[4] & 1) == 0 || self->_contents != *(equalCopy + 2))
@@ -241,17 +240,17 @@ LABEL_11:
   }
 
   encrypted = self->_encrypted;
-  v10 = equalCopy[2];
-  if (encrypted | v10 && !objc_msgSend_isEqual_(encrypted, v7, v10))
+  v9 = equalCopy[2];
+  if (encrypted | v9 && !objc_msgSend_isEqual_(encrypted, v7, v9))
   {
     goto LABEL_11;
   }
 
   value = self->_value;
-  v12 = equalCopy[3];
-  if (value | v12)
+  v11 = equalCopy[3];
+  if (value | v11)
   {
-    isEqual = objc_msgSend_isEqual_(value, v7, v12);
+    isEqual = objc_msgSend_isEqual_(value, v7, v11);
   }
 
   else

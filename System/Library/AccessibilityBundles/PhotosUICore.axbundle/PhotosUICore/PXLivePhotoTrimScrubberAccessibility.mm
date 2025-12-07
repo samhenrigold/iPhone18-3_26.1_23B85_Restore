@@ -132,7 +132,7 @@ id __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_2(u
 void __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_3(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained trimStartTime];
+  objc_msgSend_trimStartTime(WeakRetained);
   v3 = *(*(a1 + 32) + 8);
   *(v3 + 32) = v4;
   *(v3 + 48) = v5;
@@ -140,49 +140,49 @@ void __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_3
 
 uint64_t __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_4(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   v3 = a2;
   time.value = 0;
   *&time.timescale = &time;
   time.epoch = 0x3810000000;
-  v23 = "";
+  v21 = "";
+  v22 = 0;
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
-  v26 = 0;
-  v20[1] = MEMORY[0x29EDCA5F8];
-  v20[2] = 3221225472;
-  v20[3] = __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_5;
-  v20[4] = &unk_29F2E6458;
-  v20[5] = &time;
-  objc_copyWeak(&v21, (a1 + 48));
+  v18[1] = MEMORY[0x29EDCA5F8];
+  v18[2] = 3221225472;
+  v18[3] = __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_5;
+  v18[4] = &unk_29F2E6458;
+  v18[5] = &time;
+  objc_copyWeak(&v19, (a1 + 48));
   AXPerformSafeBlock();
-  v27 = *(*&time.timescale + 32);
-  objc_destroyWeak(&v21);
+  v25 = *(*&time.timescale + 32);
+  objc_destroyWeak(&v19);
   _Block_object_dispose(&time, 8);
   time.value = 0;
   *&time.timescale = &time;
   time.epoch = 0x3810000000;
-  v23 = "";
+  v21 = "";
+  v22 = 0;
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
-  v26 = 0;
-  v15 = MEMORY[0x29EDCA5F8];
-  v16 = 3221225472;
-  v17 = __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_6;
-  v18 = &unk_29F2E6458;
+  v13 = MEMORY[0x29EDCA5F8];
+  v14 = 3221225472;
+  v15 = __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_6;
+  v16 = &unk_29F2E6458;
   p_time = &time;
-  objc_copyWeak(v20, (a1 + 48));
+  objc_copyWeak(v18, (a1 + 48));
   AXPerformSafeBlock();
   v4 = *(*&time.timescale + 32);
   v5 = *(*&time.timescale + 40);
-  v28 = *(*&time.timescale + 44);
-  v29 = *(*&time.timescale + 52);
-  objc_destroyWeak(v20);
+  v26 = *(*&time.timescale + 44);
+  v27 = *(*&time.timescale + 52);
+  objc_destroyWeak(v18);
   _Block_object_dispose(&time, 8);
   time.value = v4;
-  *&time.flags = v28;
+  *&time.flags = v26;
   time.timescale = v5;
-  HIDWORD(time.epoch) = v29;
+  HIDWORD(time.epoch) = v27;
   if (CMTimeGetSeconds(&time) <= 60.0)
   {
     v6 = 0.1;
@@ -194,24 +194,22 @@ uint64_t __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invo
   }
 
   memset(&time, 0, sizeof(time));
-  v14 = v27;
-  Seconds = CMTimeGetSeconds(&v14);
+  v12 = v25;
+  Seconds = CMTimeGetSeconds(&v12);
   CMTimeMakeWithSeconds(&time, v6 + Seconds, v5);
-  objc_copyWeak(&v12, (a1 + 48));
-  v13 = time;
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 40);
+  objc_copyWeak(&v10, (a1 + 48));
+  v11 = time;
+  v9 = *(a1 + 40);
   AXPerformSafeBlock();
 
-  objc_destroyWeak(&v12);
-  v8 = *MEMORY[0x29EDCA608];
+  objc_destroyWeak(&v10);
   return 1;
 }
 
 void __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_5(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained trimStartTime];
+  objc_msgSend_trimStartTime(WeakRetained);
   v3 = *(*(a1 + 32) + 8);
   *(v3 + 32) = v4;
   *(v3 + 48) = v5;
@@ -220,7 +218,7 @@ void __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_5
 void __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_6(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained trimEndTime];
+  objc_msgSend_trimEndTime(WeakRetained);
   v3 = *(*(a1 + 32) + 8);
   *(v3 + 32) = v4;
   *(v3 + 48) = v5;
@@ -250,49 +248,49 @@ void __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_7
 
 uint64_t __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_8(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   v3 = a2;
   time.value = 0;
   *&time.timescale = &time;
   time.epoch = 0x3810000000;
-  v25 = "";
+  v23 = "";
+  v24 = 0;
+  v25 = 0;
   v26 = 0;
-  v27 = 0;
-  v28 = 0;
-  v22[1] = MEMORY[0x29EDCA5F8];
-  v22[2] = 3221225472;
-  v22[3] = __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_9;
-  v22[4] = &unk_29F2E6458;
-  v22[5] = &time;
-  objc_copyWeak(&v23, (a1 + 48));
+  v20[1] = MEMORY[0x29EDCA5F8];
+  v20[2] = 3221225472;
+  v20[3] = __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_9;
+  v20[4] = &unk_29F2E6458;
+  v20[5] = &time;
+  objc_copyWeak(&v21, (a1 + 48));
   AXPerformSafeBlock();
-  v29 = *(*&time.timescale + 32);
-  objc_destroyWeak(&v23);
+  v27 = *(*&time.timescale + 32);
+  objc_destroyWeak(&v21);
   _Block_object_dispose(&time, 8);
   time.value = 0;
   *&time.timescale = &time;
   time.epoch = 0x3810000000;
-  v25 = "";
+  v23 = "";
+  v24 = 0;
+  v25 = 0;
   v26 = 0;
-  v27 = 0;
-  v28 = 0;
-  v17 = MEMORY[0x29EDCA5F8];
-  v18 = 3221225472;
-  v19 = __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_10;
-  v20 = &unk_29F2E6458;
+  v15 = MEMORY[0x29EDCA5F8];
+  v16 = 3221225472;
+  v17 = __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_10;
+  v18 = &unk_29F2E6458;
   p_time = &time;
-  objc_copyWeak(v22, (a1 + 48));
+  objc_copyWeak(v20, (a1 + 48));
   AXPerformSafeBlock();
   v4 = *(*&time.timescale + 32);
   v5 = *(*&time.timescale + 40);
-  v30 = *(*&time.timescale + 44);
-  v31 = *(*&time.timescale + 52);
-  objc_destroyWeak(v22);
+  v28 = *(*&time.timescale + 44);
+  v29 = *(*&time.timescale + 52);
+  objc_destroyWeak(v20);
   _Block_object_dispose(&time, 8);
   time.value = v4;
   time.timescale = v5;
-  *&time.flags = v30;
-  HIDWORD(time.epoch) = v31;
+  *&time.flags = v28;
+  HIDWORD(time.epoch) = v29;
   if (CMTimeGetSeconds(&time) <= 60.0)
   {
     v6 = 0.1;
@@ -304,33 +302,31 @@ uint64_t __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invo
   }
 
   memset(&time, 0, sizeof(time));
-  v16 = v29;
-  Seconds = CMTimeGetSeconds(&v16);
+  v14 = v27;
+  Seconds = CMTimeGetSeconds(&v14);
   CMTimeMakeWithSeconds(&time, Seconds - v6, v5);
-  memset(&v16, 0, sizeof(v16));
-  CMTimeMakeWithSeconds(&v16, 0.0, v5);
+  memset(&v14, 0, sizeof(v14));
+  CMTimeMakeWithSeconds(&v14, 0.0, v5);
   time1 = time;
-  time2 = v16;
+  time2 = v14;
   if (CMTimeCompare(&time1, &time2) < 0)
   {
-    time = v16;
+    time = v14;
   }
 
-  objc_copyWeak(&v12, (a1 + 48));
-  v13 = time;
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 40);
+  objc_copyWeak(&v10, (a1 + 48));
+  v11 = time;
+  v9 = *(a1 + 40);
   AXPerformSafeBlock();
 
-  objc_destroyWeak(&v12);
-  v8 = *MEMORY[0x29EDCA608];
+  objc_destroyWeak(&v10);
   return 1;
 }
 
 void __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_9(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained trimStartTime];
+  objc_msgSend_trimStartTime(WeakRetained);
   v3 = *(*(a1 + 32) + 8);
   *(v3 + 32) = v4;
   *(v3 + 48) = v5;
@@ -339,7 +335,7 @@ void __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_9
 void __56__PXLivePhotoTrimScrubberAccessibility__loadStartTrimAX__block_invoke_10(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained trimEndTime];
+  objc_msgSend_trimEndTime(WeakRetained);
   v3 = *(*(a1 + 32) + 8);
   *(v3 + 32) = v4;
   *(v3 + 48) = v5;
@@ -456,7 +452,7 @@ id __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke_2(uin
 void __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke_3(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained trimEndTime];
+  objc_msgSend_trimEndTime(WeakRetained);
   v3 = *(*(a1 + 32) + 8);
   *(v3 + 32) = v4;
   *(v3 + 48) = v5;
@@ -464,49 +460,49 @@ void __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke_3(u
 
 uint64_t __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke_4(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v3 = a2;
   time.value = 0;
   *&time.timescale = &time;
   time.epoch = 0x3810000000;
-  v30 = "";
+  v28 = "";
+  v29 = 0;
+  v30 = 0;
   v31 = 0;
-  v32 = 0;
-  v33 = 0;
-  v23 = MEMORY[0x29EDCA5F8];
-  v24 = 3221225472;
-  v25 = __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke_5;
-  v26 = &unk_29F2E6458;
+  v21 = MEMORY[0x29EDCA5F8];
+  v22 = 3221225472;
+  v23 = __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke_5;
+  v24 = &unk_29F2E6458;
   p_time = &time;
-  objc_copyWeak(&v28, (a1 + 48));
+  objc_copyWeak(&v26, (a1 + 48));
   AXPerformSafeBlock();
   v4 = *(*&time.timescale + 32);
   v5 = *(*&time.timescale + 40);
-  v34 = *(*&time.timescale + 44);
-  v35 = *(*&time.timescale + 52);
-  objc_destroyWeak(&v28);
+  v32 = *(*&time.timescale + 44);
+  v33 = *(*&time.timescale + 52);
+  objc_destroyWeak(&v26);
   _Block_object_dispose(&time, 8);
   time.value = 0;
   *&time.timescale = &time;
   time.epoch = 0x3810000000;
-  v30 = "";
+  v28 = "";
+  v29 = 0;
+  v30 = 0;
   v31 = 0;
-  v32 = 0;
-  v33 = 0;
-  v16 = MEMORY[0x29EDCA5F8];
-  v17 = 3221225472;
-  v18 = __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke_6;
-  v19 = &unk_29F2E6458;
-  v20 = &time;
-  objc_copyWeak(&v21, (a1 + 48));
+  v14 = MEMORY[0x29EDCA5F8];
+  v15 = 3221225472;
+  v16 = __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke_6;
+  v17 = &unk_29F2E6458;
+  v18 = &time;
+  objc_copyWeak(&v19, (a1 + 48));
   AXPerformSafeBlock();
-  v22 = *(*&time.timescale + 32);
-  objc_destroyWeak(&v21);
+  v20 = *(*&time.timescale + 32);
+  objc_destroyWeak(&v19);
   _Block_object_dispose(&time, 8);
   time.value = v4;
   time.timescale = v5;
-  *&time.flags = v34;
-  HIDWORD(time.epoch) = v35;
+  *&time.flags = v32;
+  HIDWORD(time.epoch) = v33;
   if (CMTimeGetSeconds(&time) <= 60.0)
   {
     v6 = 0.1;
@@ -520,32 +516,30 @@ uint64_t __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke
   memset(&time, 0, sizeof(time));
   time1.value = v4;
   time1.timescale = v5;
-  *&time1.flags = v34;
-  HIDWORD(time1.epoch) = v35;
+  *&time1.flags = v32;
+  HIDWORD(time1.epoch) = v33;
   Seconds = CMTimeGetSeconds(&time1);
   CMTimeMakeWithSeconds(&time, v6 + Seconds, v5);
   time1 = time;
-  time2 = v22;
+  time2 = v20;
   if (CMTimeCompare(&time1, &time2) >= 1)
   {
-    time = v22;
+    time = v20;
   }
 
-  objc_copyWeak(&v12, (a1 + 48));
-  v13 = time;
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 40);
+  objc_copyWeak(&v10, (a1 + 48));
+  v11 = time;
+  v9 = *(a1 + 40);
   AXPerformSafeBlock();
 
-  objc_destroyWeak(&v12);
-  v8 = *MEMORY[0x29EDCA608];
+  objc_destroyWeak(&v10);
   return 1;
 }
 
 void __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke_5(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained trimEndTime];
+  objc_msgSend_trimEndTime(WeakRetained);
   v3 = *(*(a1 + 32) + 8);
   *(v3 + 32) = v4;
   *(v3 + 48) = v5;
@@ -554,7 +548,7 @@ void __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke_5(u
 void __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke_6(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained untrimmedDuration];
+  objc_msgSend_untrimmedDuration(WeakRetained);
   v3 = *(*(a1 + 32) + 8);
   *(v3 + 32) = v4;
   *(v3 + 48) = v5;
@@ -584,32 +578,32 @@ void __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke_7(u
 
 uint64_t __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke_8(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   v3 = a2;
   time.value = 0;
   *&time.timescale = &time;
   time.epoch = 0x3810000000;
-  v22 = "";
+  v20 = "";
+  v21 = 0;
+  v22 = 0;
   v23 = 0;
-  v24 = 0;
-  v25 = 0;
-  v15 = MEMORY[0x29EDCA5F8];
-  v16 = 3221225472;
-  v17 = __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke_9;
-  v18 = &unk_29F2E6458;
+  v13 = MEMORY[0x29EDCA5F8];
+  v14 = 3221225472;
+  v15 = __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke_9;
+  v16 = &unk_29F2E6458;
   p_time = &time;
-  objc_copyWeak(&v20, (a1 + 48));
+  objc_copyWeak(&v18, (a1 + 48));
   AXPerformSafeBlock();
   v4 = *(*&time.timescale + 32);
   v5 = *(*&time.timescale + 40);
-  v26 = *(*&time.timescale + 44);
-  v27 = *(*&time.timescale + 52);
-  objc_destroyWeak(&v20);
+  v24 = *(*&time.timescale + 44);
+  v25 = *(*&time.timescale + 52);
+  objc_destroyWeak(&v18);
   _Block_object_dispose(&time, 8);
   time.value = v4;
-  *&time.flags = v26;
+  *&time.flags = v24;
   time.timescale = v5;
-  HIDWORD(time.epoch) = v27;
+  HIDWORD(time.epoch) = v25;
   if (CMTimeGetSeconds(&time) <= 60.0)
   {
     v6 = 0.1;
@@ -621,27 +615,25 @@ uint64_t __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke
   }
 
   memset(&time, 0, sizeof(time));
-  v14.value = v4;
-  v14.timescale = v5;
-  *&v14.flags = v26;
-  HIDWORD(v14.epoch) = v27;
-  Seconds = CMTimeGetSeconds(&v14);
+  v12.value = v4;
+  v12.timescale = v5;
+  *&v12.flags = v24;
+  HIDWORD(v12.epoch) = v25;
+  Seconds = CMTimeGetSeconds(&v12);
   CMTimeMakeWithSeconds(&time, Seconds - v6, v5);
-  objc_copyWeak(&v12, (a1 + 48));
-  v13 = time;
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 40);
+  objc_copyWeak(&v10, (a1 + 48));
+  v11 = time;
+  v9 = *(a1 + 40);
   AXPerformSafeBlock();
 
-  objc_destroyWeak(&v12);
-  v8 = *MEMORY[0x29EDCA608];
+  objc_destroyWeak(&v10);
   return 1;
 }
 
 void __54__PXLivePhotoTrimScrubberAccessibility__loadEndTrimAX__block_invoke_9(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained trimEndTime];
+  objc_msgSend_trimEndTime(WeakRetained);
   v3 = *(*(a1 + 32) + 8);
   *(v3 + 32) = v4;
   *(v3 + 48) = v5;
@@ -737,7 +729,7 @@ id __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke(uint
 void __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained keyTime];
+  objc_msgSend_keyTime(WeakRetained);
   v3 = *(*(a1 + 32) + 8);
   *(v3 + 32) = v4;
   *(v3 + 48) = v5;
@@ -749,38 +741,38 @@ BOOL __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_3(
   time.value = 0;
   *&time.timescale = &time;
   time.epoch = 0x3810000000;
-  v28 = "";
+  v27 = "";
+  v28 = 0;
   v29 = 0;
   v30 = 0;
-  v31 = 0;
-  v21 = MEMORY[0x29EDCA5F8];
-  v22 = 3221225472;
-  v23 = __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_4;
-  v24 = &unk_29F2E6458;
+  v20 = MEMORY[0x29EDCA5F8];
+  v21 = 3221225472;
+  v22 = __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_4;
+  v23 = &unk_29F2E6458;
   p_time = &time;
-  objc_copyWeak(&v26, (a1 + 48));
+  objc_copyWeak(&v25, (a1 + 48));
   AXPerformSafeBlock();
-  v32 = *(*&time.timescale + 32);
-  objc_destroyWeak(&v26);
+  v31 = *(*&time.timescale + 32);
+  objc_destroyWeak(&v25);
   _Block_object_dispose(&time, 8);
   time.value = 0;
   *&time.timescale = &time;
   time.epoch = 0x3810000000;
-  v28 = "";
+  v27 = "";
+  v28 = 0;
   v29 = 0;
   v30 = 0;
-  v31 = 0;
-  v14 = MEMORY[0x29EDCA5F8];
-  v15 = 3221225472;
-  v16 = __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_5;
-  v17 = &unk_29F2E6458;
-  v18 = &time;
-  objc_copyWeak(&v19, (a1 + 48));
+  v13 = MEMORY[0x29EDCA5F8];
+  v14 = 3221225472;
+  v15 = __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_5;
+  v16 = &unk_29F2E6458;
+  v17 = &time;
+  objc_copyWeak(&v18, (a1 + 48));
   AXPerformSafeBlock();
-  v20 = *(*&time.timescale + 32);
-  objc_destroyWeak(&v19);
+  v19 = *(*&time.timescale + 32);
+  objc_destroyWeak(&v18);
   _Block_object_dispose(&time, 8);
-  time = v20;
+  time = v19;
   if (CMTimeGetSeconds(&time) <= 60.0)
   {
     v4 = 0.1;
@@ -792,28 +784,27 @@ BOOL __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_3(
   }
 
   memset(&time, 0, sizeof(time));
-  time1 = v32;
+  time1 = v31;
   Seconds = CMTimeGetSeconds(&time1);
   CMTimeMake(&time, ((v4 + Seconds) * 1000.0), 1000);
   time1 = time;
-  time2 = v20;
+  time2 = v19;
   if (CMTimeCompare(&time1, &time2) >= 1)
   {
-    time = v20;
+    time = v19;
   }
 
   time1 = time;
-  time2 = v20;
+  time2 = v19;
   v6 = CMTimeCompare(&time1, &time2);
   if (v6 <= 0)
   {
-    objc_copyWeak(&v10, (a1 + 48));
-    v11 = time;
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
+    objc_copyWeak(&v9, (a1 + 48));
+    v10 = time;
+    v8 = *(a1 + 40);
     AXPerformSafeBlock();
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v9);
   }
 
   return v6 < 1;
@@ -822,7 +813,7 @@ BOOL __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_3(
 void __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_4(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained keyTime];
+  objc_msgSend_keyTime(WeakRetained);
   v3 = *(*(a1 + 32) + 8);
   *(v3 + 32) = v4;
   *(v3 + 48) = v5;
@@ -831,7 +822,7 @@ void __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_4(
 void __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_5(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained trimEndTime];
+  objc_msgSend_trimEndTime(WeakRetained);
   v3 = *(*(a1 + 32) + 8);
   *(v3 + 32) = v4;
   *(v3 + 48) = v5;
@@ -868,38 +859,38 @@ BOOL __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_7(
   time.value = 0;
   *&time.timescale = &time;
   time.epoch = 0x3810000000;
-  v35 = "";
+  v34 = "";
+  v35 = 0;
   v36 = 0;
   v37 = 0;
-  v38 = 0;
-  v28 = MEMORY[0x29EDCA5F8];
-  v29 = 3221225472;
-  v30 = __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_8;
-  v31 = &unk_29F2E6458;
+  v27 = MEMORY[0x29EDCA5F8];
+  v28 = 3221225472;
+  v29 = __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_8;
+  v30 = &unk_29F2E6458;
   p_time = &time;
-  objc_copyWeak(&v33, (a1 + 48));
+  objc_copyWeak(&v32, (a1 + 48));
   AXPerformSafeBlock();
-  v39 = *(*&time.timescale + 32);
-  objc_destroyWeak(&v33);
+  v38 = *(*&time.timescale + 32);
+  objc_destroyWeak(&v32);
   _Block_object_dispose(&time, 8);
   time.value = 0;
   *&time.timescale = &time;
   time.epoch = 0x3810000000;
-  v35 = "";
+  v34 = "";
+  v35 = 0;
   v36 = 0;
   v37 = 0;
-  v38 = 0;
-  v21 = MEMORY[0x29EDCA5F8];
-  v22 = 3221225472;
-  v23 = __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_9;
-  v24 = &unk_29F2E6458;
-  v25 = &time;
-  objc_copyWeak(&v26, (a1 + 48));
+  v20 = MEMORY[0x29EDCA5F8];
+  v21 = 3221225472;
+  v22 = __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_9;
+  v23 = &unk_29F2E6458;
+  v24 = &time;
+  objc_copyWeak(&v25, (a1 + 48));
   AXPerformSafeBlock();
-  v27 = *(*&time.timescale + 32);
-  objc_destroyWeak(&v26);
+  v26 = *(*&time.timescale + 32);
+  objc_destroyWeak(&v25);
   _Block_object_dispose(&time, 8);
-  time = v27;
+  time = v26;
   if (CMTimeGetSeconds(&time) <= 60.0)
   {
     v4 = 0.1;
@@ -910,46 +901,45 @@ BOOL __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_7(
     v4 = 1.0;
   }
 
-  memset(&v20, 0, sizeof(v20));
-  time = v39;
+  memset(&v19, 0, sizeof(v19));
+  time = v38;
   Seconds = CMTimeGetSeconds(&time);
-  CMTimeMake(&v20, ((Seconds - v4) * 1000.0), 1000);
+  CMTimeMake(&v19, ((Seconds - v4) * 1000.0), 1000);
   time.value = 0;
   *&time.timescale = &time;
   time.epoch = 0x3810000000;
-  v35 = "";
+  v34 = "";
+  v35 = 0;
   v36 = 0;
   v37 = 0;
-  v38 = 0;
-  v13 = MEMORY[0x29EDCA5F8];
-  v14 = 3221225472;
-  v15 = __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_10;
-  v16 = &unk_29F2E6458;
-  v17 = &time;
-  objc_copyWeak(&v18, (a1 + 48));
+  v12 = MEMORY[0x29EDCA5F8];
+  v13 = 3221225472;
+  v14 = __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_10;
+  v15 = &unk_29F2E6458;
+  v16 = &time;
+  objc_copyWeak(&v17, (a1 + 48));
   AXPerformSafeBlock();
-  v19 = *(*&time.timescale + 32);
-  objc_destroyWeak(&v18);
+  v18 = *(*&time.timescale + 32);
+  objc_destroyWeak(&v17);
   _Block_object_dispose(&time, 8);
-  time = v20;
-  time2 = v19;
+  time = v19;
+  time2 = v18;
   if (CMTimeCompare(&time, &time2) < 0)
   {
-    v20 = v19;
+    v19 = v18;
   }
 
-  time = v20;
-  time2 = v19;
+  time = v19;
+  time2 = v18;
   v6 = CMTimeCompare(&time, &time2);
   if ((v6 & 0x80000000) == 0)
   {
-    objc_copyWeak(&v10, (a1 + 48));
-    v11 = v20;
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
+    objc_copyWeak(&v9, (a1 + 48));
+    v10 = v19;
+    v8 = *(a1 + 40);
     AXPerformSafeBlock();
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v9);
   }
 
   return v6 >= 0;
@@ -958,7 +948,7 @@ BOOL __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_7(
 void __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_8(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained keyTime];
+  objc_msgSend_keyTime(WeakRetained);
   v3 = *(*(a1 + 32) + 8);
   *(v3 + 32) = v4;
   *(v3 + 48) = v5;
@@ -967,7 +957,7 @@ void __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_8(
 void __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_9(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained trimEndTime];
+  objc_msgSend_trimEndTime(WeakRetained);
   v3 = *(*(a1 + 32) + 8);
   *(v3 + 32) = v4;
   *(v3 + 48) = v5;
@@ -976,7 +966,7 @@ void __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_9(
 void __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_10(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained trimStartTime];
+  objc_msgSend_trimStartTime(WeakRetained);
   v3 = *(*(a1 + 32) + 8);
   *(v3 + 32) = v4;
   *(v3 + 48) = v5;
@@ -1076,33 +1066,33 @@ void __55__PXLivePhotoTrimScrubberAccessibility__loadKeyFrameAX__block_invoke_11
   return v6;
 }
 
-double __58__PXLivePhotoTrimScrubberAccessibility_accessibilityValue__block_invoke(uint64_t a1)
+double __58__PXLivePhotoTrimScrubberAccessibility_accessibilityValue__block_invoke(uint64_t a1, const char *a2)
 {
-  [*(a1 + 32) trimStartTime];
-  v2 = *(*(a1 + 40) + 8);
-  result = *&v4;
-  *(v2 + 32) = v4;
-  *(v2 + 48) = v5;
+  objc_msgSend_trimStartTime(*(a1 + 32), a2);
+  v3 = *(*(a1 + 40) + 8);
+  result = *&v5;
+  *(v3 + 32) = v5;
+  *(v3 + 48) = v6;
   return result;
 }
 
-double __58__PXLivePhotoTrimScrubberAccessibility_accessibilityValue__block_invoke_2(uint64_t a1)
+double __58__PXLivePhotoTrimScrubberAccessibility_accessibilityValue__block_invoke_2(uint64_t a1, const char *a2)
 {
-  [*(a1 + 32) trimEndTime];
-  v2 = *(*(a1 + 40) + 8);
-  result = *&v4;
-  *(v2 + 32) = v4;
-  *(v2 + 48) = v5;
+  objc_msgSend_trimEndTime(*(a1 + 32), a2);
+  v3 = *(*(a1 + 40) + 8);
+  result = *&v5;
+  *(v3 + 32) = v5;
+  *(v3 + 48) = v6;
   return result;
 }
 
-double __58__PXLivePhotoTrimScrubberAccessibility_accessibilityValue__block_invoke_3(uint64_t a1)
+double __58__PXLivePhotoTrimScrubberAccessibility_accessibilityValue__block_invoke_3(uint64_t a1, const char *a2)
 {
-  [*(a1 + 32) keyTime];
-  v2 = *(*(a1 + 40) + 8);
-  result = *&v4;
-  *(v2 + 32) = v4;
-  *(v2 + 48) = v5;
+  objc_msgSend_keyTime(*(a1 + 32), a2);
+  v3 = *(*(a1 + 40) + 8);
+  result = *&v5;
+  *(v3 + 32) = v5;
+  *(v3 + 48) = v6;
   return result;
 }
 

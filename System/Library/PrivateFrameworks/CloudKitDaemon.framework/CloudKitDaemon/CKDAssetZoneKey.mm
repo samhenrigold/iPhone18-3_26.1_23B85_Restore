@@ -100,7 +100,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v23 = 1;
+    v15 = 1;
   }
 
   else
@@ -110,39 +110,24 @@
     {
       v5 = equalCopy;
       destinationDatabaseScope = self->_destinationDatabaseScope;
-      if (destinationDatabaseScope != objc_msgSend_destinationDatabaseScope(v5, v7, v8))
+      if (destinationDatabaseScope == objc_msgSend_destinationDatabaseScope(v5, v7, v8) && (sourceDatabaseScope = self->_sourceDatabaseScope, sourceDatabaseScope == objc_msgSend_sourceDatabaseScope(v5, v9, v10)) && (isPackageRereference = self->_isPackageRereference, isPackageRereference == objc_msgSend_isPackageRereference(v5, v12, v13)) && CKObjectsAreBothNilOrEqual() && CKObjectsAreBothNilOrEqual() && CKObjectsAreBothNilOrEqual())
       {
-        goto LABEL_12;
-      }
-
-      sourceDatabaseScope = self->_sourceDatabaseScope;
-      if (sourceDatabaseScope != objc_msgSend_sourceDatabaseScope(v5, v9, v10))
-      {
-        goto LABEL_12;
-      }
-
-      isPackageRereference = self->_isPackageRereference;
-      if (isPackageRereference == objc_msgSend_isPackageRereference(v5, v12, v13) && (destinationZoneID = self->_destinationZoneID, v16 = v5->_destinationZoneID, CKObjectsAreBothNilOrEqual()) && (sourceZoneID = self->_sourceZoneID, v18 = v5->_sourceZoneID, CKObjectsAreBothNilOrEqual()) && (cloneContext = self->_cloneContext, v20 = v5->_cloneContext, CKObjectsAreBothNilOrEqual()))
-      {
-        useMMCSEncryptionV2 = self->_useMMCSEncryptionV2;
-        v22 = v5->_useMMCSEncryptionV2;
-        v23 = CKObjectsAreBothNilOrEqual();
+        v15 = CKObjectsAreBothNilOrEqual();
       }
 
       else
       {
-LABEL_12:
-        v23 = 0;
+        v15 = 0;
       }
     }
 
     else
     {
-      v23 = 0;
+      v15 = 0;
     }
   }
 
-  return v23;
+  return v15;
 }
 
 @end

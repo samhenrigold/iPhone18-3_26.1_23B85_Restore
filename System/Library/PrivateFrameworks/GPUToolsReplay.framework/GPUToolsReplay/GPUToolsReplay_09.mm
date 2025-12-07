@@ -1,27 +1,26 @@
-void *sub_24D7C6FE8(void *result, void *a2, __int16 a3)
+void sub_24D7C6FE8(uint64_t result, void *a2, __int16 a3)
 {
   v11 = a3;
   if (*(result + 624) == 1)
   {
-    v3 = result;
     sub_24D7A1734(result, a2);
-    if (*(v3 + 624) == 1)
+    if (*(result + 624) == 1)
     {
-      v4 = sub_24D790464(v3, (*(v3 + 616) - 1)) & 3;
+      v4 = sub_24D790464(result, (*(result + 616) - 1)) & 3;
       if (v4 > 1)
       {
         if (v4 == 2)
         {
-          v5 = *(v3 + 560) + *(v3 + 552) - 1;
-          v6 = *(*(v3 + 528) + ((v5 >> 9) & 0x7FFFFFFFFFFFF8));
+          v5 = *(result + 560) + *(result + 552) - 1;
+          v6 = *(*(result + 528) + ((v5 >> 9) & 0x7FFFFFFFFFFFF8));
           v7 = v5 & 0xFFF;
           v8 = *(v6 + v7) & 0xCF;
         }
 
         else
         {
-          v10 = *(v3 + 560) + *(v3 + 552) - 1;
-          v6 = *(*(v3 + 528) + ((v10 >> 9) & 0x7FFFFFFFFFFFF8));
+          v10 = *(result + 560) + *(result + 552) - 1;
+          v6 = *(*(result + 528) + ((v10 >> 9) & 0x7FFFFFFFFFFFF8));
           v7 = v10 & 0xFFF;
           v8 = *(v6 + v7) & 0x3F;
         }
@@ -32,12 +31,12 @@ void *sub_24D7C6FE8(void *result, void *a2, __int16 a3)
         if (!v4)
         {
           v12 = -4;
-          sub_24D7A19A8(v3 + 520, &v12);
-          return sub_24D7A18F0(v3, &v11);
+          sub_24D7A19A8(result + 520, &v12);
+          goto LABEL_11;
         }
 
-        v9 = *(v3 + 560) + *(v3 + 552) - 1;
-        v6 = *(*(v3 + 528) + ((v9 >> 9) & 0x7FFFFFFFFFFFF8));
+        v9 = *(result + 560) + *(result + 552) - 1;
+        v6 = *(*(result + 528) + ((v9 >> 9) & 0x7FFFFFFFFFFFF8));
         v7 = v9 & 0xFFF;
         v8 = *(v6 + v7) & 0xF3;
       }
@@ -45,71 +44,67 @@ void *sub_24D7C6FE8(void *result, void *a2, __int16 a3)
       *(v6 + v7) = v8;
     }
 
-    return sub_24D7A18F0(v3, &v11);
+LABEL_11:
+    sub_24D7A18F0(result, &v11);
   }
-
-  return result;
 }
 
-void *sub_24D7C710C(uint64_t a1, _BYTE *a2)
+void sub_24D7C710C(uint64_t a1, _BYTE *a2)
 {
   if (!*(a1 + 88))
   {
     v4 = *(a1 + 96);
     if (v4)
     {
-      v6 = 0;
-      sub_24D7A11AC((a1 + 48), v4, &v6);
+      v5 = 0;
+      sub_24D7A11AC((a1 + 48), v4, &v5);
     }
   }
 
-  return sub_24D7C7168(a1, a2);
+  sub_24D7C7168(a1, a2);
 }
 
-void *sub_24D7C7168(void *result, _BYTE *a2)
+void sub_24D7C7168(unint64_t *result, _BYTE *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 9) - 1;
+    v6 = ((v4 - v5) << 9) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = sub_24D7C71F0(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    sub_24D7C71F0(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 9) & 0x7FFFFFFFFFFFF8)) + (v9 & 0xFFF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 9) & 0x7FFFFFFFFFFFF8)) + (v8 & 0xFFF)) = *a2;
+  result[5] = v7 + 1;
 }
 
-void *sub_24D7C71F0(void *a1)
+void sub_24D7C71F0(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x1000;
   v3 = v1 - 4096;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -117,28 +112,28 @@ void *sub_24D7C71F0(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    sub_24D79EB50(a1, v9);
+    v10 = a1;
+    sub_24D79EB50(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return sub_24D79E728(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  sub_24D79E728(a1, &v9);
 }
 
-uint64_t *sub_24D7C7364(uint64_t a1, unsigned int a2, char *a3)
+void *sub_24D7C7364(uint64_t a1, unsigned int a2, char *a3)
 {
   if (!*(a1 + 88))
   {
@@ -166,14 +161,14 @@ uint64_t *sub_24D7C7364(uint64_t a1, unsigned int a2, char *a3)
   return sub_24D7C7400(a1, v9, v10, a2, a3);
 }
 
-uint64_t *sub_24D7C7400(const void **a1, char *a2, uint64_t a3, unint64_t a4, char *a5)
+void *sub_24D7C7400(unint64_t *a1, char *a2, uint64_t a3, unint64_t a4, char *a5)
 {
   v6 = a4;
   v8 = a1[4];
   v9 = v8 >> 12;
   v10 = a1[1];
   v11 = a1[2];
-  v12 = &v10[8 * (v8 >> 12)];
+  v12 = (v10 + 8 * (v8 >> 12));
   if (v11 == v10)
   {
     v13 = 0;
@@ -195,7 +190,7 @@ uint64_t *sub_24D7C7400(const void **a1, char *a2, uint64_t a3, unint64_t a4, ch
   }
 
   v15 = a1[5];
-  if (v14 >= &v15[-v14])
+  if (v14 >= v15 - v14)
   {
     v18 = ((v11 - v10) << 9) - 1;
     if (v11 == v10)
@@ -203,7 +198,7 @@ uint64_t *sub_24D7C7400(const void **a1, char *a2, uint64_t a3, unint64_t a4, ch
       v18 = 0;
     }
 
-    v19 = &v15[v8];
+    v19 = v8 + v15;
     v20 = v18 - v19;
     if (a4 > v20)
     {
@@ -211,10 +206,10 @@ uint64_t *sub_24D7C7400(const void **a1, char *a2, uint64_t a3, unint64_t a4, ch
       v15 = a1[5];
       v10 = a1[1];
       v11 = a1[2];
-      v19 = &v15[a1[4]];
+      v19 = a1[4] + v15;
     }
 
-    v21 = &v10[8 * (v19 >> 12)];
+    v21 = v10 + 8 * (v19 >> 12);
     if (v11 == v10)
     {
       v22 = 0;
@@ -222,14 +217,14 @@ uint64_t *sub_24D7C7400(const void **a1, char *a2, uint64_t a3, unint64_t a4, ch
 
     else
     {
-      v22 = &(*v21)[v19 & 0xFFF];
+      v22 = (*v21 + (v19 & 0xFFF));
     }
 
-    v59 = &v10[8 * (v19 >> 12)];
+    v59 = (v10 + 8 * (v19 >> 12));
     v60 = v22;
-    v36 = &v15[-v14];
-    v37 = v6 - &v15[-v14];
-    if (v6 > &v15[-v14])
+    v36 = v15 - v14;
+    v37 = v6 - (v15 - v14);
+    if (v6 > v15 - v14)
     {
       v38 = *a5;
       v39 = *v21;
@@ -238,8 +233,8 @@ uint64_t *sub_24D7C7400(const void **a1, char *a2, uint64_t a3, unint64_t a4, ch
         *v22++ = v38;
         if (v22 - v39 == 4096)
         {
-          v40 = v21[1];
-          ++v21;
+          v40 = *(v21 + 8);
+          v21 += 8;
           v39 = v40;
           v22 = v40;
         }
@@ -248,8 +243,8 @@ uint64_t *sub_24D7C7400(const void **a1, char *a2, uint64_t a3, unint64_t a4, ch
       }
 
       while (v37);
-      a1[5] = (v14 + v6);
-      v6 = &v15[-v14];
+      a1[5] = v14 + v6;
+      v6 = v15 - v14;
     }
 
     if (v6)
@@ -271,7 +266,7 @@ uint64_t *sub_24D7C7400(const void **a1, char *a2, uint64_t a3, unint64_t a4, ch
       do
       {
         *v48++ = v49;
-        if (&v48[-v50] == 4096)
+        if (v48 - v50 == 4096)
         {
           v51 = v47[1];
           ++v47;
@@ -297,7 +292,7 @@ uint64_t *sub_24D7C7400(const void **a1, char *a2, uint64_t a3, unint64_t a4, ch
       v9 = v8 >> 12;
     }
 
-    v16 = &v10[8 * v9];
+    v16 = (v10 + 8 * v9);
     if (v11 == v10)
     {
       v17 = 0;
@@ -308,7 +303,7 @@ uint64_t *sub_24D7C7400(const void **a1, char *a2, uint64_t a3, unint64_t a4, ch
       v17 = (*v16 + (v8 & 0xFFF));
     }
 
-    v59 = &v10[8 * v9];
+    v59 = (v10 + 8 * v9);
     v60 = v17;
     v23 = v14 - v6;
     if (v14 < v6)
@@ -330,8 +325,8 @@ uint64_t *sub_24D7C7400(const void **a1, char *a2, uint64_t a3, unint64_t a4, ch
       }
 
       while (!__CFADD__(v23++, 1));
-      a1[4] = (v24 - v6);
-      a1[5] = (v25 - v14);
+      a1[4] = v24 - v6;
+      a1[5] = v25 - v14;
       v6 = v14;
     }
 
@@ -383,19 +378,18 @@ uint64_t *sub_24D7C7400(const void **a1, char *a2, uint64_t a3, unint64_t a4, ch
 
   else
   {
-    v56 = (v55[a1[4] >> 12] + (a1[4] & 0xFFF));
+    v56 = (*(v55 + 8 * (a1[4] >> 12)) + (a1[4] & 0xFFF));
   }
 
-  v59 = &v55[a1[4] >> 12];
+  v59 = (v55 + 8 * (a1[4] >> 12));
   v60 = v56;
   return sub_24D7904F4(&v59, v14);
 }
 
-const void **sub_24D7C7784(const void **result, unint64_t a2)
+void sub_24D7C7784(const void **a1, unint64_t a2)
 {
-  v2 = result;
-  v3 = result[1];
-  v4 = result[2];
+  v3 = a1[1];
+  v4 = a1[2];
   v5 = v4 - v3;
   if (v4 == v3)
   {
@@ -427,8 +421,8 @@ const void **sub_24D7C7784(const void **result, unint64_t a2)
     v8 = v6 >> 12;
   }
 
-  v9 = result[4];
-  v10 = v7 - &v9[result[5]];
+  v9 = a1[4];
+  v10 = v7 - (a1[5] + v9);
   if (v8 >= v10 >> 12)
   {
     v11 = v10 >> 12;
@@ -441,19 +435,19 @@ const void **sub_24D7C7784(const void **result, unint64_t a2)
 
   if (v8 <= v10 >> 12)
   {
-    for (result[4] = &v9[4096 * v11]; v11; --v11)
+    for (a1[4] = (v9 + (v11 << 12)); v11; --v11)
     {
-      v15 = v2[2];
-      *&v17[0] = *(v15 - 1);
-      v2[2] = v15 - 1;
-      result = sub_24D79E830(v2, v17);
+      v15 = a1[2];
+      *&v17[0] = *(v15 - 8);
+      a1[2] = (v15 - 8);
+      sub_24D79E830(a1, v17);
     }
   }
 
   else
   {
     v12 = v8 - v11;
-    v13 = result[3] - *result;
+    v13 = a1[3] - *a1;
     if (v8 - v11 > (v13 >> 3) - (v5 >> 3))
     {
       if (v13 >> 2 <= v12 + (v5 >> 3))
@@ -466,10 +460,10 @@ const void **sub_24D7C7784(const void **result, unint64_t a2)
         v14 = v13 >> 2;
       }
 
-      v18 = result;
+      v18 = a1;
       if (v14)
       {
-        sub_24D79EB50(result, v14);
+        sub_24D79EB50(a1, v14);
       }
 
       memset(v17, 0, sizeof(v17));
@@ -478,7 +472,7 @@ const void **sub_24D7C7784(const void **result, unint64_t a2)
 
     if (v12)
     {
-      if (v3 != *result)
+      if (v3 != *a1)
       {
         operator new();
       }
@@ -486,16 +480,14 @@ const void **sub_24D7C7784(const void **result, unint64_t a2)
       operator new();
     }
 
-    for (result[4] = &v9[4096 * v11]; v11; --v11)
+    for (a1[4] = (v9 + (v11 << 12)); v11; --v11)
     {
-      v16 = v2[2];
-      *&v17[0] = *(v16 - 1);
-      v2[2] = v16 - 1;
-      result = sub_24D79E830(v2, v17);
+      v16 = a1[2];
+      *&v17[0] = *(v16 - 8);
+      a1[2] = (v16 - 8);
+      sub_24D79E830(a1, v17);
     }
   }
-
-  return result;
 }
 
 uint64_t sub_24D7C7A3C(uint64_t result, char *a2, uint64_t a3, char *a4, unint64_t a5, char *a6, uint64_t a7, unint64_t *a8)
@@ -622,7 +614,7 @@ LABEL_16:
   return result;
 }
 
-void **sub_24D7C7BE4(int a1, char *a2, char *__src, char *a4, char *a5, void **a6, char *__dst, unint64_t *a8)
+char **sub_24D7C7BE4(int a1, char *a2, char *__src, char *a4, char *a5, char **a6, char *__dst, unint64_t *a8)
 {
   if (a5 != __src)
   {
@@ -751,7 +743,7 @@ void **sub_24D7C7BE4(int a1, char *a2, char *__src, char *a4, char *a5, void **a
   return a6;
 }
 
-uint64_t *sub_24D7C7DE4(uint64_t a1, uint64_t a2)
+void *sub_24D7C7DE4(uint64_t a1, uint64_t a2)
 {
   result = *a1;
   if (a2)
@@ -760,13 +752,11 @@ uint64_t *sub_24D7C7DE4(uint64_t a1, uint64_t a2)
     if (v4 < 1)
     {
       result -= (4095 - v4) >> 12;
-      v6 = *result;
     }
 
     else
     {
       result += v4 >> 12;
-      v5 = *result;
     }
   }
 
@@ -783,12 +773,12 @@ uint64_t sub_24D7C7E48(uint64_t result, char *a2, char *a3, char *a4, char *a5, 
       v9 = *a8;
       do
       {
-        v10 = *a2 + 4096;
+        v10 = (*a2 + 4096);
         v11 = v10 - a3;
         v12 = &a3[v8];
         if (v10 - a3 <= v8)
         {
-          v12 = *a2 + 4096;
+          v12 = (*a2 + 4096);
         }
 
         if (v10 - a3 >= v8)
@@ -817,7 +807,7 @@ uint64_t sub_24D7C7E48(uint64_t result, char *a2, char *a3, char *a4, char *a5, 
 
         if (a3 != v12)
         {
-          v14 = *(result + 40) + v12;
+          v14 = &v12[*(result + 40)];
           v15 = *a6;
           v16 = a3;
           do
@@ -1028,12 +1018,11 @@ unint64_t sub_24D7C81B0(uint64_t *a1, unint64_t a2, char a3, unsigned int a4)
       if (*(v10 + 12) == 1)
       {
         v7 = *v10;
-        v11 = *(v10 + 1);
         return v5 | (v7 << 32);
       }
 
-      v12 = sub_24D809C04();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = sub_24D809C04();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_24D85DA78();
       }
@@ -1072,7 +1061,7 @@ unint64_t sub_24D7C81B0(uint64_t *a1, unint64_t a2, char a3, unsigned int a4)
   return v5 | (v7 << 32);
 }
 
-uint64_t sub_24D7C82BC(uint64_t result, uint64_t a2, uint64_t *a3, _BYTE *a4)
+uint64_t sub_24D7C82BC(uint64_t result, uint64_t a2, unint64_t *a3, _BYTE *a4)
 {
   *(result + 64) = 0u;
   *(result + 80) = 0u;
@@ -7050,7 +7039,7 @@ LABEL_517:
   return result;
 }
 
-void sub_24D7CF7F4(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+void sub_24D7CF7F4(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7)
 {
   v15 = a5;
   v16 = a4;
@@ -7171,7 +7160,7 @@ void sub_24D7CF7F4(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t
   operator new[]();
 }
 
-uint64_t *sub_24D7CF9F0(uint64_t *a1)
+void *sub_24D7CF9F0(void *a1)
 {
   v2 = a1 + 28063;
   v3 = a1[28221];
@@ -8510,13 +8499,13 @@ uint64_t sub_24D7D0B48(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-void sub_24D7D0BA0(uint64_t a1, uint64_t a2)
+void sub_24D7D0BA0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "_0c33d520d54b5d5f84a71398d6ae71152426874088128bd3c18ad78df5f6d8b7");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_d10d40e0cc19cf68a523b252faa985cd5777f1eab3cbe768098ca805cc7216ef");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_0c33d520d54b5d5f84a71398d6ae71152426874088128bd3c18ad78df5f6d8b7", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_d10d40e0cc19cf68a523b252faa985cd5777f1eab3cbe768098ca805cc7216ef");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
 uint64_t sub_24D7D0C68(uint64_t a1, uint64_t a2)
@@ -8528,17 +8517,17 @@ uint64_t sub_24D7D0C68(uint64_t a1, uint64_t a2)
 
 void sub_24D7D0CC0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (***a4)(void, const char *))
 {
-  v5 = (*(*a2 + 16))(a2, "_448897b2730c90c177c3e468d3780d048b4ef0c6feb09887550eb9e5e71373c0");
-  v6 = (**a4)(a4, "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/Dependencies/AGXProfilingSupport/AGXProfilingSupport/DerivedCounters/AGXPSLimiters.inl_69_58");
+  v5 = (*(*a2 + 16))(a2, "_448897b2730c90c177c3e468d3780d048b4ef0c6feb09887550eb9e5e71373c0", a3);
+  v7 = (**a4)(a4, "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/Dependencies/AGXProfilingSupport/AGXProfilingSupport/DerivedCounters/AGXPSLimiters.inl_69_58");
 
-  sub_24D774B1C(v5, v6);
+  sub_24D774B1C(v5, v7, v6);
 }
 
 void sub_24D7D0D7C(uint64_t a1, uint64_t a2)
 {
   v2 = (*(*a2 + 16))(a2, "_ca0d54323c1777d994357aaacdb7beac572bea11cd16afed4c756f3dc9496a18");
   v3 = sub_24D76D428();
-  sub_24D774B1C(v2, v3);
+  sub_24D774B1C(v2, v3, v4);
 }
 
 void sub_24D7D0E60(uint64_t a1, uint64_t a2)
@@ -8549,12 +8538,12 @@ void sub_24D7D0E60(uint64_t a1, uint64_t a2)
   sub_24D773FA8(v3, v5, v6);
 }
 
-void sub_24D7D0F70(uint64_t a1, uint64_t a2)
+void sub_24D7D0F70(uint64_t a1, uint64_t a2, uint64_t (***a3)(void, const char *), uint64_t a4, uint64_t a5)
 {
-  v3 = sub_24D76D428();
-  v5 = v4;
-  v6 = (*(*a2 + 16))(a2, "_416b2a4855c3ad10e45eaab8493e7651ad66f8e3d44ad880fa8111c87ccd090a");
-  sub_24D773FA8(v3, v5, v6);
+  v6 = sub_24D76D428();
+  v8 = v7;
+  v9 = (*(*a2 + 16))(a2, "_416b2a4855c3ad10e45eaab8493e7651ad66f8e3d44ad880fa8111c87ccd090a");
+  sub_24D773FA8(v6, v8, v9);
 }
 
 void sub_24D7D1224(uint64_t a1, uint64_t a2, uint64_t (***a3)(void, const char *))
@@ -8573,30 +8562,30 @@ void sub_24D7D1374(uint64_t a1, uint64_t a2, uint64_t (***a3)(void, const char *
   sub_24D773FA8(v4, v6, v7);
 }
 
-void sub_24D7D14C4(uint64_t a1, uint64_t a2)
+void sub_24D7D14C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "PSInvocation");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "VSInvocation");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "PSInvocation", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "VSInvocation");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D158C(uint64_t a1, uint64_t a2)
+void sub_24D7D158C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "PSInvocation");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "PrimitivesSubmitted");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "PSInvocation", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "PrimitivesSubmitted");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D1654(uint64_t a1, uint64_t a2, void (***a3)(void, const char *))
+void sub_24D7D1654(uint64_t a1, uint64_t a2, uint64_t (***a3)(void, const char *), uint64_t a4, const void **a5)
 {
-  v4 = (*(*a2 + 16))(a2, "_f6c3f9b835930ff834f081ab2dfaacbdfbe451f6f2100abcdecec1c3c7999e0b");
-  agxps_timeseries_get_length(v4);
+  v7 = (*(*a2 + 16))(a2, "_f6c3f9b835930ff834f081ab2dfaacbdfbe451f6f2100abcdecec1c3c7999e0b", a3, a4);
+  length = agxps_timeseries_get_length(v7);
   (**a3)(a3, "NUM_GPS");
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
 uint64_t sub_24D7D1740(uint64_t a1, uint64_t a2)
@@ -8606,22 +8595,22 @@ uint64_t sub_24D7D1740(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-void sub_24D7D1798(uint64_t a1, uint64_t a2)
+void sub_24D7D1798(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "VerticesSubmitted");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "VSInvocation");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "VerticesSubmitted", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "VSInvocation");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D18DC(uint64_t a1, uint64_t a2)
+void sub_24D7D18DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "VerticesSubmitted");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "VSInvocation");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "VerticesSubmitted", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "VSInvocation");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
 uint64_t sub_24D7D1ACC(uint64_t a1, uint64_t a2)
@@ -8631,29 +8620,29 @@ uint64_t sub_24D7D1ACC(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-void sub_24D7D1B24(uint64_t a1, uint64_t a2)
+void sub_24D7D1B24(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "PrimitivesRasterized");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "PrimitivesRasterized", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D1CB4(uint64_t a1, uint64_t a2)
+void sub_24D7D1CB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "_29091329a1ff8f86d51ab9b84da709de18ba8aa1d94003a519a0663db7add4a1");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_6169af48fcc4f2c5d036243de6acd153bd0308c644bd7e4afc67499ad1aef2c7");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_29091329a1ff8f86d51ab9b84da709de18ba8aa1d94003a519a0663db7add4a1", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_6169af48fcc4f2c5d036243de6acd153bd0308c644bd7e4afc67499ad1aef2c7");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D1D7C(uint64_t a1, uint64_t a2)
+void sub_24D7D1D7C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "ClippedPrimitives");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "ClippedPrimitives", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
 uint64_t sub_24D7D1E90(uint64_t a1, uint64_t a2)
@@ -8691,188 +8680,188 @@ uint64_t sub_24D7D1FF0(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-void sub_24D7D2048(uint64_t a1, uint64_t a2)
+void sub_24D7D2048(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "PreCullPrimitiveCount");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "ClippedPrimitives");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "PreCullPrimitiveCount", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "ClippedPrimitives");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D21F4(uint64_t a1, uint64_t a2)
+void sub_24D7D21F4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "CulledPrimitives");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "GuardBandCullPrims");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "CulledPrimitives", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "GuardBandCullPrims");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D24B8(uint64_t a1, uint64_t a2)
+void sub_24D7D24B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "BackFaceCullPrims");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "BackFaceCullPrims", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D2648(uint64_t a1, uint64_t a2)
+void sub_24D7D2648(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "SmallTriangleCullPrims");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "SmallTriangleCullPrims", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D27D8(uint64_t a1, uint64_t a2)
+void sub_24D7D27D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "_4b1f5c87264cd5cd23bb5eb652d21194fb7f49f9b1d70433f180b31a7a22dcab");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_4bb4ab3f3e64c565175f4fbe0f75df41b12c3bc2b4242b99cd4a330773d475d4");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_4b1f5c87264cd5cd23bb5eb652d21194fb7f49f9b1d70433f180b31a7a22dcab", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_4bb4ab3f3e64c565175f4fbe0f75df41b12c3bc2b4242b99cd4a330773d475d4");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D2908(uint64_t a1, uint64_t a2)
+void sub_24D7D2908(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "GuardBandCullPrims");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "GuardBandCullPrims", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D2A98(uint64_t a1, uint64_t a2)
+void sub_24D7D2A98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "_0f9aab25f0863ace3de6f9832139250c806045a7ac0d6f8cf06c682c282005f1");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_dbe3d527893309548e6eebdee711a622433c869e148727cf18e31ae63cf116d3");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_0f9aab25f0863ace3de6f9832139250c806045a7ac0d6f8cf06c682c282005f1", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_dbe3d527893309548e6eebdee711a622433c869e148727cf18e31ae63cf116d3");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D2BC8(uint64_t a1, uint64_t a2)
+void sub_24D7D2BC8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "OffscreenCullPrims");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "OffscreenCullPrims", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D2D58(uint64_t a1, uint64_t a2)
+void sub_24D7D2D58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "InputPrimitivesPostClipping");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "PrimitivesRasterized");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "InputPrimitivesPostClipping", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "PrimitivesRasterized");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D2E9C(uint64_t a1, uint64_t a2)
+void sub_24D7D2E9C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "CulledPrimitives");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "CulledPrimitives", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D302C(uint64_t a1, uint64_t a2)
+void sub_24D7D302C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "_7cef4e481233623472ea3e1f6b4131fabb20f247f7e5eae173dfd693aa60d0ff");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_9177fce9b3d9e2a64a816854b3084588e4673c25a1c069c53b5909a77fb853eb");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_7cef4e481233623472ea3e1f6b4131fabb20f247f7e5eae173dfd693aa60d0ff", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_9177fce9b3d9e2a64a816854b3084588e4673c25a1c069c53b5909a77fb853eb");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D32AC(uint64_t a1, uint64_t a2)
+void sub_24D7D32AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "_24be79c8d8f70844505a88372d5027b6f8afd064ccbab97ac3ffe36dd5a0ef2b");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_9177fce9b3d9e2a64a816854b3084588e4673c25a1c069c53b5909a77fb853eb");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_24be79c8d8f70844505a88372d5027b6f8afd064ccbab97ac3ffe36dd5a0ef2b", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_9177fce9b3d9e2a64a816854b3084588e4673c25a1c069c53b5909a77fb853eb");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D352C(uint64_t a1, uint64_t a2)
+void sub_24D7D352C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "FragmentsRasterized");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "PreZPassCount");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "FragmentsRasterized", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "PreZPassCount");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D3670(uint64_t a1, uint64_t a2)
+void sub_24D7D3670(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "PreZFailCount");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "PreZFailCount", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D3784(uint64_t a1, uint64_t a2)
+void sub_24D7D3784(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "PreZPassCount");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "PreZPassCount", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D3898(uint64_t a1, uint64_t a2)
+void sub_24D7D3898(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "PSInvocation");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_eda5bce70befa39e7c6029505c0269211092c220048a502fd8fa2fe30895465b");
-  agxps_timeseries_get_length(v4);
-  v5 = (*(*a2 + 16))(a2, "CA64702D3D4494B38F08BCB24ABD879988FB0FFE1D929F859EC9AED1C1C160E1");
-  agxps_timeseries_get_length(v5);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "PSInvocation", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_eda5bce70befa39e7c6029505c0269211092c220048a502fd8fa2fe30895465b");
+  agxps_timeseries_get_length(v8);
+  v9 = (*(*a2 + 16))(a2, "CA64702D3D4494B38F08BCB24ABD879988FB0FFE1D929F859EC9AED1C1C160E1");
+  length = agxps_timeseries_get_length(v9);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D3A2C(uint64_t a1, uint64_t a2)
+void sub_24D7D3A2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "CA64702D3D4494B38F08BCB24ABD879988FB0FFE1D929F859EC9AED1C1C160E1");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "2EAC2CEBA509E12A31090A56155DDCE41EAEE148F6832947CA8A512BDCFA0DF9");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "CA64702D3D4494B38F08BCB24ABD879988FB0FFE1D929F859EC9AED1C1C160E1", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "2EAC2CEBA509E12A31090A56155DDCE41EAEE148F6832947CA8A512BDCFA0DF9");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D3AF4(uint64_t a1, uint64_t a2)
+void sub_24D7D3AF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_ae304fc8bce5708ffef30935687e442d6bea78f814055a5fe6e3380013d7e507");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_ae304fc8bce5708ffef30935687e442d6bea78f814055a5fe6e3380013d7e507", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D3CC0(uint64_t a1, uint64_t a2)
+void sub_24D7D3CC0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "TextureSamples");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "VSInvocation");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "TextureSamples", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "VSInvocation");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D3D88(uint64_t a1, uint64_t a2)
+void sub_24D7D3D88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "TextureSamples");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "PSInvocation");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "TextureSamples", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "PSInvocation");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D3E50(uint64_t a1, uint64_t a2)
+void sub_24D7D3E50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "_a7e72038471917bb4125254ae57103538d43fd9d4a233b06a1f248ca3bfc11ac");
-  agxps_timeseries_get_length(v3);
+  v7 = (*(*a2 + 16))(a2, "_a7e72038471917bb4125254ae57103538d43fd9d4a233b06a1f248ca3bfc11ac", a3, a4);
+  agxps_timeseries_get_length(v7);
   sub_24D76D428();
-  v4 = (*(*a2 + 16))(a2, "_f76e110e78dbd810843354c733691fcfcd8a5624a46d34e887797178f903ab95");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v8 = (*(*a2 + 16))(a2, "_f76e110e78dbd810843354c733691fcfcd8a5624a46d34e887797178f903ab95");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
 void sub_24D7D44C8(uint64_t a1, uint64_t a2)
@@ -8970,7 +8959,7 @@ void sub_24D7D4A58(uint64_t a1, uint64_t a2)
   (*(*a2 + 16))(a2, "_1c910b780cb79e299a9d0247c8d1a459603db1dc763b4ed52741a88c074de5bf");
   v3 = (*(*a2 + 16))(a2, "TextureQuads");
   v4 = sub_24D76D428();
-  sub_24D77986C(v3, v4);
+  sub_24D77986C(v3, v4, v5);
 }
 
 void sub_24D7D4B68(uint64_t a1, uint64_t a2)
@@ -8979,7 +8968,7 @@ void sub_24D7D4B68(uint64_t a1, uint64_t a2)
   (*(*a2 + 16))(a2, "_52c7403e703719076cdf296da4b4519e56bc631b8415b1951b6f0cf0e0219fa0");
   v3 = (*(*a2 + 16))(a2, "TextureQuads");
   v4 = sub_24D76D428();
-  sub_24D77986C(v3, v4);
+  sub_24D77986C(v3, v4, v5);
 }
 
 void sub_24D7D4C78(uint64_t a1, uint64_t a2)
@@ -8988,7 +8977,7 @@ void sub_24D7D4C78(uint64_t a1, uint64_t a2)
   (*(*a2 + 16))(a2, "_451212c403659fd235af4c21cb28fdb6182f9e88f9abbe82ffac4581d8182066");
   v3 = (*(*a2 + 16))(a2, "TextureQuads");
   v4 = sub_24D76D428();
-  sub_24D77986C(v3, v4);
+  sub_24D77986C(v3, v4, v5);
 }
 
 void sub_24D7D4D88(uint64_t a1, uint64_t a2)
@@ -8997,7 +8986,7 @@ void sub_24D7D4D88(uint64_t a1, uint64_t a2)
   (*(*a2 + 16))(a2, "_e7a27d480e44c6503ed8b6c934087b27a0077d74f40504e462d532d2f1a3bdb7");
   v3 = (*(*a2 + 16))(a2, "TextureQuads");
   v4 = sub_24D76D428();
-  sub_24D77986C(v3, v4);
+  sub_24D77986C(v3, v4, v5);
 }
 
 void sub_24D7D4E98(uint64_t a1, uint64_t a2)
@@ -9006,7 +8995,7 @@ void sub_24D7D4E98(uint64_t a1, uint64_t a2)
   (*(*a2 + 16))(a2, "_31c6c7b72c721cbf22c73e2ea45cab724349bc24664443fa20490cffa1942ba0");
   v3 = (*(*a2 + 16))(a2, "TextureQuads");
   v4 = sub_24D76D428();
-  sub_24D77986C(v3, v4);
+  sub_24D77986C(v3, v4, v5);
 }
 
 void sub_24D7D4FA8(uint64_t a1, uint64_t a2)
@@ -9015,7 +9004,7 @@ void sub_24D7D4FA8(uint64_t a1, uint64_t a2)
   (*(*a2 + 16))(a2, "_cacab8b1a5ecc1dc964575476c6768c53eaca1e77742c6b06563d2ae796b77a3");
   v3 = (*(*a2 + 16))(a2, "TextureQuads");
   v4 = sub_24D76D428();
-  sub_24D77986C(v3, v4);
+  sub_24D77986C(v3, v4, v5);
 }
 
 void sub_24D7D50B8(uint64_t a1, uint64_t a2)
@@ -9024,7 +9013,7 @@ void sub_24D7D50B8(uint64_t a1, uint64_t a2)
   (*(*a2 + 16))(a2, "_90f8398c59e13f204f42240431165d6d56af1c774dd14232a29aaa309622f650");
   v3 = (*(*a2 + 16))(a2, "TextureQuads");
   v4 = sub_24D76D428();
-  sub_24D77986C(v3, v4);
+  sub_24D77986C(v3, v4, v5);
 }
 
 void sub_24D7D51C8(uint64_t a1, uint64_t a2)
@@ -9033,7 +9022,7 @@ void sub_24D7D51C8(uint64_t a1, uint64_t a2)
   (*(*a2 + 16))(a2, "_bea7cabc89724eda834b02195b2e092233a094b61390d8d8ab4a8b44d875ffd8");
   v3 = (*(*a2 + 16))(a2, "TextureQuads");
   v4 = sub_24D76D428();
-  sub_24D77986C(v3, v4);
+  sub_24D77986C(v3, v4, v5);
 }
 
 void sub_24D7D52D8(uint64_t a1, uint64_t a2)
@@ -9048,9 +9037,9 @@ void sub_24D7D52D8(uint64_t a1, uint64_t a2)
 void sub_24D7D5360(uint64_t a1, uint64_t a2)
 {
   v2 = (*(*a2 + 16))(a2, "_0927651557827fd5468721c2ee04ff7924ebb553f9e0acc6b504a791aefdf935");
-  v3 = sub_24D76D428();
+  v4 = sub_24D76D428();
 
-  sub_24D774B1C(v2, v3);
+  sub_24D774B1C(v2, v4, v3);
 }
 
 void sub_24D7D53E0(uint64_t a1, uint64_t a2)
@@ -9096,101 +9085,101 @@ void sub_24D7D5700(uint64_t a1, uint64_t a2)
   sub_24D773FA8(v3, v5, v6);
 }
 
-void sub_24D7D5784(uint64_t a1, uint64_t a2)
+void sub_24D7D5784(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_838e506beb7a1376c2242cd5738a6016661bdfccb78c105f3ce081c89735bc9d");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_838e506beb7a1376c2242cd5738a6016661bdfccb78c105f3ce081c89735bc9d", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D5830(uint64_t a1, uint64_t a2)
+void sub_24D7D5830(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_838e506beb7a1376c2242cd5738a6016661bdfccb78c105f3ce081c89735bc9d");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_838e506beb7a1376c2242cd5738a6016661bdfccb78c105f3ce081c89735bc9d", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D5944(uint64_t a1, uint64_t a2)
+void sub_24D7D5944(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_b7afe579643b48d1495eb528fa5a78db4c0a065f75636f39f24f9cf4578912cf");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_b7afe579643b48d1495eb528fa5a78db4c0a065f75636f39f24f9cf4578912cf", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D59F0(uint64_t a1, uint64_t a2)
+void sub_24D7D59F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_b7afe579643b48d1495eb528fa5a78db4c0a065f75636f39f24f9cf4578912cf");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_b7afe579643b48d1495eb528fa5a78db4c0a065f75636f39f24f9cf4578912cf", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D5B04(uint64_t a1, uint64_t a2)
+void sub_24D7D5B04(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_443fdcc2095b4dca2f7e327fb6af5914523d670164b66d05316044de82474149");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_443fdcc2095b4dca2f7e327fb6af5914523d670164b66d05316044de82474149", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D5BB0(uint64_t a1, uint64_t a2)
+void sub_24D7D5BB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_443fdcc2095b4dca2f7e327fb6af5914523d670164b66d05316044de82474149");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_443fdcc2095b4dca2f7e327fb6af5914523d670164b66d05316044de82474149", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D5CC4(uint64_t a1, uint64_t a2)
+void sub_24D7D5CC4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "_cd1ed48f521bc3dff5675e8c48183da96f416902d6a6a198f8c83a2a6f8d0d11");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_bd02d5aeed8b2a086512b59511b59d2675b598b2801965ba46b391cd64096154");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_cd1ed48f521bc3dff5675e8c48183da96f416902d6a6a198f8c83a2a6f8d0d11", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_bd02d5aeed8b2a086512b59511b59d2675b598b2801965ba46b391cd64096154");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D68B4(uint64_t a1, uint64_t a2)
+void sub_24D7D68B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "CompressedSamples");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "CompressedSamples", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D6AFC(uint64_t a1, uint64_t a2)
+void sub_24D7D6AFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_7cdc2c85e61923202c5936567bb447b8929b55e3fadd72277ff0796a99a7bdb4");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_7cdc2c85e61923202c5936567bb447b8929b55e3fadd72277ff0796a99a7bdb4", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D6BA8(uint64_t a1, uint64_t a2)
+void sub_24D7D6BA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "LosslessCompressedSamples");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "LosslessCompressedSamples", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D6D74(uint64_t a1, uint64_t a2)
+void sub_24D7D6D74(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_4e06778c6dbd312e12fd320be6a28037bd94e2cc19c8687aba8981ec52f7d19e");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_4e06778c6dbd312e12fd320be6a28037bd94e2cc19c8687aba8981ec52f7d19e", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D6E20(uint64_t a1, uint64_t a2)
+void sub_24D7D6E20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "LossyCompressedSamples");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "LossyCompressedSamples", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
 void sub_24D7D6FEC(uint64_t a1, uint64_t a2)
@@ -9211,134 +9200,134 @@ void sub_24D7D7154(uint64_t a1, uint64_t a2)
   sub_24D773FA8(v3, v5, v6);
 }
 
-void sub_24D7D7244(uint64_t a1, uint64_t a2)
+void sub_24D7D7244(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_f406f88bdd312ec0455d0943c388de77e53b86cf0109624b028c3aa596ec3bf4");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_f406f88bdd312ec0455d0943c388de77e53b86cf0109624b028c3aa596ec3bf4", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D72F0(uint64_t a1, uint64_t a2)
+void sub_24D7D72F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "_170b3221860fc0fbaa56212aaec28265bbcde52553eab4dcc253c612393c0d02");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_b1c17891cd73c9759b561e8166a6d51c7a422df70de3a45524ee1d8edf3d8edc");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_170b3221860fc0fbaa56212aaec28265bbcde52553eab4dcc253c612393c0d02", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_b1c17891cd73c9759b561e8166a6d51c7a422df70de3a45524ee1d8edf3d8edc");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D7400(uint64_t a1, uint64_t a2)
+void sub_24D7D7400(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "PixelsUnbiasedWrittenToMemory");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "TexturePixelsWrittenToMemory");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "PixelsUnbiasedWrittenToMemory", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "TexturePixelsWrittenToMemory");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D7504(uint64_t a1, uint64_t a2)
+void sub_24D7D7504(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "PixelsUnbiasedWrittenToMemory");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "TexturePixelsWrittenToMemory");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "PixelsUnbiasedWrittenToMemory", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "TexturePixelsWrittenToMemory");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D7648(uint64_t a1, uint64_t a2)
+void sub_24D7D7648(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "_17ce0d5869b1ca5ede98d597eab698bc9a77c1ce783528f1a91438acb0c9fd08");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_71974a1faa4bcd23016a415a1cc6479308dab6778adbf2bab1cc0b8bf7de9982");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_17ce0d5869b1ca5ede98d597eab698bc9a77c1ce783528f1a91438acb0c9fd08", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_71974a1faa4bcd23016a415a1cc6479308dab6778adbf2bab1cc0b8bf7de9982");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D7758(uint64_t a1, uint64_t a2)
+void sub_24D7D7758(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "_84bc1f813b908b1a82a17fdf171643fd8ce9017f20844aa9fd9dd7f157bfeb00");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_766330b34b32220fe711ebf12a170751a84406ef29a5cd982cef665be1b22d5d");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_84bc1f813b908b1a82a17fdf171643fd8ce9017f20844aa9fd9dd7f157bfeb00", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_766330b34b32220fe711ebf12a170751a84406ef29a5cd982cef665be1b22d5d");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D79E8(uint64_t a1, uint64_t a2)
+void sub_24D7D79E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "_5139262f4aa51a2a266c84eae7b1d2a0524e10ec154ddf35e1e1bc529071258a");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_a126f888ccf5d17092b398420351fb81f0c5462f5e15a2bf22f6914208f68de2");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_5139262f4aa51a2a266c84eae7b1d2a0524e10ec154ddf35e1e1bc529071258a", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_a126f888ccf5d17092b398420351fb81f0c5462f5e15a2bf22f6914208f68de2");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D7C38(uint64_t a1, uint64_t a2)
-{
-  sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_5139262f4aa51a2a266c84eae7b1d2a0524e10ec154ddf35e1e1bc529071258a");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
-}
-
-void sub_24D7D7DC4(uint64_t a1, uint64_t a2)
+void sub_24D7D7C38(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_a126f888ccf5d17092b398420351fb81f0c5462f5e15a2bf22f6914208f68de2");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_5139262f4aa51a2a266c84eae7b1d2a0524e10ec154ddf35e1e1bc529071258a");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D7F50(uint64_t a1, uint64_t a2)
+void sub_24D7D7DC4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_b2f6334df9fdac01bda9fa44b127edadeb640750d6824c0b27a248d10aba3638");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_346c9e2c1dd65c22e4dcdd48f80c681551c075280b02796f700601c4530e6f4f");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_a126f888ccf5d17092b398420351fb81f0c5462f5e15a2bf22f6914208f68de2");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D8200(uint64_t a1, uint64_t a2)
+void sub_24D7D7F50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v4 = (*(*a2 + 16))(a2, "_b2f6334df9fdac01bda9fa44b127edadeb640750d6824c0b27a248d10aba3638");
-  agxps_timeseries_get_length(v4);
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_346c9e2c1dd65c22e4dcdd48f80c681551c075280b02796f700601c4530e6f4f");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_b2f6334df9fdac01bda9fa44b127edadeb640750d6824c0b27a248d10aba3638");
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_346c9e2c1dd65c22e4dcdd48f80c681551c075280b02796f700601c4530e6f4f");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D85E0(uint64_t a1, uint64_t a2)
+void sub_24D7D8200(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
+  v9 = (*(*a2 + 16))(a2, "_b2f6334df9fdac01bda9fa44b127edadeb640750d6824c0b27a248d10aba3638", a3, a4);
+  agxps_timeseries_get_length(v9);
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "TexturePixelsWrittenToMemory");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_346c9e2c1dd65c22e4dcdd48f80c681551c075280b02796f700601c4530e6f4f");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D876C(uint64_t a1, uint64_t a2)
+void sub_24D7D85E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "AttachmentPixelsWrittenToMemory");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "TexturePixelsWrittenToMemory");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D88F8(uint64_t a1, uint64_t a2)
+void sub_24D7D876C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "CompressedPixelsWrittenToMemory");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "AttachmentPixelsWrittenToMemory");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D8A84(uint64_t a1, uint64_t a2)
+void sub_24D7D88F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "LossyCompressedPixelsWrittenToMemory");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "CompressedPixelsWrittenToMemory");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
+}
+
+void sub_24D7D8A84(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
+{
+  sub_24D76D428();
+  v7 = (*(*a2 + 16))(a2, "LossyCompressedPixelsWrittenToMemory");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
 void sub_24D7D8C10(uint64_t a1, uint64_t a2)
@@ -9353,17 +9342,17 @@ void sub_24D7D8C10(uint64_t a1, uint64_t a2)
 void sub_24D7D8C94(uint64_t a1, uint64_t a2)
 {
   v2 = (*(*a2 + 16))(a2, "_788f9865b6b4897849bedfd577403fe30b882c1c6c2afcdbf2a9f8a0d41e741b");
-  v3 = sub_24D76D428();
+  v4 = sub_24D76D428();
 
-  sub_24D774B1C(v2, v3);
+  sub_24D774B1C(v2, v4, v3);
 }
 
 void sub_24D7D8D10(uint64_t a1, uint64_t a2)
 {
   v2 = (*(*a2 + 16))(a2, "_788f9865b6b4897849bedfd577403fe30b882c1c6c2afcdbf2a9f8a0d41e741b");
-  v3 = sub_24D76D428();
+  v4 = sub_24D76D428();
 
-  sub_24D774B1C(v2, v3);
+  sub_24D774B1C(v2, v4, v3);
 }
 
 void sub_24D7D8D8C(uint64_t a1, uint64_t a2)
@@ -9421,128 +9410,128 @@ void sub_24D7D94E8(uint64_t a1, uint64_t a2)
   sub_24D76F348(v3, v4);
 }
 
-void sub_24D7D9A88(uint64_t a1, uint64_t a2)
+void sub_24D7D9A88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_867226b78b975653eb9f9d171ce53bedbf3edbc1ee1af8aa960cb9db4ec6490f");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_867226b78b975653eb9f9d171ce53bedbf3edbc1ee1af8aa960cb9db4ec6490f", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D9B9C(uint64_t a1, uint64_t a2)
+void sub_24D7D9B9C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_f430991e42f778aeda210861eca9b8cef241898007339644eff469d83e5a6c9d");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_f430991e42f778aeda210861eca9b8cef241898007339644eff469d83e5a6c9d", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D9CDC(uint64_t a1, uint64_t a2)
+void sub_24D7D9CDC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_f539a056fbd45e39d61b9d34af0ea1a305dd8af6f005b5aa29488f2c966e7f21");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_c420303ee3c2ea941491fa0a071ec1553251898524fce318c3635bc711160395");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_f539a056fbd45e39d61b9d34af0ea1a305dd8af6f005b5aa29488f2c966e7f21");
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_c420303ee3c2ea941491fa0a071ec1553251898524fce318c3635bc711160395");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D9DF8(uint64_t a1, uint64_t a2)
+void sub_24D7D9DF8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_c89f25b2a31116ea6540fc6b89b623da7d4cbc9b2349ce7dbe4423a1395da60a");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_7eba0657c66c2437c8d6952fb82117b9399d920ea84fa32c5bdc9d1dee49e290");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_c89f25b2a31116ea6540fc6b89b623da7d4cbc9b2349ce7dbe4423a1395da60a");
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_7eba0657c66c2437c8d6952fb82117b9399d920ea84fa32c5bdc9d1dee49e290");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7D9F14(uint64_t a1, uint64_t a2)
+void sub_24D7D9F14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_3c6dba64fd85b35b8b8339f1d322943087d45cbb9b6689c587fd76259587a9d8");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_ac73411a986e90adcd0a1181ace1f2684e4a900be931343385b93f58de650db4");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_3c6dba64fd85b35b8b8339f1d322943087d45cbb9b6689c587fd76259587a9d8");
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_ac73411a986e90adcd0a1181ace1f2684e4a900be931343385b93f58de650db4");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DA168(uint64_t a1, uint64_t a2)
+void sub_24D7DA168(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_3c6dba64fd85b35b8b8339f1d322943087d45cbb9b6689c587fd76259587a9d8");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_9153a820a764c5c32c10432035db3a4194ee169ef665e8fc7297bd5592b39e62");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_3c6dba64fd85b35b8b8339f1d322943087d45cbb9b6689c587fd76259587a9d8");
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_9153a820a764c5c32c10432035db3a4194ee169ef665e8fc7297bd5592b39e62");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DA284(uint64_t a1, uint64_t a2)
+void sub_24D7DA284(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_ef52925e500884ba6b276e576ae78b97fd8448dfadeba596c2202b5202e246c3");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_43fe12d20dfe3a9ea7b303773d624405e026e20b2c550822f2587997d2557f13");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_ef52925e500884ba6b276e576ae78b97fd8448dfadeba596c2202b5202e246c3");
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_43fe12d20dfe3a9ea7b303773d624405e026e20b2c550822f2587997d2557f13");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DA658(uint64_t a1, uint64_t a2)
+void sub_24D7DA658(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_d7a23701e11432625d46f02ff35668e60e55a7706704976facfe5fbeea3b1936");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_88723e1253a5c3264f69b1fbf3a6b7f3ab67bbd9fe97afeedb649146b3b8b043");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_d7a23701e11432625d46f02ff35668e60e55a7706704976facfe5fbeea3b1936");
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_88723e1253a5c3264f69b1fbf3a6b7f3ab67bbd9fe97afeedb649146b3b8b043");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DA894(uint64_t a1, uint64_t a2)
+void sub_24D7DA894(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_df20e560276a18cd9b97f03f47abf0d8bf719014920913d325c6ad5d4ab98453");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_df20e560276a18cd9b97f03f47abf0d8bf719014920913d325c6ad5d4ab98453", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DA944(uint64_t a1, uint64_t a2)
+void sub_24D7DA944(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_f406f88bdd312ec0455d0943c388de77e53b86cf0109624b028c3aa596ec3bf4");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_9da983fb76d81017bb17c1307769e9cdaa3547cc33eadcf7f389043343c66b31");
-  agxps_timeseries_get_length(v4);
+  v7 = (*(*a2 + 16))(a2, "_f406f88bdd312ec0455d0943c388de77e53b86cf0109624b028c3aa596ec3bf4");
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_9da983fb76d81017bb17c1307769e9cdaa3547cc33eadcf7f389043343c66b31");
+  length = agxps_timeseries_get_length(v8);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DAB84(uint64_t a1, uint64_t a2)
+void sub_24D7DAB84(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "TextureAccesses");
-  agxps_timeseries_get_length(v3);
+  v7 = (*(*a2 + 16))(a2, "TextureAccesses");
+  agxps_timeseries_get_length(v7);
   sub_24D76D428();
-  v4 = (*(*a2 + 16))(a2, "TextureQuads");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v8 = (*(*a2 + 16))(a2, "TextureQuads");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DAE00(uint64_t a1, uint64_t a2)
+void sub_24D7DAE00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_416b2a4855c3ad10e45eaab8493e7651ad66f8e3d44ad880fa8111c87ccd090a");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_416b2a4855c3ad10e45eaab8493e7651ad66f8e3d44ad880fa8111c87ccd090a");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DAF10(uint64_t a1, uint64_t a2)
+void sub_24D7DAF10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_416b2a4855c3ad10e45eaab8493e7651ad66f8e3d44ad880fa8111c87ccd090a");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_416b2a4855c3ad10e45eaab8493e7651ad66f8e3d44ad880fa8111c87ccd090a");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
 void sub_24D7DB0D8(uint64_t a1, uint64_t a2)
@@ -9559,81 +9548,81 @@ void sub_24D7DB2FC(uint64_t a1, uint64_t a2)
   sub_24D76F348(v3, v4);
 }
 
-void sub_24D7DB3D8(uint64_t a1, uint64_t a2)
+void sub_24D7DB3D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_3a25f8b9b9a3bb6fee419881039de7947be1fc155061f0ed642d5957df2c9221");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_3a25f8b9b9a3bb6fee419881039de7947be1fc155061f0ed642d5957df2c9221", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DB488(uint64_t a1, uint64_t a2)
+void sub_24D7DB488(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_732f9ae18abcb107b504911ba9abe0422500b581734d0a11f801be57da3a56b5");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_732f9ae18abcb107b504911ba9abe0422500b581734d0a11f801be57da3a56b5", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DB538(uint64_t a1, uint64_t a2)
+void sub_24D7DB538(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "_ba0f7bef8431f94f98ea8587e522d4c8468e2bab9bc0be87d3b8b9ac97981db3");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_48d6a3135170e202f4c373f10c7fe2f4f35ae24a0feecef8accedc4f75fb7af4");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_ba0f7bef8431f94f98ea8587e522d4c8468e2bab9bc0be87d3b8b9ac97981db3", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_48d6a3135170e202f4c373f10c7fe2f4f35ae24a0feecef8accedc4f75fb7af4");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DB6DC(uint64_t a1, uint64_t a2, uint64_t (***a3)(void, const char *))
+void sub_24D7DB6DC(uint64_t a1, uint64_t a2, uint64_t (***a3)(void, const char *), uint64_t a4, const void **a5)
 {
-  v5 = (**a3)(a3, "GL2_BPS");
-  v7 = v6;
-  v8 = (**a3)(a3, "GL2C_AF_SCALE_FACTOR");
-  sub_24D76DBF0(v5, v7, v8);
-  LODWORD(v7) = (**a3)(a3, "GL2_DVMR_BPS");
+  v8 = (**a3)(a3, "GL2_BPS");
   v10 = v9;
   v11 = (**a3)(a3, "GL2C_AF_SCALE_FACTOR");
-  sub_24D76DBF0(v7, v10, v11);
-  v12 = (*(*a2 + 16))(a2, "E2175386E8858E1E5273EB120A19C734896FE34E529B7720E38F90C3E66633CC");
-  agxps_timeseries_get_data(v12);
-  agxps_timeseries_get_length(v12);
-  sub_24D809F40();
+  sub_24D76DBF0(v8, v10, v11);
+  LODWORD(v10) = (**a3)(a3, "GL2_DVMR_BPS");
+  v13 = v12;
+  v14 = (**a3)(a3, "GL2C_AF_SCALE_FACTOR");
+  sub_24D76DBF0(v10, v13, v14);
+  v15 = (*(*a2 + 16))(a2, "E2175386E8858E1E5273EB120A19C734896FE34E529B7720E38F90C3E66633CC");
+  agxps_timeseries_get_data(v15);
+  length = agxps_timeseries_get_length(v15);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DB8C8(uint64_t a1, uint64_t a2)
+void sub_24D7DB8C8(uint64_t a1, uint64_t a2, uint64_t (***a3)(void, const char *))
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_53c82a25ac54f8ecd1e94581a4020f0a20529b4813cab97e3977346ad0e270a8");
-  v4 = (*(*a2 + 16))(a2, "_0965349a7930ddeeae0312bca50ac5672d7ecdb1e38a915536c0e7b8a1a3c321");
-  sub_24D770D64(v3, v4);
+  v4 = (*(*a2 + 16))(a2, "_53c82a25ac54f8ecd1e94581a4020f0a20529b4813cab97e3977346ad0e270a8");
+  v5 = (*(*a2 + 16))(a2, "_0965349a7930ddeeae0312bca50ac5672d7ecdb1e38a915536c0e7b8a1a3c321");
+  sub_24D770D64(v4, v5);
 }
 
-void sub_24D7DBF50(uint64_t a1, uint64_t a2)
+void sub_24D7DBF50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_fa7f16c60620d451db8d71e3b82cab7253d2dbf1457c7966dbf002da9af010c0");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_fa7f16c60620d451db8d71e3b82cab7253d2dbf1457c7966dbf002da9af010c0");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DBFF8(uint64_t a1, uint64_t a2)
+void sub_24D7DBFF8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_e06b821bba710b56a3eaf194be742a6d964b111bb761426f6b1ebd16e227010e");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_becc55001438de226fddc3e26ffa180fce103d635eb0f85ffbb6c01dbde954fd");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_e06b821bba710b56a3eaf194be742a6d964b111bb761426f6b1ebd16e227010e");
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_becc55001438de226fddc3e26ffa180fce103d635eb0f85ffbb6c01dbde954fd");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DC114(uint64_t a1, uint64_t a2)
+void sub_24D7DC114(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_c788b8bd5d3e1ef8ad9501833f3b01bba5e1046e3e16d1a2aa837b76a60f19f4");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_4167773bd45e5e4d7f626a716b9775f840b172225798dd96b00c6f7f0290d75e");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_c788b8bd5d3e1ef8ad9501833f3b01bba5e1046e3e16d1a2aa837b76a60f19f4");
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_4167773bd45e5e4d7f626a716b9775f840b172225798dd96b00c6f7f0290d75e");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
 void sub_24D7DC2D4(uint64_t a1, uint64_t a2)
@@ -9645,12 +9634,12 @@ void sub_24D7DC2D4(uint64_t a1, uint64_t a2)
   sub_24D773FA8(v3, v5, v6);
 }
 
-void sub_24D7DC35C(uint64_t a1, uint64_t a2)
+void sub_24D7DC35C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_44e2790fe56248cd45e2248d0f69699da605c77fab749daf6c865f1ab5f16563");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_44e2790fe56248cd45e2248d0f69699da605c77fab749daf6c865f1ab5f16563");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
 uint64_t sub_24D7DC4E8(uint64_t a1, uint64_t a2)
@@ -9660,29 +9649,29 @@ uint64_t sub_24D7DC4E8(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-void sub_24D7DC540(uint64_t a1, uint64_t a2)
+void sub_24D7DC540(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_257ec906bdb46e45679882d962be91fe1c161cb79df17ea71a7427b234a0b812");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_257ec906bdb46e45679882d962be91fe1c161cb79df17ea71a7427b234a0b812", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DC630(uint64_t a1, uint64_t a2)
+void sub_24D7DC630(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_23628149970030e181bfc592d170355b20bf26530773c5dc9481760b2c4158ea");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_23628149970030e181bfc592d170355b20bf26530773c5dc9481760b2c4158ea", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DC720(uint64_t a1, uint64_t a2)
+void sub_24D7DC720(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v3 = (*(*a2 + 16))(a2, "ParameterBufferTilerAlloc");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "ParameterBufferPrimitiveBlockAlloc");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "ParameterBufferTilerAlloc", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "ParameterBufferPrimitiveBlockAlloc");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
 uint64_t sub_24D7DC7E8(uint64_t a1, uint64_t a2)
@@ -9692,179 +9681,179 @@ uint64_t sub_24D7DC7E8(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-void sub_24D7DC840(uint64_t a1, uint64_t a2)
+void sub_24D7DC840(uint64_t a1, uint64_t (***a2)(void, int *, void), uint64_t (***a3)(void, const char *), uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_ad6b7a66022bb8efc6c01d6f3db0be8594408168905585015d8f7ab8e7efe672");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = ((*a2)[2])(a2, "_ad6b7a66022bb8efc6c01d6f3db0be8594408168905585015d8f7ab8e7efe672");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DC9E8(uint64_t a1, uint64_t a2)
+void sub_24D7DC9E8(uint64_t a1, uint64_t (***a2)(void, int *, void), uint64_t (***a3)(void, const char *), uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_2fab6f6232fd4f1349620047490c7562c852746134f1a6e53ca0510462394598");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_f4035ec10b022c926c9e5a14e4e2c08c16049d0e9474bf8b383ed109db7360d7");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
-}
-
-void sub_24D7DCBD4(uint64_t a1, uint64_t a2)
-{
-  sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_1308feee43a7aae19c3764eb8928e79f464f3a2b9d1291b01c1bae25565fa93c");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_ee24ab3d92c84359c20d00d2061a37fcec736e1c550577f0529a9c9441a265dc");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
-}
-
-void sub_24D7DCEB0(uint64_t a1, uint64_t a2)
-{
-  v3 = (*(*a2 + 16))(a2, "_d2acb8217628c8c28df030d3f819e3831a16760dc5af79722487d789d9cbe02d");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_847829852334f2b320f2b2890d9a9c3dd7022b760b29a94540ba4fe13d1dd91a");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
-}
-
-void sub_24D7DCFE0(uint64_t a1, uint64_t a2)
-{
-  sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_d2acb8217628c8c28df030d3f819e3831a16760dc5af79722487d789d9cbe02d");
-  agxps_timeseries_get_length(v3);
-  sub_24D76D428();
-  v4 = (*(*a2 + 16))(a2, "_847829852334f2b320f2b2890d9a9c3dd7022b760b29a94540ba4fe13d1dd91a");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
-}
-
-void sub_24D7DD2B0(uint64_t a1, uint64_t a2)
-{
-  sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_64a10cb112e74a4ec02f177b245e3f83edd61c0f78bc5bc7ae4978ce28f07f83");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
-}
-
-void sub_24D7DD458(uint64_t a1, uint64_t a2)
-{
-  v3 = sub_24D76D428();
-  v5 = v4;
-  v6 = (*(*a2 + 16))(a2, "_aabc9758d4e52fd36dfb1a0e38171798aa7bf2ec665135dc298c1aa1a7c10760");
-  sub_24D773FA8(v3, v5, v6);
-}
-
-void sub_24D7DD6E0(uint64_t a1, uint64_t a2)
-{
-  v3 = sub_24D76D428();
-  v5 = v4;
-  v6 = sub_24D76D428();
-  sub_24D76D970(v3, v5, v6);
-  v7 = (*(*a2 + 16))(a2, "_ca0d54323c1777d994357aaacdb7beac572bea11cd16afed4c756f3dc9496a18");
+  v7 = ((*a2)[2])(a2, "_2fab6f6232fd4f1349620047490c7562c852746134f1a6e53ca0510462394598");
   agxps_timeseries_get_length(v7);
-  sub_24D809F40();
+  v8 = ((*a2)[2])(a2, "_f4035ec10b022c926c9e5a14e4e2c08c16049d0e9474bf8b383ed109db7360d7");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DD8AC(uint64_t a1, uint64_t a2)
+void sub_24D7DCBD4(uint64_t a1, uint64_t (***a2)(void, int *, void), uint64_t (***a3)(void, const char *), uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_46210435e8bd691719dc45391f51ef552bf7e745c1401ee9943aa6f85086336e");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = ((*a2)[2])(a2, "_1308feee43a7aae19c3764eb8928e79f464f3a2b9d1291b01c1bae25565fa93c");
+  agxps_timeseries_get_length(v7);
+  v8 = ((*a2)[2])(a2, "_ee24ab3d92c84359c20d00d2061a37fcec736e1c550577f0529a9c9441a265dc");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DDA54(uint64_t a1, uint64_t a2)
+void sub_24D7DCEB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
+{
+  v7 = (*(*a2 + 16))(a2, "_d2acb8217628c8c28df030d3f819e3831a16760dc5af79722487d789d9cbe02d", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "_847829852334f2b320f2b2890d9a9c3dd7022b760b29a94540ba4fe13d1dd91a");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
+}
+
+void sub_24D7DCFE0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_2d3c257f33af88b8488658fb5b6a86f64cb02169b680e1250d3f37d373a4197f");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_d2acb8217628c8c28df030d3f819e3831a16760dc5af79722487d789d9cbe02d");
+  agxps_timeseries_get_length(v7);
+  sub_24D76D428();
+  v8 = (*(*a2 + 16))(a2, "_847829852334f2b320f2b2890d9a9c3dd7022b760b29a94540ba4fe13d1dd91a");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DDBD8(uint64_t a1, uint64_t a2)
+void sub_24D7DD2B0(uint64_t a1, uint64_t (***a2)(void, int *, void), uint64_t (***a3)(void, const char *), uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_149b69750a3c80a27d163a4ca69ec03e3b39b3c0afe9c90c8cd37a128832cb13");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = ((*a2)[2])(a2, "_64a10cb112e74a4ec02f177b245e3f83edd61c0f78bc5bc7ae4978ce28f07f83");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DDD5C(uint64_t a1, uint64_t a2)
+void sub_24D7DD458(uint64_t a1, uint64_t a2, uint64_t (***a3)(void, const char *), uint64_t a4, uint64_t a5)
+{
+  v6 = sub_24D76D428();
+  v8 = v7;
+  v9 = (*(*a2 + 16))(a2, "_aabc9758d4e52fd36dfb1a0e38171798aa7bf2ec665135dc298c1aa1a7c10760");
+  sub_24D773FA8(v6, v8, v9);
+}
+
+void sub_24D7DD6E0(uint64_t a1, uint64_t (***a2)(void, int *, void), uint64_t (***a3)(void, const char *), uint64_t a4, const void **a5)
+{
+  v7 = sub_24D76D428();
+  v9 = v8;
+  v10 = sub_24D76D428();
+  sub_24D76D970(v7, v9, v10);
+  v11 = ((*a2)[2])(a2, "_ca0d54323c1777d994357aaacdb7beac572bea11cd16afed4c756f3dc9496a18");
+  length = agxps_timeseries_get_length(v11);
+  sub_24D809F40(a5, 0, length);
+}
+
+void sub_24D7DD8AC(uint64_t a1, uint64_t (***a2)(void, int *, void), uint64_t (***a3)(void, const char *), uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_da824fe9269c1efd80cb71a6e5415be160b6f43b41e858cb83976c4140b052a5");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = ((*a2)[2])(a2, "_46210435e8bd691719dc45391f51ef552bf7e745c1401ee9943aa6f85086336e");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DDEE0(uint64_t a1, uint64_t a2)
+void sub_24D7DDA54(uint64_t a1, uint64_t (***a2)(void, int *, void), uint64_t (***a3)(void, const char *), uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_6d6a7c8efb15986fa71f8bf4a6a06f8942199b36680e516766e92490607c958d");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "_fdc48a2370f6885da6ac169661812057de2cf71fbbbcb5df8348a78f112992dc");
-  agxps_timeseries_get_length(v4);
-  sub_24D809F40();
+  v7 = ((*a2)[2])(a2, "_2d3c257f33af88b8488658fb5b6a86f64cb02169b680e1250d3f37d373a4197f");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DE0CC(uint64_t a1, uint64_t a2)
+void sub_24D7DDBD8(uint64_t a1, uint64_t (***a2)(void, int *, void), uint64_t (***a3)(void, const char *), uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_6d6a7c8efb15986fa71f8bf4a6a06f8942199b36680e516766e92490607c958d");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = ((*a2)[2])(a2, "_149b69750a3c80a27d163a4ca69ec03e3b39b3c0afe9c90c8cd37a128832cb13");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DE174(uint64_t a1, uint64_t a2)
-{
-  v3 = sub_24D76D428();
-  v5 = v4;
-  v6 = (*(*a2 + 16))(a2, "_da2d5f5fd43e7edda6d5635752a29f09d285cf47c2ecd0a1b83b1ba3eddcef55");
-  sub_24D773FA8(v3, v5, v6);
-}
-
-void sub_24D7DE2D0(uint64_t a1, uint64_t a2)
-{
-  v3 = sub_24D76D428();
-  v5 = v4;
-  v6 = (*(*a2 + 16))(a2, "_da2d5f5fd43e7edda6d5635752a29f09d285cf47c2ecd0a1b83b1ba3eddcef55");
-  sub_24D773FA8(v3, v5, v6);
-}
-
-void sub_24D7DE400(uint64_t a1, uint64_t a2)
+void sub_24D7DDD5C(uint64_t a1, uint64_t (***a2)(void, int *, void), uint64_t (***a3)(void, const char *), uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_63b721bdb7ff9f45f3835f7e6a8a4595b1fed0038ae9a76cb853fc36756386c9");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = ((*a2)[2])(a2, "_da824fe9269c1efd80cb71a6e5415be160b6f43b41e858cb83976c4140b052a5");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DE584(uint64_t a1, uint64_t a2)
+void sub_24D7DDEE0(uint64_t a1, uint64_t (***a2)(void, int *, void), uint64_t (***a3)(void, const char *), uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_63b721bdb7ff9f45f3835f7e6a8a4595b1fed0038ae9a76cb853fc36756386c9");
-  agxps_timeseries_get_length(v2);
   sub_24D76D428();
-  sub_24D809F40();
+  v7 = ((*a2)[2])(a2, "_6d6a7c8efb15986fa71f8bf4a6a06f8942199b36680e516766e92490607c958d");
+  agxps_timeseries_get_length(v7);
+  v8 = ((*a2)[2])(a2, "_fdc48a2370f6885da6ac169661812057de2cf71fbbbcb5df8348a78f112992dc");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DE634(uint64_t a1, uint64_t a2)
+void sub_24D7DE0CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_95457b9a60a638f3c652d16526373338287f19e3cb86adaea8a30e8255a7aa34");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_6d6a7c8efb15986fa71f8bf4a6a06f8942199b36680e516766e92490607c958d");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
-void sub_24D7DE790(uint64_t a1, uint64_t a2)
+void sub_24D7DE174(uint64_t a1, uint64_t (***a2)(void, uint64_t, void), uint64_t (***a3)(void, const char *))
 {
-  v3 = (*(*a2 + 16))(a2, "FragmentZStoreBytes");
-  agxps_timeseries_get_length(v3);
-  v4 = (*(*a2 + 16))(a2, "ZBytesWrittenToMainMemory");
-  agxps_timeseries_get_length(v4);
+  v4 = sub_24D76D428();
+  v6 = v5;
+  v7 = ((*a2)[2])(a2, "_da2d5f5fd43e7edda6d5635752a29f09d285cf47c2ecd0a1b83b1ba3eddcef55");
+  sub_24D773FA8(v4, v6, v7);
+}
+
+void sub_24D7DE2D0(uint64_t a1, uint64_t (***a2)(void, uint64_t, void), uint64_t (***a3)(void, const char *))
+{
+  v4 = sub_24D76D428();
+  v6 = v5;
+  v7 = ((*a2)[2])(a2, "_da2d5f5fd43e7edda6d5635752a29f09d285cf47c2ecd0a1b83b1ba3eddcef55");
+  sub_24D773FA8(v4, v6, v7);
+}
+
+void sub_24D7DE400(uint64_t a1, uint64_t (***a2)(void, int *, void), uint64_t (***a3)(void, const char *), uint64_t a4, const void **a5)
+{
   sub_24D76D428();
-  sub_24D809F40();
+  v7 = ((*a2)[2])(a2, "_63b721bdb7ff9f45f3835f7e6a8a4595b1fed0038ae9a76cb853fc36756386c9");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
+}
+
+void sub_24D7DE584(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
+{
+  v6 = (*(*a2 + 16))(a2, "_63b721bdb7ff9f45f3835f7e6a8a4595b1fed0038ae9a76cb853fc36756386c9", a3, a4);
+  length = agxps_timeseries_get_length(v6);
+  sub_24D76D428();
+  sub_24D809F40(a5, 0, length);
+}
+
+void sub_24D7DE634(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
+{
+  sub_24D76D428();
+  v7 = (*(*a2 + 16))(a2, "_95457b9a60a638f3c652d16526373338287f19e3cb86adaea8a30e8255a7aa34");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
+}
+
+void sub_24D7DE790(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
+{
+  v7 = (*(*a2 + 16))(a2, "FragmentZStoreBytes", a3, a4);
+  agxps_timeseries_get_length(v7);
+  v8 = (*(*a2 + 16))(a2, "ZBytesWrittenToMainMemory");
+  length = agxps_timeseries_get_length(v8);
+  sub_24D76D428();
+  sub_24D809F40(a5, 0, length);
 }
 
 uint64_t sub_24D7DE8DC(uint64_t a1, uint64_t a2)
@@ -9874,12 +9863,12 @@ uint64_t sub_24D7DE8DC(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-void sub_24D7DE934(uint64_t a1, uint64_t a2)
+void sub_24D7DE934(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
   sub_24D76D428();
-  v3 = (*(*a2 + 16))(a2, "_ca0d54323c1777d994357aaacdb7beac572bea11cd16afed4c756f3dc9496a18");
-  agxps_timeseries_get_length(v3);
-  sub_24D809F40();
+  v7 = (*(*a2 + 16))(a2, "_ca0d54323c1777d994357aaacdb7beac572bea11cd16afed4c756f3dc9496a18");
+  length = agxps_timeseries_get_length(v7);
+  sub_24D809F40(a5, 0, length);
 }
 
 void sub_24D7DE9D8(uint64_t a1, uint64_t a2)
@@ -9950,10 +9939,18 @@ void sub_24D7DEF28(uint64_t a1, uint64_t a2)
   sub_24D76F348(v3, v4);
 }
 
-void sub_24D7DF348(uint64_t a1, uint64_t a2)
+void sub_24D7DF348(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void **a5)
 {
-  v2 = (*(*a2 + 16))(a2, "_40680272e25f5a98ef1fdae57c0be82cc7fb940000907f1a4d46547de8525db0");
-  agxps_timeseries_get_length(v2);
+  v6 = (*(*a2 + 16))(a2, "_40680272e25f5a98ef1fdae57c0be82cc7fb940000907f1a4d46547de8525db0", a3, a4);
+  length = agxps_timeseries_get_length(v6);
   sub_24D76D428();
-  sub_24D809F40();
+  sub_24D809F40(a5, 0, length);
+}
+
+void sub_24D7DF3F8(uint64_t a1, uint64_t (***a2)(void, uint64_t, void), uint64_t (***a3)(void, const char *))
+{
+  v4 = sub_24D76D428();
+  v6 = v5;
+  v7 = ((*a2)[2])(a2, "_40680272e25f5a98ef1fdae57c0be82cc7fb940000907f1a4d46547de8525db0");
+  sub_24D773FA8(v4, v6, v7);
 }

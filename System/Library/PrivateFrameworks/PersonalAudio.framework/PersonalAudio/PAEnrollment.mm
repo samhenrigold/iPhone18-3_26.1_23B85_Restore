@@ -441,16 +441,16 @@ LABEL_25:
 
 - (void)registerNotifications
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   mEMORY[0x277D26E58] = [MEMORY[0x277D26E58] sharedAVSystemController];
   v4 = MEMORY[0x277D26C10];
   v5 = MEMORY[0x277D26B00];
   v6 = *MEMORY[0x277D26B00];
-  v20[0] = *MEMORY[0x277D26C10];
-  v20[1] = v6;
+  v19[0] = *MEMORY[0x277D26C10];
+  v19[1] = v6;
   v7 = MEMORY[0x277D26D40];
-  v20[2] = *MEMORY[0x277D26D40];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+  v19[2] = *MEMORY[0x277D26D40];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
   [mEMORY[0x277D26E58] setAttribute:v8 forKey:*MEMORY[0x277D26DD0] error:0];
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -470,8 +470,6 @@ LABEL_25:
   v17 = *v7;
   mEMORY[0x277D26E58]3 = [MEMORY[0x277D26E58] sharedAVSystemController];
   [defaultCenter4 addObserver:self selector:sel_mediaServerDied name:v17 object:mEMORY[0x277D26E58]3];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mediaServerDied

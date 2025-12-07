@@ -9,6 +9,7 @@
 - (void)_unblockPendingQueries;
 - (void)feedbackForAttribution:(id)attribution type:(unint64_t)type client:(id)client variant:(id)variant completion:(id)completion;
 - (void)feedbackForHighlight:(id)highlight type:(unint64_t)type client:(id)client variant:(id)variant completion:(id)completion;
+- (void)rankedHighlightsBatch:(id)batch isLast:(BOOL)last error:(id)error queryId:(unint64_t)id completion:(id)completion;
 @end
 
 @implementation PPSocialHighlightClient
@@ -32,13 +33,12 @@
 
 void __41__PPSocialHighlightClient_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_2922;
-  sharedInstance__pasExprOnceResult_2922 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_2922;
+  sharedInstance__pasExprOnceResult_2922 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 - (PPSocialHighlightClient)init
@@ -91,7 +91,7 @@ void __41__PPSocialHighlightClient_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)feedbackForAttribution:(id)attribution type:(unint64_t)type client:(id)client variant:(id)variant completion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   attributionCopy = attribution;
   clientCopy = client;
   variantCopy = variant;
@@ -99,15 +99,15 @@ void __41__PPSocialHighlightClient_sharedInstance__block_invoke(uint64_t a1)
   v16 = pp_social_highlights_log_handle();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138413058;
-    v22 = attributionCopy;
-    v23 = 2048;
+    v20 = 138413058;
+    v21 = attributionCopy;
+    v22 = 2048;
     typeCopy = type;
-    v25 = 2112;
-    v26 = clientCopy;
-    v27 = 2112;
-    v28 = variantCopy;
-    _os_log_impl(&dword_1A7FD3000, v16, OS_LOG_TYPE_DEFAULT, "Received feedback for attribution: %@ with type: %lu from client: '%@' variant: '%@'", &v21, 0x2Au);
+    v24 = 2112;
+    v25 = clientCopy;
+    v26 = 2112;
+    v27 = variantCopy;
+    _os_log_impl(&dword_1A7FD3000, v16, OS_LOG_TYPE_DEFAULT, "Received feedback for attribution: %@ with type: %lu from client: '%@' variant: '%@'", &v20, 0x2Au);
   }
 
   if (completionCopy)
@@ -124,13 +124,11 @@ void __41__PPSocialHighlightClient_sharedInstance__block_invoke(uint64_t a1)
 
   _remoteObjectProxy = [(PPSocialHighlightClient *)self _remoteObjectProxy];
   [_remoteObjectProxy feedbackForAttribution:attributionCopy type:type client:clientCopy variant:variantCopy completion:v18];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)feedbackForHighlight:(id)highlight type:(unint64_t)type client:(id)client variant:(id)variant completion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   highlightCopy = highlight;
   clientCopy = client;
   variantCopy = variant;
@@ -138,15 +136,15 @@ void __41__PPSocialHighlightClient_sharedInstance__block_invoke(uint64_t a1)
   v16 = pp_social_highlights_log_handle();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138413058;
-    v22 = highlightCopy;
-    v23 = 2048;
+    v20 = 138413058;
+    v21 = highlightCopy;
+    v22 = 2048;
     typeCopy = type;
-    v25 = 2112;
-    v26 = clientCopy;
-    v27 = 2112;
-    v28 = variantCopy;
-    _os_log_impl(&dword_1A7FD3000, v16, OS_LOG_TYPE_DEFAULT, "Received feedback for highlight: %@ with type: %lu from client: '%@' variant: '%@'", &v21, 0x2Au);
+    v24 = 2112;
+    v25 = clientCopy;
+    v26 = 2112;
+    v27 = variantCopy;
+    _os_log_impl(&dword_1A7FD3000, v16, OS_LOG_TYPE_DEFAULT, "Received feedback for highlight: %@ with type: %lu from client: '%@' variant: '%@'", &v20, 0x2Au);
   }
 
   if (completionCopy)
@@ -163,8 +161,6 @@ void __41__PPSocialHighlightClient_sharedInstance__block_invoke(uint64_t a1)
 
   _remoteObjectProxy = [(PPSocialHighlightClient *)self _remoteObjectProxy];
   [_remoteObjectProxy feedbackForHighlight:highlightCopy type:type client:clientCopy variant:variantCopy completion:v18];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)attributionForIdentifier:(id)identifier error:(id *)error
@@ -236,6 +232,22 @@ void __58__PPSocialHighlightClient_attributionForIdentifier_error___block_invoke
   v9 = *(*(a1 + 40) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v6;
+}
+
+- (void)rankedHighlightsBatch:(id)batch isLast:(BOOL)last error:(id)error queryId:(unint64_t)id completion:(id)completion
+{
+  lastCopy = last;
+  completionCopy = completion;
+  errorCopy = error;
+  batchCopy = batch;
+  v15 = pp_social_highlights_log_handle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  {
+    *v16 = 0;
+    _os_log_debug_impl(&dword_1A7FD3000, v15, OS_LOG_TYPE_DEBUG, "rankedHighlightsBatch called", v16, 2u);
+  }
+
+  [(PPXPCClientPipelinedBatchQueryManager *)self->_queryManager handleReplyWithName:@"rankedHighlightsBatch" batch:batchCopy isLast:lastCopy error:errorCopy queryId:id completion:completionCopy];
 }
 
 - (BOOL)rankedHighlightsForSyncedItems:(id)items client:(id)client variant:(id)variant error:(id *)error handleBatch:(id)batch
@@ -398,7 +410,7 @@ void __86__PPSocialHighlightClient_rankedHighlightsWithLimit_client_variant_erro
 
 - (double)decayInterval
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = pp_social_highlights_log_handle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
@@ -407,34 +419,34 @@ void __86__PPSocialHighlightClient_rankedHighlightsWithLimit_client_variant_erro
   }
 
   *buf = 0;
-  v23 = buf;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__2862;
-  v26 = __Block_byref_object_dispose__2863;
-  v27 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__2862;
-  v20 = __Block_byref_object_dispose__2863;
-  v21 = 0;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __40__PPSocialHighlightClient_decayInterval__block_invoke;
-  v15[3] = &unk_1E77F7B20;
-  v15[4] = &v16;
-  v4 = MEMORY[0x1AC568040](v15);
+  v22 = buf;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__2862;
+  v25 = __Block_byref_object_dispose__2863;
+  v26 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__2862;
+  v19 = __Block_byref_object_dispose__2863;
+  v20 = 0;
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
-  v14[2] = __40__PPSocialHighlightClient_decayInterval__block_invoke_2;
-  v14[3] = &unk_1E77F68F8;
-  v14[4] = buf;
-  v14[5] = &v16;
-  v5 = MEMORY[0x1AC568040](v14);
+  v14[2] = __40__PPSocialHighlightClient_decayInterval__block_invoke;
+  v14[3] = &unk_1E77F7B20;
+  v14[4] = &v15;
+  v4 = MEMORY[0x1AC568040](v14);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __40__PPSocialHighlightClient_decayInterval__block_invoke_2;
+  v13[3] = &unk_1E77F68F8;
+  v13[4] = buf;
+  v13[5] = &v15;
+  v5 = MEMORY[0x1AC568040](v13);
   v6 = [(PPSocialHighlightClient *)self _synchronousRemoteObjectProxyWithErrorHandler:v4];
   [v6 decayIntervalWithCompletion:v5];
 
-  v7 = *(v23 + 5);
+  v7 = *(v22 + 5);
   if (v7)
   {
     goto LABEL_7;
@@ -443,13 +455,13 @@ void __86__PPSocialHighlightClient_rankedHighlightsWithLimit_client_variant_erro
   v8 = pp_social_highlights_log_handle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v13 = v17[5];
-    *v28 = 138412290;
-    v29 = v13;
-    _os_log_error_impl(&dword_1A7FD3000, v8, OS_LOG_TYPE_ERROR, "PPSocialHighlightClient: failed to fetch decay interval: %@", v28, 0xCu);
+    v12 = v16[5];
+    *v27 = 138412290;
+    v28 = v12;
+    _os_log_error_impl(&dword_1A7FD3000, v8, OS_LOG_TYPE_ERROR, "PPSocialHighlightClient: failed to fetch decay interval: %@", v27, 0xCu);
   }
 
-  v7 = *(v23 + 5);
+  v7 = *(v22 + 5);
   if (v7)
   {
 LABEL_7:
@@ -462,10 +474,9 @@ LABEL_7:
     v10 = 31536000.0;
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
   _Block_object_dispose(buf, 8);
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -484,51 +495,46 @@ void __40__PPSocialHighlightClient_decayInterval__block_invoke_2(uint64_t a1, vo
 
 - (void)_unblockPendingQueries
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"connection to %@ was unexpectedly terminated", @"com.apple.proactive.PersonalizationPortrait.SocialHighlight"];
   v4 = objc_alloc(MEMORY[0x1E696ABC0]);
   v5 = *MEMORY[0x1E696A798];
-  v9 = *MEMORY[0x1E696A588];
-  v10[0] = v3;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A588];
+  v9[0] = v3;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v7 = [v4 initWithDomain:v5 code:5 userInfo:v6];
 
   [(PPXPCClientPipelinedBatchQueryManager *)self->_queryManager cancelPendingQueriesWithError:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __31__PPSocialHighlightClient_init__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = pp_social_highlights_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = @"com.apple.proactive.PersonalizationPortrait.SocialHighlight";
-    _os_log_error_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = @"com.apple.proactive.PersonalizationPortrait.SocialHighlight";
+    _os_log_error_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _unblockPendingQueries];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __31__PPSocialHighlightClient_init__block_invoke_90(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = pp_social_highlights_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = @"com.apple.proactive.PersonalizationPortrait.SocialHighlight";
-    _os_log_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_INFO, "Connection to %@ invalidated.", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = @"com.apple.proactive.PersonalizationPortrait.SocialHighlight";
+    _os_log_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_INFO, "Connection to %@ invalidated.", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _unblockPendingQueries];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

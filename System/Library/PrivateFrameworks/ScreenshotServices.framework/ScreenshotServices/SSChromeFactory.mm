@@ -6,7 +6,7 @@
 
 + (id)closeBarButtonItem
 {
-  if (_SSScreenshotsRedesign2025Enabled())
+  if (_SSScreenshotsRedesign2025Enabled(self, a2))
   {
     v2 = objc_alloc(MEMORY[0x1E69DC708]);
     v3 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"xmark"];

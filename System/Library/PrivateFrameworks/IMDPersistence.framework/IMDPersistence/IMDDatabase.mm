@@ -29,6 +29,7 @@
 - (id)_updateMessageSyncedSyndicationRangesQueryFor:(int64_t)for;
 - (id)_updateRecoverableMessageSyncStateForMessageGUIDsQueryFor:(int64_t)for;
 - (id)chatRecordsFilteredByPredicate:(id)predicate;
+- (id)chatRecordsWithHandles:(id)handles serviceName:(id)name displayName:(id)displayName groupID:(id)d style:(unsigned __int8)style useOriginalGroupID:(BOOL)iD;
 - (id)chatRecordsWithIdentifier:(id)identifier;
 - (id)copyDuplicateGroupChatRecordsWithLimit:(int64_t)limit;
 - (id)handleRecordsFilteredByPredicate:(id)predicate;
@@ -118,6 +119,7 @@
 - (void)updateAttachmentSyndicationRanges:(id)ranges shouldHideFromSyndication:(BOOL)syndication;
 - (void)updateAttachmentsSyncStatusTo:(int64_t)to forGUIDs:(id)ds;
 - (void)updateChatsSyncStatusTo:(int64_t)to forGUIDs:(id)ds;
+- (void)updateMessageSyndicationRanges:(id)ranges shouldHideFromSyndication:(BOOL)syndication;
 - (void)updateMessagesSyncStatusTo:(int64_t)to forGUIDs:(id)ds;
 - (void)updateMessagesSyncedSyndicationRangesForGUIDs:(id)ds toStatus:(int64_t)status;
 - (void)updatePendingReviewForChatsWithGUIDs:(id)ds pendingReview:(BOOL)review completionHandler:(id)handler;
@@ -130,18 +132,18 @@
 
 + (IMDRemoteDatabaseProtocol)synchronousDatabase
 {
-  if (objc_msgSend_isServerProcess(self, a2, v2))
+  if (objc_msgSend_isServerProcess(self, a2, v2, v3))
   {
-    objc_msgSend__databaseServer(self, v4, v5);
+    objc_msgSend__databaseServer(self, v5, v6, v7);
   }
 
   else
   {
-    objc_msgSend__databaseClientSync(self, v4, v5);
+    objc_msgSend__databaseClientSync(self, v5, v6, v7);
   }
-  v6 = ;
+  v8 = ;
 
-  return v6;
+  return v8;
 }
 
 + (id)_databaseClientSync
@@ -231,15 +233,15 @@
   v9[3] = v7;
   v9[4] = sub_1B7AEFE64;
   v9[5] = v8;
-  v12[4] = sub_1B7AE47A0;
-  v12[5] = v9;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 1107296256;
-  v12[2] = sub_1B7AE14D0;
-  v12[3] = &unk_1F2FA7AC0;
-  v10 = _Block_copy(v12);
+  v13[4] = sub_1B7AE47A0;
+  v13[5] = v9;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 1107296256;
+  v13[2] = sub_1B7AE14D0;
+  v13[3] = &unk_1F2FA7AC0;
+  v10 = _Block_copy(v13);
 
-  IMDPersistencePerformBlock(v10, 1, v11);
+  IMDPersistencePerformBlock(v10, 1, v11, v12);
 
   _Block_release(v10);
 }
@@ -256,15 +258,15 @@
   v9[3] = v7;
   v9[4] = sub_1B7AF1A74;
   v9[5] = v8;
-  v12[4] = sub_1B7AF0048;
-  v12[5] = v9;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 1107296256;
-  v12[2] = sub_1B7AE14D0;
-  v12[3] = &unk_1F2FA77F0;
-  v10 = _Block_copy(v12);
+  v13[4] = sub_1B7AF0048;
+  v13[5] = v9;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 1107296256;
+  v13[2] = sub_1B7AE14D0;
+  v13[3] = &unk_1F2FA77F0;
+  v10 = _Block_copy(v13);
 
-  IMDPersistencePerformBlock(v10, 1, v11);
+  IMDPersistencePerformBlock(v10, 1, v11, v12);
 
   _Block_release(v10);
 }
@@ -280,15 +282,15 @@
   *(v9 + 24) = v7;
   *(v9 + 32) = sub_1B7AF5954;
   *(v9 + 40) = v8;
-  v12[4] = sub_1B7AF5654;
-  v12[5] = v9;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 1107296256;
-  v12[2] = sub_1B7AE14D0;
-  v12[3] = &unk_1F2FA7688;
-  v10 = _Block_copy(v12);
+  v13[4] = sub_1B7AF5654;
+  v13[5] = v9;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 1107296256;
+  v13[2] = sub_1B7AE14D0;
+  v13[3] = &unk_1F2FA7688;
+  v10 = _Block_copy(v13);
 
-  IMDPersistencePerformBlock(v10, 1, v11);
+  IMDPersistencePerformBlock(v10, 1, v11, v12);
 
   _Block_release(v10);
 }
@@ -303,15 +305,15 @@
   v7[2] = v5;
   v7[3] = sub_1B7CBCD94;
   v7[4] = v6;
-  v10[4] = sub_1B7AF7F04;
-  v10[5] = v7;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 1107296256;
-  v10[2] = sub_1B7AE14D0;
-  v10[3] = &unk_1F2FA7D18;
-  v8 = _Block_copy(v10);
+  v11[4] = sub_1B7AF7F04;
+  v11[5] = v7;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 1107296256;
+  v11[2] = sub_1B7AE14D0;
+  v11[3] = &unk_1F2FA7D18;
+  v8 = _Block_copy(v11);
 
-  IMDPersistencePerformBlock(v8, 1, v9);
+  IMDPersistencePerformBlock(v8, 1, v9, v10);
 
   _Block_release(v8);
 }
@@ -347,16 +349,16 @@
   v8[3] = self;
   v8[4] = sub_1B7C14DD0;
   v8[5] = v7;
-  v12[4] = sub_1B7AFB940;
-  v12[5] = v8;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 1107296256;
-  v12[2] = sub_1B7AE14D0;
-  v12[3] = &unk_1F2FA3048;
-  v9 = _Block_copy(v12);
+  v13[4] = sub_1B7AFB940;
+  v13[5] = v8;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 1107296256;
+  v13[2] = sub_1B7AE14D0;
+  v13[3] = &unk_1F2FA3048;
+  v9 = _Block_copy(v13);
   selfCopy = self;
 
-  IMDPersistencePerformBlock(v9, 1, v11);
+  IMDPersistencePerformBlock(v9, 1, v11, v12);
 
   _Block_release(v9);
 }
@@ -375,40 +377,40 @@
 {
   keyCopy = key;
   handlerCopy = handler;
-  if (objc_msgSend_length(keyCopy, v7, v8))
+  if (objc_msgSend_length(keyCopy, v7, v8, v9))
   {
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2020000000;
-    v15 = 0;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = sub_1B7B03CA4;
-    v9[3] = &unk_1E7CB6700;
-    v10 = keyCopy;
-    v11 = &v12;
-    _IMDPerformLockedStatementBlockWithQuery(@"SELECT value FROM kvtable WHERE key = ?", v9);
+    v13 = 0;
+    v14 = &v13;
+    v15 = 0x2020000000;
+    v16 = 0;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = sub_1B7B03CA4;
+    v10[3] = &unk_1E7CB6700;
+    v11 = keyCopy;
+    v12 = &v13;
+    _IMDPerformLockedStatementBlockWithQuery(@"SELECT value FROM kvtable WHERE key = ?", v10);
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, v13[3]);
+      handlerCopy[2](handlerCopy, v14[3]);
     }
 
-    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v13, 8);
   }
 }
 
 - (void)storeInteger64:(int64_t)integer64 forKey:(id)key
 {
   keyCopy = key;
-  if (objc_msgSend_length(keyCopy, v6, v7))
+  if (objc_msgSend_length(keyCopy, v6, v7, v8))
   {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = sub_1B7B03D9C;
-    v8[3] = &unk_1E7CB6728;
-    v9 = keyCopy;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1B7B03D9C;
+    v9[3] = &unk_1E7CB6728;
+    v10 = keyCopy;
     integer64Copy = integer64;
-    _IMDPerformLockedStatementBlockWithQuery(@"INSERT OR REPLACE INTO kvtable (key, value) VALUES (?, ?)", v8);
+    _IMDPerformLockedStatementBlockWithQuery(@"INSERT OR REPLACE INTO kvtable (key, value) VALUES (?, ?)", v9);
   }
 }
 
@@ -449,131 +451,128 @@
       v9 = IMDatabaseLogHandle();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v12 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v11, v7);
+        v13 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v11, v7, v12);
         *buf = 138543618;
         v16 = v6;
         v17 = 2112;
-        v18 = v12;
+        v18 = v13;
         _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_INFO, "Total row count for table %{public}@: %@", buf, 0x16u);
       }
     }
 
     handlerCopy[2](handlerCopy, v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)handleRecordsFilteredByPredicate:(id)predicate
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = sub_1B7AE18D4;
-  v28 = sub_1B7AE2460;
-  v29 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = sub_1B7AE18D4;
+  v29 = sub_1B7AE2460;
+  v30 = 0;
   if (predicateCopy)
   {
     v5 = [IMDPredicateToSQLConverter alloc];
-    v8 = objc_msgSend_keyPathsToColumns(IMDHandleRecord, v6, v7);
-    v10 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v5, v9, predicateCopy, v8);
+    v9 = objc_msgSend_keyPathsToColumns(IMDHandleRecord, v6, v7, v8);
+    v11 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v5, v10, predicateCopy, v9);
 
-    if (v10)
+    if (v11)
     {
-      v11 = IMDatabaseLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = @"YES";
-        _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_DEFAULT, "Fetching handles filtered by predicate: %@", buf, 0xCu);
+        v32 = @"YES";
+        _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_DEFAULT, "Fetching handles filtered by predicate: %@", buf, 0xCu);
       }
 
-      v14 = objc_msgSend_expression(v10, v12, v13);
-      v15 = IMDHandleRecordCopyHandlesFilteredUsingPredicateQuery(v14);
+      v16 = objc_msgSend_expression(v11, v13, v14, v15);
+      v17 = IMDHandleRecordCopyHandlesFilteredUsingPredicateQuery(v16);
 
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = sub_1B7B08618;
-      v20[3] = &unk_1E7CB6930;
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = sub_1B7B08618;
+      v21[3] = &unk_1E7CB6930;
       selfCopy = self;
-      v23 = &v24;
-      v21 = v10;
-      _IMDPerformLockedStatementBlockWithQuery(v15, v20);
-      v16 = v25[5];
-      if (!v16)
+      v24 = &v25;
+      v22 = v11;
+      _IMDPerformLockedStatementBlockWithQuery(v17, v21);
+      v18 = v26[5];
+      if (!v18)
       {
-        v16 = MEMORY[0x1E695E0F0];
+        v18 = MEMORY[0x1E695E0F0];
       }
 
-      v17 = v16;
+      v19 = v18;
     }
 
     else
     {
-      v15 = IMDatabaseMessageEventLogHandle();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v17 = IMDatabaseMessageEventLogHandle();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v31 = "[IMDDatabase(Handles) handleRecordsFilteredByPredicate:]";
-        v32 = 2112;
-        v33 = predicateCopy;
-        _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", buf, 0x16u);
+        v32 = "[IMDDatabase(Handles) handleRecordsFilteredByPredicate:]";
+        v33 = 2112;
+        v34 = predicateCopy;
+        _os_log_impl(&dword_1B7AD5000, v17, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", buf, 0x16u);
       }
 
-      v17 = 0;
+      v19 = 0;
     }
   }
 
   else
   {
-    v10 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v31 = "[IMDDatabase(Handles) handleRecordsFilteredByPredicate:]";
-      _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_DEFAULT, "No predicate provided to %s", buf, 0xCu);
+      v32 = "[IMDDatabase(Handles) handleRecordsFilteredByPredicate:]";
+      _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_DEFAULT, "No predicate provided to %s", buf, 0xCu);
     }
 
-    v17 = MEMORY[0x1E695E0F0];
+    v19 = MEMORY[0x1E695E0F0];
   }
 
-  _Block_object_dispose(&v24, 8);
-  v18 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
 
-  return v17;
+  return v19;
 }
 
 - (void)fetchHandleRecordsFilteredUsingPredicate:(id)predicate sortedUsingDescriptors:(id)descriptors limit:(unint64_t)limit completionHandler:(id)handler
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   descriptorsCopy = descriptors;
   handlerCopy = handler;
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x3032000000;
-  v61 = sub_1B7AE18D4;
-  v62 = sub_1B7AE2460;
   v63 = 0;
-  v46 = predicateCopy;
+  v64 = &v63;
+  v65 = 0x3032000000;
+  v66 = sub_1B7AE18D4;
+  v67 = sub_1B7AE2460;
+  v68 = 0;
+  v51 = predicateCopy;
   if (predicateCopy)
   {
     v9 = [IMDPredicateToSQLConverter alloc];
-    v12 = objc_msgSend_keyPathsToColumns(IMDHandleRecord, v10, v11);
-    v47 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v9, v13, predicateCopy, v12);
+    v13 = objc_msgSend_keyPathsToColumns(IMDHandleRecord, v10, v11, v12);
+    v52 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v9, v14, predicateCopy, v13);
 
-    if (!v47)
+    if (!v52)
     {
-      v14 = IMDatabaseMessageEventLogHandle();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v15 = IMDatabaseMessageEventLogHandle();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v65 = "[IMDDatabase(Handles) fetchHandleRecordsFilteredUsingPredicate:sortedUsingDescriptors:limit:completionHandler:]";
-        v66 = 2112;
-        v67 = predicateCopy;
-        _os_log_impl(&dword_1B7AD5000, v14, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", buf, 0x16u);
+        v70 = "[IMDDatabase(Handles) fetchHandleRecordsFilteredUsingPredicate:sortedUsingDescriptors:limit:completionHandler:]";
+        v71 = 2112;
+        v72 = predicateCopy;
+        _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", buf, 0x16u);
       }
 
       if (handlerCopy)
@@ -587,43 +586,43 @@
 
   else
   {
-    v47 = 0;
+    v52 = 0;
   }
 
-  v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v16 = descriptorsCopy;
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v54, v70, 16);
-  if (v18)
+  v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v17 = descriptorsCopy;
+  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v59, v75, 16);
+  if (v19)
   {
-    v19 = *v55;
+    v20 = *v60;
     while (2)
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v55 != v19)
+        if (*v60 != v20)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v17);
         }
 
-        v21 = *(*(&v54 + 1) + 8 * i);
-        v22 = [IMDSortDescriptorToSQLConverter alloc];
-        v25 = objc_msgSend_keyPathsToColumns(IMDHandleRecord, v23, v24);
-        v27 = objc_msgSend_initWithSortDescriptor_keyPathsToColumns_(v22, v26, v21, v25);
+        v22 = *(*(&v59 + 1) + 8 * i);
+        v23 = [IMDSortDescriptorToSQLConverter alloc];
+        v27 = objc_msgSend_keyPathsToColumns(IMDHandleRecord, v24, v25, v26);
+        v29 = objc_msgSend_initWithSortDescriptor_keyPathsToColumns_(v23, v28, v22, v27);
 
-        if (!v27)
+        if (!v29)
         {
-          v41 = IMDatabaseMessageEventLogHandle();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+          v47 = IMDatabaseMessageEventLogHandle();
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v65 = "[IMDDatabase(Handles) fetchHandleRecordsFilteredUsingPredicate:sortedUsingDescriptors:limit:completionHandler:]";
-            v66 = 2112;
-            v67 = v21;
-            _os_log_impl(&dword_1B7AD5000, v41, OS_LOG_TYPE_INFO, "Bad sort descriptor provided to %s (%@)", buf, 0x16u);
+            v70 = "[IMDDatabase(Handles) fetchHandleRecordsFilteredUsingPredicate:sortedUsingDescriptors:limit:completionHandler:]";
+            v71 = 2112;
+            v72 = v22;
+            _os_log_impl(&dword_1B7AD5000, v47, OS_LOG_TYPE_INFO, "Bad sort descriptor provided to %s (%@)", buf, 0x16u);
           }
 
           if (handlerCopy)
@@ -634,12 +633,12 @@
           goto LABEL_27;
         }
 
-        v30 = objc_msgSend_expression(v27, v28, v29);
-        objc_msgSend_addObject_(v15, v31, v30);
+        v33 = objc_msgSend_expression(v29, v30, v31, v32);
+        objc_msgSend_addObject_(v16, v34, v33, v35);
       }
 
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v32, &v54, v70, 16);
-      if (v18)
+      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v36, &v59, v75, 16);
+      if (v19)
       {
         continue;
       }
@@ -648,111 +647,107 @@
     }
   }
 
-  v33 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v37 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
-    v36 = objc_msgSend_count(v16, v34, v35);
-    v37 = @"YES";
+    v41 = objc_msgSend_count(v17, v38, v39, v40);
+    v42 = @"YES";
     *buf = 138412802;
-    if (!v46)
+    if (!v51)
     {
-      v37 = @"NO";
+      v42 = @"NO";
     }
 
-    v65 = v37;
-    v66 = 2048;
-    v67 = v36;
-    v68 = 2048;
+    v70 = v42;
+    v71 = 2048;
+    v72 = v41;
+    v73 = 2048;
     limitCopy = limit;
-    _os_log_impl(&dword_1B7AD5000, v33, OS_LOG_TYPE_DEFAULT, "Fetching handles filtered by predicate: %@ sortDescriptors: %llu limit: %llu", buf, 0x20u);
+    _os_log_impl(&dword_1B7AD5000, v37, OS_LOG_TYPE_DEFAULT, "Fetching handles filtered by predicate: %@ sortDescriptors: %llu limit: %llu", buf, 0x20u);
   }
 
-  v40 = objc_msgSend_expression(v47, v38, v39);
-  v16 = IMDHandleRecordCopySortedHandlesFilteredUsingPredicateWithLimitQuery(v40, v15);
+  v46 = objc_msgSend_expression(v52, v43, v44, v45);
+  v17 = IMDHandleRecordCopySortedHandlesFilteredUsingPredicateWithLimitQuery(v46, v16);
 
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = sub_1B7B08BAC;
-  v49[3] = &unk_1E7CB6958;
-  v52 = &v58;
+  v54[0] = MEMORY[0x1E69E9820];
+  v54[1] = 3221225472;
+  v54[2] = sub_1B7B08BAC;
+  v54[3] = &unk_1E7CB6958;
+  v57 = &v63;
   limitCopy2 = limit;
-  v50 = v47;
+  v55 = v52;
   selfCopy = self;
-  _IMDPerformLockedStatementBlockWithQuery(v16, v49);
+  _IMDPerformLockedStatementBlockWithQuery(v17, v54);
   if (handlerCopy)
   {
-    handlerCopy[2](handlerCopy, v59[5]);
+    handlerCopy[2](handlerCopy, v64[5]);
   }
 
 LABEL_27:
 LABEL_28:
-  _Block_object_dispose(&v58, 8);
-
-  v42 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v63, 8);
 }
 
 - (void)fetchContactsForIdentifiers:(id)identifiers completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   handlerCopy = handler;
   if (IMOSLoggingEnabled())
   {
-    v9 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_INFO, "IMDContactQueries: Performing XPC fetch of contacts in IMDP", buf, 2u);
+      _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "IMDContactQueries: Performing XPC fetch of contacts in IMDP", buf, 2u);
     }
   }
 
-  v10 = objc_msgSend_sharedInstance(MEMORY[0x1E69A7FD0], v7, v8);
-  v12 = objc_msgSend_batchFetchContactsWithoutCachingForIdentifiers_(v10, v11, identifiersCopy);
-  v15 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v13, v14);
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v16 = v12;
-  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v31, v37, 16);
-  if (v20)
+  v11 = objc_msgSend_sharedInstance(MEMORY[0x1E69A7FD0], v7, v8, v9);
+  v14 = objc_msgSend_batchFetchContactsWithoutCachingForIdentifiers_(v11, v12, identifiersCopy, v13);
+  v18 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v15, v16, v17);
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v19 = v14;
+  v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v20, &v35, v41, 16);
+  if (v24)
   {
-    v21 = *v32;
+    v25 = *v36;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v24; ++i)
       {
-        if (*v32 != v21)
+        if (*v36 != v25)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v19);
         }
 
-        v23 = *(*(&v31 + 1) + 8 * i);
-        v24 = objc_msgSend_identifier(v23, v18, v19, v31);
-        objc_msgSend_setObject_forKey_(v15, v25, v23, v24);
+        v27 = *(*(&v35 + 1) + 8 * i);
+        v28 = objc_msgSend_identifier(v27, v21, v22, v23, v35);
+        objc_msgSend_setObject_forKey_(v18, v29, v27, v28);
       }
 
-      v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v18, &v31, v37, 16);
+      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v21, &v35, v41, 16);
     }
 
-    while (v20);
+    while (v24);
   }
 
   if (IMOSLoggingEnabled())
   {
-    v26 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    v30 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
-      v29 = objc_msgSend_count(v15, v27, v28);
+      v34 = objc_msgSend_count(v18, v31, v32, v33);
       *buf = 134217984;
-      v36 = v29;
-      _os_log_impl(&dword_1B7AD5000, v26, OS_LOG_TYPE_INFO, "IMDContactQueries: Fetched %tu contacts in IMDP", buf, 0xCu);
+      v40 = v34;
+      _os_log_impl(&dword_1B7AD5000, v30, OS_LOG_TYPE_INFO, "IMDContactQueries: Fetched %tu contacts in IMDP", buf, 0xCu);
     }
   }
 
-  handlerCopy[2](handlerCopy, v15);
-
-  v30 = *MEMORY[0x1E69E9840];
+  handlerCopy[2](handlerCopy, v18);
 }
 
 - (void)updateAcceptedContactsInAliasMap:(id)map completionHandler:(id)handler
@@ -761,73 +756,73 @@ LABEL_28:
   handlerCopy = handler;
   if (IMOSLoggingEnabled())
   {
-    v9 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_INFO, "IMDContactQueries: Performing updateAcceptedContactsInAliasMap", buf, 2u);
+      _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "IMDContactQueries: Performing updateAcceptedContactsInAliasMap", buf, 2u);
     }
   }
 
-  v10 = objc_msgSend_sharedResolver(IMDCNPersonAliasResolver, v7, v8);
-  v12 = objc_msgSend__updateAcceptedContactsInAliasToCNIDMap_(v10, v11, mapCopy);
+  v11 = objc_msgSend_sharedResolver(IMDCNPersonAliasResolver, v7, v8, v9);
+  v14 = objc_msgSend__updateAcceptedContactsInAliasToCNIDMap_(v11, v12, mapCopy, v13);
   if (IMOSLoggingEnabled())
   {
-    v13 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v15 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "IMDContactQueries: updateAcceptedContactsInAliasMap returning updated alias map", v16, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "IMDContactQueries: updateAcceptedContactsInAliasMap returning updated alias map", v18, 2u);
     }
   }
 
-  if (v12)
+  if (v14)
   {
-    v14 = v12;
+    v16 = v14;
   }
 
   else
   {
-    v14 = mapCopy;
+    v16 = mapCopy;
   }
 
-  v15 = v14;
+  v17 = v16;
 
-  handlerCopy[2](handlerCopy, v15);
+  handlerCopy[2](handlerCopy, v17);
 }
 
 - (id)_copyMessageRecordsFromCoreSDBResults:(id)results
 {
   resultsCopy = results;
   v4 = objc_alloc(MEMORY[0x1E695DF70]);
-  v7 = objc_msgSend_count(resultsCopy, v5, v6);
-  v9 = objc_msgSend_initWithCapacity_(v4, v8, v7);
-  if (objc_msgSend_count(resultsCopy, v10, v11))
+  v8 = objc_msgSend_count(resultsCopy, v5, v6, v7);
+  v11 = objc_msgSend_initWithCapacity_(v4, v9, v8, v10);
+  if (objc_msgSend_count(resultsCopy, v12, v13, v14))
   {
-    v13 = 0;
-    v14 = *MEMORY[0x1E695E480];
+    v17 = 0;
+    v18 = *MEMORY[0x1E695E480];
     do
     {
-      objc_msgSend_objectAtIndex_(resultsCopy, v12, v13);
+      objc_msgSend_objectAtIndex_(resultsCopy, v15, v17, v16);
       ID = CSDBRecordGetID();
-      v17 = IMDMessageRecordCreateFromRecordIDUnlocked(v14, ID);
-      if (v17)
+      v22 = IMDMessageRecordCreateFromRecordIDUnlocked(v18, ID);
+      if (v22)
       {
-        objc_msgSend_addObject_(v9, v16, v17);
+        objc_msgSend_addObject_(v11, v20, v22, v21);
       }
 
-      ++v13;
+      ++v17;
     }
 
-    while (v13 < objc_msgSend_count(resultsCopy, v18, v19));
+    while (v17 < objc_msgSend_count(resultsCopy, v23, v24, v25));
   }
 
-  return v9;
+  return v11;
 }
 
 - (void)fetchLastMessageRecordForChatRecordWithRowID:(int64_t)d completionHandler:(id)handler
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v6 = IMDChatRecordCreateFromRecordIDUnlocked(*MEMORY[0x1E695E480], d);
   v7 = v6;
@@ -837,11 +832,11 @@ LABEL_28:
     v9 = IMDatabaseLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412546;
+      v10 = 138412546;
       dCopy2 = Message;
-      v13 = 2048;
+      v12 = 2048;
       dCopy = d;
-      _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_DEFAULT, "Fetched last message %@ for chat with rowID: %lld", &v11, 0x16u);
+      _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_DEFAULT, "Fetched last message %@ for chat with rowID: %lld", &v10, 0x16u);
     }
   }
 
@@ -850,9 +845,9 @@ LABEL_28:
     v9 = IMDatabaseLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 134217984;
+      v10 = 134217984;
       dCopy2 = d;
-      _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_DEFAULT, "No chat record for chat with rowID: %lld", &v11, 0xCu);
+      _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_DEFAULT, "No chat record for chat with rowID: %lld", &v10, 0xCu);
     }
 
     Message = 0;
@@ -862,13 +857,11 @@ LABEL_28:
   {
     handlerCopy[2](handlerCopy, Message);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_messageKeyPathsToColumnsQueryingChatJoinTable:(BOOL)table sortDescriptors:(id)descriptors
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   descriptorsCopy = descriptors;
   if (qword_1EBA53F20 != -1)
   {
@@ -879,7 +872,7 @@ LABEL_28:
     }
 
 LABEL_16:
-    v17 = qword_1EBA53F18;
+    v19 = qword_1EBA53F18;
     goto LABEL_17;
   }
 
@@ -889,38 +882,38 @@ LABEL_16:
   }
 
 LABEL_3:
-  v23 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
+  v23 = 0u;
   v6 = descriptorsCopy;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v21, v25, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v22, v26, 16);
   if (v8)
   {
-    v11 = v8;
-    v12 = *v22;
+    v12 = v8;
+    v13 = *v23;
     while (2)
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v22 != v12)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v6);
         }
 
-        v14 = objc_msgSend_key(*(*(&v21 + 1) + 8 * i), v9, v10, v21);
-        isEqualToString = objc_msgSend_isEqualToString_(v14, v15, @"rowID");
+        v15 = objc_msgSend_key(*(*(&v22 + 1) + 8 * i), v9, v10, v11, v22);
+        isEqualToString = objc_msgSend_isEqualToString_(v15, v16, @"rowID", v17);
 
         if (isEqualToString)
         {
-          v18 = qword_1EBA53F18;
+          v20 = qword_1EBA53F18;
 
           goto LABEL_18;
         }
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v21, v25, 16);
-      if (v11)
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v22, v26, 16);
+      if (v12)
       {
         continue;
       }
@@ -934,14 +927,12 @@ LABEL_3:
     sub_1B7CF0058();
   }
 
-  v17 = qword_1EBA53F28;
+  v19 = qword_1EBA53F28;
 LABEL_17:
-  v18 = v17;
+  v20 = v19;
 LABEL_18:
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v20;
 }
 
 - (id)_queryForMessageRecordFetchWithMessageWhereClause:(id)clause chatWhereClause:(id)whereClause handleWhereClause:(id)handleWhereClause orderByClauses:(id)clauses parentedOnly:(BOOL)only
@@ -951,18 +942,18 @@ LABEL_18:
   whereClauseCopy = whereClause;
   handleWhereClauseCopy = handleWhereClause;
   clausesCopy = clauses;
-  v18 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v15, 3);
+  v20 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v15, 3, v16);
   if (whereClauseCopy)
   {
-    v19 = @"INNER";
+    v21 = @"INNER";
     if (!onlyCopy)
     {
-      v19 = &stru_1F2FA9728;
+      v21 = &stru_1F2FA9728;
     }
 
-    v20 = objc_msgSend_stringByAppendingFormat_(&stru_1F2FA9728, v16, @"%@ JOIN chat_message_join ON chat_message_join.message_id = message.rowid %@ JOIN chat ON chat.rowid = chat_message_join.chat_id  ", v19, v19);
+    v22 = objc_msgSend_stringByAppendingFormat_(&stru_1F2FA9728, v17, @"%@ JOIN chat_message_join ON chat_message_join.message_id = message.rowid %@ JOIN chat ON chat.rowid = chat_message_join.chat_id  ", v19, v21, v21);
 LABEL_7:
-    v21 = v20;
+    v23 = v22;
     if (!handleWhereClauseCopy)
     {
       goto LABEL_9;
@@ -973,51 +964,40 @@ LABEL_7:
 
   if (onlyCopy)
   {
-    v20 = objc_msgSend_stringByAppendingString_(&stru_1F2FA9728, v16, @"INNER JOIN chat_message_join ON chat_message_join.message_id = message.rowid ");
+    v22 = objc_msgSend_stringByAppendingString_(&stru_1F2FA9728, v17, @"INNER JOIN chat_message_join ON chat_message_join.message_id = message.rowid ", v19);
     goto LABEL_7;
   }
 
-  v21 = &stru_1F2FA9728;
+  v23 = &stru_1F2FA9728;
   if (handleWhereClauseCopy)
   {
 LABEL_8:
-    v22 = objc_msgSend_stringByAppendingFormat_(v21, v16, @"INNER JOIN handle ON handle.rowid = message.handle_id ");
+    v24 = objc_msgSend_stringByAppendingFormat_(v23, v17, @"INNER JOIN handle ON handle.rowid = message.handle_id ", v19);
 
-    v21 = v22;
+    v23 = v24;
   }
 
 LABEL_9:
   if (whereClauseCopy)
   {
-    objc_msgSend_addObject_(v18, v16, whereClauseCopy);
+    objc_msgSend_addObject_(v20, v17, whereClauseCopy, v19);
   }
 
   if (handleWhereClauseCopy)
   {
-    objc_msgSend_addObject_(v18, v16, handleWhereClauseCopy);
+    objc_msgSend_addObject_(v20, v17, handleWhereClauseCopy, v19);
   }
 
   if (clauseCopy)
   {
-    objc_msgSend_addObject_(v18, v16, clauseCopy);
+    objc_msgSend_addObject_(v20, v17, clauseCopy, v19);
   }
 
-  if (objc_msgSend_count(v18, v16, v17))
+  if (objc_msgSend_count(v20, v17, v18, v19))
   {
-    v25 = MEMORY[0x1E696AEC0];
-    v26 = objc_msgSend_componentsJoinedByString_(v18, v23, @" AND ");
-    v28 = objc_msgSend_stringWithFormat_(v25, v27, @"WHERE %@", v26);
-  }
-
-  else
-  {
-    v28 = &stru_1F2FA9728;
-  }
-
-  if (objc_msgSend_count(clausesCopy, v23, v24))
-  {
-    v30 = objc_msgSend_componentsJoinedByString_(clausesCopy, v29, @", ");
-    v32 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v31, @"ORDER BY %@ ", v30);
+    v28 = MEMORY[0x1E696AEC0];
+    v29 = objc_msgSend_componentsJoinedByString_(v20, v25, @" AND ", v27);
+    v32 = objc_msgSend_stringWithFormat_(v28, v30, @"WHERE %@", v31, v29);
   }
 
   else
@@ -1025,11 +1005,22 @@ LABEL_9:
     v32 = &stru_1F2FA9728;
   }
 
-  v33 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v35 = objc_msgSend_allColumnsWithPrefix_(IMDMessageQueryStrings, v34, @"message.");
-  v37 = objc_msgSend_initWithFormat_(v33, v36, @"SELECT %@ FROM message %@ %@ %@ LIMIT ?;", v35, v21, v28, v32);
+  if (objc_msgSend_count(clausesCopy, v25, v26, v27))
+  {
+    v35 = objc_msgSend_componentsJoinedByString_(clausesCopy, v33, @", ", v34);
+    v38 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v36, @"ORDER BY %@ ", v37, v35);
+  }
 
-  return v37;
+  else
+  {
+    v38 = &stru_1F2FA9728;
+  }
+
+  v39 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v42 = objc_msgSend_allColumnsWithPrefix_(IMDMessageQueryStrings, v40, @"message.", v41);
+  v45 = objc_msgSend_initWithFormat_(v39, v43, @"SELECT %@ FROM message %@ %@ %@ LIMIT ?;", v44, v42, v23, v32, v38);
+
+  return v45;
 }
 
 - (id)_queryForMessageRecordCountWithMessageWhereClause:(id)clause chatWhereClause:(id)whereClause limit:(int64_t)limit
@@ -1044,11 +1035,11 @@ LABEL_9:
 
   v10 = MEMORY[0x1E695DF70];
   v11 = v9;
-  v15 = objc_msgSend_arrayWithCapacity_(v10, v12, 2);
+  v17 = objc_msgSend_arrayWithCapacity_(v10, v12, 2, v13);
   if (whereClauseCopy)
   {
-    v16 = objc_msgSend_stringByAppendingString_(&stru_1F2FA9728, v13, @"JOIN chat_message_join ON chat_message_join.message_id = message.rowid JOIN chat ON chat.rowid = chat_message_join.chat_id ");
-    objc_msgSend_addObject_(v15, v17, whereClauseCopy);
+    v18 = objc_msgSend_stringByAppendingString_(&stru_1F2FA9728, v14, @"JOIN chat_message_join ON chat_message_join.message_id = message.rowid JOIN chat ON chat.rowid = chat_message_join.chat_id ", v16);
+    objc_msgSend_addObject_(v17, v19, whereClauseCopy, v20);
     if (!clauseCopy)
     {
       goto LABEL_6;
@@ -1057,63 +1048,63 @@ LABEL_9:
     goto LABEL_5;
   }
 
-  v16 = &stru_1F2FA9728;
+  v18 = &stru_1F2FA9728;
   if (clauseCopy)
   {
 LABEL_5:
-    objc_msgSend_addObject_(v15, v13, clauseCopy);
+    objc_msgSend_addObject_(v17, v14, clauseCopy, v16);
   }
 
 LABEL_6:
-  if (objc_msgSend_count(v15, v13, v14))
+  if (objc_msgSend_count(v17, v14, v15, v16))
   {
-    v19 = MEMORY[0x1E696AEC0];
-    v20 = objc_msgSend_componentsJoinedByString_(v15, v18, @" AND ");
-    v22 = objc_msgSend_stringWithFormat_(v19, v21, @"WHERE %@", v20);
+    v23 = MEMORY[0x1E696AEC0];
+    v24 = objc_msgSend_componentsJoinedByString_(v17, v21, @" AND ", v22);
+    v27 = objc_msgSend_stringWithFormat_(v23, v25, @"WHERE %@", v26, v24);
   }
 
   else
   {
-    v22 = &stru_1F2FA9728;
+    v27 = &stru_1F2FA9728;
   }
 
-  v23 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v25 = objc_msgSend_initWithFormat_(v23, v24, v11, v16, v22);
+  v28 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v31 = objc_msgSend_initWithFormat_(v28, v29, v11, v30, v18, v27);
 
-  return v25;
+  return v31;
 }
 
 - (void)_fetchMessageRecordsFilteredUsingPredicate:(id)predicate sortedUsingDescriptors:(id)descriptors inChatsFilteredUsingPredicate:(id)usingPredicate fromHandlesUsingPredicate:(id)handlesUsingPredicate parentedOnly:(BOOL)only limit:(unint64_t)limit completionHandler:(id)handler
 {
   onlyCopy = only;
-  v101 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   descriptorsCopy = descriptors;
   usingPredicateCopy = usingPredicate;
   handlesUsingPredicateCopy = handlesUsingPredicate;
   handlerCopy = handler;
-  v86 = 0;
-  v87 = &v86;
-  v88 = 0x3032000000;
-  v89 = sub_1B7AE1954;
-  v90 = sub_1B7AE24B0;
-  v91 = 0;
-  v73 = usingPredicateCopy;
+  v93 = 0;
+  v94 = &v93;
+  v95 = 0x3032000000;
+  v96 = sub_1B7AE1954;
+  v97 = sub_1B7AE24B0;
+  v98 = 0;
+  v80 = usingPredicateCopy;
   selfCopy = self;
   v17 = objc_msgSend__messageKeyPathsToColumnsQueryingChatJoinTable_sortDescriptors_(self, v16, usingPredicateCopy != 0, descriptorsCopy);
   if (predicateCopy)
   {
     v18 = [IMDPredicateToSQLConverter alloc];
-    v72 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v18, v19, predicateCopy, v17);
-    if (!v72)
+    v79 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v18, v19, predicateCopy, v17);
+    if (!v79)
     {
       v20 = IMDatabaseLogHandle();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v93 = "[IMDDatabase(LegacyMessages) _fetchMessageRecordsFilteredUsingPredicate:sortedUsingDescriptors:inChatsFilteredUsingPredicate:fromHandlesUsingPredicate:parentedOnly:limit:completionHandler:]";
-        v94 = 2112;
-        v95 = predicateCopy;
+        v100 = "[IMDDatabase(LegacyMessages) _fetchMessageRecordsFilteredUsingPredicate:sortedUsingDescriptors:inChatsFilteredUsingPredicate:fromHandlesUsingPredicate:parentedOnly:limit:completionHandler:]";
+        v101 = 2112;
+        v102 = predicateCopy;
         _os_log_impl(&dword_1B7AD5000, v20, OS_LOG_TYPE_INFO, "Bad message predicate provided to %s (%@)", buf, 0x16u);
       }
 
@@ -1122,33 +1113,33 @@ LABEL_6:
         handlerCopy[2](handlerCopy, MEMORY[0x1E695E0F0]);
       }
 
-      v71 = 0;
-      v72 = 0;
+      v78 = 0;
+      v79 = 0;
       goto LABEL_44;
     }
   }
 
   else
   {
-    v72 = 0;
+    v79 = 0;
   }
 
   if (usingPredicateCopy)
   {
     v21 = [IMDPredicateToSQLConverter alloc];
-    v24 = objc_msgSend_keyPathsToColumns(IMDChatRecord, v22, v23);
-    v71 = objc_msgSend_initWithPredicate_keyPathsToColumns_columnPrefix_(v21, v25, v73, v24, @"chat.");
+    v25 = objc_msgSend_keyPathsToColumns(IMDChatRecord, v22, v23, v24);
+    v78 = objc_msgSend_initWithPredicate_keyPathsToColumns_columnPrefix_(v21, v26, v80, v25, @"chat.");
 
-    if (!v71)
+    if (!v78)
     {
-      v26 = IMDatabaseLogHandle();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v27 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v93 = "[IMDDatabase(LegacyMessages) _fetchMessageRecordsFilteredUsingPredicate:sortedUsingDescriptors:inChatsFilteredUsingPredicate:fromHandlesUsingPredicate:parentedOnly:limit:completionHandler:]";
-        v94 = 2112;
-        v95 = predicateCopy;
-        _os_log_impl(&dword_1B7AD5000, v26, OS_LOG_TYPE_INFO, "Bad chat predicate provided to %s (%@)", buf, 0x16u);
+        v100 = "[IMDDatabase(LegacyMessages) _fetchMessageRecordsFilteredUsingPredicate:sortedUsingDescriptors:inChatsFilteredUsingPredicate:fromHandlesUsingPredicate:parentedOnly:limit:completionHandler:]";
+        v101 = 2112;
+        v102 = predicateCopy;
+        _os_log_impl(&dword_1B7AD5000, v27, OS_LOG_TYPE_INFO, "Bad chat predicate provided to %s (%@)", buf, 0x16u);
       }
 
       if (handlerCopy)
@@ -1156,32 +1147,32 @@ LABEL_6:
         handlerCopy[2](handlerCopy, MEMORY[0x1E695E0F0]);
       }
 
-      v71 = 0;
+      v78 = 0;
       goto LABEL_44;
     }
   }
 
   else
   {
-    v71 = 0;
+    v78 = 0;
   }
 
   if (handlesUsingPredicateCopy)
   {
-    v27 = [IMDPredicateToSQLConverter alloc];
-    v30 = objc_msgSend_keyPathsToColumns(IMDHandleRecord, v28, v29);
-    v69 = objc_msgSend_initWithPredicate_keyPathsToColumns_columnPrefix_(v27, v31, handlesUsingPredicateCopy, v30, @"handle.");
+    v28 = [IMDPredicateToSQLConverter alloc];
+    v32 = objc_msgSend_keyPathsToColumns(IMDHandleRecord, v29, v30, v31);
+    v76 = objc_msgSend_initWithPredicate_keyPathsToColumns_columnPrefix_(v28, v33, handlesUsingPredicateCopy, v32, @"handle.");
 
-    if (!v69)
+    if (!v76)
     {
-      v32 = IMDatabaseLogHandle();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      v34 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v93 = "[IMDDatabase(LegacyMessages) _fetchMessageRecordsFilteredUsingPredicate:sortedUsingDescriptors:inChatsFilteredUsingPredicate:fromHandlesUsingPredicate:parentedOnly:limit:completionHandler:]";
-        v94 = 2112;
-        v95 = predicateCopy;
-        _os_log_impl(&dword_1B7AD5000, v32, OS_LOG_TYPE_INFO, "Bad handle predicate provided to %s (%@)", buf, 0x16u);
+        v100 = "[IMDDatabase(LegacyMessages) _fetchMessageRecordsFilteredUsingPredicate:sortedUsingDescriptors:inChatsFilteredUsingPredicate:fromHandlesUsingPredicate:parentedOnly:limit:completionHandler:]";
+        v101 = 2112;
+        v102 = predicateCopy;
+        _os_log_impl(&dword_1B7AD5000, v34, OS_LOG_TYPE_INFO, "Bad handle predicate provided to %s (%@)", buf, 0x16u);
       }
 
       if (handlerCopy)
@@ -1195,42 +1186,42 @@ LABEL_6:
 
   else
   {
-    v69 = 0;
+    v76 = 0;
   }
 
-  v33 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
-  v83 = 0u;
-  v34 = descriptorsCopy;
-  v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v35, &v82, v100, 16);
-  if (v36)
+  v35 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v91 = 0u;
+  v92 = 0u;
+  v89 = 0u;
+  v90 = 0u;
+  v36 = descriptorsCopy;
+  v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v37, &v89, v107, 16);
+  if (v38)
   {
-    v37 = *v83;
+    v39 = *v90;
     while (2)
     {
-      for (i = 0; i != v36; ++i)
+      for (i = 0; i != v38; ++i)
       {
-        if (*v83 != v37)
+        if (*v90 != v39)
         {
-          objc_enumerationMutation(v34);
+          objc_enumerationMutation(v36);
         }
 
-        v39 = *(*(&v82 + 1) + 8 * i);
-        v40 = [IMDSortDescriptorToSQLConverter alloc];
-        v42 = objc_msgSend_initWithSortDescriptor_keyPathsToColumns_(v40, v41, v39, v17);
-        v45 = v42;
-        if (!v42)
+        v41 = *(*(&v89 + 1) + 8 * i);
+        v42 = [IMDSortDescriptorToSQLConverter alloc];
+        v44 = objc_msgSend_initWithSortDescriptor_keyPathsToColumns_(v42, v43, v41, v17);
+        v48 = v44;
+        if (!v44)
         {
-          v64 = IMDatabaseLogHandle();
-          if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
+          v72 = IMDatabaseLogHandle();
+          if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v93 = "[IMDDatabase(LegacyMessages) _fetchMessageRecordsFilteredUsingPredicate:sortedUsingDescriptors:inChatsFilteredUsingPredicate:fromHandlesUsingPredicate:parentedOnly:limit:completionHandler:]";
-            v94 = 2112;
-            v95 = v39;
-            _os_log_impl(&dword_1B7AD5000, v64, OS_LOG_TYPE_INFO, "Bad sort descriptor provided to %s (%@)", buf, 0x16u);
+            v100 = "[IMDDatabase(LegacyMessages) _fetchMessageRecordsFilteredUsingPredicate:sortedUsingDescriptors:inChatsFilteredUsingPredicate:fromHandlesUsingPredicate:parentedOnly:limit:completionHandler:]";
+            v101 = 2112;
+            v102 = v41;
+            _os_log_impl(&dword_1B7AD5000, v72, OS_LOG_TYPE_INFO, "Bad sort descriptor provided to %s (%@)", buf, 0x16u);
           }
 
           if (handlerCopy)
@@ -1241,12 +1232,12 @@ LABEL_6:
           goto LABEL_43;
         }
 
-        v46 = objc_msgSend_expression(v42, v43, v44);
-        objc_msgSend_addObject_(v33, v47, v46);
+        v49 = objc_msgSend_expression(v44, v45, v46, v47);
+        objc_msgSend_addObject_(v35, v50, v49, v51);
       }
 
-      v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v48, &v82, v100, 16);
-      if (v36)
+      v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v52, &v89, v107, 16);
+      if (v38)
       {
         continue;
       }
@@ -1255,53 +1246,52 @@ LABEL_6:
     }
   }
 
-  v49 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+  v53 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
   {
-    v52 = objc_msgSend_count(v34, v50, v51);
-    v53 = @"YES";
+    v57 = objc_msgSend_count(v36, v54, v55, v56);
+    v58 = @"YES";
     *buf = 138413058;
-    v94 = 2112;
-    v93 = v73;
+    v101 = 2112;
+    v100 = v80;
     if (!predicateCopy)
     {
-      v53 = @"NO";
+      v58 = @"NO";
     }
 
-    v95 = v53;
-    v96 = 2048;
-    v97 = v52;
-    v98 = 2048;
+    v102 = v58;
+    v103 = 2048;
+    v104 = v57;
+    v105 = 2048;
     limitCopy = limit;
-    _os_log_impl(&dword_1B7AD5000, v49, OS_LOG_TYPE_DEFAULT, "Fetching messages for chat: %@ filtered by predicate: %@ sortDescriptors: %llu limit: %llu", buf, 0x2Au);
+    _os_log_impl(&dword_1B7AD5000, v53, OS_LOG_TYPE_DEFAULT, "Fetching messages for chat: %@ filtered by predicate: %@ sortDescriptors: %llu limit: %llu", buf, 0x2Au);
   }
 
-  v56 = objc_msgSend_expression(v72, v54, v55);
-  v59 = objc_msgSend_expression(v71, v57, v58);
-  v62 = objc_msgSend_expression(v69, v60, v61);
-  v34 = objc_msgSend__queryForMessageRecordFetchWithMessageWhereClause_chatWhereClause_handleWhereClause_orderByClauses_parentedOnly_(selfCopy, v63, v56, v59, v62, v33, onlyCopy);
+  v62 = objc_msgSend_expression(v79, v59, v60, v61);
+  v66 = objc_msgSend_expression(v78, v63, v64, v65);
+  v70 = objc_msgSend_expression(v76, v67, v68, v69);
+  v36 = objc_msgSend__queryForMessageRecordFetchWithMessageWhereClause_chatWhereClause_handleWhereClause_orderByClauses_parentedOnly_(selfCopy, v71, v62, v66, v70, v35, onlyCopy);
 
-  v75[0] = MEMORY[0x1E69E9820];
-  v75[1] = 3221225472;
-  v75[2] = sub_1B7B3B054;
-  v75[3] = &unk_1E7CB8540;
-  v76 = v71;
-  v77 = v69;
-  v80 = &v86;
+  v82[0] = MEMORY[0x1E69E9820];
+  v82[1] = 3221225472;
+  v82[2] = sub_1B7B3B054;
+  v82[3] = &unk_1E7CB8540;
+  v83 = v78;
+  v84 = v76;
+  v87 = &v93;
   limitCopy2 = limit;
-  v78 = v72;
-  v79 = selfCopy;
-  _IMDPerformLockedStatementBlockWithQuery(v34, v75);
+  v85 = v79;
+  v86 = selfCopy;
+  _IMDPerformLockedStatementBlockWithQuery(v36, v82);
   if (handlerCopy)
   {
-    handlerCopy[2](handlerCopy, v87[5]);
+    handlerCopy[2](handlerCopy, v94[5]);
   }
 
 LABEL_43:
 LABEL_44:
 
-  _Block_object_dispose(&v86, 8);
-  v65 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v93, 8);
 }
 
 - (void)fetchMessageRecordsFilteredUsingPredicate:(id)predicate sortedUsingDescriptors:(id)descriptors inChatsFilteredUsingPredicate:(id)usingPredicate limit:(unint64_t)limit completionHandler:(id)handler
@@ -1310,21 +1300,21 @@ LABEL_44:
   descriptorsCopy = descriptors;
   usingPredicateCopy = usingPredicate;
   handlerCopy = handler;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = sub_1B7B3B22C;
-  v21[3] = &unk_1E7CB8568;
-  v21[4] = self;
-  v22 = predicateCopy;
-  v23 = descriptorsCopy;
-  v24 = usingPredicateCopy;
-  v25 = handlerCopy;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = sub_1B7B3B22C;
+  v22[3] = &unk_1E7CB8568;
+  v22[4] = self;
+  v23 = predicateCopy;
+  v24 = descriptorsCopy;
+  v25 = usingPredicateCopy;
+  v26 = handlerCopy;
   limitCopy = limit;
   v16 = handlerCopy;
   v17 = usingPredicateCopy;
   v18 = descriptorsCopy;
   v19 = predicateCopy;
-  objc_msgSend__performPersistenceBlock_(self, v20, v21);
+  objc_msgSend__performPersistenceBlock_(self, v20, v22, v21);
 }
 
 - (void)fetchMessageRecordsForChatRecordWithGUID:(id)d filteredUsingPredicate:(id)predicate sortedUsingDescriptors:(id)descriptors limit:(unint64_t)limit completionHandler:(id)handler
@@ -1333,21 +1323,21 @@ LABEL_44:
   predicateCopy = predicate;
   descriptorsCopy = descriptors;
   handlerCopy = handler;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = sub_1B7B3B378;
-  v21[3] = &unk_1E7CB8568;
-  v21[4] = self;
-  v22 = predicateCopy;
-  v23 = descriptorsCopy;
-  v24 = dCopy;
-  v25 = handlerCopy;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = sub_1B7B3B378;
+  v22[3] = &unk_1E7CB8568;
+  v22[4] = self;
+  v23 = predicateCopy;
+  v24 = descriptorsCopy;
+  v25 = dCopy;
+  v26 = handlerCopy;
   limitCopy = limit;
   v16 = handlerCopy;
   v17 = dCopy;
   v18 = descriptorsCopy;
   v19 = predicateCopy;
-  objc_msgSend__performPersistenceBlock_(self, v20, v21);
+  objc_msgSend__performPersistenceBlock_(self, v20, v22, v21);
 }
 
 - (void)fetchMessageRecordsFilteredUsingPredicate:(id)predicate sortedUsingDescriptors:(id)descriptors inChatsFilteredUsingPredicate:(id)usingPredicate fromHandlesUsingPredicate:(id)handlesUsingPredicate limit:(unint64_t)limit completionHandler:(id)handler
@@ -1357,28 +1347,28 @@ LABEL_44:
   usingPredicateCopy = usingPredicate;
   handlesUsingPredicateCopy = handlesUsingPredicate;
   handlerCopy = handler;
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = sub_1B7B3B58C;
-  v25[3] = &unk_1E7CB8590;
-  v25[4] = self;
-  v26 = predicateCopy;
-  v27 = descriptorsCopy;
-  v28 = usingPredicateCopy;
-  v30 = handlerCopy;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = sub_1B7B3B58C;
+  v26[3] = &unk_1E7CB8590;
+  v26[4] = self;
+  v27 = predicateCopy;
+  v28 = descriptorsCopy;
+  v29 = usingPredicateCopy;
+  v31 = handlerCopy;
   limitCopy = limit;
-  v29 = handlesUsingPredicateCopy;
+  v30 = handlesUsingPredicateCopy;
   v19 = handlerCopy;
   v20 = handlesUsingPredicateCopy;
   v21 = usingPredicateCopy;
   v22 = descriptorsCopy;
   v23 = predicateCopy;
-  objc_msgSend__performPersistenceBlock_(self, v24, v25);
+  objc_msgSend__performPersistenceBlock_(self, v24, v26, v25);
 }
 
 - (void)fetchUnreadMessageRecordsForChatsFilteredUsingPredicate:(id)predicate limit:(unint64_t)limit completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   handlerCopy = handler;
   v10 = IMDatabaseLogHandle();
@@ -1394,48 +1384,48 @@ LABEL_44:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v33 = sub_1B7AE1954;
-  v34 = sub_1B7AE24B0;
-  v35 = 0;
+  v38 = sub_1B7AE1954;
+  v39 = sub_1B7AE24B0;
+  v40 = 0;
   if (!predicateCopy)
   {
-    v20 = IMDMessageRecordCopyAllUnreadMessagesQueryWithFilter(0, limit);
-    v16 = 0;
+    v26 = IMDMessageRecordCopyAllUnreadMessagesQueryWithFilter(0, limit, v11, v12);
+    v19 = 0;
     goto LABEL_7;
   }
 
-  v11 = [IMDPredicateToSQLConverter alloc];
-  v14 = objc_msgSend_keyPathsToColumns(IMDChatRecord, v12, v13);
-  v16 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v11, v15, predicateCopy, v14);
+  v13 = [IMDPredicateToSQLConverter alloc];
+  v17 = objc_msgSend_keyPathsToColumns(IMDChatRecord, v14, v15, v16);
+  v19 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v13, v18, predicateCopy, v17);
 
-  if (v16)
+  if (v19)
   {
-    v19 = objc_msgSend_expression(v16, v17, v18);
-    v20 = IMDMessageRecordCopyAllUnreadMessagesQueryWithFilter(v19, limit);
+    v23 = objc_msgSend_expression(v19, v20, v21, v22);
+    v26 = IMDMessageRecordCopyAllUnreadMessagesQueryWithFilter(v23, limit, v24, v25);
 
 LABEL_7:
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = sub_1B7B3B8AC;
-    v24[3] = &unk_1E7CB6930;
-    v21 = v16;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = sub_1B7B3B8AC;
+    v29[3] = &unk_1E7CB6930;
+    v27 = v19;
     selfCopy = self;
-    v27 = buf;
-    v25 = v21;
-    _IMDPerformLockedStatementBlockWithQuery(v20, v24);
+    v32 = buf;
+    v30 = v27;
+    _IMDPerformLockedStatementBlockWithQuery(v26, v29);
     handlerCopy[2](handlerCopy, *(*&buf[8] + 40));
 
     goto LABEL_8;
   }
 
-  v23 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  v28 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
   {
-    *v28 = 136315394;
-    v29 = "[IMDDatabase(LegacyMessages) fetchUnreadMessageRecordsForChatsFilteredUsingPredicate:limit:completionHandler:]";
-    v30 = 2112;
-    v31 = predicateCopy;
-    _os_log_impl(&dword_1B7AD5000, v23, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", v28, 0x16u);
+    *v33 = 136315394;
+    v34 = "[IMDDatabase(LegacyMessages) fetchUnreadMessageRecordsForChatsFilteredUsingPredicate:limit:completionHandler:]";
+    v35 = 2112;
+    v36 = predicateCopy;
+    _os_log_impl(&dword_1B7AD5000, v28, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", v33, 0x16u);
   }
 
   if (handlerCopy)
@@ -1445,8 +1435,6 @@ LABEL_7:
 
 LABEL_8:
   _Block_object_dispose(buf, 8);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchMessageRecordsFilteredUsingPredicate:(id)predicate sortedUsingDescriptors:(id)descriptors limit:(unint64_t)limit completionHandler:(id)handler
@@ -1454,19 +1442,19 @@ LABEL_8:
   predicateCopy = predicate;
   descriptorsCopy = descriptors;
   handlerCopy = handler;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = sub_1B7B3BA34;
-  v17[3] = &unk_1E7CB85B8;
-  v17[4] = self;
-  v18 = predicateCopy;
-  v20 = handlerCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = sub_1B7B3BA34;
+  v18[3] = &unk_1E7CB85B8;
+  v18[4] = self;
+  v19 = predicateCopy;
+  v21 = handlerCopy;
   limitCopy = limit;
-  v19 = descriptorsCopy;
+  v20 = descriptorsCopy;
   v13 = handlerCopy;
   v14 = descriptorsCopy;
   v15 = predicateCopy;
-  objc_msgSend__performPersistenceBlock_(self, v16, v17);
+  objc_msgSend__performPersistenceBlock_(self, v16, v18, v17);
 }
 
 - (void)fetchMessageRecordsFilteredUsingPredicate:(id)predicate sortedUsingDescriptors:(id)descriptors parentedOnly:(BOOL)only limit:(unint64_t)limit completionHandler:(id)handler
@@ -1474,20 +1462,20 @@ LABEL_8:
   predicateCopy = predicate;
   descriptorsCopy = descriptors;
   handlerCopy = handler;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = sub_1B7B3BB6C;
-  v19[3] = &unk_1E7CB85E0;
-  v19[4] = self;
-  v20 = predicateCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = sub_1B7B3BB6C;
+  v20[3] = &unk_1E7CB85E0;
+  v20[4] = self;
+  v21 = predicateCopy;
   onlyCopy = only;
-  v22 = handlerCopy;
+  v23 = handlerCopy;
   limitCopy = limit;
-  v21 = descriptorsCopy;
+  v22 = descriptorsCopy;
   v15 = handlerCopy;
   v16 = descriptorsCopy;
   v17 = predicateCopy;
-  objc_msgSend__performPersistenceBlock_(self, v18, v19);
+  objc_msgSend__performPersistenceBlock_(self, v18, v20, v19);
 }
 
 - (void)fetchMessageRecordCountFilteredUsingPredicate:(id)predicate inChatsFilteredUsingPredicate:(id)usingPredicate limit:(unint64_t)limit completionHandler:(id)handler
@@ -1495,19 +1483,19 @@ LABEL_8:
   predicateCopy = predicate;
   usingPredicateCopy = usingPredicate;
   handlerCopy = handler;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = sub_1B7B3BC9C;
-  v17[3] = &unk_1E7CB85B8;
-  v17[4] = self;
-  v18 = usingPredicateCopy;
-  v19 = predicateCopy;
-  v20 = handlerCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = sub_1B7B3BC9C;
+  v18[3] = &unk_1E7CB85B8;
+  v18[4] = self;
+  v19 = usingPredicateCopy;
+  v20 = predicateCopy;
+  v21 = handlerCopy;
   limitCopy = limit;
   v13 = handlerCopy;
   v14 = predicateCopy;
   v15 = usingPredicateCopy;
-  objc_msgSend__performPersistenceBlock_(self, v16, v17);
+  objc_msgSend__performPersistenceBlock_(self, v16, v18, v17);
 }
 
 - (void)fetchMessageRecordCountForChatRecordWithGUID:(id)d filteredUsingPredicate:(id)predicate limit:(unint64_t)limit completionHandler:(id)handler
@@ -1518,22 +1506,22 @@ LABEL_8:
     v11 = *MEMORY[0x1E69A6B70];
     handlerCopy = handler;
     handlerCopy2 = predicate;
-    predicateCopy2 = objc_msgSend_predicateWithFormat_(v10, v14, @"%K = %@", v11, d);
-    objc_msgSend_fetchMessageRecordCountFilteredUsingPredicate_inChatsFilteredUsingPredicate_limit_completionHandler_(self, v15, handlerCopy2);
+    predicateCopy2 = objc_msgSend_predicateWithFormat_(v10, v14, @"%K = %@", v15, v11, d);
+    objc_msgSend_fetchMessageRecordCountFilteredUsingPredicate_inChatsFilteredUsingPredicate_limit_completionHandler_(self, v16, handlerCopy2, predicateCopy2, limit, handlerCopy);
   }
 
   else
   {
     handlerCopy2 = handler;
     predicateCopy2 = predicate;
-    objc_msgSend_fetchMessageRecordCountFilteredUsingPredicate_inChatsFilteredUsingPredicate_limit_completionHandler_(self, v16, predicateCopy2, 0, limit, handlerCopy2);
+    objc_msgSend_fetchMessageRecordCountFilteredUsingPredicate_inChatsFilteredUsingPredicate_limit_completionHandler_(self, v17, predicateCopy2, 0, limit, handlerCopy2);
   }
 }
 
 - (void)fetchMessageRecordWithGUID:(id)d excludeRecoverableMessages:(BOOL)messages completionHandler:(id)handler
 {
   messagesCopy = messages;
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dCopy = d;
   handlerCopy = handler;
   v10 = handlerCopy;
@@ -1542,20 +1530,20 @@ LABEL_8:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v21 = sub_1B7AE1954;
-    v22 = sub_1B7AE24B0;
-    v23 = 0;
+    v20 = sub_1B7AE1954;
+    v21 = sub_1B7AE24B0;
+    v22 = 0;
     if (messagesCopy)
     {
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = sub_1B7B3C404;
-      v16[3] = &unk_1E7CB6930;
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = sub_1B7B3C404;
+      v15[3] = &unk_1E7CB6930;
       selfCopy = self;
-      v19 = buf;
-      v17 = dCopy;
-      _IMDPerformLockedStatementBlockWithQuery(@"SELECT ROWID, guid, text, replace, service_center, handle_id, subject, country, attributedBody, version, type, service, account, account_guid, error, date, date_read, date_delivered, is_delivered, is_finished, is_emote, is_from_me, is_empty, is_delayed, is_auto_reply, is_prepared, is_read, is_system_message, is_sent, has_dd_results, is_service_message, is_forward, was_downgraded, is_archive, cache_has_attachments, cache_roomnames, was_data_detected, was_deduplicated, is_audio_message, is_played, date_played, item_type, other_handle, group_title, group_action_type, share_status, share_direction, is_expirable, expire_state, message_action_type, message_source, associated_message_guid, associated_message_type, balloon_bundle_id, payload_data, expressive_send_style_id, associated_message_range_location, associated_message_range_length, time_expressive_send_played, message_summary_info, ck_sync_state, ck_record_id, ck_record_change_tag, destination_caller_id, is_corrupt, reply_to_guid, sort_id, is_spam, has_unseen_mention, thread_originator_guid, thread_originator_part, syndication_ranges, synced_syndication_ranges, was_delivered_quietly, did_notify_recipient, date_retracted, date_edited, date_recovered, was_detonated, part_count, is_stewie, is_sos, is_critical, bia_reference_id, is_kt_verified, fallback_hash, associated_message_emoji, is_pending_satellite_send, needs_relay, schedule_type, schedule_state, sent_or_received_off_grid, is_time_sensitive, ck_chat_id FROM message JOIN chat_message_join AS cmj ON message.ROWID = cmj.message_id WHERE message.guid = ?;", v16);
-      v11 = v17;
+      v18 = buf;
+      v16 = dCopy;
+      _IMDPerformLockedStatementBlockWithQuery(@"SELECT ROWID, guid, text, replace, service_center, handle_id, subject, country, attributedBody, version, type, service, account, account_guid, error, date, date_read, date_delivered, is_delivered, is_finished, is_emote, is_from_me, is_empty, is_delayed, is_auto_reply, is_prepared, is_read, is_system_message, is_sent, has_dd_results, is_service_message, is_forward, was_downgraded, is_archive, cache_has_attachments, cache_roomnames, was_data_detected, was_deduplicated, is_audio_message, is_played, date_played, item_type, other_handle, group_title, group_action_type, share_status, share_direction, is_expirable, expire_state, message_action_type, message_source, associated_message_guid, associated_message_type, balloon_bundle_id, payload_data, expressive_send_style_id, associated_message_range_location, associated_message_range_length, time_expressive_send_played, message_summary_info, ck_sync_state, ck_record_id, ck_record_change_tag, destination_caller_id, is_corrupt, reply_to_guid, sort_id, is_spam, has_unseen_mention, thread_originator_guid, thread_originator_part, syndication_ranges, synced_syndication_ranges, was_delivered_quietly, did_notify_recipient, date_retracted, date_edited, date_recovered, was_detonated, part_count, is_stewie, is_sos, is_critical, bia_reference_id, is_kt_verified, fallback_hash, associated_message_emoji, is_pending_satellite_send, needs_relay, schedule_type, schedule_state, sent_or_received_off_grid, is_time_sensitive, ck_chat_id FROM message JOIN chat_message_join AS cmj ON message.ROWID = cmj.message_id WHERE message.guid = ?;", v15);
+      v11 = v16;
     }
 
     else
@@ -1582,46 +1570,44 @@ LABEL_8:
       _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "Database | One or more invalid required parameters: messageGUID: %@, completionHandler: %@", buf, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchScheduledMessageRecordsForChatRecordWithGUID:(id)d limit:(unint64_t)limit completionHandler:(id)handler
 {
   dCopy = d;
   handlerCopy = handler;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = sub_1B7AE1954;
-  v23 = sub_1B7AE24B0;
-  v24 = 0;
-  if (dCopy && objc_msgSend_length(dCopy, v9, v10))
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_1B7AE1954;
+  v24 = sub_1B7AE24B0;
+  v25 = 0;
+  if (dCopy && objc_msgSend_length(dCopy, v9, v10, v11))
   {
-    v12 = @"SELECT m.ROWID, m.guid, m.text, m.replace, m.service_center, m.handle_id, m.subject, m.country, m.attributedBody, m.version, m.type, m.service, m.account, m.account_guid, m.error, m.date, m.date_read, m.date_delivered, m.is_delivered, m.is_finished, m.is_emote, m.is_from_me, m.is_empty, m.is_delayed, m.is_auto_reply, m.is_prepared, m.is_read, m.is_system_message, m.is_sent, m.has_dd_results, m.is_service_message, m.is_forward, m.was_downgraded, m.is_archive, m.cache_has_attachments, m.cache_roomnames, m.was_data_detected, m.was_deduplicated, m.is_audio_message, m.is_played, m.date_played, m.item_type, m.other_handle, m.group_title, m.group_action_type, m.share_status, m.share_direction, m.is_expirable, m.expire_state, m.message_action_type, m.message_source, m.associated_message_guid, m.associated_message_type, m.balloon_bundle_id, m.payload_data, m.expressive_send_style_id, m.associated_message_range_location, m.associated_message_range_length, m.time_expressive_send_played, m.message_summary_info, m.ck_sync_state, m.ck_record_id, m.ck_record_change_tag, m.destination_caller_id, m.is_corrupt, m.reply_to_guid, m.sort_id, m.is_spam, m.has_unseen_mention, m.thread_originator_guid, m.thread_originator_part, m.syndication_ranges, m.synced_syndication_ranges, m.was_delivered_quietly, m.did_notify_recipient, m.date_retracted, m.date_edited, m.date_recovered, m.was_detonated, m.part_count, m.is_stewie, m.is_sos, m.is_critical, m.bia_reference_id, m.is_kt_verified, m.fallback_hash, m.associated_message_emoji, m.is_pending_satellite_send, m.needs_relay, m.schedule_type, m.schedule_state, m.sent_or_received_off_grid, m.is_time_sensitive, m.ck_chat_id FROM message m  INNER JOIN chat_message_join cm ON cm.message_id = m.rowid  INNER JOIN chat c ON c.ROWID = cm.chat_id  WHERE c.guid = ?  AND m.schedule_type == 2  AND (m.schedule_state == 1 OR m.schedule_state == 2)  ORDER BY cm.message_date ASC LIMIT ?";
+    v13 = @"SELECT m.ROWID, m.guid, m.text, m.replace, m.service_center, m.handle_id, m.subject, m.country, m.attributedBody, m.version, m.type, m.service, m.account, m.account_guid, m.error, m.date, m.date_read, m.date_delivered, m.is_delivered, m.is_finished, m.is_emote, m.is_from_me, m.is_empty, m.is_delayed, m.is_auto_reply, m.is_prepared, m.is_read, m.is_system_message, m.is_sent, m.has_dd_results, m.is_service_message, m.is_forward, m.was_downgraded, m.is_archive, m.cache_has_attachments, m.cache_roomnames, m.was_data_detected, m.was_deduplicated, m.is_audio_message, m.is_played, m.date_played, m.item_type, m.other_handle, m.group_title, m.group_action_type, m.share_status, m.share_direction, m.is_expirable, m.expire_state, m.message_action_type, m.message_source, m.associated_message_guid, m.associated_message_type, m.balloon_bundle_id, m.payload_data, m.expressive_send_style_id, m.associated_message_range_location, m.associated_message_range_length, m.time_expressive_send_played, m.message_summary_info, m.ck_sync_state, m.ck_record_id, m.ck_record_change_tag, m.destination_caller_id, m.is_corrupt, m.reply_to_guid, m.sort_id, m.is_spam, m.has_unseen_mention, m.thread_originator_guid, m.thread_originator_part, m.syndication_ranges, m.synced_syndication_ranges, m.was_delivered_quietly, m.did_notify_recipient, m.date_retracted, m.date_edited, m.date_recovered, m.was_detonated, m.part_count, m.is_stewie, m.is_sos, m.is_critical, m.bia_reference_id, m.is_kt_verified, m.fallback_hash, m.associated_message_emoji, m.is_pending_satellite_send, m.needs_relay, m.schedule_type, m.schedule_state, m.sent_or_received_off_grid, m.is_time_sensitive, m.ck_chat_id FROM message m  INNER JOIN chat_message_join cm ON cm.message_id = m.rowid  INNER JOIN chat c ON c.ROWID = cm.chat_id  WHERE c.guid = ?  AND m.schedule_type == 2  AND (m.schedule_state == 1 OR m.schedule_state == 2)  ORDER BY cm.message_date ASC LIMIT ?";
   }
 
   else
   {
-    v12 = @"SELECT m.ROWID, m.guid, m.text, m.replace, m.service_center, m.handle_id, m.subject, m.country, m.attributedBody, m.version, m.type, m.service, m.account, m.account_guid, m.error, m.date, m.date_read, m.date_delivered, m.is_delivered, m.is_finished, m.is_emote, m.is_from_me, m.is_empty, m.is_delayed, m.is_auto_reply, m.is_prepared, m.is_read, m.is_system_message, m.is_sent, m.has_dd_results, m.is_service_message, m.is_forward, m.was_downgraded, m.is_archive, m.cache_has_attachments, m.cache_roomnames, m.was_data_detected, m.was_deduplicated, m.is_audio_message, m.is_played, m.date_played, m.item_type, m.other_handle, m.group_title, m.group_action_type, m.share_status, m.share_direction, m.is_expirable, m.expire_state, m.message_action_type, m.message_source, m.associated_message_guid, m.associated_message_type, m.balloon_bundle_id, m.payload_data, m.expressive_send_style_id, m.associated_message_range_location, m.associated_message_range_length, m.time_expressive_send_played, m.message_summary_info, m.ck_sync_state, m.ck_record_id, m.ck_record_change_tag, m.destination_caller_id, m.is_corrupt, m.reply_to_guid, m.sort_id, m.is_spam, m.has_unseen_mention, m.thread_originator_guid, m.thread_originator_part, m.syndication_ranges, m.synced_syndication_ranges, m.was_delivered_quietly, m.did_notify_recipient, m.date_retracted, m.date_edited, m.date_recovered, m.was_detonated, m.part_count, m.is_stewie, m.is_sos, m.is_critical, m.bia_reference_id, m.is_kt_verified, m.fallback_hash, m.associated_message_emoji, m.is_pending_satellite_send, m.needs_relay, m.schedule_type, m.schedule_state, m.sent_or_received_off_grid, m.is_time_sensitive, m.ck_chat_id FROM message m  INNER JOIN chat_message_join cm ON cm.message_id = m.rowid  INNER JOIN chat c ON c.ROWID = cm.chat_id  WHERE m.schedule_type == 2  AND (m.schedule_state == 1 OR m.schedule_state == 2)  ORDER BY cm.message_date ASC LIMIT ?";
+    v13 = @"SELECT m.ROWID, m.guid, m.text, m.replace, m.service_center, m.handle_id, m.subject, m.country, m.attributedBody, m.version, m.type, m.service, m.account, m.account_guid, m.error, m.date, m.date_read, m.date_delivered, m.is_delivered, m.is_finished, m.is_emote, m.is_from_me, m.is_empty, m.is_delayed, m.is_auto_reply, m.is_prepared, m.is_read, m.is_system_message, m.is_sent, m.has_dd_results, m.is_service_message, m.is_forward, m.was_downgraded, m.is_archive, m.cache_has_attachments, m.cache_roomnames, m.was_data_detected, m.was_deduplicated, m.is_audio_message, m.is_played, m.date_played, m.item_type, m.other_handle, m.group_title, m.group_action_type, m.share_status, m.share_direction, m.is_expirable, m.expire_state, m.message_action_type, m.message_source, m.associated_message_guid, m.associated_message_type, m.balloon_bundle_id, m.payload_data, m.expressive_send_style_id, m.associated_message_range_location, m.associated_message_range_length, m.time_expressive_send_played, m.message_summary_info, m.ck_sync_state, m.ck_record_id, m.ck_record_change_tag, m.destination_caller_id, m.is_corrupt, m.reply_to_guid, m.sort_id, m.is_spam, m.has_unseen_mention, m.thread_originator_guid, m.thread_originator_part, m.syndication_ranges, m.synced_syndication_ranges, m.was_delivered_quietly, m.did_notify_recipient, m.date_retracted, m.date_edited, m.date_recovered, m.was_detonated, m.part_count, m.is_stewie, m.is_sos, m.is_critical, m.bia_reference_id, m.is_kt_verified, m.fallback_hash, m.associated_message_emoji, m.is_pending_satellite_send, m.needs_relay, m.schedule_type, m.schedule_state, m.sent_or_received_off_grid, m.is_time_sensitive, m.ck_chat_id FROM message m  INNER JOIN chat_message_join cm ON cm.message_id = m.rowid  INNER JOIN chat c ON c.ROWID = cm.chat_id  WHERE m.schedule_type == 2  AND (m.schedule_state == 1 OR m.schedule_state == 2)  ORDER BY cm.message_date ASC LIMIT ?";
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = sub_1B7B3C61C;
-  v14[3] = &unk_1E7CB6958;
-  v13 = dCopy;
-  v17 = &v19;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_1B7B3C61C;
+  v15[3] = &unk_1E7CB6958;
+  v14 = dCopy;
+  v18 = &v20;
   limitCopy = limit;
-  v15 = v13;
+  v16 = v14;
   selfCopy = self;
-  _IMDPerformLockedStatementBlockWithQuery(v12, v14);
+  _IMDPerformLockedStatementBlockWithQuery(v13, v15);
   if (handlerCopy)
   {
-    handlerCopy[2](handlerCopy, v20[5]);
+    handlerCopy[2](handlerCopy, v21[5]);
   }
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
 - (void)addScheduledMessageGUIDandCKRecordToDeleteFromCloudKit:(id)kit recordID:(id)d
@@ -1643,48 +1629,48 @@ LABEL_8:
 {
   dsCopy = ds;
   MutableCopy = CFStringCreateMutableCopy(0, 0, @"DELETE from scheduled_messages_pending_cloudkit_delete");
-  if (objc_msgSend_count(dsCopy, v5, v6))
+  if (objc_msgSend_count(dsCopy, v5, v6, v7))
   {
     CFStringAppend(MutableCopy, @" WHERE (recordID = ?");
-    if (objc_msgSend_count(dsCopy, v7, v8) >= 2)
+    if (objc_msgSend_count(dsCopy, v8, v9, v10) >= 2)
     {
-      v9 = 1;
+      v11 = 1;
       do
       {
         CFStringAppend(MutableCopy, @" OR recordID = ?");
-        ++v9;
+        ++v11;
       }
 
-      while (v9 < objc_msgSend_count(dsCopy, v10, v11));
+      while (v11 < objc_msgSend_count(dsCopy, v12, v13, v14));
     }
 
     CFStringAppend(MutableCopy, @""));
   }
 
   CFStringAppend(MutableCopy, @";");
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = sub_1B7B3C928;
-  v13[3] = &unk_1E7CB8658;
-  v14 = dsCopy;
-  v12 = dsCopy;
-  _IMDPerformLockedStatementBlockWithQuery(MutableCopy, v13);
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_1B7B3C928;
+  v16[3] = &unk_1E7CB8658;
+  v17 = dsCopy;
+  v15 = dsCopy;
+  _IMDPerformLockedStatementBlockWithQuery(MutableCopy, v16);
 }
 
 - (void)markMessageRecordsAsReadWithGUIDs:(id)ds
 {
   dsCopy = ds;
   v4 = *MEMORY[0x1E695E480];
-  v7 = objc_msgSend_count(dsCopy, v5, v6);
-  v9 = IMDGenerateInClauseForCount(v7, v8);
-  v10 = CFStringCreateWithFormat(v4, 0, @"UPDATE   message SET   is_read = 1,   date_read = ? WHERE guid %@", v9);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = sub_1B7B3CA48;
-  v12[3] = &unk_1E7CB8658;
-  v13 = dsCopy;
-  v11 = dsCopy;
-  _IMDPerformLockedStatementBlockWithQuery(v10, v12);
+  v8 = objc_msgSend_count(dsCopy, v5, v6, v7);
+  v12 = IMDGenerateInClauseForCount(v8, v9, v10, v11);
+  v13 = CFStringCreateWithFormat(v4, 0, @"UPDATE   message SET   is_read = 1,   date_read = ? WHERE guid %@", v12);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_1B7B3CA48;
+  v15[3] = &unk_1E7CB8658;
+  v16 = dsCopy;
+  v14 = dsCopy;
+  _IMDPerformLockedStatementBlockWithQuery(v13, v15);
 }
 
 - (id)scheduledMessagesMetadataPendingCloudKitDeleteWithLimit:(int64_t)limit
@@ -1701,116 +1687,112 @@ LABEL_8:
     Row = IMDSqlStatementGetRow(v13);
     if (Row)
     {
-      objc_msgSend_addObject_(v4, v5, Row);
+      objc_msgSend_addObject_(v4, v5, Row, v6);
     }
   }
 
   IMDSqlOperationFinishQuery(v12);
   v11 = 0;
   IMDSqlOperationRelease(v12, &v11);
-  v7 = v11;
-  if (v7)
+  v8 = v11;
+  if (v8)
   {
-    v8 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v15 = v7;
-      _os_log_impl(&dword_1B7AD5000, v8, OS_LOG_TYPE_INFO, "Got error: %@ while trying to get scheduled messages pending cloudkit delete", buf, 0xCu);
+      v15 = v8;
+      _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_INFO, "Got error: %@ while trying to get scheduled messages pending cloudkit delete", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)_updateMessageSyncStateQueryFor:(int64_t)for
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_msgSend_substitutionStringForCount_(MEMORY[0x1E696AEC0], a2, for);
-  v6 = objc_msgSend_stringWithFormat_(v3, v5, @"%@( %@)", @"UPDATE message SET ck_sync_state = ? where guid in ", v4);
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = objc_msgSend_substitutionStringForCount_(MEMORY[0x1E696AEC0], a2, for, v3);
+  v8 = objc_msgSend_stringWithFormat_(v4, v6, @"%@( %@)", v7, @"UPDATE message SET ck_sync_state = ? where guid in ", v5);
 
-  return v6;
+  return v8;
 }
 
 - (void)updateMessagesSyncStatusTo:(int64_t)to forGUIDs:(id)ds
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
-  v25 = 0u;
-  memset(v24, 0, sizeof(v24));
-  memset(v23, 0, sizeof(v23));
-  IMDSqlOperationInitWithSharedCSDBDatabase(v23);
-  IMDSqlOperationBeginTransaction(v23);
-  v9 = objc_msgSend_count(dsCopy, v7, v8);
-  updated = objc_msgSend__updateMessageSyncStateQueryFor_(self, v10, v9);
-  _IMDSqlOperationBeginQuery(v23, updated);
-  IMDSqlStatementBindInt64(v24, to);
-  v12 = dsCopy;
-  IMDSqlStatementBindTextFromArrayOfCFStrings(v24, v12);
-  if (IMDSqlOperationFinishQuery(v23))
+  v27 = 0u;
+  memset(v26, 0, sizeof(v26));
+  memset(v25, 0, sizeof(v25));
+  IMDSqlOperationInitWithSharedCSDBDatabase(v25);
+  IMDSqlOperationBeginTransaction(v25);
+  v10 = objc_msgSend_count(dsCopy, v7, v8, v9);
+  updated = objc_msgSend__updateMessageSyncStateQueryFor_(self, v11, v10, v12);
+  _IMDSqlOperationBeginQuery(v25, updated);
+  IMDSqlStatementBindInt64(v26, to);
+  v14 = dsCopy;
+  IMDSqlStatementBindTextFromArrayOfCFStrings(v26, v14);
+  if (IMDSqlOperationFinishQuery(v25))
   {
-    v13 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v15 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v27 = v12;
-      _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "CloudSync.message | updated ck_sync_state for recordIDs: %@", buf, 0xCu);
+      v29 = v14;
+      _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "CloudSync.message | updated ck_sync_state for recordIDs: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v13 = *(&v25 + 1);
-    v14 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = *(&v27 + 1);
+    v16 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_1B7CF0080();
     }
   }
 
-  IMDSqlOperationCommitOrRevertTransaction(v23);
-  v22 = 0;
-  v15 = IMDSqlOperationRelease(v23, &v22);
-  v16 = v22;
-  v17 = IMLogHandleForCategory();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
-  if (v15)
+  IMDSqlOperationCommitOrRevertTransaction(v25);
+  v24 = 0;
+  v17 = IMDSqlOperationRelease(v25, &v24);
+  v18 = v24;
+  v19 = IMLogHandleForCategory();
+  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
+  if (v17)
   {
-    if (v18)
+    if (v20)
     {
       sub_1B7CF01AC();
     }
   }
 
-  else if (v18)
+  else if (v20)
   {
-    sub_1B7CF0120(v16, v17, v19);
+    sub_1B7CF0120(v18, v19, v21, v22);
   }
 
-  v20 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  v23 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v27 = v12;
-    _os_log_impl(&dword_1B7AD5000, v20, OS_LOG_TYPE_INFO, "CloudSync.message | Finished updating ck_sync_state for recordIDs %@", buf, 0xCu);
+    v29 = v14;
+    _os_log_impl(&dword_1B7AD5000, v23, OS_LOG_TYPE_INFO, "CloudSync.message | Finished updating ck_sync_state for recordIDs %@", buf, 0xCu);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_updateSyndicatedMessageItem:(id)item newMessageItem:(id)messageItem newSyndicationRange:(id)range
 {
-  v58[1] = *MEMORY[0x1E69E9840];
+  v66[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   messageItemCopy = messageItem;
   rangeCopy = range;
   v10 = rangeCopy;
   if (!itemCopy)
   {
-    v17 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_1B7CF0294();
     }
@@ -1820,8 +1802,8 @@ LABEL_8:
 
   if (!messageItemCopy)
   {
-    v17 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_1B7CF0258();
     }
@@ -1831,84 +1813,83 @@ LABEL_8:
 
   if (!rangeCopy)
   {
-    v17 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_1B7CF021C();
     }
 
 LABEL_16:
-    v35 = 0;
+    v41 = 0;
     goto LABEL_22;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v13 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v16 = objc_msgSend_guid(messageItemCopy, v14, v15);
+      v18 = objc_msgSend_guid(messageItemCopy, v15, v16, v17);
       *buf = 138412546;
-      v52 = v16;
-      v53 = 2112;
-      v54 = v10;
-      _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "Updating syndication ranges for message item with guid %@. newSyndicationRange: %@", buf, 0x16u);
+      v60 = v18;
+      v61 = 2112;
+      v62 = v10;
+      _os_log_impl(&dword_1B7AD5000, v14, OS_LOG_TYPE_INFO, "Updating syndication ranges for message item with guid %@. newSyndicationRange: %@", buf, 0x16u);
     }
   }
 
-  v17 = objc_msgSend_syndicationRanges(messageItemCopy, v11, v12);
-  v50 = 0;
-  v18 = MEMORY[0x1E69A8158];
-  v58[0] = v10;
-  v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v19, v58, 1);
-  v47 = objc_msgSend_updateMessagesRanges_withMessagePartSyndicationRanges_didUpdate_(v18, v21, v17, v20, &v50);
+  v19 = objc_msgSend_syndicationRanges(messageItemCopy, v11, v12, v13);
+  v58 = 0;
+  v20 = MEMORY[0x1E69A8158];
+  v66[0] = v10;
+  v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v66, 1);
+  v55 = objc_msgSend_updateMessagesRanges_withMessagePartSyndicationRanges_didUpdate_(v20, v23, v19, v22, &v58);
 
-  if (v50 == 1)
+  if (v58 == 1)
   {
-    objc_msgSend_setSyndicationRanges_(messageItemCopy, v22, v47);
-    v23 = IMDUpdateIMMessageItemWithIMMessageItemForceReplaceReplaceError(itemCopy, messageItemCopy, 1, 0, 0, 1, 0);
-    v26 = objc_msgSend_synchronousQueryProvider(IMDIndexingController, v24, v25);
-    v29 = objc_msgSend_guid(v23, v27, v28);
-    v57 = v29;
-    v31 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v30, &v57, 1);
-    v33 = objc_msgSend_contextWithReason_(IMDIndexingContext, v32, 1011);
-    v48[0] = MEMORY[0x1E69E9820];
-    v48[1] = 3221225472;
-    v48[2] = sub_1B7B3D3F4;
-    v48[3] = &unk_1E7CB6C58;
-    v49 = messageItemCopy;
-    objc_msgSend_addMessageGUIDs_context_completionHandler_(v26, v34, v31, v33, v48);
+    objc_msgSend_setSyndicationRanges_(messageItemCopy, v24, v55, v25);
+    v26 = IMDUpdateIMMessageItemWithIMMessageItemForceReplaceReplaceError(itemCopy, messageItemCopy, 1, 0, 0, 1, 0);
+    v30 = objc_msgSend_synchronousQueryProvider(IMDIndexingController, v27, v28, v29);
+    v34 = objc_msgSend_guid(v26, v31, v32, v33);
+    v65 = v34;
+    v36 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v35, &v65, 1);
+    v39 = objc_msgSend_contextWithReason_(IMDIndexingContext, v37, 1011, v38);
+    v56[0] = MEMORY[0x1E69E9820];
+    v56[1] = 3221225472;
+    v56[2] = sub_1B7B3D3F4;
+    v56[3] = &unk_1E7CB6C58;
+    v57 = messageItemCopy;
+    objc_msgSend_addMessageGUIDs_context_completionHandler_(v30, v40, v36, v39, v56);
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v36 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+    v42 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
     {
-      v39 = objc_msgSend_guid(messageItemCopy, v37, v38);
-      v42 = objc_msgSend_description(v10, v40, v41);
-      v44 = objc_msgSend_componentsJoinedByString_(v17, v43, @",\n");
+      v46 = objc_msgSend_guid(messageItemCopy, v43, v44, v45);
+      v50 = objc_msgSend_description(v10, v47, v48, v49);
+      v53 = objc_msgSend_componentsJoinedByString_(v19, v51, @",\n", v52);
       *buf = 138412802;
-      v52 = v39;
-      v53 = 2112;
-      v54 = v42;
-      v55 = 2112;
-      v56 = v44;
-      _os_log_impl(&dword_1B7AD5000, v36, OS_LOG_TYPE_INFO, "Did NOT update syndication ranges for message: %@\nNew Range:\n%@\nOriginal Ranges:\n%@", buf, 0x20u);
+      v60 = v46;
+      v61 = 2112;
+      v62 = v50;
+      v63 = 2112;
+      v64 = v53;
+      _os_log_impl(&dword_1B7AD5000, v42, OS_LOG_TYPE_INFO, "Did NOT update syndication ranges for message: %@\nNew Range:\n%@\nOriginal Ranges:\n%@", buf, 0x20u);
     }
   }
 
-  v35 = v50;
+  v41 = v58;
 
 LABEL_22:
-  v45 = *MEMORY[0x1E69E9840];
-  return v35 & 1;
+  return v41 & 1;
 }
 
 - (void)updateAttachmentSyndicationRanges:(id)ranges shouldHideFromSyndication:(BOOL)syndication
 {
   syndicationCopy = syndication;
-  v63 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   rangesCopy = ranges;
   if (rangesCopy)
   {
@@ -1940,35 +1921,35 @@ LABEL_22:
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v57 = "[IMDDatabase(LegacyMessages) updateAttachmentSyndicationRanges:shouldHideFromSyndication:]";
-            v58 = 2112;
-            v59 = rangesCopy;
+            v65 = "[IMDDatabase(LegacyMessages) updateAttachmentSyndicationRanges:shouldHideFromSyndication:]";
+            v66 = 2112;
+            v67 = rangesCopy;
             _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_DEFAULT, "%s Found corresponding IMMessageItem for attachment GUID %@", buf, 0x16u);
           }
 
-          v15 = objc_msgSend_fileTransferGUIDs(v11, v13, v14);
-          v17 = objc_msgSend_containsObject_(v15, v16, rangesCopy);
+          v16 = objc_msgSend_fileTransferGUIDs(v11, v13, v14, v15);
+          v19 = objc_msgSend_containsObject_(v16, v17, rangesCopy, v18);
 
-          if (v17)
+          if (v19)
           {
-            v21 = rangesCopy;
+            v25 = rangesCopy;
           }
 
           else
           {
-            v21 = objc_msgSend_findTransferGUIDMatchingSpotlightDonatedSpeculativeTransferGUID_(v11, v18, rangesCopy);
-            if (!v21)
+            v25 = objc_msgSend_findTransferGUIDMatchingSpotlightDonatedSpeculativeTransferGUID_(v11, v20, rangesCopy, v21);
+            if (!v25)
             {
-              v47 = IMLogHandleForCategory();
-              if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+              v54 = IMLogHandleForCategory();
+              if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
               {
                 sub_1B7CF0400();
               }
 
-              v21 = IMLogHandleForCategory();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+              v25 = IMLogHandleForCategory();
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
-                sub_1B7CF04B4(v11, v21, v48);
+                sub_1B7CF04B4(v11, v25, v55, v56);
               }
 
 LABEL_47:
@@ -1978,40 +1959,40 @@ LABEL_48:
             }
           }
 
-          v50 = syndicationCopy;
+          v58 = syndicationCopy;
           selfCopy = self;
-          objc_msgSend_messageParts(v11, v19, v20);
-          v52 = 0u;
-          v53 = 0u;
-          v54 = 0u;
-          obj = v55 = 0u;
-          v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v23, &v52, v62, 16);
-          if (v24)
+          objc_msgSend_messageParts(v11, v22, v23, v24);
+          v60 = 0u;
+          v61 = 0u;
+          v62 = 0u;
+          obj = v63 = 0u;
+          v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v27, &v60, v70, 16);
+          if (v28)
           {
-            v27 = v24;
-            v28 = *v53;
+            v32 = v28;
+            v33 = *v61;
 LABEL_25:
-            v29 = 0;
+            v34 = 0;
             while (1)
             {
-              if (*v53 != v28)
+              if (*v61 != v33)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v30 = *(*(&v52 + 1) + 8 * v29);
-              v31 = objc_msgSend_transferGUID(v30, v25, v26);
-              isEqualToString = objc_msgSend_isEqualToString_(v21, v32, v31);
+              v35 = *(*(&v60 + 1) + 8 * v34);
+              v36 = objc_msgSend_transferGUID(v35, v29, v30, v31);
+              isEqualToString = objc_msgSend_isEqualToString_(v25, v37, v36, v38);
 
               if (isEqualToString)
               {
                 break;
               }
 
-              if (v27 == ++v29)
+              if (v32 == ++v34)
               {
-                v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v25, &v52, v62, 16);
-                if (v27)
+                v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v29, &v60, v70, 16);
+                if (v32)
                 {
                   goto LABEL_25;
                 }
@@ -2020,22 +2001,22 @@ LABEL_25:
               }
             }
 
-            v36 = IMDatabaseLogHandle();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+            v43 = IMDatabaseLogHandle();
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315650;
-              v57 = "[IMDDatabase(LegacyMessages) updateAttachmentSyndicationRanges:shouldHideFromSyndication:]";
-              v58 = 2112;
-              v59 = rangesCopy;
-              v60 = 2112;
-              v61 = v21;
-              _os_log_impl(&dword_1B7AD5000, v36, OS_LOG_TYPE_DEFAULT, "%s Found corresponding IMMessagePartDescriptor for attachment GUID %@ (actualAttachmentGUID %@)", buf, 0x20u);
+              v65 = "[IMDDatabase(LegacyMessages) updateAttachmentSyndicationRanges:shouldHideFromSyndication:]";
+              v66 = 2112;
+              v67 = rangesCopy;
+              v68 = 2112;
+              v69 = v25;
+              _os_log_impl(&dword_1B7AD5000, v43, OS_LOG_TYPE_DEFAULT, "%s Found corresponding IMMessagePartDescriptor for attachment GUID %@ (actualAttachmentGUID %@)", buf, 0x20u);
             }
 
-            shouldHideFromSyndication = v30;
+            shouldHideFromSyndication = v35;
             if (shouldHideFromSyndication)
             {
-              objc_msgSend__updateMessageItemSyndicationRanges_messagePartDescriptor_shouldHideFromSyndication_(selfCopy, v34, v11, shouldHideFromSyndication, v50);
+              objc_msgSend__updateMessageItemSyndicationRanges_messagePartDescriptor_shouldHideFromSyndication_(selfCopy, v40, v11, shouldHideFromSyndication, v58);
               goto LABEL_46;
             }
           }
@@ -2045,37 +2026,37 @@ LABEL_25:
 LABEL_31:
           }
 
-          isCMM = objc_msgSend_isCMM(v11, v34, v35);
+          isCMM = objc_msgSend_isCMM(v11, v40, v41, v42);
           shouldHideFromSyndication = IMDatabaseLogHandle();
-          v39 = os_log_type_enabled(shouldHideFromSyndication, OS_LOG_TYPE_DEFAULT);
+          v46 = os_log_type_enabled(shouldHideFromSyndication, OS_LOG_TYPE_DEFAULT);
           if (isCMM)
           {
-            if (v39)
+            if (v46)
             {
               *buf = 0;
               _os_log_impl(&dword_1B7AD5000, shouldHideFromSyndication, OS_LOG_TYPE_DEFAULT, "messageItem is CMM, routing to alternative path to handle IMMessagePartSyndicationAssetDescriptors", buf, 2u);
             }
 
-            shouldHideFromSyndication = objc_msgSend__newSyndicationRangeForCMMMessageItem_syndicationIdentifier_shouldHideFromSyndication_(IMDDatabase, v40, v11, v21, v50);
-            if (shouldHideFromSyndication && (objc_msgSend__updateSyndicatedMessageItem_newMessageItem_newSyndicationRange_(selfCopy, v41, v11, v11, shouldHideFromSyndication) & 1) == 0)
+            shouldHideFromSyndication = objc_msgSend__newSyndicationRangeForCMMMessageItem_syndicationIdentifier_shouldHideFromSyndication_(IMDDatabase, v47, v11, v25, v58);
+            if (shouldHideFromSyndication && (objc_msgSend__updateSyndicatedMessageItem_newMessageItem_newSyndicationRange_(selfCopy, v48, v11, v11, shouldHideFromSyndication) & 1) == 0)
             {
-              v42 = IMDatabaseLogHandle();
-              if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+              v49 = IMDatabaseLogHandle();
+              if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
               {
-                v45 = objc_msgSend_guid(v11, v43, v44);
+                v53 = objc_msgSend_guid(v11, v50, v51, v52);
                 *buf = 136315394;
-                v57 = "[IMDDatabase(LegacyMessages) updateAttachmentSyndicationRanges:shouldHideFromSyndication:]";
-                v58 = 2112;
-                v59 = v45;
-                _os_log_impl(&dword_1B7AD5000, v42, OS_LOG_TYPE_DEFAULT, "%s message item with GUID %@ did not update its syndication ranges", buf, 0x16u);
+                v65 = "[IMDDatabase(LegacyMessages) updateAttachmentSyndicationRanges:shouldHideFromSyndication:]";
+                v66 = 2112;
+                v67 = v53;
+                _os_log_impl(&dword_1B7AD5000, v49, OS_LOG_TYPE_DEFAULT, "%s message item with GUID %@ did not update its syndication ranges", buf, 0x16u);
               }
             }
           }
 
-          else if (v39)
+          else if (v46)
           {
             *buf = 138412290;
-            v57 = v21;
+            v65 = v25;
             _os_log_impl(&dword_1B7AD5000, shouldHideFromSyndication, OS_LOG_TYPE_DEFAULT, "Failed to find matching messagePart for attachment GUID %@", buf, 0xCu);
           }
 
@@ -2094,8 +2075,8 @@ LABEL_20:
         goto LABEL_48;
       }
 
-      v22 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v26 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         sub_1B7CF037C();
       }
@@ -2120,123 +2101,121 @@ LABEL_20:
   }
 
 LABEL_49:
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateMessageItemSyndicationRanges:(id)ranges messagePartDescriptor:(id)descriptor shouldHideFromSyndication:(BOOL)syndication
 {
   syndicationCopy = syndication;
-  v96 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   rangesCopy = ranges;
   descriptorCopy = descriptor;
-  v12 = descriptorCopy;
+  v13 = descriptorCopy;
   if (rangesCopy)
   {
     if (descriptorCopy)
     {
-      v13 = objc_msgSend_messagePartRange(descriptorCopy, v10, v11);
-      if (!(v13 | v14))
+      v14 = objc_msgSend_messagePartRange(descriptorCopy, v10, v11, v12);
+      if (!(v14 | v15))
       {
         started = IMLogHandleForCategory();
         if (os_log_type_enabled(started, OS_LOG_TYPE_ERROR))
         {
-          sub_1B7CF0748(rangesCopy, started, v16);
+          sub_1B7CF0748(rangesCopy, started, v17, v18);
         }
 
         goto LABEL_46;
       }
 
-      v17 = IMDatabaseLogHandle();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = objc_msgSend_guid(rangesCopy, v18, v19);
-        v23 = objc_msgSend_messagePartIndex(v12, v21, v22);
-        v97.location = objc_msgSend_messagePartRange(v12, v24, v25);
-        v26 = NSStringFromRange(v97);
+        v23 = objc_msgSend_guid(rangesCopy, v20, v21, v22);
+        v27 = objc_msgSend_messagePartIndex(v13, v24, v25, v26);
+        v113.location = objc_msgSend_messagePartRange(v13, v28, v29, v30);
+        v31 = NSStringFromRange(v113);
         *buf = 136315906;
-        v89 = "[IMDDatabase(LegacyMessages) _updateMessageItemSyndicationRanges:messagePartDescriptor:shouldHideFromSyndication:]";
-        v90 = 2112;
-        v91 = v20;
-        v92 = 2048;
-        v93 = v23;
-        v94 = 2112;
-        v95 = v26;
-        _os_log_impl(&dword_1B7AD5000, v17, OS_LOG_TYPE_DEFAULT, "%s Updating syndication ranges for message guid: %@, part %ld, range: %@", buf, 0x2Au);
+        v105 = "[IMDDatabase(LegacyMessages) _updateMessageItemSyndicationRanges:messagePartDescriptor:shouldHideFromSyndication:]";
+        v106 = 2112;
+        v107 = v23;
+        v108 = 2048;
+        v109 = v27;
+        v110 = 2112;
+        v111 = v31;
+        _os_log_impl(&dword_1B7AD5000, v19, OS_LOG_TYPE_DEFAULT, "%s Updating syndication ranges for message guid: %@, part %ld, range: %@", buf, 0x2Au);
       }
 
-      v29 = objc_msgSend_messagePartRange(v12, v27, v28);
-      v31 = v30;
-      v32 = IMDatabaseLogHandle();
-      v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
+      v35 = objc_msgSend_messagePartRange(v13, v32, v33, v34);
+      v37 = v36;
+      v38 = IMDatabaseLogHandle();
+      v39 = os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT);
       if (syndicationCopy)
       {
-        if (v33)
+        if (v39)
         {
-          v98.location = v29;
-          v98.length = v31;
-          v34 = NSStringFromRange(v98);
-          v37 = objc_msgSend_guid(rangesCopy, v35, v36);
+          v114.location = v35;
+          v114.length = v37;
+          v40 = NSStringFromRange(v114);
+          v44 = objc_msgSend_guid(rangesCopy, v41, v42, v43);
           *buf = 136315650;
-          v89 = "[IMDDatabase(LegacyMessages) _updateMessageItemSyndicationRanges:messagePartDescriptor:shouldHideFromSyndication:]";
-          v90 = 2112;
-          v91 = v34;
-          v92 = 2112;
-          v93 = v37;
-          _os_log_impl(&dword_1B7AD5000, v32, OS_LOG_TYPE_DEFAULT, "%s Removing message part range from syndication %@ for message item with GUID %@", buf, 0x20u);
+          v105 = "[IMDDatabase(LegacyMessages) _updateMessageItemSyndicationRanges:messagePartDescriptor:shouldHideFromSyndication:]";
+          v106 = 2112;
+          v107 = v40;
+          v108 = 2112;
+          v109 = v44;
+          _os_log_impl(&dword_1B7AD5000, v38, OS_LOG_TYPE_DEFAULT, "%s Removing message part range from syndication %@ for message item with GUID %@", buf, 0x20u);
         }
 
-        v38 = objc_alloc(MEMORY[0x1E69A8158]);
-        v41 = objc_msgSend_date(MEMORY[0x1E695DF00], v39, v40);
-        started = objc_msgSend_initWithSyndicationType_messagePartRange_syndicationStartDate_(v38, v42, 4, v29, v31, v41);
+        v45 = objc_alloc(MEMORY[0x1E69A8158]);
+        v49 = objc_msgSend_date(MEMORY[0x1E695DF00], v46, v47, v48);
+        started = objc_msgSend_initWithSyndicationType_messagePartRange_syndicationStartDate_(v45, v50, 4, v35, v37, v49);
       }
 
       else
       {
-        if (v33)
+        if (v39)
         {
-          v99.location = v29;
-          v99.length = v31;
-          v43 = NSStringFromRange(v99);
-          v46 = objc_msgSend_guid(rangesCopy, v44, v45);
+          v115.location = v35;
+          v115.length = v37;
+          v51 = NSStringFromRange(v115);
+          v55 = objc_msgSend_guid(rangesCopy, v52, v53, v54);
           *buf = 136315650;
-          v89 = "[IMDDatabase(LegacyMessages) _updateMessageItemSyndicationRanges:messagePartDescriptor:shouldHideFromSyndication:]";
-          v90 = 2112;
-          v91 = v43;
-          v92 = 2112;
-          v93 = v46;
-          _os_log_impl(&dword_1B7AD5000, v32, OS_LOG_TYPE_DEFAULT, "%s Unhiding syndication for message part range %@ for message item with GUID %@", buf, 0x20u);
+          v105 = "[IMDDatabase(LegacyMessages) _updateMessageItemSyndicationRanges:messagePartDescriptor:shouldHideFromSyndication:]";
+          v106 = 2112;
+          v107 = v51;
+          v108 = 2112;
+          v109 = v55;
+          _os_log_impl(&dword_1B7AD5000, v38, OS_LOG_TYPE_DEFAULT, "%s Unhiding syndication for message part range %@ for message item with GUID %@", buf, 0x20u);
         }
 
-        v85 = 0u;
-        v86 = 0u;
-        v83 = 0u;
-        v84 = 0u;
-        v49 = objc_msgSend_syndicationRanges(rangesCopy, v47, v48, 0);
-        v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v49, v50, &v83, v87, 16);
-        if (v51)
+        v101 = 0u;
+        v102 = 0u;
+        v99 = 0u;
+        v100 = 0u;
+        v59 = objc_msgSend_syndicationRanges(rangesCopy, v56, v57, v58, 0);
+        v61 = objc_msgSend_countByEnumeratingWithState_objects_count_(v59, v60, &v99, v103, 16);
+        if (v61)
         {
-          v54 = v51;
-          v55 = *v84;
+          v65 = v61;
+          v66 = *v100;
 LABEL_20:
-          v56 = 0;
+          v67 = 0;
           while (1)
           {
-            if (*v84 != v55)
+            if (*v100 != v66)
             {
-              objc_enumerationMutation(v49);
+              objc_enumerationMutation(v59);
             }
 
-            v57 = *(*(&v83 + 1) + 8 * v56);
-            if (objc_msgSend_messagePartRange(v57, v52, v53) == v29 && v52 == v31)
+            v68 = *(*(&v99 + 1) + 8 * v67);
+            if (objc_msgSend_messagePartRange(v68, v62, v63, v64) == v35 && v62 == v37)
             {
               break;
             }
 
-            if (v54 == ++v56)
+            if (v65 == ++v67)
             {
-              v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v49, v52, &v83, v87, 16);
-              if (v54)
+              v65 = objc_msgSend_countByEnumeratingWithState_objects_count_(v59, v62, &v99, v103, 16);
+              if (v65)
               {
                 goto LABEL_20;
               }
@@ -2245,14 +2224,14 @@ LABEL_20:
             }
           }
 
-          v41 = v57;
+          v49 = v68;
 
-          if (v41 && (objc_msgSend_syndicationType(v41, v59, v60) & 4) != 0)
+          if (v49 && (objc_msgSend_syndicationType(v49, v70, v71, v72) & 4) != 0)
           {
-            v78 = objc_msgSend_syndicationType(v41, v61, v62);
-            v79 = objc_alloc(MEMORY[0x1E69A8158]);
-            v63 = objc_msgSend_date(MEMORY[0x1E695DF00], v80, v81);
-            started = objc_msgSend_initWithSyndicationType_messagePartRange_syndicationStartDate_(v79, v82, v78 & 0xFFFFFFFFFFFFFFFBLL, v29, v31, v63);
+            v93 = objc_msgSend_syndicationType(v49, v73, v74, v75);
+            v94 = objc_alloc(MEMORY[0x1E69A8158]);
+            v76 = objc_msgSend_date(MEMORY[0x1E695DF00], v95, v96, v97);
+            started = objc_msgSend_initWithSyndicationType_messagePartRange_syndicationStartDate_(v94, v98, v93 & 0xFFFFFFFFFFFFFFFBLL, v35, v37, v76);
             goto LABEL_35;
           }
         }
@@ -2261,38 +2240,38 @@ LABEL_20:
         {
 LABEL_29:
 
-          v41 = 0;
+          v49 = 0;
         }
 
-        v63 = IMDatabaseLogHandle();
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+        v76 = IMDatabaseLogHandle();
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
         {
-          v66 = objc_msgSend_guid(rangesCopy, v64, v65);
+          v80 = objc_msgSend_guid(rangesCopy, v77, v78, v79);
           *buf = 136315650;
-          v89 = "[IMDDatabase(LegacyMessages) _updateMessageItemSyndicationRanges:messagePartDescriptor:shouldHideFromSyndication:]";
-          v90 = 2112;
-          v91 = v66;
-          v92 = 2112;
-          v93 = v41;
-          _os_log_impl(&dword_1B7AD5000, v63, OS_LOG_TYPE_DEFAULT, "%s NOT updating message syndication ranges for message item with GUID %@ because it is already unhidden. currentSyndicationRange: %@", buf, 0x20u);
+          v105 = "[IMDDatabase(LegacyMessages) _updateMessageItemSyndicationRanges:messagePartDescriptor:shouldHideFromSyndication:]";
+          v106 = 2112;
+          v107 = v80;
+          v108 = 2112;
+          v109 = v49;
+          _os_log_impl(&dword_1B7AD5000, v76, OS_LOG_TYPE_DEFAULT, "%s NOT updating message syndication ranges for message item with GUID %@ because it is already unhidden. currentSyndicationRange: %@", buf, 0x20u);
         }
 
         started = 0;
 LABEL_35:
       }
 
-      v67 = IMDatabaseLogHandle();
-      v68 = os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT);
+      v81 = IMDatabaseLogHandle();
+      v82 = os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT);
       if (!started)
       {
-        if (v68)
+        if (v82)
         {
-          v75 = objc_msgSend_guid(rangesCopy, v69, v70);
+          v91 = objc_msgSend_guid(rangesCopy, v83, v84, v85);
           *buf = 136315394;
-          v89 = "[IMDDatabase(LegacyMessages) _updateMessageItemSyndicationRanges:messagePartDescriptor:shouldHideFromSyndication:]";
-          v90 = 2112;
-          v91 = v75;
-          v76 = "%s newSyndicationRange was nil. Did not update syndication ranges for message with GUID %@";
+          v105 = "[IMDDatabase(LegacyMessages) _updateMessageItemSyndicationRanges:messagePartDescriptor:shouldHideFromSyndication:]";
+          v106 = 2112;
+          v107 = v91;
+          v92 = "%s newSyndicationRange was nil. Did not update syndication ranges for message with GUID %@";
           goto LABEL_44;
         }
 
@@ -2301,31 +2280,31 @@ LABEL_45:
         goto LABEL_46;
       }
 
-      if (v68)
+      if (v82)
       {
-        v71 = objc_msgSend_guid(rangesCopy, v69, v70);
+        v86 = objc_msgSend_guid(rangesCopy, v83, v84, v85);
         *buf = 136315650;
-        v89 = "[IMDDatabase(LegacyMessages) _updateMessageItemSyndicationRanges:messagePartDescriptor:shouldHideFromSyndication:]";
-        v90 = 2112;
-        v91 = v71;
-        v92 = 2112;
-        v93 = started;
-        _os_log_impl(&dword_1B7AD5000, v67, OS_LOG_TYPE_DEFAULT, "%s Updating message syndication ranges for message item with GUID %@. newSyndicationRange: %@", buf, 0x20u);
+        v105 = "[IMDDatabase(LegacyMessages) _updateMessageItemSyndicationRanges:messagePartDescriptor:shouldHideFromSyndication:]";
+        v106 = 2112;
+        v107 = v86;
+        v108 = 2112;
+        v109 = started;
+        _os_log_impl(&dword_1B7AD5000, v81, OS_LOG_TYPE_DEFAULT, "%s Updating message syndication ranges for message item with GUID %@. newSyndicationRange: %@", buf, 0x20u);
       }
 
-      if ((objc_msgSend__updateSyndicatedMessageItem_newMessageItem_newSyndicationRange_(self, v72, rangesCopy, rangesCopy, started) & 1) == 0)
+      if ((objc_msgSend__updateSyndicatedMessageItem_newMessageItem_newSyndicationRange_(self, v87, rangesCopy, rangesCopy, started) & 1) == 0)
       {
-        v67 = IMDatabaseLogHandle();
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+        v81 = IMDatabaseLogHandle();
+        if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
         {
-          v75 = objc_msgSend_guid(rangesCopy, v73, v74);
+          v91 = objc_msgSend_guid(rangesCopy, v88, v89, v90);
           *buf = 136315394;
-          v89 = "[IMDDatabase(LegacyMessages) _updateMessageItemSyndicationRanges:messagePartDescriptor:shouldHideFromSyndication:]";
-          v90 = 2112;
-          v91 = v75;
-          v76 = "%s message item with GUID %@ did not update its syndication ranges";
+          v105 = "[IMDDatabase(LegacyMessages) _updateMessageItemSyndicationRanges:messagePartDescriptor:shouldHideFromSyndication:]";
+          v106 = 2112;
+          v107 = v91;
+          v92 = "%s message item with GUID %@ did not update its syndication ranges";
 LABEL_44:
-          _os_log_impl(&dword_1B7AD5000, v67, OS_LOG_TYPE_DEFAULT, v76, buf, 0x16u);
+          _os_log_impl(&dword_1B7AD5000, v81, OS_LOG_TYPE_DEFAULT, v92, buf, 0x16u);
 
           goto LABEL_45;
         }
@@ -2354,20 +2333,18 @@ LABEL_44:
   }
 
 LABEL_46:
-
-  v77 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_newSyndicationRangeForCMMMessageItem:(id)item syndicationIdentifier:(id)identifier shouldHideFromSyndication:(BOOL)syndication
 {
   syndicationCopy = syndication;
-  v272 = *MEMORY[0x1E69E9840];
+  v326 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   identifierCopy = identifier;
   if (!itemCopy)
   {
-    v32 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v39 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       sub_1B7CF0BD0();
     }
@@ -2375,114 +2352,114 @@ LABEL_46:
     goto LABEL_11;
   }
 
-  v11 = objc_msgSend_fileTransferGUIDs(itemCopy, v8, v9);
-  if (!v11 || (v14 = v11, objc_msgSend_fileTransferGUIDs(itemCopy, v12, v13), v15 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend_count(v15, v16, v17), v15, v14, !v18))
+  v12 = objc_msgSend_fileTransferGUIDs(itemCopy, v8, v9, v10);
+  if (!v12 || (v16 = v12, objc_msgSend_fileTransferGUIDs(itemCopy, v13, v14, v15), v17 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend_count(v17, v18, v19, v20), v17, v16, !v21))
   {
-    v32 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v39 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CF0B38(itemCopy, v32, v33);
+      sub_1B7CF0B38(itemCopy, v39, v40, v41);
     }
 
     goto LABEL_11;
   }
 
-  CMMAssetOffset = objc_msgSend_getCMMAssetOffset(itemCopy, v19, v20);
-  v22 = IMCMMAssetIndexFromIMFileTransferGUID();
-  v25 = objc_msgSend_fileTransferGUIDs(itemCopy, v23, v24);
-  v28 = objc_msgSend_count(v25, v26, v27);
+  CMMAssetOffset = objc_msgSend_getCMMAssetOffset(itemCopy, v22, v23, v24);
+  v26 = IMCMMAssetIndexFromIMFileTransferGUID();
+  v30 = objc_msgSend_fileTransferGUIDs(itemCopy, v27, v28, v29);
+  v34 = objc_msgSend_count(v30, v31, v32, v33);
 
-  v31 = v28 - CMMAssetOffset;
-  if (v28 >= CMMAssetOffset)
+  v38 = v34 - CMMAssetOffset;
+  if (v34 >= CMMAssetOffset)
   {
-    if (v28 == CMMAssetOffset)
+    if (v34 == CMMAssetOffset)
     {
-      v32 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v39 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        sub_1B7CF0A24(itemCopy, v32, v37);
+        sub_1B7CF0A24(itemCopy, v39, v44, v45);
       }
 
       goto LABEL_11;
     }
 
-    if (v22 < CMMAssetOffset)
+    if (v26 < CMMAssetOffset)
     {
-      v32 = IMDatabaseLogHandle();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v39 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B7AD5000, v32, OS_LOG_TYPE_DEFAULT, "Attachment is CMM preview, aborting since we don't care about donating preview to CoreSpotlight", buf, 2u);
+        _os_log_impl(&dword_1B7AD5000, v39, OS_LOG_TYPE_DEFAULT, "Attachment is CMM preview, aborting since we don't care about donating preview to CoreSpotlight", buf, 2u);
       }
 
       goto LABEL_11;
     }
 
-    v38 = objc_msgSend_fileTransferGUIDs(itemCopy, v29, v30);
-    v32 = objc_msgSend_firstObject(v38, v39, v40);
+    v46 = objc_msgSend_fileTransferGUIDs(itemCopy, v35, v36, v37);
+    v39 = objc_msgSend_firstObject(v46, v47, v48, v49);
 
-    if (!v32)
+    if (!v39)
     {
-      v61 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      v74 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
       {
-        sub_1B7CF098C(itemCopy, v61, v62);
+        sub_1B7CF098C(itemCopy, v74, v75, v76);
       }
 
       goto LABEL_39;
     }
 
-    v238 = v22;
-    v239 = CMMAssetOffset;
-    v254 = 0u;
-    v255 = 0u;
-    v252 = 0u;
-    v253 = 0u;
-    v43 = objc_msgSend_messageParts(itemCopy, v41, v42);
-    v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v43, v44, &v252, v271, 16);
-    if (v45)
+    v292 = v26;
+    v293 = CMMAssetOffset;
+    v308 = 0u;
+    v309 = 0u;
+    v306 = 0u;
+    v307 = 0u;
+    v53 = objc_msgSend_messageParts(itemCopy, v50, v51, v52);
+    v55 = objc_msgSend_countByEnumeratingWithState_objects_count_(v53, v54, &v306, v325, 16);
+    if (v55)
     {
-      v48 = v45;
-      v235 = identifierCopy;
-      v237 = itemCopy;
-      v49 = *v253;
+      v59 = v55;
+      v289 = identifierCopy;
+      v291 = itemCopy;
+      v60 = *v307;
       while (2)
       {
-        for (i = 0; i != v48; ++i)
+        for (i = 0; i != v59; ++i)
         {
-          if (*v253 != v49)
+          if (*v307 != v60)
           {
-            objc_enumerationMutation(v43);
+            objc_enumerationMutation(v53);
           }
 
-          v51 = *(*(&v252 + 1) + 8 * i);
-          v52 = objc_msgSend_transferGUID(v51, v46, v47);
-          isEqualToString = objc_msgSend_isEqualToString_(v32, v53, v52);
+          v62 = *(*(&v306 + 1) + 8 * i);
+          v63 = objc_msgSend_transferGUID(v62, v56, v57, v58);
+          isEqualToString = objc_msgSend_isEqualToString_(v39, v64, v63, v65);
 
           if (isEqualToString)
           {
-            v57 = IMDatabaseLogHandle();
-            identifierCopy = v235;
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+            v69 = IMDatabaseLogHandle();
+            identifierCopy = v289;
+            if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315650;
-              v266 = "+[IMDDatabase(LegacyMessages) _newSyndicationRangeForCMMMessageItem:syndicationIdentifier:shouldHideFromSyndication:]";
-              v267 = 2112;
-              v268 = v32;
-              v269 = 2112;
-              v270 = v235;
-              _os_log_impl(&dword_1B7AD5000, v57, OS_LOG_TYPE_DEFAULT, "%s Found corresponding IMMessagePartDescriptor for fileTransferGUID %@ (actualAttachmentGUID %@)", buf, 0x20u);
+              v320 = "+[IMDDatabase(LegacyMessages) _newSyndicationRangeForCMMMessageItem:syndicationIdentifier:shouldHideFromSyndication:]";
+              v321 = 2112;
+              v322 = v39;
+              v323 = 2112;
+              v324 = v289;
+              _os_log_impl(&dword_1B7AD5000, v69, OS_LOG_TYPE_DEFAULT, "%s Found corresponding IMMessagePartDescriptor for fileTransferGUID %@ (actualAttachmentGUID %@)", buf, 0x20u);
             }
 
-            v55 = objc_msgSend_messagePartRange(v51, v58, v59);
-            v56 = v60;
-            itemCopy = v237;
+            v67 = objc_msgSend_messagePartRange(v62, v70, v71, v72);
+            v68 = v73;
+            itemCopy = v291;
             goto LABEL_35;
           }
         }
 
-        v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v43, v46, &v252, v271, 16);
-        if (v48)
+        v59 = objc_msgSend_countByEnumeratingWithState_objects_count_(v53, v56, &v306, v325, 16);
+        if (v59)
         {
           continue;
         }
@@ -2490,113 +2467,113 @@ LABEL_46:
         break;
       }
 
-      v55 = 0x7FFFFFFFFFFFFFFFLL;
-      v56 = 0x7FFFFFFFFFFFFFFFLL;
-      identifierCopy = v235;
-      itemCopy = v237;
+      v67 = 0x7FFFFFFFFFFFFFFFLL;
+      v68 = 0x7FFFFFFFFFFFFFFFLL;
+      identifierCopy = v289;
+      itemCopy = v291;
     }
 
     else
     {
-      v55 = 0x7FFFFFFFFFFFFFFFLL;
-      v56 = 0x7FFFFFFFFFFFFFFFLL;
+      v67 = 0x7FFFFFFFFFFFFFFFLL;
+      v68 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
 LABEL_35:
 
-    v65 = v239;
-    if (v55 == 0x7FFFFFFFFFFFFFFFLL && v56 == 0x7FFFFFFFFFFFFFFFLL)
+    v80 = v293;
+    if (v67 == 0x7FFFFFFFFFFFFFFFLL && v68 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v61 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      v74 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
       {
         sub_1B7CF08E0();
       }
 
 LABEL_39:
-      v34 = 0;
+      v42 = 0;
 LABEL_117:
 
       goto LABEL_12;
     }
 
-    v66 = objc_msgSend_syndicationRanges(itemCopy, v63, v64);
-    v234 = v56;
-    if (v66)
+    v81 = objc_msgSend_syndicationRanges(itemCopy, v77, v78, v79);
+    v288 = v68;
+    if (v81)
     {
-      v69 = v66;
-      v70 = objc_msgSend_syndicationRanges(itemCopy, v67, v68);
-      v73 = objc_msgSend_count(v70, v71, v72);
+      v85 = v81;
+      v86 = objc_msgSend_syndicationRanges(itemCopy, v82, v83, v84);
+      v90 = objc_msgSend_count(v86, v87, v88, v89);
 
-      if (v73)
+      if (v90)
       {
-        v76 = objc_msgSend_syndicationRanges(itemCopy, v74, v75);
-        v79 = objc_msgSend_firstObject(v76, v77, v78);
-        v61 = objc_msgSend_copy(v79, v80, v81);
+        v94 = objc_msgSend_syndicationRanges(itemCopy, v91, v92, v93);
+        v98 = objc_msgSend_firstObject(v94, v95, v96, v97);
+        v74 = objc_msgSend_copy(v98, v99, v100, v101);
       }
 
       else
       {
-        v61 = 0;
+        v74 = 0;
       }
 
-      v56 = v234;
-      v65 = v239;
+      v68 = v288;
+      v80 = v293;
     }
 
     else
     {
-      v61 = 0;
+      v74 = 0;
     }
 
-    v82 = IMDatabaseLogHandle();
-    v83 = os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT);
+    v102 = IMDatabaseLogHandle();
+    v103 = os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT);
     if (!syndicationCopy)
     {
-      v231 = v32;
-      v233 = v61;
-      if (v83)
+      v285 = v39;
+      v287 = v74;
+      if (v103)
       {
-        v126 = objc_msgSend_guid(itemCopy, v84, v85);
+        v161 = objc_msgSend_guid(itemCopy, v104, v105, v106);
         *buf = 136315650;
-        v266 = "+[IMDDatabase(LegacyMessages) _newSyndicationRangeForCMMMessageItem:syndicationIdentifier:shouldHideFromSyndication:]";
-        v267 = 2048;
-        v268 = v238;
-        v269 = 2112;
-        v270 = v126;
-        _os_log_impl(&dword_1B7AD5000, v82, OS_LOG_TYPE_DEFAULT, "%s Updating asset syndication descriptor to be not hidden for part index %ld on message item with GUID %@", buf, 0x20u);
+        v320 = "+[IMDDatabase(LegacyMessages) _newSyndicationRangeForCMMMessageItem:syndicationIdentifier:shouldHideFromSyndication:]";
+        v321 = 2048;
+        v322 = v292;
+        v323 = 2112;
+        v324 = v161;
+        _os_log_impl(&dword_1B7AD5000, v102, OS_LOG_TYPE_DEFAULT, "%s Updating asset syndication descriptor to be not hidden for part index %ld on message item with GUID %@", buf, 0x20u);
       }
 
-      v246 = 0u;
-      v247 = 0u;
-      v244 = 0u;
-      v245 = 0u;
-      v127 = itemCopy;
-      v130 = objc_msgSend_syndicationRanges(itemCopy, v128, v129);
-      v132 = objc_msgSend_countByEnumeratingWithState_objects_count_(v130, v131, &v244, v261, 16);
-      if (v132)
+      v300 = 0u;
+      v301 = 0u;
+      v298 = 0u;
+      v299 = 0u;
+      v162 = itemCopy;
+      v166 = objc_msgSend_syndicationRanges(itemCopy, v163, v164, v165);
+      v168 = objc_msgSend_countByEnumeratingWithState_objects_count_(v166, v167, &v298, v315, 16);
+      if (v168)
       {
-        v135 = v132;
-        v136 = *v245;
+        v172 = v168;
+        v173 = *v299;
 LABEL_61:
-        v137 = 0;
+        v174 = 0;
         while (1)
         {
-          if (*v245 != v136)
+          if (*v299 != v173)
           {
-            objc_enumerationMutation(v130);
+            objc_enumerationMutation(v166);
           }
 
-          v138 = *(*(&v244 + 1) + 8 * v137);
-          if (objc_msgSend_messagePartRange(v138, v133, v134) == v55 && v133 == v56)
+          v175 = *(*(&v298 + 1) + 8 * v174);
+          if (objc_msgSend_messagePartRange(v175, v169, v170, v171) == v67 && v169 == v68)
           {
             break;
           }
 
-          if (v135 == ++v137)
+          if (v172 == ++v174)
           {
-            v135 = objc_msgSend_countByEnumeratingWithState_objects_count_(v130, v133, &v244, v261, 16);
-            if (v135)
+            v172 = objc_msgSend_countByEnumeratingWithState_objects_count_(v166, v169, &v298, v315, 16);
+            if (v172)
             {
               goto LABEL_61;
             }
@@ -2605,64 +2582,64 @@ LABEL_61:
           }
         }
 
-        v156 = v138;
+        v196 = v175;
 
-        if (!v156)
+        if (!v196)
         {
           goto LABEL_91;
         }
 
-        v157 = objc_msgSend_syndicationForPartIndex_asset_(v156, v140, v238, 0);
-        v117 = v157;
-        if (!v157)
+        v197 = objc_msgSend_syndicationForPartIndex_asset_(v196, v177, v292, 0);
+        v148 = v197;
+        if (!v197)
         {
-          v34 = 0;
-          itemCopy = v127;
-          v32 = v231;
-          v61 = v233;
+          v42 = 0;
+          itemCopy = v162;
+          v39 = v285;
+          v74 = v287;
           goto LABEL_109;
         }
 
-        v160 = objc_msgSend_intValue(v157, v158, v159);
-        v162 = v160;
-        if ((v160 & 4) != 0)
+        v201 = objc_msgSend_intValue(v197, v198, v199, v200);
+        v204 = v201;
+        if ((v201 & 4) != 0)
         {
-          v221 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v161, v238);
-          v256 = v221;
-          v223 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v222, v162 & 0xFFFFFFFFFFFFFFFBLL);
-          v257 = v223;
-          v163 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v224, &v257, &v256, 1);
+          v274 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v202, v292, v203);
+          v310 = v274;
+          v277 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v275, v204 & 0xFFFFFFFFFFFFFFFBLL, v276);
+          v311 = v277;
+          v205 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v278, &v311, &v310, 1);
 
-          v34 = objc_msgSend_updateAssetInfoWith_asset_range_(MEMORY[0x1E69A8158], v225, v163, 0, v156);
+          v42 = objc_msgSend_updateAssetInfoWith_asset_range_(MEMORY[0x1E69A8158], v279, v205, 0, v196);
           goto LABEL_102;
         }
 
-        v163 = IMDatabaseLogHandle();
-        v61 = v233;
-        if (os_log_type_enabled(v163, OS_LOG_TYPE_DEFAULT))
+        v205 = IMDatabaseLogHandle();
+        v74 = v287;
+        if (os_log_type_enabled(v205, OS_LOG_TYPE_DEFAULT))
         {
-          itemCopy = v127;
-          v166 = objc_msgSend_guid(v127, v164, v165);
-          v169 = objc_msgSend_assetDescriptor(v156, v167, v168);
-          v172 = objc_msgSend_serializedString(v169, v170, v171);
+          itemCopy = v162;
+          v209 = objc_msgSend_guid(v162, v206, v207, v208);
+          v213 = objc_msgSend_assetDescriptor(v196, v210, v211, v212);
+          v217 = objc_msgSend_serializedString(v213, v214, v215, v216);
           *buf = 136315650;
-          v266 = "+[IMDDatabase(LegacyMessages) _newSyndicationRangeForCMMMessageItem:syndicationIdentifier:shouldHideFromSyndication:]";
-          v267 = 2112;
-          v268 = v166;
-          v269 = 2112;
-          v270 = v172;
-          _os_log_impl(&dword_1B7AD5000, v163, OS_LOG_TYPE_DEFAULT, "%s NOT updating CMM asset syndication for message item with GUID %@ because it is already unhidden. current syndications: %@", buf, 0x20u);
+          v320 = "+[IMDDatabase(LegacyMessages) _newSyndicationRangeForCMMMessageItem:syndicationIdentifier:shouldHideFromSyndication:]";
+          v321 = 2112;
+          v322 = v209;
+          v323 = 2112;
+          v324 = v217;
+          _os_log_impl(&dword_1B7AD5000, v205, OS_LOG_TYPE_DEFAULT, "%s NOT updating CMM asset syndication for message item with GUID %@ because it is already unhidden. current syndications: %@", buf, 0x20u);
 
-          v34 = 0;
+          v42 = 0;
         }
 
         else
         {
-          v34 = 0;
-          itemCopy = v127;
+          v42 = 0;
+          itemCopy = v162;
         }
 
-        v32 = v231;
+        v39 = v285;
       }
 
       else
@@ -2670,456 +2647,591 @@ LABEL_61:
 LABEL_70:
 
 LABEL_91:
-        v230 = v55;
-        v173 = objc_msgSend_fileTransferGUIDs(v127, v140, v141);
-        v175 = objc_msgSend_subarrayWithRange_(v173, v174, v239, v31);
+        v284 = v67;
+        v218 = objc_msgSend_fileTransferGUIDs(v162, v177, v178, v179);
+        v220 = objc_msgSend_subarrayWithRange_(v218, v219, v293, v38);
 
-        v176 = MEMORY[0x1E695DF90];
-        v179 = objc_msgSend_count(v175, v177, v178);
-        v163 = objc_msgSend_dictionaryWithCapacity_(v176, v180, v179);
-        v240 = 0u;
-        v241 = 0u;
-        v242 = 0u;
-        v243 = 0u;
-        v181 = v175;
-        v182 = v239;
-        v183 = v181;
-        v185 = objc_msgSend_countByEnumeratingWithState_objects_count_(v181, v184, &v240, v260, 16);
-        if (v185)
+        v221 = MEMORY[0x1E695DF90];
+        v225 = objc_msgSend_count(v220, v222, v223, v224);
+        v205 = objc_msgSend_dictionaryWithCapacity_(v221, v226, v225, v227);
+        v294 = 0u;
+        v295 = 0u;
+        v296 = 0u;
+        v297 = 0u;
+        v228 = v220;
+        v229 = v293;
+        v230 = v228;
+        v232 = objc_msgSend_countByEnumeratingWithState_objects_count_(v228, v231, &v294, v314, 16);
+        if (v232)
         {
-          v187 = v185;
-          v188 = *v241;
+          v234 = v232;
+          v235 = *v295;
           do
           {
-            for (j = 0; j != v187; ++j)
+            for (j = 0; j != v234; ++j)
             {
-              if (*v241 != v188)
+              if (*v295 != v235)
               {
-                objc_enumerationMutation(v183);
+                objc_enumerationMutation(v230);
               }
 
-              if (*(*(&v240 + 1) + 8 * j))
+              if (*(*(&v294 + 1) + 8 * j))
               {
-                v190 = IMCMMAssetIndexFromIMFileTransferGUID();
-                if (v190 >= v182)
+                v237 = IMCMMAssetIndexFromIMFileTransferGUID();
+                if (v237 >= v229)
                 {
-                  v191 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v186, v190);
-                  objc_msgSend_setObject_forKeyedSubscript_(v163, v192, &unk_1F2FCA278, v191);
+                  v239 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v233, v237, v238);
+                  objc_msgSend_setObject_forKeyedSubscript_(v205, v240, &unk_1F2FCA278, v239);
 
-                  v182 = v239;
+                  v229 = v293;
                 }
               }
             }
 
-            v187 = objc_msgSend_countByEnumeratingWithState_objects_count_(v183, v186, &v240, v260, 16);
+            v234 = objc_msgSend_countByEnumeratingWithState_objects_count_(v230, v233, &v294, v314, 16);
           }
 
-          while (v187);
+          while (v234);
         }
 
-        v193 = v183;
+        v241 = v230;
 
-        v194 = objc_alloc(MEMORY[0x1E69A8150]);
-        v258 = &unk_1F2FCA278;
-        v259 = v163;
-        v196 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v195, &v259, &v258, 1);
-        v198 = objc_msgSend_initWithAssetSyndications_(v194, v197, v196);
+        v242 = objc_alloc(MEMORY[0x1E69A8150]);
+        v312 = &unk_1F2FCA278;
+        v313 = v205;
+        v244 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v243, &v313, &v312, 1);
+        v247 = objc_msgSend_initWithAssetSyndications_(v242, v245, v244, v246);
 
-        v199 = objc_alloc(MEMORY[0x1E69A8158]);
-        v202 = objc_msgSend_date(MEMORY[0x1E695DF00], v200, v201);
-        started = objc_msgSend_initWithSyndicationType_messagePartRange_syndicationStartDate_syndicationStatus_assetDescriptor_(v199, v203, 0, v230, v234, v202, 0, v198);
+        v248 = objc_alloc(MEMORY[0x1E69A8158]);
+        v252 = objc_msgSend_date(MEMORY[0x1E695DF00], v249, v250, v251);
+        started = objc_msgSend_initWithSyndicationType_messagePartRange_syndicationStartDate_syndicationStatus_assetDescriptor_(v248, v253, 0, v284, v288, v252, 0, v247);
 
-        v117 = v193;
-        v156 = started;
+        v148 = v241;
+        v196 = started;
 
-        v34 = v156;
+        v42 = v196;
 LABEL_102:
-        itemCopy = v127;
-        v32 = v231;
-        v61 = v233;
+        itemCopy = v162;
+        v39 = v285;
+        v74 = v287;
       }
 
       goto LABEL_106;
     }
 
-    if (v83)
+    if (v103)
     {
-      v86 = objc_msgSend_guid(itemCopy, v84, v85);
+      v107 = objc_msgSend_guid(itemCopy, v104, v105, v106);
       *buf = 136315650;
-      v266 = "+[IMDDatabase(LegacyMessages) _newSyndicationRangeForCMMMessageItem:syndicationIdentifier:shouldHideFromSyndication:]";
-      v267 = 2048;
-      v268 = v238;
-      v269 = 2112;
-      v270 = v86;
-      _os_log_impl(&dword_1B7AD5000, v82, OS_LOG_TYPE_DEFAULT, "%s Updating asset syndication descriptor to be hidden for asset index %ld on message item with GUID %@", buf, 0x20u);
+      v320 = "+[IMDDatabase(LegacyMessages) _newSyndicationRangeForCMMMessageItem:syndicationIdentifier:shouldHideFromSyndication:]";
+      v321 = 2048;
+      v322 = v292;
+      v323 = 2112;
+      v324 = v107;
+      _os_log_impl(&dword_1B7AD5000, v102, OS_LOG_TYPE_DEFAULT, "%s Updating asset syndication descriptor to be hidden for asset index %ld on message item with GUID %@", buf, 0x20u);
 
-      v65 = v239;
+      v80 = v293;
     }
 
-    v89 = objc_msgSend_fileTransferGUIDs(itemCopy, v87, v88);
-    v91 = objc_msgSend_subarrayWithRange_(v89, v90, v65, v31);
+    v111 = objc_msgSend_fileTransferGUIDs(itemCopy, v108, v109, v110);
+    v113 = objc_msgSend_subarrayWithRange_(v111, v112, v80, v38);
 
-    v228 = v91;
-    if (!v61)
+    v282 = v113;
+    if (v74 && (objc_msgSend_assetDescriptor(v74, v114, v115, v116), (v117 = objc_claimAutoreleasedReturnValue()) != 0) && (v118 = v117, objc_msgSend_assetDescriptor(v74, v114, v115, v116), v119 = objc_claimAutoreleasedReturnValue(), objc_msgSend_assetSyndications(v119, v120, v121, v122), v123 = objc_claimAutoreleasedReturnValue(), v123, v119, v80 = v293, v118, v123))
     {
-      goto LABEL_71;
-    }
+      v124 = MEMORY[0x1E695DF90];
+      v125 = objc_msgSend_assetDescriptor(v74, v114, v115, v116);
+      v129 = objc_msgSend_assetSyndications(v125, v126, v127, v128);
+      v132 = objc_msgSend_dictionaryWithDictionary_(v124, v130, v129, v131);
 
-    v94 = objc_msgSend_assetDescriptor(v61, v92, v93);
-    if (!v94)
-    {
-      goto LABEL_71;
-    }
-
-    v95 = v94;
-    v96 = objc_msgSend_assetDescriptor(v61, v92, v93);
-    v99 = objc_msgSend_assetSyndications(v96, v97, v98);
-
-    v65 = v239;
-    if (v99)
-    {
-      v100 = MEMORY[0x1E695DF90];
-      v101 = objc_msgSend_assetDescriptor(v61, v92, v93);
-      v104 = objc_msgSend_assetSyndications(v101, v102, v103);
-      v106 = objc_msgSend_dictionaryWithDictionary_(v100, v105, v104);
-
-      if (!v106 || (objc_msgSend_objectForKey_(v106, v107, &unk_1F2FCA278), v108 = objc_claimAutoreleasedReturnValue(), v108, !v108))
+      if (!v132 || (objc_msgSend_objectForKey_(v132, v133, &unk_1F2FCA278, v134), v135 = objc_claimAutoreleasedReturnValue(), v135, !v135))
       {
-        v117 = 0;
+        v148 = 0;
         goto LABEL_104;
       }
 
-      v229 = v55;
-      v232 = v61;
-      v110 = objc_msgSend_objectForKeyedSubscript_(v106, v109, &unk_1F2FCA278);
-      v113 = objc_msgSend_mutableCopy(v110, v111, v112);
+      v283 = v67;
+      v286 = v74;
+      v138 = objc_msgSend_objectForKeyedSubscript_(v132, v136, &unk_1F2FCA278, v137);
+      v142 = objc_msgSend_mutableCopy(v138, v139, v140, v141);
 
-      v115 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v114, v238);
-      v117 = objc_msgSend_objectForKey_(v113, v116, v115);
+      v145 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v143, v292, v144);
+      v148 = objc_msgSend_objectForKey_(v142, v146, v145, v147);
 
-      if (v117)
+      if (v148)
       {
-        v119 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v118, v238);
-        v121 = objc_msgSend_objectForKeyedSubscript_(v113, v120, v119);
-        v124 = objc_msgSend_intValue(v121, v122, v123);
+        v151 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v149, v292, v150);
+        v154 = objc_msgSend_objectForKeyedSubscript_(v142, v152, v151, v153);
+        v158 = objc_msgSend_intValue(v154, v155, v156, v157);
 
-        if (v124 == 4)
+        if (v158 == 4)
         {
-          v117 = 0;
+          v148 = 0;
         }
 
         else
         {
-          v226 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v125, v238);
-          objc_msgSend_setObject_forKeyedSubscript_(v113, v227, &unk_1F2FCA290, v226);
+          v280 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v159, v292, v160);
+          objc_msgSend_setObject_forKeyedSubscript_(v142, v281, &unk_1F2FCA290, v280);
 
-          v117 = v113;
+          v148 = v142;
         }
       }
     }
 
     else
     {
-LABEL_71:
-      v142 = MEMORY[0x1E695DF90];
-      v143 = objc_msgSend_count(v91, v92, v93);
-      v117 = objc_msgSend_dictionaryWithCapacity_(v142, v144, v143);
-      v248 = 0u;
-      v249 = 0u;
-      v250 = 0u;
-      v251 = 0u;
-      v106 = v91;
-      v146 = objc_msgSend_countByEnumeratingWithState_objects_count_(v106, v145, &v248, v264, 16);
-      if (!v146)
+      v180 = MEMORY[0x1E695DF90];
+      v181 = objc_msgSend_count(v113, v114, v115, v116);
+      v148 = objc_msgSend_dictionaryWithCapacity_(v180, v182, v181, v183);
+      v302 = 0u;
+      v303 = 0u;
+      v304 = 0u;
+      v305 = 0u;
+      v132 = v113;
+      v185 = objc_msgSend_countByEnumeratingWithState_objects_count_(v132, v184, &v302, v318, 16);
+      if (!v185)
       {
 LABEL_104:
 
-        if (!v117)
+        if (!v148)
         {
-          v34 = 0;
-          v156 = v228;
+          v42 = 0;
+          v196 = v282;
           goto LABEL_109;
         }
 
-        v205 = objc_alloc(MEMORY[0x1E69A8150]);
-        v262 = &unk_1F2FCA278;
-        v263 = v117;
-        v207 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v206, &v263, &v262, 1);
-        v163 = objc_msgSend_initWithAssetSyndications_(v205, v208, v207);
+        v255 = objc_alloc(MEMORY[0x1E69A8150]);
+        v316 = &unk_1F2FCA278;
+        v317 = v148;
+        v257 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v256, &v317, &v316, 1);
+        v205 = objc_msgSend_initWithAssetSyndications_(v255, v258, v257, v259);
 
-        v209 = objc_alloc(MEMORY[0x1E69A8158]);
-        v212 = objc_msgSend_date(MEMORY[0x1E695DF00], v210, v211);
-        v34 = objc_msgSend_initWithSyndicationType_messagePartRange_syndicationStartDate_syndicationStatus_assetDescriptor_(v209, v213, 0, v55, v234, v212, 0, v163);
+        v260 = objc_alloc(MEMORY[0x1E69A8158]);
+        v264 = objc_msgSend_date(MEMORY[0x1E695DF00], v261, v262, v263);
+        v42 = objc_msgSend_initWithSyndicationType_messagePartRange_syndicationStartDate_syndicationStatus_assetDescriptor_(v260, v265, 0, v67, v288, v264, 0, v205);
 
-        v156 = v228;
+        v196 = v282;
 LABEL_106:
 
 LABEL_109:
-        v214 = IMDatabaseLogHandle();
-        v215 = os_log_type_enabled(v214, OS_LOG_TYPE_DEFAULT);
-        if (v34)
+        v266 = IMDatabaseLogHandle();
+        v267 = os_log_type_enabled(v266, OS_LOG_TYPE_DEFAULT);
+        if (v42)
         {
-          if (v215)
+          if (v267)
           {
-            v218 = objc_msgSend_guid(itemCopy, v216, v217);
+            v271 = objc_msgSend_guid(itemCopy, v268, v269, v270);
             *buf = 136315650;
-            v266 = "+[IMDDatabase(LegacyMessages) _newSyndicationRangeForCMMMessageItem:syndicationIdentifier:shouldHideFromSyndication:]";
-            v267 = 2112;
-            v268 = v218;
-            v269 = 2112;
-            v270 = v34;
-            _os_log_impl(&dword_1B7AD5000, v214, OS_LOG_TYPE_DEFAULT, "%s Updating message syndication ranges for message item with GUID %@. newSyndicationRange: %@", buf, 0x20u);
+            v320 = "+[IMDDatabase(LegacyMessages) _newSyndicationRangeForCMMMessageItem:syndicationIdentifier:shouldHideFromSyndication:]";
+            v321 = 2112;
+            v322 = v271;
+            v323 = 2112;
+            v324 = v42;
+            _os_log_impl(&dword_1B7AD5000, v266, OS_LOG_TYPE_DEFAULT, "%s Updating message syndication ranges for message item with GUID %@. newSyndicationRange: %@", buf, 0x20u);
           }
 
-          v219 = v34;
+          v272 = v42;
         }
 
         else
         {
-          if (v215)
+          if (v267)
           {
-            v220 = objc_msgSend_guid(itemCopy, v216, v217);
+            v273 = objc_msgSend_guid(itemCopy, v268, v269, v270);
             *buf = 136315394;
-            v266 = "+[IMDDatabase(LegacyMessages) _newSyndicationRangeForCMMMessageItem:syndicationIdentifier:shouldHideFromSyndication:]";
-            v267 = 2112;
-            v268 = v220;
-            _os_log_impl(&dword_1B7AD5000, v214, OS_LOG_TYPE_DEFAULT, "%s newSyndicationRange was nil. Did not update syndication ranges for message with GUID %@", buf, 0x16u);
+            v320 = "+[IMDDatabase(LegacyMessages) _newSyndicationRangeForCMMMessageItem:syndicationIdentifier:shouldHideFromSyndication:]";
+            v321 = 2112;
+            v322 = v273;
+            _os_log_impl(&dword_1B7AD5000, v266, OS_LOG_TYPE_DEFAULT, "%s newSyndicationRange was nil. Did not update syndication ranges for message with GUID %@", buf, 0x16u);
           }
         }
 
         goto LABEL_117;
       }
 
-      v148 = v146;
-      v229 = v55;
-      v232 = v61;
-      v236 = identifierCopy;
-      v149 = *v249;
+      v187 = v185;
+      v283 = v67;
+      v286 = v74;
+      v290 = identifierCopy;
+      v188 = *v303;
       do
       {
-        for (k = 0; k != v148; ++k)
+        for (k = 0; k != v187; ++k)
         {
-          if (*v249 != v149)
+          if (*v303 != v188)
           {
-            objc_enumerationMutation(v106);
+            objc_enumerationMutation(v132);
           }
 
-          if (*(*(&v248 + 1) + 8 * k))
+          if (*(*(&v302 + 1) + 8 * k))
           {
-            v151 = IMCMMAssetIndexFromIMFileTransferGUID();
-            if (v151 >= v65)
+            v190 = IMCMMAssetIndexFromIMFileTransferGUID();
+            if (v190 >= v80)
             {
-              if (v151 == v238)
+              if (v190 == v292)
               {
-                v152 = &unk_1F2FCA290;
+                v192 = &unk_1F2FCA290;
               }
 
               else
               {
-                v152 = &unk_1F2FCA278;
+                v192 = &unk_1F2FCA278;
               }
 
-              v153 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v147, v151);
-              v154 = v152;
-              v65 = v239;
-              objc_msgSend_setObject_forKeyedSubscript_(v117, v155, v154, v153);
+              v193 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v186, v190, v191);
+              v194 = v192;
+              v80 = v293;
+              objc_msgSend_setObject_forKeyedSubscript_(v148, v195, v194, v193);
             }
           }
         }
 
-        v148 = objc_msgSend_countByEnumeratingWithState_objects_count_(v106, v147, &v248, v264, 16);
+        v187 = objc_msgSend_countByEnumeratingWithState_objects_count_(v132, v186, &v302, v318, 16);
       }
 
-      while (v148);
-      identifierCopy = v236;
+      while (v187);
+      identifierCopy = v290;
     }
 
-    v61 = v232;
-    v55 = v229;
+    v74 = v286;
+    v67 = v283;
     goto LABEL_104;
   }
 
-  v32 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+  v39 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
   {
     sub_1B7CF0ABC();
   }
 
 LABEL_11:
-  v34 = 0;
+  v42 = 0;
 LABEL_12:
 
-  v35 = *MEMORY[0x1E69E9840];
-  return v34;
+  return v42;
+}
+
+- (void)updateMessageSyndicationRanges:(id)ranges shouldHideFromSyndication:(BOOL)syndication
+{
+  syndicationCopy = syndication;
+  v64 = *MEMORY[0x1E69E9840];
+  rangesCopy = ranges;
+  v7 = rangesCopy;
+  if (rangesCopy)
+  {
+    v8 = IMDMessageRecordCopyMessageForGUID(rangesCopy);
+    if (v8)
+    {
+      v9 = v8;
+      v10 = IMDCreateIMItemFromIMDMessageRecordRefWithAccountLookup(v8, 0, 0, 0);
+      CFRelease(v9);
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v11 = v10;
+        if (v11)
+        {
+          v12 = v11;
+          v13 = IMDatabaseLogHandle();
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 136315394;
+            v59 = "[IMDDatabase(LegacyMessages) updateMessageSyndicationRanges:shouldHideFromSyndication:]";
+            v60 = 2112;
+            v61 = v7;
+            _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_DEFAULT, "%s Found IMMessageItem for message GUID %@", buf, 0x16u);
+          }
+
+          v14 = objc_alloc(MEMORY[0x1E69A8148]);
+          v20 = objc_msgSend_initWithEncodedMessagePartGUID_(v14, v15, v7, v16);
+          if (v20)
+          {
+            v21 = IMDatabaseLogHandle();
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            {
+              v25 = objc_msgSend_partNumber(v20, v22, v23, v24);
+              *buf = 136315650;
+              v59 = "[IMDDatabase(LegacyMessages) updateMessageSyndicationRanges:shouldHideFromSyndication:]";
+              v60 = 2048;
+              v61 = v25;
+              v62 = 2112;
+              v63 = v7;
+              _os_log_impl(&dword_1B7AD5000, v21, OS_LOG_TYPE_DEFAULT, "%s Found partNumber %ld for message GUID %@", buf, 0x20u);
+            }
+
+            v29 = objc_msgSend_body(v12, v26, v27, v28);
+            v33 = objc_msgSend_partNumber(v20, v30, v31, v32);
+            v36 = objc_msgSend___im_messagePartMatchingPartIndex_(v29, v34, v33, v35);
+
+            if (v36)
+            {
+              objc_msgSend__updateMessageItemSyndicationRanges_messagePartDescriptor_shouldHideFromSyndication_(self, v37, v12, v36, syndicationCopy);
+            }
+
+            else
+            {
+              v51 = IMLogHandleForCategory();
+              if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+              {
+                sub_1B7CF0CCC(v20, v7, v51, v52);
+              }
+            }
+          }
+
+          else
+          {
+            v39 = objc_msgSend_messageParts(v12, v17, v18, v19);
+            v40 = IMDatabaseLogHandle();
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+            {
+              v44 = objc_msgSend_count(v39, v41, v42, v43);
+              *buf = 136315650;
+              v59 = "[IMDDatabase(LegacyMessages) updateMessageSyndicationRanges:shouldHideFromSyndication:]";
+              v60 = 2112;
+              v61 = v7;
+              v62 = 2048;
+              v63 = v44;
+              _os_log_impl(&dword_1B7AD5000, v40, OS_LOG_TYPE_DEFAULT, "%s messagePart number not foound for message GUID %@, updating all %ld parts", buf, 0x20u);
+            }
+
+            v55 = 0u;
+            v56 = 0u;
+            v53 = 0u;
+            v54 = 0u;
+            v36 = v39;
+            v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v45, &v53, v57, 16);
+            if (v46)
+            {
+              v48 = v46;
+              v49 = *v54;
+              do
+              {
+                for (i = 0; i != v48; ++i)
+                {
+                  if (*v54 != v49)
+                  {
+                    objc_enumerationMutation(v36);
+                  }
+
+                  objc_msgSend__updateMessageItemSyndicationRanges_messagePartDescriptor_shouldHideFromSyndication_(self, v47, v12, *(*(&v53 + 1) + 8 * i), syndicationCopy, v53);
+                }
+
+                v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v47, &v53, v57, 16);
+              }
+
+              while (v48);
+            }
+          }
+
+LABEL_36:
+          goto LABEL_37;
+        }
+      }
+
+      else
+      {
+        v38 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        {
+          sub_1B7CF0C50();
+        }
+      }
+
+      v20 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        sub_1B7CF0D74();
+      }
+
+      v12 = 0;
+      goto LABEL_36;
+    }
+
+    v12 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      sub_1B7CF0DF0();
+    }
+  }
+
+  else
+  {
+    v12 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      sub_1B7CF0E6C();
+    }
+  }
+
+LABEL_37:
 }
 
 - (id)_updateMessageSyncedSyndicationRangesQueryFor:(int64_t)for
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_msgSend_substitutionStringForCount_(MEMORY[0x1E696AEC0], a2, for);
-  v6 = objc_msgSend_stringWithFormat_(v3, v5, @"%@ (%@)", @"update message set synced_syndication_ranges=syndication_ranges where guid in", v4);
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = objc_msgSend_substitutionStringForCount_(MEMORY[0x1E696AEC0], a2, for, v3);
+  v8 = objc_msgSend_stringWithFormat_(v4, v6, @"%@ (%@)", v7, @"update message set synced_syndication_ranges=syndication_ranges where guid in", v5);
 
-  return v6;
+  return v8;
 }
 
 - (void)updateMessagesSyncedSyndicationRangesForGUIDs:(id)ds toStatus:(int64_t)status
 {
   dsCopy = ds;
-  v8 = dsCopy;
+  v9 = dsCopy;
   if (status == 1)
   {
-    v10 = dsCopy;
-    v9 = objc_msgSend_count(dsCopy, dsCopy, v7);
-    v8 = v10;
-    if (v9)
+    v12 = dsCopy;
+    v10 = objc_msgSend_count(dsCopy, dsCopy, v7, v8);
+    v9 = v12;
+    if (v10)
     {
-      objc_msgSend__updateMessagesSyncedSyndicationRangesToSyncedForGUIDs_(self, v10, v10);
-      v8 = v10;
+      objc_msgSend__updateMessagesSyncedSyndicationRangesToSyncedForGUIDs_(self, v12, v12, v11);
+      v9 = v12;
     }
   }
 }
 
 - (void)_updateMessagesSyncedSyndicationRangesToSyncedForGUIDs:(id)ds
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
-  v23 = 0u;
-  memset(v22, 0, sizeof(v22));
-  memset(v21, 0, sizeof(v21));
-  IMDSqlOperationInitWithSharedCSDBDatabase(v21);
-  IMDSqlOperationBeginTransaction(v21);
-  v7 = objc_msgSend_count(dsCopy, v5, v6);
-  updated = objc_msgSend__updateMessageSyncedSyndicationRangesQueryFor_(self, v8, v7);
-  _IMDSqlOperationBeginQuery(v21, updated);
-  v10 = dsCopy;
-  IMDSqlStatementBindTextFromArrayOfCFStrings(v22, v10);
-  if (IMDSqlOperationFinishQuery(v21))
+  v25 = 0u;
+  memset(v24, 0, sizeof(v24));
+  memset(v23, 0, sizeof(v23));
+  IMDSqlOperationInitWithSharedCSDBDatabase(v23);
+  IMDSqlOperationBeginTransaction(v23);
+  v8 = objc_msgSend_count(dsCopy, v5, v6, v7);
+  updated = objc_msgSend__updateMessageSyncedSyndicationRangesQueryFor_(self, v9, v8, v10);
+  _IMDSqlOperationBeginQuery(v23, updated);
+  v12 = dsCopy;
+  IMDSqlStatementBindTextFromArrayOfCFStrings(v24, v12);
+  if (IMDSqlOperationFinishQuery(v23))
   {
-    v11 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v25 = v10;
-      _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_INFO, "CloudSync.message | updated synced syndication ranges for recordIDs: %@", buf, 0xCu);
+      v27 = v12;
+      _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "CloudSync.message | updated synced syndication ranges for recordIDs: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v11 = *(&v23 + 1);
-    v12 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = *(&v25 + 1);
+    v14 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_1B7CF0EEC();
     }
   }
 
-  IMDSqlOperationCommitOrRevertTransaction(v21);
-  v20 = 0;
-  v13 = IMDSqlOperationRelease(v21, &v20);
-  v14 = v20;
-  v15 = IMLogHandleForCategory();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
-  if (v13)
+  IMDSqlOperationCommitOrRevertTransaction(v23);
+  v22 = 0;
+  v15 = IMDSqlOperationRelease(v23, &v22);
+  v16 = v22;
+  v17 = IMLogHandleForCategory();
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+  if (v15)
   {
-    if (v16)
+    if (v18)
     {
       sub_1B7CF1018();
     }
   }
 
-  else if (v16)
+  else if (v18)
   {
-    sub_1B7CF0F8C(v14, v15, v17);
+    sub_1B7CF0F8C(v16, v17, v19, v20);
   }
 
-  v18 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  v21 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v25 = v10;
-    _os_log_impl(&dword_1B7AD5000, v18, OS_LOG_TYPE_INFO, "CloudSync.message | Finished updating synced syndication ranges for: %@", buf, 0xCu);
+    v27 = v12;
+    _os_log_impl(&dword_1B7AD5000, v21, OS_LOG_TYPE_INFO, "CloudSync.message | Finished updating synced syndication ranges for: %@", buf, 0xCu);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)moveMessageRecordsToRecoveryForMessageGUIDs:(id)ds deleteDate:(id)date
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v96 = *MEMORY[0x1E69E9840];
   dateCopy = date;
-  v7 = objc_msgSend_setWithArray_(MEMORY[0x1E695DFD8], v6, ds);
-  v10 = objc_msgSend_allObjects(v7, v8, v9);
+  v8 = objc_msgSend_setWithArray_(MEMORY[0x1E695DFD8], v6, ds, v7);
+  v12 = objc_msgSend_allObjects(v8, v9, v10, v11);
 
-  v62 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v11 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v77 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v13 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     *&buf[4] = dateCopy;
     *&buf[12] = 2048;
-    *&buf[14] = objc_msgSend_count(v10, v12, v13);
-    _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Will begin moving messages to recoverable message table with deleteDate: %@ for %lu unique messages", buf, 0x16u);
+    *&buf[14] = objc_msgSend_count(v12, v14, v15, v16);
+    _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Will begin moving messages to recoverable message table with deleteDate: %@ for %lu unique messages", buf, 0x16u);
   }
 
-  v63 = objc_msgSend___im_nanosecondTimeInterval(dateCopy, v14, v15);
-  v80 = 0u;
-  memset(v79, 0, sizeof(v79));
+  v78 = objc_msgSend___im_nanosecondTimeInterval(dateCopy, v17, v18, v19);
+  v95 = 0u;
+  memset(v94, 0, sizeof(v94));
   memset(buf, 0, sizeof(buf));
   IMDSqlOperationInitWithSharedCSDBDatabase(buf);
   IMDSqlOperationBeginTransaction(buf);
-  v68 = 0u;
-  v69 = 0u;
-  v70 = 0u;
-  v71 = 0u;
-  obj = v10;
-  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v68, v77, 16);
-  if (!v17)
+  v83 = 0u;
+  v84 = 0u;
+  v85 = 0u;
+  v86 = 0u;
+  obj = v12;
+  v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v20, &v83, v92, 16);
+  if (!v21)
   {
     goto LABEL_24;
   }
 
-  v18 = v17;
-  v19 = *v69;
+  v22 = v21;
+  v23 = *v84;
   while (2)
   {
-    for (i = 0; i != v18; ++i)
+    for (i = 0; i != v22; ++i)
     {
-      if (*v69 != v19)
+      if (*v84 != v23)
       {
         objc_enumerationMutation(obj);
       }
 
-      v21 = *(*(&v68 + 1) + 8 * i);
-      v22 = IMDMessageRecordCopyMessageForGUID(v21);
-      v25 = objc_msgSend_rowID(v22, v23, v24);
-      v28 = objc_msgSend_dateRecovered(v22, v26, v27);
-      v30 = objc_msgSend_compare_(v28, v29, dateCopy);
+      v25 = *(*(&v83 + 1) + 8 * i);
+      v26 = IMDMessageRecordCopyMessageForGUID(v25);
+      v30 = objc_msgSend_rowID(v26, v27, v28, v29);
+      v34 = objc_msgSend_dateRecovered(v26, v31, v32, v33);
+      v37 = objc_msgSend_compare_(v34, v35, dateCopy, v36);
 
-      if (v30 == 1)
+      if (v37 == 1)
       {
-        v31 = IMDatabaseLogHandle();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        v38 = IMDatabaseLogHandle();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
-          v34 = objc_msgSend_dateRecovered(v22, v32, v33);
-          *v73 = 138412546;
-          v74 = v34;
-          v75 = 2112;
-          v76 = dateCopy;
-          _os_log_impl(&dword_1B7AD5000, v31, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Message was recovered on %@, ignoring synced deletion that happened on %@", v73, 0x16u);
+          v42 = objc_msgSend_dateRecovered(v26, v39, v40, v41);
+          *v88 = 138412546;
+          v89 = v42;
+          v90 = 2112;
+          v91 = dateCopy;
+          _os_log_impl(&dword_1B7AD5000, v38, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Message was recovered on %@, ignoring synced deletion that happened on %@", v88, 0x16u);
         }
       }
 
       else
       {
         _IMDSqlOperationBeginQuery(buf, @"INSERT OR REPLACE INTO chat_recoverable_message_join (chat_id, message_id, delete_date)   SELECT chat_id, message_id, ?   FROM chat_message_join AS cmj   JOIN message AS m   ON m.ROWID = cmj.message_id AND m.guid = ?;");
-        IMDSqlStatementBindInt64(v79, v63);
-        IMDSqlStatementBindTextFromCFString(v79, v21);
+        IMDSqlStatementBindInt64(v94, v78);
+        IMDSqlStatementBindTextFromCFString(v94, v25);
         if (!IMDSqlOperationFinishQuery(buf))
         {
-          v38 = *(&v80 + 1);
-          v39 = IMLogHandleForCategory();
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+          v47 = *(&v95 + 1);
+          v48 = IMLogHandleForCategory();
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
           {
             sub_1B7CF1088();
           }
@@ -3128,27 +3240,27 @@ LABEL_12:
         }
 
         _IMDSqlOperationBeginQuery(buf, @"DELETE FROM chat_message_join WHERE message_id = ? AND message_id IN(SELECT message_id FROM chat_recoverable_message_join WHERE message_id = ?);");
-        IMDSqlStatementBindInt64(v79, v25);
-        IMDSqlStatementBindInt64(v79, v25);
+        IMDSqlStatementBindInt64(v94, v30);
+        IMDSqlStatementBindInt64(v94, v30);
         if (IMDSqlOperationFinishQuery(buf))
         {
-          objc_msgSend_addObject_(v62, v35, v21);
+          objc_msgSend_addObject_(v77, v43, v25, v44);
           goto LABEL_18;
         }
 
-        v31 = *(&v80 + 1);
-        v36 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v38 = *(&v95 + 1);
+        v45 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
-          sub_1B7CF1128(v72, v31);
+          sub_1B7CF1128(v87, v38);
         }
       }
 
 LABEL_18:
     }
 
-    v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v37, &v68, v77, 16);
-    if (v18)
+    v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v46, &v83, v92, 16);
+    if (v22)
     {
       continue;
     }
@@ -3159,62 +3271,60 @@ LABEL_18:
 LABEL_24:
 
   IMDSqlOperationCommitOrRevertTransaction(buf);
-  v67 = 0;
-  v40 = IMDSqlOperationRelease(buf, &v67);
-  v43 = v67;
-  if (v40)
+  v82 = 0;
+  v49 = IMDSqlOperationRelease(buf, &v82);
+  v53 = v82;
+  if (v49)
   {
-    v44 = objc_msgSend_synchronousQueryProvider(IMDIndexingController, v41, v42);
-    v47 = objc_msgSend_allObjects(v62, v45, v46);
-    v49 = objc_msgSend_contextWithReason_(IMDIndexingContext, v48, 1005);
-    v65[0] = MEMORY[0x1E69E9820];
-    v65[1] = 3221225472;
-    v65[2] = sub_1B7B3FCB8;
-    v65[3] = &unk_1E7CB6C58;
-    v66 = v62;
-    objc_msgSend_deleteMessageGUIDs_context_completionHandler_(v44, v50, v47, v49, v65);
+    v54 = objc_msgSend_synchronousQueryProvider(IMDIndexingController, v50, v51, v52);
+    v58 = objc_msgSend_allObjects(v77, v55, v56, v57);
+    v61 = objc_msgSend_contextWithReason_(IMDIndexingContext, v59, 1005, v60);
+    v80[0] = MEMORY[0x1E69E9820];
+    v80[1] = 3221225472;
+    v80[2] = sub_1B7B3FCB8;
+    v80[3] = &unk_1E7CB6C58;
+    v81 = v77;
+    objc_msgSend_deleteMessageGUIDs_context_completionHandler_(v54, v62, v58, v61, v80);
 
-    v53 = objc_msgSend_synchronousQueryProvider(IMDIndexingController, v51, v52);
-    objc_msgSend_scheduleUpdateForDeletedMessagesWithReason_(v53, v54, 1005);
+    v66 = objc_msgSend_synchronousQueryProvider(IMDIndexingController, v63, v64, v65);
+    objc_msgSend_scheduleUpdateForDeletedMessagesWithReason_(v66, v67, 1005, v68);
 
-    v55 = v66;
+    v69 = v81;
   }
 
   else
   {
-    v55 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+    v69 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CF1184(v43, v55, v56);
+      sub_1B7CF1184(v53, v69, v70, v71);
     }
   }
 
-  v57 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+  v72 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
   {
-    v60 = objc_msgSend_count(obj, v58, v59);
-    *v73 = 134217984;
-    v74 = v60;
-    _os_log_impl(&dword_1B7AD5000, v57, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Finished moving messages to recoverable message table for %lu unique messages", v73, 0xCu);
+    v76 = objc_msgSend_count(obj, v73, v74, v75);
+    *v88 = 134217984;
+    v89 = v76;
+    _os_log_impl(&dword_1B7AD5000, v72, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Finished moving messages to recoverable message table for %lu unique messages", v88, 0xCu);
   }
-
-  v61 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteRecoverableMessagesOlderThanDays:(int64_t)days
 {
-  v5 = objc_msgSend_date(MEMORY[0x1E695DF00], a2, days);
-  v9 = objc_msgSend___im_dateByAddingDays_(v5, v6, -days);
+  v6 = objc_msgSend_date(MEMORY[0x1E695DF00], a2, days, v3);
+  v11 = objc_msgSend___im_dateByAddingDays_(v6, v7, -days, v8);
 
-  v8 = objc_msgSend__permanentlyDeleteRecoverableMessagesInChatsWithGUIDs_beforeDate_(self, v7, 0, v9);
+  v10 = objc_msgSend__permanentlyDeleteRecoverableMessagesInChatsWithGUIDs_beforeDate_(self, v9, 0, v11);
 }
 
 - (void)deleteJunkMessagesOlderThanDays:(int64_t)days
 {
-  v5 = objc_msgSend_date(MEMORY[0x1E695DF00], a2, days);
-  v8 = objc_msgSend___im_dateByAddingDays_(v5, v6, -days);
+  v6 = objc_msgSend_date(MEMORY[0x1E695DF00], a2, days, v3);
+  v11 = objc_msgSend___im_dateByAddingDays_(v6, v7, -days, v8);
 
-  objc_msgSend__permanentlyDeleteJunkMessagesBeforeDate_(self, v7, v8);
+  objc_msgSend__permanentlyDeleteJunkMessagesBeforeDate_(self, v9, v11, v10);
 }
 
 - (void)permanentlyDeleteRecoverableMessagesInChatsWithGUIDs:(id)ds completionHandler:(id)handler
@@ -3229,14 +3339,14 @@ LABEL_24:
 
 - (id)_permanentlyDeleteRecoverableMessagesInChatsWithGUIDs:(id)ds beforeDate:(id)date
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   dateCopy = date;
   v8 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf[0]) = 134217984;
-    *(buf + 4) = objc_msgSend_count(dsCopy, v9, v10);
+    *(buf + 4) = objc_msgSend_count(dsCopy, v9, v10, v11);
     _os_log_impl(&dword_1B7AD5000, v8, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Will begin permanently deleting recoverable messages for %lu chatGUIDs", buf, 0xCu);
   }
 
@@ -3244,117 +3354,117 @@ LABEL_24:
   {
     if (IMOSLoggingEnabled())
     {
-      v11 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v12 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_INFO, "Recently Deleted | Cannot delete recoverable messages in chats without chatGUIDs or beforeDate", buf, 2u);
+        _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "Recently Deleted | Cannot delete recoverable messages in chats without chatGUIDs or beforeDate", buf, 2u);
       }
     }
 
-    v51 = MEMORY[0x1E695E0F0];
+    v62 = MEMORY[0x1E695E0F0];
     goto LABEL_50;
   }
 
-  v51 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v55 = objc_msgSend___im_nanosecondTimeInterval(dateCopy, v12, v13);
-  v14 = @"INSERT INTO unsynced_removed_recoverable_messages (chat_guid, message_guid, part_index) SELECT c.guid, m.guid, -1 FROM chat_recoverable_message_join AS crmj JOIN chat AS c  ON c.ROWID=crmj.chat_id AND c.guid = ? JOIN message AS m  ON m.ROWID=crmj.message_id AND crmj.delete_date < ? AND crmj.ck_sync_state=1 UNION ALL SELECT c.guid, m.guid, rmp.part_index FROM recoverable_message_part AS rmp JOIN chat AS c  ON c.ROWID=rmp.chat_id JOIN message AS m  ON m.ROWID=rmp.message_id AND rmp.delete_date < ? AND rmp.ck_sync_state=1;";
+  v62 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v66 = objc_msgSend___im_nanosecondTimeInterval(dateCopy, v13, v14, v15);
+  v16 = @"INSERT INTO unsynced_removed_recoverable_messages (chat_guid, message_guid, part_index) SELECT c.guid, m.guid, -1 FROM chat_recoverable_message_join AS crmj JOIN chat AS c  ON c.ROWID=crmj.chat_id AND c.guid = ? JOIN message AS m  ON m.ROWID=crmj.message_id AND crmj.delete_date < ? AND crmj.ck_sync_state=1 UNION ALL SELECT c.guid, m.guid, rmp.part_index FROM recoverable_message_part AS rmp JOIN chat AS c  ON c.ROWID=rmp.chat_id JOIN message AS m  ON m.ROWID=rmp.message_id AND rmp.delete_date < ? AND rmp.ck_sync_state=1;";
   if (dateCopy)
   {
-    v15 = @"DELETE FROM message AS m WHERE m.ROWID IN( SELECT crmj.message_id   FROM chat_recoverable_message_join AS crmj   JOIN message AS m   ON crmj.message_id = m.ROWID   JOIN chat AS c ON crmj.chat_id = c.ROWID and c.guid = ?   WHERE crmj.delete_date < ?    AND NOT (m.group_action_type IN (1,3) AND (m.ROWID IN (SELECT message_id FROM message_attachment_join))));";
+    v17 = @"DELETE FROM message AS m WHERE m.ROWID IN( SELECT crmj.message_id   FROM chat_recoverable_message_join AS crmj   JOIN message AS m   ON crmj.message_id = m.ROWID   JOIN chat AS c ON crmj.chat_id = c.ROWID and c.guid = ?   WHERE crmj.delete_date < ?    AND NOT (m.group_action_type IN (1,3) AND (m.ROWID IN (SELECT message_id FROM message_attachment_join))));";
   }
 
   else
   {
-    v14 = @"INSERT INTO unsynced_removed_recoverable_messages (chat_guid, message_guid, part_index) SELECT c.guid, m.guid, -1 FROM chat_recoverable_message_join AS crmj JOIN chat AS c  ON c.ROWID=crmj.chat_id AND c.guid=? JOIN message AS m  ON m.ROWID=crmj.message_id AND crmj.ck_sync_state=1;";
-    v15 = @"DELETE FROM message WHERE NOT (group_action_type IN (1,3) AND (ROWID IN (SELECT message_id FROM message_attachment_join))) AND (ROWID IN (SELECT message_id                FROM chat_recoverable_message_join AS crmj                JOIN chat AS c                ON c.ROWID = crmj.chat_id AND c.guid = ?));";
+    v16 = @"INSERT INTO unsynced_removed_recoverable_messages (chat_guid, message_guid, part_index) SELECT c.guid, m.guid, -1 FROM chat_recoverable_message_join AS crmj JOIN chat AS c  ON c.ROWID=crmj.chat_id AND c.guid=? JOIN message AS m  ON m.ROWID=crmj.message_id AND crmj.ck_sync_state=1;";
+    v17 = @"DELETE FROM message WHERE NOT (group_action_type IN (1,3) AND (ROWID IN (SELECT message_id FROM message_attachment_join))) AND (ROWID IN (SELECT message_id                FROM chat_recoverable_message_join AS crmj                JOIN chat AS c                ON c.ROWID = crmj.chat_id AND c.guid = ?));";
   }
 
-  theString = v14;
-  v53 = v15;
-  v67 = 0u;
-  memset(v66, 0, sizeof(v66));
+  theString = v16;
+  v64 = v17;
+  v78 = 0u;
+  memset(v77, 0, sizeof(v77));
   memset(buf, 0, sizeof(buf));
   IMDSqlOperationInitWithSharedCSDBDatabase(buf);
   IMDSqlOperationBeginTransaction(buf);
   if (!dsCopy)
   {
-    dsCopy = objc_msgSend__chatGUIDsForChatsWithRecoverableMessagesOlderThanDate_operation_(self, v16, dateCopy, buf);
+    dsCopy = objc_msgSend__chatGUIDsForChatsWithRecoverableMessagesOlderThanDate_operation_(self, v18, dateCopy, buf);
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   obj = dsCopy;
-  v18 = 0;
-  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v57, v64, 16);
-  if (!v20)
+  v20 = 0;
+  v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v19, &v68, v75, 16);
+  if (!v22)
   {
     goto LABEL_40;
   }
 
-  v52 = *v58;
+  v63 = *v69;
   while (2)
   {
-    for (i = 0; i != v20; ++i)
+    for (i = 0; i != v22; ++i)
     {
-      if (*v58 != v52)
+      if (*v69 != v63)
       {
         objc_enumerationMutation(obj);
       }
 
-      v22 = *(*(&v57 + 1) + 8 * i);
-      v23 = objc_msgSend__mostRecentRecoverableMessageDateForChatWithGUID_operation_(self, v19, v22, buf);
+      v24 = *(*(&v68 + 1) + 8 * i);
+      v25 = objc_msgSend__mostRecentRecoverableMessageDateForChatWithGUID_operation_(self, v21, v24, buf);
       _IMDSqlOperationBeginQuery(buf, theString);
-      IMDSqlStatementBindTextFromCFString(v66, v22);
+      IMDSqlStatementBindTextFromCFString(v77, v24);
       if (dateCopy)
       {
-        IMDSqlStatementBindInt64(v66, v55);
+        IMDSqlStatementBindInt64(v77, v66);
       }
 
       if (!IMDSqlOperationFinishQuery(buf))
       {
-        v24 = *(&v67 + 1);
-        v25 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v26 = *(&v78 + 1);
+        v27 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
-          sub_1B7CF1210(v63, v24);
+          sub_1B7CF1210(v74, v26);
         }
       }
 
-      _IMDSqlOperationBeginQuery(buf, v53);
-      IMDSqlStatementBindTextFromCFString(v66, v22);
+      _IMDSqlOperationBeginQuery(buf, v64);
+      IMDSqlStatementBindTextFromCFString(v77, v24);
       if (dateCopy)
       {
-        IMDSqlStatementBindInt64(v66, v55);
+        IMDSqlStatementBindInt64(v77, v66);
       }
 
       if (!IMDSqlOperationFinishQuery(buf))
       {
-        v29 = *(&v67 + 1);
-        v30 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v33 = *(&v78 + 1);
+        v34 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
-          sub_1B7CF126C(v22, v29, v30);
+          sub_1B7CF126C(v24, v33, v34, v35);
         }
 
         goto LABEL_39;
       }
 
-      v18 += IMDMessageRecordCountChangesUnlocked();
+      v20 += IMDMessageRecordCountChangesUnlocked();
       if (!dateCopy)
       {
-        objc_msgSend__deleteTransfersInMessagePartsForChatGUID_(self, v26, v22);
+        objc_msgSend__deleteTransfersInMessagePartsForChatGUID_(self, v28, v24, v29);
         _IMDSqlOperationBeginQuery(buf, @"DELETE FROM recoverable_message_part AS rmp WHERE rmp.chat_id IN( SELECT c.ROWID  FROM chat AS c  WHERE c.guid = ?);");
-        IMDSqlStatementBindTextFromCFString(v66, v22);
+        IMDSqlStatementBindTextFromCFString(v77, v24);
         if (!IMDSqlOperationFinishQuery(buf))
         {
-          v29 = *(&v67 + 1);
-          v30 = IMLogHandleForCategory();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          v33 = *(&v78 + 1);
+          v34 = IMLogHandleForCategory();
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
-            sub_1B7CF1314(v22, v29, v30);
+            sub_1B7CF1314(v24, v33, v34, v36);
           }
 
 LABEL_39:
@@ -3363,15 +3473,15 @@ LABEL_39:
         }
       }
 
-      v28 = objc_msgSend__deleteChatIfEmptyWithGUID_lastMessageDate_operation_(self, v26, v22, v23, buf);
-      if (v28)
+      v32 = objc_msgSend__deleteChatIfEmptyWithGUID_lastMessageDate_operation_(self, v28, v24, v25, buf);
+      if (v32)
       {
-        objc_msgSend_addObject_(v51, v27, v28);
+        objc_msgSend_addObject_(v62, v30, v32, v31);
       }
     }
 
-    v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v19, &v57, v64, 16);
-    if (v20)
+    v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v21, &v68, v75, 16);
+    if (v22)
     {
       continue;
     }
@@ -3381,83 +3491,82 @@ LABEL_39:
 
 LABEL_40:
 
-  v33 = objc_msgSend_sharedInstance(MEMORY[0x1E69A8168], v31, v32);
-  v36 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v34, v18);
+  v40 = objc_msgSend_sharedInstance(MEMORY[0x1E69A8168], v37, v38, v39);
+  v44 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v41, v20, v42);
   if (dateCopy)
   {
-    objc_msgSend_trackDeleteMessages_sourceType_(v33, v35, v36, 4);
+    objc_msgSend_trackDeleteMessages_sourceType_(v40, v43, v44, 4);
   }
 
   else
   {
-    objc_msgSend_trackDeleteMessages_sourceType_(v33, v35, v36, 1);
+    objc_msgSend_trackDeleteMessages_sourceType_(v40, v43, v44, 1);
   }
 
   IMDSqlOperationCommitOrRevertTransaction(buf);
-  v56 = 0;
-  v37 = IMDSqlOperationRelease(buf, &v56);
-  v40 = v56;
-  if (v37)
+  v67 = 0;
+  v45 = IMDSqlOperationRelease(buf, &v67);
+  v49 = v67;
+  if (v45)
   {
-    v41 = objc_msgSend_synchronousQueryProvider(IMDIndexingController, v38, v39);
-    objc_msgSend_scheduleUpdateForDeletedMessagesWithReason_(v41, v42, 1005);
+    v50 = objc_msgSend_synchronousQueryProvider(IMDIndexingController, v46, v47, v48);
+    objc_msgSend_scheduleUpdateForDeletedMessagesWithReason_(v50, v51, 1005, v52);
   }
 
   else
   {
-    v41 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v50 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CF13BC(v40, v41, v43);
+      sub_1B7CF13BC(v49, v50, v53, v54);
     }
   }
 
-  v44 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+  v55 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
   {
-    v47 = objc_msgSend_count(obj, v45, v46);
-    *v61 = 134217984;
-    v62 = v47;
-    _os_log_impl(&dword_1B7AD5000, v44, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Finished permanently deleting recoverable messages for %lu chatGUIDs", v61, 0xCu);
+    v59 = objc_msgSend_count(obj, v56, v57, v58);
+    *v72 = 134217984;
+    v73 = v59;
+    _os_log_impl(&dword_1B7AD5000, v55, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Finished permanently deleting recoverable messages for %lu chatGUIDs", v72, 0xCu);
   }
 
 LABEL_50:
-  v48 = *MEMORY[0x1E69E9840];
 
-  return v51;
+  return v62;
 }
 
 - (id)_mostRecentRecoverableMessageDateForChatWithGUID:(id)d operation:(IMDSqlOperation *)operation
 {
   dCopy = d;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = sub_1B7B4067C;
-  v12[3] = &unk_1E7CB8680;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_1B7B4067C;
+  v13[3] = &unk_1E7CB8680;
   operationCopy = operation;
   v6 = dCopy;
-  v13 = v6;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_1B7B40688;
-  v11[3] = &unk_1E7CB7920;
-  v11[4] = &v15;
-  v11[5] = operation;
-  _IMDSqlOperationRunQuery(operation, @"SELECT m.date FROM chat_recoverable_message_join AS crmj JOIN chat AS c ON c.ROWID = crmj.chat_id AND c.guid = ? JOIN message AS m ON m.ROWID = crmj.message_id ORDER BY m.date DESC LIMIT 1 ", v12, v11);
-  v9 = objc_msgSend___im_dateWithNanosecondTimeIntervalSinceReferenceDate_(MEMORY[0x1E695DF00], v7, v8, v16[3]);
+  v14 = v6;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_1B7B40688;
+  v12[3] = &unk_1E7CB7920;
+  v12[4] = &v16;
+  v12[5] = operation;
+  _IMDSqlOperationRunQuery(operation, @"SELECT m.date FROM chat_recoverable_message_join AS crmj JOIN chat AS c ON c.ROWID = crmj.chat_id AND c.guid = ? JOIN message AS m ON m.ROWID = crmj.message_id ORDER BY m.date DESC LIMIT 1 ", v13, v12);
+  v10 = objc_msgSend___im_dateWithNanosecondTimeIntervalSinceReferenceDate_(MEMORY[0x1E695DF00], v7, v8, v9, v17[3]);
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
 
-  return v9;
+  return v10;
 }
 
 - (void)_permanentlyDeleteJunkMessagesBeforeDate:(id)date
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v4 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -3468,57 +3577,57 @@ LABEL_50:
 
   if (dateCopy)
   {
-    v7 = objc_msgSend___im_nanosecondTimeInterval(dateCopy, v5, v6);
-    v43 = 0u;
-    v41 = 0u;
-    memset(v42, 0, sizeof(v42));
+    v8 = objc_msgSend___im_nanosecondTimeInterval(dateCopy, v5, v6, v7);
+    v47 = 0u;
+    v45 = 0u;
+    memset(v46, 0, sizeof(v46));
     *buf = 0u;
     IMDSqlOperationInitWithSharedCSDBDatabase(buf);
     IMDSqlOperationBeginTransaction(buf);
-    objc_msgSend__chatGUIDsForChatsWithJunkMessagesOlderThanDate_operation_(self, v8, dateCopy, buf);
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    obj = v37 = 0u;
-    v10 = 0;
-    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v36, v46, 16);
-    if (v12)
+    objc_msgSend__chatGUIDsForChatsWithJunkMessagesOlderThanDate_operation_(self, v9, dateCopy, buf);
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    obj = v41 = 0u;
+    v11 = 0;
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v40, v50, 16);
+    if (v13)
     {
-      v13 = *v37;
+      v14 = *v41;
       while (2)
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v37 != v13)
+          if (*v41 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v36 + 1) + 8 * i);
-          v16 = objc_msgSend__mostRecentJunkMessageDateForChatWithGUID_operation_(self, v11, v15, buf, dateCopy);
+          v16 = *(*(&v40 + 1) + 8 * i);
+          v17 = objc_msgSend__mostRecentJunkMessageDateForChatWithGUID_operation_(self, v12, v16, buf, dateCopy);
           _IMDSqlOperationBeginQuery(buf, @"DELETE FROM message AS m WHERE m.ROWID IN( SELECT cmj.message_id   FROM chat_message_join AS cmj   JOIN message AS m   ON cmj.message_id = m.ROWID   JOIN chat AS c ON cmj.chat_id = c.ROWID and c.guid = ?   WHERE m.date < ?);");
-          IMDSqlStatementBindTextFromCFString(v42, v15);
-          IMDSqlStatementBindInt64(v42, v7);
+          IMDSqlStatementBindTextFromCFString(v46, v16);
+          IMDSqlStatementBindInt64(v46, v8);
           if (!IMDSqlOperationFinishQuery(buf))
           {
-            v20 = *(&v43 + 1);
-            v21 = IMLogHandleForCategory();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v21 = *(&v47 + 1);
+            v22 = IMLogHandleForCategory();
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
-              sub_1B7CF144C(v15, v20, v21);
+              sub_1B7CF144C(v16, v21, v22, v23);
             }
 
             goto LABEL_16;
           }
 
-          v17 = IMDMessageRecordCountChangesUnlocked();
-          v19 = objc_msgSend__deleteChatIfEmptyWithGUID_lastMessageDate_operation_(self, v18, v15, v16, buf);
+          v18 = IMDMessageRecordCountChangesUnlocked();
+          v20 = objc_msgSend__deleteChatIfEmptyWithGUID_lastMessageDate_operation_(self, v19, v16, v17, buf);
 
-          v10 += v17;
+          v11 += v18;
         }
 
-        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v11, &v36, v46, 16);
-        if (v12)
+        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v40, v50, 16);
+        if (v13)
         {
           continue;
         }
@@ -3529,60 +3638,58 @@ LABEL_50:
 
 LABEL_16:
 
-    v24 = objc_msgSend_sharedInstance(MEMORY[0x1E69A8168], v22, v23);
-    v26 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v25, v10);
-    objc_msgSend_trackDeleteMessages_sourceType_(v24, v27, v26, 5);
+    v27 = objc_msgSend_sharedInstance(MEMORY[0x1E69A8168], v24, v25, v26);
+    v30 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v28, v11, v29);
+    objc_msgSend_trackDeleteMessages_sourceType_(v27, v31, v30, 5);
 
     IMDSqlOperationCommitOrRevertTransaction(buf);
-    v28 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v32 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = objc_msgSend_count(obj, v29, v30);
-      *v44 = 134217984;
-      v45 = v31;
-      _os_log_impl(&dword_1B7AD5000, v28, OS_LOG_TYPE_DEFAULT, "Junk Messages | Finished permanently deleting junk messages for %lu chatGUIDs", v44, 0xCu);
+      v36 = objc_msgSend_count(obj, v33, v34, v35);
+      *v48 = 134217984;
+      v49 = v36;
+      _os_log_impl(&dword_1B7AD5000, v32, OS_LOG_TYPE_DEFAULT, "Junk Messages | Finished permanently deleting junk messages for %lu chatGUIDs", v48, 0xCu);
     }
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v32 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+    v37 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B7AD5000, v32, OS_LOG_TYPE_INFO, "Junk Messages | Cannot delete junk messages in chats without beforeDate", buf, 2u);
+      _os_log_impl(&dword_1B7AD5000, v37, OS_LOG_TYPE_INFO, "Junk Messages | Cannot delete junk messages in chats without beforeDate", buf, 2u);
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_mostRecentJunkMessageDateForChatWithGUID:(id)d operation:(IMDSqlOperation *)operation
 {
   dCopy = d;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = sub_1B7B40D5C;
-  v12[3] = &unk_1E7CB8680;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_1B7B40D5C;
+  v13[3] = &unk_1E7CB8680;
   operationCopy = operation;
   v6 = dCopy;
-  v13 = v6;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_1B7B40D68;
-  v11[3] = &unk_1E7CB7920;
-  v11[4] = &v15;
-  v11[5] = operation;
-  _IMDSqlOperationRunQuery(operation, @"SELECT m.date FROM chat_message_join AS cmj JOIN chat AS c ON c.ROWID = cmj.chat_id AND c.guid = ? JOIN message AS m ON m.ROWID = cmj.message_id ORDER BY m.date DESC LIMIT 1 ", v12, v11);
-  v9 = objc_msgSend___im_dateWithNanosecondTimeIntervalSinceReferenceDate_(MEMORY[0x1E695DF00], v7, v8, v16[3]);
+  v14 = v6;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_1B7B40D68;
+  v12[3] = &unk_1E7CB7920;
+  v12[4] = &v16;
+  v12[5] = operation;
+  _IMDSqlOperationRunQuery(operation, @"SELECT m.date FROM chat_message_join AS cmj JOIN chat AS c ON c.ROWID = cmj.chat_id AND c.guid = ? JOIN message AS m ON m.ROWID = cmj.message_id ORDER BY m.date DESC LIMIT 1 ", v13, v12);
+  v10 = objc_msgSend___im_dateWithNanosecondTimeIntervalSinceReferenceDate_(MEMORY[0x1E695DF00], v7, v8, v9, v17[3]);
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
 
-  return v9;
+  return v10;
 }
 
 - (int64_t)_countMessagesExcludingGroupPhotosInChatWithGUID:(id)d isRecoverable:(BOOL)recoverable operation:(IMDSqlOperation *)operation
@@ -3626,9 +3733,9 @@ LABEL_16:
   v6 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x1E696AD98], v7, limit);
+    v9 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x1E696AD98], v7, limit, v8);
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v8;
+    *(&buf + 4) = v9;
     _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "Recently Deleted | retrieving recoverable messages pending cloudkit update with resultLimit: %@", &buf, 0xCu);
   }
 
@@ -3638,7 +3745,7 @@ LABEL_16:
   v21 = sub_1B7AE1954;
   v22 = sub_1B7AE24B0;
   v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v9 = @"SELECT c.guid, crmj.message_id, m.guid, crmj.delete_date, -1, NULL FROM chat_recoverable_message_join AS crmj JOIN chat AS c  ON c.ROWID = crmj.chat_id JOIN message AS m  ON m.ROWID = crmj.message_id WHERE crmj.ck_sync_state = 0  AND (m.balloon_bundle_id IS NULL OR m.balloon_bundle_id != 'com.apple.messages.chatbot')  UNION ALL SELECT c.guid, rmp.message_id, m.guid, rmp.delete_date, rmp.part_index, rmp.part_text  FROM recoverable_message_part AS rmp  JOIN chat AS c   ON c.ROWID = rmp.chat_id  JOIN message AS m   ON m.ROWID = rmp.message_id  WHERE rmp.ck_sync_state = 0  AND (m.balloon_bundle_id IS NULL OR m.balloon_bundle_id != 'com.apple.messages.chatbot') LIMIT ?;";
+  v10 = @"SELECT c.guid, crmj.message_id, m.guid, crmj.delete_date, -1, NULL FROM chat_recoverable_message_join AS crmj JOIN chat AS c  ON c.ROWID = crmj.chat_id JOIN message AS m  ON m.ROWID = crmj.message_id WHERE crmj.ck_sync_state = 0  AND (m.balloon_bundle_id IS NULL OR m.balloon_bundle_id != 'com.apple.messages.chatbot')  UNION ALL SELECT c.guid, rmp.message_id, m.guid, rmp.delete_date, rmp.part_index, rmp.part_text  FROM recoverable_message_part AS rmp  JOIN chat AS c   ON c.ROWID = rmp.chat_id  JOIN message AS m   ON m.ROWID = rmp.message_id  WHERE rmp.ck_sync_state = 0  AND (m.balloon_bundle_id IS NULL OR m.balloon_bundle_id != 'com.apple.messages.chatbot') LIMIT ?;";
   v15[0] = MEMORY[0x1E69E9820];
   v15[1] = 3221225472;
   v15[2] = sub_1B7B414C8;
@@ -3647,24 +3754,22 @@ LABEL_16:
   limitCopy = limit;
   if (filter == 4)
   {
-    v9 = @"SELECT c.guid, crmj.message_id, m.guid, crmj.delete_date, -1, NULL FROM chat_recoverable_message_join AS crmj JOIN chat AS c  ON c.ROWID = crmj.chat_id JOIN message AS m  ON m.ROWID = crmj.message_id WHERE crmj.ck_sync_state = 0 AND balloon_bundle_id == 'com.apple.messages.chatbot'   UNION ALL SELECT c.guid, rmp.message_id, m.guid, rmp.delete_date, rmp.part_index, rmp.part_text  FROM recoverable_message_part AS rmp  JOIN chat AS c   ON c.ROWID = rmp.chat_id  JOIN message AS m   ON m.ROWID = rmp.message_id  WHERE rmp.ck_sync_state = 0 AND balloon_bundle_id == 'com.apple.messages.chatbot'  LIMIT ?;";
+    v10 = @"SELECT c.guid, crmj.message_id, m.guid, crmj.delete_date, -1, NULL FROM chat_recoverable_message_join AS crmj JOIN chat AS c  ON c.ROWID = crmj.chat_id JOIN message AS m  ON m.ROWID = crmj.message_id WHERE crmj.ck_sync_state = 0 AND balloon_bundle_id == 'com.apple.messages.chatbot'   UNION ALL SELECT c.guid, rmp.message_id, m.guid, rmp.delete_date, rmp.part_index, rmp.part_text  FROM recoverable_message_part AS rmp  JOIN chat AS c   ON c.ROWID = rmp.chat_id  JOIN message AS m   ON m.ROWID = rmp.message_id  WHERE rmp.ck_sync_state = 0 AND balloon_bundle_id == 'com.apple.messages.chatbot'  LIMIT ?;";
   }
 
-  v16 = v9;
+  v16 = v10;
   IMDRunSqlOperation(v15);
-  v10 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *v14 = 0;
-    _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "Recently Deleted | Finished fetching messages metadata pending update", v14, 2u);
+    _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_INFO, "Recently Deleted | Finished fetching messages metadata pending update", v14, 2u);
   }
 
-  v11 = *(*(&buf + 1) + 40);
+  v12 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v11;
+  return v12;
 }
 
 - (id)recoverableMessagesMetadataPendingCloudKitDeleteWithLimit:(unint64_t)limit
@@ -3673,9 +3778,9 @@ LABEL_16:
   v4 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x1E696AD98], v5, limit);
+    v7 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x1E696AD98], v5, limit, v6);
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v6;
+    *(&buf + 4) = v7;
     _os_log_impl(&dword_1B7AD5000, v4, OS_LOG_TYPE_INFO, "Recently Deleted | retrieving recoverable messages pending cloudkit delete with resultLimit: %@", &buf, 0xCu);
   }
 
@@ -3692,41 +3797,39 @@ LABEL_16:
   v12[4] = &buf;
   v12[5] = limit;
   IMDRunSqlOperation(v12);
-  v7 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *v11 = 0;
-    _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, "Recently Deleted | Finished fetching messages metadata pending delete", v11, 2u);
+    _os_log_impl(&dword_1B7AD5000, v8, OS_LOG_TYPE_INFO, "Recently Deleted | Finished fetching messages metadata pending delete", v11, 2u);
   }
 
-  v8 = *(*(&buf + 1) + 40);
+  v9 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v9;
 }
 
 - (void)updateRecoverableMessageSyncState:(int64_t)state forMessageRowID:(int64_t)d onPartIndex:(int64_t)index
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   v8 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v10 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v9, state);
-    v12 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v11, d);
-    v14 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v13, index);
+    v11 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v9, state, v10);
+    v14 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v12, d, v13);
+    v17 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v15, index, v16);
     LODWORD(buf[0]) = 138412802;
-    *(buf + 4) = v10;
+    *(buf + 4) = v11;
     WORD2(buf[1]) = 2112;
-    *(&buf[1] + 6) = v12;
+    *(&buf[1] + 6) = v14;
     HIWORD(buf[2]) = 2112;
-    buf[3] = v14;
+    buf[3] = v17;
     _os_log_impl(&dword_1B7AD5000, v8, OS_LOG_TYPE_INFO, "Recently Deleted | setting recoverable sync state: %@ for message rowID: %@ partIndex: %@", buf, 0x20u);
   }
 
-  v58 = 0u;
-  memset(v57, 0, sizeof(v57));
+  v71 = 0u;
+  memset(v70, 0, sizeof(v70));
   memset(buf, 0, sizeof(buf));
   IMDSqlOperationInitWithSharedCSDBDatabase(buf);
   if (index == -1)
@@ -3739,262 +3842,258 @@ LABEL_16:
   else
   {
     _IMDSqlOperationBeginQuery(buf, @"UPDATE recoverable_message_part AS rmp SET ck_sync_state = ? WHERE rmp.message_id = ? AND rmp.part_index = ?;");
-    IMDSqlStatementBindInt64(v57, state);
+    IMDSqlStatementBindInt64(v70, state);
     dCopy2 = d;
     indexCopy = index;
   }
 
-  IMDSqlStatementBindInt64(v57, dCopy2);
-  IMDSqlStatementBindInt64(v57, indexCopy);
+  IMDSqlStatementBindInt64(v70, dCopy2);
+  IMDSqlStatementBindInt64(v70, indexCopy);
   if (!IMDSqlOperationFinishQuery(buf))
   {
-    v17 = *(&v58 + 1);
-    v18 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = *(&v71 + 1);
+    v21 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v31 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v19, state);
-      v34 = objc_msgSend_localizedDescription(v17, v32, v33);
-      v36 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v35, d);
-      v38 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v37, index);
-      *v48 = 138413058;
-      v49 = v31;
-      v50 = 2112;
-      v51 = v34;
-      v52 = 2112;
-      v53 = v36;
-      v54 = 2112;
-      v55 = v38;
-      _os_log_error_impl(&dword_1B7AD5000, v18, OS_LOG_TYPE_ERROR, "Recently Deleted | Failed setting recoverable sync state: %@ with op finish error: %@ for message rowID: %@ partIndex: %@", v48, 0x2Au);
+      v38 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v22, state, v23);
+      v42 = objc_msgSend_localizedDescription(v20, v39, v40, v41);
+      v45 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v43, d, v44);
+      v48 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v46, index, v47);
+      *v61 = 138413058;
+      v62 = v38;
+      v63 = 2112;
+      v64 = v42;
+      v65 = 2112;
+      v66 = v45;
+      v67 = 2112;
+      v68 = v48;
+      _os_log_error_impl(&dword_1B7AD5000, v21, OS_LOG_TYPE_ERROR, "Recently Deleted | Failed setting recoverable sync state: %@ with op finish error: %@ for message rowID: %@ partIndex: %@", v61, 0x2Au);
     }
   }
 
-  v47 = 0;
-  v20 = IMDSqlOperationRelease(buf, &v47);
-  v21 = v47;
-  if (v20)
+  v60 = 0;
+  v24 = IMDSqlOperationRelease(buf, &v60);
+  v25 = v60;
+  if (v24)
   {
-    v22 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v26 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
-      v24 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v23, state);
-      v26 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v25, d);
-      v28 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v27, index);
-      *v48 = 138412802;
-      v49 = v24;
-      v50 = 2112;
-      v51 = v26;
-      v52 = 2112;
-      v53 = v28;
-      _os_log_impl(&dword_1B7AD5000, v22, OS_LOG_TYPE_INFO, "Recently Deleted | Successfully set recoverable sync state: %@ for message rowID: %@ partIndex: %@", v48, 0x20u);
+      v29 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v27, state, v28);
+      v32 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v30, d, v31);
+      v35 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v33, index, v34);
+      *v61 = 138412802;
+      v62 = v29;
+      v63 = 2112;
+      v64 = v32;
+      v65 = 2112;
+      v66 = v35;
+      _os_log_impl(&dword_1B7AD5000, v26, OS_LOG_TYPE_INFO, "Recently Deleted | Successfully set recoverable sync state: %@ for message rowID: %@ partIndex: %@", v61, 0x20u);
     }
   }
 
   else
   {
-    v22 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v26 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v39 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v29, state);
-      v42 = objc_msgSend_localizedDescription(v21, v40, v41);
-      v44 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v43, d);
-      v46 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v45, index);
-      *v48 = 138413058;
-      v49 = v39;
-      v50 = 2112;
-      v51 = v42;
-      v52 = 2112;
-      v53 = v44;
-      v54 = 2112;
-      v55 = v46;
-      _os_log_error_impl(&dword_1B7AD5000, v22, OS_LOG_TYPE_ERROR, "Recently Deleted | Failed setting recoverable sync state: %@ with op release error: %@ for message rowID: %@ partIndex: %@", v48, 0x2Au);
+      v49 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v36, state, v37);
+      v53 = objc_msgSend_localizedDescription(v25, v50, v51, v52);
+      v56 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v54, d, v55);
+      v59 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v57, index, v58);
+      *v61 = 138413058;
+      v62 = v49;
+      v63 = 2112;
+      v64 = v53;
+      v65 = 2112;
+      v66 = v56;
+      v67 = 2112;
+      v68 = v59;
+      _os_log_error_impl(&dword_1B7AD5000, v26, OS_LOG_TYPE_ERROR, "Recently Deleted | Failed setting recoverable sync state: %@ with op release error: %@ for message rowID: %@ partIndex: %@", v61, 0x2Au);
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateRecoverableMessageSyncState:(int64_t)state forMessageGUIDs:(id)ds
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v7 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v9 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v8, state);
+    v10 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v8, state, v9);
     *buf = 138412546;
-    *&buf[4] = v9;
+    *&buf[4] = v10;
     *&buf[12] = 2112;
     *&buf[14] = dsCopy;
     _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, "Recently Deleted | setting recoverable sync state: %@ for message guids: %@", buf, 0x16u);
   }
 
-  v43 = 0u;
-  memset(v42, 0, sizeof(v42));
+  v50 = 0u;
+  memset(v49, 0, sizeof(v49));
   memset(buf, 0, sizeof(buf));
   IMDSqlOperationInitWithSharedCSDBDatabase(buf);
-  v12 = objc_msgSend_count(dsCopy, v10, v11);
-  v14 = objc_msgSend__updateRecoverableMessageSyncStateForMessageGUIDsQueryFor_(self, v13, v12);
-  _IMDSqlOperationBeginQuery(buf, v14);
-  IMDSqlStatementBindInt64(v42, state);
-  v15 = dsCopy;
-  IMDSqlStatementBindTextFromArrayOfCFStrings(v42, v15);
+  v14 = objc_msgSend_count(dsCopy, v11, v12, v13);
+  v17 = objc_msgSend__updateRecoverableMessageSyncStateForMessageGUIDsQueryFor_(self, v15, v14, v16);
+  _IMDSqlOperationBeginQuery(buf, v17);
+  IMDSqlStatementBindInt64(v49, state);
+  v18 = dsCopy;
+  IMDSqlStatementBindTextFromArrayOfCFStrings(v49, v18);
   if (!IMDSqlOperationFinishQuery(buf))
   {
-    v16 = *(&v43 + 1);
-    v17 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = *(&v50 + 1);
+    v20 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v26 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v18, state);
-      v29 = objc_msgSend_localizedDescription(v16, v27, v28);
-      *v35 = 138412802;
-      v36 = v26;
-      v37 = 2112;
-      v38 = v29;
-      v39 = 2112;
-      v40 = v15;
-      _os_log_error_impl(&dword_1B7AD5000, v17, OS_LOG_TYPE_ERROR, "Recently Deleted | Failed bulk updating recoverable messages sync state: %@ with op finish error: %@ for message guids: %@", v35, 0x20u);
+      v31 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v21, state, v22);
+      v35 = objc_msgSend_localizedDescription(v19, v32, v33, v34);
+      *v42 = 138412802;
+      v43 = v31;
+      v44 = 2112;
+      v45 = v35;
+      v46 = 2112;
+      v47 = v18;
+      _os_log_error_impl(&dword_1B7AD5000, v20, OS_LOG_TYPE_ERROR, "Recently Deleted | Failed bulk updating recoverable messages sync state: %@ with op finish error: %@ for message guids: %@", v42, 0x20u);
     }
   }
 
-  v34 = 0;
-  v19 = IMDSqlOperationRelease(buf, &v34);
-  v20 = v34;
-  if (v19)
+  v41 = 0;
+  v23 = IMDSqlOperationRelease(buf, &v41);
+  v24 = v41;
+  if (v23)
   {
-    v21 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v25 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v23 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v22, state);
-      *v35 = 138412546;
-      v36 = v23;
-      v37 = 2112;
-      v38 = v15;
-      _os_log_impl(&dword_1B7AD5000, v21, OS_LOG_TYPE_INFO, "Recently Deleted | Successfully bulk updated recoverable sync state: %@ for message guids: %@", v35, 0x16u);
+      v28 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v26, state, v27);
+      *v42 = 138412546;
+      v43 = v28;
+      v44 = 2112;
+      v45 = v18;
+      _os_log_impl(&dword_1B7AD5000, v25, OS_LOG_TYPE_INFO, "Recently Deleted | Successfully bulk updated recoverable sync state: %@ for message guids: %@", v42, 0x16u);
     }
   }
 
   else
   {
-    v21 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v25 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v30 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v24, state);
-      v33 = objc_msgSend_localizedDescription(v20, v31, v32);
-      *v35 = 138412802;
-      v36 = v30;
-      v37 = 2112;
-      v38 = v33;
-      v39 = 2112;
-      v40 = v15;
-      _os_log_error_impl(&dword_1B7AD5000, v21, OS_LOG_TYPE_ERROR, "Recently Deleted | Failed bulk updating recoverable sync state: %@ with op release error: %@ for message guids: %@", v35, 0x20u);
+      v36 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v29, state, v30);
+      v40 = objc_msgSend_localizedDescription(v24, v37, v38, v39);
+      *v42 = 138412802;
+      v43 = v36;
+      v44 = 2112;
+      v45 = v40;
+      v46 = 2112;
+      v47 = v18;
+      _os_log_error_impl(&dword_1B7AD5000, v25, OS_LOG_TYPE_ERROR, "Recently Deleted | Failed bulk updating recoverable sync state: %@ with op release error: %@ for message guids: %@", v42, 0x20u);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)storeRecoverableMessagePartWithBody:(id)body forMessageWithGUID:(id)d deleteDate:(id)date
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   bodyCopy = body;
   dCopy = d;
   dateCopy = date;
-  if (objc_msgSend_length(bodyCopy, v10, v11))
+  if (objc_msgSend_length(bodyCopy, v10, v11, v12))
   {
-    v12 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf[0]) = 138412546;
       *(buf + 4) = dCopy;
       WORD2(buf[1]) = 2112;
       *(&buf[1] + 6) = dateCopy;
-      _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "Recently Deleted | Will begin storing message part body for message with GUID: %@ at deleteDate: %@", buf, 0x16u);
+      _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "Recently Deleted | Will begin storing message part body for message with GUID: %@ at deleteDate: %@", buf, 0x16u);
     }
 
-    v15 = objc_msgSend___im_nanosecondTimeInterval(dateCopy, v13, v14);
-    v17 = objc_msgSend_attributesAtIndex_effectiveRange_(bodyCopy, v16, 0, 0);
-    v19 = objc_msgSend_objectForKey_(v17, v18, *MEMORY[0x1E69A5FD8]);
+    v17 = objc_msgSend___im_nanosecondTimeInterval(dateCopy, v14, v15, v16);
+    v19 = objc_msgSend_attributesAtIndex_effectiveRange_(bodyCopy, v18, 0, 0);
+    v22 = objc_msgSend_objectForKey_(v19, v20, *MEMORY[0x1E69A5FD8], v21);
 
-    if (v19)
+    if (v22)
     {
-      v22 = objc_msgSend_integerValue(v19, v20, v21);
-      v23 = JWEncodeCodableObject();
-      if (v23)
+      v26 = objc_msgSend_integerValue(v22, v23, v24, v25);
+      v27 = JWEncodeCodableObject();
+      if (v27)
       {
-        v59 = 0u;
-        memset(v58, 0, sizeof(v58));
+        v68 = 0u;
+        memset(v67, 0, sizeof(v67));
         memset(buf, 0, sizeof(buf));
         IMDSqlOperationInitWithSharedCSDBDatabase(buf);
         IMDSqlOperationBeginTransaction(buf);
         _IMDSqlOperationBeginQuery(buf, @"INSERT INTO recoverable_message_part (chat_id, message_id, part_index, delete_date, part_text, ck_sync_state)   SELECT cmj.chat_id, cmj.message_id, ?, ?, ?, 0   FROM chat_message_join AS cmj   JOIN message AS m   ON m.ROWID = cmj.message_id AND m.guid = ?;");
-        IMDSqlStatementBindInt64(v58, v22);
-        IMDSqlStatementBindInt64(v58, v15);
-        IMDSqlStatementBindBlob(v58, v23);
-        IMDSqlStatementBindTextFromCFString(v58, dCopy);
+        IMDSqlStatementBindInt64(v67, v26);
+        IMDSqlStatementBindInt64(v67, v17);
+        IMDSqlStatementBindBlob(v67, v27);
+        IMDSqlStatementBindTextFromCFString(v67, dCopy);
         if (!IMDSqlOperationFinishQuery(buf))
         {
-          v24 = *(&v59 + 1);
-          v25 = IMLogHandleForCategory();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v28 = *(&v68 + 1);
+          v29 = IMLogHandleForCategory();
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
-            v45 = objc_msgSend_localizedDescription(v24, v26, v27);
-            *v51 = 138412802;
-            v52 = v45;
-            v53 = 2112;
-            v54 = dCopy;
-            v55 = 2112;
-            v56 = dateCopy;
-            _os_log_error_impl(&dword_1B7AD5000, v25, OS_LOG_TYPE_ERROR, "Recently Deleted | Failed with error: %@ storing message part body for message with GUID: %@ at deleteDate: %@", v51, 0x20u);
+            v55 = objc_msgSend_localizedDescription(v28, v30, v31, v32);
+            *v60 = 138412802;
+            v61 = v55;
+            v62 = 2112;
+            v63 = dCopy;
+            v64 = 2112;
+            v65 = dateCopy;
+            _os_log_error_impl(&dword_1B7AD5000, v29, OS_LOG_TYPE_ERROR, "Recently Deleted | Failed with error: %@ storing message part body for message with GUID: %@ at deleteDate: %@", v60, 0x20u);
           }
         }
 
         IMDSqlOperationCommitOrRevertTransaction(buf);
-        v49 = 0;
-        v28 = IMDSqlOperationRelease(buf, &v49);
-        v31 = v49;
-        if (v28)
+        v58 = 0;
+        v33 = IMDSqlOperationRelease(buf, &v58);
+        v37 = v58;
+        if (v33)
         {
-          v32 = objc_msgSend_synchronousQueryProvider(IMDIndexingController, v29, v30);
-          v50 = dCopy;
-          v34 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v33, &v50, 1);
-          v36 = objc_msgSend_contextWithReason_(IMDIndexingContext, v35, 1005);
-          v47[0] = MEMORY[0x1E69E9820];
-          v47[1] = 3221225472;
-          v47[2] = sub_1B7B43200;
-          v47[3] = &unk_1E7CB6C58;
-          v48 = dCopy;
-          objc_msgSend_deleteMessageGUIDs_context_completionHandler_(v32, v37, v34, v36, v47);
+          v38 = objc_msgSend_synchronousQueryProvider(IMDIndexingController, v34, v35, v36);
+          v59 = dCopy;
+          v40 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v39, &v59, 1);
+          v43 = objc_msgSend_contextWithReason_(IMDIndexingContext, v41, 1005, v42);
+          v56[0] = MEMORY[0x1E69E9820];
+          v56[1] = 3221225472;
+          v56[2] = sub_1B7B43200;
+          v56[3] = &unk_1E7CB6C58;
+          v57 = dCopy;
+          objc_msgSend_deleteMessageGUIDs_context_completionHandler_(v38, v44, v40, v43, v56);
 
-          v40 = objc_msgSend_synchronousQueryProvider(IMDIndexingController, v38, v39);
-          objc_msgSend_scheduleUpdateForDeletedMessagesWithReason_(v40, v41, 1005);
+          v48 = objc_msgSend_synchronousQueryProvider(IMDIndexingController, v45, v46, v47);
+          objc_msgSend_scheduleUpdateForDeletedMessagesWithReason_(v48, v49, 1005, v50);
 
-          v42 = v48;
+          v51 = v57;
         }
 
         else
         {
-          v42 = IMLogHandleForCategory();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+          v51 = IMLogHandleForCategory();
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
           {
-            sub_1B7CF1564(v31, v42, v43);
+            sub_1B7CF1564(v37, v51, v52, v53);
           }
         }
 
-        v44 = IMDatabaseLogHandle();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+        v54 = IMDatabaseLogHandle();
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
         {
-          *v51 = 138412546;
-          v52 = dCopy;
-          v53 = 2112;
-          v54 = dateCopy;
-          _os_log_impl(&dword_1B7AD5000, v44, OS_LOG_TYPE_INFO, "Recently Deleted | Finished storing message part body for message with GUID: %@ at deleteDate: %@", v51, 0x16u);
+          *v60 = 138412546;
+          v61 = dCopy;
+          v62 = 2112;
+          v63 = dateCopy;
+          _os_log_impl(&dword_1B7AD5000, v54, OS_LOG_TYPE_INFO, "Recently Deleted | Finished storing message part body for message with GUID: %@ at deleteDate: %@", v60, 0x16u);
         }
       }
 
       else
       {
-        v23 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v27 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           sub_1B7CF15F4();
         }
@@ -4003,8 +4102,8 @@ LABEL_16:
 
     else
     {
-      v23 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v27 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         sub_1B7CF1630();
       }
@@ -4013,14 +4112,12 @@ LABEL_16:
 
   else
   {
-    v19 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v22 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_1B7CF166C();
     }
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearRecoverableMessageTombStones
@@ -4032,6 +4129,8 @@ LABEL_16:
     _os_log_impl(&dword_1B7AD5000, v2, OS_LOG_TYPE_INFO, "Recently Deleted | Will begin clearing recoverable message tombstones", buf, 2u);
   }
 
+  v24 = 0u;
+  v25 = 0u;
   v22 = 0u;
   v23 = 0u;
   v20 = 0u;
@@ -4040,182 +4139,178 @@ LABEL_16:
   v19 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
   *buf = 0u;
   IMDSqlOperationInitWithSharedCSDBDatabase(buf);
   IMDSqlOperationBeginTransaction(buf);
   _IMDSqlOperationBeginQuery(buf, @"DELETE FROM unsynced_removed_recoverable_messages;");
   if (!IMDSqlOperationFinishQuery(buf))
   {
-    v3 = *(&v23 + 1);
+    v3 = *(&v25 + 1);
     v4 = IMLogHandleForCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CF16A8(v3, v4, v5);
+      sub_1B7CF16A8(v3, v4, v5, v6);
     }
   }
 
   IMDSqlOperationCommitOrRevertTransaction(buf);
-  v12 = 0;
-  v6 = IMDSqlOperationRelease(buf, &v12);
-  v7 = v12;
-  if (!v6)
+  v14 = 0;
+  v7 = IMDSqlOperationRelease(buf, &v14);
+  v8 = v14;
+  if (!v7)
   {
-    v8 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CF1184(v7, v8, v9);
+      sub_1B7CF1184(v8, v9, v10, v11);
     }
   }
 
-  v10 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v12 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    *v11 = 0;
-    _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "Recently Deleted | Finished clearing recoverable message tombstones", v11, 2u);
+    *v13 = 0;
+    _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "Recently Deleted | Finished clearing recoverable message tombstones", v13, 2u);
   }
 }
 
 - (void)fetchTotalMessageCountWithCompletionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF00];
   handlerCopy = handler;
-  objc_msgSend_timeIntervalSinceReferenceDate(v3, v5, v6);
-  v8 = v7;
-  memset(v21, 0, sizeof(v21));
-  IMDSqlOperationInitWithSharedCSDBDatabase(v21);
-  IMDSqlOperationBeginTransaction(v21);
-  v9 = _IMDColumnTotalCount(v21, @"SELECT COUNT(*) FROM message;");
-  IMDSqlOperationCommitOrRevertTransaction(v21);
-  v20 = 0;
-  IMDSqlOperationRelease(v21, &v20);
-  v12 = v20;
-  if (v12)
+  objc_msgSend_timeIntervalSinceReferenceDate(v3, v5, v6, v7);
+  v9 = v8;
+  memset(v23, 0, sizeof(v23));
+  IMDSqlOperationInitWithSharedCSDBDatabase(v23);
+  IMDSqlOperationBeginTransaction(v23);
+  v10 = _IMDColumnTotalCount(v23, @"SELECT COUNT(*) FROM message;");
+  IMDSqlOperationCommitOrRevertTransaction(v23);
+  v22 = 0;
+  IMDSqlOperationRelease(v23, &v22);
+  v14 = v22;
+  if (v14)
   {
-    v13 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v15 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      objc_msgSend_localizedDescription(v12, v14, v15);
-      v16 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      objc_msgSend_localizedDescription(v14, v16, v17, v18);
+      v19 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
       *buf = 138412290;
-      v23 = v16;
-      _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "IMDMessageRecordCalculateTotalMessageCount failed with error: %@", buf, 0xCu);
+      v25 = v19;
+      _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "IMDMessageRecordCalculateTotalMessageCount failed with error: %@", buf, 0xCu);
     }
 
-    v9 = -1;
+    v10 = -1;
   }
 
   else
   {
-    objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x1E695DF00], v10, v11);
-    v18 = v17;
-    v13 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x1E695DF00], v11, v12, v13);
+    v21 = v20;
+    v15 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 134218240;
-      v23 = v18 - v8;
-      v24 = 2048;
-      v25 = v9;
-      _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "Calculated total messages count in %f seconds. Messages: %lld", buf, 0x16u);
+      v25 = v21 - v9;
+      v26 = 2048;
+      v27 = v10;
+      _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "Calculated total messages count in %f seconds. Messages: %lld", buf, 0x16u);
     }
   }
 
-  handlerCopy[2](handlerCopy, v9);
-  v19 = *MEMORY[0x1E69E9840];
+  handlerCopy[2](handlerCopy, v10);
 }
 
 - (void)fetchMessagesWithoutChatsCountWithCompletionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF00];
   handlerCopy = handler;
-  objc_msgSend_timeIntervalSinceReferenceDate(v3, v5, v6);
-  v8 = v7;
-  memset(v21, 0, sizeof(v21));
-  IMDSqlOperationInitWithSharedCSDBDatabase(v21);
-  IMDSqlOperationBeginTransaction(v21);
-  v9 = _IMDColumnTotalCount(v21, @"SELECT COUNT(*) FROM message m LEFT JOIN chat_message_join cm ON m.ROWID = cm.message_id LEFT JOIN chat_recoverable_message_join crmj ON m.ROWID = crmj.message_id WHERE cm.message_id IS NULL AND crmj.message_id IS NULL AND m.item_type = 0;");
-  IMDSqlOperationCommitOrRevertTransaction(v21);
-  v20 = 0;
-  IMDSqlOperationRelease(v21, &v20);
-  v12 = v20;
-  if (v12)
+  objc_msgSend_timeIntervalSinceReferenceDate(v3, v5, v6, v7);
+  v9 = v8;
+  memset(v23, 0, sizeof(v23));
+  IMDSqlOperationInitWithSharedCSDBDatabase(v23);
+  IMDSqlOperationBeginTransaction(v23);
+  v10 = _IMDColumnTotalCount(v23, @"SELECT COUNT(*) FROM message m LEFT JOIN chat_message_join cm ON m.ROWID = cm.message_id LEFT JOIN chat_recoverable_message_join crmj ON m.ROWID = crmj.message_id WHERE cm.message_id IS NULL AND crmj.message_id IS NULL AND m.item_type = 0;");
+  IMDSqlOperationCommitOrRevertTransaction(v23);
+  v22 = 0;
+  IMDSqlOperationRelease(v23, &v22);
+  v14 = v22;
+  if (v14)
   {
-    v13 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v15 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      objc_msgSend_localizedDescription(v12, v14, v15);
-      v16 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      objc_msgSend_localizedDescription(v14, v16, v17, v18);
+      v19 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
       *buf = 138412290;
-      v23 = v16;
-      _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "IMDMessageRecordCalculateMessagesWithoutChatsCount failed with error: %@", buf, 0xCu);
+      v25 = v19;
+      _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "IMDMessageRecordCalculateMessagesWithoutChatsCount failed with error: %@", buf, 0xCu);
     }
 
-    v9 = -1;
+    v10 = -1;
   }
 
   else
   {
-    objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x1E695DF00], v10, v11);
-    v18 = v17;
-    v13 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x1E695DF00], v11, v12, v13);
+    v21 = v20;
+    v15 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 134218240;
-      v23 = v18 - v8;
-      v24 = 2048;
-      v25 = v9;
-      _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "Calculated messages without chats count in %f seconds. Missing Messages: %lld", buf, 0x16u);
+      v25 = v21 - v9;
+      v26 = 2048;
+      v27 = v10;
+      _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "Calculated messages without chats count in %f seconds. Missing Messages: %lld", buf, 0x16u);
     }
   }
 
-  handlerCopy[2](handlerCopy, v9);
-  v19 = *MEMORY[0x1E69E9840];
+  handlerCopy[2](handlerCopy, v10);
 }
 
 - (void)fetchUnreadIncomingMessagesCount:(id)count
 {
   countCopy = count;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_1B7B438BC;
-  v7[3] = &unk_1E7CB67C0;
-  v8 = countCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = sub_1B7B438BC;
+  v8[3] = &unk_1E7CB67C0;
+  v9 = countCopy;
   v5 = countCopy;
-  objc_msgSend__performPersistenceBlock_(self, v6, v7);
+  objc_msgSend__performPersistenceBlock_(self, v6, v8, v7);
 }
 
 - (id)_updateRecoverableMessageSyncStateForMessageGUIDsQueryFor:(int64_t)for
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_msgSend_substitutionStringForCount_(MEMORY[0x1E696AEC0], a2, for);
-  v6 = objc_msgSend_stringWithFormat_(v3, v5, @"%@ (%@)", @"SELECT rowid FROM message WHERE guid IN", v4);
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = objc_msgSend_substitutionStringForCount_(MEMORY[0x1E696AEC0], a2, for, v3);
+  v8 = objc_msgSend_stringWithFormat_(v4, v6, @"%@ (%@)", v7, @"SELECT rowid FROM message WHERE guid IN", v5);
 
-  v8 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v7, @"%@ (%@)", @"UPDATE chat_recoverable_message_join AS crmj SET ck_sync_state = ? WHERE crmj.message_id IN", v6);
+  v11 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v9, @"%@ (%@)", v10, @"UPDATE chat_recoverable_message_join AS crmj SET ck_sync_state = ? WHERE crmj.message_id IN", v8);
 
-  return v8;
+  return v11;
 }
 
 + (IMDRemoteDatabaseProtocol)database
 {
-  if (objc_msgSend_isServerProcess(self, a2, v2))
+  if (objc_msgSend_isServerProcess(self, a2, v2, v3))
   {
     if (qword_1EBA53B18 != -1)
     {
       sub_1B7CF17D4();
     }
 
-    v6 = qword_1EBA53B20;
+    v8 = qword_1EBA53B20;
   }
 
   else
   {
-    v6 = objc_msgSend__databaseClientAsync(self, v4, v5);
+    v8 = objc_msgSend__databaseClientAsync(self, v5, v6, v7);
   }
 
-  return v6;
+  return v8;
 }
 
 + (id)_databaseClientAsync
@@ -4252,14 +4347,14 @@ LABEL_16:
 {
   queue = queue;
   blockCopy = block;
-  v9 = objc_msgSend_currentConnection(MEMORY[0x1E696B0B8], v7, v8);
+  v10 = objc_msgSend_currentConnection(MEMORY[0x1E696B0B8], v7, v8, v9);
 
-  if (v9)
+  if (v10)
   {
-    objc_msgSend__handoffCurrentReplyToQueue_block_(MEMORY[0x1E696B0B8], v10, queue, blockCopy);
+    objc_msgSend__handoffCurrentReplyToQueue_block_(MEMORY[0x1E696B0B8], v11, queue, blockCopy);
   }
 
-  else if (objc_msgSend_isSynchronous(self, v10, v11))
+  else if (objc_msgSend_isSynchronous(self, v11, v12, v13))
   {
     dispatch_sync(queue, blockCopy);
   }
@@ -4273,30 +4368,30 @@ LABEL_16:
 - (void)_performPersistenceBlock:(id)block
 {
   block = block;
-  isSynchronous = objc_msgSend_isSynchronous(self, v4, v5);
-  IMDPersistencePerformBlockWithHandoffIfNeeded(block, isSynchronous, v7);
+  isSynchronous = objc_msgSend_isSynchronous(self, v4, v5, v6);
+  IMDPersistencePerformBlockWithHandoffIfNeeded(block, isSynchronous, v8, v9);
 }
 
 - (void)deleteAttachmentsDirectWithPredicate:(id)predicate
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   if (predicateCopy)
   {
     v4 = [IMDPredicateToSQLConverter alloc];
-    v7 = objc_msgSend_keyPathsToColumns(IMDAttachmentRecord, v5, v6);
-    v9 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v4, v8, predicateCopy, v7);
+    v8 = objc_msgSend_keyPathsToColumns(IMDAttachmentRecord, v5, v6, v7);
+    v10 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v4, v9, predicateCopy, v8);
 
-    if (!v9)
+    if (!v10)
     {
-      v10 = IMDatabaseMessageEventLogHandle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v11 = IMDatabaseMessageEventLogHandle();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v22 = "[IMDDatabase(LegacyAttachments) deleteAttachmentsDirectWithPredicate:]";
-        v23 = 2112;
-        v24 = predicateCopy;
-        _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", buf, 0x16u);
+        v25 = "[IMDDatabase(LegacyAttachments) deleteAttachmentsDirectWithPredicate:]";
+        v26 = 2112;
+        v27 = predicateCopy;
+        _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", buf, 0x16u);
       }
 
       goto LABEL_9;
@@ -4305,129 +4400,126 @@ LABEL_16:
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v11 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = predicateCopy;
-    _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_DEFAULT, "Deleting attachments filtered by predicate %@", buf, 0xCu);
+    v25 = predicateCopy;
+    _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_DEFAULT, "Deleting attachments filtered by predicate %@", buf, 0xCu);
   }
 
-  v14 = objc_msgSend_expression(v9, v12, v13);
-  v16 = IMDAttachmentRecordDeleteUsingPredicateQuery(v14, v15);
+  v16 = objc_msgSend_expression(v10, v13, v14, v15);
+  v20 = IMDAttachmentRecordDeleteUsingPredicateQuery(v16, v17, v18, v19);
 
-  v17 = v16;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = sub_1B7B60B14;
-  v19[3] = &unk_1E7CB8658;
-  v20 = v9;
-  v10 = v9;
-  _IMDPerformLockedStatementBlockWithQuery(v17, v19);
+  v21 = v20;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = sub_1B7B60B14;
+  v22[3] = &unk_1E7CB8658;
+  v23 = v10;
+  v11 = v10;
+  _IMDPerformLockedStatementBlockWithQuery(v21, v22);
 
 LABEL_9:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_updateAttachmentsSyncStateQueryFor:(int64_t)for
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_msgSend_substitutionStringForCount_(MEMORY[0x1E696AEC0], a2, for);
-  v6 = objc_msgSend_stringWithFormat_(v3, v5, @"%@( %@)", @"UPDATE attachment SET ck_sync_state = ? WHERE guid IN ", v4);
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = objc_msgSend_substitutionStringForCount_(MEMORY[0x1E696AEC0], a2, for, v3);
+  v8 = objc_msgSend_stringWithFormat_(v4, v6, @"%@( %@)", v7, @"UPDATE attachment SET ck_sync_state = ? WHERE guid IN ", v5);
 
-  return v6;
+  return v8;
 }
 
 - (void)updateAttachmentsSyncStatusTo:(int64_t)to forGUIDs:(id)ds
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
-  v25 = 0u;
-  memset(v24, 0, sizeof(v24));
-  memset(v23, 0, sizeof(v23));
-  IMDSqlOperationInitWithSharedCSDBDatabase(v23);
-  IMDSqlOperationBeginTransaction(v23);
-  v9 = objc_msgSend_count(dsCopy, v7, v8);
-  updated = objc_msgSend__updateAttachmentsSyncStateQueryFor_(self, v10, v9);
-  _IMDSqlOperationBeginQuery(v23, updated);
-  IMDSqlStatementBindInt64(v24, to);
-  v12 = dsCopy;
-  IMDSqlStatementBindTextFromArrayOfCFStrings(v24, v12);
-  if (IMDSqlOperationFinishQuery(v23))
+  v28 = 0u;
+  memset(v27, 0, sizeof(v27));
+  memset(v26, 0, sizeof(v26));
+  IMDSqlOperationInitWithSharedCSDBDatabase(v26);
+  IMDSqlOperationBeginTransaction(v26);
+  v10 = objc_msgSend_count(dsCopy, v7, v8, v9);
+  updated = objc_msgSend__updateAttachmentsSyncStateQueryFor_(self, v11, v10, v12);
+  _IMDSqlOperationBeginQuery(v26, updated);
+  IMDSqlStatementBindInt64(v27, to);
+  v14 = dsCopy;
+  IMDSqlStatementBindTextFromArrayOfCFStrings(v27, v14);
+  if (IMDSqlOperationFinishQuery(v26))
   {
-    v13 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v15 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v27 = v12;
-      _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "CloudSync.message | updated ck_sync_state for recordIDs: %@", buf, 0xCu);
+      v30 = v14;
+      _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "CloudSync.message | updated ck_sync_state for recordIDs: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v13 = *(&v25 + 1);
-    v14 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = *(&v28 + 1);
+    v16 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CF49FC(v12, v13, v14);
+      sub_1B7CF49FC(v14, v15, v16, v17);
     }
   }
 
-  IMDSqlOperationCommitOrRevertTransaction(v23);
-  v22 = 0;
-  v15 = IMDSqlOperationRelease(v23, &v22);
-  v16 = v22;
-  v17 = IMLogHandleForCategory();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
-  if (v15)
+  IMDSqlOperationCommitOrRevertTransaction(v26);
+  v25 = 0;
+  v18 = IMDSqlOperationRelease(v26, &v25);
+  v19 = v25;
+  v20 = IMLogHandleForCategory();
+  v21 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
+  if (v18)
   {
-    if (v18)
+    if (v21)
     {
-      sub_1B7CF4B48(v12, v17);
+      sub_1B7CF4B48(v14, v20);
     }
   }
 
-  else if (v18)
+  else if (v21)
   {
-    sub_1B7CF4AB0(v16, v17, v19);
+    sub_1B7CF4AB0(v19, v20, v22, v23);
   }
 
-  v20 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  v24 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v27 = v12;
-    _os_log_impl(&dword_1B7AD5000, v20, OS_LOG_TYPE_INFO, "CloudSync.message | Finished updating ck_sync_state for recordIDs %@", buf, 0xCu);
+    v30 = v14;
+    _os_log_impl(&dword_1B7AD5000, v24, OS_LOG_TYPE_INFO, "CloudSync.message | Finished updating ck_sync_state for recordIDs %@", buf, 0xCu);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAttachmentRecordsFilteredUsingPredicate:(id)predicate limit:(unint64_t)limit completionHandler:(id)handler
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   handlerCopy = handler;
   if (predicateCopy)
   {
     v10 = [IMDPredicateToSQLConverter alloc];
-    v13 = objc_msgSend_keyPathsToColumns(IMDAttachmentRecord, v11, v12);
-    v15 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v10, v14, predicateCopy, v13);
+    v14 = objc_msgSend_keyPathsToColumns(IMDAttachmentRecord, v11, v12, v13);
+    v16 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v10, v15, predicateCopy, v14);
 
-    if (!v15)
+    if (!v16)
     {
-      v16 = IMDatabaseMessageEventLogHandle();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v17 = IMDatabaseMessageEventLogHandle();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
         *&buf[4] = "[IMDDatabase(LegacyAttachments) fetchAttachmentRecordsFilteredUsingPredicate:limit:completionHandler:]";
         *&buf[12] = 2112;
         *&buf[14] = predicateCopy;
-        _os_log_impl(&dword_1B7AD5000, v16, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", buf, 0x16u);
+        _os_log_impl(&dword_1B7AD5000, v17, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", buf, 0x16u);
       }
 
       handlerCopy[2](handlerCopy, MEMORY[0x1E695E0F0]);
@@ -4437,43 +4529,43 @@ LABEL_9:
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  v17 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = @"YES";
+    v19 = @"YES";
     if (!predicateCopy)
     {
-      v18 = @"NO";
+      v19 = @"NO";
     }
 
     *buf = 138412546;
-    *&buf[4] = v18;
+    *&buf[4] = v19;
     *&buf[12] = 2048;
     *&buf[14] = limit;
-    _os_log_impl(&dword_1B7AD5000, v17, OS_LOG_TYPE_DEFAULT, "Fetching attachments filtered by predicate: %@ limit: %llu", buf, 0x16u);
+    _os_log_impl(&dword_1B7AD5000, v18, OS_LOG_TYPE_DEFAULT, "Fetching attachments filtered by predicate: %@ limit: %llu", buf, 0x16u);
   }
 
-  v21 = objc_msgSend_expression(v15, v19, v20);
-  v23 = IMDAttachmentRecordCopyFilteredUsingPredicateWithLimitQuery(v21, v22);
+  v23 = objc_msgSend_expression(v16, v20, v21, v22);
+  v27 = IMDAttachmentRecordCopyFilteredUsingPredicateWithLimitQuery(v23, v24, v25, v26);
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v31 = sub_1B7AE19D4;
-  v32 = sub_1B7AE24F8;
-  v33 = 0;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = sub_1B7B6117C;
-  v26[3] = &unk_1E7CB6930;
-  v24 = v15;
+  v34 = sub_1B7AE19D4;
+  v35 = sub_1B7AE24F8;
+  v36 = 0;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = sub_1B7B6117C;
+  v29[3] = &unk_1E7CB6930;
+  v28 = v16;
   selfCopy = self;
-  v29 = buf;
-  v27 = v24;
-  _IMDPerformLockedStatementBlockWithQuery(v23, v26);
+  v32 = buf;
+  v30 = v28;
+  _IMDPerformLockedStatementBlockWithQuery(v27, v29);
   if (handlerCopy)
   {
     handlerCopy[2](handlerCopy, *(*&buf[8] + 40));
@@ -4481,39 +4573,37 @@ LABEL_9:
 
   _Block_object_dispose(buf, 8);
 LABEL_14:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAttachmentRecordsFilteredUsingPredicate:(id)predicate sortedUsingDescriptors:(id)descriptors limit:(unint64_t)limit completionHandler:(id)handler
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   descriptorsCopy = descriptors;
   handlerCopy = handler;
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x3032000000;
-  v61 = sub_1B7AE19D4;
-  v62 = sub_1B7AE24F8;
   v63 = 0;
-  v46 = predicateCopy;
+  v64 = &v63;
+  v65 = 0x3032000000;
+  v66 = sub_1B7AE19D4;
+  v67 = sub_1B7AE24F8;
+  v68 = 0;
+  v51 = predicateCopy;
   if (predicateCopy)
   {
     v9 = [IMDPredicateToSQLConverter alloc];
-    v12 = objc_msgSend_keyPathsToColumns(IMDAttachmentRecord, v10, v11);
-    v47 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v9, v13, predicateCopy, v12);
+    v13 = objc_msgSend_keyPathsToColumns(IMDAttachmentRecord, v10, v11, v12);
+    v52 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v9, v14, predicateCopy, v13);
 
-    if (!v47)
+    if (!v52)
     {
-      v14 = IMDatabaseMessageEventLogHandle();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v15 = IMDatabaseMessageEventLogHandle();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v65 = "[IMDDatabase(LegacyAttachments) fetchAttachmentRecordsFilteredUsingPredicate:sortedUsingDescriptors:limit:completionHandler:]";
-        v66 = 2112;
-        v67 = predicateCopy;
-        _os_log_impl(&dword_1B7AD5000, v14, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", buf, 0x16u);
+        v70 = "[IMDDatabase(LegacyAttachments) fetchAttachmentRecordsFilteredUsingPredicate:sortedUsingDescriptors:limit:completionHandler:]";
+        v71 = 2112;
+        v72 = predicateCopy;
+        _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", buf, 0x16u);
       }
 
       if (handlerCopy)
@@ -4527,43 +4617,43 @@ LABEL_14:
 
   else
   {
-    v47 = 0;
+    v52 = 0;
   }
 
-  v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v16 = descriptorsCopy;
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v54, v70, 16);
-  if (v18)
+  v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v17 = descriptorsCopy;
+  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v59, v75, 16);
+  if (v19)
   {
-    v19 = *v55;
+    v20 = *v60;
     while (2)
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v55 != v19)
+        if (*v60 != v20)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v17);
         }
 
-        v21 = *(*(&v54 + 1) + 8 * i);
-        v22 = [IMDSortDescriptorToSQLConverter alloc];
-        v25 = objc_msgSend_keyPathsToColumns(IMDAttachmentRecord, v23, v24);
-        v27 = objc_msgSend_initWithSortDescriptor_keyPathsToColumns_(v22, v26, v21, v25);
+        v22 = *(*(&v59 + 1) + 8 * i);
+        v23 = [IMDSortDescriptorToSQLConverter alloc];
+        v27 = objc_msgSend_keyPathsToColumns(IMDAttachmentRecord, v24, v25, v26);
+        v29 = objc_msgSend_initWithSortDescriptor_keyPathsToColumns_(v23, v28, v22, v27);
 
-        if (!v27)
+        if (!v29)
         {
-          v41 = IMDatabaseMessageEventLogHandle();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+          v47 = IMDatabaseMessageEventLogHandle();
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v65 = "[IMDDatabase(LegacyAttachments) fetchAttachmentRecordsFilteredUsingPredicate:sortedUsingDescriptors:limit:completionHandler:]";
-            v66 = 2112;
-            v67 = v21;
-            _os_log_impl(&dword_1B7AD5000, v41, OS_LOG_TYPE_INFO, "Bad sort descriptor provided to %s (%@)", buf, 0x16u);
+            v70 = "[IMDDatabase(LegacyAttachments) fetchAttachmentRecordsFilteredUsingPredicate:sortedUsingDescriptors:limit:completionHandler:]";
+            v71 = 2112;
+            v72 = v22;
+            _os_log_impl(&dword_1B7AD5000, v47, OS_LOG_TYPE_INFO, "Bad sort descriptor provided to %s (%@)", buf, 0x16u);
           }
 
           if (handlerCopy)
@@ -4574,12 +4664,12 @@ LABEL_14:
           goto LABEL_27;
         }
 
-        v30 = objc_msgSend_expression(v27, v28, v29);
-        objc_msgSend_addObject_(v15, v31, v30);
+        v33 = objc_msgSend_expression(v29, v30, v31, v32);
+        objc_msgSend_addObject_(v16, v34, v33, v35);
       }
 
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v32, &v54, v70, 16);
-      if (v18)
+      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v36, &v59, v75, 16);
+      if (v19)
       {
         continue;
       }
@@ -4588,47 +4678,45 @@ LABEL_14:
     }
   }
 
-  v33 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v37 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
-    v36 = objc_msgSend_count(v16, v34, v35);
-    v37 = @"YES";
+    v41 = objc_msgSend_count(v17, v38, v39, v40);
+    v42 = @"YES";
     *buf = 138412802;
-    if (!v46)
+    if (!v51)
     {
-      v37 = @"NO";
+      v42 = @"NO";
     }
 
-    v65 = v37;
-    v66 = 2048;
-    v67 = v36;
-    v68 = 2048;
+    v70 = v42;
+    v71 = 2048;
+    v72 = v41;
+    v73 = 2048;
     limitCopy = limit;
-    _os_log_impl(&dword_1B7AD5000, v33, OS_LOG_TYPE_DEFAULT, "Fetching attachments filtered by predicate: %@ sortDescriptors: %llu limit: %llu", buf, 0x20u);
+    _os_log_impl(&dword_1B7AD5000, v37, OS_LOG_TYPE_DEFAULT, "Fetching attachments filtered by predicate: %@ sortDescriptors: %llu limit: %llu", buf, 0x20u);
   }
 
-  v40 = objc_msgSend_expression(v47, v38, v39);
-  v16 = IMDAttachmentRecordCopySortedAttachmentsFilteredUsingPredicateWithLimitQuery(v40, v15);
+  v46 = objc_msgSend_expression(v52, v43, v44, v45);
+  v17 = IMDAttachmentRecordCopySortedAttachmentsFilteredUsingPredicateWithLimitQuery(v46, v16);
 
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = sub_1B7B61714;
-  v49[3] = &unk_1E7CB6958;
-  v52 = &v58;
+  v54[0] = MEMORY[0x1E69E9820];
+  v54[1] = 3221225472;
+  v54[2] = sub_1B7B61714;
+  v54[3] = &unk_1E7CB6958;
+  v57 = &v63;
   limitCopy2 = limit;
-  v50 = v47;
+  v55 = v52;
   selfCopy = self;
-  _IMDPerformLockedStatementBlockWithQuery(v16, v49);
+  _IMDPerformLockedStatementBlockWithQuery(v17, v54);
   if (handlerCopy)
   {
-    handlerCopy[2](handlerCopy, v59[5]);
+    handlerCopy[2](handlerCopy, v64[5]);
   }
 
 LABEL_27:
 LABEL_28:
-  _Block_object_dispose(&v58, 8);
-
-  v42 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v63, 8);
 }
 
 - (id)_copyAttachmentRecordsFromCoreSDBResults:(id)results
@@ -4637,39 +4725,39 @@ LABEL_28:
   if (resultsCopy)
   {
     v4 = objc_alloc(MEMORY[0x1E695DF70]);
-    v7 = objc_msgSend_count(resultsCopy, v5, v6);
-    v9 = objc_msgSend_initWithCapacity_(v4, v8, v7);
-    if (objc_msgSend_count(resultsCopy, v10, v11))
+    v8 = objc_msgSend_count(resultsCopy, v5, v6, v7);
+    v11 = objc_msgSend_initWithCapacity_(v4, v9, v8, v10);
+    if (objc_msgSend_count(resultsCopy, v12, v13, v14))
     {
-      v14 = 0;
-      v15 = *MEMORY[0x1E695E480];
+      v18 = 0;
+      v19 = *MEMORY[0x1E695E480];
       do
       {
-        objc_msgSend_objectAtIndex_(resultsCopy, v12, v14);
+        objc_msgSend_objectAtIndex_(resultsCopy, v15, v18, v17);
         ID = CSDBRecordGetID();
-        v17 = IMDAttachmentRecordCreateFromRecordID(v15, ID);
-        if (v17)
+        v21 = IMDAttachmentRecordCreateFromRecordID(v19, ID);
+        if (v21)
         {
-          v20 = v17;
-          objc_msgSend_addObject_(v9, v18, v17);
-          CFRelease(v20);
+          v25 = v21;
+          objc_msgSend_addObject_(v11, v22, v21, v24);
+          CFRelease(v25);
         }
 
-        ++v14;
+        ++v18;
       }
 
-      while (v14 < objc_msgSend_count(resultsCopy, v18, v19));
+      while (v18 < objc_msgSend_count(resultsCopy, v22, v23, v24));
     }
 
-    v21 = objc_msgSend_copy(v9, v12, v13);
+    v26 = objc_msgSend_copy(v11, v15, v16, v17);
   }
 
   else
   {
-    v21 = MEMORY[0x1E695E0F0];
+    v26 = MEMORY[0x1E695E0F0];
   }
 
-  return v21;
+  return v26;
 }
 
 - (void)postSharePlayNotificationForChatGUID:(id)d faceTimeConversationUUID:(id)iD handleIdentifier:(id)identifier localizedApplicationName:(id)name
@@ -4693,122 +4781,119 @@ LABEL_28:
     _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_DEFAULT, "Asked to post Started SharePlay from Messages notification for chat GUID %@, FaceTime conversation UUID %@, handleIdentifier %@, and localizedApplicationName %@", &v19, 0x2Au);
   }
 
-  v16 = objc_msgSend_sharedInstance(IMDNotificationsController, v14, v15);
-  objc_msgSend_postSharePlayNotificationForChatGUID_faceTimeConversationUUID_handleIdentifier_localizedApplicationName_(v16, v17, dCopy, iDCopy, identifierCopy, nameCopy);
-
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = objc_msgSend_sharedInstance(IMDNotificationsController, v14, v15, v16);
+  objc_msgSend_postSharePlayNotificationForChatGUID_faceTimeConversationUUID_handleIdentifier_localizedApplicationName_(v17, v18, dCopy, iDCopy, identifierCopy, nameCopy);
 }
 
 - (id)chatRecordsFilteredByPredicate:(id)predicate
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = sub_1B7AE1A14;
-  v28 = sub_1B7AE2520;
-  v29 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = sub_1B7AE1A14;
+  v29 = sub_1B7AE2520;
+  v30 = 0;
   if (predicateCopy)
   {
     v5 = [IMDPredicateToSQLConverter alloc];
-    v8 = objc_msgSend_keyPathsToColumns(IMDChatRecord, v6, v7);
-    v10 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v5, v9, predicateCopy, v8);
+    v9 = objc_msgSend_keyPathsToColumns(IMDChatRecord, v6, v7, v8);
+    v11 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v5, v10, predicateCopy, v9);
 
-    if (v10)
+    if (v11)
     {
-      v11 = IMDatabaseLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = @"YES";
-        _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_DEFAULT, "Fetching chats filtered by predicate: %@", buf, 0xCu);
+        v32 = @"YES";
+        _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_DEFAULT, "Fetching chats filtered by predicate: %@", buf, 0xCu);
       }
 
-      v14 = objc_msgSend_expression(v10, v12, v13);
-      v15 = IMDChatRecordCopyChatsFilteredUsingPredicateQuery(v14);
+      v16 = objc_msgSend_expression(v11, v13, v14, v15);
+      v17 = IMDChatRecordCopyChatsFilteredUsingPredicateQuery(v16);
 
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = sub_1B7B7A91C;
-      v20[3] = &unk_1E7CB6930;
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = sub_1B7B7A91C;
+      v21[3] = &unk_1E7CB6930;
       selfCopy = self;
-      v23 = &v24;
-      v21 = v10;
-      _IMDPerformLockedStatementBlockWithQuery(v15, v20);
-      v16 = v25[5];
-      if (!v16)
+      v24 = &v25;
+      v22 = v11;
+      _IMDPerformLockedStatementBlockWithQuery(v17, v21);
+      v18 = v26[5];
+      if (!v18)
       {
-        v16 = MEMORY[0x1E695E0F0];
+        v18 = MEMORY[0x1E695E0F0];
       }
 
-      v17 = v16;
+      v19 = v18;
     }
 
     else
     {
-      v15 = IMDatabaseMessageEventLogHandle();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v17 = IMDatabaseMessageEventLogHandle();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v31 = "[IMDDatabase(LegacyChats) chatRecordsFilteredByPredicate:]";
-        v32 = 2112;
-        v33 = predicateCopy;
-        _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", buf, 0x16u);
+        v32 = "[IMDDatabase(LegacyChats) chatRecordsFilteredByPredicate:]";
+        v33 = 2112;
+        v34 = predicateCopy;
+        _os_log_impl(&dword_1B7AD5000, v17, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", buf, 0x16u);
       }
 
-      v17 = 0;
+      v19 = 0;
     }
   }
 
   else
   {
-    v10 = IMDatabaseMessageEventLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = IMDatabaseMessageEventLogHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v31 = "[IMDDatabase(LegacyChats) chatRecordsFilteredByPredicate:]";
-      _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "No predicate provided to %s", buf, 0xCu);
+      v32 = "[IMDDatabase(LegacyChats) chatRecordsFilteredByPredicate:]";
+      _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_INFO, "No predicate provided to %s", buf, 0xCu);
     }
 
-    v17 = 0;
+    v19 = 0;
   }
 
-  _Block_object_dispose(&v24, 8);
-  v18 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v25, 8);
 
-  return v17;
+  return v19;
 }
 
 - (void)fetchChatRecordsFilteredUsingPredicate:(id)predicate sortedUsingDescriptors:(id)descriptors limit:(unint64_t)limit completionHandler:(id)handler
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   descriptorsCopy = descriptors;
   handlerCopy = handler;
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x3032000000;
-  v62 = sub_1B7AE1A14;
-  v63 = sub_1B7AE2520;
-  v64 = 0;
-  v47 = predicateCopy;
+  v65 = 0;
+  v66 = &v65;
+  v67 = 0x3032000000;
+  v68 = sub_1B7AE1A14;
+  v69 = sub_1B7AE2520;
+  v70 = 0;
+  v53 = predicateCopy;
   if (predicateCopy)
   {
     v9 = [IMDPredicateToSQLConverter alloc];
-    v12 = objc_msgSend_keyPathsToColumns(IMDChatRecord, v10, v11);
-    v48 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v9, v13, predicateCopy, v12);
+    v13 = objc_msgSend_keyPathsToColumns(IMDChatRecord, v10, v11, v12);
+    v54 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v9, v14, predicateCopy, v13);
 
-    if (!v48)
+    if (!v54)
     {
-      v14 = IMDatabaseMessageEventLogHandle();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v15 = IMDatabaseMessageEventLogHandle();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v66 = "[IMDDatabase(LegacyChats) fetchChatRecordsFilteredUsingPredicate:sortedUsingDescriptors:limit:completionHandler:]";
-        v67 = 2112;
-        v68 = predicateCopy;
-        _os_log_impl(&dword_1B7AD5000, v14, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", buf, 0x16u);
+        v72 = "[IMDDatabase(LegacyChats) fetchChatRecordsFilteredUsingPredicate:sortedUsingDescriptors:limit:completionHandler:]";
+        v73 = 2112;
+        v74 = predicateCopy;
+        _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", buf, 0x16u);
       }
 
       if (handlerCopy)
@@ -4822,43 +4907,43 @@ LABEL_28:
 
   else
   {
-    v48 = 0;
+    v54 = 0;
   }
 
-  v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  v16 = descriptorsCopy;
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v55, v71, 16);
-  if (v18)
+  v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  v17 = descriptorsCopy;
+  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v61, v77, 16);
+  if (v19)
   {
-    v19 = *v56;
+    v20 = *v62;
     while (2)
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v56 != v19)
+        if (*v62 != v20)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v17);
         }
 
-        v21 = *(*(&v55 + 1) + 8 * i);
-        v22 = [IMDSortDescriptorToSQLConverter alloc];
-        v25 = objc_msgSend_keyPathsToColumns(IMDChatRecord, v23, v24);
-        v27 = objc_msgSend_initWithSortDescriptor_keyPathsToColumns_(v22, v26, v21, v25);
+        v22 = *(*(&v61 + 1) + 8 * i);
+        v23 = [IMDSortDescriptorToSQLConverter alloc];
+        v27 = objc_msgSend_keyPathsToColumns(IMDChatRecord, v24, v25, v26);
+        v29 = objc_msgSend_initWithSortDescriptor_keyPathsToColumns_(v23, v28, v22, v27);
 
-        if (!v27)
+        if (!v29)
         {
-          v42 = IMDatabaseMessageEventLogHandle();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+          v49 = IMDatabaseMessageEventLogHandle();
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v66 = "[IMDDatabase(LegacyChats) fetchChatRecordsFilteredUsingPredicate:sortedUsingDescriptors:limit:completionHandler:]";
-            v67 = 2112;
-            v68 = v21;
-            _os_log_impl(&dword_1B7AD5000, v42, OS_LOG_TYPE_INFO, "Bad sort descriptor provided to %s (%@)", buf, 0x16u);
+            v72 = "[IMDDatabase(LegacyChats) fetchChatRecordsFilteredUsingPredicate:sortedUsingDescriptors:limit:completionHandler:]";
+            v73 = 2112;
+            v74 = v22;
+            _os_log_impl(&dword_1B7AD5000, v49, OS_LOG_TYPE_INFO, "Bad sort descriptor provided to %s (%@)", buf, 0x16u);
           }
 
           if (handlerCopy)
@@ -4869,12 +4954,12 @@ LABEL_28:
           goto LABEL_27;
         }
 
-        v30 = objc_msgSend_expression(v27, v28, v29);
-        objc_msgSend_addObject_(v15, v31, v30);
+        v33 = objc_msgSend_expression(v29, v30, v31, v32);
+        objc_msgSend_addObject_(v16, v34, v33, v35);
       }
 
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v32, &v55, v71, 16);
-      if (v18)
+      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v36, &v61, v77, 16);
+      if (v19)
       {
         continue;
       }
@@ -4883,78 +4968,76 @@ LABEL_28:
     }
   }
 
-  v33 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v37 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
-    v36 = objc_msgSend_count(v16, v34, v35);
-    v37 = @"YES";
+    v41 = objc_msgSend_count(v17, v38, v39, v40);
+    v42 = @"YES";
     *buf = 138412802;
-    if (!v47)
+    if (!v53)
     {
-      v37 = @"NO";
+      v42 = @"NO";
     }
 
-    v66 = v37;
-    v67 = 2048;
-    v68 = v36;
-    v69 = 2048;
+    v72 = v42;
+    v73 = 2048;
+    v74 = v41;
+    v75 = 2048;
     limitCopy = limit;
-    _os_log_impl(&dword_1B7AD5000, v33, OS_LOG_TYPE_DEFAULT, "Fetching chats filtered by predicate: %@ sortDescriptors: %llu limit: %llu", buf, 0x20u);
+    _os_log_impl(&dword_1B7AD5000, v37, OS_LOG_TYPE_DEFAULT, "Fetching chats filtered by predicate: %@ sortDescriptors: %llu limit: %llu", buf, 0x20u);
   }
 
-  v40 = objc_msgSend_expression(v48, v38, v39);
-  v16 = IMDChatRecordCopySortedChatsFilteredUsingPredicateWithLimitQuery(v40, v15, v41);
+  v46 = objc_msgSend_expression(v54, v43, v44, v45);
+  v17 = IMDChatRecordCopySortedChatsFilteredUsingPredicateWithLimitQuery(v46, v16, v47, v48);
 
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v50[2] = sub_1B7B7AEB0;
-  v50[3] = &unk_1E7CB6958;
-  v53 = &v59;
+  v56[0] = MEMORY[0x1E69E9820];
+  v56[1] = 3221225472;
+  v56[2] = sub_1B7B7AEB0;
+  v56[3] = &unk_1E7CB6958;
+  v59 = &v65;
   limitCopy2 = limit;
-  v51 = v48;
+  v57 = v54;
   selfCopy = self;
-  _IMDPerformLockedStatementBlockWithQuery(v16, v50);
+  _IMDPerformLockedStatementBlockWithQuery(v17, v56);
   if (handlerCopy)
   {
-    handlerCopy[2](handlerCopy, v60[5]);
+    handlerCopy[2](handlerCopy, v66[5]);
   }
 
 LABEL_27:
 LABEL_28:
-  _Block_object_dispose(&v59, 8);
-
-  v43 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v65, 8);
 }
 
 - (void)fetchChatRecordsFilteredUsingPredicate:(id)predicate sortedUsingLastMessageDateAscending:(BOOL)ascending olderThan:(id)than limit:(unint64_t)limit completionHandler:(id)handler
 {
   ascendingCopy = ascending;
-  v48 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   thanCopy = than;
   handlerCopy = handler;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = sub_1B7AE1A14;
-  v40 = sub_1B7AE2520;
-  v41 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = sub_1B7AE1A14;
+  v42 = sub_1B7AE2520;
+  v43 = 0;
   if (predicateCopy)
   {
     v15 = [IMDPredicateToSQLConverter alloc];
-    v18 = objc_msgSend_keyPathsToColumns(IMDChatRecord, v16, v17);
-    v20 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v15, v19, predicateCopy, v18);
+    v19 = objc_msgSend_keyPathsToColumns(IMDChatRecord, v16, v17, v18);
+    v21 = objc_msgSend_initWithPredicate_keyPathsToColumns_(v15, v20, predicateCopy, v19);
 
-    if (!v20)
+    if (!v21)
     {
-      v21 = IMDatabaseMessageEventLogHandle();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v22 = IMDatabaseMessageEventLogHandle();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v43 = "[IMDDatabase(LegacyChats) fetchChatRecordsFilteredUsingPredicate:sortedUsingLastMessageDateAscending:olderThan:limit:completionHandler:]";
-        v44 = 2112;
-        v45 = predicateCopy;
-        _os_log_impl(&dword_1B7AD5000, v21, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", buf, 0x16u);
+        v45 = "[IMDDatabase(LegacyChats) fetchChatRecordsFilteredUsingPredicate:sortedUsingLastMessageDateAscending:olderThan:limit:completionHandler:]";
+        v46 = 2112;
+        v47 = predicateCopy;
+        _os_log_impl(&dword_1B7AD5000, v22, OS_LOG_TYPE_INFO, "Bad predicate provided to %s (%@)", buf, 0x16u);
       }
 
       if (handlerCopy)
@@ -4968,50 +5051,48 @@ LABEL_28:
 
   else
   {
-    v20 = 0;
+    v21 = 0;
   }
 
-  v22 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = @"YES";
+    v24 = @"YES";
     *buf = 138412802;
     if (!predicateCopy)
     {
-      v23 = @"NO";
+      v24 = @"NO";
     }
 
-    v43 = v23;
-    v44 = 2112;
-    v45 = thanCopy;
-    v46 = 2048;
+    v45 = v24;
+    v46 = 2112;
+    v47 = thanCopy;
+    v48 = 2048;
     limitCopy = limit;
-    _os_log_impl(&dword_1B7AD5000, v22, OS_LOG_TYPE_DEFAULT, "Fetching chats sorted by recent and filtered by predicate: %@ olderThan: %@ limit: %llu", buf, 0x20u);
+    _os_log_impl(&dword_1B7AD5000, v23, OS_LOG_TYPE_DEFAULT, "Fetching chats sorted by recent and filtered by predicate: %@ olderThan: %@ limit: %llu", buf, 0x20u);
   }
 
-  v26 = objc_msgSend_expression(v20, v24, v25);
-  MessageDateAndFilteredUsingPredicateWithLimitQuery = IMDChatRecordCopyChatsSortedByLastMessageDateAndFilteredUsingPredicateWithLimitQuery(ascendingCopy, thanCopy, v26);
+  v28 = objc_msgSend_expression(v21, v25, v26, v27);
+  MessageDateAndFilteredUsingPredicateWithLimitQuery = IMDChatRecordCopyChatsSortedByLastMessageDateAndFilteredUsingPredicateWithLimitQuery(ascendingCopy, thanCopy, v28, v29);
 
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = sub_1B7B7B2A8;
-  v30[3] = &unk_1E7CBAD20;
-  v28 = v20;
-  v31 = v28;
-  v34 = &v36;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = sub_1B7B7B2A8;
+  v32[3] = &unk_1E7CBAD20;
+  v31 = v21;
+  v33 = v31;
+  v36 = &v38;
   limitCopy2 = limit;
-  v32 = thanCopy;
+  v34 = thanCopy;
   selfCopy = self;
-  _IMDPerformLockedStatementBlockWithQuery(MessageDateAndFilteredUsingPredicateWithLimitQuery, v30);
+  _IMDPerformLockedStatementBlockWithQuery(MessageDateAndFilteredUsingPredicateWithLimitQuery, v32);
   if (handlerCopy)
   {
-    handlerCopy[2](handlerCopy, v37[5]);
+    handlerCopy[2](handlerCopy, v39[5]);
   }
 
 LABEL_15:
-  _Block_object_dispose(&v36, 8);
-
-  v29 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v38, 8);
 }
 
 - (id)chatRecordsWithIdentifier:(id)identifier
@@ -5024,7 +5105,7 @@ LABEL_15:
   v19 = sub_1B7AE1A14;
   v20 = sub_1B7AE2520;
   v21 = 0;
-  if (objc_msgSend_length(identifierCopy, v5, v6))
+  if (objc_msgSend_length(identifierCopy, v5, v6, v7))
   {
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;
@@ -5034,130 +5115,128 @@ LABEL_15:
     v15 = &v16;
     v13 = identifierCopy;
     _IMDPerformLockedStatementBlockWithQuery(@"SELECT ROWID, guid, style, state, account_id, properties, chat_identifier, service_name, room_name, account_login, is_archived, last_addressed_handle, display_name, group_id, is_filtered, successful_query, engram_id, server_change_token, ck_sync_state, original_group_id, last_read_message_timestamp, cloudkit_record_id, last_addressed_sim_id, is_blackholed, syndication_date, syndication_type, is_recovered, is_deleting_incoming_messages FROM chat WHERE    chat_identifier = ? ORDER BY chat.ROWID ASC;", v12);
-    v7 = v17[5];
-    if (!v7)
+    v8 = v17[5];
+    if (!v8)
     {
-      v7 = MEMORY[0x1E695E0F0];
+      v8 = MEMORY[0x1E695E0F0];
     }
 
-    v8 = v7;
-    v9 = v13;
+    v9 = v8;
+    v10 = v13;
   }
 
   else
   {
-    v9 = IMDatabaseMessageEventLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = IMDatabaseMessageEventLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
       v23 = "[IMDDatabase(LegacyChats) chatRecordsWithIdentifier:]";
-      _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_INFO, "No identifier provided to %s", buf, 0xCu);
+      _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "No identifier provided to %s", buf, 0xCu);
     }
 
-    v8 = MEMORY[0x1E695E0F0];
+    v9 = MEMORY[0x1E695E0F0];
   }
 
   _Block_object_dispose(&v16, 8);
-  v10 = *MEMORY[0x1E69E9840];
 
-  return v8;
+  return v9;
 }
 
 - (void)fetchChatRecordsWithPinningIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
-  if (objc_msgSend_length(identifierCopy, v8, v9))
+  if (objc_msgSend_length(identifierCopy, v8, v9, v10))
   {
-    v11 = objc_msgSend_chatRecordsWithIdentifier_(self, v10, identifierCopy);
-    v12 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = objc_msgSend_chatRecordsWithIdentifier_(self, v11, identifierCopy, v12);
+    v14 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v66 = objc_msgSend_count(v11, v13, v14);
-      v67 = 2112;
-      v68 = identifierCopy;
-      _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_DEFAULT, "Found %llu pinned chats using chatIdentifier %@", buf, 0x16u);
+      v79 = objc_msgSend_count(v13, v15, v16, v17);
+      v80 = 2112;
+      v81 = identifierCopy;
+      _os_log_impl(&dword_1B7AD5000, v14, OS_LOG_TYPE_DEFAULT, "Found %llu pinned chats using chatIdentifier %@", buf, 0x16u);
     }
 
-    if (objc_msgSend_count(v11, v15, v16))
+    if (objc_msgSend_count(v13, v18, v19, v20))
     {
-      v19 = v11;
-      v20 = objc_msgSend_count(v11, v17, v18);
+      v24 = v13;
+      v25 = objc_msgSend_count(v13, v21, v22, v23);
     }
 
     else
     {
-      v19 = IMDChatRecordCopyChatsWithGroupID(identifierCopy);
+      v24 = IMDChatRecordCopyChatsWithGroupID(identifierCopy);
 
-      v22 = IMDatabaseLogHandle();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v27 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = objc_msgSend_count(v19, v23, v24);
+        v31 = objc_msgSend_count(v24, v28, v29, v30);
         *buf = 134218242;
-        v66 = v25;
-        v67 = 2112;
-        v68 = identifierCopy;
-        _os_log_impl(&dword_1B7AD5000, v22, OS_LOG_TYPE_DEFAULT, "Found %llu pinned chats using groupID %@", buf, 0x16u);
+        v79 = v31;
+        v80 = 2112;
+        v81 = identifierCopy;
+        _os_log_impl(&dword_1B7AD5000, v27, OS_LOG_TYPE_DEFAULT, "Found %llu pinned chats using groupID %@", buf, 0x16u);
       }
 
-      v20 = objc_msgSend_count(v19, v26, v27);
+      v25 = objc_msgSend_count(v24, v32, v33, v34);
     }
 
-    if (!v20)
+    if (!v25)
     {
-      v59 = v19;
-      v28 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v29 = objc_alloc_init(IMDChatRecordBatchFetcher);
-      v30 = *MEMORY[0x1E69A6C98];
-      v32 = objc_msgSend_predicateWithFormat_(MEMORY[0x1E696AE18], v31, @"%K = %@", *MEMORY[0x1E69A6C98], *MEMORY[0x1E69A7AE0]);
-      objc_msgSend_setPredicate_(v29, v33, v32);
+      v72 = v24;
+      v35 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v36 = objc_alloc_init(IMDChatRecordBatchFetcher);
+      v39 = objc_msgSend_predicateWithFormat_(MEMORY[0x1E696AE18], v37, @"%K = %@", v38, *MEMORY[0x1E69A6C98], *MEMORY[0x1E69A7AE0]);
+      objc_msgSend_setPredicate_(v36, v40, v39, v41);
 
-      v62 = 0u;
-      v63 = 0u;
-      v60 = 0u;
-      v61 = 0u;
-      v34 = v29;
-      v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v35, &v60, v64, 16);
-      if (v36)
+      v75 = 0u;
+      v76 = 0u;
+      v73 = 0u;
+      v74 = 0u;
+      v42 = v36;
+      v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v42, v43, &v73, v77, 16);
+      if (v44)
       {
-        v39 = v36;
-        v40 = *v61;
-        v41 = &selRef__permanentlyDeleteRecoverableMessagesInChatsWithGUIDs_beforeDate_;
-        v58 = v28;
+        v48 = v44;
+        v49 = *v74;
+        v50 = &selRef__permanentlyDeleteRecoverableMessagesInChatsWithGUIDs_beforeDate_;
+        v71 = v35;
         while (2)
         {
-          v42 = 0;
-          v43 = v41[304];
+          v51 = 0;
+          v52 = v50[304];
           do
           {
-            if (*v61 != v40)
+            if (*v74 != v49)
             {
-              objc_enumerationMutation(v34);
+              objc_enumerationMutation(v42);
             }
 
-            v44 = *(*(&v60 + 1) + 8 * v42);
-            v45 = objc_msgSend_handleRecords(v44, v37, v38);
-            v47 = objc_msgSend_arrayByApplyingSelector_(v45, v46, v43);
+            v53 = *(*(&v73 + 1) + 8 * v51);
+            v54 = objc_msgSend_handleRecords(v53, v45, v46, v47);
+            v57 = objc_msgSend_arrayByApplyingSelector_(v54, v55, v52, v56);
 
-            v48 = IMSHA1HashFromStrings();
-            if (objc_msgSend_isEqualToString_(identifierCopy, v49, v48))
+            v58 = IMSHA1HashFromStrings();
+            if (objc_msgSend_isEqualToString_(identifierCopy, v59, v58, v60))
             {
-              v28 = v58;
-              objc_msgSend_addObject_(v58, v50, v44);
+              v35 = v71;
+              objc_msgSend_addObject_(v71, v61, v53, v62);
 
               goto LABEL_24;
             }
 
-            ++v42;
+            ++v51;
           }
 
-          while (v39 != v42);
-          v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v37, &v60, v64, 16);
-          v28 = v58;
-          v41 = &selRef__permanentlyDeleteRecoverableMessagesInChatsWithGUIDs_beforeDate_;
-          if (v39)
+          while (v48 != v51);
+          v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v42, v45, &v73, v77, 16);
+          v35 = v71;
+          v50 = &selRef__permanentlyDeleteRecoverableMessagesInChatsWithGUIDs_beforeDate_;
+          if (v48)
           {
             continue;
           }
@@ -5168,35 +5247,35 @@ LABEL_15:
 
 LABEL_24:
 
-      v19 = objc_msgSend_copy(v28, v51, v52);
-      v53 = IMDatabaseLogHandle();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      v24 = objc_msgSend_copy(v35, v63, v64, v65);
+      v66 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
-        v56 = objc_msgSend_count(v19, v54, v55);
+        v70 = objc_msgSend_count(v24, v67, v68, v69);
         *buf = 134218242;
-        v66 = v56;
-        v67 = 2112;
-        v68 = identifierCopy;
-        _os_log_impl(&dword_1B7AD5000, v53, OS_LOG_TYPE_DEFAULT, "Found %llu pinned chats using participantHash %@", buf, 0x16u);
+        v79 = v70;
+        v80 = 2112;
+        v81 = identifierCopy;
+        _os_log_impl(&dword_1B7AD5000, v66, OS_LOG_TYPE_DEFAULT, "Found %llu pinned chats using participantHash %@", buf, 0x16u);
       }
     }
 
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, v19);
+      handlerCopy[2](handlerCopy, v24);
     }
   }
 
   else
   {
-    v21 = IMDatabaseMessageEventLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v26 = IMDatabaseMessageEventLogHandle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v66 = identifierCopy;
-      v67 = 2080;
-      v68 = "[IMDDatabase(LegacyChats) fetchChatRecordsWithPinningIdentifier:completionHandler:]";
-      _os_log_impl(&dword_1B7AD5000, v21, OS_LOG_TYPE_INFO, "No pinning identifier (%@) provided to %s", buf, 0x16u);
+      v79 = identifierCopy;
+      v80 = 2080;
+      v81 = "[IMDDatabase(LegacyChats) fetchChatRecordsWithPinningIdentifier:completionHandler:]";
+      _os_log_impl(&dword_1B7AD5000, v26, OS_LOG_TYPE_INFO, "No pinning identifier (%@) provided to %s", buf, 0x16u);
     }
 
     if (handlerCopy)
@@ -5204,86 +5283,84 @@ LABEL_24:
       handlerCopy[2](handlerCopy, MEMORY[0x1E695E0F0]);
     }
   }
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fetchChatRecordsWithHandles:(id)handles allowSubsetMatching:(BOOL)matching serviceNames:(id)names displayName:(id)name groupID:(id)d style:(unsigned __int8)style useOriginalGroupID:(BOOL)iD completionHandler:(id)self0
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   handlesCopy = handles;
   namesCopy = names;
   nameCopy = name;
   dCopy = d;
   handlerCopy = handler;
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x3032000000;
-  v66 = sub_1B7AE1A14;
-  v67 = sub_1B7AE2520;
-  v68 = 0;
-  if (objc_msgSend_count(handlesCopy, v18, v19) && (objc_msgSend_count(namesCopy, v20, v21) || (objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v22, v23), v24 = objc_claimAutoreleasedReturnValue(), isOneChatEnabled = objc_msgSend_isOneChatEnabled(v24, v25, v26), v24, (isOneChatEnabled & 1) != 0)))
+  v71 = 0;
+  v72 = &v71;
+  v73 = 0x3032000000;
+  v74 = sub_1B7AE1A14;
+  v75 = sub_1B7AE2520;
+  v76 = 0;
+  if (objc_msgSend_count(handlesCopy, v18, v19, v20) && (objc_msgSend_count(namesCopy, v21, v22, v23) || (objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v24, v25, v26), v27 = objc_claimAutoreleasedReturnValue(), isOneChatEnabled = objc_msgSend_isOneChatEnabled(v27, v28, v29, v30), v27, (isOneChatEnabled & 1) != 0)))
   {
-    v30 = objc_msgSend_length(nameCopy, v22, v23);
-    v47 = v30 != 0;
+    v35 = objc_msgSend_length(nameCopy, v24, v25, v26);
+    v55 = v35 != 0;
     if (dCopy)
     {
-      v31 = objc_msgSend_length(dCopy, v28, v29) != 0;
+      v36 = objc_msgSend_length(dCopy, v32, v33, v34) != 0;
     }
 
     else
     {
-      v31 = 0;
+      v36 = 0;
     }
 
-    v36 = objc_msgSend_count(handlesCopy, v28, v29);
-    v39 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v37, v38);
-    if (objc_msgSend_isOneChatEnabled(v39, v40, v41))
+    v42 = objc_msgSend_count(handlesCopy, v32, v33, v34);
+    v46 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v43, v44, v45);
+    if (objc_msgSend_isOneChatEnabled(v46, v47, v48, v49))
     {
-      v44 = 0;
+      v53 = 0;
     }
 
     else
     {
-      v44 = objc_msgSend_count(namesCopy, v42, v43);
+      v53 = objc_msgSend_count(namesCopy, v50, v51, v52);
     }
 
-    v45 = IMDChatRecordCopyChatsWithHandlesOnServicesWithDisplayNameGroupIDStyleQuery(v36, v44, matching, v30 != 0, v31 && !iD, v31 & iD);
-    v51[0] = MEMORY[0x1E69E9820];
-    v51[1] = 3221225472;
-    v51[2] = sub_1B7B7BDDC;
-    v51[3] = &unk_1E7CBAD48;
-    v52 = handlesCopy;
-    v53 = namesCopy;
-    v59 = v47;
-    v54 = nameCopy;
-    v60 = v31;
+    v54 = IMDChatRecordCopyChatsWithHandlesOnServicesWithDisplayNameGroupIDStyleQuery(v42, v53, matching, v35 != 0, v36 && !iD, v36 & iD);
+    v59[0] = MEMORY[0x1E69E9820];
+    v59[1] = 3221225472;
+    v59[2] = sub_1B7B7BDDC;
+    v59[3] = &unk_1E7CBAD48;
+    v60 = handlesCopy;
+    v61 = namesCopy;
+    v67 = v55;
+    v62 = nameCopy;
+    v68 = v36;
     styleCopy = style;
     matchingCopy = matching;
-    v57 = &v63;
-    v58 = v36;
-    v55 = dCopy;
+    v65 = &v71;
+    v66 = v42;
+    v63 = dCopy;
     selfCopy = self;
-    _IMDPerformLockedStatementBlockWithQuery(v45, v51);
+    _IMDPerformLockedStatementBlockWithQuery(v54, v59);
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, v64[5]);
+      handlerCopy[2](handlerCopy, v72[5]);
     }
   }
 
   else
   {
-    v32 = IMDatabaseMessageEventLogHandle();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+    v37 = IMDatabaseMessageEventLogHandle();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
     {
-      v35 = objc_msgSend_count(handlesCopy, v33, v34);
+      v41 = objc_msgSend_count(handlesCopy, v38, v39, v40);
       *buf = 134218498;
-      v70 = v35;
-      v71 = 2112;
-      v72 = namesCopy;
-      v73 = 2080;
-      v74 = "[IMDDatabase(LegacyChats) _fetchChatRecordsWithHandles:allowSubsetMatching:serviceNames:displayName:groupID:style:useOriginalGroupID:completionHandler:]";
-      _os_log_impl(&dword_1B7AD5000, v32, OS_LOG_TYPE_INFO, "No handles (%llu) or services (%@) provided to %s", buf, 0x20u);
+      v78 = v41;
+      v79 = 2112;
+      v80 = namesCopy;
+      v81 = 2080;
+      v82 = "[IMDDatabase(LegacyChats) _fetchChatRecordsWithHandles:allowSubsetMatching:serviceNames:displayName:groupID:style:useOriginalGroupID:completionHandler:]";
+      _os_log_impl(&dword_1B7AD5000, v37, OS_LOG_TYPE_INFO, "No handles (%llu) or services (%@) provided to %s", buf, 0x20u);
     }
 
     if (handlerCopy)
@@ -5292,126 +5369,162 @@ LABEL_24:
     }
   }
 
-  _Block_object_dispose(&v63, 8);
-
-  v46 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v71, 8);
 }
 
-- (void)fetchGroupPhotoPathsForChatsWithGroupIDs:(id)ds completionHandler:(id)handler
+- (id)chatRecordsWithHandles:(id)handles serviceName:(id)name displayName:(id)displayName groupID:(id)d style:(unsigned __int8)style useOriginalGroupID:(BOOL)iD
 {
-  v71 = *MEMORY[0x1E69E9840];
-  dsCopy = ds;
-  handlerCopy = handler;
-  if (objc_msgSend_count(dsCopy, v8, v9))
+  styleCopy = style;
+  v34[1] = *MEMORY[0x1E69E9840];
+  handlesCopy = handles;
+  nameCopy = name;
+  displayNameCopy = displayName;
+  dCopy = d;
+  if (nameCopy && objc_msgSend_length(nameCopy, v17, v18, v19))
   {
-    v53 = handlerCopy;
-    v10 = objc_alloc(MEMORY[0x1E695DF90]);
-    v13 = objc_msgSend_count(dsCopy, v11, v12);
-    v55 = objc_msgSend_initWithCapacity_(v10, v14, v13);
-    v60 = 0u;
-    v61 = 0u;
-    v62 = 0u;
-    v63 = 0u;
-    v54 = dsCopy;
-    obj = dsCopy;
-    v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v60, v70, 16);
-    if (v16)
-    {
-      v17 = v16;
-      v18 = *v61;
-      v58 = *MEMORY[0x1E69A6B80];
-      v56 = *v61;
-      do
-      {
-        v19 = 0;
-        v57 = v17;
-        do
-        {
-          if (*v61 != v18)
-          {
-            objc_enumerationMutation(obj);
-          }
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3032000000;
+    v31 = sub_1B7AE1A14;
+    v32 = sub_1B7AE2520;
+    v33 = 0;
+    v34[0] = nameCopy;
+    v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v34, 1);
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = sub_1B7B7C1A8;
+    v27[3] = &unk_1E7CB6860;
+    v27[4] = &v28;
+    iDCopy = iD;
+    objc_msgSend__fetchChatRecordsWithHandles_allowSubsetMatching_serviceNames_displayName_groupID_style_useOriginalGroupID_completionHandler_(self, v23, handlesCopy, 0, v22, displayNameCopy, dCopy, styleCopy, iDCopy, v27);
 
-          v20 = *(*(&v60 + 1) + 8 * v19);
-          v21 = IMDChatRecordCopyChatsWithGroupID(v20);
-          v24 = objc_msgSend_lastObject(v21, v22, v23);
-          if (objc_msgSend__shouldDisplayGroupNameAndPhotoWithRecord_(self, v25, v24))
-          {
-            v28 = objc_msgSend_properties(v24, v26, v27);
-            v30 = objc_msgSend_objectForKeyedSubscript_(v28, v29, v58);
-
-            v31 = IMDatabaseLogHandle();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 138412546;
-              v65 = v30;
-              v66 = 2112;
-              v67 = v20;
-              _os_log_impl(&dword_1B7AD5000, v31, OS_LOG_TYPE_DEFAULT, "Found groupPhotoGUID %@ for chat with groupID %@", buf, 0x16u);
-            }
-
-            if (objc_msgSend_length(v30, v32, v33))
-            {
-              selfCopy = self;
-              v35 = IMDAttachmentRecordCopyAttachmentForGUID(v30);
-              v38 = objc_msgSend_path(v35, v36, v37);
-              v41 = objc_msgSend_transferState(v35, v39, v40);
-              if (objc_msgSend_length(v38, v42, v43))
-              {
-                v45 = objc_msgSend_fileURLWithPath_(MEMORY[0x1E695DFF8], v44, v38);
-                v46 = objc_alloc(MEMORY[0x1E69A8220]);
-                v48 = objc_msgSend_initWithFileURL_(v46, v47, v45);
-                objc_msgSend_setObject_forKeyedSubscript_(v55, v49, v48, v20);
-              }
-
-              else
-              {
-                v45 = IMDatabaseLogHandle();
-                if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
-                {
-                  *buf = 138412802;
-                  v65 = v30;
-                  v66 = 2112;
-                  v67 = v38;
-                  v68 = 1024;
-                  v69 = v41;
-                  _os_log_impl(&dword_1B7AD5000, v45, OS_LOG_TYPE_DEFAULT, "Transfer invalid for groupPhotoGUID: %@ filename: %@ state: %d", buf, 0x1Cu);
-                }
-              }
-
-              self = selfCopy;
-              v18 = v56;
-              v17 = v57;
-            }
-          }
-
-          ++v19;
-        }
-
-        while (v17 != v19);
-        v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v50, &v60, v70, 16);
-      }
-
-      while (v17);
-    }
-
-    handlerCopy = v53;
-    if (v53)
-    {
-      (v53)[2](v53, v55);
-    }
-
-    dsCopy = v54;
+    v24 = v29[5];
+    _Block_object_dispose(&v28, 8);
   }
 
   else
   {
-    v51 = IMDatabaseMessageEventLogHandle();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+    v24 = MEMORY[0x1E695E0F0];
+  }
+
+  return v24;
+}
+
+- (void)fetchGroupPhotoPathsForChatsWithGroupIDs:(id)ds completionHandler:(id)handler
+{
+  v83 = *MEMORY[0x1E69E9840];
+  dsCopy = ds;
+  handlerCopy = handler;
+  if (objc_msgSend_count(dsCopy, v8, v9, v10))
+  {
+    v65 = handlerCopy;
+    v11 = objc_alloc(MEMORY[0x1E695DF90]);
+    v15 = objc_msgSend_count(dsCopy, v12, v13, v14);
+    v67 = objc_msgSend_initWithCapacity_(v11, v16, v15, v17);
+    v72 = 0u;
+    v73 = 0u;
+    v74 = 0u;
+    v75 = 0u;
+    v66 = dsCopy;
+    obj = dsCopy;
+    v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v18, &v72, v82, 16);
+    if (v19)
+    {
+      v20 = v19;
+      v21 = *v73;
+      v70 = *MEMORY[0x1E69A6B80];
+      v68 = *v73;
+      do
+      {
+        v22 = 0;
+        v69 = v20;
+        do
+        {
+          if (*v73 != v21)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v23 = *(*(&v72 + 1) + 8 * v22);
+          v24 = IMDChatRecordCopyChatsWithGroupID(v23);
+          v28 = objc_msgSend_lastObject(v24, v25, v26, v27);
+          if (objc_msgSend__shouldDisplayGroupNameAndPhotoWithRecord_(self, v29, v28, v30))
+          {
+            v34 = objc_msgSend_properties(v28, v31, v32, v33);
+            v37 = objc_msgSend_objectForKeyedSubscript_(v34, v35, v70, v36);
+
+            v38 = IMDatabaseLogHandle();
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138412546;
+              v77 = v37;
+              v78 = 2112;
+              v79 = v23;
+              _os_log_impl(&dword_1B7AD5000, v38, OS_LOG_TYPE_DEFAULT, "Found groupPhotoGUID %@ for chat with groupID %@", buf, 0x16u);
+            }
+
+            if (objc_msgSend_length(v37, v39, v40, v41))
+            {
+              selfCopy = self;
+              v43 = IMDAttachmentRecordCopyAttachmentForGUID(v37);
+              v47 = objc_msgSend_path(v43, v44, v45, v46);
+              v51 = objc_msgSend_transferState(v43, v48, v49, v50);
+              if (objc_msgSend_length(v47, v52, v53, v54))
+              {
+                v57 = objc_msgSend_fileURLWithPath_(MEMORY[0x1E695DFF8], v55, v47, v56);
+                v58 = objc_alloc(MEMORY[0x1E69A8220]);
+                v61 = objc_msgSend_initWithFileURL_(v58, v59, v57, v60);
+                objc_msgSend_setObject_forKeyedSubscript_(v67, v62, v61, v23);
+              }
+
+              else
+              {
+                v57 = IMDatabaseLogHandle();
+                if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 138412802;
+                  v77 = v37;
+                  v78 = 2112;
+                  v79 = v47;
+                  v80 = 1024;
+                  v81 = v51;
+                  _os_log_impl(&dword_1B7AD5000, v57, OS_LOG_TYPE_DEFAULT, "Transfer invalid for groupPhotoGUID: %@ filename: %@ state: %d", buf, 0x1Cu);
+                }
+              }
+
+              self = selfCopy;
+              v21 = v68;
+              v20 = v69;
+            }
+          }
+
+          ++v22;
+        }
+
+        while (v20 != v22);
+        v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v63, &v72, v82, 16);
+      }
+
+      while (v20);
+    }
+
+    handlerCopy = v65;
+    if (v65)
+    {
+      (v65)[2](v65, v67);
+    }
+
+    dsCopy = v66;
+  }
+
+  else
+  {
+    v64 = IMDatabaseMessageEventLogHandle();
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v65 = "[IMDDatabase(LegacyChats) fetchGroupPhotoPathsForChatsWithGroupIDs:completionHandler:]";
-      _os_log_impl(&dword_1B7AD5000, v51, OS_LOG_TYPE_INFO, "No group IDs provided to %s", buf, 0xCu);
+      v77 = "[IMDDatabase(LegacyChats) fetchGroupPhotoPathsForChatsWithGroupIDs:completionHandler:]";
+      _os_log_impl(&dword_1B7AD5000, v64, OS_LOG_TYPE_INFO, "No group IDs provided to %s", buf, 0xCu);
     }
 
     if (handlerCopy)
@@ -5419,49 +5532,47 @@ LABEL_24:
       handlerCopy[2](handlerCopy, 0);
     }
   }
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolveInconsistentGUIDForChatRecordWithGUID:(id)d newGUID:(id)iD completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   handlerCopy = handler;
   v10 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138412546;
-    v21 = dCopy;
-    v22 = 2112;
-    v23 = iDCopy;
-    _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_DEFAULT, "Updating chat GUID from %@ to %@ to resolve inconsistent properties", &v20, 0x16u);
+    v21 = 138412546;
+    v22 = dCopy;
+    v23 = 2112;
+    v24 = iDCopy;
+    _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_DEFAULT, "Updating chat GUID from %@ to %@ to resolve inconsistent properties", &v21, 0x16u);
   }
 
-  if (objc_msgSend_length(dCopy, v11, v12) && objc_msgSend_length(iDCopy, v13, v14))
+  if (objc_msgSend_length(dCopy, v11, v12, v13) && objc_msgSend_length(iDCopy, v14, v15, v16))
   {
-    v15 = IMDChatRecordCopyChatForGUID(dCopy);
-    v16 = v15;
-    if (v15)
+    v17 = IMDChatRecordCopyChatForGUID(dCopy);
+    v18 = v17;
+    if (v17)
     {
-      _IMDChatRecordSetGUID(v15, iDCopy);
+      _IMDChatRecordSetGUID(v17, iDCopy);
     }
 
     else if (IMOSLoggingEnabled())
     {
-      v18 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v20 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        v20 = 138412290;
-        v21 = dCopy;
-        _os_log_impl(&dword_1B7AD5000, v18, OS_LOG_TYPE_INFO, "Failed to find a chat with GUID %@", &v20, 0xCu);
+        v21 = 138412290;
+        v22 = dCopy;
+        _os_log_impl(&dword_1B7AD5000, v20, OS_LOG_TYPE_INFO, "Failed to find a chat with GUID %@", &v21, 0xCu);
       }
     }
 
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, v16 != 0);
+      handlerCopy[2](handlerCopy, v18 != 0);
     }
   }
 
@@ -5469,14 +5580,14 @@ LABEL_24:
   {
     if (IMOSLoggingEnabled())
     {
-      v17 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v19 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        v20 = 138412546;
-        v21 = dCopy;
-        v22 = 2112;
-        v23 = iDCopy;
-        _os_log_impl(&dword_1B7AD5000, v17, OS_LOG_TYPE_INFO, "Current GUID %@ or new GUID %@ has zero length", &v20, 0x16u);
+        v21 = 138412546;
+        v22 = dCopy;
+        v23 = 2112;
+        v24 = iDCopy;
+        _os_log_impl(&dword_1B7AD5000, v19, OS_LOG_TYPE_INFO, "Current GUID %@ or new GUID %@ has zero length", &v21, 0x16u);
       }
     }
 
@@ -5485,93 +5596,91 @@ LABEL_24:
       handlerCopy[2](handlerCopy, 0);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)moveMessageRecordsToRecoveryForChatRecordsWithGUIDs:(id)ds deleteDate:(id)date
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v130 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   dateCopy = date;
-  v7 = objc_msgSend_setWithArray_(MEMORY[0x1E695DFD8], v6, dsCopy);
-  v78 = objc_msgSend_allObjects(v7, v8, v9);
+  v8 = objc_msgSend_setWithArray_(MEMORY[0x1E695DFD8], v6, dsCopy, v7);
+  v98 = objc_msgSend_allObjects(v8, v9, v10, v11);
 
-  v10 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     *&buf[4] = dateCopy;
     *&buf[12] = 2048;
-    *&buf[14] = objc_msgSend_count(v78, v11, v12);
-    _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Will begin moving messages to recoverable message table with deleteDate: %@ for %lu chatGUIDs", buf, 0x16u);
+    *&buf[14] = objc_msgSend_count(v98, v13, v14, v15);
+    _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Will begin moving messages to recoverable message table with deleteDate: %@ for %lu chatGUIDs", buf, 0x16u);
   }
 
-  v76 = objc_msgSend___im_nanosecondTimeInterval(dateCopy, v13, v14);
-  v109 = 0u;
-  memset(v108, 0, sizeof(v108));
+  v96 = objc_msgSend___im_nanosecondTimeInterval(dateCopy, v16, v17, v18);
+  v129 = 0u;
+  memset(v128, 0, sizeof(v128));
   memset(buf, 0, sizeof(buf));
   IMDSqlOperationInitWithSharedCSDBDatabase(buf);
   IMDSqlOperationBeginTransaction(buf);
-  v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  if (objc_msgSend_count(dsCopy, v16, v17))
+  v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  if (objc_msgSend_count(dsCopy, v20, v21, v22))
   {
-    theString = IMDChatRecordRowIDsWithChatGUIDsQuery(dsCopy, v18);
-    v19 = theString;
+    theString = IMDChatRecordRowIDsWithChatGUIDsQuery(dsCopy, v23, v24, v25);
+    v26 = theString;
     if (theString)
     {
       _IMDSqlOperationBeginQuery(buf, theString);
-      v96 = 0u;
-      v97 = 0u;
-      v94 = 0u;
-      v95 = 0u;
-      v20 = dsCopy;
-      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v94, v106, 16);
-      if (v22)
+      v116 = 0u;
+      v117 = 0u;
+      v114 = 0u;
+      v115 = 0u;
+      v27 = dsCopy;
+      v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v114, v126, 16);
+      if (v29)
       {
-        v23 = *v95;
+        v30 = *v115;
         do
         {
-          for (i = 0; i != v22; ++i)
+          for (i = 0; i != v29; ++i)
           {
-            if (*v95 != v23)
+            if (*v115 != v30)
             {
-              objc_enumerationMutation(v20);
+              objc_enumerationMutation(v27);
             }
 
-            IMDSqlStatementBindTextFromCFString(v108, *(*(&v94 + 1) + 8 * i));
+            IMDSqlStatementBindTextFromCFString(v128, *(*(&v114 + 1) + 8 * i));
           }
 
-          v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v25, &v94, v106, 16);
+          v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v32, &v114, v126, 16);
         }
 
-        while (v22);
+        while (v29);
       }
 
       if (IMDSqlOperationHasRows(buf))
       {
-        v26 = MEMORY[0x1E69E9820];
+        v33 = MEMORY[0x1E69E9820];
         do
         {
-          *&v101 = 0;
-          *(&v101 + 1) = &v101;
-          v102 = 0x3032000000;
-          v103 = sub_1B7AE1A14;
-          v104 = sub_1B7AE2520;
-          v105 = 0;
-          v93[0] = v26;
-          v93[1] = 3221225472;
-          v93[2] = sub_1B7B7CF44;
-          v93[3] = &unk_1E7CB78F8;
-          v93[4] = &v101;
-          IMDSqlOperationIterateRow(buf, v93);
-          v28 = *(*(&v101 + 1) + 40);
-          if (v28)
+          *&v121 = 0;
+          *(&v121 + 1) = &v121;
+          v122 = 0x3032000000;
+          v123 = sub_1B7AE1A14;
+          v124 = sub_1B7AE2520;
+          v125 = 0;
+          v113[0] = v33;
+          v113[1] = 3221225472;
+          v113[2] = sub_1B7B7CF44;
+          v113[3] = &unk_1E7CB78F8;
+          v113[4] = &v121;
+          IMDSqlOperationIterateRow(buf, v113);
+          v36 = *(*(&v121 + 1) + 40);
+          if (v36)
           {
-            objc_msgSend_addObject_(v15, v27, v28);
+            objc_msgSend_addObject_(v19, v34, v36, v35);
           }
 
-          _Block_object_dispose(&v101, 8);
+          _Block_object_dispose(&v121, 8);
         }
 
         while (IMDSqlOperationHasRows(buf));
@@ -5579,244 +5688,242 @@ LABEL_24:
 
       if (!IMDSqlOperationFinishQuery(buf))
       {
-        v30 = *(&v109 + 1);
-        v31 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v40 = *(&v129 + 1);
+        v41 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
-          sub_1B7CF753C(v30, v31, v32);
+          sub_1B7CF753C(v40, v41, v42, v43);
         }
       }
 
-      v33 = IMDInsertMessagesFromChatsWihGUIDsIntoRecoverableMessageJoinQuery(v15, v29);
-      if (v33)
+      v44 = IMDInsertMessagesFromChatsWihGUIDsIntoRecoverableMessageJoinQuery(v19, v37, v38, v39);
+      if (v44)
       {
-        _IMDSqlOperationBeginQuery(buf, v33);
-        IMDSqlStatementBindInt64(v108, v76);
-        v91 = 0u;
-        v92 = 0u;
-        v89 = 0u;
-        v90 = 0u;
-        v34 = v15;
-        v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v35, &v89, v100, 16);
-        if (v38)
+        _IMDSqlOperationBeginQuery(buf, v44);
+        IMDSqlStatementBindInt64(v128, v96);
+        v111 = 0u;
+        v112 = 0u;
+        v109 = 0u;
+        v110 = 0u;
+        v45 = v19;
+        v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, &v109, v120, 16);
+        if (v50)
         {
-          v39 = *v90;
+          v51 = *v110;
           do
           {
-            for (j = 0; j != v38; ++j)
+            for (j = 0; j != v50; ++j)
             {
-              if (*v90 != v39)
+              if (*v110 != v51)
               {
-                objc_enumerationMutation(v34);
+                objc_enumerationMutation(v45);
               }
 
-              v41 = objc_msgSend_longLongValue(*(*(&v89 + 1) + 8 * j), v36, v37);
-              IMDSqlStatementBindInt64(v108, v41);
+              v53 = objc_msgSend_longLongValue(*(*(&v109 + 1) + 8 * j), v47, v48, v49);
+              IMDSqlStatementBindInt64(v128, v53);
             }
 
-            v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v36, &v89, v100, 16);
+            v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v47, &v109, v120, 16);
           }
 
-          while (v38);
+          while (v50);
         }
 
         if (!IMDSqlOperationFinishQuery(buf))
         {
-          v43 = *(&v109 + 1);
-          v44 = IMLogHandleForCategory();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          v57 = *(&v129 + 1);
+          v58 = IMLogHandleForCategory();
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
           {
-            sub_1B7CF75CC(v43, v44, v45);
+            sub_1B7CF75CC(v57, v58, v59, v60);
           }
         }
 
-        v46 = IMDDeleteFromChatMessageJoinWhereMessageInRecoveryForChatsWithGUIDsQuery(v34, v42);
-        if (v46)
+        v61 = IMDDeleteFromChatMessageJoinWhereMessageInRecoveryForChatsWithGUIDsQuery(v45, v54, v55, v56);
+        if (v61)
         {
-          _IMDSqlOperationBeginQuery(buf, v46);
-          v87 = 0u;
-          v88 = 0u;
-          v85 = 0u;
-          v86 = 0u;
-          v47 = v34;
-          v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v48, &v85, v99, 16);
-          if (v51)
+          _IMDSqlOperationBeginQuery(buf, v61);
+          v107 = 0u;
+          v108 = 0u;
+          v105 = 0u;
+          v106 = 0u;
+          v62 = v45;
+          v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v62, v63, &v105, v119, 16);
+          if (v67)
           {
-            v52 = *v86;
+            v68 = *v106;
             do
             {
-              for (k = 0; k != v51; ++k)
+              for (k = 0; k != v67; ++k)
               {
-                if (*v86 != v52)
+                if (*v106 != v68)
                 {
-                  objc_enumerationMutation(v47);
+                  objc_enumerationMutation(v62);
                 }
 
-                v54 = objc_msgSend_longLongValue(*(*(&v85 + 1) + 8 * k), v49, v50);
-                IMDSqlStatementBindInt64(v108, v54);
+                v70 = objc_msgSend_longLongValue(*(*(&v105 + 1) + 8 * k), v64, v65, v66);
+                IMDSqlStatementBindInt64(v128, v70);
               }
 
-              v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v49, &v85, v99, 16);
+              v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v62, v64, &v105, v119, 16);
             }
 
-            while (v51);
+            while (v67);
           }
 
-          v83 = 0u;
-          v84 = 0u;
-          v81 = 0u;
-          v82 = 0u;
-          v55 = v47;
-          v59 = objc_msgSend_countByEnumeratingWithState_objects_count_(v55, v56, &v81, v98, 16);
-          if (v59)
+          v103 = 0u;
+          v104 = 0u;
+          v101 = 0u;
+          v102 = 0u;
+          v71 = v62;
+          v76 = objc_msgSend_countByEnumeratingWithState_objects_count_(v71, v72, &v101, v118, 16);
+          if (v76)
           {
-            v60 = *v82;
+            v77 = *v102;
             do
             {
-              for (m = 0; m != v59; ++m)
+              for (m = 0; m != v76; ++m)
               {
-                if (*v82 != v60)
+                if (*v102 != v77)
                 {
-                  objc_enumerationMutation(v55);
+                  objc_enumerationMutation(v71);
                 }
 
-                v62 = objc_msgSend_longLongValue(*(*(&v81 + 1) + 8 * m), v57, v58);
-                IMDSqlStatementBindInt64(v108, v62);
+                v79 = objc_msgSend_longLongValue(*(*(&v101 + 1) + 8 * m), v73, v74, v75);
+                IMDSqlStatementBindInt64(v128, v79);
               }
 
-              v59 = objc_msgSend_countByEnumeratingWithState_objects_count_(v55, v57, &v81, v98, 16);
+              v76 = objc_msgSend_countByEnumeratingWithState_objects_count_(v71, v73, &v101, v118, 16);
             }
 
-            while (v59);
+            while (v76);
           }
 
           if (!IMDSqlOperationFinishQuery(buf))
           {
-            v63 = *(&v109 + 1);
-            v64 = IMLogHandleForCategory();
-            if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+            v80 = *(&v129 + 1);
+            v81 = IMLogHandleForCategory();
+            if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
             {
-              sub_1B7CF765C(v63, v64, v65);
+              sub_1B7CF765C(v80, v81, v82, v83);
             }
           }
 
           IMDSqlOperationCommitOrRevertTransaction(buf);
-          v80 = 0;
-          v66 = IMDSqlOperationRelease(buf, &v80);
-          v68 = v80;
-          if (v66)
+          v100 = 0;
+          v84 = IMDSqlOperationRelease(buf, &v100);
+          v87 = v100;
+          if (v84)
           {
-            objc_msgSend_enumerateObjectsUsingBlock_(v78, v67, &unk_1F2FA0310);
+            objc_msgSend_enumerateObjectsUsingBlock_(v98, v85, &unk_1F2FA0310, v86);
             IMDCoreSpotlightScheduleUpdateForDeletedMessages(1005);
           }
 
           else
           {
-            v69 = IMLogHandleForCategory();
-            if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+            v88 = IMLogHandleForCategory();
+            if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
             {
-              sub_1B7CF76EC(v68, v69, v70);
+              sub_1B7CF76EC(v87, v88, v89, v90);
             }
           }
 
-          v71 = IMDatabaseLogHandle();
-          if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+          v91 = IMDatabaseLogHandle();
+          if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
           {
-            v74 = objc_msgSend_count(v78, v72, v73);
-            LODWORD(v101) = 134217984;
-            *(&v101 + 4) = v74;
-            _os_log_impl(&dword_1B7AD5000, v71, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Finished moving messages to recoverable message table for %lu chatGUIDs", &v101, 0xCu);
+            v95 = objc_msgSend_count(v98, v92, v93, v94);
+            LODWORD(v121) = 134217984;
+            *(&v121 + 4) = v95;
+            _os_log_impl(&dword_1B7AD5000, v91, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Finished moving messages to recoverable message table for %lu chatGUIDs", &v121, 0xCu);
           }
         }
       }
 
-      v19 = theString;
+      v26 = theString;
     }
   }
-
-  v75 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recoverMessageRecordsForChatRecordsWithGUIDs:(id)ds
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
-  v4 = objc_msgSend_setWithArray_(MEMORY[0x1E695DFD8], v3, dsCopy);
-  v7 = objc_msgSend_allObjects(v4, v5, v6);
+  v5 = objc_msgSend_setWithArray_(MEMORY[0x1E695DFD8], v3, dsCopy, v4);
+  v9 = objc_msgSend_allObjects(v5, v6, v7, v8);
 
-  v48 = objc_msgSend_date(MEMORY[0x1E695DF00], v8, v9);
-  v10 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v60 = objc_msgSend_date(MEMORY[0x1E695DF00], v10, v11, v12);
+  v13 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    *&buf[4] = objc_msgSend_count(v7, v11, v12);
+    *&buf[4] = objc_msgSend_count(v9, v14, v15, v16);
     *&buf[12] = 2112;
-    *&buf[14] = v48;
-    _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Will begin recovering messages for %lu unique chatGUIDs on date %@", buf, 0x16u);
+    *&buf[14] = v60;
+    _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Will begin recovering messages for %lu unique chatGUIDs on date %@", buf, 0x16u);
   }
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
-  v72 = 0u;
-  v70 = 0u;
+  v89 = 0u;
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
+  v85 = 0u;
+  v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
+  v82 = 0u;
   memset(buf, 0, sizeof(buf));
   IMDSqlOperationInitWithSharedCSDBDatabase(buf);
   IMDSqlOperationBeginTransaction(buf);
-  v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  obj = v7;
-  v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v51, v68, 16);
-  if (!v46)
+  v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  obj = v9;
+  v58 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v18, &v63, v80, 16);
+  if (!v58)
   {
     goto LABEL_30;
   }
 
-  v45 = *v52;
+  v57 = *v64;
   while (2)
   {
-    for (i = 0; i != v46; ++i)
+    for (i = 0; i != v58; ++i)
     {
-      if (*v52 != v45)
+      if (*v64 != v57)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v51 + 1) + 8 * i);
+      v20 = *(*(&v63 + 1) + 8 * i);
       _IMDSqlOperationBeginQuery(buf, @" SELECT m.guid FROM chat_recoverable_message_join AS crmj JOIN chat AS c  ON crmj.chat_id = c.ROWID AND c.guid = ? JOIN message AS m  ON crmj.message_id = m.ROWID;");
-      IMDSqlStatementBindTextFromCFString(&v70, v16);
+      IMDSqlStatementBindTextFromCFString(&v82, v20);
       if (IMDSqlOperationHasRows(buf))
       {
-        v17 = MEMORY[0x1E69E9820];
+        v21 = MEMORY[0x1E69E9820];
         do
         {
-          *v55 = 0;
-          *&v55[8] = v55;
-          *&v56 = 0x3032000000;
-          *(&v56 + 1) = sub_1B7AE1A14;
-          *&v57 = sub_1B7AE2520;
-          *(&v57 + 1) = 0;
-          v50[0] = v17;
-          v50[1] = 3221225472;
-          v50[2] = sub_1B7B7D6E4;
-          v50[3] = &unk_1E7CBAD90;
-          v50[4] = v16;
-          v50[5] = v55;
-          IMDSqlOperationIterateRow(buf, v50);
-          v19 = *(*&v55[8] + 40);
-          if (v19)
+          *v67 = 0;
+          *&v67[8] = v67;
+          *&v68 = 0x3032000000;
+          *(&v68 + 1) = sub_1B7AE1A14;
+          *&v69 = sub_1B7AE2520;
+          *(&v69 + 1) = 0;
+          v62[0] = v21;
+          v62[1] = 3221225472;
+          v62[2] = sub_1B7B7D6E4;
+          v62[3] = &unk_1E7CBAD90;
+          v62[4] = v20;
+          v62[5] = v67;
+          IMDSqlOperationIterateRow(buf, v62);
+          v24 = *(*&v67[8] + 40);
+          if (v24)
           {
-            objc_msgSend_addObject_(v13, v18, v19);
+            objc_msgSend_addObject_(v17, v22, v24, v23);
           }
 
-          _Block_object_dispose(v55, 8);
+          _Block_object_dispose(v67, 8);
         }
 
         while (IMDSqlOperationHasRows(buf));
@@ -5824,41 +5931,41 @@ LABEL_24:
 
       if (!IMDSqlOperationFinishQuery(buf))
       {
-        v26 = *(&v78 + 1);
-        v27 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v32 = *(&v90 + 1);
+        v33 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          sub_1B7CF777C(v16, v26, v27);
+          sub_1B7CF777C(v20, v32, v33, v34);
         }
 
         goto LABEL_29;
       }
 
       _IMDSqlOperationBeginQuery(buf, @"UPDATE message set date_recovered = ?, ck_sync_state = 0 WHERE ROWID in (SELECT crmj.message_id FROM chat_recoverable_message_join AS crmj JOIN chat AS c  ON crmj.chat_id = c.ROWID AND c.guid = ?);");
-      v22 = objc_msgSend___im_nanosecondTimeInterval(v48, v20, v21);
-      IMDSqlStatementBindInt64(&v70, v22);
-      IMDSqlStatementBindTextFromCFString(&v70, v16);
+      v28 = objc_msgSend___im_nanosecondTimeInterval(v60, v25, v26, v27);
+      IMDSqlStatementBindInt64(&v82, v28);
+      IMDSqlStatementBindTextFromCFString(&v82, v20);
       if (!IMDSqlOperationFinishQuery(buf))
       {
-        v26 = *(&v78 + 1);
-        v27 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v32 = *(&v90 + 1);
+        v33 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          sub_1B7CF781C(v16, v26, v27);
+          sub_1B7CF781C(v20, v32, v33, v35);
         }
 
         goto LABEL_29;
       }
 
       _IMDSqlOperationBeginQuery(buf, @"INSERT INTO chat_message_join (chat_id, message_id, message_date) SELECT crmj.chat_id, crmj.message_id, m.date FROM chat_recoverable_message_join AS crmj JOIN chat AS c  ON crmj.chat_id = c.ROWID AND c.guid = ? JOIN message AS m  ON crmj.message_id = m.ROWID;");
-      IMDSqlStatementBindTextFromCFString(&v70, v16);
+      IMDSqlStatementBindTextFromCFString(&v82, v20);
       if (!IMDSqlOperationFinishQuery(buf))
       {
-        v26 = *(&v78 + 1);
-        v27 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v32 = *(&v90 + 1);
+        v33 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          sub_1B7CF78BC(v16, v26, v27);
+          sub_1B7CF78BC(v20, v32, v33, v36);
         }
 
 LABEL_29:
@@ -5867,20 +5974,20 @@ LABEL_29:
       }
 
       _IMDSqlOperationBeginQuery(buf, @"INSERT INTO unsynced_removed_recoverable_messages (chat_guid, message_guid, part_index) SELECT c.guid, m.guid, -1 FROM chat_recoverable_message_join AS crmj JOIN chat AS c  ON c.ROWID=crmj.chat_id AND c.guid=? JOIN message AS m  ON m.ROWID=crmj.message_id AND crmj.ck_sync_state=1;");
-      IMDSqlStatementBindTextFromCFString(&v70, v16);
+      IMDSqlStatementBindTextFromCFString(&v82, v20);
       if (!IMDSqlOperationFinishQuery(buf))
       {
-        v24 = *(&v78 + 1);
-        v25 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v30 = *(&v90 + 1);
+        v31 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
-          sub_1B7CF795C(v66, v24, &v67, v25);
+          sub_1B7CF795C(v78, v30, &v79, v31);
         }
       }
     }
 
-    v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v23, &v51, v68, 16);
-    if (v46)
+    v58 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v29, &v63, v80, 16);
+    if (v58)
     {
       continue;
     }
@@ -5893,317 +6000,309 @@ LABEL_30:
   _IMDSqlOperationBeginQuery(buf, @"DELETE FROM chat_recoverable_message_join WHERE message_id IN(SELECT message_id FROM chat_message_join);");
   if (!IMDSqlOperationFinishQuery(buf))
   {
-    v29 = *(&v78 + 1);
-    v30 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v38 = *(&v90 + 1);
+    v39 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CF79D4(v29, v30, v31);
+      sub_1B7CF79D4(v38, v39, v40, v41);
     }
   }
 
-  v62 = v75;
-  v63 = v76;
-  v64 = v77;
-  v65 = v78;
-  v58 = v71;
-  v59 = v72;
-  v60 = v73;
-  v61 = v74;
-  *v55 = *buf;
-  v56 = *&buf[16];
-  v57 = v70;
-  objc_msgSend__recoverMessagePartsForChatRecordsWithGUIDs_dateRecovered_operation_(self, v28, obj, v48, v55);
+  v74 = v87;
+  v75 = v88;
+  v76 = v89;
+  v77 = v90;
+  v70 = v83;
+  v71 = v84;
+  v72 = v85;
+  v73 = v86;
+  *v67 = *buf;
+  v68 = *&buf[16];
+  v69 = v82;
+  objc_msgSend__recoverMessagePartsForChatRecordsWithGUIDs_dateRecovered_operation_(self, v37, obj, v60, v67);
   IMDSqlOperationCommitOrRevertTransaction(buf);
-  v49 = 0;
-  v32 = IMDSqlOperationRelease(buf, &v49);
-  v33 = v49;
-  if (v32)
+  v61 = 0;
+  v42 = IMDSqlOperationRelease(buf, &v61);
+  v43 = v61;
+  if (v42)
   {
     IMDCoreSpotlightAddChatGUIDs(obj, 1005);
-    if (objc_msgSend_count(v13, v34, v35))
+    if (objc_msgSend_count(v17, v44, v45, v46))
     {
-      IMDCoreSpotlightAddMessageGUIDs(v13, 1005);
+      IMDCoreSpotlightAddMessageGUIDs(v17, 1005);
     }
   }
 
   else
   {
-    v36 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v47 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CF7A64(v33, v36, v37);
+      sub_1B7CF7A64(v43, v47, v48, v49);
     }
   }
 
-  v38 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+  v50 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
   {
-    v41 = objc_msgSend_count(obj, v39, v40);
-    *v55 = 134217984;
-    *&v55[4] = v41;
-    _os_log_impl(&dword_1B7AD5000, v38, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Finished recovering messages for %lu unique chatGUIDs", v55, 0xCu);
+    v54 = objc_msgSend_count(obj, v51, v52, v53);
+    *v67 = 134217984;
+    *&v67[4] = v54;
+    _os_log_impl(&dword_1B7AD5000, v50, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Finished recovering messages for %lu unique chatGUIDs", v67, 0xCu);
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_recoverMessagePartsForChatRecordsWithGUIDs:(id)ds dateRecovered:(id)recovered operation:(IMDSqlOperation *)operation
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   recoveredCopy = recovered;
-  v9 = objc_msgSend_setWithArray_(MEMORY[0x1E695DFD8], v8, ds);
-  v12 = objc_msgSend_allObjects(v9, v10, v11);
+  v10 = objc_msgSend_setWithArray_(MEMORY[0x1E695DFD8], v8, ds, v9);
+  v14 = objc_msgSend_allObjects(v10, v11, v12, v13);
 
-  v13 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v15 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v63 = objc_msgSend_count(v12, v14, v15);
-    _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "Recently Deleted | Parts: Will begin recovering message parts for %lu unique chatGUIDs", buf, 0xCu);
+    v69 = objc_msgSend_count(v14, v16, v17, v18);
+    _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "Recently Deleted | Parts: Will begin recovering message parts for %lu unique chatGUIDs", buf, 0xCu);
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
-  v16 = v12;
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v57, v61, 16);
-  if (v18)
+  v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v19 = v14;
+  v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v20, &v63, v67, 16);
+  if (v21)
   {
-    v21 = v18;
-    v22 = *v58;
-    v41 = v44;
-    *&v20 = 138412290;
-    v40 = v20;
+    v25 = v21;
+    v26 = *v64;
+    v47 = v50;
+    *&v24 = 138412290;
+    v46 = v24;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v58 != v22)
+        if (*v64 != v26)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v57 + 1) + 8 * i);
-        v25 = objc_msgSend__loadRecoverableMessagePartsMetadataForChatGUID_(self, v19, v24, v40, v41);
-        if (objc_msgSend_count(v25, v26, v27))
+        v28 = *(*(&v63 + 1) + 8 * i);
+        v29 = objc_msgSend__loadRecoverableMessagePartsMetadataForChatGUID_(self, v22, v28, v23, v46, v47);
+        if (objc_msgSend_count(v29, v30, v31, v32))
         {
-          v43[0] = MEMORY[0x1E69E9820];
-          v43[1] = 3221225472;
-          v44[0] = sub_1B7B7DB78;
-          v44[1] = &unk_1E7CBADB8;
-          v44[2] = self;
-          v45 = recoveredCopy;
-          v28 = *&operation->var4.var7.var4;
-          v54 = *&operation->var4.var7.var2;
-          v55 = v28;
-          v56 = *&operation->var4.var7.var6;
-          v29 = *&operation->var4.var7.var0.var0;
-          v50 = *&operation->var4.var4;
-          v51 = v29;
-          v30 = *&operation->var4.var7.var0.var4;
-          v52 = *&operation->var4.var7.var0.var2;
-          v53 = v30;
-          v31 = *&operation->var2;
-          v46 = *&operation->var0;
-          v47 = v31;
-          v32 = *&operation->var4.var2;
-          v48 = *&operation->var4.var0;
-          v49 = v32;
-          objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v25, v33, v43);
+          v49[0] = MEMORY[0x1E69E9820];
+          v49[1] = 3221225472;
+          v50[0] = sub_1B7B7DB78;
+          v50[1] = &unk_1E7CBADB8;
+          v50[2] = self;
+          v51 = recoveredCopy;
+          v33 = *&operation->var4.var7.var4;
+          v60 = *&operation->var4.var7.var2;
+          v61 = v33;
+          v62 = *&operation->var4.var7.var6;
+          v34 = *&operation->var4.var7.var0.var0;
+          v56 = *&operation->var4.var4;
+          v57 = v34;
+          v35 = *&operation->var4.var7.var0.var4;
+          v58 = *&operation->var4.var7.var0.var2;
+          v59 = v35;
+          v36 = *&operation->var2;
+          v52 = *&operation->var0;
+          v53 = v36;
+          v37 = *&operation->var4.var2;
+          v54 = *&operation->var4.var0;
+          v55 = v37;
+          objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v29, v38, v49, v39);
         }
 
         else
         {
-          v34 = IMDatabaseLogHandle();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+          v40 = IMDatabaseLogHandle();
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
           {
-            *buf = v40;
-            v63 = v24;
-            _os_log_impl(&dword_1B7AD5000, v34, OS_LOG_TYPE_INFO, "Recently Deleted | Parts: No parts metadata found for chatGUID: %@. This state is valid if there are no message part deletions.", buf, 0xCu);
+            *buf = v46;
+            v69 = v28;
+            _os_log_impl(&dword_1B7AD5000, v40, OS_LOG_TYPE_INFO, "Recently Deleted | Parts: No parts metadata found for chatGUID: %@. This state is valid if there are no message part deletions.", buf, 0xCu);
           }
         }
       }
 
-      v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v57, v61, 16);
+      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v22, &v63, v67, 16);
+    }
+
+    while (v25);
+  }
+
+  v41 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+  {
+    v45 = objc_msgSend_count(v19, v42, v43, v44);
+    *buf = 134217984;
+    v69 = v45;
+    _os_log_impl(&dword_1B7AD5000, v41, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Finished recovering message parts for %lu unique chatGUIDs", buf, 0xCu);
+  }
+}
+
+- (id)_restoredAttributedBodyForMessageGUID:(id)d withRecoveredAttributedParts:(id)parts
+{
+  v37 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  partsCopy = parts;
+  v10 = objc_msgSend__loadAttributedBodyTextForMessageWithGUID_(self, v8, dCopy, v9);
+  if (!v10)
+  {
+    v14 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      sub_1B7CF7AF4();
+    }
+
+    v10 = objc_alloc_init(MEMORY[0x1E696AAB0]);
+  }
+
+  v29 = v10;
+  v15 = objc_msgSend_mutableCopy(v10, v11, v12, v13);
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v16 = partsCopy;
+  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v30, v36, 16);
+  if (v18)
+  {
+    v21 = v18;
+    v22 = *v31;
+    do
+    {
+      for (i = 0; i != v21; ++i)
+      {
+        if (*v31 != v22)
+        {
+          objc_enumerationMutation(v16);
+        }
+
+        v24 = *(*(&v30 + 1) + 8 * i);
+        v25 = objc_msgSend___im_insertionIndexForMessagePartBody_(v15, v19, v24, v20);
+        if (v25 == 0x7FFFFFFFFFFFFFFFLL)
+        {
+          v27 = IMLogHandleForCategory();
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138412290;
+            v35 = dCopy;
+            _os_log_error_impl(&dword_1B7AD5000, v27, OS_LOG_TYPE_ERROR, "Recently Deleted | Cannot recover: message part number already exists. Not inserting into main message body for messageGUID: %@", buf, 0xCu);
+          }
+        }
+
+        else
+        {
+          objc_msgSend_insertAttributedString_atIndex_(v15, v26, v24, v25);
+        }
+      }
+
+      v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v19, &v30, v36, 16);
     }
 
     while (v21);
   }
 
-  v35 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
-  {
-    v38 = objc_msgSend_count(v16, v36, v37);
-    *buf = 134217984;
-    v63 = v38;
-    _os_log_impl(&dword_1B7AD5000, v35, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Finished recovering message parts for %lu unique chatGUIDs", buf, 0xCu);
-  }
-
-  v39 = *MEMORY[0x1E69E9840];
-}
-
-- (id)_restoredAttributedBodyForMessageGUID:(id)d withRecoveredAttributedParts:(id)parts
-{
-  v35 = *MEMORY[0x1E69E9840];
-  dCopy = d;
-  partsCopy = parts;
-  v9 = objc_msgSend__loadAttributedBodyTextForMessageWithGUID_(self, v8, dCopy);
-  if (!v9)
-  {
-    v12 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      sub_1B7CF7AF4();
-    }
-
-    v9 = objc_alloc_init(MEMORY[0x1E696AAB0]);
-  }
-
-  v27 = v9;
-  v13 = objc_msgSend_mutableCopy(v9, v10, v11);
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v14 = partsCopy;
-  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v28, v34, 16);
-  if (v16)
-  {
-    v18 = v16;
-    v19 = *v29;
-    do
-    {
-      for (i = 0; i != v18; ++i)
-      {
-        if (*v29 != v19)
-        {
-          objc_enumerationMutation(v14);
-        }
-
-        v21 = *(*(&v28 + 1) + 8 * i);
-        v22 = objc_msgSend___im_insertionIndexForMessagePartBody_(v13, v17, v21);
-        if (v22 == 0x7FFFFFFFFFFFFFFFLL)
-        {
-          v24 = IMLogHandleForCategory();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 138412290;
-            v33 = dCopy;
-            _os_log_error_impl(&dword_1B7AD5000, v24, OS_LOG_TYPE_ERROR, "Recently Deleted | Cannot recover: message part number already exists. Not inserting into main message body for messageGUID: %@", buf, 0xCu);
-          }
-        }
-
-        else
-        {
-          objc_msgSend_insertAttributedString_atIndex_(v13, v23, v21, v22);
-        }
-      }
-
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v28, v34, 16);
-    }
-
-    while (v18);
-  }
-
-  v25 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v15;
 }
 
 - (void)_updateMessageRecordForGUID:(id)d withAttributedBody:(id)body dateRecovered:(id)recovered operation:(IMDSqlOperation *)operation
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dCopy = d;
   recoveredCopy = recovered;
   bodyCopy = body;
   v13 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    LODWORD(v32[0]) = 138412290;
-    *(v32 + 4) = dCopy;
-    _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "Recently Deleted | Parts: Writing restored part to message GUID: %@", v32, 0xCu);
+    LODWORD(v34[0]) = 138412290;
+    *(v34 + 4) = dCopy;
+    _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "Recently Deleted | Parts: Writing restored part to message GUID: %@", v34, 0xCu);
   }
 
   v14 = JWEncodeCodableObject();
   _IMDSqlOperationBeginQuery(operation, @"UPDATE message SET attributedBody = ?, text = ?, date_recovered = ?, ck_sync_state = 0   WHERE message.guid = ?;");
   IMDSqlStatementBindBlob(&operation->var4, v14);
-  v17 = objc_msgSend_string(bodyCopy, v15, v16);
+  v18 = objc_msgSend_string(bodyCopy, v15, v16, v17);
 
-  IMDSqlStatementBindTextFromCFString(&operation->var4, v17);
+  IMDSqlStatementBindTextFromCFString(&operation->var4, v18);
   if (recoveredCopy)
   {
-    v20 = objc_msgSend___im_nanosecondTimeInterval(recoveredCopy, v18, v19);
+    v22 = objc_msgSend___im_nanosecondTimeInterval(recoveredCopy, v19, v20, v21);
   }
 
   else
   {
-    v20 = 0;
+    v22 = 0;
   }
 
-  IMDSqlStatementBindInt64(&operation->var4, v20);
+  IMDSqlStatementBindInt64(&operation->var4, v22);
   IMDSqlStatementBindTextFromCFString(&operation->var4, dCopy);
   if (IMDSqlOperationFinishQuery(operation))
   {
-    v21 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v23 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      LODWORD(v32[0]) = 138412290;
-      *(v32 + 4) = dCopy;
-      _os_log_impl(&dword_1B7AD5000, v21, OS_LOG_TYPE_INFO, "Recently Deleted | updated attributedbody for messageGUID: %@", v32, 0xCu);
+      LODWORD(v34[0]) = 138412290;
+      *(v34 + 4) = dCopy;
+      _os_log_impl(&dword_1B7AD5000, v23, OS_LOG_TYPE_INFO, "Recently Deleted | updated attributedbody for messageGUID: %@", v34, 0xCu);
     }
 
-    v22 = *&operation->var4.var7.var4;
-    v32[8] = *&operation->var4.var7.var2;
-    v32[9] = v22;
-    v32[10] = *&operation->var4.var7.var6;
-    v23 = *&operation->var4.var7.var0.var0;
-    v32[4] = *&operation->var4.var4;
-    v32[5] = v23;
-    v24 = *&operation->var4.var7.var0.var4;
-    v32[6] = *&operation->var4.var7.var0.var2;
-    v32[7] = v24;
-    v25 = *&operation->var2;
-    v32[0] = *&operation->var0;
-    v32[1] = v25;
-    v26 = *&operation->var4.var2;
-    v32[2] = *&operation->var4.var0;
-    v32[3] = v26;
-    objc_msgSend__removeFromRecoverableMessagePartForMessageGUID_operation_(self, v27, dCopy, v32);
+    v24 = *&operation->var4.var7.var4;
+    v34[8] = *&operation->var4.var7.var2;
+    v34[9] = v24;
+    v34[10] = *&operation->var4.var7.var6;
+    v25 = *&operation->var4.var7.var0.var0;
+    v34[4] = *&operation->var4.var4;
+    v34[5] = v25;
+    v26 = *&operation->var4.var7.var0.var4;
+    v34[6] = *&operation->var4.var7.var0.var2;
+    v34[7] = v26;
+    v27 = *&operation->var2;
+    v34[0] = *&operation->var0;
+    v34[1] = v27;
+    v28 = *&operation->var4.var2;
+    v34[2] = *&operation->var4.var0;
+    v34[3] = v28;
+    objc_msgSend__removeFromRecoverableMessagePartForMessageGUID_operation_(self, v29, dCopy, v34);
     IMDCoreSpotlightAddMessageGUID(dCopy, 1005);
   }
 
   else
   {
-    v28 = operation->var5;
-    v29 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v30 = operation->var5;
+    v31 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CF7B68(dCopy, v28, v29);
+      sub_1B7CF7B68(dCopy, v30, v31, v32);
     }
   }
 
-  v30 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+  v33 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
   {
-    LODWORD(v32[0]) = 138412290;
-    *(v32 + 4) = dCopy;
-    _os_log_impl(&dword_1B7AD5000, v30, OS_LOG_TYPE_INFO, "Recently Deleted | Parts: Finished writing restored part to message GUID: %@", v32, 0xCu);
+    LODWORD(v34[0]) = 138412290;
+    *(v34 + 4) = dCopy;
+    _os_log_impl(&dword_1B7AD5000, v33, OS_LOG_TYPE_INFO, "Recently Deleted | Parts: Finished writing restored part to message GUID: %@", v34, 0xCu);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeFromRecoverableMessagePartForMessageGUID:(id)d operation:(IMDSqlOperation *)operation
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v6 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v15 = 138412290;
-    v16 = dCopy;
-    _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "Recently Deleted | Parts: Removing recoverable message parts for message GUID: %@", &v15, 0xCu);
+    v16 = 138412290;
+    v17 = dCopy;
+    _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "Recently Deleted | Parts: Removing recoverable message parts for message GUID: %@", &v16, 0xCu);
   }
 
   _IMDSqlOperationBeginQuery(operation, @"INSERT INTO unsynced_removed_recoverable_messages (chat_guid, message_guid, part_index) SELECT c.guid, m.guid, rmp.part_index  FROM recoverable_message_part AS rmp  JOIN chat AS c   ON c.ROWID=rmp.chat_id  JOIN message AS m   ON m.ROWID=rmp.message_id AND m.guid=? AND rmp.ck_sync_state=1;");
@@ -6214,7 +6313,7 @@ LABEL_30:
     v8 = IMLogHandleForCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CF7C04(v7, v8, v9);
+      sub_1B7CF7C04(v7, v8, v9, v10);
     }
   }
 
@@ -6222,28 +6321,26 @@ LABEL_30:
   IMDSqlStatementBindTextFromCFString(&operation->var4, dCopy);
   if (!IMDSqlOperationFinishQuery(operation))
   {
-    v10 = operation->var5;
-    v11 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v11 = operation->var5;
+    v12 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CF7C90(v10, v11, v12);
+      sub_1B7CF7C90(v11, v12, v13, v14);
     }
   }
 
-  v13 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v15 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v15 = 138412290;
-    v16 = dCopy;
-    _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "Recently Deleted | Parts: Finished removing recoverable message parts for message GUID: %@", &v15, 0xCu);
+    v16 = 138412290;
+    v17 = dCopy;
+    _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "Recently Deleted | Parts: Finished removing recoverable message parts for message GUID: %@", &v16, 0xCu);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_loadAttributedBodyTextForMessageWithGUID:(id)d
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v4 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -6255,37 +6352,35 @@ LABEL_30:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v16 = 0x3032000000;
-  v17 = sub_1B7AE1A14;
-  v18 = sub_1B7AE2520;
-  v19 = 0;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = sub_1B7B7E4D8;
-  v10[3] = &unk_1E7CBADE0;
+  v15 = 0x3032000000;
+  v16 = sub_1B7AE1A14;
+  v17 = sub_1B7AE2520;
+  v18 = 0;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_1B7B7E4D8;
+  v9[3] = &unk_1E7CBADE0;
   v5 = dCopy;
-  v11 = v5;
+  v10 = v5;
   p_buf = &buf;
-  IMDRunSqlOperation(v10);
+  IMDRunSqlOperation(v9);
   v6 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v13 = 138412290;
-    v14 = v5;
-    _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "Recently Deleted | Parts: Finished loading attributed message body for message GUID: %@", v13, 0xCu);
+    *v12 = 138412290;
+    v13 = v5;
+    _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "Recently Deleted | Parts: Finished loading attributed message body for message GUID: %@", v12, 0xCu);
   }
 
   v7 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)_loadRecoverableMessagePartsMetadataForChatGUID:(id)d
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v4 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -6297,107 +6392,103 @@ LABEL_30:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v16 = 0x3032000000;
-  v17 = sub_1B7AE1A14;
-  v18 = sub_1B7AE2520;
-  v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = sub_1B7B7EBC8;
-  v10[3] = &unk_1E7CBADE0;
+  v15 = 0x3032000000;
+  v16 = sub_1B7AE1A14;
+  v17 = sub_1B7AE2520;
+  v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_1B7B7EBC8;
+  v9[3] = &unk_1E7CBADE0;
   v5 = dCopy;
-  v11 = v5;
+  v10 = v5;
   p_buf = &buf;
-  IMDRunSqlOperation(v10);
+  IMDRunSqlOperation(v9);
   v6 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v13 = 138412290;
-    v14 = v5;
-    _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "Recently Deleted | Parts: Finished loading message parts metadata for chat GUID: %@", v13, 0xCu);
+    *v12 = 138412290;
+    v13 = v5;
+    _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "Recently Deleted | Parts: Finished loading message parts metadata for chat GUID: %@", v12, 0xCu);
   }
 
   v7 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)_chatGUIDsForChatsWithRecoverableMessagesOlderThanDate:(id)date operation:(IMDSqlOperation *)operation
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
   operationCopy = operation;
-  v24 = MEMORY[0x1E69E9820];
-  v25 = 3221225472;
-  v26 = sub_1B7B7F518;
-  v27 = &unk_1E7CB8680;
-  v28 = dateCopy;
+  v25 = MEMORY[0x1E69E9820];
+  v26 = 3221225472;
+  v27 = sub_1B7B7F518;
+  v28 = &unk_1E7CB8680;
+  v29 = dateCopy;
   operationCopy2 = operation;
-  v18 = MEMORY[0x1E69E9820];
-  v19 = 3221225472;
-  v20 = sub_1B7B7F554;
-  v21 = &unk_1E7CB8680;
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = sub_1B7B7F554;
+  v22 = &unk_1E7CB8680;
   v7 = v6;
-  v22 = v7;
+  v23 = v7;
   v8 = dateCopy;
-  _IMDSqlOperationRunQuery(operation, @"SELECT c.guid FROM chat_recoverable_message_join AS crmj JOIN message AS m ON m.ROWID = crmj.message_id  JOIN chat AS c ON c.ROWID = crmj.chat_id WHERE(  crmj.delete_date < ?  AND   NOT (m.group_action_type IN (1,3) AND (m.ROWID IN (SELECT message_id FROM message_attachment_join))) ) GROUP BY    c.guid  ", &v24, &v18);
+  _IMDSqlOperationRunQuery(operation, @"SELECT c.guid FROM chat_recoverable_message_join AS crmj JOIN message AS m ON m.ROWID = crmj.message_id  JOIN chat AS c ON c.ROWID = crmj.chat_id WHERE(  crmj.delete_date < ?  AND   NOT (m.group_action_type IN (1,3) AND (m.ROWID IN (SELECT message_id FROM message_attachment_join))) ) GROUP BY    c.guid  ", &v25, &v19);
   v9 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = objc_msgSend_count(v7, v10, v11, v18, v19, v20, v21, v22, operationCopy, v24, v25, v26, v27, v28, operationCopy2);
+    v13 = objc_msgSend_count(v7, v10, v11, v12, v19, v20, v21, v22, v23, operationCopy, v25, v26, v27, v28, v29, operationCopy2);
     *buf = 134217984;
-    v31 = v12;
+    v32 = v13;
     _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_DEFAULT, "Found %llu chats affected by message deletion", buf, 0xCu);
   }
 
-  v15 = objc_msgSend_copy(v7, v13, v14);
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = objc_msgSend_copy(v7, v14, v15, v16);
 
-  return v15;
+  return v17;
 }
 
 - (id)_chatGUIDsForChatsWithJunkMessagesOlderThanDate:(id)date operation:(IMDSqlOperation *)operation
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
   operationCopy = operation;
-  v24 = MEMORY[0x1E69E9820];
-  v25 = 3221225472;
-  v26 = sub_1B7B7F900;
-  v27 = &unk_1E7CB8680;
-  v28 = dateCopy;
+  v25 = MEMORY[0x1E69E9820];
+  v26 = 3221225472;
+  v27 = sub_1B7B7F900;
+  v28 = &unk_1E7CB8680;
+  v29 = dateCopy;
   operationCopy2 = operation;
-  v18 = MEMORY[0x1E69E9820];
-  v19 = 3221225472;
-  v20 = sub_1B7B7F93C;
-  v21 = &unk_1E7CB8680;
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = sub_1B7B7F93C;
+  v22 = &unk_1E7CB8680;
   v7 = v6;
-  v22 = v7;
+  v23 = v7;
   v8 = dateCopy;
-  _IMDSqlOperationRunQuery(operation, @"SELECT c.guid FROM chat_message_join AS cmj JOIN message AS m ON m.ROWID = cmj.message_id  JOIN chat AS c ON c.ROWID = cmj.chat_id WHERE(  m.date < ?  AND   c.is_filtered = 2) GROUP BY    c.guid  ", &v24, &v18);
+  _IMDSqlOperationRunQuery(operation, @"SELECT c.guid FROM chat_message_join AS cmj JOIN message AS m ON m.ROWID = cmj.message_id  JOIN chat AS c ON c.ROWID = cmj.chat_id WHERE(  m.date < ?  AND   c.is_filtered = 2) GROUP BY    c.guid  ", &v25, &v19);
   v9 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = objc_msgSend_count(v7, v10, v11, v18, v19, v20, v21, v22, operationCopy, v24, v25, v26, v27, v28, operationCopy2);
+    v13 = objc_msgSend_count(v7, v10, v11, v12, v19, v20, v21, v22, v23, operationCopy, v25, v26, v27, v28, v29, operationCopy2);
     *buf = 134217984;
-    v31 = v12;
+    v32 = v13;
     _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_DEFAULT, "Found %llu chats affected by message deletion", buf, 0xCu);
   }
 
-  v15 = objc_msgSend_copy(v7, v13, v14);
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = objc_msgSend_copy(v7, v14, v15, v16);
 
-  return v15;
+  return v17;
 }
 
 - (id)_deleteChatIfEmptyWithGUID:(id)d lastMessageDate:(id)date operation:(IMDSqlOperation *)operation
 {
-  v96 = *MEMORY[0x1E69E9840];
+  v110 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dateCopy = date;
   isRecoverable_operation = objc_msgSend__countMessagesExcludingGroupPhotosInChatWithGUID_isRecoverable_operation_(self, v10, dCopy, 0, operation);
@@ -6405,13 +6496,13 @@ LABEL_30:
   v14 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v90 = 138412802;
-    v91 = dCopy;
-    v92 = 2048;
-    v93 = isRecoverable_operation;
-    v94 = 2048;
-    v95 = v13;
-    _os_log_impl(&dword_1B7AD5000, v14, OS_LOG_TYPE_DEFAULT, "Chat with guid %@ has %lld messages and %lld recoverable messages", &v90, 0x20u);
+    v104 = 138412802;
+    v105 = dCopy;
+    v106 = 2048;
+    v107 = isRecoverable_operation;
+    v108 = 2048;
+    v109 = v13;
+    _os_log_impl(&dword_1B7AD5000, v14, OS_LOG_TYPE_DEFAULT, "Chat with guid %@ has %lld messages and %lld recoverable messages", &v104, 0x20u);
   }
 
   v15 = 0;
@@ -6419,288 +6510,279 @@ LABEL_30:
   {
     v16 = IMDChatRecordCopyChatForGUID(dCopy);
     v17 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v20 = objc_msgSend_guid(v16, v18, v19);
-    objc_msgSend_setObject_forKeyedSubscript_(v17, v21, v20, *MEMORY[0x1E69A6B70]);
+    v21 = objc_msgSend_guid(v16, v18, v19, v20);
+    objc_msgSend_setObject_forKeyedSubscript_(v17, v22, v21, *MEMORY[0x1E69A6B70]);
 
-    v24 = objc_msgSend_chatIdentifier(v16, v22, v23);
-    objc_msgSend_setObject_forKeyedSubscript_(v17, v25, v24, *MEMORY[0x1E69A6B18]);
+    v26 = objc_msgSend_chatIdentifier(v16, v23, v24, v25);
+    objc_msgSend_setObject_forKeyedSubscript_(v17, v27, v26, *MEMORY[0x1E69A6B18]);
 
-    v28 = objc_msgSend_serviceName(v16, v26, v27);
-    objc_msgSend_setObject_forKeyedSubscript_(v17, v29, v28, *MEMORY[0x1E69A6C98]);
+    v31 = objc_msgSend_serviceName(v16, v28, v29, v30);
+    objc_msgSend_setObject_forKeyedSubscript_(v17, v32, v31, *MEMORY[0x1E69A6C98]);
 
-    v30 = MEMORY[0x1E696AD98];
-    v33 = objc_msgSend_style(v16, v31, v32);
-    v35 = objc_msgSend_numberWithUnsignedChar_(v30, v34, v33);
-    objc_msgSend_setObject_forKeyedSubscript_(v17, v36, v35, *MEMORY[0x1E69A6CA8]);
+    v33 = MEMORY[0x1E696AD98];
+    v37 = objc_msgSend_style(v16, v34, v35, v36);
+    v40 = objc_msgSend_numberWithUnsignedChar_(v33, v38, v37, v39);
+    objc_msgSend_setObject_forKeyedSubscript_(v17, v41, v40, *MEMORY[0x1E69A6CA8]);
 
-    v39 = objc_msgSend_groupID(v16, v37, v38);
+    v45 = objc_msgSend_groupID(v16, v42, v43, v44);
 
-    if (v39)
+    if (v45)
     {
-      v42 = objc_msgSend_groupID(v16, v40, v41);
-      objc_msgSend_setObject_forKeyedSubscript_(v17, v43, v42, *MEMORY[0x1E69A6B78]);
+      v49 = objc_msgSend_groupID(v16, v46, v47, v48);
+      objc_msgSend_setObject_forKeyedSubscript_(v17, v50, v49, *MEMORY[0x1E69A6B78]);
     }
 
-    v44 = objc_msgSend_originalGroupID(v16, v40, v41);
+    v51 = objc_msgSend_originalGroupID(v16, v46, v47, v48);
 
-    if (v44)
+    if (v51)
     {
-      v47 = objc_msgSend_originalGroupID(v16, v45, v46);
-      objc_msgSend_setObject_forKeyedSubscript_(v17, v48, v47, *MEMORY[0x1E69A6C50]);
+      v55 = objc_msgSend_originalGroupID(v16, v52, v53, v54);
+      objc_msgSend_setObject_forKeyedSubscript_(v17, v56, v55, *MEMORY[0x1E69A6C50]);
     }
 
-    v49 = objc_msgSend_accountID(v16, v45, v46);
+    v57 = objc_msgSend_accountID(v16, v52, v53, v54);
 
-    if (v49)
+    if (v57)
     {
-      v52 = objc_msgSend_accountID(v16, v50, v51);
-      objc_msgSend_setObject_forKeyedSubscript_(v17, v53, v52, *MEMORY[0x1E69A6AF0]);
+      v61 = objc_msgSend_accountID(v16, v58, v59, v60);
+      objc_msgSend_setObject_forKeyedSubscript_(v17, v62, v61, *MEMORY[0x1E69A6AF0]);
     }
 
-    v54 = objc_msgSend_properties(v16, v50, v51);
+    v63 = objc_msgSend_properties(v16, v58, v59, v60);
 
-    if (v54)
+    if (v63)
     {
-      v57 = objc_msgSend_properties(v16, v55, v56);
-      objc_msgSend_setObject_forKeyedSubscript_(v17, v58, v57, *MEMORY[0x1E69A6C70]);
+      v67 = objc_msgSend_properties(v16, v64, v65, v66);
+      objc_msgSend_setObject_forKeyedSubscript_(v17, v68, v67, *MEMORY[0x1E69A6C70]);
     }
 
-    v59 = objc_msgSend_lastAddressedHandle(v16, v55, v56);
+    v69 = objc_msgSend_lastAddressedHandle(v16, v64, v65, v66);
 
-    if (v59)
+    if (v69)
     {
-      v62 = objc_msgSend_lastAddressedHandle(v16, v60, v61);
-      objc_msgSend_setObject_forKeyedSubscript_(v17, v63, v62, *MEMORY[0x1E69A6BF0]);
+      v73 = objc_msgSend_lastAddressedHandle(v16, v70, v71, v72);
+      objc_msgSend_setObject_forKeyedSubscript_(v17, v74, v73, *MEMORY[0x1E69A6BF0]);
     }
 
-    v64 = objc_msgSend_lastAddressedSIMID(v16, v60, v61);
+    v75 = objc_msgSend_lastAddressedSIMID(v16, v70, v71, v72);
 
-    if (v64)
+    if (v75)
     {
-      v67 = objc_msgSend_lastAddressedSIMID(v16, v65, v66);
-      objc_msgSend_setObject_forKeyedSubscript_(v17, v68, v67, *MEMORY[0x1E69A6BF8]);
+      v79 = objc_msgSend_lastAddressedSIMID(v16, v76, v77, v78);
+      objc_msgSend_setObject_forKeyedSubscript_(v17, v80, v79, *MEMORY[0x1E69A6BF8]);
     }
 
-    v69 = *MEMORY[0x1E69A6D10];
-    v70 = *MEMORY[0x1E69A6D20];
-    v71 = IMGetCachedDomainBoolForKey();
-    v72 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+    v81 = IMGetCachedDomainBoolForKey();
+    v82 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
     {
-      v73 = @"NO";
-      if (v71)
+      v83 = @"NO";
+      if (v81)
       {
-        v73 = @"YES";
+        v83 = @"YES";
       }
 
-      v90 = 138412546;
-      v91 = dCopy;
-      v92 = 2112;
-      v93 = v73;
-      _os_log_impl(&dword_1B7AD5000, v72, OS_LOG_TYPE_DEFAULT, "Deleting empty chat %@, cloud sync enabled is %@", &v90, 0x16u);
+      v104 = 138412546;
+      v105 = dCopy;
+      v106 = 2112;
+      v107 = v83;
+      _os_log_impl(&dword_1B7AD5000, v82, OS_LOG_TYPE_DEFAULT, "Deleting empty chat %@, cloud sync enabled is %@", &v104, 0x16u);
     }
 
-    if (v71)
+    if (v81)
     {
-      v76 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v74, v75);
-      isOneChatEnabled = objc_msgSend_isOneChatEnabled(v76, v77, v78);
+      v87 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v84, v85, v86);
+      isOneChatEnabled = objc_msgSend_isOneChatEnabled(v87, v88, v89, v90);
 
       if (isOneChatEnabled)
       {
-        objc_msgSend__insertServiceBasedSyncDeletedChatRecordsForChatWithGUID_lastMessageDate_(self, v80, dCopy, dateCopy);
+        objc_msgSend__insertServiceBasedSyncDeletedChatRecordsForChatWithGUID_lastMessageDate_(self, v92, dCopy, dateCopy);
       }
 
       else
       {
-        v82 = objc_msgSend_cloudRecordID(v16, v80, v81);
-        v85 = objc_msgSend___im_nanosecondTimeInterval(dateCopy, v83, v84);
-        IMDChatInsertIntoDeletedChatsTable(dCopy, v82, v85);
+        v95 = objc_msgSend_cloudRecordID(v16, v92, v93, v94);
+        v99 = objc_msgSend___im_nanosecondTimeInterval(dateCopy, v96, v97, v98);
+        IMDChatInsertIntoDeletedChatsTable(dCopy, v95, v99);
       }
     }
 
     IMDChatRecordDeleteChatForGUID(dCopy);
-    v15 = objc_msgSend_copy(v17, v86, v87);
+    v15 = objc_msgSend_copy(v17, v100, v101, v102);
   }
-
-  v88 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (void)_insertServiceBasedSyncDeletedChatRecordsForChatWithGUID:(id)d lastMessageDate:(id)date
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dateCopy = date;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = sub_1B7AE1A14;
-  v50 = sub_1B7AE2520;
-  v51 = 0;
-  v8 = objc_msgSend_synchronousDatabase(IMDDatabase, v6, v7);
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = sub_1B7B80368;
-  v45[3] = &unk_1E7CBAE30;
-  v45[4] = &v46;
-  objc_msgSend_fetchSyncChatSlicesForChatWithGUID_completionHandler_(v8, v9, dCopy, v45);
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = sub_1B7AE1A14;
+  v54 = sub_1B7AE2520;
+  v55 = 0;
+  v9 = objc_msgSend_synchronousDatabase(IMDDatabase, v6, v7, v8);
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = sub_1B7B80368;
+  v49[3] = &unk_1E7CBAE30;
+  v49[4] = &v50;
+  objc_msgSend_fetchSyncChatSlicesForChatWithGUID_completionHandler_(v9, v10, dCopy, v49);
 
-  v36 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v10 = v47[5];
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v41, v52, 16);
-  if (v12)
+  v40 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v11 = v51[5];
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v45, v56, 16);
+  if (v13)
   {
-    v13 = *v42;
+    v14 = *v46;
     do
     {
-      v14 = 0;
+      v15 = 0;
       do
       {
-        if (*v42 != v13)
+        if (*v46 != v14)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v41 + 1) + 8 * v14);
-        v40 = 0;
-        v39 = 0;
+        v16 = *(*(&v45 + 1) + 8 * v15);
+        v44 = 0;
+        v43 = 0;
         IMComponentsFromChatGUID();
-        v16 = 0;
-        v19 = objc_msgSend_serviceName(v15, v17, v18);
-        v20 = IMCopyGUIDForChat();
+        v17 = 0;
+        v21 = objc_msgSend_serviceName(v16, v18, v19, v20);
+        v22 = IMCopyGUIDForChat();
 
-        if (v20)
+        if (v22)
         {
-          v21 = [IMDSyncDeletedChatRecord alloc];
-          v24 = objc_msgSend_ckRecordID(v15, v22, v23);
-          v26 = objc_msgSend_initWithGUID_ckRecordID_date_(v21, v25, v20, v24, dateCopy);
+          v23 = [IMDSyncDeletedChatRecord alloc];
+          v27 = objc_msgSend_ckRecordID(v16, v24, v25, v26);
+          v29 = objc_msgSend_initWithGUID_ckRecordID_date_(v23, v28, v22, v27, dateCopy);
 
-          objc_msgSend_addObject_(v36, v27, v26);
+          objc_msgSend_addObject_(v40, v30, v29, v31);
         }
 
-        ++v14;
+        ++v15;
       }
 
-      while (v12 != v14);
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v28, &v41, v52, 16);
+      while (v13 != v15);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v32, &v45, v56, 16);
     }
 
-    while (v12);
+    while (v13);
   }
 
-  v31 = objc_msgSend_synchronousDatabase(IMDDatabase, v29, v30);
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = sub_1B7B803B0;
-  v37[3] = &unk_1E7CB6C58;
-  v32 = dCopy;
-  v38 = v32;
-  objc_msgSend_addSyncDeletedChatRecords_completionHandler_(v31, v33, v36, v37);
+  v36 = objc_msgSend_synchronousDatabase(IMDDatabase, v33, v34, v35);
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = sub_1B7B803B0;
+  v41[3] = &unk_1E7CB6C58;
+  v37 = dCopy;
+  v42 = v37;
+  objc_msgSend_addSyncDeletedChatRecords_completionHandler_(v36, v38, v40, v41);
 
-  _Block_object_dispose(&v46, 8);
-  v34 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v50, 8);
 }
 
 - (void)_deleteTransfersInMessagePartsForChatGUID:(id)d
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v6 = objc_msgSend__loadRecoverableMessagePartsMetadataForChatGUID_(self, v5, dCopy);
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v6, v7, &unk_1F2FA0C90);
-  v8 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v7 = objc_msgSend__loadRecoverableMessagePartsMetadataForChatGUID_(self, v5, dCopy, v6);
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v7, v8, &unk_1F2FA0C90, v9);
+  v10 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = dCopy;
-    _os_log_impl(&dword_1B7AD5000, v8, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Parts: Finished deleting recoverable message parts transfers for chatGUID: %@", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = dCopy;
+    _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_DEFAULT, "Recently Deleted | Parts: Finished deleting recoverable message parts transfers for chatGUID: %@", &v11, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_updateChatsSyncStateQueryFor:(int64_t)for
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_msgSend_substitutionStringForCount_(MEMORY[0x1E696AEC0], a2, for);
-  v6 = objc_msgSend_stringWithFormat_(v3, v5, @"%@ (%@)", @"UPDATE chat SET ck_sync_state = ? where guid in ", v4);
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = objc_msgSend_substitutionStringForCount_(MEMORY[0x1E696AEC0], a2, for, v3);
+  v8 = objc_msgSend_stringWithFormat_(v4, v6, @"%@ (%@)", v7, @"UPDATE chat SET ck_sync_state = ? where guid in ", v5);
 
-  return v6;
+  return v8;
 }
 
 - (void)updateChatsSyncStatusTo:(int64_t)to forGUIDs:(id)ds
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
-  v24 = 0u;
-  memset(v23, 0, sizeof(v23));
-  memset(v22, 0, sizeof(v22));
-  IMDSqlOperationInitWithSharedCSDBDatabase(v22);
-  IMDSqlOperationBeginTransaction(v22);
-  v9 = objc_msgSend_count(dsCopy, v7, v8);
-  updated = objc_msgSend__updateChatsSyncStateQueryFor_(self, v10, v9);
-  _IMDSqlOperationBeginQuery(v22, updated);
-  IMDSqlStatementBindInt64(v23, to);
-  v12 = dsCopy;
-  IMDSqlStatementBindTextFromArrayOfCFStrings(v23, v12);
-  if (IMDSqlOperationFinishQuery(v22))
+  v27 = 0u;
+  memset(v26, 0, sizeof(v26));
+  memset(v25, 0, sizeof(v25));
+  IMDSqlOperationInitWithSharedCSDBDatabase(v25);
+  IMDSqlOperationBeginTransaction(v25);
+  v10 = objc_msgSend_count(dsCopy, v7, v8, v9);
+  updated = objc_msgSend__updateChatsSyncStateQueryFor_(self, v11, v10, v12);
+  _IMDSqlOperationBeginQuery(v25, updated);
+  IMDSqlStatementBindInt64(v26, to);
+  v14 = dsCopy;
+  IMDSqlStatementBindTextFromArrayOfCFStrings(v26, v14);
+  if (IMDSqlOperationFinishQuery(v25))
   {
-    v13 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v15 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v26 = v12;
-      _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "CloudSync | updated ck_sync_state for recordIDs: %@", buf, 0xCu);
+      v29 = v14;
+      _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "CloudSync | updated ck_sync_state for recordIDs: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v13 = *(&v24 + 1);
-    v14 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = *(&v27 + 1);
+    v16 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CF7D70(v12, v13, v14);
+      sub_1B7CF7D70(v14, v15, v16, v17);
     }
   }
 
-  IMDSqlOperationCommitOrRevertTransaction(v22);
-  v21 = 0;
-  v15 = IMDSqlOperationRelease(v22, &v21);
-  v16 = v21;
-  if (v15)
+  IMDSqlOperationCommitOrRevertTransaction(v25);
+  v24 = 0;
+  v18 = IMDSqlOperationRelease(v25, &v24);
+  v19 = v24;
+  if (v18)
   {
-    v17 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v20 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v26 = v12;
-      _os_log_impl(&dword_1B7AD5000, v17, OS_LOG_TYPE_INFO, "CloudSync.chat | Update status Query success for: %@", buf, 0xCu);
+      v29 = v14;
+      _os_log_impl(&dword_1B7AD5000, v20, OS_LOG_TYPE_INFO, "CloudSync.chat | Update status Query success for: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v17 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v20 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CF7E0C(v16, v17, v18);
+      sub_1B7CF7E0C(v19, v20, v21, v22);
     }
   }
 
-  v19 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  v23 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v26 = v12;
-    _os_log_impl(&dword_1B7AD5000, v19, OS_LOG_TYPE_INFO, "CloudSync.chat | Finished updating ck_sync_state for recordIDs %@", buf, 0xCu);
+    v29 = v14;
+    _os_log_impl(&dword_1B7AD5000, v23, OS_LOG_TYPE_INFO, "CloudSync.chat | Finished updating ck_sync_state for recordIDs %@", buf, 0xCu);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyDuplicateGroupChatRecordsWithLimit:(int64_t)limit
@@ -6735,15 +6817,15 @@ LABEL_30:
   v7[2] = v5;
   v7[3] = sub_1B7C14D64;
   v7[4] = v6;
-  v10[4] = sub_1B7C14DAC;
-  v10[5] = v7;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 1107296256;
-  v10[2] = sub_1B7AE14D0;
-  v10[3] = &unk_1F2FA3138;
-  v8 = _Block_copy(v10);
+  v11[4] = sub_1B7C14DAC;
+  v11[5] = v7;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 1107296256;
+  v11[2] = sub_1B7AE14D0;
+  v11[3] = &unk_1F2FA3138;
+  v8 = _Block_copy(v11);
 
-  IMDPersistencePerformBlock(v8, 1, v9);
+  IMDPersistencePerformBlock(v8, 1, v9, v10);
 
   _Block_release(v8);
 }
@@ -6756,15 +6838,15 @@ LABEL_30:
   v5 = swift_allocObject();
   *(v5 + 16) = sub_1B7C14DEC;
   *(v5 + 24) = v4;
-  v8[4] = sub_1B7C14D5C;
-  v8[5] = v5;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 1107296256;
-  v8[2] = sub_1B7AE14D0;
-  v8[3] = &unk_1F2FA30C0;
-  v6 = _Block_copy(v8);
+  v9[4] = sub_1B7C14D5C;
+  v9[5] = v5;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 1107296256;
+  v9[2] = sub_1B7AE14D0;
+  v9[3] = &unk_1F2FA30C0;
+  v6 = _Block_copy(v9);
 
-  IMDPersistencePerformBlock(v6, 1, v7);
+  IMDPersistencePerformBlock(v6, 1, v7, v8);
 
   _Block_release(v6);
 }
@@ -6778,8 +6860,8 @@ LABEL_30:
   {
     selfCopy = self;
     _Block_copy(v8);
-    v15 = sub_1B7CFECC0();
-    (*(v8 + 2))(v8, v15, -1, 0);
+    v16 = sub_1B7CFECC0();
+    (*(v8 + 2))(v8, v16, -1, 0);
   }
 
   else
@@ -6789,17 +6871,17 @@ LABEL_30:
     v10[3] = limit;
     v10[4] = sub_1B7C14D20;
     v10[5] = v9;
-    v16[4] = sub_1B7C14D28;
-    v16[5] = v10;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 1107296256;
-    v16[2] = sub_1B7AE14D0;
-    v16[3] = &unk_1F2F9F6E0;
-    v11 = _Block_copy(v16);
+    v17[4] = sub_1B7C14D28;
+    v17[5] = v10;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 1107296256;
+    v17[2] = sub_1B7AE14D0;
+    v17[3] = &unk_1F2F9F6E0;
+    v11 = _Block_copy(v17);
     selfCopy2 = self;
     _Block_copy(v8);
 
-    IMDPersistencePerformBlock(v11, 1, v13);
+    IMDPersistencePerformBlock(v11, 1, v13, v14);
     _Block_release(v11);
   }
 
@@ -6816,15 +6898,15 @@ LABEL_30:
   v7[2] = v5;
   v7[3] = sub_1B7C14CB4;
   v7[4] = v6;
-  v10[4] = sub_1B7C14D14;
-  v10[5] = v7;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 1107296256;
-  v10[2] = sub_1B7AE14D0;
-  v10[3] = &unk_1F2FA2F30;
-  v8 = _Block_copy(v10);
+  v11[4] = sub_1B7C14D14;
+  v11[5] = v7;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 1107296256;
+  v11[2] = sub_1B7AE14D0;
+  v11[3] = &unk_1F2FA2F30;
+  v8 = _Block_copy(v11);
 
-  IMDPersistencePerformBlock(v8, 1, v9);
+  IMDPersistencePerformBlock(v8, 1, v9, v10);
 
   _Block_release(v8);
 }
@@ -6855,15 +6937,15 @@ LABEL_30:
   v9[3] = v7;
   v9[4] = sub_1B7C21F8C;
   v9[5] = v8;
-  v12[4] = sub_1B7C21F94;
-  v12[5] = v9;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 1107296256;
-  v12[2] = sub_1B7AE14D0;
-  v12[3] = &unk_1F2F9F7F8;
-  v10 = _Block_copy(v12);
+  v13[4] = sub_1B7C21F94;
+  v13[5] = v9;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 1107296256;
+  v13[2] = sub_1B7AE14D0;
+  v13[3] = &unk_1F2F9F7F8;
+  v10 = _Block_copy(v13);
 
-  IMDPersistencePerformBlock(v10, 1, v11);
+  IMDPersistencePerformBlock(v10, 1, v11, v12);
 
   _Block_release(v10);
 }
@@ -6921,7 +7003,7 @@ LABEL_30:
   v23 = _Block_copy(aBlock);
   predicateCopy = predicate;
 
-  IMDPersistencePerformBlockWithHandoffIfNeeded(v23, 0, v25);
+  IMDPersistencePerformBlockWithHandoffIfNeeded(v23, 0, v25, v26);
   _Block_release(v23);
 
   sub_1B7C10844(v16);
@@ -6943,16 +7025,16 @@ LABEL_30:
   v12[5] = v10;
   v12[6] = sub_1B7CBCBB4;
   v12[7] = v11;
-  v16[4] = sub_1B7CBCC0C;
-  v16[5] = v12;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 1107296256;
-  v16[2] = sub_1B7AE14D0;
-  v16[3] = &unk_1F2FA7C28;
-  v13 = _Block_copy(v16);
+  v17[4] = sub_1B7CBCC0C;
+  v17[5] = v12;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 1107296256;
+  v17[2] = sub_1B7AE14D0;
+  v17[3] = &unk_1F2FA7C28;
+  v13 = _Block_copy(v17);
   selfCopy = self;
 
-  IMDPersistencePerformBlock(v13, 1, v15);
+  IMDPersistencePerformBlock(v13, 1, v15, v16);
 
   _Block_release(v13);
 }
@@ -6979,16 +7061,16 @@ LABEL_30:
   v20[9] = priority;
   v20[10] = sub_1B7C14DEC;
   v20[11] = v19;
-  v24[4] = sub_1B7CBCB7C;
-  v24[5] = v20;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 1107296256;
-  v24[2] = sub_1B7AE14D0;
-  v24[3] = &unk_1F2FA7BB0;
-  v21 = _Block_copy(v24);
+  v25[4] = sub_1B7CBCB7C;
+  v25[5] = v20;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 1107296256;
+  v25[2] = sub_1B7AE14D0;
+  v25[3] = &unk_1F2FA7BB0;
+  v21 = _Block_copy(v25);
   selfCopy = self;
 
-  IMDPersistencePerformBlock(v21, 1, v23);
+  IMDPersistencePerformBlock(v21, 1, v23, v24);
 
   _Block_release(v21);
 }
@@ -7013,15 +7095,15 @@ LABEL_30:
   v17[7] = v12;
   v17[8] = sub_1B7C14DEC;
   v17[9] = v16;
-  v20[4] = sub_1B7CBCB68;
-  v20[5] = v17;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 1107296256;
-  v20[2] = sub_1B7AE14D0;
-  v20[3] = &unk_1F2FA7B38;
-  v18 = _Block_copy(v20);
+  v21[4] = sub_1B7CBCB68;
+  v21[5] = v17;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 1107296256;
+  v21[2] = sub_1B7AE14D0;
+  v21[3] = &unk_1F2FA7B38;
+  v18 = _Block_copy(v21);
 
-  IMDPersistencePerformBlock(v18, 1, v19);
+  IMDPersistencePerformBlock(v18, 1, v19, v20);
 
   _Block_release(v18);
 }
@@ -7042,15 +7124,15 @@ LABEL_30:
   v13[5] = v11;
   v13[6] = sub_1B7CBCD90;
   v13[7] = v12;
-  v16[4] = sub_1B7CBCB10;
-  v16[5] = v13;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 1107296256;
-  v16[2] = sub_1B7AE14D0;
-  v16[3] = &unk_1F2FA7A48;
-  v14 = _Block_copy(v16);
+  v17[4] = sub_1B7CBCB10;
+  v17[5] = v13;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 1107296256;
+  v17[2] = sub_1B7AE14D0;
+  v17[3] = &unk_1F2FA7A48;
+  v14 = _Block_copy(v17);
 
-  IMDPersistencePerformBlock(v14, 1, v15);
+  IMDPersistencePerformBlock(v14, 1, v15, v16);
 
   _Block_release(v14);
 }
@@ -7071,15 +7153,15 @@ LABEL_30:
   v13[5] = v11;
   v13[6] = sub_1B7C542DC;
   v13[7] = v12;
-  v16[4] = sub_1B7CBCAB0;
-  v16[5] = v13;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 1107296256;
-  v16[2] = sub_1B7AE14D0;
-  v16[3] = &unk_1F2FA79D0;
-  v14 = _Block_copy(v16);
+  v17[4] = sub_1B7CBCAB0;
+  v17[5] = v13;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 1107296256;
+  v17[2] = sub_1B7AE14D0;
+  v17[3] = &unk_1F2FA79D0;
+  v14 = _Block_copy(v17);
 
-  IMDPersistencePerformBlock(v14, 1, v15);
+  IMDPersistencePerformBlock(v14, 1, v15, v16);
 
   _Block_release(v14);
 }
@@ -7096,15 +7178,15 @@ LABEL_30:
   v9[3] = v7;
   v9[4] = sub_1B7CBCA9C;
   v9[5] = v8;
-  v12[4] = sub_1B7CBCAA4;
-  v12[5] = v9;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 1107296256;
-  v12[2] = sub_1B7AE14D0;
-  v12[3] = &unk_1F2FA7958;
-  v10 = _Block_copy(v12);
+  v13[4] = sub_1B7CBCAA4;
+  v13[5] = v9;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 1107296256;
+  v13[2] = sub_1B7AE14D0;
+  v13[3] = &unk_1F2FA7958;
+  v10 = _Block_copy(v13);
 
-  IMDPersistencePerformBlock(v10, 1, v11);
+  IMDPersistencePerformBlock(v10, 1, v11, v12);
 
   _Block_release(v10);
 }
@@ -7124,15 +7206,15 @@ LABEL_30:
   v11[4] = v9;
   v11[5] = sub_1B7C14DEC;
   v11[6] = v10;
-  v14[4] = sub_1B7CBCA8C;
-  v14[5] = v11;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 1107296256;
-  v14[2] = sub_1B7AE14D0;
-  v14[3] = &unk_1F2FA78E0;
-  v12 = _Block_copy(v14);
+  v15[4] = sub_1B7CBCA8C;
+  v15[5] = v11;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 1107296256;
+  v15[2] = sub_1B7AE14D0;
+  v15[3] = &unk_1F2FA78E0;
+  v12 = _Block_copy(v15);
 
-  IMDPersistencePerformBlock(v12, 1, v13);
+  IMDPersistencePerformBlock(v12, 1, v13, v14);
 
   _Block_release(v12);
 }
@@ -7152,16 +7234,16 @@ LABEL_30:
   v12[5] = v9;
   v12[6] = sub_1B7C14DEC;
   v12[7] = v11;
-  v16[4] = sub_1B7CBCA74;
-  v16[5] = v12;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 1107296256;
-  v16[2] = sub_1B7AE14D0;
-  v16[3] = &unk_1F2FA7868;
-  v13 = _Block_copy(v16);
+  v17[4] = sub_1B7CBCA74;
+  v17[5] = v12;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 1107296256;
+  v17[2] = sub_1B7AE14D0;
+  v17[3] = &unk_1F2FA7868;
+  v13 = _Block_copy(v17);
   selfCopy = self;
 
-  IMDPersistencePerformBlock(v13, 1, v15);
+  IMDPersistencePerformBlock(v13, 1, v15, v16);
 
   _Block_release(v13);
 }
@@ -7177,15 +7259,15 @@ LABEL_30:
   v7[2] = v5;
   v7[3] = sub_1B7C14DEC;
   v7[4] = v6;
-  v10[4] = sub_1B7CBCA68;
-  v10[5] = v7;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 1107296256;
-  v10[2] = sub_1B7AE14D0;
-  v10[3] = &unk_1F2FA7778;
-  v8 = _Block_copy(v10);
+  v11[4] = sub_1B7CBCA68;
+  v11[5] = v7;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 1107296256;
+  v11[2] = sub_1B7AE14D0;
+  v11[3] = &unk_1F2FA7778;
+  v8 = _Block_copy(v11);
 
-  IMDPersistencePerformBlock(v8, 1, v9);
+  IMDPersistencePerformBlock(v8, 1, v9, v10);
 
   _Block_release(v8);
 }
@@ -7200,15 +7282,15 @@ LABEL_30:
   v7[2] = v5;
   v7[3] = sub_1B7CBCA54;
   v7[4] = v6;
-  v10[4] = sub_1B7CBCA5C;
-  v10[5] = v7;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 1107296256;
-  v10[2] = sub_1B7AE14D0;
-  v10[3] = &unk_1F2FA7700;
-  v8 = _Block_copy(v10);
+  v11[4] = sub_1B7CBCA5C;
+  v11[5] = v7;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 1107296256;
+  v11[2] = sub_1B7AE14D0;
+  v11[3] = &unk_1F2FA7700;
+  v8 = _Block_copy(v11);
 
-  IMDPersistencePerformBlock(v8, 1, v9);
+  IMDPersistencePerformBlock(v8, 1, v9, v10);
 
   _Block_release(v8);
 }
@@ -7224,16 +7306,16 @@ LABEL_30:
   v8[3] = self;
   v8[4] = sub_1B7CBCD8C;
   v8[5] = v7;
-  v12[4] = sub_1B7CBC9E0;
-  v12[5] = v8;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 1107296256;
-  v12[2] = sub_1B7AE14D0;
-  v12[3] = &unk_1F2FA7610;
-  v9 = _Block_copy(v12);
+  v13[4] = sub_1B7CBC9E0;
+  v13[5] = v8;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 1107296256;
+  v13[2] = sub_1B7AE14D0;
+  v13[3] = &unk_1F2FA7610;
+  v9 = _Block_copy(v13);
   selfCopy = self;
 
-  IMDPersistencePerformBlock(v9, 1, v11);
+  IMDPersistencePerformBlock(v9, 1, v11, v12);
 
   _Block_release(v9);
 }
@@ -7264,15 +7346,15 @@ LABEL_30:
   v14[5] = style;
   v14[6] = sub_1B7CBBDF0;
   v14[7] = v13;
-  v17[4] = sub_1B7CBBDF8;
-  v17[5] = v14;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 1107296256;
-  v17[2] = sub_1B7AE14D0;
-  v17[3] = &unk_1F2F9F988;
-  v15 = _Block_copy(v17);
+  v18[4] = sub_1B7CBBDF8;
+  v18[5] = v14;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 1107296256;
+  v18[2] = sub_1B7AE14D0;
+  v18[3] = &unk_1F2F9F988;
+  v15 = _Block_copy(v18);
 
-  IMDPersistencePerformBlock(v15, 1, v16);
+  IMDPersistencePerformBlock(v15, 1, v16, v17);
 
   _Block_release(v15);
 }

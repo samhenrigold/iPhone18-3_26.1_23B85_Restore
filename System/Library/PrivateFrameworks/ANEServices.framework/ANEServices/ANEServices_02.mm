@@ -1,306 +1,3 @@
-uint64_t ANEServicesProgramChainingPrepare()
-{
-  v0 = MEMORY[0x1EEE9AC00]();
-  v64 = *MEMORY[0x1E69E9840];
-  v3 = 2;
-  if (!v0)
-  {
-    goto LABEL_29;
-  }
-
-  v4 = v1;
-  if (!v1)
-  {
-    goto LABEL_29;
-  }
-
-  v5 = v0;
-  v6 = *(v0 + 8);
-  if (v6)
-  {
-    v7 = *(*v6 + 16);
-    v8 = *(v7 + 8);
-    if (v8)
-    {
-      if (*(v7 + 32) == 1)
-      {
-        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136315394;
-          v47 = "ANEServicesProgramChainingPrepare";
-          v48 = 1024;
-          *v49 = 1;
-          _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ERROR: %s: Cannot call this API with deviceUsageType=%d\n", buf, 0x12u);
-        }
-
-        v3 = 20;
-        goto LABEL_29;
-      }
-
-      v9 = v2;
-      v10 = *(v1 + 44);
-      if (v10 >= 8)
-      {
-        v10 = 7;
-        *(v1 + 44) = 7;
-      }
-
-      if (*v1)
-      {
-        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136315138;
-          v47 = "ANEServicesProgramChainingPrepare";
-          _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ERROR: %s: cacheHandle is not 0\n", buf, 0xCu);
-        }
-
-        goto LABEL_27;
-      }
-
-      v11 = *(v1 + 48);
-      if (v11 > 0x100 || *(v1 + 8248) > 0xFFu || *(v1 + 14376) >= 0xDu)
-      {
-        if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-        {
-LABEL_26:
-          v3 = 2;
-LABEL_27:
-          if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 136315138;
-            v47 = "ANEServicesProgramChainingPrepare";
-            _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s failed\n", buf, 0xCu);
-          }
-
-          goto LABEL_29;
-        }
-
-        v12 = *(v4 + 8248);
-        v13 = *(v4 + 14376);
-        *buf = 136315906;
-        v47 = "ANEServicesProgramChainingPrepare";
-        v48 = 1024;
-        *v49 = v11;
-        *&v49[4] = 1024;
-        *&v49[6] = v12;
-        LOWORD(v50[0]) = 1024;
-        *(v50 + 2) = v13;
-        v14 = MEMORY[0x1E69E9C10];
-        v15 = "ERROR: %s: exceed max limit: %d, %d, %d \n";
-        v16 = buf;
-        v17 = 30;
-LABEL_25:
-        _os_log_impl(&dword_1C0446000, v14, OS_LOG_TYPE_DEFAULT, v15, v16, v17);
-        goto LABEL_26;
-      }
-
-      bzero(buf, 0xAE28uLL);
-      *&v49[2] = *(v4 + 16);
-      v50[0] = *(v4 + 24);
-      v52 = v10;
-      v51 = *(v4 + 32);
-      *&v61[28596] = *(v5 + 160);
-      v62 = *(v5 + 168);
-      v63 = v9;
-      if (!v11)
-      {
-        goto LABEL_58;
-      }
-
-      v20 = 0;
-      v21 = 0;
-      v22 = 0;
-      v23 = 0;
-      v24 = v4 + 56;
-      do
-      {
-        v25 = *(v24 + 16);
-        if (v25 == 5)
-        {
-          v26 = [*v24 eventPort];
-          v27 = &v54[3 * v23];
-          *v27 = v26;
-          *(v27 + 3) = *v24;
-          *(v27 + 4) = *(v24 + 20);
-          ++v23;
-        }
-
-        else if (v25 == 4 && v22 == 0)
-        {
-          v22 = *v24;
-          v21 = [*v24 eventPort];
-        }
-
-        ++v20;
-        v24 += 32;
-      }
-
-      while (v20 < *(v4 + 48));
-      v57 = v22;
-      v56[576] = v21;
-      v53 = v23;
-      if (!v22)
-      {
-LABEL_58:
-        if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_26;
-        }
-
-        *v45 = 136315138;
-        *&v45[4] = "ANEServicesProgramChainingPrepare";
-        v14 = MEMORY[0x1E69E9C10];
-        v15 = "ERROR: %s: no output set free event in the chaing prepare\n";
-        v16 = v45;
-        v17 = 12;
-        goto LABEL_25;
-      }
-
-      if (*(v4 + 8248))
-      {
-        v29 = 0;
-        v30 = v56;
-        v31 = (v4 + 8268);
-        do
-        {
-          *v30 = *v31;
-          v30[320] = IOSurfaceGetID(*(v31 - 3));
-          *(&v56[256] + v29++) = *(v31 - 1);
-          v31 += 6;
-          ++v30;
-        }
-
-        while (v29 < *(v4 + 8248));
-      }
-
-      if (*(v4 + 14376))
-      {
-        v32 = 0;
-        v33 = (v4 + 14408);
-        v34 = v61;
-        v35 = &v60;
-        while (1)
-        {
-          v36 = v4 + 14384 + 6160 * v32;
-          v37 = &v59[145 * v32];
-          v37[3] = *(v36 + 8);
-          if (*v36)
-          {
-            v37[1] = IOSurfaceGetID(*v36);
-          }
-
-          if (v6[879])
-          {
-            v38 = v6[878];
-            if (v38)
-            {
-              v37[2] = v38;
-            }
-          }
-
-          v39 = *(v36 + 8);
-          if (v39 > 0x100)
-          {
-            break;
-          }
-
-          if (v39)
-          {
-            v40 = 0;
-            v41 = v33;
-            do
-            {
-              *&v34[4 * v40] = IOSurfaceGetID(*(v41 - 1));
-              v42 = *v41;
-              v41 += 3;
-              *(v35 + v40++) = v42;
-            }
-
-            while (v40 < *(v36 + 8));
-          }
-
-          ++v32;
-          v33 += 770;
-          v34 += 2320;
-          v35 += 580;
-          if (v32 >= *(v4 + 14376))
-          {
-            goto LABEL_57;
-          }
-        }
-
-        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-        {
-          *v45 = 136315394;
-          *&v45[4] = "ANEServicesProgramChainingPrepare";
-          *&v45[12] = 1024;
-          *&v45[14] = v39;
-          _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ERROR: %s: exceed max outputs/set limit: %d\n", v45, 0x12u);
-        }
-
-        v3 = 2;
-      }
-
-      else
-      {
-LABEL_57:
-        v3 = 0;
-      }
-
-      v43 = ANE::ANEServicesDevice::ANE_ProgramChainingPrepare(v8, buf, v45);
-      if (v43)
-      {
-        v44 = v43;
-        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-        {
-          ANEServicesProgramPrepare_cold_3();
-        }
-
-        v3 = ANE::IOReturnToANEReturn(v44);
-      }
-
-      else
-      {
-        *(v4 + 90360) = *&v45[16];
-        *v4 = *v45;
-      }
-
-      if (v3)
-      {
-        goto LABEL_27;
-      }
-    }
-
-    else
-    {
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136315138;
-        v47 = "ANEServicesProgramChainingPrepare";
-        _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ERROR: %s: pANEServicesDevice is NULL\n", buf, 0xCu);
-      }
-
-      v3 = 8;
-    }
-  }
-
-  else
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136315138;
-      v47 = "ANEServicesProgramChainingPrepare";
-      _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "ERROR: %s: pANEProgramInstancePriv is NULL\n", buf, 0xCu);
-    }
-
-    v3 = 1;
-  }
-
-LABEL_29:
-  v18 = *MEMORY[0x1E69E9840];
-  return v3;
-}
-
 uint64_t ANEServicesProgramOutputSetEnqueue(uint64_t a1, uint64_t *a2)
 {
   if (!a1 || !a2)
@@ -797,93 +494,61 @@ uint64_t ANEServicesProgramChainingSetActiveProcedure(uint64_t a1, uint64_t *a2)
 
 uint64_t ANEServicesProgramCancelAllRequests(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (a1)
+  v15 = *MEMORY[0x1E69E9840];
+  if (!a1)
   {
-    v2 = *(a1 + 8);
-    if (!v2[435])
-    {
-      result = 11;
-      goto LABEL_17;
-    }
+    return 2;
+  }
 
-    v3 = *(*(*v2 + 16) + 8);
-    v4 = os_signpost_id_make_with_pointer(+[ANEServicesLog handle], 0x61B2430);
-    v5 = +[ANEServicesLog handle];
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-    {
-      v6 = v5;
-      if (os_signpost_enabled(v5))
-      {
-        v7 = *(a1 + 112);
-        v14 = 134217984;
-        v15 = v7;
-        _os_signpost_emit_with_name_impl(&dword_1C0446000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "ServicesProgramCancelAllRequests", "progHandle=%llx", &v14, 0xCu);
-      }
-    }
+  v2 = *(a1 + 8);
+  if (!v2[435])
+  {
+    return 11;
+  }
 
-    v8 = ANE::ANEServicesDevice::ANE_CancelAllRequests(v3);
-    v9 = +[ANEServicesLog handle];
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v3 = *(*(*v2 + 16) + 8);
+  v4 = os_signpost_id_make_with_pointer(+[ANEServicesLog handle], 0x61B2430);
+  v5 = +[ANEServicesLog handle];
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v6 = v5;
+    if (os_signpost_enabled(v5))
     {
-      v10 = v9;
-      if (os_signpost_enabled(v9))
-      {
-        v11 = *(a1 + 112);
-        v14 = 134217984;
-        v15 = v11;
-        _os_signpost_emit_with_name_impl(&dword_1C0446000, v10, OS_SIGNPOST_INTERVAL_END, v4, "ServicesProgramCancelAllRequests", "progHandle=%llx", &v14, 0xCu);
-      }
+      v7 = *(a1 + 112);
+      v13 = 134217984;
+      v14 = v7;
+      _os_signpost_emit_with_name_impl(&dword_1C0446000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "ServicesProgramCancelAllRequests", "progHandle=%llx", &v13, 0xCu);
     }
+  }
 
-    if (v8 > -536870185)
+  v8 = ANE::ANEServicesDevice::ANE_CancelAllRequests(v3);
+  v9 = +[ANEServicesLog handle];
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v10 = v9;
+    if (os_signpost_enabled(v9))
     {
-      if (v8 > -536870166)
+      v11 = *(a1 + 112);
+      v13 = 134217984;
+      v14 = v11;
+      _os_signpost_emit_with_name_impl(&dword_1C0446000, v10, OS_SIGNPOST_INTERVAL_END, v4, "ServicesProgramCancelAllRequests", "progHandle=%llx", &v13, 0xCu);
+    }
+  }
+
+  if (v8 > -536870185)
+  {
+    if (v8 > -536870166)
+    {
+      if (v8 <= -536870163)
       {
-        if (v8 <= -536870163)
+        if (v8 == -536870165)
         {
-          if (v8 == -536870165)
-          {
-            result = 21;
-            goto LABEL_17;
-          }
-
-          if (v8 == -536870163)
-          {
-            result = 27;
-            goto LABEL_17;
-          }
+          return 21;
         }
 
-        else
+        if (v8 == -536870163)
         {
-          switch(v8)
-          {
-            case -536870162:
-              result = 28;
-              goto LABEL_17;
-            case -536870160:
-              result = 4;
-              goto LABEL_17;
-            case 0:
-              result = 0;
-              goto LABEL_17;
-          }
-        }
-      }
-
-      else if (v8 <= -536870175)
-      {
-        if (v8 == -536870184)
-        {
-          result = 22;
-          goto LABEL_17;
-        }
-
-        if (v8 == -536870176)
-        {
-          result = 26;
-          goto LABEL_17;
+          return 27;
         }
       }
 
@@ -891,65 +556,26 @@ uint64_t ANEServicesProgramCancelAllRequests(uint64_t a1)
       {
         switch(v8)
         {
-          case -536870174:
-            result = 23;
-            goto LABEL_17;
-          case -536870173:
-            result = 10;
-            goto LABEL_17;
-          case -536870169:
-            result = 29;
-            goto LABEL_17;
+          case -536870162:
+            return 28;
+          case -536870160:
+            return 4;
+          case 0:
+            return 0;
         }
       }
     }
 
-    else if (v8 > -536870204)
+    else if (v8 <= -536870175)
     {
-      if (v8 <= -536870192)
+      if (v8 == -536870184)
       {
-        if (v8 == -536870203)
-        {
-          result = 30;
-          goto LABEL_17;
-        }
-
-        if (v8 == -536870201)
-        {
-          result = 24;
-          goto LABEL_17;
-        }
+        return 22;
       }
 
-      else
+      if (v8 == -536870176)
       {
-        switch(v8)
-        {
-          case -536870191:
-            result = 19;
-            goto LABEL_17;
-          case -536870190:
-            result = 32;
-            goto LABEL_17;
-          case -536870186:
-            result = 15;
-            goto LABEL_17;
-        }
-      }
-    }
-
-    else if (v8 <= -536870211)
-    {
-      if (v8 == -536870911)
-      {
-        result = 31;
-        goto LABEL_17;
-      }
-
-      if (v8 == -536870211)
-      {
-        result = 1;
-        goto LABEL_17;
+        return 26;
       }
     }
 
@@ -957,31 +583,77 @@ uint64_t ANEServicesProgramCancelAllRequests(uint64_t a1)
     {
       switch(v8)
       {
-        case -536870210:
-          result = 5;
-          goto LABEL_17;
-        case -536870207:
-          result = 20;
-          goto LABEL_17;
-        case -536870206:
-          goto LABEL_15;
+        case -536870174:
+          return 23;
+        case -536870173:
+          return 10;
+        case -536870169:
+          return 29;
+      }
+    }
+  }
+
+  else if (v8 > -536870204)
+  {
+    if (v8 <= -536870192)
+    {
+      if (v8 == -536870203)
+      {
+        return 30;
+      }
+
+      if (v8 == -536870201)
+      {
+        return 24;
       }
     }
 
-    result = 18;
-    goto LABEL_17;
+    else
+    {
+      switch(v8)
+      {
+        case -536870191:
+          return 19;
+        case -536870190:
+          return 32;
+        case -536870186:
+          return 15;
+      }
+    }
   }
 
-LABEL_15:
-  result = 2;
-LABEL_17:
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  else if (v8 <= -536870211)
+  {
+    if (v8 == -536870911)
+    {
+      return 31;
+    }
+
+    if (v8 == -536870211)
+    {
+      return 1;
+    }
+  }
+
+  else
+  {
+    switch(v8)
+    {
+      case -536870210:
+        return 5;
+      case -536870207:
+        return 20;
+      case -536870206:
+        return 2;
+    }
+  }
+
+  return 18;
 }
 
 uint64_t ANEServicesProgramMemoryMapRequest(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (!a1 || !a2)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -989,7 +661,7 @@ uint64_t ANEServicesProgramMemoryMapRequest(uint64_t a1, uint64_t a2, unsigned i
       ANEServicesProgramMemoryMapRequest_cold_1();
     }
 
-    goto LABEL_10;
+    return 2;
   }
 
   v4 = *(a1 + 16);
@@ -1007,7 +679,7 @@ uint64_t ANEServicesProgramMemoryMapRequest(uint64_t a1, uint64_t a2, unsigned i
           ANEServicesProgramMemoryMapRequest_cold_3();
         }
 
-        goto LABEL_10;
+        return 2;
       }
 
       if (a3)
@@ -1021,193 +693,175 @@ uint64_t ANEServicesProgramMemoryMapRequest(uint64_t a1, uint64_t a2, unsigned i
         add = 0;
       }
 
-      bzero(v19, 0x808uLL);
+      bzero(v18, 0x808uLL);
       if (v7)
       {
-        v12 = 0;
-        v13 = (a2 + 16);
-        v14 = v19;
+        v11 = 0;
+        v12 = (a2 + 16);
+        v13 = v18;
         do
         {
-          *v14 = IOSurfaceGetID(*(v13 - 2));
-          *(v14 + 4) = *(v13 - 1);
-          v15 = *v13;
-          v13 += 3;
-          *(v14 + 3) = v15;
-          ++v12;
-          v16 = *(a2 + 3080);
-          v14 += 2;
+          *v13 = IOSurfaceGetID(*(v12 - 2));
+          *(v13 + 4) = *(v12 - 1);
+          v14 = *v12;
+          v12 += 3;
+          *(v13 + 3) = v14;
+          ++v11;
+          v15 = *(a2 + 3080);
+          v13 += 2;
         }
 
-        while (v12 < v16);
+        while (v11 < v15);
       }
 
       else
       {
-        LODWORD(v16) = 0;
+        LODWORD(v15) = 0;
       }
 
-      v19[257] = *(a2 + 3072);
-      v20 = v16;
-      v21 = *(a2 + 3084);
-      v22 = add;
-      v17 = ANE::ANEServicesDevice::ANE_ProgramMemoryMapRequest(v5, v19, a3);
-      if (v17)
+      v18[257] = *(a2 + 3072);
+      v19 = v15;
+      v20 = *(a2 + 3084);
+      v21 = add;
+      v16 = ANE::ANEServicesDevice::ANE_ProgramMemoryMapRequest(v5, v18, a3);
+      if (v16)
       {
-        v18 = v17;
+        v17 = v16;
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           ANEServicesProgramMemoryMapRequest_cold_2();
         }
 
-        if (v18 <= -536870187)
+        if (v17 <= -536870187)
         {
-          if (v18 <= -536870207)
+          if (v17 <= -536870207)
           {
-            if (v18 > -536870211)
+            if (v17 > -536870211)
             {
-              if (v18 == -536870210)
+              if (v17 == -536870210)
               {
-                result = 5;
-                goto LABEL_17;
+                return 5;
               }
 
-              if (v18 == -536870207)
+              if (v17 == -536870207)
               {
-                result = 20;
-                goto LABEL_17;
+                return 20;
               }
             }
 
             else
             {
-              if (v18 == -536870911)
+              if (v17 == -536870911)
               {
-                result = 31;
-                goto LABEL_17;
+                return 31;
               }
 
-              if (v18 == -536870211)
+              if (v17 == -536870211)
               {
-                result = 1;
-                goto LABEL_17;
+                return 1;
               }
             }
           }
 
-          else if (v18 <= -536870202)
+          else if (v17 <= -536870202)
           {
-            if (v18 == -536870206)
+            if (v17 == -536870206)
             {
-LABEL_10:
-              result = 2;
-              goto LABEL_17;
+              return 2;
             }
 
-            if (v18 == -536870203)
+            if (v17 == -536870203)
             {
-              result = 30;
-              goto LABEL_17;
+              return 30;
             }
           }
 
           else
           {
-            switch(v18)
+            switch(v17)
             {
               case -536870201:
-                result = 24;
-                goto LABEL_17;
+                return 24;
               case -536870191:
-                result = 19;
-                goto LABEL_17;
+                return 19;
               case -536870190:
-                result = 32;
-                goto LABEL_17;
+                return 32;
             }
           }
         }
 
-        else if (v18 > -536870170)
+        else if (v17 > -536870170)
         {
-          if (v18 <= -536870164)
+          if (v17 <= -536870164)
           {
-            if (v18 == -536870169)
+            if (v17 == -536870169)
             {
-              result = 29;
-              goto LABEL_17;
+              return 29;
             }
 
-            if (v18 == -536870165)
+            if (v17 == -536870165)
             {
-              result = 21;
-              goto LABEL_17;
+              return 21;
             }
           }
 
           else
           {
-            switch(v18)
+            switch(v17)
             {
               case -536870163:
-                result = 27;
-                goto LABEL_17;
+                return 27;
               case -536870162:
-                result = 28;
-                goto LABEL_17;
+                return 28;
               case -536870160:
-                result = 4;
-                goto LABEL_17;
+                return 4;
             }
           }
         }
 
-        else if (v18 <= -536870177)
+        else if (v17 <= -536870177)
         {
-          if (v18 == -536870186)
+          if (v17 == -536870186)
           {
-            result = 15;
-            goto LABEL_17;
+            return 15;
           }
 
-          if (v18 == -536870184)
+          if (v17 == -536870184)
           {
-            result = 22;
-            goto LABEL_17;
+            return 22;
           }
         }
 
         else
         {
-          switch(v18)
+          switch(v17)
           {
             case -536870176:
-              result = 26;
-              goto LABEL_17;
+              return 26;
             case -536870174:
-              result = 23;
-              goto LABEL_17;
+              return 23;
             case -536870173:
-              result = 10;
-              goto LABEL_17;
+              return 10;
           }
         }
 
-        result = 18;
-        goto LABEL_17;
+        return 18;
       }
 
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+      else
       {
-        *buf = 136315138;
-        v24 = "ANEServicesProgramMemoryMapRequest";
-        _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: pANEServicesDevice->ANE_ProgramMemoryMapRequest success\n", buf, 0xCu);
-      }
+        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136315138;
+          v23 = "ANEServicesProgramMemoryMapRequest";
+          _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: pANEServicesDevice->ANE_ProgramMemoryMapRequest success\n", buf, 0xCu);
+        }
 
-      result = 0;
-      if (a3)
-      {
-        *(a2 + 3088) = v22;
+        result = 0;
+        if (a3)
+        {
+          *(a2 + 3088) = v21;
+        }
       }
     }
 
@@ -1218,7 +872,7 @@ LABEL_10:
         ANEServicesProgramMemoryMapRequest_cold_4();
       }
 
-      result = 11;
+      return 11;
     }
   }
 
@@ -1229,17 +883,15 @@ LABEL_10:
       ANEServicesProgramMemoryMapRequest_cold_5();
     }
 
-    result = 8;
+    return 8;
   }
 
-LABEL_17:
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ANEServicesProgramMemoryUnmapRequest(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (!a1 || !a2)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -1247,19 +899,19 @@ uint64_t ANEServicesProgramMemoryUnmapRequest(uint64_t a1, uint64_t a2)
       ANEServicesProgramMemoryUnmapRequest_cold_1();
     }
 
-    goto LABEL_19;
+    return 2;
   }
 
   v3 = *(*(a1 + 16) + 8);
   if (v3)
   {
-    bzero(v14, 0x808uLL);
+    bzero(v13, 0x808uLL);
     LODWORD(v4) = *(a2 + 3080);
     if (v4)
     {
       v5 = 0;
       v6 = (a2 + 16);
-      v7 = v14;
+      v7 = v13;
       do
       {
         *v7 = IOSurfaceGetID(*(v6 - 2));
@@ -1275,11 +927,11 @@ uint64_t ANEServicesProgramMemoryUnmapRequest(uint64_t a1, uint64_t a2)
       while (v5 < v4);
     }
 
-    v14[257] = *(a2 + 3072);
-    v15 = v4;
-    v16 = *(a2 + 3084);
-    v17 = *(a2 + 3088);
-    v9 = ANE::ANEServicesDevice::ANE_ProgramMemoryUnMapRequest(v3, v14);
+    v13[257] = *(a2 + 3072);
+    v14 = v4;
+    v15 = *(a2 + 3084);
+    v16 = *(a2 + 3088);
+    v9 = ANE::ANEServicesDevice::ANE_ProgramMemoryUnMapRequest(v3, v13);
     if (v9)
     {
       v10 = v9;
@@ -1296,14 +948,12 @@ uint64_t ANEServicesProgramMemoryUnmapRequest(uint64_t a1, uint64_t a2)
           {
             if (v10 == -536870169)
             {
-              result = 29;
-              goto LABEL_25;
+              return 29;
             }
 
             if (v10 == -536870165)
             {
-              result = 21;
-              goto LABEL_25;
+              return 21;
             }
           }
 
@@ -1312,14 +962,11 @@ uint64_t ANEServicesProgramMemoryUnmapRequest(uint64_t a1, uint64_t a2)
             switch(v10)
             {
               case -536870163:
-                result = 27;
-                goto LABEL_25;
+                return 27;
               case -536870162:
-                result = 28;
-                goto LABEL_25;
+                return 28;
               case -536870160:
-                result = 4;
-                goto LABEL_25;
+                return 4;
             }
           }
         }
@@ -1328,14 +975,12 @@ uint64_t ANEServicesProgramMemoryUnmapRequest(uint64_t a1, uint64_t a2)
         {
           if (v10 == -536870186)
           {
-            result = 15;
-            goto LABEL_25;
+            return 15;
           }
 
           if (v10 == -536870184)
           {
-            result = 22;
-            goto LABEL_25;
+            return 22;
           }
         }
 
@@ -1344,20 +989,15 @@ uint64_t ANEServicesProgramMemoryUnmapRequest(uint64_t a1, uint64_t a2)
           switch(v10)
           {
             case -536870176:
-              result = 26;
-              goto LABEL_25;
+              return 26;
             case -536870174:
-              result = 23;
-              goto LABEL_25;
+              return 23;
             case -536870173:
-              result = 10;
-              goto LABEL_25;
+              return 10;
           }
         }
 
-LABEL_63:
-        result = 18;
-        goto LABEL_25;
+        return 18;
       }
 
       if (v10 <= -536870207)
@@ -1366,14 +1006,12 @@ LABEL_63:
         {
           if (v10 == -536870210)
           {
-            result = 5;
-            goto LABEL_25;
+            return 5;
           }
 
           if (v10 == -536870207)
           {
-            result = 20;
-            goto LABEL_25;
+            return 20;
           }
         }
 
@@ -1381,18 +1019,16 @@ LABEL_63:
         {
           if (v10 == -536870911)
           {
-            result = 31;
-            goto LABEL_25;
+            return 31;
           }
 
           if (v10 == -536870211)
           {
-            result = 1;
-            goto LABEL_25;
+            return 1;
           }
         }
 
-        goto LABEL_63;
+        return 18;
       }
 
       if (v10 > -536870202)
@@ -1400,33 +1036,27 @@ LABEL_63:
         switch(v10)
         {
           case -536870201:
-            result = 24;
-            goto LABEL_25;
+            return 24;
           case -536870191:
-            result = 19;
-            goto LABEL_25;
+            return 19;
           case -536870190:
-            result = 32;
-            goto LABEL_25;
+            return 32;
         }
 
-        goto LABEL_63;
+        return 18;
       }
 
       if (v10 != -536870206)
       {
         if (v10 == -536870203)
         {
-          result = 30;
-          goto LABEL_25;
+          return 30;
         }
 
-        goto LABEL_63;
+        return 18;
       }
 
-LABEL_19:
-      result = 2;
-      goto LABEL_25;
+      return 2;
     }
 
     v12 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
@@ -1434,9 +1064,9 @@ LABEL_19:
     if (v12)
     {
       *buf = 136315138;
-      v19 = "ANEServicesProgramMemoryUnmapRequest";
+      v18 = "ANEServicesProgramMemoryUnmapRequest";
       _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: pANEServicesDevice->ANE_ProgramMemoryUnMapRequest success\n", buf, 0xCu);
-      result = 0;
+      return 0;
     }
   }
 
@@ -1447,17 +1077,15 @@ LABEL_19:
       ANEServicesProgramMemoryUnmapRequest_cold_3();
     }
 
-    result = 8;
+    return 8;
   }
 
-LABEL_25:
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t ANEServicesProgramCreateNewInstance(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t ANEServicesProgramCreateNewInstance(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = 2;
   if (a1 && a2 && a3 && (*a2 || *(a2 + 12)))
   {
@@ -1471,25 +1099,24 @@ uint64_t ANEServicesProgramCreateNewInstance(uint64_t a1, uint64_t *a2, uint64_t
           ANEServicesProgramCreateNewInstance_cold_3();
         }
 
-        v3 = 20;
+        return 20;
       }
 
       else
       {
         if (*(a2 + 67) < 0x21u)
         {
-          v12 = *(v5 + 8);
-          v8 = os_signpost_id_make_with_pointer(+[ANEServicesLog handle], 0x61B240C);
-          v9 = +[ANEServicesLog handle];
-          if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+          v7 = os_signpost_id_make_with_pointer(+[ANEServicesLog handle], 0x61B240C);
+          v8 = +[ANEServicesLog handle];
+          if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
           {
-            v10 = v9;
-            if (os_signpost_enabled(v9))
+            v9 = v8;
+            if (os_signpost_enabled(v8))
             {
-              v11 = *a2;
+              v10 = *a2;
               *buf = 134217984;
-              v14 = v11;
-              _os_signpost_emit_with_name_impl(&dword_1C0446000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "ServicesProgramCreateNewInstance", "progHandle=%llx", buf, 0xCu);
+              v12 = v10;
+              _os_signpost_emit_with_name_impl(&dword_1C0446000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "ServicesProgramCreateNewInstance", "progHandle=%llx", buf, 0xCu);
             }
           }
 
@@ -1510,21 +1137,20 @@ uint64_t ANEServicesProgramCreateNewInstance(uint64_t a1, uint64_t *a2, uint64_t
         ANEServicesProgramCreateNewInstance_cold_4();
       }
 
-      v3 = 8;
+      return 8;
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 uint64_t ANEServicesSessionHintRequest(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = 2;
   if (!a1 || !a2)
   {
-    goto LABEL_17;
+    return v3;
   }
 
   v5 = *(*(a1 + 16) + 8);
@@ -1547,12 +1173,12 @@ uint64_t ANEServicesSessionHintRequest(uint64_t a1, uint64_t *a2, uint64_t a3)
       }
     }
 
-    v20 = 0;
+    v19 = 0;
     memset(buf, 0, sizeof(buf));
-    v19 = *a2;
-    LOBYTE(v20) = *(a2 + 2);
-    BYTE1(v20) = *(a2 + 12);
-    v12 = ANE::ANEServicesDevice::ANE_SessionHintRequest(v5, &v19, buf);
+    v18 = *a2;
+    LOBYTE(v19) = *(a2 + 2);
+    BYTE1(v19) = *(a2 + 12);
+    v12 = ANE::ANEServicesDevice::ANE_SessionHintRequest(v5, &v18, buf);
     if (a3 && !v12)
     {
       *a3 = *buf;
@@ -1576,7 +1202,7 @@ LABEL_11:
         }
       }
 
-      goto LABEL_17;
+      return v3;
     }
 
     if (v12 > -536870185)
@@ -1720,15 +1346,12 @@ LABEL_11:
     ANEServicesSessionHintRequest_cold_1();
   }
 
-  v3 = 8;
-LABEL_17:
-  v17 = *MEMORY[0x1E69E9840];
-  return v3;
+  return 8;
 }
 
 uint64_t ANEServicesHandleDeviceOpen(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   *(a2 + 96) = 0;
   *(a2 + 64) = 0u;
   *(a2 + 80) = 0u;
@@ -1751,17 +1374,16 @@ uint64_t ANEServicesHandleDeviceOpen(uint64_t a1, uint64_t a2, uint64_t a3, uint
         if (result)
         {
           v9 = *a3;
-          v14 = 67109120;
-          v15 = v9;
+          v13 = 67109120;
+          v14 = v9;
           v10 = MEMORY[0x1E69E9C10];
           v11 = "ANEDriver Device Open succeeded with usage type: %d\n";
 LABEL_18:
-          _os_log_impl(&dword_1C0446000, v10, OS_LOG_TYPE_DEFAULT, v11, &v14, 8u);
-          result = 0;
-          goto LABEL_22;
+          _os_log_impl(&dword_1C0446000, v10, OS_LOG_TYPE_DEFAULT, v11, &v13, 8u);
+          return 0;
         }
 
-        goto LABEL_22;
+        return result;
       }
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -1781,25 +1403,30 @@ LABEL_18:
               {
                 if (v7 != -536870169)
                 {
-                  goto LABEL_78;
+                  return 18;
                 }
 
-LABEL_73:
-                result = 29;
-                goto LABEL_22;
+                return 29;
               }
 
-LABEL_70:
-              result = 10;
-              goto LABEL_22;
+              return 10;
             }
 
-LABEL_69:
-            result = 26;
-            goto LABEL_22;
+            return 26;
           }
 
-          goto LABEL_53;
+LABEL_53:
+          if (v7 == -536870186)
+          {
+            return 15;
+          }
+
+          if (v7 == -536870184)
+          {
+            return 22;
+          }
+
+          return 18;
         }
 
         if (v7 > -536870163)
@@ -1808,39 +1435,95 @@ LABEL_69:
           {
             if (v7 != -536870160)
             {
-              goto LABEL_78;
+              return 18;
             }
 
-            goto LABEL_71;
+            return 4;
           }
 
-          goto LABEL_67;
+          return 28;
         }
 
         if (v7 != -536870165)
         {
-          if (v7 != -536870163)
+          if (v7 == -536870163)
           {
-            goto LABEL_78;
+            return 27;
           }
 
-          goto LABEL_76;
+          return 18;
         }
 
-        goto LABEL_77;
+        return 21;
       }
 
-      goto LABEL_32;
+LABEL_32:
+      if (v7 <= -536870207)
+      {
+        if (v7 > -536870211)
+        {
+          if (v7 == -536870210)
+          {
+            return 5;
+          }
+
+          if (v7 == -536870207)
+          {
+            return 20;
+          }
+        }
+
+        else
+        {
+          if (v7 == -536870911)
+          {
+            return 31;
+          }
+
+          if (v7 == -536870211)
+          {
+            return 1;
+          }
+        }
+      }
+
+      else if (v7 <= -536870202)
+      {
+        if (v7 == -536870206)
+        {
+          return 2;
+        }
+
+        if (v7 == -536870203)
+        {
+          return 30;
+        }
+      }
+
+      else
+      {
+        switch(v7)
+        {
+          case -536870201:
+            return 24;
+          case -536870191:
+            return 19;
+          case -536870190:
+            return 32;
+        }
+      }
+
+      return 18;
     }
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 67109120;
-      v15 = -536870174;
-      _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Could not open ANEDriver (possible missing entitlement) - status=0x%x", &v14, 8u);
+      v13 = 67109120;
+      v14 = -536870174;
+      _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Could not open ANEDriver (possible missing entitlement) - status=0x%x", &v13, 8u);
     }
 
-    goto LABEL_21;
+    return 23;
   }
 
   if (v7)
@@ -1852,72 +1535,7 @@ LABEL_69:
 
     if (v7 <= -536870187)
     {
-LABEL_32:
-      if (v7 <= -536870207)
-      {
-        if (v7 > -536870211)
-        {
-          if (v7 == -536870210)
-          {
-            result = 5;
-            goto LABEL_22;
-          }
-
-          if (v7 == -536870207)
-          {
-            result = 20;
-            goto LABEL_22;
-          }
-        }
-
-        else
-        {
-          if (v7 == -536870911)
-          {
-            result = 31;
-            goto LABEL_22;
-          }
-
-          if (v7 == -536870211)
-          {
-            result = 1;
-            goto LABEL_22;
-          }
-        }
-      }
-
-      else if (v7 <= -536870202)
-      {
-        if (v7 == -536870206)
-        {
-          result = 2;
-          goto LABEL_22;
-        }
-
-        if (v7 == -536870203)
-        {
-          result = 30;
-          goto LABEL_22;
-        }
-      }
-
-      else
-      {
-        switch(v7)
-        {
-          case -536870201:
-            result = 24;
-            goto LABEL_22;
-          case -536870191:
-            result = 19;
-            goto LABEL_22;
-          case -536870190:
-            result = 32;
-            goto LABEL_22;
-        }
-      }
-
-      goto LABEL_78;
+      goto LABEL_32;
     }
 
     if (v7 > -536870170)
@@ -1930,220 +1548,186 @@ LABEL_32:
           {
             if (v7 != -536870160)
             {
-              goto LABEL_78;
+              return 18;
             }
 
-LABEL_71:
-            result = 4;
-            goto LABEL_22;
+            return 4;
           }
 
-LABEL_67:
-          result = 28;
-          goto LABEL_22;
+          return 28;
         }
 
-LABEL_76:
-        result = 27;
-        goto LABEL_22;
+        return 27;
       }
 
       if (v7 == -536870169)
       {
-        goto LABEL_73;
+        return 29;
       }
 
       if (v7 != -536870165)
       {
-        goto LABEL_78;
+        return 18;
       }
 
-LABEL_77:
-      result = 21;
-      goto LABEL_22;
+      return 21;
     }
 
     if (v7 <= -536870177)
     {
-LABEL_53:
-      if (v7 == -536870186)
-      {
-        result = 15;
-        goto LABEL_22;
-      }
-
-      if (v7 == -536870184)
-      {
-        result = 22;
-        goto LABEL_22;
-      }
-
-      goto LABEL_78;
+      goto LABEL_53;
     }
 
     if (v7 == -536870176)
     {
-      goto LABEL_69;
+      return 26;
     }
 
     if (v7 != -536870174)
     {
       if (v7 == -536870173)
       {
-        goto LABEL_70;
+        return 10;
       }
 
-LABEL_78:
-      result = 18;
-      goto LABEL_22;
+      return 18;
     }
 
-LABEL_21:
-    result = 23;
-    goto LABEL_22;
+    return 23;
   }
 
   result = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
   if (result)
   {
     v12 = *a3;
-    v14 = 67109120;
-    v15 = v12;
+    v13 = 67109120;
+    v14 = v12;
     v10 = MEMORY[0x1E69E9C10];
     v11 = "ANEServices Device Open succeeded with usage type: %d\n";
     goto LABEL_18;
   }
 
-LABEL_22:
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t ANEServicesLocateAndOpenHintedDevice(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, CFArrayRef *a5, uint64_t a6, int a7, _DWORD *a8)
+uint64_t ANEServicesLocateAndOpenHintedDevice(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, CFArrayRef *a5, uint64_t a6, unsigned int a7, _DWORD *a8)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (a7 < 1)
   {
-    v15 = 18;
+    return 18;
   }
 
-  else
+  v9 = a5;
+  v14 = 0;
+  v29 = a7;
+  v15 = 18;
+  v16 = MEMORY[0x1E69E9C10];
+  while (1)
   {
-    v9 = a5;
-    v14 = 0;
-    v30 = a7;
-    v15 = 18;
-    v16 = MEMORY[0x1E69E9C10];
-    while (1)
+    ValueAtIndex = CFArrayGetValueAtIndex(*v9, v14);
+    *a1 = ValueAtIndex;
+    v18 = ValueAtIndex[34];
+    v19 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+    if (v18 != 1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(*v9, v14);
-      *a1 = ValueAtIndex;
-      v18 = ValueAtIndex[34];
-      v19 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-      if (v18 != 1)
-      {
-        break;
-      }
-
-      if (v19)
-      {
-        *buf = 0;
-        _os_log_impl(&dword_1C0446000, v16, OS_LOG_TYPE_DEFAULT, "ANEDriver type being skipped due to explicit hint\n", buf, 2u);
-      }
-
-LABEL_21:
-      if (++v14 == v30)
-      {
-        goto LABEL_24;
-      }
+      break;
     }
 
     if (v19)
     {
-      *buf = 67109120;
-      v32 = v14;
-      _os_log_impl(&dword_1C0446000, v16, OS_LOG_TYPE_DEFAULT, "(Possible Multi-ANE System) Opening ANEDevice at index %d\n", buf, 8u);
+      *buf = 0;
+      _os_log_impl(&dword_1C0446000, v16, OS_LOG_TYPE_DEFAULT, "ANEDriver type being skipped due to explicit hint\n", buf, 2u);
     }
 
-    v20 = 0;
-    while (1)
+LABEL_21:
+    if (++v14 == v29)
     {
-      v21 = ANEServicesHandleDeviceOpen(*a1, a2, a3, a4, a6);
-      v22 = *a1;
-      if (!v21)
-      {
-        break;
-      }
+      return v15;
+    }
+  }
 
-      v15 = v21;
-      ANE::ANEServicesDevice::ANEDeviceClose(*a1);
-      if (v15 == 10)
-      {
-        ++v20;
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 67109376;
-          v32 = v20;
-          v33 = 1024;
-          v34 = 10;
-          _os_log_impl(&dword_1C0446000, v16, OS_LOG_TYPE_DEFAULT, "(Possible Multi-ANE System) ANEServices device not powered, retry %d out of %d\n", buf, 0xEu);
-        }
+  if (v19)
+  {
+    *buf = 67109120;
+    v31 = v14;
+    _os_log_impl(&dword_1C0446000, v16, OS_LOG_TYPE_DEFAULT, "(Possible Multi-ANE System) Opening ANEDevice at index %d\n", buf, 8u);
+  }
 
-        usleep(1u);
-        if (v20 != 10)
-        {
-          continue;
-        }
-      }
+  v20 = 0;
+  while (1)
+  {
+    v21 = ANEServicesHandleDeviceOpen(*a1, a2, a3, a4, a6);
+    v22 = *a1;
+    if (!v21)
+    {
+      break;
+    }
 
+    v15 = v21;
+    ANE::ANEServicesDevice::ANEDeviceClose(*a1);
+    if (v15 == 10)
+    {
+      ++v20;
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = 67109120;
-        v32 = v14;
-        _os_log_impl(&dword_1C0446000, v16, OS_LOG_TYPE_DEFAULT, "(Possible Multi-ANE System) Could not open ANEServices device at index %d. Skipping device...\n", buf, 8u);
+        *buf = 67109376;
+        v31 = v20;
+        v32 = 1024;
+        v33 = 10;
+        _os_log_impl(&dword_1C0446000, v16, OS_LOG_TYPE_DEFAULT, "(Possible Multi-ANE System) ANEServices device not powered, retry %d out of %d\n", buf, 0xEu);
       }
+
+      usleep(1u);
+      if (v20 != 10)
+      {
+        continue;
+      }
+    }
+
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      v31 = v14;
+      _os_log_impl(&dword_1C0446000, v16, OS_LOG_TYPE_DEFAULT, "(Possible Multi-ANE System) Could not open ANEServices device at index %d. Skipping device...\n", buf, 8u);
+    }
 
 LABEL_20:
-      v9 = a5;
-      goto LABEL_21;
-    }
+    v9 = a5;
+    goto LABEL_21;
+  }
 
-    v23 = *(v22 + 8);
-    v24 = *a8 - 1;
-    v25 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-    if (v23 != v24)
-    {
-      if (v25)
-      {
-        *buf = 67109120;
-        v32 = v14;
-        _os_log_impl(&dword_1C0446000, v16, OS_LOG_TYPE_DEFAULT, "(Possible Multi-ANE System) Skipping ANEServices device at index %d\n", buf, 8u);
-        v22 = *a1;
-      }
-
-      ANE::ANEServicesDevice::ANEDeviceClose(v22);
-      v15 = 0;
-      goto LABEL_20;
-    }
-
+  v23 = *(v22 + 8);
+  v24 = *a8 - 1;
+  v25 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+  if (v23 != v24)
+  {
     if (v25)
     {
       *buf = 67109120;
-      v32 = v14;
-      _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "(Possible Multi-ANE System) Selected ANE device at index %d based on subType match\n", buf, 8u);
+      v31 = v14;
+      _os_log_impl(&dword_1C0446000, v16, OS_LOG_TYPE_DEFAULT, "(Possible Multi-ANE System) Skipping ANEServices device at index %d\n", buf, 8u);
+      v22 = *a1;
     }
 
+    ANE::ANEServicesDevice::ANEDeviceClose(v22);
     v15 = 0;
+    goto LABEL_20;
   }
 
-LABEL_24:
-  v26 = *MEMORY[0x1E69E9840];
-  return v15;
+  if (v25)
+  {
+    *buf = 67109120;
+    v31 = v14;
+    _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "(Possible Multi-ANE System) Selected ANE device at index %d based on subType match\n", buf, 8u);
+  }
+
+  return 0;
 }
 
 uint64_t ANEServicesCheckPrivilegedVMAccess()
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   mainPort = 0;
   v0 = MEMORY[0x1C68DA060](*MEMORY[0x1E69E99F8], &mainPort);
   if (v0)
@@ -2155,9 +1739,9 @@ uint64_t ANEServicesCheckPrivilegedVMAccess()
     }
 
     *buf = 136315394;
-    v18 = "ANEReturn ANEServicesCheckPrivilegedVMAccess()";
-    v19 = 1024;
-    LODWORD(v20) = v1;
+    v17 = "ANEReturn ANEServicesCheckPrivilegedVMAccess()";
+    v18 = 1024;
+    LODWORD(v19) = v1;
     v2 = MEMORY[0x1E69E9C10];
     v3 = "%s: Couldn't create a mach port: result=0x%x";
     v4 = 18;
@@ -2169,9 +1753,9 @@ uint64_t ANEServicesCheckPrivilegedVMAccess()
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v18 = "ANEReturn ANEServicesCheckPrivilegedVMAccess()";
-    v19 = 2080;
-    v20 = name;
+    v17 = "ANEReturn ANEServicesCheckPrivilegedVMAccess()";
+    v18 = 2080;
+    v19 = name;
     _os_log_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: probing for %s", buf, 0x16u);
   }
 
@@ -2186,11 +1770,11 @@ uint64_t ANEServicesCheckPrivilegedVMAccess()
     }
 
     *buf = 136315650;
-    v18 = "ANEReturn ANEServicesCheckPrivilegedVMAccess()";
-    v19 = 2080;
-    v20 = name;
-    v21 = 1024;
-    v22 = v1;
+    v17 = "ANEReturn ANEServicesCheckPrivilegedVMAccess()";
+    v18 = 2080;
+    v19 = name;
+    v20 = 1024;
+    v21 = v1;
     v2 = MEMORY[0x1E69E9C10];
     v3 = "%s: Couldn't get matching services for %s: result=0x%x";
     v4 = 28;
@@ -2215,11 +1799,11 @@ uint64_t ANEServicesCheckPrivilegedVMAccess()
           if (v12)
           {
             *buf = 136315650;
-            v18 = "ANEReturn ANEServicesCheckPrivilegedVMAccess()";
-            v19 = 2080;
-            v20 = name;
-            v21 = 1024;
-            v22 = v1;
+            v17 = "ANEReturn ANEServicesCheckPrivilegedVMAccess()";
+            v18 = 2080;
+            v19 = name;
+            v20 = 1024;
+            v21 = v1;
             _os_log_impl(&dword_1C0446000, v11, OS_LOG_TYPE_DEFAULT, "%s:Client does NOT have privileged VM access to %s result=0x%x", buf, 0x1Cu);
           }
         }
@@ -2229,13 +1813,13 @@ uint64_t ANEServicesCheckPrivilegedVMAccess()
           if (v12)
           {
             *buf = 136315906;
-            v18 = "ANEReturn ANEServicesCheckPrivilegedVMAccess()";
-            v19 = 2080;
-            v20 = name;
-            v21 = 1024;
-            v22 = v9;
-            v23 = 1024;
-            v24 = 0;
+            v17 = "ANEReturn ANEServicesCheckPrivilegedVMAccess()";
+            v18 = 2080;
+            v19 = name;
+            v20 = 1024;
+            v21 = v9;
+            v22 = 1024;
+            v23 = 0;
             _os_log_impl(&dword_1C0446000, v11, OS_LOG_TYPE_DEFAULT, "%s:Client has privileged VM access to %s at port %u result=0x%x", buf, 0x22u);
           }
 
@@ -2264,7 +1848,7 @@ uint64_t ANEServicesCheckPrivilegedVMAccess()
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v18 = "ANEReturn ANEServicesCheckPrivilegedVMAccess()";
+      v17 = "ANEReturn ANEServicesCheckPrivilegedVMAccess()";
       v2 = MEMORY[0x1E69E9C10];
       v3 = "%s:IOService ANEPrivilegedVMAccess not found.";
       v4 = 12;
@@ -2282,14 +1866,12 @@ LABEL_10:
       {
         if (v1 == -536870165)
         {
-          result = 21;
-          goto LABEL_71;
+          return 21;
         }
 
         if (v1 == -536870163)
         {
-          result = 27;
-          goto LABEL_71;
+          return 27;
         }
       }
 
@@ -2298,14 +1880,11 @@ LABEL_10:
         switch(v1)
         {
           case -536870162:
-            result = 28;
-            goto LABEL_71;
+            return 28;
           case -536870160:
-            result = 4;
-            goto LABEL_71;
+            return 4;
           case 0:
-            result = 0;
-            goto LABEL_71;
+            return 0;
         }
       }
     }
@@ -2314,14 +1893,12 @@ LABEL_10:
     {
       if (v1 == -536870184)
       {
-        result = 22;
-        goto LABEL_71;
+        return 22;
       }
 
       if (v1 == -536870176)
       {
-        result = 26;
-        goto LABEL_71;
+        return 26;
       }
     }
 
@@ -2330,36 +1907,27 @@ LABEL_10:
       switch(v1)
       {
         case -536870174:
-          result = 23;
-          goto LABEL_71;
+          return 23;
         case -536870173:
-          result = 10;
-          goto LABEL_71;
+          return 10;
         case -536870169:
-          result = 29;
-          goto LABEL_71;
+          return 29;
       }
     }
-
-LABEL_70:
-    result = 18;
-    goto LABEL_71;
   }
 
-  if (v1 > -536870204)
+  else if (v1 > -536870204)
   {
     if (v1 <= -536870192)
     {
       if (v1 == -536870203)
       {
-        result = 30;
-        goto LABEL_71;
+        return 30;
       }
 
       if (v1 == -536870201)
       {
-        result = 24;
-        goto LABEL_71;
+        return 24;
       }
     }
 
@@ -2368,58 +1936,42 @@ LABEL_70:
       switch(v1)
       {
         case -536870191:
-          result = 19;
-          goto LABEL_71;
+          return 19;
         case -536870190:
-          result = 32;
-          goto LABEL_71;
+          return 32;
         case -536870186:
-          result = 15;
-          goto LABEL_71;
+          return 15;
       }
     }
-
-    goto LABEL_70;
   }
 
-  if (v1 <= -536870211)
+  else if (v1 <= -536870211)
   {
     if (v1 == -536870911)
     {
-      result = 31;
-      goto LABEL_71;
+      return 31;
     }
 
     if (v1 == -536870211)
     {
-      result = 1;
-      goto LABEL_71;
+      return 1;
     }
-
-    goto LABEL_70;
   }
 
-  if (v1 == -536870210)
+  else
   {
-    result = 5;
-    goto LABEL_71;
+    switch(v1)
+    {
+      case -536870210:
+        return 5;
+      case -536870207:
+        return 20;
+      case -536870206:
+        return 2;
+    }
   }
 
-  if (v1 == -536870207)
-  {
-    result = 20;
-    goto LABEL_71;
-  }
-
-  if (v1 != -536870206)
-  {
-    goto LABEL_70;
-  }
-
-  result = 2;
-LABEL_71:
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return 18;
 }
 
 uint64_t MyANEDeviceControllerNotification(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2467,34 +2019,31 @@ uint64_t MyANEDeviceControllerNotification(uint64_t a1, uint64_t a2, uint64_t a3
   }
 }
 
-void *AllocateStatsBufferPool(void *result, unsigned int a2, int a3, unint64_t a4, ANE::ANEServicesDevice *a5)
+void AllocateStatsBufferPool(ANE::ANERequestReceiverBufferPool **a1, unsigned int a2, int a3, unint64_t a4, ANE::ANEServicesDevice *a5)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  if (result)
+  v5 = *MEMORY[0x1E69E9840];
+  if (a1)
   {
     if (a3)
     {
       operator new();
     }
 
-    *result = 0;
+    *a1 = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t ANEServicesInitializePlatformServices()
 {
-  v24 = 0;
   v23 = 0;
+  v22 = 0;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     ANEServicesInitializePlatformServices_cold_1();
   }
 
-  ANEDeviceController = ANE::CreateANEDeviceController(&v24, MyANEDeviceControllerNotification, 0, v0);
-  if (!v24)
+  ANEDeviceController = ANE::CreateANEDeviceController(&v23, MyANEDeviceControllerNotification, 0, v0);
+  if (!v23)
   {
     Firmware = -536870208;
     v8 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
@@ -2508,7 +2057,7 @@ uint64_t ANEServicesInitializePlatformServices()
   }
 
   Firmware = ANEDeviceController;
-  if (!CFArrayGetCount(*v24))
+  if (!CFArrayGetCount(*v23))
   {
 LABEL_11:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -2524,12 +2073,12 @@ LABEL_11:
   v4 = MEMORY[0x1E69E9C10];
   while (1)
   {
-    ValueAtIndex = CFArrayGetValueAtIndex(*v24, v3);
+    ValueAtIndex = CFArrayGetValueAtIndex(*v23, v3);
     if (*(ValueAtIndex + 34) == 1)
     {
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
-        ANEServicesInitializePlatformServices_cold_5(&buf, v22);
+        ANEServicesInitializePlatformServices_cold_5(buf, &buf[1]);
       }
 
       goto LABEL_10;
@@ -2543,7 +2092,7 @@ LABEL_11:
     }
 
 LABEL_10:
-    if (++v3 >= CFArrayGetCount(*v24))
+    if (++v3 >= CFArrayGetCount(*v23))
     {
       goto LABEL_11;
     }
@@ -2553,7 +2102,7 @@ LABEL_10:
   ANE::ANEServicesDevice::ANE_GetStatus(v6, outputStruct);
   if (BYTE8(outputStruct[0]) == 1)
   {
-    v19[0] = &v23;
+    v19[0] = &v22;
     v19[1] = v6;
     ANEDebugWorkProcessor = ANE::CreateANEDebugWorkProcessor(v19);
     if (ANEDebugWorkProcessor)
@@ -2567,7 +2116,7 @@ LABEL_10:
 
     else
     {
-      started = ANE::ANEDebugWorkProcessor::startReceive(v23);
+      started = ANE::ANEDebugWorkProcessor::startReceive(v22);
       if (started)
       {
         Firmware = started;
@@ -2605,11 +2154,11 @@ LABEL_14:
   }
 
 LABEL_20:
-  if (v23)
+  if (v22)
   {
-    ANE::ANEDebugWorkProcessor::stopReceive(v23);
-    ANE::DestroyANEDebugWorkProcessor(v23, v16);
-    v23 = 0;
+    ANE::ANEDebugWorkProcessor::stopReceive(v22);
+    ANE::DestroyANEDebugWorkProcessor(v22, v16);
+    v22 = 0;
   }
 
   if (v6)
@@ -3413,18 +2962,18 @@ LABEL_4:
 uint64_t ANE::ANESetMachThreadPriority(ANE *this, int a2)
 {
   v3 = this;
-  v13 = *MEMORY[0x1E69E9840];
-  v9 = 0;
+  v12 = *MEMORY[0x1E69E9840];
+  v8 = 0;
   v4 = getpid();
   if (proc_pidinfo(v4, 2, 0, buffer, 232) <= 0)
   {
     fwrite("ANESetMachThreadPriority - proc_pidinfo() failed\n", 0x31uLL, 1uLL, *MEMORY[0x1E69E9848]);
-    v6 = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
-    policy_info = a2 - v12;
+    policy_info = a2 - v11;
     v5 = thread_policy_set(v3, 3u, &policy_info, 1u);
     if (v5)
     {
@@ -3434,7 +2983,7 @@ uint64_t ANE::ANESetMachThreadPriority(ANE *this, int a2)
 
     else
     {
-      v6 = thread_policy_set(v3, 1u, &v9, 1u);
+      v6 = thread_policy_set(v3, 1u, &v8, 1u);
       if (v6)
       {
         fprintf(*MEMORY[0x1E69E9848], "ANESetMachThreadPriority - thread_policy_set(...,THREAD_EXTENDED_POLICY,...) failed, err=%d\n", v6);
@@ -3442,11 +2991,10 @@ uint64_t ANE::ANESetMachThreadPriority(ANE *this, int a2)
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
-uint64_t ANE::ANEInflateFirmwareBuffer(ANE *this, unint64_t a2, unint64_t a3, unsigned __int8 **a4, unint64_t *a5)
+uint64_t ANE::ANEInflateFirmwareBuffer(Bytef *this, unint64_t a2, Bytef **a3, unsigned __int8 **a4, unint64_t *a5)
 {
   memset(&strm.zalloc, 0, 24);
   strm.avail_in = a2;
@@ -3468,7 +3016,7 @@ uint64_t ANE::ANEInflateFirmwareBuffer(ANE *this, unint64_t a2, unint64_t a3, un
 
     else
     {
-      v11 = *(this + a2 - 4);
+      v11 = *&this[a2 - 4];
       *a4 = v11;
       if (!(v11 >> 25))
       {
@@ -3585,161 +3133,129 @@ uint64_t ANE::ANEThreadReadySyncer::signalAndUnlock(ANE::ANEThreadReadySyncer *t
   return pthread_mutex_unlock(this);
 }
 
-void ZinComputeProgramGetANETDThreadStateArgumentSize()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ZinComputeProgramGetThreadArgumentSize()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ZinComputeProgramGetANESegThreadStateArgumentSize()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ZinComputeProgramSupportsFeature()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 void ZinComputeProgramGetAneTDPartitionScheduleInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Error: ZinComputeProgramGetAneTDPartitionScheduleInfo", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Error: ZinComputeProgramGetAneTDPartitionScheduleInfo", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Error: thread argument is not supported.", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Error: thread argument is not supported.", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Error: thread argument buffer overrun.", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Error: thread argument buffer overrun.", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Out of range next count", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Out of range next count", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Out of range next segment id [0]", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Out of range next segment id [0]", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Out of range next segment id [1]", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Out of range next segment id [1]", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Out of range next segment count", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Out of range next segment count", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Out of range segment id", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Out of range segment id", a5, a6, a7, a8, v8);
 }
 
 void ZinComputeProgramGetProcedureNameFromThread_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: procedure name buffer overrun", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "auto ZinComputeProgramGetProcedureNameFromThread(const struct ident_command *, const struct compute_thread_command *, const void *, const void *)::(anonymous class)::operator()(const void *const, size_t) const";
+  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: procedure name buffer overrun", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ZinComputeProgramFindFvmlibSpan_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: illegal section parameter = NULL", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void ZinComputeProgramFindFvmlibSpan_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ZinComputeProgramFvmlib *ZinComputeProgramFindFvmlibSpan(std::span<ZinComputeProgramFvmlib> &, const ZinComputeProgramSection *)";
+  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: illegal section parameter = NULL", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ZinComputeProgramFindFvmlibSpan_cold_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: illegal 'fvmlibs' parameter", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ZinComputeProgramFvmlib *ZinComputeProgramFindFvmlibSpan(std::span<ZinComputeProgramFvmlib> &, const ZinComputeProgramSection *)";
+  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: illegal 'fvmlibs' parameter", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ZinComputeProgramGetInitSection_cold_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: illegal params = NULL", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ZinComputeProgramStatus ZinComputeProgramGetInitSection(const ZinComputeProgram *, ZinComputeProgramSection **)";
+  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: illegal params = NULL", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ZinComputeProgramMakeInitInfo_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: Unable to allocate the init info structure", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ZinComputeProgramStatus ZinComputeProgramMakeInitInfo(const ZinComputeProgram *, ZinComputeProgramInitInfo **)";
+  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: Unable to allocate the init info structure", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ZinComputeProgramMakeInitInfo_cold_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: Unable to find the init section", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ZinComputeProgramStatus ZinComputeProgramMakeInitInfo(const ZinComputeProgram *, ZinComputeProgramInitInfo **)";
+  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: Unable to find the init section", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ZinComputeProgramMakeInitInfo_cold_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: illegal program parameter = NULL", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ZinComputeProgramStatus ZinComputeProgramMakeInitInfo(const ZinComputeProgram *, ZinComputeProgramInitInfo **)";
+  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: illegal program parameter = NULL", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ZinComputeProgramDestroyInitInfo_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: illegal info parameter = NULL", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "void ZinComputeProgramDestroyInitInfo(ZinComputeProgramInitInfo *)";
+  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: illegal info parameter = NULL", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ZinComputeProgramCompareCompilerVersion_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: Cannot retrieve version from ident_str", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ZinComputeProgramStatus ZinComputeProgramCompareCompilerVersion(const char *, const char *, int32_t *)";
+  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: Cannot retrieve version from ident_str", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ZinComputeProgramCompareCompilerVersion_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: Cannot retrieve version from version string", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ZinComputeProgramStatus ZinComputeProgramCompareCompilerVersion(const char *, const char *, int32_t *)";
+  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: Cannot retrieve version from version string", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ZinComputeProgramCompareCompilerVersion_cold_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: illegal params = NULL", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ZinComputeProgramStatus ZinComputeProgramCompareCompilerVersion(const char *, const char *, int32_t *)";
+  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: illegal params = NULL", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ZinComputeProgramCompareLinkerVersion_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: illegal params = NULL", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ZinComputeProgramStatus ZinComputeProgramCompareLinkerVersion(const char *, const char *, int32_t *)";
+  OUTLINED_FUNCTION_0_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: illegal params = NULL", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ZinComputeProgramCollectOperationScheduleInfo_cold_1(uint8_t *buf, _BYTE *a2)
@@ -3758,115 +3274,83 @@ void ZinComputeProgramCollectOperationScheduleInfo_cold_3(uint8_t *buf, _BYTE *a
 
 void ZinCreateAnalytics()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
@@ -3968,867 +3452,495 @@ void ZinCreateAnalytics(uint8_t *a1, _DWORD *a2, uint64_t a3)
 
 void ZinDumpAnalytics()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ZinDumpAnalyticsInJSON()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void MemPool::alloc<_AnalyticsProcedureInfo>()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEDebugInfo::DebugInfoParser::ParseCU()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 void ANEDebugInfo::DebugInfoParser::ParseProc()
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 void ANEDebugInfo::DebugInfoParser::ParseHwConfigs()
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEDebugInfo::DebugInfoParser::ParseIdentString()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEDebugInfo::DebugInfoParser::ParseMaxContextLatencyThreshold()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 void ANEDebugInfo::DebugInfoParser::ParseGroup()
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 void ANEDebugInfo::DebugInfoParser::ParseLayer()
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 void ANEDebugInfo::DebugInfoParser::ParseTD()
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEDebugInfo::DebugInfoParser::ParseOperation()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEDebugInfo::DebugInfoParser::ParseViolateMaxContextLatencyFlag()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 void ANEDebugInfo::DebugInfoParser::ParsePerfStats()
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 void ANEDebugInfo::DebugInfoParser::ParsePerfTracerInfo()
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 {
-  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Parsing failed: in %s at %d ", v1, v2, v3, v4);
 }
 
 void ZinIrCompilerParamsUtils::StringToPerfTracerConfig(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Error: Invalid perf tracer metric2", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Error: Invalid perf tracer metric2", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Error: Invalid perf tracer metric1", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Error: Invalid perf tracer metric1", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Error: Invalid perf tracer category", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Error: Invalid perf tracer category", a5, a6, a7, a8, v8);
 }
 
 void ANE::ANEServicesDevice::ANEDeviceOpen(int a1)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_error_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "ANEServicesDevice::ANEServicesDeviceOpen kANEUserClientCommand_DeviceOpen call failed result=0x%x\n", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_error_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "ANEServicesDevice::ANEServicesDeviceOpen kANEUserClientCommand_DeviceOpen call failed result=0x%x\n", v1, 8u);
 }
 
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_error_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "ANEServicesDevice::ANEServicesDeviceOpen IOServiceOpen failed result= 0x%x\n", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_error_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "ANEServicesDevice::ANEServicesDeviceOpen IOServiceOpen failed result= 0x%x\n", v1, 8u);
 }
 
 void ANE::ANEServicesDevice::ANE_ProgramSendRequest(int a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = 136315650;
-  v3 = "ANE_ProgramSendRequest";
-  v4 = 1024;
-  v5 = 1000;
-  v6 = 1024;
-  v7 = a1;
-  _os_log_error_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%s:%d status=%x\n", &v2, 0x18u);
-  v1 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v1 = 136315650;
+  v2 = "ANE_ProgramSendRequest";
+  v3 = 1024;
+  v4 = 1000;
+  v5 = 1024;
+  v6 = a1;
+  _os_log_error_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%s:%d status=%x\n", &v1, 0x18u);
 }
 
 void ANE::ANEDeviceController::SetupDeviceController()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v1 = 136315138;
-  v2 = "SetupDeviceController";
-  _os_log_error_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "ERROR: %s:IONotificationPortGetRunLoopSource failed!\n", &v1, 0xCu);
-  v0 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v0 = 136315138;
+  v1 = "SetupDeviceController";
+  _os_log_error_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "ERROR: %s:IONotificationPortGetRunLoopSource failed!\n", &v0, 0xCu);
 }
 
 void ANE::ANEHWDevice::ANEHWDeviceOpen(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "ANEServicesDevice::ANEServicesDeviceOpen kANEUserClientCommand_DeviceOpen call failed result=0x%x\n", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "ANEServicesDevice::ANEServicesDeviceOpen kANEUserClientCommand_DeviceOpen call failed result=0x%x\n", a5, a6, a7, a8, v8);
 }
 
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "ANEHWDeviceOpen isPrivileged=%d\n", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "ANEHWDeviceOpen isPrivileged=%d\n", a5, a6, a7, a8, v8);
 }
 
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "ANEHWDeviceOpen::ANEHWDeviceOpen IOServiceOpen failed result= 0x%x\n", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "ANEHWDeviceOpen::ANEHWDeviceOpen IOServiceOpen failed result= 0x%x\n", a5, a6, a7, a8, v8);
 }
 
 void ANE::ANERequestReceiver::ProgramProcessRequest()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void ANE::ANERequestReceiver::syncFrameDone(uint64_t *a1)
+void ANE::ANERequestReceiver::syncFrameDone()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void ANEServicesDeviceUpdateParameters_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesDeviceUpdateParameters_cold_2(int *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesDeviceUpdateParameters_cold_3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesDeviceClose_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesDeviceClose_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesDeviceClose_cold_3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesDeviceClose_cold_4()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramPrepare_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramPrepare_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramPrepare_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramPrepare_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramPrepare_cold_5()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramPrepare_cold_6()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramOutputSetEnqueue_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramOutputSetEnqueue_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramInputsReady_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramInputsReady_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramChainingSetActiveProcedure_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramChainingSetActiveProcedure_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramStop_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramStop_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramStop_cold_3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramDestroy_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramDestroy_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramDestroy_cold_3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramProcessRequestDirect_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void ANEServicesProgramProcessRequestDirect_cold_2(uint64_t a1)
+void ANEServicesProgramProcessRequestDirect_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 4);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void ANEServicesProgramProcessRequestDirect_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramProcessRequestDirect_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void ANEServicesProgramProcessRequestDirect_cold_5(uint64_t a1)
+void ANEServicesProgramProcessRequestDirect_cold_5()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 6128);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramProcessRequestDirect_cold_6()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramProcessRequestDirect_cold_7()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void ANEServicesProgramMemoryMapRequest_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramMemoryMapRequest_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramMemoryMapRequest_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramMemoryMapRequest_cold_4()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramMemoryMapRequest_cold_5()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramMemoryUnmapRequest_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramMemoryUnmapRequest_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramMemoryUnmapRequest_cold_3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramCreate_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramCreateNewInstance_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramCreateNewInstance_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesProgramCreateNewInstance_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesProgramCreateNewInstance_cold_4()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesSessionHintRequest_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesHandleDeviceOpen_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesHandleDeviceOpen_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void MyANEServicesDeviceMessageNotification()
@@ -4854,61 +3966,23 @@ void MyANEServicesDeviceMessageNotification()
 
 void ANEServicesDeviceOpen_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesDeviceOpen_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesDeviceOpen_cold_7()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesFrameProcDirect()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesInitializePlatformServices_cold_2()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_3(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Failed to create work processor: %08X\n", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesInitializePlatformServices_cold_3()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_3(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Failed to start work processor: %08X\n", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesInitializePlatformServices_cold_4()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_3(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Error loading firmware: %08X", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void ANEServicesInitializePlatformServices_cold_5(uint8_t *buf, _BYTE *a2)
@@ -4916,21 +3990,6 @@ void ANEServicesInitializePlatformServices_cold_5(uint8_t *buf, _BYTE *a2)
   *buf = 0;
   *a2 = 0;
   _os_log_debug_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Skipping ANEDriver\n", buf, 2u);
-}
-
-void ANEServicesInitializePlatformServices_cold_6()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_3(&dword_1C0446000, MEMORY[0x1E69E9C10], v0, "Error opening ANEServicesDevice: %08X\n", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void ANEServicesInitializePlatformServices_cold_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "Error creating ANEDeviceController object: %08X", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void ANE::CreateANEDeviceController(uint64_t a1, uint64_t a2)
@@ -4956,33 +4015,34 @@ void ANE::CreateANEDeviceController(uint64_t a1, uint64_t a2)
 
 void ANE::CreateANEDeviceController(int a1)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_debug_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "shared service thread retain: refCount=%u\n", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_debug_impl(&dword_1C0446000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "shared service thread retain: refCount=%u\n", v1, 8u);
 }
 
 void ANE::CreateANEDeviceController(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "failed to init shared service thread\n", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "failed to init shared service thread\n", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "failed to allocate shared service thread struct\n", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "failed to allocate shared service thread struct\n", a5, a6, a7, a8, v8);
 }
 
 {
-  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "No shared service thread\n", a5, a6, a7, a8, 0);
+  v8 = 0;
+  OUTLINED_FUNCTION_0(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "No shared service thread\n", a5, a6, a7, a8, v8);
 }
 
 void ANE::SharedServiceThreadStart(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = 136315138;
-  v5 = "SharedServiceThreadStart";
-  OUTLINED_FUNCTION_1_2(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: failed to create run loop source\n", &v4);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v3 = 136315138;
+  v4 = "SharedServiceThreadStart";
+  OUTLINED_FUNCTION_1_2(&dword_1C0446000, MEMORY[0x1E69E9C10], a3, "%s: failed to create run loop source\n", &v3);
 }
 
 uint64_t std::ostream::operator<<()

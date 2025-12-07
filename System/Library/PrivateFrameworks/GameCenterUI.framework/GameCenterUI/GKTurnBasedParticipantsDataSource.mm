@@ -58,11 +58,11 @@ void __88__GKTurnBasedParticipantsDataSource_refreshContentsForDataType_userInfo
   [v7 addUpdate:v9 error:a3];
 }
 
-uint64_t __88__GKTurnBasedParticipantsDataSource_refreshContentsForDataType_userInfo_updateNotifier___block_invoke_2(uint64_t result)
+id *__88__GKTurnBasedParticipantsDataSource_refreshContentsForDataType_userInfo_updateNotifier___block_invoke_2(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(result + 40) setMatch:?];
+    return [result[5] setMatch:?];
   }
 
   return result;

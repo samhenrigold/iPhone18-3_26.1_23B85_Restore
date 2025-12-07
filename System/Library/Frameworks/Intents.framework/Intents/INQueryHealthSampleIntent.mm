@@ -36,8 +36,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v22[6] = *MEMORY[0x1E69E9840];
-  v21[0] = @"objectType";
+  v21[6] = *MEMORY[0x1E69E9840];
+  v20[0] = @"objectType";
   objectType = [(INQueryHealthSampleIntent *)self objectType];
   if ((objectType - 1) > 0x49)
   {
@@ -50,8 +50,8 @@
   }
 
   v5 = v4;
-  v22[0] = v5;
-  v21[1] = @"recordDates";
+  v21[0] = v5;
+  v20[1] = @"recordDates";
   recordDates = [(INQueryHealthSampleIntent *)self recordDates];
   null = recordDates;
   if (!recordDates)
@@ -59,8 +59,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[1] = null;
-  v21[2] = @"unit";
+  v21[1] = null;
+  v20[2] = @"unit";
   unit = [(INQueryHealthSampleIntent *)self unit];
   null2 = unit;
   if (!unit)
@@ -68,8 +68,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[2] = null2;
-  v21[3] = @"questionType";
+  v21[2] = null2;
+  v20[3] = @"questionType";
   questionType = [(INQueryHealthSampleIntent *)self questionType];
   if ((questionType - 1) > 6)
   {
@@ -82,8 +82,8 @@
   }
 
   v12 = v11;
-  v22[3] = v12;
-  v21[4] = @"thresholdValues";
+  v21[3] = v12;
+  v20[4] = @"thresholdValues";
   thresholdValues = [(INQueryHealthSampleIntent *)self thresholdValues];
   null3 = thresholdValues;
   if (!thresholdValues)
@@ -91,8 +91,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[4] = null3;
-  v21[5] = @"expectedResultType";
+  v21[4] = null3;
+  v20[5] = @"expectedResultType";
   expectedResultType = [(INQueryHealthSampleIntent *)self expectedResultType];
   if ((expectedResultType - 1) > 8)
   {
@@ -105,8 +105,8 @@
   }
 
   v17 = v16;
-  v22[5] = v17;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:6];
+  v21[5] = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:6];
 
   if (!thresholdValues)
   {
@@ -119,8 +119,6 @@
   if (!recordDates)
   {
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

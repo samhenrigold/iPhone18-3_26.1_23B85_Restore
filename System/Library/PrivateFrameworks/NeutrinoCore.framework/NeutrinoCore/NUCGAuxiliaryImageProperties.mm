@@ -380,7 +380,7 @@ LABEL_14:
       }
     }
 
-    if (ImageIOLibraryCore() && getCGImageSourceCopyAuxiliaryDataInfoAtIndexWithOptionsSymbolLoc())
+    if (ImageIOLibraryCore(0) && getCGImageSourceCopyAuxiliaryDataInfoAtIndexWithOptionsSymbolLoc())
     {
       auxImage2 = [(NUCGAuxiliaryImageProperties *)self auxiliaryImageTypeCGIdentifier];
       CGImageSourceCopyAuxiliaryDataInfoAtIndexWithOptionsSymbolLoc = getCGImageSourceCopyAuxiliaryDataInfoAtIndexWithOptionsSymbolLoc();

@@ -199,7 +199,7 @@ LABEL_8:
   }
 
   v9 = v8;
-  if (v8 >= [(NSMutableIndexSet *)self->_filteredIndexes count]|| v7 != [(PLIndexMapper *)self->_indexMapper backingIndexForIndex:v9])
+  if (v8 >= objc_msgSend_count(self->_filteredIndexes) || v7 != [(PLIndexMapper *)self->_indexMapper backingIndexForIndex:v9])
   {
     return 0x7FFFFFFFFFFFFFFFLL;
   }
@@ -210,7 +210,7 @@ LABEL_8:
 - (unint64_t)countOfFilteredAlbums
 {
   filteredIndexes = [(PLFilteredAlbumList *)self filteredIndexes];
-  v3 = [filteredIndexes count];
+  v3 = objc_msgSend_count(filteredIndexes);
 
   return v3;
 }
@@ -312,7 +312,7 @@ LABEL_8:
     v10 = [array filteredArrayUsingPredicate:predicate];
 
     indexSet = [MEMORY[0x1E696AD50] indexSet];
-    v12 = [array count];
+    v12 = objc_msgSend_count(array);
     v29[0] = 0;
     v29[1] = v29;
     v29[2] = 0x2020000000;
@@ -441,7 +441,7 @@ uint64_t __38__PLFilteredAlbumList_filteredIndexes__block_invoke(uint64_t a1, ui
   if (filteredIndexes)
   {
     pl_shortDescription = [(NSMutableIndexSet *)filteredIndexes pl_shortDescription];
-    [v7 appendFormat:@", filtered items: %@ (count: %lu)", pl_shortDescription, -[NSMutableIndexSet count](self->_filteredIndexes, "count")];
+    [v7 appendFormat:@", filtered items: %@ (count: %lu)", pl_shortDescription, objc_msgSend_count(self->_filteredIndexes)];
   }
 
   else
@@ -911,9 +911,9 @@ LABEL_27:
   }
 
 LABEL_28:
-  if ([v18 count])
+  if (objc_msgSend_count(v18))
   {
-    if ([v18 count] == 1)
+    if (objc_msgSend_count(v18) == 1)
     {
       [v18 objectAtIndex:0];
     }

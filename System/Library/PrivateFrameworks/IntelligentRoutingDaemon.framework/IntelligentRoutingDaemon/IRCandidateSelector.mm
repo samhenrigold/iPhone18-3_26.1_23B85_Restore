@@ -17,38 +17,36 @@
 
 - (id)getSelectorReasons
 {
-  v14[7] = *MEMORY[0x277D85DE8];
-  v13[0] = @"candidateSelectorReasonRecentlyUsed";
+  v13[7] = *MEMORY[0x277D85DE8];
+  v12[0] = @"candidateSelectorReasonRecentlyUsed";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:{-[IRCandidateSelector candidateSelectorReasonRecentlyUsed](self, "candidateSelectorReasonRecentlyUsed")}];
-  v14[0] = v3;
-  v13[1] = @"candidateSelectorReasonMostlyUsedSimilarApp";
+  v13[0] = v3;
+  v12[1] = @"candidateSelectorReasonMostlyUsedSimilarApp";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:{-[IRCandidateSelector candidateSelectorReasonMostlyUsedSimilarApp](self, "candidateSelectorReasonMostlyUsedSimilarApp")}];
-  v14[1] = v4;
-  v13[2] = @"candidateSelectorReasonProximityWithHistoryOrSameICloud";
+  v13[1] = v4;
+  v12[2] = @"candidateSelectorReasonProximityWithHistoryOrSameICloud";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{-[IRCandidateSelector candidateSelectorReasonProximityWithHistoryOrSameICloud](self, "candidateSelectorReasonProximityWithHistoryOrSameICloud")}];
-  v14[2] = v5;
-  v13[3] = @"candidateSelectorReasonProximity";
+  v13[2] = v5;
+  v12[3] = @"candidateSelectorReasonProximity";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{-[IRCandidateSelector candidateSelectorReasonProximity](self, "candidateSelectorReasonProximity")}];
-  v14[3] = v6;
-  v13[4] = @"candidateSelectorReasonMostlyUsedAnyApp";
+  v13[3] = v6;
+  v12[4] = @"candidateSelectorReasonMostlyUsedAnyApp";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{-[IRCandidateSelector candidateSelectorReasonMostlyUsedAnyApp](self, "candidateSelectorReasonMostlyUsedAnyApp")}];
-  v14[4] = v7;
-  v13[5] = @"candidateSelectorReasonBrokeredMainDeviceFirstUse";
+  v13[4] = v7;
+  v12[5] = @"candidateSelectorReasonBrokeredMainDeviceFirstUse";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{-[IRCandidateSelector candidateSelectorReasonBrokeredMainDeviceFirstUse](self, "candidateSelectorReasonBrokeredMainDeviceFirstUse")}];
-  v14[5] = v8;
-  v13[6] = @"candidateSelectorReasonSingle";
+  v13[5] = v8;
+  v12[6] = @"candidateSelectorReasonSingle";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[IRCandidateSelector candidateSelectorReasonSingle](self, "candidateSelectorReasonSingle")}];
-  v14[6] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:7];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[6] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:7];
 
   return v10;
 }
 
 - (id)selectFromCandidates:(id)candidates withSystemState:(id)state andHistoryEventsAsc:(id)asc andDate:(id)date
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   candidatesCopy = candidates;
   stateCopy = state;
   ascCopy = asc;
@@ -120,11 +118,11 @@
                 v23 = *MEMORY[0x277D21260];
                 if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_ERROR))
                 {
-                  v26 = 136315394;
-                  v27 = "#tie-breaker, ";
-                  v28 = 2112;
-                  v29 = v22;
-                  _os_log_impl(&dword_25543D000, v23, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Candidate selector error] selectFromCandidates should always select one candidate if we got here", &v26, 0x16u);
+                  v25 = 136315394;
+                  v26 = "#tie-breaker, ";
+                  v27 = 2112;
+                  v28 = v22;
+                  _os_log_impl(&dword_25543D000, v23, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - Candidate selector error] selectFromCandidates should always select one candidate if we got here", &v25, 0x16u);
                 }
 
                 anyObject = 0;
@@ -143,14 +141,12 @@
     [(IRCandidateSelector *)self setCandidateSelectorReasonSingle:1];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return anyObject;
 }
 
 - (id)adjustClassificationForCandidateBasedOnNegativeInputs:(id)inputs withSystemState:(id)state andHistoryEventsAsc:(id)asc andMiloPrediction:(id)prediction andDate:(id)date
 {
-  v63[8] = *MEMORY[0x277D85DE8];
+  v62[8] = *MEMORY[0x277D85DE8];
   inputsCopy = inputs;
   stateCopy = state;
   dateCopy = date;
@@ -164,12 +160,12 @@
   isHeadphonesRoutedOrPredicted = [stateCopy isHeadphonesRoutedOrPredicted];
   if (stateCopy)
   {
-    LODWORD(v57) = [stateCopy isInsideAppInFocusWindow] ^ 1;
+    LODWORD(v56) = [stateCopy isInsideAppInFocusWindow] ^ 1;
   }
 
   else
   {
-    LODWORD(v57) = 0;
+    LODWORD(v56) = 0;
   }
 
   isTemporarilyUnavailable = [predictionCopy isTemporarilyUnavailable];
@@ -179,26 +175,26 @@
   candidate = [inputsCopy candidate];
   isBrokeredDevice = [candidate isBrokeredDevice];
 
-  v60 = [IRCandidateSelector _isPickerChoiceOverrideActiveAtDate:dateCopy withSystemState:stateCopy];
-  v61 = +[IRPlatformInfo isTVOS];
+  v59 = [IRCandidateSelector _isPickerChoiceOverrideActiveAtDate:dateCopy withSystemState:stateCopy];
+  v60 = +[IRPlatformInfo isTVOS];
   v23 = MEMORY[0x277CBEB38];
-  v62[0] = @"kRuleIsMiLoTemporarilyUnavailable";
-  v62[1] = @"kRuleIsAutoRoutingSettingDisabled";
-  v63[0] = MEMORY[0x277CBEC28];
-  v63[1] = MEMORY[0x277CBEC28];
-  v62[2] = @"kRuleIsRoutePredictionSettingDisabled";
-  v62[3] = @"kIsHeadsetConnected";
-  v63[2] = MEMORY[0x277CBEC28];
-  v63[3] = MEMORY[0x277CBEC28];
-  v62[4] = @"kIsOutsideAppLaunchWindow";
-  v62[5] = @"kIsAppInFocusWindowScreenLockToUnlock";
-  v63[4] = MEMORY[0x277CBEC28];
-  v63[5] = MEMORY[0x277CBEC28];
-  v62[6] = @"kIsBrokeredDevice";
-  v62[7] = @"kIsPickerChoiceOverrideActive";
-  v63[6] = MEMORY[0x277CBEC28];
-  v63[7] = MEMORY[0x277CBEC28];
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:8];
+  v61[0] = @"kRuleIsMiLoTemporarilyUnavailable";
+  v61[1] = @"kRuleIsAutoRoutingSettingDisabled";
+  v62[0] = MEMORY[0x277CBEC28];
+  v62[1] = MEMORY[0x277CBEC28];
+  v61[2] = @"kRuleIsRoutePredictionSettingDisabled";
+  v61[3] = @"kIsHeadsetConnected";
+  v62[2] = MEMORY[0x277CBEC28];
+  v62[3] = MEMORY[0x277CBEC28];
+  v61[4] = @"kIsOutsideAppLaunchWindow";
+  v61[5] = @"kIsAppInFocusWindowScreenLockToUnlock";
+  v62[4] = MEMORY[0x277CBEC28];
+  v62[5] = MEMORY[0x277CBEC28];
+  v61[6] = @"kIsBrokeredDevice";
+  v61[7] = @"kIsPickerChoiceOverrideActive";
+  v62[6] = MEMORY[0x277CBEC28];
+  v62[7] = MEMORY[0x277CBEC28];
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:8];
   v25 = [v23 dictionaryWithDictionary:v24];
 
   if (isAutoRoutingSettingEnabled)
@@ -338,7 +334,7 @@ LABEL_28:
     [v25 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"kIsHeadsetConnected"];
   }
 
-  if (v58)
+  if (v57)
   {
     [inputsCopy setNominatedClassification:2];
     [inputsCopy setIsCallToAction:MEMORY[0x277CBEC28]];
@@ -360,7 +356,7 @@ LABEL_28:
     [v25 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"kRuleIsMiLoTemporarilyUnavailable"];
   }
 
-  if (v60)
+  if (v59)
   {
     [inputsCopy setNominatedClassification:2];
     [inputsCopy setIsCallToAction:MEMORY[0x277CBEC28]];
@@ -371,7 +367,7 @@ LABEL_28:
     [v25 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"kIsPickerChoiceOverrideActive"];
   }
 
-  if (v61)
+  if (v60)
   {
     if ([inputsCopy nominatedClassification] == 4)
     {
@@ -387,14 +383,12 @@ LABEL_28:
 
   v54 = [v25 copy];
 
-  v55 = *MEMORY[0x277D85DE8];
-
   return v54;
 }
 
 - (id)_selectBasedOnContinuityFromCandidates:(id)candidates withSystemState:(id)state andHistoryEventsAsc:(id)asc andDate:(id)date
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   candidatesCopy = candidates;
   stateCopy = state;
   ascCopy = asc;
@@ -410,9 +404,9 @@ LABEL_28:
     [(IRRuleHistoryPattern *)v17 setEventsToWatch:v18];
 
     v19 = MEMORY[0x277CBEB98];
-    v27[0] = @"kIRRuleHistoryPatternFilterIsSimilarApp";
-    v27[1] = @"kIRRuleHistoryPatternFilterOnlyTestedCandidates";
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+    v26[0] = @"kIRRuleHistoryPatternFilterIsSimilarApp";
+    v26[1] = @"kIRRuleHistoryPatternFilterOnlyTestedCandidates";
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
     v21 = [v19 setWithArray:v20];
     [(IRRuleHistoryPattern *)v17 setFilters:v21];
 
@@ -433,14 +427,12 @@ LABEL_28:
     v24 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v24;
 }
 
 - (id)_selectBasedOnMostUsedSimilarAppFromCandidates:(id)candidates withSystemState:(id)state andHistoryEventsAsc:(id)asc andDate:(id)date
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   candidatesCopy = candidates;
   stateCopy = state;
   ascCopy = asc;
@@ -456,9 +448,9 @@ LABEL_28:
     [(IRRuleHistoryPattern *)v17 setEventsToWatch:v18];
 
     v19 = MEMORY[0x277CBEB98];
-    v29[0] = @"kIRRuleHistoryPatternFilterIsSimilarApp";
-    v29[1] = @"kIRRuleHistoryPatternFilterOnlyTestedCandidates";
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+    v28[0] = @"kIRRuleHistoryPatternFilterIsSimilarApp";
+    v28[1] = @"kIRRuleHistoryPatternFilterOnlyTestedCandidates";
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
     v21 = [v19 setWithArray:v20];
     [(IRRuleHistoryPattern *)v17 setFilters:v21];
 
@@ -482,14 +474,12 @@ LABEL_28:
     v26 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v26;
 }
 
 - (id)_selectBasedOnMostUsedAnyAppFromCandidates:(id)candidates withSystemState:(id)state andHistoryEventsAsc:(id)asc andDate:(id)date
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   candidatesCopy = candidates;
   stateCopy = state;
   ascCopy = asc;
@@ -505,8 +495,8 @@ LABEL_28:
     [(IRRuleHistoryPattern *)v17 setEventsToWatch:v18];
 
     v19 = MEMORY[0x277CBEB98];
-    v29[0] = @"kIRRuleHistoryPatternFilterOnlyTestedCandidates";
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+    v28[0] = @"kIRRuleHistoryPatternFilterOnlyTestedCandidates";
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
     v21 = [v19 setWithArray:v20];
     [(IRRuleHistoryPattern *)v17 setFilters:v21];
 
@@ -530,14 +520,12 @@ LABEL_28:
     v26 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v26;
 }
 
 - (id)_selectBasedOnMostRecentMainBrokeredDeviceFromCandidates:(id)candidates withSystemState:(id)state andHistoryEventsAsc:(id)asc andDate:(id)date
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   ascCopy = asc;
   stateCopy = state;
@@ -545,14 +533,14 @@ LABEL_28:
   v13 = objc_alloc_init(IRRuleHistoryPattern);
   v14 = MEMORY[0x277CBEB98];
   v15 = [IREventDO eventDOWithMediaType:9];
-  v30[0] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+  v29[0] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
   v17 = [v14 setWithArray:v16];
   [(IRRuleHistoryPattern *)v13 setEventsToWatch:v17];
 
   v18 = MEMORY[0x277CBEB98];
-  v29 = @"kIRRuleHistoryPatternFilterOnlyTestedCandidates";
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+  v28 = @"kIRRuleHistoryPatternFilterOnlyTestedCandidates";
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
   v20 = [v18 setWithArray:v19];
   [(IRRuleHistoryPattern *)v13 setFilters:v20];
 
@@ -569,8 +557,6 @@ LABEL_28:
   [(IRRuleHistoryPattern *)v13 setThreshold:2147483650.0];
   [(IRRuleHistoryPattern *)v13 setCalculateScoreWithoutPortion:1];
   v25 = [(IRCandidateSelector *)self _selectFromCandidates:candidatesCopy withSystemState:stateCopy andHistoryEventsAsc:ascCopy andDate:dateCopy andRule:v13];
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

@@ -247,7 +247,7 @@ LABEL_21:
 
   equalCopy = equal;
   v5 = objc_opt_class();
-  v6 = v5 == objc_opt_class() && self->_type == equalCopy[4] && [(NSString *)self->_identifier isEqualToString:equalCopy[2]]&& [(NSIndexPath *)self->_indexPath isEqual:equalCopy[1]]&& self->_isClone == *(equalCopy + 24);
+  v6 = v5 == objc_opt_class() && self->_type == equalCopy[4] && objc_msgSend_isEqualToString_(self->_identifier) && objc_msgSend_isEqual_(self->_indexPath) && self->_isClone == *(equalCopy + 24);
 
   return v6;
 }

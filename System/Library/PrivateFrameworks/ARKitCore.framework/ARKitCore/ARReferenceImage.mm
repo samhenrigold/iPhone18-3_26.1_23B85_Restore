@@ -67,11 +67,11 @@
 - (ARReferenceImage)initWithCIImage:(id)image orientation:(unsigned int)orientation physicalWidth:(double)width alphaInfo:(unsigned int *)info addPadding:(BOOL)padding
 {
   paddingCopy = padding;
-  v106 = *MEMORY[0x1E69E9840];
+  v113 = *MEMORY[0x1E69E9840];
   imageCopy = image;
-  v101.receiver = self;
-  v101.super_class = ARReferenceImage;
-  v13 = [(ARReferenceImage *)&v101 init];
+  v108.receiver = self;
+  v108.super_class = ARReferenceImage;
+  v13 = [(ARReferenceImage *)&v108 init];
   if (v13)
   {
     p_pixelBufferOut = &pixelBufferOut;
@@ -106,64 +106,72 @@
 
     pixelBufferOut = 0;
     pixelBuffer = 0;
-    if (ARCreateDownScaledGrayscaleImageAndMask(imageCopy, 0x280uLL, @"ARReferenceImage", &pixelBuffer, p_pixelBufferOut))
+    v17 = ARCreateDownScaledGrayscaleImageAndMask(imageCopy, 0x280uLL, @"ARReferenceImage", &pixelBuffer, p_pixelBufferOut);
+    if (v17)
     {
       if (ARShouldUseLogTypeError_onceToken_35 != -1)
       {
         [ARReferenceImage initWithCIImage:orientation:physicalWidth:alphaInfo:addPadding:];
       }
 
-      v17 = ARShouldUseLogTypeError_internalOSVersion_35;
-      v18 = _ARLogGeneral_26();
-      v19 = v18;
-      if (v17 == 1)
+      v18 = ARShouldUseLogTypeError_internalOSVersion_35;
+      v19 = _ARLogGeneral_26(v17);
+      v20 = v19;
+      if (v18 == 1)
       {
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v20 = objc_opt_class();
-          v21 = NSStringFromClass(v20);
+          v21 = objc_opt_class();
+          v22 = NSStringFromClass(v21);
           LODWORD(buf.data) = 138543618;
-          *(&buf.data + 4) = v21;
+          *(&buf.data + 4) = v22;
           WORD2(buf.height) = 2048;
           *(&buf.height + 6) = v13;
-          v22 = "%{public}@ <%p>: Could not create pixelbuffer and alpha mask";
-          v23 = v19;
-          v24 = OS_LOG_TYPE_ERROR;
+          v23 = "%{public}@ <%p>: Could not create pixelbuffer and alpha mask";
+          v24 = v20;
+          v25 = OS_LOG_TYPE_ERROR;
 LABEL_21:
-          _os_log_impl(&dword_1C241C000, v23, v24, v22, &buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v24, v25, v23, &buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        v26 = objc_opt_class();
-        v21 = NSStringFromClass(v26);
+        v27 = objc_opt_class();
+        v22 = NSStringFromClass(v27);
         LODWORD(buf.data) = 138543618;
-        *(&buf.data + 4) = v21;
+        *(&buf.data + 4) = v22;
         WORD2(buf.height) = 2048;
         *(&buf.height + 6) = v13;
-        v22 = "Error: %{public}@ <%p>: Could not create pixelbuffer and alpha mask";
-        v23 = v19;
-        v24 = OS_LOG_TYPE_INFO;
+        v23 = "Error: %{public}@ <%p>: Could not create pixelbuffer and alpha mask";
+        v24 = v20;
+        v25 = OS_LOG_TYPE_INFO;
         goto LABEL_21;
       }
 
       goto LABEL_98;
     }
 
-    v25 = CVPixelBufferGetWidth(pixelBuffer) < 0x64 || CVPixelBufferGetHeight(pixelBuffer) < 0x64;
+    v26 = CVPixelBufferGetWidth(pixelBuffer) < 0x64 || CVPixelBufferGetHeight(pixelBuffer) < 0x64;
     [imageCopy extent];
-    if (v27 == CVPixelBufferGetWidth(pixelBuffer))
+    if (v28 == CVPixelBufferGetWidth(pixelBuffer))
     {
       [imageCopy extent];
-      v29 = v28 != CVPixelBufferGetHeight(pixelBuffer) || paddingCopy;
-      if ((v29 & v25 & 1) == 0)
+      v30 = v29 != CVPixelBufferGetHeight(pixelBuffer) || paddingCopy;
+      if ((v30 & v26 & 1) == 0)
       {
 LABEL_76:
-        if (!ARCorrectCVPixelBufferOrientation(pixelBuffer, orientation, &v13->_pixelBuffer))
+        v74 = ARCorrectCVPixelBufferOrientation(pixelBuffer, orientation, &v13->_pixelBuffer);
+        if (!v74)
         {
 LABEL_86:
-          if (!pixelBufferOut || !ARCorrectCVPixelBufferOrientation(pixelBufferOut, orientation, &v13->_alphaMask))
+          if (!pixelBufferOut)
+          {
+            goto LABEL_97;
+          }
+
+          v84 = ARCorrectCVPixelBufferOrientation(pixelBufferOut, orientation, &v13->_alphaMask);
+          if (!v84)
           {
             goto LABEL_97;
           }
@@ -173,38 +181,38 @@ LABEL_86:
             [ARReferenceImage initWithCIImage:orientation:physicalWidth:alphaInfo:addPadding:];
           }
 
-          v78 = ARShouldUseLogTypeError_internalOSVersion_35;
-          v79 = _ARLogGeneral_26();
-          v80 = v79;
-          if (v78 == 1)
+          v85 = ARShouldUseLogTypeError_internalOSVersion_35;
+          v86 = _ARLogGeneral_26(v84);
+          v87 = v86;
+          if (v85 == 1)
           {
-            if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
             {
-              v81 = objc_opt_class();
-              v82 = NSStringFromClass(v81);
+              v88 = objc_opt_class();
+              v89 = NSStringFromClass(v88);
               LODWORD(buf.data) = 138543618;
-              *(&buf.data + 4) = v82;
+              *(&buf.data + 4) = v89;
               WORD2(buf.height) = 2048;
               *(&buf.height + 6) = v13;
-              v83 = "%{public}@ <%p>: Could not correct orientation of alpha mask";
-              v84 = v80;
-              v85 = OS_LOG_TYPE_ERROR;
+              v90 = "%{public}@ <%p>: Could not correct orientation of alpha mask";
+              v91 = v87;
+              v92 = OS_LOG_TYPE_ERROR;
 LABEL_95:
-              _os_log_impl(&dword_1C241C000, v84, v85, v83, &buf, 0x16u);
+              _os_log_impl(&dword_1C241C000, v91, v92, v90, &buf, 0x16u);
             }
           }
 
-          else if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
+          else if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
           {
-            v86 = objc_opt_class();
-            v82 = NSStringFromClass(v86);
+            v93 = objc_opt_class();
+            v89 = NSStringFromClass(v93);
             LODWORD(buf.data) = 138543618;
-            *(&buf.data + 4) = v82;
+            *(&buf.data + 4) = v89;
             WORD2(buf.height) = 2048;
             *(&buf.height + 6) = v13;
-            v83 = "Error: %{public}@ <%p>: Could not correct orientation of alpha mask";
-            v84 = v80;
-            v85 = OS_LOG_TYPE_INFO;
+            v90 = "Error: %{public}@ <%p>: Could not correct orientation of alpha mask";
+            v91 = v87;
+            v92 = OS_LOG_TYPE_INFO;
             goto LABEL_95;
           }
 
@@ -213,20 +221,20 @@ LABEL_97:
           CVPixelBufferRelease(pixelBufferOut);
           [imageCopy extent];
           v13->_physicalSize.width = width;
-          v13->_physicalSize.height = v88 / v87 * width;
-          v89 = [objc_opt_class() referenceImageUUIDForPixelBuffer:{-[ARReferenceImage pixelBuffer](v13, "pixelBuffer")}];
+          v13->_physicalSize.height = v95 / v94 * width;
+          v96 = [objc_opt_class() referenceImageUUIDForPixelBuffer:{-[ARReferenceImage pixelBuffer](v13, "pixelBuffer")}];
           identifier = v13->_identifier;
-          v13->_identifier = v89;
+          v13->_identifier = v96;
 
           v13->_estimatedQuality = -1.0;
-          v91 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-          v92 = dispatch_queue_create("com.apple.arkit.arreference.verificationqueue", v91);
+          v98 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+          v99 = dispatch_queue_create("com.apple.arkit.arreference.verificationqueue", v98);
           verificationQueue = v13->_verificationQueue;
-          v13->_verificationQueue = v92;
+          v13->_verificationQueue = v99;
 
-          v94 = dispatch_semaphore_create(1);
+          v101 = dispatch_semaphore_create(1);
           verificationQueueSemaphore = v13->_verificationQueueSemaphore;
-          v13->_verificationQueueSemaphore = v94;
+          v13->_verificationQueueSemaphore = v101;
 
           resourceGroupName = v13->_resourceGroupName;
           v13->_resourceGroupName = 0;
@@ -239,38 +247,38 @@ LABEL_97:
           [ARReferenceImage initWithCIImage:orientation:physicalWidth:alphaInfo:addPadding:];
         }
 
-        v69 = ARShouldUseLogTypeError_internalOSVersion_35;
-        v70 = _ARLogGeneral_26();
-        v71 = v70;
-        if (v69 == 1)
+        v75 = ARShouldUseLogTypeError_internalOSVersion_35;
+        v76 = _ARLogGeneral_26(v74);
+        v77 = v76;
+        if (v75 == 1)
         {
-          if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
           {
-            v72 = objc_opt_class();
-            v73 = NSStringFromClass(v72);
+            v78 = objc_opt_class();
+            v79 = NSStringFromClass(v78);
             LODWORD(buf.data) = 138543618;
-            *(&buf.data + 4) = v73;
+            *(&buf.data + 4) = v79;
             WORD2(buf.height) = 2048;
             *(&buf.height + 6) = v13;
-            v74 = "%{public}@ <%p>: Could not correct orientation of pixelbuffer";
-            v75 = v71;
-            v76 = OS_LOG_TYPE_ERROR;
+            v80 = "%{public}@ <%p>: Could not correct orientation of pixelbuffer";
+            v81 = v77;
+            v82 = OS_LOG_TYPE_ERROR;
 LABEL_84:
-            _os_log_impl(&dword_1C241C000, v75, v76, v74, &buf, 0x16u);
+            _os_log_impl(&dword_1C241C000, v81, v82, v80, &buf, 0x16u);
           }
         }
 
-        else if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
         {
-          v77 = objc_opt_class();
-          v73 = NSStringFromClass(v77);
+          v83 = objc_opt_class();
+          v79 = NSStringFromClass(v83);
           LODWORD(buf.data) = 138543618;
-          *(&buf.data + 4) = v73;
+          *(&buf.data + 4) = v79;
           WORD2(buf.height) = 2048;
           *(&buf.height + 6) = v13;
-          v74 = "Error: %{public}@ <%p>: Could not correct orientation of pixelbuffer";
-          v75 = v71;
-          v76 = OS_LOG_TYPE_INFO;
+          v80 = "Error: %{public}@ <%p>: Could not correct orientation of pixelbuffer";
+          v81 = v77;
+          v82 = OS_LOG_TYPE_INFO;
           goto LABEL_84;
         }
 
@@ -278,7 +286,7 @@ LABEL_84:
       }
     }
 
-    else if (!v25)
+    else if (!v26)
     {
       goto LABEL_76;
     }
@@ -286,11 +294,12 @@ LABEL_84:
     if (pixelBufferOut)
     {
 LABEL_53:
-      *v102 = 0;
-      if (!ARCreatePixelBufferWithPaddingToFillMinimumDimension(pixelBuffer, 0x64uLL, 0, v102))
+      *v109 = 0;
+      v54 = ARCreatePixelBufferWithPaddingToFillMinimumDimension(pixelBuffer, 0x64uLL, 0, v109);
+      if (!v54)
       {
         CVPixelBufferRelease(pixelBuffer);
-        pixelBuffer = *v102;
+        pixelBuffer = *v109;
         goto LABEL_64;
       }
 
@@ -299,38 +308,38 @@ LABEL_53:
         [ARReferenceImage initWithCIImage:orientation:physicalWidth:alphaInfo:addPadding:];
       }
 
-      v51 = ARShouldUseLogTypeError_internalOSVersion_35;
-      v52 = _ARLogGeneral_26();
-      v53 = v52;
-      if (v51 == 1)
+      v55 = ARShouldUseLogTypeError_internalOSVersion_35;
+      v56 = _ARLogGeneral_26(v54);
+      v57 = v56;
+      if (v55 == 1)
       {
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
-          v54 = objc_opt_class();
-          v55 = NSStringFromClass(v54);
+          v58 = objc_opt_class();
+          v59 = NSStringFromClass(v58);
           LODWORD(buf.data) = 138543618;
-          *(&buf.data + 4) = v55;
+          *(&buf.data + 4) = v59;
           WORD2(buf.height) = 2048;
           *(&buf.height + 6) = v13;
-          v56 = "%{public}@ <%p>: Could not add padding to pixel buffer";
-          v57 = v53;
-          v58 = OS_LOG_TYPE_ERROR;
+          v60 = "%{public}@ <%p>: Could not add padding to pixel buffer";
+          v61 = v57;
+          v62 = OS_LOG_TYPE_ERROR;
 LABEL_62:
-          _os_log_impl(&dword_1C241C000, v57, v58, v56, &buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v61, v62, v60, &buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
       {
-        v59 = objc_opt_class();
-        v55 = NSStringFromClass(v59);
+        v63 = objc_opt_class();
+        v59 = NSStringFromClass(v63);
         LODWORD(buf.data) = 138543618;
-        *(&buf.data + 4) = v55;
+        *(&buf.data + 4) = v59;
         WORD2(buf.height) = 2048;
         *(&buf.height + 6) = v13;
-        v56 = "Error: %{public}@ <%p>: Could not add padding to pixel buffer";
-        v57 = v53;
-        v58 = OS_LOG_TYPE_INFO;
+        v60 = "Error: %{public}@ <%p>: Could not add padding to pixel buffer";
+        v61 = v57;
+        v62 = OS_LOG_TYPE_INFO;
         goto LABEL_62;
       }
 
@@ -340,11 +349,12 @@ LABEL_64:
         goto LABEL_76;
       }
 
-      v98 = 0;
-      if (!ARCreatePixelBufferWithPaddingToFillMinimumDimension(pixelBufferOut, 0x64uLL, 0, &v98))
+      v105 = 0;
+      v64 = ARCreatePixelBufferWithPaddingToFillMinimumDimension(pixelBufferOut, 0x64uLL, 0, &v105);
+      if (!v64)
       {
         CVPixelBufferRelease(pixelBufferOut);
-        pixelBufferOut = v98;
+        pixelBufferOut = v105;
         goto LABEL_76;
       }
 
@@ -353,48 +363,49 @@ LABEL_64:
         [ARReferenceImage initWithCIImage:orientation:physicalWidth:alphaInfo:addPadding:];
       }
 
-      v60 = ARShouldUseLogTypeError_internalOSVersion_35;
-      v61 = _ARLogGeneral_26();
-      v62 = v61;
-      if (v60 == 1)
+      v65 = ARShouldUseLogTypeError_internalOSVersion_35;
+      v66 = _ARLogGeneral_26(v64);
+      v67 = v66;
+      if (v65 == 1)
       {
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
         {
-          v63 = objc_opt_class();
-          v64 = NSStringFromClass(v63);
+          v68 = objc_opt_class();
+          v69 = NSStringFromClass(v68);
           LODWORD(buf.data) = 138543618;
-          *(&buf.data + 4) = v64;
+          *(&buf.data + 4) = v69;
           WORD2(buf.height) = 2048;
           *(&buf.height + 6) = v13;
-          v65 = "%{public}@ <%p>: Could not add padding to alpha mask";
-          v66 = v62;
-          v67 = OS_LOG_TYPE_ERROR;
+          v70 = "%{public}@ <%p>: Could not add padding to alpha mask";
+          v71 = v67;
+          v72 = OS_LOG_TYPE_ERROR;
 LABEL_74:
-          _os_log_impl(&dword_1C241C000, v66, v67, v65, &buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v71, v72, v70, &buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
       {
-        v68 = objc_opt_class();
-        v64 = NSStringFromClass(v68);
+        v73 = objc_opt_class();
+        v69 = NSStringFromClass(v73);
         LODWORD(buf.data) = 138543618;
-        *(&buf.data + 4) = v64;
+        *(&buf.data + 4) = v69;
         WORD2(buf.height) = 2048;
         *(&buf.height + 6) = v13;
-        v65 = "Error: %{public}@ <%p>: Could not add padding to alpha mask";
-        v66 = v62;
-        v67 = OS_LOG_TYPE_INFO;
+        v70 = "Error: %{public}@ <%p>: Could not add padding to alpha mask";
+        v71 = v67;
+        v72 = OS_LOG_TYPE_INFO;
         goto LABEL_74;
       }
 
       goto LABEL_76;
     }
 
-    v30 = *MEMORY[0x1E695E480];
+    v31 = *MEMORY[0x1E695E480];
     Width = CVPixelBufferGetWidth(pixelBuffer);
     Height = CVPixelBufferGetHeight(pixelBuffer);
-    if (!CVPixelBufferCreate(v30, Width, Height, 0x4C303038u, 0, &pixelBufferOut))
+    v34 = CVPixelBufferCreate(v31, Width, Height, 0x4C303038u, 0, &pixelBufferOut);
+    if (!v34)
     {
 LABEL_42:
       CVPixelBufferLockBaseAddress(pixelBufferOut, 0);
@@ -403,7 +414,8 @@ LABEL_42:
       buf.height = CVPixelBufferGetHeight(pixelBufferOut);
       buf.width = CVPixelBufferGetWidth(pixelBufferOut);
       buf.rowBytes = CVPixelBufferGetBytesPerRow(pixelBufferOut);
-      if (!vImageOverwriteChannelsWithScalar_Planar8(0xFFu, &buf, 0))
+      v44 = vImageOverwriteChannelsWithScalar_Planar8(0xFFu, &buf, 0);
+      if (!v44)
       {
 LABEL_52:
         CVPixelBufferUnlockBaseAddress(pixelBufferOut, 0);
@@ -415,38 +427,38 @@ LABEL_52:
         [ARReferenceImage initWithCIImage:orientation:physicalWidth:alphaInfo:addPadding:];
       }
 
-      v42 = ARShouldUseLogTypeError_internalOSVersion_35;
-      v43 = _ARLogGeneral_26();
-      v44 = v43;
-      if (v42 == 1)
+      v45 = ARShouldUseLogTypeError_internalOSVersion_35;
+      v46 = _ARLogGeneral_26(v44);
+      v47 = v46;
+      if (v45 == 1)
       {
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
-          v45 = objc_opt_class();
-          v46 = NSStringFromClass(v45);
-          *v102 = 138543618;
-          *&v102[4] = v46;
-          v103 = 2048;
-          v104 = v13;
-          v47 = "%{public}@ <%p>: Could not fill buffer";
-          v48 = v44;
-          v49 = OS_LOG_TYPE_ERROR;
+          v48 = objc_opt_class();
+          v49 = NSStringFromClass(v48);
+          *v109 = 138543618;
+          *&v109[4] = v49;
+          v110 = 2048;
+          v111 = v13;
+          v50 = "%{public}@ <%p>: Could not fill buffer";
+          v51 = v47;
+          v52 = OS_LOG_TYPE_ERROR;
 LABEL_50:
-          _os_log_impl(&dword_1C241C000, v48, v49, v47, v102, 0x16u);
+          _os_log_impl(&dword_1C241C000, v51, v52, v50, v109, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
       {
-        v50 = objc_opt_class();
-        v46 = NSStringFromClass(v50);
-        *v102 = 138543618;
-        *&v102[4] = v46;
-        v103 = 2048;
-        v104 = v13;
-        v47 = "Error: %{public}@ <%p>: Could not fill buffer";
-        v48 = v44;
-        v49 = OS_LOG_TYPE_INFO;
+        v53 = objc_opt_class();
+        v49 = NSStringFromClass(v53);
+        *v109 = 138543618;
+        *&v109[4] = v49;
+        v110 = 2048;
+        v111 = v13;
+        v50 = "Error: %{public}@ <%p>: Could not fill buffer";
+        v51 = v47;
+        v52 = OS_LOG_TYPE_INFO;
         goto LABEL_50;
       }
 
@@ -458,38 +470,38 @@ LABEL_50:
       [ARReferenceImage initWithCIImage:orientation:physicalWidth:alphaInfo:addPadding:];
     }
 
-    v33 = ARShouldUseLogTypeError_internalOSVersion_35;
-    v34 = _ARLogGeneral_26();
-    v35 = v34;
-    if (v33 == 1)
+    v35 = ARShouldUseLogTypeError_internalOSVersion_35;
+    v36 = _ARLogGeneral_26(v34);
+    v37 = v36;
+    if (v35 == 1)
     {
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
-        v36 = objc_opt_class();
-        v37 = NSStringFromClass(v36);
+        v38 = objc_opt_class();
+        v39 = NSStringFromClass(v38);
         LODWORD(buf.data) = 138543618;
-        *(&buf.data + 4) = v37;
+        *(&buf.data + 4) = v39;
         WORD2(buf.height) = 2048;
         *(&buf.height + 6) = v13;
-        v38 = "%{public}@ <%p>: Could not create pixelbuffer";
-        v39 = v35;
-        v40 = OS_LOG_TYPE_ERROR;
+        v40 = "%{public}@ <%p>: Could not create pixelbuffer";
+        v41 = v37;
+        v42 = OS_LOG_TYPE_ERROR;
 LABEL_40:
-        _os_log_impl(&dword_1C241C000, v39, v40, v38, &buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v41, v42, v40, &buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
-      v41 = objc_opt_class();
-      v37 = NSStringFromClass(v41);
+      v43 = objc_opt_class();
+      v39 = NSStringFromClass(v43);
       LODWORD(buf.data) = 138543618;
-      *(&buf.data + 4) = v37;
+      *(&buf.data + 4) = v39;
       WORD2(buf.height) = 2048;
       *(&buf.height + 6) = v13;
-      v38 = "Error: %{public}@ <%p>: Could not create pixelbuffer";
-      v39 = v35;
-      v40 = OS_LOG_TYPE_INFO;
+      v40 = "Error: %{public}@ <%p>: Could not create pixelbuffer";
+      v41 = v37;
+      v42 = OS_LOG_TYPE_INFO;
       goto LABEL_40;
     }
 
@@ -518,9 +530,10 @@ LABEL_98:
 
 + (id)referenceImagesInGroupNamed:(id)named catalog:(id)catalog
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   v5 = [catalog namedRecognitionGroupWithName:?];
+  v6 = v5;
   if (!v5)
   {
     if (ARShouldUseLogTypeError_onceToken_35 != -1)
@@ -528,90 +541,94 @@ LABEL_98:
       +[ARReferenceImage referenceImagesInGroupNamed:catalog:];
     }
 
-    v25 = ARShouldUseLogTypeError_internalOSVersion_35;
-    v26 = _ARLogGeneral_26();
-    namedRecognitionImageImageList = v26;
-    if (v25 == 1)
+    v26 = ARShouldUseLogTypeError_internalOSVersion_35;
+    v27 = _ARLogGeneral_26(v5);
+    namedRecognitionImageImageList = v27;
+    if (v26 == 1)
     {
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v39 = namedCopy;
-        v27 = "No resource group with name %{public}@ found";
-        v28 = namedRecognitionImageImageList;
-        v29 = OS_LOG_TYPE_ERROR;
+        v40 = namedCopy;
+        v28 = "No resource group with name %{public}@ found";
+        v29 = namedRecognitionImageImageList;
+        v30 = OS_LOG_TYPE_ERROR;
 LABEL_33:
-        _os_log_impl(&dword_1C241C000, v28, v29, v27, buf, 0xCu);
+        _os_log_impl(&dword_1C241C000, v29, v30, v28, buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v39 = namedCopy;
-      v27 = "Error: No resource group with name %{public}@ found";
-      v28 = namedRecognitionImageImageList;
-      v29 = OS_LOG_TYPE_INFO;
+      v40 = namedCopy;
+      v28 = "Error: No resource group with name %{public}@ found";
+      v29 = namedRecognitionImageImageList;
+      v30 = OS_LOG_TYPE_INFO;
       goto LABEL_33;
     }
 
-    v31 = 0;
+    v32 = 0;
     goto LABEL_35;
   }
 
-  v31 = objc_opt_new();
-  v33 = 0u;
+  v32 = objc_opt_new();
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  namedRecognitionImageImageList = [v5 namedRecognitionImageImageList];
-  v7 = [namedRecognitionImageImageList countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (!v7)
+  v37 = 0u;
+  namedRecognitionImageImageList = [v6 namedRecognitionImageImageList];
+  v8 = [namedRecognitionImageImageList countByEnumeratingWithState:&v34 objects:v38 count:16];
+  if (!v8)
   {
     goto LABEL_35;
   }
 
-  v8 = v7;
-  v9 = *v34;
+  v9 = v8;
+  v10 = *v35;
   do
   {
-    v10 = 0;
+    v11 = 0;
     do
     {
-      if (*v34 != v9)
+      if (*v35 != v10)
       {
         objc_enumerationMutation(namedRecognitionImageImageList);
       }
 
-      v11 = *(*(&v33 + 1) + 8 * v10);
+      v12 = *(*(&v34 + 1) + 8 * v11);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v12 = [v5 recognitionImageWithName:v11];
-        v13 = v12;
-        if (v12 && [v12 image])
+        image = [v6 recognitionImageWithName:v12];
+        v14 = image;
+        if (image)
         {
-          if (objc_opt_respondsToSelector())
+          image = [image image];
+          if (image)
           {
-            v14 = [v13 valueForKey:@"exifOrientation"];
-            intValue = [v14 intValue];
+            if (objc_opt_respondsToSelector())
+            {
+              v15 = [v14 valueForKey:@"exifOrientation"];
+              intValue = [v15 intValue];
+            }
+
+            else
+            {
+              intValue = 1;
+            }
+
+            v23 = [ARReferenceImage alloc];
+            image2 = [v14 image];
+            [v14 physicalSizeInMeters];
+            v19 = [(ARReferenceImage *)v23 initWithCGImage:image2 orientation:intValue physicalWidth:1 addPadding:?];
+            name = [v14 name];
+            [(ARReferenceImage *)v19 setName:name];
+
+            [(ARReferenceImage *)v19 setResourceGroupName:namedCopy];
+            [v32 addObject:v19];
+            goto LABEL_22;
           }
-
-          else
-          {
-            intValue = 1;
-          }
-
-          v22 = [ARReferenceImage alloc];
-          image = [v13 image];
-          [v13 physicalSizeInMeters];
-          v18 = [(ARReferenceImage *)v22 initWithCGImage:image orientation:intValue physicalWidth:1 addPadding:?];
-          name = [v13 name];
-          [(ARReferenceImage *)v18 setName:name];
-
-          [(ARReferenceImage *)v18 setResourceGroupName:namedCopy];
-          [v31 addObject:v18];
-          goto LABEL_22;
         }
 
         if (ARShouldUseLogTypeError_onceToken_35 != -1)
@@ -619,45 +636,45 @@ LABEL_33:
           [ARReferenceImage initWithCIImage:orientation:physicalWidth:alphaInfo:addPadding:];
         }
 
-        v16 = ARShouldUseLogTypeError_internalOSVersion_35;
-        v17 = _ARLogGeneral_26();
-        v18 = v17;
-        if (v16 == 1)
+        v17 = ARShouldUseLogTypeError_internalOSVersion_35;
+        v18 = _ARLogGeneral_26(image);
+        v19 = v18;
+        if (v17 == 1)
         {
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            p_super = &v18->super;
-            v20 = OS_LOG_TYPE_ERROR;
-            v21 = "Invalid reference image in catalog";
+            p_super = &v19->super;
+            v21 = OS_LOG_TYPE_ERROR;
+            v22 = "Invalid reference image in catalog";
             goto LABEL_19;
           }
         }
 
-        else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          p_super = &v18->super;
-          v20 = OS_LOG_TYPE_INFO;
-          v21 = "Error: Invalid reference image in catalog";
+          p_super = &v19->super;
+          v21 = OS_LOG_TYPE_INFO;
+          v22 = "Error: Invalid reference image in catalog";
 LABEL_19:
-          _os_log_impl(&dword_1C241C000, p_super, v20, v21, buf, 2u);
+          _os_log_impl(&dword_1C241C000, p_super, v21, v22, buf, 2u);
         }
 
 LABEL_22:
       }
 
-      ++v10;
+      ++v11;
     }
 
-    while (v8 != v10);
-    v8 = [namedRecognitionImageImageList countByEnumeratingWithState:&v33 objects:v37 count:16];
+    while (v9 != v11);
+    v9 = [namedRecognitionImageImageList countByEnumeratingWithState:&v34 objects:v38 count:16];
   }
 
-  while (v8);
+  while (v9);
 LABEL_35:
 
-  return v31;
+  return v32;
 }
 
 + (NSSet)referenceImagesInGroupNamed:(NSString *)name bundle:(NSBundle *)bundle
@@ -671,69 +688,71 @@ LABEL_35:
 
 + (id)referenceImagesInGroupNamed:(id)named catalogName:(id)name bundle:(id)bundle
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   nameCopy = name;
   bundleCopy = bundle;
-  v15 = 0;
-  v10 = [objc_alloc(MEMORY[0x1E6999368]) initWithName:nameCopy fromBundle:bundleCopy error:&v15];
-  v11 = v15;
+  v16 = 0;
+  v10 = [objc_alloc(MEMORY[0x1E6999368]) initWithName:nameCopy fromBundle:bundleCopy error:&v16];
+  v11 = v16;
+  v12 = v11;
   if (v11)
   {
-    v12 = _ARLogGeneral_26();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _ARLogGeneral_26(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v17 = nameCopy;
-      v18 = 2114;
-      v19 = bundleCopy;
-      v20 = 2112;
-      v21 = v11;
-      _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_ERROR, "Error while opening catalog named %{public}@ in bundle %{public}@: %@", buf, 0x20u);
+      v18 = nameCopy;
+      v19 = 2114;
+      v20 = bundleCopy;
+      v21 = 2112;
+      v22 = v12;
+      _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_ERROR, "Error while opening catalog named %{public}@ in bundle %{public}@: %@", buf, 0x20u);
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v13 = [objc_opt_class() referenceImagesInGroupNamed:namedCopy catalog:v10];
+    v14 = [objc_opt_class() referenceImagesInGroupNamed:namedCopy catalog:v10];
   }
 
-  return v13;
+  return v14;
 }
 
 + (id)referenceImagesInGroupNamed:(id)named catalogURL:(id)l
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   lCopy = l;
-  v12 = 0;
-  v7 = [objc_alloc(MEMORY[0x1E6999368]) initWithURL:lCopy error:&v12];
-  v8 = v12;
+  v13 = 0;
+  v7 = [objc_alloc(MEMORY[0x1E6999368]) initWithURL:lCopy error:&v13];
+  v8 = v13;
+  v9 = v8;
   if (v8)
   {
-    v9 = _ARLogGeneral_26();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _ARLogGeneral_26(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v14 = namedCopy;
-      v15 = 2114;
-      v16 = lCopy;
-      v17 = 2112;
-      v18 = v8;
-      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_ERROR, "Error while opening catalog named %{public}@ from URL %{public}@: %@", buf, 0x20u);
+      v15 = namedCopy;
+      v16 = 2114;
+      v17 = lCopy;
+      v18 = 2112;
+      v19 = v9;
+      _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_ERROR, "Error while opening catalog named %{public}@ from URL %{public}@: %@", buf, 0x20u);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v10 = [objc_opt_class() referenceImagesInGroupNamed:namedCopy catalog:v7];
+    v11 = [objc_opt_class() referenceImagesInGroupNamed:namedCopy catalog:v7];
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)dealloc
@@ -961,7 +980,7 @@ void __50__ARReferenceImage_validateWithCompletionHandler___block_invoke(uint64_
   {
     handlerCopy = handler;
     v8 = objc_opt_new();
-    v4 = ARKitCoreBundle();
+    v4 = ARKitCoreBundle(v8);
     v5 = [v4 localizedStringForKey:@"Image detection quality estimation could not be performed" value:&stru_1F4208A80 table:@"Localizable"];
     [v8 setObject:v5 forKeyedSubscript:*MEMORY[0x1E696A578]];
 

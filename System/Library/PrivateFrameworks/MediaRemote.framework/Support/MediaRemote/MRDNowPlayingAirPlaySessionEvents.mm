@@ -54,14 +54,11 @@
 
 - (NSString)modelID
 {
-  v2 = (self + OBJC_IVAR___MRDNowPlayingAirPlaySessionEvents_modelID);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v5;
+  return v2;
 }
 
 - (void)setModelID:(id)d
@@ -70,7 +67,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___MRDNowPlayingAirPlaySessionEvents_modelID);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }

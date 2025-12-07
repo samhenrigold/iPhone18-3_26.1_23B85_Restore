@@ -229,11 +229,11 @@ LABEL_9:
   [(STGroupSpecifierProvider *)self reloadSpecifier:groupSpecifier3 animated:1];
 }
 
-uint64_t __65__STPasscodeGroupSpecifierProvider_reloadTogglePasscodeSpecifier__block_invoke(uint64_t result, int a2)
+id *__65__STPasscodeGroupSpecifierProvider_reloadTogglePasscodeSpecifier__block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _promptMisconfiguredAdultIfNeeded];
+    return [result[4] _promptMisconfiguredAdultIfNeeded];
   }
 
   return result;
@@ -1321,7 +1321,7 @@ void __59__STPasscodeGroupSpecifierProvider_changeOrRemovePasscode___block_invok
 {
   OUTLINED_FUNCTION_1_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_5(&dword_264BA2000, MEMORY[0x277D86220], v0, "Failed to authenticate recovery Apple ID: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_5(&dword_264BA2000, MEMORY[0x277D86220], v0, "Failed to authenticate recovery Apple ID: %{public}@", v1, v2, v3, v4);
 }
 
 void __59__STPasscodeGroupSpecifierProvider_changeOrRemovePasscode___block_invoke_4_cold_2(uint64_t a1, uint64_t a2)
@@ -1345,7 +1345,7 @@ void __59__STPasscodeGroupSpecifierProvider_changeOrRemovePasscode___block_invok
 {
   OUTLINED_FUNCTION_1_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_5(&dword_264BA2000, MEMORY[0x277D86220], v0, "LAContext failed to evaluate policy with error: %{public}@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_5(&dword_264BA2000, MEMORY[0x277D86220], v0, "LAContext failed to evaluate policy with error: %{public}@", v1, v2, v3, v4);
 }
 
 void __88__STPasscodeGroupSpecifierProvider__promptForRecoveryAppleIDWithPINController_passcode___block_invoke_2_cold_2()
@@ -1353,6 +1353,13 @@ void __88__STPasscodeGroupSpecifierProvider__promptForRecoveryAppleIDWithPINCont
   OUTLINED_FUNCTION_1_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_1();
   _os_log_fault_impl(&dword_264BA2000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Authenticated user without an altDSID: %@", v0, 0xCu);
+}
+
+void __58__STPasscodeGroupSpecifierProvider__removeManagedPasscode__block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_5(&dword_264BA2000, MEMORY[0x277D86220], a3, "failed to remove pin: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -22,11 +22,11 @@
 
 - (COAlarmNotification)initWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v25.receiver = self;
-  v25.super_class = COAlarmNotification;
-  v5 = [(COMeshCommand *)&v25 initWithCoder:coderCopy];
+  v22.receiver = self;
+  v22.super_class = COAlarmNotification;
+  v5 = [(COMeshCommand *)&v22 initWithCoder:coderCopy];
   if (v5 && [coderCopy containsValueForKey:@"alarms"])
   {
     v6 = MEMORY[0x277CBEB98];
@@ -36,45 +36,43 @@
     alarms = v5->_alarms;
     v5->_alarms = v9;
 
-    v11 = v5->_alarms;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       objc_opt_class();
+      v18 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      v12 = v5->_alarms;
-      v13 = [(NSArray *)v12 countByEnumeratingWithState:&v21 objects:v26 count:16];
-      if (v13)
+      v11 = v5->_alarms;
+      v12 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      if (v12)
       {
-        v14 = v13;
-        v15 = *v22;
+        v13 = v12;
+        v14 = *v19;
         while (2)
         {
-          v16 = 0;
+          v15 = 0;
           do
           {
-            if (*v22 != v15)
+            if (*v19 != v14)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v11);
             }
 
-            v17 = *(*(&v21 + 1) + 8 * v16);
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
 
-              v18 = 0;
+              v16 = 0;
               goto LABEL_15;
             }
 
-            ++v16;
+            ++v15;
           }
 
-          while (v14 != v16);
-          v14 = [(NSArray *)v12 countByEnumeratingWithState:&v21 objects:v26 count:16];
-          if (v14)
+          while (v13 != v15);
+          v13 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v23 count:16];
+          if (v13)
           {
             continue;
           }
@@ -83,21 +81,20 @@
         }
       }
 
-      v18 = v5;
+      v16 = v5;
     }
 
     else
     {
-      v18 = 0;
-      v12 = v5;
+      v16 = 0;
+      v11 = v5;
     }
 
 LABEL_15:
 
-    v5 = v18;
+    v5 = v16;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

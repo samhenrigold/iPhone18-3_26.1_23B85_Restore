@@ -65,7 +65,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   has = self->_has;
   if (has)
@@ -112,29 +112,29 @@
   if ([(NSMutableArray *)self->_tcpECNInterfaceReports count])
   {
     v10 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_tcpECNInterfaceReports, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     tcpECNInterfaceReports = self->_tcpECNInterfaceReports;
-    v12 = [(NSMutableArray *)tcpECNInterfaceReports countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v12 = [(NSMutableArray *)tcpECNInterfaceReports countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(tcpECNInterfaceReports);
           }
 
-          [v10 addObject:{objc_msgSend(*(*(&v20 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v10 addObject:{objc_msgSend(*(*(&v19 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v13 = [(NSMutableArray *)tcpECNInterfaceReports countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v13 = [(NSMutableArray *)tcpECNInterfaceReports countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v13);
@@ -155,24 +155,21 @@
     [dictionary setObject:-[AWDLibnetcoreMPTCPStatsReport dictionaryRepresentation](mptcpStatisticsReport forKey:{"dictionaryRepresentation"), @"mptcpStatisticsReport"}];
   }
 
-  v18 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    reportReason = self->_reportReason;
     PBDataWriterWriteUint32Field();
   }
 
@@ -201,33 +198,32 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   tcpECNInterfaceReports = self->_tcpECNInterfaceReports;
-  v8 = [(NSMutableArray *)tcpECNInterfaceReports countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v8)
+  v6 = [(NSMutableArray *)tcpECNInterfaceReports countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v9 = v8;
-    v10 = *v15;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v10)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(tcpECNInterfaceReports);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)tcpECNInterfaceReports countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSMutableArray *)tcpECNInterfaceReports countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v9);
+    while (v7);
   }
 
   if (self->_nwAPIUsageReport)
@@ -239,8 +235,6 @@
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -312,7 +306,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -336,30 +330,30 @@
   *(v6 + 80) = [(AWDLibnetcoreTCPTFOStatsReport *)self->_tcpTFOStatisticsReport copyWithZone:zone];
 
   *(v6 + 32) = [(AWDLibnetcoreNetworkdStatsReport *)self->_networkdStatisticsReport copyWithZone:zone];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   tcpECNInterfaceReports = self->_tcpECNInterfaceReports;
-  v9 = [(NSMutableArray *)tcpECNInterfaceReports countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [(NSMutableArray *)tcpECNInterfaceReports countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(tcpECNInterfaceReports);
         }
 
-        v13 = [*(*(&v16 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v15 + 1) + 8 * i) copyWithZone:zone];
         [v6 addTcpECNInterfaceReport:v13];
       }
 
-      v10 = [(NSMutableArray *)tcpECNInterfaceReports countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [(NSMutableArray *)tcpECNInterfaceReports countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -367,7 +361,6 @@
 
   *(v6 + 40) = [(AWDNWAPIUsage *)self->_nwAPIUsageReport copyWithZone:zone];
   *(v6 + 24) = [(AWDLibnetcoreMPTCPStatsReport *)self->_mptcpStatisticsReport copyWithZone:zone];
-  v14 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -376,7 +369,6 @@
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 88);
     if (*&self->_has)
     {
       if ((*(equal + 88) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -485,7 +477,7 @@ LABEL_6:
 
 - (void)mergeFrom:(id)from
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   v5 = *(from + 88);
   if (v5)
   {
@@ -575,29 +567,29 @@ LABEL_6:
     [(AWDLibnetcoreStatsReport *)self setNetworkdStatisticsReport:?];
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v16 = *(from + 7);
-  v17 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v27;
+    v19 = *v26;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v27 != v19)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        [(AWDLibnetcoreStatsReport *)self addTcpECNInterfaceReport:*(*(&v26 + 1) + 8 * i)];
+        [(AWDLibnetcoreStatsReport *)self addTcpECNInterfaceReport:*(*(&v25 + 1) + 8 * i)];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v18);
@@ -632,8 +624,6 @@ LABEL_6:
   {
     [(AWDLibnetcoreStatsReport *)self setMptcpStatisticsReport:?];
   }
-
-  v25 = *MEMORY[0x29EDCA608];
 }
 
 @end

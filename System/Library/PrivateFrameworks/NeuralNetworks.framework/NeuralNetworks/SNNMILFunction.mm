@@ -115,7 +115,7 @@
   v5 = nameCopy;
   if (nameCopy)
   {
-    [nameCopy cxxString];
+    objc_msgSend_cxxString(nameCopy);
   }
 
   else

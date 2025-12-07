@@ -17,11 +17,11 @@
 
 - (SFPunchout)initWithProtobuf:(id)protobuf
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v33.receiver = self;
-  v33.super_class = SFPunchout;
-  v5 = [(SFPunchout *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = SFPunchout;
+  v5 = [(SFPunchout *)&v32 init];
   if (v5)
   {
     name = [protobufCopy name];
@@ -59,33 +59,33 @@
       v13 = 0;
     }
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     urls2 = [protobufCopy urls];
-    v15 = [urls2 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v15 = [urls2 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v30;
+      v17 = *v29;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v30 != v17)
+          if (*v29 != v17)
           {
             objc_enumerationMutation(urls2);
           }
 
-          v19 = _SFPBURLHandwrittenTranslator(*(*(&v29 + 1) + 8 * i));
+          v19 = _SFPBURLHandwrittenTranslator(*(*(&v28 + 1) + 8 * i));
           if (v19)
           {
             [v13 addObject:v19];
           }
         }
 
-        v16 = [urls2 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v16 = [urls2 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v16);
@@ -128,7 +128,6 @@
     v26 = v5;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -517,32 +516,32 @@ LABEL_50:
 
 - (NSURL)preferredOpenableURL
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   cachedOpenableURL = [(SFPunchout *)selfCopy cachedOpenableURL];
 
   if (!cachedOpenableURL)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     urls = [(SFPunchout *)selfCopy urls];
-    v6 = [urls countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [urls countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(urls);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           if ([(SFPunchout *)selfCopy canOpenURL:v9])
           {
             [(SFPunchout *)selfCopy setCachedOpenableURL:v9];
@@ -552,7 +551,7 @@ LABEL_50:
           }
         }
 
-        v6 = [urls countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [urls countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -571,8 +570,6 @@ LABEL_50:
 LABEL_13:
   objc_sync_exit(selfCopy);
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return cachedOpenableURL2;
 }
 
@@ -587,22 +584,20 @@ LABEL_13:
 
 + (SFPunchout)punchoutWithURL:(id)l
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (l)
   {
     lCopy = l;
     v3 = MEMORY[0x1E695DEC8];
     lCopy2 = l;
     v5 = [v3 arrayWithObjects:&lCopy count:1];
-    v6 = [SFPunchout punchoutWithURLs:v5, lCopy, v10];
+    v6 = [SFPunchout punchoutWithURLs:v5, lCopy, v9];
   }
 
   else
   {
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

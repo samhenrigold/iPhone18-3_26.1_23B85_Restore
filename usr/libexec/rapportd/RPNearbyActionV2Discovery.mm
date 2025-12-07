@@ -5,6 +5,7 @@
 - (void)_deviceLost:(id)lost;
 - (void)activateWithCompletion:(id)completion;
 - (void)invalidate;
+- (void)updateUseCase:(unsigned int)case bleScanRate:(int)rate bleScanRateScreenOff:(int)off;
 @end
 
 @implementation RPNearbyActionV2Discovery
@@ -84,9 +85,58 @@
   updateHandler = self->_updateHandler;
   self->_updateHandler = 0;
 
-  if (dword_1001D3AF8 <= 30 && (dword_1001D3AF8 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D3AF8 <= 30)
   {
-    sub_100118844();
+    if (dword_1001D3AF8 != -1 || (v6 = _LogCategory_Initialize(), v6))
+    {
+      sub_100118844(v6, v7, v8);
+    }
+  }
+}
+
+- (void)updateUseCase:(unsigned int)case bleScanRate:(int)rate bleScanRateScreenOff:(int)off
+{
+  v5 = *&off;
+  v6 = *&rate;
+  v7 = *&case;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  self->_useCase = v7;
+  self->_bleScanRate = v6;
+  self->_bleScanRateScreenOff = v5;
+  actionV2Discovery = self->_actionV2Discovery;
+  if (actionV2Discovery)
+  {
+    if (v7 && [(CBDiscovery *)actionV2Discovery useCase]!= v7)
+    {
+      if (dword_1001D3AF8 <= 30 && (dword_1001D3AF8 != -1 || _LogCategory_Initialize()))
+      {
+        sub_100118860(v7);
+      }
+
+      [(CBDiscovery *)self->_actionV2Discovery setUseCase:v7];
+    }
+
+    if ([(CBDiscovery *)self->_actionV2Discovery bleScanRate]!= v6)
+    {
+      if (dword_1001D3AF8 <= 30 && (dword_1001D3AF8 != -1 || _LogCategory_Initialize()))
+      {
+        sub_1001188B0(v6);
+      }
+
+      [(CBDiscovery *)self->_actionV2Discovery setBleScanRate:v6];
+    }
+
+    if ([(CBDiscovery *)self->_actionV2Discovery bleScanRateScreenOff]!= v5)
+    {
+      if (dword_1001D3AF8 <= 30 && (dword_1001D3AF8 != -1 || _LogCategory_Initialize()))
+      {
+        sub_100118990(v5);
+      }
+
+      v10 = self->_actionV2Discovery;
+
+      [(CBDiscovery *)v10 setBleScanRateScreenOff:v5];
+    }
   }
 }
 
@@ -111,57 +161,62 @@
     {
       if (dword_1001D3AF8 <= 30 && (dword_1001D3AF8 != -1 || _LogCategory_Initialize()))
       {
-        sub_100118AB0();
+        sub_100118AB0(foundCopy);
       }
     }
 
     else
     {
-      [(NSMutableArray *)self->_actionV2Devices addObject:v6];
-      if (dword_1001D3AF8 <= 30 && (dword_1001D3AF8 != -1 || _LogCategory_Initialize()))
+      v10 = [(NSMutableArray *)self->_actionV2Devices addObject:v6];
+      if (dword_1001D3AF8 <= 30)
       {
-        sub_100118A70();
+        if (dword_1001D3AF8 != -1 || (v10 = _LogCategory_Initialize(), v10))
+        {
+          v10 = sub_100118A70(foundCopy);
+        }
       }
 
-      v10 = sub_10005A438();
-      v11 = sub_10005A438();
-      v12 = os_signpost_id_make_with_pointer(v11, self);
+      v11 = sub_10005A438(v10);
+      v12 = sub_10005A438(v11);
+      v13 = os_signpost_id_make_with_pointer(v12, self);
 
-      if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+      if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
       {
-        v15 = 138412290;
-        v16 = foundCopy;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_EVENT, v12, "BLE NearbyActionV2 device found", "BLE NearbyActionV2 device found: %@\n", &v15, 0xCu);
+        v16 = 138412290;
+        v17 = foundCopy;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, OS_SIGNPOST_EVENT, v13, "BLE NearbyActionV2 device found", "BLE NearbyActionV2 device found: %@\n", &v16, 0xCu);
       }
     }
 
-    v13 = objc_retainBlock(self->_updateHandler);
-    v14 = v13;
-    if (v13)
+    v14 = objc_retainBlock(self->_updateHandler);
+    v15 = v14;
+    if (v14)
     {
-      (*(v13 + 2))(v13);
+      (*(v14 + 2))(v14);
     }
   }
 
   else
   {
-    sub_100118AF0();
+    sub_100118AF0(foundCopy);
   }
 }
 
 - (id)description
 {
-  NSAppendPrintF();
-  v7 = 0;
-  actionV2Discovery = self->_actionV2Discovery;
-  NSAppendPrintF();
-  v3 = v7;
+  v10 = 0;
+  NSAppendPrintF(&v10, "RPNearbyActionV2Discovery: ");
+  v3 = v10;
+  v9 = v3;
+  NSAppendPrintF(&v9, "%@", self->_actionV2Discovery);
+  v4 = v9;
 
-  [(NSMutableArray *)self->_actionV2Devices count];
-  NSAppendPrintF();
-  v4 = v3;
+  v8 = v4;
+  NSAppendPrintF(&v8, ", Devices %lu", [(NSMutableArray *)self->_actionV2Devices count]);
+  v5 = v8;
+  v6 = v8;
 
-  return v3;
+  return v5;
 }
 
 - (void)_deviceLost:(id)lost
@@ -176,7 +231,7 @@
       [(NSMutableArray *)self->_actionV2Devices removeObject:v5];
       if (dword_1001D3AF8 <= 30 && (dword_1001D3AF8 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001D3AF8, "[RPNearbyActionV2Discovery _deviceLost:]", 30, "BLE NearbyActionV2 device lost: %@\n", lostCopy);
       }
 
       v6 = objc_retainBlock(self->_updateHandler);
@@ -192,7 +247,7 @@
   {
     if (dword_1001D3AF8 <= 90 && (dword_1001D3AF8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001D3AF8, "[RPNearbyActionV2Discovery _deviceLost:]", 90, "### Ignoring BLE NearbyActionV2 device lost: %@\n", lostCopy);
     }
 
     v5 = 0;

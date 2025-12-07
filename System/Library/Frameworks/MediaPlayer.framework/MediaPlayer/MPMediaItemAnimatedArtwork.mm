@@ -289,7 +289,7 @@ LABEL_7:
   {
     v29 = v10;
     v30 = v9;
-    [v12 preferredTransform];
+    objc_msgSend_preferredTransform(v12);
     v10 = v29;
     v11 = v30;
     v14 = v31;

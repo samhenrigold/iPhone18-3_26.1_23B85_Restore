@@ -12,13 +12,13 @@
 
 - (NSArray)preferredFocusEnvironments
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C7629D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C7629D0, &unk_20C14F960);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_20C14F580;
   v4 = *((*(&self->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI33TVWorkoutPlanDetailViewController_dataProvider))[63] + OBJC_IVAR____TtC9SeymourUI11CatalogPage_collectionView);
   *(v3 + 32) = v4;
   v5 = v4;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0, &unk_20C14F970);
   v6 = sub_20C13CC54();
 
   return v6;
@@ -50,12 +50,12 @@
   [(TVWorkoutPlanDetailViewController *)&v12 viewDidAppear:appearCopy];
   v11[1] = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI33TVWorkoutPlanDetailViewController_dataProvider);
   sub_20BE1CF94(v9);
-  type metadata accessor for TVWorkoutPlanDetailPageDataProvider();
-  sub_20BDD8B20(&qword_27C76EF10, type metadata accessor for TVWorkoutPlanDetailPageDataProvider);
+  type metadata accessor for TVWorkoutPlanDetailPageDataProvider(0);
+  sub_20BDD8B20(&qword_27C76EF10, type metadata accessor for TVWorkoutPlanDetailPageDataProvider, &unk_20C17F580);
   sub_20C138C54();
   (*(v7 + 8))(v9, v6);
-  sub_20BDD8B20(&qword_27C76EF18, type metadata accessor for TVWorkoutPlanDetailViewController);
-  sub_20BDD8B20(&unk_27C76EF20, type metadata accessor for TVWorkoutPlanDetailViewController);
+  sub_20BDD8B20(&qword_27C76EF18, type metadata accessor for TVWorkoutPlanDetailViewController, &protocol conformance descriptor for TVWorkoutPlanDetailViewController);
+  sub_20BDD8B20(&unk_27C76EF20, type metadata accessor for TVWorkoutPlanDetailViewController, &protocol conformance descriptor for TVWorkoutPlanDetailViewController);
   sub_20C139364();
 }
 
@@ -72,8 +72,8 @@
   v5.super_class = swift_getObjectType();
   v4 = v5.receiver;
   [(TVWorkoutPlanDetailViewController *)&v5 viewDidDisappear:disappearCopy];
-  sub_20BDD8B20(&qword_27C76EF18, type metadata accessor for TVWorkoutPlanDetailViewController);
-  sub_20BDD8B20(&unk_27C76EF20, type metadata accessor for TVWorkoutPlanDetailViewController);
+  sub_20BDD8B20(&qword_27C76EF18, type metadata accessor for TVWorkoutPlanDetailViewController, &protocol conformance descriptor for TVWorkoutPlanDetailViewController);
+  sub_20BDD8B20(&unk_27C76EF20, type metadata accessor for TVWorkoutPlanDetailViewController, &protocol conformance descriptor for TVWorkoutPlanDetailViewController);
   sub_20C139374();
 }
 

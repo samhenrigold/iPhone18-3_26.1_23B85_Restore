@@ -81,7 +81,7 @@
   v61 = *MEMORY[0x1E69E9840];
   libraryCopy = library;
   containerCopy = container;
-  v9 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(containerCopy, "count")}];
+  v9 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(containerCopy)];
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
@@ -152,7 +152,7 @@ LABEL_24:
 
   context = objc_autoreleasePoolPush();
   v18 = objc_alloc(MEMORY[0x1E695DF90]);
-  v19 = [v18 initWithCapacity:{objc_msgSend(v44[5], "count")}];
+  v19 = [v18 initWithCapacity:objc_msgSend_count(v44[5])];
   v36 = 0u;
   v37 = 0u;
   v34 = 0u;
@@ -233,7 +233,7 @@ void __95__PLDuplicateDetectorMetadata__postProcessFetchMetadataWithPhotoLibrary
   v13 = *(v12 + 40);
   *(v12 + 40) = v11;
 
-  v14 = [v8 stopRecordingDescriptionWithFetchCount:{objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "count")}];
+  v14 = [v8 stopRecordingDescriptionWithFetchCount:objc_msgSend_count(*(*(*(a1 + 56) + 8) + 40))];
   if (v14)
   {
     v15 = PLDuplicateDetectionGetLog();
@@ -423,7 +423,7 @@ uint64_t __91__PLDuplicateDetectorMetadata__postProcessDuplicateWithPhotoLibrary
   [v7 setPropertiesToFetch:v14];
 
   [v7 setResultType:2];
-  v15 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{-[NSArray count](self->_sourceAssetOIDs, "count")}];
+  v15 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(self->_sourceAssetOIDs)];
   v22[0] = MEMORY[0x1E69E9820];
   v22[1] = 3221225472;
   v22[2] = __88__PLDuplicateDetectorMetadata__fullsizeIdentifiersFromLimitedSelectionWithPhotoLibrary___block_invoke;
@@ -455,7 +455,7 @@ void __88__PLDuplicateDetectorMetadata__fullsizeIdentifiersFromLimitedSelectionW
   v7 = [v5 executeFetchRequest:v6 error:&v18];
   v8 = v18;
 
-  v9 = [v4 stopRecordingDescriptionWithFetchCount:{objc_msgSend(v7, "count")}];
+  v9 = [v4 stopRecordingDescriptionWithFetchCount:objc_msgSend_count(v7)];
   if (v9)
   {
     v10 = PLDuplicateDetectionGetLog();
@@ -524,7 +524,7 @@ void __88__PLDuplicateDetectorMetadata__fullsizeIdentifiersFromLimitedSelectionW
   [v7 setPropertiesToFetch:v9];
 
   [v7 setResultType:2];
-  v10 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{-[NSArray count](self->_sourceAssetOIDs, "count")}];
+  v10 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(self->_sourceAssetOIDs)];
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 3221225472;
   v17[2] = __89__PLDuplicateDetectorMetadata__originalsIdentifiersFromLimitedSelectionWithPhotoLibrary___block_invoke;
@@ -556,7 +556,7 @@ void __89__PLDuplicateDetectorMetadata__originalsIdentifiersFromLimitedSelection
   v7 = [v5 executeFetchRequest:v6 error:&v18];
   v8 = v18;
 
-  v9 = [v4 stopRecordingDescriptionWithFetchCount:{objc_msgSend(v7, "count")}];
+  v9 = [v4 stopRecordingDescriptionWithFetchCount:objc_msgSend_count(v7)];
   if (v9)
   {
     v10 = PLDuplicateDetectionGetLog();
@@ -672,7 +672,7 @@ void __89__PLDuplicateDetectorMetadata__originalsIdentifiersFromLimitedSelection
 {
   v17[2] = *MEMORY[0x1E69E9840];
   libraryCopy = library;
-  if ([(NSArray *)self->_sourceAssetOIDs count])
+  if (objc_msgSend_count(self->_sourceAssetOIDs))
   {
     v5 = [(PLDuplicateDetectorMetadata *)self _combinedIdentifiersFromLimitedSelectionWithPhotoLibrary:libraryCopy];
     v6 = MEMORY[0x1E696AB28];
@@ -772,7 +772,7 @@ void __89__PLDuplicateDetectorMetadata__originalsIdentifiersFromLimitedSelection
 {
   v12[2] = *MEMORY[0x1E69E9840];
   libraryCopy = library;
-  if ([(NSArray *)self->_sourceAssetOIDs count])
+  if (objc_msgSend_count(self->_sourceAssetOIDs))
   {
     v5 = [(PLDuplicateDetectorMetadata *)self _combinedIdentifiersFromLimitedSelectionWithPhotoLibrary:libraryCopy];
     v6 = MEMORY[0x1E696AB28];
@@ -1055,7 +1055,7 @@ void __97__PLDuplicateDetectorMetadata__generateDuplicateContainerFromResults_fu
 void __97__PLDuplicateDetectorMetadata__generateDuplicateContainerFromResults_fullsizeFingerprintResults___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v7 = a3;
-  if ([v7 count] >= 2)
+  if (objc_msgSend_count(v7) >= 2)
   {
     v4 = [PLDuplicateGroup alloc];
     v5 = [v7 copy];
@@ -1156,7 +1156,7 @@ void __70__PLDuplicateDetectorMetadata_detectDuplicatesWithPhotoLibrary_error___
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
 
-  v11 = [v4 stopRecordingDescriptionWithFetchCount:{objc_msgSend(*(*(*(a1 + 64) + 8) + 40), "count")}];
+  v11 = [v4 stopRecordingDescriptionWithFetchCount:objc_msgSend_count(*(*(*(a1 + 64) + 8) + 40))];
   if (v11)
   {
     v12 = PLDuplicateDetectionGetLog();
@@ -1190,7 +1190,7 @@ void __70__PLDuplicateDetectorMetadata_detectDuplicatesWithPhotoLibrary_error___
     v23 = *(v22 + 40);
     *(v22 + 40) = v21;
 
-    v24 = [v17 stopRecordingDescriptionWithFetchCount:{objc_msgSend(*(*(*(a1 + 80) + 8) + 40), "count")}];
+    v24 = [v17 stopRecordingDescriptionWithFetchCount:objc_msgSend_count(*(*(*(a1 + 80) + 8) + 40))];
     if (v24)
     {
       v25 = PLDuplicateDetectionGetLog();

@@ -10,35 +10,32 @@ uint64_t __84___SFFloatingTabBarItemViewAccessibility__accessibilityLoadAccessib
 
   if (v2)
   {
-    v3 = [v2 safeSwiftBoolForKey:@"isRetitling"];
-    v4 = *MEMORY[0x29EDC7598];
-    v5 = *MEMORY[0x29EDC7FD0];
-    if (v3)
+    if ([v2 safeSwiftBoolForKey:@"isRetitling"])
     {
-      v6 = *MEMORY[0x29EDC7598];
+      v3 = *MEMORY[0x29EDC7598];
     }
 
     else
     {
-      v6 = *MEMORY[0x29EDC7FD0] | *MEMORY[0x29EDC7F70];
+      v3 = *MEMORY[0x29EDC7FD0] | *MEMORY[0x29EDC7F70];
     }
 
-    v7 = [v2 safeSwiftBoolForKey:@"isSelected"];
-    v8 = *MEMORY[0x29EDC7FC0];
-    if (!v7)
+    v4 = [v2 safeSwiftBoolForKey:@"isSelected"];
+    v5 = *MEMORY[0x29EDC7FC0];
+    if (!v4)
     {
-      v8 = 0;
+      v5 = 0;
     }
 
-    v9 = v8 | v6;
+    v6 = v5 | v3;
   }
 
   else
   {
-    v9 = *MEMORY[0x29EDC7F70];
+    v6 = *MEMORY[0x29EDC7F70];
   }
 
-  return v9;
+  return v6;
 }
 
 @end

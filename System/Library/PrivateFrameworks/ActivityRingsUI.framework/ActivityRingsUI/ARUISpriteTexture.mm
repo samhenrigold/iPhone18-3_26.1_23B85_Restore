@@ -9,9 +9,9 @@
 - (ARUISpriteTexture)initWithImage:(id)image
 {
   imageCopy = image;
-  v17.receiver = self;
-  v17.super_class = ARUISpriteTexture;
-  v5 = [(ARUISpriteTexture *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = ARUISpriteTexture;
+  v5 = [(ARUISpriteTexture *)&v18 init];
   if (v5)
   {
     [imageCopy size];
@@ -24,18 +24,18 @@
     if (v9)
     {
       v10 = [objc_alloc(MEMORY[0x1E6974438]) initWithDevice:v9];
-      v16 = 0;
-      v11 = [v10 newTextureWithCGImage:objc_msgSend(imageCopy options:"CGImage") error:{0, &v16}];
-      v12 = v16;
+      v17 = 0;
+      v11 = [v10 newTextureWithCGImage:objc_msgSend(imageCopy options:"CGImage") error:{0, &v17}];
+      v12 = v17;
       texture = v5->_texture;
       v5->_texture = v11;
 
       if (v12)
       {
-        v14 = arui_rings_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+        v15 = arui_rings_log(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
         {
-          [(ARUISpriteTexture *)imageCopy initWithImage:v12, v14];
+          [(ARUISpriteTexture *)imageCopy initWithImage:v12, v15];
         }
       }
     }

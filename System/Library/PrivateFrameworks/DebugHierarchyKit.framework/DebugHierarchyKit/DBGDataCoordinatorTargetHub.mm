@@ -16,6 +16,7 @@
 - (void)_writeRequestResponseToDiskIfNecessary:(id)necessary request:(id)request compressedSize:(unint64_t)size;
 - (void)didReceiveData:(id)data forRequest:(id)request;
 - (void)processDebugHierarchyObjectDict:(id)dict inGroup:(id)group isDirectChildGroup:(BOOL)childGroup;
+- (void)processGroupDict:(id)dict isDirectChildGroup:(BOOL)group parentNode:(id)node;
 @end
 
 @implementation DBGDataCoordinatorTargetHub
@@ -82,132 +83,134 @@ LABEL_8:
 {
   resultsCopy = results;
   requestCopy = request;
-  v8 = DebugHierarchySnapshotModelOSLog();
+  v8 = DebugHierarchySnapshotModelOSLog(requestCopy);
   v9 = os_signpost_id_make_with_pointer(v8, requestCopy);
   v10 = v8;
   v11 = v10;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     name = [requestCopy name];
-    v53 = 136446466;
-    v54 = "All";
-    v55 = 2114;
-    v56 = name;
-    _os_signpost_emit_with_name_impl(&dword_0, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "Process Fetch Results", "Process: %{public}s (%{public}@)", &v53, 0x16u);
+    v58 = 136446466;
+    v59 = "All";
+    v60 = 2114;
+    v61 = name;
+    _os_signpost_emit_with_name_impl(&dword_0, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "Process Fetch Results", "Process: %{public}s (%{public}@)", &v58, 0x16u);
   }
 
   v13 = [resultsCopy objectForKeyedSubscript:DebugHierarchyRequestKey];
+  v14 = v13;
   if (v13)
   {
-    v14 = [DebugHierarchyRequest requestWithDictionary:v13];
-    if ([resultsCopy count] == &dword_0 + 1)
+    v15 = [DebugHierarchyRequest requestWithDictionary:v13];
+    v13 = [resultsCopy count];
+    if (v13 == &dword_0 + 1)
     {
-      [requestCopy setStatus:-2];
+      v13 = [requestCopy setStatus:-2];
     }
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  v15 = DebugHierarchySnapshotModelOSLog();
-  logs = [v14 logs];
-  v17 = os_signpost_id_make_with_pointer(v15, logs);
+  v16 = DebugHierarchySnapshotModelOSLog(v13);
+  logs = [v15 logs];
+  v18 = os_signpost_id_make_with_pointer(v16, logs);
 
-  v18 = v15;
-  v19 = v18;
-  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  v19 = v16;
+  v20 = v19;
+  if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
     name2 = [requestCopy name];
-    v53 = 136446466;
-    v54 = "Logs";
-    v55 = 2114;
-    v56 = name2;
-    _os_signpost_emit_with_name_impl(&dword_0, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "Process Fetch Results", "Process: %{public}s (%{public}@)", &v53, 0x16u);
+    v58 = 136446466;
+    v59 = "Logs";
+    v60 = 2114;
+    v61 = name2;
+    _os_signpost_emit_with_name_impl(&dword_0, v20, OS_SIGNPOST_INTERVAL_BEGIN, v18, "Process Fetch Results", "Process: %{public}s (%{public}@)", &v58, 0x16u);
   }
 
-  logs2 = [v14 logs];
+  logs2 = [v15 logs];
   [(DBGDataCoordinatorTargetHub *)self _processRequestLogs:logs2 forRequest:requestCopy];
 
-  v22 = DebugHierarchySnapshotModelOSLog();
-  logs3 = [v14 logs];
-  v24 = os_signpost_id_make_with_pointer(v22, logs3);
+  v24 = DebugHierarchySnapshotModelOSLog(v23);
+  logs3 = [v15 logs];
+  v26 = os_signpost_id_make_with_pointer(v24, logs3);
 
-  v25 = v22;
-  v26 = v25;
-  if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+  v27 = v24;
+  v28 = v27;
+  if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
   {
-    LOWORD(v53) = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v26, OS_SIGNPOST_INTERVAL_END, v24, "Process Fetch Results", "Completed", &v53, 2u);
+    LOWORD(v58) = 0;
+    _os_signpost_emit_with_name_impl(&dword_0, v28, OS_SIGNPOST_INTERVAL_END, v26, "Process Fetch Results", "Completed", &v58, 2u);
   }
 
-  v27 = [resultsCopy objectForKeyedSubscript:DebugHierarchyRequestRuntimeInformationKey];
-  v28 = DebugHierarchySnapshotModelOSLog();
-  v29 = os_signpost_id_make_with_pointer(v28, v27);
-  v30 = v28;
-  v31 = v30;
-  if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
+  v29 = [resultsCopy objectForKeyedSubscript:DebugHierarchyRequestRuntimeInformationKey];
+  v30 = DebugHierarchySnapshotModelOSLog(v29);
+  v31 = os_signpost_id_make_with_pointer(v30, v29);
+  v32 = v30;
+  v33 = v32;
+  if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
   {
     name3 = [requestCopy name];
-    v53 = 136446466;
-    v54 = "Runtime Info";
-    v55 = 2114;
-    v56 = name3;
-    _os_signpost_emit_with_name_impl(&dword_0, v31, OS_SIGNPOST_INTERVAL_BEGIN, v29, "Process Fetch Results", "Process: %{public}s (%{public}@)", &v53, 0x16u);
+    v58 = 136446466;
+    v59 = "Runtime Info";
+    v60 = 2114;
+    v61 = name3;
+    _os_signpost_emit_with_name_impl(&dword_0, v33, OS_SIGNPOST_INTERVAL_BEGIN, v31, "Process Fetch Results", "Process: %{public}s (%{public}@)", &v58, 0x16u);
   }
 
-  if ([v27 count])
+  v35 = [v29 count];
+  if (v35)
   {
-    v33 = [DebugHierarchyRuntimeInfo runtimeInfoWithSerializedRepresentation:v27];
+    v36 = [DebugHierarchyRuntimeInfo runtimeInfoWithSerializedRepresentation:v29];
     snapshotManager = [(DBGDataCoordinator *)self snapshotManager];
     runtimeInfo = [snapshotManager runtimeInfo];
-    [runtimeInfo mergeWith:v33];
+    [runtimeInfo mergeWith:v36];
   }
 
-  v36 = DebugHierarchySnapshotModelOSLog();
-  v37 = os_signpost_id_make_with_pointer(v36, v27);
-  v38 = v36;
-  v39 = v38;
-  if (v37 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
+  v39 = DebugHierarchySnapshotModelOSLog(v35);
+  v40 = os_signpost_id_make_with_pointer(v39, v29);
+  v41 = v39;
+  v42 = v41;
+  if (v40 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
   {
-    LOWORD(v53) = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v39, OS_SIGNPOST_INTERVAL_END, v37, "Process Fetch Results", "Completed", &v53, 2u);
+    LOWORD(v58) = 0;
+    _os_signpost_emit_with_name_impl(&dword_0, v42, OS_SIGNPOST_INTERVAL_END, v40, "Process Fetch Results", "Completed", &v58, 2u);
   }
 
-  v40 = DebugHierarchySnapshotModelOSLog();
-  v41 = os_signpost_id_make_with_pointer(v40, resultsCopy);
-  v42 = v40;
-  v43 = v42;
-  if (v41 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
+  v44 = DebugHierarchySnapshotModelOSLog(v43);
+  v45 = os_signpost_id_make_with_pointer(v44, resultsCopy);
+  v46 = v44;
+  v47 = v46;
+  if (v45 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
   {
     name4 = [requestCopy name];
-    v53 = 136446466;
-    v54 = "Snapshot Model";
-    v55 = 2114;
-    v56 = name4;
-    _os_signpost_emit_with_name_impl(&dword_0, v43, OS_SIGNPOST_INTERVAL_BEGIN, v41, "Process Fetch Results", "Process: %{public}s (%{public}@)", &v53, 0x16u);
+    v58 = 136446466;
+    v59 = "Snapshot Model";
+    v60 = 2114;
+    v61 = name4;
+    _os_signpost_emit_with_name_impl(&dword_0, v47, OS_SIGNPOST_INTERVAL_BEGIN, v45, "Process Fetch Results", "Process: %{public}s (%{public}@)", &v58, 0x16u);
   }
 
-  [(DBGDataCoordinatorTargetHub *)self _updateSnapshotWithResponse:resultsCopy forRequest:requestCopy];
-  v45 = DebugHierarchySnapshotModelOSLog();
-  v46 = os_signpost_id_make_with_pointer(v45, resultsCopy);
-  v47 = v45;
-  v48 = v47;
-  if (v46 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
-  {
-    LOWORD(v53) = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v48, OS_SIGNPOST_INTERVAL_END, v46, "Process Fetch Results", "Completed", &v53, 2u);
-  }
-
-  v49 = DebugHierarchySnapshotModelOSLog();
-  v50 = os_signpost_id_make_with_pointer(v49, requestCopy);
+  v49 = DebugHierarchySnapshotModelOSLog([(DBGDataCoordinatorTargetHub *)self _updateSnapshotWithResponse:resultsCopy forRequest:requestCopy]);
+  v50 = os_signpost_id_make_with_pointer(v49, resultsCopy);
   v51 = v49;
   v52 = v51;
   if (v50 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v51))
   {
-    LOWORD(v53) = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v52, OS_SIGNPOST_INTERVAL_END, v50, "Process Fetch Results", "Completed", &v53, 2u);
+    LOWORD(v58) = 0;
+    _os_signpost_emit_with_name_impl(&dword_0, v52, OS_SIGNPOST_INTERVAL_END, v50, "Process Fetch Results", "Completed", &v58, 2u);
+  }
+
+  v54 = DebugHierarchySnapshotModelOSLog(v53);
+  v55 = os_signpost_id_make_with_pointer(v54, requestCopy);
+  v56 = v54;
+  v57 = v56;
+  if (v55 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v56))
+  {
+    LOWORD(v58) = 0;
+    _os_signpost_emit_with_name_impl(&dword_0, v57, OS_SIGNPOST_INTERVAL_END, v55, "Process Fetch Results", "Completed", &v58, 2u);
   }
 }
 
@@ -390,6 +393,80 @@ LABEL_8:
     }
 
     while (v31);
+  }
+}
+
+- (void)processGroupDict:(id)dict isDirectChildGroup:(BOOL)group parentNode:(id)node
+{
+  groupCopy = group;
+  dictCopy = dict;
+  nodeCopy = node;
+  snapshotManager = [(DBGDataCoordinator *)self snapshotManager];
+  snapshot = [snapshotManager snapshot];
+
+  v12 = [dictCopy objectForKeyedSubscript:@"groupingID"];
+  v13 = [dictCopy objectForKeyedSubscript:@"debugHierarchyObjects"];
+  if (nodeCopy)
+  {
+    v14 = [nodeCopy groupWithID:v12];
+    if (v14)
+    {
+      goto LABEL_9;
+    }
+
+    if (groupCopy)
+    {
+      v14 = [DBGSnapshotGroup strongObjectsGroupWithIdentifier:v12];
+      [nodeCopy setChildGroup:v14];
+    }
+
+    else
+    {
+      v14 = [DBGSnapshotGroup weakObjectsGroupWithIdentifier:v12];
+      [nodeCopy addAdditonalGroup:v14];
+    }
+  }
+
+  else
+  {
+    v14 = [snapshot rootLevelSnapshotGroupWithIdentifier:v12];
+    if (!v14)
+    {
+      v14 = [DBGSnapshotGroup strongObjectsGroupWithIdentifier:v12];
+      [snapshot addRootLevelGroup:v14];
+    }
+  }
+
+  [(DBGDataCoordinatorTargetHub *)self _updateGroup:v14 withDict:dictCopy];
+LABEL_9:
+  v21 = nodeCopy;
+  v15 = snapshot;
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v16 = v13;
+  v17 = [v16 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  if (v17)
+  {
+    v18 = v17;
+    v19 = *v23;
+    do
+    {
+      for (i = 0; i != v18; i = i + 1)
+      {
+        if (*v23 != v19)
+        {
+          objc_enumerationMutation(v16);
+        }
+
+        [(DBGDataCoordinatorTargetHub *)self processDebugHierarchyObjectDict:*(*(&v22 + 1) + 8 * i) inGroup:v14 isDirectChildGroup:groupCopy];
+      }
+
+      v18 = [v16 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    }
+
+    while (v18);
   }
 }
 

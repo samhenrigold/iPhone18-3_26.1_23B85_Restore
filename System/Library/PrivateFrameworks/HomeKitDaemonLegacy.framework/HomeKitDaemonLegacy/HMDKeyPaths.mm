@@ -102,13 +102,12 @@ LABEL_14:
     return v10;
   }
 
-  v11 = *(v9 + 8 * v3 + 32);
   selfCopy2 = self;
 
 LABEL_8:
-  v13 = sub_25328F4FC(v5, v7);
+  v12 = sub_25328F4FC(v5, v7);
 
-  LOBYTE(v10) = v13 & 1;
+  LOBYTE(v10) = v12 & 1;
   return v10;
 }
 

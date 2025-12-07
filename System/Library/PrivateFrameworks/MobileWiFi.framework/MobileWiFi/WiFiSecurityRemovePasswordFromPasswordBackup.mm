@@ -5,7 +5,7 @@
 
 void ____WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   if (!v3)
@@ -26,20 +26,20 @@ void ____WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke(uint64_t a1)
   {
     ____WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke_cold_1();
 LABEL_18:
-    v5 = *v13;
+    v5 = *v12;
     goto LABEL_10;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    *v13 = 136315650;
-    *&v13[4] = "__WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke";
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: ssid %@ (%@)", v13, 0x20u);
+    *v12 = 136315650;
+    *&v12[4] = "__WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke";
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: ssid %@ (%@)", v12, 0x20u);
   }
 
   v7 = [MEMORY[0x277CBEB38] dictionary];
@@ -52,13 +52,13 @@ LABEL_18:
     v9 = v8;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 136315650;
-      *&v13[4] = "__WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke";
-      v14 = 2112;
-      v15 = v5;
-      v16 = 1024;
-      LODWORD(v17) = v9;
-      _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:[%@] error result %d", v13, 0x1Cu);
+      *v12 = 136315650;
+      *&v12[4] = "__WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke";
+      v13 = 2112;
+      v14 = v5;
+      v15 = 1024;
+      LODWORD(v16) = v9;
+      _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:[%@] error result %d", v12, 0x1Cu);
     }
   }
 
@@ -67,11 +67,11 @@ LABEL_10:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(a1 + 32);
-    *v13 = 136315394;
-    *&v13[4] = "__WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke";
-    v14 = 2112;
-    v15 = v10;
-    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:[%@] finished removal", v13, 0x16u);
+    *v12 = 136315394;
+    *&v12[4] = "__WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke";
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:[%@] finished removal", v12, 0x16u);
   }
 
   v11 = *(a1 + 40);
@@ -81,44 +81,43 @@ LABEL_10:
   }
 
   objc_autoreleasePoolPop(v2);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void ____WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_3(&dword_25A116000, MEMORY[0x277D86220], v2, "%s: error: empty ssid hash", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "__WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke";
+    OUTLINED_FUNCTION_0_3(&dword_25A116000, MEMORY[0x277D86220], v2, "%s: error: empty ssid hash", v3, v4, v5, v6, v7, DWORD2(v7));
   }
 
   *v0 = v1;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void ____WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_3(&dword_25A116000, MEMORY[0x277D86220], v0, "%s: error: empty ssid", v1, v2, v3, v4, 2u);
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "__WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke";
+    OUTLINED_FUNCTION_0_3(&dword_25A116000, MEMORY[0x277D86220], v0, "%s: error: empty ssid", v1, v2, v3, v4, v5, DWORD2(v5));
   }
 
   OUTLINED_FUNCTION_1_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ____WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_3(&dword_25A116000, MEMORY[0x277D86220], v0, "%s: null ssid", v1, v2, v3, v4, 2u);
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "__WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke";
+    OUTLINED_FUNCTION_0_3(&dword_25A116000, MEMORY[0x277D86220], v0, "%s: null ssid", v1, v2, v3, v4, v5, DWORD2(v5));
   }
 
   OUTLINED_FUNCTION_1_2();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -58,7 +58,7 @@ uint64_t __28__AWRemoteClient_invalidate__block_invoke(uint64_t a1)
 
 - (void)initializeClientState
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (self->_clientIndex != -1)
   {
@@ -67,9 +67,9 @@ uint64_t __28__AWRemoteClient_invalidate__block_invoke(uint64_t a1)
 
   v11 = +[AWPersistentDataManager sharedManager];
   connection = self->_connection;
-  v32 = 0;
-  v13 = [v11 openWithConnection:connection error:&v32];
-  v7 = v32;
+  v31 = 0;
+  v13 = [v11 openWithConnection:connection error:&v31];
+  v7 = v31;
   self->_clientIndex = v13;
 
   if (v7)
@@ -92,11 +92,11 @@ uint64_t __28__AWRemoteClient_invalidate__block_invoke(uint64_t a1)
 
         identifier = self->_identifier;
         *buf = 134218498;
-        v34 = v15;
-        v35 = 2112;
-        *v36 = identifier;
-        *&v36[8] = 2112;
-        *&v36[10] = v7;
+        v33 = v15;
+        v34 = 2112;
+        *v35 = identifier;
+        *&v35[8] = 2112;
+        *&v35[10] = v7;
         v25 = "%13.5f: %@ failed to obtain index for persistent data access: %@";
         v26 = v8;
         v27 = 32;
@@ -148,15 +148,15 @@ LABEL_21:
   v21 = self->_identifier;
   clientIndex = self->_clientIndex;
   *buf = 136316162;
-  v34 = *&v17;
-  v35 = 1024;
-  *v36 = 143;
-  *&v36[4] = 2048;
-  *&v36[6] = v20;
-  *&v36[14] = 2112;
-  *&v36[16] = v21;
-  v37 = 1024;
-  v38 = clientIndex;
+  v33 = *&v17;
+  v34 = 1024;
+  *v35 = 143;
+  *&v35[4] = 2048;
+  *&v35[6] = v20;
+  *&v35[14] = 2112;
+  *&v35[16] = v21;
+  v36 = 1024;
+  v37 = clientIndex;
   _os_log_impl(&dword_1BB2EF000, v16, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ obtained index %d for persistent data access", buf, 0x2Cu);
 LABEL_26:
 
@@ -164,9 +164,9 @@ LABEL_2:
   v3 = +[AWPersistentDataManager sharedManager];
   v4 = self->_connection;
   v5 = self->_clientIndex;
-  v31 = 0;
-  v6 = [v3 clientStateWithConnection:v4 index:v5 error:&v31];
-  v7 = v31;
+  v30 = 0;
+  v6 = [v3 clientStateWithConnection:v4 index:v5 error:&v30];
+  v7 = v30;
   self->_clientState = v6;
 
   if (v7 && currentLogLevel >= 3)
@@ -188,13 +188,13 @@ LABEL_2:
       v23 = self->_identifier;
       v24 = self->_clientIndex;
       *buf = 134218754;
-      v34 = v10;
-      v35 = 2112;
-      *v36 = v23;
-      *&v36[8] = 1024;
-      *&v36[10] = v24;
-      *&v36[14] = 2112;
-      *&v36[16] = v7;
+      v33 = v10;
+      v34 = 2112;
+      *v35 = v23;
+      *&v35[8] = 1024;
+      *&v35[10] = v24;
+      *&v35[14] = 2112;
+      *&v35[16] = v7;
       v25 = "%13.5f: %@ failed to obtain persistent client state for index %d: %@";
       v26 = v8;
       v27 = 38;
@@ -217,13 +217,11 @@ LABEL_33:
   {
     goto LABEL_33;
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)nextSampleTime
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (self->_activateMotionDetect)
   {
@@ -234,10 +232,15 @@ LABEL_33:
   else
   {
     samplingInterval = self->_samplingInterval;
-    if (!samplingInterval || (clientState = self->_clientState, !clientState->var9) && !self->_sampleWhileAbsent)
+    if (!samplingInterval)
     {
-      result = -1;
-      goto LABEL_31;
+      return -1;
+    }
+
+    clientState = self->_clientState;
+    if (!clientState->var9 && !self->_sampleWhileAbsent)
+    {
+      return -1;
     }
   }
 
@@ -306,35 +309,31 @@ LABEL_18:
     v17 = v9 / 1000000000.0;
   }
 
-  v19 = 136316418;
-  v20 = v11;
-  v21 = 1024;
-  v22 = 1079;
-  v23 = 2048;
-  v24 = v15;
-  v25 = 2112;
-  v26 = identifier;
-  v27 = 2048;
-  v28 = v8 / 1000000000.0;
-  v29 = 2048;
-  v30 = v17;
-  _os_log_impl(&dword_1BB2EF000, v10, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ delayedTime %13.5f nextSampleTime %13.5f", &v19, 0x3Au);
+  v18 = 136316418;
+  v19 = v11;
+  v20 = 1024;
+  v21 = 1079;
+  v22 = 2048;
+  v23 = v15;
+  v24 = 2112;
+  v25 = identifier;
+  v26 = 2048;
+  v27 = v8 / 1000000000.0;
+  v28 = 2048;
+  v29 = v17;
+  _os_log_impl(&dword_1BB2EF000, v10, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ delayedTime %13.5f nextSampleTime %13.5f", &v18, 0x3Au);
 LABEL_27:
 
 LABEL_28:
   if (v8 <= v9)
   {
-    result = v9;
+    return v9;
   }
 
   else
   {
-    result = v8;
+    return v8;
   }
-
-LABEL_31:
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (unint64_t)_activeEventMask
@@ -351,9 +350,9 @@ LABEL_31:
 
 - (id)description
 {
-  v40 = MEMORY[0x1E696AEC0];
+  v39 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
-  v41 = NSStringFromClass(v3);
+  v40 = NSStringFromClass(v3);
   samplingInterval = self->_samplingInterval;
   if (samplingInterval == -1)
   {
@@ -385,7 +384,7 @@ LABEL_31:
   activateEyeRelief = self->_activateEyeRelief;
   activateAttentionDetection = self->_activateAttentionDetection;
   activateMotionDetect = self->_activateMotionDetect;
-  v39 = [(NSArray *)self->_attentionLostTimeoutsSec componentsJoinedByString:@", "];
+  v38 = [(NSArray *)self->_attentionLostTimeoutsSec componentsJoinedByString:@", "];
   nonSampledAttentionLostTimeout = self->_nonSampledAttentionLostTimeout;
   if (nonSampledAttentionLostTimeout == -1)
   {
@@ -417,8 +416,8 @@ LABEL_31:
     v19 = "false";
   }
 
-  v36 = v18;
-  v37 = v19;
+  v35 = v18;
+  v36 = v19;
   if (activateAttentionDetection)
   {
     v20 = "true";
@@ -439,8 +438,8 @@ LABEL_31:
     v21 = "false";
   }
 
-  v34 = v21;
-  v35 = v20;
+  v33 = v21;
+  v34 = v20;
   if (unityStream)
   {
     v22 = "true";
@@ -451,7 +450,7 @@ LABEL_31:
     v22 = "false";
   }
 
-  v33 = v22;
+  v32 = v22;
   if (continuousFaceDetectMode)
   {
     v23 = "true";
@@ -495,15 +494,14 @@ LABEL_31:
   v27 = getNotificationMaskDescription(self->_notificationMask);
   v28 = getEventMaskDescription(self->_eventMask);
   v29 = getEventMaskDescription(self->_attentionLostEventMask);
-  keyboardDisplayUUIDs = self->_keyboardDisplayUUIDs;
-  v31 = [v40 stringWithFormat:@"<%@: %p> (identifier: %@ samplingInterval: %13.5f samplingDelay: %13.5f sampleWhileAbsent: %s retroactiveTimeoutMode: %s pollingFilter: %s continuousFaceDetectMode: %s unityStream: %s activateEyeRelief: %s activateAttentionDetection: %s activateMotionDetection: %s activatePersonDetection: %s attentionLostTimeouts: %@ nonSampledAttentionLostTimeoutEnabled %s nonSampledAttentionLostTimeout %13.5f notificationMask %@ mask %@ attentionLostEventMask %@ digitizerDisplayUUIDs %@ buttonDisplayUUIDs %@ keyboardDisplayUUIDs %@ tagIndex %llu)", v41, self, identifier, *&v5, *&v7, v26, v25, v24, v23, v33, v34, v35, v37, "false", v39, v36, *&v17, v27, v28, v29, self->_digitizerDisplayUUIDs, self->_buttonDisplayUUIDs, keyboardDisplayUUIDs, self->_tagIndex];
+  v30 = [v39 stringWithFormat:@"<%@: %p> (identifier: %@ samplingInterval: %13.5f samplingDelay: %13.5f sampleWhileAbsent: %s retroactiveTimeoutMode: %s pollingFilter: %s continuousFaceDetectMode: %s unityStream: %s activateEyeRelief: %s activateAttentionDetection: %s activateMotionDetection: %s activatePersonDetection: %s attentionLostTimeouts: %@ nonSampledAttentionLostTimeoutEnabled %s nonSampledAttentionLostTimeout %13.5f notificationMask %@ mask %@ attentionLostEventMask %@ digitizerDisplayUUIDs %@ buttonDisplayUUIDs %@ keyboardDisplayUUIDs %@ tagIndex %llu)", v40, self, identifier, *&v5, *&v7, v26, v25, v24, v23, v32, v33, v34, v36, "false", v38, v35, *&v17, v27, v28, v29, self->_digitizerDisplayUUIDs, self->_buttonDisplayUUIDs, self->_keyboardDisplayUUIDs, self->_tagIndex];
 
-  return v31;
+  return v30;
 }
 
 - (void)_resetAttentionLostTimer
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   v3 = absTimeNS();
   [(AWRemoteClient *)self updateEventTimesForMask:0 timestamp:v3];
@@ -534,26 +532,27 @@ LABEL_31:
         v12 = v3 / 1000000000.0;
       }
 
-      v19 = 134218498;
-      v20 = v6;
-      v21 = 2112;
-      *v22 = identifier;
-      *&v22[8] = 2048;
-      *&v22[10] = v12;
+      v18 = 134218498;
+      v19 = v6;
+      v20 = 2112;
+      *v21 = identifier;
+      *&v21[8] = 2048;
+      *&v21[10] = v12;
       v13 = "%13.5f: reset attention lost timeout for %@ at %13.5f";
       v14 = v4;
       v15 = 32;
 LABEL_25:
-      _os_log_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_DEFAULT, v13, &v19, v15);
+      _os_log_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_DEFAULT, v13, &v18, v15);
     }
-
-LABEL_26:
-
-    goto LABEL_27;
   }
 
-  if (currentLogLevel >= 6)
+  else
   {
+    if (currentLogLevel < 6)
+    {
+      return;
+    }
+
     v4 = _AALog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
@@ -589,16 +588,16 @@ LABEL_26:
             v17 = v3 / 1000000000.0;
           }
 
-          v19 = 136316162;
-          v20 = *&v7;
-          v21 = 1024;
-          *v22 = 952;
-          *&v22[4] = 2048;
-          *&v22[6] = v10;
-          *&v22[14] = 2112;
-          *&v22[16] = v16;
-          v23 = 2048;
-          v24 = v17;
+          v18 = 136316162;
+          v19 = *&v7;
+          v20 = 1024;
+          *v21 = 952;
+          *&v21[4] = 2048;
+          *&v21[6] = v10;
+          *&v21[14] = 2112;
+          *&v21[16] = v16;
+          v22 = 2048;
+          v23 = v17;
           v13 = "%30s:%-4d: %13.5f: reset attention lost timeout for %@ at %13.5f";
           v14 = v4;
           v15 = 48;
@@ -606,24 +605,19 @@ LABEL_26:
         }
       }
     }
-
-    goto LABEL_26;
   }
-
-LABEL_27:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelFaceDetectStreamWithReply:(id)reply
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__585;
-  v16 = __Block_byref_object_dispose__586;
-  v17 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__585;
+  v15 = __Block_byref_object_dispose__586;
+  v16 = 0;
   if (self->_continuousFaceDetectMode)
   {
     queue = self->_queue;
@@ -632,29 +626,27 @@ LABEL_27:
     block[2] = __50__AWRemoteClient_cancelFaceDetectStreamWithReply___block_invoke;
     block[3] = &unk_1E7F37F00;
     block[4] = self;
-    block[5] = &v12;
+    block[5] = &v11;
     dispatch_sync(queue, block);
   }
 
   else
   {
     v6 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A578];
-    v19[0] = @" Client is not running in streaming mode";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E696A578];
+    v18[0] = @" Client is not running in streaming mode";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v8 = [v6 errorWithDomain:*MEMORY[0x1E696A798] code:13 userInfo:v7];
-    v9 = v13[5];
-    v13[5] = v8;
+    v9 = v12[5];
+    v12[5] = v8;
   }
 
   if (replyCopy)
   {
-    replyCopy[2](replyCopy, v13[5]);
+    replyCopy[2](replyCopy, v12[5]);
   }
 
-  _Block_object_dispose(&v12, 8);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v11, 8);
 }
 
 uint64_t __50__AWRemoteClient_cancelFaceDetectStreamWithReply___block_invoke(uint64_t a1)
@@ -664,19 +656,19 @@ uint64_t __50__AWRemoteClient_cancelFaceDetectStreamWithReply___block_invoke(uin
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)streamFaceDetectEventsWithReply:(id)reply
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__585;
-  v22 = __Block_byref_object_dispose__586;
-  v23 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__585;
+  v21 = __Block_byref_object_dispose__586;
+  v22 = 0;
   if (self->_activateAttentionDetection || self->_activateEyeRelief)
   {
     queue = self->_queue;
@@ -685,7 +677,7 @@ uint64_t __50__AWRemoteClient_cancelFaceDetectStreamWithReply___block_invoke(uin
     block[2] = __50__AWRemoteClient_streamFaceDetectEventsWithReply___block_invoke_2;
     block[3] = &unk_1E7F37F00;
     block[4] = self;
-    block[5] = &v18;
+    block[5] = &v17;
     dispatch_sync(queue, block);
   }
 
@@ -696,50 +688,48 @@ uint64_t __50__AWRemoteClient_cancelFaceDetectStreamWithReply___block_invoke(uin
       v6 = _AALog();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v13 = absTimeNS();
-        if (v13 == -1)
+        v12 = absTimeNS();
+        if (v12 == -1)
         {
-          v14 = INFINITY;
+          v13 = INFINITY;
         }
 
         else
         {
-          v14 = v13 / 1000000000.0;
+          v13 = v12 / 1000000000.0;
         }
 
         identifier = self->_identifier;
         *buf = 134218242;
-        v27 = v14;
-        v28 = 2112;
-        v29 = identifier;
+        v26 = v13;
+        v27 = 2112;
+        v28 = identifier;
         _os_log_error_impl(&dword_1BB2EF000, v6, OS_LOG_TYPE_ERROR, "%13.5f: Client does not want any metadata, not starting a stream for client %@", buf, 0x16u);
       }
     }
 
     v7 = self->_queue;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __50__AWRemoteClient_streamFaceDetectEventsWithReply___block_invoke;
-    v17[3] = &unk_1E7F38038;
-    v17[4] = self;
-    dispatch_sync(v7, v17);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __50__AWRemoteClient_streamFaceDetectEventsWithReply___block_invoke;
+    v16[3] = &unk_1E7F38038;
+    v16[4] = self;
+    dispatch_sync(v7, v16);
     v8 = MEMORY[0x1E696ABC0];
-    v24 = *MEMORY[0x1E696A578];
-    v25 = @" No metadata selected";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x1E696A578];
+    v24 = @" No metadata selected";
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     v10 = [v8 errorWithDomain:*MEMORY[0x1E696A798] code:45 userInfo:v9];
-    v11 = v19[5];
-    v19[5] = v10;
+    v11 = v18[5];
+    v18[5] = v10;
   }
 
   if (replyCopy)
   {
-    replyCopy[2](replyCopy, v19[5]);
+    replyCopy[2](replyCopy, v18[5]);
   }
 
-  _Block_object_dispose(&v18, 8);
-
-  v12 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v17, 8);
 }
 
 uint64_t __50__AWRemoteClient_streamFaceDetectEventsWithReply___block_invoke_2(uint64_t a1)
@@ -749,12 +739,12 @@ uint64_t __50__AWRemoteClient_streamFaceDetectEventsWithReply___block_invoke_2(u
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)notifyClientOfStreamingEvent:(id)event
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -778,23 +768,23 @@ uint64_t __50__AWRemoteClient_streamFaceDetectEventsWithReply___block_invoke_2(u
         goto LABEL_32;
       }
 
-      v16 = absTimeNS();
-      if (v16 == -1)
+      v15 = absTimeNS();
+      if (v15 == -1)
       {
-        v17 = INFINITY;
+        v16 = INFINITY;
       }
 
       else
       {
-        v17 = v16 / 1000000000.0;
+        v16 = v15 / 1000000000.0;
       }
 
       identifier = self->_identifier;
-      *v30 = 134218242;
-      *&v30[4] = v17;
-      *&v30[12] = 2112;
-      *&v30[14] = identifier;
-      v27 = "%13.5f: Unknown metadata type received, not passing it to client %@";
+      *v29 = 134218242;
+      *&v29[4] = v16;
+      *&v29[12] = 2112;
+      *&v29[14] = identifier;
+      v26 = "%13.5f: Unknown metadata type received, not passing it to client %@";
       goto LABEL_55;
     }
 
@@ -819,12 +809,12 @@ uint64_t __50__AWRemoteClient_streamFaceDetectEventsWithReply___block_invoke_2(u
           v11 = v10 / 1000000000.0;
         }
 
-        v29 = self->_identifier;
-        *v30 = 134218242;
-        *&v30[4] = v11;
-        *&v30[12] = 2112;
-        *&v30[14] = v29;
-        v27 = "%13.5f: AD metadata received, not passing it to client %@";
+        v28 = self->_identifier;
+        *v29 = 134218242;
+        *&v29[4] = v11;
+        *&v29[12] = 2112;
+        *&v29[14] = v28;
+        v26 = "%13.5f: AD metadata received, not passing it to client %@";
         goto LABEL_55;
       }
 
@@ -860,11 +850,11 @@ LABEL_32:
           v8 = v7 / 1000000000.0;
         }
 
-        *v30 = 134217984;
-        *&v30[4] = v8;
-        v23 = "%13.5f: Combined metadata received, passing it up to client since we can't separate it";
-        v24 = v6;
-        v25 = 12;
+        *v29 = 134217984;
+        *&v29[4] = v8;
+        v22 = "%13.5f: Combined metadata received, passing it up to client since we can't separate it";
+        v23 = v6;
+        v24 = 12;
         goto LABEL_50;
       }
 
@@ -878,27 +868,27 @@ LABEL_24:
           goto LABEL_25;
         }
 
-        v20 = absTimeNS();
-        if (v20 == -1)
+        v19 = absTimeNS();
+        if (v19 == -1)
         {
-          v21 = INFINITY;
+          v20 = INFINITY;
         }
 
         else
         {
-          v21 = v20 / 1000000000.0;
+          v20 = v19 / 1000000000.0;
         }
 
-        v22 = self->_identifier;
-        *v30 = 134218242;
-        *&v30[4] = v21;
-        *&v30[12] = 2112;
-        *&v30[14] = v22;
-        v23 = "%13.5f: Invalid metadata type received, not passing it to client %@";
-        v24 = v6;
-        v25 = 22;
+        v21 = self->_identifier;
+        *v29 = 134218242;
+        *&v29[4] = v20;
+        *&v29[12] = 2112;
+        *&v29[14] = v21;
+        v22 = "%13.5f: Invalid metadata type received, not passing it to client %@";
+        v23 = v6;
+        v24 = 22;
 LABEL_50:
-        _os_log_error_impl(&dword_1BB2EF000, v24, OS_LOG_TYPE_ERROR, v23, v30, v25);
+        _os_log_error_impl(&dword_1BB2EF000, v23, OS_LOG_TYPE_ERROR, v22, v29, v24);
         goto LABEL_24;
       }
 
@@ -911,22 +901,22 @@ LABEL_25:
           v14 = _AALog();
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            v18 = absTimeNS();
-            if (v18 == -1)
+            v17 = absTimeNS();
+            if (v17 == -1)
             {
-              v19 = INFINITY;
+              v18 = INFINITY;
             }
 
             else
             {
-              v19 = v18 / 1000000000.0;
+              v18 = v17 / 1000000000.0;
             }
 
-            *v30 = 134218242;
-            *&v30[4] = v19;
-            *&v30[12] = 2112;
-            *&v30[14] = v9;
-            _os_log_error_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_ERROR, "%13.5f: Error %@ received when cancelling the stream", v30, 0x16u);
+            *v29 = 134218242;
+            *&v29[4] = v18;
+            *&v29[12] = 2112;
+            *&v29[14] = v9;
+            _os_log_error_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_ERROR, "%13.5f: Error %@ received when cancelling the stream", v29, 0x16u);
           }
         }
       }
@@ -936,7 +926,7 @@ LABEL_25:
         v9 = 0;
       }
 
-      [(AWFrameworkClient *)self->_proxy notifyStreamingEvent:eventCopy, *v30, *&v30[16], v31];
+      [(AWFrameworkClient *)self->_proxy notifyStreamingEvent:eventCopy, *v29, *&v29[8], v30];
       goto LABEL_32;
     }
 
@@ -961,14 +951,14 @@ LABEL_25:
           v13 = v12 / 1000000000.0;
         }
 
-        v28 = self->_identifier;
-        *v30 = 134218242;
-        *&v30[4] = v13;
-        *&v30[12] = 2112;
-        *&v30[14] = v28;
-        v27 = "%13.5f: ER metadata received, not passing it to client %@";
+        v27 = self->_identifier;
+        *v29 = 134218242;
+        *&v29[4] = v13;
+        *&v29[12] = 2112;
+        *&v29[14] = v27;
+        v26 = "%13.5f: ER metadata received, not passing it to client %@";
 LABEL_55:
-        _os_log_error_impl(&dword_1BB2EF000, v9, OS_LOG_TYPE_ERROR, v27, v30, 0x16u);
+        _os_log_error_impl(&dword_1BB2EF000, v9, OS_LOG_TYPE_ERROR, v26, v29, 0x16u);
         goto LABEL_32;
       }
 
@@ -977,8 +967,6 @@ LABEL_55:
   }
 
 LABEL_33:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pingWithReply:(id)reply
@@ -997,10 +985,10 @@ LABEL_33:
 
 uint64_t __32__AWRemoteClient_pingWithReply___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (currentLogLevel < 7)
   {
-    goto LABEL_14;
+    return (*(*(a1 + 40) + 16))();
   }
 
   v2 = _AALog();
@@ -1034,32 +1022,29 @@ LABEL_8:
   }
 
   v7 = [*(*(a1 + 32) + 184) identifier];
-  v10 = 136315906;
-  v11 = v3;
-  v12 = 1024;
-  v13 = 1362;
-  v14 = 2048;
-  v15 = v6;
-  v16 = 2112;
-  v17 = v7;
-  _os_log_impl(&dword_1BB2EF000, v2, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ is alive", &v10, 0x26u);
+  v9 = 136315906;
+  v10 = v3;
+  v11 = 1024;
+  v12 = 1362;
+  v13 = 2048;
+  v14 = v6;
+  v15 = 2112;
+  v16 = v7;
+  _os_log_impl(&dword_1BB2EF000, v2, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ is alive", &v9, 0x26u);
 
 LABEL_13:
-LABEL_14:
-  result = (*(*(a1 + 40) + 16))();
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (unint64_t)nextTimerForTime:(unint64_t)time
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   attentionSampler = [(AWScheduler *)self->_scheduler attentionSampler];
   if (!-[AWRemoteClient _isSamplingClient](self, "_isSamplingClient") || [attentionSampler currentState] != 2)
   {
-    v27 = -1;
-    updateDeadline(&v27, [(AWRemoteClient *)self nextAttentionLostTime:0], self->_identifier, "[self nextAttentionLostTime:NULL]", 1311);
+    v26 = -1;
+    updateDeadline(&v26, [(AWRemoteClient *)self nextAttentionLostTime:0], self->_identifier, "[self nextAttentionLostTime:NULL]", 1311);
     clientState = self->_clientState;
     if (clientState->var7)
     {
@@ -1082,7 +1067,7 @@ LABEL_14:
           v12 = -2;
         }
 
-        updateDeadline(&v27, v12, self->_identifier, "computeDeadline(_clientState->pollingStartTime, MAX_POLL_INITIALIZED_DELAY)", 1319);
+        updateDeadline(&v26, v12, self->_identifier, "computeDeadline(_clientState->pollingStartTime, MAX_POLL_INITIALIZED_DELAY)", 1319);
       }
 
       if ([(AWRemoteClient *)self _isSamplingClient])
@@ -1090,11 +1075,11 @@ LABEL_14:
         minimumAttentionSamplerErrorRetryTime = [attentionSampler minimumAttentionSamplerErrorRetryTime];
         if (minimumAttentionSamplerErrorRetryTime > time)
         {
-          updateDeadline(&v27, minimumAttentionSamplerErrorRetryTime, self->_identifier, "minErrorRetryTime", 1329);
+          updateDeadline(&v26, minimumAttentionSamplerErrorRetryTime, self->_identifier, "minErrorRetryTime", 1329);
         }
       }
 
-      updateDeadline(&v27, self->_clientState->var7, self->_identifier, "_clientState->pollingDeadline", 1334);
+      updateDeadline(&v26, self->_clientState->var7, self->_identifier, "_clientState->pollingDeadline", 1334);
     }
 
     if (![(AWRemoteClient *)self _isSamplingClient])
@@ -1105,7 +1090,7 @@ LABEL_14:
     nextSampleTime = [(AWRemoteClient *)self nextSampleTime];
     if ([attentionSampler currentState] != 3 && nextSampleTime > time && objc_msgSend(attentionSampler, "currentState") != 4 || self->_sampleWhileAbsent || self->_activateMotionDetect)
     {
-      updateDeadline(&v27, nextSampleTime, self->_identifier, "nextSampleTime", 1350);
+      updateDeadline(&v26, nextSampleTime, self->_identifier, "nextSampleTime", 1350);
       goto LABEL_31;
     }
 
@@ -1130,31 +1115,31 @@ LABEL_14:
 
       else if (!*(i - 1))
       {
-        v24 = absTimeNS();
-        if (v24 == -1)
+        v23 = absTimeNS();
+        if (v23 == -1)
         {
-          v25 = INFINITY;
+          v24 = INFINITY;
         }
 
         else
         {
-          v25 = v24 / 1000000000.0;
+          v24 = v23 / 1000000000.0;
         }
 
         identifier = self->_identifier;
         *buf = 136315906;
-        v29 = v17;
-        v30 = 1024;
-        v31 = 1343;
-        v32 = 2048;
-        v33 = v25;
-        v34 = 2112;
-        v35 = identifier;
+        v28 = v17;
+        v29 = 1024;
+        v30 = 1343;
+        v31 = 2048;
+        v32 = v24;
+        v33 = 2112;
+        v34 = identifier;
         _os_log_impl(&dword_1BB2EF000, v16, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ ignoring next sampling deadline since the sampler state is absent", buf, 0x26u);
 LABEL_51:
 
 LABEL_31:
-        v15 = v27;
+        v15 = v26;
         goto LABEL_46;
       }
     }
@@ -1197,13 +1182,13 @@ LABEL_10:
 
   v21 = self->_identifier;
   *buf = 136315906;
-  v29 = v7;
-  v30 = 1024;
-  v31 = 1302;
-  v32 = 2048;
-  v33 = v20;
-  v34 = 2112;
-  v35 = v21;
+  v28 = v7;
+  v29 = 1024;
+  v30 = 1302;
+  v31 = 2048;
+  v32 = v20;
+  v33 = 2112;
+  v34 = v21;
   _os_log_impl(&dword_1BB2EF000, v6, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ doesn't need to be scheduled since the sampler is initializing", buf, 0x26u);
 LABEL_44:
 
@@ -1211,17 +1196,16 @@ LABEL_45:
   v15 = -1;
 LABEL_46:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (void)updateDeadlinesForTime:(unint64_t)time
 {
-  v103 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   attentionSampler = [(AWScheduler *)self->_scheduler attentionSampler];
-  v95 = 0;
-  v6 = [(AWRemoteClient *)self nextAttentionLostTime:&v95];
+  v93 = 0;
+  v6 = [(AWRemoteClient *)self nextAttentionLostTime:&v93];
   if (currentLogLevel < 7)
   {
     goto LABEL_26;
@@ -1289,7 +1273,7 @@ LABEL_8:
   }
 
   identifier = self->_identifier;
-  v17 = v95;
+  v17 = v93;
   AttentionSamplerStateDescription = getAttentionSamplerStateDescription([attentionSampler currentState]);
   lastPositiveDetectTime = [attentionSampler lastPositiveDetectTime];
   if (lastPositiveDetectTime == -1)
@@ -1326,7 +1310,6 @@ LABEL_8:
 LABEL_25:
 
 LABEL_26:
-  var10 = self->_clientState->var10;
   if (!self->_activateMotionDetect)
   {
     if (!self->_clientState->var10)
@@ -1342,7 +1325,7 @@ LABEL_26:
       {
         clientState->var10 = 1;
         selfCopy2 = self;
-        v23 = 1;
+        v22 = 1;
         goto LABEL_43;
       }
 
@@ -1359,9 +1342,9 @@ LABEL_26:
 
     self->_clientState->var10 = 0;
     selfCopy2 = self;
-    v23 = 2;
+    v22 = 2;
 LABEL_43:
-    [(AWRemoteClient *)selfCopy2 deliverNotification:v23];
+    [(AWRemoteClient *)selfCopy2 deliverNotification:v22];
     goto LABEL_45;
   }
 
@@ -1390,10 +1373,10 @@ LABEL_28:
   }
 
 LABEL_45:
-  v26 = self->_clientState;
-  if (v26->var7)
+  v25 = self->_clientState;
+  if (v25->var7)
   {
-    if (!v26->var8)
+    if (!v25->var8)
     {
       if (![(AWRemoteClient *)self _isSamplingClient])
       {
@@ -1404,23 +1387,23 @@ LABEL_45:
       if ([attentionSampler currentState] == 3 || objc_msgSend(attentionSampler, "currentState") == 4 || isMatchOrEnrollOperationRunning)
       {
         var6 = self->_clientState->var6;
-        v29 = var6 + 2000000000;
+        v28 = var6 + 2000000000;
         if (var6 + 2000000000 >= 0xFFFFFFFFFFFFFFFELL)
         {
-          v29 = -2;
+          v28 = -2;
         }
 
         if (var6 < 0xFFFFFFFF88CA6C00)
         {
-          v30 = v29;
+          v29 = v28;
         }
 
         else
         {
-          v30 = -2;
+          v29 = -2;
         }
 
-        if (v30 >= time)
+        if (v29 >= time)
         {
           if ([(AWRemoteClient *)self shouldInitBeSent])
           {
@@ -1437,27 +1420,27 @@ LABEL_45:
         {
           if (currentLogLevel == 5)
           {
-            v31 = _AALog();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            v30 = _AALog();
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
-              v32 = absTimeNS();
-              if (v32 == -1)
+              v31 = absTimeNS();
+              if (v31 == -1)
               {
-                v33 = INFINITY;
+                v32 = INFINITY;
               }
 
               else
               {
-                v33 = v32 / 1000000000.0;
+                v32 = v31 / 1000000000.0;
               }
 
               buf[0] = 134217984;
-              *&buf[1] = v33;
-              v38 = "%13.5f: timed out waiting for poll initialization; sending event now";
-              v39 = v31;
-              v40 = 12;
+              *&buf[1] = v32;
+              v37 = "%13.5f: timed out waiting for poll initialization; sending event now";
+              v38 = v30;
+              v39 = 12;
 LABEL_79:
-              _os_log_impl(&dword_1BB2EF000, v39, OS_LOG_TYPE_DEFAULT, v38, buf, v40);
+              _os_log_impl(&dword_1BB2EF000, v38, OS_LOG_TYPE_DEFAULT, v37, buf, v39);
             }
 
             goto LABEL_80;
@@ -1465,39 +1448,39 @@ LABEL_79:
 
           if (currentLogLevel >= 6)
           {
-            v31 = _AALog();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            v30 = _AALog();
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
-              v34 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
+              v33 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
               for (j = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m"; ; ++j)
               {
                 if (*(j - 1) == 47)
                 {
-                  v34 = j;
+                  v33 = j;
                 }
 
                 else if (!*(j - 1))
                 {
-                  v36 = absTimeNS();
-                  if (v36 == -1)
+                  v35 = absTimeNS();
+                  if (v35 == -1)
                   {
-                    v37 = INFINITY;
+                    v36 = INFINITY;
                   }
 
                   else
                   {
-                    v37 = v36 / 1000000000.0;
+                    v36 = v35 / 1000000000.0;
                   }
 
                   buf[0] = 136315650;
-                  *&buf[1] = v34;
+                  *&buf[1] = v33;
                   LOWORD(buf[3]) = 1024;
                   *(&buf[3] + 2) = 1179;
                   HIWORD(buf[4]) = 2048;
-                  *&buf[5] = v37;
-                  v38 = "%30s:%-4d: %13.5f: timed out waiting for poll initialization; sending event now";
-                  v39 = v31;
-                  v40 = 28;
+                  *&buf[5] = v36;
+                  v37 = "%30s:%-4d: %13.5f: timed out waiting for poll initialization; sending event now";
+                  v38 = v30;
+                  v39 = 28;
                   goto LABEL_79;
                 }
               }
@@ -1510,27 +1493,27 @@ LABEL_80:
 LABEL_81:
               if (currentLogLevel == 5)
               {
-                v41 = _AALog();
-                if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+                v40 = _AALog();
+                if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
                 {
-                  v42 = absTimeNS();
-                  if (v42 == -1)
+                  v41 = absTimeNS();
+                  if (v41 == -1)
                   {
-                    v43 = INFINITY;
+                    v42 = INFINITY;
                   }
 
                   else
                   {
-                    v43 = v42 / 1000000000.0;
+                    v42 = v41 / 1000000000.0;
                   }
 
                   buf[0] = 134217984;
-                  *&buf[1] = v43;
-                  v48 = "%13.5f: Match or enroll operation underway, send init to polling clients immediately";
-                  v49 = v41;
-                  v50 = 12;
+                  *&buf[1] = v42;
+                  v47 = "%13.5f: Match or enroll operation underway, send init to polling clients immediately";
+                  v48 = v40;
+                  v49 = 12;
 LABEL_99:
-                  _os_log_impl(&dword_1BB2EF000, v49, OS_LOG_TYPE_DEFAULT, v48, buf, v50);
+                  _os_log_impl(&dword_1BB2EF000, v48, OS_LOG_TYPE_DEFAULT, v47, buf, v49);
                 }
 
                 goto LABEL_100;
@@ -1538,39 +1521,39 @@ LABEL_99:
 
               if (currentLogLevel >= 6)
               {
-                v41 = _AALog();
-                if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+                v40 = _AALog();
+                if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
                 {
-                  v44 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
+                  v43 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
                   for (k = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m"; ; ++k)
                   {
                     if (*(k - 1) == 47)
                     {
-                      v44 = k;
+                      v43 = k;
                     }
 
                     else if (!*(k - 1))
                     {
-                      v46 = absTimeNS();
-                      if (v46 == -1)
+                      v45 = absTimeNS();
+                      if (v45 == -1)
                       {
-                        v47 = INFINITY;
+                        v46 = INFINITY;
                       }
 
                       else
                       {
-                        v47 = v46 / 1000000000.0;
+                        v46 = v45 / 1000000000.0;
                       }
 
                       buf[0] = 136315650;
-                      *&buf[1] = v44;
+                      *&buf[1] = v43;
                       LOWORD(buf[3]) = 1024;
                       *(&buf[3] + 2) = 1193;
                       HIWORD(buf[4]) = 2048;
-                      *&buf[5] = v47;
-                      v48 = "%30s:%-4d: %13.5f: Match or enroll operation underway, send init to polling clients immediately";
-                      v49 = v41;
-                      v50 = 28;
+                      *&buf[5] = v46;
+                      v47 = "%30s:%-4d: %13.5f: Match or enroll operation underway, send init to polling clients immediately";
+                      v48 = v40;
+                      v49 = 28;
                       goto LABEL_99;
                     }
                   }
@@ -1588,11 +1571,11 @@ LABEL_101:
       }
     }
 
-    v51 = self->_clientState;
-    if (v51->var7 <= time)
+    v50 = self->_clientState;
+    if (v50->var7 <= time)
     {
-      v51->var6 = 0;
-      v51->var7 = 0;
+      v50->var6 = 0;
+      v50->var7 = 0;
     }
   }
 
@@ -1608,103 +1591,103 @@ LABEL_101:
 
   if ([attentionSampler currentState] == 5)
   {
-    v102 = 0;
-    v100 = 0u;
-    v101 = 0u;
+    v100 = 0;
+    v98 = 0u;
     v99 = 0u;
     v97 = 0u;
-    v98 = 0u;
+    v95 = 0u;
+    v96 = 0u;
     memset(buf, 0, sizeof(buf));
     LOBYTE(buf[0]) = [attentionSampler lastFaceMetadataValid];
     [attentionSampler lastPitch];
-    *&buf[2] = v52;
+    *&buf[2] = v51;
     [attentionSampler lastYaw];
-    *&buf[4] = v53;
+    *&buf[4] = v52;
     [attentionSampler lastRoll];
-    *&buf[6] = v54;
+    *&buf[6] = v53;
     *&buf[8] = [attentionSampler lastOrientation];
     [attentionSampler lastDistance];
-    *&buf[10] = v55;
+    *&buf[10] = v54;
     *&buf[12] = [attentionSampler lastFaceState];
     *&buf[14] = [attentionSampler lastMetadataType];
     memset(&buf[16], 0, 32);
-    v97 = 0u;
-    v98 = 0u;
-    *&v99 = [attentionSampler lastMotionResult];
+    v95 = 0u;
+    v96 = 0u;
+    *&v97 = [attentionSampler lastMotionResult];
     [attentionSampler lastFaceDetectionScore];
-    DWORD2(v99) = v56;
-    *&v100 = [attentionSampler lastPersonID];
+    DWORD2(v97) = v55;
+    *&v98 = [attentionSampler lastPersonID];
     [attentionSampler lastFaceBounds];
-    v57 = 0;
-    *(&v100 + 1) = v58;
-    *&v101 = v59;
-    *(&v101 + 1) = v60;
-    v102 = v61;
+    v56 = 0;
+    *(&v98 + 1) = v57;
+    *&v99 = v58;
+    *(&v99 + 1) = v59;
+    v100 = v60;
     do
     {
       lastMotionData = [attentionSampler lastMotionData];
-      v63 = [lastMotionData objectAtIndexedSubscript:v57];
-      [v63 floatValue];
-      buf[v57 + 16] = v64;
+      v62 = [lastMotionData objectAtIndexedSubscript:v56];
+      [v62 floatValue];
+      buf[v56 + 16] = v63;
 
-      ++v57;
+      ++v56;
     }
 
-    while (v57 != 16);
+    while (v56 != 16);
     -[AWRemoteClient notifyEvent:timestamp:metadata:](self, "notifyEvent:timestamp:metadata:", 128, [attentionSampler lastPositiveDetectTime], buf);
     goto LABEL_116;
   }
 
-  if (v95 != 1 || [attentionSampler currentState] == 3 || objc_msgSend(attentionSampler, "currentState") == 4 || self->_clientState->var10)
+  if (v93 != 1 || [attentionSampler currentState] == 3 || objc_msgSend(attentionSampler, "currentState") == 4 || self->_clientState->var10)
   {
     [(AWRemoteClient *)self notifyEvent:1 timestamp:time];
     goto LABEL_116;
   }
 
-  if (v95 == 1 && v6 <= time)
+  if (v93 == 1 && v6 <= time)
   {
     if (currentLogLevel < 7)
     {
       goto LABEL_181;
     }
 
-    v89 = _AALog();
-    if (!os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
+    v87 = _AALog();
+    if (!os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_180;
     }
 
-    v90 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
+    v88 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
     for (m = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m"; ; ++m)
     {
       if (*(m - 1) == 47)
       {
-        v90 = m;
+        v88 = m;
       }
 
       else if (!*(m - 1))
       {
-        v92 = absTimeNS();
-        if (v92 == -1)
+        v90 = absTimeNS();
+        if (v90 == -1)
         {
-          v93 = INFINITY;
+          v91 = INFINITY;
         }
 
         else
         {
-          v93 = v92 / 1000000000.0;
+          v91 = v90 / 1000000000.0;
         }
 
-        v94 = self->_identifier;
+        v92 = self->_identifier;
         buf[0] = 136315906;
-        *&buf[1] = v90;
+        *&buf[1] = v88;
         LOWORD(buf[3]) = 1024;
         *(&buf[3] + 2) = 1247;
         HIWORD(buf[4]) = 2048;
-        *&buf[5] = v93;
+        *&buf[5] = v91;
         LOWORD(buf[7]) = 2112;
-        *(&buf[7] + 2) = v94;
-        _os_log_impl(&dword_1BB2EF000, v89, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ scheduling single shot", buf, 0x26u);
+        *(&buf[7] + 2) = v92;
+        _os_log_impl(&dword_1BB2EF000, v87, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ scheduling single shot", buf, 0x26u);
 LABEL_180:
 
 LABEL_181:
@@ -1715,8 +1698,8 @@ LABEL_181:
   }
 
 LABEL_116:
-  v65 = self->_clientState->var7;
-  if (!v65)
+  v64 = self->_clientState->var7;
+  if (!v64)
   {
     goto LABEL_134;
   }
@@ -1726,71 +1709,71 @@ LABEL_116:
     goto LABEL_133;
   }
 
-  v66 = _AALog();
-  if (!os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+  v65 = _AALog();
+  if (!os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
   {
     goto LABEL_132;
   }
 
-  v67 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
-  v68 = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
+  v66 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
+  v67 = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
   while (2)
   {
-    if (*(v68 - 1) == 47)
+    if (*(v67 - 1) == 47)
     {
-      v67 = v68;
+      v66 = v67;
       goto LABEL_124;
     }
 
-    if (*(v68 - 1))
+    if (*(v67 - 1))
     {
 LABEL_124:
-      ++v68;
+      ++v67;
       continue;
     }
 
     break;
   }
 
-  v69 = absTimeNS();
-  if (v69 == -1)
+  v68 = absTimeNS();
+  if (v68 == -1)
   {
-    v70 = INFINITY;
+    v69 = INFINITY;
   }
 
   else
   {
-    v70 = v69 / 1000000000.0;
+    v69 = v68 / 1000000000.0;
   }
 
-  v71 = self->_identifier;
-  v72 = self->_clientState->var7;
-  if (v72 == -1)
+  v70 = self->_identifier;
+  v71 = self->_clientState->var7;
+  if (v71 == -1)
   {
-    v73 = INFINITY;
+    v72 = INFINITY;
   }
 
   else
   {
-    v73 = v72 / 1000000000.0;
+    v72 = v71 / 1000000000.0;
   }
 
   buf[0] = 136316162;
-  *&buf[1] = v67;
+  *&buf[1] = v66;
   LOWORD(buf[3]) = 1024;
   *(&buf[3] + 2) = 1255;
   HIWORD(buf[4]) = 2048;
-  *&buf[5] = v70;
+  *&buf[5] = v69;
   LOWORD(buf[7]) = 2112;
-  *(&buf[7] + 2) = v71;
+  *(&buf[7] + 2) = v70;
   HIWORD(buf[9]) = 2048;
-  *&buf[10] = v73;
-  _os_log_impl(&dword_1BB2EF000, v66, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ scheduling poll with deadline %13.5f", buf, 0x30u);
+  *&buf[10] = v72;
+  _os_log_impl(&dword_1BB2EF000, v65, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ scheduling poll with deadline %13.5f", buf, 0x30u);
 LABEL_132:
 
-  v65 = self->_clientState->var7;
+  v64 = self->_clientState->var7;
 LABEL_133:
-  [attentionSampler updateSamplingDeadline:v65 forClient:self];
+  [attentionSampler updateSamplingDeadline:v64 forClient:self];
 LABEL_134:
   nextSampleTime = [(AWRemoteClient *)self nextSampleTime];
   if (currentLogLevel < 7)
@@ -1798,65 +1781,65 @@ LABEL_134:
     goto LABEL_150;
   }
 
-  v75 = _AALog();
-  if (!os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+  v74 = _AALog();
+  if (!os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
   {
     goto LABEL_149;
   }
 
-  v76 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
-  v77 = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
+  v75 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
+  v76 = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
   while (2)
   {
-    if (*(v77 - 1) == 47)
+    if (*(v76 - 1) == 47)
     {
-      v76 = v77;
+      v75 = v76;
       goto LABEL_141;
     }
 
-    if (*(v77 - 1))
+    if (*(v76 - 1))
     {
 LABEL_141:
-      ++v77;
+      ++v76;
       continue;
     }
 
     break;
   }
 
-  v78 = absTimeNS();
-  if (v78 == -1)
+  v77 = absTimeNS();
+  if (v77 == -1)
   {
-    v79 = INFINITY;
+    v78 = INFINITY;
   }
 
   else
   {
-    v79 = v78 / 1000000000.0;
+    v78 = v77 / 1000000000.0;
   }
 
-  v80 = self->_identifier;
+  v79 = self->_identifier;
   if (nextSampleTime == -1)
   {
-    v81 = INFINITY;
+    v80 = INFINITY;
   }
 
   else
   {
-    v81 = nextSampleTime / 1000000000.0;
+    v80 = nextSampleTime / 1000000000.0;
   }
 
   buf[0] = 136316162;
-  *&buf[1] = v76;
+  *&buf[1] = v75;
   LOWORD(buf[3]) = 1024;
   *(&buf[3] + 2) = 1271;
   HIWORD(buf[4]) = 2048;
-  *&buf[5] = v79;
+  *&buf[5] = v78;
   LOWORD(buf[7]) = 2112;
-  *(&buf[7] + 2) = v80;
+  *(&buf[7] + 2) = v79;
   HIWORD(buf[9]) = 2048;
-  *&buf[10] = v81;
-  _os_log_impl(&dword_1BB2EF000, v75, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ nextSampleTime %13.5f", buf, 0x30u);
+  *&buf[10] = v80;
+  _os_log_impl(&dword_1BB2EF000, v74, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ nextSampleTime %13.5f", buf, 0x30u);
 LABEL_149:
 
 LABEL_150:
@@ -1870,65 +1853,63 @@ LABEL_150:
     goto LABEL_164;
   }
 
-  v82 = _AALog();
-  if (!os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
+  v81 = _AALog();
+  if (!os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
   {
     goto LABEL_163;
   }
 
-  v83 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
-  v84 = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
+  v82 = "/Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
+  v83 = "Library/Caches/com.apple.xbs/Sources/AttentionAwareness/Framework/XPCService/CoreService/RemoteClient.m";
   while (2)
   {
-    if (*(v84 - 1) == 47)
+    if (*(v83 - 1) == 47)
     {
-      v83 = v84;
+      v82 = v83;
       goto LABEL_158;
     }
 
-    if (*(v84 - 1))
+    if (*(v83 - 1))
     {
 LABEL_158:
-      ++v84;
+      ++v83;
       continue;
     }
 
     break;
   }
 
-  v85 = absTimeNS();
-  if (v85 == -1)
+  v84 = absTimeNS();
+  if (v84 == -1)
   {
-    v86 = INFINITY;
+    v85 = INFINITY;
   }
 
   else
   {
-    v86 = v85 / 1000000000.0;
+    v85 = v84 / 1000000000.0;
   }
 
-  v87 = self->_identifier;
+  v86 = self->_identifier;
   buf[0] = 136315906;
-  *&buf[1] = v83;
+  *&buf[1] = v82;
   LOWORD(buf[3]) = 1024;
   *(&buf[3] + 2) = 1275;
   HIWORD(buf[4]) = 2048;
-  *&buf[5] = v86;
+  *&buf[5] = v85;
   LOWORD(buf[7]) = 2112;
-  *(&buf[7] + 2) = v87;
-  _os_log_impl(&dword_1BB2EF000, v82, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ scheduling single shot", buf, 0x26u);
+  *(&buf[7] + 2) = v86;
+  _os_log_impl(&dword_1BB2EF000, v81, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ scheduling single shot", buf, 0x26u);
 LABEL_163:
 
 LABEL_164:
   [attentionSampler updateSamplingDeadline:0 forClient:self];
 LABEL_165:
-
-  v88 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shouldInitBeSent
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   attentionSampler = [(AWScheduler *)self->_scheduler attentionSampler];
   if (currentLogLevel == 5)
   {
@@ -1946,15 +1927,15 @@ LABEL_165:
         v5 = v4 / 1000000000.0;
       }
 
-      *v16 = 134218240;
-      *&v16[4] = v5;
-      *&v16[12] = 2048;
-      *&v16[14] = [attentionSampler samplingSuppressedMask];
+      *v15 = 134218240;
+      *&v15[4] = v5;
+      *&v15[12] = 2048;
+      *&v15[14] = [attentionSampler samplingSuppressedMask];
       v10 = "%13.5f: Sampling suppression mask: %01llX";
       v11 = v3;
       v12 = 22;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v11, OS_LOG_TYPE_DEFAULT, v10, v16, v12);
+      _os_log_impl(&dword_1BB2EF000, v11, OS_LOG_TYPE_DEFAULT, v10, v15, v12);
     }
 
 LABEL_20:
@@ -1988,14 +1969,14 @@ LABEL_20:
             v9 = v8 / 1000000000.0;
           }
 
-          *v16 = 136315906;
-          *&v16[4] = v6;
-          *&v16[12] = 1024;
-          *&v16[14] = 1088;
-          *&v16[18] = 2048;
-          *&v16[20] = v9;
-          *&v16[28] = 2048;
-          *&v16[30] = [attentionSampler samplingSuppressedMask];
+          *v15 = 136315906;
+          *&v15[4] = v6;
+          *&v15[12] = 1024;
+          *&v15[14] = 1088;
+          *&v15[18] = 2048;
+          *&v15[20] = v9;
+          *&v15[28] = 2048;
+          *&v15[30] = [attentionSampler samplingSuppressedMask];
           v10 = "%30s:%-4d: %13.5f: Sampling suppression mask: %01llX";
           v11 = v3;
           v12 = 38;
@@ -2010,13 +1991,12 @@ LABEL_20:
 LABEL_21:
   v13 = ([attentionSampler samplingSuppressedMask] & 4) != 0 || (objc_msgSend(attentionSampler, "samplingSuppressedMask") & 2) != 0 || (objc_msgSend(attentionSampler, "samplingSuppressedMask") & 1) == 0;
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (unint64_t)nextAttentionLostTime:(BOOL *)time
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (currentLogLevel < 7)
   {
@@ -2079,19 +2059,19 @@ LABEL_8:
   }
 
   *buf = 136316674;
-  v46 = v6;
-  v47 = 1024;
-  v48 = 1000;
-  v49 = 2048;
-  v50 = v9;
-  v51 = 2112;
-  v52 = identifier;
-  v53 = 1024;
-  v54 = var9;
-  v55 = 2048;
-  v56 = v12;
-  v57 = 2048;
-  v58 = v16;
+  v45 = v6;
+  v46 = 1024;
+  v47 = 1000;
+  v48 = 2048;
+  v49 = v9;
+  v50 = 2112;
+  v51 = identifier;
+  v52 = 1024;
+  v53 = var9;
+  v54 = 2048;
+  v55 = v12;
+  v56 = 2048;
+  v57 = v16;
   _os_log_impl(&dword_1BB2EF000, v5, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: %@ lastState %d lastPos %13.5f lastNegTO %13.5f", buf, 0x40u);
 LABEL_19:
 
@@ -2104,31 +2084,31 @@ LABEL_20:
   v17 = self->_clientState;
   if (!v17->var1)
   {
-    goto LABEL_49;
+    return -1;
   }
 
   if (!v17->var9 || ![(NSArray *)self->_attentionLostTimeoutsSec count])
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v28 = self->_attentionLostTimeoutsSec;
-    v29 = [(NSArray *)v28 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v29 = [(NSArray *)v28 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v41;
+      v31 = *v40;
       while (2)
       {
         for (j = 0; j != v30; ++j)
         {
-          if (*v41 != v31)
+          if (*v40 != v31)
           {
             objc_enumerationMutation(v28);
           }
 
-          [*(*(&v40 + 1) + 8 * j) doubleValue];
+          [*(*(&v39 + 1) + 8 * j) doubleValue];
           v34 = self->_clientState;
           if (v34->var0 < v33)
           {
@@ -2155,7 +2135,7 @@ LABEL_20:
               v27 = v37;
             }
 
-            goto LABEL_58;
+            return v27;
           }
 
           if (self->_retroactiveTimeoutMode)
@@ -2164,7 +2144,7 @@ LABEL_20:
           }
         }
 
-        v30 = [(NSArray *)v28 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v30 = [(NSArray *)v28 countByEnumeratingWithState:&v39 objects:v43 count:16];
         if (v30)
         {
           continue;
@@ -2174,9 +2154,7 @@ LABEL_20:
       }
     }
 
-LABEL_49:
-    v27 = -1;
-    goto LABEL_58;
+    return -1;
   }
 
   v18 = [(NSArray *)self->_attentionLostTimeoutsSec objectAtIndexedSubscript:0];
@@ -2215,22 +2193,18 @@ LABEL_49:
 
   if (__CFADD__(v25, v20))
   {
-    v27 = -2;
+    return -2;
   }
 
   else
   {
-    v27 = v26;
+    return v26;
   }
-
-LABEL_58:
-  v38 = *MEMORY[0x1E69E9840];
-  return v27;
 }
 
 - (void)pollWithTimeout:(unint64_t)timeout reply:(id)reply
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   connection = self->_connection;
   replyCopy = reply;
   if (connectionHasEntitlement(connection, @"com.apple.private.attentionawareness.poll"))
@@ -2250,19 +2224,17 @@ LABEL_58:
   {
     v9 = MEMORY[0x1E696ABC0];
     v10 = *MEMORY[0x1E696A798];
-    v15 = *MEMORY[0x1E696A578];
-    v16[0] = @" Client not entitled to use pollWithTimeout";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x1E696A578];
+    v15[0] = @" Client not entitled to use pollWithTimeout";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v12 = [v9 errorWithDomain:v10 code:1 userInfo:v11];
     (replyCopy)[2](replyCopy, v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __40__AWRemoteClient_pollWithTimeout_reply___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if (!*(a1 + 40))
   {
     if (currentLogLevel == 5)
@@ -2282,15 +2254,15 @@ uint64_t __40__AWRemoteClient_pollWithTimeout_reply___block_invoke(uint64_t a1)
         }
 
         v22 = *(*(a1 + 32) + 200);
-        *v37 = 134218242;
-        *&v37[4] = v7;
-        *&v37[12] = 2112;
-        *&v37[14] = v22;
+        *v36 = 134218242;
+        *&v36[4] = v7;
+        *&v36[12] = 2112;
+        *&v36[14] = v22;
         v23 = "%13.5f: cancelling polling for client %@ with";
         v24 = v5;
         v25 = 22;
 LABEL_52:
-        _os_log_impl(&dword_1BB2EF000, v24, OS_LOG_TYPE_DEFAULT, v23, v37, v25);
+        _os_log_impl(&dword_1BB2EF000, v24, OS_LOG_TYPE_DEFAULT, v23, v36, v25);
       }
     }
 
@@ -2301,7 +2273,7 @@ LABEL_52:
 LABEL_54:
         *(*(*(a1 + 32) + 168) + 56) = 0;
         *(*(*(a1 + 32) + 168) + 48) = 0;
-        goto LABEL_55;
+        return [*(*(a1 + 32) + 16) armEvents];
       }
 
       v5 = _AALog();
@@ -2329,14 +2301,14 @@ LABEL_54:
             }
 
             v34 = *(*(a1 + 32) + 200);
-            *v37 = 136315906;
-            *&v37[4] = v10;
-            *&v37[12] = 1024;
-            *&v37[14] = 980;
-            *&v37[18] = 2048;
-            *&v37[20] = v21;
-            *&v37[28] = 2112;
-            *&v37[30] = v34;
+            *v36 = 136315906;
+            *&v36[4] = v10;
+            *&v36[12] = 1024;
+            *&v36[14] = 980;
+            *&v36[18] = 2048;
+            *&v36[20] = v21;
+            *&v36[28] = 2112;
+            *&v36[30] = v34;
             v23 = "%30s:%-4d: %13.5f: cancelling polling for client %@ with";
             v24 = v5;
             v25 = 38;
@@ -2377,17 +2349,17 @@ LABEL_54:
         v16 = v14 / 1000000000.0;
       }
 
-      *v37 = 134218498;
-      *&v37[4] = v4;
-      *&v37[12] = 2112;
-      *&v37[14] = v15;
-      *&v37[22] = 2048;
-      *&v37[24] = v16;
+      *v36 = 134218498;
+      *&v36[4] = v4;
+      *&v36[12] = 2112;
+      *&v36[14] = v15;
+      *&v36[22] = 2048;
+      *&v36[24] = v16;
       v17 = "%13.5f: polling for client %@ with timeout %13.5f";
       v18 = v2;
       v19 = 32;
 LABEL_42:
-      _os_log_impl(&dword_1BB2EF000, v18, OS_LOG_TYPE_DEFAULT, v17, v37, v19);
+      _os_log_impl(&dword_1BB2EF000, v18, OS_LOG_TYPE_DEFAULT, v17, v36, v19);
     }
 
 LABEL_43:
@@ -2433,16 +2405,16 @@ LABEL_43:
             v28 = v26 / 1000000000.0;
           }
 
-          *v37 = 136316162;
-          *&v37[4] = v8;
-          *&v37[12] = 1024;
-          *&v37[14] = 973;
-          *&v37[18] = 2048;
-          *&v37[20] = v13;
-          *&v37[28] = 2112;
-          *&v37[30] = v27;
-          *&v37[38] = 2048;
-          v38 = v28;
+          *v36 = 136316162;
+          *&v36[4] = v8;
+          *&v36[12] = 1024;
+          *&v36[14] = 973;
+          *&v36[18] = 2048;
+          *&v36[20] = v13;
+          *&v36[28] = 2112;
+          *&v36[30] = v27;
+          *&v36[38] = 2048;
+          v37 = v28;
           v17 = "%30s:%-4d: %13.5f: polling for client %@ with timeout %13.5f";
           v18 = v2;
           v19 = 48;
@@ -2477,10 +2449,7 @@ LABEL_44:
 
   *(v30 + 56) = v33;
   *(*(*(a1 + 32) + 168) + 64) = 0;
-LABEL_55:
-  result = [*(*(a1 + 32) + 16) armEvents];
-  v36 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 16) armEvents];
 }
 
 - (void)resetAttentionLostTimerWithReply:(id)reply
@@ -2544,7 +2513,6 @@ LABEL_12:
           v9 = *(v8 + 176);
           *(v8 + 176) = v7;
 
-          v10 = *(*(a1 + 32) + 176);
           goto LABEL_13;
       }
 
@@ -2560,9 +2528,9 @@ LABEL_12:
   }
 
 LABEL_13:
-  v11 = *(*(a1 + 40) + 16);
+  v10 = *(*(a1 + 40) + 16);
 
-  return v11();
+  return v10();
 }
 
 - (BOOL)_interestedInHIDEvent:(__IOHIDEvent *)event mask:(unint64_t)mask metadata:(id *)metadata senderID:(__IOHIDService *)d displayUUID:(id)iD
@@ -2669,14 +2637,14 @@ LABEL_19:
 
 - (void)notifyEvent:(unint64_t)event timestamp:(unint64_t)timestamp metadata:(id *)metadata
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   v9 = [(AWRemoteClient *)self _activeEventMask]& event;
   if (v9 <= 3)
   {
     if (!v9)
     {
-      goto LABEL_99;
+      return;
     }
 
     if (v9 != 1)
@@ -2707,19 +2675,19 @@ LABEL_9:
       goto LABEL_73;
     }
 
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     v12 = self->_attentionLostTimeoutsSec;
-    v18 = [(NSArray *)v12 countByEnumeratingWithState:&v56 objects:v72 count:16];
+    v18 = [(NSArray *)v12 countByEnumeratingWithState:&v55 objects:v71 count:16];
     if (!v18)
     {
       goto LABEL_98;
     }
 
     v20 = v18;
-    v21 = *v57;
+    v21 = *v56;
     if (timestamp == -1)
     {
       v22 = INFINITY;
@@ -2733,16 +2701,16 @@ LABEL_9:
     v23 = 0x1EDC16000uLL;
     v24 = 0x1EDC16000uLL;
     *&v19 = 136315906;
-    v55 = v19;
+    v54 = v19;
 LABEL_30:
     v25 = 0;
 LABEL_31:
-    if (*v57 != v21)
+    if (*v56 != v21)
     {
       objc_enumerationMutation(v12);
     }
 
-    [*(*(&v56 + 1) + 8 * v25) doubleValue];
+    [*(*(&v55 + 1) + 8 * v25) doubleValue];
     v27 = v26;
     clientState = self->_clientState;
     var1 = clientState->var1;
@@ -2828,14 +2796,14 @@ LABEL_31:
           v40 = v39 / 1000000000.0;
         }
 
-        *buf = v55;
-        v61 = v36;
-        v62 = 1024;
-        v63 = 575;
-        v64 = 2048;
-        v65 = v40;
-        v66 = 2048;
-        v67 = v27;
+        *buf = v54;
+        v60 = v36;
+        v61 = 1024;
+        v62 = 575;
+        v63 = 2048;
+        v64 = v40;
+        v65 = 2048;
+        v66 = v27;
         _os_log_impl(&dword_1BB2EF000, v34, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: Setting up retroactive timeout mode for %13.5f timeout value", buf, 0x26u);
         v23 = v35;
         v24 = 0x1EDC16000;
@@ -2851,7 +2819,7 @@ LABEL_61:
 LABEL_62:
         if (++v25 == v20)
         {
-          v20 = [(NSArray *)v12 countByEnumeratingWithState:&v56 objects:v72 count:16];
+          v20 = [(NSArray *)v12 countByEnumeratingWithState:&v55 objects:v71 count:16];
           if (!v20)
           {
             goto LABEL_98;
@@ -2996,17 +2964,17 @@ LABEL_82:
   }
 
   *buf = 136316418;
-  v61 = v45;
-  v62 = 1024;
-  v63 = 634;
-  v64 = 2048;
-  v65 = v48;
-  v66 = 2112;
-  v67 = *&identifier;
-  v68 = 2112;
-  v69 = v50;
-  v70 = 2048;
-  v71 = v52;
+  v60 = v45;
+  v61 = 1024;
+  v62 = 634;
+  v63 = 2048;
+  v64 = v48;
+  v65 = 2112;
+  v66 = *&identifier;
+  v67 = 2112;
+  v68 = v50;
+  v69 = 2048;
+  v70 = v52;
   _os_log_impl(&dword_1BB2EF000, v44, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: bump client %@ timestamp with %@ at %13.5f", buf, 0x3Au);
 
 LABEL_91:
@@ -3031,14 +2999,11 @@ LABEL_92:
 
   [(AWRemoteClient *)self updateEventTimesForMask:v9 timestamp:timestamp];
 LABEL_98:
-
-LABEL_99:
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateEventTimesForMask:(unint64_t)mask timestamp:(unint64_t)timestamp
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   clientState = self->_clientState;
   var1 = clientState->var1;
   if (var1 <= timestamp)
@@ -3098,17 +3063,17 @@ LABEL_11:
   }
 
   v15 = getEventMaskDescription(mask);
-  v21 = 136316162;
-  v22 = v10;
-  v23 = 1024;
-  v24 = 518;
-  v25 = 2048;
-  v26 = v13;
-  v27 = 2048;
-  v28 = v14;
-  v29 = 2112;
-  v30 = v15;
-  _os_log_impl(&dword_1BB2EF000, v9, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: Last HID Event %13.5f, %@", &v21, 0x30u);
+  v20 = 136316162;
+  v21 = v10;
+  v22 = 1024;
+  v23 = 518;
+  v24 = 2048;
+  v25 = v13;
+  v26 = 2048;
+  v27 = v14;
+  v28 = 2112;
+  v29 = v15;
+  _os_log_impl(&dword_1BB2EF000, v9, OS_LOG_TYPE_DEFAULT, "%30s:%-4d: %13.5f: Last HID Event %13.5f, %@", &v20, 0x30u);
 
 LABEL_19:
   clientState = self->_clientState;
@@ -3150,13 +3115,11 @@ LABEL_28:
     clientState->var9 = 1;
     [AWSampleLogger client:self attentionStateChange:1];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deliverPollEventType:(unint64_t)type event:(id)event
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if (currentLogLevel == 5)
   {
@@ -3175,19 +3138,19 @@ LABEL_28:
       }
 
       identifier = self->_identifier;
-      *v20 = 134218754;
-      *&v20[4] = v9;
-      *&v20[12] = 2112;
-      *&v20[14] = identifier;
-      *&v20[22] = 2080;
-      *&v20[24] = getPollEventTypeDescription(type);
-      *&v20[32] = 2112;
-      *&v20[34] = eventCopy;
+      *v19 = 134218754;
+      *&v19[4] = v9;
+      *&v19[12] = 2112;
+      *&v19[14] = identifier;
+      *&v19[22] = 2080;
+      *&v19[24] = getPollEventTypeDescription(type);
+      *&v19[32] = 2112;
+      *&v19[34] = eventCopy;
       v15 = "%13.5f: notify polling client %@ of %s %@";
       v16 = v7;
       v17 = 42;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v16, OS_LOG_TYPE_DEFAULT, v15, v20, v17);
+      _os_log_impl(&dword_1BB2EF000, v16, OS_LOG_TYPE_DEFAULT, v15, v19, v17);
     }
 
 LABEL_20:
@@ -3222,18 +3185,18 @@ LABEL_20:
           }
 
           v18 = self->_identifier;
-          *v20 = 136316418;
-          *&v20[4] = v10;
-          *&v20[12] = 1024;
-          *&v20[14] = 506;
-          *&v20[18] = 2048;
-          *&v20[20] = v13;
-          *&v20[28] = 2112;
-          *&v20[30] = v18;
-          *&v20[38] = 2080;
-          *&v20[40] = getPollEventTypeDescription(type);
-          LOWORD(v21) = 2112;
-          *(&v21 + 2) = eventCopy;
+          *v19 = 136316418;
+          *&v19[4] = v10;
+          *&v19[12] = 1024;
+          *&v19[14] = 506;
+          *&v19[18] = 2048;
+          *&v19[20] = v13;
+          *&v19[28] = 2112;
+          *&v19[30] = v18;
+          *&v19[38] = 2080;
+          *&v19[40] = getPollEventTypeDescription(type);
+          LOWORD(v20) = 2112;
+          *(&v20 + 2) = eventCopy;
           v15 = "%30s:%-4d: %13.5f: notify polling client %@ of %s %@";
           v16 = v7;
           v17 = 58;
@@ -3246,14 +3209,12 @@ LABEL_20:
   }
 
 LABEL_21:
-  [(AWFrameworkClient *)self->_proxy notifyPollEventType:type event:eventCopy, *v20, *&v20[16], *&v20[24], *&v20[32], v21];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [(AWFrameworkClient *)self->_proxy notifyPollEventType:type event:eventCopy, *v19, *&v19[8], *&v19[24], *&v19[32], v20];
 }
 
 - (void)deliverEvent:(id)event
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if (currentLogLevel == 5)
   {
@@ -3272,17 +3233,17 @@ LABEL_21:
       }
 
       identifier = self->_identifier;
-      v21 = 134218498;
-      v22 = v7;
-      v23 = 2112;
-      *v24 = identifier;
-      *&v24[8] = 2112;
-      *&v24[10] = eventCopy;
+      v20 = 134218498;
+      v21 = v7;
+      v22 = 2112;
+      *v23 = identifier;
+      *&v23[8] = 2112;
+      *&v23[10] = eventCopy;
       v13 = "%13.5f: notify client %@ of %@";
       v14 = v5;
       v15 = 32;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_DEFAULT, v13, &v21, v15);
+      _os_log_impl(&dword_1BB2EF000, v14, OS_LOG_TYPE_DEFAULT, v13, &v20, v15);
     }
 
 LABEL_20:
@@ -3317,16 +3278,16 @@ LABEL_20:
           }
 
           v16 = self->_identifier;
-          v21 = 136316162;
-          v22 = *&v8;
-          v23 = 1024;
-          *v24 = 494;
-          *&v24[4] = 2048;
-          *&v24[6] = v11;
-          *&v24[14] = 2112;
-          *&v24[16] = v16;
-          v25 = 2112;
-          v26 = eventCopy;
+          v20 = 136316162;
+          v21 = *&v8;
+          v22 = 1024;
+          *v23 = 494;
+          *&v23[4] = 2048;
+          *&v23[6] = v11;
+          *&v23[14] = 2112;
+          *&v23[16] = v16;
+          v24 = 2112;
+          v25 = eventCopy;
           v13 = "%30s:%-4d: %13.5f: notify client %@ of %@";
           v14 = v5;
           v15 = 48;
@@ -3349,13 +3310,11 @@ LABEL_21:
   self->_clientState->var3 = v19;
   [(AWFrameworkClient *)self->_proxy notifyEvent:v18];
   [AWSampleLogger client:self event:v18];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deliverNotification:(unint64_t)notification
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ((self->_notificationMask & notification) != 0)
   {
     if (currentLogLevel == 5)
@@ -3376,17 +3335,17 @@ LABEL_21:
 
         identifier = self->_identifier;
         v13 = getNotificationMaskDescription(notification);
-        *v19 = 134218498;
-        *&v19[4] = v7;
-        *&v19[12] = 2112;
-        *&v19[14] = identifier;
-        *&v19[22] = 2112;
-        *&v19[24] = v13;
+        *v18 = 134218498;
+        *&v18[4] = v7;
+        *&v18[12] = 2112;
+        *&v18[14] = identifier;
+        *&v18[22] = 2112;
+        *&v18[24] = v13;
         v14 = "%13.5f: notify client %@ of %@";
         v15 = v5;
         v16 = 32;
 LABEL_20:
-        _os_log_impl(&dword_1BB2EF000, v15, OS_LOG_TYPE_DEFAULT, v14, v19, v16);
+        _os_log_impl(&dword_1BB2EF000, v15, OS_LOG_TYPE_DEFAULT, v14, v18, v16);
       }
     }
 
@@ -3395,8 +3354,8 @@ LABEL_20:
       if (currentLogLevel < 6)
       {
 LABEL_22:
-        [(AWFrameworkClient *)self->_proxy notify:notification, *v19, *&v19[16], *&v19[24], *&v19[32], v20];
-        goto LABEL_23;
+        [(AWFrameworkClient *)self->_proxy notify:notification, *v18, *&v18[8], *&v18[24], *&v18[32], v19];
+        return;
       }
 
       v5 = _AALog();
@@ -3425,16 +3384,16 @@ LABEL_22:
 
             v17 = self->_identifier;
             v13 = getNotificationMaskDescription(notification);
-            *v19 = 136316162;
-            *&v19[4] = v8;
-            *&v19[12] = 1024;
-            *&v19[14] = 487;
-            *&v19[18] = 2048;
-            *&v19[20] = v11;
-            *&v19[28] = 2112;
-            *&v19[30] = v17;
-            *&v19[38] = 2112;
-            v20 = v13;
+            *v18 = 136316162;
+            *&v18[4] = v8;
+            *&v18[12] = 1024;
+            *&v18[14] = 487;
+            *&v18[18] = 2048;
+            *&v18[20] = v11;
+            *&v18[28] = 2112;
+            *&v18[30] = v17;
+            *&v18[38] = 2112;
+            v19 = v13;
             v14 = "%30s:%-4d: %13.5f: notify client %@ of %@";
             v15 = v5;
             v16 = 48;
@@ -3446,9 +3405,6 @@ LABEL_22:
 
     goto LABEL_22;
   }
-
-LABEL_23:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setClientConfig:(id)config shouldReset:(BOOL)reset reply:(id)reply
@@ -3479,7 +3435,7 @@ LABEL_23:
 
 uint64_t __52__AWRemoteClient_setClientConfig_shouldReset_reply___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(a1 + 56);
@@ -3505,9 +3461,9 @@ uint64_t __52__AWRemoteClient_setClientConfig_shouldReset_reply___block_invoke(u
 
       v13 = *(a1 + 32);
       *buf = 134218242;
-      v22 = v8;
-      v23 = 2112;
-      *v24 = v13;
+      v21 = v8;
+      v22 = 2112;
+      *v23 = v13;
       v14 = "%13.5f: updated config %@";
       v15 = v6;
       v16 = 22;
@@ -3517,7 +3473,7 @@ LABEL_19:
 
 LABEL_20:
 
-    goto LABEL_21;
+    return [*(*(a1 + 32) + 16) armEvents];
   }
 
   if (currentLogLevel >= 6)
@@ -3548,13 +3504,13 @@ LABEL_20:
 
           v17 = *(a1 + 32);
           *buf = 136315906;
-          v22 = *&v9;
-          v23 = 1024;
-          *v24 = 477;
-          *&v24[4] = 2048;
-          *&v24[6] = v12;
-          v25 = 2112;
-          v26 = v17;
+          v21 = *&v9;
+          v22 = 1024;
+          *v23 = 477;
+          *&v23[4] = 2048;
+          *&v23[6] = v12;
+          v24 = 2112;
+          v25 = v17;
           v14 = "%30s:%-4d: %13.5f: updated config %@";
           v15 = v6;
           v16 = 38;
@@ -3566,15 +3522,12 @@ LABEL_20:
     goto LABEL_20;
   }
 
-LABEL_21:
-  result = [*(*(a1 + 32) + 16) armEvents];
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 16) armEvents];
 }
 
 - (void)reevaluateConfig
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   v3 = [(AWRemoteClient *)self description];
   [(AWRemoteClient *)self _setClientConfig:self->_lastConfig shouldReset:1 error:0];
@@ -3594,17 +3547,17 @@ LABEL_21:
         v6 = v5 / 1000000000.0;
       }
 
-      *v15 = 134218498;
-      *&v15[4] = v6;
-      *&v15[12] = 2112;
-      *&v15[14] = self;
-      *&v15[22] = 2112;
-      *&v15[24] = v3;
+      *v14 = 134218498;
+      *&v14[4] = v6;
+      *&v14[12] = 2112;
+      *&v14[14] = self;
+      *&v14[22] = 2112;
+      *&v14[24] = v3;
       v11 = "%13.5f: reevaluated config %@, old config %@";
       v12 = v4;
       v13 = 32;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v12, OS_LOG_TYPE_DEFAULT, v11, v15, v13);
+      _os_log_impl(&dword_1BB2EF000, v12, OS_LOG_TYPE_DEFAULT, v11, v14, v13);
     }
 
 LABEL_20:
@@ -3638,16 +3591,16 @@ LABEL_20:
             v10 = v9 / 1000000000.0;
           }
 
-          *v15 = 136316162;
-          *&v15[4] = v7;
-          *&v15[12] = 1024;
-          *&v15[14] = 466;
-          *&v15[18] = 2048;
-          *&v15[20] = v10;
-          *&v15[28] = 2112;
-          *&v15[30] = self;
-          *&v15[38] = 2112;
-          v16 = v3;
+          *v14 = 136316162;
+          *&v14[4] = v7;
+          *&v14[12] = 1024;
+          *&v14[14] = 466;
+          *&v14[18] = 2048;
+          *&v14[20] = v10;
+          *&v14[28] = 2112;
+          *&v14[30] = self;
+          *&v14[38] = 2112;
+          v15 = v3;
           v11 = "%30s:%-4d: %13.5f: reevaluated config %@, old config %@";
           v12 = v4;
           v13 = 48;
@@ -3660,15 +3613,13 @@ LABEL_20:
   }
 
 LABEL_21:
-  [(AWScheduler *)self->_scheduler armEvents:*v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(AWScheduler *)self->_scheduler armEvents:*v14];
 }
 
 - (BOOL)_setClientConfig:(id)config shouldReset:(BOOL)reset error:(id *)error
 {
   resetCopy = reset;
-  v91 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   configCopy = config;
   dispatch_assert_queue_V2(self->_queue);
   if (([configCopy validateWithError:error] & 1) == 0)
@@ -3678,24 +3629,24 @@ LABEL_21:
       v20 = _AALog();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v59 = absTimeNS();
-        if (v59 == -1)
+        v58 = absTimeNS();
+        if (v58 == -1)
         {
-          v60 = INFINITY;
+          v59 = INFINITY;
         }
 
         else
         {
-          v60 = v59 / 1000000000.0;
+          v59 = v58 / 1000000000.0;
         }
 
         identifier = self->_identifier;
         *buf = 134218498;
-        v86 = v60;
-        v87 = 2112;
-        v88 = identifier;
-        v89 = 2112;
-        v90 = configCopy;
+        v85 = v59;
+        v86 = 2112;
+        v87 = identifier;
+        v88 = 2112;
+        v89 = configCopy;
         _os_log_error_impl(&dword_1BB2EF000, v20, OS_LOG_TYPE_ERROR, "%13.5f: client %@ attempting to set invalid config %@", buf, 0x20u);
       }
     }
@@ -3710,22 +3661,22 @@ LABEL_21:
       v21 = _AALog();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v62 = absTimeNS();
-        if (v62 == -1)
+        v61 = absTimeNS();
+        if (v61 == -1)
         {
-          v63 = INFINITY;
+          v62 = INFINITY;
         }
 
         else
         {
-          v63 = v62 / 1000000000.0;
+          v62 = v61 / 1000000000.0;
         }
 
-        v68 = self->_identifier;
+        v67 = self->_identifier;
         *buf = 134218242;
-        v86 = v63;
-        v87 = 2112;
-        v88 = v68;
+        v85 = v62;
+        v86 = 2112;
+        v87 = v67;
         _os_log_error_impl(&dword_1BB2EF000, v21, OS_LOG_TYPE_ERROR, "%13.5f: client %@ not entitled to use sampleWhileAbsent", buf, 0x16u);
       }
     }
@@ -3737,11 +3688,11 @@ LABEL_21:
 
     v22 = MEMORY[0x1E696ABC0];
     v23 = *MEMORY[0x1E696A798];
-    v83 = *MEMORY[0x1E696A578];
-    v84 = @" Client not entitled to use sampleWhileAbsent";
+    v82 = *MEMORY[0x1E696A578];
+    v83 = @" Client not entitled to use sampleWhileAbsent";
     v24 = MEMORY[0x1E695DF20];
-    v25 = &v84;
-    v26 = &v83;
+    v25 = &v83;
+    v26 = &v82;
     goto LABEL_37;
   }
 
@@ -3752,22 +3703,22 @@ LABEL_21:
       v27 = _AALog();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v64 = absTimeNS();
-        if (v64 == -1)
+        v63 = absTimeNS();
+        if (v63 == -1)
         {
-          v65 = INFINITY;
+          v64 = INFINITY;
         }
 
         else
         {
-          v65 = v64 / 1000000000.0;
+          v64 = v63 / 1000000000.0;
         }
 
-        v71 = self->_identifier;
+        v70 = self->_identifier;
         *buf = 134218242;
-        v86 = v65;
-        v87 = 2112;
-        v88 = v71;
+        v85 = v64;
+        v86 = 2112;
+        v87 = v70;
         _os_log_error_impl(&dword_1BB2EF000, v27, OS_LOG_TYPE_ERROR, "%13.5f: client %@ not entitled to use continuousFaceDetectMode", buf, 0x16u);
       }
     }
@@ -3779,11 +3730,11 @@ LABEL_21:
 
     v22 = MEMORY[0x1E696ABC0];
     v23 = *MEMORY[0x1E696A798];
-    v81 = *MEMORY[0x1E696A578];
-    v82 = @" Client not entitled to use continuousFaceDetectMode";
+    v80 = *MEMORY[0x1E696A578];
+    v81 = @" Client not entitled to use continuousFaceDetectMode";
     v24 = MEMORY[0x1E695DF20];
-    v25 = &v82;
-    v26 = &v81;
+    v25 = &v81;
+    v26 = &v80;
     goto LABEL_37;
   }
 
@@ -3794,22 +3745,22 @@ LABEL_21:
       v28 = _AALog();
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        v66 = absTimeNS();
-        if (v66 == -1)
+        v65 = absTimeNS();
+        if (v65 == -1)
         {
-          v67 = INFINITY;
+          v66 = INFINITY;
         }
 
         else
         {
-          v67 = v66 / 1000000000.0;
+          v66 = v65 / 1000000000.0;
         }
 
-        v72 = self->_identifier;
+        v71 = self->_identifier;
         *buf = 134218242;
-        v86 = v67;
-        v87 = 2112;
-        v88 = v72;
+        v85 = v66;
+        v86 = 2112;
+        v87 = v71;
         _os_log_error_impl(&dword_1BB2EF000, v28, OS_LOG_TYPE_ERROR, "%13.5f: client %@ not entitled to use motionDetect", buf, 0x16u);
       }
     }
@@ -3821,11 +3772,11 @@ LABEL_21:
 
     v22 = MEMORY[0x1E696ABC0];
     v23 = *MEMORY[0x1E696A798];
-    v79 = *MEMORY[0x1E696A578];
-    v80 = @" Client not entitled to use motionDetect";
+    v78 = *MEMORY[0x1E696A578];
+    v79 = @" Client not entitled to use motionDetect";
     v24 = MEMORY[0x1E695DF20];
-    v25 = &v80;
-    v26 = &v79;
+    v25 = &v79;
+    v26 = &v78;
     goto LABEL_37;
   }
 
@@ -3836,19 +3787,19 @@ LABEL_21:
       v29 = _AALog();
       if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        v69 = absTimeNS();
-        if (v69 == -1)
+        v68 = absTimeNS();
+        if (v68 == -1)
         {
-          v70 = INFINITY;
+          v69 = INFINITY;
         }
 
         else
         {
-          v70 = v69 / 1000000000.0;
+          v69 = v68 / 1000000000.0;
         }
 
         *buf = 134217984;
-        v86 = v70;
+        v85 = v69;
         _os_log_error_impl(&dword_1BB2EF000, v29, OS_LOG_TYPE_ERROR, "%13.5f: Platform doesn't support motion detection capability", buf, 0xCu);
       }
     }
@@ -3860,11 +3811,11 @@ LABEL_21:
 
     v22 = MEMORY[0x1E696ABC0];
     v23 = *MEMORY[0x1E696A798];
-    v77 = *MEMORY[0x1E696A578];
-    v78 = @" Platform doesn't support Motion detect";
+    v76 = *MEMORY[0x1E696A578];
+    v77 = @" Platform doesn't support Motion detect";
     v24 = MEMORY[0x1E695DF20];
-    v25 = &v78;
-    v26 = &v77;
+    v25 = &v77;
+    v26 = &v76;
 LABEL_37:
     v30 = [v24 dictionaryWithObjects:v25 forKeys:v26 count:1];
     *error = [v22 errorWithDomain:v23 code:1 userInfo:v30];
@@ -3904,24 +3855,24 @@ LABEL_38:
   self->_nonSampledAttentionLostTimeoutEnable = nonSampledAttentionLostTimeoutEnable;
   if (nonSampledAttentionLostTimeoutEnable && !self->_nonSampledAttentionTimer)
   {
-    v34 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_queue);
+    v33 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_queue);
     nonSampledAttentionTimer = self->_nonSampledAttentionTimer;
-    self->_nonSampledAttentionTimer = v34;
+    self->_nonSampledAttentionTimer = v33;
 
-    v36 = self->_nonSampledAttentionTimer;
+    v35 = self->_nonSampledAttentionTimer;
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 3221225472;
     handler[2] = __53__AWRemoteClient__setClientConfig_shouldReset_error___block_invoke;
     handler[3] = &unk_1E7F38038;
     handler[4] = self;
-    dispatch_source_set_event_handler(v36, handler);
-    v37 = self->_nonSampledAttentionTimer;
-    v74[0] = MEMORY[0x1E69E9820];
-    v74[1] = 3221225472;
-    v74[2] = __53__AWRemoteClient__setClientConfig_shouldReset_error___block_invoke_41;
-    v74[3] = &unk_1E7F38038;
-    v74[4] = self;
-    dispatch_source_set_cancel_handler(v37, v74);
+    dispatch_source_set_event_handler(v35, handler);
+    v36 = self->_nonSampledAttentionTimer;
+    v73[0] = MEMORY[0x1E69E9820];
+    v73[1] = 3221225472;
+    v73[2] = __53__AWRemoteClient__setClientConfig_shouldReset_error___block_invoke_41;
+    v73[3] = &unk_1E7F38038;
+    v73[4] = self;
+    dispatch_source_set_cancel_handler(v36, v73);
     goto LABEL_41;
   }
 
@@ -3951,38 +3902,38 @@ LABEL_41:
 
   self->_activateEyeRelief = [configCopy activateEyeRelief];
   [configCopy samplingInterval];
-  v40 = (v39 * 1000000000.0);
-  if (v39 > 1.84467441e19)
+  v39 = (v38 * 1000000000.0);
+  if (v38 > 1.84467441e19)
   {
-    v40 = -1;
+    v39 = -1;
   }
 
-  self->_samplingInterval = v40;
+  self->_samplingInterval = v39;
   [configCopy samplingDelay];
-  v42 = (v41 * 1000000000.0);
-  if (v41 > 1.84467441e19)
+  v41 = (v40 * 1000000000.0);
+  if (v40 > 1.84467441e19)
   {
-    v42 = -1;
+    v41 = -1;
   }
 
-  self->_samplingDelay = v42;
+  self->_samplingDelay = v41;
   self->_sampleWhileAbsent = [configCopy sampleWhileAbsent];
   attentionLostTimeouts = [configCopy attentionLostTimeouts];
-  v44 = [attentionLostTimeouts count];
+  v43 = [attentionLostTimeouts count];
 
-  if (v44)
+  if (v43)
   {
     attentionLostTimeouts2 = [configCopy attentionLostTimeouts];
     allObjects = [attentionLostTimeouts2 allObjects];
-    v47 = [allObjects sortedArrayUsingSelector:sel_compare_];
+    v46 = [allObjects sortedArrayUsingSelector:sel_compare_];
     attentionLostTimeoutsSec = self->_attentionLostTimeoutsSec;
-    self->_attentionLostTimeoutsSec = v47;
+    self->_attentionLostTimeoutsSec = v46;
   }
 
   else
   {
     [configCopy samplingInterval];
-    if (v49 == 0.0)
+    if (v48 == 0.0)
     {
       attentionLostTimeouts2 = self->_attentionLostTimeoutsSec;
       self->_attentionLostTimeoutsSec = 0;
@@ -3990,59 +3941,59 @@ LABEL_41:
 
     else
     {
-      v50 = MEMORY[0x1E696AD98];
+      v49 = MEMORY[0x1E696AD98];
       [configCopy samplingInterval];
-      attentionLostTimeouts2 = [v50 numberWithDouble:?];
-      v76 = attentionLostTimeouts2;
-      v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v76 count:1];
-      v52 = self->_attentionLostTimeoutsSec;
-      self->_attentionLostTimeoutsSec = v51;
+      attentionLostTimeouts2 = [v49 numberWithDouble:?];
+      v75 = attentionLostTimeouts2;
+      v50 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
+      v51 = self->_attentionLostTimeoutsSec;
+      self->_attentionLostTimeoutsSec = v50;
     }
   }
 
-  v73[0] = MEMORY[0x1E69E9820];
-  v73[1] = 3221225472;
-  v73[2] = __53__AWRemoteClient__setClientConfig_shouldReset_error___block_invoke_2;
-  v73[3] = &unk_1E7F375E0;
-  v73[4] = self;
-  v53 = MEMORY[0x1BFB0D030](v73);
-  (v53)[2](v53, &self->_eventMask);
-  (v53)[2](v53, &self->_attentionLostEventMask);
+  v72[0] = MEMORY[0x1E69E9820];
+  v72[1] = 3221225472;
+  v72[2] = __53__AWRemoteClient__setClientConfig_shouldReset_error___block_invoke_2;
+  v72[3] = &unk_1E7F375E0;
+  v72[4] = self;
+  v52 = MEMORY[0x1BFB0D030](v72);
+  (v52)[2](v52, &self->_eventMask);
+  (v52)[2](v52, &self->_attentionLostEventMask);
   if (self->_activateMotionDetect && (deviceSupportsPearl() & 1) == 0)
   {
     self->_activateMotionDetect = 0;
   }
 
-  v54 = *p_eventMask;
+  v53 = *p_eventMask;
   if ((*p_eventMask & 1) == 0)
   {
-    v54 |= 1uLL;
-    *p_eventMask = v54;
+    v53 |= 1uLL;
+    *p_eventMask = v53;
   }
 
-  v55 = *p_attentionLostEventMask;
+  v54 = *p_attentionLostEventMask;
   if ((*p_attentionLostEventMask & 1) == 0)
   {
-    v55 |= 1uLL;
-    *p_attentionLostEventMask = v55;
+    v54 |= 1uLL;
+    *p_attentionLostEventMask = v54;
   }
 
-  if (((v55 | v54) & 0x80) == 0)
+  if (((v54 | v53) & 0x80) == 0)
   {
     self->_sampleWhileAbsent = 0;
     self->_samplingInterval = 0;
     self->_samplingDelay = 0;
   }
 
-  v56 = [MEMORY[0x1E695DFA8] set];
-  v57 = [v56 count];
-  if (v57)
+  v55 = [MEMORY[0x1E695DFA8] set];
+  v56 = [v55 count];
+  if (v56)
   {
-    v57 = [MEMORY[0x1E695DFD8] setWithSet:v56];
+    v56 = [MEMORY[0x1E695DFD8] setWithSet:v55];
   }
 
   allowedHIDEventsForRemoteEvent = self->_allowedHIDEventsForRemoteEvent;
-  self->_allowedHIDEventsForRemoteEvent = v57;
+  self->_allowedHIDEventsForRemoteEvent = v56;
 
   if (resetCopy)
   {
@@ -4052,13 +4003,12 @@ LABEL_41:
   v31 = 1;
 LABEL_39:
 
-  v32 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
 void __53__AWRemoteClient__setClientConfig_shouldReset_error___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (currentLogLevel == 5)
   {
     v2 = _AALog();
@@ -4078,17 +4028,17 @@ void __53__AWRemoteClient__setClientConfig_shouldReset_error___block_invoke(uint
       v9 = *(a1 + 32);
       v10 = *(v9 + 200);
       v11 = *(v9 + 120);
-      *v24 = 134218498;
-      *&v24[4] = v4;
-      *&v24[12] = 2112;
-      *&v24[14] = v10;
-      *&v24[22] = 2048;
-      *&v24[24] = v11;
+      *v23 = 134218498;
+      *&v23[4] = v4;
+      *&v23[12] = 2112;
+      *&v23[14] = v10;
+      *&v23[22] = 2048;
+      *&v23[24] = v11;
       v12 = "%13.5f: Delivering nonSampledAttentionLost Event for client %@. Timeout value: %13.5f";
       v13 = v2;
       v14 = 32;
 LABEL_19:
-      _os_log_impl(&dword_1BB2EF000, v13, OS_LOG_TYPE_DEFAULT, v12, v24, v14);
+      _os_log_impl(&dword_1BB2EF000, v13, OS_LOG_TYPE_DEFAULT, v12, v23, v14);
     }
   }
 
@@ -4126,16 +4076,16 @@ LABEL_19:
           v15 = *(a1 + 32);
           v16 = *(v15 + 200);
           v17 = *(v15 + 120);
-          *v24 = 136316162;
-          *&v24[4] = v5;
-          *&v24[12] = 1024;
-          *&v24[14] = 333;
-          *&v24[18] = 2048;
-          *&v24[20] = v8;
-          *&v24[28] = 2112;
-          *&v24[30] = v16;
-          *&v24[38] = 2048;
-          v25 = v17;
+          *v23 = 136316162;
+          *&v23[4] = v5;
+          *&v23[12] = 1024;
+          *&v23[14] = 333;
+          *&v23[18] = 2048;
+          *&v23[20] = v8;
+          *&v23[28] = 2112;
+          *&v23[30] = v16;
+          *&v23[38] = 2048;
+          v24 = v17;
           v12 = "%30s:%-4d: %13.5f: Delivering nonSampledAttentionLost Event for client %@. Timeout value: %13.5f";
           v13 = v2;
           v14 = 48;
@@ -4159,12 +4109,11 @@ LABEL_21:
     v21 = v20 / 1000000000.0;
   }
 
-  v22 = [(AWAttentionLostEvent *)v19 initWithTimestamp:*(*(a1 + 32) + 40) tagIndex:v21 attentionLostTimeout:*(*(a1 + 32) + 120), *v24, *&v24[16], *&v24[24], *&v24[32], v25];
+  v22 = [(AWAttentionLostEvent *)v19 initWithTimestamp:*(*(a1 + 32) + 40) tagIndex:v21 attentionLostTimeout:*(*(a1 + 32) + 120), *v23, *&v23[8], *&v23[24], *&v23[32], v24];
   [v18 deliverEvent:v22];
 
   *(*(*(a1 + 32) + 168) + 67) = 1;
   *(*(*(a1 + 32) + 168) + 65) = 0;
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __53__AWRemoteClient__setClientConfig_shouldReset_error___block_invoke_41(uint64_t a1)
@@ -4214,7 +4163,7 @@ uint64_t __53__AWRemoteClient__setClientConfig_shouldReset_error___block_invoke_
 
 - (void)invalidateWithHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   dispatch_assert_queue_V2(self->_queue);
   if (!self->_invalid)
@@ -4235,36 +4184,36 @@ uint64_t __53__AWRemoteClient__setClientConfig_shouldReset_error___block_invoke_
       v5 = +[AWPersistentDataManager sharedManager];
       connection = self->_connection;
       clientIndex = self->_clientIndex;
-      v19 = 0;
-      v8 = [v5 closeWithConnection:connection index:clientIndex error:&v19];
-      v9 = v19;
+      v18 = 0;
+      v8 = [v5 closeWithConnection:connection index:clientIndex error:&v18];
+      v9 = v18;
 
       if ((v8 & 1) == 0 && currentLogLevel >= 3)
       {
         v10 = _AALog();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v15 = absTimeNS();
-          if (v15 == -1)
+          v14 = absTimeNS();
+          if (v14 == -1)
           {
-            v16 = INFINITY;
+            v15 = INFINITY;
           }
 
           else
           {
-            v16 = v15 / 1000000000.0;
+            v15 = v14 / 1000000000.0;
           }
 
           identifier = self->_identifier;
-          v18 = self->_clientIndex;
+          v17 = self->_clientIndex;
           *buf = 134218754;
-          v21 = v16;
-          v22 = 2112;
-          v23 = identifier;
-          v24 = 1024;
-          v25 = v18;
-          v26 = 2112;
-          v27 = v9;
+          v20 = v15;
+          v21 = 2112;
+          v22 = identifier;
+          v23 = 1024;
+          v24 = v17;
+          v25 = 2112;
+          v26 = v9;
           _os_log_error_impl(&dword_1BB2EF000, v10, OS_LOG_TYPE_ERROR, "%13.5f: %@ failed to release persistent data index %d: %@", buf, 0x26u);
         }
       }
@@ -4290,13 +4239,11 @@ uint64_t __53__AWRemoteClient__setClientConfig_shouldReset_error___block_invoke_
       handlerCopy[2](handlerCopy);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (AWRemoteClient)initWithProxy:(id)proxy connection:(id)connection clientConfig:(id)config clientIndex:(int)index clientId:(id)id scheduler:(id)scheduler error:(id *)error
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   proxyCopy = proxy;
   connectionCopy = connection;
   configCopy = config;
@@ -4306,9 +4253,9 @@ uint64_t __53__AWRemoteClient__setClientConfig_shouldReset_error___block_invoke_
 
   if (identifier)
   {
-    v38.receiver = self;
-    v38.super_class = AWRemoteClient;
-    v20 = [(AWRemoteClient *)&v38 init];
+    v37.receiver = self;
+    v37.super_class = AWRemoteClient;
+    v20 = [(AWRemoteClient *)&v37 init];
     if (v20)
     {
       v21 = awQueue(1);
@@ -4348,34 +4295,33 @@ uint64_t __53__AWRemoteClient__setClientConfig_shouldReset_error___block_invoke_
       v28 = _AALog();
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        v34 = absTimeNS();
-        if (v34 == -1)
+        v33 = absTimeNS();
+        if (v33 == -1)
         {
-          v35 = INFINITY;
+          v34 = INFINITY;
         }
 
         else
         {
-          v35 = v34 / 1000000000.0;
+          v34 = v33 / 1000000000.0;
         }
 
         *buf = 134217984;
-        v42 = v35;
+        v41 = v34;
         _os_log_error_impl(&dword_1BB2EF000, v28, OS_LOG_TYPE_ERROR, "%13.5f: denying attempt to create client with nil identifier", buf, 0xCu);
       }
     }
 
     v29 = MEMORY[0x1E696ABC0];
     v30 = *MEMORY[0x1E696A798];
-    v39 = *MEMORY[0x1E696A578];
-    v40 = @" Not creating client with nil identifier";
-    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v38 = *MEMORY[0x1E696A578];
+    v39 = @" Not creating client with nil identifier";
+    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
     *error = [v29 errorWithDomain:v30 code:22 userInfo:v31];
 
     selfCopy = 0;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

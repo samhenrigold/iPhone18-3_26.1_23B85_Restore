@@ -8,43 +8,7 @@ __CFDictionary *ABPKcreateAttributeDictionaryNewWithZeroCopyOption(unsigned int 
   if (Mutable)
   {
     v7 = CFNumberCreate(v5, kCFNumberIntType, &v18 + 4);
-    if (!v7)
-    {
-      goto LABEL_9;
-    }
-
-    v8 = v7;
-    CFDictionarySetValue(Mutable, *MEMORY[0x277CC4E30], v7);
-    CFRelease(v8);
-    v9 = CFDictionaryCreateMutable(v5, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    if (!v9)
-    {
-      goto LABEL_9;
-    }
-
-    v10 = v9;
-    CFDictionaryAddValue(Mutable, *MEMORY[0x277CC4DE8], v9);
-    CFRelease(v10);
-    v11 = CFNumberCreate(v5, kCFNumberIntType, &v19 + 4);
-    if (!v11)
-    {
-      goto LABEL_9;
-    }
-
-    v12 = v11;
-    CFDictionarySetValue(Mutable, *MEMORY[0x277CC4EC8], v11);
-    CFRelease(v12);
-    v13 = CFNumberCreate(v5, kCFNumberIntType, &v19);
-    if (!v13)
-    {
-      goto LABEL_9;
-    }
-
-    v14 = v13;
-    CFDictionarySetValue(Mutable, *MEMORY[0x277CC4DD8], v13);
-    CFRelease(v14);
-    v15 = CFNumberCreate(v5, kCFNumberIntType, &v18);
-    if (v15)
+    if (v7 && (v8 = v7, CFDictionarySetValue(Mutable, *MEMORY[0x277CC4E30], v7), CFRelease(v8), (v9 = CFDictionaryCreateMutable(v5, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150])) != 0) && (v10 = v9, CFDictionaryAddValue(Mutable, *MEMORY[0x277CC4DE8], v9), CFRelease(v10), (v11 = CFNumberCreate(v5, kCFNumberIntType, &v19 + 4)) != 0) && (v12 = v11, CFDictionarySetValue(Mutable, *MEMORY[0x277CC4EC8], v11), CFRelease(v12), (v13 = CFNumberCreate(v5, kCFNumberIntType, &v19)) != 0) && (v14 = v13, CFDictionarySetValue(Mutable, *MEMORY[0x277CC4DD8], v13), CFRelease(v14), (v15 = CFNumberCreate(v5, kCFNumberIntType, &v18)) != 0))
     {
       v16 = v15;
       CFDictionarySetValue(Mutable, *MEMORY[0x277CC4E38], v15);
@@ -57,7 +21,6 @@ __CFDictionary *ABPKcreateAttributeDictionaryNewWithZeroCopyOption(unsigned int 
 
     else
     {
-LABEL_9:
       CFRelease(Mutable);
       return 0;
     }
@@ -110,8 +73,7 @@ uint64_t ABPKRecreatePixelBufferPoolOnConfigurationChangesWithZeroCopyOption(CVP
 
       if (v17 == a2)
       {
-        NewWithZeroCopyOption = 0;
-        goto LABEL_16;
+        return 0;
       }
     }
 
@@ -127,7 +89,7 @@ uint64_t ABPKRecreatePixelBufferPoolOnConfigurationChangesWithZeroCopyOption(CVP
     v17 = 0;
   }
 
-  v19 = __ABPKLogSharedInstance();
+  v19 = __ABPKLogSharedInstance(v10);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     v20 = *a1;
@@ -155,24 +117,23 @@ uint64_t ABPKRecreatePixelBufferPoolOnConfigurationChangesWithZeroCopyOption(CVP
   }
 
   NewWithZeroCopyOption = ABPK_pixelBufferPoolCreateNewWithZeroCopyOption(a4, a5, a2, a1, a3);
+  v18 = NewWithZeroCopyOption;
   if (NewWithZeroCopyOption)
   {
-    v21 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = __ABPKLogSharedInstance(NewWithZeroCopyOption);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       LOWORD(v24) = 0;
-      _os_log_impl(&dword_23EDDC000, v21, OS_LOG_TYPE_ERROR, " ARSystemTools: Could not create pixel buffer pool. ", &v24, 2u);
+      _os_log_impl(&dword_23EDDC000, v22, OS_LOG_TYPE_ERROR, " ARSystemTools: Could not create pixel buffer pool. ", &v24, 2u);
     }
   }
 
-LABEL_16:
-  v22 = *MEMORY[0x277D85DE8];
-  return NewWithZeroCopyOption;
+  return v18;
 }
 
 CVPixelBufferRef ABPKCreateCVPixelBufferFromPoolWithZeroCopyOption(CVPixelBufferPoolRef *a1, int a2, void *a3, void *a4, int a5, double a6, double a7)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v13 = a3;
   v14 = a4;
   pixelBufferOut = 0;
@@ -180,19 +141,19 @@ CVPixelBufferRef ABPKCreateCVPixelBufferFromPoolWithZeroCopyOption(CVPixelBuffer
   if (v15)
   {
     v16 = v15;
-    v17 = __ABPKLogSharedInstance();
+    v17 = __ABPKLogSharedInstance(v15);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = objc_opt_class();
       v19 = NSStringFromClass(v18);
       *buf = 138413058;
-      v29 = v19;
-      v30 = 2048;
-      v31 = v13;
-      v32 = 2112;
-      v33 = v14;
-      v34 = 1024;
-      v35 = v16;
+      v28 = v19;
+      v29 = 2048;
+      v30 = v13;
+      v31 = 2112;
+      v32 = v14;
+      v33 = 1024;
+      v34 = v16;
       v20 = " %@(%p): Unable to configure pixelbuffer pool for %@: %i ";
 LABEL_7:
       _os_log_impl(&dword_23EDDC000, v17, OS_LOG_TYPE_ERROR, v20, buf, 0x26u);
@@ -207,19 +168,19 @@ LABEL_7:
   if (v21)
   {
     v22 = v21;
-    v17 = __ABPKLogSharedInstance();
+    v17 = __ABPKLogSharedInstance(v21);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v23 = objc_opt_class();
       v19 = NSStringFromClass(v23);
       *buf = 138413058;
-      v29 = v19;
-      v30 = 2048;
-      v31 = v13;
-      v32 = 2112;
-      v33 = v14;
-      v34 = 1024;
-      v35 = v22;
+      v28 = v19;
+      v29 = 2048;
+      v30 = v13;
+      v31 = 2112;
+      v32 = v14;
+      v33 = 1024;
+      v34 = v22;
       v20 = " %@(%p): Unable to create pixel buffer for %@: %i ";
       goto LABEL_7;
     }
@@ -229,7 +190,6 @@ LABEL_8:
 
   v24 = pixelBufferOut;
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -531,35 +491,32 @@ void sub_23EDDEA90(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::vector<std::array<float,3ul>>::reserve(void *result, unint64_t a2)
+void std::vector<std::array<float,3ul>>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 2) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 2) < a2)
   {
     if (a2 < 0x1555555555555556)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::array<float,3ul>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::array<float,3ul>>>(a1, a2);
     }
 
     std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void abpk::Normalize2DCoordinates(float32x2_t **a1, uint64_t *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v4 = __ABPKLogSharedInstance();
+  v23 = *MEMORY[0x277D85DE8];
+  v4 = __ABPKLogSharedInstance(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     v5 = *a2;
     v6 = a2[1];
-    v20 = 134218240;
-    v21 = v5;
-    v22 = 2048;
-    v23 = v6;
-    _os_log_impl(&dword_23EDDC000, v4, OS_LOG_TYPE_DEBUG, " \t Normalizing the raw 2D x and y coordinates with image width = %f and height = %f ", &v20, 0x16u);
+    v19 = 134218240;
+    v20 = v5;
+    v21 = 2048;
+    v22 = v6;
+    _os_log_impl(&dword_23EDDC000, v4, OS_LOG_TYPE_DEBUG, " \t Normalizing the raw 2D x and y coordinates with image width = %f and height = %f ", &v19, 0x16u);
   }
 
   v7 = *a1;
@@ -592,24 +549,22 @@ void abpk::Normalize2DCoordinates(float32x2_t **a1, uint64_t *a2)
 
     while (v7 != v8);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void abpk::Normalize2DCoordinatesSquareCrop(float32x2_t **a1, double *a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = *a2;
   v6 = a2[1];
-  v7 = __ABPKLogSharedInstance();
-  *&v26 = v5;
+  v7 = __ABPKLogSharedInstance(a1);
+  *&v25 = v5;
   v8 = v6;
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218240;
-    v28 = v5;
-    v29 = 2048;
-    v30 = v6;
+    v27 = v5;
+    v28 = 2048;
+    v29 = v6;
     _os_log_impl(&dword_23EDDC000, v7, OS_LOG_TYPE_DEBUG, " \t Normalizing the raw 2D x and y coordinates with image width = %f and height = %f. Center cropping in normalization for better model performance. ", buf, 0x16u);
   }
 
@@ -619,16 +574,16 @@ void abpk::Normalize2DCoordinatesSquareCrop(float32x2_t **a1, double *a2, uint64
   {
     v11 = (v5 - v6) * 0.5;
     v12 = (v6 - v5) * 0.5;
-    v13 = vdupq_lane_s64(v26, 0);
+    v13 = vdupq_lane_s64(v25, 0);
     __asm { FMOV            V5.2D, #-1.0 }
 
-    _Q5.f64[1] = v8 / *&v26;
+    _Q5.f64[1] = v8 / *&v25;
     do
     {
       v18 = *v9;
       if ((a3 - 1) > 1)
       {
-        if ((a3 - 3) > 1 || (v11 <= v18.f32[0] ? (v20 = *&v26 - v11 < v18.f32[0]) : (v20 = 1), !v20))
+        if ((a3 - 3) > 1 || (v11 <= v18.f32[0] ? (v20 = *&v25 - v11 < v18.f32[0]) : (v20 = 1), !v20))
         {
 LABEL_18:
           if (v9[1].f32[0] == 0.0)
@@ -663,8 +618,6 @@ LABEL_22:
 
     while (v9 != v10);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void std::vector<std::array<float,3ul>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
@@ -761,12 +714,12 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-void sub_23EDDFEF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_23EDDFEF0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ABPKRetargeting;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -774,10 +727,12 @@ float32x2_t *distanceBetweenTwoPoses(float32x2_t *result, float32x2_t *a2, uint6
 {
   for (i = 0.0; a3; --a3)
   {
-    if ((vmaxv_u16(vmovn_s32(vcltzq_f32(*result->f32))) & 1) == 0)
+    *v4.f32 = *result;
+    *&v4.u32[2] = *a2;
+    if ((vmaxv_u16(vmovn_s32(vcltzq_f32(v4))) & 1) == 0)
     {
-      v4 = vsub_f32(*result, *a2);
-      i = i + sqrtf(vaddv_f32(vmul_f32(v4, v4)));
+      v5 = vsub_f32(*result, *a2);
+      i = i + sqrtf(vaddv_f32(vmul_f32(v5, v5)));
     }
 
     ++a2;
@@ -790,10 +745,12 @@ float32x2_t *distanceBetweenTwoPoses(float32x2_t *result, float32x2_t *a2, uint6
 {
   for (i = 0.0; a3; --a3)
   {
-    if ((vmaxv_u16(vmovn_s32(vcltzq_f32(*result->f32))) & 1) == 0)
+    *v4.f32 = *result;
+    *&v4.u32[2] = *a2;
+    if ((vmaxv_u16(vmovn_s32(vcltzq_f32(v4))) & 1) == 0)
     {
-      v4 = vsub_f32(*result, *a2);
-      i = i + sqrtf(vaddv_f32(vmul_f32(v4, v4)));
+      v5 = vsub_f32(*result, *a2);
+      i = i + sqrtf(vaddv_f32(vmul_f32(v5, v5)));
     }
 
     ++a2;
@@ -910,17 +867,17 @@ void sub_23EDE2710(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<unsigned long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23EDE2D5C(_Unwind_Exception *exception_object)
@@ -935,7 +892,7 @@ void sub_23EDE2D5C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned long>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned long>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -955,7 +912,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(uint6
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -977,17 +934,17 @@ void sub_23EDE2E5C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEEC2B8ne200100Em(void *result, unint64_t a2)
+uint64_t *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEEC2B8ne200100Em(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23EDE2ED4(_Unwind_Exception *exception_object)
@@ -1002,7 +959,7 @@ void sub_23EDE2ED4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t _ZNSt3__16vectorIDv3_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv3_iNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1024,7 +981,7 @@ void sub_23EDE2F48(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void _ZNSt3__16vectorIDv3_iNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t a1, unint64_t a2)
+void _ZNSt3__16vectorIDv3_iNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -1046,7 +1003,7 @@ void _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv3_iEEEENS_19__allo
 
 void abpk::getJointPositionsAndMaximasLegacy(uint64_t a1, uint64_t a2, void *a3, void *a4, char a5, unsigned int a6, uint64_t a7, uint64_t a8, float32x4_t a9)
 {
-  v77 = *a3 - 1;
+  v76 = *a3 - 1;
   if (a5)
   {
     if (*a3 == 1)
@@ -1054,11 +1011,11 @@ void abpk::getJointPositionsAndMaximasLegacy(uint64_t a1, uint64_t a2, void *a3,
       return;
     }
 
-    v71 = *a3 - 1;
+    v70 = *a3 - 1;
     v9 = 0;
     v10 = 0;
     v11 = 0;
-    v81 = a3[1];
+    v80 = a3[1];
     if (a3[2] <= 1uLL)
     {
       v12 = 1;
@@ -1069,20 +1026,20 @@ void abpk::getJointPositionsAndMaximasLegacy(uint64_t a1, uint64_t a2, void *a3,
       v12 = a3[2];
     }
 
-    v79 = a3[2];
-    v80 = 2 * a4[1];
+    v78 = a3[2];
+    v79 = 2 * a4[1];
     do
     {
-      v75 = v10;
-      v76 = v9;
-      if (v81)
+      v74 = v10;
+      v75 = v9;
+      if (v80)
       {
         v13 = 0;
         v14 = (a7 + 24 * v10);
         v15 = *a4 * v9;
         v16 = a2 + v15;
         v17 = a1 + v15;
-        v18 = v79;
+        v18 = v78;
         do
         {
           if (v18)
@@ -1156,26 +1113,26 @@ void abpk::getJointPositionsAndMaximasLegacy(uint64_t a1, uint64_t a2, void *a3,
             }
 
             while (v12 != v19);
-            v18 = v79;
+            v18 = v78;
           }
 
           ++v13;
-          v16 += v80;
-          v17 += v80;
+          v16 += v79;
+          v17 += v79;
         }
 
-        while (v13 != v81);
+        while (v13 != v80);
       }
 
-      v10 = v75 + 1;
-      v9 = v76 + 2;
+      v10 = v74 + 1;
+      v9 = v75 + 2;
     }
 
-    while (v75 + 1 != v77);
+    while (v74 + 1 != v76);
     goto LABEL_50;
   }
 
-  v71 = *a3 - 1;
+  v70 = *a3 - 1;
   if (a6)
   {
     v32 = a1 + 4;
@@ -1254,21 +1211,20 @@ LABEL_73:
     while (v33);
   }
 
-  if (v71)
+  if (v70)
   {
     v11 = 0;
 LABEL_50:
     v48 = (a7 + 8);
-    v49 = v71;
+    v49 = v70;
     do
     {
       v50 = *(v48 - 1);
       v51 = *v48;
-      v83 = abpk::isDuplicate;
-      v52 = std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<abpk::peak *>,std::__wrap_iter<abpk::peak *>,BOOL (*&)(abpk::peak const&,abpk::peak const&)>(v50, v51, &v83);
+      v82 = abpk::isDuplicate;
+      v52 = std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<abpk::peak *>,std::__wrap_iter<abpk::peak *>,BOOL (*&)(abpk::peak const&,abpk::peak const&)>(v50, v51, &v82);
       if (v52 != *v48)
       {
-        v53 = *v48;
         *v48 = v52;
       }
 
@@ -1277,89 +1233,89 @@ LABEL_50:
     }
 
     while (v49);
-    v54 = 0;
+    v53 = 0;
     do
     {
-      v55 = (a7 + 24 * v54);
-      v56 = *v55;
-      if (((v55[1] - *v55) >> 4) >= 1)
+      v54 = (a7 + 24 * v53);
+      v55 = *v54;
+      if (((v54[1] - *v54) >> 4) >= 1)
       {
+        v56 = 0;
         v57 = 0;
-        v58 = 0;
-        v59 = a8;
-        v60 = *(a8 + 8);
+        v58 = a8;
+        v59 = *(a8 + 8);
         do
         {
-          v61 = (v56 + v57);
-          *(v56 + v57 + 12) = v11 + v58;
-          v62 = *(v59 + 16);
-          if (v60 >= v62)
+          v60 = (v55 + v56);
+          *(v55 + v56 + 12) = v11 + v57;
+          v61 = *(v58 + 16);
+          if (v59 >= v61)
           {
-            v63 = (v60 - *v59) >> 4;
-            if ((v63 + 1) >> 60)
+            v62 = (v59 - *v58) >> 4;
+            if ((v62 + 1) >> 60)
             {
               goto LABEL_73;
             }
 
-            v64 = v62 - *v59;
-            v65 = v64 >> 3;
-            if (v64 >> 3 <= (v63 + 1))
+            v63 = v61 - *v58;
+            v64 = v63 >> 3;
+            if (v63 >> 3 <= (v62 + 1))
             {
-              v65 = v63 + 1;
+              v64 = v62 + 1;
             }
 
-            if (v64 >= 0x7FFFFFFFFFFFFFF0)
+            if (v63 >= 0x7FFFFFFFFFFFFFF0)
             {
-              v66 = 0xFFFFFFFFFFFFFFFLL;
+              v65 = 0xFFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v66 = v65;
+              v65 = v64;
             }
 
-            if (v66)
+            if (v65)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<abpk::peak>>(v59, v66);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<abpk::peak>>(v58, v65);
             }
 
-            v67 = (16 * v63);
-            *v67 = *v61;
-            v60 = (16 * v63 + 16);
-            v68 = *(v59 + 8) - *v59;
-            v69 = v67 - v68;
-            memcpy(v67 - v68, *v59, v68);
-            v59 = a8;
-            v70 = *a8;
-            *a8 = v69;
-            *(a8 + 8) = v60;
+            v66 = (16 * v62);
+            *v66 = *v60;
+            v59 = (16 * v62 + 16);
+            v67 = *(v58 + 8) - *v58;
+            v68 = v66 - v67;
+            memcpy(v66 - v67, *v58, v67);
+            v58 = a8;
+            v69 = *a8;
+            *a8 = v68;
+            *(a8 + 8) = v59;
             *(a8 + 16) = 0;
-            if (v70)
+            if (v69)
             {
-              operator delete(v70);
-              v59 = a8;
+              operator delete(v69);
+              v58 = a8;
             }
           }
 
           else
           {
-            *v60++ = *v61;
+            *v59++ = *v60;
           }
 
-          *(v59 + 8) = v60;
-          ++v58;
-          v56 = *v55;
-          v57 += 16;
+          *(v58 + 8) = v59;
+          ++v57;
+          v55 = *v54;
+          v56 += 16;
         }
 
-        while (v58 < ((v55[1] - *v55) >> 4));
-        v11 += v58;
+        while (v57 < ((v54[1] - *v54) >> 4));
+        v11 += v57;
       }
 
-      ++v54;
+      ++v53;
     }
 
-    while (v54 != v77);
+    while (v53 != v76);
   }
 }
 
@@ -1408,37 +1364,37 @@ BOOL abpk::isDuplicate(_DWORD *a1, _DWORD *a2)
 
 void abpk::extractHumansLegacy(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, void *a6@<X5>, char a7@<W6>, unsigned int a8@<W7>, uint64_t *a9@<X8>)
 {
-  v196 = *MEMORY[0x277D85DE8];
-  v190 = 0;
-  memset(v189, 0, sizeof(v189));
-  v187 = 0;
-  v188[0] = 0;
-  v188[1] = 0;
-  abpk::getJointPositionsAndMaximasLegacy(a1, a2, a4, a6, a7, a8, v189, &v187, 0);
+  v195 = *MEMORY[0x277D85DE8];
+  v189 = 0;
+  memset(v188, 0, sizeof(v188));
+  v186 = 0;
+  v187[0] = 0;
+  v187[1] = 0;
+  abpk::getJointPositionsAndMaximasLegacy(a1, a2, a4, a6, a7, a8, v188, &v186, 0);
   v12 = 0;
-  v176 = *a4;
+  v175 = *a4;
   v13 = *a4 - 1;
-  memset(v195, 0, sizeof(v195));
+  memset(v194, 0, sizeof(v194));
   v14 = 1.0e-12;
   do
   {
-    v174 = v12;
+    v173 = v12;
     v15 = &abpk::bones[2 * v12];
     v17 = *v15;
     v16 = v15[1];
     __p[0] = 0;
     __p[1] = 0;
-    v186 = 0;
-    v18 = v189 + 3 * v17;
+    v185 = 0;
+    v18 = v188 + 3 * v17;
     v20 = *v18;
     v19 = v18[1];
-    v175 = v18;
+    v174 = v18;
     if (v19 != *v18)
     {
-      v182 = v189 + 3 * v16;
-      v21 = *v182;
-      v22 = v182[1];
-      if (v22 != *v182)
+      v181 = v188 + 3 * v16;
+      v21 = *v181;
+      v22 = v181[1];
+      if (v22 != *v181)
       {
         if (((v19 - v20) >> 4) < 1)
         {
@@ -1447,14 +1403,14 @@ void abpk::extractHumansLegacy(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<
 
         else
         {
-          v177 = 0;
-          v178 = (&abpk::s_bonesmap + 8 * v174);
+          v176 = 0;
+          v177 = (&abpk::s_bonesmap + 8 * v173);
           do
           {
             if (((v22 - v21) >> 4) >= 1)
             {
               v23 = 0;
-              v24 = v20 + 16 * v177;
+              v24 = v20 + 16 * v176;
               do
               {
                 v25 = (v21 + 16 * v23);
@@ -1464,18 +1420,18 @@ void abpk::extractHumansLegacy(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<
                 v29 = v28;
                 if (v28 >= v14)
                 {
-                  v181 = v21 + 16 * v23;
+                  v180 = v21 + 16 * v23;
                   v30 = v14;
                   v31 = 0;
                   v32 = 0;
-                  v180 = *(a5 + 8);
-                  v34 = *v178;
-                  v33 = v178[1];
+                  v179 = *(a5 + 8);
+                  v34 = *v177;
+                  v33 = v177[1];
                   v35 = v26 / v28;
                   v36 = v27 / v28;
-                  v192 = 0;
+                  v191 = 0;
                   __src = 0;
-                  v193 = 0;
+                  v192 = 0;
                   v37 = v26 / 10.0;
                   v38 = v27 / 10.0;
                   do
@@ -1486,7 +1442,7 @@ void abpk::extractHumansLegacy(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<
                     v40.i16[0] = *(a3 + 2 * *a6 * v34 + 2 * v41 + 2 * v39);
                     v40.i16[1] = *(a3 + 2 * *a6 * v33 + 2 * v41 + 2 * v39);
                     v42 = vcvtq_f32_f16(v40).u64[0];
-                    if (v31 >= v193)
+                    if (v31 >= v192)
                     {
                       v43 = (v31 - __src) >> 3;
                       if ((v43 + 1) >> 61)
@@ -1494,13 +1450,13 @@ void abpk::extractHumansLegacy(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<
                         std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
                       }
 
-                      v44 = (v193 - __src) >> 2;
+                      v44 = (v192 - __src) >> 2;
                       if (v44 <= v43 + 1)
                       {
                         v44 = v43 + 1;
                       }
 
-                      if (v193 - __src >= 0x7FFFFFFFFFFFFFF8)
+                      if (v192 - __src >= 0x7FFFFFFFFFFFFFF8)
                       {
                         v45 = 0x1FFFFFFFFFFFFFFFLL;
                       }
@@ -1518,12 +1474,12 @@ void abpk::extractHumansLegacy(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<
                       v46 = (8 * v43);
                       *v46 = v42;
                       v31 = (8 * v43 + 8);
-                      v47 = v46 - (v192 - __src);
-                      memcpy(v47, __src, v192 - __src);
+                      v47 = v46 - (v191 - __src);
+                      memcpy(v47, __src, v191 - __src);
                       v48 = __src;
                       __src = v47;
-                      v192 = v31;
-                      v193 = 0;
+                      v191 = v31;
+                      v192 = 0;
                       if (v48)
                       {
                         operator delete(v48);
@@ -1535,7 +1491,7 @@ void abpk::extractHumansLegacy(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<
                       *v31++ = v42;
                     }
 
-                    v192 = v31;
+                    v191 = v31;
                     ++v32;
                   }
 
@@ -1556,23 +1512,23 @@ void abpk::extractHumansLegacy(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<
                   }
 
                   while (v49 != 80);
-                  v192 = __src;
+                  v191 = __src;
                   operator delete(__src);
                   v14 = v30;
                   if (v50 >= 7)
                   {
-                    v53 = fmin(v180 * 0.5 / v29 + -1.0, 0.0) + v51 / 10.0;
+                    v53 = fmin(v179 * 0.5 / v29 + -1.0, 0.0) + v51 / 10.0;
                     if (v53 > 0.0)
                     {
                       _H0 = *(v24 + 8);
                       __asm { FCVT            S0, H0 }
 
-                      _H1 = *(v181 + 8);
+                      _H1 = *(v180 + 8);
                       __asm { FCVT            S1, H1 }
 
                       v62 = (v53 + _S0) + _S1;
                       v63 = __p[1];
-                      if (__p[1] >= v186)
+                      if (__p[1] >= v185)
                       {
                         v65 = __p[0];
                         v66 = __p[1] - __p[0];
@@ -1583,8 +1539,8 @@ void abpk::extractHumansLegacy(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<
                           std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
                         }
 
-                        v69 = v186 - __p[0];
-                        if ((v186 - __p[0]) >> 3 > v68)
+                        v69 = v185 - __p[0];
+                        if ((v185 - __p[0]) >> 3 > v68)
                         {
                           v68 = v69 >> 3;
                         }
@@ -1601,7 +1557,7 @@ void abpk::extractHumansLegacy(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<
 
                         v70 = (__p[1] - __p[0]) >> 4;
                         v71 = 16 * v67;
-                        *v71 = v177;
+                        *v71 = v176;
                         *(v71 + 4) = v23;
                         *(v71 + 8) = v53;
                         *(v71 + 12) = v62;
@@ -1611,7 +1567,7 @@ void abpk::extractHumansLegacy(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<
                         v73 = __p[0];
                         __p[0] = v72;
                         __p[1] = v64;
-                        v186 = 0;
+                        v185 = 0;
                         if (v73)
                         {
                           operator delete(v73);
@@ -1620,7 +1576,7 @@ void abpk::extractHumansLegacy(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<
 
                       else
                       {
-                        *__p[1] = v177;
+                        *__p[1] = v176;
                         *(v63 + 1) = v23;
                         v64 = v63 + 4;
                         v63[2] = v53;
@@ -1633,20 +1589,20 @@ void abpk::extractHumansLegacy(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<
                 }
 
                 ++v23;
-                v21 = *v182;
-                v22 = v182[1];
+                v21 = *v181;
+                v22 = v181[1];
               }
 
-              while (v23 < ((v22 - *v182) >> 4));
-              v13 = v176 - 1;
-              v20 = *v175;
-              v19 = v175[1];
+              while (v23 < ((v22 - *v181) >> 4));
+              v13 = v175 - 1;
+              v20 = *v174;
+              v19 = v174[1];
             }
 
-            ++v177;
+            ++v176;
           }
 
-          while (v177 < ((v19 - v20) >> 4));
+          while (v176 < ((v19 - v20) >> 4));
           v74 = *__p;
         }
 
@@ -1668,7 +1624,7 @@ void abpk::extractHumansLegacy(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<
         if (((__p[1] - __p[0]) >> 4) >= 1)
         {
           v79 = 0;
-          v80 = v195 + 3 * v174;
+          v80 = v194 + 3 * v173;
           v81 = v80[1];
           do
           {
@@ -1682,8 +1638,8 @@ void abpk::extractHumansLegacy(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<
               v89 = v82[1];
 LABEL_59:
               v90 = v82[2];
-              v91 = *(*v175 + 16 * v86 + 12);
-              v92 = *(*v182 + 16 * v89 + 12);
+              v91 = *(*v174 + 16 * v86 + 12);
+              v92 = *(*v181 + 16 * v89 + 12);
               v93 = v80[2];
               if (v81 >= v93)
               {
@@ -1743,7 +1699,7 @@ LABEL_59:
                 v81 += 5;
               }
 
-              v13 = v176 - 1;
+              v13 = v175 - 1;
               v80[1] = v81;
               v77 = __p[0];
               v78 = __p[1];
@@ -1768,7 +1724,7 @@ LABEL_59:
                 }
               }
 
-              v13 = v176 - 1;
+              v13 = v175 - 1;
             }
 
             ++v79;
@@ -1785,19 +1741,19 @@ LABEL_59:
       }
     }
 
-    v12 = v174 + 1;
+    v12 = v173 + 1;
   }
 
-  while (v174 != 15);
+  while (v173 != 15);
   v100 = 0;
-  v101 = 4 * v176;
-  v192 = 0;
+  v101 = 4 * v175;
+  v191 = 0;
   __src = 0;
-  v193 = 0;
+  v192 = 0;
   do
   {
-    v183 = v100;
-    v102 = v195 + 3 * v100;
+    v182 = v100;
+    v102 = v194 + 3 * v100;
     v103 = *v102;
     if ((-858993459 * ((v102[1] - *v102) >> 2)) >= 1)
     {
@@ -1807,9 +1763,9 @@ LABEL_59:
       v106 = v105[1];
       do
       {
-        v108 = v192;
+        v108 = v191;
         v109 = __src;
-        v110 = -1431655765 * ((v192 - __src) >> 3);
+        v110 = -1431655765 * ((v191 - __src) >> 3);
         if (v110 < 1)
         {
           goto LABEL_101;
@@ -1854,8 +1810,8 @@ LABEL_59:
             if (*(v129 + 4 * v106) != v130)
             {
               *(v129 + 4 * v106) = v130;
-              *(v129 + 4 * v176) = *(v129 + 4 * v176) + 1.0;
-              _H0 = *(v187 + 8 * v130 + 4);
+              *(v129 + 4 * v175) = *(v129 + 4 * v175) + 1.0;
+              _H0 = *(v186 + 8 * v130 + 4);
               __asm { FCVT            S0, H0 }
 
               *(v129 + 4 * v13) = *(v129 + 4 * v13) + (*(v115 + 8) + _S0);
@@ -1875,7 +1831,7 @@ LABEL_59:
                 while (*(*v120 + 4 * v119) > 0.0 && *(*v121 + 4 * v119) > 0.0)
                 {
                   v122 = 0;
-                  if (v176 - 2 == v119++)
+                  if (v175 - 2 == v119++)
                   {
                     goto LABEL_121;
                   }
@@ -1891,8 +1847,8 @@ LABEL_121:
                 v144 = *(v115 + 4);
                 v145 = *v120;
                 *(*v120 + 4 * v106) = v144;
-                *(v145 + 4 * v176) = *(v145 + 4 * v176) + 1.0;
-                _H0 = *(v187 + 8 * v144 + 4);
+                *(v145 + 4 * v175) = *(v145 + 4 * v175) + 1.0;
+                _H0 = *(v186 + 8 * v144 + 4);
                 __asm { FCVT            S0, H0 }
 
                 *(v145 + 4 * v13) = *(v145 + 4 * v13) + (*(v115 + 8) + _S0);
@@ -1918,7 +1874,7 @@ LABEL_121:
             }
 
             v136 = v101;
-            *(v135 + 4 * v176) = *(v134 + 4 * v176) + *(v135 + 4 * v176);
+            *(v135 + 4 * v175) = *(v134 + 4 * v175) + *(v135 + 4 * v175);
             v137 = *(v134 + 4 * v13) + *(v135 + 4 * v13);
             *(v135 + 4 * v13) = v137;
             *(v135 + 4 * v13) = v137 + *(v103 + 20 * v104 + 8);
@@ -1934,7 +1890,7 @@ LABEL_121:
               }
 
               while (v140 != v108);
-              v108 = v192;
+              v108 = v191;
               v138 = v139;
             }
 
@@ -1958,7 +1914,7 @@ LABEL_121:
               while (v141 != v138);
             }
 
-            v192 = v138;
+            v191 = v138;
             v101 = v136;
           }
         }
@@ -1966,9 +1922,9 @@ LABEL_121:
         else
         {
 LABEL_101:
-          std::vector<float>::vector[abi:ne200100](__p, v176 + 1);
+          std::vector<float>::vector[abi:ne200100](__p, v175 + 1);
           v123 = __p[0];
-          if (v176 != -1)
+          if (v175 != -1)
           {
             memset_pattern16(__p[0], &unk_23EE28350, v101 + 4);
           }
@@ -1978,8 +1934,8 @@ LABEL_101:
           v123[v107] = v125;
           v126 = *(v124 + 1);
           v123[v106] = v126;
-          v123[v176] = 2.0;
-          _H0 = *(v187 + 8 * v125 + 4) + *(v187 + 8 * v126 + 4);
+          v123[v175] = 2.0;
+          _H0 = *(v186 + 8 * v125 + 4) + *(v186 + 8 * v126 + 4);
           __asm { FCVT            S0, H0 }
 
           v123[v13] = v124[2] + _S0;
@@ -1999,12 +1955,12 @@ LABEL_122:
       while (v104 < (-858993459 * ((v102[1] - *v102) >> 2)));
     }
 
-    v100 = v183 + 1;
+    v100 = v182 + 1;
   }
 
-  while (v183 != 15);
-  v148 = v192;
-  v149 = (v192 - __src) >> 3;
+  while (v182 != 15);
+  v148 = v191;
+  v149 = (v191 - __src) >> 3;
   v150 = 0xAAAAAAAAAAAAAAABLL * v149;
   if (-1431655765 * v149 >= 1)
   {
@@ -2012,7 +1968,7 @@ LABEL_122:
     do
     {
       v152 = *(__src + 3 * v151 - 3);
-      v153 = *(v152 + 4 * v176);
+      v153 = *(v152 + 4 * v175);
       if (v153 < 8.0 || (*(v152 + 4 * v13) / v153) < 0.3)
       {
         v154 = __src + 24 * v151 - 24;
@@ -2033,7 +1989,7 @@ LABEL_122:
           }
 
           while (v156 != v148);
-          v157 = v192;
+          v157 = v191;
           v148 = v155;
         }
 
@@ -2057,7 +2013,7 @@ LABEL_122:
           while (v158 != v148);
         }
 
-        v192 = v148;
+        v191 = v148;
       }
     }
 
@@ -2069,33 +2025,33 @@ LABEL_122:
   a9[1] = 0;
   a9[2] = 0;
   std::vector<abpk::Human>::reserve(a9, v150);
-  if (v192 != __src)
+  if (v191 != __src)
   {
     v162 = 0;
     __asm { FMOV            V8.2S, #-1.0 }
 
     do
     {
-      v184 = *(a5 + 8);
+      v183 = *(a5 + 8);
       __p[1] = 0;
-      v186 = 0;
+      v185 = 0;
       __p[0] = 0;
       _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE7reserveEm(__p, 0x11uLL);
       v164 = 0;
-      v165 = vrev64_s32(vcvt_f32_f64(vcvtq_f64_u64(v184)));
+      v165 = vrev64_s32(vcvt_f32_f64(vcvtq_f64_u64(v183)));
       do
       {
         if (*(*(__src + 3 * v162) + v164) < 0)
         {
-          v194 = _D8;
+          v193 = _D8;
         }
 
         else
         {
-          v194 = vdiv_f32(vcvt_f32_s32(*(v187 + 16 * *(*(__src + 3 * v162) + v164))), v165);
+          v193 = vdiv_f32(vcvt_f32_s32(*(v186 + 16 * *(*(__src + 3 * v162) + v164))), v165);
         }
 
-        _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(__p, &v194);
+        _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(__p, &v193);
         v164 += 4;
       }
 
@@ -2122,7 +2078,7 @@ LABEL_122:
       ++v162;
     }
 
-    while (0xAAAAAAAAAAAAAAABLL * ((v192 - __src) >> 3) > v162);
+    while (0xAAAAAAAAAAAAAAABLL * ((v191 - __src) >> 3) > v162);
   }
 
   __p[0] = &__src;
@@ -2130,10 +2086,10 @@ LABEL_122:
   v168 = 48;
   do
   {
-    v169 = (&v192)[v168];
+    v169 = (&v191)[v168];
     if (v169)
     {
-      *(&v193 + v168 * 8) = v169;
+      *(&v192 + v168 * 8) = v169;
       operator delete(v169);
     }
 
@@ -2141,19 +2097,19 @@ LABEL_122:
   }
 
   while (v168 * 8);
-  if (v187)
+  if (v186)
   {
-    v188[0] = v187;
-    operator delete(v187);
+    v187[0] = v186;
+    operator delete(v186);
   }
 
   v170 = 51;
   do
   {
-    v171 = v188[v170 - 1];
+    v171 = v187[v170 - 1];
     if (v171)
     {
-      v188[v170] = v171;
+      v187[v170] = v171;
       operator delete(v171);
     }
 
@@ -2161,10 +2117,9 @@ LABEL_122:
   }
 
   while (v170 * 8);
-  v172 = *MEMORY[0x277D85DE8];
 }
 
-void sub_23EDE4554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27)
+void sub_23EDE4554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, unint64_t *a23, uint64_t a24, uint64_t a25, void *__p, __int128 a27)
 {
   a23 = a10;
   std::vector<abpk::Human>::__destroy_vector::operator()[abi:ne200100](&a23);
@@ -2185,7 +2140,7 @@ void sub_23EDE4554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     {
       if (__p)
       {
-        a27 = __p;
+        *&a27 = __p;
         operator delete(__p);
       }
 
@@ -2218,7 +2173,7 @@ BOOL abpk::compareCandidate(uint64_t a1, int a2, uint64_t a3, int a4)
   return *&a2 > *&a4;
 }
 
-uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t a1, const void **a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -2229,21 +2184,19 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t a1, u
   else
   {
     std::vector<std::vector<float>>::__construct_one_at_end[abi:ne200100]<std::vector<float> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
   return result;
 }
 
-void *std::vector<abpk::Human>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<abpk::Human>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0xEEEEEEEEEEEEEEEFLL * ((result[2] - *result) >> 3) < a2)
   {
     if (a2 < 0x222222222222223)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<abpk::Human>>(result, a2);
     }
 
@@ -2253,27 +2206,24 @@ void *std::vector<abpk::Human>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_23EDE47A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23EDE47A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<abpk::Human>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE7reserveEm(void *result, unint64_t a2)
+void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE7reserveEm(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(a1, a2);
     }
 
     std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(uint64_t a1, void *a2)
@@ -2388,18 +2338,18 @@ LABEL_6:
   return v4;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*,false>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*,false>(uint64_t *result, char *a2, uint64_t (**a3)(uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a4, char a5)
 {
 LABEL_1:
-  v53 = a2 - 4;
-  v54 = a2 - 2;
-  v52 = a2 - 6;
-  v9 = a1;
+  v53 = a2 - 32;
+  v54 = a2 - 16;
+  v52 = a2 - 48;
+  v9 = result;
 LABEL_2:
   v10 = 1 - a4;
   while (1)
   {
-    a1 = v9;
+    result = v9;
     v11 = v10;
     v12 = (a2 - v9) >> 4;
     if (v12 <= 2)
@@ -2413,7 +2363,7 @@ LABEL_2:
       {
         v47 = *(a2 - 2);
         v48 = *(a2 - 1);
-        v49 = a2 - 2;
+        v49 = a2 - 16;
         if ((*a3)(v47, v48, *v9, v9[1]))
         {
           v73 = *v9;
@@ -2486,7 +2436,7 @@ LABEL_10:
         if (v16)
         {
           v55 = *v9;
-          v17 = a2 - 2;
+          v17 = a2 - 16;
           *v9 = *v54;
           goto LABEL_28;
         }
@@ -2497,7 +2447,7 @@ LABEL_10:
         if ((*a3)(*(a2 - 2), *(a2 - 1), *v13, v13[1]))
         {
           v55 = *v13;
-          v17 = a2 - 2;
+          v17 = a2 - 16;
           *v13 = *v54;
 LABEL_28:
           *v17 = v55;
@@ -2519,14 +2469,14 @@ LABEL_28:
 
       v21 = (v9 + 2);
       v22 = v13 - 2;
-      v23 = (*a3)(*(v13 - 2), *(v13 - 1), a1[2], a1[3]);
+      v23 = (*a3)(*(v13 - 2), *(v13 - 1), result[2], result[3]);
       v24 = (*a3)(*(a2 - 4), *(a2 - 3), *(v13 - 2), *(v13 - 1));
       if (v23)
       {
         if (v24)
         {
           v25 = *v21;
-          v26 = a2 - 4;
+          v26 = a2 - 32;
           *v21 = *v53;
           goto LABEL_42;
         }
@@ -2537,7 +2487,7 @@ LABEL_28:
         if ((*a3)(*(a2 - 4), *(a2 - 3), *v22, *(v13 - 1)))
         {
           v64 = *v22;
-          v26 = a2 - 4;
+          v26 = a2 - 32;
           *v22 = *v53;
           v25 = v64;
 LABEL_42:
@@ -2550,7 +2500,7 @@ LABEL_42:
         v62 = *v22;
         *v22 = *v53;
         *v53 = v62;
-        if ((*a3)(*v22, *(v13 - 1), a1[2], a1[3]))
+        if ((*a3)(*v22, *(v13 - 1), result[2], result[3]))
         {
           v27 = *v21;
           *v21 = *v22;
@@ -2558,16 +2508,16 @@ LABEL_42:
         }
       }
 
-      v29 = (a1 + 4);
+      v29 = (result + 4);
       v30 = v13 + 2;
-      v31 = (*a3)(v13[2], v13[3], a1[4], a1[5]);
+      v31 = (*a3)(v13[2], v13[3], result[4], result[5]);
       v32 = (*a3)(*(a2 - 6), *(a2 - 5), v13[2], v13[3]);
       if (v31)
       {
         if (v32)
         {
           v33 = *v29;
-          v34 = a2 - 6;
+          v34 = a2 - 48;
           *v29 = *v52;
           goto LABEL_51;
         }
@@ -2578,7 +2528,7 @@ LABEL_42:
         if ((*a3)(*(a2 - 6), *(a2 - 5), *v30, v13[3]))
         {
           v66 = *v30;
-          v34 = a2 - 6;
+          v34 = a2 - 48;
           *v30 = *v52;
           v33 = v66;
 LABEL_51:
@@ -2591,7 +2541,7 @@ LABEL_51:
         v65 = *v30;
         *v30 = *v52;
         *v52 = v65;
-        if ((*a3)(*v30, v13[3], a1[4], a1[5]))
+        if ((*a3)(*v30, v13[3], result[4], result[5]))
         {
           v35 = *v29;
           *v29 = *v30;
@@ -2635,8 +2585,8 @@ LABEL_60:
         }
       }
 
-      v71 = *a1;
-      *a1 = *v13;
+      v71 = *result;
+      *result = *v13;
       *v13 = v71;
       if (a5)
       {
@@ -2653,7 +2603,7 @@ LABEL_60:
       if (v19)
       {
         v56 = *v13;
-        v20 = a2 - 2;
+        v20 = a2 - 16;
         *v13 = *v54;
         goto LABEL_37;
       }
@@ -2664,7 +2614,7 @@ LABEL_60:
       if ((*a3)(*(a2 - 2), *(a2 - 1), *v9, v9[1]))
       {
         v56 = *v9;
-        v20 = a2 - 2;
+        v20 = a2 - 16;
         *v9 = *v54;
 LABEL_37:
         *v20 = v56;
@@ -2701,22 +2651,22 @@ LABEL_38:
     }
 
 LABEL_62:
-    if (((*a3)(*(a1 - 2), *(a1 - 1), *a1, a1[1]) & 1) == 0)
+    if (((*a3)(*(result - 2), *(result - 1), *result, result[1]) & 1) == 0)
     {
-      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,abpk::Candidate *,BOOL (*&)(abpk::Candidate,abpk::Candidate)>(a1, a2, a3);
+      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,abpk::Candidate *,BOOL (*&)(abpk::Candidate,abpk::Candidate)>(result, a2, a3);
       goto LABEL_68;
     }
 
 LABEL_63:
-    v39 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,abpk::Candidate *,BOOL (*&)(abpk::Candidate,abpk::Candidate)>(a1, a2, a3);
+    v39 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,abpk::Candidate *,BOOL (*&)(abpk::Candidate,abpk::Candidate)>(result, a2, a3);
     if ((v40 & 1) == 0)
     {
       goto LABEL_66;
     }
 
-    v41 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*>(a1, v39, a3);
-    v9 = v39 + 2;
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*>(v39 + 2, a2, a3))
+    v41 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*>(result, v39, a3);
+    v9 = (v39 + 16);
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*>(v39 + 16, a2, a3))
     {
       a4 = -v11;
       a2 = v39;
@@ -2732,8 +2682,8 @@ LABEL_63:
     if (!v41)
     {
 LABEL_66:
-      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*,false>(a1, v39, a3, -v11, a5 & 1);
-      v9 = v39 + 2;
+      std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*,false>(result, v39, a3, -v11, a5 & 1);
+      v9 = (v39 + 16);
 LABEL_68:
       a5 = 0;
       a4 = -v11;
@@ -2743,7 +2693,7 @@ LABEL_68:
 
   v42 = v9 + 2;
   v43 = (*a3)(v9[2], v9[3], *v9, v9[1]);
-  v44 = a2 - 2;
+  v44 = a2 - 16;
   v45 = (*a3)(*(a2 - 2), *(a2 - 1), v9[2], v9[3]);
   if (v43)
   {
@@ -2878,7 +2828,7 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candida
   return result;
 }
 
-uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*>(uint64_t result, void *a2, uint64_t (**a3)(uint64_t, uint64_t, void, void))
+uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*>(uint64_t result, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
   if (result != a2)
   {
@@ -2932,7 +2882,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*>(uint64_t result, void *a2, uint64_t (**a3)(uint64_t, uint64_t, void, void))
+uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*>(uint64_t result, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
   if (result != a2)
   {
@@ -2951,7 +2901,7 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BO
           v10 = v7;
           do
           {
-            v11 = v10 - 1;
+            v11 = v10 - 2;
             *v10 = *(v10 - 1);
             result = (*a3)(v8, v9, *(v10 - 4), *(v10 - 3));
             v10 = v11;
@@ -2973,7 +2923,7 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BO
   return result;
 }
 
-void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,abpk::Candidate *,BOOL (*&)(abpk::Candidate,abpk::Candidate)>(void *a1, _OWORD *a2, uint64_t (**a3)(uint64_t, uint64_t, uint64_t, uint64_t))
+uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,abpk::Candidate *,BOOL (*&)(abpk::Candidate,abpk::Candidate)>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
   v4 = a2;
   v6 = *a1;
@@ -3014,7 +2964,8 @@ void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,
     do
     {
       v13 = *(v4 - 2);
-      v14 = *(v4-- - 1);
+      v14 = *(v4 - 1);
+      v4 -= 2;
     }
 
     while (((*a3)(v6, v7, v13, v14) & 1) != 0);
@@ -3036,7 +2987,8 @@ void *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,
     do
     {
       v17 = *(v4 - 2);
-      v18 = *(v4-- - 1);
+      v18 = *(v4 - 1);
+      v4 -= 2;
     }
 
     while (((*a3)(v6, v7, v17, v18) & 1) != 0);
@@ -3135,7 +3087,7 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*>(void *a1, char *a2, uint64_t (**a3)(uint64_t, uint64_t, void, void))
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*>(char *a1, char *a2, uint64_t (**a3)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
   v6 = (a2 - a1) >> 4;
   if (v6 > 2)
@@ -3143,10 +3095,10 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
     switch(v6)
     {
       case 3:
-        v9 = a1 + 2;
-        v10 = (*a3)(a1[2], a1[3], *a1, a1[1]);
+        v9 = (a1 + 16);
+        v10 = (*a3)(*(a1 + 2), *(a1 + 3), *a1, *(a1 + 1));
         v11 = a2 - 16;
-        v12 = (*a3)(*(a2 - 2), *(a2 - 1), *v9, a1[3]);
+        v12 = (*a3)(*(a2 - 2), *(a2 - 1), *v9, *(a1 + 3));
         if ((v10 & 1) == 0)
         {
           if (v12)
@@ -3154,7 +3106,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
             v19 = *v9;
             *v9 = *v11;
             *v11 = v19;
-            if ((*a3)(a1[2], a1[3], *a1, a1[1]))
+            if ((*a3)(*(a1 + 2), *(a1 + 3), *a1, *(a1 + 1)))
             {
               v20 = *a1;
               *a1 = *v9;
@@ -3176,7 +3128,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
           v23 = *a1;
           *a1 = *v9;
           *v9 = v23;
-          if (!(*a3)(*(a2 - 2), *(a2 - 1), a1[2], a1[3]))
+          if (!(*a3)(*(a2 - 2), *(a2 - 1), *(a1 + 2), *(a1 + 3)))
           {
             return 1;
           }
@@ -3208,7 +3160,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
   if (v6 == 2)
   {
     v7 = a2 - 16;
-    if ((*a3)(*(a2 - 2), *(a2 - 1), *a1, a1[1]))
+    if ((*a3)(*(a2 - 2), *(a2 - 1), *a1, *(a1 + 1)))
     {
       v8 = *a1;
       *a1 = *v7;
@@ -3219,10 +3171,10 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
   }
 
 LABEL_13:
-  v14 = a1 + 2;
-  v15 = (*a3)(a1[2], a1[3], *a1, a1[1]);
-  v16 = (a1 + 4);
-  v17 = (*a3)(a1[4], a1[5], *v14, a1[3]);
+  v14 = (a1 + 16);
+  v15 = (*a3)(*(a1 + 2), *(a1 + 3), *a1, *(a1 + 1));
+  v16 = (a1 + 32);
+  v17 = (*a3)(*(a1 + 4), *(a1 + 5), *v14, *(a1 + 3));
   if (v15)
   {
     if (v17)
@@ -3236,7 +3188,7 @@ LABEL_13:
       v24 = *a1;
       *a1 = *v14;
       *v14 = v24;
-      if (!(*a3)(a1[4], a1[5], a1[2], a1[3]))
+      if (!(*a3)(*(a1 + 4), *(a1 + 5), *(a1 + 2), *(a1 + 3)))
       {
         goto LABEL_29;
       }
@@ -3253,7 +3205,7 @@ LABEL_13:
     v21 = *v14;
     *v14 = *v16;
     *v16 = v21;
-    if ((*a3)(a1[2], a1[3], *a1, a1[1]))
+    if ((*a3)(*(a1 + 2), *(a1 + 3), *a1, *(a1 + 1)))
     {
       v22 = *a1;
       *a1 = *v14;
@@ -3262,8 +3214,8 @@ LABEL_13:
   }
 
 LABEL_29:
-  v25 = (a1 + 6);
-  if (a1 + 6 == a2)
+  v25 = (a1 + 48);
+  if (a1 + 48 == a2)
   {
     return 1;
   }
@@ -3272,15 +3224,15 @@ LABEL_29:
   v27 = 0;
   while (1)
   {
-    if ((*a3)(*v25, *(v25 + 1), *v16, *(v16 + 1)))
+    if ((*a3)(*v25, v25[1], *v16, v16[1]))
     {
       v28 = *v25;
-      v29 = *(v25 + 1);
+      v29 = v25[1];
       v30 = v26;
       while (1)
       {
-        v31 = a1 + v30;
-        *(a1 + v30 + 48) = *(a1 + v30 + 32);
+        v31 = &a1[v30];
+        *&a1[v30 + 48] = *&a1[v30 + 32];
         if (v30 == -32)
         {
           break;
@@ -3289,7 +3241,7 @@ LABEL_29:
         v30 -= 16;
         if (((*a3)(v28, v29, *(v31 + 2), *(v31 + 3)) & 1) == 0)
         {
-          v32 = (a1 + v30 + 48);
+          v32 = &a1[v30 + 48];
           goto LABEL_37;
         }
       }
@@ -3297,16 +3249,16 @@ LABEL_29:
       v32 = a1;
 LABEL_37:
       *v32 = v28;
-      v32[1] = v29;
+      *(v32 + 1) = v29;
       if (++v27 == 8)
       {
-        return v25 + 16 == a2;
+        return v25 + 2 == a2;
       }
     }
 
     v16 = v25;
     v26 += 16;
-    v25 += 16;
+    v25 += 2;
     if (v25 == a2)
     {
       return 1;
@@ -3314,7 +3266,7 @@ LABEL_37:
   }
 }
 
-char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*,abpk::Candidate*>(char *a1, char *a2, char *a3, uint64_t (**a4)(void, void, uint64_t, uint64_t))
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*,abpk::Candidate*>(char *a1, char *a2, char *a3, uint64_t (**a4)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
   if (a1 != a2)
   {
@@ -3484,7 +3436,7 @@ _OWORD *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(ab
   return v9;
 }
 
-uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*>(uint64_t result, uint64_t a2, uint64_t (**a3)(void, void, uint64_t, uint64_t), uint64_t a4)
+uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(abpk::Candidate,abpk::Candidate),abpk::Candidate*>(uint64_t result, uint64_t a2, uint64_t (**a3)(uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a4)
 {
   v4 = a4 - 2;
   if (a4 >= 2)
@@ -3592,17 +3544,17 @@ __n128 std::vector<float>::__move_assign(uint64_t a1, __n128 *a2)
   return result;
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23EDE6150(_Unwind_Exception *exception_object)
@@ -3617,7 +3569,7 @@ void sub_23EDE6150(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -3637,7 +3589,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(uint64_t a1, 
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::vector<float>>::__construct_one_at_end[abi:ne200100]<std::vector<float> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<float>>::__construct_one_at_end[abi:ne200100]<std::vector<float> const&>(uint64_t a1, const void **a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
@@ -3648,21 +3600,21 @@ uint64_t std::vector<std::vector<float>>::__construct_one_at_end[abi:ne200100]<s
   return result;
 }
 
-uint64_t std::vector<std::vector<float>>::__emplace_back_slow_path<std::vector<float> const&>(uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<float>>::__emplace_back_slow_path<std::vector<float> const&>(char **a1, const void **a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -3686,16 +3638,16 @@ uint64_t std::vector<std::vector<float>>::__emplace_back_slow_path<std::vector<f
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((24 * v2), *a2, a2[1], (a2[1] - *a2) >> 2);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -3704,14 +3656,14 @@ uint64_t std::vector<std::vector<float>>::__emplace_back_slow_path<std::vector<f
   return v8;
 }
 
-void sub_23EDE6360(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23EDE6360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3787,14 +3739,14 @@ void std::vector<abpk::Human>::__destroy_vector::operator()[abi:ne200100](void *
   }
 }
 
-void std::vector<abpk::Human>::__base_destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<abpk::Human>::__base_destruct_at_end[abi:ne200100](uint64_t result, uint64_t a2)
 {
-  for (i = *(a1 + 8); i != a2; std::allocator_traits<std::allocator<abpk::Human>>::destroy[abi:ne200100]<abpk::Human,0>(a1, i))
+  for (i = *(result + 8); i != a2; std::allocator_traits<std::allocator<abpk::Human>>::destroy[abi:ne200100]<abpk::Human,0>(result, i))
   {
     i -= 120;
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 void std::allocator_traits<std::allocator<abpk::Human>>::destroy[abi:ne200100]<abpk::Human,0>(uint64_t a1, uint64_t a2)
@@ -4026,9 +3978,9 @@ uint64_t _ZNSt3__16vectorIN4abpk5HumanENS_9allocatorIS2_EEE24__emplace_back_slow
   return v12;
 }
 
-void sub_23EDE6A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23EDE6A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<abpk::Human>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4136,17 +4088,17 @@ double simd_matrix4x4(float32x4_t a1)
   return v11;
 }
 
-void *std::vector<ABPKTransform>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<ABPKTransform>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<ABPKTransform>::__vallocate[abi:ne200100](result, a2);
+    std::vector<ABPKTransform>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23EDE82F0(_Unwind_Exception *exception_object)
@@ -4161,7 +4113,7 @@ void sub_23EDE82F0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<ABPKTransform>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ABPKTransform>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -4181,17 +4133,17 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<ABPKTransform>>(uint6
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<simd_float4x4>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<simd_float4x4>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<simd_float4x4>::__vallocate[abi:ne200100](result, a2);
+    std::vector<simd_float4x4>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23EDE83EC(_Unwind_Exception *exception_object)
@@ -4206,7 +4158,7 @@ void sub_23EDE83EC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<simd_float4x4>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<simd_float4x4>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 58))
   {
@@ -4331,7 +4283,7 @@ void std::vector<abpk::Human>::clear[abi:ne200100](uint64_t *a1)
 
 void abpk::getJointPositionsAndMaximas(uint64_t a1, uint64_t a2, void *a3, void *a4, char a5, unsigned int a6, uint64_t a7, uint64_t a8, float32x4_t a9)
 {
-  v77 = *a3 - 1;
+  v76 = *a3 - 1;
   if (a5)
   {
     if (*a3 == 1)
@@ -4339,11 +4291,11 @@ void abpk::getJointPositionsAndMaximas(uint64_t a1, uint64_t a2, void *a3, void 
       return;
     }
 
-    v71 = *a3 - 1;
+    v70 = *a3 - 1;
     v9 = 0;
     v10 = 0;
     v11 = 0;
-    v81 = a3[1];
+    v80 = a3[1];
     if (a3[2] <= 1uLL)
     {
       v12 = 1;
@@ -4354,20 +4306,20 @@ void abpk::getJointPositionsAndMaximas(uint64_t a1, uint64_t a2, void *a3, void 
       v12 = a3[2];
     }
 
-    v79 = a3[2];
-    v80 = 2 * a4[1];
+    v78 = a3[2];
+    v79 = 2 * a4[1];
     do
     {
-      v75 = v10;
-      v76 = v9;
-      if (v81)
+      v74 = v10;
+      v75 = v9;
+      if (v80)
       {
         v13 = 0;
         v14 = (a7 + 24 * v10);
         v15 = *a4 * v9;
         v16 = a2 + v15;
         v17 = a1 + v15;
-        v18 = v79;
+        v18 = v78;
         do
         {
           if (v18)
@@ -4441,26 +4393,26 @@ void abpk::getJointPositionsAndMaximas(uint64_t a1, uint64_t a2, void *a3, void 
             }
 
             while (v12 != v19);
-            v18 = v79;
+            v18 = v78;
           }
 
           ++v13;
-          v16 += v80;
-          v17 += v80;
+          v16 += v79;
+          v17 += v79;
         }
 
-        while (v13 != v81);
+        while (v13 != v80);
       }
 
-      v10 = v75 + 1;
-      v9 = v76 + 2;
+      v10 = v74 + 1;
+      v9 = v75 + 2;
     }
 
-    while (v75 + 1 != v77);
+    while (v74 + 1 != v76);
     goto LABEL_50;
   }
 
-  v71 = *a3 - 1;
+  v70 = *a3 - 1;
   if (a6)
   {
     v32 = a1 + 4;
@@ -4539,21 +4491,20 @@ LABEL_73:
     while (v33);
   }
 
-  if (v71)
+  if (v70)
   {
     v11 = 0;
 LABEL_50:
     v48 = (a7 + 8);
-    v49 = v71;
+    v49 = v70;
     do
     {
       v50 = *(v48 - 1);
       v51 = *v48;
-      v83 = abpk::isDuplicate;
-      v52 = std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<abpk::peak *>,std::__wrap_iter<abpk::peak *>,BOOL (*&)(abpk::peak const&,abpk::peak const&)>(v50, v51, &v83);
+      v82 = abpk::isDuplicate;
+      v52 = std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<abpk::peak *>,std::__wrap_iter<abpk::peak *>,BOOL (*&)(abpk::peak const&,abpk::peak const&)>(v50, v51, &v82);
       if (v52 != *v48)
       {
-        v53 = *v48;
         *v48 = v52;
       }
 
@@ -4562,125 +4513,125 @@ LABEL_50:
     }
 
     while (v49);
-    v54 = 0;
+    v53 = 0;
     do
     {
-      v55 = (a7 + 24 * v54);
-      v56 = *v55;
-      if (((v55[1] - *v55) >> 4) >= 1)
+      v54 = (a7 + 24 * v53);
+      v55 = *v54;
+      if (((v54[1] - *v54) >> 4) >= 1)
       {
+        v56 = 0;
         v57 = 0;
-        v58 = 0;
-        v59 = a8;
-        v60 = *(a8 + 8);
+        v58 = a8;
+        v59 = *(a8 + 8);
         do
         {
-          v61 = (v56 + v57);
-          *(v56 + v57 + 12) = v11 + v58;
-          v62 = *(v59 + 16);
-          if (v60 >= v62)
+          v60 = (v55 + v56);
+          *(v55 + v56 + 12) = v11 + v57;
+          v61 = *(v58 + 16);
+          if (v59 >= v61)
           {
-            v63 = (v60 - *v59) >> 4;
-            if ((v63 + 1) >> 60)
+            v62 = (v59 - *v58) >> 4;
+            if ((v62 + 1) >> 60)
             {
               goto LABEL_73;
             }
 
-            v64 = v62 - *v59;
-            v65 = v64 >> 3;
-            if (v64 >> 3 <= (v63 + 1))
+            v63 = v61 - *v58;
+            v64 = v63 >> 3;
+            if (v63 >> 3 <= (v62 + 1))
             {
-              v65 = v63 + 1;
+              v64 = v62 + 1;
             }
 
-            if (v64 >= 0x7FFFFFFFFFFFFFF0)
+            if (v63 >= 0x7FFFFFFFFFFFFFF0)
             {
-              v66 = 0xFFFFFFFFFFFFFFFLL;
+              v65 = 0xFFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v66 = v65;
+              v65 = v64;
             }
 
-            if (v66)
+            if (v65)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<abpk::peak>>(v59, v66);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<abpk::peak>>(v58, v65);
             }
 
-            v67 = (16 * v63);
-            *v67 = *v61;
-            v60 = (16 * v63 + 16);
-            v68 = *(v59 + 8) - *v59;
-            v69 = v67 - v68;
-            memcpy(v67 - v68, *v59, v68);
-            v59 = a8;
-            v70 = *a8;
-            *a8 = v69;
-            *(a8 + 8) = v60;
+            v66 = (16 * v62);
+            *v66 = *v60;
+            v59 = (16 * v62 + 16);
+            v67 = *(v58 + 8) - *v58;
+            v68 = v66 - v67;
+            memcpy(v66 - v67, *v58, v67);
+            v58 = a8;
+            v69 = *a8;
+            *a8 = v68;
+            *(a8 + 8) = v59;
             *(a8 + 16) = 0;
-            if (v70)
+            if (v69)
             {
-              operator delete(v70);
-              v59 = a8;
+              operator delete(v69);
+              v58 = a8;
             }
           }
 
           else
           {
-            *v60++ = *v61;
+            *v59++ = *v60;
           }
 
-          *(v59 + 8) = v60;
-          ++v58;
-          v56 = *v55;
-          v57 += 16;
+          *(v58 + 8) = v59;
+          ++v57;
+          v55 = *v54;
+          v56 += 16;
         }
 
-        while (v58 < ((v55[1] - *v55) >> 4));
-        v11 += v58;
+        while (v57 < ((v54[1] - *v54) >> 4));
+        v11 += v57;
       }
 
-      ++v54;
+      ++v53;
     }
 
-    while (v54 != v77);
+    while (v53 != v76);
   }
 }
 
 void abpk::extractHumans(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, void *a6@<X5>, char a7@<W6>, unsigned int a8@<W7>, uint64_t *a9@<X8>)
 {
-  v196 = *MEMORY[0x277D85DE8];
-  v190 = 0;
-  memset(v189, 0, sizeof(v189));
-  v187 = 0;
-  v188[0] = 0;
-  v188[1] = 0;
-  abpk::getJointPositionsAndMaximas(a1, a2, a4, a6, a7, a8, v189, &v187, 0);
+  v195 = *MEMORY[0x277D85DE8];
+  v189 = 0;
+  memset(v188, 0, sizeof(v188));
+  v186 = 0;
+  v187[0] = 0;
+  v187[1] = 0;
+  abpk::getJointPositionsAndMaximas(a1, a2, a4, a6, a7, a8, v188, &v186, 0);
   v12 = 0;
-  v176 = *a4;
+  v175 = *a4;
   v13 = *a4 - 1;
-  memset(v195, 0, sizeof(v195));
+  memset(v194, 0, sizeof(v194));
   v14 = 1.0e-12;
   do
   {
-    v174 = v12;
+    v173 = v12;
     v15 = &abpk::bones[2 * v12];
     v17 = *v15;
     v16 = v15[1];
     __p[0] = 0;
     __p[1] = 0;
-    v186 = 0;
-    v18 = v189 + 3 * v17;
+    v185 = 0;
+    v18 = v188 + 3 * v17;
     v20 = *v18;
     v19 = v18[1];
-    v175 = v18;
+    v174 = v18;
     if (v19 != *v18)
     {
-      v182 = v189 + 3 * v16;
-      v21 = *v182;
-      v22 = v182[1];
-      if (v22 != *v182)
+      v181 = v188 + 3 * v16;
+      v21 = *v181;
+      v22 = v181[1];
+      if (v22 != *v181)
       {
         if (((v19 - v20) >> 4) < 1)
         {
@@ -4689,14 +4640,14 @@ void abpk::extractHumans(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, u
 
         else
         {
-          v177 = 0;
-          v178 = (&abpk::s_bonesmap + 8 * v174);
+          v176 = 0;
+          v177 = (&abpk::s_bonesmap + 8 * v173);
           do
           {
             if (((v22 - v21) >> 4) >= 1)
             {
               v23 = 0;
-              v24 = v20 + 16 * v177;
+              v24 = v20 + 16 * v176;
               do
               {
                 v25 = (v21 + 16 * v23);
@@ -4706,18 +4657,18 @@ void abpk::extractHumans(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, u
                 v29 = v28;
                 if (v28 >= v14)
                 {
-                  v181 = v21 + 16 * v23;
+                  v180 = v21 + 16 * v23;
                   v30 = v14;
                   v31 = 0;
                   v32 = 0;
-                  v180 = *(a5 + 8);
-                  v34 = *v178;
-                  v33 = v178[1];
+                  v179 = *(a5 + 8);
+                  v34 = *v177;
+                  v33 = v177[1];
                   v35 = v26 / v28;
                   v36 = v27 / v28;
-                  v192 = 0;
+                  v191 = 0;
                   __src = 0;
-                  v193 = 0;
+                  v192 = 0;
                   v37 = v26 / 10.0;
                   v38 = v27 / 10.0;
                   do
@@ -4728,7 +4679,7 @@ void abpk::extractHumans(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, u
                     v40.i16[0] = *(a3 + 2 * *a6 * v34 + 2 * v41 + 2 * v39);
                     v40.i16[1] = *(a3 + 2 * *a6 * v33 + 2 * v41 + 2 * v39);
                     v42 = vcvtq_f32_f16(v40).u64[0];
-                    if (v31 >= v193)
+                    if (v31 >= v192)
                     {
                       v43 = (v31 - __src) >> 3;
                       if ((v43 + 1) >> 61)
@@ -4736,13 +4687,13 @@ void abpk::extractHumans(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, u
                         std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
                       }
 
-                      v44 = (v193 - __src) >> 2;
+                      v44 = (v192 - __src) >> 2;
                       if (v44 <= v43 + 1)
                       {
                         v44 = v43 + 1;
                       }
 
-                      if (v193 - __src >= 0x7FFFFFFFFFFFFFF8)
+                      if (v192 - __src >= 0x7FFFFFFFFFFFFFF8)
                       {
                         v45 = 0x1FFFFFFFFFFFFFFFLL;
                       }
@@ -4760,12 +4711,12 @@ void abpk::extractHumans(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, u
                       v46 = (8 * v43);
                       *v46 = v42;
                       v31 = (8 * v43 + 8);
-                      v47 = v46 - (v192 - __src);
-                      memcpy(v47, __src, v192 - __src);
+                      v47 = v46 - (v191 - __src);
+                      memcpy(v47, __src, v191 - __src);
                       v48 = __src;
                       __src = v47;
-                      v192 = v31;
-                      v193 = 0;
+                      v191 = v31;
+                      v192 = 0;
                       if (v48)
                       {
                         operator delete(v48);
@@ -4777,7 +4728,7 @@ void abpk::extractHumans(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, u
                       *v31++ = v42;
                     }
 
-                    v192 = v31;
+                    v191 = v31;
                     ++v32;
                   }
 
@@ -4798,23 +4749,23 @@ void abpk::extractHumans(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, u
                   }
 
                   while (v49 != 80);
-                  v192 = __src;
+                  v191 = __src;
                   operator delete(__src);
                   v14 = v30;
                   if (v50 >= 7)
                   {
-                    v53 = fmin(v180 * 0.5 / v29 + -1.0, 0.0) + v51 / 10.0;
+                    v53 = fmin(v179 * 0.5 / v29 + -1.0, 0.0) + v51 / 10.0;
                     if (v53 > 0.0)
                     {
                       _H0 = *(v24 + 8);
                       __asm { FCVT            S0, H0 }
 
-                      _H1 = *(v181 + 8);
+                      _H1 = *(v180 + 8);
                       __asm { FCVT            S1, H1 }
 
                       v62 = (v53 + _S0) + _S1;
                       v63 = __p[1];
-                      if (__p[1] >= v186)
+                      if (__p[1] >= v185)
                       {
                         v65 = __p[0];
                         v66 = __p[1] - __p[0];
@@ -4825,8 +4776,8 @@ void abpk::extractHumans(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, u
                           std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
                         }
 
-                        v69 = v186 - __p[0];
-                        if ((v186 - __p[0]) >> 3 > v68)
+                        v69 = v185 - __p[0];
+                        if ((v185 - __p[0]) >> 3 > v68)
                         {
                           v68 = v69 >> 3;
                         }
@@ -4843,7 +4794,7 @@ void abpk::extractHumans(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, u
 
                         v70 = (__p[1] - __p[0]) >> 4;
                         v71 = 16 * v67;
-                        *v71 = v177;
+                        *v71 = v176;
                         *(v71 + 4) = v23;
                         *(v71 + 8) = v53;
                         *(v71 + 12) = v62;
@@ -4853,7 +4804,7 @@ void abpk::extractHumans(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, u
                         v73 = __p[0];
                         __p[0] = v72;
                         __p[1] = v64;
-                        v186 = 0;
+                        v185 = 0;
                         if (v73)
                         {
                           operator delete(v73);
@@ -4862,7 +4813,7 @@ void abpk::extractHumans(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, u
 
                       else
                       {
-                        *__p[1] = v177;
+                        *__p[1] = v176;
                         *(v63 + 1) = v23;
                         v64 = v63 + 4;
                         v63[2] = v53;
@@ -4875,20 +4826,20 @@ void abpk::extractHumans(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, u
                 }
 
                 ++v23;
-                v21 = *v182;
-                v22 = v182[1];
+                v21 = *v181;
+                v22 = v181[1];
               }
 
-              while (v23 < ((v22 - *v182) >> 4));
-              v13 = v176 - 1;
-              v20 = *v175;
-              v19 = v175[1];
+              while (v23 < ((v22 - *v181) >> 4));
+              v13 = v175 - 1;
+              v20 = *v174;
+              v19 = v174[1];
             }
 
-            ++v177;
+            ++v176;
           }
 
-          while (v177 < ((v19 - v20) >> 4));
+          while (v176 < ((v19 - v20) >> 4));
           v74 = *__p;
         }
 
@@ -4910,7 +4861,7 @@ void abpk::extractHumans(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, u
         if (((__p[1] - __p[0]) >> 4) >= 1)
         {
           v79 = 0;
-          v80 = v195 + 3 * v174;
+          v80 = v194 + 3 * v173;
           v81 = v80[1];
           do
           {
@@ -4924,8 +4875,8 @@ void abpk::extractHumans(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, u
               v89 = v82[1];
 LABEL_59:
               v90 = v82[2];
-              v91 = *(*v175 + 16 * v86 + 12);
-              v92 = *(*v182 + 16 * v89 + 12);
+              v91 = *(*v174 + 16 * v86 + 12);
+              v92 = *(*v181 + 16 * v89 + 12);
               v93 = v80[2];
               if (v81 >= v93)
               {
@@ -4985,7 +4936,7 @@ LABEL_59:
                 v81 += 5;
               }
 
-              v13 = v176 - 1;
+              v13 = v175 - 1;
               v80[1] = v81;
               v77 = __p[0];
               v78 = __p[1];
@@ -5010,7 +4961,7 @@ LABEL_59:
                 }
               }
 
-              v13 = v176 - 1;
+              v13 = v175 - 1;
             }
 
             ++v79;
@@ -5027,19 +4978,19 @@ LABEL_59:
       }
     }
 
-    v12 = v174 + 1;
+    v12 = v173 + 1;
   }
 
-  while (v174 != 17);
+  while (v173 != 17);
   v100 = 0;
-  v101 = 4 * v176;
-  v192 = 0;
+  v101 = 4 * v175;
+  v191 = 0;
   __src = 0;
-  v193 = 0;
+  v192 = 0;
   do
   {
-    v183 = v100;
-    v102 = v195 + 3 * v100;
+    v182 = v100;
+    v102 = v194 + 3 * v100;
     v103 = *v102;
     if ((-858993459 * ((v102[1] - *v102) >> 2)) >= 1)
     {
@@ -5049,9 +5000,9 @@ LABEL_59:
       v106 = v105[1];
       do
       {
-        v108 = v192;
+        v108 = v191;
         v109 = __src;
-        v110 = -1431655765 * ((v192 - __src) >> 3);
+        v110 = -1431655765 * ((v191 - __src) >> 3);
         if (v110 < 1)
         {
           goto LABEL_101;
@@ -5096,8 +5047,8 @@ LABEL_59:
             if (*(v129 + 4 * v106) != v130)
             {
               *(v129 + 4 * v106) = v130;
-              *(v129 + 4 * v176) = *(v129 + 4 * v176) + 1.0;
-              _H0 = *(v187 + 8 * v130 + 4);
+              *(v129 + 4 * v175) = *(v129 + 4 * v175) + 1.0;
+              _H0 = *(v186 + 8 * v130 + 4);
               __asm { FCVT            S0, H0 }
 
               *(v129 + 4 * v13) = *(v129 + 4 * v13) + (*(v115 + 8) + _S0);
@@ -5117,7 +5068,7 @@ LABEL_59:
                 while (*(*v120 + 4 * v119) > 0.0 && *(*v121 + 4 * v119) > 0.0)
                 {
                   v122 = 0;
-                  if (v176 - 2 == v119++)
+                  if (v175 - 2 == v119++)
                   {
                     goto LABEL_121;
                   }
@@ -5133,8 +5084,8 @@ LABEL_121:
                 v144 = *(v115 + 4);
                 v145 = *v120;
                 *(*v120 + 4 * v106) = v144;
-                *(v145 + 4 * v176) = *(v145 + 4 * v176) + 1.0;
-                _H0 = *(v187 + 8 * v144 + 4);
+                *(v145 + 4 * v175) = *(v145 + 4 * v175) + 1.0;
+                _H0 = *(v186 + 8 * v144 + 4);
                 __asm { FCVT            S0, H0 }
 
                 *(v145 + 4 * v13) = *(v145 + 4 * v13) + (*(v115 + 8) + _S0);
@@ -5160,7 +5111,7 @@ LABEL_121:
             }
 
             v136 = v101;
-            *(v135 + 4 * v176) = *(v134 + 4 * v176) + *(v135 + 4 * v176);
+            *(v135 + 4 * v175) = *(v134 + 4 * v175) + *(v135 + 4 * v175);
             v137 = *(v134 + 4 * v13) + *(v135 + 4 * v13);
             *(v135 + 4 * v13) = v137;
             *(v135 + 4 * v13) = v137 + *(v103 + 20 * v104 + 8);
@@ -5176,7 +5127,7 @@ LABEL_121:
               }
 
               while (v140 != v108);
-              v108 = v192;
+              v108 = v191;
               v138 = v139;
             }
 
@@ -5200,7 +5151,7 @@ LABEL_121:
               while (v141 != v138);
             }
 
-            v192 = v138;
+            v191 = v138;
             v101 = v136;
           }
         }
@@ -5208,9 +5159,9 @@ LABEL_121:
         else
         {
 LABEL_101:
-          std::vector<float>::vector[abi:ne200100](__p, v176 + 1);
+          std::vector<float>::vector[abi:ne200100](__p, v175 + 1);
           v123 = __p[0];
-          if (v176 != -1)
+          if (v175 != -1)
           {
             memset_pattern16(__p[0], &unk_23EE28350, v101 + 4);
           }
@@ -5220,8 +5171,8 @@ LABEL_101:
           v123[v107] = v125;
           v126 = *(v124 + 1);
           v123[v106] = v126;
-          v123[v176] = 2.0;
-          _H0 = *(v187 + 8 * v125 + 4) + *(v187 + 8 * v126 + 4);
+          v123[v175] = 2.0;
+          _H0 = *(v186 + 8 * v125 + 4) + *(v186 + 8 * v126 + 4);
           __asm { FCVT            S0, H0 }
 
           v123[v13] = v124[2] + _S0;
@@ -5241,12 +5192,12 @@ LABEL_122:
       while (v104 < (-858993459 * ((v102[1] - *v102) >> 2)));
     }
 
-    v100 = v183 + 1;
+    v100 = v182 + 1;
   }
 
-  while (v183 != 17);
-  v148 = v192;
-  v149 = (v192 - __src) >> 3;
+  while (v182 != 17);
+  v148 = v191;
+  v149 = (v191 - __src) >> 3;
   v150 = 0xAAAAAAAAAAAAAAABLL * v149;
   if (-1431655765 * v149 >= 1)
   {
@@ -5254,7 +5205,7 @@ LABEL_122:
     do
     {
       v152 = *(__src + 3 * v151 - 3);
-      v153 = *(v152 + 4 * v176);
+      v153 = *(v152 + 4 * v175);
       if (v153 < 8.0 || (*(v152 + 4 * v13) / v153) < 0.3)
       {
         v154 = __src + 24 * v151 - 24;
@@ -5275,7 +5226,7 @@ LABEL_122:
           }
 
           while (v156 != v148);
-          v157 = v192;
+          v157 = v191;
           v148 = v155;
         }
 
@@ -5299,7 +5250,7 @@ LABEL_122:
           while (v158 != v148);
         }
 
-        v192 = v148;
+        v191 = v148;
       }
     }
 
@@ -5311,33 +5262,33 @@ LABEL_122:
   a9[1] = 0;
   a9[2] = 0;
   std::vector<abpk::Human>::reserve(a9, v150);
-  if (v192 != __src)
+  if (v191 != __src)
   {
     v162 = 0;
     __asm { FMOV            V8.2S, #-1.0 }
 
     do
     {
-      v184 = *(a5 + 8);
+      v183 = *(a5 + 8);
       __p[1] = 0;
-      v186 = 0;
+      v185 = 0;
       __p[0] = 0;
       _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE7reserveEm(__p, 0x13uLL);
       v164 = 0;
-      v165 = vrev64_s32(vcvt_f32_f64(vcvtq_f64_u64(v184)));
+      v165 = vrev64_s32(vcvt_f32_f64(vcvtq_f64_u64(v183)));
       do
       {
         if (*(*(__src + 3 * v162) + v164) < 0)
         {
-          v194 = _D8;
+          v193 = _D8;
         }
 
         else
         {
-          v194 = vdiv_f32(vcvt_f32_s32(*(v187 + 16 * *(*(__src + 3 * v162) + v164))), v165);
+          v193 = vdiv_f32(vcvt_f32_s32(*(v186 + 16 * *(*(__src + 3 * v162) + v164))), v165);
         }
 
-        _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(__p, &v194);
+        _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8ne200100EOS1_(__p, &v193);
         v164 += 4;
       }
 
@@ -5364,7 +5315,7 @@ LABEL_122:
       ++v162;
     }
 
-    while (0xAAAAAAAAAAAAAAABLL * ((v192 - __src) >> 3) > v162);
+    while (0xAAAAAAAAAAAAAAABLL * ((v191 - __src) >> 3) > v162);
   }
 
   __p[0] = &__src;
@@ -5372,10 +5323,10 @@ LABEL_122:
   v168 = 54;
   do
   {
-    v169 = (&v192)[v168];
+    v169 = (&v191)[v168];
     if (v169)
     {
-      *(&v193 + v168 * 8) = v169;
+      *(&v192 + v168 * 8) = v169;
       operator delete(v169);
     }
 
@@ -5383,19 +5334,19 @@ LABEL_122:
   }
 
   while (v168 * 8);
-  if (v187)
+  if (v186)
   {
-    v188[0] = v187;
-    operator delete(v187);
+    v187[0] = v186;
+    operator delete(v186);
   }
 
   v170 = 57;
   do
   {
-    v171 = v188[v170 - 1];
+    v171 = v187[v170 - 1];
     if (v171)
     {
-      v188[v170] = v171;
+      v187[v170] = v171;
       operator delete(v171);
     }
 
@@ -5403,10 +5354,9 @@ LABEL_122:
   }
 
   while (v170 * 8);
-  v172 = *MEMORY[0x277D85DE8];
 }
 
-void sub_23EDEB1E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27)
+void sub_23EDEB1E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, unint64_t *a23, uint64_t a24, uint64_t a25, void *__p, __int128 a27)
 {
   a23 = a10;
   std::vector<abpk::Human>::__destroy_vector::operator()[abi:ne200100](&a23);
@@ -5427,7 +5377,7 @@ void sub_23EDEB1E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     {
       if (__p)
       {
-        a27 = __p;
+        *&a27 = __p;
         operator delete(__p);
       }
 
@@ -5451,7 +5401,7 @@ void sub_23EDEB1E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 }
 
-void std::vector<long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -5500,7 +5450,7 @@ void std::vector<long>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -5540,7 +5490,7 @@ void sub_23EDEC6CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -5589,7 +5539,7 @@ void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -5601,7 +5551,6 @@ void std::vector<int>::reserve(std::vector<unsigned int> *this, std::vector<unsi
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(this, __n);
     }
 
@@ -5609,48 +5558,48 @@ void std::vector<int>::reserve(std::vector<unsigned int> *this, std::vector<unsi
   }
 }
 
-void *std::__tree<std::__value_type<long,std::vector<long>>,std::__map_value_compare<long,std::__value_type<long,std::vector<long>>,std::less<long>,true>,std::allocator<std::__value_type<long,std::vector<long>>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(uint64_t a1, uint64_t *a2)
+void *std::__tree<std::__value_type<long,std::vector<long>>,std::__map_value_compare<long,std::__value_type<long,std::vector<long>>,std::less<long>,true>,std::allocator<std::__value_type<long,std::vector<long>>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<long,std::vector<long>>,std::__map_value_compare<long,std::__value_type<long,std::vector<long>>,std::less<long>,true>,std::allocator<std::__value_type<long,std::vector<long>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<long,std::vector<long>>,std::__map_value_compare<long,std::__value_type<long,std::vector<long>>,std::less<long>,true>,std::allocator<std::__value_type<long,std::vector<long>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -5676,12 +5625,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -5695,22 +5644,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -5744,13 +5693,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -5792,17 +5741,17 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-void *std::vector<int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, int *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<float>::__vallocate[abi:ne200100](result, a2);
+    std::vector<float>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23EDECD40(_Unwind_Exception *exception_object)
@@ -5834,20 +5783,20 @@ void std::__tree<std::__value_type<long,std::vector<long>>,std::__map_value_comp
   }
 }
 
-void std::vector<simd_float4x4>::resize(void *a1, unint64_t a2)
+void std::vector<simd_float4x4>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 6;
+  v2 = (result[1] - *result) >> 6;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + (a2 << 6);
+      result[1] = *result + (a2 << 6);
     }
   }
 
   else
   {
-    std::vector<simd_float4x4>::__append(a1, a2 - v2);
+    std::vector<simd_float4x4>::__append(result, a2 - v2);
   }
 }
 
@@ -5906,84 +5855,38 @@ double __Block_byref_object_copy_(void *a1, void *a2)
   return result;
 }
 
-uint64_t std::deque<std::pair<long,long>>::emplace_back<long &,int>(uint64_t a1, void *a2, int *a3)
+uint64_t std::deque<std::pair<long,long>>::emplace_back<long &,int>(unint64_t *a1, void *a2, int *a3)
 {
-  v6 = *(a1 + 8);
-  v7 = *(a1 + 16);
-  v8 = *(a1 + 8);
-  if (v7 == v8)
+  v6 = a1[2];
+  v7 = a1[1];
+  if (v6 == v7)
   {
-    v9 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v9 = 32 * (v7 - v8) - 1;
+    v8 = 32 * (v6 - v7) - 1;
   }
 
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 40) + v10;
-  if (v9 == v11)
+  v9 = a1[4];
+  v10 = a1[5] + v9;
+  if (v8 == v10)
   {
     std::deque<std::pair<long,long>>::__add_back_capacity(a1);
-    v8 = *(a1 + 8);
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40) + v10;
+    v7 = a1[1];
+    v9 = a1[4];
+    v10 = a1[5] + v9;
   }
 
-  v12 = (*(v8 + ((v11 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v11);
-  v13 = *a3;
-  *v12 = *a2;
-  v12[1] = v13;
-  v14 = *(a1 + 40) + 1;
-  *(a1 + 40) = v14;
-  v15 = v14 + v10;
-  v16 = (v8 + 8 * (v15 >> 8));
-  if (v15)
-  {
-    v17 = *v16 + 16 * v15;
-  }
-
-  else
-  {
-    v17 = *(v16 - 1) + 4096;
-  }
-
-  return v17 - 16;
-}
-
-uint64_t std::deque<std::pair<long,long>>::emplace_back<long &,long const&>(uint64_t a1, void *a2, void *a3)
-{
-  v6 = *(a1 + 8);
-  v7 = *(a1 + 16);
-  v8 = *(a1 + 8);
-  if (v7 == v8)
-  {
-    v9 = 0;
-  }
-
-  else
-  {
-    v9 = 32 * (v7 - v8) - 1;
-  }
-
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 40) + v10;
-  if (v9 == v11)
-  {
-    std::deque<std::pair<long,long>>::__add_back_capacity(a1);
-    v8 = *(a1 + 8);
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40) + v10;
-  }
-
-  v12 = (*(v8 + ((v11 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v11);
-  *v12 = *a2;
-  v12[1] = *a3;
-  v13 = *(a1 + 40) + 1;
-  *(a1 + 40) = v13;
-  v14 = v13 + v10;
-  v15 = (v8 + 8 * (v14 >> 8));
+  v11 = (*(v7 + ((v10 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v10);
+  v12 = *a3;
+  *v11 = *a2;
+  v11[1] = v12;
+  v13 = a1[5] + 1;
+  a1[5] = v13;
+  v14 = v13 + v9;
+  v15 = (v7 + 8 * (v14 >> 8));
   if (v14)
   {
     v16 = *v15 + 16 * v14;
@@ -5995,6 +5898,50 @@ uint64_t std::deque<std::pair<long,long>>::emplace_back<long &,long const&>(uint
   }
 
   return v16 - 16;
+}
+
+uint64_t std::deque<std::pair<long,long>>::emplace_back<long &,long const&>(unint64_t *a1, void *a2, void *a3)
+{
+  v6 = a1[2];
+  v7 = a1[1];
+  if (v6 == v7)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = 32 * (v6 - v7) - 1;
+  }
+
+  v9 = a1[4];
+  v10 = a1[5] + v9;
+  if (v8 == v10)
+  {
+    std::deque<std::pair<long,long>>::__add_back_capacity(a1);
+    v7 = a1[1];
+    v9 = a1[4];
+    v10 = a1[5] + v9;
+  }
+
+  v11 = (*(v7 + ((v10 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v10);
+  *v11 = *a2;
+  v11[1] = *a3;
+  v12 = a1[5] + 1;
+  a1[5] = v12;
+  v13 = v12 + v9;
+  v14 = (v7 + 8 * (v13 >> 8));
+  if (v13)
+  {
+    v15 = *v14 + 16 * v13;
+  }
+
+  else
+  {
+    v15 = *(v14 - 1) + 4096;
+  }
+
+  return v15 - 16;
 }
 
 void std::vector<simd_float4x4>::__append(uint64_t a1, unint64_t a2)
@@ -6060,7 +6007,7 @@ void std::vector<simd_float4x4>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-uint64_t _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6146,19 +6093,19 @@ uint64_t std::__split_buffer<std::pair<long,long> *,std::allocator<std::pair<lon
   return a1;
 }
 
-void *std::deque<std::pair<long,long>>::__add_back_capacity(void *a1)
+void std::deque<std::pair<long,long>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x100;
   v3 = v1 - 256;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -6166,25 +6113,25 @@ void *std::deque<std::pair<long,long>>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<long,long> *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<long,long> *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::pair<long,long> *,std::allocator<std::pair<long,long> *>>::emplace_back<std::pair<long,long> *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::pair<long,long> *,std::allocator<std::pair<long,long> *>>::emplace_back<std::pair<long,long> *&>(a1, &v9);
 }
 
 void sub_23EDEEF70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -6198,27 +6145,26 @@ void sub_23EDEEF70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<std::pair<long,long> *,std::allocator<std::pair<long,long> *>>::emplace_back<std::pair<long,long> *&>(void *result, void *a2)
+void std::__split_buffer<std::pair<long,long> *,std::allocator<std::pair<long,long> *>>::emplace_back<std::pair<long,long> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<long,long> *>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<long,long> *>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -6227,28 +6173,26 @@ void *std::__split_buffer<std::pair<long,long> *,std::allocator<std::pair<long,l
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::pair<long,long> *,std::allocator<std::pair<long,long> *>>::emplace_front<std::pair<long,long> *>(const void **result, void *a2)
+void std::__split_buffer<std::pair<long,long> *,std::allocator<std::pair<long,long> *>>::emplace_front<std::pair<long,long> *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -6261,52 +6205,50 @@ const void **std::__split_buffer<std::pair<long,long> *,std::allocator<std::pair
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<long,long> *>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<long,long> *>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<std::pair<long,long> *,std::allocator<std::pair<long,long> *> &>::emplace_back<std::pair<long,long> *>(void *result, void *a2)
+void std::__split_buffer<std::pair<long,long> *,std::allocator<std::pair<long,long> *> &>::emplace_back<std::pair<long,long> *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<long,long> *>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<long,long> *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -6315,28 +6257,26 @@ void *std::__split_buffer<std::pair<long,long> *,std::allocator<std::pair<long,l
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::pair<long,long> *,std::allocator<std::pair<long,long> *> &>::emplace_front<std::pair<long,long> *&>(const void **result, void *a2)
+void std::__split_buffer<std::pair<long,long> *,std::allocator<std::pair<long,long> *> &>::emplace_front<std::pair<long,long> *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -6349,29 +6289,28 @@ const void **std::__split_buffer<std::pair<long,long> *,std::allocator<std::pair
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<long,long> *>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<long,long> *>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<long,long> *>>(uint64_t a1, unint64_t a2)
@@ -6412,10 +6351,10 @@ uint64_t std::deque<std::pair<long,long>>::__maybe_remove_front_spare[abi:ne2001
   return v4 ^ 1u;
 }
 
-void sub_23EDEFBBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_23EDEFBBC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ABPKOutput;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6444,36 +6383,36 @@ void sub_23EDF2514(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<espresso_buffer_t>::resize(void *a1, unint64_t a2)
+void std::vector<espresso_buffer_t>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xCF3CF3CF3CF3CF3DLL * ((a1[1] - *a1) >> 3);
+  v2 = 0xCF3CF3CF3CF3CF3DLL * ((result[1] - *result) >> 3);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<espresso_buffer_t>::__append(a1, v4);
+    std::vector<espresso_buffer_t>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 168 * a2;
+    result[1] = *result + 168 * a2;
   }
 }
 
-void std::vector<__CVPixelBufferPool *>::resize(void *a1, unint64_t a2)
+void std::vector<__CVPixelBufferPool *>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<__CVPixelBufferPool *>::__append(a1, a2 - v2);
+    std::vector<__CVPixelBufferPool *>::__append(result, a2 - v2);
   }
 }
 
@@ -6536,10 +6475,10 @@ void std::vector<__CVBuffer *>::push_back[abi:ne200100](uint64_t a1, void *a2)
   *(a1 + 8) = v6;
 }
 
-void sub_23EDF45FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_23EDF45FC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ABPK2DDetection;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6691,26 +6630,27 @@ void std::vector<__CVPixelBufferPool *>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-id __ABPKLogSharedInstance()
+id __ABPKLogSharedInstance(uint64_t a1)
 {
   if (__ABPKLogSharedInstance_onceToken != -1)
   {
     __ABPKLogSharedInstance_cold_1();
   }
 
-  v1 = sharedInstance;
+  v2 = sharedInstance;
 
-  return v1;
+  return v2;
 }
 
-void sub_23EDF5144(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, char a12)
+void sub_23EDF5144(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, ...)
 {
+  va_start(va, a11);
   if (__p)
   {
     operator delete(__p);
   }
 
-  [(ABPK3DLiftingResult *)&a12 init];
+  [(ABPK3DLiftingResult *)va init];
   _Unwind_Resume(a1);
 }
 
@@ -6734,7 +6674,7 @@ void sub_23EDF5444(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6756,17 +6696,17 @@ void sub_23EDF55D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEEC2B8ne200100Em(void *result, unint64_t a2)
+uint64_t *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEEC2B8ne200100Em(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    _ZNSt3__16vectorIDv3_iNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(result, a2);
+    _ZNSt3__16vectorIDv3_iNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23EDF5650(_Unwind_Exception *exception_object)
@@ -6871,7 +6811,7 @@ void sub_23EDF57A4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -6920,7 +6860,7 @@ void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -7015,7 +6955,7 @@ void sub_23EDF5A0C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void abpk::Human::resize(abpk::Human *this, unint64_t a2)
+void abpk::Human::resize(abpk::Human *this, std::vector<unsigned int>::size_type a2)
 {
   if (a2 > (*(this + 1) - *this) >> 3)
   {
@@ -7065,20 +7005,20 @@ void abpk::Human::resize(abpk::Human *this, unint64_t a2)
   *(this + 13) -= v7;
 }
 
-void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEm(void *a1, unint64_t a2)
+void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEm(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE8__appendEm(a1, a2 - v2);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE8__appendEm(result, a2 - v2);
   }
 }
 
@@ -7431,8 +7371,7 @@ uint64_t _ZNSt3__18optionalINS_6vectorIDv2_fNS_9allocatorIS2_EEEEEaSB8ne200100IS
     *(a1 + 16) = 0;
     *a1 = *a2;
     *(a1 + 16) = a2[1].n128_u64[0];
-    a2->n128_u64[0] = 0;
-    a2->n128_u64[1] = 0;
+    *a2 = 0uLL;
     a2[1].n128_u64[0] = 0;
     *(a1 + 24) = 1;
   }
@@ -7557,93 +7496,98 @@ float32x2_t abpk::Human::area(abpk::Human *this, float32x2_t result)
   return result;
 }
 
-void abpk::Human::printData(abpk::Human *this)
+void abpk::Human::printData(uint64_t this)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  if (*(this + 1) != *this)
+  v25 = *MEMORY[0x277D85DE8];
+  if (*(this + 8) != *this)
   {
-    for (i = 0; i < (*(this + 1) - *this) >> 3; ++i)
+    v1 = this;
+    for (i = 0; i < (v1[1] - *v1) >> 3; ++i)
     {
-      v3 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      v3 = __ABPKLogSharedInstance(this);
+      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
+      if (v4)
       {
         *buf = 67109120;
-        LODWORD(v19) = i;
+        LODWORD(v22) = i;
         _os_log_impl(&dword_23EDDC000, v3, OS_LOG_TYPE_DEBUG, " \t\t Joint: %d ", buf, 8u);
       }
 
-      v4 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      v5 = __ABPKLogSharedInstance(v4);
+      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+      if (v6)
       {
-        v5 = *(*(this + 3) + 4 * i);
+        v7 = *(v1[3] + 4 * i);
         *buf = 67109120;
-        LODWORD(v19) = v5;
-        _os_log_impl(&dword_23EDDC000, v4, OS_LOG_TYPE_DEBUG, " \t\t\t %d ", buf, 8u);
+        LODWORD(v22) = v7;
+        _os_log_impl(&dword_23EDDC000, v5, OS_LOG_TYPE_DEBUG, " \t\t\t %d ", buf, 8u);
       }
 
-      v6 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = __ABPKLogSharedInstance(v6);
+      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+      if (v9)
       {
-        v7 = *(*(this + 6) + 4 * i);
+        v10 = *(v1[6] + 4 * i);
         *buf = 134217984;
-        v19 = v7;
-        _os_log_impl(&dword_23EDDC000, v6, OS_LOG_TYPE_DEBUG, " \t\t\t Confidence: %f ", buf, 0xCu);
+        v22 = v10;
+        _os_log_impl(&dword_23EDDC000, v8, OS_LOG_TYPE_DEBUG, " \t\t\t Confidence: %f ", buf, 0xCu);
       }
 
-      v8 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v11 = __ABPKLogSharedInstance(v9);
+      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
+      if (v12)
       {
-        v9 = COERCE_FLOAT(*(*this + 8 * i));
-        v10 = COERCE_FLOAT(HIDWORD(*(*this + 8 * i)));
+        v13 = COERCE_FLOAT(*(*v1 + 8 * i));
+        v14 = COERCE_FLOAT(HIDWORD(*(*v1 + 8 * i)));
         *buf = 134218240;
-        v19 = v9;
-        v20 = 2048;
-        v21 = v10;
-        _os_log_impl(&dword_23EDDC000, v8, OS_LOG_TYPE_DEBUG, " \t\t\t RawArray: (%f, %f) ", buf, 0x16u);
+        v22 = v13;
+        v23 = 2048;
+        v24 = v14;
+        _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_DEBUG, " \t\t\t RawArray: (%f, %f) ", buf, 0x16u);
       }
 
-      if (*(*(this + 3) + 4 * i))
+      if (*(v1[3] + 4 * i))
       {
-        v17 = *(*this + 8 * i);
-        v11 = __ABPKLogSharedInstance();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v20 = *(*v1 + 8 * i);
+        v15 = __ABPKLogSharedInstance(v12);
+        this = os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
+        if (this)
         {
           *buf = 134218240;
-          v19 = *&v17;
-          v20 = 2048;
-          v21 = *(&v17 + 1);
-          v12 = v11;
-          v13 = " \t\t\t JointMap: (%f, %f) ";
-          v14 = 22;
+          v22 = *&v20;
+          v23 = 2048;
+          v24 = *(&v20 + 1);
+          v16 = v15;
+          v17 = " \t\t\t JointMap: (%f, %f) ";
+          v18 = 22;
 LABEL_16:
-          _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_DEBUG, v13, buf, v14);
+          _os_log_impl(&dword_23EDDC000, v16, OS_LOG_TYPE_DEBUG, v17, buf, v18);
         }
       }
 
       else
       {
-        v15 = __ABPKLogSharedInstance();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        v19 = __ABPKLogSharedInstance(v12);
+        this = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
+        if (this)
         {
           *buf = 0;
-          v12 = v15;
-          v13 = " \t\t\t JointMap: Missing ";
-          v14 = 2;
+          v16 = v19;
+          v17 = " \t\t\t JointMap: Missing ";
+          v18 = 2;
           goto LABEL_16;
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t abpk::Human::printMissingJoints(abpk::Human *this)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   __p = 0;
+  v13 = 0;
   v14 = 0;
-  v15 = 0;
   *buf = 0;
   v1 = *this;
   if (*(this + 1) == *this)
@@ -7676,7 +7620,7 @@ LABEL_20:
 
   else
   {
-    v6 = __ABPKLogSharedInstance();
+    v6 = __ABPKLogSharedInstance(this);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
@@ -7684,12 +7628,12 @@ LABEL_20:
     }
 
     v7 = __p;
-    if (v14 == __p)
+    if (v13 == __p)
     {
       v4 = 1;
       if (!__p)
       {
-        goto LABEL_23;
+        return v4 & 1;
       }
 
       goto LABEL_22;
@@ -7698,12 +7642,12 @@ LABEL_20:
     v8 = 0;
     do
     {
-      v9 = __ABPKLogSharedInstance();
+      v9 = __ABPKLogSharedInstance(v7);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         v10 = *(__p + v8);
         *buf = 67109120;
-        v17 = v10;
+        v16 = v10;
         _os_log_impl(&dword_23EDDC000, v9, OS_LOG_TYPE_DEBUG, " \t\t %d ", buf, 8u);
       }
 
@@ -7711,18 +7655,16 @@ LABEL_20:
       v7 = __p;
     }
 
-    while (v8 < (v14 - __p) >> 2);
+    while (v8 < (v13 - __p) >> 2);
   }
 
   if (v7)
   {
 LABEL_22:
-    v14 = v7;
+    v13 = v7;
     operator delete(v7);
   }
 
-LABEL_23:
-  v11 = *MEMORY[0x277D85DE8];
   return v4 & 1;
 }
 
@@ -7860,18 +7802,19 @@ void std::vector<unsigned int>::__append(std::vector<unsigned int> *this, std::v
   }
 }
 
-void *std::set<unsigned char>::set[abi:ne200100](void *a1, unsigned __int8 *a2, uint64_t a3)
+uint64_t **std::set<unsigned char>::set[abi:ne200100](uint64_t **a1, unsigned __int8 *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v5 = a3;
     do
     {
-      std::__tree<unsigned char>::__emplace_hint_unique_key_args<unsigned char,unsigned char const&>(a1, v4, a2++);
+      std::__tree<unsigned char>::__emplace_hint_unique_key_args<unsigned char,unsigned char const&>(a1, v4, a2, a2);
+      ++a2;
       --v5;
     }
 
@@ -7881,20 +7824,20 @@ void *std::set<unsigned char>::set[abi:ne200100](void *a1, unsigned __int8 *a2, 
   return a1;
 }
 
-uint64_t std::__tree<unsigned char>::__emplace_hint_unique_key_args<unsigned char,unsigned char const&>(void *a1, uint64_t *a2, unsigned __int8 *a3)
+uint64_t std::__tree<unsigned char>::__emplace_hint_unique_key_args<unsigned char,unsigned char const&>(uint64_t **a1, uint64_t *a2, unsigned __int8 *a3, _BYTE *a4)
 {
-  v3 = *std::__tree<unsigned char>::__find_equal<unsigned char>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<unsigned char>::__find_equal<unsigned char>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<unsigned char>::__find_equal<unsigned char>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned __int8 *a5)
+uint64_t *std::__tree<unsigned char>::__find_equal<unsigned char>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned __int8 *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 25), v6 < v7))
   {
     v8 = *a2;
@@ -7921,7 +7864,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -7982,7 +7925,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -8061,7 +8004,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -8097,35 +8040,35 @@ void std::__tree<unsigned char>::destroy(uint64_t a1, void *a2)
 void abpk::parsePersonsfromHeatmapBuffer(uint64_t a1@<X0>, unint64_t a2@<X2>, unint64_t a3@<X3>, uint64_t *a4@<X8>, __n128 a5@<Q0>)
 {
   v7 = *a5.n128_u16;
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   *a4 = 0;
   a4[1] = 0;
   a4[2] = 0;
-  v80 = a4;
+  v79 = a4;
   v9 = std::vector<abpk::HeatmapPersonData>::reserve(a4, 5uLL);
   if (a1)
   {
-    v71[1] = v71;
-    v74 = a3 * a2;
-    v72 = 2 * a3 * a2;
+    v70[1] = v70;
+    v73 = a3 * a2;
+    v71 = 2 * a3 * a2;
     MEMORY[0x28223BE20](v9);
-    v11 = v71 - v10;
+    v11 = v70 - v10;
     v12 = 0;
     LOWORD(v13) = COERCE_UNSIGNED_INT(-1.0);
-    v73 = a1;
-    v77 = v71 - v10;
+    v72 = a1;
+    v76 = v70 - v10;
     do
     {
-      v75 = (a1 + 2 * v74 * v12);
-      memcpy(v11, v75, v72);
-      v76 = v12;
-      v17 = v80;
+      v74 = (a1 + 2 * v73 * v12);
+      memcpy(v11, v74, v71);
+      v75 = v12;
+      v17 = v79;
       if (a2)
       {
         v18 = 0;
         LODWORD(v19) = 0;
-        v79 = v73 + 2 * v74 * (v76 + 19);
-        v17 = v80;
+        v78 = v72 + 2 * v73 * (v75 + 19);
+        v17 = v79;
         v20 = 4294967293;
         do
         {
@@ -8133,7 +8076,7 @@ void abpk::parsePersonsfromHeatmapBuffer(uint64_t a1@<X0>, unint64_t a2@<X2>, un
           {
             v21 = 0;
             *&v14 = v18;
-            v78 = v14;
+            v77 = v14;
             v19 = v19;
             v22 = v11;
             do
@@ -8168,16 +8111,16 @@ void abpk::parsePersonsfromHeatmapBuffer(uint64_t a1@<X0>, unint64_t a2@<X2>, un
                 }
 
 LABEL_25:
-                v17 = v80;
+                v17 = v79;
                 if (_H0 >= v7)
                 {
-                  _H1 = *(v79 + 2 * v19);
+                  _H1 = *(v78 + 2 * v19);
                   __asm { FCVT            S1, H1 }
 
-                  v86 = LODWORD(_S1);
-                  v35 = *v80;
-                  v36 = v80[1];
-                  if (*v80 != v36)
+                  v85 = LODWORD(_S1);
+                  v35 = *v79;
+                  v36 = v79[1];
+                  if (*v79 != v36)
                   {
                     for (j = v35 + 56; j != v36; j += 56)
                     {
@@ -8192,40 +8135,40 @@ LABEL_25:
 
                   if (v35 == v36 || (v39 = *(v35 + 48), vabds_f32(_S1, v39) >= 0.3))
                   {
-                    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEEC2B8ne200100Em(&v84, 0x13uLL);
+                    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEEC2B8ne200100Em(&v83, 0x13uLL);
                     *&v41 = v21;
-                    HIDWORD(v41) = v78;
-                    *(v84 + 8 * v16) = v41;
-                    std::vector<float>::vector[abi:ne200100](&v82, 0x13uLL);
+                    HIDWORD(v41) = v77;
+                    *(v83 + 8 * v16) = v41;
+                    std::vector<float>::vector[abi:ne200100](&v81, 0x13uLL);
                     v42 = v20;
-                    v43 = v82;
+                    v43 = v81;
                     v44 = v16;
-                    v82[v16] = _S14;
-                    v81 = 1065353216;
-                    v45 = v80;
-                    v46 = v80[1];
-                    if (v46 >= v80[2])
+                    v81[v16] = _S14;
+                    v80 = 1065353216;
+                    v45 = v79;
+                    v46 = v79[1];
+                    if (v46 >= v79[2])
                     {
-                      v50 = _ZNSt3__16vectorIN4abpk17HeatmapPersonDataENS_9allocatorIS2_EEE24__emplace_back_slow_pathIJNS0_IDv2_fNS3_IS7_EEEENS0_IfNS3_IfEEEERKffEEEPS2_DpOT_(v80, &v84, &v82, &v86, &v81);
-                      v51 = v82;
+                      v50 = _ZNSt3__16vectorIN4abpk17HeatmapPersonDataENS_9allocatorIS2_EEE24__emplace_back_slow_pathIJNS0_IDv2_fNS3_IS7_EEEENS0_IfNS3_IfEEEERKffEEEPS2_DpOT_(v79, &v83, &v81, &v85, &v80);
+                      v51 = v81;
                       v45[1] = v50;
                       if (v51)
                       {
-                        *&v83 = v51;
+                        *&v82 = v51;
                         operator delete(v51);
                       }
                     }
 
                     else
                     {
-                      v47 = v85;
-                      v14 = v84;
-                      v85 = 0;
-                      v84 = 0uLL;
-                      v48 = v86;
+                      v47 = v84;
+                      v14 = v83;
+                      v84 = 0;
+                      v83 = 0uLL;
+                      v48 = v85;
                       *(v46 + 16) = v47;
                       *(v46 + 24) = v43;
-                      v49 = v83;
+                      v49 = v82;
                       *v46 = v14;
                       *(v46 + 32) = v49;
                       *(v46 + 48) = v48;
@@ -8234,14 +8177,14 @@ LABEL_25:
                     }
 
                     v16 = v44;
-                    if (v84)
+                    if (v83)
                     {
-                      *(&v84 + 1) = v84;
-                      operator delete(v84);
+                      *(&v83 + 1) = v83;
+                      operator delete(v83);
                     }
 
                     v20 = v42;
-                    v11 = v77;
+                    v11 = v76;
                   }
 
                   else
@@ -8252,13 +8195,13 @@ LABEL_25:
                     if (*(*(v35 + 24) + 4 * v16) < _S14)
                     {
                       *&v14 = v21;
-                      DWORD1(v14) = v78;
+                      DWORD1(v14) = v77;
                       *(*v35 + 8 * v16) = v14;
                       *(*(v35 + 24) + 4 * v16) = _S14;
                     }
                   }
 
-                  v17 = v80;
+                  v17 = v79;
                 }
               }
 
@@ -8286,9 +8229,9 @@ LABEL_25:
       v53 = v17;
       v54 = *v17;
       v55 = v53[1];
-      a1 = v73;
-      v56 = v76;
-      for (k = v75; v54 != v55; v54 += 7)
+      a1 = v72;
+      v56 = v75;
+      for (k = v74; v54 != v55; v54 += 7)
       {
         v58 = 0;
         _D1 = 0;
@@ -8335,8 +8278,6 @@ LABEL_25:
 
     while (v12 != 19);
   }
-
-  v70 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23EDF7178(_Unwind_Exception *a1)
@@ -8346,14 +8287,12 @@ void sub_23EDF7178(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::vector<abpk::HeatmapPersonData>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<abpk::HeatmapPersonData>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0x6DB6DB6DB6DB6DB7 * ((result[2] - *result) >> 3) < a2)
   {
     if (a2 < 0x492492492492493)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<abpk::HeatmapPersonData>>(result, a2);
     }
 
@@ -8363,14 +8302,14 @@ void *std::vector<abpk::HeatmapPersonData>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_23EDF729C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23EDF729C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<abpk::HeatmapPersonData>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t abpk::convertPersonsToHuman@<X0>(std::vector<unsigned int> **a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t *abpk::convertPersonsToHuman@<X0>(std::vector<unsigned int> **a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -8419,7 +8358,7 @@ uint64_t abpk::convertPersonsToHuman@<X0>(std::vector<unsigned int> **a1@<X0>, u
       else
       {
         _ZNSt3__19allocatorIN4abpk5HumanEE9constructB8ne200100IS2_JNS_6vectorIDv2_fNS0_IS6_EEEENS5_IfNS0_IfEEEEEEEvPT_DpOT0_(a3, a3[1], v7, &v7[1]);
-        result = v21 + 120;
+        result = (v21 + 120);
       }
 
       a3[1] = result;
@@ -8432,9 +8371,9 @@ uint64_t abpk::convertPersonsToHuman@<X0>(std::vector<unsigned int> **a1@<X0>, u
   return result;
 }
 
-void sub_23EDF73FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23EDF73FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<abpk::Human>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8758,8 +8697,7 @@ uint64_t _ZNSt3__16vectorIN4abpk17HeatmapPersonDataENS_9allocatorIS2_EEE24__empl
   *a2 = 0;
   v13 = *(a3 + 2);
   v14 = *a3;
-  *a3 = 0;
-  *(a3 + 1) = 0;
+  *a3 = 0uLL;
   *(a3 + 2) = 0;
   v15 = *a4;
   v16 = *a5;
@@ -8786,9 +8724,9 @@ uint64_t _ZNSt3__16vectorIN4abpk17HeatmapPersonDataENS_9allocatorIS2_EEE24__empl
   return v22;
 }
 
-void sub_23EDF7ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23EDF7ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<abpk::HeatmapPersonData>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8843,9 +8781,9 @@ uint64_t _ZNSt3__16vectorIN4abpk5HumanENS_9allocatorIS2_EEE24__emplace_back_slow
   return v13;
 }
 
-void sub_23EDF7C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23EDF7C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<abpk::Human>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8933,7 +8871,7 @@ void std::vector<abpk::Human>::__vdeallocate(uint64_t *a1)
   }
 }
 
-uint64_t _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8955,22 +8893,22 @@ void sub_23EDFA060(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void btr::ProjectPoints(double **a1@<X0>, uint64_t a2@<X1>, float64x2_t **a3@<X8>)
+float64x2_t btr::ProjectPoints@<Q0>(double **a1@<X0>, uint64_t a2@<X1>, float64x2_t **a3@<X8>)
 {
   v22 = *MEMORY[0x277D85DE8];
   std::vector<cva::Matrix<double,2u,1u,false>>::vector[abi:ne200100](a3, 0xAAAAAAAAAAAAAAABLL * (a1[1] - *a1));
-  v5 = *a1;
-  v6 = a1[1];
-  if (*a1 != v6)
+  v6 = *a1;
+  v7 = a1[1];
+  if (*a1 != v7)
   {
-    v7 = *a3;
-    v8 = a2 + 168;
+    v8 = *a3;
+    v9 = a2 + 168;
     do
     {
       v15[0] = a2 + 72;
       v15[1] = 4;
       v16[0] = v15;
-      v16[1] = v5;
+      v16[1] = v6;
       v20 = 0;
       v21 = 0;
       v19.f64[1] = 0.0;
@@ -8979,16 +8917,16 @@ void btr::ProjectPoints(double **a1@<X0>, uint64_t a2@<X1>, float64x2_t **a3@<X8
       v14 = 0;
       if ((a2 + 72) == &v13)
       {
-        v10 = 0;
+        v11 = 0;
         v17 = 0uLL;
         v18 = 0;
         do
         {
-          *(&v17 + v10 * 8) = v19.f64[v10 + 1] + *(v8 + v10 * 8);
-          ++v10;
+          *(&v17 + v11 * 8) = v19.f64[v11 + 1] + *(v9 + v11 * 8);
+          ++v11;
         }
 
-        while (v10 != 3);
+        while (v11 != 3);
         v13 = v17;
         v14 = v18;
       }
@@ -8997,7 +8935,7 @@ void btr::ProjectPoints(double **a1@<X0>, uint64_t a2@<X1>, float64x2_t **a3@<X8
       {
         for (i = 0; i != 3; ++i)
         {
-          *(&v13 + i * 8) = v19.f64[i + 1] + *(v8 + i * 8);
+          *(&v13 + i * 8) = v19.f64[i + 1] + *(v9 + i * 8);
         }
       }
 
@@ -9006,14 +8944,15 @@ void btr::ProjectPoints(double **a1@<X0>, uint64_t a2@<X1>, float64x2_t **a3@<X8
       v20 = 0;
       v19 = 0uLL;
       cva::assign<false,false,cva::Matrix<double,3u,1u,false>,cva::Matrix<double,3u,3u,false>,cva::Matrix<double,3u,1u,false>>(&v19, &v17);
-      *v7++ = vdivq_f64(v19, vdupq_lane_s64(v20, 0));
-      v5 += 3;
+      result = vdivq_f64(v19, vdupq_lane_s64(v20, 0));
+      *v8++ = result;
+      v6 += 3;
     }
 
-    while (v5 != v6);
+    while (v6 != v7);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  return result;
 }
 
 void sub_23EDFA20C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -9148,190 +9087,191 @@ void btr::BodyRegistration::RegisterBody(uint64_t a1@<X0>, uint64_t a2@<X1>, uni
   {
     *a9 = v13;
     *a1 = v13;
-    v51 = __ABPKLogSharedInstance();
-    if (!os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    v52 = __ABPKLogSharedInstance(a1);
+    if (!os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
       return;
     }
 
-    *v85 = 0;
-    v52 = " Failed to find 2d-3d correspondences ";
-    v53 = v85;
-    v54 = v51;
-    v55 = OS_LOG_TYPE_ERROR;
+    *v90 = 0;
+    v53 = " Failed to find 2d-3d correspondences ";
+    v54 = v90;
+    v55 = v52;
+    v56 = OS_LOG_TYPE_ERROR;
     goto LABEL_49;
   }
 
-  v78 = v10;
+  v83 = v10;
   std::vector<cva::Matrix<double,2u,1u,false>>::reserve(v12, a3);
   std::vector<cva::Matrix<double,3u,1u,false>>::reserve((v11 + 88), a3);
-  v17 = 0;
-  v18 = *(a9 + 296);
+  v18 = 0;
+  v19 = *(a9 + 296);
   do
   {
-    v19 = vcvtq_f64_f32(*(a2 + 8 * v17));
-    v20 = *(a9 + 304);
-    if (v18 >= v20)
+    v20 = vcvtq_f64_f32(*(a2 + 8 * v18));
+    v21 = *(a9 + 304);
+    if (v19 >= v21)
     {
-      v21 = (v18 - *&v12->camera_matrix.m_data[0]) >> 4;
-      if ((v21 + 1) >> 60)
+      v22 = (v19 - *v12) >> 4;
+      if ((v22 + 1) >> 60)
       {
         std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
       }
 
-      v22 = v20 - *&v12->camera_matrix.m_data[0];
-      v23 = v22 >> 3;
-      if (v22 >> 3 <= (v21 + 1))
+      v23 = v21 - *v12;
+      v24 = v23 >> 3;
+      if (v23 >> 3 <= (v22 + 1))
       {
-        v23 = v21 + 1;
+        v24 = v22 + 1;
       }
 
-      if (v22 >= 0x7FFFFFFFFFFFFFF0)
+      if (v23 >= 0x7FFFFFFFFFFFFFF0)
       {
-        v24 = 0xFFFFFFFFFFFFFFFLL;
+        v25 = 0xFFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v24 = v23;
+        v25 = v24;
       }
 
-      if (v24)
+      if (v25)
       {
-        _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv3_iEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(v12, v24);
+        _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv3_iEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(v12, v25);
       }
 
-      v25 = (16 * v21);
-      *v25 = v19;
-      v18 = (16 * v21 + 16);
-      v26 = *(a9 + 288);
-      v27 = *(a9 + 296);
-      v28 = (v25->f64 + v26 - v27);
-      if (v27 != v26)
+      v17 = 0;
+      v26 = (16 * v22);
+      *v26 = v20;
+      v19 = (16 * v22 + 16);
+      v27 = *(a9 + 288);
+      v28 = *(a9 + 296);
+      v29 = (v26->f64 + v27 - v28);
+      if (v28 != v27)
       {
-        v29 = v28;
+        v30 = v29;
         do
         {
-          v30 = *v26;
-          v26 += 16;
-          *v29++ = v30;
+          v31 = *v27++;
+          *v30++ = v31;
         }
 
-        while (v26 != v27);
-        v26 = *&v12->camera_matrix.m_data[0];
+        while (v27 != v28);
+        v27 = *v12;
       }
 
-      *(a9 + 288) = v28;
-      *(a9 + 296) = v18;
+      *(a9 + 288) = v29;
+      *(a9 + 296) = v19;
       *(a9 + 304) = 0;
-      if (v26)
+      if (v27)
       {
-        operator delete(v26);
+        operator delete(v27);
       }
     }
 
     else
     {
-      *v18++ = v19;
+      *v19++ = v20;
     }
 
-    *(a9 + 296) = v18;
-    ++v17;
+    *(a9 + 296) = v19;
+    ++v18;
   }
 
-  while (v17 != a3);
-  v31 = 0;
-  v32 = *(a9 + 320);
+  while (v18 != a3);
+  v32 = 0;
+  v33 = *(a9 + 320);
   do
   {
-    v33 = a4 + 16 * v31;
-    v34 = COERCE_FLOAT(*(v33 + 16 * (v31 > 6) + 8));
-    v35 = vcvtq_f64_f32(*(v33 + 16 * (v31 > 6)));
-    v36 = *(a9 + 328);
-    if (v32 >= v36)
+    v34 = a4 + 16 * v32;
+    v35 = COERCE_FLOAT(*(v34 + 16 * (v32 > 6) + 8));
+    v36 = vcvtq_f64_f32(*(v34 + 16 * (v32 > 6)));
+    v37 = *(a9 + 328);
+    if (v33 >= v37)
     {
-      v37 = *(v11 + 88);
-      v38 = 0xAAAAAAAAAAAAAAABLL * ((v32 - v37) >> 3);
-      v39 = v38 + 1;
-      if (v38 + 1 > 0xAAAAAAAAAAAAAAALL)
+      v38 = *(v11 + 88);
+      v39 = 0xAAAAAAAAAAAAAAABLL * ((v33 - v38) >> 3);
+      v40 = v39 + 1;
+      if (v39 + 1 > 0xAAAAAAAAAAAAAAALL)
       {
         std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
       }
 
-      v40 = 0xAAAAAAAAAAAAAAABLL * ((v36 - v37) >> 3);
-      if (2 * v40 > v39)
+      v41 = 0xAAAAAAAAAAAAAAABLL * ((v37 - v38) >> 3);
+      if (2 * v41 > v40)
       {
-        v39 = 2 * v40;
+        v40 = 2 * v41;
       }
 
-      if (v40 >= 0x555555555555555)
+      if (v41 >= 0x555555555555555)
       {
-        v41 = 0xAAAAAAAAAAAAAAALL;
+        v42 = 0xAAAAAAAAAAAAAAALL;
       }
 
       else
       {
-        v41 = v39;
+        v42 = v40;
       }
 
-      if (v41)
+      if (v42)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<cva::Matrix<double,3u,1u,false>>>(v11 + 88, v41);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<cva::Matrix<double,3u,1u,false>>>(v11 + 88, v42);
       }
 
-      v42 = 24 * v38;
-      *v42 = v35;
-      *(v42 + 16) = v34;
-      v43 = *(a9 + 312);
-      v44 = *(a9 + 320);
-      v45 = 24 * v38 + v43 - v44;
-      if (v44 != v43)
+      v17 = 0;
+      v43 = 24 * v39;
+      *v43 = v36;
+      *(v43 + 16) = v35;
+      v44 = *(a9 + 312);
+      v45 = *(a9 + 320);
+      v46 = 24 * v39 + v44 - v45;
+      if (v45 != v44)
       {
-        v46 = (v42 + v43 - v44);
+        v47 = (v43 + v44 - v45);
         do
         {
-          v47 = *v43;
-          *(v46 + 2) = *(v43 + 2);
-          *v46 = v47;
-          v46 += 24;
-          v43 += 24;
+          v48 = *v44;
+          *(v47 + 2) = *(v44 + 2);
+          *v47 = v48;
+          v47 += 24;
+          v44 += 24;
         }
 
-        while (v43 != v44);
-        v43 = *(v11 + 88);
+        while (v44 != v45);
+        v44 = *(v11 + 88);
       }
 
-      v32 = (v42 + 24);
-      *(a9 + 312) = v45;
-      *(a9 + 320) = v42 + 24;
+      v33 = (v43 + 24);
+      *(a9 + 312) = v46;
+      *(a9 + 320) = v43 + 24;
       *(a9 + 328) = 0;
-      if (v43)
+      if (v44)
       {
-        operator delete(v43);
+        operator delete(v44);
       }
     }
 
     else
     {
-      *v32 = v35;
-      v32[1].f64[0] = v34;
-      v32 = (v32 + 24);
+      *v33 = v36;
+      v33[1].f64[0] = v35;
+      v33 = (v33 + 24);
     }
 
-    *(a9 + 320) = v32;
-    ++v31;
+    *(a9 + 320) = v33;
+    ++v32;
   }
 
-  while (v31 != a3);
+  while (v32 != a3);
   *a9 = 0;
   if (*a1)
   {
-    v48 = v78;
-    v49 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+    v49 = v83;
+    v50 = __ABPKLogSharedInstance(v17);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_23EDDC000, v49, OS_LOG_TYPE_DEBUG, " Previous body-camera registration failed. Reinitializing.. ", buf, 2u);
+      _os_log_impl(&dword_23EDDC000, v50, OS_LOG_TYPE_DEBUG, " Previous body-camera registration failed. Reinitializing.. ", buf, 2u);
     }
 
     *(a9 + 200) = 0x3FF0000000000000;
@@ -9339,12 +9279,12 @@ void btr::BodyRegistration::RegisterBody(uint64_t a1@<X0>, uint64_t a2@<X1>, uni
 
   else
   {
-    v48 = v78;
-    v56 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+    v49 = v83;
+    v57 = __ABPKLogSharedInstance(v17);
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
     {
-      *v84 = 0;
-      _os_log_impl(&dword_23EDDC000, v56, OS_LOG_TYPE_DEBUG, " Previous body-camera registration successful. Initializing with previos pose.. ", v84, 2u);
+      *v89 = 0;
+      _os_log_impl(&dword_23EDDC000, v57, OS_LOG_TYPE_DEBUG, " Previous body-camera registration successful. Initializing with previos pose.. ", v89, 2u);
     }
 
     if (a9 != a1)
@@ -9359,34 +9299,36 @@ void btr::BodyRegistration::RegisterBody(uint64_t a1@<X0>, uint64_t a2@<X1>, uni
       *(a9 + 136) = *(a1 + 136);
     }
 
-    v57 = *(a1 + 240);
+    v58 = *(a1 + 240);
     *v11 = *(a1 + 224);
-    *(v11 + 16) = v57;
-    v58 = *(a1 + 272);
+    *(v11 + 16) = v58;
+    v59 = *(a1 + 272);
     *(v11 + 32) = *(a1 + 256);
-    *(v11 + 48) = v58;
+    *(v11 + 48) = v59;
   }
 
-  v59 = *(a8 + 16);
-  v60 = *(a8 + 32);
-  v61 = COERCE_FLOAT(*(a8 + 40));
-  v62 = vcvtq_f64_f32(vzip1_s32(*&vextq_s8(*a8, *a8, 8uLL), *v59.i8));
+  v60 = *(a8 + 16);
+  v61 = *(a8 + 32);
+  v62 = COERCE_FLOAT(*(a8 + 40));
+  v63 = vcvtq_f64_f32(vzip1_s32(*&vextq_s8(*a8, *a8, 8uLL), *v60.i8));
   *(a9 + 16) = vcvtq_f64_f32(*a8);
-  *(a9 + 32) = v62;
-  *(a9 + 48) = vcvtq_f64_f32(vext_s8(*v59.i8, *&vextq_s8(v59, v59, 8uLL), 4uLL));
-  *(a9 + 64) = vcvtq_f64_f32(*&v60);
-  *(a9 + 80) = v61;
-  *a9 = v63;
-  if (!v63)
+  *(a9 + 32) = v63;
+  v64 = vcvtq_f64_f32(vext_s8(*v60.i8, *&vextq_s8(v60, v60, 8uLL), 4uLL));
+  v65 = vcvtq_f64_f32(v61.n128_u64[0]);
+  *(a9 + 48) = v64;
+  *(a9 + 64) = v65;
+  *(a9 + 80) = v62;
+  *a9 = v66;
+  if (!v66)
   {
     goto LABEL_62;
   }
 
-  v64 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+  v67 = __ABPKLogSharedInstance(v66);
+  if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
   {
-    *v82 = 0;
-    _os_log_impl(&dword_23EDDC000, v64, OS_LOG_TYPE_DEBUG, " Trying with a different init pose ", v82, 2u);
+    *v87 = 0;
+    _os_log_impl(&dword_23EDDC000, v67, OS_LOG_TYPE_DEBUG, " Trying with a different init pose ", v87, 2u);
   }
 
   *(a9 + 200) = 0x3FE0000000000000;
@@ -9394,49 +9336,49 @@ void btr::BodyRegistration::RegisterBody(uint64_t a1@<X0>, uint64_t a2@<X1>, uni
   if (v66)
   {
     *a1 = v66;
-    v67 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
+    v72 = __ABPKLogSharedInstance(v66);
+    if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
     {
-      v80 = 0;
-      v52 = " Registration Failed with a different init pose ";
-      v53 = &v80;
-      v54 = v67;
-      v55 = OS_LOG_TYPE_DEBUG;
+      v85 = 0;
+      v53 = " Registration Failed with a different init pose ";
+      v54 = &v85;
+      v55 = v72;
+      v56 = OS_LOG_TYPE_DEBUG;
 LABEL_49:
-      _os_log_impl(&dword_23EDDC000, v54, v55, v52, v53, 2u);
+      _os_log_impl(&dword_23EDDC000, v55, v56, v53, v54, 2u);
     }
   }
 
   else
   {
 LABEL_62:
-    v68 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
+    v73 = __ABPKLogSharedInstance(v66);
+    if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
     {
-      *v81 = 0;
-      _os_log_impl(&dword_23EDDC000, v68, OS_LOG_TYPE_DEBUG, " Registration successful ", v81, 2u);
+      *v86 = 0;
+      _os_log_impl(&dword_23EDDC000, v73, OS_LOG_TYPE_DEBUG, " Registration successful ", v86, 2u);
     }
 
     *a1 = *a9;
     if (a1 == a9)
     {
-      v75 = *(v11 + 16);
+      v80 = *(v11 + 16);
       *(a1 + 224) = *v11;
-      *(a1 + 240) = v75;
-      v76 = *(v11 + 48);
+      *(a1 + 240) = v80;
+      v81 = *(v11 + 48);
       *(a1 + 256) = *(v11 + 32);
-      *(a1 + 272) = v76;
+      *(a1 + 272) = v81;
     }
 
     else
     {
-      v69 = *(v48 + 48);
-      *(a1 + 48) = *(v48 + 32);
-      *(a1 + 64) = v69;
-      *(a1 + 80) = *(v48 + 64);
-      v70 = *(v48 + 16);
-      *(a1 + 16) = *v48;
-      *(a1 + 32) = v70;
+      v74 = *(v49 + 48);
+      *(a1 + 48) = *(v49 + 32);
+      *(a1 + 64) = v74;
+      *(a1 + 80) = *(v49 + 64);
+      v75 = *(v49 + 16);
+      *(a1 + 16) = *v49;
+      *(a1 + 32) = v75;
       *(a1 + 152) = *(a9 + 152);
       *(a1 + 168) = *(a9 + 168);
       *(a1 + 184) = *(a9 + 184);
@@ -9445,110 +9387,107 @@ LABEL_62:
       *(a1 + 104) = *(a9 + 104);
       *(a1 + 120) = *(a9 + 120);
       *(a1 + 136) = *(a9 + 136);
-      v71 = *(v11 + 48);
+      v76 = *(v11 + 48);
       *(a1 + 256) = *(v11 + 32);
-      *(a1 + 272) = v71;
-      v72 = *(v11 + 16);
-      v73 = *(a9 + 288);
-      v74 = *(a9 + 296);
+      *(a1 + 272) = v76;
+      v77 = *(v11 + 16);
+      v78 = *(a9 + 288);
+      v79 = *(a9 + 296);
       *(a1 + 224) = *v11;
-      *(a1 + 240) = v72;
-      std::vector<cva::Matrix<double,2u,1u,false>>::__assign_with_size[abi:ne200100]<cva::Matrix<double,2u,1u,false>*,cva::Matrix<double,2u,1u,false>*>((a1 + 288), v73, v74, (v74 - v73) >> 4);
+      *(a1 + 240) = v77;
+      std::vector<cva::Matrix<double,2u,1u,false>>::__assign_with_size[abi:ne200100]<cva::Matrix<double,2u,1u,false>*,cva::Matrix<double,2u,1u,false>*>((a1 + 288), v78, v79, (v79 - v78) >> 4);
       std::vector<cva::Matrix<double,3u,1u,false>>::__assign_with_size[abi:ne200100]<cva::Matrix<double,3u,1u,false>*,cva::Matrix<double,3u,1u,false>*>((a1 + 312), *(a9 + 312), *(a9 + 320), 0xAAAAAAAAAAAAAAABLL * ((*(a9 + 320) - *(a9 + 312)) >> 3));
     }
   }
 }
 
-uint64_t btr::anonymous namespace::EstimatePoseFromCorrespondences(btr::_anonymous_namespace_ *this, CameraPoseInfo *a2, const Correspondences2d3d *a3)
+uint64_t btr::anonymous namespace::EstimatePoseFromCorrespondences(btr::_anonymous_namespace_ *this, CameraPoseInfo *a2, const Correspondences2d3d *a3, __n128 a4, __n128 a5, __n128 a6)
 {
-  v5 = (*&a2->camera_matrix.m_data[1] - *&a2->camera_matrix.m_data[0]) >> 4;
+  v8 = (*&a2->camera_matrix.m_data[1] - *&a2->camera_matrix.m_data[0]) >> 4;
   if (*&a2->camera_matrix.m_data[1] == *&a2->camera_matrix.m_data[0])
   {
-    v6 = 0;
+    v9 = 0;
   }
 
   else
   {
-    LODWORD(v6) = 0;
-    if (v5 <= 1)
+    LODWORD(v9) = 0;
+    if (v8 <= 1)
     {
-      v7 = 1;
+      v10 = 1;
     }
 
     else
     {
-      v7 = (*&a2->camera_matrix.m_data[1] - *&a2->camera_matrix.m_data[0]) >> 4;
+      v10 = (*&a2->camera_matrix.m_data[1] - *&a2->camera_matrix.m_data[0]) >> 4;
     }
 
-    v8 = (*&a2->camera_matrix.m_data[0] + 8);
+    v11 = (*&a2->camera_matrix.m_data[0] + 8);
     do
     {
-      if (*(v8 - 1) <= 0.0 || *v8 <= 0.0)
+      if (*(v11 - 1) <= 0.0 || *v11 <= 0.0)
       {
-        LODWORD(v6) = v6 + 1;
+        LODWORD(v9) = v9 + 1;
       }
 
-      v8 += 2;
-      --v7;
+      v11 += 2;
+      --v10;
     }
 
-    while (v7);
-    v6 = v6;
+    while (v10);
+    v9 = v9;
   }
 
-  std::vector<std::pair<cva::Matrix<double,3u,1u,false>,cva::Matrix<double,2u,1u,false>>>::vector[abi:ne200100](v62, v5 - v6);
-  v9 = a2->camera_matrix.m_data[0];
+  v12 = std::vector<std::pair<cva::Matrix<double,3u,1u,false>,cva::Matrix<double,2u,1u,false>>>::vector[abi:ne200100](v66, v8 - v9);
+  v13 = a2->camera_matrix.m_data[0];
   if (*&a2->camera_matrix.m_data[1] != *&a2->camera_matrix.m_data[0])
   {
-    v10 = 0;
-    v11 = 0;
-    v12 = 0;
-    v13 = 0;
+    v14 = 0;
+    v15 = 0;
+    v16 = 0;
+    v17 = 0;
     do
     {
-      v14.f64[0] = *(*&v9 + v11);
-      if (v14.f64[0] <= 0.0 || (v15 = *&v9 + v11, *(v15 + 8) <= 0.0))
+      v18.f64[0] = *(*&v13 + v15);
+      if (v18.f64[0] <= 0.0 || (v19 = *&v13 + v15, *(v19 + 8) <= 0.0))
       {
-        v21 = __ABPKLogSharedInstance();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+        v25 = __ABPKLogSharedInstance(v12);
+        v12 = os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG);
+        if (v12)
         {
           *buf = 0;
-          _os_log_impl(&dword_23EDDC000, v21, OS_LOG_TYPE_DEBUG, " ABPKRegistrationUtils: Skipping because of invisible joints ", buf, 2u);
+          _os_log_impl(&dword_23EDDC000, v25, OS_LOG_TYPE_DEBUG, " ABPKRegistrationUtils: Skipping because of invisible joints ", buf, 2u);
         }
       }
 
       else
       {
-        v16 = *this;
-        v17 = (*&a2->camera_matrix.m_data[3] + v10);
-        v18 = v62[0] + 40 * v12++;
-        v14.f64[1] = *(v15 + 8);
-        v16.f64[1] = *(this + 4);
-        v19 = vdivq_f64(vsubq_f64(v14, *(this + 3)), v16);
-        v20 = *v17;
-        *(v18 + 2) = *(v17 + 2);
-        *v18 = v20;
-        *(v18 + 24) = v19;
+        v20 = *this;
+        v21 = (*&a2->camera_matrix.m_data[3] + v14);
+        v22 = v66[0] + 40 * v16++;
+        v18.f64[1] = *(v19 + 8);
+        v20.f64[1] = *(this + 4);
+        v23 = vdivq_f64(vsubq_f64(v18, *(this + 3)), v20);
+        v24 = *v21;
+        *(v22 + 2) = *(v21 + 2);
+        *v22 = v24;
+        *(v22 + 24) = v23;
       }
 
-      ++v13;
-      v9 = a2->camera_matrix.m_data[0];
-      v11 += 16;
-      v10 += 24;
+      ++v17;
+      v13 = a2->camera_matrix.m_data[0];
+      v15 += 16;
+      v14 += 24;
     }
 
-    while (v13 < (*&a2->camera_matrix.m_data[1] - *&a2->camera_matrix.m_data[0]) >> 4);
+    while (v17 < (*&a2->camera_matrix.m_data[1] - *&a2->camera_matrix.m_data[0]) >> 4);
   }
 
   *buf = 0x6400000000;
-  v34 = xmmword_23EE28750;
-  v35 = 3;
-  v60 = 0;
-  v61 = 0;
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
+  v38 = xmmword_23EE28750;
+  v39 = 3;
+  v64 = 0;
+  v65 = 0;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
@@ -9567,34 +9506,38 @@ uint64_t btr::anonymous namespace::EstimatePoseFromCorrespondences(btr::_anonymo
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v59 = 0;
-  v58 = 0;
-  v32 = 0;
-  v22 = cva::PoseRefiner<double>::refinePose(buf, v62, (this + 72), &v32);
-  *&v23 = vcvt_f32_f64(*(this + 72));
-  *&v24 = *(this + 11);
-  *(&v23 + 1) = v24;
-  *&v25 = vcvt_f32_f64(*(this + 104));
-  *&v26 = *(this + 15);
-  *(&v25 + 1) = v26;
-  *&v27 = vcvt_f32_f64(*(this + 136));
-  *&v28 = *(this + 19);
+  v58 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  v63 = 0;
+  v62 = 0;
+  v36 = 0;
+  v26 = cva::PoseRefiner<double>::refinePose(buf, v66, this + 9, &v36);
+  *&v27 = vcvt_f32_f64(*(this + 72));
+  *&v28 = *(this + 11);
   *(&v27 + 1) = v28;
-  *&v29 = vcvt_f32_f64(*(this + 168));
-  *&v30 = *(this + 23);
-  *(&v29 + 1) = __PAIR64__(1.0, v30);
-  *(this + 13) = v23;
-  *(this + 14) = v25;
-  *(this + 15) = v27;
-  *(this + 16) = v29;
+  *&v29 = vcvt_f32_f64(*(this + 104));
+  *&v30 = *(this + 15);
+  *(&v29 + 1) = v30;
+  *&v31 = vcvt_f32_f64(*(this + 136));
+  *&v32 = *(this + 19);
+  *(&v31 + 1) = v32;
+  *&v33 = vcvt_f32_f64(*(this + 168));
+  *&v34 = *(this + 23);
+  *(&v33 + 1) = __PAIR64__(1.0, v34);
+  *(this + 13) = v27;
+  *(this + 14) = v29;
+  *(this + 15) = v31;
+  *(this + 16) = v33;
   cva::PoseRefiner<double>::~PoseRefiner(buf);
-  if (v62[0])
+  if (v66[0])
   {
-    v62[1] = v62[0];
-    operator delete(v62[0]);
+    v66[1] = v66[0];
+    operator delete(v66[0]);
   }
 
-  if (v22)
+  if (v26)
   {
     return 0;
   }
@@ -9617,36 +9560,30 @@ void sub_23EDFACF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<cva::Matrix<double,2u,1u,false>>::reserve(void *result, unint64_t a2)
+void std::vector<cva::Matrix<double,2u,1u,false>>::reserve(__int128 **a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > a1[2] - *a1)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv3_iEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(result, a2);
+      _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv3_iEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(a1, a2);
     }
 
     std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void *std::vector<cva::Matrix<double,3u,1u,false>>::reserve(void *result, unint64_t a2)
+void std::vector<cva::Matrix<double,3u,1u,false>>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0xAAAAAAAAAAAAAABLL)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<cva::Matrix<double,3u,1u,false>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<cva::Matrix<double,3u,1u,false>>>(a1, a2);
     }
 
     std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<cva::Matrix<double,3u,1u,false>>>(uint64_t a1, unint64_t a2)
@@ -9659,7 +9596,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<cva::Matrix<double,3u
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-BOOL cva::PoseRefiner<double>::refinePose(uint64_t a1, uint64_t *a2, __int128 *a3, double *a4)
+BOOL cva::PoseRefiner<double>::refinePose(uint64_t a1, uint64_t *a2, uint64_t **a3, double *a4)
 {
   v6 = a2;
   v8 = 0xCCCCCCCCCCCCCCCDLL * ((a2[1] - *a2) >> 3);
@@ -9781,7 +9718,7 @@ BOOL cva::PoseRefiner<double>::refinePose(uint64_t a1, uint64_t *a2, __int128 *a
       *&v53[16] = v28;
       *&v53[32] = v10[2];
       memcpy(__dst, (a1 + 56), sizeof(__dst));
-      if (!cva::ldlt<double,6u,1u>())
+      if (!cva::ldlt<double,6u,1u>(__dst, v53))
       {
         return 0;
       }
@@ -9824,17 +9761,17 @@ BOOL cva::PoseRefiner<double>::refinePose(uint64_t a1, uint64_t *a2, __int128 *a
       v61 = 0u;
       cva::assign<false,false,cva::Matrix<double,4u,4u,false>,cva::Matrix<double,4u,4u,false>,cva::Matrix<double,4u,4u,false>>(&v54, &v62);
       v36 = v59;
-      a3[4] = v58;
-      a3[5] = v36;
+      *(a3 + 4) = v58;
+      *(a3 + 5) = v36;
       v37 = v61;
-      a3[6] = v60;
-      a3[7] = v37;
+      *(a3 + 6) = v60;
+      *(a3 + 7) = v37;
       v38 = v55;
       *a3 = v54;
-      a3[1] = v38;
+      *(a3 + 1) = v38;
       v39 = v57;
-      a3[2] = v56;
-      a3[3] = v39;
+      *(a3 + 2) = v56;
+      *(a3 + 3) = v39;
       cva::SE3GroupStorage<double,cva::Matrix<double,4u,4u,false>>::log(a3, &v62);
       v40 = vmulq_f64(v63, v63);
       v41 = v62 * v62 + v40.f64[0] + v40.f64[1];
@@ -9854,17 +9791,17 @@ BOOL cva::PoseRefiner<double>::refinePose(uint64_t a1, uint64_t *a2, __int128 *a
       cva::ExponentialCoefficients<double,3>::ExponentialCoefficients(v64, v41);
       cva::computeExponentialMatrix<double,cva::Matrix<double,6u,1u,false>,cva::Matrix<double,4u,4u,false>>(&v62, v64[0].f64, &v54);
       v42 = v59;
-      a3[4] = v58;
-      a3[5] = v42;
+      *(a3 + 4) = v58;
+      *(a3 + 5) = v42;
       v43 = v61;
-      a3[6] = v60;
-      a3[7] = v43;
+      *(a3 + 6) = v60;
+      *(a3 + 7) = v43;
       v44 = v55;
       *a3 = v54;
-      a3[1] = v44;
+      *(a3 + 1) = v44;
       v45 = v57;
-      a3[2] = v56;
-      a3[3] = v45;
+      *(a3 + 2) = v56;
+      *(a3 + 3) = v45;
       if (v9 >= *(a1 + 24) && sqrt(*&v29 * *&v29 + *(&v29 + 1) * *(&v29 + 1) + v49 * v49) < *(a1 + 8))
       {
         v46 = vmulq_f64(*&v51[8], *&v51[8]);

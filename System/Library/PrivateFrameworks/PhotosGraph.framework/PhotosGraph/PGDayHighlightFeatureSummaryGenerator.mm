@@ -22,32 +22,32 @@
 
 - (double)durationFromDateIntervals:(id)intervals
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   intervalsCopy = intervals;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [intervalsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [intervalsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     v7 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(intervalsCopy);
         }
 
-        [*(*(&v12 + 1) + 8 * i) duration];
+        [*(*(&v11 + 1) + 8 * i) duration];
         v7 = v7 + v9;
       }
 
-      v5 = [intervalsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [intervalsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -58,13 +58,12 @@
     v7 = 0.0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)sortedSummarizedFeaturesForMomentNodes:(id)nodes
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   locationFeatureSummarySource = [(PGHighlightTailorContext *)self->_highlightTailorContext locationFeatureSummarySource];
   v5 = [locationFeatureSummarySource summarizedFeaturesForMomentNodes:nodesCopy];
@@ -79,22 +78,22 @@
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
       {
         highlightNode = self->_highlightNode;
-        v26 = loggingConnection;
+        v25 = loggingConnection;
         localIdentifier = [(PGGraphHighlightNode *)highlightNode localIdentifier];
         *buf = 138412290;
-        v34 = localIdentifier;
-        _os_log_error_impl(&dword_22F0FC000, v26, OS_LOG_TYPE_ERROR, "No summarized features found for highlight, %@", buf, 0xCu);
+        v33 = localIdentifier;
+        _os_log_error_impl(&dword_22F0FC000, v25, OS_LOG_TYPE_ERROR, "No summarized features found for highlight, %@", buf, 0xCu);
       }
     }
   }
 
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __80__PGDayHighlightFeatureSummaryGenerator_sortedSummarizedFeaturesForMomentNodes___block_invoke;
-  v32[3] = &unk_278883008;
-  v32[4] = self;
-  v30 = v5;
-  v9 = [v5 sortedArrayUsingComparator:v32];
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __80__PGDayHighlightFeatureSummaryGenerator_sortedSummarizedFeaturesForMomentNodes___block_invoke;
+  v31[3] = &unk_278883008;
+  v31[4] = self;
+  v29 = v5;
+  v9 = [v5 sortedArrayUsingComparator:v31];
   meaningFeatureSummarySource = [(PGHighlightTailorContext *)self->_highlightTailorContext meaningFeatureSummarySource];
   v10 = [meaningFeatureSummarySource summarizedFeaturesForMomentNodes:nodesCopy];
   holidayDateFeatureSummarySource = [(PGHighlightTailorContext *)self->_highlightTailorContext holidayDateFeatureSummarySource];
@@ -148,8 +147,6 @@ LABEL_10:
 
     v9 = v17;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

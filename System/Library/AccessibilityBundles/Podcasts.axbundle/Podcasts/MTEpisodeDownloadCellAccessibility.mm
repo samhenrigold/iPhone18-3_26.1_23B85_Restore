@@ -47,19 +47,8 @@
   v9 = [v8 safeValueForKey:@"author"];
   v10 = __UIAccessibilityCastAsClass();
 
-  if (v17 == 1)
+  if (v17 == 1 || (LOBYTE(v17) = 0, objc_opt_class(), [(MTEpisodeDownloadCellAccessibility *)self safeValueForKey:@"title"], v11 = objc_claimAutoreleasedReturnValue(), __UIAccessibilityCastAsClass(), v12 = objc_claimAutoreleasedReturnValue(), v11, v17 == 1) || (LOBYTE(v17) = 0, objc_opt_class(), [(MTEpisodeDownloadCellAccessibility *)self safeValueForKey:@"subtitle"], v13 = objc_claimAutoreleasedReturnValue(), __UIAccessibilityCastAsClass(), v14 = objc_claimAutoreleasedReturnValue(), v13, v17 == 1))
   {
-    goto LABEL_8;
-  }
-
-  LOBYTE(v17) = 0;
-  objc_opt_class();
-  v11 = [(MTEpisodeDownloadCellAccessibility *)self safeValueForKey:@"title"];
-  v12 = __UIAccessibilityCastAsClass();
-
-  if (v17 == 1 || (LOBYTE(v17) = 0, objc_opt_class(), [(MTEpisodeDownloadCellAccessibility *)self safeValueForKey:@"subtitle"], v13 = objc_claimAutoreleasedReturnValue(), __UIAccessibilityCastAsClass(), v14 = objc_claimAutoreleasedReturnValue(), v13, v17 == 1))
-  {
-LABEL_8:
     abort();
   }
 
@@ -70,10 +59,7 @@ LABEL_8:
 
 uint64_t __56__MTEpisodeDownloadCellAccessibility_accessibilityLabel__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) episodeForDownloadAtIndex:{objc_msgSend(*(a1 + 40), "row")}];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) episodeForDownloadAtIndex:{objc_msgSend(*(a1 + 40), "row")}];
 
   return MEMORY[0x2A1C71028]();
 }

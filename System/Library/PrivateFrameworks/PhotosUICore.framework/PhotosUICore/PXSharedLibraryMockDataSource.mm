@@ -13,7 +13,7 @@
   v8 = v7;
   if (v7)
   {
-    [v7 indexPath];
+    objc_msgSend_indexPath(v7);
     v9 = v23;
     v10 = v24 == 0x7FFFFFFFFFFFFFFFLL;
   }

@@ -13,9 +13,9 @@
   channelsCopy = channels;
   configCopy = config;
   replyCopy = reply;
-  v33.receiver = self;
-  v33.super_class = W5PeerSnifferRequest;
-  v22 = [(W5PeerSnifferRequest *)&v33 init];
+  v34.receiver = self;
+  v34.super_class = W5PeerSnifferRequest;
+  v22 = [(W5PeerSnifferRequest *)&v34 init];
   v23 = v22;
   if (!peerCopy || !v22 || (objc_storeStrong(&v22->_peer, peer), !replyCopy) || (v24 = objc_retainBlock(replyCopy), reply = v23->_reply, v23->_reply = v24, reply, type == 1) && (!channelsCopy || [channelsCopy count] > 2))
   {
@@ -23,13 +23,14 @@
     v31 = sub_100098A04();
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 136315650;
-      v35 = "[W5PeerSnifferRequest initWithPeer:requestType:duration:uuid:channels:config:reply:]";
-      v36 = 2080;
-      v37 = "W5PeerSnifferRequest.m";
-      v38 = 1024;
-      v39 = 63;
-      _os_log_send_and_compose_impl();
+      v35 = 136315650;
+      v36 = "[W5PeerSnifferRequest initWithPeer:requestType:duration:uuid:channels:config:reply:]";
+      v37 = 2080;
+      v38 = "W5PeerSnifferRequest.m";
+      v39 = 1024;
+      v40 = 63;
+      LODWORD(v33) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v31, 0, "[wifivelocity] %s (%s:%u) init error!", &v35, v33, LODWORD(v34.receiver));
     }
 
     v23 = 0;
@@ -83,17 +84,16 @@ LABEL_9:
     v8 = sub_100098A04();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 136315906;
-      v26 = "[W5PeerSnifferRequest handleResponse:]";
-      v27 = 2080;
-      v28 = "W5PeerSnifferRequest.m";
-      v29 = 1024;
-      v30 = 76;
-      v31 = 2048;
+      v24 = 136315906;
+      v25 = "[W5PeerSnifferRequest handleResponse:]";
+      v26 = 2080;
+      v27 = "W5PeerSnifferRequest.m";
+      v28 = 1024;
+      v29 = 76;
+      v30 = 2048;
       status = [reply status];
-      LODWORD(v22) = 38;
-      v21 = &v25;
-      _os_log_send_and_compose_impl();
+      LODWORD(v21) = 38;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) Response Status: %ld", &v24, v21, v22, v23);
     }
 
     if ([reply status] == 1)
@@ -106,11 +106,12 @@ LABEL_9:
         {
           filePaths2 = [reply filePaths];
           uuid = [reply uuid];
-          v25 = 138543618;
-          v26 = filePaths2;
-          v27 = 2114;
-          v28 = uuid;
-          _os_log_send_and_compose_impl();
+          v24 = 138543618;
+          v25 = filePaths2;
+          v26 = 2114;
+          v27 = uuid;
+          LODWORD(v21) = 22;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v12, 0, "[wifivelocity] Sniffer File Path(s) on Remote Peer: %{public}@, UUID: %{public}@", &v24, v21);
         }
 
         error2 = [(W5PeerSnifferRequest *)self reply];
@@ -121,7 +122,7 @@ LABEL_9:
 
       else
       {
-        error2 = [(W5PeerSnifferRequest *)self reply:v21];
+        error2 = [(W5PeerSnifferRequest *)self reply];
         error2[2](error2, 0, 0, 0, 0);
       }
     }
@@ -132,15 +133,16 @@ LABEL_9:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         peer = [(W5PeerSnifferRequest *)self peer];
-        v25 = 138543362;
-        v26 = peer;
-        _os_log_send_and_compose_impl();
+        v24 = 138543362;
+        v25 = peer;
+        LODWORD(v21) = 12;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v17, 0, "[wifivelocity] Error on Remote Peer: %{public}@", &v24, v21);
       }
 
       error2 = [(W5PeerSnifferRequest *)self reply];
-      v23 = NSLocalizedFailureReasonErrorKey;
-      v24 = @"W5PeerSnifferResponseUndefinedError";
-      v19 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v22 = NSLocalizedFailureReasonErrorKey;
+      v23 = @"W5PeerSnifferResponseUndefinedError";
+      v19 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
       v20 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:13 userInfo:v19];
       (error2)[2](error2, v20, 0, 0, 0);
     }

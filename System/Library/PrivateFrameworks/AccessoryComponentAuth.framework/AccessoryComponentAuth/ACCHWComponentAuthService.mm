@@ -198,31 +198,31 @@ void __91__ACCHWComponentAuthService_authenticateLASWithChallenge_completionHand
   analyticsCopy = analytics;
   propertyCopy = property;
   registryCopy = registry;
-  v190 = *MEMORY[0x277D85DE8];
+  v189 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   handlerCopy = handler;
   init_logging();
   v13 = objc_alloc_init(ACCHWComponentAuthServiceParams);
-  v186 = -1431655766;
+  v185 = -1431655766;
   __tp.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   __tp.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
   valuePtr = 0;
   CurrentUnixTimeMS = systemInfo_getCurrentUnixTimeMS();
-  v182[0] = MEMORY[0x277D85DD0];
-  v182[1] = 3221225472;
-  v182[2] = __138__ACCHWComponentAuthService__authenticateModuleWithChallenge_completionHandler_moduleType_updateRegistry_updateUIProperty_logToAnalytics___block_invoke;
-  v182[3] = &__block_descriptor_36_e5_v8__0l;
+  v181[0] = MEMORY[0x277D85DD0];
+  v181[1] = 3221225472;
+  v181[2] = __138__ACCHWComponentAuthService__authenticateModuleWithChallenge_completionHandler_moduleType_updateRegistry_updateUIProperty_logToAnalytics___block_invoke;
+  v181[3] = &__block_descriptor_36_e5_v8__0l;
   typeCopy = type;
   typeCopy2 = type;
-  v15 = v182;
+  v15 = v181;
   if (_authenticateModuleWithChallenge_completionHandler_moduleType_updateRegistry_updateUIProperty_logToAnalytics__onceToken != -1)
   {
     dispatch_once(&_authenticateModuleWithChallenge_completionHandler_moduleType_updateRegistry_updateUIProperty_logToAnalytics__onceToken, v15);
   }
 
-  v178 = handlerCopy;
-  v176 = analyticsCopy;
-  v174 = CurrentUnixTimeMS;
+  v177 = handlerCopy;
+  v175 = analyticsCopy;
+  v173 = CurrentUnixTimeMS;
   if (_authenticateModuleWithChallenge_completionHandler_moduleType_updateRegistry_updateUIProperty_logToAnalytics__disableAuth == 1)
   {
     if (gLogObjects && gNumLogObjects >= 4)
@@ -241,7 +241,7 @@ void __91__ACCHWComponentAuthService_authenticateLASWithChallenge_completionHand
       v18 = MEMORY[0x277D86220];
     }
 
-    v177 = challengeCopy;
+    v176 = challengeCopy;
     typeCopy4 = type;
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
@@ -312,10 +312,10 @@ void __91__ACCHWComponentAuthService_authenticateLASWithChallenge_completionHand
     _os_log_impl(&dword_23DC14000, v23, OS_LOG_TYPE_DEFAULT, "(moduleType=%d) %d: %ld.%03llu", buf, 0x22u);
   }
 
-  [(ACCHWComponentAuthServiceParams *)v13 setModuleAuthService:[(ACCHWComponentAuthService *)self _findModuleAuthService:type withAuthFlags:&v186]];
+  [(ACCHWComponentAuthServiceParams *)v13 setModuleAuthService:[(ACCHWComponentAuthService *)self _findModuleAuthService:type withAuthFlags:&v185]];
   if (![(ACCHWComponentAuthServiceParams *)v13 moduleAuthService])
   {
-    v177 = challengeCopy;
+    v176 = challengeCopy;
     [ACCHWComponentAuthService _authenticateModuleWithChallenge:completionHandler:moduleType:updateRegistry:updateUIProperty:logToAnalytics:];
     v21 = 0;
     v129 = 0;
@@ -359,7 +359,7 @@ void __91__ACCHWComponentAuthService_authenticateLASWithChallenge_completionHand
       charValue = [v29 charValue];
       if ((charValue - 3) >= 0xFEu)
       {
-        v177 = challengeCopy;
+        v176 = challengeCopy;
         v21 = charValue == 2;
         if (charValue == 2)
         {
@@ -434,7 +434,7 @@ LABEL_41:
           }
         }
 
-        v177 = challengeCopy;
+        v176 = challengeCopy;
         [ACCHWComponentAuthService _authenticateModuleWithChallenge:completionHandler:moduleType:updateRegistry:updateUIProperty:logToAnalytics:];
       }
 
@@ -448,7 +448,7 @@ LABEL_41:
           _os_log_impl(&dword_23DC14000, v34, OS_LOG_TYPE_DEFAULT, "(moduleType=%d) Error: challenge==NULL", buf, 8u);
         }
 
-        v177 = 0;
+        v176 = 0;
       }
 
       v21 = 0;
@@ -466,7 +466,7 @@ LABEL_52:
   }
 
   [(ACCHWComponentAuthServiceParams *)v13 setChallenge:challengeCopy];
-  [(ACCHWComponentAuthServiceParams *)v13 setAuthFlags:v186];
+  [(ACCHWComponentAuthServiceParams *)v13 setAuthFlags:v185];
   if (gLogObjects && gNumLogObjects >= 4)
   {
     v37 = *(gLogObjects + 24);
@@ -488,14 +488,14 @@ LABEL_52:
     [ACCHWComponentAuthService _authenticateModuleWithChallenge:v13 completionHandler:? moduleType:? updateRegistry:? updateUIProperty:? logToAnalytics:?];
   }
 
-  v177 = challengeCopy;
+  v176 = challengeCopy;
 
   if (typeCopy4 != 2)
   {
     v69 = 0;
     v70 = MEMORY[0x277D86220];
     *&v39 = 67109376;
-    v172 = v39;
+    v171 = v39;
     while (1)
     {
       v71 = gLogObjects;
@@ -750,7 +750,7 @@ LABEL_52:
           goto LABEL_227;
         }
 
-        *buf = v172;
+        *buf = v171;
         *&buf[4] = typeCopy4;
         *&buf[8] = 1024;
         *&buf[10] = v20;
@@ -902,7 +902,7 @@ LABEL_228:
 
       if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
       {
-        *buf = v172;
+        *buf = v171;
         *&buf[4] = typeCopy4;
         *&buf[8] = 1024;
         *&buf[10] = v20;
@@ -948,7 +948,7 @@ LABEL_227:
       goto LABEL_227;
     }
 
-    *buf = v172;
+    *buf = v171;
     *&buf[4] = typeCopy4;
     *&buf[8] = 1024;
     *&buf[10] = v20;
@@ -1066,7 +1066,7 @@ LABEL_227:
 
       if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
       {
-        [ACCHWComponentAuthService _authenticateModuleWithChallenge:v187 completionHandler:v188 moduleType:v56 updateRegistry:? updateUIProperty:? logToAnalytics:?];
+        [ACCHWComponentAuthService _authenticateModuleWithChallenge:v186 completionHandler:v187 moduleType:v56 updateRegistry:? updateUIProperty:? logToAnalytics:?];
       }
 
       v58 = 18;
@@ -1407,7 +1407,7 @@ LABEL_290:
 
     if (![(ACCHWComponentAuthServiceParams *)v13 moduleAuthService])
     {
-      [(ACCHWComponentAuthServiceParams *)v13 setModuleAuthService:[(ACCHWComponentAuthService *)self _findModuleAuthService:typeCopy4 withAuthFlags:&v186]];
+      [(ACCHWComponentAuthServiceParams *)v13 setModuleAuthService:[(ACCHWComponentAuthService *)self _findModuleAuthService:typeCopy4 withAuthFlags:&v185]];
     }
 
     if ([(ACCHWComponentAuthServiceParams *)v13 moduleAuthService])
@@ -1594,7 +1594,7 @@ LABEL_290:
       {
         if (![(ACCHWComponentAuthServiceParams *)v13 moduleAuthService])
         {
-          [(ACCHWComponentAuthServiceParams *)v13 setModuleAuthService:[(ACCHWComponentAuthService *)self _findModuleAuthService:2 withAuthFlags:&v186]];
+          [(ACCHWComponentAuthServiceParams *)v13 setModuleAuthService:[(ACCHWComponentAuthService *)self _findModuleAuthService:2 withAuthFlags:&v185]];
         }
 
         if ([(ACCHWComponentAuthServiceParams *)v13 moduleAuthService])
@@ -1640,9 +1640,9 @@ LABEL_290:
     }
   }
 
-  if (v176)
+  if (v175)
   {
-    v163 = systemInfo_getCurrentUnixTimeMS() - v174;
+    v163 = systemInfo_getCurrentUnixTimeMS() - v173;
     if (v21)
     {
       v164 = 2;
@@ -1653,7 +1653,7 @@ LABEL_290:
       v164 = 1;
     }
 
-    [(ACCHWComponentAuthService *)self _logToAnalytics:typeCopy4 authError:v20 fdrValidationStatus:v164 authDurationInMS:v163, v172];
+    [(ACCHWComponentAuthService *)self _logToAnalytics:typeCopy4 authError:v20 fdrValidationStatus:v164 authDurationInMS:v163, v171];
   }
 
   clock_gettime(_CLOCK_REALTIME, &__tp);
@@ -1717,190 +1717,183 @@ LABEL_290:
 
   certificate2 = [(ACCHWComponentAuthServiceParams *)v13 certificate];
   signature = [(ACCHWComponentAuthServiceParams *)v13 signature];
-  (v178)[2](v178, v130 & 1, certificate2, signature, v21, v20);
-
-  v171 = *MEMORY[0x277D85DE8];
+  (v177)[2](v177, v130 & 1, certificate2, signature, v21, v20);
 }
 
 - (unsigned)_findModuleAuthService:(int)service withAuthFlags:(unsigned int *)flags
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v6 = IOServiceMatching("AppleAuthCP");
   flagsCopy = flags;
-  if (flags)
+  if (!flags)
   {
-    valuePtr = -1431655766;
-    existing = -1431655766;
-    MatchingServices = IOServiceGetMatchingServices(*MEMORY[0x277CD28A0], v6, &existing);
-    if (MatchingServices)
+    return 0;
+  }
+
+  valuePtr = -1431655766;
+  existing = -1431655766;
+  MatchingServices = IOServiceGetMatchingServices(*MEMORY[0x277CD28A0], v6, &existing);
+  if (MatchingServices)
+  {
+    v8 = MatchingServices;
+    if (gLogObjects)
     {
-      v8 = MatchingServices;
-      if (gLogObjects)
+      v9 = gNumLogObjects < 4;
+    }
+
+    else
+    {
+      v9 = 1;
+    }
+
+    if (v9)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v9 = gNumLogObjects < 4;
+        ACASignVeridianChallenge_cold_2();
       }
 
-      else
+      v12 = MEMORY[0x277D86220];
+      v10 = MEMORY[0x277D86220];
+    }
+
+    else
+    {
+      v12 = *(gLogObjects + 24);
+    }
+
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = mach_error_string(v8);
+      *buf = 67109378;
+      LODWORD(v30) = service;
+      WORD2(v30) = 2080;
+      *(&v30 + 6) = v13;
+      _os_log_impl(&dword_23DC14000, v12, OS_LOG_TYPE_DEFAULT, "(moduleType=%d) Could not find authcp services: %s\n", buf, 0x12u);
+    }
+  }
+
+  v14 = IOIteratorNext(existing);
+  if (v14)
+  {
+    v15 = v14;
+    v11 = 0;
+    v16 = *MEMORY[0x277CBECE8];
+    v17 = MEMORY[0x277D86220];
+    while (1)
+    {
+      CFProperty = IORegistryEntryCreateCFProperty(v15, @"flags", v16, 0);
+      if (CFProperty)
       {
-        v9 = 1;
+        break;
       }
 
-      if (v9)
+LABEL_39:
+      IOObjectRelease(v15);
+      v15 = IOIteratorNext(existing);
+      if (!v15)
       {
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          ACASignVeridianChallenge_cold_2();
-        }
-
-        v12 = MEMORY[0x277D86220];
-        v10 = MEMORY[0x277D86220];
-      }
-
-      else
-      {
-        v12 = *(gLogObjects + 24);
-      }
-
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-      {
-        v13 = mach_error_string(v8);
-        *buf = 67109378;
-        LODWORD(v31) = service;
-        WORD2(v31) = 2080;
-        *(&v31 + 6) = v13;
-        _os_log_impl(&dword_23DC14000, v12, OS_LOG_TYPE_DEFAULT, "(moduleType=%d) Could not find authcp services: %s\n", buf, 0x12u);
+        goto LABEL_46;
       }
     }
 
-    v14 = IOIteratorNext(existing);
-    if (v14)
+    v19 = CFProperty;
+    if (CFNumberGetValue(CFProperty, kCFNumberSInt32Type, &valuePtr))
     {
-      v15 = v14;
-      v11 = 0;
-      v16 = *MEMORY[0x277CBECE8];
-      v17 = MEMORY[0x277D86220];
-      while (1)
+      v20 = gLogObjects;
+      v21 = gNumLogObjects;
+      if (gLogObjects)
       {
-        CFProperty = IORegistryEntryCreateCFProperty(v15, @"flags", v16, 0);
-        if (CFProperty)
-        {
-          break;
-        }
-
-LABEL_39:
-        IOObjectRelease(v15);
-        v15 = IOIteratorNext(existing);
-        if (!v15)
-        {
-          goto LABEL_46;
-        }
+        v22 = gNumLogObjects < 4;
       }
 
-      v19 = CFProperty;
-      if (CFNumberGetValue(CFProperty, kCFNumberSInt32Type, &valuePtr))
+      else
       {
-        v20 = gLogObjects;
-        v21 = gNumLogObjects;
-        if (gLogObjects)
+        v22 = 1;
+      }
+
+      if (v22)
+      {
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v22 = gNumLogObjects < 4;
+          *buf = 134218240;
+          *&v30 = v20;
+          WORD4(v30) = 1024;
+          *(&v30 + 10) = v21;
+          _os_log_error_impl(&dword_23DC14000, v17, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
-        else
+        v23 = v17;
+        v24 = v17;
+      }
+
+      else
+      {
+        v24 = *(gLogObjects + 24);
+      }
+
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      {
+        *buf = 67109632;
+        LODWORD(v30) = service;
+        WORD2(v30) = 1024;
+        *(&v30 + 6) = v15;
+        WORD5(v30) = 1024;
+        HIDWORD(v30) = valuePtr;
+        _os_log_impl(&dword_23DC14000, v24, OS_LOG_TYPE_INFO, "(moduleType=%d) authCP service %d tmpAuthFlags == 0x%x", buf, 0x14u);
+      }
+
+      if (service > 1)
+      {
+        if (service == 2)
         {
-          v22 = 1;
-        }
-
-        if (v22)
-        {
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 134218240;
-            *&v31 = v20;
-            WORD4(v31) = 1024;
-            *(&v31 + 10) = v21;
-            _os_log_error_impl(&dword_23DC14000, v17, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
-          }
-
-          v23 = v17;
-          v24 = v17;
-        }
-
-        else
-        {
-          v24 = *(gLogObjects + 24);
-        }
-
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
-        {
-          *buf = 67109632;
-          LODWORD(v31) = service;
-          WORD2(v31) = 1024;
-          *(&v31 + 6) = v15;
-          WORD5(v31) = 1024;
-          HIDWORD(v31) = valuePtr;
-          _os_log_impl(&dword_23DC14000, v24, OS_LOG_TYPE_INFO, "(moduleType=%d) authCP service %d tmpAuthFlags == 0x%x", buf, 0x14u);
-        }
-
-        if (service > 1)
-        {
-          if (service == 2)
-          {
-            if ((valuePtr & 0xFF000C) != 0x10008)
-            {
-              goto LABEL_38;
-            }
-          }
-
-          else if (service != 3 || BYTE2(valuePtr) << 16 != 0x80000)
+          if ((valuePtr & 0xFF000C) != 0x10008)
           {
             goto LABEL_38;
           }
         }
 
-        else if (service)
-        {
-          if (service != 1 || BYTE2(valuePtr) << 16 != 196608)
-          {
-            goto LABEL_38;
-          }
-        }
-
-        else if (BYTE2(valuePtr) << 16 != 0x10000)
+        else if (service != 3 || BYTE2(valuePtr) << 16 != 0x80000)
         {
           goto LABEL_38;
         }
-
-        IOObjectRetain(v15);
-        *flagsCopy = valuePtr;
-        v11 = v15;
       }
 
-LABEL_38:
-      CFRelease(v19);
-      goto LABEL_39;
+      else if (service)
+      {
+        if (service != 1 || BYTE2(valuePtr) << 16 != 196608)
+        {
+          goto LABEL_38;
+        }
+      }
+
+      else if (BYTE2(valuePtr) << 16 != 0x10000)
+      {
+        goto LABEL_38;
+      }
+
+      IOObjectRetain(v15);
+      *flagsCopy = valuePtr;
+      v11 = v15;
     }
 
-    v11 = 0;
+LABEL_38:
+    CFRelease(v19);
+    goto LABEL_39;
+  }
+
+  v11 = 0;
 LABEL_46:
-    IOObjectRelease(existing);
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  v25 = *MEMORY[0x277D85DE8];
+  IOObjectRelease(existing);
   return v11;
 }
 
 - (BOOL)_verifyDeviceIDSN:(unsigned int)n
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v9 = 0xAAAAAAAAAAAAAAAALL;
   v10 = 0xAAAAAAAAAAAAAAAALL;
-  v11 = 0xAAAAAAAAAAAAAAAALL;
-  DeviceIDSN = cpGetDeviceIDSN(n, &v11, &v10);
+  DeviceIDSN = cpGetDeviceIDSN(n, &v10, &v9);
   if (DeviceIDSN)
   {
     if (gLogObjects)
@@ -1933,25 +1926,23 @@ LABEL_46:
     {
       v7 = mach_error_string(DeviceIDSN);
       *buf = 136315138;
-      v13 = v7;
+      v12 = v7;
       _os_log_impl(&dword_23DC14000, v6, OS_LOG_TYPE_DEFAULT, "Could not cpGetDeviceIDSN: %s\n", buf, 0xCu);
     }
   }
 
-  result = DeviceIDSN == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return DeviceIDSN == 0;
 }
 
 - (BOOL)_verifyDeviceInfo:(unsigned int)info
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14 = -86;
+  v16 = *MEMORY[0x277D85DE8];
   v13 = -86;
   v12 = -86;
   v11 = -86;
-  v10 = -1431655766;
-  DeviceInfo = cpGetDeviceInfo(info, &v14, &v13, &v12, &v11, &v10);
+  v10 = -86;
+  v9 = -1431655766;
+  DeviceInfo = cpGetDeviceInfo(info, &v13, &v12, &v11, &v10, &v9);
   if (DeviceInfo)
   {
     if (gLogObjects)
@@ -1984,14 +1975,12 @@ LABEL_46:
     {
       v7 = mach_error_string(DeviceInfo);
       *buf = 136315138;
-      v16 = v7;
+      v15 = v7;
       _os_log_impl(&dword_23DC14000, v6, OS_LOG_TYPE_DEFAULT, "Could not cpGetDeviceInfo: %s\n", buf, 0xCu);
     }
   }
 
-  result = DeviceInfo == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return DeviceInfo == 0;
 }
 
 - (int)_verifyCertificate:(id)certificate
@@ -2134,7 +2123,7 @@ LABEL_16:
 
 - (int)_verifySignature:(id)signature
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   connect = -1431655766;
   __tp.tv_sec = 0xAAAAAAAAAAAAAAAALL;
@@ -2169,11 +2158,11 @@ LABEL_16:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109632;
-    *v40 = 926;
-    *&v40[4] = 2048;
-    *&v40[6] = __tp.tv_sec;
-    v41 = 2048;
-    v42 = __tp.tv_nsec / 0xF4240uLL;
+    *v39 = 926;
+    *&v39[4] = 2048;
+    *&v39[6] = __tp.tv_sec;
+    v40 = 2048;
+    v41 = __tp.tv_nsec / 0xF4240uLL;
     _os_log_impl(&dword_23DC14000, v6, OS_LOG_TYPE_DEFAULT, "_verifySignature %d: %ld.%03llu", buf, 0x1Cu);
   }
 
@@ -2181,7 +2170,7 @@ LABEL_16:
   v8 = IOServiceOpen(moduleAuthService, *MEMORY[0x277D85F48], 0, &connect);
   if (!v8)
   {
-    v36 = 0xAAAAAAAAAAAAAAAALL;
+    v35 = 0xAAAAAAAAAAAAAAAALL;
     clock_gettime(_CLOCK_REALTIME, &__tp);
     if (gLogObjects && gNumLogObjects >= 4)
     {
@@ -2202,17 +2191,17 @@ LABEL_16:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109632;
-      *v40 = 937;
-      *&v40[4] = 2048;
-      *&v40[6] = __tp.tv_sec;
-      v41 = 2048;
-      v42 = __tp.tv_nsec / 0xF4240uLL;
+      *v39 = 937;
+      *&v39[4] = 2048;
+      *&v39[6] = __tp.tv_sec;
+      v40 = 2048;
+      v41 = __tp.tv_nsec / 0xF4240uLL;
       _os_log_impl(&dword_23DC14000, v11, OS_LOG_TYPE_DEFAULT, "_verifySignature %d: %ld.%03llu", buf, 0x1Cu);
     }
 
     v16 = connect;
     challenge = [signatureCopy challenge];
-    v18 = cpCreateSignature(v16, challenge, &v36);
+    v18 = cpCreateSignature(v16, challenge, &v35);
 
     IOServiceClose(connect);
     if ((v18 & 0xE3FFBF00) == 0xE3FF8000)
@@ -2239,7 +2228,7 @@ LABEL_16:
       }
 
       *buf = 67109120;
-      *v40 = v18;
+      *v39 = v18;
       v21 = "error generating signature: auth cp error code %#x\n";
       v22 = v19;
       v23 = 8;
@@ -2263,27 +2252,27 @@ LABEL_16:
           }
 
           v24 = MEMORY[0x277D86220];
-          v29 = MEMORY[0x277D86220];
+          v28 = MEMORY[0x277D86220];
         }
 
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109632;
-          *v40 = 954;
-          *&v40[4] = 2048;
-          *&v40[6] = __tp.tv_sec;
-          v41 = 2048;
-          v42 = __tp.tv_nsec / 0xF4240uLL;
+          *v39 = 954;
+          *&v39[4] = 2048;
+          *&v39[6] = __tp.tv_sec;
+          v40 = 2048;
+          v41 = __tp.tv_nsec / 0xF4240uLL;
           _os_log_impl(&dword_23DC14000, v24, OS_LOG_TYPE_DEFAULT, "_verifySignature %d: %ld.%03llu", buf, 0x1Cu);
         }
 
         certificate = [signatureCopy certificate];
         challenge2 = [signatureCopy challenge];
-        v32 = MFAAVerifyNonceSignature();
+        v31 = MFAAVerifyNonceSignature();
 
         if (gLogObjects && gNumLogObjects >= 4)
         {
-          v33 = *(gLogObjects + 24);
+          v32 = *(gLogObjects + 24);
         }
 
         else
@@ -2293,24 +2282,24 @@ LABEL_16:
             ACASignVeridianChallenge_cold_2();
           }
 
+          v32 = MEMORY[0x277D86220];
           v33 = MEMORY[0x277D86220];
-          v34 = MEMORY[0x277D86220];
         }
 
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
-          v35 = @"no";
-          if (v32)
+          v34 = @"no";
+          if (v31)
           {
-            v35 = @"yes";
+            v34 = @"yes";
           }
 
           *buf = 138412290;
-          *v40 = v35;
-          _os_log_impl(&dword_23DC14000, v33, OS_LOG_TYPE_DEFAULT, "signatureValid ? %@", buf, 0xCu);
+          *v39 = v34;
+          _os_log_impl(&dword_23DC14000, v32, OS_LOG_TYPE_DEFAULT, "signatureValid ? %@", buf, 0xCu);
         }
 
-        if (v32)
+        if (v31)
         {
           v14 = 0;
         }
@@ -2320,8 +2309,8 @@ LABEL_16:
           v14 = 12;
         }
 
-        v19 = v36;
-        [signatureCopy setSignature:{v36, v36}];
+        v19 = v35;
+        [signatureCopy setSignature:{v35, v35}];
         goto LABEL_52;
       }
 
@@ -2352,7 +2341,7 @@ LABEL_52:
 
       v26 = mach_error_string(v18);
       *buf = 136315138;
-      *v40 = v26;
+      *v39 = v26;
       v21 = "error generating signature: %s\n";
       v22 = v19;
       v23 = 12;
@@ -2383,20 +2372,19 @@ LABEL_52:
   {
     v13 = mach_error_string(v9);
     *buf = 136315138;
-    *v40 = v13;
+    *v39 = v13;
     _os_log_impl(&dword_23DC14000, v10, OS_LOG_TYPE_DEFAULT, "could not open service: %s\n", buf, 0xCu);
   }
 
   v14 = 23;
 LABEL_53:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (int)_signChallenge:(id)challenge
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   connect = -1431655766;
   moduleAuthService = [challengeCopy moduleAuthService];
@@ -2440,10 +2428,10 @@ LABEL_53:
 
   else
   {
-    v29 = 0;
+    v28 = 0;
     v9 = connect;
     challenge = [challengeCopy challenge];
-    v11 = cpCreateSignature(v9, challenge, &v29);
+    v11 = cpCreateSignature(v9, challenge, &v28);
 
     IOServiceClose(connect);
     if ((v11 & 0xE3FFBF00) == 0xE3FF8000)
@@ -2467,7 +2455,7 @@ LABEL_53:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v32) = v11;
+        LODWORD(v31) = v11;
         _os_log_impl(&dword_23DC14000, v12, OS_LOG_TYPE_DEFAULT, "error generating signature: auth cp error code %#x\n", buf, 8u);
       }
 
@@ -2496,7 +2484,7 @@ LABEL_53:
       {
         v21 = mach_error_string(v11);
         *buf = 136315138;
-        v32 = v21;
+        v31 = v21;
         _os_log_impl(&dword_23DC14000, v15, OS_LOG_TYPE_DEFAULT, "error generating signature: %s\n", buf, 0xCu);
       }
 
@@ -2513,8 +2501,8 @@ LABEL_53:
 
     else
     {
-      v17 = v29;
-      [challengeCopy setSignature:v29];
+      v17 = v28;
+      [challengeCopy setSignature:v28];
 
       v18 = cpCopyDeviceNonce([challengeCopy moduleAuthService]);
       [challengeCopy setDeviceNonce:v18];
@@ -2539,7 +2527,7 @@ LABEL_53:
       {
         signature = [challengeCopy signature];
         *buf = 138412290;
-        v32 = signature;
+        v31 = signature;
         _os_log_impl(&dword_23DC14000, v19, OS_LOG_TYPE_DEFAULT, "Battery signature = %@", buf, 0xCu);
       }
 
@@ -2563,7 +2551,7 @@ LABEL_53:
       {
         deviceNonce = [challengeCopy deviceNonce];
         *buf = 138412290;
-        v32 = deviceNonce;
+        v31 = deviceNonce;
         _os_log_impl(&dword_23DC14000, v24, OS_LOG_TYPE_DEFAULT, "Battery device nonce = %@", buf, 0xCu);
       }
 
@@ -2571,13 +2559,12 @@ LABEL_53:
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (int)_verifyModuleCertificate:(id)certificate forModuleType:(int)type
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   certificateCopy = certificate;
   certificateInfo = [certificateCopy certificateInfo];
 
@@ -2615,13 +2602,13 @@ LABEL_63:
 
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v41 = 67109632;
+    v40 = 67109632;
     typeCopy2 = type;
-    v43 = 1024;
-    v44 = v9;
-    v45 = 1024;
-    v46 = v12;
-    _os_log_impl(&dword_23DC14000, v13, OS_LOG_TYPE_DEFAULT, "(moduleType=%d) mfi2_3:%d, mfi4:%d", &v41, 0x14u);
+    v42 = 1024;
+    v43 = v9;
+    v44 = 1024;
+    v45 = v12;
+    _os_log_impl(&dword_23DC14000, v13, OS_LOG_TYPE_DEFAULT, "(moduleType=%d) mfi2_3:%d, mfi4:%d", &v40, 0x14u);
   }
 
   if (!v9)
@@ -2799,9 +2786,9 @@ LABEL_29:
 
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
-    v41 = 67109120;
+    v40 = 67109120;
     typeCopy2 = type;
-    _os_log_impl(&dword_23DC14000, v27, OS_LOG_TYPE_DEFAULT, "(moduleType=%d) Success: validated cert caps", &v41, 8u);
+    _os_log_impl(&dword_23DC14000, v27, OS_LOG_TYPE_DEFAULT, "(moduleType=%d) Success: validated cert caps", &v40, 8u);
   }
 
   v29 = 0;
@@ -2815,18 +2802,17 @@ LABEL_57:
 
 LABEL_58:
 
-  v39 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
 - (BOOL)_verifyModuleFDR:(id)r forModuleType:(int)type
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   rCopy = r;
-  v52 = @"CopyAllowUnsealed";
-  v53[0] = MEMORY[0x277CBEC38];
+  v51 = @"CopyAllowUnsealed";
+  v52[0] = MEMORY[0x277CBEC38];
   v6 = 1;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:&v51 count:1];
   LOBYTE(challenge) = 0;
   v9 = 0;
   if (type <= 1)
@@ -2945,8 +2931,8 @@ LABEL_50:
             {
               *buf = 67109376;
               typeCopy = type;
-              v50 = 1024;
-              v51 = challenge;
+              v49 = 1024;
+              v50 = challenge;
               _os_log_impl(&dword_23DC14000, mEMORY[0x277D24E20]2, OS_LOG_TYPE_DEFAULT, "(moduleType=%d) equal:%d", buf, 0xEu);
             }
 
@@ -3059,23 +3045,8 @@ LABEL_46:
 
       if (v27)
       {
-        if (type == 2)
+        if (type == 2 && (+[ACCUserDefaults sharedDefaults](ACCUserDefaults, "sharedDefaults"), v28 = objc_claimAutoreleasedReturnValue(), v29 = [v28 BOOLForKey:@"SkipGaugeSignatureCheck"], v28, (v29 & 1) != 0) || (objc_msgSend(rCopy, "signature"), v30 = objc_claimAutoreleasedReturnValue(), v31 = -[NSObject verifyNonceSignature:nonce:signature:](mEMORY[0x277D24E20]2, "verifyNonceSignature:nonce:signature:", challenge, v27, v30), v30, (v31 & 1) != 0))
         {
-          v28 = +[ACCUserDefaults sharedDefaults];
-          v29 = [v28 BOOLForKey:@"SkipGaugeSignatureCheck"];
-
-          if (v29)
-          {
-            goto LABEL_28;
-          }
-        }
-
-        signature = [rCopy signature];
-        v31 = [mEMORY[0x277D24E20]2 verifyNonceSignature:challenge nonce:v27 signature:signature];
-
-        if (v31)
-        {
-LABEL_28:
           v32 = [challenge objectForKey:@"LeafCertData"];
           [rCopy setCertificate:v32];
 
@@ -3124,7 +3095,6 @@ LABEL_7:
 
 LABEL_59:
 
-  v46 = *MEMORY[0x277D85DE8];
   return challenge & 1;
 }
 
@@ -3151,7 +3121,7 @@ LABEL_59:
 
 - (void)_notifyComponentAuthFailure
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v2 = gNumLogObjects < 4;
@@ -3180,22 +3150,21 @@ LABEL_59:
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "com.apple.accessories.hwComponent.isTrusted.failure";
-    _os_log_impl(&dword_23DC14000, v4, OS_LOG_TYPE_DEFAULT, "Notifying clients of %s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "com.apple.accessories.hwComponent.isTrusted.failure";
+    _os_log_impl(&dword_23DC14000, v4, OS_LOG_TYPE_DEFAULT, "Notifying clients of %s", &v5, 0xCu);
   }
 
   notify_post("com.apple.accessories.hwComponent.isTrusted.failure");
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_verifyBatteryMatch:(id)match outputBatteryCode:(unsigned __int16 *)code
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v20.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-  v20.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+  v26 = *MEMORY[0x277D85DE8];
+  v19.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+  v19.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
   matchCopy = match;
-  clock_gettime(_CLOCK_REALTIME, &v20);
+  clock_gettime(_CLOCK_REALTIME, &v19);
   if (gLogObjects)
   {
     v6 = gNumLogObjects < 4;
@@ -3225,11 +3194,11 @@ LABEL_59:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109632;
-    v22 = 1334;
-    v23 = 2048;
-    tv_sec = v20.tv_sec;
-    v25 = 2048;
-    v26 = v20.tv_nsec / 0xF4240uLL;
+    v21 = 1334;
+    v22 = 2048;
+    tv_sec = v19.tv_sec;
+    v24 = 2048;
+    v25 = v19.tv_nsec / 0xF4240uLL;
     _os_log_impl(&dword_23DC14000, v8, OS_LOG_TYPE_DEFAULT, "_verifyBatteryMatch %d: %ld.%03llu", buf, 0x1Cu);
   }
 
@@ -3309,21 +3278,20 @@ LABEL_29:
 
 LABEL_30:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (void)signVeridianChallenge:(id)challenge completionHandler:(id)handler
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   challengeCopy = challenge;
   handlerCopy = handler;
   init_logging();
   v7 = objc_alloc_init(ACCHWComponentAuthServiceParams);
-  v43 = -1431655766;
+  v42 = -1431655766;
   [(ACCHWComponentAuthServiceParams *)v7 setChallenge:challengeCopy];
-  [(ACCHWComponentAuthServiceParams *)v7 setModuleAuthService:[(ACCHWComponentAuthService *)self _findModuleAuthService:2 withAuthFlags:&v43]];
-  [(ACCHWComponentAuthServiceParams *)v7 setAuthFlags:v43];
+  [(ACCHWComponentAuthServiceParams *)v7 setModuleAuthService:[(ACCHWComponentAuthService *)self _findModuleAuthService:2 withAuthFlags:&v42]];
+  [(ACCHWComponentAuthServiceParams *)v7 setAuthFlags:v42];
   moduleAuthService = [(ACCHWComponentAuthServiceParams *)v7 moduleAuthService];
   if (gLogObjects)
   {
@@ -3370,9 +3338,9 @@ LABEL_30:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          *v45 = v16;
-          *&v45[8] = 1024;
-          LODWORD(v46) = v17;
+          *v44 = v16;
+          *&v44[8] = 1024;
+          LODWORD(v45) = v17;
           _os_log_error_impl(&dword_23DC14000, v15, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -3388,9 +3356,9 @@ LABEL_30:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109376;
-        *v45 = v14 + 1;
-        *&v45[4] = 1024;
-        *&v45[6] = 3;
+        *v44 = v14 + 1;
+        *&v44[4] = 1024;
+        *&v44[6] = 3;
         _os_log_debug_impl(&dword_23DC14000, v20, OS_LOG_TYPE_DEBUG, "tryCount = %d (max tries %d)", buf, 0xEu);
       }
 
@@ -3415,9 +3383,9 @@ LABEL_30:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          *v45 = v22;
-          *&v45[8] = 1024;
-          LODWORD(v46) = v23;
+          *v44 = v22;
+          *&v44[8] = 1024;
+          LODWORD(v45) = v23;
           _os_log_error_impl(&dword_23DC14000, v15, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -3428,7 +3396,7 @@ LABEL_30:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        *v45 = v26;
+        *v44 = v26;
         _os_log_impl(&dword_23DC14000, v27, OS_LOG_TYPE_DEFAULT, "authError %d after _signChallenge", buf, 8u);
       }
 
@@ -3446,9 +3414,9 @@ LABEL_30:
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            *v45 = v29;
-            *&v45[8] = 1024;
-            LODWORD(v46) = v30;
+            *v44 = v29;
+            *&v44[8] = 1024;
+            LODWORD(v45) = v30;
             _os_log_error_impl(&dword_23DC14000, v15, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
@@ -3458,7 +3426,7 @@ LABEL_30:
 
         if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
-          [(ACCHWComponentAuthService *)v49 signVeridianChallenge:v31 completionHandler:?];
+          [(ACCHWComponentAuthService *)v48 signVeridianChallenge:v31 completionHandler:?];
         }
 
         sleep(0x14u);
@@ -3480,9 +3448,9 @@ LABEL_30:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
-        *v45 = v22;
-        *&v45[8] = 1024;
-        LODWORD(v46) = v23;
+        *v44 = v22;
+        *&v44[8] = 1024;
+        LODWORD(v45) = v23;
         _os_log_error_impl(&dword_23DC14000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
       }
 
@@ -3548,24 +3516,22 @@ LABEL_70:
     signature = [(ACCHWComponentAuthServiceParams *)v7 signature];
     deviceNonce = [(ACCHWComponentAuthServiceParams *)v7 deviceNonce];
     *buf = 138412802;
-    *v45 = signature;
-    *&v45[8] = 2112;
-    v46 = deviceNonce;
-    v47 = 1024;
-    v48 = v26;
+    *v44 = signature;
+    *&v44[8] = 2112;
+    v45 = deviceNonce;
+    v46 = 1024;
+    v47 = v26;
     _os_log_impl(&dword_23DC14000, v35, OS_LOG_TYPE_DEFAULT, "signVeridianChallenge Replying with signature=%@, deviceNonce=%@, authError = %d", buf, 0x1Cu);
   }
 
   signature2 = [(ACCHWComponentAuthServiceParams *)v7 signature];
   deviceNonce2 = [(ACCHWComponentAuthServiceParams *)v7 deviceNonce];
   handlerCopy[2](handlerCopy, signature2, deviceNonce2, v26);
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)verifyBatteryMatch:(id)match completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   matchCopy = match;
   handlerCopy = handler;
   init_logging();
@@ -3580,9 +3546,9 @@ LABEL_70:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
-        *v29 = v9;
-        *&v29[8] = 1024;
-        v30 = v10;
+        *v28 = v9;
+        *&v28[8] = 1024;
+        v29 = v10;
         _os_log_error_impl(&dword_23DC14000, v8, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
       }
 
@@ -3598,9 +3564,9 @@ LABEL_70:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109376;
-      *v29 = v7 + 1;
-      *&v29[4] = 1024;
-      *&v29[6] = 3;
+      *v28 = v7 + 1;
+      *&v28[4] = 1024;
+      *&v28[6] = 3;
       _os_log_debug_impl(&dword_23DC14000, v13, OS_LOG_TYPE_DEBUG, "tryCount = %d (max tries %d)", buf, 0xEu);
     }
 
@@ -3625,9 +3591,9 @@ LABEL_70:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
-        *v29 = v16;
-        *&v29[8] = 1024;
-        v30 = v17;
+        *v28 = v16;
+        *&v28[8] = 1024;
+        v29 = v17;
         _os_log_error_impl(&dword_23DC14000, v8, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
       }
 
@@ -3638,7 +3604,7 @@ LABEL_70:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      *v29 = v15;
+      *v28 = v15;
       _os_log_impl(&dword_23DC14000, v20, OS_LOG_TYPE_DEFAULT, "authError %d after _verifyBatteryMatch", buf, 8u);
     }
 
@@ -3658,9 +3624,9 @@ LABEL_70:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
-      *v29 = v16;
-      *&v29[8] = 1024;
-      v30 = v17;
+      *v28 = v16;
+      *&v28[8] = 1024;
+      v29 = v17;
       _os_log_error_impl(&dword_23DC14000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
     }
 
@@ -3694,17 +3660,16 @@ LABEL_36:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    *v29 = v15;
+    *v28 = v15;
     _os_log_impl(&dword_23DC14000, v24, OS_LOG_TYPE_DEFAULT, "verifyBatteryMatch Replying with authError = %d", buf, 8u);
   }
 
   handlerCopy[2](handlerCopy, v15);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logToAnalytics:(int)analytics authError:(int)error fdrValidationStatus:(int)status authDurationInMS:(unint64_t)s
 {
-  v32[4] = *MEMORY[0x277D85DE8];
+  v31[4] = *MEMORY[0x277D85DE8];
   v9 = MEMORY[0x277CBEB38];
   v10 = @"Failed";
   if (!error)
@@ -3712,18 +3677,18 @@ LABEL_36:
     v10 = @"Passed";
   }
 
-  v32[0] = v10;
-  v31[0] = @"authState";
-  v31[1] = @"authErrorDescription";
+  v31[0] = v10;
+  v30[0] = @"authState";
+  v30[1] = @"authErrorDescription";
   v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:kACCTransport_IOAccessoryAuthCP_AuthError_Strings[error]];
-  v32[1] = v11;
-  v31[2] = @"isInductive";
+  v31[1] = v11;
+  v30[2] = @"isInductive";
   v12 = [MEMORY[0x277CCABB0] numberWithBool:0];
-  v32[2] = v12;
-  v31[3] = @"isPeriodic";
+  v31[2] = v12;
+  v30[3] = @"isPeriodic";
   v13 = [MEMORY[0x277CCABB0] numberWithBool:1];
-  v32[3] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:4];
+  v31[3] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
   v15 = [v9 dictionaryWithDictionary:v14];
 
   BucketizedWiredAuthDuration = acc_analytics_createBucketizedWiredAuthDuration(s);
@@ -3775,20 +3740,19 @@ LABEL_8:
 
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 138412546;
-    v28 = @"com.apple.accessories.authCPEvent";
-    v29 = 2112;
-    v30 = v15;
-    _os_log_impl(&dword_23DC14000, v24, OS_LOG_TYPE_DEFAULT, "CoreAnalytics event: %@\neventDict: %@", &v27, 0x16u);
+    v26 = 138412546;
+    v27 = @"com.apple.accessories.authCPEvent";
+    v28 = 2112;
+    v29 = v15;
+    _os_log_impl(&dword_23DC14000, v24, OS_LOG_TYPE_DEFAULT, "CoreAnalytics event: %@\neventDict: %@", &v26, 0x16u);
   }
 
   AnalyticsSendEvent();
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __138__ACCHWComponentAuthService__authenticateModuleWithChallenge_completionHandler_moduleType_updateRegistry_updateUIProperty_logToAnalytics___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   __tp.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   __tp.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
   clock_gettime(_CLOCK_REALTIME, &__tp);
@@ -3839,7 +3803,7 @@ void __138__ACCHWComponentAuthService__authenticateModuleWithChallenge_completio
   }
 
   memset(buf, 170, sizeof(buf));
-  v15 = 0;
+  v16 = 0;
   v8 = [MEMORY[0x277D25710] sharedDataAccessor];
   v9 = [v8 copyPathForPersonalizedData:2 error:0];
 
@@ -3849,34 +3813,32 @@ void __138__ACCHWComponentAuthService__authenticateModuleWithChallenge_completio
     v11 = v10;
     if (!v10 || Img4DecodeInitManifest([v10 bytes], objc_msgSend(v10, "length"), buf))
     {
-      v12 = 0;
+      v14 = 0;
     }
 
-    else if (Img4DecodeGetBooleanFromSection(buf, 0, 1684104054, &v15))
+    else if (Img4DecodeGetBooleanFromSection(buf, 0, 1684104054, &v16, v12, v13))
     {
-      v12 = 0;
-      v15 = 0;
+      v14 = 0;
+      v16 = 0;
     }
 
     else
     {
-      v12 = v15;
+      v14 = v16;
     }
   }
 
   else
   {
-    v12 = 0;
+    v14 = 0;
     v11 = 0;
   }
 
-  _authenticateModuleWithChallenge_completionHandler_moduleType_updateRegistry_updateUIProperty_logToAnalytics__disableAuth = v12;
-  v13 = *MEMORY[0x277D85DE8];
+  _authenticateModuleWithChallenge_completionHandler_moduleType_updateRegistry_updateUIProperty_logToAnalytics__disableAuth = v14;
 }
 
 - (void)_authenticateModuleWithChallenge:completionHandler:moduleType:updateRegistry:updateUIProperty:logToAnalytics:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   v0 = logObjectForModule();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
@@ -3884,18 +3846,14 @@ void __138__ACCHWComponentAuthService__authenticateModuleWithChallenge_completio
     OUTLINED_FUNCTION_4();
     _os_log_impl(v1, v2, OS_LOG_TYPE_DEFAULT, v3, v4, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_authenticateModuleWithChallenge:(void *)a1 completionHandler:moduleType:updateRegistry:updateUIProperty:logToAnalytics:.cold.5(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
   [a1 moduleAuthService];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_authenticateModuleWithChallenge:(os_log_t)log completionHandler:moduleType:updateRegistry:updateUIProperty:logToAnalytics:.cold.7(uint8_t *buf, _DWORD *a2, os_log_t log)
@@ -3905,17 +3863,8 @@ void __138__ACCHWComponentAuthService__authenticateModuleWithChallenge_completio
   _os_log_error_impl(&dword_23DC14000, log, OS_LOG_TYPE_ERROR, "(moduleType=%d) authError = eNoDeviceIDSNError after _verifyDeviceIDSN", buf, 8u);
 }
 
-- (void)_authenticateModuleWithChallenge:completionHandler:moduleType:updateRegistry:updateUIProperty:logToAnalytics:.cold.11()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_authenticateModuleWithChallenge:completionHandler:moduleType:updateRegistry:updateUIProperty:logToAnalytics:.cold.13()
 {
-  v6 = *MEMORY[0x277D85DE8];
   v0 = logObjectForModule();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
@@ -3923,8 +3872,6 @@ void __138__ACCHWComponentAuthService__authenticateModuleWithChallenge_completio
     OUTLINED_FUNCTION_4();
     _os_log_impl(v1, v2, OS_LOG_TYPE_DEFAULT, v3, v4, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_verifyCertificate:.cold.1()
@@ -3939,191 +3886,149 @@ void __138__ACCHWComponentAuthService__authenticateModuleWithChallenge_completio
 
 - (void)_verifyCertificate:(void *)a1 .cold.3(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = [a1 certificate];
+  v5 = [a1 certificate];
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_signChallenge:(mach_error_t)a1 .cold.2(mach_error_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   mach_error_string(a1);
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_verifyModuleCertificate:(uint64_t)a3 forModuleType:(uint64_t)a4 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1(&dword_23DC14000, a2, a3, "(moduleType=%d) Failure: componentType:%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LOWORD(v8) = 2112;
+  *(&v8 + 2) = a1;
+  OUTLINED_FUNCTION_1(&dword_23DC14000, a2, a3, "(moduleType=%d) Failure: componentType:%@", a5, a6, a7, a8, 0x104000202, v8, WORD4(v8), *MEMORY[0x277D85DE8]);
 }
 
 - (void)_verifyModuleCertificate:forModuleType:.cold.4()
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = logObjectForModule();
   if (OUTLINED_FUNCTION_7(v1))
   {
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_verifyModuleCertificate:forModuleType:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_verifyModuleCertificate:forModuleType:.cold.7()
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = logObjectForModule();
   if (OUTLINED_FUNCTION_7(v1))
   {
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_verifyModuleCertificate:forModuleType:.cold.8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_verifyModuleCertificate:forModuleType:.cold.9()
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = logObjectForModule();
   if (OUTLINED_FUNCTION_7(v1))
   {
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_verifyModuleCertificate:forModuleType:.cold.10()
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = logObjectForModule();
   if (OUTLINED_FUNCTION_7(v1))
   {
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_verifyModuleFDR:(os_log_t)log forModuleType:.cold.1(uint64_t *a1, int a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5[0] = 67109634;
-  v5[1] = a2;
-  v6 = 2080;
-  v7 = "[ACCHWComponentAuthService _verifyModuleFDR:forModuleType:]";
-  v8 = 2112;
-  v9 = v3;
-  _os_log_error_impl(&dword_23DC14000, log, OS_LOG_TYPE_ERROR, "(moduleType=%d) %s: AMFDRSealingMapCopyLocalDataForClass returned error=%@", v5, 0x1Cu);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109634;
+  v4[1] = a2;
+  v5 = 2080;
+  v6 = "[ACCHWComponentAuthService _verifyModuleFDR:forModuleType:]";
+  v7 = 2112;
+  v8 = v3;
+  _os_log_error_impl(&dword_23DC14000, log, OS_LOG_TYPE_ERROR, "(moduleType=%d) %s: AMFDRSealingMapCopyLocalDataForClass returned error=%@", v4, 0x1Cu);
 }
 
 - (void)_verifyModuleFDR:(void *)a3 forModuleType:.cold.2(int a1, void *a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v6 = logObjectForModule();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v8[0] = 67109634;
-    v8[1] = a1;
+    v7[0] = 67109634;
+    v7[1] = a1;
     OUTLINED_FUNCTION_8();
-    v8[5] = 1257;
-    _os_log_error_impl(&dword_23DC14000, v6, OS_LOG_TYPE_ERROR, "(moduleType=%d) %s: %d: returned error", v8, 0x18u);
+    v7[5] = 1257;
+    _os_log_error_impl(&dword_23DC14000, v6, OS_LOG_TYPE_ERROR, "(moduleType=%d) %s: %d: returned error", v7, 0x18u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_verifyModuleFDR:(int)a1 forModuleType:(void *)a2 .cold.3(int a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v4 = logObjectForModule();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6[0] = 67109634;
-    v6[1] = a1;
+    v5[0] = 67109634;
+    v5[1] = a1;
     OUTLINED_FUNCTION_8();
-    v6[5] = 1242;
-    _os_log_error_impl(&dword_23DC14000, v4, OS_LOG_TYPE_ERROR, "(moduleType=%d) %s: %d: returned error", v6, 0x18u);
+    v5[5] = 1242;
+    _os_log_error_impl(&dword_23DC14000, v4, OS_LOG_TYPE_ERROR, "(moduleType=%d) %s: %d: returned error", v5, 0x18u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_verifyModuleFDR:forModuleType:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_verifyModuleFDR:forModuleType:.cold.9()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_verifyModuleFDR:forModuleType:.cold.11()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_verifyModuleFDR:forModuleType:.cold.12()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_1(&dword_23DC14000, v0, v1, "(moduleType=%d) %s: AMFDRSealingMapCopyLocalDataForClass: returned NULL", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)signVeridianChallenge:(void *)a1 completionHandler:.cold.2(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
   [a1 moduleAuthService];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)signVeridianChallenge:(os_log_t)log completionHandler:.cold.3(uint8_t *buf, _DWORD *a2, os_log_t log)

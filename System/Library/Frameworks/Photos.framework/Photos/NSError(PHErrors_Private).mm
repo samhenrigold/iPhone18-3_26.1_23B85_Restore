@@ -23,20 +23,22 @@
 
 + (id)ph_genericErrorWithUnderlyingError:()PHErrors_Private localizedDescription:
 {
-  v11 = *MEMORY[0x1E695E480];
-  v12 = a3;
-  v13 = CFStringCreateWithFormatAndArguments(v11, 0, a4, &a9);
-  v14 = [self _ph_genericErrorWithUnderlyingError:v12 localizedDescription:v13];
+  va_start(va, a8);
+  v10 = *MEMORY[0x1E695E480];
+  v11 = a3;
+  v12 = CFStringCreateWithFormatAndArguments(v10, 0, a4, va);
+  v13 = [self _ph_genericErrorWithUnderlyingError:v11 localizedDescription:v12];
 
-  return v14;
+  return v13;
 }
 
 + (id)ph_genericErrorWithLocalizedDescription:()PHErrors_Private
 {
-  v10 = CFStringCreateWithFormatAndArguments(*MEMORY[0x1E695E480], 0, a3, &a9);
-  v11 = [self _ph_genericErrorWithUnderlyingError:0 localizedDescription:v10];
+  va_start(va, a8);
+  v9 = CFStringCreateWithFormatAndArguments(*MEMORY[0x1E695E480], 0, a3, va);
+  v10 = [self _ph_genericErrorWithUnderlyingError:0 localizedDescription:v9];
 
-  return v11;
+  return v10;
 }
 
 + (id)ph_errorWithCode:()PHErrors_Private localizedDescription:
@@ -66,7 +68,7 @@
 
 + (id)ph_errorWithDomain:()PHErrors_Private code:userInfo:
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a5;
   v10 = *MEMORY[0x1E696A250];
@@ -77,15 +79,15 @@
     v8 = @"PHPhotosErrorDomain";
   }
 
-  if (PHErrorAllowsInternalErrors())
+  if (PHErrorAllowsInternalErrors(v11, v12))
   {
     selfCopy4 = self;
-    v13 = v8;
-    v14 = a4;
+    v14 = v8;
+    v15 = a4;
 LABEL_6:
-    v15 = v9;
+    v16 = v9;
 LABEL_43:
-    v31 = [selfCopy4 errorWithDomain:v13 code:v14 userInfo:v15];
+    v32 = [selfCopy4 errorWithDomain:v14 code:v15 userInfo:v16];
     goto LABEL_44;
   }
 
@@ -94,8 +96,8 @@ LABEL_43:
     goto LABEL_40;
   }
 
-  v16 = v8;
-  if ([(__CFString *)v16 isEqualToString:@"PHPhotosErrorDomain"])
+  v17 = v8;
+  if ([(__CFString *)v17 isEqualToString:@"PHPhotosErrorDomain"])
   {
     if (a4 > 3168)
     {
@@ -110,89 +112,89 @@ LABEL_43:
       goto LABEL_39;
     }
 
-    v17 = v9;
-    if ([v17 count])
+    v18 = v9;
+    if ([v18 count])
     {
-      v40 = v16;
+      v41 = v17;
       selfCopy2 = self;
-      v42 = v9;
-      v43 = v8;
+      v43 = v9;
+      v44 = v8;
       dictionary = [MEMORY[0x1E695DF90] dictionary];
-      v44 = 0u;
       v45 = 0u;
       v46 = 0u;
       v47 = 0u;
-      v39 = v17;
-      v19 = v17;
-      v20 = [v19 countByEnumeratingWithState:&v44 objects:buf count:16];
-      if (v20)
+      v48 = 0u;
+      v40 = v18;
+      v20 = v18;
+      v21 = [v20 countByEnumeratingWithState:&v45 objects:buf count:16];
+      if (v21)
       {
-        v21 = v20;
-        v22 = *v45;
+        v22 = v21;
+        v23 = *v46;
         do
         {
-          for (i = 0; i != v21; ++i)
+          for (i = 0; i != v22; ++i)
           {
-            if (*v45 != v22)
+            if (*v46 != v23)
             {
-              objc_enumerationMutation(v19);
+              objc_enumerationMutation(v20);
             }
 
-            v24 = MEMORY[0x1E695DFD8];
-            v25 = *(*(&v44 + 1) + 8 * i);
-            v26 = [[v24 alloc] initWithObjects:{@"_PHResourceUrlsErrorKey", 0}];
-            v27 = [v26 containsObject:v25];
+            v25 = MEMORY[0x1E695DFD8];
+            v26 = *(*(&v45 + 1) + 8 * i);
+            v27 = [[v25 alloc] initWithObjects:{@"_PHResourceUrlsErrorKey", 0}];
+            v28 = [v27 containsObject:v26];
 
-            if (v27)
+            if (v28)
             {
-              v28 = [v19 objectForKeyedSubscript:v25];
-              [dictionary setObject:v28 forKeyedSubscript:v25];
+              v29 = [v20 objectForKeyedSubscript:v26];
+              [dictionary setObject:v29 forKeyedSubscript:v26];
             }
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v44 objects:buf count:16];
+          v22 = [v20 countByEnumeratingWithState:&v45 objects:buf count:16];
         }
 
-        while (v21);
+        while (v22);
       }
 
       if ([dictionary count])
       {
-        v29 = dictionary;
+        v30 = dictionary;
       }
 
       else
       {
-        v29 = 0;
+        v30 = 0;
       }
 
-      v30 = v29;
+      v31 = v30;
 
-      v9 = v42;
-      v8 = v43;
+      v9 = v43;
+      v8 = v44;
       self = selfCopy2;
-      v17 = v39;
-      v16 = v40;
+      v18 = v40;
+      v17 = v41;
     }
 
     else
     {
-      v30 = v17;
+      v31 = v18;
     }
 
-    v31 = [self errorWithDomain:v16 code:a4 userInfo:v30];
+    v32 = [self errorWithDomain:v17 code:a4 userInfo:v31];
 
     goto LABEL_44;
   }
 
-  if (([(__CFString *)v16 isEqualToString:*MEMORY[0x1E696A978]]& 1) != 0)
+  if (([(__CFString *)v17 isEqualToString:*MEMORY[0x1E696A978]]& 1) != 0)
   {
 
     if (a4 == -1009)
     {
       selfCopy4 = self;
-      v13 = v16;
-      v14 = -1009;
+      v14 = v17;
+      v15 = -1009;
       goto LABEL_6;
     }
 
@@ -202,44 +204,44 @@ LABEL_43:
 LABEL_39:
 
 LABEL_40:
-  v32 = *MEMORY[0x1E6994990];
-  v33 = [(__CFString *)v8 isEqualToString:*MEMORY[0x1E6994990]];
-  if ((a4 - 1005) <= 1 && v33 || (v35 = [(__CFString *)v8 isEqualToString:v32], (a4 - 80) <= 2) && v35 && (dyld_program_sdk_at_least() & 1) == 0)
+  v33 = *MEMORY[0x1E6994990];
+  v34 = [(__CFString *)v8 isEqualToString:*MEMORY[0x1E6994990]];
+  if ((a4 - 1005) <= 1 && v34 || (v36 = [(__CFString *)v8 isEqualToString:v33], (a4 - 80) <= 2) && v36 && (dyld_program_sdk_at_least() & 1) == 0)
   {
     selfCopy4 = self;
-    v13 = v8;
-    v14 = a4;
-    v15 = 0;
+    v14 = v8;
+    v15 = a4;
+    v16 = 0;
     goto LABEL_43;
   }
 
-  v36 = [v9 objectForKeyedSubscript:*MEMORY[0x1E696A578]];
-  if ([v36 length])
+  v37 = [v9 objectForKeyedSubscript:*MEMORY[0x1E696A578]];
+  if ([v37 length])
   {
-    v37 = PLPhotoKitGetLog();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v38 = PLPhotoKitGetLog();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v49 = v36;
-      _os_log_impl(&dword_19C86F000, v37, OS_LOG_TYPE_ERROR, "Sanitized PhotoKit Error: %@", buf, 0xCu);
+      v50 = v37;
+      _os_log_impl(&dword_19C86F000, v38, OS_LOG_TYPE_ERROR, "Sanitized PhotoKit Error: %@", buf, 0xCu);
     }
   }
 
   if (a4 == 3072)
   {
-    v38 = 3072;
+    v39 = 3072;
   }
 
   else
   {
-    v38 = -1;
+    v39 = -1;
   }
 
-  v31 = [self errorWithDomain:v10 code:v38 userInfo:0];
+  v32 = [self errorWithDomain:v10 code:v39 userInfo:0];
 
 LABEL_44:
 
-  return v31;
+  return v32;
 }
 
 @end

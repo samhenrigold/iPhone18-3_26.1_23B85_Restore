@@ -44,10 +44,9 @@
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
@@ -83,57 +82,57 @@
 
 - (id)requestDidParseProtobufObject:(id)object
 {
-  v526 = *MEMORY[0x277D85DE8];
+  v523 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v7 = objc_msgSend_response(objectCopy, v5, v6);
   v10 = objc_msgSend_operationUUID(v7, v8, v9);
 
   v13 = objc_msgSend_lookupInfosByRequestID(self, v11, v12);
-  v496 = v10;
-  v498 = objc_msgSend_objectForKeyedSubscript_(v13, v14, v10);
+  v493 = v10;
+  v495 = objc_msgSend_objectForKeyedSubscript_(v13, v14, v10);
 
   if (!objc_msgSend_hasRecordResolveTokenResponse(objectCopy, v15, v16))
   {
     inited = 0;
     v101 = 0;
 LABEL_136:
-    v421 = objc_msgSend_result(objectCopy, v17, v18);
+    v419 = objc_msgSend_result(objectCopy, v17, v18);
     if (v101)
     {
+      v420 = objc_opt_new();
+
+      objc_msgSend_setCode_(v420, v421, 3);
       v422 = objc_opt_new();
+      objc_msgSend_setError_(v420, v423, v422);
 
-      objc_msgSend_setCode_(v422, v423, 3);
       v424 = objc_opt_new();
-      objc_msgSend_setError_(v422, v425, v424);
+      objc_msgSend_error(v420, v425, v426);
+      v428 = v427 = self;
+      objc_msgSend_setClientError_(v428, v429, v424);
 
-      v426 = objc_opt_new();
-      objc_msgSend_error(v422, v427, v428);
-      v430 = v429 = self;
-      objc_msgSend_setClientError_(v430, v431, v426);
+      v432 = objc_msgSend_error(v420, v430, v431);
+      v435 = objc_msgSend_clientError(v432, v433, v434);
+      objc_msgSend_setType_(v435, v436, 106);
 
-      v434 = objc_msgSend_error(v422, v432, v433);
-      v437 = objc_msgSend_clientError(v434, v435, v436);
-      objc_msgSend_setType_(v437, v438, 106);
+      self = v427;
+      v439 = objc_msgSend_error(v420, v437, v438);
+      objc_msgSend_setErrorKey_(v439, v440, @"Client OS version does not support the crypto requirements on the share");
 
-      self = v429;
-      v441 = objc_msgSend_error(v422, v439, v440);
-      objc_msgSend_setErrorKey_(v441, v442, @"Client OS version does not support the crypto requirements on the share");
+      v443 = objc_msgSend_error(v420, v441, v442);
+      objc_msgSend_setErrorDescription_(v443, v444, @"Unable to parse crypto requirements on the share");
 
-      v445 = objc_msgSend_error(v422, v443, v444);
-      objc_msgSend_setErrorDescription_(v445, v446, @"Unable to parse crypto requirements on the share");
-
-      v421 = v422;
+      v419 = v420;
     }
 
-    v447 = objc_msgSend_tokenResolveBlock(self, v419, v420);
+    v445 = objc_msgSend_tokenResolveBlock(self, v417, v418);
 
-    if (v447)
+    if (v445)
     {
-      v450 = objc_msgSend_tokenResolveBlock(self, v448, v449);
-      (v450)[2](v450, v498, inited, v421);
+      v448 = objc_msgSend_tokenResolveBlock(self, v446, v447);
+      (v448)[2](v448, v495, inited, v419);
     }
 
-    v451 = v101;
+    v449 = v101;
 
     goto LABEL_141;
   }
@@ -164,9 +163,9 @@ LABEL_12:
     }
 
     v48 = objc_alloc(MEMORY[0x277CBC220]);
-    v494 = v44;
-    v495 = objc_msgSend_initWithContainerIdentifier_environment_(v48, v49, v44, v47);
-    v500 = objc_msgSend_translator(self, v50, v51);
+    v491 = v44;
+    v492 = objc_msgSend_initWithContainerIdentifier_environment_(v48, v49, v44, v47);
+    v497 = objc_msgSend_translator(self, v50, v51);
     v54 = objc_msgSend_shareMetadata(v19, v52, v53);
     if (objc_msgSend_hasParticipantType(v54, v55, v56))
     {
@@ -202,7 +201,7 @@ LABEL_12:
         }
 
         objc_msgSend_privateDBTranslator(self, v71, v72);
-        v500 = v54 = v500;
+        v497 = v54 = v497;
       }
 
       else
@@ -212,9 +211,9 @@ LABEL_12:
 
 LABEL_24:
     v102 = objc_msgSend_shareRecord(v19, v68, v69);
-    v516 = 0;
-    v497 = objc_msgSend_recordFromPRecord_error_(v500, v103, v102, &v516);
-    v104 = v516;
+    v513 = 0;
+    v494 = objc_msgSend_recordFromPRecord_error_(v497, v103, v102, &v513);
+    v104 = v513;
 
     if (v104)
     {
@@ -229,19 +228,19 @@ LABEL_24:
       {
         v109 = objc_msgSend_shareRecord(v19, v107, v108);
         *buf = 138412546;
-        v518 = v109;
-        v519 = 2112;
-        v520 = v104;
+        v515 = v109;
+        v516 = 2112;
+        v517 = v104;
         _os_log_impl(&dword_22506F000, v106, OS_LOG_TYPE_INFO, "Warn: Couldn't get a shareRecord from %@: %@", buf, 0x16u);
       }
     }
 
     v110 = objc_alloc(MEMORY[0x277CBC698]);
-    inited = objc_msgSend_initWithShare_containerID_(v110, v111, v497, v495);
+    inited = objc_msgSend_initWithShare_containerID_(v110, v111, v494, v492);
     v114 = objc_msgSend_shareMetadata(v19, v112, v113);
     hasParticipantType = objc_msgSend_hasParticipantType(v114, v115, v116);
 
-    v499 = inited;
+    v496 = inited;
     if (hasParticipantType)
     {
       v120 = objc_msgSend_shareMetadata(v19, v118, v119);
@@ -252,9 +251,9 @@ LABEL_24:
       v135 = objc_msgSend_containerID(v132, v133, v134);
       isAppleInternal = objc_msgSend_isAppleInternal(v135, v136, v137);
       v139 = sub_2253965F8(v123, v129, isAppleInternal);
-      objc_msgSend_setParticipantRole_(v499, v140, v139);
+      objc_msgSend_setParticipantRole_(v496, v140, v139);
 
-      inited = v499;
+      inited = v496;
     }
 
     v141 = objc_msgSend_shareMetadata(v19, v118, v119);
@@ -304,12 +303,12 @@ LABEL_24:
 
     if (objc_msgSend_recordsCount(v19, v178, v179))
     {
-      v487 = objc_autoreleasePoolPush();
+      v484 = objc_autoreleasePoolPush();
       v184 = objc_msgSend_records(v19, v182, v183);
       v187 = objc_msgSend_firstObject(v184, v185, v186);
-      v515 = 0;
-      v490 = objc_msgSend_recordFromPRecord_error_(v500, v188, v187, &v515);
-      v189 = v515;
+      v512 = 0;
+      v487 = objc_msgSend_recordFromPRecord_error_(v497, v188, v187, &v512);
+      v189 = v512;
 
       if (v189)
       {
@@ -325,22 +324,22 @@ LABEL_24:
           v196 = objc_msgSend_records(v19, v194, v195);
           v199 = objc_msgSend_firstObject(v196, v197, v198);
           *buf = 138412546;
-          v518 = v199;
-          v519 = 2112;
-          v520 = v189;
+          v515 = v199;
+          v516 = 2112;
+          v517 = v189;
           _os_log_impl(&dword_22506F000, v193, OS_LOG_TYPE_INFO, "Warn: Couldn't get a root record from %@: %@", buf, 0x16u);
         }
       }
 
-      v200 = v490;
-      v204 = objc_msgSend_recordID(v490, v190, v191);
+      v200 = v487;
+      v204 = objc_msgSend_recordID(v487, v190, v191);
       objc_msgSend_setHierarchicalRootRecordID_(inited, v201, v204);
 
       LODWORD(v204) = objc_msgSend_shouldFetchRootRecord(self, v202, v203);
       if (objc_msgSend_recordsCount(v19, v205, v206) <= v204)
       {
         v212 = 0;
-        v251 = v487;
+        v251 = v484;
         objc_msgSend_setSharedItemHierarchyIDs_(inited, v207, 0);
       }
 
@@ -356,9 +355,9 @@ LABEL_24:
         v209 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(v209, OS_LOG_TYPE_DEBUG))
         {
-          v458 = objc_msgSend_recordsCount(v19, v210, v211);
+          v455 = objc_msgSend_recordsCount(v19, v210, v211);
           *buf = 134217984;
-          v518 = v458 - v204;
+          v515 = v455 - v204;
           _os_log_debug_impl(&dword_22506F000, v209, OS_LOG_TYPE_DEBUG, "Found %lu additional share hierarchy records", buf, 0xCu);
         }
 
@@ -387,14 +386,14 @@ LABEL_24:
               v247 = objc_msgSend_value(v244, v245, v246);
               v250 = objc_msgSend_name(v247, v248, v249);
               *buf = selfCopy;
-              v518 = v250;
+              v515 = v250;
               _os_log_debug_impl(&dword_22506F000, v225, OS_LOG_TYPE_DEBUG, "Parsing share hierarchy record %{public}@", buf, 0xCu);
             }
 
             v230 = objc_msgSend_recordIdentifier(v223, v228, v229);
-            v514 = 0;
-            v232 = objc_msgSend_recordIDFromPRecordIdentifier_error_(v500, v231, v230, &v514);
-            v233 = v514;
+            v511 = 0;
+            v232 = objc_msgSend_recordIDFromPRecordIdentifier_error_(v497, v231, v230, &v511);
+            v233 = v511;
 
             v234 = *MEMORY[0x277CBC878];
             v235 = *MEMORY[0x277CBC880];
@@ -412,7 +411,7 @@ LABEL_24:
             if (os_log_type_enabled(v236, OS_LOG_TYPE_DEBUG))
             {
               *buf = selfCopy;
-              v518 = v232;
+              v515 = v232;
               _os_log_debug_impl(&dword_22506F000, v236, OS_LOG_TYPE_DEBUG, "Parsed share hierarchy record ID %{public}@", buf, 0xCu);
             }
 
@@ -436,19 +435,19 @@ LABEL_24:
           if (os_log_type_enabled(v254, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v518 = v223;
-            v519 = 2112;
-            v520 = v233;
+            v515 = v223;
+            v516 = 2112;
+            v517 = v233;
             _os_log_impl(&dword_22506F000, v254, OS_LOG_TYPE_INFO, "Warn: Couldn't get a shared hierarchy record ID from %@: %@", buf, 0x16u);
           }
 
           objc_msgSend_removeAllObjects(v212, v255, v256);
 LABEL_74:
-          inited = v499;
+          inited = v496;
         }
 
-        v251 = v487;
-        v200 = v490;
+        v251 = v484;
+        v200 = v487;
         objc_msgSend_setSharedItemHierarchyIDs_(inited, v219, v212);
       }
 
@@ -467,17 +466,16 @@ LABEL_74:
     {
       v264 = objc_msgSend_shareMetadata(v19, v262, v263);
       v267 = objc_msgSend_callerParticipant(v264, v265, v266);
-      v270 = objc_msgSend_recordID(v497, v268, v269);
-      v513 = 0;
-      v272 = objc_msgSend_shareParticipantFromPParticipant_shareID_error_(v500, v271, v267, v270, &v513);
-      v273 = v513;
+      v270 = objc_msgSend_recordID(v494, v268, v269);
+      v510 = 0;
+      v272 = objc_msgSend_shareParticipantFromPParticipant_shareID_error_(v497, v271, v267, v270, &v510);
+      v273 = v510;
       objc_msgSend_setCallingParticipant_(inited, v274, v272);
 
       v277 = objc_msgSend_callingParticipant(inited, v275, v276);
       objc_msgSend_setIsCurrentUser_(v277, v278, 1);
 
       v279 = *MEMORY[0x277CBC878];
-      v280 = *MEMORY[0x277CBC880];
       if (v273)
       {
         if (*MEMORY[0x277CBC880] != -1)
@@ -485,16 +483,16 @@ LABEL_74:
           dispatch_once(MEMORY[0x277CBC880], v279);
         }
 
-        v281 = *MEMORY[0x277CBC830];
-        if (os_log_type_enabled(v281, OS_LOG_TYPE_INFO))
+        v280 = *MEMORY[0x277CBC830];
+        if (os_log_type_enabled(v280, OS_LOG_TYPE_INFO))
         {
-          v284 = objc_msgSend_shareMetadata(v19, v282, v283);
-          v287 = objc_msgSend_callerParticipant(v284, v285, v286);
+          v283 = objc_msgSend_shareMetadata(v19, v281, v282);
+          v286 = objc_msgSend_callerParticipant(v283, v284, v285);
           *buf = 138412546;
-          v518 = v287;
-          v519 = 2112;
-          v520 = v273;
-          _os_log_impl(&dword_22506F000, v281, OS_LOG_TYPE_INFO, "Warn: Couldn't get a calling participant from %@: %@", buf, 0x16u);
+          v515 = v286;
+          v516 = 2112;
+          v517 = v273;
+          _os_log_impl(&dword_22506F000, v280, OS_LOG_TYPE_INFO, "Warn: Couldn't get a calling participant from %@: %@", buf, 0x16u);
         }
       }
 
@@ -508,65 +506,65 @@ LABEL_74:
         v273 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(v273, OS_LOG_TYPE_INFO))
         {
-          v290 = objc_msgSend_callingParticipant(inited, v288, v289);
+          v289 = objc_msgSend_callingParticipant(inited, v287, v288);
           *buf = 138412290;
-          v518 = v290;
+          v515 = v289;
           _os_log_impl(&dword_22506F000, v273, OS_LOG_TYPE_INFO, "Parsed calling participant: %@", buf, 0xCu);
         }
       }
     }
 
-    v291 = objc_msgSend_share(inited, v262, v263);
-    v294 = objc_msgSend_currentUserParticipant(v291, v292, v293);
+    v290 = objc_msgSend_share(inited, v262, v263);
+    v293 = objc_msgSend_currentUserParticipant(v290, v291, v292);
 
-    if (!v294)
+    if (!v293)
     {
-      v297 = objc_msgSend_callingParticipant(inited, v295, v296);
+      v296 = objc_msgSend_callingParticipant(inited, v294, v295);
 
-      if (v297)
+      if (v296)
       {
-        v488 = objectCopy;
-        v491 = v19;
+        v485 = objectCopy;
+        v488 = v19;
         selfCopy = self;
-        v512 = 0u;
-        v510 = 0u;
-        v511 = 0u;
         v509 = 0u;
-        v298 = objc_msgSend_share(inited, v295, v296);
-        v301 = objc_msgSend_participants(v298, v299, v300);
+        v507 = 0u;
+        v508 = 0u;
+        v506 = 0u;
+        v297 = objc_msgSend_share(inited, v294, v295);
+        v300 = objc_msgSend_participants(v297, v298, v299);
 
-        v303 = objc_msgSend_countByEnumeratingWithState_objects_count_(v301, v302, &v509, v525, 16);
-        if (v303)
+        v302 = objc_msgSend_countByEnumeratingWithState_objects_count_(v300, v301, &v506, v522, 16);
+        if (v302)
         {
-          v306 = v303;
-          v307 = *v510;
+          v305 = v302;
+          v306 = *v507;
           while (2)
           {
-            for (i = 0; i != v306; ++i)
+            for (i = 0; i != v305; ++i)
             {
-              if (*v510 != v307)
+              if (*v507 != v306)
               {
-                objc_enumerationMutation(v301);
+                objc_enumerationMutation(v300);
               }
 
-              v309 = *(*(&v509 + 1) + 8 * i);
-              v310 = objc_msgSend_participantID(v309, v304, v305);
-              v313 = objc_msgSend_callingParticipant(inited, v311, v312);
-              v316 = objc_msgSend_participantID(v313, v314, v315);
-              isEqualToString = objc_msgSend_isEqualToString_(v310, v317, v316);
+              v308 = *(*(&v506 + 1) + 8 * i);
+              v309 = objc_msgSend_participantID(v308, v303, v304);
+              v312 = objc_msgSend_callingParticipant(inited, v310, v311);
+              v315 = objc_msgSend_participantID(v312, v313, v314);
+              isEqualToString = objc_msgSend_isEqualToString_(v309, v316, v315);
 
               if (isEqualToString)
               {
-                objc_msgSend_setIsCurrentUser_(v309, v304, 1);
-                inited = v499;
+                objc_msgSend_setIsCurrentUser_(v308, v303, 1);
+                inited = v496;
                 goto LABEL_103;
               }
 
-              inited = v499;
+              inited = v496;
             }
 
-            v306 = objc_msgSend_countByEnumeratingWithState_objects_count_(v301, v304, &v509, v525, 16);
-            if (v306)
+            v305 = objc_msgSend_countByEnumeratingWithState_objects_count_(v300, v303, &v506, v522, 16);
+            if (v305)
             {
               continue;
             }
@@ -577,52 +575,52 @@ LABEL_74:
 
 LABEL_103:
 
-        objectCopy = v488;
-        v19 = v491;
+        objectCopy = v485;
+        v19 = v488;
         self = selfCopy;
       }
     }
 
-    v319 = objc_msgSend_share(inited, v295, v296);
-    v322 = objc_msgSend_currentUserParticipant(v319, v320, v321);
+    v318 = objc_msgSend_share(inited, v294, v295);
+    v321 = objc_msgSend_currentUserParticipant(v318, v319, v320);
 
-    v323 = *MEMORY[0x277CBC878];
+    v322 = *MEMORY[0x277CBC878];
     if (*MEMORY[0x277CBC880] != -1)
     {
-      dispatch_once(MEMORY[0x277CBC880], v323);
+      dispatch_once(MEMORY[0x277CBC880], v322);
     }
 
-    v324 = *MEMORY[0x277CBC830];
-    if (os_log_type_enabled(v324, OS_LOG_TYPE_DEBUG))
+    v323 = *MEMORY[0x277CBC830];
+    if (os_log_type_enabled(v323, OS_LOG_TYPE_DEBUG))
     {
-      v454 = objc_msgSend_share(inited, v325, v326);
-      v457 = objc_msgSend_recordID(v454, v455, v456);
+      v451 = objc_msgSend_share(inited, v324, v325);
+      v454 = objc_msgSend_recordID(v451, v452, v453);
       *buf = 138543618;
-      v518 = v457;
-      v519 = 2112;
-      v520 = v322;
-      _os_log_debug_impl(&dword_22506F000, v324, OS_LOG_TYPE_DEBUG, "Found current user participant on share %{public}@: %@", buf, 0x16u);
+      v515 = v454;
+      v516 = 2112;
+      v517 = v321;
+      _os_log_debug_impl(&dword_22506F000, v323, OS_LOG_TYPE_DEBUG, "Found current user participant on share %{public}@: %@", buf, 0x16u);
     }
 
-    v329 = objc_msgSend_shareMetadata(v19, v327, v328);
-    v332 = objc_msgSend_hasOwnerParticipant(v329, v330, v331);
+    v328 = objc_msgSend_shareMetadata(v19, v326, v327);
+    v331 = objc_msgSend_hasOwnerParticipant(v328, v329, v330);
 
-    if (v332)
+    if (v331)
     {
-      v335 = objc_msgSend_shareMetadata(v19, v333, v334);
-      v338 = objc_msgSend_ownerParticipant(v335, v336, v337);
-      objc_msgSend_recordID(v497, v339, v340);
-      v341 = v19;
-      v343 = v342 = self;
-      v508 = 0;
-      v345 = objc_msgSend_shareParticipantFromPParticipant_shareID_error_(v500, v344, v338, v343, &v508);
-      v101 = v508;
+      v334 = objc_msgSend_shareMetadata(v19, v332, v333);
+      v337 = objc_msgSend_ownerParticipant(v334, v335, v336);
+      objc_msgSend_recordID(v494, v338, v339);
+      v340 = v19;
+      v342 = v341 = self;
+      v505 = 0;
+      v344 = objc_msgSend_shareParticipantFromPParticipant_shareID_error_(v497, v343, v337, v342, &v505);
+      v101 = v505;
 
-      self = v342;
-      v19 = v341;
+      self = v341;
+      v19 = v340;
 
-      v348 = objc_msgSend_userIdentity(v345, v346, v347);
-      objc_msgSend_setOwnerIdentity_(inited, v349, v348);
+      v347 = objc_msgSend_userIdentity(v344, v345, v346);
+      objc_msgSend_setOwnerIdentity_(inited, v348, v347);
 
       if (v101)
       {
@@ -630,87 +628,86 @@ LABEL_103:
       }
     }
 
-    v350 = objc_msgSend_shareMetadata(v19, v333, v334);
-    hasSignedCryptoRequirements = objc_msgSend_hasSignedCryptoRequirements(v350, v351, v352);
+    v349 = objc_msgSend_shareMetadata(v19, v332, v333);
+    hasSignedCryptoRequirements = objc_msgSend_hasSignedCryptoRequirements(v349, v350, v351);
 
     if (hasSignedCryptoRequirements)
     {
-      v356 = v322;
-      v357 = v19;
+      v355 = v321;
+      v356 = v19;
       selfCopy2 = self;
-      v492 = v357;
-      v359 = objc_msgSend_shareMetadata(v357, v354, v355);
-      v362 = objc_msgSend_signedCryptoRequirements(v359, v360, v361);
-      v365 = objc_msgSend_recordID(v497, v363, v364);
-      v368 = objc_msgSend_zoneID(v365, v366, v367);
-      v506 = 0;
-      v507 = 0;
-      v370 = objc_msgSend_cryptoRequirementsFromPSignedCryptoRequirements_zoneID_error_requiredFeaturesValidationFailureType_(v500, v369, v362, v368, &v507, &v506);
-      v101 = v507;
-      v371 = v506;
+      v489 = v356;
+      v358 = objc_msgSend_shareMetadata(v356, v353, v354);
+      v361 = objc_msgSend_signedCryptoRequirements(v358, v359, v360);
+      v364 = objc_msgSend_recordID(v494, v362, v363);
+      v367 = objc_msgSend_zoneID(v364, v365, v366);
+      v503 = 0;
+      v504 = 0;
+      v369 = objc_msgSend_cryptoRequirementsFromPSignedCryptoRequirements_zoneID_error_requiredFeaturesValidationFailureType_(v497, v368, v361, v367, &v504, &v503);
+      v101 = v504;
+      v370 = v503;
 
-      if (!(v101 | v371))
+      if (!(v101 | v370))
       {
-        v374 = objc_msgSend_requiredAdopterFeatures(v370, v372, v373);
+        v373 = objc_msgSend_requiredAdopterFeatures(v369, v371, v372);
 
-        if (v374)
+        if (v373)
         {
-          v376 = objc_msgSend_requiredAdopterFeatures(v370, v372, v375);
-          inited = v499;
-          objc_msgSend_setRequiredFeatures_(v499, v377, v376);
+          v375 = objc_msgSend_requiredAdopterFeatures(v369, v371, v374);
+          inited = v496;
+          objc_msgSend_setRequiredFeatures_(v496, v376, v375);
 
           self = selfCopy2;
-          v19 = v492;
-          v322 = v356;
-          objc_msgSend_shareRecord(v492, v378, v379);
-          v382 = LABEL_119:;
-          v385 = objc_msgSend_shareInfo(v382, v383, v384);
-          v388 = objc_msgSend_potentialMatchsCount(v385, v386, v387);
+          v19 = v489;
+          v321 = v355;
+          objc_msgSend_shareRecord(v489, v377, v378);
+          v381 = LABEL_119:;
+          v384 = objc_msgSend_shareInfo(v381, v382, v383);
+          v387 = objc_msgSend_potentialMatchsCount(v384, v385, v386);
 
-          if (v388)
+          if (v387)
           {
-            v391 = objc_msgSend_shareRecord(v19, v389, v390);
-            v394 = objc_msgSend_shareInfo(v391, v392, v393);
-            v397 = objc_msgSend_potentialMatchs(v394, v395, v396);
-            v503[0] = MEMORY[0x277D85DD0];
-            v503[1] = 3221225472;
-            v503[2] = sub_2253D8234;
-            v503[3] = &unk_27854D620;
-            v504 = v500;
-            v505 = v497;
-            objc_msgSend_CKCompactMap_(v397, v398, v503);
-            v399 = v19;
-            v401 = v400 = self;
-            objc_msgSend_setOutOfNetworkMatches_(inited, v402, v401);
+            v390 = objc_msgSend_shareRecord(v19, v388, v389);
+            v393 = objc_msgSend_shareInfo(v390, v391, v392);
+            v396 = objc_msgSend_potentialMatchs(v393, v394, v395);
+            v500[0] = MEMORY[0x277D85DD0];
+            v500[1] = 3221225472;
+            v500[2] = sub_2253D8234;
+            v500[3] = &unk_27854D620;
+            v501 = v497;
+            v502 = v494;
+            objc_msgSend_CKCompactMap_(v396, v397, v500);
+            v398 = v19;
+            v400 = v399 = self;
+            objc_msgSend_setOutOfNetworkMatches_(inited, v401, v400);
 
-            self = v400;
-            v19 = v399;
+            self = v399;
+            v19 = v398;
           }
 
-          if (objc_msgSend_hasRecordZone(v19, v389, v390))
+          if (objc_msgSend_hasRecordZone(v19, v388, v389))
           {
-            v405 = objc_msgSend_recordZone(v19, v403, v404);
-            v501 = 0;
-            v502 = 0;
-            v407 = objc_msgSend_recordZoneFromPRecordZone_error_requiredFeaturesValidationFailureType_(v500, v406, v405, &v502, &v501);
-            v101 = v502;
-            v408 = v501;
+            v404 = objc_msgSend_recordZone(v19, v402, v403);
+            v498 = 0;
+            v499 = 0;
+            v406 = objc_msgSend_recordZoneFromPRecordZone_error_requiredFeaturesValidationFailureType_(v497, v405, v404, &v499, &v498);
+            v101 = v499;
+            v407 = v498;
 
-            v409 = *MEMORY[0x277CBC878];
-            v410 = *MEMORY[0x277CBC880];
+            v408 = *MEMORY[0x277CBC878];
             if (v101)
             {
               if (*MEMORY[0x277CBC880] != -1)
               {
-                dispatch_once(MEMORY[0x277CBC880], v409);
+                dispatch_once(MEMORY[0x277CBC880], v408);
               }
 
-              v411 = *MEMORY[0x277CBC830];
-              if (os_log_type_enabled(v411, OS_LOG_TYPE_ERROR))
+              v409 = *MEMORY[0x277CBC830];
+              if (os_log_type_enabled(v409, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v518 = v101;
-                _os_log_error_impl(&dword_22506F000, v411, OS_LOG_TYPE_ERROR, "Couldn't parse shared zone from resolve token response: %@", buf, 0xCu);
+                v515 = v101;
+                _os_log_error_impl(&dword_22506F000, v409, OS_LOG_TYPE_ERROR, "Couldn't parse shared zone from resolve token response: %@", buf, 0xCu);
               }
             }
 
@@ -718,69 +715,69 @@ LABEL_103:
             {
               if (*MEMORY[0x277CBC880] != -1)
               {
-                dispatch_once(MEMORY[0x277CBC880], v409);
+                dispatch_once(MEMORY[0x277CBC880], v408);
               }
 
-              v411 = *MEMORY[0x277CBC830];
-              if (os_log_type_enabled(v411, OS_LOG_TYPE_DEBUG))
+              v409 = *MEMORY[0x277CBC830];
+              if (os_log_type_enabled(v409, OS_LOG_TYPE_DEBUG))
               {
-                v489 = v322;
-                v493 = objc_msgSend_zoneID(v407, v412, v413);
-                v463 = objc_msgSend_share(v407, v459, v460);
-                if (v463)
+                v486 = v321;
+                v490 = objc_msgSend_zoneID(v406, v410, v411);
+                v460 = objc_msgSend_share(v406, v456, v457);
+                if (v460)
                 {
-                  v464 = @" with shareID ";
+                  v461 = @" with shareID ";
                 }
 
                 else
                 {
-                  v464 = @" without any shareID ";
+                  v461 = @" without any shareID ";
                 }
 
-                v467 = objc_msgSend_share(v407, v461, v462);
-                if (v467)
+                v464 = objc_msgSend_share(v406, v458, v459);
+                if (v464)
                 {
-                  selfCopy = objc_msgSend_share(v407, v465, v466);
-                  v468 = objc_msgSend_recordID(selfCopy, v469, v470);
+                  selfCopy = objc_msgSend_share(v406, v462, v463);
+                  v465 = objc_msgSend_recordID(selfCopy, v466, v467);
                 }
 
                 else
                 {
-                  v468 = &stru_28385ED00;
+                  v465 = &stru_28385ED00;
                 }
 
                 *buf = 138544130;
-                v518 = v493;
-                v519 = 2114;
-                v520 = v464;
-                v521 = 2114;
-                v471 = v468;
-                v522 = v468;
-                v523 = 2112;
-                v524 = v499;
-                _os_log_debug_impl(&dword_22506F000, v411, OS_LOG_TYPE_DEBUG, "Parsed zone %{public}@%{public}@%{public}@ from response for share metadata %@", buf, 0x2Au);
-                if (v467)
+                v515 = v490;
+                v516 = 2114;
+                v517 = v461;
+                v518 = 2114;
+                v468 = v465;
+                v519 = v465;
+                v520 = 2112;
+                v521 = v496;
+                _os_log_debug_impl(&dword_22506F000, v409, OS_LOG_TYPE_DEBUG, "Parsed zone %{public}@%{public}@%{public}@ from response for share metadata %@", buf, 0x2Au);
+                if (v464)
                 {
                 }
 
-                v322 = v489;
+                v321 = v486;
               }
             }
 
-            v417 = objc_msgSend_share(v407, v414, v415);
-            if (v417)
+            v415 = objc_msgSend_share(v406, v412, v413);
+            if (v415)
             {
-              v418 = v407;
+              v416 = v406;
             }
 
             else
             {
-              v418 = 0;
+              v416 = 0;
             }
 
-            objc_msgSend_setSharedZone_(v499, v416, v418);
+            objc_msgSend_setSharedZone_(v496, v414, v416);
 
-            inited = v499;
+            inited = v496;
           }
 
           else
@@ -794,46 +791,44 @@ LABEL_135:
         }
       }
 
-      inited = v499;
-      if ((objc_msgSend_isEqualToString_(v371, v372, @"unsupportedCryptoRequirementsVersion") & 1) != 0 || objc_msgSend_isEqualToString_(v371, v380, @"unsupportedCryptoFeatureRequirementsVersion"))
+      inited = v496;
+      if ((objc_msgSend_isEqualToString_(v370, v371, @"unsupportedCryptoRequirementsVersion") & 1) != 0 || objc_msgSend_isEqualToString_(v370, v379, @"unsupportedCryptoFeatureRequirementsVersion"))
       {
-        v381 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v380, *MEMORY[0x277CBC120], 5021, @"Crypto requirements in the share metadata are not supported by this OS version");
+        v380 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v379, *MEMORY[0x277CBC120], 5021, @"Crypto requirements in the share metadata are not supported by this OS version");
 
-        v101 = v381;
+        v101 = v380;
       }
 
       self = selfCopy2;
-      v322 = v356;
+      v321 = v355;
 
-      v19 = v492;
+      v19 = v489;
       if (v101)
       {
         goto LABEL_135;
       }
     }
 
-    objc_msgSend_shareRecord(v19, v354, v355);
+    objc_msgSend_shareRecord(v19, v353, v354);
     goto LABEL_119;
   }
 
-  v473 = objc_alloc(MEMORY[0x277CBC698]);
-  inited = objc_msgSend_initInternal(v473, v474, v475);
-  objc_msgSend_setAccessRequestsEnabled_(inited, v476, 1);
-  v479 = objc_msgSend_tokenResolveBlock(self, v477, v478);
+  v470 = objc_alloc(MEMORY[0x277CBC698]);
+  inited = objc_msgSend_initInternal(v470, v471, v472);
+  objc_msgSend_setAccessRequestsEnabled_(inited, v473, 1);
+  v476 = objc_msgSend_tokenResolveBlock(self, v474, v475);
 
-  if (v479)
+  if (v476)
   {
-    v482 = objc_msgSend_tokenResolveBlock(self, v480, v481);
-    v485 = objc_msgSend_result(objectCopy, v483, v484);
-    (v482)[2](v482, v498, inited, v485);
+    v479 = objc_msgSend_tokenResolveBlock(self, v477, v478);
+    v482 = objc_msgSend_result(objectCopy, v480, v481);
+    (v479)[2](v479, v495, inited, v482);
   }
 
-  v451 = 0;
+  v449 = 0;
 LABEL_141:
 
-  v452 = *MEMORY[0x277D85DE8];
-
-  return v451;
+  return v449;
 }
 
 - (void)requestDidParseNodeFailure:(id)failure

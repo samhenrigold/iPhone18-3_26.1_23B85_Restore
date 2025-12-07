@@ -29,22 +29,20 @@ void __37___GDSServerConnection_dateFormatter__block_invoke()
 
 void __45___GDSServerConnection_fetchConfigWithError___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_2507E1000, v2, OS_LOG_TYPE_DEFAULT, "Using test config URL %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_2507E1000, v2, OS_LOG_TYPE_DEFAULT, "Using test config URL %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __45___GDSServerConnection_fetchConfigWithError___block_invoke_144(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -52,11 +50,11 @@ void __45___GDSServerConnection_fetchConfigWithError___block_invoke_144(uint64_t
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v23 = v8;
-    v24 = 2112;
-    v25 = v9;
-    v26 = 2112;
-    v27 = v7;
+    v22 = v8;
+    v23 = 2112;
+    v24 = v9;
+    v25 = 2112;
+    v26 = v7;
     _os_log_impl(&dword_2507E1000, v10, OS_LOG_TYPE_DEFAULT, "Response: %@, Error:%@, Data %@", buf, 0x20u);
   }
 
@@ -66,7 +64,7 @@ void __45___GDSServerConnection_fetchConfigWithError___block_invoke_144(uint64_t
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v23 = v9;
+      v22 = v9;
       _os_log_impl(&dword_2507E1000, v11, OS_LOG_TYPE_DEFAULT, "Error generated %@", buf, 0xCu);
     }
 
@@ -80,7 +78,7 @@ void __45___GDSServerConnection_fetchConfigWithError___block_invoke_144(uint64_t
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v23 = v12;
+      v22 = v12;
       _os_log_impl(&dword_2507E1000, v13, OS_LOG_TYPE_DEFAULT, "Config Response is %@", buf, 0xCu);
     }
 
@@ -99,14 +97,14 @@ void __45___GDSServerConnection_fetchConfigWithError___block_invoke_144(uint64_t
     if (v14 && *(a1 + 64))
     {
       v17 = MEMORY[0x277CCA9B8];
-      v20 = @"Error reason";
-      v21 = v14;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v19 = @"Error reason";
+      v20 = v14;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
       **(a1 + 64) = [v17 errorWithDomain:@"com.apple.griddataservices" code:v16 userInfo:v18];
 
       if (os_log_type_enabled(*(a1 + 32), OS_LOG_TYPE_ERROR))
       {
-        __45___GDSServerConnection_fetchConfigWithError___block_invoke_144_cold_1((a1 + 64));
+        __45___GDSServerConnection_fetchConfigWithError___block_invoke_144_cold_1();
       }
     }
 
@@ -121,13 +119,11 @@ void __45___GDSServerConnection_fetchConfigWithError___block_invoke_144(uint64_t
   {
     dispatch_semaphore_signal(*(a1 + 40));
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __60___GDSServerConnection_fetchBalancingAuthorityFromLocation___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -135,7 +131,7 @@ void __60___GDSServerConnection_fetchBalancingAuthorityFromLocation___block_invo
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v48 = *&v8;
+    v47 = *&v8;
     _os_log_impl(&dword_2507E1000, v10, OS_LOG_TYPE_DEFAULT, "Response: %@", buf, 0xCu);
   }
 
@@ -143,7 +139,7 @@ void __60___GDSServerConnection_fetchBalancingAuthorityFromLocation___block_invo
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v48 = *&v9;
+    v47 = *&v9;
     _os_log_impl(&dword_2507E1000, v11, OS_LOG_TYPE_DEFAULT, "Error:%@", buf, 0xCu);
   }
 
@@ -151,45 +147,45 @@ void __60___GDSServerConnection_fetchBalancingAuthorityFromLocation___block_invo
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v48 = *&v7;
+    v47 = *&v7;
     _os_log_impl(&dword_2507E1000, v12, OS_LOG_TYPE_DEFAULT, "Data %@", buf, 0xCu);
   }
 
   if (v7)
   {
-    v40 = v9;
-    v41 = v8;
-    v42 = v7;
+    v39 = v9;
+    v40 = v8;
+    v41 = v7;
     v13 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:4 error:0];
     v14 = [*(a1 + 32) log];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v48 = *&v13;
+      v47 = *&v13;
       _os_log_impl(&dword_2507E1000, v14, OS_LOG_TYPE_DEFAULT, "Response is %@", buf, 0xCu);
     }
 
-    v39 = v13;
+    v38 = v13;
     v15 = [v13 objectForKeyedSubscript:@"balancingAuthorities"];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    v16 = [v15 countByEnumeratingWithState:&v43 objects:v53 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v42 objects:v52 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v44;
+      v18 = *v43;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v44 != v18)
+          if (*v43 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v43 + 1) + 8 * i);
+          v20 = *(*(&v42 + 1) + 8 * i);
           v21 = [v20 objectForKeyedSubscript:@"longitude"];
           [v21 doubleValue];
           v23 = v22;
@@ -219,11 +215,11 @@ void __60___GDSServerConnection_fetchBalancingAuthorityFromLocation___block_invo
             if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412802;
-              v48 = *&v31;
-              v49 = 2112;
-              v50 = *&v33;
-              v51 = 2112;
-              v52 = v29;
+              v47 = *&v31;
+              v48 = 2112;
+              v49 = *&v33;
+              v50 = 2112;
+              v51 = v29;
               _os_log_impl(&dword_2507E1000, v34, OS_LOG_TYPE_DEFAULT, "Name %@, UUID %@, Date %@", buf, 0x20u);
             }
 
@@ -242,36 +238,34 @@ void __60___GDSServerConnection_fetchBalancingAuthorityFromLocation___block_invo
             if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134283777;
-              v48 = v23;
-              v49 = 2049;
-              v50 = v26;
+              v47 = v23;
+              v48 = 2049;
+              v49 = v26;
               _os_log_impl(&dword_2507E1000, v29, OS_LOG_TYPE_DEFAULT, "Non-matching co-ordinates %{private}f, %{private}f", buf, 0x16u);
             }
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v43 objects:v53 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v42 objects:v52 count:16];
       }
 
       while (v17);
     }
 
-    v8 = v41;
-    v7 = v42;
-    v9 = v40;
+    v8 = v40;
+    v7 = v41;
+    v9 = v39;
   }
 
   else
   {
     dispatch_semaphore_signal(*(a1 + 40));
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __55___GDSServerConnection_fetchBalancingAuthorityPolygons__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -279,13 +273,13 @@ void __55___GDSServerConnection_fetchBalancingAuthorityPolygons__block_invoke(ui
   v11 = [*(a1 + 32) log];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412802;
-    v20 = v8;
-    v21 = 2112;
-    v22 = v9;
-    v23 = 2112;
-    v24 = v7;
-    _os_log_impl(&dword_2507E1000, v11, OS_LOG_TYPE_DEFAULT, "Response: %@, Error:%@, Data %@", &v19, 0x20u);
+    v18 = 138412802;
+    v19 = v8;
+    v20 = 2112;
+    v21 = v9;
+    v22 = 2112;
+    v23 = v7;
+    _os_log_impl(&dword_2507E1000, v11, OS_LOG_TYPE_DEFAULT, "Response: %@, Error:%@, Data %@", &v18, 0x20u);
   }
 
   if (v7)
@@ -301,9 +295,9 @@ void __55___GDSServerConnection_fetchBalancingAuthorityPolygons__block_invoke(ui
     v17 = [*(a1 + 32) log];
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = v16;
-      _os_log_impl(&dword_2507E1000, v17, OS_LOG_TYPE_DEFAULT, "Error is %@", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = v16;
+      _os_log_impl(&dword_2507E1000, v17, OS_LOG_TYPE_DEFAULT, "Error is %@", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -316,13 +310,11 @@ void __55___GDSServerConnection_fetchBalancingAuthorityPolygons__block_invoke(ui
     AnalyticsSendEventLazy();
     objc_autoreleasePoolPop(v10);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __57___GDSServerConnection_fetchMarginalEmissionForecastFor___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -330,7 +322,7 @@ void __57___GDSServerConnection_fetchMarginalEmissionForecastFor___block_invoke(
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v65 = v8;
+    v64 = v8;
     _os_log_impl(&dword_2507E1000, v10, OS_LOG_TYPE_DEFAULT, "Response: %@", buf, 0xCu);
   }
 
@@ -338,7 +330,7 @@ void __57___GDSServerConnection_fetchMarginalEmissionForecastFor___block_invoke(
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v65 = v9;
+    v64 = v9;
     _os_log_impl(&dword_2507E1000, v11, OS_LOG_TYPE_DEFAULT, "Error:%@", buf, 0xCu);
   }
 
@@ -346,15 +338,15 @@ void __57___GDSServerConnection_fetchMarginalEmissionForecastFor___block_invoke(
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v65 = v7;
+    v64 = v7;
     _os_log_impl(&dword_2507E1000, v12, OS_LOG_TYPE_DEFAULT, "Data %@", buf, 0xCu);
   }
 
   if (v7)
   {
-    v47 = v9;
-    v48 = v8;
-    v49 = v7;
+    v46 = v9;
+    v47 = v8;
+    v48 = v7;
     v13 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:4 error:0];
     v14 = [*(a1 + 32) log];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
@@ -362,30 +354,30 @@ void __57___GDSServerConnection_fetchMarginalEmissionForecastFor___block_invoke(
       __57___GDSServerConnection_fetchMarginalEmissionForecastFor___block_invoke_cold_1(v13, v14);
     }
 
-    v50 = v13;
+    v49 = v13;
     [v13 objectForKeyedSubscript:@"forecasts"];
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
-    obj = v61 = 0u;
-    v15 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
+    obj = v60 = 0u;
+    v15 = [obj countByEnumeratingWithState:&v57 objects:v62 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v59;
-      v51 = *v59;
+      v17 = *v58;
+      v50 = *v58;
       do
       {
         v18 = 0;
-        v52 = v16;
+        v51 = v16;
         do
         {
-          if (*v59 != v17)
+          if (*v58 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v58 + 1) + 8 * v18);
+          v19 = *(*(&v57 + 1) + 8 * v18);
           v20 = [v19 objectForKeyedSubscript:@"balancingAuthorityId"];
           v21 = [*(a1 + 48) identifier];
           v22 = [v20 isEqualToString:v21];
@@ -399,52 +391,52 @@ void __57___GDSServerConnection_fetchMarginalEmissionForecastFor___block_invoke(
             *(v25 + 40) = v24;
 
             v27 = [v19 objectForKeyedSubscript:@"dataPoints"];
+            v53 = 0u;
             v54 = 0u;
             v55 = 0u;
             v56 = 0u;
-            v57 = 0u;
-            v28 = [v27 countByEnumeratingWithState:&v54 objects:v62 count:16];
+            v28 = [v27 countByEnumeratingWithState:&v53 objects:v61 count:16];
             if (v28)
             {
               v29 = v28;
               v30 = 0;
-              v31 = *v55;
+              v31 = *v54;
               do
               {
                 for (i = 0; i != v29; ++i)
                 {
-                  if (*v55 != v31)
+                  if (*v54 != v31)
                   {
                     objc_enumerationMutation(v27);
                   }
 
-                  v33 = *(*(&v54 + 1) + 8 * i);
+                  v33 = *(*(&v53 + 1) + 8 * i);
                   v34 = [*(*(*(a1 + 56) + 8) + 40) dateByAddingTimeInterval:v30 * 900.0];
                   [*(*(*(a1 + 64) + 8) + 40) setObject:v33 forKeyedSubscript:v34];
                   ++v30;
                 }
 
-                v29 = [v27 countByEnumeratingWithState:&v54 objects:v62 count:16];
+                v29 = [v27 countByEnumeratingWithState:&v53 objects:v61 count:16];
               }
 
               while (v29);
             }
 
-            v17 = v51;
-            v16 = v52;
+            v17 = v50;
+            v16 = v51;
           }
 
           ++v18;
         }
 
         while (v18 != v16);
-        v16 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
+        v16 = [obj countByEnumeratingWithState:&v57 objects:v62 count:16];
       }
 
       while (v16);
     }
 
-    v35 = [v50 objectForKeyedSubscript:@"refetchPeriod"];
+    v35 = [v49 objectForKeyedSubscript:@"refetchPeriod"];
     [v35 doubleValue];
     v37 = v36;
 
@@ -465,7 +457,7 @@ void __57___GDSServerConnection_fetchMarginalEmissionForecastFor___block_invoke(
       *(v43 + 40) = v42;
 
       v45 = [*(a1 + 32) log];
-      v9 = v47;
+      v9 = v46;
       if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
       {
         __57___GDSServerConnection_fetchMarginalEmissionForecastFor___block_invoke_cold_2(v45, v37);
@@ -475,15 +467,15 @@ void __57___GDSServerConnection_fetchMarginalEmissionForecastFor___block_invoke(
     else
     {
       v45 = [*(a1 + 32) log];
-      v9 = v47;
+      v9 = v46;
       if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         __57___GDSServerConnection_fetchMarginalEmissionForecastFor___block_invoke_cold_3();
       }
     }
 
-    v8 = v48;
-    v7 = v49;
+    v8 = v47;
+    v7 = v48;
 
     dispatch_semaphore_signal(*(a1 + 40));
   }
@@ -493,13 +485,11 @@ void __57___GDSServerConnection_fetchMarginalEmissionForecastFor___block_invoke(
     AnalyticsSendEventLazy();
     dispatch_semaphore_signal(*(a1 + 40));
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __65___GDSServerConnection_fetchCarbonIntensityHistoryForBA_from_to___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -507,7 +497,7 @@ void __65___GDSServerConnection_fetchCarbonIntensityHistoryForBA_from_to___block
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v46 = v8;
+    v45 = v8;
     _os_log_impl(&dword_2507E1000, v10, OS_LOG_TYPE_DEFAULT, "Response: %@", buf, 0xCu);
   }
 
@@ -515,7 +505,7 @@ void __65___GDSServerConnection_fetchCarbonIntensityHistoryForBA_from_to___block
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v46 = v9;
+    v45 = v9;
     _os_log_impl(&dword_2507E1000, v11, OS_LOG_TYPE_DEFAULT, "Error:%@", buf, 0xCu);
   }
 
@@ -523,46 +513,46 @@ void __65___GDSServerConnection_fetchCarbonIntensityHistoryForBA_from_to___block
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v46 = v7;
+    v45 = v7;
     _os_log_impl(&dword_2507E1000, v12, OS_LOG_TYPE_DEFAULT, "Data %@", buf, 0xCu);
   }
 
   if (v7)
   {
-    v35 = v9;
-    v36 = v8;
+    v34 = v9;
+    v35 = v8;
     v13 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:4 error:0];
     v14 = [*(a1 + 32) log];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v46 = v13;
+      v45 = v13;
       _os_log_impl(&dword_2507E1000, v14, OS_LOG_TYPE_DEFAULT, "Historical data Response is %@", buf, 0xCu);
     }
 
-    v37 = v7;
+    v36 = v7;
 
-    v34 = v13;
+    v33 = v13;
     [v13 objectForKeyedSubscript:@"dataPoints"];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    obj = v42 = 0u;
-    v15 = [obj countByEnumeratingWithState:&v39 objects:v51 count:16];
+    obj = v41 = 0u;
+    v15 = [obj countByEnumeratingWithState:&v38 objects:v50 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v40;
+      v17 = *v39;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v40 != v17)
+          if (*v39 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v39 + 1) + 8 * i);
+          v19 = *(*(&v38 + 1) + 8 * i);
           v20 = [v19 objectForKeyedSubscript:@"pointTime"];
           v21 = [_GDSServerConnection dateFromString:v20];
 
@@ -575,19 +565,19 @@ void __65___GDSServerConnection_fetchCarbonIntensityHistoryForBA_from_to___block
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412802;
-              v46 = v21;
-              v47 = 2112;
-              v48 = v22;
-              v49 = 2112;
-              v50 = v23;
+              v45 = v21;
+              v46 = 2112;
+              v47 = v22;
+              v48 = 2112;
+              v49 = v23;
               _os_log_debug_impl(&dword_2507E1000, v25, OS_LOG_TYPE_DEBUG, "Date %@, Avg Value %@, Marginal Value %@", buf, 0x20u);
             }
 
-            v43[0] = @"average";
-            v43[1] = @"marginal";
-            v44[0] = v22;
-            v44[1] = v23;
-            v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
+            v42[0] = @"average";
+            v42[1] = @"marginal";
+            v43[0] = v22;
+            v43[1] = v23;
+            v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
             [*(*(*(a1 + 48) + 8) + 40) setObject:v25 forKeyedSubscript:v21];
           }
 
@@ -595,12 +585,12 @@ void __65___GDSServerConnection_fetchCarbonIntensityHistoryForBA_from_to___block
           {
             v26 = [v19 objectForKeyedSubscript:@"pointTime"];
             *buf = 138412290;
-            v46 = v26;
+            v45 = v26;
             _os_log_impl(&dword_2507E1000, v25, OS_LOG_TYPE_DEFAULT, "Error parsing date %@", buf, 0xCu);
           }
         }
 
-        v16 = [obj countByEnumeratingWithState:&v39 objects:v51 count:16];
+        v16 = [obj countByEnumeratingWithState:&v38 objects:v50 count:16];
       }
 
       while (v16);
@@ -615,9 +605,9 @@ void __65___GDSServerConnection_fetchCarbonIntensityHistoryForBA_from_to___block
     *(v31 + 40) = v30;
 
     dispatch_semaphore_signal(*(a1 + 40));
-    v8 = v36;
-    v7 = v37;
-    v9 = v35;
+    v8 = v35;
+    v7 = v36;
+    v9 = v34;
   }
 
   else
@@ -625,35 +615,22 @@ void __65___GDSServerConnection_fetchCarbonIntensityHistoryForBA_from_to___block
     AnalyticsSendEventLazy();
     dispatch_semaphore_signal(*(a1 + 40));
   }
-
-  v33 = *MEMORY[0x277D85DE8];
-}
-
-void __45___GDSServerConnection_fetchConfigWithError___block_invoke_144_cold_1(uint64_t **a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = **a1;
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __57___GDSServerConnection_fetchMarginalEmissionForecastFor___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2507E1000, a2, OS_LOG_TYPE_DEBUG, "Forecast result %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2507E1000, a2, OS_LOG_TYPE_DEBUG, "Forecast result %@", &v2, 0xCu);
 }
 
 void __57___GDSServerConnection_fetchMarginalEmissionForecastFor___block_invoke_cold_2(os_log_t log, double a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a2;
-  _os_log_debug_impl(&dword_2507E1000, log, OS_LOG_TYPE_DEBUG, "Forecast refetch interval %lf", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a2;
+  _os_log_debug_impl(&dword_2507E1000, log, OS_LOG_TYPE_DEBUG, "Forecast refetch interval %lf", &v2, 0xCu);
 }
 
 @end

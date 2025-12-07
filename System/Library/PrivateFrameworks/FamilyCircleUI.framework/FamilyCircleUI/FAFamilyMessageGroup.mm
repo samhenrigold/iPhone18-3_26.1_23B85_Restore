@@ -25,7 +25,7 @@
     v17 = 0;
     v10 = [v9 fetchEligibilityWithError:&v17];
     v11 = v17;
-    v12 = _FALogSystem();
+    v12 = _FALogSystem(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
@@ -37,17 +37,17 @@
 
     if (v11)
     {
-      v13 = _FALogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = _FALogSystem(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(FAFamilyMessageGroup *)nameCopy contextPropertyWithName:v11, v13];
+        [(FAFamilyMessageGroup *)nameCopy contextPropertyWithName:v11, v14];
       }
     }
 
-    v14 = MEMORY[0x277CBEC28];
+    v15 = MEMORY[0x277CBEC28];
     if (v10 != 1)
     {
-      v14 = 0;
+      v15 = 0;
     }
 
     if (v10 == 2)
@@ -57,25 +57,23 @@
 
     else
     {
-      bundleIdentifier = v14;
+      bundleIdentifier = v15;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return bundleIdentifier;
 }
 
 - (void)performModalMessagePresentation:(id)presentation fromViewController:(id)controller
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   presentationCopy = presentation;
   controllerCopy = controller;
-  v8 = _FALogSystem();
+  v8 = _FALogSystem(controllerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v29 = presentationCopy;
+    v28 = presentationCopy;
     _os_log_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEFAULT, "FAFamilyMessageGroup will present message: %@", buf, 0xCu);
   }
 
@@ -88,24 +86,22 @@
   v13 = [contentParameters objectForKeyedSubscript:@"type"];
   v14 = objc_alloc_init(MEMORY[0x277D08280]);
   [v14 setCachePolicy:0];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __75__FAFamilyMessageGroup_performModalMessagePresentation_fromViewController___block_invoke;
-  v21[3] = &unk_2782F4528;
-  v22 = v13;
-  v23 = contentParameters;
-  v24 = v9;
-  v25 = controllerCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __75__FAFamilyMessageGroup_performModalMessagePresentation_fromViewController___block_invoke;
+  v20[3] = &unk_2782F4528;
+  v21 = v13;
+  v22 = contentParameters;
+  v23 = v9;
+  v24 = controllerCopy;
   selfCopy = self;
-  v27 = presentationCopy;
+  v26 = presentationCopy;
   v15 = presentationCopy;
   v16 = controllerCopy;
   v17 = v9;
   v18 = contentParameters;
   v19 = v13;
-  [v14 startRequestWithCompletionHandler:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [v14 startRequestWithCompletionHandler:v20];
 }
 
 void __75__FAFamilyMessageGroup_performModalMessagePresentation_fromViewController___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -178,39 +174,37 @@ void __75__FAFamilyMessageGroup_performModalMessagePresentation_fromViewControll
 
 void __75__FAFamilyMessageGroup_performModalMessagePresentation_fromViewController___block_invoke_37(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   *(*(*(a1 + 40) + 8) + 24) = 1;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v3 = _FALogSystem();
+  v3 = _FALogSystem(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_21BB35000, v3, OS_LOG_TYPE_DEFAULT, "FAFamilyMessageGroup did present message: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_21BB35000, v3, OS_LOG_TYPE_DEFAULT, "FAFamilyMessageGroup did present message: %@", &v6, 0xCu);
   }
 
   v5 = [*(a1 + 32) identifier];
   [WeakRetained reportModalMessageWasPresentedWithIdentifier:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __75__FAFamilyMessageGroup_performModalMessagePresentation_fromViewController___block_invoke_39(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = *(*(*(a1 + 48) + 8) + 24);
-  v6 = _FALogSystem();
+  v6 = _FALogSystem(v4);
   v7 = v6;
   if (v5 == 1)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v15 = 138412290;
-      v16 = v8;
-      _os_log_impl(&dword_21BB35000, v7, OS_LOG_TYPE_DEFAULT, "FAFamilyMessageGroup did dismiss message: %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v8;
+      _os_log_impl(&dword_21BB35000, v7, OS_LOG_TYPE_DEFAULT, "FAFamilyMessageGroup did dismiss message: %@", &v14, 0xCu);
     }
 
     v9 = *(a1 + 40);
@@ -233,28 +227,24 @@ void __75__FAFamilyMessageGroup_performModalMessagePresentation_fromViewControll
   v12 = *(*(a1 + 56) + 8);
   v13 = *(v12 + 40);
   *(v12 + 40) = 0;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contextPropertyWithName:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_0(&dword_21BB35000, a2, a3, "failed to fetch recommendation for property: %@, error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_0(&dword_21BB35000, a2, a3, "failed to fetch recommendation for property: %@, error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __75__FAFamilyMessageGroup_performModalMessagePresentation_fromViewController___block_invoke_39_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_0(&dword_21BB35000, a2, a3, "FAFamilyMessageGroup circleController complete without UI for message: %@, error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_0(&dword_21BB35000, a2, a3, "FAFamilyMessageGroup circleController complete without UI for message: %@, error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

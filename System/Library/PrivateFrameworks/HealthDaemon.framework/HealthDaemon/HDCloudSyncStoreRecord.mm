@@ -27,6 +27,8 @@
 - (id)clearPendingSequenceHeaderRecord;
 - (id)clearTombstoneSequenceHeaderRecord;
 - (id)currentSequenceHeaderRecord;
+- (id)initInSyncCircle:(id)circle ownerIdentifier:(id)identifier storeIdentifier:(id)storeIdentifier syncIdentity:(id)identity isChild:(BOOL)child unified:(BOOL)unified;
+- (id)initInSyncCircle:(id)circle ownerIdentifier:(id)identifier storeIdentifier:(id)storeIdentifier syncIdentity:(id)identity isChild:(BOOL)child zoneID:(id)d;
 - (id)initWithCKRecord:(uint64_t)record schemaVersion:(void *)version underlyingStore:;
 - (id)oldSequenceHeaderRecord;
 - (id)pendingSequenceHeaderRecord;
@@ -36,11 +38,15 @@
 - (void)addSequenceHeaderRecord:(id)record;
 - (void)removeSequenceHeaderRecord:(id)record;
 - (void)repairOwnerIdentifier:(id)identifier;
+- (void)setActive:(BOOL)active;
+- (void)setDeviceMode:(int)mode;
 - (void)setDeviceName:(id)name;
 - (void)setPendingOwner:(id)owner;
 - (void)setPendingSyncIdentity:(id)identity;
 - (void)setProductType:(id)type;
+- (void)setRequiredProtocolVersion:(int)version;
 - (void)setShardPredicate:(id)predicate;
+- (void)setSupportedProtocolVersion:(int)version;
 - (void)setSystemBuildVersion:(id)version;
 @end
 
@@ -121,6 +127,92 @@
   [v5 raise:v6 format:{@"The -%@ method is not available on %@", v7, objc_opt_class()}];
 
   return 0;
+}
+
+- (id)initInSyncCircle:(id)circle ownerIdentifier:(id)identifier storeIdentifier:(id)storeIdentifier syncIdentity:(id)identity isChild:(BOOL)child unified:(BOOL)unified
+{
+  childCopy = child;
+  v14 = MEMORY[0x277CBC5F8];
+  identityCopy = identity;
+  storeIdentifierCopy = storeIdentifier;
+  identifierCopy = identifier;
+  circleCopy = circle;
+  if (unified)
+  {
+    [v14 hd_unifiedSyncZoneIDForSyncCircleIdentifier:circleCopy];
+  }
+
+  else
+  {
+    [v14 hd_individualSyncZoneIDWithSyncCircleIdentifier:circleCopy storeIdentifier:storeIdentifierCopy];
+  }
+  v19 = ;
+  v20 = [(HDCloudSyncStoreRecord *)self initInSyncCircle:circleCopy ownerIdentifier:identifierCopy storeIdentifier:storeIdentifierCopy syncIdentity:identityCopy isChild:childCopy zoneID:v19];
+
+  return v20;
+}
+
+- (id)initInSyncCircle:(id)circle ownerIdentifier:(id)identifier storeIdentifier:(id)storeIdentifier syncIdentity:(id)identity isChild:(BOOL)child zoneID:(id)d
+{
+  childCopy = child;
+  identityCopy = identity;
+  storeIdentifierCopy = storeIdentifier;
+  identifierCopy = identifier;
+  v16 = storeIdentifierCopy;
+  dCopy = d;
+  objc_opt_self();
+  v34 = 0;
+  v18 = [dCopy hd_isUnifiedSyncZoneIDForSyncCircleIdentifier:&v34];
+  v19 = objc_opt_class();
+  if (v18)
+  {
+    [v19 recordIDForOwnerIdentifier:identifierCopy storeIdentifier:v16 zoneID:dCopy];
+  }
+
+  else
+  {
+    [v19 recordIDWithIndividualZoneID:dCopy];
+  }
+  v20 = ;
+
+  v21 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithRecordType:@"CloudSyncStoreRecord" recordID:v20];
+  v22 = identifierCopy;
+  v23 = v16;
+  v24 = identityCopy;
+  v25 = v21;
+  if (self)
+  {
+    if (!(v22 | v24))
+    {
+      currentHandler = [MEMORY[0x277CCA890] currentHandler];
+      [currentHandler handleFailureInMethod:sel_initWithOwnerIdentifier_storeIdentifier_syncIdentity_isChild_pendingOwner_pendingSyncIdentity_active_record_schemaVersion_ object:self file:@"HDCloudSyncStoreRecord.m" lineNumber:180 description:{@"Invalid parameter not satisfying: %@", @"ownerIdentifier != nil || syncIdentity != nil"}];
+    }
+
+    v26 = objc_alloc_init(HDCloudSyncCodableStore);
+    [(HDCloudSyncCodableStore *)v26 setActive:1];
+    v27 = objc_msgSend_copy(v22);
+    [(HDCloudSyncCodableStore *)v26 setOwnerIdentifier:v27];
+
+    v28 = objc_msgSend_copy(0);
+    [(HDCloudSyncCodableStore *)v26 setPendingOwnerIdentifier:v28];
+
+    codableSyncIdentity = [0 codableSyncIdentity];
+    [(HDCloudSyncCodableStore *)v26 setPendingSyncIdentity:codableSyncIdentity];
+
+    hk_dataForUUIDBytes = [v23 hk_dataForUUIDBytes];
+    [(HDCloudSyncCodableStore *)v26 setStoreIdentifier:hk_dataForUUIDBytes];
+
+    [(HDCloudSyncCodableStore *)v26 setDeviceMode:1];
+    [(HDCloudSyncCodableStore *)v26 setSupportedProtocolVersion:1];
+    [(HDCloudSyncCodableStore *)v26 setRequiredProtocolVersion:0];
+    codableSyncIdentity2 = [v24 codableSyncIdentity];
+    [(HDCloudSyncCodableStore *)v26 setSyncIdentity:codableSyncIdentity2];
+
+    [(HDCloudSyncCodableStore *)v26 setIsChild:childCopy];
+    self = [(HDCloudSyncStoreRecord *)self initWithCKRecord:v25 schemaVersion:1 underlyingStore:v26];
+  }
+
+  return self;
 }
 
 - (id)initWithCKRecord:(uint64_t)record schemaVersion:(void *)version underlyingStore:
@@ -581,29 +673,8 @@ LABEL_10:
   recordID = [record recordID];
   v8 = [recordID isEqual:dCopy];
 
-  if (v8)
+  if (v8 & 1) != 0 || (p_slotASequenceHeaderRecord = &self->_slotBSequenceHeaderRecord, -[HDCloudSyncRecord record](self->_slotBSequenceHeaderRecord, "record"), v9 = objc_claimAutoreleasedReturnValue(), [v9 recordID], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "isEqual:", dCopy), v10, v9, (v11) || (p_slotASequenceHeaderRecord = &self->_tombstoneSequenceRecord, -[HDCloudSyncRecord record](self->_tombstoneSequenceRecord, "record"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "recordID"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqual:", dCopy), v13, v12, v14))
   {
-    goto LABEL_4;
-  }
-
-  p_slotASequenceHeaderRecord = &self->_slotBSequenceHeaderRecord;
-  record2 = [(HDCloudSyncRecord *)self->_slotBSequenceHeaderRecord record];
-  recordID2 = [record2 recordID];
-  v11 = [recordID2 isEqual:dCopy];
-
-  if (v11)
-  {
-    goto LABEL_4;
-  }
-
-  p_slotASequenceHeaderRecord = &self->_tombstoneSequenceRecord;
-  record3 = [(HDCloudSyncRecord *)self->_tombstoneSequenceRecord record];
-  recordID3 = [record3 recordID];
-  v14 = [recordID3 isEqual:dCopy];
-
-  if (v14)
-  {
-LABEL_4:
     v15 = *p_slotASequenceHeaderRecord;
   }
 
@@ -626,13 +697,13 @@ LABEL_4:
 
 - (HDSyncIdentity)syncIdentity
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([(HDCloudSyncCodableStore *)self->_underlyingStore hasSyncIdentity])
   {
     syncIdentity = [(HDCloudSyncCodableStore *)self->_underlyingStore syncIdentity];
-    v9 = 0;
-    v4 = [HDSyncIdentity syncIdentityWithCodable:syncIdentity error:&v9];
-    v5 = v9;
+    v8 = 0;
+    v4 = [HDSyncIdentity syncIdentityWithCodable:syncIdentity error:&v8];
+    v5 = v8;
 
     if (!v4)
     {
@@ -651,8 +722,6 @@ LABEL_4:
   {
     v4 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -723,7 +792,7 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v9 = [v12 copy];
+  v9 = objc_msgSend_copy(v12);
   v10 = v9;
   if (v8 == v9)
   {
@@ -744,13 +813,13 @@ LABEL_12:
 
 - (HDSyncIdentity)pendingSyncIdentity
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([(HDCloudSyncCodableStore *)self->_underlyingStore hasPendingSyncIdentity])
   {
     pendingSyncIdentity = [(HDCloudSyncCodableStore *)self->_underlyingStore pendingSyncIdentity];
-    v9 = 0;
-    v4 = [HDSyncIdentity syncIdentityWithCodable:pendingSyncIdentity error:&v9];
-    v5 = v9;
+    v8 = 0;
+    v4 = [HDSyncIdentity syncIdentityWithCodable:pendingSyncIdentity error:&v8];
+    v5 = v8;
 
     if (!v4)
     {
@@ -770,8 +839,6 @@ LABEL_12:
     v4 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
@@ -785,6 +852,18 @@ LABEL_12:
   if (pendingSyncIdentity != codableSyncIdentity && (!codableSyncIdentity || ([pendingSyncIdentity isEqual:codableSyncIdentity] & 1) == 0))
   {
     [(HDCloudSyncCodableStore *)self->_underlyingStore setPendingSyncIdentity:codableSyncIdentity];
+  }
+}
+
+- (void)setActive:(BOOL)active
+{
+  activeCopy = active;
+  if ([(HDCloudSyncCodableStore *)self->_underlyingStore active]!= active)
+  {
+    [(HDCloudSyncCodableStore *)self->_underlyingStore setActive:activeCopy];
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:activeCopy];
+    record = [(HDCloudSyncRecord *)self record];
+    [record setObject:v6 forKeyedSubscript:@"Active"];
   }
 }
 
@@ -964,6 +1043,63 @@ LABEL_14:
   }
 
 LABEL_15:
+}
+
+- (void)setDeviceMode:(int)mode
+{
+  v3 = *&mode;
+  if ([(HDCloudSyncCodableStore *)self->_underlyingStore deviceMode]!= mode)
+  {
+    [(HDCloudSyncCodableStore *)self->_underlyingStore setDeviceMode:v3];
+  }
+
+  record = [(HDCloudSyncRecord *)self record];
+  v8 = [record objectForKeyedSubscript:@"DeviceMode"];
+
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  if (v8 != v6 && (!v6 || ([v8 isEqual:v6] & 1) == 0))
+  {
+    record2 = [(HDCloudSyncRecord *)self record];
+    [record2 setObject:v6 forKeyedSubscript:@"DeviceMode"];
+  }
+}
+
+- (void)setSupportedProtocolVersion:(int)version
+{
+  v3 = *&version;
+  if ([(HDCloudSyncCodableStore *)self->_underlyingStore supportedProtocolVersion]!= version)
+  {
+    [(HDCloudSyncCodableStore *)self->_underlyingStore setSupportedProtocolVersion:v3];
+  }
+
+  record = [(HDCloudSyncRecord *)self record];
+  v8 = [record objectForKeyedSubscript:@"SupportedProtocolVersion"];
+
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  if (v8 != v6 && (!v6 || ([v8 isEqual:v6] & 1) == 0))
+  {
+    record2 = [(HDCloudSyncRecord *)self record];
+    [record2 setObject:v6 forKeyedSubscript:@"SupportedProtocolVersion"];
+  }
+}
+
+- (void)setRequiredProtocolVersion:(int)version
+{
+  v3 = *&version;
+  if ([(HDCloudSyncCodableStore *)self->_underlyingStore requiredProtocolVersion]!= version)
+  {
+    [(HDCloudSyncCodableStore *)self->_underlyingStore setRequiredProtocolVersion:v3];
+  }
+
+  record = [(HDCloudSyncRecord *)self record];
+  v8 = [record objectForKeyedSubscript:@"RequiredProtocolVersion"];
+
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  if (v8 != v6 && (!v6 || ([v8 isEqual:v6] & 1) == 0))
+  {
+    record2 = [(HDCloudSyncRecord *)self record];
+    [record2 setObject:v6 forKeyedSubscript:@"RequiredProtocolVersion"];
+  }
 }
 
 - (HDCloudSyncShardPredicate)shardPredicate
@@ -1392,55 +1528,53 @@ LABEL_79:
 
 + (id)fieldsForUnprotectedSerialization
 {
-  v38[10] = *MEMORY[0x277D85DE8];
-  v27.receiver = self;
-  v27.super_class = &OBJC_METACLASS___HDCloudSyncStoreRecord;
-  v22 = objc_msgSendSuper2(&v27, sel_fieldsForUnprotectedSerialization);
-  v37 = objc_opt_class();
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
-  v25 = [HDCloudSyncSerializedField fieldForKey:@"OwnerIdentifier" classes:v26 encrypted:0];
-  v38[0] = v25;
+  v37[10] = *MEMORY[0x277D85DE8];
+  v26.receiver = self;
+  v26.super_class = &OBJC_METACLASS___HDCloudSyncStoreRecord;
+  v21 = objc_msgSendSuper2(&v26, sel_fieldsForUnprotectedSerialization);
   v36 = objc_opt_class();
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
-  v23 = [HDCloudSyncSerializedField fieldForKey:@"StoreIdentifier" classes:v24 encrypted:0];
-  v38[1] = v23;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+  v24 = [HDCloudSyncSerializedField fieldForKey:@"OwnerIdentifier" classes:v25 encrypted:0];
+  v37[0] = v24;
   v35 = objc_opt_class();
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
-  v20 = [HDCloudSyncSerializedField fieldForKey:@"PendingOwner" classes:v21 encrypted:0];
-  v38[2] = v20;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+  v22 = [HDCloudSyncSerializedField fieldForKey:@"StoreIdentifier" classes:v23 encrypted:0];
+  v37[1] = v22;
   v34 = objc_opt_class();
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
-  v18 = [HDCloudSyncSerializedField fieldForKey:@"Active" classes:v19 encrypted:0];
-  v38[3] = v18;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+  v19 = [HDCloudSyncSerializedField fieldForKey:@"PendingOwner" classes:v20 encrypted:0];
+  v37[2] = v19;
   v33 = objc_opt_class();
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
-  v16 = [HDCloudSyncSerializedField fieldForKey:@"SupportedProtocolVersion" classes:v17 encrypted:0];
-  v38[4] = v16;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+  v17 = [HDCloudSyncSerializedField fieldForKey:@"Active" classes:v18 encrypted:0];
+  v37[3] = v17;
   v32 = objc_opt_class();
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
-  v14 = [HDCloudSyncSerializedField fieldForKey:@"RequiredProtocolVersion" classes:v15 encrypted:0];
-  v38[5] = v14;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+  v15 = [HDCloudSyncSerializedField fieldForKey:@"SupportedProtocolVersion" classes:v16 encrypted:0];
+  v37[4] = v15;
   v31 = objc_opt_class();
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
-  v2 = [HDCloudSyncSerializedField fieldForKey:@"SystemBuildVersion" classes:v13 encrypted:0];
-  v38[6] = v2;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+  v13 = [HDCloudSyncSerializedField fieldForKey:@"RequiredProtocolVersion" classes:v14 encrypted:0];
+  v37[5] = v13;
   v30 = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+  v2 = [HDCloudSyncSerializedField fieldForKey:@"SystemBuildVersion" classes:v12 encrypted:0];
+  v37[6] = v2;
+  v29 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
   v4 = [HDCloudSyncSerializedField fieldForKey:@"ProductType" classes:v3 encrypted:0];
-  v38[7] = v4;
-  v29[0] = objc_opt_class();
-  v29[1] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+  v37[7] = v4;
+  v28[0] = objc_opt_class();
+  v28[1] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
   v6 = [HDCloudSyncSerializedField fieldForKey:@"DeviceName" classes:v5 encrypted:0];
-  v38[8] = v6;
-  v28 = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+  v37[8] = v6;
+  v27 = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
   v8 = [HDCloudSyncSerializedField fieldForKey:@"DeviceMode" classes:v7 encrypted:0];
-  v38[9] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:10];
-  v10 = [v22 arrayByAddingObjectsFromArray:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v37[9] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:10];
+  v10 = [v21 arrayByAddingObjectsFromArray:v9];
 
   return v10;
 }

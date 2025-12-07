@@ -11,12 +11,12 @@
 {
   stringCopy = string;
   blockCopy = block;
-  v22 = 0;
+  v19 = 0;
   v7 = DDScannerCreate();
   if (v7)
   {
     v8 = v7;
-    v21 = 0;
+    v18 = 0;
     if (DDScannerScanString())
     {
       v9 = DDScannerCopyResultsWithOptions();
@@ -27,36 +27,28 @@
         if (Count >= 1)
         {
           v12 = Count;
-          v13 = 0;
-          v14 = *MEMORY[0x277D040D0];
-          v20 = *MEMORY[0x277D04040];
-          v15 = *MEMORY[0x277D040D8];
-          do
+          for (i = 0; i < v12; ++i)
           {
-            CFArrayGetValueAtIndex(v10, v13);
+            CFArrayGetValueAtIndex(v10, i);
             if (DDResultHasType())
             {
               SubresultWithType = DDResultGetSubresultWithType();
-              v17 = DDResultGetSubresultWithType();
+              v15 = DDResultGetSubresultWithType();
               if (SubresultWithType)
               {
-                if (v17)
+                if (v15)
                 {
                   Value = DDResultGetValue();
                   integerValue = [DDResultGetValue() integerValue];
-                  blockCopy[2](blockCopy, Value, integerValue, &v21);
-                  if (v21)
+                  blockCopy[2](blockCopy, Value, integerValue, &v18);
+                  if (v18)
                   {
                     break;
                   }
                 }
               }
             }
-
-            ++v13;
           }
-
-          while (v13 < v12);
         }
 
         CFRelease(v10);
@@ -173,57 +165,57 @@
 
 + (id)convertFlightModel:(id)model withError:(id *)error
 {
-  v143 = *MEMORY[0x277D85DE8];
+  v142 = *MEMORY[0x277D85DE8];
   modelCopy = model;
-  v96 = objc_opt_new();
+  v95 = objc_opt_new();
+  v136 = 0u;
   v137 = 0u;
   v138 = 0u;
   v139 = 0u;
-  v140 = 0u;
   obj = modelCopy;
-  v98 = [obj countByEnumeratingWithState:&v137 objects:v142 count:16];
-  if (v98)
+  v97 = [obj countByEnumeratingWithState:&v136 objects:v141 count:16];
+  if (v97)
   {
-    v97 = *v138;
+    v96 = *v137;
     selfCopy = self;
     do
     {
       v6 = 0;
       do
       {
-        if (*v138 != v97)
+        if (*v137 != v96)
         {
           objc_enumerationMutation(obj);
         }
 
-        v99 = v6;
-        v7 = *(*(&v137 + 1) + 8 * v6);
+        v98 = v6;
+        v7 = *(*(&v136 + 1) + 8 * v6);
         v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v132 = 0u;
         v133 = 0u;
         v134 = 0u;
         v135 = 0u;
-        v136 = 0u;
         legs = [v7 legs];
-        v104 = [legs countByEnumeratingWithState:&v133 objects:v141 count:16];
-        if (v104)
+        v103 = [legs countByEnumeratingWithState:&v132 objects:v140 count:16];
+        if (v103)
         {
-          v101 = *v134;
-          v102 = v7;
-          v103 = v8;
+          v100 = *v133;
+          v101 = v7;
+          v102 = v8;
           do
           {
             v9 = 0;
             do
             {
-              if (*v134 != v101)
+              if (*v133 != v100)
               {
                 objc_enumerationMutation(legs);
               }
 
-              v10 = *(*(&v133 + 1) + 8 * v9);
-              v132 = objc_alloc_init(FUFlightLeg);
+              v10 = *(*(&v132 + 1) + 8 * v9);
+              v131 = objc_alloc_init(FUFlightLeg);
               status = [v10 status];
-              v124 = v9;
+              v123 = v9;
               if (status > 4)
               {
                 v20 = status - 8;
@@ -233,12 +225,12 @@
                   v21 = 0;
                 }
 
-                v129 = v20 < 2;
+                v128 = v20 < 2;
                 v15 = v20 >= 2 && status == 5;
-                v126 = 1;
+                v125 = 1;
                 v16 = 0;
                 v17 = v20 >= 2 && v21;
-                v122 = 0;
+                v121 = 0;
                 v19 = 1;
               }
 
@@ -269,14 +261,14 @@
                   v14 = 6;
                 }
 
-                v129 = 0;
+                v128 = 0;
                 v15 = 0;
                 if (status == 1)
                 {
                   v12 = 2;
                 }
 
-                v126 = v12;
+                v125 = v12;
                 v16 = status == 1;
                 v17 = 0;
                 if (status == 1)
@@ -289,7 +281,7 @@
                   v18 = v13;
                 }
 
-                v122 = v18;
+                v121 = v18;
                 if (status == 1)
                 {
                   v19 = 2;
@@ -315,8 +307,8 @@
               [time2 timeIntervalSinceNow];
               v29 = v28;
 
-              v30 = v126;
-              if (v129 || v15)
+              v30 = v125;
+              if (v128 || v15)
               {
                 v30 = 2;
               }
@@ -331,7 +323,7 @@
                 v30 = v19;
               }
 
-              if (v15 | v16 | v17 | v122)
+              if (v15 | v16 | v17 | v121)
               {
                 v31 = 1;
               }
@@ -353,7 +345,7 @@
               }
 
               v33 = 4;
-              if (!v129 && !v16)
+              if (!v128 && !v16)
               {
                 v33 = v32;
               }
@@ -368,9 +360,9 @@
                 v34 = v30;
               }
 
-              [(FUFlightLeg *)v132 setStatus:v34];
+              [(FUFlightLeg *)v131 setStatus:v34];
               lastUpdatedTime = [v10 lastUpdatedTime];
-              [(FUFlightLeg *)v132 setDateLastUpdated:lastUpdatedTime];
+              [(FUFlightLeg *)v131 setDateLastUpdated:lastUpdatedTime];
 
               [(FUFlightStep *)v22 setLegStatus:v34];
               [(FUFlightStep *)v23 setLegStatus:v34];
@@ -384,7 +376,7 @@
               v39 = [self airportFromSFAirport:departureAirport];
               [(FUFlightStep *)v22 setAirport:v39];
 
-              [(FUFlightLeg *)v132 setDeparture:v22];
+              [(FUFlightLeg *)v131 setDeparture:v22];
               arrivalGate = [v10 arrivalGate];
               [(FUFlightStep *)v23 setGate:arrivalGate];
 
@@ -400,7 +392,7 @@
               else
               {
                 v43 = 0;
-                divertedAirport = v105;
+                divertedAirport = v104;
               }
 
               if (v34 == 5 || v34 == 3)
@@ -417,11 +409,11 @@
                 [v10 arrivalAirport];
               }
               v44 = ;
-              v105 = divertedAirport;
+              v104 = divertedAirport;
               v45 = [self airportFromSFAirport:v44];
               [(FUFlightStep *)v23 setAirport:v45];
 
-              [(FUFlightLeg *)v132 setArrival:v23];
+              [(FUFlightLeg *)v131 setArrival:v23];
               scheduledTime = [(FUFlightStep *)v23 scheduledTime];
               if (scheduledTime)
               {
@@ -437,7 +429,7 @@ LABEL_70:
                   v55 = scheduledTime4;
                   date2 = [scheduledTime4 date];
                   [date timeIntervalSinceDate:date2];
-                  [(FUFlightLeg *)v132 setDuration:?];
+                  [(FUFlightLeg *)v131 setDuration:?];
 
                   goto LABEL_71;
                 }
@@ -459,19 +451,19 @@ LABEL_70:
               }
 
 LABEL_71:
-              v121 = v23;
-              v123 = v22;
+              v120 = v23;
+              v122 = v22;
               pegasusDefinedState = [v10 pegasusDefinedState];
               if (pegasusDefinedState <= 9)
               {
-                [(FUFlightLeg *)v132 setFlightState:qword_24B8571D8[pegasusDefinedState]];
+                [(FUFlightLeg *)v131 setFlightState:qword_24B8571D8[pegasusDefinedState]];
               }
 
               gateDepartureTimes = [v10 gateDepartureTimes];
               runwayDepartureTimes = [v10 runwayDepartureTimes];
-              v115 = [FUDepartureInfo alloc];
+              v114 = [FUDepartureInfo alloc];
               departureAirport2 = [v10 departureAirport];
-              v130 = [self airportFromSFAirport:departureAirport2];
+              v129 = [self airportFromSFAirport:departureAirport2];
               departureGate2 = [v10 departureGate];
               departureTerminal2 = [v10 departureTerminal];
               pegasusDisplayFields = [v10 pegasusDisplayFields];
@@ -479,56 +471,56 @@ LABEL_71:
               scheduled = [gateDepartureTimes scheduled];
               current = [gateDepartureTimes current];
               scheduled2 = [runwayDepartureTimes scheduled];
-              v117 = runwayDepartureTimes;
+              v116 = runwayDepartureTimes;
               current2 = [runwayDepartureTimes current];
               bufferMinutes = [gateDepartureTimes bufferMinutes];
               bufferMinutes2 = [runwayDepartureTimes bufferMinutes];
               v67 = scheduled;
-              v68 = [(FUBaseStopInfo *)v115 initWithAirport:v130 gate:departureGate2 terminal:departureTerminal2 displayTime:departureTime scheduledGateTime:scheduled currentGateTime:current scheduledRunwayTime:scheduled2 currentRunwayTime:current2 gateBufferMinutes:bufferMinutes runwayBufferMinutes:bufferMinutes2];
+              v68 = [(FUBaseStopInfo *)v114 initWithAirport:v129 gate:departureGate2 terminal:departureTerminal2 displayTime:departureTime scheduledGateTime:scheduled currentGateTime:current scheduledRunwayTime:scheduled2 currentRunwayTime:current2 gateBufferMinutes:bufferMinutes runwayBufferMinutes:bufferMinutes2];
 
-              v120 = v68;
-              [(FUFlightLeg *)v132 setDepartureInfo:v68];
+              v119 = v68;
+              [(FUFlightLeg *)v131 setDepartureInfo:v68];
               gateArrivalTimes = [v10 gateArrivalTimes];
               runwayArrivalTimes = [v10 runwayArrivalTimes];
               v71 = [FUArrivalInfo alloc];
               arrivalAirport = [v10 arrivalAirport];
-              v131 = [selfCopy airportFromSFAirport:arrivalAirport];
+              v130 = [selfCopy airportFromSFAirport:arrivalAirport];
               arrivalGate2 = [v10 arrivalGate];
               arrivalTerminal2 = [v10 arrivalTerminal];
               baggageClaim = [v10 baggageClaim];
               divertedAirport2 = [v10 divertedAirport];
-              v110 = [selfCopy airportFromSFAirport:divertedAirport2];
-              v106 = v10;
+              v109 = [selfCopy airportFromSFAirport:divertedAirport2];
+              v105 = v10;
               pegasusDisplayFields2 = [v10 pegasusDisplayFields];
               arrivalTime = [pegasusDisplayFields2 arrivalTime];
               scheduled3 = [gateArrivalTimes scheduled];
-              v108 = gateArrivalTimes;
+              v107 = gateArrivalTimes;
               current3 = [gateArrivalTimes current];
               scheduled4 = [runwayArrivalTimes scheduled];
               current4 = [runwayArrivalTimes current];
               bufferMinutes3 = [gateArrivalTimes bufferMinutes];
               bufferMinutes4 = [runwayArrivalTimes bufferMinutes];
-              v109 = [(FUArrivalInfo *)v71 initWithAirport:v131 gate:arrivalGate2 terminal:arrivalTerminal2 baggageClaim:baggageClaim divertedAirport:v110 displayTime:arrivalTime scheduledGateTime:scheduled3 currentGateTime:current3 scheduledRunwayTime:scheduled4 currentRunwayTime:current4 gateBufferMinutes:bufferMinutes3 runwayBufferMinutes:bufferMinutes4];
+              v108 = [(FUArrivalInfo *)v71 initWithAirport:v130 gate:arrivalGate2 terminal:arrivalTerminal2 baggageClaim:baggageClaim divertedAirport:v109 displayTime:arrivalTime scheduledGateTime:scheduled3 currentGateTime:current3 scheduledRunwayTime:scheduled4 currentRunwayTime:current4 gateBufferMinutes:bufferMinutes3 runwayBufferMinutes:bufferMinutes4];
 
-              [(FUFlightLeg *)v132 setArrivalInfo:v109];
-              if (!v108 && !runwayArrivalTimes && !gateDepartureTimes && !v117 && ![v106 pegasusDefinedState])
+              [(FUFlightLeg *)v131 setArrivalInfo:v108];
+              if (!v107 && !runwayArrivalTimes && !gateDepartureTimes && !v116 && ![v105 pegasusDefinedState])
               {
-                [(FUFlightLeg *)v132 setLegacy:1];
+                [(FUFlightLeg *)v131 setLegacy:1];
               }
 
-              v8 = v103;
-              [v103 addObject:v132];
+              v8 = v102;
+              [v102 addObject:v131];
 
               self = selfCopy;
-              v9 = v124 + 1;
-              v7 = v102;
+              v9 = v123 + 1;
+              v7 = v101;
             }
 
-            while (v104 != v124 + 1);
-            v104 = [legs countByEnumeratingWithState:&v133 objects:v141 count:16];
+            while (v103 != v123 + 1);
+            v103 = [legs countByEnumeratingWithState:&v132 objects:v140 count:16];
           }
 
-          while (v104);
+          while (v103);
         }
 
         if ([v8 count])
@@ -571,22 +563,20 @@ LABEL_71:
           operatorFlightNumber = [v7 operatorFlightNumber];
           -[FUFlight setOperatorFlightNumber:](v79, "setOperatorFlightNumber:", [operatorFlightNumber integerValue]);
 
-          [v96 addObject:v79];
+          [v95 addObject:v79];
         }
 
-        v6 = v99 + 1;
+        v6 = v98 + 1;
       }
 
-      while (v99 + 1 != v98);
-      v98 = [obj countByEnumeratingWithState:&v137 objects:v142 count:16];
+      while (v98 + 1 != v97);
+      v97 = [obj countByEnumeratingWithState:&v136 objects:v141 count:16];
     }
 
-    while (v98);
+    while (v97);
   }
 
-  v93 = *MEMORY[0x277D85DE8];
-
-  return v96;
+  return v95;
 }
 
 @end

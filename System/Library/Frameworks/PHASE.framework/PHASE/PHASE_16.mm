@@ -250,7 +250,7 @@ LABEL_12:
       atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    Phase::JobManagerDispatch::doCancelJob(&v49, a2, v14);
+    Phase::JobManagerDispatch::doCancelJob(&v49, a2, v14, a4);
     v16 = v51;
     if (v51)
     {
@@ -278,7 +278,7 @@ LABEL_12:
 
   if (v10 == 1)
   {
-    std::list<std::shared_ptr<Phase::Job>>::push_back();
+    std::list<std::shared_ptr<Phase::Job>>::push_back(this, &v52);
   }
 
   if (a4)
@@ -301,7 +301,7 @@ LABEL_12:
           atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        Phase::JobManagerDispatch::doCancelJob(&v49, a2, v26);
+        Phase::JobManagerDispatch::doCancelJob(&v49, a2, v26, 1);
         v29 = v51;
         if (v51)
         {
@@ -787,15 +787,16 @@ uint64_t Phase::Job::SetTaskFunction<std::function<void ()(BOOL,std::list<std::s
   return result;
 }
 
-void sub_23A42B288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
+void sub_23A42B288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  std::__function::__value_func<void ()(BOOL,std::list<std::shared_ptr<Phase::Job>>)>::~__value_func[abi:ne200100](&a16);
+  va_start(va, a15);
+  std::__function::__value_func<void ()(BOOL,std::list<std::shared_ptr<Phase::Job>>)>::~__value_func[abi:ne200100](va);
   std::__list_imp<std::shared_ptr<Phase::Job>>::clear(&a9);
   std::__function::__value_func<void ()(BOOL,std::list<std::shared_ptr<Phase::Job>>)>::~__value_func[abi:ne200100](&a12);
   _Unwind_Resume(a1);
 }
 
-void Phase::JobManagerDispatch::StopScheduledJobsAsync(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+void Phase::JobManagerDispatch::StopScheduledJobsAsync(uint64_t a1, void *a2, uint64_t a3, char a4)
 {
   v32 = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(buf, "StopScheduledJobsAsyncRoot");
@@ -805,7 +806,7 @@ void Phase::JobManagerDispatch::StopScheduledJobsAsync(uint64_t a1, uint64_t a2,
     operator delete(*buf);
   }
 
-  for (i = *(a2 + 8); i != a2; i = i[1])
+  for (i = a2[1]; i != a2; i = i[1])
   {
     v11 = i[2];
     v10 = i[3];
@@ -935,26 +936,26 @@ void Phase::JobManagerDispatch::StopScheduledJobsAsync(uint64_t a1, uint64_t a2,
   }
 }
 
-void sub_23A42B66C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23A42B66C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
   v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
-  v16 = va_arg(va1, std::__shared_weak_count *);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, std::__shared_weak_count *);
   std::__list_imp<std::shared_ptr<Phase::Job>>::clear(va);
   std::__function::__value_func<void ()(BOOL,std::list<std::shared_ptr<Phase::Job>>)>::~__value_func[abi:ne200100](va1);
-  if (v16)
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
 
   _Unwind_Resume(a1);
@@ -1091,14 +1092,14 @@ void Phase::JobManagerDispatch::ResetJob(Phase::JobManager *a1, uint64_t *a2)
   }
 }
 
-void sub_23A42B934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23A42B934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   Phase::JobManager::TreeLock::~TreeLock(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::JobManagerDispatch::CancelJob(Phase::JobManager *a1, uint64_t *a2, int a3)
+uint64_t Phase::JobManagerDispatch::CancelJob(Phase::JobDispatch *a1, uint64_t *a2, int a3)
 {
   v4 = *a2;
   v31 = &v31;
@@ -1224,11 +1225,11 @@ LABEL_5:
   return v11;
 }
 
-void sub_23A42BBAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_23A42BBAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   Phase::JobManager::TreeLock::~TreeLock(va);
-  std::__list_imp<std::shared_ptr<Phase::Job>>::clear((v8 - 72));
+  std::__list_imp<std::shared_ptr<Phase::Job>>::clear((v15 - 72));
   _Unwind_Resume(a1);
 }
 
@@ -1339,12 +1340,12 @@ uint64_t Phase::JobManagerDispatch::PrepareJob(Phase::JobManager *a1, uint64_t *
   return 0;
 }
 
-void sub_23A42BDEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23A42BDEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  if (v7)
+  va_start(va, a13);
+  if (v13)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 
   Phase::JobManager::TreeLock::~TreeLock(va);
@@ -1387,41 +1388,41 @@ uint64_t std::__shared_ptr_pointer<Phase::JobDispatch *,std::__bind<void (Phase:
   return v2(v3, a1[3]);
 }
 
-void *std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(uint64_t a1, uint64_t a2)
+uint64_t **std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *(a2 + 8);
+  v4 = *(a2 + 8);
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[5];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[5];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -1604,14 +1605,14 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
@@ -1639,8 +1640,8 @@ LABEL_8:
     v17 = *v7;
     if (*v7 && *(v17 + 24) != 1)
     {
-      v18 = v7[1];
-      if (v18 && (v18[3] & 1) == 0)
+      v18 = *(v7 + 8);
+      if (v18 && (*(v18 + 24) & 1) == 0)
       {
 LABEL_58:
         v17 = v7;
@@ -1650,22 +1651,22 @@ LABEL_58:
       {
         *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v26 = v17[1];
+        v26 = *(v17 + 8);
         *v7 = v26;
         if (v26)
         {
           *(v26 + 16) = v7;
         }
 
-        v27 = v7[2];
-        v17[2] = v27;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
         v27[*v27 != v7] = v17;
-        v17[1] = v7;
-        v7[2] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
         v18 = v7;
       }
 
-      v28 = v17[2];
+      v28 = *(v17 + 16);
       *(v17 + 24) = *(v28 + 24);
       *(v28 + 24) = 1;
       *(v18 + 24) = 1;
@@ -1684,14 +1685,14 @@ LABEL_58:
       goto LABEL_71;
     }
 
-    v18 = v7[1];
+    v18 = *(v7 + 8);
     if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_58;
     }
 
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
@@ -1701,11 +1702,11 @@ LABEL_49:
     v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v20 = v13[1];
+    v20 = *(v13 + 8);
     *v12 = v20;
     if (v20)
     {
@@ -1713,11 +1714,11 @@ LABEL_49:
     }
 
     v21 = v12[2];
-    v13[2] = v21;
+    *(v13 + 16) = v21;
     v21[*v21 != v12] = v13;
-    v13[1] = v12;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v22 = v7[1];
+    v22 = *(v7 + 8);
     if (result == v22)
     {
       result = v7;
@@ -1732,11 +1733,11 @@ LABEL_49:
     goto LABEL_67;
   }
 
-  v24 = v7[1];
+  v24 = *(v7 + 8);
   if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v19 = v7[2];
+    v19 = *(v7 + 16);
     if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
@@ -1747,7 +1748,7 @@ LABEL_52:
     goto LABEL_49;
   }
 
-  if (v23 && (v23[3] & 1) == 0)
+  if (v23 && (*(v23 + 24) & 1) == 0)
   {
 LABEL_67:
     v24 = v7;
@@ -1757,20 +1758,20 @@ LABEL_67:
   *(v24 + 24) = 1;
   *(v7 + 24) = 0;
   v32 = *v24;
-  v7[1] = *v24;
+  *(v7 + 8) = *v24;
   if (v32)
   {
     *(v32 + 16) = v7;
   }
 
-  v33 = v7[2];
-  v24[2] = v33;
+  v33 = *(v7 + 16);
+  *(v24 + 16) = v33;
   v33[*v33 != v7] = v24;
   *v24 = v7;
-  v7[2] = v24;
+  *(v7 + 16) = v24;
   v23 = v7;
 LABEL_68:
-  v28 = v24[2];
+  v28 = *(v24 + 16);
   *(v24 + 24) = *(v28 + 24);
   *(v28 + 24) = 1;
   *(v23 + 24) = 1;
@@ -1918,7 +1919,7 @@ void sub_23A42C774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void *Phase::Command<128>::Invoker<std::function<void ()(BOOL,std::list<std::shared_ptr<Phase::Job>>)>,void,BOOL,std::list<std::shared_ptr<Phase::Job>>>::~Invoker(void *a1)
 {
   *a1 = &unk_284D35770;
-  v2 = (a1 + 1);
+  v2 = a1 + 1;
   std::__list_imp<std::shared_ptr<Phase::Job>>::clear(a1 + 6);
   std::__function::__value_func<void ()(BOOL,std::list<std::shared_ptr<Phase::Job>>)>::~__value_func[abi:ne200100](v2);
   return a1;
@@ -1927,7 +1928,7 @@ void *Phase::Command<128>::Invoker<std::function<void ()(BOOL,std::list<std::sha
 void Phase::Command<128>::Invoker<std::function<void ()(BOOL,std::list<std::shared_ptr<Phase::Job>>)>,void,BOOL,std::list<std::shared_ptr<Phase::Job>>>::~Invoker(void *a1)
 {
   *a1 = &unk_284D35770;
-  v1 = (a1 + 1);
+  v1 = a1 + 1;
   std::__list_imp<std::shared_ptr<Phase::Job>>::clear(a1 + 6);
   std::__function::__value_func<void ()(BOOL,std::list<std::shared_ptr<Phase::Job>>)>::~__value_func[abi:ne200100](v1);
 
@@ -1942,9 +1943,9 @@ void Phase::Command<128>::Invoker<std::function<void ()(BOOL,std::list<std::shar
   std::__list_imp<std::shared_ptr<Phase::Job>>::clear(v3);
 }
 
-void sub_23A42C8AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A42C8AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<std::shared_ptr<Phase::Job>>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -2032,18 +2033,18 @@ void sub_23A42CB0C(void *a1)
 
 uint64_t Phase::JobManagerSynchronous::AddDependency(Phase::Logger *a1, uint64_t a2, Phase::Job **a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *a2;
   if (!*a2)
   {
-    v16 = **(Phase::Logger::GetInstance(a1) + 480);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = **(Phase::Logger::GetInstance(a1) + 480);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      *v20 = 136315394;
-      *&v20[4] = "JobManagerSynchronous.cpp";
-      *&v20[12] = 1024;
-      *&v20[14] = 33;
-      _os_log_impl(&dword_23A302000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependent is false.", v20, 0x12u);
+      *v21 = 136315394;
+      *&v21[4] = "JobManagerSynchronous.cpp";
+      *&v21[12] = 1024;
+      *&v21[14] = 33;
+      _os_log_impl(&dword_23A302000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependent is false.", v21, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -2053,18 +2054,18 @@ uint64_t Phase::JobManagerSynchronous::AddDependency(Phase::Logger *a1, uint64_t
   v5 = *a3;
   if (!*a3)
   {
-    v18 = **(Phase::Logger::GetInstance(a1) + 480);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = **(Phase::Logger::GetInstance(a1) + 480);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      *v20 = 136315394;
-      *&v20[4] = "JobManagerSynchronous.cpp";
-      *&v20[12] = 1024;
-      *&v20[14] = 34;
-      _os_log_impl(&dword_23A302000, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependency is false.", v20, 0x12u);
+      *v21 = 136315394;
+      *&v21[4] = "JobManagerSynchronous.cpp";
+      *&v21[12] = 1024;
+      *&v21[14] = 34;
+      _os_log_impl(&dword_23A302000, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependency is false.", v21, 0x12u);
     }
 
-    v19 = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(v19, "PRECONDITION: nullptr != pInDependency is false.");
+    v20 = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(v20, "PRECONDITION: nullptr != pInDependency is false.");
   }
 
   if (atomic_load(Phase::JobManager::GetExecutionState(a1, *a2)))
@@ -2074,18 +2075,18 @@ uint64_t Phase::JobManagerSynchronous::AddDependency(Phase::Logger *a1, uint64_t
 
   Dependents = Phase::JobManager::GetDependents(a1, v5);
   v11 = *(a2 + 8);
-  *v20 = *a2;
-  *&v20[8] = v11;
+  *v21 = *a2;
+  *&v21[8] = v11;
   if (v11)
   {
     atomic_fetch_add_explicit((v11 + 16), 1uLL, memory_order_relaxed);
   }
 
-  std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(Dependents, v20);
+  std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(Dependents, v21, v21);
   v13 = v12;
-  if (*&v20[8])
+  if (*&v21[8])
   {
-    std::__shared_weak_count::__release_weak(*&v20[8]);
+    std::__shared_weak_count::__release_weak(*&v21[8]);
   }
 
   if (v13)
@@ -2099,8 +2100,8 @@ uint64_t Phase::JobManagerSynchronous::AddDependency(Phase::Logger *a1, uint64_t
 
     *(v14 + 131) = v15;
     atomic_store(1u, v14 + 40);
-    Phase::JobManager::GetDependencies(a1, v3);
-    std::list<std::shared_ptr<Phase::Job>>::push_back();
+    Dependencies = Phase::JobManager::GetDependencies(a1, v3);
+    std::list<std::shared_ptr<Phase::Job>>::push_back(Dependencies, a3);
   }
 
   return 2;
@@ -2118,39 +2119,39 @@ void sub_23A42CDD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t Phase::JobManagerSynchronous::AddEnqueuedDependency(Phase::Logger *a1, uint64_t a2, Phase::Job **a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = *a2;
   if (!*a2)
   {
-    v13 = **(Phase::Logger::GetInstance(a1) + 480);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = **(Phase::Logger::GetInstance(a1) + 480);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      *v17 = 136315394;
-      *&v17[4] = "JobManagerSynchronous.cpp";
-      *&v17[12] = 1024;
-      *&v17[14] = 55;
-      _os_log_impl(&dword_23A302000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependent is false.", v17, 0x12u);
+      *v19 = 136315394;
+      *&v19[4] = "JobManagerSynchronous.cpp";
+      *&v19[12] = 1024;
+      *&v19[14] = 55;
+      _os_log_impl(&dword_23A302000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependent is false.", v19, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
     std::logic_error::logic_error(exception, "PRECONDITION: nullptr != pInDependent is false.");
   }
 
-  v4 = *a3;
+  v5 = *a3;
   if (!*a3)
   {
-    v15 = **(Phase::Logger::GetInstance(a1) + 480);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = **(Phase::Logger::GetInstance(a1) + 480);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      *v17 = 136315394;
-      *&v17[4] = "JobManagerSynchronous.cpp";
-      *&v17[12] = 1024;
-      *&v17[14] = 56;
-      _os_log_impl(&dword_23A302000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependency is false.", v17, 0x12u);
+      *v19 = 136315394;
+      *&v19[4] = "JobManagerSynchronous.cpp";
+      *&v19[12] = 1024;
+      *&v19[14] = 56;
+      _os_log_impl(&dword_23A302000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependency is false.", v19, 0x12u);
     }
 
-    v16 = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(v16, "PRECONDITION: nullptr != pInDependency is false.");
+    v18 = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(v18, "PRECONDITION: nullptr != pInDependency is false.");
   }
 
   if (atomic_load(Phase::JobManager::GetExecutionState(a1, *a3)))
@@ -2158,26 +2159,26 @@ uint64_t Phase::JobManagerSynchronous::AddEnqueuedDependency(Phase::Logger *a1, 
     return 3;
   }
 
-  Dependents = Phase::JobManager::GetDependents(a1, v4);
-  v10 = *(a2 + 8);
-  *v17 = *a2;
-  *&v17[8] = v10;
-  if (v10)
+  Dependents = Phase::JobManager::GetDependents(a1, v5);
+  v11 = *(a2 + 8);
+  *v19 = *a2;
+  *&v19[8] = v11;
+  if (v11)
   {
-    atomic_fetch_add_explicit((v10 + 16), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v11 + 16), 1uLL, memory_order_relaxed);
   }
 
-  std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(Dependents, v17);
-  v12 = v11;
-  if (*&v17[8])
+  std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(Dependents, v19, v19);
+  v13 = v12;
+  if (*&v19[8])
   {
-    std::__shared_weak_count::__release_weak(*&v17[8]);
+    std::__shared_weak_count::__release_weak(*&v19[8]);
   }
 
-  if (v12)
+  if (v13)
   {
-    Phase::JobManager::GetDependencies(a1, v3);
-    std::list<std::shared_ptr<Phase::Job>>::push_back();
+    Dependencies = Phase::JobManager::GetDependencies(a1, v3);
+    std::list<std::shared_ptr<Phase::Job>>::push_back(Dependencies, a3);
   }
 
   return 2;
@@ -2193,20 +2194,20 @@ void sub_23A42D06C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t Phase::JobManagerSynchronous::InsertDependency(Phase::Logger *a1, uint64_t a2, uint64_t a3, Phase::Job **a4)
+uint64_t Phase::JobManagerSynchronous::InsertDependency(Phase::Logger *a1, uint64_t a2, Phase::Job **a3, Phase::Job **a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   if (!*a2)
   {
-    v23 = **(Phase::Logger::GetInstance(a1) + 480);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = **(Phase::Logger::GetInstance(a1) + 480);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "JobManagerSynchronous.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 84;
-      _os_log_impl(&dword_23A302000, v23, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInInsertor is false.", buf, 0x12u);
+      _os_log_impl(&dword_23A302000, v24, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInInsertor is false.", buf, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -2216,35 +2217,35 @@ uint64_t Phase::JobManagerSynchronous::InsertDependency(Phase::Logger *a1, uint6
   v6 = *a3;
   if (!*a3)
   {
-    v25 = **(Phase::Logger::GetInstance(a1) + 480);
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v26 = **(Phase::Logger::GetInstance(a1) + 480);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "JobManagerSynchronous.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 85;
-      _os_log_impl(&dword_23A302000, v25, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependent is false.", buf, 0x12u);
+      _os_log_impl(&dword_23A302000, v26, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependent is false.", buf, 0x12u);
     }
 
-    v26 = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(v26, "PRECONDITION: nullptr != pInDependent is false.");
+    v27 = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(v27, "PRECONDITION: nullptr != pInDependent is false.");
   }
 
   v8 = *a4;
   if (!*a4)
   {
-    v27 = **(Phase::Logger::GetInstance(a1) + 480);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = **(Phase::Logger::GetInstance(a1) + 480);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "JobManagerSynchronous.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 86;
-      _os_log_impl(&dword_23A302000, v27, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependency is false.", buf, 0x12u);
+      _os_log_impl(&dword_23A302000, v28, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependency is false.", buf, 0x12u);
     }
 
-    v28 = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(v28, "PRECONDITION: nullptr != pInDependency is false.");
+    v29 = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(v29, "PRECONDITION: nullptr != pInDependency is false.");
   }
 
   if (atomic_load(Phase::JobManager::GetExecutionState(a1, *a2)))
@@ -2278,23 +2279,23 @@ uint64_t Phase::JobManagerSynchronous::InsertDependency(Phase::Logger *a1, uint6
       atomic_fetch_add_explicit((v16 + 16), 1uLL, memory_order_relaxed);
     }
 
-    std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(Dependents, buf);
+    std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(Dependents, buf, buf);
     if (v17)
     {
       v18 = Phase::JobManager::GetDependents(a1, v4);
-      v19 = *(a3 + 8);
-      v29 = *a3;
-      v30 = v19;
+      v19 = a3[1];
+      v30 = *a3;
+      v31 = v19;
       if (v19)
       {
         atomic_fetch_add_explicit(&v19->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       }
 
-      std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(v18, &v29);
+      std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(v18, &v30, &v30);
       v21 = v20;
-      if (v30)
+      if (v31)
       {
-        std::__shared_weak_count::__release_weak(v30);
+        std::__shared_weak_count::__release_weak(v31);
       }
     }
 
@@ -2318,8 +2319,8 @@ uint64_t Phase::JobManagerSynchronous::InsertDependency(Phase::Logger *a1, uint6
 
       *(v4 + 131) = v22;
       atomic_store(1u, v4 + 40);
-      Phase::JobManager::GetDependencies(a1, v6);
-      std::list<std::shared_ptr<Phase::Job>>::push_back();
+      v23 = Phase::JobManager::GetDependencies(a1, v6);
+      std::list<std::shared_ptr<Phase::Job>>::push_back(v23, a2);
     }
   }
 
@@ -2425,7 +2426,7 @@ void std::list<std::shared_ptr<Phase::Job>>::remove(uint64_t *a1, uint64_t a2)
   std::__list_imp<std::shared_ptr<Phase::Job>>::clear(v12);
 }
 
-uint64_t Phase::JobManagerSynchronous::ReplaceDependency(Phase::Logger *a1, uint64_t *a2, uint64_t a3, uint64_t *a4)
+uint64_t Phase::JobManagerSynchronous::ReplaceDependency(Phase::Logger *a1, uint64_t *a2, uint64_t a3, Phase::Job **a4)
 {
   v32 = *MEMORY[0x277D85DE8];
   v4 = *a2;
@@ -2554,7 +2555,7 @@ LABEL_9:
     atomic_fetch_add_explicit((v23 + 16), 1uLL, memory_order_relaxed);
   }
 
-  std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(v22, v31);
+  std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(v22, v31, v31);
   if (*&v31[8])
   {
     std::__shared_weak_count::__release_weak(*&v31[8]);
@@ -2564,7 +2565,7 @@ LABEL_9:
   if (v24 == 1)
   {
     std::list<std::shared_ptr<Phase::Job>>::remove(v6 + 72, *a4);
-    std::list<std::shared_ptr<Phase::Job>>::push_back();
+    std::list<std::shared_ptr<Phase::Job>>::push_back(v6 + 72, a2);
   }
 
   return 0;
@@ -2771,7 +2772,7 @@ uint64_t Phase::JobManagerSynchronous::doRunJob(Phase::JobManager *a1, Phase::Jo
         v11 = v10[3];
         if (v11)
         {
-          atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(v11 + 1, 1uLL, memory_order_relaxed);
           v10 = *(v3 + 73);
           v9 = *(v3 + 74);
           v13 = v10[3];
@@ -2797,7 +2798,7 @@ uint64_t Phase::JobManagerSynchronous::doRunJob(Phase::JobManager *a1, Phase::Jo
         v19[1] = v11;
         if (v11)
         {
-          atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(v11 + 1, 1uLL, memory_order_relaxed);
         }
 
         v16 = Phase::JobManagerSynchronous::doRunJob(a1, v19);
@@ -3277,18 +3278,18 @@ LABEL_53:
   return v9;
 }
 
-void Phase::MakeDataBundleFromJSONFile(uint64_t a1@<X0>, void *a2@<X1>, void **a3@<X3>, void *a4@<X8>)
+void Phase::MakeDataBundleFromJSONFile(_BYTE *a1@<X0>, void *a2@<X1>, void **a4@<X3>, void *a5@<X8>)
 {
-  v9 = a2;
-  v10 = 0;
-  v7 = Phase::ParseJSONFile(v9, &v10, a3);
-  v8 = v10;
-  if (v7)
+  v10 = a2;
+  v11 = 0;
+  v8 = Phase::ParseJSONFile(v10, &v11, a4);
+  v9 = v11;
+  if (v8)
   {
-    Phase::MakeDataBundle(a1, v8);
+    Phase::MakeDataBundle(a1, v9);
   }
 
-  *a4 = 0;
+  *a5 = 0;
 }
 
 uint64_t Phase::SpatialModeler::LateReverbIRBuildControl::IsNewIRPerceptuallyDifferent(uint64_t a1, float *a2, int a3)
@@ -3396,29 +3397,29 @@ LABEL_20:
 
 uint64_t Phase::SpatialModeler::LateReverbSimulationImpl::AllocClusterQueryState@<X0>(Phase::SpatialModeler::LateReverbSimulationImpl *this@<X0>, Phase::SpatialModeler::LateReverbSimulation *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  v6 = 1344;
+  v12[4] = *MEMORY[0x277D85DE8];
+  v5 = 1344;
   if (*(*(a2 + 11) + 48))
   {
-    v6 = 26640;
+    v5 = 26640;
   }
 
-  v11 = 16;
-  v10[0] = this + v6 + 25256;
-  v10[1] = &v11;
-  v9 = v10[0];
-  Phase::details::Alloc<Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState,std::unique_ptr<Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState,std::function<void ()(void *)>> Phase::details::Alloc<Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState,Phase::SpatialModeler::SingleBlockAllocator>(Phase::SpatialModeler::SingleBlockAllocator &,unsigned long)::{lambda(void)#1} const&,std::unique_ptr<Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState,std::function<void ()(void *)>> Phase::details::Alloc<Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState,Phase::SpatialModeler::SingleBlockAllocator>(Phase::SpatialModeler::SingleBlockAllocator &,unsigned long)::{lambda(Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState*)#1} const&>(v10, &v9, &v12);
-  v7 = v12;
-  *(v12 + 72) = *(this + 3);
-  *(v7 + 137808) = Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationBegin;
-  v12 = 0;
-  *a3 = v7;
-  std::__function::__value_func<void ()(void *)>::__value_func[abi:ne200100]((a3 + 1), v13);
-  std::unique_ptr<Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState,std::function<void ()(void *)>>::reset[abi:ne200100](&v12, 0);
-  return std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](v13);
+  v10 = 16;
+  v9[0] = this + v5 + 25256;
+  v9[1] = &v10;
+  v8 = v9[0];
+  Phase::details::Alloc<Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState,std::unique_ptr<Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState,std::function<void ()(void *)>> Phase::details::Alloc<Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState,Phase::SpatialModeler::SingleBlockAllocator>(Phase::SpatialModeler::SingleBlockAllocator &,unsigned long)::{lambda(void)#1} const&,std::unique_ptr<Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState,std::function<void ()(void *)>> Phase::details::Alloc<Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState,Phase::SpatialModeler::SingleBlockAllocator>(Phase::SpatialModeler::SingleBlockAllocator &,unsigned long)::{lambda(Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState*)#1} const&>(v9, &v8, &v11);
+  v6 = v11;
+  *(v11 + 72) = *(this + 3);
+  *(v6 + 137808) = Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationBegin;
+  v11 = 0;
+  *a3 = v6;
+  std::__function::__value_func<void ()(void *)>::__value_func[abi:ne200100]((a3 + 1), v12);
+  std::unique_ptr<Phase::SpatialModeler::RoomSimulationImpl::ClusterQueryState,std::function<void ()(void *)>>::reset[abi:ne200100](&v11, 0);
+  return std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100](v12);
 }
 
-uint64_t Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationBegin@<X0>(float32x2_t *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, Phase::Logger *a4@<X8>)
+uint64_t Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationBegin@<X0>(float32x2_t *a1@<X0>, Phase::SpatialModeler::RoomSimulation *a2@<X1>, uint64_t a3@<X2>, Phase::Logger *a4@<X8>)
 {
   v134 = *MEMORY[0x277D85DE8];
   Instance = Phase::Logger::GetInstance(a1);
@@ -3449,8 +3450,8 @@ LABEL_26:
   }
 
   v14 = (a3 + 112800);
-  v15 = a2[8];
-  v16 = a2[11];
+  v15 = *(a2 + 8);
+  v16 = *(a2 + 11);
   v17 = (a3 + 112876);
   Phase::SpatialModeler::RoomSimulationImpl::ParseOptionalProperties(a1, v15, v16, (a3 + 135520), (a3 + 112876), (a3 + 112864), buf);
   std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>>(v115, buf);
@@ -3522,7 +3523,7 @@ LABEL_26:
 
   if (v19)
   {
-    v22 = a2[11];
+    v22 = *(a2 + 11);
     v23 = (*(*a1 + 104))(a1, *v14);
     if (v23 && *(v23 + 19448))
     {
@@ -3543,9 +3544,9 @@ LABEL_103:
 
       if (a1[5771])
       {
-        v102 = a2[8];
-        v51 = a2[11];
-        v52 = a2[12];
+        v102 = *(a2 + 8);
+        v51 = *(a2 + 11);
+        v52 = *(a2 + 12);
         v53 = operator new(0x150uLL, 0x10uLL);
         v54 = v53;
         v55 = 0;
@@ -3798,8 +3799,8 @@ LABEL_102:
   {
     if ((*(a3 + 112947) & 1) == 0)
     {
-      v31 = a2[8];
-      v101 = a2[11];
+      v31 = *(a2 + 8);
+      v101 = *(a2 + 11);
       v32 = *(v101 + 152);
       if (*(v31 + 184) <= v32 || (v33 = *(v31 + 168) + 24 * v32, *(v33 + 20) != HIDWORD(v32)) || (v34 = *v33) == 0 || *v34 != 2)
       {
@@ -3807,7 +3808,7 @@ LABEL_102:
       }
 
       v99 = v34;
-      v100 = a2[8];
+      v100 = *(a2 + 8);
       if (Phase::SpatialModeler::RoomSimulation::psERtoLRModelerCache)
       {
         v35 = caulk::concurrent::multi_buffer<Phase::SpatialModeler::RayTracerState,3>::read_if (Phase::SpatialModeler::RoomSimulation::psERtoLRModelerCache);
@@ -3817,7 +3818,7 @@ LABEL_102:
           if (((std::chrono::steady_clock::now().__d_.__rep_ - *(v35 + 3131)) / 1000000000.0) < (2.0 / *v17))
           {
             Phase::SpatialModeler::RayTracerState::CopyStateAndAssignToModelerInstance(&a1[v20], a1, (v101 + 104), v99, v98, v100);
-            Phase::SpatialModeler::SimulationController::RequireSimulation(&a1[10], (a3 + 112752), &a1[v20], v100, buf);
+            Phase::SpatialModeler::SimulationController::RequireSimulation(buf, &a1[10], (a3 + 112752), &a1[v20], v100);
             v36 = *v125;
             *v21[2855].f32 = v124;
             *v21[2857].f32 = v36;
@@ -3920,7 +3921,7 @@ LABEL_102:
   v106 = 0;
   v107 = 0;
   __p = 0;
-  std::vector<Phase::Geometry::SceneQueryBatch *>::__init_with_size[abi:ne200100]<Phase::Geometry::SceneQueryBatch * const*,Phase::Geometry::SceneQueryBatch * const*>(&__p, &v129, &v129 + 8, 1uLL);
+  std::vector<Phase::Geometry::SceneQueryBatch *>::__init_with_size[abi:ne200100]<Phase::Geometry::SceneQueryBatch * const*,Phase::Geometry::SceneQueryBatch * const*>(&__p, &v129, &v129 + 1, 1uLL);
   memset(buf, 0, 24);
   std::vector<Phase::Geometry::SceneQueryBatch *>::__init_with_size[abi:ne200100]<Phase::Geometry::SceneQueryBatch **,Phase::Geometry::SceneQueryBatch **>(buf, __p, v106, (v106 - __p) >> 3);
   if (__p)
@@ -3943,7 +3944,7 @@ LABEL_102:
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v115);
 }
 
-void sub_23A4302C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *__p, uint64_t a58)
+void sub_23A4302C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *__p, uint64_t a58)
 {
   std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&a50);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&a44);
@@ -4006,7 +4007,7 @@ void Phase::SpatialModeler::LateReverbSimulationImpl::RunClusterQuery(Phase::Log
   }
 }
 
-void Phase::SpatialModeler::LateReverbSimulationImpl::RunSpatialQuery(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+void Phase::SpatialModeler::LateReverbSimulationImpl::RunSpatialQuery(uint64_t a1@<X0>, Phase::SpatialModeler::RoomSimulation *a2@<X1>, uint64_t a3@<X8>)
 {
   v293 = *MEMORY[0x277D85DE8];
   Instance = Phase::Logger::GetInstance(a1);
@@ -4058,10 +4059,10 @@ void Phase::SpatialModeler::LateReverbSimulationImpl::RunSpatialQuery(uint64_t a
     goto LABEL_301;
   }
 
-  v19 = a2[11];
-  v20 = a2[12];
+  v19 = *(a2 + 11);
+  v20 = *(a2 + 12);
   v21 = *(v19 + 552);
-  v255 = a2[8];
+  v255 = *(a2 + 8);
   if (*(v255 + 184) <= v21 || (v22 = *(v255 + 168) + 24 * v21, *(v22 + 20) != HIDWORD(v21)) || (v248 = *v22) == 0 || v248->i32[0] != 2)
   {
     v248 = 0;
@@ -4101,7 +4102,7 @@ void Phase::SpatialModeler::LateReverbSimulationImpl::RunSpatialQuery(uint64_t a
 
   v27 = a1 + v23;
   *buf = &v263;
-  v28 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + v23 + 19464), v24);
+  v28 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + v23 + 19464), v24, buf);
   v30 = 0;
   v31 = v28[3] == 0;
   v32 = *(v19 + 48);
@@ -4130,7 +4131,7 @@ void Phase::SpatialModeler::LateReverbSimulationImpl::RunSpatialQuery(uint64_t a
   v36 = *(v27 + 132);
   v262[0] = 0;
   v262[1] = 0;
-  v251 = *(a2[11] + 8);
+  v251 = *(*(a2 + 11) + 8);
   v37 = *(a1 + 16);
   if (*(v37 + 3192) && (v37 = Phase::Geometry::SystemDebugger::GetFromSystem(v37)) != 0)
   {
@@ -4262,7 +4263,7 @@ LABEL_66:
   {
     *buf = &v263;
     v56 = v250;
-    v57 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v27 + 19464), v263)[3];
+    v57 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v27 + 19464), v263, buf)[3];
     if (v57)
     {
       v57 = Phase::SpatialModeler::CopyMetadata<float>(v57, v20);
@@ -4484,7 +4485,7 @@ LABEL_103:
     {
       v80 = fminf(fmaxf((v76 + -0.5) / 2.5, 0.0), 1.0);
       v81 = 1344;
-      if (*(a2[11] + 48))
+      if (*(*(a2 + 11) + 48))
       {
         v81 = 26640;
       }
@@ -4745,7 +4746,7 @@ LABEL_171:
     v138 = v132;
     Phase::SpatialModeler::generateDirectionalMetadataLR(v58, v133, v20, v251, v134, v129, v138, fminf(fmaxf(v131 * 10.0, -144.0), -60.0), v135, v126, v136, v139);
     __dst[0].i64[0] = &v263;
-    v140 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v27 + 19464), v263)[3];
+    v140 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v27 + 19464), v263, __dst)[3];
     if (!v140)
     {
       operator new();
@@ -4798,7 +4799,7 @@ LABEL_171:
   else
   {
     __dst[0].i64[0] = &v263;
-    v57 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v27 + 19464), v263)[3];
+    v57 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v27 + 19464), v263, __dst)[3];
     if (v57)
     {
       v57 = Phase::SpatialModeler::CopyMetadata<float>(v57, v20);
@@ -4939,7 +4940,7 @@ LABEL_206:
       *(v267 + 8) = *(v27 + 23256);
       v268 = 0uLL;
       *(&v267[1] + 1) = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v267[1] + 8, *(v27 + 23272), *(v27 + 23280), (*(v27 + 23280) - *(v27 + 23272)) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v267[1] + 1, *(v27 + 23272), *(v27 + 23280), (*(v27 + 23280) - *(v27 + 23272)) >> 2);
       v269 = *(v27 + 23296);
       v270 = 0uLL;
       v179 = *(v27 + 23304);
@@ -4948,7 +4949,7 @@ LABEL_206:
       __dst[0].i8[8] = 0;
       if (v180 != v179)
       {
-        std::vector<Phase::SpatialModeler::RoomSimulationDebugger::DebugImageSource>::__vallocate[abi:ne200100](&v269 + 8, 0xCCCCCCCCCCCCCCCDLL * ((v180 - v179) >> 3));
+        std::vector<Phase::SpatialModeler::RoomSimulationDebugger::DebugImageSource>::__vallocate[abi:ne200100](&v269 + 1, 0xCCCCCCCCCCCCCCCDLL * ((v180 - v179) >> 3));
       }
 
       Phase::SpatialModeler::RoomSimulationDebugger::DebugDirectionalMetadata::DebugDirectionalMetadata(v271, (v27 + 23328));
@@ -4961,13 +4962,13 @@ LABEL_206:
       std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v280, *(v27 + 23552), *(v27 + 23560), (*(v27 + 23560) - *(v27 + 23552)) >> 2);
       v282 = 0uLL;
       *(&v281 + 1) = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v281 + 8, *(v27 + 23576), *(v27 + 23584), (*(v27 + 23584) - *(v27 + 23576)) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v281 + 1, *(v27 + 23576), *(v27 + 23584), (*(v27 + 23584) - *(v27 + 23576)) >> 2);
       v283 = 0uLL;
       *&v284 = 0;
       std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v283, *(v27 + 23600), *(v27 + 23608), (*(v27 + 23608) - *(v27 + 23600)) >> 2);
       v285 = 0uLL;
       *(&v284 + 1) = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v284 + 8, *(v27 + 23624), *(v27 + 23632), (*(v27 + 23632) - *(v27 + 23624)) >> 2);
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v284 + 1, *(v27 + 23624), *(v27 + 23632), (*(v27 + 23632) - *(v27 + 23624)) >> 2);
       std::function<void ()(Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView *)>::operator()((v56 + 2), buf);
       Phase::SpatialModeler::RoomSimulationDebugger::RoomSimulationDebugView::~RoomSimulationDebugView(buf);
     }
@@ -5008,7 +5009,7 @@ LABEL_206:
       __dst[0].i32[0] = 0;
       std::vector<float>::assign(&v273 + 1, v182, __dst, v183);
       *v286 = 0;
-      std::vector<float>::vector[abi:ne200100](__dst, v251);
+      std::vector<float>::vector[abi:ne200100](__dst, v251, v286);
       std::vector<std::vector<float>>::assign(&v275, v182, __dst);
       if (__dst[0].i64[0])
       {
@@ -5089,7 +5090,7 @@ LABEL_206:
           }
 
           *v286 = 0;
-          std::vector<float>::vector[abi:ne200100](__dst, v199);
+          std::vector<float>::vector[abi:ne200100](__dst, v199, v286);
           Phase::SpatialModeler::GetRT60EstimateFromDirectionalMetadata(v20, __dst, -3.0, -15.0);
           Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationHandleResultsLateReverberation(Phase::SpatialModeler::RoomSimulation &,Phase::SpatialModeler::Query &)::$_0::operator()<unsigned long,std::vector<float>,Phase::PackedSubbands<float,10ul>>(((__dst[0].i64[1] - __dst[0].i64[0]) >> 2), __dst[0].i64[0], __dst[0].i64[1], buf);
           if (__dst[0].i64[0])
@@ -5107,7 +5108,7 @@ LABEL_206:
             v200 = 19776;
           }
 
-          Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationHandleResultsLateReverberation(Phase::SpatialModeler::RoomSimulation &,Phase::SpatialModeler::Query &)::$_0::operator()<unsigned long,std::array<float,31ul>,Phase::PackedSubbands<float,10ul>>(*(a1 + 48), v27 + v200, buf);
+          Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationHandleResultsLateReverberation(Phase::SpatialModeler::RoomSimulation &,Phase::SpatialModeler::Query &)::$_0::operator()<unsigned long,std::array<float,31ul>,Phase::PackedSubbands<float,10ul>>(*(a1 + 48), (v27 + v200), buf);
         }
 
         if (v155)
@@ -5278,7 +5279,7 @@ LABEL_206:
         v227 = **(v226 + 8);
         v259 = 0;
         LOBYTE(__p) = 1;
-        v228 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v227, 144, &v259, &__p);
+        v228 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v227, 0x90uLL, &v259, &__p);
         if (!v228)
         {
           v239 = Phase::Logger::GetInstance(0);
@@ -5329,7 +5330,7 @@ LABEL_206:
         *(v228 + 64) = v289;
         Phase::LockFreeQueueSPSC::CommitBytes(v227, 144);
         atomic_store(0, (v227 + 40));
-        v57 = Phase::SpatialModeler::RoomSimulationLogging::logRoomStatisticsAtIRBuild(v27, v244, buf, *(v255 + 980), v155, v194);
+        v57 = Phase::SpatialModeler::RoomSimulationLogging::logRoomStatisticsAtIRBuild(v27, v244, buf, *(v255 + 980), v155, v194, *(v255 + 976));
       }
     }
 
@@ -5417,7 +5418,7 @@ uint64_t Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationBegin(Ph
   return std::__variant_detail::__move_constructor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](a1, a3);
 }
 
-uint64_t Phase::SpatialModeler::LateReverbSimulationImpl::ClusterLateReverb(uint64_t a1, Phase::Logger *a2, void *a3, uint64_t a4)
+uint64_t Phase::SpatialModeler::LateReverbSimulationImpl::ClusterLateReverb(uint64_t a1, Phase::SpatialModeler::RoomSimulationImpl *a2, Phase::SpatialModeler::RoomSimulation *a3, uint64_t a4)
 {
   v120 = *MEMORY[0x277D85DE8];
   Phase::SpatialModeler::RoomSimulationImpl::CheckClusterQueryInput(a2, a3, v100);
@@ -5429,9 +5430,9 @@ uint64_t Phase::SpatialModeler::LateReverbSimulationImpl::ClusterLateReverb(uint
 
   v95 = a3;
   v96 = a1;
-  v8 = a3[8];
-  v10 = a3[11];
-  v9 = a3[12];
+  v8 = *(a3 + 8);
+  v10 = *(a3 + 11);
+  v9 = *(a3 + 12);
   if (*(v10 + 48))
   {
     v11 = 26720;
@@ -5518,7 +5519,7 @@ uint64_t Phase::SpatialModeler::LateReverbSimulationImpl::ClusterLateReverb(uint
   }
 
   *buf = &v99;
-  v22 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v15[2428], &v99);
+  v22 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&v15[2428], &v99, &std::piecewise_construct, buf);
   *(v22 + 11) = *v9[1];
   MaximumEnergy = Phase::SpatialModeler::GetMaximumEnergy(v15, (v10 + 152), v23);
   v26 = __exp10f((v15[18].f32[1] - v15[18].f32[0]) / 10.0);
@@ -5630,7 +5631,7 @@ LABEL_20:
         v46 = (v45 + 144);
         SoundSourceHash = Phase::SpatialModeler::GetSoundSourceHash(*(v45 + 144), *(v10 + 152), v45 + 160);
         *buf = &SoundSourceHash;
-        v47 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v22 + 3, &SoundSourceHash);
+        v47 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v22 + 3, &SoundSourceHash, &std::piecewise_construct, buf);
         v48 = vsub_f32(v15[2849], v47[3]);
         v49 = sqrtf(vaddv_f32(vmul_f32(v48, v48)) + ((v15[2850].f32[0] - v47[4].f32[0]) * (v15[2850].f32[0] - v47[4].f32[0])));
         if (v49 <= 1000000.0)
@@ -5694,7 +5695,7 @@ LABEL_20:
                   v74 = v73;
                   v75 = vcgeq_u64(v69, v71);
                   v76 = vmovn_s64(v75);
-                  *v73.f32 = vuzp1_s16(v76, *v69.i8);
+                  *v73.i8 = vuzp1_s16(v76, *v69.i8);
                   if (v73.i8[0])
                   {
                     v73.i32[0] = *(v70 - 2);
@@ -5744,7 +5745,7 @@ LABEL_20:
           else
           {
             *v111 = &SoundSourceHash;
-            v81 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v22 + 3, &SoundSourceHash);
+            v81 = std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v22 + 3, &SoundSourceHash, &std::piecewise_construct, v111);
             if (v15[19].i8[4] != 1 || ((v65 = v81[9], (v65 - SharedEnergyReFixedDb) >= v80) ? (v82 = (v65 - SharedEnergyReFixedDb) <= v15[18].f32[0]) : (v82 = 0), !v82))
             {
               v65 = SharedEnergyReFixedDb + v80;
@@ -5812,7 +5813,7 @@ LABEL_20:
 
         *(v55 + 16 * v41 + 8) = v84;
         *v111 = &SoundSourceHash;
-        *(std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v22 + 3, &SoundSourceHash) + 9) = v84;
+        *(std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::ClusteredSourceInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v22 + 3, &SoundSourceHash, &std::piecewise_construct, v111) + 9) = v84;
         if (*&buf[24])
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](*&buf[24]);
@@ -5890,7 +5891,7 @@ LABEL_82:
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v100);
 }
 
-void sub_23A433344(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36)
+void sub_23A433344(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36)
 {
   if (a36 < 0)
   {
@@ -5901,7 +5902,7 @@ void sub_23A433344(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationFinish@<X0>(float32x2_t *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, Phase::Logger *a4@<X8>)
+uint64_t Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationFinish@<X0>(float32x2_t *a1@<X0>, Phase::SpatialModeler::RoomSimulation *a2@<X1>, uint64_t a3@<X2>, Phase::Logger *a4@<X8>)
 {
   v77 = *MEMORY[0x277D85DE8];
   Instance = Phase::Logger::GetInstance(a1);
@@ -5930,15 +5931,15 @@ uint64_t Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationFinish@<
   }
 
   v14 = (a3 + 131768);
-  v15 = a2[8];
+  v15 = *(a2 + 8);
   v16 = 178;
-  if (*(a2[11] + 48))
+  if (*(*(a2 + 11) + 48))
   {
     v16 = 3340;
   }
 
   v17 = &a1[v16];
-  if (*(a2[11] + 48))
+  if (*(*(a2 + 11) + 48))
   {
     Phase::SpatialModeler::RayTracerState::operator=(&a1[v16], a3 + 112752);
 LABEL_37:
@@ -6009,7 +6010,7 @@ LABEL_32:
     v53 = v17[2416].i32[0];
     v17[2764] = v50;
     v17[2766].i32[0] = v53;
-    v54 = a2[8];
+    v54 = *(a2 + 8);
     v55 = *(v54 + 216);
     if ((v55 & 0x80000000) == 0)
     {
@@ -6127,18 +6128,18 @@ LABEL_41:
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v64);
 }
 
-void sub_23A4339A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23A4339A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -6162,7 +6163,7 @@ uint64_t Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationFinish(P
   return std::__variant_detail::__move_constructor<std::__variant_detail::__traits<std::monostate,Phase::SpatialModeler::ReturnSuccess,Phase::SpatialModeler::ReturnError,Phase::SpatialModeler::WaitOnSceneQueries,Phase::SpatialModeler::ClaimOrWaitOnToken,Phase::SpatialModeler::ReleaseToken>,(std::__variant_detail::_Trait)1>::__move_constructor[abi:ne200100](a1, a3);
 }
 
-void Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationHandleResultsLateReverberation(Phase::SpatialModeler::RoomSimulation &,Phase::SpatialModeler::Query &)::$_0::operator()<unsigned long,std::array<float,31ul>,Phase::PackedSubbands<float,10ul>>(Phase::Logger *a1, uint64_t a2, uint64_t a3)
+void Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationHandleResultsLateReverberation(Phase::SpatialModeler::RoomSimulation &,Phase::SpatialModeler::Query &)::$_0::operator()<unsigned long,std::array<float,31ul>,Phase::PackedSubbands<float,10ul>>(Phase::Logger *a1, __int128 *a2, uint64_t a3)
 {
   v17 = *MEMORY[0x277D85DE8];
   if (a1 == 31)
@@ -6175,8 +6176,8 @@ void Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationHandleResult
   if (a1 == 10)
   {
     v8 = *a2;
-    v9 = *(a2 + 16);
-    *(a3 + 32) = *(a2 + 32);
+    v9 = a2[1];
+    *(a3 + 32) = *(a2 + 4);
     *a3 = v8;
     *(a3 + 16) = v9;
     return;
@@ -6205,7 +6206,7 @@ LABEL_7:
   }
 }
 
-void Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationHandleResultsLateReverberation(Phase::SpatialModeler::RoomSimulation &,Phase::SpatialModeler::Query &)::$_0::operator()<unsigned long,std::vector<float>,Phase::PackedSubbands<float,10ul>>(Phase::Logger *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationHandleResultsLateReverberation(Phase::SpatialModeler::RoomSimulation &,Phase::SpatialModeler::Query &)::$_0::operator()<unsigned long,std::vector<float>,Phase::PackedSubbands<float,10ul>>(Phase::Logger *a1, __int128 *a2, uint64_t a3, uint64_t a4)
 {
   v17 = *MEMORY[0x277D85DE8];
   if (a1 == 31)
@@ -6218,8 +6219,8 @@ void Phase::SpatialModeler::LateReverbSimulationImpl::RoomSimulationHandleResult
   if (a1 == 10)
   {
     v8 = *a2;
-    v9 = *(a2 + 16);
-    *(a4 + 32) = *(a2 + 32);
+    v9 = a2[1];
+    *(a4 + 32) = *(a2 + 4);
     *a4 = v8;
     *(a4 + 16) = v9;
     return;
@@ -6322,11 +6323,11 @@ Phase::SpatialModeler::RoomSimulationDebugger::DebugDirectionalMetadata *Phase::
   *(this + 1) = 0;
   *(this + 2) = 0;
   *(this + 3) = 0;
-  std::vector<Phase::Vector<float,3ul>>::__init_with_size[abi:ne200100]<Phase::Vector<float,3ul>*,Phase::Vector<float,3ul>*>(this + 8, *(a2 + 1), *(a2 + 2), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 2) - *(a2 + 1)) >> 2));
+  std::vector<Phase::Vector<float,3ul>>::__init_with_size[abi:ne200100]<Phase::Vector<float,3ul>*,Phase::Vector<float,3ul>*>(this + 1, *(a2 + 1), *(a2 + 2), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 2) - *(a2 + 1)) >> 2));
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 6) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 32, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 4, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 2);
   *(this + 7) = 0;
   *(this + 8) = 0;
   *(this + 9) = 0;
@@ -6334,7 +6335,7 @@ Phase::SpatialModeler::RoomSimulationDebugger::DebugDirectionalMetadata *Phase::
   v5 = *(a2 + 8);
   if (v5 != v4)
   {
-    std::vector<std::vector<float>>::__vallocate[abi:ne200100](this + 56, 0xAAAAAAAAAAAAAAABLL * ((v5 - v4) >> 3));
+    std::vector<std::vector<float>>::__vallocate[abi:ne200100](this + 7, 0xAAAAAAAAAAAAAAABLL * ((v5 - v4) >> 3));
   }
 
   *(this + 10) = 0;
@@ -6344,7 +6345,7 @@ Phase::SpatialModeler::RoomSimulationDebugger::DebugDirectionalMetadata *Phase::
   v6 = *(a2 + 11);
   if (v6 != v7)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](this + 80, v6 - v7);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](this + 10, v6 - v7);
   }
 
   return this;
@@ -6550,10 +6551,107 @@ void sub_23A434340(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
+  {
+    goto LABEL_18;
+  }
+
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
+  {
+    v7 = *a2;
+    if (v4 >= *&v5)
+    {
+      v7 = v4 % *&v5;
+    }
+  }
+
+  else
+  {
+    v7 = (*&v5 - 1) & v4;
+  }
+
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v10 = v9[1];
+    if (v10 == v4)
+    {
+      break;
+    }
+
+    if (v6.u32[0] > 1uLL)
+    {
+      if (v10 >= *&v5)
+      {
+        v10 %= *&v5;
+      }
+    }
+
+    else
+    {
+      v10 &= *&v5 - 1;
+    }
+
+    if (v10 != v7)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v9 = *v9;
+    if (!v9)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (v9[2] != v4)
+  {
+    goto LABEL_17;
+  }
+
+  return v9;
+}
+
+void sub_23A434614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    if (*(a1 + 16) == 1)
+    {
+      std::__destroy_at[abi:ne200100]<std::pair<unsigned long long const,Phase::SpatialModeler::SingleLRClusterResult>,0>(v2 + 16);
+    }
+
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(float *a1, unint64_t a2, void **a3)
+{
+  v3 = *(a1 + 2);
   if (!*&v3)
   {
     goto LABEL_18;
@@ -6563,16 +6661,16 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Spatial
   v4.i16[0] = vaddlv_u8(v4);
   if (v4.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v5 = v2 % *&v3;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v5 = (*&v3 - 1) & a2;
   }
 
   v6 = *(*a1 + 8 * v5);
@@ -6585,7 +6683,7 @@ LABEL_18:
   while (1)
   {
     v8 = v7[1];
-    if (v8 == v2)
+    if (v8 == a2)
     {
       break;
     }
@@ -6616,109 +6714,12 @@ LABEL_17:
     }
   }
 
-  if (v7[2] != v2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
   return v7;
-}
-
-void sub_23A434614(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRClusterResult>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    if (*(a1 + 16) == 1)
-    {
-      std::__destroy_at[abi:ne200100]<std::pair<unsigned long long const,Phase::SpatialModeler::SingleLRClusterResult>,0>(v2 + 16);
-    }
-
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::SpatialModeler::SingleLRSpatialResult>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t a2)
-{
-  v2 = a1[1];
-  if (!*&v2)
-  {
-    goto LABEL_18;
-  }
-
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
-  {
-    v4 = a2;
-    if (*&v2 <= a2)
-    {
-      v4 = a2 % *&v2;
-    }
-  }
-
-  else
-  {
-    v4 = (*&v2 - 1) & a2;
-  }
-
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v7 = v6[1];
-    if (v7 == a2)
-    {
-      break;
-    }
-
-    if (v3.u32[0] > 1uLL)
-    {
-      if (v7 >= *&v2)
-      {
-        v7 %= *&v2;
-      }
-    }
-
-    else
-    {
-      v7 &= *&v2 - 1;
-    }
-
-    if (v7 != v4)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v6 = *v6;
-    if (!v6)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (v6[2] != a2)
-  {
-    goto LABEL_17;
-  }
-
-  return v6;
 }
 
 void std::__shared_ptr_emplace<Phase::SpatialModeler::DirectionalMetadataOutput<float>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -6742,74 +6743,74 @@ uint64_t std::__shared_ptr_emplace<Phase::SpatialModeler::DirectionalMetadataOut
   return std::__function::__value_func<void ()(void *)>::~__value_func[abi:ne200100]((a1 + 5));
 }
 
-void Phase::SpatialModeler::LateReverbSimulation::GetSupportedQueryDescs(void *a1@<X8>)
+void Phase::SpatialModeler::LateReverbSimulation::GetSupportedQueryDescs(uint64_t *a1@<X8>)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v12[23] = 4;
-  strcpy(v12, "CULL");
-  v13 = 0;
-  v14 = 0x100000001;
-  v15 = 1;
-  memset(v16, 0, sizeof(v16));
-  std::vector<unsigned int>::resize(v16, 7uLL);
-  v3 = 0;
-  v4 = *v16;
+  v26 = *MEMORY[0x277D85DE8];
+  v11[23] = 4;
+  strcpy(v11, "CULL");
+  v12 = 0;
+  v13 = 0x100000001;
+  v14 = 1;
+  memset(v15, 0, sizeof(v15));
+  std::vector<unsigned int>::resize(v15, 7uLL);
+  v2 = 0;
+  v3 = *v15;
   do
   {
-    *(v4 + v3 * 4) = Phase::SpatialModeler::LateReverbSimulationPrivate::sCullQueryPropertyUIDs[v3];
-    ++v3;
+    *(v3 + v2 * 4) = Phase::SpatialModeler::LateReverbSimulationPrivate::sCullQueryPropertyUIDs[v2];
+    ++v2;
   }
 
-  while (v3 != 7);
-  v17[23] = 7;
-  strcpy(v17, "CLUSTER");
-  v18 = 1;
-  v19 = 0x200000003;
-  v20 = 1;
-  memset(v21, 0, sizeof(v21));
-  std::vector<unsigned int>::resize(v21, 7uLL);
-  v5 = 0;
-  v6 = *v21;
+  while (v2 != 7);
+  v16[23] = 7;
+  strcpy(v16, "CLUSTER");
+  v17 = 1;
+  v18 = 0x200000003;
+  v19 = 1;
+  memset(v20, 0, sizeof(v20));
+  std::vector<unsigned int>::resize(v20, 7uLL);
+  v4 = 0;
+  v5 = *v20;
   do
   {
-    *(v6 + v5 * 4) = Phase::SpatialModeler::LateReverbSimulationPrivate::sClusterQueryPropertyUIDs[v5];
-    ++v5;
+    *(v5 + v4 * 4) = Phase::SpatialModeler::LateReverbSimulationPrivate::sClusterQueryPropertyUIDs[v4];
+    ++v4;
   }
 
-  while (v5 != 7);
-  v22[23] = 7;
-  strcpy(v22, "SPATIAL");
-  v23 = 2;
-  v24 = 0x300000002;
-  v25 = 2;
-  memset(v26, 0, sizeof(v26));
-  std::vector<unsigned int>::resize(v26, 7uLL);
-  v7 = 0;
-  v8 = *v26;
+  while (v4 != 7);
+  v21[23] = 7;
+  strcpy(v21, "SPATIAL");
+  v22 = 2;
+  v23 = 0x300000002;
+  v24 = 2;
+  memset(v25, 0, sizeof(v25));
+  std::vector<unsigned int>::resize(v25, 7uLL);
+  v6 = 0;
+  v7 = *v25;
   do
   {
-    *(v8 + v7 * 4) = Phase::SpatialModeler::LateReverbSimulationPrivate::sSpatialQueryPropertyUIDs[v7];
-    ++v7;
+    *(v7 + v6 * 4) = Phase::SpatialModeler::LateReverbSimulationPrivate::sSpatialQueryPropertyUIDs[v6];
+    ++v6;
   }
 
-  while (v7 != 7);
+  while (v6 != 7);
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<Phase::SpatialModeler::QueryDesc>::__init_with_size[abi:ne200100]<Phase::SpatialModeler::QueryDesc const*,Phase::SpatialModeler::QueryDesc const*>(a1, v12, &v27, 3uLL);
+  std::vector<Phase::SpatialModeler::QueryDesc>::__init_with_size[abi:ne200100]<Phase::SpatialModeler::QueryDesc const*,Phase::SpatialModeler::QueryDesc const*>(a1, v11, &v26, 3uLL);
   for (i = 0; i != -240; i -= 80)
   {
-    v10 = &v12[i];
-    v11 = *&v26[i];
-    if (v11)
+    v9 = &v11[i];
+    v10 = *&v25[i];
+    if (v10)
     {
-      *(v10 + 27) = v11;
-      operator delete(v11);
+      *(v9 + 27) = v10;
+      operator delete(v10);
     }
 
-    if (v10[183] < 0)
+    if (v9[183] < 0)
     {
-      operator delete(*(v10 + 20));
+      operator delete(*(v9 + 20));
     }
   }
 }
@@ -6854,22 +6855,22 @@ uint64_t Phase::SpatialModeler::LateReverbSimulation::GetEntityShapeTemplates@<X
   return std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(v6);
 }
 
-void sub_23A434EF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A434EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(v2 + 8);
+  va_start(va, a3);
+  std::__hash_table<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,std::__unordered_map_hasher<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,true>,std::__unordered_map_equal<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalEqualTo,Phase::UnorderedStringMap<Phase::OptionsValue>::InternalHash,true>,std::allocator<std::__hash_value_type<Phase::UnorderedStringMap<Phase::OptionsValue>::InternalKey,Phase::OptionsValue>>>::~__hash_table(v3 + 8);
   std::vector<Phase::SpatialModeler::EntityShapeTemplate>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void Phase::SpatialModeler::LateReverbSimulation::Init(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12[7] = *MEMORY[0x277D85DE8];
   *(a1 + 40) = a2[3];
   *(a1 + 32) = 3;
   *(a1 + 60) = Phase::Geometry::SceneQueryTypeRegistry::DeriveNewType((*(a1 + 16) + 2720), 3u);
   *(a1 + 64) = Phase::Geometry::SceneQueryTypeRegistry::DeriveNewType((*(a1 + 16) + 2720), 3u);
-  Phase::Geometry::System::GetCurrentState(*(a1 + 16), &v12);
+  Phase::Geometry::System::GetCurrentState(v12, *(a1 + 16));
   v4 = a2[1];
   if (v4)
   {
@@ -6944,7 +6945,7 @@ uint64_t Phase::SpatialModeler::LateReverbSimulation::RunQuery@<X0>(uint64_t res
       v6 = a2[12];
       if (v6 && *(v5 + 5) == *v6)
       {
-        return (*(v5 + 8))();
+        return (*(v5 + 8))(result);
       }
 
       v7 = result + 72;
@@ -6991,16 +6992,16 @@ std::string *Phase::SpatialModeler::LateReverbSimulation::GetGraphDescription@<X
   {
     std::string::__assign_external(a2, "LateReverbSimSpatialQueryGraph", 0x1EuLL);
     std::vector<Phase::SpatialModeler::GraphDescriptionNode>::resize((a2 + 24), 1uLL);
-    v4 = *(a2 + 24);
-    result = std::string::__assign_external(v4, "FullLateReverbSimSpatialGraph", 0x1DuLL);
+    v3 = *(a2 + 24);
+    result = std::string::__assign_external(v3, "FullLateReverbSimSpatialGraph", 0x1DuLL);
   }
 
   else if (a1 == 1)
   {
     std::string::__assign_external(a2, "LateReverbSimClusterQueryGraph", 0x1EuLL);
     std::vector<Phase::SpatialModeler::GraphDescriptionNode>::resize((a2 + 24), 1uLL);
-    v4 = *(a2 + 24);
-    result = std::string::__assign_external(v4, "FullLateReverbSimClusterGraph", 0x1DuLL);
+    v3 = *(a2 + 24);
+    result = std::string::__assign_external(v3, "FullLateReverbSimClusterGraph", 0x1DuLL);
   }
 
   else
@@ -7012,11 +7013,11 @@ std::string *Phase::SpatialModeler::LateReverbSimulation::GetGraphDescription@<X
 
     std::string::__assign_external(a2, "LateReverbSimCullQueryGraph", 0x1BuLL);
     std::vector<Phase::SpatialModeler::GraphDescriptionNode>::resize((a2 + 24), 1uLL);
-    v4 = *(a2 + 24);
-    result = std::string::__assign_external(v4, "FullLateReverbSimCullGraph", 0x1AuLL);
+    v3 = *(a2 + 24);
+    result = std::string::__assign_external(v3, "FullLateReverbSimCullGraph", 0x1AuLL);
   }
 
-  v4[1].__r_.__value_.__r.__words[0] = 0xFFFFFFFFLL;
+  v3[1].__r_.__value_.__r.__words[0] = 0xFFFFFFFFLL;
   return result;
 }
 
@@ -7037,7 +7038,7 @@ void Phase::SpatialModeler::LateReverbSimulation::~LateReverbSimulation(Phase::S
   JUMPOUT(0x23EE864A0);
 }
 
-Phase::SpatialModeler::LaunchConfig *Phase::SpatialModeler::LaunchConfig::LaunchConfig(Phase::SpatialModeler::LaunchConfig *this, unsigned int a2, unsigned int a3)
+Phase::SpatialModeler::LaunchConfig *Phase::SpatialModeler::LaunchConfig::LaunchConfig(Phase::SpatialModeler::LaunchConfig *this, uint64_t a2, uint64_t a3)
 {
   *this = 0;
   *(this + 2) = 0;
@@ -7055,10 +7056,11 @@ void sub_23A4356AC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-float Phase::SpatialModeler::LaunchConfig::Init(Phase::SpatialModeler::LaunchConfig *this, unsigned int a2, unsigned int a3)
+float Phase::SpatialModeler::LaunchConfig::Init(Phase::SpatialModeler::LaunchConfig *this, uint64_t a2, uint64_t a3)
 {
+  v3 = a2;
   result = Phase::SpatialModeler::LaunchConfig::SetLaunchingAngles(this, &Phase::SpatialModeler::launchconfig_128x256, a2, a3);
-  if (a2 != 256 || *this != 128)
+  if (v3 != 256 || *this != 128)
   {
     std::terminate();
   }
@@ -7112,23 +7114,23 @@ float Phase::SpatialModeler::LaunchConfig::SetLaunchingAngles(uint64_t a1, uint6
   return result;
 }
 
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1)
+uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2, int a3)
 {
   a1[59] = 0;
-  v2 = MEMORY[0x277D82858] + 64;
+  v4 = MEMORY[0x277D82858] + 64;
   a1[53] = MEMORY[0x277D82858] + 64;
-  v3 = *(MEMORY[0x277D82808] + 16);
-  v4 = *(MEMORY[0x277D82808] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  a1[1] = 0;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 2);
-  v6 = MEMORY[0x277D82858] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
+  v5 = *(MEMORY[0x277D82808] + 16);
+  v6 = *(MEMORY[0x277D82808] + 8);
   *a1 = v6;
-  a1[53] = v2;
+  *(a1 + *(v6 - 24)) = v5;
+  a1[1] = 0;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 2);
+  v8 = MEMORY[0x277D82858] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[53] = v4;
   MEMORY[0x23EE86030](a1 + 2);
   if (!std::filebuf::open())
   {
@@ -7278,7 +7280,7 @@ LABEL_15:
   return result;
 }
 
-Phase::LinkwitzRileyFilterBank *Phase::LinkwitzRileyFilterBank::LinkwitzRileyFilterBank(Phase::LinkwitzRileyFilterBank *this, int a2, int a3, int a4, int a5)
+Phase::LinkwitzRileyFilterBank *Phase::LinkwitzRileyFilterBank::LinkwitzRileyFilterBank(Phase::LinkwitzRileyFilterBank *this, int a2, int a3, uint64_t a4, int a5)
 {
   *this = a5;
   *(this + 1) = a2;
@@ -7296,7 +7298,7 @@ Phase::LinkwitzRileyFilterBank *Phase::LinkwitzRileyFilterBank::LinkwitzRileyFil
   *(this + 13) = 0;
   std::vector<float>::resize(this + 11, a3 * a2);
   std::vector<Phase::MdlMeshAsset::VertexDescriptor::Layout>::resize(v8, *(this + 4) * *(this + 2) * *(this + 3));
-  Phase::LinkwitzRileyFilterBank::GetDefaultCenterFrequencies(v9, a3, __p);
+  Phase::LinkwitzRileyFilterBank::GetDefaultCenterFrequencies(__p, v9, a3);
   Phase::LinkwitzRileyFilterBank::CreateWithCenterFrequency(this, a4, __p);
   if (__p[0])
   {
@@ -7320,7 +7322,7 @@ void sub_23A435E7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(v14);
   }
 
-  std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::~__hash_table(v10 + 48);
+  std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::~__hash_table((v10 + 48));
   v15 = *v11;
   if (*v11)
   {
@@ -7331,37 +7333,37 @@ void sub_23A435E7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::LinkwitzRileyFilterBank::GetDefaultCenterFrequencies@<X0>(Phase::LinkwitzRileyFilterBank *this@<X0>, int a2@<W1>, void *a3@<X8>)
+uint64_t *Phase::LinkwitzRileyFilterBank::GetDefaultCenterFrequencies@<X0>(uint64_t *__return_ptr a1@<X8>, Phase::LinkwitzRileyFilterBank *this@<X0>, int a3@<W1>)
 {
   v10 = *MEMORY[0x277D85DE8];
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  if (a2 > 9)
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a3 > 9)
   {
-    if (a2 == 10)
+    if (a3 == 10)
     {
       memset(v9, 0, sizeof(v9));
-      result = std::vector<double>::__init_with_size[abi:ne200100]<float const*,float const*>(v9, &Phase::sOctaveBandFrequencies, &unk_23A5960EC, 0xAuLL);
+      result = std::vector<double>::__init_with_size[abi:ne200100]<float const*,float const*>(v9, Phase::sOctaveBandFrequencies, &flt_23A5960EC, 0xAuLL);
     }
 
     else
     {
-      if (a2 != 31)
+      if (a3 != 31)
       {
         goto LABEL_11;
       }
 
       memset(v9, 0, sizeof(v9));
-      result = std::vector<double>::__init_with_size[abi:ne200100]<float const*,float const*>(v9, &Phase::sThirdOctaveBandFrequencies, &Phase::sOctaveBandFrequencies, 0x1FuLL);
+      result = std::vector<double>::__init_with_size[abi:ne200100]<float const*,float const*>(v9, Phase::sThirdOctaveBandFrequencies, Phase::sOctaveBandFrequencies, 0x1FuLL);
     }
   }
 
   else
   {
-    if (a2 != 3)
+    if (a3 != 3)
     {
-      if (a2 == 5)
+      if (a3 == 5)
       {
         operator new();
       }
@@ -7375,7 +7377,7 @@ LABEL_11:
         *&v9[12] = 1024;
         *&v9[14] = 154;
         *&v9[18] = 1024;
-        *&v9[20] = a2;
+        *&v9[20] = a3;
         _os_log_impl(&dword_23A302000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::logic_error): Current number of bands (%d bands) not defined in Subbands.hpp. Please, create your own custom vector of  center frequencies.", v9, 0x18u);
       }
 
@@ -7384,19 +7386,20 @@ LABEL_11:
     }
 
     memset(v9, 0, sizeof(v9));
-    result = std::vector<double>::__init_with_size[abi:ne200100]<float const*,float const*>(v9, &Phase::sThreeBandFrequencies, &unk_23A596124, 3uLL);
+    result = std::vector<double>::__init_with_size[abi:ne200100]<float const*,float const*>(v9, Phase::sThreeBandFrequencies, &flt_23A596124, 3uLL);
   }
 
   v5 = *&v9[16];
-  *a3 = *v9;
-  a3[2] = v5;
+  *a1 = *v9;
+  a1[2] = v5;
   return result;
 }
 
-void Phase::LinkwitzRileyFilterBank::CreateWithCenterFrequency(int *a1, int a2, double **a3)
+void Phase::LinkwitzRileyFilterBank::CreateWithCenterFrequency(int *a1, uint64_t a2, double **a3)
 {
+  v3 = a2;
   Phase::GetBandsFromCenterFrequencies<std::__wrap_iter<double *>,double>(*a3, a3[1], __p, ((*a1 >> 1) - 1));
-  Phase::LinkwitzRileyFilterBank::CreateWithBands(a1, a2, __p);
+  Phase::LinkwitzRileyFilterBank::CreateWithBands(a1, v3, __p);
   if (__p[0])
   {
     __p[1] = __p[0];
@@ -7423,7 +7426,7 @@ void Phase::LinkwitzRileyFilterBank::~LinkwitzRileyFilterBank(Phase::LinkwitzRil
     operator delete(v2);
   }
 
-  std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::~__hash_table(this + 48);
+  std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::~__hash_table(this + 6);
   v3 = *(this + 3);
   if (v3)
   {
@@ -7432,12 +7435,12 @@ void Phase::LinkwitzRileyFilterBank::~LinkwitzRileyFilterBank(Phase::LinkwitzRil
   }
 }
 
-void Phase::LinkwitzRileyFilterBank::CreateWithBands(int *a1, int a2, void *a3)
+void Phase::LinkwitzRileyFilterBank::CreateWithBands(int *a1, unsigned int a2, void *a3)
 {
   v90 = *MEMORY[0x277D85DE8];
   a1[3] = a2;
   v6 = *a1;
-  std::vector<Phase::MdlMeshAsset::VertexDescriptor::Layout>::resize(a1 + 3, a1[2] * a2 * a1[4]);
+  std::vector<Phase::MdlMeshAsset::VertexDescriptor::Layout>::resize(a1 + 3, (a1[2] * a2 * a1[4]));
   v84 = 0;
   v7 = a1[2];
   if (v7 >= 1)
@@ -7479,7 +7482,7 @@ void Phase::LinkwitzRileyFilterBank::CreateWithBands(int *a1, int a2, void *a3)
       }
 
       v87 = COERCE_DOUBLE(&v84);
-      v18 = std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 6, v9);
+      v18 = std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 12, v9, &v87);
       v19 = v18[3];
       if (v19)
       {
@@ -7497,9 +7500,9 @@ void Phase::LinkwitzRileyFilterBank::CreateWithBands(int *a1, int a2, void *a3)
       v21 = *v16;
       v20 = v16[1];
       v87 = COERCE_DOUBLE(&v84);
-      v22 = std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 6, v84)[3];
+      v22 = std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 12, v84, &v87)[3];
       v87 = COERCE_DOUBLE(&v84);
-      v23 = std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 6, v84);
+      v23 = std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 12, v84, &v87);
       v24 = *&v3;
       if (*&v3 * 0.5 <= v20 || v21 <= 0.0 || v20 <= v21 || (0xCCCCCCCCCCCCCCCDLL * ((v23[4] - v22) >> 3)) < v72)
       {
@@ -7622,15 +7625,15 @@ void Phase::LinkwitzRileyFilterBank::CreateWithBands(int *a1, int a2, void *a3)
         {
           v87 = COERCE_DOUBLE(&v84);
           v60 = a1 + 6;
-          *(*(a1 + 3) + 8 * v8) = *(std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 6, v84)[3] + v58);
+          *(*(a1 + 3) + 8 * v8) = *(std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 12, v84, &v87)[3] + v58);
           v87 = COERCE_DOUBLE(&v84);
-          *(*v60 + 8 * v8 + 8) = *(std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 6, v84)[3] + v58 + 8);
+          *(*v60 + 8 * v8 + 8) = *(std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 12, v84, &v87)[3] + v58 + 8);
           v87 = COERCE_DOUBLE(&v84);
-          *(*v60 + 8 * v8 + 16) = *(std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 6, v84)[3] + v58 + 16);
+          *(*v60 + 8 * v8 + 16) = *(std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 12, v84, &v87)[3] + v58 + 16);
           v87 = COERCE_DOUBLE(&v84);
-          *(*v60 + 8 * v8 + 24) = *(std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 6, v84)[3] + v58 + 24);
+          *(*v60 + 8 * v8 + 24) = *(std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 12, v84, &v87)[3] + v58 + 24);
           v87 = COERCE_DOUBLE(&v84);
-          *(*v60 + 8 * v8 + 32) = *(std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 6, v84)[3] + v58 + 32);
+          *(*v60 + 8 * v8 + 32) = *(std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 12, v84, &v87)[3] + v58 + 32);
           v8 += a1[4];
           ++v59;
           v58 += 40;
@@ -7659,10 +7662,10 @@ void Phase::LinkwitzRileyFilterBank::CreateWithBands(int *a1, int a2, void *a3)
 
   v61 = a1[1];
   __Y[0] = 0;
-  std::vector<double>::vector[abi:ne200100](&v87, v61);
+  std::vector<double>::vector[abi:ne200100](&v87, v61, __Y);
   v62 = a1[1];
   __Delay = 0;
-  std::vector<double>::vector[abi:ne200100](__Y, v62);
+  std::vector<double>::vector[abi:ne200100](__Y, v62, &__Delay);
   **&v87 = 0x3FF0000000000000;
   if (a1[2] >= 1)
   {
@@ -7671,7 +7674,7 @@ void Phase::LinkwitzRileyFilterBank::CreateWithBands(int *a1, int a2, void *a3)
     do
     {
       v86.f64[0] = 0.0;
-      std::vector<double>::vector[abi:ne200100](&__Delay, v64 + 2);
+      std::vector<double>::vector[abi:ne200100](&__Delay, v64 + 2, &v86);
       vDSP_biquadD(*(8 * v63), __Delay, *&v87, 1, __Y[0], 1, a1[1]);
       vDSP_vclrD(__Delay, 1, v64 + 2);
       vDSP_biquadD(*(8 * v63), __Delay, __Y[0], 1, __Y[0], 1, a1[1]);
@@ -7740,7 +7743,7 @@ Phase::Logger *Phase::GetBandsFromCenterFrequencies<std::__wrap_iter<double *>,d
   v8 = a2 - a1;
   *v37 = 0;
   *&v37[8] = 0;
-  result = std::vector<Phase::FrequencyBand<double>>::vector[abi:ne200100](a3, v8);
+  result = std::vector<Phase::FrequencyBand<double>>::vector[abi:ne200100](a3, v8, v37);
   v10 = *a3;
   **a3 = 10.0;
   if (v8 == 31)
@@ -7753,7 +7756,7 @@ Phase::Logger *Phase::GetBandsFromCenterFrequencies<std::__wrap_iter<double *>,d
     }
 
     v17 = v6 + 1;
-    v18 = &Phase::sThirdOctaveBandFrequencies;
+    v18 = Phase::sThirdOctaveBandFrequencies;
     do
     {
       v19 = *v18++;
@@ -7927,7 +7930,7 @@ LABEL_56:
   }
 
   v13 = v6 + 1;
-  v14 = &Phase::sOctaveBandFrequencies;
+  v14 = Phase::sOctaveBandFrequencies;
   do
   {
     v15 = *v14++;
@@ -8014,19 +8017,19 @@ uint64_t Phase::LinkwitzRileyFilterBank::GetOneBandBiquadStage(Phase::LinkwitzRi
   return *(this + 3) + 8 * *(this + 4) * a2 * *(this + 3);
 }
 
-void Phase::LinkwitzRileyFilterBank::CreateVDSPFilterBankSetup(Phase::LinkwitzRileyFilterBank *this@<X0>, void *a2@<X8>)
+void Phase::LinkwitzRileyFilterBank::CreateVDSPFilterBankSetup(uint64_t *__return_ptr a1@<X8>, Phase::LinkwitzRileyFilterBank *this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<vDSP_biquad_SetupStruct *>::resize(a2, *(this + 2));
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  std::vector<vDSP_biquad_SetupStruct *>::resize(a1, *(this + 2));
   if (*(this + 2) >= 1)
   {
     v4 = 0;
     do
     {
       OneBandBiquadStage = Phase::LinkwitzRileyFilterBank::GetOneBandBiquadStage(this, v4);
-      *(*a2 + 8 * v4++) = vDSP_biquad_CreateSetup(OneBandBiquadStage, *(this + 3));
+      *(*a1 + 8 * v4++) = vDSP_biquad_CreateSetup(OneBandBiquadStage, *(this + 3));
     }
 
     while (v4 < *(this + 2));
@@ -8045,34 +8048,34 @@ void sub_23A437350(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<vDSP_biquad_SetupStruct *>::resize(void *a1, unint64_t a2)
+void std::vector<vDSP_biquad_SetupStruct *>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<vDSP_biquad_SetupStruct *>::__append(a1, a2 - v2);
+    std::vector<vDSP_biquad_SetupStruct *>::__append(result, a2 - v2);
   }
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<long long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<long long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23A43745C(_Unwind_Exception *exception_object)
@@ -8087,7 +8090,7 @@ void sub_23A43745C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<float const*,float const*>(uint64_t *result, float *a2, float *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8174,9 +8177,9 @@ void std::vector<vDSP_biquad_SetupStruct *>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -8210,32 +8213,32 @@ void std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coe
   }
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<Phase::Biquad::Coefficients<double>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(float *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -8243,47 +8246,47 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void std::exp[abi:ne200100]<double>(double *a1)
+void std::exp[abi:ne200100]<double>(long double *a1)
 {
   v1 = *a1;
   v2 = a1[1];
@@ -8322,7 +8325,7 @@ double Phase::Biquad::details::EvaluatePolynomial<double>(double *a1, double *a2
   v8 = 0;
   do
   {
-    result = std::operator*[abi:ne200100]<double,0>(a2, &v7) + *&v4[v3];
+    result = std::operator*[abi:ne200100]<double,0>(a2, &v7) + v4[v3];
     v7 = result;
     v8 = v6;
     ++v3;
@@ -8332,17 +8335,17 @@ double Phase::Biquad::details::EvaluatePolynomial<double>(double *a1, double *a2
   return result;
 }
 
-void *std::vector<Phase::FrequencyBand<double>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<Phase::FrequencyBand<double>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, _OWORD *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::pair<Phase::DspLayer23::KernelType,unsigned long long>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::pair<Phase::DspLayer23::KernelType,unsigned long long>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23A437CD0(_Unwind_Exception *exception_object)
@@ -8444,9 +8447,9 @@ char **Phase::Controller::ListenerHeadTrackerImpl::ListenerHeadTrackerImpl(char 
   return this;
 }
 
-void sub_23A438058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23A438058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -8469,7 +8472,7 @@ void RelativeMotionLibraryCore(char **a1)
   }
 }
 
-uint64_t ___ZL25RelativeMotionLibraryCorePPc_block_invoke()
+uint64_t ___ZL25RelativeMotionLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   RelativeMotionLibraryCore(char **)::frameworkLibrary = result;
@@ -8492,7 +8495,7 @@ void Phase::Controller::ListenerHeadTrackerImpl::~ListenerHeadTrackerImpl(id *th
   *this = 0;
 }
 
-float Phase::AffineFrom<float>@<S0>(float *a1@<X0>, uint64_t a2@<X8>)
+float Phase::AffineFrom<float>@<S0>(Phase::Logger *a1@<X0>, uint64_t a2@<X8>)
 {
   v106 = *MEMORY[0x277D85DE8];
   *a2 = xmmword_23A554920;
@@ -8500,14 +8503,14 @@ float Phase::AffineFrom<float>@<S0>(float *a1@<X0>, uint64_t a2@<X8>)
   *(a2 + 20) = 0;
   *(a2 + 28) = 1065353216;
   v5 = *a1;
-  v4 = a1[1];
-  v6 = a1[2];
-  v8 = a1[4];
-  v7 = a1[5];
-  v9 = a1[6];
-  v11 = a1[8];
-  v10 = a1[9];
-  v12 = a1[10];
+  v4 = *(a1 + 1);
+  v6 = *(a1 + 2);
+  v8 = *(a1 + 4);
+  v7 = *(a1 + 5);
+  v9 = *(a1 + 6);
+  v11 = *(a1 + 8);
+  v10 = *(a1 + 9);
+  v12 = *(a1 + 10);
   v13 = sqrtf(((v5 * v5) + (v4 * v4)) + (v6 * v6));
   v14 = sqrtf(((v8 * v8) + (v7 * v7)) + (v9 * v9));
   v15 = sqrtf(((v11 * v11) + (v10 * v10)) + (v12 * v12));
@@ -8536,21 +8539,21 @@ LABEL_20:
     if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
       v55 = *a1;
-      v56 = a1[1];
-      v57 = a1[2];
-      v58 = a1[3];
-      v59 = a1[4];
-      v60 = a1[5];
-      v61 = a1[6];
-      v62 = a1[7];
-      v63 = a1[8];
-      v64 = a1[9];
-      v65 = a1[10];
-      v66 = a1[11];
-      v67 = a1[12];
-      v68 = a1[13];
-      v69 = a1[14];
-      v70 = a1[15];
+      v56 = *(a1 + 1);
+      v57 = *(a1 + 2);
+      v58 = *(a1 + 3);
+      v59 = *(a1 + 4);
+      v60 = *(a1 + 5);
+      v61 = *(a1 + 6);
+      v62 = *(a1 + 7);
+      v63 = *(a1 + 8);
+      v64 = *(a1 + 9);
+      v65 = *(a1 + 10);
+      v66 = *(a1 + 11);
+      v67 = *(a1 + 12);
+      v68 = *(a1 + 13);
+      v69 = *(a1 + 14);
+      v70 = *(a1 + 15);
       *buf = 136319490;
       *&buf[4] = "AffineFunctions.hpp";
       *&buf[12] = 1024;
@@ -8652,21 +8655,21 @@ LABEL_17:
     if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       v37 = *a1;
-      v38 = a1[1];
-      v39 = a1[2];
-      v40 = a1[3];
-      v41 = a1[4];
-      v42 = a1[5];
-      v43 = a1[6];
-      v44 = a1[7];
-      v45 = a1[8];
-      v46 = a1[9];
-      v47 = a1[10];
-      v48 = a1[11];
-      v49 = a1[12];
-      v50 = a1[13];
-      v51 = a1[14];
-      v52 = a1[15];
+      v38 = *(a1 + 1);
+      v39 = *(a1 + 2);
+      v40 = *(a1 + 3);
+      v41 = *(a1 + 4);
+      v42 = *(a1 + 5);
+      v43 = *(a1 + 6);
+      v44 = *(a1 + 7);
+      v45 = *(a1 + 8);
+      v46 = *(a1 + 9);
+      v47 = *(a1 + 10);
+      v48 = *(a1 + 11);
+      v49 = *(a1 + 12);
+      v50 = *(a1 + 13);
+      v51 = *(a1 + 14);
+      v52 = *(a1 + 15);
       *buf = 136319490;
       *&buf[4] = "AffineFunctions.hpp";
       *&buf[12] = 1024;
@@ -8712,7 +8715,7 @@ LABEL_17:
 
   Phase::QuaternionFromMatrix33<float>(v72, buf);
   *a2 = *buf;
-  result = a1[14];
+  result = *(a1 + 14);
   *(a2 + 16) = *(a1 + 6);
   *(a2 + 24) = result;
   return result;
@@ -8825,7 +8828,7 @@ uint64_t Phase::Controller::ListenerManager::AddListener(uint64_t a1, uint64_t a
   v4 = **(a1 + 8);
   v12 = 0;
   v11 = 1;
-  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 24, &v12, &v11);
+  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 0x18uLL, &v12, &v11);
   if (!v5)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -8889,7 +8892,7 @@ uint64_t Phase::Controller::ListenerManager::RemoveListener(uint64_t a1, uint64_
   v4 = **(a1 + 8);
   v12 = 0;
   v11 = 1;
-  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 24, &v12, &v11);
+  v5 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v4, 0x18uLL, &v12, &v11);
   if (!v5)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -8955,7 +8958,7 @@ uint64_t Phase::Controller::ListenerManager::UpdateTransform(uint64_t a1, uint64
   v5 = **(a1 + 8);
   v15 = 0;
   v14 = 1;
-  v6 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v5, 56, &v15, &v14);
+  v6 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v5, 0x38uLL, &v15, &v14);
   if (!v6)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -9021,7 +9024,7 @@ uint64_t Phase::Controller::ListenerManager::SetTracking(uint64_t a1, uint64_t a
   v6 = **(a1 + 8);
   v14 = 0;
   v13 = 1;
-  v7 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v6, 32, &v14, &v13);
+  v7 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v6, 0x20uLL, &v14, &v13);
   if (!v7)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -9358,11 +9361,11 @@ void *Phase::LambdaFunction<Phase::Controller::ListenerManager::SetTracking(Phas
   return result;
 }
 
-void Phase::Controller::LoadBalancer::LoadBalancer(Phase::Controller::LoadBalancer *this, const Phase::StringId *a2, Phase::Controller::VoiceManager *a3, Phase::Controller::ProfileRegistry *a4, Phase::Geometry::System *a5)
+void Phase::Controller::LoadBalancer::LoadBalancer(Phase::Controller::LoadBalancer *this, const char **a2, Phase::Controller::VoiceManager *a3, Phase::Controller::ProfileRegistry *a4, Phase::Geometry::System *a5)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  Phase::Logger::GetInstance(this);
-  Phase::Commandable<128,Phase::LockFreeQueueMPSC>::Commandable(this);
+  v7 = *MEMORY[0x277D85DE8];
+  Instance = Phase::Logger::GetInstance(this);
+  Phase::Commandable<128,Phase::LockFreeQueueMPSC>::Commandable(this, *(Instance + 816), 1, 0x20000);
 }
 
 void sub_23A439EB4(_Unwind_Exception *a1)
@@ -9389,10 +9392,10 @@ void sub_23A439EB4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void Phase::Controller::LoadBalancer::SetProfile(const char **this, const Phase::StringId *a2)
+void Phase::Controller::LoadBalancer::SetProfile(const char **this, const char **a2)
 {
   v24 = *MEMORY[0x277D85DE8];
-  if ((!*a2 || *a2 == -1) && ((v4 = *(a2 + 1), v4 == &str_20) || !*v4))
+  if ((!*a2 || *a2 == -1) && ((v4 = a2[1], v4 == &str_20) || !*v4))
   {
     v11 = **(Phase::Logger::GetInstance(this) + 816);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -9412,13 +9415,13 @@ void Phase::Controller::LoadBalancer::SetProfile(const char **this, const Phase:
     v5 = std::__hash_table<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::__unordered_map_hasher<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::hash<Phase::StringId>,std::equal_to<Phase::StringId>,true>,std::__unordered_map_equal<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::equal_to<Phase::StringId>,std::hash<Phase::StringId>,true>,std::allocator<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>>>::find<Phase::StringId>(this[31], a2);
     if (v5)
     {
-      if (*a2 != this[5] || (v6 = *(a2 + 1), v7 = this[6], v6 != v7) && (v5 = strcmp(v6, v7), v5))
+      if (*a2 != this[5] || (v6 = a2[1], v7 = this[6], v6 != v7) && (v5 = strcmp(v6, v7), v5))
       {
         v8 = **(Phase::Logger::GetInstance(v5) + 816);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           v9 = this[6];
-          v10 = *(a2 + 1);
+          v10 = a2[1];
           v14 = 136316162;
           v15 = "LoadBalancer.mm";
           v16 = 1024;
@@ -9445,7 +9448,7 @@ void Phase::Controller::LoadBalancer::SetProfile(const char **this, const Phase:
       v12 = **(Phase::Logger::GetInstance(0) + 816);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v13 = *(a2 + 1);
+        v13 = a2[1];
         v14 = 136315906;
         v15 = "LoadBalancer.mm";
         v16 = 1024;
@@ -9463,10 +9466,10 @@ void Phase::Controller::LoadBalancer::SetProfile(const char **this, const Phase:
 void Phase::Controller::LoadBalancer::Update(Phase::Controller::LoadBalancer *this)
 {
   Phase::Commandable<128,Phase::LockFreeQueueMPSC>::ExecuteCommands(this);
-  Phase::Geometry::System::GetCurrentState(*(this + 32), &v37);
-  if (v37)
+  Phase::Geometry::System::GetCurrentState(&v36, *(this + 32));
+  if (v36)
   {
-    v2 = *(v37 + 984);
+    v2 = *(v36 + 984);
     v3 = v2 & ~(v2 >> 63);
     if (v3 != *(this + 8))
     {
@@ -9512,7 +9515,7 @@ LABEL_11:
       v8 = 152;
     }
 
-    Phase::StringId::StringId(v34, this + v8);
+    Phase::StringId::StringId(v33, this + v8);
     if (*(this + 216) == 1)
     {
       v9 = *(this + 25);
@@ -9523,14 +9526,14 @@ LABEL_11:
       v9 = fmin(fmax(*(this + 12) * *(this + 17), 0.0), 1.0);
     }
 
-    Phase::Controller::ProfileRegistry::GetModelers(*(this + 31), v34, v31);
+    Phase::Controller::ProfileRegistry::GetModelers(v31, *(this + 31), v33);
     Phase::Logger::GetInstance(v10);
-    Phase::Controller::ProfileRegistry::GetParameters(*(this + 31), v34, v9, __p);
+    Phase::Controller::ProfileRegistry::GetParameters(__p, *(this + 31), v33, v9);
     Phase::Logger::GetInstance(v11);
     Phase::Controller::SpatialModelerSystem::SetModelers((**(this + 30) + 560), v31, __p);
-    Phase::Controller::ProfileRegistry::GetComputeWeights(*(this + 31), v34, v28);
+    Phase::Controller::ProfileRegistry::GetComputeWeights(v28, *(this + 31), v33);
     Phase::Logger::GetInstance(v12);
-    ComputeTime = Phase::Controller::ProfileRegistry::GetComputeTime(*(this + 31), v34);
+    ComputeTime = Phase::Controller::ProfileRegistry::GetComputeTime(*(this + 31), v33);
     v15 = v29;
     if (v29)
     {
@@ -9560,7 +9563,7 @@ LABEL_11:
     }
 
     Phase::Controller::SpatialModelerSystem::SetComputeTimes((**(this + 30) + 560), v28);
-    Phase::Controller::ProfileRegistry::GetOverflowParameters(*(this + 31), v34, &v26);
+    Phase::Controller::ProfileRegistry::GetOverflowParameters(&v26, *(this + 31), v33);
     if (v27 == 1)
     {
       for (i = *(**(this + 30) + 576); i; i = *i)
@@ -9581,9 +9584,9 @@ LABEL_11:
     }
 
     std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(v31);
-    if ((v36 & 1) == 0)
+    if ((v35 & 1) == 0)
     {
-      free(v35);
+      free(v34);
     }
 
     v7 = *(this + 29);
@@ -9608,7 +9611,7 @@ LABEL_11:
       v24 = fmin(fmax(*(this + 12) * *(this + 17), 0.0), 1.0);
     }
 
-    Phase::Controller::ProfileRegistry::GetParameters(*(this + 31), v31, v24, v28);
+    Phase::Controller::ProfileRegistry::GetParameters(v28, *(this + 31), v31, v24);
     Phase::Logger::GetInstance(v25);
     Phase::Controller::SpatialModelerSystem::SetParameters((**(this + 30) + 560), v28);
     *(this + 29) &= ~2uLL;
@@ -9618,15 +9621,15 @@ LABEL_11:
       operator delete(v28[0]);
     }
 
-    if ((v33 & 1) == 0)
+    if ((v32 & 1) == 0)
     {
-      free(v32);
+      free(v31[1]);
     }
   }
 
-  if (v38)
+  if (v37)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v38);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v37);
   }
 }
 
@@ -9673,7 +9676,7 @@ void Phase::Controller::LoadBalancer::~LoadBalancer(Phase::Controller::LoadBalan
 void Phase::Controller::LoadBalancer::SetProfileOverride(Phase::Controller::LoadBalancer *this, uint64_t a2, double a3)
 {
   v30 = *MEMORY[0x277D85DE8];
-  ProfileId = Phase::Controller::ProfileRegistry::FindProfileId(*(this + 31), a2, &v17);
+  ProfileId = Phase::Controller::ProfileRegistry::FindProfileId(&v17, *(this + 31), a2);
   if (v17 && v17 != -1 || __s1 != &str_20 && *__s1)
   {
     v7 = std::__hash_table<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::__unordered_map_hasher<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::hash<Phase::StringId>,std::equal_to<Phase::StringId>,true>,std::__unordered_map_equal<Phase::StringId,std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>,std::equal_to<Phase::StringId>,std::hash<Phase::StringId>,true>,std::allocator<std::__hash_value_type<Phase::StringId,Phase::Controller::ProfileRegistry::Profile>>>::find<Phase::StringId>(*(this + 31), &v17);

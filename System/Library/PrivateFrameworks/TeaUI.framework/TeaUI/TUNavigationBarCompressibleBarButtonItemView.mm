@@ -110,7 +110,7 @@
   v3 = view;
   if (view)
   {
-    [view transform];
+    objc_msgSend_transform(view);
     v4 = v6;
   }
 

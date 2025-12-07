@@ -17,6 +17,7 @@
 
 - (AMRLocalUSBDevice)initWithService:(unsigned int)service
 {
+  v3 = *&service;
   if (qword_1000C8848 != -1)
   {
     sub_1000765C4();
@@ -27,14 +28,14 @@
   v5 = [(AMRLocalUSBDevice *)&v8 init];
   if (v5)
   {
-    DeviceInterfaceForService = _getDeviceInterfaceForService(service);
+    DeviceInterfaceForService = _getDeviceInterfaceForService(v3);
     v5->deviceInterface = DeviceInterfaceForService;
     if (DeviceInterfaceForService)
     {
-      v5->serialNumber = IORegistryEntryCreateCFProperty(service, @"kUSBSerialNumberString", kCFAllocatorDefault, 0);
-      v5->productString = IORegistryEntryCreateCFProperty(service, @"kUSBProductString", kCFAllocatorDefault, 0);
-      IOObjectRetain(service);
-      v5->usbService = service;
+      v5->serialNumber = IORegistryEntryCreateCFProperty(v3, @"kUSBSerialNumberString", kCFAllocatorDefault, 0);
+      v5->productString = IORegistryEntryCreateCFProperty(v3, @"kUSBProductString", kCFAllocatorDefault, 0);
+      IOObjectRetain(v3);
+      v5->usbService = v3;
       v5->usbDeviceNotification = 0;
       v5->waitForOpenSemaphore = dispatch_semaphore_create(0);
       v5->deviceOpenResult = 0;

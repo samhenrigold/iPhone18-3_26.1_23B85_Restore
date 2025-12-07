@@ -55,7 +55,7 @@
 
 - (id)attributeDescriptions
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v11.receiver = self;
   v11.super_class = HMIVideoAnalyzerEventMotion;
   attributeDescriptions = [(HMIVideoAnalyzerEvent *)&v11 attributeDescriptions];
@@ -63,10 +63,10 @@
   v5 = MEMORY[0x277CCABB0];
   [(HMIVideoAnalyzerEventMotion *)self motionScore];
   v6 = [v5 numberWithFloat:?];
-  v7 = [v4 initWithName:@"Motion score" value:v6];
-  v12[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-  v9 = [attributeDescriptions arrayByAddingObjectsFromArray:v8];
+  v7 = [v4 initWithName:? value:?];
+  v12 = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v9 = [attributeDescriptions arrayByAddingObjectsFromArray:?];
 
   return v9;
 }
@@ -81,31 +81,31 @@
   [(HMIVideoAnalyzerEventMotion *)self motionScore];
   v6 = [v5 numberWithFloat:?];
   v7 = HMIFormatNumber(v6, 2);
-  v8 = [v3 stringWithFormat:@"%@@(%@)", shortDescription, v7];
+  v8 = [v3 stringWithFormat:shortDescription, v7];
 
   return v8;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v6.receiver = self;
-  v6.super_class = HMIVideoAnalyzerEventMotion;
+  v5.receiver = self;
+  v5.super_class = HMIVideoAnalyzerEventMotion;
   coderCopy = coder;
-  [(HMIVideoAnalyzerEvent *)&v6 encodeWithCoder:coderCopy];
-  [(HMIVideoAnalyzerEventMotion *)self motionScore:v6.receiver];
-  [coderCopy encodeDouble:@"HMIVAEM.ms" forKey:v5];
+  [(HMIVideoAnalyzerEvent *)&v5 encodeWithCoder:coderCopy];
+  [(HMIVideoAnalyzerEventMotion *)self motionScore:v5.receiver];
+  [coderCopy encodeDouble:? forKey:?];
 }
 
 - (HMIVideoAnalyzerEventMotion)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [[HMIVideoAnalyzerEvent alloc] initWithCoder:coderCopy];
+  v5 = [[HMIVideoAnalyzerEvent alloc] initWithCoder:?];
   if (v5)
   {
-    [coderCopy decodeDoubleForKey:@"HMIVAEM.ms"];
+    [coderCopy decodeDoubleForKey:?];
     confidence = [(HMIVideoAnalyzerEvent *)v5 confidence];
     [(HMIVideoAnalyzerEvent *)v5 boundingBox];
-    self = [HMIVideoAnalyzerEventMotion initWithConfidence:"initWithConfidence:boundingBox:motionScore:" boundingBox:confidence motionScore:?];
+    self = [HMIVideoAnalyzerEventMotion initWithConfidence:"initWithConfidence:boundingBox:motionScore:" boundingBox:? motionScore:?];
 
     selfCopy = self;
   }

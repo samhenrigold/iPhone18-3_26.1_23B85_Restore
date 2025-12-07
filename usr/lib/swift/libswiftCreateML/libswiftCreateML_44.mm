@@ -1,117 +1,3 @@
-unint64_t storeEnumTagSinglePayload for InterspersedMapSequence(_DWORD *a1, uint64_t a2, unsigned int a3, uint64_t a4)
-{
-  v6 = *(a4 + 16);
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 84);
-  v9 = 0x7FFFFFFF;
-  if (v8 >= 0x80000000)
-  {
-    v9 = *(v7 + 84);
-  }
-
-  v10 = *(v7 + 64);
-  v11 = ((((v10 + 7) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8) + 16;
-  v12 = 0;
-  v13 = 1;
-  if (v9 < a3)
-  {
-    v14 = a3 - v9 + 1;
-    v15 = 2;
-    if (((((v10 + 7) & 0xFFFFFFF8) + 23) & 0xFFFFFFF8) == 0xFFFFFFF0)
-    {
-      v15 = v14;
-    }
-
-    v16 = 2 * (v15 >= &loc_10000) + 2;
-    if (v15 < 0x100)
-    {
-      v16 = 1;
-    }
-
-    v12 = 0;
-    if (v15 >= 2)
-    {
-      v12 = v16;
-    }
-  }
-
-  if (a2 > v9)
-  {
-    if (((((v10 + 7) & 0xFFFFFFF8) + 23) & 0xFFFFFFF8) == 0xFFFFFFF0)
-    {
-      v13 = a2 - v9;
-    }
-
-    else
-    {
-      __bzero(a1, v11);
-      *a1 = a2 + ~v9;
-    }
-
-    result = v12;
-    switch(v12)
-    {
-      case 0u:
-        return result;
-      case 1u:
-        *(a1 + v11) = v13;
-        return result;
-      case 2u:
-        *(a1 + v11) = v13;
-        return result;
-      case 3u:
-        goto LABEL_29;
-      case 4u:
-        *(a1 + v11) = v13;
-        return result;
-    }
-  }
-
-  result = v12;
-  switch(v12)
-  {
-    case 0u:
-      break;
-    case 1u:
-      *(a1 + v11) = 0;
-      break;
-    case 2u:
-      *(a1 + v11) = 0;
-      break;
-    case 3u:
-LABEL_29:
-      BUG();
-    case 4u:
-      *(a1 + v11) = 0;
-      break;
-  }
-
-  if (a2)
-  {
-    if (v8 < 0x7FFFFFFF)
-    {
-      result = (a1 + v10 + 7) & 0xFFFFFFFFFFFFFFF8;
-      if (a2 < 0)
-      {
-        *result = a2 & 0x7FFFFFFF;
-        *(result + 8) = 0;
-      }
-
-      else
-      {
-        *result = (a2 - 1);
-      }
-    }
-
-    else
-    {
-      return __swift_storeEnumTagSinglePayload(a1, a2, v8, v6);
-    }
-  }
-
-  return result;
-}
-
 uint64_t type metadata completion function for InterspersedMapSequence.Iterator(void *a1)
 {
   v1 = a1[2];
@@ -120,16 +6,15 @@ uint64_t type metadata completion function for InterspersedMapSequence.Iterator(
   v4 = AssociatedTypeWitness;
   if (v5 <= 0x3F)
   {
-    v9[0] = *(AssociatedTypeWitness - 8) + 64;
-    v9[1] = &value witness table for () + 64;
-    v9[2] = &value witness table for () + 64;
-    v6 = type metadata accessor for InterspersedMapSequence.Iterator.State(319, v1, a1[3], v2);
-    v4 = v6;
-    if (v7 <= 0x3F)
+    v8[0] = *(AssociatedTypeWitness - 8) + 64;
+    v8[1] = &value witness table for () + 64;
+    v8[2] = &value witness table for () + 64;
+    v4 = type metadata accessor for InterspersedMapSequence.Iterator.State(319, v1, a1[3], v2);
+    if (v6 <= 0x3F)
     {
-      v9[3] = *(v6 - 8) + 64;
+      v8[3] = *(v4 - 8) + 64;
       v4 = 0;
-      swift_initStructMetadata(a1, 0, 4, v9, a1 + 5);
+      swift_initStructMetadata(a1, 0, 4, v8, (a1 + 5));
     }
   }
 
@@ -142,96 +27,92 @@ uint64_t *initializeBufferWithCopyOfBuffer for InterspersedMapSequence.Iterator(
   v4 = *(a3 + 32);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness(0, v4, v3, &protocol requirements base descriptor for Sequence, &associated type descriptor for Sequence.Iterator);
   v6 = *(AssociatedTypeWitness - 8);
-  v26 = *(v6 + 64);
+  v24 = *(v6 + 64);
   v7 = swift_getAssociatedTypeWitness(0, v4, v3, &protocol requirements base descriptor for Sequence, &associated type descriptor for Sequence.Element);
   v8 = *(v7 - 8);
   v9 = *(v8 + 80);
   v10 = v9 | *(v6 + 80) & 0xF8;
-  if (v10 > 7 || ((v9 | *(v6 + 80)) & 0x100000) != 0 || (v11 = *(v8 + 64), (v9 | (-17 - (v9 + ((((v26 + 7) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8)))) - (v11 + 1) < 0xFFFFFFFFFFFFFFE7))
+  if (v10 > 7 || ((v9 | *(v6 + 80)) & 0x100000) != 0 || (v11 = *(v8 + 64), (v9 | (-17 - (v9 + ((((v24 + 7) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8)))) - (v11 + 1) < 0xFFFFFFFFFFFFFFE7))
   {
-    v22 = *a2;
+    v20 = *a2;
     *a1 = *a2;
-    v21 = (v22 + (((v10 | 7) + 16) & ~(v10 | 7)));
-    v22;
+    v19 = (v20 + (((v10 | 7) + 16) & ~(v10 | 7)));
   }
 
   else
   {
-    v28 = v7;
+    v26 = v7;
     (*(v6 + 16))(a1, a2, AssociatedTypeWitness);
-    v12 = ((a1 + v26 + 7) & 0xFFFFFFFFFFFFFFF8);
-    v13 = (a2 + v26 + 7) & 0xFFFFFFFFFFFFFFF8;
-    v14 = *(v13 + 8);
+    v12 = ((a1 + v24 + 7) & 0xFFFFFFFFFFFFFFF8);
+    v13 = ((a2 + v24 + 7) & 0xFFFFFFFFFFFFFFF8);
     *v12 = *v13;
-    v15 = ((v12 + 23) & 0xFFFFFFFFFFFFFFF8);
-    v16 = (v13 + 23) & 0xFFFFFFFFFFFFFFF8;
-    v17 = *(v16 + 8);
-    *v15 = *v16;
-    v18 = *(v16 + v11 + 16);
-    v19 = (v16 + 16);
-    v14;
-    v17;
-    if (v18 < 2)
+    v14 = ((v12 + 23) & 0xFFFFFFFFFFFFFFF8);
+    v15 = ((v13 + 23) & 0xFFFFFFFFFFFFFFF8);
+    *v14 = *v15;
+    v16 = *(v15 + v11 + 16);
+    v17 = (v15 + 1);
+
+    if (v16 < 2)
     {
 LABEL_8:
-      v21 = a1;
+      v19 = a1;
     }
 
     else
     {
-      v20 = 4;
+      v18 = 4;
       if (v11 < 4)
       {
-        v20 = v11;
+        v18 = v11;
       }
 
-      switch(v20)
+      switch(v18)
       {
         case 0:
           goto LABEL_8;
         case 1:
-          v23 = *v19;
+          v21 = *v17;
           break;
         case 2:
-          v23 = *v19;
+          v21 = *v17;
           break;
         case 3:
-          v23 = *v19 | (v19[2] << 16);
+          v21 = *v17 | (v17[2] << 16);
           break;
         case 4:
-          v23 = *v19;
+          v21 = *v17;
           break;
       }
 
-      v21 = a1;
+      v19 = a1;
       if (v11 < 4)
       {
-        v23 |= (v18 - 2) << (8 * v11);
+        v21 |= (v16 - 2) << (8 * v11);
       }
 
-      v18 = v23 + 2;
+      v16 = v21 + 2;
     }
 
-    v24 = v15 + 1;
-    if (v18 == 1)
+    v22 = v14 + 1;
+    if (v16 == 1)
     {
-      (*(v8 + 16))(v24, v19, v28);
-      v24[v11] = 1;
+      (*(v8 + 16))(v22, v17, v26);
+      v22[v11] = 1;
     }
 
-    else if (v18)
+    else if (v16)
     {
-      memcpy(v24, v19, v11 + 1);
+      memcpy(v22, v17, v11 + 1);
     }
 
     else
     {
-      (*(v8 + 16))(v24, v19, v28);
-      v24[v11] = 0;
+      (*(v8 + 16))(v22, v17, v26);
+      v22[v11] = 0;
     }
   }
 
-  return v21;
+  return v19;
 }
 
 uint64_t destroy for InterspersedMapSequence.Iterator(uint64_t a1, uint64_t a2)
@@ -242,9 +123,9 @@ uint64_t destroy for InterspersedMapSequence.Iterator(uint64_t a1, uint64_t a2)
   v5 = *(AssociatedTypeWitness - 8);
   (*(v5 + 8))(a1, AssociatedTypeWitness);
   v6 = (*(v5 + 64) + a1 + 7) & 0xFFFFFFFFFFFFFFF8;
-  *(v6 + 8);
+
   v7 = (v6 + 23) & 0xFFFFFFFFFFFFFFF8;
-  *(v7 + 8);
+
   result = swift_getAssociatedTypeWitness(0, v3, v2, &protocol requirements base descriptor for Sequence, &associated type descriptor for Sequence.Element);
   v9 = *(result - 8);
   v10 = ((v7 + *(v9 + 80) + 16) & ~*(v9 + 80));
@@ -301,25 +182,22 @@ uint64_t initializeWithCopy for InterspersedMapSequence.Iterator(uint64_t a1, ui
   (*(v6 + 16))(a1, a2, AssociatedTypeWitness);
   v7 = *(v6 + 64);
   v8 = ((v7 + a1 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v9 = (v7 + a2 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v25 = *(v9 + 8);
+  v9 = ((v7 + a2 + 7) & 0xFFFFFFFFFFFFFFF8);
   *v8 = *v9;
   v10 = ((v8 + 23) & 0xFFFFFFFFFFFFFFF8);
-  v11 = (v9 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v26 = *(v11 + 8);
+  v11 = ((v9 + 23) & 0xFFFFFFFFFFFFFFF8);
   *v10 = *v11;
-  v28 = swift_getAssociatedTypeWitness(0, v4, v3, &protocol requirements base descriptor for Sequence, &associated type descriptor for Sequence.Element);
-  v12 = *(v28 - 8);
+  v26 = swift_getAssociatedTypeWitness(0, v4, v3, &protocol requirements base descriptor for Sequence, &associated type descriptor for Sequence.Element);
+  v12 = *(v26 - 8);
   v13 = *(v12 + 80);
   v24 = v10 + v13 + 16;
-  v14 = v13 + v11 + 16;
+  v14 = v11 + v13 + 16;
   v15 = ~v13;
   v16 = (v15 & v14);
-  v27 = v12;
+  v25 = v12;
   v17 = *(v12 + 64);
   v18 = v16[v17];
-  v25;
-  v26;
+
   if (v18 < 2)
   {
 LABEL_5:
@@ -364,7 +242,7 @@ LABEL_5:
   v22 = (v15 & v24);
   if (v18 == 1)
   {
-    (*(v27 + 16))(v22, v16, v28);
+    (*(v25 + 16))(v22, v16, v26);
     v22[v17] = 1;
   }
 
@@ -375,7 +253,7 @@ LABEL_5:
 
   else
   {
-    (*(v27 + 16))(v22, v16, v28);
+    (*(v25 + 16))(v22, v16, v26);
     v22[v17] = 0;
   }
 
@@ -390,126 +268,120 @@ uint64_t assignWithCopy for InterspersedMapSequence.Iterator(uint64_t a1, uint64
   v6 = *(AssociatedTypeWitness - 8);
   (*(v6 + 24))(a1, a2, AssociatedTypeWitness);
   v7 = *(v6 + 64);
-  v8 = (v7 + a1 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v9 = (v7 + a2 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v10 = *(v8 + 8);
-  v11 = *(v9 + 8);
+  v8 = ((v7 + a1 + 7) & 0xFFFFFFFFFFFFFFF8);
+  v9 = ((v7 + a2 + 7) & 0xFFFFFFFFFFFFFFF8);
   *v8 = *v9;
-  v11;
-  v10;
-  v12 = (v8 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v13 = (v9 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v14 = *(v12 + 8);
-  v15 = *(v13 + 8);
-  *v12 = *v13;
-  v15;
-  v14;
-  v16 = swift_getAssociatedTypeWitness(0, v4, v3, &protocol requirements base descriptor for Sequence, &associated type descriptor for Sequence.Element);
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 80);
-  v19 = v18 + v12 + 16;
-  v20 = v18 + v13 + 16;
-  v21 = ~v18;
-  v22 = (v21 & v19);
-  v23 = (v20 & v21);
-  if (v22 != v23)
+
+  v10 = ((v8 + 23) & 0xFFFFFFFFFFFFFFF8);
+  v11 = ((v9 + 23) & 0xFFFFFFFFFFFFFFF8);
+  *v10 = *v11;
+
+  v12 = swift_getAssociatedTypeWitness(0, v4, v3, &protocol requirements base descriptor for Sequence, &associated type descriptor for Sequence.Element);
+  v13 = *(v12 - 8);
+  v14 = *(v13 + 80);
+  v15 = v10 + v14 + 16;
+  v16 = v11 + v14 + 16;
+  v17 = ~v14;
+  v18 = (v17 & v15);
+  v19 = (v16 & v17);
+  if (v18 != v19)
   {
-    v24 = *(v17 + 64);
-    v25 = v22[v24];
-    v26 = 4;
-    if (v25 >= 2)
+    v20 = *(v13 + 64);
+    v21 = v18[v20];
+    v22 = 4;
+    if (v21 >= 2)
     {
-      v27 = v24;
-      if (v24 >= 4)
+      v23 = v20;
+      if (v20 >= 4)
       {
-        v27 = 4;
+        v23 = 4;
       }
 
-      switch(v27)
+      switch(v23)
       {
         case 0:
           break;
         case 1:
-          v28 = *v22;
+          v24 = *v18;
           goto LABEL_10;
         case 2:
-          v28 = *v22;
+          v24 = *v18;
           goto LABEL_10;
         case 3:
-          v28 = *v22 | (v22[2] << 16);
+          v24 = *v18 | (v18[2] << 16);
           goto LABEL_10;
         case 4:
-          v28 = *v22;
+          v24 = *v18;
 LABEL_10:
-          if (v24 < 4)
+          if (v20 < 4)
           {
-            v28 |= (v25 - 2) << (8 * v24);
+            v24 |= (v21 - 2) << (8 * v20);
           }
 
-          v25 = v28 + 2;
+          v21 = v24 + 2;
           break;
       }
     }
 
-    if (v25 <= 1)
+    if (v21 <= 1)
     {
-      v29 = *(v16 - 8);
-      v30 = v16;
-      (*(v17 + 8))(v22, v16);
-      v26 = 4;
-      v16 = v30;
-      v17 = v29;
+      v25 = *(v12 - 8);
+      v26 = v12;
+      (*(v13 + 8))(v18, v12);
+      v22 = 4;
+      v12 = v26;
+      v13 = v25;
     }
 
-    v31 = v23[v24];
-    if (v31 >= 2)
+    v27 = v19[v20];
+    if (v27 >= 2)
     {
-      if (v24 < 4)
+      if (v20 < 4)
       {
-        v26 = v24;
+        v22 = v20;
       }
 
-      switch(v26)
+      switch(v22)
       {
         case 0:
           break;
         case 1:
-          v32 = *v23;
+          v28 = *v19;
           goto LABEL_23;
         case 2:
-          v32 = *v23;
+          v28 = *v19;
           goto LABEL_23;
         case 3:
-          v32 = *v23 | (v23[2] << 16);
+          v28 = *v19 | (v19[2] << 16);
           goto LABEL_23;
         case 4:
-          v32 = *v23;
+          v28 = *v19;
 LABEL_23:
-          if (v24 < 4)
+          if (v20 < 4)
           {
-            v32 |= (v31 - 2) << (8 * v24);
+            v28 |= (v27 - 2) << (8 * v20);
           }
 
-          v31 = v32 + 2;
+          v27 = v28 + 2;
           break;
       }
     }
 
-    if (v31 == 1)
+    if (v27 == 1)
     {
-      (*(v17 + 16))(v22, v23, v16);
-      v22[v24] = 1;
+      (*(v13 + 16))(v18, v19, v12);
+      v18[v20] = 1;
     }
 
-    else if (v31)
+    else if (v27)
     {
-      memcpy(v22, v23, v24 + 1);
+      memcpy(v18, v19, v20 + 1);
     }
 
     else
     {
-      (*(v17 + 16))(v22, v23, v16);
-      v22[v24] = 0;
+      (*(v13 + 16))(v18, v19, v12);
+      v18[v20] = 0;
     }
   }
 
@@ -609,120 +481,118 @@ uint64_t assignWithTake for InterspersedMapSequence.Iterator(uint64_t a1, uint64
   v6 = *(AssociatedTypeWitness - 8);
   (*(v6 + 40))(a1, a2, AssociatedTypeWitness);
   v7 = *(v6 + 64);
-  v8 = (v7 + a1 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v8 = ((v7 + a1 + 7) & 0xFFFFFFFFFFFFFFF8);
   v9 = ((v7 + a2 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v10 = *(v8 + 8);
   *v8 = *v9;
-  v10;
-  v11 = (v8 + 23) & 0xFFFFFFFFFFFFFFF8;
-  v12 = ((v9 + 23) & 0xFFFFFFFFFFFFFFF8);
-  v13 = *(v11 + 8);
-  *v11 = *v12;
-  v13;
-  v14 = swift_getAssociatedTypeWitness(0, v4, v3, &protocol requirements base descriptor for Sequence, &associated type descriptor for Sequence.Element);
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 80);
-  v17 = v16 + v11 + 16;
-  v18 = v12 + v16 + 16;
-  v19 = ~v16;
-  v20 = (v19 & v17);
-  v21 = (v18 & v19);
-  if (v20 != v21)
+
+  v10 = ((v8 + 23) & 0xFFFFFFFFFFFFFFF8);
+  v11 = ((v9 + 23) & 0xFFFFFFFFFFFFFFF8);
+  *v10 = *v11;
+
+  v12 = swift_getAssociatedTypeWitness(0, v4, v3, &protocol requirements base descriptor for Sequence, &associated type descriptor for Sequence.Element);
+  v13 = *(v12 - 8);
+  v14 = *(v13 + 80);
+  v15 = v10 + v14 + 16;
+  v16 = v11 + v14 + 16;
+  v17 = ~v14;
+  v18 = (v17 & v15);
+  v19 = (v16 & v17);
+  if (v18 != v19)
   {
-    v22 = *(v15 + 64);
-    v23 = v20[v22];
-    v24 = 4;
-    if (v23 >= 2)
+    v20 = *(v13 + 64);
+    v21 = v18[v20];
+    v22 = 4;
+    if (v21 >= 2)
     {
-      v25 = v22;
-      if (v22 >= 4)
+      v23 = v20;
+      if (v20 >= 4)
       {
-        v25 = 4;
+        v23 = 4;
       }
 
-      switch(v25)
+      switch(v23)
       {
         case 0:
           break;
         case 1:
-          v26 = *v20;
+          v24 = *v18;
           goto LABEL_10;
         case 2:
-          v26 = *v20;
+          v24 = *v18;
           goto LABEL_10;
         case 3:
-          v26 = *v20 | (v20[2] << 16);
+          v24 = *v18 | (v18[2] << 16);
           goto LABEL_10;
         case 4:
-          v26 = *v20;
+          v24 = *v18;
 LABEL_10:
-          if (v22 < 4)
+          if (v20 < 4)
           {
-            v26 |= (v23 - 2) << (8 * v22);
+            v24 |= (v21 - 2) << (8 * v20);
           }
 
-          v23 = v26 + 2;
+          v21 = v24 + 2;
           break;
       }
     }
 
-    if (v23 <= 1)
+    if (v21 <= 1)
     {
-      v27 = v14;
-      (*(v15 + 8))(v20, v14);
-      v24 = 4;
-      v14 = v27;
+      v25 = v12;
+      (*(v13 + 8))(v18, v12);
+      v22 = 4;
+      v12 = v25;
     }
 
-    v28 = v21[v22];
-    if (v28 >= 2)
+    v26 = v19[v20];
+    if (v26 >= 2)
     {
-      if (v22 < 4)
+      if (v20 < 4)
       {
-        v24 = v22;
+        v22 = v20;
       }
 
-      switch(v24)
+      switch(v22)
       {
         case 0:
           break;
         case 1:
-          v29 = *v21;
+          v27 = *v19;
           goto LABEL_23;
         case 2:
-          v29 = *v21;
+          v27 = *v19;
           goto LABEL_23;
         case 3:
-          v29 = *v21 | (v21[2] << 16);
+          v27 = *v19 | (v19[2] << 16);
           goto LABEL_23;
         case 4:
-          v29 = *v21;
+          v27 = *v19;
 LABEL_23:
-          if (v22 < 4)
+          if (v20 < 4)
           {
-            v29 |= (v28 - 2) << (8 * v22);
+            v27 |= (v26 - 2) << (8 * v20);
           }
 
-          v28 = v29 + 2;
+          v26 = v27 + 2;
           break;
       }
     }
 
-    if (v28 == 1)
+    if (v26 == 1)
     {
-      (*(v15 + 32))(v20, v21, v14);
-      v20[v22] = 1;
+      (*(v13 + 32))(v18, v19, v12);
+      v18[v20] = 1;
     }
 
-    else if (v28)
+    else if (v26)
     {
-      memcpy(v20, v21, v22 + 1);
+      memcpy(v18, v19, v20 + 1);
     }
 
     else
     {
-      (*(v15 + 32))(v20, v21, v14);
-      v20[v22] = 0;
+      (*(v13 + 32))(v18, v19, v12);
+      v18[v20] = 0;
     }
   }
 
@@ -837,7 +707,7 @@ LABEL_21:
   return (v17 + 1);
 }
 
-unint64_t storeEnumTagSinglePayload for InterspersedMapSequence.Iterator(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
+uint64_t storeEnumTagSinglePayload for InterspersedMapSequence.Iterator(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   v5 = *(a4 + 16);
   v6 = *(a4 + 32);
@@ -1064,7 +934,7 @@ _BYTE *initializeBufferWithCopyOfBuffer for InterspersedMapSequence.Iterator.Sta
   {
     v13 = *__src;
     *__dst = *__src;
-    v13;
+
     return (v13 + ((v8 + 16) & ~v8));
   }
 
@@ -1843,15 +1713,14 @@ uint64_t destructiveInjectEnumTag for InterspersedMapSequence.Iterator.State(uin
 uint64_t type metadata completion function for InterspersedMapSequence<>.Index(uint64_t *a1)
 {
   v1 = type metadata accessor for InterspersedMapSequence<>.Index.Representation(319, a1[2], a1[3], a1[4]);
-  v2 = v1;
-  if (v3 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v5[0] = *(v1 - 8) + 64;
-    v2 = 0;
-    swift_initStructMetadata(a1, 0, 1, v5, a1 + 5);
+    v4[0] = *(v1 - 8) + 64;
+    v1 = 0;
+    swift_initStructMetadata(a1, 0, 1, v4, (a1 + 5));
   }
 
-  return v2;
+  return v1;
 }
 
 uint64_t type metadata completion function for InterspersedMapSequence<>.Index.Representation(uint64_t a1)
@@ -1889,7 +1758,7 @@ void *initializeBufferWithCopyOfBuffer for InterspersedMapSequence<>.Index(void 
     v16 = *a2;
     *a1 = *a2;
     v17 = v16 + ((v8 + 16) & v9);
-    v16;
+
     return v17;
   }
 
@@ -2539,7 +2408,7 @@ LABEL_13:
   return getEnumTagSinglePayload for InterspersedMapSequence<>.Index.Representation(a1, a2, a3);
 }
 
-unint64_t storeEnumTagSinglePayload for InterspersedMapSequence<>.Index(unint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4)
+unint64_t storeEnumTagSinglePayload for InterspersedMapSequence<>.Index(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4)
 {
   v5 = 0;
   v6 = *(swift_getAssociatedTypeWitness(0, *(a4 + 32), *(a4 + 16), &protocol requirements base descriptor for Collection, &associated type descriptor for Collection.Index) - 8);
@@ -2845,10 +2714,9 @@ uint64_t UniquedSequence.projection.getter(uint64_t a1)
 }
 
 {
-  v2 = *(a1 + 52);
-  v3 = *(v1 + v2);
-  *(v1 + v2 + 8);
-  return v3;
+  v2 = *(v1 + *(a1 + 52));
+
+  return v2;
 }
 
 uint64_t UniquedSequence.init(base:projection:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
@@ -2915,82 +2783,77 @@ uint64_t UniquedSequence.Iterator.init(base:projection:)(uint64_t a1, uint64_t a
 
 uint64_t UniquedSequence.Iterator.next()(void *a1)
 {
-  v49 = v1;
-  v41 = a1[3];
-  v42 = *(v41 - 8);
-  v3 = *(v42 + 64);
+  v45 = v1;
+  v37 = a1[3];
+  v38 = *(v37 - 8);
+  v3 = *(v38 + 64);
   v4 = alloca(v3);
   v5 = alloca(v3);
-  v47 = &v37;
+  v43 = &v33;
   v6 = alloca(v3);
   v7 = alloca(v3);
-  v43 = &v37;
+  v39 = &v33;
   v8 = a1[2];
-  v40 = a1;
+  v36 = a1;
   v9 = a1[4];
   AssociatedTypeWitness = swift_getAssociatedTypeWitness(255, v9, v8, &protocol requirements base descriptor for Sequence, &associated type descriptor for Sequence.Element);
-  v45 = type metadata accessor for Optional(0, AssociatedTypeWitness);
-  v46 = *(v45 - 8);
-  v11 = *(v46 + 64);
+  v41 = type metadata accessor for Optional(0, AssociatedTypeWitness);
+  v42 = *(v41 - 8);
+  v11 = *(v42 + 64);
   v12 = alloca(v11);
   v13 = alloca(v11);
-  v50 = &v37;
+  v46 = &v33;
   v14 = *(AssociatedTypeWitness - 8);
   v15 = *(v14 + 64);
   v16 = alloca(v15);
   v17 = alloca(v15);
-  v51 = &v37;
+  v47 = &v33;
   v18 = swift_getAssociatedTypeWitness(0, v9, v8, &protocol requirements base descriptor for Sequence, &associated type descriptor for Sequence.Iterator);
   v19 = v9;
   v20 = v14;
   v21 = AssociatedTypeWitness;
-  v22 = v51;
-  v38 = v18;
+  v22 = v47;
+  v34 = v18;
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v19, v8, v18, &protocol requirements base descriptor for Sequence, &associated conformance descriptor for Sequence.Sequence.Iterator: IteratorProtocol);
-  v44 = v2;
-  v48 = v21;
+  v40 = v2;
+  v44 = v21;
   while (1)
   {
-    v23 = v50;
-    dispatch thunk of IteratorProtocol.next()(v38, AssociatedConformanceWitness);
+    v23 = v46;
+    dispatch thunk of IteratorProtocol.next()(v34, AssociatedConformanceWitness);
     if (__swift_getEnumTagSinglePayload(v23, 1, v21) == 1)
     {
-      (*(v46 + 8))(v50, v45);
-      v34 = v49;
-      v35 = 1;
-      return __swift_storeEnumTagSinglePayload(v34, v35, 1, v21);
+      (*(v42 + 8))(v46, v41);
+      v30 = v45;
+      v31 = 1;
+      return __swift_storeEnumTagSinglePayload(v30, v31, 1, v21);
     }
 
-    v24 = v21;
-    v25 = v2;
-    v51 = *(v20 + 32);
-    (v51)(v22, v50, v24);
-    v26 = v40;
-    v27 = *(v40 + 13);
-    v28 = *(v2 + v27 + 8);
-    (*(v25 + v27))(v22);
-    v29 = v25 + *(v26 + 14);
-    v30 = v26[5];
-    v31 = v41;
-    v32 = type metadata accessor for Set(0, v41, v30);
-    v33 = v43;
-    LOBYTE(v29) = Set.insert(_:)(v43, v47, v32);
-    (*(v42 + 8))(v33, v31);
+    v47 = *(v20 + 32);
+    (v47)(v22, v46, v21);
+    v24 = v36;
+    (*(v2 + *(v36 + 13)))(v22);
+    v25 = v24[5];
+    v26 = v37;
+    v27 = type metadata accessor for Set(0, v37, v25);
+    v28 = v39;
+    v29 = Set.insert(_:)(v39, v43, v27);
+    (*(v38 + 8))(v28, v26);
     if (v29)
     {
       break;
     }
 
-    v21 = v48;
-    (*(v20 + 8))(v22, v48);
-    v2 = v44;
+    v21 = v44;
+    (*(v20 + 8))(v22, v44);
+    v2 = v40;
   }
 
-  v34 = v49;
-  v21 = v48;
-  (v51)(v49, v22, v48);
-  v35 = 0;
-  return __swift_storeEnumTagSinglePayload(v34, v35, 1, v21);
+  v30 = v45;
+  v21 = v44;
+  (v47)(v45, v22, v44);
+  v31 = 0;
+  return __swift_storeEnumTagSinglePayload(v30, v31, 1, v21);
 }
 
 uint64_t UniquedSequence.makeIterator()(uint64_t a1)
@@ -3188,55 +3051,35 @@ uint64_t *initializeBufferWithCopyOfBuffer for UniquedSequence(uint64_t *a1, uin
   v5 = *(v4 + 80);
   if ((v5 & 0x1000F8) != 0 || (v6 = *(v4 + 64), ((v6 + 7) & 0xFFFFFFFFFFFFFFF8) + 16 > 0x18))
   {
-    v8 = *a2;
+    v7 = *a2;
     *v3 = *a2;
-    v3 = (v8 + (((v5 | 7) + 16) & ~(v5 | 7u)));
+    v3 = (v7 + (((v5 | 7) + 16) & ~(v5 | 7u)));
   }
 
   else
   {
     (*(v4 + 16))(a1, a2);
-    v7 = (a2 + v6 + 7) & 0xFFFFFFFFFFFFFFF8;
-    v8 = *(v7 + 8);
-    *((v3 + v6 + 7) & 0xFFFFFFFFFFFFFFF8) = *v7;
+    *((a1 + v6 + 7) & 0xFFFFFFFFFFFFFFF8) = *((a2 + v6 + 7) & 0xFFFFFFFFFFFFFFF8);
   }
 
-  v8;
   return v3;
-}
-
-uint64_t destroy for UniquedSequence(uint64_t a1, uint64_t a2)
-{
-  v2 = *(*(a2 + 16) - 8);
-  (*(v2 + 8))();
-  return *(((a1 + *(v2 + 64) + 7) & 0xFFFFFFFFFFFFFFF8) + 8);
 }
 
 uint64_t initializeWithCopy for UniquedSequence(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(*(a3 + 16) - 8);
-  (*(v4 + 16))(a1);
-  v5 = *(v4 + 64);
-  v6 = ((v5 + a1 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v7 = (a2 + v5 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v8 = *(v7 + 8);
-  *v6 = *v7;
-  v8;
+  v3 = *(*(a3 + 16) - 8);
+  (*(v3 + 16))(a1);
+  *((*(v3 + 64) + a1 + 7) & 0xFFFFFFFFFFFFFFF8) = *((a2 + *(v3 + 64) + 7) & 0xFFFFFFFFFFFFFFF8);
+
   return a1;
 }
 
 uint64_t assignWithCopy for UniquedSequence(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(*(a3 + 16) - 8);
-  (*(v4 + 24))(a1);
-  v5 = *(v4 + 64);
-  v6 = (v5 + a1 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v7 = (a2 + v5 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v8 = *(v6 + 8);
-  v9 = *(v7 + 8);
-  *v6 = *v7;
-  v9;
-  v8;
+  v3 = *(*(a3 + 16) - 8);
+  (*(v3 + 24))(a1);
+  *((*(v3 + 64) + a1 + 7) & 0xFFFFFFFFFFFFFFF8) = *((a2 + *(v3 + 64) + 7) & 0xFFFFFFFFFFFFFFF8);
+
   return a1;
 }
 
@@ -3250,13 +3093,10 @@ uint64_t initializeWithTake for UniquedSequence(uint64_t a1, uint64_t a2, uint64
 
 uint64_t assignWithTake for UniquedSequence(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(*(a3 + 16) - 8);
-  (*(v4 + 40))(a1);
-  v5 = *(v4 + 64);
-  v6 = (v5 + a1 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v7 = *(v6 + 8);
-  *v6 = *((a2 + v5 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v7;
+  v3 = *(*(a3 + 16) - 8);
+  (*(v3 + 40))(a1);
+  *((*(v3 + 64) + a1 + 7) & 0xFFFFFFFFFFFFFFF8) = *((a2 + *(v3 + 64) + 7) & 0xFFFFFFFFFFFFFFF8);
+
   return a1;
 }
 
@@ -3355,7 +3195,7 @@ LABEL_16:
   return result;
 }
 
-unint64_t storeEnumTagSinglePayload for UniquedSequence(_DWORD *a1, uint64_t a2, unsigned int a3, uint64_t a4)
+uint64_t storeEnumTagSinglePayload for UniquedSequence(_DWORD *a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   v5 = *(a4 + 16);
   v6 = *(v5 - 8);
@@ -3493,25 +3333,20 @@ uint64_t *initializeBufferWithCopyOfBuffer for UniquedSequence.Iterator(uint64_t
   v6 = *(v5 + 80);
   if ((v6 & 0x1000F8) != 0 || (v7 = *(v5 + 64), ((((v7 + 7) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8) + 8 > 0x18))
   {
-    v13 = *a2;
+    v10 = *a2;
     *v3 = *a2;
-    v14 = v13 + (((v6 | 7) + 16) & ~(v6 | 7u));
-    v13;
-    return v14;
+    v11 = v10 + (((v6 | 7) + 16) & ~(v6 | 7u));
+
+    return v11;
   }
 
   else
   {
     (*(v5 + 16))(a1, a2, AssociatedTypeWitness);
     v8 = ((a1 + v7 + 7) & 0xFFFFFFFFFFFFFFF8);
-    v9 = (a2 + v7 + 7) & 0xFFFFFFFFFFFFFFF8;
-    v10 = *(v9 + 8);
+    v9 = ((a2 + v7 + 7) & 0xFFFFFFFFFFFFFFF8);
     *v8 = *v9;
-    v11 = ((v9 + 23) & 0xFFFFFFFFFFFFFFF8);
-    v12 = *v11;
-    *((v8 + 23) & 0xFFFFFFFFFFFFFFF8) = *v11;
-    v10;
-    v12;
+    *((v8 + 23) & 0xFFFFFFFFFFFFFFF8) = *((v9 + 23) & 0xFFFFFFFFFFFFFFF8);
   }
 
   return v3;
@@ -3523,48 +3358,39 @@ uint64_t destroy for UniquedSequence.Iterator(uint64_t a1, uint64_t a2)
   v3 = *(AssociatedTypeWitness - 8);
   (*(v3 + 8))(a1, AssociatedTypeWitness);
   v4 = (*(v3 + 64) + a1 + 7) & 0xFFFFFFFFFFFFFFF8;
-  *(v4 + 8);
+
   return *((v4 + 23) & 0xFFFFFFFFFFFFFFF8);
 }
 
 uint64_t initializeWithCopy for UniquedSequence.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness(0, *(a3 + 32), *(a3 + 16), &protocol requirements base descriptor for Sequence, &associated type descriptor for Sequence.Iterator);
-  v5 = *(AssociatedTypeWitness - 8);
-  (*(v5 + 16))(a1, a2, AssociatedTypeWitness);
-  v6 = *(v5 + 64);
-  v7 = ((v6 + a1 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v8 = (a2 + v6 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v9 = *(v8 + 8);
-  *v7 = *v8;
-  v10 = ((v8 + 23) & 0xFFFFFFFFFFFFFFF8);
-  v11 = *v10;
-  *((v7 + 23) & 0xFFFFFFFFFFFFFFF8) = *v10;
-  v9;
-  v11;
+  v4 = *(AssociatedTypeWitness - 8);
+  (*(v4 + 16))(a1, a2, AssociatedTypeWitness);
+  v5 = *(v4 + 64);
+  v6 = ((v5 + a1 + 7) & 0xFFFFFFFFFFFFFFF8);
+  v7 = ((a2 + v5 + 7) & 0xFFFFFFFFFFFFFFF8);
+  *v6 = *v7;
+  *((v6 + 23) & 0xFFFFFFFFFFFFFFF8) = *((v7 + 23) & 0xFFFFFFFFFFFFFFF8);
+
   return a1;
 }
 
 uint64_t assignWithCopy for UniquedSequence.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness(0, *(a3 + 32), *(a3 + 16), &protocol requirements base descriptor for Sequence, &associated type descriptor for Sequence.Iterator);
-  v5 = *(AssociatedTypeWitness - 8);
-  (*(v5 + 24))(a1, a2, AssociatedTypeWitness);
-  v6 = *(v5 + 64);
-  v7 = (v6 + a1 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v8 = (v6 + a2 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v9 = *(v7 + 8);
-  v10 = *(v8 + 8);
-  *v7 = *v8;
-  v10;
+  v4 = *(AssociatedTypeWitness - 8);
+  (*(v4 + 24))(a1, a2, AssociatedTypeWitness);
+  v5 = *(v4 + 64);
+  v6 = ((v5 + a1 + 7) & 0xFFFFFFFFFFFFFFF8);
+  v7 = ((v5 + a2 + 7) & 0xFFFFFFFFFFFFFFF8);
+  *v6 = *v7;
+
+  v8 = ((v6 + 23) & 0xFFFFFFFFFFFFFFF8);
+  v9 = *v8;
+  *v8 = *((v7 + 23) & 0xFFFFFFFFFFFFFFF8);
+
   v9;
-  v11 = ((v7 + 23) & 0xFFFFFFFFFFFFFFF8);
-  v12 = ((v8 + 23) & 0xFFFFFFFFFFFFFFF8);
-  v13 = *v12;
-  v14 = *v11;
-  *v11 = *v12;
-  v13;
-  v14;
   return a1;
 }
 
@@ -3587,15 +3413,14 @@ uint64_t assignWithTake for UniquedSequence.Iterator(uint64_t a1, uint64_t a2, u
   v5 = *(AssociatedTypeWitness - 8);
   (*(v5 + 40))(a1, a2, AssociatedTypeWitness);
   v6 = *(v5 + 64);
-  v7 = (v6 + a1 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v7 = ((v6 + a1 + 7) & 0xFFFFFFFFFFFFFFF8);
   v8 = ((v6 + a2 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v9 = *(v7 + 8);
   *v7 = *v8;
-  v9;
-  v10 = ((v7 + 23) & 0xFFFFFFFFFFFFFFF8);
-  v11 = *v10;
-  *v10 = *((v8 + 23) & 0xFFFFFFFFFFFFFFF8);
-  v11;
+
+  v9 = ((v7 + 23) & 0xFFFFFFFFFFFFFFF8);
+  v10 = *v9;
+  *v9 = *((v8 + 23) & 0xFFFFFFFFFFFFFFF8);
+  v10;
   return a1;
 }
 
@@ -3821,7 +3646,7 @@ void *Heap._update<A>(_:)(void (*a1)(uint64_t, uint64_t), uint64_t a2, uint64_t 
   return &type metadata for Never;
 }
 
-void (*Heap._UnsafeHandle.subscript.modify(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6))(void (***a1)(void, void))
+uint64_t (*Heap._UnsafeHandle.subscript.modify(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6))()
 {
   v8 = malloc(0x28uLL);
   *a1 = v8;
@@ -3838,7 +3663,7 @@ void Heap._UnsafeHandle.subscript.modify(void (***a1)(void, void))
 
 uint64_t Heap._UnsafeHandle.ptr(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = UnsafeMutableBufferPointer.baseAddress.getter(a3, a4, a5);
+  v6 = UnsafeMutableBufferPointer.baseAddress.getter(a3);
   if (!v6)
   {
     BUG();
@@ -3849,13 +3674,13 @@ uint64_t Heap._UnsafeHandle.ptr(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint
 
 uint64_t Heap._UnsafeHandle.extract(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = UnsafeMutableBufferPointer.baseAddress.getter(a3, a4, a5);
+  v6 = UnsafeMutableBufferPointer.baseAddress.getter(a3);
   if (!v6)
   {
     BUG();
   }
 
-  return UnsafeMutablePointer.move()(*(*(a5 - 8) + 72) * a1 + v6, a5);
+  return UnsafeMutablePointer.move()(*(*(a5 - 8) + 72) * a1 + v6);
 }
 
 uint64_t Heap._UnsafeHandle.initialize(_:to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -3865,7 +3690,7 @@ uint64_t Heap._UnsafeHandle.initialize(_:to:)(uint64_t a1, uint64_t a2, uint64_t
   v8 = *(v7 + 64);
   v9 = alloca(v8);
   v10 = alloca(v8);
-  v11 = UnsafeMutableBufferPointer.baseAddress.getter(a4, a5, a6);
+  v11 = UnsafeMutableBufferPointer.baseAddress.getter(a4);
   if (!v11)
   {
     BUG();
@@ -4079,458 +3904,451 @@ Swift::Int Heap._UnsafeHandle.bubbleUp(_:)(Swift::Int a1, uint64_t a2, uint64_t 
 
 uint64_t Heap._UnsafeHandle.trickleDownMin(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v138 = a6;
+  v135 = a6;
   v6 = a5;
-  v132 = a2;
+  v129 = a2;
   v7 = a1;
   v8 = *(a5 - 8);
   v9 = *(v8 + 64);
   v10 = alloca(v9);
   v11 = alloca(v9);
-  v133 = &v129;
+  v130 = &v126;
   v12 = alloca(v9);
   v13 = alloca(v9);
-  v141 = &v129;
+  v138 = &v126;
   v14 = alloca(v9);
   v15 = alloca(v9);
-  v131 = &v129;
+  v128 = &v126;
   v16 = alloca(v9);
   v17 = alloca(v9);
-  v130 = &v129;
+  v127 = &v126;
   v18 = alloca(v9);
   v19 = alloca(v9);
-  v136 = &v129;
+  v133 = &v126;
   v20 = alloca(v9);
   v21 = alloca(v9);
-  v144 = &v129;
+  v141 = &v126;
   v22 = alloca(v9);
   v23 = alloca(v9);
-  v148 = a3;
-  v25 = UnsafeMutableBufferPointer.baseAddress.getter(a3, a4, a5);
+  v145 = a3;
+  v25 = UnsafeMutableBufferPointer.baseAddress.getter(a3);
   if (!v25)
   {
     BUG();
   }
 
-  v142 = *(v8 + 72);
-  v146 = &v129;
-  UnsafeMutablePointer.move()(a1 * v142 + v25, v6);
+  v139 = *(v8 + 72);
+  v143 = &v126;
+  UnsafeMutablePointer.move()(a1 * v139 + v25);
   v26 = 4 * a1 + 3;
   v27 = v8;
   v28 = 4 * a1 + 6;
-  v134 = a4;
-  v149 = v6;
-  v137 = v27;
+  v131 = a4;
+  v146 = v6;
+  v134 = v27;
   if (v28 < a4)
   {
-    v143 = a1;
-    v147 = *(v27 + 16);
+    v140 = a1;
+    v144 = *(v27 + 16);
     while (1)
     {
-      v139 = v26;
+      v136 = v26;
       v29 = v26 + 1;
-      v30 = v142;
-      v31 = v148;
-      v32 = v148 + v142 * v26;
+      v30 = v139;
+      v31 = v145;
+      v32 = v145 + v139 * v26;
       v33 = v6;
-      v34 = v147;
-      v147(v144, v32, v33);
-      v135 = v29;
+      v34 = v144;
+      v144(v141, v32, v33);
+      v132 = v29;
       v35 = v31 + v30 * v29;
-      v36 = v136;
-      v34(v136, v35, v149);
-      v37 = v144;
-      v38 = dispatch thunk of static Comparable.< infix(_:_:)(v144, v36, v149, v138);
-      v39 = v149;
-      LOBYTE(v145) = v38;
-      v40 = *(v137 + 8);
-      v40(v36, v149);
-      v140 = v40;
+      v36 = v133;
+      v34(v133, v35, v146);
+      v37 = v141;
+      v38 = dispatch thunk of static Comparable.< infix(_:_:)(v141, v36, v146, v135);
+      v39 = v146;
+      LOBYTE(v142) = v38;
+      v40 = *(v134 + 8);
+      v40(v36, v146);
+      v137 = v40;
       v40(v37, v39);
-      v41 = v139;
-      v42 = v139;
-      if ((v145 & 1) == 0)
+      v41 = v136;
+      v42 = v136;
+      if ((v142 & 1) == 0)
       {
-        v42 = v135;
+        v42 = v132;
       }
 
-      v145 = v42;
-      v139 += 2;
-      v43 = v142;
-      v44 = v148;
-      v45 = v144;
+      v142 = v42;
+      v136 += 2;
+      v43 = v139;
+      v44 = v145;
+      v45 = v141;
       v46 = v39;
-      v47 = v147;
-      v147(v144, v148 + v142 * (v41 + 2), v46);
+      v47 = v144;
+      v144(v141, v145 + v139 * (v41 + 2), v46);
       v48 = v44 + v43 * v28;
-      v49 = v136;
-      v47(v136, v48, v149);
-      v50 = dispatch thunk of static Comparable.< infix(_:_:)(v45, v49, v149, v138);
-      v51 = v149;
-      LOBYTE(v135) = v50;
+      v49 = v133;
+      v47(v133, v48, v146);
+      v50 = dispatch thunk of static Comparable.< infix(_:_:)(v45, v49, v146, v135);
+      v51 = v146;
+      LOBYTE(v132) = v50;
       v52 = v49;
-      v53 = v140;
-      v140(v52, v149);
+      v53 = v137;
+      v137(v52, v146);
       v53(v45, v51);
-      if ((v135 & 1) == 0)
+      if ((v132 & 1) == 0)
       {
-        v139 = v28;
+        v136 = v28;
       }
 
-      v54 = v148;
-      v55 = v144;
-      v56 = v147;
-      v147(v144, v148 + v43 * v145, v51);
-      v57 = v54 + v43 * v139;
-      v58 = v136;
-      v56(v136, v57, v51);
-      v59 = dispatch thunk of static Comparable.< infix(_:_:)(v55, v58, v149, v138);
-      v60 = v149;
+      v54 = v145;
+      v55 = v141;
+      v56 = v144;
+      v144(v141, v145 + v43 * v142, v51);
+      v57 = v54 + v43 * v136;
+      v58 = v133;
+      v56(v133, v57, v51);
+      v59 = dispatch thunk of static Comparable.< infix(_:_:)(v55, v58, v146, v135);
+      v60 = v146;
       LOBYTE(v56) = v59;
       v61 = v58;
-      v62 = v145;
-      v63 = v140;
-      v140(v61, v149);
+      v62 = v142;
+      v63 = v137;
+      v137(v61, v146);
       v63(v55, v60);
       if ((v56 & 1) == 0)
       {
-        v62 = v139;
+        v62 = v136;
       }
 
-      v145 = v62;
-      v64 = v142 * v62;
-      v65 = v148;
-      v66 = v144;
-      v147(v144, v148 + v64, v60);
-      v67 = dispatch thunk of static Comparable.< infix(_:_:)(v66, v146, v149, v138);
-      v6 = v149;
+      v142 = v62;
+      v64 = v139 * v62;
+      v65 = v145;
+      v66 = v141;
+      v144(v141, v145 + v64, v60);
+      v67 = dispatch thunk of static Comparable.< infix(_:_:)(v66, v143, v146, v135);
+      v6 = v146;
       v68 = v67;
-      v140(v66, v149);
+      v137(v66, v146);
       if ((v68 & 1) == 0)
       {
         break;
       }
 
-      v70 = v134;
-      v71 = UnsafeMutableBufferPointer.baseAddress.getter(v65, v134, v6);
-      v72 = v143;
-      if (!v71)
+      v70 = UnsafeMutableBufferPointer.baseAddress.getter(v65);
+      v71 = v140;
+      if (!v70)
       {
         BUG();
       }
 
-      v73 = v64 + v71;
-      v74 = v130;
-      UnsafeMutablePointer.move()(v73, v6);
-      v75 = UnsafeMutableBufferPointer.baseAddress.getter(v65, v70, v6);
-      if (!v75)
+      v72 = v64 + v70;
+      v73 = v127;
+      UnsafeMutablePointer.move()(v72);
+      v74 = UnsafeMutableBufferPointer.baseAddress.getter(v65);
+      if (!v74)
       {
         BUG();
       }
 
-      v76 = v65;
-      v77 = v142 * v72 + v75;
-      v78 = v144;
-      v79 = v6;
-      v80 = v147;
-      v147(v144, v74, v79);
-      (*(v137 + 32))(v77, v78, v149);
-      v81 = v74;
-      v82 = v140;
-      v140(v81, v149);
-      v83 = v142 * ((v145 - 1) / 2);
-      v80(v78, v76 + v83, v149);
-      v84 = dispatch thunk of static Comparable.< infix(_:_:)(v78, v146, v149, v138);
-      v6 = v149;
-      LOBYTE(v76) = v84;
-      v82(v78, v149);
-      v85 = v134;
-      if (v76)
+      v75 = v65;
+      v76 = v139 * v71 + v74;
+      v77 = v141;
+      v78 = v6;
+      v79 = v144;
+      v144(v141, v73, v78);
+      (*(v134 + 32))(v76, v77, v146);
+      v80 = v73;
+      v81 = v137;
+      v137(v80, v146);
+      v82 = v139 * ((v142 - 1) / 2);
+      v79(v77, v75 + v82, v146);
+      v83 = dispatch thunk of static Comparable.< infix(_:_:)(v77, v143, v146, v135);
+      v6 = v146;
+      LOBYTE(v75) = v83;
+      v81(v77, v146);
+      v84 = v131;
+      if (v75)
       {
-        v86 = UnsafeMutableBufferPointer.baseAddress.getter(v148, v134, v6);
-        swap<A>(_:_:)(v86 + v83, v146, v6);
+        v85 = UnsafeMutableBufferPointer.baseAddress.getter(v145);
+        swap<A>(_:_:)(v85 + v82, v143, v6);
       }
 
-      v26 = 4 * v145 + 3;
-      v28 = 4 * v145 + 6;
-      v132 += 2;
-      v143 = v145;
-      if (v28 >= v85)
+      v26 = 4 * v142 + 3;
+      v28 = 4 * v142 + 6;
+      v129 += 2;
+      v140 = v142;
+      if (v28 >= v84)
       {
-        v87 = v132;
-        v88 = (v132 + 2);
-        v7 = v145;
+        v86 = v129;
+        v87 = (v129 + 2);
+        v7 = v142;
         goto LABEL_18;
       }
     }
 
-    v109 = v141;
+    v107 = v138;
     goto LABEL_27;
   }
 
-  v87 = v132;
-  v88 = (v132 + 2);
+  v86 = v129;
+  v87 = (v129 + 2);
 LABEL_18:
-  v89 = 2 * v7 + 1;
-  v90 = v134;
-  if (v89 >= v134)
+  v88 = 2 * v7 + 1;
+  if (v88 >= v131)
   {
-    v108 = *(v137 + 16);
-    v65 = v148;
-    v108(v141, v146, v6, v88);
+    v106 = *(v134 + 16);
+    v65 = v145;
+    v106(v138, v143, v6, v87);
     goto LABEL_36;
   }
 
-  v143 = v7;
-  v139 = v26;
-  v91 = v148;
-  v92 = v138;
-  v93 = Heap._UnsafeHandle._minDescendant(c0:gc0:)(v89, (v87 + 1), v26, v88, v148, v134, v6, v138);
-  v94 = v137;
-  v140 = v93;
-  v145 = v142 * v93;
-  v95 = v91 + v142 * v93;
-  v96 = v144;
-  v147 = *(v137 + 16);
-  v147(v144, v95, v6);
-  v97 = dispatch thunk of static Comparable.< infix(_:_:)(v96, v146, v149, v92);
-  v6 = v149;
-  LOBYTE(v92) = v97;
-  v98 = *(v94 + 8);
-  v98(v96, v149);
-  if ((v92 & 1) == 0)
+  v140 = v7;
+  v136 = v26;
+  v89 = v145;
+  v90 = v135;
+  v91 = Heap._UnsafeHandle._minDescendant(c0:gc0:)(v88, (v86 + 1), v26, v87, v145, v131, v6, v135);
+  v92 = v134;
+  v137 = v91;
+  v142 = v139 * v91;
+  v93 = v89 + v139 * v91;
+  v94 = v141;
+  v144 = *(v134 + 16);
+  v144(v141, v93, v6);
+  v95 = dispatch thunk of static Comparable.< infix(_:_:)(v94, v143, v146, v90);
+  v6 = v146;
+  LOBYTE(v90) = v95;
+  v96 = *(v92 + 8);
+  v96(v94, v146);
+  if ((v90 & 1) == 0)
   {
-    v109 = v141;
-    v65 = v148;
+    v107 = v138;
+    v65 = v145;
 LABEL_27:
-    v110 = v146;
-    v7 = v143;
+    v108 = v143;
+    v7 = v140;
     goto LABEL_34;
   }
 
-  v136 = v98;
-  v99 = v148;
-  v100 = UnsafeMutableBufferPointer.baseAddress.getter(v148, v90, v6);
+  v133 = v96;
+  v97 = v145;
+  v98 = UnsafeMutableBufferPointer.baseAddress.getter(v145);
+  if (!v98)
+  {
+    BUG();
+  }
+
+  v99 = v128;
+  UnsafeMutablePointer.move()(v142 + v98);
+  v100 = UnsafeMutableBufferPointer.baseAddress.getter(v97);
+  v101 = v141;
+  v102 = v139;
   if (!v100)
   {
     BUG();
   }
 
-  v101 = v131;
-  UnsafeMutablePointer.move()(v145 + v100, v6);
-  v102 = UnsafeMutableBufferPointer.baseAddress.getter(v99, v90, v6);
-  v103 = v144;
-  v104 = v142;
-  if (!v102)
+  v103 = v139 * v140 + v100;
+  v144(v141, v99, v6);
+  v132 = *(v134 + 32);
+  v132(v103, v101, v6);
+  v104 = v99;
+  v105 = v133;
+  (v133)(v104, v6);
+  if (v137 < v136)
   {
-    BUG();
-  }
-
-  v105 = v142 * v143 + v102;
-  v147(v144, v101, v6);
-  v135 = *(v137 + 32);
-  v135(v105, v103, v6);
-  v106 = v101;
-  v107 = v136;
-  (v136)(v106, v6);
-  if (v140 < v139)
-  {
-    v7 = v140;
+    v7 = v137;
 LABEL_33:
-    v109 = v141;
-    v65 = v148;
-    v110 = v146;
+    v107 = v138;
+    v65 = v145;
+    v108 = v143;
 LABEL_34:
-    v108 = v147;
-    (v147)(v109, v110, v6, v69);
+    v106 = v144;
+    (v144)(v107, v108, v6, v69);
     goto LABEL_36;
   }
 
-  v143 = (v140 - 1) / 2;
-  v111 = v104 * v143;
-  v147(v103, v148 + v104 * v143, v6);
-  v112 = dispatch thunk of static Comparable.< infix(_:_:)(v103, v146, v149, v138);
-  v6 = v149;
-  v113 = v112;
-  (v107)(v103, v149);
-  if ((v113 & 1) == 0)
+  v140 = (v137 - 1) / 2;
+  v109 = v102 * v140;
+  v144(v101, v145 + v102 * v140, v6);
+  v110 = dispatch thunk of static Comparable.< infix(_:_:)(v101, v143, v146, v135);
+  v6 = v146;
+  v111 = v110;
+  (v105)(v101, v146);
+  if ((v111 & 1) == 0)
   {
-    v7 = v140;
+    v7 = v137;
     goto LABEL_33;
   }
 
-  v114 = v148;
-  v115 = v134;
-  v116 = UnsafeMutableBufferPointer.baseAddress.getter(v148, v134, v6);
-  if (!v116)
+  v112 = v145;
+  v113 = UnsafeMutableBufferPointer.baseAddress.getter(v145);
+  if (!v113)
   {
     BUG();
   }
 
-  UnsafeMutablePointer.move()(v111 + v116, v6);
-  v117 = UnsafeMutableBufferPointer.baseAddress.getter(v114, v115, v6);
+  UnsafeMutablePointer.move()(v109 + v113);
+  v114 = UnsafeMutableBufferPointer.baseAddress.getter(v112);
+  if (!v114)
+  {
+    BUG();
+  }
+
+  v65 = v112;
+  v115 = v142 + v114;
+  v106 = v144;
+  v144(v101, v130, v6);
+  v132(v115, v101, v6);
+  (v133)(v130, v6);
+  v7 = v140;
+  v106(v138, v143, v6, v116);
+LABEL_36:
+  v117 = UnsafeMutableBufferPointer.baseAddress.getter(v65);
   if (!v117)
   {
     BUG();
   }
 
-  v65 = v114;
-  v118 = v145 + v117;
-  v108 = v147;
-  v147(v103, v133, v6);
-  v135(v118, v103, v6);
-  (v136)(v133, v6);
-  v7 = v143;
-  v108(v141, v146, v6, v119);
-LABEL_36:
-  v120 = UnsafeMutableBufferPointer.baseAddress.getter(v65, v134, v6);
-  if (!v120)
-  {
-    BUG();
-  }
-
-  v121 = v120;
-  v122 = v108;
-  v123 = v142 * v7 + v121;
-  v124 = v144;
-  v125 = v141;
-  v122(v144, v141, v6);
-  v126 = v137;
-  (*(v137 + 32))(v123, v124, v6);
-  v127 = *(v126 + 8);
-  v127(v125, v6);
-  return (v127)(v146, v6);
+  v118 = v117;
+  v119 = v106;
+  v120 = v139 * v7 + v118;
+  v121 = v141;
+  v122 = v138;
+  v119(v141, v138, v6);
+  v123 = v134;
+  (*(v134 + 32))(v120, v121, v6);
+  v124 = *(v123 + 8);
+  v124(v122, v6);
+  return (v124)(v143, v6);
 }
 
-uint64_t Heap._UnsafeHandle._trickleDownMin(node:value:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t *Heap._UnsafeHandle._trickleDownMin(node:value:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v129 = a6;
+  v124 = a6;
   v6 = a5;
-  v130 = a3;
-  v126 = a2;
+  v125 = a3;
+  v121 = a2;
   v8 = *(a5 - 8);
   v9 = v8[8];
   v10 = alloca(v9);
   v11 = alloca(v9);
-  v121 = &v118;
+  v116 = &v113;
   v12 = alloca(v9);
   v13 = alloca(v9);
-  v120 = &v118;
+  v115 = &v113;
   v14 = alloca(v9);
   v15 = alloca(v9);
-  v16 = &v118;
+  v16 = &v113;
   v17 = alloca(v9);
   v18 = alloca(v9);
-  v125 = &v118;
+  v120 = &v113;
   v19 = alloca(v9);
   v20 = alloca(v9);
-  v137 = &v118;
+  v132 = &v113;
   v21 = *a1;
-  v124 = a1;
+  v119 = a1;
   result = a1[1];
   v23 = 4 * v21 + 3;
   v24 = 4 * v21 + 6;
-  v127 = a4;
-  v138 = v6;
-  v128 = v8;
-  v133 = result;
+  v122 = a4;
+  v133 = v6;
+  v123 = v8;
+  v128 = result;
   if (v24 >= a4)
   {
-    v80 = (result + 2);
+    v79 = result + 2;
 LABEL_17:
-    v122 = v21;
-    v81 = 2 * v21 + 1;
-    v82 = v130;
-    if (v81 < a4)
+    v117 = v21;
+    v80 = 2 * v21 + 1;
+    v81 = v125;
+    if (v80 < a4)
     {
-      v83 = v129;
-      v84 = Heap._UnsafeHandle._minDescendant(c0:gc0:)(v81, v133 + 1, v23, v80, v130, v127, v6, v129);
-      v131 = v85;
-      v86 = v6;
-      v87 = v128;
-      v88 = v128[2];
-      v89 = v128[9];
-      v125 = v84;
-      v132 = v89;
-      v134 = v89 * v84;
-      v135 = v23;
-      v90 = v137;
-      v136 = v88;
-      v88(v137, (v82 + v89 * v84), v86);
-      v91 = dispatch thunk of static Comparable.< infix(_:_:)(v90, v126, v138, v83);
-      v92 = v138;
-      LOBYTE(v83) = v91;
-      v93 = v90;
-      v94 = v87[1];
-      result = (v94)(v93, v138);
-      if (v83)
+      v82 = v124;
+      v83 = Heap._UnsafeHandle._minDescendant(c0:gc0:)(v80, (v128 + 1), v23, v79, v125, v122, v6, v124);
+      v126 = v84;
+      v85 = v6;
+      v86 = v123;
+      v87 = v123[2];
+      v88 = v123[9];
+      v120 = v83;
+      v127 = v88;
+      v129 = v88 * v83;
+      v130 = v23;
+      v89 = v132;
+      v131 = v87;
+      v87(v132, (v81 + v88 * v83), v85);
+      v90 = dispatch thunk of static Comparable.< infix(_:_:)(v89, v121, v133, v82);
+      v91 = v133;
+      LOBYTE(v82) = v90;
+      v92 = v89;
+      v93 = v86[1];
+      result = v93(v92, v133);
+      if (v82)
       {
-        v95 = v127;
-        v96 = UnsafeMutableBufferPointer.baseAddress.getter(v82, v127, v92);
+        v94 = UnsafeMutableBufferPointer.baseAddress.getter(v81);
+        if (!v94)
+        {
+          BUG();
+        }
+
+        v128 = v93;
+        v95 = v115;
+        UnsafeMutablePointer.move()(v129 + v94);
+        v96 = UnsafeMutableBufferPointer.baseAddress.getter(v81);
         if (!v96)
         {
           BUG();
         }
 
-        v133 = v94;
-        v97 = v120;
-        UnsafeMutablePointer.move()(v134 + v96, v92);
-        v98 = UnsafeMutableBufferPointer.baseAddress.getter(v82, v95, v92);
-        if (!v98)
-        {
-          BUG();
-        }
-
+        v97 = v127;
+        v98 = v127 * v117 + v96;
         v99 = v132;
-        v100 = v132 * v122 + v98;
-        v101 = v137;
-        v136(v137, v97, v92);
-        v128 = v128[4];
-        (v128)(v100, v101, v92);
-        (v133)(v97, v92);
-        v102 = v124;
-        result = v125;
-        *v124 = v125;
-        v102[1] = v131;
-        v103 = v130;
-        if (result >= v135)
+        v131(v132, v95, v91);
+        v123 = v123[4];
+        (v123)(v98, v99, v91);
+        (v128)(v95, v91);
+        v100 = v119;
+        result = v120;
+        *v119 = v120;
+        v100[1] = v126;
+        v101 = v125;
+        if (result >= v130)
         {
-          v135 = (result - 1) / 2;
-          v104 = v135 * v99;
-          v105 = v137;
-          v136(v137, (v130 + v104), v92);
-          v106 = dispatch thunk of static Comparable.< infix(_:_:)(v105, v126, v138, v129);
-          v107 = v138;
-          v108 = v106;
-          result = (v133)(v105, v138);
-          if (v108)
+          v130 = (result - 1) / 2;
+          v102 = v130 * v97;
+          v103 = v132;
+          v131(v132, (v125 + v102), v91);
+          v104 = dispatch thunk of static Comparable.< infix(_:_:)(v103, v121, v133, v124);
+          v105 = v133;
+          v106 = v104;
+          result = (v128)(v103, v133);
+          if (v106)
           {
-            v109 = v104;
-            v110 = v127;
-            v111 = UnsafeMutableBufferPointer.baseAddress.getter(v103, v127, v107);
-            if (!v111)
+            v107 = UnsafeMutableBufferPointer.baseAddress.getter(v101);
+            if (!v107)
             {
               BUG();
             }
 
-            v112 = v109 + v111;
-            v113 = v121;
-            UnsafeMutablePointer.move()(v112, v107);
-            v114 = UnsafeMutableBufferPointer.baseAddress.getter(v103, v110, v107);
-            if (!v114)
+            v108 = v116;
+            UnsafeMutablePointer.move()(v102 + v107);
+            v109 = UnsafeMutableBufferPointer.baseAddress.getter(v101);
+            if (!v109)
             {
               BUG();
             }
 
-            v115 = v131 - 1;
-            v116 = v134 + v114;
-            v117 = v137;
-            v136(v137, v113, v107);
-            (v128)(v116, v117, v107);
-            (v133)(v113, v107);
-            result = v124;
-            *v124 = v135;
-            *(result + 8) = v115;
+            v110 = v126 - 1;
+            v111 = v129 + v109;
+            v112 = v132;
+            v131(v132, v108, v105);
+            (v123)(v111, v112, v105);
+            (v128)(v108, v105);
+            result = v119;
+            *v119 = v130;
+            result[1] = v110;
           }
         }
       }
@@ -4539,145 +4357,144 @@ LABEL_17:
 
   else
   {
-    v119 = &v118;
-    v136 = v8[2];
-    v134 = v8[9];
+    v114 = &v113;
+    v131 = v8[2];
+    v129 = v8[9];
     while (1)
     {
-      v135 = v23;
-      v122 = v21;
+      v130 = v23;
+      v117 = v21;
       v25 = v23 + 1;
-      v26 = v134;
-      v27 = v23 * v134;
-      v28 = v130;
+      v26 = v129;
+      v27 = v23 * v129;
+      v28 = v125;
       v29 = v6;
-      v30 = v136;
-      (v136)(v137, v130 + v27, v29, v9, v16);
-      v123 = v25;
+      v30 = v131;
+      (v131)(v132, v125 + v27, v29, v9, v16);
+      v118 = v25;
       v31 = v28 + v25 * v26;
-      v32 = v125;
-      v30(v125, v31, v138);
-      v33 = v137;
-      v34 = dispatch thunk of static Comparable.< infix(_:_:)(v137, v32, v138, v129);
-      v35 = v138;
-      LOBYTE(v132) = v34;
-      v36 = v128[1];
+      v32 = v120;
+      v30(v120, v31, v133);
+      v33 = v132;
+      v34 = dispatch thunk of static Comparable.< infix(_:_:)(v132, v32, v133, v124);
+      v35 = v133;
+      LOBYTE(v127) = v34;
+      v36 = v123[1];
       v37 = v32;
-      v38 = v135;
-      v36(v37, v138);
-      v131 = v36;
+      v38 = v130;
+      v36(v37, v133);
+      v126 = v36;
       v36(v33, v35);
       v39 = v38;
-      if ((v132 & 1) == 0)
+      if ((v127 & 1) == 0)
       {
-        v39 = v123;
+        v39 = v118;
       }
 
-      v132 = v39;
-      v135 = v38 + 2;
-      v40 = v134;
-      v41 = (v38 + 2) * v134;
-      v42 = v130;
-      v43 = v136;
-      v136(v137, (v130 + v41), v35);
+      v127 = v39;
+      v130 = v38 + 2;
+      v40 = v129;
+      v41 = (v38 + 2) * v129;
+      v42 = v125;
+      v43 = v131;
+      v131(v132, (v125 + v41), v35);
       v44 = v42 + v24 * v40;
-      v45 = v125;
-      v43(v125, v44, v35);
-      v46 = v137;
-      v47 = dispatch thunk of static Comparable.< infix(_:_:)(v137, v45, v138, v129);
-      v48 = v138;
+      v45 = v120;
+      v43(v120, v44, v35);
+      v46 = v132;
+      v47 = dispatch thunk of static Comparable.< infix(_:_:)(v132, v45, v133, v124);
+      v48 = v133;
       LOBYTE(v43) = v47;
       v49 = v45;
-      v50 = v131;
-      (v131)(v49, v138);
+      v50 = v126;
+      (v126)(v49, v133);
       v50(v46, v48);
       if ((v43 & 1) == 0)
       {
-        v135 = v24;
+        v130 = v24;
       }
 
-      v51 = v134;
-      v52 = v130;
-      v53 = v137;
-      v54 = v136;
-      v136(v137, (v130 + v134 * v132), v48);
-      v55 = v52 + v51 * v135;
-      v56 = v125;
-      v54(v125, v55, v48);
-      v57 = dispatch thunk of static Comparable.< infix(_:_:)(v53, v56, v138, v129);
-      v58 = v138;
-      LOBYTE(v123) = v57;
+      v51 = v129;
+      v52 = v125;
+      v53 = v132;
+      v54 = v131;
+      v131(v132, (v125 + v129 * v127), v48);
+      v55 = v52 + v51 * v130;
+      v56 = v120;
+      v54(v120, v55, v48);
+      v57 = dispatch thunk of static Comparable.< infix(_:_:)(v53, v56, v133, v124);
+      v58 = v133;
+      LOBYTE(v118) = v57;
       v59 = v56;
-      v60 = v132;
-      v61 = v131;
-      (v131)(v59, v138);
+      v60 = v127;
+      v61 = v126;
+      (v126)(v59, v133);
       v61(v53, v58);
-      if ((v123 & 1) == 0)
+      if ((v118 & 1) == 0)
       {
-        v60 = v135;
+        v60 = v130;
       }
 
-      v132 = v60;
-      v62 = v134 * v60;
-      v63 = v137;
-      v136(v137, (v52 + v62), v58);
-      v64 = dispatch thunk of static Comparable.< infix(_:_:)(v63, v126, v138, v129);
-      v65 = v138;
+      v127 = v60;
+      v62 = v129 * v60;
+      v63 = v132;
+      v131(v132, (v52 + v62), v58);
+      v64 = dispatch thunk of static Comparable.< infix(_:_:)(v63, v121, v133, v124);
+      v65 = v133;
       v66 = v64;
-      result = (v131)(v63, v138);
+      result = (v126)(v63, v133);
       if ((v66 & 1) == 0)
       {
         break;
       }
 
-      v67 = v127;
-      v68 = UnsafeMutableBufferPointer.baseAddress.getter(v52, v127, v65);
-      if (!v68)
+      v67 = UnsafeMutableBufferPointer.baseAddress.getter(v52);
+      if (!v67)
       {
         BUG();
       }
 
-      v69 = v62 + v68;
-      v70 = v119;
-      UnsafeMutablePointer.move()(v69, v65);
-      v71 = UnsafeMutableBufferPointer.baseAddress.getter(v52, v67, v65);
-      if (!v71)
+      v68 = v62 + v67;
+      v69 = v114;
+      UnsafeMutablePointer.move()(v68);
+      v70 = UnsafeMutableBufferPointer.baseAddress.getter(v52);
+      if (!v70)
       {
         BUG();
       }
 
-      v72 = (v133 + 2);
-      v73 = v134 * v122 + v71;
-      v74 = v137;
-      v136(v137, v70, v65);
-      (v128[4])(v73, v74, v65);
-      (v131)(v70, v65);
-      v75 = v124;
-      v76 = v132;
-      *v124 = v132;
-      v133 = v72;
-      v75[1] = v72;
-      v77 = v134 * ((v76 - 1) / 2);
-      v136(v74, (v130 + v77), v65);
-      LOBYTE(v72) = dispatch thunk of static Comparable.< infix(_:_:)(v74, v126, v65, v129);
-      (v131)(v74, v65);
-      v78 = (v72 & 1) == 0;
+      v71 = v128 + 2;
+      v72 = v129 * v117 + v70;
+      v73 = v132;
+      v131(v132, v69, v65);
+      (v123[4])(v72, v73, v65);
+      (v126)(v69, v65);
+      v74 = v119;
+      v75 = v127;
+      *v119 = v127;
+      v128 = v71;
+      v74[1] = v71;
+      v76 = v129 * ((v75 - 1) / 2);
+      v131(v73, (v125 + v76), v65);
+      LOBYTE(v71) = dispatch thunk of static Comparable.< infix(_:_:)(v73, v121, v65, v124);
+      (v126)(v73, v65);
+      v77 = (v71 & 1) == 0;
       v6 = v65;
-      a4 = v127;
-      if (!v78)
+      a4 = v122;
+      if (!v77)
       {
-        v79 = UnsafeMutableBufferPointer.baseAddress.getter(v130, v127, v6);
-        swap<A>(_:_:)(v79 + v77, v126, v6);
+        v78 = UnsafeMutableBufferPointer.baseAddress.getter(v125);
+        swap<A>(_:_:)(v78 + v76, v121, v6);
       }
 
-      v23 = 4 * v76 + 3;
-      v24 = 4 * v76 + 6;
-      v21 = v76;
+      v23 = 4 * v75 + 3;
+      v24 = 4 * v75 + 6;
+      v21 = v75;
       if (v24 >= a4)
       {
-        result = v133;
-        v80 = v133 + 2;
-        v21 = v76;
+        result = v128;
+        v79 = (v128 + 2);
+        v21 = v75;
         goto LABEL_17;
       }
     }
@@ -4705,7 +4522,7 @@ char *Heap._UnsafeHandle._minDescendant(c0:gc0:)(uint64_t a1, char *a2, uint64_t
       v62 = &v55;
       v63 = a2;
       v60 = a5;
-      v33(&v55, a5 + a1 * v34);
+      v33(&v55, a5 + a1 * v34, a7, a4);
       (v33)(&v55, v60 + (a1 + 1) * v34, a7);
       v35 = v62;
       LOBYTE(v33) = dispatch thunk of static Comparable.< infix(_:_:)(v62, &v55, a7, a8);
@@ -4735,7 +4552,7 @@ char *Heap._UnsafeHandle._minDescendant(c0:gc0:)(uint64_t a1, char *a2, uint64_t
       v63 = a2;
       v61 = a3;
       v38 = v17;
-      v17(&v55, a5 + (a1 + 1) * v18);
+      (v17)(&v55, a5 + (a1 + 1) * v18);
       v56 = v18;
       v39 = a5 + v61 * v18;
       v40 = v61;
@@ -4754,7 +4571,7 @@ char *Heap._UnsafeHandle._minDescendant(c0:gc0:)(uint64_t a1, char *a2, uint64_t
         v44 = v58;
       }
 
-      v45 = (v40 + 1);
+      v45 = v40 + 1;
       if (v45 < a6)
       {
         v46 = v56;
@@ -4786,7 +4603,7 @@ char *Heap._UnsafeHandle._minDescendant(c0:gc0:)(uint64_t a1, char *a2, uint64_t
       v64 = a3 + 1;
       v20 = v17;
       v63 = (a3 + 2);
-      v17(&v55, a5 + a3 * v18);
+      (v17)(&v55, a5 + a3 * v18);
       v21 = a5 + v64 * v18;
       v22 = v59;
       v20(v59, v21, a7);
@@ -4828,455 +4645,450 @@ char *Heap._UnsafeHandle._minDescendant(c0:gc0:)(uint64_t a1, char *a2, uint64_t
 
 uint64_t Heap._UnsafeHandle.trickleDownMax(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v133 = a6;
+  v130 = a6;
   v6 = a5;
-  v128 = a2;
+  v125 = a2;
   v7 = *(a5 - 8);
   v8 = *(v7 + 64);
   v9 = alloca(v8);
   v10 = alloca(v8);
-  v129 = &v124;
+  v126 = &v121;
   v11 = alloca(v8);
   v12 = alloca(v8);
-  v132 = &v124;
+  v129 = &v121;
   v13 = alloca(v8);
   v14 = alloca(v8);
-  v126 = &v124;
+  v123 = &v121;
   v15 = alloca(v8);
   v16 = alloca(v8);
-  v125 = &v124;
+  v122 = &v121;
   v17 = alloca(v8);
   v18 = alloca(v8);
-  v131 = &v124;
+  v128 = &v121;
   v19 = alloca(v8);
   v20 = alloca(v8);
-  v140 = &v124;
+  v137 = &v121;
   v21 = alloca(v8);
   v22 = alloca(v8);
-  v142 = a3;
-  v136 = a4;
-  v23 = UnsafeMutableBufferPointer.baseAddress.getter(a3, a4, a5);
+  v139 = a3;
+  v133 = a4;
+  v23 = UnsafeMutableBufferPointer.baseAddress.getter(a3);
   if (!v23)
   {
     BUG();
   }
 
   v24 = *(v7 + 72);
-  v135 = &v124;
-  UnsafeMutablePointer.move()(a1 * v24 + v23, v6);
+  v132 = &v121;
+  UnsafeMutablePointer.move()(a1 * v24 + v23);
   v25 = 4 * a1 + 3;
   v26 = 4 * a1 + 6;
-  v139 = v7;
-  v143 = v24;
+  v136 = v7;
+  v140 = v24;
   v27 = a1;
-  v144 = v6;
-  if (v26 < v136)
+  v141 = v6;
+  if (v26 < v133)
   {
-    v141 = *(v7 + 16);
-    v28 = v140;
+    v138 = *(v7 + 16);
+    v28 = v137;
     while (1)
     {
-      v138 = v25;
-      v137 = v27;
+      v135 = v25;
+      v134 = v27;
       v29 = v25 + 1;
-      v30 = v142;
-      v31 = v142 + v24 * v25;
+      v30 = v139;
+      v31 = v139 + v24 * v25;
       v32 = v6;
-      v33 = v141;
-      v141(v28, v31, v32);
-      v130 = v29;
+      v33 = v138;
+      v138(v28, v31, v32);
+      v127 = v29;
       v34 = v30 + v24 * v29;
-      v35 = v131;
-      v33(v131, v34, v144);
-      v36 = v140;
-      v37 = dispatch thunk of static Comparable.< infix(_:_:)(v140, v35, v144, v133);
-      v38 = v144;
-      LOBYTE(v127) = v37;
-      v39 = *(v139 + 8);
-      v39(v35, v144);
-      v134 = v39;
+      v35 = v128;
+      v33(v128, v34, v141);
+      v36 = v137;
+      v37 = dispatch thunk of static Comparable.< infix(_:_:)(v137, v35, v141, v130);
+      v38 = v141;
+      LOBYTE(v124) = v37;
+      v39 = *(v136 + 8);
+      v39(v35, v141);
+      v131 = v39;
       v39(v36, v38);
-      v40 = v138;
-      if ((v127 & 1) == 0)
+      v40 = v135;
+      if ((v124 & 1) == 0)
       {
-        v130 = v138;
+        v127 = v135;
       }
 
-      v138 += 2;
-      v41 = v143;
-      v42 = v142;
-      v43 = v140;
+      v135 += 2;
+      v41 = v140;
+      v42 = v139;
+      v43 = v137;
       v44 = v38;
-      v45 = v141;
-      v141(v140, v142 + v143 * (v40 + 2), v44);
+      v45 = v138;
+      v138(v137, v139 + v140 * (v40 + 2), v44);
       v46 = v42 + v41 * v26;
-      v47 = v131;
-      v45(v131, v46, v144);
-      v48 = dispatch thunk of static Comparable.< infix(_:_:)(v43, v47, v144, v133);
-      v49 = v144;
+      v47 = v128;
+      v45(v128, v46, v141);
+      v48 = dispatch thunk of static Comparable.< infix(_:_:)(v43, v47, v141, v130);
+      v49 = v141;
       LOBYTE(v41) = v48;
       v50 = v47;
-      v51 = v134;
-      (v134)(v50, v144);
+      v51 = v131;
+      (v131)(v50, v141);
       v51(v43, v49);
       if ((v41 & 1) == 0)
       {
-        v26 = v138;
+        v26 = v135;
       }
 
-      v52 = v143;
-      v53 = v142;
-      v54 = v140;
+      v52 = v140;
+      v53 = v139;
+      v54 = v137;
       v55 = v49;
-      v56 = v141;
-      v141(v140, v142 + v143 * v130, v55);
+      v56 = v138;
+      v138(v137, v139 + v140 * v127, v55);
       v57 = v53 + v52 * v26;
-      v58 = v131;
-      v56(v131, v57, v144);
-      v59 = dispatch thunk of static Comparable.< infix(_:_:)(v54, v58, v144, v133);
-      v60 = v144;
+      v58 = v128;
+      v56(v128, v57, v141);
+      v59 = dispatch thunk of static Comparable.< infix(_:_:)(v54, v58, v141, v130);
+      v60 = v141;
       LOBYTE(v52) = v59;
       v61 = v58;
-      v62 = v134;
-      (v134)(v61, v144);
+      v62 = v131;
+      (v131)(v61, v141);
       v62(v54, v60);
       v63 = v26;
       if ((v52 & 1) == 0)
       {
-        v63 = v130;
+        v63 = v127;
       }
 
-      v64 = v143 * v63;
-      v65 = v140;
-      v141(v140, v142 + v143 * v63, v60);
-      v66 = dispatch thunk of static Comparable.< infix(_:_:)(v135, v65, v144, v133);
-      v6 = v144;
+      v64 = v140 * v63;
+      v65 = v137;
+      v138(v137, v139 + v140 * v63, v60);
+      v66 = dispatch thunk of static Comparable.< infix(_:_:)(v132, v65, v141, v130);
+      v6 = v141;
       v67 = v66;
-      (v134)(v65, v144);
+      (v131)(v65, v141);
       if ((v67 & 1) == 0)
       {
         goto LABEL_30;
       }
 
-      v138 = v63;
-      v68 = v136;
-      v69 = UnsafeMutableBufferPointer.baseAddress.getter(v142, v136, v6);
-      if (!v69)
+      v135 = v63;
+      v68 = UnsafeMutableBufferPointer.baseAddress.getter(v139);
+      if (!v68)
       {
         BUG();
       }
 
-      v70 = v125;
-      UnsafeMutablePointer.move()(v64 + v69, v6);
-      v71 = UnsafeMutableBufferPointer.baseAddress.getter(v142, v68, v6);
-      if (!v71)
+      v69 = v122;
+      UnsafeMutablePointer.move()(v64 + v68);
+      v70 = UnsafeMutableBufferPointer.baseAddress.getter(v139);
+      if (!v70)
       {
         BUG();
       }
 
-      v72 = v143 * v137 + v71;
-      v73 = v140;
-      v74 = v141;
-      v141(v140, v70, v6);
-      (*(v139 + 32))(v72, v73, v144);
-      v75 = v70;
-      v76 = v134;
-      (v134)(v75, v144);
-      v77 = v143 * ((v138 - 1) / 2);
-      v74(v73, v142 + v77, v144);
-      v78 = dispatch thunk of static Comparable.< infix(_:_:)(v135, v73, v144, v133);
-      v6 = v144;
-      LOBYTE(v74) = v78;
-      v76(v73, v144);
-      v79 = v136;
-      if (v74)
+      v71 = v140 * v134 + v70;
+      v72 = v137;
+      v73 = v138;
+      v138(v137, v69, v6);
+      (*(v136 + 32))(v71, v72, v141);
+      v74 = v69;
+      v75 = v131;
+      (v131)(v74, v141);
+      v76 = v140 * ((v135 - 1) / 2);
+      v73(v72, v139 + v76, v141);
+      v77 = dispatch thunk of static Comparable.< infix(_:_:)(v132, v72, v141, v130);
+      v6 = v141;
+      LOBYTE(v73) = v77;
+      v75(v72, v141);
+      v78 = v133;
+      if (v73)
       {
-        v80 = UnsafeMutableBufferPointer.baseAddress.getter(v142, v136, v6);
-        swap<A>(_:_:)(v80 + v77, v135, v6);
+        v79 = UnsafeMutableBufferPointer.baseAddress.getter(v139);
+        swap<A>(_:_:)(v79 + v76, v132, v6);
       }
 
-      v25 = 4 * v138 + 3;
-      v26 = 4 * v138 + 6;
-      v128 += 2;
-      v27 = v138;
-      v28 = v140;
-      v24 = v143;
-      if (v26 >= v79)
+      v25 = 4 * v135 + 3;
+      v26 = 4 * v135 + 6;
+      v125 += 2;
+      v27 = v135;
+      v28 = v137;
+      v24 = v140;
+      if (v26 >= v78)
       {
-        v81 = v128;
-        v82 = (v128 + 2);
-        v27 = v138;
-        v7 = v139;
+        v80 = v125;
+        v81 = (v125 + 2);
+        v27 = v135;
+        v7 = v136;
         goto LABEL_18;
       }
     }
   }
 
-  v81 = v128;
-  v82 = (v128 + 2);
-  v28 = v140;
+  v80 = v125;
+  v81 = (v125 + 2);
+  v28 = v137;
 LABEL_18:
-  v137 = v27;
-  v83 = 2 * v27 + 1;
-  if (v83 >= v136)
+  v134 = v27;
+  v82 = 2 * v27 + 1;
+  if (v82 >= v133)
   {
-    v104 = *(v7 + 16);
-    v103 = v143;
-    v102 = v132;
+    v102 = *(v7 + 16);
+    v101 = v140;
+    v100 = v129;
     goto LABEL_31;
   }
 
-  v138 = v25;
-  v84 = v142;
-  v85 = v28;
-  v86 = v133;
-  v131 = Heap._UnsafeHandle._maxDescendant(c0:gc0:)(v83, (v81 + 1), v25, v82, v142, v136, v6, v133);
-  v134 = v143 * v131;
-  v141 = *(v7 + 16);
-  v141(v85, v84 + v143 * v131, v6);
-  v87 = dispatch thunk of static Comparable.< infix(_:_:)(v135, v85, v144, v86);
-  v6 = v144;
-  v88 = v85;
-  LOBYTE(v85) = v87;
-  v89 = *(v7 + 8);
-  v89(v88, v144);
-  if ((v85 & 1) == 0)
+  v135 = v25;
+  v83 = v139;
+  v84 = v28;
+  v85 = v130;
+  v128 = Heap._UnsafeHandle._maxDescendant(c0:gc0:)(v82, (v80 + 1), v25, v81, v139, v133, v6, v130);
+  v131 = v140 * v128;
+  v138 = *(v7 + 16);
+  v138(v84, v83 + v140 * v128, v6);
+  v86 = dispatch thunk of static Comparable.< infix(_:_:)(v132, v84, v141, v85);
+  v6 = v141;
+  v87 = v84;
+  LOBYTE(v84) = v86;
+  v88 = *(v7 + 8);
+  v88(v87, v141);
+  if ((v84 & 1) == 0)
   {
     goto LABEL_30;
   }
 
-  v130 = v89;
-  v90 = v142;
-  v91 = v136;
-  v92 = UnsafeMutableBufferPointer.baseAddress.getter(v142, v136, v6);
+  v127 = v88;
+  v89 = v139;
+  v90 = UnsafeMutableBufferPointer.baseAddress.getter(v139);
+  if (!v90)
+  {
+    BUG();
+  }
+
+  v91 = v123;
+  UnsafeMutablePointer.move()(v131 + v90);
+  v92 = UnsafeMutableBufferPointer.baseAddress.getter(v89);
   if (!v92)
   {
     BUG();
   }
 
-  v93 = v126;
-  UnsafeMutablePointer.move()(v134 + v92, v6);
-  v94 = UnsafeMutableBufferPointer.baseAddress.getter(v90, v91, v6);
-  if (!v94)
+  v93 = v140 * v134 + v92;
+  v94 = v137;
+  v95 = v138;
+  v138(v137, v91, v6);
+  v96 = v93;
+  v97 = v94;
+  v124 = *(v136 + 32);
+  v124(v96, v94, v6);
+  v98 = v91;
+  v99 = v127;
+  (v127)(v98, v6);
+  if (v128 < v135)
   {
-    BUG();
-  }
-
-  v95 = v143 * v137 + v94;
-  v96 = v140;
-  v97 = v141;
-  v141(v140, v93, v6);
-  v98 = v95;
-  v99 = v96;
-  v127 = *(v139 + 32);
-  v127(v98, v96, v6);
-  v100 = v93;
-  v101 = v130;
-  (v130)(v100, v6);
-  if (v131 < v138)
-  {
-    v137 = v131;
-    v7 = v139;
-    v102 = v132;
-    v103 = v143;
-    v104 = v97;
+    v134 = v128;
+    v7 = v136;
+    v100 = v129;
+    v101 = v140;
+    v102 = v95;
     goto LABEL_31;
   }
 
-  v137 = (v131 - 1) / 2;
-  v105 = v143 * v137;
-  v97(v99, v142 + v143 * v137, v6);
-  v106 = dispatch thunk of static Comparable.< infix(_:_:)(v135, v99, v144, v133);
-  v6 = v144;
-  v107 = v99;
-  v108 = v106;
-  v101(v107, v144);
-  if ((v108 & 1) == 0)
+  v134 = (v128 - 1) / 2;
+  v103 = v140 * v134;
+  v95(v97, (v139 + v140 * v134), v6);
+  v104 = dispatch thunk of static Comparable.< infix(_:_:)(v132, v97, v141, v130);
+  v6 = v141;
+  v105 = v97;
+  v106 = v104;
+  v99(v105, v141);
+  if ((v106 & 1) == 0)
   {
-    v137 = v131;
+    v134 = v128;
 LABEL_30:
-    v7 = v139;
-    v102 = v132;
-    v103 = v143;
-    v104 = v141;
+    v7 = v136;
+    v100 = v129;
+    v101 = v140;
+    v102 = v138;
     goto LABEL_31;
   }
 
-  v109 = v142;
-  v110 = v136;
-  v111 = UnsafeMutableBufferPointer.baseAddress.getter(v142, v136, v6);
-  if (!v111)
+  v107 = v139;
+  v108 = UnsafeMutableBufferPointer.baseAddress.getter(v139);
+  if (!v108)
   {
     BUG();
   }
 
-  UnsafeMutablePointer.move()(v105 + v111, v6);
-  v112 = UnsafeMutableBufferPointer.baseAddress.getter(v109, v110, v6);
-  if (!v112)
+  UnsafeMutablePointer.move()(v103 + v108);
+  v109 = UnsafeMutableBufferPointer.baseAddress.getter(v107);
+  if (!v109)
   {
     BUG();
   }
 
-  v113 = (v134 + v112);
-  v114 = v140;
-  v115 = v141;
-  v141(v140, v129, v6);
-  v116 = v113;
-  v104 = v115;
-  v127(v116, v114, v6);
-  v101(v129, v6);
-  v7 = v139;
-  v102 = v132;
-  v103 = v143;
+  v110 = (v131 + v109);
+  v111 = v137;
+  v112 = v138;
+  v138(v137, v126, v6);
+  v113 = v110;
+  v102 = v112;
+  v124(v113, v111, v6);
+  v99(v126, v6);
+  v7 = v136;
+  v100 = v129;
+  v101 = v140;
 LABEL_31:
-  v117 = v102;
-  v104(v102, v135, v6);
-  v118 = UnsafeMutableBufferPointer.baseAddress.getter(v142, v136, v6);
-  if (!v118)
+  v114 = v100;
+  v102(v100, v132, v6);
+  v115 = UnsafeMutableBufferPointer.baseAddress.getter(v139);
+  if (!v115)
   {
     BUG();
   }
 
-  v119 = v104;
-  v120 = v103 * v137 + v118;
-  v121 = v140;
-  v119(v140, v117, v6);
-  (*(v7 + 32))(v120, v121, v6);
-  v122 = *(v7 + 8);
-  v122(v117, v6);
-  return (v122)(v135, v6);
+  v116 = v102;
+  v117 = v101 * v134 + v115;
+  v118 = v137;
+  v116(v137, v114, v6);
+  (*(v7 + 32))(v117, v118, v6);
+  v119 = *(v7 + 8);
+  v119(v114, v6);
+  return (v119)(v132, v6);
 }
 
 uint64_t Heap._UnsafeHandle._trickleDownMax(node:value:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v128 = a6;
+  v125 = a6;
   v6 = a5;
-  v135 = a3;
-  v125 = a2;
+  v132 = a3;
+  v122 = a2;
   v8 = *(a5 - 8);
   v9 = v8[8];
   v10 = alloca(v9);
   v11 = alloca(v9);
-  v119 = &v116;
+  v116 = &v113;
   v12 = alloca(v9);
   v13 = alloca(v9);
-  v118 = &v116;
+  v115 = &v113;
   v14 = alloca(v9);
   v15 = alloca(v9);
   v16 = alloca(v9);
   v17 = alloca(v9);
-  v127 = &v116;
+  v124 = &v113;
   v18 = alloca(v9);
   v19 = alloca(v9);
-  v133 = &v116;
+  v130 = &v113;
   result = *a1;
-  v121 = a1;
+  v118 = a1;
   v21 = a1[1];
   v22 = 4 * result + 3;
   v23 = 4 * result + 6;
-  v126 = a4;
-  v122 = v8;
-  v136 = v6;
+  v123 = a4;
+  v119 = v8;
+  v133 = v6;
   if (v23 >= a4)
   {
-    v75 = v21;
-    v76 = (v21 + 2);
+    v74 = v21;
+    v75 = (v21 + 2);
 LABEL_17:
-    v120 = result;
-    v77 = 2 * result + 1;
-    v78 = v77 < a4;
-    v79 = v135;
-    if (v78)
+    v117 = result;
+    v76 = 2 * result + 1;
+    v77 = v76 < a4;
+    v78 = v132;
+    if (v77)
     {
-      v80 = v22;
-      v81 = v128;
-      v82 = Heap._UnsafeHandle._maxDescendant(c0:gc0:)(v77, (v75 + 1), v22, v76, v135, v126, v6, v128);
-      v129 = v83;
-      v123 = v80;
-      v84 = v122;
-      v85 = v122[2];
-      v86 = v122[9];
-      v130 = v82;
-      v132 = v86;
-      v131 = v86 * v82;
-      v87 = v133;
-      v134 = v85;
-      v85(v133, (v79 + v86 * v82), v6);
-      v88 = dispatch thunk of static Comparable.< infix(_:_:)(v125, v87, v136, v81);
-      v89 = v136;
-      LOBYTE(v81) = v88;
-      v90 = v84[1];
-      result = v90(v87, v136);
-      if (v81)
+      v79 = v22;
+      v80 = v125;
+      v81 = Heap._UnsafeHandle._maxDescendant(c0:gc0:)(v76, (v74 + 1), v22, v75, v132, v123, v6, v125);
+      v126 = v82;
+      v120 = v79;
+      v83 = v119;
+      v84 = v119[2];
+      v85 = v119[9];
+      v127 = v81;
+      v129 = v85;
+      v128 = v85 * v81;
+      v86 = v130;
+      v131 = v84;
+      v84(v130, (v78 + v85 * v81), v6);
+      v87 = dispatch thunk of static Comparable.< infix(_:_:)(v122, v86, v133, v80);
+      v88 = v133;
+      LOBYTE(v80) = v87;
+      v89 = v83[1];
+      result = v89(v86, v133);
+      if (v80)
       {
-        v91 = v132;
-        v127 = v90;
-        v92 = v126;
-        v93 = UnsafeMutableBufferPointer.baseAddress.getter(v79, v126, v89);
+        v90 = v129;
+        v124 = v89;
+        v91 = UnsafeMutableBufferPointer.baseAddress.getter(v78);
+        if (!v91)
+        {
+          BUG();
+        }
+
+        v92 = v115;
+        UnsafeMutablePointer.move()(v128 + v91);
+        v93 = UnsafeMutableBufferPointer.baseAddress.getter(v78);
         if (!v93)
         {
           BUG();
         }
 
-        v94 = v118;
-        UnsafeMutablePointer.move()(v131 + v93, v89);
-        v95 = UnsafeMutableBufferPointer.baseAddress.getter(v79, v92, v89);
-        if (!v95)
+        v94 = v90 * v117 + v93;
+        v95 = v90;
+        v96 = v130;
+        v131(v130, v92, v88);
+        v121 = v119[4];
+        (v121)(v94, v96, v88);
+        v97 = v92;
+        v98 = v124;
+        (v124)(v97, v88);
+        v99 = v118;
+        result = v127;
+        *v118 = v127;
+        v99[1] = v126;
+        if (result >= v120)
         {
-          BUG();
-        }
-
-        v96 = v91 * v120 + v95;
-        v97 = v91;
-        v98 = v133;
-        v134(v133, v94, v89);
-        v124 = v122[4];
-        (v124)(v96, v98, v89);
-        v99 = v94;
-        v100 = v127;
-        (v127)(v99, v89);
-        v101 = v121;
-        result = v130;
-        *v121 = v130;
-        v101[1] = v129;
-        if (result >= v123)
-        {
-          v130 = (result - 1) / 2;
-          v102 = v130 * v97;
-          v103 = (v135 + v102);
-          v104 = v102;
+          v127 = (result - 1) / 2;
+          v100 = v127 * v95;
+          v101 = (v132 + v100);
+          v102 = v100;
+          v103 = v130;
+          v131(v130, v101, v88);
+          v104 = dispatch thunk of static Comparable.< infix(_:_:)(v122, v103, v133, v125);
           v105 = v133;
-          v134(v133, v103, v89);
-          v106 = dispatch thunk of static Comparable.< infix(_:_:)(v125, v105, v136, v128);
-          v107 = v136;
-          v108 = v106;
-          result = (v100)(v105, v136);
-          if (v108)
+          v106 = v104;
+          result = (v98)(v103, v133);
+          if (v106)
           {
-            v109 = v126;
-            v110 = UnsafeMutableBufferPointer.baseAddress.getter(v135, v126, v107);
-            if (!v110)
+            v107 = UnsafeMutableBufferPointer.baseAddress.getter(v132);
+            if (!v107)
             {
               BUG();
             }
 
-            v111 = v119;
-            UnsafeMutablePointer.move()(v104 + v110, v107);
-            v112 = UnsafeMutableBufferPointer.baseAddress.getter(v135, v109, v107);
-            if (!v112)
+            v108 = v116;
+            UnsafeMutablePointer.move()(v102 + v107);
+            v109 = UnsafeMutableBufferPointer.baseAddress.getter(v132);
+            if (!v109)
             {
               BUG();
             }
 
-            v113 = v129 - 1;
-            v114 = v131 + v112;
-            v115 = v133;
-            v134(v133, v111, v107);
-            (v124)(v114, v115, v107);
-            (v127)(v111, v107);
-            result = v121;
-            *v121 = v130;
-            *(result + 8) = v113;
+            v110 = v126 - 1;
+            v111 = v128 + v109;
+            v112 = v130;
+            v131(v130, v108, v105);
+            (v121)(v111, v112, v105);
+            (v124)(v108, v105);
+            result = v118;
+            *v118 = v127;
+            *(result + 8) = v110;
           }
         }
       }
@@ -5285,143 +5097,142 @@ LABEL_17:
 
   else
   {
-    v117 = &v116;
-    v134 = v8[2];
-    v131 = v8[9];
+    v114 = &v113;
+    v131 = v8[2];
+    v128 = v8[9];
     while (1)
     {
-      v123 = v22;
-      v132 = v23;
-      v120 = result;
-      v130 = v21;
+      v120 = v22;
+      v129 = v23;
+      v117 = result;
+      v127 = v21;
       v24 = v22 + 1;
       v25 = v6;
-      v26 = v131;
-      v27 = v135;
-      v28 = v134;
-      v134(v133, (v135 + v22 * v131), v25);
-      v124 = v24;
+      v26 = v128;
+      v27 = v132;
+      v28 = v131;
+      v131(v130, (v132 + v22 * v128), v25);
+      v121 = v24;
       v29 = v27 + v24 * v26;
-      v30 = v127;
-      v28(v127, v29, v25);
-      v31 = v133;
-      v32 = dispatch thunk of static Comparable.< infix(_:_:)(v133, v30, v136, v128);
-      v33 = v136;
+      v30 = v124;
+      v28(v124, v29, v25);
+      v31 = v130;
+      v32 = dispatch thunk of static Comparable.< infix(_:_:)(v130, v30, v133, v125);
+      v33 = v133;
       LOBYTE(v24) = v32;
-      v34 = v122[1];
-      v34(v30, v136);
-      v129 = v34;
+      v34 = v119[1];
+      v34(v30, v133);
+      v126 = v34;
       v34(v31, v33);
       if ((v24 & 1) == 0)
       {
-        v124 = v123;
+        v121 = v120;
       }
 
-      v35 = v131;
-      v123 += 2;
-      v36 = v135;
-      v37 = v133;
-      v38 = v134;
-      v134(v133, (v135 + v123 * v131), v33);
-      v39 = v36 + v132 * v35;
-      v40 = v127;
-      v38(v127, v39, v33);
-      v41 = dispatch thunk of static Comparable.< infix(_:_:)(v37, v40, v136, v128);
-      v42 = v136;
+      v35 = v128;
+      v120 += 2;
+      v36 = v132;
+      v37 = v130;
+      v38 = v131;
+      v131(v130, (v132 + v120 * v128), v33);
+      v39 = v36 + v129 * v35;
+      v40 = v124;
+      v38(v124, v39, v33);
+      v41 = dispatch thunk of static Comparable.< infix(_:_:)(v37, v40, v133, v125);
+      v42 = v133;
       LOBYTE(v38) = v41;
-      v43 = v129;
-      (v129)(v40, v136);
+      v43 = v126;
+      (v126)(v40, v133);
       v43(v37, v42);
       if ((v38 & 1) == 0)
       {
-        v132 = v123;
+        v129 = v120;
       }
 
-      v44 = v131;
-      v45 = v135;
-      v46 = v133;
-      v47 = v134;
-      v134(v133, (v135 + v131 * v124), v42);
-      v48 = v45 + v44 * v132;
-      v49 = v127;
-      v47(v127, v48, v42);
-      v50 = dispatch thunk of static Comparable.< infix(_:_:)(v46, v49, v136, v128);
-      v51 = v136;
+      v44 = v128;
+      v45 = v132;
+      v46 = v130;
+      v47 = v131;
+      v131(v130, (v132 + v128 * v121), v42);
+      v48 = v45 + v44 * v129;
+      v49 = v124;
+      v47(v124, v48, v42);
+      v50 = dispatch thunk of static Comparable.< infix(_:_:)(v46, v49, v133, v125);
+      v51 = v133;
       LOBYTE(v47) = v50;
-      v52 = v129;
-      (v129)(v49, v136);
+      v52 = v126;
+      (v126)(v49, v133);
       v52(v46, v51);
-      v53 = v132;
+      v53 = v129;
       if ((v47 & 1) == 0)
       {
-        v53 = v124;
+        v53 = v121;
       }
 
-      v132 = v53;
-      v54 = v131 * v53;
-      v55 = v135;
-      v56 = v133;
-      v134(v133, (v135 + v54), v51);
-      v57 = dispatch thunk of static Comparable.< infix(_:_:)(v125, v56, v136, v128);
-      v6 = v136;
+      v129 = v53;
+      v54 = v128 * v53;
+      v55 = v132;
+      v56 = v130;
+      v131(v130, (v132 + v54), v51);
+      v57 = dispatch thunk of static Comparable.< infix(_:_:)(v122, v56, v133, v125);
+      v6 = v133;
       v58 = v57;
-      result = (v129)(v56, v136);
+      result = (v126)(v56, v133);
       if ((v58 & 1) == 0)
       {
         break;
       }
 
-      v59 = v126;
-      v60 = UnsafeMutableBufferPointer.baseAddress.getter(v55, v126, v6);
-      if (!v60)
+      v59 = UnsafeMutableBufferPointer.baseAddress.getter(v55);
+      if (!v59)
       {
         BUG();
       }
 
-      v61 = v54 + v60;
-      v62 = v117;
-      UnsafeMutablePointer.move()(v61, v6);
-      v63 = UnsafeMutableBufferPointer.baseAddress.getter(v55, v59, v6);
-      if (!v63)
+      v60 = v54 + v59;
+      v61 = v114;
+      UnsafeMutablePointer.move()(v60);
+      v62 = UnsafeMutableBufferPointer.baseAddress.getter(v55);
+      if (!v62)
       {
         BUG();
       }
 
-      v64 = v130 + 2;
-      v65 = v131 * v120 + v63;
-      v66 = v133;
-      v134(v133, v62, v6);
-      (v122[4])(v65, v66, v6);
-      v67 = v62;
-      v68 = v129;
-      (v129)(v67, v6);
-      v69 = v121;
-      v70 = v132;
-      *v121 = v132;
-      v130 = v64;
-      v69[1] = v64;
-      v71 = v131 * ((v70 - 1) / 2);
-      v72 = v66;
-      v134(v66, (v135 + v71), v6);
-      LOBYTE(v66) = dispatch thunk of static Comparable.< infix(_:_:)(v125, v66, v6, v128);
-      v68(v72, v6);
-      v73 = (v66 & 1) == 0;
-      a4 = v126;
-      if (!v73)
+      v63 = v127 + 2;
+      v64 = v128 * v117 + v62;
+      v65 = v130;
+      v131(v130, v61, v6);
+      (v119[4])(v64, v65, v6);
+      v66 = v61;
+      v67 = v126;
+      (v126)(v66, v6);
+      v68 = v118;
+      v69 = v129;
+      *v118 = v129;
+      v127 = v63;
+      v68[1] = v63;
+      v70 = v128 * ((v69 - 1) / 2);
+      v71 = v65;
+      v131(v65, (v132 + v70), v6);
+      LOBYTE(v65) = dispatch thunk of static Comparable.< infix(_:_:)(v122, v65, v6, v125);
+      v67(v71, v6);
+      v72 = (v65 & 1) == 0;
+      a4 = v123;
+      if (!v72)
       {
-        v74 = UnsafeMutableBufferPointer.baseAddress.getter(v135, v126, v6);
-        swap<A>(_:_:)(v74 + v71, v125, v6);
+        v73 = UnsafeMutableBufferPointer.baseAddress.getter(v132);
+        swap<A>(_:_:)(v73 + v70, v122, v6);
       }
 
-      v22 = 4 * v132 + 3;
-      v23 = 4 * v132 + 6;
-      result = v132;
-      v21 = v130;
+      v22 = 4 * v129 + 3;
+      v23 = 4 * v129 + 6;
+      result = v129;
+      v21 = v127;
       if (v23 >= a4)
       {
-        v75 = v130;
-        v76 = (v130 + 2);
-        result = v132;
+        v74 = v127;
+        v75 = (v127 + 2);
+        result = v129;
         goto LABEL_17;
       }
     }
@@ -5450,7 +5261,7 @@ char *Heap._UnsafeHandle._maxDescendant(c0:gc0:)(uint64_t a1, char *a2, uint64_t
       v57 = a1;
       v58 = a2;
       v54 = a5;
-      v29(&v49, a5 + a1 * v30);
+      v29(&v49, a5 + a1 * v30, a7, a4);
       (v29)(&v49, v54 + (a1 + 1) * v30, a7);
       v31 = v56;
       LOBYTE(v29) = dispatch thunk of static Comparable.< infix(_:_:)(v56, &v49, a7, a8);
@@ -5480,7 +5291,7 @@ char *Heap._UnsafeHandle._maxDescendant(c0:gc0:)(uint64_t a1, char *a2, uint64_t
       v58 = a2;
       v55 = a3;
       v34 = v17;
-      v17(&v49, a5 + (a1 + 1) * v18);
+      (v17)(&v49, a5 + (a1 + 1) * v18);
       v50 = v18;
       v35 = a5 + v55 * v18;
       v36 = v52;
@@ -5500,7 +5311,7 @@ char *Heap._UnsafeHandle._maxDescendant(c0:gc0:)(uint64_t a1, char *a2, uint64_t
         v41 = v51;
       }
 
-      v42 = (v40 + 1);
+      v42 = v40 + 1;
       if (v42 < a6)
       {
         v43 = v50;
@@ -5674,7 +5485,7 @@ uint64_t _ss15ContiguousArrayV30withUnsafeMutableBufferPointeryqd__qd__SryxGzqd_
 
 uint64_t Heap._storage.setter(uint64_t a1)
 {
-  result = *v1;
+
   *v1 = a1;
   return result;
 }
@@ -5690,7 +5501,7 @@ uint64_t Heap.unordered.getter(uint64_t a1, uint64_t a2)
 {
   v5[0] = a1;
   v2 = type metadata accessor for ContiguousArray(0, a2);
-  a1;
+
   WitnessTable = swift_getWitnessTable(&protocol conformance descriptor for ContiguousArray<A>, v2);
   return Array.init<A>(_:)(v5, a2, v2, WitnessTable);
 }
@@ -5746,7 +5557,7 @@ uint64_t Heap.max()(uint64_t a1, uint64_t a2, uint64_t a3)
   v7 = a2;
   v8 = a3;
   v3 = type metadata accessor for Optional(0, a2);
-  return _ss15ContiguousArrayV23withUnsafeBufferPointeryqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in Heap.max(), v6, a1, a2, v3, &type metadata for Never, &protocol witness table for Never, v5);
+  return _ss15ContiguousArrayV23withUnsafeBufferPointeryqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in Heap.max(), &v6, a1, a2, v3, &type metadata for Never, &protocol witness table for Never, v5);
 }
 
 uint64_t closure #1 in Heap.max()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -5773,7 +5584,7 @@ uint64_t closure #1 in Heap.max()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
     v25 = v23;
     v27 = a1;
     v24 = a4;
-    v14(v23, a1 + v15, a3);
+    (v14)(v23, a1 + v15, a3, a4, v23, a6);
     v16 = v27 + 2 * v15;
     v17 = v26;
     v14(v26, v16, a3);
@@ -5786,7 +5597,7 @@ uint64_t closure #1 in Heap.max()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
   }
 }
 
-uint64_t _ss15ContiguousArrayV23withUnsafeBufferPointeryqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(uint64_t (*a1)(uint64_t, void, _BYTE *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8)
+uint64_t _ss15ContiguousArrayV23withUnsafeBufferPointeryqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(uint64_t (*a1)(uint64_t, void, _BYTE *), int a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, int a7, uint64_t a8)
 {
   v11 = *(a6 - 8);
   v12 = *(v11 + 64);
@@ -5842,7 +5653,7 @@ uint64_t Heap.popMin()(uint64_t a1)
 
 uint64_t closure #1 in Heap.popMin()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v8 = UnsafeMutableBufferPointer.baseAddress.getter(a1, a2, a4);
+  v8 = UnsafeMutableBufferPointer.baseAddress.getter(a1);
   swap<A>(_:_:)(v8, a3, a4);
   return Heap._UnsafeHandle.trickleDownMin(_:)(0, 0, a1, a2, a4, a5);
 }
@@ -5907,7 +5718,7 @@ uint64_t closure #1 in Heap.popMax()(uint64_t a1, uint64_t a2, uint64_t a3, uint
     result = (v15)(&v25, a4);
     if (v14)
     {
-      v17 = UnsafeMutableBufferPointer.baseAddress.getter(v29, 2, a4);
+      v17 = UnsafeMutableBufferPointer.baseAddress.getter(v29);
       return swap<A>(_:_:)(v17 + v30, v28, a4);
     }
   }
@@ -5929,7 +5740,7 @@ uint64_t closure #1 in Heap.popMax()(uint64_t a1, uint64_t a2, uint64_t a3, uint
     LOBYTE(v21) = v31;
     v22 = 2 - (v31 & 1);
     v23 = v30;
-    v24 = UnsafeMutableBufferPointer.baseAddress.getter(v29, v30, a4);
+    v24 = UnsafeMutableBufferPointer.baseAddress.getter(v29);
     swap<A>(_:_:)(v24 + (v12 << ((v21 & 1) == 0)), v28, a4);
     return Heap._UnsafeHandle.trickleDownMax(_:)(v22, 1, v29, v23, a4, v27);
   }
@@ -6106,16 +5917,17 @@ unint64_t UnsafeMutableMatrixPointer.initialize(repeating:)(uint64_t a1, uint64_
     BUG();
   }
 
-  v15 = *(a6 - 8);
+  v16 = *(a6 - 8);
   if (v12)
   {
-    v13 = *(v15 + 16);
-    v14 = *(v15 + 72);
+    v13 = *(v16 + 16);
+    v14 = v13;
+    v15 = *(v16 + 72);
     do
     {
-      v13(&v13, a1, a6);
-      result = (*(v15 + 32))(a2, &v13, a6);
-      a2 += v14;
+      v14(&v14, a1, a6, v13, a5);
+      result = (*(v16 + 32))(a2, &v14, a6);
+      a2 += v15;
       --v12;
     }
 
@@ -6141,12 +5953,13 @@ uint64_t UnsafeMutableMatrixPointer.assign(repeating:)(uint64_t a1, uint64_t a2,
   if (v6)
   {
     v9 = *(a6 - 8);
-    v12 = *(v9 + 24);
-    v10 = *(v9 + 72);
+    v10 = *(v9 + 24);
+    v13 = v10;
+    v11 = *(v9 + 72);
     do
     {
-      result = v12(a2, a1, a6);
-      a2 += v10;
+      result = v13(a2, a1, a6, v10, a5);
+      a2 += v11;
       --v6;
     }
 
@@ -6190,22 +6003,20 @@ uint64_t UnsafeMutableMatrixPointer.subscript.getter(unint64_t a1, unint64_t a2,
     }
   }
 
-  return (*(*(a7 - 8) + 16))(v7, *(*(a7 - 8) + 72) * v11 + a3, a7);
+  return (*(*(a7 - 8) + 16))(v7, *(*(a7 - 8) + 72) * v11 + a3, a7, *(*(a7 - 8) + 16), a5);
 }
 
-void (*UnsafeMutableMatrixPointer.subscript.modify(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6, char a7, uint64_t a8))()
+void (*UnsafeMutableMatrixPointer.subscript.modify(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6, char a7))()
 {
   if (a7)
   {
-    v8 = a5 * a3;
+    v7 = a5 * a3;
     if (!is_mul_ok(a5, a3))
     {
       BUG();
     }
 
-    v10 = __OFADD__(v8, a2);
-    v11 = v8 + a2;
-    if (v10)
+    if (__OFADD__(v7, a2))
     {
       BUG();
     }
@@ -6213,27 +6024,24 @@ void (*UnsafeMutableMatrixPointer.subscript.modify(uint64_t a1, unint64_t a2, un
 
   else
   {
-    v12 = a6 * a2;
+    v9 = a6 * a2;
     if (!is_mul_ok(a6, a2))
     {
       BUG();
     }
 
-    v10 = __OFADD__(a3, v12);
-    v11 = a3 + v12;
-    if (v10)
+    if (__OFADD__(a3, v9))
     {
       BUG();
     }
   }
 
-  v14 = *(*(a8 - 8) + 72) * v11;
   return MLBoostedTreeRegressor.ModelParameters.maxDepth.modify;
 }
 
 uint64_t UnsafeMutableMatrixPointer.subscript.setter(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6, char a7, uint64_t a8)
 {
-  v8 = UnsafeMutableMatrixPointer.subscript.modify(v12, a2, a3, a4, a5, a6, a7 & 1, a8);
+  v8 = UnsafeMutableMatrixPointer.subscript.modify(v12, a2, a3, a4, a5, a6, a7 & 1);
   v9 = *(a8 - 8);
   (*(v9 + 24))(v10, a1, a8);
   (v8)(v12, 0);
@@ -6272,47 +6080,47 @@ uint64_t UnsafeMutableMatrixPointer.subscript.getter(unint64_t a1, uint64_t a2, 
 
 uint64_t UnsafeMutableMatrixPointer.debugDescription.getter(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
 {
-  v19 = a4;
-  v17 = a3;
-  v16[0] = 0;
-  v18 = a2;
-  v16[1] = 0xE000000000000000;
+  v17 = a4;
+  v15 = a3;
+  v14[0] = 0;
+  v16 = a2;
+  v14[1] = 0xE000000000000000;
   _StringGuts.grow(_:)(72);
   v7._object = "bounds" + 0x8000000000000000;
   v7._countAndFlagsBits = 0xD000000000000022;
   String.append(_:)(v7);
-  v20[0] = a1;
+  v18[0] = a1;
   v8 = type metadata accessor for UnsafeMutablePointer(0, a5);
-  DefaultStringInterpolation.appendInterpolation<A>(_:)(v20, v8);
+  DefaultStringInterpolation.appendInterpolation<A>(_:)(v18, v8);
   v7._countAndFlagsBits = 0x203A73776F72202CLL;
   v7._object = 0xE800000000000000;
   String.append(_:)(v7);
-  v20[0] = v18;
+  v18[0] = v16;
   v9 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
-  v11 = v10;
+  LOBYTE(a5) = v10;
   v7._countAndFlagsBits = v9;
   v7._object = v10;
   String.append(_:)(v7);
-  v11;
+  a5;
   v7._countAndFlagsBits = 0x6E6D756C6F63202CLL;
   v7._object = 0xEB00000000203A73;
   String.append(_:)(v7);
-  v20[0] = v17;
-  v12 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
-  v14 = v13;
-  v7._countAndFlagsBits = v12;
-  v7._object = v13;
+  v18[0] = v15;
+  v11 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+  LOBYTE(a5) = v12;
+  v7._countAndFlagsBits = v11;
+  v7._object = v12;
   String.append(_:)(v7);
-  v14;
+  a5;
   v7._countAndFlagsBits = 0x74756F79616C202CLL;
   v7._object = 0xEA0000000000203ALL;
   String.append(_:)(v7);
-  LOBYTE(v20[0]) = v19 & 1;
-  _print_unlocked<A, B>(_:_:)(v20, v16, &type metadata for MatrixLayout, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  LOBYTE(v18[0]) = v17 & 1;
+  _print_unlocked<A, B>(_:_:)(v18, v14, &type metadata for MatrixLayout, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
   v7._countAndFlagsBits = 41;
   v7._object = 0xE100000000000000;
   String.append(_:)(v7);
-  return v16[0];
+  return v14[0];
 }
 
 uint64_t getEnumTagSinglePayload for UnsafeMutableMatrixPointer(uint64_t a1, unsigned int a2)
@@ -6427,9 +6235,6 @@ uint64_t SparseMatrix.IndexedSequence.base.getter()
   *(v0 + 24) = v3;
   *(v0 + 32) = v4;
   *(v0 + 40) = v5;
-  v3;
-  v4;
-  return v5;
 }
 
 uint64_t SparseMatrix.IndexedSequence.makeIterator()(uint64_t a1)
@@ -6457,48 +6262,47 @@ uint64_t SparseMatrix.IndexedSequence.makeIterator()(uint64_t a1)
 uint64_t SparseMatrix.IndexedSequence.Iterator.init(base:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v6 = v4;
-  v28 = *a1;
+  v27 = *a1;
   v7 = *(a1 + 16);
   v8 = *(a1 + 40);
-  v29 = *(a1 + 24);
-  _mm_storel_ps(&v30, v29);
+  v28 = *(a1 + 24);
+  _mm_storel_ps(&v29, v28);
   v9 = *(a1 + 16);
   v10 = *(a1 + 32);
-  v25 = _mm_loadu_si128(a1);
-  v26 = v9;
-  v27 = v10;
+  v24 = _mm_loadu_si128(a1);
+  v25 = v9;
+  v26 = v10;
   v11 = 0;
-  v12 = type metadata accessor for SparseMatrix(0, a2, a3, a4);
-  v13 = SparseMatrix.majorCount.getter(v12);
-  if (v13 > 0)
+  type metadata accessor for SparseMatrix(0, a2, a3, a4);
+  v12 = SparseMatrix.majorCount.getter();
+  if (v12 > 0)
   {
-    v14 = _mm_load_si128(&v29).u64[0];
-    v15 = *(v14 + 16);
-    if (v15 < 2)
+    v13 = _mm_load_si128(&v28).u64[0];
+    v14 = *(v13 + 16);
+    if (v14 < 2)
     {
       BUG();
     }
 
-    if (*(v14 + 40) <= 0)
+    if (*(v13 + 40) <= 0)
     {
-      v16 = v15 - 2;
-      a2 = v13 - 1;
-      v17 = 0;
-      while (a2 != v17)
+      v15 = v14 - 2;
+      v16 = 0;
+      while (v12 - 1 != v16)
       {
-        if (v16 == v17)
+        if (v15 == v16)
         {
           BUG();
         }
 
-        v11 = v17 + 1;
-        if (*(v14 + 8 * v17++ + 48) > 0)
+        v11 = v16 + 1;
+        if (*(v13 + 8 * v16++ + 48) > 0)
         {
           goto LABEL_11;
         }
       }
 
-      v11 = v13;
+      v11 = v12;
     }
 
     else
@@ -6508,46 +6312,46 @@ uint64_t SparseMatrix.IndexedSequence.Iterator.init(base:)(uint64_t a1, uint64_t
   }
 
 LABEL_11:
-  v19 = *(a1 + 32);
-  v32 = v8;
-  v24 = v19;
-  v31 = *(a1 + 40);
-  v21[0] = v25;
-  v21[1] = v26;
-  v21[2] = v27;
-  v22 = v11;
-  v23 = 0;
-  outlined retain of [Int](&v30);
-  outlined retain of [Int](&v24);
-  outlined retain of ContiguousArray<Double>(&v31);
-  outlined release of SparseMatrix<Double>.MajorCollection(v21, a2);
-  *v6 = v28;
+  v18 = *(a1 + 32);
+  v31 = v8;
+  v23 = v18;
+  v30 = *(a1 + 40);
+  v20[0] = v24;
+  v20[1] = v25;
+  v20[2] = v26;
+  v21 = v11;
+  v22 = 0;
+  outlined retain of [Int](&v29);
+  outlined retain of [Int](&v23);
+  outlined retain of ContiguousArray<Double>(&v30);
+  outlined release of SparseMatrix<Double>.MajorCollection(v20);
+  *v6 = v27;
   *(v6 + 16) = v7 & 1;
-  *(v6 + 24) = v29;
-  result = v32;
-  *(v6 + 40) = v32;
+  *(v6 + 24) = v28;
+  result = v31;
+  *(v6 + 40) = v31;
   *(v6 + 48) = v11;
   *(v6 + 56) = 0;
   return result;
 }
 
-void *protocol witness for Sequence.makeIterator() in conformance SparseMatrix<A>.IndexedSequence(uint64_t a1, uint64_t a2)
+void *protocol witness for Sequence.makeIterator() in conformance SparseMatrix<A>.IndexedSequence(uint64_t a1)
 {
-  v4 = v2;
-  v5 = v3[3];
-  v6 = v3[4];
-  v15 = v3[5];
+  v3 = v1;
+  v4 = v2[3];
+  v5 = v2[4];
+  v14 = v2[5];
   SparseMatrix.IndexedSequence.makeIterator()(a1);
+  v11 = v4;
+  outlined release of [Int?](&v11);
   v12 = v5;
-  outlined release of [Int?](&v12, a2);
-  v13 = v6;
-  outlined release of [Int?](&v13, a2);
-  v14 = v15;
-  result = outlined release of _NativeDictionary<String?, Int>.Iterator(&v14);
-  *v4 = v8;
-  v4[1] = v9;
-  v4[2] = v10;
-  v4[3] = v11;
+  outlined release of [Int?](&v12);
+  v13 = v14;
+  result = outlined release of _NativeDictionary<String?, Int>.Iterator(&v13);
+  *v3 = v7;
+  v3[1] = v8;
+  v3[2] = v9;
+  v3[3] = v10;
   return result;
 }
 
@@ -6562,9 +6366,6 @@ uint64_t SparseMatrix.IndexedSequence.Iterator.base.getter()
   *(v0 + 24) = v3;
   *(v0 + 32) = v4;
   *(v0 + 40) = v5;
-  v3;
-  v4;
-  return v5;
 }
 
 uint64_t SparseMatrix.IndexedSequence.Iterator.next()(uint64_t a1)
@@ -6582,89 +6383,88 @@ uint64_t SparseMatrix.IndexedSequence.Iterator.next()(uint64_t a1)
   v13 = *(v3 + 48);
   if (!*(v3 + 16))
   {
-    v27 = *v3;
+    v25 = *v3;
     if (v13 < *v3)
     {
-      v50 = a1;
-      v28 = *(v3 + 56);
-      if (v28 < 0)
+      v46 = a1;
+      v26 = *(v3 + 56);
+      if (v26 < 0)
       {
         BUG();
       }
 
-      v29 = *(v3 + 32);
-      if (v28 >= *(v29 + 16))
+      v27 = *(v3 + 32);
+      if (v26 >= *(v27 + 16))
       {
         BUG();
       }
 
-      v53 = v7;
-      v57 = v27;
-      v30 = *(v29 + 4 * v28 + 32);
-      v51 = v4;
-      v52 = TupleTypeMetadata3;
-      v31 = &v43 + *(TupleTypeMetadata3 + 64);
-      v43 = v13;
-      v55 = &v43;
-      v44 = v30;
-      v56 = v5;
-      v32 = *(v3 + 40);
-      v54 = v29;
+      v49 = v7;
+      v53 = v25;
+      v28 = *(v27 + 4 * v26 + 32);
+      v47 = v4;
+      v48 = TupleTypeMetadata3;
+      v39 = v13;
+      v51 = &v39;
+      v40 = v28;
+      v52 = v5;
+      v29 = *(v3 + 40);
+      v50 = v27;
 
-      ContiguousArray.subscript.getter(v28, v32, v56);
+      ContiguousArray.subscript.getter(v26, v29, v52);
 
-      v33 = v28 + 1;
-      *(v3 + 56) = v33;
-      v34 = *(v3 + 8);
-      v35 = *(v3 + 24);
-      v44 = v57;
-      v45 = v34;
-      v46 = 0;
-      v57 = v35;
-      v47 = v35;
-      v48 = v54;
-      v49 = v32;
-      v36 = type metadata accessor for SparseMatrix(0, v56, *(v50 + 24), v35);
-      v37 = v51;
-      v38 = SparseMatrix.majorCount.getter(v36);
-      if (v13 < v38)
+      v30 = v26 + 1;
+      *(v3 + 56) = v30;
+      v31 = *(v3 + 8);
+      v32 = *(v3 + 24);
+      v40 = v53;
+      v41 = v31;
+      v42 = 0;
+      v53 = v32;
+      v43 = v32;
+      v44 = v50;
+      v45 = v29;
+      type metadata accessor for SparseMatrix(0, v52, *(v46 + 24), v32);
+      v33 = v47;
+      v34 = SparseMatrix.majorCount.getter();
+      if (v13 < v34)
       {
         if (v13 < -1)
         {
           BUG();
         }
 
-        v39 = *(v57 + 16);
-        if (v13 + 1 >= v39)
+        v35 = *(v53 + 16);
+        if (v13 + 1 >= v35)
         {
           BUG();
         }
 
-        if (v33 >= *(v57 + 8 * v13 + 40))
+        if (v30 >= *(v53 + 8 * v13 + 40))
         {
           while (1)
           {
-            v40 = v13 + 1;
-            if (v13 + 1 >= v38)
+            v36 = v13 + 1;
+            if (v13 + 1 >= v34)
             {
               break;
             }
 
-            if (v13 + 2 >= v39)
+            if (v13 + 2 >= v35)
             {
               BUG();
             }
 
-            v26 = v33 < *(v57 + 8 * v13++ + 48);
-            if (v26)
+            v24 = v30 < *(v53 + 8 * v13++ + 48);
+            if (v24)
             {
               goto LABEL_30;
             }
           }
 
-          v40 = v38;
+          v36 = v34;
 LABEL_30:
-          *(v3 + 48) = v40;
+          *(v3 + 48) = v36;
         }
       }
 
@@ -6680,7 +6480,7 @@ LABEL_30:
     return __swift_storeEnumTagSinglePayload(v4, 1, 1, TupleTypeMetadata3);
   }
 
-  v51 = v4;
+  v47 = v4;
   v15 = *(v3 + 56);
   if (v15 < 0)
   {
@@ -6693,94 +6493,88 @@ LABEL_30:
     BUG();
   }
 
-  v53 = v7;
-  v57 = v14;
+  v49 = v7;
+  v53 = v14;
   v17 = *(v16 + 4 * v15 + 32);
-  v52 = TupleTypeMetadata3;
-  v50 = a1;
-  v18 = &v43 + *(TupleTypeMetadata3 + 64);
-  v43 = v17;
-  v55 = &v43;
-  v44 = v13;
-  v56 = v5;
-  v19 = *(v3 + 40);
-  v54 = v16;
+  v48 = TupleTypeMetadata3;
+  v46 = a1;
+  v39 = v17;
+  v51 = &v39;
+  v40 = v13;
+  v52 = v5;
+  v18 = *(v3 + 40);
+  v50 = v16;
 
-  ContiguousArray.subscript.getter(v15, v19, v56);
+  ContiguousArray.subscript.getter(v15, v18, v52);
 
-  v20 = v15 + 1;
-  *(v3 + 56) = v20;
-  v21 = *(v3 + 24);
-  v44 = *v3;
-  v45 = v57;
-  v46 = 1;
-  v57 = v21;
-  v47 = v21;
-  v48 = v54;
-  v49 = v19;
-  v22 = type metadata accessor for SparseMatrix(0, v56, *(v50 + 24), v21);
-  v23 = SparseMatrix.majorCount.getter(v22);
-  if (v13 < v23)
+  v19 = v15 + 1;
+  *(v3 + 56) = v19;
+  v20 = *(v3 + 24);
+  v40 = *v3;
+  v41 = v53;
+  v42 = 1;
+  v53 = v20;
+  v43 = v20;
+  v44 = v50;
+  v45 = v18;
+  type metadata accessor for SparseMatrix(0, v52, *(v46 + 24), v20);
+  v21 = SparseMatrix.majorCount.getter();
+  if (v13 < v21)
   {
     if (v13 < -1)
     {
       BUG();
     }
 
-    v24 = *(v57 + 16);
-    if (v13 + 1 >= v24)
+    v22 = *(v53 + 16);
+    if (v13 + 1 >= v22)
     {
       BUG();
     }
 
-    if (v20 >= *(v57 + 8 * v13 + 40))
+    if (v19 >= *(v53 + 8 * v13 + 40))
     {
       while (1)
       {
-        v25 = v13 + 1;
-        if (v13 + 1 >= v23)
+        v23 = v13 + 1;
+        if (v13 + 1 >= v21)
         {
           break;
         }
 
-        if (v13 + 2 >= v24)
+        if (v13 + 2 >= v22)
         {
           BUG();
         }
 
-        v26 = v20 < *(v57 + 8 * v13++ + 48);
-        if (v26)
+        v24 = v19 < *(v53 + 8 * v13++ + 48);
+        if (v24)
         {
           goto LABEL_26;
         }
       }
 
-      v25 = v23;
+      v23 = v21;
 LABEL_26:
-      *(v3 + 48) = v25;
+      *(v3 + 48) = v23;
     }
   }
 
-  v37 = v51;
+  v33 = v47;
 LABEL_28:
-  v42 = v52;
-  (*(v53 + 32))(v37, v55, v52);
-  return __swift_storeEnumTagSinglePayload(v37, 0, 1, v42);
+  v38 = v48;
+  (*(v49 + 32))(v33, v51, v48);
+  return __swift_storeEnumTagSinglePayload(v33, 0, 1, v38);
 }
 
 uint64_t initializeWithCopy for SparseMatrix.IndexedSequence(uint64_t a1, uint64_t a2)
 {
   *a1 = *a2;
   *(a1 + 16) = *(a2 + 16);
-  v3 = *(a2 + 24);
-  *(a1 + 24) = v3;
-  v4 = *(a2 + 32);
-  *(a1 + 32) = v4;
-  v5 = *(a2 + 40);
-  *(a1 + 40) = v5;
-  v3;
-  v4;
-  v5;
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = *(a2 + 40);
+
   return a1;
 }
 
@@ -6789,21 +6583,16 @@ uint64_t assignWithCopy for SparseMatrix.IndexedSequence(uint64_t a1, uint64_t a
   *a1 = *a2;
   *(a1 + 8) = *(a2 + 8);
   *(a1 + 16) = *(a2 + 16);
-  v3 = *(a2 + 24);
-  v4 = *(a1 + 24);
-  *(a1 + 24) = v3;
+  v2 = *(a1 + 24);
+  *(a1 + 24) = *(a2 + 24);
+
+  v2;
+  v3 = *(a1 + 32);
+  *(a1 + 32) = *(a2 + 32);
+
   v3;
-  v4;
-  v5 = *(a2 + 32);
-  v6 = *(a1 + 32);
-  *(a1 + 32) = v5;
-  v5;
-  v6;
-  v7 = *(a2 + 40);
-  v8 = *(a1 + 40);
-  *(a1 + 40) = v7;
-  v7;
-  v8;
+  *(a1 + 40) = *(a2 + 40);
+
   return a1;
 }
 
@@ -6815,9 +6604,8 @@ uint64_t assignWithTake for SparseMatrix.IndexedSequence(uint64_t a1, uint64_t a
   v3 = *(a1 + 32);
   *(a1 + 24) = *(a2 + 24);
   v3;
-  v4 = *(a1 + 40);
   *(a1 + 40) = *(a2 + 40);
-  v4;
+
   return a1;
 }
 
@@ -6872,11 +6660,10 @@ void storeEnumTagSinglePayload for SparseMatrix.IndexedSequence(uint64_t a1, int
   }
 }
 
-uint64_t destroy for SparseMatrix.IndexedSequence(void *a1)
+uint64_t destroy for SparseMatrix.IndexedSequence(uint64_t a1)
 {
-  a1[3];
-  a1[4];
-  return a1[5];
+  *(a1 + 24);
+  *(a1 + 32);
 }
 
 {
@@ -6887,16 +6674,11 @@ uint64_t initializeWithCopy for SparseMatrix.IndexedSequence.Iterator(uint64_t a
 {
   *a1 = *a2;
   *(a1 + 16) = *(a2 + 16);
-  v3 = *(a2 + 24);
-  *(a1 + 24) = v3;
-  v4 = *(a2 + 32);
-  *(a1 + 32) = v4;
-  v5 = *(a2 + 40);
-  *(a1 + 40) = v5;
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = *(a2 + 40);
   *(a1 + 48) = *(a2 + 48);
-  v3;
-  v4;
-  v5;
+
   return a1;
 }
 
@@ -6905,21 +6687,16 @@ uint64_t assignWithCopy for SparseMatrix.IndexedSequence.Iterator(uint64_t a1, u
   *a1 = *a2;
   *(a1 + 8) = *(a2 + 8);
   *(a1 + 16) = *(a2 + 16);
-  v3 = *(a2 + 24);
-  v4 = *(a1 + 24);
-  *(a1 + 24) = v3;
+  v2 = *(a1 + 24);
+  *(a1 + 24) = *(a2 + 24);
+
+  v2;
+  v3 = *(a1 + 32);
+  *(a1 + 32) = *(a2 + 32);
+
   v3;
-  v4;
-  v5 = *(a2 + 32);
-  v6 = *(a1 + 32);
-  *(a1 + 32) = v5;
-  v5;
-  v6;
-  v7 = *(a2 + 40);
-  v8 = *(a1 + 40);
-  *(a1 + 40) = v7;
-  v7;
-  v8;
+  *(a1 + 40) = *(a2 + 40);
+
   *(a1 + 48) = *(a2 + 48);
   *(a1 + 56) = *(a2 + 56);
   return a1;
@@ -6933,9 +6710,8 @@ uint64_t assignWithTake for SparseMatrix.IndexedSequence.Iterator(uint64_t a1, u
   v3 = *(a1 + 32);
   *(a1 + 24) = *(a2 + 24);
   v3;
-  v4 = *(a1 + 40);
   *(a1 + 40) = *(a2 + 40);
-  v4;
+
   *(a1 + 48) = *(a2 + 48);
   return a1;
 }
@@ -7014,7 +6790,7 @@ uint64_t protocol witness for Matrix.indexed() in conformance SparseMatrix<A>()
 
 uint64_t DenseMatrix.storage.setter(uint64_t a1)
 {
-  result = *(v1 + 24);
+
   *(v1 + 24) = a1;
   return result;
 }
@@ -7032,8 +6808,8 @@ unint64_t DenseMatrix.count.getter(unint64_t a1, unint64_t a2)
 
 unint64_t DenseMatrix.init(rowCount:columnCount:)(unint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v19 = a2;
-  v20 = a1;
+  v18[1] = a2;
+  v18[2] = a1;
   v5 = *(*(a3 - 8) + 64);
   v6 = alloca(v5);
   v7 = alloca(v5);
@@ -7044,17 +6820,16 @@ unint64_t DenseMatrix.init(rowCount:columnCount:)(unint64_t a1, unint64_t a2, ui
   v12 = alloca(v10);
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v8, a3, AssociatedTypeWitness, &protocol requirements base descriptor for ExpressibleByIntegerLiteral, &associated conformance descriptor for ExpressibleByIntegerLiteral.ExpressibleByIntegerLiteral.IntegerLiteralType: _ExpressibleByBuiltinIntegerLiteral);
   dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)(&qword_33DFF0, 256, AssociatedTypeWitness, AssociatedConformanceWitness);
-  v14 = v20;
-  v15 = v8;
-  v16 = v19;
-  dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)(&v18, a3, v15);
-  if (!is_mul_ok(v16, v14))
+  v14 = v8;
+  dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)(v18, a3, v14);
+  v16 = a2 * a1;
+  if (!is_mul_ok(a2, a1))
   {
     BUG();
   }
 
-  ContiguousArray.init(repeating:count:)(&v18, v16 * v14, a3);
-  return v14;
+  ContiguousArray.init(repeating:count:)(v18, v16, a3);
+  return a1;
 }
 
 void *_ss15ContiguousArrayV9repeating5countAByxGx_SitcfCSf_Tt1gq5(uint64_t a1, float a2)
@@ -7066,7 +6841,7 @@ void *_ss15ContiguousArrayV9repeating5countAByxGx_SitcfCSf_Tt1gq5(uint64_t a1, f
 
   if (!a1)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   result = static ContiguousArray._allocateBufferUninitialized(minimumCapacity:)(a1, &type metadata for Float);
@@ -7121,7 +6896,7 @@ void *_ss15ContiguousArrayV9repeating5countAByxGx_SitcfCSd_Tt1gq5(uint64_t a1, d
 
   if (!a1)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   result = static ContiguousArray._allocateBufferUninitialized(minimumCapacity:)(a1, &type metadata for Double);
@@ -7154,35 +6929,35 @@ void *_ss15ContiguousArrayV9repeating5countAByxGx_SitcfCSd_Tt1gq5(uint64_t a1, d
 
 unint64_t DenseMatrix.init<A>(rowCount:columnCount:layout:scalars:)(unint64_t a1, unint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8)
 {
-  v35 = a3;
-  v30 = a2;
+  v34 = a3;
+  v29 = a2;
   v10 = *(a6 - 8);
   v11 = *(v10 + 64);
   v12 = alloca(v11);
   v13 = alloca(v11);
-  v32 = a4;
-  (*(v10 + 16))(&v27, a4, a6);
-  v14 = ContiguousArray.init<A>(_:)(&v27, a5, a6, a8);
-  v14;
-  v34 = v14;
-  v33 = a5;
+  v31 = a4;
+  (*(v10 + 16))(&v26, a4, a6);
+  v14 = ContiguousArray.init<A>(_:)(&v26, a5, a6, a8);
+
+  v33 = v14;
+  v32 = a5;
   v15 = ContiguousArray.count.getter(v14, a5);
-  v31 = a1;
-  v16 = v30 * a1;
-  if (!is_mul_ok(v30, a1))
+  v30 = a1;
+  v16 = v29 * a1;
+  if (!is_mul_ok(v29, a1))
   {
     BUG();
   }
 
   if (v15 != v16)
   {
-    v27 = 0;
-    v28 = 0xE000000000000000;
+    v26 = 0;
+    v27 = 0xE000000000000000;
     _StringGuts.grow(_:)(52);
     v18._object = "LinearAlgebra/DenseMatrix.swift" + 0x8000000000000000;
     v18._countAndFlagsBits = 0xD000000000000026;
     String.append(_:)(v18);
-    v29 = v16;
+    v28 = v16;
     v19 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
     v21 = v20;
     v18._countAndFlagsBits = v19;
@@ -7192,26 +6967,25 @@ unint64_t DenseMatrix.init<A>(rowCount:columnCount:layout:scalars:)(unint64_t a1
     v18._countAndFlagsBits = 0x746F672074756220;
     v18._object = 0xE900000000000020;
     String.append(_:)(v18);
-    v22 = v34;
-    v23 = ContiguousArray.count.getter(v34, v33);
-    v22;
-    v29 = v23;
-    v24 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
-    v26 = v25;
-    v18._countAndFlagsBits = v24;
-    v18._object = v25;
+    v22 = ContiguousArray.count.getter(v33, v32);
+
+    v28 = v22;
+    v23 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+    v25 = v24;
+    v18._countAndFlagsBits = v23;
+    v18._object = v24;
     String.append(_:)(v18);
-    v26;
+    v25;
     v18._countAndFlagsBits = 46;
     v18._object = 0xE100000000000000;
     String.append(_:)(v18);
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, v27, v28, "LinearAlgebra/DenseMatrix.swift", 31, 2, 59, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, v26, v27, "LinearAlgebra/DenseMatrix.swift", 31, 2, 59, 0);
     BUG();
   }
 
-  (*(v10 + 8))(v32, a6);
-  v34;
-  return v31;
+  (*(v10 + 8))(v31, a6);
+
+  return v30;
 }
 
 unint64_t DenseMatrix.init(rowCount:columnCount:layout:repeating:)(unint64_t a1, unint64_t a2, int a3, uint64_t a4, uint64_t a5)
@@ -7254,21 +7028,19 @@ unint64_t DenseMatrix.init(rowCount:columnCount:layout:initializingWith:)(unint6
 
 uint64_t partial apply for closure #1 in DenseMatrix.init(rowCount:columnCount:layout:initializingWith:)(uint64_t a1, unint64_t *a2)
 {
-  v4 = v3;
-  v5 = *(v3 + 40);
-  v6 = *(v4 + 48);
-  v7 = *(v4 + 56);
-  result = (*(v4 + 32))();
+  v4 = *(v3 + 48);
+  v5 = *(v3 + 56);
+  result = (*(v3 + 32))(a1);
   if (!v2)
   {
-    v10 = v6;
-    v9 = v7 * v6;
-    if (!is_mul_ok(v7, v10))
+    v8 = v4;
+    v7 = v5 * v4;
+    if (!is_mul_ok(v5, v8))
     {
       BUG();
     }
 
-    *a2 = v9;
+    *a2 = v7;
   }
 
   return result;
@@ -7276,11 +7048,11 @@ uint64_t partial apply for closure #1 in DenseMatrix.init(rowCount:columnCount:l
 
 uint64_t ContiguousArray.init(unsafeUninitializedCapacity:initializingWith:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = Array.init(_unsafeUninitializedCapacity:initializingWith:)();
+  v7 = Array.init(_unsafeUninitializedCapacity:initializingWith:)(a1, a2, a3);
   if (!v4)
   {
     v8 = v7;
-    v7;
+
     v5 = _ArrayBuffer.requestNativeBuffer()(v8, a4);
     v8;
     if (!v5)
@@ -7297,7 +7069,7 @@ uint64_t ContiguousArray.init(unsafeUninitializedCapacity:initializingWith:)(uin
   return v5;
 }
 
-void *DenseMatrix.subscript.read(void *a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, char a6, uint64_t a7, uint64_t a8)
+uint64_t (*DenseMatrix.subscript.read(void *a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, char a6, uint64_t a7, uint64_t a8))()
 {
   *a1 = a8;
   v9 = *(a8 - 8);
@@ -7362,7 +7134,7 @@ void DenseMatrix.subscript.read(uint64_t a1)
   free(v1);
 }
 
-void (*DenseMatrix.subscript.modify(void *a1, unint64_t a2, unint64_t a3, uint64_t a4))(void (***a1)(void, void))
+uint64_t (*DenseMatrix.subscript.modify(void *a1, unint64_t a2, unint64_t a3, uint64_t a4))()
 {
   v6 = malloc(0x30uLL);
   *a1 = v6;
@@ -7615,11 +7387,11 @@ unint64_t DenseMatrix._transposed()(unint64_t a1, int64_t a2, int a3, uint64_t a
   return result;
 }
 
-uint64_t DenseMatrix.transposed()(uint64_t a1)
+uint64_t DenseMatrix.transposed()(uint64_t a1, uint64_t a2, char a3)
 {
-  v1 = DenseMatrix.Transpose.init(base:)(a1);
+  v3 = DenseMatrix.Transpose.init(base:)(a1);
 
-  return v1;
+  return v3;
 }
 
 unint64_t static DenseMatrix.identity(rowCount:columnCount:)(unint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
@@ -7730,19 +7502,14 @@ unint64_t protocol witness for Matrix.init(rowCount:columnCount:) in conformance
   return result;
 }
 
-uint64_t protocol witness for Matrix.transposed() in conformance DenseMatrix<A>(uint64_t a1)
+uint64_t protocol witness for Matrix.transposed() in conformance DenseMatrix<A>()
 {
-  v3 = v1;
-  v4 = *(v2 + 8);
-  v5 = *(v2 + 16);
-  v6 = *(v2 + 24);
-  v7 = *(a1 + 16);
-  v8 = *(a1 + 24);
-  result = DenseMatrix.transposed()(*v2);
-  *v3 = result;
-  *(v3 + 8) = v10;
-  *(v3 + 16) = v11 & 1;
-  *(v3 + 24) = v12;
+  v2 = v0;
+  result = DenseMatrix.transposed()(*v1, *(v1 + 8), *(v1 + 16));
+  *v2 = result;
+  *(v2 + 8) = v4;
+  *(v2 + 16) = v5 & 1;
+  *(v2 + 24) = v6;
   return result;
 }
 
@@ -7785,11 +7552,11 @@ uint64_t DenseMatrix.withUnsafeMatrixPointer<A>(_:)(uint64_t a1, uint64_t a2, ui
   v21 = a1;
   v22 = a2;
   v10 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
-  _ss15ContiguousArrayV23withUnsafeBufferPointeryqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in DenseMatrix.withUnsafeMatrixPointer<A>(_:), v13, a6, a7, a8, v10, &protocol self-conformance witness table for Error, v23);
+  _ss15ContiguousArrayV23withUnsafeBufferPointeryqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in DenseMatrix.withUnsafeMatrixPointer<A>(_:), &v13, a6, a7, a8, v10, &protocol self-conformance witness table for Error, v23);
   return v12;
 }
 
-void *closure #1 in DenseMatrix.withUnsafeMatrixPointer<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t (*a7)(uint64_t, uint64_t, uint64_t, void), uint64_t a8, uint64_t a9, int a10, int a11, void *a12)
+void *closure #1 in DenseMatrix.withUnsafeMatrixPointer<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6, uint64_t (*a7)(uint64_t, uint64_t, uint64_t, void), uint64_t a8, uint64_t a9, int a10, int a11, void *a12)
 {
   v13 = UnsafeBufferPointer.baseAddress.getter(a1, a2, a9);
   if (!v13)
@@ -7819,9 +7586,9 @@ uint64_t DenseMatrix.withUnsafeMutableMatrixPointer<A>(_:)(uint64_t (*a1)(uint64
   v19 = a1;
   v8 = *(a3 + 16);
   type metadata accessor for ContiguousArray(0, v8);
-  v20 = v6 + 3;
+  v20 = v6 + 24;
   ContiguousArray._makeMutableAndUnique()();
-  v9 = v6[3];
+  v9 = *(v6 + 24);
   v10 = *(v9 + 16);
   v11 = *(*(v8 - 8) + 80);
   v12 = v9 + ((v11 + 32) & ~v11);
@@ -7833,19 +7600,16 @@ uint64_t DenseMatrix.withUnsafeMutableMatrixPointer<A>(_:)(uint64_t (*a1)(uint64
   return v14;
 }
 
-void *closure #1 in DenseMatrix.withUnsafeMutableMatrixPointer<A>(_:)(void *a1, uint64_t *a2, uint64_t (*a3)(uint64_t, uint64_t, uint64_t, void), uint64_t a4, uint64_t a5, uint64_t a6, int a7, void *a8)
+void *closure #1 in DenseMatrix.withUnsafeMutableMatrixPointer<A>(_:)(uint64_t *a1, uint64_t a2, uint64_t (*a3)(uint64_t, uint64_t, uint64_t, void), uint64_t a4, uint64_t a5, uint64_t a6, int a7, void *a8)
 {
-  v10 = UnsafeMutableBufferPointer.baseAddress.getter(*a1, a1[1], a5);
-  if (!v10)
+  v9 = UnsafeMutableBufferPointer.baseAddress.getter(*a1);
+  if (!v9)
   {
     BUG();
   }
 
-  v11 = *a2;
-  v12 = a2[1];
-  v13 = *(a2 + 16);
-  v14 = UnsafeMutableMatrixPointer.init(start:rowCount:columnCount:layout:)(v10);
-  result = a3(v14, v16, v17, v15 & 1);
+  v10 = UnsafeMutableMatrixPointer.init(start:rowCount:columnCount:layout:)(v9);
+  result = a3(v10, v12, v13, v11 & 1);
   if (v8)
   {
     result = a8;
@@ -7892,10 +7656,10 @@ void *closure #1 in DenseMatrix.withUnsafeVectorPointer<A>(row:_:)(uint64_t a1, 
   return result;
 }
 
-void *closure #1 in DenseMatrix.withUnsafeMutableVectorPointer<A>(row:_:)(void *a1, uint64_t *a2, unint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t), uint64_t a5, uint64_t a6, int a7, int a8, void *a9)
+void *closure #1 in DenseMatrix.withUnsafeMutableVectorPointer<A>(row:_:)(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t), uint64_t a5, uint64_t a6, int a7, int a8, void *a9)
 {
   v12 = *(a2 + 16);
-  v13 = UnsafeMutableBufferPointer.baseAddress.getter(*a1, a1[1], a6);
+  v13 = UnsafeMutableBufferPointer.baseAddress.getter(*a1);
   if (v12)
   {
     if (!v13)
@@ -7904,8 +7668,6 @@ void *closure #1 in DenseMatrix.withUnsafeMutableVectorPointer<A>(row:_:)(void *
     }
 
     v14 = *(*(a6 - 8) + 72) * a3 + v13;
-    v15 = *a2;
-    v16 = a2[1];
   }
 
   else
@@ -7915,19 +7677,19 @@ void *closure #1 in DenseMatrix.withUnsafeMutableVectorPointer<A>(row:_:)(void *
       BUG();
     }
 
-    v17 = a2[1];
-    v19 = a3;
-    v18 = v17 * a3;
-    if (!is_mul_ok(v17, v19))
+    v15 = *(a2 + 8);
+    v17 = a3;
+    v16 = v15 * a3;
+    if (!is_mul_ok(v15, v17))
     {
       BUG();
     }
 
-    v14 = *(*(a6 - 8) + 72) * v18 + v13;
+    v14 = *(*(a6 - 8) + 72) * v16 + v13;
   }
 
-  v20 = UnsafeMutableVectorPointer.init(start:count:stride:)(v14);
-  result = a4(v20, v21, v22);
+  v18 = UnsafeMutableVectorPointer.init(start:count:stride:)(v14);
+  result = a4(v18, v19, v20);
   if (v9)
   {
     result = a9;
@@ -7950,7 +7712,7 @@ uint64_t DenseMatrix.withUnsafeVectorPointer<A>(row:_:)(uint64_t a1, uint64_t a2
   v23 = a2;
   v24 = a3;
   v11 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
-  _ss15ContiguousArrayV23withUnsafeBufferPointeryqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(a11, v14, a7, a8, a9, v11, &protocol self-conformance witness table for Error, v25);
+  _ss15ContiguousArrayV23withUnsafeBufferPointeryqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(a11, &v14, a7, a8, a9, v11, &protocol self-conformance witness table for Error, v25);
   return v13;
 }
 
@@ -8015,41 +7777,39 @@ uint64_t DenseMatrix.withUnsafeMutableVectorPointer<A>(row:_:)(uint64_t a1, uint
   return v16;
 }
 
-void *closure #1 in DenseMatrix.withUnsafeMutableVectorPointer<A>(column:_:)(void *a1, uint64_t a2, unint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t), uint64_t a5, uint64_t a6, int a7, int a8, void *a9)
+void *closure #1 in DenseMatrix.withUnsafeMutableVectorPointer<A>(column:_:)(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t), uint64_t a5, uint64_t a6, int a7, int a8, void *a9)
 {
-  v13 = *(a2 + 16);
-  v14 = UnsafeMutableBufferPointer.baseAddress.getter(*a1, a1[1], a6);
-  if (v13)
+  v12 = *(a2 + 16);
+  v13 = UnsafeMutableBufferPointer.baseAddress.getter(*a1);
+  if (v12)
   {
-    if (!v14)
+    if (!v13)
     {
       BUG();
     }
 
-    v16 = a3;
-    v15 = *a2 * a3;
-    if (!is_mul_ok(*a2, v16))
+    v15 = a3;
+    v14 = *a2 * a3;
+    if (!is_mul_ok(*a2, v15))
     {
       BUG();
     }
 
-    v17 = *(*(a6 - 8) + 72) * v15 + v14;
+    v16 = *(*(a6 - 8) + 72) * v14 + v13;
   }
 
   else
   {
-    if (!v14)
+    if (!v13)
     {
       BUG();
     }
 
-    v17 = *(*(a6 - 8) + 72) * a3 + v14;
-    v18 = *a2;
-    v19 = *(a2 + 8);
+    v16 = *(*(a6 - 8) + 72) * a3 + v13;
   }
 
-  v20 = UnsafeMutableVectorPointer.init(start:count:stride:)(v17);
-  result = a4(v20, v21, v22);
+  v17 = UnsafeMutableVectorPointer.init(start:count:stride:)(v16);
+  result = a4(v17, v18, v19);
   if (v9)
   {
     result = a9;
@@ -8068,9 +7828,9 @@ char static DenseMatrix.+= infix(_:_:)(uint64_t a1, int64_t a2, int64_t a3, char
   v12 = *(v11 + 64);
   v13 = alloca(v12);
   v14 = alloca(v12);
-  if (*a1 != a2 || *(a1 + 8) != a3)
+  if (*a1 != __PAIR128__(a3, a2))
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000022, " of scalars, expected " + 0x8000000000000000, "LinearAlgebra/DenseMatrix.swift", 31, 2, 304, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000022, (" of scalars, expected " + 0x8000000000000000), "LinearAlgebra/DenseMatrix.swift", 31, 2, 304, 0);
     BUG();
   }
 
@@ -8101,7 +7861,7 @@ char static DenseMatrix.+= infix(_:_:)(uint64_t a1, int64_t a2, int64_t a3, char
       v36 = v62;
       do
       {
-        v67 = (v34 + 1);
+        v67 = v34 + 1;
         ContiguousArray.subscript.getter(v34, a5, v35);
         type metadata accessor for ContiguousArray(0, v35);
         v37 = v33;
@@ -8276,7 +8036,7 @@ unint64_t static DenseMatrix.-= infix(_:_:)(uint64_t a1, unint64_t a2, unint64_t
   v13 = &v21;
   if (*(a1 + 16) != (a4 & 1) || *a1 != a2 || *(a1 + 8) != a3)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000002DLL, "ve the same shape." + 0x8000000000000000, "LinearAlgebra/DenseMatrix.swift", 31, 2, 338, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000002DLL, ("ve the same shape." + 0x8000000000000000), "LinearAlgebra/DenseMatrix.swift", 31, 2, 338, 0);
     BUG();
   }
 
@@ -8333,230 +8093,118 @@ uint64_t static DenseMatrix.- infix(_:_:)(uint64_t a1, uint64_t a2, char a3, uin
   return v13[0];
 }
 
-uint64_t static DenseMatrix<>.*= infix(_:_:)(unint64_t *a1)
+uint64_t static DenseMatrix<>.*= infix(_:_:)(unint64_t *a1, float a2)
 {
-  v2 = a1[3];
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(v2);
-  a1[3] = v2;
+  v3 = a1[3];
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(v3);
+  a1[3] = v3;
   if (!isUniquelyReferenced_nonNull_native)
   {
-    v2 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v2);
-    a1[3] = v2;
+    v3 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v3);
+    a1[3] = v3;
   }
 
-  v4 = a1[1] * *a1;
+  v5 = a1[1] * *a1;
   if (!is_mul_ok(a1[1], *a1))
   {
     BUG();
   }
 
-  if (v4 < 0xFFFFFFFF80000000)
+  if (v5 < 0xFFFFFFFF80000000)
   {
     BUG();
   }
 
-  if (v4 > 0x7FFFFFFF)
+  if (v5 > 0x7FFFFFFF)
   {
     BUG();
   }
 
-  result = cblas_sscal_NEWLAPACK(v4, v2 + 4);
-  a1[3] = v2;
+  result = cblas_sscal_NEWLAPACK(v5, (v3 + 4), 1, a2);
+  a1[3] = v3;
   return result;
 }
 
-{
-  v2 = a1[3];
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(v2);
-  a1[3] = v2;
-  if (!isUniquelyReferenced_nonNull_native)
-  {
-    v2 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v2);
-    a1[3] = v2;
-  }
-
-  v4 = a1[1] * *a1;
-  if (!is_mul_ok(a1[1], *a1))
-  {
-    BUG();
-  }
-
-  if (v4 < 0xFFFFFFFF80000000)
-  {
-    BUG();
-  }
-
-  if (v4 > 0x7FFFFFFF)
-  {
-    BUG();
-  }
-
-  result = cblas_dscal_NEWLAPACK(v4, v2 + 4);
-  a1[3] = v2;
-  return result;
-}
-
-unint64_t static DenseMatrix<>.* infix(_:_:)(unint64_t a1, unint64_t a2, uint64_t a3, void *a4)
+unint64_t static DenseMatrix<>.* infix(_:_:)(unint64_t a1, unint64_t a2, float a3, uint64_t a4, void *a5)
 {
 
-  if (!swift_isUniquelyReferenced_nonNull_native(a4))
+  if (!swift_isUniquelyReferenced_nonNull_native(a5))
   {
-    a4 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a4);
+    a5 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a5);
   }
 
-  v6 = a2 * a1;
+  v7 = a2 * a1;
   if (!is_mul_ok(a2, a1))
   {
     BUG();
   }
 
-  if (v6 < 0xFFFFFFFF80000000)
+  if (v7 < 0xFFFFFFFF80000000)
   {
     BUG();
   }
 
-  if (v6 > 0x7FFFFFFF)
+  if (v7 > 0x7FFFFFFF)
   {
     BUG();
   }
 
-  cblas_sscal_NEWLAPACK(v6, a4 + 4);
+  cblas_sscal_NEWLAPACK(v7, (a5 + 4), 1, a3);
   return a1;
 }
 
 {
 
-  if (!swift_isUniquelyReferenced_nonNull_native(a4))
+  if (!swift_isUniquelyReferenced_nonNull_native(a5))
   {
-    a4 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a4);
+    a5 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a5);
   }
 
-  v6 = a2 * a1;
+  v7 = a2 * a1;
   if (!is_mul_ok(a2, a1))
   {
     BUG();
   }
 
-  if (v6 < 0xFFFFFFFF80000000)
+  if (v7 < 0xFFFFFFFF80000000)
   {
     BUG();
   }
 
-  if (v6 > 0x7FFFFFFF)
+  if (v7 > 0x7FFFFFFF)
   {
     BUG();
   }
 
-  cblas_sscal_NEWLAPACK(v6, a4 + 4);
+  cblas_sscal_NEWLAPACK(v7, (a5 + 4), 1, a3);
   return a1;
 }
 
+unint64_t static DenseMatrix<>./ infix(_:_:)(unint64_t a1, unint64_t a2, float a3, uint64_t a4, void *a5)
 {
 
-  if (!swift_isUniquelyReferenced_nonNull_native(a4))
+  if (!swift_isUniquelyReferenced_nonNull_native(a5))
   {
-    a4 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a4);
+    a5 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a5);
   }
 
-  v6 = a2 * a1;
+  v7 = a2 * a1;
   if (!is_mul_ok(a2, a1))
   {
     BUG();
   }
 
-  if (v6 < 0xFFFFFFFF80000000)
+  if (v7 < 0xFFFFFFFF80000000)
   {
     BUG();
   }
 
-  if (v6 > 0x7FFFFFFF)
+  if (v7 > 0x7FFFFFFF)
   {
     BUG();
   }
 
-  cblas_dscal_NEWLAPACK(v6, a4 + 4);
-  return a1;
-}
-
-{
-
-  if (!swift_isUniquelyReferenced_nonNull_native(a4))
-  {
-    a4 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a4);
-  }
-
-  v6 = a2 * a1;
-  if (!is_mul_ok(a2, a1))
-  {
-    BUG();
-  }
-
-  if (v6 < 0xFFFFFFFF80000000)
-  {
-    BUG();
-  }
-
-  if (v6 > 0x7FFFFFFF)
-  {
-    BUG();
-  }
-
-  cblas_dscal_NEWLAPACK(v6, a4 + 4);
-  return a1;
-}
-
-unint64_t static DenseMatrix<>./ infix(_:_:)(unint64_t a1, unint64_t a2, uint64_t a3, void *a4)
-{
-
-  if (!swift_isUniquelyReferenced_nonNull_native(a4))
-  {
-    a4 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a4);
-  }
-
-  v6 = a2 * a1;
-  if (!is_mul_ok(a2, a1))
-  {
-    BUG();
-  }
-
-  if (v6 < 0xFFFFFFFF80000000)
-  {
-    BUG();
-  }
-
-  if (v6 > 0x7FFFFFFF)
-  {
-    BUG();
-  }
-
-  cblas_sscal_NEWLAPACK(v6, a4 + 4);
-  return a1;
-}
-
-{
-
-  if (!swift_isUniquelyReferenced_nonNull_native(a4))
-  {
-    a4 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a4);
-  }
-
-  v6 = a2 * a1;
-  if (!is_mul_ok(a2, a1))
-  {
-    BUG();
-  }
-
-  if (v6 < 0xFFFFFFFF80000000)
-  {
-    BUG();
-  }
-
-  if (v6 > 0x7FFFFFFF)
-  {
-    BUG();
-  }
-
-  cblas_dscal_NEWLAPACK(v6, a4 + 4);
+  cblas_sscal_NEWLAPACK(v7, (a5 + 4), 1, 1.0 / a3);
   return a1;
 }
 
@@ -8617,37 +8265,149 @@ uint64_t static DenseMatrix<>.* infix(_:_:)(unint64_t a1, uint64_t a2, char a3, 
   return v15;
 }
 
-uint64_t static DenseMatrix<>.* infix(_:_:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5)
+uint64_t static DenseMatrix<>.* infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   return static DenseMatrix<>.* infix(_:_:)(a1, a2, a3, a4, a5, _s13LinearAlgebra11DenseVectorV27unsafeUninitializedCapacity16initializingWithACyxGSi_yAA013UnsafeMutableD7PointerVyxGzKXEtKcfCSf_Tt1gq504_s13a9Algebra11c27MatrixVAASfRszrlE1moiyAA0C6d8VySfGACyv13G_AGtFZyAA013jk2E7luV7GzXEfU_ACySfGAA0cO0VySfGTf1nc_n);
+}
+
+{
+  return static DenseMatrix<>.* infix(_:_:)(a1, a2, a3, a4, a5, _s13LinearAlgebra11DenseVectorV27unsafeUninitializedCapacity16initializingWithACyxGSi_yAA013UnsafeMutableD7PointerVyxGzKXEtKcfCSf_Tt1gq504_s13a9Algebra11c27MatrixVAASfRszrlE1moiyAA0C6d11VySfGAG_ACyv10GtFZyAA013jk2E7luV7GzXEfU_ACySfGAA0cO0VySfGTf1nc_n);
 }
 
 {
   return static DenseMatrix<>.* infix(_:_:)(a1, a2, a3, a4, a5, _s13LinearAlgebra11DenseVectorV27unsafeUninitializedCapacity16initializingWithACyxGSi_yAA013UnsafeMutableD7PointerVyxGzKXEtKcfCSd_Tt1gq504_s13a9Algebra11c27MatrixVAASdRszrlE1moiyAA0C6d8VySdGACyv13G_AGtFZyAA013jk2E7luV7GzXEfU_ACySdGAA0cO0VySdGTf1nc_n);
 }
 
-uint64_t static DenseMatrix<>.* infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
-  return static DenseMatrix<>.* infix(_:_:)(a1, a2, a3, a4, a5, _s13LinearAlgebra11DenseVectorV27unsafeUninitializedCapacity16initializingWithACyxGSi_yAA013UnsafeMutableD7PointerVyxGzKXEtKcfCSf_Tt1gq504_s13a9Algebra11c27MatrixVAASfRszrlE1moiyAA0C6d11VySfGAG_ACyv10GtFZyAA013jk2E7luV7GzXEfU_ACySfGAA0cO0VySfGTf1nc_n);
+  return static DenseMatrix<>.* infix(_:_:)(a1, a2, a3, a4, a5, _s13LinearAlgebra11DenseVectorV27unsafeUninitializedCapacity16initializingWithACyxGSi_yAA013UnsafeMutableD7PointerVyxGzKXEtKcfCSd_Tt1gq504_s13a9Algebra11c27MatrixVAASdRszrlE1moiyAA0C6d11VySdGAG_ACyv10GtFZyAA013jk2E7luV7GzXEfU_ACySdGAA0cO0VySdGTf1nc_n);
+}
+
+uint64_t static DenseMatrix<>.*= infix(_:_:)(unint64_t *a1, double a2)
+{
+  v3 = a1[3];
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(v3);
+  a1[3] = v3;
+  if (!isUniquelyReferenced_nonNull_native)
+  {
+    v3 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v3);
+    a1[3] = v3;
+  }
+
+  v5 = a1[1] * *a1;
+  if (!is_mul_ok(a1[1], *a1))
+  {
+    BUG();
+  }
+
+  if (v5 < 0xFFFFFFFF80000000)
+  {
+    BUG();
+  }
+
+  if (v5 > 0x7FFFFFFF)
+  {
+    BUG();
+  }
+
+  result = cblas_dscal_NEWLAPACK(v5, (v3 + 4), 1, a2);
+  a1[3] = v3;
+  return result;
+}
+
+unint64_t static DenseMatrix<>.* infix(_:_:)(unint64_t a1, unint64_t a2, double a3, uint64_t a4, void *a5)
+{
+
+  if (!swift_isUniquelyReferenced_nonNull_native(a5))
+  {
+    a5 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a5);
+  }
+
+  v7 = a2 * a1;
+  if (!is_mul_ok(a2, a1))
+  {
+    BUG();
+  }
+
+  if (v7 < 0xFFFFFFFF80000000)
+  {
+    BUG();
+  }
+
+  if (v7 > 0x7FFFFFFF)
+  {
+    BUG();
+  }
+
+  cblas_dscal_NEWLAPACK(v7, (a5 + 4), 1, a3);
+  return a1;
 }
 
 {
-  return static DenseMatrix<>.* infix(_:_:)(a1, a2, a3, a4, a5, _s13LinearAlgebra11DenseVectorV27unsafeUninitializedCapacity16initializingWithACyxGSi_yAA013UnsafeMutableD7PointerVyxGzKXEtKcfCSd_Tt1gq504_s13a9Algebra11c27MatrixVAASdRszrlE1moiyAA0C6d11VySdGAG_ACyv10GtFZyAA013jk2E7luV7GzXEfU_ACySdGAA0cO0VySdGTf1nc_n);
+
+  if (!swift_isUniquelyReferenced_nonNull_native(a5))
+  {
+    a5 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a5);
+  }
+
+  v7 = a2 * a1;
+  if (!is_mul_ok(a2, a1))
+  {
+    BUG();
+  }
+
+  if (v7 < 0xFFFFFFFF80000000)
+  {
+    BUG();
+  }
+
+  if (v7 > 0x7FFFFFFF)
+  {
+    BUG();
+  }
+
+  cblas_dscal_NEWLAPACK(v7, (a5 + 4), 1, a3);
+  return a1;
+}
+
+unint64_t static DenseMatrix<>./ infix(_:_:)(unint64_t a1, unint64_t a2, double a3, uint64_t a4, void *a5)
+{
+
+  if (!swift_isUniquelyReferenced_nonNull_native(a5))
+  {
+    a5 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a5);
+  }
+
+  v7 = a2 * a1;
+  if (!is_mul_ok(a2, a1))
+  {
+    BUG();
+  }
+
+  if (v7 < 0xFFFFFFFF80000000)
+  {
+    BUG();
+  }
+
+  if (v7 > 0x7FFFFFFF)
+  {
+    BUG();
+  }
+
+  cblas_dscal_NEWLAPACK(v7, (a5 + 4), 1, 1.0 / a3);
+  return a1;
 }
 
 uint64_t static DenseMatrix<>.* infix(_:_:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t, uint64_t, void, uint64_t))
 {
   v8 = a3 & 1;
-  a5;
-  a4;
+
   return a6(a1, a5, a1, a2, v8, a4);
 }
 
 uint64_t static DenseMatrix<>.* infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t, uint64_t, void, uint64_t))
 {
   v8 = a4 & 1;
-  a1;
-  a5;
+
   return a6(a3, a1, a2, a3, v8, a5);
 }
 
@@ -8659,7 +8419,7 @@ void static DenseMatrix.*= infix(_:_:)(unint64_t *a1, uint64_t a2, uint64_t a3, 
     BUG();
   }
 
-  v5 = (a1 + 3);
+  v5 = a1 + 3;
   if (v4 < 0)
   {
     BUG();
@@ -8738,7 +8498,7 @@ unint64_t static DenseMatrix./ infix(_:_:)(unint64_t a1, unint64_t a2, char a3, 
   return v21[0];
 }
 
-unint64_t static DenseMatrix.* infix(_:_:)(unint64_t a1, os_log_s *a2, int a3, uint64_t a4, os_log_s *a5, os_log_s *a6, char a7, uint64_t a8, uint64_t a9, uint64_t a10)
+unint64_t static DenseMatrix.* infix(_:_:)(unint64_t a1, os_log_t a2, int a3, uint64_t a4, os_log_s *a5, os_log_s *a6, char a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v88 = a6;
   log = a5;
@@ -8774,7 +8534,7 @@ unint64_t static DenseMatrix.* infix(_:_:)(unint64_t a1, os_log_s *a2, int a3, u
   v93 = a2;
   if (a2 != log)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000040, "ve the same shape and layout." + 0x8000000000000000, "LinearAlgebra/DenseMatrix.swift", 31, 2, 546, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000040, ("ve the same shape and layout." + 0x8000000000000000), "LinearAlgebra/DenseMatrix.swift", 31, 2, 546, 0);
     BUG();
   }
 
@@ -8785,10 +8545,10 @@ unint64_t static DenseMatrix.* infix(_:_:)(unint64_t a1, os_log_s *a2, int a3, u
 
   v27 = __swift_project_value_buffer(v22, static Logger.linearAlgebra);
   (*(v23 + 16))(v74, v27, v22);
-  v28 = Logger.logObject.getter();
+  v28 = Logger.logObject.getter(v74, v27);
   v94 = v23;
   v29 = v28;
-  v30 = static os_log_type_t.error.getter();
+  v30 = static os_log_type_t.error.getter(v74);
   log = v29;
   if (os_log_type_enabled(v29, v30))
   {
@@ -8928,7 +8688,7 @@ unint64_t static DenseMatrix.* infix(_:_:)(unint64_t a1, os_log_s *a2, int a3, u
   return result;
 }
 
-uint64_t static DenseMatrix.* infix(_:_:)(uint64_t a1, unint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t static DenseMatrix.* infix(_:_:)(int64_t a1, unint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v7 = a6;
   v62 = a4;
@@ -8964,7 +8724,7 @@ uint64_t static DenseMatrix.* infix(_:_:)(uint64_t a1, unint64_t a2, int a3, uin
   v26 = DenseVector.count.getter(a5, v7);
   if (v26 != v68)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000052, "right row count." + 0x8000000000000000, "LinearAlgebra/DenseMatrix.swift", 31, 2, 568, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000052, ("right row count." + 0x8000000000000000), "LinearAlgebra/DenseMatrix.swift", 31, 2, 568, 0);
     BUG();
   }
 
@@ -8976,8 +8736,8 @@ uint64_t static DenseMatrix.* infix(_:_:)(uint64_t a1, unint64_t a2, int a3, uin
   v27 = __swift_project_value_buffer(v21, static Logger.linearAlgebra);
   v80 = v21;
   (*(v22 + 16))(v61, v27, v21);
-  v28 = Logger.logObject.getter();
-  v29 = static os_log_type_t.error.getter();
+  v28 = Logger.logObject.getter(v61, v27);
+  v29 = static os_log_type_t.error.getter(v61);
   log = v28;
   *type = v29;
   if (os_log_type_enabled(v28, v29))
@@ -9055,9 +8815,9 @@ uint64_t static DenseMatrix.* infix(_:_:)(uint64_t a1, unint64_t a2, int a3, uin
           v49 = v66;
           v81 = *(v72 + 16);
           v81(v66, v50, v7);
-          v47(v61, 0);
+          (v47)(v61, 0);
           v51 = v63;
-          DenseVector.subscript.getter();
+          DenseVector.subscript.getter(v46, v67, v7);
           v52 = v49;
           v53 = v64;
           dispatch thunk of static Numeric.* infix(_:_:)(v52, v51, v7, v64);
@@ -9098,7 +8858,7 @@ uint64_t static DenseMatrix.* infix(_:_:)(uint64_t a1, unint64_t a2, int a3, uin
   return result;
 }
 
-uint64_t static DenseMatrix.* infix(_:_:)(uint64_t a1, unint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t static DenseMatrix.* infix(_:_:)(uint64_t a1, unint64_t a2, int64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v61 = a5;
   LODWORD(v79) = a4;
@@ -9133,7 +8893,7 @@ uint64_t static DenseMatrix.* infix(_:_:)(uint64_t a1, unint64_t a2, uint64_t a3
   v25 = DenseVector.count.getter(a1, a6);
   if (v25 != v68)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000004FLL, "tor element count." + 0x8000000000000000, "LinearAlgebra/DenseMatrix.swift", 31, 2, 588, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000004FLL, ("tor element count." + 0x8000000000000000), "LinearAlgebra/DenseMatrix.swift", 31, 2, 588, 0);
     BUG();
   }
 
@@ -9146,8 +8906,8 @@ uint64_t static DenseMatrix.* infix(_:_:)(uint64_t a1, unint64_t a2, uint64_t a3
   v26 = v21;
   v27 = __swift_project_value_buffer(v21, static Logger.linearAlgebra);
   (*(v81 + 16))(&v59, v27, v21);
-  v28 = Logger.logObject.getter();
-  v29 = static os_log_type_t.error.getter();
+  v28 = Logger.logObject.getter(&v59, v27);
+  v29 = static os_log_type_t.error.getter(&v59);
   if (os_log_type_enabled(v28, v29))
   {
     v30 = swift_slowAlloc(12, -1);
@@ -9221,13 +8981,13 @@ uint64_t static DenseMatrix.* infix(_:_:)(uint64_t a1, unint64_t a2, uint64_t a3
         do
         {
           v81 = v48 + 1;
-          DenseVector.subscript.getter();
+          DenseVector.subscript.getter(v48, v39, v44);
           v49 = DenseMatrix.subscript.read(v60, v48, v79, v68, a3, v74, v61, v44);
           v50 = v71;
           v51 = v62;
           log = *(v71 + 16);
           (log)(v62, v52, v44);
-          v49(v60, 0);
+          (v49)(v60, 0);
           v53 = v63;
           dispatch thunk of static Numeric.* infix(_:_:)(v70, v51, v44, v63);
           v54 = *(v50 + 8);
@@ -9282,9 +9042,8 @@ uint64_t initializeWithCopy for DenseMatrix(uint64_t a1, uint64_t a2)
 {
   *a1 = *a2;
   *(a1 + 16) = *(a2 + 16);
-  v3 = *(a2 + 24);
-  *(a1 + 24) = v3;
-  v3;
+  *(a1 + 24) = *(a2 + 24);
+
   return a1;
 }
 
@@ -9293,11 +9052,8 @@ uint64_t assignWithCopy for DenseMatrix(uint64_t a1, uint64_t a2)
   *a1 = *a2;
   *(a1 + 8) = *(a2 + 8);
   *(a1 + 16) = *(a2 + 16);
-  v3 = *(a2 + 24);
-  v4 = *(a1 + 24);
-  *(a1 + 24) = v3;
-  v3;
-  v4;
+  *(a1 + 24) = *(a2 + 24);
+
   return a1;
 }
 
@@ -9305,9 +9061,8 @@ uint64_t assignWithTake for DenseMatrix(uint64_t a1, uint64_t a2)
 {
   *a1 = *a2;
   *(a1 + 16) = *(a2 + 16);
-  v3 = *(a1 + 24);
   *(a1 + 24) = *(a2 + 24);
-  v3;
+
   return a1;
 }
 
@@ -9490,7 +9245,7 @@ uint64_t __swift_instantiateGenericMetadata(uint64_t a1, uint64_t a2, uint64_t a
 
 uint64_t UpperStrictlyTriangularMatrix.storage.setter(uint64_t a1)
 {
-  result = *(v1 + 16);
+
   *(v1 + 16) = a1;
   return result;
 }
@@ -9504,14 +9259,14 @@ uint64_t UpperStrictlyTriangularMatrix.rowStartIndices.setter(uint64_t a1)
 
 uint64_t UpperStrictlyTriangularMatrix.unordered.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v10[0] = a3;
-  v7 = type metadata accessor for ContiguousArray(0, a5);
-  a3;
-  WitnessTable = swift_getWitnessTable(&protocol conformance descriptor for ContiguousArray<A>, v7);
-  return Array.init<A>(_:)(v10, a5, v7, WitnessTable);
+  v9[0] = a3;
+  v6 = type metadata accessor for ContiguousArray(0, a5);
+
+  WitnessTable = swift_getWitnessTable(&protocol conformance descriptor for ContiguousArray<A>, v6);
+  return Array.init<A>(_:)(v9, a5, v6, WitnessTable);
 }
 
-unint64_t UpperStrictlyTriangularMatrix.init(rowCount:columnCount:)(unint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t UpperStrictlyTriangularMatrix.init(rowCount:columnCount:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v31 = a2;
   v32 = a1;
@@ -9675,13 +9430,13 @@ Swift::Void __swiftcall UpperStrictlyTriangularMatrix.checkBounds(row:column:)(S
 {
   if (row < 0 || row >= v2)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000012, "gularMatrix.swift" + 0x8000000000000000, "LinearAlgebra/UpperStrictlyTriangularMatrix.swift", 49, 2, 61, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000012, ("gularMatrix.swift" + 0x8000000000000000), "LinearAlgebra/UpperStrictlyTriangularMatrix.swift", 49, 2, 61, 0);
     goto LABEL_8;
   }
 
   if (column < 0 || column >= v3)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000015, "Row out of bounds." + 0x8000000000000000, "LinearAlgebra/UpperStrictlyTriangularMatrix.swift", 49, 2, 64, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000015, ("Row out of bounds." + 0x8000000000000000), "LinearAlgebra/UpperStrictlyTriangularMatrix.swift", 49, 2, 64, 0);
 LABEL_8:
     BUG();
   }
@@ -9718,28 +9473,25 @@ Swift::Int __swiftcall UpperStrictlyTriangularMatrix.dataIndex(_:_:)(Swift::Int 
 
 uint64_t UpperStrictlyTriangularMatrix.subscript.setter(uint64_t a1, Swift::Int a2, Swift::Int a3, uint64_t a4)
 {
-  v6 = *v4;
-  v7 = v4[1];
-  v15 = v4[3];
-  v8 = *(a4 + 16);
+  v6 = *(a4 + 16);
   UpperStrictlyTriangularMatrix.checkBounds(row:column:)(a2, a3);
   if (a2 >= a3)
   {
-    v14 = 0;
-    v13 = 2;
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000003BLL, "Column out of bounds." + 0x8000000000000000, "LinearAlgebra/UpperStrictlyTriangularMatrix.swift", 49, v13, 52, v14);
+    LODWORD(v12) = 0;
+    LODWORD(v11) = 2;
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000003BLL, ("Column out of bounds." + 0x8000000000000000), "LinearAlgebra/UpperStrictlyTriangularMatrix.swift", 49, v11, 52, v12);
     BUG();
   }
 
-  v9 = UpperStrictlyTriangularMatrix.dataIndex(_:_:)(a2, a3);
-  type metadata accessor for ContiguousArray(0, v8);
+  v7 = UpperStrictlyTriangularMatrix.dataIndex(_:_:)(a2, a3);
+  type metadata accessor for ContiguousArray(0, v6);
   ContiguousArray._makeMutableAndUnique()();
-  v10 = v4[2];
-  ContiguousArray._checkSubscript_mutating(_:)(v9);
-  v11 = *(v8 - 8);
-  (*(v11 + 24))(v10 + ((*(v11 + 80) + 32) & ~*(v11 + 80)) + *(v11 + 72) * v9, a1, v8);
+  v8 = *(v4 + 16);
+  ContiguousArray._checkSubscript_mutating(_:)(v7);
+  v9 = *(v6 - 8);
+  (*(v9 + 24))(v8 + ((*(v9 + 80) + 32) & ~*(v9 + 80)) + *(v9 + 72) * v7, a1, v6);
   MLBoostedTreeRegressor.ModelParameters.maxDepth.modify();
-  return (*(v11 + 8))(a1, v8);
+  return (*(v9 + 8))(a1, v6);
 }
 
 void (*UpperStrictlyTriangularMatrix.subscript.modify(void *a1, Swift::Int a2, Swift::Int a3, uint64_t a4))(Swift::Int **a1, char a2)
@@ -9768,20 +9520,18 @@ void UpperStrictlyTriangularMatrix.subscript.modify(Swift::Int **a1, char a2)
   v4 = (*a1)[7];
   if (a2)
   {
-    v10 = v2[5];
+    v8 = v2[5];
     v5 = v2[4];
-    v8 = v2[3];
-    v9 = v2[2];
+    v7 = v2[2];
     v6 = *v2;
-    v11 = v2[1];
-    (*(v10 + 16))(v3, v4, v5);
-    UpperStrictlyTriangularMatrix.subscript.setter(v3, v6, v11, v9);
-    (*(v10 + 8))(v4, v5);
+    v9 = v2[1];
+    (*(v8 + 16))(v3, v4, v5);
+    UpperStrictlyTriangularMatrix.subscript.setter(v3, v6, v9, v7);
+    (*(v8 + 8))(v4, v5);
   }
 
   else
   {
-    v7 = v2[3];
     UpperStrictlyTriangularMatrix.subscript.setter((*a1)[7], *v2, v2[1], v2[2]);
   }
 
@@ -9790,12 +9540,11 @@ void UpperStrictlyTriangularMatrix.subscript.modify(Swift::Int **a1, char a2)
   free(v2);
 }
 
-uint64_t UpperStrictlyTriangularMatrix.transposed()(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t UpperStrictlyTriangularMatrix.transposed()(uint64_t a1)
 {
-  v5 = LowerStrictlyTriangularMatrix.init(base:)(a1);
+  v1 = LowerStrictlyTriangularMatrix.init(base:)(a1);
 
-  a4;
-  return v5;
+  return v1;
 }
 
 BOOL _sSasSQRzlE2eeoiySbSayxG_ABtFZs5Int32V_Tt1g5(uint64_t a1, uint64_t a2)
@@ -9840,7 +9589,7 @@ BOOL _sSasSQRzlE2eeoiySbSayxG_ABtFZs5Int32V_Tt1g5(uint64_t a1, uint64_t a2)
   return result;
 }
 
-unint64_t protocol witness for Matrix.init(rowCount:columnCount:) in conformance UpperStrictlyTriangularMatrix<A>(unint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t protocol witness for Matrix.init(rowCount:columnCount:) in conformance UpperStrictlyTriangularMatrix<A>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
   result = UpperStrictlyTriangularMatrix.init(rowCount:columnCount:)(a1, a2, *(a3 + 16), *(a3 + 24));
@@ -9851,16 +9600,14 @@ unint64_t protocol witness for Matrix.init(rowCount:columnCount:) in conformance
   return result;
 }
 
-uint64_t protocol witness for Matrix.transposed() in conformance UpperStrictlyTriangularMatrix<A>(uint64_t a1)
+uint64_t protocol witness for Matrix.transposed() in conformance UpperStrictlyTriangularMatrix<A>()
 {
-  v3 = v1;
-  v4 = *(a1 + 16);
-  v5 = *(a1 + 24);
-  result = UpperStrictlyTriangularMatrix.transposed()(*v2, v2[1], v2[2], v2[3]);
-  *v3 = result;
-  v3[1] = v7;
-  v3[2] = v8;
-  v3[3] = v9;
+  v2 = v0;
+  result = UpperStrictlyTriangularMatrix.transposed()(*v1);
+  *v2 = result;
+  v2[1] = v4;
+  v2[2] = v5;
+  v2[3] = v6;
   return result;
 }
 
@@ -9890,33 +9637,24 @@ void protocol witness for Matrix.subscript.modify in conformance UpperStrictlyTr
   v4 = (*a1)[7];
   if (a2)
   {
-    v10 = v2[5];
+    v8 = v2[5];
     v5 = v2[4];
-    v8 = v2[3];
-    v9 = v2[2];
+    v7 = v2[3];
     v6 = *v2;
-    v11 = v2[1];
-    (*(v10 + 16))(v3, v4, v5);
-    UpperStrictlyTriangularMatrix.subscript.setter(v3, v6, v11, v8);
-    (*(v10 + 8))(v4, v5);
+    v9 = v2[1];
+    (*(v8 + 16))(v3, v4, v5);
+    UpperStrictlyTriangularMatrix.subscript.setter(v3, v6, v9, v7);
+    (*(v8 + 8))(v4, v5);
   }
 
   else
   {
-    v7 = v2[2];
     UpperStrictlyTriangularMatrix.subscript.setter((*a1)[7], *v2, v2[1], v2[3]);
   }
 
   free(v4);
   free(v3);
   free(v2);
-}
-
-BOOL protocol witness for static Equatable.== infix(_:_:) in conformance UpperStrictlyTriangularMatrix<A>(uint64_t *a1, uint64_t *a2, uint64_t a3)
-{
-  v3 = *(a2 + 1);
-  v4 = *(a3 + 16);
-  return static UpperStrictlyTriangularMatrix.__derived_struct_equals(_:_:)(*a1, a1[1], a1[2], a1[3], *a2, a2[1], a2[2], a2[3], *(a3 + 16), *(a3 + 24));
 }
 
 void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char a1, int64_t a2, char a3, void *a4, void (*a5)(void *, int64_t, void *))
@@ -10040,15 +9778,19 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v12;
 }
 
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char a1, int64_t a2, char a3)
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
 uint64_t initializeWithCopy for UpperStrictlyTriangularMatrix(uint64_t a1, uint64_t a2)
 {
   *a1 = *a2;
-  v3 = *(a2 + 16);
-  *(a1 + 16) = v3;
-  v4 = *(a2 + 24);
-  *(a1 + 24) = v4;
-  v3;
-  v4;
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = *(a2 + 24);
+
   return a1;
 }
 
@@ -10056,23 +9798,19 @@ void *assignWithCopy for UpperStrictlyTriangularMatrix(void *a1, void *a2)
 {
   *a1 = *a2;
   a1[1] = a2[1];
-  v3 = a2[2];
-  v4 = a1[2];
-  a1[2] = v3;
-  v3;
-  v4;
-  v5 = a2[3];
-  v6 = a1[3];
-  a1[3] = v5;
-  v5;
-  v6;
+  a1[2] = a2[2];
+
+  v2 = a1[3];
+  a1[3] = a2[3];
+
+  v2;
   return a1;
 }
 
 uint64_t assignWithTake for UpperStrictlyTriangularMatrix(uint64_t a1, _OWORD *a2)
 {
   *a1 = *a2;
-  *(a1 + 16);
+
   v3 = *(a1 + 24);
   *(a1 + 16) = a2[1];
   v3;
@@ -10187,13 +9925,11 @@ uint64_t UnsafeMutableVectorPointer.init(_:)(uint64_t a1, uint64_t a2, uint64_t 
 
 uint64_t UnsafeMutableVectorPointer.makeIterator()(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4)
 {
-  v4 = a3 * a2;
   if (!is_mul_ok(a3, a2))
   {
     BUG();
   }
 
-  v6 = a1 + *(*(a4 - 8) + 72) * v4;
   return UnsafeVectorPointer.Iterator.init(baseAddress:end:stride:)(a1);
 }
 
@@ -10231,10 +9967,10 @@ uint64_t UnsafeMutableVectorPointer._copyContents(initializing:)(uint64_t a1, Sw
     offsetBy = v16;
     v23 = v49;
     v24 = v47;
-    v25 = UnsafeMutableBufferPointer.baseAddress.getter(v49, v47, v6);
+    v25 = UnsafeMutableBufferPointer.baseAddress.getter(v49);
     if (!v25)
     {
-      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000030, "safeMutableVectorPointer.swift" + 0x8000000000000000, "LinearAlgebra/UnsafeMutableVectorPointer.swift", 46, 2, 109, 0);
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000030, ("safeMutableVectorPointer.swift" + 0x8000000000000000), "LinearAlgebra/UnsafeMutableVectorPointer.swift", 46, 2, 109, 0);
       BUG();
     }
 
@@ -10303,14 +10039,6 @@ uint64_t protocol witness for Sequence.makeIterator() in conformance UnsafeMutab
   v3[1] = v5;
   v3[2] = v6;
   return result;
-}
-
-uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance UnsafeMutableVectorPointer<A>(uint64_t a1)
-{
-  v4 = *v1;
-  v5 = *(v1 + 1);
-  WitnessTable = swift_getWitnessTable(&protocol conformance descriptor for UnsafeMutableVectorPointer<A>, a1);
-  return Collection._copyToContiguousArray()(a1, WitnessTable);
 }
 
 uint64_t protocol witness for Sequence._copyContents(initializing:) in conformance UnsafeMutableVectorPointer<A>(uint64_t *a1, uint64_t a2, Swift::Int a3, uint64_t a4)
@@ -10383,26 +10111,22 @@ void UnsafeMutableVectorPointer._failEarlyRangeCheck(_:bounds:)()
   ;
 }
 
-void (*UnsafeMutableVectorPointer.subscript.modify(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6))()
+void (*UnsafeMutableVectorPointer.subscript.modify(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5))()
 {
-  v6 = a5 * a2;
   if (!is_mul_ok(a5, a2))
   {
     BUG();
   }
 
-  v8 = *(*(a6 - 8) + 72) * v6;
   return MLBoostedTreeRegressor.ModelParameters.maxDepth.modify;
 }
 
 {
-  v6 = a5 * a2;
   if (!is_mul_ok(a5, a2))
   {
     BUG();
   }
 
-  v8 = *(*(a6 - 8) + 72) * v6;
   return MLBoostedTreeRegressor.ModelParameters.maxDepth.modify;
 }
 
@@ -10485,8 +10209,9 @@ uint64_t UnsafeMutableVectorPointer.subscript.setter(__int128 *a1, uint64_t a2, 
   v30 = *(a1 + 4);
   v15 = *a1;
   v29 = a1[1];
+  v28 = v15;
   v38 = v14;
-  Slice.endIndex.getter(v14, v13, v16, v17, v18, v19, v15, *(&v15 + 1), v29, *(&v29 + 1), v30);
+  Slice.endIndex.getter(v14, v13, v16, v17, v18, v19);
   if (v35 < v32)
   {
     BUG();
@@ -10603,18 +10328,18 @@ Swift::Void __swiftcall UnsafeMutableVectorPointer.swapAt(_:_:)(Swift::Int a1, S
 uint64_t protocol witness for MutableCollection.subscript.setter in conformance UnsafeMutableVectorPointer<A>(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   v5 = *(a3 + 16);
-  v6 = UnsafeMutableVectorPointer.subscript.modify(v10, *a2, *v4, a4, *(v4 + 16), v5);
+  v6 = UnsafeMutableVectorPointer.subscript.modify(v10, *a2, *v4, a4, *(v4 + 16));
   v7 = *(v5 - 8);
   (*(v7 + 24))(v8, a1, v5);
   (v6)(v10, 0);
   return (*(v7 + 8))(a1, v5);
 }
 
-void (*protocol witness for MutableCollection.subscript.modify in conformance UnsafeMutableVectorPointer<A>(void *a1, unint64_t *a2, uint64_t a3))(void (***a1)(void))
+uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance UnsafeMutableVectorPointer<A>(void *a1, unint64_t *a2))()
 {
-  v5 = malloc(0x28uLL);
-  *a1 = v5;
-  v5[4] = UnsafeMutableVectorPointer.subscript.modify(v5, *a2, *v3, v6, *(v3 + 16), *(a3 + 16));
+  v3 = malloc(0x28uLL);
+  *a1 = v3;
+  v3[4] = UnsafeMutableVectorPointer.subscript.modify(v3, *a2, *v2, v4, *(v2 + 16));
   return protocol witness for Collection.subscript.read in conformance <> InterspersedSequence<A>;
 }
 
@@ -10638,14 +10363,6 @@ void (*protocol witness for MutableCollection.subscript.modify in conformance Un
   return UnsafeMutableVectorPointer.subscript.modify;
 }
 
-void protocol witness for MutableCollection.swapAt(_:_:) in conformance UnsafeMutableVectorPointer<A>(Swift::Int *a1, Swift::Int *a2, uint64_t a3)
-{
-  v4 = *v3;
-  v5 = v3[2];
-  v6 = *(a3 + 16);
-  UnsafeMutableVectorPointer.swapAt(_:_:)(*a1, *a2);
-}
-
 uint64_t UnsafeMutableVectorPointer.withContiguousMutableStorageIfAvailable<A>(_:)(uint64_t (*a1)(uint64_t *), uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = v4;
@@ -10657,51 +10374,52 @@ uint64_t UnsafeMutableVectorPointer.withContiguousMutableStorageIfAvailable<A>(_
     return __swift_storeEnumTagSinglePayload(v7, 1, 1, a4);
   }
 
-  v40 = *(a4 - 8);
-  v39 = v7;
-  v38 = a4;
-  v33 = a1;
+  v41 = *(a4 - 8);
+  v40 = v7;
+  v39 = a4;
+  v34 = a1;
   v12 = *v6;
   v13 = v6[1];
   v14 = *(a3 + 16);
-  v34 = a2;
+  v35 = a2;
   v15 = UnsafeMutableBufferPointer.init(start:count:)(v12, v13, v14);
-  v35 = v5;
+  v36 = v5;
   v17 = v16;
-  v28 = v15;
-  v29 = v16;
-  v36 = v14;
-  v37 = UnsafeMutableBufferPointer.baseAddress.getter(v15, v16, v14);
-  v41 = v27;
-  v18 = v35;
-  result = v33(&v28);
-  if (!v18)
+  v29 = v15;
+  v30 = v16;
+  v18 = v16;
+  v37 = v14;
+  v38 = UnsafeMutableBufferPointer.baseAddress.getter(v15);
+  v42 = v28;
+  v19 = v36;
+  result = (v34)(&v29, v18);
+  if (!v19)
   {
-    v30 = v37;
-    v31 = v17;
-    v20 = v29;
-    v21 = v36;
-    v32 = UnsafeMutableBufferPointer.baseAddress.getter(v28, v29, v36);
-    v27[0] = v20;
-    v22 = type metadata accessor for UnsafeMutablePointer(255, v21);
-    v23 = type metadata accessor for Optional(0, v22);
-    v27[1] = swift_getWitnessTable(&protocol conformance descriptor for UnsafeMutablePointer<A>, v22);
-    WitnessTable = swift_getWitnessTable(&protocol conformance descriptor for <A> A?, v23);
-    if ((== infix<A, B>(_:_:)(&v30, &v31, &v32, v27, v23, &type metadata for Int, WitnessTable) & 1) == 0)
+    v31 = v38;
+    v32 = v17;
+    v21 = v30;
+    v22 = v37;
+    v33 = UnsafeMutableBufferPointer.baseAddress.getter(v29);
+    v28[0] = v21;
+    v23 = type metadata accessor for UnsafeMutablePointer(255, v22);
+    v24 = type metadata accessor for Optional(0, v23);
+    v28[1] = swift_getWitnessTable(&protocol conformance descriptor for UnsafeMutablePointer<A>, v23);
+    WitnessTable = swift_getWitnessTable(&protocol conformance descriptor for <A> A?, v24);
+    if ((== infix<A, B>(_:_:)(&v31, &v32, &v33, v28, v24, &type metadata for Int, WitnessTable) & 1) == 0)
     {
       BUG();
     }
 
-    v25 = v39;
-    v26 = v38;
-    (*(v40 + 32))(v39, v41, v38);
-    return __swift_storeEnumTagSinglePayload(v25, 0, 1, v26);
+    v26 = v40;
+    v27 = v39;
+    (*(v41 + 32))(v40, v42, v39);
+    return __swift_storeEnumTagSinglePayload(v26, 0, 1, v27);
   }
 
   return result;
 }
 
-void (*protocol witness for Collection.subscript.read in conformance UnsafeMutableVectorPointer<A>(uint64_t **a1, unint64_t *a2, uint64_t a3))(void (***a1)(void))
+uint64_t (*protocol witness for Collection.subscript.read in conformance UnsafeMutableVectorPointer<A>(void *a1, unint64_t *a2, uint64_t a3))()
 {
   v5 = malloc(0x28uLL);
   *a1 = v5;
@@ -10709,7 +10427,7 @@ void (*protocol witness for Collection.subscript.read in conformance UnsafeMutab
   return protocol witness for Collection.subscript.read in conformance <> InterspersedMapSequence<A, B>;
 }
 
-void (*UnsafeMutableVectorPointer.subscript.read(uint64_t *a1, unint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6))(void *a1)
+void (*UnsafeMutableVectorPointer.subscript.read(void *a1, unint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6))(void *a1)
 {
   *a1 = a6;
   v8 = *(a6 - 8);
@@ -10732,11 +10450,10 @@ uint64_t protocol witness for Collection.subscript.getter in conformance UnsafeM
 
 uint64_t protocol witness for Collection.indices.getter in conformance UnsafeMutableVectorPointer<A>()
 {
-  v2 = v0;
-  v3 = *(v1 + 8);
+  v1 = v0;
   result = UnsafeMutableVectorPointer.indices.getter();
-  *v2 = 0;
-  v2[1] = v5;
+  *v1 = 0;
+  v1[1] = v3;
   return result;
 }
 
@@ -10773,43 +10490,25 @@ Swift::Int protocol witness for BidirectionalCollection.index(_:offsetBy:limited
   return v5.value;
 }
 
-uint64_t UnsafeMutableVectorPointer.init(rebasing:)(__int128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t UnsafeMutableVectorPointer.init(rebasing:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v28 = *(a1 + 4);
-  v22 = a1[1];
-  v17 = *a1;
   v4 = type metadata accessor for UnsafeMutableVectorPointer(255, a2, a3, a4);
   WitnessTable = swift_getWitnessTable(&protocol conformance descriptor for UnsafeMutableVectorPointer<A>, v4);
   v6 = v4;
   v7 = type metadata accessor for Slice(0, v4, WitnessTable);
   Slice.base.getter(v7);
-  v29 = *(a1 + 4);
-  v23 = a1[1];
-  v18 = *a1;
   Slice.startIndex.getter(v7);
-  v30 = *(a1 + 4);
-  v24 = a1[1];
-  v19 = *a1;
   Slice.base.getter(v7);
-  if (!is_mul_ok(v14, v16))
+  if (!is_mul_ok(v13, v15))
   {
     BUG();
   }
 
-  v35 = *(*(a2 - 8) + 72) * v14 * v16 + v15;
-  v31 = *(a1 + 4);
-  v25 = a1[1];
-  v20 = *a1;
+  v17 = *(*(a2 - 8) + 72) * v13 * v15 + v14;
   Slice.endIndex.getter(v7, v6, v8, v9, v10, v11);
-  v32 = *(a1 + 4);
-  v26 = a1[1];
-  v21 = *a1;
   Slice.startIndex.getter(v7);
-  v33 = *(a1 + 4);
-  v12 = *a1;
-  v27 = a1[1];
   Slice.base.getter(v7);
-  return v35;
+  return v17;
 }
 
 _BOOL8 UnsafeMutableVectorPointer.assign(repeating:)(uint64_t a1, uint64_t a2, int64_t a3, uint64_t a4, uint64_t a5)
@@ -10850,13 +10549,13 @@ uint64_t UnsafeMutableVectorPointer.debugDescription.getter(uint64_t a1, uint64_
   v6._object = "l buffer pointer" + 0x8000000000000000;
   v6._countAndFlagsBits = 0xD000000000000022;
   String.append(_:)(v6);
-  v17[0] = a1;
+  v16[0] = a1;
   v7 = type metadata accessor for UnsafeMutablePointer(0, a4);
-  DefaultStringInterpolation.appendInterpolation<A>(_:)(v17, v7);
+  DefaultStringInterpolation.appendInterpolation<A>(_:)(v16, v7);
   v6._countAndFlagsBits = 0x3A746E756F63202CLL;
   v6._object = 0xE900000000000020;
   String.append(_:)(v6);
-  v17[0] = a2;
+  v16[0] = a2;
   v8 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
   v10 = v9;
   v6._countAndFlagsBits = v8;
@@ -10866,13 +10565,13 @@ uint64_t UnsafeMutableVectorPointer.debugDescription.getter(uint64_t a1, uint64_
   v6._countAndFlagsBits = 0x656469727473202CLL;
   v6._object = 0xEA0000000000203ALL;
   String.append(_:)(v6);
-  v17[0] = a3;
+  v16[0] = a3;
   v11 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
-  v13 = v12;
+  LOBYTE(a1) = v12;
   v6._countAndFlagsBits = v11;
   v6._object = v12;
   String.append(_:)(v6);
-  v13;
+  a1;
   v6._countAndFlagsBits = 41;
   v6._object = 0xE100000000000000;
   String.append(_:)(v6);
@@ -10945,7 +10644,6 @@ uint64_t DenseMatrix.IndexedSequence.makeIterator()(uint64_t a1, uint64_t a2, ch
   *(v4 + 24) = a4;
   *(v4 + 32) = 0;
   *(v4 + 48) = 0;
-  return a4;
 }
 
 uint64_t DenseMatrix.IndexedSequence.Iterator.init(base:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
@@ -10975,9 +10673,7 @@ uint64_t protocol witness for Sequence.makeIterator() in conformance DenseMatrix
 uint64_t DenseMatrix.IndexedSequence.Iterator.base.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
-  v3 = *(v0 + 16);
-  v0[3];
+
   return v1;
 }
 
@@ -11067,11 +10763,10 @@ uint64_t initializeWithCopy for DenseMatrix.IndexedSequence.Iterator(uint64_t a1
 {
   *a1 = *a2;
   *(a1 + 16) = *(a2 + 16);
-  v3 = *(a2 + 24);
-  *(a1 + 24) = v3;
+  *(a1 + 24) = *(a2 + 24);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 48) = *(a2 + 48);
-  v3;
+
   return a1;
 }
 
@@ -11080,11 +10775,8 @@ uint64_t assignWithCopy for DenseMatrix.IndexedSequence.Iterator(uint64_t a1, ui
   *a1 = *a2;
   *(a1 + 8) = *(a2 + 8);
   *(a1 + 16) = *(a2 + 16);
-  v3 = *(a2 + 24);
-  v4 = *(a1 + 24);
-  *(a1 + 24) = v3;
-  v3;
-  v4;
+  *(a1 + 24) = *(a2 + 24);
+
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = *(a2 + 40);
   *(a1 + 48) = *(a2 + 48);
@@ -11095,9 +10787,8 @@ uint64_t assignWithTake for DenseMatrix.IndexedSequence.Iterator(uint64_t a1, ui
 {
   *a1 = *a2;
   *(a1 + 16) = *(a2 + 16);
-  v3 = *(a1 + 24);
   *(a1 + 24) = *(a2 + 24);
-  v3;
+
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 48) = *(a2 + 48);
   return a1;
@@ -11165,15 +10856,14 @@ uint64_t protocol witness for Matrix.indexed() in conformance DenseMatrix<A>(uin
   return result;
 }
 
-uint64_t LowerStrictlyTriangularMatrix.indexed()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t LowerStrictlyTriangularMatrix.indexed()(uint64_t a1)
 {
-  a3;
-  a4;
+
   return a1;
 }
 
 {
-  return LowerStrictlyTriangularMatrix.IndexedSequence.base.getter(a1, a2, a3, a4);
+  return LowerStrictlyTriangularMatrix.IndexedSequence.base.getter(a1);
 }
 
 uint64_t LowerStrictlyTriangularMatrix.IndexedSequence.makeIterator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -11184,8 +10874,6 @@ uint64_t LowerStrictlyTriangularMatrix.IndexedSequence.makeIterator()(uint64_t a
   *(v4 + 24) = a4;
   *(v4 + 32) = 1;
   *(v4 + 40) = 0;
-  a3;
-  return a4;
 }
 
 uint64_t LowerStrictlyTriangularMatrix.IndexedSequence.Iterator.init(base:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -11217,10 +10905,7 @@ uint64_t protocol witness for Sequence.makeIterator() in conformance LowerStrict
 uint64_t LowerStrictlyTriangularMatrix.IndexedSequence.Iterator.base.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[3];
-  v0[2];
-  v3;
+
   return v1;
 }
 
@@ -11294,14 +10979,11 @@ uint64_t LowerStrictlyTriangularMatrix.IndexedSequence.Iterator.next()(uint64_t 
 uint64_t initializeWithCopy for LowerStrictlyTriangularMatrix.IndexedSequence.Iterator(uint64_t a1, uint64_t a2)
 {
   *a1 = *a2;
-  v3 = *(a2 + 16);
-  *(a1 + 16) = v3;
-  v4 = *(a2 + 24);
-  *(a1 + 24) = v4;
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = *(a2 + 24);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 48) = *(a2 + 48);
-  v3;
-  v4;
+
   return a1;
 }
 
@@ -11309,16 +10991,12 @@ void *assignWithCopy for LowerStrictlyTriangularMatrix.IndexedSequence.Iterator(
 {
   *a1 = *a2;
   a1[1] = a2[1];
-  v3 = a2[2];
-  v4 = a1[2];
-  a1[2] = v3;
-  v3;
-  v4;
-  v5 = a2[3];
-  v6 = a1[3];
-  a1[3] = v5;
-  v5;
-  v6;
+  a1[2] = a2[2];
+
+  v2 = a1[3];
+  a1[3] = a2[3];
+
+  v2;
   a1[4] = a2[4];
   a1[5] = a2[5];
   a1[6] = a2[6];
@@ -11328,7 +11006,7 @@ void *assignWithCopy for LowerStrictlyTriangularMatrix.IndexedSequence.Iterator(
 uint64_t assignWithTake for LowerStrictlyTriangularMatrix.IndexedSequence.Iterator(uint64_t a1, uint64_t a2)
 {
   *a1 = *a2;
-  *(a1 + 16);
+
   v3 = *(a1 + 24);
   *(a1 + 16) = *(a2 + 16);
   v3;
@@ -11391,7 +11069,7 @@ void storeEnumTagSinglePayload for LowerStrictlyTriangularMatrix.IndexedSequence
 uint64_t protocol witness for Matrix.indexed() in conformance LowerStrictlyTriangularMatrix<A>()
 {
   v2 = v0;
-  result = LowerStrictlyTriangularMatrix.IndexedSequence.base.getter(*v1, v1[1], v1[2], v1[3]);
+  result = LowerStrictlyTriangularMatrix.IndexedSequence.base.getter(*v1);
   *v2 = result;
   v2[1] = v4;
   v2[2] = v5;
@@ -11401,7 +11079,7 @@ uint64_t protocol witness for Matrix.indexed() in conformance LowerStrictlyTrian
 
 uint64_t DenseMatrix.Transpose.base.setter(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
 {
-  result = *(v4 + 24);
+
   *v4 = a1;
   *(v4 + 8) = a2;
   *(v4 + 16) = a3 & 1;
@@ -11409,7 +11087,7 @@ uint64_t DenseMatrix.Transpose.base.setter(uint64_t a1, uint64_t a2, char a3, ui
   return result;
 }
 
-void (*DenseMatrix.Transpose.subscript.read(void *a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, char a6, __int128 a7))(void (***a1)(void, void))
+uint64_t (*DenseMatrix.Transpose.subscript.read(void *a1, unint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, char a6, __int128 a7))()
 {
   v9 = malloc(0x28uLL);
   *a1 = v9;
@@ -11417,7 +11095,7 @@ void (*DenseMatrix.Transpose.subscript.read(void *a1, unint64_t a2, unint64_t a3
   return DenseMatrix.Transpose.subscript.read;
 }
 
-void (*DenseMatrix.Transpose.subscript.modify(void *a1, unint64_t a2, unint64_t a3, uint64_t a4))(void (***a1)(void, void))
+uint64_t (*DenseMatrix.Transpose.subscript.modify(void *a1, unint64_t a2, unint64_t a3, uint64_t a4))()
 {
   v6 = malloc(0x28uLL);
   *a1 = v6;
@@ -11459,7 +11137,7 @@ unint64_t protocol witness for Matrix.init(rowCount:columnCount:) in conformance
 uint64_t protocol witness for Matrix.transposed() in conformance DenseMatrix<A>.Transpose()
 {
   v2 = v0;
-  result = DenseMatrix.Transpose.transposed()(*v1, *(v1 + 8), *(v1 + 16), *(v1 + 24));
+  result = DenseMatrix.Transpose.transposed()(*v1);
   *v2 = result;
   *(v2 + 8) = v4;
   *(v2 + 16) = v5 & 1;
@@ -11471,12 +11149,11 @@ uint64_t protocol witness for Matrix.subscript.getter in conformance DenseMatrix
 {
   v5 = v3;
   v6 = *(a3 + 16);
-  v11 = *(a3 + 24);
   *(&v10 + 1) = v6;
   *&v10 = *(v4 + 24);
-  v7 = DenseMatrix.Transpose.subscript.read(v12, a1, a2, *v4, *(v4 + 8), *(v4 + 16), v10);
+  v7 = DenseMatrix.Transpose.subscript.read(v11, a1, a2, *v4, *(v4 + 8), *(v4 + 16), v10);
   (*(*(v6 - 8) + 16))(v5, v8, v6);
-  return (v7)(v12, 0);
+  return (v7)(v11, 0);
 }
 
 uint64_t protocol witness for Matrix.subscript.setter in conformance DenseMatrix<A>.Transpose(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4)
@@ -11507,12 +11184,12 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Den
 uint64_t static DenseMatrix.Transpose.* infix(_:_:)(os_log_s *a1, os_log_s *a2, char a3, uint64_t a4, unint64_t a5, os_log_s *a6, char a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v10 = static DenseMatrix.* infix(_:_:)(a5, a6, a7 & 1, a8, a1, a2, a3 & 1, a4, a9, a10);
-  v11 = DenseMatrix.transposed()(v10);
+  v13 = DenseMatrix.transposed()(v10, v12, v11 & 1);
 
-  return v11;
+  return v13;
 }
 
-uint64_t static DenseMatrix.Transpose.* infix(_:_:)(unint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t static DenseMatrix.Transpose.* infix(_:_:)(unint64_t a1, int64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v64 = a4;
   LODWORD(v83) = a3;
@@ -11547,7 +11224,7 @@ uint64_t static DenseMatrix.Transpose.* infix(_:_:)(unint64_t a1, uint64_t a2, i
   v26 = DenseVector.count.getter(a5, a6);
   if (v26 != v71)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000052, "right row count." + 0x8000000000000000, "LinearAlgebra/DenseMatrix+Transpose.swift", 41, 2, 123, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000052, ("right row count." + 0x8000000000000000), "LinearAlgebra/DenseMatrix+Transpose.swift", 41, 2, 123, 0);
     BUG();
   }
 
@@ -11559,8 +11236,8 @@ uint64_t static DenseMatrix.Transpose.* infix(_:_:)(unint64_t a1, uint64_t a2, i
   v27 = __swift_project_value_buffer(v21, static Logger.linearAlgebra);
   v84 = v21;
   (*(v22 + 16))(&v62, v27, v21);
-  v28 = Logger.logObject.getter();
-  v29 = static os_log_type_t.error.getter();
+  v28 = Logger.logObject.getter(&v62, v27);
+  v29 = static os_log_type_t.error.getter(&v62);
   log = v28;
   *type = v29;
   if (os_log_type_enabled(v28, v29))
@@ -11642,9 +11319,9 @@ uint64_t static DenseMatrix.Transpose.* infix(_:_:)(unint64_t a1, uint64_t a2, i
           v51 = v69;
           log = *(v74 + 16);
           (log)(v69, v52, v47);
-          v49(v63, 0);
+          (v49)(v63, 0);
           v53 = v65;
-          DenseVector.subscript.getter();
+          DenseVector.subscript.getter(v48, v70, v47);
           v54 = v51;
           v55 = v66;
           dispatch thunk of static Numeric.* infix(_:_:)(v54, v53, v47, v66);
@@ -11684,7 +11361,7 @@ uint64_t static DenseMatrix.Transpose.* infix(_:_:)(unint64_t a1, uint64_t a2, i
   return result;
 }
 
-uint64_t static DenseMatrix.Transpose.* infix(_:_:)(uint64_t a1, uint64_t a2, unint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t static DenseMatrix.Transpose.* infix(_:_:)(uint64_t a1, void *a2, unint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v62 = a5;
   LODWORD(v80) = a4;
@@ -11720,7 +11397,7 @@ uint64_t static DenseMatrix.Transpose.* infix(_:_:)(uint64_t a1, uint64_t a2, un
   v25 = DenseVector.count.getter(a1, a6);
   if (v25 != v68)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000004FLL, "tor element count." + 0x8000000000000000, "LinearAlgebra/DenseMatrix+Transpose.swift", 41, 2, 143, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000004FLL, ("tor element count." + 0x8000000000000000), "LinearAlgebra/DenseMatrix+Transpose.swift", 41, 2, 143, 0);
     BUG();
   }
 
@@ -11733,8 +11410,8 @@ uint64_t static DenseMatrix.Transpose.* infix(_:_:)(uint64_t a1, uint64_t a2, un
   v26 = __swift_project_value_buffer(v20, static Logger.linearAlgebra);
   v81 = v20;
   (*(v21 + 16))(v61, v26, v20);
-  v27 = Logger.logObject.getter();
-  v28 = static os_log_type_t.error.getter();
+  v27 = Logger.logObject.getter(v61, v26);
+  v28 = static os_log_type_t.error.getter(v61);
   if (os_log_type_enabled(v27, v28))
   {
     v29 = swift_slowAlloc(12, -1);
@@ -11809,13 +11486,13 @@ uint64_t static DenseMatrix.Transpose.* infix(_:_:)(uint64_t a1, uint64_t a2, un
         do
         {
           v80 = (v48 + 1);
-          DenseVector.subscript.getter();
+          DenseVector.subscript.getter(v48, v67, v44);
           v49 = DenseMatrix.subscript.read(v61, v82, v48, v41, v68, v75, v62, v44);
           v50 = v74;
           v51 = v63;
           v81 = *(v74 + 16);
           v81(v63, v52, v44);
-          v49(v61, 0);
+          (v49)(v61, 0);
           v53 = v64;
           dispatch thunk of static Numeric.* infix(_:_:)(v72, v51, v44, v64);
           v54 = *(v50 + 8);
@@ -11908,18 +11585,17 @@ uint64_t static DenseMatrix.Transpose<>.* infix(_:_:)(uint64_t a1, unint64_t a2,
   return v11;
 }
 
-uint64_t static DenseMatrix.Transpose<>.* infix(_:_:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5)
+uint64_t static DenseMatrix.Transpose<>.* infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   return static DenseMatrix.Transpose<>.* infix(_:_:)(a1, a2, a3, a4, a5, _s13LinearAlgebra11DenseVectorV27unsafeUninitializedCapacity16initializingWithACyxGSi_yAA013UnsafeMutableD7PointerVyxGzKXEtKcfCSf_Tt1gq504_s13a9Algebra11c38MatrixV9TransposeVAASfRszrlE1moiyAA0C6d8VySfGAEyx14_G_AItFZyAA013jk2F7lwX7GzXEfU_ACySfGAA0cO0V0Q0VySf_GTf1nc_n);
 }
 
 {
-  return static DenseMatrix.Transpose<>.* infix(_:_:)(a1, a2, a3, a4, a5, _s13LinearAlgebra11DenseVectorV27unsafeUninitializedCapacity16initializingWithACyxGSi_yAA013UnsafeMutableD7PointerVyxGzKXEtKcfCSd_Tt1gq504_s13a9Algebra11c38MatrixV9TransposeVAASdRszrlE1moiyAA0C6d8VySdGAEyx14_G_AItFZyAA013jk2F7lwX7GzXEfU_ACySdGAA0cO0V0Q0VySd_GTf1nc_n);
+  return static DenseMatrix.Transpose<>.* infix(_:_:)(a1, a2, a3, a4, a5, _s13LinearAlgebra11DenseVectorV27unsafeUninitializedCapacity16initializingWithACyxGSi_yAA013UnsafeMutableD7PointerVyxGzKXEtKcfCSf_Tt1gq504_s13a9Algebra11c38MatrixV9TransposeVAASfRszrlE1moiyAA0C6d11VySfGAI_AEyx11_GtFZyAA013jk2F7lwX7GzXEfU_ACySfGAA0cO0V0Q0VySf_GTf1nc_n);
 }
 
-uint64_t static DenseMatrix.Transpose<>.* infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
-  return static DenseMatrix.Transpose<>.* infix(_:_:)(a1, a2, a3, a4, a5, _s13LinearAlgebra11DenseVectorV27unsafeUninitializedCapacity16initializingWithACyxGSi_yAA013UnsafeMutableD7PointerVyxGzKXEtKcfCSf_Tt1gq504_s13a9Algebra11c38MatrixV9TransposeVAASfRszrlE1moiyAA0C6d11VySfGAI_AEyx11_GtFZyAA013jk2F7lwX7GzXEfU_ACySfGAA0cO0V0Q0VySf_GTf1nc_n);
+  return static DenseMatrix.Transpose<>.* infix(_:_:)(a1, a2, a3, a4, a5, _s13LinearAlgebra11DenseVectorV27unsafeUninitializedCapacity16initializingWithACyxGSi_yAA013UnsafeMutableD7PointerVyxGzKXEtKcfCSd_Tt1gq504_s13a9Algebra11c38MatrixV9TransposeVAASdRszrlE1moiyAA0C6d8VySdGAEyx14_G_AItFZyAA013jk2F7lwX7GzXEfU_ACySdGAA0cO0V0Q0VySd_GTf1nc_n);
 }
 
 {
@@ -11929,16 +11605,14 @@ uint64_t static DenseMatrix.Transpose<>.* infix(_:_:)(uint64_t a1, uint64_t a2, 
 uint64_t static DenseMatrix.Transpose<>.* infix(_:_:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t, uint64_t, void, uint64_t))
 {
   v8 = a3 & 1;
-  a5;
-  a4;
+
   return a6(a2, a5, a1, a2, v8, a4);
 }
 
 uint64_t static DenseMatrix.Transpose<>.* infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t, uint64_t, void, uint64_t))
 {
   v8 = a4 & 1;
-  a1;
-  a5;
+
   return a6(a2, a1, a2, a3, v8, a5);
 }
 
@@ -11997,7 +11671,7 @@ char protocol witness for CodingKey.init(stringValue:) in conformance MatrixLayo
   return result;
 }
 
-char protocol witness for CodingKey.init(stringValue:) in conformance MatrixLayout.RowMajorCodingKeys(uint64_t a1, uint64_t a2)
+char protocol witness for CodingKey.init(stringValue:) in conformance MatrixLayout.RowMajorCodingKeys(uint64_t a1, char a2)
 {
   v3 = v2;
   result = MatrixLayout.RowMajorCodingKeys.init(stringValue:)(a1, a2) & 1;
@@ -12181,119 +11855,118 @@ uint64_t lazy protocol witness table accessor for type MatrixLayout.RowMajorCodi
 
 char MatrixLayout.init(from:)(void *a1)
 {
-  v50 = v1;
+  v48 = v1;
   v2 = a1;
-  v44 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for KeyedDecodingContainer<MatrixLayout.ColumnMajorCodingKeys>);
-  v43 = *(v44 - 8);
-  v3 = *(v43 + 64);
+  v42 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for KeyedDecodingContainer<MatrixLayout.ColumnMajorCodingKeys>);
+  v41 = *(v42 - 8);
+  v3 = *(v41 + 64);
   v4 = alloca(v3);
   v5 = alloca(v3);
-  v48 = &v42;
-  v46 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for KeyedDecodingContainer<MatrixLayout.RowMajorCodingKeys>);
-  v45 = *(v46 - 8);
-  v6 = *(v45 + 64);
+  v46 = &v40;
+  v44 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for KeyedDecodingContainer<MatrixLayout.RowMajorCodingKeys>);
+  v43 = *(v44 - 8);
+  v6 = *(v43 + 64);
   v7 = alloca(v6);
   v8 = alloca(v6);
-  v42 = &v42;
-  v55 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for KeyedDecodingContainer<MatrixLayout.CodingKeys>);
-  v47 = *(v55 - 8);
-  v9 = *(v47 + 64);
+  v40 = &v40;
+  v53 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for KeyedDecodingContainer<MatrixLayout.CodingKeys>);
+  v45 = *(v53 - 8);
+  v9 = *(v45 + 64);
   v10 = alloca(v9);
   v11 = alloca(v9);
   v12 = a1[3];
-  v51 = a1[4];
+  v49 = a1[4];
   __swift_project_boxed_opaque_existential_0Tm(a1, v12);
   v13 = lazy protocol witness table accessor for type MatrixLayout.CodingKeys and conformance MatrixLayout.CodingKeys();
-  v49 = &v42;
-  v14 = v50;
-  dispatch thunk of Decoder.container<A>(keyedBy:)(&unk_396C98, &unk_396C98, v13, v12, v51);
+  v47 = &v40;
+  v14 = v48;
+  dispatch thunk of Decoder.container<A>(keyedBy:)(&unk_396C98, &unk_396C98, v13, v12, v49);
   if (v14)
   {
     return __swift_destroy_boxed_opaque_existential_1Tm(v2);
   }
 
-  v51 = a1;
-  v15 = KeyedDecodingContainer.allKeys.getter(v55);
+  v49 = a1;
+  v15 = KeyedDecodingContainer.allKeys.getter(v53);
   v16 = *(v15 + 16);
   if (!v16)
   {
-    v52 = v15;
+    v50 = v15;
     goto LABEL_8;
   }
 
-  v50 = 0;
-  v56 = *(v15 + 32);
+  v48 = 0;
+  v54 = *(v15 + 32);
   v17 = v15;
   v18 = specialized ArraySlice.subscript.getter(1, v16, v15, v15 + 32, 0, 2 * v16 + 1);
   v20 = v19;
   v22 = v21;
   v17;
-  v23 = v47;
-  v52 = v18;
+  v23 = v45;
+  v50 = v18;
   if (v20 != v22 >> 1)
   {
 LABEL_8:
-    v48 = type metadata accessor for DecodingError(0);
-    v50 = swift_allocError(v48, &protocol witness table for DecodingError, 0, 0);
+    v46 = type metadata accessor for DecodingError(0);
+    v48 = swift_allocError(v46, &protocol witness table for DecodingError, 0, 0);
     v32 = v31;
-    v33 = v31 + *(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (@thick Any.Type, DecodingError.Context)) + 48);
+    __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (@thick Any.Type, DecodingError.Context));
     *v32 = &type metadata for MatrixLayout;
-    v34 = v55;
-    v35 = v49;
-    v36 = KeyedDecodingContainer.codingPath.getter(v55);
-    DecodingError.Context.init(codingPath:debugDescription:underlyingError:)(v36, 0xD00000000000002BLL, "nseMatrix+Transpose.swift" + 0x8000000000000000, 0);
-    v37 = enum case for DecodingError.typeMismatch(_:);
-    (*(*(v48 - 1) + 104))(v32, enum case for DecodingError.typeMismatch(_:));
-    swift_willThrow(v32, v37);
-    swift_unknownObjectRelease(v52);
-    (*(v47 + 8))(v35, v34);
+    v33 = v53;
+    v34 = v47;
+    v35 = KeyedDecodingContainer.codingPath.getter(v53);
+    DecodingError.Context.init(codingPath:debugDescription:underlyingError:)(v35, 0xD00000000000002BLL, ("nseMatrix+Transpose.swift" + 0x8000000000000000), 0);
+    (*(*(v46 - 1) + 104))(v32, enum case for DecodingError.typeMismatch(_:));
+    swift_willThrow();
+    swift_unknownObjectRelease(v50);
+    (*(v45 + 8))(v34, v33);
 LABEL_11:
-    v2 = v51;
+    v2 = v49;
     return __swift_destroy_boxed_opaque_existential_1Tm(v2);
   }
 
-  if (!v56)
+  if (!v54)
   {
-    v54 = 0;
-    v38 = lazy protocol witness table accessor for type MatrixLayout.RowMajorCodingKeys and conformance MatrixLayout.RowMajorCodingKeys();
-    v39 = v42;
-    v26 = v49;
-    v40 = v50;
-    KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)(&unk_396CB8, &v54, v55, &unk_396CB8, v38);
-    if (!v40)
+    v52 = 0;
+    v36 = lazy protocol witness table accessor for type MatrixLayout.RowMajorCodingKeys and conformance MatrixLayout.RowMajorCodingKeys();
+    v37 = v40;
+    v26 = v47;
+    v38 = v48;
+    KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)(&unk_396CB8, &v52, v53, &unk_396CB8, v36);
+    if (!v38)
     {
-      v28 = v39;
-      v29 = v46;
-      v30 = v45;
+      v28 = v37;
+      v29 = v44;
+      v30 = v43;
       goto LABEL_14;
     }
 
     goto LABEL_10;
   }
 
-  v53 = 1;
+  v51 = 1;
   v24 = lazy protocol witness table accessor for type MatrixLayout.ColumnMajorCodingKeys and conformance MatrixLayout.ColumnMajorCodingKeys();
-  v25 = v48;
-  v26 = v49;
-  v27 = v50;
-  KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)(&unk_396CD8, &v53, v55, &unk_396CD8, v24);
+  v25 = v46;
+  v26 = v47;
+  v27 = v48;
+  KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)(&unk_396CD8, &v51, v53, &unk_396CD8, v24);
   if (v27)
   {
 LABEL_10:
-    swift_unknownObjectRelease(v52);
-    (*(v23 + 8))(v26, v55);
+    swift_unknownObjectRelease(v50);
+    (*(v23 + 8))(v26, v53);
     goto LABEL_11;
   }
 
   v28 = v25;
-  v29 = v44;
-  v30 = v43;
+  v29 = v42;
+  v30 = v41;
 LABEL_14:
   (*(v30 + 8))(v28, v29);
-  swift_unknownObjectRelease(v52);
-  (*(v23 + 8))(v26, v55);
-  __swift_destroy_boxed_opaque_existential_1Tm(v51);
-  return v56;
+  swift_unknownObjectRelease(v50);
+  (*(v23 + 8))(v26, v53);
+  __swift_destroy_boxed_opaque_existential_1Tm(v49);
+  return v54;
 }
 
 char protocol witness for Decodable.init(from:) in conformance MatrixLayout(void *a1)
@@ -12327,21 +12000,12 @@ uint64_t SparseMatrix.Transpose.base.setter(uint64_t a1)
   v3 = *(a1 + 40);
   *(v1 + 24);
   *(v1 + 32);
-  result = *(v1 + 40);
+
   *v1 = *a1;
   *(v1 + 16) = v2 & 1;
   *(v1 + 24) = *(a1 + 24);
   *(v1 + 40) = v3;
   return result;
-}
-
-unint64_t SparseMatrix.Transpose.count.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v5 = *v4;
-  v8 = v4[2];
-  v7 = v4[1];
-  type metadata accessor for SparseMatrix(0, *(a1 + 16), *(a1 + 24), a4);
-  return SparseMatrix.count.getter();
 }
 
 uint64_t SparseMatrix.Transpose.init(base:)(uint64_t a1)
@@ -12367,7 +12031,7 @@ char SparseMatrix.Transpose.init(rowCount:columnCount:)(uint64_t a1, uint64_t a2
   return result;
 }
 
-void (*SparseMatrix.Transpose.subscript.read(void *a1, uint64_t a2, uint64_t a3, uint64_t a4))(uint64_t a1)
+void (*SparseMatrix.Transpose.subscript.read(void *a1, unint64_t a2, unint64_t a3, uint64_t a4))(uint64_t a1)
 {
   v6 = malloc(0x48uLL);
   *a1 = v6;
@@ -12395,7 +12059,7 @@ void SparseMatrix.Transpose.subscript.read(uint64_t a1)
   free(v1);
 }
 
-void (*SparseMatrix.Transpose.subscript.modify(void *a1, uint64_t a2, uint64_t a3, uint64_t a4))(uint64_t **a1, char a2)
+void (*SparseMatrix.Transpose.subscript.modify(void *a1, unint64_t a2, unint64_t a3, uint64_t a4))(uint64_t **a1, char a2)
 {
   v6 = malloc(0x70uLL);
   *a1 = v6;
@@ -12428,19 +12092,17 @@ void SparseMatrix.Transpose.subscript.modify(uint64_t **a1, char a2)
   v5 = (*a1)[12];
   if (a2)
   {
-    v9 = v2[10];
-    v10 = v2[9];
-    v8 = v2[8];
+    v7 = v2[10];
+    v8 = v2[9];
     v6 = v2[6];
-    v11 = v2[7];
-    (*(v9 + 16))(v4, v5);
-    SparseMatrix.subscript.setter(v4, v11, v6, v3);
-    (*(v9 + 8))(v5, v10);
+    v9 = v2[7];
+    (*(v7 + 16))(v4, v5);
+    SparseMatrix.subscript.setter(v4, v9, v6, v3);
+    (*(v7 + 8))(v5, v8);
   }
 
   else
   {
-    v7 = v2[8];
     SparseMatrix.subscript.setter((*a1)[12], v2[7], v2[6], v3);
   }
 
@@ -12449,16 +12111,7 @@ void SparseMatrix.Transpose.subscript.modify(uint64_t **a1, char a2)
   free(v2);
 }
 
-uint64_t SparseMatrix.Transpose.subscript.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v5 = *v4;
-  v9 = v4[2];
-  v8 = v4[1];
-  v6 = type metadata accessor for SparseMatrix(0, *(a3 + 16), *(a3 + 24), a4);
-  return SparseMatrix.subscript.getter(a2, a1, v6);
-}
-
-uint64_t SparseMatrix.Transpose.subscript.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t SparseMatrix.Transpose.subscript.setter(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   v23 = a3;
   v21 = a2;
@@ -12497,38 +12150,34 @@ uint64_t SparseMatrix.Transpose.base.getter()
   *(v0 + 24) = v3;
   *(v0 + 32) = v4;
   *(v0 + 40) = v5;
-  v3;
-  v4;
-  return v5;
 }
 
 {
   return SparseMatrix.Transpose.transposed()();
 }
 
-uint64_t static SparseMatrix.Transpose.__derived_struct_equals(_:_:)(_OWORD *a1, _OWORD *a2, uint64_t a3, uint64_t a4)
+uint64_t static SparseMatrix.Transpose.__derived_struct_equals(_:_:)(_OWORD *a1, _OWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v4 = a1[1];
-  v5 = a1[2];
-  v9[0] = *a1;
-  v9[1] = v4;
-  v9[2] = v5;
-  v6 = a2[1];
-  v7 = a2[2];
-  v10[0] = *a2;
-  v10[1] = v6;
-  v10[2] = v7;
-  return static SparseMatrix.__derived_struct_equals(_:_:)(v9, v10, a3, a4);
+  v6 = a1[1];
+  v7 = a1[2];
+  v11[0] = *a1;
+  v11[1] = v6;
+  v11[2] = v7;
+  v8 = a2[1];
+  v9 = a2[2];
+  v12[0] = *a2;
+  v12[1] = v8;
+  v12[2] = v9;
+  return static SparseMatrix.__derived_struct_equals(_:_:)(v11, v12, a3, a4);
 }
 
 char protocol witness for Matrix.init(rowCount:columnCount:) in conformance SparseMatrix<A>.Transpose(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v5 = *(a3 + 24);
   result = SparseMatrix.Transpose.init(rowCount:columnCount:)(a1, a2, *(a3 + 16));
-  v4[2] = v9;
-  v4[1] = v8;
-  *v4 = v7;
+  v4[2] = v8;
+  v4[1] = v7;
+  *v4 = v6;
   return result;
 }
 
@@ -12542,7 +12191,7 @@ uint64_t protocol witness for Matrix.transposed() in conformance SparseMatrix<A>
   return result;
 }
 
-uint64_t protocol witness for Matrix.subscript.getter in conformance SparseMatrix<A>.Transpose(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t protocol witness for Matrix.subscript.getter in conformance SparseMatrix<A>.Transpose(unint64_t a1, unint64_t a2, uint64_t a3)
 {
   v5 = v3;
   v6 = SparseMatrix.Transpose.subscript.read(v9, a1, a2, a3);
@@ -12550,7 +12199,7 @@ uint64_t protocol witness for Matrix.subscript.getter in conformance SparseMatri
   return (v6)(v9, 0);
 }
 
-uint64_t protocol witness for Matrix.subscript.setter in conformance SparseMatrix<A>.Transpose(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t protocol witness for Matrix.subscript.setter in conformance SparseMatrix<A>.Transpose(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4)
 {
   v5 = SparseMatrix.Transpose.subscript.modify(v10, a2, a3, a4);
   v6 = *(a4 + 16);
@@ -12560,7 +12209,7 @@ uint64_t protocol witness for Matrix.subscript.setter in conformance SparseMatri
   return (*(v7 + 8))(a1, v6);
 }
 
-void (*protocol witness for Matrix.subscript.modify in conformance SparseMatrix<A>.Transpose(void *a1, uint64_t a2, uint64_t a3, uint64_t a4))(void (***a1)(void))
+void (*protocol witness for Matrix.subscript.modify in conformance SparseMatrix<A>.Transpose(void *a1, unint64_t a2, unint64_t a3, uint64_t a4))(void (***a1)(void))
 {
   v5 = malloc(0x28uLL);
   *a1 = v5;
@@ -12570,7 +12219,7 @@ void (*protocol witness for Matrix.subscript.modify in conformance SparseMatrix<
 
 uint64_t LowerStrictlyTriangularMatrix.base.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4[2];
+
   result = v4[3];
   *v4 = a1;
   v4[1] = a2;
@@ -12620,25 +12269,23 @@ void LowerStrictlyTriangularMatrix.subscript.modify(Swift::Int **a1, char a2, ui
   v6 = (*a1)[6];
   if (a2)
   {
-    v14 = v4[4];
+    v13 = v4[4];
     v7 = v4[3];
-    v17 = v4[2];
     v8 = *v4;
-    v15 = v4[1];
-    v16 = (*a1)[7];
-    (*(v14 + 16))(v5, v6, v7);
-    v10 = type metadata accessor for UpperStrictlyTriangularMatrix(0, v7, v16, v9);
-    UpperStrictlyTriangularMatrix.subscript.setter(v5, v15, v8, v10);
-    (*(v14 + 8))(v6, v7);
+    v14 = v4[1];
+    v15 = (*a1)[7];
+    (*(v13 + 16))(v5, v6, v7);
+    v10 = type metadata accessor for UpperStrictlyTriangularMatrix(0, v7, v15, v9);
+    UpperStrictlyTriangularMatrix.subscript.setter(v5, v14, v8, v10);
+    (*(v13 + 8))(v6, v7);
   }
 
   else
   {
-    v11 = v4[2];
-    v18 = *v4;
-    v12 = v4[1];
-    v13 = type metadata accessor for UpperStrictlyTriangularMatrix(0, v4[3], (*a1)[7], a4);
-    UpperStrictlyTriangularMatrix.subscript.setter(v6, v12, v18, v13);
+    v16 = *v4;
+    v11 = v4[1];
+    v12 = type metadata accessor for UpperStrictlyTriangularMatrix(0, v4[3], (*a1)[7], a4);
+    UpperStrictlyTriangularMatrix.subscript.setter(v6, v11, v16, v12);
   }
 
   free(v6);
@@ -12665,7 +12312,7 @@ uint64_t LowerStrictlyTriangularMatrix.subscript.setter(uint64_t a1, Swift::Int 
   return (*(v10 + 8))(v17, v5);
 }
 
-unint64_t protocol witness for Matrix.init(rowCount:columnCount:) in conformance LowerStrictlyTriangularMatrix<A>(uint64_t a1, unint64_t a2, uint64_t a3)
+uint64_t protocol witness for Matrix.init(rowCount:columnCount:) in conformance LowerStrictlyTriangularMatrix<A>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
   result = LowerStrictlyTriangularMatrix.init(rowCount:columnCount:)(a1, a2, *(a3 + 16), *(a3 + 24));
@@ -12679,7 +12326,7 @@ unint64_t protocol witness for Matrix.init(rowCount:columnCount:) in conformance
 uint64_t protocol witness for Matrix.transposed() in conformance LowerStrictlyTriangularMatrix<A>()
 {
   v2 = v0;
-  result = LowerStrictlyTriangularMatrix.transposed()(*v1, v1[1], v1[2], v1[3]);
+  result = LowerStrictlyTriangularMatrix.transposed()(*v1);
   *v2 = result;
   v2[1] = v4;
   v2[2] = v5;
@@ -12714,13 +12361,6 @@ void (*protocol witness for Matrix.subscript.modify in conformance LowerStrictly
   return protocol witness for Collection.subscript.read in conformance <> InterspersedSequence<A>;
 }
 
-BOOL protocol witness for static Equatable.== infix(_:_:) in conformance LowerStrictlyTriangularMatrix<A>(uint64_t *a1, uint64_t *a2, uint64_t a3)
-{
-  v3 = *(a2 + 1);
-  v4 = *(a3 + 16);
-  return static LowerStrictlyTriangularMatrix.__derived_struct_equals(_:_:)(*a1, a1[1], a1[2], a1[3], *a2, a2[1], a2[2], a2[3], *(a3 + 16), *(a3 + 24));
-}
-
 uint64_t UnsafeVectorPointer.Iterator.next()(uint64_t a1)
 {
   v3 = v1;
@@ -12750,7 +12390,7 @@ uint64_t UnsafeVectorPointer.Iterator.next()(uint64_t a1)
 
 uint64_t UnsafeVectorPointer.init(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = UnsafeMutableBufferPointer.baseAddress.getter(a1, a2, a3);
+  result = UnsafeMutableBufferPointer.baseAddress.getter(a1);
   if (!result)
   {
     BUG();
@@ -12759,15 +12399,13 @@ uint64_t UnsafeVectorPointer.init(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t UnsafeVectorPointer.makeIterator()(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4)
+uint64_t UnsafeVectorPointer.makeIterator()(uint64_t a1, unint64_t a2, unint64_t a3)
 {
-  v4 = a3 * a2;
   if (!is_mul_ok(a3, a2))
   {
     BUG();
   }
 
-  v6 = *(*(a4 - 8) + 72) * v4;
   return a1;
 }
 
@@ -12795,7 +12433,7 @@ uint64_t UnsafeVectorPointer._copyContents(initializing:)(uint64_t a1, Swift::In
   WitnessTable = swift_getWitnessTable(&protocol conformance descriptor for UnsafeVectorPointer<A>, v20);
   if (Collection.isEmpty.getter(v20, WitnessTable))
   {
-    v22 = UnsafeVectorPointer.makeIterator()(v50, v16, v17, v6);
+    v22 = UnsafeVectorPointer.makeIterator()(v50, v16, v17);
     UnsafeMutableBufferPointer.startIndex.getter(v48, v47, v6);
   }
 
@@ -12805,10 +12443,10 @@ uint64_t UnsafeVectorPointer._copyContents(initializing:)(uint64_t a1, Swift::In
     v49 = v17;
     v23 = v48;
     v24 = v47;
-    v25 = UnsafeMutableBufferPointer.baseAddress.getter(v48, v47, v6);
+    v25 = UnsafeMutableBufferPointer.baseAddress.getter(v48);
     if (!v25)
     {
-      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000030, "safeMutableVectorPointer.swift" + 0x8000000000000000, "LinearAlgebra/UnsafeVectorPointer.swift", 39, 2, 126, 0);
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000030, ("safeMutableVectorPointer.swift" + 0x8000000000000000), "LinearAlgebra/UnsafeVectorPointer.swift", 39, 2, 126, 0);
       BUG();
     }
 
@@ -12827,7 +12465,7 @@ uint64_t UnsafeVectorPointer._copyContents(initializing:)(uint64_t a1, Swift::In
     else
     {
       v44 = v25;
-      v38 = UnsafeVectorPointer.makeIterator()(v50, offsetBy, v49, v6);
+      v38 = UnsafeVectorPointer.makeIterator()(v50, offsetBy, v49);
       v39 = v28;
       v40 = v29;
       v42 = type metadata accessor for UnsafeVectorPointer.Iterator(0, v6, v28, v29);
@@ -12868,22 +12506,14 @@ uint64_t UnsafeVectorPointer._copyContents(initializing:)(uint64_t a1, Swift::In
   return v22;
 }
 
-uint64_t protocol witness for Sequence.makeIterator() in conformance UnsafeVectorPointer<A>(uint64_t a1)
+uint64_t protocol witness for Sequence.makeIterator() in conformance UnsafeVectorPointer<A>()
 {
-  v3 = v1;
-  result = UnsafeVectorPointer.makeIterator()(*v2, *(v2 + 8), *(v2 + 16), *(a1 + 16));
-  *v3 = result;
-  v3[1] = v5;
-  v3[2] = v6;
+  v2 = v0;
+  result = UnsafeVectorPointer.makeIterator()(*v1, *(v1 + 8), *(v1 + 16));
+  *v2 = result;
+  v2[1] = v4;
+  v2[2] = v5;
   return result;
-}
-
-uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance UnsafeVectorPointer<A>(uint64_t a1)
-{
-  v5 = *v1;
-  v2 = *(v1 + 1);
-  WitnessTable = swift_getWitnessTable(&protocol conformance descriptor for UnsafeVectorPointer<A>, a1);
-  return Collection._copyToContiguousArray()(a1, WitnessTable);
 }
 
 uint64_t protocol witness for Sequence._copyContents(initializing:) in conformance UnsafeVectorPointer<A>(uint64_t *a1, uint64_t a2, Swift::Int a3, uint64_t a4)
@@ -12991,11 +12621,10 @@ uint64_t protocol witness for Collection.subscript.getter in conformance UnsafeV
 
 uint64_t protocol witness for Collection.indices.getter in conformance UnsafeVectorPointer<A>()
 {
-  v2 = v0;
-  v3 = *(v1 + 8);
+  v1 = v0;
   result = UnsafeVectorPointer.indices.getter();
-  *v2 = 0;
-  v2[1] = v5;
+  *v1 = 0;
+  v1[1] = v3;
   return result;
 }
 
@@ -13054,7 +12683,7 @@ uint64_t UnsafeVectorPointer.withContiguousStorageIfAvailable<A>(_:)(uint64_t (*
   return __swift_storeEnumTagSinglePayload(v9, v11, 1, a7);
 }
 
-uint64_t UnsafeVectorPointer.init(rebasing:)(__int128 *a1, uint64_t a2)
+uint64_t UnsafeVectorPointer.init(rebasing:)(uint64_t a1, uint64_t a2)
 {
   return UnsafeVectorPointer.init(rebasing:)(a1, a2, type metadata accessor for UnsafeVectorPointer, &protocol conformance descriptor for UnsafeVectorPointer<A>);
 }
@@ -13063,42 +12692,24 @@ uint64_t UnsafeVectorPointer.init(rebasing:)(__int128 *a1, uint64_t a2)
   return UnsafeVectorPointer.init(rebasing:)(a1, a2, type metadata accessor for UnsafeMutableVectorPointer, &protocol conformance descriptor for UnsafeMutableVectorPointer<A>);
 }
 
-uint64_t UnsafeVectorPointer.init(rebasing:)(__int128 *a1, uint64_t a2, uint64_t (*a3)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4), uint64_t a4)
+uint64_t UnsafeVectorPointer.init(rebasing:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4), uint64_t a4)
 {
-  v28 = *(a1 + 4);
-  v22 = a1[1];
-  v17 = *a1;
   v5 = a3(255, a2, a3, a4);
   WitnessTable = swift_getWitnessTable(a4, v5);
   v7 = type metadata accessor for Slice(0, v5, WitnessTable);
   Slice.base.getter(v7);
-  v29 = *(a1 + 4);
-  v23 = a1[1];
-  v18 = *a1;
   Slice.startIndex.getter(v7);
-  v30 = *(a1 + 4);
-  v24 = a1[1];
-  v19 = *a1;
   Slice.base.getter(v7);
-  if (!is_mul_ok(v14, v16))
+  if (!is_mul_ok(v13, v15))
   {
     BUG();
   }
 
-  v34 = *(*(a2 - 8) + 72) * v14 * v16 + v15;
-  v31 = *(a1 + 4);
-  v25 = a1[1];
-  v20 = *a1;
+  v16 = *(*(a2 - 8) + 72) * v13 * v15 + v14;
   Slice.endIndex.getter(v7, v5, v8, v9, v10, v11);
-  v32 = *(a1 + 4);
-  v26 = a1[1];
-  v21 = *a1;
   Slice.startIndex.getter(v7);
-  v33 = *(a1 + 4);
-  v12 = *a1;
-  v27 = a1[1];
   Slice.base.getter(v7);
-  return v34;
+  return v16;
 }
 
 uint64_t UnsafeVectorPointer.debugDescription.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -13107,13 +12718,13 @@ uint64_t UnsafeVectorPointer.debugDescription.getter(uint64_t a1, uint64_t a2, u
   v6._object = "safeVectorPointer.swift" + 0x8000000000000000;
   v6._countAndFlagsBits = 0xD00000000000001BLL;
   String.append(_:)(v6);
-  v17[0] = a1;
+  v16[0] = a1;
   v7 = type metadata accessor for UnsafePointer(0, a4);
-  DefaultStringInterpolation.appendInterpolation<A>(_:)(v17, v7);
+  DefaultStringInterpolation.appendInterpolation<A>(_:)(v16, v7);
   v6._countAndFlagsBits = 0x3A746E756F63202CLL;
   v6._object = 0xE900000000000020;
   String.append(_:)(v6);
-  v17[0] = a2;
+  v16[0] = a2;
   v8 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
   v10 = v9;
   v6._countAndFlagsBits = v8;
@@ -13123,13 +12734,13 @@ uint64_t UnsafeVectorPointer.debugDescription.getter(uint64_t a1, uint64_t a2, u
   v6._countAndFlagsBits = 0x656469727473202CLL;
   v6._object = 0xEA0000000000203ALL;
   String.append(_:)(v6);
-  v17[0] = a3;
+  v16[0] = a3;
   v11 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
-  v13 = v12;
+  LOBYTE(a1) = v12;
   v6._countAndFlagsBits = v11;
   v6._object = v12;
   String.append(_:)(v6);
-  v13;
+  a1;
   v6._countAndFlagsBits = 41;
   v6._object = 0xE100000000000000;
   String.append(_:)(v6);
@@ -13181,7 +12792,7 @@ uint64_t UnsafeMatrixPointer.subscript.getter(unint64_t a1, unint64_t a2, uint64
     }
   }
 
-  return (*(*(a7 - 8) + 16))(v7, *(*(a7 - 8) + 72) * v11 + a3, a7);
+  return (*(*(a7 - 8) + 16))(v7, *(*(a7 - 8) + 72) * v11 + a3, a7, *(*(a7 - 8) + 16), a5);
 }
 
 uint64_t UnsafeMatrixPointer.subscript.getter(unint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, char a5, uint64_t a6)
@@ -13216,47 +12827,47 @@ uint64_t UnsafeMatrixPointer.subscript.getter(unint64_t a1, uint64_t a2, unint64
 
 uint64_t UnsafeMatrixPointer.debugDescription.getter(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
 {
-  v19 = a4;
-  v17 = a3;
-  v16[0] = 0;
-  v18 = a2;
-  v16[1] = 0xE000000000000000;
+  v17 = a4;
+  v15 = a3;
+  v14[0] = 0;
+  v16 = a2;
+  v14[1] = 0xE000000000000000;
   _StringGuts.grow(_:)(65);
   v7._object = "UnsafeVectorPointer(start: " + 0x8000000000000000;
   v7._countAndFlagsBits = 0xD00000000000001BLL;
   String.append(_:)(v7);
-  v20[0] = a1;
+  v18[0] = a1;
   v8 = type metadata accessor for UnsafePointer(0, a5);
-  DefaultStringInterpolation.appendInterpolation<A>(_:)(v20, v8);
+  DefaultStringInterpolation.appendInterpolation<A>(_:)(v18, v8);
   v7._countAndFlagsBits = 0x203A73776F72202CLL;
   v7._object = 0xE800000000000000;
   String.append(_:)(v7);
-  v20[0] = v18;
+  v18[0] = v16;
   v9 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
-  v11 = v10;
+  LOBYTE(a5) = v10;
   v7._countAndFlagsBits = v9;
   v7._object = v10;
   String.append(_:)(v7);
-  v11;
+  a5;
   v7._countAndFlagsBits = 0x6E6D756C6F63202CLL;
   v7._object = 0xEB00000000203A73;
   String.append(_:)(v7);
-  v20[0] = v17;
-  v12 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
-  v14 = v13;
-  v7._countAndFlagsBits = v12;
-  v7._object = v13;
+  v18[0] = v15;
+  v11 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+  LOBYTE(a5) = v12;
+  v7._countAndFlagsBits = v11;
+  v7._object = v12;
   String.append(_:)(v7);
-  v14;
+  a5;
   v7._countAndFlagsBits = 0x74756F79616C202CLL;
   v7._object = 0xEA0000000000203ALL;
   String.append(_:)(v7);
-  LOBYTE(v20[0]) = v19 & 1;
-  _print_unlocked<A, B>(_:_:)(v20, v16, &type metadata for MatrixLayout, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  LOBYTE(v18[0]) = v17 & 1;
+  _print_unlocked<A, B>(_:_:)(v18, v14, &type metadata for MatrixLayout, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
   v7._countAndFlagsBits = 41;
   v7._object = 0xE100000000000000;
   String.append(_:)(v7);
-  return v16[0];
+  return v14[0];
 }
 
 unint64_t SparseMatrix.count.getter()
@@ -13280,7 +12891,7 @@ uint64_t SparseMatrix.init(rowCount:columnCount:)(uint64_t a1, uint64_t a2, uint
   return result;
 }
 
-uint64_t SparseMatrix.subscript.getter(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t SparseMatrix.subscript.getter(unint64_t a1, unint64_t a2, uint64_t a3)
 {
   v25 = v3;
   v6 = *(a3 + 16);
@@ -13296,7 +12907,7 @@ uint64_t SparseMatrix.subscript.getter(uint64_t a1, uint64_t a2, uint64_t a3)
     a1 = a2;
   }
 
-  if (a1 < 0)
+  if ((a1 & 0x8000000000000000) != 0)
   {
     BUG();
   }
@@ -13595,7 +13206,7 @@ uint64_t SparseMatrix.minorIndices.setter(uint64_t a1)
 
 uint64_t SparseMatrix.storage.setter(uint64_t a1)
 {
-  result = *(v1 + 40);
+
   *(v1 + 40) = a1;
   return result;
 }
@@ -13605,7 +13216,7 @@ uint64_t SparseMatrix.nonZeroValues.getter(uint64_t a1)
   v6[0] = *(v1 + 40);
   v2 = *(a1 + 16);
   v3 = type metadata accessor for ContiguousArray(0, v2);
-  v6[0];
+
   WitnessTable = swift_getWitnessTable(&protocol conformance descriptor for ContiguousArray<A>, v3);
   return Array.init<A>(_:)(v6, v2, v3, WitnessTable);
 }
@@ -13655,7 +13266,7 @@ uint64_t SparseMatrix.init(rowCount:columnCount:columnStarts:rowIndices:values:)
   v14 = a4;
   if (*(a3 + 16) != a2 + 1)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000043, "arseMatrix.swift" + 0x8000000000000000, "LinearAlgebra/SparseMatrix.swift", 32, 2, 102, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000043, ("arseMatrix.swift" + 0x8000000000000000), "LinearAlgebra/SparseMatrix.swift", 32, 2, 102, 0);
     BUG();
   }
 
@@ -13684,7 +13295,7 @@ uint64_t SparseMatrix.init(rowCount:columnCount:rowStarts:columnIndices:values:)
   v14 = a4;
   if (*(a3 + 16) != a1 + 1)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000003DLL, "plus and end index." + 0x8000000000000000, "LinearAlgebra/SparseMatrix.swift", 32, 2, 123, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000003DLL, ("plus and end index." + 0x8000000000000000), "LinearAlgebra/SparseMatrix.swift", 32, 2, 123, 0);
     BUG();
   }
 
@@ -13814,10 +13425,10 @@ void *specialized Array.removeAll(keepingCapacity:)(char a1)
   return result;
 }
 
-uint64_t specialized Array.append<A>(contentsOf:)(uint64_t a1, uint64_t a2)
+unint64_t specialized Array.append<A>(contentsOf:)(uint64_t a1, uint64_t a2)
 {
   v4 = *v2;
-  v5 = *(*v2 + 2);
+  v5 = *(*v2 + 16);
   v6 = a1 + v5;
   if (__OFADD__(a1, v5))
   {
@@ -13827,7 +13438,7 @@ uint64_t specialized Array.append<A>(contentsOf:)(uint64_t a1, uint64_t a2)
   v41 = a2;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(v4);
   v8 = v4;
-  if (!isUniquelyReferenced_nonNull_native || (v9 = *(v4 + 3) >> 1, v9 < v6))
+  if (!isUniquelyReferenced_nonNull_native || (v9 = *(v4 + 24) >> 1, v9 < v6))
   {
     if (v5 > v6)
     {
@@ -14113,7 +13724,7 @@ Swift::Void __swiftcall SparseMatrix.remove(index:major:)(Swift::Int index, Swif
   }
 }
 
-void (*SparseMatrix.subscript.modify(void *a1, uint64_t a2, uint64_t a3, uint64_t a4))(Swift::Int **a1, char a2)
+void (*SparseMatrix.subscript.modify(void *a1, unint64_t a2, unint64_t a3, uint64_t a4))(Swift::Int **a1, char a2)
 {
   v7 = malloc(0x70uLL);
   *a1 = v7;
@@ -14144,20 +13755,18 @@ void SparseMatrix.subscript.modify(Swift::Int **a1, char a2)
   v4 = (*a1)[13];
   if (a2)
   {
-    v10 = v2[11];
+    v8 = v2[11];
     v5 = v2[10];
-    v8 = v2[9];
-    v9 = v2[8];
+    v7 = v2[8];
     v6 = v2[6];
-    v11 = v2[7];
-    (*(v10 + 16))(v3, v4, v5);
-    SparseMatrix.subscript.setter(v3, v6, v11, v9);
-    (*(v10 + 8))(v4, v5);
+    v9 = v2[7];
+    (*(v8 + 16))(v3, v4, v5);
+    SparseMatrix.subscript.setter(v3, v6, v9, v7);
+    (*(v8 + 8))(v4, v5);
   }
 
   else
   {
-    v7 = v2[9];
     SparseMatrix.subscript.setter((*a1)[13], v2[6], v2[7], v2[8]);
   }
 
@@ -14188,49 +13797,43 @@ uint64_t specialized Array.remove(at:)(unint64_t a1)
   return v5;
 }
 
-void *SparseMatrix.transposed()(uint64_t a1)
+uint64_t SparseMatrix.transposed()()
 {
-  v3 = v1;
-  v4 = *(a1 + 16);
-  v5 = *(a1 + 24);
-  SparseMatrix.Transpose.init(base:)(v2);
-  v10 = v2[3];
-  v11 = v2[4];
-  v12[0] = v2[5];
-  outlined retain of [Int](&v10);
-  outlined retain of [Int](&v11);
-  result = outlined retain of ContiguousArray<Double>(v12);
-  *v3 = v7;
-  v3[1] = v8;
-  v3[2] = v9;
+  v2 = v0;
+  SparseMatrix.Transpose.init(base:)(v1);
+  v7 = v1[3];
+  v8 = v1[4];
+  v9[0] = v1[5];
+  outlined retain of [Int](&v7);
+  outlined retain of [Int](&v8);
+  result = outlined retain of ContiguousArray<Double>(v9);
+  *v2 = v4;
+  v2[1] = v5;
+  v2[2] = v6;
   return result;
 }
 
 uint64_t protocol witness for Matrix.init(rowCount:columnCount:) in conformance SparseMatrix<A>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v5 = *(a3 + 24);
   result = SparseMatrix.init(rowCount:columnCount:)(a1, a2, *(a3 + 16));
-  v4[2] = v9;
-  v4[1] = v8;
-  *v4 = v7;
+  v4[2] = v8;
+  v4[1] = v7;
+  *v4 = v6;
   return result;
 }
 
-void *protocol witness for Matrix.transposed() in conformance SparseMatrix<A>(uint64_t a1)
+uint64_t protocol witness for Matrix.transposed() in conformance SparseMatrix<A>()
 {
-  v3 = v1;
-  v8 = *v2;
-  v9 = v2[1];
-  v10 = v2[2];
-  result = SparseMatrix.transposed()(a1);
-  v3[2] = v7;
-  v3[1] = v6;
-  *v3 = v5;
+  v1 = v0;
+  result = SparseMatrix.transposed()();
+  v1[2] = v5;
+  v1[1] = v4;
+  *v1 = v3;
   return result;
 }
 
-void (*protocol witness for Matrix.subscript.modify in conformance SparseMatrix<A>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4))(Swift::Int **a1, char a2)
+void (*protocol witness for Matrix.subscript.modify in conformance SparseMatrix<A>(void *a1, unint64_t a2, unint64_t a3, uint64_t a4))(Swift::Int **a1, char a2)
 {
   v7 = malloc(0x70uLL);
   *a1 = v7;
@@ -14261,20 +13864,18 @@ void protocol witness for Matrix.subscript.modify in conformance SparseMatrix<A>
   v4 = (*a1)[13];
   if (a2)
   {
-    v10 = v2[11];
+    v8 = v2[11];
     v5 = v2[10];
-    v8 = v2[9];
-    v9 = v2[8];
+    v7 = v2[9];
     v6 = v2[6];
-    v11 = v2[7];
-    (*(v10 + 16))(v3, v4, v5);
-    SparseMatrix.subscript.setter(v3, v6, v11, v8);
-    (*(v10 + 8))(v4, v5);
+    v9 = v2[7];
+    (*(v8 + 16))(v3, v4, v5);
+    SparseMatrix.subscript.setter(v3, v6, v9, v7);
+    (*(v8 + 8))(v4, v5);
   }
 
   else
   {
-    v7 = v2[8];
     SparseMatrix.subscript.setter((*a1)[13], v2[6], v2[7], v2[9]);
   }
 
@@ -14350,7 +13951,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t specialized Array.replaceSubrange<A>(_:with:)(uint64_t a1, int64_t a2, int a3)
+uint64_t *specialized Array.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2, int a3)
 {
   if (a1 < 0)
   {
@@ -14423,6 +14024,81 @@ uint64_t specialized Array.replaceSubrange<A>(_:with:)(uint64_t a1, int64_t a2, 
   *(v4 + a1 + 8) = a3;
   result = v3;
   *v3 = v4;
+  return result;
+}
+
+void *specialized Array.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2)
+{
+  if (a1 < 0)
+  {
+    BUG();
+  }
+
+  v3 = *v2;
+  v4 = *(*v2 + 16);
+  if (v4 < a2)
+  {
+    BUG();
+  }
+
+  if (__OFSUB__(a2, a1))
+  {
+    BUG();
+  }
+
+  v5 = a1 - a2;
+  if (__OFSUB__(a1 - a2, 1))
+  {
+    BUG();
+  }
+
+  v15 = v2;
+  v6 = v5 + v4;
+  if (__OFADD__(v5, v4))
+  {
+    BUG();
+  }
+
+  result = swift_isUniquelyReferenced_nonNull_native(v3);
+  if (!result || v3[3] >> 1 < v6)
+  {
+    if (v4 > v6)
+    {
+      v6 = v4;
+    }
+
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v6, 1, v3);
+    v3 = result;
+  }
+
+  if (v5)
+  {
+    v9 = v3[2];
+    v10 = v9 - a2;
+    if (__OFSUB__(v9, a2))
+    {
+      BUG();
+    }
+
+    v11 = v3 + 4 * a2 + 32;
+    v12 = v3 + 4 * a1 + 32;
+    if (a1 != a2 || &v11[4 * v10] <= v12)
+    {
+      memmove(v12, v11, 4 * v10);
+      v9 = v3[2];
+    }
+
+    v13 = __OFADD__(v5, v9);
+    result = (v5 + v9);
+    if (v13)
+    {
+      BUG();
+    }
+
+    v3[2] = result;
+  }
+
+  *v15 = v3;
   return result;
 }
 
@@ -14510,7 +14186,7 @@ void *_sSa9repeating5countSayxGx_SitcfCSi_Tt1gq5(uint64_t a1, uint64_t a2)
 
   if (!a2)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   result = static Array._allocateBufferUninitialized(minimumCapacity:)(a2, &type metadata for Int);
@@ -14644,7 +14320,7 @@ uint64_t UnsafeMutableVectorPointer<A>.add(_:scaledBy:)(uint64_t a1, uint64_t a2
   return cblas_daxpy_NEWLAPACK(a5, a1, a3, a4, a6);
 }
 
-uint64_t UnsafeMutableVectorPointer<A>.multiply(by:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t UnsafeMutableVectorPointer<A>.multiply(by:)(uint64_t a1, uint64_t a2, uint64_t a3, float a4)
 {
   if (a2 > 0x7FFFFFFF)
   {
@@ -14661,9 +14337,10 @@ uint64_t UnsafeMutableVectorPointer<A>.multiply(by:)(uint64_t a1, uint64_t a2, u
     BUG();
   }
 
-  return cblas_sscal_NEWLAPACK(a2, a1);
+  return cblas_sscal_NEWLAPACK(a2, a1, a3, a4);
 }
 
+uint64_t UnsafeMutableVectorPointer<A>.multiply(by:)(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
 {
   if (a2 > 0x7FFFFFFF)
   {
@@ -14680,7 +14357,7 @@ uint64_t UnsafeMutableVectorPointer<A>.multiply(by:)(uint64_t a1, uint64_t a2, u
     BUG();
   }
 
-  return cblas_dscal_NEWLAPACK(a2, a1);
+  return cblas_dscal_NEWLAPACK(a2, a1, a3, a4);
 }
 
 _BOOL8 UnsafeVectorPointer<A>.squaredMagnitude.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -15247,7 +14924,7 @@ uint64_t UnsafeVectorPointer<A>.magnitude.getter(uint64_t a1, uint64_t a2, uint6
   return cblas_dnrm2_NEWLAPACK(a2, a1);
 }
 
-float UnsafeVectorPointer<A>.maximumAbsoluteValue.getter(uint64_t a1, uint64_t a2, uint64_t a3)
+float UnsafeVectorPointer<A>.maximumAbsoluteValue.getter(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   if (a2 <= 0)
   {
@@ -15377,7 +15054,7 @@ uint64_t dot(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   return cblas_ddot_NEWLAPACK(a2, a1, a3, a4, a6);
 }
 
-double UnsafeVectorPointer<A>.maximumAbsoluteValue.getter(uint64_t a1, uint64_t a2, uint64_t a3)
+double UnsafeVectorPointer<A>.maximumAbsoluteValue.getter(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   if (a2 <= 0)
   {
@@ -15405,7 +15082,7 @@ double UnsafeVectorPointer<A>.maximumAbsoluteValue.getter(uint64_t a1, uint64_t 
 uint64_t protocol witness for Matrix.indexed() in conformance UpperStrictlyTriangularMatrix<A>()
 {
   v2 = v0;
-  result = UpperStrictlyTriangularMatrix.IndexedSequence.base.getter(*v1, v1[1], v1[2], v1[3]);
+  result = UpperStrictlyTriangularMatrix.IndexedSequence.base.getter(*v1);
   *v2 = result;
   v2[1] = v4;
   v2[2] = v5;
@@ -15422,8 +15099,6 @@ uint64_t UpperStrictlyTriangularMatrix.IndexedSequence.makeIterator()(uint64_t a
   v4[4] = 0;
   v4[5] = 1;
   v4[6] = 0;
-  a3;
-  return a4;
 }
 
 void *UpperStrictlyTriangularMatrix.IndexedSequence.Iterator.init(base:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -15456,10 +15131,7 @@ uint64_t protocol witness for Sequence.makeIterator() in conformance UpperStrict
 uint64_t UpperStrictlyTriangularMatrix.IndexedSequence.Iterator.base.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[3];
-  v0[2];
-  v3;
+
   return v1;
 }
 
@@ -15537,7 +15209,7 @@ uint64_t UnsafeMutableMatrixPointer<A>.addProduct(_:transposed:_:transposed:scal
   v16 = a15 & 1;
   if ((a15 & 1) != (a4 & 1) || v16 != (a10 & 1))
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000026, "safeMatrixOperations.swift" + 0x8000000000000000, "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 35, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000026, ("safeMatrixOperations.swift" + 0x8000000000000000), "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 35, 0);
     goto LABEL_46;
   }
 
@@ -15563,7 +15235,7 @@ uint64_t UnsafeMutableMatrixPointer<A>.addProduct(_:transposed:_:transposed:scal
 
   if (v20 != v22)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000040, "ve the same shape and layout." + 0x8000000000000000, "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 43, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000040, ("ve the same shape and layout." + 0x8000000000000000), "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 43, 0);
     goto LABEL_46;
   }
 
@@ -15575,13 +15247,13 @@ uint64_t UnsafeMutableMatrixPointer<A>.addProduct(_:transposed:_:transposed:scal
 
   if (v23 != a13)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000003ELL, "hould all be the same." + 0x8000000000000000, "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 46, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000003ELL, ("hould all be the same." + 0x8000000000000000), "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 46, 0);
     goto LABEL_46;
   }
 
   if (v21 != a14)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000045, "he same as the left row count." + 0x8000000000000000, "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 49, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000045, ("he same as the left row count." + 0x8000000000000000), "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 49, 0);
 LABEL_46:
     BUG();
   }
@@ -15664,7 +15336,7 @@ LABEL_46:
   v16 = a15 & 1;
   if ((a15 & 1) != (a4 & 1) || v16 != (a10 & 1))
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000026, "safeMatrixOperations.swift" + 0x8000000000000000, "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 167, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000026, ("safeMatrixOperations.swift" + 0x8000000000000000), "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 167, 0);
     goto LABEL_46;
   }
 
@@ -15690,7 +15362,7 @@ LABEL_46:
 
   if (v20 != v22)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000040, "ve the same shape and layout." + 0x8000000000000000, "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 175, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000040, ("ve the same shape and layout." + 0x8000000000000000), "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 175, 0);
     goto LABEL_46;
   }
 
@@ -15702,13 +15374,13 @@ LABEL_46:
 
   if (v23 != a13)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000003ELL, "hould all be the same." + 0x8000000000000000, "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 178, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000003ELL, ("hould all be the same." + 0x8000000000000000), "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 178, 0);
     goto LABEL_46;
   }
 
   if (v21 != a14)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000045, "he same as the left row count." + 0x8000000000000000, "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 181, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000045, ("he same as the left row count." + 0x8000000000000000), "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 181, 0);
 LABEL_46:
     BUG();
   }
@@ -15788,7 +15460,6 @@ LABEL_46:
 
 uint64_t UnsafeMutableVectorPointer<A>.addProduct(_:_:transposed:scaledBy:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6, double a7, uint64_t a8, char a9, uint64_t a10, int a11, uint64_t a12)
 {
-  v18 = v12;
   if (a2 > 0x7FFFFFFF)
   {
     BUG();
@@ -15804,15 +15475,15 @@ uint64_t UnsafeMutableVectorPointer<A>.addProduct(_:_:transposed:scaledBy:)(uint
     BUG();
   }
 
-  v15 = a3;
+  v14 = a3;
   if (a9)
   {
-    v15 = a2;
+    v14 = a2;
   }
 
-  if (v15 != a6)
+  if (v14 != a6)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000044, "e right column count." + 0x8000000000000000, "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 90, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000044, ("e right column count." + 0x8000000000000000), "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 90, 0);
     BUG();
   }
 
@@ -15831,17 +15502,16 @@ uint64_t UnsafeMutableVectorPointer<A>.addProduct(_:_:transposed:scaledBy:)(uint
     BUG();
   }
 
-  v16 = a2;
+  v15 = a2;
   if ((a4 & 1) == 0)
   {
-    v16 = a3;
+    v15 = a3;
   }
 
-  return cblas_sgemv_NEWLAPACK((a4 & 1u) + 101, (a9 & 1u) + 111, a2, a3, a1, v16, a7, 1.0, a5, a8, a10, a12, v18);
+  return cblas_sgemv_NEWLAPACK((a4 & 1u) + 101, (a9 & 1u) + 111, a2, a3, a1, v15, a7, 1.0, a5, a8, a10, a12);
 }
 
 {
-  v18 = v12;
   if (a2 > 0x7FFFFFFF)
   {
     BUG();
@@ -15857,15 +15527,15 @@ uint64_t UnsafeMutableVectorPointer<A>.addProduct(_:_:transposed:scaledBy:)(uint
     BUG();
   }
 
-  v15 = a3;
+  v14 = a3;
   if (a9)
   {
-    v15 = a2;
+    v14 = a2;
   }
 
-  if (v15 != a6)
+  if (v14 != a6)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000044, "e right column count." + 0x8000000000000000, "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 222, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000044, ("e right column count." + 0x8000000000000000), "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 222, 0);
     BUG();
   }
 
@@ -15884,13 +15554,13 @@ uint64_t UnsafeMutableVectorPointer<A>.addProduct(_:_:transposed:scaledBy:)(uint
     BUG();
   }
 
-  v16 = a2;
+  v15 = a2;
   if ((a4 & 1) == 0)
   {
-    v16 = a3;
+    v15 = a3;
   }
 
-  return cblas_dgemv_NEWLAPACK((a4 & 1u) + 101, (a9 & 1u) + 111, a2, a3, a1, v16, a7, 1.0, a5, a8, a10, a12, v18);
+  return cblas_dgemv_NEWLAPACK((a4 & 1u) + 101, (a9 & 1u) + 111, a2, a3, a1, v15, a7, 1.0, a5, a8, a10, a12);
 }
 
 uint64_t UnsafeMutableVectorPointer<A>.addProduct(_:_:transposed:scaledBy:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, double a7, char a8, char a9, uint64_t a10, int a11, uint64_t a12)
@@ -15918,7 +15588,7 @@ uint64_t UnsafeMutableVectorPointer<A>.addProduct(_:_:transposed:scaledBy:)(uint
 
   if (v13 != a2)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000044, "right element count." + 0x8000000000000000, "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 127, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000044, ("right element count." + 0x8000000000000000), "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 127, 0);
     BUG();
   }
 
@@ -15970,7 +15640,7 @@ uint64_t UnsafeMutableVectorPointer<A>.addProduct(_:_:transposed:scaledBy:)(uint
 
   if (v13 != a2)
   {
-    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000044, "right element count." + 0x8000000000000000, "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 259, 0);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000044, ("right element count." + 0x8000000000000000), "LinearAlgebra/UnsafeMatrixOperations.swift", 42, 2, 259, 0);
     BUG();
   }
 
@@ -16025,13 +15695,14 @@ double _ss15ContiguousArrayV23withUnsafeBufferPointeryqd__qd__SRyxGqd_0_YKXEqd_0
 uint64_t DenseVector.withUnsafeVectorPointer<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v18 = a3;
+  v7 = a5;
   v12 = a4;
   v13 = a5;
   v14 = a6;
   v15 = a1;
   v16 = a2;
   v8 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Error);
-  _ss15ContiguousArrayV23withUnsafeBufferPointeryqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in DenseVector.withUnsafeVectorPointer<A>(_:), v11, v18, a4, a5, v8, &protocol self-conformance witness table for Error, &v17);
+  _ss15ContiguousArrayV23withUnsafeBufferPointeryqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(partial apply for closure #1 in DenseVector.withUnsafeVectorPointer<A>(_:), &v11, v18, a4, v7, v8, &protocol self-conformance witness table for Error, &v17);
   return v10;
 }
 
@@ -16207,9 +15878,9 @@ uint64_t DenseVector.init(unsafeUninitializedCapacity:initializingWith:)(uint64_
 
 uint64_t DenseVector.count.getter(uint64_t a1, uint64_t a2)
 {
-  a1;
+
   v2 = ContiguousArray.count.getter(a1, a2);
-  a1;
+
   return v2;
 }
 
@@ -16264,19 +15935,17 @@ void DenseVector.subscript.modify(Swift::Int **a1, char a2)
   v4 = (*a1)[6];
   if (a2)
   {
-    v9 = v2[4];
+    v7 = v2[4];
     v5 = v2[3];
-    v8 = v2[2];
     v6 = *v2;
-    v10 = v2[1];
-    (*(v9 + 16))(v3, v4, v5);
-    DenseVector.subscript.setter(v3, v6, v10);
-    (*(v9 + 8))(v4, v5);
+    v8 = v2[1];
+    (*(v7 + 16))(v3, v4, v5);
+    DenseVector.subscript.setter(v3, v6, v8);
+    (*(v7 + 8))(v4, v5);
   }
 
   else
   {
-    v7 = v2[2];
     DenseVector.subscript.setter((*a1)[6], *v2, v2[1]);
   }
 
@@ -16300,7 +15969,7 @@ uint64_t default argument 1 of UnsafeMutableVectorPointer<A>.add(_:scaledBy:)(ui
 
 uint64_t DenseVector.storage.setter(uint64_t a1)
 {
-  result = *v1;
+
   *v1 = a1;
   return result;
 }
@@ -16312,7 +15981,7 @@ uint64_t DenseVector.init<A>(scalars:)(uint64_t a1, uint64_t a2, uint64_t a3, ui
   v7 = *(v6 + 64);
   v8 = alloca(v7);
   v9 = alloca(v7);
-  (*(v6 + 16))(v12, a1);
+  (*(v6 + 16))(v12, a1, a3, a4);
   v10 = ContiguousArray.init<A>(_:)(v12, a2, a3, v12[0]);
   (*(v6 + 8))(a1, a3);
   return v10;
@@ -16391,9 +16060,9 @@ uint64_t DenseVector.withUnsafeMutableVectorPointer<A>(_:)(uint64_t (*a1)(uint64
   return v13;
 }
 
-void *closure #1 in DenseVector.withUnsafeMutableVectorPointer<A>(_:)(void *a1, uint64_t (*a2)(uint64_t, uint64_t, uint64_t), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
+void *closure #1 in DenseVector.withUnsafeMutableVectorPointer<A>(_:)(uint64_t *a1, uint64_t (*a2)(uint64_t, uint64_t, uint64_t), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
 {
-  v8 = UnsafeMutableBufferPointer.baseAddress.getter(*a1, a1[1], a4);
+  v8 = UnsafeMutableBufferPointer.baseAddress.getter(*a1);
   if (!v8)
   {
     BUG();
@@ -16579,7 +16248,7 @@ uint64_t closure #1 in closure #1 in static DenseVector.-= infix(_:_:)(uint64_t 
 uint64_t static DenseVector.+ infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void *, uint64_t, uint64_t, uint64_t))
 {
   v9[0] = a1;
-  a1;
+
   a5(v9, a2, a3, a4);
   return v9[0];
 }
@@ -16665,106 +16334,106 @@ uint64_t static DenseVector./ infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3,
   return v25;
 }
 
-uint64_t static DenseVector<>.*= infix(_:_:)(void *a1)
+uint64_t static DenseVector<>.*= infix(_:_:)(uint64_t *a1, float a2)
 {
-  v1 = *a1;
+  v2 = *a1;
   if (!swift_isUniquelyReferenced_nonNull_native(*a1))
   {
-    v1 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v1);
+    v2 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v2);
   }
 
-  result = UnsafeMutableVectorPointer<A>.multiply(by:)((v1 + 4), v1[2], 1);
-  *a1 = v1;
+  result = UnsafeMutableVectorPointer<A>.multiply(by:)((v2 + 4), v2[2], 1, a2);
+  *a1 = v2;
   return result;
 }
 
-void *static DenseVector<>.* infix(_:_:)(void *a1)
+void *static DenseVector<>.* infix(_:_:)(void *a1, float a2)
 {
-  v1 = a1;
+  v2 = a1;
 
   if (!swift_isUniquelyReferenced_nonNull_native(a1))
   {
-    v1 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a1);
+    v2 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a1);
   }
 
-  UnsafeMutableVectorPointer<A>.multiply(by:)((v1 + 4), v1[2], 1);
-  return v1;
+  UnsafeMutableVectorPointer<A>.multiply(by:)((v2 + 4), v2[2], 1, a2);
+  return v2;
 }
 
 {
-  v1 = a1;
+  v2 = a1;
 
   if (!swift_isUniquelyReferenced_nonNull_native(a1))
   {
-    v1 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a1);
+    v2 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a1);
   }
 
-  UnsafeMutableVectorPointer<A>.multiply(by:)((v1 + 4), v1[2], 1);
-  return v1;
+  UnsafeMutableVectorPointer<A>.multiply(by:)((v2 + 4), v2[2], 1, a2);
+  return v2;
 }
 
-void *static DenseVector<>./ infix(_:_:)(void *a1)
+void *static DenseVector<>./ infix(_:_:)(void *a1, float a2)
 {
-  v1 = a1;
+  v2 = a1;
 
   if (!swift_isUniquelyReferenced_nonNull_native(a1))
   {
-    v1 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a1);
+    v2 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a1);
   }
 
-  UnsafeMutableVectorPointer<A>.multiply(by:)((v1 + 4), v1[2], 1);
-  return v1;
+  UnsafeMutableVectorPointer<A>.multiply(by:)((v2 + 4), v2[2], 1, 1.0 / a2);
+  return v2;
 }
 
-uint64_t static DenseVector<>.*= infix(_:_:)(char **a1)
+uint64_t static DenseVector<>.*= infix(_:_:)(char **a1, double a2)
 {
-  v1 = *a1;
+  v2 = *a1;
   if (!swift_isUniquelyReferenced_nonNull_native(*a1))
   {
-    v1 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v1);
+    v2 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v2);
   }
 
-  result = UnsafeMutableVectorPointer<A>.multiply(by:)((v1 + 32), *(v1 + 2), 1);
-  *a1 = v1;
+  result = UnsafeMutableVectorPointer<A>.multiply(by:)((v2 + 32), *(v2 + 2), 1, a2);
+  *a1 = v2;
   return result;
 }
 
-char *static DenseVector<>.* infix(_:_:)(uint64_t a1)
+char *static DenseVector<>.* infix(_:_:)(char *a1, double a2)
 {
-  v1 = a1;
+  v2 = a1;
 
   if (!swift_isUniquelyReferenced_nonNull_native(a1))
   {
-    v1 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a1);
+    v2 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a1);
   }
 
-  UnsafeMutableVectorPointer<A>.multiply(by:)((v1 + 32), *(v1 + 2), 1);
-  return v1;
+  UnsafeMutableVectorPointer<A>.multiply(by:)((v2 + 32), *(v2 + 2), 1, a2);
+  return v2;
 }
 
 {
-  v1 = a1;
+  v2 = a1;
 
   if (!swift_isUniquelyReferenced_nonNull_native(a1))
   {
-    v1 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a1);
+    v2 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a1);
   }
 
-  UnsafeMutableVectorPointer<A>.multiply(by:)((v1 + 32), *(v1 + 2), 1);
-  return v1;
+  UnsafeMutableVectorPointer<A>.multiply(by:)((v2 + 32), *(v2 + 2), 1, a2);
+  return v2;
 }
 
-char *static DenseVector<>./ infix(_:_:)(uint64_t a1)
+char *static DenseVector<>./ infix(_:_:)(char *a1, double a2)
 {
-  v1 = a1;
+  v2 = a1;
 
   if (!swift_isUniquelyReferenced_nonNull_native(a1))
   {
-    v1 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a1);
+    v2 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(a1);
   }
 
-  UnsafeMutableVectorPointer<A>.multiply(by:)((v1 + 32), *(v1 + 2), 1);
-  return v1;
+  UnsafeMutableVectorPointer<A>.multiply(by:)((v2 + 32), *(v2 + 2), 1, 1.0 / a2);
+  return v2;
 }
 
 uint64_t dot<A>(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -16874,12 +16543,12 @@ uint64_t closure #1 in closure #1 in dot<A>(_:_:)(uint64_t a1, uint64_t a2, uint
   return result;
 }
 
-NSURL *closure #1 in dot(_:_:)(const float *a1, uint64_t a2, vDSP_Stride a3, uint64_t a4)
+NSURL *closure #1 in dot(_:_:)(const float *a1, unint64_t a2, vDSP_Stride a3, uint64_t a4)
 {
   v5 = v4;
   v6 = *(a4 + 16);
   __C = 0.0;
-  if (a2 < 0)
+  if ((a2 & 0x8000000000000000) != 0)
   {
     BUG();
   }
@@ -16895,12 +16564,12 @@ NSURL *closure #1 in dot(_:_:)(const float *a1, uint64_t a2, vDSP_Stride a3, uin
   return __stack_chk_guard;
 }
 
-NSURL *closure #1 in dot(_:_:)(const double *a1, uint64_t a2, vDSP_Stride a3, uint64_t a4)
+NSURL *closure #1 in dot(_:_:)(const double *a1, unint64_t a2, vDSP_Stride a3, uint64_t a4)
 {
   v5 = v4;
   v6 = *(a4 + 16);
   __C = 0.0;
-  if (a2 < 0)
+  if ((a2 & 0x8000000000000000) != 0)
   {
     BUG();
   }
@@ -16945,7 +16614,7 @@ uint64_t one-time initialization function for linearAlgebra()
   v0 = type metadata accessor for Logger(0);
   __swift_allocate_value_buffer(v0, static Logger.linearAlgebra);
   __swift_project_value_buffer(v0, static Logger.linearAlgebra);
-  return Logger.init(subsystem:category:)(0xD000000000000012, "Target Frame Rate" + 0x8000000000000000, 0x612D7261656E696CLL, 0xEE0061726265676CLL);
+  return Logger.init(subsystem:category:)(0xD000000000000012, ("Target Frame Rate" + 0x8000000000000000), 0x612D7261656E696CLL, 0xEE0061726265676CLL);
 }
 
 uint64_t static Logger.linearAlgebra.getter()

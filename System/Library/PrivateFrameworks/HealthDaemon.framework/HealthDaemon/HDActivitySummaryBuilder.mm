@@ -55,25 +55,25 @@
 
 - (uint64_t)_enumerateActivitySummariesAndCachesWithPredicate:(void *)predicate largestAnchor:(uint64_t)anchor error:(void *)error handler:
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   v8 = a2;
   errorCopy = error;
   if (self)
   {
-    v52[0] = 0;
-    v52[1] = v52;
-    v52[2] = 0x2020000000;
-    v52[3] = 0;
+    v51[0] = 0;
+    v51[1] = v51;
+    v51[2] = 0x2020000000;
+    v51[3] = 0;
     filterIgnoringActivityCacheIndexFilter = [*(self + 16) filterIgnoringActivityCacheIndexFilter];
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __106__HDActivitySummaryBuilder__enumerateActivitySummariesAndCachesWithPredicate_largestAnchor_error_handler___block_invoke;
     aBlock[3] = &unk_27861EA48;
     aBlock[4] = self;
-    v51 = v52;
-    v27 = filterIgnoringActivityCacheIndexFilter;
-    v49 = v27;
-    v50 = errorCopy;
+    v50 = v51;
+    v26 = filterIgnoringActivityCacheIndexFilter;
+    v48 = v26;
+    v49 = errorCopy;
     v11 = _Block_copy(aBlock);
     activityCacheType = [MEMORY[0x277CCD720] activityCacheType];
     WeakRetained = objc_loadWeakRetained((self + 8));
@@ -87,50 +87,50 @@
     [v14 setEncodingOption:v16 forKey:@"IncludeActivityCacheStatistics"];
 
     v17 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"cache_index" entityClass:objc_opt_class() ascending:*(self + 26)];
-    v53[0] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:1];
+    v52[0] = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:1];
     [v14 setOrderingTerms:v18];
 
     [v14 setDatabaseTransactionContext:*(self + 40)];
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x2020000000;
-    v47 = 1;
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x2020000000;
     v43 = 0;
-    v39[0] = 0;
-    v39[1] = v39;
-    v39[2] = 0x2020000000;
-    v39[3] = 0x8000000000000000;
+    v44 = &v43;
+    v45 = 0x2020000000;
+    v46 = 1;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x2020000000;
+    v42 = 0;
+    v38[0] = 0;
+    v38[1] = v38;
+    v38[2] = 0x2020000000;
+    v38[3] = 0x8000000000000000;
     v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2020000000;
-    v38 = 0;
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __106__HDActivitySummaryBuilder__enumerateActivitySummariesAndCachesWithPredicate_largestAnchor_error_handler___block_invoke_307;
-    v28[3] = &unk_27861EA70;
-    v31 = v39;
-    v32 = &v44;
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x2020000000;
+    v37 = 0;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __106__HDActivitySummaryBuilder__enumerateActivitySummariesAndCachesWithPredicate_largestAnchor_error_handler___block_invoke_307;
+    v27[3] = &unk_27861EA70;
+    v30 = v38;
+    v31 = &v43;
     v20 = v11;
-    v30 = v20;
+    v29 = v20;
     v21 = v19;
-    v29 = v21;
-    v33 = &v35;
-    v34 = &v40;
-    if ([v14 enumerateWithError:anchor handler:v28])
+    v28 = v21;
+    v32 = &v34;
+    v33 = &v39;
+    if ([v14 enumerateWithError:anchor handler:v27])
     {
-      v22 = [v21 copy];
+      v22 = objc_msgSend_copy(v21);
       (*(v20 + 2))(v20, v22);
 
-      *(self + 48) = v36[3];
+      *(self + 48) = v35[3];
       v21 = 0;
       if (predicate)
       {
-        *predicate = v41[3];
+        *predicate = v40[3];
       }
 
       v23 = 1;
@@ -138,15 +138,15 @@
 
     else
     {
-      v23 = *(v45 + 24) ^ 1;
+      v23 = *(v44 + 24) ^ 1;
     }
 
-    _Block_object_dispose(&v35, 8);
-    _Block_object_dispose(v39, 8);
-    _Block_object_dispose(&v40, 8);
-    _Block_object_dispose(&v44, 8);
+    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(v38, 8);
+    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v43, 8);
 
-    _Block_object_dispose(v52, 8);
+    _Block_object_dispose(v51, 8);
   }
 
   else
@@ -154,7 +154,6 @@
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23 & 1;
 }
 
@@ -274,35 +273,30 @@ void __87__HDActivitySummaryBuilder_batchedActivitySummariesWithPredicate_maxBat
   if ([v5 count] >= a1[9])
   {
     *(*(a1[7] + 8) + 24) = 0;
-    v8 = *(*(a1[6] + 8) + 40);
-    v9 = *(*(a1[8] + 8) + 40);
-    v10 = a1[10];
-    v11 = *(*(a1[7] + 8) + 24);
-    v12 = a1[4];
     (*(a1[5] + 16))();
-    v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v14 = *(a1[6] + 8);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = v13;
+    v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v9 = *(a1[6] + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
 
-    v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v17 = *(a1[8] + 8);
-    v18 = *(v17 + 40);
-    *(v17 + 40) = v16;
+    v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v12 = *(a1[8] + 8);
+    v13 = *(v12 + 40);
+    *(v12 + 40) = v11;
   }
 
   [*(*(a1[6] + 8) + 40) addObject:v7];
-  v19 = *(*(a1[8] + 8) + 40);
-  v20 = MEMORY[0x277CCABB0];
-  v21 = [v7 _activitySummaryIndex];
+  v14 = *(*(a1[8] + 8) + 40);
+  v15 = MEMORY[0x277CCABB0];
+  v16 = [v7 _activitySummaryIndex];
 
-  v22 = [v20 numberWithLongLong:v21];
-  [v19 setObject:v6 forKeyedSubscript:v22];
+  v17 = [v15 numberWithLongLong:v16];
+  [v14 setObject:v6 forKeyedSubscript:v17];
 }
 
 BOOL __106__HDActivitySummaryBuilder__enumerateActivitySummariesAndCachesWithPredicate_largestAnchor_error_handler___block_invoke(void *a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 count])
   {
@@ -326,16 +320,16 @@ BOOL __106__HDActivitySummaryBuilder__enumerateActivitySummariesAndCachesWithPre
           v12 = *MEMORY[0x277CCC270];
           if (os_log_type_enabled(*MEMORY[0x277CCC270], OS_LOG_TYPE_FAULT))
           {
-            v17 = v12;
-            v18 = 138413058;
-            v19 = v8;
-            v20 = 2112;
-            v21 = v6;
-            v22 = 2048;
-            v23 = [v3 count];
-            v24 = 2112;
-            v25 = v3;
-            _os_log_fault_impl(&dword_228986000, v17, OS_LOG_TYPE_FAULT, "Activity summary without start/end date: %@ from cache: %@ out of %ld caches: %@", &v18, 0x2Au);
+            v16 = v12;
+            v17 = 138413058;
+            v18 = v8;
+            v19 = 2112;
+            v20 = v6;
+            v21 = 2048;
+            v22 = [v3 count];
+            v23 = 2112;
+            v24 = v3;
+            _os_log_fault_impl(&dword_228986000, v16, OS_LOG_TYPE_FAULT, "Activity summary without start/end date: %@ from cache: %@ out of %ld caches: %@", &v17, 0x2Au);
           }
         }
       }
@@ -344,7 +338,7 @@ BOOL __106__HDActivitySummaryBuilder__enumerateActivitySummariesAndCachesWithPre
       if (!v13 || [MEMORY[0x277CCDDB8] filter:v13 acceptsActivitySummary:v8])
       {
         ++*(*(a1[7] + 8) + 24);
-        LOBYTE(v18) = 0;
+        LOBYTE(v17) = 0;
         (*(a1[6] + 16))(a1[6]);
       }
 
@@ -366,7 +360,6 @@ BOOL __106__HDActivitySummaryBuilder__enumerateActivitySummariesAndCachesWithPre
     v5 = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -378,7 +371,7 @@ uint64_t __106__HDActivitySummaryBuilder__enumerateActivitySummariesAndCachesWit
   {
     v7 = v6;
     v8 = *(a1 + 40);
-    v9 = [*(a1 + 32) copy];
+    v9 = objc_msgSend_copy(*(a1 + 32));
     *(*(*(a1 + 56) + 8) + 24) = (*(v8 + 16))(v8, v9);
 
     [*(a1 + 32) removeAllObjects];

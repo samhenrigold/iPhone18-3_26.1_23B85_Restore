@@ -184,25 +184,24 @@ LABEL_11:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v6 = toCopy;
   if (self->_contentId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_fileName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    fileSize = self->_fileSize;
     PBDataWriterWriteUint32Field();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
     if ((has & 8) == 0)
     {
@@ -221,9 +220,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  type = self->_type;
   PBDataWriterWriteUint32Field();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -237,9 +235,8 @@ LABEL_8:
   }
 
 LABEL_18:
-  renderOnClient = self->_renderOnClient;
   PBDataWriterWriteBOOLField();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -253,22 +250,20 @@ LABEL_9:
   }
 
 LABEL_19:
-  imageWidth = self->_imageWidth;
   PBDataWriterWriteFloatField();
-  toCopy = v11;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_10:
-    imageHeight = self->_imageHeight;
     PBDataWriterWriteFloatField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
 LABEL_11:
   if (self->_mimePartNumber)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 }
 
@@ -465,7 +460,6 @@ LABEL_7:
     }
   }
 
-  v7 = *(equalCopy + 56);
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_fileSize != *(equalCopy + 6))
@@ -500,7 +494,7 @@ LABEL_7:
     }
 
 LABEL_36:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_37;
   }
 
@@ -509,7 +503,6 @@ LABEL_36:
     goto LABEL_36;
   }
 
-  v8 = *(equalCopy + 52);
   if (self->_renderOnClient)
   {
     if ((*(equalCopy + 52) & 1) == 0)
@@ -553,17 +546,17 @@ LABEL_18:
   mimePartNumber = self->_mimePartNumber;
   if (mimePartNumber | *(equalCopy + 5))
   {
-    v10 = [(NSString *)mimePartNumber isEqual:?];
+    v8 = [(NSString *)mimePartNumber isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_37:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

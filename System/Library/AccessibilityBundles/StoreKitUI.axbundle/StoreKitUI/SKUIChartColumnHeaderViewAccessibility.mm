@@ -15,20 +15,20 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v17 = *MEMORY[0x29EDCA608];
-  v15.receiver = self;
-  v15.super_class = SKUIChartColumnHeaderViewAccessibility;
-  [(SKUIChartColumnHeaderViewAccessibility *)&v15 _accessibilityLoadAccessibilityInformation];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v16 = *MEMORY[0x29EDCA608];
+  v14.receiver = self;
+  v14.super_class = SKUIChartColumnHeaderViewAccessibility;
+  [(SKUIChartColumnHeaderViewAccessibility *)&v14 _accessibilityLoadAccessibilityInformation];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v3 = [(SKUIChartColumnHeaderViewAccessibility *)self safeValueForKey:@"_buttons", 0];
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     v7 = *MEMORY[0x29EDC7F80];
     v8 = *MEMORY[0x29EDC7F70];
     do
@@ -36,22 +36,20 @@
       v9 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) setAccessibilityTraits:v8 | v7];
+        [*(*(&v10 + 1) + 8 * v9++) setAccessibilityTraits:v8 | v7];
       }
 
       while (v5 != v9);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 - (void)layoutSubviews

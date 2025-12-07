@@ -21,7 +21,7 @@
 - (void)layoutSubviews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for SearchActionCollectionViewCell();
+  v4.super_class = type metadata accessor for SearchActionCollectionViewCell(0);
   v2 = v4.receiver;
   [(SearchActionCollectionViewCell *)&v4 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC22SubscribePageExtension30SearchActionCollectionViewCell_actionContentView];
@@ -32,7 +32,7 @@
 - (void)prepareForReuse
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for SearchActionCollectionViewCell();
+  v4.super_class = type metadata accessor for SearchActionCollectionViewCell(0);
   v2 = v4.receiver;
   [(SearchActionCollectionViewCell *)&v4 prepareForReuse];
   v3 = *&v2[OBJC_IVAR____TtC22SubscribePageExtension30SearchActionCollectionViewCell_actionContentView];

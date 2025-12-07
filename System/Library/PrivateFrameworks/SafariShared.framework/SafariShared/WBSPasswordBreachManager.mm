@@ -219,13 +219,14 @@ void __66__WBSPasswordBreachManager_getSharedManagerWithCompletionHandler___bloc
 {
   delayCopy = delay;
   handlerCopy = handler;
-  if (!+[WBSPasswordBreachManager isPasswordBreachDetectionOn])
+  v7 = +[WBSPasswordBreachManager isPasswordBreachDetectionOn];
+  if ((v7 & 1) == 0)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v13 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v7, v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Refusing to start lookup session: Breach detection is turned off.", buf, 2u);
+      _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "Refusing to start lookup session: Breach detection is turned off.", buf, 2u);
     }
 
     goto LABEL_13;
@@ -234,26 +235,27 @@ void __66__WBSPasswordBreachManager_getSharedManagerWithCompletionHandler___bloc
   os_unfair_lock_lock(&self->_lock);
   if (self->_sessionTransaction)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v11 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v8 = "Refusing to start lookup session: Session is already running.";
+      v12 = "Refusing to start lookup session: Session is already running.";
 LABEL_11:
-      _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, v8, buf, 2u);
+      _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, v12, buf, 2u);
       goto LABEL_12;
     }
 
     goto LABEL_12;
   }
 
-  if (![(WBSPasswordBreachManager *)self _canPerformSessionIgnoringMinimumDelay:delayCopy])
+  v14 = [(WBSPasswordBreachManager *)self _canPerformSessionIgnoringMinimumDelay:delayCopy];
+  if ((v14 & 1) == 0)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v11 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v14, v15);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v8 = "Refusing to start lookup session: The minimum delay between sessions has not elapsed.";
+      v12 = "Refusing to start lookup session: The minimum delay between sessions has not elapsed.";
       goto LABEL_11;
     }
 
@@ -264,21 +266,21 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v10 = os_transaction_create();
+  v16 = os_transaction_create();
   sessionTransaction = self->_sessionTransaction;
-  self->_sessionTransaction = v10;
+  self->_sessionTransaction = v16;
 
   os_unfair_lock_unlock(&self->_lock);
   _checker = [(WBSPasswordBreachManager *)self _checker];
   fillState = [(WBSPasswordBreachQueuedPasswordBagManager *)self->_bagManager fillState];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __91__WBSPasswordBreachManager_performNextSessionLookupIgnoringMinimumDelay_completionHandler___block_invoke;
-  v14[3] = &unk_1E7FC9190;
-  v14[4] = self;
-  v16 = fillState;
-  v15 = handlerCopy;
-  [_checker checkPasswordBatchesWithCompletionHandler:v14];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __91__WBSPasswordBreachManager_performNextSessionLookupIgnoringMinimumDelay_completionHandler___block_invoke;
+  v20[3] = &unk_1E7FC9190;
+  v20[4] = self;
+  v22 = fillState;
+  v21 = handlerCopy;
+  [_checker checkPasswordBatchesWithCompletionHandler:v20];
 
 LABEL_14:
 }
@@ -364,11 +366,11 @@ void __91__WBSPasswordBreachManager_performNextSessionLookupIgnoringMinimumDelay
   self->_sessionTransaction = 0;
 
   os_unfair_lock_unlock(&self->_lock);
-  v12 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v14 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    *v13 = 0;
-    _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Lookup session completed.", v13, 2u);
+    *v15 = 0;
+    _os_log_impl(&dword_1BB6F3000, v14, OS_LOG_TYPE_INFO, "Lookup session completed.", v15, 2u);
   }
 
   handlerCopy[2](handlerCopy, resultsCopy);
@@ -399,12 +401,13 @@ void __91__WBSPasswordBreachManager_performNextSessionLookupIgnoringMinimumDelay
 void __93__WBSPasswordBreachManager__addRecentlyBreachedNotificationIfNecessaryWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __93__WBSPasswordBreachManager__addRecentlyBreachedNotificationIfNecessaryWithCompletionHandler___block_invoke_cold_1(v4, v3);
+      __93__WBSPasswordBreachManager__addRecentlyBreachedNotificationIfNecessaryWithCompletionHandler___block_invoke_cold_1(v6, v5);
     }
   }
 

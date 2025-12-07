@@ -1,7 +1,8 @@
-uint64_t geom::arap_deformer<float>::arap_deformer(uint64_t a1, uint64_t a2, int a3)
+uint64_t geom::arap_deformer<float>::arap_deformer(uint64_t a1, const void *a2, unint64_t a3, const void *a4, std::vector<unsigned int>::size_type a5)
 {
-  v5 = geom::ddg_evaluator<float>::ddg_evaluator();
-  geom::sparse_linear_solver<float>::sparse_linear_solver(v5 + 64, a3, a3);
+  v5 = a3;
+  v7 = geom::ddg_evaluator<float>::ddg_evaluator(a1, a2, a3, a4, a5);
+  geom::sparse_linear_solver<float>::sparse_linear_solver(v7 + 64, v5, v5);
   *(a1 + 320) = 0;
   *(a1 + 336) = 0;
   *(a1 + 344) = 0;
@@ -15,13 +16,11 @@ uint64_t geom::arap_deformer<float>::arap_deformer(uint64_t a1, uint64_t a2, int
   return a1;
 }
 
-uint64_t geom::arap_deformer<float>::arap_deformer(uint64_t a1, void *a2, void *a3)
+uint64_t geom::arap_deformer<float>::arap_deformer(uint64_t a1, const void **a2, uint64_t a3)
 {
-  v5 = (a2[1] - *a2) >> 4;
-  v6 = (a3[1] - *a3) >> 2;
-  v7 = geom::ddg_evaluator<float>::ddg_evaluator();
-  v8 = (a2[1] - *a2) >> 4;
-  geom::sparse_linear_solver<float>::sparse_linear_solver(v7 + 64, v8, v8);
+  v5 = geom::ddg_evaluator<float>::ddg_evaluator(a1, *a2, (a2[1] - *a2) >> 4, *a3, (*(a3 + 8) - *a3) >> 2);
+  v6 = (a2[1] - *a2) >> 4;
+  geom::sparse_linear_solver<float>::sparse_linear_solver(v5 + 64, v6, v6);
   *(a1 + 320) = 0;
   *(a1 + 336) = 0;
   *(a1 + 344) = 0;
@@ -46,7 +45,8 @@ uint64_t *geom::arap_deformer<float>::add_constraints(uint64_t *result, void *a2
     do
     {
       v9 = *(*a2 + 16 * v8);
-      result = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((v3 + 41), (v4 + v7));
+      v10 = (v4 + v7);
+      result = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((v3 + 41), (v4 + v7), &std::piecewise_construct, &v10);
       *(result + 3) = v9;
       ++v8;
       v4 = *a3;
@@ -60,7 +60,7 @@ uint64_t *geom::arap_deformer<float>::add_constraints(uint64_t *result, void *a2
   return result;
 }
 
-uint64_t *geom::arap_deformer<float>::add_constraints(uint64_t *result, __int128 *a2, uint64_t a3, unsigned int *a4, uint64_t a5)
+uint64_t *geom::arap_deformer<float>::add_constraints(uint64_t *result, __int128 *a2, uint64_t a3, _DWORD *a4, uint64_t a5)
 {
   v5 = result;
   if (a5)
@@ -69,7 +69,8 @@ uint64_t *geom::arap_deformer<float>::add_constraints(uint64_t *result, __int128
     do
     {
       v9 = *a2++;
-      result = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((v5 + 41), a4);
+      v10 = a4;
+      result = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((v5 + 41), a4, &std::piecewise_construct, &v10);
       *(result + 3) = v9;
       ++a4;
       --v6;
@@ -82,20 +83,20 @@ uint64_t *geom::arap_deformer<float>::add_constraints(uint64_t *result, __int128
   return result;
 }
 
-uint64_t *geom::arap_deformer<float>::add_static_constraints(uint64_t a1, uint64_t *a2)
+void geom::arap_deformer<float>::add_static_constraints(uint64_t a1, uint64_t *a2)
 {
-  result = geom::bvh<float,(unsigned char)2>::invariant_check();
+  geom::bvh<float,(unsigned char)2>::invariant_check();
   v5 = *a2;
   if (a2[1] != *a2)
   {
-    v6 = result;
+    v6 = v4;
     v7 = 0;
     v8 = 0;
     do
     {
       v9 = *(*v6 + 16 * *(v5 + v7));
-      result = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, (v5 + v7));
-      *(result + 3) = v9;
+      v10 = (v5 + v7);
+      *(_ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, (v5 + v7), &std::piecewise_construct, &v10) + 3) = v9;
       ++v8;
       v5 = *a2;
       v7 += 4;
@@ -105,21 +106,19 @@ uint64_t *geom::arap_deformer<float>::add_static_constraints(uint64_t a1, uint64
   }
 
   *(a1 + 320) = 0;
-  return result;
 }
 
-uint64_t *geom::arap_deformer<float>::add_static_constraints(uint64_t a1, unsigned int *a2, uint64_t a3)
+void geom::arap_deformer<float>::add_static_constraints(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
-  result = geom::bvh<float,(unsigned char)2>::invariant_check(a1);
+  geom::bvh<float,(unsigned char)2>::invariant_check();
   if (a3)
   {
-    v7 = result;
+    v7 = v6;
     do
     {
       v8 = *(*v7 + 16 * *a2);
-      result = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, a2);
-      *(result + 3) = v8;
-      ++a2;
+      v9 = a2;
+      *(_ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, a2++, &std::piecewise_construct, &v9) + 3) = v8;
       --a3;
     }
 
@@ -127,7 +126,6 @@ uint64_t *geom::arap_deformer<float>::add_static_constraints(uint64_t a1, unsign
   }
 
   *(a1 + 320) = 0;
-  return result;
 }
 
 void geom::arap_deformer<float>::clear_constraints(uint64_t a1)
@@ -146,7 +144,7 @@ BOOL geom::arap_deformer<float>::initialize(uint64_t a1)
   if (*(a1 + 400) == *(a1 + 408))
   {
     v2 = geom::ddg_evaluator<float>::vertex_count(a1);
-    std::vector<geom::ddg_evaluator<float>::stencil,std::allocator<geom::ddg_evaluator<float>::stencil>>::resize(a1 + 400, v2);
+    std::vector<geom::ddg_evaluator<float>::stencil,std::allocator<geom::ddg_evaluator<float>::stencil>>::resize((a1 + 400), v2);
     if (geom::ddg_evaluator<float>::vertex_count(a1))
     {
       v3 = 0;
@@ -276,7 +274,7 @@ void geom::arap_deformer<float>::reset(uint64_t a1)
   DWORD1(v5) = 1065353216;
   DWORD2(v6) = 1065353216;
   geom::sparse_linear_solver<float>::clear_enrties(a1 + 64);
-  v2 = geom::bvh<float,(unsigned char)2>::invariant_check(a1);
+  geom::bvh<float,(unsigned char)2>::invariant_check();
   if ((a1 + 352) != v2)
   {
     _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IPS1_S6_EEvT_T0_l((a1 + 352), *v2, v2[1], (v2[1] - *v2) >> 4);
@@ -287,32 +285,32 @@ void geom::arap_deformer<float>::reset(uint64_t a1)
   *(a1 + 320) = 0;
 }
 
-void std::vector<geom::ddg_evaluator<float>::stencil,std::allocator<geom::ddg_evaluator<float>::stencil>>::resize(uint64_t a1, unint64_t a2)
+void std::vector<geom::ddg_evaluator<float>::stencil,std::allocator<geom::ddg_evaluator<float>::stencil>>::resize(char **result, unint64_t a2)
 {
-  v3 = *(a1 + 8);
-  v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a1) >> 4);
+  v3 = result[1];
+  v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *result) >> 4);
   v5 = a2 >= v4;
   v6 = a2 - v4;
   if (v6 != 0 && v5)
   {
 
-    std::vector<geom::ddg_evaluator<float>::stencil,std::allocator<geom::ddg_evaluator<float>::stencil>>::__append(a1, v6);
+    std::vector<geom::ddg_evaluator<float>::stencil,std::allocator<geom::ddg_evaluator<float>::stencil>>::__append(result, v6);
   }
 
   else if (!v5)
   {
-    v7 = *a1 + 48 * a2;
+    v7 = &(*result)[48 * a2];
     while (v3 != v7)
     {
       v3 -= 48;
-      std::allocator<geom::ddg_evaluator<float>::stencil>::destroy[abi:nn200100](a1, v3);
+      std::allocator<geom::ddg_evaluator<float>::stencil>::destroy[abi:nn200100](result, v3);
     }
 
-    *(a1 + 8) = v7;
+    result[1] = v7;
   }
 }
 
-void geom::arap_deformer<float>::deform(void *a1, unsigned int a2, float a3)
+void geom::arap_deformer<float>::deform(unsigned int *result, unsigned int a2, float a3)
 {
   if (a2)
   {
@@ -320,7 +318,7 @@ void geom::arap_deformer<float>::deform(void *a1, unsigned int a2, float a3)
     v7 = 0.0;
     do
     {
-      geom::arap_deformer<float>::deform_step(a1);
+      geom::arap_deformer<float>::deform_step(result);
       if (a3 <= 0.0)
       {
         v9 = v6 + 1;
@@ -329,7 +327,7 @@ void geom::arap_deformer<float>::deform(void *a1, unsigned int a2, float a3)
 
       else
       {
-        v8 = geom::arap_deformer<float>::energy(a1);
+        v8 = geom::arap_deformer<float>::energy(result);
         v9 = v6 + 1;
         if (v6 && v9 < a2 && (vabds_f32(*&v8, v7) / (*&v8 + a3)) < a3)
         {
@@ -345,203 +343,204 @@ void geom::arap_deformer<float>::deform(void *a1, unsigned int a2, float a3)
   }
 }
 
-void geom::arap_deformer<float>::deform_step(uint64_t a1)
+void geom::arap_deformer<float>::deform_step(unsigned int *a1)
 {
-  v5 = geom::bvh<float,(unsigned char)2>::invariant_check(a1);
-  v80 = *(a1 + 376);
-  v81 = *(a1 + 384);
-  v82 = 0xAAAAAAAAAAAAAAABLL * ((v81 - v80) >> 4);
-  if (v81 != v80)
+  geom::bvh<float,(unsigned char)2>::invariant_check();
+  v9 = v8;
+  v81 = *(a1 + 47);
+  v82 = *(a1 + 48);
+  v83 = 0xAAAAAAAAAAAAAAABLL * ((v82 - v81) >> 4);
+  if (v82 != v81)
   {
-    v9 = 0;
-    if (v82 <= 1)
+    v10 = 0;
+    if (v83 <= 1)
     {
-      v10 = 1;
+      v11 = 1;
     }
 
     else
     {
-      v10 = 0xAAAAAAAAAAAAAAABLL * ((v81 - v80) >> 4);
+      v11 = 0xAAAAAAAAAAAAAAABLL * ((v82 - v81) >> 4);
     }
 
     do
     {
-      v108 = 0u;
       v109 = 0u;
-      v107 = 0u;
-      v11 = (*(a1 + 400) + 48 * v9);
-      v12 = *v11;
-      v13 = v93;
+      v110 = 0u;
+      v108 = 0u;
+      v12 = (*(a1 + 50) + 48 * v10);
+      v13 = *v12;
       v14 = v94;
-      v15 = v92;
-      v90 = v6.i32[3];
-      v91 = v7.i32[3];
-      v89 = v8;
-      if ((v11[1] - *v11) >= 5)
+      v15 = v95;
+      v16 = v93;
+      v91 = v5.i32[3];
+      v92 = v6.i32[3];
+      v90 = v7;
+      if ((v12[1] - *v12) >= 5)
       {
-        v16 = *(a1 + 352);
-        v17 = 2;
-        v18 = *v5;
-        v19 = 1;
-        v20 = v93.i32[3];
+        v17 = *(a1 + 44);
+        v18 = 2;
+        v19 = *v9;
+        v20 = 1;
         v21 = v94.i32[3];
+        v22 = v95.i32[3];
         do
         {
-          v22 = *(v12 + 4 * v19);
-          v23 = vsubq_f32(*(v18 + 16 * v9), *(v18 + 16 * v22));
-          v24 = vsubq_f32(*(v16 + 16 * v9), *(v16 + 16 * v22));
-          v25 = *(v11[3] + 4 * v19);
-          v14 = vmulq_n_f32(vmulq_n_f32(v23, v24.f32[0]), v25);
-          v13 = vmulq_n_f32(vmulq_lane_f32(v23, *v24.f32, 1), v25);
-          v15 = vmulq_n_f32(vmulq_laneq_f32(v23, v24, 2), v25);
-          v26 = vaddq_f32(v107, v14);
+          v23 = *(v13 + 4 * v20);
+          v24 = vsubq_f32(*(v19 + 16 * v10), *(v19 + 16 * v23));
+          v25 = vsubq_f32(*(v17 + 16 * v10), *(v17 + 16 * v23));
+          v26 = *(v12[3] + 4 * v20);
+          v15 = vmulq_n_f32(vmulq_n_f32(v24, v25.f32[0]), v26);
+          v14 = vmulq_n_f32(vmulq_lane_f32(v24, *v25.f32, 1), v26);
+          v16 = vmulq_n_f32(vmulq_laneq_f32(v24, v25, 2), v26);
+          v27 = vaddq_f32(v108, v15);
+          v15.i32[3] = v22;
+          v28 = vaddq_f32(v109, v14);
           v14.i32[3] = v21;
-          v27 = vaddq_f32(v108, v13);
-          v13.i32[3] = v20;
-          v28 = vaddq_f32(v109, v15);
-          v15.i32[3] = v92.i32[3];
-          v107.i32[2] = v26.i32[2];
+          v29 = vaddq_f32(v110, v16);
+          v16.i32[3] = v93.i32[3];
           v108.i32[2] = v27.i32[2];
-          v107.i64[0] = v26.i64[0];
-          v108.i64[0] = v27.i64[0];
           v109.i32[2] = v28.i32[2];
+          v108.i64[0] = v27.i64[0];
           v109.i64[0] = v28.i64[0];
-          v19 = v17;
-          v12 = *v11;
-          ++v17;
-          v20 = v13.i32[3];
+          v110.i32[2] = v29.i32[2];
+          v110.i64[0] = v29.i64[0];
+          v20 = v18;
+          v13 = *v12;
+          ++v18;
           v21 = v14.i32[3];
+          v22 = v15.i32[3];
         }
 
-        while (v19 < (v11[1] - *v11) >> 2);
+        while (v20 < (v12[1] - *v12) >> 2);
       }
 
-      v92 = v15;
-      v93 = v13;
+      v93 = v16;
       v94 = v14;
-      *(&v106 + 4) = 0;
-      LODWORD(v106) = 0;
-      geom::compute_svd_3x3<float>(&v107, &v103, &v106, &v100, v2, v3, v4);
-      v29 = 0;
-      v30 = vzip1q_s32(v100, v101);
-      v30.i32[2] = v102.i32[0];
-      v31 = vzip2q_s32(vzip1q_s32(v100, v102), vdupq_lane_s32(*v101.i8, 1));
-      v32 = vzip2q_s32(v100, v101);
-      v32.i32[2] = v102.i32[2];
-      v33 = vzip1q_s32(v103, v105);
-      v34 = vzip1q_s32(v33, v104);
-      v35 = vzip1q_s32(vzip2q_s32(v103, v105), vdupq_laneq_s32(v104, 2));
-      v36 = v34;
-      v36.i32[3] = v89;
-      v37 = vzip2q_s32(v33, vdupq_lane_s32(*v104.i8, 1));
-      v6 = v37;
-      v6.i32[3] = v90;
-      v7 = v35;
-      v7.i32[3] = v91;
-      v110 = v36;
-      v111 = v6;
-      v112 = v7;
+      v95 = v15;
+      *(&v107 + 4) = 0;
+      LODWORD(v107) = 0;
+      geom::compute_svd_3x3<float>(&v108, &v104, &v107, &v101, v2, v3, v4);
+      v30 = 0;
+      v31 = vzip1q_s32(v101, v102);
+      v31.i32[2] = v103.i32[0];
+      v32 = vzip2q_s32(vzip1q_s32(v101, v103), vdupq_lane_s32(*v102.i8, 1));
+      v33 = vzip2q_s32(v101, v102);
+      v33.i32[2] = v103.i32[2];
+      v34 = vzip1q_s32(v104, v106);
+      v35 = vzip1q_s32(v34, v105);
+      v36 = vzip1q_s32(vzip2q_s32(v104, v106), vdupq_laneq_s32(v105, 2));
+      v37 = v35;
+      v37.i32[3] = v90;
+      v38 = vzip2q_s32(v34, vdupq_lane_s32(*v105.i8, 1));
+      v5 = v38;
+      v5.i32[3] = v91;
+      v6 = v36;
+      v6.i32[3] = v92;
+      v111 = v37;
+      v112 = v5;
+      v113 = v6;
       do
       {
-        *(&v95 + v29) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, COERCE_FLOAT(*(&v110 + v29))), v31, *&v110.i8[v29], 1), v32, *(&v110 + v29), 2);
-        v29 += 16;
+        *(&v96 + v30) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v31, COERCE_FLOAT(*(&v111 + v30))), v32, *&v111.i8[v30], 1), v33, *(&v111 + v30), 2);
+        v30 += 16;
       }
 
-      while (v29 != 48);
-      v38 = v95;
+      while (v30 != 48);
       v39 = v96;
       v40 = v97;
-      v41 = vmulq_f32(v95, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(v40, v40, 0xCuLL), v97, 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(v39, v39), v96, 0xCuLL))), vextq_s8(vuzp1q_s32(v40, v40), v97, 0xCuLL), vextq_s8(vextq_s8(v39, v39, 0xCuLL), v96, 8uLL)));
-      if ((v41.f32[2] + vaddv_f32(*v41.f32)) >= 0.0)
+      v41 = v98;
+      v42 = vmulq_f32(v96, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(v41, v41, 0xCuLL), v98, 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(v40, v40), v97, 0xCuLL))), vextq_s8(vuzp1q_s32(v41, v41), v98, 0xCuLL), vextq_s8(vextq_s8(v40, v40, 0xCuLL), v97, 8uLL)));
+      if ((v42.f32[2] + vaddv_f32(*v42.f32)) >= 0.0)
       {
-        v38.i32[3] = 0;
         v39.i32[3] = 0;
         v40.i32[3] = 0;
+        v41.i32[3] = 0;
       }
 
       else
       {
-        v42 = 0;
-        v34.i32[3] = v83;
-        v37.i32[3] = v84;
-        v35.i32[3] = v85;
-        v110 = v34;
-        v111 = v37;
-        v112 = v35;
-        do
-        {
-          *(&v95 + v42) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_2500C1620, COERCE_FLOAT(*(&v110 + v42))), xmmword_2500C1630, *&v110.i8[v42], 1), xmmword_2500C1640, *(&v110 + v42), 2);
-          v42 += 16;
-        }
-
-        while (v42 != 48);
         v43 = 0;
-        v44 = v95;
-        v45 = v96;
-        v44.i32[3] = v86;
-        v45.i32[3] = v87;
-        v46 = v97;
-        v46.i32[3] = v88;
-        v110 = v44;
-        v111 = v45;
-        v112 = v46;
+        v35.i32[3] = v84;
+        v38.i32[3] = v85;
+        v36.i32[3] = v86;
+        v111 = v35;
+        v112 = v38;
+        v113 = v36;
         do
         {
-          *(&v95 + v43) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, COERCE_FLOAT(*(&v110 + v43))), v31, *&v110.i8[v43], 1), v32, *(&v110 + v43), 2);
+          *(&v96 + v43) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_2500C1620, COERCE_FLOAT(*(&v111 + v43))), xmmword_2500C1630, *&v111.i8[v43], 1), xmmword_2500C1640, *(&v111 + v43), 2);
           v43 += 16;
         }
 
         while (v43 != 48);
-        v38 = v95;
+        v44 = 0;
+        v45 = v96;
+        v46 = v97;
+        v45.i32[3] = v87;
+        v46.i32[3] = v88;
+        v47 = v98;
+        v47.i32[3] = v89;
+        v111 = v45;
+        v112 = v46;
+        v113 = v47;
+        do
+        {
+          *(&v96 + v44) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v31, COERCE_FLOAT(*(&v111 + v44))), v32, *&v111.i8[v44], 1), v33, *(&v111 + v44), 2);
+          v44 += 16;
+        }
+
+        while (v44 != 48);
         v39 = v96;
         v40 = v97;
+        v41 = v98;
       }
 
-      v47 = (*(a1 + 376) + 48 * v9++);
-      *v47 = v38;
-      v47[1] = v39;
-      v47[2] = v40;
-      v8 = v89;
+      v48 = (*(a1 + 47) + 48 * v10++);
+      *v48 = v39;
+      v48[1] = v40;
+      v48[2] = v41;
+      v7 = v90;
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
   }
 
-  v99 = 0;
-  v97 = 0u;
+  v100 = 0;
   v98 = 0u;
-  v95 = 0u;
+  v99 = 0u;
   v96 = 0u;
-  v110.i32[0] = 0;
-  std::vector<float>::resize(&v95, v82, v110.i32, 0);
-  v110.i32[0] = 0;
-  std::vector<float>::resize(&v96.i64[1], v82, v110.i32, v48);
-  v110.i32[0] = 0;
-  std::vector<float>::resize(&v98, v82, v110.i32, v49);
-  v107.i32[0] = 0;
-  if (v81 != v80)
+  v97 = 0u;
+  v111.i32[0] = 0;
+  std::vector<float>::resize(&v96, v83, v111.i32, 0);
+  v111.i32[0] = 0;
+  std::vector<float>::resize(&v97.i64[1], v83, v111.i32, v49);
+  v111.i32[0] = 0;
+  std::vector<float>::resize(&v99, v83, v111.i32, v50);
+  v108.i32[0] = 0;
+  if (v82 != v81)
   {
-    v50 = 0;
     v51 = 0;
+    v52 = 0;
     while (1)
     {
-      for (i = *(a1 + 336); i; i = *i)
+      for (i = *(a1 + 42); i; i = *i)
       {
-        v53 = *(i + 8);
-        if (v51 >= v53)
+        v54 = *(i + 8);
+        if (v52 >= v54)
         {
-          if (v53 >= v51)
+          if (v54 >= v52)
           {
-            v110.i64[0] = &v107;
-            v72 = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, &v107);
-            *(v95.i64[0] + 4 * v107.u32[0]) = *(v72 + 12);
-            v110.i64[0] = &v107;
-            v73 = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, &v107);
-            *(v96.i64[1] + 4 * v107.u32[0]) = *(v73 + 13);
-            v110.i64[0] = &v107;
-            v74 = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, &v107);
-            v51 = v107.i32[0];
-            *(v98 + 4 * v107.u32[0]) = *(v74 + 14);
+            v111.i64[0] = &v108;
+            v73 = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((a1 + 82), &v108, &std::piecewise_construct, &v111);
+            *(v96.i64[0] + 4 * v108.u32[0]) = *(v73 + 12);
+            v111.i64[0] = &v108;
+            v74 = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((a1 + 82), &v108, &std::piecewise_construct, &v111);
+            *(v97.i64[1] + 4 * v108.u32[0]) = *(v74 + 13);
+            v111.i64[0] = &v108;
+            v75 = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((a1 + 82), &v108, &std::piecewise_construct, &v111);
+            v52 = v108.i32[0];
+            *(v99 + 4 * v108.u32[0]) = *(v75 + 14);
             goto LABEL_38;
           }
 
@@ -549,125 +548,125 @@ void geom::arap_deformer<float>::deform_step(uint64_t a1)
         }
       }
 
-      v54 = (*(a1 + 400) + 48 * v50);
-      v55 = *v54;
-      v56 = v54[1];
-      if ((v56 - *v54) < 5)
+      v55 = (*(a1 + 50) + 48 * v51);
+      v56 = *v55;
+      v57 = v55[1];
+      if ((v57 - *v55) < 5)
       {
         goto LABEL_38;
       }
 
-      v57 = 1;
+      v58 = 1;
       do
       {
-        v58 = *(a1 + 336);
-        if (!v58)
+        v59 = *(a1 + 42);
+        if (!v59)
         {
           goto LABEL_35;
         }
 
-        v59 = (v55 + 4 * v57);
-        v60 = *v59;
+        v60 = (v56 + 4 * v58);
+        v61 = *v60;
         while (1)
         {
-          v61 = *(v58 + 8);
-          if (v60 >= v61)
+          v62 = *(v59 + 8);
+          if (v61 >= v62)
           {
             break;
           }
 
 LABEL_32:
-          v58 = *v58;
-          if (!v58)
+          v59 = *v59;
+          if (!v59)
           {
             goto LABEL_35;
           }
         }
 
-        if (v61 < v60)
+        if (v62 < v61)
         {
-          ++v58;
+          ++v59;
           goto LABEL_32;
         }
 
-        v62 = *(v54[3] + 4 * v57);
-        v110.i64[0] = v55 + 4 * v57;
-        v63 = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, v59);
-        *(v95.i64[0] + 4 * v107.u32[0]) = *(v95.i64[0] + 4 * v107.u32[0]) + (v62 * *(v63 + 12));
-        v64 = *(v54[3] + 4 * v57);
-        v110.i64[0] = *v54 + 4 * v57;
-        v65 = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, v110.i64[0]);
-        *(v96.i64[1] + 4 * v107.u32[0]) = *(v96.i64[1] + 4 * v107.u32[0]) + (v64 * *(v65 + 13));
-        v66 = *(v54[3] + 4 * v57);
-        v110.i64[0] = *v54 + 4 * v57;
-        v67 = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, v110.i64[0]);
-        v51 = v107.i32[0];
-        *(v98 + 4 * v107.u32[0]) = *(v98 + 4 * v107.u32[0]) + (v66 * *(v67 + 14));
-        v55 = *v54;
-        v56 = v54[1];
+        v63 = *(v55[3] + 4 * v58);
+        v111.i64[0] = v56 + 4 * v58;
+        v64 = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((a1 + 82), v60, &std::piecewise_construct, &v111);
+        *(v96.i64[0] + 4 * v108.u32[0]) = *(v96.i64[0] + 4 * v108.u32[0]) + (v63 * *(v64 + 12));
+        v65 = *(v55[3] + 4 * v58);
+        v111.i64[0] = *v55 + 4 * v58;
+        v66 = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((a1 + 82), v111.i64[0], &std::piecewise_construct, &v111);
+        *(v97.i64[1] + 4 * v108.u32[0]) = *(v97.i64[1] + 4 * v108.u32[0]) + (v65 * *(v66 + 13));
+        v67 = *(v55[3] + 4 * v58);
+        v111.i64[0] = *v55 + 4 * v58;
+        v68 = _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((a1 + 82), v111.i64[0], &std::piecewise_construct, &v111);
+        v52 = v108.i32[0];
+        *(v99 + 4 * v108.u32[0]) = *(v99 + 4 * v108.u32[0]) + (v67 * *(v68 + 14));
+        v56 = *v55;
+        v57 = v55[1];
 LABEL_35:
-        v68 = *(v55 + 4 * v57);
-        v69 = vsubq_f32(*(*v5 + 16 * v51), *(*v5 + 16 * v68));
-        v70 = *(a1 + 376);
-        v71 = vmulq_n_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(vaddq_f32(*(v70 + 48 * v51), *(v70 + 48 * v68)), v69.f32[0]), vaddq_f32(*(v70 + 48 * v51 + 16), *(v70 + 48 * v68 + 16)), *v69.f32, 1), vaddq_f32(*(v70 + 48 * v51 + 32), *(v70 + 48 * v68 + 32)), v69, 2), *(v54[3] + 4 * v57) * 0.5);
-        *(v95.i64[0] + 4 * v51) = *(v95.i64[0] + 4 * v51) + v71.f32[0];
-        *(v96.i64[1] + 4 * v51) = *(v96.i64[1] + 4 * v51) + v71.f32[1];
-        *(v98 + 4 * v51) = v71.f32[2] + *(v98 + 4 * v51);
-        v57 = (v57 + 1);
+        v69 = *(v56 + 4 * v58);
+        v70 = vsubq_f32(*(*v9 + 16 * v52), *(*v9 + 16 * v69));
+        v71 = *(a1 + 47);
+        v72 = vmulq_n_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(vaddq_f32(*(v71 + 48 * v52), *(v71 + 48 * v69)), v70.f32[0]), vaddq_f32(*(v71 + 48 * v52 + 16), *(v71 + 48 * v69 + 16)), *v70.f32, 1), vaddq_f32(*(v71 + 48 * v52 + 32), *(v71 + 48 * v69 + 32)), v70, 2), *(v55[3] + 4 * v58) * 0.5);
+        *(v96.i64[0] + 4 * v52) = *(v96.i64[0] + 4 * v52) + v72.f32[0];
+        *(v97.i64[1] + 4 * v52) = *(v97.i64[1] + 4 * v52) + v72.f32[1];
+        *(v99 + 4 * v52) = v72.f32[2] + *(v99 + 4 * v52);
+        v58 = (v58 + 1);
       }
 
-      while (v57 < (v56 - v55) >> 2);
+      while (v58 < (v57 - v56) >> 2);
 LABEL_38:
-      v107.i32[0] = ++v51;
-      v50 = v51;
-      if (v82 <= v51)
+      v108.i32[0] = ++v52;
+      v51 = v52;
+      if (v83 <= v52)
       {
-        geom::sparse_linear_solver<float>::solve((a1 + 64), &v95);
-        geom::sparse_linear_solver<float>::solve((a1 + 64), &v96.i64[1]);
-        geom::sparse_linear_solver<float>::solve((a1 + 64), &v98);
-        v76 = 0;
-        if (v82 <= 1)
+        geom::sparse_linear_solver<float>::solve(a1 + 16, &v96);
+        geom::sparse_linear_solver<float>::solve(a1 + 16, &v97.i64[1]);
+        geom::sparse_linear_solver<float>::solve(a1 + 16, &v99);
+        v77 = 0;
+        if (v83 <= 1)
         {
-          v77 = 1;
+          v78 = 1;
         }
 
         else
         {
-          v77 = 0xAAAAAAAAAAAAAAABLL * ((v81 - v80) >> 4);
+          v78 = 0xAAAAAAAAAAAAAAABLL * ((v82 - v81) >> 4);
         }
 
         do
         {
-          LODWORD(v75) = *(v95.i64[0] + 4 * v76);
-          DWORD1(v75) = *(v96.i64[1] + 4 * v76);
-          DWORD2(v75) = *(v98 + 4 * v76);
-          *(*(a1 + 352) + 16 * v76++) = v75;
+          LODWORD(v76) = *(v96.i64[0] + 4 * v77);
+          DWORD1(v76) = *(v97.i64[1] + 4 * v77);
+          DWORD2(v76) = *(v99 + 4 * v77);
+          *(*(a1 + 44) + 16 * v77++) = v76;
         }
 
-        while (v77 != v76);
+        while (v78 != v77);
         goto LABEL_45;
       }
     }
   }
 
-  geom::sparse_linear_solver<float>::solve((a1 + 64), &v95);
-  geom::sparse_linear_solver<float>::solve((a1 + 64), &v96.i64[1]);
-  geom::sparse_linear_solver<float>::solve((a1 + 64), &v98);
+  geom::sparse_linear_solver<float>::solve(a1 + 16, &v96);
+  geom::sparse_linear_solver<float>::solve(a1 + 16, &v97.i64[1]);
+  geom::sparse_linear_solver<float>::solve(a1 + 16, &v99);
 LABEL_45:
   for (j = 0; j != -72; j -= 24)
   {
-    v79 = *(&v98 + j);
-    if (v79)
+    v80 = *(&v99 + j);
+    if (v80)
     {
-      *(&v98 + j + 8) = v79;
-      operator delete(v79);
+      *(&v99 + j + 8) = v80;
+      operator delete(v80);
     }
   }
 }
 
 double geom::arap_deformer<float>::energy(void *a1)
 {
-  v2 = geom::bvh<float,(unsigned char)2>::invariant_check();
+  geom::bvh<float,(unsigned char)2>::invariant_check();
   v3 = *v2;
   v4 = v2[1];
   v5 = v4 - *v2;
@@ -718,77 +717,77 @@ double geom::arap_deformer<float>::energy(void *a1)
   return result;
 }
 
-void std::vector<simd_float3x3>::resize(void *a1, unint64_t a2, __int128 *a3)
+void std::vector<simd_float3x3>::resize(void *result, unint64_t a2, __int128 *a3)
 {
-  v3 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
+  v3 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 4);
   v4 = a2 >= v3;
   v5 = a2 - v3;
   if (v5 != 0 && v4)
   {
-    std::vector<simd_float3x3>::__append(a1, v5, a3);
+    std::vector<simd_float3x3>::__append(result, v5, a3);
   }
 
   else if (!v4)
   {
-    a1[1] = *a1 + 48 * a2;
+    result[1] = *result + 48 * a2;
   }
 }
 
-uint64_t geom::compute_svd_3x3<float>(int8x16_t *a1, _OWORD *a2, _OWORD *a3, _OWORD *a4, uint64_t a5, uint64_t a6, float *a7)
+double geom::compute_svd_3x3<float>(int8x16_t *a1, _OWORD *a2, _OWORD *a3, _OWORD *a4, uint64_t a5, uint64_t a6, float *a7)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v10 = *a1;
-  v10.i32[3] = a1[1];
+  HIDWORD(v10) = a1[1];
   v11 = a1[2];
   v12 = vextq_s8(vextq_s8(a1[1], a1[1], 0xCuLL), v11, 8uLL);
-  v25[0] = v10;
-  v25[1] = v12;
-  v26 = v11.i32[2];
-  result = geom::compute_svd(3, 3u, v25, v23, &v19, v21, a7);
-  if (result)
+  v24[0] = v10;
+  v24[1] = v12;
+  v25 = v11.i32[2];
+  if (geom::compute_svd(3, 3, v24, v22, &v18, v20, a7))
   {
-    *&v14 = v19;
-    DWORD2(v14) = v20;
-    *a3 = v14;
-    v16 = *&v23[12];
-    *&v15 = *&v23[24];
-    DWORD2(v15) = v24;
-    *a2 = *v23;
-    a2[1] = v16;
-    a2[2] = v15;
-    v17 = *&v21[12];
-    *&v15 = *&v21[24];
-    DWORD2(v15) = v22;
-    *a4 = *v21;
-    a4[1] = v17;
-    a4[2] = v15;
+    *&v13 = v18;
+    DWORD2(v13) = v19;
+    *a3 = v13;
+    v15 = *&v22[12];
+    *&v14 = *&v22[24];
+    DWORD2(v14) = v23;
+    *a2 = *v22;
+    a2[1] = v15;
+    a2[2] = v14;
+    *&v13 = *v20;
+    v16 = *&v20[12];
+    *&v14 = *&v20[24];
+    DWORD2(v14) = v21;
+    *a4 = *v20;
+    a4[1] = v16;
+    a4[2] = v14;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return *&v13;
 }
 
-void std::vector<float>::resize(void *a1, unint64_t a2, __int32 *a3, int16x4_t a4)
+void std::vector<float>::resize(void *result, unint64_t a2, __int32 *a3, int16x4_t a4)
 {
-  v4 = (a1[1] - *a1) >> 2;
+  v4 = (result[1] - *result) >> 2;
   if (a2 <= v4)
   {
     if (a2 < v4)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    std::vector<float>::__append(a1, a2 - v4, a3, a4);
+    std::vector<float>::__append(result, a2 - v4, a3, a4);
   }
 }
 
-uint64_t geom::arap_deformer<double>::arap_deformer(uint64_t a1, uint64_t a2, int a3)
+uint64_t geom::arap_deformer<double>::arap_deformer(uint64_t a1, const void *a2, unint64_t a3, const void *a4, std::vector<unsigned int>::size_type a5)
 {
-  v5 = geom::ddg_evaluator<double>::ddg_evaluator();
-  geom::sparse_linear_solver<float>::sparse_linear_solver(v5 + 64, a3, a3);
+  v5 = a3;
+  v7 = geom::ddg_evaluator<double>::ddg_evaluator(a1, a2, a3, a4, a5);
+  geom::sparse_linear_solver<float>::sparse_linear_solver(v7 + 64, v5, v5);
   *(a1 + 320) = 0;
   *(a1 + 336) = 0;
   *(a1 + 344) = 0;
@@ -802,13 +801,11 @@ uint64_t geom::arap_deformer<double>::arap_deformer(uint64_t a1, uint64_t a2, in
   return a1;
 }
 
-uint64_t geom::arap_deformer<double>::arap_deformer(uint64_t a1, void *a2, void *a3)
+uint64_t geom::arap_deformer<double>::arap_deformer(uint64_t a1, const void **a2, uint64_t a3)
 {
-  v5 = (a2[1] - *a2) >> 5;
-  v6 = (a3[1] - *a3) >> 2;
-  v7 = geom::ddg_evaluator<double>::ddg_evaluator();
-  v8 = (a2[1] - *a2) >> 5;
-  geom::sparse_linear_solver<float>::sparse_linear_solver(v7 + 64, v8, v8);
+  v5 = geom::ddg_evaluator<double>::ddg_evaluator(a1, *a2, (a2[1] - *a2) >> 5, *a3, (*(a3 + 8) - *a3) >> 2);
+  v6 = (a2[1] - *a2) >> 5;
+  geom::sparse_linear_solver<float>::sparse_linear_solver(v5 + 64, v6, v6);
   *(a1 + 320) = 0;
   *(a1 + 336) = 0;
   *(a1 + 344) = 0;
@@ -835,7 +832,8 @@ uint64_t *geom::arap_deformer<double>::add_constraints(uint64_t *result, void *a
       v9 = (*a2 + 32 * v8);
       v10 = v9[1];
       v11 = *v9;
-      result = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((v3 + 41), (v4 + v7));
+      v12 = (v4 + v7);
+      result = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((v3 + 41), (v4 + v7), &std::piecewise_construct, &v12);
       *(result + 3) = v11;
       *(result + 4) = v10;
       ++v8;
@@ -850,7 +848,7 @@ uint64_t *geom::arap_deformer<double>::add_constraints(uint64_t *result, void *a
   return result;
 }
 
-uint64_t *geom::arap_deformer<double>::add_constraints(uint64_t *result, __int128 *a2, uint64_t a3, unsigned int *a4, uint64_t a5)
+uint64_t *geom::arap_deformer<double>::add_constraints(uint64_t *result, __int128 *a2, uint64_t a3, _DWORD *a4, uint64_t a5)
 {
   v5 = result;
   if (a5)
@@ -863,7 +861,8 @@ uint64_t *geom::arap_deformer<double>::add_constraints(uint64_t *result, __int12
       a2 += 2;
       v11 = v9;
       v12 = v10;
-      result = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((v5 + 41), a4);
+      v13 = a4;
+      result = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((v5 + 41), a4, &std::piecewise_construct, &v13);
       *(result + 3) = v12;
       *(result + 4) = v11;
       ++a4;
@@ -877,24 +876,25 @@ uint64_t *geom::arap_deformer<double>::add_constraints(uint64_t *result, __int12
   return result;
 }
 
-uint64_t *geom::arap_deformer<double>::add_static_constraints(uint64_t a1, uint64_t *a2)
+void geom::arap_deformer<double>::add_static_constraints(uint64_t a1, uint64_t *a2)
 {
-  result = geom::bvh<float,(unsigned char)2>::invariant_check();
+  geom::bvh<float,(unsigned char)2>::invariant_check();
   v5 = *a2;
   if (a2[1] != *a2)
   {
-    v6 = result;
+    v6 = v4;
     v7 = 0;
     v8 = 0;
     do
     {
       v9 = (v5 + v7);
       v10 = (*v6 + 32 * *(v5 + v7));
-      v11 = v10[1];
-      v12 = *v10;
-      result = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, v9);
-      *(result + 3) = v12;
-      *(result + 4) = v11;
+      v12 = v10[1];
+      v13 = *v10;
+      v14 = v9;
+      v11 = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, v9, &std::piecewise_construct, &v14);
+      *(v11 + 3) = v13;
+      *(v11 + 4) = v12;
       ++v8;
       v5 = *a2;
       v7 += 4;
@@ -904,23 +904,23 @@ uint64_t *geom::arap_deformer<double>::add_static_constraints(uint64_t a1, uint6
   }
 
   *(a1 + 320) = 0;
-  return result;
 }
 
-uint64_t *geom::arap_deformer<double>::add_static_constraints(uint64_t a1, unsigned int *a2, uint64_t a3)
+void geom::arap_deformer<double>::add_static_constraints(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
-  result = geom::bvh<float,(unsigned char)2>::invariant_check(a1);
+  geom::bvh<float,(unsigned char)2>::invariant_check();
   if (a3)
   {
-    v7 = result;
+    v7 = v6;
     do
     {
       v8 = (*v7 + 32 * *a2);
-      v9 = v8[1];
-      v10 = *v8;
-      result = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, a2);
-      *(result + 3) = v10;
-      *(result + 4) = v9;
+      v10 = v8[1];
+      v11 = *v8;
+      v12 = a2;
+      v9 = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, a2, &std::piecewise_construct, &v12);
+      *(v9 + 3) = v11;
+      *(v9 + 4) = v10;
       ++a2;
       --a3;
     }
@@ -929,7 +929,6 @@ uint64_t *geom::arap_deformer<double>::add_static_constraints(uint64_t a1, unsig
   }
 
   *(a1 + 320) = 0;
-  return result;
 }
 
 BOOL geom::arap_deformer<double>::initialize(uint64_t a1)
@@ -938,7 +937,7 @@ BOOL geom::arap_deformer<double>::initialize(uint64_t a1)
   if (*(a1 + 400) == *(a1 + 408))
   {
     v2 = geom::ddg_evaluator<float>::vertex_count(a1);
-    std::vector<geom::ddg_evaluator<float>::stencil,std::allocator<geom::ddg_evaluator<float>::stencil>>::resize(a1 + 400, v2);
+    std::vector<geom::ddg_evaluator<float>::stencil,std::allocator<geom::ddg_evaluator<float>::stencil>>::resize((a1 + 400), v2);
     if (geom::ddg_evaluator<float>::vertex_count(a1))
     {
       v3 = 0;
@@ -1069,7 +1068,7 @@ void geom::arap_deformer<double>::reset(uint64_t a1)
   v6 = 0x3FF0000000000000;
   v9 = 0x3FF0000000000000uLL;
   geom::sparse_linear_solver<float>::clear_enrties(a1 + 64);
-  v2 = geom::bvh<float,(unsigned char)2>::invariant_check(a1);
+  geom::bvh<float,(unsigned char)2>::invariant_check();
   if ((a1 + 352) != v2)
   {
     _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IPS1_S6_EEvT_T0_l((a1 + 352), *v2, v2[1], (v2[1] - *v2) >> 5);
@@ -1080,7 +1079,7 @@ void geom::arap_deformer<double>::reset(uint64_t a1)
   *(a1 + 320) = 0;
 }
 
-void geom::arap_deformer<double>::deform(void *a1, unsigned int a2, double a3)
+void geom::arap_deformer<double>::deform(unsigned int *result, unsigned int a2, double a3)
 {
   if (a2)
   {
@@ -1088,7 +1087,7 @@ void geom::arap_deformer<double>::deform(void *a1, unsigned int a2, double a3)
     v7 = 0.0;
     do
     {
-      geom::arap_deformer<double>::deform_step(a1);
+      geom::arap_deformer<double>::deform_step(result);
       if (a3 <= 0.0)
       {
         v9 = v6 + 1;
@@ -1097,7 +1096,7 @@ void geom::arap_deformer<double>::deform(void *a1, unsigned int a2, double a3)
 
       else
       {
-        v8 = geom::arap_deformer<double>::energy(a1);
+        v8 = geom::arap_deformer<double>::energy(result);
         v9 = v6 + 1;
         if (v6 && v9 < a2 && vabdd_f64(v8, v7) / (v8 + a3) < a3)
         {
@@ -1113,230 +1112,231 @@ void geom::arap_deformer<double>::deform(void *a1, unsigned int a2, double a3)
   }
 }
 
-void geom::arap_deformer<double>::deform_step(uint64_t a1)
+void geom::arap_deformer<double>::deform_step(unsigned int *a1)
 {
-  v5 = geom::bvh<float,(unsigned char)2>::invariant_check(a1);
-  v114 = *(a1 + 376);
-  v115 = *(a1 + 384);
-  v6 = (v115 - v114) >> 5;
-  v7 = 0xAAAAAAAAAAAAAAABLL * v6;
-  if (v115 != v114)
+  geom::bvh<float,(unsigned char)2>::invariant_check();
+  v6 = v5;
+  v115 = *(a1 + 47);
+  v116 = *(a1 + 48);
+  v7 = (v116 - v115) >> 5;
+  v8 = 0xAAAAAAAAAAAAAAABLL * v7;
+  if (v116 != v115)
   {
-    v8 = 0;
-    if (v7 <= 1)
+    v9 = 0;
+    if (v8 <= 1)
     {
-      v9 = 1;
+      v10 = 1;
     }
 
     else
     {
-      v9 = 0xAAAAAAAAAAAAAAABLL * v6;
+      v10 = 0xAAAAAAAAAAAAAAABLL * v7;
     }
 
-    v10 = 0uLL;
+    v11 = 0uLL;
     do
     {
-      v145 = v10;
-      v146 = v10;
-      v143 = v10;
-      v144 = v10;
-      v141 = v10;
-      v142 = v10;
-      v11 = (*(a1 + 400) + 48 * v8);
-      v12 = *v11;
-      if ((v11[1] - *v11) >= 5)
+      v146 = v11;
+      v147 = v11;
+      v144 = v11;
+      v145 = v11;
+      v142 = v11;
+      v143 = v11;
+      v12 = (*(a1 + 50) + 48 * v9);
+      v13 = *v12;
+      if ((v12[1] - *v12) >= 5)
       {
-        v13 = *(a1 + 352);
-        v14 = *v5;
-        v15 = 0uLL;
-        v16 = 2;
-        v17 = (*v5 + 32 * v8);
-        v18 = (v13 + 32 * v8);
-        v19 = 0uLL;
+        v14 = *(a1 + 44);
+        v15 = *v6;
+        v16 = 0uLL;
+        v17 = 2;
+        v18 = (*v6 + 32 * v9);
+        v19 = (v14 + 32 * v9);
         v20 = 0uLL;
         v21 = 0uLL;
         v22 = 0uLL;
         v23 = 0uLL;
-        v24 = 1;
+        v24 = 0uLL;
+        v25 = 1;
         do
         {
-          v25 = *(v12 + 4 * v24);
-          v26 = (v14 + 32 * v25);
-          v27 = vsubq_f64(*v17, *v26);
-          v28 = vsubq_f64(v17[1], v26[1]);
-          v29 = (v13 + 32 * v25);
-          v30 = *v29;
-          v31 = vsubq_f64(v18[1], v29[1]);
-          v32 = vsubq_f64(*v18, *v29);
-          v30.f64[0] = *(v11[3] + 8 * v24);
-          v23 = vaddq_f64(v23, vmulq_f64(vmulq_f64(v28, v32), v30));
-          v22 = vaddq_f64(v22, vmulq_n_f64(vmulq_n_f64(v27, v32.f64[0]), v30.f64[0]));
-          v21 = vaddq_f64(v21, vmulq_f64(vmulq_laneq_f64(v28, v32, 1), v30));
-          v20 = vaddq_f64(v20, vmulq_n_f64(vmulq_laneq_f64(v27, v32, 1), v30.f64[0]));
-          v19 = vaddq_f64(v19, vmulq_f64(vmulq_f64(v28, v31), v30));
-          v15 = vaddq_f64(v15, vmulq_n_f64(vmulq_n_f64(v27, v31.f64[0]), v30.f64[0]));
-          v141 = v22;
+          v26 = *(v13 + 4 * v25);
+          v27 = (v15 + 32 * v26);
+          v28 = vsubq_f64(*v18, *v27);
+          v29 = vsubq_f64(v18[1], v27[1]);
+          v30 = (v14 + 32 * v26);
+          v31 = *v30;
+          v32 = vsubq_f64(v19[1], v30[1]);
+          v33 = vsubq_f64(*v19, *v30);
+          v31.f64[0] = *(v12[3] + 8 * v25);
+          v24 = vaddq_f64(v24, vmulq_f64(vmulq_f64(v29, v33), v31));
+          v23 = vaddq_f64(v23, vmulq_n_f64(vmulq_n_f64(v28, v33.f64[0]), v31.f64[0]));
+          v22 = vaddq_f64(v22, vmulq_f64(vmulq_laneq_f64(v29, v33, 1), v31));
+          v21 = vaddq_f64(v21, vmulq_n_f64(vmulq_laneq_f64(v28, v33, 1), v31.f64[0]));
+          v20 = vaddq_f64(v20, vmulq_f64(vmulq_f64(v29, v32), v31));
+          v16 = vaddq_f64(v16, vmulq_n_f64(vmulq_n_f64(v28, v32.f64[0]), v31.f64[0]));
           v142 = v23;
-          v143 = v20;
+          v143 = v24;
           v144 = v21;
-          v145 = v15;
-          v146 = v19;
-          v24 = v16;
-          v12 = *v11;
-          ++v16;
+          v145 = v22;
+          v146 = v16;
+          v147 = v20;
+          v25 = v17;
+          v13 = *v12;
+          ++v17;
         }
 
-        while (v24 < (v11[1] - *v11) >> 2);
+        while (v25 < (v12[1] - *v12) >> 2);
       }
 
-      v140 = 0;
-      v139 = 0uLL;
-      geom::compute_svd_3x3<double>(&v141, v134, &v139, v129, v2, v3, v4);
-      v33 = 0;
-      v10 = 0uLL;
-      v127 = 0u;
+      v141 = 0;
+      v140 = 0uLL;
+      geom::compute_svd_3x3<double>(&v142, v135, &v140, v130, v2, v3, v4);
+      v34 = 0;
+      v11 = 0uLL;
       v128 = 0u;
-      v125 = 0u;
+      v129 = 0u;
       v126 = 0u;
-      v123 = 0u;
+      v127 = 0u;
       v124 = 0u;
-      v35 = v132;
-      v34 = v133;
-      v36 = vzip1q_s64(v129[0], v130);
-      v37 = vzip2q_s64(v129[0], v130);
-      v38 = vzip1q_s64(v129[1], v131);
-      v40 = v137;
-      v39 = v138;
-      v41 = vzip1q_s64(v134[0], v135);
-      v42 = vzip2q_s64(v134[0], v135);
-      v43 = vzip1q_s64(v134[1], v136);
-      v44 = vdupq_laneq_s64(v137, 1);
-      v117 = v41;
-      v118 = v137;
-      v119 = v42;
-      v120 = v44;
-      v45 = vextq_s8(v36, v36, 8uLL).u64[0];
+      v125 = 0u;
+      v36 = v133;
+      v35 = v134;
+      v37 = vzip1q_s64(v130[0], v131);
+      v38 = vzip2q_s64(v130[0], v131);
+      v39 = vzip1q_s64(v130[1], v132);
+      v41 = v138;
+      v40 = v139;
+      v42 = vzip1q_s64(v135[0], v136);
+      v43 = vzip2q_s64(v135[0], v136);
+      v44 = vzip1q_s64(v135[1], v137);
+      v45 = vdupq_laneq_s64(v138, 1);
+      v118 = v42;
+      v119 = v138;
+      v120 = v43;
+      v121 = v45;
       v46 = vextq_s8(v37, v37, 8uLL).u64[0];
-      v121 = v43;
-      v122 = v138;
-      v47 = vextq_s8(v35, v35, 8uLL);
-      v48 = vextq_s8(v38, v38, 8uLL).u64[0];
-      v49.f64[0] = v36.f64[0];
-      *&v49.f64[1] = v45;
-      v50.f64[0] = v37.f64[0];
+      v47 = vextq_s8(v38, v38, 8uLL).u64[0];
+      v122 = v44;
+      v123 = v139;
+      v48 = vextq_s8(v36, v36, 8uLL);
+      v49 = vextq_s8(v39, v39, 8uLL).u64[0];
+      *&v50.f64[0] = v37.i64[0];
       *&v50.f64[1] = v46;
-      v51.f64[0] = v38.f64[0];
-      *&v51.f64[1] = v48;
+      *&v51.f64[0] = v38.i64[0];
+      *&v51.f64[1] = v47;
+      *&v52.f64[0] = v39.i64[0];
+      *&v52.f64[1] = v49;
       do
       {
-        v53 = *(&v117 + v33);
-        v52 = *(&v117 + v33 + 16);
-        v54 = (&v123 + v33);
-        *v54 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v49, v53.f64[0]), v50, v53, 1), v51, v52.f64[0]);
-        v54[1] = vmlaq_f64(vmlaq_laneq_f64(vmulq_f64(v35, v53), v47, v53, 1), v52, v34);
-        v33 += 32;
+        v54 = *(&v118 + v34);
+        v53 = *(&v118 + v34 + 16);
+        v55 = (&v124 + v34);
+        *v55 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v50, v54.f64[0]), v51, v54, 1), v52, v53.f64[0]);
+        v55[1] = vmlaq_f64(vmlaq_laneq_f64(vmulq_f64(v36, v54), v48, v54, 1), v53, v35);
+        v34 += 32;
       }
 
-      while (v33 != 96);
-      *&v55.f64[0] = v126.i64[0];
-      *&v56.f64[0] = v128.i64[0];
-      v55.f64[1] = v125.f64[0];
-      v56.f64[1] = v127.f64[0];
-      if (vmulq_f64(v124, vmlaq_laneq_f64(vmulq_f64(v127, vnegq_f64(vdupq_laneq_s64(v125, 1))), v125, v127, 1)).f64[0] + vaddvq_f64(vmulq_f64(v123, vmlaq_f64(vmulq_f64(vextq_s8(v127, v128, 8uLL), vnegq_f64(v55)), v56, vextq_s8(v125, v126, 8uLL)))) < 0.0)
+      while (v34 != 96);
+      *&v56.f64[0] = v127.i64[0];
+      *&v57.f64[0] = v129.i64[0];
+      *&v56.f64[1] = v126.i64[0];
+      *&v57.f64[1] = v128.i64[0];
+      if (vmulq_f64(v125, vmlaq_laneq_f64(vmulq_f64(v128, vnegq_f64(vdupq_laneq_s64(v126, 1))), v126, v128, 1)).f64[0] + vaddvq_f64(vmulq_f64(v124, vmlaq_f64(vmulq_f64(vextq_s8(v128, v129, 8uLL), vnegq_f64(v56)), v57, vextq_s8(v126, v127, 8uLL)))) < 0.0)
       {
-        v57 = 0;
-        v117 = v41;
-        v118 = v40;
-        v119 = v42;
-        v120 = v44;
-        v121 = v43;
-        v122 = v39;
+        v58 = 0;
+        v118 = v42;
+        v119 = v41;
+        v120 = v43;
+        v121 = v45;
+        v122 = v44;
+        v123 = v40;
         do
         {
-          v59 = *(&v117 + v57);
-          v58 = *(&v117 + v57 + 16);
-          v60 = vmlaq_laneq_f64(vmulq_f64(v59, 0), 0, v59, 1);
-          v61 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(xmmword_2500C1650, v59.f64[0]), xmmword_2500C1660, v59, 1), 0, v58.f64[0]);
+          v60 = *(&v118 + v58);
+          v59 = *(&v118 + v58 + 16);
+          v61 = vmlaq_laneq_f64(vmulq_f64(v60, 0), 0, v60, 1);
+          v62 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(xmmword_2500C1650, v60.f64[0]), xmmword_2500C1660, v60, 1), 0, v59.f64[0]);
           __asm { FMOV            V18.2D, #-1.0 }
 
-          v67 = &v116[v57];
-          *v67 = v61;
-          v67[1] = vmlaq_f64(v60, _Q18, v58);
-          v57 += 32;
+          v68 = &v117[v58];
+          *v68 = v62;
+          v68[1] = vmlaq_f64(v61, _Q18, v59);
+          v58 += 32;
         }
 
-        while (v57 != 96);
-        v68 = 0;
-        *&v36.f64[1] = v45;
-        *&v37.f64[1] = v46;
-        *&v38.f64[1] = v48;
+        while (v58 != 96);
+        v69 = 0;
+        v37.i64[1] = v46;
+        v38.i64[1] = v47;
+        v39.i64[1] = v49;
         do
         {
-          v70 = *&v116[v68];
-          v69 = *&v116[v68 + 16];
-          v71 = (&v117 + v68);
-          *v71 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v36, v70.f64[0]), v37, v70, 1), v38, v69.f64[0]);
-          v71[1] = vmlaq_f64(vmlaq_laneq_f64(vmulq_f64(v35, v70), v47, v70, 1), v69, v34);
-          v68 += 32;
+          v71 = *&v117[v69];
+          v70 = *&v117[v69 + 16];
+          v72 = (&v118 + v69);
+          *v72 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v37, v71.f64[0]), v38, v71, 1), v39, v70.f64[0]);
+          v72[1] = vmlaq_f64(vmlaq_laneq_f64(vmulq_f64(v36, v71), v48, v71, 1), v70, v35);
+          v69 += 32;
         }
 
-        while (v68 != 96);
-        v125 = v119;
+        while (v69 != 96);
         v126 = v120;
         v127 = v121;
         v128 = v122;
-        v123 = v117;
+        v129 = v123;
         v124 = v118;
+        v125 = v119;
       }
 
-      v72 = *(a1 + 376) + 96 * v8;
-      *(v72 + 32) = v125;
-      *(v72 + 48) = v126;
-      *(v72 + 64) = v127;
-      *(v72 + 80) = v128;
-      *v72 = v123;
-      *(v72 + 16) = v124;
-      ++v8;
+      v73 = *(a1 + 47) + 96 * v9;
+      *(v73 + 32) = v126;
+      *(v73 + 48) = v127;
+      *(v73 + 64) = v128;
+      *(v73 + 80) = v129;
+      *v73 = v124;
+      *(v73 + 16) = v125;
+      ++v9;
     }
 
-    while (v8 != v9);
+    while (v9 != v10);
   }
 
-  v145.f64[0] = 0.0;
-  v143 = 0u;
+  v146.f64[0] = 0.0;
   v144 = 0u;
-  v141 = 0u;
+  v145 = 0u;
   v142 = 0u;
-  v134[0].i64[0] = 0;
-  std::vector<double>::resize(&v141, v7, v134[0].i64);
-  v134[0].i64[0] = 0;
-  std::vector<double>::resize(&v142.f64[1], v7, v134[0].i64);
-  v134[0].i64[0] = 0;
-  std::vector<double>::resize(&v144, v7, v134[0].i64);
-  v129[0].i32[0] = 0;
-  if (v115 != v114)
+  v143 = 0u;
+  v135[0].i64[0] = 0;
+  std::vector<double>::resize(&v142, v8, v135[0].i64);
+  v135[0].i64[0] = 0;
+  std::vector<double>::resize(&v143.f64[1], v8, v135[0].i64);
+  v135[0].i64[0] = 0;
+  std::vector<double>::resize(&v145, v8, v135[0].i64);
+  v130[0].i32[0] = 0;
+  if (v116 != v115)
   {
-    v73 = 0;
     v74 = 0;
+    v75 = 0;
     while (1)
     {
-      for (i = *(a1 + 336); i; i = *i)
+      for (i = *(a1 + 42); i; i = *i)
       {
-        v76 = *(i + 8);
-        if (v74 >= v76)
+        v77 = *(i + 8);
+        if (v75 >= v77)
         {
-          if (v76 >= v74)
+          if (v77 >= v75)
           {
-            v134[0].i64[0] = v129;
-            v104 = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, v129);
-            *(*&v141.f64[0] + 8 * v129[0].u32[0]) = v104[6];
-            v134[0].i64[0] = v129;
-            v105 = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, v129);
-            *(*&v142.f64[1] + 8 * v129[0].u32[0]) = v105[7];
-            v134[0].i64[0] = v129;
-            v106 = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, v129);
-            v74 = v129[0].i32[0];
-            *(*&v144.f64[0] + 8 * v129[0].u32[0]) = v106[8];
+            v135[0].i64[0] = v130;
+            v105 = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((a1 + 82), v130, &std::piecewise_construct, v135);
+            *(*&v142.f64[0] + 8 * v130[0].u32[0]) = v105[6];
+            v135[0].i64[0] = v130;
+            v106 = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((a1 + 82), v130, &std::piecewise_construct, v135);
+            *(*&v143.f64[1] + 8 * v130[0].u32[0]) = v106[7];
+            v135[0].i64[0] = v130;
+            v107 = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((a1 + 82), v130, &std::piecewise_construct, v135);
+            v75 = v130[0].i32[0];
+            *(*&v145.f64[0] + 8 * v130[0].u32[0]) = v107[8];
             goto LABEL_38;
           }
 
@@ -1344,139 +1344,139 @@ void geom::arap_deformer<double>::deform_step(uint64_t a1)
         }
       }
 
-      v77 = (*(a1 + 400) + 48 * v73);
-      v78 = *v77;
-      v79 = v77[1];
-      if ((v79 - *v77) < 5)
+      v78 = (*(a1 + 50) + 48 * v74);
+      v79 = *v78;
+      v80 = v78[1];
+      if ((v80 - *v78) < 5)
       {
         goto LABEL_38;
       }
 
-      v80 = 1;
+      v81 = 1;
       do
       {
-        v81 = *(a1 + 336);
-        if (!v81)
+        v82 = *(a1 + 42);
+        if (!v82)
         {
           goto LABEL_35;
         }
 
-        v82 = (v78 + 4 * v80);
-        v83 = *v82;
+        v83 = (v79 + 4 * v81);
+        v84 = *v83;
         while (1)
         {
-          v84 = *(v81 + 8);
-          if (v83 >= v84)
+          v85 = *(v82 + 8);
+          if (v84 >= v85)
           {
             break;
           }
 
 LABEL_32:
-          v81 = *v81;
-          if (!v81)
+          v82 = *v82;
+          if (!v82)
           {
             goto LABEL_35;
           }
         }
 
-        if (v84 < v83)
+        if (v85 < v84)
         {
-          ++v81;
+          ++v82;
           goto LABEL_32;
         }
 
-        v85 = *(v77[3] + 8 * v80);
-        v134[0].i64[0] = v78 + 4 * v80;
-        v86 = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, v82);
-        *(*&v141.f64[0] + 8 * v129[0].u32[0]) = *(*&v141.f64[0] + 8 * v129[0].u32[0]) + v85 * *(v86 + 6);
-        v87 = *(v77[3] + 8 * v80);
-        v134[0].i64[0] = *v77 + 4 * v80;
-        v88 = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, v134[0].i64[0]);
-        *(*&v142.f64[1] + 8 * v129[0].u32[0]) = *(*&v142.f64[1] + 8 * v129[0].u32[0]) + v87 * *(v88 + 7);
-        v89 = *(v77[3] + 8 * v80);
-        v134[0].i64[0] = *v77 + 4 * v80;
-        v90 = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(a1 + 328, v134[0].i64[0]);
-        v74 = v129[0].i32[0];
-        *(*&v144.f64[0] + 8 * v129[0].u32[0]) = *(*&v144.f64[0] + 8 * v129[0].u32[0]) + v89 * *(v90 + 8);
-        v78 = *v77;
-        v79 = v77[1];
+        v86 = *(v78[3] + 8 * v81);
+        v135[0].i64[0] = v79 + 4 * v81;
+        v87 = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((a1 + 82), v83, &std::piecewise_construct, v135);
+        *(*&v142.f64[0] + 8 * v130[0].u32[0]) = *(*&v142.f64[0] + 8 * v130[0].u32[0]) + v86 * *(v87 + 6);
+        v88 = *(v78[3] + 8 * v81);
+        v135[0].i64[0] = *v78 + 4 * v81;
+        v89 = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((a1 + 82), v135[0].i64[0], &std::piecewise_construct, v135);
+        *(*&v143.f64[1] + 8 * v130[0].u32[0]) = *(*&v143.f64[1] + 8 * v130[0].u32[0]) + v88 * *(v89 + 7);
+        v90 = *(v78[3] + 8 * v81);
+        v135[0].i64[0] = *v78 + 4 * v81;
+        v91 = _ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_((a1 + 82), v135[0].i64[0], &std::piecewise_construct, v135);
+        v75 = v130[0].i32[0];
+        *(*&v145.f64[0] + 8 * v130[0].u32[0]) = *(*&v145.f64[0] + 8 * v130[0].u32[0]) + v90 * *(v91 + 8);
+        v79 = *v78;
+        v80 = v78[1];
 LABEL_35:
-        v91 = (*v5 + 32 * v74);
-        v92 = *v91;
-        v93 = v91[1];
-        v94 = *(v78 + 4 * v80);
-        v95 = (*v5 + 32 * v94);
-        v96 = vsubq_f64(v93, v95[1]);
-        v97 = vsubq_f64(v92, *v95);
-        v98 = *(a1 + 376);
-        v99 = (v98 + 96 * v74);
-        v100 = (v98 + 96 * v94);
-        v101 = *v100;
-        v101.f64[0] = *(v77[3] + 8 * v80) * 0.5;
-        v102 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(vaddq_f64(*v99, *v100), v97.f64[0]), vaddq_f64(v99[2], v100[2]), v97, 1), vaddq_f64(v99[4], v100[4]), v96.f64[0]);
-        v97.f64[0] = vmulq_f64(vmlaq_f64(vmlaq_laneq_f64(vmulq_f64(v97, vaddq_f64(v99[1], v100[1])), vaddq_f64(v99[3], v100[3]), v97, 1), v96, vaddq_f64(v99[5], v100[5])), v101).f64[0];
-        v103 = vmulq_n_f64(v102, v101.f64[0]);
-        *(*&v141.f64[0] + 8 * v74) = *(*&v141.f64[0] + 8 * v74) + v103.f64[0];
-        *(*&v142.f64[1] + 8 * v74) = *(*&v142.f64[1] + 8 * v74) + v103.f64[1];
-        *(*&v144.f64[0] + 8 * v74) = v97.f64[0] + *(*&v144.f64[0] + 8 * v74);
-        v80 = (v80 + 1);
+        v92 = (*v6 + 32 * v75);
+        v93 = *v92;
+        v94 = v92[1];
+        v95 = *(v79 + 4 * v81);
+        v96 = (*v6 + 32 * v95);
+        v97 = vsubq_f64(v94, v96[1]);
+        v98 = vsubq_f64(v93, *v96);
+        v99 = *(a1 + 47);
+        v100 = (v99 + 96 * v75);
+        v101 = (v99 + 96 * v95);
+        v102 = *v101;
+        v102.f64[0] = *(v78[3] + 8 * v81) * 0.5;
+        v103 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(vaddq_f64(*v100, *v101), v98.f64[0]), vaddq_f64(v100[2], v101[2]), v98, 1), vaddq_f64(v100[4], v101[4]), v97.f64[0]);
+        v98.f64[0] = vmulq_f64(vmlaq_f64(vmlaq_laneq_f64(vmulq_f64(v98, vaddq_f64(v100[1], v101[1])), vaddq_f64(v100[3], v101[3]), v98, 1), v97, vaddq_f64(v100[5], v101[5])), v102).f64[0];
+        v104 = vmulq_n_f64(v103, v102.f64[0]);
+        *(*&v142.f64[0] + 8 * v75) = *(*&v142.f64[0] + 8 * v75) + v104.f64[0];
+        *(*&v143.f64[1] + 8 * v75) = *(*&v143.f64[1] + 8 * v75) + v104.f64[1];
+        *(*&v145.f64[0] + 8 * v75) = v98.f64[0] + *(*&v145.f64[0] + 8 * v75);
+        v81 = (v81 + 1);
       }
 
-      while (v80 < (v79 - v78) >> 2);
+      while (v81 < (v80 - v79) >> 2);
 LABEL_38:
-      v129[0].i32[0] = ++v74;
-      v73 = v74;
-      if (v7 <= v74)
+      v130[0].i32[0] = ++v75;
+      v74 = v75;
+      if (v8 <= v75)
       {
-        geom::sparse_linear_solver<double>::solve((a1 + 64), &v141);
-        geom::sparse_linear_solver<double>::solve((a1 + 64), &v142.f64[1]);
-        geom::sparse_linear_solver<double>::solve((a1 + 64), &v144);
-        v108 = 0;
-        if (v7 <= 1)
+        geom::sparse_linear_solver<double>::solve(a1 + 16, &v142);
+        geom::sparse_linear_solver<double>::solve(a1 + 16, &v143.f64[1]);
+        geom::sparse_linear_solver<double>::solve(a1 + 16, &v145);
+        v109 = 0;
+        if (v8 <= 1)
         {
-          v109 = 1;
+          v110 = 1;
         }
 
         else
         {
-          v109 = v7;
+          v110 = v8;
         }
 
         do
         {
-          *&v110 = *(*&v141.f64[0] + 8 * v108);
-          *(&v110 + 1) = *(*&v142.f64[1] + 8 * v108);
-          *&v107 = *(*&v144.f64[0] + 8 * v108);
-          v111 = (*(a1 + 352) + 32 * v108);
-          *v111 = v110;
-          v111[1] = v107;
-          ++v108;
+          *&v111 = *(*&v142.f64[0] + 8 * v109);
+          *(&v111 + 1) = *(*&v143.f64[1] + 8 * v109);
+          *&v108 = *(*&v145.f64[0] + 8 * v109);
+          v112 = (*(a1 + 44) + 32 * v109);
+          *v112 = v111;
+          v112[1] = v108;
+          ++v109;
         }
 
-        while (v109 != v108);
+        while (v110 != v109);
         goto LABEL_45;
       }
     }
   }
 
-  geom::sparse_linear_solver<double>::solve((a1 + 64), &v141);
-  geom::sparse_linear_solver<double>::solve((a1 + 64), &v142.f64[1]);
-  geom::sparse_linear_solver<double>::solve((a1 + 64), &v144);
+  geom::sparse_linear_solver<double>::solve(a1 + 16, &v142);
+  geom::sparse_linear_solver<double>::solve(a1 + 16, &v143.f64[1]);
+  geom::sparse_linear_solver<double>::solve(a1 + 16, &v145);
 LABEL_45:
   for (j = 0; j != -9; j -= 3)
   {
-    v113 = v144.f64[j];
-    if (v113 != 0.0)
+    v114 = v145.f64[j];
+    if (v114 != 0.0)
     {
-      v144.f64[j + 1] = v113;
-      operator delete(*&v113);
+      v145.f64[j + 1] = v114;
+      operator delete(*&v114);
     }
   }
 }
 
 double geom::arap_deformer<double>::energy(void *a1)
 {
-  v2 = geom::bvh<float,(unsigned char)2>::invariant_check();
+  geom::bvh<float,(unsigned char)2>::invariant_check();
   v3 = *v2;
   v4 = v2[1];
   v5 = v4 - *v2;
@@ -1541,130 +1541,128 @@ double geom::arap_deformer<double>::energy(void *a1)
   return result;
 }
 
-void std::vector<simd_double3x3>::resize(void *a1, unint64_t a2, _OWORD *a3)
+void std::vector<simd_double3x3>::resize(void *result, unint64_t a2, _OWORD *a3)
 {
-  v3 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
+  v3 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 5);
   v4 = a2 >= v3;
   v5 = a2 - v3;
   if (v5 != 0 && v4)
   {
-    std::vector<simd_double3x3>::__append(a1, v5, a3);
+    std::vector<simd_double3x3>::__append(result, v5, a3);
   }
 
   else if (!v4)
   {
-    a1[1] = *a1 + 96 * a2;
+    result[1] = *result + 96 * a2;
   }
 }
 
-uint64_t geom::compute_svd_3x3<double>(uint64_t a1, _OWORD *a2, _OWORD *a3, _OWORD *a4, uint64_t a5, uint64_t a6, double *a7)
+__n128 geom::compute_svd_3x3<double>(uint64_t a1, _OWORD *a2, _OWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, double *a7)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   *&v10 = *(a1 + 16);
   *(&v10 + 1) = *(a1 + 32);
   *&v11 = vdupq_laneq_s64(*(a1 + 32), 1).u64[0];
   *(&v11 + 1) = *(a1 + 48);
-  v37[0] = *a1;
-  v37[1] = v10;
+  v35[0] = *a1;
+  v35[1] = v10;
   *&v10 = *(a1 + 80);
   v12 = *(a1 + 64);
-  v37[2] = v11;
-  v37[3] = v12;
-  v38 = v10;
-  result = geom::compute_svd(3, 3u, v37, &v31, &v23, &v25, a7);
-  if (result)
+  v35[2] = v11;
+  v35[3] = v12;
+  v36 = v10;
+  if (geom::compute_svd(3, 3, v35, &v29, &v21, v23.n128_f64, a7))
   {
-    *&v14 = v24;
-    *a3 = v23;
+    *&v14 = v22;
+    *a3 = v21;
     a3[1] = v14;
-    *&v14 = v32;
-    v17 = v33;
-    *&v15 = v34;
-    v18 = v35;
-    *&v16 = v36;
-    *a2 = v31;
+    *&v14 = v30;
+    v17 = v31;
+    *&v15 = v32;
+    v18 = v33;
+    *&v16 = v34;
+    *a2 = v29;
     a2[1] = v14;
     a2[2] = v17;
     a2[3] = v15;
+    result = v23;
+    *&v14 = v24;
     v19 = v25;
-    *&v14 = v26;
-    v20 = v27;
     a2[4] = v18;
     a2[5] = v16;
-    *&v15 = v28;
-    v21 = v29;
-    *&v16 = v30;
-    *a4 = v19;
-    a4[1] = v14;
-    a4[2] = v20;
-    a4[3] = v15;
-    a4[4] = v21;
-    a4[5] = v16;
+    *&v15 = v26;
+    v20 = v27;
+    *&v16 = v28;
+    *a4 = result;
+    *(a4 + 16) = v14;
+    *(a4 + 32) = v19;
+    *(a4 + 48) = v15;
+    *(a4 + 64) = v20;
+    *(a4 + 80) = v16;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2, uint64_t *a3)
+void std::vector<double>::resize(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v3, a3);
+    std::vector<double>::__append(result, a2 - v3, a3);
   }
 }
 
-uint64_t *_ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(uint64_t a1, unsigned int *a2)
+uint64_t *_ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *_ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE16__insert_node_atEPNS_15__tree_end_nodeIPNS_16__tree_node_baseIPvEEEERSF_SF_(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *_ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE16__insert_node_atEPNS_15__tree_end_nodeIPNS_16__tree_node_baseIPvEEEERSF_SF_(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1690,12 +1688,12 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -1709,22 +1707,22 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -1758,13 +1756,13 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -1817,7 +1815,7 @@ void _ZNSt3__16__treeINS_12__value_typeIjDv3_fEENS_19__map_value_compareIjS3_NS_
   }
 }
 
-void std::vector<geom::ddg_evaluator<float>::stencil,std::allocator<geom::ddg_evaluator<float>::stencil>>::__append(void **a1, unint64_t a2)
+void std::vector<geom::ddg_evaluator<float>::stencil,std::allocator<geom::ddg_evaluator<float>::stencil>>::__append(char **a1, unint64_t a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -1867,9 +1865,9 @@ void std::vector<geom::ddg_evaluator<float>::stencil,std::allocator<geom::ddg_ev
     v11 = 48 * v6;
     v12 = 48 * ((48 * a2 - 48) / 0x30) + 48;
     bzero(v11, v12);
-    v13 = v11 + v12;
+    v13 = (v11 + v12);
     v14 = a1[1];
-    v15 = *a1 + v11 - v14;
+    v15 = (v11 + *a1 - v14);
     std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<geom::ddg_evaluator<float>::stencil>,geom::ddg_evaluator<float>::stencil*>(a1, *a1, v14, v15);
     v16 = *a1;
     *a1 = v15;
@@ -1894,7 +1892,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<geom::ddg_evaluator<f
   std::__throw_bad_array_new_length[abi:nn200100]();
 }
 
-void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<geom::ddg_evaluator<float>::stencil>,geom::ddg_evaluator<float>::stencil*>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<geom::ddg_evaluator<float>::stencil>,geom::ddg_evaluator<float>::stencil*>(uint64_t result, uint64_t a2, uint64_t a3, void *a4)
 {
   if (a2 != a3)
   {
@@ -1925,7 +1923,7 @@ void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<geom::
     while (v7 != a3);
     while (v5 != a3)
     {
-      std::allocator<geom::ddg_evaluator<float>::stencil>::destroy[abi:nn200100](a1, v5);
+      std::allocator<geom::ddg_evaluator<float>::stencil>::destroy[abi:nn200100](result, v5);
       v5 += 48;
     }
   }
@@ -1971,7 +1969,7 @@ void std::__split_buffer<geom::ddg_evaluator<float>::stencil,std::allocator<geom
   }
 }
 
-void *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IPS1_S6_EEvT_T0_l(void *result, char *__src, char *a3, unint64_t a4)
+void **_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IPS1_S6_EEvT_T0_l(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -2046,7 +2044,7 @@ void *_ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IP
   return result;
 }
 
-void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(uint64_t a1, unint64_t a2)
+void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -2305,48 +2303,48 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<float>>(uint64_t a1, 
   std::__throw_bad_array_new_length[abi:nn200100]();
 }
 
-uint64_t *_ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(uint64_t a1, unsigned int *a2)
+uint64_t *_ZNSt3__16__treeINS_12__value_typeIjDv3_dEENS_19__map_value_compareIjS3_NS_4lessIjEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIjJRKNS_21piecewise_construct_tENS_5tupleIJRKjEEENSF_IJEEEEEENS_4pairINS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-void *_ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IPS1_S6_EEvT_T0_l(void *result, char *__src, char *a3, unint64_t a4)
+void **_ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IPS1_S6_EEvT_T0_l(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -2421,7 +2419,7 @@ void *_ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE18__assign_with_sizeB8nn200100IP
   return result;
 }
 
-void _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(uint64_t a1, unint64_t a2)
+void _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -2691,44 +2689,35 @@ uint64_t *geom::acd<float>::operator=(uint64_t *a1, uint64_t *a2)
   return a1;
 }
 
-void geom::acd<float>::init()
+void geom::acd<float>::split_cluster_with_plane(float32x4_t **a1, uint64_t a2, float32x4_t *a3, __int32 *a4)
 {
-  operator new();
+  v4 = *a1;
+  v5 = a3[1];
+  v6[0] = *a3;
+  v6[1] = v5;
+  geom::acd<float>::impl::split_cluster_with_plane(v4, a2, v6, a4);
 }
 
+void geom::acd<float>::cluster_indices(uint64_t *result, const void **a2)
 {
-  operator new();
-}
-
-void geom::acd<float>::split_cluster_with_plane(float32x4_t **a1, unsigned int a2, float32x4_t *a3)
-{
-  v3 = *a1;
-  v4 = a3[1];
-  v5[0] = *a3;
-  v5[1] = v4;
-  geom::acd<float>::impl::split_cluster_with_plane(v3, a2, v5);
-}
-
-void geom::acd<float>::cluster_indices(uint64_t *a1, uint64_t a2)
-{
-  v2 = *a1;
-  *(a2 + 8) = *a2;
+  v2 = *result;
+  a2[1] = *a2;
   for (i = *(v2 + 128); i; i = *i)
   {
     std::vector<unsigned int>::push_back[abi:nn200100](a2, i + 4);
   }
 }
 
-void geom::acd<float>::impl::cluster_indices(uint64_t a1, uint64_t a2)
+void geom::acd<float>::impl::cluster_indices(uint64_t result, const void **a2)
 {
-  *(a2 + 8) = *a2;
-  for (i = *(a1 + 128); i; i = *i)
+  a2[1] = *a2;
+  for (i = *(result + 128); i; i = *i)
   {
     std::vector<unsigned int>::push_back[abi:nn200100](a2, i + 4);
   }
 }
 
-void std::vector<unsigned int>::push_back[abi:nn200100](const void **a1, _DWORD *a2)
+void std::vector<unsigned int>::push_back[abi:nn200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -2777,7 +2766,7 @@ void std::vector<unsigned int>::push_back[abi:nn200100](const void **a1, _DWORD 
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -2802,24 +2791,15 @@ uint64_t *geom::acd<double>::operator=(uint64_t *a1, uint64_t *a2)
   return a1;
 }
 
-void geom::acd<double>::init()
+void geom::acd<double>::split_cluster_with_plane(uint64_t *a1, uint64_t a2, float64x2_t *a3, _DWORD *a4)
 {
-  operator new();
-}
-
-{
-  operator new();
-}
-
-void geom::acd<double>::split_cluster_with_plane(uint64_t *a1, unsigned int a2, float64x2_t *a3)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  v4 = a3[1];
-  v5[0] = *a3;
-  v5[1] = v4;
-  v5[2] = a3[2];
-  geom::acd<double>::impl::split_cluster_with_plane(v3, a2, v5);
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = *a1;
+  v5 = a3[1];
+  v6[0] = *a3;
+  v6[1] = v5;
+  v6[2] = a3[2];
+  geom::acd<double>::impl::split_cluster_with_plane(v4, a2, v6, a4);
 }
 
 void geom::acd<double>::cluster_indices(uint64_t *a1, uint64_t a2)
@@ -2854,7 +2834,7 @@ float64x2_t geom::acd<double>::impl::mesh_vertex_transform(float64x2_t *a1, doub
   return result;
 }
 
-uint64_t std::unique_ptr<geom::acd<float>::impl,std::default_delete<geom::acd<float>::impl>>::reset[abi:nn200100](uint64_t *a1, uint64_t a2)
+void *std::unique_ptr<geom::acd<float>::impl,std::default_delete<geom::acd<float>::impl>>::reset[abi:nn200100](uint64_t *a1, uint64_t a2)
 {
   result = *a1;
   *a1 = a2;
@@ -2868,28 +2848,28 @@ uint64_t std::unique_ptr<geom::acd<float>::impl,std::default_delete<geom::acd<fl
   return result;
 }
 
-uint64_t geom::acd<float>::impl::~impl(uint64_t a1)
+void *geom::acd<float>::impl::~impl(void *a1)
 {
-  v12 = (a1 + 304);
+  v12 = (a1 + 38);
   std::vector<geom::triangle_mesh_connectivity>::__destroy_vector::operator()[abi:nn200100](&v12);
-  v2 = *(a1 + 280);
+  v2 = a1[35];
   if (v2)
   {
-    *(a1 + 288) = v2;
+    a1[36] = v2;
     operator delete(v2);
   }
 
-  v3 = *(a1 + 256);
+  v3 = a1[32];
   if (v3)
   {
-    *(a1 + 264) = v3;
+    a1[33] = v3;
     operator delete(v3);
   }
 
-  geom::convex_mesh_cache<float>::~convex_mesh_cache(a1 + 224);
-  std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::~__hash_table(a1 + 112);
-  v4 = *(a1 + 96);
-  *(a1 + 96) = 0;
+  geom::convex_mesh_cache<float>::~convex_mesh_cache((a1 + 28));
+  std::__hash_table<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::unique_ptr<geom::cluster<float>>>>>::~__hash_table((a1 + 14));
+  v4 = a1[12];
+  a1[12] = 0;
   if (v4)
   {
     if (*(v4 + 96) == 1)
@@ -2933,17 +2913,17 @@ uint64_t geom::acd<float>::impl::~impl(uint64_t a1)
     MEMORY[0x25305E3F0](v4, 0x10F0C40C0C486CFLL);
   }
 
-  v9 = *(a1 + 72);
+  v9 = a1[9];
   if (v9)
   {
-    *(a1 + 80) = v9;
+    a1[10] = v9;
     operator delete(v9);
   }
 
-  v10 = *(a1 + 48);
+  v10 = a1[6];
   if (v10)
   {
-    *(a1 + 56) = v10;
+    a1[7] = v10;
     operator delete(v10);
   }
 
@@ -3044,14 +3024,14 @@ uint64_t geom::convex_mesh_cache<float>::~convex_mesh_cache(uint64_t a1)
   return a1;
 }
 
-void ___ZN4geom26dispatch_apply_with_strideIZNS_17convex_mesh_cacheIfED1EvEUlmE_EEmmmP16dispatch_queue_sT__block_invoke(void *a1, uint64_t a2)
+void ___ZN4geom26dispatch_apply_with_strideIZNS_17convex_mesh_cacheIfED1EvEUlmE_EEmmmP16dispatch_queue_sT__block_invoke(void *result, uint64_t a2)
 {
-  v2 = a1[4];
+  v2 = result[4];
   v3 = v2 * a2;
   v4 = v2 * a2 + v2;
-  if (a1[5] < v4)
+  if (result[5] < v4)
   {
-    v4 = a1[5];
+    v4 = result[5];
   }
 
   v5 = v4 - v3;
@@ -3060,7 +3040,7 @@ void ___ZN4geom26dispatch_apply_with_strideIZNS_17convex_mesh_cacheIfED1EvEUlmE_
     v7 = 16 * v3;
     do
     {
-      v8 = (*(a1[6] + 8) + v7);
+      v8 = (*(result[6] + 8) + v7);
       v9 = v8[1];
       *v8 = 0;
       v8[1] = 0;
@@ -3374,25 +3354,25 @@ uint64_t std::pair<unsigned int const,std::unique_ptr<geom::cluster<double>>>::~
   return a1;
 }
 
-void geom::create_approximate_winding_number_3<float>()
+void geom::create_approximate_winding_number_3<float>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   operator new();
 }
 
 {
-  v0 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   operator new();
 }
 
-void geom::create_approximate_winding_number_3<double>()
+void geom::create_approximate_winding_number_3<double>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   operator new();
 }
 
 {
-  v0 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   operator new();
 }
 
@@ -3624,14 +3604,6 @@ void geom::anonymous namespace::winding_number_exact<double>::~winding_number_ex
   JUMPOUT(0x25305E3F0);
 }
 
-void geom::anonymous namespace::winding_number_exact<double>::compute_winding_number(uint64_t a1, __int128 *a2)
-{
-  v3 = a2[1];
-  v4 = *a2;
-  v2 = *(a1 + 264);
-  operator new[]();
-}
-
 void *geom::anonymous namespace::winding_number_approximate<float>::~winding_number_approximate(void *a1)
 {
   *a1 = &unk_28628F0A8;
@@ -3682,14 +3654,6 @@ void geom::anonymous namespace::winding_number_approximate<double>::~winding_num
   }
 
   JUMPOUT(0x25305E3F0);
-}
-
-void geom::anonymous namespace::winding_number_approximate<double>::compute_winding_number(uint64_t a1, __int128 *a2)
-{
-  v3 = *a2;
-  v4 = a2[1];
-  v2 = *(a1 + 192);
-  operator new[]();
 }
 
 void *geom::anonymous namespace::winding_number_approximate_points<float>::~winding_number_approximate_points(void *a1)
@@ -3750,19 +3714,11 @@ void geom::anonymous namespace::winding_number_approximate_points<double>::~wind
   JUMPOUT(0x25305E3F0);
 }
 
-void geom::anonymous namespace::winding_number_approximate_points<double>::compute_winding_number(uint64_t a1, __int128 *a2)
-{
-  v3 = *a2;
-  v4 = a2[1];
-  v2 = *(a1 + 64);
-  operator new[]();
-}
-
 uint64_t geom::anonymous namespace::winding_number_base<float>::winding_number_base(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
   v10 = geom::bvh<float,(unsigned char)3>::bvh(a1, 0, 0, 0, 0, 0);
   *(v10 + 136) = 0u;
-  v11 = (v10 + 136);
+  v11 = v10 + 136;
   *(v10 + 104) = a2;
   *(v10 + 112) = a3;
   *(v10 + 120) = a4;
@@ -3770,9 +3726,9 @@ uint64_t geom::anonymous namespace::winding_number_base<float>::winding_number_b
   *(v10 + 152) = 0u;
   *(v10 + 168) = 0u;
   _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm((v10 + 136), a5 / 3);
-  std::vector<geom::bbox<float,(unsigned char)3>>::resize(v11 + 3, *(v11 - 1) / 3uLL);
+  std::vector<geom::bbox<float,(unsigned char)3>>::resize((v11 + 24), *(v11 - 8) / 3uLL);
   v12 = *v11;
-  if (v11[1] == *v11)
+  if (*(v11 + 8) == *v11)
   {
     v34 = 0;
   }
@@ -3791,7 +3747,7 @@ uint64_t geom::anonymous namespace::winding_number_base<float>::winding_number_b
       v23 = *(v21 + 4 * (v14 - 1));
       v24 = *(v21 + 4 * v14);
       v25 = *(a1 + 104);
-      *(v12 + 16 * v13) = vdivq_f32(vaddq_f32(vaddq_f32(*(v25 + 16 * v22), *(v25 + 16 * v23)), *(v25 + 16 * v24)), _Q0);
+      v12[v13] = vdivq_f32(vaddq_f32(vaddq_f32(*(v25 + 16 * v22), *(v25 + 16 * v23)), *(v25 + 16 * v24)), _Q0);
       v26 = *(v25 + 16 * v22);
       v27 = *(v25 + 16 * v23);
       v28 = *(v25 + 16 * v24);
@@ -3819,7 +3775,7 @@ uint64_t geom::anonymous namespace::winding_number_base<float>::winding_number_b
     while (v34 > v15++);
   }
 
-  geom::bvh<float,(unsigned char)3>::bvh(v43, v12, v34, *(a1 + 160), (*(a1 + 168) - *(a1 + 160)) >> 5, 0);
+  geom::bvh<float,(unsigned char)3>::bvh(v43, v12, v34, *(a1 + 160), ((*(a1 + 168) - *(a1 + 160)) >> 5), 0);
   *a1 = v43[0];
   v36 = *(a1 + 8);
   if (v36)
@@ -3900,37 +3856,37 @@ uint64_t geom::anonymous namespace::winding_number_base<float>::winding_number_b
   return a1;
 }
 
-void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(void *a1, unint64_t a2)
+void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE8__appendEm(a1, a2 - v2);
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE8__appendEm(result, a2 - v2);
   }
 }
 
-void std::vector<geom::bbox<float,(unsigned char)3>>::resize(void *a1, unint64_t a2)
+void std::vector<geom::bbox<float,(unsigned char)3>>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 5;
+  v2 = (result[1] - *result) >> 5;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 32 * a2;
+      result[1] = *result + 32 * a2;
     }
   }
 
   else
   {
-    std::vector<geom::bbox<float,(unsigned char)3>>::__append(a1, a2 - v2);
+    std::vector<geom::bbox<float,(unsigned char)3>>::__append(result, a2 - v2);
   }
 }
 
@@ -4278,7 +4234,7 @@ uint64_t _ZNKSt3__110__function6__funcIZN4geom12_GLOBAL__N_120winding_number_exa
   }
 }
 
-void geom::anonymous namespace::winding_number_exact<float>::count_edge(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
+void geom::anonymous namespace::winding_number_exact<float>::count_edge(uint64_t result, uint64_t a2, uint64_t a3, unsigned int a4)
 {
   if (a2 >= a3)
   {
@@ -4287,63 +4243,63 @@ void geom::anonymous namespace::winding_number_exact<float>::count_edge(uint64_t
       return;
     }
 
-    v10 = a2 | (a3 << 32);
-    v11 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v10 ^ (v10 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v10 ^ (v10 >> 30))) >> 27));
-    v6 = (*(a1 + 216) + 24 * ((v11 ^ (v11 >> 31)) % a4));
+    v9 = a2 | (a3 << 32);
+    v10 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v9 ^ (v9 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v9 ^ (v9 >> 30))) >> 27));
+    v6 = (*(result + 216) + 24 * ((v10 ^ (v10 >> 31)) % a4));
     v7 = *v6;
-    v12 = -1431655765 * ((v6[1] - *v6) >> 2);
-    if (v12)
+    v11 = -1431655765 * ((v6[1] - *v6) >> 2);
+    if (v11)
     {
-      while (*v7 != a3 || v7[1] != a2)
+      while (*v7 != __PAIR64__(a2, a3))
       {
-        v7 += 3;
-        if (!--v12)
+        v7 += 12;
+        if (!--v11)
         {
           goto LABEL_12;
         }
       }
 
-      v9 = -1;
+      v12 = -1;
       goto LABEL_14;
     }
 
 LABEL_12:
-    v13 = __ROR8__(v10, 32);
+    v13 = __ROR8__(v9, 32);
     v14 = 0;
-    v9 = -1;
+    v12 = -1;
   }
 
   else
   {
     v4 = a3 | (a2 << 32);
     v5 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v4 ^ (v4 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v4 ^ (v4 >> 30))) >> 27));
-    v6 = (*(a1 + 216) + 24 * ((v5 ^ (v5 >> 31)) % a4));
+    v6 = (*(result + 216) + 24 * ((v5 ^ (v5 >> 31)) % a4));
     v7 = *v6;
     v8 = -1431655765 * ((v6[1] - *v6) >> 2);
     if (v8)
     {
-      while (*v7 != a2 || v7[1] != a3)
+      while (*v7 != __PAIR64__(a3, a2))
       {
-        v7 += 3;
+        v7 += 12;
         if (!--v8)
         {
           goto LABEL_6;
         }
       }
 
-      v9 = 1;
+      v12 = 1;
       goto LABEL_14;
     }
 
 LABEL_6:
     v13 = __ROR8__(v4, 32);
     v14 = 0;
-    v9 = 1;
+    v12 = 1;
   }
 
-  v7 = (v6[1] - 12);
+  v7 = v6[1] - 12;
 LABEL_14:
-  v7[2] += v9;
+  *(v7 + 8) += v12;
 }
 
 void std::vector<geom::anonymous namespace::winding_number_exact<float>::exterior_edge,std::allocator<geom::anonymous namespace::winding_number_exact<float>::exterior_edge>>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
@@ -4449,7 +4405,7 @@ uint64_t geom::anonymous namespace::winding_number_base<double>::winding_number_
 {
   v10 = geom::bvh<double,(unsigned char)3>::bvh(a1, 0, 0, 0, 0, 0);
   *(v10 + 136) = 0u;
-  v11 = (v10 + 136);
+  v11 = v10 + 136;
   *(v10 + 104) = a2;
   *(v10 + 112) = a3;
   *(v10 + 120) = a4;
@@ -4457,9 +4413,9 @@ uint64_t geom::anonymous namespace::winding_number_base<double>::winding_number_
   *(v10 + 152) = 0u;
   *(v10 + 168) = 0u;
   _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE6resizeEm((v10 + 136), a5 / 3);
-  std::vector<geom::bbox<double,(unsigned char)3>>::resize(v11 + 3, *(v11 - 1) / 3uLL, v12, v13, v14, v15);
+  std::vector<geom::bbox<double,(unsigned char)3>>::resize((v11 + 24), *(v11 - 8) / 3uLL, v12, v13, v14, v15);
   v16 = *v11;
-  if (v11[1] == *v11)
+  if (*(v11 + 8) == *v11)
   {
     v36 = 0;
   }
@@ -4478,7 +4434,7 @@ uint64_t geom::anonymous namespace::winding_number_base<double>::winding_number_
       v27 = (v26 + 32 * *(v25 + 4 * (v18 - 2)));
       v28 = (v26 + 32 * *(v25 + 4 * (v18 - 1)));
       v29 = (v26 + 32 * *(v25 + 4 * v18));
-      v30 = (v16 + 32 * v17);
+      v30 = &v16[32 * v17];
       v31 = vdivq_f64(vaddq_f64(vaddq_f64(v27[1], v28[1]), v29[1]), _Q0);
       *v30 = vdivq_f64(vaddq_f64(vaddq_f64(*v27, *v28), *v29), _Q0);
       v30[1] = v31;
@@ -4499,7 +4455,7 @@ uint64_t geom::anonymous namespace::winding_number_base<double>::winding_number_
     while (v36 > v19++);
   }
 
-  geom::bvh<double,(unsigned char)3>::bvh(v45, v16, v36, *(a1 + 160), (*(a1 + 168) - *(a1 + 160)) >> 6, 0);
+  geom::bvh<double,(unsigned char)3>::bvh(v45, v16, v36, *(a1 + 160), ((*(a1 + 168) - *(a1 + 160)) >> 6), 0);
   *a1 = v45[0];
   v38 = *(a1 + 8);
   if (v38)
@@ -4580,37 +4536,37 @@ uint64_t geom::anonymous namespace::winding_number_base<double>::winding_number_
   return a1;
 }
 
-void _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE6resizeEm(void *a1, unint64_t a2)
+void _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE6resizeEm(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 5;
+  v2 = (result[1] - *result) >> 5;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 32 * a2;
+      result[1] = *result + 32 * a2;
     }
   }
 
   else
   {
-    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE8__appendEm(a1, a2 - v2);
+    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE8__appendEm(result, a2 - v2);
   }
 }
 
-void std::vector<geom::bbox<double,(unsigned char)3>>::resize(void *a1, unint64_t a2, double a3, __n128 a4, double a5, __n128 a6)
+void std::vector<geom::bbox<double,(unsigned char)3>>::resize(void *result, unint64_t a2, double a3, __n128 a4, double a5, __n128 a6)
 {
-  v6 = (a1[1] - *a1) >> 6;
+  v6 = (result[1] - *result) >> 6;
   if (a2 <= v6)
   {
     if (a2 < v6)
     {
-      a1[1] = *a1 + (a2 << 6);
+      result[1] = *result + (a2 << 6);
     }
   }
 
   else
   {
-    std::vector<geom::bbox<double,(unsigned char)3>>::__append(a1, a2 - v6, a3, a4, a5, a6);
+    std::vector<geom::bbox<double,(unsigned char)3>>::__append(result, a2 - v6, a3, a4, a5, a6);
   }
 }
 
@@ -4990,7 +4946,7 @@ uint64_t std::__function::__value_func<BOOL ()(geom::bvh_node<double,(unsigned c
   return a1;
 }
 
-void std::vector<geom::anonymous namespace::winding_number_node_data<float>>::resize(uint64_t *a1, unint64_t a2)
+void std::vector<geom::anonymous namespace::winding_number_node_data<float>>::resize(char **a1, unint64_t a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -5003,7 +4959,7 @@ void std::vector<geom::anonymous namespace::winding_number_node_data<float>>::re
       return;
     }
 
-    v11 = v3 + 240 * a2;
+    v11 = (v3 + 240 * a2);
   }
 
   else
@@ -5013,7 +4969,7 @@ void std::vector<geom::anonymous namespace::winding_number_node_data<float>>::re
     {
       if (a2 <= 0x111111111111111)
       {
-        v8 = 0xEEEEEEEEEEEEEEEFLL * ((v7 - v3) >> 4);
+        v8 = 0xEEEEEEEEEEEEEEEFLL * (&v7[-v3] >> 4);
         v9 = 2 * v8;
         if (2 * v8 <= a2)
         {
@@ -5042,7 +4998,7 @@ void std::vector<geom::anonymous namespace::winding_number_node_data<float>>::re
     }
 
     bzero(a1[1], 240 * ((240 * v6 - 240) / 0xF0) + 240);
-    v11 = v4 + 240 * ((240 * v6 - 240) / 0xF0) + 240;
+    v11 = &v4[240 * ((240 * v6 - 240) / 0xF0) + 240];
   }
 
   a1[1] = v11;
@@ -5213,7 +5169,7 @@ uint64_t std::__function::__value_func<void ()(geom::point_tree<float,(unsigned 
   return a1;
 }
 
-void std::vector<geom::anonymous namespace::winding_number_node_data<double>>::resize(uint64_t *a1, unint64_t a2)
+void std::vector<geom::anonymous namespace::winding_number_node_data<double>>::resize(char **a1, unint64_t a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -5226,7 +5182,7 @@ void std::vector<geom::anonymous namespace::winding_number_node_data<double>>::r
       return;
     }
 
-    v11 = v3 + 464 * a2;
+    v11 = (v3 + 464 * a2);
   }
 
   else
@@ -5236,7 +5192,7 @@ void std::vector<geom::anonymous namespace::winding_number_node_data<double>>::r
     {
       if (a2 <= 0x8D3DCB08D3DCB0)
       {
-        v8 = 0x34F72C234F72C235 * ((v7 - v3) >> 4);
+        v8 = 0x34F72C234F72C235 * (&v7[-v3] >> 4);
         v9 = 2 * v8;
         if (2 * v8 <= a2)
         {
@@ -5265,7 +5221,7 @@ void std::vector<geom::anonymous namespace::winding_number_node_data<double>>::r
     }
 
     bzero(a1[1], 464 * ((464 * v6 - 464) / 0x1D0) + 464);
-    v11 = v4 + 464 * ((464 * v6 - 464) / 0x1D0) + 464;
+    v11 = &v4[464 * ((464 * v6 - 464) / 0x1D0) + 464];
   }
 
   a1[1] = v11;
@@ -5349,7 +5305,7 @@ double _ZNSt3__110__function6__funcIZN4geom12_GLOBAL__N_133winding_number_approx
     }
 
     while (v19);
-    *&v14.f64[1] = vextq_s8(v14, v14, 8uLL).u64[0];
+    v14.i64[1] = vextq_s8(v14, v14, 8uLL).u64[0];
     v24 = vdivq_f64(v14, vdupq_lane_s64(*&a5.f64[0], 0));
     v25 = vdivq_f64(v20, a5);
     v26 = 0uLL;
@@ -5539,7 +5495,7 @@ uint64_t _ZNKSt3__110__function6__funcIZN4geom12_GLOBAL__N_126winding_number_app
 float _ZNSt3__110__function6__funcIZN4geom12_GLOBAL__N_126winding_number_approximateIfEC1ENS2_5sliceIDv3_fEENS6_IjEEEUlRNS2_8bvh_nodeIfLh3EEEE_NS_9allocatorISD_EEFbSC_EEclESC_(uint64_t a1, unsigned int *a2)
 {
   v3 = *(a1 + 8);
-  v5 = v3 + 25;
+  v5 = (v3 + 25);
   v4 = v3[25];
   v6 = *a2;
   if (0xEEEEEEEEEEEEEEEFLL * ((v3[26] - v4) >> 4) <= v6)
@@ -5548,7 +5504,7 @@ float _ZNSt3__110__function6__funcIZN4geom12_GLOBAL__N_126winding_number_approxi
     v4 = *v5;
   }
 
-  v7 = (v4 + 240 * v6);
+  v7 = &v4[240 * v6];
   v7[4].i32[2] = 0;
   v8 = 0uLL;
   v7[4].i64[0] = 0;
@@ -5643,9 +5599,9 @@ float _ZNSt3__110__function6__funcIZN4geom12_GLOBAL__N_126winding_number_approxi
       v52 = v7[5];
       v53 = vsubq_f32(vdivq_f32(vaddq_f32(vaddq_f32(*(v34 + 16 * v32), *(v34 + 16 * v33)), *(v34 + 16 * v35)), _Q2), v37);
       v54 = vaddq_f32(v51, vmulq_laneq_f32(v53, v50, 2));
-      v55 = vaddq_f32(v7[4], vmulq_n_f32(v53, v50.f32[0]));
+      v55 = vaddq_f32(v7[4], vmulq_n_f32(v53, *v50.i32));
       v7[3].i32[2] = v54.i32[2];
-      v56 = vaddq_f32(v52, vmulq_lane_f32(v53, *v50.f32, 1));
+      v56 = vaddq_f32(v52, vmulq_lane_f32(v53, *v50.i8, 1));
       v7[3].i64[0] = v54.i64[0];
       v7[4].i32[2] = v55.i32[2];
       v7[4].i64[0] = v55.i64[0];
@@ -5669,12 +5625,12 @@ float _ZNSt3__110__function6__funcIZN4geom12_GLOBAL__N_126winding_number_approxi
       v67 = vmulq_laneq_f32(v64, v50, 2);
       v68 = vmulq_laneq_f32(v65, v50, 2);
       v69 = vmulq_laneq_f32(v66, v50, 2);
-      v70 = vmulq_n_f32(v64, v50.f32[0]);
-      v71 = vmulq_n_f32(v65, v50.f32[0]);
-      v72 = vmulq_n_f32(v66, v50.f32[0]);
-      v73 = vmulq_lane_f32(v64, *v50.f32, 1);
-      v74 = vmulq_lane_f32(v65, *v50.f32, 1);
-      v75 = vmulq_lane_f32(v66, *v50.f32, 1);
+      v70 = vmulq_n_f32(v64, *v50.i32);
+      v71 = vmulq_n_f32(v65, *v50.i32);
+      v72 = vmulq_n_f32(v66, *v50.i32);
+      v73 = vmulq_lane_f32(v64, *v50.i8, 1);
+      v74 = vmulq_lane_f32(v65, *v50.i8, 1);
+      v75 = vmulq_lane_f32(v66, *v50.i8, 1);
       v76 = vaddq_f32(v7[6], v67);
       v77 = vaddq_f32(v7[7], v68);
       v78 = vaddq_f32(v7[8], v69);
@@ -5696,7 +5652,6 @@ float _ZNSt3__110__function6__funcIZN4geom12_GLOBAL__N_126winding_number_approxi
     }
 
     while (v22);
-    v84 = a2[4] < 2;
   }
 
   result = sqrtf(v10.f32[0]);
@@ -5728,7 +5683,7 @@ uint64_t _ZNKSt3__110__function6__funcIZN4geom12_GLOBAL__N_126winding_number_app
 double _ZNSt3__110__function6__funcIZN4geom12_GLOBAL__N_126winding_number_approximateIdEC1ENS2_5sliceIDv3_dEENS6_IjEEEUlRNS2_8bvh_nodeIdLh3EEEE_NS_9allocatorISD_EEFbSC_EEclESC_(uint64_t a1, unsigned int *a2)
 {
   v3 = *(a1 + 8);
-  v5 = v3 + 25;
+  v5 = (v3 + 25);
   v4 = v3[25];
   v6 = *a2;
   if (0x34F72C234F72C235 * ((v3[26] - v4) >> 4) <= v6)
@@ -5737,7 +5692,7 @@ double _ZNSt3__110__function6__funcIZN4geom12_GLOBAL__N_126winding_number_approx
     v4 = *v5;
   }
 
-  v7 = (v4 + 464 * v6);
+  v7 = &v4[464 * v6];
   v8 = 0uLL;
   *v7 = 0u;
   v7[1] = 0u;
@@ -5955,7 +5910,6 @@ double _ZNSt3__110__function6__funcIZN4geom12_GLOBAL__N_126winding_number_approx
     }
 
     while (v24);
-    v125 = a2[4] < 2;
   }
 
   result = sqrt(*v9.i64);
@@ -6059,7 +6013,7 @@ float geom::anonymous namespace::winding_number_base<float>::naive_winding_numbe
       _Q0.f32[0] = _Q0.f32[2] + vaddv_f32(*_Q0.f32);
       __asm { FMLA            S1, S0, V3.S[1]; float }
 
-      v23 = atan2f(v17.f32[2] + vaddv_f32(*v17.f32), _Q1.f32[0]);
+      v23 = atan2f(v17.f32[2] + vaddv_f32(*v17.f32), *_Q1.i32);
       v4 = a3;
       v10 = v10 + (v23 + v23);
       v9 -= 4;
@@ -6163,16 +6117,16 @@ double geom::anonymous namespace::winding_number_base<double>::naive_winding_num
       v21 = vextq_s8(_Q1, v18, 8uLL);
       v22 = vextq_s8(v19, v20, 8uLL);
       v23 = vmulq_f64(v15, v20).f64[0];
-      v20.f64[1] = v19.f64[0];
+      v20.i64[1] = v19.i64[0];
       v24 = vaddq_f64(vzip1q_s64(vmulq_f64(v15, v15), vmulq_f64(v18, v18)), vpaddq_f64(vmulq_f64(_Q0, _Q0), vmulq_f64(_Q1, _Q1)));
-      v18.f64[1] = _Q1.f64[0];
+      v18.i64[1] = _Q1.i64[0];
       _Q6 = vsqrtq_f64(v24);
       v15.f64[0] = vmulq_f64(v15, vmlaq_laneq_f64(vmulq_f64(v19, vnegq_f64(vdupq_laneq_s64(_Q1, 1))), _Q1, v19, 1)).f64[0];
-      v18.f64[0] = vaddvq_f64(vmulq_f64(_Q0, vmlaq_f64(vmulq_f64(v22, vnegq_f64(v18)), v20, v21)));
+      *v18.i64 = vaddvq_f64(vmulq_f64(_Q0, vmlaq_f64(vmulq_f64(v22, vnegq_f64(v18)), v20, v21)));
       _Q0.f64[0] = v23 + vaddvq_f64(vmulq_f64(_Q0, v19));
       __asm { FMLA            D1, D0, V6.D[1]; __x }
 
-      v30 = atan2(v15.f64[0] + v18.f64[0], _Q1.f64[0]);
+      v30 = atan2(v15.f64[0] + *v18.i64, *_Q1.i64);
       v9 = v9 + v30 + v30;
       v8 -= 4;
     }
@@ -6221,9 +6175,9 @@ float geom::anonymous namespace::approximate_winding_number<float>(float32x4_t *
     v24.i32[1] = 0;
     v23.i32[2] = 0;
     v26 = v22;
-    v26.f32[0] = 3.0 * v22.f32[0];
+    v26.f32[0] = 3.0 * *v22.i32;
     v27 = v22;
-    v27.i32[1] = vmuls_lane_f32(3.0, *v22.f32, 1);
+    v27.i32[1] = vmuls_lane_f32(3.0, *v22.i8, 1);
     v22.i32[2] = vmuls_lane_f32(3.0, v22, 2);
     v28 = vmulq_n_f32(v6, 15.0 / v11);
     v29 = vmulq_n_f32(v16, v28.f32[0]);
@@ -6310,9 +6264,9 @@ float64_t geom::anonymous namespace::approximate_winding_number<double>(float64x
     v24 = vaddq_f64(v5, vmulq_f64(v8, v3));
     v25 = vdivq_f64(vnegq_f64(v7), v2);
     v26 = vdivq_f64(vnegq_f64(v6), vdupq_lane_s64(*&v2.f64[0], 0));
-    v28.f64[1] = v26.f64[1];
-    v27.f64[0] = v26.f64[0];
-    v28.f64[0] = 3.0 * v26.f64[0];
+    *&v28.f64[1] = v26.i64[1];
+    *&v27.f64[0] = v26.i64[0];
+    v28.f64[0] = 3.0 * *v26.i64;
     v27.f64[1] = vmuld_lane_f64(3.0, v26, 1);
     v29.f64[1] = v25.f64[1];
     v29.f64[0] = 3.0 * v25.f64[0];
@@ -6532,32 +6486,32 @@ uint64_t geom_query_approximate_winding_number_3d(uint64_t a1, _OWORD *a2)
   return geom::query_exact_winding_number_3<double>(v3, v5);
 }
 
-void geom_create_approximate_convex_decomposition_3f()
+void geom_create_approximate_convex_decomposition_3f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v0 = geom_approximate_convex_decomposition_3f_obj_alloc();
-  geom::acd<float>::acd((v0 + 16));
-  geom::acd<float>::init();
+  v10 = geom_approximate_convex_decomposition_3f_obj_alloc();
+  geom::acd<float>::acd((v10 + 16));
+  geom::acd<float>::init((v10 + 16), a2, a1, a4, 3 * a3, a5);
 }
 
-void geom_create_approximate_convex_decomposition_3d()
+void geom_create_approximate_convex_decomposition_3d(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v0 = geom_approximate_convex_decomposition_3d_obj_alloc();
-  geom::acd<float>::acd((v0 + 16));
-  geom::acd<double>::init();
+  v10 = geom_approximate_convex_decomposition_3d_obj_alloc();
+  geom::acd<float>::acd((v10 + 16));
+  geom::acd<double>::init((v10 + 16), a2, a1, a4, 3 * a3, a5);
 }
 
-void geom_create_approximate_convex_decomposition_constrained_3f()
+void geom_create_approximate_convex_decomposition_constrained_3f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, float a7)
 {
-  v0 = geom_approximate_convex_decomposition_3f_obj_alloc();
-  geom::acd<float>::acd((v0 + 16));
-  geom::acd<float>::init();
+  v14 = geom_approximate_convex_decomposition_3f_obj_alloc();
+  geom::acd<float>::acd((v14 + 16));
+  geom::acd<float>::init((v14 + 16), a2, a1, a4, 3 * a3, a5, a6, a7);
 }
 
-void geom_create_approximate_convex_decomposition_constrained_3d()
+void geom_create_approximate_convex_decomposition_constrained_3d(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, double a7)
 {
-  v0 = geom_approximate_convex_decomposition_3d_obj_alloc();
-  geom::acd<float>::acd((v0 + 16));
-  geom::acd<double>::init();
+  v14 = geom_approximate_convex_decomposition_3d_obj_alloc();
+  geom::acd<float>::acd((v14 + 16));
+  geom::acd<double>::init((v14 + 16), a2, a1, a4, 3 * a3, a5, a6, a7);
 }
 
 void geom_approximate_convex_decomposition_cluster_indices_3f(uint64_t a1, uint64_t a2)
@@ -6574,39 +6528,52 @@ void geom_approximate_convex_decomposition_cluster_indices_3d(uint64_t a1, uint6
   geom::acd<double>::cluster_indices((a1 + 16), v3);
 }
 
-void geom_approximate_convex_decomposition_hull_for_cluster_3f(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
+void geom_approximate_convex_decomposition_hull_for_cluster_3f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a2;
   v7 = geom::collection_to_vector<float>(a3);
   v8 = geom::collection_to_vector<float>(a4);
 
-  geom::acd<float>::get_hull_of_cluster((a1 + 16), a2, v7, v8);
+  geom::acd<float>::get_hull_of_cluster((a1 + 16), v5, v7, v8);
 }
 
-void geom_approximate_convex_decomposition_hull_for_cluster_3d(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
+void geom_approximate_convex_decomposition_hull_for_cluster_3d(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a2;
   v7 = geom::collection_to_vector<float>(a3);
   v8 = geom::collection_to_vector<float>(a4);
 
-  geom::acd<double>::get_hull_of_cluster((a1 + 16), a2, v7, v8);
+  geom::acd<double>::get_hull_of_cluster((a1 + 16), v5, v7, v8);
 }
 
-void geom_approximate_convex_decomposition_split_cluster_with_plane_3f(uint64_t a1, unsigned int a2, float32x4_t *a3)
+void geom_approximate_convex_decomposition_split_cluster_with_plane_3f(uint64_t a1, uint64_t a2, float32x4_t *a3, __int32 *a4)
 {
+  v6 = 0;
+  v4 = a3[1];
+  v5[0] = *a3;
+  v5[1] = v4;
+  if (!a4)
+  {
+    a4 = &v6;
+  }
+
+  geom::acd<float>::split_cluster_with_plane((a1 + 16), a2, v5, a4);
+}
+
+void geom_approximate_convex_decomposition_split_cluster_with_plane_3d(uint64_t a1, uint64_t a2, float64x2_t *a3, int *a4)
+{
+  v7 = *MEMORY[0x277D85DE8];
   v5 = 0;
-  v3 = a3[1];
-  v4[0] = *a3;
-  v4[1] = v3;
-  geom::acd<float>::split_cluster_with_plane((a1 + 16), a2, v4);
-}
+  v4 = a3[1];
+  v6[0] = *a3;
+  v6[1] = v4;
+  v6[2] = a3[2];
+  if (!a4)
+  {
+    a4 = &v5;
+  }
 
-void geom_approximate_convex_decomposition_split_cluster_with_plane_3d(uint64_t a1, unsigned int a2, float64x2_t *a3)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = a3[1];
-  v4[0] = *a3;
-  v4[1] = v3;
-  v4[2] = a3[2];
-  geom::acd<double>::split_cluster_with_plane((a1 + 16), a2, v4);
+  geom::acd<double>::split_cluster_with_plane((a1 + 16), a2, v6, a4);
 }
 
 double geom_create_approximate_convex_decomposition_opt_3f()
@@ -6648,12 +6615,12 @@ void geom::interpolating_curve<float>::build(void *a1@<X0>, uint64_t a2@<X8>)
   geom::interpolating_curve<float>::build_helper(a2, a1, 0);
 }
 
-void geom::interpolating_curve<float>::build_helper(uint64_t a1, void *a2, char a3)
+void geom::interpolating_curve<float>::build_helper(uint64_t *a1, void *a2, char a3)
 {
   v6 = 0xCCCCCCCCCCCCCCCDLL * ((a2[1] - *a2) >> 2);
-  v10 = *(a1 + 72);
-  v8 = *(a1 + 80);
-  v9 = (a1 + 72);
+  v10 = a1[9];
+  v8 = a1[10];
+  v9 = a1 + 9;
   v11 = v6;
   if (v8 != v10)
   {
@@ -6666,7 +6633,7 @@ void geom::interpolating_curve<float>::build_helper(uint64_t a1, void *a2, char 
     v11 = 0xCCCCCCCCCCCCCCCDLL * ((a2[1] - *a2) >> 2);
   }
 
-  *(a1 + 80) = v10;
+  a1[10] = v10;
   std::vector<geom::interpolating_spline<float>>::reserve(v9, v11 - 1);
   *(a1 + 192) = 0;
   if (v6 < 2u)
@@ -6706,9 +6673,9 @@ void geom::interpolating_curve<float>::build_helper(uint64_t a1, void *a2, char 
     geom::interpolating_curve<float>::append_spline(a1, &v104);
   }
 
-  v17 = *(a1 + 72);
-  v16 = *(a1 + 80);
-  std::vector<unsigned short>::resize((a1 + 24), 0x2E8BA2E8BA2E8BA3 * ((v16 - v17) >> 3));
+  v17 = a1[9];
+  v16 = a1[10];
+  std::vector<unsigned short>::resize(a1 + 3, 0x2E8BA2E8BA2E8BA3 * ((v16 - v17) >> 3));
   if (v16 == v17)
   {
     std::vector<unsigned short>::resize(a1, 0);
@@ -6718,7 +6685,7 @@ void geom::interpolating_curve<float>::build_helper(uint64_t a1, void *a2, char 
   {
     v18 = 0;
     v19 = *v9;
-    v20 = *(a1 + 24);
+    v20 = a1[3];
     if ((0x2E8BA2E8BA2E8BA3 * ((v16 - v17) >> 3)) <= 1)
     {
       v21 = 1;
@@ -6744,7 +6711,7 @@ void geom::interpolating_curve<float>::build_helper(uint64_t a1, void *a2, char 
     std::vector<unsigned short>::resize(a1, v18);
     v26 = 0;
     v27 = 0;
-    v28 = *(a1 + 72);
+    v28 = a1[9];
     do
     {
       v29 = *(v28 + 88 * v26 + 56);
@@ -6775,30 +6742,30 @@ void geom::interpolating_curve<float>::build_helper(uint64_t a1, void *a2, char 
   }
 
   v32 = *a2;
-  *(a1 + 184) = *(*a2 + 4);
+  *(a1 + 46) = *(*a2 + 4);
   v33 = a2[1];
-  *(a1 + 188) = *(v33 - 16);
+  *(a1 + 47) = *(v33 - 16);
   if (a3)
   {
-    LOWORD(v114[0]) = 512;
+    v114[0] = 512;
     v34 = v33 - v32;
-    v114[1] = 0.001;
-    v115 = 1;
+    v115 = 981668463;
+    v116 = 1;
     v111 = 0;
     v112 = 0;
     v113 = 0;
     v104 = 0u;
     v105 = 0u;
     v106 = 0u;
-    v35 = *(a1 + 96);
-    v102 = (a1 + 96);
+    v35 = a1[12];
+    v102 = (a1 + 12);
     v103 = a1;
-    *(a1 + 104) = v35;
-    *(a1 + 152) = 0;
-    v36 = *(a1 + 120);
-    v101 = (a1 + 120);
+    a1[13] = v35;
+    *(a1 + 76) = 0;
+    v36 = a1[15];
+    v101 = (a1 + 15);
     *(a1 + 154) = 0;
-    *(a1 + 128) = v36;
+    a1[16] = v36;
     if (v33 == v32)
     {
       v37 = 0.0;
@@ -6828,23 +6795,23 @@ void geom::interpolating_curve<float>::build_helper(uint64_t a1, void *a2, char 
         *(&v104 + 1) = v104;
         *&v106 = *(&v105 + 1);
         v42 = v40;
-        v25.f64[0] = (v40 + v37 * 2.0) * 0.333333333;
-        v43 = v25.f64[0];
+        *v25.i64 = (v40 + v37 * 2.0) * 0.333333333;
+        v43 = *v25.i64;
         v44 = (v37 + v40 * 2.0) * 0.333333333;
         v45 = v44;
-        if (*(v103 + 192))
+        if (v103[24])
         {
           v46 = v37;
         }
 
         else
         {
-          v47 = *(v103 + 72);
-          v48 = 0x2E8BA2E8BA2E8BA3 * ((*(v103 + 80) - v47) >> 3);
-          if ((v48 & 0xFFFE) != 0 && *(v103 + 184) < v37)
+          v47 = v103[9];
+          v48 = 0x2E8BA2E8BA2E8BA3 * ((v103[10] - v47) >> 3);
+          if ((v48 & 0xFFFE) != 0 && *(v103 + 46) < v37)
           {
             LOWORD(v48) = v48 - 1;
-            if (*(v103 + 188) > v37)
+            if (*(v103 + 47) > v37)
             {
               for (i = 0; ; i = v50 + 1)
               {
@@ -6891,14 +6858,14 @@ void geom::interpolating_curve<float>::build_helper(uint64_t a1, void *a2, char 
           v44 = v42 + v54;
           v46 = v44;
           v55 = v103;
-          if ((*(v103 + 192) & 1) == 0)
+          if ((v103[24] & 1) == 0)
           {
-            v56 = *(v103 + 72);
-            v57 = 0x2E8BA2E8BA2E8BA3 * ((*(v103 + 80) - v56) >> 3);
-            if ((v57 & 0xFFFE) != 0 && *(v103 + 184) < v43)
+            v56 = v103[9];
+            v57 = 0x2E8BA2E8BA2E8BA3 * ((v103[10] - v56) >> 3);
+            if ((v57 & 0xFFFE) != 0 && *(v103 + 46) < v43)
             {
               LOWORD(v57) = v57 - 1;
-              if (*(v103 + 188) > v43)
+              if (*(v103 + 47) > v43)
               {
                 for (j = 0; ; j = v59 + 1)
                 {
@@ -6936,14 +6903,14 @@ void geom::interpolating_curve<float>::build_helper(uint64_t a1, void *a2, char 
             v44 = v42 + v63;
             v43 = v44;
             v64 = v103;
-            if ((*(v103 + 192) & 1) == 0)
+            if ((v103[24] & 1) == 0)
             {
-              v65 = *(v103 + 72);
-              v66 = 0x2E8BA2E8BA2E8BA3 * ((*(v103 + 80) - v65) >> 3);
-              if ((v66 & 0xFFFE) != 0 && *(v103 + 184) < v45)
+              v65 = v103[9];
+              v66 = 0x2E8BA2E8BA2E8BA3 * ((v103[10] - v65) >> 3);
+              if ((v66 & 0xFFFE) != 0 && *(v103 + 46) < v45)
               {
                 LOWORD(v66) = v66 - 1;
-                if (*(v103 + 188) > v45)
+                if (*(v103 + 47) > v45)
                 {
                   for (k = 0; ; k = v68 + 1)
                   {
@@ -6981,14 +6948,14 @@ void geom::interpolating_curve<float>::build_helper(uint64_t a1, void *a2, char 
               v44 = v42 + v72;
               v45 = v44;
               v73 = v103;
-              if ((*(v103 + 192) & 1) == 0)
+              if ((v103[24] & 1) == 0)
               {
-                v93 = *(v103 + 72);
-                v94 = 0x2E8BA2E8BA2E8BA3 * ((*(v103 + 80) - v93) >> 3);
-                if ((v94 & 0xFFFE) != 0 && *(v103 + 184) < v40)
+                v93 = v103[9];
+                v94 = 0x2E8BA2E8BA2E8BA3 * ((v103[10] - v93) >> 3);
+                if ((v94 & 0xFFFE) != 0 && *(v103 + 46) < v40)
                 {
                   LOWORD(v94) = v94 - 1;
-                  if (*(v103 + 188) > v40)
+                  if (*(v103 + 47) > v40)
                   {
                     for (m = 0; ; m = v96 + 1)
                     {
@@ -7042,17 +7009,17 @@ void geom::interpolating_curve<float>::build_helper(uint64_t a1, void *a2, char 
 
         *&v44 = v40;
 LABEL_78:
-        *v116 = v37;
-        *&v116[1] = v40;
-        *&v116[2] = v46;
-        *&v116[3] = v43;
-        *&v116[4] = v45;
-        v116[5] = LODWORD(v44);
-        v117 = 0;
+        *v117 = v37;
+        *&v117[1] = v40;
+        *&v117[2] = v46;
+        *&v117[3] = v43;
+        *&v117[4] = v45;
+        v117[5] = LODWORD(v44);
+        v118 = 0;
         v74 = v109;
-        v75 = *(a1 + 104);
-        v76 = *(a1 + 96);
-        v77 = *(a1 + 152);
+        v75 = *(a1 + 26);
+        v76 = a1[12];
+        v77 = *(a1 + 76);
         if (v77)
         {
           v78 = v77 + 1;
@@ -7067,7 +7034,7 @@ LABEL_78:
         if (v77 + v109)
         {
           std::vector<float>::resize(v102, (3 * v79 + 1));
-          *(a1 + 152) = v79;
+          *(a1 + 76) = v79;
           if ((*(a1 + 154) & 1) == 0)
           {
             std::vector<float>::resize(v101, v79 + 1);
@@ -7076,11 +7043,11 @@ LABEL_78:
 
         else
         {
-          *(a1 + 104) = v76;
-          *(a1 + 152) = 0;
+          a1[13] = v76;
+          *(a1 + 76) = 0;
           if ((*(a1 + 154) & 1) == 0)
           {
-            *(a1 + 128) = *(a1 + 120);
+            a1[16] = a1[15];
           }
         }
 
@@ -7175,8 +7142,8 @@ LABEL_102:
     }
 
     *(a1 + 192) = 1;
-    *(a1 + 184) = *(v32 + 4);
-    *(a1 + 188) = *(v32 + v34 - 16);
+    *(a1 + 46) = *(v32 + 4);
+    *(a1 + 47) = *(v32 + v34 - 16);
     geom::interpolating_spline<float>::~interpolating_spline(&v104);
   }
 }
@@ -7373,11 +7340,7 @@ unint64_t geom::interpolating_curve<float>::evaluate_tangent_at(uint64_t a1, flo
     }
   }
 
-  v13 = (v5 + 88 * v6);
-  result = geom::interpolating_spline<float>::find_span(v13, a2);
-  v15 = (*v13 + 4 * (3 * result));
-  v16 = ((v15[1] - *v15) * ((1.0 - *(&result + 1)) * (1.0 - *(&result + 1)))) + (v15[2] - v15[1]) * (((1.0 - *(&result + 1)) + (1.0 - *(&result + 1))) * *(&result + 1)) + ((*(&result + 1) * *(&result + 1)) * (v15[3] - v15[2]));
-  return result;
+  return geom::interpolating_spline<float>::find_span(v5 + 88 * v6, a2);
 }
 
 float geom::interpolating_curve<float>::evaluate_length_at(uint64_t a1, float result)
@@ -7483,53 +7446,55 @@ uint64_t geom::interpolating_curve<float>::find_spline_index_for_parameter(uint6
 float geom::interpolating_spline<float>::evaluate_length_at(uint64_t a1, float a2)
 {
   span = geom::interpolating_spline<float>::find_span(a1, a2);
-  v5 = span;
-  v6 = *(a1 + 64);
-  if (*(a1 + 72) == v6)
+  v6 = span;
+  v7 = *(a1 + 64);
+  if (*(a1 + 72) == v7)
   {
-    v8 = span;
+    v9 = span;
     if (span)
     {
-      v9 = 0;
-      v7 = 0.0;
+      v10 = 0;
+      v8 = 0.0;
       do
       {
-        v7 = v7 + geom::interpolating_spline<float>::evaluate_span_length(a1, v9++);
+        v5.n128_f32[0] = geom::interpolating_spline<float>::evaluate_span_length(a1, v10, v5);
+        v8 = v8 + v5.n128_f32[0];
+        ++v10;
       }
 
-      while (v8 != v9);
+      while (v9 != v10);
       goto LABEL_9;
     }
   }
 
   else if (span)
   {
-    v7 = *(v6 + 4 * span - 4);
+    v8 = *(v7 + 4 * span - 4);
     goto LABEL_9;
   }
 
-  v7 = 0.0;
+  v8 = 0.0;
 LABEL_9:
   if (*(a1 + 58) == 1)
   {
-    v10 = *(a1 + 56);
-    if (v10 == v5)
+    v11 = *(a1 + 56);
+    if (v11 == v6)
     {
-      v11 = *(a1 + 52);
+      v12 = *(a1 + 52);
     }
 
     else
     {
-      v11 = *(a1 + 48) + (v5 * ((*(a1 + 52) - *(a1 + 48)) / v10));
+      v12 = *(a1 + 48) + (v6 * ((*(a1 + 52) - *(a1 + 48)) / v11));
     }
   }
 
   else
   {
-    v11 = *(*(a1 + 24) + 4 * v5);
+    v12 = *(*(a1 + 24) + 4 * v6);
   }
 
-  return v7 + geom::interpolating_spline<float>::evaluate_length_betweeen(a1, v11, a2);
+  return v8 + geom::interpolating_spline<float>::evaluate_length_betweeen(a1, v12, a2);
 }
 
 float geom::interpolating_curve<float>::evaluate_total_length(uint64_t a1)
@@ -7628,9 +7593,9 @@ void geom::interpolating_curve<float>::span_knots(uint64_t a1, unsigned int a2, 
 
     else
     {
-      v17 = *(v12 + 24) + 4 * v10;
+      v17 = (*(v12 + 24) + 4 * v10);
       *a3 = *v17;
-      v16 = *(v17 + 4);
+      v16 = v17[1];
     }
   }
 
@@ -7692,14 +7657,12 @@ uint64_t geom::interpolating_curve<float>::calculate_bezier_basis_for_span(void 
   return result;
 }
 
-void *std::vector<geom::interpolating_spline<float>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<geom::interpolating_spline<float>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0x2E8BA2E8BA2E8BA3 * ((result[2] - *result) >> 3) < a2)
   {
     if (a2 < 0x2E8BA2E8BA2E8BBLL)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:nn200100]<std::allocator<geom::interpolating_spline<float>>>(result, a2);
     }
 
@@ -7709,16 +7672,16 @@ void *std::vector<geom::interpolating_spline<float>>::reserve(void *result, unin
   return result;
 }
 
-uint64_t geom::interpolating_curve<float>::append_spline(uint64_t a1, int **a2)
+uint64_t geom::interpolating_curve<float>::append_spline(void *a1, int **a2)
 {
-  memset(&v14, 0, sizeof(v14));
-  memset(v12, 0, sizeof(v12));
+  memset(&v15, 0, sizeof(v15));
+  memset(v13, 0, sizeof(v13));
   v3 = **a2;
   if (v3 > 1)
   {
     if (v3 == 2)
     {
-      geom::interpolating_curve<float>::build_catmull_rom_spline(a2, v11);
+      geom::interpolating_curve<float>::build_catmull_rom_spline(a2, v12);
     }
 
     else
@@ -7728,7 +7691,7 @@ uint64_t geom::interpolating_curve<float>::append_spline(uint64_t a1, int **a2)
         goto LABEL_11;
       }
 
-      geom::interpolating_curve<float>::build_natural_spline(a2, v11);
+      geom::interpolating_curve<float>::build_natural_spline(a2, v12);
     }
   }
 
@@ -7739,64 +7702,65 @@ uint64_t geom::interpolating_curve<float>::append_spline(uint64_t a1, int **a2)
       goto LABEL_11;
     }
 
-    geom::interpolating_curve<float>::build_hermite_spline(a2, v11);
+    geom::interpolating_curve<float>::build_hermite_spline(a2, v12);
   }
 
   else
   {
-    geom::interpolating_curve<float>::build_linear_spline(a2, v11);
+    geom::interpolating_curve<float>::build_linear_spline(a2, v12);
   }
 
-  geom::interpolating_spline<float>::operator=(v12, v11);
-  geom::interpolating_spline<float>::~interpolating_spline(v11);
+  geom::interpolating_spline<float>::operator=(v13, v12);
+  geom::interpolating_spline<float>::~interpolating_spline(v12);
 LABEL_11:
   v4 = __sz;
-  std::vector<float>::resize(&v14, __sz);
+  std::vector<float>::resize(&v15, __sz);
   if (v4)
   {
-    v5 = 0;
-    v6 = 0.0;
+    v6 = 0;
+    v7 = 0.0;
     do
     {
-      v6 = v6 + geom::interpolating_spline<float>::evaluate_span_length(v12, v5);
-      *&v14.__begin_[v5++] = v6;
+      v5.n128_f32[0] = geom::interpolating_spline<float>::evaluate_span_length(v13, v6, v5);
+      v7 = v7 + v5.n128_f32[0];
+      *&v15.__begin_[v6++] = v7;
     }
 
-    while (v4 != v5);
+    while (v4 != v6);
   }
 
-  v7 = geom::interpolating_spline<float>::evaluate_total_length(v12);
-  v8 = *(a1 + 80) - *(a1 + 72);
-  if (v8)
+  v8 = geom::interpolating_spline<float>::evaluate_total_length(v13);
+  v9 = a1[10] - a1[9];
+  if (v9)
   {
-    v9 = *(*(a1 + 48) + 0x2E8BA2E8BA2E8BA3 * (v8 >> 1) - 4);
+    v10 = *(a1[6] + 0x2E8BA2E8BA2E8BA3 * (v9 >> 1) - 4);
   }
 
   else
   {
-    v9 = 0.0;
+    v10 = 0.0;
   }
 
-  *v11 = v7 + v9;
-  std::vector<float>::push_back[abi:nn200100]((a1 + 48), v11);
-  std::vector<geom::interpolating_spline<float>>::push_back[abi:nn200100]((a1 + 72), v12);
-  return geom::interpolating_spline<float>::~interpolating_spline(v12);
+  *v12 = v8 + v10;
+  std::vector<float>::push_back[abi:nn200100](a1 + 6, v12);
+  std::vector<geom::interpolating_spline<float>>::push_back[abi:nn200100](a1 + 9, v13);
+  return geom::interpolating_spline<float>::~interpolating_spline(v13);
 }
 
-void std::vector<unsigned short>::resize(void *a1, unint64_t a2)
+void std::vector<unsigned short>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned short>::__append(a1, a2 - v2);
+    std::vector<unsigned short>::__append(result, a2 - v2);
   }
 }
 
@@ -8391,7 +8355,7 @@ float geom::interpolating_spline<float>::evaluate_total_length(uint64_t a1)
   return geom::interpolating_spline<float>::evaluate_length_at(a1, v2);
 }
 
-void std::vector<float>::push_back[abi:nn200100](const void **a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:nn200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -8440,7 +8404,7 @@ void std::vector<float>::push_back[abi:nn200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -8497,12 +8461,12 @@ void geom::interpolating_curve<double>::build(void *a1@<X0>, _OWORD *a2@<X8>)
   geom::interpolating_curve<double>::build_helper(a2, a1, 0);
 }
 
-void geom::interpolating_curve<double>::build_helper(uint64_t a1, void *a2, char a3)
+void geom::interpolating_curve<double>::build_helper(uint64_t *a1, void *a2, char a3)
 {
   v6 = 0xCCCCCCCCCCCCCCCDLL * ((a2[1] - *a2) >> 3);
-  v10 = *(a1 + 72);
-  v8 = *(a1 + 80);
-  v9 = (a1 + 72);
+  v10 = a1[9];
+  v8 = a1[10];
+  v9 = a1 + 9;
   v11 = v6;
   if (v8 != v10)
   {
@@ -8515,7 +8479,7 @@ void geom::interpolating_curve<double>::build_helper(uint64_t a1, void *a2, char
     v11 = 0xCCCCCCCCCCCCCCCDLL * ((a2[1] - *a2) >> 3);
   }
 
-  *(a1 + 80) = v10;
+  a1[10] = v10;
   std::vector<geom::interpolating_spline<double>>::reserve(v9, v11 - 1);
   *(a1 + 208) = 0;
   if (v6 < 2u)
@@ -8555,9 +8519,9 @@ void geom::interpolating_curve<double>::build_helper(uint64_t a1, void *a2, char
     geom::interpolating_curve<double>::append_spline(a1, &v106);
   }
 
-  v17 = *(a1 + 72);
-  v16 = *(a1 + 80);
-  std::vector<unsigned short>::resize((a1 + 24), 0xAAAAAAAAAAAAAAABLL * ((v16 - v17) >> 5));
+  v17 = a1[9];
+  v16 = a1[10];
+  std::vector<unsigned short>::resize(a1 + 3, 0xAAAAAAAAAAAAAAABLL * ((v16 - v17) >> 5));
   if (v16 == v17)
   {
     std::vector<unsigned short>::resize(a1, 0);
@@ -8567,7 +8531,7 @@ void geom::interpolating_curve<double>::build_helper(uint64_t a1, void *a2, char
   {
     v18 = 0;
     v19 = *v9;
-    v20 = *(a1 + 24);
+    v20 = a1[3];
     if (0xAAAAAAAAAAAAAAABLL * ((v16 - v17) >> 5) <= 1)
     {
       v21 = 1;
@@ -8593,7 +8557,7 @@ void geom::interpolating_curve<double>::build_helper(uint64_t a1, void *a2, char
     std::vector<unsigned short>::resize(a1, v18);
     v25 = 0;
     v26 = 0;
-    v27 = *(a1 + 72);
+    v27 = a1[9];
     do
     {
       v28 = *(v27 + 96 * v25 + 64);
@@ -8624,9 +8588,9 @@ void geom::interpolating_curve<double>::build_helper(uint64_t a1, void *a2, char
   }
 
   v31 = *a2;
-  *(a1 + 192) = *(*a2 + 8);
+  a1[24] = *(*a2 + 8);
   v32 = a2[1];
-  *(a1 + 200) = *(v32 - 32);
+  a1[25] = *(v32 - 32);
   if (a3)
   {
     LOWORD(v116[0]) = 512;
@@ -8639,15 +8603,15 @@ void geom::interpolating_curve<double>::build_helper(uint64_t a1, void *a2, char
     v106 = 0u;
     v107 = 0u;
     v108 = 0u;
-    v34 = *(a1 + 96);
-    v104 = (a1 + 96);
+    v34 = a1[12];
+    v104 = a1 + 12;
     v105 = a1;
-    *(a1 + 104) = v34;
-    *(a1 + 160) = 0;
-    v35 = *(a1 + 120);
-    v103 = (a1 + 120);
+    a1[13] = v34;
+    *(a1 + 80) = 0;
+    v35 = a1[15];
+    v103 = a1 + 15;
     *(a1 + 162) = 0;
-    *(a1 + 128) = v35;
+    a1[16] = v35;
     if (v32 == v31)
     {
       v36 = 0.0;
@@ -8678,21 +8642,21 @@ void geom::interpolating_curve<double>::build_helper(uint64_t a1, void *a2, char
         *&v108 = *(&v107 + 1);
         v41 = (v39 + v36 * 2.0) * 0.333333333;
         v42 = (v36 + v39 * 2.0) * 0.333333333;
-        if (*(v105 + 208))
+        if (v105[26])
         {
           v43 = v36;
           goto LABEL_70;
         }
 
-        v44 = *(v105 + 72);
-        v45 = 0xAAAAAAAAAAAAAAABLL * ((*(v105 + 80) - v44) >> 5);
-        if ((v45 & 0xFFFE) == 0 || *(v105 + 192) >= v36)
+        v44 = v105[9];
+        v45 = 0xAAAAAAAAAAAAAAABLL * ((v105[10] - v44) >> 5);
+        if ((v45 & 0xFFFE) == 0 || *(v105 + 24) >= v36)
         {
           break;
         }
 
         LOWORD(v45) = v45 - 1;
-        if (*(v105 + 200) > v36)
+        if (*(v105 + 25) > v36)
         {
           for (i = 0; ; i = v47 + 1)
           {
@@ -8729,14 +8693,14 @@ void geom::interpolating_curve<double>::build_helper(uint64_t a1, void *a2, char
 LABEL_47:
         v43 = v49 + v50;
         v51 = v105;
-        if (*(v105 + 208))
+        if (v105[26])
         {
           goto LABEL_70;
         }
 
-        v52 = *(v105 + 72);
-        v53 = 0xAAAAAAAAAAAAAAABLL * ((*(v105 + 80) - v52) >> 5);
-        if ((v53 & 0xFFFE) == 0 || *(v105 + 192) >= v41)
+        v52 = v105[9];
+        v53 = 0xAAAAAAAAAAAAAAABLL * ((v105[10] - v52) >> 5);
+        if ((v53 & 0xFFFE) == 0 || *(v105 + 24) >= v41)
         {
           v57 = geom::interpolating_spline<double>::evaluate_length_at(v52, (v39 + v36 * 2.0) * 0.333333333);
 LABEL_57:
@@ -8745,7 +8709,7 @@ LABEL_57:
         }
 
         LOWORD(v53) = v53 - 1;
-        if (*(v105 + 200) > v41)
+        if (*(v105 + 25) > v41)
         {
           for (j = 0; ; j = v55 + 1)
           {
@@ -8782,14 +8746,14 @@ LABEL_57:
 LABEL_58:
         v41 = v57 + v58;
         v59 = v105;
-        if (*(v105 + 208))
+        if (v105[26])
         {
           goto LABEL_70;
         }
 
-        v60 = *(v105 + 72);
-        v61 = 0xAAAAAAAAAAAAAAABLL * ((*(v105 + 80) - v60) >> 5);
-        if ((v61 & 0xFFFE) == 0 || *(v105 + 192) >= v42)
+        v60 = v105[9];
+        v61 = 0xAAAAAAAAAAAAAAABLL * ((v105[10] - v60) >> 5);
+        if ((v61 & 0xFFFE) == 0 || *(v105 + 24) >= v42)
         {
           v65 = geom::interpolating_spline<double>::evaluate_length_at(v60, v42);
 LABEL_68:
@@ -8798,7 +8762,7 @@ LABEL_68:
         }
 
         LOWORD(v61) = v61 - 1;
-        if (*(v105 + 200) > v42)
+        if (*(v105 + 25) > v42)
         {
           for (k = 0; ; k = v63 + 1)
           {
@@ -8835,14 +8799,14 @@ LABEL_68:
 LABEL_69:
         v42 = v65 + v66;
         v67 = v105;
-        if ((*(v105 + 208) & 1) == 0)
+        if ((v105[26] & 1) == 0)
         {
-          v90 = *(v105 + 72);
-          v91 = 0xAAAAAAAAAAAAAAABLL * ((*(v105 + 80) - v90) >> 5);
-          if ((v91 & 0xFFFE) != 0 && *(v105 + 192) < v39)
+          v90 = v105[9];
+          v91 = 0xAAAAAAAAAAAAAAABLL * ((v105[10] - v90) >> 5);
+          if ((v91 & 0xFFFE) != 0 && *(v105 + 24) < v39)
           {
             LOWORD(v91) = v91 - 1;
-            if (*(v105 + 200) > v39)
+            if (*(v105 + 25) > v39)
             {
               for (m = 0; ; m = v93 + 1)
               {
@@ -8899,9 +8863,9 @@ LABEL_71:
         *&v118[5] = v68;
         v119 = 0;
         v69 = v111;
-        v70 = *(a1 + 104);
-        v71 = *(a1 + 96);
-        v72 = *(a1 + 160);
+        v70 = *(a1 + 26);
+        v71 = a1[12];
+        v72 = *(a1 + 80);
         if (v72)
         {
           v73 = v72 + 1;
@@ -8916,7 +8880,7 @@ LABEL_71:
         if (v72 + v111)
         {
           std::vector<double>::resize(v104, (3 * v74 + 1));
-          *(a1 + 160) = v74;
+          *(a1 + 80) = v74;
           if ((*(a1 + 162) & 1) == 0)
           {
             std::vector<double>::resize(v103, v74 + 1);
@@ -8925,11 +8889,11 @@ LABEL_71:
 
         else
         {
-          *(a1 + 104) = v71;
-          *(a1 + 160) = 0;
+          a1[13] = v71;
+          *(a1 + 80) = 0;
           if ((*(a1 + 162) & 1) == 0)
           {
-            *(a1 + 128) = *(a1 + 120);
+            a1[16] = a1[15];
           }
         }
 
@@ -9032,22 +8996,22 @@ LABEL_46:
 
 LABEL_120:
     *(a1 + 208) = 1;
-    *(a1 + 192) = *(v31 + 8);
-    *(a1 + 200) = *(v31 + v33 - 32);
+    a1[24] = *(v31 + 8);
+    a1[25] = *(v31 + v33 - 32);
     geom::interpolating_spline<double>::~interpolating_spline(&v106);
   }
 }
 
-void geom::interpolating_curve<double>::build_arc_length_parameterized(void *a1@<X0>, _OWORD *a2@<X8>)
+void geom::interpolating_curve<double>::build_arc_length_parameterized(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  a2[7] = 0u;
-  a2[8] = 0u;
-  a2[5] = 0u;
-  a2[6] = 0u;
-  a2[3] = 0u;
-  a2[4] = 0u;
-  a2[1] = 0u;
-  a2[2] = 0u;
+  *(a2 + 112) = 0u;
+  *(a2 + 128) = 0u;
+  *(a2 + 80) = 0u;
+  *(a2 + 96) = 0u;
+  *(a2 + 48) = 0u;
+  *(a2 + 64) = 0u;
+  *(a2 + 16) = 0u;
+  *(a2 + 32) = 0u;
   *a2 = 0u;
   *(a2 + 168) = 0u;
   *(a2 + 184) = 0u;
@@ -9153,112 +9117,96 @@ uint64_t geom::interpolating_curve<double>::find_spline_for_parameter(uint64_t a
   return v2 + 96 * v3;
 }
 
-uint64_t geom::interpolating_curve<double>::evaluate_tangent_at(uint64_t a1, double a2)
+void *geom::interpolating_curve<double>::evaluate_tangent_at(uint64_t a1, double a2)
 {
   if (*(a1 + 208) == 1)
   {
-    v22 = 0;
-    v23 = 0.0;
-    v24 = 0.0;
-    geom::interpolating_spline<double>::find_span(a1 + 96, &v22, a2);
-    v3 = (*(a1 + 96) + 8 * (3 * v22));
-    v4 = v3[1] * (v23 * ((1.0 - v23) * (1.0 - v23) * 3.0)) + *v3 * ((1.0 - v23) * ((1.0 - v23) * (1.0 - v23))) + v3[2] * (v23 * v23 * ((1.0 - v23) * 3.0)) + v3[3] * (v23 * (v23 * v23));
-    v5 = *(a1 + 72);
-    v6 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 80) - v5) >> 5);
-    if ((v6 & 0xFFFE) != 0 && *(a1 + 192) < v4)
+    v13 = 0;
+    v14 = 0.0;
+    v15 = 0;
+    geom::interpolating_spline<double>::find_span(a1 + 96, &v13, a2);
+    v3 = (*(a1 + 96) + 8 * (3 * v13));
+    a2 = v3[1] * (v14 * ((1.0 - v14) * (1.0 - v14) * 3.0)) + *v3 * ((1.0 - v14) * ((1.0 - v14) * (1.0 - v14))) + v3[2] * (v14 * v14 * ((1.0 - v14) * 3.0)) + v3[3] * (v14 * (v14 * v14));
+    v4 = *(a1 + 72);
+    v5 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 80) - v4) >> 5);
+    if ((v5 & 0xFFFE) != 0 && *(a1 + 192) < a2)
     {
-      LOWORD(v6) = v6 - 1;
-      if (*(a1 + 200) > v4)
+      LOWORD(v5) = v5 - 1;
+      if (*(a1 + 200) > a2)
       {
-        for (i = 0; ; i = v8 + 1)
+        for (i = 0; ; i = v7 + 1)
         {
           while (1)
           {
-            v8 = (i + v6) >> 1;
-            v9 = v5 + 96 * v8;
-            if (*(v9 + 48) <= v4)
+            v7 = (i + v5) >> 1;
+            v8 = v4 + 96 * v7;
+            if (*(v8 + 48) <= a2)
             {
               break;
             }
 
-            LOWORD(v6) = v8 - 1;
+            LOWORD(v5) = v7 - 1;
           }
 
-          if (*(v9 + 56) > v4)
+          if (*(v8 + 56) > a2)
           {
             break;
           }
         }
 
-        LODWORD(v6) = (i + v6) >> 1;
+        LODWORD(v5) = (i + v5) >> 1;
       }
     }
 
     else
     {
-      LOWORD(v6) = 0;
-    }
-
-    v15 = (v5 + 96 * v6);
-    v22 = 0;
-    v23 = 0.0;
-    v24 = 0.0;
-    result = geom::interpolating_spline<double>::find_span(v15, &v22, v4);
-    v17 = (*v15 + 8 * (3 * v22));
-    if (v24 * 3.0 * (v23 * (1.0 - v23 + 1.0 - v23) * (v17[2] - v17[1]) + (v17[1] - *v17) * ((1.0 - v23) * (1.0 - v23)) + (v17[3] - v17[2]) * (v23 * v23)) >= 0.0)
-    {
-      v18 = v24 * 3.0 * (v23 * (1.0 - v23 + 1.0 - v23) * (v17[2] - v17[1]) + (v17[1] - *v17) * ((1.0 - v23) * (1.0 - v23)) + (v17[3] - v17[2]) * (v23 * v23));
+      LOWORD(v5) = 0;
     }
   }
 
   else
   {
-    v10 = *(a1 + 72);
-    v11 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 80) - v10) >> 5);
-    if ((v11 & 0xFFFE) != 0 && *(a1 + 192) < a2)
+    v4 = *(a1 + 72);
+    v5 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 80) - v4) >> 5);
+    if ((v5 & 0xFFFE) != 0 && *(a1 + 192) < a2)
     {
-      LOWORD(v11) = v11 - 1;
+      LOWORD(v5) = v5 - 1;
       if (*(a1 + 200) > a2)
       {
-        for (j = 0; ; j = v13 + 1)
+        for (j = 0; ; j = v10 + 1)
         {
           while (1)
           {
-            v13 = (j + v11) >> 1;
-            v14 = v10 + 96 * v13;
-            if (*(v14 + 48) <= a2)
+            v10 = (j + v5) >> 1;
+            v11 = v4 + 96 * v10;
+            if (*(v11 + 48) <= a2)
             {
               break;
             }
 
-            LOWORD(v11) = v13 - 1;
+            LOWORD(v5) = v10 - 1;
           }
 
-          if (*(v14 + 56) > a2)
+          if (*(v11 + 56) > a2)
           {
             break;
           }
         }
 
-        LODWORD(v11) = (j + v11) >> 1;
+        LODWORD(v5) = (j + v5) >> 1;
       }
     }
 
     else
     {
-      LOWORD(v11) = 0;
+      LOWORD(v5) = 0;
     }
-
-    v19 = (v10 + 96 * v11);
-    v22 = 0;
-    v23 = 0.0;
-    v24 = 0.0;
-    result = geom::interpolating_spline<double>::find_span(v19, &v22, a2);
-    v20 = (*v19 + 8 * (3 * v22));
-    v21 = v24 * 3.0 * (v23 * (1.0 - v23 + 1.0 - v23) * (v20[2] - v20[1]) + (v20[1] - *v20) * ((1.0 - v23) * (1.0 - v23)) + (v20[3] - v20[2]) * (v23 * v23));
   }
 
-  return result;
+  v13 = 0;
+  v14 = 0.0;
+  v15 = 0;
+  return geom::interpolating_spline<double>::find_span(v4 + 96 * v5, &v13, a2);
 }
 
 double geom::interpolating_curve<double>::evaluate_length_at(uint64_t a1, double result)
@@ -9361,53 +9309,55 @@ uint64_t geom::interpolating_curve<double>::find_spline_index_for_parameter(uint
 
 double geom::interpolating_spline<double>::evaluate_length_at(uint64_t a1, double a2)
 {
-  geom::interpolating_spline<double>::find_span(a1, v11, a2);
-  v4 = v11[0];
-  v5 = *(a1 + 72);
-  if (*(a1 + 80) == v5)
+  geom::interpolating_spline<double>::find_span(a1, v12, a2);
+  v5 = LOWORD(v12[0]);
+  v6 = *(a1 + 72);
+  if (*(a1 + 80) == v6)
   {
-    if (v11[0])
+    if (LOWORD(v12[0]))
     {
-      v7 = 0;
-      v6 = 0.0;
+      v8 = 0;
+      v7 = 0.0;
       do
       {
-        v6 = v6 + geom::interpolating_spline<double>::evaluate_span_length(a1, v7++);
+        v4.n128_f64[0] = geom::interpolating_spline<double>::evaluate_span_length(a1, v8, v4);
+        v7 = v7 + v4.n128_f64[0];
+        ++v8;
       }
 
-      while (v4 != v7);
+      while (v5 != v8);
       goto LABEL_9;
     }
   }
 
-  else if (v11[0])
+  else if (LOWORD(v12[0]))
   {
-    v6 = *(v5 + 8 * (v11[0] - 1));
+    v7 = *(v6 + 8 * (LOWORD(v12[0]) - 1));
     goto LABEL_9;
   }
 
-  v6 = 0.0;
+  v7 = 0.0;
 LABEL_9:
   if (*(a1 + 66) == 1)
   {
-    v8 = *(a1 + 64);
-    if (v8 == v4)
+    v9 = *(a1 + 64);
+    if (v9 == v5)
     {
-      v9 = *(a1 + 56);
+      v10 = *(a1 + 56);
     }
 
     else
     {
-      v9 = *(a1 + 48) + v4 * ((*(a1 + 56) - *(a1 + 48)) / v8);
+      v10 = *(a1 + 48) + v5 * ((*(a1 + 56) - *(a1 + 48)) / v9);
     }
   }
 
   else
   {
-    v9 = *(*(a1 + 24) + 8 * v4);
+    v10 = *(*(a1 + 24) + 8 * v5);
   }
 
-  return v6 + geom::interpolating_spline<double>::evaluate_length_betweeen(a1, v9, a2);
+  return v7 + geom::interpolating_spline<double>::evaluate_length_betweeen(a1, v10, a2);
 }
 
 double geom::interpolating_curve<double>::evaluate_total_length(uint64_t a1)
@@ -9506,9 +9456,9 @@ void geom::interpolating_curve<double>::span_knots(uint64_t a1, unsigned int a2,
 
     else
     {
-      v17 = *(v12 + 24) + 8 * v10;
+      v17 = (*(v12 + 24) + 8 * v10);
       *a3 = *v17;
-      v16 = *(v17 + 8);
+      v16 = v17[1];
     }
   }
 
@@ -9571,14 +9521,12 @@ uint64_t geom::interpolating_curve<double>::calculate_bezier_basis_for_span(void
   return result;
 }
 
-void *std::vector<geom::interpolating_spline<double>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<geom::interpolating_spline<double>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 5) < a2)
   {
     if (a2 < 0x2AAAAAAAAAAAAABLL)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:nn200100]<std::allocator<geom::interpolating_spline<double>>>(result, a2);
     }
 
@@ -9588,16 +9536,16 @@ void *std::vector<geom::interpolating_spline<double>>::reserve(void *result, uni
   return result;
 }
 
-uint64_t geom::interpolating_curve<double>::append_spline(uint64_t a1, int **a2)
+uint64_t geom::interpolating_curve<double>::append_spline(void *a1, int **a2)
 {
-  memset(v14, 0, sizeof(v14));
-  memset(v12, 0, 48);
+  memset(v15, 0, sizeof(v15));
+  memset(v13, 0, 48);
   v3 = **a2;
   if (v3 > 1)
   {
     if (v3 == 2)
     {
-      geom::interpolating_curve<double>::build_catmull_rom_spline(a2, v11);
+      geom::interpolating_curve<double>::build_catmull_rom_spline(a2, v12);
     }
 
     else
@@ -9607,7 +9555,7 @@ uint64_t geom::interpolating_curve<double>::append_spline(uint64_t a1, int **a2)
         goto LABEL_11;
       }
 
-      geom::interpolating_curve<double>::build_natural_spline(a2, v11);
+      geom::interpolating_curve<double>::build_natural_spline(a2, v12);
     }
   }
 
@@ -9618,48 +9566,49 @@ uint64_t geom::interpolating_curve<double>::append_spline(uint64_t a1, int **a2)
       goto LABEL_11;
     }
 
-    geom::interpolating_curve<double>::build_hermite_spline(a2, v11);
+    geom::interpolating_curve<double>::build_hermite_spline(a2, v12);
   }
 
   else
   {
-    geom::interpolating_curve<double>::build_linear_spline(a2, v11);
+    geom::interpolating_curve<double>::build_linear_spline(a2, v12);
   }
 
-  geom::interpolating_spline<double>::operator=(v12, v11);
-  geom::interpolating_spline<double>::~interpolating_spline(v11);
+  geom::interpolating_spline<double>::operator=(v13, v12);
+  geom::interpolating_spline<double>::~interpolating_spline(v12);
 LABEL_11:
-  v4 = v13;
-  std::vector<double>::resize(v14, v13);
+  v4 = v14;
+  std::vector<double>::resize(v15, v14);
   if (v4)
   {
-    v5 = 0;
-    v6 = 0.0;
+    v6 = 0;
+    v7 = 0.0;
     do
     {
-      v6 = v6 + geom::interpolating_spline<double>::evaluate_span_length(v12, v5);
-      *(v14[0] + 8 * v5++) = v6;
+      v5.n128_f64[0] = geom::interpolating_spline<double>::evaluate_span_length(v13, v6, v5);
+      v7 = v7 + v5.n128_f64[0];
+      *(v15[0] + 8 * v6++) = v7;
     }
 
-    while (v4 != v5);
+    while (v4 != v6);
   }
 
-  v7 = geom::interpolating_spline<double>::evaluate_total_length(v12);
-  v8 = *(a1 + 80) - *(a1 + 72);
-  if (v8)
+  v8 = geom::interpolating_spline<double>::evaluate_total_length(v13);
+  v9 = a1[10] - a1[9];
+  if (v9)
   {
-    v9 = *(*(a1 + 48) - 0x5555555555555555 * (v8 >> 2) - 8);
+    v10 = *(a1[6] - 0x5555555555555555 * (v9 >> 2) - 8);
   }
 
   else
   {
-    v9 = 0.0;
+    v10 = 0.0;
   }
 
-  *v11 = v7 + v9;
-  std::vector<double>::push_back[abi:nn200100]((a1 + 48), v11);
-  std::vector<geom::interpolating_spline<double>>::push_back[abi:nn200100]((a1 + 72), v12);
-  return geom::interpolating_spline<double>::~interpolating_spline(v12);
+  *v12 = v8 + v10;
+  std::vector<double>::push_back[abi:nn200100](a1 + 6, v12);
+  std::vector<geom::interpolating_spline<double>>::push_back[abi:nn200100](a1 + 9, v13);
+  return geom::interpolating_spline<double>::~interpolating_spline(v13);
 }
 
 void geom::interpolating_curve<double>::build_linear_spline(_WORD *a1@<X1>, uint64_t *a2@<X8>)

@@ -5,33 +5,33 @@
 
 void ___MRServiceHandleVoiceInputMessage_block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   uint64 = xpc_dictionary_get_uint64(*(a1 + 32), "MRXPC_MESSAGE_ID_KEY");
   if (uint64 == 0x900000000000005)
   {
-    v12 = *(a1 + 40);
-    v11 = *(a1 + 32);
-    if (v12 && *(v12 + 24))
+    v11 = *(a1 + 40);
+    v10 = *(a1 + 32);
+    if (v11 && *(v11 + 24))
     {
-      xdicta = v11;
-      v13 = xpc_dictionary_get_uint64(v11, "MRXPC_VOICE_INPUT_DEVICE_ID_KEY");
-      v14 = MRCreateDataFromXPCMessage(xdicta, "MRXPC_VOICE_DATA_PROTOBUF_DATA_KEY");
-      if (v14)
+      xdicta = v10;
+      v12 = xpc_dictionary_get_uint64(v10, "MRXPC_VOICE_INPUT_DEVICE_ID_KEY");
+      v13 = MRCreateDataFromXPCMessage(xdicta, "MRXPC_VOICE_DATA_PROTOBUF_DATA_KEY");
+      if (v13)
       {
-        v15 = MRAudioDataBlockCreateFromExternalRepresentation(*MEMORY[0x1E695E480], v14);
-        v16 = v15;
-        if (v15)
+        v14 = MRAudioDataBlockCreateFromExternalRepresentation(*MEMORY[0x1E695E480], v13);
+        v15 = v14;
+        if (v14)
         {
-          v17 = MRAudioDataBlockGetBuffer(v15);
-          Timestamp = MRAudioDataBlockGetTimestamp(v16);
-          v20 = v19;
-          Gain = MRAudioDataBlockGetGain(v16);
+          v16 = MRAudioDataBlockGetBuffer(v14);
+          Timestamp = MRAudioDataBlockGetTimestamp(v15);
+          v19 = v18;
+          Gain = MRAudioDataBlockGetGain(v15);
         }
 
         else
         {
-          v17 = 0;
-          v20 = 0.0;
+          v16 = 0;
+          v19 = 0.0;
           Gain = 0.0;
           Timestamp = 0.0;
         }
@@ -39,19 +39,18 @@ void ___MRServiceHandleVoiceInputMessage_block_invoke(uint64_t a1)
 
       else
       {
-        v17 = 0;
-        v20 = 0.0;
+        v16 = 0;
+        v19 = 0.0;
         Gain = 0.0;
         Timestamp = 0.0;
       }
 
-      (*(v12 + 24))(v13, v17, *v12, Timestamp, v20, Gain);
+      (*(v11 + 24))(v12, v16, *v11, Timestamp, v19, Gain);
 
-      v11 = xdicta;
+      v10 = xdicta;
     }
 
-    v24 = *MEMORY[0x1E69E9840];
-    goto LABEL_26;
+    goto LABEL_25;
   }
 
   v3 = uint64;
@@ -86,9 +85,8 @@ LABEL_10:
       v9 = 0;
 LABEL_12:
       _MRServiceSendReply(v5, v9);
-      v10 = *MEMORY[0x1E69E9840];
-      v11 = xdict;
-LABEL_26:
+      v10 = xdict;
+LABEL_25:
 
       return;
     }
@@ -96,15 +94,13 @@ LABEL_26:
     goto LABEL_11;
   }
 
-  v22 = _MRLogForCategory(0);
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v21 = _MRLogForCategory(0);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v28 = v3;
-    _os_log_impl(&dword_1A2860000, v22, OS_LOG_TYPE_DEFAULT, "Voice recording client message %lu not handled", buf, 0xCu);
+    v25 = v3;
+    _os_log_impl(&dword_1A2860000, v21, OS_LOG_TYPE_DEFAULT, "Voice recording client message %lu not handled", buf, 0xCu);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 @end

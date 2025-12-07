@@ -21,6 +21,7 @@
 - (void)_LILookup:(id)lookup name:(id)name forClient:(unint64_t)client reply:(id)reply;
 - (void)_LIMakeDir:(id)dir named:(id)named withAttrs:(id)attrs andClient:(unint64_t)client reply:(id)reply;
 - (void)_LIMakeSymLink:(id)link named:(id)named withContents:(id)contents andAttrs:(id)attrs andClient:(unint64_t)client reply:(id)reply;
+- (void)_LIOpen:(id)open withMode:(int)mode reply:(id)reply;
 - (void)_LIPathConf:(id)conf reply:(id)reply;
 - (void)_LIRead:(id)read atOffset:(unint64_t)offset withPointer:(char *)pointer length:(unint64_t)length reply:(id)reply;
 - (void)_LIReadDir:(id)dir intoBuffer:(id)buffer forCookie:(unint64_t)cookie andVerifier:(unint64_t)verifier reply:(id)reply;
@@ -33,6 +34,7 @@
 - (void)_LISearch:(id)search token:(id)token criteria:(id)criteria returnProxy:(id)proxy withCallerID:(unint64_t)d reply:(id)reply;
 - (void)_LISearchAbort:(id)abort reply:(id)reply;
 - (void)_LISearchAbortAllClientSearches:(unint64_t)searches;
+- (void)_LISearchReplenishCredits:(id)credits credits:(unsigned int)a4 reply:(id)reply;
 - (void)_LISetAttr:(id)attr setAttrs:(id)attrs reply:(id)reply;
 - (void)_LISetUpdateInterest:(id)interest interest:(BOOL)a4 forClient:(unint64_t)client reply:(id)reply;
 - (void)_LISetXattr:(id)xattr name:(id)name value:(id)value how:(int)how reply:(id)reply;
@@ -245,7 +247,7 @@
     v5 = v4;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_10004FC74(&v49);
+      sub_10004FC74();
     }
 
     goto LABEL_8;
@@ -358,7 +360,7 @@ LABEL_37:
       v5 = v23;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10004FE28(&v43);
+        sub_10004FE28();
       }
 
       if (v43 == -1073741790)
@@ -395,7 +397,7 @@ LABEL_37:
         v5 = v27;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          sub_10004FF1C(&self->_shareInfo.ntStatus);
+          sub_10004FF1C();
         }
       }
 
@@ -403,12 +405,12 @@ LABEL_37:
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
         {
-          sub_10004FF98(&self->_shareInfo);
+          sub_10004FF98();
         }
 
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
         {
-          sub_100050018(&self->_shareInfo);
+          sub_100050018();
         }
 
         self->_sm_flags = self->_sm_flags & 0xFFFFFFFE | (self->_shareInfo.fileSystemAttrs >> 7) & 1;
@@ -486,7 +488,7 @@ LABEL_16:
   v5 = sub_100032674(v10);
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
-    sub_10004FDAC(&v46);
+    sub_10004FDAC();
   }
 
   if (v5)
@@ -1240,16 +1242,16 @@ LABEL_22:
 {
   attrCopy = attr;
   replyCopy = reply;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = sub_10000B2A0;
-  v29 = sub_10000B2B0;
-  v30 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
   v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = sub_10000B2A0;
+  v28 = sub_10000B2B0;
+  v29 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   checkServerConnection = [(smbMount *)self checkServerConnection];
   if (!checkServerConnection)
   {
@@ -1258,43 +1260,42 @@ LABEL_22:
     block[1] = 3221225472;
     block[2] = sub_10000D5B4;
     block[3] = &unk_10008C948;
-    v19 = &v25;
+    v18 = &v24;
     block[4] = self;
-    v18 = attrCopy;
-    v20 = &v21;
+    v17 = attrCopy;
+    v19 = &v20;
     dispatch_sync(nodeTableSyncQueue, block);
-    v11 = v26[5];
-    v12 = *(v22 + 24);
+    v11 = v25[5];
     if (v11)
     {
-      if ((v22[3] & 1) == 0)
+      if ((v21[3] & 1) == 0)
       {
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_10000D610;
-        v14[3] = &unk_10008CC18;
-        v16 = &v25;
-        v14[4] = self;
-        v15 = replyCopy;
-        [v11 fetchAttrDataWithCompletionHandler:v14];
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_10000D610;
+        v13[3] = &unk_10008CC18;
+        v15 = &v24;
+        v13[4] = self;
+        v14 = replyCopy;
+        [v11 fetchAttrDataWithCompletionHandler:v13];
 
         goto LABEL_13;
       }
 
-      v13 = 70;
+      v12 = 70;
     }
 
-    else if (v22[3])
+    else if (v21[3])
     {
-      v13 = 70;
+      v12 = 70;
     }
 
     else
     {
-      v13 = 2;
+      v12 = 2;
     }
 
-    (*(replyCopy + 2))(replyCopy, v13, 0);
+    (*(replyCopy + 2))(replyCopy, v12, 0);
 LABEL_13:
 
     goto LABEL_14;
@@ -1312,8 +1313,8 @@ LABEL_13:
 
   (*(replyCopy + 2))(replyCopy, checkServerConnection, 0);
 LABEL_14:
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v24, 8);
 }
 
 - (void)open:(id)open withMode:(int)mode requestID:(unint64_t)d reply:(id)reply
@@ -1338,6 +1339,178 @@ LABEL_14:
   v14 = replyCopy;
   v15 = openCopy;
   dispatch_async(opsQueue, v16);
+}
+
+- (void)_LIOpen:(id)open withMode:(int)mode reply:(id)reply
+{
+  v6 = *&mode;
+  openCopy = open;
+  replyCopy = reply;
+  v57[0] = 0;
+  v57[1] = v57;
+  v57[2] = 0x3032000000;
+  v57[3] = sub_10000B2A0;
+  v57[4] = sub_10000B2B0;
+  v58 = 0;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x3032000000;
+  v54 = sub_10000B2A0;
+  v55 = sub_10000B2B0;
+  v56 = 0;
+  v49[0] = 0;
+  v49[1] = v49;
+  v49[2] = 0x3810000000;
+  v49[4] = 0;
+  v49[5] = 0;
+  v49[3] = "";
+  v50 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = sub_10000B2A0;
+  v47 = sub_10000B2B0;
+  v48 = 0;
+  v41[0] = 0;
+  v41[1] = v41;
+  v41[2] = 0x3032000000;
+  v41[3] = sub_10000B2A0;
+  v41[4] = sub_10000B2B0;
+  v42 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 0;
+  checkServerConnection = [(smbMount *)self checkServerConnection];
+  if (!checkServerConnection)
+  {
+    nodeTableSyncQueue = self->_nodeTableSyncQueue;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10000DF3C;
+    block[3] = &unk_10008C948;
+    v35 = &v51;
+    block[4] = self;
+    v34 = openCopy;
+    v36 = &v37;
+    dispatch_sync(nodeTableSyncQueue, block);
+    v13 = v52[5];
+    if (v13)
+    {
+      if ((v38[3] & 1) == 0)
+      {
+        isDir = [v13 isDir];
+        v15 = v52[5];
+        if (isDir)
+        {
+          [v15 incDirRefCount];
+        }
+
+        else
+        {
+          fileRefSyncQueue = [v15 fileRefSyncQueue];
+          v31[0] = _NSConcreteStackBlock;
+          v31[1] = 3221225472;
+          v31[2] = sub_10000DF98;
+          v31[3] = &unk_10008CC90;
+          v31[4] = &v43;
+          v31[5] = &v51;
+          v32 = v6;
+          dispatch_sync(fileRefSyncQueue, v31);
+
+          if (!v44[5])
+          {
+            v18 = [v52[5] getNewFileRefwithMode:v6];
+            v19 = v44[5];
+            v44[5] = v18;
+
+            if (v44[5])
+            {
+              v20 = malloc_type_malloc(0x14uLL, 0x1000040A86A77D5uLL);
+              *(v20 + 4) = 0;
+              *(v20 + 12) = 0;
+              *v20 = 1;
+              *(v20 + 1) = [v44[5] desiredAccess];
+              *(v20 + 2) = [v44[5] shareMode];
+              *(v20 + 3) = *([v52[5] getSmbFattr] + 30);
+              v30[0] = _NSConcreteStackBlock;
+              v30[1] = 3221225472;
+              v30[2] = sub_10000DFF0;
+              v30[3] = &unk_10008CCE0;
+              v30[4] = &v51;
+              v30[5] = v57;
+              v30[6] = v20;
+              v21[0] = _NSConcreteStackBlock;
+              v21[1] = 3221225472;
+              v21[2] = sub_10000E178;
+              v21[3] = &unk_10008CD30;
+              v28 = v20;
+              v23 = &v51;
+              v24 = v41;
+              v29 = v6;
+              v22 = replyCopy;
+              v25 = v57;
+              v26 = &v43;
+              v27 = v49;
+              [(smbMount *)self submitRequestBlockOnce:v30 continuationBlock:v21];
+
+              goto LABEL_19;
+            }
+
+            v16 = 12;
+LABEL_18:
+            (*(replyCopy + 2))(replyCopy, v16);
+LABEL_19:
+
+            goto LABEL_20;
+          }
+        }
+
+        v16 = 0;
+        goto LABEL_18;
+      }
+    }
+
+    else if ((v38[3] & 1) == 0)
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+      {
+        sub_1000515EC();
+      }
+
+      v16 = 9;
+      goto LABEL_18;
+    }
+
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100051664();
+    }
+
+    v16 = 70;
+    goto LABEL_18;
+  }
+
+  v11 = &_os_log_default;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    [(smbMount *)self serverName];
+    objc_claimAutoreleasedReturnValue();
+    [(smbMount *)self shareName];
+    objc_claimAutoreleasedReturnValue();
+    sub_10005159C();
+  }
+
+  (*(replyCopy + 2))(replyCopy, checkServerConnection);
+LABEL_20:
+  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(v41, 8);
+
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(v49, 8);
+  _Block_object_dispose(&v51, 8);
+
+  _Block_object_dispose(v57, 8);
 }
 
 - (void)close:(id)close keepingMode:(int)mode requestID:(unint64_t)d reply:(id)reply
@@ -1368,44 +1541,44 @@ LABEL_14:
 {
   closeCopy = close;
   replyCopy = reply;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x2020000000;
-  v53 = 0;
-  v48[0] = 0;
-  v48[1] = v48;
-  v48[2] = 0x2020000000;
   v49 = 0;
-  v46[0] = 0;
-  v46[1] = v46;
-  v46[2] = 0x2020000000;
-  v47 = 0;
-  v44[0] = 0;
-  v44[1] = v44;
-  v44[2] = 0x3032000000;
-  v44[3] = sub_10000B2A0;
-  v44[4] = sub_10000B2B0;
-  v45 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = sub_10000B2A0;
-  v42 = sub_10000B2B0;
-  v43 = 0;
-  v36[0] = 0;
-  v36[1] = v36;
-  v36[2] = 0x3032000000;
-  v36[3] = sub_10000B2A0;
-  v36[4] = sub_10000B2B0;
+  v50 = &v49;
+  v51 = 0x2020000000;
+  v52 = 0;
+  v47[0] = 0;
+  v47[1] = v47;
+  v47[2] = 0x2020000000;
+  v48 = 0;
+  v45[0] = 0;
+  v45[1] = v45;
+  v45[2] = 0x2020000000;
+  v46 = 0;
+  v43[0] = 0;
+  v43[1] = v43;
+  v43[2] = 0x3032000000;
+  v43[3] = sub_10000B2A0;
+  v43[4] = sub_10000B2B0;
+  v44 = 0;
   v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = sub_10000B2A0;
+  v41 = sub_10000B2B0;
+  v42 = 0;
   v35[0] = 0;
   v35[1] = v35;
-  v35[2] = 0x2020000000;
-  v35[3] = 0;
+  v35[2] = 0x3032000000;
+  v35[3] = sub_10000B2A0;
+  v35[4] = sub_10000B2B0;
+  v36 = 0;
   v34[0] = 0;
   v34[1] = v34;
   v34[2] = 0x2020000000;
   v34[3] = 0;
+  v33[0] = 0;
+  v33[1] = v33;
+  v33[2] = 0x2020000000;
+  v33[3] = 0;
   checkServerConnection = [(smbMount *)self checkServerConnection];
   if (!checkServerConnection)
   {
@@ -1414,74 +1587,73 @@ LABEL_14:
     block[1] = 3221225472;
     block[2] = sub_10000EB68;
     block[3] = &unk_10008C948;
-    v32 = &v38;
+    v31 = &v37;
     block[4] = self;
-    v31 = closeCopy;
-    v33 = &v50;
+    v30 = closeCopy;
+    v32 = &v49;
     dispatch_sync(nodeTableSyncQueue, block);
-    v13 = v39[5];
-    v14 = *(v51 + 24);
+    v13 = v38[5];
     if (v13)
     {
-      if ((v51[3] & 1) == 0)
+      if ((v50[3] & 1) == 0)
       {
         isDir = [v13 isDir];
-        v16 = v39[5];
+        v15 = v38[5];
         if (isDir)
         {
-          [v16 decDirRefCount];
-          v17 = 0;
+          [v15 decDirRefCount];
+          v16 = 0;
         }
 
         else
         {
-          if ([v16 openFileRefs] > 0)
+          if ([v15 openFileRefs] > 0)
           {
-            fileRefSyncQueue = [v39[5] fileRefSyncQueue];
-            v20[0] = _NSConcreteStackBlock;
-            v20[1] = 3221225472;
-            v20[2] = sub_10000EBC4;
-            v20[3] = &unk_10008CDA8;
+            fileRefSyncQueue = [v38[5] fileRefSyncQueue];
+            v19[0] = _NSConcreteStackBlock;
+            v19[1] = 3221225472;
+            v19[2] = sub_10000EBC4;
+            v19[3] = &unk_10008CDA8;
             modeCopy = mode;
-            v22 = &v38;
-            v23 = v34;
-            v24 = v46;
-            v25 = v48;
-            v26 = v44;
+            v21 = &v37;
+            v22 = v33;
+            v23 = v45;
+            v24 = v47;
+            v25 = v43;
+            v26 = v34;
             v27 = v35;
-            v28 = v36;
-            v21 = replyCopy;
-            dispatch_async(fileRefSyncQueue, v20);
+            v20 = replyCopy;
+            dispatch_async(fileRefSyncQueue, v19);
 
 LABEL_22:
             goto LABEL_23;
           }
 
-          v19 = &_os_log_default;
+          v18 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            [v39[5] name];
+            [v38[5] name];
             objc_claimAutoreleasedReturnValue();
             sub_1000517C0();
           }
 
-          v17 = 22;
+          v16 = 22;
         }
 
 LABEL_21:
-        (*(replyCopy + 2))(replyCopy, v17, 0, 0, 0, 0, 0, 0);
+        (*(replyCopy + 2))(replyCopy, v16, 0, 0, 0, 0, 0, 0);
         goto LABEL_22;
       }
     }
 
-    else if ((v51[3] & 1) == 0)
+    else if ((v50[3] & 1) == 0)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         sub_10005180C();
       }
 
-      v17 = 9;
+      v16 = 9;
       goto LABEL_21;
     }
 
@@ -1490,7 +1662,7 @@ LABEL_21:
       sub_100051884();
     }
 
-    v17 = 70;
+    v16 = 70;
     goto LABEL_21;
   }
 
@@ -1506,16 +1678,16 @@ LABEL_21:
 
   (*(replyCopy + 2))(replyCopy, checkServerConnection, 0, 0, 0, 0, 0, 0);
 LABEL_23:
+  _Block_object_dispose(v33, 8);
   _Block_object_dispose(v34, 8);
   _Block_object_dispose(v35, 8);
-  _Block_object_dispose(v36, 8);
 
-  _Block_object_dispose(&v38, 8);
-  _Block_object_dispose(v44, 8);
+  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(v43, 8);
 
-  _Block_object_dispose(v46, 8);
-  _Block_object_dispose(v48, 8);
-  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(v45, 8);
+  _Block_object_dispose(v47, 8);
+  _Block_object_dispose(&v49, 8);
 }
 
 - (void)reclaim:(id)reclaim forClient:(unint64_t)client requestID:(unint64_t)d reply:(id)reply
@@ -1664,142 +1836,141 @@ LABEL_15:
   dirCopy = dir;
   bufferCopy = buffer;
   replyCopy = reply;
-  v69 = 0;
-  v70 = &v69;
-  v71 = 0x3032000000;
-  v72 = sub_10000B2A0;
-  v73 = sub_10000B2B0;
-  v74 = 0;
-  v67[0] = 0;
-  v67[1] = v67;
-  v67[2] = 0x2020000000;
   v68 = 0;
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x2020000000;
-  v66 = 0;
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x2020000000;
+  v69 = &v68;
+  v70 = 0x3032000000;
+  v71 = sub_10000B2A0;
+  v72 = sub_10000B2B0;
+  v73 = 0;
+  v66[0] = 0;
+  v66[1] = v66;
+  v66[2] = 0x2020000000;
+  v67 = 0;
   v62 = 0;
+  v63 = &v62;
+  v64 = 0x2020000000;
+  v65 = 0;
   v58 = 0;
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x2020000000;
+  v59 = &v58;
+  v60 = 0x2020000000;
+  v61 = 0;
   v57 = 0;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x2020000000;
+  v56 = 0;
   checkServerConnection = [(smbMount *)self checkServerConnection];
-  v58 = checkServerConnection;
+  v57 = checkServerConnection;
   if (!checkServerConnection)
   {
-    v60[3] = 0;
-    v64[3] = 0;
+    v59[3] = 0;
+    v63[3] = 0;
     nodeTableSyncQueue = self->_nodeTableSyncQueue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10000FE5C;
     block[3] = &unk_10008C948;
-    v52 = &v69;
+    v51 = &v68;
     block[4] = self;
     v19 = dirCopy;
-    v51 = v19;
-    v53 = &v54;
+    v50 = v19;
+    v52 = &v53;
     dispatch_sync(nodeTableSyncQueue, block);
-    v20 = v70[5];
-    v21 = *(v55 + 24);
+    v20 = v69[5];
     if (v20)
     {
-      if ((v55[3] & 1) == 0)
+      if ((v54[3] & 1) == 0)
       {
         if ([v20 isDir])
         {
-          v22 = [v70[5] getDirEnumerator:&v58];
-          if (v22)
+          v21 = [v69[5] getDirEnumerator:&v57];
+          if (v21)
           {
-            v41[0] = _NSConcreteStackBlock;
-            v41[1] = 3221225472;
-            v41[2] = sub_10000FEB8;
-            v41[3] = &unk_10008CE98;
-            v45 = &v59;
-            v46 = &v63;
-            v17 = v22;
-            v42 = v17;
+            v40[0] = _NSConcreteStackBlock;
+            v40[1] = 3221225472;
+            v40[2] = sub_10000FEB8;
+            v40[3] = &unk_10008CE98;
+            v44 = &v58;
+            v45 = &v62;
+            v17 = v21;
+            v41 = v17;
             cookieCopy = cookie;
             verifierCopy = verifier;
-            v43 = bufferCopy;
+            v42 = bufferCopy;
             selfCopy = self;
-            v47 = v67;
-            v34[0] = _NSConcreteStackBlock;
-            v34[1] = 3221225472;
-            v34[2] = sub_100010098;
-            v34[3] = &unk_10008CEC0;
-            v36 = &v59;
-            v35 = replyCopy;
-            v37 = &v63;
-            v38 = &v69;
+            v46 = v66;
+            v33[0] = _NSConcreteStackBlock;
+            v33[1] = 3221225472;
+            v33[2] = sub_100010098;
+            v33[3] = &unk_10008CEC0;
+            v35 = &v58;
+            v34 = replyCopy;
+            v36 = &v62;
+            v37 = &v68;
             cookieCopy2 = cookie;
             verifierCopy2 = verifier;
-            [(smbMount *)self submitRequestBlock:v41 continuationBlock:v34];
+            [(smbMount *)self submitRequestBlock:v40 continuationBlock:v33];
 
 LABEL_16:
             goto LABEL_17;
           }
 
-          v31 = &_os_log_default;
+          v30 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            name = [v70[5] name];
-            v33 = name;
-            sub_100051A28([name UTF8String], &v58, v75, name);
+            name = [v69[5] name];
+            v32 = name;
+            sub_100051A28([name UTF8String], &v57, v74, name);
           }
 
-          v25 = v58;
+          v24 = v57;
         }
 
         else
         {
-          v28 = &_os_log_default;
+          v27 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            name2 = [v70[5] name];
-            v30 = name2;
+            name2 = [v69[5] name];
+            v29 = name2;
             [name2 UTF8String];
             sub_1000519DC();
           }
 
-          v25 = 20;
+          v24 = 20;
         }
 
 LABEL_15:
-        (*(replyCopy + 2))(replyCopy, v25, 0, 0);
+        (*(replyCopy + 2))(replyCopy, v24, 0, 0);
         v17 = 0;
         goto LABEL_16;
       }
     }
 
-    else if ((v55[3] & 1) == 0)
+    else if ((v54[3] & 1) == 0)
     {
-      v26 = &_os_log_default;
-      v25 = 2;
+      v25 = &_os_log_default;
+      v24 = 2;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
       {
-        v27 = v19;
-        sub_100051A84([v19 UTF8String], v75);
+        v26 = v19;
+        sub_100051A84([v19 UTF8String], v74);
       }
 
       goto LABEL_14;
     }
 
-    v23 = &_os_log_default;
+    v22 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
     {
-      v24 = v19;
-      sub_100051AC4([v19 UTF8String], v75);
+      v23 = v19;
+      sub_100051AC4([v19 UTF8String], v74);
     }
 
-    v25 = 70;
+    v24 = 70;
 LABEL_14:
 
-    v58 = v25;
+    v57 = v24;
     goto LABEL_15;
   }
 
@@ -1816,11 +1987,11 @@ LABEL_14:
   (*(replyCopy + 2))(replyCopy, checkServerConnection, 0, 0);
   v17 = 0;
 LABEL_17:
-  _Block_object_dispose(&v54, 8);
-  _Block_object_dispose(&v59, 8);
-  _Block_object_dispose(&v63, 8);
-  _Block_object_dispose(v67, 8);
-  _Block_object_dispose(&v69, 8);
+  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v62, 8);
+  _Block_object_dispose(v66, 8);
+  _Block_object_dispose(&v68, 8);
 }
 
 - (void)readDirectory:(id)directory amount:(unint64_t)amount cookie:(unint64_t)cookie verifier:(unint64_t)verifier requestID:(unint64_t)d reply:(id)reply
@@ -1904,117 +2075,116 @@ LABEL_17:
   attrsCopy = attrs;
   bufferCopy = buffer;
   replyCopy = reply;
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x3032000000;
-  v62 = sub_10000B2A0;
-  v63 = sub_10000B2B0;
-  v64 = 0;
-  v57[0] = 0;
-  v57[1] = v57;
-  v57[2] = 0x2020000000;
   v58 = 0;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
-  v56 = 0;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
+  v59 = &v58;
+  v60 = 0x3032000000;
+  v61 = sub_10000B2A0;
+  v62 = sub_10000B2B0;
+  v63 = 0;
+  v56[0] = 0;
+  v56[1] = v56;
+  v56[2] = 0x2020000000;
+  v57 = 0;
   v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
+  v55 = 0;
   v48 = 0;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x2020000000;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 0;
   v47 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 0;
   checkServerConnection = [(smbMount *)self checkServerConnection];
-  v48 = checkServerConnection;
+  v47 = checkServerConnection;
   if (!checkServerConnection)
   {
-    v50[3] = 0;
-    v54[3] = 0;
+    v49[3] = 0;
+    v53[3] = 0;
     nodeTableSyncQueue = self->_nodeTableSyncQueue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100010D00;
     block[3] = &unk_10008C948;
-    v42 = &v59;
+    v41 = &v58;
     block[4] = self;
-    v41 = attrsCopy;
-    v43 = &v44;
+    v40 = attrsCopy;
+    v42 = &v43;
     dispatch_sync(nodeTableSyncQueue, block);
-    v19 = v60[5];
-    v20 = *(v45 + 24);
+    v19 = v59[5];
     if (v19)
     {
-      if ((v45[3] & 1) == 0)
+      if ((v44[3] & 1) == 0)
       {
         if ([v19 isDir])
         {
-          v21 = [v60[5] getDirEnumerator:&v48];
-          if (v21)
+          v20 = [v59[5] getDirEnumerator:&v47];
+          if (v20)
           {
-            v32[0] = _NSConcreteStackBlock;
-            v32[1] = 3221225472;
-            v32[2] = sub_100010D5C;
-            v32[3] = &unk_10008CF38;
-            v35 = &v49;
-            v36 = &v53;
-            v17 = v21;
-            v33 = v17;
+            v31[0] = _NSConcreteStackBlock;
+            v31[1] = 3221225472;
+            v31[2] = sub_100010D5C;
+            v31[3] = &unk_10008CF38;
+            v34 = &v48;
+            v35 = &v52;
+            v17 = v20;
+            v32 = v17;
             cookieCopy = cookie;
             verifierCopy = verifier;
-            v34 = bufferCopy;
-            v37 = v57;
-            v25[0] = _NSConcreteStackBlock;
-            v25[1] = 3221225472;
-            v25[2] = sub_100010E9C;
-            v25[3] = &unk_10008CEC0;
-            v27 = &v49;
-            v26 = replyCopy;
-            v28 = &v53;
-            v29 = &v59;
+            v33 = bufferCopy;
+            v36 = v56;
+            v24[0] = _NSConcreteStackBlock;
+            v24[1] = 3221225472;
+            v24[2] = sub_100010E9C;
+            v24[3] = &unk_10008CEC0;
+            v26 = &v48;
+            v25 = replyCopy;
+            v27 = &v52;
+            v28 = &v58;
             cookieCopy2 = cookie;
             verifierCopy2 = verifier;
-            [(smbMount *)self submitRequestBlock:v32 continuationBlock:v25];
+            [(smbMount *)self submitRequestBlock:v31 continuationBlock:v24];
 
 LABEL_21:
             goto LABEL_22;
           }
 
-          v24 = &_os_log_default;
+          v23 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            [v60[5] name];
+            [v59[5] name];
             objc_claimAutoreleasedReturnValue();
             sub_100051CD0();
           }
 
-          v22 = v48;
+          v21 = v47;
 LABEL_20:
-          (*(replyCopy + 2))(replyCopy, v22, 0, 0);
+          (*(replyCopy + 2))(replyCopy, v21, 0, 0);
           v17 = 0;
           goto LABEL_21;
         }
 
-        v23 = &_os_log_default;
+        v22 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          [v60[5] name];
+          [v59[5] name];
           objc_claimAutoreleasedReturnValue();
           sub_100051C84();
         }
 
-        v22 = 20;
+        v21 = 20;
 LABEL_19:
-        v48 = v22;
+        v47 = v21;
         goto LABEL_20;
       }
     }
 
-    else if ((v45[3] & 1) == 0)
+    else if ((v44[3] & 1) == 0)
     {
-      v22 = 2;
+      v21 = 2;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
       {
         sub_100051D28();
@@ -2028,7 +2198,7 @@ LABEL_19:
       sub_100051DA0();
     }
 
-    v22 = 70;
+    v21 = 70;
     goto LABEL_19;
   }
 
@@ -2045,11 +2215,11 @@ LABEL_19:
   (*(replyCopy + 2))(replyCopy, checkServerConnection, 0, 0);
   v17 = 0;
 LABEL_22:
-  _Block_object_dispose(&v44, 8);
-  _Block_object_dispose(&v49, 8);
-  _Block_object_dispose(&v53, 8);
-  _Block_object_dispose(v57, 8);
-  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(v56, 8);
+  _Block_object_dispose(&v58, 8);
 }
 
 - (void)createIn:(id)in named:(id)named attributes:(id)attributes andClient:(unint64_t)client requestID:(unint64_t)d reply:(id)reply
@@ -2088,42 +2258,42 @@ LABEL_22:
   namedCopy = named;
   attrsCopy = attrs;
   replyCopy = reply;
-  v72 = 0;
-  v73 = &v72;
-  v74 = 0x3032000000;
-  v75 = sub_10000B2A0;
-  v76 = sub_10000B2B0;
-  v77 = 0;
-  v70[0] = 0;
-  v70[1] = v70;
-  v70[2] = 0x3032000000;
-  v70[3] = sub_10000B2A0;
-  v70[4] = sub_10000B2B0;
   v71 = 0;
-  v68[0] = 0;
-  v68[1] = v68;
-  v68[2] = 0x3032000000;
-  v68[3] = sub_10000B2A0;
-  v68[4] = sub_10000B2B0;
-  v69 = 0;
+  v72 = &v71;
+  v73 = 0x3032000000;
+  v74 = sub_10000B2A0;
+  v75 = sub_10000B2B0;
+  v76 = 0;
+  v69[0] = 0;
+  v69[1] = v69;
+  v69[2] = 0x3032000000;
+  v69[3] = sub_10000B2A0;
+  v69[4] = sub_10000B2B0;
+  v70 = 0;
   v67[0] = 0;
   v67[1] = v67;
-  v67[2] = 0x2020000000;
-  v67[3] = 0;
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x3032000000;
-  v64 = sub_10000B2A0;
-  v65 = sub_10000B2B0;
-  v66 = 0;
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x2020000000;
+  v67[2] = 0x3032000000;
+  v67[3] = sub_10000B2A0;
+  v67[4] = sub_10000B2B0;
+  v68 = 0;
+  v66[0] = 0;
+  v66[1] = v66;
+  v66[2] = 0x2020000000;
+  v66[3] = 0;
   v60 = 0;
-  v56[0] = 0;
-  v56[1] = v56;
-  v56[2] = 0x2020000000;
-  v56[3] = 0;
+  v61 = &v60;
+  v62 = 0x3032000000;
+  v63 = sub_10000B2A0;
+  v64 = sub_10000B2B0;
+  v65 = 0;
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x2020000000;
+  v59 = 0;
+  v55[0] = 0;
+  v55[1] = v55;
+  v55[2] = 0x2020000000;
+  v55[3] = 0;
   checkServerConnection = [(smbMount *)self checkServerConnection];
   if (!checkServerConnection)
   {
@@ -2132,7 +2302,7 @@ LABEL_22:
       v18 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_100052064(v78, [attrsCopy length]);
+        sub_100052064(v77, [attrsCopy length]);
       }
 
       checkServerConnection = 22;
@@ -2144,34 +2314,33 @@ LABEL_22:
     block[1] = 3221225472;
     block[2] = sub_100011920;
     block[3] = &unk_10008C948;
-    v54 = &v72;
+    v53 = &v71;
     block[4] = self;
     v20 = createCopy;
-    v53 = v20;
-    v55 = &v57;
+    v52 = v20;
+    v54 = &v56;
     dispatch_sync(nodeTableSyncQueue, block);
-    v21 = *(v58 + 24);
-    if (v73[5])
+    if (v72[5])
     {
-      if ((v58[3] & 1) == 0)
+      if ((v57[3] & 1) == 0)
       {
-        v22 = self->_nodeTableSyncQueue;
-        v48[0] = _NSConcreteStackBlock;
-        v48[1] = 3221225472;
-        v48[2] = sub_10001197C;
-        v48[3] = &unk_10008C9E8;
-        v51 = &v61;
-        v48[4] = self;
-        v49 = v20;
-        v23 = namedCopy;
-        v50 = v23;
-        dispatch_sync(v22, v48);
-        if (v62[5])
+        v21 = self->_nodeTableSyncQueue;
+        v47[0] = _NSConcreteStackBlock;
+        v47[1] = 3221225472;
+        v47[2] = sub_10001197C;
+        v47[3] = &unk_10008C9E8;
+        v50 = &v60;
+        v47[4] = self;
+        v48 = v20;
+        v22 = namedCopy;
+        v49 = v22;
+        dispatch_sync(v21, v47);
+        if (v61[5])
         {
-          v24 = &_os_log_default;
+          v23 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            [v73[5] name];
+            [v72[5] name];
             objc_claimAutoreleasedReturnValue();
             sub_100051F98();
           }
@@ -2181,61 +2350,61 @@ LABEL_22:
 
         else
         {
-          v30 = malloc_type_malloc(0xF0uLL, 0x1000040D9093685uLL);
-          v44[0] = _NSConcreteStackBlock;
-          v44[1] = 3221225472;
-          v44[2] = sub_100011A24;
-          v44[3] = &unk_10008CA38;
-          v46 = &v72;
-          v45 = v23;
-          v47 = v30;
-          v31[0] = _NSConcreteStackBlock;
-          v31[1] = 3221225472;
-          v31[2] = sub_100011B00;
-          v31[3] = &unk_10008D078;
-          v42 = v30;
-          v32 = v45;
-          v36 = &v72;
-          v35 = replyCopy;
+          v29 = malloc_type_malloc(0xF0uLL, 0x1000040D9093685uLL);
+          v43[0] = _NSConcreteStackBlock;
+          v43[1] = 3221225472;
+          v43[2] = sub_100011A24;
+          v43[3] = &unk_10008CA38;
+          v45 = &v71;
+          v44 = v22;
+          v46 = v29;
+          v30[0] = _NSConcreteStackBlock;
+          v30[1] = 3221225472;
+          v30[2] = sub_100011B00;
+          v30[3] = &unk_10008D078;
+          v41 = v29;
+          v31 = v44;
+          v35 = &v71;
+          v34 = replyCopy;
           selfCopy = self;
-          v37 = v56;
-          v38 = &v61;
+          v36 = v55;
+          v37 = &v60;
           clientCopy = client;
+          v38 = v66;
+          v33 = attrsCopy;
           v39 = v67;
-          v34 = attrsCopy;
-          v40 = v68;
-          v41 = v70;
-          [(smbMount *)self submitRequestBlockOnce:v44 continuationBlock:v31];
+          v40 = v69;
+          [(smbMount *)self submitRequestBlockOnce:v43 continuationBlock:v30];
         }
 
         goto LABEL_26;
       }
     }
 
-    else if ((v58[3] & 1) == 0)
+    else if ((v57[3] & 1) == 0)
     {
-      v28 = &_os_log_default;
+      v27 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v29 = namedCopy;
-        sub_100051FE4([namedCopy UTF8String], v78);
+        v28 = namedCopy;
+        sub_100051FE4([namedCopy UTF8String], v77);
       }
 
-      v27 = 2;
+      v26 = 2;
       goto LABEL_23;
     }
 
-    v25 = &_os_log_default;
+    v24 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v26 = v20;
-      sub_100052024([v20 UTF8String], v78);
+      v25 = v20;
+      sub_100052024([v20 UTF8String], v77);
     }
 
-    v27 = 70;
+    v26 = 70;
 LABEL_23:
 
-    (*(replyCopy + 2))(replyCopy, v27, 0, 0, 0, 0);
+    (*(replyCopy + 2))(replyCopy, v26, 0, 0, 0, 0);
 LABEL_26:
 
     goto LABEL_9;
@@ -2255,15 +2424,15 @@ LABEL_8:
 
   (*(replyCopy + 2))(replyCopy, checkServerConnection, 0, 0, 0, 0);
 LABEL_9:
-  _Block_object_dispose(v56, 8);
-  _Block_object_dispose(&v57, 8);
-  _Block_object_dispose(&v61, 8);
+  _Block_object_dispose(v55, 8);
+  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v60, 8);
 
+  _Block_object_dispose(v66, 8);
   _Block_object_dispose(v67, 8);
-  _Block_object_dispose(v68, 8);
 
-  _Block_object_dispose(v70, 8);
-  _Block_object_dispose(&v72, 8);
+  _Block_object_dispose(v69, 8);
+  _Block_object_dispose(&v71, 8);
 }
 
 - (void)makeDirectoryIn:(id)in named:(id)named attributes:(id)attributes andClient:(unint64_t)client requestID:(unint64_t)d reply:(id)reply
@@ -2302,42 +2471,42 @@ LABEL_9:
   namedCopy = named;
   attrsCopy = attrs;
   replyCopy = reply;
-  v76[0] = 0;
-  v76[1] = v76;
-  v76[2] = 0x3032000000;
-  v76[3] = sub_10000B2A0;
-  v76[4] = sub_10000B2B0;
-  v77 = 0;
-  v74[0] = 0;
-  v74[1] = v74;
-  v74[2] = 0x3032000000;
-  v74[3] = sub_10000B2A0;
-  v74[4] = sub_10000B2B0;
-  v75 = 0;
+  v75[0] = 0;
+  v75[1] = v75;
+  v75[2] = 0x3032000000;
+  v75[3] = sub_10000B2A0;
+  v75[4] = sub_10000B2B0;
+  v76 = 0;
   v73[0] = 0;
   v73[1] = v73;
-  v73[2] = 0x2020000000;
-  v73[3] = 0;
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x3032000000;
-  v70 = sub_10000B2A0;
-  v71 = sub_10000B2B0;
-  v72 = 0;
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x3032000000;
-  v64 = sub_10000B2A0;
-  v65 = sub_10000B2B0;
+  v73[2] = 0x3032000000;
+  v73[3] = sub_10000B2A0;
+  v73[4] = sub_10000B2B0;
+  v74 = 0;
+  v72[0] = 0;
+  v72[1] = v72;
+  v72[2] = 0x2020000000;
+  v72[3] = 0;
   v66 = 0;
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x2020000000;
+  v67 = &v66;
+  v68 = 0x3032000000;
+  v69 = sub_10000B2A0;
+  v70 = sub_10000B2B0;
+  v71 = 0;
   v60 = 0;
-  v56[0] = 0;
-  v56[1] = v56;
-  v56[2] = 0x2020000000;
-  v56[3] = 0;
+  v61 = &v60;
+  v62 = 0x3032000000;
+  v63 = sub_10000B2A0;
+  v64 = sub_10000B2B0;
+  v65 = 0;
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x2020000000;
+  v59 = 0;
+  v55[0] = 0;
+  v55[1] = v55;
+  v55[2] = 0x2020000000;
+  v55[3] = 0;
   checkServerConnection = [(smbMount *)self checkServerConnection];
   if (!checkServerConnection)
   {
@@ -2346,7 +2515,7 @@ LABEL_9:
       v18 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_1000524CC(v78, [attrsCopy length]);
+        sub_1000524CC(v77, [attrsCopy length]);
       }
 
       checkServerConnection = 22;
@@ -2358,34 +2527,33 @@ LABEL_9:
     block[1] = 3221225472;
     block[2] = sub_100012F28;
     block[3] = &unk_10008C948;
-    v54 = &v67;
+    v53 = &v66;
     block[4] = self;
     v20 = dirCopy;
-    v53 = v20;
-    v55 = &v57;
+    v52 = v20;
+    v54 = &v56;
     dispatch_sync(nodeTableSyncQueue, block);
-    v21 = *(v58 + 24);
-    if (v68[5])
+    if (v67[5])
     {
-      if ((v58[3] & 1) == 0)
+      if ((v57[3] & 1) == 0)
       {
-        v22 = self->_nodeTableSyncQueue;
-        v48[0] = _NSConcreteStackBlock;
-        v48[1] = 3221225472;
-        v48[2] = sub_100012F84;
-        v48[3] = &unk_10008C9E8;
-        v51 = &v61;
-        v48[4] = self;
-        v49 = v20;
-        v23 = namedCopy;
-        v50 = v23;
-        dispatch_sync(v22, v48);
-        if (v62[5])
+        v21 = self->_nodeTableSyncQueue;
+        v47[0] = _NSConcreteStackBlock;
+        v47[1] = 3221225472;
+        v47[2] = sub_100012F84;
+        v47[3] = &unk_10008C9E8;
+        v50 = &v60;
+        v47[4] = self;
+        v48 = v20;
+        v22 = namedCopy;
+        v49 = v22;
+        dispatch_sync(v21, v47);
+        if (v61[5])
         {
-          v24 = &_os_log_default;
+          v23 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            [v68[5] name];
+            [v67[5] name];
             objc_claimAutoreleasedReturnValue();
             sub_100052400();
           }
@@ -2395,61 +2563,61 @@ LABEL_9:
 
         else
         {
-          v30 = malloc_type_malloc(0xF0uLL, 0x1000040D9093685uLL);
-          v44[0] = _NSConcreteStackBlock;
-          v44[1] = 3221225472;
-          v44[2] = sub_10001302C;
-          v44[3] = &unk_10008CA38;
-          v46 = &v67;
-          v45 = v23;
-          v47 = v30;
-          v31[0] = _NSConcreteStackBlock;
-          v31[1] = 3221225472;
-          v31[2] = sub_100013108;
-          v31[3] = &unk_10008D078;
-          v42 = v30;
-          v32 = v45;
-          v36 = &v67;
-          v35 = replyCopy;
+          v29 = malloc_type_malloc(0xF0uLL, 0x1000040D9093685uLL);
+          v43[0] = _NSConcreteStackBlock;
+          v43[1] = 3221225472;
+          v43[2] = sub_10001302C;
+          v43[3] = &unk_10008CA38;
+          v45 = &v66;
+          v44 = v22;
+          v46 = v29;
+          v30[0] = _NSConcreteStackBlock;
+          v30[1] = 3221225472;
+          v30[2] = sub_100013108;
+          v30[3] = &unk_10008D078;
+          v41 = v29;
+          v31 = v44;
+          v35 = &v66;
+          v34 = replyCopy;
           selfCopy = self;
-          v37 = v56;
-          v38 = &v61;
+          v36 = v55;
+          v37 = &v60;
           clientCopy = client;
+          v38 = v72;
+          v33 = attrsCopy;
           v39 = v73;
-          v34 = attrsCopy;
-          v40 = v74;
-          v41 = v76;
-          [(smbMount *)self submitRequestBlockOnce:v44 continuationBlock:v31];
+          v40 = v75;
+          [(smbMount *)self submitRequestBlockOnce:v43 continuationBlock:v30];
         }
 
         goto LABEL_26;
       }
     }
 
-    else if ((v58[3] & 1) == 0)
+    else if ((v57[3] & 1) == 0)
     {
-      v28 = &_os_log_default;
+      v27 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v29 = namedCopy;
-        sub_10005244C([namedCopy UTF8String], v78);
+        v28 = namedCopy;
+        sub_10005244C([namedCopy UTF8String], v77);
       }
 
-      v27 = 2;
+      v26 = 2;
       goto LABEL_23;
     }
 
-    v25 = &_os_log_default;
+    v24 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v26 = v20;
-      sub_10005248C([v20 UTF8String], v78);
+      v25 = v20;
+      sub_10005248C([v20 UTF8String], v77);
     }
 
-    v27 = 70;
+    v26 = 70;
 LABEL_23:
 
-    (*(replyCopy + 2))(replyCopy, v27, 0, 0, 0, 0);
+    (*(replyCopy + 2))(replyCopy, v26, 0, 0, 0, 0);
 LABEL_26:
 
     goto LABEL_9;
@@ -2469,15 +2637,15 @@ LABEL_8:
 
   (*(replyCopy + 2))(replyCopy, checkServerConnection, 0, 0, 0, 0);
 LABEL_9:
-  _Block_object_dispose(v56, 8);
-  _Block_object_dispose(&v57, 8);
-  _Block_object_dispose(&v61, 8);
+  _Block_object_dispose(v55, 8);
+  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v60, 8);
 
-  _Block_object_dispose(&v67, 8);
+  _Block_object_dispose(&v66, 8);
+  _Block_object_dispose(v72, 8);
   _Block_object_dispose(v73, 8);
-  _Block_object_dispose(v74, 8);
 
-  _Block_object_dispose(v76, 8);
+  _Block_object_dispose(v75, 8);
 }
 
 - (void)otherAttributeOf:(id)of named:(id)named requestID:(unint64_t)d reply:(id)reply
@@ -2991,50 +3159,50 @@ LABEL_8:
   contentsCopy = contents;
   attrsCopy = attrs;
   replyCopy = reply;
-  v115[0] = 0;
-  v115[1] = v115;
-  v115[2] = 0x3032000000;
-  v115[3] = sub_10000B2A0;
-  v115[4] = sub_10000B2B0;
-  v116 = 0;
-  v113[0] = 0;
-  v113[1] = v113;
-  v113[2] = 0x3032000000;
-  v113[3] = sub_10000B2A0;
-  v113[4] = sub_10000B2B0;
-  v114 = 0;
+  v114[0] = 0;
+  v114[1] = v114;
+  v114[2] = 0x3032000000;
+  v114[3] = sub_10000B2A0;
+  v114[4] = sub_10000B2B0;
+  v115 = 0;
   v112[0] = 0;
   v112[1] = v112;
-  v112[2] = 0x2020000000;
-  v112[3] = 0;
-  v108 = 0;
-  v109 = &v108;
-  v110 = 0x2020000000;
-  v111 = 0;
-  v102 = 0;
-  v103 = &v102;
-  v104 = 0x3032000000;
-  v105 = sub_10000B2A0;
-  v106 = sub_10000B2B0;
+  v112[2] = 0x3032000000;
+  v112[3] = sub_10000B2A0;
+  v112[4] = sub_10000B2B0;
+  v113 = 0;
+  v111[0] = 0;
+  v111[1] = v111;
+  v111[2] = 0x2020000000;
+  v111[3] = 0;
   v107 = 0;
-  v96 = 0;
-  v97 = &v96;
-  v98 = 0x3032000000;
-  v99 = sub_10000B2A0;
-  v100 = sub_10000B2B0;
+  v108 = &v107;
+  v109 = 0x2020000000;
+  v110 = 0;
   v101 = 0;
-  v92 = 0;
-  v93 = &v92;
-  v94 = 0x2020000000;
+  v102 = &v101;
+  v103 = 0x3032000000;
+  v104 = sub_10000B2A0;
+  v105 = sub_10000B2B0;
+  v106 = 0;
   v95 = 0;
-  v88 = 0;
-  v89 = &v88;
-  v90 = 0x2020000000;
+  v96 = &v95;
+  v97 = 0x3032000000;
+  v98 = sub_10000B2A0;
+  v99 = sub_10000B2B0;
+  v100 = 0;
   v91 = 0;
-  v87[0] = 0;
-  v87[1] = v87;
-  v87[2] = 0x2020000000;
-  v87[3] = 0;
+  v92 = &v91;
+  v93 = 0x2020000000;
+  v94 = 0;
+  v87 = 0;
+  v88 = &v87;
+  v89 = 0x2020000000;
+  v90 = 0;
+  v86[0] = 0;
+  v86[1] = v86;
+  v86[2] = 0x2020000000;
+  v86[3] = 0;
   checkServerConnection = [(smbMount *)self checkServerConnection];
   if (!checkServerConnection)
   {
@@ -3043,7 +3211,7 @@ LABEL_8:
       v21 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_1000529CC(v117, [attrsCopy length]);
+        sub_1000529CC(v116, [attrsCopy length]);
       }
 
       checkServerConnection = 22;
@@ -3055,34 +3223,33 @@ LABEL_8:
     block[1] = 3221225472;
     block[2] = sub_10001649C;
     block[3] = &unk_10008C948;
-    v85 = &v102;
+    v84 = &v101;
     block[4] = self;
     v23 = linkCopy;
-    v84 = v23;
-    v86 = &v88;
+    v83 = v23;
+    v85 = &v87;
     dispatch_sync(nodeTableSyncQueue, block);
-    v24 = *(v89 + 24);
-    if (v103[5])
+    if (v102[5])
     {
-      if ((v89[3] & 1) == 0)
+      if ((v88[3] & 1) == 0)
       {
-        v25 = self->_nodeTableSyncQueue;
-        v79[0] = _NSConcreteStackBlock;
-        v79[1] = 3221225472;
-        v79[2] = sub_1000164F8;
-        v79[3] = &unk_10008C9E8;
-        v82 = &v96;
-        v79[4] = self;
-        v80 = v23;
-        v26 = namedCopy;
-        v81 = v26;
-        dispatch_sync(v25, v79);
-        if (v97[5])
+        v24 = self->_nodeTableSyncQueue;
+        v78[0] = _NSConcreteStackBlock;
+        v78[1] = 3221225472;
+        v78[2] = sub_1000164F8;
+        v78[3] = &unk_10008C9E8;
+        v81 = &v95;
+        v78[4] = self;
+        v79 = v23;
+        v25 = namedCopy;
+        v80 = v25;
+        dispatch_sync(v24, v78);
+        if (v96[5])
         {
-          v27 = &_os_log_default;
+          v26 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            [v103[5] name];
+            [v102[5] name];
             objc_claimAutoreleasedReturnValue();
             sub_1000528BC();
           }
@@ -3092,93 +3259,93 @@ LABEL_8:
 
         else
         {
-          v73[0] = _NSConcreteStackBlock;
-          v73[1] = 3221225472;
-          v73[2] = sub_1000165A0;
-          v73[3] = &unk_10008CFB0;
+          v72[0] = _NSConcreteStackBlock;
+          v72[1] = 3221225472;
+          v72[2] = sub_1000165A0;
+          v72[3] = &unk_10008CFB0;
           clientCopy = client;
-          v73[4] = self;
-          v76 = &v102;
-          v33 = v26;
+          v72[4] = self;
+          v75 = &v101;
+          v32 = v25;
+          v73 = v32;
+          v76 = v86;
+          v33 = replyCopy;
           v74 = v33;
-          v77 = v87;
-          v34 = replyCopy;
-          v75 = v34;
-          v35 = objc_retainBlock(v73);
-          v59[0] = _NSConcreteStackBlock;
-          v59[1] = 3221225472;
-          v59[2] = sub_100016748;
-          v59[3] = &unk_10008D1E0;
-          v66 = &v102;
-          v36 = contentsCopy;
-          v60 = v36;
-          v67 = &v108;
-          v37 = v34;
-          v64 = v37;
-          v68 = &v96;
-          v38 = v33;
-          v61 = v38;
-          v69 = &v92;
-          v70 = v112;
-          v62 = attrsCopy;
+          v34 = objc_retainBlock(v72);
+          v58[0] = _NSConcreteStackBlock;
+          v58[1] = 3221225472;
+          v58[2] = sub_100016748;
+          v58[3] = &unk_10008D1E0;
+          v65 = &v101;
+          v35 = contentsCopy;
+          v59 = v35;
+          v66 = &v107;
+          v36 = v33;
+          v63 = v36;
+          v67 = &v95;
+          v37 = v32;
+          v60 = v37;
+          v68 = &v91;
+          v69 = v111;
+          v61 = attrsCopy;
           selfCopy = self;
-          v71 = v113;
-          v72 = v115;
-          v43 = v35;
-          v65 = v43;
-          v39 = objc_retainBlock(v59);
-          v40 = malloc_type_malloc(0xF0uLL, 0x1000040D9093685uLL);
-          v109[3] = v40;
-          if (v40)
+          v70 = v112;
+          v71 = v114;
+          v42 = v34;
+          v64 = v42;
+          v38 = objc_retainBlock(v58);
+          v39 = malloc_type_malloc(0xF0uLL, 0x1000040D9093685uLL);
+          v108[3] = v39;
+          if (v39)
           {
-            *(v93 + 24) = 0;
+            *(v92 + 24) = 0;
             if (([(smbMount *)self sm_flags]& 1) != 0)
             {
-              v56[0] = _NSConcreteStackBlock;
-              v56[1] = 3221225472;
-              v56[2] = sub_100016E4C;
-              v56[3] = &unk_10008D208;
-              v58[1] = &v102;
-              v57 = v38;
-              v58[0] = v36;
-              v58[2] = &v108;
-              v49[0] = _NSConcreteStackBlock;
-              v49[1] = 3221225472;
-              v49[2] = sub_100016F30;
-              v49[3] = &unk_10008D258;
-              v49[4] = self;
-              v53 = &v102;
-              v50 = v57;
-              v51 = v58[0];
-              v54 = &v108;
-              v55 = &v92;
-              v52 = v39;
-              [(smbMount *)self submitRequestBlockOnce:v56 continuationBlock:v49];
+              v55[0] = _NSConcreteStackBlock;
+              v55[1] = 3221225472;
+              v55[2] = sub_100016E4C;
+              v55[3] = &unk_10008D208;
+              v57[1] = &v101;
+              v56 = v37;
+              v57[0] = v35;
+              v57[2] = &v107;
+              v48[0] = _NSConcreteStackBlock;
+              v48[1] = 3221225472;
+              v48[2] = sub_100016F30;
+              v48[3] = &unk_10008D258;
+              v48[4] = self;
+              v52 = &v101;
+              v49 = v56;
+              v50 = v57[0];
+              v53 = &v107;
+              v54 = &v91;
+              v51 = v38;
+              [(smbMount *)self submitRequestBlockOnce:v55 continuationBlock:v48];
 
-              v41 = &v57;
-              v42 = v58;
+              v40 = &v56;
+              v41 = v57;
             }
 
             else
             {
-              *(v93 + 24) = 1;
-              v46[0] = _NSConcreteStackBlock;
-              v46[1] = 3221225472;
-              v46[2] = sub_1000171CC;
-              v46[3] = &unk_10008D208;
-              v48[1] = &v102;
-              v47 = v38;
-              v48[0] = v36;
-              v48[2] = &v108;
-              v44[0] = _NSConcreteStackBlock;
-              v44[1] = 3221225472;
-              v44[2] = sub_1000172B0;
-              v44[3] = &unk_10008CA10;
-              v45 = v39;
-              [(smbMount *)self submitRequestBlockOnce:v46 continuationBlock:v44];
+              *(v92 + 24) = 1;
+              v45[0] = _NSConcreteStackBlock;
+              v45[1] = 3221225472;
+              v45[2] = sub_1000171CC;
+              v45[3] = &unk_10008D208;
+              v47[1] = &v101;
+              v46 = v37;
+              v47[0] = v35;
+              v47[2] = &v107;
+              v43[0] = _NSConcreteStackBlock;
+              v43[1] = 3221225472;
+              v43[2] = sub_1000172B0;
+              v43[3] = &unk_10008CA10;
+              v44 = v38;
+              [(smbMount *)self submitRequestBlockOnce:v45 continuationBlock:v43];
 
-              v41 = &v47;
-              v42 = v48;
+              v40 = &v46;
+              v41 = v47;
             }
           }
 
@@ -3189,7 +3356,7 @@ LABEL_8:
               sub_100052908();
             }
 
-            (*(v37 + 2))(v37, 12, 0, 0, 0, 0);
+            (*(v36 + 2))(v36, 12, 0, 0, 0, 0);
           }
         }
 
@@ -3197,30 +3364,30 @@ LABEL_8:
       }
     }
 
-    else if ((v89[3] & 1) == 0)
+    else if ((v88[3] & 1) == 0)
     {
-      v31 = &_os_log_default;
+      v30 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v32 = namedCopy;
-        sub_10005294C([namedCopy UTF8String], v117);
+        v31 = namedCopy;
+        sub_10005294C([namedCopy UTF8String], v116);
       }
 
-      v30 = 2;
+      v29 = 2;
       goto LABEL_23;
     }
 
-    v28 = &_os_log_default;
+    v27 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v29 = v23;
-      sub_10005298C([v23 UTF8String], v117);
+      v28 = v23;
+      sub_10005298C([v23 UTF8String], v116);
     }
 
-    v30 = 70;
+    v29 = 70;
 LABEL_23:
 
-    (*(replyCopy + 2))(replyCopy, v30, 0, 0, 0, 0);
+    (*(replyCopy + 2))(replyCopy, v29, 0, 0, 0, 0);
 LABEL_34:
 
     goto LABEL_9;
@@ -3240,17 +3407,17 @@ LABEL_8:
 
   (*(replyCopy + 2))(replyCopy, checkServerConnection, 0, 0, 0, 0);
 LABEL_9:
-  _Block_object_dispose(v87, 8);
-  _Block_object_dispose(&v88, 8);
-  _Block_object_dispose(&v92, 8);
-  _Block_object_dispose(&v96, 8);
+  _Block_object_dispose(v86, 8);
+  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v91, 8);
+  _Block_object_dispose(&v95, 8);
 
-  _Block_object_dispose(&v102, 8);
-  _Block_object_dispose(&v108, 8);
+  _Block_object_dispose(&v101, 8);
+  _Block_object_dispose(&v107, 8);
+  _Block_object_dispose(v111, 8);
   _Block_object_dispose(v112, 8);
-  _Block_object_dispose(v113, 8);
 
-  _Block_object_dispose(v115, 8);
+  _Block_object_dispose(v114, 8);
 }
 
 - (void)pathConfiguration:(id)configuration requestID:(unint64_t)d reply:(id)reply
@@ -3606,22 +3773,22 @@ LABEL_21:
 {
   linkCopy = link;
   replyCopy = reply;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = sub_10000B2A0;
-  v54 = sub_10000B2B0;
-  v55 = 0;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = sub_10000B2A0;
-  v48 = sub_10000B2B0;
   v49 = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = sub_10000B2A0;
+  v53 = sub_10000B2B0;
+  v54 = 0;
   v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = sub_10000B2A0;
+  v47 = sub_10000B2B0;
+  v48 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 0;
   checkServerConnection = [(smbMount *)self checkServerConnection];
   if (!checkServerConnection)
   {
@@ -3630,107 +3797,106 @@ LABEL_21:
     block[1] = 3221225472;
     block[2] = sub_100018E84;
     block[3] = &unk_10008C948;
-    v38 = &v44;
+    v37 = &v43;
     block[4] = self;
     v11 = linkCopy;
-    v37 = v11;
-    v39 = &v40;
+    v36 = v11;
+    v38 = &v39;
     dispatch_sync(nodeTableSyncQueue, block);
-    v12 = v45[5];
-    v13 = *(v41 + 24);
+    v12 = v44[5];
     if (v12)
     {
-      if ((v41[3] & 1) == 0)
+      if ((v40[3] & 1) == 0)
       {
         if ([v12 isSymlink])
         {
-          symlinkTargetCache = [v45[5] symlinkTargetCache];
-          v15 = v51[5];
-          v51[5] = symlinkTargetCache;
+          symlinkTargetCache = [v44[5] symlinkTargetCache];
+          v14 = v50[5];
+          v50[5] = symlinkTargetCache;
 
-          if (v51[5])
+          if (v50[5])
           {
-            v16 = v45[5];
-            v32[0] = _NSConcreteStackBlock;
-            v32[1] = 3221225472;
-            v32[2] = sub_100018EE0;
-            v32[3] = &unk_10008D398;
-            v32[4] = self;
-            v34 = &v44;
-            v33 = replyCopy;
-            v35 = &v50;
-            [v16 fetchAttrDataWithCompletionHandler:v32];
+            v15 = v44[5];
+            v31[0] = _NSConcreteStackBlock;
+            v31[1] = 3221225472;
+            v31[2] = sub_100018EE0;
+            v31[3] = &unk_10008D398;
+            v31[4] = self;
+            v33 = &v43;
+            v32 = replyCopy;
+            v34 = &v49;
+            [v15 fetchAttrDataWithCompletionHandler:v31];
           }
 
           else
           {
-            v31[0] = _NSConcreteStackBlock;
-            v31[1] = 3221225472;
-            v31[2] = sub_100018FF0;
-            v31[3] = &unk_10008D3C0;
-            v31[4] = &v44;
-            v31[5] = &v50;
-            v27[0] = _NSConcreteStackBlock;
-            v27[1] = 3221225472;
-            v27[2] = sub_100019124;
-            v27[3] = &unk_10008D3E8;
-            v29 = &v44;
-            v30 = &v50;
-            v27[4] = self;
-            v28 = replyCopy;
-            [(smbMount *)self submitRequestBlockOnce:v31 continuationBlock:v27];
+            v30[0] = _NSConcreteStackBlock;
+            v30[1] = 3221225472;
+            v30[2] = sub_100018FF0;
+            v30[3] = &unk_10008D3C0;
+            v30[4] = &v43;
+            v30[5] = &v49;
+            v26[0] = _NSConcreteStackBlock;
+            v26[1] = 3221225472;
+            v26[2] = sub_100019124;
+            v26[3] = &unk_10008D3E8;
+            v28 = &v43;
+            v29 = &v49;
+            v26[4] = self;
+            v27 = replyCopy;
+            [(smbMount *)self submitRequestBlockOnce:v30 continuationBlock:v26];
           }
 
           goto LABEL_23;
         }
 
-        v24 = &_os_log_default;
+        v23 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
         {
-          name = [v45[5] name];
-          v26 = name;
+          name = [v44[5] name];
+          v25 = name;
           [name UTF8String];
           sub_1000530F4();
         }
 
-        v19 = 22;
+        v18 = 22;
 LABEL_22:
 
-        (*(replyCopy + 2))(replyCopy, v19, 0, 0);
+        (*(replyCopy + 2))(replyCopy, v18, 0, 0);
 LABEL_23:
 
         goto LABEL_24;
       }
     }
 
-    else if ((v41[3] & 1) == 0)
+    else if ((v40[3] & 1) == 0)
     {
-      v20 = &_os_log_default;
+      v19 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v21 = v11;
-        sub_100053140([v11 UTF8String], v57);
+        v20 = v11;
+        sub_100053140([v11 UTF8String], v56);
       }
 
-      v19 = 2;
+      v18 = 2;
       goto LABEL_17;
     }
 
-    v17 = &_os_log_default;
+    v16 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v18 = v11;
-      sub_100053180([v11 UTF8String], v57);
+      v17 = v11;
+      sub_100053180([v11 UTF8String], v56);
     }
 
-    v19 = 70;
+    v18 = 70;
 LABEL_17:
 
-    v22 = &_os_log_default;
+    v21 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v23 = v11;
-      sub_100053140([v11 UTF8String], v56);
+      v22 = v11;
+      sub_100053140([v11 UTF8String], v55);
     }
 
     goto LABEL_22;
@@ -3748,10 +3914,10 @@ LABEL_17:
 
   (*(replyCopy + 2))(replyCopy, checkServerConnection, 0, 0);
 LABEL_24:
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v43, 8);
 
-  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v49, 8);
 }
 
 - (void)removeItem:(id)item from:(id)from named:(id)named usingFlags:(int)flags requestID:(unint64_t)d reply:(id)reply
@@ -3799,30 +3965,30 @@ LABEL_24:
   removeCopy = remove;
   nameCopy = name;
   replyCopy = reply;
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x3032000000;
-  v58 = sub_10000B2A0;
-  v59 = sub_10000B2B0;
-  v60 = 0;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = sub_10000B2A0;
-  v47[0] = 0;
-  v47[1] = v47;
-  v47[2] = 0x2020000000;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
-  v46 = 0;
-  v41[0] = 0;
-  v41[1] = v41;
-  v41[2] = 0x2020000000;
-  v42 = 0;
-  v53 = sub_10000B2B0;
   v54 = 0;
-  v48 = 1;
+  v55 = &v54;
+  v56 = 0x3032000000;
+  v57 = sub_10000B2A0;
+  v58 = sub_10000B2B0;
+  v59 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = sub_10000B2A0;
+  v46[0] = 0;
+  v46[1] = v46;
+  v46[2] = 0x2020000000;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
+  v40[0] = 0;
+  v40[1] = v40;
+  v40[2] = 0x2020000000;
+  v41 = 0;
+  v52 = sub_10000B2B0;
+  v53 = 0;
+  v47 = 1;
   checkServerConnection = [(smbMount *)self checkServerConnection];
   if (!checkServerConnection)
   {
@@ -3831,79 +3997,78 @@ LABEL_24:
     block[1] = 3221225472;
     block[2] = sub_100019C2C;
     block[3] = &unk_10008C948;
-    v39 = &v55;
+    v38 = &v54;
     block[4] = self;
     v14 = removeCopy;
-    v38 = v14;
-    v40 = &v43;
+    v37 = v14;
+    v39 = &v42;
     dispatch_sync(nodeTableSyncQueue, block);
-    v15 = *(v44 + 24);
-    if (v56[5])
+    if (v55[5])
     {
-      if ((v44[3] & 1) == 0)
+      if ((v43[3] & 1) == 0)
       {
-        v31[0] = _NSConcreteStackBlock;
-        v31[1] = 3221225472;
-        v31[2] = sub_100019C88;
-        v31[3] = &unk_10008D4D8;
-        v34 = v41;
-        v31[4] = self;
-        v35 = &v55;
-        v16 = nameCopy;
+        v30[0] = _NSConcreteStackBlock;
+        v30[1] = 3221225472;
+        v30[2] = sub_100019C88;
+        v30[3] = &unk_10008D4D8;
+        v33 = v40;
+        v30[4] = self;
+        v34 = &v54;
+        v15 = nameCopy;
+        v31 = v15;
+        v35 = v46;
+        v16 = replyCopy;
         v32 = v16;
-        v36 = v47;
-        v17 = replyCopy;
-        v33 = v17;
-        v18 = objc_retainBlock(v31);
-        v19 = self->_nodeTableSyncQueue;
-        v27[0] = _NSConcreteStackBlock;
-        v27[1] = 3221225472;
-        v27[2] = sub_10001A288;
-        v27[3] = &unk_10008C9E8;
-        v30 = &v49;
-        v27[4] = self;
-        v28 = v14;
-        v29 = v16;
-        dispatch_sync(v19, v27);
-        v20 = v50[5];
-        if (v20)
+        v17 = objc_retainBlock(v30);
+        v18 = self->_nodeTableSyncQueue;
+        v26[0] = _NSConcreteStackBlock;
+        v26[1] = 3221225472;
+        v26[2] = sub_10001A288;
+        v26[3] = &unk_10008C9E8;
+        v29 = &v48;
+        v26[4] = self;
+        v27 = v14;
+        v28 = v15;
+        dispatch_sync(v18, v26);
+        v19 = v49[5];
+        if (v19)
         {
-          if ([v20 isDir])
+          if ([v19 isDir])
           {
-            (*(v17 + 2))(v17, 21, 0, 0, 0, &stru_10008EA58, 0);
+            (*(v16 + 2))(v16, 21, 0, 0, 0, &stru_10008EA58, 0);
           }
 
           else
           {
-            v22 = v50[5];
-            v23[0] = _NSConcreteStackBlock;
-            v23[1] = 3221225472;
-            v23[2] = sub_10001A330;
-            v23[3] = &unk_10008D500;
-            v25 = &v49;
-            v26 = v47;
-            v24 = v18;
-            [v22 prepareForReclaim:v23];
+            v21 = v49[5];
+            v22[0] = _NSConcreteStackBlock;
+            v22[1] = 3221225472;
+            v22[2] = sub_10001A330;
+            v22[3] = &unk_10008D500;
+            v24 = &v48;
+            v25 = v46;
+            v23 = v17;
+            [v21 prepareForReclaim:v22];
           }
         }
 
         else
         {
-          (v18[2])(v18, 0);
+          (v17[2])(v17, 0);
         }
 
         goto LABEL_21;
       }
     }
 
-    else if ((v44[3] & 1) == 0)
+    else if ((v43[3] & 1) == 0)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         sub_1000532E8();
       }
 
-      v21 = 2;
+      v20 = 2;
       goto LABEL_17;
     }
 
@@ -3912,9 +4077,9 @@ LABEL_24:
       sub_100053360();
     }
 
-    v21 = 70;
+    v20 = 70;
 LABEL_17:
-    (*(replyCopy + 2))(replyCopy, v21, 0, 0, 0, &stru_10008EA58, 0);
+    (*(replyCopy + 2))(replyCopy, v20, 0, 0, 0, &stru_10008EA58, 0);
 LABEL_21:
 
     goto LABEL_22;
@@ -3932,12 +4097,12 @@ LABEL_21:
 
   (*(replyCopy + 2))(replyCopy, checkServerConnection, 0, 0, 0, &stru_10008EA58, 0);
 LABEL_22:
-  _Block_object_dispose(v41, 8);
-  _Block_object_dispose(&v43, 8);
-  _Block_object_dispose(v47, 8);
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(v40, 8);
+  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(v46, 8);
+  _Block_object_dispose(&v48, 8);
 
-  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v54, 8);
 }
 
 - (void)removeDirectory:(id)directory from:(id)from named:(id)named usingFlags:(int)flags requestID:(unint64_t)d reply:(id)reply
@@ -3985,26 +4150,26 @@ LABEL_22:
   dirCopy = dir;
   nameCopy = name;
   replyCopy = reply;
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x3032000000;
-  v62 = sub_10000B2A0;
-  v63 = sub_10000B2B0;
-  v64 = 0;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = sub_10000B2A0;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
-  v52 = 0;
-  v47[0] = 0;
-  v47[1] = v47;
-  v47[2] = 0x2020000000;
-  v48 = 0;
-  v57 = sub_10000B2B0;
   v58 = 0;
+  v59 = &v58;
+  v60 = 0x3032000000;
+  v61 = sub_10000B2A0;
+  v62 = sub_10000B2B0;
+  v63 = 0;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = sub_10000B2A0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 0;
+  v46[0] = 0;
+  v46[1] = v46;
+  v46[2] = 0x2020000000;
+  v47 = 0;
+  v56 = sub_10000B2B0;
+  v57 = 0;
   checkServerConnection = [(smbMount *)self checkServerConnection];
   if (!checkServerConnection)
   {
@@ -4013,102 +4178,101 @@ LABEL_22:
     block[1] = 3221225472;
     block[2] = sub_10001AC30;
     block[3] = &unk_10008C948;
-    v45 = &v59;
+    v44 = &v58;
     block[4] = self;
     v14 = dirCopy;
-    v44 = v14;
-    v46 = &v49;
+    v43 = v14;
+    v45 = &v48;
     dispatch_sync(nodeTableSyncQueue, block);
-    v15 = *(v50 + 24);
-    if (v60[5])
+    if (v59[5])
     {
-      if ((v50[3] & 1) == 0)
+      if ((v49[3] & 1) == 0)
       {
-        v37[0] = _NSConcreteStackBlock;
-        v37[1] = 3221225472;
-        v37[2] = sub_10001AC8C;
-        v37[3] = &unk_10008D5A0;
-        v41 = v47;
-        v37[4] = self;
-        v42 = &v59;
-        v16 = nameCopy;
-        v38 = v16;
-        v17 = replyCopy;
-        v40 = v17;
-        v18 = v14;
-        v39 = v18;
-        v19 = objc_retainBlock(v37);
-        v20 = self->_nodeTableSyncQueue;
-        v29 = _NSConcreteStackBlock;
-        v30 = 3221225472;
-        v31 = sub_10001B2F0;
-        v32 = &unk_10008C9E8;
-        v36 = &v53;
+        v36[0] = _NSConcreteStackBlock;
+        v36[1] = 3221225472;
+        v36[2] = sub_10001AC8C;
+        v36[3] = &unk_10008D5A0;
+        v40 = v46;
+        v36[4] = self;
+        v41 = &v58;
+        v15 = nameCopy;
+        v37 = v15;
+        v16 = replyCopy;
+        v39 = v16;
+        v17 = v14;
+        v38 = v17;
+        v18 = objc_retainBlock(v36);
+        v19 = self->_nodeTableSyncQueue;
+        v28 = _NSConcreteStackBlock;
+        v29 = 3221225472;
+        v30 = sub_10001B2F0;
+        v31 = &unk_10008C9E8;
+        v35 = &v52;
         selfCopy = self;
-        v34 = v18;
-        v35 = v16;
-        dispatch_sync(v20, &v29);
-        v21 = v54[5];
-        if (v21)
+        v33 = v17;
+        v34 = v15;
+        dispatch_sync(v19, &v28);
+        v20 = v53[5];
+        if (v20)
         {
-          if (([v21 isDir] & 1) == 0)
+          if (([v20 isDir] & 1) == 0)
           {
-            v22 = 20;
+            v21 = 20;
 LABEL_23:
-            (*(v17 + 2))(v17, v22, 0, 0, 0, &stru_10008EA58, 0);
+            (*(v16 + 2))(v16, v21, 0, 0, 0, &stru_10008EA58, 0);
 LABEL_26:
 
             goto LABEL_27;
           }
 
-          if ([v54[5] isRoot])
+          if ([v53[5] isRoot])
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
               sub_100053588();
             }
 
-            v22 = 13;
+            v21 = 13;
             goto LABEL_23;
           }
 
-          v28 = v54[5];
+          v27 = v53[5];
         }
 
         else
         {
-          v28 = 0;
+          v27 = 0;
         }
 
-        (v19[2])(v19, v28);
+        (v18[2])(v18, v27);
         goto LABEL_26;
       }
     }
 
-    else if ((v50[3] & 1) == 0)
+    else if ((v49[3] & 1) == 0)
     {
-      v26 = &_os_log_default;
+      v25 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v27 = nameCopy;
-        sub_1000535CC([nameCopy UTF8String], v65);
+        v26 = nameCopy;
+        sub_1000535CC([nameCopy UTF8String], v64);
       }
 
-      v25 = 2;
+      v24 = 2;
       goto LABEL_20;
     }
 
-    v23 = &_os_log_default;
+    v22 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v24 = v14;
-      sub_10005360C([v14 UTF8String], v65);
+      v23 = v14;
+      sub_10005360C([v14 UTF8String], v64);
     }
 
-    v25 = 70;
+    v24 = 70;
 LABEL_20:
 
-    (*(replyCopy + 2))(replyCopy, v25, 0, 0, 0, &stru_10008EA58, 0);
+    (*(replyCopy + 2))(replyCopy, v24, 0, 0, 0, &stru_10008EA58, 0);
 LABEL_27:
 
     goto LABEL_28;
@@ -4126,11 +4290,11 @@ LABEL_27:
 
   (*(replyCopy + 2))(replyCopy, checkServerConnection, 0, 0, 0, &stru_10008EA58, 0);
 LABEL_28:
-  _Block_object_dispose(v47, 8);
-  _Block_object_dispose(&v49, 8);
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(v46, 8);
+  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v52, 8);
 
-  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v58, 8);
 }
 
 - (void)renameItemIn:(id)in named:(id)named toDirectory:(id)directory newName:(id)name usingFlags:(unsigned int)flags requestID:(unint64_t)d reply:(id)reply
@@ -4202,44 +4366,46 @@ LABEL_28:
   dirCopy = dir;
   andNameCopy = andName;
   replyCopy = reply;
-  v146[0] = 0;
-  v146[1] = v146;
-  v146[2] = 0x3032000000;
-  v146[3] = sub_10000B2A0;
-  v146[4] = sub_10000B2B0;
-  v147 = 0;
   v144[0] = 0;
   v144[1] = v144;
   v144[2] = 0x3032000000;
   v144[3] = sub_10000B2A0;
   v144[4] = sub_10000B2B0;
   v145 = 0;
-  v138 = 0;
-  v139 = &v138;
-  v140 = 0x3032000000;
-  v141 = sub_10000B2A0;
-  v142 = sub_10000B2B0;
+  v142[0] = 0;
+  v142[1] = v142;
+  v142[2] = 0x3032000000;
+  v142[3] = sub_10000B2A0;
+  v142[4] = sub_10000B2B0;
   v143 = 0;
-  v132 = 0;
-  v133 = &v132;
-  v134 = 0x3032000000;
-  v135 = sub_10000B2A0;
-  v136 = sub_10000B2B0;
-  v126 = 0;
-  v127 = &v126;
-  v128 = 0x3032000000;
-  v129 = sub_10000B2A0;
-  v130 = sub_10000B2B0;
-  v131 = 0;
-  v120 = 0;
-  v121 = &v120;
-  v122 = 0x3032000000;
-  v123 = sub_10000B2A0;
-  v124 = sub_10000B2B0;
-  v177 = 0;
-  v178 = &v177;
-  v179 = 0x11010000000;
-  v180 = "";
+  v136 = 0;
+  v137 = &v136;
+  v138 = 0x3032000000;
+  v139 = sub_10000B2A0;
+  v140 = sub_10000B2B0;
+  v141 = 0;
+  v130 = 0;
+  v131 = &v130;
+  v132 = 0x3032000000;
+  v133 = sub_10000B2A0;
+  v134 = sub_10000B2B0;
+  v124 = 0;
+  v125 = &v124;
+  v126 = 0x3032000000;
+  v127 = sub_10000B2A0;
+  v128 = sub_10000B2B0;
+  v129 = 0;
+  v118 = 0;
+  v119 = &v118;
+  v120 = 0x3032000000;
+  v121 = sub_10000B2A0;
+  v122 = sub_10000B2B0;
+  v175 = 0;
+  v176 = &v175;
+  v177 = 0x11010000000;
+  v178 = "";
+  v179 = 0u;
+  v180 = 0u;
   v181 = 0u;
   v182 = 0u;
   v183 = 0u;
@@ -4253,12 +4419,12 @@ LABEL_28:
   v191 = 0u;
   v192 = 0u;
   v193 = 0u;
-  v194 = 0u;
-  v195 = 0u;
-  v158 = 0;
-  v159 = &v158;
-  v160 = 0x11010000000;
-  v161 = "";
+  v156 = 0;
+  v157 = &v156;
+  v158 = 0x11010000000;
+  v159 = "";
+  v160 = 0u;
+  v161 = 0u;
   v162 = 0u;
   v163 = 0u;
   v164 = 0u;
@@ -4272,32 +4438,30 @@ LABEL_28:
   v172 = 0u;
   v173 = 0u;
   v174 = 0u;
-  v175 = 0u;
-  v176 = 0u;
-  v116 = 0;
-  v117 = &v116;
-  v118 = 0x2020000000;
-  v119 = 0;
-  v114[0] = 0;
-  v114[1] = v114;
-  v114[2] = 0x2020000000;
-  v115 = 0;
-  v113[0] = 0;
-  v113[1] = v113;
-  v113[2] = 0x2020000000;
-  v113[3] = 0;
+  v114 = 0;
+  v115 = &v114;
+  v116 = 0x2020000000;
+  v117 = 0;
+  v112[0] = 0;
+  v112[1] = v112;
+  v112[2] = 0x2020000000;
+  v113 = 0;
   v111[0] = 0;
   v111[1] = v111;
-  v111[2] = 0x3032000000;
-  v111[3] = sub_10000B2A0;
-  v111[4] = sub_10000B2B0;
-  v112 = 0;
+  v111[2] = 0x2020000000;
+  v111[3] = 0;
   v109[0] = 0;
   v109[1] = v109;
-  v109[2] = 0x2020000000;
+  v109[2] = 0x3032000000;
+  v109[3] = sub_10000B2A0;
+  v109[4] = sub_10000B2B0;
   v110 = 0;
-  v125 = 0;
-  v137 = 0;
+  v107[0] = 0;
+  v107[1] = v107;
+  v107[2] = 0x2020000000;
+  v108 = 0;
+  v123 = 0;
+  v135 = 0;
 
   checkServerConnection = [(smbMount *)self checkServerConnection];
   if (!checkServerConnection)
@@ -4307,89 +4471,87 @@ LABEL_28:
     block[1] = 3221225472;
     block[2] = sub_10001C434;
     block[3] = &unk_10008C948;
-    v107 = &v138;
+    v105 = &v136;
     block[4] = self;
     v20 = renameCopy;
-    v106 = v20;
-    v108 = &v116;
+    v104 = v20;
+    v106 = &v114;
     dispatch_sync(nodeTableSyncQueue, block);
-    v21 = *(v117 + 24);
-    if (v139[5])
+    if (v137[5])
     {
-      if ((v117[3] & 1) == 0)
+      if ((v115[3] & 1) == 0)
       {
-        v22 = [v20 isEqualToString:dirCopy];
-        v23 = v22;
-        if (v22)
+        v21 = [v20 isEqualToString:dirCopy];
+        v22 = v21;
+        if (v21)
         {
-          objc_storeStrong(v127 + 5, v139[5]);
+          objc_storeStrong(v125 + 5, v137[5]);
           goto LABEL_20;
         }
 
-        v25 = self->_nodeTableSyncQueue;
-        v101[0] = _NSConcreteStackBlock;
-        v101[1] = 3221225472;
-        v101[2] = sub_10001C490;
-        v101[3] = &unk_10008C948;
-        v103 = &v126;
-        v101[4] = self;
-        v102 = dirCopy;
-        v104 = &v116;
-        dispatch_sync(v25, v101);
-        v26 = *(v117 + 24);
-        if (v127[5])
+        v24 = self->_nodeTableSyncQueue;
+        v99[0] = _NSConcreteStackBlock;
+        v99[1] = 3221225472;
+        v99[2] = sub_10001C490;
+        v99[3] = &unk_10008C948;
+        v101 = &v124;
+        v99[4] = self;
+        v100 = dirCopy;
+        v102 = &v114;
+        dispatch_sync(v24, v99);
+        if (v125[5])
         {
-          if ((v117[3] & 1) == 0)
+          if ((v115[3] & 1) == 0)
           {
 
 LABEL_20:
-            v27 = self->_nodeTableSyncQueue;
-            v100[0] = _NSConcreteStackBlock;
-            v100[1] = 3221225472;
-            v100[2] = sub_10001C4EC;
-            v100[3] = &unk_10008D618;
-            v100[6] = &v132;
-            v100[4] = self;
-            v100[7] = &v138;
-            v28 = nameCopy;
-            v100[5] = v28;
-            dispatch_sync(v27, v100);
-            v29 = v133[5];
-            if (v29)
+            v25 = self->_nodeTableSyncQueue;
+            v98[0] = _NSConcreteStackBlock;
+            v98[1] = 3221225472;
+            v98[2] = sub_10001C4EC;
+            v98[3] = &unk_10008D618;
+            v98[6] = &v130;
+            v98[4] = self;
+            v98[7] = &v136;
+            v26 = nameCopy;
+            v98[5] = v26;
+            dispatch_sync(v25, v98);
+            v27 = v131[5];
+            if (v27)
             {
-              v30 = v178;
-              getSmbFattr = [v29 getSmbFattr];
-              v32 = *getSmbFattr;
-              v33 = getSmbFattr[2];
-              *(v30 + 3) = getSmbFattr[1];
-              *(v30 + 4) = v33;
-              *(v30 + 2) = v32;
-              v34 = getSmbFattr[3];
-              v35 = getSmbFattr[4];
-              v36 = getSmbFattr[6];
-              *(v30 + 7) = getSmbFattr[5];
-              *(v30 + 8) = v36;
-              *(v30 + 5) = v34;
-              *(v30 + 6) = v35;
-              v37 = getSmbFattr[7];
-              v38 = getSmbFattr[8];
-              v39 = getSmbFattr[10];
-              *(v30 + 11) = getSmbFattr[9];
-              *(v30 + 12) = v39;
-              *(v30 + 9) = v37;
-              *(v30 + 10) = v38;
-              v40 = getSmbFattr[11];
-              v41 = getSmbFattr[12];
-              v42 = getSmbFattr[14];
-              *(v30 + 15) = getSmbFattr[13];
-              *(v30 + 16) = v42;
-              *(v30 + 13) = v40;
-              *(v30 + 14) = v41;
-              v70 = *(v178 + 38);
-              v43 = &_os_log_default;
+              v28 = v176;
+              getSmbFattr = [v27 getSmbFattr];
+              v30 = *getSmbFattr;
+              v31 = getSmbFattr[2];
+              *(v28 + 3) = getSmbFattr[1];
+              *(v28 + 4) = v31;
+              *(v28 + 2) = v30;
+              v32 = getSmbFattr[3];
+              v33 = getSmbFattr[4];
+              v34 = getSmbFattr[6];
+              *(v28 + 7) = getSmbFattr[5];
+              *(v28 + 8) = v34;
+              *(v28 + 5) = v32;
+              *(v28 + 6) = v33;
+              v35 = getSmbFattr[7];
+              v36 = getSmbFattr[8];
+              v37 = getSmbFattr[10];
+              *(v28 + 11) = getSmbFattr[9];
+              *(v28 + 12) = v37;
+              *(v28 + 9) = v35;
+              *(v28 + 10) = v36;
+              v38 = getSmbFattr[11];
+              v39 = getSmbFattr[12];
+              v40 = getSmbFattr[14];
+              *(v28 + 15) = getSmbFattr[13];
+              *(v28 + 16) = v40;
+              *(v28 + 13) = v38;
+              *(v28 + 14) = v39;
+              v68 = *(v176 + 38);
+              v41 = &_os_log_default;
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
               {
-                [v133[5] name];
+                [v131[5] name];
                 objc_claimAutoreleasedReturnValue();
                 sub_100053910();
               }
@@ -4402,166 +4564,166 @@ LABEL_20:
                 sub_10005395C();
               }
 
-              v70 = 0;
+              v68 = 0;
             }
 
-            v44 = self->_nodeTableSyncQueue;
-            v96[0] = _NSConcreteStackBlock;
-            v96[1] = 3221225472;
-            v96[2] = sub_10001C5AC;
-            v96[3] = &unk_10008D618;
-            v98 = &v120;
-            v96[4] = self;
-            v99 = &v126;
-            v45 = andNameCopy;
-            v97 = v45;
-            dispatch_sync(v44, v96);
-            v46 = v133[5];
-            v47 = v121;
-            if (v46)
+            v42 = self->_nodeTableSyncQueue;
+            v94[0] = _NSConcreteStackBlock;
+            v94[1] = 3221225472;
+            v94[2] = sub_10001C5AC;
+            v94[3] = &unk_10008D618;
+            v96 = &v118;
+            v94[4] = self;
+            v97 = &v124;
+            v43 = andNameCopy;
+            v95 = v43;
+            dispatch_sync(v42, v94);
+            v44 = v131[5];
+            v45 = v119;
+            if (v44)
             {
-              v48 = v121[5];
-              if (v46 == v48)
+              v46 = v119[5];
+              if (v44 == v46)
               {
-                v121[5] = 0;
+                v119[5] = 0;
 
-                v47 = v121;
+                v45 = v119;
               }
             }
 
-            v49 = v47[5];
-            if (v49)
+            v47 = v45[5];
+            if (v47)
             {
-              v50 = v159;
-              getSmbFattr2 = [v49 getSmbFattr];
-              v52 = *getSmbFattr2;
-              v53 = getSmbFattr2[2];
-              *(v50 + 3) = getSmbFattr2[1];
-              *(v50 + 4) = v53;
-              *(v50 + 2) = v52;
-              v54 = getSmbFattr2[3];
-              v55 = getSmbFattr2[4];
-              v56 = getSmbFattr2[6];
-              *(v50 + 7) = getSmbFattr2[5];
-              *(v50 + 8) = v56;
-              *(v50 + 5) = v54;
-              *(v50 + 6) = v55;
-              v57 = getSmbFattr2[7];
-              v58 = getSmbFattr2[8];
-              v59 = getSmbFattr2[10];
-              *(v50 + 11) = getSmbFattr2[9];
-              *(v50 + 12) = v59;
-              *(v50 + 9) = v57;
-              *(v50 + 10) = v58;
-              v60 = getSmbFattr2[11];
-              v61 = getSmbFattr2[12];
-              v62 = getSmbFattr2[14];
-              *(v50 + 15) = getSmbFattr2[13];
-              *(v50 + 16) = v62;
-              *(v50 + 13) = v60;
-              *(v50 + 14) = v61;
+              v48 = v157;
+              getSmbFattr2 = [v47 getSmbFattr];
+              v50 = *getSmbFattr2;
+              v51 = getSmbFattr2[2];
+              *(v48 + 3) = getSmbFattr2[1];
+              *(v48 + 4) = v51;
+              *(v48 + 2) = v50;
+              v52 = getSmbFattr2[3];
+              v53 = getSmbFattr2[4];
+              v54 = getSmbFattr2[6];
+              *(v48 + 7) = getSmbFattr2[5];
+              *(v48 + 8) = v54;
+              *(v48 + 5) = v52;
+              *(v48 + 6) = v53;
+              v55 = getSmbFattr2[7];
+              v56 = getSmbFattr2[8];
+              v57 = getSmbFattr2[10];
+              *(v48 + 11) = getSmbFattr2[9];
+              *(v48 + 12) = v57;
+              *(v48 + 9) = v55;
+              *(v48 + 10) = v56;
+              v58 = getSmbFattr2[11];
+              v59 = getSmbFattr2[12];
+              v60 = getSmbFattr2[14];
+              *(v48 + 15) = getSmbFattr2[13];
+              *(v48 + 16) = v60;
+              *(v48 + 13) = v58;
+              *(v48 + 14) = v59;
             }
 
-            if (!v133[5])
+            if (!v131[5])
             {
               goto LABEL_35;
             }
 
-            if (!v121[5])
+            if (!v119[5])
             {
               goto LABEL_35;
             }
 
-            v63 = *(v178 + 38);
-            v64 = *(v159 + 38);
-            if (v63 == v64)
+            v61 = *(v176 + 38);
+            v62 = *(v157 + 38);
+            if (v61 == v62)
             {
               goto LABEL_35;
             }
 
-            if (v63 != 2 || v64 == 2)
+            if (v61 != 2 || v62 == 2)
             {
-              if (v63 == 2 || v64 != 2)
+              if (v61 == 2 || v62 != 2)
               {
 LABEL_35:
-                v89[0] = _NSConcreteStackBlock;
-                v89[1] = 3221225472;
-                v89[2] = sub_10001C66C;
-                v89[3] = &unk_10008D640;
-                v92 = &v138;
-                v95 = v23;
-                v90 = v28;
-                v93 = &v126;
-                v91 = v45;
-                v94 = v70;
-                v72[0] = _NSConcreteStackBlock;
-                v72[1] = 3221225472;
-                v72[2] = sub_10001C778;
-                v72[3] = &unk_10008D730;
-                v76 = &v132;
-                v77 = &v138;
-                v72[4] = self;
-                v78 = &v120;
-                v79 = v111;
-                v80 = v113;
-                v81 = v109;
-                v82 = &v158;
-                v83 = &v126;
-                v88 = v23;
-                v73 = v91;
-                v84 = v114;
-                v85 = &v177;
-                v74 = v90;
-                v75 = replyCopy;
-                v86 = v146;
-                v87 = v144;
-                [(smbMount *)self submitRequestBlockOnce:v89 continuationBlock:v72];
+                v87[0] = _NSConcreteStackBlock;
+                v87[1] = 3221225472;
+                v87[2] = sub_10001C66C;
+                v87[3] = &unk_10008D640;
+                v90 = &v136;
+                v93 = v22;
+                v88 = v26;
+                v91 = &v124;
+                v89 = v43;
+                v92 = v68;
+                v70[0] = _NSConcreteStackBlock;
+                v70[1] = 3221225472;
+                v70[2] = sub_10001C778;
+                v70[3] = &unk_10008D730;
+                v74 = &v130;
+                v75 = &v136;
+                v70[4] = self;
+                v76 = &v118;
+                v77 = v109;
+                v78 = v111;
+                v79 = v107;
+                v80 = &v156;
+                v81 = &v124;
+                v86 = v22;
+                v71 = v89;
+                v82 = v112;
+                v83 = &v175;
+                v72 = v88;
+                v73 = replyCopy;
+                v84 = v144;
+                v85 = v142;
+                [(smbMount *)self submitRequestBlockOnce:v87 continuationBlock:v70];
 
 LABEL_36:
-                v65 = v100;
+                v63 = v98;
 LABEL_48:
 
                 goto LABEL_49;
               }
 
-              v67 = 21;
+              v65 = 21;
             }
 
             else
             {
-              v67 = 20;
+              v65 = 20;
             }
 
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
-              v68 = *(v178 + 38);
-              v69 = *(v159 + 38);
+              v66 = *(v176 + 38);
+              v67 = *(v157 + 38);
               *buf = 138413314;
-              v149 = v28;
-              v150 = 1024;
-              v151 = v68;
-              v152 = 2112;
-              v153 = v45;
+              v147 = v26;
+              v148 = 1024;
+              v149 = v66;
+              v150 = 2112;
+              v151 = v43;
+              v152 = 1024;
+              v153 = v67;
               v154 = 1024;
-              v155 = v69;
-              v156 = 1024;
-              v157 = v67;
+              v155 = v65;
               _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "LIRename: type mismatch, fromName: %@, fa_vtype: 0x%x, toName: %@, fa_vtype: 0x%x, error: %d\n", buf, 0x28u);
             }
 
-            (*(replyCopy + 2))(replyCopy, v67, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            (*(replyCopy + 2))(replyCopy, v65, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
             goto LABEL_36;
           }
         }
 
-        else if ((v117[3] & 1) == 0)
+        else if ((v115[3] & 1) == 0)
         {
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             sub_100053888();
           }
 
-          v66 = 2;
+          v64 = 2;
           goto LABEL_47;
         }
 
@@ -4570,22 +4732,22 @@ LABEL_48:
           sub_1000538CC();
         }
 
-        v66 = 70;
+        v64 = 70;
 LABEL_47:
-        (*(replyCopy + 2))(replyCopy, v66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-        v65 = v101;
+        (*(replyCopy + 2))(replyCopy, v64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        v63 = v99;
         goto LABEL_48;
       }
     }
 
-    else if ((v117[3] & 1) == 0)
+    else if ((v115[3] & 1) == 0)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         sub_1000539D4();
       }
 
-      v24 = 2;
+      v23 = 2;
       goto LABEL_16;
     }
 
@@ -4594,9 +4756,9 @@ LABEL_47:
       sub_100053A18();
     }
 
-    v24 = 70;
+    v23 = 70;
 LABEL_16:
-    (*(replyCopy + 2))(replyCopy, v24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    (*(replyCopy + 2))(replyCopy, v23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 LABEL_49:
 
     goto LABEL_50;
@@ -4614,23 +4776,23 @@ LABEL_49:
 
   (*(replyCopy + 2))(replyCopy, checkServerConnection, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 LABEL_50:
+  _Block_object_dispose(v107, 8);
   _Block_object_dispose(v109, 8);
+
   _Block_object_dispose(v111, 8);
+  _Block_object_dispose(v112, 8);
+  _Block_object_dispose(&v114, 8);
+  _Block_object_dispose(&v156, 8);
+  _Block_object_dispose(&v175, 8);
+  _Block_object_dispose(&v118, 8);
 
-  _Block_object_dispose(v113, 8);
-  _Block_object_dispose(v114, 8);
-  _Block_object_dispose(&v116, 8);
-  _Block_object_dispose(&v158, 8);
-  _Block_object_dispose(&v177, 8);
-  _Block_object_dispose(&v120, 8);
+  _Block_object_dispose(&v124, 8);
+  _Block_object_dispose(&v130, 8);
 
-  _Block_object_dispose(&v126, 8);
-  _Block_object_dispose(&v132, 8);
+  _Block_object_dispose(&v136, 8);
+  _Block_object_dispose(v142, 8);
 
-  _Block_object_dispose(&v138, 8);
   _Block_object_dispose(v144, 8);
-
-  _Block_object_dispose(v146, 8);
 }
 
 - (void)setAttrInternalLocked:(id)locked setAttrs:(id)attrs CompletionHandler:(id)handler
@@ -5031,22 +5193,22 @@ LABEL_9:
   writeCopy = write;
   bufferCopy = buffer;
   replyCopy = reply;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = sub_10000B2A0;
-  v48 = sub_10000B2B0;
-  v49 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = sub_10000B2A0;
-  v42 = sub_10000B2B0;
   v43 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = sub_10000B2A0;
+  v47 = sub_10000B2B0;
+  v48 = 0;
   v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = sub_10000B2A0;
+  v41 = sub_10000B2B0;
+  v42 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
   checkServerConnection = [(smbMount *)self checkServerConnection];
   if (!checkServerConnection)
   {
@@ -5055,47 +5217,46 @@ LABEL_9:
     block[1] = 3221225472;
     block[2] = sub_10001FB40;
     block[3] = &unk_10008C948;
-    v32 = &v44;
+    v31 = &v43;
     block[4] = self;
     v16 = writeCopy;
-    v31 = v16;
-    v33 = &v34;
+    v30 = v16;
+    v32 = &v33;
     dispatch_sync(nodeTableSyncQueue, block);
-    v17 = v45[5];
-    v18 = *(v35 + 24);
+    v17 = v44[5];
     if (v17)
     {
-      if ((v35[3] & 1) == 0)
+      if ((v34[3] & 1) == 0)
       {
         fileRefSyncQueue = [v17 fileRefSyncQueue];
-        v29[0] = _NSConcreteStackBlock;
-        v29[1] = 3221225472;
-        v29[2] = sub_10001FB9C;
-        v29[3] = &unk_10008CD08;
-        v29[4] = &v38;
-        v29[5] = &v44;
-        dispatch_sync(fileRefSyncQueue, v29);
+        v28[0] = _NSConcreteStackBlock;
+        v28[1] = 3221225472;
+        v28[2] = sub_10001FB9C;
+        v28[3] = &unk_10008CD08;
+        v28[4] = &v37;
+        v28[5] = &v43;
+        dispatch_sync(fileRefSyncQueue, v28);
 
-        v20 = v39[5];
-        if (v20)
+        v19 = v38[5];
+        if (v19)
         {
-          fidCtx = [v20 fidCtx];
-          v22 = fidCtx == 0;
+          fidCtx = [v19 fidCtx];
+          v21 = fidCtx == 0;
 
-          if (!v22)
+          if (!v21)
           {
-            v23 = malloc_type_malloc(0x20uLL, 0x1010040BA4D407CuLL);
-            -[smbMount writeRequest:withBuffer:smbNode:fileRef:wrparamPtr:result:thisOffset:bytesWritten:bytesRemain:pass:reply:](self, "writeRequest:withBuffer:smbNode:fileRef:wrparamPtr:result:thisOffset:bytesWritten:bytesRemain:pass:reply:", v16, bufferCopy, v45[5], v39[5], v23, 0, offset, 0, [bufferCopy length], 0, replyCopy);
+            v22 = malloc_type_malloc(0x20uLL, 0x1010040BA4D407CuLL);
+            -[smbMount writeRequest:withBuffer:smbNode:fileRef:wrparamPtr:result:thisOffset:bytesWritten:bytesRemain:pass:reply:](self, "writeRequest:withBuffer:smbNode:fileRef:wrparamPtr:result:thisOffset:bytesWritten:bytesRemain:pass:reply:", v16, bufferCopy, v44[5], v38[5], v22, 0, offset, 0, [bufferCopy length], 0, replyCopy);
 LABEL_24:
 
             goto LABEL_25;
           }
 
-          v26 = &_os_log_default;
+          v25 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            name = [v45[5] name];
-            v28 = name;
+            name = [v44[5] name];
+            v27 = name;
             [name UTF8String];
             sub_10005413C();
           }
@@ -5103,30 +5264,30 @@ LABEL_24:
 
         else
         {
-          v25 = &_os_log_default;
+          v24 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            [v45[5] name];
+            [v44[5] name];
             objc_claimAutoreleasedReturnValue();
             sub_100054188();
           }
         }
 
-        v24 = 9;
+        v23 = 9;
 LABEL_23:
-        replyCopy[2](replyCopy, v24, 0);
+        replyCopy[2](replyCopy, v23, 0);
         goto LABEL_24;
       }
     }
 
-    else if ((v35[3] & 1) == 0)
+    else if ((v34[3] & 1) == 0)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         sub_1000541D4();
       }
 
-      v24 = 2;
+      v23 = 2;
       goto LABEL_23;
     }
 
@@ -5135,7 +5296,7 @@ LABEL_23:
       sub_10005424C();
     }
 
-    v24 = 70;
+    v23 = 70;
     goto LABEL_23;
   }
 
@@ -5151,10 +5312,10 @@ LABEL_23:
 
   replyCopy[2](replyCopy, checkServerConnection, 0);
 LABEL_25:
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v37, 8);
 
-  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v43, 8);
 }
 
 - (void)writeRequest:(id)request withBuffer:(id)buffer smbNode:(id)node fileRef:(id)ref wrparamPtr:(smb_read_write *)ptr result:(int)result thisOffset:(unint64_t)offset bytesWritten:(unint64_t)self0 bytesRemain:(unint64_t)self1 pass:(unint64_t)self2 reply:(id)self3
@@ -5220,26 +5381,26 @@ LABEL_25:
   xattrCopy = xattr;
   nameCopy = name;
   replyCopy = reply;
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x3032000000;
-  v62 = sub_10000B2A0;
-  v63 = sub_10000B2B0;
-  v64 = 0;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = sub_10000B2A0;
-  v57 = sub_10000B2B0;
   v58 = 0;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
+  v59 = &v58;
+  v60 = 0x3032000000;
+  v61 = sub_10000B2A0;
+  v62 = sub_10000B2B0;
+  v63 = 0;
   v52 = 0;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x2020000000;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = sub_10000B2A0;
+  v56 = sub_10000B2B0;
+  v57 = 0;
   v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
+  v47 = 0;
   checkServerConnection = [(smbMount *)self checkServerConnection];
   if (!checkServerConnection)
   {
@@ -5248,97 +5409,96 @@ LABEL_25:
     block[1] = 3221225472;
     block[2] = sub_1000209A8;
     block[3] = &unk_10008C948;
-    v43 = &v59;
+    v42 = &v58;
     block[4] = self;
     v14 = xattrCopy;
-    v42 = v14;
-    v44 = &v45;
+    v41 = v14;
+    v43 = &v44;
     dispatch_sync(nodeTableSyncQueue, block);
-    v15 = v60[5];
-    v16 = *(v46 + 24);
+    v15 = v59[5];
     if (v15)
     {
-      if ((v46[3] & 1) == 0)
+      if ((v45[3] & 1) == 0)
       {
         if ((self->_shareInfo.fileSystemAttrs & 0x40000) != 0)
         {
           xattrCache = [v15 xattrCache];
-          v65[0] = 0;
-          v23 = [xattrCache dataForName:nameCopy wasNegative:v65];
-          if (v23)
+          v64[0] = 0;
+          v22 = [xattrCache dataForName:nameCopy wasNegative:v64];
+          if (v22)
           {
-            replyCopy[2](replyCopy, 0, v23);
+            replyCopy[2](replyCopy, 0, v22);
           }
 
-          else if (v65[0] == 1)
+          else if (v64[0] == 1)
           {
             replyCopy[2](replyCopy, 93, 0);
           }
 
           else
           {
-            v50[3] = 1024;
-            v24 = [NSMutableData alloc];
-            v25 = [v24 initWithLength:v50[3]];
-            v26 = v54[5];
-            v54[5] = v25;
+            v49[3] = 1024;
+            v23 = [NSMutableData alloc];
+            v24 = [v23 initWithLength:v49[3]];
+            v25 = v53[5];
+            v53[5] = v24;
 
-            v35[0] = _NSConcreteStackBlock;
-            v35[1] = 3221225472;
-            v35[2] = sub_100020A04;
-            v35[3] = &unk_10008D938;
-            v38 = &v59;
-            v36 = nameCopy;
+            v34[0] = _NSConcreteStackBlock;
+            v34[1] = 3221225472;
+            v34[2] = sub_100020A04;
+            v34[3] = &unk_10008D938;
+            v37 = &v58;
+            v35 = nameCopy;
             selfCopy = self;
-            v39 = &v53;
-            v40 = &v49;
-            v27[0] = _NSConcreteStackBlock;
-            v27[1] = 3221225472;
-            v27[2] = sub_100020B0C;
-            v27[3] = &unk_10008D988;
-            v32 = &v53;
-            v28 = xattrCache;
-            v29 = v36;
-            v33 = &v59;
-            v34 = &v49;
+            v38 = &v52;
+            v39 = &v48;
+            v26[0] = _NSConcreteStackBlock;
+            v26[1] = 3221225472;
+            v26[2] = sub_100020B0C;
+            v26[3] = &unk_10008D988;
+            v31 = &v52;
+            v27 = xattrCache;
+            v28 = v35;
+            v32 = &v58;
+            v33 = &v48;
             selfCopy2 = self;
-            v31 = replyCopy;
-            [(smbMount *)self submitRequestBlock:v35 continuationBlock:v27];
+            v30 = replyCopy;
+            [(smbMount *)self submitRequestBlock:v34 continuationBlock:v26];
           }
 
           goto LABEL_18;
         }
 
-        v17 = 93;
+        v16 = 93;
 LABEL_17:
-        replyCopy[2](replyCopy, v17, 0);
+        replyCopy[2](replyCopy, v16, 0);
 LABEL_18:
 
         goto LABEL_19;
       }
     }
 
-    else if ((v46[3] & 1) == 0)
+    else if ((v45[3] & 1) == 0)
     {
-      v20 = &_os_log_default;
+      v19 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
       {
-        v21 = v14;
-        sub_1000543C8([v14 UTF8String], v65);
+        v20 = v14;
+        sub_1000543C8([v14 UTF8String], v64);
       }
 
-      v17 = 9;
+      v16 = 9;
       goto LABEL_16;
     }
 
-    v18 = &_os_log_default;
+    v17 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
     {
-      v19 = v14;
-      sub_100054408([v14 UTF8String], v65);
+      v18 = v14;
+      sub_100054408([v14 UTF8String], v64);
     }
 
-    v17 = 70;
+    v16 = 70;
 LABEL_16:
 
     goto LABEL_17;
@@ -5356,11 +5516,11 @@ LABEL_16:
 
   replyCopy[2](replyCopy, checkServerConnection, 0);
 LABEL_19:
-  _Block_object_dispose(&v45, 8);
-  _Block_object_dispose(&v49, 8);
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v52, 8);
 
-  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v58, 8);
 }
 
 - (void)setXattrOf:(id)of named:(id)named value:(id)value how:(int)how requestID:(unint64_t)d reply:(id)reply
@@ -5399,61 +5559,60 @@ LABEL_19:
   nameCopy = name;
   valueCopy = value;
   replyCopy = reply;
-  v65 = 0;
-  v66 = &v65;
-  v67 = 0x3032000000;
-  v68 = sub_10000B2A0;
-  v69 = sub_10000B2B0;
-  v70 = 0;
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x2020000000;
   v64 = 0;
-  v60[0] = 0;
-  v60[1] = v60;
-  v60[2] = 0x2020000000;
-  v60[3] = 0;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v59 = 0;
-  v54[0] = 0;
-  v54[1] = v54;
-  v54[2] = 0x3032000000;
-  v54[3] = sub_10000B2A0;
-  v54[4] = sub_10000B2B0;
+  v65 = &v64;
+  v66 = 0x3032000000;
+  v67 = sub_10000B2A0;
+  v68 = sub_10000B2B0;
+  v69 = 0;
+  v60 = 0;
+  v61 = &v60;
+  v62 = 0x2020000000;
+  v63 = 0;
+  v59[0] = 0;
+  v59[1] = v59;
+  v59[2] = 0x2020000000;
+  v59[3] = 0;
   v55 = 0;
+  v56 = &v55;
+  v57 = 0x2020000000;
+  v58 = 0;
+  v53[0] = 0;
+  v53[1] = v53;
+  v53[2] = 0x3032000000;
+  v53[3] = sub_10000B2A0;
+  v53[4] = sub_10000B2B0;
+  v54 = 0;
   checkServerConnection = [(smbMount *)self checkServerConnection];
   if (!checkServerConnection)
   {
-    v62[3] = 0;
+    v61[3] = 0;
     nodeTableSyncQueue = self->_nodeTableSyncQueue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10002187C;
     block[3] = &unk_10008C948;
-    v52 = &v65;
+    v51 = &v64;
     block[4] = self;
-    v51 = xattrCopy;
-    v53 = &v56;
+    v50 = xattrCopy;
+    v52 = &v55;
     dispatch_sync(nodeTableSyncQueue, block);
-    v19 = v66[5];
-    v20 = *(v57 + 24);
+    v19 = v65[5];
     if (v19)
     {
-      if ((v57[3] & 1) == 0)
+      if ((v56[3] & 1) == 0)
       {
         xattrCache = [v19 xattrCache];
-        v44[0] = _NSConcreteStackBlock;
-        v44[1] = 3221225472;
-        v44[2] = sub_1000218D8;
-        v44[3] = &unk_10008DA00;
-        v46 = &v61;
-        v47 = &v65;
-        v48 = v54;
-        v49 = v60;
-        v45 = replyCopy;
-        v22 = objc_retainBlock(v44);
+        v43[0] = _NSConcreteStackBlock;
+        v43[1] = 3221225472;
+        v43[2] = sub_1000218D8;
+        v43[3] = &unk_10008DA00;
+        v45 = &v60;
+        v46 = &v64;
+        v47 = v53;
+        v48 = v59;
+        v44 = replyCopy;
+        v21 = objc_retainBlock(v43);
         if (how >= 3)
         {
           if (how != 3)
@@ -5463,63 +5622,63 @@ LABEL_20:
             goto LABEL_21;
           }
 
-          v30[0] = _NSConcreteStackBlock;
-          v30[1] = 3221225472;
-          v30[2] = sub_100021C10;
-          v30[3] = &unk_10008D528;
-          v31[1] = &v65;
-          v31[0] = nameCopy;
-          v25[0] = _NSConcreteStackBlock;
-          v25[1] = 3221225472;
-          v25[2] = sub_100021CD8;
-          v25[3] = &unk_10008D960;
-          v29 = &v65;
-          v26 = v31[0];
-          v27 = xattrCache;
-          v28 = v22;
-          [(smbMount *)self submitRequestBlockOnce:v30 continuationBlock:v25];
+          v29[0] = _NSConcreteStackBlock;
+          v29[1] = 3221225472;
+          v29[2] = sub_100021C10;
+          v29[3] = &unk_10008D528;
+          v30[1] = &v64;
+          v30[0] = nameCopy;
+          v24[0] = _NSConcreteStackBlock;
+          v24[1] = 3221225472;
+          v24[2] = sub_100021CD8;
+          v24[3] = &unk_10008D960;
+          v28 = &v64;
+          v25 = v30[0];
+          v26 = xattrCache;
+          v27 = v21;
+          [(smbMount *)self submitRequestBlockOnce:v29 continuationBlock:v24];
 
-          v23 = v31;
+          v22 = v30;
         }
 
         else
         {
-          v39[0] = _NSConcreteStackBlock;
-          v39[1] = 3221225472;
-          v39[2] = sub_100021AA8;
-          v39[3] = &unk_10008DA28;
-          v42 = &v65;
+          v38[0] = _NSConcreteStackBlock;
+          v38[1] = 3221225472;
+          v38[2] = sub_100021AA8;
+          v38[3] = &unk_10008DA28;
+          v41 = &v64;
           howCopy = how;
-          v40[0] = nameCopy;
-          v40[1] = self;
-          v41 = valueCopy;
-          v32[0] = _NSConcreteStackBlock;
-          v32[1] = 3221225472;
-          v32[2] = sub_100021BA4;
-          v32[3] = &unk_10008DA50;
-          v37 = &v65;
-          v33 = v40[0];
+          v39[0] = nameCopy;
+          v39[1] = self;
+          v40 = valueCopy;
+          v31[0] = _NSConcreteStackBlock;
+          v31[1] = 3221225472;
+          v31[2] = sub_100021BA4;
+          v31[3] = &unk_10008DA50;
+          v36 = &v64;
+          v32 = v39[0];
           howCopy2 = how;
-          v34 = xattrCache;
-          v35 = v41;
-          v36 = v22;
-          [(smbMount *)self submitRequestBlockOnce:v39 continuationBlock:v32];
+          v33 = xattrCache;
+          v34 = v40;
+          v35 = v21;
+          [(smbMount *)self submitRequestBlockOnce:v38 continuationBlock:v31];
 
-          v23 = v40;
+          v22 = v39;
         }
 
         goto LABEL_20;
       }
     }
 
-    else if ((v57[3] & 1) == 0)
+    else if ((v56[3] & 1) == 0)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
       {
         sub_100054684();
       }
 
-      v24 = 9;
+      v23 = 9;
       goto LABEL_16;
     }
 
@@ -5528,9 +5687,9 @@ LABEL_20:
       sub_1000546FC();
     }
 
-    v24 = 70;
+    v23 = 70;
 LABEL_16:
-    (*(replyCopy + 2))(replyCopy, v24, 0, 0, 0, 0, 2);
+    (*(replyCopy + 2))(replyCopy, v23, 0, 0, 0, 0, 2);
 LABEL_21:
 
     goto LABEL_22;
@@ -5548,12 +5707,12 @@ LABEL_21:
 
   (*(replyCopy + 2))(replyCopy, checkServerConnection, 0, 0, 0, 0, 2);
 LABEL_22:
-  _Block_object_dispose(v54, 8);
+  _Block_object_dispose(v53, 8);
 
-  _Block_object_dispose(&v56, 8);
-  _Block_object_dispose(v60, 8);
-  _Block_object_dispose(&v61, 8);
-  _Block_object_dispose(&v65, 8);
+  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(v59, 8);
+  _Block_object_dispose(&v60, 8);
+  _Block_object_dispose(&v64, 8);
 }
 
 - (void)listXattrsOf:(id)of requestID:(unint64_t)d reply:(id)reply
@@ -5583,22 +5742,22 @@ LABEL_22:
 {
   xattrsCopy = xattrs;
   replyCopy = reply;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = sub_10000B2A0;
-  v39 = sub_10000B2B0;
-  v40 = 0;
-  v33[0] = 0;
-  v33[1] = v33;
-  v33[2] = 0x3032000000;
-  v33[3] = sub_10000B2A0;
-  v33[4] = sub_10000B2B0;
   v34 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = sub_10000B2A0;
+  v38 = sub_10000B2B0;
+  v39 = 0;
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x3032000000;
+  v32[3] = sub_10000B2A0;
+  v32[4] = sub_10000B2B0;
+  v33 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
   checkServerConnection = [(smbMount *)self checkServerConnection];
   if (!checkServerConnection)
   {
@@ -5607,17 +5766,16 @@ LABEL_22:
     block[1] = 3221225472;
     block[2] = sub_1000223A4;
     block[3] = &unk_10008C948;
-    v27 = &v35;
+    v26 = &v34;
     block[4] = self;
     v11 = xattrsCopy;
-    v26 = v11;
-    v28 = &v29;
+    v25 = v11;
+    v27 = &v28;
     dispatch_sync(nodeTableSyncQueue, block);
-    v12 = v36[5];
-    v13 = *(v30 + 24);
+    v12 = v35[5];
     if (v12)
     {
-      if ((v30[3] & 1) == 0)
+      if ((v29[3] & 1) == 0)
       {
         xattrCache = [v12 xattrCache];
         if ([xattrCache noXattrsPresent])
@@ -5627,50 +5785,50 @@ LABEL_22:
 
         else
         {
-          v24[0] = _NSConcreteStackBlock;
-          v24[1] = 3221225472;
-          v24[2] = sub_100022400;
-          v24[3] = &unk_10008D3C0;
-          v24[4] = &v35;
-          v24[5] = v33;
-          v20[0] = _NSConcreteStackBlock;
-          v20[1] = 3221225472;
-          v20[2] = sub_100022534;
-          v20[3] = &unk_10008DAC8;
-          v22 = replyCopy;
-          v21 = xattrCache;
-          v23 = v33;
-          [(smbMount *)self submitRequestBlock:v24 continuationBlock:v20];
+          v23[0] = _NSConcreteStackBlock;
+          v23[1] = 3221225472;
+          v23[2] = sub_100022400;
+          v23[3] = &unk_10008D3C0;
+          v23[4] = &v34;
+          v23[5] = v32;
+          v19[0] = _NSConcreteStackBlock;
+          v19[1] = 3221225472;
+          v19[2] = sub_100022534;
+          v19[3] = &unk_10008DAC8;
+          v21 = replyCopy;
+          v20 = xattrCache;
+          v22 = v32;
+          [(smbMount *)self submitRequestBlock:v23 continuationBlock:v19];
         }
 
         goto LABEL_19;
       }
     }
 
-    else if ((v30[3] & 1) == 0)
+    else if ((v29[3] & 1) == 0)
     {
-      v18 = &_os_log_default;
+      v17 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
       {
-        v19 = v11;
-        sub_100054920([v11 UTF8String], v41);
+        v18 = v11;
+        sub_100054920([v11 UTF8String], v40);
       }
 
-      v17 = 9;
+      v16 = 9;
       goto LABEL_16;
     }
 
-    v15 = &_os_log_default;
+    v14 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
     {
-      v16 = v11;
-      sub_100054960([v11 UTF8String], v41);
+      v15 = v11;
+      sub_100054960([v11 UTF8String], v40);
     }
 
-    v17 = 70;
+    v16 = 70;
 LABEL_16:
 
-    replyCopy[2](replyCopy, v17, 0);
+    replyCopy[2](replyCopy, v16, 0);
 LABEL_19:
 
     goto LABEL_20;
@@ -5688,10 +5846,10 @@ LABEL_19:
 
   replyCopy[2](replyCopy, checkServerConnection, 0);
 LABEL_20:
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(v33, 8);
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(v32, 8);
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v34, 8);
 }
 
 - (void)search:(id)search token:(id)token criteria:(id)criteria returnProxy:(id)proxy forClient:(unint64_t)client requestID:(unint64_t)d reply:(id)reply
@@ -5742,18 +5900,18 @@ LABEL_20:
   criteriaCopy = criteria;
   proxyCopy = proxy;
   replyCopy = reply;
-  v85 = 0;
-  v86 = &v85;
-  v87 = 0x3032000000;
-  v88 = sub_10000B2A0;
-  v89 = sub_10000B2B0;
-  v90 = 0;
-  v80 = 0;
-  v81 = &v80;
-  v82 = 0x2020000000;
   v83 = 0;
-  v79 = 0;
-  v84 = 0;
+  v84 = &v83;
+  v85 = 0x3032000000;
+  v86 = sub_10000B2A0;
+  v87 = sub_10000B2B0;
+  v88 = 0;
+  v78 = 0;
+  v79 = &v78;
+  v80 = 0x2020000000;
+  v81 = 0;
+  v77 = 0;
+  v82 = 0;
   checkServerConnection = [(smbMount *)self checkServerConnection];
   if (!checkServerConnection)
   {
@@ -5782,30 +5940,29 @@ LABEL_20:
     block[1] = 3221225472;
     block[2] = sub_100023730;
     block[3] = &unk_10008C948;
-    v77 = &v85;
+    v75 = &v83;
     block[4] = self;
     v28 = searchCopy;
-    v76 = v28;
-    v78 = &v80;
+    v74 = v28;
+    v76 = &v78;
     dispatch_sync(nodeTableSyncQueue, block);
-    v29 = v86[5];
-    v30 = *(v81 + 24);
+    v29 = v84[5];
     if (v29)
     {
-      if ((v81[3] & 1) == 0)
+      if ((v79[3] & 1) == 0)
       {
         if ([v29 isRoot])
         {
-          v31 = [NSString alloc];
+          v30 = [NSString alloc];
           shareName = [(smbMount *)self shareName];
-          v26 = [v31 initWithFormat:@"%@", shareName];
-          v65 = 0;
+          v26 = [v30 initWithFormat:@"%@", shareName];
+          v64 = 0;
 LABEL_24:
 
-          v39 = &_os_log_default;
+          v38 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
           {
-            [v86[5] name];
+            [v84[5] name];
             objc_claimAutoreleasedReturnValue();
             sub_100054B70();
           }
@@ -5819,15 +5976,15 @@ LABEL_24:
             }
 
             replyCopy[2](replyCopy, 12);
+            v70 = 0;
             v71 = 0;
-            v72 = 0;
-            v41 = 0;
+            v40 = 0;
             v21 = 0;
             goto LABEL_56;
           }
 
-          v72 = objc_alloc_init(wspContext);
-          if (!v72)
+          v71 = objc_alloc_init(wspContext);
+          if (!v71)
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
@@ -5835,56 +5992,56 @@ LABEL_24:
             }
 
             replyCopy[2](replyCopy, 12);
+            v70 = 0;
             v71 = 0;
-            v72 = 0;
             goto LABEL_55;
           }
 
-          if (gethostname(v95, 0x100uLL))
+          if (gethostname(v93, 0x100uLL))
           {
-            v40 = *__error();
+            v39 = *__error();
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
               sub_100054BBC();
             }
 
 LABEL_49:
-            replyCopy[2](replyCopy, v40);
-            v71 = 0;
+            replyCopy[2](replyCopy, v39);
+            v70 = 0;
 LABEL_55:
-            v41 = 0;
+            v40 = 0;
 LABEL_56:
-            v25 = v65;
+            v25 = v64;
             goto LABEL_57;
           }
 
-          v71 = [NSString stringWithUTF8String:v95];
-          if (!v71)
+          v70 = [NSString stringWithUTF8String:v93];
+          if (!v70)
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
               sub_100055248();
             }
 
-            v40 = 12;
+            v39 = 12;
             goto LABEL_49;
           }
 
           serverName = [(smbMount *)self serverName];
-          [v72 setServerName:serverName];
+          [v71 setServerName:serverName];
 
           userName = [(smbMount *)self userName];
-          [v72 setUserName:userName];
+          [v71 setUserName:userName];
 
-          [v72 setClientMachineName:v71];
-          [v72 setSearchPath:v26];
-          v45 = [(smbMount *)self pd];
-          [(smbSearchContext *)v21 setPd:v45];
+          [v71 setClientMachineName:v70];
+          [v71 setSearchPath:v26];
+          v44 = [(smbMount *)self pd];
+          [(smbSearchContext *)v21 setPd:v44];
 
           [(smbSearchContext *)v21 setSearchToken:tokenCopy];
           [(smbSearchContext *)v21 setCallerID:d];
           [(smbSearchContext *)v21 setHandler:proxyCopy];
-          [(smbSearchContext *)v21 setWctx:v72];
+          [(smbSearchContext *)v21 setWctx:v71];
           if ([(smbSearchContext *)v21 parseSearchCriteria:criteriaCopy])
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -5914,7 +6071,7 @@ LABEL_54:
 
           if (v25)
           {
-            [v72 setServerAddress:v25];
+            [v71 setServerAddress:v25];
           }
 
           else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -5923,8 +6080,8 @@ LABEL_54:
           }
 
           [(smbSearchContext *)v21 logConfig];
-          v47 = [(smbSearchContext *)v21 procCheckIndexingEnabled:0 IndexEnable:&v79];
-          if (v47)
+          v46 = [(smbSearchContext *)v21 procCheckIndexingEnabled:0 IndexEnable:&v77];
+          if (v46)
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
@@ -5932,36 +6089,36 @@ LABEL_54:
             }
 
 LABEL_76:
-            replyCopy[2](replyCopy, v47);
-            v41 = 0;
+            replyCopy[2](replyCopy, v46);
+            v40 = 0;
             goto LABEL_57;
           }
 
-          if ((v79 & 1) == 0)
+          if ((v77 & 1) == 0)
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
               sub_100055204();
             }
 
-            v47 = 45;
+            v46 = 45;
             goto LABEL_76;
           }
 
-          v41 = objc_alloc_init(QueryStatusExResults);
-          if (!v41)
+          v40 = objc_alloc_init(QueryStatusExResults);
+          if (!v40)
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
               sub_1000551C0();
             }
 
-            v47 = 12;
+            v46 = 12;
             goto LABEL_76;
           }
 
-          v66 = [(smbSearchContext *)v21 procPrimaryQuery:0 QueryExResults:v41];
-          if (v66)
+          v65 = [(smbSearchContext *)v21 procPrimaryQuery:0 QueryExResults:v40];
+          if (v65)
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
@@ -5971,13 +6128,13 @@ LABEL_76:
 
           else
           {
-            v66 = [(smbSearchContext *)v21 procSecondaryQuery:1 QueryExResults:v41];
-            if (!v66)
+            v65 = [(smbSearchContext *)v21 procSecondaryQuery:1 QueryExResults:v40];
+            if (!v65)
             {
-              v48 = &_os_log_default;
+              v47 = &_os_log_default;
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
               {
-                sub_100054E9C(v93, [v41 cRowsTotal], objc_msgSend(v41, "cResultsFound"));
+                sub_100054E9C(v91, [v40 cRowsTotal], objc_msgSend(v40, "cResultsFound"));
               }
 
               searchLock3 = [(smbMount *)self searchLock];
@@ -6001,12 +6158,12 @@ LABEL_76:
 
               else
               {
-                v84 = 0;
+                v82 = 0;
                 while (![(smbSearchContext *)v21 checkSearchAborted])
                 {
                   [(smbSearchContext *)v21 setSearchRows:0];
-                  v70 = [(smbSearchContext *)v21 doGetRows:1 EndOfRowSet:&v84];
-                  if (v70)
+                  v69 = [(smbSearchContext *)v21 doGetRows:1 EndOfRowSet:&v82];
+                  if (v69)
                   {
                     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
                     {
@@ -6023,33 +6180,33 @@ LABEL_112:
                   }
 
                   searchRows = [(smbSearchContext *)v21 searchRows];
-                  v61 = searchRows == 0;
+                  v60 = searchRows == 0;
 
-                  if (v61)
+                  if (v60)
                   {
                     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
                     {
-                      sub_100054F6C(&v73, v74);
+                      sub_100054F6C(v72, &v72[1]);
                     }
                   }
 
                   else
                   {
-                    v50 = &_os_log_default;
+                    v49 = &_os_log_default;
                     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
                     {
                       searchRows2 = [(smbSearchContext *)v21 searchRows];
                       rows = [searchRows2 rows];
-                      v51 = [rows count];
+                      v50 = [rows count];
                       *buf = 134217984;
-                      v92 = v51;
+                      v90 = v50;
                       _os_log_debug_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEBUG, "LISearch: received %lu rows", buf, 0xCu);
                     }
 
                     [(smbMount *)self deliverSearchResults:v21];
                   }
 
-                  if (v84)
+                  if (v82)
                   {
                     goto LABEL_112;
                   }
@@ -6061,7 +6218,7 @@ LABEL_112:
                 }
               }
 
-              v70 = 0;
+              v69 = 0;
 LABEL_100:
               searchLock5 = [(smbMount *)self searchLock];
               [searchLock5 lock];
@@ -6077,10 +6234,10 @@ LABEL_100:
               [searchLock7 lock];
 
               LOBYTE(searchLock7) = [(smbSearchContext *)v21 isAborted];
-              v54 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG);
+              v53 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG);
               if (searchLock7)
               {
-                if (v54)
+                if (v53)
                 {
                   sub_100055138();
                 }
@@ -6096,13 +6253,13 @@ LABEL_100:
 
               else
               {
-                if (v54)
+                if (v53)
                 {
                   sub_10005507C();
                 }
 
                 handler2 = [(smbSearchContext *)v21 handler];
-                [handler2 tokenDone:v70];
+                [handler2 tokenDone:v69];
 
                 if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
                 {
@@ -6128,36 +6285,36 @@ LABEL_100:
             }
           }
 
-          replyCopy[2](replyCopy, v66);
+          replyCopy[2](replyCopy, v65);
 LABEL_57:
 
           goto LABEL_10;
         }
 
-        v65 = [smb_subr makeWindowsPath:v86[5] withName:0];
-        if (v65)
+        v64 = [smb_subr makeWindowsPath:v84[5] withName:0];
+        if (v64)
         {
-          v38 = [NSString alloc];
+          v37 = [NSString alloc];
           shareName = [(smbMount *)self shareName];
-          v26 = [v38 initWithFormat:@"%@/%@", shareName, v65];
+          v26 = [v37 initWithFormat:@"%@/%@", shareName, v64];
           goto LABEL_24;
         }
 
-        v42 = &_os_log_default;
+        v41 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          [v86[5] name];
+          [v84[5] name];
           objc_claimAutoreleasedReturnValue();
           sub_100054B24();
         }
 
-        v35 = 22;
+        v34 = 22;
 LABEL_40:
 
-        replyCopy[2](replyCopy, v35);
+        replyCopy[2](replyCopy, v34);
+        v70 = 0;
         v71 = 0;
-        v72 = 0;
-        v41 = 0;
+        v40 = 0;
         v21 = 0;
         v25 = 0;
         v26 = 0;
@@ -6165,27 +6322,27 @@ LABEL_40:
       }
     }
 
-    else if ((v81[3] & 1) == 0)
+    else if ((v79[3] & 1) == 0)
     {
-      v36 = &_os_log_default;
+      v35 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
       {
-        v37 = v28;
-        sub_100055314([v28 UTF8String], v94);
+        v36 = v28;
+        sub_100055314([v28 UTF8String], v92);
       }
 
-      v35 = 9;
+      v34 = 9;
       goto LABEL_40;
     }
 
-    v33 = &_os_log_default;
+    v32 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
     {
-      v34 = v28;
-      sub_100055354([v28 UTF8String], v94);
+      v33 = v28;
+      sub_100055354([v28 UTF8String], v92);
     }
 
-    v35 = 70;
+    v34 = 70;
     goto LABEL_40;
   }
 
@@ -6205,9 +6362,9 @@ LABEL_9:
   v25 = 0;
   v26 = 0;
 LABEL_10:
-  _Block_object_dispose(&v80, 8);
+  _Block_object_dispose(&v78, 8);
 
-  _Block_object_dispose(&v85, 8);
+  _Block_object_dispose(&v83, 8);
 }
 
 - (void)replenishSearchCreditsFor:(id)for credits:(unsigned int)credits requestID:(unint64_t)d reply:(id)reply
@@ -6226,6 +6383,32 @@ LABEL_10:
   v12 = replyCopy;
   v13 = forCopy;
   dispatch_async(opsQueue, v14);
+}
+
+- (void)_LISearchReplenishCredits:(id)credits credits:(unsigned int)a4 reply:(id)reply
+{
+  v5 = *&a4;
+  replyCopy = reply;
+  creditsCopy = credits;
+  searchLock = [(smbMount *)self searchLock];
+  [searchLock lock];
+
+  searchObjects = [(smbMount *)self searchObjects];
+  v11 = [searchObjects objectForKey:creditsCopy];
+
+  searchLock2 = [(smbMount *)self searchLock];
+  [searchLock2 unlock];
+
+  if (v11)
+  {
+    handler = [v11 handler];
+    [handler replenishCredits:v5 reply:replyCopy];
+  }
+
+  else
+  {
+    replyCopy[2](replyCopy, 2);
+  }
 }
 
 - (void)abortSearch:(id)search requestID:(unint64_t)d reply:(id)reply
@@ -7191,7 +7374,7 @@ LABEL_53:
       *buf = v93;
       *&buf[16] = v94;
       [(smbMount *)self setShareInfo:buf];
-      [(smbMount *)self shareInfo];
+      objc_msgSend_shareInfo(self);
       self->_sm_flags = self->_sm_flags & 0xFFFFFFFE | (v91 >> 7) & 1;
       v73 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
@@ -7730,7 +7913,7 @@ LABEL_77:
 
           if (v9)
           {
-            [v9 liAttr];
+            objc_msgSend_liAttr(v9);
           }
 
           else

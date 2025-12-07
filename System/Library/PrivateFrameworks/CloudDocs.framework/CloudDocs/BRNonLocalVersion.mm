@@ -10,7 +10,7 @@
 
 - (BRNonLocalVersion)initWithURL:(id)l physicalURL:(id)rL size:(id)size extension:(id)extension etag:(id)etag hasThumbnail:(BOOL)thumbnail displayName:(id)name lastEditorDeviceName:(id)self0 lastEditorNameComponents:(id)self1 modificationDate:(id)self2 versionsStore:(id)self3
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
   sizeCopy = size;
@@ -21,9 +21,9 @@
   componentsCopy = components;
   dateCopy = date;
   storeCopy = store;
-  v38.receiver = self;
-  v38.super_class = BRNonLocalVersion;
-  v21 = [(BRNonLocalVersion *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = BRNonLocalVersion;
+  v21 = [(BRNonLocalVersion *)&v37 init];
   v22 = v21;
   if (v21)
   {
@@ -49,11 +49,11 @@
         if (os_log_type_enabled(v26, 0x90u))
         {
           *buf = 138412802;
-          v40 = extensionCopy;
-          v41 = 1024;
-          v42 = v24;
-          v43 = 2112;
-          v44 = v25;
+          v39 = extensionCopy;
+          v40 = 1024;
+          v41 = v24;
+          v42 = 2112;
+          v43 = v25;
           _os_log_error_impl(&dword_1AE2A9000, v26, 0x90u, "[ERROR] Failed to consume extension %@ %{errno}d%@", buf, 0x1Cu);
         }
 
@@ -69,7 +69,6 @@
     objc_storeStrong(&v22->_modificationDate, date);
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v22;
 }
 

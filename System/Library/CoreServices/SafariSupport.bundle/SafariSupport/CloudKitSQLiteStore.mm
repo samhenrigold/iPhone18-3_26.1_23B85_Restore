@@ -3,6 +3,7 @@
 - (CloudKitSQLiteStore)initWithDatabaseURL:(id)l databaseQueueLabel:(const char *)label;
 - (id)_metadataDataValueForKey:(id)key;
 - (int)_migrateToCurrentSchemaVersionIfNeeded;
+- (int)_setDatabaseSchemaVersion:(int)version;
 - (int)_setMetadataDataValue:(id)value forKey:(id)key;
 - (int)_setMetadataInt64Value:(int64_t)value forKey:(id)key;
 - (int64_t)_metadataInt64ValueForKey:(id)key;
@@ -288,6 +289,21 @@ LABEL_8:
   }
 
 LABEL_10:
+}
+
+- (int)_setDatabaseSchemaVersion:(int)version
+{
+  v3 = *&version;
+  database = self->__database;
+  v6 = [NSString stringWithFormat:@"PRAGMA user_version = %d", *&version];
+  v7 = sub_100001E04(database, 0, v6);
+
+  if (v7 != 101)
+  {
+    [(CloudKitSQLiteStore *)self _failedToSetSchemaVersion:v3 withError:v7];
+  }
+
+  return v7;
 }
 
 - (int64_t)_metadataInt64ValueForKey:(id)key

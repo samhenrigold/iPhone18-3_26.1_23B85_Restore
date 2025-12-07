@@ -962,20 +962,20 @@ void __44__PKAccountFlowController__acquireAssertion__block_invoke(uint64_t a1, 
   }
 }
 
-void __44__PKAccountFlowController__acquireAssertion__block_invoke_97(uint64_t a1)
+void __44__PKAccountFlowController__acquireAssertion__block_invoke_97(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Executing notification suppression assertion invalidation handler", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Executing notification suppression assertion invalidation handler", v7, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = *(WeakRetained + 9);
+    v6 = *(WeakRetained + 9);
     *(WeakRetained + 9) = 0;
   }
 }

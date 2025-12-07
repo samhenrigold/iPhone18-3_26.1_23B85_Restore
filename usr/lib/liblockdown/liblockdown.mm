@@ -1,46 +1,43 @@
 void *lockdown_connect()
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v0 = socket(1, 1, 0);
   if (v0 != -1)
   {
     v1 = v0;
-    v16 = 0u;
-    memset(v17, 0, sizeof(v17));
-    v14 = 0u;
     v15 = 0u;
-    v12 = 0;
+    memset(v16, 0, sizeof(v16));
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0;
+    v12 = 0u;
     __strlcpy_chk();
-    v12.sa_family = 1;
-    if (!connect(v1, &v12, 0xD2u))
+    v11.sa_family = 1;
+    if (!connect(v1, &v11, 0xD2u))
     {
       _disable_sigpipe(v1);
       v4 = malloc_type_calloc(1uLL, 0x18uLL, 0xA0040A8488062uLL);
       v5 = lockconn_new();
       *v4 = v5;
       lockconn_init(v5, v1, 4);
-      goto LABEL_8;
+      return v4;
     }
 
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       v2 = __error();
       v3 = strerror(*v2);
-      v8 = 136315394;
-      v9 = v3;
-      v10 = 2080;
-      v11 = "/var/run/lockdown.sock";
-      _os_log_impl(&dword_299099000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Failed to connect to lockdown(%s) for path: %s. \n", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = v3;
+      v9 = 2080;
+      v10 = "/var/run/lockdown.sock";
+      _os_log_impl(&dword_299099000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Failed to connect to lockdown(%s) for path: %s. \n", &v7, 0x16u);
     }
 
     close(v1);
   }
 
-  v4 = 0;
-LABEL_8:
-  v6 = *MEMORY[0x29EDCA608];
-  return v4;
+  return 0;
 }
 
 BOOL _disable_sigpipe(int a1)
@@ -189,7 +186,7 @@ uint64_t _send_message(uint64_t a1, const void *a2, CFPropertyListFormat a3, uin
   {
     v10 = @"no connection";
 LABEL_21:
-    locklog(0, "_send_message", v10, a4, a5, a6, a7, a8, v31);
+    locklog(0, "_send_message", v10, a4, a5, a6, a7, a8);
     return 0xFFFFFFFFLL;
   }
 
@@ -220,7 +217,7 @@ LABEL_10:
       Length = CFDataGetLength(Data);
       if (Length < 0)
       {
-        locklog(0, "_send_message", @"message length too small", v14, v15, v16, v17, v18, v31);
+        locklog(0, "_send_message", @"message length too small", v14, v15, v16, v17, v18);
         CFRelease(v12);
         return 0xFFFFFFFFLL;
       }
@@ -236,8 +233,8 @@ LABEL_10:
         {
           CFRelease(v12);
           v25 = __error();
-          strerror(*v25);
-          locklog(0, "_send_message", @"Could not send message size %ld: %s\n", v26, v27, v28, v29, v30, v19);
+          v31 = strerror(*v25);
+          locklog(0, "_send_message", @"Could not send message size %ld: %s\n", v26, v27, v28, v29, v30, v19, v31);
           return 0xFFFFFFFFLL;
         }
 
@@ -356,7 +353,7 @@ const __CFDictionary *lockconn_receive_message(uint64_t a1)
       goto LABEL_5;
     }
 
-    locklog(0, "lockconn_receive_message", @"Ignoring message that is not the right type.\n", v5, v6, v7, v8, v9, v15);
+    locklog(0, "lockconn_receive_message", @"Ignoring message that is not the right type.\n", v5, v6, v7, v8, v9);
     CFRelease(v3);
     return 0;
   }
@@ -413,8 +410,10 @@ LABEL_7:
   {
     v12 = *__error();
     v13 = __error();
-    strerror(*v13);
+    v46 = v12;
+    v47 = strerror(*v13);
     v44 = 4;
+    v45 = v9;
     v11 = @"Could not receive size of message, expected %d bytes, got %ld bytes: (%d, %s)";
     goto LABEL_11;
   }
@@ -422,10 +421,12 @@ LABEL_7:
   v10 = bswap32(data);
   if (v10 > 0x300000)
   {
+    v45 = v10;
+    v46 = 3145728;
     v44 = data;
     v11 = @"swapped %d message size %d exceeds %d limit";
 LABEL_11:
-    locklog(0, "_receive_message", v11, v4, v5, v6, v7, v8, v44);
+    locklog(0, "_receive_message", v11, v4, v5, v6, v7, v8, v44, v45, v46, v47);
     return 0;
   }
 
@@ -465,7 +466,7 @@ LABEL_33:
   v31 = CFDataCreateWithBytesNoCopy(0, v22, v10, *MEMORY[0x29EDB8EE0]);
   if (!v31)
   {
-    locklog(0, "_receive_message", @"Could not create CFData for message.\n", v32, v33, v34, v35, v36, v44);
+    locklog(0, "_receive_message", @"Could not create CFData for message.\n", v32, v33, v34, v35, v36);
     goto LABEL_33;
   }
 
@@ -483,7 +484,7 @@ LABEL_33:
 
   if (!v43)
   {
-    locklog(0, "_receive_message", @"there was an err.", v38, v39, v40, v41, v42, v44);
+    locklog(0, "_receive_message", @"there was an err.", v38, v39, v40, v41, v42);
     if (error)
     {
       CFRelease(error);
@@ -536,7 +537,7 @@ ssize_t lockconn_recv(uint64_t a1, void *a2, size_t a3)
 
 void lockdown_warning_break(const __CFDictionary *a1)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   if (a1)
   {
     Value = CFDictionaryGetValue(a1, @"Warning");
@@ -546,36 +547,36 @@ void lockdown_warning_break(const __CFDictionary *a1)
       memcpy(__dst, "Error creating CFString", sizeof(__dst));
       LODWORD(v2) = CFStringGetCString(v2, __dst, 1024, 0x8000100u);
       v3 = os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT);
-      if (v2)
+      if (!v2)
       {
-        if (v3)
+        if (!v3)
         {
-          v7 = 136315138;
-          v8 = __dst;
-          _os_log_impl(&dword_299099000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
+          return;
         }
 
-        if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
-        {
-          LOWORD(v7) = 0;
-          v4 = MEMORY[0x29EDCA988];
-          v5 = "*** this is a CLIENT bug, NOT a lockdown bug; set a breakpoint in lockdown_warning_break to debug";
-LABEL_10:
-          _os_log_impl(&dword_299099000, v4, OS_LOG_TYPE_DEFAULT, v5, &v7, 2u);
-        }
-      }
-
-      else if (v3)
-      {
-        LOWORD(v7) = 0;
+        LOWORD(v6) = 0;
         v4 = MEMORY[0x29EDCA988];
         v5 = "CFStringGetCString failure in lockdown_warning_break";
         goto LABEL_10;
       }
+
+      if (v3)
+      {
+        v6 = 136315138;
+        v7 = __dst;
+        _os_log_impl(&dword_299099000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
+      }
+
+      if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v6) = 0;
+        v4 = MEMORY[0x29EDCA988];
+        v5 = "*** this is a CLIENT bug, NOT a lockdown bug; set a breakpoint in lockdown_warning_break to debug";
+LABEL_10:
+        _os_log_impl(&dword_299099000, v4, OS_LOG_TYPE_DEFAULT, v5, &v6, 2u);
+      }
     }
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 void lockdown_disconnect(uint64_t *a1)
@@ -609,7 +610,7 @@ void lockdown_disconnect(uint64_t *a1)
 
             else
             {
-              locklog(0, "HBFreeHeartbeatReference", @"Failed to receive xpc reply.", v20, v21, v22, v23, v24, v28);
+              locklog(0, "HBFreeHeartbeatReference", @"Failed to receive xpc reply.", v20, v21, v22, v23, v24);
             }
 
             xpc_release(v11);
@@ -618,7 +619,7 @@ void lockdown_disconnect(uint64_t *a1)
 
           else
           {
-            locklog(0, "HBFreeHeartbeatReference", @"Failed to create xpc mach service.", v13, v14, v15, v16, v17, v28);
+            locklog(0, "HBFreeHeartbeatReference", @"Failed to create xpc mach service.", v13, v14, v15, v16, v17);
             v25 = v11;
           }
 
@@ -627,7 +628,7 @@ void lockdown_disconnect(uint64_t *a1)
 
         else
         {
-          locklog(0, "HBFreeHeartbeatReference", @"Failed to create xpc dictionary.", v6, v7, v8, v9, v10, v28);
+          locklog(0, "HBFreeHeartbeatReference", @"Failed to create xpc dictionary.", v6, v7, v8, v9, v10);
         }
       }
 
@@ -725,8 +726,9 @@ void lockconn_free(void *a1)
   }
 }
 
-uint64_t SocketRead(int a1, char *a2, size_t *a3)
+uint64_t SocketRead(uint64_t a1, char *a2, size_t *a3)
 {
+  v5 = a1;
   v6 = *a3;
   *a3 = 0;
   v7 = v6;
@@ -735,11 +737,11 @@ uint64_t SocketRead(int a1, char *a2, size_t *a3)
     *__error() = -555;
     if (_select_socket())
     {
-      locklog(0, "SocketRead", @"walk away", v8, v9, v10, v11, v12, v16);
+      locklog(0, "SocketRead", @"walk away", v8, v9, v10, v11, v12);
       goto LABEL_7;
     }
 
-    v13 = recv(a1, a2, v7, 0);
+    v13 = recv(v5, a2, v7, 0);
     if (v13 <= 0)
     {
       break;
@@ -779,7 +781,7 @@ LABEL_14:
   return result;
 }
 
-uint64_t lockdown_receive_message(void *a1, uint64_t *a2)
+uint64_t lockdown_receive_message(uint64_t *a1, void *a2)
 {
   if (!a2)
   {
@@ -873,26 +875,36 @@ LABEL_11:
 
 uint64_t lockdown_copy_checkin_info(void *a1, CFArrayRef *a2)
 {
-  v63 = *MEMORY[0x29EDCA608];
+  v60 = *MEMORY[0x29EDCA608];
   values = 0;
-  v56 = -1;
-  if (!a2 || (*a2 = 0, MEMORY[0x29C297790]() != MEMORY[0x29EDCAA00]) || (string = xpc_dictionary_get_string(a1, "_LDCHECKININFO")) == 0)
+  v53 = -1;
+  if (!a2)
   {
-    v49 = 8;
-    goto LABEL_33;
+    return 8;
+  }
+
+  *a2 = 0;
+  if (MEMORY[0x29C297790]() != MEMORY[0x29EDCAA00])
+  {
+    return 8;
+  }
+
+  string = xpc_dictionary_get_string(a1, "_LDCHECKININFO");
+  if (!string)
+  {
+    return 8;
   }
 
   v5 = CFStringCreateWithCString(0, string, 0x8000100u);
   if (!v5)
   {
-    v49 = 11;
-    goto LABEL_33;
+    return 11;
   }
 
   v6 = v5;
-  v62 = 0;
-  *v60 = 0u;
-  v61 = 0u;
+  v59 = 0;
+  *v57 = 0u;
+  v58 = 0u;
   valuePtr = xpc_dictionary_get_date(a1, "_LDTIMESTAMP");
   v7 = *MEMORY[0x29EDB8ED8];
   v8 = CFNumberCreate(*MEMORY[0x29EDB8ED8], kCFNumberLongLongType, &valuePtr);
@@ -902,19 +914,19 @@ uint64_t lockdown_copy_checkin_info(void *a1, CFArrayRef *a2)
     v47 = v6;
 LABEL_32:
     CFRelease(v47);
-    goto LABEL_33;
+    return v49;
   }
 
   v9 = v8;
   value = xpc_dictionary_get_value(a1, "_LDCHECKINDICT");
   v18 = copy_dict_from_xpc_data(value, v11, v12, v13, v14, v15, v16, v17);
-  if (!v18 || (v56 = xpc_dictionary_dup_fd(a1, "_LDSERVICESOCK"), v56 == -1))
+  if (!v18 || (v53 = xpc_dictionary_dup_fd(a1, "_LDSERVICESOCK"), v53 == -1))
   {
     v19 = 0;
     goto LABEL_24;
   }
 
-  v19 = CFNumberCreate(v7, kCFNumberIntType, &v56);
+  v19 = CFNumberCreate(v7, kCFNumberIntType, &v53);
   if (!v19)
   {
 LABEL_24:
@@ -928,13 +940,13 @@ LABEL_26:
   v20 = xpc_dictionary_dup_fd(a1, "_LDSERVICELOGSOCK");
   if (v20 == -1)
   {
-    locklog(0, "lockdown_copy_checkin_info", @"_LDSERVICELOGSOCK missing", v21, v22, v23, v24, v25, v52);
+    locklog(0, "lockdown_copy_checkin_info", @"_LDSERVICELOGSOCK missing", v21, v22, v23, v24, v25);
   }
 
   else
   {
     v26 = v20;
-    v55 = 0;
+    v52 = 0;
     v27 = _NSGetProgname();
     if (v27)
     {
@@ -947,10 +959,10 @@ LABEL_26:
     }
 
     __s = 0;
-    time(&v55);
-    ctime_r(&v55, v59);
+    time(&v52);
+    ctime_r(&v52, v56);
     v29 = getpid();
-    asprintf(&__s, "%s(%d) checked in at %s", v28, v29, v59);
+    asprintf(&__s, "%s(%d) checked in at %s", v28, v29, v56);
     if (__s)
     {
       v35 = strlen(__s);
@@ -960,7 +972,7 @@ LABEL_26:
 
     else
     {
-      locklog(0, "lockdown_copy_checkin_info", @"asprintf failed", v30, v31, v32, v33, v34, v53);
+      locklog(0, "lockdown_copy_checkin_info", @"asprintf failed", v30, v31, v32, v33, v34);
     }
 
     close(v26);
@@ -970,7 +982,7 @@ LABEL_26:
   values = xpc_dictionary_get_remote_connection(a1);
   if (!values)
   {
-    locklog(0, "lockdown_copy_checkin_info", @"Failed to get XPC connection from message.", v36, v37, v38, v39, v40, v53);
+    locklog(0, "lockdown_copy_checkin_info", @"Failed to get XPC connection from message.", v36, v37, v38, v39, v40);
     goto LABEL_24;
   }
 
@@ -978,16 +990,16 @@ LABEL_26:
   v47 = v41;
   if (!v41)
   {
-    locklog(0, "lockdown_copy_checkin_info", @"Failed to store XPC connection in CFBag.", v42, v43, v44, v45, v46, v53);
+    locklog(0, "lockdown_copy_checkin_info", @"Failed to store XPC connection in CFBag.", v42, v43, v44, v45, v46);
     goto LABEL_26;
   }
 
-  v60[0] = v6;
-  v60[1] = v9;
-  *&v61 = v18;
-  *(&v61 + 1) = v19;
-  v62 = v41;
-  v48 = CFArrayCreate(v7, v60, 5, MEMORY[0x29EDB9000]);
+  v57[0] = v6;
+  v57[1] = v9;
+  *&v58 = v18;
+  *(&v58 + 1) = v19;
+  v59 = v41;
+  v48 = CFArrayCreate(v7, v57, 5, MEMORY[0x29EDB9000]);
   *a2 = v48;
   if (v48)
   {
@@ -1017,8 +1029,6 @@ LABEL_27:
     goto LABEL_32;
   }
 
-LABEL_33:
-  v50 = *MEMORY[0x29EDCA608];
   return v49;
 }
 
@@ -1034,7 +1044,7 @@ uint64_t lockconn_get_buffered_read_size(uint64_t a1, size_t *a2, uint64_t a3, u
       {
         v10 = v9;
         v11 = SecCopyErrorMessageString(v9, 0);
-        locklog(0, "lockconn_get_buffered_read_size", @"SSLGetBufferedReadSize failed: %d (%@)", v12, v13, v14, v15, v16, v10);
+        locklog(0, "lockconn_get_buffered_read_size", @"SSLGetBufferedReadSize failed: %d (%@)", v12, v13, v14, v15, v16, v10, v11);
         if (v11)
         {
           CFRelease(v11);
@@ -1055,8 +1065,8 @@ LABEL_13:
 
     v18 = *__error();
     v19 = __error();
-    strerror(*v19);
     v21 = v18;
+    v22 = strerror(*v19);
     v17 = @"ioctl (FIONREAD) failed: %d (%s)";
   }
 
@@ -1065,22 +1075,23 @@ LABEL_13:
     v17 = @"Invalid input(s).";
   }
 
-  locklog(0, "lockconn_get_buffered_read_size", v17, a4, a5, a6, a7, a8, v21);
+  locklog(0, "lockconn_get_buffered_read_size", v17, a4, a5, a6, a7, a8, v21, v22);
   return 0;
 }
 
-void locklog(uint64_t a1, const char *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void locklog(uint64_t a1, const char *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  va_start(va, a8);
+  v17 = *MEMORY[0x29EDCA608];
   bzero(buffer, 0x800uLL);
   if (!a2)
   {
     a2 = "";
   }
 
-  v11 = CFStringCreateWithFormatAndArguments(0, 0, a3, &a9);
-  v12 = v11;
-  if (v11 && !CFStringGetCString(v11, buffer, 2048, 0x8000100u))
+  v10 = CFStringCreateWithFormatAndArguments(0, 0, a3, va);
+  v11 = v10;
+  if (v10 && !CFStringGetCString(v10, buffer, 2048, 0x8000100u))
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
@@ -1094,19 +1105,17 @@ void locklog(uint64_t a1, const char *a2, const __CFString *a3, uint64_t a4, uin
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v15 = a2;
-    v16 = 2080;
-    v17 = buffer;
+    v13 = a2;
+    v14 = 2080;
+    v15 = buffer;
     _os_log_impl(&dword_299099000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s: %s", buf, 0x16u);
   }
 
-  if (v12)
+  if (v11)
   {
 LABEL_8:
-    CFRelease(v12);
+    CFRelease(v11);
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t lockconn_set_heartbeat_ref(uint64_t result, uint64_t a2)
@@ -1138,8 +1147,8 @@ void lockconn_set_keybag_handle(uint64_t a1, const void *a2, uint64_t a3, uint64
         {
           v18 = *__error();
           v19 = __error();
-          strerror(*v19);
-          locklog(0, "lockconn_set_keybag_handle", @"Failed to dup the socket: %d (%s).", v20, v21, v22, v23, v24, v18);
+          v20 = strerror(*v19);
+          locklog(0, "lockconn_set_keybag_handle", @"Failed to dup the socket: %d (%s).", v21, v22, v23, v24, v25, v18, v20);
         }
 
         else
@@ -1155,13 +1164,13 @@ void lockconn_set_keybag_handle(uint64_t a1, const void *a2, uint64_t a3, uint64
           handler[4] = v17;
           dispatch_source_set_event_handler(v17, handler);
           CFRetain(a2);
-          v25[0] = MEMORY[0x29EDCA5F8];
-          v25[1] = 0x40000000;
-          v25[2] = __lockconn_set_keybag_handle_block_invoke_2;
-          v25[3] = &__block_descriptor_tmp_8;
-          v25[4] = a2;
-          v26 = v14;
-          dispatch_source_set_cancel_handler(v17, v25);
+          v26[0] = MEMORY[0x29EDCA5F8];
+          v26[1] = 0x40000000;
+          v26[2] = __lockconn_set_keybag_handle_block_invoke_2;
+          v26[3] = &__block_descriptor_tmp_8;
+          v26[4] = a2;
+          v27 = v14;
+          dispatch_source_set_cancel_handler(v17, v26);
           dispatch_activate(v17);
           *(a1 + 40) = v17;
         }
@@ -1172,7 +1181,7 @@ void lockconn_set_keybag_handle(uint64_t a1, const void *a2, uint64_t a3, uint64
       v12 = @"can't set two keybag handles for the same socket";
     }
 
-    locklog(0, "lockconn_set_keybag_handle", v12, a4, a5, a6, a7, a8, a9);
+    locklog(0, "lockconn_set_keybag_handle", v12, a4, a5, a6, a7, a8);
   }
 }
 
@@ -1197,10 +1206,10 @@ uint64_t lockconn_type(uint64_t a1)
   }
 }
 
-uint64_t lockconn_enable_ssl(uint64_t a1, const __CFData *a2, const __CFData *a3, const __CFData *a4, int a5)
+uint64_t lockconn_enable_ssl(unsigned int *a1, const __CFData *a2, const __CFData *a3, const __CFData *a4, int a5)
 {
   v6 = lockssl_handshake(*a1, a2, a3, a4, a5);
-  *(a1 + 24) = v6;
+  *(a1 + 3) = v6;
   if (!v6)
   {
     return 0xFFFFFFFFLL;
@@ -1351,7 +1360,7 @@ LABEL_17:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t send_remove_value(uint64_t a1, const void *a2, const void *a3, void *a4)
+uint64_t send_remove_value(uint64_t a1, const void *a2, const void *a3, CFStringRef *a4)
 {
   if (a4)
   {
@@ -1496,7 +1505,7 @@ uint64_t send_unpair(uint64_t a1, void *a2, void *a3)
   v3 = 0xFFFFFFFFLL;
   if (!a1 || !a2)
   {
-    goto LABEL_15;
+    return v3;
   }
 
   message = _create_message(@"Unpair");
@@ -1510,9 +1519,9 @@ uint64_t send_unpair(uint64_t a1, void *a2, void *a3)
     goto LABEL_6;
   }
 
-  v20 = lockconn_receive_message(a1);
-  v15 = v20;
-  if (!v20)
+  v19 = lockconn_receive_message(a1);
+  v15 = v19;
+  if (!v19)
   {
     v16 = kLDErrorInvalidResponse;
 LABEL_6:
@@ -1525,7 +1534,7 @@ LABEL_6:
     goto LABEL_9;
   }
 
-  Value = CFDictionaryGetValue(v20, @"Error");
+  Value = CFDictionaryGetValue(v19, @"Error");
   if (Value)
   {
     v3 = 0xFFFFFFFFLL;
@@ -1562,8 +1571,6 @@ LABEL_9:
     CFRelease(message);
   }
 
-LABEL_15:
-  v18 = *MEMORY[0x29EDCA608];
   return v3;
 }
 
@@ -1662,36 +1669,39 @@ BOOL send_enable_wireless_pairing(uint64_t a1, int a2)
 
 uint64_t lockcrypto_decode_pem(const __CFData *a1, const char *a2)
 {
-  v19 = *MEMORY[0x29EDCA608];
-  if (!a1 || (BytePtr = CFDataGetBytePtr(a1), Length = CFDataGetLength(a1), Length < 0))
+  v18 = *MEMORY[0x29EDCA608];
+  if (!a1)
   {
-    v10 = 0;
+    return 0;
   }
 
-  else
+  BytePtr = CFDataGetBytePtr(a1);
+  Length = CFDataGetLength(a1);
+  if (Length < 0)
   {
-    v6 = Length;
-    v7 = snprintf(__str, 0x50uLL, "-----BEGIN %s-----\n", a2);
-    snprintf(__little, 0x50uLL, "\n-----END %s-----\n", a2);
-    v8 = strnstr(BytePtr, __str, v6);
-    v9 = strnstr(BytePtr, __little, v6);
-    v10 = 0;
-    if (v8)
-    {
-      v11 = v9;
-      if (v9)
-      {
-        v12 = &v8[v7];
-        v13 = objc_autoreleasePoolPush();
-        v14 = [MEMORY[0x29EDB8DA0] dataWithBytesNoCopy:v12 length:v11 - v12 freeWhenDone:0];
-        v10 = [objc_alloc(MEMORY[0x29EDB8DA0]) initWithBase64EncodedData:v14 options:1];
+    return 0;
+  }
 
-        objc_autoreleasePoolPop(v13);
-      }
+  v6 = Length;
+  v7 = snprintf(__str, 0x50uLL, "-----BEGIN %s-----\n", a2);
+  snprintf(__little, 0x50uLL, "\n-----END %s-----\n", a2);
+  v8 = strnstr(BytePtr, __str, v6);
+  v9 = strnstr(BytePtr, __little, v6);
+  v10 = 0;
+  if (v8)
+  {
+    v11 = v9;
+    if (v9)
+    {
+      v12 = &v8[v7];
+      v13 = objc_autoreleasePoolPush();
+      v14 = [MEMORY[0x29EDB8DA0] dataWithBytesNoCopy:v12 length:v11 - v12 freeWhenDone:0];
+      v10 = [objc_alloc(MEMORY[0x29EDB8DA0]) initWithBase64EncodedData:v14 options:1];
+
+      objc_autoreleasePoolPop(v13);
     }
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
@@ -1715,13 +1725,12 @@ uint64_t lockcrypto_private_key_from_pem_data(const __CFData *a1)
   if (v1)
   {
     v7 = v1;
-    v8 = *MEMORY[0x29EDB8ED8];
     CFDataGetBytePtr(v1);
     CFDataGetLength(v7);
     RSAPrivateKey = SecKeyCreateRSAPrivateKey();
     if (!RSAPrivateKey)
     {
-      locklog(0, "lockcrypto_private_key_from_pem_data", @"SecKeyCreateRSAPrivateKey failed", v9, v10, v11, v12, v13, v16);
+      locklog(0, "lockcrypto_private_key_from_pem_data", @"SecKeyCreateRSAPrivateKey failed", v8, v9, v10, v11, v12);
     }
 
     CFRelease(v7);
@@ -1729,14 +1738,14 @@ uint64_t lockcrypto_private_key_from_pem_data(const __CFData *a1)
 
   else
   {
-    locklog(0, "lockcrypto_private_key_from_pem_data", @"lockcrypto_decode_pem failed", v2, v3, v4, v5, v6, v16);
+    locklog(0, "lockcrypto_private_key_from_pem_data", @"lockcrypto_decode_pem failed", v2, v3, v4, v5, v6);
     return 0;
   }
 
   return RSAPrivateKey;
 }
 
-uint64_t unlock_with_escrow(void *a1, int a2, CFDataRef theData, __CFString **a4)
+uint64_t unlock_with_escrow(void *a1, uint64_t a2, CFDataRef theData, __CFString **a4)
 {
   v32 = *MEMORY[0x29EDCA608];
   if (a4)
@@ -1751,37 +1760,35 @@ uint64_t unlock_with_escrow(void *a1, int a2, CFDataRef theData, __CFString **a4
   CFDataGetLength(theData);
   CCDigest();
   __sprintf_chk(v28, 0, 0x29uLL, "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-  CFDataGetLength(theData);
-  locklog(0, "unlock_with_escrow", @"Starting service with bag=%s, %ld", v7, v8, v9, v10, v11, v28);
-  v12 = MKBKeyBagCreateWithData();
-  if (v12)
+  Length = CFDataGetLength(theData);
+  locklog(0, "unlock_with_escrow", @"Starting service with bag=%s, %ld", v8, v9, v10, v11, v12, v28, Length);
+  v13 = MKBKeyBagCreateWithData();
+  if (v13)
   {
-    locklog(0, "unlock_with_escrow", @"Can't instantiate escrow bag: %d", v13, v14, v15, v16, v17, v12);
+    locklog(0, "unlock_with_escrow", @"Can't instantiate escrow bag: %d", v14, v15, v16, v17, v18, v13);
     if (a4)
     {
-      v18 = @"Failure";
+      v19 = @"Failure";
 LABEL_9:
-      v25 = 0;
-      *a4 = v18;
-      goto LABEL_11;
+      v26 = 0;
+      *a4 = v19;
+      return v26;
     }
 
-    goto LABEL_10;
+    return 0;
   }
 
-  v19 = MKBKeyBagUnlock();
-  if (v19)
+  v20 = MKBKeyBagUnlock();
+  if (v20)
   {
-    locklog(0, "unlock_with_escrow", @"Can't unlock escrow bag: %d", v20, v21, v22, v23, v24, v19);
+    locklog(0, "unlock_with_escrow", @"Can't unlock escrow bag: %d", v21, v22, v23, v24, v25, v20);
     if (a4)
     {
-      v18 = @"EscrowFailure";
+      v19 = @"EscrowFailure";
       goto LABEL_9;
     }
 
-LABEL_10:
-    v25 = 0;
-    goto LABEL_11;
+    return 0;
   }
 
   if (a1)
@@ -1789,10 +1796,7 @@ LABEL_10:
     *a1 = 0;
   }
 
-  v25 = 1;
-LABEL_11:
-  v26 = *MEMORY[0x29EDCA608];
-  return v25;
+  return 1;
 }
 
 CFTypeRef lockdown_copy_wireless_connections_list()
@@ -1830,7 +1834,7 @@ CFTypeRef lockdown_copy_wireless_connections_list()
   v4 = xpc_connection_send_message_with_reply_sync(v3, v1);
   if (!v4)
   {
-    locklog(0, "lockdown_copy_wireless_connections_list", @"Failed to send xpc message.", v5, v6, v7, v8, v9, v29[0]);
+    locklog(0, "lockdown_copy_wireless_connections_list", @"Failed to send xpc message.", v5, v6, v7, v8, v9);
     xpc_release(v1);
     v27 = v3;
 LABEL_13:
@@ -1851,14 +1855,14 @@ LABEL_13:
 
     else
     {
-      locklog(0, "lockdown_copy_wireless_connections_list", @"Failed to copy array from xpc data.", v20, v21, v22, v23, v24, v29[0]);
+      locklog(0, "lockdown_copy_wireless_connections_list", @"Failed to copy array from xpc data.", v20, v21, v22, v23, v24);
       v26 = 0;
     }
   }
 
   else
   {
-    locklog(0, "lockdown_copy_wireless_connections_list", @"Invalid xpc response.", v14, v15, v16, v17, v18, v29[0]);
+    locklog(0, "lockdown_copy_wireless_connections_list", @"Invalid xpc response.", v14, v15, v16, v17, v18);
     v26 = 0;
     v25 = 0;
   }
@@ -1895,7 +1899,7 @@ void lockdown_kill_wireless_connections(uint64_t a1, uint64_t a2, uint64_t a3, u
 
       else
       {
-        locklog(0, "lockdown_kill_wireless_connections", @"Failed to receive xpc reply.", v24, v25, v26, v27, v28, v30);
+        locklog(0, "lockdown_kill_wireless_connections", @"Failed to receive xpc reply.", v24, v25, v26, v27, v28);
       }
 
       xpc_release(v15);
@@ -1904,7 +1908,7 @@ void lockdown_kill_wireless_connections(uint64_t a1, uint64_t a2, uint64_t a3, u
 
     else
     {
-      locklog(0, "lockdown_kill_wireless_connections", @"Failed to create xpc mach service.", v17, v18, v19, v20, v21, v30);
+      locklog(0, "lockdown_kill_wireless_connections", @"Failed to create xpc mach service.", v17, v18, v19, v20, v21);
       v29 = v15;
     }
 
@@ -1914,18 +1918,18 @@ void lockdown_kill_wireless_connections(uint64_t a1, uint64_t a2, uint64_t a3, u
   else
   {
 
-    locklog(0, "lockdown_kill_wireless_connections", @"Failed to create xpc dictionary.", v10, v11, v12, v13, v14, a9);
+    locklog(0, "lockdown_kill_wireless_connections", @"Failed to create xpc dictionary.", v10, v11, v12, v13, v14);
   }
 }
 
-uint64_t secure_lockdown_checkin(void *a1, CFDictionaryRef theDict, CFTypeRef *a3)
+uint64_t secure_lockdown_checkin(unsigned int ***a1, CFDictionaryRef theDict, CFTypeRef *a3)
 {
-  v79 = *MEMORY[0x29EDCA608];
+  v78 = *MEMORY[0x29EDCA608];
   valuePtr = -1;
-  v74 = 0;
+  v73 = 0;
   values = 0;
   cf = 0;
-  v70 = 0;
+  v69 = 0;
   if (!a1)
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
@@ -1949,9 +1953,9 @@ LABEL_47:
   if (!theDict || (Value = CFDictionaryGetValue(theDict, @"CheckinConnectionInfo")) == 0)
   {
     *buf = 0;
-    v76 = buf;
-    v77 = 0x2000000000;
-    v78 = 0;
+    v75 = buf;
+    v76 = 0x2000000000;
+    v77 = 0;
     v27 = getenv("LOCKDOWN_MACH_SERVICE");
     if (v27)
     {
@@ -1961,16 +1965,16 @@ LABEL_47:
       {
         v30 = v29;
         dispatch_retain(v29);
-        v68[0] = MEMORY[0x29EDCA5F8];
-        v68[1] = 0x40000000;
-        v68[2] = __secure_lockdown_checkin_block_invoke;
-        v68[3] = &unk_29EF06A60;
-        v68[4] = buf;
-        v68[5] = v28;
-        v68[6] = a1;
-        v68[7] = a3;
-        v68[8] = v30;
-        lockdown_checkin_xpc(v28, theDict, 0, v68);
+        v67[0] = MEMORY[0x29EDCA5F8];
+        v67[1] = 0x40000000;
+        v67[2] = __secure_lockdown_checkin_block_invoke;
+        v67[3] = &unk_29EF06A60;
+        v67[4] = buf;
+        v67[5] = v28;
+        v67[6] = a1;
+        v67[7] = a3;
+        v67[8] = v30;
+        lockdown_checkin_xpc(v28, theDict, 0, v67);
         v31 = dispatch_time(0, 10000000000);
         if (dispatch_semaphore_wait(v30, v31))
         {
@@ -1992,7 +1996,7 @@ LABEL_47:
 
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
       {
-        *v69 = 0;
+        *v68 = 0;
         v37 = MEMORY[0x29EDCA988];
         v38 = "Failed to create semaphore.";
         goto LABEL_52;
@@ -2001,11 +2005,11 @@ LABEL_47:
 
     else if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
-      *v69 = 0;
+      *v68 = 0;
       v37 = MEMORY[0x29EDCA988];
       v38 = "Unknown service name.";
 LABEL_52:
-      _os_log_impl(&dword_299099000, v37, OS_LOG_TYPE_DEFAULT, v38, v69, 2u);
+      _os_log_impl(&dword_299099000, v37, OS_LOG_TYPE_DEFAULT, v38, v68, 2u);
     }
 
     v30 = 0;
@@ -2082,10 +2086,10 @@ LABEL_54:
     }
 
     *buf = 0;
-    v41 = MEMORY[0x29EDCA988];
-    v42 = "Failed to read CF bag containing XPC connection.";
+    v40 = MEMORY[0x29EDCA988];
+    v41 = "Failed to read CF bag containing XPC connection.";
 LABEL_83:
-    _os_log_impl(&dword_299099000, v41, OS_LOG_TYPE_DEFAULT, v42, buf, 2u);
+    _os_log_impl(&dword_299099000, v40, OS_LOG_TYPE_DEFAULT, v41, buf, 2u);
     goto LABEL_84;
   }
 
@@ -2097,8 +2101,8 @@ LABEL_83:
     }
 
     *buf = 0;
-    v41 = MEMORY[0x29EDCA988];
-    v42 = "Unexpected number of items in XPC connection bag.";
+    v40 = MEMORY[0x29EDCA988];
+    v41 = "Unexpected number of items in XPC connection bag.";
     goto LABEL_83;
   }
 
@@ -2111,8 +2115,8 @@ LABEL_83:
     }
 
     *buf = 0;
-    v41 = MEMORY[0x29EDCA988];
-    v42 = "Failed to get remote connection from XPC message.";
+    v40 = MEMORY[0x29EDCA988];
+    v41 = "Failed to get remote connection from XPC message.";
     goto LABEL_83;
   }
 
@@ -2121,8 +2125,8 @@ LABEL_83:
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v41 = MEMORY[0x29EDCA988];
-      v42 = "Failed to send checkin reply.";
+      v40 = MEMORY[0x29EDCA988];
+      v41 = "Failed to send checkin reply.";
       goto LABEL_83;
     }
 
@@ -2150,8 +2154,8 @@ LABEL_84:
   }
 
   v12 = Mutable;
-  v74 = 2;
-  v13 = CFNumberCreate(0, kCFNumberIntType, &v74);
+  v73 = 2;
+  v13 = CFNumberCreate(0, kCFNumberIntType, &v73);
   if (!v13)
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
@@ -2199,10 +2203,10 @@ LABEL_84:
   v20 = CFDictionaryGetValue(ValueAtIndex, @"HostConnectionType");
   if (isCFNumber(v20))
   {
-    if (CFNumberGetValue(v20, kCFNumberIntType, &v70))
+    if (CFNumberGetValue(v20, kCFNumberIntType, &v69))
     {
-      v21 = v70;
-      if (v70 < 7)
+      v21 = v69;
+      if (v69 < 7)
       {
         if (v20)
         {
@@ -2224,9 +2228,9 @@ LABEL_104:
 
       *buf = 67109120;
       *&buf[4] = v21;
-      v43 = MEMORY[0x29EDCA988];
-      v44 = "Unknown connection type: %d";
-      v45 = 8;
+      v42 = MEMORY[0x29EDCA988];
+      v43 = "Unknown connection type: %d";
+      v44 = 8;
     }
 
     else
@@ -2237,12 +2241,12 @@ LABEL_104:
       }
 
       *buf = 0;
-      v43 = MEMORY[0x29EDCA988];
-      v44 = "Failed to get number.";
-      v45 = 2;
+      v42 = MEMORY[0x29EDCA988];
+      v43 = "Failed to get number.";
+      v44 = 2;
     }
 
-    _os_log_impl(&dword_299099000, v43, OS_LOG_TYPE_DEFAULT, v44, buf, v45);
+    _os_log_impl(&dword_299099000, v42, OS_LOG_TYPE_DEFAULT, v43, buf, v44);
     goto LABEL_104;
   }
 
@@ -2255,10 +2259,10 @@ LABEL_30:
   }
 
   v24 = valuePtr;
-  if (v70 - 7 > 0xFFFFFFFD)
+  if (v69 - 7 > 0xFFFFFFFD)
   {
     theDicta = theDict;
-    v67 = a1;
+    v66 = a1;
     valuePtr = -1;
   }
 
@@ -2277,13 +2281,13 @@ LABEL_108:
     }
 
     theDicta = theDict;
-    v67 = a1;
+    v66 = a1;
     _disable_sigpipe(v26);
     _disable_wake_from_sleep(v24);
   }
 
-  v46 = malloc_type_calloc(1uLL, 0x18uLL, 0xA0040A8488062uLL);
-  if (!v46)
+  v45 = malloc_type_calloc(1uLL, 0x18uLL, 0xA0040A8488062uLL);
+  if (!v45)
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
@@ -2294,9 +2298,9 @@ LABEL_108:
     goto LABEL_107;
   }
 
-  v35 = v46;
-  v47 = lockconn_new();
-  if (!v47)
+  v35 = v45;
+  v46 = lockconn_new();
+  if (!v46)
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
@@ -2307,27 +2311,27 @@ LABEL_108:
     goto LABEL_108;
   }
 
-  v36 = v47;
-  lockconn_init(v47, v24, v70);
-  v48 = CFDictionaryGetValue(ValueAtIndex, @"DeviceCertificate");
-  v49 = CFDictionaryGetValue(ValueAtIndex, @"DevicePrivateKey");
-  v50 = CFDictionaryGetValue(ValueAtIndex, @"HostRootCertificate");
-  if (!isCFData(v48) || !isCFData(v49))
+  v36 = v46;
+  lockconn_init(v46, v24, v69);
+  v47 = CFDictionaryGetValue(ValueAtIndex, @"DeviceCertificate");
+  v48 = CFDictionaryGetValue(ValueAtIndex, @"DevicePrivateKey");
+  v49 = CFDictionaryGetValue(ValueAtIndex, @"HostRootCertificate");
+  if (!isCFData(v47) || !isCFData(v48))
   {
     goto LABEL_111;
   }
 
-  if (isCFData(v50))
+  if (isCFData(v49))
   {
-    if (lockconn_enable_ssl(v36, v48, v49, v50, 0))
+    if (lockconn_enable_ssl(v36, v47, v48, v49, 0))
     {
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v51 = MEMORY[0x29EDCA988];
-        v52 = "Failed to enable SSL.";
+        v50 = MEMORY[0x29EDCA988];
+        v51 = "Failed to enable SSL.";
 LABEL_123:
-        _os_log_impl(&dword_299099000, v51, OS_LOG_TYPE_DEFAULT, v52, buf, 2u);
+        _os_log_impl(&dword_299099000, v50, OS_LOG_TYPE_DEFAULT, v51, buf, 2u);
         goto LABEL_109;
       }
 
@@ -2338,20 +2342,20 @@ LABEL_111:
     if (CFDictionaryContainsKey(ValueAtIndex, @"UseHostTracker") && !CFDictionaryContainsKey(theDicta, @"NoHeartBeat"))
     {
       *buf = 0;
-      v59 = CFDictionaryGetValue(ValueAtIndex, @"HostID");
-      v60 = CFDictionaryGetValue(ValueAtIndex, @"HostSideHostName");
-      v61 = CFDictionaryGetValue(ValueAtIndex, @"HostSideClientName");
-      HBWatchFDForHost(v24, v59, v60, v61, buf, v62, v63, v64, v65);
+      v58 = CFDictionaryGetValue(ValueAtIndex, @"HostID");
+      v59 = CFDictionaryGetValue(ValueAtIndex, @"HostSideHostName");
+      v60 = CFDictionaryGetValue(ValueAtIndex, @"HostSideClientName");
+      HBWatchFDForHost(v24, v58, v59, v60, buf, v61, v62, v63, v64);
       lockconn_set_heartbeat_ref(v36, *buf);
     }
 
     if (cf)
     {
-      lockconn_set_keybag_handle(v36, cf, v53, v54, v55, v56, v57, v58, v65);
+      lockconn_set_keybag_handle(v36, cf, v52, v53, v54, v55, v56, v57, v64);
     }
 
     *v35 = v36;
-    *v67 = v35;
+    *v66 = v35;
     v32 = 0;
     v35 = 0;
     v36 = 0;
@@ -2367,8 +2371,8 @@ LABEL_111:
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    v51 = MEMORY[0x29EDCA988];
-    v52 = "Invalid root certificate.";
+    v50 = MEMORY[0x29EDCA988];
+    v51 = "Invalid root certificate.";
     goto LABEL_123;
   }
 
@@ -2412,7 +2416,6 @@ LABEL_55:
     close(v24);
   }
 
-  v39 = *MEMORY[0x29EDCA608];
   return v32;
 }
 
@@ -2467,16 +2470,16 @@ uint64_t lockdown_checkin_xpc(const char *a1, const void *a2, NSObject *a3, uint
 
 void __secure_lockdown_checkin_block_invoke(uint64_t a1, uint64_t a2, CFTypeRef cf)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   v4 = *(*(a1 + 32) + 8);
   if (*(v4 + 24) == 1)
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
-      v7 = 136315138;
-      v8 = v5;
-      _os_log_impl(&dword_299099000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Unexpected second connection to %s.", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = v5;
+      _os_log_impl(&dword_299099000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Unexpected second connection to %s.", &v6, 0xCu);
     }
   }
 
@@ -2492,7 +2495,6 @@ void __secure_lockdown_checkin_block_invoke(uint64_t a1, uint64_t a2, CFTypeRef 
 
   dispatch_semaphore_signal(*(a1 + 64));
   dispatch_release(*(a1 + 64));
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 BOOL ack_checkin(_xpc_connection_s *a1)
@@ -2508,13 +2510,13 @@ BOOL ack_checkin(_xpc_connection_s *a1)
 
   else
   {
-    locklog(0, "ack_checkin", @"Couldn't construct a checkin reply message.", v3, v4, v5, v6, v7, v10);
+    locklog(0, "ack_checkin", @"Couldn't construct a checkin reply message.", v3, v4, v5, v6, v7);
   }
 
   return v8 != 0;
 }
 
-void HBWatchFDForHost(int a1, const __CFString *a2, char *a3, uint64_t a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void HBWatchFDForHost(int a1, const __CFString *a2, char *a3, char *a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
 {
   if (a2)
   {
@@ -2533,7 +2535,7 @@ void HBWatchFDForHost(int a1, const __CFString *a2, char *a3, uint64_t a4, uint6
           v29 = v23;
           if (v10 && (v10 = copy_cstr_from_cfstr(v10)) == 0)
           {
-            locklog(0, "HBWatchFDForHost", @"Failed to convert client name string.", v30, v31, v32, v33, v34, v49);
+            locklog(0, "HBWatchFDForHost", @"Failed to convert client name string.", v30, v31, v32, v33, v34);
             free(v29);
           }
 
@@ -2541,7 +2543,7 @@ void HBWatchFDForHost(int a1, const __CFString *a2, char *a3, uint64_t a4, uint6
           {
             if (a3 && (a3 = copy_cstr_from_cfstr(a3)) == 0)
             {
-              locklog(0, "HBWatchFDForHost", @"Failed to convert host name string.", v35, v36, v37, v38, v39, v49);
+              locklog(0, "HBWatchFDForHost", @"Failed to convert host name string.", v35, v36, v37, v38, v39);
               v46 = 0;
             }
 
@@ -2575,7 +2577,7 @@ void HBWatchFDForHost(int a1, const __CFString *a2, char *a3, uint64_t a4, uint6
 
               else
               {
-                locklog(0, "HBWatchFDForHost", @"Failed to send xpc message.", v41, v42, v43, v44, v45, v49);
+                locklog(0, "HBWatchFDForHost", @"Failed to send xpc message.", v41, v42, v43, v44, v45);
               }
             }
 
@@ -2599,7 +2601,7 @@ void HBWatchFDForHost(int a1, const __CFString *a2, char *a3, uint64_t a4, uint6
 
         else
         {
-          locklog(0, "HBWatchFDForHost", @"Failed to convert host id string.", v24, v25, v26, v27, v28, v49);
+          locklog(0, "HBWatchFDForHost", @"Failed to convert host id string.", v24, v25, v26, v27, v28);
         }
 
         xpc_release(v15);
@@ -2608,7 +2610,7 @@ void HBWatchFDForHost(int a1, const __CFString *a2, char *a3, uint64_t a4, uint6
 
       else
       {
-        locklog(0, "HBWatchFDForHost", @"Failed to create xpc mach service.", v17, v18, v19, v20, v21, v49);
+        locklog(0, "HBWatchFDForHost", @"Failed to create xpc mach service.", v17, v18, v19, v20, v21);
         v48 = v15;
       }
 
@@ -2624,29 +2626,29 @@ void HBWatchFDForHost(int a1, const __CFString *a2, char *a3, uint64_t a4, uint6
     v47 = @"Invalid host id.";
   }
 
-  locklog(0, "HBWatchFDForHost", v47, a4, a5, a6, a7, a8, a9);
+  locklog(0, "HBWatchFDForHost", v47, a4, a5, a6, a7, a8);
 }
 
 void __lockdown_checkin_xpc_block_invoke(uint64_t a1, _xpc_connection_s *a2)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   if (MEMORY[0x29C297790](a2) == MEMORY[0x29EDCA9F0])
   {
-    *v18 = 0u;
-    v19 = 0u;
+    *v17 = 0u;
+    v18 = 0u;
     xpc_connection_get_audit_token();
     v4 = xpc_copy_entitlement_for_token();
     if (v4 && (v5 = v4, v6 = MEMORY[0x29EDCA9B0], xpc_release(v4), v5 == v6))
     {
-      v11 = xpc_retain(*(a1 + 48));
-      xpc_connection_set_context(a2, v11);
+      v10 = xpc_retain(*(a1 + 48));
+      xpc_connection_set_context(a2, v10);
       handler[0] = MEMORY[0x29EDCA5F8];
       handler[1] = 0x40000000;
       handler[2] = __lockdown_checkin_xpc_block_invoke_2;
       handler[3] = &unk_29EF06A88;
-      v14 = a2;
-      v15 = *(a1 + 56);
-      v13 = *(a1 + 32);
+      v13 = a2;
+      v14 = *(a1 + 56);
+      v12 = *(a1 + 32);
       xpc_connection_set_event_handler(a2, handler);
       xpc_connection_resume(a2);
     }
@@ -2681,9 +2683,9 @@ void __lockdown_checkin_xpc_block_invoke(uint64_t a1, _xpc_connection_s *a2)
       v7 = MEMORY[0x29C297680](a2);
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
       {
-        *v18 = 136315138;
-        *&v18[4] = v7;
-        _os_log_impl(&dword_299099000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Unexpected XPC event '%s' on xpc listener", v18, 0xCu);
+        *v17 = 136315138;
+        *&v17[4] = v7;
+        _os_log_impl(&dword_299099000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Unexpected XPC event '%s' on xpc listener", v17, 0xCu);
       }
 
       free(v7);
@@ -2703,13 +2705,11 @@ void __lockdown_checkin_xpc_block_invoke(uint64_t a1, _xpc_connection_s *a2)
       CFRelease(v9);
     }
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 void __lockdown_checkin_xpc_block_invoke_2(uint64_t a1, void *a2)
 {
-  v49 = *MEMORY[0x29EDCA608];
+  v48 = *MEMORY[0x29EDCA608];
   context = xpc_connection_get_context(*(a1 + 48));
   if (MEMORY[0x29C297790](a2) != MEMORY[0x29EDCAA00])
   {
@@ -2729,7 +2729,7 @@ void __lockdown_checkin_xpc_block_invoke_2(uint64_t a1, void *a2)
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v48 = v5;
+        v47 = v5;
         _os_log_impl(&dword_299099000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Unexpected XPC event '%s' on xpc connection", buf, 0xCu);
       }
 
@@ -2741,37 +2741,37 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v8 = xpc_dictionary_get_BOOL(a2, "_LDKEEPCONNALIVE");
+  v7 = xpc_dictionary_get_BOOL(a2, "_LDKEEPCONNALIVE");
   *(*(*(a1 + 40) + 8) + 24) = xpc_dictionary_get_BOOL(a2, "_LDSHUTDOWNLISTENER");
-  v9 = *(a1 + 56);
-  v10 = *(a1 + 64);
-  v11 = *(a1 + 32);
+  v8 = *(a1 + 56);
+  v9 = *(a1 + 64);
+  v10 = *(a1 + 32);
   theDict = 0;
   cf = 0;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2000000000;
-  v38 = 0;
   v34 = 0;
+  v35 = &v34;
+  v36 = 0x2000000000;
+  v37 = 0;
+  v33 = 0;
   bzero(buf, 0x400uLL);
-  v12 = lockdown_copy_checkin_info(a2, &cf);
-  if (v12)
+  v11 = lockdown_copy_checkin_info(a2, &cf);
+  if (v11)
   {
-    v13 = v12;
+    v12 = v11;
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       *block = 67109120;
-      *&block[4] = v13;
+      *&block[4] = v12;
       _os_log_impl(&dword_299099000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "lockdown_copy_checkin_info failed (%d).", block, 8u);
     }
 
-    v14 = 0;
+    v13 = 0;
     goto LABEL_20;
   }
 
-  if (v9)
+  if (v8)
   {
-    MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v9);
+    MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v8);
   }
 
   else
@@ -2779,35 +2779,35 @@ LABEL_9:
     MutableCopy = CFDictionaryCreateMutable(0, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   }
 
-  v14 = MutableCopy;
+  v13 = MutableCopy;
   CFDictionarySetValue(MutableCopy, @"CheckinConnectionInfo", cf);
-  v16 = secure_lockdown_checkin(&v34, v14);
+  v15 = secure_lockdown_checkin(&v33, v13, &theDict);
   if (theDict)
   {
     Value = CFDictionaryGetValue(theDict, @"CheckinPath");
-    v18 = isCFString(Value);
-    if (v18)
+    v17 = isCFString(Value);
+    if (v17)
     {
-      v19 = v18;
-      CString = CFStringGetCString(v18, buf, 1024, 0x8000100u);
+      v18 = v17;
+      CString = CFStringGetCString(v17, buf, 1024, 0x8000100u);
       if (!CString)
       {
-        locklog(CString, "handle_lockdown_xpc_message", @"CFStringGetCString failure for %@", v21, v22, v23, v24, v25, v19);
+        locklog(CString, "handle_lockdown_xpc_message", @"CFStringGetCString failure for %@", v20, v21, v22, v23, v24, v18);
         if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_20;
         }
 
         *block = 0;
-        v26 = MEMORY[0x29EDCA988];
-        v27 = "hinkyness";
-        v28 = 2;
+        v25 = MEMORY[0x29EDCA988];
+        v26 = "hinkyness";
+        v27 = 2;
         goto LABEL_42;
       }
     }
   }
 
-  if (v16)
+  if (v15)
   {
     if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
@@ -2817,42 +2817,42 @@ LABEL_9:
     *block = 136315394;
     *&block[4] = buf;
     *&block[12] = 1024;
-    *&block[14] = v16;
-    v26 = MEMORY[0x29EDCA988];
-    v27 = "Could not check in with lockdown at '%s': %d";
-    v28 = 18;
+    *&block[14] = v15;
+    v25 = MEMORY[0x29EDCA988];
+    v26 = "Could not check in with lockdown at '%s': %d";
+    v27 = 18;
 LABEL_42:
-    _os_log_impl(&dword_299099000, v26, OS_LOG_TYPE_DEFAULT, v27, block, v28);
+    _os_log_impl(&dword_299099000, v25, OS_LOG_TYPE_DEFAULT, v26, block, v27);
     goto LABEL_20;
   }
 
-  if (v34)
+  if (v33)
   {
-    v29 = lockconn_sock(*v34);
-    v30 = "out";
-    if (v34 && lockconn_sslcontext(*v34))
+    v28 = lockconn_sock(*v33);
+    v29 = "out";
+    if (v33 && lockconn_sslcontext(*v33))
     {
-      v30 = "";
+      v29 = "";
     }
   }
 
   else
   {
-    v30 = "out";
-    v29 = -1;
+    v29 = "out";
+    v28 = -1;
   }
 
-  syslog(6, "Checked in with lockdown on path '%s' socket %d with%s SSL", buf, v29, v30);
-  if (a2 && (v31 = v34) != 0)
+  syslog(6, "Checked in with lockdown on path '%s' socket %d with%s SSL", buf, v28, v29);
+  if (a2 && (v30 = v33) != 0)
   {
     xpc_retain(a2);
-    v32 = *(v31 + 8);
-    if (v32)
+    v31 = v30[1];
+    if (v31)
     {
-      xpc_release(v32);
+      xpc_release(v31);
     }
 
-    *(v31 + 8) = a2;
+    v30[1] = a2;
   }
 
   else if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
@@ -2861,35 +2861,35 @@ LABEL_42:
     _os_log_impl(&dword_299099000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Invalid input(s).", block, 2u);
   }
 
-  v33 = v34;
-  if (!*(v34 + 16))
+  v32 = v33;
+  if (!v33[2])
   {
-    *(v33 + 16) = os_transaction_create();
+    v32[2] = os_transaction_create();
   }
 
-  v36[3] = os_transaction_create();
+  v35[3] = os_transaction_create();
   *block = MEMORY[0x29EDCA5F8];
   *&block[8] = 0x40000000;
   *&block[16] = __handle_lockdown_xpc_message_block_invoke;
-  v42 = &unk_29EF06AF8;
-  v45 = v34;
-  v46 = theDict;
-  v43 = v11;
-  v44 = &v35;
-  dispatch_async(v10, block);
+  v41 = &unk_29EF06AF8;
+  v44 = v33;
+  v45 = theDict;
+  v42 = v10;
+  v43 = &v34;
+  dispatch_async(v9, block);
 LABEL_20:
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v14)
+  if (v13)
   {
-    CFRelease(v14);
+    CFRelease(v13);
   }
 
-  _Block_object_dispose(&v35, 8);
-  if (!v8)
+  _Block_object_dispose(&v34, 8);
+  if (!v7)
   {
     goto LABEL_9;
   }
@@ -2902,8 +2902,6 @@ LABEL_10:
     xpc_release(context);
     xpc_connection_set_context(*(a1 + 48), 0);
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t *lockdown_get_securecontext(uint64_t *result)
@@ -3418,7 +3416,7 @@ const void *lockdown_copy_paired_host_info()
     value = send_get_value(*v0, @"com.apple.mobile.lockdown.paired_host_info", 0, &cf);
     if (!value && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      lockdown_copy_paired_host_info_cold_1(&cf);
+      lockdown_copy_paired_host_info_cold_1();
     }
 
     lockdown_disconnect(v1);
@@ -3452,7 +3450,7 @@ uint64_t lockdown_unpair_host_by_id(void *a1)
     {
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
-        lockdown_unpair_host_by_id_cold_1(a1, &cf);
+        lockdown_unpair_host_by_id_cold_1();
       }
 
       v4 = 6;
@@ -3517,13 +3515,11 @@ void *copy_cstr_from_cfstr(const __CFString *a1)
 
 void __handle_lockdown_xpc_message_block_invoke(void *a1)
 {
-  v2 = a1[6];
-  v3 = a1[7];
   (*(a1[4] + 16))();
-  v4 = a1[7];
-  if (v4)
+  v2 = a1[7];
+  if (v2)
   {
-    CFRelease(v4);
+    CFRelease(v2);
   }
 
   os_release(*(*(a1[5] + 8) + 24));
@@ -3666,72 +3662,68 @@ BOOL _disable_wake_from_sleep(int a1)
 
 CFStringRef createIPString(int a1, char *a2)
 {
-  v21 = *MEMORY[0x29EDCA608];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
+  v20 = *MEMORY[0x29EDCA608];
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0;
+  v17 = 0u;
   v14 = 0u;
-  v11 = 128;
-  if (getpeername(a1, &v13, &v11))
+  v15 = 0u;
+  v12 = 0;
+  v13 = 0u;
+  v10 = 128;
+  if (getpeername(a1, &v12, &v10))
   {
     createIPString_cold_1();
-    goto LABEL_10;
   }
 
-  if (v13.sa_family == 30)
+  else if (v12.sa_family == 30)
   {
-    if (inet_ntop(30, &v13.sa_data[6], cStr, 0x80u))
+    if (inet_ntop(30, &v12.sa_data[6], cStr, 0x80u))
     {
       v8 = 1;
       goto LABEL_8;
     }
 
     createIPString_cold_2();
-LABEL_10:
-    result = 0;
-    goto LABEL_11;
   }
 
-  if (v13.sa_family != 2)
+  else if (v12.sa_family == 2)
   {
-    locklog(0, "createIPString", @"Unknown socket family %d", v3, v4, v5, v6, v7, v13.sa_family);
-    goto LABEL_10;
-  }
-
-  if (!inet_ntop(2, &v13.sa_data[2], cStr, 0x80u))
-  {
-    createIPString_cold_3();
-    goto LABEL_10;
-  }
-
-  v8 = 0;
+    if (inet_ntop(2, &v12.sa_data[2], cStr, 0x80u))
+    {
+      v8 = 0;
 LABEL_8:
-  *a2 = v8;
-  result = CFStringCreateWithCString(0, cStr, 0x8000100u);
-LABEL_11:
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+      *a2 = v8;
+      return CFStringCreateWithCString(0, cStr, 0x8000100u);
+    }
+
+    createIPString_cold_3();
+  }
+
+  else
+  {
+    locklog(0, "createIPString", @"Unknown socket family %d", v3, v4, v5, v6, v7, v12.sa_family);
+  }
+
+  return 0;
 }
 
 uint64_t accept_with_timeout(int a1, int a2, const void *a3)
 {
+  v44 = 0;
   v45 = 0;
-  v46 = 0;
-  memset(&v47, 0, sizeof(v47));
-  if (__darwin_check_fd_set_overflow(a1, &v47, 0))
+  memset(&v46, 0, sizeof(v46));
+  if (__darwin_check_fd_set_overflow(a1, &v46, 0))
   {
-    *(v47.fds_bits + ((a1 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << a1;
+    *(v46.fds_bits + ((a1 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << a1;
   }
 
   if (a2)
   {
-    LODWORD(v46) = 0;
-    v45 = a2;
-    v6 = &v45;
+    LODWORD(v45) = 0;
+    v44 = a2;
+    v6 = &v44;
   }
 
   else
@@ -3739,10 +3731,10 @@ uint64_t accept_with_timeout(int a1, int a2, const void *a3)
     v6 = 0;
   }
 
-  v7 = select(a1 + 1, &v47, 0, 0, v6);
+  v7 = select(a1 + 1, &v46, 0, 0, v6);
   if (!v7)
   {
-    locklog(v7, "accept_with_timeout", @"Timed out waiting for a connection", v8, v9, v10, v11, v12, v43);
+    locklog(v7, "accept_with_timeout", @"Timed out waiting for a connection", v8, v9, v10, v11, v12);
     return 0xFFFFFFFFLL;
   }
 
@@ -3766,10 +3758,10 @@ uint64_t accept_with_timeout(int a1, int a2, const void *a3)
 
   if (a3)
   {
-    v23 = createIPString(v22, &v44);
+    v23 = createIPString(v22, &v43);
     if (!v23)
     {
-      locklog(0, "accept_with_timeout", @"createIPString failed", v24, v25, v26, v27, v28, v43);
+      locklog(0, "accept_with_timeout", @"createIPString failed", v24, v25, v26, v27, v28);
       close(v20);
       return 0xFFFFFFFFLL;
     }
@@ -3778,7 +3770,7 @@ uint64_t accept_with_timeout(int a1, int a2, const void *a3)
     v30 = CFEqual(v23, a3);
     if (!v30)
     {
-      locklog(v30, "accept_with_timeout", @"Denying unauthorized host from %@, was expecting %@.", v31, v32, v33, v34, v35, v29);
+      locklog(v30, "accept_with_timeout", @"Denying unauthorized host from %@, was expecting %@.", v31, v32, v33, v34, v35, v29, a3);
       close(v20);
       v20 = 0xFFFFFFFFLL;
     }
@@ -3792,9 +3784,9 @@ uint64_t accept_with_timeout(int a1, int a2, const void *a3)
 CFTypeRef copy_array_from_xpc_data(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   error = 0;
-  if (!a1 || MEMORY[0x29C297790]() != MEMORY[0x29EDCA9F8])
+  if (!a1 || MEMORY[0x29C297790](a1, a2, a3, a4, a5, a6, a7, a8) != MEMORY[0x29EDCA9F8])
   {
-    locklog(0, "copy_array_from_xpc_data", @"Invalid input(s).", a4, a5, a6, a7, a8, v29);
+    locklog(0, "copy_array_from_xpc_data", @"Invalid input(s).", a4, a5, a6, a7, a8);
     return 0;
   }
 
@@ -3820,7 +3812,7 @@ CFTypeRef copy_array_from_xpc_data(void *a1, uint64_t a2, uint64_t a3, uint64_t 
 
     else
     {
-      locklog(0, "copy_array_from_xpc_data", @"XPC data is not an array.", v24, v25, v26, v27, v28, v29);
+      locklog(0, "copy_array_from_xpc_data", @"XPC data is not an array.", v24, v25, v26, v27, v28);
       v9 = 0;
     }
 
@@ -3845,9 +3837,9 @@ CFTypeRef copy_array_from_xpc_data(void *a1, uint64_t a2, uint64_t a3, uint64_t 
 CFTypeRef copy_dict_from_xpc_data(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   error = 0;
-  if (!a1 || MEMORY[0x29C297790]() != MEMORY[0x29EDCA9F8])
+  if (!a1 || MEMORY[0x29C297790](a1, a2, a3, a4, a5, a6, a7, a8) != MEMORY[0x29EDCA9F8])
   {
-    locklog(0, "copy_dict_from_xpc_data", @"Invalid input(s).", a4, a5, a6, a7, a8, v29);
+    locklog(0, "copy_dict_from_xpc_data", @"Invalid input(s).", a4, a5, a6, a7, a8);
     return 0;
   }
 
@@ -3873,7 +3865,7 @@ CFTypeRef copy_dict_from_xpc_data(void *a1, uint64_t a2, uint64_t a3, uint64_t a
 
     else
     {
-      locklog(0, "copy_dict_from_xpc_data", @"XPC data is not a dictionary.", v24, v25, v26, v27, v28, v29);
+      locklog(0, "copy_dict_from_xpc_data", @"XPC data is not a dictionary.", v24, v25, v26, v27, v28);
       v9 = 0;
     }
 
@@ -3917,24 +3909,6 @@ void lockdown_copy_identity_cold_2(void *a1)
   *a1 = 0;
 }
 
-void lockdown_copy_paired_host_info_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x29EDCA608];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x29EDCA608];
-}
-
-void lockdown_unpair_host_by_id_cold_1(uint64_t a1, uint64_t *a2)
-{
-  v9 = *MEMORY[0x29EDCA608];
-  v8 = *a2;
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x29EDCA608];
-}
-
 void createIPString_cold_1()
 {
   v0 = __error();
@@ -3972,14 +3946,14 @@ SSLContext *lockssl_handshake(int a1, const __CFData *a2, const __CFData *a3, co
     {
       v22 = v16;
       _SSLNewContext();
-      locklog(0, "lockssl_create_context", @"Could not create SSL context", v53, v54, v55, v56, v57, v58);
+      locklog(0, "lockssl_create_context", @"Could not create SSL context", v53, v54, v55, v56, v57);
       goto LABEL_5;
     }
   }
 
   else
   {
-    locklog(0, "lockssl_create_context", @"Could not decode certificate", v9, v10, v11, v12, v13, v58);
+    locklog(0, "lockssl_create_context", @"Could not decode certificate", v9, v10, v11, v12, v13);
     v22 = lockcrypto_private_key_from_pem_data(a3);
     if (v22)
     {
@@ -3994,7 +3968,7 @@ LABEL_5:
     }
   }
 
-  locklog(0, "lockssl_create_context", @"Could not decode private key", v17, v18, v19, v20, v21, v58);
+  locklog(0, "lockssl_create_context", @"Could not decode private key", v17, v18, v19, v20, v21);
   if (v14)
   {
 LABEL_6:
@@ -4005,7 +3979,7 @@ LABEL_7:
   v28 = context;
   if (!context)
   {
-    locklog(0, "lockssl_handshake", @"Could not create ssl context", v23, v24, v25, v26, v27, v58);
+    locklog(0, "lockssl_handshake", @"Could not create ssl context", v23, v24, v25, v26, v27);
 LABEL_30:
     v50 = 0;
     LockdownPairing = 0;
@@ -4041,7 +4015,7 @@ LABEL_54:
         LockdownPairing = SecPolicyCreateLockdownPairing();
         if (SecTrustCreateWithCertificates(certificates, LockdownPairing, &trust))
         {
-          locklog(0, "lockssl_handshake", @"SecTrustCreateWithCertificates failed", v44, v45, v46, v47, v48, v58);
+          locklog(0, "lockssl_handshake", @"SecTrustCreateWithCertificates failed", v44, v45, v46, v47, v48);
           goto LABEL_56;
         }
 
@@ -4059,7 +4033,7 @@ LABEL_54:
 
         if (!SecTrustEvaluateWithError(trust, &error))
         {
-          locklog(0, "lockssl_handshake", @"SecTrustEvalute failed", v29, v30, v31, v32, v33, v58);
+          locklog(0, "lockssl_handshake", @"SecTrustEvalute failed", v29, v30, v31, v32, v33);
           goto LABEL_57;
         }
 

@@ -9,7 +9,6 @@
 - (void)thumbnailInformationWithCompletionBlock:(id)block;
 - (void)webProcessPlugIn:(id)in didCreateBrowserContextController:(id)controller;
 - (void)webProcessPlugIn:(id)in initializeWithObject:(id)object;
-- (void)webProcessPlugIn:(id)in willDestroyBrowserContextController:(id)controller;
 @end
 
 @implementation QLWebKitBundle
@@ -37,13 +36,6 @@
 
   browserContextController = self->_browserContextController;
   self->_browserContextController = controllerCopy;
-}
-
-- (void)webProcessPlugIn:(id)in willDestroyBrowserContextController:(id)controller
-{
-  browserContextController = self->_browserContextController;
-  self->_browserContextController = 0;
-  _objc_release_x1();
 }
 
 - (void)thumbnailInformationWithCompletionBlock:(id)block

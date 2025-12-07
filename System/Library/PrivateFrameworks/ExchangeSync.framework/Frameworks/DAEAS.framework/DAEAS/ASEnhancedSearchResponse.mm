@@ -110,15 +110,15 @@
 
 - (void)addStoreResponse:(id)response
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v5, v6))
   {
-    v11 = 138412290;
-    v12 = responseCopy;
-    _os_log_impl(&dword_24A0AC000, v5, v6, "Adding enhanced search response: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = responseCopy;
+    _os_log_impl(&dword_24A0AC000, v5, v6, "Adding enhanced search response: %@", &v10, 0xCu);
   }
 
   mResults = [(ASEnhancedSearchResponse *)self mResults];
@@ -134,8 +134,6 @@
     mResults2 = [(ASEnhancedSearchResponse *)self mResults];
     [mResults2 addObject:responseCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)asParseRules

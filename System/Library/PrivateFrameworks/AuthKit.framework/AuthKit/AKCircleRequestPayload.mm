@@ -216,7 +216,6 @@
 
   objc_storeStrong(&v42, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v6 = v45;
 
   return v6;
@@ -281,7 +280,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v4 = v19;
 
   return v4;
@@ -456,7 +454,6 @@
   v27 = MEMORY[0x1E69E5928](selfCopy);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x1E69E9840];
   return v27;
 }
 

@@ -33,7 +33,6 @@
 {
   if (*&self->_has)
   {
-    distance = self->_distance;
     PBDataWriterWriteUint64Field();
   }
 }

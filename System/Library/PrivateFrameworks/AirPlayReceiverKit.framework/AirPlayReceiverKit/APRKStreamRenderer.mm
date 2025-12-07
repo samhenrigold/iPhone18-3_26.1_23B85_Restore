@@ -116,23 +116,24 @@
   dispatch_async(rendererStateUpdateQueue, block);
 }
 
-uint64_t __26__APRKStreamRenderer_stop__block_invoke(uint64_t result)
+void *__26__APRKStreamRenderer_stop__block_invoke(void *result)
 {
   v1 = result;
-  v2 = *(result + 32);
+  v2 = result[4];
   if (*(v2 + 16) == 1)
   {
     if (gLogCategory_AirPlayReceiverKit <= 30)
     {
       if (gLogCategory_AirPlayReceiverKit != -1)
       {
-        return LogPrintF();
+        return LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer stop]_block_invoke", 33554462, "Stop was already called on renderer %{ptr}, but renderer is already stopping. Will do nothing.", v2);
       }
 
       result = _LogCategory_Initialize();
       if (result)
       {
-        return LogPrintF();
+        v2 = v1[4];
+        return LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer stop]_block_invoke", 33554462, "Stop was already called on renderer %{ptr}, but renderer is already stopping. Will do nothing.", v2);
       }
     }
   }
@@ -141,30 +142,30 @@ uint64_t __26__APRKStreamRenderer_stop__block_invoke(uint64_t result)
   {
     if (gLogCategory_AirPlayReceiverKit <= 30)
     {
-      if (gLogCategory_AirPlayReceiverKit != -1 || (v3 = _LogCategory_Initialize(), v2 = *(v1 + 32), v3))
+      if (gLogCategory_AirPlayReceiverKit != -1 || (v3 = _LogCategory_Initialize(), v2 = v1[4], v3))
       {
-        LogPrintF();
-        v2 = *(v1 + 32);
+        LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer stop]_block_invoke", 33554462, "Stop was called on renderer %{ptr}.", v2);
+        v2 = v1[4];
       }
     }
 
     *(v2 + 16) = 1;
-    v4 = *(v1 + 32);
+    v4 = v1[4];
     if (v4[33])
     {
       CFRelease(v4[33]);
-      *(*(v1 + 32) + 264) = 0;
-      v4 = *(v1 + 32);
+      *(v1[4] + 264) = 0;
+      v4 = v1[4];
     }
 
     if (v4[34])
     {
       CFRelease(v4[34]);
-      *(*(v1 + 32) + 272) = 0;
-      v4 = *(v1 + 32);
+      *(v1[4] + 272) = 0;
+      v4 = v1[4];
     }
 
-    return [(CFTypeRef *)v4 _performUIControllerActionWithBlock:&__block_literal_global_1];
+    return [(CFTypeRef *)v4 _performUIControllerActionWithBlock:?];
   }
 
   return result;
@@ -173,46 +174,45 @@ uint64_t __26__APRKStreamRenderer_stop__block_invoke(uint64_t result)
 - (BOOL)startRecordingWithOutputURL:(id)l
 {
   lCopy = l;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
   if (gLogCategory_AirPlayReceiverKit <= 50 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    [lCopy absoluteString];
-    v9 = v8 = self;
-    LogPrintF();
+    absoluteString = [lCopy absoluteString];
+    LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer startRecordingWithOutputURL:]", 33554482, "Starting recording for renderer %{ptr} with output file %@.", self, absoluteString);
   }
 
-  if ([(APRKStreamRenderer *)self canRecord:v8])
+  if ([(APRKStreamRenderer *)self canRecord])
   {
     rendererVideoBufferQueue = self->_rendererVideoBufferQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __50__APRKStreamRenderer_startRecordingWithOutputURL___block_invoke;
     block[3] = &unk_278C627D8;
-    v12 = &v13;
+    v11 = &v12;
     block[4] = self;
-    v11 = lCopy;
+    v10 = lCopy;
     dispatch_sync(rendererVideoBufferQueue, block);
 
-    v6 = *(v14 + 24);
+    v7 = *(v13 + 24);
   }
 
   else
   {
-    v6 = 0;
-    *(v14 + 24) = 0;
+    v7 = 0;
+    *(v13 + 24) = 0;
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v12, 8);
 
-  return v6 & 1;
+  return v7 & 1;
 }
 
-uint64_t __50__APRKStreamRenderer_startRecordingWithOutputURL___block_invoke(uint64_t a1)
+void *__50__APRKStreamRenderer_startRecordingWithOutputURL___block_invoke(uint64_t a1)
 {
-  result = [*(a1 + 32) _performStartRecordingWithOutputURL:*(a1 + 40)];
+  result = [*(a1 + 32) _performStartRecordingWithOutputURL:?];
   *(*(*(a1 + 48) + 8) + 24) = result;
   return result;
 }
@@ -225,7 +225,7 @@ uint64_t __50__APRKStreamRenderer_startRecordingWithOutputURL___block_invoke(uin
   v10 = 0;
   if (gLogCategory_AirPlayReceiverKit <= 50 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer stopRecording]", 33554482, "Stopping recording for renderer %{ptr}.", self);
   }
 
   rendererVideoBufferQueue = self->_rendererVideoBufferQueue;
@@ -241,7 +241,7 @@ uint64_t __50__APRKStreamRenderer_startRecordingWithOutputURL___block_invoke(uin
   return v4;
 }
 
-uint64_t __35__APRKStreamRenderer_stopRecording__block_invoke(uint64_t a1)
+void *__35__APRKStreamRenderer_stopRecording__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _performStopRecording];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -252,17 +252,17 @@ uint64_t __35__APRKStreamRenderer_stopRecording__block_invoke(uint64_t a1)
 {
   if (gLogCategory_AirPlayReceiverKit <= 50 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    [APRKStreamRenderer makeNowPlayingRenderer];
+    [(APRKStreamRenderer *)self makeNowPlayingRenderer];
   }
 
   if (self->_streamRendererMode == 2)
   {
 
-    [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:&__block_literal_global_9];
+    [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:?];
   }
 }
 
-uint64_t __44__APRKStreamRenderer_makeNowPlayingRenderer__block_invoke()
+uint64_t __44__APRKStreamRenderer_makeNowPlayingRenderer__block_invoke(uint64_t a1, uint64_t a2)
 {
   CMNotificationCenterGetDefaultLocalCenter();
 
@@ -276,7 +276,7 @@ uint64_t __44__APRKStreamRenderer_makeNowPlayingRenderer__block_invoke()
     [APRKStreamRenderer updateDisplayInfo];
   }
 
-  [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:&__block_literal_global_12];
+  [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:?];
 }
 
 - (BOOL)isRecording
@@ -400,35 +400,44 @@ __n128 __36__APRKStreamRenderer_videoFrameSize__block_invoke(uint64_t a1)
   dispatch_async(rendererVideoBufferQueue, v4);
 }
 
-uint64_t __54__APRKStreamRenderer_setIsMirroringVideoStreamPaused___block_invoke(uint64_t result)
+void *__54__APRKStreamRenderer_setIsMirroringVideoStreamPaused___block_invoke(void *result)
 {
   v1 = result;
-  v2 = *(result + 32);
-  if (*(v2 + 25) == 1 && (*(result + 40) & 1) == 0)
+  v2 = result[4];
+  if (*(v2 + 25) == 1 && (result[5] & 1) == 0)
   {
     if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
     {
       __54__APRKStreamRenderer_setIsMirroringVideoStreamPaused___block_invoke_cold_1();
     }
 
-    *(*(v1 + 32) + 24) = 1;
-    result = [*(v1 + 32) _performUIControllerActionWithBlock:&__block_literal_global_15];
-    v2 = *(v1 + 32);
+    *(v1[4] + 24) = 1;
+    result = [v1[4] _performUIControllerActionWithBlock:?];
+    v2 = v1[4];
   }
 
-  *(v2 + 25) = *(v1 + 40);
+  v3 = *(v1 + 40);
+  *(v2 + 25) = v3;
   if (gLogCategory_AirPlayReceiverKit <= 30)
   {
-    if (gLogCategory_AirPlayReceiverKit != -1)
+    if (gLogCategory_AirPlayReceiverKit == -1)
     {
-      return LogPrintF();
+      result = _LogCategory_Initialize();
+      if (!result)
+      {
+        return result;
+      }
+
+      v3 = *(v1 + 40);
     }
 
-    result = _LogCategory_Initialize();
-    if (result)
+    v4 = "un";
+    if (v3)
     {
-      return LogPrintF();
+      v4 = "";
     }
+
+    return LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer setIsMirroringVideoStreamPaused:]_block_invoke", 33554462, "Mirroring video stream got %spaused for renderer %{ptr}.\n", v4, v1[4]);
   }
 
   return result;
@@ -467,19 +476,33 @@ uint64_t __54__APRKStreamRenderer_setIsMirroringVideoStreamPaused___block_invoke
 
 uint64_t __54__APRKStreamRenderer_setIsMirroringAudioStreamPaused___block_invoke(uint64_t result)
 {
-  *(*(result + 32) + 26) = *(result + 40);
+  v1 = *(result + 40);
+  *(*(result + 32) + 26) = v1;
   if (gLogCategory_AirPlayReceiverKit <= 30)
   {
-    if (gLogCategory_AirPlayReceiverKit != -1)
+    if (gLogCategory_AirPlayReceiverKit == -1)
     {
-      return LogPrintF();
+      v3 = result;
+      result = _LogCategory_Initialize();
+      if (!result)
+      {
+        return result;
+      }
+
+      v1 = *(v3 + 40);
     }
 
-    result = _LogCategory_Initialize();
-    if (result)
+    if (v1)
     {
-      return LogPrintF();
+      v2 = "";
     }
+
+    else
+    {
+      v2 = "un";
+    }
+
+    return LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer setIsMirroringAudioStreamPaused:]_block_invoke", 33554462, "Mirroring audio stream got %spaused.\n", v2);
   }
 
   return result;
@@ -490,18 +513,18 @@ uint64_t __54__APRKStreamRenderer_setIsMirroringAudioStreamPaused___block_invoke
   delegateCopy = delegate;
   if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    [APRKStreamRenderer setSampleBufferDelegate:];
+    [(APRKStreamRenderer *)delegateCopy setSampleBufferDelegate:v4, v5];
   }
 
   rendererVideoBufferQueue = self->_rendererVideoBufferQueue;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __46__APRKStreamRenderer_setSampleBufferDelegate___block_invoke;
-  v7[3] = &unk_278C62788;
-  v7[4] = self;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __46__APRKStreamRenderer_setSampleBufferDelegate___block_invoke;
+  v9[3] = &unk_278C62788;
+  v9[4] = self;
+  v10 = delegateCopy;
   v8 = delegateCopy;
-  v6 = delegateCopy;
-  dispatch_sync(rendererVideoBufferQueue, v7);
+  dispatch_sync(rendererVideoBufferQueue, v9);
 }
 
 - (void)postVideoV1EventWithType:(const char *)type params:(__CFDictionary *)params
@@ -510,18 +533,10 @@ uint64_t __54__APRKStreamRenderer_setIsMirroringAudioStreamPaused___block_invoke
   {
     if (gLogCategory_AirPlayReceiverKit <= 10 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
     {
-      typeCopy = type;
-      paramsCopy = params;
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer postVideoV1EventWithType:params:]", 33554442, "Posting video V1 event with type=%s params=%@", type, params);
     }
 
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __54__APRKStreamRenderer_postVideoV1EventWithType_params___block_invoke;
-    v9[3] = &__block_descriptor_48_e39_v16__0__OpaqueAPReceiverUIController__8l;
-    v9[4] = type;
-    v9[5] = params;
-    [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:v9, typeCopy, paramsCopy];
+    [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:?];
   }
 
   else if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
@@ -539,16 +554,12 @@ uint64_t __54__APRKStreamRenderer_setIsMirroringAudioStreamPaused___block_invoke
   {
     if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer setVideoV1Delegate:withDelegateQueue:]", 33554462, "Setting video V1 delegate to object %@ with delegateQueue=%@", delegateCopy, v8);
     }
 
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __59__APRKStreamRenderer_setVideoV1Delegate_withDelegateQueue___block_invoke;
-    v9[3] = &unk_278C62A48;
-    v10 = delegateCopy;
-    v11 = v8;
-    [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:v9];
+    v9 = delegateCopy;
+    v10 = v8;
+    [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:?];
   }
 
   else if (gLogCategory_AirPlayReceiverKit <= 90 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
@@ -559,9 +570,16 @@ uint64_t __54__APRKStreamRenderer_setIsMirroringAudioStreamPaused___block_invoke
 
 - (void)setIsWiredLink:(BOOL)link
 {
+  linkCopy = link;
   if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    v5 = "false";
+    if (linkCopy)
+    {
+      v5 = "true";
+    }
+
+    LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer setIsWiredLink:]", 33554462, "Wired link set to %s for renderer %{ptr}.", v5, self);
   }
 
   rendererStateUpdateQueue = self->_rendererStateUpdateQueue;
@@ -570,7 +588,7 @@ uint64_t __54__APRKStreamRenderer_setIsMirroringAudioStreamPaused___block_invoke
   block[2] = __37__APRKStreamRenderer_setIsWiredLink___block_invoke;
   block[3] = &unk_278C62A00;
   block[4] = self;
-  linkCopy = link;
+  v8 = linkCopy;
   dispatch_sync(rendererStateUpdateQueue, block);
 }
 
@@ -603,9 +621,16 @@ uint64_t __37__APRKStreamRenderer_setIsWiredLink___block_invoke(uint64_t result)
 
 - (void)setIsP2PWiFi:(BOOL)fi
 {
+  fiCopy = fi;
   if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    v5 = "false";
+    if (fiCopy)
+    {
+      v5 = "true";
+    }
+
+    LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer setIsP2PWiFi:]", 33554462, "P2P WiFi set to %s for renderer %{ptr}.", v5, self);
   }
 
   rendererStateUpdateQueue = self->_rendererStateUpdateQueue;
@@ -614,7 +639,7 @@ uint64_t __37__APRKStreamRenderer_setIsWiredLink___block_invoke(uint64_t result)
   block[2] = __35__APRKStreamRenderer_setIsP2PWiFi___block_invoke;
   block[3] = &unk_278C62A00;
   block[4] = self;
-  fiCopy = fi;
+  v8 = fiCopy;
   dispatch_sync(rendererStateUpdateQueue, block);
 }
 
@@ -639,9 +664,16 @@ uint64_t __37__APRKStreamRenderer_setIsWiredLink___block_invoke(uint64_t result)
 
 - (void)setCanRecord:(BOOL)record
 {
+  recordCopy = record;
   if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    v5 = "false";
+    if (recordCopy)
+    {
+      v5 = "true";
+    }
+
+    LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer setCanRecord:]", 33554462, "canRecord set to %s for renderer %{ptr}", v5, self);
   }
 
   rendererStateUpdateQueue = self->_rendererStateUpdateQueue;
@@ -650,7 +682,7 @@ uint64_t __37__APRKStreamRenderer_setIsWiredLink___block_invoke(uint64_t result)
   block[2] = __35__APRKStreamRenderer_setCanRecord___block_invoke;
   block[3] = &unk_278C62A00;
   block[4] = self;
-  recordCopy = record;
+  v8 = recordCopy;
   dispatch_sync(rendererStateUpdateQueue, block);
 }
 
@@ -775,9 +807,16 @@ uint64_t __42__APRKStreamRenderer_sampleBufferDelegate__block_invoke(uint64_t a1
 
 - (void)setIsProtectedMirroring:(BOOL)mirroring
 {
+  mirroringCopy = mirroring;
   if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    v5 = "false";
+    if (mirroringCopy)
+    {
+      v5 = "true";
+    }
+
+    LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer setIsProtectedMirroring:]", 33554462, "Protected mirroring set to %s for renderer %{ptr}.", v5, self);
   }
 
   rendererStateUpdateQueue = self->_rendererStateUpdateQueue;
@@ -786,7 +825,7 @@ uint64_t __42__APRKStreamRenderer_sampleBufferDelegate__block_invoke(uint64_t a1
   block[2] = __46__APRKStreamRenderer_setIsProtectedMirroring___block_invoke;
   block[3] = &unk_278C62A00;
   block[4] = self;
-  mirroringCopy = mirroring;
+  v8 = mirroringCopy;
   dispatch_sync(rendererStateUpdateQueue, block);
 }
 
@@ -823,31 +862,38 @@ uint64_t __46__APRKStreamRenderer_setIsProtectedMirroring___block_invoke(uint64_
 
 - (APRKStreamRenderer)initWithUniqueID:(id)d clientName:(id)name UIController:(OpaqueAPReceiverUIController *)controller useCALayerForMirroring:(BOOL)mirroring
 {
+  mirroringCopy = mirroring;
   dCopy = d;
   nameCopy = name;
-  v38.receiver = self;
-  v38.super_class = APRKStreamRenderer;
-  v13 = [(APRKStreamRenderer *)&v38 init];
+  v41.receiver = self;
+  v41.super_class = APRKStreamRenderer;
+  v13 = [(APRKStreamRenderer *)&v41 init];
   if (v13)
   {
     if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      v14 = @"NO";
+      if (mirroringCopy)
+      {
+        v14 = @"YES";
+      }
+
+      LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer initWithUniqueID:clientName:UIController:useCALayerForMirroring:]", 33554462, "Creating new renderer with uniqueID=%@, clientName=%@, uiController=%{ptr}, useCALayerForMirroring=%@", dCopy, nameCopy, controller, v14);
     }
 
     objc_storeStrong(v13 + 44, d);
     *(v13 + 10) = 0;
     *(v13 + 4) = 0;
-    v14 = [nameCopy copy];
-    v15 = *(v13 + 45);
-    *(v13 + 45) = v14;
+    v15 = [nameCopy copy];
+    v16 = *(v13 + 45);
+    *(v13 + 45) = v15;
 
     *(v13 + 8) = 0;
     v13[19] = 0;
-    v16 = *(v13 + 11);
+    v17 = *(v13 + 11);
     *(v13 + 11) = 0;
 
-    v13[20] = mirroring;
+    v13[20] = mirroringCopy;
     *(v13 + 21) = 0;
     *(v13 + 6) = 0x1000000;
     v13[344] = 1;
@@ -855,39 +901,39 @@ uint64_t __46__APRKStreamRenderer_setIsProtectedMirroring___block_invoke(uint64_
     *(v13 + 38) = 0;
     v13[29] = 1;
     *(v13 + 168) = *MEMORY[0x277CBF3A8];
-    v17 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
-    v18 = dispatch_queue_create("com.apple.APRKStreamRenderer.rendererVideoBufferQueue", v17);
-    v19 = *(v13 + 17);
-    *(v13 + 17) = v18;
+    v18 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
+    v19 = dispatch_queue_create("com.apple.APRKStreamRenderer.rendererVideoBufferQueue", v18);
+    v20 = *(v13 + 17);
+    *(v13 + 17) = v19;
 
-    v20 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
-    v21 = dispatch_queue_create("com.apple.APRKStreamRenderer.rendererAudioBufferQueue", v20);
-    v22 = *(v13 + 18);
-    *(v13 + 18) = v21;
+    v21 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
+    v22 = dispatch_queue_create("com.apple.APRKStreamRenderer.rendererAudioBufferQueue", v21);
+    v23 = *(v13 + 18);
+    *(v13 + 18) = v22;
 
-    v23 = dispatch_queue_create("com.apple.APRKStreamRenderer.rendererStateUpdateQueue", 0);
-    v24 = *(v13 + 19);
-    *(v13 + 19) = v23;
+    v24 = dispatch_queue_create("com.apple.APRKStreamRenderer.rendererStateUpdateQueue", 0);
+    v25 = *(v13 + 19);
+    *(v13 + 19) = v24;
 
-    v25 = +[APRKStreamRenderingManager sharedInstance];
-    delegateQueue = [v25 delegateQueue];
-    v27 = *(v13 + 20);
+    v26 = +[APRKStreamRenderingManager sharedInstance];
+    delegateQueue = [v26 delegateQueue];
+    v28 = *(v13 + 20);
     *(v13 + 20) = delegateQueue;
 
-    v28 = MEMORY[0x277CC0898];
-    v29 = *MEMORY[0x277CC0898];
+    v29 = MEMORY[0x277CC0898];
+    v30 = *MEMORY[0x277CC0898];
     *(v13 + 3) = *MEMORY[0x277CC0898];
-    v30 = *(v28 + 16);
-    *(v13 + 8) = v30;
-    *(v13 + 232) = v29;
-    *(v13 + 31) = v30;
+    v31 = *(v29 + 16);
+    *(v13 + 8) = v31;
+    *(v13 + 232) = v30;
+    *(v13 + 31) = v31;
     if (controller)
     {
-      v31 = FigCFWeakReferenceHolderCreateWithReferencedObject();
-      *(v13 + 1) = v31;
-      if (!v31 && gLogCategory_AirPlayReceiverKit <= 90 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
+      v32 = FigCFWeakReferenceHolderCreateWithReferencedObject();
+      *(v13 + 1) = v32;
+      if (!v32 && gLogCategory_AirPlayReceiverKit <= 90 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
       {
-        [APRKStreamRenderer initWithUniqueID:clientName:UIController:useCALayerForMirroring:];
+        [APRKStreamRenderer initWithUniqueID:v13 clientName:v33 UIController:v34 useCALayerForMirroring:?];
       }
 
       CMNotificationCenterGetDefaultLocalCenter();
@@ -898,11 +944,11 @@ uint64_t __46__APRKStreamRenderer_setIsProtectedMirroring___block_invoke(uint64_
     aBlock[1] = 3221225472;
     aBlock[2] = __86__APRKStreamRenderer_initWithUniqueID_clientName_UIController_useCALayerForMirroring___block_invoke;
     aBlock[3] = &unk_278C626E8;
-    v37 = v13;
-    v32 = _Block_copy(aBlock);
+    v40 = v13;
+    v35 = _Block_copy(aBlock);
     if (pthread_main_np())
     {
-      v32[2](v32);
+      v35[2](v35);
     }
 
     else
@@ -911,7 +957,7 @@ uint64_t __46__APRKStreamRenderer_setIsProtectedMirroring___block_invoke(uint64_
       block[1] = 3221225472;
       block[2] = __86__APRKStreamRenderer_initWithUniqueID_clientName_UIController_useCALayerForMirroring___block_invoke_2;
       block[3] = &unk_278C62878;
-      v35 = v32;
+      v38 = v35;
       dispatch_sync(MEMORY[0x277D85CD0], block);
     }
   }
@@ -919,7 +965,7 @@ uint64_t __46__APRKStreamRenderer_setIsProtectedMirroring___block_invoke(uint64_
   return v13;
 }
 
-uint64_t __86__APRKStreamRenderer_initWithUniqueID_clientName_UIController_useCALayerForMirroring___block_invoke(uint64_t a1)
+void *__86__APRKStreamRenderer_initWithUniqueID_clientName_UIController_useCALayerForMirroring___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (v2[20] == 1 && [v2 _receiverSupportsMirroring])
@@ -929,7 +975,7 @@ uint64_t __86__APRKStreamRenderer_initWithUniqueID_clientName_UIController_useCA
     v5 = *(v4 + 88);
     *(v4 + 88) = v3;
 
-    [*(*(a1 + 32) + 88) setName:@"APRKStreamRendererMirroringLayer"];
+    [*(*(a1 + 32) + 88) setName:?];
     [*(*(a1 + 32) + 88) setDelegate:?];
   }
 
@@ -940,7 +986,7 @@ uint64_t __86__APRKStreamRenderer_initWithUniqueID_clientName_UIController_useCA
 
   v9 = *(*(a1 + 32) + 96);
 
-  return [v9 setName:@"APRKHUDLayer"];
+  return [v9 setName:?];
 }
 
 - (unsigned)screenSessionCount
@@ -1175,11 +1221,11 @@ void __55__APRKStreamRenderer_processShowPasscodePromptRequest___block_invoke(ui
 
     if (IsAppleInternalBuild() && gLogCategory_AirPlayReceiverKit <= 50 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
     {
-      __55__APRKStreamRenderer_processShowPasscodePromptRequest___block_invoke_cold_2();
+      __55__APRKStreamRenderer_processShowPasscodePromptRequest___block_invoke_cold_2(a1, v5, v6);
     }
 
-    v5 = [*(a1 + 32) delegate];
-    [v5 shouldShowPasscodePromptWithString:*(a1 + 40) forRenderer:*(a1 + 32)];
+    v7 = [*(a1 + 32) delegate];
+    [v7 shouldShowPasscodePromptWithString:? forRenderer:?];
   }
 }
 
@@ -1208,7 +1254,7 @@ void __54__APRKStreamRenderer_processHidePasscodePromptRequest__block_invoke(uin
     }
 
     v4 = [*v1 delegate];
-    [v4 shouldHidePasscodePromptForRenderer:*v1];
+    [v4 shouldHidePasscodePromptForRenderer:?];
   }
 }
 
@@ -1224,51 +1270,51 @@ void __54__APRKStreamRenderer_processHidePasscodePromptRequest__block_invoke(uin
   dispatch_sync(rendererStateUpdateQueue, v4);
 }
 
-uint64_t __66__APRKStreamRenderer_processStartScreenPresentationWithSessionID___block_invoke(uint64_t a1)
+void *__66__APRKStreamRenderer_processStartScreenPresentationWithSessionID___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    __66__APRKStreamRenderer_processStartScreenPresentationWithSessionID___block_invoke_cold_1();
+    __66__APRKStreamRenderer_processStartScreenPresentationWithSessionID___block_invoke_cold_1(a1, a2, a3);
   }
 
-  v4 = *(a1 + 32);
-  v3 = (a1 + 32);
-  v2 = v4;
-  if (v4[20] == 1 && [v2 _receiverSupportsMirroring])
+  v6 = *(a1 + 32);
+  v5 = (a1 + 32);
+  v4 = v6;
+  if (v6[20] == 1 && [v4 _receiverSupportsMirroring])
   {
-    v5 = +[APRKStreamRenderingManager sharedInstance];
-    v6 = [v5 shouldForwardLayers];
+    v7 = +[APRKStreamRenderingManager sharedInstance];
+    v8 = [v7 shouldForwardLayers];
 
-    if (v6)
+    if (v8)
     {
       if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
       {
-        __66__APRKStreamRenderer_processStartScreenPresentationWithSessionID___block_invoke_cold_2();
+        __66__APRKStreamRenderer_processStartScreenPresentationWithSessionID___block_invoke_cold_2(v5, v9, v10);
       }
     }
 
     else
     {
-      v7 = *v3;
-      v8 = *(*v3 + 17);
+      v11 = *v5;
+      v12 = *(*v5 + 17);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __66__APRKStreamRenderer_processStartScreenPresentationWithSessionID___block_invoke_2;
       block[3] = &unk_278C626E8;
-      block[4] = v7;
-      dispatch_async(v8, block);
+      block[4] = v11;
+      dispatch_async(v12, block);
     }
   }
 
-  ++*(*v3 + 8);
-  return [*v3 _updateStreamingMode];
+  ++*(*v5 + 8);
+  return [*v5 _updateStreamingMode];
 }
 
-void __66__APRKStreamRenderer_processStartScreenPresentationWithSessionID___block_invoke_2(uint64_t a1)
+void __66__APRKStreamRenderer_processStartScreenPresentationWithSessionID___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    __66__APRKStreamRenderer_processStartScreenPresentationWithSessionID___block_invoke_2_cold_1();
+    __66__APRKStreamRenderer_processStartScreenPresentationWithSessionID___block_invoke_2_cold_1(a1, a2, a3);
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -1279,22 +1325,23 @@ void __66__APRKStreamRenderer_processStartScreenPresentationWithSessionID___bloc
   dispatch_sync(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __66__APRKStreamRenderer_processStartScreenPresentationWithSessionID___block_invoke_3(uint64_t a1)
+void *__66__APRKStreamRenderer_processStartScreenPresentationWithSessionID___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) _ensureFigVideoQueue];
   if (result)
   {
     if (gLogCategory_AirPlayReceiverKit <= 90)
     {
+      v3 = result;
       if (gLogCategory_AirPlayReceiverKit != -1)
       {
-        return LogPrintF();
+        return LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer processStartScreenPresentationWithSessionID:]_block_invoke_3", 33554522, "_ensureFigVideoQueue failed for renderer %{ptr} with error: %d", *(a1 + 32), v3);
       }
 
       result = _LogCategory_Initialize();
       if (result)
       {
-        return LogPrintF();
+        return LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer processStartScreenPresentationWithSessionID:]_block_invoke_3", 33554522, "_ensureFigVideoQueue failed for renderer %{ptr} with error: %d", *(a1 + 32), v3);
       }
     }
   }
@@ -1304,6 +1351,7 @@ uint64_t __66__APRKStreamRenderer_processStartScreenPresentationWithSessionID___
 
 - (BOOL)processStopScreenPresentationWithSessionID:(unsigned int)d
 {
+  v3 = *&d;
   rendererStateUpdateQueue = self->_rendererStateUpdateQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -1313,21 +1361,21 @@ uint64_t __66__APRKStreamRenderer_processStartScreenPresentationWithSessionID___
   dispatch_sync(rendererStateUpdateQueue, block);
   if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer processStopScreenPresentationWithSessionID:]", 33554462, "Renderer %{ptr}: Stopping screen presentation session %i ", self, v3);
   }
 
   rendererVideoBufferQueue = self->_rendererVideoBufferQueue;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __65__APRKStreamRenderer_processStopScreenPresentationWithSessionID___block_invoke_2;
-  v7[3] = &unk_278C626E8;
-  v7[4] = self;
-  dispatch_sync(rendererVideoBufferQueue, v7);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __65__APRKStreamRenderer_processStopScreenPresentationWithSessionID___block_invoke_2;
+  v8[3] = &unk_278C626E8;
+  v8[4] = self;
+  dispatch_sync(rendererVideoBufferQueue, v8);
   [(APRKStreamRenderer *)self _updateStreamingMode];
   return 1;
 }
 
-uint64_t __65__APRKStreamRenderer_processStopScreenPresentationWithSessionID___block_invoke_2(uint64_t a1)
+void *__65__APRKStreamRenderer_processStopScreenPresentationWithSessionID___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) _unregisterForFigVideoQueueNotifications];
   v2 = *(a1 + 32);
@@ -1354,27 +1402,26 @@ uint64_t __65__APRKStreamRenderer_processStopScreenPresentationWithSessionID___b
   return [(CFTypeRef *)v4 _performStopRecording];
 }
 
-void __65__APRKStreamRenderer_processStopScreenPresentationWithSessionID___block_invoke_3(uint64_t a1)
+void __65__APRKStreamRenderer_processStopScreenPresentationWithSessionID___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   CMBaseObject = FigVideoQueueGetCMBaseObject();
   if (CMBaseObject)
   {
-    v3 = CMBaseObject;
-    v4 = *(*(CMBaseObjectGetVTable() + 8) + 24);
-    if (v4)
+    v4 = CMBaseObject;
+    v5 = *(*(CMBaseObjectGetVTable() + 8) + 24);
+    if (v5)
     {
-      v4(v3);
+      v5(v4);
     }
   }
 
-  v5 = *(a1 + 32);
+  v6 = *(a1 + 32);
 
-  CFRelease(v5);
+  CFRelease(v6);
 }
 
 - (void)processStartVideoPlaybackRequestWithWithSessionID:(unsigned int)d version:(unint64_t)version
 {
-  v5 = *&d;
   v17 = 0;
   v18 = &v17;
   v19 = 0x2020000000;
@@ -1394,7 +1441,7 @@ void __65__APRKStreamRenderer_processStopScreenPresentationWithSessionID___block
   dispatch_sync(rendererStateUpdateQueue, block);
   if (*(v18 + 24) == 1)
   {
-    [(APRKStreamRenderer *)self processStopVideoPlaybackRequestWithSessionID:self->_currentVideoSessionID];
+    [(APRKStreamRenderer *)self processStopVideoPlaybackRequestWithSessionID:?];
   }
 
   v8 = self->_rendererStateUpdateQueue;
@@ -1402,14 +1449,14 @@ void __65__APRKStreamRenderer_processStopScreenPresentationWithSessionID___block
   v9[1] = 3221225472;
   v9[2] = __80__APRKStreamRenderer_processStartVideoPlaybackRequestWithWithSessionID_version___block_invoke_2;
   v9[3] = &unk_278C62AE0;
-  v10 = v5;
+  dCopy2 = d;
   v9[5] = &v13;
   v9[6] = version;
   v9[4] = self;
   dispatch_sync(v8, v9);
   if (*(v14 + 24) == 1)
   {
-    [(APRKStreamRenderer *)self _ensureInternalPlayerFor:v5];
+    [(APRKStreamRenderer *)self _ensureInternalPlayerFor:?];
   }
 
   if (self->_receiverNetworkClock)
@@ -1424,40 +1471,52 @@ void __65__APRKStreamRenderer_processStopScreenPresentationWithSessionID___block
 
 uint64_t __80__APRKStreamRenderer_processStartVideoPlaybackRequestWithWithSessionID_version___block_invoke(uint64_t result)
 {
-  if (*(*(result + 32) + 44))
+  v1 = *(result + 32);
+  v2 = *(v1 + 44);
+  if (v2)
   {
-    v1 = result;
+    v3 = result;
     if (gLogCategory_AirPlayReceiverKit <= 30)
     {
-      if (gLogCategory_AirPlayReceiverKit != -1 || (result = _LogCategory_Initialize(), result))
+      if (gLogCategory_AirPlayReceiverKit == -1)
       {
-        result = LogPrintF();
+        result = _LogCategory_Initialize();
+        if (!result)
+        {
+          goto LABEL_6;
+        }
+
+        v1 = *(v3 + 32);
+        v2 = *(v1 + 44);
       }
+
+      result = LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer processStartVideoPlaybackRequestWithWithSessionID:version:]_block_invoke", 33554462, "Renderer %{ptr}: Stopping video playback session %i as it is getting hijacked by session %i", v1, v2, *(v3 + 48));
     }
 
-    *(*(*(v1 + 40) + 8) + 24) = 1;
+LABEL_6:
+    *(*(*(v3 + 40) + 8) + 24) = 1;
   }
 
   return result;
 }
 
-uint64_t __80__APRKStreamRenderer_processStartVideoPlaybackRequestWithWithSessionID_version___block_invoke_2(uint64_t result)
+uint64_t __80__APRKStreamRenderer_processStartVideoPlaybackRequestWithWithSessionID_version___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  v1 = result;
+  v3 = result;
   if (gLogCategory_AirPlayReceiverKit <= 30)
   {
     if (gLogCategory_AirPlayReceiverKit != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = __80__APRKStreamRenderer_processStartVideoPlaybackRequestWithWithSessionID_version___block_invoke_2_cold_1();
+      result = __80__APRKStreamRenderer_processStartVideoPlaybackRequestWithWithSessionID_version___block_invoke_2_cold_1(v3, a2, a3);
     }
   }
 
-  *(*(v1 + 32) + 304) = *(v1 + 48);
-  ++*(*(v1 + 32) + 36);
-  *(*(v1 + 32) + 44) = *(v1 + 56);
-  if (*(*(v1 + 32) + 304) == 2)
+  *(*(v3 + 32) + 304) = *(v3 + 48);
+  ++*(*(v3 + 32) + 36);
+  *(*(v3 + 32) + 44) = *(v3 + 56);
+  if (*(*(v3 + 32) + 304) == 2)
   {
-    *(*(*(v1 + 40) + 8) + 24) = 1;
+    *(*(*(v3 + 40) + 8) + 24) = 1;
   }
 
   return result;
@@ -1508,43 +1567,59 @@ uint64_t __67__APRKStreamRenderer_processStopVideoPlaybackRequestWithSessionID__
 {
   v1 = result;
   v2 = *(result + 32);
-  if (*(v2 + 44) == *(result + 56))
+  v3 = *(v2 + 44);
+  v4 = *(result + 56);
+  if (v3 != v4)
   {
-    if (gLogCategory_AirPlayReceiverKit <= 30)
+    if (gLogCategory_AirPlayReceiverKit > 30)
     {
-      if (gLogCategory_AirPlayReceiverKit != -1 || (result = _LogCategory_Initialize(), v2 = v1[4], result))
+      return result;
+    }
+
+    if (gLogCategory_AirPlayReceiverKit == -1)
+    {
+      result = _LogCategory_Initialize();
+      if (!result)
       {
-        result = LogPrintF();
-        v2 = v1[4];
+        return result;
       }
+
+      v2 = *(v1 + 32);
+      v4 = *(v1 + 56);
     }
 
-    if (*(v2 + 304) == 2)
-    {
-      *(*(v1[5] + 8) + 24) = 1;
-      v2 = v1[4];
-    }
-
-    *(v2 + 304) = 0;
-    --*(v1[4] + 36);
-    *(v1[4] + 44) = 0;
-    *(*(v1[6] + 8) + 24) = 1;
+    return LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer processStopVideoPlaybackRequestWithSessionID:]_block_invoke", 33554462, "Renderer %{ptr}: Request to stop video playback session %i which is not current active video session. Ignoring.", v2, v4);
   }
 
-  else if (gLogCategory_AirPlayReceiverKit <= 30)
+  if (gLogCategory_AirPlayReceiverKit <= 30)
   {
-    if (gLogCategory_AirPlayReceiverKit != -1)
+    if (gLogCategory_AirPlayReceiverKit == -1)
     {
-      return LogPrintF();
+      result = _LogCategory_Initialize();
+      v2 = *(v1 + 32);
+      if (!result)
+      {
+        goto LABEL_9;
+      }
+
+      v3 = *(v1 + 56);
     }
 
-    result = _LogCategory_Initialize();
-    if (result)
-    {
-      return LogPrintF();
-    }
+    result = LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer processStopVideoPlaybackRequestWithSessionID:]_block_invoke", 33554462, "Renderer %{ptr}: Stopping video playback session %i", v2, v3);
+    v2 = *(v1 + 32);
   }
 
+LABEL_9:
+  if (*(v2 + 304) == 2)
+  {
+    *(*(*(v1 + 40) + 8) + 24) = 1;
+    v2 = *(v1 + 32);
+  }
+
+  *(v2 + 304) = 0;
+  --*(*(v1 + 32) + 36);
+  *(*(v1 + 32) + 44) = 0;
+  *(*(*(v1 + 48) + 8) + 24) = 1;
   return result;
 }
 
@@ -1561,19 +1636,19 @@ uint64_t __67__APRKStreamRenderer_processStopVideoPlaybackRequestWithSessionID__
   dispatch_async(rendererStateUpdateQueue, v5);
 }
 
-uint64_t __81__APRKStreamRenderer_processStartAudioSessionRequestWithSessionID_isScreenAudio___block_invoke(uint64_t a1)
+void *__81__APRKStreamRenderer_processStartAudioSessionRequestWithSessionID_isScreenAudio___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    __81__APRKStreamRenderer_processStartAudioSessionRequestWithSessionID_isScreenAudio___block_invoke_cold_1();
+    __81__APRKStreamRenderer_processStartAudioSessionRequestWithSessionID_isScreenAudio___block_invoke_cold_1(a1, a2, a3);
   }
 
   if (*(a1 + 44) == 1)
   {
-    v2 = +[APRKStreamRenderingManager sharedInstance];
-    v3 = [v2 optimizeAudioRenderingLatency];
+    v4 = +[APRKStreamRenderingManager sharedInstance];
+    v5 = [v4 optimizeAudioRenderingLatency];
 
-    if (v3)
+    if (v5)
     {
       if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
       {
@@ -1583,14 +1658,14 @@ uint64_t __81__APRKStreamRenderer_processStartAudioSessionRequestWithSessionID_i
 
     else
     {
-      v4 = *(a1 + 32);
-      v5 = *(v4 + 144);
+      v6 = *(a1 + 32);
+      v7 = *(v6 + 144);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __81__APRKStreamRenderer_processStartAudioSessionRequestWithSessionID_isScreenAudio___block_invoke_2;
       block[3] = &unk_278C626E8;
-      block[4] = v4;
-      dispatch_sync(v5, block);
+      block[4] = v6;
+      dispatch_sync(v7, block);
     }
   }
 
@@ -1598,7 +1673,7 @@ uint64_t __81__APRKStreamRenderer_processStartAudioSessionRequestWithSessionID_i
   return [*(a1 + 32) _updateStreamingMode];
 }
 
-uint64_t __81__APRKStreamRenderer_processStartAudioSessionRequestWithSessionID_isScreenAudio___block_invoke_2(uint64_t a1)
+void *__81__APRKStreamRenderer_processStartAudioSessionRequestWithSessionID_isScreenAudio___block_invoke_2(uint64_t a1)
 {
   *(*(a1 + 32) + 23) = 1;
   v2 = objc_alloc_init(MEMORY[0x277CE6608]);
@@ -1611,11 +1686,9 @@ uint64_t __81__APRKStreamRenderer_processStartAudioSessionRequestWithSessionID_i
   v7 = *(v6 + 72);
   *(v6 + 72) = v5;
 
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 72);
-  v10 = *(v8 + 80);
+  v8 = *(*(a1 + 32) + 72);
 
-  return [v9 addRenderer:v10];
+  return [v8 addRenderer:?];
 }
 
 - (BOOL)processStopAudioSessionRequestWithSessionID:(unsigned int)d
@@ -1631,53 +1704,51 @@ uint64_t __81__APRKStreamRenderer_processStartAudioSessionRequestWithSessionID_i
   return 1;
 }
 
-uint64_t __66__APRKStreamRenderer_processStopAudioSessionRequestWithSessionID___block_invoke(uint64_t a1)
+void *__66__APRKStreamRenderer_processStopAudioSessionRequestWithSessionID___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    __66__APRKStreamRenderer_processStopAudioSessionRequestWithSessionID___block_invoke_cold_1();
+    __66__APRKStreamRenderer_processStopAudioSessionRequestWithSessionID___block_invoke_cold_1(a1, a2, a3);
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 144);
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 144);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __66__APRKStreamRenderer_processStopAudioSessionRequestWithSessionID___block_invoke_2;
   block[3] = &unk_278C626E8;
-  block[4] = v2;
-  dispatch_sync(v3, block);
+  block[4] = v4;
+  dispatch_sync(v5, block);
   --*(*(a1 + 32) + 40);
   return [*(a1 + 32) _updateStreamingMode];
 }
 
 void __66__APRKStreamRenderer_processStopAudioSessionRequestWithSessionID___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 72);
-  v4 = *(v2 + 80);
-  v12 = *MEMORY[0x277CC0898];
-  v11 = v12;
-  v13 = *(MEMORY[0x277CC0898] + 16);
-  v5 = v13;
-  [v3 removeRenderer:v4 atTime:&v12 completionHandler:&__block_literal_global_77];
+  v2 = *(*(a1 + 32) + 72);
+  v10 = *MEMORY[0x277CC0898];
+  v9 = v10;
+  v11 = *(MEMORY[0x277CC0898] + 16);
+  v3 = v11;
+  [v2 removeRenderer:? atTime:? completionHandler:?];
   *(*(a1 + 32) + 23) = 0;
-  v6 = *(a1 + 32);
-  *(v6 + 48) = v11;
-  *(v6 + 64) = v5;
-  v7 = *(a1 + 32);
-  v8 = *(v7 + 80);
-  *(v7 + 80) = 0;
+  v4 = *(a1 + 32);
+  *(v4 + 48) = v9;
+  *(v4 + 64) = v3;
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 80);
+  *(v5 + 80) = 0;
 
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 72);
-  *(v9 + 72) = 0;
+  v7 = *(a1 + 32);
+  v8 = *(v7 + 72);
+  *(v7 + 72) = 0;
 }
 
-void __66__APRKStreamRenderer_processStopAudioSessionRequestWithSessionID___block_invoke_3()
+void __66__APRKStreamRenderer_processStopAudioSessionRequestWithSessionID___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    __66__APRKStreamRenderer_processStopAudioSessionRequestWithSessionID___block_invoke_3_cold_1();
+    __66__APRKStreamRenderer_processStopAudioSessionRequestWithSessionID___block_invoke_3_cold_1(a2, a2, a3);
   }
 }
 
@@ -1709,7 +1780,7 @@ void __47__APRKStreamRenderer_processVideoSampleBuffer___block_invoke_2(uint64_t
   if (v3)
   {
     v4 = [*(a1 + 32) delegate];
-    [v4 videoStreamIsCleared:*(a1 + 40) forRenderer:*(a1 + 32)];
+    [v4 videoStreamIsCleared:? forRenderer:?];
   }
 }
 
@@ -1721,7 +1792,7 @@ void __47__APRKStreamRenderer_processVideoSampleBuffer___block_invoke_3(uint64_t
   if (v3)
   {
     v4 = [*(a1 + 32) delegate];
-    [v4 videoLayerOrientationDidChangeTo:*(a1 + 40) forRenderer:*(a1 + 32)];
+    [v4 videoLayerOrientationDidChangeTo:? forRenderer:?];
   }
 }
 
@@ -1741,15 +1812,15 @@ void __47__APRKStreamRenderer_processVideoSampleBuffer___block_invoke_4(uint64_t
     if (v3)
     {
       v4 = [*(a1 + 32) delegate];
-      [v4 videoLayerSizeDidChangeTo:*(*(a1 + 32) + 168) forRenderer:*(*(a1 + 32) + 176)];
+      [v4 videoLayerSizeDidChangeTo:? forRenderer:?];
     }
   }
 }
 
-uint64_t __47__APRKStreamRenderer_processVideoSampleBuffer___block_invoke_5(uint64_t a1)
+void *__47__APRKStreamRenderer_processVideoSampleBuffer___block_invoke_5(uint64_t a1)
 {
   [MEMORY[0x277CD9FF0] begin];
-  [MEMORY[0x277CD9FF0] setDisableActions:1];
+  [MEMORY[0x277CD9FF0] setDisableActions:?];
   [*(*(a1 + 32) + 88) layoutSublayers];
   v2 = MEMORY[0x277CD9FF0];
 
@@ -1800,7 +1871,7 @@ uint64_t __47__APRKStreamRenderer_processVideoSampleBuffer___block_invoke_5(uint
       objc_copyWeak(&v11, &location);
       v3 = _Block_copy(&v7);
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-      v5 = [defaultCenter addObserverForName:*MEMORY[0x277CD64E0] object:self->_figVideoQueue queue:0 usingBlock:v3];
+      v5 = [defaultCenter addObserverForName:? object:? queue:? usingBlock:?];
       figVideoQueueNotifObserver = self->_figVideoQueueNotifObserver;
       self->_figVideoQueueNotifObserver = v5;
 
@@ -1818,7 +1889,7 @@ void __60__APRKStreamRenderer__registerForFigVideoQueueNotifications__block_invo
     __60__APRKStreamRenderer__registerForFigVideoQueueNotifications__block_invoke_cold_1();
   }
 
-  [WeakRetained _performUIControllerActionWithBlock:&__block_literal_global_97];
+  [WeakRetained _performUIControllerActionWithBlock:?];
 }
 
 - (void)_unregisterForFigVideoQueueNotifications
@@ -1826,7 +1897,7 @@ void __60__APRKStreamRenderer__registerForFigVideoQueueNotifications__block_invo
   if (self->_figVideoQueueNotifObserver)
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    [defaultCenter removeObserver:self->_figVideoQueueNotifObserver];
+    [defaultCenter removeObserver:?];
 
     figVideoQueueNotifObserver = self->_figVideoQueueNotifObserver;
     self->_figVideoQueueNotifObserver = 0;
@@ -1837,16 +1908,15 @@ void __60__APRKStreamRenderer__registerForFigVideoQueueNotifications__block_invo
 {
   if (!self->_player)
   {
-    v5 = [[APRKMediaPlayer alloc] initWithP2PWiFiSupport:self->_isP2PWiFiSession isInterstitialPlayer:0 playerSessionID:*&for];
+    v5 = [APRKMediaPlayer initWithP2PWiFiSupport:"initWithP2PWiFiSupport:isInterstitialPlayer:playerSessionID:" isInterstitialPlayer:? playerSessionID:?];
     player = self->_player;
     self->_player = v5;
 
-    [(APRKMediaPlayer *)self->_player addObserver:self forKeyPath:@"currentItemMetadata" options:1 context:APRKMediaPlayerContext];
-    [(APRKMediaPlayer *)self->_player setMessagingDelegate:self];
+    [APRKMediaPlayer addObserver:"addObserver:forKeyPath:options:context:" forKeyPath:? options:? context:?];
+    [(APRKMediaPlayer *)self->_player setMessagingDelegate:?];
     v7 = self->_player;
-    sessionReceiverAddr = self->_sessionReceiverAddr;
 
-    [(APRKMediaPlayer *)v7 setSessionReceiverAddress:sessionReceiverAddr];
+    [(APRKMediaPlayer *)v7 setSessionReceiverAddress:?];
   }
 }
 
@@ -1856,15 +1926,15 @@ void __60__APRKStreamRenderer__registerForFigVideoQueueNotifications__block_invo
   player = self->_player;
   self->_player = 0;
 
-  [(APRKMediaPlayer *)v3 removeObserver:self forKeyPath:@"currentItemMetadata"];
-  [(APRKMediaPlayer *)v3 setMessagingDelegate:0];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __44__APRKStreamRenderer__cleanupInternalPlayer__block_invoke;
-  v6[3] = &unk_278C626E8;
-  v7 = v3;
+  [APRKMediaPlayer removeObserver:v3 forKeyPath:"removeObserver:forKeyPath:"];
+  [(APRKMediaPlayer *)v3 setMessagingDelegate:?];
+  v6 = MEMORY[0x277D85DD0];
+  v7 = 3221225472;
+  v8 = __44__APRKStreamRenderer__cleanupInternalPlayer__block_invoke;
+  v9 = &unk_278C626E8;
+  v10 = v3;
   v5 = v3;
-  [(APRKMediaPlayer *)v5 stopWithCompletionBlock:v6];
+  [(APRKMediaPlayer *)v5 stopWithCompletionBlock:?];
 }
 
 - (int)_enqueueSampleBufferForRecording:(opaqueCMSampleBuffer *)recording isAudioSBuf:(BOOL)buf
@@ -1894,20 +1964,16 @@ void __60__APRKStreamRenderer__registerForFigVideoQueueNotifications__block_invo
     {
       if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
       {
-        v20 = v9;
-        v21 = v10;
-        width = self->_presentationVideoSize.width;
-        v19 = width;
-        LogPrintF();
+        LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer _enqueueSampleBufferForRecording:isAudioSBuf:]", 33554462, "Video size changed from %d x %d to %d x %d, will start new recording\n", self->_presentationVideoSize.width, self->_presentationVideoSize.width, v9, v10);
       }
 
-      [(APRKStreamRenderer *)self _performStopRecording:width];
+      [(APRKStreamRenderer *)self _performStopRecording];
       self->_recorderNeedsKeyFrame = 1;
       self->_lastVideoSampleBufferSize.width = v9;
       self->_lastVideoSampleBufferSize.height = v10;
     }
 
-    self->_recorderNeedsKeyFrame = ![(APRKStreamRenderer *)self _sampleBufferRepresentsKeyFrame:recording];
+    self->_recorderNeedsKeyFrame = ![(APRKStreamRenderer *)self _sampleBufferRepresentsKeyFrame:?];
   }
 
 LABEL_13:
@@ -1923,11 +1989,11 @@ LABEL_13:
     recorder = self->_recorder;
     self->_recorder = v12;
 
-    v14 = [(APRKStreamRecorder *)self->_recorder startRecordingAtURL:self->_currentRecordingURL];
+    v14 = [(APRKStreamRecorder *)self->_recorder startRecordingAtURL:?];
     if (v14)
     {
       v16 = v14;
-      [(APRKStreamRenderer *)v14 _enqueueSampleBufferForRecording:v22 isAudioSBuf:?];
+      [(APRKStreamRenderer *)v14 _enqueueSampleBufferForRecording:v18 isAudioSBuf:?];
       if (!recording)
       {
         return v16;
@@ -1942,12 +2008,12 @@ LABEL_13:
     v15 = self->_recorder;
     if (buf)
     {
-      [(APRKStreamRecorder *)v15 recordAudioSampleBuffer:recording];
+      [(APRKStreamRecorder *)v15 recordAudioSampleBuffer:?];
     }
 
     else
     {
-      [(APRKStreamRecorder *)v15 recordVideoSampleBuffer:recording];
+      [(APRKStreamRecorder *)v15 recordVideoSampleBuffer:?];
     }
   }
 
@@ -1969,7 +2035,7 @@ void __67__APRKStreamRenderer__enqueueSampleBufferForRecording_isAudioSBuf___blo
   if (v3)
   {
     v4 = [*(a1 + 32) delegate];
-    [v4 recordingSessionDidFailForRenderer:*(a1 + 32)];
+    [v4 recordingSessionDidFailForRenderer:?];
   }
 }
 
@@ -2023,7 +2089,7 @@ void __67__APRKStreamRenderer__enqueueSampleBufferForRecording_isAudioSBuf___blo
     [APRKStreamRenderer _performStartRecordingWithOutputURL:];
   }
 
-  [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:&__block_literal_global_116];
+  [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:?];
   v7 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_rendererVideoBufferQueue);
   recorderKeyFrameTimer = self->_recorderKeyFrameTimer;
   self->_recorderKeyFrameTimer = v7;
@@ -2039,7 +2105,7 @@ void __67__APRKStreamRenderer__enqueueSampleBufferForRecording_isAudioSBuf___blo
   v11 = dispatch_time(0, 5000000000);
   dispatch_source_set_timer(v10, v11, 0xFFFFFFFFFFFFFFFFLL, 0x5F5E100uLL);
   dispatch_resume(self->_recorderKeyFrameTimer);
-  [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:&__block_literal_global_119];
+  [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:?];
 
   return 1;
 }
@@ -2075,7 +2141,7 @@ void __58__APRKStreamRenderer__performStartRecordingWithOutputURL___block_invoke
   if (v3)
   {
     v4 = [*(a1 + 32) delegate];
-    [v4 recordingSessionDidFailForRenderer:*(a1 + 32)];
+    [v4 recordingSessionDidFailForRenderer:?];
   }
 }
 
@@ -2084,7 +2150,7 @@ void __58__APRKStreamRenderer__performStartRecordingWithOutputURL___block_invoke
   if (self->_recorder)
   {
     dispatch_source_cancel(self->_recorderKeyFrameTimer);
-    [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:&__block_literal_global_122];
+    [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:?];
     currentRecordingURL = self->_currentRecordingURL;
     self->_currentRecordingURL = 0;
 
@@ -2094,7 +2160,7 @@ void __58__APRKStreamRenderer__performStartRecordingWithOutputURL___block_invoke
     recorder = self->_recorder;
     self->_recorder = 0;
 
-    return !finalizeRecording;
+    return finalizeRecording ^ 1;
   }
 
   else
@@ -2110,28 +2176,23 @@ void __58__APRKStreamRenderer__performStartRecordingWithOutputURL___block_invoke
 
 - (void)_cleanupPreviousRecordingIfExisting
 {
-  v10 = 0;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [(NSURL *)self->_currentRecordingURL path];
-  v5 = [defaultManager fileExistsAtPath:path isDirectory:&v10];
+  v5 = [defaultManager fileExistsAtPath:? isDirectory:?];
 
   v6 = 0;
-  if ((v10 & 1) == 0)
+  if (v5)
   {
-    if (v5)
-    {
-      defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-      path2 = [(NSURL *)self->_currentRecordingURL path];
-      v9 = 0;
-      [defaultManager2 removeItemAtPath:path2 error:&v9];
-      v6 = v9;
+    defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
+    path2 = [(NSURL *)self->_currentRecordingURL path];
+    [defaultManager2 removeItemAtPath:? error:?];
+    v6 = 0;
 
-      if (v6)
+    if (v6)
+    {
+      if (gLogCategory_AirPlayReceiverKit <= 90 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
       {
-        if (gLogCategory_AirPlayReceiverKit <= 90 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
-        {
-          [APRKStreamRenderer _cleanupPreviousRecordingIfExisting];
-        }
+        [(APRKStreamRenderer *)v6 _cleanupPreviousRecordingIfExisting];
       }
     }
   }
@@ -2151,39 +2212,54 @@ void __58__APRKStreamRenderer__performStartRecordingWithOutputURL___block_invoke
 void __42__APRKStreamRenderer__updateStreamingMode__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (*(v2 + 36))
+  v3 = *(v2 + 36);
+  if (v3)
   {
-    v3 = 4;
+    v4 = 4;
   }
 
   else if (*(v2 + 32))
   {
-    v3 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v3 = 2 * (*(v2 + 40) != 0);
+    v4 = 2 * (*(v2 + 40) != 0);
   }
 
-  v4 = *(v2 + 376);
-  if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
+  v5 = *(v2 + 376);
+  if (gLogCategory_AirPlayReceiverKit > 30)
   {
-    LogPrintF();
+    goto LABEL_10;
   }
 
-  if (v4 != v3)
+  if (gLogCategory_AirPlayReceiverKit != -1)
   {
-    *(*(a1 + 32) + 376) = v3;
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 160);
+    goto LABEL_8;
+  }
+
+  if (_LogCategory_Initialize())
+  {
+    v2 = *(a1 + 32);
+    v3 = *(v2 + 36);
+LABEL_8:
+    LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer _updateStreamingMode]_block_invoke", 33554462, "didChangeStreamRendererModeTo current counts - video %d, screen %d, audio %d", v3, *(v2 + 32), *(v2 + 40));
+  }
+
+LABEL_10:
+  if (v5 != v4)
+  {
+    *(*(a1 + 32) + 376) = v4;
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 160);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __42__APRKStreamRenderer__updateStreamingMode__block_invoke_2;
     block[3] = &unk_278C62A70;
-    block[4] = v5;
-    block[5] = v3;
-    dispatch_async(v6, block);
+    block[4] = v6;
+    block[5] = v4;
+    dispatch_async(v7, block);
   }
 }
 
@@ -2201,7 +2277,7 @@ void __42__APRKStreamRenderer__updateStreamingMode__block_invoke_2(uint64_t a1)
     }
 
     v5 = [*(a1 + 32) delegate];
-    [v5 didChangeStreamRendererModeTo:*(a1 + 40) forRenderer:*(a1 + 32)];
+    [v5 didChangeStreamRendererModeTo:? forRenderer:?];
   }
 }
 
@@ -2232,13 +2308,13 @@ void __42__APRKStreamRenderer__updateStreamingMode__block_invoke_2(uint64_t a1)
 
     else
     {
-      [APRKStreamRenderer _performUIControllerActionWithBlock:];
+      [APRKStreamRenderer _performUIControllerActionWithBlock:?];
     }
   }
 
   else
   {
-    [APRKStreamRenderer _performUIControllerActionWithBlock:];
+    [APRKStreamRenderer _performUIControllerActionWithBlock:?];
   }
 }
 
@@ -2249,7 +2325,7 @@ void __42__APRKStreamRenderer__updateStreamingMode__block_invoke_2(uint64_t a1)
   changeCopy = change;
   if (VideoRenderingLayerContext == context)
   {
-    if (![pathCopy isEqualToString:@"bounds"])
+    if (![pathCopy isEqualToString:?])
     {
       goto LABEL_8;
     }
@@ -2298,68 +2374,65 @@ void __69__APRKStreamRenderer_observeValueForKeyPath_ofObject_change_context___b
   {
     v5 = objc_loadWeakRetained((*(a1 + 32) + 368));
     v4 = [*(*(a1 + 32) + 112) currentItemMetadata];
-    [v5 didUpdateMetadata:v4 forRenderer:*(a1 + 32)];
+    [v5 didUpdateMetadata:? forRenderer:?];
   }
 }
 
 - (void)mediaPlayer:(id)player wantsToSendUpstreamMessageWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __75__APRKStreamRenderer_mediaPlayer_wantsToSendUpstreamMessageWithDictionary___block_invoke;
-  v7[3] = &unk_278C62BF0;
-  v8 = dictionaryCopy;
+  v7 = MEMORY[0x277D85DD0];
+  v8 = 3221225472;
+  v9 = __75__APRKStreamRenderer_mediaPlayer_wantsToSendUpstreamMessageWithDictionary___block_invoke;
+  v10 = &unk_278C62BF0;
+  v11 = dictionaryCopy;
   v6 = dictionaryCopy;
-  [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:v7];
+  [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:?];
 }
 
 - (void)mediaPlayer:(id)player didGenerateFPSSecureStopRecordPayload:(id)payload
 {
   payloadCopy = payload;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __72__APRKStreamRenderer_mediaPlayer_didGenerateFPSSecureStopRecordPayload___block_invoke;
-  v7[3] = &unk_278C62BF0;
-  v8 = payloadCopy;
+  v7 = MEMORY[0x277D85DD0];
+  v8 = 3221225472;
+  v9 = __72__APRKStreamRenderer_mediaPlayer_didGenerateFPSSecureStopRecordPayload___block_invoke;
+  v10 = &unk_278C62BF0;
+  v11 = payloadCopy;
   v6 = payloadCopy;
-  [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:v7];
+  [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:?];
 }
 
 - (void)mediaPlayerNeedsTLSInfo:(id)info
 {
   infoCopy = info;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __46__APRKStreamRenderer_mediaPlayerNeedsTLSInfo___block_invoke;
-  v6[3] = &unk_278C62BF0;
-  v7 = infoCopy;
+  v6 = MEMORY[0x277D85DD0];
+  v7 = 3221225472;
+  v8 = __46__APRKStreamRenderer_mediaPlayerNeedsTLSInfo___block_invoke;
+  v9 = &unk_278C62BF0;
+  v10 = infoCopy;
   v5 = infoCopy;
-  [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:v6];
+  [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:?];
 }
 
-void __46__APRKStreamRenderer_mediaPlayerNeedsTLSInfo___block_invoke(uint64_t a1)
+void __46__APRKStreamRenderer_mediaPlayerNeedsTLSInfo___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = UIControllerCopyTLSInfo();
-  [*(a1 + 32) processTLSInfoDictionary:v2];
+  v3 = UIControllerCopyTLSInfo(a2);
+  [*(a1 + 32) processTLSInfoDictionary:?];
 }
 
 - (void)mediaPlayer:(id)player wantsToPostNotification:(id)notification withPayload:(id)payload
 {
   notificationCopy = notification;
   payloadCopy = payload;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __70__APRKStreamRenderer_mediaPlayer_wantsToPostNotification_withPayload___block_invoke;
-  v11[3] = &unk_278C62A48;
+  v11 = MEMORY[0x277D85DD0];
   v12 = notificationCopy;
   v13 = payloadCopy;
   v9 = payloadCopy;
   v10 = notificationCopy;
-  [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:v11];
+  [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:v11, 3221225472, __70__APRKStreamRenderer_mediaPlayer_wantsToPostNotification_withPayload___block_invoke, &unk_278C62A48];
 }
 
-uint64_t __70__APRKStreamRenderer_mediaPlayer_wantsToPostNotification_withPayload___block_invoke()
+uint64_t __70__APRKStreamRenderer_mediaPlayer_wantsToPostNotification_withPayload___block_invoke(uint64_t a1, uint64_t a2)
 {
   CMNotificationCenterGetDefaultLocalCenter();
 
@@ -2394,7 +2467,7 @@ void __43__APRKStreamRenderer_processSenderUIEvent___block_invoke(uint64_t a1)
     }
 
     v5 = [*(a1 + 32) delegate];
-    [v5 handleSenderUIEvent:*(a1 + 40) forRenderer:*(a1 + 32)];
+    [v5 handleSenderUIEvent:? forRenderer:?];
   }
 }
 
@@ -2402,21 +2475,21 @@ void __43__APRKStreamRenderer_processSenderUIEvent___block_invoke(uint64_t a1)
 {
   if (self->_presentationVideoSize.width != *MEMORY[0x277CBF3A8] || self->_presentationVideoSize.height != *(MEMORY[0x277CBF3A8] + 8))
   {
-    v41 = v12;
-    v42 = v11;
-    v43 = v10;
-    v44 = v9;
-    v45 = v8;
-    v46 = v7;
-    v47 = v6;
-    v48 = v5;
-    v49 = v3;
-    v50 = v4;
+    v39 = v12;
+    v40 = v11;
+    v41 = v10;
+    v42 = v9;
+    v43 = v8;
+    v44 = v7;
+    v45 = v6;
+    v46 = v5;
+    v47 = v3;
+    v48 = v4;
     v15 = MEMORY[0x277CD9FF0];
     layerCopy = layer;
     [v15 begin];
     v17 = 1;
-    [MEMORY[0x277CD9FF0] setDisableActions:1];
+    [MEMORY[0x277CD9FF0] setDisableActions:?];
     [layerCopy bounds];
     v19 = v18;
     v21 = v20;
@@ -2437,41 +2510,41 @@ void __43__APRKStreamRenderer_processSenderUIEvent___block_invoke(uint64_t a1)
       width = self->_presentationVideoSize.height;
     }
 
-    v51.origin.x = v19;
-    v51.origin.y = v21;
-    v51.size.width = v23;
-    v51.size.height = v25;
-    MidX = CGRectGetMidX(v51);
-    v52.origin.x = v19;
-    v52.origin.y = v21;
-    v52.size.width = v23;
-    v52.size.height = v25;
-    MidY = CGRectGetMidY(v52);
-    memset(&v40, 0, sizeof(v40));
-    CATransform3DMakeTranslation(&v40, (v23 - height) * 0.5, (v25 - width) * 0.5, 0.0);
+    v49.origin.x = v19;
+    v49.origin.y = v21;
+    v49.size.width = v23;
+    v49.size.height = v25;
+    CGRectGetMidX(v49);
+    v50.origin.x = v19;
+    v50.origin.y = v21;
+    v50.size.width = v23;
+    v50.size.height = v25;
+    CGRectGetMidY(v50);
+    memset(&v38, 0, sizeof(v38));
+    CATransform3DMakeTranslation(&v38, (v23 - height) * 0.5, (v25 - width) * 0.5, 0.0);
     v29 = fmax(v23 / height, v25 / width);
     v30 = fmin(v23 / height, v25 / width);
-    memset(&v39.m21, 0, 96);
+    memset(&v37.m21, 0, 96);
     if (!v17)
     {
       v30 = v29;
     }
 
-    memset(&v39, 0, 32);
-    CATransform3DMakeScale(&v39, v30, v30, 1.0);
-    memset(&v38, 0, sizeof(v38));
-    a = v40;
-    b = v39;
-    CATransform3DConcat(&v38, &a, &b);
-    mirroringLayer = [(APRKStreamRenderer *)self mirroringLayer];
+    memset(&v37, 0, 32);
+    CATransform3DMakeScale(&v37, v30, v30, 1.0);
+    memset(&v36, 0, sizeof(v36));
     a = v38;
-    [mirroringLayer setSublayerTransform:&a];
+    b = v37;
+    CATransform3DConcat(&v36, &a, &b);
+    mirroringLayer = [(APRKStreamRenderer *)self mirroringLayer];
+    a = v36;
+    [mirroringLayer setSublayerTransform:?];
 
     mirroringLayer2 = [(APRKStreamRenderer *)self mirroringLayer];
-    [mirroringLayer2 setPosition:{MidX, MidY}];
+    [mirroringLayer2 setPosition:?];
 
     mirroringLayer3 = [(APRKStreamRenderer *)self mirroringLayer];
-    [mirroringLayer3 setBounds:{v19, v21, v23, v25}];
+    [mirroringLayer3 setBounds:?];
 
     [MEMORY[0x277CD9FF0] commit];
   }
@@ -2498,8 +2571,8 @@ LABEL_61:
 
   CFRetain(v2);
   v3 = *(a1 + 32);
-  CMSampleBufferGetOutputPresentationTimeStamp(&v49, *(a1 + 48));
-  *(v3 + 232) = v49;
+  CMSampleBufferGetOutputPresentationTimeStamp(&v52, *(a1 + 48));
+  *(v3 + 232) = v52;
   if (*(*(a1 + 32) + 25))
   {
     goto LABEL_49;
@@ -2519,7 +2592,7 @@ LABEL_61:
     block[2] = __47__APRKStreamRenderer_processVideoSampleBuffer___block_invoke_2;
     block[3] = &unk_278C62A00;
     block[4] = v8;
-    v48 = v4 == v5;
+    v51 = v4 == v5;
     dispatch_async(v9, block);
   }
 
@@ -2550,13 +2623,13 @@ LABEL_61:
     *(*(a1 + 32) + 260) = v20;
     v22 = *(a1 + 32);
     v23 = *(v22 + 160);
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __47__APRKStreamRenderer_processVideoSampleBuffer___block_invoke_3;
-    v45[3] = &unk_278C62940;
-    v45[4] = v22;
-    v46 = v20;
-    dispatch_async(v23, v45);
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __47__APRKStreamRenderer_processVideoSampleBuffer___block_invoke_3;
+    v48[3] = &unk_278C62940;
+    v48[4] = v22;
+    v49 = v20;
+    dispatch_async(v23, v48);
     v21 = *(a1 + 32);
   }
 
@@ -2565,7 +2638,7 @@ LABEL_61:
   if (*(v21 + 344) == 1)
   {
     *(v21 + 256) = valuePtr[0];
-    v26 = [*(a1 + 32) _isRotatedTransform:*(*(a1 + 32) + 256)];
+    v26 = [*(a1 + 32) _isRotatedTransform:?];
     if (v26)
     {
       v27 = v19;
@@ -2601,11 +2674,11 @@ LABEL_26:
   v29 = *(a1 + 32);
   if (*(v29 + 24) == 1)
   {
-    if (![v29 _sampleBufferRepresentsKeyFrame:*(a1 + 48)])
+    if (![v29 _sampleBufferRepresentsKeyFrame:?])
     {
       if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
       {
-        OUTLINED_FUNCTION_1();
+        OUTLINED_FUNCTION_1(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer processVideoSampleBuffer:]_block_invoke", v30, "Renderer is waiting on a key frame, the received one is not. Ignoring it for video mirroring.");
       }
 
       goto LABEL_38;
@@ -2617,57 +2690,58 @@ LABEL_26:
 
   if (*(v29 + 88) && (*(v29 + 21) & 1) == 0)
   {
-    [v29 _enqueueVideoFrameForRendering:*(a1 + 48)];
+    [v29 _enqueueVideoFrameForRendering:?];
     OUTLINED_FUNCTION_2_0();
-    *(v31 + 24) = v30;
+    *(v32 + 24) = v31;
     v29 = *(a1 + 32);
   }
 
   WeakRetained = objc_loadWeakRetained((v29 + 320));
-  v33 = objc_opt_respondsToSelector();
+  v34 = objc_opt_respondsToSelector();
 
-  if (v33)
+  if (v34)
   {
-    v34 = objc_loadWeakRetained((*(a1 + 32) + 320));
-    [v34 renderer:*(a1 + 32) didOutputVideoSampleBuffer:*(a1 + 48)];
+    v35 = objc_loadWeakRetained((*(a1 + 32) + 320));
+    [v35 renderer:? didOutputVideoSampleBuffer:?];
   }
 
 LABEL_38:
-  v35 = *(a1 + 32);
-  if (v4 != v5 && (*(v35 + 22) & 1) != 0)
+  v36 = *(a1 + 32);
+  if (v4 != v5 && (*(v36 + 22) & 1) != 0)
   {
-    [v35 _enqueueSampleBufferForRecording:*(a1 + 48) isAudioSBuf:0];
-    v35 = *(a1 + 32);
+    [v36 _enqueueSampleBufferForRecording:? isAudioSBuf:?];
+    v36 = *(a1 + 32);
   }
 
-  if (v24 != *(v35 + 168) || v25 != *(v35 + 176))
+  if (v24 != *(v36 + 168) || v25 != *(v36 + 176))
   {
-    *(v35 + 168) = v24;
-    *(v35 + 176) = v25;
-    v37 = *(*(a1 + 32) + 128);
-    if (v37)
+    *(v36 + 168) = v24;
+    *(v36 + 176) = v25;
+    v38 = *(*(a1 + 32) + 128);
+    if (v38)
     {
-      v38 = *(*(CMBaseObjectGetVTable() + 16) + 40);
-      if (v38)
+      v39 = *(*(CMBaseObjectGetVTable() + 16) + 40);
+      if (v39)
       {
-        v38(v37, 1);
+        v39(v38, 1);
       }
     }
 
-    v39 = *(a1 + 32);
-    v40 = *(v39 + 160);
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __47__APRKStreamRenderer_processVideoSampleBuffer___block_invoke_4;
-    v43[3] = &unk_278C62A00;
-    v43[4] = v39;
-    v44 = v6;
-    dispatch_async(v40, v43);
+    v40 = *(a1 + 32);
+    v41 = *(v40 + 160);
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __47__APRKStreamRenderer_processVideoSampleBuffer___block_invoke_4;
+    v46[3] = &unk_278C62A00;
+    v46[4] = v40;
+    v47 = v6;
+    dispatch_async(v41, v46);
   }
 
 LABEL_49:
   OUTLINED_FUNCTION_2_0();
-  if (!*(v41 + 24) || gLogCategory_AirPlayReceiverKit > 90)
+  v43 = *(v42 + 24);
+  if (!v43 || gLogCategory_AirPlayReceiverKit > 90)
   {
     goto LABEL_54;
   }
@@ -2680,15 +2754,16 @@ LABEL_49:
   if (_LogCategory_Initialize())
   {
     OUTLINED_FUNCTION_2_0();
+    v43 = *(v45 + 24);
 LABEL_52:
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer processVideoSampleBuffer:]_block_invoke", 33554522, "Failed to enqueue video frame: %#m\n", v43);
   }
 
 LABEL_54:
-  v42 = *(a1 + 48);
-  if (v42)
+  v44 = *(a1 + 48);
+  if (v44)
   {
-    CFRelease(v42);
+    CFRelease(v44);
   }
 }
 
@@ -2704,33 +2779,32 @@ void __47__APRKStreamRenderer_processAudioSampleBuffer___block_invoke(uint64_t a
       v3 = *(*(a1 + 32) + 72);
       HostTimeClock = CMClockGetHostTimeClock();
       CMClockGetTime(&v14, HostTimeClock);
-      LODWORD(v5) = 1.0;
-      [v3 setRate:&v14 time:v5];
+      [v3 setRate:? time:?];
       v2 = *(a1 + 32);
     }
 
-    v6 = [*(v2 + 80) isReadyForMoreMediaData];
-    v7 = *(*(a1 + 32) + 80);
-    if (v6)
+    v5 = [*(v2 + 80) isReadyForMoreMediaData];
+    v6 = *(*(a1 + 32) + 80);
+    if (v5)
     {
-      [v7 enqueueSampleBuffer:*(a1 + 48)];
+      [v6 enqueueSampleBuffer:?];
       WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 320));
-      v9 = objc_opt_respondsToSelector();
+      v8 = objc_opt_respondsToSelector();
 
-      if (v9)
+      if (v8)
       {
-        v10 = objc_loadWeakRetained((*(a1 + 32) + 320));
-        [v10 renderer:*(a1 + 32) didOutputAudioSampleBuffer:*(a1 + 48)];
+        v9 = objc_loadWeakRetained((*(a1 + 32) + 320));
+        [v9 renderer:? didOutputAudioSampleBuffer:?];
       }
 
-      v11 = *(a1 + 32);
-      if (v11[22] == 1)
+      v10 = *(a1 + 32);
+      if (v10[22] == 1)
       {
-        [v11 _enqueueSampleBufferForRecording:*(a1 + 48) isAudioSBuf:1];
+        [v10 _enqueueSampleBufferForRecording:? isAudioSBuf:?];
       }
     }
 
-    else if ([v7 status] == 2)
+    else if ([v6 status] == 2)
     {
       OUTLINED_FUNCTION_2_0();
       *(v13 + 24) = -6762;
@@ -2745,11 +2819,11 @@ void __47__APRKStreamRenderer_processAudioSampleBuffer___block_invoke(uint64_t a
     if (gLogCategory_AirPlayReceiverKit != -1)
     {
 LABEL_15:
-      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_8(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer processAudioSampleBuffer:]_block_invoke", v11, "Failed to enqueue audio sample buffer: %#m\n");
       return;
     }
 
-    if (OUTLINED_FUNCTION_7_0())
+    if (OUTLINED_FUNCTION_7_0(&gLogCategory_AirPlayReceiverKit))
     {
       OUTLINED_FUNCTION_2_0();
       goto LABEL_15;
@@ -2764,44 +2838,44 @@ LABEL_15:
   p_figVideoQueue = &self->_figVideoQueue;
   if (self->_figVideoQueue)
   {
-    v18 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v4 = FigVideoQueueCreate();
-    if (v4)
+    v5 = FigVideoQueueCreate();
+    if (v5)
     {
-      v18 = v4;
+      v19 = v5;
     }
 
     else
     {
       [(APRKStreamRenderer *)self _registerForFigVideoQueueNotifications];
       HostTimeClock = CMClockGetHostTimeClock();
-      v6 = CMTimebaseCreateWithSourceClock(0, HostTimeClock, &timebaseOut);
-      if (v6)
+      v7 = CMTimebaseCreateWithSourceClock(0, HostTimeClock, &timebaseOut);
+      if (v7)
       {
-        v18 = v6;
+        v19 = v7;
       }
 
       else
       {
-        v7 = CMTimebaseSetRate(timebaseOut, 1.0);
-        if (v7)
+        v8 = CMTimebaseSetRate(timebaseOut, 1.0);
+        if (v8)
         {
-          v18 = v7;
+          v19 = v8;
         }
 
         else
         {
-          v8 = timebaseOut;
-          v9 = CMClockGetHostTimeClock();
-          CMClockGetTime(&time, v9);
-          v10 = CMTimebaseSetTime(v8, &time);
-          if (v10)
+          v9 = timebaseOut;
+          v10 = CMClockGetHostTimeClock();
+          CMClockGetTime(&time, v10);
+          v11 = CMTimebaseSetTime(v9, &time);
+          if (v11)
           {
-            v18 = v10;
+            v19 = v11;
           }
 
           else
@@ -2809,49 +2883,49 @@ LABEL_15:
             OnlyTimebase = CMTimebaseCreateReadOnlyTimebase();
             if (OnlyTimebase)
             {
-              v18 = OnlyTimebase;
+              v19 = OnlyTimebase;
             }
 
             else
             {
               CMBaseObject = FigVideoQueueGetCMBaseObject();
-              v13 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-              if (v13)
+              v14 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+              if (v14)
               {
-                v14 = v13(CMBaseObject, *MEMORY[0x277CD64E8], *MEMORY[0x277CBED10]);
-                if (v14)
+                v15 = v14(CMBaseObject, *MEMORY[0x277CD64E8], *MEMORY[0x277CBED10]);
+                if (v15)
                 {
-                  v18 = v14;
+                  v19 = v15;
                 }
 
                 else
                 {
-                  v15 = FigVideoQueueSetProperty(*p_figVideoQueue, *MEMORY[0x277CD64F0], cf);
-                  if (v15)
+                  v16 = FigVideoQueueSetProperty(*p_figVideoQueue, *MEMORY[0x277CD64F0], cf);
+                  if (v16)
                   {
-                    v18 = v15;
+                    v19 = v16;
                   }
 
                   else
                   {
-                    v16 = FigVideoQueueSetProperty(self->_figVideoQueue, *MEMORY[0x277CD6508], self->_mirroringLayer);
-                    if (v16)
+                    v17 = FigVideoQueueSetProperty(self->_figVideoQueue, *MEMORY[0x277CD6508], self->_mirroringLayer);
+                    if (v17)
                     {
-                      v18 = v16;
+                      v19 = v17;
                     }
 
                     else
                     {
-                      v17 = FigVideoQueueSetProperty(*p_figVideoQueue, *MEMORY[0x277CD6510], *MEMORY[0x277CBED28]);
-                      if (v17)
+                      v18 = FigVideoQueueSetProperty(*p_figVideoQueue, *MEMORY[0x277CD6510], *MEMORY[0x277CBED28]);
+                      if (v18)
                       {
-                        v18 = v17;
+                        v19 = v18;
                       }
 
                       else
                       {
-                        v18 = FigVideoQueueStart(*p_figVideoQueue);
-                        if (!v18)
+                        v19 = FigVideoQueueStart(*p_figVideoQueue);
+                        if (!v19)
                         {
                           goto LABEL_16;
                         }
@@ -2863,7 +2937,7 @@ LABEL_15:
 
               else
               {
-                v18 = -12782;
+                v19 = -12782;
               }
             }
           }
@@ -2885,12 +2959,12 @@ LABEL_16:
     CFRelease(cf);
   }
 
-  if (v18 && gLogCategory_AirPlayReceiverKit <= 90 && (gLogCategory_AirPlayReceiverKit != -1 || OUTLINED_FUNCTION_7_0()))
+  if (v19 && gLogCategory_AirPlayReceiverKit <= 90 && (gLogCategory_AirPlayReceiverKit != -1 || OUTLINED_FUNCTION_7_0(&gLogCategory_AirPlayReceiverKit)))
   {
-    OUTLINED_FUNCTION_8();
+    OUTLINED_FUNCTION_8(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer _ensureFigVideoQueue]", v2, "Failed to create video queue with error: %#m");
   }
 
-  return v18;
+  return v19;
 }
 
 - (int)_enqueueVideoFrameForRendering:(opaqueCMSampleBuffer *)rendering
@@ -2966,13 +3040,13 @@ LABEL_13:
 
   if (v14)
   {
-    if (gLogCategory_AirPlayReceiverKit <= 90 && (gLogCategory_AirPlayReceiverKit != -1 || OUTLINED_FUNCTION_7_0()))
+    if (gLogCategory_AirPlayReceiverKit <= 90 && (gLogCategory_AirPlayReceiverKit != -1 || OUTLINED_FUNCTION_7_0(&gLogCategory_AirPlayReceiverKit)))
     {
-      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_8(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer _enqueueVideoFrameForRendering:]", rendering, "Error enqueueing video frame. This error is not recoverable. Sending user stop to terminate the session");
     }
 
     self->_isMirroringVideoStreamPaused = 1;
-    [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:&__block_literal_global_107];
+    [(APRKStreamRenderer *)self _performUIControllerActionWithBlock:?];
   }
 
   return v14;
@@ -2983,7 +3057,7 @@ void __55__APRKStreamRenderer_processShowPasscodePromptRequest___block_invoke_co
   [*a1 delegate];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_7();
+  OUTLINED_FUNCTION_7(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer processShowPasscodePromptRequest:]_block_invoke", v1, "Calling shouldShowPasscodePromptWithString on delegate %{ptr} for renderer %{ptr}");
 }
 
 void __54__APRKStreamRenderer_processHidePasscodePromptRequest__block_invoke_cold_1(id *a1)
@@ -2991,66 +3065,68 @@ void __54__APRKStreamRenderer_processHidePasscodePromptRequest__block_invoke_col
   [*a1 delegate];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_7();
+  OUTLINED_FUNCTION_7(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer processHidePasscodePromptRequest]_block_invoke", v1, "Calling shouldHidePasscodePromptForRenderer on delegate %{ptr} for renderer %{ptr}");
 }
 
 - (void)_enqueueSampleBufferForRecording:(void *)a3 isAudioSBuf:.cold.2(uint64_t a1, void *a2, void *a3)
 {
   APSLogErrorAt();
-  if (gLogCategory_AirPlayReceiverKit <= 90 && (gLogCategory_AirPlayReceiverKit != -1 || OUTLINED_FUNCTION_7_0()))
+  if (gLogCategory_AirPlayReceiverKit <= 90 && (gLogCategory_AirPlayReceiverKit != -1 || OUTLINED_FUNCTION_7_0(&gLogCategory_AirPlayReceiverKit)))
   {
-    v7 = a1;
-    OUTLINED_FUNCTION_8();
+    v8 = a1;
+    OUTLINED_FUNCTION_8(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer _enqueueSampleBufferForRecording:isAudioSBuf:]", v6, "Failed to enqueue sample buffer for the recorder: %#m\n");
   }
 
   [a2 _performStopRecording];
-  v6 = a2[20];
+  v7 = a2[20];
   *a3 = MEMORY[0x277D85DD0];
   a3[1] = 3221225472;
   a3[2] = __67__APRKStreamRenderer__enqueueSampleBufferForRecording_isAudioSBuf___block_invoke;
   a3[3] = &unk_278C626E8;
   a3[4] = a2;
-  dispatch_async(v6, a3);
+  dispatch_async(v7, a3);
 }
 
 void __42__APRKStreamRenderer__updateStreamingMode__block_invoke_2_cold_1(id *a1)
 {
-  v1 = [*a1 delegate];
-  OUTLINED_FUNCTION_7();
+  v2 = [*a1 delegate];
+  OUTLINED_FUNCTION_7(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer _updateStreamingMode]_block_invoke_2", v1, "Calling didChangeStreamRendererModeTo on delegate %{ptr} with mode %i for renderer %{ptr}");
 }
 
-- (uint64_t)_performUIControllerActionWithBlock:.cold.1()
+- (uint64_t)_performUIControllerActionWithBlock:(uint64_t)result .cold.1(uint64_t result)
 {
   if (gLogCategory_AirPlayReceiverKit <= 60)
   {
+    v1 = result;
     if (gLogCategory_AirPlayReceiverKit != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer _performUIControllerActionWithBlock:]", 33554492, "Unable to retrieve _backingUIController because it went away. %@ \n", v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer _performUIControllerActionWithBlock:]", 33554492, "Unable to retrieve _backingUIController because it went away. %@ \n", v1);
     }
   }
 
   return result;
 }
 
-- (uint64_t)_performUIControllerActionWithBlock:.cold.2()
+- (uint64_t)_performUIControllerActionWithBlock:(uint64_t)result .cold.2(uint64_t result)
 {
   if (gLogCategory_AirPlayReceiverKit <= 60)
   {
+    v1 = result;
     if (gLogCategory_AirPlayReceiverKit != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer _performUIControllerActionWithBlock:]", 33554492, "UIController is NULL! %@ \n", v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer _performUIControllerActionWithBlock:]", 33554492, "UIController is NULL! %@ \n", v1);
     }
   }
 
@@ -3060,7 +3136,7 @@ void __42__APRKStreamRenderer__updateStreamingMode__block_invoke_2_cold_1(id *a1
 void __69__APRKStreamRenderer_observeValueForKeyPath_ofObject_change_context___block_invoke_2_cold_1(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 368));
-  OUTLINED_FUNCTION_7();
+  OUTLINED_FUNCTION_7(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer observeValueForKeyPath:ofObject:change:context:]_block_invoke_2", v1, "Calling didUpdateMetadata on delegate %{ptr} for renderer %{ptr}");
 }
 
 void __43__APRKStreamRenderer_processSenderUIEvent___block_invoke_cold_1(id *a1)
@@ -3068,7 +3144,7 @@ void __43__APRKStreamRenderer_processSenderUIEvent___block_invoke_cold_1(id *a1)
   [*a1 delegate];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3_0();
-  LogPrintF();
+  LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKStreamRenderer processSenderUIEvent:]_block_invoke", 33554442, "Calling handleSenderUIEvent on delegate %{ptr} for renderer %{ptr}");
 }
 
 @end

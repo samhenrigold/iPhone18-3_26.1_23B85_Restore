@@ -25,33 +25,33 @@
 
 - (id)prepareResults:(id)results forFetch:(id)fetch
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   fetchCopy = fetch;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v8 = [resultsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [resultsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(resultsCopy);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         logFuture = [(_CNDiagnosticResponsePreparer *)self logFuture];
         [v12 addDiagnosticLogFuture:logFuture];
       }
 
-      v9 = [resultsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [resultsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
@@ -59,8 +59,6 @@
 
   preparer = [(_CNAutocompleteResponsePreparerDecorator *)self preparer];
   v15 = [preparer prepareResults:resultsCopy forFetch:fetchCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

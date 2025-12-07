@@ -1,23 +1,24 @@
-void sub_241FB5504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61)
+void sub_241FB5504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, ...)
 {
+  va_start(va, a60);
   _Block_object_dispose(&a57, 8);
-  _Block_object_dispose(&a61, 8);
-  _Block_object_dispose((v61 - 224), 8);
-  _Block_object_dispose((v61 - 192), 8);
-  _Block_object_dispose((v61 - 136), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v60 - 224), 8);
+  _Block_object_dispose((v60 - 192), 8);
+  _Block_object_dispose((v60 - 136), 8);
   _Unwind_Resume(a1);
 }
 
-id blt_general_log()
+id blt_general_log(uint64_t a1)
 {
   if (blt_general_log_onceToken != -1)
   {
     blt_general_log_cold_1();
   }
 
-  v1 = blt_general_log___logger;
+  v2 = blt_general_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t BLTPBSetNotificationsSoundRequestReadFrom(uint64_t a1, void *a2)
@@ -142,9 +143,9 @@ LABEL_34:
   return [a2 hasError] ^ 1;
 }
 
-void sub_241FB7A74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_241FB7A74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -171,22 +172,20 @@ const char *BLTIDSConnectionStatusString(unint64_t a1)
 
 void _BLTLogIDSSendFail(int a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = blt_ids_log();
+  v7 = blt_ids_log(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138412802;
-    v10 = v6;
-    v11 = 1024;
-    v12 = a1;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_error_impl(&dword_241FB3000, v7, OS_LOG_TYPE_ERROR, "IDS error sending request with identifier %@ (paired device ready: %{BOOL}u): %@", &v9, 0x1Cu);
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 1024;
+    v11 = a1;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_error_impl(&dword_241FB3000, v7, OS_LOG_TYPE_ERROR, "IDS error sending request with identifier %@ (paired device ready: %{BOOL}u): %@", &v8, 0x1Cu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __Block_byref_object_copy__263(uint64_t result, uint64_t a2)
@@ -222,7 +221,7 @@ void sub_241FBD258(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   if (a2 == 1)
   {
     v19 = objc_begin_catch(a1);
-    v20 = blt_general_log();
+    v20 = blt_general_log(v19);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       buf = 138413058;
@@ -240,245 +239,271 @@ void sub_241FBD258(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-id blt_bug_reporter_log()
+id blt_bug_reporter_log(uint64_t a1)
 {
   if (blt_bug_reporter_log_onceToken != -1)
   {
     blt_bug_reporter_log_cold_1();
   }
 
-  v1 = blt_bug_reporter_log___logger;
+  v2 = blt_bug_reporter_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __blt_bug_reporter_log_block_invoke()
 {
-  blt_bug_reporter_log___logger = os_log_create("com.apple.BulletinDistributor", "bug_reporter");
+  v0 = os_log_create("com.apple.BulletinDistributor", "bug_reporter");
+  v1 = blt_bug_reporter_log___logger;
+  blt_bug_reporter_log___logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id blt_dnd_log()
+id blt_dnd_log(uint64_t a1)
 {
   if (blt_dnd_log_onceToken != -1)
   {
     blt_dnd_log_cold_1();
   }
 
-  v1 = blt_dnd_log___logger;
+  v2 = blt_dnd_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __blt_dnd_log_block_invoke()
 {
-  blt_dnd_log___logger = os_log_create("com.apple.BulletinDistributor", "dnd");
+  v0 = os_log_create("com.apple.BulletinDistributor", "dnd");
+  v1 = blt_dnd_log___logger;
+  blt_dnd_log___logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t __blt_general_log_block_invoke()
 {
-  blt_general_log___logger = os_log_create("com.apple.BulletinDistributor", "general");
+  v0 = os_log_create("com.apple.BulletinDistributor", "general");
+  v1 = blt_general_log___logger;
+  blt_general_log___logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id blt_lights_and_sirens_log()
+id blt_lights_and_sirens_log(uint64_t a1)
 {
   if (blt_lights_and_sirens_log_onceToken != -1)
   {
     blt_lights_and_sirens_log_cold_1();
   }
 
-  v1 = blt_lights_and_sirens_log___logger;
+  v2 = blt_lights_and_sirens_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __blt_lights_and_sirens_log_block_invoke()
 {
-  blt_lights_and_sirens_log___logger = os_log_create("com.apple.BulletinDistributor", "lights_and_sirens");
+  v0 = os_log_create("com.apple.BulletinDistributor", "lights_and_sirens");
+  v1 = blt_lights_and_sirens_log___logger;
+  blt_lights_and_sirens_log___logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id blt_send_queue_log()
+id blt_send_queue_log(uint64_t a1)
 {
   if (blt_send_queue_log_onceToken != -1)
   {
     blt_send_queue_log_cold_1();
   }
 
-  v1 = blt_send_queue_log___logger;
+  v2 = blt_send_queue_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __blt_send_queue_log_block_invoke()
 {
-  blt_send_queue_log___logger = os_log_create("com.apple.BulletinDistributor", "send_queue");
+  v0 = os_log_create("com.apple.BulletinDistributor", "send_queue");
+  v1 = blt_send_queue_log___logger;
+  blt_send_queue_log___logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id blt_standalone_log()
+id blt_standalone_log(uint64_t a1)
 {
   if (blt_standalone_log_onceToken != -1)
   {
     blt_standalone_log_cold_1();
   }
 
-  v1 = blt_standalone_log___logger;
+  v2 = blt_standalone_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __blt_standalone_log_block_invoke()
 {
-  blt_standalone_log___logger = os_log_create("com.apple.BulletinDistributor", "standalone");
+  v0 = os_log_create("com.apple.BulletinDistributor", "standalone");
+  v1 = blt_standalone_log___logger;
+  blt_standalone_log___logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id blt_ids_log()
+id blt_ids_log(uint64_t a1)
 {
   if (blt_ids_log_onceToken != -1)
   {
     blt_ids_log_cold_1();
   }
 
-  v1 = blt_ids_log___logger;
+  v2 = blt_ids_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __blt_ids_log_block_invoke()
 {
-  blt_ids_log___logger = os_log_create("com.apple.BulletinDistributor", "ids");
+  v0 = os_log_create("com.apple.BulletinDistributor", "ids");
+  v1 = blt_ids_log___logger;
+  blt_ids_log___logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id blt_perf_log()
+id blt_perf_log(uint64_t a1)
 {
   if (blt_perf_log_onceToken != -1)
   {
     blt_perf_log_cold_1();
   }
 
-  v1 = blt_perf_log___logger;
+  v2 = blt_perf_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __blt_perf_log_block_invoke()
 {
-  blt_perf_log___logger = os_log_create("com.apple.BulletinDistributor", "perf");
+  v0 = os_log_create("com.apple.BulletinDistributor", "perf");
+  v1 = blt_perf_log___logger;
+  blt_perf_log___logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id blt_settings_log()
+id blt_settings_log(uint64_t a1)
 {
   if (blt_settings_log_onceToken != -1)
   {
     blt_settings_log_cold_1();
   }
 
-  v1 = blt_settings_log___logger;
+  v2 = blt_settings_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __blt_settings_log_block_invoke()
 {
-  blt_settings_log___logger = os_log_create("com.apple.BulletinDistributor", "settings");
+  v0 = os_log_create("com.apple.BulletinDistributor", "settings");
+  v1 = blt_settings_log___logger;
+  blt_settings_log___logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id blt_notification_size_log()
+id blt_notification_size_log(uint64_t a1)
 {
   if (blt_notification_size_log_onceToken != -1)
   {
     blt_notification_size_log_cold_1();
   }
 
-  v1 = blt_notification_size_log___logger;
+  v2 = blt_notification_size_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __blt_notification_size_log_block_invoke()
 {
-  blt_notification_size_log___logger = os_log_create("com.apple.BulletinDistributor", "notification_size");
+  v0 = os_log_create("com.apple.BulletinDistributor", "notification_size");
+  v1 = blt_notification_size_log___logger;
+  blt_notification_size_log___logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id blt_cleanup_log()
+id blt_cleanup_log(uint64_t a1)
 {
   if (blt_cleanup_log_onceToken != -1)
   {
     blt_cleanup_log_cold_1();
   }
 
-  v1 = blt_cleanup_log___logger;
+  v2 = blt_cleanup_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __blt_cleanup_log_block_invoke()
 {
-  blt_cleanup_log___logger = os_log_create("com.apple.BulletinDistributor", "cleanup");
+  v0 = os_log_create("com.apple.BulletinDistributor", "cleanup");
+  v1 = blt_cleanup_log___logger;
+  blt_cleanup_log___logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id blt_xpc_activity_log()
+id blt_xpc_activity_log(uint64_t a1)
 {
   if (blt_xpc_activity_log_onceToken != -1)
   {
     blt_xpc_activity_log_cold_1();
   }
 
-  v1 = blt_xpc_activity_log___logger;
+  v2 = blt_xpc_activity_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __blt_xpc_activity_log_block_invoke()
 {
-  blt_xpc_activity_log___logger = os_log_create("com.apple.BulletinDistributor", "xpc_activity");
+  v0 = os_log_create("com.apple.BulletinDistributor", "xpc_activity");
+  v1 = blt_xpc_activity_log___logger;
+  blt_xpc_activity_log___logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id blt_global_settings_sync_log()
+id blt_global_settings_sync_log(uint64_t a1)
 {
   if (blt_global_settings_sync_log_onceToken != -1)
   {
     blt_global_settings_sync_log_cold_1();
   }
 
-  v1 = blt_global_settings_sync_log___logger;
+  v2 = blt_global_settings_sync_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __blt_global_settings_sync_log_block_invoke()
 {
-  blt_global_settings_sync_log___logger = os_log_create("com.apple.BulletinDistributor", "global_settings_sync");
+  v0 = os_log_create("com.apple.BulletinDistributor", "global_settings_sync");
+  v1 = blt_global_settings_sync_log___logger;
+  blt_global_settings_sync_log___logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void _BLTPerfLogCurrentThreadPriority(uint64_t a1)
 {
   v23 = *MEMORY[0x277D85DE8];
-  v2 = blt_perf_log();
+  v2 = blt_perf_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG);
 
   if (v3)
@@ -490,14 +515,15 @@ void _BLTPerfLogCurrentThreadPriority(uint64_t a1)
     *thread_info_out = 0u;
     v17 = 0u;
     thread_info_outCnt = 10;
-    if (thread_info(v6, 3u, thread_info_out, &thread_info_outCnt))
+    v7 = thread_info(v6, 3u, thread_info_out, &thread_info_outCnt);
+    if (v7)
     {
-      v7 = @"Unable to get thread info";
+      v8 = @"Unable to get thread info";
     }
 
     else if ((DWORD1(v17) - 1) > 1)
     {
-      v7 = @"Unknown thread policy";
+      v8 = @"Unknown thread policy";
     }
 
     else
@@ -506,50 +532,49 @@ void _BLTPerfLogCurrentThreadPriority(uint64_t a1)
       thread_info_outCnt = 5;
       if (DWORD1(v17) == 1)
       {
-        v8 = thread_info(v6, 0xAu, v20, &thread_info_outCnt);
-        v9 = *&v20[4];
-        v10 = *&v20[8];
+        v9 = thread_info(v6, 0xAu, v20, &thread_info_outCnt);
+        v10 = *&v20[4];
+        v11 = *&v20[8];
       }
 
       else
       {
-        v8 = thread_info(v6, 0xBu, v20, &thread_info_outCnt);
+        v9 = thread_info(v6, 0xBu, v20, &thread_info_outCnt);
+        v11 = *&v20[4];
         v10 = *&v20[4];
-        v9 = *&v20[4];
       }
 
-      v11 = "timeshare";
+      v12 = "timeshare";
       if (DWORD1(v17) == 2)
       {
-        v11 = "fixed";
+        v12 = "fixed";
       }
 
-      if (v8)
+      if (v9)
       {
-        [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to get thread priority %s info", v11, v14, v15];
+        [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to get thread priority %s info", v12, v14, v15];
       }
 
       else
       {
-        [MEMORY[0x277CCACA8] stringWithFormat:@"thread priority %s base: %d current: %d", v11, v9, v10];
+        [MEMORY[0x277CCACA8] stringWithFormat:@"thread priority %s base: %d current: %d", v12, v10, v11];
       }
       v7 = ;
+      v8 = v7;
     }
 
-    v12 = blt_perf_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = blt_perf_log(v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *v20 = 136315650;
       *&v20[4] = a1;
       *&v20[12] = 2080;
       *&v20[14] = label;
       v21 = 2112;
-      v22 = v7;
-      _os_log_debug_impl(&dword_241FB3000, v12, OS_LOG_TYPE_DEBUG, "Function: %s Queue: %s %@", v20, 0x20u);
+      v22 = v8;
+      _os_log_debug_impl(&dword_241FB3000, v13, OS_LOG_TYPE_DEBUG, "Function: %s Queue: %s %@", v20, 0x20u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 _DWORD *BLTStateDataWithTitleAndDescription(void *a1, uint64_t a2)
@@ -2677,7 +2702,7 @@ LABEL_68:
 
 void ApplicationsChanged(uint64_t a1, uint64_t a2)
 {
-  v3 = BLTWorkQueue();
+  v3 = BLTWorkQueue(a1);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __ApplicationsChanged_block_invoke;
@@ -2734,7 +2759,7 @@ uint64_t BLTBBSectionInfoEnabled(void *a1)
   return v7;
 }
 
-uint64_t BLTIsAggdLogEnabled()
+uint64_t BLTIsAggdLogEnabled(uint64_t a1, uint64_t a2)
 {
   if (BLTIsAggdLogEnabled_onceToken != -1)
   {
@@ -2762,31 +2787,30 @@ uint64_t __BLTIsAggdLogEnabled_block_invoke()
 
 void BLTAnalyticsLogBulletinSize(void *a1, uint64_t a2, void *a3)
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v11[0] = @"sectionID";
-  v11[1] = @"publisherMatchID";
-  v12[0] = a1;
-  v12[1] = a3;
-  v11[2] = @"bulletinSize";
+  v11[3] = *MEMORY[0x277D85DE8];
+  v10[0] = @"sectionID";
+  v10[1] = @"publisherMatchID";
+  v11[0] = a1;
+  v11[1] = a3;
+  v10[2] = @"bulletinSize";
   v5 = MEMORY[0x277CCABB0];
   v6 = a3;
   v7 = a1;
   v8 = [v5 numberWithUnsignedLong:a2];
-  v12[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   AnalyticsSendEvent();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void BLTAnalyticsLogCompanionToGizmoDelay(void *a1, void *a2, void *a3, void *a4, uint64_t a5)
 {
-  v22[4] = *MEMORY[0x277D85DE8];
-  v21[0] = @"sectionID";
-  v21[1] = @"publisherMatchID";
-  v22[0] = a1;
-  v22[1] = a2;
-  v21[2] = @"delay";
+  v21[4] = *MEMORY[0x277D85DE8];
+  v20[0] = @"sectionID";
+  v20[1] = @"publisherMatchID";
+  v21[0] = a1;
+  v21[1] = a2;
+  v20[2] = @"delay";
   v9 = MEMORY[0x277CCABB0];
   v10 = a3;
   v11 = a2;
@@ -2797,17 +2821,16 @@ void BLTAnalyticsLogCompanionToGizmoDelay(void *a1, void *a2, void *a3, void *a4
   v16 = v15;
 
   v17 = [v9 numberWithDouble:v14 - v16];
-  v22[2] = v17;
-  v21[3] = @"connectionStatus";
+  v21[2] = v17;
+  v20[3] = @"connectionStatus";
   v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a5];
-  v22[3] = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
+  v21[3] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
 
   AnalyticsSendEvent();
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-void BLTAnalyticsLogOutOfOrderMessage()
+void BLTAnalyticsLogOutOfOrderMessage(uint64_t result, uint64_t a2)
 {
   if (BLTIsAggdLogEnabled_onceToken != -1)
   {
@@ -2823,7 +2846,7 @@ void BLTAnalyticsLogOutOfOrderMessage()
 
 void BLTAnalyticsLogMirroredNotificationsOverrides(void *a1, void *a2)
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CF33F8];
   v4 = a2;
   v5 = a1;
@@ -2833,18 +2856,17 @@ void BLTAnalyticsLogMirroredNotificationsOverrides(void *a1, void *a2)
   v8 = [v4 objectForKeyedSubscript:*MEMORY[0x277CF33F0]];
 
   v9 = [v8 BOOLValue];
-  v15[0] = v5;
-  v14[0] = @"sectionID";
-  v14[1] = @"showAlerts";
+  v14[0] = v5;
+  v13[0] = @"sectionID";
+  v13[1] = @"showAlerts";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:v7];
-  v15[1] = v10;
-  v14[2] = @"sendToNotificationCenter";
+  v14[1] = v10;
+  v13[2] = @"sendToNotificationCenter";
   v11 = [MEMORY[0x277CCABB0] numberWithBool:v9];
-  v15[2] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
 
   AnalyticsSendEvent();
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t BLTPBHandleAcknowledgeActionRequestReadFrom(uint64_t a1, void *a2)
@@ -2967,7 +2989,7 @@ LABEL_32:
 void WristDetectSettingChanged(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = BLTWorkQueue();
+  v3 = BLTWorkQueue(v2);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __WristDetectSettingChanged_block_invoke;
@@ -3684,9 +3706,9 @@ LABEL_51:
   return [a2 hasError] ^ 1;
 }
 
-void sub_241FD3D18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241FD3D18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4322,7 +4344,7 @@ id _readDataFromFile(void *a1)
   if (v3)
   {
     v4 = v3;
-    v5 = blt_send_queue_log();
+    v5 = blt_send_queue_log(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       _readDataFromFile_cold_1();
@@ -4347,7 +4369,7 @@ LABEL_5:
   if (v8)
   {
     v5 = v8;
-    v9 = blt_send_queue_log();
+    v9 = blt_send_queue_log(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       _readDataFromFile_cold_1();
@@ -4458,16 +4480,16 @@ void BLTCleanAttachmentsPath()
   if (v0)
   {
     v1 = [MEMORY[0x277CCAA00] defaultManager];
-    v5 = 0;
-    v2 = [v1 removeItemAtURL:v0 error:&v5];
-    v3 = v5;
+    v6 = 0;
+    v2 = [v1 removeItemAtURL:v0 error:&v6];
+    v3 = v6;
 
     if ((v2 & 1) == 0)
     {
-      v4 = blt_general_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = blt_general_log(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        BLTCleanAttachmentsPath_cold_1(v0, v4);
+        BLTCleanAttachmentsPath_cold_1(v0, v5);
       }
     }
   }
@@ -4493,17 +4515,18 @@ id BLTTranscodedFileURLForBulletin(void *a1, void *a2)
   return v6;
 }
 
-void sub_241FDEE38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_241FDEE38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void BBSectionsChanged(uint64_t a1, uint64_t a2)
 {
-  v3 = BLTWorkQueue();
+  v3 = BLTWorkQueue(a1);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __BBSectionsChanged_block_invoke;
@@ -4521,30 +4544,30 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
 
 id BLTSyncSupportedBundleIDsFromProxies(void *a1, void **a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v27 = [MEMORY[0x277CBEB38] dictionary];
+  v26 = [MEMORY[0x277CBEB38] dictionary];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = v3;
-  v4 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v4 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v29;
+    v6 = *v28;
     do
     {
       v7 = 0;
       do
       {
-        if (*v29 != v6)
+        if (*v28 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v28 + 1) + 8 * v7);
+        v8 = *(*(&v27 + 1) + 8 * v7);
         v9 = [MEMORY[0x277CD3A68] appInfoWithAppProxy:v8];
         v10 = [v9 supportedActions];
         if ([v10 count] || (objc_msgSend(v8, "plugInKitPlugins"), v11 = objc_claimAutoreleasedReturnValue(), INSupportedIntentsByExtensions(), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "count"), v12, v11, v13))
@@ -4558,7 +4581,7 @@ id BLTSyncSupportedBundleIDsFromProxies(void *a1, void **a2)
           }
 
           v16 = [v8 bundleIdentifier];
-          [v27 setObject:v15 forKeyedSubscript:v16];
+          [v26 setObject:v15 forKeyedSubscript:v16];
 
           v17 = v2;
           if (!v14)
@@ -4577,11 +4600,11 @@ id BLTSyncSupportedBundleIDsFromProxies(void *a1, void **a2)
             if (!v17)
             {
               v18 = [MEMORY[0x277CBEB68] null];
-              v24 = v18;
+              v23 = v18;
             }
 
             v19 = [v8 bundleIdentifier];
-            [v27 setObject:v18 forKeyedSubscript:v19];
+            [v26 setObject:v18 forKeyedSubscript:v19];
 
             if (!v17)
             {
@@ -4613,22 +4636,21 @@ LABEL_12:
       }
 
       while (v5 != v7);
-      v21 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v21 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       v5 = v21;
     }
 
     while (v21);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v26;
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t BLTPBSectionIconVariantReadFrom(uint64_t a1, void *a2)
@@ -5524,7 +5546,7 @@ LABEL_34:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t BLTGetTrafficRestrictedBufferTime()
+uint64_t BLTGetTrafficRestrictedBufferTime(uint64_t a1, uint64_t a2)
 {
   if (BLTGetPlayLightsAndSirensTrafficRestrictedTimeout_onceToken != -1)
   {
@@ -5534,7 +5556,7 @@ uint64_t BLTGetTrafficRestrictedBufferTime()
   return __BLTPlayLightsAndSirensTrafficRestrictedTimeout - 5;
 }
 
-uint64_t BLTGetPlayLightsAndSirensTrafficRestrictedTimeout()
+uint64_t BLTGetPlayLightsAndSirensTrafficRestrictedTimeout(uint64_t a1, uint64_t a2)
 {
   if (BLTGetPlayLightsAndSirensTrafficRestrictedTimeout_onceToken != -1)
   {
@@ -5557,7 +5579,7 @@ uint64_t __BLTGetPlayLightsAndSirensTrafficRestrictedTimeout_block_invoke()
   return result;
 }
 
-double BLTGetSettingSyncForNotificationTimeout()
+double BLTGetSettingSyncForNotificationTimeout(uint64_t a1, uint64_t a2)
 {
   if (BLTGetSettingSyncForNotificationTimeout_onceToken != -1)
   {
@@ -5567,7 +5589,7 @@ double BLTGetSettingSyncForNotificationTimeout()
   return *&BLTGetSettingSyncForNotificationTimeout___BLTGetSettingSyncForNotificationTimeout;
 }
 
-double __BLTGetSettingSyncForNotificationTimeout_block_invoke()
+double __BLTGetSettingSyncForNotificationTimeout_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (BLTGetPlayLightsAndSirensSendConnectedTimeout_onceToken != -1)
   {
@@ -5579,7 +5601,7 @@ double __BLTGetSettingSyncForNotificationTimeout_block_invoke()
   return result;
 }
 
-uint64_t BLTGetPlayLightsAndSirensTimeout(int a1)
+uint64_t BLTGetPlayLightsAndSirensTimeout(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -5588,24 +5610,24 @@ uint64_t BLTGetPlayLightsAndSirensTimeout(int a1)
       __BLTGetSettingSyncForNotificationTimeout_block_invoke_cold_1();
     }
 
-    v1 = __BLTPlayLightsAndSirensSendConnectedTimeout;
+    v2 = __BLTPlayLightsAndSirensSendConnectedTimeout;
   }
 
   else
   {
-    v1 = 14400.0;
+    v2 = 14400.0;
   }
 
-  v2 = +[BLTBulletinDistributor sharedDistributor];
-  v3 = [v2 summarizationSetting];
+  v3 = +[BLTBulletinDistributor sharedDistributor];
+  v4 = [v3 summarizationSetting];
 
-  v4 = 7;
-  if (v3 != 2)
+  v5 = 7;
+  if (v4 != 2)
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return (v1 + v4);
+  return (v2 + v5);
 }
 
 id BLTFileURLInHomePath(void *a1)
@@ -5621,62 +5643,61 @@ id BLTFileURLInHomePath(void *a1)
 
 id _BLTFileURLWithPath(void *a1, void *a2)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
+  v5 = v4;
   if (v3)
   {
-    v5 = [v3 stringByAppendingPathComponent:@"BulletinDistributor"];
-    v6 = [v5 stringByAppendingPathComponent:v4];
+    v6 = [v3 stringByAppendingPathComponent:@"BulletinDistributor"];
+    v7 = [v6 stringByAppendingPathComponent:v5];
 
-    v7 = [v6 stringByDeletingLastPathComponent];
-    v8 = [MEMORY[0x277CCAA00] defaultManager];
-    v9 = [v8 fileExistsAtPath:v7];
+    v8 = [v7 stringByDeletingLastPathComponent];
+    v9 = [MEMORY[0x277CCAA00] defaultManager];
+    v10 = [v9 fileExistsAtPath:v8];
 
-    if (v9)
+    if (v10)
     {
-      v10 = 0;
+      v11 = 0;
 LABEL_7:
-      v14 = [MEMORY[0x277CBEBC0] fileURLWithPath:v6];
+      v16 = [MEMORY[0x277CBEBC0] fileURLWithPath:v7];
 
       goto LABEL_12;
     }
 
-    v11 = [MEMORY[0x277CCAA00] defaultManager];
-    v19 = *MEMORY[0x277CCA1B0];
-    v20[0] = *MEMORY[0x277CCA1B8];
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-    v18 = 0;
-    v13 = [v11 createDirectoryAtPath:v7 withIntermediateDirectories:1 attributes:v12 error:&v18];
-    v10 = v18;
+    v12 = [MEMORY[0x277CCAA00] defaultManager];
+    v20 = *MEMORY[0x277CCA1B0];
+    v21[0] = *MEMORY[0x277CCA1B8];
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = 0;
+    v14 = [v12 createDirectoryAtPath:v8 withIntermediateDirectories:1 attributes:v13 error:&v19];
+    v11 = v19;
 
-    if (v13)
+    if (v14)
     {
       goto LABEL_7;
     }
 
-    v15 = blt_general_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = blt_general_log(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      _BLTFileURLWithPath_cold_1(v7, v10, v15);
+      _BLTFileURLWithPath_cold_1(v8, v11, v17);
     }
   }
 
   else
   {
-    v6 = blt_general_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = blt_general_log(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      _BLTFileURLWithPath_cold_2(v6);
+      _BLTFileURLWithPath_cold_2(v7);
     }
   }
 
-  v14 = 0;
+  v16 = 0;
 LABEL_12:
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v16;
 }
 
 id BLTPairingPath()
@@ -5719,9 +5740,9 @@ id BLTFileURLInPairingPathWait(void *a1)
   return v3;
 }
 
-void sub_241FEA8A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241FEA8A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5733,7 +5754,7 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t BLTIsDebugOrInternalBuild()
+uint64_t BLTIsDebugOrInternalBuild(uint64_t a1, uint64_t a2)
 {
   if (BLTIsDebugOrInternalBuild_onceToken != -1)
   {
@@ -5750,7 +5771,7 @@ uint64_t __BLTIsDebugOrInternalBuild_block_invoke()
   return result;
 }
 
-uint64_t BLTIsWalkaboutEnabled()
+uint64_t BLTIsWalkaboutEnabled(uint64_t a1, uint64_t a2)
 {
   if (BLTIsWalkaboutEnabled_onceToken != -1)
   {
@@ -5762,33 +5783,40 @@ uint64_t BLTIsWalkaboutEnabled()
 
 uint64_t __BLTIsWalkaboutEnabled_block_invoke()
 {
-  v0 = CFPreferencesCopyAppValue(@"ExperimentGroup", @"com.apple.da");
-  if (v0)
+  isKindOfClass = CFPreferencesCopyAppValue(@"ExperimentGroup", @"com.apple.da");
+  v1 = isKindOfClass;
+  if (isKindOfClass)
   {
-    v2 = v0;
+    v3 = isKindOfClass;
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    v1 = v3;
+    if (isKindOfClass)
     {
-      if ([v2 isEqualToString:@"walkabout"])
+      isKindOfClass = [v3 isEqualToString:@"walkabout"];
+      v1 = v3;
+      if (isKindOfClass)
       {
-        BLTIsWalkaboutEnabled___BLTWalkaboutEnabled = MGGetBoolAnswer();
+        isKindOfClass = MGGetBoolAnswer();
+        v1 = v3;
+        BLTIsWalkaboutEnabled___BLTWalkaboutEnabled = isKindOfClass;
       }
     }
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](isKindOfClass, v1);
 }
 
-id BLTWorkQueue()
+id BLTWorkQueue(uint64_t a1)
 {
   if (BLTWorkQueue_onceToken != -1)
   {
     BLTWorkQueue_cold_1();
   }
 
-  v1 = BLTWorkQueue___workQueue;
+  v2 = BLTWorkQueue___workQueue;
 
-  return v1;
+  return v2;
 }
 
 void __BLTWorkQueue_block_invoke()
@@ -5815,7 +5843,7 @@ void BLTDispatchWorkQueue(void *a1)
   else
   {
     v2 = a1;
-    v4 = BLTWorkQueue();
+    v4 = BLTWorkQueue(v2);
     dispatch_async(v4, v2);
   }
 }
@@ -6524,7 +6552,7 @@ LABEL_34:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t stateDidChange(void *a1, uint64_t (*a2)(uint64_t))
+uint64_t stateDidChange(void *a1, uint64_t (*a2)(void *))
 {
   v3 = a1;
   v4 = [v3 object];
@@ -7477,7 +7505,7 @@ void sub_241FFB68C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void BLTDaemonRestarted(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = BLTWorkQueue();
+  v3 = BLTWorkQueue(v2);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __BLTDaemonRestarted_block_invoke;
@@ -7497,9 +7525,11 @@ void sub_241FFC9AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t __BLTGizmoLegacyMapSectionInfoKeySet_block_invoke()
 {
-  BLTGizmoLegacyMapSectionInfoKeySet___BLTGizmoLegacyMapSectionInfoKeySet = [MEMORY[0x277CBEB98] setWithObjects:{@"sectionID", @"parentSectionID", 0}];
+  v0 = [MEMORY[0x277CBEB98] setWithObjects:{@"sectionID", @"parentSectionID", 0}];
+  v1 = BLTGizmoLegacyMapSectionInfoKeySet___BLTGizmoLegacyMapSectionInfoKeySet;
+  BLTGizmoLegacyMapSectionInfoKeySet___BLTGizmoLegacyMapSectionInfoKeySet = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void sub_241FFCFE0(_Unwind_Exception *a1)
@@ -8240,18 +8270,18 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_242004BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_242004BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void _BLTCaptureBug(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  if (BLTIsDebugOrInternalBuild())
+  if (BLTIsDebugOrInternalBuild(v1, v2))
   {
     if (_BLTCaptureBug_onceToken != -1)
     {
@@ -8260,28 +8290,27 @@ void _BLTCaptureBug(void *a1)
 
     if (_BLTCaptureBug__diagnosticReporter)
     {
-      v2 = [_BLTCaptureBug__diagnosticReporter signatureWithDomain:@"BulletinDistributor" type:@"Functional" subType:v1 detectedProcess:@"bulletindistributord" triggerThresholdValues:0];
-      v3 = [_BLTCaptureBug__diagnosticReporter snapshotWithSignature:v2 duration:0 event:0 payload:&__block_literal_global_10_1 reply:0.0];
-      v4 = blt_general_log();
+      v3 = [_BLTCaptureBug__diagnosticReporter signatureWithDomain:@"BulletinDistributor" type:@"Functional" subType:v1 detectedProcess:@"bulletindistributord" triggerThresholdValues:0];
+      v4 = [_BLTCaptureBug__diagnosticReporter snapshotWithSignature:v3 duration:0 event:0 payload:&__block_literal_global_10_1 reply:0.0];
       v5 = v4;
-      if (v3)
+      v6 = blt_general_log(v4);
+      v7 = v6;
+      if (v5)
       {
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
-          v7 = 138412290;
-          v8 = v1;
-          _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "Diagnostic Reporter sent snapshot for bug %@", &v7, 0xCu);
+          v8 = 138412290;
+          v9 = v1;
+          _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "Diagnostic Reporter sent snapshot for bug %@", &v8, 0xCu);
         }
       }
 
-      else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        _BLTCaptureBug_cold_2(v1, v5);
+        _BLTCaptureBug_cold_2(v1, v7);
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void sub_242005E10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -8298,18 +8327,20 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_24200758C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_24200758C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __BLTGizmoLegacyMapKeySet_block_invoke()
 {
-  BLTGizmoLegacyMapKeySet___BLTGizmoLegacyMapKeySet = [MEMORY[0x277CBEB98] setWithObjects:{@"publisherBulletinID", @"categoryID", @"sectionInfo", @"sectionSubtype", 0}];
+  v0 = [MEMORY[0x277CBEB98] setWithObjects:{@"publisherBulletinID", @"categoryID", @"sectionInfo", @"sectionSubtype", 0}];
+  v1 = BLTGizmoLegacyMapKeySet___BLTGizmoLegacyMapKeySet;
+  BLTGizmoLegacyMapKeySet___BLTGizmoLegacyMapKeySet = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t BLTPBShouldSuppressLightsAndSirensNowRequestReadFrom(uint64_t a1, void *a2)

@@ -1,4 +1,5 @@
 @interface WFObservableResult
++ (void)drawGlyphsIntoWorkflowsIfNecessary:(id)necessary glyphSize:(CGSize)size roundedIcon:(BOOL)icon synchronously:(BOOL)synchronously completion:(id)completion;
 - (CGSize)glyphSize;
 - (WFObservableResult)initWithValueType:(Class)type glyphSize:(CGSize)size;
 - (void)addResultObserver:(id)observer;
@@ -156,40 +157,137 @@ uint64_t __40__WFObservableResult_addResultObserver___block_invoke(uint64_t a1)
   return v10;
 }
 
++ (void)drawGlyphsIntoWorkflowsIfNecessary:(id)necessary glyphSize:(CGSize)size roundedIcon:(BOOL)icon synchronously:(BOOL)synchronously completion:(id)completion
+{
+  synchronouslyCopy = synchronously;
+  iconCopy = icon;
+  height = size.height;
+  width = size.width;
+  v39 = *MEMORY[0x1E69E9840];
+  necessaryCopy = necessary;
+  completionCopy = completion;
+  v14 = completionCopy;
+  if (width == *MEMORY[0x1E695F060] && height == *(MEMORY[0x1E695F060] + 8))
+  {
+    completionCopy[2](completionCopy);
+  }
+
+  else
+  {
+    v16 = [necessaryCopy if_compactMap:&__block_literal_global_149_12412];
+    if ([v16 count])
+    {
+      DeviceRGB = CGColorSpaceCreateDeviceRGB();
+      aBlock[0] = MEMORY[0x1E69E9820];
+      aBlock[1] = 3221225472;
+      aBlock[2] = __104__WFObservableResult_drawGlyphsIntoWorkflowsIfNecessary_glyphSize_roundedIcon_synchronously_completion___block_invoke_2;
+      aBlock[3] = &__block_descriptor_40_e5_v8__0l;
+      aBlock[4] = DeviceRGB;
+      v18 = _Block_copy(aBlock);
+      v19 = -[WFRemoteImageDrawingContext initWithImageCount:singleImageSize:scale:colorSpace:]([WFRemoteImageDrawingContext alloc], "initWithImageCount:singleImageSize:scale:colorSpace:", [v16 count], DeviceRGB, width, height, 0.0);
+      if (v19)
+      {
+        v27 = [v16 valueForKey:@"glyphCharacter"];
+        v20 = [v16 if_compactMap:&__block_literal_global_207];
+        v21 = [v20 count];
+        if (v21 != [v27 count])
+        {
+
+          v20 = 0;
+        }
+
+        v22 = +[VCVoiceShortcutClient standardClient];
+        if (synchronouslyCopy)
+        {
+          v23 = v33;
+          v33[0] = MEMORY[0x1E69E9820];
+          v33[1] = 3221225472;
+          v33[2] = __104__WFObservableResult_drawGlyphsIntoWorkflowsIfNecessary_glyphSize_roundedIcon_synchronously_completion___block_invoke_2_210;
+          v33[3] = &unk_1E7B02940;
+          v33[4] = v14;
+          v24 = [v22 synchronousRemoteDataStoreWithErrorHandler:v33];
+        }
+
+        else
+        {
+          v23 = v32;
+          v32[0] = MEMORY[0x1E69E9820];
+          v32[1] = 3221225472;
+          v32[2] = __104__WFObservableResult_drawGlyphsIntoWorkflowsIfNecessary_glyphSize_roundedIcon_synchronously_completion___block_invoke_212;
+          v32[3] = &unk_1E7B02940;
+          v32[4] = v14;
+          v24 = [v22 asynchronousRemoteDataStoreWithErrorHandler:v32];
+        }
+
+        v26 = v24;
+
+        v28[0] = MEMORY[0x1E69E9820];
+        v28[1] = 3221225472;
+        v28[2] = __104__WFObservableResult_drawGlyphsIntoWorkflowsIfNecessary_glyphSize_roundedIcon_synchronously_completion___block_invoke_213;
+        v28[3] = &unk_1E7B01F90;
+        v29 = v16;
+        v30 = v19;
+        v31 = v14;
+        [v26 drawGlyphs:v27 withBackgroundColorValues:v20 padding:iconCopy rounded:v30 intoContext:v28 completion:0.0];
+      }
+
+      else
+      {
+        v25 = getWFVoiceShortcutClientLogObject();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315394;
+          v36 = "+[WFObservableResult drawGlyphsIntoWorkflowsIfNecessary:glyphSize:roundedIcon:synchronously:completion:]";
+          v37 = 2112;
+          v38 = necessaryCopy;
+          _os_log_impl(&dword_1B1DE3000, v25, OS_LOG_TYPE_ERROR, "%s Could not create remote image drawing context for drawing icons into workflows: %@", buf, 0x16u);
+        }
+
+        v14[2](v14);
+      }
+
+      v18[2](v18);
+    }
+
+    else
+    {
+      v14[2](v14);
+    }
+  }
+}
+
 void __104__WFObservableResult_drawGlyphsIntoWorkflowsIfNecessary_glyphSize_roundedIcon_synchronously_completion___block_invoke_2_210(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "+[WFObservableResult drawGlyphsIntoWorkflowsIfNecessary:glyphSize:roundedIcon:synchronously:completion:]_block_invoke_2";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_ERROR, "%s Error fetching synchronous VCVoiceShortcutClient proxy: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[WFObservableResult drawGlyphsIntoWorkflowsIfNecessary:glyphSize:roundedIcon:synchronously:completion:]_block_invoke_2";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_ERROR, "%s Error fetching synchronous VCVoiceShortcutClient proxy: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __104__WFObservableResult_drawGlyphsIntoWorkflowsIfNecessary_glyphSize_roundedIcon_synchronously_completion___block_invoke_212(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "+[WFObservableResult drawGlyphsIntoWorkflowsIfNecessary:glyphSize:roundedIcon:synchronously:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_ERROR, "%s Error fetching asynchronous VCVoiceShortcutClient proxy: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[WFObservableResult drawGlyphsIntoWorkflowsIfNecessary:glyphSize:roundedIcon:synchronously:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_ERROR, "%s Error fetching asynchronous VCVoiceShortcutClient proxy: %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __104__WFObservableResult_drawGlyphsIntoWorkflowsIfNecessary_glyphSize_roundedIcon_synchronously_completion___block_invoke_213(uint64_t a1)

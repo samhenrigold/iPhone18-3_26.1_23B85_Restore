@@ -91,7 +91,7 @@ LABEL_8:
     v24 = 1024;
     v25 = v20;
     _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "=scanning= open failed at %@: %{errno}d", buf, 0x12u);
-    _MBLog();
+    _MBLog(@"E ", "=scanning= open failed at %@: %{errno}d", v13, v20);
   }
 
   v15 = 0;
@@ -159,7 +159,7 @@ LABEL_7:
     v19 = 1024;
     v20 = v15;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "=scanning= open failed at %@: %{errno}d", buf, 0x12u);
-    _MBLog();
+    _MBLog(@"E ", "=scanning= open failed at %@: %{errno}d", v8, v15);
   }
 
   v10 = 0;

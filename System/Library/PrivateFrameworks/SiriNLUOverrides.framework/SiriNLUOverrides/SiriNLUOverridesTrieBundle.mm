@@ -13,7 +13,7 @@
 
 - (id)fetchRuleId:(id)id locale:(id)locale overrideNamespace:(int64_t)namespace
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   localeCopy = locale;
   idCopy = id;
   v10 = objc_opt_new();
@@ -23,32 +23,31 @@
   if (os_log_type_enabled(OverridesLogContext, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v24 = "[SiriNLUOverridesTrieBundle fetchRuleId:locale:overrideNamespace:]";
-    v25 = 2112;
-    v26 = v11;
+    v23 = "[SiriNLUOverridesTrieBundle fetchRuleId:locale:overrideNamespace:]";
+    v24 = 2112;
+    v25 = v11;
     _os_log_debug_impl(&dword_268086000, v12, OS_LOG_TYPE_DEBUG, "%s TrieOverrides: Starting to fetch rule Id for lookup key:%@", buf, 0x16u);
   }
 
   patternTrie = self->patternTrie;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __67__SiriNLUOverridesTrieBundle_fetchRuleId_locale_overrideNamespace___block_invoke;
-  v20[3] = &unk_279C32C08;
-  v21 = v11;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __67__SiriNLUOverridesTrieBundle_fetchRuleId_locale_overrideNamespace___block_invoke;
+  v19[3] = &unk_279C32C08;
+  v20 = v11;
   v14 = v10;
-  v22 = v14;
+  v21 = v14;
   v15 = v11;
-  [(SiriNLUMarisaTrie *)patternTrie lookupKey:v15 resultBlock:v20];
-  v16 = v22;
+  [(SiriNLUMarisaTrie *)patternTrie lookupKey:v15 resultBlock:v19];
+  v16 = v21;
   v17 = v14;
 
-  v18 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 void __67__SiriNLUOverridesTrieBundle_fetchRuleId_locale_overrideNamespace___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -61,16 +60,14 @@ void __67__SiriNLUOverridesTrieBundle_fetchRuleId_locale_overrideNamespace___blo
     v5 = OverridesLogContext;
     if (os_log_type_enabled(OverridesLogContext, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 136315394;
-      v9 = "[SiriNLUOverridesTrieBundle fetchRuleId:locale:overrideNamespace:]_block_invoke";
-      v10 = 2112;
-      v11 = v7;
-      _os_log_error_impl(&dword_268086000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: PatternTrie returns nil binary for lookup key:%@, exit early from the callback to prevent crash", &v8, 0x16u);
+      v6 = *(a1 + 32);
+      v7 = 136315394;
+      v8 = "[SiriNLUOverridesTrieBundle fetchRuleId:locale:overrideNamespace:]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      _os_log_error_impl(&dword_268086000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: PatternTrie returns nil binary for lookup key:%@, exit early from the callback to prevent crash", &v7, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchSerializedUserParse:(id)parse
@@ -100,7 +97,7 @@ void __67__SiriNLUOverridesTrieBundle_fetchRuleId_locale_overrideNamespace___blo
 
 void __55__SiriNLUOverridesTrieBundle_fetchSerializedUserParse___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (v4)
   {
@@ -112,16 +109,14 @@ void __55__SiriNLUOverridesTrieBundle_fetchSerializedUserParse___block_invoke(ui
     v5 = OverridesLogContext;
     if (os_log_type_enabled(OverridesLogContext, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 136315394;
-      v9 = "[SiriNLUOverridesTrieBundle fetchSerializedUserParse:]_block_invoke";
-      v10 = 2112;
-      v11 = v7;
-      _os_log_error_impl(&dword_268086000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: UserParseTrie returns nil binary for overrideId:%@, exit early  from the callback to prevent crash", &v8, 0x16u);
+      v6 = *(a1 + 32);
+      v7 = 136315394;
+      v8 = "[SiriNLUOverridesTrieBundle fetchSerializedUserParse:]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      _os_log_error_impl(&dword_268086000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: UserParseTrie returns nil binary for overrideId:%@, exit early  from the callback to prevent crash", &v7, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)fetchOverrideTimeStamp:(id)stamp
@@ -155,7 +150,7 @@ void __55__SiriNLUOverridesTrieBundle_fetchSerializedUserParse___block_invoke(ui
 
 void __53__SiriNLUOverridesTrieBundle_fetchOverrideTimeStamp___block_invoke(void *a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -170,13 +165,13 @@ void __53__SiriNLUOverridesTrieBundle_fetchOverrideTimeStamp___block_invoke(void
     v5 = OverridesLogContext;
     if (os_log_type_enabled(OverridesLogContext, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[SiriNLUOverridesTrieBundle fetchOverrideTimeStamp:]_block_invoke";
+      v11 = 136315138;
+      v12 = "[SiriNLUOverridesTrieBundle fetchOverrideTimeStamp:]_block_invoke";
       v6 = "%s [ERR]: OverrideId has multiple time stamps! Possibly mal-formed data, exit early from the callback and will return the first value looked up";
       v7 = v5;
       v8 = 12;
 LABEL_7:
-      _os_log_error_impl(&dword_268086000, v7, OS_LOG_TYPE_ERROR, v6, &v12, v8);
+      _os_log_error_impl(&dword_268086000, v7, OS_LOG_TYPE_ERROR, v6, &v11, v8);
     }
   }
 
@@ -186,10 +181,10 @@ LABEL_7:
     if (os_log_type_enabled(OverridesLogContext, OS_LOG_TYPE_ERROR))
     {
       v10 = a1[4];
-      v12 = 136315394;
-      v13 = "[SiriNLUOverridesTrieBundle fetchOverrideTimeStamp:]_block_invoke";
-      v14 = 2112;
-      v15 = v10;
+      v11 = 136315394;
+      v12 = "[SiriNLUOverridesTrieBundle fetchOverrideTimeStamp:]_block_invoke";
+      v13 = 2112;
+      v14 = v10;
       v6 = "%s [ERR]: TimeStampTrie returns nil binary for overrideId:%@, exit early  from the callback to prevent crash";
       v7 = v9;
       v8 = 22;
@@ -198,8 +193,6 @@ LABEL_7:
   }
 
 LABEL_9:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchOverrideIdArray:(id)array
@@ -224,7 +217,7 @@ LABEL_9:
 
 void __51__SiriNLUOverridesTrieBundle_fetchOverrideIdArray___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -237,21 +230,19 @@ void __51__SiriNLUOverridesTrieBundle_fetchOverrideIdArray___block_invoke(uint64
     v5 = OverridesLogContext;
     if (os_log_type_enabled(OverridesLogContext, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 136315394;
-      v9 = "[SiriNLUOverridesTrieBundle fetchOverrideIdArray:]_block_invoke";
-      v10 = 2112;
-      v11 = v7;
-      _os_log_error_impl(&dword_268086000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: OverrideIdTrie returns nil binary for ruleId:%@, exit early from the callback to prevent crash", &v8, 0x16u);
+      v6 = *(a1 + 32);
+      v7 = 136315394;
+      v8 = "[SiriNLUOverridesTrieBundle fetchOverrideIdArray:]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      _os_log_error_impl(&dword_268086000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: OverrideIdTrie returns nil binary for ruleId:%@, exit early from the callback to prevent crash", &v7, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchOverrideId:(id)id
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = [(SiriNLUOverridesTrieBundle *)self fetchOverrideIdArray:id];
   if ([v3 count])
   {
@@ -262,13 +253,13 @@ void __51__SiriNLUOverridesTrieBundle_fetchOverrideIdArray___block_invoke(uint64
       if (os_log_type_enabled(OverridesLogContext, OS_LOG_TYPE_ERROR))
       {
         v6 = v5;
-        v10 = 136315650;
-        v11 = "[SiriNLUOverridesTrieBundle fetchOverrideId:]";
-        v12 = 2048;
-        v13 = [v3 count];
-        v14 = 2112;
-        v15 = lastObject;
-        _os_log_error_impl(&dword_268086000, v6, OS_LOG_TYPE_ERROR, "%s [ERR]: OverrrideId has multiple values (length:%lu), possibly mal-formed data, returning the last one from the array. OverrideId returned:%@. ", &v10, 0x20u);
+        v9 = 136315650;
+        v10 = "[SiriNLUOverridesTrieBundle fetchOverrideId:]";
+        v11 = 2048;
+        v12 = [v3 count];
+        v13 = 2112;
+        v14 = lastObject;
+        _os_log_error_impl(&dword_268086000, v6, OS_LOG_TYPE_ERROR, "%s [ERR]: OverrrideId has multiple values (length:%lu), possibly mal-formed data, returning the last one from the array. OverrideId returned:%@. ", &v9, 0x20u);
       }
     }
   }
@@ -278,15 +269,13 @@ void __51__SiriNLUOverridesTrieBundle_fetchOverrideIdArray___block_invoke(uint64
     v7 = OverridesLogContext;
     if (os_log_type_enabled(OverridesLogContext, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315138;
-      v11 = "[SiriNLUOverridesTrieBundle fetchOverrideId:]";
-      _os_log_impl(&dword_268086000, v7, OS_LOG_TYPE_INFO, "%s [WARN]: OverrideId not found, returning nil", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[SiriNLUOverridesTrieBundle fetchOverrideId:]";
+      _os_log_impl(&dword_268086000, v7, OS_LOG_TYPE_INFO, "%s [WARN]: OverrideId not found, returning nil", &v9, 0xCu);
     }
 
     lastObject = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return lastObject;
 }
@@ -318,7 +307,7 @@ void __51__SiriNLUOverridesTrieBundle_fetchOverrideIdArray___block_invoke(uint64
 
 void __60__SiriNLUOverridesTrieBundle_fetchSerializedNluRequestRule___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (v4)
   {
@@ -330,26 +319,24 @@ void __60__SiriNLUOverridesTrieBundle_fetchSerializedNluRequestRule___block_invo
     v5 = OverridesLogContext;
     if (os_log_type_enabled(OverridesLogContext, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 136315394;
-      v9 = "[SiriNLUOverridesTrieBundle fetchSerializedNluRequestRule:]_block_invoke";
-      v10 = 2112;
-      v11 = v7;
-      _os_log_error_impl(&dword_268086000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: SerializedRuleTrie returns nil binary for ruleId:%@, exit early from the callback to prevent crash", &v8, 0x16u);
+      v6 = *(a1 + 32);
+      v7 = 136315394;
+      v8 = "[SiriNLUOverridesTrieBundle fetchSerializedNluRequestRule:]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      _os_log_error_impl(&dword_268086000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: SerializedRuleTrie returns nil binary for ruleId:%@, exit early from the callback to prevent crash", &v7, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)init:(id)init
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   initCopy = init;
   +[SiriNLUOverridesLogging SiriNLUOverridesLogInitIfNeeded];
-  v34.receiver = self;
-  v34.super_class = SiriNLUOverridesTrieBundle;
-  v5 = [(SiriNLUOverridesTrieBundle *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = SiriNLUOverridesTrieBundle;
+  v5 = [(SiriNLUOverridesTrieBundle *)&v33 init];
   if (v5)
   {
     v6 = [SiriNLUOverridesTrieBundle getTrieURLs:initCopy];
@@ -357,9 +344,9 @@ void __60__SiriNLUOverridesTrieBundle_fetchSerializedNluRequestRule___block_invo
     if (os_log_type_enabled(OverridesLogContext, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v36 = "[SiriNLUOverridesTrieBundle init:]";
-      v37 = 2112;
-      v38 = v6;
+      v35 = "[SiriNLUOverridesTrieBundle init:]";
+      v36 = 2112;
+      v37 = v6;
       _os_log_debug_impl(&dword_268086000, v7, OS_LOG_TYPE_DEBUG, "%s TrieOverrides: Reading Overrrides trie from %@", buf, 0x16u);
     }
 
@@ -399,7 +386,7 @@ void __60__SiriNLUOverridesTrieBundle_fetchSerializedNluRequestRule___block_invo
       if (os_log_type_enabled(OverridesLogContext, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v36 = "[SiriNLUOverridesTrieBundle init:]";
+        v35 = "[SiriNLUOverridesTrieBundle init:]";
         _os_log_impl(&dword_268086000, v28, OS_LOG_TYPE_INFO, "%s TrieOverrides: Successfully initialized", buf, 0xCu);
       }
 
@@ -412,7 +399,7 @@ void __60__SiriNLUOverridesTrieBundle_fetchSerializedNluRequestRule___block_invo
       if (os_log_type_enabled(OverridesLogContext, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v36 = "[SiriNLUOverridesTrieBundle init:]";
+        v35 = "[SiriNLUOverridesTrieBundle init:]";
         _os_log_error_impl(&dword_268086000, v30, OS_LOG_TYPE_ERROR, "%s [ERR]: TrieOverrides: Failing to init without required assets", buf, 0xCu);
       }
 
@@ -426,14 +413,13 @@ void __60__SiriNLUOverridesTrieBundle_fetchSerializedNluRequestRule___block_invo
     if (os_log_type_enabled(OverridesLogContext, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v36 = "[SiriNLUOverridesTrieBundle init:]";
+      v35 = "[SiriNLUOverridesTrieBundle init:]";
       _os_log_error_impl(&dword_268086000, v31, OS_LOG_TYPE_ERROR, "%s [ERR]: TrieOverrides: Unable to initialized for unknown reasons", buf, 0xCu);
     }
 
     v29 = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v29;
 }
 

@@ -9,6 +9,7 @@
 - (void)sessionToken:(id)token;
 - (void)setHostApplicationBundleIdentifier:(id)identifier;
 - (void)setStartingFlow:(id)flow;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewServiceDidEnableVolumeHUD:(BOOL)d;
 - (void)viewServiceDidFinishWithReason:(unint64_t)reason;
@@ -28,7 +29,7 @@
 
 - (void)requestViewControllerWithHostBundleID:(id)d handler:(id)handler
 {
-  v35[4] = *MEMORY[0x277D85DE8];
+  v34[4] = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   hostingController = [(DADiagnosticsRemoteViewController *)self hostingController];
@@ -36,9 +37,9 @@
   if (!hostingController)
   {
     [(DADiagnosticsRemoteViewController *)self _beginDelayingPresentation:&__block_literal_global_0 cancellationHandler:3.0];
-    v32 = [MEMORY[0x277D46F60] identityForEmbeddedApplicationIdentifier:@"com.apple.Diagnostics"];
+    v31 = [MEMORY[0x277D46F60] identityForEmbeddedApplicationIdentifier:@"com.apple.Diagnostics"];
     specification = [MEMORY[0x277D761F8] specification];
-    v9 = [objc_alloc(MEMORY[0x277D761E0]) initWithProcessIdentity:v32 sceneSpecification:specification];
+    v9 = [objc_alloc(MEMORY[0x277D761E0]) initWithProcessIdentity:v31 sceneSpecification:specification];
     [(DADiagnosticsRemoteViewController *)self setHostingController:v9];
 
     hostingController2 = [(DADiagnosticsRemoteViewController *)self hostingController];
@@ -47,43 +48,41 @@
     hostingController3 = [(DADiagnosticsRemoteViewController *)self hostingController];
     sceneViewController = [hostingController3 sceneViewController];
 
-    v30 = sceneViewController;
+    v29 = sceneViewController;
     [(DADiagnosticsRemoteViewController *)self addChildViewController:sceneViewController];
     view = [sceneViewController view];
     view2 = [(DADiagnosticsRemoteViewController *)self view];
     [view2 addSubview:view];
     [view setTranslatesAutoresizingMaskIntoConstraints:0];
-    v24 = MEMORY[0x277CCAAD0];
+    v23 = MEMORY[0x277CCAAD0];
     leadingAnchor = [view leadingAnchor];
     leadingAnchor2 = [view2 leadingAnchor];
-    v27 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v35[0] = v27;
+    v26 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v34[0] = v26;
     trailingAnchor = [view trailingAnchor];
     trailingAnchor2 = [view2 trailingAnchor];
-    v23 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v35[1] = v23;
+    v22 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v34[1] = v22;
     topAnchor = [view topAnchor];
     [view2 topAnchor];
-    v16 = v33 = handlerCopy;
+    v16 = v32 = handlerCopy;
     v17 = [topAnchor constraintEqualToAnchor:v16];
-    v35[2] = v17;
+    v34[2] = v17;
     [view bottomAnchor];
-    v18 = v34 = dCopy;
+    v18 = v33 = dCopy;
     bottomAnchor = [view2 bottomAnchor];
     v20 = [v18 constraintEqualToAnchor:bottomAnchor];
-    v35[3] = v20;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:4];
-    [v24 activateConstraints:v21];
+    v34[3] = v20;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:4];
+    [v23 activateConstraints:v21];
 
-    dCopy = v34;
-    handlerCopy = v33;
+    dCopy = v33;
+    handlerCopy = v32;
 
-    [v30 didMoveToParentViewController:self];
-    [(DADiagnosticsRemoteViewController *)self setHostApplicationBundleIdentifier:v34];
+    [v29 didMoveToParentViewController:self];
+    [(DADiagnosticsRemoteViewController *)self setHostApplicationBundleIdentifier:v33];
     handlerCopy[2](handlerCopy, self, 0);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLoad
@@ -103,6 +102,29 @@
   [(DADiagnosticsRemoteViewController *)self setModalPresentationStyle:0];
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   [mEMORY[0x277D75128] setIdleTimerDisabled:1];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v13.receiver = self;
+  v13.super_class = DADiagnosticsRemoteViewController;
+  [(DADiagnosticsRemoteViewController *)&v13 viewDidDisappear:disappear];
+  v4 = [DADiagnosticsRemoteViewControllerHostToServiceAction actionWithType:5 object:0];
+  hostingController = [(DADiagnosticsRemoteViewController *)self hostingController];
+  [hostingController sendAction:v4];
+
+  responder = [(DADiagnosticsRemoteViewController *)self responder];
+  [responder enableVolumeHUD:1];
+
+  view = [(DADiagnosticsRemoteViewController *)self view];
+  window = [view window];
+  windowScene = [window windowScene];
+  screen = [windowScene screen];
+  [(DADiagnosticsRemoteViewController *)self originalScreenBrightness];
+  [screen setBrightness:v11];
+
+  mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
+  [mEMORY[0x277D75128] setIdleTimerDisabled:0];
 }
 
 - (BOOL)prefersStatusBarHidden
@@ -151,7 +173,7 @@
 
 - (void)viewServiceDidFinishWithReason:(unint64_t)reason
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (![(DADiagnosticsRemoteViewController *)self finished])
   {
     [(DADiagnosticsRemoteViewController *)self setFinished:1];
@@ -160,9 +182,9 @@
     {
       v6 = [(DADiagnosticsRemoteViewController *)self _stringForReason:reason];
       *buf = 136315394;
-      v12 = "[DADiagnosticsRemoteViewController viewServiceDidFinishWithReason:]";
-      v13 = 2112;
-      v14 = v6;
+      v11 = "[DADiagnosticsRemoteViewController viewServiceDidFinishWithReason:]";
+      v12 = 2112;
+      v13 = v6;
       _os_log_impl(&dword_275BB3000, v5, OS_LOG_TYPE_DEFAULT, "%s reason: %@", buf, 0x16u);
     }
 
@@ -171,17 +193,15 @@
 
     if (v8)
     {
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __68__DADiagnosticsRemoteViewController_viewServiceDidFinishWithReason___block_invoke;
-      v10[3] = &unk_27A66EC98;
-      v10[4] = self;
-      v10[5] = reason;
-      dispatch_async(MEMORY[0x277D85CD0], v10);
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __68__DADiagnosticsRemoteViewController_viewServiceDidFinishWithReason___block_invoke;
+      v9[3] = &unk_27A66EC98;
+      v9[4] = self;
+      v9[5] = reason;
+      dispatch_async(MEMORY[0x277D85CD0], v9);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __68__DADiagnosticsRemoteViewController_viewServiceDidFinishWithReason___block_invoke(uint64_t a1)
@@ -193,25 +213,24 @@ void __68__DADiagnosticsRemoteViewController_viewServiceDidFinishWithReason___bl
 - (void)viewServiceDidEnableVolumeHUD:(BOOL)d
 {
   dCopy = d;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = DiagnosticLogHandleForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v10 = "[DADiagnosticsRemoteViewController viewServiceDidEnableVolumeHUD:]";
-    v11 = 1024;
-    v12 = dCopy;
+    v9 = "[DADiagnosticsRemoteViewController viewServiceDidEnableVolumeHUD:]";
+    v10 = 1024;
+    v11 = dCopy;
     _os_log_impl(&dword_275BB3000, v5, OS_LOG_TYPE_DEFAULT, "%s enableVolumeHUD: %d", buf, 0x12u);
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __67__DADiagnosticsRemoteViewController_viewServiceDidEnableVolumeHUD___block_invoke;
-  v7[3] = &unk_27A66ECC0;
-  v7[4] = self;
-  v8 = dCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __67__DADiagnosticsRemoteViewController_viewServiceDidEnableVolumeHUD___block_invoke;
+  v6[3] = &unk_27A66ECC0;
+  v6[4] = self;
+  v7 = dCopy;
+  dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
 void __67__DADiagnosticsRemoteViewController_viewServiceDidEnableVolumeHUD___block_invoke(uint64_t a1)
@@ -223,28 +242,27 @@ void __67__DADiagnosticsRemoteViewController_viewServiceDidEnableVolumeHUD___blo
 - (void)viewServiceDidSetScreenToBrightness:(float)brightness animate:(BOOL)animate
 {
   animateCopy = animate;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = DiagnosticLogHandleForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v13 = "[DADiagnosticsRemoteViewController viewServiceDidSetScreenToBrightness:animate:]";
-    v14 = 2048;
+    v12 = "[DADiagnosticsRemoteViewController viewServiceDidSetScreenToBrightness:animate:]";
+    v13 = 2048;
     brightnessCopy = brightness;
-    v16 = 1024;
-    v17 = animateCopy;
+    v15 = 1024;
+    v16 = animateCopy;
     _os_log_impl(&dword_275BB3000, v7, OS_LOG_TYPE_DEFAULT, "%s brightness: %f animate: %d", buf, 0x1Cu);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __81__DADiagnosticsRemoteViewController_viewServiceDidSetScreenToBrightness_animate___block_invoke;
-  v9[3] = &unk_27A66EB70;
-  v9[4] = self;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __81__DADiagnosticsRemoteViewController_viewServiceDidSetScreenToBrightness_animate___block_invoke;
+  v8[3] = &unk_27A66EB70;
+  v8[4] = self;
   brightnessCopy2 = brightness;
-  v11 = animateCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v9);
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = animateCopy;
+  dispatch_async(MEMORY[0x277D85CD0], v8);
 }
 
 void __81__DADiagnosticsRemoteViewController_viewServiceDidSetScreenToBrightness_animate___block_invoke(uint64_t a1)
@@ -256,17 +274,16 @@ void __81__DADiagnosticsRemoteViewController_viewServiceDidSetScreenToBrightness
 
 - (void)viewServiceDidSuspend
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = DiagnosticLogHandleForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[DADiagnosticsRemoteViewController viewServiceDidSuspend]";
-    _os_log_impl(&dword_275BB3000, v2, OS_LOG_TYPE_DEFAULT, "%s", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[DADiagnosticsRemoteViewController viewServiceDidSuspend]";
+    _os_log_impl(&dword_275BB3000, v2, OS_LOG_TYPE_DEFAULT, "%s", &v3, 0xCu);
   }
 
   dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_22);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_stringForReason:(unint64_t)reason

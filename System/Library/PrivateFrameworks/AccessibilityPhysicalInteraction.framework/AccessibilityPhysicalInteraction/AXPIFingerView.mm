@@ -53,7 +53,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   v8 = [AXPIFingerView alloc];
-  v9 = AXPIDefaultAppearanceForDevice();
+  v9 = AXPIDefaultAppearanceForDevice(v8);
   height = [(AXPIFingerView *)v8 initWithFrame:v9 appearanceDelegate:x, y, width, height];
 
   return height;

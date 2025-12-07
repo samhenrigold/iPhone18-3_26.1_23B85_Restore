@@ -8,6 +8,7 @@
 + (void)addBundleIdentifier:(id)identifier;
 + (void)revokeBundleIdentifier:(id)identifier;
 + (void)updateBundleIdentifier:(id)identifier accessType:(unint64_t)type withState:(unint64_t)state;
++ (void)updateBundleIdentifierAccessingExternalMediaDevices:(id)devices withStatus:(BOOL)status;
 @end
 
 @implementation ICAccessManager
@@ -40,6 +41,15 @@ LABEL_5:
   bundleIdentifiersAccessingExternalCameras = [mEMORY[0x1E69A8AE8] bundleIdentifiersAccessingExternalCameras];
 
   return bundleIdentifiersAccessingExternalCameras;
+}
+
++ (void)updateBundleIdentifierAccessingExternalMediaDevices:(id)devices withStatus:(BOOL)status
+{
+  statusCopy = status;
+  v5 = MEMORY[0x1E69A8AE8];
+  devicesCopy = devices;
+  sharedAccessManager = [v5 sharedAccessManager];
+  [sharedAccessManager updateApplicationWithBundleIdentifier:devicesCopy withStatus:statusCopy];
 }
 
 + (id)bundleIdentifiersAccessingExternalMediaDevicesWithStatus

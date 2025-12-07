@@ -7,7 +7,6 @@
 - (BOOL)_startedUrgentDownloadingEmbeddedSpeechAssetForLanguage:(id)language error:(id *)error;
 - (RDAssetManager2)init;
 - (id)_assetPathForLanguage:(id)language error:(id *)error;
-- (id)_downloadStatusDescription;
 - (id)_installedAssetForLanguage:(id)language error:(id *)error;
 - (id)_installedLocalAssetForLanguage:(id)language error:(id *)error;
 - (id)_languagesWithDownloadAttempts;
@@ -80,13 +79,6 @@
   return v2;
 }
 
-- (id)_downloadStatusDescription
-{
-  dispatch_assert_queue_V2(self->_mainWorkQueue);
-  v3 = *&self->_downloadsStarted;
-  return [NSString stringWithFormat:@"downloadsStarted=%@, downloadsStalled=%@, downloadsEnded=%@ _cachedInstallationStatus=%d", self->_downloadsStarted, self->_downloadsStalled, self->_downloadsEnded, self->_cachedInstallationStatus != 0];
-}
-
 - (int)_startDownloadForLanguage:(id)language
 {
   languageCopy = language;
@@ -108,7 +100,7 @@
 
   else
   {
-    v10 = RXOSLog();
+    v10 = RXOSLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *v12 = 0;
@@ -141,7 +133,7 @@
 
   else
   {
-    v11 = RXOSLog();
+    v11 = RXOSLog(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *v12 = 0;
@@ -165,7 +157,7 @@
 
   else
   {
-    v7 = RXOSLog();
+    v7 = RXOSLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -193,7 +185,7 @@
 
   else
   {
-    v9 = RXOSLog();
+    v9 = RXOSLog(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *v10 = 0;
@@ -216,7 +208,7 @@
 
   else
   {
-    v9 = RXOSLog();
+    v9 = RXOSLog(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *v11 = 0;
@@ -241,7 +233,7 @@
 
   else
   {
-    v7 = RXOSLog();
+    v7 = RXOSLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;
@@ -259,7 +251,7 @@
   languageCopy = language;
   if (!languageCopy)
   {
-    v9 = RXOSLog();
+    v9 = RXOSLog(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *v11 = 0;
@@ -330,34 +322,34 @@ LABEL_8:
 - (id)supportedLanguagesForVoiceControl
 {
   v2 = dispatch_time(0, 10000000000);
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_10000806C;
-  v15 = sub_10000807C;
-  v16 = 0;
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_100008308;
-  v8[3] = &unk_10001CE28;
-  v10 = &v11;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = sub_10000806C;
+  v16 = sub_10000807C;
+  v17 = 0;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100008308;
+  v9[3] = &unk_10001CE28;
+  v11 = &v12;
   v3 = dispatch_semaphore_create(0);
-  v9 = v3;
-  [SFSpeechAssetManager supportedLanguagesForTaskHint:1005 completion:v8];
-  dispatch_semaphore_wait(v3, v2);
-  v4 = RXOSLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v10 = v3;
+  [SFSpeechAssetManager supportedLanguagesForTaskHint:1005 completion:v9];
+  v4 = dispatch_semaphore_wait(v3, v2);
+  v5 = RXOSLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = v12[5];
+    v6 = v13[5];
     *buf = 138412290;
-    v18 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "supportedLanguagesForVoiceControl = %@", buf, 0xCu);
+    v19 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "supportedLanguagesForVoiceControl = %@", buf, 0xCu);
   }
 
-  v6 = v12[5];
-  _Block_object_dispose(&v11, 8);
+  v7 = v13[5];
+  _Block_object_dispose(&v12, 8);
 
-  return v6;
+  return v7;
 }
 
 - (id)_queryAndCopyInstallationStatusForLanguagesWithError:(id *)error
@@ -368,90 +360,91 @@ LABEL_8:
 
   if (self->_cachedInstallationStatus)
   {
-    v7 = v6 > 1.0;
+    v8 = v6 > 1.0;
   }
 
   else
   {
-    v7 = 1;
+    v8 = 1;
   }
 
-  if (!v7)
+  if (!v8)
   {
-    v12 = RXOSLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = RXOSLog(v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v82 = 134217984;
-      *&v82[4] = v6;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Too early since last installation status fetch (%f sec ago). Returning cached copy.", v82, 0xCu);
+      *v86 = 134217984;
+      *&v86[4] = v6;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Too early since last installation status fetch (%f sec ago). Returning cached copy.", v86, 0xCu);
     }
 
-    v11 = [(NSMutableDictionary *)self->_cachedInstallationStatus copy];
+    v13 = [(NSMutableDictionary *)self->_cachedInstallationStatus copy];
     goto LABEL_40;
   }
 
-  *v82 = 0;
-  *&v82[8] = v82;
-  *&v82[16] = 0x3032000000;
-  v83 = sub_10000806C;
-  v84 = sub_10000807C;
-  v85 = 0;
-  v8 = dispatch_time(0, 10000000000);
-  v72[0] = _NSConcreteStackBlock;
-  v72[1] = 3221225472;
-  v72[2] = sub_100008B04;
-  v72[3] = &unk_10001CE50;
-  v74 = v82;
-  v9 = dispatch_semaphore_create(0);
-  v73 = v9;
-  [SFSpeechAssetManager installedLanguagesWithCompletion:v72];
-  v57 = v9;
-  if (dispatch_semaphore_wait(v9, v8))
+  *v86 = 0;
+  *&v86[8] = v86;
+  *&v86[16] = 0x3032000000;
+  v87 = sub_10000806C;
+  v88 = sub_10000807C;
+  v89 = 0;
+  v9 = dispatch_time(0, 10000000000);
+  v76[0] = _NSConcreteStackBlock;
+  v76[1] = 3221225472;
+  v76[2] = sub_100008B04;
+  v76[3] = &unk_10001CE50;
+  v78 = v86;
+  v10 = dispatch_semaphore_create(0);
+  v77 = v10;
+  [SFSpeechAssetManager installedLanguagesWithCompletion:v76];
+  v61 = v10;
+  v11 = dispatch_semaphore_wait(v10, v9);
+  if (v11)
   {
-    v10 = RXOSLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = RXOSLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Timed out waiting to get InstalledAssetLanguages. Returning cached copy.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Timed out waiting to get InstalledAssetLanguages. Returning cached copy.", buf, 2u);
     }
 
-    v11 = [(NSMutableDictionary *)self->_cachedInstallationStatus copy];
+    v13 = [(NSMutableDictionary *)self->_cachedInstallationStatus copy];
     goto LABEL_39;
   }
 
-  v11 = +[NSMutableDictionary dictionary];
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
-  v69 = 0u;
-  v14 = *(*&v82[8] + 40);
-  v15 = [v14 countByEnumeratingWithState:&v68 objects:v81 count:16];
-  if (!v15)
+  v13 = +[NSMutableDictionary dictionary];
+  v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
+  v16 = *(*&v86[8] + 40);
+  v17 = [v16 countByEnumeratingWithState:&v72 objects:v85 count:16];
+  if (!v17)
   {
     goto LABEL_25;
   }
 
-  v16 = *v69;
+  v18 = *v73;
   do
   {
-    for (i = 0; i != v15; i = i + 1)
+    for (i = 0; i != v17; i = i + 1)
     {
-      if (*v69 != v16)
+      if (*v73 != v18)
       {
-        objc_enumerationMutation(v14);
+        objc_enumerationMutation(v16);
       }
 
-      v18 = *(*(&v68 + 1) + 8 * i);
-      v19 = [(RDAssetManager2 *)self _assetPathForLanguage:v18 error:error];
-      if ([v19 length])
+      v20 = *(*(&v72 + 1) + 8 * i);
+      v21 = [(RDAssetManager2 *)self _assetPathForLanguage:v20 error:error];
+      if ([v21 length])
       {
-        v67 = 0;
-        v20 = sub_10000B448(v19, &v67, @"DictationCC");
-        v21 = v67;
-        if (v20)
+        v71 = 0;
+        v22 = sub_10000B448(v21, &v71, @"DictationCC");
+        v23 = v71;
+        if (v22)
         {
-          v22 = [NSString stringWithFormat:@"Version: %@", v21];
-          [v11 setObject:v22 forKey:v18];
+          v24 = [NSString stringWithFormat:@"Version: %@", v23];
+          [v13 setObject:v24 forKey:v20];
 
           goto LABEL_23;
         }
@@ -459,158 +452,158 @@ LABEL_8:
 
       else
       {
-        v21 = 0;
+        v23 = 0;
       }
 
-      [v11 setObject:@"Not Supported" forKey:v18];
+      [v13 setObject:@"Not Supported" forKey:v20];
 LABEL_23:
     }
 
-    v15 = [v14 countByEnumeratingWithState:&v68 objects:v81 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v72 objects:v85 count:16];
   }
 
-  while (v15);
+  while (v17);
 LABEL_25:
 
-  v23 = RXOSLog();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v26 = RXOSLog(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     _downloadStatusDescription = [(RDAssetManager2 *)self _downloadStatusDescription];
-    v25 = *(*&v82[8] + 40);
+    v28 = *(*&v86[8] + 40);
     *buf = 138412546;
-    v78 = _downloadStatusDescription;
-    v79 = 2112;
-    v80 = v25;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "querying, %@, installedAssetLanguages=%@", buf, 0x16u);
+    v82 = _downloadStatusDescription;
+    v83 = 2112;
+    v84 = v28;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "querying, %@, installedAssetLanguages=%@", buf, 0x16u);
   }
+
+  v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  _languagesWithDownloadAttempts = [(RDAssetManager2 *)self _languagesWithDownloadAttempts];
+  v30 = [_languagesWithDownloadAttempts countByEnumeratingWithState:&v67 objects:v80 count:16];
+  if (v30)
+  {
+    v31 = *v68;
+    do
+    {
+      for (j = 0; j != v30; j = j + 1)
+      {
+        if (*v68 != v31)
+        {
+          objc_enumerationMutation(_languagesWithDownloadAttempts);
+        }
+
+        v33 = *(*(&v67 + 1) + 8 * j);
+        v34 = [v13 objectForKey:v33];
+        v35 = [v34 hasPrefix:@"Version:"];
+
+        if ((v35 & 1) == 0)
+        {
+          v36 = [(RDAssetManager2 *)self _isDownloadingStalledForLanguage:v33];
+          v37 = @"Stalled";
+          if ((v36 & 1) != 0 || (v38 = [(RDAssetManager2 *)self _isDownloadingForLanguage:v33], v37 = @"Installing", v38))
+          {
+            [v13 setObject:v37 forKey:v33];
+          }
+        }
+      }
+
+      v30 = [_languagesWithDownloadAttempts countByEnumeratingWithState:&v67 objects:v80 count:16];
+    }
+
+    while (v30);
+  }
+
+  v39 = [v13 copy];
+  cachedInstallationStatus = self->_cachedInstallationStatus;
+  self->_cachedInstallationStatus = v39;
+
+  v41 = +[NSDate date];
+  [v41 timeIntervalSinceReferenceDate];
+  self->_lastInstallationStatusFetch = v42;
+
+LABEL_39:
+  _Block_object_dispose(v86, 8);
+
+LABEL_40:
+  v43 = +[NSUserDefaults standardUserDefaults];
+  v44 = [v43 stringArrayForKey:@"InstalledLanguages"];
+  v45 = v44;
+  v46 = &__NSArray0__struct;
+  if (v44)
+  {
+    v46 = v44;
+  }
+
+  v47 = v46;
 
   v65 = 0u;
   v66 = 0u;
   v63 = 0u;
   v64 = 0u;
-  _languagesWithDownloadAttempts = [(RDAssetManager2 *)self _languagesWithDownloadAttempts];
-  v27 = [_languagesWithDownloadAttempts countByEnumeratingWithState:&v63 objects:v76 count:16];
-  if (v27)
+  v48 = v47;
+  v49 = [v48 countByEnumeratingWithState:&v63 objects:v79 count:16];
+  if (v49)
   {
-    v28 = *v64;
+    v50 = 0;
+    v51 = *v64;
     do
     {
-      for (j = 0; j != v27; j = j + 1)
+      for (k = 0; k != v49; k = k + 1)
       {
-        if (*v64 != v28)
+        if (*v64 != v51)
         {
-          objc_enumerationMutation(_languagesWithDownloadAttempts);
+          objc_enumerationMutation(v48);
         }
 
-        v30 = *(*(&v63 + 1) + 8 * j);
-        v31 = [v11 objectForKey:v30];
-        v32 = [v31 hasPrefix:@"Version:"];
+        v53 = *(*(&v63 + 1) + 8 * k);
+        v54 = [v13 objectForKey:v53];
+        v55 = v54 == 0;
 
-        if ((v32 & 1) == 0)
+        if (v55)
         {
-          v33 = [(RDAssetManager2 *)self _isDownloadingStalledForLanguage:v30];
-          v34 = @"Stalled";
-          if ((v33 & 1) != 0 || (v35 = [(RDAssetManager2 *)self _isDownloadingForLanguage:v30], v34 = @"Installing", v35))
+          if (!v50)
           {
-            [v11 setObject:v34 forKey:v30];
-          }
-        }
-      }
-
-      v27 = [_languagesWithDownloadAttempts countByEnumeratingWithState:&v63 objects:v76 count:16];
-    }
-
-    while (v27);
-  }
-
-  v36 = [v11 copy];
-  cachedInstallationStatus = self->_cachedInstallationStatus;
-  self->_cachedInstallationStatus = v36;
-
-  v38 = +[NSDate date];
-  [v38 timeIntervalSinceReferenceDate];
-  self->_lastInstallationStatusFetch = v39;
-
-LABEL_39:
-  _Block_object_dispose(v82, 8);
-
-LABEL_40:
-  v40 = +[NSUserDefaults standardUserDefaults];
-  v41 = [v40 stringArrayForKey:@"InstalledLanguages"];
-  v42 = v41;
-  v43 = &__NSArray0__struct;
-  if (v41)
-  {
-    v43 = v41;
-  }
-
-  v44 = v43;
-
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  v45 = v44;
-  v46 = [v45 countByEnumeratingWithState:&v59 objects:v75 count:16];
-  if (v46)
-  {
-    v47 = 0;
-    v48 = *v60;
-    do
-    {
-      for (k = 0; k != v46; k = k + 1)
-      {
-        if (*v60 != v48)
-        {
-          objc_enumerationMutation(v45);
-        }
-
-        v50 = *(*(&v59 + 1) + 8 * k);
-        v51 = [v11 objectForKey:v50];
-        v52 = v51 == 0;
-
-        if (v52)
-        {
-          if (!v47)
-          {
-            v47 = [v45 mutableCopy];
+            v50 = [v48 mutableCopy];
           }
 
-          [v47 removeObject:v50];
+          [v50 removeObject:v53];
         }
       }
 
-      v46 = [v45 countByEnumeratingWithState:&v59 objects:v75 count:16];
+      v49 = [v48 countByEnumeratingWithState:&v63 objects:v79 count:16];
     }
 
-    while (v46);
+    while (v49);
 
-    if (v47)
+    if (v50)
     {
-      v53 = RXOSLog();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      v57 = RXOSLog(v56);
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
       {
-        v54 = [v45 componentsJoinedByString:{@", "}];
-        v55 = [v47 componentsJoinedByString:{@", "}];
-        *v82 = 138412546;
-        *&v82[4] = v54;
-        *&v82[12] = 2112;
-        *&v82[14] = v55;
-        _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "Previously installed offline language(s) removed; installed list: [%@] -> [%@]", v82, 0x16u);
+        v58 = [v48 componentsJoinedByString:{@", "}];
+        v59 = [v50 componentsJoinedByString:{@", "}];
+        *v86 = 138412546;
+        *&v86[4] = v58;
+        *&v86[12] = 2112;
+        *&v86[14] = v59;
+        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "Previously installed offline language(s) removed; installed list: [%@] -> [%@]", v86, 0x16u);
       }
 
-      [v40 setObject:v47 forKey:@"InstalledLanguages"];
-      [v40 synchronize];
+      [v43 setObject:v50 forKey:@"InstalledLanguages"];
+      [v43 synchronize];
     }
   }
 
   else
   {
 
-    v47 = 0;
+    v50 = 0;
   }
 
-  return v11;
+  return v13;
 }
 
 - (id)copyInstalledAssetPropertiesForLangaugeWithError:(id)error error:(id *)a4
@@ -618,7 +611,7 @@ LABEL_40:
   errorCopy = error;
   if (!errorCopy)
   {
-    v9 = RXOSLog();
+    v9 = RXOSLog(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *v13 = 0;
@@ -681,7 +674,7 @@ LABEL_12:
 
   else
   {
-    v8 = RXOSLog();
+    v8 = RXOSLog(self);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *v10 = 0;
@@ -714,7 +707,7 @@ LABEL_12:
 
   else
   {
-    v8 = RXOSLog();
+    v8 = RXOSLog(self);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *v10 = 0;
@@ -761,7 +754,7 @@ LABEL_12:
 
   else
   {
-    v10 = RXOSLog();
+    v10 = RXOSLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -773,7 +766,7 @@ LABEL_12:
 - (void)_cancelDownloadForLanguageWithError:(id)error withError:(id *)withError
 {
   errorCopy = error;
-  v6 = RXOSLog();
+  v6 = RXOSLog(errorCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (errorCopy)
   {
@@ -797,8 +790,7 @@ LABEL_12:
         v19 = 0;
         [SFSpeechAssetManager purgeAssetsForLanguage:errorCopy error:&v19];
         v11 = v19;
-        [(RDAssetManager2 *)self _endAllDownloadsForLanguage:errorCopy];
-        v12 = RXOSLog();
+        v12 = RXOSLog([(RDAssetManager2 *)self _endAllDownloadsForLanguage:errorCopy]);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           _downloadStatusDescription2 = [(RDAssetManager2 *)self _downloadStatusDescription];
@@ -907,7 +899,7 @@ LABEL_12:
 
   else
   {
-    v17 = RXOSLog();
+    v17 = RXOSLog(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -983,7 +975,7 @@ LABEL_12:
 
   else
   {
-    v10 = RXOSLog();
+    v10 = RXOSLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -1002,87 +994,86 @@ LABEL_12:
   dispatch_assert_queue_V2(self->_mainWorkQueue);
   if (languageCopy)
   {
-    v7 = +[NSUserDefaults standardUserDefaults];
-    v8 = [v7 stringArrayForKey:@"InstalledLanguages"];
-    v9 = v8;
-    v10 = &__NSArray0__struct;
-    if (v8)
+    v8 = +[NSUserDefaults standardUserDefaults];
+    v9 = [v8 stringArrayForKey:@"InstalledLanguages"];
+    v10 = v9;
+    v11 = &__NSArray0__struct;
+    if (v9)
     {
-      v10 = v8;
+      v11 = v9;
     }
 
-    v11 = v10;
+    v12 = v11;
 
-    v12 = [(RDAssetManager2 *)self _installedLocalAssetForLanguage:languageCopy error:error];
-    v13 = [v12 length];
-    v14 = [v11 containsObject:languageCopy];
-    if (v13)
+    v13 = [(RDAssetManager2 *)self _installedLocalAssetForLanguage:languageCopy error:error];
+    v14 = [v13 length];
+    v15 = [v12 containsObject:languageCopy];
+    if (v14)
     {
-      if ((v14 & 1) == 0)
+      if ((v15 & 1) == 0)
       {
-        v15 = [v11 arrayByAddingObject:languageCopy];
-        v16 = RXOSLog();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v16 = [v12 arrayByAddingObject:languageCopy];
+        v17 = RXOSLog(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = [v15 componentsJoinedByString:{@", "}];
-          v24 = 138412546;
-          v25 = languageCopy;
-          v26 = 2112;
-          v27 = v17;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Recording newly installed offline language (%@) installed list is now: [%@]", &v24, 0x16u);
+          v18 = [v16 componentsJoinedByString:{@", "}];
+          v25 = 138412546;
+          v26 = languageCopy;
+          v27 = 2112;
+          v28 = v18;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Recording newly installed offline language (%@) installed list is now: [%@]", &v25, 0x16u);
         }
 
-        [v7 setObject:v15 forKey:@"InstalledLanguages"];
-        [v7 synchronize];
+        [v8 setObject:v16 forKey:@"InstalledLanguages"];
+        [v8 synchronize];
       }
 
-      v18 = v12;
+      v19 = v13;
     }
 
     else
     {
-      if (v14)
+      if (v15)
       {
-        v19 = [v11 mutableCopy];
-        [v19 removeObject:languageCopy];
-        v20 = RXOSLog();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v20 = [v12 mutableCopy];
+        v21 = RXOSLog([v20 removeObject:languageCopy]);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = [v19 componentsJoinedByString:{@", "}];
-          v24 = 138412546;
-          v25 = languageCopy;
-          v26 = 2112;
-          v27 = v21;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Previously installed offline language (%@) removed; installed list is now: [%@]", &v24, 0x16u);
+          v22 = [v20 componentsJoinedByString:{@", "}];
+          v25 = 138412546;
+          v26 = languageCopy;
+          v27 = 2112;
+          v28 = v22;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Previously installed offline language (%@) removed; installed list is now: [%@]", &v25, 0x16u);
         }
 
-        [v7 setObject:v19 forKey:@"InstalledLanguages"];
-        [v7 synchronize];
+        [v8 setObject:v20 forKey:@"InstalledLanguages"];
+        [v8 synchronize];
       }
 
-      v22 = [(RDAssetManager2 *)self _startedUrgentDownloadingEmbeddedSpeechAssetForLanguage:languageCopy error:error];
-      v18 = 0;
-      if (error && v22)
+      v23 = [(RDAssetManager2 *)self _startedUrgentDownloadingEmbeddedSpeechAssetForLanguage:languageCopy error:error];
+      v19 = 0;
+      if (error && v23)
       {
         [NSError errorWithDomain:@"kRXAssetDownloadErrorDomain" code:100 userInfo:0];
-        *error = v18 = 0;
+        *error = v19 = 0;
       }
     }
   }
 
   else
   {
-    v7 = RXOSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = RXOSLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v24) = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Returning no installed asset for nil language", &v24, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Returning no installed asset for nil language", &v25, 2u);
     }
 
-    v18 = 0;
+    v19 = 0;
   }
 
-  return v18;
+  return v19;
 }
 
 - (id)_assetPathForLanguage:(id)language error:(id *)error
@@ -1130,46 +1121,47 @@ LABEL_12:
   dispatch_assert_queue_V2(self->_mainWorkQueue);
   if (languageCopy)
   {
-    v7 = +[SFSpeechAssetManager installedLanguages];
-    v8 = [v7 containsObject:languageCopy];
+    v8 = +[SFSpeechAssetManager installedLanguages];
+    v9 = [v8 containsObject:languageCopy];
 
-    if (v8)
+    if (v9)
     {
-      v9 = [(RDAssetManager2 *)self _assetPathForLanguage:languageCopy error:error];
+      v10 = [(RDAssetManager2 *)self _assetPathForLanguage:languageCopy error:error];
+      v11 = v10;
     }
 
     else
     {
-      v9 = 0;
+      v11 = 0;
     }
 
-    v11 = RXOSLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = RXOSLog(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412546;
-      v16 = languageCopy;
-      v17 = 2112;
-      v18 = v9;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Found asset for %@: (%@)", &v15, 0x16u);
+      v17 = 138412546;
+      v18 = languageCopy;
+      v19 = 2112;
+      v20 = v11;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Found asset for %@: (%@)", &v17, 0x16u);
     }
 
-    if (![v9 length] || (sub_10000B448(v9, 0, @"DictationCC") & 1) == 0)
+    if (![v11 length] || (sub_10000B448(v11, 0, @"DictationCC") & 1) == 0)
     {
 
-      v9 = 0;
+      v11 = 0;
     }
 
-    if (![v9 length])
+    if (![v11 length])
     {
-      v12 = RXOSLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = RXOSLog(0);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Starting a download because no compatible asset is installed", &v15, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Starting a download because no compatible asset is installed", &v17, 2u);
       }
 
-      v13 = [(RDAssetManager2 *)self _startedUrgentDownloadingEmbeddedSpeechAssetForLanguage:languageCopy error:error];
-      if (error && v13)
+      v15 = [(RDAssetManager2 *)self _startedUrgentDownloadingEmbeddedSpeechAssetForLanguage:languageCopy error:error];
+      if (error && v15)
       {
         *error = [NSError errorWithDomain:@"kRXAssetDownloadErrorDomain" code:100 userInfo:0];
       }
@@ -1178,17 +1170,17 @@ LABEL_12:
 
   else
   {
-    v10 = RXOSLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = RXOSLog(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "nil language", &v15, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "nil language", &v17, 2u);
     }
 
-    v9 = 0;
+    v11 = 0;
   }
 
-  return v9;
+  return v11;
 }
 
 - (BOOL)_startedUrgentDownloadingEmbeddedSpeechAssetForLanguage:(id)language error:(id *)error
@@ -1197,64 +1189,66 @@ LABEL_12:
   dispatch_assert_queue_V2(self->_mainWorkQueue);
   if (languageCopy)
   {
-    if ([(RDAssetManager2 *)self _isDownloadingForLanguage:languageCopy])
+    v7 = [(RDAssetManager2 *)self _isDownloadingForLanguage:languageCopy];
+    if (v7)
     {
-      v6 = RXOSLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = RXOSLog(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v7 = "Asset download is already in progress";
+        v9 = "Asset download is already in progress";
 LABEL_7:
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, v7, buf, 2u);
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 2u);
       }
     }
 
     else
     {
-      v8 = +[NSDate date];
-      v9 = [(RDAssetManager2 *)self _startDownloadForLanguage:languageCopy];
-      v10 = RXOSLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v10 = +[NSDate date];
+      v11 = [(RDAssetManager2 *)self _startDownloadForLanguage:languageCopy];
+      v12 = v11;
+      v13 = RXOSLog(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         _downloadStatusDescription = [(RDAssetManager2 *)self _downloadStatusDescription];
         *buf = 138412802;
-        v23 = languageCopy;
-        v24 = 1024;
-        v25 = v9;
-        v26 = 2112;
-        v27 = _downloadStatusDescription;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Downloading asset, language=%@ downloadId=%d %@", buf, 0x1Cu);
+        v26 = languageCopy;
+        v27 = 1024;
+        v28 = v12;
+        v29 = 2112;
+        v30 = _downloadStatusDescription;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Downloading asset, language=%@ downloadId=%d %@", buf, 0x1Cu);
       }
 
-      v17[0] = _NSConcreteStackBlock;
-      v17[1] = 3221225472;
-      v17[2] = sub_10000A408;
-      v17[3] = &unk_10001CF58;
-      v17[4] = self;
-      v18 = languageCopy;
-      v19 = v8;
-      v20 = v9;
-      v21 = 1307470632;
-      v13[0] = _NSConcreteStackBlock;
-      v13[1] = 3221225472;
-      v13[2] = sub_10000A7F8;
-      v13[3] = &unk_10001CFA8;
-      v13[4] = self;
-      v14 = v18;
-      v15 = v9;
-      v16 = 1307470632;
-      v6 = v8;
-      [SFSpeechAssetManager fetchAssetsForLanguage:v14 urgent:1 forceUpgrade:1 detailedProgress:v17 completion:v13];
+      v20[0] = _NSConcreteStackBlock;
+      v20[1] = 3221225472;
+      v20[2] = sub_10000A408;
+      v20[3] = &unk_10001CF58;
+      v20[4] = self;
+      v21 = languageCopy;
+      v22 = v10;
+      v23 = v12;
+      v24 = 1307470632;
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_10000A7F8;
+      v16[3] = &unk_10001CFA8;
+      v16[4] = self;
+      v17 = v21;
+      v18 = v12;
+      v19 = 1307470632;
+      v8 = v10;
+      [SFSpeechAssetManager fetchAssetsForLanguage:v17 urgent:1 forceUpgrade:1 detailedProgress:v20 completion:v16];
     }
   }
 
   else
   {
-    v6 = RXOSLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = RXOSLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v7 = "nil language";
+      v9 = "nil language";
       goto LABEL_7;
     }
   }

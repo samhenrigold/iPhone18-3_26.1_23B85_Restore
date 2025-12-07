@@ -7,6 +7,7 @@
 - (BOOL)sendOutgoingData:(id)data forEndpointWithUUID:(id)d connectionUUID:(id)iD;
 - (BOOL)sendOutgoingData:(id)data forEndpointWithUUID:(id)d connectionUUID:(id)iD toClient:(id)client;
 - (id)clientInfoForConnectionWithUUID:(id)d;
+- (void)authStateDidChange:(int)change forConnectionWithUUID:(id)d previousAuthState:(int)state authType:(int)type connectionIsAuthenticated:(BOOL)authenticated connectionWasAuthenticated:(BOOL)wasAuthenticated;
 - (void)dealloc;
 - (void)propertiesDidChange:(id)change forConnectionWithUUID:(id)d previousProperties:(id)properties;
 - (void)propertiesDidChange:(id)change forEndpointWithUUID:(id)d previousProperties:(id)properties connectionUUID:(id)iD;
@@ -633,6 +634,24 @@ void __91__ACCTransportServer_receivedSecureTunnelData_forEndpointWithUUID_conne
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __86__ACCConnectionInfoServer_accessoryConnectionAttached_type_info_properties_forClient___block_invoke_cold_2();
+  }
+}
+
+- (void)authStateDidChange:(int)change forConnectionWithUUID:(id)d previousAuthState:(int)state authType:(int)type connectionIsAuthenticated:(BOOL)authenticated connectionWasAuthenticated:(BOOL)wasAuthenticated
+{
+  wasAuthenticatedCopy = wasAuthenticated;
+  authenticatedCopy = authenticated;
+  v10 = *&type;
+  v11 = *&state;
+  v12 = *&change;
+  dCopy = d;
+  v14 = [(ACCTransportServer *)self clientInfoForConnectionWithUUID:?];
+  v15 = v14;
+  if (v14)
+  {
+    xPCConnection = [v14 XPCConnection];
+    v17 = [xPCConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_128_0];
+    [v17 authStateDidChange:v12 forConnectionWithUUID:dCopy previousAuthState:v11 authType:v10 connectionIsAuthenticated:authenticatedCopy connectionWasAuthenticated:wasAuthenticatedCopy];
   }
 }
 

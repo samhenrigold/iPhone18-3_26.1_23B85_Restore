@@ -44,7 +44,7 @@
     imUnavailabilityIndicatorChatItem = IMLogHandleForCategory();
     if (os_log_type_enabled(imUnavailabilityIndicatorChatItem, OS_LOG_TYPE_ERROR))
     {
-      [CKTranscriptUnavailabilityIndicatorCell(CKChatItem) configureForChatItem:context:animated:animationDuration:animationCurve:];
+      [CKTranscriptUnavailabilityIndicatorCell(CKChatItem) configureForChatItem:itemCopy context:? animated:? animationDuration:? animationCurve:?];
     }
   }
 }

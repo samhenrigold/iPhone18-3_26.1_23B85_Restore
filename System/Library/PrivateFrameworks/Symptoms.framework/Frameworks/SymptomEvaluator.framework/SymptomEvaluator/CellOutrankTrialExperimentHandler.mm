@@ -49,7 +49,7 @@
 
 - (void)trialExperimentWithProjectIDHasBegun:(int)begun namespaceName:(id)name factorName:(id)factorName treatmentID:(id)d trialConfiguration:(id)configuration
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   factorNameCopy = factorName;
   dCopy = d;
@@ -57,21 +57,21 @@
   v16 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 67109634;
-    *v23 = begun;
-    *&v23[4] = 2112;
-    *&v23[6] = nameCopy;
-    v24 = 2112;
-    v25 = factorNameCopy;
-    _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "COSM: trialExperimentWithProjectIDHasBegun for %d/%@/%@", &v22, 0x1Cu);
+    v21 = 67109634;
+    *v22 = begun;
+    *&v22[4] = 2112;
+    *&v22[6] = nameCopy;
+    v23 = 2112;
+    v24 = factorNameCopy;
+    _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "COSM: trialExperimentWithProjectIDHasBegun for %d/%@/%@", &v21, 0x1Cu);
   }
 
   v17 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138412290;
-    *v23 = configurationCopy;
-    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "COSM: Trial configuration: %@", &v22, 0xCu);
+    v21 = 138412290;
+    *v22 = configurationCopy;
+    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "COSM: Trial configuration: %@", &v21, 0xCu);
   }
 
   [(CellOutrankTrialExperimentHandler *)self setTreatmentID:dCopy];
@@ -82,9 +82,9 @@
     v19 = outrankLogHandle;
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138412290;
-      *v23 = v18;
-      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "COSM: trialExperimentWithProjectIDHasBegun waiveOutrankReason is %@", &v22, 0xCu);
+      v21 = 138412290;
+      *v22 = v18;
+      _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "COSM: trialExperimentWithProjectIDHasBegun waiveOutrankReason is %@", &v21, 0xCu);
     }
 
     -[CellOutrankTrialExperimentHandler setWaiveOutrankReason:](self, "setWaiveOutrankReason:", [v18 BOOLValue]);
@@ -95,25 +95,23 @@
   {
     [delegate trialExperimentHasBegun:configurationCopy];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)trialExperimentWithProjectIDHasEnded:(int)ended namespaceName:(id)name factorName:(id)factorName
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   factorNameCopy = factorName;
   v10 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v13[0] = 67109634;
-    v13[1] = ended;
-    v14 = 2112;
-    v15 = nameCopy;
-    v16 = 2112;
-    v17 = factorNameCopy;
-    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "COSM: trialExperimentWithProjectIDHasEnded for %d/%@/%@", v13, 0x1Cu);
+    v12[0] = 67109634;
+    v12[1] = ended;
+    v13 = 2112;
+    v14 = nameCopy;
+    v15 = 2112;
+    v16 = factorNameCopy;
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "COSM: trialExperimentWithProjectIDHasEnded for %d/%@/%@", v12, 0x1Cu);
   }
 
   [(CellOutrankTrialExperimentHandler *)self setTreatmentID:0];
@@ -124,8 +122,6 @@
   {
     [delegate trialExperimentHasEnded];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (CellOutrankTrialExperimentDelegate)delegate

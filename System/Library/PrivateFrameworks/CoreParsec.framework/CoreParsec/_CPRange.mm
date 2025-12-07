@@ -27,13 +27,11 @@
   toCopy = to;
   if ([(_CPRange *)self location])
   {
-    location = self->_location;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPRange *)self length])
   {
-    length = self->_length;
     PBDataWriterWriteUint64Field();
   }
 }

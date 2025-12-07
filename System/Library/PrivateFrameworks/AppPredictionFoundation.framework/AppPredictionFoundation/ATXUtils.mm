@@ -16,17 +16,18 @@
   v6 = [v4 objectForKeyedSubscript:appBundleIdKey];
 
   v7 = [v6 isEqualToString:@"com.apple.camera"];
+  v8 = v7;
   if (v7)
   {
-    v8 = __atxlog_handle_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = __atxlog_handle_default(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_226368000, v8, OS_LOG_TYPE_DEFAULT, "Should hold off on expensive task", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_226368000, v9, OS_LOG_TYPE_DEFAULT, "Should hold off on expensive task", v11, 2u);
     }
   }
 
-  return v7;
+  return v8;
 }
 
 + (id)shuffle:(id)shuffle
@@ -66,74 +67,74 @@
   if ([MEMORY[0x277D42590] isInternalBuild])
   {
     v4 = ATXMemoryUsageInMBOfCurrentProcess();
-    v5 = __atxlog_handle_default();
-    v6 = v5;
+    v6 = __atxlog_handle_default(v5);
+    v7 = v6;
     if (v4 < 0.0)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        +[ATXUtils logCurrentMemoryFootprint:];
+        [ATXUtils logCurrentMemoryFootprint:footprintCopy];
       }
     }
 
-    else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 134218242;
       v9 = v4;
       v10 = 2112;
       v11 = footprintCopy;
-      _os_log_impl(&dword_226368000, v6, OS_LOG_TYPE_DEFAULT, "[MemoryLogging] Physical memory footprint: %lf MB, context: %@", &v8, 0x16u);
+      _os_log_impl(&dword_226368000, v7, OS_LOG_TYPE_DEFAULT, "[MemoryLogging] Physical memory footprint: %lf MB, context: %@", &v8, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isInTrashPath:(id)path
 {
   pathCopy = path;
-  v10 = 2;
+  v11 = 2;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v9 = 0;
-  [defaultManager getRelationship:&v10 ofDirectory:102 inDomain:0 toItemAtURL:pathCopy error:&v9];
-  v5 = v9;
+  v10 = 0;
+  [defaultManager getRelationship:&v11 ofDirectory:102 inDomain:0 toItemAtURL:pathCopy error:&v10];
+  v5 = v10;
 
   if (v5)
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(ATXUtils *)pathCopy isInTrashPath:v5];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v7 = v10 == 0;
+    v8 = v11 == 0;
   }
 
-  return v7;
+  return v8;
 }
 
-+ (void)logCurrentMemoryFootprint:.cold.1()
++ (void)logCurrentMemoryFootprint:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = __error();
-  strerror(*v0);
-  OUTLINED_FUNCTION_1_3(&dword_226368000, v1, v2, "proc_pid_rusage returned error: %s, context: %@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  v2 = __error();
+  *v9 = 136315394;
+  *&v9[4] = strerror(*v2);
+  *&v9[12] = 2112;
+  *&v9[14] = a1;
+  OUTLINED_FUNCTION_1_3(&dword_226368000, v3, v4, "proc_pid_rusage returned error: %s, context: %@", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 + (void)isInTrashPath:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = [a1 path];
-  v11 = [a2 localizedDescription];
-  OUTLINED_FUNCTION_1_3(&dword_226368000, v4, v5, "Error retrieving relationship of %{sensitive}@ to Trash folder: %@", v6, v7, v8, v9, 3u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v4 = [a2 localizedDescription];
+  *v11 = 138740227;
+  *&v11[4] = v3;
+  *&v11[12] = 2112;
+  *&v11[14] = v4;
+  OUTLINED_FUNCTION_1_3(&dword_226368000, v5, v6, "Error retrieving relationship of %{sensitive}@ to Trash folder: %@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }
 
 @end

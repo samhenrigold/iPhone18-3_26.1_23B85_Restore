@@ -1,9 +1,25 @@
 @interface MBSLock
++ (id)lockWithState:(int)state type:(int)type owner:(id)owner timeout:(unint64_t)timeout;
++ (id)lockWithState:(int)state type:(int)type timeout:(unint64_t)timeout;
 - (MBSLock)initWithState:(int)state type:(int)type owner:(id)owner timeout:(unint64_t)timeout;
 - (void)dealloc;
 @end
 
 @implementation MBSLock
+
++ (id)lockWithState:(int)state type:(int)type timeout:(unint64_t)timeout
+{
+  v5 = [[MBSLock alloc] initWithState:*&state type:*&type owner:MBDeviceUDID_Legacy() timeout:timeout];
+
+  return v5;
+}
+
++ (id)lockWithState:(int)state type:(int)type owner:(id)owner timeout:(unint64_t)timeout
+{
+  v6 = [[MBSLock alloc] initWithState:*&state type:*&type owner:owner timeout:timeout];
+
+  return v6;
+}
 
 - (MBSLock)initWithState:(int)state type:(int)type owner:(id)owner timeout:(unint64_t)timeout
 {

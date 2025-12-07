@@ -38,12 +38,16 @@
 - (void)presentOnboardingForPath:(id)path fromDeepLink:(BOOL)link completion:(id)completion;
 - (void)presentPreAuthorizedKeyReleasedThankYouScreen;
 - (void)presentUIFlowStack:(id)stack forRegionModel:(id)model onboardingSource:(int64_t)source completion:(id)completion;
+- (void)presentVerificationFlowForAgencyModel:(id)model sessionIdentifier:(id)identifier reportType:(unsigned int)type onboardingCompletionHandler:(id)handler completionHandler:(id)completionHandler;
 - (void)refreshRegionsAndReloadSpecifiers;
 - (void)setLatestNotification:(id)notification;
+- (void)setNotificationsEnabled:(BOOL)enabled;
 - (void)showExposureLoggingController:(id)controller;
 - (void)showLatestExposureDetailWithCompletion:(id)completion;
 - (void)toggleAvailabilityAlertsSwitch:(id)switch specifier:(id)specifier;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ENUISettingsViewController
@@ -132,6 +136,33 @@
 
   objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = ENUISettingsViewController;
+  [(ENUISettingsViewController *)&v6 viewWillAppear:appear];
+  [(ENUISettingsViewController *)self refreshRegionsAndReloadSpecifiers];
+  statusChangeObserver = [(ENUISettingsViewController *)self statusChangeObserver];
+  [statusChangeObserver setActive:1];
+
+  navigationItem = [(ENUISettingsViewController *)self navigationItem];
+  [navigationItem setBackButtonDisplayMode:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v8.receiver = self;
+  v8.super_class = ENUISettingsViewController;
+  [(ENUISettingsViewController *)&v8 viewDidDisappear:disappear];
+  table = [(ENUISettingsViewController *)self table];
+  table2 = [(ENUISettingsViewController *)self table];
+  indexPathForSelectedRow = [table2 indexPathForSelectedRow];
+  [table deselectRowAtIndexPath:indexPathForSelectedRow animated:0];
+
+  statusChangeObserver = [(ENUISettingsViewController *)self statusChangeObserver];
+  [statusChangeObserver setActive:0];
 }
 
 - (void)refreshRegionsAndReloadSpecifiers
@@ -628,6 +659,68 @@ LABEL_45:
   [v7 setObject:name2 forKeyedSubscript:PSTitleKey];
 
   return v7;
+}
+
+- (void)presentVerificationFlowForAgencyModel:(id)model sessionIdentifier:(id)identifier reportType:(unsigned int)type onboardingCompletionHandler:(id)handler completionHandler:(id)completionHandler
+{
+  v9 = *&type;
+  modelCopy = model;
+  identifierCopy = identifier;
+  handlerCopy = handler;
+  completionHandlerCopy = completionHandler;
+  if (modelCopy)
+  {
+    if (identifierCopy)
+    {
+      v16 = [[NSUUID alloc] initWithUUIDString:identifierCopy];
+      if (v16)
+      {
+        v17 = +[ENUIViewControllerFactory sharedInstance];
+        adapter = [(ENUISettingsViewController *)self adapter];
+        v19 = [v17 createVerificationStackForAgencyModel:modelCopy exposureManager:adapter sessionIdentifier:v16 reportType:v9 enteredFromMainScreen:1 completion:handlerCopy];
+
+        [(ENUISettingsViewController *)self presentUIFlowStack:v19 forRegionModel:modelCopy onboardingSource:0 completion:completionHandlerCopy];
+      }
+
+      else
+      {
+        v21 = ENUILogForCategory();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        {
+          sub_1B8D8();
+        }
+
+        if (completionHandlerCopy)
+        {
+          completionHandlerCopy[2](completionHandlerCopy);
+        }
+      }
+
+      goto LABEL_16;
+    }
+
+    v20 = ENUILogForCategory();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      sub_1B914();
+    }
+  }
+
+  else
+  {
+    v20 = ENUILogForCategory();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      sub_1B950();
+    }
+  }
+
+  if (completionHandlerCopy)
+  {
+    completionHandlerCopy[2](completionHandlerCopy);
+  }
+
+LABEL_16:
 }
 
 - (void)presentUIFlowStack:(id)stack forRegionModel:(id)model onboardingSource:(int64_t)source completion:(id)completion
@@ -1390,15 +1483,10 @@ LABEL_29:
 
 - (id)_exposureNotificationStatusText
 {
-  v2 = [(ENUISettingsViewController *)self lastKnownStatus]- 1;
-  if (v2 <= 5)
-  {
-    v3 = off_2CDE0[v2];
-  }
+  [(ENUISettingsViewController *)self lastKnownStatus];
+  v2 = ENUILocalizedString();
 
-  v4 = ENUILocalizedString();
-
-  return v4;
+  return v2;
 }
 
 - (id)_shareDiagnosisSpecifiers
@@ -1658,6 +1746,22 @@ LABEL_29:
   [adapter resetAllDataAndDisableExposureNotifications:v5];
 
   objc_destroyWeak(&v6);
+  objc_destroyWeak(&location);
+}
+
+- (void)setNotificationsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  objc_initWeak(&location, self);
+  adapter = [(ENUISettingsViewController *)self adapter];
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_AA78;
+  v6[3] = &unk_2CD60;
+  objc_copyWeak(&v7, &location);
+  [adapter setExposureNotificationEnabled:enabledCopy completion:v6];
+
+  objc_destroyWeak(&v7);
   objc_destroyWeak(&location);
 }
 

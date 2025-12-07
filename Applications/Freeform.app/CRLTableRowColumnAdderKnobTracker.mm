@@ -9,7 +9,7 @@
 - (void)endMovingKnob
 {
   selfCopy = self;
-  sub_1012255A8();
+  sub_1012255A8(selfCopy);
 }
 
 - (_TtC8Freeform33CRLTableRowColumnAdderKnobTracker)initWithRep:(id)rep knob:(id)knob

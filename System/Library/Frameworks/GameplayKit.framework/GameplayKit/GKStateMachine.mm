@@ -30,42 +30,42 @@
 
 - (GKStateMachine)initWithStates:(NSArray *)states
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = states;
-  v22.receiver = self;
-  v22.super_class = GKStateMachine;
-  v5 = [(GKStateMachine *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = GKStateMachine;
+  v5 = [(GKStateMachine *)&v21 init];
   if (v5)
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v7 = v4;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       do
       {
         v11 = 0;
         do
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * v11);
-          [dictionary setObject:v12 forKey:{objc_opt_class(), v18}];
+          v12 = *(*(&v17 + 1) + 8 * v11);
+          [dictionary setObject:v12 forKey:{objc_opt_class(), v17}];
           [v12 _setStateMachine:v5];
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v9);
@@ -79,7 +79,6 @@
     v5->_currentState = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -167,28 +166,28 @@
 
 void __31__GKStateMachine__instanceData__block_invoke(uint64_t a1, objc_class *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = NSStringFromClass(a2);
   [*(a1 + 32) addObject:v6];
   v7 = [MEMORY[0x277CBEB18] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = [*(*(a1 + 40) + 8) allKeys];
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 == v11)
+        if (*v16 == v11)
         {
-          v13 = *(*(&v16 + 1) + 8 * i);
+          v13 = *(*(&v15 + 1) + 8 * i);
           if (![v5 isValidNextState:v13])
           {
             continue;
@@ -198,7 +197,7 @@ void __31__GKStateMachine__instanceData__block_invoke(uint64_t a1, objc_class *a
         else
         {
           objc_enumerationMutation(v8);
-          v13 = *(*(&v16 + 1) + 8 * i);
+          v13 = *(*(&v15 + 1) + 8 * i);
           if (![v5 isValidNextState:v13])
           {
             continue;
@@ -209,7 +208,7 @@ void __31__GKStateMachine__instanceData__block_invoke(uint64_t a1, objc_class *a
         [v7 addObject:v14];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -219,8 +218,6 @@ void __31__GKStateMachine__instanceData__block_invoke(uint64_t a1, objc_class *a
   {
     [*(a1 + 48) setObject:v7 forKey:v6];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dotStringInstanceData
@@ -245,26 +242,26 @@ void __31__GKStateMachine__instanceData__block_invoke(uint64_t a1, objc_class *a
 
 void __40__GKStateMachine__dotStringInstanceData__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = [*(*(a1 + 32) + 8) allKeys];
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 == v10)
+        if (*v17 == v10)
         {
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           if (![v6 isValidNextState:v12])
           {
             continue;
@@ -274,7 +271,7 @@ void __40__GKStateMachine__dotStringInstanceData__block_invoke(uint64_t a1, void
         else
         {
           objc_enumerationMutation(v7);
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           if (![v6 isValidNextState:v12])
           {
             continue;
@@ -287,13 +284,11 @@ void __40__GKStateMachine__dotStringInstanceData__block_invoke(uint64_t a1, void
         [v13 appendFormat:@"%@ -> %@\n", v14, v15];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

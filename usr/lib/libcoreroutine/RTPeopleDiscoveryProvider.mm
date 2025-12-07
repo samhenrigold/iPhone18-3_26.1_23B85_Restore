@@ -1133,14 +1133,14 @@ void __61__RTPeopleDiscoveryProvider__fetchAndReconcileAdvertisements__block_inv
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-uint64_t __61__RTPeopleDiscoveryProvider__fetchAndReconcileAdvertisements__block_invoke_123(void *a1)
+uint64_t __61__RTPeopleDiscoveryProvider__fetchAndReconcileAdvertisements__block_invoke_123(void *a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v3 = [*(*(a1[6] + 8) + 40) count];
-  v4 = a1[5];
-  v5 = a1[7];
+  v3 = objc_opt_class();
+  v4 = [*(*(a1[6] + 8) + 40) count];
+  v5 = a1[5];
+  v6 = a1[7];
 
-  return [v2 computeAdvMetrics:v3 identities:v4 numOfResolvedAdvs:v5];
+  return [v3 computeAdvMetrics:v4 identities:v5 numOfResolvedAdvs:v6];
 }
 
 id __61__RTPeopleDiscoveryProvider__fetchAndReconcileAdvertisements__block_invoke_2(uint64_t a1)

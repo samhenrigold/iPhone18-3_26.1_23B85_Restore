@@ -22,9 +22,9 @@
     +[NSTermOfAddress(ContactsFoundation) os_log];
   }
 
-  v1 = os_log_cn_once_object_1_3;
+  v2 = os_log_cn_once_object_1_3;
 
-  return v1;
+  return v2;
 }
 
 + (id)termOfAddressFromDataRepresentation:()ContactsFoundation
@@ -106,7 +106,7 @@
 
 - (id)pronounDescriptions
 {
-  if ((CNIsAddressingGrammarEmpty_block_invoke(self, self) & 1) != 0 || ([self pronouns], v2 = objc_claimAutoreleasedReturnValue(), v3 = off_1EF43E9E8(&__block_literal_global_5, v2), v2, v3))
+  if (CNIsAddressingGrammarEmpty_block_invoke(self, self) || ([self pronouns], v2 = objc_claimAutoreleasedReturnValue(), v3 = off_1EF43E9E8(&__block_literal_global_5, v2), v2, v3))
   {
     _cn_distinctObjects = MEMORY[0x1E695E0F0];
   }
@@ -188,7 +188,7 @@
       {
         v13 = [firstObject count];
         v14 = MEMORY[0x1E696AEC0];
-        v15 = CNContactsFoundationBundle();
+        v15 = CNContactsFoundationBundle(v13);
         v16 = v15;
         if (v13 == 2)
         {
@@ -230,7 +230,7 @@
   {
     v3 = [pronounDescriptions count];
     v4 = MEMORY[0x1E696AEC0];
-    v5 = CNContactsFoundationBundle();
+    v5 = CNContactsFoundationBundle(v3);
     v6 = v5;
     if (v3 == 2)
     {

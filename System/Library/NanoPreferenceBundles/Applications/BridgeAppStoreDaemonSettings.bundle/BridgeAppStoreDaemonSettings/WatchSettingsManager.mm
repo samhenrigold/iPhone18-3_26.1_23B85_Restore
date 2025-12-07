@@ -43,7 +43,7 @@
     v25 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v14 = sub_13F98();
+    v14 = sub_13F98(WatchSettingsManager);
     v15 = [v14 countByEnumeratingWithState:&v22 objects:v29 count:16];
     if (v15)
     {
@@ -112,7 +112,7 @@
     }
 
     v11 = objc_opt_new();
-    v12 = sub_13F98();
+    v12 = sub_13F98(WatchSettingsManager);
     [v11 synchronizeUserDefaultsDomain:@"com.apple.appstored" keys:v12];
   }
 }

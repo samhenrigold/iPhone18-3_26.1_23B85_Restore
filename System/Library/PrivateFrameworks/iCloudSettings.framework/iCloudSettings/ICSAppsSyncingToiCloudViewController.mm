@@ -6,6 +6,7 @@
 - (void)dealloc;
 - (void)setSpecifier:(id)specifier;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ICSAppsSyncingToiCloudViewController
@@ -41,8 +42,8 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = LogSubsystem();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = LogSubsystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -54,10 +55,9 @@
   appsSyncingToDriveSpecifierProvider = self->_appsSyncingToDriveSpecifierProvider;
   self->_appsSyncingToDriveSpecifierProvider = 0;
 
-  v6.receiver = self;
-  v6.super_class = ICSAppsSyncingToiCloudViewController;
-  [(ICSDataclassViewController *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = ICSAppsSyncingToiCloudViewController;
+  [(ICSDataclassViewController *)&v5 dealloc];
 }
 
 - (void)viewDidLoad
@@ -67,12 +67,23 @@
   [(ACUIDataclassConfigurationViewController *)&v2 viewDidLoad];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = ICSAppsSyncingToiCloudViewController;
+  [(ACUIDataclassConfigurationViewController *)&v7 viewWillAppear:appear];
+  navigationItem = [(ICSAppsSyncingToiCloudViewController *)self navigationItem];
+  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v6 = [v5 localizedStringForKey:@"APPS_SYNCING_TO_ICLOUD_TITLE" value:&stru_288487370 table:@"Localizable-AppleID"];
+  [navigationItem setTitle:v6];
+}
+
 - (void)setSpecifier:(id)specifier
 {
   specifierCopy = specifier;
-  v11.receiver = self;
-  v11.super_class = ICSAppsSyncingToiCloudViewController;
-  [(ICSAppsSyncingToiCloudViewController *)&v11 setSpecifier:specifierCopy];
+  v12.receiver = self;
+  v12.super_class = ICSAppsSyncingToiCloudViewController;
+  [(ICSAppsSyncingToiCloudViewController *)&v12 setSpecifier:specifierCopy];
   v5 = [ICSAppsSyncingToDriveSpecifierProvider alloc];
   accountManager = [(ICSDataclassViewController *)self accountManager];
   v7 = [(ICSAppsSyncingToDriveSpecifierProvider *)v5 initWithAccountManager:accountManager presenter:self];
@@ -82,32 +93,33 @@
   [(ICSAppsSyncingToDriveSpecifierProvider *)self->_appsSyncingToDriveSpecifierProvider setDelegate:self];
   v9 = [specifierCopy objectForKeyedSubscript:@"icloudAccountManager"];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
     [ICSAppsSyncingToiCloudViewController setSpecifier:];
   }
 
   if (!v9)
   {
-    v10 = LogSubsystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = LogSubsystem(isKindOfClass);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [ICSAppsSyncingToiCloudViewController setSpecifier:v10];
+      [ICSAppsSyncingToiCloudViewController setSpecifier:v11];
     }
   }
 }
 
 - (id)specifiers
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   if (!*(&self->super.super.super.super.super.super.super.super.isa + v3))
   {
-    v4 = LogSubsystem();
+    v4 = LogSubsystem(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_275819000, v4, OS_LOG_TYPE_DEFAULT, "ICSAppsSyncingToiCloudViewController is loading specifiers.", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_275819000, v4, OS_LOG_TYPE_DEFAULT, "ICSAppsSyncingToiCloudViewController is loading specifiers.", &v16, 2u);
     }
 
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -128,17 +140,16 @@
     *(&self->super.super.super.super.super.super.super.super.isa + v3) = v10;
   }
 
-  v12 = LogSubsystem();
+  v12 = LogSubsystem(self);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = *(&self->super.super.super.super.super.super.super.super.isa + v3);
-    v17 = 138412290;
-    v18 = v13;
-    _os_log_impl(&dword_275819000, v12, OS_LOG_TYPE_DEFAULT, "ICSAppsSyncingToiCloudViewController specifiers: returning %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = v13;
+    _os_log_impl(&dword_275819000, v12, OS_LOG_TYPE_DEFAULT, "ICSAppsSyncingToiCloudViewController specifiers: returning %@", &v16, 0xCu);
   }
 
   v14 = *(&self->super.super.super.super.super.super.super.super.isa + v3);
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

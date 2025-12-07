@@ -276,7 +276,7 @@ LABEL_15:
 
 - (void)dataSourceDidFinishFetching:(id)fetching
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   fetchingCopy = fetching;
   seasonsDataSource = [(VUILibraryMediaCollectionViewController *)self seasonsDataSource];
 
@@ -302,17 +302,17 @@ LABEL_15:
     mediaEntities2 = [episodesDataSource mediaEntities];
     [(VUILibraryMediaCollectionViewController *)self setEpisodes:mediaEntities2];
 
-    v12 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = VUIDefaultLogObject(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       seasons = [(VUILibraryMediaCollectionViewController *)self seasons];
-      v14 = [seasons count];
+      v15 = [seasons count];
       episodes = [(VUILibraryMediaCollectionViewController *)self episodes];
       *buf = 134218240;
-      v36 = v14;
-      v37 = 2048;
-      v38 = [episodes count];
-      _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUILibraryMediaCollectionViewController:Setting %lu seasons, %lu episodes", buf, 0x16u);
+      v37 = v15;
+      v38 = 2048;
+      v39 = [episodes count];
+      _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, "VUILibraryMediaCollectionViewController:Setting %lu seasons, %lu episodes", buf, 0x16u);
     }
 
     if (_usingEpisodesGroupFetch)
@@ -339,7 +339,7 @@ LABEL_15:
       LODWORD(mediaEntities4) = [mediaCollectionViewModel2 hasContent];
 
       contentPresenter = [(VUILibraryMediaCollectionViewController *)self contentPresenter];
-      v25 = contentPresenter;
+      v26 = contentPresenter;
       if (!mediaEntities4)
       {
         [contentPresenter setCurrentContentViewType:2];
@@ -351,15 +351,15 @@ LABEL_15:
 
       diffableDataSource = [(VUILibraryMediaCollectionViewController *)self diffableDataSource];
       _createDiffableDataSourceSnapshot = [(VUILibraryMediaCollectionViewController *)self _createDiffableDataSourceSnapshot];
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __71__VUILibraryMediaCollectionViewController_dataSourceDidFinishFetching___block_invoke_2;
-      v31[3] = &unk_1E872D990;
-      v31[4] = self;
-      v32 = stackCollectionView;
-      [diffableDataSource applySnapshot:_createDiffableDataSourceSnapshot animatingDifferences:1 completion:v31];
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __71__VUILibraryMediaCollectionViewController_dataSourceDidFinishFetching___block_invoke_2;
+      v32[3] = &unk_1E872D990;
+      v32[4] = self;
+      v33 = stackCollectionView;
+      [diffableDataSource applySnapshot:_createDiffableDataSourceSnapshot animatingDifferences:1 completion:v32];
 
-      v28 = v32;
+      v29 = v33;
     }
 
     else
@@ -368,15 +368,15 @@ LABEL_15:
       [(VUILibraryMediaCollectionViewController *)self _updateDeletedContentErrorMessage];
       diffableDataSource2 = [(VUILibraryMediaCollectionViewController *)self diffableDataSource];
       _createDiffableDataSourceSnapshot2 = [(VUILibraryMediaCollectionViewController *)self _createDiffableDataSourceSnapshot];
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __71__VUILibraryMediaCollectionViewController_dataSourceDidFinishFetching___block_invoke;
-      v33[3] = &unk_1E872D990;
-      v33[4] = self;
-      v34 = stackCollectionView;
-      [diffableDataSource2 applySnapshot:_createDiffableDataSourceSnapshot2 animatingDifferences:1 completion:v33];
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __71__VUILibraryMediaCollectionViewController_dataSourceDidFinishFetching___block_invoke;
+      v34[3] = &unk_1E872D990;
+      v34[4] = self;
+      v35 = stackCollectionView;
+      [diffableDataSource2 applySnapshot:_createDiffableDataSourceSnapshot2 animatingDifferences:1 completion:v34];
 
-      v28 = v34;
+      v29 = v35;
     }
 
 LABEL_15:
@@ -440,7 +440,7 @@ void __71__VUILibraryMediaCollectionViewController_dataSourceDidFinishFetching__
   stringValue = [id stringValue];
   if (![stringValue length])
   {
-    v4 = VUIDefaultLogObject();
+    v4 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [VUILibraryMediaCollectionViewController titleButtonPressedForStoreId:v4];
@@ -652,8 +652,7 @@ LABEL_13:
   [v3 appendSectionsWithIdentifiers:v4];
 
   _seasonViewModelIdentifiers = [(VUILibraryMediaCollectionViewController *)self _seasonViewModelIdentifiers];
-  [v3 appendItemsWithIdentifiers:_seasonViewModelIdentifiers intoSectionWithIdentifier:@"MediaCollectionMainSection"];
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject([v3 appendItemsWithIdentifiers:_seasonViewModelIdentifiers intoSectionWithIdentifier:@"MediaCollectionMainSection"]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 134217984;

@@ -55,8 +55,8 @@ uint64_t __34__AVTStickerProp_stickerPropCache__block_invoke()
   height = size.height;
   width = size.width;
   rotationCopy = rotation;
-  v12 = [position componentsJoinedByString:{@", "}];
-  v13 = [MEMORY[0x1E695DFF8] fileURLWithPath:rotationCopy isDirectory:0];
+  v12 = [position componentsJoinedByString:?];
+  v13 = [MEMORY[0x1E695DFF8] fileURLWithPath:? isDirectory:?];
 
   standardizedURL = [v13 standardizedURL];
   absoluteString = [standardizedURL absoluteString];
@@ -65,14 +65,14 @@ uint64_t __34__AVTStickerProp_stickerPropCache__block_invoke()
   v24.width = width;
   v24.height = height;
   v17 = NSStringFromCGSize(v24);
-  v18 = [v16 stringWithFormat:@"%@.%@.%f%f%f.%f%f%f.%f%f%f.%@", absoluteString, v17, *&v20, *(&v20 + 1), *(&v20 + 2), *&v21, *(&v21 + 1), *(&v21 + 2), *&v22, *(&v22 + 1), *(&v22 + 2), v12];
+  v18 = [v16 stringWithFormat:absoluteString, v17, *&v20, *(&v20 + 1), *(&v20 + 2), *&v21, *(&v21 + 1), *(&v21 + 2), *&v22, *(&v22 + 1), *(&v22 + 2), v12];
 
   return v18;
 }
 
 + (BOOL)getOrientToCameraInDictionary:(id)dictionary
 {
-  v3 = [dictionary objectForKey:@"orientToCamera"];
+  v3 = [dictionary objectForKey:?];
   v4 = v3;
   if (v3)
   {
@@ -89,7 +89,7 @@ uint64_t __34__AVTStickerProp_stickerPropCache__block_invoke()
 
 + (BOOL)getRenderLastInDictionary:(id)dictionary
 {
-  v3 = [dictionary objectForKey:@"renderLast"];
+  v3 = [dictionary objectForKey:?];
   v4 = v3;
   if (v3)
   {
@@ -106,14 +106,14 @@ uint64_t __34__AVTStickerProp_stickerPropCache__block_invoke()
 
 + (CGSize)getSizeInDictionary:(id)dictionary
 {
-  v3 = [dictionary objectForKey:@"size"];
+  v3 = [dictionary objectForKey:?];
   v4 = v3;
   if (v3)
   {
-    v5 = [v3 objectForKeyedSubscript:@"width"];
+    v5 = [v3 objectForKeyedSubscript:?];
     [v5 floatValue];
     v7 = v6;
-    v8 = [v4 objectForKeyedSubscript:@"height"];
+    v8 = [v4 objectForKeyedSubscript:?];
     [v8 floatValue];
     v10 = v9;
   }
@@ -133,19 +133,19 @@ uint64_t __34__AVTStickerProp_stickerPropCache__block_invoke()
 
 + (__n128)getPositionInDictionary:(void *)dictionary
 {
-  v3 = [dictionary objectForKey:@"position"];
+  v3 = [dictionary objectForKey:?];
   if (v3)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v4 = [v3 objectForKeyedSubscript:@"x"];
+      v4 = [v3 objectForKeyedSubscript:?];
       [v4 floatValue];
       v15 = v5;
-      v6 = [v3 objectForKeyedSubscript:@"y"];
+      v6 = [v3 objectForKeyedSubscript:?];
       [v6 floatValue];
       v14 = v7;
-      v8 = [v3 objectForKeyedSubscript:@"z"];
+      v8 = [v3 objectForKeyedSubscript:?];
       [v8 floatValue];
       v9 = v15;
       DWORD1(v9) = v14;
@@ -172,19 +172,19 @@ uint64_t __34__AVTStickerProp_stickerPropCache__block_invoke()
 
 + (__n128)getRotationInDictionary:(void *)dictionary
 {
-  v3 = [dictionary objectForKey:@"rotation"];
+  v3 = [dictionary objectForKey:?];
   if (v3)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v4 = [v3 objectForKeyedSubscript:@"x"];
+      v4 = [v3 objectForKeyedSubscript:?];
       [v4 floatValue];
       v15 = v5;
-      v6 = [v3 objectForKeyedSubscript:@"y"];
+      v6 = [v3 objectForKeyedSubscript:?];
       [v6 floatValue];
       v14 = v7;
-      v8 = [v3 objectForKeyedSubscript:@"z"];
+      v8 = [v3 objectForKeyedSubscript:?];
       [v8 floatValue];
       v9 = v15;
       DWORD1(v9) = v14;
@@ -211,19 +211,19 @@ uint64_t __34__AVTStickerProp_stickerPropCache__block_invoke()
 
 + (__n128)getScaleInDictionary:(void *)dictionary
 {
-  v3 = [dictionary objectForKey:@"scale"];
+  v3 = [dictionary objectForKey:?];
   if (v3)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v4 = [v3 objectForKeyedSubscript:@"x"];
+      v4 = [v3 objectForKeyedSubscript:?];
       [v4 floatValue];
       v23 = v5;
-      v6 = [v3 objectForKeyedSubscript:@"y"];
+      v6 = [v3 objectForKeyedSubscript:?];
       [v6 floatValue];
       v21 = v7;
-      v8 = [v3 objectForKeyedSubscript:@"z"];
+      v8 = [v3 objectForKeyedSubscript:?];
       [v8 floatValue];
       v9 = v23;
       DWORD1(v9) = v21;
@@ -258,23 +258,20 @@ uint64_t __34__AVTStickerProp_stickerPropCache__block_invoke()
 + (id)adjustmentFromDictionary:(id)dictionary presetCategory:(id)category
 {
   dictionaryCopy = dictionary;
-  v7 = AVTPresetCategoryFromString(category);
-  [self getPositionInDictionary:dictionaryCopy];
-  v16 = v8;
-  [self getRotationInDictionary:dictionaryCopy];
-  v15 = v9;
-  [self getScaleInDictionary:dictionaryCopy];
-  v14 = v10;
-  v11 = [dictionaryCopy objectForKey:@"value"];
+  AVTPresetCategoryFromString(category);
+  [self getPositionInDictionary:?];
+  [self getRotationInDictionary:?];
+  [self getScaleInDictionary:?];
+  v7 = [dictionaryCopy objectForKey:?];
 
-  v12 = [[AVTStickerPropAdjustTransformProperty alloc] initWithPresetCategory:v7 presetValue:v11 position:v16 rotation:v15 scale:v14];
+  v8 = [AVTStickerPropAdjustTransformProperty initWithPresetCategory:"initWithPresetCategory:presetValue:position:rotation:scale:" presetValue:? position:? rotation:? scale:?];
 
-  return v12;
+  return v8;
 }
 
 + (float)getOpacityInDictionary:(id)dictionary
 {
-  v3 = [dictionary objectForKey:@"opacity"];
+  v3 = [dictionary objectForKey:?];
   v4 = 1.0;
   if (v3)
   {
@@ -291,360 +288,301 @@ uint64_t __34__AVTStickerProp_stickerPropCache__block_invoke()
 
 + (id)propFromDictionary:(id)dictionary assetsPath:(id)path
 {
-  v86 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   pathCopy = path;
-  [self getSizeInDictionary:dictionaryCopy];
-  v9 = v8;
-  v11 = v10;
-  [self getPositionInDictionary:dictionaryCopy];
-  v61 = v12;
-  [self getRotationInDictionary:dictionaryCopy];
-  v60 = v13;
-  [self getScaleInDictionary:dictionaryCopy];
-  v59 = v14;
-  [self getOpacityInDictionary:dictionaryCopy];
-  v16 = v15;
-  v57 = [self getOrientToCameraInDictionary:dictionaryCopy];
-  v58 = [self getRenderLastInDictionary:dictionaryCopy];
-  v62 = [dictionaryCopy objectForKey:@"palettes"];
+  [self getSizeInDictionary:?];
+  [self getPositionInDictionary:?];
+  [self getRotationInDictionary:?];
+  [self getScaleInDictionary:?];
+  [self getOpacityInDictionary:?];
+  [self getOrientToCameraInDictionary:?];
+  [self getRenderLastInDictionary:?];
+  v45 = [dictionaryCopy objectForKey:?];
   array = [MEMORY[0x1E695DF70] array];
-  v18 = [dictionaryCopy objectForKey:@"adjustments"];
-  v19 = 0x1E695D000uLL;
+  v9 = [dictionaryCopy objectForKey:?];
   objc_opt_class();
-  v63 = v18;
-  v68 = pathCopy;
-  v64 = dictionaryCopy;
+  v46 = v9;
+  v51 = pathCopy;
+  v47 = dictionaryCopy;
   if (objc_opt_isKindOfClass())
   {
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
-    v80 = 0u;
-    v20 = v18;
-    v69 = [v20 countByEnumeratingWithState:&v79 objects:v85 count:16];
-    if (v69)
+    v10 = v9;
+    v52 = [v10 countByEnumeratingWithState:? objects:? count:?];
+    if (v52)
     {
-      v21 = *v80;
-      v65 = *v80;
-      v67 = v20;
+      v11 = MEMORY[0];
+      v48 = MEMORY[0];
+      v50 = v10;
       do
       {
-        for (i = 0; i != v69; ++i)
+        for (i = 0; i != v52; i = (i + 1))
         {
-          if (*v80 != v21)
+          if (MEMORY[0] != v11)
           {
-            objc_enumerationMutation(v20);
+            objc_enumerationMutation(v10);
           }
 
-          v23 = *(*(&v79 + 1) + 8 * i);
-          v24 = [v20 objectForKey:v23];
-          v25 = *(v19 + 3872);
+          v13 = [v10 objectForKey:?];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v26 = [self adjustmentFromDictionary:v24 presetCategory:v23];
-            [array addObject:v26];
+            v14 = [self adjustmentFromDictionary:? presetCategory:?];
+            [array addObject:?];
           }
 
           else
           {
-            v77 = 0u;
-            v78 = 0u;
-            v75 = 0u;
-            v76 = 0u;
-            v26 = v24;
-            v27 = [v26 countByEnumeratingWithState:&v75 objects:v84 count:16];
-            if (v27)
+            v14 = v13;
+            v15 = [v14 countByEnumeratingWithState:? objects:? count:?];
+            if (v15)
             {
-              v28 = v27;
-              v29 = *v76;
+              v16 = v15;
+              v17 = MEMORY[0];
               do
               {
-                for (j = 0; j != v28; ++j)
+                for (j = 0; j != v16; j = (j + 1))
                 {
-                  if (*v76 != v29)
+                  if (MEMORY[0] != v17)
                   {
-                    objc_enumerationMutation(v26);
+                    objc_enumerationMutation(v14);
                   }
 
-                  v31 = [self adjustmentFromDictionary:*(*(&v75 + 1) + 8 * j) presetCategory:v23];
-                  [array addObject:v31];
+                  v19 = [self adjustmentFromDictionary:? presetCategory:?];
+                  [array addObject:?];
                 }
 
-                v28 = [v26 countByEnumeratingWithState:&v75 objects:v84 count:16];
+                v16 = [v14 countByEnumeratingWithState:? objects:? count:?];
               }
 
-              while (v28);
-              v20 = v67;
-              pathCopy = v68;
-              v19 = 0x1E695D000;
-              v21 = v65;
-            }
-
-            else
-            {
-              pathCopy = v68;
+              while (v16);
+              v10 = v50;
+              v11 = v48;
             }
           }
         }
 
-        v69 = [v20 countByEnumeratingWithState:&v79 objects:v85 count:16];
+        v52 = [v10 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v69);
+      while (v52);
     }
 
-    dictionaryCopy = v64;
+    dictionaryCopy = v47;
   }
 
   array2 = [MEMORY[0x1E695DF70] array];
-  v33 = [dictionaryCopy objectForKey:@"shaders"];
-  v71 = 0u;
-  v72 = 0u;
-  v73 = 0u;
-  v74 = 0u;
-  v34 = [v33 countByEnumeratingWithState:&v71 objects:v83 count:16];
-  if (v34)
+  v21 = [dictionaryCopy objectForKey:?];
+  v22 = [v21 countByEnumeratingWithState:? objects:? count:?];
+  if (v22)
   {
-    v35 = v34;
-    v36 = *v72;
+    v23 = v22;
+    v24 = MEMORY[0];
     do
     {
-      for (k = 0; k != v35; ++k)
+      for (k = 0; k != v23; k = (k + 1))
       {
-        if (*v72 != v36)
+        if (MEMORY[0] != v24)
         {
-          objc_enumerationMutation(v33);
+          objc_enumerationMutation(v21);
         }
 
-        v38 = [AVTStickerShaderModifier shaderModifierFromDictionary:*(*(&v71 + 1) + 8 * k) assetsPath:pathCopy];
-        if (v38)
+        v26 = [AVTStickerShaderModifier shaderModifierFromDictionary:"shaderModifierFromDictionary:assetsPath:" assetsPath:?];
+        if (v26)
         {
-          [array2 addObject:v38];
+          [array2 addObject:?];
         }
       }
 
-      v35 = [v33 countByEnumeratingWithState:&v71 objects:v83 count:16];
+      v23 = [v21 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v35);
+    while (v23);
   }
 
   stickerPropCache = [self stickerPropCache];
-  v39 = v64;
-  v40 = [v64 objectForKey:@"image"];
-  if (v40)
+  v27 = v47;
+  v28 = [v47 objectForKey:?];
+  if (v28)
   {
-    v41 = [v68 stringByAppendingPathComponent:v40];
-    stringByStandardizingPath = [v41 stringByStandardizingPath];
+    v29 = [v51 stringByAppendingPathComponent:?];
+    stringByStandardizingPath = [v29 stringByStandardizingPath];
 
-    v43 = v62;
-    stringByStandardizingPath2 = [objc_opt_class() cacheKeyForSize:v62 position:stringByStandardizingPath rotation:v9 scale:v11 palettesDescriptions:v61 filePath:{v60, v59}];
-    v45 = [stickerPropCache objectForKey:stringByStandardizingPath2];
-    if (v45)
+    v31 = v45;
+    stringByStandardizingPath2 = [objc_opt_class() cacheKeyForSize:? position:? rotation:? scale:? palettesDescriptions:? filePath:?];
+    v33 = [stickerPropCache objectForKey:?];
+    if (v33)
     {
-      v46 = v45;
-      v47 = v40;
+      v34 = v33;
+      v35 = v28;
       if (array2)
       {
-        v48 = [(AVTStickerProp *)v45 cloneWithShaderModifiers:array2];
+        v36 = [(AVTStickerProp *)v33 cloneWithShaderModifiers:?];
 
-        v46 = v48;
+        v34 = v36;
       }
 
-      v40 = v47;
-      v43 = v62;
+      v28 = v35;
+      v31 = v45;
     }
 
     else
     {
-      v46 = [[AVTStickerImageProp alloc] initWithImageAtPath:stringByStandardizingPath size:v58 scale:v57 position:v62 renderLast:array2 orientToCamera:array rotation:v9 palettesDescriptions:v11 modifiers:v59 adjustments:v61, v60];
-      [(AVTStickerProp *)v46 setOriginalName:v40];
-      [(AVTStickerProp *)v46 setOpacity:v16];
-      [stickerPropCache setObject:v46 forKey:stringByStandardizingPath2];
+      v34 = [AVTStickerImageProp initWithImageAtPath:"initWithImageAtPath:size:scale:position:renderLast:orientToCamera:rotation:palettesDescriptions:modifiers:adjustments:" size:? scale:? position:? renderLast:? orientToCamera:? rotation:? palettesDescriptions:? modifiers:? adjustments:?];
+      [(AVTStickerProp *)v34 setOriginalName:?];
+      [(AVTStickerProp *)v34 setOpacity:?];
+      [stickerPropCache setObject:? forKey:?];
     }
 
+    goto LABEL_47;
+  }
+
+  stringByStandardizingPath = [v47 objectForKey:?];
+  v31 = v45;
+  if (!stringByStandardizingPath)
+  {
+    v34 = 0;
     goto LABEL_48;
   }
 
-  stringByStandardizingPath = [v64 objectForKey:@"scene"];
-  v43 = v62;
-  if (!stringByStandardizingPath)
-  {
-    v46 = 0;
-    goto LABEL_49;
-  }
+  v37 = [v51 stringByAppendingPathComponent:?];
+  stringByStandardizingPath2 = [v37 stringByStandardizingPath];
 
-  v49 = [v68 stringByAppendingPathComponent:stringByStandardizingPath];
-  stringByStandardizingPath2 = [v49 stringByStandardizingPath];
-
-  v50 = [objc_opt_class() cacheKeyForSize:v62 position:stringByStandardizingPath2 rotation:v9 scale:v11 palettesDescriptions:v61 filePath:{v60, v59}];
-  v51 = [stickerPropCache objectForKey:v50];
-  if (!v51)
+  v38 = [objc_opt_class() cacheKeyForSize:? position:? rotation:? scale:? palettesDescriptions:? filePath:?];
+  v39 = [stickerPropCache objectForKey:?];
+  if (!v39)
   {
-    v66 = [MEMORY[0x1E695DFF8] fileURLWithPath:stringByStandardizingPath2 isDirectory:0];
-    v53 = [MEMORY[0x1E69DF388] avt_rootNodeForWorldAtURL:? options:? error:?];
-    v46 = 0;
-    if (v46)
+    v49 = [MEMORY[0x1E695DFF8] fileURLWithPath:? isDirectory:?];
+    v41 = [MEMORY[0x1E69DF388] avt_rootNodeForWorldAtURL:? options:? error:?];
+    v42 = 0;
+    v34 = v42;
+    if (v42)
     {
-      v54 = avt_default_log();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+      v43 = avt_default_log(v42);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        [(AVTStickerProp *)stringByStandardizingPath2 propFromDictionary:v46 assetsPath:v54];
+        [(AVTStickerProp *)stringByStandardizingPath2 propFromDictionary:v34 assetsPath:v43];
       }
-
-      v43 = v62;
     }
 
-    v52 = [[AVTStickerSceneProp alloc] initWithRootNode:v53 scale:v58 position:v43 rotation:array2 renderLast:array palettesDescriptions:v59 modifiers:v61 adjustments:v60];
-    [(AVTStickerProp *)v52 setOriginalName:stringByStandardizingPath];
-    [(AVTStickerProp *)v52 setOpacity:v16];
-    [stickerPropCache setObject:v52 forKey:v50];
+    v40 = [AVTStickerSceneProp initWithRootNode:"initWithRootNode:scale:position:rotation:renderLast:palettesDescriptions:modifiers:adjustments:" scale:? position:? rotation:? renderLast:? palettesDescriptions:? modifiers:? adjustments:?];
+    [(AVTStickerProp *)v40 setOriginalName:?];
+    [(AVTStickerProp *)v40 setOpacity:?];
+    [stickerPropCache setObject:? forKey:?];
 
-    goto LABEL_46;
+    goto LABEL_45;
   }
 
-  v46 = v51;
+  v34 = v39;
   if (array2)
   {
-    v52 = [(AVTStickerProp *)v51 cloneWithShaderModifiers:array2];
-LABEL_46:
+    v40 = [(AVTStickerProp *)v39 cloneWithShaderModifiers:?];
+LABEL_45:
 
-    v46 = v52;
-    v39 = v64;
-    v43 = v62;
+    v34 = v40;
+    v27 = v47;
+    v31 = v45;
   }
 
+LABEL_47:
 LABEL_48:
-LABEL_49:
 
-  v55 = *MEMORY[0x1E69E9840];
-
-  return v46;
+  return v34;
 }
 
 + (void)applyPalettesForAvatar:(id)avatar toNode:(id)node palettesDescriptions:(id)descriptions
 {
-  v38 = *MEMORY[0x1E69E9840];
   avatarCopy = avatar;
   nodeCopy = node;
   descriptionsCopy = descriptions;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v24 = avatarCopy;
-    v26 = avatarCopy;
-    v33 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v23 = descriptionsCopy;
+    v20 = avatarCopy;
+    v22 = avatarCopy;
+    v19 = descriptionsCopy;
     obj = descriptionsCopy;
-    v9 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v9 = [obj countByEnumeratingWithState:? objects:? count:?];
     if (v9)
     {
       v10 = v9;
-      v11 = *v34;
+      v11 = MEMORY[0];
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v10; i = (i + 1))
         {
-          if (*v34 != v11)
+          if (MEMORY[0] != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v33 + 1) + 8 * i);
-          v14 = [v13 objectForKey:{@"material", v23}];
-          v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          v30[0] = MEMORY[0x1E69E9820];
-          v30[1] = 3221225472;
-          v30[2] = __69__AVTStickerProp_applyPalettesForAvatar_toNode_palettesDescriptions___block_invoke;
-          v30[3] = &unk_1E7F47EA0;
-          v31 = v14;
-          v32 = v15;
-          v16 = v15;
-          v17 = v14;
-          [nodeCopy enumerateHierarchyUsingBlock:v30];
-          v18 = [v13 objectForKey:@"palette"];
-          v19 = [v26 colorPresetForCategory:AVTColorCategoryFromString(v18)];
-          makeMaterial = [v19 makeMaterial];
-          v28[0] = MEMORY[0x1E69E9820];
-          v28[1] = 3221225472;
-          v28[2] = __69__AVTStickerProp_applyPalettesForAvatar_toNode_palettesDescriptions___block_invoke_2;
-          v28[3] = &unk_1E7F48CC8;
-          v29 = makeMaterial;
-          v21 = makeMaterial;
-          [v16 enumerateObjectsUsingBlock:v28];
+          v13 = *(8 * i);
+          v25 = [v13 objectForKey:v19];
+          v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v14 = v26;
+          v15 = v25;
+          [nodeCopy enumerateHierarchyUsingBlock:?];
+          v16 = [v13 objectForKey:?];
+          AVTColorCategoryFromString(v16);
+          v17 = [v22 colorPresetForCategory:?];
+          makeMaterial = [v17 makeMaterial];
+          v18 = makeMaterial;
+          [v14 enumerateObjectsUsingBlock:?];
         }
 
-        v10 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v10 = [obj countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v10);
     }
 
-    descriptionsCopy = v23;
-    avatarCopy = v24;
+    descriptionsCopy = v19;
+    avatarCopy = v20;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __69__AVTStickerProp_applyPalettesForAvatar_toNode_palettesDescriptions___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
     v3 = [a2 model];
     v4 = [v3 materials];
 
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [v4 countByEnumeratingWithState:? objects:? count:?];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = MEMORY[0];
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v6; i = (i + 1))
         {
-          if (*v18 != v7)
+          if (MEMORY[0] != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v17 + 1) + 8 * i);
-          v10 = [v9 name];
-          v11 = [v10 isEqualToString:*(a1 + 32)];
+          v9 = [*(8 * i) name];
+          v10 = [v9 isEqualToString:?];
 
-          if (v11)
+          if (v10)
           {
-            [*(a1 + 40) addObject:v9];
+            [*(a1 + 40) addObject:?];
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [v4 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v6);
     }
-
-    v12 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v13 = *(a1 + 40);
-    v16 = [a2 model];
-    v14 = [v16 firstMaterial];
-    [v13 addObject:v14];
-
-    v15 = *MEMORY[0x1E69E9840];
+    v11 = *(a1 + 40);
+    v13 = [a2 model];
+    v12 = [v13 firstMaterial];
+    [v11 addObject:?];
   }
 }
 
@@ -687,22 +625,17 @@ void __69__AVTStickerProp_applyPalettesForAvatar_toNode_palettesDescriptions___b
 {
   v4 = [AVTStickerProp alloc];
   [(AVTStickerProp *)self size];
-  v6 = v5;
-  v8 = v7;
   [(AVTStickerProp *)self scale];
-  v21 = v9;
   [(AVTStickerProp *)self position];
-  v20 = v10;
-  renderLast = [(AVTStickerProp *)self renderLast];
-  orientToCamera = [(AVTStickerProp *)self orientToCamera];
+  [(AVTStickerProp *)self renderLast];
+  [(AVTStickerProp *)self orientToCamera];
   [(AVTStickerProp *)self rotation];
-  v19 = v13;
   palettesDescriptions = [(AVTStickerProp *)self palettesDescriptions];
   shaderModifiers = [(AVTStickerProp *)self shaderModifiers];
   adjustments = [(AVTStickerProp *)self adjustments];
-  v17 = [(AVTStickerProp *)v4 initWithSize:renderLast scale:orientToCamera position:palettesDescriptions renderLast:shaderModifiers orientToCamera:adjustments rotation:v6 palettesDescriptions:v8 shaderModifiers:v21 adjustments:v20, v19];
+  v8 = [AVTStickerProp initWithSize:v4 scale:"initWithSize:scale:position:renderLast:orientToCamera:rotation:palettesDescriptions:shaderModifiers:adjustments:" position:? renderLast:? orientToCamera:? rotation:? palettesDescriptions:? shaderModifiers:? adjustments:?];
 
-  return v17;
+  return v8;
 }
 
 - (id)cloneWithShaderModifiers:(id)modifiers
@@ -710,9 +643,9 @@ void __69__AVTStickerProp_applyPalettesForAvatar_toNode_palettesDescriptions___b
   modifiersCopy = modifiers;
   v5 = [(AVTStickerProp *)self copy];
   node = [(AVTStickerProp *)self node];
-  [v5 setNode:node];
+  [v5 setNode:?];
 
-  [v5 setShaderModifiers:modifiersCopy];
+  [v5 setShaderModifiers:?];
 
   return v5;
 }
@@ -722,23 +655,14 @@ void __69__AVTStickerProp_applyPalettesForAvatar_toNode_palettesDescriptions___b
   nodeCopy = node;
   if (self->_node != nodeCopy)
   {
-    v8 = nodeCopy;
+    v7 = nodeCopy;
     nodeName = [(AVTStickerProp *)self nodeName];
-    [(VFXNode *)v8 setName:nodeName];
+    [(VFXNode *)v7 setName:?];
 
-    if ([(AVTStickerProp *)self renderLast])
-    {
-      v7 = 100;
-    }
-
-    else
-    {
-      v7 = 0;
-    }
-
-    [(VFXNode *)v8 setRenderingOrder:v7];
+    [(AVTStickerProp *)self renderLast];
+    [(VFXNode *)v7 setRenderingOrder:?];
     objc_storeStrong(&self->_node, node);
-    nodeCopy = v8;
+    nodeCopy = v7;
   }
 }
 
@@ -747,15 +671,17 @@ void __69__AVTStickerProp_applyPalettesForAvatar_toNode_palettesDescriptions___b
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   originalName = [(AVTStickerProp *)self originalName];
-  v6 = [v3 stringWithFormat:@"%@-%@", v4, originalName];
+  v6 = [v3 stringWithFormat:v4, originalName];
 
   return v6;
 }
 
 - (NSString)nodeName
 {
-  v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[AVTStickerProp hash](self, "hash")}];
-  stringValue = [v2 stringValue];
+  v2 = MEMORY[0x1E696AD98];
+  [(AVTStickerProp *)self hash];
+  v3 = [v2 numberWithUnsignedInteger:?];
+  stringValue = [v3 stringValue];
 
   return stringValue;
 }
@@ -777,46 +703,31 @@ void __69__AVTStickerProp_applyPalettesForAvatar_toNode_palettesDescriptions___b
   if (cameraCopy && nodeCopy && orientToCamera)
   {
     [nodeCopy position];
-    [nodeCopy setPosition:v10];
+    [nodeCopy setPosition:?];
     [(AVTStickerProp *)self size];
-    v11 = 1.0;
-    if (v12 > 0.0)
+    if (v9 > 0.0)
     {
       [(AVTStickerProp *)self size];
-      v14 = v13;
       [(AVTStickerProp *)self size];
-      v11 = v14 / v15;
     }
 
     [(AVTStickerProp *)self position];
-    v17 = (v16 - head) * -2.0;
     camera = [cameraCopy camera];
     [camera fieldOfView];
-    v20 = v19 * 3.14159265 * 0.5 / 180.0;
-    v21 = tanf(v20);
+    v12 = v11 * 3.14159265 * 0.5 / 180.0;
+    tanf(v12);
 
     model = [nodeCopy model];
-    v36 = v17 * v21;
-    v23 = v11 * (v17 * v21);
-    v35 = v23;
-    *&v23 = v23;
-    [model setWidth:v23];
-    HIDWORD(v24) = HIDWORD(v36);
-    *&v24 = v17 * v21;
-    [model setHeight:v24];
+    [model setWidth:?];
+    [model setHeight:?];
     [nodeCopy position];
-    v34 = v25;
     [nodeCopy position];
-    v27.f64[0] = v35;
-    v27.f64[1] = v17 * v21;
-    v28 = vmulq_f64(v27, vcvtq_f64_f32(__PAIR64__(v26, v34)));
     __asm { FMOV            V1.2D, #0.5 }
 
-    v37 = COERCE_DOUBLE(vcvt_f32_f64(vmulq_f64(v28, _Q1)));
     [nodeCopy position];
-    [nodeCopy setPosition:v37];
+    [nodeCopy setPosition:?];
     [nodeCopy transform];
-    [cameraCopy convertTransform:0 toNode:?];
+    [cameraCopy convertTransform:? toNode:?];
     [nodeCopy setTransform:?];
   }
 }
@@ -832,119 +743,110 @@ void __69__AVTStickerProp_applyPalettesForAvatar_toNode_palettesDescriptions___b
 
 - (id)dictionaryWithTargetPath:(id)path
 {
-  v49[2] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   [(AVTStickerProp *)self size];
   if (v7 != *MEMORY[0x1E695F060] || v6 != *(MEMORY[0x1E695F060] + 8))
   {
-    v48[0] = @"width";
     v9 = MEMORY[0x1E696AD98];
     [(AVTStickerProp *)self size];
-    *&v10 = v10;
-    v11 = [v9 numberWithFloat:v10];
-    v48[1] = @"height";
-    v49[0] = v11;
-    v12 = MEMORY[0x1E696AD98];
+    v42 = [v9 numberWithFloat:?];
+    v10 = MEMORY[0x1E696AD98];
     [(AVTStickerProp *)self size];
-    *&v14 = v13;
-    v15 = [v12 numberWithFloat:v14];
-    v49[1] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:2];
-    [dictionary setObject:v16 forKeyedSubscript:@"size"];
+    v43 = [v10 numberWithFloat:?];
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
   [(AVTStickerProp *)self position];
-  v18 = vceqzq_f32(v17);
-  v18.i32[3] = v18.i32[2];
-  if ((vminvq_u32(v18) & 0x80000000) == 0)
+  v13 = vceqzq_f32(v12);
+  v13.i32[3] = v13.i32[2];
+  if ((vminvq_u32(v13) & 0x80000000) == 0)
   {
-    [(AVTStickerProp *)self position];
-    v20 = plistWithVector(v19);
-    [dictionary setObject:v20 forKeyedSubscript:@"position"];
+    position = [(AVTStickerProp *)self position];
+    v16 = plistWithVector(position, v15);
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
   if (![(AVTStickerProp *)self orientToCamera])
   {
-    v21 = [MEMORY[0x1E696AD98] numberWithBool:{-[AVTStickerProp orientToCamera](self, "orientToCamera")}];
-    [dictionary setObject:v21 forKeyedSubscript:@"orientToCamera"];
+    v17 = MEMORY[0x1E696AD98];
+    [(AVTStickerProp *)self orientToCamera];
+    v18 = [v17 numberWithBool:?];
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
   [(AVTStickerProp *)self rotation];
-  v23 = vceqzq_f32(v22);
-  v23.i32[3] = v23.i32[2];
-  if ((vminvq_u32(v23) & 0x80000000) == 0)
+  v20 = vceqzq_f32(v19);
+  v20.i32[3] = v20.i32[2];
+  if ((vminvq_u32(v20) & 0x80000000) == 0)
   {
-    [(AVTStickerProp *)self rotation];
-    v25 = plistWithVector(v24);
-    [dictionary setObject:v25 forKeyedSubscript:@"rotation"];
+    rotation = [(AVTStickerProp *)self rotation];
+    v23 = plistWithVector(rotation, v22);
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
   [(AVTStickerProp *)self scale];
-  v27 = vceqq_f32(v26, xmmword_1BB4F05D0);
-  v27.i32[3] = v27.i32[2];
-  if ((vminvq_u32(v27) & 0x80000000) == 0)
+  v25 = vceqq_f32(v24, xmmword_1BB4F05D0);
+  v25.i32[3] = v25.i32[2];
+  if ((vminvq_u32(v25) & 0x80000000) == 0)
   {
-    [(AVTStickerProp *)self scale];
-    v29 = plistWithVector(v28);
-    [dictionary setObject:v29 forKeyedSubscript:@"scale"];
+    scale = [(AVTStickerProp *)self scale];
+    v28 = plistWithVector(scale, v27);
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
   [(AVTStickerProp *)self opacity];
-  if (v30 != 1.0)
+  if (v29 != 1.0)
   {
     [(AVTStickerProp *)self opacity];
-    v32 = numberFromDouble(v31);
-    [dictionary setObject:v32 forKeyedSubscript:@"opacity"];
+    v31 = numberFromDouble(v30);
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
   if (![(AVTStickerProp *)self renderLast])
   {
-    v33 = [MEMORY[0x1E696AD98] numberWithBool:{-[AVTStickerProp renderLast](self, "renderLast")}];
-    [dictionary setObject:v33 forKeyedSubscript:@"renderLast"];
+    v32 = MEMORY[0x1E696AD98];
+    [(AVTStickerProp *)self renderLast];
+    v33 = [v32 numberWithBool:?];
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
   if ([(NSArray *)self->_shaderModifiers count])
   {
     array = [MEMORY[0x1E695DF70] array];
-    v43 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v46 = 0u;
     v35 = self->_shaderModifiers;
-    v36 = [(NSArray *)v35 countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v36 = [NSArray countByEnumeratingWithState:v35 objects:"countByEnumeratingWithState:objects:count:" count:0];
     if (v36)
     {
       v37 = v36;
-      v38 = *v44;
+      v38 = MEMORY[0];
       do
       {
-        for (i = 0; i != v37; ++i)
+        for (i = 0; i != v37; i = (i + 1))
         {
-          if (*v44 != v38)
+          if (MEMORY[0] != v38)
           {
             objc_enumerationMutation(v35);
           }
 
-          v40 = [*(*(&v43 + 1) + 8 * i) dictionaryWithTargetPath:{pathCopy, v43}];
-          [array addObject:v40];
+          v40 = [*(8 * i) dictionaryWithTargetPath:?];
+          [array addObject:?];
         }
 
-        v37 = [(NSArray *)v35 countByEnumeratingWithState:&v43 objects:v47 count:16];
+        v37 = [NSArray countByEnumeratingWithState:v35 objects:"countByEnumeratingWithState:objects:count:" count:?];
       }
 
       while (v37);
     }
 
-    [dictionary setObject:array forKeyedSubscript:@"shaders"];
+    [dictionary setObject:? forKeyedSubscript:?];
   }
 
   if ([(NSArray *)self->_palettesDescriptions count])
   {
-    [dictionary setObject:self->_palettesDescriptions forKeyedSubscript:@"palettes"];
+    [dictionary setObject:? forKeyedSubscript:?];
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -960,15 +862,13 @@ void __69__AVTStickerProp_applyPalettesForAvatar_toNode_palettesDescriptions___b
 
 + (void)propFromDictionary:(NSObject *)a3 assetsPath:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a2 description];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_1BB472000, a3, OS_LOG_TYPE_ERROR, "Error: could not load sticker scene prop at %@ with error: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_1BB472000, a3, OS_LOG_TYPE_ERROR, "Error: could not load sticker scene prop at %@ with error: %@", &v6, 0x16u);
 }
 
 @end

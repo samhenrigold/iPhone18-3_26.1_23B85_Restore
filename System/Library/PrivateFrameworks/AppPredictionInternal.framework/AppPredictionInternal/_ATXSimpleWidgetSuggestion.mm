@@ -109,7 +109,7 @@ LABEL_7:
 
 - (void)_setSuggestion:(id)suggestion
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
   WeakRetained = objc_loadWeakRetained(&self->_stack);
   v7 = [_ATXSimpleWidgetSuggestion _isSuggestion:suggestionCopy compatibleWithStack:WeakRetained];
@@ -124,10 +124,10 @@ LABEL_7:
       if (!v8)
       {
         v25 = objc_alloc(MEMORY[0x277D420E8]);
-        v33[0] = suggestionCopy;
-        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+        v32[0] = suggestionCopy;
+        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+        v27 = 0;
         v28 = 0;
-        v29 = 0;
         v11 = v25;
         v12 = 5;
         v16 = v10;
@@ -137,8 +137,8 @@ LABEL_7:
       if (v8 == 1)
       {
         v13 = objc_alloc(MEMORY[0x277D420E8]);
-        v32 = suggestionCopy;
-        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+        v31 = suggestionCopy;
+        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
         v14 = [v13 initWithLayoutType:3 oneByOneSuggestions:0 oneByTwoSuggestions:0 twoByTwoSuggestions:0 oneByFourSuggestions:0 twoByFourSuggestions:v10 fourByFourSuggestions:0 fourByEightSuggestions:0];
 LABEL_16:
         suggestionLayout = self->_suggestionLayout;
@@ -152,15 +152,15 @@ LABEL_16:
       {
         case 2:
           v15 = objc_alloc(MEMORY[0x277D420E8]);
-          v31 = suggestionCopy;
-          v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
-          v28 = v10;
-          v29 = 0;
+          v30 = suggestionCopy;
+          v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+          v27 = v10;
+          v28 = 0;
           v11 = v15;
           v12 = 10;
           goto LABEL_11;
         case 3:
-          uuid = __atxlog_handle_blending();
+          uuid = __atxlog_handle_blending(3);
           if (os_log_type_enabled(uuid, OS_LOG_TYPE_FAULT))
           {
             [(_ATXSimpleWidgetSuggestion *)uuid _setSuggestion:v18, v19, v20, v21, v22, v23, v24];
@@ -169,16 +169,16 @@ LABEL_16:
           goto LABEL_18;
         case 4:
           v9 = objc_alloc(MEMORY[0x277D420E8]);
-          v30 = suggestionCopy;
-          v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
-          v28 = 0;
-          v29 = v10;
+          v29 = suggestionCopy;
+          v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+          v27 = 0;
+          v28 = v10;
           v11 = v9;
           v12 = 16;
 LABEL_11:
           v16 = 0;
 LABEL_15:
-          v14 = [v11 initWithLayoutType:v12 oneByOneSuggestions:0 oneByTwoSuggestions:0 twoByTwoSuggestions:v16 oneByFourSuggestions:0 twoByFourSuggestions:0 fourByFourSuggestions:v28 fourByEightSuggestions:v29];
+          v14 = [v11 initWithLayoutType:v12 oneByOneSuggestions:0 oneByTwoSuggestions:0 twoByTwoSuggestions:v16 oneByFourSuggestions:0 twoByFourSuggestions:0 fourByFourSuggestions:v27 fourByEightSuggestions:v28];
           goto LABEL_16;
       }
     }
@@ -187,8 +187,6 @@ LABEL_15:
     [(ATXSuggestionLayout *)self->_suggestionLayout setUuidOfHighestConfidenceSuggestion:uuid];
 LABEL_18:
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_isSuggestion:(id)suggestion compatibleWithStack:(id)stack
@@ -200,33 +198,34 @@ LABEL_18:
 
   if (executableType != 3)
   {
-    v10 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v12 = __atxlog_handle_blending(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [(_ATXSimpleWidgetSuggestion *)v10 _isSuggestion:v11 compatibleWithStack:v12, v13, v14, v15, v16, v17];
+      [(_ATXSimpleWidgetSuggestion *)v12 _isSuggestion:v13 compatibleWithStack:v14, v15, v16, v17, v18, v19];
     }
 
     goto LABEL_8;
   }
 
-  if (([stackCopy sizeIsCompatibleWithWidgetSuggestion:suggestionCopy] & 1) == 0)
+  v10 = [stackCopy sizeIsCompatibleWithWidgetSuggestion:suggestionCopy];
+  if ((v10 & 1) == 0)
   {
-    v10 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v12 = __atxlog_handle_blending(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [(_ATXSimpleWidgetSuggestion *)v10 _isSuggestion:v18 compatibleWithStack:v19, v20, v21, v22, v23, v24];
+      [(_ATXSimpleWidgetSuggestion *)v12 _isSuggestion:v20 compatibleWithStack:v21, v22, v23, v24, v25, v26];
     }
 
 LABEL_8:
 
-    v9 = 0;
+    v11 = 0;
     goto LABEL_9;
   }
 
-  v9 = 1;
+  v11 = 1;
 LABEL_9:
 
-  return v9;
+  return v11;
 }
 
 - (_ATXHomeScreenStackState)stack

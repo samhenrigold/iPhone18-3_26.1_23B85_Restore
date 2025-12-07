@@ -31,25 +31,27 @@
 
 uint64_t __52__BKSHIDEventDigitizerPathAttributes_protobufSchema__block_invoke(uint64_t a1)
 {
-  protobufSchema_schema_317 = [MEMORY[0x1E698E750] buildSchemaForClass:*(a1 + 32) builder:&__block_literal_global_320];
+  v1 = [MEMORY[0x1E698E750] buildSchemaForClass:? builder:?];
+  v2 = protobufSchema_schema_317;
+  protobufSchema_schema_317 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 void __52__BKSHIDEventDigitizerPathAttributes_protobufSchema__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_pathIndex"];
-  [v2 addField:"_touchIdentifier"];
-  [v2 addField:"_userIdentifier"];
-  [v2 addField:"_hitTestContextCategory"];
-  [v2 addField:"_locus"];
-  [v2 addField:"_zGradient"];
-  [v2 addField:"_hitTestLocation"];
-  [v2 addField:"_preciseLocation"];
-  [v2 addField:"_simpleProvenance"];
-  [v2 addField:"_authenticationMessage"];
-  [v2 addField:"_securityAnalysis"];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
 }
 
 - (CGPoint)preciseLocation
@@ -73,24 +75,24 @@ void __52__BKSHIDEventDigitizerPathAttributes_protobufSchema__block_invoke_2(uin
 - (void)appendDescriptionToFormatter:(id)formatter
 {
   formatterCopy = formatter;
-  v4 = [formatterCopy appendInteger:self->_pathIndex withName:@"pathIndex"];
-  v5 = [formatterCopy appendInteger:self->_touchIdentifier withName:@"touchIdentifier"];
-  v6 = [formatterCopy appendInteger:self->_userIdentifier withName:@"userIdentifier"];
-  v7 = [formatterCopy appendInteger:self->_locus withName:@"locus"];
+  v4 = [formatterCopy appendInteger:? withName:?];
+  v5 = [formatterCopy appendInteger:? withName:?];
+  v6 = [formatterCopy appendInteger:? withName:?];
+  v7 = [formatterCopy appendInteger:? withName:?];
   v8 = NSStringFromBKSTouchHitTestContextCategory(self->_hitTestContextCategory);
-  [formatterCopy appendString:v8 withName:@"hitTestContextCategory"];
+  [formatterCopy appendString:? withName:?];
 
-  v9 = [formatterCopy appendFloat:@"zGradient" withName:self->_zGradient];
-  v10 = [formatterCopy appendPoint:@"hitTestLocation" withName:{self->_hitTestLocation.x, self->_hitTestLocation.y}];
-  v11 = [formatterCopy appendPoint:@"preciseLocation" withName:{self->_preciseLocation.x, self->_preciseLocation.y}];
-  v12 = [formatterCopy appendObject:self->_authenticationMessage withName:@"authenticationMessage" skipIfNil:1];
-  v13 = [formatterCopy appendObject:self->_simpleProvenance withName:@"simpleProvenance" skipIfNil:1];
-  v14 = [formatterCopy appendObject:self->_securityAnalysis withName:@"securityAnalysis" skipIfNil:1];
+  v9 = [formatterCopy appendFloat:? withName:?];
+  v10 = [formatterCopy appendPoint:? withName:?];
+  v11 = [formatterCopy appendPoint:? withName:?];
+  v12 = [formatterCopy appendObject:? withName:? skipIfNil:?];
+  v13 = [formatterCopy appendObject:? withName:? skipIfNil:?];
+  v14 = [formatterCopy appendObject:? withName:? skipIfNil:?];
 }
 
 - (void)setProvenance:(id)provenance
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   provenanceCopy = provenance;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -102,8 +104,6 @@ void __52__BKSHIDEventDigitizerPathAttributes_protobufSchema__block_invoke_2(uin
     simpleProvenance = self->_simpleProvenance;
     self->_simpleProvenance = v7;
 LABEL_8:
-
-    v10 = *MEMORY[0x1E69E9840];
 
     return;
   }
@@ -126,28 +126,28 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"setProvenance doesn't know what to do with %@", objc_opt_class()];
+  v10 = [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v12 = NSStringFromSelector(a2);
-    v13 = objc_opt_class();
-    v14 = NSStringFromClass(v13);
+    v11 = NSStringFromSelector(a2);
+    v12 = objc_opt_class();
+    v13 = NSStringFromClass(v12);
     *buf = 138544642;
-    v17 = v12;
-    v18 = 2114;
-    v19 = v14;
-    v20 = 2048;
+    v16 = v11;
+    v17 = 2114;
+    v18 = v13;
+    v19 = 2048;
     selfCopy = self;
-    v22 = 2114;
-    v23 = @"BKSHIDEventAttributes.m";
-    v24 = 1024;
-    v25 = 654;
-    v26 = 2114;
-    v27 = v11;
+    v21 = 2114;
+    v22 = @"BKSHIDEventAttributes.m";
+    v23 = 1024;
+    v24 = 654;
+    v25 = 2114;
+    v26 = v10;
     _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v11 UTF8String];
+  [v10 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -156,7 +156,7 @@ LABEL_7:
 {
   v3 = [BKSHIDEventDeferringChangeBasis alloc];
   provenance = [(BKSHIDEventDigitizerPathAttributes *)self provenance];
-  v5 = [(BKSHIDEventDeferringChangeBasis *)v3 initWithEventProvenance:provenance];
+  v5 = [(BKSHIDEventDeferringChangeBasis *)v3 initWithEventProvenance:?];
 
   return v5;
 }
@@ -180,41 +180,39 @@ LABEL_7:
   {
     v5 = equalCopy;
     v6 = v5;
-    if (self->_pathIndex == v5[4] && self->_touchIdentifier == *(v5 + 5) && self->_userIdentifier == *(v5 + 6) && self->_locus == *(v5 + 16) && self->_hitTestContextCategory == v5[5] && self->_zGradient == *(v5 + 7) && self->_hitTestLocation.x == *(v5 + 8) && self->_hitTestLocation.y == *(v5 + 9) && self->_preciseLocation.x == *(v5 + 10) && self->_preciseLocation.y == *(v5 + 11) && (authenticationMessage = self->_authenticationMessage, v8 = v6[6], BSEqualObjects()) && (simpleProvenance = self->_simpleProvenance, v10 = v6[1], BSEqualObjects()))
+    if (self->_pathIndex == *(v5 + 4) && self->_touchIdentifier == *(v5 + 5) && self->_userIdentifier == *(v5 + 6) && self->_locus == v5[16] && self->_hitTestContextCategory == *(v5 + 5) && self->_zGradient == *(v5 + 7) && self->_hitTestLocation.x == *(v5 + 8) && self->_hitTestLocation.y == *(v5 + 9) && self->_preciseLocation.x == *(v5 + 10) && self->_preciseLocation.y == *(v5 + 11) && BSEqualObjects() && BSEqualObjects())
     {
-      securityAnalysis = self->_securityAnalysis;
-      v12 = v6[7];
-      v13 = BSEqualObjects();
+      v7 = BSEqualObjects();
     }
 
     else
     {
-      v13 = 0;
+      v7 = 0;
     }
   }
 
   else
   {
-    v13 = 0;
+    v7 = 0;
   }
 
-  return v13;
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
-  *(v4 + 32) = self->_pathIndex;
-  *(v4 + 20) = self->_touchIdentifier;
-  *(v4 + 24) = self->_userIdentifier;
-  *(v4 + 40) = self->_hitTestContextCategory;
+  v4 = [objc_opt_class() allocWithZone:?];
+  v4[4] = self->_pathIndex;
+  *(v4 + 5) = self->_touchIdentifier;
+  *(v4 + 6) = self->_userIdentifier;
+  v4[5] = self->_hitTestContextCategory;
   *(v4 + 16) = self->_locus;
-  *(v4 + 28) = self->_zGradient;
-  *(v4 + 64) = self->_hitTestLocation;
-  *(v4 + 80) = self->_preciseLocation;
-  objc_storeStrong((v4 + 48), self->_authenticationMessage);
-  objc_storeStrong((v4 + 8), self->_simpleProvenance);
-  objc_storeStrong((v4 + 56), self->_securityAnalysis);
+  *(v4 + 7) = LODWORD(self->_zGradient);
+  *(v4 + 4) = self->_hitTestLocation;
+  *(v4 + 5) = self->_preciseLocation;
+  objc_storeStrong(v4 + 6, self->_authenticationMessage);
+  objc_storeStrong(v4 + 1, self->_simpleProvenance);
+  objc_storeStrong(v4 + 7, self->_securityAnalysis);
   return v4;
 }
 

@@ -16,16 +16,14 @@
 
 + (id)uv_errorWithDescription:()UVObjCAdditions
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v10 = *MEMORY[0x277CCA450];
-  v11[0] = a3;
+  v10[1] = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277CCA450];
+  v10[0] = a3;
   v4 = MEMORY[0x277CBEAC0];
   v5 = a3;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [self uv_errorWithUserInfo:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

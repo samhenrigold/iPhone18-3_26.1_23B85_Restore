@@ -9,23 +9,22 @@
 - (AAFlushManager)initWithAppSessionManager:(id)manager client:(id)client endpoint:(id)endpoint config:(id)config
 {
   ObjectType = swift_getObjectType();
-  v12 = *(manager + OBJC_IVAR___AAAppSessionManager_appSessionManager);
   type metadata accessor for URLSessionUploadClientFactory();
-  v13 = swift_allocObject();
+  v12 = swift_allocObject();
   clientCopy = client;
   swift_unknownObjectRetain_n();
   configCopy = config;
-  v16 = clientCopy;
-  v17 = configCopy;
+  v15 = clientCopy;
+  v16 = configCopy;
   managerCopy = manager;
 
-  *(&self->super.isa + OBJC_IVAR___AAFlushManager_flushManager) = sub_1B69D6A7C(v19, v16, endpoint, 0, v17, v13);
-  v22.receiver = self;
-  v22.super_class = ObjectType;
-  v20 = [(AAFlushManager *)&v22 init];
+  *(&self->super.isa + OBJC_IVAR___AAFlushManager_flushManager) = sub_1B69D6A7C(v18, v15, endpoint, 0, v16, v12);
+  v21.receiver = self;
+  v21.super_class = ObjectType;
+  v19 = [(AAFlushManager *)&v21 init];
 
   swift_unknownObjectRelease();
-  return v20;
+  return v19;
 }
 
 - (void)flushWithCompletion:(id)completion
@@ -45,10 +44,9 @@
     v6 = 0;
   }
 
-  v8 = *(&self->super.isa + OBJC_IVAR___AAFlushManager_flushManager);
   selfCopy = self;
   sub_1B698C230(0, 0, v7, v6);
-  sub_1B69A3100(v7);
+  sub_1B69A3100(v7, v6);
 }
 
 - (AAFlushManager)init

@@ -8,6 +8,8 @@
 - (int64_t)historyTimeout;
 - (int64_t)pasteboardHistorySettingsVersion;
 - (void)setHistoryTimeout:(int64_t)timeout;
+- (void)setIsContinuityEnabled:(BOOL)enabled;
+- (void)setIsFTEEngaged:(BOOL)engaged;
 - (void)setIsPasteboardHistoryEnabled:(BOOL)enabled;
 - (void)setPasteboardHistorySettingsVersion:(int64_t)version;
 @end
@@ -55,6 +57,20 @@
   return v3 & 1;
 }
 
+- (void)setIsContinuityEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v4 = MEMORY[0x277D85000];
+  v5 = *((*MEMORY[0x277D85000] & self->super.isa) + 0x78);
+  selfCopy = self;
+  if ((v5() & 1) != enabledCopy)
+  {
+    v6 = (*((*v4 & selfCopy->super.isa) + 0x58))();
+    v7 = sub_26B8C7E84();
+    [v6 setBool:enabledCopy forKey:v7];
+  }
+}
+
 - (BOOL)isFTEEngaged
 {
   v2 = *((*MEMORY[0x277D85000] & self->super.isa) + 0x58);
@@ -64,6 +80,20 @@
   bOOLForKey_ = [v4 BOOLForKey_];
 
   return bOOLForKey_;
+}
+
+- (void)setIsFTEEngaged:(BOOL)engaged
+{
+  engagedCopy = engaged;
+  v4 = MEMORY[0x277D85000];
+  v5 = *((*MEMORY[0x277D85000] & self->super.isa) + 0x90);
+  selfCopy = self;
+  if ((v5() & 1) != engagedCopy)
+  {
+    v6 = (*((*v4 & selfCopy->super.isa) + 0x58))();
+    v7 = sub_26B8C7E84();
+    [v6 setBool:engagedCopy forKey:v7];
+  }
 }
 
 - (BOOL)isPasteboardHistoryEnabled

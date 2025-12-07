@@ -1,6 +1,5 @@
 @interface PDFExtensionViewController
 - (PDFExtensionViewController)init;
-- (uint64_t)updatePDFViewLayout:(double)layout scrollViewFrame:(double)frame safeAreaInsets:(double)insets zoomScale:(double)scale;
 - (void)_annotationHitNotification:(id)notification;
 - (void)_annotationLongPressNotification:(id)notification;
 - (void)_goToDestination:(id)destination;
@@ -30,6 +29,7 @@
 - (void)setupPDFView;
 - (void)snapshotViewRect:(CGRect)rect forWidth:(double)width afterScreenUpdates:(BOOL)updates;
 - (void)unlockWithPassword:(id)password;
+- (void)updatePDFViewLayout:(double)layout scrollViewFrame:(double)frame safeAreaInsets:(double)insets zoomScale:(double)scale;
 - (void)viewDidLoad;
 @end
 
@@ -141,16 +141,15 @@
   [(PDFView *)v3->pdfView pdfDocumentViewSize];
   v3->documentViewSize.width = v4;
   v3->documentViewSize.height = v5;
-  v6.n128_u64[0] = 0;
-  v7.n128_u64[0] = 0;
-  v8 = PDFRectMake(v6, v7, self->_private->documentViewSize.width, self->_private->documentViewSize.height);
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
+  PDFRectMake();
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
+  v13 = v12;
   view = [(PDFExtensionViewController *)self view];
-  [view setFrame:{v8, v10, v12, v14}];
+  [view setFrame:{v7, v9, v11, v13}];
 
-  [(PDFView *)self->_private->pdfView setFrame:v8, v10, v12, v14];
+  [(PDFView *)self->_private->pdfView setFrame:v7, v9, v11, v13];
   [(PDFExtensionViewController *)self _setupDocumentViewSize];
 
   [(PDFExtensionViewController *)self _updatePageCount];
@@ -318,56 +317,53 @@
   }
 }
 
-- (uint64_t)updatePDFViewLayout:(double)layout scrollViewFrame:(double)frame safeAreaInsets:(double)insets zoomScale:(double)scale
+- (void)updatePDFViewLayout:(double)layout scrollViewFrame:(double)frame safeAreaInsets:(double)insets zoomScale:(double)scale
 {
-  v23 = PDFRectScale(a10, a11, a12, a13, 1.0 / a14);
-  v25 = v24;
-  v26 = self[124];
-  v28 = v27 + v24 + *(v26 + 24);
-  v30.n128_u64[0] = 0;
-  v31.n128_u64[0] = 0;
-  v32 = PDFRectMake(v30, v31, v28, v29 + v23 + *(v26 + 32));
-  v34 = v33;
-  v36 = v35;
-  v38 = v37;
+  v16 = PDFRectScale(a10, a11, a12, a13, 1.0 / a14);
+  v18 = v17;
+  PDFRectMake();
+  v20 = v19;
+  v22 = v21;
+  v24 = v23;
+  v26 = v25;
   view = [self view];
   [view frame];
-  v68.origin.x = v40;
-  v68.origin.y = v41;
-  v68.size.width = v42;
-  v68.size.height = v43;
-  v67.origin.x = v32;
-  v67.origin.y = v34;
-  v67.size.width = v36;
-  v67.size.height = v38;
-  v44 = PDFRectEqualToRect(v67, v68);
+  v57.origin.x = v28;
+  v57.origin.y = v29;
+  v57.size.width = v30;
+  v57.size.height = v31;
+  v56.origin.x = v20;
+  v56.origin.y = v22;
+  v56.size.width = v24;
+  v56.size.height = v26;
+  v32 = PDFRectEqualToRect(v56, v57);
 
-  if (!v44)
+  if (!v32)
   {
     view2 = [self view];
-    [view2 setFrame:{v32, v34, v36, v38}];
+    [view2 setFrame:{v20, v22, v24, v26}];
 
     [*(self[124] + 8) extensionToHost:&unk_1F4184410];
   }
 
   [*(self[124] + 16) frame];
-  if (vabdd_f64(v25, v46.n128_f64[0]) > 0.00000011920929 || ([*(self[124] + 16) frame], vabdd_f64(v23, v47.n128_f64[0]) > 0.00000011920929))
+  if (vabdd_f64(v18, v34) > 0.00000011920929 || ([*(self[124] + 16) frame], vabdd_f64(v16, v35) > 0.00000011920929))
   {
-    v46.n128_f64[0] = v25;
-    v47.n128_f64[0] = v23;
-    [*(self[124] + 16) setFrame:{PDFRectMake(v46, v47, *(self[124] + 24), *(self[124] + 32))}];
+    v36 = *(self[124] + 16);
+    PDFRectMake();
+    [v36 setFrame:?];
   }
 
   view3 = [self view];
   [view3 convertRect:*(self[124] + 16) toView:{a2, layout, frame, insets}];
-  v50 = v49;
-  v52 = v51;
-  v54 = v53;
-  v56 = v55;
+  v39 = v38;
+  v41 = v40;
+  v43 = v42;
+  v45 = v44;
 
-  v57 = *(self[124] + 16);
+  v46 = *(self[124] + 16);
 
-  return [v57 updatePDFViewLayout:v50 scrollViewFrame:v52 zoomScale:{v54, v56, scale, a7, a8, a9}];
+  return [v46 updatePDFViewLayout:v39 scrollViewFrame:v41 zoomScale:{v43, v45, scale, a7, a8, a9}];
 }
 
 - (void)handleGesture:(unint64_t)gesture state:(int64_t)state location:(CGPoint)location locationOfFirstTouch:(CGPoint)touch isIndirectTouch:(BOOL)indirectTouch
@@ -854,29 +850,29 @@
 {
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
-  v22 = [userInfo objectForKey:@"topLeftSelectionPoint"];
+  v18 = [userInfo objectForKey:@"topLeftSelectionPoint"];
 
   v6 = self->_private;
-  v7 = [v22 objectAtIndex:0];
+  v7 = [v18 objectAtIndex:0];
   [v7 floatValue];
-  v9 = v8;
-  v10 = [v22 objectAtIndex:1];
-  [v10 floatValue];
-  v6->topLeftSelectionPoint.x = PDFPointMake(v9, v11);
-  v6->topLeftSelectionPoint.y = v12;
+  v8 = [v18 objectAtIndex:1];
+  [v8 floatValue];
+  PDFPointMake();
+  v6->topLeftSelectionPoint.x = v9;
+  v6->topLeftSelectionPoint.y = v10;
 
   userInfo2 = [notificationCopy userInfo];
 
-  v14 = [userInfo2 objectForKey:@"bottomRightSelectionPoint"];
+  v12 = [userInfo2 objectForKey:@"bottomRightSelectionPoint"];
 
-  v15 = self->_private;
-  v16 = [v14 objectAtIndex:0];
-  [v16 floatValue];
-  v18 = v17;
-  v19 = [v14 objectAtIndex:1];
-  [v19 floatValue];
-  v15->bottomRightSelectionPoint.x = PDFPointMake(v18, v20);
-  v15->bottomRightSelectionPoint.y = v21;
+  v13 = self->_private;
+  v14 = [v12 objectAtIndex:0];
+  [v14 floatValue];
+  v15 = [v12 objectAtIndex:1];
+  [v15 floatValue];
+  PDFPointMake();
+  v13->bottomRightSelectionPoint.x = v16;
+  v13->bottomRightSelectionPoint.y = v17;
 
   [(PDFExtensionViewController *)self _updateTextSelectionPoints];
 }

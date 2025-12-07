@@ -234,12 +234,11 @@ LABEL_17:
 {
   _pullMarker = [(CPLPrequeliteChangePipe *)self _pullMarker];
   _pushMarker = [(CPLPrequeliteChangePipe *)self _pushMarker];
-  v5 = _pushMarker >= _pullMarker;
   result = _pushMarker - _pullMarker;
-  if (!v5)
+  if (_pushMarker < _pullMarker)
   {
-    v7 = sub_1001C1E98(self);
-    return [(CPLPrequeliteChangePipe *)v7 hasQueuedBatches];
+    sub_1001C1E98(self, _pullMarker, _pushMarker);
+    return [(CPLPrequeliteChangePipe *)v6 hasQueuedBatches];
   }
 
   return result;
@@ -359,48 +358,49 @@ LABEL_16:
 
   if (_pullMarker != _pushMarker)
   {
-    v29 = a2;
+    v30 = a2;
     errorCopy = error;
     *batch = objc_alloc_init(CPLChangeBatch);
     pqStore = [(CPLPrequeliteStorage *)self pqStore];
     pqlConnection = [pqStore pqlConnection];
 
     mainTable = [(CPLPrequeliteStorage *)self mainTable];
-    v30 = _pullMarker;
-    v31 = pqlConnection;
+    v31 = _pullMarker;
+    v32 = pqlConnection;
     v12 = [pqlConnection cplFetch:{@"SELECT scopeIndex, serializedRecord FROM %@ WHERE batch_marker == %lu ORDER BY rowid", mainTable, _pullMarker}];
 
-    v33 = v12;
+    v34 = v12;
     [v12 enumerateObjects:&stru_10027BB70];
-    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v13 = v39 = 0u;
-    v14 = [v13 countByEnumeratingWithState:&v36 objects:v46 count:16];
+    v39 = 0u;
+    v13 = v40 = 0u;
+    v14 = [v13 countByEnumeratingWithState:&v37 objects:v47 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v37;
-      v34 = *v37;
+      v16 = *v38;
+      v35 = *v38;
       do
       {
         for (i = 0; i != v15; i = i + 1)
         {
-          if (*v37 != v16)
+          if (*v38 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v36 + 1) + 8 * i);
+          v18 = *(*(&v37 + 1) + 8 * i);
           scopedIdentifier = [v18 scopedIdentifier];
           scopeIndex = [scopedIdentifier scopeIndex];
           if (scopeIndex == 0x7FFFFFFFFFFFFFFFLL)
           {
-            sub_1001C2044(v29, self);
+            sub_1001C2044(v30, self);
           }
 
           v21 = scopeIndex;
-          if ([(CPLPrequeliteStorage *)self isLocalScopeIndexValid:scopeIndex])
+          v22 = [(CPLPrequeliteStorage *)self isLocalScopeIndexValid:scopeIndex];
+          if (v22)
           {
             [v18 setScopeIndex:0];
             [*batch addRecord:v18];
@@ -408,62 +408,62 @@ LABEL_16:
 
           else if ((_CPLSilentLogging & 1) == 0)
           {
-            v22 = sub_10016BF70();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            v23 = sub_10016BF70(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
             {
               abstractObject = [(CPLPrequeliteChangePipe *)self abstractObject];
               [abstractObject name];
-              v25 = v24 = v13;
+              v26 = v25 = v13;
               *buf = 138412802;
-              v41 = v25;
-              v42 = 2112;
-              v43 = v18;
-              v44 = 2048;
-              v45 = v21;
-              _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%@ dropping %@ (scope index %ld id no longer valid)", buf, 0x20u);
+              v42 = v26;
+              v43 = 2112;
+              v44 = v18;
+              v45 = 2048;
+              v46 = v21;
+              _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%@ dropping %@ (scope index %ld id no longer valid)", buf, 0x20u);
 
-              v13 = v24;
-              v16 = v34;
+              v13 = v25;
+              v16 = v35;
             }
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v36 objects:v46 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v37 objects:v47 count:16];
       }
 
       while (v15);
     }
 
-    lastCPLError = [v31 lastCPLError];
+    lastCPLError = [v32 lastCPLError];
 
     if (lastCPLError)
     {
       if (errorCopy)
       {
-        [v31 lastCPLError];
-        *errorCopy = v27 = 0;
+        [v32 lastCPLError];
+        *errorCopy = v28 = 0;
 LABEL_28:
 
-        return v27;
+        return v28;
       }
     }
 
-    else if ([(CPLPrequeliteChangePipe *)self _setPullMarker:v30 + 1 error:errorCopy])
+    else if ([(CPLPrequeliteChangePipe *)self _setPullMarker:v31 + 1 error:errorCopy])
     {
-      if (v30 + 1 - *(&self->_logDomain + 4) < 0x15)
+      if (v31 + 1 - *(&self->_logDomain + 4) < 0x15)
       {
-        v27 = 1;
+        v28 = 1;
       }
 
       else
       {
-        v27 = [(CPLPrequeliteChangePipe *)self compactChangeBatchesWithError:errorCopy];
+        v28 = [(CPLPrequeliteChangePipe *)self compactChangeBatchesWithError:errorCopy];
       }
 
       goto LABEL_28;
     }
 
-    v27 = 0;
+    v28 = 0;
     goto LABEL_28;
   }
 
@@ -483,86 +483,87 @@ LABEL_28:
 
   if (_pullMarker >= _pushMarker)
   {
-    v28 = 0;
+    v29 = 0;
   }
 
   else
   {
-    v24 = a2;
-    v28 = objc_alloc_init(CPLChangeBatch);
+    v25 = a2;
+    v29 = objc_alloc_init(CPLChangeBatch);
     pqStore = [(CPLPrequeliteStorage *)self pqStore];
     pqlConnection = [pqStore pqlConnection];
 
     mainTable = [(CPLPrequeliteStorage *)self mainTable];
-    v26 = pqlConnection;
+    v27 = pqlConnection;
     v9 = [pqlConnection cplFetch:{@"SELECT scopeIndex, serializedRecord FROM %@ WHERE batch_marker == %lu ORDER BY rowid", mainTable, _pullMarker}];
 
-    v25 = v9;
+    v26 = v9;
     [v9 enumerateObjects:&stru_10027BB90];
-    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v10 = v32 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v29 objects:v39 count:16];
+    v32 = 0u;
+    v10 = v33 = 0u;
+    v11 = [v10 countByEnumeratingWithState:&v30 objects:v40 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v30;
-      v27 = *v30;
+      v13 = *v31;
+      v28 = *v31;
       do
       {
         for (i = 0; i != v12; i = i + 1)
         {
-          if (*v30 != v13)
+          if (*v31 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v29 + 1) + 8 * i);
+          v15 = *(*(&v30 + 1) + 8 * i);
           scopedIdentifier = [v15 scopedIdentifier];
           scopeIndex = [scopedIdentifier scopeIndex];
           if (scopeIndex == 0x7FFFFFFFFFFFFFFFLL)
           {
-            sub_1001C21A8(v24, self);
+            sub_1001C21A8(v25, self);
           }
 
           v18 = scopeIndex;
-          if ([(CPLPrequeliteStorage *)self isLocalScopeIndexValid:scopeIndex])
+          v19 = [(CPLPrequeliteStorage *)self isLocalScopeIndexValid:scopeIndex];
+          if (v19)
           {
             [v15 setScopeIndex:0];
-            [v28 addRecord:v15];
+            [v29 addRecord:v15];
           }
 
           else if ((_CPLSilentLogging & 1) == 0)
           {
-            v19 = sub_10016BF70();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            v20 = sub_10016BF70(v19);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               [(CPLPrequeliteChangePipe *)self abstractObject];
-              v21 = v20 = v10;
-              name = [v21 name];
+              v22 = v21 = v10;
+              name = [v22 name];
               *buf = 138412802;
-              v34 = name;
-              v35 = 2112;
-              v36 = v15;
-              v37 = 2048;
-              v38 = v18;
-              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%@ dropping %@ (scope index %ld id no longer valid)", buf, 0x20u);
+              v35 = name;
+              v36 = 2112;
+              v37 = v15;
+              v38 = 2048;
+              v39 = v18;
+              _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%@ dropping %@ (scope index %ld id no longer valid)", buf, 0x20u);
 
-              v10 = v20;
-              v13 = v27;
+              v10 = v21;
+              v13 = v28;
             }
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v29 objects:v39 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v30 objects:v40 count:16];
       }
 
       while (v12);
     }
   }
 
-  return v28;
+  return v29;
 }
 
 - (BOOL)popNextBatchWithError:(id *)error
@@ -570,7 +571,7 @@ LABEL_28:
   _pullMarker = [(CPLPrequeliteChangePipe *)self _pullMarker];
   if (_pullMarker >= [(CPLPrequeliteChangePipe *)self _pushMarker])
   {
-    v8 = sub_1001C230C(self);
+    sub_1001C230C(self);
     LOBYTE(v7) = [(CPLPrequeliteChangePipe *)v8 hasSomeChangeWithScopedIdentifier:v9, v10];
   }
 
@@ -812,7 +813,7 @@ LABEL_10:
 
 - (id)allChangeBatches
 {
-  v25 = objc_alloc_init(NSMutableArray);
+  v26 = objc_alloc_init(NSMutableArray);
   pqStore = [(CPLPrequeliteStorage *)self pqStore];
   pqlConnection = [pqStore pqlConnection];
 
@@ -822,7 +823,7 @@ LABEL_10:
 
   if ([v7 next])
   {
-    v24 = pqlConnection;
+    v25 = pqlConnection;
     v8 = 0;
     v9 = -1;
     v10 = &_CPLSilentLogging;
@@ -838,7 +839,7 @@ LABEL_10:
         v15 = v14;
         if (v8)
         {
-          [v25 addObject:v8];
+          [v26 addObject:v8];
         }
 
         v16 = objc_alloc_init(v11[41]);
@@ -847,7 +848,8 @@ LABEL_10:
         v8 = v16;
       }
 
-      if ([(CPLPrequeliteStorage *)self isLocalScopeIndexValid:v13])
+      v17 = [(CPLPrequeliteStorage *)self isLocalScopeIndexValid:v13];
+      if (v17)
       {
         [v12 setScopeIndex:0];
         [v8 addRecord:v12];
@@ -855,27 +857,27 @@ LABEL_10:
 
       else if ((*v10 & 1) == 0)
       {
-        v17 = sub_10016BF70();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v18 = sub_10016BF70(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           abstractObject = [(CPLPrequeliteChangePipe *)self abstractObject];
           [abstractObject name];
-          v26 = v9;
+          v27 = v9;
           selfCopy = self;
-          v20 = v11;
-          v22 = v21 = v10;
+          v21 = v11;
+          v23 = v22 = v10;
           *buf = 138412802;
-          v28 = v22;
-          v29 = 2112;
-          v30 = v12;
-          v31 = 2048;
-          v32 = v13;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%@ dropping %@ (scope index %ld id no longer valid)", buf, 0x20u);
+          v29 = v23;
+          v30 = 2112;
+          v31 = v12;
+          v32 = 2048;
+          v33 = v13;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%@ dropping %@ (scope index %ld id no longer valid)", buf, 0x20u);
 
-          v10 = v21;
-          v11 = v20;
+          v10 = v22;
+          v11 = v21;
           self = selfCopy;
-          v9 = v26;
+          v9 = v27;
         }
       }
     }
@@ -883,10 +885,10 @@ LABEL_10:
     while (([v7 next] & 1) != 0);
     if (v8)
     {
-      [v25 addObject:v8];
+      [v26 addObject:v8];
     }
 
-    pqlConnection = v24;
+    pqlConnection = v25;
   }
 
   else
@@ -894,7 +896,7 @@ LABEL_10:
     v8 = 0;
   }
 
-  return v25;
+  return v26;
 }
 
 - (void)writeTransactionDidFail

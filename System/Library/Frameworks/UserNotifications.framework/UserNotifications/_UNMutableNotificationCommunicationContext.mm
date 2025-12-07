@@ -15,7 +15,7 @@
 
 + (id)mutableContextFromINIntent:(id)intent
 {
-  v103 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   v4 = objc_alloc_init(_UNMutableNotificationCommunicationContext);
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
@@ -28,50 +28,50 @@
   v8 = MEMORY[0x1E696AEC0];
   v9 = objc_opt_class();
   v10 = NSStringFromClass(v9);
-  v86 = [v8 stringWithFormat:@"Persisting INImage for Intent Type '%@':", v10];
+  v85 = [v8 stringWithFormat:@"Persisting INImage for Intent Type '%@':", v10];
 
-  v95 = 0;
-  v96 = &v95;
-  v97 = 0x2050000000;
+  v94 = 0;
+  v95 = &v94;
+  v96 = 0x2050000000;
   v11 = getINSendMessageIntentClass_softClass;
-  v98 = getINSendMessageIntentClass_softClass;
+  v97 = getINSendMessageIntentClass_softClass;
   if (!getINSendMessageIntentClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getINSendMessageIntentClass_block_invoke;
-    v100 = &unk_1E7CFF990;
-    *&v101 = &v95;
+    v99 = &unk_1E7CFF990;
+    *&v100 = &v94;
     __getINSendMessageIntentClass_block_invoke(buf);
-    v11 = v96[3];
+    v11 = v95[3];
   }
 
   v12 = v11;
-  _Block_object_dispose(&v95, 8);
+  _Block_object_dispose(&v94, 8);
   if (objc_opt_isKindOfClass())
   {
-    v93 = 0u;
-    v94 = 0u;
-    v91 = 0u;
     v92 = 0u;
+    v93 = 0u;
+    v90 = 0u;
+    v91 = 0u;
     recipients = [intentCopy recipients];
     v14 = 0;
-    v15 = [recipients countByEnumeratingWithState:&v91 objects:v102 count:16];
+    v15 = [recipients countByEnumeratingWithState:&v90 objects:v101 count:16];
     if (v15)
     {
       v16 = 0;
-      v17 = *v92;
+      v17 = *v91;
       do
       {
         for (i = 0; i != v15; ++i)
         {
           v19 = v16;
-          if (*v92 != v17)
+          if (*v91 != v17)
           {
             objc_enumerationMutation(recipients);
           }
 
-          isMe = [*(*(&v91 + 1) + 8 * i) isMe];
+          isMe = [*(*(&v90 + 1) + 8 * i) isMe];
           v14 |= isMe;
           if (isMe)
           {
@@ -86,7 +86,7 @@
           v16 += v21;
         }
 
-        v15 = [recipients countByEnumeratingWithState:&v91 objects:v102 count:16];
+        v15 = [recipients countByEnumeratingWithState:&v90 objects:v101 count:16];
       }
 
       while (v15);
@@ -121,7 +121,7 @@
         v37 = v36;
         _uri = [image _uri];
         *buf = 138543618;
-        *&buf[4] = v86;
+        *&buf[4] = v85;
         *&buf[12] = 2112;
         *&buf[14] = _uri;
         _os_log_impl(&dword_1B85E3000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@ sender image _uri: %@", buf, 0x16u);
@@ -137,7 +137,7 @@
         v40 = v39;
         _uri2 = [image _uri];
         *buf = 138543618;
-        *&buf[4] = v86;
+        *&buf[4] = v85;
         *&buf[12] = 2112;
         *&buf[14] = _uri2;
         _os_log_impl(&dword_1B85E3000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@ speakableGroupName image _uri: %@", buf, 0x16u);
@@ -147,24 +147,24 @@
 
   else
   {
-    v95 = 0;
-    v96 = &v95;
-    v97 = 0x2050000000;
+    v94 = 0;
+    v95 = &v94;
+    v96 = 0x2050000000;
     v23 = getINStartCallIntentClass_softClass;
-    v98 = getINStartCallIntentClass_softClass;
+    v97 = getINStartCallIntentClass_softClass;
     if (!getINStartCallIntentClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getINStartCallIntentClass_block_invoke;
-      v100 = &unk_1E7CFF990;
-      *&v101 = &v95;
+      v99 = &unk_1E7CFF990;
+      *&v100 = &v94;
       __getINStartCallIntentClass_block_invoke(buf);
-      v23 = v96[3];
+      v23 = v95[3];
     }
 
     v24 = v23;
-    _Block_object_dispose(&v95, 8);
+    _Block_object_dispose(&v94, 8);
     if (objc_opt_isKindOfClass())
     {
       contacts = [intentCopy contacts];
@@ -192,7 +192,7 @@
         v29 = v28;
         _uri3 = [image _uri];
         *buf = 138543618;
-        *&buf[4] = v86;
+        *&buf[4] = v85;
         *&buf[12] = 2112;
         *&buf[14] = _uri3;
         _os_log_impl(&dword_1B85E3000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@ key image _uri: %@", buf, 0x16u);
@@ -215,7 +215,7 @@
       {
         v48 = @"NO";
         *buf = 138543874;
-        *&buf[4] = v86;
+        *&buf[4] = v85;
         *&buf[12] = 2114;
         if (_isSystem)
         {
@@ -224,7 +224,7 @@
 
         *&buf[14] = _name2;
         *&buf[22] = 2114;
-        v100 = v48;
+        v99 = v48;
         _os_log_impl(&dword_1B85E3000, v47, OS_LOG_TYPE_DEFAULT, "%{public}@ Found image of '%{public}@' name. System image:%{public}@", buf, 0x20u);
       }
 
@@ -244,7 +244,7 @@
       }
 
       *buf = 138543618;
-      *&buf[4] = v86;
+      *&buf[4] = v85;
       *&buf[12] = 2114;
       *&buf[14] = _uri5;
       v54 = "%{public}@ url found at image's _uri: %{public}@";
@@ -262,7 +262,7 @@
         if (os_log_type_enabled(UNLogCommunicationNotifications, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          *&buf[4] = v86;
+          *&buf[4] = v85;
           _os_log_impl(&dword_1B85E3000, v70, OS_LOG_TYPE_DEFAULT, "%{public}@ url cannot be found", buf, 0xCu);
         }
 
@@ -293,11 +293,11 @@ LABEL_77:
             if (os_log_type_enabled(UNLogCommunicationNotifications, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543874;
-              *&buf[4] = v86;
+              *&buf[4] = v85;
               *&buf[12] = 2114;
               *&buf[14] = v63;
               *&buf[22] = 2050;
-              v100 = v79;
+              v99 = v79;
               _os_log_impl(&dword_1B85E3000, v80, OS_LOG_TYPE_DEFAULT, "%{public}@ Final contentURL '%{public}@' to persist. Finished in: %{public}f seconds", buf, 0x20u);
             }
 
@@ -310,13 +310,13 @@ LABEL_77:
           if (os_log_type_enabled(UNLogCommunicationNotifications, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138544130;
-            *&buf[4] = v86;
+            *&buf[4] = v85;
             *&buf[12] = 2114;
             *&buf[14] = @"intents-remote-image-proxy";
             *&buf[22] = 2114;
-            v100 = @"intents-remote-image-proxy";
-            LOWORD(v101) = 2114;
-            *(&v101 + 2) = _uri5;
+            v99 = @"intents-remote-image-proxy";
+            LOWORD(v100) = 2114;
+            *(&v100 + 2) = _uri5;
             _os_log_impl(&dword_1B85E3000, v64, OS_LOG_TYPE_DEFAULT, "%{public}@ contentURL scheme does not match scheme '%{public}@'. Attempting to get a corresponding url with '%{public}@' scheme. contentURL: '%{public}@'", buf, 0x2Au);
           }
 
@@ -328,7 +328,7 @@ LABEL_77:
             if (v67)
             {
               *buf = 138543618;
-              *&buf[4] = v86;
+              *&buf[4] = v85;
               *&buf[12] = 2114;
               *&buf[14] = _uri5;
               _os_log_impl(&dword_1B85E3000, v66, OS_LOG_TYPE_DEFAULT, "%{public}@ Getting proxied image asynchronously for content url '%{public}@'.", buf, 0x16u);
@@ -337,18 +337,18 @@ LABEL_77:
             *buf = 0;
             *&buf[8] = buf;
             *&buf[16] = 0x3032000000;
-            v100 = __Block_byref_object_copy_;
-            *&v101 = __Block_byref_object_dispose_;
-            *(&v101 + 1) = 0;
+            v99 = __Block_byref_object_copy_;
+            *&v100 = __Block_byref_object_dispose_;
+            *(&v100 + 1) = 0;
             v71 = dispatch_semaphore_create(0);
-            v87[0] = MEMORY[0x1E69E9820];
-            v87[1] = 3221225472;
-            v87[2] = __101___UNMutableNotificationCommunicationContext_UserNotifications_INIntent__mutableContextFromINIntent___block_invoke;
-            v87[3] = &unk_1E7CFF968;
-            v89 = buf;
+            v86[0] = MEMORY[0x1E69E9820];
+            v86[1] = 3221225472;
+            v86[2] = __101___UNMutableNotificationCommunicationContext_UserNotifications_INIntent__mutableContextFromINIntent___block_invoke;
+            v86[3] = &unk_1E7CFF968;
+            v88 = buf;
             v72 = v71;
-            v88 = v72;
-            [image _requestProxy:v87];
+            v87 = v72;
+            [image _requestProxy:v86];
             v73 = dispatch_time(0, 1000000000);
             if (dispatch_semaphore_wait(v72, v73) && os_log_type_enabled(UNLogCommunicationNotifications, OS_LOG_TYPE_ERROR))
             {
@@ -373,38 +373,38 @@ LABEL_77:
           if (v67)
           {
             *buf = 138543618;
-            *&buf[4] = v86;
+            *&buf[4] = v85;
             *&buf[12] = 2114;
             *&buf[14] = _uri5;
             _os_log_impl(&dword_1B85E3000, v66, OS_LOG_TYPE_DEFAULT, "%{public}@ Getting proxied image synchronously for content url '%{public}@'.", buf, 0x16u);
           }
 
-          v90 = 0;
-          v85 = [image _proxiedImageWithError:&v90];
-          v68 = v90;
+          v89 = 0;
+          v84 = [image _proxiedImageWithError:&v89];
+          v68 = v89;
           if (v68)
           {
             v69 = UNLogCommunicationNotifications;
             if (os_log_type_enabled(UNLogCommunicationNotifications, OS_LOG_TYPE_ERROR))
             {
-              v83 = v69;
+              v82 = v69;
               localizedDescription = [v68 localizedDescription];
               *buf = 138543874;
-              *&buf[4] = v86;
+              *&buf[4] = v85;
               *&buf[12] = 2114;
               *&buf[14] = _uri5;
               *&buf[22] = 2114;
-              v100 = localizedDescription;
-              _os_log_error_impl(&dword_1B85E3000, v83, OS_LOG_TYPE_ERROR, "%{public}@ Error getting proxied image synchronously for content url '%{public}@' error: %{public}@", buf, 0x20u);
+              v99 = localizedDescription;
+              _os_log_error_impl(&dword_1B85E3000, v82, OS_LOG_TYPE_ERROR, "%{public}@ Error getting proxied image synchronously for content url '%{public}@' error: %{public}@", buf, 0x20u);
             }
           }
 
           else
           {
-            if (v85)
+            if (v84)
             {
               v75 = MEMORY[0x1E695DFF8];
-              _identifier3 = [v85 _identifier];
+              _identifier3 = [v84 _identifier];
               v63 = [v75 URLWithString:_identifier3];
 
               _uri5 = _identifier3;
@@ -429,7 +429,7 @@ LABEL_64:
       }
 
       *buf = 138543362;
-      *&buf[4] = v86;
+      *&buf[4] = v85;
       v54 = "%{public}@ url created from image's _identifier";
       v55 = v60;
       v56 = 12;
@@ -443,85 +443,67 @@ LABEL_64:
   if (os_log_type_enabled(UNLogCommunicationNotifications, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    *&buf[4] = v86;
+    *&buf[4] = v85;
     _os_log_impl(&dword_1B85E3000, v49, OS_LOG_TYPE_DEFAULT, "%{public}@ INImage is nil.", buf, 0xCu);
   }
 
 LABEL_80:
-
-  v81 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (void)setIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  identifier = self->super._identifier;
-  self->super._identifier = v4;
+  self->super._identifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setAssociatedObjectUri:(id)uri
 {
-  v4 = [uri copy];
-  associatedObjectUri = self->super._associatedObjectUri;
-  self->super._associatedObjectUri = v4;
+  self->super._associatedObjectUri = [uri copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  bundleIdentifier = self->super._bundleIdentifier;
-  self->super._bundleIdentifier = v4;
+  self->super._bundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setDisplayName:(id)name
 {
-  v4 = [name copy];
-  displayName = self->super._displayName;
-  self->super._displayName = v4;
+  self->super._displayName = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setSender:(id)sender
 {
-  v4 = [sender copy];
-  sender = self->super._sender;
-  self->super._sender = v4;
+  self->super._sender = [sender copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setRecipients:(id)recipients
 {
-  v4 = [recipients copy];
-  recipients = self->super._recipients;
-  self->super._recipients = v4;
+  self->super._recipients = [recipients copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setContentURL:(id)l
 {
-  v4 = [l copy];
-  contentURL = self->super._contentURL;
-  self->super._contentURL = v4;
+  self->super._contentURL = [l copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setImageName:(id)name
 {
-  v4 = [name copy];
-  imageName = self->super._imageName;
-  self->super._imageName = v4;
+  self->super._imageName = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }

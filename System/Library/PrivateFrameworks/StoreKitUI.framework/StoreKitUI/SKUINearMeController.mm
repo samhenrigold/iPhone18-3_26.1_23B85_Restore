@@ -115,10 +115,10 @@ uint64_t __40__SKUINearMeController_sharedController__block_invoke()
 
 - (BOOL)isNearMeLocationStatusEnabled
 {
-  v2 = SKUICoreLocationFramework();
+  v2 = SKUICoreLocationFramework(self, a2);
   v3 = [SKUIWeakLinkedClassForString(&cfstr_Cllocationmana.isa v2)];
 
-  return SKUINearMeIsEnabledForAuthorizationStatus(v3);
+  return SKUINearMeIsEnabledForAuthorizationStatus(v3, v4);
 }
 
 - (void)_applicationWillEnterForeground:(id)foreground
@@ -141,8 +141,8 @@ uint64_t __40__SKUINearMeController_sharedController__block_invoke()
 
 - (void)locationManager:(id)manager didChangeAuthorizationStatus:(int)status
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  if (SKUINearMeIsEnabledForAuthorizationStatus(status))
+  v16[1] = *MEMORY[0x277D85DE8];
+  if (SKUINearMeIsEnabledForAuthorizationStatus(status, a2))
   {
     [(SKUINearMeController *)self _startMonitoringLocation];
   }
@@ -153,15 +153,15 @@ uint64_t __40__SKUINearMeController_sharedController__block_invoke()
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v14 = @"nearMeEnabled";
-  v7 = [MEMORY[0x277CCABB0] numberWithBool:SKUINearMeIsEnabledForAuthorizationStatus(status)];
-  v15[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
-  [defaultCenter postNotificationName:@"SKUINearMeLocationStatusDidChangeNotification" object:v8];
+  v15 = @"nearMeEnabled";
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:{SKUINearMeIsEnabledForAuthorizationStatus(status, v7)}];
+  v16[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  [defaultCenter postNotificationName:@"SKUINearMeLocationStatusDidChangeNotification" object:v9];
 
   if (status == 2 && !self->_authorizationStatus)
   {
-    v9 = objc_alloc_init(MEMORY[0x277D75118]);
+    v10 = objc_alloc_init(MEMORY[0x277D75118]);
     clientContext = self->_clientContext;
     if (clientContext)
     {
@@ -172,23 +172,23 @@ uint64_t __40__SKUINearMeController_sharedController__block_invoke()
     {
       [SKUIClientContext localizedStringForKey:@"NEAR_ME_LOCATION_ALERT" inBundles:0];
     }
-    v11 = ;
-    [v9 setTitle:v11];
+    v12 = ;
+    [v10 setTitle:v12];
 
-    v12 = self->_clientContext;
-    if (v12)
+    v13 = self->_clientContext;
+    if (v13)
     {
-      [(SKUIClientContext *)v12 localizedStringForKey:@"OK"];
+      [(SKUIClientContext *)v13 localizedStringForKey:@"OK"];
     }
 
     else
     {
       [SKUIClientContext localizedStringForKey:@"OK" inBundles:0];
     }
-    v13 = ;
-    [v9 setCancelButtonIndex:{objc_msgSend(v9, "addButtonWithTitle:", v13)}];
+    v14 = ;
+    [v10 setCancelButtonIndex:{objc_msgSend(v10, "addButtonWithTitle:", v14)}];
 
-    [v9 show];
+    [v10 show];
   }
 
   self->_authorizationStatus = status;
@@ -230,17 +230,17 @@ uint64_t __40__SKUINearMeController_sharedController__block_invoke()
   {
     if (!self->_locationManager)
     {
-      v3 = SKUICoreLocationFramework();
-      v4 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Cllocationmana.isa, v3));
+      v4 = SKUICoreLocationFramework(0, v3);
+      v5 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Cllocationmana.isa, v4));
       locationManager = self->_locationManager;
-      self->_locationManager = v4;
+      self->_locationManager = v5;
 
-      [(CLLocationManager *)self->_locationManager setDelegate:self];
-      v6 = SKUICoreLocationFramework();
-      v7 = SKUIWeakLinkedSymbolForString("kCLLocationAccuracyBest", v6);
-      if (v7)
+      v7 = [(CLLocationManager *)self->_locationManager setDelegate:self];
+      v9 = SKUICoreLocationFramework(v7, v8);
+      v10 = SKUIWeakLinkedSymbolForString("kCLLocationAccuracyBest", v9);
+      if (v10)
       {
-        [(CLLocationManager *)self->_locationManager setDesiredAccuracy:*v7];
+        [(CLLocationManager *)self->_locationManager setDesiredAccuracy:*v10];
       }
     }
 
@@ -256,23 +256,23 @@ uint64_t __40__SKUINearMeController_sharedController__block_invoke()
     if (!self->_locationTimeoutTimer)
     {
       objc_initWeak(&location, self);
-      v9 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
+      v12 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
       locationTimeoutTimer = self->_locationTimeoutTimer;
-      self->_locationTimeoutTimer = v9;
+      self->_locationTimeoutTimer = v12;
 
-      v11 = self->_locationTimeoutTimer;
-      v12 = dispatch_time(0, 2500000000);
-      dispatch_source_set_timer(v11, v12, 0, 0);
-      v13 = self->_locationTimeoutTimer;
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __48__SKUINearMeController__startMonitoringLocation__block_invoke;
-      v14[3] = &unk_2781F8320;
-      objc_copyWeak(&v15, &location);
-      dispatch_source_set_event_handler(v13, v14);
+      v14 = self->_locationTimeoutTimer;
+      v15 = dispatch_time(0, 2500000000);
+      dispatch_source_set_timer(v14, v15, 0, 0);
+      v16 = self->_locationTimeoutTimer;
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __48__SKUINearMeController__startMonitoringLocation__block_invoke;
+      v17[3] = &unk_2781F8320;
+      objc_copyWeak(&v18, &location);
+      dispatch_source_set_event_handler(v16, v17);
       dispatch_resume(self->_locationTimeoutTimer);
       self->_locationTimeoutCount = 0;
-      objc_destroyWeak(&v15);
+      objc_destroyWeak(&v18);
       objc_destroyWeak(&location);
     }
   }

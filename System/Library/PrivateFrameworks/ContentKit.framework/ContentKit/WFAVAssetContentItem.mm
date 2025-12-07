@@ -1216,7 +1216,7 @@ LABEL_12:
   v3 = asset;
   if (asset)
   {
-    [asset duration];
+    objc_msgSend_duration(asset);
   }
 
   else
@@ -1347,7 +1347,7 @@ LABEL_13:
     v11 = asset;
     if (asset)
     {
-      [asset duration];
+      objc_msgSend_duration(asset);
     }
 
     else
@@ -1732,7 +1732,7 @@ void __40__WFAVAssetContentItem_propertyBuilders__block_invoke_2(uint64_t a1)
   v6 = asset;
   if (asset)
   {
-    [asset duration];
+    objc_msgSend_duration(asset);
   }
 
   else

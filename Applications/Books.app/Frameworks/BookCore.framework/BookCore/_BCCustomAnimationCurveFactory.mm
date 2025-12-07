@@ -22,7 +22,7 @@
   timingFunction = [springAnimation timingFunction];
   [v7 setTimingFunction:timingFunction];
 
-  [springAnimation duration];
+  objc_msgSend_duration(springAnimation);
   [v7 setDuration:?];
 
   return v7;

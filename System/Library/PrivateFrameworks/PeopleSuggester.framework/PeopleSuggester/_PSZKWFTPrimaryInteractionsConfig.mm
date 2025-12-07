@@ -34,14 +34,14 @@
 - (_PSZKWFTPrimaryInteractionsConfig)initWithIsEnabled:(BOOL)enabled defaultConfidenceCategory:(int64_t)category modelType:(int64_t)type
 {
   enabledCopy = enabled;
-  v34[2] = *MEMORY[0x1E69E9840];
+  v33[2] = *MEMORY[0x1E69E9840];
   v5 = objc_opt_new();
   v6 = objc_opt_new();
   v7 = objc_opt_new();
   v8 = objc_opt_new();
   [MEMORY[0x1E695DFD8] setWithArray:&unk_1F2D8C558];
-  v28 = v27 = v5;
-  [v5 addObject:v28];
+  v27 = v26 = v5;
+  [v5 addObject:v27];
   v9 = [MEMORY[0x1E696AD98] numberWithInt:1000];
   [v6 addObject:v9];
 
@@ -50,10 +50,10 @@
 
   v11 = MEMORY[0x1E695DFD8];
   v12 = +[_PSConstants mobileFacetimeBundleId];
-  v34[0] = v12;
+  v33[0] = v12;
   v13 = +[_PSConstants macFacetimeBundleId];
-  v34[1] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
+  v33[1] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
   v15 = [v11 setWithArray:v14];
 
   [v8 addObject:v15];
@@ -67,16 +67,15 @@
 
   v19 = MEMORY[0x1E695DFD8];
   v20 = +[_PSConstants mobileMessagesBundleId];
-  v33[0] = v20;
+  v32[0] = v20;
   v21 = +[_PSConstants macMessagesBundleId];
-  v33[1] = v21;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
+  v32[1] = v21;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
   v23 = [v19 setWithArray:v22];
 
   [v8 addObject:v23];
-  v24 = [(_PSZKWFTPrimaryInteractionsConfig *)self initWithIsEnabled:enabledCopy defaultConfidenceCategory:category mechanisms:v27 interactionCountMaxDepths:v6 interactionHistoryRelativeStartDates:v7 bundleIds:v8 modelType:type clusterPruneThreshold:5 maxSuggestions:12];
+  v24 = [(_PSZKWFTPrimaryInteractionsConfig *)self initWithIsEnabled:enabledCopy defaultConfidenceCategory:category mechanisms:v26 interactionCountMaxDepths:v6 interactionHistoryRelativeStartDates:v7 bundleIds:v8 modelType:type clusterPruneThreshold:5 maxSuggestions:12];
 
-  v25 = *MEMORY[0x1E69E9840];
   return v24;
 }
 

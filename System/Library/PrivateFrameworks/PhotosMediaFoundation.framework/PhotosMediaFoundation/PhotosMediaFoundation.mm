@@ -64,18 +64,16 @@ void __PXApplicationAudioSessionSetCategory_block_invoke(uint64_t a1, void *a2)
 
 void __PXApplicationAudioSessionSetCategory_block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_error_impl(&dword_25E661000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Photos was unable to configure the shared audio session category. Unintentional interruption of other audio sources may occur. Error: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_error_impl(&dword_25E661000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Photos was unable to configure the shared audio session category. Unintentional interruption of other audio sources may occur. Error: %@", &v6, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t PXAVAudioSessionCategory.description.getter(unint64_t a1)
@@ -104,7 +102,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -137,9 +134,9 @@ __CFString *PXAVAudioSessionCategoryDescription(unint64_t a1)
   }
 }
 
-void sub_25E6630AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_25E6630AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

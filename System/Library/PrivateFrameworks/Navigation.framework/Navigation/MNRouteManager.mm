@@ -26,7 +26,7 @@
 
 - (void)_updatePreloaderForRoute:(id)route
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   routeCopy = route;
   [(MNRouteManager *)self _clearPreloader];
   route = [routeCopy route];
@@ -46,16 +46,16 @@
           v9 = objc_alloc_init(MEMORY[0x1E69A2680]);
           [v9 addTileSetStyle:53 betweenZoom:13 andZoom:15];
           [v9 addTileSetStyle:37 betweenZoom:13 andZoom:15];
-          v16[0] = v9;
-          v10 = v16;
+          v15[0] = v9;
+          v10 = v15;
         }
 
         else
         {
           v9 = objc_alloc_init(MEMORY[0x1E69A2268]);
           [v9 addTileSetStyle:53 betweenZoom:13 andZoom:15];
-          v15 = v9;
-          v10 = &v15;
+          v14 = v9;
+          v10 = &v14;
         }
 
         v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
@@ -66,8 +66,6 @@
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clearPreloader
@@ -103,7 +101,7 @@
 
 - (void)updateForReroute:(id)reroute rerouteReason:(unint64_t)reason request:(id)request response:(id)response
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   rerouteCopy = reroute;
   requestCopy = request;
   responseCopy = response;
@@ -113,17 +111,17 @@
     v18 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136316162;
-      v21 = "[MNRouteManager updateForReroute:rerouteReason:request:response:]";
-      v22 = 2080;
-      v23 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNRouteManager.m";
-      v24 = 1024;
-      v25 = 203;
-      v26 = 2080;
-      v27 = "_currentRouteInfo != routeInfo";
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_1D311E000, v18, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v20, 0x30u);
+      v19 = 136316162;
+      v20 = "[MNRouteManager updateForReroute:rerouteReason:request:response:]";
+      v21 = 2080;
+      v22 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNRouteManager.m";
+      v23 = 1024;
+      v24 = 203;
+      v25 = 2080;
+      v26 = "_currentRouteInfo != routeInfo";
+      v27 = 2112;
+      v28 = v17;
+      _os_log_impl(&dword_1D311E000, v18, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v19, 0x30u);
     }
   }
 
@@ -148,13 +146,11 @@
 
     [(MNRouteManager *)self _updatePreloaderForRoute:rerouteCopy];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateWithStartNavigationDetails:(id)details
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   detailsCopy = details;
   selectedRouteIndex = [detailsCopy selectedRouteIndex];
   routes = [detailsCopy routes];
@@ -164,28 +160,28 @@
   {
     if (selectedRouteIndex == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v44 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid selected route index"];
-      v45 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v43 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid selected route index"];
+      v44 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        *v53 = "[MNRouteManager updateWithStartNavigationDetails:]";
-        *&v53[8] = 2080;
-        v54 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNRouteManager.m";
-        v55 = 1024;
-        v56 = 146;
-        v57 = 2080;
-        v58 = "selectedRouteIndex != NSNotFound";
-        v59 = 2112;
-        v60 = v44;
-        _os_log_impl(&dword_1D311E000, v45, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
+        *v52 = "[MNRouteManager updateWithStartNavigationDetails:]";
+        *&v52[8] = 2080;
+        v53 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNRouteManager.m";
+        v54 = 1024;
+        v55 = 146;
+        v56 = 2080;
+        v57 = "selectedRouteIndex != NSNotFound";
+        v58 = 2112;
+        v59 = v43;
+        _os_log_impl(&dword_1D311E000, v44, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
       }
 
-      v46 = MNGetMNNavigationSessionLog();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v45 = MNGetMNNavigationSessionLog();
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_1D311E000, v46, OS_LOG_TYPE_ERROR, "MNStartNavigationDetails selectedRouteIndex not set", buf, 2u);
+        _os_log_impl(&dword_1D311E000, v45, OS_LOG_TYPE_ERROR, "MNStartNavigationDetails selectedRouteIndex not set", buf, 2u);
       }
     }
 
@@ -194,25 +190,25 @@
 
     if (selectedRouteIndex >= v9)
     {
-      v47 = MEMORY[0x1E696AEC0];
+      v46 = MEMORY[0x1E696AEC0];
       selectedRouteIndex2 = [detailsCopy selectedRouteIndex];
       routes3 = [detailsCopy routes];
-      v50 = [v47 stringWithFormat:@"Selected route index is outside valid range of routes. Index: %d. Routes count: %d\n", selectedRouteIndex2, objc_msgSend(routes3, "count")];
+      v49 = [v46 stringWithFormat:@"Selected route index is outside valid range of routes. Index: %d. Routes count: %d\n", selectedRouteIndex2, objc_msgSend(routes3, "count")];
 
-      v51 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v50 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        *v53 = "[MNRouteManager updateWithStartNavigationDetails:]";
-        *&v53[8] = 2080;
-        v54 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNRouteManager.m";
-        v55 = 1024;
-        v56 = 151;
-        v57 = 2080;
-        v58 = "selectedRouteIndex < details.routes.count";
-        v59 = 2112;
-        v60 = v50;
-        _os_log_impl(&dword_1D311E000, v51, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
+        *v52 = "[MNRouteManager updateWithStartNavigationDetails:]";
+        *&v52[8] = 2080;
+        v53 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Session/MNRouteManager.m";
+        v54 = 1024;
+        v55 = 151;
+        v56 = 2080;
+        v57 = "selectedRouteIndex < details.routes.count";
+        v58 = 2112;
+        v59 = v49;
+        _os_log_impl(&dword_1D311E000, v50, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
       }
     }
 
@@ -227,9 +223,9 @@
         routes5 = [detailsCopy routes];
         v14 = [routes5 count];
         *buf = 67109376;
-        *v53 = selectedRouteIndex;
-        *&v53[4] = 1024;
-        *&v53[6] = v14;
+        *v52 = selectedRouteIndex;
+        *&v52[4] = 1024;
+        *&v52[6] = v14;
         _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_ERROR, "MNStartNavigationDetails selectedRouteIndex is %d. Only (%d) routes were passed in", buf, 0xEu);
       }
     }
@@ -246,7 +242,7 @@
   {
     v18 = self->_routeAttributes;
     *buf = 138543362;
-    *v53 = v18;
+    *v52 = v18;
     _os_log_impl(&dword_1D311E000, v17, OS_LOG_TYPE_DEFAULT, "_routeAttributes = %{public}@", buf, 0xCu);
   }
 
@@ -320,8 +316,6 @@
   }
 
   [(MNRouteManager *)self _updatePreloaderForRoute:v30];
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateWithPreviewRoutes:(id)routes selectedRouteIndex:(unint64_t)index

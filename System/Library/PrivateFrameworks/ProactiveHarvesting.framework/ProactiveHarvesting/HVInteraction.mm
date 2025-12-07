@@ -123,20 +123,19 @@
 
 + (id)domainIdForInteractionGroupId:(id)id
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   idCopy = id;
   v4 = objc_autoreleasePoolPush();
   v5 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"%."];
   invertedSet = [v5 invertedSet];
 
   v7 = [idCopy stringByAddingPercentEncodingWithAllowedCharacters:invertedSet];
-  v12[0] = @"__ProactiveHarvesting__.HVInteraction";
-  v12[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[0] = @"__ProactiveHarvesting__.HVInteraction";
+  v11[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v9 = [v8 _pas_componentsJoinedByString:@"."];
 
   objc_autoreleasePoolPop(v4);
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

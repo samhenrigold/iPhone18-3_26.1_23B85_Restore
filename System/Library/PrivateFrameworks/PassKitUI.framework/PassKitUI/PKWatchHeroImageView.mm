@@ -98,13 +98,18 @@
 - (CGPoint)watchScreenCenter
 {
   [(PKWatchHeroImageView *)self watchScreenFrame];
-  PKFloatRoundToPixel();
   v3 = v2;
-  PKFloatRoundToPixel();
   v5 = v4;
-  v6 = v3;
-  result.y = v5;
-  result.x = v6;
+  v7.n128_f64[0] = v6 * 0.5;
+  v9.n128_f64[0] = v8 + v6 * 0.5;
+  PKFloatRoundToPixel(v9, v7);
+  v11 = v10;
+  v12.n128_f64[0] = v3 + v5 * 0.5;
+  PKFloatRoundToPixel(v12, v13);
+  v15 = v14;
+  v16 = v11;
+  result.y = v15;
+  result.x = v16;
   return result;
 }
 
@@ -210,9 +215,9 @@
 
 - (void)layoutSubviews
 {
-  v29.receiver = self;
-  v29.super_class = PKWatchHeroImageView;
-  [(PKWatchHeroImageView *)&v29 layoutSubviews];
+  v36.receiver = self;
+  v36.super_class = PKWatchHeroImageView;
+  [(PKWatchHeroImageView *)&v36 layoutSubviews];
   [(PKWatchHeroImageView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -230,11 +235,15 @@
     LODWORD(v12) = 1112014848;
     [(BPSIllustratedWatchView *)self->_watchView systemLayoutSizeFittingSize:v8 withHorizontalFittingPriority:v10 verticalFittingPriority:v11, v12];
     watchView = self->_watchView;
-    PKSizeAlignedInRect();
-    v4 = v16;
-    v6 = v17;
-    v8 = v18;
-    v10 = v19;
+    v16.n128_f64[0] = v4;
+    v17.n128_f64[0] = v6;
+    v18.n128_f64[0] = v8;
+    v19.n128_f64[0] = v10;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v20, v21, v16, v17, v18, v19, v22);
+    v4 = v23;
+    v6 = v24;
+    v8 = v25;
+    v10 = v26;
   }
 
   [(BPSIllustratedWatchView *)watchView setFrame:v4, v6, v8, v10];
@@ -257,12 +266,12 @@
   {
     [(PKWatchHeroImageView *)self spaceBelowCardFrame];
     [(UILabel *)self->_doneLabel sizeThatFits:*MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)];
-    v23 = v22;
-    v25 = v24;
+    v30 = v29;
+    v32 = v31;
     UIRoundToViewScale();
-    v27 = v26;
+    v34 = v33;
     UIRoundToViewScale();
-    [(UILabel *)self->_doneLabel setFrame:v27, v28, v23, v25];
+    [(UILabel *)self->_doneLabel setFrame:v34, v35, v30, v32];
   }
 }
 
@@ -277,10 +286,12 @@
 + (CGSize)recommendedCardImageSize
 {
   +[PKWatchHeroImageView heroWatchImageSize];
+  v3 = v2 * 0.555;
+  v5 = v4 * 0.206;
 
-  PKSizeRoundToPixel();
-  result.height = v3;
-  result.width = v2;
+  PKSizeRoundToPixel(v3, v5);
+  result.height = v7;
+  result.width = v6;
   return result;
 }
 

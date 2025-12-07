@@ -11,14 +11,13 @@
 {
   v3 = sub_1B70557C0();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00]();
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, self + OBJC_IVAR___AAIdentity_identifier, v3);
-  v8 = sub_1B70557A0();
-  (*(v4 + 8))(v7, v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6, self + OBJC_IVAR___AAIdentity_identifier, v3);
+  v7 = sub_1B70557A0();
+  (*(v4 + 8))(v6, v3);
 
-  return v8;
+  return v7;
 }
 
 - (AAIdentity)init
@@ -31,9 +30,9 @@
 - (AAIdentity)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v4 = sub_1B700C868();
+  v5 = sub_1B700C868(coderCopy, v4);
 
-  return v4;
+  return v5;
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -405,7 +405,7 @@ id __65__PHCarPlayInCallKeypadViewController_setLimitedSoftPhoneKeypad___block_i
 - (void)hardwareControlEventNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;

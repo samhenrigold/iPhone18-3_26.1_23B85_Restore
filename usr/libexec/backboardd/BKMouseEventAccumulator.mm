@@ -14,6 +14,7 @@
 - (void)_terminateScrollingForSender:(id)sender;
 - (void)_updateTouchingPathIndexesFromDeviceEventState;
 - (void)addButtonEvent:(__IOHIDEvent *)event fromSender:(id)sender;
+- (void)addButtonNumber:(int64_t)number down:(BOOL)down fromSender:(id)sender;
 - (void)addDigitizerEvent:(__IOHIDEvent *)event fromSender:(id)sender;
 - (void)addForceEvent:(__IOHIDEvent *)event fromSender:(id)sender;
 - (void)addRotationEvent:(__IOHIDEvent *)event fromSender:(id)sender;
@@ -314,7 +315,7 @@
       v16 = v15;
       v17 = IOHIDEventGetTimeStamp();
       v18 = sub_10007BB28(v16);
-      sub_10007BBBC(&self->_translationInterpolator._time._eventTimestamp, v17, v18);
+      sub_10007BBBC(&self->_translationInterpolator, v17, v18);
       p1 = self->_translationInterpolator._x._p1;
       self->_translationInterpolator._x._p0 = p1;
       self->_translationInterpolator._x._p1 = v24 + p1;
@@ -386,7 +387,7 @@
       v15 = v14;
       v16 = IOHIDEventGetTimeStamp();
       v17 = sub_10007BB28(v15);
-      sub_10007BBBC(&self->_rotationInterpolator._time._eventTimestamp, v16, v17);
+      sub_10007BBBC(&self->_rotationInterpolator, v16, v17);
       p1 = self->_rotationInterpolator._z._p1;
       self->_rotationInterpolator._z._p0 = p1;
       self->_rotationInterpolator._z._p1 = v7 + p1;
@@ -453,7 +454,7 @@
       v15 = v14;
       v16 = IOHIDEventGetTimeStamp();
       v17 = sub_10007BB28(v15);
-      sub_10007BBBC(&self->_scaleInterpolator._time._eventTimestamp, v16, v17);
+      sub_10007BBBC(&self->_scaleInterpolator, v16, v17);
       p1 = self->_scaleInterpolator._z._p1;
       self->_scaleInterpolator._z._p0 = p1;
       self->_scaleInterpolator._z._p1 = v7 + p1;
@@ -679,7 +680,7 @@ LABEL_26:
                   {
                     v35 = v34;
                     senderID3 = [v78[3] senderID];
-                    v37 = sub_10007CF4C();
+                    v37 = sub_10007CF4C(v13);
                     v38 = sub_10007D0C4(v78[5]);
                     v39 = sub_10007D0C4(v78[6]);
                     v40 = sub_10007D0C4(v78[8]);
@@ -713,7 +714,7 @@ LABEL_26:
               {
                 loga = v34;
                 senderID4 = [v78[3] senderID];
-                v42 = sub_10007CF4C();
+                v42 = sub_10007CF4C(v13);
                 v43 = sub_10007D0C4(v78[5]);
                 v44 = sub_10007D0C4(v78[6]);
                 v45 = sub_10007D0C4(v78[8]);
@@ -810,8 +811,6 @@ LABEL_42:
     v6 = +[NSMutableIndexSet indexSet];
     v7 = *p_touchingPathIndexes;
     *p_touchingPathIndexes = v6;
-
-    v8 = *p_touchingPathIndexes;
   }
 
   if ((BSEqualObjects() & 1) == 0)
@@ -903,6 +902,89 @@ LABEL_42:
       while (v4);
     }
   }
+}
+
+- (void)addButtonNumber:(int64_t)number down:(BOOL)down fromSender:(id)sender
+{
+  downCopy = down;
+  senderCopy = sender;
+  v9 = BKLogMousePointer();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109632;
+    numberCopy = number;
+    v32 = 1024;
+    v33 = downCopy;
+    v34 = 2048;
+    senderID = [senderCopy senderID];
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "  ->  button number:%d down:%{BOOL}u (sender %llX)", buf, 0x18u);
+  }
+
+  self->_eventTypeMask |= 4uLL;
+  if (!self->_buttonEvents)
+  {
+    v10 = objc_alloc_init(NSMutableArray);
+    buttonEvents = self->_buttonEvents;
+    self->_buttonEvents = v10;
+  }
+
+  v12 = [(BKMouseEventAccumulator *)self _eventStateForSender:senderCopy];
+  v13 = v12;
+  if (v12)
+  {
+    v14 = *(v12 + 32);
+    v15 = 1 << (number - 1);
+    v16 = v14 | v15;
+    v17 = v14 & ~v15;
+    if (downCopy)
+    {
+      v18 = v16;
+    }
+
+    else
+    {
+      v18 = v17;
+    }
+
+    *(v12 + 32) = v18;
+  }
+
+  else if (downCopy)
+  {
+    v18 = 1 << (number - 1);
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  v19 = sub_10007CE28(v12);
+  if (v13)
+  {
+    objc_storeStrong(v13 + 7, v19);
+  }
+
+  v20 = self->_buttonEvents;
+  v21 = [NSNumber numberWithInteger:number];
+  v29[0] = v21;
+  v22 = [NSNumber numberWithBool:downCopy];
+  v29[1] = v22;
+  v23 = [NSNumber numberWithInteger:v18];
+  v29[2] = v23;
+  v24 = [NSArray arrayWithObjects:v29 count:3];
+  [(NSMutableArray *)v20 addObject:v24];
+
+  kdebug_trace();
+  allValues = [(NSMutableDictionary *)self->_eventStateBySenderID allValues];
+  v26 = [allValues bs_reduce:&off_100107B68 block:&stru_1000FC6D0];
+
+  unsignedIntValue = [v26 unsignedIntValue];
+  buttonMask = self->_buttonMask;
+  self->_buttonMaskDidChange = buttonMask != unsignedIntValue;
+  self->_previousButtonMask = buttonMask;
+  self->_buttonMask = unsignedIntValue;
+  [(BKMouseEventAccumulator *)self _updateTouchingPathIndexesFromDeviceEventState];
 }
 
 - (BOOL)senderPostsAtHighFrequency:(unint64_t)frequency
@@ -1128,40 +1210,40 @@ LABEL_42:
 
 - (void)frameWillBegin
 {
-  mach_absolute_time();
+  v3 = mach_absolute_time();
   if (self->_pointerInterpolator._interpolator._remainingInterpolations >= 1 && (self->_interpolateEventTypeMask & 0x20000) != 0)
   {
-    sub_10007E2E4(&self->_pointerInterpolator);
-    self->_pointerUnacceleratedDelta.x = v3.f64[0];
-    self->_pointerUnacceleratedDelta.y = v4;
-    v3.f64[1] = v4;
-    self->_pointerAcceleratedDelta = vmulq_f64(v3, self->_pointerInterpolator._accelerationFactor);
+    sub_10007E2E4(&self->_pointerInterpolator, v3);
+    self->_pointerUnacceleratedDelta.x = v4.f64[0];
+    self->_pointerUnacceleratedDelta.y = v5;
+    v4.f64[1] = v5;
+    self->_pointerAcceleratedDelta = vmulq_f64(v4, self->_pointerInterpolator._accelerationFactor);
   }
 
   if (self->_scrollInterpolator._interpolator._remainingInterpolations >= 1 && (self->_interpolateEventTypeMask & 0x40) != 0)
   {
-    sub_10007E2E4(&self->_scrollInterpolator);
-    self->_scrollUnacceleratedDelta.x = v5.f64[0];
-    self->_scrollUnacceleratedDelta.y = v6;
-    v5.f64[1] = v6;
-    self->_scrollAcceleratedDelta = vmulq_f64(v5, self->_scrollInterpolator._accelerationFactor);
+    sub_10007E2E4(&self->_scrollInterpolator, v3);
+    self->_scrollUnacceleratedDelta.x = v6.f64[0];
+    self->_scrollUnacceleratedDelta.y = v7;
+    v6.f64[1] = v7;
+    self->_scrollAcceleratedDelta = vmulq_f64(v6, self->_scrollInterpolator._accelerationFactor);
   }
 
   if (self->_scaleInterpolator._remainingInterpolations >= 1 && (self->_interpolateEventTypeMask & 0x80) != 0)
   {
-    self->_scaleZ = sub_10007E228(&self->_scaleInterpolator);
+    self->_scaleZ = sub_10007E228(&self->_scaleInterpolator, v3);
   }
 
   if (self->_translationInterpolator._remainingInterpolations >= 1 && (self->_interpolateEventTypeMask & 0x10) != 0)
   {
-    sub_10007E2E4(&self->_translationInterpolator);
-    self->_translationDelta.x = v7;
-    self->_translationDelta.y = v8;
+    sub_10007E2E4(&self->_translationInterpolator, v3);
+    self->_translationDelta.x = v8;
+    self->_translationDelta.y = v9;
   }
 
   if (self->_rotationInterpolator._remainingInterpolations >= 1 && (self->_interpolateEventTypeMask & 0x20) != 0)
   {
-    self->_rotationZ = sub_10007E228(&self->_rotationInterpolator);
+    self->_rotationZ = sub_10007E228(&self->_rotationInterpolator, v3);
   }
 
   self->_scrollPhaseTracker._sentTerminalEvent = 0;
@@ -1191,13 +1273,13 @@ LABEL_42:
 
   else
   {
-    v10 = self->_rotationPhaseTracker._inputPhase;
-    if (v10)
+    v11 = self->_rotationPhaseTracker._inputPhase;
+    if (v11)
     {
-      v10 = 2;
+      v11 = 2;
     }
 
-    self->_rotationPhaseTracker._outputPhase = v10;
+    self->_rotationPhaseTracker._outputPhase = v11;
   }
 
   self->_translationPhaseTracker._sentTerminalEvent = 0;
@@ -1209,13 +1291,13 @@ LABEL_42:
 
   else
   {
-    v11 = self->_translationPhaseTracker._inputPhase;
-    if (v11)
+    v12 = self->_translationPhaseTracker._inputPhase;
+    if (v12)
     {
-      v11 = 2;
+      v12 = 2;
     }
 
-    self->_translationPhaseTracker._outputPhase = v11;
+    self->_translationPhaseTracker._outputPhase = v12;
   }
 
   self->_scalePhaseTracker._sentTerminalEvent = 0;
@@ -1227,13 +1309,13 @@ LABEL_42:
 
   else
   {
-    v12 = self->_scalePhaseTracker._inputPhase;
-    if (v12)
+    v13 = self->_scalePhaseTracker._inputPhase;
+    if (v13)
     {
-      v12 = 2;
+      v13 = 2;
     }
 
-    self->_scalePhaseTracker._outputPhase = v12;
+    self->_scalePhaseTracker._outputPhase = v13;
   }
 }
 
@@ -1250,35 +1332,29 @@ LABEL_42:
 
 - (void)appendSubeventsForEventTypeMask:(unint64_t)mask toTopLevelEvent:(__IOHIDEvent *)event interfaceOrientation:(int64_t)orientation getEventSummary:(unint64_t *)summary
 {
-  buttonMask = self->_buttonMask;
-  self->_shouldUseButtonDownRecenteringBehavior;
   IOHIDEventSetIntegerValue();
   if (summary)
   {
     *summary = 0;
   }
 
-  v9 = self->_eventTypeMask & mask;
-  if (v9)
+  v8 = self->_eventTypeMask & mask;
+  if (v8)
   {
     IOHIDEventGetTimeStamp();
     IOHIDEventGetSenderID();
-    v41 = v9;
-    if ((v9 & 0x40) != 0)
+    v31 = v8;
+    if ((v8 & 0x40) != 0)
     {
-      x = self->_scrollUnacceleratedDelta.x;
-      y = self->_scrollUnacceleratedDelta.y;
-      v12 = self->_scrollAcceleratedDelta.x;
-      v13 = self->_scrollAcceleratedDelta.y;
       outputPhase = self->_scrollPhaseTracker._outputPhase;
       ScrollEvent = IOHIDEventCreateScrollEvent();
       IOHIDEventSetSenderID();
       IOHIDEventSetPhase();
-      v16 = IOHIDEventCreateScrollEvent();
+      v11 = IOHIDEventCreateScrollEvent();
       IOHIDEventSetSenderID();
       IOHIDEventSetPhase();
       IOHIDEventAppendEvent();
-      CFRelease(v16);
+      CFRelease(v11);
       IOHIDEventAppendEvent();
       CFRelease(ScrollEvent);
       if (summary)
@@ -1290,90 +1366,86 @@ LABEL_42:
       }
     }
 
-    if ((v41 & 0x20) != 0)
+    if ((v31 & 0x20) != 0)
     {
-      rotationZ = self->_rotationZ;
       RotationEvent = IOHIDEventCreateRotationEvent();
       IOHIDEventSetSenderID();
-      v19 = self->_rotationPhaseTracker._outputPhase;
+      v13 = self->_rotationPhaseTracker._outputPhase;
       IOHIDEventSetPhase();
       IOHIDEventAppendEvent();
       CFRelease(RotationEvent);
       if (summary)
       {
-        if ((v19 & 0xC) != 0)
+        if ((v13 & 0xC) != 0)
         {
           *summary |= 0x10uLL;
         }
       }
     }
 
-    if ((v41 & 0x80) != 0)
+    if ((v31 & 0x80) != 0)
     {
-      scaleZ = self->_scaleZ;
       ScaleEvent = IOHIDEventCreateScaleEvent();
       IOHIDEventSetSenderID();
-      v22 = self->_scalePhaseTracker._outputPhase;
+      v15 = self->_scalePhaseTracker._outputPhase;
       IOHIDEventSetPhase();
       IOHIDEventAppendEvent();
       CFRelease(ScaleEvent);
       if (summary)
       {
-        if ((v22 & 0xC) != 0)
+        if ((v15 & 0xC) != 0)
         {
           *summary |= 4uLL;
         }
       }
     }
 
-    if ((v41 & 0x10) != 0)
+    if ((v31 & 0x10) != 0)
     {
-      v23 = self->_translationDelta.x;
-      v24 = self->_translationDelta.y;
       TranslationEvent = IOHIDEventCreateTranslationEvent();
       IOHIDEventSetSenderID();
-      v26 = self->_translationPhaseTracker._outputPhase;
+      v17 = self->_translationPhaseTracker._outputPhase;
       IOHIDEventSetPhase();
       IOHIDEventAppendEvent();
       CFRelease(TranslationEvent);
       if (summary)
       {
-        if ((v26 & 0xC) != 0)
+        if ((v17 & 0xC) != 0)
         {
           *summary |= 8uLL;
         }
       }
     }
 
-    if ((v41 & 4) != 0 && !self->_shouldUseButtonDownRecenteringBehavior)
+    if ((v31 & 4) != 0 && !self->_shouldUseButtonDownRecenteringBehavior)
     {
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
+      v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       obj = self->_buttonEvents;
-      v27 = [(NSMutableArray *)obj countByEnumeratingWithState:&v49 objects:v54 count:16];
-      if (v27)
+      v18 = [(NSMutableArray *)obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+      if (v18)
       {
-        v28 = *v50;
+        v19 = *v40;
         do
         {
-          for (i = 0; i != v27; i = i + 1)
+          for (i = 0; i != v18; i = i + 1)
           {
-            if (*v50 != v28)
+            if (*v40 != v19)
             {
               objc_enumerationMutation(obj);
             }
 
-            v30 = *(*(&v49 + 1) + 8 * i);
-            v31 = [v30 objectAtIndexedSubscript:0];
-            [v31 integerValue];
+            v21 = *(*(&v39 + 1) + 8 * i);
+            v22 = [v21 objectAtIndexedSubscript:0];
+            [v22 integerValue];
 
-            v32 = [v30 objectAtIndexedSubscript:1];
-            bOOLValue = [v32 BOOLValue];
+            v23 = [v21 objectAtIndexedSubscript:1];
+            bOOLValue = [v23 BOOLValue];
 
-            v34 = [v30 objectAtIndexedSubscript:2];
-            [v34 unsignedIntValue];
+            v25 = [v21 objectAtIndexedSubscript:2];
+            [v25 unsignedIntValue];
 
             ButtonEvent = IOHIDEventCreateButtonEvent();
             IOHIDEventSetSenderID();
@@ -1388,35 +1460,34 @@ LABEL_42:
             }
           }
 
-          v27 = [(NSMutableArray *)obj countByEnumeratingWithState:&v49 objects:v54 count:16];
+          v18 = [(NSMutableArray *)obj countByEnumeratingWithState:&v39 objects:v44 count:16];
         }
 
-        while (v27);
+        while (v18);
       }
     }
 
-    v36 = v41;
-    if ((v41 & 0x800) != 0)
+    v27 = v31;
+    if ((v31 & 0x800) != 0)
     {
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
-      v46 = 0u;
+      v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       obja = self->_digitizerEvents;
-      v37 = [(NSMutableArray *)obja countByEnumeratingWithState:&v45 objects:v53 count:16];
-      if (v37)
+      v28 = [(NSMutableArray *)obja countByEnumeratingWithState:&v35 objects:v43 count:16];
+      if (v28)
       {
-        v38 = *v46;
+        v29 = *v36;
         do
         {
-          for (j = 0; j != v37; j = j + 1)
+          for (j = 0; j != v28; ++j)
           {
-            if (*v46 != v38)
+            if (*v36 != v29)
             {
               objc_enumerationMutation(obja);
             }
 
-            v40 = *(*(&v45 + 1) + 8 * j);
             IOHIDEventAppendEvent();
             if (summary && (IOHIDEventGetIntegerValue() & 2) != 0 && !IOHIDEventGetIntegerValue())
             {
@@ -1424,16 +1495,16 @@ LABEL_42:
             }
           }
 
-          v37 = [(NSMutableArray *)obja countByEnumeratingWithState:&v45 objects:v53 count:16];
+          v28 = [(NSMutableArray *)obja countByEnumeratingWithState:&v35 objects:v43 count:16];
         }
 
-        while (v37);
+        while (v28);
       }
 
-      v36 = v41;
+      v27 = v31;
     }
 
-    if ((v36 & 0x20000000002) != 0)
+    if ((v27 & 0x20000000002) != 0)
     {
       if (self->_forceEvent)
       {
@@ -1450,45 +1521,45 @@ LABEL_42:
   self->_lastRemoteEventTimestamp = BKSHIDEventGetRemoteTimestamp();
   if (IOHIDEventGetType() != 17)
   {
-    v51 = [NSString stringWithFormat:@"you know better"];
+    v50 = [NSString stringWithFormat:@"you know better"];
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v52 = NSStringFromSelector(a2);
-      v53 = objc_opt_class();
-      v54 = NSStringFromClass(v53);
-      *v67 = 138544642;
-      *&v67[4] = v52;
-      *&v67[12] = 2114;
-      *&v67[14] = v54;
-      v68 = 2048;
+      v51 = NSStringFromSelector(a2);
+      v52 = objc_opt_class();
+      v53 = NSStringFromClass(v52);
+      *v66 = 138544642;
+      *&v66[4] = v51;
+      *&v66[12] = 2114;
+      *&v66[14] = v53;
+      v67 = 2048;
       selfCopy = self;
-      v70 = 2114;
-      v71 = @"BKMousePointerEventAccumulator.mm";
-      v72 = 1024;
-      v73 = 931;
-      v74 = 2114;
-      v75 = v51;
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v67, 0x3Au);
+      v69 = 2114;
+      v70 = @"BKMousePointerEventAccumulator.mm";
+      v71 = 1024;
+      v72 = 931;
+      v73 = 2114;
+      v74 = v50;
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v66, 0x3Au);
     }
 
-    v55 = v51;
-    [v51 UTF8String];
+    v54 = v50;
+    [v50 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x10007F368);
   }
 
   v8 = [(BKMouseEventAccumulator *)self isSenderLocked]|| self->_buttonMask != 0;
-  v56 = v8;
+  v55 = v8;
   IOHIDEventGetFloatValue();
-  v59 = v9;
+  v58 = v9;
   IOHIDEventGetFloatValue();
-  v58 = v10;
+  v57 = v10;
   kdebug_trace();
   self->_eventTypeMask |= 0x20000uLL;
   v11 = [(BKMouseEventAccumulator *)self _eventStateForSender:senderCopy];
   v12 = v11;
-  v57 = v11;
+  v56 = v11;
   if (v11)
   {
     if (!*(v11 + 72))
@@ -1496,9 +1567,9 @@ LABEL_42:
       v13 = [_BKMovingMedian alloc];
       if (v13)
       {
-        *v67 = v13;
-        *&v67[8] = _BKMovingMedian;
-        v14 = objc_msgSendSuper2(v67, "init");
+        *v66 = v13;
+        *&v66[8] = _BKMovingMedian;
+        v14 = objc_msgSendSuper2(v66, "init");
         v15 = v14;
         if (v14)
         {
@@ -1518,74 +1589,73 @@ LABEL_42:
         v15 = 0;
       }
 
-      v20 = v57[9];
-      v57[9] = v15;
+      v20 = v56[9];
+      v56[9] = v15;
 
-      v12 = v57;
-      sub_10007F4C4(v57[9], 0.01499925);
+      v12 = v56;
+      sub_10007F4C4(v56[9], 0.01499925);
     }
 
     TimeStamp = IOHIDEventGetTimeStamp();
-    v22 = *(v12 + 8);
     BSMonotonicReferencedTimeFromMachTime();
-    v24 = v23;
+    v23 = v22;
     *(v12 + 8) = TimeStamp;
-    v25 = sub_10007BB28(*(v12 + 72));
-    if (v24 / v25 > 0.2 && v24 / v25 < 5.0)
+    v24 = sub_10007BB28(*(v12 + 72));
+    if (v23 / v24 > 0.2 && v23 / v24 < 5.0)
     {
-      sub_10007F4C4(*(v12 + 72), v24);
+      sub_10007F4C4(*(v12 + 72), v23);
       kdebug_trace();
-      v27 = BKLogMousePointer();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v26 = BKLogMousePointer();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        *v67 = 134218240;
-        *&v67[4] = v25 * 1000.0;
-        *&v67[12] = 2048;
-        *&v67[14] = v24 * 1000.0;
-        v28 = "updatePeriodFromEvent: period:%g - delta: %g";
+        *v66 = 134218240;
+        *&v66[4] = v24 * 1000.0;
+        *&v66[12] = 2048;
+        *&v66[14] = v23 * 1000.0;
+        v27 = "updatePeriodFromEvent: period:%g - delta: %g";
         goto LABEL_77;
       }
     }
 
     else
     {
-      v27 = BKLogMousePointer();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v26 = BKLogMousePointer();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        *v67 = 134218240;
-        *&v67[4] = v25 * 1000.0;
-        *&v67[12] = 2048;
-        *&v67[14] = v24 * 1000.0;
-        v28 = "updatePeriodFromEvent: period:%g - delta: %g - outlier filtered";
+        *v66 = 134218240;
+        *&v66[4] = v24 * 1000.0;
+        *&v66[12] = 2048;
+        *&v66[14] = v23 * 1000.0;
+        v27 = "updatePeriodFromEvent: period:%g - delta: %g - outlier filtered";
 LABEL_77:
-        _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, v28, v67, 0x16u);
+        _os_log_debug_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, v27, v66, 0x16u);
       }
     }
   }
 
   IOHIDEventGetChildren();
+  v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
-  v29 = v63 = 0u;
-  v30 = [v29 countByEnumeratingWithState:&v62 objects:v66 count:16];
-  v61 = v59;
+  v61 = 0u;
+  v28 = v62 = 0u;
+  v29 = [v28 countByEnumeratingWithState:&v61 objects:v65 count:16];
   v60 = v58;
-  if (v30)
+  v59 = v57;
+  if (v29)
   {
-    v31 = *v63;
-    v61 = v59;
+    v30 = *v62;
     v60 = v58;
+    v59 = v57;
     do
     {
-      for (i = 0; i != v30; i = i + 1)
+      for (i = 0; i != v29; i = i + 1)
       {
-        if (*v63 != v31)
+        if (*v62 != v30)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v28);
         }
 
-        v33 = *(*(&v62 + 1) + 8 * i);
+        v32 = *(*(&v61 + 1) + 8 * i);
         Type = IOHIDEventGetType();
         if (Type <= 5)
         {
@@ -1593,20 +1663,20 @@ LABEL_77:
           {
             if (Type == 4)
             {
-              [(BKMouseEventAccumulator *)self addTranslationEvent:v33 fromSender:senderCopy];
+              [(BKMouseEventAccumulator *)self addTranslationEvent:v32 fromSender:senderCopy];
             }
 
             else
             {
-              [(BKMouseEventAccumulator *)self addRotationEvent:v33 fromSender:senderCopy];
+              [(BKMouseEventAccumulator *)self addRotationEvent:v32 fromSender:senderCopy];
             }
           }
 
           else if (Type == 1)
           {
             IntegerValue = IOHIDEventGetIntegerValue();
-            v36 = IOHIDEventGetIntegerValue();
-            if (IntegerValue == 65280 && v36 == 17)
+            v35 = IOHIDEventGetIntegerValue();
+            if (IntegerValue == 65280 && v35 == 17)
             {
               goto LABEL_29;
             }
@@ -1614,7 +1684,7 @@ LABEL_77:
 
           else if (Type == 2)
           {
-            [(BKMouseEventAccumulator *)self addButtonEvent:v33 fromSender:senderCopy];
+            [(BKMouseEventAccumulator *)self addButtonEvent:v32 fromSender:senderCopy];
           }
         }
 
@@ -1622,12 +1692,12 @@ LABEL_77:
         {
           if (Type == 6)
           {
-            [(BKMouseEventAccumulator *)self addScrollEvent:v33 fromSender:senderCopy];
+            [(BKMouseEventAccumulator *)self addScrollEvent:v32 fromSender:senderCopy];
           }
 
           else if (Type == 7)
           {
-            [(BKMouseEventAccumulator *)self addScaleEvent:v33 fromSender:senderCopy];
+            [(BKMouseEventAccumulator *)self addScaleEvent:v32 fromSender:senderCopy];
           }
         }
 
@@ -1636,17 +1706,17 @@ LABEL_77:
           switch(Type)
           {
             case 11:
-              [(BKMouseEventAccumulator *)self addDigitizerEvent:v33 fromSender:senderCopy];
+              [(BKMouseEventAccumulator *)self addDigitizerEvent:v32 fromSender:senderCopy];
               break;
             case 17:
               IOHIDEventGetFloatValue();
-              v61 = v38;
+              v60 = v37;
               IOHIDEventGetFloatValue();
-              v60 = v39;
+              v59 = v38;
               break;
             case 41:
 LABEL_29:
-              [(BKMouseEventAccumulator *)self addForceEvent:v33 fromSender:senderCopy];
+              [(BKMouseEventAccumulator *)self addForceEvent:v32 fromSender:senderCopy];
               continue;
             default:
               continue;
@@ -1654,28 +1724,28 @@ LABEL_29:
         }
       }
 
-      v30 = [v29 countByEnumeratingWithState:&v62 objects:v66 count:16];
+      v29 = [v28 countByEnumeratingWithState:&v61 objects:v65 count:16];
     }
 
-    while (v30);
+    while (v29);
   }
 
   if ([(BKMouseEventAccumulator *)self isSenderLocked]|| self->_buttonMask)
   {
-    if (v56)
+    if (v55)
     {
       goto LABEL_57;
     }
 
-    v40 = IOHIDEventGetTimeStamp();
+    v39 = IOHIDEventGetTimeStamp();
   }
 
   else
   {
-    v40 = 0;
+    v39 = 0;
   }
 
-  self->_eventSequenceStartTimestamp = v40;
+  self->_eventSequenceStartTimestamp = v39;
 LABEL_57:
   kdebug_trace();
   kdebug_trace();
@@ -1685,11 +1755,11 @@ LABEL_57:
   {
     if (positionType != 1)
     {
-      v46 = BKLogMousePointer();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+      v45 = BKLogMousePointer();
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
-        *v67 = 0;
-        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "switching to absolute coordinates", v67, 2u);
+        *v66 = 0;
+        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "switching to absolute coordinates", v66, 2u);
       }
 
       self->_positionType = 1;
@@ -1703,8 +1773,8 @@ LABEL_57:
       self->_pointerAcceleratedDelta = 0u;
     }
 
-    self->_pointerAbsolutePosition.x = v59;
-    self->_pointerAbsolutePosition.y = v58;
+    self->_pointerAbsolutePosition.x = v58;
+    self->_pointerAbsolutePosition.y = v57;
     self->_absolutePositionIsValid = 1;
   }
 
@@ -1712,11 +1782,11 @@ LABEL_57:
   {
     if (positionType)
     {
-      v43 = BKLogMousePointer();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v42 = BKLogMousePointer();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
-        *v67 = 0;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "switching to relative coordinates", v67, 2u);
+        *v66 = 0;
+        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "switching to relative coordinates", v66, 2u);
       }
 
       self->_positionType = 0;
@@ -1724,12 +1794,12 @@ LABEL_57:
 
     kdebug_trace();
     kdebug_trace();
-    v44 = IOHIDEventGetTimeStamp();
+    v43 = IOHIDEventGetTimeStamp();
     if ((self->_interpolateEventTypeMask & 0x20000) != 0)
     {
-      v47 = v44;
-      v48 = v57;
-      if (v59 == 0.0 && v58 == 0.0)
+      v46 = v43;
+      v47 = v56;
+      if (v58 == 0.0 && v57 == 0.0)
       {
         self->_pointerInterpolator._accelerationFactor = 0u;
         *&self->_pointerInterpolator._interpolator._y._pN = 0u;
@@ -1739,24 +1809,24 @@ LABEL_57:
         *&self->_pointerInterpolator._interpolator._time._eventTimestamp = 0u;
       }
 
-      if (v57)
+      if (v56)
       {
-        v48 = v57[9];
+        v47 = v56[9];
       }
 
-      v49 = v48;
-      v50 = sub_10007BB28(v49);
-      sub_10007F430(&self->_pointerInterpolator, v47, v59, v58, v61, v60, v50);
+      v48 = v47;
+      v49 = sub_10007BB28(v48);
+      sub_10007F430(&self->_pointerInterpolator, v46, v58, v57, v60, v59, v49);
     }
 
     else
     {
-      v45.f64[0] = v59;
-      v45.f64[1] = v58;
-      self->_pointerUnacceleratedDelta = vaddq_f64(v45, self->_pointerUnacceleratedDelta);
-      v45.f64[0] = v61;
-      v45.f64[1] = v60;
-      self->_pointerAcceleratedDelta = vaddq_f64(v45, self->_pointerAcceleratedDelta);
+      v44.f64[0] = v58;
+      v44.f64[1] = v57;
+      self->_pointerUnacceleratedDelta = vaddq_f64(v44, self->_pointerUnacceleratedDelta);
+      v44.f64[0] = v60;
+      v44.f64[1] = v59;
+      self->_pointerAcceleratedDelta = vaddq_f64(v44, self->_pointerAcceleratedDelta);
     }
   }
 }
@@ -1809,15 +1879,15 @@ LABEL_57:
     postEventAsyncBlock = self->_postEventAsyncBlock;
     if (postEventAsyncBlock)
     {
-      v42[0] = _NSConcreteStackBlock;
-      v42[1] = 3221225472;
-      v42[2] = sub_10007FEC8;
-      v42[3] = &unk_1000FD238;
-      v45 = v9;
-      v42[4] = self;
-      v43 = v5;
-      v44 = senderCopy;
-      postEventAsyncBlock[2](postEventAsyncBlock, v42, 0.2);
+      v41[0] = _NSConcreteStackBlock;
+      v41[1] = 3221225472;
+      v41[2] = sub_10007FEC8;
+      v41[3] = &unk_1000FD238;
+      v44 = v9;
+      v41[4] = self;
+      v42 = v5;
+      v43 = senderCopy;
+      postEventAsyncBlock[2](postEventAsyncBlock, v41, 0.2);
     }
   }
 
@@ -1832,46 +1902,45 @@ LABEL_57:
   {
     self->_eventTypeMask |= 0x40uLL;
     IOHIDEventGetFloatValue();
-    v33 = v12;
+    v32 = v12;
     IOHIDEventGetFloatValue();
-    v34 = v13;
+    v33 = v13;
     IOHIDEventGetChildren();
+    v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v14 = v39 = 0u;
-    v15 = [v14 countByEnumeratingWithState:&v38 objects:v56 count:16];
-    v37 = v33;
-    v36 = v34;
+    v37 = 0u;
+    v14 = v38 = 0u;
+    v15 = [v14 countByEnumeratingWithState:&v37 objects:v55 count:16];
+    v36 = v32;
+    v35 = v33;
     if (v15)
     {
-      v16 = *v39;
-      v37 = v33;
-      v36 = v34;
+      v16 = *v38;
+      v36 = v32;
+      v35 = v33;
       do
       {
         v17 = 0;
         do
         {
-          if (*v39 != v16)
+          if (*v38 != v16)
           {
             objc_enumerationMutation(v14);
           }
 
-          v18 = *(*(&v38 + 1) + 8 * v17);
           if (IOHIDEventGetType() == 6)
           {
             IOHIDEventGetFloatValue();
-            v37 = v19;
+            v36 = v18;
             IOHIDEventGetFloatValue();
-            v36 = v20;
+            v35 = v19;
           }
 
-          v17 = v17 + 1;
+          ++v17;
         }
 
         while (v15 != v17);
-        v15 = [v14 countByEnumeratingWithState:&v38 objects:v56 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v37 objects:v55 count:16];
       }
 
       while (v15);
@@ -1883,39 +1952,39 @@ LABEL_57:
     kdebug_trace();
     if (Phase)
     {
-      v21 = BKLogMousePointer();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v20 = BKLogMousePointer();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
-        v31 = BKNSStringFromIOHIDEventPhase();
+        v30 = BKNSStringFromIOHIDEventPhase();
         *buf = 138544386;
-        v47 = v31;
-        v48 = 2048;
-        v49 = v34;
-        v50 = 2048;
-        v51 = v34;
-        v52 = 2048;
-        v53 = v37;
-        v54 = 2048;
-        v55 = v36;
-        _os_log_debug_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, " -> scroll (%{public}@) %g,%g accel:%g,%g", buf, 0x34u);
+        v46 = v30;
+        v47 = 2048;
+        v48 = v33;
+        v49 = 2048;
+        v50 = v33;
+        v51 = 2048;
+        v52 = v36;
+        v53 = 2048;
+        v54 = v35;
+        _os_log_debug_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, " -> scroll (%{public}@) %g,%g accel:%g,%g", buf, 0x34u);
       }
 
       if ((self->_interpolateEventTypeMask & 0x40) != 0)
       {
         if (v5)
         {
-          v22 = *(v5 + 72);
+          v21 = *(v5 + 72);
         }
 
         else
         {
-          v22 = 0;
+          v21 = 0;
         }
 
-        v23 = v22;
-        v24 = IOHIDEventGetTimeStamp();
-        v25 = sub_10007BB28(v23);
-        sub_10007F430(&self->_scrollInterpolator, v24, v33, v34, v37, v36, v25);
+        v22 = v21;
+        v23 = IOHIDEventGetTimeStamp();
+        v24 = sub_10007BB28(v22);
+        sub_10007F430(&self->_scrollInterpolator, v23, v32, v33, v36, v35, v24);
 
         goto LABEL_33;
       }
@@ -1923,32 +1992,32 @@ LABEL_57:
 
     else
     {
-      v27 = BKLogMousePointer();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v26 = BKLogMousePointer();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        v32 = BKNSStringFromIOHIDEventPhase();
+        v31 = BKNSStringFromIOHIDEventPhase();
         *buf = 138544386;
-        v47 = v32;
-        v48 = 2048;
-        v49 = v33;
-        v50 = 2048;
-        v51 = v34;
-        v52 = 2048;
-        v53 = v37;
-        v54 = 2048;
-        v55 = v36;
-        _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, " -> discrete scroll (%{public}@) %g,%g accel:%g,%g", buf, 0x34u);
+        v46 = v31;
+        v47 = 2048;
+        v48 = v32;
+        v49 = 2048;
+        v50 = v33;
+        v51 = 2048;
+        v52 = v36;
+        v53 = 2048;
+        v54 = v35;
+        _os_log_debug_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, " -> discrete scroll (%{public}@) %g,%g accel:%g,%g", buf, 0x34u);
       }
     }
 
-    v28.f64[0] = v33;
-    v28.f64[1] = v34;
-    v29 = vaddq_f64(v28, self->_scrollUnacceleratedDelta);
-    v28.f64[0] = v37;
-    v28.f64[1] = v36;
-    v30 = vaddq_f64(v28, self->_scrollAcceleratedDelta);
-    self->_scrollUnacceleratedDelta = v29;
-    self->_scrollAcceleratedDelta = v30;
+    v27.f64[0] = v32;
+    v27.f64[1] = v33;
+    v28 = vaddq_f64(v27, self->_scrollUnacceleratedDelta);
+    v27.f64[0] = v36;
+    v27.f64[1] = v35;
+    v29 = vaddq_f64(v27, self->_scrollAcceleratedDelta);
+    self->_scrollUnacceleratedDelta = v28;
+    self->_scrollAcceleratedDelta = v29;
 LABEL_33:
     self->_scrollPhaseDidChange |= self->_scrollPhase != self->_scrollPhaseTracker._inputPhase;
     self->_scrollPhase = v8;
@@ -1960,7 +2029,7 @@ LABEL_33:
   {
     senderID = [senderCopy senderID];
     *buf = 134217984;
-    v47 = senderID;
+    v46 = senderID;
     _os_log_debug_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, " -> scroll rejected from sender:%llX", buf, 0xCu);
   }
 

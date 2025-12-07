@@ -8,11 +8,16 @@
 - (UILabel)placeholderMessageLabel;
 - (void)layoutSubviews;
 - (void)maskPlaceholdersInBackdropView:(id)view;
+- (void)placeholderImage;
+- (void)placeholderMessage;
+- (void)placeholderMessageLabel;
 - (void)setBackgroundColor:(id)color;
 - (void)setPlaceholderImage:(id)image;
 - (void)setPlaceholderImageInsets:(UIEdgeInsets)insets;
 - (void)setPlaceholderMessage:(id)message;
 - (void)setShowsSignInButton:(BOOL)button;
+- (void)showsSignInButton;
+- (void)signInButton;
 @end
 
 @implementation SKUIEmptyContentPlaceholderView
@@ -328,72 +333,8 @@ LABEL_8:
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIEmptyContentPlaceholderView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  [(SKUIEmptyContentPlaceholderView *)self bounds];
-  v12 = v11;
-  v14 = v13;
-  v15 = v11 + -30.0;
-  [(UIImageView *)self->_imageView frame];
-  v17 = v16;
-  v19 = v18;
-  [(UILabel *)self->_label frame];
-  v20 = v15;
-  [(UILabel *)self->_label sizeThatFits:v15, 1.79769313e308];
-  v22 = v21;
-  if (([(UIButton *)self->_signInButton isHidden]& 1) != 0)
-  {
-    v23 = *(MEMORY[0x277CBF3A0] + 24);
-    v37 = *MEMORY[0x277CBF3A0];
-    v38 = *(MEMORY[0x277CBF3A0] + 16);
-  }
-
-  else
-  {
-    [(UIButton *)self->_signInButton sizeToFit];
-    [(UIButton *)self->_signInButton frame];
-    v25 = (v12 - v24) * 0.5;
-    v37 = floorf(v25);
-    v38 = v24;
-  }
-
-  top = self->_imageInsets.top;
-  v27 = v22 + v19 + self->_imageInsets.bottom + top;
-  v36 = v23;
-  if (v23 > 0.00000011920929)
-  {
-    v27 = v23 + 20.0 + v27;
-  }
-
-  v28 = (v12 - v17) * 0.5;
-  v29 = floorf(v28);
-  v30 = (v14 - v27) * 0.5;
-  v31 = v19;
-  v32 = v17;
-  v33 = top + floorf(v30);
-  v39.origin.x = v29;
-  v39.origin.y = v33;
-  v39.size.width = v32;
-  v39.size.height = v31;
-  v34 = CGRectGetMaxY(v39) + self->_imageInsets.bottom;
-  v40.origin.x = 15.0;
-  v40.origin.y = v34;
-  v40.size.width = v15;
-  v40.size.height = v22;
-  v35 = CGRectGetMaxY(v40) + 20.0;
-  [(UIImageView *)self->_imageView setFrame:v29, v33, v32, v31];
-  [(UILabel *)self->_label setFrame:15.0, v34, v20, v22];
-  [(UIButton *)self->_signInButton setFrame:v37, v35, v38, v36];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEmptyContentPlaceholderView layoutSubviews]";
 }
 
 - (void)setBackgroundColor:(id)color
@@ -483,6 +424,78 @@ LABEL_8:
   result.left = left;
   result.top = top;
   return result;
+}
+
+- (void)maskPlaceholdersInBackdropView:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEmptyContentPlaceholderView maskPlaceholdersInBackdropView:]";
+}
+
+- (void)placeholderImage
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEmptyContentPlaceholderView placeholderImage]";
+}
+
+- (void)placeholderMessage
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEmptyContentPlaceholderView placeholderMessage]";
+}
+
+- (void)placeholderMessageLabel
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEmptyContentPlaceholderView placeholderMessageLabel]";
+}
+
+- (void)setPlaceholderImage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEmptyContentPlaceholderView setPlaceholderImage:]";
+}
+
+- (void)setPlaceholderImageInsets:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEmptyContentPlaceholderView setPlaceholderImageInsets:]";
+}
+
+- (void)setPlaceholderMessage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEmptyContentPlaceholderView setPlaceholderMessage:]";
+}
+
+- (void)setShowsSignInButton:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEmptyContentPlaceholderView setShowsSignInButton:]";
+}
+
+- (void)signInButton
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEmptyContentPlaceholderView signInButton]";
+}
+
+- (void)showsSignInButton
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEmptyContentPlaceholderView showsSignInButton]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEmptyContentPlaceholderView setBackgroundColor:]";
+}
+
+- (void)sizeThatFits:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIEmptyContentPlaceholderView sizeThatFits:]";
 }
 
 @end

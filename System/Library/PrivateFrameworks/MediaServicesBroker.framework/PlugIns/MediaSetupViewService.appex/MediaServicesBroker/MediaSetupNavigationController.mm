@@ -9,6 +9,7 @@
 - (void)presentationControllerDidDismiss:(id)dismiss;
 - (void)presentationControllerWillDismiss:(id)dismiss;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation MediaSetupNavigationController
@@ -23,13 +24,27 @@
 - (void)_willAppearInRemoteViewController
 {
   selfCopy = self;
-  sub_100010018();
+  sub_100010018(selfCopy);
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100010394();
+  sub_100010394(selfCopy);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v4 = *(&self->super.super.super.super.isa + OBJC_IVAR___MediaSetupNavigationController_setupSession);
+  *(&self->super.super.super.super.isa + OBJC_IVAR___MediaSetupNavigationController_setupSession) = 0;
+  selfCopy = self;
+
+  *(&selfCopy->super.super.super.super.isa + OBJC_IVAR___MediaSetupNavigationController_waiting) = 0;
+  sub_10000F534();
+  v6.receiver = selfCopy;
+  v6.super_class = type metadata accessor for MediaSetupNavigationController(0);
+  [(MediaSetupNavigationController *)&v6 viewWillDisappear:disappearCopy];
 }
 
 - (MediaSetupNavigationController)initWithNavigationBarClass:(Class)class toolbarClass:(Class)toolbarClass
@@ -88,21 +103,21 @@ LABEL_3:
 {
   dismissCopy = dismiss;
   selfCopy = self;
-  sub_10001539C();
+  sub_10001539C(selfCopy);
 }
 
 - (void)presentationControllerDidDismiss:(id)dismiss
 {
   dismissCopy = dismiss;
   selfCopy = self;
-  sub_1000154A8();
+  sub_1000154A8(selfCopy);
 }
 
 - (BOOL)presentationControllerShouldDismiss:(id)dismiss
 {
   dismissCopy = dismiss;
   selfCopy = self;
-  LOBYTE(self) = sub_1000155B4();
+  LOBYTE(self) = sub_1000155B4(selfCopy);
 
   return self & 1;
 }
@@ -111,7 +126,7 @@ LABEL_3:
 {
   dismissCopy = dismiss;
   selfCopy = self;
-  sub_1000156B4();
+  sub_1000156B4(selfCopy);
 }
 
 @end

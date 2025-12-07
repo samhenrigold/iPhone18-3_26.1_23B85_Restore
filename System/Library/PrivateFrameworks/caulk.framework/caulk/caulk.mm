@@ -50,7 +50,7 @@ uint64_t std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100
 void caulk::xpc::reply_watchdog_factory::make_timer(caulk::xpc::reply_watchdog_factory *this@<X0>, int a2@<W1>, dispatch_source_t *a3@<X8>)
 {
   v3 = a2;
-  v13[4] = *MEMORY[0x277D85DE8];
+  v12[4] = *MEMORY[0x277D85DE8];
   if (!a2)
   {
     v3 = *(this + 1);
@@ -65,10 +65,10 @@ void caulk::xpc::reply_watchdog_factory::make_timer(caulk::xpc::reply_watchdog_f
   handler[1] = 3321888768;
   handler[2] = ___ZN5caulk3xpc22reply_watchdog_factory10make_timerEi_block_invoke;
   handler[3] = &__block_descriptor_64_ea8_32c60_ZTSKZN5caulk3xpc22reply_watchdog_factory10make_timerEiE3__0_e5_v8__0l;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v11, this + 8);
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v13, v11);
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v10, this + 8);
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v12, v10);
   dispatch_source_set_event_handler(v7, handler);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v11);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v10);
 
   v8 = applesauce::dispatch::v1::source::operator*(v7);
   dispatch_resume(v8);
@@ -78,16 +78,15 @@ void caulk::xpc::reply_watchdog_factory::make_timer(caulk::xpc::reply_watchdog_f
   v9 = dispatch_time(0, 1000000 * v3);
   dispatch_source_set_timer(v7, v9, 0xFFFFFFFFFFFFFFFFLL, 0xF4240uLL);
 
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v13);
-  v10 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v12);
 }
 
-void sub_27549CDD4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_27549CDD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
 
-  applesauce::dispatch::v1::source::~source(v4);
+  applesauce::dispatch::v1::source::~source(v5);
   _Unwind_Resume(a1);
 }
 
@@ -116,25 +115,22 @@ std::string *__cdecl std::string::__assign_external(std::string *this, const std
 
 void caulk::platform::process_name(caulk::platform *this@<X0>, std::string *a2@<X8>)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  v9 = *MEMORY[0x277D85DE8];
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
-  v4 = 648;
-  *v5 = 0xE00000001;
-  v6 = 1;
-  v7 = this;
-  if (sysctl(v5, 4u, v8, &v4, 0, 0) == -1)
+  v3 = 648;
+  *v4 = 0xE00000001;
+  v5 = 1;
+  v6 = this;
+  if (sysctl(v4, 4u, v7, &v3, 0, 0) == -1)
   {
     perror("sysctl");
   }
 
-  else if (v4)
+  else if (v3)
   {
-    std::string::__assign_external(a2, v9);
+    std::string::__assign_external(a2, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void sub_27549CFB0(_Unwind_Exception *exception_object)
@@ -532,15 +528,14 @@ LABEL_9:
 
 uint64_t caulk::is_debugger_attached(caulk *this)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  *v6 = 0xE00000001;
-  v7 = 1;
-  v8 = this;
-  v3 = 648;
-  v5 = 0;
-  sysctl(v6, 4u, v4, &v3, 0, 0);
-  v1 = *MEMORY[0x277D85DE8];
-  return (v5 >> 11) & 1;
+  v8 = *MEMORY[0x277D85DE8];
+  *v5 = 0xE00000001;
+  v6 = 1;
+  v7 = this;
+  v2 = 648;
+  v4 = 0;
+  sysctl(v5, 4u, v3, &v2, 0, 0);
+  return (v4 >> 11) & 1;
 }
 
 uint64_t caulk::product::get_device_class(caulk::product *this)
@@ -552,7 +547,7 @@ uint64_t caulk::product::get_device_class(caulk::product *this)
   return caulk::product::get_device_class(void)::global;
 }
 
-unint64_t caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::search_to_level<caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::key_le>(unint64_t a1, void *a2, unint64_t a3)
+uint64_t caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::search_to_level<caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::key_le>(unint64_t a1, void *a2, unint64_t a3)
 {
   v6 = -1;
   v7 = 48;
@@ -610,7 +605,7 @@ void caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chun
   }
 }
 
-unint64_t caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::search_right<caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::key_le &>(unint64_t a1, uint64_t a2, unint64_t a3, void *a4)
+uint64_t caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::search_right<caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::key_le &>(unint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v4 = a3;
   v5 = atomic_load((a3 + 16 * a2 + 32));
@@ -717,7 +712,7 @@ uint64_t caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc
   return result;
 }
 
-unint64_t caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::search_to_level<caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::key_le>(unint64_t a1, void *a2, unint64_t a3)
+uint64_t caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::search_to_level<caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::key_le>(unint64_t a1, void *a2, unint64_t a3)
 {
   v6 = -1;
   v7 = 56;
@@ -1117,7 +1112,7 @@ LABEL_88:
     os_unfair_lock_unlock((a1 + 704));
     if (v55)
     {
-      v11 = v55 + 32;
+      v11 = (v55 + 32);
     }
 
     else
@@ -1141,12 +1136,12 @@ LABEL_88:
       v59 = v11 ^ v57 ^ 0x3E9E8527D393999FLL;
       do
       {
-        *(v11 - 32 + v58) = v59;
-        *(v11 + ((v57 + 7) & 0xFFFFFFFFFFFFFFF8) + v58) = v59;
-        v58 += 8;
+        *&v11[v58 - 8] = v59;
+        *(v11 + ((v57 + 7) & 0xFFFFFFFFFFFFFFF8) + v58 * 4) = v59;
+        v58 += 2;
       }
 
-      while (v58 != 32);
+      while (v58 != 8);
     }
 
     return v11;
@@ -1194,11 +1189,11 @@ uint64_t **std::__tree<std::__value_type<unsigned long,caulk::alloc::consolidati
     do
     {
       v3 = v4[2];
-      v30 = *v3 == v4;
+      v29 = *v3 == v4;
       v4 = v3;
     }
 
-    while (!v30);
+    while (!v29);
   }
 
   if (*result == a2)
@@ -1300,7 +1295,6 @@ LABEL_16:
   {
     v16 = v11[2];
     v17 = *v16;
-    v18 = *(v11 + 24);
     if (*v16 == v11)
     {
       break;
@@ -1310,19 +1304,19 @@ LABEL_16:
     {
       *(v11 + 24) = 1;
       *(v16 + 24) = 0;
-      v19 = v16[1];
-      v20 = *v19;
-      v16[1] = *v19;
-      if (v20)
+      v18 = *(v16 + 8);
+      v19 = *v18;
+      *(v16 + 8) = *v18;
+      if (v19)
       {
-        *(v20 + 16) = v16;
+        *(v19 + 16) = v16;
       }
 
-      v21 = v16[2];
-      v19[2] = v21;
-      v21[*v21 != v16] = v19;
-      *v19 = v16;
-      v16[2] = v19;
+      v20 = *(v16 + 16);
+      v18[2] = v20;
+      v20[*v20 != v16] = v18;
+      *v18 = v16;
+      *(v16 + 16) = v18;
       if (v5 == *v11)
       {
         v5 = v11;
@@ -1331,163 +1325,163 @@ LABEL_16:
       v11 = *(*v11 + 8);
     }
 
-    v22 = *v11;
-    if (*v11 && *(v22 + 24) != 1)
+    v21 = *v11;
+    if (*v11 && *(v21 + 24) != 1)
     {
-      v23 = v11[1];
-      if (v23 && (v23[3] & 1) == 0)
+      v22 = v11[1];
+      if (v22 && (v22[3] & 1) == 0)
       {
 LABEL_66:
-        v22 = v11;
+        v21 = v11;
       }
 
       else
       {
-        *(v22 + 24) = 1;
+        *(v21 + 24) = 1;
         *(v11 + 24) = 0;
-        v31 = v22[1];
-        *v11 = v31;
-        if (v31)
+        v30 = *(v21 + 8);
+        *v11 = v30;
+        if (v30)
         {
-          *(v31 + 16) = v11;
+          *(v30 + 16) = v11;
         }
 
-        v32 = v11[2];
-        v22[2] = v32;
-        v32[*v32 != v11] = v22;
-        v22[1] = v11;
-        v11[2] = v22;
-        v23 = v11;
+        v31 = v11[2];
+        *(v21 + 16) = v31;
+        v31[*v31 != v11] = v21;
+        *(v21 + 8) = v11;
+        v11[2] = v21;
+        v22 = v11;
       }
 
-      v33 = v22[2];
-      *(v22 + 24) = *(v33 + 24);
-      *(v33 + 24) = 1;
-      *(v23 + 24) = 1;
-      v34 = *(v33 + 8);
-      v35 = *v34;
-      *(v33 + 8) = *v34;
-      if (v35)
+      v32 = *(v21 + 16);
+      *(v21 + 24) = *(v32 + 24);
+      *(v32 + 24) = 1;
+      *(v22 + 24) = 1;
+      v33 = *(v32 + 8);
+      v34 = *v33;
+      *(v32 + 8) = *v33;
+      if (v34)
       {
-        *(v35 + 16) = v33;
+        *(v34 + 16) = v32;
       }
 
-      v36 = *(v33 + 16);
-      v34[2] = v36;
-      v36[*v36 != v33] = v34;
-      *v34 = v33;
+      v35 = *(v32 + 16);
+      v33[2] = v35;
+      v35[*v35 != v32] = v33;
+      *v33 = v32;
       goto LABEL_79;
     }
 
-    v23 = v11[1];
-    if (v23 && *(v23 + 24) != 1)
+    v22 = v11[1];
+    if (v22 && *(v22 + 24) != 1)
     {
       goto LABEL_66;
     }
 
     *(v11 + 24) = 0;
-    v24 = v11[2];
-    if (v24 == v5 || (v24[3] & 1) == 0)
+    v23 = v11[2];
+    if (v23 == v5 || (v23[3] & 1) == 0)
     {
       goto LABEL_60;
     }
 
 LABEL_57:
-    v11 = *(v24[2] + 8 * (*v24[2] == v24));
+    v11 = *(v23[2] + 8 * (*v23[2] == v23));
   }
 
   if ((v11[3] & 1) == 0)
   {
     *(v11 + 24) = 1;
     *(v16 + 24) = 0;
-    v25 = v17[1];
-    *v16 = v25;
-    if (v25)
+    v24 = v17[1];
+    *v16 = v24;
+    if (v24)
     {
-      *(v25 + 16) = v16;
+      *(v24 + 16) = v16;
     }
 
-    v26 = v16[2];
-    v17[2] = v26;
-    v26[*v26 != v16] = v17;
+    v25 = *(v16 + 16);
+    v17[2] = v25;
+    v25[*v25 != v16] = v17;
     v17[1] = v16;
-    v16[2] = v17;
-    v27 = v11[1];
-    if (v5 == v27)
+    *(v16 + 16) = v17;
+    v26 = v11[1];
+    if (v5 == v26)
     {
       v5 = v11;
     }
 
-    v11 = *v27;
+    v11 = *v26;
   }
 
-  v28 = *v11;
-  if (*v11 && *(v28 + 24) != 1)
+  v27 = *v11;
+  if (*v11 && *(v27 + 24) != 1)
   {
     goto LABEL_75;
   }
 
-  v29 = v11[1];
-  if (!v29 || *(v29 + 24) == 1)
+  v28 = v11[1];
+  if (!v28 || *(v28 + 24) == 1)
   {
     *(v11 + 24) = 0;
-    v24 = v11[2];
-    v30 = *(v24 + 24) != 1 || v24 == v5;
-    if (v30)
+    v23 = v11[2];
+    v29 = *(v23 + 24) != 1 || v23 == v5;
+    if (v29)
     {
 LABEL_60:
-      *(v24 + 24) = 1;
+      *(v23 + 24) = 1;
       return result;
     }
 
     goto LABEL_57;
   }
 
-  if (v28 && (v28[3] & 1) == 0)
+  if (v27 && (*(v27 + 24) & 1) == 0)
   {
 LABEL_75:
-    v29 = v11;
+    v28 = v11;
     goto LABEL_76;
   }
 
-  *(v29 + 24) = 1;
-  *(v11 + 24) = 0;
-  v37 = *v29;
-  v11[1] = *v29;
-  if (v37)
-  {
-    *(v37 + 16) = v11;
-  }
-
-  v38 = v11[2];
-  v29[2] = v38;
-  v38[*v38 != v11] = v29;
-  *v29 = v11;
-  v11[2] = v29;
-  v28 = v11;
-LABEL_76:
-  v33 = v29[2];
-  *(v29 + 24) = *(v33 + 24);
-  *(v33 + 24) = 1;
   *(v28 + 24) = 1;
-  v34 = *v33;
-  v39 = *(*v33 + 8);
-  *v33 = v39;
-  if (v39)
+  *(v11 + 24) = 0;
+  v36 = *v28;
+  v11[1] = *v28;
+  if (v36)
   {
-    *(v39 + 16) = v33;
+    *(v36 + 16) = v11;
   }
 
-  v40 = *(v33 + 16);
-  v34[2] = v40;
-  v40[*v40 != v33] = v34;
-  v34[1] = v33;
+  v37 = v11[2];
+  v28[2] = v37;
+  v37[*v37 != v11] = v28;
+  *v28 = v11;
+  v11[2] = v28;
+  v27 = v11;
+LABEL_76:
+  v32 = v28[2];
+  *(v28 + 24) = *(v32 + 24);
+  *(v32 + 24) = 1;
+  *(v27 + 24) = 1;
+  v33 = *v32;
+  v38 = *(*v32 + 8);
+  *v32 = v38;
+  if (v38)
+  {
+    *(v38 + 16) = v32;
+  }
+
+  v39 = *(v32 + 16);
+  v33[2] = v39;
+  v39[*v39 != v32] = v33;
+  v33[1] = v32;
 LABEL_79:
-  *(v33 + 16) = v34;
+  *(v32 + 16) = v33;
   return result;
 }
 
-uint64_t caulk::alloc::bitmap_allocator<caulk::alloc::embed_block_memory,16368ul,16ul,6ul>::allocate(unsigned int *a1, uint64_t a2)
+unsigned int *caulk::alloc::bitmap_allocator<caulk::alloc::embed_block_memory,16368ul,16ul,6ul>::allocate(unsigned int *a1, uint64_t a2)
 {
   v2 = (a2 + 15) >> 4;
   v3 = atomic_load(a1);
@@ -1530,7 +1524,7 @@ uint64_t caulk::alloc::bitmap_allocator<caulk::alloc::embed_block_memory,16368ul
   return &a1[4 * v7 + 68];
 }
 
-uint64_t caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::maybe_create_free_node(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::maybe_create_free_node(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a2 + 24);
   v4 = (v3 >> 1) - a3;
@@ -1551,11 +1545,11 @@ uint64_t caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485
         *(v6 + (v8 >> 1) + 48) = *(v6 + (v8 >> 1) + 48) & 1 | v8;
       }
 
-      return caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::add_freemap_node(result, v6);
+      return caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::add_freemap_node(a1, v6);
     }
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::add_freemap_node(uint64_t result, void *a2)
@@ -2231,12 +2225,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -2250,22 +2244,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -2299,13 +2293,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -2347,7 +2341,7 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-unint64_t caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::search_right<caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::key_le &>(unint64_t a1, uint64_t a2, unint64_t a3, void *a4)
+uint64_t caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::search_right<caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::key_le &>(unint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v4 = a3;
   v5 = atomic_load((a3 + 16 * a2 + 40));
@@ -2381,7 +2375,7 @@ unint64_t caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block
   return v4;
 }
 
-unint64_t caulk::concurrent::details::node_allocator<void *,caulk::alloc::detail::tracked_block,10ul,(caulk::concurrent::skiplist_options)0>::end_traversal@<X0>(unint64_t result@<X0>, unint64_t a2@<X8>)
+uint64_t caulk::concurrent::details::node_allocator<void *,caulk::alloc::detail::tracked_block,10ul,(caulk::concurrent::skiplist_options)0>::end_traversal@<X0>(uint64_t result@<X0>, unint64_t a2@<X8>)
 {
   _X2 = 0;
   _X3 = 0;
@@ -2614,7 +2608,7 @@ atomic_ullong *caulk::concurrent::details::messenger_servicer::enqueue(atomic_ul
   return result;
 }
 
-uint64_t caulk::deferred_logger::create_message(caulk::deferred_logger *this, unint64_t a2, int a3)
+uint64_t caulk::deferred_logger::create_message(caulk::deferred_logger *this, unint64_t a2, uint64_t a3)
 {
   v3 = 0;
   if (a2 < 0x10000)
@@ -2865,14 +2859,14 @@ uint64_t caulk::mach::thread::priority_realtime::apply_to_this_thread(integer_t 
 
 uint64_t ___ZN5caulk10concurrent7details17dispatch_receiverC2EN10applesauce8dispatch2v15queueE_block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(v1 + 88);
-  v5.msgh_bits = 0;
-  v5.msgh_remote_port = 0;
-  v5.msgh_local_port = v2;
-  *&v5.msgh_voucher_port = 0;
-  mach_msg(&v5, 2, 0, 0x28u, v2, 0, 0);
+  v4.msgh_bits = 0;
+  v4.msgh_remote_port = 0;
+  v4.msgh_local_port = v2;
+  *&v4.msgh_voucher_port = 0;
+  mach_msg(&v4, 2, 0, 0x28u, v2, 0, 0);
   atomic_store(0, (v1 + 104));
   do
   {
@@ -2880,7 +2874,6 @@ uint64_t ___ZN5caulk10concurrent7details17dispatch_receiverC2EN10applesauce8disp
   }
 
   while ((result & 1) != 0);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2907,7 +2900,7 @@ semaphore_t *caulk::mach::semaphore::semaphore(semaphore_t *semaphore)
 
 uint64_t caulk::details::log_msg::perform(caulk::details::log_msg *this)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(this + 3);
   v3 = *(v2 + 32);
   if (*(this + 22) == 2)
@@ -2936,58 +2929,53 @@ uint64_t caulk::details::log_msg::perform(caulk::details::log_msg *this)
     while (!v8);
   }
 
-  v9 = *(v2 + 24);
-  v10 = *(this + 22);
   os_log_pack_send();
   if (*(v2 + 40))
   {
-    v11 = atomic_exchange((v2 + 40), 0);
-    v12 = *(v2 + 24);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v9 = atomic_exchange((v2 + 40), 0);
+    v10 = *(v2 + 24);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v17[0] = 67109120;
-      v17[1] = v11;
-      _os_log_error_impl(&dword_27549C000, v12, OS_LOG_TYPE_ERROR, "%u messages were dropped due to log throttling", v17, 8u);
+      v13[0] = 67109120;
+      v13[1] = v9;
+      _os_log_error_impl(&dword_27549C000, v10, OS_LOG_TYPE_ERROR, "%u messages were dropped due to log throttling", v13, 8u);
     }
   }
 
-  v13 = *(this + 10);
   (**this)(this);
   if (!caulk::g_realtime_safe_resource)
   {
     __break(1u);
   }
 
-  v14 = *(*caulk::g_realtime_safe_resource + 24);
-  v15 = *MEMORY[0x277D85DE8];
+  v11 = *(*caulk::g_realtime_safe_resource + 24);
 
-  return v14();
+  return v11();
 }
 
 uint64_t caulk::mach::throw_if_mach_error(uint64_t this, const char *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    *v7 = &unk_28841AFB8;
-    MEMORY[0x277C788B0](v6, a2, v7, this);
-    std::error_category::~error_category(v7);
+    *v6 = &unk_28841AFB8;
+    MEMORY[0x277C788B0](v5, a2, v6, this);
+    std::error_category::~error_category(v6);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v3 = std::runtime_error::what(v6);
-      *v7 = 136315138;
-      *&v7[4] = v3;
-      _os_log_error_impl(&dword_27549C000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Throwing: %s", v7, 0xCu);
+      v2 = std::runtime_error::what(v5);
+      *v6 = 136315138;
+      *&v6[4] = v2;
+      _os_log_error_impl(&dword_27549C000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Throwing: %s", v6, 0xCu);
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
-    v5 = std::runtime_error::runtime_error(exception, v6);
-    v5->__vftable = (MEMORY[0x277D82840] + 16);
-    v5[1] = v6[1];
-    __cxa_throw(v5, MEMORY[0x277D82718], MEMORY[0x277D82650]);
+    v4 = std::runtime_error::runtime_error(exception, v5);
+    v4->__vftable = (MEMORY[0x277D82840] + 16);
+    v4[1] = v5[1];
+    __cxa_throw(v4, MEMORY[0x277D82718], MEMORY[0x277D82650]);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -3249,12 +3237,12 @@ void sub_2754A04C8(void *a1)
   __cxa_end_catch();
 }
 
-void caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul,caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>>,caulk::alloc::size_range_tier<1009ul,16128ul,caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>>,caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>>::deallocate(uint64_t a1, caulk::mach::vm_block *a2, unint64_t a3)
+void caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul,caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>>,caulk::alloc::size_range_tier<1009ul,16128ul,caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>>,caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>>::deallocate(unint64_t *a1, caulk::mach::vm_block *a2, unint64_t a3)
 {
   if (a3 <= 0x3F0)
   {
-    v19 = a1 + 976;
-    v20 = a1 + 1136;
+    v19 = (a1 + 122);
+    v20 = (a1 + 142);
     caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::begin_traversal();
     owner = caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::find_owner(&v19, a2);
     if (owner)
@@ -3272,7 +3260,7 @@ void caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul,cau
           if ((v9 & 1) == 0)
           {
             v17 = v7;
-            caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::emplace<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *>((a1 + 1264), v7 + 288, &v17);
+            caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::emplace<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *>(a1 + 158, v7 + 288, &v17);
             v9 = v7 + 4;
             atomic_store(0, (v7 + 4));
             atomic_store(0, v7);
@@ -3291,7 +3279,7 @@ LABEL_22:
 
   if ((a3 - 1009) >> 4 > 0x3B0)
   {
-    if ((caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::remove(a1 + 16, a2) & 1) == 0)
+    if ((caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::remove((a1 + 2), a2) & 1) == 0)
     {
       goto LABEL_22;
     }
@@ -3303,8 +3291,8 @@ LABEL_22:
 
   else
   {
-    v17 = a1 + 368;
-    v18 = a1 + 528;
+    v17 = (a1 + 46);
+    v18 = (a1 + 66);
     caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::begin_traversal();
     v10 = caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::find_owner(&v17, a2);
     if (!v10)
@@ -3320,7 +3308,7 @@ LABEL_22:
     }
 
     v13 = (a3 + 255) >> 8;
-    v19 = v10 + 24;
+    v19 = (v10 + 24);
     v20 = 2;
     caulk::alloc::detail::state_bit_span::deallocate(&v19, (a2 - v12) >> 8, v13);
     v14 = v11 + 16;
@@ -3335,7 +3323,7 @@ LABEL_22:
         if ((v14 & 1) == 0)
         {
           v19 = v11;
-          caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::emplace<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *>((a1 + 656), v12, &v19);
+          caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::emplace<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *>(a1 + 82, v12, &v19);
           v14 = v11 + 4;
           atomic_store(0, (v11 + 4));
           atomic_store(0, v11);
@@ -3435,12 +3423,12 @@ double caulk::mach::os_workgroup_managed::make@<D0>(const char *a1@<X0>, mach_po
   return result;
 }
 
-void caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul,caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>>,caulk::alloc::size_range_tier<1009ul,256000ul,caulk::alloc::guarded_edges_allocator<caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>,4ul>>,caulk::alloc::tracking_allocator<caulk::alloc::page_allocator>>::deallocate(uint64_t a1, unint64_t a2, unint64_t a3)
+void caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul,caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>>,caulk::alloc::size_range_tier<1009ul,256000ul,caulk::alloc::guarded_edges_allocator<caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>,4ul>>,caulk::alloc::tracking_allocator<caulk::alloc::page_allocator>>::deallocate(os_unfair_lock_s *a1, unint64_t a2, unint64_t a3)
 {
   if (a3 <= 0x3F0)
   {
-    v22 = a1 + 784;
-    v23 = a1 + 944;
+    v22 = a1 + 196;
+    v23 = a1 + 236;
     caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::begin_traversal();
     owner = caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::find_owner(&v22, a2);
     if (owner)
@@ -3458,7 +3446,7 @@ void caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul,cau
           if ((v9 & 1) == 0)
           {
             v24 = v7;
-            caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::emplace<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *>((a1 + 1072), v7 + 288, &v24);
+            caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::emplace<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *>(&a1[268]._os_unfair_lock_opaque, v7 + 288, &v24);
             v9 = v7 + 4;
             atomic_store(0, (v7 + 4));
             atomic_store(0, v7);
@@ -3488,8 +3476,8 @@ void caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul,cau
       if (v10 == 32)
       {
         v12 = a2 - 32;
-        os_unfair_lock_lock((a1 + 704));
-        v13 = caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::size(a1 + 352, a2 - 32);
+        os_unfair_lock_lock(a1 + 176);
+        v13 = caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::size(&a1[88], a2 - 32);
         if (v13)
         {
           v14 = a2 - 64;
@@ -3503,7 +3491,7 @@ void caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul,cau
               v17 = v12 + (v15 >> 1);
               if (*(v17 + 16))
               {
-                caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::remove_freemap_entry(a1 + 352, v17);
+                caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::remove_freemap_entry(&a1[88], v17);
                 caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::consolidate_free(v12 - 32, v17);
                 v16 = *(v12 - 16);
               }
@@ -3513,7 +3501,7 @@ void caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul,cau
           if (v16 >= 2 && (v18 = v14 - (v16 >> 1), (*(v18 - 16) & 1) != 0))
           {
             v19 = (v18 - 32);
-            caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::remove_freemap_entry(a1 + 352, (v18 - 32));
+            caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::remove_freemap_entry(&a1[88], (v18 - 32));
             caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::consolidate_free(v19, v14);
           }
 
@@ -3522,10 +3510,10 @@ void caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul,cau
             v19 = (v12 - 32);
           }
 
-          v21 = caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::add_freemap_node(a1 + 352, v19);
+          v21 = caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::add_freemap_node(&a1[88], v19);
           caulk::alloc::page_allocator::advise_free(v21, (v19 + 4), v19[3] >> 1);
 
-          os_unfair_lock_unlock((a1 + 704));
+          os_unfair_lock_unlock(a1 + 176);
           return;
         }
 
@@ -3544,7 +3532,7 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  if ((caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::remove(a1 + 16, a2) & 1) == 0)
+  if ((caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::remove(&a1[4], a2) & 1) == 0)
   {
 LABEL_32:
     __break(1u);
@@ -3558,7 +3546,7 @@ LABEL_32:
 
 uint64_t caulk::thread::start(uint64_t a1, uint64_t a2, void *(__cdecl *a3)(void *), void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (pthread_attr_init(&__attr))
   {
     _os_assert_log();
@@ -3584,10 +3572,10 @@ uint64_t caulk::thread::start(uint64_t a1, uint64_t a2, void *(__cdecl *a3)(void
     {
       if (v8 == 2)
       {
-        v16 = 0;
-        pthread_attr_getschedparam(&__attr, &v16);
-        v16.sched_priority = *(a2 + 32);
-        pthread_attr_setschedparam(&__attr, &v16);
+        v15 = 0;
+        pthread_attr_getschedparam(&__attr, &v15);
+        v15.sched_priority = *(a2 + 32);
+        pthread_attr_setschedparam(&__attr, &v15);
         if (*(a2 + 36) == 1)
         {
           pthread_attr_setschedpolicy(&__attr, 4);
@@ -3601,10 +3589,10 @@ uint64_t caulk::thread::start(uint64_t a1, uint64_t a2, void *(__cdecl *a3)(void
     {
       if (v9 == 1)
       {
-        v16 = 0;
-        pthread_attr_getschedparam(&__attr, &v16);
-        v16.sched_priority = 63;
-        pthread_attr_setschedparam(&__attr, &v16);
+        v15 = 0;
+        pthread_attr_getschedparam(&__attr, &v15);
+        v15.sched_priority = 63;
+        pthread_attr_setschedparam(&__attr, &v15);
         goto LABEL_17;
       }
 
@@ -3644,8 +3632,8 @@ LABEL_17:
     }
 
     pthread_attr_setdetachstate(&__attr, v11);
-    v16 = 0;
-    v12 = pthread_create(&v16, &__attr, a3, a4);
+    v15 = 0;
+    v12 = pthread_create(&v15, &__attr, a3, a4);
     if (v10 == 1)
     {
       goto LABEL_25;
@@ -3654,12 +3642,12 @@ LABEL_17:
 
   else
   {
-    v16 = 0;
-    v12 = pthread_create(&v16, &__attr, a3, a4);
+    v15 = 0;
+    v12 = pthread_create(&v15, &__attr, a3, a4);
   }
 
-  v13 = v16;
-  *a1 = v16;
+  v13 = v15;
+  *a1 = v15;
   if (!*&v13)
   {
     goto LABEL_29;
@@ -3680,7 +3668,6 @@ LABEL_29:
     __break(1u);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4399,14 +4386,15 @@ LABEL_27:
   return v10 | v3 | v16;
 }
 
-void sub_2754A1F30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
+void sub_2754A1F30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
-  __cxa_free_exception(v10);
-  applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(&a10);
+  va_start(va, a9);
+  __cxa_free_exception(v9);
+  applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *caulk::alloc::make_audio_buffer_resource(caulk::alloc *this)
+caulk::alloc *caulk::alloc::make_audio_buffer_resource(caulk::alloc *this)
 {
   zone_name = malloc_get_zone_name(**MEMORY[0x277D86158]);
   if (zone_name && !strcmp(zone_name, "ProbGuardMallocZone"))
@@ -4450,7 +4438,7 @@ void caulk::alloc::exported_resource<caulk::alloc::darwin_resource<caulk::alloc:
   dword_280AD44F8 = 0;
   qword_280AD4500 = 0;
   caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::skiplist(&unk_280AD4510);
-  caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::skiplist(&qword_280AD45D8[11]);
+  caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::skiplist(&unk_280AD4630);
   qword_280AD4750 = 0;
   v1[4] = &caulk::inplace_function_detail::vtable<void,caulk::concurrent::details::skiplist_node<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *>::layout_kv const&>::empty;
   v2 = &unk_280AD44F0;
@@ -4461,12 +4449,12 @@ void caulk::alloc::exported_resource<caulk::alloc::darwin_resource<caulk::alloc:
   v3 = &caulk::inplace_function_detail::vtable<void,caulk::concurrent::details::skiplist_node<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *>::layout_kv const&>::empty;
   qword_280AD45D0 = v0;
   (*(v0 + 16))(qword_280AD45D8, v4);
-  (v3[3])(v4);
+  v3[3]();
   v1[0] = &unk_280AD44F0;
   v3 = caulk::inplace_function<void ()(void),32ul,8ul,caulk::inplace_function_detail::rt_vtable>::k_wrapper_vtable<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::tree_allocator(void)::{lambda(void)#1}>;
   caulk::inplace_function_detail::rt_vtable<void>::rt_vtable<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::tree_allocator(void)::{lambda(void)#1}>(caulk::inplace_function_detail::wrapper<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::tree_allocator(void)::{lambda(void)#1}>)::{lambda(void *,void *)#2}::__invoke(v4, v1);
-  caulk::inplace_function<void ()(void),32ul,8ul,caulk::inplace_function_detail::rt_vtable>::operator=(&qword_280AD45D8[40], &v3);
-  (v3[3])(v4);
+  caulk::inplace_function<void ()(void),32ul,8ul,caulk::inplace_function_detail::rt_vtable>::operator=(qword_280AD4718, &v3);
+  v3[3]();
   qword_280AD41F0 = &unk_28841C498;
   operator new();
 }
@@ -4481,7 +4469,7 @@ void sub_2754A23F8(_Unwind_Exception *a1)
 
 void caulk::alloc::registerAllocatorStateDump(caulk::alloc *this, caulk::alloc::memory_resource *a2, const char *a3, const char *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   out_token = 0;
   global_queue = dispatch_get_global_queue(0, 0);
   handler[0] = MEMORY[0x277D85DD0];
@@ -4497,13 +4485,11 @@ void caulk::alloc::registerAllocatorStateDump(caulk::alloc *this, caulk::alloc::
   if (os_log_type_enabled(caulk::alloc::base_allocator::log(void)::global, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v15 = a2;
-    v16 = 1024;
-    v17 = v9;
+    v14 = a2;
+    v15 = 1024;
+    v16 = v9;
     _os_log_impl(&dword_27549C000, v10, OS_LOG_TYPE_DEFAULT, "Registered notify signal %s (%u)", buf, 0x12u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2754A2760(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -4728,7 +4714,7 @@ void caulk::concurrent::details::service_thread::service_thread(caulk::concurren
   *(this + 181) = *(a2 + 45);
   *(this + 168) = v4;
   v5 = 0;
-  v6 = 0;
+  v6[0] = 0;
   operator new();
 }
 
@@ -4768,7 +4754,7 @@ void sub_2754A3018(_Unwind_Exception *exception_object)
 
 uint64_t caulk::alloc::init_realtime_safe_resource(caulk::alloc *this)
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   v1 = os_unfair_recursive_lock_lock_with_options();
   v2 = caulk::alloc::init_realtime_safe_resource(void)::state;
   caulk::alloc::init_realtime_safe_resource(void)::state = 1;
@@ -4802,53 +4788,51 @@ uint64_t caulk::alloc::init_realtime_safe_resource(caulk::alloc *this)
     caulk::alloc::global_page_cache::instance(v4);
     qword_280AD9808 = &unk_280ADC510;
     caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::skiplist(&unk_280AD9810);
-    caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::skiplist(&qword_280AD98D8[11]);
+    caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::skiplist(&unk_280AD9930);
     qword_280AD9A50 = 0;
-    v11 = &caulk::inplace_function_detail::vtable<void,caulk::concurrent::details::skiplist_node<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *>::layout_kv const&>::empty;
-    v12[0] = &unk_280AD9800;
-    v13 = _ZN5caulk16inplace_functionIFvRKNS_10concurrent7details13skiplist_nodeImPNS_5alloc15chunk_allocatorINS4_17global_page_cacheENS4_16bitmap_allocatorENS4_18embed_block_memoryELm16384EJLm256ELm6EEE9node_implINS4_14tree_allocatorIS9_E11node_headerES8_EEE9layout_kvEELm32ELm8ENS_23inplace_function_detail6vtableEE16k_wrapper_vtableIZNSC_C1EvEUlRKT_E_EE;
-    _ZZN5caulk23inplace_function_detail6vtableIvJRKNS_10concurrent7details13skiplist_nodeImPNS_5alloc15chunk_allocatorINS5_17global_page_cacheENS5_16bitmap_allocatorENS5_18embed_block_memoryELm16384EJLm256ELm6EEE9node_implINS5_14tree_allocatorISA_E11node_headerES9_EEE9layout_kvEEEC1IZNSD_C1EvEUlRKT_E_EENS0_7wrapperISN_EEENUlPvST_E0_8__invokeEST_ST_(v14, v12);
+    v10 = &caulk::inplace_function_detail::vtable<void,caulk::concurrent::details::skiplist_node<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *>::layout_kv const&>::empty;
+    v11[0] = &unk_280AD9800;
+    v12 = _ZN5caulk16inplace_functionIFvRKNS_10concurrent7details13skiplist_nodeImPNS_5alloc15chunk_allocatorINS4_17global_page_cacheENS4_16bitmap_allocatorENS4_18embed_block_memoryELm16384EJLm256ELm6EEE9node_implINS4_14tree_allocatorIS9_E11node_headerES8_EEE9layout_kvEELm32ELm8ENS_23inplace_function_detail6vtableEE16k_wrapper_vtableIZNSC_C1EvEUlRKT_E_EE;
+    _ZZN5caulk23inplace_function_detail6vtableIvJRKNS_10concurrent7details13skiplist_nodeImPNS_5alloc15chunk_allocatorINS5_17global_page_cacheENS5_16bitmap_allocatorENS5_18embed_block_memoryELm16384EJLm256ELm6EEE9node_implINS5_14tree_allocatorISA_E11node_headerES9_EEE9layout_kvEEEC1IZNSD_C1EvEUlRKT_E_EENS0_7wrapperISN_EEENUlPvST_E0_8__invokeEST_ST_(v13, v11);
     (*(qword_280AD98D0 + 24))(qword_280AD98D8);
-    v5 = v13;
-    v13 = &caulk::inplace_function_detail::vtable<void,caulk::concurrent::details::skiplist_node<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *>::layout_kv const&>::empty;
+    v5 = v12;
+    v12 = &caulk::inplace_function_detail::vtable<void,caulk::concurrent::details::skiplist_node<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *>::layout_kv const&>::empty;
     qword_280AD98D0 = v5;
-    (*(v5 + 16))(qword_280AD98D8, v14);
-    (v13[3])(v14);
-    (off_28841BF58)(v12);
-    v10[0] = &unk_280AD9800;
-    v13 = caulk::inplace_function<void ()(void),32ul,8ul,caulk::inplace_function_detail::rt_vtable>::k_wrapper_vtable<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::tree_allocator(void)::{lambda(void)#1}>;
-    caulk::inplace_function_detail::rt_vtable<void>::rt_vtable<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::tree_allocator(void)::{lambda(void)#1}>(caulk::inplace_function_detail::wrapper<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::tree_allocator(void)::{lambda(void)#1}>)::{lambda(void *,void *)#2}::__invoke(v14, v10);
-    caulk::inplace_function<void ()(void),32ul,8ul,caulk::inplace_function_detail::rt_vtable>::operator=(&qword_280AD98D8[40], &v13);
-    (v13[3])(v14);
-    v6 = (off_28841BF80)(v10);
+    (*(v5 + 16))(qword_280AD98D8, v13);
+    v12[3]();
+    (off_28841BF58)(v11);
+    v9[0] = &unk_280AD9800;
+    v12 = caulk::inplace_function<void ()(void),32ul,8ul,caulk::inplace_function_detail::rt_vtable>::k_wrapper_vtable<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::tree_allocator(void)::{lambda(void)#1}>;
+    caulk::inplace_function_detail::rt_vtable<void>::rt_vtable<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::tree_allocator(void)::{lambda(void)#1}>(caulk::inplace_function_detail::wrapper<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::tree_allocator(void)::{lambda(void)#1}>)::{lambda(void *,void *)#2}::__invoke(v13, v9);
+    caulk::inplace_function<void ()(void),32ul,8ul,caulk::inplace_function_detail::rt_vtable>::operator=(qword_280AD9A18, &v12);
+    v12[3]();
+    v6 = (off_28841BF80)(v9);
     qword_280AD9A68 = 0;
     caulk::alloc::global_page_cache::instance(v6);
     qword_280AD9A68 = &unk_280ADC510;
     caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::skiplist(&unk_280AD9A70);
-    caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::skiplist(&qword_280AD9B38[11]);
+    caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::skiplist(&unk_280AD9B90);
     qword_280AD9CB0 = 0;
-    v11 = &caulk::inplace_function_detail::vtable<void,caulk::concurrent::details::skiplist_node<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *>::layout_kv const&>::empty;
-    v12[0] = &unk_280AD9A60;
-    v13 = _ZN5caulk16inplace_functionIFvRKNS_10concurrent7details13skiplist_nodeImPNS_5alloc15chunk_allocatorINS4_17global_page_cacheENS4_16bitmap_allocatorENS4_18embed_block_memoryELm16384EJLm16ELm6EEE9node_implINS4_14tree_allocatorIS9_E11node_headerES8_EEE9layout_kvEELm32ELm8ENS_23inplace_function_detail6vtableEE16k_wrapper_vtableIZNSC_C1EvEUlRKT_E_EE;
-    _ZZN5caulk23inplace_function_detail6vtableIvJRKNS_10concurrent7details13skiplist_nodeImPNS_5alloc15chunk_allocatorINS5_17global_page_cacheENS5_16bitmap_allocatorENS5_18embed_block_memoryELm16384EJLm16ELm6EEE9node_implINS5_14tree_allocatorISA_E11node_headerES9_EEE9layout_kvEEEC1IZNSD_C1EvEUlRKT_E_EENS0_7wrapperISN_EEENUlPvST_E0_8__invokeEST_ST_(v14, v12);
+    v10 = &caulk::inplace_function_detail::vtable<void,caulk::concurrent::details::skiplist_node<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *>::layout_kv const&>::empty;
+    v11[0] = &unk_280AD9A60;
+    v12 = _ZN5caulk16inplace_functionIFvRKNS_10concurrent7details13skiplist_nodeImPNS_5alloc15chunk_allocatorINS4_17global_page_cacheENS4_16bitmap_allocatorENS4_18embed_block_memoryELm16384EJLm16ELm6EEE9node_implINS4_14tree_allocatorIS9_E11node_headerES8_EEE9layout_kvEELm32ELm8ENS_23inplace_function_detail6vtableEE16k_wrapper_vtableIZNSC_C1EvEUlRKT_E_EE;
+    _ZZN5caulk23inplace_function_detail6vtableIvJRKNS_10concurrent7details13skiplist_nodeImPNS_5alloc15chunk_allocatorINS5_17global_page_cacheENS5_16bitmap_allocatorENS5_18embed_block_memoryELm16384EJLm16ELm6EEE9node_implINS5_14tree_allocatorISA_E11node_headerES9_EEE9layout_kvEEEC1IZNSD_C1EvEUlRKT_E_EENS0_7wrapperISN_EEENUlPvST_E0_8__invokeEST_ST_(v13, v11);
     (*(qword_280AD9B30 + 24))(qword_280AD9B38);
-    v7 = v13;
-    v13 = &caulk::inplace_function_detail::vtable<void,caulk::concurrent::details::skiplist_node<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *>::layout_kv const&>::empty;
+    v7 = v12;
+    v12 = &caulk::inplace_function_detail::vtable<void,caulk::concurrent::details::skiplist_node<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *>::layout_kv const&>::empty;
     qword_280AD9B30 = v7;
-    (*(v7 + 16))(qword_280AD9B38, v14);
-    (v13[3])(v14);
-    v10[0] = &unk_280AD9A60;
-    v13 = caulk::inplace_function<void ()(void),32ul,8ul,caulk::inplace_function_detail::rt_vtable>::k_wrapper_vtable<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::tree_allocator(void)::{lambda(void)#1}>;
-    caulk::inplace_function_detail::rt_vtable<void>::rt_vtable<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::tree_allocator(void)::{lambda(void)#1}>(caulk::inplace_function_detail::wrapper<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::tree_allocator(void)::{lambda(void)#1}>)::{lambda(void *,void *)#2}::__invoke(v14, v10);
-    caulk::inplace_function<void ()(void),32ul,8ul,caulk::inplace_function_detail::rt_vtable>::operator=(&qword_280AD9B38[40], &v13);
-    (v13[3])(v14);
+    (*(v7 + 16))(qword_280AD9B38, v13);
+    v12[3]();
+    v9[0] = &unk_280AD9A60;
+    v12 = caulk::inplace_function<void ()(void),32ul,8ul,caulk::inplace_function_detail::rt_vtable>::k_wrapper_vtable<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::tree_allocator(void)::{lambda(void)#1}>;
+    caulk::inplace_function_detail::rt_vtable<void>::rt_vtable<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::tree_allocator(void)::{lambda(void)#1}>(caulk::inplace_function_detail::wrapper<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::tree_allocator(void)::{lambda(void)#1}>)::{lambda(void *,void *)#2}::__invoke(v13, v9);
+    caulk::inplace_function<void ()(void),32ul,8ul,caulk::inplace_function_detail::rt_vtable>::operator=(qword_280AD9C78, &v12);
+    v12[3]();
     qword_280AD9690 = &unk_28841BA80;
     operator new();
   }
 
-  result = os_unfair_recursive_lock_unlock();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return os_unfair_recursive_lock_unlock();
 }
 
 uint64_t caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::skiplist(uint64_t a1)
@@ -4976,50 +4960,49 @@ uint64_t std::__function::__value_func<void ()(caulk::alloc::region_usage,caulk:
 
 double caulk::alloc::darwin_resource<caulk::alloc::dsw_allocator2<true>,caulk::alloc::rt_safe_memory_resource>::zone_statistics(uint64_t a1, _OWORD *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = *(a1 - 8);
+  v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v11[0] = &unk_28841C238;
-  v11[1] = &v9;
+  v10[0] = &unk_28841C238;
+  v10[1] = &v8;
+  v10[3] = v10;
+  v11[0] = &unk_28841C1B8;
+  v11[1] = v10;
   v11[3] = v11;
-  v12[0] = &unk_28841C1B8;
-  v12[1] = v11;
-  v12[3] = v12;
-  v13 = 7;
-  v14[0] = &unk_28841AE20;
-  v14[1] = caulk::alloc::introspector::local_reader;
-  v15 = v14;
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::__value_func[abi:ne200100](v16, v12);
-  v16[32] = 1;
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v12);
-  v4 = std::function<void * ()(unsigned long,unsigned long)>::operator()(v15, v3, 1616);
-  caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul,caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>>,caulk::alloc::size_range_tier<1009ul,16128ul,caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>>,caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>>::introspect(v4 + 16, v3, &v13);
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v16);
-  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](v14);
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,caulk::alloc::block)>::~__value_func[abi:ne200100](v11);
-  v5 = *(&v9 + 1);
-  if (*(v3 + 1592) > *(&v9 + 1))
+  v12 = 7;
+  v13[0] = &unk_28841AE20;
+  v13[1] = caulk::alloc::introspector::local_reader;
+  v14 = v13;
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::__value_func[abi:ne200100](v15, v11);
+  v15[32] = 1;
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v11);
+  v4 = std::function<void * ()(unsigned long,unsigned long)>::operator()(v14, v3, 1616);
+  caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul,caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>>,caulk::alloc::size_range_tier<1009ul,16128ul,caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>>,caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>>::introspect(v4 + 16, v3, &v12);
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v15);
+  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](v13);
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,caulk::alloc::block)>::~__value_func[abi:ne200100](v10);
+  v5 = *(&v8 + 1);
+  if (*(v3 + 1592) > *(&v8 + 1))
   {
     v5 = *(v3 + 1592);
   }
 
-  *&v10 = v5;
-  *(&v10 + 1) += *(&v9 + 1);
+  *&v9 = v5;
+  *(&v9 + 1) += *(&v8 + 1);
   *(v3 + 1592) = v5;
-  result = *&v9;
-  v7 = v10;
-  *a2 = v9;
+  result = *&v8;
+  v7 = v9;
+  *a2 = v8;
   a2[1] = v7;
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2754A3AE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2754A3AE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v7 + 40);
-  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](v6);
+  va_start(va, a11);
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v12 + 40);
+  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](v11);
   std::__function::__value_func<void ()(caulk::alloc::region_usage,caulk::alloc::block)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5121,15 +5104,15 @@ uint64_t caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,
 
 uint64_t caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul,caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>>,caulk::alloc::size_range_tier<1009ul,16128ul,caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,256ul,6ul>>>,caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>>::introspect(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v20[5] = *MEMORY[0x277D85DE8];
-  LOBYTE(v15) = 0;
-  v17 = 0;
+  v19[5] = *MEMORY[0x277D85DE8];
+  LOBYTE(v14) = 0;
+  v16 = 0;
   if (*(a3 + 72) == 1)
   {
-    v15 = a1 + 976;
-    v16 = a1 + 1136;
+    v14 = a1 + 976;
+    v15 = a1 + 1136;
     caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::begin_traversal();
-    v17 = 1;
+    v16 = 1;
   }
 
   for (i = a1 + 976; ; i = std::function<void * ()(unsigned long,unsigned long)>::operator()(*(a3 + 32), v6 & 0xFFFFFFFFFFFFFFFCLL, 48))
@@ -5148,22 +5131,22 @@ uint64_t caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul
     }
   }
 
-  caulk::alloc::introspector::copy_with_types(&v18, a3);
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v20);
-  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](v19);
-  if (v17 == 1)
+  caulk::alloc::introspector::copy_with_types(&v17, a3);
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v19);
+  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](v18);
+  if (v16 == 1)
   {
-    caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::end_traversal(v16, v17);
+    caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::end_traversal(v15, v16);
   }
 
-  LOBYTE(v15) = 0;
-  v17 = 0;
+  LOBYTE(v14) = 0;
+  v16 = 0;
   if (*(a3 + 72) == 1)
   {
-    v15 = a1 + 368;
-    v16 = a1 + 528;
+    v14 = a1 + 368;
+    v15 = a1 + 528;
     caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::begin_traversal();
-    v17 = 1;
+    v16 = 1;
   }
 
   for (j = a1 + 368; ; j = std::function<void * ()(unsigned long,unsigned long)>::operator()(*(a3 + 32), v10 & 0xFFFFFFFFFFFFFFFCLL, 48))
@@ -5182,19 +5165,17 @@ uint64_t caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul
     }
   }
 
-  caulk::alloc::introspector::copy_with_types(&v18, a3);
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v20);
-  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](v19);
-  if (v17 == 1)
+  caulk::alloc::introspector::copy_with_types(&v17, a3);
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v19);
+  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](v18);
+  if (v16 == 1)
   {
-    caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::end_traversal(v16, v17);
+    caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::end_traversal(v15, v16);
   }
 
-  v15 = a3;
-  v18 = &v15;
-  result = caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::introspect<void caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>::introspect_foreach<caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1}>(caulk::alloc::introspector const&,caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1} &&)::{lambda(caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1} const&)#1}>(a1 + 16, a3 + 8, &v18);
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  v14 = a3;
+  v17 = &v14;
+  return caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::introspect<void caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>::introspect_foreach<caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1}>(caulk::alloc::introspector const&,caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1} &&)::{lambda(caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1} const&)#1}>(a1 + 16, a3 + 8, &v17);
 }
 
 void sub_2754A3F7C(_Unwind_Exception *exception_object, int a2)
@@ -5268,7 +5249,7 @@ uint64_t std::function<void * ()(unsigned long,unsigned long)>::operator()(uint6
   return (*(*a1 + 48))(a1, &v5, &v4);
 }
 
-uint64_t std::function<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::operator()(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+uint64_t std::function<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = a2;
   v5 = a4;
@@ -5306,50 +5287,49 @@ unint64_t *caulk::alloc::details::caching_page_allocator_base::introspect(unint6
 
 double caulk::alloc::darwin_resource<caulk::alloc::caching_page_allocator<16384ul>,caulk::alloc::memory_resource>::zone_statistics(uint64_t a1, _OWORD *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = *(a1 - 8);
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v12[0] = &unk_28841CB90;
-  v12[1] = &v10;
+  v11[0] = &unk_28841CB90;
+  v11[1] = &v9;
+  v11[3] = v11;
+  v12[0] = &unk_28841CB10;
+  v12[1] = v11;
   v12[3] = v12;
-  v13[0] = &unk_28841CB10;
-  v13[1] = v12;
-  v13[3] = v13;
-  v14 = 7;
-  v15[0] = &unk_28841AE20;
-  v15[1] = caulk::alloc::introspector::local_reader;
-  v16 = v15;
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::__value_func[abi:ne200100](v17, v13);
-  v17[32] = 1;
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v13);
-  v4 = std::function<void * ()(unsigned long,unsigned long)>::operator()(v16, v3, 160);
-  caulk::alloc::details::caching_page_allocator_base::introspect((v4 + 16), v5, &v14);
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v17);
-  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](v15);
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,caulk::alloc::block)>::~__value_func[abi:ne200100](v12);
-  v6 = *(&v10 + 1);
-  if (*(v3 + 144) > *(&v10 + 1))
+  v13 = 7;
+  v14[0] = &unk_28841AE20;
+  v14[1] = caulk::alloc::introspector::local_reader;
+  v15 = v14;
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::__value_func[abi:ne200100](v16, v12);
+  v16[32] = 1;
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v12);
+  v4 = std::function<void * ()(unsigned long,unsigned long)>::operator()(v15, v3, 160);
+  caulk::alloc::details::caching_page_allocator_base::introspect((v4 + 16), v5, &v13);
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v16);
+  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](v14);
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,caulk::alloc::block)>::~__value_func[abi:ne200100](v11);
+  v6 = *(&v9 + 1);
+  if (*(v3 + 144) > *(&v9 + 1))
   {
     v6 = *(v3 + 144);
   }
 
-  *&v11 = v6;
-  *(&v11 + 1) += *(&v10 + 1);
+  *&v10 = v6;
+  *(&v10 + 1) += *(&v9 + 1);
   *(v3 + 144) = v6;
-  result = *&v10;
-  v8 = v11;
-  *a2 = v10;
+  result = *&v9;
+  v8 = v10;
+  *a2 = v9;
   a2[1] = v8;
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2754A42F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2754A42F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v7 + 40);
-  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](v6);
+  va_start(va, a11);
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v12 + 40);
+  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](v11);
   std::__function::__value_func<void ()(caulk::alloc::region_usage,caulk::alloc::block)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5522,14 +5502,14 @@ void caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<cau
   }
 }
 
-void caulk::alloc::page_cache_monitor::enable_preallocation(caulk::alloc::page_cache_monitor *this, uint64_t a2)
+void caulk::alloc::page_cache_monitor::enable_preallocation(os_unfair_lock_t *this, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   caulk::alloc::init_realtime_safe_resource(this);
-  os_unfair_lock_lock(*(this + 3));
+  os_unfair_lock_lock(this[3]);
   if (a2)
   {
-    if (!*(this + 5))
+    if (!this[5])
     {
       operator new();
     }
@@ -5540,15 +5520,14 @@ void caulk::alloc::page_cache_monitor::enable_preallocation(caulk::alloc::page_c
     std::unique_ptr<caulk::alloc::page_cache_monitor_impl>::reset[abi:ne200100](this + 5, 0);
   }
 
-  v4 = *(this + 3);
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = this[3];
 
   os_unfair_lock_unlock(v4);
 }
 
-void sub_2754A49A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_2754A49A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  a9 = (v10 + 168);
+  a9 = v10 + 168;
   std::vector<std::weak_ptr<caulk::alloc::preallocation_reservation>>::__destroy_vector::operator()[abi:ne200100](&a9);
   caulk::concurrent::condition_message::~condition_message(v13);
   caulk::concurrent::messenger::~messenger(v12);
@@ -5907,7 +5886,7 @@ unint64_t *caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocat
   v8 = *v6;
   if (*v6 == a2)
   {
-    return caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::end_traversal(v4 + 160, v8);
+    return caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::end_traversal((v4 + 20), v8);
   }
 
   v9 = v6;
@@ -5932,7 +5911,7 @@ unint64_t *caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocat
   }
 
   v14 = 0;
-  v15 = *(v4 + 176);
+  v15 = v4[22];
   while (1)
   {
     v16 = *&caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::node_sizes[8 * v14];
@@ -6082,10 +6061,10 @@ LABEL_37:
 
     else
     {
-      caulk::alloc::multi_free_list<caulk::alloc::cascading_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::serial_allocator,caulk::alloc::embed_block_memory,16384ul>>,caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::size_generator,8ul,1ul,-1l>::deallocate(*(v4 + 176), v17, *&caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::node_sizes[8 * v17[16] - 8]);
+      caulk::alloc::multi_free_list<caulk::alloc::cascading_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::serial_allocator,caulk::alloc::embed_block_memory,16384ul>>,caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::size_generator,8ul,1ul,-1l>::deallocate(v4[22], v17, *&caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::node_sizes[8 * v17[16] - 8]);
     }
 
-    return caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::end_traversal(v4 + 160, v8);
+    return caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::end_traversal((v4 + 20), v8);
   }
 }
 
@@ -6190,7 +6169,7 @@ unint64_t *caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocat
   v8 = *v6;
   if (*v6 == a2)
   {
-    return caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::end_traversal(v4 + 160, v8);
+    return caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::end_traversal((v4 + 20), v8);
   }
 
   v9 = v6;
@@ -6215,7 +6194,7 @@ unint64_t *caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocat
   }
 
   v14 = 0;
-  v15 = *(v4 + 176);
+  v15 = v4[22];
   while (1)
   {
     v16 = *&caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::node_sizes[8 * v14];
@@ -6365,10 +6344,10 @@ LABEL_37:
 
     else
     {
-      caulk::alloc::multi_free_list<caulk::alloc::cascading_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::serial_allocator,caulk::alloc::embed_block_memory,16384ul>>,caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::size_generator,8ul,1ul,-1l>::deallocate(*(v4 + 176), v17, *&caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::node_sizes[8 * v17[16] - 8]);
+      caulk::alloc::multi_free_list<caulk::alloc::cascading_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::serial_allocator,caulk::alloc::embed_block_memory,16384ul>>,caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::size_generator,8ul,1ul,-1l>::deallocate(v4[22], v17, *&caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::node_sizes[8 * v17[16] - 8]);
     }
 
-    return caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::end_traversal(v4 + 160, v8);
+    return caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::end_traversal((v4 + 20), v8);
   }
 }
 
@@ -6872,18 +6851,18 @@ LABEL_45:
   return v35;
 }
 
-uint64_t caulk::concurrent::condition_message::perform(caulk::concurrent::condition_message *this)
+uint64_t caulk::concurrent::condition_message::perform(caulk::concurrent::condition_message *this, uint64_t a2)
 {
   atomic_store(0, this + 32);
-  v2 = *(this + 8);
-  if (!v2)
+  v3 = *(this + 8);
+  if (!v3)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  v3 = *(*v2 + 48);
+  v4 = *(*v3 + 48);
 
-  return v3();
+  return v4();
 }
 
 void std::__function::__func<caulk::alloc::page_cache_monitor_impl::page_cache_monitor_impl(caulk::alloc::page_cache_monitor &,caulk::shared_ptr_mutex<caulk::mach::unfair_lock> &,unsigned long)::$_0,std::allocator<caulk::alloc::page_cache_monitor_impl::page_cache_monitor_impl(caulk::alloc::page_cache_monitor &,caulk::shared_ptr_mutex<caulk::mach::unfair_lock> &,unsigned long)::$_0>,void ()(void)>::operator()(uint64_t a1)
@@ -6977,7 +6956,7 @@ LABEL_9:
   return caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::end_traversal(a1 + 160, v10);
 }
 
-unint64_t caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::try_flag_node(unint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4)
+uint64_t caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::try_flag_node(unint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v8 = a4 | 2;
   do
@@ -7039,7 +7018,7 @@ unint64_t caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocato
   return a3;
 }
 
-unint64_t caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::search_right<caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::key_lt &>(unint64_t a1, uint64_t a2, unint64_t a3, void *a4)
+uint64_t caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::search_right<caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::key_lt &>(unint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v4 = a3;
   v5 = atomic_load((a3 + 16 * a2 + 32));
@@ -7073,7 +7052,7 @@ unint64_t caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocato
   return v4;
 }
 
-unint64_t caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::help_flagged(unint64_t result, uint64_t a2, unint64_t a3, uint64_t a4)
+unint64_t caulk::concurrent::skiplist<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5,(caulk::concurrent::skiplist_options)1>::help_flagged(unint64_t result, uint64_t a2, unint64_t a3, unint64_t a4)
 {
   _X20 = a4;
   v7 = result;
@@ -7471,15 +7450,15 @@ uint64_t caulk::expected<BOOL,int>::value(uint64_t result)
 
 uint64_t caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul,caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>>,caulk::alloc::size_range_tier<1009ul,256000ul,caulk::alloc::guarded_edges_allocator<caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>,4ul>>,caulk::alloc::tracking_allocator<caulk::alloc::page_allocator>>::introspect(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  LOBYTE(v14) = 0;
-  v16 = 0;
+  v17 = *MEMORY[0x277D85DE8];
+  LOBYTE(v13) = 0;
+  v15 = 0;
   if (*(a3 + 72) == 1)
   {
-    v14 = (a1 + 784);
-    v15 = a1 + 944;
+    v13 = (a1 + 784);
+    v14 = a1 + 944;
     caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::begin_traversal();
-    v16 = 1;
+    v15 = 1;
   }
 
   for (i = a1 + 784; ; i = std::function<void * ()(unsigned long,unsigned long)>::operator()(*(a3 + 32), v6 & 0xFFFFFFFFFFFFFFFCLL, 48))
@@ -7498,29 +7477,27 @@ uint64_t caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul
     }
   }
 
-  if (v16 == 1)
+  if (v15 == 1)
   {
-    caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::end_traversal(v15, v16);
+    caulk::concurrent::details::node_allocator<unsigned long,caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>::node_impl<caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::global_page_cache,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>::node_header,caulk::alloc::embed_block_memory> *,5ul,(caulk::concurrent::skiplist_options)1>::end_traversal(v14, v15);
   }
 
-  v13[0] = &unk_28841AB60;
-  v13[1] = a3;
-  v13[3] = v13;
-  LODWORD(v14) = *a3;
-  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::__value_func[abi:ne200100](&v15, a3 + 8);
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::__value_func[abi:ne200100](v17, v13);
-  v17[32] = *(a3 + 72);
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v13);
-  v11 = &v14;
-  v12 = &v11;
-  caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::introspect<void caulk::alloc::tracking_allocator<caulk::alloc::page_allocator>::introspect_foreach<caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1}>(caulk::alloc::introspector const&,caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1} &&)::{lambda(caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1} const&)#1}>(a1 + 368, &v15, &v12);
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v17);
-  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](&v15);
-  v13[0] = a3;
-  v14 = v13;
-  result = caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::introspect<void caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>::introspect_foreach<caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1}>(caulk::alloc::introspector const&,caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1} &&)::{lambda(caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1} const&)#1}>(a1 + 16, a3 + 8, &v14);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  v12[0] = &unk_28841AB60;
+  v12[1] = a3;
+  v12[3] = v12;
+  LODWORD(v13) = *a3;
+  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::__value_func[abi:ne200100](&v14, a3 + 8);
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::__value_func[abi:ne200100](v16, v12);
+  v16[32] = *(a3 + 72);
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v12);
+  v10 = &v13;
+  v11 = &v10;
+  caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::introspect<void caulk::alloc::tracking_allocator<caulk::alloc::page_allocator>::introspect_foreach<caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1}>(caulk::alloc::introspector const&,caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1} &&)::{lambda(caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1} const&)#1}>(a1 + 368, &v14, &v11);
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v16);
+  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](&v14);
+  v12[0] = a3;
+  v13 = v12;
+  return caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::introspect<void caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>::introspect_foreach<caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1}>(caulk::alloc::introspector const&,caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1} &&)::{lambda(caulk::alloc::tracking_allocator<caulk::alloc::global_page_cache>::introspect(unsigned long,caulk::alloc::introspector const&)::{lambda(void *,unsigned long)#1} const&)#1}>(a1 + 16, a3 + 8, &v13);
 }
 
 void sub_2754A6F84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
@@ -7561,7 +7538,7 @@ void caulk::mach::semaphore::~semaphore(semaphore_t *this)
   }
 }
 
-uint64_t std::__function::__func<void caulk::alloc::affix_allocator<caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>,std::array<unsigned long long,4ul>,std::array<unsigned long long,4ul>>::introspect<true,(BOOL *)0>(unsigned long,caulk::alloc::introspector const&)::{lambda(caulk::alloc::region_usage,unsigned long,unsigned long)#1},std::allocator<void caulk::alloc::affix_allocator<caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>,std::array<unsigned long long,4ul>,std::array<unsigned long long,4ul>>::introspect<true,(BOOL *)0>(unsigned long,caulk::alloc::introspector const&)::{lambda(caulk::alloc::region_usage,unsigned long,unsigned long)#1}>,void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::operator()(uint64_t result, int *a2, uint64_t *a3, uint64_t *a4)
+uint64_t std::__function::__func<void caulk::alloc::affix_allocator<caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>,std::array<unsigned long long,4ul>,std::array<unsigned long long,4ul>>::introspect<true,(BOOL *)0>(unsigned long,caulk::alloc::introspector const&)::{lambda(caulk::alloc::region_usage,unsigned long,unsigned long)#1},std::allocator<void caulk::alloc::affix_allocator<caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>,std::array<unsigned long long,4ul>,std::array<unsigned long long,4ul>>::introspect<true,(BOOL *)0>(unsigned long,caulk::alloc::introspector const&)::{lambda(caulk::alloc::region_usage,unsigned long,unsigned long)#1}>,void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::operator()(uint64_t result, unsigned int *a2, uint64_t *a3, uint64_t *a4)
 {
   v4 = *a2;
   v5 = *a3;
@@ -7734,50 +7711,49 @@ uint64_t *caulk::alloc::bitmap_allocator<caulk::alloc::embed_block_memory,16368u
 
 double caulk::alloc::darwin_resource<caulk::alloc::audio_allocator,caulk::alloc::memory_resource>::zone_statistics(uint64_t a1, _OWORD *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = *(a1 - 8);
+  v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v11[0] = &unk_28841C7D0;
-  v11[1] = &v9;
+  v10[0] = &unk_28841C7D0;
+  v10[1] = &v8;
+  v10[3] = v10;
+  v11[0] = &unk_28841C750;
+  v11[1] = v10;
   v11[3] = v11;
-  v12[0] = &unk_28841C750;
-  v12[1] = v11;
-  v12[3] = v12;
-  v13 = 7;
-  v14[0] = &unk_28841AE20;
-  v14[1] = caulk::alloc::introspector::local_reader;
-  v15 = v14;
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::__value_func[abi:ne200100](v16, v12);
-  v16[32] = 1;
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v12);
-  v4 = std::function<void * ()(unsigned long,unsigned long)>::operator()(v15, v3, 1424);
-  caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul,caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>>,caulk::alloc::size_range_tier<1009ul,256000ul,caulk::alloc::guarded_edges_allocator<caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>,4ul>>,caulk::alloc::tracking_allocator<caulk::alloc::page_allocator>>::introspect(v4 + 16, v3, &v13);
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v16);
-  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](v14);
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,caulk::alloc::block)>::~__value_func[abi:ne200100](v11);
-  v5 = *(&v9 + 1);
-  if (*(v3 + 1400) > *(&v9 + 1))
+  v12 = 7;
+  v13[0] = &unk_28841AE20;
+  v13[1] = caulk::alloc::introspector::local_reader;
+  v14 = v13;
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::__value_func[abi:ne200100](v15, v11);
+  v15[32] = 1;
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v11);
+  v4 = std::function<void * ()(unsigned long,unsigned long)>::operator()(v14, v3, 1424);
+  caulk::alloc::tiered_allocator<caulk::alloc::size_range_tier<0ul,1008ul,caulk::alloc::tree_allocator<caulk::alloc::chunk_allocator<caulk::alloc::page_allocator,caulk::alloc::bitmap_allocator,caulk::alloc::embed_block_memory,16384ul,16ul,6ul>>>,caulk::alloc::size_range_tier<1009ul,256000ul,caulk::alloc::guarded_edges_allocator<caulk::alloc::consolidating_free_map<caulk::alloc::page_allocator,10485760ul>,4ul>>,caulk::alloc::tracking_allocator<caulk::alloc::page_allocator>>::introspect(v4 + 16, v3, &v12);
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v15);
+  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](v13);
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,caulk::alloc::block)>::~__value_func[abi:ne200100](v10);
+  v5 = *(&v8 + 1);
+  if (*(v3 + 1400) > *(&v8 + 1))
   {
     v5 = *(v3 + 1400);
   }
 
-  *&v10 = v5;
-  *(&v10 + 1) += *(&v9 + 1);
+  *&v9 = v5;
+  *(&v9 + 1) += *(&v8 + 1);
   *(v3 + 1400) = v5;
-  result = *&v9;
-  v7 = v10;
-  *a2 = v9;
+  result = *&v8;
+  v7 = v9;
+  *a2 = v8;
   a2[1] = v7;
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2754A7490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2754A7490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
-  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v7 + 40);
-  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](v6);
+  va_start(va, a11);
+  std::__function::__value_func<void ()(caulk::alloc::region_usage,unsigned long,unsigned long)>::~__value_func[abi:ne200100](v12 + 40);
+  std::__function::__value_func<void * ()(unsigned long,unsigned long)>::~__value_func[abi:ne200100](v11);
   std::__function::__value_func<void ()(caulk::alloc::region_usage,caulk::alloc::block)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7844,41 +7820,9 @@ LABEL_2:
     }
 
     v5 = *(v4 + 1040);
-    if (v5 == -1)
-    {
-      goto LABEL_16;
-    }
-
-    v6 = __clz(__rbit64(~v5));
-    v7 = *(v4 + 1040);
-    while (1)
-    {
-      v8 = 1 << v6;
-      atomic_compare_exchange_strong((v4 + 1040), &v7, (1 << v6) | v5);
-      if (v7 == v5)
-      {
-        break;
-      }
-
-      v6 = __clz(__rbit64(~v7));
-      v5 = v7;
-      if (v7 == -1)
-      {
-        goto LABEL_16;
-      }
-    }
-
-    v9 = atomic_load((v4 + 1032));
-    if ((v9 & v8) == 0)
+    if (v5 != -1)
     {
       break;
-    }
-
-LABEL_15:
-    if (*v4 + v6)
-    {
-      v11 = (*v4 + v6);
-      return;
     }
 
 LABEL_16:
@@ -7891,6 +7835,37 @@ LABEL_16:
       v2 = 0;
       goto LABEL_2;
     }
+  }
+
+  v6 = __clz(__rbit64(~v5));
+  v7 = *(v4 + 1040);
+  while (1)
+  {
+    v8 = 1 << v6;
+    atomic_compare_exchange_strong((v4 + 1040), &v7, (1 << v6) | v5);
+    if (v7 == v5)
+    {
+      break;
+    }
+
+    v6 = __clz(__rbit64(~v7));
+    v5 = v7;
+    if (v7 == -1)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  v9 = atomic_load((v4 + 1032));
+  if ((v9 & v8) != 0)
+  {
+LABEL_15:
+    if (*v4 + v6)
+    {
+      return;
+    }
+
+    goto LABEL_16;
   }
 
   if (v6 < 0x40)
@@ -7941,7 +7916,7 @@ uint64_t caulk::pooled_semaphore_mutex::try_lock(atomic_uint *this)
   return 1;
 }
 
-void caulk::concurrent::messenger::messenger(void *a1)
+void caulk::concurrent::messenger::messenger(void *a1, dispatch_object_t *a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -8095,27 +8070,27 @@ LABEL_13:
   return v9 | v2 | v10;
 }
 
-_BYTE *caulk::ipc::synchronous_messenger::semaphore_receiver::message_loop(_BYTE *this, caulk::ipc::synchronous_messenger::semaphore_receiver *a2)
+_BYTE *caulk::ipc::synchronous_messenger::semaphore_receiver::message_loop(_BYTE *this, caulk::ipc::synchronous_messenger::semaphore_receiver *a2, __n128 a3)
 {
   if ((this[184] & 1) == 0)
   {
-    v2 = this;
-    v3 = 0;
+    v3 = this;
+    v4 = 0;
     while (1)
     {
-      if (*(v2 + 6) <= 7uLL)
+      if (*(v3 + 6) <= 7uLL)
       {
 LABEL_41:
         CAAssertRtn("mapped_memory.h", 77, "(in_offset + sizeof(T)) <= size()");
       }
 
-      v4 = *(v2 + 5);
-      if (v3)
+      v5 = *(v3 + 5);
+      if (v4)
       {
         __dmb(0xBu);
         do
         {
-          this = MEMORY[0x277C79310](*(v2 + 18), *(v2 + 16));
+          this = MEMORY[0x277C79310](*(v3 + 18), *(v3 + 16), a3);
         }
 
         while (this == 14);
@@ -8125,7 +8100,7 @@ LABEL_41:
       {
         do
         {
-          this = MEMORY[0x277C79300](*(v2 + 18), a2);
+          this = MEMORY[0x277C79300](*(v3 + 18), a2, a3);
         }
 
         while (this == 14);
@@ -8137,52 +8112,52 @@ LABEL_41:
       }
 
       __dmb(9u);
-      if (v2[184])
+      if (v3[184])
       {
         return this;
       }
 
-      this = *(v2 + 18);
+      this = *(v3 + 18);
       if (!this)
       {
         goto LABEL_15;
       }
 
-      v5 = *v4;
-      if (*v4 == 1)
+      v6 = *v5;
+      if (*v5 == 1)
       {
         break;
       }
 
 LABEL_16:
-      switch(v5)
+      switch(v6)
       {
         case 1:
-          v3 = 1;
+          v4 = 1;
           break;
         case 2:
-          v3 = 0;
-          if (*(v2 + 3))
+          v4 = 0;
+          if (*(v3 + 3))
           {
-            v6 = *(v2 + 6);
-            if (v6)
+            v7 = *(v3 + 6);
+            if (v7)
             {
-              if (*(v2 + 16) && *(v2 + 18))
+              if (*(v3 + 16) && *(v3 + 18))
               {
-                if (v6 <= 7)
+                if (v7 <= 7)
                 {
                   goto LABEL_41;
                 }
 
-                v7 = *(v2 + 5);
-                v7[1] = 2;
+                v8 = *(v3 + 5);
+                v8[1] = 2;
                 __dmb(0xBu);
-                caulk::mach::semaphore::signal_or_error((v2 + 64));
+                caulk::mach::semaphore::signal_or_error((v3 + 64));
                 while (1)
                 {
                   do
                   {
-                    this = MEMORY[0x277C79300](*(v2 + 18));
+                    this = MEMORY[0x277C79300](*(v3 + 18));
                   }
 
                   while (this == 14);
@@ -8192,35 +8167,35 @@ LABEL_16:
                   }
 
                   __dmb(9u);
-                  if (*v7 == 1)
+                  if (*v8 == 1)
                   {
                     std::string::basic_string[abi:ne200100]<0>(&__p, "semaphore_receiver::reynch_handshake: wait out the receiver semaphore to clear things out for next time R-1");
-                    v9 = 0;
+                    v10 = 0;
                     do
                     {
-                      v10 = caulk::mach::semaphore::timed_wait_or_error(v2 + 18, 0.000001, v8);
-                      v8 = HIDWORD(v10);
-                      if ((v9 ^ BYTE4(v10)))
+                      v11 = caulk::mach::semaphore::timed_wait_or_error(v3 + 18, 0.000001, v9);
+                      v9 = HIDWORD(v11);
+                      if ((v10 ^ BYTE4(v11)))
                       {
-                        v9 = BYTE4(v10);
+                        v10 = BYTE4(v11);
                       }
                     }
 
-                    while ((v10 & 1) != 0 && (v9 & 1) != 0);
+                    while ((v11 & 1) != 0 && (v10 & 1) != 0);
                     __dmb(9u);
-                    if (v12 < 0)
+                    if (v13 < 0)
                     {
                       operator delete(__p);
                     }
 
-                    v7[1] = 1;
+                    v8[1] = 1;
                     __dmb(0xBu);
-                    this = caulk::mach::semaphore::signal_or_error((v2 + 64));
+                    this = caulk::mach::semaphore::signal_or_error((v3 + 64));
                     break;
                   }
                 }
 
-                v3 = 0;
+                v4 = 0;
               }
             }
           }
@@ -8230,53 +8205,43 @@ LABEL_16:
           return this;
       }
 
-      if (v2[184] == 1)
+      if (v3[184] == 1)
       {
         return this;
       }
     }
 
-    this = (*(*this + 48))(this, v2 + 16);
+    this = (*(*this + 48))(this, v3 + 16);
 LABEL_15:
-    v5 = *v4;
+    v6 = *v5;
     goto LABEL_16;
   }
 
   return this;
 }
 
-double caulk::mach::os_workgroup_interval_managed::make_with_workload_id@<D0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+double caulk::mach::os_workgroup_interval_managed::make_with_workload_id@<D0>(uint64_t a5@<X8>)
 {
   if (os_workgroup_attr_set_interval_type())
   {
-    *(a3 + 56) = 0;
+    *(a5 + 56) = 0;
     result = 0.0;
-    *(a3 + 40) = 0u;
-    *(a3 + 24) = 0u;
-    *(a3 + 8) = 0u;
-    *a3 = &unk_28841AF58;
+    *(a5 + 40) = 0u;
+    *(a5 + 24) = 0u;
+    *(a5 + 8) = 0u;
+    *a5 = &unk_28841AF58;
   }
 
   else
   {
-    if (*(a1 + 23) < 0)
-    {
-      v7 = *a1;
-    }
-
-    if (*(a2 + 23) < 0)
-    {
-      v8 = *a2;
-    }
-
-    v9 = os_workgroup_interval_create_with_workload_id();
+    v7 = os_workgroup_interval_create_with_workload_id();
     result = 0.0;
-    *(a3 + 16) = 0u;
-    *(a3 + 32) = 0u;
-    *(a3 + 41) = 0u;
-    *a3 = &unk_28841AF58;
-    *(a3 + 8) = v9;
-    *(a3 + 57) = 0;
+    *(a5 + 16) = 0u;
+    *(a5 + 32) = 0u;
+    *(a5 + 41) = 0u;
+    *a5 = &unk_28841AF58;
+    *(a5 + 8) = v7;
+    *(a5 + 57) = 0;
   }
 
   return result;
@@ -8327,51 +8292,49 @@ void caulk::ipc::synchronous_messenger::semaphore_sender::create_connection_info
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  caulk::ipc::mapped_memory::create_xpc_object(this, &value);
+  caulk::ipc::mapped_memory::create_xpc_object(&value, this);
   v5 = value;
   if (!value)
   {
-    v14 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v14, "failed to create payload object");
-    __cxa_throw(v14, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v12 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v12, "failed to create payload object");
+    __cxa_throw(v12, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   xpc_dictionary_set_value(v4, "payload", value);
-  caulk::ipc::mapped_memory::create_xpc_object((this + 24), &v18);
-  v6 = v18;
-  if (!v18)
+  caulk::ipc::mapped_memory::create_xpc_object(&v16, (this + 24));
+  v6 = v16;
+  if (!v16)
   {
-    v15 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v15, "failed to create control object");
-    __cxa_throw(v15, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v13 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v13, "failed to create control object");
+    __cxa_throw(v13, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  xpc_dictionary_set_value(v4, "control", v18);
-  v7 = *(this + 12);
+  xpc_dictionary_set_value(v4, "control", v16);
+  v7 = xpc_mach_send_create();
+  if (!v7)
+  {
+    v14 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v14, "failed to create send semaphore object");
+    __cxa_throw(v14, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  xpc_dictionary_set_value(v4, "send semaphore", v7);
   v8 = xpc_mach_send_create();
   if (!v8)
   {
-    v16 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v16, "failed to create send semaphore object");
-    __cxa_throw(v16, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v15 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v15, "failed to create receive semaphore object");
+    __cxa_throw(v15, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  xpc_dictionary_set_value(v4, "send semaphore", v8);
-  v9 = *(this + 14);
-  v10 = xpc_mach_send_create();
-  if (!v10)
-  {
-    v17 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v17, "failed to create receive semaphore object");
-    __cxa_throw(v17, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  xpc_dictionary_set_value(v4, "receive semaphore", v10);
-  os_release(v10);
+  xpc_dictionary_set_value(v4, "receive semaphore", v8);
   os_release(v8);
-  caulk::mach::details::release_os_object(v6, v11);
+  os_release(v7);
+  caulk::mach::details::release_os_object(v6, v9);
 
-  caulk::mach::details::release_os_object(v5, v12);
+  caulk::mach::details::release_os_object(v5, v10);
 }
 
 void sub_2754A823C(_Unwind_Exception *a1)
@@ -8384,7 +8347,7 @@ void sub_2754A823C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t caulk::ipc::mapped_memory::create_xpc_object@<X0>(caulk::ipc::mapped_memory *this@<X0>, void *a2@<X8>)
+uint64_t *caulk::ipc::mapped_memory::create_xpc_object@<X0>(uint64_t *__return_ptr a1@<X8>, caulk::ipc::mapped_memory *this@<X0>)
 {
   if (*(this + 16))
   {
@@ -8399,12 +8362,11 @@ uint64_t caulk::ipc::mapped_memory::create_xpc_object@<X0>(caulk::ipc::mapped_me
       result = 0;
     }
 
-    *a2 = result;
+    *a1 = result;
   }
 
   else
   {
-    v5 = *(this + 16);
     _os_assert_log();
     result = _os_crash();
     __break(1u);
@@ -8451,7 +8413,7 @@ uint64_t caulk::thread_proxy<std::tuple<caulk::thread::attributes,caulk::ipc::sy
     caulk::mach::semaphore::signal_or_error(v4);
     if (v12 == 1)
     {
-      caulk::ipc::synchronous_messenger::semaphore_receiver::message_loop(v2, v13);
+      caulk::ipc::synchronous_messenger::semaphore_receiver::message_loop(v2, v13, v14);
     }
   }
 
@@ -8469,7 +8431,7 @@ uint64_t caulk::thread_proxy<std::tuple<caulk::thread::attributes,caulk::ipc::sy
 
   if ((*(v2 + 185) & 1) == 0)
   {
-    caulk::ipc::synchronous_messenger::semaphore_receiver::stop_handshake(v2);
+    caulk::ipc::synchronous_messenger::semaphore_receiver::stop_handshake(v2, v14.n128_f64[0]);
   }
 
   if (!v9)
@@ -8477,28 +8439,28 @@ uint64_t caulk::thread_proxy<std::tuple<caulk::thread::attributes,caulk::ipc::sy
     caulk::mach::os_workgroup_managed::leave(&v20);
   }
 
-  v14 = *(v2 + 176);
-  if (v14)
+  v15 = *(v2 + 176);
+  if (v15)
   {
-    (*(*v14 + 48))(v14);
+    (*(*v15 + 48))(v15);
   }
 
   __dmb(0xBu);
   caulk::mach::semaphore::signal_or_error((v2 + 80));
   v20 = &unk_28841AF98;
-  caulk::mach::details::release_os_object(v21, v15);
-  std::unique_ptr<std::tuple<caulk::thread::attributes,caulk::ipc::synchronous_messenger::semaphore_receiver::start(double,caulk::thread::attributes const&,caulk::mach::os_workgroup_managed)::$_0,std::tuple<>>>::~unique_ptr[abi:ne200100](&v19, v16);
-  v17 = *MEMORY[0x277D85DE8];
+  caulk::mach::details::release_os_object(v21, v16);
+  std::unique_ptr<std::tuple<caulk::thread::attributes,caulk::ipc::synchronous_messenger::semaphore_receiver::start(double,caulk::thread::attributes const&,caulk::mach::os_workgroup_managed)::$_0,std::tuple<>>>::~unique_ptr[abi:ne200100](&v19, v17);
   return 0;
 }
 
-void sub_2754A8518(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+void sub_2754A8518(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   if (a2)
   {
-    if (!v10)
+    if (!v9)
     {
-      caulk::mach::os_workgroup_managed::leave(&a10);
+      caulk::mach::os_workgroup_managed::leave(va);
     }
 
     __cxa_begin_catch(exception_object);
@@ -8615,52 +8577,46 @@ void sub_2754A8910(_Unwind_Exception *a1, void *a2)
 
 uint64_t caulk::ipc::synchronous_messenger::semaphore_receiver::start(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (*(a1 + 24) && *(a1 + 48) && *(a1 + 64) && *(a1 + 72))
   {
     std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&__p, a2);
-    v17 = *(a2 + 32);
-    v18 = *(a2 + 48);
-    v19 = 1;
-    v20 = 1;
+    v15 = *(a2 + 32);
+    v16 = *(a2 + 48);
+    v17 = 1;
+    v18 = 1;
     *(a1 + 184) = 0;
-    LODWORD(v21) = 1;
-    BYTE4(v21) = 0;
+    LODWORD(v19) = 1;
+    BYTE4(v19) = 0;
     caulk::mach::semaphore::semaphore(&semaphore);
     __dmb(0xBu);
-    std::shared_ptr<caulk::ipc::synchronous_messenger::semaphore_receiver>::shared_ptr[abi:ne200100]<caulk::ipc::synchronous_messenger::semaphore_receiver,0>(&v22, *a1, *(a1 + 8));
-    *&v23 = a4;
-    *(&v23 + 1) = &v21;
+    std::shared_ptr<caulk::ipc::synchronous_messenger::semaphore_receiver>::shared_ptr[abi:ne200100]<caulk::ipc::synchronous_messenger::semaphore_receiver,0>(&v20, *a1, *(a1 + 8));
+    *&v21 = a4;
+    *(&v21 + 1) = &v19;
     p_semaphore = &semaphore;
-    v25 = &unk_28841AF98;
+    v23 = &unk_28841AF98;
     v9 = caulk::mach::details::retain_os_object(*(a3 + 8), v8);
-    v10 = *(a3 + 32);
-    v27 = *(a3 + 16);
-    *v28 = v10;
-    *(&v28[1] + 1) = *(a3 + 41);
-    v11 = v22;
-    v22 = 0uLL;
-    *&v28[5] = v11;
-    *&v28[7] = v23;
-    memset(v28, 0, 25);
-    v27 = 0u;
-    v12 = *(a3 + 32);
-    v29 = *(a3 + 16);
-    v28[9] = p_semaphore;
-    v28[10] = &unk_28841AF98;
-    v28[11] = v9;
-    v26 = 0;
-    v30 = v12;
-    v31 = *(a3 + 48);
-    v32 = v28[3];
+    v10 = v20;
+    v20 = 0uLL;
+    v27 = v10;
+    v28 = v21;
+    memset(v26, 0, 25);
+    v25 = 0u;
+    v11 = *(a3 + 32);
+    v32 = *(a3 + 16);
+    v29 = p_semaphore;
+    v30 = &unk_28841AF98;
+    v31 = v9;
+    v24 = 0;
+    v33 = v11;
+    v34 = *(a3 + 48);
+    v35 = v26[3];
     operator new();
   }
 
-  LODWORD(v21) = 22;
-  BYTE4(v21) = 0;
-  result = v21;
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  LODWORD(v19) = 22;
+  BYTE4(v19) = 0;
+  return v19;
 }
 
 {
@@ -8700,29 +8656,30 @@ uint64_t caulk::ipc::synchronous_messenger::semaphore_receiver::start(uint64_t a
   return v25;
 }
 
-void sub_2754A8CE4(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+void sub_2754A8CE4(_Unwind_Exception *exception_object, void *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
+  va_start(va, a21);
   if (a2)
   {
-    std::unique_ptr<std::tuple<caulk::thread::attributes,caulk::ipc::synchronous_messenger::semaphore_receiver::start(double,caulk::thread::attributes const&,caulk::mach::os_workgroup_managed)::$_0,std::tuple<>>>::~unique_ptr[abi:ne200100](&a22, a2);
+    std::unique_ptr<std::tuple<caulk::thread::attributes,caulk::ipc::synchronous_messenger::semaphore_receiver::start(double,caulk::thread::attributes const&,caulk::mach::os_workgroup_managed)::$_0,std::tuple<>>>::~unique_ptr[abi:ne200100](va, a2);
     __clang_call_terminate(exception_object);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void *std::shared_ptr<caulk::ipc::synchronous_messenger::semaphore_receiver>::shared_ptr[abi:ne200100]<caulk::ipc::synchronous_messenger::semaphore_receiver,0>(void *a1, uint64_t a2, std::__shared_weak_count *this)
+std::__shared_weak_count *std::shared_ptr<caulk::ipc::synchronous_messenger::semaphore_receiver>::shared_ptr[abi:ne200100]<caulk::ipc::synchronous_messenger::semaphore_receiver,0>(std::__shared_weak_count *a1, std::__shared_weak_count_vtbl *a2, std::__shared_weak_count *this)
 {
-  *a1 = a2;
+  a1->__vftable = a2;
   if (!this)
   {
-    a1[1] = 0;
+    a1->__shared_owners_ = 0;
 LABEL_5:
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
   v4 = std::__shared_weak_count::lock(this);
-  a1[1] = v4;
+  a1->__shared_owners_ = v4;
   if (!v4)
   {
     goto LABEL_5;
@@ -8756,7 +8713,7 @@ uint64_t *std::unique_ptr<std::tuple<caulk::thread::attributes,caulk::ipc::synch
   return a1;
 }
 
-uint64_t caulk::ipc::synchronous_messenger::details::make_semaphore(uint64_t a1, uint64_t *a2)
+uint64_t caulk::ipc::synchronous_messenger::details::make_semaphore(uint64_t a1, void *a2)
 {
   if (!*a2)
   {
@@ -8773,7 +8730,6 @@ LABEL_6:
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v4 = *a2;
   result = xpc_mach_send_copy_right();
   *a1 = result;
   *(a1 + 4) = 0;
@@ -9033,12 +8989,12 @@ LABEL_13:
   return v13 | v12 | v14;
 }
 
-void caulk::alloc::details::caching_page_allocator_base::deallocate(void *a1, caulk::mach::vm_block *this, uint64_t a3)
+void caulk::alloc::details::caching_page_allocator_base::deallocate(void *result, caulk::mach::vm_block *this, unint64_t a3)
 {
   if (a3)
   {
     _X4 = this;
-    if (a3 == a1[2])
+    if (a3 == result[2])
     {
       _X6 = 0;
       _X7 = 0;
@@ -9063,14 +9019,14 @@ void caulk::alloc::details::caching_page_allocator_base::deallocate(void *a1, ca
         while (v15);
       }
 
-      atomic_fetch_add(a1 + 6, 1uLL);
-      v16 = a1[8];
+      atomic_fetch_add(result + 6, 1uLL);
+      v16 = result[8];
       if (*(v16 + 32) == 1)
       {
-        v17 = a1[2];
-        v18 = a1[6];
+        v17 = result[2];
+        v18 = result[6];
         v19 = v17;
-        (*v16)(a1 + 9, &v19, &v18);
+        (*v16)(result + 9, &v19, &v18);
       }
     }
 
@@ -9096,7 +9052,7 @@ atomic_uint *caulk::semaphore::signal(atomic_uint *this)
   return this;
 }
 
-unint64_t caulk::alloc::bitmap_allocator<caulk::alloc::embed_block_memory,16368ul,256ul,6ul>::allocate(unsigned int *a1, unint64_t a2)
+unsigned int *caulk::alloc::bitmap_allocator<caulk::alloc::embed_block_memory,16368ul,256ul,6ul>::allocate(unsigned int *a1, unint64_t a2)
 {
   if (a2 > 0x4000)
   {
@@ -9194,35 +9150,31 @@ _opaque_pthread_t *get_priority(_opaque_pthread_t *result, int a2)
 
 uint64_t caulk::mach::thread::priority_absolute::apply_to_this_thread(caulk::mach::thread::priority_absolute *this)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = pthread_self();
   v3 = pthread_mach_thread_np(v2);
   v4 = v3;
-  if (v3)
+  if (!v3)
   {
-    policy_info = *(this + 4);
-    result = thread_policy_set(v3, 1u, &policy_info, 1u);
-    if (!result)
+    return 0xFFFFFFFFLL;
+  }
+
+  policy_info = *(this + 4);
+  result = thread_policy_set(v3, 1u, &policy_info, 1u);
+  if (!result)
+  {
+    v6 = getpid();
+    v7 = proc_pidinfo(v6, 2, 0, buffer, 232);
+    v8 = v12;
+    if (v7 <= 0)
     {
-      v6 = getpid();
-      v7 = proc_pidinfo(v6, 2, 0, buffer, 232);
-      v8 = v13;
-      if (v7 <= 0)
-      {
-        v8 = 0;
-      }
-
-      v10 = *this - v8;
-      result = thread_policy_set(v4, 3u, &v10, 1u);
+      v8 = 0;
     }
+
+    v9 = *this - v8;
+    return thread_policy_set(v4, 3u, &v9, 1u);
   }
 
-  else
-  {
-    result = 0xFFFFFFFFLL;
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9244,33 +9196,33 @@ void caulk::ipc::synchronous_messenger::semaphore_sender::stop(caulk::ipc::synch
   }
 }
 
-_DWORD *caulk::ipc::synchronous_messenger::semaphore_receiver::stop_handshake(uint64_t a1)
+_DWORD *caulk::ipc::synchronous_messenger::semaphore_receiver::stop_handshake(uint64_t a1, double a2)
 {
-  v5 = *(a1 + 64);
+  v6 = *(a1 + 64);
   result = (a1 + 64);
-  v4 = v5;
-  v6 = *(result - 2);
+  v5 = v6;
+  v7 = *(result - 2);
   if (*(result - 5))
   {
-    v7 = v6 == 0;
+    v8 = v7 == 0;
   }
 
   else
   {
-    v7 = 1;
+    v8 = 1;
   }
 
-  if (!v7 && v4 != 0 && result[2] != 0)
+  if (!v8 && v5 != 0 && result[2] != 0)
   {
-    if (v6 <= 7)
+    if (v7 <= 7)
     {
       CAAssertRtn("mapped_memory.h", 77, "(in_offset + sizeof(T)) <= size()");
     }
 
-    v10 = *(a1 + 40);
-    if (*(v10 + 4) == 1)
+    v11 = *(a1 + 40);
+    if (*(v11 + 4) == 1)
     {
-      *(v10 + 4) = 0;
+      *(v11 + 4) = 0;
       __dmb(0xBu);
 
       return caulk::mach::semaphore::signal_or_error(result);
@@ -9307,7 +9259,7 @@ void caulk::concurrent::details::dispatch_receiver::~dispatch_receiver(caulk::co
   JUMPOUT(0x277C78AD0);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -9321,13 +9273,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -9387,7 +9339,7 @@ uint64_t caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,
   return v11;
 }
 
-unint64_t caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::search_right<caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::key_lt &>(unint64_t a1, uint64_t a2, unint64_t a3, void *a4)
+uint64_t caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::search_right<caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::key_lt &>(unint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v4 = a3;
   v5 = atomic_load((a3 + 16 * a2 + 40));
@@ -9421,7 +9373,7 @@ unint64_t caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block
   return v4;
 }
 
-unint64_t caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::help_flagged(unint64_t result, uint64_t a2, unint64_t a3, uint64_t a4)
+unint64_t caulk::concurrent::skiplist<void *,caulk::alloc::detail::tracked_block,10,(caulk::concurrent::skiplist_options)0>::help_flagged(unint64_t result, uint64_t a2, unint64_t a3, unint64_t a4)
 {
   _X20 = a4;
   v7 = result;
@@ -9607,20 +9559,18 @@ unint64_t caulk::alloc::multi_free_list<caulk::alloc::cascading_allocator<caulk:
 
 void caulk::mach::vm_block::dealloc(caulk::mach::vm_block *this, size_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = munmap(this, a2);
   if (v2)
   {
     v3 = v2;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v5[0] = 67109120;
-      v5[1] = v3;
-      _os_log_error_impl(&dword_27549C000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "munmap failed! %d", v5, 8u);
+      v4[0] = 67109120;
+      v4[1] = v3;
+      _os_log_error_impl(&dword_27549C000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "munmap failed! %d", v4, 8u);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void caulk::ipc::synchronous_messenger::semaphore_receiver::stop(caulk::ipc::synchronous_messenger::semaphore_receiver *this, double a2)
@@ -9670,60 +9620,58 @@ void std::__throw_bad_variant_access[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x277D82768], std::bad_variant_access::~bad_variant_access);
 }
 
-unint64_t caulk::mach::thread::get_name@<X0>(_opaque_pthread_t *this@<X0>, _BYTE *a2@<X8>)
+unint64_t caulk::mach::thread::get_name@<X0>(_opaque_pthread_t *this@<X0>, void *a2@<X8>)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  memset(v8, 0, sizeof(v8));
-  v4 = pthread_getname_np(this, v8, 0x100uLL);
-  check_posix_error("pthread_getname_np failed", v4);
-  result = strlen(v8);
+  v7 = *MEMORY[0x277D85DE8];
+  memset(v6, 0, sizeof(v6));
+  v3 = pthread_getname_np(this, v6, 0x100uLL);
+  check_posix_error("pthread_getname_np failed", v3);
+  result = strlen(v6);
   if (result >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = result;
+  v5 = result;
   if (result >= 0x17)
   {
     operator new();
   }
 
-  a2[23] = result;
+  *(a2 + 23) = result;
   if (result)
   {
-    result = memcpy(a2, v8, result);
+    result = memcpy(a2, v6, result);
   }
 
-  a2[v6] = 0;
-  v7 = *MEMORY[0x277D85DE8];
+  *(a2 + v5) = 0;
   return result;
 }
 
 uint64_t check_posix_error(uint64_t result, int a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v3 = result;
-    v4 = *__error();
-    v5 = std::generic_category();
-    MEMORY[0x277C788B0](v9, v4, v5, v3);
+    v2 = result;
+    v3 = *__error();
+    v4 = std::generic_category();
+    MEMORY[0x277C788B0](v8, v3, v4, v2);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v6 = std::runtime_error::what(v9);
+      v5 = std::runtime_error::what(v8);
       *buf = 136315138;
-      v11 = v6;
+      v10 = v5;
       _os_log_error_impl(&dword_27549C000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
-    v8 = std::runtime_error::runtime_error(exception, v9);
-    v8->__vftable = (MEMORY[0x277D82840] + 16);
-    v8[1] = v9[1];
-    __cxa_throw(v8, MEMORY[0x277D82718], MEMORY[0x277D82650]);
+    v7 = std::runtime_error::runtime_error(exception, v8);
+    v7->__vftable = (MEMORY[0x277D82840] + 16);
+    v7[1] = v8[1];
+    __cxa_throw(v7, MEMORY[0x277D82718], MEMORY[0x277D82650]);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9758,22 +9706,21 @@ uint64_t *caulk::alloc::get_default_resource(caulk::alloc *this)
   return &caulk::alloc::get_default_resource(void)::global;
 }
 
-uint64_t caulk::alloc::resource<caulk::alloc::malloc_allocator,caulk::alloc::memory_resource>::print(caulk::alloc::malloc_allocator *a1, uint64_t a2, int a3)
+caulk::alloc::base_allocator::formatter *caulk::alloc::resource<caulk::alloc::malloc_allocator,caulk::alloc::memory_resource>::print(caulk::alloc::malloc_allocator *a1, uint64_t a2, int a3)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v7 = a2;
+  v9[4] = *MEMORY[0x277D85DE8];
+  v6 = a2;
+  v7 = 0;
   v8 = 0;
-  v9 = 0;
-  result = caulk::alloc::malloc_allocator::describe(a1, &v7);
+  result = caulk::alloc::malloc_allocator::describe(a1, &v6);
   if (a3)
   {
-    v10[0] = &unk_28841B8F8;
-    v10[1] = a2;
-    v10[3] = v10;
-    result = std::__function::__value_func<void ()(caulk::alloc::region_usage,caulk::alloc::block)>::~__value_func[abi:ne200100](v10);
+    v9[0] = &unk_28841B8F8;
+    v9[1] = a2;
+    v9[3] = v9;
+    return std::__function::__value_func<void ()(caulk::alloc::region_usage,caulk::alloc::block)>::~__value_func[abi:ne200100](v9);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9803,4 +9750,131 @@ BOOL std::type_info::operator==[abi:ne200100](uint64_t a1, uint64_t a2)
   }
 
   return 0;
+}
+
+uint64_t caulk::alloc::describe_block(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+{
+  if ((a2 - 1) > 3)
+  {
+    v6 = "?";
+  }
+
+  else
+  {
+    v6 = off_27A64B448[a2 - 1];
+  }
+
+  v7 = MEMORY[0x277C78960](a1, a3);
+  v16 = 58;
+  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, &v16, 1);
+  v9 = MEMORY[0x277C78960](v8, a3 + a4 - 1);
+  v17 = 32;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, &v17, 1);
+  v10 = strlen(v6);
+  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, v6, v10);
+  v18 = 32;
+  v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, &v18, 1);
+  v13 = MEMORY[0x277C78990](v12, a4);
+  std::ios_base::getloc((v13 + *(*v13 - 24)));
+  v14 = std::locale::use_facet(&v19, MEMORY[0x277D82680]);
+  (v14->__vftable[2].~facet_0)(v14, 10);
+  std::locale::~locale(&v19);
+  std::ostream::put();
+  return std::ostream::flush();
+}
+
+void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(void *a1, uint64_t a2, uint64_t a3)
+{
+  MEMORY[0x277C78930](v20, a1);
+  if (v20[0] == 1)
+  {
+    v6 = a1 + *(*a1 - 24);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
+    if (v9 == -1)
+    {
+      std::ios_base::getloc((a1 + *(*a1 - 24)));
+      v10 = std::locale::use_facet(&__b, MEMORY[0x277D82680]);
+      v9 = (v10->__vftable[2].~facet_0)(v10, 32);
+      std::locale::~locale(&__b);
+      *(v6 + 36) = v9;
+    }
+
+    v11 = a2 + a3;
+    if ((v8 & 0xB0) == 0x20)
+    {
+      v12 = a2 + a3;
+    }
+
+    else
+    {
+      v12 = a2;
+    }
+
+    if (!v7)
+    {
+      goto LABEL_27;
+    }
+
+    v13 = *(v6 + 3);
+    v14 = v13 <= a3;
+    v15 = v13 - a3;
+    v16 = v14 ? 0 : v15;
+    if (v12 - a2 >= 1 && (*(*v7 + 96))(v7, a2, v12 - a2) != v12 - a2)
+    {
+      goto LABEL_27;
+    }
+
+    if (v16 >= 1)
+    {
+      if (v16 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        std::string::__throw_length_error[abi:ne200100]();
+      }
+
+      if (v16 >= 0x17)
+      {
+        operator new();
+      }
+
+      v22 = v16;
+      memset(&__b, v9, v16);
+      *(&__b.__locale_ + v16) = 0;
+      if (v22 >= 0)
+      {
+        p_b = &__b;
+      }
+
+      else
+      {
+        p_b = __b.__locale_;
+      }
+
+      v18 = (*(*v7 + 96))(v7, p_b, v16);
+      if (v22 < 0)
+      {
+        operator delete(__b.__locale_);
+      }
+
+      if (v18 != v16)
+      {
+        goto LABEL_27;
+      }
+    }
+
+    if (v11 - v12 < 1 || (*(*v7 + 96))(v7, v12, v11 - v12) == v11 - v12)
+    {
+      *(v6 + 3) = 0;
+    }
+
+    else
+    {
+LABEL_27:
+      std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 5);
+    }
+  }
+
+  MEMORY[0x277C78940](v20);
+  return a1;
 }

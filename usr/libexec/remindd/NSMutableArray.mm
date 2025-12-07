@@ -57,79 +57,78 @@
 {
   recordsCopy = records;
   v4 = objc_alloc_init(NSMutableDictionary);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v5 = recordsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v27;
+    v8 = *v26;
     do
     {
       v9 = 0;
       do
       {
-        if (*v27 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * v9);
         objc_opt_class();
-        v11 = REMDynamicCast();
-        v12 = v11;
-        if (v11)
+        v10 = REMDynamicCast();
+        v11 = v10;
+        if (v10)
         {
-          recordID = [v11 recordID];
+          recordID = [v10 recordID];
           recordName = [recordID recordName];
           [v4 setObject:recordID forKeyedSubscript:recordName];
         }
 
-        v9 = v9 + 1;
+        ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v7);
   }
 
-  v15 = objc_alloc_init(NSMutableArray);
+  v14 = objc_alloc_init(NSMutableArray);
   objectEnumerator = [(NSMutableArray *)self objectEnumerator];
   nextObject = [objectEnumerator nextObject];
   if (nextObject)
   {
-    v18 = nextObject;
+    v17 = nextObject;
     do
     {
       objc_opt_class();
-      v19 = REMDynamicCast();
-      v20 = v19;
-      if (v19)
+      v18 = REMDynamicCast();
+      v19 = v18;
+      if (v18)
       {
-        recordID2 = [v19 recordID];
+        recordID2 = [v18 recordID];
         recordName2 = [recordID2 recordName];
-        v23 = [v4 objectForKeyedSubscript:recordName2];
+        v22 = [v4 objectForKeyedSubscript:recordName2];
 
-        if ([recordID2 isEqual:v23])
+        if ([recordID2 isEqual:v22])
         {
-          [v15 addObject:v20];
+          [v14 addObject:v19];
         }
       }
 
       nextObject2 = [objectEnumerator nextObject];
 
-      v18 = nextObject2;
+      v17 = nextObject2;
     }
 
     while (nextObject2);
   }
 
-  [(NSMutableArray *)self removeObjectsInArray:v15];
+  [(NSMutableArray *)self removeObjectsInArray:v14];
 }
 
 @end

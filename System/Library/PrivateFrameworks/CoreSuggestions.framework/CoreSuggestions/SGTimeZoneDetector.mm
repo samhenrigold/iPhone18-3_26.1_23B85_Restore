@@ -191,7 +191,7 @@ LABEL_6:
 
 - (id)_countryCodeByCountryNameFromNormalizedAddressWords:(id)words
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   wordsCopy = words;
   _getCountryCodeForCountryName = [(SGTimeZoneDetector *)self _getCountryCodeForCountryName];
   v6 = [wordsCopy count];
@@ -262,26 +262,26 @@ LABEL_6:
     while (v9-- > 1);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v24 = v14;
-  v25 = [v24 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v34;
+    v27 = *v33;
     while (2)
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v34 != v27)
+        if (*v33 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = [_getCountryCodeForCountryName objectForKeyedSubscript:{*(*(&v33 + 1) + 8 * i), v33}];
+        v29 = [_getCountryCodeForCountryName objectForKeyedSubscript:{*(*(&v32 + 1) + 8 * i), v32}];
         if (v29)
         {
           v30 = v29;
@@ -289,7 +289,7 @@ LABEL_6:
         }
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (v26)
       {
         continue;
@@ -301,8 +301,6 @@ LABEL_6:
 
   v30 = 0;
 LABEL_25:
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v30;
 }
@@ -371,31 +369,31 @@ LABEL_13:
 
 - (id)_countryCodeByRegularExpressionFromNormalizedAddress:(id)address
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   addressCopy = address;
   if (addressCopy)
   {
     [(SGTimeZoneDetector *)self _getUniquePostalCodeFormats];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v5 = v18 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v5 = v17 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
-      v7 = *v16;
+      v7 = *v15;
       while (2)
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * i);
+          v9 = *(*(&v14 + 1) + 8 * i);
           v10 = objc_autoreleasePoolPush();
-          v11 = [v5 objectForKey:{v9, v15}];
+          v11 = [v5 objectForKey:{v9, v14}];
           v12 = [objc_alloc(MEMORY[0x1E696AE70]) initWithPattern:v11 options:0 error:0];
           if ([v12 rangeOfFirstMatchInString:addressCopy options:0 range:{0, objc_msgSend(addressCopy, "length")}] != 0x7FFFFFFFFFFFFFFFLL)
           {
@@ -408,7 +406,7 @@ LABEL_13:
           objc_autoreleasePoolPop(v10);
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v6)
         {
           continue;
@@ -426,84 +424,82 @@ LABEL_12:
     v6 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (id)_countryCodeByRegionAbbreviationFromNormalizedAddress:(id)address
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   addressCopy = address;
   _getRegionAbbreviations = [(SGTimeZoneDetector *)self _getRegionAbbreviations];
   v6 = objc_autoreleasePoolPush();
   v7 = [addressCopy componentsSeparatedByString:@" "];
   objc_autoreleasePoolPop(v6);
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v38;
-    v30 = v8;
-    v31 = _getRegionAbbreviations;
-    v27 = *v38;
+    v11 = *v37;
+    v29 = v8;
+    v30 = _getRegionAbbreviations;
+    v26 = *v37;
     do
     {
       v12 = 0;
-      v28 = v10;
+      v27 = v10;
       do
       {
-        if (*v38 != v11)
+        if (*v37 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v37 + 1) + 8 * v12);
+        v13 = *(*(&v36 + 1) + 8 * v12);
         v14 = objc_autoreleasePoolPush();
         v15 = [_getRegionAbbreviations objectForKey:v13];
         if (v15)
         {
           context = v14;
-          v35 = 0u;
-          v36 = 0u;
-          v33 = 0u;
           v34 = 0u;
-          v29 = v15;
+          v35 = 0u;
+          v32 = 0u;
+          v33 = 0u;
+          v28 = v15;
           v16 = v15;
-          v17 = [v16 countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v32 objects:v40 count:16];
           if (v17)
           {
             v18 = v17;
-            v19 = *v34;
+            v19 = *v33;
             while (2)
             {
               for (i = 0; i != v18; ++i)
               {
-                if (*v34 != v19)
+                if (*v33 != v19)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                v21 = *(*(&v33 + 1) + 8 * i);
-                v22 = [v16 objectForKey:{v21, v27}];
+                v21 = *(*(&v32 + 1) + 8 * i);
+                v22 = [v16 objectForKey:{v21, v26}];
                 v23 = [objc_opt_class() _regularExpressionForPostalCodeFormat:v22];
                 if ([v23 rangeOfFirstMatchInString:addressCopy options:0 range:{0, objc_msgSend(addressCopy, "length")}] != 0x7FFFFFFFFFFFFFFFLL)
                 {
                   v24 = v21;
 
                   objc_autoreleasePoolPop(context);
-                  v8 = v30;
-                  _getRegionAbbreviations = v31;
+                  v8 = v29;
+                  _getRegionAbbreviations = v30;
                   goto LABEL_21;
                 }
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v33 objects:v41 count:16];
+              v18 = [v16 countByEnumeratingWithState:&v32 objects:v40 count:16];
               if (v18)
               {
                 continue;
@@ -513,12 +509,12 @@ LABEL_12:
             }
           }
 
-          v8 = v30;
-          _getRegionAbbreviations = v31;
-          v11 = v27;
-          v10 = v28;
+          v8 = v29;
+          _getRegionAbbreviations = v30;
+          v11 = v26;
+          v10 = v27;
           v14 = context;
-          v15 = v29;
+          v15 = v28;
         }
 
         objc_autoreleasePoolPop(v14);
@@ -526,7 +522,7 @@ LABEL_12:
       }
 
       while (v12 != v10);
-      v10 = [v8 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v36 objects:v41 count:16];
       v24 = 0;
     }
 
@@ -539,8 +535,6 @@ LABEL_12:
   }
 
 LABEL_21:
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -862,7 +856,7 @@ LABEL_13:
 
 - (id)_getTimeZoneForCountryCode
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   timeZoneForCountryCode = self->_timeZoneForCountryCode;
   if (timeZoneForCountryCode)
   {
@@ -873,28 +867,28 @@ LABEL_13:
   location = &self->_timeZoneForCountryCode;
   obj = objc_opt_new();
   [MEMORY[0x1E695DFE8] knownTimeZoneNames];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v3 = v23 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v3 = v22 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (!v4)
   {
     goto LABEL_20;
   }
 
   v5 = v4;
-  v6 = *v21;
+  v6 = *v20;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v21 != v6)
+      if (*v20 != v6)
       {
         objc_enumerationMutation(v3);
       }
 
-      v8 = *(*(&v20 + 1) + 8 * i);
+      v8 = *(*(&v19 + 1) + 8 * i);
       v9 = objc_autoreleasePoolPush();
       v10 = [MEMORY[0x1E695DFE8] timeZoneWithName:v8];
       systemLocale = [MEMORY[0x1E695DF58] systemLocale];
@@ -940,7 +934,7 @@ LABEL_18:
       objc_autoreleasePoolPop(v9);
     }
 
-    v5 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v5 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
   }
 
   while (v5);
@@ -952,14 +946,13 @@ LABEL_20:
   }
 
 LABEL_23:
-  v15 = *MEMORY[0x1E69E9840];
 
   return obj;
 }
 
 - (id)_getCountryCodeForCountryName
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   countryCodeForCountryName = self->_countryCodeForCountryName;
   if (countryCodeForCountryName)
   {
@@ -980,33 +973,33 @@ LABEL_23:
       [currentHandler handleFailureInMethod:a2 object:selfCopy file:@"SGTimeZone.m" lineNumber:161 description:{@"Invalid parameter not satisfying: %@", @"tzCountryNamesDataPath"}];
     }
 
-    v39 = v7;
-    v38 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfFile:v7];
-    v8 = [v38 objectForKey:@"Country Code Dictionary Supplement"];
+    v38 = v7;
+    v37 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfFile:v7];
+    v8 = [v37 objectForKey:@"Country Code Dictionary Supplement"];
     [(NSDictionary *)v3 addEntriesFromDictionary:v8];
 
     v9 = [objc_alloc(MEMORY[0x1E695DF70]) initWithArray:&unk_1F38744C8];
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
     preferredLanguages = [MEMORY[0x1E695DF58] preferredLanguages];
-    v11 = [preferredLanguages countByEnumeratingWithState:&v53 objects:v61 count:16];
+    v11 = [preferredLanguages countByEnumeratingWithState:&v52 objects:v60 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v54;
+      v13 = *v53;
       v14 = MEMORY[0x1E69E9830];
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v54 != v13)
+          if (*v53 != v13)
           {
             objc_enumerationMutation(preferredLanguages);
           }
 
-          v16 = *(*(&v53 + 1) + 8 * i);
+          v16 = *(*(&v52 + 1) + 8 * i);
           if ([v16 length] < 3)
           {
             v19 = 2;
@@ -1040,54 +1033,54 @@ LABEL_23:
           [v9 addObject:v20];
         }
 
-        v12 = [preferredLanguages countByEnumeratingWithState:&v53 objects:v61 count:16];
+        v12 = [preferredLanguages countByEnumeratingWithState:&v52 objects:v60 count:16];
       }
 
       while (v12);
     }
 
-    v37 = v9;
+    v36 = v9;
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     obj = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v9];
-    v42 = [obj countByEnumeratingWithState:&v49 objects:v60 count:16];
-    if (v42)
+    v41 = [obj countByEnumeratingWithState:&v48 objects:v59 count:16];
+    if (v41)
     {
-      v41 = *v50;
+      v40 = *v49;
       do
       {
         v21 = 0;
         do
         {
-          if (*v50 != v41)
+          if (*v49 != v40)
           {
             objc_enumerationMutation(obj);
           }
 
-          v43 = v21;
-          v22 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:*(*(&v49 + 1) + 8 * v21)];
+          v42 = v21;
+          v22 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:*(*(&v48 + 1) + 8 * v21)];
+          v44 = 0u;
           v45 = 0u;
           v46 = 0u;
           v47 = 0u;
-          v48 = 0u;
           iSOCountryCodes = [MEMORY[0x1E695DF58] ISOCountryCodes];
-          v23 = [iSOCountryCodes countByEnumeratingWithState:&v45 objects:v59 count:16];
+          v23 = [iSOCountryCodes countByEnumeratingWithState:&v44 objects:v58 count:16];
           if (v23)
           {
             v24 = v23;
-            v25 = *v46;
+            v25 = *v45;
             do
             {
               for (j = 0; j != v24; ++j)
               {
-                if (*v46 != v25)
+                if (*v45 != v25)
                 {
                   objc_enumerationMutation(iSOCountryCodes);
                 }
 
-                v27 = *(*(&v45 + 1) + 8 * j);
+                v27 = *(*(&v44 + 1) + 8 * j);
                 v28 = [v22 localizedStringForCountryCode:v27];
                 v29 = [objc_opt_class() _normalizedCountryString:v28];
                 if ([v29 length])
@@ -1103,7 +1096,7 @@ LABEL_23:
                   if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v58 = v27;
+                    v57 = v27;
                     _os_log_error_impl(&dword_1BA729000, v32, OS_LOG_TYPE_ERROR, "SGTimeZoneDetector-_getCountryCodeForCountryName: nil or empty normalizedLocalizedCountry for country code %@", buf, 0xCu);
                   }
 
@@ -1112,20 +1105,20 @@ LABEL_23:
                 }
               }
 
-              v24 = [iSOCountryCodes countByEnumeratingWithState:&v45 objects:v59 count:16];
+              v24 = [iSOCountryCodes countByEnumeratingWithState:&v44 objects:v58 count:16];
             }
 
             while (v24);
           }
 
-          v21 = v43 + 1;
+          v21 = v42 + 1;
         }
 
-        while (v43 + 1 != v42);
-        v42 = [obj countByEnumeratingWithState:&v49 objects:v60 count:16];
+        while (v42 + 1 != v41);
+        v41 = [obj countByEnumeratingWithState:&v48 objects:v59 count:16];
       }
 
-      while (v42);
+      while (v41);
     }
 
     if (selfCopy->_keepData)
@@ -1133,8 +1126,6 @@ LABEL_23:
       objc_storeStrong(location, v3);
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

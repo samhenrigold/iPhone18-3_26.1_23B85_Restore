@@ -5,6 +5,7 @@
 - (void)activateDiscoveryWithCompletion:(id)completion;
 - (void)cancelPerson:(id)person;
 - (void)invalidate;
+- (void)selectPerson:(id)person forPairingType:(unsigned int)type;
 - (void)setAvailablePeopleChangedHandler:(id)handler;
 - (void)setDedicatedDeviceChangedHandler:(id)handler;
 - (void)setDiscoverySessionChangedHandler:(id)handler;
@@ -49,14 +50,14 @@
 
 void __83__DDUIRapportPeopleDiscovery_initWithRemoteDisplayDiscovery_deviceSelectedHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _DDUICoreRapportLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v3;
-    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "RPRemoteDisplayDevice found: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v3;
+    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "RPRemoteDisplayDevice found: %@", &v10, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -71,20 +72,18 @@ void __83__DDUIRapportPeopleDiscovery_initWithRemoteDisplayDiscovery_deviceSelec
   v8 = [WeakRetained discoveredDevicesMap];
   v9 = [v3 idsDeviceIdentifier];
   [v8 setObject:v3 forKeyedSubscript:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __83__DDUIRapportPeopleDiscovery_initWithRemoteDisplayDiscovery_deviceSelectedHandler___block_invoke_1(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _DDUICoreRapportLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = v3;
-    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "RPRemoteDisplayDevice changed: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v3;
+    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "RPRemoteDisplayDevice changed: %@", &v12, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -103,20 +102,18 @@ void __83__DDUIRapportPeopleDiscovery_initWithRemoteDisplayDiscovery_deviceSelec
       [v10 setObject:v3 forKeyedSubscript:v11];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __83__DDUIRapportPeopleDiscovery_initWithRemoteDisplayDiscovery_deviceSelectedHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _DDUICoreRapportLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v3;
-    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "RPRemoteDisplayDevice lost: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v3;
+    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "RPRemoteDisplayDevice lost: %@", &v9, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -128,8 +125,6 @@ void __83__DDUIRapportPeopleDiscovery_initWithRemoteDisplayDiscovery_deviceSelec
     v8 = [v3 idsDeviceIdentifier];
     [v7 removeObjectForKey:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activateDiscoveryWithCompletion:(id)completion
@@ -153,17 +148,17 @@ void __83__DDUIRapportPeopleDiscovery_initWithRemoteDisplayDiscovery_deviceSelec
 
 void __62__DDUIRapportPeopleDiscovery_activateDiscoveryWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _DDUICoreRapportLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v18 = 134218242;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v3;
-    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "DDUIRapportPeopleDiscovery activated {self: %p, inError: %@}", &v18, 0x16u);
+    v17 = 134218242;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v3;
+    _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, "DDUIRapportPeopleDiscovery activated {self: %p, inError: %@}", &v17, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -192,15 +187,13 @@ void __62__DDUIRapportPeopleDiscovery_activateDiscoveryWithCompletion___block_in
       (v12)[2](v12, v14, v16);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)availablePeople
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
-  v57 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v56 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   selfCopy = self;
   discoveredPeople = [(RPRemoteDisplayDiscovery *)self->_discovery discoveredPeople];
@@ -208,34 +201,34 @@ void __62__DDUIRapportPeopleDiscovery_activateDiscoveryWithCompletion___block_in
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v74 = discoveredPeople;
+    v73 = discoveredPeople;
     _os_log_impl(&dword_230EF9000, v5, OS_LOG_TYPE_DEFAULT, "Finding available people among %@", buf, 0xCu);
   }
 
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   obj = discoveredPeople;
-  v6 = [obj countByEnumeratingWithState:&v66 objects:v72 count:16];
+  v6 = [obj countByEnumeratingWithState:&v65 objects:v71 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v67;
+    v8 = *v66;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v67 != v8)
+        if (*v66 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v66 + 1) + 8 * i);
+        v10 = *(*(&v65 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           accountAltDSID = [v10 accountAltDSID];
-          if (accountAltDSID && [v57 containsObject:accountAltDSID] && objc_msgSend(v3, "count"))
+          if (accountAltDSID && [v56 containsObject:accountAltDSID] && objc_msgSend(v3, "count"))
           {
             v12 = 0;
             do
@@ -259,42 +252,42 @@ void __62__DDUIRapportPeopleDiscovery_activateDiscoveryWithCompletion___block_in
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v74 = v10;
+            v73 = v10;
             _os_log_impl(&dword_230EF9000, v16, OS_LOG_TYPE_DEFAULT, "Found acceptable person %@", buf, 0xCu);
           }
 
           [v3 addObject:v10];
-          [v57 addObject:accountAltDSID];
+          [v56 addObject:accountAltDSID];
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v66 objects:v72 count:16];
+      v7 = [obj countByEnumeratingWithState:&v65 objects:v71 count:16];
     }
 
     while (v7);
   }
 
   v17 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
   previousAvailablePeople = [(DDUIRapportPeopleDiscovery *)selfCopy previousAvailablePeople];
-  v19 = [previousAvailablePeople countByEnumeratingWithState:&v62 objects:v71 count:16];
+  v19 = [previousAvailablePeople countByEnumeratingWithState:&v61 objects:v70 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v63;
+    v21 = *v62;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v63 != v21)
+        if (*v62 != v21)
         {
           objc_enumerationMutation(previousAvailablePeople);
         }
 
-        v23 = *(*(&v62 + 1) + 8 * j);
+        v23 = *(*(&v61 + 1) + 8 * j);
         if (objc_opt_respondsToSelector())
         {
           accountAltDSID3 = [v23 accountAltDSID];
@@ -302,22 +295,22 @@ void __62__DDUIRapportPeopleDiscovery_activateDiscoveryWithCompletion___block_in
         }
       }
 
-      v20 = [previousAvailablePeople countByEnumeratingWithState:&v62 objects:v71 count:16];
+      v20 = [previousAvailablePeople countByEnumeratingWithState:&v61 objects:v70 count:16];
     }
 
     while (v20);
   }
 
-  v54 = [v57 mutableCopy];
-  [v54 minusSet:v17];
+  v53 = [v56 mutableCopy];
+  [v53 minusSet:v17];
+  v51 = [v17 mutableCopy];
+  [v51 minusSet:v56];
   v52 = [v17 mutableCopy];
-  [v52 minusSet:v57];
-  v53 = [v17 mutableCopy];
-  [v53 unionSet:v57];
+  [v52 unionSet:v56];
   previousAvailablePeople2 = [(DDUIRapportPeopleDiscovery *)selfCopy previousAvailablePeople];
   v26 = [previousAvailablePeople2 mutableCopy];
   v27 = v26;
-  v49 = v17;
+  v48 = v17;
   if (v26)
   {
     array = v26;
@@ -335,11 +328,11 @@ void __62__DDUIRapportPeopleDiscovery_activateDiscoveryWithCompletion___block_in
     v30 = 0;
     do
     {
-      v31 = [v29 objectAtIndexedSubscript:{v30, v49}];
+      v31 = [v29 objectAtIndexedSubscript:{v30, v48}];
       if (objc_opt_respondsToSelector())
       {
         accountAltDSID4 = [v31 accountAltDSID];
-        if ([v52 containsObject:accountAltDSID4])
+        if ([v51 containsObject:accountAltDSID4])
         {
           [v29 removeObjectAtIndex:v30--];
         }
@@ -351,41 +344,41 @@ void __62__DDUIRapportPeopleDiscovery_activateDiscoveryWithCompletion___block_in
     while (v30 < [v29 count]);
   }
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
-  v55 = v3;
-  v33 = [v55 countByEnumeratingWithState:&v58 objects:v70 count:16];
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v54 = v3;
+  v33 = [v54 countByEnumeratingWithState:&v57 objects:v69 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v59;
+    v35 = *v58;
     do
     {
       for (k = 0; k != v34; ++k)
       {
-        if (*v59 != v35)
+        if (*v58 != v35)
         {
-          objc_enumerationMutation(v55);
+          objc_enumerationMutation(v54);
         }
 
-        v37 = *(*(&v58 + 1) + 8 * k);
+        v37 = *(*(&v57 + 1) + 8 * k);
         if (objc_opt_respondsToSelector())
         {
           v38 = v34;
           accountAltDSID5 = [v37 accountAltDSID];
-          if ([v54 containsObject:accountAltDSID5])
+          if ([v53 containsObject:accountAltDSID5])
           {
             [v29 addObject:v37];
           }
 
-          else if ([v53 containsObject:accountAltDSID5] && objc_msgSend(v29, "count"))
+          else if ([v52 containsObject:accountAltDSID5] && objc_msgSend(v29, "count"))
           {
             v40 = 0;
             while (1)
             {
-              v41 = [v29 objectAtIndexedSubscript:{v40, v49}];
+              v41 = [v29 objectAtIndexedSubscript:{v40, v48}];
               accountAltDSID6 = [v41 accountAltDSID];
               v43 = [accountAltDSID5 isEqual:accountAltDSID6];
 
@@ -409,7 +402,7 @@ LABEL_55:
         }
       }
 
-      v34 = [v55 countByEnumeratingWithState:&v58 objects:v70 count:16];
+      v34 = [v54 countByEnumeratingWithState:&v57 objects:v69 count:16];
     }
 
     while (v34);
@@ -423,11 +416,9 @@ LABEL_55:
   if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v74 = v45;
+    v73 = v45;
     _os_log_impl(&dword_230EF9000, v46, OS_LOG_TYPE_DEFAULT, "rapport people: %@", buf, 0xCu);
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v45;
 }
@@ -442,7 +433,7 @@ LABEL_55:
 
 - (void)setAvailablePeopleChangedHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (self->_availablePeopleChangedHandler != handlerCopy)
   {
@@ -452,8 +443,8 @@ LABEL_55:
       v6 = _Block_copy(handlerCopy);
       *buf = 134218242;
       selfCopy = self;
-      v23 = 2112;
-      v24 = v6;
+      v22 = 2112;
+      v23 = v6;
       _os_log_impl(&dword_230EF9000, v5, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPeopleDiscovery set people changed handler {self: %p, availableDevicesChangedHandler: %@}", buf, 0x16u);
     }
 
@@ -462,38 +453,36 @@ LABEL_55:
     self->_availablePeopleChangedHandler = v7;
 
     objc_initWeak(buf, self);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __63__DDUIRapportPeopleDiscovery_setAvailablePeopleChangedHandler___block_invoke;
-    v18[3] = &unk_2788F6048;
-    objc_copyWeak(&v20, buf);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __63__DDUIRapportPeopleDiscovery_setAvailablePeopleChangedHandler___block_invoke;
+    v17[3] = &unk_2788F6048;
+    objc_copyWeak(&v19, buf);
     v9 = handlerCopy;
-    v19 = v9;
-    [(RPRemoteDisplayDiscovery *)self->_discovery setPersonFoundHandler:v18];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __63__DDUIRapportPeopleDiscovery_setAvailablePeopleChangedHandler___block_invoke_2;
-    v15[3] = &unk_2788F6048;
-    objc_copyWeak(&v17, buf);
+    v18 = v9;
+    [(RPRemoteDisplayDiscovery *)self->_discovery setPersonFoundHandler:v17];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __63__DDUIRapportPeopleDiscovery_setAvailablePeopleChangedHandler___block_invoke_2;
+    v14[3] = &unk_2788F6048;
+    objc_copyWeak(&v16, buf);
     v10 = v9;
-    v16 = v10;
-    [(RPRemoteDisplayDiscovery *)self->_discovery setPersonChangedHandler:v15];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __63__DDUIRapportPeopleDiscovery_setAvailablePeopleChangedHandler___block_invoke_3;
-    v12[3] = &unk_2788F6048;
-    objc_copyWeak(&v14, buf);
-    v13 = v10;
-    [(RPRemoteDisplayDiscovery *)self->_discovery setPersonLostHandler:v12];
+    v15 = v10;
+    [(RPRemoteDisplayDiscovery *)self->_discovery setPersonChangedHandler:v14];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __63__DDUIRapportPeopleDiscovery_setAvailablePeopleChangedHandler___block_invoke_3;
+    v11[3] = &unk_2788F6048;
+    objc_copyWeak(&v13, buf);
+    v12 = v10;
+    [(RPRemoteDisplayDiscovery *)self->_discovery setPersonLostHandler:v11];
 
-    objc_destroyWeak(&v14);
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v16);
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(buf);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __63__DDUIRapportPeopleDiscovery_setAvailablePeopleChangedHandler___block_invoke(uint64_t a1)
@@ -540,7 +529,7 @@ void __63__DDUIRapportPeopleDiscovery_setAvailablePeopleChangedHandler___block_i
 
 - (void)setDiscoverySessionChangedHandler:(id)handler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (self->_discoverySessionChangedHandler != handlerCopy)
   {
@@ -548,11 +537,11 @@ void __63__DDUIRapportPeopleDiscovery_setAvailablePeopleChangedHandler___block_i
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = _Block_copy(handlerCopy);
-      v10 = 134218242;
+      v9 = 134218242;
       selfCopy = self;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_230EF9000, v5, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPeopleDiscovery set session changed handler {self: %p, discoverySessionStateChangedHandler: %@}", &v10, 0x16u);
+      v11 = 2112;
+      v12 = v6;
+      _os_log_impl(&dword_230EF9000, v5, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPeopleDiscovery set session changed handler {self: %p, discoverySessionStateChangedHandler: %@}", &v9, 0x16u);
     }
 
     v7 = _Block_copy(handlerCopy);
@@ -561,13 +550,11 @@ void __63__DDUIRapportPeopleDiscovery_setAvailablePeopleChangedHandler___block_i
 
     [(RPRemoteDisplayDiscovery *)self->_discovery setDiscoverySessionStateChangedHandler:self->_discoverySessionChangedHandler];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDedicatedDeviceChangedHandler:(id)handler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (self->_dedicatedDeviceChangedHandler != handlerCopy)
   {
@@ -575,11 +562,11 @@ void __63__DDUIRapportPeopleDiscovery_setAvailablePeopleChangedHandler___block_i
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = _Block_copy(handlerCopy);
-      v10 = 134218242;
+      v9 = 134218242;
       selfCopy = self;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_230EF9000, v5, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPeopleDiscovery set dedicated device changed handler {self: %p, dedicatedDeviceChangedHandler: %@}", &v10, 0x16u);
+      v11 = 2112;
+      v12 = v6;
+      _os_log_impl(&dword_230EF9000, v5, OS_LOG_TYPE_DEFAULT, "_DDUIRapportPeopleDiscovery set dedicated device changed handler {self: %p, dedicatedDeviceChangedHandler: %@}", &v9, 0x16u);
     }
 
     v7 = _Block_copy(handlerCopy);
@@ -588,23 +575,19 @@ void __63__DDUIRapportPeopleDiscovery_setAvailablePeopleChangedHandler___block_i
 
     [(RPRemoteDisplayDiscovery *)self->_discovery setDedicatedDeviceChangedHandler:self->_dedicatedDeviceChangedHandler];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __62__DDUIRapportPeopleDiscovery_attemptDedicatedDeviceConnection__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = _DDUICoreRapportLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_230EF9000, v3, OS_LOG_TYPE_DEFAULT, "requestDedicatedDeviceConfirmation completed with error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_230EF9000, v3, OS_LOG_TYPE_DEFAULT, "requestDedicatedDeviceConfirmation completed with error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPersonDeclinedHandler:(id)handler
@@ -622,18 +605,58 @@ void __62__DDUIRapportPeopleDiscovery_attemptDedicatedDeviceConnection__block_in
 
 - (void)cancelPerson:(id)person
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   personCopy = person;
   v5 = _DDUICoreRapportLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = personCopy;
-    _os_log_impl(&dword_230EF9000, v5, OS_LOG_TYPE_DEFAULT, "Canceling confirmation for person: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = personCopy;
+    _os_log_impl(&dword_230EF9000, v5, OS_LOG_TYPE_DEFAULT, "Canceling confirmation for person: %@", &v6, 0xCu);
   }
 
   [(RPRemoteDisplayDiscovery *)self->_discovery personCanceled:personCopy];
-  v6 = *MEMORY[0x277D85DE8];
+}
+
+- (void)selectPerson:(id)person forPairingType:(unsigned int)type
+{
+  v4 = *&type;
+  v18 = *MEMORY[0x277D85DE8];
+  personCopy = person;
+  v7 = objc_opt_respondsToSelector();
+  discovery = self->_discovery;
+  if (v7)
+  {
+    [(RPRemoteDisplayDiscovery *)discovery setPersonSelected:personCopy forPairingType:v4];
+  }
+
+  else
+  {
+    [(RPRemoteDisplayDiscovery *)discovery setPersonSelected:personCopy forDedicatedPairing:v4 == 1];
+  }
+
+  v9 = _DDUICoreRapportLog();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    if (v4 == 1)
+    {
+      v10 = @"[dedicated]";
+    }
+
+    else
+    {
+      v10 = &stru_2845BF6E0;
+    }
+
+    personSelected = [(RPRemoteDisplayDiscovery *)self->_discovery personSelected];
+    v12 = 138543874;
+    v13 = v10;
+    v14 = 2112;
+    v15 = personSelected;
+    v16 = 1024;
+    v17 = v4;
+    _os_log_impl(&dword_230EF9000, v9, OS_LOG_TYPE_DEFAULT, "Setting RPRemoteDisplayDiscovery person selected %{public}@ to %@ for pairing type: %u", &v12, 0x1Cu);
+  }
 }
 
 - (void)invalidate

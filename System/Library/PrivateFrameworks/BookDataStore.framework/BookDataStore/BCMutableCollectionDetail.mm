@@ -15,7 +15,7 @@
   dCopy = d;
   if (!dCopy)
   {
-    v7 = BDSCloudKitLog();
+    v7 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1E4704330();
@@ -85,7 +85,7 @@ LABEL_7:
 
     else
     {
-      v14 = BDSCloudKitLog();
+      v14 = BDSCloudKitLog(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_1E4704364();
@@ -103,7 +103,7 @@ LABEL_7:
   recordCopy = record;
   if (!recordCopy)
   {
-    v12 = BDSCloudKitLog();
+    v12 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1E4704398();
@@ -166,9 +166,9 @@ LABEL_7:
 
 - (id)configuredRecordFromAttributes
 {
-  v12.receiver = self;
-  v12.super_class = BCMutableCollectionDetail;
-  configuredRecordFromAttributes = [(BCMutableCloudData *)&v12 configuredRecordFromAttributes];
+  v13.receiver = self;
+  v13.super_class = BCMutableCollectionDetail;
+  configuredRecordFromAttributes = [(BCMutableCloudData *)&v13 configuredRecordFromAttributes];
   if (configuredRecordFromAttributes)
   {
     name = [(BCMutableCollectionDetail *)self name];
@@ -197,7 +197,7 @@ LABEL_7:
       goto LABEL_7;
     }
 
-    v8 = BDSCloudKitLog();
+    v8 = BDSCloudKitLog(v11);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1E47043CC(self);

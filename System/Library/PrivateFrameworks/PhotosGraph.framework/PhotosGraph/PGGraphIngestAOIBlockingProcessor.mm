@@ -9,27 +9,27 @@
 
 - (void)processAOIBlockingWithAOINodes:(id)nodes graph:(id)graph loggingConnection:(id)connection progressBlock:(id)block
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   graphCopy = graph;
   connectionCopy = connection;
   blockCopy = block;
   v13 = _Block_copy(blockCopy);
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v41 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
   v37 = 0;
-  if (v13 && (v14 = CFAbsoluteTimeGetCurrent(), v14 - v35[3] >= 0.01) && (v35[3] = v14, LOBYTE(v42[0]) = 0, (*(v13 + 2))(v13, v42, 0.0), v15 = *(v39 + 24) | LOBYTE(v42[0]), *(v39 + 24) = v15, (v15 & 1) != 0))
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
+  if (v13 && (v14 = CFAbsoluteTimeGetCurrent(), v14 - v34[3] >= 0.01) && (v34[3] = v14, LOBYTE(v41[0]) = 0, (*(v13 + 2))(v13, v41, 0.0), v15 = *(v38 + 24) | LOBYTE(v41[0]), *(v38 + 24) = v15, (v15 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       buf = 0x4C04000202;
-      LOWORD(v46) = 2080;
-      *(&v46 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestAOIBlockingProcessor.m";
+      LOWORD(v45) = 2080;
+      *(&v45 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestAOIBlockingProcessor.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
     }
   }
@@ -38,43 +38,43 @@
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     buf = 0;
-    *&v46 = &buf;
-    *(&v46 + 1) = 0x2020000000;
-    v47 = 0;
+    *&v45 = &buf;
+    *(&v45 + 1) = 0x2020000000;
+    v46 = 0;
     v17 = [nodesCopy count];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __106__PGGraphIngestAOIBlockingProcessor_processAOIBlockingWithAOINodes_graph_loggingConnection_progressBlock___block_invoke;
-    v24[3] = &unk_278887B28;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __106__PGGraphIngestAOIBlockingProcessor_processAOIBlockingWithAOINodes_graph_loggingConnection_progressBlock___block_invoke;
+    v23[3] = &unk_278887B28;
     p_buf = &buf;
-    v32 = v17;
+    v31 = v17;
     v18 = v13;
-    v28 = v18;
-    v30 = &v34;
-    v33 = 0x3F847AE147AE147BLL;
-    v31 = &v38;
+    v27 = v18;
+    v29 = &v33;
+    v32 = 0x3F847AE147AE147BLL;
+    v30 = &v37;
     v19 = dictionary;
-    v25 = v19;
-    v26 = graphCopy;
-    v27 = connectionCopy;
-    [nodesCopy enumerateNodesUsingBlock:v24];
+    v24 = v19;
+    v25 = graphCopy;
+    v26 = connectionCopy;
+    [nodesCopy enumerateNodesUsingBlock:v23];
     if (v13)
     {
       Current = CFAbsoluteTimeGetCurrent();
-      if (Current - v35[3] >= 0.01)
+      if (Current - v34[3] >= 0.01)
       {
-        v35[3] = Current;
-        v23 = 0;
-        (*(v18 + 2))(v18, &v23, 1.0);
-        v21 = *(v39 + 24) | v23;
-        *(v39 + 24) = v21;
+        v34[3] = Current;
+        v22 = 0;
+        (*(v18 + 2))(v18, &v22, 1.0);
+        v21 = *(v38 + 24) | v22;
+        *(v38 + 24) = v21;
         if ((v21 & 1) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
-          v42[0] = 67109378;
-          v42[1] = 238;
-          v43 = 2080;
-          v44 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestAOIBlockingProcessor.m";
-          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v42, 0x12u);
+          v41[0] = 67109378;
+          v41[1] = 238;
+          v42 = 2080;
+          v43 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestAOIBlockingProcessor.m";
+          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v41, 0x12u);
         }
       }
     }
@@ -82,15 +82,13 @@
     _Block_object_dispose(&buf, 8);
   }
 
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(&v38, 8);
-
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v37, 8);
 }
 
 void __106__PGGraphIngestAOIBlockingProcessor_processAOIBlockingWithAOINodes_graph_loggingConnection_progressBlock___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = *(*(a1 + 64) + 8);
   v7 = *(v6 + 24);
@@ -104,83 +102,83 @@ void __106__PGGraphIngestAOIBlockingProcessor_processAOIBlockingWithAOINodes_gra
     }
 
     v11 = objc_autoreleasePoolPush();
-    v81 = 0;
-    v82 = &v81;
-    v83 = 0x2020000000;
-    v84 = 0;
-    v77 = 0;
-    v78 = &v77;
-    v79 = 0x2020000000;
     v80 = 0;
-    v12 = [MEMORY[0x277CBEB58] set];
-    v73 = 0;
-    v74 = &v73;
-    v75 = 0x2020000000;
+    v81 = &v80;
+    v82 = 0x2020000000;
+    v83 = 0;
     v76 = 0;
-    v69 = 0;
-    v70 = &v69;
-    v71 = 0x2020000000;
+    v77 = &v76;
+    v78 = 0x2020000000;
+    v79 = 0;
+    v12 = [MEMORY[0x277CBEB58] set];
     v72 = 0;
-    v65 = 0;
-    v66 = &v65;
-    v67 = 0x2020000000;
+    v73 = &v72;
+    v74 = 0x2020000000;
+    v75 = 0;
     v68 = 0;
+    v69 = &v68;
+    v70 = 0x2020000000;
+    v71 = 0;
+    v64 = 0;
+    v65 = &v64;
+    v66 = 0x2020000000;
+    v67 = 0;
     v13 = [v5 collection];
     v14 = [v13 addressNodes];
 
     v15 = [v14 count];
-    v64[0] = 0;
-    v64[1] = v64;
-    v64[2] = 0x2020000000;
-    v64[3] = 0;
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __106__PGGraphIngestAOIBlockingProcessor_processAOIBlockingWithAOINodes_graph_loggingConnection_progressBlock___block_invoke_2;
-    v48[3] = &unk_278887B00;
-    v54 = v64;
+    v63[0] = 0;
+    v63[1] = v63;
+    v63[2] = 0x2020000000;
+    v63[3] = 0;
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __106__PGGraphIngestAOIBlockingProcessor_processAOIBlockingWithAOINodes_graph_loggingConnection_progressBlock___block_invoke_2;
+    v47[3] = &unk_278887B00;
+    v53 = v63;
     v16 = *(a1 + 88);
-    v61 = v15;
-    v62 = v16;
-    v47 = *(a1 + 56);
-    v17 = v47;
-    v53 = v47;
-    v63 = *(a1 + 96);
-    v55 = *(a1 + 72);
+    v60 = v15;
+    v61 = v16;
+    v46 = *(a1 + 56);
+    v17 = v46;
+    v52 = v46;
+    v62 = *(a1 + 96);
+    v54 = *(a1 + 72);
     v18 = v14;
-    v49 = v18;
-    v56 = &v73;
-    v57 = &v69;
+    v48 = v18;
+    v55 = &v72;
+    v56 = &v68;
     v19 = v5;
-    v50 = v19;
-    v58 = &v65;
+    v49 = v19;
+    v57 = &v64;
     v20 = v12;
-    v51 = v20;
-    v52 = *(a1 + 32);
-    v59 = &v77;
-    v60 = &v81;
-    [v18 enumerateNodesUsingBlock:v48];
+    v50 = v20;
+    v51 = *(a1 + 32);
+    v58 = &v76;
+    v59 = &v80;
+    [v18 enumerateNodesUsingBlock:v47];
     if (*(*(*(a1 + 80) + 8) + 24) == 1)
     {
       *a3 = 1;
 LABEL_39:
 
-      _Block_object_dispose(v64, 8);
-      _Block_object_dispose(&v65, 8);
-      _Block_object_dispose(&v69, 8);
-      _Block_object_dispose(&v73, 8);
+      _Block_object_dispose(v63, 8);
+      _Block_object_dispose(&v64, 8);
+      _Block_object_dispose(&v68, 8);
+      _Block_object_dispose(&v72, 8);
 
-      _Block_object_dispose(&v77, 8);
-      _Block_object_dispose(&v81, 8);
+      _Block_object_dispose(&v76, 8);
+      _Block_object_dispose(&v80, 8);
       objc_autoreleasePoolPop(v11);
       goto LABEL_40;
     }
 
-    v21 = v82[3];
-    v22 = v78[3];
+    v21 = v81[3];
+    v22 = v77[3];
     v24 = v21 / v22 >= 0.95 && v22 != 0;
-    v26 = v66[3] / v21 >= 0.4 && v21 > 1;
-    v27 = *(v74 + 24);
-    v28 = *(v70 + 24);
+    v26 = v65[3] / v21 >= 0.4 && v21 > 1;
+    v27 = *(v73 + 24);
+    v28 = *(v69 + 24);
     if (((v27 | (v28 | v26) & v24 & 1) == 0) | [v19 isBlocked] & 1)
     {
       if (!(v27 | (v28 | v26) & v24 & 1))
@@ -188,10 +186,20 @@ LABEL_39:
         v29 = *(a1 + 48);
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
         {
-          v39 = [v19 name];
-          v40 = v39;
-          v41 = @"YES";
-          if (*(v74 + 24))
+          v38 = [v19 name];
+          v39 = v38;
+          v40 = @"YES";
+          if (*(v73 + 24))
+          {
+            v41 = @"YES";
+          }
+
+          else
+          {
+            v41 = @"NO";
+          }
+
+          if (*(v69 + 24))
           {
             v42 = @"YES";
           }
@@ -201,7 +209,7 @@ LABEL_39:
             v42 = @"NO";
           }
 
-          if (*(v70 + 24))
+          if (v26)
           {
             v43 = @"YES";
           }
@@ -211,39 +219,29 @@ LABEL_39:
             v43 = @"NO";
           }
 
-          if (v26)
-          {
-            v44 = @"YES";
-          }
-
-          else
-          {
-            v44 = @"NO";
-          }
-
-          v45 = v82[3];
+          v44 = v81[3];
           if (!v24)
           {
-            v41 = @"NO";
+            v40 = @"NO";
           }
 
-          v46 = v78[3];
+          v45 = v77[3];
           *buf = 138414082;
-          v86 = v39;
-          v87 = 2112;
-          v88 = @"NO";
-          v89 = 2112;
-          v90 = v42;
-          v91 = 2112;
-          v92 = v43;
-          v93 = 2112;
-          v94 = v44;
-          v95 = 2112;
-          v96 = v41;
-          v97 = 2048;
-          v98 = v45;
-          v99 = 2048;
-          v100 = v46;
+          v85 = v38;
+          v86 = 2112;
+          v87 = @"NO";
+          v88 = 2112;
+          v89 = v41;
+          v90 = 2112;
+          v91 = v42;
+          v92 = 2112;
+          v93 = v43;
+          v94 = 2112;
+          v95 = v40;
+          v96 = 2048;
+          v97 = v44;
+          v98 = 2048;
+          v99 = v45;
           _os_log_debug_impl(&dword_22F0FC000, v29, OS_LOG_TYPE_DEBUG, "Not blocking AOI %@: %@ (isVeryLarge %@, isUrban %@, hasManyAOIsAtSharedAddresses %@, isMatchingAddressRatio %@ (#AOI:%lu #Country:%lu))", buf, 0x52u);
         }
 
@@ -264,7 +262,7 @@ LABEL_38:
       v30 = [v19 name];
       v31 = v30;
       v32 = @"NO";
-      if (*(v74 + 24))
+      if (*(v73 + 24))
       {
         v33 = @"YES";
       }
@@ -274,7 +272,7 @@ LABEL_38:
         v33 = @"NO";
       }
 
-      if (*(v70 + 24))
+      if (*(v69 + 24))
       {
         v34 = @"YES";
       }
@@ -294,29 +292,29 @@ LABEL_38:
         v35 = @"NO";
       }
 
-      v36 = v82[3];
+      v36 = v81[3];
       if (v24)
       {
         v32 = @"YES";
       }
 
-      v37 = v78[3];
+      v37 = v77[3];
       *buf = 138414082;
-      v86 = v30;
-      v87 = 2112;
-      v88 = @"YES";
-      v89 = 2112;
-      v90 = v33;
-      v91 = 2112;
-      v92 = v34;
-      v93 = 2112;
-      v94 = v35;
-      v95 = 2112;
-      v96 = v32;
-      v97 = 2048;
-      v98 = v36;
-      v99 = 2048;
-      v100 = v37;
+      v85 = v30;
+      v86 = 2112;
+      v87 = @"YES";
+      v88 = 2112;
+      v89 = v33;
+      v90 = 2112;
+      v91 = v34;
+      v92 = 2112;
+      v93 = v35;
+      v94 = 2112;
+      v95 = v32;
+      v96 = 2048;
+      v97 = v36;
+      v98 = 2048;
+      v99 = v37;
       _os_log_impl(&dword_22F0FC000, v29, OS_LOG_TYPE_INFO, "Blocking AOI %@: %@ (isVeryLarge %@, isUrban %@, hasManyAOIsAtSharedAddresses %@, isMatchingAddressRatio %@ (#AOI:%lu #Country:%lu))", buf, 0x52u);
     }
 
@@ -325,8 +323,6 @@ LABEL_38:
 
   *a3 = 1;
 LABEL_40:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __106__PGGraphIngestAOIBlockingProcessor_processAOIBlockingWithAOINodes_graph_loggingConnection_progressBlock___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
@@ -437,7 +433,7 @@ void __106__PGGraphIngestAOIBlockingProcessor_processAOIBlockingWithAOINodes_gra
   objc_autoreleasePoolPop(v6);
 }
 
-uint64_t __106__PGGraphIngestAOIBlockingProcessor_processAOIBlockingWithAOINodes_graph_loggingConnection_progressBlock___block_invoke_4(uint64_t a1, void *a2)
+void *__106__PGGraphIngestAOIBlockingProcessor_processAOIBlockingWithAOINodes_graph_loggingConnection_progressBlock___block_invoke_4(uint64_t a1, void *a2)
 {
   result = [a2 isSameNodeAsNode:*(a1 + 32)];
   if ((result & 1) == 0)
@@ -450,7 +446,7 @@ uint64_t __106__PGGraphIngestAOIBlockingProcessor_processAOIBlockingWithAOINodes
 
 - (void)runWithGraphUpdate:(id)update progressBlock:(id)block
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   blockCopy = block;
   graph = [(PGGraphBuilder *)self->_graphBuilder graph];
@@ -496,7 +492,7 @@ uint64_t __106__PGGraphIngestAOIBlockingProcessor_processAOIBlockingWithAOINodes
 
   if ([areaNodes count])
   {
-    [v31 processAOIBlockingWithAOINodes:areaNodes graph:graph loggingConnection:v12 progressBlock:blockCopy];
+    [v30 processAOIBlockingWithAOINodes:areaNodes graph:graph loggingConnection:v12 progressBlock:blockCopy];
   }
 
   v24 = mach_absolute_time();
@@ -513,13 +509,11 @@ uint64_t __106__PGGraphIngestAOIBlockingProcessor_processAOIBlockingWithAOINodes
   if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v34 = "PGGraphIngestAOIBlockingProcessor";
-    v35 = 2048;
-    v36 = ((((v24 - v14) * numer) / denom) / 1000000.0);
+    v33 = "PGGraphIngestAOIBlockingProcessor";
+    v34 = 2048;
+    v35 = ((((v24 - v14) * numer) / denom) / 1000000.0);
     _os_log_impl(&dword_22F0FC000, v28, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldRunWithGraphUpdate:(id)update

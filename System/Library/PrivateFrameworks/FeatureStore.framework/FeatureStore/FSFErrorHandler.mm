@@ -11,8 +11,7 @@
     v2 = MEMORY[0x277CBEAD8];
     v3 = *MEMORY[0x277CBE658];
     v4 = MEMORY[0x277CCACA8];
-    v5 = NSUserName();
-    v6 = objc_claimAutoreleasedReturnValue();
+    v6 = v5 = NSUserName();
     v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
     v8 = v7;
 

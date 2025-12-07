@@ -108,7 +108,7 @@ LABEL_19:
 LABEL_20:
         v24 = [noteContents stringByReplacingOccurrencesOfString:@"(\n)+" withString:@"\n" options:1024 range:{0, objc_msgSend(noteContents, "length")}];
 
-        title2 = [v24 stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\x1B\\pause=500\\""];
+        title2 = [v24 stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\x1B\\pause=500\"];
 
         goto LABEL_22;
       }

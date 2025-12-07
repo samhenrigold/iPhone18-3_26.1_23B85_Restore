@@ -5,18 +5,17 @@
 
 void __28__ADIDManager_Private__init__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = a2;
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: Received clear monthly reset count notification", objc_opt_class()];
+  v7 = a2;
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: Received clear monthly reset count notification", objc_opt_class()];
   _ADLog();
 
-  v5 = *(a1 + 32);
-  objc_sync_enter(v5);
-  v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  [*(a1 + 32) setMonthlyResetArray:v6];
+  v4 = *(a1 + 32);
+  objc_sync_enter(v4);
+  v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  [*(a1 + 32) setMonthlyResetArray:v5];
 
-  objc_sync_exit(v5);
-  v7 = [*(a1 + 32) save];
+  objc_sync_exit(v4);
+  v6 = [*(a1 + 32) save];
 }
 
 void __50__ADIDManager_Private__setDSID_completionHandler___block_invoke(uint64_t a1)
@@ -25,112 +24,96 @@ void __50__ADIDManager_Private__setDSID_completionHandler___block_invoke(uint64_
   [v2 reloadNoServicesRestrictions];
 
   v3 = MEMORY[0x277CCACA8];
-  v4 = *(a1 + 32);
-  v5 = objc_opt_class();
-  v6 = [MEMORY[0x277CE9638] sharedInstance];
-  v7 = [v3 stringWithFormat:@"[%@]: Reloaded no services regional restriction: %d", v5, objc_msgSend(v6, "isRestrictedRegion")];
+  v4 = objc_opt_class();
+  v5 = [MEMORY[0x277CE9638] sharedInstance];
+  v6 = [v3 stringWithFormat:@"[%@]: Reloaded no services regional restriction: %d", v4, objc_msgSend(v5, "isRestrictedRegion")];
   _ADLog();
 
-  if (ADSimulatedCrashKillCode_InternalInconsistency_block_invoke_settingDSID)
+  if ((ADSimulatedCrashKillCode_InternalInconsistency_block_invoke_settingDSID & 1) != 0 || (v7 = *(*(*(a1 + 48) + 8) + 40), [*(a1 + 32) activeDSIDRecord], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "DSID"), v9 = objc_claimAutoreleasedReturnValue(), LODWORD(v7) = objc_msgSend(v7, "isEqualToString:", v9), v9, v8, v7))
   {
-    goto LABEL_3;
-  }
-
-  v8 = *(*(*(a1 + 48) + 8) + 40);
-  v9 = [*(a1 + 32) activeDSIDRecord];
-  v10 = [v9 DSID];
-  LODWORD(v8) = [v8 isEqualToString:v10];
-
-  if (v8)
-  {
-LABEL_3:
-    v11 = *(a1 + 32);
-    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@ setDSID]: DSID already set to %@.", objc_opt_class(), *(*(*(a1 + 48) + 8) + 40)];
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@ setDSID]: DSID already set to %@.", objc_opt_class(), *(*(*(a1 + 48) + 8) + 40)];
     _ADLog();
 
     [*(a1 + 32) saveDataForPCD];
-    v13 = *(a1 + 40);
-    if (v13)
+    v11 = *(a1 + 40);
+    if (v11)
     {
-      v14 = *(v13 + 16);
+      v12 = *(v11 + 16);
 
-      v14();
+      v12();
     }
 
     return;
   }
 
   ADSimulatedCrashKillCode_InternalInconsistency_block_invoke_settingDSID = 1;
-  v15 = *(*(a1 + 48) + 8);
-  v16 = *(v15 + 40);
-  if (v16)
+  v13 = *(*(a1 + 48) + 8);
+  v14 = *(v13 + 40);
+  if (v14)
   {
-    if ([v16 length])
+    if ([v14 length])
     {
       goto LABEL_12;
     }
 
-    v15 = *(*(a1 + 48) + 8);
+    v13 = *(*(a1 + 48) + 8);
   }
 
-  v17 = *(v15 + 40);
-  *(v15 + 40) = @"0";
+  v15 = *(v13 + 40);
+  *(v13 + 40) = @"0";
 
 LABEL_12:
-  v37 = [*(a1 + 32) save];
-  if (v37)
+  v32 = [*(a1 + 32) save];
+  if (v32)
   {
-    v18 = MEMORY[0x277CCACA8];
-    v19 = *(a1 + 32);
-    v20 = objc_opt_class();
-    v21 = [*(a1 + 32) activeDSIDRecord];
-    v22 = [v21 DSID];
-    v23 = [v18 stringWithFormat:@"[%@]: Failed to save record for current DSID %@", v20, v22];
+    v16 = MEMORY[0x277CCACA8];
+    v17 = objc_opt_class();
+    v18 = [*(a1 + 32) activeDSIDRecord];
+    v19 = [v18 DSID];
+    v20 = [v16 stringWithFormat:@"[%@]: Failed to save record for current DSID %@", v17, v19];
     _ADLog();
   }
 
-  v24 = *(a1 + 32);
-  v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: Request to set DSID to %@", objc_opt_class(), *(*(*(a1 + 48) + 8) + 40)];
+  v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: Request to set DSID to %@", objc_opt_class(), *(*(*(a1 + 48) + 8) + 40)];
   _ADLog();
 
-  v26 = *(*(*(a1 + 48) + 8) + 40);
-  v27 = [*(a1 + 32) activeDSIDRecord];
-  v28 = [v27 DSID];
-  LOBYTE(v26) = [v26 isEqualToString:v28];
+  v22 = *(*(*(a1 + 48) + 8) + 40);
+  v23 = [*(a1 + 32) activeDSIDRecord];
+  v24 = [v23 DSID];
+  LOBYTE(v22) = [v22 isEqualToString:v24];
 
-  if (v26)
+  if (v22)
   {
-    v29 = *(a1 + 32);
-    v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: DSID already set to %@, skipping.", objc_opt_class(), *(*(*(a1 + 48) + 8) + 40)];
+    v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: DSID already set to %@, skipping.", objc_opt_class(), *(*(*(a1 + 48) + 8) + 40)];
     _ADLog();
 LABEL_18:
 
     goto LABEL_19;
   }
 
-  v31 = [*(a1 + 32) reloadRecords:*(*(*(a1 + 48) + 8) + 40)];
-  v32 = [*(a1 + 32) activeDSIDRecord];
+  v26 = [*(a1 + 32) reloadRecords:*(*(*(a1 + 48) + 8) + 40)];
+  v27 = [*(a1 + 32) activeDSIDRecord];
 
-  if (!v32)
+  if (!v27)
   {
-    v30 = [objc_alloc(MEMORY[0x277CE96F0]) initWithDSID:*(*(*(a1 + 48) + 8) + 40) serializedRecord:0 version:3];
-    [*(a1 + 32) setActiveDSIDRecord:v30];
+    v25 = [objc_alloc(MEMORY[0x277CE96F0]) initWithDSID:*(*(*(a1 + 48) + 8) + 40) serializedRecord:0 version:3];
+    [*(a1 + 32) setActiveDSIDRecord:v25];
     goto LABEL_18;
   }
 
 LABEL_19:
-  v33 = [*(a1 + 32) activeDSIDRecord];
-  v34 = [MEMORY[0x277CBEAA8] date];
-  [v33 setPersonalizedAdsTimestamp:{objc_msgSend(v34, "AD_toServerTime")}];
+  v28 = [*(a1 + 32) activeDSIDRecord];
+  v29 = [MEMORY[0x277CBEAA8] date];
+  [v28 setPersonalizedAdsTimestamp:{objc_msgSend(v29, "AD_toServerTime")}];
 
-  v35 = [*(a1 + 32) activeDSIDRecord];
-  [v35 ensureiAdIDs];
+  v30 = [*(a1 + 32) activeDSIDRecord];
+  [v30 ensureiAdIDs];
 
   ADSimulatedCrashKillCode_InternalInconsistency_block_invoke_settingDSID = 0;
-  v36 = *(a1 + 40);
-  if (v36)
+  v31 = *(a1 + 40);
+  if (v31)
   {
-    (*(v36 + 16))();
+    (*(v31 + 16))();
   }
 }
 
@@ -214,13 +197,12 @@ LABEL_8:
   if ((v9 & 1) == 0)
   {
     v11 = MEMORY[0x277CCACA8];
-    v12 = a1[4];
-    v13 = objc_opt_class();
-    v14 = [a1[4] activeDSIDRecord];
-    v15 = [v14 DSID];
-    v16 = [MEMORY[0x277CE9638] sharedInstance];
-    v17 = [v16 iTunesStorefront];
-    v18 = [v11 stringWithFormat:@"[%@]: Not reconciling DPID nor sending segments to Ad Platforms. This is not an Ad-enabled locality (dsid: %@ storefront: %@)", v13, v15, v17];
+    v12 = objc_opt_class();
+    v13 = [a1[4] activeDSIDRecord];
+    v14 = [v13 DSID];
+    v15 = [MEMORY[0x277CE9638] sharedInstance];
+    v16 = [v15 iTunesStorefront];
+    v17 = [v11 stringWithFormat:@"[%@]: Not reconciling DPID nor sending segments to Ad Platforms. This is not an Ad-enabled locality (dsid: %@ storefront: %@)", v12, v14, v16];
     _ADLog();
 
     v6 = a1[4];
@@ -230,15 +212,15 @@ LABEL_8:
   }
 
   v10 = +[ADClientDPIDManager sharedInstance];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __42__ADIDManager_Private__updateAccountData___block_invoke_2;
-  v19[3] = &unk_278C58468;
-  objc_copyWeak(&v21, a1 + 6);
-  v20 = a1[5];
-  [v10 reconcileDPID:v19];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __42__ADIDManager_Private__updateAccountData___block_invoke_2;
+  v18[3] = &unk_278C58468;
+  objc_copyWeak(&v20, a1 + 6);
+  v19 = a1[5];
+  [v10 reconcileDPID:v18];
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
 LABEL_9:
 }
 
@@ -398,7 +380,6 @@ uint64_t __34__ADIDManager_Private__reconcile___block_invoke_2(uint64_t a1)
     result = [result isEqualToString:@"NONE"];
     if ((result & 1) == 0)
     {
-      v4 = *(a1 + 32);
 
       return ADSaveToPromotedContentKeychain();
     }
@@ -472,84 +453,78 @@ LABEL_13:
   v15 = !v14;
 LABEL_20:
   v16 = MEMORY[0x277CCACA8];
-  v17 = *(a1 + 32);
-  v18 = objc_opt_class();
-  v19 = &stru_285107440;
+  v17 = objc_opt_class();
+  v18 = &stru_285107440;
   if (v11 == -1)
   {
-    v19 = @"not ";
+    v18 = @"not ";
   }
 
-  v40 = v5;
-  v20 = [v16 stringWithFormat:@"[%@ handleAccountChange]: iTunesAccountDSID is %@, current DSID is %@. iCloudAccountDSID is %@, current iCloud DSID is %@. Account has %@been reconciled once.", v18, v5, v3, v9, v7, v19];
+  v33 = v5;
+  v19 = [v16 stringWithFormat:@"[%@ handleAccountChange]: iTunesAccountDSID is %@, current DSID is %@. iCloudAccountDSID is %@, current iCloud DSID is %@. Account has %@been reconciled once.", v17, v5, v3, v9, v7, v18];
   _ADLog();
 
-  v21 = [MEMORY[0x277CE9638] sharedInstance];
-  v22 = [v21 isProtoU13state];
+  v20 = [MEMORY[0x277CE9638] sharedInstance];
+  v21 = [v20 isProtoU13state];
 
-  v23 = [MEMORY[0x277CE9638] sharedInstance];
-  v24 = [v23 isProtoTeenState];
+  v22 = [MEMORY[0x277CE9638] sharedInstance];
+  v23 = [v22 isProtoTeenState];
 
-  if (((v13 | v15) & 1) != 0 || v11 == -1 || (v22 & 1) != 0 || v24)
+  if (((v13 | v15) & 1) != 0 || v11 == -1 || (v21 & 1) != 0 || v23)
   {
     [*(a1 + 32) rotateAccountToken];
     if (v13)
     {
-      v29 = *(a1 + 32);
-      v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@ handleAccountChange]: Current iTunes account has changed from %@ to %@.", objc_opt_class(), v3, v40];
+      v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@ handleAccountChange]: Current iTunes account has changed from %@ to %@.", objc_opt_class(), v3, v33];
       _ADLog();
     }
 
     if (v15)
     {
-      v31 = *(a1 + 32);
-      v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@ handleAccountChange]: Current iCloud account has changed from %@ to %@.", objc_opt_class(), v7, v9];
+      v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@ handleAccountChange]: Current iCloud account has changed from %@ to %@.", objc_opt_class(), v7, v9];
       _ADLog();
     }
 
     if (v11 == -1)
     {
-      v36 = *(a1 + 32);
-      v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@ handleAccountChange]: Current DSID record has never been through reconcile.", objc_opt_class()];
+      v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@ handleAccountChange]: Current DSID record has never been through reconcile.", objc_opt_class()];
       _ADLog();
 
-      if (!v22)
+      if (!v21)
       {
 LABEL_34:
-        if (!v24)
+        if (!v23)
         {
 LABEL_36:
-          v41[0] = MEMORY[0x277D85DD0];
-          v41[1] = 3221225472;
-          v41[2] = __44__ADIDManager_Private__handleAccountChange___block_invoke_2;
-          v41[3] = &unk_278C57FA0;
-          v35 = *(a1 + 32);
-          v42 = *(a1 + 40);
-          [v35 reconcile:v41];
+          v34[0] = MEMORY[0x277D85DD0];
+          v34[1] = 3221225472;
+          v34[2] = __44__ADIDManager_Private__handleAccountChange___block_invoke_2;
+          v34[3] = &unk_278C57FA0;
+          v30 = *(a1 + 32);
+          v35 = *(a1 + 40);
+          [v30 reconcile:v34];
 
-          v26 = v40;
+          v24 = v33;
           goto LABEL_37;
         }
 
 LABEL_35:
-        v33 = *(a1 + 32);
-        v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@ handleAccountChange]: Device is Proto Teen State.", objc_opt_class()];
+        v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@ handleAccountChange]: Device is Proto Teen State.", objc_opt_class()];
         _ADLog();
 
         goto LABEL_36;
       }
     }
 
-    else if (!v22)
+    else if (!v21)
     {
       goto LABEL_34;
     }
 
-    v38 = *(a1 + 32);
-    v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@ handleAccountChange]: Device is Proto U13 State.", objc_opt_class()];
+    v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@ handleAccountChange]: Device is Proto U13 State.", objc_opt_class()];
     _ADLog();
 
-    if (!v24)
+    if (!v23)
     {
       goto LABEL_36;
     }
@@ -557,15 +532,14 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v25 = *(a1 + 32);
-  v26 = v40;
-  v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] handleAccountChange: Current accounts (iTunes: %@, iCloud: %@) have not changed.", objc_opt_class(), v40, v9];
+  v24 = v33;
+  v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] handleAccountChange: Current accounts (iTunes: %@, iCloud: %@) have not changed.", objc_opt_class(), v33, v9];
   _ADLog();
 
-  v28 = *(a1 + 40);
-  if (v28)
+  v26 = *(a1 + 40);
+  if (v26)
   {
-    (*(v28 + 16))(v28, 0);
+    (*(v26 + 16))(v26, 0);
   }
 
 LABEL_37:
@@ -598,17 +572,15 @@ void __32__ADIDManager_Private__runTask___block_invoke(uint64_t a1)
 void __32__ADIDManager_Private__runTask___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = MEMORY[0x277CCACA8];
-  v4 = *(a1 + 32);
-  v5 = a2;
-  v6 = objc_opt_class();
-  v7 = [*(a1 + 40) requestIdentifier];
-  v8 = [v3 stringWithFormat:@"[%@]: Finished task %@ with error %@", v6, v7, v5];
+  v4 = a2;
+  v5 = objc_opt_class();
+  v6 = [*(a1 + 40) requestIdentifier];
+  v7 = [v3 stringWithFormat:@"[%@]: Finished task %@ with error %@", v5, v6, v4];
 
   _ADLog();
   if (([*(a1 + 40) finishTask] & 1) == 0)
   {
-    v9 = *(a1 + 32);
-    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] ERROR: Unable to mark the task as finished. Please file a radar...", objc_opt_class()];
+    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] ERROR: Unable to mark the task as finished. Please file a radar...", objc_opt_class()];
     _ADLog();
   }
 }

@@ -1,60 +1,60 @@
 @interface NSCompoundPredicateOperator(_NSCoreDataSQLPredicateCategories)
-- (uint64_t)minimalFormInContext:()_NSCoreDataSQLPredicateCategories ofPredicates:;
+- (id)minimalFormInContext:()_NSCoreDataSQLPredicateCategories ofPredicates:;
 @end
 
 @implementation NSCompoundPredicateOperator(_NSCoreDataSQLPredicateCategories)
 
-- (uint64_t)minimalFormInContext:()_NSCoreDataSQLPredicateCategories ofPredicates:
+- (id)minimalFormInContext:()_NSCoreDataSQLPredicateCategories ofPredicates:
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   operatorType = [self operatorType];
   if (operatorType == 2)
   {
     selfCopy = self;
-    v43 = 0u;
-    v44 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v25 = [a4 countByEnumeratingWithState:&v41 objects:v46 count:16];
-    if (v25)
+    v39 = 0u;
+    v40 = 0u;
+    v24 = [a4 countByEnumeratingWithState:&v39 objects:v44 count:16];
+    if (v24)
     {
-      v26 = v25;
-      v27 = *v42;
+      v25 = v24;
+      v26 = *v40;
       while (2)
       {
-        v28 = 0;
+        v27 = 0;
         do
         {
-          if (*v42 != v27)
+          if (*v40 != v26)
           {
             objc_enumerationMutation(a4);
           }
 
-          v29 = *(*(&v41 + 1) + 8 * v28);
-          v21 = objc_autoreleasePoolPush();
-          v30 = [v29 minimalFormInContext:a3];
+          v28 = *(*(&v39 + 1) + 8 * v27);
+          v20 = objc_autoreleasePoolPush();
+          v29 = [v28 minimalFormInContext:a3];
           if ([objc_msgSend(MEMORY[0x1E696AF08] "defaultInstance")])
           {
-            v33 = MEMORY[0x1E696AF08];
+            v32 = MEMORY[0x1E696AF08];
 LABEL_38:
-            defaultInstance = [v33 defaultInstance];
-            objc_autoreleasePoolPop(v21);
-            goto LABEL_43;
+            defaultInstance = [v32 defaultInstance];
+            objc_autoreleasePoolPop(v20);
+            return defaultInstance;
           }
 
           if (([objc_msgSend(MEMORY[0x1E696ABE8] "defaultInstance")] & 1) == 0)
           {
-            [array addObject:v30];
+            [array addObject:v29];
           }
 
-          objc_autoreleasePoolPop(v21);
-          ++v28;
+          objc_autoreleasePoolPop(v20);
+          ++v27;
         }
 
-        while (v26 != v28);
-        v26 = [a4 countByEnumeratingWithState:&v41 objects:v46 count:16];
-        if (v26)
+        while (v25 != v27);
+        v25 = [a4 countByEnumeratingWithState:&v39 objects:v44 count:16];
+        if (v25)
         {
           continue;
         }
@@ -63,69 +63,65 @@ LABEL_38:
       }
     }
 
-    v31 = [array count];
-    if (v31 != 1)
+    v30 = [array count];
+    if (v30 != 1)
     {
       self = selfCopy;
-      if (!v31)
+      if (!v30)
       {
-        v24 = MEMORY[0x1E696ABE8];
-        goto LABEL_35;
+        v23 = MEMORY[0x1E696ABE8];
+        return [v23 defaultInstance];
       }
 
-LABEL_41:
-      defaultInstance2 = [objc_alloc(MEMORY[0x1E696AB28]) initWithType:objc_msgSend(self subpredicates:{"operatorType"), array}];
-      goto LABEL_42;
+      return [objc_alloc(MEMORY[0x1E696AB28]) initWithType:objc_msgSend(self subpredicates:{"operatorType"), array}];
     }
 
-LABEL_39:
-    defaultInstance2 = [array objectAtIndex:0];
-    goto LABEL_42;
+    return [array objectAtIndex:0];
   }
 
   if (operatorType == 1)
   {
     selfCopy2 = self;
-    v39 = 0u;
-    v40 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v16 = [a4 countByEnumeratingWithState:&v37 objects:v45 count:16];
-    if (v16)
+    v35 = 0u;
+    v36 = 0u;
+    v15 = [a4 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    if (v15)
     {
-      v17 = v16;
-      v18 = *v38;
+      v16 = v15;
+      v17 = *v36;
       while (2)
       {
-        v19 = 0;
+        v18 = 0;
         do
         {
-          if (*v38 != v18)
+          if (*v36 != v17)
           {
             objc_enumerationMutation(a4);
           }
 
-          v20 = *(*(&v37 + 1) + 8 * v19);
-          v21 = objc_autoreleasePoolPush();
-          v22 = [v20 minimalFormInContext:a3];
+          v19 = *(*(&v35 + 1) + 8 * v18);
+          v20 = objc_autoreleasePoolPush();
+          v21 = [v19 minimalFormInContext:a3];
           if ([objc_msgSend(MEMORY[0x1E696ABE8] "defaultInstance")])
           {
-            v33 = MEMORY[0x1E696ABE8];
+            v32 = MEMORY[0x1E696ABE8];
             goto LABEL_38;
           }
 
           if (([objc_msgSend(MEMORY[0x1E696AF08] "defaultInstance")] & 1) == 0)
           {
-            [array addObject:v22];
+            [array addObject:v21];
           }
 
-          objc_autoreleasePoolPop(v21);
-          ++v19;
+          objc_autoreleasePoolPop(v20);
+          ++v18;
         }
 
-        while (v17 != v19);
-        v17 = [a4 countByEnumeratingWithState:&v37 objects:v45 count:16];
-        if (v17)
+        while (v16 != v18);
+        v16 = [a4 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        if (v16)
         {
           continue;
         }
@@ -134,26 +130,20 @@ LABEL_39:
       }
     }
 
-    v23 = [array count];
-    if (v23 != 1)
+    v22 = [array count];
+    if (v22 != 1)
     {
       self = selfCopy2;
-      if (!v23)
+      if (!v22)
       {
-        v24 = MEMORY[0x1E696AF08];
-LABEL_35:
-        defaultInstance2 = [v24 defaultInstance];
-LABEL_42:
-        defaultInstance = defaultInstance2;
-LABEL_43:
-        v34 = *MEMORY[0x1E69E9840];
-        return defaultInstance;
+        v23 = MEMORY[0x1E696AF08];
+        return [v23 defaultInstance];
       }
 
-      goto LABEL_41;
+      return [objc_alloc(MEMORY[0x1E696AB28]) initWithType:objc_msgSend(self subpredicates:{"operatorType"), array}];
     }
 
-    goto LABEL_39;
+    return [array objectAtIndex:0];
   }
 
   if (operatorType)
@@ -163,21 +153,20 @@ LABEL_43:
 
   v9 = [objc_msgSend(a4 objectAtIndex:{0), "minimalFormInContext:", a3}];
   v10 = [objc_msgSend(MEMORY[0x1E696AF08] "defaultInstance")];
-  defaultInstance3 = [MEMORY[0x1E696ABE8] defaultInstance];
-  defaultInstance = defaultInstance3;
+  defaultInstance2 = [MEMORY[0x1E696ABE8] defaultInstance];
+  defaultInstance = defaultInstance2;
   if (v10)
   {
-    goto LABEL_43;
+    return defaultInstance;
   }
 
-  if (![defaultInstance3 isEqual:v9])
+  if (![defaultInstance2 isEqual:v9])
   {
     [array addObject:v9];
-    goto LABEL_41;
+    return [objc_alloc(MEMORY[0x1E696AB28]) initWithType:objc_msgSend(self subpredicates:{"operatorType"), array}];
   }
 
   v13 = MEMORY[0x1E696AF08];
-  v14 = *MEMORY[0x1E69E9840];
 
   return [v13 defaultInstance];
 }

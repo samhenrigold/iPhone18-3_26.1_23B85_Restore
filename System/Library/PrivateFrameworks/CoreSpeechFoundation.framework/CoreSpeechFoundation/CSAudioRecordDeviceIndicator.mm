@@ -7,7 +7,7 @@
 
 - (void)updateWithLatestRecordContext:(id)context
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = [contextCopy copy];
   recordContext = self->_recordContext;
@@ -24,11 +24,11 @@
       {
         v9 = v8;
         deviceId2 = [contextCopy deviceId];
-        v14 = 136315394;
-        v15 = "[CSAudioRecordDeviceIndicator updateWithLatestRecordContext:]";
-        v16 = 2114;
-        v17 = deviceId2;
-        _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s Replace deviceId(%{public}@) to nil for VoiceTrigger from Gibraltar.", &v14, 0x16u);
+        v13 = 136315394;
+        v14 = "[CSAudioRecordDeviceIndicator updateWithLatestRecordContext:]";
+        v15 = 2114;
+        v16 = deviceId2;
+        _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s Replace deviceId(%{public}@) to nil for VoiceTrigger from Gibraltar.", &v13, 0x16u);
       }
 
       deviceId = self->_deviceId;
@@ -42,8 +42,6 @@
       self->_deviceId = deviceId3;
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (CSAudioRecordDeviceIndicator)initWithRecordContext:(id)context deviceId:(id)id shouldUseRemoteRecorder:(BOOL)recorder streamHandleId:(unint64_t)handleId shouldUseSystemDaemonRecorder:(BOOL)daemonRecorder

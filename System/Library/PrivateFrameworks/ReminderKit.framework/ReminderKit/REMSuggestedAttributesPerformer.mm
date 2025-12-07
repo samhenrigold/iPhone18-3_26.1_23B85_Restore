@@ -52,25 +52,25 @@ void __48__REMSuggestedAttributesPerformer_preWarmModels__block_invoke(uint64_t 
 
 - (id)resultFromPerformingSwiftInvocation:(id)invocation parametersData:(id)data storages:(id)storages error:(id *)error
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   invocationCopy = invocation;
   dataCopy = data;
   storagesCopy = storages;
   queue = [(REMSuggestedAttributesPerformer *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x3032000000;
-  v58 = __Block_byref_object_copy__7;
-  v59 = __Block_byref_object_dispose__7;
-  v60 = 0;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = __Block_byref_object_copy__7;
-  v53 = __Block_byref_object_dispose__7;
   v54 = 0;
+  v55 = &v54;
+  v56 = 0x3032000000;
+  v57 = __Block_byref_object_copy__7;
+  v58 = __Block_byref_object_dispose__7;
+  v59 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__7;
+  v52 = __Block_byref_object_dispose__7;
+  v53 = 0;
   v12 = _os_activity_create(&dword_19A0DB000, "REMSuggestedAttributesPerformer swiftInvocation", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -85,7 +85,7 @@ void __48__REMSuggestedAttributesPerformer_preWarmModels__block_invoke(uint64_t 
     v18 = name;
     v19 = [name cStringUsingEncoding:1];
     *buf = 136446210;
-    v62 = v19;
+    v61 = v19;
     _os_signpost_emit_with_name_impl(&dword_19A0DB000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v14, "REMStore.invocation", " enableTelemetry=YES Name=%{public, signpost.telemetry:string1, Name=InvocationName}s}d", buf, 0xCu);
   }
 
@@ -96,11 +96,11 @@ void __48__REMSuggestedAttributesPerformer_preWarmModels__block_invoke(uint64_t 
     v22 = [dataCopy length];
     v23 = [storagesCopy count];
     *buf = 138543874;
-    v62 = name2;
-    v63 = 2048;
-    v64 = v22;
-    v65 = 2048;
-    v66 = v23;
+    v61 = name2;
+    v62 = 2048;
+    v63 = v22;
+    v64 = 2048;
+    v65 = v23;
     _os_log_impl(&dword_19A0DB000, v20, OS_LOG_TYPE_DEFAULT, "INVOCATION START {name: %{public}@, parametersData.length %ld, storages.count: %ld}", buf, 0x20u);
   }
 
@@ -108,50 +108,48 @@ void __48__REMSuggestedAttributesPerformer_preWarmModels__block_invoke(uint64_t 
   name3 = [invocationCopy name];
   v26 = [v24 stringWithFormat:@"swInv_%@", name3];
 
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __101__REMSuggestedAttributesPerformer_resultFromPerformingSwiftInvocation_parametersData_storages_error___block_invoke;
-  v45[3] = &unk_1E7507BF0;
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __101__REMSuggestedAttributesPerformer_resultFromPerformingSwiftInvocation_parametersData_storages_error___block_invoke;
+  v44[3] = &unk_1E7507BF0;
   v27 = invocationCopy;
-  v46 = v27;
-  v47 = &v55;
-  v28 = [(REMSuggestedAttributesPerformer *)self q_syncSuggestedAttributesPerformerWithReason:v26 errorHandler:v45];
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = __101__REMSuggestedAttributesPerformer_resultFromPerformingSwiftInvocation_parametersData_storages_error___block_invoke_7;
-  v41[3] = &unk_1E7508D38;
+  v45 = v27;
+  v46 = &v54;
+  v28 = [(REMSuggestedAttributesPerformer *)self q_syncSuggestedAttributesPerformerWithReason:v26 errorHandler:v44];
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __101__REMSuggestedAttributesPerformer_resultFromPerformingSwiftInvocation_parametersData_storages_error___block_invoke_7;
+  v40[3] = &unk_1E7508D38;
   v29 = v27;
-  v42 = v29;
-  v43 = &v49;
-  v44 = &v55;
-  [v28 performSwiftInvocation:v29 withParametersData:dataCopy storages:storagesCopy completion:v41];
+  v41 = v29;
+  v42 = &v48;
+  v43 = &v54;
+  [v28 performSwiftInvocation:v29 withParametersData:dataCopy storages:storagesCopy completion:v40];
   if (error)
   {
-    *error = v56[5];
+    *error = v55[5];
   }
 
   v30 = v16;
   v31 = v30;
   if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
   {
-    resultStorages = [v50[5] resultStorages];
+    resultStorages = [v49[5] resultStorages];
     v33 = [resultStorages count];
-    resultData = [v50[5] resultData];
+    resultData = [v49[5] resultData];
     v35 = [resultData length];
     *buf = 134349312;
-    v62 = v33;
-    v63 = 2050;
-    v64 = v35;
+    v61 = v33;
+    v62 = 2050;
+    v63 = v35;
     _os_signpost_emit_with_name_impl(&dword_19A0DB000, v31, OS_SIGNPOST_INTERVAL_END, v14, "REMStore.invocation", " enableTelemetry=YES ResultCount=%{public, signpost.telemetry:number1, Name:ResultCount}ld DataSize=%{public, signpost.telemetry:number2, Name:DataSize}ld", buf, 0x16u);
   }
 
-  v36 = v50[5];
+  v36 = v49[5];
   os_activity_scope_leave(&state);
 
-  _Block_object_dispose(&v49, 8);
-  _Block_object_dispose(&v55, 8);
-
-  v37 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v54, 8);
 
   return v36;
 }
@@ -172,7 +170,7 @@ void __101__REMSuggestedAttributesPerformer_resultFromPerformingSwiftInvocation_
 
 void __101__REMSuggestedAttributesPerformer_resultFromPerformingSwiftInvocation_parametersData_storages_error___block_invoke_7(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[REMLogStore read];
@@ -196,13 +194,13 @@ void __101__REMSuggestedAttributesPerformer_resultFromPerformingSwiftInvocation_
       v12 = [v5 resultData];
       v13 = [v12 length];
       v14 = [v5 resultStorages];
-      v19 = 138543874;
-      v20 = v11;
-      v21 = 2048;
-      v22 = v13;
-      v23 = 2048;
-      v24 = [v14 count];
-      _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_DEFAULT, "INVOCATION END {name: %{public}@, result.data.length: %ld, result.storages.count: %ld}", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v11;
+      v20 = 2048;
+      v21 = v13;
+      v22 = 2048;
+      v23 = [v14 count];
+      _os_log_impl(&dword_19A0DB000, v8, OS_LOG_TYPE_DEFAULT, "INVOCATION END {name: %{public}@, result.data.length: %ld, result.storages.count: %ld}", &v18, 0x20u);
     }
 
     v9 = 40;
@@ -213,8 +211,6 @@ void __101__REMSuggestedAttributesPerformer_resultFromPerformingSwiftInvocation_
   v16 = v10;
   v17 = *(v15 + 40);
   *(v15 + 40) = v16;
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)q_syncSuggestedAttributesPerformerWithReason:(id)reason errorHandler:(id)handler
@@ -384,46 +380,23 @@ void __96__REMSuggestedAttributesPerformer_q_resolveSuggestedAttributesPerformer
 
 void __48__REMSuggestedAttributesPerformer_preWarmModels__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, a2, a3, "XPC error performing suggestedAttributesPerformer.preWarmModel {error: %{public}@}", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_5(&dword_19A0DB000, a2, a3, "XPC error performing suggestedAttributesPerformer.preWarmModel {error: %{public}@}", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __101__REMSuggestedAttributesPerformer_resultFromPerformingSwiftInvocation_parametersData_storages_error___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) name];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_3(&dword_19A0DB000, v2, v3, "INVOCATION END ERROR_XPC {name: %{public}@, error: %{public}@}", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_19A0DB000, v2, v3, "INVOCATION END ERROR_XPC {name: %{public}@, error: %{public}@}", v4, v5, v6, v7);
 }
 
 void __101__REMSuggestedAttributesPerformer_resultFromPerformingSwiftInvocation_parametersData_storages_error___block_invoke_7_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) name];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_3(&dword_19A0DB000, v2, v3, "INVOCATION END ERROR {name: %{public}@, error: %@}", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)q_resolveSuggestedAttributesPerformerWithReason:errorHandler:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "Failed to get storePerformer for suggestedAttributesPerformer. {action: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __96__REMSuggestedAttributesPerformer_q_resolveSuggestedAttributesPerformerWithReason_errorHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "uncachedSuggestedAttributesPerfomer ERROR {error: %{public}@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_3(&dword_19A0DB000, v2, v3, "INVOCATION END ERROR {name: %{public}@, error: %@}", v4, v5, v6, v7);
 }
 
 @end

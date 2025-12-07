@@ -97,42 +97,38 @@ void __95__CountDown_goOffNext_fromTime_forEpoch_timesTotal_onQueue_withIteratio
 
 void __95__CountDown_goOffNext_fromTime_forEpoch_timesTotal_onQueue_withIterationBlock_completionBlock___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   ++*(*(a1 + 32) + 16);
-  if (![*(a1 + 40) active])
+  if ([*(a1 + 40) active])
   {
-    v6 = analyticsLogHandle;
-    if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
-    {
-      v7 = *(a1 + 32);
-      v9 = 134217984;
-      v10 = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: %p countdown on epoch that is no longer active", &v9, 0xCu);
-    }
-
-    goto LABEL_10;
-  }
-
-  v2 = *(*(a1 + 32) + 16);
-  v3 = *(a1 + 64);
-  if (v3 >= v2)
-  {
-    (*(*(a1 + 48) + 16))();
     v2 = *(*(a1 + 32) + 16);
     v3 = *(a1 + 64);
+    if (v3 >= v2)
+    {
+      (*(*(a1 + 48) + 16))();
+      v2 = *(*(a1 + 32) + 16);
+      v3 = *(a1 + 64);
+    }
+
+    if (v3 == v2)
+    {
+      v4 = *(*(a1 + 56) + 16);
+
+      v4();
+    }
   }
 
-  if (v3 != v2)
+  else
   {
-LABEL_10:
-    v8 = *MEMORY[0x277D85DE8];
-    return;
+    v5 = analyticsLogHandle;
+    if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      v6 = *(a1 + 32);
+      v7 = 134217984;
+      v8 = v6;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: %p countdown on epoch that is no longer active", &v7, 0xCu);
+    }
   }
-
-  v4 = *(*(a1 + 56) + 16);
-  v5 = *MEMORY[0x277D85DE8];
-
-  v4();
 }
 
 void __95__CountDown_goOffNext_fromTime_forEpoch_timesTotal_onQueue_withIterationBlock_completionBlock___block_invoke_65(uint64_t a1)
@@ -147,7 +143,7 @@ void __95__CountDown_goOffNext_fromTime_forEpoch_timesTotal_onQueue_withIteratio
   dispatch_async(v2, v3);
 }
 
-uint64_t __95__CountDown_goOffNext_fromTime_forEpoch_timesTotal_onQueue_withIterationBlock_completionBlock___block_invoke_2_66(uint64_t a1)
+void *__95__CountDown_goOffNext_fromTime_forEpoch_timesTotal_onQueue_withIterationBlock_completionBlock___block_invoke_2_66(uint64_t a1)
 {
   result = [*(a1 + 32) active];
   if (result)

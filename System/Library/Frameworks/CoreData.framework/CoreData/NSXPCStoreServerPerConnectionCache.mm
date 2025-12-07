@@ -149,7 +149,7 @@ LABEL_12:
           v7 = _PFLogGetLogStream(17);
           if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
           {
-            *v8 = 0;
+            v8[0] = 0;
             _os_log_fault_impl(&dword_18565F000, v7, OS_LOG_TYPE_FAULT, "CoreData: refCount can't be negative", v8, 2u);
           }
         }

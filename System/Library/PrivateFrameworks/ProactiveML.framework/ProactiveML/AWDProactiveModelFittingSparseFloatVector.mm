@@ -147,15 +147,14 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v7 = toCopy;
   if (self->_indices.count)
   {
     v5 = 0;
     do
     {
-      v6 = self->_indices.list[v5];
       PBDataWriterWriteUint64Field();
-      toCopy = v10;
+      toCopy = v7;
       ++v5;
     }
 
@@ -164,23 +163,21 @@ LABEL_9:
 
   if (self->_values.count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = self->_values.list[v7];
       PBDataWriterWriteFloatField();
-      toCopy = v10;
-      ++v7;
+      toCopy = v7;
+      ++v6;
     }
 
-    while (v7 < self->_values.count);
+    while (v6 < self->_values.count);
   }
 
   if (*&self->_has)
   {
-    length = self->_length;
     PBDataWriterWriteUint64Field();
-    toCopy = v10;
+    toCopy = v7;
   }
 }
 

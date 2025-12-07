@@ -26,7 +26,7 @@
   browserCopy = browser;
   peersCopy = peers;
   selfCopy = self;
-  sub_21925C444();
+  sub_21925C444(peersCopy);
 }
 
 - (void)browser:(id)browser foundPeer:(id)peer withDiscoveryInfo:(id)info
@@ -59,7 +59,7 @@
   v11 = sub_219BDBA04();
   v13 = v12;
 
-  sub_21925C868();
+  sub_21925C868(v11, v13);
   sub_2186C6190(v11, v13);
 }
 

@@ -260,7 +260,7 @@ uint64_t __167__SBSwitcherWindowReplacementResult_windowReplacementResultByRemov
     v5 = *(a1 + 32);
     v6 = [v4 bundleIdentifier];
     v7 = [v5 recentDisplayItemsForBundleIdentifier:v6 includingHiddenAppLayouts:0];
-    v8 = [v7 containsObject:v4];
+    v8 = objc_msgSend_containsObject_(v7);
   }
 
   else

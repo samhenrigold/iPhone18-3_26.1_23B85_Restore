@@ -19,8 +19,8 @@
   v11 = 1;
   v12 = 256;
   v13 = 0;
-  v2.var0 = [(OPTTSTextToSpeechRequestContext *)self addObjectToBuffer:&v5];
-  flatbuffers::FlatBufferBuilder::Finish(&v5, v2.var0, v3);
+  v2 = [(OPTTSTextToSpeechRequestContext *)self addObjectToBuffer:?];
+  flatbuffers::FlatBufferBuilder::Finish(&v5, v2, v3);
   operator new();
 }
 
@@ -39,53 +39,53 @@ flatbuffers::DetachedBuffer *__47__OPTTSTextToSpeechRequestContext_flatbuffData_
 
 - (Offset<siri::speech::schema_fb::TextToSpeechRequestContext>)addObjectToBuffer:(void *)buffer
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
+  v27 = 0;
   v28 = 0;
   v29 = 0;
-  v30 = 0;
   context_info = [(OPTTSTextToSpeechRequestContext *)self context_info];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>::reserve(&v28, [context_info count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>::reserve(&v27, [context_info count]);
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   context_info2 = [(OPTTSTextToSpeechRequestContext *)self context_info];
-  v7 = [context_info2 countByEnumeratingWithState:&v24 objects:v31 count:16];
+  v7 = [context_info2 countByEnumeratingWithState:? objects:? count:?];
   if (v7)
   {
-    v8 = *v25;
+    v8 = *v24;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v7; i = (i + 1))
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(context_info2);
         }
 
-        v23 = [*(*(&v24 + 1) + 8 * i) addObjectToBuffer:buffer];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>::push_back[abi:ne200100](&v28, &v23);
+        v22 = [*(*(&v23 + 1) + 8 * i) addObjectToBuffer:?];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>::push_back[abi:ne200100](&v27, &v22);
       }
 
-      v7 = [context_info2 countByEnumeratingWithState:&v24 objects:v31 count:16];
+      v7 = [context_info2 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v7);
   }
 
-  v10 = v28;
-  if (v29 == v28)
+  v10 = v27;
+  if (v28 == v27)
   {
     v11 = &flatbuffers::data<flatbuffers::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>,std::allocator<flatbuffers::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>>(std::vector<flatbuffers::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>> const&)::t;
   }
 
   else
   {
-    v11 = v28;
+    v11 = v27;
   }
 
-  v12 = flatbuffers::FlatBufferBuilder::CreateVector<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>(buffer, v11, (v29 - v28) >> 2);
+  v12 = flatbuffers::FlatBufferBuilder::CreateVector<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>(buffer, v11, (v28 - v27) >> 2);
   dialog_identifier = [(OPTTSTextToSpeechRequestContext *)self dialog_identifier];
   v14 = dialog_identifier;
   if (!dialog_identifier)
@@ -110,36 +110,19 @@ flatbuffers::DetachedBuffer *__47__OPTTSTextToSpeechRequestContext_flatbuffData_
     operator delete(v10);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (NSString)dialog_identifier
 {
-  root = self->_root;
-  v3 = *root->var0;
-  v4 = *root[-v3 + 6].var0;
-  if (*root[-v3 + 6].var0)
-  {
-    v3 = *root[v4].var0;
-    v5 = &root[v4 + v3];
-  }
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:? length:? encoding:?];
 
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v3 = v3;
-  }
-
-  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:&v5[4] length:*root[v4 + v3].var0 encoding:4];
-
-  return v6;
+  return v2;
 }
 
 - (NSArray)context_info
 {
-  array = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:@"context_info"];
+  array = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:?];
   if (!array)
   {
     array = [MEMORY[0x277CBEB18] array];
@@ -158,8 +141,8 @@ flatbuffers::DetachedBuffer *__47__OPTTSTextToSpeechRequestContext_flatbuffData_
           v10 = &root[v7 + 4 + v6];
           do
           {
-            v11 = [[OPTTSTextToSpeechRequest_ContextInfoEntry alloc] initWithFlatbuffData:self->_data root:&v10[*v10->var0] verify:0];
-            [array addObject:v11];
+            v11 = [OPTTSTextToSpeechRequest_ContextInfoEntry initWithFlatbuffData:"initWithFlatbuffData:root:verify:" root:? verify:?];
+            [array addObject:?];
 
             v10 += 4;
             v9 -= 4;
@@ -170,7 +153,7 @@ flatbuffers::DetachedBuffer *__47__OPTTSTextToSpeechRequestContext_flatbuffData_
       }
     }
 
-    [(NSMutableDictionary *)self->_storage setObject:array forKeyedSubscript:@"context_info"];
+    [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
   }
 
   return array;
@@ -204,7 +187,7 @@ flatbuffers::DetachedBuffer *__47__OPTTSTextToSpeechRequestContext_flatbuffData_
       bytes2 = [(NSData *)v10->_data bytes];
       v14 = [(NSData *)v10->_data length];
       root = v10->_root;
-      if (root < bytes2 || root > bytes2 + v14)
+      if (root < bytes2 || root > v14 + bytes2)
       {
         goto LABEL_16;
       }

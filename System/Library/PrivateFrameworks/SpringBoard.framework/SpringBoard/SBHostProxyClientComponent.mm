@@ -207,7 +207,7 @@ void __99__SBHostProxyClientComponent_sceneManager_didUpdateUserInterfaceStyle_w
 - (void)continuitySessionDidUpdateScreenRecordingState:(id)state
 {
   stateCopy = state;
-  v5 = SBLogContinuitySession();
+  v5 = SBLogContinuitySession(stateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(SBHostProxyClientComponent *)self continuitySessionDidUpdateScreenRecordingState:stateCopy, v5];

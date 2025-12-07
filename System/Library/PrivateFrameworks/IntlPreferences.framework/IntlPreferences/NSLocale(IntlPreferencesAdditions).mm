@@ -77,7 +77,7 @@
 
 + (id)canonicalLanguageAndScriptCodeIdentifierForIdentifier:()IntlPreferencesAdditions
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CBEAF8] addLikelySubtagsForLocaleIdentifier:?];
   v1 = [MEMORY[0x277CBEAF8] componentsFromLocaleIdentifier:v0];
   v2 = *MEMORY[0x277CBE6C8];
@@ -97,13 +97,13 @@
 
   if (!v7)
   {
-    v20[0] = v2;
-    v20[1] = v4;
-    v21[0] = v3;
-    v21[1] = v5;
+    v19[0] = v2;
+    v19[1] = v4;
+    v20[0] = v3;
+    v20[1] = v5;
     v8 = MEMORY[0x277CBEAC0];
-    v9 = v21;
-    v10 = v20;
+    v9 = v20;
+    v10 = v19;
     v11 = 2;
 LABEL_8:
     v12 = [v8 dictionaryWithObjects:v9 forKeys:v10 count:v11];
@@ -112,11 +112,11 @@ LABEL_8:
 
   if (v3)
   {
-    v18 = v2;
-    v19 = v3;
+    v17 = v2;
+    v18 = v3;
     v8 = MEMORY[0x277CBEAC0];
-    v9 = &v19;
-    v10 = &v18;
+    v9 = &v18;
+    v10 = &v17;
     v11 = 1;
     goto LABEL_8;
   }
@@ -126,8 +126,6 @@ LABEL_9:
   v13 = MEMORY[0x277CBEAF8];
   v14 = [MEMORY[0x277CBEAF8] localeIdentifierFromComponents:v12];
   v15 = [v13 canonicalLanguageIdentifierFromString:v14];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -142,12 +140,10 @@ LABEL_9:
 
 + (id)addLikelySubtagsForLocaleIdentifier:()IntlPreferencesAdditions
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a3;
   [v3 UTF8String];
-  v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v7 length:uloc_addLikelySubtags() encoding:4];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v6 length:uloc_addLikelySubtags() encoding:4];
 
   return v4;
 }
@@ -159,9 +155,9 @@ LABEL_9:
     +[NSLocale(IntlPreferencesAdditions) renderableUILanguages];
   }
 
-  v1 = renderableUILanguages___renderableLanguages;
+  v2 = renderableUILanguages___renderableLanguages;
 
-  return v1;
+  return v2;
 }
 
 + (id)renderableLocaleLanguages
@@ -171,9 +167,9 @@ LABEL_9:
     +[NSLocale(IntlPreferencesAdditions) renderableLocaleLanguages];
   }
 
-  v1 = renderableLocaleLanguages___renderableLanguages;
+  v2 = renderableLocaleLanguages___renderableLanguages;
 
-  return v1;
+  return v2;
 }
 
 + (id)renderableLanguagesFromList:()IntlPreferencesAdditions
@@ -187,7 +183,7 @@ LABEL_9:
 
 + (void)setLocaleOnly:()IntlPreferencesAdditions
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a3;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [v3 length])
@@ -196,11 +192,11 @@ LABEL_9:
     {
       preferredLocale = [MEMORY[0x277CBEAF8] preferredLocale];
       localeIdentifier = [preferredLocale localeIdentifier];
-      v9 = 138543618;
-      v10 = v3;
-      v11 = 2114;
-      v12 = localeIdentifier;
-      _os_log_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Setting locale to %{public}@. Current locale is %{public}@.", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v3;
+      v10 = 2114;
+      v11 = localeIdentifier;
+      _os_log_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Setting locale to %{public}@. Current locale is %{public}@.", &v8, 0x16u);
     }
 
     v6 = *MEMORY[0x277CBF008];
@@ -216,8 +212,6 @@ LABEL_9:
   {
     [NSLocale(IntlPreferencesAdditions) setLocaleOnly:v3];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (uint64_t)setLocaleAndResetTimeFormat:()IntlPreferencesAdditions
@@ -257,7 +251,7 @@ LABEL_9:
 
 + (id)validateLocale:()IntlPreferencesAdditions
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a3;
   availableLocaleIdentifiers = [MEMORY[0x277CBEAF8] availableLocaleIdentifiers];
   v5 = [MEMORY[0x277CBEAF8] componentsFromLocaleIdentifier:v3];
@@ -271,41 +265,41 @@ LABEL_9:
 
   else
   {
-    v22 = v7;
-    v23 = v3;
+    v21 = v7;
+    v22 = v3;
     [MEMORY[0x277CBEAF8] preferredLanguages];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v9 = v27 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v9 = v26 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v25;
+      v12 = *v24;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v25 != v12)
+          if (*v24 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v24 + 1) + 8 * i);
+          v14 = *(*(&v23 + 1) + 8 * i);
           v15 = [MEMORY[0x277CBEAF8] componentsFromLocaleIdentifier:v14];
           v16 = [v15 objectForKeyedSubscript:v6];
 
           if ([availableLocaleIdentifiers containsObject:v16])
           {
-            v3 = v23;
-            v8 = [MEMORY[0x277CBEAF8] canonicalLocaleIdentifier:v23 withNewLanguageIdentifier:v14];
+            v3 = v22;
+            v8 = [MEMORY[0x277CBEAF8] canonicalLocaleIdentifier:v22 withNewLanguageIdentifier:v14];
 
             goto LABEL_13;
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v11)
         {
           continue;
@@ -320,12 +314,10 @@ LABEL_9:
     localeIdentifier = [currentLocale localeIdentifier];
     v8 = [v17 canonicalLocaleIdentifierFromString:localeIdentifier];
 
-    v3 = v23;
+    v3 = v22;
 LABEL_13:
-    v7 = v22;
+    v7 = v21;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -418,7 +410,7 @@ LABEL_7:
 
 + (id)languageArrayAfterSettingLanguage:()IntlPreferencesAdditions fallback:toLanguageArray:
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = [a5 mutableCopy];
@@ -430,11 +422,11 @@ LABEL_7:
     if (v8)
     {
       v13 = MEMORY[0x277CCA8D8];
-      v28[0] = @"zxx";
-      v28[1] = v8;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
-      v27 = v7;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+      v27[0] = @"zxx";
+      v27[1] = v8;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+      v26 = v7;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
       v16 = [v13 preferredLocalizationsFromArray:v14 forPreferences:v15];
       firstObject = [v16 firstObject];
       v18 = [firstObject isEqualToString:v8] ^ 1;
@@ -504,8 +496,6 @@ LABEL_17:
 
 LABEL_18:
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
@@ -545,7 +535,7 @@ LABEL_18:
 
 + (id)_preferencesForSetLanguageAndRegion:()IntlPreferencesAdditions
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:2];
   if (![(__CFString *)v3 length])
@@ -601,8 +591,8 @@ LABEL_18:
   {
 
 LABEL_12:
-    v29[0] = v11;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+    v28[0] = v11;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
     [v4 setObject:v23 forKeyedSubscript:@"AppleLanguages"];
     goto LABEL_13;
   }
@@ -616,15 +606,13 @@ LABEL_12:
   }
 
   v23 = [MEMORY[0x277CBEAF8] languageFromLanguage:@"en-001" byReplacingRegion:{countryCode, v11}];
-  v28[1] = v23;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
-  [v4 setObject:v27 forKeyedSubscript:@"AppleLanguages"];
+  v27[1] = v23;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+  [v4 setObject:v26 forKeyedSubscript:@"AppleLanguages"];
 
 LABEL_13:
   v24 = [MEMORY[0x277CBEAF8] canonicalLocaleIdentifierFromComponents:v9];
   [v4 setObject:v24 forKeyedSubscript:@"AppleLocale"];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -824,19 +812,17 @@ LABEL_7:
 
 + (id)_languageIdentifiersForLanguage:()IntlPreferencesAdditions region:
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = a4;
   v6 = a3;
   v7 = [IPLanguageListManager alloc];
-  v13[0] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
 
   v9 = [(IPLanguageListManager *)v7 initWithPreferredLanguages:v8];
   [(IPLanguageListManager *)v9 setRegion:v5 updateFirstLanguage:0];
 
   preferredLanguages = [(IPLanguageListManager *)v9 preferredLanguages];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return preferredLanguages;
 }
@@ -859,17 +845,17 @@ LABEL_7:
 
 + (void)enableInputModesForLocale:()IntlPreferencesAdditions addToFront:
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v5 = [self _inputModesToEnableForLocale:?];
-  iPUIKeyboardInputModeController = [(objc_class *)IPUIKeyboardInputModeController() sharedInputModeController];
+  v28 = *MEMORY[0x277D85DE8];
+  v5 = [self _inputModesToEnableForLocale:a3];
+  iPUIKeyboardInputModeController = [(objc_class *)IPUIKeyboardInputModeController(v5 sharedInputModeController];
   activeInputModeIdentifiers = [iPUIKeyboardInputModeController activeInputModeIdentifiers];
 
-  v8 = [activeInputModeIdentifiers mutableCopy];
-  v21 = 0u;
-  v22 = 0u;
+  v9 = [activeInputModeIdentifiers mutableCopy];
   v23 = 0u;
   v24 = 0u;
-  v20 = v5;
+  v25 = 0u;
+  v26 = 0u;
+  v22 = v5;
   if (a4)
   {
     reverseObjectEnumerator = [v5 reverseObjectEnumerator];
@@ -880,101 +866,101 @@ LABEL_7:
     reverseObjectEnumerator = v5;
   }
 
-  v10 = reverseObjectEnumerator;
-  v11 = [reverseObjectEnumerator countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (v11)
+  v11 = reverseObjectEnumerator;
+  v12 = [reverseObjectEnumerator countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v12)
   {
-    v12 = v11;
-    v13 = *v22;
+    v13 = v12;
+    v14 = *v24;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v13)
+        if (*v24 != v14)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
-        if (([v8 containsObject:v15] & 1) == 0)
+        v16 = *(*(&v23 + 1) + 8 * i);
+        if (([v9 containsObject:v16] & 1) == 0)
         {
-          v16 = IPUIKeyboardCanonicalInputModeName(v15);
-          v17 = [v8 containsObject:v16];
+          v17 = IPUIKeyboardCanonicalInputModeName(v16);
+          v18 = [v9 containsObject:v17];
 
-          if ((v17 & 1) == 0)
+          if ((v18 & 1) == 0)
           {
             if (a4)
             {
-              [v8 insertObject:v15 atIndex:0];
+              [v9 insertObject:v16 atIndex:0];
             }
 
             else
             {
-              [v8 addObject:v15];
+              [v9 addObject:v16];
             }
           }
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 
-  iPUIKeyboardPreferencesController = [(objc_class *)IPUIKeyboardPreferencesController() sharedPreferencesController];
-  [iPUIKeyboardPreferencesController saveInputModes:v8];
+  iPUIKeyboardPreferencesController = [(objc_class *)IPUIKeyboardPreferencesController(v19 sharedPreferencesController];
+  [iPUIKeyboardPreferencesController saveInputModes:v9];
 
   CFPreferencesSetAppValue(@"KeyboardLastUsed", 0, @"com.apple.Preferences");
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_inputModesToEnableForLocale:()IntlPreferencesAdditions
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v61[1] = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = v3;
   if (v3)
   {
     languageIdentifier = [v3 languageIdentifier];
+    v7 = languageIdentifier;
     if (languageIdentifier)
     {
-      iPUIKeyboardInputModeController = [(objc_class *)IPUIKeyboardInputModeController() sharedInputModeController];
-      v54[0] = v4;
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:1];
-      v8 = [iPUIKeyboardInputModeController suggestedInputModesForLocales:v7];
+      iPUIKeyboardInputModeController = [(objc_class *)IPUIKeyboardInputModeController(languageIdentifier sharedInputModeController];
+      v61[0] = v4;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:1];
+      v10 = [iPUIKeyboardInputModeController suggestedInputModesForLocales:v9];
 
-      if ([v8 count])
+      if ([v10 count])
       {
-        v49 = 0u;
-        v50 = 0u;
-        v47 = 0u;
-        v48 = 0u;
-        v9 = v8;
-        v10 = [v9 countByEnumeratingWithState:&v47 objects:v53 count:16];
-        if (v10)
+        v56 = 0u;
+        v57 = 0u;
+        v54 = 0u;
+        v55 = 0u;
+        v11 = v10;
+        v12 = [v11 countByEnumeratingWithState:&v54 objects:v60 count:16];
+        if (v12)
         {
-          v11 = v10;
-          v12 = *v48;
+          v13 = v12;
+          v14 = *v55;
 LABEL_6:
-          v13 = 0;
+          v15 = 0;
           while (1)
           {
-            if (*v48 != v12)
+            if (*v55 != v14)
             {
-              objc_enumerationMutation(v9);
+              objc_enumerationMutation(v11);
             }
 
-            v14 = *(*(&v47 + 1) + 8 * v13);
-            if ([v14 enabled])
+            v16 = *(*(&v54 + 1) + 8 * v15);
+            if ([v16 enabled])
             {
               break;
             }
 
-            if (v11 == ++v13)
+            if (v13 == ++v15)
             {
-              v11 = [v9 countByEnumeratingWithState:&v47 objects:v53 count:16];
-              if (v11)
+              v13 = [v11 countByEnumeratingWithState:&v54 objects:v60 count:16];
+              if (v13)
               {
                 goto LABEL_6;
               }
@@ -983,7 +969,7 @@ LABEL_6:
             }
           }
 
-          identifier = [v14 identifier];
+          identifier = [v16 identifier];
 
           if (identifier)
           {
@@ -996,72 +982,74 @@ LABEL_6:
 LABEL_12:
         }
 
-        v17 = [v9 objectAtIndex:0];
-        identifier = [v17 identifier];
+        v21 = [v11 objectAtIndex:0];
+        identifier = [v21 identifier];
       }
 
       else
       {
-        identifier = IPUIKeyboardCanonicalInputModeName(languageIdentifier);
+        v19 = IPUIKeyboardCanonicalInputModeName(v7);
+        identifier = v19;
       }
 
 LABEL_18:
-      iPUIKeyboardInputModeController2 = [(objc_class *)IPUIKeyboardInputModeController() sharedInputModeController];
+      iPUIKeyboardInputModeController2 = [(objc_class *)IPUIKeyboardInputModeController(v19 sharedInputModeController];
       normalizedEnabledInputModeIdentifiers = [iPUIKeyboardInputModeController2 normalizedEnabledInputModeIdentifiers];
 
-      if (([normalizedEnabledInputModeIdentifiers containsObject:identifier] & 1) == 0)
+      v24 = [normalizedEnabledInputModeIdentifiers containsObject:identifier];
+      if ((v24 & 1) == 0)
       {
-        v20 = IPUIKeyboardInputModeGetBaseLanguage(identifier);
-        v42 = v8;
-        if ([v20 isEqualToString:@"zh"])
+        v26 = IPUIKeyboardInputModeGetBaseLanguage(identifier);
+        v49 = v10;
+        if ([v26 isEqualToString:@"zh"])
         {
-          v21 = IPUIKeyboardInputModeGetLanguageWithRegion(identifier);
+          v27 = IPUIKeyboardInputModeGetLanguageWithRegion(identifier);
 
-          v20 = v21;
+          v26 = v27;
         }
 
-        v45 = 0u;
-        v46 = 0u;
-        v43 = 0u;
-        v44 = 0u;
-        v22 = normalizedEnabledInputModeIdentifiers;
-        v23 = [v22 countByEnumeratingWithState:&v43 objects:v52 count:16];
-        if (v23)
+        v52 = 0u;
+        v53 = 0u;
+        v50 = 0u;
+        v51 = 0u;
+        v28 = normalizedEnabledInputModeIdentifiers;
+        v29 = [v28 countByEnumeratingWithState:&v50 objects:v59 count:16];
+        if (v29)
         {
-          v24 = v23;
-          v39 = normalizedEnabledInputModeIdentifiers;
-          v40 = languageIdentifier;
-          v41 = v4;
-          v25 = *v44;
+          v30 = v29;
+          v46 = normalizedEnabledInputModeIdentifiers;
+          v47 = v7;
+          v48 = v4;
+          v31 = *v51;
           while (2)
           {
-            for (i = 0; i != v24; ++i)
+            for (i = 0; i != v30; ++i)
             {
-              if (*v44 != v25)
+              if (*v51 != v31)
               {
-                objc_enumerationMutation(v22);
+                objc_enumerationMutation(v28);
               }
 
-              v27 = *(*(&v43 + 1) + 8 * i);
-              v28 = IPUIKeyboardInputModeGetBaseLanguage(v27);
-              if ([v28 isEqualToString:@"zh"])
+              v33 = *(*(&v50 + 1) + 8 * i);
+              v34 = IPUIKeyboardInputModeGetBaseLanguage(v33);
+              if ([v34 isEqualToString:@"zh"])
               {
-                v29 = IPUIKeyboardInputModeGetLanguageWithRegion(v27);
+                v35 = IPUIKeyboardInputModeGetLanguageWithRegion(v33);
 
-                v28 = v29;
+                v34 = v35;
               }
 
-              if ([v20 isEqualToString:{v28, v39, v40, v41}])
+              if ([v26 isEqualToString:{v34, v46, v47, v48}])
               {
-                v30 = v27;
+                v36 = v33;
 
-                identifier = v30;
+                identifier = v36;
                 goto LABEL_33;
               }
             }
 
-            v24 = [v22 countByEnumeratingWithState:&v43 objects:v52 count:16];
-            if (v24)
+            v30 = [v28 countByEnumeratingWithState:&v50 objects:v59 count:16];
+            if (v30)
             {
               continue;
             }
@@ -1070,46 +1058,44 @@ LABEL_18:
           }
 
 LABEL_33:
-          languageIdentifier = v40;
-          v4 = v41;
-          normalizedEnabledInputModeIdentifiers = v39;
+          v7 = v47;
+          v4 = v48;
+          normalizedEnabledInputModeIdentifiers = v46;
         }
 
-        v8 = v42;
+        v10 = v49;
       }
 
-      iPUIKeyboardInputModeController3 = [(objc_class *)IPUIKeyboardInputModeController() sharedInputModeController];
+      iPUIKeyboardInputModeController3 = [(objc_class *)IPUIKeyboardInputModeController(v24 sharedInputModeController];
       supportedInputModeIdentifiers = [iPUIKeyboardInputModeController3 supportedInputModeIdentifiers];
 
-      v33 = IPUIKeyboardInputModeGetNormalizedIdentifier(identifier);
-      v34 = [supportedInputModeIdentifiers containsObject:v33];
+      v39 = IPUIKeyboardInputModeGetNormalizedIdentifier(identifier);
+      v40 = [supportedInputModeIdentifiers containsObject:v39];
 
-      if ((v34 & 1) == 0)
+      if ((v40 & 1) == 0)
       {
-        v35 = IPUIKeyboardInputMode_Intl();
+        v43 = IPUIKeyboardInputMode_Intl(v41, v42);
 
-        identifier = v35;
+        identifier = v43;
       }
 
-      v36 = IPUIKeyboardInputModeGetIdentifierWithKeyboardLayouts(identifier);
-      v51 = v36;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+      v44 = IPUIKeyboardInputModeGetIdentifierWithKeyboardLayouts(identifier);
+      v58 = v44;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
     }
 
     else
     {
-      v15 = 0;
+      v17 = 0;
     }
   }
 
   else
   {
-    v15 = 0;
+    v17 = 0;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v17;
 }
 
 + (id)_sanitizedLanguageIdentifierFromKeyboardLanguage:()IntlPreferencesAdditions
@@ -1124,7 +1110,7 @@ LABEL_33:
 
 + (id)_sanitizedLanguageIdentifierFromKeyboardLanguage:()IntlPreferencesAdditions currentLocale:
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   if (![v6 length])
@@ -1133,40 +1119,40 @@ LABEL_33:
     goto LABEL_26;
   }
 
-  v36 = [MEMORY[0x277CBEAF8] componentsFromLocaleIdentifier:v6];
-  v8 = [v36 objectForKeyedSubscript:*MEMORY[0x277CBE6C8]];
+  v35 = [MEMORY[0x277CBEAF8] componentsFromLocaleIdentifier:v6];
+  v8 = [v35 objectForKeyedSubscript:*MEMORY[0x277CBE6C8]];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   renderableUILanguages = [self renderableUILanguages];
-  v10 = [renderableUILanguages countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v10 = [renderableUILanguages countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (!v10)
   {
     goto LABEL_25;
   }
 
-  v34 = v7;
-  v35 = v6;
-  v11 = *v38;
+  v33 = v7;
+  v34 = v6;
+  v11 = *v37;
   v12 = *MEMORY[0x277CBE6F8];
   while (2)
   {
     for (i = 0; i != v10; i = i + 1)
     {
-      if (*v38 != v11)
+      if (*v37 != v11)
       {
         objc_enumerationMutation(renderableUILanguages);
       }
 
-      v14 = *(*(&v37 + 1) + 8 * i);
+      v14 = *(*(&v36 + 1) + 8 * i);
       v15 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:v14];
       languageCode = [v15 languageCode];
       v17 = [v8 isEqualToString:languageCode];
 
       if (v17)
       {
-        v18 = [v36 objectForKeyedSubscript:v12];
+        v18 = [v35 objectForKeyedSubscript:v12];
         v19 = v18;
         if (v18)
         {
@@ -1175,7 +1161,7 @@ LABEL_33:
 
         else
         {
-          v20 = [MEMORY[0x277CBEAF8] scriptCodeFromLanguage:v35];
+          v20 = [MEMORY[0x277CBEAF8] scriptCodeFromLanguage:v34];
         }
 
         v21 = v20;
@@ -1199,12 +1185,12 @@ LABEL_33:
         {
 
           v27 = *MEMORY[0x277CBE690];
-          v7 = v34;
-          renderableUILanguages = [v34 objectForKey:*MEMORY[0x277CBE690]];
-          v28 = [v36 objectForKeyedSubscript:v27];
+          v7 = v33;
+          renderableUILanguages = [v33 objectForKey:*MEMORY[0x277CBE690]];
+          v28 = [v35 objectForKeyedSubscript:v27];
           systemLanguages = [MEMORY[0x277CBEAF8] systemLanguages];
-          v6 = v35;
-          v30 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:v35];
+          v6 = v34;
+          v30 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:v34];
           if ([systemLanguages containsObject:v30])
           {
             v31 = [v28 length];
@@ -1212,7 +1198,7 @@ LABEL_33:
             if (!v31)
             {
 LABEL_24:
-              v10 = [MEMORY[0x277CBEAF8] languageFromLanguage:v35 byReplacingRegion:renderableUILanguages];
+              v10 = [MEMORY[0x277CBEAF8] languageFromLanguage:v34 byReplacingRegion:renderableUILanguages];
 
               goto LABEL_25;
             }
@@ -1230,7 +1216,7 @@ LABEL_24:
       }
     }
 
-    v10 = [renderableUILanguages countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v10 = [renderableUILanguages countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v10)
     {
       continue;
@@ -1239,19 +1225,18 @@ LABEL_24:
     break;
   }
 
-  v7 = v34;
-  v6 = v35;
+  v7 = v33;
+  v6 = v34;
 LABEL_25:
 
 LABEL_26:
-  v32 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 + (id)languageIdentifierForRegisteringPreferredLanguageFromAddedKeyboardLanguage:()IntlPreferencesAdditions forPreferredLanguages:
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = [self _sanitizedLanguageIdentifierFromKeyboardLanguage:a3];
   if (!v7)
@@ -1261,26 +1246,26 @@ LABEL_26:
   }
 
   v8 = [MEMORY[0x277CBEAF8] baseLanguageFromLanguage:v7];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [MEMORY[0x277CBEAF8] baseLanguageFromLanguage:{*(*(&v23 + 1) + 8 * i), v23}];
+        v14 = [MEMORY[0x277CBEAF8] baseLanguageFromLanguage:{*(*(&v22 + 1) + 8 * i), v22}];
         v15 = [v14 isEqualToString:v8];
 
         if (v15)
@@ -1290,7 +1275,7 @@ LABEL_26:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v11)
       {
         continue;
@@ -1329,7 +1314,6 @@ LABEL_14:
 LABEL_18:
 
 LABEL_19:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -1436,12 +1420,12 @@ LABEL_16:
 
 + (id)_archivedPreferencesWithOverridingLanguages:()IntlPreferencesAdditions targetPlatform:hash:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v7 = a3;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  memset(&v30, 0, sizeof(v30));
-  CC_SHA1_Init(&v30);
+  memset(&v29, 0, sizeof(v29));
+  CC_SHA1_Init(&v29);
   if ([v7 count])
   {
     v10 = [v7 copy];
@@ -1462,7 +1446,7 @@ LABEL_16:
   }
 
   [dictionary setObject:v10 forKeyedSubscript:@"AppleLanguages"];
-  IP_hashKeyValue(&v30, @"AppleLanguages", v10);
+  IP_hashKeyValue(&v29, @"AppleLanguages", v10);
 
 LABEL_6:
   preferredLocale = [MEMORY[0x277CBEAF8] preferredLocale];
@@ -1488,14 +1472,14 @@ LABEL_6:
     }
 
     [dictionary setObject:localeIdentifier forKeyedSubscript:@"AppleLocale"];
-    IP_hashKeyValue(&v30, @"AppleLocale", localeIdentifier);
+    IP_hashKeyValue(&v29, @"AppleLocale", localeIdentifier);
   }
 
   _preferredTemperatureUnit = [MEMORY[0x277CBEAF8] _preferredTemperatureUnit];
   if ([_preferredTemperatureUnit length])
   {
     [dictionary setObject:_preferredTemperatureUnit forKeyedSubscript:@"AppleTemperatureUnit"];
-    IP_hashKeyValue(&v30, @"AppleTemperatureUnit", _preferredTemperatureUnit);
+    IP_hashKeyValue(&v29, @"AppleTemperatureUnit", _preferredTemperatureUnit);
   }
 
   v23 = *MEMORY[0x277CCA208];
@@ -1503,14 +1487,14 @@ LABEL_6:
   if (v24)
   {
     [dictionary setObject:v24 forKeyedSubscript:@"AppleICUForce12HourTime"];
-    IP_hashKeyValue(&v30, @"AppleICUForce12HourTime", v24);
+    IP_hashKeyValue(&v29, @"AppleICUForce12HourTime", v24);
   }
 
   v25 = [standardUserDefaults objectForKey:@"AppleICUForce24HourTime" inDomain:v23];
   if (v25)
   {
     [dictionary setObject:v25 forKeyedSubscript:@"AppleICUForce24HourTime"];
-    IP_hashKeyValue(&v30, @"AppleICUForce24HourTime", v25);
+    IP_hashKeyValue(&v29, @"AppleICUForce24HourTime", v25);
   }
 
   _currentGlobalUserInflectionIfAvailable = [MEMORY[0x277CCAEA8] _currentGlobalUserInflectionIfAvailable];
@@ -1520,73 +1504,69 @@ LABEL_6:
     [dictionary setObject:externalRepresentation forKeyedSubscript:@"ArchivedInflection"];
   }
 
-  CC_SHA1_Final(md, &v30);
+  CC_SHA1_Final(md, &v29);
   if (a5)
   {
     *a5 = [MEMORY[0x277CBEA90] dataWithBytes:md length:20];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 + (id)_hashesFromAppPreferences:()IntlPreferencesAdditions
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([v4 count])
   {
     v5 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v4, "count")}];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v19 = v4;
+    v18 = v4;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v21 objects:v27 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v22;
+      v9 = *v21;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v22 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * i);
-          v12 = [v6 objectForKeyedSubscript:{v11, v19}];
-          v20 = 0;
-          v13 = [self _archivedPreferencesWithOverridingLanguages:v12 targetPlatform:0 hash:&v20];
-          v25[0] = @"AppleLanguages";
-          v25[1] = @"hash";
-          v26[0] = v12;
-          v26[1] = v20;
+          v11 = *(*(&v20 + 1) + 8 * i);
+          v12 = [v6 objectForKeyedSubscript:{v11, v18}];
+          v19 = 0;
+          v13 = [self _archivedPreferencesWithOverridingLanguages:v12 targetPlatform:0 hash:&v19];
+          v24[0] = @"AppleLanguages";
+          v24[1] = @"hash";
+          v25[0] = v12;
+          v25[1] = v19;
           v14 = MEMORY[0x277CBEAC0];
-          v15 = v20;
-          v16 = [v14 dictionaryWithObjects:v26 forKeys:v25 count:2];
+          v15 = v19;
+          v16 = [v14 dictionaryWithObjects:v25 forKeys:v24 count:2];
           [v5 setObject:v16 forKeyedSubscript:v11];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v21 objects:v27 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
       }
 
       while (v8);
     }
 
-    v4 = v19;
+    v4 = v18;
   }
 
   else
   {
     v5 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1699,17 +1679,17 @@ LABEL_20:
 
 - (id)selectedScript
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   selectableScriptCodes = [self selectableScriptCodes];
-  v3 = [selectableScriptCodes countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v3 = [selectableScriptCodes countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v23;
+    v5 = *v22;
     v6 = *MEMORY[0x277CBF008];
     v7 = *MEMORY[0x277CBF040];
     v8 = *MEMORY[0x277CBF030];
@@ -1718,12 +1698,12 @@ LABEL_20:
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v23 != v5)
+        if (*v22 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         preferenceKeysForSelectableScripts = [self preferenceKeysForSelectableScripts];
         v12 = [preferenceKeysForSelectableScripts objectForKeyedSubscript:v10];
 
@@ -1739,7 +1719,7 @@ LABEL_20:
       }
 
       selectableScriptCodes = obj;
-      v4 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v4)
       {
         continue;
@@ -1756,8 +1736,6 @@ LABEL_20:
   v12 = [MEMORY[0x277CBEAF8] componentsFromLocaleIdentifier:v17];
   v18 = [(__CFString *)v12 objectForKeyedSubscript:*MEMORY[0x277CBE6F8]];
 LABEL_12:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -1894,29 +1872,29 @@ LABEL_12:
 
 - (id)preferenceKeysForSelectableScripts
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   selectableScriptCodes = [self selectableScriptCodes];
   v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(selectableScriptCodes, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = selectableScriptCodes;
-  v4 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         v9 = MEMORY[0x277CCACA8];
         languageCode = [self languageCode];
         v11 = [v9 stringWithFormat:@"%@_%@", languageCode, v8];
@@ -1925,29 +1903,25 @@ LABEL_12:
         [v3 setObject:v12 forKeyedSubscript:v8];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (void)setLocaleOnly:()IntlPreferencesAdditions .cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEAF8] preferredLocale];
   v3 = [v2 localeIdentifier];
-  v5 = 138543618;
-  v6 = a1;
-  v7 = 2114;
-  v8 = v3;
-  _os_log_fault_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Invalid locale %{public}@. Current locale is %{public}@.", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = a1;
+  v6 = 2114;
+  v7 = v3;
+  _os_log_fault_impl(&dword_22DFB7000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Invalid locale %{public}@. Current locale is %{public}@.", &v4, 0x16u);
 }
 
 @end

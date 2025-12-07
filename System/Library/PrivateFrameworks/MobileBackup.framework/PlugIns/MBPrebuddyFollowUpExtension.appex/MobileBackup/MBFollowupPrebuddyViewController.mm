@@ -22,6 +22,7 @@
 - (void)_presentError:(id)error;
 - (void)_presentNavigationViewControllerWithRootViewController:(id)controller;
 - (void)_presentNextViewController:(id)controller;
+- (void)_processEligibilityStatus:(int64_t)status needsTemporaryStorage:(BOOL)storage daysUntilExpiration:(int64_t)expiration needsBackupEnabled:(BOOL)enabled error:(id)error;
 - (void)mb_didTapCancelFromViewController:(id)controller;
 - (void)mb_didTapNextFromViewController:(id)controller;
 - (void)prebuddyCancel:(id)cancel;
@@ -122,7 +123,7 @@
       *buf = 138543362;
       v12 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to fetch disabled sync categories: %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch disabled sync categories: %{public}@", v7);
     }
   }
 
@@ -225,10 +226,9 @@ LABEL_18:
   {
     eligibilityError = self->_eligibilityError;
     *buf = 138543362;
-    v14 = eligibilityError;
+    v13 = eligibilityError;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "_initialViewController should not be here. eligibilityError: %{public}@", buf, 0xCu);
-    v12 = self->_eligibilityError;
-    _MBLog();
+    _MBLog(@"E ", "_initialViewController should not be here. eligibilityError: %{public}@", self->_eligibilityError);
   }
 
   _extraStorageOfferViewController = 0;
@@ -305,10 +305,9 @@ LABEL_19:
       {
         v10 = self->_eligibilityError;
         *buf = 138543362;
-        v14 = v10;
+        v13 = v10;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "_viewControllerAfterGettingStarted: should not be here. eligibilityError: %{public}@", buf, 0xCu);
-        v12 = self->_eligibilityError;
-        _MBLog();
+        _MBLog(@"E ", "_viewControllerAfterGettingStarted: should not be here. eligibilityError: %{public}@", self->_eligibilityError);
       }
 
       _startTransferViewController = 0;
@@ -391,6 +390,86 @@ LABEL_19:
     [v8 setModalInPresentation:1];
     [(MBFollowupPrebuddyViewController *)self presentViewController:v8 animated:0 completion:0];
   }
+}
+
+- (void)_processEligibilityStatus:(int64_t)status needsTemporaryStorage:(BOOL)storage daysUntilExpiration:(int64_t)expiration needsBackupEnabled:(BOOL)enabled error:(id)error
+{
+  storageCopy = storage;
+  errorCopy = error;
+  self->_eligibilityStatus = status;
+  objc_storeStrong(&self->_eligibilityError, error);
+  self->_daysUntilExpiration = expiration;
+  self->_needsBackupEnabled = enabled;
+  switch(status)
+  {
+    case 2:
+      v18 = MBGetDefaultLog();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        v19 = [NSNumber numberWithBool:storageCopy];
+        *buf = 138543362;
+        v23 = v19;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "MBMegaBackupEligibilityStateEligible: needsTemporaryStorage: %{public}@", buf, 0xCu);
+
+        v20 = [NSNumber numberWithBool:storageCopy];
+        _MBLog(@"E ", "MBMegaBackupEligibilityStateEligible: needsTemporaryStorage: %{public}@", v20);
+      }
+
+      self->_needsTemporaryStorage = storageCopy;
+      break;
+    case 1:
+      v15 = MBGetDefaultLog();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543362;
+        v23 = errorCopy;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "MBMegaBackupEligibilityStateIneligible: %{public}@", buf, 0xCu);
+        _MBLog(@"E ", "MBMegaBackupEligibilityStateIneligible: %{public}@", errorCopy);
+      }
+
+      domain = [errorCopy domain];
+      if ([domain isEqualToString:@"MBMegaBackupEligibilityErrorDomain"])
+      {
+        code = [errorCopy code];
+
+        if (code == 6)
+        {
+LABEL_7:
+          [(MBFollowupPrebuddyViewController *)self _presentError:errorCopy];
+          goto LABEL_21;
+        }
+      }
+
+      else
+      {
+      }
+
+      break;
+    case 0:
+      v14 = MBGetDefaultLog();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543362;
+        v23 = errorCopy;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "MBMegaBackupEligibilityStateError: %{public}@", buf, 0xCu);
+        _MBLog(@"E ", "MBMegaBackupEligibilityStateError: %{public}@", errorCopy);
+      }
+
+      goto LABEL_7;
+  }
+
+  _initialViewController = [(MBFollowupPrebuddyViewController *)self _initialViewController];
+  if ([_initialViewController mb_step] == 5)
+  {
+    [(MBFollowupPrebuddyViewController *)self _presentNextViewController:_initialViewController];
+  }
+
+  else
+  {
+    [(MBFollowupPrebuddyViewController *)self _presentNavigationViewControllerWithRootViewController:_initialViewController];
+  }
+
+LABEL_21:
 }
 
 - (void)_presentError:(id)error
@@ -571,13 +650,13 @@ LABEL_31:
     block[3] = &unk_10001C9C8;
     block[4] = self;
     dispatch_async(&_dispatch_main_q, block);
-    v53[0] = _NSConcreteStackBlock;
-    v53[1] = 3221225472;
-    v53[2] = sub_10000B548;
-    v53[3] = &unk_10001C6D0;
-    v53[4] = self;
-    [(MBFollowupPrebuddyViewController *)self _extendExpirationDate:v53];
-    goto LABEL_18;
+    v51[0] = _NSConcreteStackBlock;
+    v51[1] = 3221225472;
+    v51[2] = sub_10000B548;
+    v51[3] = &unk_10001C6D0;
+    v51[4] = self;
+    [(MBFollowupPrebuddyViewController *)self _extendExpirationDate:v51];
+    goto LABEL_17;
   }
 
   identifier2 = [actionCopy identifier];
@@ -587,9 +666,9 @@ LABEL_31:
   {
     v15 = [NSURL URLWithString:@"https://www.apple.com/shop/orders/list"];
     v16 = +[LSApplicationWorkspace defaultWorkspace];
-    v52 = 0;
-    v17 = [v16 openURL:v15 withOptions:0 error:&v52];
-    v18 = v52;
+    v50 = 0;
+    v17 = [v16 openURL:v15 withOptions:0 error:&v50];
+    v18 = v50;
 
     if ((v17 & 1) == 0)
     {
@@ -597,17 +676,17 @@ LABEL_31:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v56 = v18;
+        v54 = v18;
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Unable to open track orders URL: %@", buf, 0xCu);
-LABEL_15:
-        _MBLog();
-        goto LABEL_16;
+        _MBLog(@"E ", "Unable to open track orders URL: %@", v18);
       }
+
+LABEL_15:
 
       goto LABEL_16;
     }
 
-    goto LABEL_17;
+    goto LABEL_16;
   }
 
   identifier3 = [actionCopy identifier];
@@ -617,9 +696,9 @@ LABEL_15:
   {
     v15 = [NSURL URLWithString:@"prefs:root=APPLE_ACCOUNT&path=ICLOUD_SERVICE/com.apple.Dataclass"];
     v22 = +[LSApplicationWorkspace defaultWorkspace];
-    v51 = 0;
-    v23 = [v22 openSensitiveURL:v15 withOptions:0 error:&v51];
-    v18 = v51;
+    v49 = 0;
+    v23 = [v22 openSensitiveURL:v15 withOptions:0 error:&v49];
+    v18 = v49;
 
     if ((v23 & 1) == 0)
     {
@@ -627,18 +706,18 @@ LABEL_15:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v56 = v18;
+        v54 = v18;
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Unable to open iCloud sync URL: %@", buf, 0xCu);
-        goto LABEL_15;
+        _MBLog(@"E ", "Unable to open iCloud sync URL: %@", v18);
       }
 
-LABEL_16:
+      goto LABEL_15;
     }
 
-LABEL_17:
+LABEL_16:
     completionCopy[2](completionCopy, 1);
 
-    goto LABEL_18;
+    goto LABEL_17;
   }
 
   identifier4 = [actionCopy identifier];
@@ -648,9 +727,9 @@ LABEL_17:
   {
     v15 = [NSURL URLWithString:@"prefs:root=APPLE_ACCOUNT&path=ICLOUD_SERVICE/STORAGE_AND_BACKUP/LOCAL_BACKUP"];
     v26 = +[LSApplicationWorkspace defaultWorkspace];
-    v50 = 0;
-    v27 = [v26 openSensitiveURL:v15 withOptions:0 error:&v50];
-    v18 = v50;
+    v48 = 0;
+    v27 = [v26 openSensitiveURL:v15 withOptions:0 error:&v48];
+    v18 = v48;
 
     if ((v27 & 1) == 0)
     {
@@ -658,22 +737,22 @@ LABEL_17:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v56 = v18;
+        v54 = v18;
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Unable to open backup toggles URL: %@", buf, 0xCu);
-        goto LABEL_15;
+        _MBLog(@"E ", "Unable to open backup toggles URL: %@", v18);
       }
 
-      goto LABEL_16;
+      goto LABEL_15;
     }
 
-    goto LABEL_17;
+    goto LABEL_16;
   }
 
   v28 = objc_opt_new();
   v29 = +[NSDate now];
-  v49 = 0;
-  v30 = [v28 setPrebuddyUIDeltaTelemetry:@"EnterPrebuddyUIDateDelta" date:v29 error:&v49];
-  v31 = v49;
+  v47 = 0;
+  v30 = [v28 setPrebuddyUIDeltaTelemetry:@"EnterPrebuddyUIDateDelta" date:v29 error:&v47];
+  v31 = v47;
 
   if ((v30 & 1) == 0)
   {
@@ -681,13 +760,11 @@ LABEL_17:
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v56 = @"EnterPrebuddyUIDateDelta";
-      v57 = 2112;
-      v58 = v31;
+      v54 = @"EnterPrebuddyUIDateDelta";
+      v55 = 2112;
+      v56 = v31;
       _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Failed to set telemetry %@: %@", buf, 0x16u);
-      v42 = @"EnterPrebuddyUIDateDelta";
-      v43 = v31;
-      _MBLog();
+      _MBLog(@"E ", "Failed to set telemetry %@: %@", @"EnterPrebuddyUIDateDelta", v31);
     }
   }
 
@@ -697,20 +774,20 @@ LABEL_17:
 
   [(MBFollowupPrebuddyViewController *)self _fetchDeepLinkURL];
   _entryPoint = [(MBFollowupPrebuddyViewController *)self _entryPoint];
-  v48 = 0;
-  LOBYTE(v34) = [v28 setEntryPointForMegaBackupTelemetry:_entryPoint error:&v48];
-  v36 = v48;
+  v46 = 0;
+  LOBYTE(v34) = [v28 setEntryPointForMegaBackupTelemetry:_entryPoint error:&v46];
+  v36 = v46;
   if ((v34 & 1) == 0)
   {
     v37 = MBGetDefaultLog();
     if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218242;
-      v56 = _entryPoint;
-      v57 = 2112;
-      v58 = v36;
+      v54 = _entryPoint;
+      v55 = 2112;
+      v56 = v36;
       _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Failed to set EntryPoint for MegaBackup telemetry to %ld: %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to set EntryPoint for MegaBackup telemetry to %ld: %@", _entryPoint, v36);
     }
   }
 
@@ -723,28 +800,28 @@ LABEL_17:
 
   else
   {
-    v47[0] = _NSConcreteStackBlock;
-    v47[1] = 3221225472;
-    v47[2] = sub_10000B5E4;
-    v47[3] = &unk_10001C9C8;
-    v47[4] = self;
-    dispatch_async(&_dispatch_main_q, v47);
+    v45[0] = _NSConcreteStackBlock;
+    v45[1] = 3221225472;
+    v45[2] = sub_10000B5E4;
+    v45[3] = &unk_10001C9C8;
+    v45[4] = self;
+    dispatch_async(&_dispatch_main_q, v45);
     _xpcQueue = [(MBFollowupPrebuddyViewController *)self _xpcQueue];
-    v44[0] = _NSConcreteStackBlock;
-    v44[1] = 3221225472;
-    v44[2] = sub_10000B674;
-    v44[3] = &unk_10001CA40;
-    v44[4] = self;
-    v45 = v39;
-    v46 = _entryPoint;
+    v42[0] = _NSConcreteStackBlock;
+    v42[1] = 3221225472;
+    v42[2] = sub_10000B674;
+    v42[3] = &unk_10001CA40;
+    v42[4] = self;
+    v43 = v39;
+    v44 = _entryPoint;
     v41 = v39;
-    dispatch_async(_xpcQueue, v44);
+    dispatch_async(_xpcQueue, v42);
 
     [(MBFollowupPrebuddyViewController *)self setFollowupItem:itemCopy];
     completionCopy[2](completionCopy, 0);
   }
 
-LABEL_18:
+LABEL_17:
 }
 
 - (void)_extendExpirationDate:(id)date
@@ -772,7 +849,7 @@ LABEL_18:
         v21 = 2112;
         v22 = v11;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to set telemetry %@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "Failed to set telemetry %@: %@", @"MegaBackupRefreshDelta", v11);
       }
     }
 
@@ -934,7 +1011,7 @@ LABEL_12:
         {
           *v8 = 0;
           _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "mb_didTapCancelFromViewController: should not be here.", v8, 2u);
-          _MBLog();
+          _MBLog(@"E ", "mb_didTapCancelFromViewController: should not be here.");
         }
       }
 

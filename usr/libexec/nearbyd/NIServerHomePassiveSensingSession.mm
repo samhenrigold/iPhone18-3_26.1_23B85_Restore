@@ -3,6 +3,7 @@
 - (BOOL)updateConfiguration:(id)configuration;
 - (NIServerHomePassiveSensingSession)initWithResourcesManager:(id)manager configuration:(id)configuration error:(id *)error;
 - (id).cxx_construct;
+- (id)_disableAllServicesAndSendHangupSignal:(BOOL)signal;
 - (id)configure;
 - (id)disableAllServices;
 - (id)lastConfiguration;
@@ -63,7 +64,7 @@
 
     if (managerCopy)
     {
-      [managerCopy protobufLogger];
+      objc_msgSend_protobufLogger(managerCopy);
       v24 = v37;
     }
 
@@ -524,10 +525,10 @@ LABEL_16:
       std::locale::~locale(v55);
       std::iostream::~basic_iostream();
       std::ios::~ios();
-      v24 = &v46;
+      v24 = v46;
       if (v47 < 0)
       {
-        v24 = v46;
+        v24 = v46[0];
       }
 
       *v52 = 136315138;
@@ -535,7 +536,7 @@ LABEL_16:
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#ses-hps,processing options are %s", v52, 0xCu);
       if (v47 < 0)
       {
-        operator delete(v46);
+        operator delete(v46[0]);
       }
     }
 
@@ -632,13 +633,13 @@ LABEL_16:
         sub_1000195BC();
       }
 
-      v46 = v52;
+      v46[0] = v52;
       *buf = &v48;
       *&buf[8] = &v51;
-      sub_10023DAAC(&self->_responderSessions.__table_.__bucket_list_.__ptr_, v52);
+      sub_10023DAAC(&self->_responderSessions.__table_.__bucket_list_.__ptr_, v52, &unk_100548C50, v46, buf);
       if ((v35 & 1) == 0 && os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
       {
-        sub_1004C4544(v52);
+        sub_1004C4544();
       }
 
       v36 = qword_1009F9820;
@@ -699,7 +700,7 @@ LABEL_64:
 
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
   {
-    sub_1004C4720(self);
+    sub_1004C4720();
   }
 
 LABEL_69:
@@ -710,8 +711,8 @@ LABEL_69:
   deviceCopy = device;
   rediscoveredCopy = rediscovered;
   dispatch_assert_queue_V2(self->_clientQueue);
-  v33[0] = [deviceCopy u64Identifier];
-  v8 = sub_100009978(&self->_responderSessions.__table_.__bucket_list_.__ptr_, v33);
+  u64Identifier = [deviceCopy u64Identifier];
+  v8 = sub_100009978(&self->_responderSessions.__table_.__bucket_list_.__ptr_, &u64Identifier);
   if (v8)
   {
     v32.receiver = self;
@@ -724,9 +725,9 @@ LABEL_69:
       if (v10)
       {
         ptr = self->_pbLogger.__ptr_;
-        u64Identifier = [rediscoveredCopy u64Identifier];
+        u64Identifier2 = [rediscoveredCopy u64Identifier];
         sub_1002D63A8(v10, __p);
-        sub_1002E1DCC(ptr, u64Identifier, __p, v9);
+        sub_1002E1DCC(ptr, u64Identifier2, __p, v9);
         if (*__p)
         {
           *&__p[8] = *__p;
@@ -740,15 +741,15 @@ LABEL_69:
       }
     }
 
-    u64Identifier2 = [rediscoveredCopy u64Identifier];
     u64Identifier3 = [rediscoveredCopy u64Identifier];
-    u64Identifier4 = [deviceCopy u64Identifier];
+    u64Identifier4 = [rediscoveredCopy u64Identifier];
+    u64Identifier5 = [deviceCopy u64Identifier];
     isUwbCapable = [rediscoveredCopy isUwbCapable];
     isUwbCapable2 = [deviceCopy isUwbCapable];
     v17 = qword_1009F9820;
     if (isUwbCapable == isUwbCapable2)
     {
-      if (u64Identifier3 == u64Identifier4)
+      if (u64Identifier4 == u64Identifier5)
       {
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEBUG))
         {
@@ -781,17 +782,17 @@ LABEL_69:
         *__p = *(v8 + 3);
         *&__p[16] = v24;
         sub_10023DF54(&self->_responderSessions.__table_.__bucket_list_.__ptr_, v8 + 2);
-        v33[1] = &u64Identifier2;
+        v34 = &u64Identifier3;
         *buf = __p;
         *&buf[8] = &__p[24];
-        sub_10023DAAC(&self->_responderSessions.__table_.__bucket_list_.__ptr_, &u64Identifier2);
+        sub_10023DAAC(&self->_responderSessions.__table_.__bucket_list_.__ptr_, &u64Identifier3, &unk_100548C50, &v34, buf);
         v25 = qword_1009F9820;
         if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218240;
-          *&buf[4] = v33[0];
+          *&buf[4] = u64Identifier;
           *&buf[12] = 2048;
-          *&buf[14] = u64Identifier2;
+          *&buf[14] = u64Identifier3;
           _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "#ses-hps,updated mac addr 0x%llx -> 0x%llx in processing info dictionary", buf, 0x16u);
         }
 
@@ -828,9 +829,9 @@ LABEL_69:
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#ses-hps,Device rediscovered device old UWB capble: %d -> new capable: %d, should stop? %d", __p, 0x14u);
       }
 
-      if (sub_100009978(&self->_responderSessions.__table_.__bucket_list_.__ptr_, v33) && ([rediscoveredCopy isUwbCapable] & 1) == 0)
+      if (sub_100009978(&self->_responderSessions.__table_.__bucket_list_.__ptr_, &u64Identifier) && ([rediscoveredCopy isUwbCapable] & 1) == 0)
       {
-        [(NIServerHomePassiveSensingSession *)self _peerHungUp:v33[0]];
+        [(NIServerHomePassiveSensingSession *)self _peerHungUp:u64Identifier];
       }
     }
   }
@@ -887,7 +888,7 @@ LABEL_69:
 
         else if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
         {
-          sub_1004C4920(&v11);
+          sub_1004C4920();
         }
       }
 
@@ -940,7 +941,7 @@ LABEL_69:
 
   else if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
   {
-    sub_1004C4AB8(data + 4, data + 2);
+    sub_1004C4AB8();
   }
 }
 
@@ -1064,6 +1065,57 @@ LABEL_21:
   [v3 addObject:v9];
 
   return v3;
+}
+
+- (id)_disableAllServicesAndSendHangupSignal:(BOOL)signal
+{
+  signalCopy = signal;
+  v5 = qword_1009F9820;
+  if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEBUG))
+  {
+    sub_1004C4C3C(v5, v6, v7, v8, v9, v10, v11, v12);
+  }
+
+  v22.receiver = self;
+  v22.super_class = NIServerHomePassiveSensingSession;
+  disableAllServices = [(NIServerBaseSession *)&v22 disableAllServices];
+  [(NINearbyUpdatesEngine *)self->_updatesEngine invalidate];
+  updatesEngine = self->_updatesEngine;
+  self->_updatesEngine = 0;
+
+  if (self->_responderSessions.__table_.__size_)
+  {
+    v15 = qword_1009F9820;
+    if (signalCopy)
+    {
+      v16 = qword_1009F9820;
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      {
+        v17 = self->_responderSessions.__table_.__size_ * [(NIServerHomePassiveSensingSession *)self nominalCycleRate];
+        *buf = 134217984;
+        v24 = v17;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#ses-hps,Cleaning responder sessions. sendHangupSignal = YES. This will take (%llu ms).", buf, 0xCu);
+      }
+    }
+
+    else if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#ses-hps,Cleaning responder sessions.", buf, 2u);
+    }
+
+    for (i = self->_responderSessions.__table_.__first_node_.__next_; i; i = *i)
+    {
+      v19 = +[NIServerGRResponderRangingService sharedInstance];
+      [v19 stopRangingForTicket:*(i + 24) clientIdentifier:self->_containerUniqueIdentifier uwbAddress:i[2] sendingHangUp:signalCopy];
+    }
+
+    sub_100022400(&self->_responderSessions.__table_.__bucket_list_.__ptr_);
+    v20 = +[NIServerGRResponderRangingService sharedInstance];
+    [v20 removeAsInterestedClientIdentifier:self->_containerUniqueIdentifier];
+  }
+
+  return disableAllServices;
 }
 
 - (void)_peerHungUp:(unint64_t)up
@@ -1317,7 +1369,7 @@ LABEL_5:
 
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
   {
-    sub_1004C5098(&identifierCopy);
+    sub_1004C5098();
   }
 
   v9 = 0;

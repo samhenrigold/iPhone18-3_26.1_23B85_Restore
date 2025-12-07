@@ -134,44 +134,48 @@
     shouldLog = [v14 shouldLog];
     if ([v14 shouldLogToDisk])
     {
-      v16 = shouldLog | 2;
+      LODWORD(v16) = shouldLog | 2;
     }
 
     else
     {
-      v16 = shouldLog;
+      LODWORD(v16) = shouldLog;
     }
 
     oSLogObject = [v14 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
 
     if (v16)
     {
-      v25 = 138412546;
-      v26 = objc_opt_class();
-      v27 = 2112;
-      v28 = v9;
-      v18 = v26;
-      LODWORD(v20) = 22;
-      v19 = _os_log_send_and_compose_impl();
+      v24 = 138412546;
+      v25 = objc_opt_class();
+      v26 = 2112;
+      v27 = v9;
+      v18 = v25;
+      v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot get match status for unentitled client: %@", &v24, 22);
 
       if (!v19)
       {
-LABEL_18:
+LABEL_19:
 
         [sharedNetworkRequestQueue _sendUnentitledMessageToClient:v9];
-        goto LABEL_19;
+        goto LABEL_20;
       }
 
-      oSLogObject = [NSString stringWithCString:v19 encoding:4, &v25, v20];
+      oSLogObject = [NSString stringWithCString:v19 encoding:4];
       free(v19);
       SSFileLog();
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   v10 = [SSVClaimApplicationsRequest alloc];
@@ -180,27 +184,27 @@ LABEL_18:
 
   if ([v12 claimStyle])
   {
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_100141520;
-    v21[3] = &unk_100329B40;
-    v13 = &v22;
-    v22 = v9;
-    [AppStoreUtility checkClaimsEstablishingActiveAccounts:1 ignoringPreviousClaimAttempts:1 completionBlock:v21];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100141520;
+    v20[3] = &unk_100329B40;
+    v13 = &v21;
+    v21 = v9;
+    [AppStoreUtility checkClaimsEstablishingActiveAccounts:1 ignoringPreviousClaimAttempts:1 completionBlock:v20];
   }
 
   else
   {
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_100141454;
-    v23[3] = &unk_100329B40;
-    v13 = &v24;
-    v24 = v9;
-    [AppStoreUtility checkFirstPartyClaimsWithCompletionBlock:v23];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_100141454;
+    v22[3] = &unk_100329B40;
+    v13 = &v23;
+    v23 = v9;
+    [AppStoreUtility checkFirstPartyClaimsWithCompletionBlock:v22];
   }
 
-LABEL_19:
+LABEL_20:
 }
 
 + (void)disableAutomaticDownloadKindsWithMessage:(id)message connection:(id)connection
@@ -220,44 +224,48 @@ LABEL_19:
     shouldLog = [v14 shouldLog];
     if ([v14 shouldLogToDisk])
     {
-      v16 = shouldLog | 2;
+      LODWORD(v16) = shouldLog | 2;
     }
 
     else
     {
-      v16 = shouldLog;
+      LODWORD(v16) = shouldLog;
     }
 
     oSLogObject = [v14 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
 
     if (v16)
     {
-      v23 = 138543618;
-      v24 = objc_opt_class();
-      v25 = 2114;
-      v26 = v9;
-      v18 = v24;
-      LODWORD(v20) = 22;
-      v19 = _os_log_send_and_compose_impl();
+      v22 = 138543618;
+      v23 = objc_opt_class();
+      v24 = 2114;
+      v25 = v9;
+      v18 = v23;
+      v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Cannot disable automatic download kinds for unentitled client. client = %{public}@", &v22, 22);
 
       if (!v19)
       {
-LABEL_14:
+LABEL_15:
 
         [sharedNetworkRequestQueue _sendUnentitledMessageToClient:v9];
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      oSLogObject = [NSString stringWithCString:v19 encoding:4, &v23, v20];
+      oSLogObject = [NSString stringWithCString:v19 encoding:4];
       free(v19);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   v10 = [[SetAutomaticDownloadKindsOperation alloc] initWithDownloadKinds:0];
@@ -267,15 +275,15 @@ LABEL_14:
   v12 = [sharedNetworkRequestQueue _copyAuthenticationContextWithContext:v11 client:v9];
 
   [(SetAutomaticDownloadKindsOperation *)v10 setAuthenticationContext:v12];
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_1001418CC;
-  v21[3] = &unk_100329B68;
-  v22 = v10;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_1001418CC;
+  v20[3] = &unk_100329B68;
+  v21 = v10;
   v13 = v10;
-  [sharedNetworkRequestQueue addOperation:v13 forMessage:messageCopy connection:connectionCopy replyBlock:v21];
+  [sharedNetworkRequestQueue addOperation:v13 forMessage:messageCopy connection:connectionCopy replyBlock:v20];
 
-LABEL_15:
+LABEL_16:
 }
 
 + (void)getMatchStatusWithMessage:(id)message connection:(id)connection
@@ -295,44 +303,48 @@ LABEL_15:
     shouldLog = [v14 shouldLog];
     if ([v14 shouldLogToDisk])
     {
-      v16 = shouldLog | 2;
+      LODWORD(v16) = shouldLog | 2;
     }
 
     else
     {
-      v16 = shouldLog;
+      LODWORD(v16) = shouldLog;
     }
 
     oSLogObject = [v14 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
 
     if (v16)
     {
-      v23 = 138412546;
-      v24 = objc_opt_class();
-      v25 = 2112;
-      v26 = v9;
-      v18 = v24;
-      LODWORD(v20) = 22;
-      v19 = _os_log_send_and_compose_impl();
+      v22 = 138412546;
+      v23 = objc_opt_class();
+      v24 = 2112;
+      v25 = v9;
+      v18 = v23;
+      v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot get match status for unentitled client: %@", &v22, 22);
 
       if (!v19)
       {
-LABEL_15:
+LABEL_16:
 
         [sharedNetworkRequestQueue _sendUnentitledReplyForMessage:messageCopy connection:connectionCopy];
-        goto LABEL_16;
+        goto LABEL_17;
       }
 
-      oSLogObject = [NSString stringWithCString:v19 encoding:4, &v23, v20];
+      oSLogObject = [NSString stringWithCString:v19 encoding:4];
       free(v19);
       SSFileLog();
     }
 
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
   objc_opt_class();
@@ -341,15 +353,15 @@ LABEL_15:
   userAgent = [v9 userAgent];
   [(LoadMatchStatusOperation *)v11 setUserAgent:userAgent];
 
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_100141C48;
-  v21[3] = &unk_100329B68;
-  v22 = v11;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100141C48;
+  v20[3] = &unk_100329B68;
+  v21 = v11;
   v13 = v11;
-  [sharedNetworkRequestQueue addOperation:v13 forMessage:messageCopy connection:connectionCopy replyBlock:v21];
+  [sharedNetworkRequestQueue addOperation:v13 forMessage:messageCopy connection:connectionCopy replyBlock:v20];
 
-LABEL_16:
+LABEL_17:
 }
 
 + (void)getSubscriptionStatusWithMessage:(id)message connection:(id)connection
@@ -377,19 +389,19 @@ LABEL_16:
     [(SubscriptionStatusOperation *)v10 setReason:reason];
 
     objc_initWeak(location, v10);
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_1001420A8;
-    v27[3] = &unk_100329B90;
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_1001420A8;
+    v26[3] = &unk_100329B90;
     v17 = v9;
-    v28 = v17;
-    objc_copyWeak(&v30, location);
+    v27 = v17;
+    objc_copyWeak(&v29, location);
     v18 = sharedNetworkRequestQueue;
-    v29 = v18;
-    [(SubscriptionStatusOperation *)v10 setStatusBlock:v27];
+    v28 = v18;
+    [(SubscriptionStatusOperation *)v10 setStatusBlock:v26];
     [v18 _enqueueSubscriptionStatusOperation:v10 forClient:v17];
 
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v29);
     objc_destroyWeak(location);
   }
 
@@ -404,16 +416,21 @@ LABEL_16:
     shouldLog = [v19 shouldLog];
     if ([v19 shouldLogToDisk])
     {
-      v21 = shouldLog | 2;
+      LODWORD(v21) = shouldLog | 2;
     }
 
     else
     {
-      v21 = shouldLog;
+      LODWORD(v21) = shouldLog;
     }
 
     oSLogObject = [v19 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v21 = v21;
+    }
+
+    else
     {
       v21 &= 2u;
     }
@@ -422,15 +439,14 @@ LABEL_16:
     {
       *location = 138412546;
       *&location[4] = objc_opt_class();
-      v32 = 2112;
-      v33 = v9;
+      v31 = 2112;
+      v32 = v9;
       v23 = *&location[4];
-      LODWORD(v26) = 22;
-      v24 = _os_log_send_and_compose_impl();
+      v24 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Deny unentitled client: %@", location, 22);
 
       if (v24)
       {
-        v25 = [NSString stringWithCString:v24 encoding:4, location, v26];
+        v25 = [NSString stringWithCString:v24 encoding:4];
         free(v24);
         SSFileLog();
       }
@@ -490,17 +506,17 @@ LABEL_16:
 
     [(LoadDownloadQueueOperation *)v19 setNeedsAuthentication:0];
     objc_initWeak(location, v19);
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_1001425B8;
-    v32[3] = &unk_100328ED0;
-    objc_copyWeak(&v34, location);
-    v33 = v9;
-    [(LoadDownloadQueueOperation *)v19 setCompletionBlock:v32];
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_1001425B8;
+    v31[3] = &unk_100328ED0;
+    objc_copyWeak(&v33, location);
+    v32 = v9;
+    [(LoadDownloadQueueOperation *)v19 setCompletionBlock:v31];
     operationQueue = [sharedNetworkRequestQueue operationQueue];
     [operationQueue addOperation:v19];
 
-    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(location);
   }
 
@@ -515,16 +531,21 @@ LABEL_16:
     shouldLog = [v24 shouldLog];
     if ([v24 shouldLogToDisk])
     {
-      v26 = shouldLog | 2;
+      LODWORD(v26) = shouldLog | 2;
     }
 
     else
     {
-      v26 = shouldLog;
+      LODWORD(v26) = shouldLog;
     }
 
     oSLogObject = [v24 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v26 = v26;
+    }
+
+    else
     {
       v26 &= 2u;
     }
@@ -533,15 +554,14 @@ LABEL_16:
     {
       *location = 138412546;
       *&location[4] = objc_opt_class();
-      v36 = 2112;
-      v37 = v9;
+      v35 = 2112;
+      v36 = v9;
       v28 = *&location[4];
-      LODWORD(v31) = 22;
-      v29 = _os_log_send_and_compose_impl();
+      v29 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot install items for unentitled client: %@", location, 22);
 
       if (v29)
       {
-        v30 = [NSString stringWithCString:v29 encoding:4, location, v31];
+        v30 = [NSString stringWithCString:v29 encoding:4];
         free(v29);
         SSFileLog();
       }
@@ -563,13 +583,13 @@ LABEL_16:
   v9 = [sharedNetworkRequestQueue _newClientWithMessage:messageCopy connection:connectionCopy];
   v10 = [SSImportDownloadToIPodLibraryRequest alloc];
   v11 = xpc_dictionary_get_value(messageCopy, "1");
-  v38 = [v10 initWithXPCEncoding:v11];
+  v37 = [v10 initWithXPCEncoding:v11];
 
   if ([v9 hasEntitlements])
   {
     sharedNetworkRequestQueue2 = [self sharedNetworkRequestQueue];
-    downloadMetadata = [v38 downloadMetadata];
-    if (downloadMetadata || ([v38 purchaseResponse], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "purchase"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "valueForDownloadProperty:", SSDownloadPropertyStoreItemIdentifier), v15 = objc_claimAutoreleasedReturnValue(), v14, objc_msgSend(v13, "downloadMetadataForItemIdentifier:", objc_msgSend(v15, "unsignedLongLongValue")), downloadMetadata = objc_claimAutoreleasedReturnValue(), v15, v13, downloadMetadata))
+    downloadMetadata = [v37 downloadMetadata];
+    if (downloadMetadata || ([v37 purchaseResponse], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "purchase"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "valueForDownloadProperty:", SSDownloadPropertyStoreItemIdentifier), v15 = objc_claimAutoreleasedReturnValue(), v14, objc_msgSend(v13, "downloadMetadataForItemIdentifier:", objc_msgSend(v15, "unsignedLongLongValue")), downloadMetadata = objc_claimAutoreleasedReturnValue(), v15, v13, downloadMetadata))
     {
       v16 = objc_alloc_init(IPodLibraryItem);
       v17 = [StoreDownload alloc];
@@ -593,21 +613,21 @@ LABEL_16:
 
       v23 = [[AddItemToIPodLibraryOperation alloc] initWithIPodLibraryItem:v16];
       objc_initWeak(location, v23);
-      v39[0] = _NSConcreteStackBlock;
-      v39[1] = 3221225472;
-      v39[2] = sub_100142D60;
-      v39[3] = &unk_100329BB8;
-      objc_copyWeak(&v43, location);
-      v40 = messageCopy;
-      v41 = connectionCopy;
+      v38[0] = _NSConcreteStackBlock;
+      v38[1] = 3221225472;
+      v38[2] = sub_100142D60;
+      v38[3] = &unk_100329BB8;
+      objc_copyWeak(&v42, location);
+      v39 = messageCopy;
+      v40 = connectionCopy;
       v24 = sharedNetworkRequestQueue2;
-      v42 = v24;
-      [(AddItemToIPodLibraryOperation *)v23 setCompletionBlock:v39];
+      v41 = v24;
+      [(AddItemToIPodLibraryOperation *)v23 setCompletionBlock:v38];
       [v24 setClient:v9 forOperation:v23];
       operationQueue = [v24 operationQueue];
       [operationQueue addOperation:v23];
 
-      objc_destroyWeak(&v43);
+      objc_destroyWeak(&v42);
       objc_destroyWeak(location);
     }
 
@@ -658,15 +678,14 @@ LABEL_16:
     {
       *location = 138412546;
       *&location[4] = objc_opt_class();
-      v45 = 2112;
-      v46 = v9;
+      v44 = 2112;
+      v45 = v9;
       v31 = *&location[4];
-      LODWORD(v36) = 22;
-      v32 = _os_log_send_and_compose_impl();
+      v32 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot import item for unentitled client: %@", location, 22);
 
       if (v32)
       {
-        v33 = [NSString stringWithCString:v32 encoding:4, location, v36];
+        v33 = [NSString stringWithCString:v32 encoding:4];
         free(v32);
         SSFileLog();
       }
@@ -686,10 +705,10 @@ LABEL_16:
   connectionCopy = connection;
   sharedNetworkRequestQueue = [self sharedNetworkRequestQueue];
   v9 = [sharedNetworkRequestQueue _newClientWithMessage:capabilitiesCopy connection:connectionCopy];
+  v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   xpc_connection_get_audit_token();
-  if ((SSXPCConnectionHasEntitlement() & 1) != 0 || (*location = v26, v29 = v27, TCCAccessCheckAuditToken()))
+  if ((SSXPCConnectionHasEntitlement() & 1) != 0 || (*location = v25, v28 = v26, TCCAccessCheckAuditToken()))
   {
     v10 = [SSVCloudServiceCapabilitiesRequest alloc];
     v11 = xpc_dictionary_get_value(capabilitiesCopy, "1");
@@ -705,20 +724,20 @@ LABEL_16:
     }
 
     objc_initWeak(location, oSLogObject);
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_1001431FC;
-    v22[3] = &unk_100329BE0;
-    objc_copyWeak(&v25, location);
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_1001431FC;
+    v21[3] = &unk_100329BE0;
+    objc_copyWeak(&v24, location);
     v15 = v9;
-    v23 = v15;
+    v22 = v15;
     v16 = sharedNetworkRequestQueue;
-    v24 = v16;
-    [(CloudServiceCapabilitiesOperation *)oSLogObject setResponseBlock:v22];
+    v23 = v16;
+    [(CloudServiceCapabilitiesOperation *)oSLogObject setResponseBlock:v21];
     [v16 setClient:v15 forOperation:oSLogObject];
     [v16 addOperation:oSLogObject];
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(location);
   }
 
@@ -733,16 +752,21 @@ LABEL_16:
     shouldLog = [v12 shouldLog];
     if ([v12 shouldLogToDisk])
     {
-      v18 = shouldLog | 2;
+      LODWORD(v18) = shouldLog | 2;
     }
 
     else
     {
-      v18 = shouldLog;
+      LODWORD(v18) = shouldLog;
     }
 
     oSLogObject = [v12 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = v18;
+    }
+
+    else
     {
       v18 &= 2u;
     }
@@ -752,15 +776,14 @@ LABEL_16:
       LODWORD(location[0]) = 138412290;
       *(location + 4) = objc_opt_class();
       v19 = *(location + 4);
-      LODWORD(v21) = 12;
-      v20 = _os_log_send_and_compose_impl();
+      v20 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot load cloud service capabilities for unauthorized client", location, 12);
 
       if (!v20)
       {
         goto LABEL_8;
       }
 
-      oSLogObject = [NSString stringWithCString:v20 encoding:4, location, v21];
+      oSLogObject = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
@@ -784,20 +807,20 @@ LABEL_8:
     [(SubscriptionEntitlementsOperation *)v11 setClientIdentifier:clientIdentifier];
 
     objc_initWeak(location, v11);
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_10014362C;
-    v22[3] = &unk_100329C08;
-    objc_copyWeak(&v26, location);
-    v23 = entitlementsCopy;
-    v24 = connectionCopy;
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_10014362C;
+    v21[3] = &unk_100329C08;
+    objc_copyWeak(&v25, location);
+    v22 = entitlementsCopy;
+    v23 = connectionCopy;
     v13 = sharedNetworkRequestQueue;
-    v25 = v13;
-    [(SubscriptionEntitlementsOperation *)v11 setSubscriptionEntitlementsBlock:v22];
+    v24 = v13;
+    [(SubscriptionEntitlementsOperation *)v11 setSubscriptionEntitlementsBlock:v21];
     [v13 setClient:v9 forOperation:v11];
     [v13 addOperation:v11];
 
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(location);
   }
 
@@ -812,16 +835,21 @@ LABEL_8:
     shouldLog = [v14 shouldLog];
     if ([v14 shouldLogToDisk])
     {
-      v16 = shouldLog | 2;
+      LODWORD(v16) = shouldLog | 2;
     }
 
     else
     {
-      v16 = shouldLog;
+      LODWORD(v16) = shouldLog;
     }
 
     oSLogObject = [v14 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
@@ -830,15 +858,14 @@ LABEL_8:
     {
       *location = 138412546;
       *&location[4] = objc_opt_class();
-      v28 = 2112;
-      v29 = v9;
+      v27 = 2112;
+      v28 = v9;
       v18 = *&location[4];
-      LODWORD(v21) = 22;
-      v19 = _os_log_send_and_compose_impl();
+      v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Deny unentitled client: %@", location, 22);
 
       if (v19)
       {
-        v20 = [NSString stringWithCString:v19 encoding:4, location, v21];
+        v20 = [NSString stringWithCString:v19 encoding:4];
         free(v19);
         SSFileLog();
       }
@@ -865,53 +892,57 @@ LABEL_8:
   v14 = [v12 initWithXPCEncoding:v13];
   if (([v11 hasEntitlements] & 1) == 0)
   {
-    v24 = +[SSLogConfig sharedDaemonConfig];
-    if (!v24)
+    v25 = +[SSLogConfig sharedDaemonConfig];
+    if (!v25)
     {
-      v24 = +[SSLogConfig sharedConfig];
+      v25 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v24 shouldLog];
-    if ([v24 shouldLogToDisk])
+    shouldLog = [v25 shouldLog];
+    if ([v25 shouldLogToDisk])
     {
-      v26 = shouldLog | 2;
+      LODWORD(v27) = shouldLog | 2;
     }
 
     else
     {
-      v26 = shouldLog;
+      LODWORD(v27) = shouldLog;
     }
 
-    oSLogObject = [v24 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v25 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v26 &= 2u;
+      v27 = v27;
     }
 
-    if (v26)
+    else
+    {
+      v27 &= 2u;
+    }
+
+    if (v27)
     {
       v42 = 138412546;
       v43 = objc_opt_class();
       v44 = 2112;
       v45 = v11;
-      v28 = v43;
-      LODWORD(v36) = 22;
-      v29 = _os_log_send_and_compose_impl();
+      v29 = v43;
+      v30 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot install items for unentitled client: %@", &v42, 22);
 
-      if (!v29)
+      if (!v30)
       {
-LABEL_26:
+LABEL_28:
 
         [sharedNetworkRequestQueue _sendUnentitledMessageToClient:v11];
-        goto LABEL_39;
+        goto LABEL_42;
       }
 
-      oSLogObject = [NSString stringWithCString:v29 encoding:4, &v42, v36];
-      free(v29);
+      oSLogObject = [NSString stringWithCString:v30 encoding:4];
+      free(v30);
       SSFileLog();
     }
 
-    goto LABEL_26;
+    goto LABEL_28;
   }
 
   itemIdentifier = [v14 itemIdentifier];
@@ -928,44 +959,48 @@ LABEL_26:
     shouldLog2 = [v17 shouldLog];
     if ([v17 shouldLogToDisk])
     {
-      v31 = shouldLog2 | 2;
+      LODWORD(v32) = shouldLog2 | 2;
     }
 
     else
     {
-      v31 = shouldLog2;
+      LODWORD(v32) = shouldLog2;
     }
 
     oSLogObject2 = [v17 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v31 &= 2u;
+      v32 = v32;
     }
 
-    if (v31)
+    else
+    {
+      v32 &= 2u;
+    }
+
+    if (v32)
     {
       v42 = 138412290;
       v43 = objc_opt_class();
-      v33 = v43;
-      LODWORD(v36) = 12;
-      v34 = _os_log_send_and_compose_impl();
+      v34 = v43;
+      v35 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "[%@] Managed application request requires an itemIdentifier", &v42, 12);
 
-      if (!v34)
+      if (!v35)
       {
-LABEL_38:
+LABEL_41:
 
-        v35 = SSError();
-        [sharedNetworkRequestQueue _sendMessageWithError:v35 toClient:v11];
+        v36 = SSError();
+        [sharedNetworkRequestQueue _sendMessageWithError:v36 toClient:v11];
 
-        goto LABEL_39;
+        goto LABEL_42;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v34 encoding:4, &v42, v36];
-      free(v34);
+      oSLogObject2 = [NSString stringWithCString:v35 encoding:4];
+      free(v35);
       SSFileLog();
     }
 
-    goto LABEL_38;
+    goto LABEL_41;
   }
 
   if (!v16)
@@ -976,42 +1011,47 @@ LABEL_38:
   shouldLog3 = [v17 shouldLog];
   if ([v17 shouldLogToDisk])
   {
-    v19 = shouldLog3 | 2;
+    LODWORD(v19) = shouldLog3 | 2;
   }
 
   else
   {
-    v19 = shouldLog3;
+    LODWORD(v19) = shouldLog3;
   }
 
   oSLogObject3 = [v17 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = v19;
+  }
+
+  else
   {
     v19 &= 2u;
   }
 
   if (!v19)
   {
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   v21 = objc_opt_class();
   v22 = v21;
-  [v14 itemIdentifier];
+  itemIdentifier2 = [v14 itemIdentifier];
   v42 = 138412802;
   v43 = v21;
   v44 = 2112;
   v45 = v11;
-  v47 = v46 = 2112;
-  LODWORD(v36) = 32;
-  v23 = _os_log_send_and_compose_impl();
+  v46 = 2112;
+  v47 = itemIdentifier2;
+  v24 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Sending managed application request from client: %@ for itemID: %@", &v42, 32);
 
-  if (v23)
+  if (v24)
   {
-    oSLogObject3 = [NSString stringWithCString:v23 encoding:4, &v42, v36];
-    free(v23);
+    oSLogObject3 = [NSString stringWithCString:v24 encoding:4];
+    free(v24);
     SSFileLog();
-LABEL_13:
+LABEL_14:
   }
 
   v37[0] = _NSConcreteStackBlock;
@@ -1024,7 +1064,7 @@ LABEL_13:
   v40 = v11;
   [AppStoreUtility installManagedAppWithRequest:v39 completionBlock:v37];
 
-LABEL_39:
+LABEL_42:
 }
 
 + (void)keybagSyncWithMessage:(id)message connection:(id)connection
@@ -1046,59 +1086,63 @@ LABEL_39:
     shouldLog = [v15 shouldLog];
     if ([v15 shouldLogToDisk])
     {
-      v17 = shouldLog | 2;
+      LODWORD(v17) = shouldLog | 2;
     }
 
     else
     {
-      v17 = shouldLog;
+      LODWORD(v17) = shouldLog;
     }
 
     oSLogObject = [v15 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
 
     if (v17)
     {
-      v24 = 138412546;
-      v25 = objc_opt_class();
-      v26 = 2112;
-      v27 = v9;
-      v19 = v25;
-      LODWORD(v21) = 22;
-      v20 = _os_log_send_and_compose_impl();
+      v23 = 138412546;
+      v24 = objc_opt_class();
+      v25 = 2112;
+      v26 = v9;
+      v19 = v24;
+      v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot kbsync for unentitled client: %@", &v23, 22);
 
       if (!v20)
       {
-LABEL_14:
+LABEL_15:
 
         [sharedNetworkRequestQueue _sendUnentitledMessageToClient:v9];
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      oSLogObject = [NSString stringWithCString:v20 encoding:4, &v24, v21];
+      oSLogObject = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   v11 = [SSVKeybagSyncRequest alloc];
   v12 = xpc_dictionary_get_value(messageCopy, "1");
   v13 = [v11 initWithXPCEncoding:v12];
 
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_10014421C;
-  v22[3] = &unk_100329B68;
-  v23 = [[KeybagSyncOperation alloc] initWithKeybagSyncRequest:v13];
-  v14 = v23;
-  [sharedNetworkRequestQueue addOperation:v14 forClient:v9 withMessageBlock:v22];
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_10014421C;
+  v21[3] = &unk_100329B68;
+  v22 = [[KeybagSyncOperation alloc] initWithKeybagSyncRequest:v13];
+  v14 = v22;
+  [sharedNetworkRequestQueue addOperation:v14 forClient:v9 withMessageBlock:v21];
 
-LABEL_15:
+LABEL_16:
 }
 
 + (void)loadURLBagWithMessage:(id)message connection:(id)connection
@@ -1125,13 +1169,13 @@ LABEL_15:
       [oSLogObject setValue:userAgent forHTTPHeaderField:v14];
     }
 
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_1001445E4;
-    v23[3] = &unk_100329B68;
-    v24 = [[ISLoadURLBagOperation alloc] initWithBagContext:oSLogObject];
-    v17 = v24;
-    [sharedNetworkRequestQueue addOperation:v17 forMessage:messageCopy connection:connectionCopy replyBlock:v23];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_1001445E4;
+    v22[3] = &unk_100329B68;
+    v23 = [[ISLoadURLBagOperation alloc] initWithBagContext:oSLogObject];
+    v17 = v23;
+    [sharedNetworkRequestQueue addOperation:v17 forMessage:messageCopy connection:connectionCopy replyBlock:v22];
   }
 
   else
@@ -1145,34 +1189,38 @@ LABEL_15:
     shouldLog = [(XPCClient *)v9 shouldLog];
     if ([(XPCClient *)v9 shouldLogToDisk])
     {
-      v19 = shouldLog | 2;
+      LODWORD(v19) = shouldLog | 2;
     }
 
     else
     {
-      v19 = shouldLog;
+      LODWORD(v19) = shouldLog;
     }
 
     oSLogObject = [(XPCClient *)v9 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v19 = v19;
+    }
+
+    else
     {
       v19 &= 2u;
     }
 
     if (v19)
     {
-      v25 = 138412290;
-      v26 = objc_opt_class();
-      v20 = v26;
-      LODWORD(v22) = 12;
-      v21 = _os_log_send_and_compose_impl();
+      v24 = 138412290;
+      v25 = objc_opt_class();
+      v20 = v25;
+      v21 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot load URL bag for unentitled client", &v24, 12);
 
       if (!v21)
       {
         goto LABEL_7;
       }
 
-      oSLogObject = [NSString stringWithCString:v21 encoding:4, &v25, v22];
+      oSLogObject = [NSString stringWithCString:v21 encoding:4];
       free(v21);
       SSFileLog();
     }
@@ -1209,16 +1257,16 @@ LABEL_7:
     [v15 setRequestParameters:copyQueryStringParameters];
     [v10 setRequestProperties:v15];
     objc_initWeak(location, v10);
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v26[2] = sub_100144A98;
-    v26[3] = &unk_100328ED0;
-    objc_copyWeak(&v28, location);
-    v27 = v9;
-    [v10 setCompletionBlock:v26];
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_100144A98;
+    v25[3] = &unk_100328ED0;
+    objc_copyWeak(&v27, location);
+    v26 = v9;
+    [v10 setCompletionBlock:v25];
     [sharedNetworkRequestQueue addOperation:v10];
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(location);
   }
 
@@ -1233,16 +1281,21 @@ LABEL_7:
     shouldLog = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v20 = shouldLog | 2;
+      LODWORD(v20) = shouldLog | 2;
     }
 
     else
     {
-      v20 = shouldLog;
+      LODWORD(v20) = shouldLog;
     }
 
     oSLogObject = [v10 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = v20;
+    }
+
+    else
     {
       v20 &= 2u;
     }
@@ -1251,15 +1304,14 @@ LABEL_7:
     {
       *location = 138412546;
       *&location[4] = objc_opt_class();
-      v30 = 2112;
-      v31 = v9;
+      v29 = 2112;
+      v30 = v9;
       v22 = *&location[4];
-      LODWORD(v25) = 22;
-      v23 = _os_log_send_and_compose_impl();
+      v23 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot lookup items for unentitled client: %@", location, 22);
 
       if (v23)
       {
-        v24 = [NSString stringWithCString:v23 encoding:4, location, v25];
+        v24 = [NSString stringWithCString:v23 encoding:4];
         free(v23);
         SSFileLog();
       }
@@ -1288,44 +1340,48 @@ LABEL_7:
     shouldLog = [v23 shouldLog];
     if ([v23 shouldLogToDisk])
     {
-      v25 = shouldLog | 2;
+      LODWORD(v25) = shouldLog | 2;
     }
 
     else
     {
-      v25 = shouldLog;
+      LODWORD(v25) = shouldLog;
     }
 
     oSLogObject = [v23 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v25 = v25;
+    }
+
+    else
     {
       v25 &= 2u;
     }
 
     if (v25)
     {
-      v32 = 138412546;
-      v33 = objc_opt_class();
-      v34 = 2112;
-      v35 = v9;
-      v27 = v33;
-      LODWORD(v29) = 22;
-      v28 = _os_log_send_and_compose_impl();
+      v31 = 138412546;
+      v32 = objc_opt_class();
+      v33 = 2112;
+      v34 = v9;
+      v27 = v32;
+      v28 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot lookup for unentitled client: %@", &v31, 22);
 
       if (!v28)
       {
-LABEL_22:
+LABEL_23:
 
         [sharedNetworkRequestQueue _sendUnentitledMessageToClient:v9];
         goto LABEL_10;
       }
 
-      oSLogObject = [NSString stringWithCString:v28 encoding:4, &v32, v29];
+      oSLogObject = [NSString stringWithCString:v28 encoding:4];
       free(v28);
       SSFileLog();
     }
 
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
   v10 = [SSLookupRequest alloc];
@@ -1362,13 +1418,13 @@ LABEL_22:
     }
   }
 
-  v30[0] = _NSConcreteStackBlock;
-  v30[1] = 3221225472;
-  v30[2] = sub_100145024;
-  v30[3] = &unk_100329B68;
-  v31 = v16;
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_100145024;
+  v29[3] = &unk_100329B68;
+  v30 = v16;
   v22 = v16;
-  [sharedNetworkRequestQueue addOperation:v22 forClient:v9 withMessageBlock:v30];
+  [sharedNetworkRequestQueue addOperation:v22 forClient:v9 withMessageBlock:v29];
 
 LABEL_10:
 }
@@ -1382,8 +1438,8 @@ LABEL_10:
   if (SSXPCConnectionHasEntitlement())
   {
     objc_opt_class();
-    v33 = SSXPCDictionaryCopyObjectWithClass();
-    integerValue = [v33 integerValue];
+    v32 = SSXPCDictionaryCopyObjectWithClass();
+    integerValue = [v32 integerValue];
     v11 = +[SSLogConfig sharedDaemonConfig];
     if (!v11)
     {
@@ -1414,15 +1470,14 @@ LABEL_10:
 
     if (v15)
     {
-      *v38 = 138412290;
-      *&v38[4] = objc_opt_class();
-      v16 = *&v38[4];
-      LODWORD(v32) = 12;
-      v17 = _os_log_send_and_compose_impl();
+      *v37 = 138412290;
+      *&v37[4] = objc_opt_class();
+      v16 = *&v37[4];
+      v17 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[%@]: Scheduling AppStore Migrator", v37, 12);
 
       if (v17)
       {
-        v18 = [NSString stringWithCString:v17 encoding:4, v38, v32];
+        v18 = [NSString stringWithCString:v17 encoding:4];
         free(v17);
         SSFileLog();
       }
@@ -1435,27 +1490,27 @@ LABEL_10:
     v26 = [objc_alloc(ISWeakLinkedClassForString()) initWithMigrationType:integerValue];
     v27 = [objc_alloc(ISWeakLinkedClassForString()) initWithOptions:v26];
     v28 = dispatch_semaphore_create(0);
-    *v38 = 0;
-    *&v38[8] = v38;
-    *&v38[16] = 0x2020000000;
-    v39 = 0;
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_100145590;
-    v34[3] = &unk_100329C58;
-    v36 = v38;
+    *v37 = 0;
+    *&v37[8] = v37;
+    *&v37[16] = 0x2020000000;
+    v38 = 0;
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3221225472;
+    v33[2] = sub_100145590;
+    v33[3] = &unk_100329C58;
+    v35 = v37;
     selfCopy = self;
     v29 = v28;
-    v35 = v29;
-    [v27 startWithCompletionBlock:v34];
+    v34 = v29;
+    [v27 startWithCompletionBlock:v33];
     v30 = dispatch_time(0, 5000000000);
     dispatch_semaphore_wait(v29, v30);
     reply = xpc_dictionary_create_reply(messageCopy);
     xpc_dictionary_set_int64(reply, "0", 1011);
-    xpc_dictionary_set_BOOL(reply, "1", *(*&v38[8] + 24));
+    xpc_dictionary_set_BOOL(reply, "1", *(*&v37[8] + 24));
     xpc_connection_send_message(connectionCopy, reply);
 
-    _Block_object_dispose(v38, 8);
+    _Block_object_dispose(v37, 8);
   }
 
   else
@@ -1469,33 +1524,37 @@ LABEL_10:
     shouldLog2 = [v19 shouldLog];
     if ([v19 shouldLogToDisk])
     {
-      v21 = shouldLog2 | 2;
+      LODWORD(v21) = shouldLog2 | 2;
     }
 
     else
     {
-      v21 = shouldLog2;
+      LODWORD(v21) = shouldLog2;
     }
 
     oSLogObject2 = [v19 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v21 = v21;
+    }
+
+    else
     {
       v21 &= 2u;
     }
 
     if (v21)
     {
-      *v38 = 138412546;
-      *&v38[4] = objc_opt_class();
-      *&v38[12] = 2112;
-      *&v38[14] = v9;
-      v23 = *&v38[4];
-      LODWORD(v32) = 22;
-      v24 = _os_log_send_and_compose_impl();
+      *v37 = 138412546;
+      *&v37[4] = objc_opt_class();
+      *&v37[12] = 2112;
+      *&v37[14] = v9;
+      v23 = *&v37[4];
+      v24 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Cannot perform migration for unentitled client: %@", v37, 22);
 
       if (v24)
       {
-        v25 = [NSString stringWithCString:v24 encoding:4, v38, v32];
+        v25 = [NSString stringWithCString:v24 encoding:4];
         free(v24);
         SSFileLog();
       }
@@ -1527,44 +1586,48 @@ LABEL_10:
     shouldLog = [v17 shouldLog];
     if ([v17 shouldLogToDisk])
     {
-      v19 = shouldLog | 2;
+      LODWORD(v19) = shouldLog | 2;
     }
 
     else
     {
-      v19 = shouldLog;
+      LODWORD(v19) = shouldLog;
     }
 
     oSLogObject = [v17 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v19 = v19;
+    }
+
+    else
     {
       v19 &= 2u;
     }
 
     if (v19)
     {
-      *v24 = 138412546;
-      *&v24[4] = objc_opt_class();
-      *&v24[12] = 2112;
-      *&v24[14] = v9;
-      v21 = *&v24[4];
-      LODWORD(v23) = 22;
-      v22 = _os_log_send_and_compose_impl();
+      v23 = 138412546;
+      v24 = objc_opt_class();
+      v25 = 2112;
+      v26 = v9;
+      v21 = v24;
+      v22 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot show web view for unentitled client: %@", &v23, 22);
 
       if (!v22)
       {
-LABEL_14:
+LABEL_15:
 
         [sharedNetworkRequestQueue _sendUnentitledMessageToClient:v9];
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      oSLogObject = [NSString stringWithCString:v22 encoding:4, v24, v23, *v24, *&v24[16]];
+      oSLogObject = [NSString stringWithCString:v22 encoding:4];
       free(v22);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   v10 = [SSRemoteWebViewRequest alloc];
@@ -1580,7 +1643,7 @@ LABEL_14:
   outputConnection = [v9 outputConnection];
   [outputConnection sendMessage:v15];
 
-LABEL_15:
+LABEL_16:
 }
 
 + (void)rentalInformationRequestWithMessage:(id)message connection:(id)connection
@@ -1599,17 +1662,17 @@ LABEL_15:
     rentalKeyIdentifier = [v12 rentalKeyIdentifier];
     v15 = [[LoadRentalInformationOperation alloc] initWithAccountIdentifier:accountIdentifier rentalKeyIdentifier:rentalKeyIdentifier];
     objc_initWeak(location, v15);
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_100145D5C;
-    v25[3] = &unk_100328ED0;
-    objc_copyWeak(&v27, location);
-    v26 = v9;
-    [(LoadRentalInformationOperation *)v15 setCompletionBlock:v25];
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_100145D5C;
+    v24[3] = &unk_100328ED0;
+    objc_copyWeak(&v26, location);
+    v25 = v9;
+    [(LoadRentalInformationOperation *)v15 setCompletionBlock:v24];
     operationQueue = [sharedNetworkRequestQueue operationQueue];
     [operationQueue addOperation:v15];
 
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(location);
   }
 
@@ -1624,16 +1687,21 @@ LABEL_15:
     shouldLog = [v17 shouldLog];
     if ([v17 shouldLogToDisk])
     {
-      v19 = shouldLog | 2;
+      LODWORD(v19) = shouldLog | 2;
     }
 
     else
     {
-      v19 = shouldLog;
+      LODWORD(v19) = shouldLog;
     }
 
     oSLogObject = [v17 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v19 = v19;
+    }
+
+    else
     {
       v19 &= 2u;
     }
@@ -1642,15 +1710,14 @@ LABEL_15:
     {
       *location = 138412546;
       *&location[4] = objc_opt_class();
-      v29 = 2112;
-      v30 = v9;
+      v28 = 2112;
+      v29 = v9;
       v21 = *&location[4];
-      LODWORD(v24) = 22;
-      v22 = _os_log_send_and_compose_impl();
+      v22 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot read item for unentitled client: %@", location, 22);
 
       if (v22)
       {
-        v23 = [NSString stringWithCString:v22 encoding:4, location, v24];
+        v23 = [NSString stringWithCString:v22 encoding:4];
         free(v22);
         SSFileLog();
       }
@@ -1673,45 +1740,44 @@ LABEL_15:
 
   if (([v9 hasEntitlements] & 1) == 0)
   {
-    v22 = +[SSLogConfig sharedDaemonConfig];
-    if (!v22)
+    v26 = +[SSLogConfig sharedDaemonConfig];
+    if (!v26)
     {
-      v22 = +[SSLogConfig sharedConfig];
+      v26 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v22 shouldLog];
-    if ([v22 shouldLogToDisk])
+    shouldLog = [v26 shouldLog];
+    if ([v26 shouldLogToDisk])
     {
-      v24 = shouldLog | 2;
+      v28 = shouldLog | 2;
     }
 
     else
     {
-      v24 = shouldLog;
+      v28 = shouldLog;
     }
 
-    oSLogObject = [v22 OSLogObject];
+    oSLogObject = [v26 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = v24;
+      v30 = v28;
     }
 
     else
     {
-      v26 = v24 & 2;
+      v30 = v28 & 2;
     }
 
-    if (v26)
+    if (v30)
     {
-      v36 = 138412546;
-      v37 = objc_opt_class();
-      v38 = 2112;
-      v39 = v9;
-      v27 = v37;
-      LODWORD(v30) = 22;
-      v28 = _os_log_send_and_compose_impl();
+      v40 = 138412546;
+      v41 = objc_opt_class();
+      v42 = 2112;
+      v43 = v9;
+      v31 = v41;
+      v32 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot repair items for unentitled client: %@", &v40, 22);
 
-      if (!v28)
+      if (!v32)
       {
 LABEL_25:
 
@@ -1719,8 +1785,8 @@ LABEL_25:
         goto LABEL_28;
       }
 
-      oSLogObject = [NSString stringWithCString:v28 encoding:4, &v36, v30];
-      free(v28);
+      oSLogObject = [NSString stringWithCString:v32 encoding:4];
+      free(v32);
       SSFileLog();
     }
 
@@ -1762,21 +1828,30 @@ LABEL_25:
   if (v17)
   {
     v18 = objc_opt_class();
-    v31 = v18;
+    v34 = v18;
     accountDSID = [v12 accountDSID];
     [v12 bundleID];
-    v36 = 138412802;
-    v37 = v18;
-    v38 = 2112;
-    v39 = accountDSID;
-    v41 = v40 = 2112;
-    LODWORD(v30) = 32;
-    v20 = _os_log_send_and_compose_impl();
+    v35 = v9;
+    v20 = v12;
+    v21 = sharedNetworkRequestQueue;
+    v23 = v22 = messageCopy;
+    v40 = 138412802;
+    v41 = v18;
+    v42 = 2112;
+    v43 = accountDSID;
+    v44 = 2112;
+    v45 = v23;
+    v24 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "[%@]: Repair request account DSID: %@ and bundleID %@", &v40, 32);
 
-    if (v20)
+    messageCopy = v22;
+    sharedNetworkRequestQueue = v21;
+    v12 = v20;
+    v9 = v35;
+
+    if (v24)
     {
-      v21 = [NSString stringWithCString:v20 encoding:4, &v36, v30];
-      free(v20);
+      v25 = [NSString stringWithCString:v24 encoding:4];
+      free(v24);
       SSFileLog();
     }
   }
@@ -1785,15 +1860,15 @@ LABEL_25:
   {
   }
 
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = sub_1001462B8;
-  v32[3] = &unk_100329C80;
+  v36[0] = _NSConcreteStackBlock;
+  v36[1] = 3221225472;
+  v36[2] = sub_1001462B8;
+  v36[3] = &unk_100329C80;
   selfCopy = self;
+  v37 = v12;
+  v38 = v9;
   v33 = v12;
-  v34 = v9;
-  v29 = v12;
-  [AppStoreUtility repairAppWithRequest:v29 completionBlock:v32];
+  [AppStoreUtility repairAppWithRequest:v33 completionBlock:v36];
 
 LABEL_28:
 }
@@ -1816,44 +1891,48 @@ LABEL_28:
     shouldLog = [v26 shouldLog];
     if ([v26 shouldLogToDisk])
     {
-      v28 = shouldLog | 2;
+      LODWORD(v28) = shouldLog | 2;
     }
 
     else
     {
-      v28 = shouldLog;
+      LODWORD(v28) = shouldLog;
     }
 
     oSLogObject = [v26 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v28 = v28;
+    }
+
+    else
     {
       v28 &= 2u;
     }
 
     if (v28)
     {
-      v38 = 138412546;
-      v39 = objc_opt_class();
-      v40 = 2112;
-      v41 = v9;
-      v30 = v39;
-      LODWORD(v35) = 22;
-      v31 = _os_log_send_and_compose_impl();
+      v37 = 138412546;
+      v38 = objc_opt_class();
+      v39 = 2112;
+      v40 = v9;
+      v30 = v38;
+      v31 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot load URL for unentitled client: %@", &v37, 22);
 
       if (!v31)
       {
-LABEL_19:
+LABEL_20:
 
         [sharedNetworkRequestQueue _sendUnentitledMessageToClient:v9];
-        goto LABEL_22;
+        goto LABEL_23;
       }
 
-      oSLogObject = [NSString stringWithCString:v31 encoding:4, &v38, v35];
+      oSLogObject = [NSString stringWithCString:v31 encoding:4];
       free(v31);
       SSFileLog();
     }
 
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   v10 = [SSURLConnectionRequest alloc];
@@ -1905,16 +1984,16 @@ LABEL_19:
 
     -[URLConnectionRequestOperation setSendsResponseForHTTPFailures:](v32, "setSendsResponseForHTTPFailures:", [v12 sendsResponseForHTTPFailures]);
     -[URLConnectionRequestOperation setShouldMescalSign:](v32, "setShouldMescalSign:", [v12 shouldMescalSign]);
-    v36[0] = _NSConcreteStackBlock;
-    v36[1] = 3221225472;
-    v36[2] = sub_10014699C;
-    v36[3] = &unk_100329B68;
-    v37 = v32;
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_10014699C;
+    v35[3] = &unk_100329B68;
+    v36 = v32;
     v25 = v32;
-    [sharedNetworkRequestQueue addOperation:v25 forClient:v9 withMessageBlock:v36];
+    [sharedNetworkRequestQueue addOperation:v25 forClient:v9 withMessageBlock:v35];
   }
 
-LABEL_22:
+LABEL_23:
 }
 
 + (void)restoreDemotedApplicationsWithMessage:(id)message connection:(id)connection
@@ -1934,44 +2013,48 @@ LABEL_22:
     shouldLog = [v15 shouldLog];
     if ([v15 shouldLogToDisk])
     {
-      v17 = shouldLog | 2;
+      LODWORD(v17) = shouldLog | 2;
     }
 
     else
     {
-      v17 = shouldLog;
+      LODWORD(v17) = shouldLog;
     }
 
     oSLogObject = [v15 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
 
     if (v17)
     {
-      v28 = 138412546;
-      v29 = objc_opt_class();
-      v30 = 2112;
-      v31 = v9;
-      v19 = v29;
-      LODWORD(v24) = 22;
-      v20 = _os_log_send_and_compose_impl();
+      v27 = 138412546;
+      v28 = objc_opt_class();
+      v29 = 2112;
+      v30 = v9;
+      v19 = v28;
+      v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot demote unentitled client: %@", &v27, 22);
 
       if (!v20)
       {
-LABEL_17:
+LABEL_18:
 
         [sharedNetworkRequestQueue _sendUnentitledMessageToClient:v9];
-        goto LABEL_23;
+        goto LABEL_24;
       }
 
-      oSLogObject = [NSString stringWithCString:v20 encoding:4, &v28, v24];
+      oSLogObject = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
 
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
   v10 = objc_alloc_init(NSMutableArray);
@@ -1994,9 +2077,9 @@ LABEL_17:
       applier[1] = 3221225472;
       applier[2] = sub_100146DD8;
       applier[3] = &unk_1003280D0;
-      v26 = v13;
-      v27 = v10;
-      xpc_array_apply(v26, applier);
+      v25 = v13;
+      v26 = v10;
+      xpc_array_apply(v25, applier);
     }
   }
 
@@ -2017,7 +2100,7 @@ LABEL_17:
   SSXPCDictionarySetObject();
   xpc_connection_send_message(connectionCopy, reply);
 
-LABEL_23:
+LABEL_24:
 }
 
 + (void)sdk_loadStoreFrontIdentifierWithMessage:(id)message connection:(id)connection
@@ -2025,10 +2108,10 @@ LABEL_23:
   messageCopy = message;
   connectionCopy = connection;
   sharedNetworkRequestQueue = [self sharedNetworkRequestQueue];
+  v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   xpc_connection_get_audit_token();
-  memset(v26, 0, sizeof(v26));
+  memset(v25, 0, sizeof(v25));
   if (TCCAccessCheckAuditToken())
   {
     v9 = [SSURLBagContext alloc];
@@ -2045,13 +2128,13 @@ LABEL_23:
       [v11 setValue:userAgent forHTTPHeaderField:v12];
     }
 
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_100147148;
-    v22[3] = &unk_100329B68;
-    v23 = [[ISLoadURLBagOperation alloc] initWithBagContext:v11];
-    oSLogObject = v23;
-    [sharedNetworkRequestQueue addOperation:oSLogObject forMessage:messageCopy connection:connectionCopy replyBlock:v22];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_100147148;
+    v21[3] = &unk_100329B68;
+    v22 = [[ISLoadURLBagOperation alloc] initWithBagContext:v11];
+    oSLogObject = v22;
+    [sharedNetworkRequestQueue addOperation:oSLogObject forMessage:messageCopy connection:connectionCopy replyBlock:v21];
   }
 
   else
@@ -2065,34 +2148,38 @@ LABEL_23:
     shouldLog = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v18 = shouldLog | 2;
+      LODWORD(v18) = shouldLog | 2;
     }
 
     else
     {
-      v18 = shouldLog;
+      LODWORD(v18) = shouldLog;
     }
 
     oSLogObject = [v11 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = v18;
+    }
+
+    else
     {
       v18 &= 2u;
     }
 
     if (v18)
     {
-      LODWORD(v26[0]) = 138412290;
-      *(v26 + 4) = objc_opt_class();
-      v19 = *(v26 + 4);
-      LODWORD(v21) = 12;
-      v20 = _os_log_send_and_compose_impl();
+      LODWORD(v25[0]) = 138412290;
+      *(v25 + 4) = objc_opt_class();
+      v19 = *(v25 + 4);
+      v20 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot load storefront identifier for unauthorized client", v25, 12);
 
       if (!v20)
       {
         goto LABEL_6;
       }
 
-      oSLogObject = [NSString stringWithCString:v20 encoding:4, v26, v21];
+      oSLogObject = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
@@ -2107,11 +2194,11 @@ LABEL_6:
   connectionCopy = connection;
   sharedNetworkRequestQueue = [self sharedNetworkRequestQueue];
   v7 = [sharedNetworkRequestQueue _newClientWithMessage:xdict connection:connectionCopy];
+  v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   xpc_connection_get_audit_token();
   *location = 0u;
-  v35 = 0u;
+  v34 = 0u;
   if (TCCAccessCheckAuditToken())
   {
     v8 = [SSVCloudServiceAPITokenRequest alloc];
@@ -2144,20 +2231,20 @@ LABEL_6:
     [(CloudServiceAPITokenOperation *)v20 setRequestingBundleID:clientIdentifier];
     [(CloudServiceAPITokenOperation *)v20 setRequestingBundleVersion:clientVersion];
     objc_initWeak(location, v20);
-    v28[0] = _NSConcreteStackBlock;
-    v28[1] = 3221225472;
-    v28[2] = sub_100147604;
-    v28[3] = &unk_100329CA8;
-    objc_copyWeak(&v31, location);
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_100147604;
+    v27[3] = &unk_100329CA8;
+    objc_copyWeak(&v30, location);
     v22 = v7;
-    v29 = v22;
+    v28 = v22;
     v23 = sharedNetworkRequestQueue;
-    v30 = v23;
-    [(CloudServiceAPITokenOperation *)v20 setResponseBlock:v28];
+    v29 = v23;
+    [(CloudServiceAPITokenOperation *)v20 setResponseBlock:v27];
     [v23 setClient:v22 forOperation:v20];
     [v23 addOperation:v20];
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(location);
 
     goto LABEL_14;
@@ -2189,12 +2276,11 @@ LABEL_6:
   LODWORD(location[0]) = 138412290;
   *(location + 4) = objc_opt_class();
   v17 = *(location + 4);
-  LODWORD(v24) = 12;
-  v18 = _os_log_send_and_compose_impl();
+  v18 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, clientIdentifier, 0, "%@: Cannot fetch api token for unauthorized client", location, 12);
 
   if (v18)
   {
-    clientIdentifier = [NSString stringWithCString:v18 encoding:4, location, v24];
+    clientIdentifier = [NSString stringWithCString:v18 encoding:4];
     free(v18);
     SSFileLog();
 LABEL_14:
@@ -2206,7 +2292,7 @@ LABEL_14:
   messageCopy = message;
   connectionCopy = connection;
   sharedNetworkRequestQueue = [self sharedNetworkRequestQueue];
-  v41 = [sharedNetworkRequestQueue _newClientWithMessage:messageCopy connection:connectionCopy];
+  v40 = [sharedNetworkRequestQueue _newClientWithMessage:messageCopy connection:connectionCopy];
   if (SSXPCConnectionHasEntitlement())
   {
     v8 = [SSSilentEnrollment alloc];
@@ -2233,14 +2319,14 @@ LABEL_14:
 
     context7 = [v10 context];
     uRLString = [context7 URLString];
-    v33 = [NSURL URLWithString:uRLString];
+    v32 = [NSURL URLWithString:uRLString];
 
     v19 = objc_alloc_init(ISStoreURLOperation);
     v20 = objc_alloc_init(ISJSONDataProvider);
     [v19 setDataProvider:v20];
     v21 = [[SSAuthenticationContext alloc] initWithAccountIdentifier:accountIdentifier];
     [v19 setAuthenticationContext:v21];
-    v22 = [[NSMutableURLRequest alloc] initWithURL:v33];
+    v22 = [[NSMutableURLRequest alloc] initWithURL:v32];
     [v22 setHTTPMethod:@"GET"];
     [v22 setValue:headerADSID forHTTPHeaderField:SSHTTPHeaderXAppleADSID];
     [v22 setValue:headerGSToken forHTTPHeaderField:SSHTTPHeaderXAppleGSToken];
@@ -2250,18 +2336,18 @@ LABEL_14:
     v23 = [[SSMutableURLRequestProperties alloc] initWithURLRequest:v22];
     [v19 setRequestProperties:v23];
     objc_initWeak(location, v19);
-    v42[0] = _NSConcreteStackBlock;
-    v42[1] = 3221225472;
-    v42[2] = sub_100147C48;
-    v42[3] = &unk_100328ED0;
-    objc_copyWeak(&v44, location);
-    v24 = v41;
-    v43 = v24;
-    [v19 setCompletionBlock:v42];
+    v41[0] = _NSConcreteStackBlock;
+    v41[1] = 3221225472;
+    v41[2] = sub_100147C48;
+    v41[3] = &unk_100328ED0;
+    objc_copyWeak(&v43, location);
+    v24 = v40;
+    v42 = v24;
+    [v19 setCompletionBlock:v41];
     [sharedNetworkRequestQueue setClient:v24 forOperation:v19];
     [sharedNetworkRequestQueue addOperation:v19];
 
-    objc_destroyWeak(&v44);
+    objc_destroyWeak(&v43);
     objc_destroyWeak(location);
   }
 
@@ -2276,16 +2362,21 @@ LABEL_14:
     shouldLog = [v25 shouldLog];
     if ([v25 shouldLogToDisk])
     {
-      v27 = shouldLog | 2;
+      LODWORD(v27) = shouldLog | 2;
     }
 
     else
     {
-      v27 = shouldLog;
+      LODWORD(v27) = shouldLog;
     }
 
     oSLogObject = [v25 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v27 = v27;
+    }
+
+    else
     {
       v27 &= 2u;
     }
@@ -2294,15 +2385,14 @@ LABEL_14:
     {
       *location = 138543618;
       *&location[4] = objc_opt_class();
-      v46 = 2114;
-      v47 = v41;
+      v45 = 2114;
+      v46 = v40;
       v29 = *&location[4];
-      LODWORD(v32) = 22;
-      v30 = _os_log_send_and_compose_impl();
+      v30 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Silent enrollment XPC failed for no entitlements: %{public}@", location, 22);
 
       if (v30)
       {
-        v31 = [NSString stringWithCString:v30 encoding:4, location, v32];
+        v31 = [NSString stringWithCString:v30 encoding:4];
         free(v30);
         SSFileLog();
       }
@@ -2312,7 +2402,7 @@ LABEL_14:
     {
     }
 
-    [sharedNetworkRequestQueue _sendUnentitledMessageToClient:v41];
+    [sharedNetworkRequestQueue _sendUnentitledMessageToClient:v40];
   }
 }
 
@@ -2321,7 +2411,7 @@ LABEL_14:
   messageCopy = message;
   connectionCopy = connection;
   sharedNetworkRequestQueue = [self sharedNetworkRequestQueue];
-  v44 = [sharedNetworkRequestQueue _newClientWithMessage:messageCopy connection:connectionCopy];
+  v43 = [sharedNetworkRequestQueue _newClientWithMessage:messageCopy connection:connectionCopy];
   if (SSXPCConnectionHasEntitlement())
   {
     v7 = [SSSilentEnrollment alloc];
@@ -2370,18 +2460,18 @@ LABEL_14:
     v24 = [[SSMutableURLRequestProperties alloc] initWithURLRequest:v23];
     [v20 setRequestProperties:v24];
     objc_initWeak(location, v20);
-    v45[0] = _NSConcreteStackBlock;
-    v45[1] = 3221225472;
-    v45[2] = sub_100148448;
-    v45[3] = &unk_100328ED0;
-    objc_copyWeak(&v47, location);
-    v25 = v44;
-    v46 = v25;
-    [v20 setCompletionBlock:v45];
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_100148448;
+    v44[3] = &unk_100328ED0;
+    objc_copyWeak(&v46, location);
+    v25 = v43;
+    v45 = v25;
+    [v20 setCompletionBlock:v44];
     [sharedNetworkRequestQueue setClient:v25 forOperation:v20];
     [sharedNetworkRequestQueue addOperation:v20];
 
-    objc_destroyWeak(&v47);
+    objc_destroyWeak(&v46);
     objc_destroyWeak(location);
   }
 
@@ -2419,15 +2509,14 @@ LABEL_14:
     {
       *location = 138543618;
       *&location[4] = objc_opt_class();
-      v49 = 2114;
-      v50 = v44;
+      v48 = 2114;
+      v49 = v43;
       v31 = *&location[4];
-      LODWORD(v34) = 22;
-      v32 = _os_log_send_and_compose_impl();
+      v32 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Silent enrollment XPC failed for no entitlements: %{public}@", location, 22);
 
       if (v32)
       {
-        v33 = [NSString stringWithCString:v32 encoding:4, location, v34];
+        v33 = [NSString stringWithCString:v32 encoding:4];
         free(v32);
         SSFileLog();
       }
@@ -2437,7 +2526,7 @@ LABEL_14:
     {
     }
 
-    [sharedNetworkRequestQueue _sendUnentitledMessageToClient:v44];
+    [sharedNetworkRequestQueue _sendUnentitledMessageToClient:v43];
   }
 }
 
@@ -2459,44 +2548,48 @@ LABEL_14:
     shouldLog = [v13 shouldLog];
     if ([v13 shouldLogToDisk])
     {
-      v15 = shouldLog | 2;
+      LODWORD(v15) = shouldLog | 2;
     }
 
     else
     {
-      v15 = shouldLog;
+      LODWORD(v15) = shouldLog;
     }
 
     oSLogObject = [v13 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v15 = v15;
+    }
+
+    else
     {
       v15 &= 2u;
     }
 
     if (v15)
     {
-      v22 = 138543618;
-      v23 = objc_opt_class();
-      v24 = 2114;
-      v25 = v9;
-      v17 = v23;
-      LODWORD(v19) = 22;
-      v18 = _os_log_send_and_compose_impl();
+      v21 = 138543618;
+      v22 = objc_opt_class();
+      v23 = 2114;
+      v24 = v9;
+      v17 = v22;
+      v18 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Cannot authenticate for unentitled client: %{public}@", &v21, 22);
 
       if (!v18)
       {
-LABEL_14:
+LABEL_15:
 
         [sharedNetworkRequestQueue _sendUnentitledMessageToClient:v9];
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      oSLogObject = [NSString stringWithCString:v18 encoding:4, &v22, v19];
+      oSLogObject = [NSString stringWithCString:v18 encoding:4];
       free(v18);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   +[SSVSubscriptionStatusCoordinator beginSuspendingSubscriptionStatusChangeNotifications];
@@ -2504,14 +2597,14 @@ LABEL_14:
   v11 = xpc_dictionary_get_value(messageCopy, "1");
   v12 = [v10 initWithXPCEncoding:v11];
 
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_100148914;
-  v20[3] = &unk_100329CD0;
-  v21 = v9;
-  [v12 startWithAuthenticateResponseBlock:v20];
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_100148914;
+  v19[3] = &unk_100329CD0;
+  v20 = v9;
+  [v12 startWithAuthenticateResponseBlock:v19];
 
-LABEL_15:
+LABEL_16:
 }
 
 + (void)serverAuthenticateWithMessage:(id)message connection:(id)connection
@@ -2532,44 +2625,48 @@ LABEL_15:
     shouldLog = [v21 shouldLog];
     if ([v21 shouldLogToDisk])
     {
-      v23 = shouldLog | 2;
+      LODWORD(v23) = shouldLog | 2;
     }
 
     else
     {
-      v23 = shouldLog;
+      LODWORD(v23) = shouldLog;
     }
 
     oSLogObject = [v21 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v23 = v23;
+    }
+
+    else
     {
       v23 &= 2u;
     }
 
     if (v23)
     {
-      v31 = 138412546;
-      v32 = objc_opt_class();
-      v33 = 2112;
-      v34 = v9;
-      v25 = v32;
-      LODWORD(v27) = 22;
-      v26 = _os_log_send_and_compose_impl();
+      v30 = 138412546;
+      v31 = objc_opt_class();
+      v32 = 2112;
+      v33 = v9;
+      v25 = v31;
+      v26 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot authenticate for unentitled client: %@", &v30, 22);
 
       if (!v26)
       {
-LABEL_14:
+LABEL_15:
 
         [sharedNetworkRequestQueue _sendUnentitledMessageToClient:v9];
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      oSLogObject = [NSString stringWithCString:v26 encoding:4, &v31, v27];
+      oSLogObject = [NSString stringWithCString:v26 encoding:4];
       free(v26);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   v10 = [SSVServerAuthenticateRequest alloc];
@@ -2586,17 +2683,17 @@ LABEL_14:
   v18 = [[ServerAuthenticationOperation alloc] initWithDialog:v17];
   [(ServerAuthenticationOperation *)v18 setAuthenticationContext:v14];
   [(ServerAuthenticationOperation *)v18 setPerformsButtonAction:0];
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_100148D30;
-  v28[3] = &unk_100329CF8;
-  v29 = v18;
-  v30 = v17;
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_100148D30;
+  v27[3] = &unk_100329CF8;
+  v28 = v18;
+  v29 = v17;
   v19 = v17;
   v20 = v18;
-  [sharedNetworkRequestQueue addOperation:v20 forClient:v9 withMessageBlock:v28];
+  [sharedNetworkRequestQueue addOperation:v20 forClient:v9 withMessageBlock:v27];
 
-LABEL_15:
+LABEL_16:
 }
 
 + (void)updateMediaContentTasteWithMessage:(id)message connection:(id)connection
@@ -2618,44 +2715,48 @@ LABEL_15:
     shouldLog = [v16 shouldLog];
     if ([v16 shouldLogToDisk])
     {
-      v18 = shouldLog | 2;
+      LODWORD(v18) = shouldLog | 2;
     }
 
     else
     {
-      v18 = shouldLog;
+      LODWORD(v18) = shouldLog;
     }
 
     oSLogObject = [v16 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = v18;
+    }
+
+    else
     {
       v18 &= 2u;
     }
 
     if (v18)
     {
-      *v23 = 138412546;
-      *&v23[4] = objc_opt_class();
-      *&v23[12] = 2112;
-      *&v23[14] = v9;
-      v20 = *&v23[4];
-      LODWORD(v22) = 22;
-      v21 = _os_log_send_and_compose_impl();
+      v22 = 138412546;
+      v23 = objc_opt_class();
+      v24 = 2112;
+      v25 = v9;
+      v20 = v23;
+      v21 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Deny unentitled client: %@", &v22, 22);
 
       if (!v21)
       {
-LABEL_26:
+LABEL_28:
 
         [sharedNetworkRequestQueue _sendUnentitledMessageToClient:v9];
-        goto LABEL_27;
+        goto LABEL_29;
       }
 
-      oSLogObject = [NSString stringWithCString:v21 encoding:4, v23, v22, *v23, *&v23[8]];
+      oSLogObject = [NSString stringWithCString:v21 encoding:4];
       free(v21);
       SSFileLog();
     }
 
-    goto LABEL_26;
+    goto LABEL_28;
   }
 
   v10 = +[SSLogConfig sharedDaemonConfig];
@@ -2667,43 +2768,47 @@ LABEL_26:
   shouldLog2 = [v10 shouldLog];
   if ([v10 shouldLogToDisk])
   {
-    v12 = shouldLog2 | 2;
+    LODWORD(v12) = shouldLog2 | 2;
   }
 
   else
   {
-    v12 = shouldLog2;
+    LODWORD(v12) = shouldLog2;
   }
 
   oSLogObject2 = [v10 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_FAULT))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_FAULT))
+  {
+    v12 = v12;
+  }
+
+  else
   {
     v12 &= 2u;
   }
 
   if (!v12)
   {
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-  *v23 = 138412546;
-  *&v23[4] = objc_opt_class();
-  *&v23[12] = 2112;
-  *&v23[14] = v9;
-  v14 = *&v23[4];
-  LODWORD(v22) = 22;
-  v15 = _os_log_send_and_compose_impl();
+  v22 = 138412546;
+  v23 = objc_opt_class();
+  v24 = 2112;
+  v25 = v9;
+  v14 = v23;
+  v15 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject2, 17, "%@: Deny unsupported call to updateMediaContentTasteWithMessage:connection: from client: %@", &v22, 22);
 
   if (v15)
   {
-    oSLogObject2 = [NSString stringWithCString:v15 encoding:4, v23, v22, *v23, *&v23[16]];
+    oSLogObject2 = [NSString stringWithCString:v15 encoding:4];
     free(v15);
     SSFileLog();
-LABEL_13:
+LABEL_14:
   }
 
   [sharedNetworkRequestQueue _sendNotSupportedMessageToClient:v9];
-LABEL_27:
+LABEL_29:
 }
 
 + (void)wishlistAddItemsWithMessage:(id)message connection:(id)connection
@@ -2750,16 +2855,16 @@ LABEL_27:
     [v18 setRequestParameters:copyQueryStringParameters];
     [v9 setRequestProperties:v18];
     objc_initWeak(location, v9);
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_100149610;
-    v32[3] = &unk_100328ED0;
-    objc_copyWeak(&v34, location);
-    v33 = v8;
-    [v9 setCompletionBlock:v32];
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_100149610;
+    v31[3] = &unk_100328ED0;
+    objc_copyWeak(&v33, location);
+    v32 = v8;
+    [v9 setCompletionBlock:v31];
     [sharedNetworkRequestQueue addOperation:v9];
 
-    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(location);
   }
 
@@ -2797,15 +2902,14 @@ LABEL_27:
     {
       *location = 138412546;
       *&location[4] = objc_opt_class();
-      v36 = 2112;
-      v37 = v8;
+      v35 = 2112;
+      v36 = v8;
       v27 = *&location[4];
-      LODWORD(v30) = 22;
-      v28 = _os_log_send_and_compose_impl();
+      v28 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot add wishlist items for unentitled client: %@", location, 22);
 
       if (v28)
       {
-        v29 = [NSString stringWithCString:v28 encoding:4, location, v30];
+        v29 = [NSString stringWithCString:v28 encoding:4];
         free(v28);
         SSFileLog();
       }
@@ -2853,7 +2957,7 @@ LABEL_27:
         {
           v23 = 0;
           isRequestingOfflineSlot = 0;
-          goto LABEL_23;
+          goto LABEL_24;
         }
 
         v12 = SSVDisableSubscriptionRequest;
@@ -2869,7 +2973,7 @@ LABEL_27:
       isRequestingOfflineSlot = 0;
     }
 
-LABEL_23:
+LABEL_24:
     v28 = objc_alloc_init(SubscriptionOperation);
     [(SubscriptionOperation *)v28 setAuthenticationContext:v23];
     [(SubscriptionOperation *)v28 setOperationType:type];
@@ -2877,15 +2981,15 @@ LABEL_23:
     userAgent = [v11 userAgent];
     [(SubscriptionOperation *)v28 setUserAgent:userAgent];
 
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_100149AE8;
-    v32[3] = &unk_100329B68;
-    v33 = v28;
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_100149AE8;
+    v31[3] = &unk_100329B68;
+    v32 = v28;
     v30 = v28;
-    [sharedNetworkRequestQueue addOperation:v30 forClient:v11 withMessageBlock:v32];
+    [sharedNetworkRequestQueue addOperation:v30 forClient:v11 withMessageBlock:v31];
 
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
   v13 = +[SSLogConfig sharedDaemonConfig];
@@ -2897,43 +3001,47 @@ LABEL_23:
   shouldLog = [v13 shouldLog];
   if ([v13 shouldLogToDisk])
   {
-    v15 = shouldLog | 2;
+    LODWORD(v15) = shouldLog | 2;
   }
 
   else
   {
-    v15 = shouldLog;
+    LODWORD(v15) = shouldLog;
   }
 
   oSLogObject = [v13 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = v15;
+  }
+
+  else
   {
     v15 &= 2u;
   }
 
   if (!v15)
   {
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
-  v34 = 138412546;
-  v35 = objc_opt_class();
-  v36 = 2112;
-  v37 = v11;
-  v17 = v35;
-  LODWORD(v31) = 22;
-  v18 = _os_log_send_and_compose_impl();
+  v33 = 138412546;
+  v34 = objc_opt_class();
+  v35 = 2112;
+  v36 = v11;
+  v17 = v34;
+  v18 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Cannot change subscription for unentitled client: %@", &v33, 22);
 
   if (v18)
   {
-    oSLogObject = [NSString stringWithCString:v18 encoding:4, &v34, v31];
+    oSLogObject = [NSString stringWithCString:v18 encoding:4];
     free(v18);
     SSFileLog();
-LABEL_16:
+LABEL_17:
   }
 
   [sharedNetworkRequestQueue _sendUnentitledMessageToClient:v11];
-LABEL_24:
+LABEL_25:
 }
 
 - (id)_copyAuthenticationContextWithContext:(id)context client:(id)client
@@ -2975,17 +3083,17 @@ LABEL_24:
   v5 = objc_alloc_init(NSMutableString);
   v6 = objc_alloc_init(NSMutableArray);
   v7 = objc_alloc_init(NSMutableArray);
-  v61[0] = _NSConcreteStackBlock;
-  v61[1] = 3221225472;
-  v61[2] = sub_10014A440;
-  v61[3] = &unk_100329D20;
+  v60[0] = _NSConcreteStackBlock;
+  v60[1] = 3221225472;
+  v60[2] = sub_10014A440;
+  v60[3] = &unk_100329D20;
   v8 = v5;
-  v62 = v8;
+  v61 = v8;
   v9 = v6;
-  v63 = v9;
+  v62 = v9;
   v10 = v7;
-  v64 = v10;
-  [lCopy enumerateQueryWithBlock:v61];
+  v63 = v10;
+  [lCopy enumerateQueryWithBlock:v60];
   if (![v8 isEqualToString:@"download-manifest"])
   {
     v30 = v10;
@@ -3020,13 +3128,12 @@ LABEL_24:
       if (v49)
       {
         v50 = objc_opt_class();
-        v66 = 138412546;
-        v67 = v50;
-        v68 = 2112;
-        v69 = v8;
+        v65 = 138412546;
+        v66 = v50;
+        v67 = 2112;
+        v68 = v8;
         v51 = v50;
-        LODWORD(v53) = 22;
-        v52 = _os_log_send_and_compose_impl();
+        v52 = _os_log_send_and_compose_impl(v49, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Received unknown action: %@", &v65, 22);
 
         if (!v52)
         {
@@ -3034,7 +3141,7 @@ LABEL_24:
           goto LABEL_60;
         }
 
-        oSLogObject = [NSString stringWithCString:v52 encoding:4, &v66, v53];
+        oSLogObject = [NSString stringWithCString:v52 encoding:4];
         free(v52);
         SSFileLog();
       }
@@ -3071,12 +3178,11 @@ LABEL_24:
       v38 = lCopy;
       v39 = v37;
       v40 = [v31 count];
-      v66 = 138412546;
-      v67 = v37;
-      v68 = 2048;
-      v69 = v40;
-      LODWORD(v53) = 22;
-      v41 = _os_log_send_and_compose_impl();
+      v65 = 138412546;
+      v66 = v37;
+      v67 = 2048;
+      v68 = v40;
+      v41 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Redeeming %lu codes from URL", &v65, 22);
 
       lCopy = v38;
       v9 = v31;
@@ -3091,7 +3197,7 @@ LABEL_57:
         goto LABEL_60;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v41 encoding:4, &v66, v53];
+      oSLogObject2 = [NSString stringWithCString:v41 encoding:4];
       free(v41);
       SSFileLog();
     }
@@ -3134,18 +3240,17 @@ LABEL_57:
     if (v44)
     {
       v45 = objc_opt_class();
-      v66 = 138412290;
-      v67 = v45;
+      v65 = 138412290;
+      v66 = v45;
       v46 = v45;
-      LODWORD(v53) = 12;
-      v47 = _os_log_send_and_compose_impl();
+      v47 = _os_log_send_and_compose_impl(v44, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Download manifest installation is restricted", &v65, 12);
 
       if (!v47)
       {
         goto LABEL_60;
       }
 
-      oSLogObject = [NSString stringWithCString:v47 encoding:4, &v66, v53];
+      oSLogObject = [NSString stringWithCString:v47 encoding:4];
       free(v47);
       SSFileLog();
     }
@@ -3160,8 +3265,8 @@ LABEL_59:
     v13 = +[SSLogConfig sharedConfig];
   }
 
-  v55 = v9;
-  v56 = lCopy;
+  v54 = v9;
+  v55 = lCopy;
   shouldLog4 = [(RedeemCodesOperation *)v13 shouldLog];
   if ([(RedeemCodesOperation *)v13 shouldLogToDisk])
   {
@@ -3189,19 +3294,18 @@ LABEL_59:
     v18 = objc_opt_class();
     v19 = v18;
     v20 = [v10 count];
-    v66 = 138412546;
-    v67 = v18;
-    v68 = 2048;
-    v69 = v20;
-    LODWORD(v53) = 22;
-    v21 = _os_log_send_and_compose_impl();
+    v65 = 138412546;
+    v66 = v18;
+    v67 = 2048;
+    v68 = v20;
+    v21 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Loading %lu download manifests from URL", &v65, 22);
 
     if (!v21)
     {
       goto LABEL_15;
     }
 
-    oSLogObject3 = [NSString stringWithCString:v21 encoding:4, &v66, v53];
+    oSLogObject3 = [NSString stringWithCString:v21 encoding:4];
     free(v21);
     SSFileLog();
   }
@@ -3209,43 +3313,43 @@ LABEL_59:
 LABEL_15:
   v22 = ISWeakLinkedClassForString();
   v23 = ISWeakLinkedClassForString();
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   v13 = v10;
-  v24 = [(RedeemCodesOperation *)v13 countByEnumeratingWithState:&v57 objects:v65 count:16];
+  v24 = [(RedeemCodesOperation *)v13 countByEnumeratingWithState:&v56 objects:v64 count:16];
   if (v24)
   {
     v25 = v24;
-    v54 = v10;
-    v26 = *v58;
+    v53 = v10;
+    v26 = *v57;
     do
     {
       for (i = 0; i != v25; i = i + 1)
       {
-        if (*v58 != v26)
+        if (*v57 != v26)
         {
           objc_enumerationMutation(v13);
         }
 
-        v28 = [[v22 alloc] initWithURL:*(*(&v57 + 1) + 8 * i)];
+        v28 = [[v22 alloc] initWithURL:*(*(&v56 + 1) + 8 * i)];
         v29 = [[v23 alloc] initWithOptions:v28];
         [v29 startWithCompletionBlock:&stru_100329D60];
       }
 
-      v25 = [(RedeemCodesOperation *)v13 countByEnumeratingWithState:&v57 objects:v65 count:16];
+      v25 = [(RedeemCodesOperation *)v13 countByEnumeratingWithState:&v56 objects:v64 count:16];
     }
 
     while (v25);
-    v9 = v55;
-    lCopy = v56;
-    v10 = v54;
+    v9 = v54;
+    lCopy = v55;
+    v10 = v53;
   }
 
   else
   {
-    lCopy = v56;
+    lCopy = v55;
   }
 
 LABEL_60:

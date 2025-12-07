@@ -240,7 +240,7 @@
       v18 = contentView;
       if (contentView)
       {
-        [contentView transform];
+        objc_msgSend_transform(contentView);
       }
 
       else
@@ -405,8 +405,8 @@
     }
 
     presentedViewController = [_viewControllerForAncestor presentedViewController];
-    presentation = [presentedViewController presentation];
-    [presentation dismissPresentationAnimated:1];
+    v18 = objc_msgSend_presentation(presentedViewController);
+    [v18 dismissPresentationAnimated:1];
   }
 
 LABEL_12:
@@ -497,7 +497,7 @@ LABEL_16:
   memset(&v65, 0, sizeof(v65));
   v63 = 0u;
   memset(&v62, 0, sizeof(v62));
-  [(_UIDatePickerOverlayPresentation *)self _computedLayoutForPlatterView:v9];
+  objc_msgSend__computedLayoutForPlatterView_(self);
   [(UIView *)v9 setCenter:v63];
   [(_UIDatePickerOverlayPlatterView *)v9 setContentBounds:*&v62.origin, *&v62.size];
   activeDatePicker = [(_UIDatePickerOverlayPresentation *)self activeDatePicker];
@@ -647,7 +647,7 @@ LABEL_16:
   v33 = 0u;
   v34 = 0u;
   v32 = 0u;
-  [(_UIDatePickerOverlayPresentation *)self _computedLayoutForPlatterView:v42[5]];
+  objc_msgSend__computedLayoutForPlatterView_(self);
   [v42[5] frame];
   v7 = v6;
   v9 = v8;
@@ -723,7 +723,7 @@ LABEL_16:
   v5 = 0u;
   v6 = 0u;
   v4 = 0u;
-  [(_UIDatePickerOverlayPresentation *)self _computedLayoutForPlatterView:platterView];
+  objc_msgSend__computedLayoutForPlatterView_(self);
   [platterView setContentBounds:{v4, v5}];
   [platterView setBounds:{v4, v5}];
   [platterView setCenter:v6];
@@ -798,7 +798,7 @@ LABEL_16:
   v44 = v43;
   if (v43)
   {
-    [v43 menu];
+    objc_msgSend_menu(v43);
   }
 
   else
@@ -822,9 +822,9 @@ LABEL_16:
   v56 = v55;
   if (v44)
   {
-    [v44 anchor];
+    objc_msgSend_anchor(v44);
     v57 = *(&v92 + 1);
-    [v44 menu];
+    objc_msgSend_menu(v44);
     v58 = *(&v87 + 1);
     v59 = *&v88;
   }
@@ -894,7 +894,7 @@ LABEL_16:
     v73 = v72;
     if (v72)
     {
-      [v72 menu];
+      objc_msgSend_menu(v72);
     }
 
     else

@@ -40,7 +40,7 @@ uint64_t __39__DATrafficLogger__ensureCustomLogFile__block_invoke()
 
 void __39__DATrafficLogger__ensureCustomLogFile__block_invoke_2(uint64_t a1)
 {
-  v21[6] = *MEMORY[0x277D85DE8];
+  v20[6] = *MEMORY[0x277D85DE8];
   v2 = _ensureCustomLogFile_knownCustomNames;
   v3 = [*(a1 + 32) filename];
   LOBYTE(v2) = [v2 containsObject:v3];
@@ -49,47 +49,48 @@ void __39__DATrafficLogger__ensureCustomLogFile__block_invoke_2(uint64_t a1)
   {
     v4 = [&__block_literal_global_4 copy];
     DAMigrateLogsIfNeeded();
-    v20[0] = *MEMORY[0x277D03998];
-    v21[0] = DACustomLogDirectory();
-    v20[1] = *MEMORY[0x277D039A8];
+    v19[0] = *MEMORY[0x277D03998];
+    v20[0] = DACustomLogDirectory();
+    v19[1] = *MEMORY[0x277D039A8];
     v5 = [*(a1 + 32) filename];
     v6 = *MEMORY[0x277D039B0];
-    v21[1] = v5;
-    v21[2] = &unk_285AAFBF8;
+    v20[1] = v5;
+    v20[2] = &unk_285AAFBF8;
     v7 = *MEMORY[0x277D039A0];
-    v20[2] = v6;
-    v20[3] = v7;
+    v19[2] = v6;
+    v19[3] = v7;
     v8 = *MEMORY[0x277D039C0];
     v9 = *MEMORY[0x277CBED10];
-    v21[3] = @"DALogLevel";
-    v21[4] = v9;
+    v20[3] = @"DALogLevel";
+    v20[4] = v9;
     v10 = *MEMORY[0x277D03990];
-    v20[4] = v8;
-    v20[5] = v10;
+    v19[4] = v8;
+    v19[5] = v10;
     v11 = MEMORY[0x24C1CE570](v4);
-    v21[5] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:6];
+    v20[5] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:6];
 
     v13 = [MEMORY[0x277D03910] DAManagedDefaultForKey:@"DALogLevel"];
 
-    if (!v13 && [MEMORY[0x277D03910] isAppleInternalInstall])
+    if (!v13)
     {
-      v14 = [v12 mutableCopy];
-      [v14 setObject:&unk_285AAFC10 forKeyedSubscript:*MEMORY[0x277D039B8]];
+      if ([MEMORY[0x277D03910] isAppleInternalInstall])
+      {
+        v14 = [v12 mutableCopy];
+        [v14 setObject:&unk_285AAFC10 forKeyedSubscript:*MEMORY[0x277D039B8]];
 
-      v12 = v14;
+        v12 = v14;
+      }
     }
 
     v15 = [*(a1 + 32) filename];
-    v19 = v15;
-    MEMORY[0x24C1CDEB0]([MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1], v12);
+    v18 = v15;
+    MEMORY[0x24C1CDEB0]([MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1], v12);
 
     v16 = _ensureCustomLogFile_knownCustomNames;
     v17 = [*(a1 + 32) filename];
     [v16 addObject:v17];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (DATrafficLogger)initWithFilename:(id)filename

@@ -3,6 +3,7 @@
 - (ATXRecentAndSuggestedAppsLayoutSelector)initWithSuggestionDeduplicator:(id)deduplicator hyperParameters:(id)parameters maxRecents:(unint64_t)recents recencyLookBackSeconds:(double)seconds appLaunchPublisher:(id)publisher;
 - (id)_accumulateRecentAppLaunchBundleIds;
 - (id)_getATXProactiveSuggestionForRecentAppLaunch:(id)launch;
+- (id)validLayoutsForConsumerSubType:(unsigned __int8)type rankedSuggestions:(id)suggestions;
 - (void)_accumulateRecentAppLaunchBundleIds;
 @end
 
@@ -36,6 +37,133 @@
   }
 
   return v15;
+}
+
+- (id)validLayoutsForConsumerSubType:(unsigned __int8)type rankedSuggestions:(id)suggestions
+{
+  typeCopy = type;
+  v52 = *MEMORY[0x277D85DE8];
+  suggestionsCopy = suggestions;
+  v7 = __atxlog_handle_blending(suggestionsCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "Recency Blending: Layout Selector asked to provide validLayouts.", buf, 2u);
+  }
+
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __92__ATXRecentAndSuggestedAppsLayoutSelector_validLayoutsForConsumerSubType_rankedSuggestions___block_invoke;
+  v45[3] = &unk_278599988;
+  v45[4] = self;
+  v46 = typeCopy;
+  v8 = [suggestionsCopy _pas_filteredArrayWithTest:v45];
+  _accumulateRecentAppLaunchBundleIds = [(ATXRecentAndSuggestedAppsLayoutSelector *)self _accumulateRecentAppLaunchBundleIds];
+  v10 = __atxlog_handle_blending(_accumulateRecentAppLaunchBundleIds);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = [_accumulateRecentAppLaunchBundleIds count];
+    *buf = 134217984;
+    v48 = v11;
+    _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "Recency Blending: recentlyLaunchedApps count: %lu", buf, 0xCu);
+  }
+
+  v40 = suggestionsCopy;
+
+  v38 = _accumulateRecentAppLaunchBundleIds;
+  if ([_accumulateRecentAppLaunchBundleIds count])
+  {
+    v12 = [_accumulateRecentAppLaunchBundleIds count];
+    v13 = [v8 count];
+    v14 = [MEMORY[0x277CBEB18] arrayWithCapacity:v13 + v12];
+    v41 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v15 = _accumulateRecentAppLaunchBundleIds;
+    v16 = [v15 countByEnumeratingWithState:&v41 objects:v51 count:16];
+    if (v16)
+    {
+      v17 = v16;
+      v18 = *v42;
+      do
+      {
+        for (i = 0; i != v17; ++i)
+        {
+          if (*v42 != v18)
+          {
+            objc_enumerationMutation(v15);
+          }
+
+          v20 = [(ATXRecentAndSuggestedAppsLayoutSelector *)self _getATXProactiveSuggestionForRecentAppLaunch:*(*(&v41 + 1) + 8 * i)];
+          [v14 addObject:v20];
+        }
+
+        v17 = [v15 countByEnumeratingWithState:&v41 objects:v51 count:16];
+      }
+
+      while (v17);
+    }
+
+    [v14 addObjectsFromArray:v8];
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  v21 = objc_alloc(MEMORY[0x277D42048]);
+  if ([v14 count])
+  {
+    v22 = v14;
+  }
+
+  else
+  {
+    v22 = v8;
+  }
+
+  hyperParameters = [(ATXLayoutSelector *)self hyperParameters];
+  [hyperParameters layoutsToConsiderForConsumerSubType:typeCopy];
+  v25 = v24 = typeCopy;
+  hyperParameters2 = [(ATXLayoutSelector *)self hyperParameters];
+  deduplicator = [(ATXLayoutSelector *)self deduplicator];
+  v28 = [v21 initWithRankedSuggestions:v22 layoutsToConsider:v25 hyperParameters:hyperParameters2 suggestionDeduplicator:deduplicator];
+
+  v30 = __atxlog_handle_blending(v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  {
+    v31 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:v24];
+    v32 = [v8 count];
+    *buf = 138543618;
+    v48 = v31;
+    v49 = 2048;
+    v50 = v32;
+    _os_log_impl(&dword_2263AA000, v30, OS_LOG_TYPE_DEFAULT, "Recency Blending: Generating layouts for non-homescreen consumerSubType %{public}@ with %lu ranked and filtered suggestions", buf, 0x16u);
+  }
+
+  generateValidLayouts = [v28 generateValidLayouts];
+  if ([generateValidLayouts count])
+  {
+    v34 = generateValidLayouts;
+  }
+
+  else
+  {
+    v35 = __atxlog_handle_blending(0);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    {
+      v36 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:v24];
+      *buf = 138412290;
+      v48 = v36;
+      _os_log_impl(&dword_2263AA000, v35, OS_LOG_TYPE_DEFAULT, "Recency Blending: Unable to generate any valid layouts for consumerSubType: %@.", buf, 0xCu);
+    }
+
+    v34 = 0;
+  }
+
+  return v34;
 }
 
 uint64_t __92__ATXRecentAndSuggestedAppsLayoutSelector_validLayoutsForConsumerSubType_rankedSuggestions___block_invoke(uint64_t a1, void *a2)
@@ -86,7 +214,7 @@ uint64_t __92__ATXRecentAndSuggestedAppsLayoutSelector_validLayoutsForConsumerSu
   v8 = [(BPSPublisher *)appLaunchPublisher sinkWithCompletion:v26 shouldContinue:&v19];
   if (*(v28[0] + 40))
   {
-    v9 = __atxlog_handle_blending();
+    v9 = __atxlog_handle_blending(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(ATXRecentAndSuggestedAppsLayoutSelector *)v28 _accumulateRecentAppLaunchBundleIds];
@@ -124,7 +252,7 @@ uint64_t __78__ATXRecentAndSuggestedAppsLayoutSelector__accumulateRecentAppLaunc
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 BOOL __78__ATXRecentAndSuggestedAppsLayoutSelector__accumulateRecentAppLaunchBundleIds__block_invoke_2(uint64_t a1, void *a2)
@@ -159,14 +287,13 @@ BOOL __78__ATXRecentAndSuggestedAppsLayoutSelector__accumulateRecentAppLaunchBun
 
 - (void)_accumulateRecentAppLaunchBundleIds
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(*self + 40);
-  v4 = 136315394;
-  v5 = "[ATXRecentAndSuggestedAppsLayoutSelector _accumulateRecentAppLaunchBundleIds]";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: Error with reading app launch stream: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "[ATXRecentAndSuggestedAppsLayoutSelector _accumulateRecentAppLaunchBundleIds]";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: Error with reading app launch stream: %@", &v3, 0x16u);
 }
 
 @end

@@ -7,7 +7,7 @@
 
 - (void)setApplication:(APApplication *)application shielded:(BOOL)shielded forOutlet:(APSystemAppOutlet *)outlet completion:(id)completion
 {
-  v11 = sub_10002B6CC(&qword_10032D050);
+  v11 = sub_10002B6CC(&qword_10032D050, &qword_100298FF0);
   __chkstk_darwin(v11 - 8);
   v13 = &v22 - v12;
   v14 = _Block_copy(completion);

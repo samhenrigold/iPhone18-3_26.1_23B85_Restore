@@ -18,14 +18,14 @@ uint64_t ____PFXPCCreate_block_invoke(uint64_t a1, void *a2)
 
   if (v4)
   {
-    xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-    return PFManagerErrorLog();
+    string = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
+    return PFManagerErrorLog("connection error: %s", string);
   }
 
   else if (__pfconnection)
   {
 
-    return PFManagerErrorLog();
+    return PFManagerErrorLog("unrecognized event");
   }
 
   return result;

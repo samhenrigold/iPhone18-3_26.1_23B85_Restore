@@ -136,14 +136,14 @@
     assetsDataSourceManager = [(PXZoomablePhotosViewModel *)self assetsDataSourceManager];
     dataSource = [assetsDataSourceManager dataSource];
 
-    if ([dataSource numberOfSections] < 1 || (v7 = objc_msgSend(dataSource, "numberOfSections"), -[PXZoomablePhotosViewModel sectionIndexPath](self, "sectionIndexPath"), v7 <= v54))
+    if ([dataSource numberOfSections] < 1 || (v7 = objc_msgSend(dataSource, "numberOfSections"), objc_msgSend_sectionIndexPath(self), v7 <= v54))
     {
       v8 = 0;
     }
 
     else
     {
-      [(PXZoomablePhotosViewModel *)self sectionIndexPath];
+      objc_msgSend_sectionIndexPath(self);
       v8 = [dataSource numberOfItemsInSection:v53];
     }
 
@@ -210,7 +210,7 @@
     if (allowedColumns)
     {
       allowedColumns2 = [(PXZoomablePhotosViewModel *)self allowedColumns];
-      [(PXZoomablePhotosViewModel *)self zoomState];
+      objc_msgSend_zoomState(self);
       v23 = [allowedColumns2 objectAtIndexedSubscript:v48];
 
       integerValue3 = [v23 integerValue];
@@ -385,7 +385,7 @@ void __45__PXZoomablePhotosViewModel__updateZoomState__block_invoke(uint64_t a1,
   v162 = 0u;
   v159 = 0u;
   v160 = 0u;
-  [(PXZoomablePhotosViewModel *)self zoomState];
+  objc_msgSend_zoomState(self);
   v131 = 0;
   v136 = self->_columnWidthAnimator;
   v134 = self->_alphaAnimator;
@@ -404,7 +404,7 @@ void __45__PXZoomablePhotosViewModel__updateZoomState__block_invoke(uint64_t a1,
   v155 = 0u;
   v156 = 0u;
   v154 = 0u;
-  [(PXZoomablePhotosViewModel *)self pinchState];
+  objc_msgSend_pinchState(self);
   normalizedColumnWidthWhenPinchStarted = self->_normalizedColumnWidthWhenPinchStarted;
   v6 = *(&v161 + 1);
   if (*(&v161 + 1) >= [allowedColumns count])
@@ -994,7 +994,7 @@ void __45__PXZoomablePhotosViewModel__updateZoomState__block_invoke_6(uint64_t a
 - (void)_updateShouldHideSurroundingContent
 {
   [(PXZoomablePhotosViewModel *)self shouldHideSurroundingContent];
-  [(PXZoomablePhotosViewModel *)self zoomState:0];
+  objc_msgSend_zoomState(self, 0, 0);
   [(PXZoomablePhotosViewModel *)self setShouldHideSurroundingContent:0];
 }
 
@@ -1084,7 +1084,7 @@ uint64_t __46__PXZoomablePhotosViewModel__handleSpecChange__block_invoke(uint64_
 
 - (void)saveCurrentZoomLevelAsUserPreferredIfPossible
 {
-  [(PXZoomablePhotosViewModel *)self zoomState];
+  objc_msgSend_zoomState(self, a2);
   v3 = v8;
   specManager = [(PXZoomablePhotosViewModel *)self specManager];
   spec = [specManager spec];
@@ -1349,9 +1349,12 @@ void __45__PXZoomablePhotosViewModel__updateZoomState__block_invoke_4(uint64_t a
 
 uint64_t __45__PXZoomablePhotosViewModel__updateZoomState__block_invoke_60(uint64_t a1, void *a2)
 {
-  *(*(*(a1 + 32) + 8) + 40) = [a2 pauseChangeDeliveryWithTimeout:@"PXZoomablePhotosViewModel" identifier:180.0];
+  v3 = [a2 pauseChangeDeliveryWithTimeout:@"PXZoomablePhotosViewModel" identifier:180.0];
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 void __45__PXZoomablePhotosViewModel__updateZoomState__block_invoke_2_64(uint64_t a1)
@@ -1405,7 +1408,7 @@ void __45__PXZoomablePhotosViewModel__updateZoomState__block_invoke_2_64(uint64_
   [updater setNeedsUpdateOf:sel__updatePinchVelocity];
 }
 
-uint64_t __50__PXZoomablePhotosViewModel__updateAllowedColumns__block_invoke(void *a1, void *a2, uint64_t a3)
+void *__50__PXZoomablePhotosViewModel__updateAllowedColumns__block_invoke(void *a1, void *a2, uint64_t a3)
 {
   result = [a2 integerValue];
   v6 = 1.0 / result - *(*(a1[4] + 8) + 24);
@@ -1431,7 +1434,7 @@ uint64_t __50__PXZoomablePhotosViewModel__updateAllowedColumns__block_invoke(voi
 {
   if ([(PXZoomablePhotosViewModel *)self isDisplayingIndividualItems])
   {
-    [(PXZoomablePhotosViewModel *)self zoomState];
+    objc_msgSend_zoomState(self);
     v3 = v8 == [(PXZoomablePhotosViewModel *)self defaultColumnIndex];
   }
 
@@ -1837,7 +1840,7 @@ LABEL_11:
   return v10;
 }
 
-uint64_t __54__PXZoomablePhotosViewModel__columnIndexForItemWidth___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__54__PXZoomablePhotosViewModel__columnIndexForItemWidth___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 doubleValue];
   v7 = *(*(a1 + 32) + 8);
@@ -2155,7 +2158,7 @@ void __65__PXZoomablePhotosViewModel__closestColumnIndexForAnimatedValue___block
 {
   animatedCopy = animated;
   referenceCopy = reference;
-  [(PXZoomablePhotosViewModel *)self zoomState];
+  objc_msgSend_zoomState(self);
   v7 = [(PXZoomablePhotosViewModel *)self _clampColumnIndexToValidIndex:v21 - 1];
   if (v21 != v7)
   {
@@ -2230,7 +2233,7 @@ void __65__PXZoomablePhotosViewModel__closestColumnIndexForAnimatedValue___block
   return v8;
 }
 
-uint64_t __56__PXZoomablePhotosViewModel_denseZoomLevelForZoomState___block_invoke(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
+void *__56__PXZoomablePhotosViewModel_denseZoomLevelForZoomState___block_invoke(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
 {
   result = [a2 integerValue];
   if (result <= *(a1 + 40))

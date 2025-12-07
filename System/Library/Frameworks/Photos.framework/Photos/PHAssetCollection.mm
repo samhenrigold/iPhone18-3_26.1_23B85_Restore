@@ -2949,7 +2949,7 @@ id __71__PHAssetCollection_fetchAssetCollectionsWithALAssetGroupURLs_options___b
   return v5;
 }
 
-id __67__PHAssetCollection_fetchAssetCollectionsWithType_subtype_options___block_invoke(uint64_t a1, void *a2)
+PHManualFetchResult *__67__PHAssetCollection_fetchAssetCollectionsWithType_subtype_options___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [PHFetchOptions effectivePhotoLibraryForFetchOptions:v3 object:0];
@@ -2958,7 +2958,7 @@ id __67__PHAssetCollection_fetchAssetCollectionsWithType_subtype_options___block
   [v5 setChunkSizeForFetch:2000];
   v6 = [PHQuery queryForAssetCollectionsWithType:*(a1 + 32) subtype:*(a1 + 40) options:v5];
   v7 = [v6 executeQuery];
-  if (*(a1 + 32) == 1 && *(a1 + 40) == 0x7FFFFFFFFFFFFFFFLL && ([MEMORY[0x1E69BF2F0] clientIsAllowedToFetchCollectionShares] & 1) == 0)
+  if (*(a1 + 32) == __PAIR128__(0x7FFFFFFFFFFFFFFFLL, 1) && ([MEMORY[0x1E69BF2F0] clientIsAllowedToFetchCollectionShares] & 1) == 0)
   {
     v8 = [*(a1 + 48) fetchAssetCollectionsWithType:12 subtype:102 options:v5];
     v9 = [v7 fetchedObjectIDs];
@@ -3275,9 +3275,11 @@ uint64_t __47__PHAssetCollection_propertiesToFetchWithHint___block_invoke()
   v1 = propertiesToFetchWithHint__propertiesToFetchByHint;
   propertiesToFetchWithHint__propertiesToFetchByHint = v0;
 
-  propertiesToFetchWithHint__propertyQueue = dispatch_queue_create("com.apple.photos.assetcollectionpropertyhints", 0);
+  v2 = dispatch_queue_create("com.apple.photos.assetcollectionpropertyhints", 0);
+  v3 = propertiesToFetchWithHint__propertyQueue;
+  propertiesToFetchWithHint__propertyQueue = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 + (id)_composePropertiesToFetchWithHint:(unint64_t)hint

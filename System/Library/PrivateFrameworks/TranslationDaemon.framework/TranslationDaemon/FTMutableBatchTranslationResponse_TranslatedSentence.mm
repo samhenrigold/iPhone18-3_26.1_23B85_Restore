@@ -3,6 +3,7 @@
 - (FTMutableBatchTranslationResponse_TranslatedSentence)init;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)setAlternative_descriptions:(id)alternative_descriptions;
+- (void)setContains_masked_profanity:(BOOL)contains_masked_profanity;
 - (void)setEngine_input:(id)engine_input;
 - (void)setN_best_choices:(id)n_best_choices;
 - (void)setSource_span:(id)source_span;
@@ -72,6 +73,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setContains_masked_profanity:(BOOL)contains_masked_profanity
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:contains_masked_profanity];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

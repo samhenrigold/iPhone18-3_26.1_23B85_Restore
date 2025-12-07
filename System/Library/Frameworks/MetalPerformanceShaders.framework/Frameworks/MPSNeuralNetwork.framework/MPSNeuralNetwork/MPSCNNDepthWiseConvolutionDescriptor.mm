@@ -21,19 +21,19 @@
 
 - (MPSCNNDepthWiseConvolutionDescriptor)initWithKernelWidth:(unint64_t)width kernelHeight:(unint64_t)height inputFeatureChannels:(unint64_t)channels outputFeatureChannels:(unint64_t)featureChannels
 {
-  v9.receiver = self;
-  v9.super_class = MPSCNNDepthWiseConvolutionDescriptor;
-  result = [(MPSCNNConvolutionDescriptor *)&v9 initWithKernelWidth:width kernelHeight:height inputFeatureChannels:channels outputFeatureChannels:featureChannels];
+  v13.receiver = self;
+  v13.super_class = MPSCNNDepthWiseConvolutionDescriptor;
+  result = [(MPSCNNConvolutionDescriptor *)&v13 initWithKernelWidth:width kernelHeight:height inputFeatureChannels:channels outputFeatureChannels:featureChannels];
   if (result)
   {
     if (result->super._outputFeatureChannels % result->super._inputFeatureChannels)
     {
       v7 = result;
-      v8 = MTLReportFailureTypeEnabled();
+      v12 = MTLReportFailureTypeEnabled();
       result = v7;
-      if (v8)
+      if (v12)
       {
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x2DA, @"outputFeatureChannels (%lu) in convolution descriptor must be multiple of _inputFeatureChannels (%lu)\n", v8, v9, v10, v11);
         result = v7;
       }
     }

@@ -25,7 +25,7 @@
   v14 = 0;
   if (attributesCopy)
   {
-    [attributesCopy styleDefinitionWithNode:node.var0 nameAttribute:137 inheritAttribute:106];
+    objc_msgSend_styleDefinitionWithNode_nameAttribute_inheritAttribute_(attributesCopy);
   }
 
   v10 = [attributesCopy closureForNode:node.var0];

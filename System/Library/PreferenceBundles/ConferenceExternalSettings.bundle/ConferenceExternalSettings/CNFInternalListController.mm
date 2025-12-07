@@ -21,6 +21,7 @@
 - (void)setNotifySMS:(id)s specifier:(id)specifier;
 - (void)setUseBlurStyle:(id)style specifier:(id)specifier;
 - (void)viewAccountsTapped:(id)tapped;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation CNFInternalListController
@@ -86,6 +87,15 @@
   v4.receiver = self;
   v4.super_class = CNFInternalListController;
   [(CNFInternalListController *)&v4 dealloc];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CNFInternalListController;
+  [(CNFInternalListController *)&v4 viewDidAppear:appear];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  [CNFInternalSettingsUtilities setCurrentInternalSettingsBundle:v3];
 }
 
 - (id)allowNonWifiCalls:(id)calls

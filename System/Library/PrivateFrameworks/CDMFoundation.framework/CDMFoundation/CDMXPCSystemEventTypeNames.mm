@@ -18,33 +18,31 @@
 
 void __53__CDMXPCSystemEventTypeNames_getNameStringToEnumDict__block_invoke()
 {
-  v11[7] = *MEMORY[0x1E69E9840];
-  v10[0] = @"com.apple.siri.cdm.xpc_activity.maintenance";
+  v10[7] = *MEMORY[0x1E69E9840];
+  v9[0] = @"com.apple.siri.cdm.xpc_activity.maintenance";
   v0 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:1];
-  v11[0] = v0;
-  v10[1] = @"com.apple.siri.cdm.xpc_activity.post_install";
+  v10[0] = v0;
+  v9[1] = @"com.apple.siri.cdm.xpc_activity.post_install";
   v1 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:2];
-  v11[1] = v1;
-  v10[2] = @"com.apple.trial.NamespaceUpdate.SIRI_UNDERSTANDING_NL";
+  v10[1] = v1;
+  v9[2] = @"com.apple.trial.NamespaceUpdate.SIRI_UNDERSTANDING_NL";
   v2 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:3];
-  v11[2] = v2;
-  v10[3] = @"com.apple.siri.uaf.com.apple.siri.understanding";
+  v10[2] = v2;
+  v9[3] = @"com.apple.siri.uaf.com.apple.siri.understanding";
   v3 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:3];
-  v11[3] = v3;
-  v10[4] = @"com.apple.LaunchServices.applicationRegistered";
+  v10[3] = v3;
+  v9[4] = @"com.apple.LaunchServices.applicationRegistered";
   v4 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:4];
-  v11[4] = v4;
-  v10[5] = @"com.apple.LaunchServices.applicationUnregistered";
+  v10[4] = v4;
+  v9[5] = @"com.apple.LaunchServices.applicationUnregistered";
   v5 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:5];
-  v11[5] = v5;
-  v10[6] = @"com.apple.siri.VoiceShortcuts.DataDidUpdateNotification";
+  v10[5] = v5;
+  v9[6] = @"com.apple.siri.VoiceShortcuts.DataDidUpdateNotification";
   v6 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:6];
-  v11[6] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:7];
+  v10[6] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:7];
   v8 = getNameStringToEnumDict_cdmXpcSystemEventTypeNameStringToEnum;
   getNameStringToEnumDict_cdmXpcSystemEventTypeNameStringToEnum = v7;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

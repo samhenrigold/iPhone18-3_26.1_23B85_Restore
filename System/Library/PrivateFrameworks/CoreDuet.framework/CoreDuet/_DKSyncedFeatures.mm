@@ -21,9 +21,9 @@
     +[_DKSyncedFeatures sharedInstance];
   }
 
-  v0 = sharedInstance_instance_0;
+  v1 = sharedInstance_instance_0;
 
-  return v0;
+  return v1;
 }
 
 - (_DKSyncedFeatures)init
@@ -59,7 +59,7 @@
 
 - (void)_fetchScreenTimeSyncState
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = +[_DKSyncSerializer underlyingQueue];
@@ -68,77 +68,71 @@
     getSTManagementStateClass();
     v3 = objc_opt_new();
     v4 = dispatch_semaphore_create(0);
-    v10 = MEMORY[0x1E69E9820];
-    v11 = 3221225472;
-    v12 = __46___DKSyncedFeatures__fetchScreenTimeSyncState__block_invoke;
-    v13 = &unk_1E7369B40;
+    v9 = MEMORY[0x1E69E9820];
+    v10 = 3221225472;
+    v11 = __46___DKSyncedFeatures__fetchScreenTimeSyncState__block_invoke;
+    v12 = &unk_1E7369B40;
     selfCopy = self;
     v5 = v4;
-    v15 = v5;
-    [v3 screenTimeSyncStateWithCompletionHandler:&v10];
+    v14 = v5;
+    [v3 screenTimeSyncStateWithCompletionHandler:&v9];
     v6 = dispatch_time(0, 1000000000);
     if (dispatch_semaphore_wait(v5, v6))
     {
-      v7 = [_CDLogging syncChannel:v10];
+      v7 = [_CDLogging syncChannel:v9];
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v9 = [MEMORY[0x1E696AD98] numberWithInteger:*(self + 16)];
+        v8 = [MEMORY[0x1E696AD98] numberWithInteger:*(self + 16)];
         *buf = 138412290;
-        v17 = v9;
+        v16 = v8;
         _os_log_error_impl(&dword_191750000, v7, OS_LOG_TYPE_ERROR, "ScreenTime sync state query timed out. Falling back to state %@", buf, 0xCu);
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isDigitalHealthDisabledWithIsSingleDevice:(uint64_t)device forTransports:
 {
-  v15 = *MEMORY[0x1E69E9840];
-  if (self)
+  v14 = *MEMORY[0x1E69E9840];
+  if (!self)
   {
-    *(self + 10) = a2;
-    if (a2)
-    {
-      v5 = 1;
-    }
+    return 0;
+  }
 
-    else
-    {
-      [(_DKSyncedFeatures *)self _fetchScreenTimeSyncState];
-      v5 = *(self + 16) == 1;
-    }
-
-    v6 = [_DKSyncPeerStatusTracker stringForTransports:device];
-    if ((*(self + 8) & 1) == 0 || *(self + 9) != v5)
-    {
-      *(self + 8) = 1;
-      *(self + 9) = v5;
-      v7 = +[_CDLogging syncChannel];
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-      {
-        v8 = @"enabled";
-        if (v5)
-        {
-          v8 = @"disabled";
-        }
-
-        v11 = 138543618;
-        v12 = v8;
-        v13 = 2114;
-        v14 = v6;
-        _os_log_impl(&dword_191750000, v7, OS_LOG_TYPE_INFO, "Digital Health feature is %{public}@ for transport %{public}@", &v11, 0x16u);
-      }
-    }
+  *(self + 10) = a2;
+  if (a2)
+  {
+    v5 = 1;
   }
 
   else
   {
-    v5 = 0;
+    [(_DKSyncedFeatures *)self _fetchScreenTimeSyncState];
+    v5 = *(self + 16) == 1;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
+  v6 = [_DKSyncPeerStatusTracker stringForTransports:device];
+  if ((*(self + 8) & 1) == 0 || *(self + 9) != v5)
+  {
+    *(self + 8) = 1;
+    *(self + 9) = v5;
+    v7 = +[_CDLogging syncChannel];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    {
+      v8 = @"enabled";
+      if (v5)
+      {
+        v8 = @"disabled";
+      }
+
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2114;
+      v13 = v6;
+      _os_log_impl(&dword_191750000, v7, OS_LOG_TYPE_INFO, "Digital Health feature is %{public}@ for transport %{public}@", &v10, 0x16u);
+    }
+  }
+
   return v5;
 }
 
@@ -154,17 +148,17 @@
 
 - (uint64_t)isSiriPortraitDisabled
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (result)
   {
     sharedPreferences = [getAFPreferencesClass() sharedPreferences];
     cloudSyncEnabled = [sharedPreferences cloudSyncEnabled];
 
     OUTLINED_FUNCTION_0_1();
-    v8 = 3221225472;
-    v9 = __43___DKSyncedFeatures_isSiriPortraitDisabled__block_invoke;
-    v10 = &__block_descriptor_33_e5_v8__0l;
-    v11 = cloudSyncEnabled;
+    v7 = 3221225472;
+    v8 = __43___DKSyncedFeatures_isSiriPortraitDisabled__block_invoke;
+    v9 = &__block_descriptor_33_e5_v8__0l;
+    v10 = cloudSyncEnabled;
     if (qword_1EADBD5F0 != -1)
     {
       dispatch_once(&qword_1EADBD5F0, block);
@@ -181,173 +175,159 @@
           v5 = @"enabled";
         }
 
-        v12 = 138412290;
-        v13 = v5;
-        OUTLINED_FUNCTION_3(&dword_191750000, v3, v4, "Siri Portrait feature is %@", &v12);
+        v11 = 138412290;
+        v12 = v5;
+        OUTLINED_FUNCTION_3(&dword_191750000, v3, v4, "Siri Portrait feature is %@", &v11);
       }
 
       _MergedGlobals_2 = cloudSyncEnabled;
     }
 
-    result = cloudSyncEnabled ^ 1u;
+    return cloudSyncEnabled ^ 1u;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (uint64_t)isSupergreenDisabledForTransports:(uint64_t)transports
 {
-  v19 = *MEMORY[0x1E69E9840];
-  if (transports)
+  v18 = *MEMORY[0x1E69E9840];
+  if (!transports)
   {
-    mEMORY[0x1E69B36B8] = [MEMORY[0x1E69B36B8] sharedInstance];
-    getPairedDevices = [mEMORY[0x1E69B36B8] getPairedDevices];
+    return 0;
+  }
 
-    if ([getPairedDevices count])
+  mEMORY[0x1E69B36B8] = [MEMORY[0x1E69B36B8] sharedInstance];
+  getPairedDevices = [mEMORY[0x1E69B36B8] getPairedDevices];
+
+  if ([getPairedDevices count])
+  {
+    if (a2 == 1)
     {
-      if (a2 == 1)
-      {
-        OneDay = slREIsSupergreenUsedInLastOneDay();
-      }
-
-      else
-      {
-        OneDay = slREIsSupergreenUsedInLastSevenDays();
-      }
-
-      v6 = OneDay ^ 1u;
+      OneDay = slREIsSupergreenUsedInLastOneDay();
     }
 
     else
     {
-      v6 = 1;
+      OneDay = slREIsSupergreenUsedInLastSevenDays();
     }
 
-    OUTLINED_FUNCTION_0_1();
-    v13 = 3221225472;
-    v14 = __55___DKSyncedFeatures_isSupergreenDisabledForTransports___block_invoke;
-    v15 = &__block_descriptor_33_e5_v8__0l;
-    v16 = v6;
-    if (qword_1EADBD5F8 != -1)
-    {
-      dispatch_once(&qword_1EADBD5F8, block);
-    }
-
-    if (byte_1EADBD5E9 != v6)
-    {
-      v7 = +[_CDLogging syncChannel];
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-      {
-        v9 = @"enabled";
-        if (v6)
-        {
-          v9 = @"disabled";
-        }
-
-        v17 = 138412290;
-        v18 = v9;
-        OUTLINED_FUNCTION_3(&dword_191750000, v7, v8, "Supergreen feature is now %@", &v17);
-      }
-
-      byte_1EADBD5E9 = v6;
-    }
+    v6 = OneDay ^ 1u;
   }
 
   else
   {
-    v6 = 0;
+    v6 = 1;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1();
+  v12 = 3221225472;
+  v13 = __55___DKSyncedFeatures_isSupergreenDisabledForTransports___block_invoke;
+  v14 = &__block_descriptor_33_e5_v8__0l;
+  v15 = v6;
+  if (qword_1EADBD5F8 != -1)
+  {
+    dispatch_once(&qword_1EADBD5F8, block);
+  }
+
+  if (byte_1EADBD5E9 != v6)
+  {
+    v7 = +[_CDLogging syncChannel];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    {
+      v9 = @"enabled";
+      if (v6)
+      {
+        v9 = @"disabled";
+      }
+
+      v16 = 138412290;
+      v17 = v9;
+      OUTLINED_FUNCTION_3(&dword_191750000, v7, v8, "Supergreen feature is now %@", &v16);
+    }
+
+    byte_1EADBD5E9 = v6;
+  }
+
   return v6;
 }
 
 - (uint64_t)isOptimizedBatteryChargingDisabled
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (self)
+  v11 = *MEMORY[0x1E69E9840];
+  if (!self)
   {
-    v1 = CFPreferencesCopyValue(@"enabled", @"com.apple.smartcharging.topoffprotection", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
-    v2 = v1;
-    if (v1)
-    {
-      bOOLValue = [v1 BOOLValue];
-    }
+    return 0;
+  }
 
-    else
-    {
-      bOOLValue = 1;
-    }
-
-    v4 = +[_CDLogging syncChannel];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-    {
-      v6 = @"disabled";
-      if (bOOLValue)
-      {
-        v6 = @"enabled";
-      }
-
-      v10 = 138412290;
-      v11 = v6;
-      OUTLINED_FUNCTION_3(&dword_191750000, v4, v5, "Optimized Battery Charging feature is %@", &v10);
-    }
-
-    v7 = bOOLValue ^ 1u;
+  v1 = CFPreferencesCopyValue(@"enabled", @"com.apple.smartcharging.topoffprotection", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
+  v2 = v1;
+  if (v1)
+  {
+    bOOLValue = [v1 BOOLValue];
   }
 
   else
   {
-    v7 = 0;
+    bOOLValue = 1;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
+  v4 = +[_CDLogging syncChannel];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  {
+    v6 = @"disabled";
+    if (bOOLValue)
+    {
+      v6 = @"enabled";
+    }
+
+    v9 = 138412290;
+    v10 = v6;
+    OUTLINED_FUNCTION_3(&dword_191750000, v4, v5, "Optimized Battery Charging feature is %@", &v9);
+  }
+
+  v7 = bOOLValue ^ 1u;
   return v7;
 }
 
 - (uint64_t)isTipsDisabled
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if (self)
+  v12 = *MEMORY[0x1E69E9840];
+  if (!self)
   {
-    mEMORY[0x1E69B36B8] = [MEMORY[0x1E69B36B8] sharedInstance];
-    getPairedDevices = [mEMORY[0x1E69B36B8] getPairedDevices];
+    return 0;
+  }
 
-    if ([getPairedDevices count])
+  mEMORY[0x1E69B36B8] = [MEMORY[0x1E69B36B8] sharedInstance];
+  getPairedDevices = [mEMORY[0x1E69B36B8] getPairedDevices];
+
+  if ([getPairedDevices count])
+  {
+    defaultWorkspace = [MEMORY[0x1E6963608] defaultWorkspace];
+    v4 = [defaultWorkspace applicationIsInstalled:@"com.apple.tips"];
+
+    v5 = +[_CDLogging syncChannel];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      defaultWorkspace = [MEMORY[0x1E6963608] defaultWorkspace];
-      v4 = [defaultWorkspace applicationIsInstalled:@"com.apple.tips"];
-
-      v5 = +[_CDLogging syncChannel];
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v7 = @"not ";
+      if (v4)
       {
-        v7 = @"not ";
-        if (v4)
-        {
-          v7 = &stru_1F05B9908;
-        }
-
-        v11 = 138412290;
-        v12 = v7;
-        OUTLINED_FUNCTION_3(&dword_191750000, v5, v6, "Tips is %@installed.", &v11);
+        v7 = &stru_1F05B9908;
       }
 
-      v8 = v4 ^ 1u;
+      v10 = 138412290;
+      v11 = v7;
+      OUTLINED_FUNCTION_3(&dword_191750000, v5, v6, "Tips is %@installed.", &v10);
     }
 
-    else
-    {
-      v8 = 1;
-    }
+    v8 = v4 ^ 1u;
   }
 
   else
   {
-    v8 = 0;
+    v8 = 1;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

@@ -101,7 +101,7 @@ void __48__WFInterchangeAppRegistry_refreshInstalledApps__block_invoke_2(uint64_
 
 void __48__WFInterchangeAppRegistry_refreshInstalledApps__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKey:v5];
@@ -110,69 +110,67 @@ void __48__WFInterchangeAppRegistry_refreshInstalledApps__block_invoke_3(uint64_
   [v7 updateInstalledStatus];
   if (v8 != [v7 isInstalled])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         v13 = 0;
         do
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          [*(*(&v15 + 1) + 8 * v13++) appRegistry:*(a1 + 40) installStatusChangedForApp:{v7, v15}];
+          [*(*(&v14 + 1) + 8 * v13++) appRegistry:*(a1 + 40) installStatusChangedForApp:{v7, v14}];
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v11);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeInstallStatusObserver:(id)observer forAppIdentifiers:(id)identifiers
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   identifiersCopy = identifiers;
   observersLock = [(WFInterchangeAppRegistry *)self observersLock];
   [observersLock lock];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v9 = identifiersCopy;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       v13 = 0;
       do
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * v13);
+        v14 = *(*(&v18 + 1) + 8 * v13);
         observersByIdentifier = [(WFInterchangeAppRegistry *)self observersByIdentifier];
         v16 = [observersByIdentifier objectForKey:v14];
         if ([v16 count] == 1 && objc_msgSend(v16, "containsObject:", observerCopy))
@@ -189,7 +187,7 @@ void __48__WFInterchangeAppRegistry_refreshInstalledApps__block_invoke_3(uint64_
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
@@ -197,40 +195,38 @@ void __48__WFInterchangeAppRegistry_refreshInstalledApps__block_invoke_3(uint64_
 
   observersLock2 = [(WFInterchangeAppRegistry *)self observersLock];
   [observersLock2 unlock];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addInstallStatusObserver:(id)observer forAppIdentifiers:(id)identifiers
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   identifiersCopy = identifiers;
   v8 = [(WFInterchangeAppRegistry *)self appsWithIdentifiers:identifiersCopy];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v29;
+    v11 = *v28;
     do
     {
       v12 = 0;
       do
       {
-        if (*v29 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v28 + 1) + 8 * v12++) isInstalled];
+        [*(*(&v27 + 1) + 8 * v12++) isInstalled];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v10);
@@ -239,27 +235,27 @@ void __48__WFInterchangeAppRegistry_refreshInstalledApps__block_invoke_3(uint64_
   observersLock = [(WFInterchangeAppRegistry *)self observersLock];
   [observersLock lock];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v14 = identifiersCopy;
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       v18 = 0;
       do
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * v18);
+        v19 = *(*(&v23 + 1) + 8 * v18);
         observersByIdentifier = [(WFInterchangeAppRegistry *)self observersByIdentifier];
         weakObjectsHashTable = [observersByIdentifier objectForKey:v19];
         if (!weakObjectsHashTable)
@@ -274,7 +270,7 @@ void __48__WFInterchangeAppRegistry_refreshInstalledApps__block_invoke_3(uint64_
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v16);
@@ -282,8 +278,6 @@ void __48__WFInterchangeAppRegistry_refreshInstalledApps__block_invoke_3(uint64_
 
   observersLock2 = [(WFInterchangeAppRegistry *)self observersLock];
   [observersLock2 unlock];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fillRegistry
@@ -324,53 +318,53 @@ void __48__WFInterchangeAppRegistry_refreshInstalledApps__block_invoke_3(uint64_
 
 void __40__WFInterchangeAppRegistry_fillRegistry__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v35 = (*(a3 + 16))(a3);
-  v6 = [[WFInterchangeApp alloc] initWithIdentifier:v5 definition:v35];
-  v36 = v5;
+  v34 = (*(a3 + 16))(a3);
+  v6 = [[WFInterchangeApp alloc] initWithIdentifier:v5 definition:v34];
+  v35 = v5;
   [*(a1 + 32) setObject:v6 forKey:v5];
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
-  v34 = v6;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v33 = v6;
   obj = [(WFInterchangeApp *)v6 schemes];
-  v7 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+  v7 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
   if (v7)
   {
     v8 = v7;
-    v38 = *v48;
+    v37 = *v47;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v48 != v38)
+        if (*v47 != v37)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v47 + 1) + 8 * i);
+        v10 = *(*(&v46 + 1) + 8 * i);
+        v42 = 0u;
         v43 = 0u;
         v44 = 0u;
         v45 = 0u;
-        v46 = 0u;
         v11 = [v10 actions];
-        v12 = [v11 countByEnumeratingWithState:&v43 objects:v52 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v42 objects:v51 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v44;
+          v14 = *v43;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v44 != v14)
+              if (*v43 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v43 + 1) + 8 * j);
+              v16 = *(*(&v42 + 1) + 8 * j);
               v17 = *(a1 + 40);
               v18 = [v16 identifier];
               v19 = [v17 objectForKey:v18];
@@ -383,39 +377,39 @@ void __40__WFInterchangeAppRegistry_fillRegistry__block_invoke(uint64_t a1, void
               }
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v43 objects:v52 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v42 objects:v51 count:16];
           }
 
           while (v13);
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+      v8 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
     }
 
     while (v8);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
-  v22 = [(WFInterchangeApp *)v34 documentActions];
-  v23 = [v22 countByEnumeratingWithState:&v39 objects:v51 count:16];
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v22 = [(WFInterchangeApp *)v33 documentActions];
+  v23 = [v22 countByEnumeratingWithState:&v38 objects:v50 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v40;
+    v25 = *v39;
     do
     {
       for (k = 0; k != v24; ++k)
       {
-        if (*v40 != v25)
+        if (*v39 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = *(*(&v39 + 1) + 8 * k);
+        v27 = *(*(&v38 + 1) + 8 * k);
         v28 = *(a1 + 40);
         v29 = [v27 identifier];
         v30 = [v28 objectForKey:v29];
@@ -428,13 +422,11 @@ void __40__WFInterchangeAppRegistry_fillRegistry__block_invoke(uint64_t a1, void
         }
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v39 objects:v51 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v38 objects:v50 count:16];
     }
 
     while (v24);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateRegistry
@@ -513,16 +505,15 @@ void __40__WFInterchangeAppRegistry_fillRegistry__block_invoke(uint64_t a1, void
 
 id __51__WFInterchangeAppRegistry_actionsWithIdentifiers___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [a2 stringByDeletingPathExtension];
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() legacyAppIdentifierForBundleIdentifier:v3];
+  v2 = [a2 stringByDeletingPathExtension];
+  v3 = [objc_opt_class() legacyAppIdentifierForBundleIdentifier:v2];
 
-  return v5;
+  return v3;
 }
 
 id __51__WFInterchangeAppRegistry_actionsWithIdentifiers___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [*(a1 + 32) objectAtIndex:a3];
   objc_opt_class();
@@ -533,60 +524,60 @@ id __51__WFInterchangeAppRegistry_actionsWithIdentifiers___block_invoke_3(uint64
 
   else
   {
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v8 = [v6 schemes];
-    v29 = [v8 countByEnumeratingWithState:&v38 objects:v44 count:16];
-    if (v29)
+    v28 = [v8 countByEnumeratingWithState:&v37 objects:v43 count:16];
+    if (v28)
     {
-      v9 = *v39;
-      v27 = *v39;
-      v28 = v6;
+      v9 = *v38;
+      v26 = *v38;
+      v27 = v6;
       do
       {
-        for (i = 0; i != v29; ++i)
+        for (i = 0; i != v28; ++i)
         {
-          if (*v39 != v9)
+          if (*v38 != v9)
           {
             objc_enumerationMutation(v8);
           }
 
-          v11 = *(*(&v38 + 1) + 8 * i);
+          v11 = *(*(&v37 + 1) + 8 * i);
+          v33 = 0u;
           v34 = 0u;
           v35 = 0u;
           v36 = 0u;
-          v37 = 0u;
           v12 = [v11 actions];
-          v13 = [v12 countByEnumeratingWithState:&v34 objects:v43 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v33 objects:v42 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v35;
+            v15 = *v34;
             while (2)
             {
               for (j = 0; j != v14; ++j)
               {
-                if (*v35 != v15)
+                if (*v34 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v17 = *(*(&v34 + 1) + 8 * j);
+                v17 = *(*(&v33 + 1) + 8 * j);
                 v18 = [v17 identifier];
-                v19 = [v18 isEqualToString:v5];
+                isEqualToString = objc_msgSend_isEqualToString_(v18);
 
-                if (v19)
+                if (isEqualToString)
                 {
                   v7 = v17;
 
-                  v6 = v28;
+                  v6 = v27;
                   goto LABEL_29;
                 }
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v34 objects:v43 count:16];
+              v14 = [v12 countByEnumeratingWithState:&v33 objects:v42 count:16];
               if (v14)
               {
                 continue;
@@ -596,37 +587,37 @@ id __51__WFInterchangeAppRegistry_actionsWithIdentifiers___block_invoke_3(uint64
             }
           }
 
-          v9 = v27;
+          v9 = v26;
         }
 
-        v6 = v28;
-        v29 = [v8 countByEnumeratingWithState:&v38 objects:v44 count:16];
+        v6 = v27;
+        v28 = [v8 countByEnumeratingWithState:&v37 objects:v43 count:16];
       }
 
-      while (v29);
+      while (v28);
     }
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v8 = [v6 documentActions];
-    v7 = [v8 countByEnumeratingWithState:&v30 objects:v42 count:16];
+    v7 = [v8 countByEnumeratingWithState:&v29 objects:v41 count:16];
     if (v7)
     {
-      v20 = *v31;
+      v20 = *v30;
       while (2)
       {
         for (k = 0; k != v7; k = k + 1)
         {
-          if (*v31 != v20)
+          if (*v30 != v20)
           {
             objc_enumerationMutation(v8);
           }
 
-          v22 = *(*(&v30 + 1) + 8 * k);
+          v22 = *(*(&v29 + 1) + 8 * k);
           v23 = [v22 identifier];
-          v24 = [v23 isEqualToString:v5];
+          v24 = objc_msgSend_isEqualToString_(v23);
 
           if (v24)
           {
@@ -635,7 +626,7 @@ id __51__WFInterchangeAppRegistry_actionsWithIdentifiers___block_invoke_3(uint64
           }
         }
 
-        v7 = [v8 countByEnumeratingWithState:&v30 objects:v42 count:16];
+        v7 = [v8 countByEnumeratingWithState:&v29 objects:v41 count:16];
         if (v7)
         {
           continue;
@@ -647,8 +638,6 @@ id __51__WFInterchangeAppRegistry_actionsWithIdentifiers___block_invoke_3(uint64
 
 LABEL_29:
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -716,12 +705,12 @@ LABEL_29:
 
 - (id)appWithIdentifier:(id)identifier
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = MEMORY[0x1E695DEC8];
   identifierCopy2 = identifier;
   v6 = [v4 arrayWithObjects:&identifierCopy count:1];
-  v7 = [(WFInterchangeAppRegistry *)self appsWithIdentifiers:v6, identifierCopy, v13];
+  v7 = [(WFInterchangeAppRegistry *)self appsWithIdentifiers:v6, identifierCopy, v12];
   firstObject = [v7 firstObject];
 
   objc_opt_class();
@@ -734,8 +723,6 @@ LABEL_29:
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -756,31 +743,31 @@ LABEL_29:
 
 - (id)_appsWithIdentifiers:(id)identifiers
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   selfCopy = self;
   appsDictionary = [(WFInterchangeAppRegistry *)self appsDictionary];
   v6 = objc_opt_new();
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   v7 = identifiersCopy;
-  v8 = [v7 countByEnumeratingWithState:&v60 objects:v70 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v59 objects:v69 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v61;
+    v10 = *v60;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v61 != v10)
+        if (*v60 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v60 + 1) + 8 * i);
+        v12 = *(*(&v59 + 1) + 8 * i);
         v13 = [(NSDictionary *)appsDictionary objectForKey:v12];
 
         if (!v13)
@@ -789,7 +776,7 @@ LABEL_29:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v60 objects:v70 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v59 objects:v69 count:16];
     }
 
     while (v9);
@@ -801,9 +788,9 @@ LABEL_29:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v67 = "[WFInterchangeAppRegistry _appsWithIdentifiers:]";
-      v68 = 2112;
-      v69 = v6;
+      v66 = "[WFInterchangeAppRegistry _appsWithIdentifiers:]";
+      v67 = 2112;
+      v68 = v6;
       _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_DEFAULT, "%s Loading apps: %@", buf, 0x16u);
     }
 
@@ -820,10 +807,10 @@ LABEL_29:
     }
 
     v18 = v17;
-    v46 = appsDictionary;
-    v47 = v7;
+    v45 = appsDictionary;
+    v46 = v7;
 
-    v48 = v6;
+    v47 = v6;
     if (selfCopy->_isFilled)
     {
       v19 = 0;
@@ -834,26 +821,26 @@ LABEL_29:
       v20 = v18;
       v21 = +[WFInterchangeAppDefinitionRegistry registeredDefinitions];
       v19 = objc_opt_new();
+      v55 = 0u;
       v56 = 0u;
       v57 = 0u;
       v58 = 0u;
-      v59 = 0u;
       v22 = v6;
-      v23 = [v22 countByEnumeratingWithState:&v56 objects:v65 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v55 objects:v64 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v57;
+        v25 = *v56;
         do
         {
           for (j = 0; j != v24; ++j)
           {
-            if (*v57 != v25)
+            if (*v56 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            v27 = *(*(&v56 + 1) + 8 * j);
+            v27 = *(*(&v55 + 1) + 8 * j);
             v28 = [v21 objectForKey:v27];
             v29 = v28;
             if (v28)
@@ -863,37 +850,37 @@ LABEL_29:
             }
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v56 objects:v65 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v55 objects:v64 count:16];
         }
 
         while (v24);
       }
 
-      v6 = v48;
+      v6 = v47;
       v18 = v20;
     }
 
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     v31 = v6;
-    v32 = [v31 countByEnumeratingWithState:&v52 objects:v64 count:16];
+    v32 = [v31 countByEnumeratingWithState:&v51 objects:v63 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v53;
+      v34 = *v52;
       do
       {
         for (k = 0; k != v33; ++k)
         {
-          if (*v53 != v34)
+          if (*v52 != v34)
           {
             objc_enumerationMutation(v31);
           }
 
-          v36 = *(*(&v52 + 1) + 8 * k);
-          v37 = [v19 objectForKey:{v36, v46}];
+          v36 = *(*(&v51 + 1) + 8 * k);
+          v37 = [v19 objectForKey:{v36, v45}];
           if (!v37)
           {
             v38 = v18;
@@ -901,9 +888,9 @@ LABEL_29:
             if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v67 = "[WFInterchangeAppRegistry _appsWithIdentifiers:]";
-              v68 = 2114;
-              v69 = v36;
+              v66 = "[WFInterchangeAppRegistry _appsWithIdentifiers:]";
+              v67 = 2114;
+              v68 = v36;
               _os_log_impl(&dword_1CA256000, v39, OS_LOG_TYPE_ERROR, "%s Failed to load a definition for %{public}@", buf, 0x16u);
             }
 
@@ -914,7 +901,7 @@ LABEL_29:
           [v18 setObject:v40 forKey:v36];
         }
 
-        v33 = [v31 countByEnumeratingWithState:&v52 objects:v64 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v51 objects:v63 count:16];
       }
 
       while (v33);
@@ -924,19 +911,17 @@ LABEL_29:
     appsDictionary = selfCopy->_appsDictionary;
     selfCopy->_appsDictionary = appsDictionary;
 
-    v7 = v47;
-    v6 = v48;
+    v7 = v46;
+    v6 = v47;
   }
 
-  v50[0] = MEMORY[0x1E69E9820];
-  v50[1] = 3221225472;
-  v50[2] = __49__WFInterchangeAppRegistry__appsWithIdentifiers___block_invoke;
-  v50[3] = &unk_1E8375F40;
-  v51 = appsDictionary;
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __49__WFInterchangeAppRegistry__appsWithIdentifiers___block_invoke;
+  v49[3] = &unk_1E8375F40;
+  v50 = appsDictionary;
   v42 = appsDictionary;
-  v43 = [v7 if_map:v50];
-
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = [v7 if_map:v49];
 
   return v43;
 }
@@ -1109,7 +1094,7 @@ void __54__WFInterchangeAppRegistry_initWithBackgroundRefresh___block_invoke_177
 
 + (id)bundleIdentifierForLegacyAppIdentifier:(id)identifier
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = [&unk_1F4A99D48 objectForKeyedSubscript:identifierCopy];
   if (v4)
@@ -1117,28 +1102,28 @@ void __54__WFInterchangeAppRegistry_initWithBackgroundRefresh___block_invoke_177
     v5 = v4;
     v6 = [v4 arrayByAddingObject:identifierCopy];
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v22;
+      v10 = *v21;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v22 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * i);
+          v12 = *(*(&v20 + 1) + 8 * i);
           v13 = objc_alloc(MEMORY[0x1E69635F8]);
-          v14 = [v13 initWithBundleIdentifier:v12 allowPlaceholder:0 error:{0, v21}];
+          v14 = [v13 initWithBundleIdentifier:v12 allowPlaceholder:0 error:{0, v20}];
           v15 = v14;
           if (v14)
           {
@@ -1154,7 +1139,7 @@ void __54__WFInterchangeAppRegistry_initWithBackgroundRefresh___block_invoke_177
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v9)
         {
           continue;
@@ -1172,8 +1157,6 @@ LABEL_14:
   {
     firstObject = identifierCopy;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }

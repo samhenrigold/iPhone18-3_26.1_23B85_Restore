@@ -10,11 +10,12 @@
   v4 = *(&self->super.isa + OBJC_IVAR____TtC17PromotedContentUIP33_F33E7C2993C44F3307C22CD11BA85E0E13WebViewWarmer_finished);
   if (v4)
   {
+    v5 = *&self->finished[OBJC_IVAR____TtC17PromotedContentUIP33_F33E7C2993C44F3307C22CD11BA85E0E13WebViewWarmer_finished];
     selfCopy = self;
-    v6 = sub_1C19A2D24(v4);
-    v4(v6);
+    v7 = sub_1C19A2D24(v4, v5);
+    v4(v7);
 
-    sub_1C19A504C(v4);
+    sub_1C19A504C(v4, v5);
   }
 }
 

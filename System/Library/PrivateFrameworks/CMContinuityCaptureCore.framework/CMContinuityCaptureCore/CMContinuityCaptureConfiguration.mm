@@ -53,7 +53,7 @@
   rect.size = v7;
   CGRectMakeWithDictionaryRepresentation(interestCopy, &rect);
 
-  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"[x:%.2f, y:%.2f, w:%.2f, h:%.2f]", *&rect.origin.x, *&rect.origin.y, *&rect.size.width, *&rect.size.height];
+  v8 = [MEMORY[0x277CCACA8] stringWithFormat:*&rect.origin.x, *&rect.origin.y, *&rect.size.width, *&rect.size.height];
   centerStageRectOfInterestStr = self->_centerStageRectOfInterestStr;
   self->_centerStageRectOfInterestStr = v8;
 
@@ -114,60 +114,53 @@
   maxFrameRate = self->_maxFrameRate;
   minFrameRate = self->_minFrameRate;
   audioDeviceMode = self->_audioDeviceMode;
-  v20 = [CMContinuityCaptureConfiguration stringForManualFramingDeviceType:self->_manualFramingDeviceType];
-  v21 = [v37 stringWithFormat:@"%@: Entity:%d SVE:%d PE:%d CS:%d FCST:%lu CSRI:%@ CSFM:%ld FD:%d HBD:%d HFBD:%d AsyncStill:%d MQP:%d SL:%d BR:%d FR:%u MnFR:%u VideoZoomFactor:%.2f Format:%@ DVCM:%u ADM:%u ABS:%.3f, GID:%llx PEA:%f SLI:%f PA[x:%f, y:%f] MFD:%@ FoVTW:%d [%p]", v36, entity, suppressVideoEffects, portraitEffectEnabled, centerStageEnabled, forcefulCenterStageEnablementType, v30, centerStageFramingMode, faceDetectionEnabled, humanBodyDetectionEnabled, humanFullBodyDetectionEnabled, asyncStillCaptureEnabled, maxPhotoQualityPrioritization, studioLightingEnabled, backgroundReplacementEnabled, maxFrameRate, minFrameRate, *&videoZoomFactor, format, deskViewCameraMode, audioDeviceMode, *&audioBlockSize, generationID, *&portraitEffectAperture, *&studioLightingIntensity, *&panningAngleX, *&panningAngleY, v20, self->_centerStageFieldOfViewRestrictedToWide, self];
+  v20 = [CMContinuityCaptureConfiguration stringForManualFramingDeviceType:?];
+  v21 = [v37 stringWithFormat:v36, entity, suppressVideoEffects, portraitEffectEnabled, centerStageEnabled, forcefulCenterStageEnablementType, v30, centerStageFramingMode, faceDetectionEnabled, humanBodyDetectionEnabled, humanFullBodyDetectionEnabled, asyncStillCaptureEnabled, maxPhotoQualityPrioritization, studioLightingEnabled, backgroundReplacementEnabled, maxFrameRate, minFrameRate, *&videoZoomFactor, format, deskViewCameraMode, audioDeviceMode, *&audioBlockSize, generationID, *&portraitEffectAperture, *&studioLightingIntensity, *&panningAngleX, *&panningAngleY, v20, self->_centerStageFieldOfViewRestrictedToWide, self];
 
   return v21;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  suppressVideoEffects = self->_suppressVideoEffects;
   coderCopy = coder;
-  [coderCopy encodeBool:suppressVideoEffects forKey:@"suppressVideoEffects"];
-  [coderCopy encodeBool:self->_portraitEffectEnabled forKey:@"portraitEffectEnabled"];
-  [coderCopy encodeBool:self->_centerStageEnabled forKey:@"centerStageEnabled"];
-  [coderCopy encodeObject:self->_centerStageRectOfInterest forKey:@"centerStageRectOfInterest"];
-  [coderCopy encodeInt64:self->_centerStageFramingMode forKey:@"centerStageFramingMode"];
-  [coderCopy encodeInt32:LODWORD(self->_forcefulCenterStageEnablementType) forKey:@"forcefulCenterStageEnablementType"];
-  [coderCopy encodeBool:self->_faceDetectionEnabled forKey:@"faceDetectionEnabled"];
-  [coderCopy encodeBool:self->_humanBodyDetectionEnabled forKey:@"humanBodyDetectionEnabled"];
-  [coderCopy encodeBool:self->_humanFullBodyDetectionEnabled forKey:@"humanFullBodyDetectionEnabled"];
-  [coderCopy encodeBool:self->_studioLightingEnabled forKey:@"studioLightingEnabled"];
-  [coderCopy encodeBool:self->_reactionEffectsEnabled forKey:@"reactionEffectsEnabled"];
-  [coderCopy encodeBool:self->_backgroundReplacementEnabled forKey:@"backgroundReplacementEnabled"];
-  [coderCopy encodeInt32:self->_maxFrameRate forKey:@"frameRate"];
-  [coderCopy encodeInt32:self->_minFrameRate forKey:@"minFrameRate"];
-  [coderCopy encodeDouble:@"videoZoomFactor" forKey:self->_videoZoomFactor];
-  [coderCopy encodeObject:self->_format forKey:@"format"];
-  [coderCopy encodeInt64:self->_entity forKey:@"entity"];
-  [coderCopy encodeObject:self->_sessionID forKey:@"sessionID"];
-  [coderCopy encodeBool:self->_asyncStillCaptureEnabled forKey:@"asyncStillCaptureEnabled"];
-  [coderCopy encodeObject:self->_asyncStillCaptureConfigs forKey:@"asyncStillCaptureConfigs"];
-  [coderCopy encodeInt32:LODWORD(self->_deskViewCameraMode) forKey:@"deskViewCameraMode"];
-  [coderCopy encodeInt32:self->_audioDeviceMode forKey:@"audioDeviceMode"];
-  [coderCopy encodeDouble:@"audioBlockSize" forKey:self->_audioBlockSize];
-  [coderCopy encodeInt64:self->_generationID forKey:@"generationID"];
-  *&v5 = self->_portraitEffectAperture;
-  [coderCopy encodeFloat:@"portraitEffectAperture" forKey:v5];
-  *&v6 = self->_studioLightingIntensity;
-  [coderCopy encodeFloat:@"studioLightingIntensity" forKey:v6];
-  [coderCopy encodeBool:self->_reactionEffectGesturesEnabled forKey:@"reactionEffectGesturesEnabled"];
-  [coderCopy encodeBool:self->_reactionEffectSuppressedGesturesEnabled forKey:@"reactionEffectSuppressedGesturesEnabled"];
-  [coderCopy encodeCVPixelBuffer:self->_backgroundReplacementPixelBuffer forKey:@"backgroundReplacementPixelBuffer"];
-  panningAngleX = self->_panningAngleX;
-  *&panningAngleX = panningAngleX;
-  [coderCopy encodeFloat:@"panningAngleX" forKey:panningAngleX];
-  panningAngleY = self->_panningAngleY;
-  *&panningAngleY = panningAngleY;
-  [coderCopy encodeFloat:@"panningAngleY" forKey:panningAngleY];
-  [coderCopy encodeInteger:self->_manualFramingDeviceType forKey:@"manualFramingDeviceType"];
-  [coderCopy encodeBool:self->_centerStageFieldOfViewRestrictedToWide forKey:@"centerStageFieldOfViewRestrictedToWide"];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeInt64:? forKey:?];
+  [coderCopy encodeInt32:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeInt32:? forKey:?];
+  [coderCopy encodeInt32:? forKey:?];
+  [coderCopy encodeDouble:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeInt64:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeInt32:? forKey:?];
+  [coderCopy encodeInt32:? forKey:?];
+  [coderCopy encodeDouble:? forKey:?];
+  [coderCopy encodeInt64:? forKey:?];
+  [coderCopy encodeFloat:? forKey:?];
+  [coderCopy encodeFloat:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
+  [coderCopy encodeCVPixelBuffer:? forKey:?];
+  [coderCopy encodeFloat:? forKey:?];
+  [coderCopy encodeFloat:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
 }
 
 - (int)maxPhotoQualityPrioritization
 {
-  v2 = [(NSDictionary *)self->_asyncStillCaptureConfigs objectForKeyedSubscript:@"MaxPhotoQualityPrioritization"];
+  v2 = [(NSDictionary *)self->_asyncStillCaptureConfigs objectForKeyedSubscript:?];
   intValue = [v2 intValue];
 
   return intValue;
@@ -195,91 +188,95 @@
 - (CMContinuityCaptureConfiguration)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v26.receiver = self;
-  v26.super_class = CMContinuityCaptureConfiguration;
-  v5 = [(CMContinuityCaptureConfiguration *)&v26 init];
+  v24.receiver = self;
+  v24.super_class = CMContinuityCaptureConfiguration;
+  v5 = [(CMContinuityCaptureConfiguration *)&v24 init];
   if (v5)
   {
-    v5->_entity = [coderCopy decodeInt64ForKey:@"entity"];
-    v5->_suppressVideoEffects = [coderCopy decodeBoolForKey:@"suppressVideoEffects"];
-    v5->_portraitEffectEnabled = [coderCopy decodeBoolForKey:@"portraitEffectEnabled"];
-    v5->_centerStageEnabled = [coderCopy decodeBoolForKey:@"centerStageEnabled"];
-    v6 = objc_opt_class();
-    v7 = [coderCopy decodeDictionaryWithKeysOfClass:v6 objectsOfClass:objc_opt_class() forKey:@"centerStageRectOfInterest"];
+    v5->_entity = [coderCopy decodeInt64ForKey:?];
+    v5->_suppressVideoEffects = [coderCopy decodeBoolForKey:?];
+    v5->_portraitEffectEnabled = [coderCopy decodeBoolForKey:?];
+    v5->_centerStageEnabled = [coderCopy decodeBoolForKey:?];
+    objc_opt_class();
+    objc_opt_class();
+    v6 = [coderCopy decodeDictionaryWithKeysOfClass:? objectsOfClass:? forKey:?];
     centerStageRectOfInterest = v5->_centerStageRectOfInterest;
-    v5->_centerStageRectOfInterest = v7;
+    v5->_centerStageRectOfInterest = v6;
 
-    v5->_centerStageFramingMode = [coderCopy decodeInt64ForKey:@"centerStageFramingMode"];
-    v5->_forcefulCenterStageEnablementType = [coderCopy decodeInt32ForKey:@"forcefulCenterStageEnablementType"];
-    v5->_faceDetectionEnabled = [coderCopy decodeBoolForKey:@"faceDetectionEnabled"];
-    v5->_humanBodyDetectionEnabled = [coderCopy decodeBoolForKey:@"humanBodyDetectionEnabled"];
-    v5->_humanFullBodyDetectionEnabled = [coderCopy decodeBoolForKey:@"humanFullBodyDetectionEnabled"];
-    v5->_studioLightingEnabled = [coderCopy decodeBoolForKey:@"studioLightingEnabled"];
-    v5->_reactionEffectsEnabled = [coderCopy decodeBoolForKey:@"reactionEffectsEnabled"];
-    v5->_backgroundReplacementEnabled = [coderCopy decodeBoolForKey:@"backgroundReplacementEnabled"];
-    v5->_maxFrameRate = [coderCopy decodeInt32ForKey:@"frameRate"];
-    v5->_minFrameRate = [coderCopy decodeInt32ForKey:@"minFrameRate"];
-    v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"format"];
+    v5->_centerStageFramingMode = [coderCopy decodeInt64ForKey:?];
+    v5->_forcefulCenterStageEnablementType = [coderCopy decodeInt32ForKey:?];
+    v5->_faceDetectionEnabled = [coderCopy decodeBoolForKey:?];
+    v5->_humanBodyDetectionEnabled = [coderCopy decodeBoolForKey:?];
+    v5->_humanFullBodyDetectionEnabled = [coderCopy decodeBoolForKey:?];
+    v5->_studioLightingEnabled = [coderCopy decodeBoolForKey:?];
+    v5->_reactionEffectsEnabled = [coderCopy decodeBoolForKey:?];
+    v5->_backgroundReplacementEnabled = [coderCopy decodeBoolForKey:?];
+    v5->_maxFrameRate = [coderCopy decodeInt32ForKey:?];
+    v5->_minFrameRate = [coderCopy decodeInt32ForKey:?];
+    objc_opt_class();
+    v8 = [coderCopy decodeObjectOfClass:? forKey:?];
     format = v5->_format;
-    v5->_format = v9;
+    v5->_format = v8;
 
-    [coderCopy decodeDoubleForKey:@"videoZoomFactor"];
-    v5->_videoZoomFactor = v11;
-    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sessionID"];
+    [coderCopy decodeDoubleForKey:?];
+    v5->_videoZoomFactor = v10;
+    objc_opt_class();
+    v11 = [coderCopy decodeObjectOfClass:? forKey:?];
     sessionID = v5->_sessionID;
-    v5->_sessionID = v12;
+    v5->_sessionID = v11;
 
-    v5->_asyncStillCaptureEnabled = [coderCopy decodeBoolForKey:@"asyncStillCaptureEnabled"];
-    v14 = objc_opt_class();
-    v15 = [coderCopy decodeDictionaryWithKeysOfClass:v14 objectsOfClass:objc_opt_class() forKey:@"asyncStillCaptureConfigs"];
+    v5->_asyncStillCaptureEnabled = [coderCopy decodeBoolForKey:?];
+    objc_opt_class();
+    objc_opt_class();
+    v13 = [coderCopy decodeDictionaryWithKeysOfClass:? objectsOfClass:? forKey:?];
     asyncStillCaptureConfigs = v5->_asyncStillCaptureConfigs;
-    v5->_asyncStillCaptureConfigs = v15;
+    v5->_asyncStillCaptureConfigs = v13;
 
-    v5->_generationID = [coderCopy decodeInt64ForKey:@"generationID"];
-    v5->_deskViewCameraMode = [coderCopy decodeInt32ForKey:@"deskViewCameraMode"];
-    if ([coderCopy containsValueForKey:@"audioDeviceMode"])
+    v5->_generationID = [coderCopy decodeInt64ForKey:?];
+    v5->_deskViewCameraMode = [coderCopy decodeInt32ForKey:?];
+    if ([coderCopy containsValueForKey:?])
     {
-      v17 = [coderCopy decodeInt32ForKey:@"audioDeviceMode"];
+      v15 = [coderCopy decodeInt32ForKey:?];
     }
 
     else
     {
-      v17 = 1684434036;
+      v15 = 1684434036;
     }
 
-    v5->_audioDeviceMode = v17;
-    if ([coderCopy containsValueForKey:@"audioBlockSize"])
+    v5->_audioDeviceMode = v15;
+    if ([coderCopy containsValueForKey:?])
     {
-      [coderCopy decodeDoubleForKey:@"audioBlockSize"];
+      [coderCopy decodeDoubleForKey:?];
     }
 
     else
     {
-      v18 = 0x3F847AE147AE147BLL;
+      v16 = 0x3F847AE147AE147BLL;
     }
 
-    *&v5->_audioBlockSize = v18;
-    [coderCopy decodeFloatForKey:@"portraitEffectAperture"];
-    v5->_portraitEffectAperture = v19;
-    [coderCopy decodeFloatForKey:@"studioLightingIntensity"];
-    v5->_studioLightingIntensity = v20;
-    v5->_reactionEffectGesturesEnabled = [coderCopy decodeBoolForKey:@"reactionEffectGesturesEnabled"];
-    v5->_reactionEffectSuppressedGesturesEnabled = [coderCopy decodeBoolForKey:@"reactionEffectSuppressedGesturesEnabled"];
-    v21 = [coderCopy decodeCVPixelBufferForKey:@"backgroundReplacementPixelBuffer" expectSourceMedia:1];
-    if (v21)
+    *&v5->_audioBlockSize = v16;
+    [coderCopy decodeFloatForKey:?];
+    v5->_portraitEffectAperture = v17;
+    [coderCopy decodeFloatForKey:?];
+    v5->_studioLightingIntensity = v18;
+    v5->_reactionEffectGesturesEnabled = [coderCopy decodeBoolForKey:?];
+    v5->_reactionEffectSuppressedGesturesEnabled = [coderCopy decodeBoolForKey:?];
+    v19 = [coderCopy decodeCVPixelBufferForKey:? expectSourceMedia:?];
+    if (v19)
     {
-      v21 = CFRetain(v21);
+      v19 = CFRetain(v19);
     }
 
-    v5->_backgroundReplacementPixelBuffer = v21;
-    [coderCopy decodeFloatForKey:@"panningAngleX"];
-    v5->_panningAngleX = v22;
-    [coderCopy decodeFloatForKey:@"panningAngleY"];
-    v5->_panningAngleY = v23;
-    v5->_manualFramingDeviceType = [coderCopy decodeInt32ForKey:@"manualFramingDeviceType"];
-    v5->_centerStageFieldOfViewRestrictedToWide = [coderCopy decodeBoolForKey:@"centerStageFieldOfViewRestrictedToWide"];
+    v5->_backgroundReplacementPixelBuffer = v19;
+    [coderCopy decodeFloatForKey:?];
+    v5->_panningAngleX = v20;
+    [coderCopy decodeFloatForKey:?];
+    v5->_panningAngleY = v21;
+    v5->_manualFramingDeviceType = [coderCopy decodeInt32ForKey:?];
+    v5->_centerStageFieldOfViewRestrictedToWide = [coderCopy decodeBoolForKey:?];
     v5->_stateLock._os_unfair_lock_opaque = 0;
-    v24 = v5;
+    v22 = v5;
   }
 
   return v5;

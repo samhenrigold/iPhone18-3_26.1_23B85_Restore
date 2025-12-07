@@ -19,74 +19,83 @@
   queryCopy = query;
   identifierCopy = identifier;
   dataCopy = data;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__2;
-  v36 = __Block_byref_object_dispose__2;
-  v37 = objc_opt_new();
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__2;
-  v30 = __Block_byref_object_dispose__2;
-  v31 = dispatch_group_create();
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__2;
+  v39 = __Block_byref_object_dispose__2;
+  v40 = objc_opt_new();
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__2;
+  v33 = __Block_byref_object_dispose__2;
+  v34 = dispatch_group_create();
   v10 = MEMORY[0x245CB78B0]();
-  if (identifierCopy && ([identifierCopy isEqualToString:&stru_285206D08] & 1) == 0)
+  if (identifierCopy)
   {
-    v11 = SO_LOG_SODNSSRVQuery();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v11 = [identifierCopy isEqualToString:&stru_285206D08];
+    if ((v11 & 1) == 0)
     {
-      [SODNSSRVQuery lookupSRVWithQuery:bundleIdentifier:auditTokenData:];
-    }
+      v12 = SO_LOG_SODNSSRVQuery(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      {
+        [SODNSSRVQuery lookupSRVWithQuery:bundleIdentifier:auditTokenData:];
+      }
 
-    [identifierCopy UTF8String];
-    nw_parameters_set_source_application_by_bundle_id();
+      [identifierCopy UTF8String];
+      nw_parameters_set_source_application_by_bundle_id();
+    }
   }
 
-  memset(v25, 0, sizeof(v25));
-  if (dataCopy && [MEMORY[0x277CEBF10] auditTokenFromData:dataCopy auditToken:v25])
+  memset(v28, 0, sizeof(v28));
+  if (dataCopy)
   {
-    v12 = SO_LOG_SODNSSRVQuery();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = [MEMORY[0x277CEBF10] auditTokenFromData:dataCopy auditToken:v28];
+    if (v13)
     {
-      [SODNSSRVQuery lookupSRVWithQuery:bundleIdentifier:auditTokenData:];
-    }
+      v14 = SO_LOG_SODNSSRVQuery(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      {
+        [SODNSSRVQuery lookupSRVWithQuery:bundleIdentifier:auditTokenData:];
+      }
 
-    nw_parameters_set_source_application();
+      nw_parameters_set_source_application();
+    }
   }
 
   [queryCopy UTF8String];
   srv = nw_endpoint_create_srv();
   evaluator_for_endpoint = nw_path_create_evaluator_for_endpoint();
-  v15 = nw_path_evaluator_copy_path();
-  v16 = v15;
-  if (v15 && nw_path_get_status(v15) == nw_path_status_satisfied)
+  v17 = nw_path_evaluator_copy_path();
+  v18 = v17;
+  if (v17 && nw_path_get_status(v17) == nw_path_status_satisfied)
   {
-    v17 = nw_resolver_create_with_path();
-    dispatch_group_enter(v27[5]);
-    v18 = dispatch_get_global_queue(0, 0);
-    v24 = v17;
+    v19 = nw_resolver_create_with_path();
+    dispatch_group_enter(v30[5]);
+    v20 = dispatch_get_global_queue(0, 0);
+    v27 = v19;
     nw_resolver_set_update_handler();
   }
 
-  v19 = v27[5];
-  v20 = dispatch_time(0, 10000000000);
-  if (dispatch_group_wait(v19, v20) >= 1)
+  v21 = v30[5];
+  v22 = dispatch_time(0, 10000000000);
+  v23 = dispatch_group_wait(v21, v22);
+  if (v23 >= 1)
   {
-    v21 = SO_LOG_SODNSSRVQuery();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v24 = SO_LOG_SODNSSRVQuery(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [SODNSSRVQuery lookupSRVWithQuery:bundleIdentifier:auditTokenData:];
     }
   }
 
-  v22 = v33[5];
+  v25 = v36[5];
 
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v35, 8);
 
-  return v22;
+  return v25;
 }
 
 void __68__SODNSSRVQuery_lookupSRVWithQuery_bundleIdentifier_auditTokenData___block_invoke(void *a1, int a2, void *a3)
@@ -99,10 +108,8 @@ void __68__SODNSSRVQuery_lookupSRVWithQuery_bundleIdentifier_auditTokenData___bl
 
   if (a2 == 2)
   {
-    v7 = a1[5];
     nw_array_apply();
 LABEL_4:
-    v6 = a1[4];
     nw_resolver_cancel();
     dispatch_group_leave(*(*(a1[6] + 8) + 40));
   }
@@ -133,54 +140,62 @@ uint64_t __68__SODNSSRVQuery_lookupSRVWithQuery_bundleIdentifier_auditTokenData_
   identifierCopy = identifier;
   dataCopy = data;
   completionCopy = completion;
-  v26[0] = 0;
-  v26[1] = v26;
-  v26[2] = 0x3032000000;
-  v26[3] = __Block_byref_object_copy__2;
-  v26[4] = __Block_byref_object_dispose__2;
-  v27 = objc_opt_new();
-  v13 = SO_LOG_SODNSSRVQuery();
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x3032000000;
+  v28[3] = __Block_byref_object_copy__2;
+  v28[4] = __Block_byref_object_dispose__2;
+  v29 = objc_opt_new();
+  v13 = SO_LOG_SODNSSRVQuery(v29);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [SODNSSRVQuery lookupSRVWithQuery:bundleIdentifier:auditTokenData:completion:];
   }
 
   v14 = MEMORY[0x245CB78B0]();
-  if (identifierCopy && ([identifierCopy isEqualToString:&stru_285206D08] & 1) == 0)
+  if (identifierCopy)
   {
-    v15 = SO_LOG_SODNSSRVQuery();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v15 = [identifierCopy isEqualToString:&stru_285206D08];
+    if ((v15 & 1) == 0)
     {
-      [SODNSSRVQuery lookupSRVWithQuery:bundleIdentifier:auditTokenData:];
-    }
+      v16 = SO_LOG_SODNSSRVQuery(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      {
+        [SODNSSRVQuery lookupSRVWithQuery:bundleIdentifier:auditTokenData:];
+      }
 
-    [identifierCopy UTF8String];
-    nw_parameters_set_source_application_by_bundle_id();
+      [identifierCopy UTF8String];
+      nw_parameters_set_source_application_by_bundle_id();
+    }
   }
 
-  memset(v25, 0, sizeof(v25));
-  if (dataCopy && [MEMORY[0x277CEBF10] auditTokenFromData:dataCopy auditToken:v25])
+  memset(v27, 0, sizeof(v27));
+  if (dataCopy)
   {
-    v16 = SO_LOG_SODNSSRVQuery();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = [MEMORY[0x277CEBF10] auditTokenFromData:dataCopy auditToken:v27];
+    if (v17)
     {
-      [SODNSSRVQuery lookupSRVWithQuery:bundleIdentifier:auditTokenData:completion:];
-    }
+      v18 = SO_LOG_SODNSSRVQuery(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      {
+        [SODNSSRVQuery lookupSRVWithQuery:bundleIdentifier:auditTokenData:completion:];
+      }
 
-    nw_parameters_set_source_application();
+      nw_parameters_set_source_application();
+    }
   }
 
   [queryCopy UTF8String];
   srv = nw_endpoint_create_srv();
   evaluator_for_endpoint = nw_path_create_evaluator_for_endpoint();
-  v19 = nw_path_evaluator_copy_path();
-  v20 = v19;
-  if (v19 && nw_path_get_status(v19) == nw_path_status_satisfied)
+  v21 = nw_path_evaluator_copy_path();
+  v22 = v21;
+  if (v21 && nw_path_get_status(v21) == nw_path_status_satisfied)
   {
-    v21 = nw_resolver_create_with_path();
-    v22 = dispatch_get_global_queue(0, 0);
-    v23 = v21;
-    v24 = completionCopy;
+    v23 = nw_resolver_create_with_path();
+    v24 = dispatch_get_global_queue(0, 0);
+    v25 = v23;
+    v26 = completionCopy;
     nw_resolver_set_update_handler();
   }
 
@@ -189,36 +204,33 @@ uint64_t __68__SODNSSRVQuery_lookupSRVWithQuery_bundleIdentifier_auditTokenData_
     (*(completionCopy + 2))(completionCopy, 0);
   }
 
-  _Block_object_dispose(v26, 8);
+  _Block_object_dispose(v28, 8);
 }
 
 void __79__SODNSSRVQuery_lookupSRVWithQuery_bundleIdentifier_auditTokenData_completion___block_invoke(void *a1, int a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (!a2)
   {
-    v9 = SO_LOG_SODNSSRVQuery();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = SO_LOG_SODNSSRVQuery(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __79__SODNSSRVQuery_lookupSRVWithQuery_bundleIdentifier_auditTokenData_completion___block_invoke_cold_1();
     }
 
-    v10 = a1[4];
     nw_resolver_cancel();
-    v8 = *(a1[5] + 16);
+    v7 = *(a1[5] + 16);
     goto LABEL_7;
   }
 
   if (a2 == 2)
   {
-    v11 = a1[6];
     nw_array_apply();
-    v6 = a1[4];
     nw_resolver_cancel();
-    v7 = *(*(a1[6] + 8) + 40);
-    v8 = *(a1[5] + 16);
+    v7 = *(a1[5] + 16);
 LABEL_7:
-    v8();
+    v7();
   }
 }
 
@@ -235,9 +247,9 @@ uint64_t __79__SODNSSRVQuery_lookupSRVWithQuery_bundleIdentifier_auditTokenData_
   }
 
   [v5 setHost:v6];
-  [v5 setPort:nw_endpoint_get_port(v4)];
-  v8 = SO_LOG_SODNSSRVQuery();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v8 = [v5 setPort:nw_endpoint_get_port(v4)];
+  v9 = SO_LOG_SODNSSRVQuery(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     __79__SODNSSRVQuery_lookupSRVWithQuery_bundleIdentifier_auditTokenData_completion___block_invoke_2_cold_1();
   }
@@ -253,57 +265,65 @@ uint64_t __79__SODNSSRVQuery_lookupSRVWithQuery_bundleIdentifier_auditTokenData_
   identifierCopy = identifier;
   dataCopy = data;
   completionCopy = completion;
-  v30[0] = 0;
-  v30[1] = v30;
-  v30[2] = 0x3032000000;
-  v30[3] = __Block_byref_object_copy__2;
-  v30[4] = __Block_byref_object_dispose__2;
-  v31 = objc_opt_new();
-  v16 = SO_LOG_SODNSSRVQuery();
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x3032000000;
+  v32[3] = __Block_byref_object_copy__2;
+  v32[4] = __Block_byref_object_dispose__2;
+  v33 = objc_opt_new();
+  v16 = SO_LOG_SODNSSRVQuery(v33);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     [SODNSSRVQuery lookupHost:port:bundleIdentifier:auditTokenData:completion:];
   }
 
   v17 = MEMORY[0x245CB78B0]();
-  if (identifierCopy && ([identifierCopy isEqualToString:&stru_285206D08] & 1) == 0)
+  if (identifierCopy)
   {
-    v18 = SO_LOG_SODNSSRVQuery();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v18 = [identifierCopy isEqualToString:&stru_285206D08];
+    if ((v18 & 1) == 0)
     {
-      [SODNSSRVQuery lookupSRVWithQuery:bundleIdentifier:auditTokenData:];
-    }
+      v19 = SO_LOG_SODNSSRVQuery(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      {
+        [SODNSSRVQuery lookupSRVWithQuery:bundleIdentifier:auditTokenData:];
+      }
 
-    [identifierCopy UTF8String];
-    nw_parameters_set_source_application_by_bundle_id();
+      [identifierCopy UTF8String];
+      nw_parameters_set_source_application_by_bundle_id();
+    }
   }
 
-  memset(v29, 0, sizeof(v29));
-  if (dataCopy && [MEMORY[0x277CEBF10] auditTokenFromData:dataCopy auditToken:v29])
+  memset(v31, 0, sizeof(v31));
+  if (dataCopy)
   {
-    v19 = SO_LOG_SODNSSRVQuery();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v20 = [MEMORY[0x277CEBF10] auditTokenFromData:dataCopy auditToken:v31];
+    if (v20)
     {
-      [SODNSSRVQuery lookupSRVWithQuery:bundleIdentifier:auditTokenData:completion:];
-    }
+      v21 = SO_LOG_SODNSSRVQuery(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      {
+        [SODNSSRVQuery lookupSRVWithQuery:bundleIdentifier:auditTokenData:completion:];
+      }
 
-    nw_parameters_set_source_application();
+      nw_parameters_set_source_application();
+    }
   }
 
   host = nw_endpoint_create_host([hostCopy UTF8String], objc_msgSend(portCopy, "UTF8String"));
   evaluator_for_endpoint = nw_path_create_evaluator_for_endpoint();
-  v22 = nw_path_evaluator_copy_path();
-  v23 = v22;
-  if (v22 && nw_path_get_status(v22) == nw_path_status_satisfied)
+  v24 = nw_path_evaluator_copy_path();
+  v25 = v24;
+  if (v24 && nw_path_get_status(v24) == nw_path_status_satisfied)
   {
-    v26 = dataCopy;
-    v24 = nw_resolver_create_with_path();
-    v25 = dispatch_get_global_queue(0, 0);
-    v27 = v24;
-    v28 = completionCopy;
+    v28 = dataCopy;
+    v26 = nw_resolver_create_with_path();
+    v27 = dispatch_get_global_queue(0, 0);
+    v29 = v26;
+    v30 = completionCopy;
     nw_resolver_set_update_handler();
 
-    dataCopy = v26;
+    dataCopy = v28;
   }
 
   else
@@ -311,43 +331,40 @@ uint64_t __79__SODNSSRVQuery_lookupSRVWithQuery_bundleIdentifier_auditTokenData_
     (*(completionCopy + 2))(completionCopy, 0);
   }
 
-  _Block_object_dispose(v30, 8);
+  _Block_object_dispose(v32, 8);
 }
 
 void __76__SODNSSRVQuery_lookupHost_port_bundleIdentifier_auditTokenData_completion___block_invoke(void *a1, int a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (!a2)
   {
-    v9 = SO_LOG_SODNSSRVQuery();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = SO_LOG_SODNSSRVQuery(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __76__SODNSSRVQuery_lookupHost_port_bundleIdentifier_auditTokenData_completion___block_invoke_cold_1();
     }
 
-    v10 = a1[4];
     nw_resolver_cancel();
-    v8 = *(a1[5] + 16);
+    v7 = *(a1[5] + 16);
     goto LABEL_7;
   }
 
   if (a2 == 2)
   {
-    v11 = a1[6];
     nw_array_apply();
-    v6 = a1[4];
     nw_resolver_cancel();
-    v7 = *(*(a1[6] + 8) + 40);
-    v8 = *(a1[5] + 16);
+    v7 = *(a1[5] + 16);
 LABEL_7:
-    v8();
+    v7();
   }
 }
 
 uint64_t __76__SODNSSRVQuery_lookupHost_port_bundleIdentifier_auditTokenData_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = [a3 description];
-  v5 = SO_LOG_SODNSSRVQuery();
+  v5 = SO_LOG_SODNSSRVQuery(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __79__SODNSSRVQuery_lookupSRVWithQuery_bundleIdentifier_auditTokenData_completion___block_invoke_2_cold_1();
@@ -355,38 +372,6 @@ uint64_t __76__SODNSSRVQuery_lookupHost_port_bundleIdentifier_auditTokenData_com
 
   [*(*(*(a1 + 32) + 8) + 40) addObject:v4];
   return 1;
-}
-
-- (void)lookupSRVWithQuery:bundleIdentifier:auditTokenData:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_4(&dword_24006C000, v0, v1, "Using bundleIdentifier %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)lookupSRVWithQuery:bundleIdentifier:auditTokenData:completion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_4(&dword_24006C000, v0, v1, "Starting SRV query: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __79__SODNSSRVQuery_lookupSRVWithQuery_bundleIdentifier_auditTokenData_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_4(&dword_24006C000, v0, v1, "adding result: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)lookupHost:port:bundleIdentifier:auditTokenData:completion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_4(&dword_24006C000, v0, v1, "Starting host query: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

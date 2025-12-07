@@ -94,7 +94,7 @@
   return selfCopy;
 }
 
-uint64_t __41__NCSInternalSettingsManager_hasSettings__block_invoke(uint64_t a1)
+void *__41__NCSInternalSettingsManager_hasSettings__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) count];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;
@@ -183,10 +183,7 @@ void __73__NCSInternalSettingsManager_enumerateComplicationDefinitionsUsingBlock
 
 uint64_t __76__NCSInternalSettingsManager_enumerateAllComplicationDefinitionsUsingBlock___block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -341,37 +338,37 @@ void __74__NCSInternalSettingsManager_complicationDefinitionForWatchKitIdentifie
 
 - (void)_saveSettings
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSMutableArray count](self->_complicationDefinitions, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_complicationDefinitions;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [MEMORY[0x277CBEAC0] dictionaryWithComplication:{*(*(&v14 + 1) + 8 * v8), v14}];
+        v9 = [MEMORY[0x277CBEAC0] dictionaryWithComplication:{*(*(&v13 + 1) + 8 * v8), v13}];
         [v3 addObject:v9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -386,8 +383,6 @@ void __74__NCSInternalSettingsManager_complicationDefinitionForWatchKitIdentifie
     v12 = [MEMORY[0x277CBEB98] setWithObject:@"ComplicationDefinitions"];
     [(NPSManager *)self->_syncManager synchronizeNanoDomain:@"com.apple.nano-complications" keys:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)complicationIdentifierForComplicationDefinitionAtIndex:(unint64_t)index
@@ -416,10 +411,7 @@ void __74__NCSInternalSettingsManager_complicationDefinitionForWatchKitIdentifie
 
 uint64_t __85__NCSInternalSettingsManager_complicationIdentifierForComplicationDefinitionAtIndex___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 8) objectAtIndexedSubscript:a1[6]];
-  v3 = *(a1[5] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[5] + 8) + 40) = [*(a1[4] + 8) objectAtIndexedSubscript:a1[6]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -438,7 +430,7 @@ uint64_t __85__NCSInternalSettingsManager_complicationIdentifierForComplicationD
 
 void __42__NCSInternalSettingsManager_loadSettings__block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277D2BA58]) initWithDomain:@"com.apple.nano-complications"];
   v3 = [v2 synchronize];
   v4 = [v2 arrayForKey:@"ComplicationDefinitions"];
@@ -457,26 +449,26 @@ void __42__NCSInternalSettingsManager_loadSettings__block_invoke(uint64_t a1)
   *(v11 + 8) = v10;
 
   v13 = [MEMORY[0x277CBEB38] dictionary];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = *(*(a1 + 32) + 24);
-  v14 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v14 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v27;
+    v16 = *v26;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v27 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = [[NCSComplication alloc] initWithDictionary:*(*(&v26 + 1) + 8 * i)];
+        v18 = [[NCSComplication alloc] initWithDictionary:*(*(&v25 + 1) + 8 * i)];
         v19 = [*(a1 + 32) _localizedNameForComplication:v18];
         if (v19)
         {
@@ -485,31 +477,17 @@ void __42__NCSInternalSettingsManager_loadSettings__block_invoke(uint64_t a1)
 
         v20 = [(NCSComplication *)v18 sockPuppetIdentifier];
 
-        if (!v20)
+        if (!v20 || (-[NCSComplication sockPuppetIdentifier](v18, "sockPuppetIdentifier"), v21 = objc_claimAutoreleasedReturnValue(), [v13 objectForKeyedSubscript:v21], v22 = objc_claimAutoreleasedReturnValue(), v22, v21, -[NCSComplication sockPuppetIdentifier](v18, "sockPuppetIdentifier"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "setObject:forKeyedSubscript:", v18, v23), v23, !v22))
         {
-          goto LABEL_10;
-        }
-
-        v21 = [(NCSComplication *)v18 sockPuppetIdentifier];
-        v22 = [v13 objectForKeyedSubscript:v21];
-
-        v23 = [(NCSComplication *)v18 sockPuppetIdentifier];
-        [v13 setObject:v18 forKeyedSubscript:v23];
-
-        if (!v22)
-        {
-LABEL_10:
           [*(*(a1 + 32) + 8) addObject:v18];
         }
       }
 
-      v15 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v15 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v15);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_numberOfActiveComplications
@@ -530,7 +508,7 @@ LABEL_10:
   return v3;
 }
 
-uint64_t __58__NCSInternalSettingsManager__numberOfActiveComplications__block_invoke(uint64_t a1, void *a2)
+void *__58__NCSInternalSettingsManager__numberOfActiveComplications__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isActive];
   if (result)

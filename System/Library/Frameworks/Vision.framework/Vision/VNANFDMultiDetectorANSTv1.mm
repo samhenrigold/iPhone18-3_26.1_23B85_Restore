@@ -37,7 +37,7 @@ void __46__VNANFDMultiDetectorANSTv1_supportsExecution__block_invoke(uint64_t a1
   if ([v1 hasSuffix:@".espresso"])
   {
     v2 = [v1 stringByDeletingPathExtension];
-    v3 = VNANEArchitectureName();
+    v3 = VNANEArchitectureName(v2);
     if ([v3 length])
     {
       v4 = VNFrameworkBundle();

@@ -41,7 +41,7 @@
   managerCopy = manager;
   swift_unknownObjectRetain();
   v19 = sub_10001D0F0(note, invitation, controllerCopy, managerCopy, delegate, v13, v14);
-  sub_10000C840(v13);
+  sub_10000C840(v13, v14);
 
   swift_unknownObjectRelease();
 
@@ -118,7 +118,7 @@
   managerCopy = manager;
   swift_unknownObjectRetain();
   v19 = sub_10046FDCC(note, invitation, controllerCopy, item, managerCopy, delegate, v14, v15);
-  sub_10000C840(v14);
+  sub_10000C840(v14, v15);
 
   swift_unknownObjectRelease();
   return v19;
@@ -146,7 +146,7 @@
   managerCopy = manager;
   swift_unknownObjectRetain();
   v21 = sub_10046FF80(note, invitation, controllerCopy, item, managerCopy, delegate, v15, v16);
-  sub_10000C840(v15);
+  sub_10000C840(v15, v16);
 
   swift_unknownObjectRelease();
 
@@ -175,7 +175,7 @@
   managerCopy = manager;
   swift_unknownObjectRetain();
   v21 = sub_100470168(note, invitation, controllerCopy, item, managerCopy, children, delegate, v15, v16);
-  sub_10000C840(v15);
+  sub_10000C840(v15, v16);
 
   swift_unknownObjectRelease();
 
@@ -222,10 +222,11 @@
 
   v7 = (self + OBJC_IVAR___ICNoteEditorActionMenu_completion);
   v8 = *(self + OBJC_IVAR___ICNoteEditorActionMenu_completion);
+  v9 = *(self + OBJC_IVAR___ICNoteEditorActionMenu_completion + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10000C840(v8);
+  sub_10000C840(v8, v9);
 }
 
 - (UIViewController)presentingViewController
@@ -252,7 +253,7 @@
 - (void)willShowMenu
 {
   selfCopy = self;
-  sub_10046C16C();
+  sub_10046C16C(selfCopy);
 }
 
 - (id)menuSections
@@ -260,7 +261,7 @@
   selfCopy = self;
   sub_10046C324();
 
-  sub_1000054A4(0, &qword_1006C6400);
+  sub_1000054A4(0, &qword_1006C6400, UIMenuElement_ptr);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

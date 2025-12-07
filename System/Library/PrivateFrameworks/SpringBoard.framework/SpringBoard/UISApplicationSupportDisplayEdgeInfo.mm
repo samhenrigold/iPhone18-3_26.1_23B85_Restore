@@ -3,11 +3,11 @@
 
 @implementation UISApplicationSupportDisplayEdgeInfo
 
-void __81__UISApplicationSupportDisplayEdgeInfo_SpringBoard__sb_thisDeviceDisplayEdgeInfo__block_invoke(uint64_t a1)
+void __81__UISApplicationSupportDisplayEdgeInfo_SpringBoard__sb_thisDeviceDisplayEdgeInfo__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = [*(a1 + 32) sbh_displayEdgeInfoForScreenType:SBHScreenTypeForCurrentDevice()];
-  v2 = sb_thisDeviceDisplayEdgeInfo_sNewThisDeviceDisplayEdgeInfo;
-  sb_thisDeviceDisplayEdgeInfo_sNewThisDeviceDisplayEdgeInfo = v1;
+  v2 = [*(a1 + 32) sbh_displayEdgeInfoForScreenType:SBHScreenTypeForCurrentDevice()];
+  v3 = sb_thisDeviceDisplayEdgeInfo_sNewThisDeviceDisplayEdgeInfo;
+  sb_thisDeviceDisplayEdgeInfo_sNewThisDeviceDisplayEdgeInfo = v2;
 }
 
 void __90__UISApplicationSupportDisplayEdgeInfo_SpringBoard__sb_floatingApplicationDisplayEdgeInfo__block_invoke(uint64_t a1)

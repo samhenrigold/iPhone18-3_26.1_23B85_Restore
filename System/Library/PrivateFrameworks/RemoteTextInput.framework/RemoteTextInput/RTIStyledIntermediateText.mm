@@ -44,26 +44,26 @@
 
 - (RTIStyledIntermediateText)initWithInputString:(id)string displayString:(id)displayString selectionLocation:(unint64_t)location searchString:(id)searchString
 {
-  v26[6] = *MEMORY[0x1E69E9840];
+  v25[6] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   displayStringCopy = displayString;
   searchStringCopy = searchString;
-  v25.receiver = self;
-  v25.super_class = RTIStyledIntermediateText;
-  v13 = [(RTIStyledIntermediateText *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = RTIStyledIntermediateText;
+  v13 = [(RTIStyledIntermediateText *)&v24 init];
   if (v13)
   {
     v14 = [stringCopy copy];
     inputString = v13->_inputString;
     v13->_inputString = v14;
 
-    v26[0] = @"NSUnderline";
-    v26[1] = @"NSUnderlineColor";
-    v26[2] = @"NSMarkedClauseSegment";
-    v26[3] = @"NSColor";
-    v26[4] = @"NSBackgroundColor";
-    v26[5] = @"NSTextAnimation";
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:6];
+    v25[0] = @"NSUnderline";
+    v25[1] = @"NSUnderlineColor";
+    v25[2] = @"NSMarkedClauseSegment";
+    v25[3] = @"NSColor";
+    v25[4] = @"NSBackgroundColor";
+    v25[5] = @"NSTextAnimation";
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:6];
     v17 = [RTIUtilities _codableAttributedString:displayStringCopy validAttributes:v16];
     displayString = v13->_displayString;
     v13->_displayString = v17;
@@ -81,7 +81,6 @@
     v13->_searchString = v21;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -123,16 +122,14 @@
 
 void __60__RTIStyledIntermediateText__attributedStringAllowedClasses__block_invoke()
 {
-  v5[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
   v2 = [v0 setWithArray:v1];
   v3 = _attributedStringAllowedClasses_allowedClasses;
   _attributedStringAllowedClasses_allowedClasses = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (RTIStyledIntermediateText)initWithCoder:(id)coder

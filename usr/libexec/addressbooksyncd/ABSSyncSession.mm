@@ -48,7 +48,7 @@
       v9 = *(qword_100071D00 + 8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        sub_10003BBAC(v9);
+        sub_10003BBAC(v9, sessionMetadata);
       }
 
       sessionMetadata = 0;

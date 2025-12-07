@@ -1,4 +1,6 @@
 @interface KVProfileInfo
++ (id)capturedWithDatasetCount:(unsigned int)count error:(id *)error;
++ (id)syntheticWithDatasetCount:(unsigned int)count error:(id *)error;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToProfileInfo:(id)info;
 - (KVProfileInfo)init;
@@ -167,89 +169,88 @@
 
 - (KVProfileInfo)initWithBuffer:(id)buffer error:(id *)error
 {
-  v71[1] = *MEMORY[0x277D85DE8];
+  v69[1] = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
-  v67.receiver = self;
-  v67.super_class = KVProfileInfo;
-  v8 = [(KVProfileInfo *)&v67 init];
+  v65.receiver = self;
+  v65.super_class = KVProfileInfo;
+  v8 = [(KVProfileInfo *)&v65 init];
   v9 = v8;
   v10 = v8;
   if (v8)
   {
     objc_storeStrong(&v8->_buffer, buffer);
-    buffer = v9->_buffer;
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_length(v9->_buffer, v12, v13, v14, v15, v16))
+    if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_length(v9->_buffer, v11, v12, v13, v14, v15))
     {
-      v18 = objc_msgSend_bytes(v9->_buffer, v12, v17, v14, v15, v16);
-      v10->_profileInfo = v18 + *v18;
-      v24 = objc_msgSend_bytes(v10->_buffer, v19, v20, v21, v22, v23);
-      v30 = objc_msgSend_length(v9->_buffer, v25, v26, v27, v28, v29);
-      v62 = v24;
-      v63 = v30;
-      v64 = xmmword_2559D02B0;
-      v65 = 0;
-      v66 = 1;
-      if (v30 >= 0x7FFFFFFF)
+      v17 = objc_msgSend_bytes(v9->_buffer, v11, v16, v13, v14, v15);
+      v10->_profileInfo = v17 + *v17;
+      v23 = objc_msgSend_bytes(v10->_buffer, v18, v19, v20, v21, v22);
+      v29 = objc_msgSend_length(v9->_buffer, v24, v25, v26, v27, v28);
+      v60 = v23;
+      v61 = v29;
+      v62 = xmmword_2559D02B0;
+      v63 = 0;
+      v64 = 1;
+      if (v29 >= 0x7FFFFFFF)
       {
         __assert_rtn("Verifier", "flatbuffers.h", 2285, "size_ < FLATBUFFERS_MAX_BUFFER_SIZE");
       }
 
-      if (v30 >= 5)
+      if (v29 >= 5)
       {
-        v33 = *v24;
-        if (v33 >= 1 && v30 - 1 >= v33)
+        v32 = *v23;
+        if (v32 >= 1 && v29 - 1 >= v32)
         {
-          v34 = &v24[v33];
-          if (sub_2559A7668(&v62, &v24[v33]) && sub_2559A7720(v34, &v62, 4u))
+          v33 = &v23[v32];
+          if (sub_2559A7668(&v60, &v23[v32]) && sub_2559A7720(v33, &v60, 4u))
           {
-            v35 = (v34 - *v34);
-            if (*v35 >= 5u && (v36 = v35[2]) != 0)
+            v34 = (v33 - *v33);
+            if (*v34 >= 5u && (v35 = v34[2]) != 0)
             {
-              v37 = (v34 + v36 + *(v34 + v36));
+              v36 = (v33 + v35 + *(v33 + v35));
             }
 
             else
             {
-              v37 = 0;
+              v36 = 0;
             }
 
-            if (sub_2559A777C(&v62, v37) && sub_2559A7720(v34, &v62, 6u))
+            if (sub_2559A777C(&v60, v36) && sub_2559A7720(v33, &v60, 6u))
             {
-              v46 = (v34 - *v34);
-              if (*v46 >= 7u && (v47 = v46[3]) != 0)
+              v45 = (v33 - *v33);
+              if (*v45 >= 7u && (v46 = v45[3]) != 0)
               {
-                v48 = (v34 + v47 + *(v34 + v47));
+                v47 = (v33 + v46 + *(v33 + v46));
               }
 
               else
               {
-                v48 = 0;
+                v47 = 0;
               }
 
-              if (sub_2559A777C(&v62, v48) && sub_2559A7720(v34, &v62, 8u))
+              if (sub_2559A777C(&v60, v47) && sub_2559A7720(v33, &v60, 8u))
               {
-                v49 = (v34 - *v34);
-                if (*v49 >= 9u && (v50 = v49[4]) != 0)
+                v48 = (v33 - *v33);
+                if (*v48 >= 9u && (v49 = v48[4]) != 0)
                 {
-                  v51 = (v34 + v50 + *(v34 + v50));
+                  v50 = (v33 + v49 + *(v33 + v49));
                 }
 
                 else
                 {
-                  v51 = 0;
+                  v50 = 0;
                 }
 
-                if (sub_2559A777C(&v62, v51))
+                if (sub_2559A777C(&v60, v50))
                 {
-                  v52 = (v34 - *v34);
-                  if (*v52 < 0xBu)
+                  v51 = (v33 - *v33);
+                  if (*v51 < 0xBu)
                   {
                     goto LABEL_35;
                   }
 
-                  v53 = v52[5];
-                  if (!v53 || v63 >= 3 && v63 - 2 >= v34 + v53 - v62)
+                  v52 = v51[5];
+                  if (!v52 || v61 >= 3 && v61 - 2 >= v33 + v52 - v60)
                   {
                     goto LABEL_35;
                   }
@@ -260,43 +261,42 @@
         }
       }
 
-      v55 = MEMORY[0x277CCA9B8];
-      v68 = *MEMORY[0x277CCA450];
-      v69 = @"ProfileInfo failed verification";
-      v56 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v31, &v69, &v68, 1, v32);
-      v59 = objc_msgSend_errorWithDomain_code_userInfo_(v55, v57, @"com.apple.koa.profile", 5, v56, v58);
-      if (error && v59)
+      v54 = MEMORY[0x277CCA9B8];
+      v66 = *MEMORY[0x277CCA450];
+      v67 = @"ProfileInfo failed verification";
+      v55 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v30, &v67, &v66, 1, v31);
+      v58 = objc_msgSend_errorWithDomain_code_userInfo_(v54, v56, @"com.apple.koa.profile", 5, v55, v57);
+      if (error && v58)
       {
-        v59 = v59;
-        *error = v59;
+        v58 = v58;
+        *error = v58;
       }
     }
 
     else
     {
-      v38 = MEMORY[0x277CCA9B8];
-      v70 = *MEMORY[0x277CCA450];
-      v39 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v12, @"Unexpected ProfileInfo buffer: %@", v14, v15, v16, v9->_buffer);
-      v71[0] = v39;
-      v42 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v40, v71, &v70, 1, v41);
-      v45 = objc_msgSend_errorWithDomain_code_userInfo_(v38, v43, @"com.apple.koa.profile", 5, v42, v44);
-      if (error && v45)
+      v37 = MEMORY[0x277CCA9B8];
+      v68 = *MEMORY[0x277CCA450];
+      v38 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v11, @"Unexpected ProfileInfo buffer: %@", v13, v14, v15, v9->_buffer);
+      v69[0] = v38;
+      v41 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v39, v69, &v68, 1, v40);
+      v44 = objc_msgSend_errorWithDomain_code_userInfo_(v37, v42, @"com.apple.koa.profile", 5, v41, v43);
+      if (error && v44)
       {
-        v45 = v45;
-        *error = v45;
+        v44 = v44;
+        *error = v44;
       }
     }
 
-    v54 = 0;
+    v53 = 0;
     goto LABEL_41;
   }
 
 LABEL_35:
-  v54 = v10;
+  v53 = v10;
 LABEL_41:
 
-  v60 = *MEMORY[0x277D85DE8];
-  return v54;
+  return v53;
 }
 
 - (KVProfileInfo)initWithDatasetCount:(unsigned int)count capturedTime:(id)time deviceType:(id)type buildVersion:(id)version error:(id *)error
@@ -382,6 +382,27 @@ LABEL_9:
 {
   v3 = objc_msgSend_exceptionWithName_reason_userInfo_(MEMORY[0x277CBEAD8], a2, *MEMORY[0x277CBE658], @"init unsupported", MEMORY[0x277CBEC10], v2);
   objc_exception_throw(v3);
+}
+
++ (id)capturedWithDatasetCount:(unsigned int)count error:(id *)error
+{
+  v5 = *&count;
+  v6 = objc_alloc(objc_opt_class());
+  v12 = objc_msgSend_now(MEMORY[0x277CBEAA8], v7, v8, v9, v10, v11);
+  v13 = MGCopyAnswer();
+  v14 = MGCopyAnswer();
+  v16 = objc_msgSend_initWithDatasetCount_capturedTime_deviceType_buildVersion_error_(v6, v15, v5, v12, v13, v14, error);
+
+  return v16;
+}
+
++ (id)syntheticWithDatasetCount:(unsigned int)count error:(id *)error
+{
+  v5 = *&count;
+  v6 = objc_alloc(objc_opt_class());
+  v8 = objc_msgSend_initWithDatasetCount_capturedTime_deviceType_buildVersion_error_(v6, v7, v5, 0, 0, 0, error);
+
+  return v8;
 }
 
 @end

@@ -151,7 +151,7 @@
 - (id)buttonControl:(id)control imageForState:(int)state highlighted:(BOOL)highlighted
 {
   highlightedCopy = highlighted;
-  v6 = THBundle();
+  v6 = THBundle(self, a2);
   if (highlightedCopy)
   {
     v7 = @"play-keynote-64-P";
@@ -402,7 +402,7 @@
     result = [(THWFreeTransformableRepGestureTargetHandler *)[(THWKeynoteRep *)self freeTransformableHandler] ftc];
     if (result)
     {
-      result = [(CGAffineTransform *)result currentTransform];
+      result = objc_msgSend_currentTransform(result);
     }
 
     else
@@ -435,7 +435,7 @@
 {
   if ([(THWFreeTransformController *)[(THWFreeTransformableRepGestureTargetHandler *)[(THWKeynoteRep *)self freeTransformableHandler] ftc] isFreeTransformInProgress])
   {
-    [(THWFreeTransformController *)[(THWFreeTransformableRepGestureTargetHandler *)[(THWKeynoteRep *)self freeTransformableHandler] ftc] completionTargetRect];
+    objc_msgSend_completionTargetRect([(THWFreeTransformableRepGestureTargetHandler *)[(THWKeynoteRep *)self freeTransformableHandler] ftc]);
   }
 
   else

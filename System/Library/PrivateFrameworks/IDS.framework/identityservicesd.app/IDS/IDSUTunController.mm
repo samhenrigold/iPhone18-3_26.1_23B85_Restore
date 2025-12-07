@@ -7632,22 +7632,22 @@ LABEL_125:
       v125 = 0;
     }
 
-    if ([v7 isEqualToIgnoringCase:@"com.apple.private.alloy.siri.proxy"])
+    if (objc_msgSend_isEqualToIgnoringCase_(v7))
     {
       v18 = 600;
     }
 
-    else if ([v7 isEqualToIgnoringCase:@"com.apple.private.alloy.phonecontinuity"])
+    else if (objc_msgSend_isEqualToIgnoringCase_(v7))
     {
       v18 = 800;
     }
 
     else
     {
-      if (([v7 isEqualToIgnoringCase:@"com.apple.private.alloy.fignero"] & 1) == 0)
+      if ((objc_msgSend_isEqualToIgnoringCase_(v7) & 1) == 0)
       {
         v133 = integerValue;
-        if (![v7 isEqualToIgnoringCase:@"com.apple.private.alloy.willow.proxy"])
+        if (!objc_msgSend_isEqualToIgnoringCase_(v7))
         {
           goto LABEL_35;
         }

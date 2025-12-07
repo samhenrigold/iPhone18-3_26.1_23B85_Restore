@@ -48,9 +48,9 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(objc_opt_class());
-  home = [(HFPinCodeItem *)self home];
+  v5 = objc_msgSend_home(self);
   v6 = v4[11];
-  v4[11] = home;
+  v4[11] = v5;
 
   userLabel = [(HFPinCodeItem *)self userLabel];
   v8 = v4[12];
@@ -182,16 +182,16 @@ LABEL_7:
 
 - (void)updateFromPinCode:(id)code
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   v5 = HFLogForCategory(0x37uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
+    v11 = 138412546;
     selfCopy = self;
-    v14 = 2112;
-    v15 = codeCopy;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Updating HFPinCodeItem with values from new HFPinCode. item: %@ PinCode: %@", &v12, 0x16u);
+    v13 = 2112;
+    v14 = codeCopy;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Updating HFPinCodeItem with values from new HFPinCode. item: %@ PinCode: %@", &v11, 0x16u);
   }
 
   userLabel = [codeCopy userLabel];
@@ -207,8 +207,6 @@ LABEL_7:
 
   unknownMatterGuestUniqueID = [codeCopy unknownMatterGuestUniqueID];
   [(HFPinCodeItem *)self setUnknownMatterGuestUniqueID:unknownMatterGuestUniqueID];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -291,21 +289,21 @@ LABEL_2:
 
   if (user)
   {
-    home = [(HFPinCodeItem *)self home];
+    userID = objc_msgSend_home(self);
     userLabel2 = [(HFPinCodeItem *)self userLabel];
     user2 = [userLabel2 user];
-    v8 = [home hf_handleForUser:user2];
+    v8 = [userID hf_handleForUser:user2];
   }
 
   else
   {
     userLabel3 = [(HFPinCodeItem *)self userLabel];
     removedUserInfo = [userLabel3 removedUserInfo];
-    home = [removedUserInfo userID];
+    userID = [removedUserInfo userID];
 
-    if (home)
+    if (userID)
     {
-      v8 = [[HFUserHandle alloc] initWithType:1 userID:home];
+      v8 = [[HFUserHandle alloc] initWithType:1 userID:userID];
     }
 
     else

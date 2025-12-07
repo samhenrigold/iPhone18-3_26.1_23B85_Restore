@@ -20,6 +20,7 @@
 - (void)setRangingPeople:(id)people;
 - (void)setScanRate:(unsigned int)rate;
 - (void)xpcPeopleStatusChanged:(unsigned int)changed;
+- (void)xpcPersonChanged:(id)changed changes:(unsigned int)changes;
 - (void)xpcPersonFound:(id)found;
 - (void)xpcPersonID:(id)d deviceID:(id)iD updatedMeasurement:(id)measurement;
 - (void)xpcPersonLost:(id)lost;
@@ -126,13 +127,13 @@
 
 - (id)descriptionWithLevel:(int)level
 {
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__5;
+  v25 = __Block_byref_object_dispose__5;
   v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__5;
-  v30 = __Block_byref_object_dispose__5;
-  v31 = 0;
-  v25 = 0;
+  v20 = 0;
   discoveryMode = self->_discoveryMode;
   if (discoveryMode > 199)
   {
@@ -166,16 +167,13 @@ LABEL_8:
 
   v6 = "PTS";
 LABEL_11:
-  changeFlags = self->_changeFlags;
-  discoveryFlags = self->_discoveryFlags;
-  v16 = v6;
-  NSAppendPrintF();
-  objc_storeStrong(&v31, v25);
+  NSAppendPrintF(&v20, "RPPeopleDiscovery, DM %s, DF %#{flags}, CF %#{flags}", v6, self->_discoveryFlags, &unk_1B6F2E6A4, self->_changeFlags, &unk_1B6F2E713);
+  objc_storeStrong(&v26, v20);
   if (level <= 30)
   {
-    v7 = v27 + 5;
-    obj = v27[5];
-    v8 = [(NSMutableDictionary *)self->_discoveredPeople count:v16];
+    v7 = v22 + 5;
+    obj = v22[5];
+    v8 = [(NSMutableDictionary *)self->_discoveredPeople count];
     peopleDensity = self->_peopleDensity;
     if (peopleDensity < 1)
     {
@@ -192,16 +190,14 @@ LABEL_11:
       v10 = "Low";
     }
 
-    v17 = v8;
-    v19 = v10;
-    NSAppendPrintF();
+    NSAppendPrintF(&obj, ", %d people (%s)", v8, v10);
     objc_storeStrong(v7, obj);
     if (level <= 20)
     {
-      v11 = v27;
-      v23 = v27[5];
-      NSAppendPrintF();
-      objc_storeStrong(v11 + 5, v23);
+      v11 = v22;
+      v18 = v22[5];
+      NSAppendPrintF(&v18, "\n");
+      objc_storeStrong(v11 + 5, v18);
       if (level >= 11)
       {
         v12 = 50;
@@ -213,30 +209,29 @@ LABEL_11:
       }
 
       discoveredPeople = self->_discoveredPeople;
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __42__RPPeopleDiscovery_descriptionWithLevel___block_invoke;
-      v21[3] = &unk_1E7C94BC8;
-      v21[4] = &v26;
-      v22 = v12;
-      [(NSMutableDictionary *)discoveredPeople enumerateKeysAndObjectsUsingBlock:v21, v17, v19];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __42__RPPeopleDiscovery_descriptionWithLevel___block_invoke;
+      v16[3] = &unk_1E7C94BC8;
+      v16[4] = &v21;
+      v17 = v12;
+      [(NSMutableDictionary *)discoveredPeople enumerateKeysAndObjectsUsingBlock:v16];
     }
   }
 
-  v14 = v27[5];
-  _Block_object_dispose(&v26, 8);
+  v14 = v22[5];
+  _Block_object_dispose(&v21, 8);
 
   return v14;
 }
 
-void __42__RPPeopleDiscovery_descriptionWithLevel___block_invoke(uint64_t a1)
+void __42__RPPeopleDiscovery_descriptionWithLevel___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(*(a1 + 32) + 8);
-  obj = *(v1 + 40);
-  v2 = *(a1 + 40);
-  v3 = CUDescriptionWithLevel();
-  NSAppendPrintF();
-  objc_storeStrong((v1 + 40), obj);
+  v3 = *(*(a1 + 32) + 8);
+  obj = *(v3 + 40);
+  v4 = CUDescriptionWithLevel();
+  NSAppendPrintF(&obj, "    %@\n", v4);
+  objc_storeStrong((v3 + 40), obj);
 }
 
 - (void)setDiscoveryFlags:(unsigned int)flags
@@ -252,7 +247,7 @@ void __42__RPPeopleDiscovery_descriptionWithLevel___block_invoke(uint64_t a1)
 
 - (void)setRangingPeople:(id)people
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   peopleCopy = people;
   v5 = [peopleCopy copy];
   if (v5)
@@ -265,29 +260,29 @@ void __42__RPPeopleDiscovery_descriptionWithLevel___block_invoke(uint64_t a1)
     v6 = 0;
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        identifier = [*(*(&v21 + 1) + 8 * i) identifier];
+        identifier = [*(*(&v20 + 1) + 8 * i) identifier];
         [v6 addObject:identifier];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
@@ -335,8 +330,6 @@ void __42__RPPeopleDiscovery_descriptionWithLevel___block_invoke(uint64_t a1)
 
 LABEL_19:
   objc_sync_exit(selfCopy);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __38__RPPeopleDiscovery_setRangingPeople___block_invoke(uint64_t a1)
@@ -383,36 +376,38 @@ void __38__RPPeopleDiscovery_setRangingPeople___block_invoke(uint64_t a1)
   {
     if (gLogCategory_RPPeopleDiscovery <= 30 && (gLogCategory_RPPeopleDiscovery != -1 || _LogCategory_Initialize()))
     {
-LABEL_14:
-      [RPPeopleDiscovery _activateWithCompletion:? reactivate:?];
+      v7 = "Re-activate %s\n";
+LABEL_15:
+      [RPPeopleDiscovery _activateWithCompletion:v7 reactivate:?];
     }
   }
 
   else if (gLogCategory_RPPeopleDiscovery <= 30 && (gLogCategory_RPPeopleDiscovery != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_14;
+    v7 = "Activate %s\n";
+    goto LABEL_15;
   }
 
   if ([(RPPeopleDiscovery *)self _ensureXPCStarted])
   {
     xpcCnx = self->_xpcCnx;
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __56__RPPeopleDiscovery__activateWithCompletion_reactivate___block_invoke;
-    v13[3] = &unk_1E7C93500;
-    v15 = reactivateCopy;
-    v13[4] = self;
-    v8 = completionCopy;
-    v14 = v8;
-    v9 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v13];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __56__RPPeopleDiscovery__activateWithCompletion_reactivate___block_invoke_2;
-    v10[3] = &unk_1E7C94BF0;
-    v12 = reactivateCopy;
-    v10[4] = self;
-    v11 = v8;
-    [v9 xpcPeopleDiscoveryActivate:self completion:v10];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __56__RPPeopleDiscovery__activateWithCompletion_reactivate___block_invoke;
+    v14[3] = &unk_1E7C93500;
+    v16 = reactivateCopy;
+    v14[4] = self;
+    v9 = completionCopy;
+    v15 = v9;
+    v10 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v14];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __56__RPPeopleDiscovery__activateWithCompletion_reactivate___block_invoke_2;
+    v11[3] = &unk_1E7C94BF0;
+    v13 = reactivateCopy;
+    v11[4] = self;
+    v12 = v9;
+    [v10 xpcPeopleDiscoveryActivate:self completion:v11];
   }
 
   else
@@ -427,177 +422,186 @@ LABEL_14:
 
 void __56__RPPeopleDiscovery__activateWithCompletion_reactivate___block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v5 = a2;
   if (*(a1 + 48) == 1)
   {
     if (gLogCategory_RPPeopleDiscovery <= 90 && (gLogCategory_RPPeopleDiscovery != -1 || _LogCategory_Initialize()))
     {
-LABEL_14:
-      __56__RPPeopleDiscovery__activateWithCompletion_reactivate___block_invoke_cold_1();
+      v3 = "### Re-activate XPC error: %{error}\n";
+LABEL_15:
+      __56__RPPeopleDiscovery__activateWithCompletion_reactivate___block_invoke_cold_1(v3, v5);
     }
   }
 
   else if (gLogCategory_RPPeopleDiscovery <= 90 && (gLogCategory_RPPeopleDiscovery != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_14;
+    v3 = "### Activate XPC error: %{error}\n";
+    goto LABEL_15;
   }
 
   [*(a1 + 32) _scheduleRetry];
-  v3 = *(a1 + 40);
-  if (v3)
+  v4 = *(a1 + 40);
+  if (v4)
   {
-    (*(v3 + 16))(v3, 0);
+    (*(v4 + 16))(v4, 0);
   }
 }
 
 void __56__RPPeopleDiscovery__activateWithCompletion_reactivate___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v29 = v5;
+  v30 = v5;
   if (!v6)
   {
     obj = *(a1 + 32);
     objc_sync_enter(obj);
-    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
-    if (v8)
+    v38 = 0u;
+    v8 = v5;
+    v9 = [v8 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    if (v9)
     {
-      v9 = *v35;
+      v10 = *v36;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v35 != v9)
+          if (*v36 != v10)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          v11 = *(*(&v34 + 1) + 8 * i);
-          v12 = *(*(a1 + 32) + 16);
-          if (!v12)
+          v12 = *(*(&v35 + 1) + 8 * i);
+          v13 = *(*(a1 + 32) + 16);
+          if (!v13)
           {
-            v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
-            v14 = *(a1 + 32);
-            v15 = *(v14 + 16);
-            *(v14 + 16) = v13;
+            v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
+            v15 = *(a1 + 32);
+            v16 = *(v15 + 16);
+            *(v15 + 16) = v14;
 
-            v12 = *(*(a1 + 32) + 16);
+            v13 = *(*(a1 + 32) + 16);
           }
 
-          v16 = [v11 identifier];
-          [v12 setObject:v11 forKeyedSubscript:v16];
+          v17 = [v12 identifier];
+          [v13 setObject:v12 forKeyedSubscript:v17];
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
 
-    v17 = [*(*(a1 + 32) + 16) count];
+    v18 = [*(*(a1 + 32) + 16) count];
     objc_sync_exit(obj);
 
     if (*(a1 + 48) == 1)
     {
       if (gLogCategory_RPPeopleDiscovery > 30 || gLogCategory_RPPeopleDiscovery == -1 && !_LogCategory_Initialize())
       {
-        goto LABEL_37;
+        goto LABEL_39;
       }
+
+      v19 = "Re-activated: %d existing\n";
     }
 
-    else if (gLogCategory_RPPeopleDiscovery > 30 || gLogCategory_RPPeopleDiscovery == -1 && !_LogCategory_Initialize())
+    else
     {
-      goto LABEL_37;
-    }
-
-    __56__RPPeopleDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_2(v7);
-LABEL_37:
-    v21 = *(a1 + 40);
-    if (v21)
-    {
-      (*(v21 + 16))(v21, 0);
-    }
-
-    v22 = _Block_copy(*(*(a1 + 32) + 120));
-    if (v22)
-    {
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
-      v31 = 0u;
-      v23 = v7;
-      v24 = [v23 countByEnumeratingWithState:&v30 objects:v38 count:16];
-      if (v24)
+      if (gLogCategory_RPPeopleDiscovery > 30 || gLogCategory_RPPeopleDiscovery == -1 && !_LogCategory_Initialize())
       {
-        v25 = *v31;
+        goto LABEL_39;
+      }
+
+      v19 = "Activated: %d existing\n";
+    }
+
+    __56__RPPeopleDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_2(v8, v19);
+LABEL_39:
+    v23 = *(a1 + 40);
+    if (v23)
+    {
+      (*(v23 + 16))(v23, 0);
+    }
+
+    v24 = _Block_copy(*(*(a1 + 32) + 120));
+    if (v24)
+    {
+      v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
+      v25 = v8;
+      v26 = [v25 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      if (v26)
+      {
+        v27 = *v32;
         do
         {
-          for (j = 0; j != v24; ++j)
+          for (j = 0; j != v26; ++j)
           {
-            if (*v31 != v25)
+            if (*v32 != v27)
             {
-              objc_enumerationMutation(v23);
+              objc_enumerationMutation(v25);
             }
 
-            v22[2](v22, *(*(&v30 + 1) + 8 * j));
+            v24[2](v24, *(*(&v31 + 1) + 8 * j));
           }
 
-          v24 = [v23 countByEnumeratingWithState:&v30 objects:v38 count:16];
+          v26 = [v25 countByEnumeratingWithState:&v31 objects:v39 count:16];
         }
 
-        while (v24);
+        while (v26);
       }
     }
 
-    [*(a1 + 32) _updatePeopleDensity:v17];
-    goto LABEL_49;
+    [*(a1 + 32) _updatePeopleDensity:v18];
+    goto LABEL_51;
   }
 
   if (*(a1 + 48) == 1)
   {
     if (gLogCategory_RPPeopleDiscovery <= 90 && (gLogCategory_RPPeopleDiscovery != -1 || _LogCategory_Initialize()))
     {
-LABEL_21:
-      __56__RPPeopleDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_1();
+      v7 = "### Re-activate failed: %{error}\n";
+LABEL_22:
+      __56__RPPeopleDiscovery__activateWithCompletion_reactivate___block_invoke_2_cold_1(v7, v6);
     }
   }
 
   else if (gLogCategory_RPPeopleDiscovery <= 90 && (gLogCategory_RPPeopleDiscovery != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_21;
+    v7 = "### Activate failed: %{error}\n";
+    goto LABEL_22;
   }
 
   if ([v6 code] == -71168)
   {
-    v18 = *(a1 + 40);
-    if (v18)
+    v20 = *(a1 + 40);
+    if (v20)
     {
-      v19 = *(v18 + 16);
-LABEL_33:
-      v19();
+      v21 = *(v20 + 16);
+LABEL_35:
+      v21();
     }
   }
 
   else
   {
     [*(a1 + 32) _scheduleRetry];
-    v20 = *(a1 + 40);
-    if (v20)
+    v22 = *(a1 + 40);
+    if (v22)
     {
-      v19 = *(v20 + 16);
-      goto LABEL_33;
+      v21 = *(v22 + 16);
+      goto LABEL_35;
     }
   }
 
-LABEL_49:
-
-  v27 = *MEMORY[0x1E69E9840];
+LABEL_51:
 }
 
 - (BOOL)_ensureXPCStarted
@@ -650,14 +654,17 @@ uint64_t __38__RPPeopleDiscovery__ensureXPCStarted__block_invoke_2(uint64_t a1)
 
   if (*(*(a1 + 32) + 24) == 1)
   {
-    if (gLogCategory_RPPeopleDiscovery <= 30 && (gLogCategory_RPPeopleDiscovery != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPPeopleDiscovery <= 30)
     {
-      __38__RPPeopleDiscovery__ensureXPCStarted__block_invoke_2_cold_2();
+      if (gLogCategory_RPPeopleDiscovery != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        __38__RPPeopleDiscovery__ensureXPCStarted__block_invoke_2_cold_2(v4, v5, v6);
+      }
     }
 
-    v4 = *(a1 + 32);
+    v7 = *(a1 + 32);
 
-    return [v4 _invalidated];
+    return [v7 _invalidated];
   }
 
   else
@@ -667,9 +674,9 @@ uint64_t __38__RPPeopleDiscovery__ensureXPCStarted__block_invoke_2(uint64_t a1)
       __38__RPPeopleDiscovery__ensureXPCStarted__block_invoke_2_cold_1();
     }
 
-    v6 = *(a1 + 32);
+    v9 = *(a1 + 32);
 
-    return [v6 _scheduleRetry];
+    return [v9 _scheduleRetry];
   }
 }
 
@@ -739,34 +746,37 @@ void __46__RPPeopleDiscovery__invokeBlockActivateSafe___block_invoke(uint64_t a1
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __31__RPPeopleDiscovery_invalidate__block_invoke(uint64_t result)
+void *__31__RPPeopleDiscovery_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v5 = *(result + 32);
-  if ((*(v5 + 24) & 1) == 0)
+  v7 = result[4];
+  if ((*(v7 + 24) & 1) == 0)
   {
-    v12 = v2;
-    v13 = v1;
-    v6 = result;
-    *(v5 + 24) = 1;
-    if (gLogCategory_RPPeopleDiscovery <= 30 && (gLogCategory_RPPeopleDiscovery != -1 || _LogCategory_Initialize()))
+    v14 = v4;
+    v15 = v3;
+    v8 = result;
+    *(v7 + 24) = 1;
+    if (gLogCategory_RPPeopleDiscovery <= 30)
     {
-      __31__RPPeopleDiscovery_invalidate__block_invoke_cold_1();
+      if (gLogCategory_RPPeopleDiscovery != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __31__RPPeopleDiscovery_invalidate__block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    v7 = *(*(v6 + 32) + 40);
-    if (v7)
+    v9 = *(v8[4] + 40);
+    if (v9)
     {
-      v8 = v7;
-      dispatch_source_cancel(v8);
-      v9 = *(v6 + 32);
-      v10 = *(v9 + 40);
-      *(v9 + 40) = 0;
+      v10 = v9;
+      dispatch_source_cancel(v10);
+      v11 = v8[4];
+      v12 = *(v11 + 40);
+      *(v11 + 40) = 0;
     }
 
-    [*(*(v6 + 32) + 48) invalidate];
-    v11 = *(v6 + 32);
+    [*(v8[4] + 48) invalidate];
+    v13 = v8[4];
 
-    return [v11 _invalidated];
+    return [v13 _invalidated];
   }
 
   return result;
@@ -813,9 +823,12 @@ uint64_t __31__RPPeopleDiscovery_invalidate__block_invoke(uint64_t result)
     self->_statusChangedHandler = 0;
 
     self->_invalidateDone = 1;
-    if (gLogCategory_RPPeopleDiscovery <= 30 && (gLogCategory_RPPeopleDiscovery != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPPeopleDiscovery <= 30)
     {
-      [RPPeopleDiscovery _invalidated];
+      if (gLogCategory_RPPeopleDiscovery != -1 || (v14 = _LogCategory_Initialize(), v14))
+      {
+        [(RPPeopleDiscovery *)v14 _invalidated];
+      }
     }
   }
 }
@@ -835,30 +848,33 @@ uint64_t __31__RPPeopleDiscovery_invalidate__block_invoke(uint64_t result)
     handler[3] = &unk_1E7C92CE8;
     handler[4] = self;
     dispatch_source_set_event_handler(v5, handler);
-    v6 = self->_retryTimer;
     CUDispatchTimerSet();
     dispatch_resume(self->_retryTimer);
   }
 }
 
-_BYTE *__35__RPPeopleDiscovery__scheduleRetry__block_invoke(uint64_t a1)
+_BYTE *__35__RPPeopleDiscovery__scheduleRetry__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_RPPeopleDiscovery <= 30 && (gLogCategory_RPPeopleDiscovery != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_RPPeopleDiscovery <= 30)
   {
-    __35__RPPeopleDiscovery__scheduleRetry__block_invoke_cold_1();
+    if (gLogCategory_RPPeopleDiscovery != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __35__RPPeopleDiscovery__scheduleRetry__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(*(a1 + 32) + 40);
-  if (v2)
+  v4 = *(*(v3 + 32) + 40);
+  if (v4)
   {
-    v3 = v2;
-    dispatch_source_cancel(v3);
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = 0;
+    v5 = v4;
+    dispatch_source_cancel(v5);
+    v6 = *(v3 + 32);
+    v7 = *(v6 + 40);
+    *(v6 + 40) = 0;
   }
 
-  result = *(a1 + 32);
+  result = *(v3 + 32);
   if ((result[24] & 1) == 0)
   {
 
@@ -890,61 +906,62 @@ _BYTE *__35__RPPeopleDiscovery__scheduleRetry__block_invoke(uint64_t a1)
 
 - (void)_lostAllPeople
 {
-  v19 = *MEMORY[0x1E69E9840];
-  if (gLogCategory_RPPeopleDiscovery <= 30 && (gLogCategory_RPPeopleDiscovery != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  v18 = *MEMORY[0x1E69E9840];
+  if (gLogCategory_RPPeopleDiscovery <= 30)
   {
-    [RPPeopleDiscovery _lostAllPeople];
+    if (gLogCategory_RPPeopleDiscovery != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(RPPeopleDiscovery *)self _lostAllPeople];
+    }
   }
 
-  personLostHandler = self->_personLostHandler;
-  obj = self;
+  personLostHandler = selfCopy->_personLostHandler;
+  obj = selfCopy;
   objc_sync_enter(obj);
-  discoveredPeople = obj->_discoveredPeople;
+  v5 = obj[2];
   if (personLostHandler)
   {
-    allValues = [(NSMutableDictionary *)discoveredPeople allValues];
-    [(NSMutableDictionary *)obj->_discoveredPeople removeAllObjects];
+    allValues = [v5 allValues];
+    [obj[2] removeAllObjects];
     objc_sync_exit(obj);
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
-    v6 = allValues;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v7)
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v7 = allValues;
+    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v8)
     {
-      v8 = *v15;
+      v9 = *v14;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v9)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v10 = self->_personLostHandler;
-          if (v10)
+          v11 = selfCopy->_personLostHandler;
+          if (v11)
           {
-            v10[2](v10, *(*(&v14 + 1) + 8 * i));
+            v11[2](v11, *(*(&v13 + 1) + 8 * i));
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
-
-    v11 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    [(NSMutableDictionary *)discoveredPeople removeAllObjects];
+    [v5 removeAllObjects];
     objc_sync_exit(obj);
-    v12 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -980,40 +997,41 @@ _BYTE *__35__RPPeopleDiscovery__scheduleRetry__block_invoke(uint64_t a1)
     v5 = 0;
   }
 
-  if (v5 != self->_peopleDensity)
+  peopleDensity = self->_peopleDensity;
+  if (v5 != peopleDensity)
   {
     if (gLogCategory_RPPeopleDiscovery <= 30 && (gLogCategory_RPPeopleDiscovery != -1 || _LogCategory_Initialize()))
     {
-      [RPPeopleDiscovery _updatePeopleDensity:];
+      [(RPPeopleDiscovery *)peopleDensity _updatePeopleDensity:v5];
     }
 
     self->_peopleDensity = v5;
-    v7 = _Block_copy(self->_peopleDensityChangedHandler);
-    if (v7)
+    v8 = _Block_copy(self->_peopleDensityChangedHandler);
+    if (v8)
     {
-      v8 = v7;
-      v7[2]();
-      v7 = v8;
+      v9 = v8;
+      v8[2]();
+      v8 = v9;
     }
   }
 }
 
 - (void)xpcPeopleStatusChanged:(unsigned int)changed
 {
+  v3 = *&changed;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_RPPeopleDiscovery <= 30 && (gLogCategory_RPPeopleDiscovery != -1 || _LogCategory_Initialize()))
   {
-    statusFlags = self->_statusFlags;
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPPeopleDiscovery, "[RPPeopleDiscovery xpcPeopleStatusChanged:]", 30, "Status changed: %#{flags} -> %#{flags}\n", self->_statusFlags, &unk_1B6F2E73D, v3, &unk_1B6F2E73D);
   }
 
-  self->_statusFlags = changed;
+  self->_statusFlags = v3;
   v5 = _Block_copy(self->_statusChangedHandler);
   if (v5)
   {
-    v10 = v5;
-    (*(v5 + 2))(v5, v6, v7, v8);
-    v5 = v10;
+    v6 = v5;
+    v5[2]();
+    v5 = v6;
   }
 }
 
@@ -1072,15 +1090,34 @@ _BYTE *__35__RPPeopleDiscovery__scheduleRetry__block_invoke(uint64_t a1)
   [(RPPeopleDiscovery *)selfCopy _updatePeopleDensity:v7];
 }
 
+- (void)xpcPersonChanged:(id)changed changes:(unsigned int)changes
+{
+  v4 = *&changes;
+  changedCopy = changed;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  discoveredPeople = selfCopy->_discoveredPeople;
+  identifier = [changedCopy identifier];
+  [(NSMutableDictionary *)discoveredPeople setObject:changedCopy forKeyedSubscript:identifier];
+
+  objc_sync_exit(selfCopy);
+  personChangedHandler = selfCopy->_personChangedHandler;
+  if (personChangedHandler)
+  {
+    personChangedHandler[2](personChangedHandler, changedCopy, v4);
+  }
+}
+
 - (void)xpcPersonID:(id)d deviceID:(id)iD updatedMeasurement:(id)measurement
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   measurementCopy = measurement;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v23 = dCopy;
+  v22 = dCopy;
   v11 = [(NSMutableDictionary *)selfCopy->_discoveredPeople objectForKeyedSubscript:dCopy];
   v12 = v11;
   if (!v11)
@@ -1088,12 +1125,12 @@ _BYTE *__35__RPPeopleDiscovery__scheduleRetry__block_invoke(uint64_t a1)
     goto LABEL_11;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   devices = [v11 devices];
-  v14 = [devices countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v14 = [devices countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (!v14)
   {
 LABEL_10:
@@ -1103,17 +1140,17 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v15 = *v26;
+  v15 = *v25;
 LABEL_4:
   v16 = 0;
   while (1)
   {
-    if (*v26 != v15)
+    if (*v25 != v15)
     {
       objc_enumerationMutation(devices);
     }
 
-    v17 = *(*(&v25 + 1) + 8 * v16);
+    v17 = *(*(&v24 + 1) + 8 * v16);
     identifier = [v17 identifier];
     v19 = [identifier isEqual:iDCopy];
 
@@ -1124,7 +1161,7 @@ LABEL_4:
 
     if (v14 == ++v16)
     {
-      v14 = [devices countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v14 = [devices countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v14)
       {
         goto LABEL_4;
@@ -1136,25 +1173,24 @@ LABEL_4:
 
   [v17 setRelativeLocation:measurementCopy];
 
-  v21 = (selfCopy->_changeFlags & 8) == 0;
+  v20 = (selfCopy->_changeFlags & 8) == 0;
   objc_sync_exit(selfCopy);
 
-  if (v21)
+  if (v20)
   {
     goto LABEL_13;
   }
 
-  v22 = _Block_copy(selfCopy->_personChangedHandler);
-  selfCopy = v22;
-  if (v22)
+  v21 = _Block_copy(selfCopy->_personChangedHandler);
+  selfCopy = v21;
+  if (v21)
   {
-    (v22->_discoveredPeople)(v22, v12, 8);
+    (v21->_discoveredPeople)(v21, v12, 8);
   }
 
 LABEL_12:
 
 LABEL_13:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addAppleID:(id)d completion:(id)completion
@@ -1189,7 +1225,7 @@ void __43__RPPeopleDiscovery_addAppleID_completion___block_invoke(uint64_t a1, v
   {
     if (gLogCategory_RPPeopleDiscovery != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
     {
-      __43__RPPeopleDiscovery_addAppleID_completion___block_invoke_cold_1();
+      __43__RPPeopleDiscovery_addAppleID_completion___block_invoke_cold_1(v3);
       v3 = v6;
     }
   }
@@ -1205,7 +1241,7 @@ void __43__RPPeopleDiscovery_addAppleID_completion___block_invoke(uint64_t a1, v
 void __43__RPPeopleDiscovery_addAppleID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v8 = v3;
+  v7 = v3;
   if (v3)
   {
     if (gLogCategory_RPPeopleDiscovery > 90)
@@ -1216,17 +1252,16 @@ void __43__RPPeopleDiscovery_addAppleID_completion___block_invoke_2(uint64_t a1,
     if (gLogCategory_RPPeopleDiscovery == -1)
     {
       v5 = _LogCategory_Initialize();
-      v3 = v8;
+      v3 = v7;
       if (!v5)
       {
         goto LABEL_11;
       }
     }
 
-    v7 = *(a1 + 32);
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPPeopleDiscovery, "[RPPeopleDiscovery addAppleID:completion:]_block_invoke_2", 90, "### Add AppleID failed: '%@', %{error}\n", *(a1 + 32), v3);
 LABEL_5:
-    v3 = v8;
+    v3 = v7;
     goto LABEL_11;
   }
 
@@ -1243,8 +1278,8 @@ LABEL_11:
   v6 = *(a1 + 40);
   if (v6)
   {
-    (*(v6 + 16))(v6, v8);
-    v3 = v8;
+    (*(v6 + 16))(v6, v7);
+    v3 = v7;
   }
 }
 
@@ -1280,7 +1315,7 @@ void __46__RPPeopleDiscovery_removeAppleID_completion___block_invoke(uint64_t a1
   {
     if (gLogCategory_RPPeopleDiscovery != -1 || (v4 = _LogCategory_Initialize(), v3 = v6, v4))
     {
-      __46__RPPeopleDiscovery_removeAppleID_completion___block_invoke_cold_1();
+      __46__RPPeopleDiscovery_removeAppleID_completion___block_invoke_cold_1(v3);
       v3 = v6;
     }
   }
@@ -1296,7 +1331,7 @@ void __46__RPPeopleDiscovery_removeAppleID_completion___block_invoke(uint64_t a1
 void __46__RPPeopleDiscovery_removeAppleID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v8 = v3;
+  v7 = v3;
   if (v3)
   {
     if (gLogCategory_RPPeopleDiscovery > 90)
@@ -1307,17 +1342,16 @@ void __46__RPPeopleDiscovery_removeAppleID_completion___block_invoke_2(uint64_t 
     if (gLogCategory_RPPeopleDiscovery == -1)
     {
       v5 = _LogCategory_Initialize();
-      v3 = v8;
+      v3 = v7;
       if (!v5)
       {
         goto LABEL_11;
       }
     }
 
-    v7 = *(a1 + 32);
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPPeopleDiscovery, "[RPPeopleDiscovery removeAppleID:completion:]_block_invoke_2", 90, "### Remove AppleID failed: '%@', %{error}\n", *(a1 + 32), v3);
 LABEL_5:
-    v3 = v8;
+    v3 = v7;
     goto LABEL_11;
   }
 
@@ -1334,9 +1368,68 @@ LABEL_11:
   v6 = *(a1 + 40);
   if (v6)
   {
-    (*(v6 + 16))(v6, v8);
-    v3 = v8;
+    (*(v6 + 16))(v6, v7);
+    v3 = v7;
   }
+}
+
+- (uint64_t)_activateWithCompletion:(uint64_t)a1 reactivate:(const char *)a2 .cold.1(uint64_t a1, const char *a2)
+{
+  if (*(a1 + 56))
+  {
+    v2 = "(TargetUserSession)";
+  }
+
+  else
+  {
+    v2 = "";
+  }
+
+  return LogPrintF(&gLogCategory_RPPeopleDiscovery, "[RPPeopleDiscovery _activateWithCompletion:reactivate:]", 30, a2, v2);
+}
+
+- (uint64_t)_updatePeopleDensity:(unsigned int)a1 .cold.1(unsigned int a1, unsigned int a2)
+{
+  v2 = "None";
+  v3 = "Low";
+  v4 = "High";
+  if (a1 >= 0x33)
+  {
+    v5 = "High";
+  }
+
+  else
+  {
+    v5 = "Med";
+  }
+
+  if (a1 >= 0xB)
+  {
+    v3 = v5;
+  }
+
+  if (a1 > 0)
+  {
+    v2 = v3;
+  }
+
+  v6 = "None";
+  if (a2 < 0x33)
+  {
+    v4 = "Med";
+  }
+
+  if (a2 < 0xB)
+  {
+    v4 = "Low";
+  }
+
+  if (a2)
+  {
+    v6 = v4;
+  }
+
+  return LogPrintF(&gLogCategory_RPPeopleDiscovery, "[RPPeopleDiscovery _updatePeopleDensity:]", 30, "People density changed: %s -> %s\n", v2, v6);
 }
 
 @end

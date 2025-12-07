@@ -118,7 +118,7 @@ LABEL_5:
 - (id)hitRep:(CGPoint)rep
 {
   overflowGlyphLayer = self->_overflowGlyphLayer;
-  if (!overflowGlyphLayer || ((x = rep.x, y = rep.y, (v5 = [-[CALayer layout](overflowGlyphLayer "layout")]) == 0) ? (v8 = 0uLL, v6 = 0uLL, v7 = 0uLL) : (objc_msgSend(v5, "inverseTransform"), v6 = v13, v7 = v14, v8 = v15), result = -[CALayer hitRep:](self->_overflowGlyphLayer, "hitRep:", vaddq_f64(v8, vmlaq_n_f64(vmulq_n_f64(v7, y), v6, x))), rep.x = x, rep.y = y, !result))
+  if (!overflowGlyphLayer || ((x = rep.x, y = rep.y, (v5 = [-[CALayer layout](overflowGlyphLayer "layout")]) == 0) ? (v8 = 0uLL, v6 = 0uLL, v7 = 0uLL) : (objc_msgSend_inverseTransform(v5), v6 = v13, v7 = v14, v8 = v15), result = -[CALayer hitRep:](self->_overflowGlyphLayer, "hitRep:", vaddq_f64(v8, vmlaq_n_f64(vmulq_n_f64(v7, y), v6, x))), rep.x = x, rep.y = y, !result))
   {
     v12.receiver = self;
     v12.super_class = TSWPShapeRep;
@@ -145,7 +145,7 @@ LABEL_5:
       v9 = [-[CALayer layout](overflowGlyphLayer "layout")];
       if (v9)
       {
-        [v9 inverseTransform];
+        objc_msgSend_inverseTransform(v9);
         v10 = v18;
         v11 = v19;
         v12 = v20;
@@ -472,9 +472,9 @@ LABEL_10:
 
 - (id)overlayLayers
 {
-  v25.receiver = self;
-  v25.super_class = TSWPShapeRep;
-  v3 = [-[TSDShapeRep overlayLayers](&v25 overlayLayers)];
+  v26.receiver = self;
+  v26.super_class = TSWPShapeRep;
+  v3 = [-[TSDShapeRep overlayLayers](&v26 overlayLayers)];
   if ([(TSWPShapeRep *)self p_shouldShowTextOverflowGlyph]&& [(TSDRep *)self isSelectedIgnoringLocking])
   {
     [(TSWPShapeRep *)self p_resetOverflowGlyphLayerIfNecessary];
@@ -488,9 +488,9 @@ LABEL_10:
     v17 = TSDCenterOfRect(v13, v14, v15, v16);
     v18 = TSDSubtractPoints(v10, v12, v17);
     v20 = v19;
-    [(TSDCanvas *)[(TSDInteractiveCanvasController *)interactiveCanvasController canvas] contentsScale];
-    v22 = TSDRoundedPointForScale(v18, v20, v21);
-    [*&self->_editingContainedRep setPosition:{TSDAddPoints(v22, v23, v17)}];
+    contentsScale = [(TSDCanvas *)[(TSDInteractiveCanvasController *)interactiveCanvasController canvas] contentsScale];
+    v23 = TSDRoundedPointForScale(contentsScale, v18, v20, v22);
+    [*&self->_editingContainedRep setPosition:{TSDAddPoints(v23, v24, v17)}];
     [v3 addObject:*&self->_editingContainedRep];
   }
 
@@ -499,9 +499,9 @@ LABEL_10:
 
 - (id)additionalLayersOverLayer
 {
-  v28.receiver = self;
-  v28.super_class = TSWPShapeRep;
-  additionalLayersOverLayer = [(TSDShapeRep *)&v28 additionalLayersOverLayer];
+  v29.receiver = self;
+  v29.super_class = TSWPShapeRep;
+  additionalLayersOverLayer = [(TSDShapeRep *)&v29 additionalLayersOverLayer];
   if ([(TSWPShapeRep *)self p_shouldShowTextOverflowGlyph]&& ![(TSDRep *)self isSelectedIgnoringLocking])
   {
     if (additionalLayersOverLayer)
@@ -533,9 +533,9 @@ LABEL_10:
       v21 = v23;
     }
 
-    [(TSDCanvas *)[(TSDInteractiveCanvasController *)interactiveCanvasController canvas] contentsScale];
-    v25 = TSDRoundedPointForScale(v19, v21, v24);
-    [*&self->_editingContainedRep setPosition:{TSDAddPoints(v25, v26, v18)}];
+    contentsScale = [(TSDCanvas *)[(TSDInteractiveCanvasController *)interactiveCanvasController canvas] contentsScale];
+    v26 = TSDRoundedPointForScale(contentsScale, v19, v21, v25);
+    [*&self->_editingContainedRep setPosition:{TSDAddPoints(v26, v27, v18)}];
     [additionalLayersOverLayer addObject:*&self->_editingContainedRep];
   }
 
@@ -601,7 +601,7 @@ LABEL_4:
 - (id)p_overflowKnobImage
 {
   v2 = MEMORY[0x277D6C2F8];
-  v3 = TSWPBundle();
+  v3 = TSWPBundle(self, a2);
 
   return [v2 imageNamed:@"TSWPOverflowGlyph" inBundle:v3];
 }

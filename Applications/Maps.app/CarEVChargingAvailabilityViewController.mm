@@ -93,7 +93,7 @@
 
 - (NSArray)focusOrderSubItems
 {
-  sub_1000CE6B8(&qword_101914ED0);
+  sub_1000CE6B8(&qword_101914ED0, &unk_1011F4100);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;
@@ -101,7 +101,7 @@
 
 - (NSArray)preferredFocusEnvironments
 {
-  sub_1000CE6B8(&unk_10190DFB0);
+  sub_1000CE6B8(&unk_10190DFB0, &unk_101206C50);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;

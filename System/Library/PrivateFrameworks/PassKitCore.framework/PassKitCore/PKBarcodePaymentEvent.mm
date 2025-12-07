@@ -165,38 +165,34 @@
     }
   }
 
-  else
+  else if (([(NSDate *)timestamp isEqual:?]& 1) == 0)
   {
-    v8 = [(NSDate *)timestamp isEqual:?];
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_27;
-    }
+    goto LABEL_27;
   }
 
   if (self->_eventType == eventCopy[4])
   {
-    v9 = eventCopy[5];
-    v10 = self->_barcodeIdentifier;
-    v11 = v9;
-    v12 = v11;
-    if (v10 == v11)
+    v8 = eventCopy[5];
+    v9 = self->_barcodeIdentifier;
+    v10 = v8;
+    v11 = v10;
+    if (v9 == v10)
     {
     }
 
     else
     {
-      LOBYTE(v13) = 0;
-      if (!v10 || !v11)
+      LOBYTE(isEqualToString) = 0;
+      if (!v9 || !v10)
       {
 LABEL_30:
 
         goto LABEL_28;
       }
 
-      v13 = [(NSString *)v10 isEqualToString:v11];
+      isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-      if (!v13)
+      if (!isEqualToString)
       {
         goto LABEL_28;
       }
@@ -205,8 +201,8 @@ LABEL_30:
     if (self->_biometricsChanged == *(eventCopy + 8) && self->_authenticationType == eventCopy[6])
     {
       eventMetadata = self->_eventMetadata;
-      v15 = eventCopy[8];
-      if (eventMetadata && v15)
+      v14 = eventCopy[8];
+      if (eventMetadata && v14)
       {
         if (([(NSData *)eventMetadata isEqual:?]& 1) != 0)
         {
@@ -214,25 +210,25 @@ LABEL_30:
         }
       }
 
-      else if (eventMetadata == v15)
+      else if (eventMetadata == v14)
       {
 LABEL_22:
         deviceAccountIdentifier = self->_deviceAccountIdentifier;
-        v17 = eventCopy[7];
-        v10 = deviceAccountIdentifier;
-        v18 = v17;
-        v12 = v18;
-        if (v10 == v18)
+        v16 = eventCopy[7];
+        v9 = deviceAccountIdentifier;
+        v17 = v16;
+        v11 = v17;
+        if (v9 == v17)
         {
-          LOBYTE(v13) = 1;
+          LOBYTE(isEqualToString) = 1;
         }
 
         else
         {
-          LOBYTE(v13) = 0;
-          if (v10 && v18)
+          LOBYTE(isEqualToString) = 0;
+          if (v9 && v17)
           {
-            LOBYTE(v13) = [(NSString *)v10 isEqualToString:v18];
+            LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v9);
           }
         }
 
@@ -242,10 +238,10 @@ LABEL_22:
   }
 
 LABEL_27:
-  LOBYTE(v13) = 0;
+  LOBYTE(isEqualToString) = 0;
 LABEL_28:
 
-  return v13;
+  return isEqualToString;
 }
 
 @end

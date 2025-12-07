@@ -6,7 +6,7 @@
 
 - (id)retrieveRecentLibrarySearches
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CAC5408);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CAC5408, &qword_217050EA8);
   v2 = sub_21700E804();
 
   return v2;

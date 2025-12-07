@@ -22,83 +22,83 @@
 
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphImToColOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphImToColOps.mm", __p);
+  mpsFileLoc(__p, "[MPSGraphImToColOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphImToColOps.mm");
   v10 = nameCopy;
-  v31 = 260;
-  v30[0] = __p;
-  StringAttr = mlir::Builder::getStringAttr(builder, v30);
-  v13 = mlir::FileLineColLoc::get(StringAttr, 0x85u, 0);
+  v30 = 260;
+  v29[0] = __p;
+  StringAttr = mlir::Builder::getStringAttr(builder, v29);
+  v14 = mlir::FileLineColLoc::get(StringAttr, 0x85u, 0);
   if (v10)
   {
-    v14 = v10;
+    v15 = v10;
     uTF8String = [v10 UTF8String];
-    v16 = strlen(uTF8String);
-    if (v16 >= 0x7FFFFFFFFFFFFFF8)
+    v17 = strlen(uTF8String);
+    if (v17 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v17 = v16;
-    if (v16 >= 0x17)
+    v18 = v17;
+    if (v17 >= 0x17)
     {
       operator new();
     }
 
-    v29 = v16;
-    if (v16)
+    *(&__dst.__r_.__value_.__s + 23) = v17;
+    if (v17)
     {
-      memmove(__dst, uTF8String, v16);
+      memmove(&__dst, uTF8String, v17);
     }
 
-    v18 = &__dst[v17];
+    v19 = &__dst + v18;
   }
 
   else
   {
-    v29 = 13;
-    qmemcpy(__dst, "mps.im_to_col", sizeof(__dst));
-    v18 = v28;
+    *(&__dst.__r_.__value_.__s + 23) = 13;
+    qmemcpy(&__dst, "mps.im_to_col", 13);
+    v19 = &__dst.__r_.__value_.__s.__data_[13];
   }
 
-  *v18 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, __dst, v12, &v26);
-  v19 = v26.__r_.__value_.__r.__words[0];
-  if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  *v19 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, &v27, v12, v13);
+  v20 = v27.__r_.__value_.__r.__words[0];
+  if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v19 = &v26;
+    v20 = &v27;
   }
 
-  v20 = 1;
-  HIBYTE(v31) = 1;
-  if (v19->__r_.__value_.__s.__data_[0])
+  v21 = 1;
+  HIBYTE(v30) = 1;
+  if (v20->__r_.__value_.__s.__data_[0])
   {
-    v30[0] = v19;
-    v20 = 3;
+    v29[0] = v20;
+    v21 = 3;
   }
 
-  LOBYTE(v31) = v20;
-  v21 = mlir::Builder::getStringAttr(builder, v30);
-  mlir::NameLoc::get(v21, v13);
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
+  LOBYTE(v30) = v21;
+  v22 = mlir::Builder::getStringAttr(builder, v29);
+  mlir::NameLoc::get(v22, v14);
+  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v26.__r_.__value_.__l.__data_);
-    if ((v29 & 0x80000000) == 0)
+    operator delete(v27.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
   }
 
-  else if ((v29 & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_16;
   }
 
-  operator delete(*__dst);
+  operator delete(__dst.__r_.__value_.__l.__data_);
 LABEL_16:
 
-  if (v25 < 0)
+  if (v26 < 0)
   {
     operator delete(__p[0]);
   }

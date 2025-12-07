@@ -16,9 +16,9 @@
 - (FigLearnedMattingMetalStage)initWithMetalContext:(id)context
 {
   contextCopy = context;
-  v18.receiver = self;
-  v18.super_class = FigLearnedMattingMetalStage;
-  v6 = [(FigLearnedMattingMetalStage *)&v18 init];
+  v26.receiver = self;
+  v26.super_class = FigLearnedMattingMetalStage;
+  v6 = [(FigLearnedMattingMetalStage *)&v26 init];
   v7 = v6;
   if (!v6)
   {
@@ -28,10 +28,10 @@
   objc_storeStrong(&v6->_metalContext, context);
   if (!*(v7 + 8))
   {
-    v10 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v11 = [objc_alloc(MEMORY[0x1E6991778]) initWithbundle:v10 andOptionalCommandQueue:0];
-    v12 = *(v7 + 8);
-    *(v7 + 8) = v11;
+    v17 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v18 = [objc_alloc(MEMORY[0x1E6991778]) initWithbundle:v17 andOptionalCommandQueue:0];
+    v19 = *(v7 + 8);
+    *(v7 + 8) = v18;
 
     if (!*(v7 + 8))
     {
@@ -40,22 +40,22 @@
     }
   }
 
-  if ([(FigLearnedMattingMetalStage *)v7 _compileShaders])
+  if ([(FigLearnedMattingMetalStage *)v7 _compileShaders:v10])
   {
     [FigLearnedMattingMetalStage initWithMetalContext:];
     goto LABEL_11;
   }
 
-  v16 = *MEMORY[0x1E6966000];
-  v17 = &unk_1F2242AA8;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v14 = *MEMORY[0x1E695E480];
+  v24 = *MEMORY[0x1E6966000];
+  v25 = &unk_1F2242AA8;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  v21 = *MEMORY[0x1E695E480];
   device = [*(v7 + 8) device];
-  LODWORD(v13) = CVMetalTextureCacheCreate(v14, v13, device, 0, (v7 + 40));
+  v23 = CVMetalTextureCacheCreate(v21, v20, device, 0, (v7 + 40));
 
-  if (v13)
+  if (v23)
   {
-    [FigLearnedMattingMetalStage initWithMetalContext:];
+    [FigLearnedMattingMetalStage initWithMetalContext:v23];
 LABEL_11:
     v8 = 0;
     goto LABEL_3;
@@ -350,36 +350,57 @@ void __111__FigLearnedMattingMetalStage_pasteTileFrom_to_withStart_withNoOverlap
     return 0;
   }
 
-  v2 = [*(self + 8) computePipelineStateFor:@"clearTexture" constants:0];
-  v3 = *(self + 32);
-  *(self + 32) = v2;
+  v11 = [*(self + 8) computePipelineStateFor:@"clearTexture" constants:0];
+  v12 = *(self + 32);
+  *(self + 32) = v11;
 
   if (*(self + 32))
   {
-    v4 = [*(self + 8) computePipelineStateFor:@"createTileWithScale" constants:0];
-    v5 = *(self + 16);
-    *(self + 16) = v4;
+    v13 = [*(self + 8) computePipelineStateFor:@"createTileWithScale" constants:0];
+    v14 = *(self + 16);
+    *(self + 16) = v13;
 
     if (*(self + 16))
     {
-      v6 = [*(self + 8) computePipelineStateFor:@"pasteTile" constants:0];
-      v7 = *(self + 24);
-      *(self + 24) = v6;
+      v15 = [*(self + 8) computePipelineStateFor:@"pasteTile" constants:0];
+      v16 = *(self + 24);
+      *(self + 24) = v15;
 
       if (*(self + 24))
       {
         return 0;
       }
+
+      OUTLINED_FUNCTION_2();
+      OUTLINED_FUNCTION_0_2();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v25, v26, v27, v28, v29, v30, vars0, vars8);
+      OUTLINED_FUNCTION_2();
+      OUTLINED_FUNCTION_1_27();
+      v24 = 202;
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_2();
+      OUTLINED_FUNCTION_0_2();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v25, v26, v27, v28, v29, v30, vars0, vars8);
+      OUTLINED_FUNCTION_2();
+      OUTLINED_FUNCTION_1_27();
+      v24 = 200;
     }
   }
 
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_27();
+  else
+  {
+    OUTLINED_FUNCTION_2();
+    OUTLINED_FUNCTION_0_2();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v25, v26, v27, v28, v29, v30, vars0, vars8);
+    OUTLINED_FUNCTION_2();
+    OUTLINED_FUNCTION_1_27();
+    v24 = 198;
+  }
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM(v18, v19, v20, v21, v24, v9, v22, v23, a9);
 }
 
 - (id)_textureFromPixelBuffer:(uint64_t)buffer usage:
@@ -478,35 +499,14 @@ LABEL_12:
   return commandBuffer;
 }
 
-- (uint64_t)initWithMetalContext:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithMetalContext:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithMetalContext:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
 - (uint64_t)clearBuffer:(_DWORD *)a1 .cold.1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, v14, v15, v16, vars0, vars8);
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_1_27();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3, v4, v5, v6, 0x62, v1, v7, v8, v11);
   *a1 = result;
   return result;
 }
@@ -515,41 +515,42 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, v14, v15, v16, vars0, vars8);
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_1_27();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3, v4, v5, v6, 0x61, v1, v7, v8, v11);
   *a1 = result;
   return result;
 }
 
-- (void)createTileFrom:(_DWORD *)a3 to:withStart:commandBuffer:.cold.1(void *a1, void *a2, _DWORD *a3)
+- (void)createTileFrom:(_DWORD *)a3 to:withStart:commandBuffer:.cold.1(void *a1, const char *a2, _DWORD *a3)
 {
   fig_log_get_emitter();
-  FigDebugAssert3();
+  v12 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12, v3, v14, a2, v17, v18, v19, v20);
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1_27();
-  *a3 = FigSignalErrorAtGM();
+  *a3 = FigSignalErrorAtGM(v6, v7, v8, v9, 0x7A, v3, v10, v11, v13);
 }
 
-- (void)createTileFrom:(void *)a1 to:(_DWORD *)a2 withStart:commandBuffer:.cold.2(void *a1, _DWORD *a2)
+- (void)createTileFrom:(const char *)a1 to:(_DWORD *)a2 withStart:commandBuffer:.cold.2(const char *a1, _DWORD *a2)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, a1, v16, v17, v18, v19);
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_1_27();
-  *a2 = FigSignalErrorAtGM();
+  *a2 = FigSignalErrorAtGM(v4, v5, v6, v7, 0x75, v2, v8, v9, v11);
 }
 
 - (uint64_t)createTileFrom:(_DWORD *)a1 to:withStart:commandBuffer:.cold.3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, v14, v15, v16, vars0, vars8);
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_1_27();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3, v4, v5, v6, 0x74, v1, v7, v8, v11);
   *a1 = result;
   return result;
 }
@@ -558,10 +559,10 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, v14, v15, v16, vars0, vars8);
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_1_27();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3, v4, v5, v6, 0x72, v1, v7, v8, v11);
   *a1 = result;
   return result;
 }
@@ -570,10 +571,10 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, v14, v15, v16, vars0, vars8);
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_1_27();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3, v4, v5, v6, 0x71, v1, v7, v8, v11);
   *a1 = result;
   return result;
 }
@@ -582,10 +583,10 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, v14, v15, v16, vars0, vars8);
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_1_27();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3, v4, v5, v6, 0x8E, v1, v7, v8, v11);
   *a1 = result;
   return result;
 }
@@ -594,10 +595,10 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, v14, v15, v16, vars0, vars8);
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_1_27();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3, v4, v5, v6, 0x8D, v1, v7, v8, v11);
   *a1 = result;
   return result;
 }
@@ -606,10 +607,10 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, v14, v15, v16, vars0, vars8);
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_1_27();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3, v4, v5, v6, 0x8B, v1, v7, v8, v11);
   *a1 = result;
   return result;
 }
@@ -618,10 +619,10 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, v14, v15, v16, vars0, vars8);
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_1_27();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3, v4, v5, v6, 0x8A, v1, v7, v8, v11);
   *a1 = result;
   return result;
 }
@@ -630,10 +631,10 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, v14, v15, v16, vars0, vars8);
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_1_27();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3, v4, v5, v6, 0x89, v1, v7, v8, v11);
   *a1 = result;
   return result;
 }
@@ -642,10 +643,10 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, v14, v15, v16, vars0, vars8);
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_1_27();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3, v4, v5, v6, 0xAD, v1, v7, v8, v11);
   *a1 = result;
   return result;
 }
@@ -654,10 +655,10 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, v14, v15, v16, vars0, vars8);
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_1_27();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3, v4, v5, v6, 0xAC, v1, v7, v8, v11);
   *a1 = result;
   return result;
 }
@@ -666,10 +667,10 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, v14, v15, v16, vars0, vars8);
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_1_27();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3, v4, v5, v6, 0xAA, v1, v7, v8, v11);
   *a1 = result;
   return result;
 }
@@ -678,10 +679,10 @@ LABEL_12:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v12, v13, v14, v15, v16, vars0, vars8);
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_1_27();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v3, v4, v5, v6, 0xA9, v1, v7, v8, v11);
   *a1 = result;
   return result;
 }

@@ -181,17 +181,17 @@
   return v3;
 }
 
-void __48__SGEventSuggestionBase_suggestionDismissAction__block_invoke(uint64_t a1)
+void __48__SGEventSuggestionBase_suggestionDismissAction__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = sgEventsLogHandle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = sgEventsLogHandle();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(*(a1 + 32) + 8) event];
-    v4 = [v3 loggingIdentifier];
-    v6 = 138543362;
-    v7 = v4;
-    _os_log_impl(&dword_1B8182000, v2, OS_LOG_TYPE_DEFAULT, "Dismissing suggested event (%{public}@) view controller", &v6, 0xCu);
+    v4 = [*(*(a1 + 32) + 8) event];
+    v5 = [v4 loggingIdentifier];
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1B8182000, v3, OS_LOG_TYPE_DEFAULT, "Dismissing suggested event (%{public}@) view controller", &v7, 0xCu);
   }
 
   [objc_opt_class() confirm:0 event:*(*(a1 + 32) + 8) completion:0];

@@ -23,7 +23,7 @@
 - (void)appEnteredWhileAppeared
 {
 
-  sub_E9C30();
+  sub_E9C30(v2, v3);
 }
 
 - (void)appExitedWhileAppeared

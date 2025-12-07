@@ -6,7 +6,9 @@
 - (BOOL)userDismissible;
 - (CAFBoolCharacteristic)onCharacteristic;
 - (CAFBoolCharacteristic)userDismissibleCharacteristic;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setOn:(BOOL)on;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -89,6 +91,13 @@
   return bOOLValue;
 }
 
+- (void)setOn:(BOOL)on
+{
+  onCopy = on;
+  onCharacteristic = [(CAFCameraGeneral *)self onCharacteristic];
+  [onCharacteristic setBoolValue:onCopy];
+}
+
 - (CAFBoolCharacteristic)userDismissibleCharacteristic
 {
   v3 = [(CAFService *)self car];
@@ -121,6 +130,56 @@
   bOOLValue = [userDismissibleCharacteristic BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000002"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    onCharacteristic = [(CAFCameraGeneral *)self onCharacteristic];
+    uniqueIdentifier2 = [onCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers cameraGeneralService:self didUpdateOn:{-[CAFCameraGeneral on](self, "on")}];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000063"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  userDismissibleCharacteristic = [(CAFCameraGeneral *)self userDismissibleCharacteristic];
+  uniqueIdentifier4 = [userDismissibleCharacteristic uniqueIdentifier];
+  v16 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v16)
+  {
+    observers = [(CAFService *)self observers];
+    [observers cameraGeneralService:self didUpdateUserDismissible:{-[CAFCameraGeneral userDismissible](self, "userDismissible")}];
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v17.receiver = self;
+  v17.super_class = CAFCameraGeneral;
+  [(CAFService *)&v17 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForOn

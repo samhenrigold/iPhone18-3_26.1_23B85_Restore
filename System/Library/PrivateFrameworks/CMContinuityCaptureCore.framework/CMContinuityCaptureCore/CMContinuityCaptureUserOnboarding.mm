@@ -27,7 +27,7 @@ void __51__CMContinuityCaptureUserOnboarding_sharedInstance__block_invoke()
   v0 = [CMContinuityCaptureUserOnboarding alloc];
   v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
   v1 = dispatch_queue_create("com.apple.continuitycapture.useronboarding", v4);
-  v2 = [(CMContinuityCaptureUserOnboarding *)v0 initWithQueue:v1];
+  v2 = [(CMContinuityCaptureUserOnboarding *)v0 initWithQueue:?];
   v3 = _userOnboarding;
   _userOnboarding = v2;
 }
@@ -66,15 +66,15 @@ void __51__CMContinuityCaptureUserOnboarding_sharedInstance__block_invoke()
 {
   if (string >= 5)
   {
-    string = [MEMORY[0x277CCACA8] stringWithFormat:@"Unexpected onboarding state %d", string];
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:string];
   }
 
   else
   {
-    string = off_278D5C460[string];
+    v4 = off_278D5C460[string];
   }
 
-  return string;
+  return v4;
 }
 
 - (id)description
@@ -82,7 +82,7 @@ void __51__CMContinuityCaptureUserOnboarding_sharedInstance__block_invoke()
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v6 = [v3 stringWithFormat:@"%@: [%p]", v5, self];
+  v6 = [v3 stringWithFormat:v5, self];
 
   return v6;
 }
@@ -95,9 +95,9 @@ void __51__CMContinuityCaptureUserOnboarding_sharedInstance__block_invoke()
   v4 = v3;
   if (v3)
   {
-    [(CMContinuityCaptureUserOnboarding *)v3 willChangeValueForKey:@"state"];
+    [(CMContinuityCaptureUserOnboarding *)v3 willChangeValueForKey:?];
     v4->_state = 3;
-    [(CMContinuityCaptureUserOnboarding *)v4 didChangeValueForKey:@"state"];
+    [(CMContinuityCaptureUserOnboarding *)v4 didChangeValueForKey:?];
     v5 = v4;
   }
 

@@ -68,7 +68,7 @@ LABEL_14:
       v14 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(commandReferences, "count")}];
       requestMap = self->_requestMap;
       refId2 = [commandCopy refId];
-      v17 = [(NSMutableDictionary *)requestMap objectForKey:refId2];
+      v17 = objc_msgSend_objectForKey_(requestMap);
 
       v28 = 0u;
       v29 = 0u;
@@ -82,14 +82,14 @@ LABEL_14:
         v21 = *v27;
         do
         {
-          for (j = 0; j != v20; j = j + 1)
+          for (j = 0; j != v20; ++j)
           {
             if (*v27 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = [v17 objectForKey:{*(*(&v26 + 1) + 8 * j), v26}];
+            v23 = objc_msgSend_objectForKey_(v17, v26);
             if (v23)
             {
               [v14 addObject:v23];
@@ -160,7 +160,7 @@ LABEL_14:
     v5 = @"com.apple.siri.nilRequestId";
   }
 
-  v6 = [(NSMutableDictionary *)self->_requestMap objectForKey:v5];
+  v6 = objc_msgSend_objectForKey_(self->_requestMap);
   v7 = [v6 count] != 0;
 
   return v7;
@@ -193,7 +193,7 @@ LABEL_14:
           }
 
           v12 = *(*(&v27 + 1) + 8 * i);
-          v13 = [(NSMutableDictionary *)self->_requestMap objectForKey:v12];
+          v13 = objc_msgSend_objectForKey_(self->_requestMap);
           if (v13)
           {
             [v5 setObject:v13 forKey:v12];
@@ -301,7 +301,7 @@ LABEL_16:
 
   v10 = [(NSMutableDictionary *)self->_missingReferenceFulfillmentContexts allKeysForObject:contextCopy];
   [(NSMutableDictionary *)self->_missingReferenceFulfillmentContexts removeObjectsForKeys:v10];
-  v9 = [(NSMutableDictionary *)self->_missingReferenceFulfillmentContextsByRequestId objectForKey:v8];
+  v9 = objc_msgSend_objectForKey_(self->_missingReferenceFulfillmentContextsByRequestId);
 
   [v9 removeObject:contextCopy];
 }
@@ -309,7 +309,7 @@ LABEL_16:
 - (void)_removeMissingRefContextsForRequestId:(id)id
 {
   idCopy = id;
-  v5 = [(NSMutableDictionary *)self->_missingReferenceFulfillmentContextsByRequestId objectForKey:idCopy];
+  v5 = objc_msgSend_objectForKey_(self->_missingReferenceFulfillmentContextsByRequestId);
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
@@ -373,7 +373,7 @@ LABEL_16:
 - (id)objectsForIds:(id)ids missingReferences:(id *)references
 {
   idsCopy = ids;
-  v7 = [(NSMutableDictionary *)self->_requestMap objectForKey:@"com.apple.siri.nilRequestId"];
+  v7 = objc_msgSend_objectForKey_(self->_requestMap);
   if (!v7)
   {
     v12 = [idsCopy copy];
@@ -410,7 +410,7 @@ LABEL_16:
         }
 
         v15 = *(*(&v24 + 1) + 8 * i);
-        v16 = [v7 objectForKey:{v15, referencesCopy}];
+        v16 = objc_msgSend_objectForKey_(v7, referencesCopy);
         if (v16)
         {
           v17 = v8;
@@ -485,7 +485,7 @@ LABEL_20:
   }
 
   v58 = v11;
-  v12 = [(NSMutableDictionary *)self->_requestMap objectForKey:?];
+  v12 = objc_msgSend_objectForKey_(self->_requestMap);
   v56 = replyCopy;
   if (replyCopy)
   {
@@ -624,7 +624,7 @@ LABEL_30:
         }
 
         v32 = *(*(&v63 + 1) + 8 * i);
-        v33 = [v12 objectForKey:v32];
+        v33 = objc_msgSend_objectForKey_(v12);
         if (v33)
         {
           v34 = v26;
@@ -771,7 +771,7 @@ LABEL_30:
 
   _requestMap = [(ADResultObjectCache *)self _requestMap];
   v48 = v10;
-  v47 = [_requestMap objectForKey:v10];
+  v47 = objc_msgSend_objectForKey_(_requestMap);
   if (!v47)
   {
     v47 = objc_alloc_init(NSMutableDictionary);
@@ -841,7 +841,7 @@ LABEL_30:
             [(NSMutableSet *)requestsWithPhoneCall addObject:v10];
           }
 
-          v24 = [(NSMutableDictionary *)self->_missingReferenceFulfillmentContexts objectForKey:aceId];
+          v24 = objc_msgSend_objectForKey_(self->_missingReferenceFulfillmentContexts);
           requestId = [v24 requestId];
           v26 = requestId;
           v27 = @"com.apple.siri.nilRequestId";
@@ -930,7 +930,7 @@ LABEL_30:
 {
   idCopy = id;
   _missingReferenceFulfillmentContextsByRequestId = [(ADResultObjectCache *)self _missingReferenceFulfillmentContextsByRequestId];
-  v6 = [_missingReferenceFulfillmentContextsByRequestId objectForKey:idCopy];
+  v6 = objc_msgSend_objectForKey_(_missingReferenceFulfillmentContextsByRequestId);
 
   LOBYTE(idCopy) = [v6 count] != 0;
   return idCopy;
@@ -982,7 +982,7 @@ LABEL_30:
   v14 = v13;
 
   _missingReferenceFulfillmentContextsByRequestId = [(ADResultObjectCache *)self _missingReferenceFulfillmentContextsByRequestId];
-  v16 = [_missingReferenceFulfillmentContextsByRequestId objectForKey:v14];
+  v16 = objc_msgSend_objectForKey_(_missingReferenceFulfillmentContextsByRequestId);
   if (!v16)
   {
     v16 = objc_alloc_init(NSMutableSet);

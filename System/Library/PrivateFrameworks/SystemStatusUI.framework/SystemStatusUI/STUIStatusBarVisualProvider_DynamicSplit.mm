@@ -16,7 +16,7 @@
 - (id)setupInContainerView:(id)view;
 - (id)trailingItemCutoffWidths;
 - (uint64_t)_updateSystemUpdateRegionEnablement:(uint64_t)enablement forTrailingNumberOfItems:;
-- (void)_calculateSquishyLayoutValuesForCutoutOffset:(uint64_t)offset cutoutWidth:(uint64_t *)width maxLeadingItems:(uint64_t *)items maxTrailingItems:(void *)trailingItems leadingScale:(void *)scale trailingScale:(double)trailingScale includingPrivacyIndicator:(double)indicator;
+- (void)_calculateSquishyLayoutValuesForCutoutOffset:(uint64_t)offset cutoutWidth:(char *)width maxLeadingItems:(char *)items maxTrailingItems:(void *)trailingItems leadingScale:(void *)scale trailingScale:(double)trailingScale includingPrivacyIndicator:(double)indicator;
 - (void)_updateRingerDisplayItem:(int)item enabled:;
 - (void)avoidanceFrameUpdatedFromFrame:(CGRect)frame withAnimationSettings:(id)settings options:(unint64_t)options;
 - (void)dataUpdated:(id)updated;
@@ -687,7 +687,7 @@
   return v27;
 }
 
-- (void)_calculateSquishyLayoutValuesForCutoutOffset:(uint64_t)offset cutoutWidth:(uint64_t *)width maxLeadingItems:(uint64_t *)items maxTrailingItems:(void *)trailingItems leadingScale:(void *)scale trailingScale:(double)trailingScale includingPrivacyIndicator:(double)indicator
+- (void)_calculateSquishyLayoutValuesForCutoutOffset:(uint64_t)offset cutoutWidth:(char *)width maxLeadingItems:(char *)items maxTrailingItems:(void *)trailingItems leadingScale:(void *)scale trailingScale:(double)trailingScale includingPrivacyIndicator:(double)indicator
 {
   if (offset)
   {

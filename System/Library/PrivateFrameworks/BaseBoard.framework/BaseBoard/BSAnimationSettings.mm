@@ -20,10 +20,10 @@
 - (double)mass;
 - (double)progressAtTime:(double)time;
 - (double)stiffness;
+- (float)_initWithStoredDuration:(int)duration storedDurationIsDirty:(void *)dirty delay:(int)delay frameInterval:(double)interval frameRange:(double)range highFrameRateReason:(double)reason timingFunction:(float)function speed:(float)self0 beginTime:(float)self1 mass:(float)self2 stiffness:(double)self3 damping:(uint64_t)self4 epsilon:(uint64_t)self5 initialVelocity:(uint64_t)self6 isSpring:(uint64_t)self7;
 - (float)speed;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
-- (uint64_t)_initWithStoredDuration:(int)duration storedDurationIsDirty:(void *)dirty delay:(int)delay frameInterval:(double)interval frameRange:(double)range highFrameRateReason:(double)reason timingFunction:(float)function speed:(float)self0 beginTime:(float)self1 mass:(float)self2 stiffness:(double)self3 damping:(uint64_t)self4 epsilon:(uint64_t)self5 initialVelocity:(uint64_t)self6 isSpring:(uint64_t)self7;
 - (unint64_t)hash;
 - (unsigned)highFrameRateReason;
 - (void)_lock_applyToCAAnimation:(uint64_t)animation;
@@ -262,7 +262,7 @@
   return lock_epsilon;
 }
 
-- (uint64_t)_initWithStoredDuration:(int)duration storedDurationIsDirty:(void *)dirty delay:(int)delay frameInterval:(double)interval frameRange:(double)range highFrameRateReason:(double)reason timingFunction:(float)function speed:(float)self0 beginTime:(float)self1 mass:(float)self2 stiffness:(double)self3 damping:(uint64_t)self4 epsilon:(uint64_t)self5 initialVelocity:(uint64_t)self6 isSpring:(uint64_t)self7
+- (float)_initWithStoredDuration:(int)duration storedDurationIsDirty:(void *)dirty delay:(int)delay frameInterval:(double)interval frameRange:(double)range highFrameRateReason:(double)reason timingFunction:(float)function speed:(float)self0 beginTime:(float)self1 mass:(float)self2 stiffness:(double)self3 damping:(uint64_t)self4 epsilon:(uint64_t)self5 initialVelocity:(uint64_t)self6 isSpring:(uint64_t)self7
 {
   dirtyCopy = dirty;
   if (!self)
@@ -958,7 +958,7 @@ LABEL_50:
   return v60;
 }
 
-double __45__BSAnimationSettings_initWithXPCDictionary___block_invoke(uint64_t a1, const char *a2, _BYTE *a3, double value)
+double __45__BSAnimationSettings_initWithXPCDictionary___block_invoke(uint64_t a1, const char *a2, _BYTE *a3, double a4)
 {
   v17 = *MEMORY[0x1E69E9840];
   v7 = xpc_dictionary_get_value(*(a1 + 32), a2);
@@ -972,7 +972,7 @@ double __45__BSAnimationSettings_initWithXPCDictionary___block_invoke(uint64_t a
         *a3 = 1;
       }
 
-      value = xpc_double_get_value(v8);
+      a4 = xpc_double_get_value(v8);
     }
 
     else
@@ -991,7 +991,7 @@ double __45__BSAnimationSettings_initWithXPCDictionary___block_invoke(uint64_t a
     }
   }
 
-  return value;
+  return a4;
 }
 
 - (void)encodeWithXPCDictionary:(id)dictionary
@@ -1152,16 +1152,14 @@ LABEL_18:
         *(animation + 112) = 0;
       }
 
-      [(BSAnimationSettings *)animation _lock_duration];
-      [v7 setDuration:?];
+      [v7 setDuration:-[BSAnimationSettings _lock_duration](animation)];
     }
 
     else
     {
       LODWORD(v4) = *(animation + 12);
       [v3 setSpeed:v4];
-      [(BSAnimationSettings *)animation _lock_duration];
-      [v3 setDuration:?];
+      [v3 setDuration:-[BSAnimationSettings _lock_duration](animation)];
     }
 
     goto LABEL_24;

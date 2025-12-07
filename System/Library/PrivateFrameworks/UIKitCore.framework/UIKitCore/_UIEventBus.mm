@@ -16,9 +16,9 @@
     dispatch_once(&qword_1ED4A0970, &__block_literal_global_519);
   }
 
-  v0 = qword_1ED4A0978;
+  v1 = qword_1ED4A0978;
 
-  return v0;
+  return v1;
 }
 
 - (_UIEventBus)init

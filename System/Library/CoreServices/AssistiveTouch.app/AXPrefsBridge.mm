@@ -7,7 +7,7 @@
 
 + (void)voiceSelectionForLanguageCode:(NSString *)code completionHandler:(id)handler
 {
-  v7 = sub_1000F40B0(&qword_100217A40);
+  v7 = sub_1000F40B0(&qword_100217A40, &qword_1001BEC30);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);

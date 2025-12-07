@@ -14,8 +14,11 @@
 + (void)resetHarvestBudgetReserve;
 + (void)resetHarvestBudgetThrottleBudgetDisabled;
 + (void)setHarvestBudgetCPUTimeSeconds:(double)seconds;
++ (void)setHarvestBudgetDisabled:(BOOL)disabled;
 + (void)setHarvestBudgetNumberOfOperations:(int64_t)operations;
++ (void)setHarvestBudgetRefillDisabled:(BOOL)disabled;
 + (void)setHarvestBudgetReserve:(double)reserve;
++ (void)setHarvestBudgetThrottleBudgetDisabled:(BOOL)disabled;
 - (HVUserDefaults)init;
 @end
 
@@ -124,10 +127,10 @@
 
 - (HVUserDefaults)init
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = HVUserDefaults;
-  v2 = [(HVUserDefaults *)&v8 init];
+  v10 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = HVUserDefaults;
+  v2 = [(HVUserDefaults *)&v7 init];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.ProactiveHarvesting"];
@@ -140,13 +143,12 @@
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v10 = @"com.apple.ProactiveHarvesting";
+        v9 = @"com.apple.ProactiveHarvesting";
         _os_log_error_impl(&dword_2321EC000, v5, OS_LOG_TYPE_ERROR, "HVContentAdmission failed to get NSUserDefaults for suite %@.", buf, 0xCu);
       }
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -156,16 +158,37 @@
   [defaults removeObjectForKey:@"HVHarvestBudgetRefillDisabled"];
 }
 
++ (void)setHarvestBudgetRefillDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  defaults = [self defaults];
+  [defaults setBool:disabledCopy forKey:@"HVHarvestBudgetRefillDisabled"];
+}
+
 + (void)resetHarvestBudgetThrottleBudgetDisabled
 {
   defaults = [self defaults];
   [defaults removeObjectForKey:@"HVHarvestBudgetThrottleBudgetDisabled"];
 }
 
++ (void)setHarvestBudgetThrottleBudgetDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  defaults = [self defaults];
+  [defaults setBool:disabledCopy forKey:@"HVHarvestBudgetThrottleBudgetDisabled"];
+}
+
 + (void)resetHarvestBudgetDisabled
 {
   defaults = [self defaults];
   [defaults removeObjectForKey:@"HVHarvestBudgetDisabled"];
+}
+
++ (void)setHarvestBudgetDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  defaults = [self defaults];
+  [defaults setBool:disabledCopy forKey:@"HVHarvestBudgetDisabled"];
 }
 
 + (void)resetHarvestBudgetReserve
@@ -206,13 +229,12 @@
 
 void __32__HVUserDefaults_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_864;
-  sharedInstance__pasExprOnceResult_864 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_864;
+  sharedInstance__pasExprOnceResult_864 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

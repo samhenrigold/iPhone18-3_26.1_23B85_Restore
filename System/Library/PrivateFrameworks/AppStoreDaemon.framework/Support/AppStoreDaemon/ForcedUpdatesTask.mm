@@ -27,7 +27,7 @@
 
     v10 = v9;
 
-    v11 = sub_1003D6810();
+    v11 = sub_1003D6810(AppDefaultsManager);
     if (([v11 isEqualToArray:v10] & 1) == 0)
     {
       v8 = v10;

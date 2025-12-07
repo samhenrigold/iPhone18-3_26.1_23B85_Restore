@@ -24,17 +24,16 @@
 
 uint64_t __41__HMMTRSyncClusterFanControl_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v32_11952;
-  logCategory__hmf_once_v32_11952 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v32_11952;
+  logCategory__hmf_once_v32_11952 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)updatedValuePluginFanModeForAttributeReport:(id)report responseHandler:(id)handler
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   handlerCopy = handler;
   v8 = [reportCopy objectForKeyedSubscript:*MEMORY[0x277CD50B8]];
@@ -73,31 +72,31 @@ uint64_t __41__HMMTRSyncClusterFanControl_logCategory__block_invoke()
   if (v17)
   {
     HMFGetLogIdentifier();
-    v19 = v74 = selfCopy;
+    v19 = v73 = selfCopy;
     [v10 endpoint];
-    v20 = v77 = handlerCopy;
+    v20 = v76 = handlerCopy;
     [v10 cluster];
-    v21 = v80 = v13;
+    v21 = v79 = v13;
     attribute = [v10 attribute];
     v23 = v10;
     v24 = *v18;
     v25 = [reportCopy objectForKeyedSubscript:*v18];
     *buf = 138544386;
-    v84 = v19;
-    v85 = 2112;
-    v86 = v20;
-    v87 = 2112;
-    v88 = v21;
-    v89 = 2112;
-    v90 = attribute;
-    v91 = 2112;
-    v92 = v25;
+    v83 = v19;
+    v84 = 2112;
+    v85 = v20;
+    v86 = 2112;
+    v87 = v21;
+    v88 = 2112;
+    v89 = attribute;
+    v90 = 2112;
+    v91 = v25;
     _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Handling Attribute report endpoint:%@ cluster:%@ attribute:%@ value:%@", buf, 0x34u);
 
-    v13 = v80;
-    handlerCopy = v77;
+    v13 = v79;
+    handlerCopy = v76;
 
-    selfCopy = v74;
+    selfCopy = v73;
   }
 
   else
@@ -161,34 +160,34 @@ uint64_t __41__HMMTRSyncClusterFanControl_logCategory__block_invoke()
           goto LABEL_59;
         }
 
-        v75 = v23;
+        v74 = v23;
         v35 = objc_alloc_init(MEMORY[0x277CD54D8]);
         v36 = [(MTRClusterFanControl *)selfCopy readAttributePercentCurrentWithParams:v35];
         v37 = selfCopy;
         v38 = v36;
         if (!v36)
         {
-          v78 = handlerCopy;
-          v82 = v13;
+          v77 = handlerCopy;
+          v81 = v13;
           v59 = objc_autoreleasePoolPush();
           v60 = v37;
           v61 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
           {
             v62 = HMFGetLogIdentifier();
-            endpoint = [v75 endpoint];
+            endpoint = [v74 endpoint];
             *buf = 138543618;
-            v84 = v62;
-            v85 = 2112;
-            v86 = endpoint;
+            v83 = v62;
+            v84 = 2112;
+            v85 = endpoint;
             _os_log_impl(&dword_22AEAE000, v61, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read PercentCurrent attribute on endpoint %@. Cannot update CurrentAirPurifierState.", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v59);
           v41 = [MEMORY[0x277CCA9B8] hapErrorWithCode:11];
-          handlerCopy = v78;
-          v78[2](v78, 0, v41);
-          v13 = v82;
+          handlerCopy = v77;
+          v77[2](v77, 0, v41);
+          v13 = v81;
           goto LABEL_47;
         }
 
@@ -221,7 +220,7 @@ uint64_t __41__HMMTRSyncClusterFanControl_logCategory__block_invoke()
           (handlerCopy)[2](handlerCopy, v42, 0);
 LABEL_47:
 
-          v23 = v75;
+          v23 = v74;
           goto LABEL_59;
         }
 
@@ -248,33 +247,33 @@ LABEL_59:
         goto LABEL_37;
       }
 
-      v81 = v13;
-      v76 = v23;
+      v80 = v13;
+      v75 = v23;
       v45 = objc_alloc_init(MEMORY[0x277CD54D8]);
       v46 = [(MTRClusterFanControl *)selfCopy readAttributeFanModeWithParams:v45];
       v47 = selfCopy;
       v48 = v46;
       if (!v46)
       {
-        v79 = handlerCopy;
+        v78 = handlerCopy;
         v64 = objc_autoreleasePoolPush();
         v65 = v47;
         v66 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
         {
           v67 = HMFGetLogIdentifier();
-          endpoint2 = [v76 endpoint];
+          endpoint2 = [v75 endpoint];
           *buf = 138543618;
-          v84 = v67;
-          v85 = 2112;
-          v86 = endpoint2;
+          v83 = v67;
+          v84 = 2112;
+          v85 = endpoint2;
           _os_log_impl(&dword_22AEAE000, v66, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read FanMode attribute on endpoint %@. Cannot update CurrentAirPurifierState.", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v64);
         v51 = [MEMORY[0x277CCA9B8] hapErrorWithCode:11];
-        handlerCopy = v79;
-        v79[2](v79, 0, v51);
+        handlerCopy = v78;
+        v78[2](v78, 0, v51);
         goto LABEL_58;
       }
 
@@ -328,8 +327,8 @@ LABEL_59:
         {
           if ([v51 isEqualToNumber:&unk_283EE9120])
           {
-            v73 = [MEMORY[0x277CCA9B8] hapErrorWithCode:12];
-            handlerCopy[2](handlerCopy, 0, v73);
+            v72 = [MEMORY[0x277CCA9B8] hapErrorWithCode:12];
+            handlerCopy[2](handlerCopy, 0, v72);
           }
 
           else
@@ -349,21 +348,19 @@ LABEL_57:
       v54(v71, v55, 0);
 LABEL_58:
 
-      v23 = v76;
-      v13 = v81;
+      v23 = v75;
+      v13 = v80;
       goto LABEL_59;
     }
   }
 
   handlerCopy[2](handlerCopy, 0, v13);
 LABEL_60:
-
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeAttributePluginFanModeWithValue:(id)value expectedValueInterval:(id)interval
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   intervalCopy = interval;
   v8 = *MEMORY[0x277CD51A0];
@@ -403,26 +400,24 @@ LABEL_60:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     v17 = HMFGetLogIdentifier();
-    v20 = 138543874;
-    v21 = v17;
-    v22 = 2112;
-    v23 = v11;
-    v24 = 2112;
-    v25 = v13;
-    _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_DEBUG, "%{public}@writeAttributePluginFanModeWithValue currentAirPurifierState %@, fanModeValue %@", &v20, 0x20u);
+    v19 = 138543874;
+    v20 = v17;
+    v21 = 2112;
+    v22 = v11;
+    v23 = 2112;
+    v24 = v13;
+    _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_DEBUG, "%{public}@writeAttributePluginFanModeWithValue currentAirPurifierState %@, fanModeValue %@", &v19, 0x20u);
   }
 
   objc_autoreleasePoolPop(v14);
   v18 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:valueCopy];
   [v18 setValue:v13 forKey:v8];
   [(MTRClusterFanControl *)selfCopy writeAttributeFanModeWithValue:v18 expectedValueInterval:intervalCopy];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)readAttributePluginFanModeWithParams:(id)params
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v5 = objc_alloc_init(MEMORY[0x277CD54D8]);
   v6 = [(MTRClusterFanControl *)self readAttributeFanModeWithParams:v5];
@@ -453,9 +448,9 @@ LABEL_60:
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v57 = v15;
-        v58 = 2112;
-        v59 = v11;
+        v55 = v15;
+        v56 = 2112;
+        v57 = v11;
         _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_DEBUG, "%{public}@readAttributePluginFanModeWithParams fanModeValue %@", buf, 0x16u);
       }
 
@@ -467,33 +462,33 @@ LABEL_60:
         {
           if (unsignedIntValue)
           {
-            v31 = 0;
+            v30 = 0;
             goto LABEL_31;
           }
 
-          v37 = *MEMORY[0x277CD5198];
-          v48 = *MEMORY[0x277CD5188];
-          v49 = v8;
-          v50 = v37;
-          v51 = &unk_283EE9090;
-          v34 = MEMORY[0x277CBEAC0];
-          v35 = &v50;
-          v36 = &v48;
+          v36 = *MEMORY[0x277CD5198];
+          v46 = *MEMORY[0x277CD5188];
+          v47 = v8;
+          v48 = v36;
+          v49 = &unk_283EE9090;
+          v33 = MEMORY[0x277CBEAC0];
+          v34 = &v48;
+          v35 = &v46;
         }
 
         else
         {
-          v33 = *MEMORY[0x277CD5198];
-          v44 = *MEMORY[0x277CD5188];
-          v45 = v8;
-          v46 = v33;
-          v47 = &unk_283EE9108;
-          v34 = MEMORY[0x277CBEAC0];
-          v35 = &v46;
-          v36 = &v44;
+          v32 = *MEMORY[0x277CD5198];
+          v42 = *MEMORY[0x277CD5188];
+          v43 = v8;
+          v44 = v32;
+          v45 = &unk_283EE9108;
+          v33 = MEMORY[0x277CBEAC0];
+          v34 = &v44;
+          v35 = &v42;
         }
 
-        v31 = [v34 dictionaryWithObjects:v35 forKeys:v36 count:{2, v44, v45, v46, v47, v48, v49, v50, v51}];
+        v30 = [v33 dictionaryWithObjects:v34 forKeys:v35 count:{2, v42, v43, v44, v45, v46, v47, v48, v49}];
 LABEL_31:
 
         goto LABEL_32;
@@ -503,19 +498,19 @@ LABEL_31:
       v17 = v16;
       if (!v16)
       {
-        v38 = objc_autoreleasePoolPush();
-        v39 = selfCopy;
-        v40 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v37 = objc_autoreleasePoolPush();
+        v38 = selfCopy;
+        v39 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
-          v41 = HMFGetLogIdentifier();
+          v40 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v57 = v41;
-          _os_log_impl(&dword_22AEAE000, v40, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read PercentCurrent attribute", buf, 0xCu);
+          v55 = v40;
+          _os_log_impl(&dword_22AEAE000, v39, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read PercentCurrent attribute", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v38);
-        v31 = 0;
+        objc_autoreleasePoolPop(v37);
+        v30 = 0;
         goto LABEL_30;
       }
 
@@ -536,31 +531,30 @@ LABEL_31:
       if (v20)
       {
         unsignedIntValue2 = [v20 unsignedIntValue];
-        v22 = *MEMORY[0x277CD5188];
-        v23 = *MEMORY[0x277CD5198];
+        v22 = *MEMORY[0x277CD5198];
         if (unsignedIntValue2)
         {
-          v54[0] = *MEMORY[0x277CD5188];
-          v54[1] = v8;
-          v55[0] = v23;
-          v55[1] = &unk_283EE9108;
-          v24 = MEMORY[0x277CBEAC0];
-          v25 = v55;
-          v26 = v54;
+          v52[0] = *MEMORY[0x277CD5188];
+          v52[1] = v8;
+          v53[0] = v22;
+          v53[1] = &unk_283EE9108;
+          v23 = MEMORY[0x277CBEAC0];
+          v24 = v53;
+          v25 = v52;
         }
 
         else
         {
-          v52[0] = *MEMORY[0x277CD5188];
-          v52[1] = v8;
-          v53[0] = v23;
-          v53[1] = &unk_283EE9078;
-          v24 = MEMORY[0x277CBEAC0];
-          v25 = v53;
-          v26 = v52;
+          v50[0] = *MEMORY[0x277CD5188];
+          v50[1] = v8;
+          v51[0] = v22;
+          v51[1] = &unk_283EE9078;
+          v23 = MEMORY[0x277CBEAC0];
+          v24 = v51;
+          v25 = v50;
         }
 
-        v31 = [v24 dictionaryWithObjects:v25 forKeys:v26 count:2];
+        v30 = [v23 dictionaryWithObjects:v24 forKeys:v25 count:2];
 
 LABEL_30:
         goto LABEL_31;
@@ -575,29 +569,27 @@ LABEL_30:
     _HMFPreconditionFailure();
   }
 
-  v27 = objc_autoreleasePoolPush();
+  v26 = objc_autoreleasePoolPush();
   selfCopy2 = self;
-  v29 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v28 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
-    v30 = HMFGetLogIdentifier();
+    v29 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v57 = v30;
-    _os_log_impl(&dword_22AEAE000, v29, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read FanMode attribute", buf, 0xCu);
+    v55 = v29;
+    _os_log_impl(&dword_22AEAE000, v28, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read FanMode attribute", buf, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v27);
-  v31 = 0;
+  objc_autoreleasePoolPop(v26);
+  v30 = 0;
 LABEL_32:
 
-  v42 = *MEMORY[0x277D85DE8];
-
-  return v31;
+  return v30;
 }
 
 - (void)updatedValuePluginRockSettingForAttributeReport:(id)report responseHandler:(id)handler
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   handlerCopy = handler;
   v8 = [reportCopy objectForKeyedSubscript:*MEMORY[0x277CD50B8]];
@@ -626,7 +618,7 @@ LABEL_32:
     v12 = 0;
   }
 
-  v49 = v12;
+  v48 = v12;
 
   v13 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -636,26 +628,26 @@ LABEL_32:
     HMFGetLogIdentifier();
     v17 = v16 = reportCopy;
     [v10 endpoint];
-    v18 = v47 = handlerCopy;
+    v18 = v46 = handlerCopy;
     cluster = [v10 cluster];
     [v10 attribute];
-    v20 = v46 = v13;
+    v20 = v45 = v13;
     v21 = *MEMORY[0x277CD50D8];
     v22 = [v16 objectForKeyedSubscript:*MEMORY[0x277CD50D8]];
     *buf = 138544386;
-    v51 = v17;
-    v52 = 2112;
-    v53 = v18;
-    v54 = 2112;
-    v55 = cluster;
-    v56 = 2112;
-    v57 = v20;
-    v58 = 2112;
-    v59 = v22;
+    v50 = v17;
+    v51 = 2112;
+    v52 = v18;
+    v53 = 2112;
+    v54 = cluster;
+    v55 = 2112;
+    v56 = v20;
+    v57 = 2112;
+    v58 = v22;
     _os_log_impl(&dword_22AEAE000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Handling Attribute report endpoint:%@ cluster:%@ attribute:%@ value:%@", buf, 0x34u);
 
-    v13 = v46;
-    handlerCopy = v47;
+    v13 = v45;
+    handlerCopy = v46;
 
     reportCopy = v16;
   }
@@ -684,8 +676,8 @@ LABEL_32:
   {
 
 LABEL_19:
-    v31 = v49;
-    handlerCopy[2](handlerCopy, 0, v49);
+    v31 = v48;
+    handlerCopy[2](handlerCopy, 0, v48);
     goto LABEL_20;
   }
 
@@ -706,84 +698,82 @@ LABEL_19:
   v30 = v29;
   if ([v29 isEqualToNumber:&unk_283EE90A8])
   {
-    v31 = v49;
-    (handlerCopy)[2](handlerCopy, &unk_283EE9090, v49);
+    v31 = v48;
+    (handlerCopy)[2](handlerCopy, &unk_283EE9090, v48);
   }
 
   else
   {
-    v33 = reportCopy;
-    v34 = objc_alloc_init(MEMORY[0x277CD54D8]);
-    v35 = [(MTRClusterFanControl *)selfCopy readAttributeRockSupportWithParams:v34];
-    v36 = v35;
-    if (v35)
+    v32 = reportCopy;
+    v33 = objc_alloc_init(MEMORY[0x277CD54D8]);
+    v34 = [(MTRClusterFanControl *)selfCopy readAttributeRockSupportWithParams:v33];
+    v35 = v34;
+    if (v34)
     {
-      v37 = [v35 objectForKeyedSubscript:*MEMORY[0x277CD51A0]];
+      v36 = [v34 objectForKeyedSubscript:*MEMORY[0x277CD51A0]];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v38 = v37;
+        v37 = v36;
       }
 
       else
       {
-        v38 = 0;
+        v37 = 0;
       }
 
-      v39 = v38;
+      v38 = v37;
 
-      if (!v39)
+      if (!v38)
       {
         _HMFPreconditionFailure();
       }
 
-      unsignedIntValue = [v39 unsignedIntValue];
+      unsignedIntValue = [v38 unsignedIntValue];
       if (([v30 unsignedIntValue] & unsignedIntValue) != 0)
       {
-        v41 = &unk_283EE9078;
+        v40 = &unk_283EE9078;
       }
 
       else
       {
-        v41 = &unk_283EE9090;
+        v40 = &unk_283EE9090;
       }
 
-      v31 = v49;
-      (handlerCopy)[2](handlerCopy, v41, v49);
+      v31 = v48;
+      (handlerCopy)[2](handlerCopy, v40, v48);
     }
 
     else
     {
-      v48 = handlerCopy;
-      v42 = objc_autoreleasePoolPush();
-      v43 = selfCopy;
-      v44 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v47 = handlerCopy;
+      v41 = objc_autoreleasePoolPush();
+      v42 = selfCopy;
+      v43 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        v45 = HMFGetLogIdentifier();
+        v44 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v51 = v45;
-        _os_log_impl(&dword_22AEAE000, v44, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read RockSupport attribute. Cannot write RockSetting attribute.", buf, 0xCu);
+        v50 = v44;
+        _os_log_impl(&dword_22AEAE000, v43, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read RockSupport attribute. Cannot write RockSetting attribute.", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v42);
-      v39 = [MEMORY[0x277CCA9B8] hapErrorWithCode:11];
-      handlerCopy = v48;
-      v48[2](v48, 0, v39);
-      v31 = v49;
+      objc_autoreleasePoolPop(v41);
+      v38 = [MEMORY[0x277CCA9B8] hapErrorWithCode:11];
+      handlerCopy = v47;
+      v47[2](v47, 0, v38);
+      v31 = v48;
     }
 
-    reportCopy = v33;
+    reportCopy = v32;
   }
 
 LABEL_20:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeAttributePluginRockSettingWithValue:(id)value expectedValueInterval:(id)interval
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   intervalCopy = interval;
   v8 = *MEMORY[0x277CD51A0];
@@ -816,7 +806,7 @@ LABEL_20:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v39 = v15;
+      v38 = v15;
       _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Write attribute RockSetting 0", buf, 0xCu);
     }
 
@@ -842,7 +832,7 @@ LABEL_20:
       {
         v34 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v39 = v34;
+        v38 = v34;
         _os_log_impl(&dword_22AEAE000, v33, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read RockSupport attribute. Cannot write RockSetting attribute.", buf, 0xCu);
       }
 
@@ -873,14 +863,14 @@ LABEL_20:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         HMFGetLogIdentifier();
-        v26 = v36 = v17;
+        v26 = v35 = v17;
         *buf = 138543618;
-        v39 = v26;
-        v40 = 2112;
-        v41 = v22;
+        v38 = v26;
+        v39 = 2112;
+        v40 = v22;
         _os_log_impl(&dword_22AEAE000, v25, OS_LOG_TYPE_DEBUG, "%{public}@Write attribute RockSetting %@", buf, 0x16u);
 
-        v17 = v36;
+        v17 = v35;
       }
 
       objc_autoreleasePoolPop(context);
@@ -902,21 +892,19 @@ LABEL_27:
   {
     v30 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v39 = v30;
-    v40 = 2112;
-    v41 = v11;
+    v38 = v30;
+    v39 = 2112;
+    v40 = v11;
     _os_log_impl(&dword_22AEAE000, v29, OS_LOG_TYPE_ERROR, "%{public}@Cannot write RockSetting attribute. Unexpected swing value %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v27);
 LABEL_25:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (id)readAttributePluginRockSettingWithParams:(id)params
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v5 = objc_alloc_init(MEMORY[0x277CD54D8]);
   v6 = [(MTRClusterFanControl *)self readAttributeRockSupportWithParams:v5];
@@ -962,115 +950,112 @@ LABEL_25:
         {
           unsignedIntegerValue = [v11 unsignedIntegerValue];
           unsignedIntegerValue2 = [v16 unsignedIntegerValue];
-          v19 = *MEMORY[0x277CD5188];
-          v20 = *MEMORY[0x277CD5198];
+          v19 = *MEMORY[0x277CD5198];
           if ((unsignedIntegerValue2 & unsignedIntegerValue) != 0)
           {
-            v49[0] = *MEMORY[0x277CD5188];
-            v49[1] = v8;
-            v50[0] = v20;
-            v50[1] = &unk_283EE9078;
-            v21 = MEMORY[0x277CBEAC0];
-            v22 = v50;
-            v23 = v49;
+            v47[0] = *MEMORY[0x277CD5188];
+            v47[1] = v8;
+            v48[0] = v19;
+            v48[1] = &unk_283EE9078;
+            v20 = MEMORY[0x277CBEAC0];
+            v21 = v48;
+            v22 = v47;
           }
 
           else
           {
-            v47[0] = *MEMORY[0x277CD5188];
-            v47[1] = v8;
-            v48[0] = v20;
-            v48[1] = &unk_283EE9090;
-            v21 = MEMORY[0x277CBEAC0];
-            v22 = v48;
-            v23 = v47;
+            v45[0] = *MEMORY[0x277CD5188];
+            v45[1] = v8;
+            v46[0] = v19;
+            v46[1] = &unk_283EE9090;
+            v20 = MEMORY[0x277CBEAC0];
+            v21 = v46;
+            v22 = v45;
           }
 
-          v28 = [v21 dictionaryWithObjects:v22 forKeys:v23 count:2];
+          v27 = [v20 dictionaryWithObjects:v21 forKeys:v22 count:2];
         }
 
         else
         {
           context = objc_autoreleasePoolPush();
           selfCopy = self;
-          v40 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v39 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            v45 = HMFGetLogIdentifier();
-            v41 = [v13 objectForKeyedSubscript:v8];
+            v43 = HMFGetLogIdentifier();
+            v40 = [v13 objectForKeyedSubscript:v8];
             *buf = 138543618;
-            v52 = v45;
-            v53 = 2112;
-            v54 = objc_opt_class();
-            v42 = v54;
-            _os_log_impl(&dword_22AEAE000, v40, OS_LOG_TYPE_ERROR, "%{public}@RockSetting was read with unexpected class type %@", buf, 0x16u);
+            v50 = v43;
+            v51 = 2112;
+            v52 = objc_opt_class();
+            v41 = v52;
+            _os_log_impl(&dword_22AEAE000, v39, OS_LOG_TYPE_ERROR, "%{public}@RockSetting was read with unexpected class type %@", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(context);
-          v28 = 0;
+          v27 = 0;
         }
       }
 
       else
       {
-        v35 = objc_autoreleasePoolPush();
+        v34 = objc_autoreleasePoolPush();
         selfCopy2 = self;
-        v37 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        v36 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
-          v38 = HMFGetLogIdentifier();
+          v37 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v52 = v38;
-          _os_log_impl(&dword_22AEAE000, v37, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read RockSetting attribute", buf, 0xCu);
+          v50 = v37;
+          _os_log_impl(&dword_22AEAE000, v36, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read RockSetting attribute", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v35);
-        v28 = 0;
+        objc_autoreleasePoolPop(v34);
+        v27 = 0;
       }
     }
 
     else
     {
-      v29 = objc_autoreleasePoolPush();
+      v28 = objc_autoreleasePoolPush();
       selfCopy3 = self;
-      v31 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v30 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        v32 = HMFGetLogIdentifier();
-        v33 = [v7 objectForKeyedSubscript:v8];
+        v31 = HMFGetLogIdentifier();
+        v32 = [v7 objectForKeyedSubscript:v8];
         *buf = 138543618;
-        v52 = v32;
-        v53 = 2112;
-        v54 = objc_opt_class();
-        v34 = v54;
-        _os_log_impl(&dword_22AEAE000, v31, OS_LOG_TYPE_ERROR, "%{public}@RockSupport was read with unexpected class type %@", buf, 0x16u);
+        v50 = v31;
+        v51 = 2112;
+        v52 = objc_opt_class();
+        v33 = v52;
+        _os_log_impl(&dword_22AEAE000, v30, OS_LOG_TYPE_ERROR, "%{public}@RockSupport was read with unexpected class type %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v29);
-      v28 = 0;
+      objc_autoreleasePoolPop(v28);
+      v27 = 0;
     }
   }
 
   else
   {
-    v24 = objc_autoreleasePoolPush();
+    v23 = objc_autoreleasePoolPush();
     selfCopy4 = self;
-    v26 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v25 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v27 = HMFGetLogIdentifier();
+      v26 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v52 = v27;
-      _os_log_impl(&dword_22AEAE000, v26, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read RockSupport attribute", buf, 0xCu);
+      v50 = v26;
+      _os_log_impl(&dword_22AEAE000, v25, OS_LOG_TYPE_ERROR, "%{public}@An error occurred while trying to read RockSupport attribute", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v24);
-    v28 = 0;
+    objc_autoreleasePoolPop(v23);
+    v27 = 0;
   }
 
-  v43 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v27;
 }
 
 @end

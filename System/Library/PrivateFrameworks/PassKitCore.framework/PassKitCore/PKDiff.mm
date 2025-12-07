@@ -360,9 +360,9 @@ LABEL_10:
     {
       v8 = [(NSMutableArray *)self->_hunks objectAtIndex:v7];
       v9 = [v8 key];
-      v10 = [v9 isEqualToString:keyCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-      if (v10)
+      if (isEqualToString)
       {
         break;
       }

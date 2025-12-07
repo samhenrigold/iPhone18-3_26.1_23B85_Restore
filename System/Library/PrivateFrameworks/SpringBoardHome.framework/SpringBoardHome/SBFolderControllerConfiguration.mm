@@ -67,9 +67,9 @@
     folderIconImageCache = v5->_folderIconImageCache;
     v5->_folderIconImageCache = folderIconImageCache;
 
-    iconImageCache = [configurationCopy iconImageCache];
+    v17 = objc_msgSend_iconImageCache(configurationCopy);
     iconImageCache = v5->_iconImageCache;
-    v5->_iconImageCache = iconImageCache;
+    v5->_iconImageCache = v17;
 
     animationContext = [configurationCopy animationContext];
     animationContext = v5->_animationContext;
@@ -162,8 +162,8 @@
   folderIconImageCache = [(SBFolderControllerConfiguration *)self folderIconImageCache];
   v20 = [v4 appendObject:folderIconImageCache withName:@"folderIconImageCache"];
 
-  iconImageCache = [(SBFolderControllerConfiguration *)self iconImageCache];
-  v22 = [v4 appendObject:iconImageCache withName:@"iconImageCache"];
+  v21 = objc_msgSend_iconImageCache(self);
+  v22 = [v4 appendObject:v21 withName:@"iconImageCache"];
 
   animationContext = [(SBFolderControllerConfiguration *)self animationContext];
   v24 = [v4 appendObject:animationContext withName:@"animationContext"];

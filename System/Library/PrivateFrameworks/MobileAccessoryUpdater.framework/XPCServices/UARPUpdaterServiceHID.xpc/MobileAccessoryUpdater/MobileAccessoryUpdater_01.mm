@@ -1,208 +1,3 @@
-uint64_t UARPSuperBinaryBuildMetaData(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t **a4, unsigned int a5, unsigned int *a6)
-{
-  v8 = *a6;
-  v9 = *a4;
-  if (a3)
-  {
-    v11 = a3;
-    while (1)
-    {
-      v12 = uarpNtohl(*v11);
-      v13 = uarpNtohl(*(v11 + 4));
-      v8 += *(v11 + 4) + 8;
-      if (v8 > a5)
-      {
-        return 11;
-      }
-
-      *v9 = v12 | (v13 << 32);
-      v14 = (v9 + 1);
-      memcpy(v14, *(v11 + 8), *(v11 + 4));
-      v9 = &v14[*(v11 + 4)];
-      v11 = *(v11 + 16);
-      if (!v11)
-      {
-        goto LABEL_5;
-      }
-    }
-  }
-
-  else
-  {
-LABEL_5:
-    result = 0;
-    *a6 = v8;
-    *a4 = v9;
-  }
-
-  return result;
-}
-
-uint64_t UARPSuperBinaryFinalizeDynamicAsset(uint64_t a1, uint64_t a2)
-{
-  uarpSuperBinaryHeaderEndianSwap(a2, a2);
-  result = uarpPlatformEndpointAssetSetBytesAtOffset(a1, 0, a2, a2, 44, 0);
-  if (!result)
-  {
-    uarpSuperBinaryHeaderEndianSwap(a2, a2);
-    v5 = *(a2 + 4);
-    v6 = *(a2 + 32);
-    v7 = (a2 + 632);
-    v8 = *(a2 + 448);
-    if (v8)
-    {
-      v9 = 0;
-      v10 = *(a2 + 40) + v5 + v6;
-      v11 = v10 + *(a2 + 684);
-      v12 = (a2 + 632);
-      while (1)
-      {
-        v13 = *v12;
-        v13[6] = v10;
-        v13[8] = v11;
-        uarpPayloadHeader2EndianSwap(v13, v13);
-        result = uarpPlatformEndpointAssetSetBytesAtOffset(a1, 0, a2, v13, 40, v5);
-        if (result)
-        {
-          break;
-        }
-
-        uarpPayloadHeader2EndianSwap(v13, v13);
-        v5 = *v13 + v5;
-        v10 += v13[7];
-        v11 += v13[9];
-        v12 = (v13 + 44);
-        ++v9;
-        v8 = *(a2 + 448);
-        if (v9 >= v8)
-        {
-          v6 = *(a2 + 32);
-          goto LABEL_8;
-        }
-      }
-    }
-
-    else
-    {
-LABEL_8:
-      if (v6)
-      {
-        __dst = 0;
-        v28 = 0;
-        result = UARPLayer2RequestBuffer(a1, &__dst, v6, 39321, 1127);
-        if (result)
-        {
-          return result;
-        }
-
-        v27 = __dst;
-        result = UARPSuperBinaryBuildMetaData(result, v14, *(a2 + 720), &v27, *(a2 + 32), &v28);
-        if (result)
-        {
-          return result;
-        }
-
-        v15 = __dst;
-        *(a2 + 672) = __dst;
-        v16 = v28;
-        *(a2 + 680) = v28;
-        result = uarpPlatformEndpointAssetSetBytesAtOffset(a1, 0, a2, v15, v16, v5);
-        if (result)
-        {
-          return result;
-        }
-
-        v5 = v16 + v5;
-        v8 = *(a2 + 448);
-      }
-
-      if (!v8)
-      {
-        return 0;
-      }
-
-      v17 = 0;
-      v18 = a2 + 632;
-      do
-      {
-        v19 = *v18;
-        v20 = *(*v18 + 28);
-        if (v20)
-        {
-          __dst = 0;
-          v28 = 0;
-          result = UARPLayer2RequestBuffer(a1, &__dst, v20, 39321, 1171);
-          if (result)
-          {
-            return result;
-          }
-
-          v21 = __dst;
-          v27 = __dst;
-          v22 = *(v19 + 152);
-          if (v22)
-          {
-            v21 = memcpy(__dst, v22, *(v19 + 160));
-            v28 = *(v19 + 160);
-          }
-
-          result = UARPSuperBinaryBuildMetaData(v21, v22, *(v19 + 168), &v27, *(v19 + 28), &v28);
-          if (result)
-          {
-            return result;
-          }
-
-          v23 = __dst;
-          *(v19 + 152) = __dst;
-          v24 = v28;
-          *(v19 + 160) = v28;
-          result = uarpPlatformEndpointAssetSetBytesAtOffset(a1, 0, a2, v23, v24, v5);
-          if (result)
-          {
-            return result;
-          }
-
-          v5 = v24 + v5;
-          v8 = *(a2 + 448);
-        }
-
-        v18 = v19 + 176;
-        ++v17;
-      }
-
-      while (v17 < v8);
-      if (v8)
-      {
-        for (i = 0; i < v8; ++i)
-        {
-          v26 = *v7;
-          if (!*(v26 + 148))
-          {
-            result = uarpPlatformEndpointAssetSetBytesAtOffset(a1, 0, a2, *(v26 + 136), *(v26 + 144), v5);
-            if (result)
-            {
-              return result;
-            }
-
-            v8 = *(a2 + 448);
-          }
-
-          result = 0;
-          v5 = (*(v26 + 144) + v5);
-          v7 = (v26 + 176);
-        }
-      }
-
-      else
-      {
-        return 0;
-      }
-    }
-  }
-
-  return result;
-}
-
 uint64_t UARPSuperBinaryGetInternalSuperBinaryMetaData(int a1, uint64_t a2, void *__dst, unsigned int a4, unsigned int a5, unsigned __int16 *a6)
 {
   v7 = *(a2 + 32);
@@ -330,7 +125,7 @@ void uarpPlatformEndpointDeinit(uint64_t a1)
   uarpPlatformCleanupAssets(a1);
 }
 
-uint64_t uarpPlatformRemoteEndpointAdd(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4)
+uint64_t uarpPlatformRemoteEndpointAdd(__int128 *a1, uint64_t a2, __int128 *a3, uint64_t a4)
 {
   result = 30;
   if (a1)
@@ -341,20 +136,20 @@ uint64_t uarpPlatformRemoteEndpointAdd(uint64_t a1, uint64_t a2, __int128 *a3, u
       {
         *(a2 + 40) = a4;
         v7 = *a1;
-        v8 = *(a1 + 16);
-        *(a2 + 32) = *(a1 + 32);
+        v8 = a1[1];
+        *(a2 + 32) = *(a1 + 4);
         *a2 = v7;
         *(a2 + 16) = v8;
         if (!a3 || (v10 = *a3, v9 = a3[1], *(a2 + 32) = *(a3 + 4), *a2 = v10, *(a2 + 16) = v9, (v11 = *(a2 + 4)) != 0) && *a2 && *(a2 + 8) >= v11)
         {
           if (!*(a2 + 12))
           {
-            *(a2 + 12) = *(a1 + 12);
+            *(a2 + 12) = *(a1 + 6);
           }
 
           *(a2 + 48) = 0;
-          v12 = *(a1 + 648);
-          *(a1 + 648) = v12 + 1;
+          v12 = *(a1 + 162);
+          *(a1 + 162) = v12 + 1;
           *(a2 + 56) = v12;
           *(a2 + 60) = 1;
           *(a2 + 62) = 1;
@@ -371,7 +166,7 @@ uint64_t uarpPlatformRemoteEndpointAdd(uint64_t a1, uint64_t a2, __int128 *a3, u
             result = uarpAllocateTransmitBuffers(a1, a2);
             if (!result)
             {
-              if ((*(a1 + 616) - 1) > 1)
+              if ((*(a1 + 154) - 1) > 1)
               {
                 return 0;
               }
@@ -425,9 +220,9 @@ uint64_t uarpPlatformRemoteEndpointRemove(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t uarpPlatformEndpointRequestInfoProperty(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t uarpPlatformEndpointRequestInfoProperty(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (a1 && a2 && a3 - 13 >= 0xFFFFFFF4)
+  if (a1 && a2 && (a3 - 13) >= 0xFFFFFFF4)
   {
     return uarpSendInformationRequest(a1, a2, a3);
   }
@@ -921,9 +716,9 @@ uint64_t uarpPlatformEndpointAssetSetPayloadIndex2(void *a1, uint64_t a2, int a3
               *(a2 + 592) = v15;
               *(a2 + 608) = v16;
               *(a2 + 576) = v14;
-              for (i = *(v6 + 21); i; i = *(i + 16))
+              for (i = *(v6 + 21); i; i = *(i + 2))
               {
-                uarpProcessPayloadTLVInternal(a1, a2, a2 + 464, *i, *(i + 4), *(i + 8));
+                uarpProcessPayloadTLVInternal(a1, a2, a2 + 464, *i, i[1], *(i + 1));
               }
 
               v18 = *(v6 + 19);
@@ -1112,7 +907,7 @@ uint64_t uarpPlatformEndpointAssetFullyStaged(uint64_t a1, uint64_t a2)
 {
   if (a1 && a2)
   {
-    return uarpAssetProcessingComplete(a1, *(a2 + 696), a2, 1u);
+    return uarpAssetProcessingComplete(a1, *(a2 + 696), a2, 1);
   }
 
   else
@@ -1150,8 +945,7 @@ double uarpPlatformEndpointSuperBinaryMerge(uint64_t a1, __int128 *a2, uint64_t 
       *(a3 + 408) = v9;
       *(a3 + 424) = v10;
       *(a3 + 392) = v8;
-      *(a3 + 452) = *(a2 + 113);
-      *(a3 + 456) = *(a2 + 114);
+      *(a3 + 452) = *(a2 + 452);
       v11 = a2[29];
       v12 = a2[31];
       *(a3 + 480) = a2[30];
@@ -1200,19 +994,19 @@ double uarpPlatformEndpointSuperBinaryMerge(uint64_t a1, __int128 *a2, uint64_t 
   return result;
 }
 
-void uarpPlatformEndpointCleanupAssets(uint64_t a1)
+void uarpPlatformEndpointCleanupAssets(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    uarpPlatformCleanupAssetsForRemoteEndpoint(a1, 0, 0);
+    uarpPlatformCleanupAssetsForRemoteEndpoint(result, 0, 0);
   }
 }
 
-void uarpPlatformEndpointCleanupAssets2(uint64_t a1, uint64_t a2)
+void uarpPlatformEndpointCleanupAssets2(uint64_t result, uint64_t a2)
 {
-  if (a1)
+  if (result)
   {
-    uarpPlatformCleanupAssetsForRemoteEndpoint(a1, a2, 0);
+    uarpPlatformCleanupAssetsForRemoteEndpoint(result, a2, 0);
   }
 }
 
@@ -1421,7 +1215,7 @@ uint64_t uarpPlatformEndpointRescindAllAssets(uint64_t a1, uint64_t a2)
 {
   if (a1 && a2)
   {
-    return uarpAssetRescind(a1, a2, 0xFFFFu);
+    return uarpAssetRescind(a1, a2, 0xFFFFLL);
   }
 
   else
@@ -1435,7 +1229,7 @@ uint64_t uarpPlatformEndpointApplyStagedAssets(uint64_t a1, uint64_t a2)
   result = 30;
   if (a1 && a2)
   {
-    v5 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0xAu, 6u, 1);
+    v5 = uarpAllocPrepareTransmitBuffer2(a1, a2, 10, 6u, 1);
     if (v5)
     {
 
@@ -1512,7 +1306,7 @@ uint64_t uarpPlatformEndpointSolicitDynamicAsset(uint64_t a1, uint64_t a2, _DWOR
   return uarpSolicitDynamicAsset(a1, a2, a3);
 }
 
-uint64_t uarpPlatformEndpointSendVendorSpecific(uint64_t a1, uint64_t a2, __int16 *a3, unsigned int a4, const void *a5, unsigned int a6)
+uint64_t uarpPlatformEndpointSendVendorSpecific(uint64_t a1, uint64_t a2, __int16 *a3, uint64_t a4, const void *a5, unsigned int a6)
 {
   if (a1 && a2 && a3 && a5)
   {
@@ -1633,7 +1427,7 @@ uint64_t uarpPlatformDelegateForDownstreamID(uint64_t a1, uint64_t a2, int a3)
 
 uint64_t uarpPlatformNoFirmwareUpdateAvailable(uint64_t a1, uint64_t a2)
 {
-  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x1Du, 6u, 1);
+  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 29, 6u, 1);
   if (!v4)
   {
     return 11;
@@ -1644,7 +1438,7 @@ uint64_t uarpPlatformNoFirmwareUpdateAvailable(uint64_t a1, uint64_t a2)
 
 uint64_t uarpPlatformEndpointDiscoverEndpointIDs(uint64_t a1, uint64_t a2)
 {
-  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x1Fu, 6u, 1);
+  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 31, 6u, 1);
   if (!v4)
   {
     return 11;
@@ -1655,7 +1449,7 @@ uint64_t uarpPlatformEndpointDiscoverEndpointIDs(uint64_t a1, uint64_t a2)
 
 uint64_t uarpPlatformQueryEndpointComponentDiscovery(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v6 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x21u, 8u, 1);
+  v6 = uarpAllocPrepareTransmitBuffer2(a1, a2, 33, 8u, 1);
   if (!v6)
   {
     return 11;
@@ -1683,7 +1477,7 @@ uint64_t uarpPlatformEndpointBulkInfoQuery(uint64_t a1, uint64_t a2, unsigned in
           v11 = a6;
           if (a6)
           {
-            v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x23u, (4 * a5 + 16) & 0xFFFC, 1);
+            v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 35, (4 * a5 + 16) & 0xFFFC, 1);
             if (v13)
             {
               v14 = v13;
@@ -1814,7 +1608,7 @@ uint64_t uarpPlatformEndpointBulkInfoResponse(uint64_t a1, uint64_t a2, unsigned
   result = 30;
   if (a1 && a2 && a4 && a5 && a6)
   {
-    v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x25u, (a6 + 12), 1);
+    v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 37, (a6 + 12), 1);
     if (v13)
     {
       v14 = v13;
@@ -2226,7 +2020,7 @@ uint64_t uarpPlatformConfigureEndpointTags(uint64_t a1, uint64_t a2, int a3, int
 
 void sub_10001CAD0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7)
 {
-  v11 = +[UARPHIDUpdater sharedInstance];
+  v11 = [UARPHIDUpdater sharedInstance:a3];
   v12 = a1;
   v13 = v12;
   if (!v12)
@@ -2335,6 +2129,13 @@ void sub_10001D76C()
   _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "%s: Failed to read managedPrefs at %@ error %@", v4, 0x20u);
 }
 
+void sub_10001D7FC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPHIDUpdater _assetSolicitationComplete:assetID:withStatus:]";
+  sub_10000E7B4(&_mh_execute_header, a1, a3, "%s: Failed to prepare and send MTIC to CoreAnalytics", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10001D874(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -2373,6 +2174,13 @@ void sub_10001DA4C()
   sub_10000E818(&_mh_execute_header, v1, v2, "%s: Accessory no longer connected %@", v3);
 }
 
+void sub_10001DAC8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPHIDUpdater registerHIDForAccessory:]";
+  sub_10000E7B4(&_mh_execute_header, a1, a3, "%s: Timed out waiting for _uarpHIDRegistrationThreadSemaphore", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10001DB40(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 48);
@@ -2385,6 +2193,20 @@ void sub_10001DB40(uint64_t a1, uint64_t a2)
   }
 }
 
+void sub_10001DC48()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_10000E974(&_mh_execute_header, v0, v1, "failed to set temporary directory suffix: %d", v2, v3, v4, v5, v6);
+}
+
+void sub_10001DCC8()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_10000E974(&_mh_execute_header, v0, v1, "failed to initialize temporary directory: %d", v2, v3, v4, v5, v6);
+}
+
 void sub_10001DD48()
 {
   v1[0] = 136315394;
@@ -2392,11 +2214,60 @@ void sub_10001DD48()
   _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "%s: AccessoryID %@", v1, 0x16u);
 }
 
+void sub_10001DDC8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPUpdaterServiceHID ioKitRuleMatched:]";
+  sub_10000E7B4(&_mh_execute_header, a1, a3, "%s: No accessory registryEntryID provided", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10001DE40(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPUpdaterServiceHID ioKitRuleMatched:]";
+  sub_10000E7B4(&_mh_execute_header, a1, a3, "%s: No accessory identifier provided", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10001DEB8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPUpdaterServiceHID standaloneDynamicAssetSolicitation:modelNumber:notifyService:reply:]_block_invoke";
+  sub_10000E7B4(&_mh_execute_header, &_os_log_default, a3, "%s: There is an outstanding standalone asset solicitation", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10001DF34(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPUpdaterServiceHID standaloneDynamicAssetSolicitation:modelNumber:notifyService:reply:]_block_invoke";
+  sub_10000E7B4(&_mh_execute_header, &_os_log_default, a3, "%s: Failed to create UARPStandaloneCommandManagerReply", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10001DFB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPUpdaterServiceHID standaloneDynamicAssetSolicitation:modelNumbers:notifyService:reply:]_block_invoke";
+  sub_10000E7B4(&_mh_execute_header, &_os_log_default, a3, "%s: There is an outstanding standalone asset solicitation", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10001E02C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPUpdaterServiceHID standaloneDynamicAssetSolicitation:modelNumbers:notifyService:reply:]_block_invoke";
+  sub_10000E7B4(&_mh_execute_header, &_os_log_default, a3, "%s: Failed to create UARPStandaloneCommandManagerReply", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10001E0A8()
 {
   v0[0] = 136315394;
   sub_100010908();
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: No accessories found for model numbers: %@", v0, 0x16u);
+}
+
+void sub_10001E130(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[UARPUpdaterServiceHID qProcessStandaloneDynamicAssetSolicitation:modelNumbers:notifyService:]";
+  sub_10000E7B4(&_mh_execute_header, &_os_log_default, a3, "%s: Failed to create UARPStandaloneCommandManagerReply", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10001E1C0(uint64_t a1, NSObject *a2)
@@ -2432,23 +2303,44 @@ void sub_10001E36C()
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "%s: Failed to get xpc connection", &v0, 0xCu);
 }
 
+void sub_10001E3F4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = byte_1000330B8;
+  sub_10000E7B4(&_mh_execute_header, a1, a3, "%s\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10001E46C(os_log_t log)
 {
   v1 = 136315138;
-  v2 = &unk_1000332B8;
+  v2 = byte_1000332B8;
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s\n", &v1, 0xCu);
+}
+
+void sub_10001E4F0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = byte_1000336B8;
+  sub_10000E7B4(&_mh_execute_header, a1, a3, "%s\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10001E568(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = byte_1000338B8;
+  sub_10000E7B4(&_mh_execute_header, a1, a3, "%s\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10001E5E0(os_log_t log)
 {
   v1 = 136315138;
-  v2 = &unk_100033CB8;
+  v2 = byte_100033CB8;
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s\n", &v1, 0xCu);
 }
 
 void sub_10001E664(os_log_t log)
 {
   v1 = 136315138;
-  v2 = &unk_100033EB8;
+  v2 = byte_100033EB8;
   _os_log_fault_impl(&_mh_execute_header, log, OS_LOG_TYPE_FAULT, "%s\n", &v1, 0xCu);
 }

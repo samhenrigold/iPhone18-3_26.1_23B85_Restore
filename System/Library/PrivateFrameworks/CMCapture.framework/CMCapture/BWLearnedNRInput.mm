@@ -37,7 +37,7 @@
 
   else
   {
-    [BWLearnedNRInput setInputFrame:];
+    [(BWLearnedNRInput *)self setInputFrame:a2];
   }
 }
 

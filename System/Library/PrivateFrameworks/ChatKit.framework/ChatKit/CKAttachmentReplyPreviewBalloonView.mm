@@ -261,7 +261,7 @@ LABEL_16:
   [(CKColoredBalloonView *)&v9 configureForMessagePart:partCopy];
   if (partCopy)
   {
-    [partCopy balloonDescriptor];
+    objc_msgSend_balloonDescriptor(partCopy);
   }
 
   else

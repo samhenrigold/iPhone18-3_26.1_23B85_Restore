@@ -6,9 +6,9 @@
 
 - (NRDevicePairingDirector)init
 {
-  v14.receiver = self;
-  v14.super_class = NRDevicePairingDirector;
-  v2 = [(NRDevicePairingDirector *)&v14 init];
+  v16.receiver = self;
+  v16.super_class = NRDevicePairingDirector;
+  v2 = [(NRDevicePairingDirector *)&v16 init];
   if (!v2)
   {
     v9 = sub_100123258();
@@ -17,14 +17,14 @@
     if (IsLevelEnabled)
     {
       v11 = sub_100123258();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v11, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDevicePairingDirector init]"", 3894);
     }
 
-    _os_log_pack_size();
-    v12 = *__error();
-    v13 = _os_log_pack_fill();
-    *v13 = 136446210;
-    *(v13 + 4) = "[NRDevicePairingDirector init]";
+    v12 = _os_log_pack_size();
+    v13 = __error();
+    v14 = _os_log_pack_fill(&v15 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), v12, *v13, &_mh_execute_header, "%{public}s [super init] failed");
+    *v14 = 136446210;
+    *(v14 + 4) = "[NRDevicePairingDirector init]";
     sub_100123258();
     _NRLogAbortWithPack();
   }

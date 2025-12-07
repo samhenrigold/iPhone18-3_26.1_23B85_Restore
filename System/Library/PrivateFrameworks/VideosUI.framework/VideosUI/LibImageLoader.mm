@@ -9,7 +9,7 @@
 
 - (id)URLForObject:(id)object
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF363C0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF363C0, &unk_1E42A9420);
   OUTLINED_FUNCTION_17_2(v5);
   OUTLINED_FUNCTION_5_7();
   MEMORY[0x1EEE9AC00](v6);
@@ -65,7 +65,7 @@
   swift_unknownObjectRelease();
   sub_1E39FB554();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (id)loadImageForObject:(id)object scaleToSize:(CGSize)size cropToFit:(BOOL)fit imageDirection:(int64_t)direction completionHandler:(id)handler

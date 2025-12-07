@@ -66,7 +66,7 @@
   v8 = sub_301F38();
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
-  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = (&v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_301EB8();
   viewCopy = view;
   cellCopy = cell;

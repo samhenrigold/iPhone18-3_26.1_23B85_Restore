@@ -33,11 +33,12 @@
   v3 = content;
   if (!content)
   {
-    _os_log_pack_size();
-    v5 = _os_log_pack_fill();
-    *v5 = 136315138;
-    *(v5 + 4) = "[LPStaticAPFSPhysicalStore role]";
-    _LPLogPack(1);
+    v5 = _os_log_pack_size();
+    v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v7 = _os_log_pack_fill(v6, v5, 0, &dword_0, "%s : Failed to get content type.", v9);
+    *v7 = 136315138;
+    *(v7 + 4) = "[LPStaticAPFSPhysicalStore role]";
+    _LPLogPack(1, v6);
     goto LABEL_7;
   }
 
@@ -65,99 +66,100 @@ LABEL_8:
   iterator = 0;
   if (IORegistryEntryCreateIterator([(LPStaticMedia *)self ioMedia], "IOService", 3u, &iterator))
   {
-    _os_log_pack_size();
-    v2 = _os_log_pack_fill();
-    *v2 = 136315138;
-    *(v2 + 4) = "[LPStaticAPFSPhysicalStore parent]";
-    _LPLogPack(1);
+    v2 = _os_log_pack_size();
+    v3 = &v20 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = _os_log_pack_fill(v3, v2, 0, &dword_0, "%s : Unable to get the iterator for entry.", v20);
+    *v4 = 136315138;
+    *(v4 + 4) = "[LPStaticAPFSPhysicalStore parent]";
+    _LPLogPack(1, v3);
 LABEL_3:
-    v3 = 0;
+    v5 = 0;
     goto LABEL_4;
   }
 
-  v5 = IOIteratorNext(iterator);
-  if (!v5)
+  v7 = IOIteratorNext(iterator);
+  if (!v7)
   {
     goto LABEL_3;
   }
 
-  v6 = v5;
-  v3 = 0;
+  v8 = v7;
+  v5 = 0;
   do
   {
-    if (IOObjectConformsTo(v6, "IOMedia") && (CFProperty = IORegistryEntryCreateCFProperty(v6, @"Content", 0, 0)) != 0)
+    if (IOObjectConformsTo(v8, "IOMedia") && (CFProperty = IORegistryEntryCreateCFProperty(v8, @"Content", 0, 0)) != 0)
     {
-      v8 = CFProperty;
-      v9 = CFGetTypeID(CFProperty);
-      if (v9 == CFStringGetTypeID())
+      v10 = CFProperty;
+      v11 = CFGetTypeID(CFProperty);
+      if (v11 == CFStringGetTypeID())
       {
+        v23 = 0u;
+        v22 = 0u;
         v21 = 0u;
         v20 = 0u;
-        v19 = 0u;
-        v18 = 0u;
-        v10 = +[LPStaticPartitionMedia contentTypesForPartitionMedia];
-        v11 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
-        if (v11)
+        v12 = +[LPStaticPartitionMedia contentTypesForPartitionMedia];
+        v13 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        if (v13)
         {
-          v12 = v11;
-          v13 = 0;
-          v14 = *v19;
+          v14 = v13;
+          v15 = 0;
+          v16 = *v21;
           do
           {
-            for (i = 0; i != v12; i = i + 1)
+            for (i = 0; i != v14; i = i + 1)
             {
-              if (*v19 != v14)
+              if (*v21 != v16)
               {
-                objc_enumerationMutation(v10);
+                objc_enumerationMutation(v12);
               }
 
-              if (CFStringCompare(*(*(&v18 + 1) + 8 * i), v8, 0) == kCFCompareEqualTo)
+              if (CFStringCompare(*(*(&v20 + 1) + 8 * i), v10, 0) == kCFCompareEqualTo)
               {
-                v16 = [(LPStaticMedia *)[LPStaticPartitionMedia alloc] initWithIOMediaObject:v6];
+                v18 = [(LPStaticMedia *)[LPStaticPartitionMedia alloc] initWithIOMediaObject:v8];
 
-                v13 = 1;
-                v3 = v16;
+                v15 = 1;
+                v5 = v18;
               }
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
           }
 
-          while (v12);
+          while (v14);
         }
 
         else
         {
-          v13 = 0;
+          v15 = 0;
         }
       }
 
       else
       {
-        v13 = 0;
+        v15 = 0;
       }
 
-      CFRelease(v8);
+      CFRelease(v10);
     }
 
     else
     {
-      v13 = 0;
+      v15 = 0;
     }
 
-    v17 = IOIteratorNext(iterator);
-    if (!v17)
+    v19 = IOIteratorNext(iterator);
+    if (!v19)
     {
       break;
     }
 
-    v6 = v17;
+    v8 = v19;
   }
 
-  while ((v13 & 1) == 0);
+  while ((v15 & 1) == 0);
 LABEL_4:
 
-  return v3;
+  return v5;
 }
 
 - (id)container

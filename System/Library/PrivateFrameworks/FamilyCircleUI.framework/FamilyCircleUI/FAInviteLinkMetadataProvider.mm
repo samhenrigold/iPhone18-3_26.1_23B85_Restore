@@ -180,7 +180,7 @@ void __61__FAInviteLinkMetadataProvider_loadMetatadataWithCompletion___block_inv
 
 void __78__FAInviteLinkMetadataProvider_loadImageWithURL_enableTextOverlay_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -192,22 +192,22 @@ void __78__FAInviteLinkMetadataProvider_loadImageWithURL_enableTextOverlay_compl
       if (v8)
       {
         v9 = v8;
-        v10 = _FALogSystem();
+        v10 = _FALogSystem(v8);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v22) = 0;
-          _os_log_impl(&dword_21BB35000, v10, OS_LOG_TYPE_DEFAULT, "Server specifying overlaid text color", &v22, 2u);
+          LOWORD(v20) = 0;
+          _os_log_impl(&dword_21BB35000, v10, OS_LOG_TYPE_DEFAULT, "Server specifying overlaid text color", &v20, 2u);
         }
 
         v11 = [*(a1 + 32) _colorForString:v9];
         if (v11)
         {
           v12 = v11;
-          v13 = _FALogSystem();
+          v13 = _FALogSystem(v11);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v22) = 0;
-            _os_log_impl(&dword_21BB35000, v13, OS_LOG_TYPE_DEFAULT, "We have an overlaid text color, adding properties to LPImage", &v22, 2u);
+            LOWORD(v20) = 0;
+            _os_log_impl(&dword_21BB35000, v13, OS_LOG_TYPE_DEFAULT, "We have an overlaid text color, adding properties to LPImage", &v20, 2u);
           }
 
           v14 = objc_alloc_init(MEMORY[0x277CD46B8]);
@@ -236,25 +236,22 @@ LABEL_18:
 
   if (v6)
   {
-    v16 = _FALogSystem();
+    v16 = _FALogSystem(v6);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *(a1 + 32);
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
-      v20 = [v7 description];
-      v22 = 138412546;
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
+      v19 = [v7 description];
+      v20 = 138412546;
+      v21 = v18;
+      v22 = 2112;
       v23 = v19;
-      v24 = 2112;
-      v25 = v20;
-      _os_log_impl(&dword_21BB35000, v16, OS_LOG_TYPE_DEFAULT, "%@ - unable to load image: %@", &v22, 0x16u);
+      _os_log_impl(&dword_21BB35000, v16, OS_LOG_TYPE_DEFAULT, "%@ - unable to load image: %@", &v20, 0x16u);
     }
   }
 
   (*(*(a1 + 40) + 16))();
 LABEL_19:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchImageFromURL:(id)l completion:(id)completion
@@ -268,45 +265,45 @@ LABEL_19:
 
 - (id)_colorForString:(id)string
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if ([stringCopy length])
   {
     v4 = [MEMORY[0x277CCAC80] scannerWithString:stringCopy];
+    v19 = 0;
     v20 = 0;
-    v21 = 0;
     whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
     [v4 setCharactersToBeSkipped:whitespaceCharacterSet];
 
     LODWORD(whitespaceCharacterSet) = objc_msgSend(v4, "scanUpToString:intoString:", @"("), 0;
     objc_msgSend(v4, "scanString:intoString:", @"("), 0;
-    v6 = [v4 scanInt:&v21 + 4];
+    v6 = [v4 scanInt:&v20 + 4];
     v7 = [v4 scanString:@" intoString:{", 0}];
-    v8 = [v4 scanInt:&v21];
+    v8 = [v4 scanInt:&v20];
     v9 = [v4 scanString:@" intoString:{", 0}];
-    v10 = [v4 scanInt:&v20 + 4];
+    v10 = [v4 scanInt:&v19 + 4];
     v11 = [v4 scanString:@" intoString:{", 0}];
-    v12 = [v4 scanFloat:&v20];
+    v12 = [v4 scanFloat:&v19];
     if (whitespaceCharacterSet && v6 && v7 && v8 && v9 && v10)
     {
-      v13 = *&v20;
+      v13 = *&v19;
       if ((v11 & v12) == 0)
       {
         v13 = 1.0;
       }
 
-      v14 = [MEMORY[0x277D75348] colorWithRed:SHIDWORD(v21) / 255.0 green:v21 / 255.0 blue:SHIDWORD(v20) / 255.0 alpha:v13];
+      v14 = [MEMORY[0x277D75348] colorWithRed:SHIDWORD(v20) / 255.0 green:v20 / 255.0 blue:SHIDWORD(v19) / 255.0 alpha:v13];
     }
 
     else
     {
-      v22[0] = @"black";
+      v21[0] = @"black";
       blackColor = [MEMORY[0x277D75348] blackColor];
-      v22[1] = @"white";
-      v23[0] = blackColor;
+      v21[1] = @"white";
+      v22[0] = blackColor;
       whiteColor = [MEMORY[0x277D75348] whiteColor];
-      v23[1] = whiteColor;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+      v22[1] = whiteColor;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
 
       v14 = [v17 objectForKeyedSubscript:stringCopy];
     }
@@ -316,8 +313,6 @@ LABEL_19:
   {
     v14 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

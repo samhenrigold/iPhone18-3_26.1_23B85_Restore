@@ -375,7 +375,7 @@ void __46__IOUIAngelService_setIntrusiveUI_completion___block_invoke(uint64_t a1
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      __46__IOUIAngelService_setIntrusiveUI_completion___block_invoke_cold_1(a1);
+      __46__IOUIAngelService_setIntrusiveUI_completion___block_invoke_cold_1();
     }
 
     (*(*(a1 + 40) + 16))();
@@ -399,7 +399,7 @@ void __46__IOUIAngelService_setIntrusiveUI_completion___block_invoke(uint64_t a1
     _os_log_impl(&def_3A0E8, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s:%d: Successfully %@ intrusiveUI", v6, 0x1Cu);
   }
 
-  [*(a1 + 32) setIsIntrusiveUIDisplayed:{*(a1 + 48), *v6}];
+  [*(a1 + 32) setIsIntrusiveUIDisplayed:{*(a1 + 48), *v6, *&v6[8]}];
   (*(*(a1 + 40) + 16))();
 }
 
@@ -472,13 +472,6 @@ void __45__IOUIAngelService_pingServerWithCompletion___block_invoke_cold_1()
     OUTLINED_FUNCTION_0();
     _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
   }
-}
-
-void __46__IOUIAngelService_setIntrusiveUI_completion___block_invoke_cold_1(uint64_t a1)
-{
-  *(a1 + 48);
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
 }
 
 @end

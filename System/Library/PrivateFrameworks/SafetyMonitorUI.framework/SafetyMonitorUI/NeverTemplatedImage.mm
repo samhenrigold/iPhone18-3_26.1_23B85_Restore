@@ -1,6 +1,7 @@
 @interface NeverTemplatedImage
 - (_TtC15SafetyMonitorUIP33_0136281DCC3F5D58BE1F34FEE765118619NeverTemplatedImage)init;
 - (_TtC15SafetyMonitorUIP33_0136281DCC3F5D58BE1F34FEE765118619NeverTemplatedImage)initWithCGImage:(CGImage *)image imageOrientation:(int64_t)orientation;
+- (_TtC15SafetyMonitorUIP33_0136281DCC3F5D58BE1F34FEE765118619NeverTemplatedImage)initWithContentsOfFile:(id)file cache:(BOOL)cache;
 - (_TtC15SafetyMonitorUIP33_0136281DCC3F5D58BE1F34FEE765118619NeverTemplatedImage)initWithData:(id)data;
 - (_TtC15SafetyMonitorUIP33_0136281DCC3F5D58BE1F34FEE765118619NeverTemplatedImage)initWithData:(id)data scale:(double)scale;
 @end
@@ -50,6 +51,31 @@
   v3.receiver = self;
   v3.super_class = type metadata accessor for NeverTemplatedImage();
   return [(NeverTemplatedImage *)&v3 init];
+}
+
+- (_TtC15SafetyMonitorUIP33_0136281DCC3F5D58BE1F34FEE765118619NeverTemplatedImage)initWithContentsOfFile:(id)file cache:(BOOL)cache
+{
+  cacheCopy = cache;
+  if (file)
+  {
+    sub_264785724();
+    v6 = sub_264785714();
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for NeverTemplatedImage();
+  v7 = [(NeverTemplatedImage *)&v9 initWithContentsOfFile:v6 cache:cacheCopy];
+
+  if (v7)
+  {
+  }
+
+  return v7;
 }
 
 - (_TtC15SafetyMonitorUIP33_0136281DCC3F5D58BE1F34FEE765118619NeverTemplatedImage)initWithCGImage:(CGImage *)image imageOrientation:(int64_t)orientation

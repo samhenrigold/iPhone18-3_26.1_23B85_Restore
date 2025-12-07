@@ -126,30 +126,28 @@ LABEL_5:
 - (BOOL)isEqualToCSDPTTServiceUpdatePushBudget:(id)budget
 {
   budgetCopy = budget;
-  applicationBundleIdentifier = self->_applicationBundleIdentifier;
   applicationBundleIdentifier = [budgetCopy applicationBundleIdentifier];
   if (TUObjectsAreEqualOrNil())
   {
-    budgetStartTime = self->_budgetStartTime;
     budgetStartTime = [budgetCopy budgetStartTime];
     if (TUObjectsAreEqualOrNil())
     {
       serviceUpdatesDelivered = self->_serviceUpdatesDelivered;
-      v10 = serviceUpdatesDelivered == [budgetCopy serviceUpdatesDelivered];
+      v8 = serviceUpdatesDelivered == [budgetCopy serviceUpdatesDelivered];
     }
 
     else
     {
-      v10 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    v10 = 0;
+    v8 = 0;
   }
 
-  return v10;
+  return v8;
 }
 
 + (id)unarchivedObjectClasses

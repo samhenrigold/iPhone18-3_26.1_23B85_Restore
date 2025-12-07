@@ -9,79 +9,79 @@
 
 - (void)processNextEdgesWithSortedMomentNodes:(id)nodes graph:(id)graph progressBlock:(id)block
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   graphCopy = graph;
   v9 = _Block_copy(block);
   v10 = 0.0;
   if (!v9 || (Current = CFAbsoluteTimeGetCurrent(), Current < 0.01))
   {
-    v49 = v9;
-    v47 = 0;
+    v48 = v9;
+    v46 = 0;
 LABEL_4:
     v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v61 = 0u;
     v62 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
-    v50 = nodesCopy;
+    v49 = nodesCopy;
     v13 = nodesCopy;
-    v14 = [v13 countByEnumeratingWithState:&v62 objects:v68 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v61 objects:v67 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v63;
+      v16 = *v62;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v63 != v16)
+          if (*v62 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v62 + 1) + 8 * i);
+          v18 = *(*(&v61 + 1) + 8 * i);
           v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v18, "identifier")}];
           [v12 setObject:v18 forKeyedSubscript:v19];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v62 objects:v68 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v61 objects:v67 count:16];
       }
 
       while (v15);
     }
 
-    v51 = graphCopy;
+    v50 = graphCopy;
     v20 = [(MAElementCollection *)[PGGraphMomentNodeCollection alloc] initWithArray:v13 graph:graphCopy];
     v21 = MEMORY[0x277D22BF8];
     v22 = +[PGGraphMomentNode nextMomentOfMoment];
-    v48 = v20;
+    v47 = v20;
     v23 = [v21 adjacencyWithSources:v20 relation:v22 targetsClass:objc_opt_class()];
 
     v24 = objc_alloc_init(MEMORY[0x277D22BC8]);
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
     v60 = 0u;
-    v61 = 0u;
     v25 = v13;
-    v26 = [v25 countByEnumeratingWithState:&v58 objects:v67 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v57 objects:v66 count:16];
     if (v26)
     {
       v27 = v26;
       v28 = 0;
-      v29 = *v59;
+      v29 = *v58;
       do
       {
         v30 = 0;
         v31 = v28;
         do
         {
-          if (*v59 != v29)
+          if (*v58 != v29)
           {
             objc_enumerationMutation(v25);
           }
 
-          v32 = *(*(&v58 + 1) + 8 * v30);
+          v32 = *(*(&v57 + 1) + 8 * v30);
           if (v31)
           {
             [v24 insertSource:objc_msgSend(v31 target:{"identifier"), objc_msgSend(v32, "identifier")}];
@@ -94,7 +94,7 @@ LABEL_4:
         }
 
         while (v27 != v30);
-        v27 = [v25 countByEnumeratingWithState:&v58 objects:v67 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v57 objects:v66 count:16];
       }
 
       while (v27);
@@ -104,15 +104,15 @@ LABEL_4:
     adjacency = [v23 adjacency];
     v35 = [v24 differenceWith:adjacency];
 
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __93__PGGraphIngestNextEdgesProcessor_processNextEdgesWithSortedMomentNodes_graph_progressBlock___block_invoke;
-    v55[3] = &unk_278880630;
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __93__PGGraphIngestNextEdgesProcessor_processNextEdgesWithSortedMomentNodes_graph_progressBlock___block_invoke;
+    v54[3] = &unk_278880630;
     v36 = v12;
-    v56 = v36;
+    v55 = v36;
     v37 = v33;
-    v57 = v37;
-    [v35 enumerateTargetsBySourceWith:v55];
+    v56 = v37;
+    [v35 enumerateTargetsBySourceWith:v54];
     adjacency2 = [v23 adjacency];
     v39 = [adjacency2 differenceWith:v24];
 
@@ -121,48 +121,48 @@ LABEL_4:
     v42 = [(MAElementCollection *)v40 initWithGraph:graphCopy elementIdentifiers:sources];
 
     v43 = [(PGGraphEdgeCollection *)PGGraphMomentNextEdgeCollection edgesFromNodes:v42];
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __93__PGGraphIngestNextEdgesProcessor_processNextEdgesWithSortedMomentNodes_graph_progressBlock___block_invoke_3;
-    v52[3] = &unk_278880658;
-    v53 = v39;
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __93__PGGraphIngestNextEdgesProcessor_processNextEdgesWithSortedMomentNodes_graph_progressBlock___block_invoke_3;
+    v51[3] = &unk_278880658;
+    v52 = v39;
     v44 = v37;
-    v54 = v44;
+    v53 = v44;
     v45 = v39;
-    [v43 enumerateEdgesUsingBlock:v52];
-    [v51 executeGraphChangeRequest:v44];
-    v9 = v49;
-    nodesCopy = v50;
-    if (v49)
+    [v43 enumerateEdgesUsingBlock:v51];
+    [v50 executeGraphChangeRequest:v44];
+    v9 = v48;
+    nodesCopy = v49;
+    if (v48)
     {
       if (CFAbsoluteTimeGetCurrent() - v10 >= 0.01)
       {
-        v66 = 0;
-        v49[2](v49, &v66, 1.0);
-        if (v47 | v66)
+        v65 = 0;
+        v48[2](v48, &v65, 1.0);
+        if (v46 | v65)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v70 = 145;
-            v71 = 2080;
-            v72 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestNextEdgesProcessor.m";
+            v69 = 145;
+            v70 = 2080;
+            v71 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestNextEdgesProcessor.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
         }
       }
     }
 
-    graphCopy = v51;
+    graphCopy = v50;
     goto LABEL_27;
   }
 
-  v66 = 0;
-  v9[2](v9, &v66, 0.0);
-  if (v66 != 1)
+  v65 = 0;
+  v9[2](v9, &v65, 0.0);
+  if (v65 != 1)
   {
-    v47 = v66;
-    v49 = v9;
+    v46 = v65;
+    v48 = v9;
     v10 = Current;
     goto LABEL_4;
   }
@@ -170,15 +170,13 @@ LABEL_4:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v70 = 92;
-    v71 = 2080;
-    v72 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestNextEdgesProcessor.m";
+    v69 = 92;
+    v70 = 2080;
+    v71 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestNextEdgesProcessor.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
 LABEL_27:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __93__PGGraphIngestNextEdgesProcessor_processNextEdgesWithSortedMomentNodes_graph_progressBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -227,7 +225,7 @@ void __93__PGGraphIngestNextEdgesProcessor_processNextEdgesWithSortedMomentNodes
 
 - (void)runWithGraphUpdate:(id)update progressBlock:(id)block
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   blockCopy = block;
   graph = [(PGGraphBuilder *)self->_graphBuilder graph];
@@ -249,9 +247,9 @@ void __93__PGGraphIngestNextEdgesProcessor_processNextEdgesWithSortedMomentNodes
   if ([momentNodes count])
   {
     spid = v10;
-    v38 = v14;
-    v39 = momentNodes;
-    v40 = blockCopy;
+    v37 = v14;
+    v38 = momentNodes;
+    v39 = blockCopy;
     v16 = [momentNodes set];
     v17 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalStartDate" ascending:1];
     *buf = v17;
@@ -276,8 +274,8 @@ void __93__PGGraphIngestNextEdgesProcessor_processNextEdgesWithSortedMomentNodes
       [v18 executeGraphChangeRequest:v25];
     }
 
-    blockCopy = v40;
-    [(PGGraphIngestNextEdgesProcessor *)self processNextEdgesWithSortedMomentNodes:v23 graph:v18 progressBlock:v40];
+    blockCopy = v39;
+    [(PGGraphIngestNextEdgesProcessor *)self processNextEdgesWithSortedMomentNodes:v23 graph:v18 progressBlock:v39];
     v26 = mach_absolute_time();
     numer = info.numer;
     denom = info.denom;
@@ -289,13 +287,13 @@ void __93__PGGraphIngestNextEdgesProcessor_processNextEdgesWithSortedMomentNodes
       _os_signpost_emit_with_name_impl(&dword_22F0FC000, v30, OS_SIGNPOST_INTERVAL_END, spid, "PGGraphIngestNextEdgesProcessor", "", buf, 2u);
     }
 
-    momentNodes = v39;
+    momentNodes = v38;
     if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
       *&buf[4] = "PGGraphIngestNextEdgesProcessor";
       *&buf[12] = 2048;
-      *&buf[14] = ((((v26 - v38) * numer) / denom) / 1000000.0);
+      *&buf[14] = ((((v26 - v37) * numer) / denom) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v30, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
   }
@@ -322,8 +320,6 @@ void __93__PGGraphIngestNextEdgesProcessor_processNextEdgesWithSortedMomentNodes
       _os_log_impl(&dword_22F0FC000, v35, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldRunWithGraphUpdate:(id)update

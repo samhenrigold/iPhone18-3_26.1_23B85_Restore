@@ -41,204 +41,203 @@
 
 - (id)provideFeatures
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v4 = __atxlog_handle_modes();
+  v15 = *MEMORY[0x277D85DE8];
+  v4 = __atxlog_handle_modes(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
     v6 = v5;
     v7 = NSStringFromSelector(a2);
-    v12 = 138412546;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_260C9F000, v4, OS_LOG_TYPE_DEFAULT, "[%@][%@] Requesting feature set via pull based feature provider", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_260C9F000, v4, OS_LOG_TYPE_DEFAULT, "[%@][%@] Requesting feature set via pull based feature provider", &v11, 0x16u);
   }
 
   currentMap = [(ULConnection *)self->_connection currentMap];
   v9 = [(ATXModeMicrolocationFeaturizer *)self _provideFeaturesWithCurrentULMap:currentMap];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_provideFeaturesWithCurrentULMap:(id)map
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   mapCopy = map;
-  v49 = objc_alloc_init(ATXModeFeatureSet);
-  if ([mapCopy isMapValid])
+  v51 = objc_alloc_init(ATXModeFeatureSet);
+  isMapValid = [mapCopy isMapValid];
+  if (isMapValid)
   {
     date = [MEMORY[0x277CBEAA8] date];
     predictionContext = [mapCopy predictionContext];
     timestamp = [predictionContext timestamp];
     [date timeIntervalSinceDate:timestamp];
-    v8 = v7;
+    v9 = v8;
 
-    if (v8 > 900.0)
+    if (v9 > 900.0)
     {
-      v9 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = __atxlog_handle_modes(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = objc_opt_class();
-        v11 = v10;
-        v12 = NSStringFromSelector(a2);
+        v12 = objc_opt_class();
+        v13 = v12;
+        v14 = NSStringFromSelector(a2);
         *buf = 138412802;
-        v56 = v10;
-        v57 = 2112;
         v58 = v12;
-        v59 = 2048;
-        v60 = 900.0;
-        _os_log_impl(&dword_260C9F000, v9, OS_LOG_TYPE_DEFAULT, "[%@][%@] Warning: Prediction scan was unexpectedly delayed by more than %f seconds", buf, 0x20u);
+        v59 = 2112;
+        v60 = v14;
+        v61 = 2048;
+        v62 = 900.0;
+        _os_log_impl(&dword_260C9F000, v11, OS_LOG_TYPE_DEFAULT, "[%@][%@] Warning: Prediction scan was unexpectedly delayed by more than %f seconds", buf, 0x20u);
       }
     }
 
-    v13 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = __atxlog_handle_modes(v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = objc_opt_class();
-      v15 = v14;
-      v16 = NSStringFromSelector(a2);
+      v16 = objc_opt_class();
+      v17 = v16;
+      v18 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v56 = v14;
-      v57 = 2112;
       v58 = v16;
-      _os_log_impl(&dword_260C9F000, v13, OS_LOG_TYPE_DEFAULT, "[%@][%@] analyzing predicted Microlocation for this device", buf, 0x16u);
+      v59 = 2112;
+      v60 = v18;
+      _os_log_impl(&dword_260C9F000, v15, OS_LOG_TYPE_DEFAULT, "[%@][%@] analyzing predicted Microlocation for this device", buf, 0x16u);
     }
 
-    v17 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"C9FC4298-DE04-494A-9791-71AB71B52E27"];
-    uUIDString = [v17 UUIDString];
+    v19 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"C9FC4298-DE04-494A-9791-71AB71B52E27"];
+    uUIDString = [v19 UUIDString];
 
+    v55 = 0u;
+    v56 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v51 = 0u;
-    v52 = 0u;
     obj = [mapCopy mapItems];
-    v19 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
-    if (v19)
+    v21 = [obj countByEnumeratingWithState:&v53 objects:v65 count:16];
+    if (v21)
     {
-      v21 = v19;
-      v22 = *v52;
-      *&v20 = 138413059;
-      v46 = v20;
+      v23 = v21;
+      v24 = *v54;
+      *&v22 = 138413059;
+      v48 = v22;
       do
       {
-        for (i = 0; i != v21; ++i)
+        for (i = 0; i != v23; ++i)
         {
-          if (*v52 != v22)
+          if (*v54 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v51 + 1) + 8 * i);
-          [v24 name];
-          v25 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-          labels = [v24 labels];
-          v27 = [labels count];
+          v26 = *(*(&v53 + 1) + 8 * i);
+          [v26 name];
+          v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+          labels = [v26 labels];
+          v29 = [labels count];
 
-          v28 = [mapCopy numberOfLabelsInSameSpaceForMapItem:v24];
-          if (v27)
+          v30 = [mapCopy numberOfLabelsInSameSpaceForMapItem:v26];
+          if (v29)
           {
-            v29 = v28 / v27;
-            if ([*&v25 isEqual:uUIDString])
+            v31 = v30 / v29;
+            v32 = [*&v27 isEqual:uUIDString];
+            if (v32)
             {
-              if (v29 <= 0.4)
+              if (v31 <= 0.4)
               {
 LABEL_20:
-                v36 = __atxlog_handle_modes();
-                if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+                v39 = __atxlog_handle_modes(v32);
+                if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
                 {
-                  v37 = objc_opt_class();
-                  v38 = v37;
-                  v39 = NSStringFromSelector(a2);
+                  v40 = objc_opt_class();
+                  v41 = v40;
+                  v42 = NSStringFromSelector(a2);
                   *buf = 138412803;
-                  v56 = v37;
-                  v57 = 2112;
-                  v58 = v39;
-                  v59 = 2049;
-                  v60 = 1.0 - v29;
-                  _os_log_impl(&dword_260C9F000, v36, OS_LOG_TYPE_DEFAULT, "[%@][%@] Device was predicted (at %{private}f) to not be at a work microlocation", buf, 0x20u);
+                  v58 = v40;
+                  v59 = 2112;
+                  v60 = v42;
+                  v61 = 2049;
+                  v62 = 1.0 - v31;
+                  _os_log_impl(&dword_260C9F000, v39, OS_LOG_TYPE_DEFAULT, "[%@][%@] Device was predicted (at %{private}f) to not be at a work microlocation", buf, 0x20u);
                 }
 
-                v34 = v49;
-                v35 = 0;
+                v37 = v51;
+                v38 = 0;
               }
 
               else
               {
-                v30 = __atxlog_handle_modes();
-                if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+                v33 = __atxlog_handle_modes(v32);
+                if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
                 {
-                  v31 = objc_opt_class();
-                  v32 = v31;
-                  v33 = NSStringFromSelector(a2);
+                  v34 = objc_opt_class();
+                  v35 = v34;
+                  v36 = NSStringFromSelector(a2);
                   *buf = 138412803;
-                  v56 = v31;
-                  v57 = 2112;
-                  v58 = v33;
-                  v59 = 2049;
-                  v60 = v29;
-                  _os_log_impl(&dword_260C9F000, v30, OS_LOG_TYPE_DEFAULT, "[%@][%@] Device is predicted (at %{private}f) to be at a work microlocation", buf, 0x20u);
+                  v58 = v34;
+                  v59 = 2112;
+                  v60 = v36;
+                  v61 = 2049;
+                  v62 = v31;
+                  _os_log_impl(&dword_260C9F000, v33, OS_LOG_TYPE_DEFAULT, "[%@][%@] Device is predicted (at %{private}f) to be at a work microlocation", buf, 0x20u);
                 }
 
-                v34 = v49;
-                v35 = 1;
+                v37 = v51;
+                v38 = 1;
               }
 
-              [(ATXModeFeatureSet *)v34 setValue:v35 forBinaryFeatureOfType:25];
+              [(ATXModeFeatureSet *)v37 setValue:v38 forBinaryFeatureOfType:25];
               goto LABEL_27;
             }
           }
 
           else
           {
-            v29 = 0.0;
-            if ([*&v25 isEqual:uUIDString])
+            v32 = [*&v27 isEqual:uUIDString];
+            v31 = 0.0;
+            if (v32)
             {
               goto LABEL_20;
             }
           }
 
-          v40 = __atxlog_handle_modes();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v43 = __atxlog_handle_modes(v32);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
           {
-            v41 = objc_opt_class();
-            v42 = v41;
-            v43 = NSStringFromSelector(a2);
-            *buf = v46;
-            v56 = v41;
-            v57 = 2112;
-            v58 = v43;
+            v44 = objc_opt_class();
+            v45 = v44;
+            v46 = NSStringFromSelector(a2);
+            *buf = v48;
+            v58 = v44;
             v59 = 2112;
-            v60 = v25;
-            v61 = 2049;
-            v62 = v29;
-            _os_log_impl(&dword_260C9F000, v40, OS_LOG_TYPE_DEFAULT, "[%@][%@] Probability that this device is not at work microlocation [labled:%@]: %{private}f", buf, 0x2Au);
+            v60 = v46;
+            v61 = 2112;
+            v62 = v27;
+            v63 = 2049;
+            v64 = v31;
+            _os_log_impl(&dword_260C9F000, v43, OS_LOG_TYPE_DEFAULT, "[%@][%@] Probability that this device is not at work microlocation [labled:%@]: %{private}f", buf, 0x2Au);
           }
 
 LABEL_27:
         }
 
-        v21 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
+        v23 = [obj countByEnumeratingWithState:&v53 objects:v65 count:16];
       }
 
-      while (v21);
+      while (v23);
     }
   }
 
   else
   {
-    uUIDString = __atxlog_handle_modes();
+    uUIDString = __atxlog_handle_modes(isMapValid);
     if (os_log_type_enabled(uUIDString, OS_LOG_TYPE_ERROR))
     {
       [(ATXModeMicrolocationFeaturizer *)self _provideFeaturesWithCurrentULMap:a2, uUIDString];
     }
   }
 
-  v44 = *MEMORY[0x277D85DE8];
-
-  return v49;
+  return v51;
 }
 
 - (void)connectionDidUpdatePredictionContext:(id)context
@@ -273,7 +272,7 @@ void __71__ATXModeMicrolocationFeaturizer_connectionDidUpdatePredictionContext__
   v3 = a2;
   v4 = [v3[1] currentMap];
   v5 = [v4 predictionContext];
-  v6 = __atxlog_handle_modes();
+  v6 = __atxlog_handle_modes(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = objc_opt_class();
@@ -297,50 +296,49 @@ void __71__ATXModeMicrolocationFeaturizer_connectionDidUpdatePredictionContext__
   }
 
   v13 = [v5 isPredictionValid];
-  v14 = __atxlog_handle_modes();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-  if (v13)
+  v14 = v13;
+  v15 = __atxlog_handle_modes(v13);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+  if (v14)
   {
-    if (v15)
+    if (v16)
     {
-      v16 = objc_opt_class();
-      v17 = *(a1 + 32);
-      v18 = v16;
-      v19 = NSStringFromSelector(v17);
+      v17 = objc_opt_class();
+      v18 = *(a1 + 32);
+      v19 = v17;
+      v20 = NSStringFromSelector(v18);
       *buf = 138412546;
-      v30 = v16;
+      v30 = v17;
       v31 = 2112;
-      v32 = v19;
-      _os_log_impl(&dword_260C9F000, v14, OS_LOG_TYPE_DEFAULT, "[%@][%@] Pushing work microlocation prediction to mode heurisic classifier", buf, 0x16u);
+      v32 = v20;
+      _os_log_impl(&dword_260C9F000, v15, OS_LOG_TYPE_DEFAULT, "[%@][%@] Pushing work microlocation prediction to mode heurisic classifier", buf, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained(v3 + 3);
-    v21 = [v3 _provideFeaturesWithCurrentULMap:v4];
+    v22 = [v3 _provideFeaturesWithCurrentULMap:v4];
   }
 
   else
   {
-    if (v15)
+    if (v16)
     {
-      v22 = objc_opt_class();
-      v23 = *(a1 + 32);
-      v24 = v22;
-      v25 = NSStringFromSelector(v23);
+      v23 = objc_opt_class();
+      v24 = *(a1 + 32);
+      v25 = v23;
+      v26 = NSStringFromSelector(v24);
       *buf = 138412546;
-      v30 = v22;
+      v30 = v23;
       v31 = 2112;
-      v32 = v25;
-      _os_log_impl(&dword_260C9F000, v14, OS_LOG_TYPE_DEFAULT, "[%@][%@] Got invalid MiLo prediction, return empty feature set", buf, 0x16u);
+      v32 = v26;
+      _os_log_impl(&dword_260C9F000, v15, OS_LOG_TYPE_DEFAULT, "[%@][%@] Got invalid MiLo prediction, return empty feature set", buf, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained(v3 + 3);
-    v21 = objc_alloc_init(ATXModeFeatureSet);
+    v22 = objc_alloc_init(ATXModeFeatureSet);
   }
 
-  v26 = v21;
-  [WeakRetained featurizer:v3 didUpdateFeatures:v21];
-
-  v27 = *MEMORY[0x277D85DE8];
+  v27 = v22;
+  [WeakRetained featurizer:v3 didUpdateFeatures:v22];
 }
 
 - (void)beginListening
@@ -372,17 +370,15 @@ void __71__ATXModeMicrolocationFeaturizer_connectionDidUpdatePredictionContext__
 
 - (void)_provideFeaturesWithCurrentULMap:(NSObject *)a3 .cold.1(uint64_t a1, const char *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = v5;
   v7 = NSStringFromSelector(a2);
-  v9 = 138412546;
-  v10 = v5;
-  v11 = 2112;
-  v12 = v7;
-  _os_log_error_impl(&dword_260C9F000, a3, OS_LOG_TYPE_ERROR, "[%@][%@] Invalid microlocation map", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412546;
+  v9 = v5;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_error_impl(&dword_260C9F000, a3, OS_LOG_TYPE_ERROR, "[%@][%@] Invalid microlocation map", &v8, 0x16u);
 }
 
 @end

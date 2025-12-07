@@ -66,7 +66,7 @@
 
 - (void)_stream:(id)_stream handleEvent:(unint64_t)event
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   _streamCopy = _stream;
   v7 = _streamCopy;
   if (event <= 3)
@@ -80,9 +80,9 @@
     {
       v10 = _streamCopy;
       *buf = 0;
-      v33 = 0;
-      v11 = [v10 getBuffer:&v33 length:buf];
-      if (v33)
+      v32 = 0;
+      v11 = [v10 getBuffer:&v32 length:buf];
+      if (v32)
       {
         v12 = v11;
       }
@@ -121,15 +121,15 @@
       {
         objc_initWeak(&location, self);
         runLoop = self->_runLoop;
-        v29[0] = MEMORY[0x1E69E9820];
-        v29[1] = 3221225472;
-        v29[2] = __51__MRStreamTransportConnection__stream_handleEvent___block_invoke;
-        v29[3] = &unk_1E769B150;
-        objc_copyWeak(&v31, &location);
-        v30 = v14;
-        [(NSRunLoop *)runLoop performBlock:v29];
+        v28[0] = MEMORY[0x1E69E9820];
+        v28[1] = 3221225472;
+        v28[2] = __51__MRStreamTransportConnection__stream_handleEvent___block_invoke;
+        v28[3] = &unk_1E769B150;
+        objc_copyWeak(&v30, &location);
+        v29 = v14;
+        [(NSRunLoop *)runLoop performBlock:v28];
 
-        objc_destroyWeak(&v31);
+        objc_destroyWeak(&v30);
         objc_destroyWeak(&location);
       }
     }
@@ -142,13 +142,13 @@
       case 4uLL:
         objc_initWeak(buf, self);
         v20 = self->_runLoop;
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __51__MRStreamTransportConnection__stream_handleEvent___block_invoke_2;
-        v27[3] = &unk_1E769B178;
-        objc_copyWeak(&v28, buf);
-        [(NSRunLoop *)v20 performBlock:v27];
-        objc_destroyWeak(&v28);
+        v26[0] = MEMORY[0x1E69E9820];
+        v26[1] = 3221225472;
+        v26[2] = __51__MRStreamTransportConnection__stream_handleEvent___block_invoke_2;
+        v26[3] = &unk_1E769B178;
+        objc_copyWeak(&v27, buf);
+        [(NSRunLoop *)v20 performBlock:v26];
+        objc_destroyWeak(&v27);
         objc_destroyWeak(buf);
         break;
       case 8uLL:
@@ -167,10 +167,10 @@
         {
           *buf = 138543874;
           *&buf[4] = self;
-          v35 = 2112;
-          v36 = v23;
-          v37 = 2112;
-          v38 = streamError;
+          v34 = 2112;
+          v35 = v23;
+          v36 = 2112;
+          v37 = streamError;
           _os_log_impl(&dword_1A2860000, v25, OS_LOG_TYPE_DEFAULT, "[MRNetServiceTransport] %{public}@ %@ Error: %@. Disconnecting...", buf, 0x20u);
         }
 
@@ -191,8 +191,6 @@
         break;
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __51__MRStreamTransportConnection__stream_handleEvent___block_invoke(uint64_t a1)

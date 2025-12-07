@@ -65,6 +65,7 @@
 - (void)_invalidateStackConfigurationEditingTimeoutTimer;
 - (void)_launchConfirmationTapGestureDidFire:(id)fire;
 - (void)_migrateClockCityWidgetForIconListModel:(id)model withDefaultIconState:(id)state;
+- (void)_presentAddWidgetSheetFromViewController:(id)controller withAllowedSizeClasses:(id)classes allowsNonStackableItems:(BOOL)items;
 - (void)_registerForAmbientPresentationTraitChanges;
 - (void)_registerForFirstPresentationStateChange;
 - (void)_restartStackConfigurationEditingTimeoutTimer;
@@ -108,6 +109,10 @@
 - (void)stackConfigurationViewControllerDidDisappear:(id)disappear;
 - (void)stackConfigurationViewControllerWillAppear:(id)appear;
 - (void)stackConfigurationViewControllerWillDisappear:(id)disappear;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 - (void)widgetHostManager:(id)manager didNoteStackChangedActiveWidget:(id)widget;
 @end
@@ -143,7 +148,7 @@
 
 - (void)dealloc
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   defaultObserver = self->_defaultObserver;
   if (defaultObserver)
   {
@@ -156,31 +161,31 @@
   [disableIconStateAutosaveAssertion invalidate];
 
   [(AMUIInfographViewController *)self setDisableIconStateAutosaveAssertion:0];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   objectEnumerator = [(NSMutableDictionary *)self->_keepRootStaticAssertions objectEnumerator];
-  v7 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [objectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [*(*(&v16 + 1) + 8 * v10++) invalidate];
+        [*(*(&v15 + 1) + 8 * v10++) invalidate];
       }
 
       while (v8 != v10);
-      v8 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [objectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -196,10 +201,9 @@
   appProtectionSubjectMonitorSubscription = self->_appProtectionSubjectMonitorSubscription;
   self->_appProtectionSubjectMonitorSubscription = 0;
 
-  v15.receiver = self;
-  v15.super_class = AMUIInfographViewController;
-  [(AMUIInfographViewController *)&v15 dealloc];
-  v14 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = AMUIInfographViewController;
+  [(AMUIInfographViewController *)&v14 dealloc];
 }
 
 - (void)viewWillLayoutSubviews
@@ -232,6 +236,62 @@
   }
 
   [(SBIconListView *)self->_iconListView setFrame:v10, v12, v14, v16];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = AMUIInfographViewController;
+  [(AMUIInfographViewController *)&v6 viewWillAppear:appear];
+  widgetHostManager = [(AMUIInfographViewController *)self widgetHostManager];
+  widgetHost = [widgetHostManager widgetHost];
+
+  [widgetHost activate];
+  [(SBIconListView *)self->_iconListView setVisiblySettled:0];
+  [(SBIconListView *)self->_iconListView setContentVisibility:0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AMUIInfographViewController;
+  [(AMUIInfographViewController *)&v4 viewDidAppear:appear];
+  [(ATXAmbientSuggestionProvider *)self->_proactiveClient logViewDidAppear];
+  [(SBIconListView *)self->_iconListView setVisiblySettled:1];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v7.receiver = self;
+  v7.super_class = AMUIInfographViewController;
+  [(AMUIInfographViewController *)&v7 viewWillDisappear:?];
+  [(AMUIInfographViewController *)self _syncLocalAmbientIconStateAndIntentsToPoster];
+  stackConfigurationViewController = [(AMUIInfographViewController *)self stackConfigurationViewController];
+
+  if (stackConfigurationViewController)
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_iconManager);
+    [WeakRetained dismissModalInteractions];
+  }
+
+  [(SBIconListView *)self->_iconListView setVisiblySettled:0];
+  [(AMUIInfographViewController *)self _dismissLaunchConfirmationAnimated:disappearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = AMUIInfographViewController;
+  [(AMUIInfographViewController *)&v6 viewDidDisappear:disappear];
+  [(ATXAmbientSuggestionProvider *)self->_proactiveClient logViewDidDisappear];
+  widgetHostManager = [(AMUIInfographViewController *)self widgetHostManager];
+  widgetHost = [widgetHostManager widgetHost];
+
+  [widgetHost deactivate];
+  [(SBIconListView *)self->_iconListView setContentVisibility:2];
+  [(SBIconListView *)self->_iconListView setVisiblySettled:1];
+  [(AMUIInfographViewController *)self _dismissLaunchConfirmationAnimated:0];
 }
 
 - (void)setIconManager:(id)manager
@@ -275,39 +335,40 @@
 
 - (void)setPosterConfiguration:(id)configuration
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v6 = [(PRSPosterConfiguration *)self->_posterConfiguration isEqual:configurationCopy];
-  v7 = AMUILogInfograph();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
-  if (v6)
+  v7 = v6;
+  v8 = AMUILogInfograph(v6);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+  if (v7)
   {
-    if (v8)
+    if (v9)
     {
-      [AMUIInfographViewController setPosterConfiguration:?];
+      [AMUIInfographViewController setPosterConfiguration:];
     }
   }
 
   else
   {
-    if (v8)
+    if (v9)
     {
       [AMUIInfographViewController setPosterConfiguration:];
     }
 
     objc_storeStrong(&self->_posterConfiguration, configuration);
-    v26 = 0;
-    v9 = [configurationCopy pr_loadAmbientWidgetLayoutWithError:&v26];
-    v7 = v26;
-    widgetLayoutIconState = [v9 widgetLayoutIconState];
-    v11 = [widgetLayoutIconState objectForKey:@"AMUIIconStateKey"];
-    v12 = 0;
-    if (v9 && widgetLayoutIconState)
+    v27 = 0;
+    v10 = [configurationCopy pr_loadAmbientWidgetLayoutWithError:&v27];
+    v8 = v27;
+    widgetLayoutIconState = [v10 widgetLayoutIconState];
+    v12 = [widgetLayoutIconState objectForKey:@"AMUIIconStateKey"];
+    v13 = 0;
+    if (v10 && widgetLayoutIconState)
     {
-      v12 = [(AMUIInfographViewController *)self _emptyIconState:v11];
+      v13 = [(AMUIInfographViewController *)self _emptyIconState:v12];
     }
 
-    if ([(PRPosterAmbientWidgetLayout *)self->_ambientWidgetLayout isEqual:v9])
+    if ([(PRPosterAmbientWidgetLayout *)self->_ambientWidgetLayout isEqual:v10])
     {
       ambientWidgetLayout = self->_ambientWidgetLayout;
       if (ambientWidgetLayout)
@@ -316,19 +377,19 @@
       }
     }
 
-    if (v12)
+    if (v13)
     {
-      v14 = 0;
+      v15 = 0;
     }
 
     else
     {
-      v14 = v9;
+      v15 = v10;
     }
 
-    objc_storeStrong(&self->_ambientWidgetLayout, v14);
-    v15 = [(AMUIInfographViewController *)self wantsDefaultInfographLayout]|| self->_ambientWidgetLayout == 0;
-    [(AMUIInfographViewController *)self setWantsDefaultInfographLayout:v15];
+    objc_storeStrong(&self->_ambientWidgetLayout, v15);
+    v16 = [(AMUIInfographViewController *)self wantsDefaultInfographLayout]|| self->_ambientWidgetLayout == 0;
+    [(AMUIInfographViewController *)self setWantsDefaultInfographLayout:v16];
     WeakRetained = objc_loadWeakRetained(&self->_iconManager);
     if (WeakRetained)
     {
@@ -344,22 +405,22 @@ LABEL_20:
       if (widgetLayoutIconState2)
       {
         widgetLayoutIconState3 = [(PRPosterAmbientWidgetLayout *)self->_ambientWidgetLayout widgetLayoutIconState];
-        v19 = [widgetLayoutIconState3 objectForKey:@"AMUIIconStateKey"];
+        v21 = [widgetLayoutIconState3 objectForKey:@"AMUIIconStateKey"];
 
-        v20 = [(AMUIInfographViewController *)self _uniqueIdentifierStacksFromIconState:v19];
-        v21 = AMUILogInfograph();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v22 = [(AMUIInfographViewController *)self _uniqueIdentifierStacksFromIconState:v21];
+        v23 = AMUILogInfograph(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v28 = v20;
-          _os_log_impl(&dword_23F38B000, v21, OS_LOG_TYPE_DEFAULT, "Successfully loading infographPosterConfigurationData with unique identifier stacks:%{public}@", buf, 0xCu);
+          v29 = v22;
+          _os_log_impl(&dword_23F38B000, v23, OS_LOG_TYPE_DEFAULT, "Successfully loading infographPosterConfigurationData with unique identifier stacks:%{public}@", buf, 0xCu);
         }
       }
 
       else
       {
-        v19 = AMUILogInfograph();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v21 = AMUILogInfograph(v19);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           [AMUIInfographViewController setPosterConfiguration:];
         }
@@ -368,17 +429,17 @@ LABEL_20:
 
     else
     {
-      v19 = AMUILogInfograph();
-      v22 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
-      if (v12)
+      v21 = AMUILogInfograph(0);
+      v24 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+      if (v13)
       {
-        if (v22)
+        if (v24)
         {
           [AMUIInfographViewController setPosterConfiguration:];
         }
       }
 
-      else if (v22)
+      else if (v24)
       {
         [AMUIInfographViewController setPosterConfiguration:];
       }
@@ -388,8 +449,6 @@ LABEL_20:
     iconModel = [iconManager iconModel];
     [iconModel saveIconStateIfNeeded];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureIconManager:(id)manager
@@ -530,7 +589,7 @@ LABEL_20:
   ambientWidgetLayout = self->_ambientWidgetLayout;
   if (!ambientWidgetLayout)
   {
-    iconState = AMUILogInfograph();
+    iconState = AMUILogInfograph(0);
     if (os_log_type_enabled(iconState, OS_LOG_TYPE_ERROR))
     {
       [AMUIInfographViewController _loadInfographPosterConfigurationDataWithError:];
@@ -543,7 +602,7 @@ LABEL_20:
 
   if (!widgetLayoutIconState)
   {
-    iconState = AMUILogInfograph();
+    iconState = AMUILogInfograph(v14);
     if (os_log_type_enabled(iconState, OS_LOG_TYPE_ERROR))
     {
       [AMUIInfographViewController _loadInfographPosterConfigurationDataWithError:];
@@ -554,7 +613,7 @@ LABEL_20:
 
   iconState = [(PRPosterAmbientWidgetLayout *)self->_ambientWidgetLayout widgetLayoutIconState];
   v15 = [(AMUIInfographViewController *)self _uniqueIdentifierStacksFromIconState:iconState];
-  v16 = AMUILogInfograph();
+  v16 = AMUILogInfograph(v15);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     v17 = 138543362;
@@ -576,23 +635,34 @@ LABEL_3:
     [dictionary setObject:widgetIntents forKey:@"AMUIIntentsKey"];
   }
 
-  v10 = AMUILogInfograph();
+  v10 = AMUILogInfograph(widgetIntents);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     [AMUIInfographViewController _loadInfographPosterConfigurationDataWithError:];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (void)_syncLocalAmbientIconStateAndIntentsToPoster
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_3(&dword_23F38B000, v0, v1, "Poster configuration synced to PosterBoard %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  iconManager = [(AMUIInfographViewController *)self iconManager];
+  iconModel = [iconManager iconModel];
+
+  [iconModel saveIconStateIfNeeded];
+  v5 = MEMORY[0x277CBEAC0];
+  iconState = [iconModel iconState];
+  v7 = [v5 dictionaryWithDictionary:iconState];
+
+  v8 = MEMORY[0x277CBEAC0];
+  _fetchIntents = [(AMUIInfographViewController *)self _fetchIntents];
+  v10 = [v8 dictionaryWithDictionary:_fetchIntents];
+
+  v11 = AMUILogInfograph([(AMUIInfographViewController *)self _preparePosterConfigurationToSaveWithCurrentIconState:v7 intents:v10 reason:@"Infograph view controller will disappear."]);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  {
+    [AMUIInfographViewController _syncLocalAmbientIconStateAndIntentsToPoster];
+  }
 }
 
 - (BOOL)_saveInfographPosterConfigurationData:(id)data completion:(id)completion
@@ -601,7 +671,7 @@ LABEL_3:
   dataCopy = data;
   completionCopy = completion;
   posterConfiguration = [(AMUIInfographViewController *)self posterConfiguration];
-  v9 = AMUILogInfograph();
+  v9 = AMUILogInfograph(posterConfiguration);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = [dataCopy objectForKey:@"AMUIIconStateKey"];
@@ -613,11 +683,11 @@ LABEL_3:
     _os_log_impl(&dword_23F38B000, v9, OS_LOG_TYPE_DEFAULT, "Attempting to save infograph with unique identifier stacks:%{public}@ for poster configuration:%@", buf, 0x16u);
   }
 
-  v12 = AMUILogInfograph();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+  v13 = AMUILogInfograph(v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
   if (posterConfiguration)
   {
-    if (v13)
+    if (v14)
     {
       [AMUIInfographViewController _saveInfographPosterConfigurationData:completion:];
     }
@@ -631,7 +701,7 @@ LABEL_3:
     objc_copyWeak(&v21, buf);
     v19 = posterConfiguration;
     v20 = completionCopy;
-    v15 = [(AMUIPosterUpdater *)posterUpdater updateInfograph:dataCopy forPosterConfiguration:v19 completion:v18];
+    v16 = [(AMUIPosterUpdater *)posterUpdater updateInfograph:dataCopy forPosterConfiguration:v19 completion:v18];
 
     objc_destroyWeak(&v21);
     objc_destroyWeak(buf);
@@ -639,16 +709,15 @@ LABEL_3:
 
   else
   {
-    if (v13)
+    if (v14)
     {
       [AMUIInfographViewController _saveInfographPosterConfigurationData:completion:];
     }
 
-    v15 = 0;
+    v16 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v16;
 }
 
 void __80__AMUIInfographViewController__saveInfographPosterConfigurationData_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -656,57 +725,58 @@ void __80__AMUIInfographViewController__saveInfographPosterConfigurationData_com
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
-    v8 = AMUILogInfograph();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = AMUILogInfograph(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __80__AMUIInfographViewController__saveInfographPosterConfigurationData_completion___block_invoke_cold_1();
     }
 
     if (v6)
     {
-      v9 = AMUILogInfograph();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = AMUILogInfograph(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __80__AMUIInfographViewController__saveInfographPosterConfigurationData_completion___block_invoke_cold_2();
       }
     }
 
-    else if (([WeakRetained[152] isEqual:*(a1 + 32)] & 1) == 0)
+    else if (([v8[152] isEqual:*(a1 + 32)] & 1) == 0)
     {
-      v10 = [WeakRetained posterConfiguration];
-      v11 = [v10 serverUUID];
-      v12 = [v5 serverUUID];
-      v13 = [v11 isEqual:v12];
+      v12 = [v8 posterConfiguration];
+      v13 = [v12 serverUUID];
+      v14 = [v5 serverUUID];
+      v15 = [v13 isEqual:v14];
 
-      if (v13)
+      if (v15)
       {
-        [WeakRetained updatePosterConfiguration:v5 withAnimationSettings:0];
+        [v8 updatePosterConfiguration:v5 withAnimationSettings:0];
       }
     }
   }
 
-  v14 = *(a1 + 40);
-  if (v14)
+  v16 = *(a1 + 40);
+  if (v16)
   {
-    (*(v14 + 16))(v14, v5, v6);
+    (*(v16 + 16))(v16, v5, v6);
   }
 }
 
 - (id)_uniqueIdentifierStacksFromIconState:(id)state
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = [state objectForKey:@"iconLists"];
   v5 = [v4 objectAtIndexedSubscript:0];
   v6 = v5;
-  if (v5 && [v5 count] == 2)
+  if (v5 && (v5 = [v5 count], v5 == 2))
   {
-    v7 = AMUILogInfograph();
+    v7 = AMUILogInfograph(2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = v6;
+      v16 = v6;
       _os_log_impl(&dword_23F38B000, v7, OS_LOG_TYPE_DEFAULT, "Parsing widget stacks:%@ into uniqueIdentifierStacks", buf, 0xCu);
     }
 
@@ -714,14 +784,14 @@ void __80__AMUIInfographViewController__saveInfographPosterConfigurationData_com
     v9 = [v6 objectAtIndexedSubscript:1];
     v10 = [(AMUIInfographViewController *)self _uniqueIdentifiersForStack:v8];
     v11 = [(AMUIInfographViewController *)self _uniqueIdentifiersForStack:v9];
-    v15[0] = v10;
-    v15[1] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = v10;
+    v14[1] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   }
 
   else
   {
-    v8 = AMUILogInfograph();
+    v8 = AMUILogInfograph(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [AMUIInfographViewController _uniqueIdentifierStacksFromIconState:];
@@ -730,45 +800,43 @@ void __80__AMUIInfographViewController__saveInfographPosterConfigurationData_com
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)_uniqueIdentifiersForStack:(id)stack
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   stackCopy = stack;
-  v4 = AMUILogInfograph();
+  v4 = AMUILogInfograph(stackCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = stackCopy;
+    v23 = stackCopy;
     _os_log_impl(&dword_23F38B000, v4, OS_LOG_TYPE_DEFAULT, "Creating uniqueIdentifiers for stack:%@", buf, 0xCu);
   }
 
   v5 = [stackCopy objectForKey:@"elements"];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v18 + 1) + 8 * i) objectForKey:{@"uniqueIdentifier", v18}];
+        v12 = [*(*(&v17 + 1) + 8 * i) objectForKey:{@"uniqueIdentifier", v17}];
         v13 = v12;
         if (v12)
         {
@@ -785,13 +853,11 @@ void __80__AMUIInfographViewController__saveInfographPosterConfigurationData_com
         [v6 addObject:v15];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -935,24 +1001,22 @@ void __74__AMUIInfographViewController_cancelTouchesForCurrentEventInHostedConte
 
 - (id)renderSchemeForWidgetViewController
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   traitCollection = [(AMUIInfographViewController *)self traitCollection];
   v3 = objc_opt_self();
   [traitCollection valueForNSIntegerTrait:v3];
   IsRedMode = AMUIAmbientDisplayStyleIsRedMode();
 
   v5 = [objc_alloc(MEMORY[0x277CFA430]) initWithRenderingMode:IsRedMode backgroundViewPolicy:1];
-  v6 = AMUILogInfograph();
+  v6 = AMUILogInfograph(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = v5;
-    v11 = 1024;
-    v12 = IsRedMode;
-    _os_log_impl(&dword_23F38B000, v6, OS_LOG_TYPE_DEFAULT, "Created renderScheme:%@ for widget view controller with redModeEnabled:%d", &v9, 0x12u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 1024;
+    v11 = IsRedMode;
+    _os_log_impl(&dword_23F38B000, v6, OS_LOG_TYPE_DEFAULT, "Created renderScheme:%@ for widget view controller with redModeEnabled:%d", &v8, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1046,13 +1110,14 @@ void __74__AMUIInfographViewController_cancelTouchesForCurrentEventInHostedConte
 void __44__AMUIInfographViewController__fetchIntents__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
-  v9 = 0;
-  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:a3 requiringSecureCoding:1 error:&v9];
-  v7 = v9;
+  v10 = 0;
+  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:a3 requiringSecureCoding:1 error:&v10];
+  v7 = v10;
+  v8 = v7;
   if (v7)
   {
-    v8 = AMUILogInfograph();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = AMUILogInfograph(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __44__AMUIInfographViewController__fetchIntents__block_invoke_cold_1();
     }
@@ -1066,7 +1131,7 @@ void __44__AMUIInfographViewController__fetchIntents__block_invoke(uint64_t a1, 
 
 - (void)setIntent:(id)intent forIconWithIdentifier:(id)identifier widgetUniqueIdentifier:(id)uniqueIdentifier
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   identifierCopy = identifier;
   uniqueIdentifierCopy = uniqueIdentifier;
@@ -1078,59 +1143,61 @@ void __44__AMUIInfographViewController__fetchIntents__block_invoke(uint64_t a1, 
   }
 
   uniqueIdentifierCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@", uniqueIdentifierCopy];
+  v14 = uniqueIdentifierCopy;
   if (intentCopy)
   {
-    v26 = 0;
-    v14 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:intentCopy requiringSecureCoding:1 error:&v26];
-    v15 = v26;
-    if (!v14)
+    v27 = 0;
+    v15 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:intentCopy requiringSecureCoding:1 error:&v27];
+    v16 = v27;
+    v17 = v16;
+    if (!v15)
     {
-      v17 = AMUILogWidgets();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = AMUILogWidgets(v16);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         _indexingHash = [intentCopy _indexingHash];
         *buf = 138544130;
-        v28 = uniqueIdentifierCopy;
-        v29 = 2048;
+        v29 = uniqueIdentifierCopy;
+        v30 = 2048;
         _indexingHash3 = _indexingHash;
-        v31 = 2112;
-        v32 = uniqueIdentifierCopy;
-        v33 = 2112;
-        v34 = v15;
-        _os_log_error_impl(&dword_23F38B000, v17, OS_LOG_TYPE_ERROR, "Error archiving intent widget unique identifier '%{public}@/%lld/%@': %@", buf, 0x2Au);
+        v32 = 2112;
+        v33 = v14;
+        v34 = 2112;
+        v35 = v17;
+        _os_log_error_impl(&dword_23F38B000, v19, OS_LOG_TYPE_ERROR, "Error archiving intent widget unique identifier '%{public}@/%lld/%@': %@", buf, 0x2Au);
       }
 
       goto LABEL_17;
     }
 
-    [(NSMutableDictionary *)self->_intents setObject:v14 forKey:uniqueIdentifierCopy];
-    v16 = [v14 length];
-    v17 = AMUILogWidgets();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
-    if (v16)
+    [(NSMutableDictionary *)self->_intents setObject:v15 forKey:v14];
+    v18 = [v15 length];
+    v19 = AMUILogWidgets(v18);
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+    if (v18)
     {
-      if (v18)
+      if (v20)
       {
         _indexingHash2 = [intentCopy _indexingHash];
         *buf = 138543618;
-        v28 = uniqueIdentifierCopy;
-        v29 = 2048;
+        v29 = uniqueIdentifierCopy;
+        v30 = 2048;
         _indexingHash3 = _indexingHash2;
-        v20 = "Saving intent for widget unique identifier '%{public}@'/%lld";
-        v21 = v17;
-        v22 = 22;
+        v22 = "Saving intent for widget unique identifier '%{public}@'/%lld";
+        v23 = v19;
+        v24 = 22;
 LABEL_16:
-        _os_log_impl(&dword_23F38B000, v21, OS_LOG_TYPE_DEFAULT, v20, buf, v22);
+        _os_log_impl(&dword_23F38B000, v23, OS_LOG_TYPE_DEFAULT, v22, buf, v24);
       }
     }
 
-    else if (v18)
+    else if (v20)
     {
       *buf = 138543362;
-      v28 = uniqueIdentifierCopy;
-      v20 = "Saving 0-length intent for widget unique identifier '%{public}@'";
-      v21 = v17;
-      v22 = 12;
+      v29 = uniqueIdentifierCopy;
+      v22 = "Saving 0-length intent for widget unique identifier '%{public}@'";
+      v23 = v19;
+      v24 = 12;
       goto LABEL_16;
     }
 
@@ -1139,27 +1206,25 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v23 = AMUILogWidgets();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v25 = AMUILogWidgets(uniqueIdentifierCopy);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v28 = uniqueIdentifierCopy;
-    v29 = 2048;
+    v29 = uniqueIdentifierCopy;
+    v30 = 2048;
     _indexingHash3 = [0 _indexingHash];
-    v31 = 2112;
-    v32 = uniqueIdentifierCopy;
-    _os_log_impl(&dword_23F38B000, v23, OS_LOG_TYPE_DEFAULT, "Removing intent for widget unique identifier '%{public}@'/%lld/%@", buf, 0x20u);
+    v32 = 2112;
+    v33 = v14;
+    _os_log_impl(&dword_23F38B000, v25, OS_LOG_TYPE_DEFAULT, "Removing intent for widget unique identifier '%{public}@'/%lld/%@", buf, 0x20u);
   }
 
-  [(NSMutableDictionary *)self->_intents removeObjectForKey:uniqueIdentifierCopy];
+  [(NSMutableDictionary *)self->_intents removeObjectForKey:v14];
 LABEL_18:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)defaultIconStateForIconManager:(id)manager
 {
-  v4 = AMUILogInfograph();
+  v4 = AMUILogInfograph(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -1292,7 +1357,7 @@ LABEL_18:
 
     else
     {
-      v11 = AMUILogWidgets();
+      v11 = AMUILogWidgets(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [AMUIInfographViewController iconManager:bundleIdentifierToLaunchForWidgetURL:];
@@ -1304,7 +1369,7 @@ LABEL_18:
 
   else
   {
-    v7 = AMUILogWidgets();
+    v7 = AMUILogWidgets(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v13 = 0;
@@ -1943,19 +2008,93 @@ void __62__AMUIInfographViewController__infographConfigurationMetadata__block_in
   }
 }
 
+- (void)_presentAddWidgetSheetFromViewController:(id)controller withAllowedSizeClasses:(id)classes allowsNonStackableItems:(BOOL)items
+{
+  itemsCopy = items;
+  addWidgetSheetConfigurationManager = self->_addWidgetSheetConfigurationManager;
+  classesCopy = classes;
+  v10 = addWidgetSheetConfigurationManager;
+  classesCopy2 = classes;
+  controllerCopy = controller;
+  v13 = [(SBHAddWidgetSheetConfigurationManager *)v10 applicationWidgetCollectionsForEditingViewController:controllerCopy withAllowedSizeClasses:&classesCopy allowingNonStackableItems:itemsCopy];
+  v14 = classesCopy;
+
+  v38 = v14;
+  chsWidgetFamilyMask = [v14 chsWidgetFamilyMask];
+  v16 = itemsCopy;
+  _iconViewProvider = [(AMUIInfographViewController *)self _iconViewProvider];
+  iconManager = [(AMUIInfographViewController *)self iconManager];
+  addWidgetSheetIconImageCache = [iconManager addWidgetSheetIconImageCache];
+
+  v20 = objc_alloc_init(MEMORY[0x277D66160]);
+  v21 = [objc_alloc(MEMORY[0x277D66270]) initWithListLayoutProvider:v20 iconViewProvider:_iconViewProvider allowedWidgets:chsWidgetFamilyMask appCellIconImageCache:v16 addWidgetSheetStyle:{addWidgetSheetIconImageCache, -[AMUIInfographViewController _addWidgetSheetStyle](self, "_addWidgetSheetStyle")}];
+  [v21 setAddWidgetSheetLocation:{-[SBHAddWidgetSheetConfigurationManager addWidgetSheetLocation](v10, "addWidgetSheetLocation")}];
+  [v21 setPresenter:controllerCopy];
+
+  [v21 setAddWidgetSheetWidgetBackgroundType:1];
+  traitCollection = [(AMUIInfographViewController *)self traitCollection];
+  [v21 setOverrideUserInterfaceStyle:{objc_msgSend(traitCollection, "userInterfaceStyle")}];
+
+  stackConfigurationSuggestedWidgetItems = [(SBHAddWidgetSheetConfigurationManager *)v10 stackConfigurationSuggestedWidgetItems];
+
+  [v21 setGalleryLayoutSize:0];
+  [v21 setSuggestedItems:stackConfigurationSuggestedWidgetItems forGalleryLayoutSize:0];
+  [(AMUIInfographViewController *)self setAddWidgetSheetViewController:v21];
+  [v21 setApplicationWidgetCollections:v13];
+  [v21 setDelegate:self];
+  [v21 setModalPresentationStyle:2];
+  view = [(AMUIInfographViewController *)self view];
+  [view bounds];
+  v26 = v25;
+  v28 = v27;
+
+  [v21 preferredInsetsForSheetPresentationInInterfaceOrientation:{-[AMUIInfographViewController interfaceOrientation](self, "interfaceOrientation")}];
+  [v21 setPreferredContentSize:{v26 - (v29 + v30), v28 - (v31 + v32)}];
+  presentationController = [v21 presentationController];
+  v34 = objc_opt_class();
+  v35 = presentationController;
+  if (v34)
+  {
+    if (objc_opt_isKindOfClass())
+    {
+      v36 = v35;
+    }
+
+    else
+    {
+      v36 = 0;
+    }
+  }
+
+  else
+  {
+    v36 = 0;
+  }
+
+  v37 = v36;
+
+  [v37 _setShouldDismissWhenTappedOutside:1];
+  [v37 setPrefersEdgeAttachedInCompactHeight:1];
+  [v37 setWidthFollowsPreferredContentSizeWhenEdgeAttached:1];
+  [v37 setPreferredCornerRadius:35.0];
+
+  [(AMUIInfographViewController *)self presentViewController:v21 animated:1 completion:0];
+}
+
 - (void)_showLaunchConfirmationForApplicationWithBundleIdentifier:(id)identifier withActions:(id)actions iconView:(id)view
 {
-  v68[1] = *MEMORY[0x277D85DE8];
+  v70[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   actionsCopy = actions;
   viewCopy = view;
-  if ([(AMUIInfographViewController *)self isConfiguring])
+  isConfiguring = [(AMUIInfographViewController *)self isConfiguring];
+  if (isConfiguring)
   {
-    v11 = AMUILogInfograph();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = AMUILogInfograph(isConfiguring);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_23F38B000, v11, OS_LOG_TYPE_DEFAULT, "Skipping launch confirmation because of configuration", buf, 2u);
+      _os_log_impl(&dword_23F38B000, v12, OS_LOG_TYPE_DEFAULT, "Skipping launch confirmation because of configuration", buf, 2u);
     }
 
 LABEL_12:
@@ -1967,11 +2106,11 @@ LABEL_12:
 
   if (!window)
   {
-    v11 = AMUILogInfograph();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = AMUILogInfograph(v14);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_23F38B000, v11, OS_LOG_TYPE_DEFAULT, "Skipping launch confirmation because iconView is no longer in a window", buf, 2u);
+      _os_log_impl(&dword_23F38B000, v12, OS_LOG_TYPE_DEFAULT, "Skipping launch confirmation because iconView is no longer in a window", buf, 2u);
     }
 
     goto LABEL_12;
@@ -1983,11 +2122,11 @@ LABEL_12:
 
   if (window2 != window3)
   {
-    v11 = AMUILogInfograph();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = AMUILogInfograph(v18);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_23F38B000, v11, OS_LOG_TYPE_DEFAULT, "Skipping launch confirmation because iconView is not in the correct window", buf, 2u);
+      _os_log_impl(&dword_23F38B000, v12, OS_LOG_TYPE_DEFAULT, "Skipping launch confirmation because iconView is not in the correct window", buf, 2u);
     }
 
     goto LABEL_12;
@@ -1997,105 +2136,105 @@ LABEL_12:
   [(AMUIInfographViewController *)self _dismissLaunchConfirmationAnimated:1];
   if (viewCopy)
   {
-    v16 = objc_alloc(MEMORY[0x277D75D68]);
-    v17 = [MEMORY[0x277D75210] effectWithStyle:16];
-    v18 = [v16 initWithEffect:v17];
+    v19 = objc_alloc(MEMORY[0x277D75D68]);
+    v20 = [MEMORY[0x277D75210] effectWithStyle:16];
+    v21 = [v19 initWithEffect:v20];
 
-    [v18 _setContinuousCornerRadius:14.0];
-    layer = [v18 layer];
+    [v21 _setContinuousCornerRadius:14.0];
+    layer = [v21 layer];
     [layer setAllowsGroupBlending:1];
 
-    [v18 setAccessibilityIdentifier:@"infograph-launch-confirmation"];
-    [v18 setTranslatesAutoresizingMaskIntoConstraints:0];
-    v20 = [MEMORY[0x277D755D0] configurationWithPointSize:4 weight:33.0];
+    [v21 setAccessibilityIdentifier:@"infograph-launch-confirmation"];
+    [v21 setTranslatesAutoresizingMaskIntoConstraints:0];
+    v23 = [MEMORY[0x277D755D0] configurationWithPointSize:4 weight:33.0];
     configurationPreferringMonochrome = [MEMORY[0x277D755D0] configurationPreferringMonochrome];
-    v58 = [v20 configurationByApplyingConfiguration:configurationPreferringMonochrome];
+    v60 = [v23 configurationByApplyingConfiguration:configurationPreferringMonochrome];
 
-    v57 = [MEMORY[0x277D755B8] systemImageNamed:@"arrow.up.forward.square.fill" withConfiguration:v58];
-    v59 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v57];
+    v59 = [MEMORY[0x277D755B8] systemImageNamed:@"arrow.up.forward.square.fill" withConfiguration:v60];
+    v61 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v59];
     whiteColor = [MEMORY[0x277D75348] whiteColor];
-    [v59 setTintColor:whiteColor];
+    [v61 setTintColor:whiteColor];
 
-    layer2 = [v59 layer];
+    layer2 = [v61 layer];
     [layer2 setAllowsGroupBlending:1];
 
-    layer3 = [v59 layer];
-    v25 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA5E8]];
-    v68[0] = v25;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:1];
-    [layer3 setCompositingFilter:v26];
+    layer3 = [v61 layer];
+    v28 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA5E8]];
+    v70[0] = v28;
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:1];
+    [layer3 setCompositingFilter:v29];
 
-    [v59 setTranslatesAutoresizingMaskIntoConstraints:0];
-    contentView = [v18 contentView];
-    [contentView addSubview:v59];
+    [v61 setTranslatesAutoresizingMaskIntoConstraints:0];
+    contentView = [v21 contentView];
+    [contentView addSubview:v61];
 
     view2 = [(AMUIInfographViewController *)self view];
-    [view2 addSubview:v18];
-    v45 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:self action:sel__launchConfirmationTapGestureDidFire_];
-    [v18 addGestureRecognizer:v45];
-    [(AMUIInfographViewController *)self setLaunchConfirmationView:v18];
+    [view2 addSubview:v21];
+    v47 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:self action:sel__launchConfirmationTapGestureDidFire_];
+    [v21 addGestureRecognizer:v47];
+    [(AMUIInfographViewController *)self setLaunchConfirmationView:v21];
     [(AMUIInfographViewController *)self setPendingLaunchBundleIdentifier:identifierCopy];
     [(AMUIInfographViewController *)self setPendingLaunchActions:actionsCopy];
-    v42 = MEMORY[0x277CCAAD0];
-    widthAnchor = [v18 widthAnchor];
-    v55 = [widthAnchor constraintEqualToConstant:60.0];
-    v67[0] = v55;
-    heightAnchor = [v18 heightAnchor];
-    v53 = [heightAnchor constraintEqualToConstant:60.0];
-    v67[1] = v53;
-    centerXAnchor = [v18 centerXAnchor];
+    v44 = MEMORY[0x277CCAAD0];
+    widthAnchor = [v21 widthAnchor];
+    v57 = [widthAnchor constraintEqualToConstant:60.0];
+    v69[0] = v57;
+    heightAnchor = [v21 heightAnchor];
+    v55 = [heightAnchor constraintEqualToConstant:60.0];
+    v69[1] = v55;
+    centerXAnchor = [v21 centerXAnchor];
     trailingAnchor = [viewCopy trailingAnchor];
-    v49 = [centerXAnchor constraintEqualToAnchor:trailingAnchor constant:-15.0];
-    v67[2] = v49;
-    centerYAnchor = [v18 centerYAnchor];
+    v51 = [centerXAnchor constraintEqualToAnchor:trailingAnchor constant:-15.0];
+    v69[2] = v51;
+    centerYAnchor = [v21 centerYAnchor];
     topAnchor = [viewCopy topAnchor];
-    v46 = [centerYAnchor constraintEqualToAnchor:topAnchor constant:15.0];
-    v67[3] = v46;
-    centerXAnchor2 = [v18 centerXAnchor];
-    centerXAnchor3 = [v59 centerXAnchor];
-    v28 = [centerXAnchor2 constraintEqualToAnchor:centerXAnchor3];
-    v67[4] = v28;
-    centerYAnchor2 = [v18 centerYAnchor];
-    centerYAnchor3 = [v59 centerYAnchor];
-    v31 = [centerYAnchor2 constraintEqualToAnchor:centerYAnchor3];
-    v67[5] = v31;
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:6];
-    [v42 activateConstraints:v32];
+    v48 = [centerYAnchor constraintEqualToAnchor:topAnchor constant:15.0];
+    v69[3] = v48;
+    centerXAnchor2 = [v21 centerXAnchor];
+    centerXAnchor3 = [v61 centerXAnchor];
+    v31 = [centerXAnchor2 constraintEqualToAnchor:centerXAnchor3];
+    v69[4] = v31;
+    centerYAnchor2 = [v21 centerYAnchor];
+    centerYAnchor3 = [v61 centerYAnchor];
+    v34 = [centerYAnchor2 constraintEqualToAnchor:centerYAnchor3];
+    v69[5] = v34;
+    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:6];
+    [v44 activateConstraints:v35];
 
     CGAffineTransformMakeScale(buf, 0.01, 0.01);
-    [v18 setTransform:buf];
-    [v18 setAlpha:0.0];
-    v33 = [MEMORY[0x277CF0CF0] settingsWithMass:2.0 stiffness:219.325 damping:21.4268];
-    v34 = MEMORY[0x277CF0D38];
+    [v21 setTransform:buf];
+    [v21 setAlpha:0.0];
+    v36 = [MEMORY[0x277CF0CF0] settingsWithMass:2.0 stiffness:219.325 damping:21.4268];
+    v37 = MEMORY[0x277CF0D38];
+    v66[0] = MEMORY[0x277D85DD0];
+    v66[1] = 3221225472;
+    v66[2] = __110__AMUIInfographViewController__showLaunchConfirmationForApplicationWithBundleIdentifier_withActions_iconView___block_invoke;
+    v66[3] = &unk_278C75D60;
+    v38 = v21;
+    v67 = v38;
+    [v37 animateWithSettings:v36 options:2 actions:v66 completion:0];
+    v39 = [MEMORY[0x277CF0C88] settingsWithMass:2.0 stiffness:1973.92 damping:125.664];
+    [v39 setDelay:0.085];
+    v40 = MEMORY[0x277CF0D38];
     v64[0] = MEMORY[0x277D85DD0];
     v64[1] = 3221225472;
-    v64[2] = __110__AMUIInfographViewController__showLaunchConfirmationForApplicationWithBundleIdentifier_withActions_iconView___block_invoke;
+    v64[2] = __110__AMUIInfographViewController__showLaunchConfirmationForApplicationWithBundleIdentifier_withActions_iconView___block_invoke_2;
     v64[3] = &unk_278C75D60;
-    v35 = v18;
-    v65 = v35;
-    [v34 animateWithSettings:v33 options:2 actions:v64 completion:0];
-    v36 = [MEMORY[0x277CF0C88] settingsWithMass:2.0 stiffness:1973.92 damping:125.664];
-    [v36 setDelay:0.085];
-    v37 = MEMORY[0x277CF0D38];
+    v41 = v38;
+    v65 = v41;
+    [v40 animateWithSettings:v39 options:2 actions:v64 completion:0];
+    objc_initWeak(buf, self);
+    v42 = MEMORY[0x277CBEBB8];
     v62[0] = MEMORY[0x277D85DD0];
     v62[1] = 3221225472;
-    v62[2] = __110__AMUIInfographViewController__showLaunchConfirmationForApplicationWithBundleIdentifier_withActions_iconView___block_invoke_2;
-    v62[3] = &unk_278C75D60;
-    v38 = v35;
-    v63 = v38;
-    [v37 animateWithSettings:v36 options:2 actions:v62 completion:0];
-    objc_initWeak(buf, self);
-    v39 = MEMORY[0x277CBEBB8];
-    v60[0] = MEMORY[0x277D85DD0];
-    v60[1] = 3221225472;
-    v60[2] = __110__AMUIInfographViewController__showLaunchConfirmationForApplicationWithBundleIdentifier_withActions_iconView___block_invoke_3;
-    v60[3] = &unk_278C765D8;
-    objc_copyWeak(&v61, buf);
-    v40 = [v39 scheduledTimerWithTimeInterval:0 repeats:v60 block:10.0];
-    [(AMUIInfographViewController *)self setLaunchConfirmationCancelTimer:v40];
+    v62[2] = __110__AMUIInfographViewController__showLaunchConfirmationForApplicationWithBundleIdentifier_withActions_iconView___block_invoke_3;
+    v62[3] = &unk_278C765D8;
+    objc_copyWeak(&v63, buf);
+    v43 = [v42 scheduledTimerWithTimeInterval:0 repeats:v62 block:10.0];
+    [(AMUIInfographViewController *)self setLaunchConfirmationCancelTimer:v43];
     [(AMUIInfographViewController *)self _willShowTemporaryOverlayForReason:@"AMUITemporaryOverlayReasonLaunchConfirmation"];
 
-    objc_destroyWeak(&v61);
+    objc_destroyWeak(&v63);
     objc_destroyWeak(buf);
   }
 
@@ -2106,8 +2245,6 @@ LABEL_12:
 
   [(AMUIInfographViewController *)self _willHideTemporaryOverlayForReason:@"AMUITemporaryOverlayReasonSetUpLaunchConfirmation"];
 LABEL_17:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __110__AMUIInfographViewController__showLaunchConfirmationForApplicationWithBundleIdentifier_withActions_iconView___block_invoke(uint64_t a1)
@@ -2215,32 +2352,30 @@ uint64_t __66__AMUIInfographViewController__dismissLaunchConfirmationAnimated___
 
 void __98__AMUIInfographViewController__handleLaunchRequestForApplicationWithBundleIdentifier_withActions___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = a3;
-  v5 = AMUILogInfograph();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
-  if (v4)
+  v3 = a3;
+  v4 = AMUILogInfograph(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v3)
   {
-    if (v6)
+    if (v5)
     {
-      __98__AMUIInfographViewController__handleLaunchRequestForApplicationWithBundleIdentifier_withActions___block_invoke_cold_1(a1);
+      __98__AMUIInfographViewController__handleLaunchRequestForApplicationWithBundleIdentifier_withActions___block_invoke_cold_1();
     }
   }
 
-  else if (v6)
+  else if (v5)
   {
-    __98__AMUIInfographViewController__handleLaunchRequestForApplicationWithBundleIdentifier_withActions___block_invoke_cold_2(a1);
+    __98__AMUIInfographViewController__handleLaunchRequestForApplicationWithBundleIdentifier_withActions___block_invoke_cold_2();
   }
 }
 
 - (void)_registerForAmbientPresentationTraitChanges
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_self();
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   v5 = [(AMUIInfographViewController *)self registerForTraitChanges:v4 withHandler:&__block_literal_global_180];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __74__AMUIInfographViewController__registerForAmbientPresentationTraitChanges__block_invoke(uint64_t a1, id *a2)
@@ -2250,56 +2385,53 @@ void __74__AMUIInfographViewController__registerForAmbientPresentationTraitChang
   WeakRetained = objc_loadWeakRetained(a2 + 155);
   v5 = [v3 customDisplayConfigurationForWidgetViewController];
 
-  v6 = AMUILogInfograph();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = AMUILogInfograph(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
     v9 = v5;
-    _os_log_impl(&dword_23F38B000, v6, OS_LOG_TYPE_DEFAULT, "Updating widget view controllers to custom display configuration:%@ due to displayStyleTrait change", &v8, 0xCu);
+    _os_log_impl(&dword_23F38B000, v7, OS_LOG_TYPE_DEFAULT, "Updating widget view controllers to custom display configuration:%@ due to displayStyleTrait change", &v8, 0xCu);
   }
 
   [WeakRetained updateWidgetViewControllersWithCustomDisplayConfiguration:v5];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_iconStateWithLeadingElements:(id)elements trialingElements:(id)trialingElements
 {
-  v22[5] = *MEMORY[0x277D85DE8];
-  v21[0] = @"elements";
-  v21[1] = @"allowsExternalSuggestions";
-  v22[0] = elements;
-  v22[1] = &unk_28519CE00;
-  v21[2] = @"gridSize";
-  v21[3] = @"allowsSuggestions";
-  v22[2] = @"small";
-  v22[3] = &unk_28519CE18;
-  v21[4] = @"iconType";
-  v22[4] = @"custom";
+  v21[5] = *MEMORY[0x277D85DE8];
+  v20[0] = @"elements";
+  v20[1] = @"allowsExternalSuggestions";
+  v21[0] = elements;
+  v21[1] = &unk_28519CE00;
+  v20[2] = @"gridSize";
+  v20[3] = @"allowsSuggestions";
+  v21[2] = @"small";
+  v21[3] = &unk_28519CE18;
+  v20[4] = @"iconType";
+  v21[4] = @"custom";
   v5 = MEMORY[0x277CBEAC0];
   trialingElementsCopy = trialingElements;
   elementsCopy = elements;
-  v7 = [v5 dictionaryWithObjects:v22 forKeys:v21 count:5];
-  v19[0] = @"elements";
-  v19[1] = @"allowsExternalSuggestions";
-  v20[0] = trialingElementsCopy;
-  v20[1] = &unk_28519CE00;
-  v19[2] = @"gridSize";
-  v19[3] = @"allowsSuggestions";
-  v20[2] = @"small";
-  v20[3] = &unk_28519CE18;
-  v19[4] = @"iconType";
-  v20[4] = @"custom";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:5];
-  v17 = @"iconLists";
-  v15[0] = v7;
-  v15[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
-  v16 = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
-  v18 = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v7 = [v5 dictionaryWithObjects:v21 forKeys:v20 count:5];
+  v18[0] = @"elements";
+  v18[1] = @"allowsExternalSuggestions";
+  v19[0] = trialingElementsCopy;
+  v19[1] = &unk_28519CE00;
+  v18[2] = @"gridSize";
+  v18[3] = @"allowsSuggestions";
+  v19[2] = @"small";
+  v19[3] = &unk_28519CE18;
+  v18[4] = @"iconType";
+  v19[4] = @"custom";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:5];
+  v16 = @"iconLists";
+  v14[0] = v7;
+  v14[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v15 = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+  v17 = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
 
   return v11;
 }
@@ -2308,7 +2440,7 @@ void __74__AMUIInfographViewController__registerForAmbientPresentationTraitChang
 {
   v16 = *MEMORY[0x277D85DE8];
   stacksCopy = stacks;
-  v5 = AMUILogInfograph();
+  v5 = AMUILogInfograph(stacksCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138412290;
@@ -2318,238 +2450,234 @@ void __74__AMUIInfographViewController__registerForAmbientPresentationTraitChang
 
   if (stacksCopy)
   {
-    v6 = [stacksCopy objectAtIndexedSubscript:0];
-    v7 = [stacksCopy objectAtIndexedSubscript:1];
-    v8 = [(AMUIInfographViewController *)self _stackElementsFromWidgetDescriptors:v6];
+    v7 = [stacksCopy objectAtIndexedSubscript:0];
+    v8 = [stacksCopy objectAtIndexedSubscript:1];
     v9 = [(AMUIInfographViewController *)self _stackElementsFromWidgetDescriptors:v7];
-    v10 = [(AMUIInfographViewController *)self _iconStateWithLeadingElements:v8 trialingElements:v9];
-    v11 = AMUILogInfograph();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = [(AMUIInfographViewController *)self _stackElementsFromWidgetDescriptors:v8];
+    v11 = [(AMUIInfographViewController *)self _iconStateWithLeadingElements:v9 trialingElements:v10];
+    v12 = AMUILogInfograph(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v14 = 138412290;
-      v15 = v10;
-      _os_log_impl(&dword_23F38B000, v11, OS_LOG_TYPE_DEFAULT, "Successfully created iconStateFromDefaultWidgetDescriptorStacks:%@", &v14, 0xCu);
+      v15 = v11;
+      _os_log_impl(&dword_23F38B000, v12, OS_LOG_TYPE_DEFAULT, "Successfully created iconStateFromDefaultWidgetDescriptorStacks:%@", &v14, 0xCu);
     }
   }
 
   else
   {
-    v6 = AMUILogInfograph();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = AMUILogInfograph(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v14) = 0;
-      _os_log_impl(&dword_23F38B000, v6, OS_LOG_TYPE_DEFAULT, "Could not create default icon state because defaultWidgetDescriptorStacks was nil", &v14, 2u);
+      _os_log_impl(&dword_23F38B000, v7, OS_LOG_TYPE_DEFAULT, "Could not create default icon state because defaultWidgetDescriptorStacks was nil", &v14, 2u);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v11;
 }
 
 - (id)_stackElementsFromWidgetDescriptors:(id)descriptors
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   descriptorsCopy = descriptors;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = descriptorsCopy;
-  v5 = [obj countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v5 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         kind = [v9 kind];
         extensionIdentity = [v9 extensionIdentity];
         containerBundleIdentifier = [extensionIdentity containerBundleIdentifier];
 
         extensionBundleIdentifier = [v9 extensionBundleIdentifier];
-        v22[0] = @"elementType";
-        v22[1] = @"widgetIdentifier";
-        v23[0] = @"widget";
-        v23[1] = kind;
-        v22[2] = @"containerBundleIdentifier";
-        v22[3] = @"bundleIdentifier";
-        v23[2] = containerBundleIdentifier;
-        v23[3] = extensionBundleIdentifier;
-        v22[4] = @"widgetSuggestionSource";
-        v23[4] = @"onboarding";
-        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:5];
+        v21[0] = @"elementType";
+        v21[1] = @"widgetIdentifier";
+        v22[0] = @"widget";
+        v22[1] = kind;
+        v21[2] = @"containerBundleIdentifier";
+        v21[3] = @"bundleIdentifier";
+        v22[2] = containerBundleIdentifier;
+        v22[3] = extensionBundleIdentifier;
+        v21[4] = @"widgetSuggestionSource";
+        v22[4] = @"onboarding";
+        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:5];
         [v4 addObject:v14];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v6 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)_defaultIconState
 {
-  v65[5] = *MEMORY[0x277D85DE8];
-  v64[0] = @"elementType";
-  v64[1] = @"widgetIdentifier";
-  v65[0] = @"widget";
-  v65[1] = @"com.apple.mobiletimer.datetime";
-  v64[2] = @"containerBundleIdentifier";
-  v64[3] = @"bundleIdentifier";
-  v65[2] = @"com.apple.mobiletimer";
-  v65[3] = @"com.apple.mobiletimer.WorldClockWidget";
-  v64[4] = @"widgetSuggestionSource";
-  v65[4] = @"onboarding";
-  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:5];
-  v62[0] = @"elementType";
-  v62[1] = @"widgetIdentifier";
-  v63[0] = @"widget";
-  v63[1] = @"com.apple.CalendarWidget.CalendarDateWidget";
-  v62[2] = @"containerBundleIdentifier";
-  v62[3] = @"bundleIdentifier";
-  v63[2] = @"com.apple.mobilecal";
-  v63[3] = @"com.apple.mobilecal.CalendarWidgetExtension";
-  v62[4] = @"widgetSuggestionSource";
-  v63[4] = @"onboarding";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:5];
-  v60[0] = @"elementType";
-  v60[1] = @"widgetIdentifier";
-  v61[0] = @"widget";
-  v61[1] = @"detail";
-  v60[2] = @"containerBundleIdentifier";
-  v60[3] = @"bundleIdentifier";
-  v61[2] = @"com.apple.stocks";
-  v61[3] = @"com.apple.stocks.widget";
-  v60[4] = @"widgetSuggestionSource";
-  v61[4] = @"onboarding";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:5];
-  v58[0] = @"elementType";
-  v58[1] = @"widgetIdentifier";
-  v59[0] = @"widget";
-  v59[1] = @"com.apple.mobiletimer.square";
-  v58[2] = @"containerBundleIdentifier";
-  v58[3] = @"bundleIdentifier";
-  v59[2] = @"com.apple.mobiletimer";
-  v59[3] = @"com.apple.mobiletimer.WorldClockWidget";
-  v58[4] = @"widgetSuggestionSource";
-  v59[4] = @"onboarding";
-  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:5];
-  v57[0] = v42;
-  v40 = v3;
-  v41 = v2;
-  v57[1] = v2;
-  v39 = v57[2] = v3;
-  v57[3] = v39;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:4];
-  v34 = [(AMUIInfographViewController *)self _validatedStackFromWidgets:v4];
+  v64[5] = *MEMORY[0x277D85DE8];
+  v63[0] = @"elementType";
+  v63[1] = @"widgetIdentifier";
+  v64[0] = @"widget";
+  v64[1] = @"com.apple.mobiletimer.datetime";
+  v63[2] = @"containerBundleIdentifier";
+  v63[3] = @"bundleIdentifier";
+  v64[2] = @"com.apple.mobiletimer";
+  v64[3] = @"com.apple.mobiletimer.WorldClockWidget";
+  v63[4] = @"widgetSuggestionSource";
+  v64[4] = @"onboarding";
+  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:5];
+  v61[0] = @"elementType";
+  v61[1] = @"widgetIdentifier";
+  v62[0] = @"widget";
+  v62[1] = @"com.apple.CalendarWidget.CalendarDateWidget";
+  v61[2] = @"containerBundleIdentifier";
+  v61[3] = @"bundleIdentifier";
+  v62[2] = @"com.apple.mobilecal";
+  v62[3] = @"com.apple.mobilecal.CalendarWidgetExtension";
+  v61[4] = @"widgetSuggestionSource";
+  v62[4] = @"onboarding";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:5];
+  v59[0] = @"elementType";
+  v59[1] = @"widgetIdentifier";
+  v60[0] = @"widget";
+  v60[1] = @"detail";
+  v59[2] = @"containerBundleIdentifier";
+  v59[3] = @"bundleIdentifier";
+  v60[2] = @"com.apple.stocks";
+  v60[3] = @"com.apple.stocks.widget";
+  v59[4] = @"widgetSuggestionSource";
+  v60[4] = @"onboarding";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:5];
+  v57[0] = @"elementType";
+  v57[1] = @"widgetIdentifier";
+  v58[0] = @"widget";
+  v58[1] = @"com.apple.mobiletimer.square";
+  v57[2] = @"containerBundleIdentifier";
+  v57[3] = @"bundleIdentifier";
+  v58[2] = @"com.apple.mobiletimer";
+  v58[3] = @"com.apple.mobiletimer.WorldClockWidget";
+  v57[4] = @"widgetSuggestionSource";
+  v58[4] = @"onboarding";
+  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:5];
+  v56[0] = v41;
+  v39 = v3;
+  v40 = v2;
+  v56[1] = v2;
+  v38 = v56[2] = v3;
+  v56[3] = v38;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:4];
+  v33 = [(AMUIInfographViewController *)self _validatedStackFromWidgets:v4];
 
-  v55[0] = @"elementType";
-  v55[1] = @"widgetIdentifier";
-  v56[0] = @"widget";
-  v56[1] = @"com.apple.CalendarWidget.CalendarMonthWidget";
-  v55[2] = @"containerBundleIdentifier";
-  v55[3] = @"bundleIdentifier";
-  v56[2] = @"com.apple.mobilecal";
-  v56[3] = @"com.apple.mobilecal.CalendarWidgetExtension";
-  v55[4] = @"widgetSuggestionSource";
-  v56[4] = @"onboarding";
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:5];
-  v53[0] = @"elementType";
-  v53[1] = @"widgetIdentifier";
-  v54[0] = @"widget";
-  v54[1] = @"com.apple.weather";
-  v53[2] = @"containerBundleIdentifier";
-  v53[3] = @"bundleIdentifier";
-  v54[2] = @"com.apple.weather";
-  v54[3] = @"com.apple.weather.widget";
-  v53[4] = @"widgetSuggestionSource";
-  v54[4] = @"onboarding";
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:5];
-  v51[0] = @"elementType";
-  v51[1] = @"widgetIdentifier";
-  v52[0] = @"widget";
-  v52[1] = @"com.apple.CalendarWidget.CalendarUpNextWidget";
-  v51[2] = @"containerBundleIdentifier";
-  v51[3] = @"bundleIdentifier";
-  v52[2] = @"com.apple.mobilecal";
-  v52[3] = @"com.apple.mobilecal.CalendarWidgetExtension";
-  v51[4] = @"widgetSuggestionSource";
-  v52[4] = @"onboarding";
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:5];
-  v49[0] = @"elementType";
-  v49[1] = @"widgetIdentifier";
-  v50[0] = @"widget";
-  v50[1] = @"com.apple.reminders.widget";
-  v49[2] = @"containerBundleIdentifier";
-  v49[3] = @"bundleIdentifier";
-  v50[2] = @"com.apple.reminders";
-  v50[3] = @"com.apple.reminders.WidgetExtension";
-  v49[4] = @"widgetSuggestionSource";
-  v50[4] = @"onboarding";
-  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:5];
-  v37 = v6;
-  v38 = v5;
-  v48[0] = v5;
-  v35 = v48[1] = v6;
-  v36 = v7;
-  v48[2] = v7;
-  v48[3] = v35;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:4];
+  v54[0] = @"elementType";
+  v54[1] = @"widgetIdentifier";
+  v55[0] = @"widget";
+  v55[1] = @"com.apple.CalendarWidget.CalendarMonthWidget";
+  v54[2] = @"containerBundleIdentifier";
+  v54[3] = @"bundleIdentifier";
+  v55[2] = @"com.apple.mobilecal";
+  v55[3] = @"com.apple.mobilecal.CalendarWidgetExtension";
+  v54[4] = @"widgetSuggestionSource";
+  v55[4] = @"onboarding";
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:5];
+  v52[0] = @"elementType";
+  v52[1] = @"widgetIdentifier";
+  v53[0] = @"widget";
+  v53[1] = @"com.apple.weather";
+  v52[2] = @"containerBundleIdentifier";
+  v52[3] = @"bundleIdentifier";
+  v53[2] = @"com.apple.weather";
+  v53[3] = @"com.apple.weather.widget";
+  v52[4] = @"widgetSuggestionSource";
+  v53[4] = @"onboarding";
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:5];
+  v50[0] = @"elementType";
+  v50[1] = @"widgetIdentifier";
+  v51[0] = @"widget";
+  v51[1] = @"com.apple.CalendarWidget.CalendarUpNextWidget";
+  v50[2] = @"containerBundleIdentifier";
+  v50[3] = @"bundleIdentifier";
+  v51[2] = @"com.apple.mobilecal";
+  v51[3] = @"com.apple.mobilecal.CalendarWidgetExtension";
+  v50[4] = @"widgetSuggestionSource";
+  v51[4] = @"onboarding";
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:5];
+  v48[0] = @"elementType";
+  v48[1] = @"widgetIdentifier";
+  v49[0] = @"widget";
+  v49[1] = @"com.apple.reminders.widget";
+  v48[2] = @"containerBundleIdentifier";
+  v48[3] = @"bundleIdentifier";
+  v49[2] = @"com.apple.reminders";
+  v49[3] = @"com.apple.reminders.WidgetExtension";
+  v48[4] = @"widgetSuggestionSource";
+  v49[4] = @"onboarding";
+  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:5];
+  v36 = v6;
+  v37 = v5;
+  v47[0] = v5;
+  v34 = v47[1] = v6;
+  v35 = v7;
+  v47[2] = v7;
+  v47[3] = v34;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:4];
   v9 = [(AMUIInfographViewController *)self _validatedStackFromWidgets:v8];
 
-  v10 = [v34 count];
+  v10 = [v33 count];
   v11 = [v9 count];
   v12 = v11;
   if (v10 && v11)
   {
     selfCopy5 = self;
-    v14 = v34;
+    v14 = v33;
     goto LABEL_23;
   }
 
-  v46[0] = @"elementType";
-  v46[1] = @"widgetIdentifier";
-  v47[0] = @"widget";
-  v47[1] = @"BatteriesAvocadoWidget";
-  v46[2] = @"containerBundleIdentifier";
-  v46[3] = @"bundleIdentifier";
-  v47[2] = @"com.apple.Batteries";
-  v47[3] = @"com.apple.Batteries.BatteriesAvocadoWidgetExtension";
-  v46[4] = @"widgetSuggestionSource";
-  v47[4] = @"onboarding";
-  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:5];
-  v44[0] = @"elementType";
-  v44[1] = @"widgetIdentifier";
-  v45[0] = @"widget";
-  v45[1] = @"SingleContactWidget_iOS";
-  v44[2] = @"containerBundleIdentifier";
-  v44[3] = @"bundleIdentifier";
-  v45[2] = @"com.apple.PeopleViewService";
-  v45[3] = @"com.apple.PeopleViewService.PeopleWidget-iOS";
-  v44[4] = @"widgetSuggestionSource";
-  v45[4] = @"onboarding";
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:5];
-  v14 = v34;
-  if ([v34 count] == 2)
+  v45[0] = @"elementType";
+  v45[1] = @"widgetIdentifier";
+  v46[0] = @"widget";
+  v46[1] = @"BatteriesAvocadoWidget";
+  v45[2] = @"containerBundleIdentifier";
+  v45[3] = @"bundleIdentifier";
+  v46[2] = @"com.apple.Batteries";
+  v46[3] = @"com.apple.Batteries.BatteriesAvocadoWidgetExtension";
+  v45[4] = @"widgetSuggestionSource";
+  v46[4] = @"onboarding";
+  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:5];
+  v43[0] = @"elementType";
+  v43[1] = @"widgetIdentifier";
+  v44[0] = @"widget";
+  v44[1] = @"SingleContactWidget_iOS";
+  v43[2] = @"containerBundleIdentifier";
+  v43[3] = @"bundleIdentifier";
+  v44[2] = @"com.apple.PeopleViewService";
+  v44[3] = @"com.apple.PeopleViewService.PeopleWidget-iOS";
+  v43[4] = @"widgetSuggestionSource";
+  v44[4] = @"onboarding";
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:5];
+  v14 = v33;
+  if ([v33 count] == 2)
   {
-    firstObject = [v34 firstObject];
+    firstObject = [v33 firstObject];
     v17 = [firstObject valueForKey:@"containerBundleIdentifier"];
     v18 = [v17 isEqualToString:@"com.apple.mobiletimer"];
   }
@@ -2563,8 +2691,8 @@ void __74__AMUIInfographViewController__registerForAmbientPresentationTraitChang
   v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (!(v10 | v12))
   {
-    v21 = v33;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObject:v33];
+    v21 = v32;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObject:v32];
 
     v23 = [MEMORY[0x277CBEA60] arrayWithObject:v15];
 
@@ -2579,8 +2707,8 @@ void __74__AMUIInfographViewController__registerForAmbientPresentationTraitChang
     selfCopy5 = self;
     if ([v9 count] == 1)
     {
-      v21 = v33;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObject:v33];
+      v21 = v32;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObject:v32];
 
       v14 = v25;
       goto LABEL_19;
@@ -2594,22 +2722,22 @@ void __74__AMUIInfographViewController__registerForAmbientPresentationTraitChang
   selfCopy5 = self;
   if (!v12)
   {
-    if (([v34 count] == 1) | v18 & 1)
+    if (([v33 count] == 1) | v18 & 1)
     {
-      v21 = v33;
-      v24 = [MEMORY[0x277CBEA60] arrayWithObject:v33];
+      v21 = v32;
+      v24 = [MEMORY[0x277CBEA60] arrayWithObject:v32];
 
       v9 = v24;
       goto LABEL_19;
     }
 
     selfCopy6 = self;
-    v27 = v34;
+    v27 = v33;
 LABEL_17:
     [(AMUIInfographViewController *)selfCopy6 _splitStackElements:v27 intoLeadingElements:v19 trailingElements:v20];
   }
 
-  v21 = v33;
+  v21 = v32;
 LABEL_19:
   if ([v19 count] && objc_msgSend(v20, "count"))
   {
@@ -2622,8 +2750,6 @@ LABEL_19:
 
 LABEL_23:
   v30 = [(AMUIInfographViewController *)selfCopy5 _iconStateWithLeadingElements:v14 trialingElements:v9];
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -2644,48 +2770,46 @@ LABEL_23:
 
 - (id)_validatedStackFromWidgets:(id)widgets
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   widgetsCopy = widgets;
-  v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = widgetsCopy;
-  v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
-        v10 = [v9 objectForKey:{@"containerBundleIdentifier", v16}];
+        v9 = *(*(&v17 + 1) + 8 * i);
+        v10 = [v9 objectForKey:{@"containerBundleIdentifier", v15}];
         v11 = [v9 objectForKey:@"extensionBundleIdentifier"];
         v12 = [(AMUIInfographViewController *)self _recordExistsForContainerBundleIdentifier:v10];
         v13 = [(AMUIInfographViewController *)self _isApplicationProtectedForContainerBundleIdentifier:v10 extensionBundleIdentifier:v11];
         if (v12 && !v13)
         {
-          [v16 addObject:v9];
+          [v15 addObject:v9];
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v15;
 }
 
 - (BOOL)_preparePosterConfigurationToSaveWithCurrentIconState:(id)state intents:(id)intents reason:(id)reason
@@ -2693,21 +2817,22 @@ LABEL_23:
   stateCopy = state;
   intentsCopy = intents;
   reasonCopy = reason;
-  if ([(AMUIInfographViewController *)self _emptyIconState:stateCopy])
+  v11 = [(AMUIInfographViewController *)self _emptyIconState:stateCopy];
+  if (v11)
   {
-    v11 = AMUILogInfograph();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = AMUILogInfograph(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [AMUIInfographViewController _preparePosterConfigurationToSaveWithCurrentIconState:intents:reason:];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v11 = dictionary;
+    v12 = dictionary;
     if (stateCopy)
     {
       [dictionary setObject:stateCopy forKey:@"AMUIIconStateKey"];
@@ -2715,18 +2840,18 @@ LABEL_23:
 
     if (intentsCopy)
     {
-      [v11 setObject:intentsCopy forKey:@"AMUIIntentsKey"];
+      [v12 setObject:intentsCopy forKey:@"AMUIIntentsKey"];
     }
 
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __100__AMUIInfographViewController__preparePosterConfigurationToSaveWithCurrentIconState_intents_reason___block_invoke;
-    v15[3] = &unk_278C76668;
-    v16 = reasonCopy;
-    v12 = [(AMUIInfographViewController *)self _saveInfographPosterConfigurationData:v11 completion:v15];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __100__AMUIInfographViewController__preparePosterConfigurationToSaveWithCurrentIconState_intents_reason___block_invoke;
+    v16[3] = &unk_278C76668;
+    v17 = reasonCopy;
+    v13 = [(AMUIInfographViewController *)self _saveInfographPosterConfigurationData:v12 completion:v16];
   }
 
-  return v12;
+  return v13;
 }
 
 void __100__AMUIInfographViewController__preparePosterConfigurationToSaveWithCurrentIconState_intents_reason___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2734,10 +2859,11 @@ void __100__AMUIInfographViewController__preparePosterConfigurationToSaveWithCur
   v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = AMUILogInfograph();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = AMUILogInfograph(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = *(a1 + 32);
       v10 = 138412802;
@@ -2745,12 +2871,10 @@ void __100__AMUIInfographViewController__preparePosterConfigurationToSaveWithCur
       v12 = 2112;
       v13 = v5;
       v14 = 2112;
-      v15 = v6;
-      _os_log_error_impl(&dword_23F38B000, v7, OS_LOG_TYPE_ERROR, "Error saving poster configuration. Updated reason:%@ configuration:%@ error:%@", &v10, 0x20u);
+      v15 = v7;
+      _os_log_error_impl(&dword_23F38B000, v8, OS_LOG_TYPE_ERROR, "Error saving poster configuration. Updated reason:%@ configuration:%@ error:%@", &v10, 0x20u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_emptyIconState:(id)state
@@ -2861,22 +2985,22 @@ void __100__AMUIInfographViewController__preparePosterConfigurationToSaveWithCur
       v12 = NSStringFromClass(v11);
       [v10 setName:v12];
 
-      v13 = AMUIAmbientUIFrameworkBundle();
-      v14 = [v13 localizedStringForKey:@"UNLOCK_WIDGET_STACK_EDITING" value:&stru_28518E9B8 table:0];
-      [v10 setUnlockDestination:v14];
+      v14 = AMUIAmbientUIFrameworkBundle(v13);
+      v15 = [v14 localizedStringForKey:@"UNLOCK_WIDGET_STACK_EDITING" value:&stru_28518E9B8 table:0];
+      [v10 setUnlockDestination:v15];
 
       objc_initWeak(&location, self);
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __63__AMUIInfographViewController_configurationLongPressDidUpdate___block_invoke;
-      v16[3] = &unk_278C760E0;
-      objc_copyWeak(&v18, &location);
-      v15 = v8;
-      v17 = v15;
-      [delegate requestUnlockForViewController:self withRequest:v10 completion:v16];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __63__AMUIInfographViewController_configurationLongPressDidUpdate___block_invoke;
+      v17[3] = &unk_278C760E0;
+      objc_copyWeak(&v19, &location);
+      v16 = v8;
+      v18 = v16;
+      [delegate requestUnlockForViewController:self withRequest:v10 completion:v17];
       [(AMUIInfographViewController *)self _dismissLaunchConfirmationAnimated:1];
 
-      objc_destroyWeak(&v18);
+      objc_destroyWeak(&v19);
       objc_destroyWeak(&location);
     }
   }
@@ -2932,19 +3056,18 @@ uint64_t __63__AMUIInfographViewController_configurationLongPressDidUpdate___blo
 
 - (void)_fetchDefaultWidgetDescriptorStacks
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   delegate = [(AMUIInfographViewController *)self delegate];
   v4 = [delegate defaultWidgetDescriptorStacksForViewController:self];
-  v5 = AMUILogInfograph();
+  v5 = AMUILogInfograph(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_23F38B000, v5, OS_LOG_TYPE_DEFAULT, "Fetched defaultWidgetDescriptorStacks:%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_23F38B000, v5, OS_LOG_TYPE_DEFAULT, "Fetched defaultWidgetDescriptorStacks:%@", &v6, 0xCu);
   }
 
   [(AMUIInfographViewController *)self setDefaultWidgetDescriptorStacks:v4];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForFirstPresentationStateChange
@@ -3221,7 +3344,7 @@ void __77__AMUIInfographViewController__enumerateWidgetStackViewControllersWithB
 
 - (void)_validateIconListModel:(id)model
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   modelCopy = model;
   icons = [modelCopy icons];
   if (icons)
@@ -3233,9 +3356,9 @@ void __77__AMUIInfographViewController__enumerateWidgetStackViewControllersWithB
       case 0:
         _createBatteriesWidgetIcon = [(AMUIInfographViewController *)self _createBatteriesWidgetIcon];
         _createContactsWidgetIcon = [(AMUIInfographViewController *)self _createContactsWidgetIcon];
-        v37[0] = _createBatteriesWidgetIcon;
-        v37[1] = _createContactsWidgetIcon;
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+        v36[0] = _createBatteriesWidgetIcon;
+        v36[1] = _createContactsWidgetIcon;
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
         v17 = [modelCopy addIcons:v16];
 
         goto LABEL_27;
@@ -3304,15 +3427,15 @@ void __77__AMUIInfographViewController__enumerateWidgetStackViewControllersWithB
               {
                 v27 = [v26 objectForKey:@"displayIdentifier"];
                 v28 = objc_opt_class();
-                v36 = __BSSafeCast(v27, v28);
+                v35 = __BSSafeCast(v27, v28);
 
                 uniqueIdentifier = [_createBatteriesWidgetIcon uniqueIdentifier];
-                v35 = v26;
-                v30 = [v36 isEqualToString:uniqueIdentifier];
+                v34 = v26;
+                v30 = [v35 isEqualToString:uniqueIdentifier];
 
                 _createBatteriesWidgetIcon2 = [(AMUIInfographViewController *)self _createBatteriesWidgetIcon];
                 v32 = v30;
-                v26 = v35;
+                v26 = v34;
                 v33 = [modelCopy insertIcon:_createBatteriesWidgetIcon2 atIndex:v32];
               }
             }
@@ -3328,34 +3451,32 @@ LABEL_27:
         break;
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_validateIcons:(id)icons inIconListModel:(id)model
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   iconsCopy = icons;
   modelCopy = model;
   obj = iconsCopy;
-  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v26 = [iconsCopy countByEnumeratingWithState:&v32 objects:v39 count:16];
-  if (v26)
+  v36 = 0u;
+  v27 = [iconsCopy countByEnumeratingWithState:&v33 objects:v40 count:16];
+  if (v27)
   {
-    v25 = *v33;
+    v26 = *v34;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v27; ++i)
       {
-        if (*v33 != v25)
+        if (*v34 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v32 + 1) + 8 * i);
+        v8 = *(*(&v33 + 1) + 8 * i);
         v9 = objc_opt_class();
         v10 = v8;
         if (v9)
@@ -3380,56 +3501,58 @@ LABEL_27:
 
         if (v12)
         {
-          v27 = i;
+          v28 = i;
           widgets = [v12 widgets];
-          v28 = 0u;
           v29 = 0u;
           v30 = 0u;
           v31 = 0u;
-          v14 = [widgets countByEnumeratingWithState:&v28 objects:v38 count:16];
+          v32 = 0u;
+          v14 = [widgets countByEnumeratingWithState:&v29 objects:v39 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v29;
+            v16 = *v30;
             do
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v29 != v16)
+                if (*v30 != v16)
                 {
                   objc_enumerationMutation(widgets);
                 }
 
-                v18 = *(*(&v28 + 1) + 8 * j);
+                v18 = *(*(&v29 + 1) + 8 * j);
                 containerBundleIdentifier = [v18 containerBundleIdentifier];
-                if (![(AMUIInfographViewController *)self _recordExistsForContainerBundleIdentifier:containerBundleIdentifier])
+                v20 = [(AMUIInfographViewController *)self _recordExistsForContainerBundleIdentifier:containerBundleIdentifier];
+                if ((v20 & 1) == 0)
                 {
-                  v20 = AMUILogInfograph();
-                  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+                  v21 = AMUILogInfograph(v20);
+                  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v37 = v18;
-                    _os_log_impl(&dword_23F38B000, v20, OS_LOG_TYPE_DEFAULT, "Removing widget:%@ from icon because container app was deleted", buf, 0xCu);
+                    v38 = v18;
+                    _os_log_impl(&dword_23F38B000, v21, OS_LOG_TYPE_DEFAULT, "Removing widget:%@ from icon because container app was deleted", buf, 0xCu);
                   }
 
                   [v12 removeIconDataSource:v18];
                 }
 
-                if ([(AMUIInfographViewController *)self _isApplicationForWidgetProtected:v18])
+                v22 = [(AMUIInfographViewController *)self _isApplicationForWidgetProtected:v18];
+                if (v22)
                 {
-                  v21 = AMUILogInfograph();
-                  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+                  v23 = AMUILogInfograph(v22);
+                  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v37 = v18;
-                    _os_log_impl(&dword_23F38B000, v21, OS_LOG_TYPE_DEFAULT, "Removing widget:%@ from icon because container app is locked or hidden", buf, 0xCu);
+                    v38 = v18;
+                    _os_log_impl(&dword_23F38B000, v23, OS_LOG_TYPE_DEFAULT, "Removing widget:%@ from icon because container app is locked or hidden", buf, 0xCu);
                   }
 
                   [v12 removeIconDataSource:v18];
                 }
               }
 
-              v15 = [widgets countByEnumeratingWithState:&v28 objects:v38 count:16];
+              v15 = [widgets countByEnumeratingWithState:&v29 objects:v39 count:16];
             }
 
             while (v15);
@@ -3440,17 +3563,15 @@ LABEL_27:
             [modelCopy removeIcon:v12];
           }
 
-          i = v27;
+          i = v28;
         }
       }
 
-      v26 = [obj countByEnumeratingWithState:&v32 objects:v39 count:16];
+      v27 = [obj countByEnumeratingWithState:&v33 objects:v40 count:16];
     }
 
-    while (v26);
+    while (v27);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isApplicationForWidgetProtected:(id)protected
@@ -3775,7 +3896,7 @@ LABEL_24:
 
 - (SBIconListLayoutProvider)listLayoutProvider
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   addWidgetSheetListLayoutProvider = self->_addWidgetSheetListLayoutProvider;
   if (!addWidgetSheetListLayoutProvider)
   {
@@ -3791,17 +3912,15 @@ LABEL_24:
     [v7 setListLayout:v9 forSelector:sel_iconImageInfo];
     [v7 setListLayout:v9 forSelector:sel_iconImageInfoForGridSizeClass_];
     v10 = objc_alloc(MEMORY[0x277D66158]);
-    v16 = v4;
-    v17[0] = v7;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = v4;
+    v16[0] = v7;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v12 = [v10 initWithListLayouts:v11];
     v13 = self->_addWidgetSheetListLayoutProvider;
     self->_addWidgetSheetListLayoutProvider = v12;
 
     addWidgetSheetListLayoutProvider = self->_addWidgetSheetListLayoutProvider;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return addWidgetSheetListLayoutProvider;
 }
@@ -3914,69 +4033,38 @@ void __76__AMUIInfographViewController_appProtectionSubjectsChanged_forSubscript
 
 + (id)_defaultWidgetDescriptionForKind:(id)kind bundleIdentifier:(id)identifier containerBundleIdentifier:(id)bundleIdentifier
 {
-  v15[5] = *MEMORY[0x277D85DE8];
-  v14[0] = @"elementType";
-  v14[1] = @"widgetIdentifier";
-  v15[0] = @"widget";
-  v15[1] = kind;
-  v14[2] = @"containerBundleIdentifier";
-  v14[3] = @"bundleIdentifier";
-  v15[2] = bundleIdentifier;
-  v15[3] = identifier;
-  v14[4] = @"widgetSuggestionSource";
-  v15[4] = @"onboarding";
+  v14[5] = *MEMORY[0x277D85DE8];
+  v13[0] = @"elementType";
+  v13[1] = @"widgetIdentifier";
+  v14[0] = @"widget";
+  v14[1] = kind;
+  v13[2] = @"containerBundleIdentifier";
+  v13[3] = @"bundleIdentifier";
+  v14[2] = bundleIdentifier;
+  v14[3] = identifier;
+  v13[4] = @"widgetSuggestionSource";
+  v14[4] = @"onboarding";
   v7 = MEMORY[0x277CBEAC0];
   bundleIdentifierCopy = bundleIdentifier;
   identifierCopy = identifier;
   kindCopy = kind;
-  v11 = [v7 dictionaryWithObjects:v15 forKeys:v14 count:5];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [v7 dictionaryWithObjects:v14 forKeys:v13 count:5];
 
   return v11;
 }
 
-- (void)setPosterConfiguration:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0_3(&dword_23F38B000, v0, v1, "Executing setPosterConfiguration; new poster configuration incoming (new '%@')", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setPosterConfiguration:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0_3(&dword_23F38B000, v0, v1, "Received nil widgetLayoutIconState from posterConfiguration:%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)setPosterConfiguration:.cold.3()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_1_0(&dword_23F38B000, v0, v1, "Received nil ambientWidgetLayout from posterConfiguration:%@ withError:%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-- (void)setPosterConfiguration:.cold.4()
+- (void)setPosterConfiguration:.cold.5()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0_3(&dword_23F38B000, v0, v1, "Received empty widgetLayoutIconState from posterConfiguration:%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setPosterConfiguration:(uint64_t *)a1 .cold.5(uint64_t *a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1_0(&dword_23F38B000, v2, v3, "Skipping setPosterConfiguration; same poster already set (current '%@', new '%@')");
-  v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_23F38B000, v0, v1, "Skipping setPosterConfiguration; same poster already set (current '%@', new '%@')");
 }
 
 - (void)_loadInfographPosterConfigurationDataWithError:.cold.1()
@@ -3993,22 +4081,6 @@ void __76__AMUIInfographViewController_appProtectionSubjectsChanged_forSubscript
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)_loadInfographPosterConfigurationDataWithError:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0_3(&dword_23F38B000, v0, v1, "Load memory icon state %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_saveInfographPosterConfigurationData:completion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0_3(&dword_23F38B000, v0, v1, "Poster updater tries to update poster configuration %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_saveInfographPosterConfigurationData:completion:.cold.2()
 {
   OUTLINED_FUNCTION_3();
@@ -4016,63 +4088,11 @@ void __76__AMUIInfographViewController_appProtectionSubjectsChanged_forSubscript
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __80__AMUIInfographViewController__saveInfographPosterConfigurationData_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_3(&dword_23F38B000, v0, v1, "The updated poster configuration is %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __80__AMUIInfographViewController__saveInfographPosterConfigurationData_completion___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0_3(&dword_23F38B000, v0, v1, "Failed to update infograph configuration with error: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_uniqueIdentifierStacksFromIconState:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0_3(&dword_23F38B000, v0, v1, "Cannot create unique identifier stacks from icon state, invalid stacks in iconLists:%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __44__AMUIInfographViewController__fetchIntents__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_1_0(&dword_23F38B000, v0, v1, "Fail to archive intent for %@ with error %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)iconManager:bundleIdentifierToLaunchForWidgetURL:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_0_3(&dword_23F38B000, v0, v1, "No app proxies found for widget URL:%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __98__AMUIInfographViewController__handleLaunchRequestForApplicationWithBundleIdentifier_withActions___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_1_0(&dword_23F38B000, v2, v3, "[%{public}@] Application launch from widget failed: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __98__AMUIInfographViewController__handleLaunchRequestForApplicationWithBundleIdentifier_withActions___block_invoke_cold_2(uint64_t a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_3(&dword_23F38B000, v2, v3, "[%{public}@] Application launch from widget succeeded", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_preparePosterConfigurationToSaveWithCurrentIconState:intents:reason:.cold.1()

@@ -7,7 +7,7 @@
 
 - (id)knownFields
 {
-  v14[11] = *MEMORY[0x277D85DE8];
+  v13[11] = *MEMORY[0x277D85DE8];
   delegate = [(MTEventDataProvider *)self delegate];
   v4 = objc_opt_respondsToSelector();
 
@@ -19,9 +19,9 @@
 
   else
   {
-    v13.receiver = self;
-    v13.super_class = MTPerfBaseEventDataProvider;
-    knownFields2 = [(MTBaseEventDataProvider *)&v13 knownFields];
+    v12.receiver = self;
+    v12.super_class = MTPerfBaseEventDataProvider;
+    knownFields2 = [(MTBaseEventDataProvider *)&v12 knownFields];
     v8 = knownFields2;
     if (knownFields2)
     {
@@ -30,18 +30,18 @@
 
     else
     {
-      v14[0] = @"app";
-      v14[1] = @"appVersion";
-      v14[2] = @"hardwareFamily";
-      v14[3] = @"os";
-      v14[4] = @"osBuildNumber";
-      v14[5] = @"osVersion";
-      v14[6] = @"connection";
-      v14[7] = @"clientEventId";
-      v14[8] = @"timezoneOffset";
-      v14[9] = @"eventTime";
-      v14[10] = @"xpVersionMetricsKit";
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:11];
+      v13[0] = @"app";
+      v13[1] = @"appVersion";
+      v13[2] = @"hardwareFamily";
+      v13[3] = @"os";
+      v13[4] = @"osBuildNumber";
+      v13[5] = @"osVersion";
+      v13[6] = @"connection";
+      v13[7] = @"clientEventId";
+      v13[8] = @"timezoneOffset";
+      v13[9] = @"eventTime";
+      v13[10] = @"xpVersionMetricsKit";
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:11];
     }
 
     delegate2 = v9;
@@ -50,8 +50,6 @@
   }
 
   v10 = knownFields;
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

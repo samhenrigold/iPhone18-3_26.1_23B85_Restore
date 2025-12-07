@@ -29,6 +29,8 @@
 - (void)_setupImageAnalysis;
 - (void)_setupNotificationsObservation;
 - (void)_startImageAnalysisWithRequest:(id)request;
+- (void)_updateAnalysisButtonWithAnimation:(BOOL)animation;
+- (void)_updateInfoButtonWithAnimation:(BOOL)animation;
 - (void)activateVisualSearchInteraction;
 - (void)adjustImageInteractionForScrollView:(id)view;
 - (void)cancelAllRequests;
@@ -38,6 +40,7 @@
 - (void)imageAnalysisPopoverDidDisappear;
 - (void)imageAnalysisPopoverWillAppear;
 - (void)infoButtonTapped;
+- (void)shouldHideInteraction:(BOOL)interaction animated:(BOOL)animated;
 - (void)startImageAnalysis;
 - (void)stopImageAnalysis;
 @end
@@ -158,6 +161,44 @@
   return imageAnalyzer;
 }
 
+- (void)_updateAnalysisButtonWithAnimation:(BOOL)animation
+{
+  animationCopy = animation;
+  imageInteraction = [(QLImageAnalysisManager *)self imageInteraction];
+  analysis = [imageInteraction analysis];
+
+  isVisualIntelligenceV2Enabled = [(QLImageAnalysisManager *)self isVisualIntelligenceV2Enabled];
+  v7 = analysis;
+  if (!isVisualIntelligenceV2Enabled && analysis)
+  {
+    v8 = [analysis hasResultsForAnalysisTypes:29];
+    if (self->_isFullScreen)
+    {
+      if ([(QLImageAnalysisManager *)self isVisualSearchEnabled])
+      {
+        v9 = !self->_isImageAnalysisPopoverPresented;
+      }
+
+      else
+      {
+        v9 = 1;
+      }
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    imageInteraction2 = [(QLImageAnalysisManager *)self imageInteraction];
+    [imageInteraction2 setActionInfoViewHidden:v9 | v8 ^ 1u animated:animationCopy];
+
+    v7 = analysis;
+  }
+
+  MEMORY[0x2821F96F8](isVisualIntelligenceV2Enabled, v7);
+}
+
 - (void)_activateInteractionTypes:(unint64_t)types
 {
   imageInteraction = [(QLImageAnalysisManager *)self imageInteraction];
@@ -192,7 +233,7 @@ void __44__QLImageAnalysisManager_imageAnalysisQueue__block_invoke()
 
 - (void)startImageAnalysis
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   image = [(QLImageAnalysisManager *)self image];
   v4 = MEMORY[0x277D43EF8];
   v5 = *MEMORY[0x277D43EF8];
@@ -206,9 +247,9 @@ void __44__QLImageAnalysisManager_imageAnalysisQueue__block_invoke()
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v17 = 138412290;
-      v18 = image;
-      _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_INFO, "Creating image analysis request for image: %@ #ImageAnalysis", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = image;
+      _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_INFO, "Creating image analysis request for image: %@ #ImageAnalysis", &v16, 0xCu);
     }
 
     delegate = [(QLImageAnalysisManager *)self delegate];
@@ -258,12 +299,10 @@ void __44__QLImageAnalysisManager_imageAnalysisQueue__block_invoke()
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_ERROR, "Could not create image analysis request because image is nil #ImageAnalysis", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_ERROR, "Could not create image analysis request because image is nil #ImageAnalysis", &v16, 2u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startImageAnalysisWithRequest:(id)request
@@ -291,7 +330,7 @@ void __44__QLImageAnalysisManager_imageAnalysisQueue__block_invoke()
 
 void __57__QLImageAnalysisManager__startImageAnalysisWithRequest___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -307,28 +346,26 @@ void __57__QLImageAnalysisManager__startImageAnalysisWithRequest___block_invoke(
     {
       v5 = *(a1 + 32);
       *buf = 138412290;
-      v12 = v5;
+      v11 = v5;
       _os_log_impl(&dword_23A714000, v4, OS_LOG_TYPE_INFO, "Processing image analysis request: %@ #ImageAnalysis", buf, 0xCu);
     }
 
     v6 = [WeakRetained imageAnalyzer];
     v7 = *(a1 + 32);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __57__QLImageAnalysisManager__startImageAnalysisWithRequest___block_invoke_170;
-    v9[3] = &unk_278B58728;
-    objc_copyWeak(&v10, (a1 + 40));
-    [WeakRetained setImageAnalysisRequestId:{objc_msgSend(v6, "processRequest:progressHandler:completionHandler:", v7, 0, v9)}];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __57__QLImageAnalysisManager__startImageAnalysisWithRequest___block_invoke_170;
+    v8[3] = &unk_278B58728;
+    objc_copyWeak(&v9, (a1 + 40));
+    [WeakRetained setImageAnalysisRequestId:{objc_msgSend(v6, "processRequest:progressHandler:completionHandler:", v7, 0, v8)}];
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v9);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __57__QLImageAnalysisManager__startImageAnalysisWithRequest___block_invoke_170(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -347,7 +384,7 @@ void __57__QLImageAnalysisManager__startImageAnalysisWithRequest___block_invoke_
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v26 = v7;
+        v25 = v7;
         v12 = "Image analysis cancelled: %@ #ImageAnalysis";
         v13 = v11;
         v14 = OS_LOG_TYPE_INFO;
@@ -369,7 +406,7 @@ LABEL_12:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v26 = v7;
+        v25 = v7;
         v12 = "Image analysis failed with error %@ #ImageAnalysis";
         v13 = v16;
         v14 = OS_LOG_TYPE_ERROR;
@@ -385,15 +422,14 @@ LABEL_12:
   block[1] = 3221225472;
   block[2] = __57__QLImageAnalysisManager__startImageAnalysisWithRequest___block_invoke_174;
   block[3] = &unk_278B56CE8;
-  objc_copyWeak(&v24, (a1 + 32));
-  v22 = v5;
-  v23 = v7;
+  objc_copyWeak(&v23, (a1 + 32));
+  v21 = v5;
+  v22 = v7;
   v18 = v7;
   v19 = v5;
   dispatch_async(MEMORY[0x277D85CD0], block);
 
-  objc_destroyWeak(&v24);
-  v20 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v23);
 }
 
 void __57__QLImageAnalysisManager__startImageAnalysisWithRequest___block_invoke_174(uint64_t a1)
@@ -452,6 +488,19 @@ void __53__QLImageAnalysisManager__handleImageAnalysis_error___block_invoke(uint
 {
   v1 = [*(a1 + 32) imageInteraction];
   [v1 setHighlightSelectableItems:1];
+}
+
+- (void)_updateInfoButtonWithAnimation:(BOOL)animation
+{
+  animationCopy = animation;
+  delegate = [(QLImageAnalysisManager *)self delegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    delegate2 = [(QLImageAnalysisManager *)self delegate];
+    [delegate2 imageAnalyzerWantsUpdateInfoButtonWithAnimation:animationCopy];
+  }
 }
 
 - (void)stopImageAnalysis
@@ -810,6 +859,46 @@ LABEL_21:
     _defaultInteractionTypes = [(QLImageAnalysisManager *)self _defaultInteractionTypes];
 
     [(QLImageAnalysisManager *)self _activateInteractionTypes:_defaultInteractionTypes];
+  }
+}
+
+- (void)shouldHideInteraction:(BOOL)interaction animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  interactionCopy = interaction;
+  delegate = [(QLImageAnalysisManager *)self delegate];
+  imageAnalysisView = [delegate imageAnalysisView];
+
+  if (imageAnalysisView)
+  {
+    imageInteraction = [(QLImageAnalysisManager *)self imageInteraction];
+    if (imageInteraction)
+    {
+      interactions = [imageAnalysisView interactions];
+      v10 = [interactions containsObject:imageInteraction];
+
+      if (interactionCopy && v10)
+      {
+        delegate2 = [(QLImageAnalysisManager *)self delegate];
+        imageAnalysisView2 = [delegate2 imageAnalysisView];
+        [imageAnalysisView2 removeInteraction:imageInteraction];
+LABEL_8:
+
+        [(QLImageAnalysisManager *)self _updateAnalysisButtonWithAnimation:animatedCopy];
+        [(QLImageAnalysisManager *)self _updateInfoButtonWithAnimation:animatedCopy];
+        goto LABEL_9;
+      }
+
+      if (((interactionCopy | v10) & 1) == 0)
+      {
+        delegate2 = [(QLImageAnalysisManager *)self delegate];
+        imageAnalysisView2 = [delegate2 imageAnalysisView];
+        [imageAnalysisView2 addInteraction:imageInteraction];
+        goto LABEL_8;
+      }
+    }
+
+LABEL_9:
   }
 }
 

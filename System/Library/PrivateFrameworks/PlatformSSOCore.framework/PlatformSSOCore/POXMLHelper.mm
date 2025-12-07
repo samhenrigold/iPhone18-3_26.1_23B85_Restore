@@ -19,7 +19,7 @@
 
   else
   {
-    v8 = PO_LOG_POXMLHelper();
+    v8 = PO_LOG_POXMLHelper(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[POXMLHelper loadXMLDocument:];

@@ -356,7 +356,7 @@ void __41__PXPinchTracker__updateGeometryIfNeeded__block_invoke_5(uint64_t a1, v
           [(PXPinchTracker *)self size];
           self->_initialSize.width = v20;
           self->_initialSize.height = v21;
-          [(PXPinchTracker *)self transform];
+          objc_msgSend_transform(self);
           v22 = *&v27.c;
           *&self->_initialTransform.a = *&v27.a;
           *&self->_initialTransform.c = v22;

@@ -495,37 +495,13 @@ LABEL_27:
   v17.receiver = self;
   v17.super_class = HKMedicalCoding;
   v5 = [(HKMedicalCoding *)&v17 init];
-  if (!v5)
-  {
-    goto LABEL_4;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"CodingSystem"];
-  codingSystem = v5->_codingSystem;
-  v5->_codingSystem = v6;
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"CodingVersion"];
-  codingVersion = v5->_codingVersion;
-  v5->_codingVersion = v8;
-
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Code"];
-  code = v5->_code;
-  v5->_code = v10;
-
-  v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"DisplayString"];
-  displayString = v5->_displayString;
-  v5->_displayString = v12;
-
-  _validateConfiguration = [(HKMedicalCoding *)v5 _validateConfiguration];
-
-  if (_validateConfiguration)
+  if (v5 && ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"CodingSystem"], v6 = objc_claimAutoreleasedReturnValue(), codingSystem = v5->_codingSystem, v5->_codingSystem = v6, codingSystem, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"CodingVersion"), v8 = objc_claimAutoreleasedReturnValue(), codingVersion = v5->_codingVersion, v5->_codingVersion = v8, codingVersion, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"Code"), v10 = objc_claimAutoreleasedReturnValue(), code = v5->_code, v5->_code = v10, code, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"DisplayString"), v12 = objc_claimAutoreleasedReturnValue(), displayString = v5->_displayString, v5->_displayString = v12, displayString, -[HKMedicalCoding _validateConfiguration](v5, "_validateConfiguration"), v14 = objc_claimAutoreleasedReturnValue(), v14, v14))
   {
     v15 = 0;
   }
 
   else
   {
-LABEL_4:
     v15 = v5;
   }
 

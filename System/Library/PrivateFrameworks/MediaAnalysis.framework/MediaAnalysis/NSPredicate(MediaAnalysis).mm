@@ -196,7 +196,7 @@ LABEL_14:
 
     if (a3 == 12)
     {
-      v4 = [MEMORY[0x1E696AE18] predicateWithFormat:@"mediaAnalysisAttributes.visualSearchAttributes = NULL || mediaAnalysisAttributes.visualSearchAttributes.algorithmVersion != %d || mediaAnalysisAttributes.visualSearchAttributes.stickerConfidenceAlgorithmVersion != %d ||adjustmentTimestamp != mediaAnalysisAttributes.visualSearchAttributes.adjustmentVersion", VCPPhotosVisualSearchAlgorithmVersion(), 1];
+      v4 = [MEMORY[0x1E696AE18] predicateWithFormat:@"mediaAnalysisAttributes.visualSearchAttributes = NULL || mediaAnalysisAttributes.visualSearchAttributes.algorithmVersion != %d || mediaAnalysisAttributes.visualSearchAttributes.stickerConfidenceAlgorithmVersion != %d ||adjustmentTimestamp != mediaAnalysisAttributes.visualSearchAttributes.adjustmentVersion", VCPPhotosVisualSearchAlgorithmVersion(self, a2), 1];
       goto LABEL_14;
     }
   }

@@ -28,16 +28,14 @@
 
 id __38__TUIAnalytics_ktConversationNoMatch___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"reportToApple";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"reportToApple";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
-  v7[1] = @"timeToNoMatch";
-  v8[0] = v2;
+  v6[1] = @"timeToNoMatch";
+  v7[0] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 32)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -55,22 +53,20 @@ id __38__TUIAnalytics_ktConversationNoMatch___block_invoke(uint64_t a1)
 
 id __67__TUIAnalytics_ktMarkAsVerified_sasCodeGenerated_publicKeyVisible___block_invoke(uint64_t a1)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v9[0] = @"timeToVerified";
+  v9[4] = *MEMORY[0x277D85DE8];
+  v8[0] = @"timeToVerified";
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 32)];
-  v10[0] = v2;
-  v9[1] = @"sasCodeGenerated";
+  v9[0] = v2;
+  v8[1] = @"sasCodeGenerated";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
-  v10[1] = v3;
-  v9[2] = @"publicKeyVisible";
+  v9[1] = v3;
+  v8[2] = @"publicKeyVisible";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 41)];
-  v10[2] = v4;
-  v9[3] = @"success";
+  v9[2] = v4;
+  v8[3] = @"success";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 42)];
-  v10[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
@@ -91,12 +87,11 @@ id __67__TUIAnalytics_ktMarkAsVerified_sasCodeGenerated_publicKeyVisible___block
 
 id __30__TUIAnalytics_ktInteraction___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v5 = @"kind";
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = @"kind";
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }

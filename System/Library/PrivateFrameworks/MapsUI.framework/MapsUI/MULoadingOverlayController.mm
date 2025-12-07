@@ -52,7 +52,7 @@
 
 void __70__MULoadingOverlayController_removeLoadingOverlayAnimated_completion___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -65,18 +65,16 @@ void __70__MULoadingOverlayController_removeLoadingOverlayAnimated_completion___
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v5 = objc_loadWeakRetained(v2 + 2);
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_DEBUG, "MULoadingOverlayController: removeLoadingOverlayAnimated:completion: setting _contentView visible %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_1C5620000, v4, OS_LOG_TYPE_DEBUG, "MULoadingOverlayController: removeLoadingOverlayAnimated:completion: setting _contentView visible %@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __70__MULoadingOverlayController_removeLoadingOverlayAnimated_completion___block_invoke_5(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -89,9 +87,9 @@ void __70__MULoadingOverlayController_removeLoadingOverlayAnimated_completion___
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       v6 = objc_loadWeakRetained(v3 + 2);
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_1C5620000, v5, OS_LOG_TYPE_DEBUG, "MULoadingOverlayController: removeLoadingOverlayAnimated:completion: setting _contentView visible %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&dword_1C5620000, v5, OS_LOG_TYPE_DEBUG, "MULoadingOverlayController: removeLoadingOverlayAnimated:completion: setting _contentView visible %@", &v8, 0xCu);
     }
 
     v7 = *(a1 + 32);
@@ -100,13 +98,11 @@ void __70__MULoadingOverlayController_removeLoadingOverlayAnimated_completion___
       (*(v7 + 16))();
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)attachLoadingOverlay
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [(MULoadingView *)self->_loadingView removeFromSuperview];
   if (!self->_loadingView)
   {
@@ -128,7 +124,7 @@ void __70__MULoadingOverlayController_removeLoadingOverlayAnimated_completion___
   {
     v9 = objc_loadWeakRetained(&self->_contentView);
     *buf = 138412290;
-    v15 = v9;
+    v14 = v9;
     _os_log_impl(&dword_1C5620000, v8, OS_LOG_TYPE_DEBUG, "MULoadingOverlayController: attachLoadingOverlay setting _contentView hidden %@", buf, 0xCu);
   }
 
@@ -138,11 +134,10 @@ void __70__MULoadingOverlayController_removeLoadingOverlayAnimated_completion___
   block[1] = 3221225472;
   block[2] = __50__MULoadingOverlayController_attachLoadingOverlay__block_invoke;
   block[3] = &unk_1E821BAC8;
-  objc_copyWeak(&v13, buf);
+  objc_copyWeak(&v12, buf);
   dispatch_after(v10, MEMORY[0x1E69E96A0], block);
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __50__MULoadingOverlayController_attachLoadingOverlay__block_invoke(uint64_t a1)

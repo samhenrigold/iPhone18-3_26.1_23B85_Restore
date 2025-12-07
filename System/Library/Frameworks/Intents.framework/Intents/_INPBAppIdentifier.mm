@@ -187,7 +187,6 @@ LABEL_18:
 
   if (appName)
   {
-    appName = self->_appName;
     PBDataWriterWriteStringField();
   }
 
@@ -195,18 +194,16 @@ LABEL_18:
 
   if (bundleIdentifier)
   {
-    bundleIdentifier = self->_bundleIdentifier;
     PBDataWriterWriteStringField();
   }
 
   bundleVersion = [(_INPBAppIdentifier *)self bundleVersion];
 
-  v9 = toCopy;
+  v7 = toCopy;
   if (bundleVersion)
   {
-    bundleVersion = self->_bundleVersion;
     PBDataWriterWriteStringField();
-    v9 = toCopy;
+    v7 = toCopy;
   }
 }
 

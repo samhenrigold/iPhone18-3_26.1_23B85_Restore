@@ -7,20 +7,20 @@
 - (PanoramaParallaxStageShaders)initWithContext:(id)context
 {
   contextCopy = context;
-  v17.receiver = self;
-  v17.super_class = PanoramaParallaxStageShaders;
-  v6 = [(PanoramaParallaxStageShaders *)&v17 init];
-  if (v6 && (objc_msgSend_computePipelineStateFor_constants_(contextCopy, v5, @"applyWarpToSlice", 0), v7 = objc_claimAutoreleasedReturnValue(), applyWarpToSlice = v6->_applyWarpToSlice, v6->_applyWarpToSlice = v7, applyWarpToSlice, v6->_applyWarpToSlice) && (objc_msgSend_computePipelineStateFor_constants_(contextCopy, v9, @"computePreShifts", 0), v10 = objc_claimAutoreleasedReturnValue(), computePreShifts = v6->_computePreShifts, v6->_computePreShifts = v10, computePreShifts, v6->_computePreShifts) && (objc_msgSend_computePipelineStateFor_constants_(contextCopy, v12, @"downsampleShifts", 0), v13 = objc_claimAutoreleasedReturnValue(), downsampleShifts = v6->_downsampleShifts, v6->_downsampleShifts = v13, downsampleShifts, v6->_downsampleShifts))
+  v14.receiver = self;
+  v14.super_class = PanoramaParallaxStageShaders;
+  v5 = [(PanoramaParallaxStageShaders *)&v14 init];
+  if (v5 && ([contextCopy computePipelineStateFor:@"applyWarpToSlice" constants:0], v6 = objc_claimAutoreleasedReturnValue(), applyWarpToSlice = v5->_applyWarpToSlice, v5->_applyWarpToSlice = v6, applyWarpToSlice, v5->_applyWarpToSlice) && (objc_msgSend(contextCopy, "computePipelineStateFor:constants:", @"computePreShifts", 0), v8 = objc_claimAutoreleasedReturnValue(), computePreShifts = v5->_computePreShifts, v5->_computePreShifts = v8, computePreShifts, v5->_computePreShifts) && (objc_msgSend(contextCopy, "computePipelineStateFor:constants:", @"downsampleShifts", 0), v10 = objc_claimAutoreleasedReturnValue(), downsampleShifts = v5->_downsampleShifts, v5->_downsampleShifts = v10, downsampleShifts, v5->_downsampleShifts))
   {
-    v15 = v6;
+    v12 = v5;
   }
 
   else
   {
-    v15 = 0;
+    v12 = 0;
   }
 
-  return v15;
+  return v12;
 }
 
 @end

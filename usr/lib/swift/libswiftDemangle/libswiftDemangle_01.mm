@@ -1645,7 +1645,7 @@ LABEL_50:
   return swift::Demangle::NodeFactory::createNode(this, 163, v5, v6);
 }
 
-int8x16_t *swift::Demangle::Demangler::demangleThunkOrSpecialization(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+swift::Demangle *swift::Demangle::Demangler::demangleThunkOrSpecialization(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   v6 = *(this + 8);
   v5 = *(this + 9);
@@ -2108,7 +2108,7 @@ LABEL_181:
       goto LABEL_173;
     case 'e':
       v139 = this;
-      swift::Demangle::Demangler::demangleBridgedMethodParams(this, &__p);
+      swift::Demangle::Demangler::demangleBridgedMethodParams(&__p, this);
       v140 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
@@ -2530,7 +2530,7 @@ LABEL_59:
   return Node;
 }
 
-unsigned int *swift::Demangle::Demangler::demangleWitness(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, char *a5)
+swift::Demangle::Node *swift::Demangle::Demangler::demangleWitness(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, char *a5)
 {
   v6 = *(this + 8);
   v5 = *(this + 9);
@@ -2555,7 +2555,7 @@ unsigned int *swift::Demangle::Demangler::demangleWitness(swift::Demangle::Deman
 
       v60 = v59 - 1;
       v41 = *(*(this + 11) + 8 * (v59 - 1));
-      if (*(v41 + 16) != 243 && !swift::Demangle::isContext())
+      if (*(v41 + 8) != 243 && !swift::Demangle::isContext())
       {
         return 0;
       }
@@ -2791,7 +2791,7 @@ unsigned int *swift::Demangle::Demangler::demangleWitness(swift::Demangle::Deman
 
       v92 = v91 - 1;
       v41 = *(*(this + 11) + 8 * v92);
-      if (*(v41 + 16) != 243)
+      if (*(v41 + 8) != 243)
       {
         return 0;
       }
@@ -4040,7 +4040,7 @@ swift::Demangle::Node *swift::Demangle::Demangler::demangleSpecialType(swift::De
 
       v82 = v81 - 1;
       v15 = *(*(this + 11) + 8 * v82);
-      if (*(v15 + 16) != 243)
+      if (*(v15 + 8) != 243)
       {
         return 0;
       }
@@ -4095,7 +4095,7 @@ swift::Demangle::Node *swift::Demangle::Demangler::demangleSpecialType(swift::De
 
       v58 = v57 - 1;
       v15 = *(*(this + 11) + 8 * v58);
-      if (*(v15 + 16) != 243)
+      if (*(v15 + 8) != 243)
       {
         return 0;
       }
@@ -4435,7 +4435,7 @@ LABEL_274:
 
       v88 = v87 - 1;
       v15 = *(*(this + 11) + 8 * v88);
-      if (*(v15 + 16) != 243)
+      if (*(v15 + 8) != 243)
       {
         return 0;
       }
@@ -4645,7 +4645,7 @@ LABEL_152:
 
       v25 = v24 - 1;
       v15 = *(*(this + 11) + 8 * v25);
-      if (*(v15 + 16) != 243)
+      if (*(v15 + 8) != 243)
       {
         return 0;
       }
@@ -4724,7 +4724,7 @@ LABEL_160:
 
       v64 = v63 - 1;
       v15 = *(*(this + 11) + 8 * v64);
-      if (*(v15 + 16) != 243)
+      if (*(v15 + 8) != 243)
       {
         return 0;
       }
@@ -4762,7 +4762,7 @@ LABEL_160:
 
       v14 = v13 - 1;
       v15 = *(*(this + 11) + 8 * v14);
-      if (*(v15 + 16) != 243)
+      if (*(v15 + 8) != 243)
       {
         return 0;
       }
@@ -4800,7 +4800,7 @@ LABEL_160:
 
       v123 = v122 - 1;
       v15 = *(*(this + 11) + 8 * v123);
-      if (*(v15 + 16) != 243)
+      if (*(v15 + 8) != 243)
       {
         return 0;
       }
@@ -4838,7 +4838,7 @@ LABEL_160:
 
       v117 = v116 - 1;
       v15 = *(*(this + 11) + 8 * v117);
-      if (*(v15 + 16) != 243)
+      if (*(v15 + 8) != 243)
       {
         return 0;
       }
@@ -4907,7 +4907,7 @@ LABEL_84:
         case 1:
           break;
         case 5:
-          v80 = *(v73 + 8);
+          v80 = *(v73 + 2);
           if (!v80)
           {
             goto LABEL_237;
@@ -4983,7 +4983,7 @@ LABEL_204:
       goto LABEL_205;
     }
 
-    if (*(v73 + 8) <= v165)
+    if (*(v73 + 2) <= v165)
     {
 LABEL_209:
       v176 = 0;
@@ -4997,7 +4997,7 @@ LABEL_205:
       v175 = *v73;
     }
 
-    v176 = *(v175 + 8 * v165);
+    v176 = *(v175 + v165);
 LABEL_210:
     v177 = *(v176 + 18);
     v178 = v176;
@@ -5286,7 +5286,7 @@ unint64_t swift::Demangle::Demangler::popFunctionType(swift::Demangle::NodeFacto
   return v30;
 }
 
-unsigned int *swift::Demangle::Demangler::demangleFunctionEntity(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+swift::Demangle::Node *swift::Demangle::Demangler::demangleFunctionEntity(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   v5 = *(this + 9);
   if (v5 >= *(this + 8))
@@ -5359,7 +5359,7 @@ LABEL_25:
         v20 = v19 - 1;
         v21 = *(this + 11);
         v22 = *(v21 + 8 * (v19 - 1));
-        if (*(v22 + 16) == 186)
+        if (*(v22 + 8) == 186)
         {
           *(this + 24) = v20;
           if (v19 == 1)
@@ -5720,9 +5720,9 @@ LABEL_10:
 
 int8x16_t *swift::Demangle::Demangler::demangleGenericSignature(swift::Demangle::Demangler *this, int a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  v7 = ((*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8);
+  v7 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
   *(this + 1) = v7;
-  if (!v7 || (v8 = *(this + 2), &v7[1].u64[1] > v8))
+  if (!v7 || (v8 = *(this + 2), v7 + 24 > v8))
   {
     v9 = 2 * *(this + 4);
     if (v9 <= 0x20)
@@ -5735,17 +5735,17 @@ int8x16_t *swift::Demangle::Demangler::demangleGenericSignature(swift::Demangle:
     v11 = malloc_type_malloc(v9 + 8, 0x2004093837F09uLL);
     v8 = v11 + v10;
     *v11 = *(this + 3);
-    v7 = ((v11 + 15) & 0xFFFFFFFFFFFFFFF8);
+    v7 = (v11 + 15) & 0xFFFFFFFFFFFFFFF8;
     *(this + 2) = v8;
     *(this + 3) = v11;
   }
 
   *(this + 1) = v7 + 24;
-  v7[1].i16[0] = 44;
-  v7[1].i8[2] = 0;
+  *(v7 + 16) = 44;
+  *(v7 + 18) = 0;
   if (!a2)
   {
-    v25 = (&v7[1].u64[1] + 7) & 0xFFFFFFFFFFFFFFF8;
+    v25 = (v7 + 31) & 0xFFFFFFFFFFFFFFF8;
     *(this + 1) = v25;
     if (v25)
     {
@@ -5780,7 +5780,7 @@ int8x16_t *swift::Demangle::Demangler::demangleGenericSignature(swift::Demangle:
     *v25 = 1;
     swift::Demangle::Node::addChild(v7, v25, this, a4, a5);
 LABEL_39:
-    v30 = v7[1].u8[2];
+    v30 = *(v7 + 18);
     v31 = v30;
     if (v30 != 1)
     {
@@ -5809,7 +5809,7 @@ LABEL_39:
         goto LABEL_49;
       }
 
-      v31 = v7->u32[2];
+      v31 = *(v7 + 8);
     }
 
     v32 = *(this + 24);
@@ -5818,11 +5818,11 @@ LABEL_39:
 LABEL_57:
       if (v30 == 5)
       {
-        v37 = v7->u32[2];
+        v37 = *(v7 + 8);
         if (v31 != v37)
         {
-          v38 = v7->i64[0] + 8 * v31;
-          v39 = (v7->i64[0] + 8 * v37 - 8);
+          v38 = *v7 + 8 * v31;
+          v39 = (*v7 + 8 * v37 - 8);
           if (v39 > v38)
           {
             v40 = v38 + 8;
@@ -5866,7 +5866,7 @@ LABEL_49:
     }
 
     while (v32);
-    LODWORD(v30) = v7[1].u8[2];
+    LODWORD(v30) = *(v7 + 18);
     goto LABEL_57;
   }
 
@@ -6422,9 +6422,9 @@ LABEL_11:
 
 unint64_t swift::Demangle::Demangler::popTuple(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  v6 = ((*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8);
+  v6 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
   *(this + 1) = v6;
-  if (!v6 || &v6[1].u64[1] > *(this + 2))
+  if (!v6 || v6 + 24 > *(this + 2))
   {
     v7 = 2 * *(this + 4);
     if (v7 <= 0x20)
@@ -6437,14 +6437,14 @@ unint64_t swift::Demangle::Demangler::popTuple(swift::Demangle::Demangler *this,
     v9 = malloc_type_malloc(v7 + 8, 0x2004093837F09uLL);
     v10 = v9 + v8;
     *v9 = *(this + 3);
-    v6 = ((v9 + 15) & 0xFFFFFFFFFFFFFFF8);
+    v6 = (v9 + 15) & 0xFFFFFFFFFFFFFFF8;
     *(this + 2) = v10;
     *(this + 3) = v9;
   }
 
   *(this + 1) = v6 + 24;
-  v6[1].i16[0] = 234;
-  v6[1].i8[2] = 0;
+  *(v6 + 16) = 234;
+  *(v6 + 18) = 0;
   v11 = *(this + 24);
   if (v11 && (v12 = v11 - 1, *(*(*(this + 11) + 8 * v12) + 16) == 287))
   {
@@ -6559,16 +6559,16 @@ unint64_t swift::Demangle::Demangler::popTuple(swift::Demangle::Demangler *this,
     }
 
     while ((v19 & 1) != 0);
-    v36 = v6[1].u8[2];
+    v36 = *(v6 + 18);
     if (v36 == 5)
     {
-      v38 = v6->u32[2];
+      v38 = *(v6 + 8);
       if (v38)
       {
-        v39 = (v6->i64[0] + 8 * v38 - 8);
-        if (v39 > v6->i64[0])
+        v39 = (*v6 + 8 * v38 - 8);
+        if (v39 > *v6)
         {
-          v40 = v6->i64[0] + 8;
+          v40 = *v6 + 8;
           do
           {
             v41 = *(v40 - 8);
@@ -8071,15 +8071,15 @@ unsigned int *swift::Demangle::Vector<char>::push_back(unsigned int *result, cha
   if (v5 >= v6)
   {
     v8 = a3[1];
-    if (&v7[v6] == v8)
+    if ((v7 + v6) == v8)
     {
       v9 = a3[2];
-      if ((v8 + 1) <= v9)
+      if (v8 + 1 <= v9)
       {
         a3[1] = v8 + 1;
         LODWORD(v10) = 1;
 LABEL_16:
-        *(v4 + 3) = v6 + v10;
+        v4[3] = v6 + v10;
         goto LABEL_17;
       }
     }
@@ -8100,7 +8100,7 @@ LABEL_16:
     }
 
     v11 = v10 + v6;
-    if (!v8 || &v8[v11] > v9)
+    if (!v8 || v8 + v11 > v9)
     {
       v12 = 2 * a3[4];
       if (v12 <= v11 + 1)
@@ -8115,12 +8115,12 @@ LABEL_16:
       a3 = v14;
       v15 = result + v13;
       *result = v14[3];
-      v8 = (result + 2);
+      v8 = result + 2;
       v14[2] = v15;
       v14[3] = result;
     }
 
-    a3[1] = &v8[v11];
+    a3[1] = v8 + v11;
     if (v6)
     {
       result = memcpy(v8, *v4, v6);
@@ -8128,15 +8128,15 @@ LABEL_16:
 
     *v4 = v8;
     v7 = v8;
-    v5 = *(v4 + 2);
-    LODWORD(v6) = *(v4 + 3);
+    v5 = v4[2];
+    LODWORD(v6) = v4[3];
     goto LABEL_16;
   }
 
 LABEL_17:
   v16 = *a2;
-  *(v4 + 2) = v5 + 1;
-  v7[v5] = v16;
+  v4[2] = v5 + 1;
+  *(v7 + v5) = v16;
   return result;
 }
 
@@ -8177,7 +8177,7 @@ unint64_t swift::Demangle::Demangler::popModule(swift::Demangle::Demangler *this
   return v7;
 }
 
-unint64_t swift::Demangle::Demangler::popContext(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+uint64_t *swift::Demangle::Demangler::popContext(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   v5 = *(this + 24);
   if (!v5)
@@ -8227,7 +8227,6 @@ LABEL_8:
         v12 = *v12;
 LABEL_13:
         v14 = *v12;
-        v15 = *(*v12 + 16);
         if (swift::Demangle::isContext())
         {
           return v14;
@@ -8242,13 +8241,12 @@ LABEL_13:
 
     else
     {
-      v16 = this;
-      v17 = *(*(this + 11) + 8 * v11);
-      v18 = *(v12 + 8);
+      v15 = this;
+      v16 = *(*(this + 11) + 8 * v11);
       if (swift::Demangle::isContext())
       {
-        *(v16 + 24) = v11;
-        return v17;
+        *(v15 + 24) = v11;
+        return v16;
       }
     }
 
@@ -8314,7 +8312,7 @@ uint64_t *swift::Demangle::Demangler::popTypeAndGetAnyGeneric(swift::Demangle::D
   return result;
 }
 
-uint64_t anonymous namespace::isAnyGeneric(int a1)
+uint64_t anonymous namespace::isAnyGeneric(unsigned int a1)
 {
   result = 1;
   if (a1 <= 189)
@@ -8325,7 +8323,7 @@ uint64_t anonymous namespace::isAnyGeneric(int a1)
     }
   }
 
-  else if (((a1 - 190) > 0x37 || ((1 << (a1 + 66)) & 0xC0010000000003) == 0) && a1 != 361)
+  else if ((a1 - 190 > 0x37 || ((1 << (a1 + 66)) & 0xC0010000000003) == 0) && a1 != 361)
   {
     return 0;
   }
@@ -8583,9 +8581,9 @@ LABEL_20:
 
 unint64_t swift::Demangle::Demangler::popPack(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  v6 = ((*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8);
+  v6 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
   *(this + 1) = v6;
-  if (!v6 || &v6[1].u64[1] > *(this + 2))
+  if (!v6 || v6 + 24 > *(this + 2))
   {
     v7 = 2 * *(this + 4);
     if (v7 <= 0x20)
@@ -8598,14 +8596,14 @@ unint64_t swift::Demangle::Demangler::popPack(swift::Demangle::Demangler *this, 
     v9 = malloc_type_malloc(v7 + 8, 0x2004093837F09uLL);
     v10 = v9 + v8;
     *v9 = *(this + 3);
-    v6 = ((v9 + 15) & 0xFFFFFFFFFFFFFFF8);
+    v6 = (v9 + 15) & 0xFFFFFFFFFFFFFFF8;
     *(this + 2) = v10;
     *(this + 3) = v9;
   }
 
   *(this + 1) = v6 + 24;
-  v6[1].i16[0] = 237;
-  v6[1].i8[2] = 0;
+  *(v6 + 16) = 237;
+  *(v6 + 18) = 0;
   v11 = *(this + 24);
   if (v11 && (v12 = v11 - 1, *(*(*(this + 11) + 8 * v12) + 16) == 287))
   {
@@ -8647,16 +8645,16 @@ unint64_t swift::Demangle::Demangler::popPack(swift::Demangle::Demangler *this, 
     }
 
     while (v21 != 288);
-    v24 = v6[1].u8[2];
+    v24 = *(v6 + 18);
     if (v24 == 5)
     {
-      v26 = v6->u32[2];
+      v26 = *(v6 + 8);
       if (v26)
       {
-        v27 = (v6->i64[0] + 8 * v26 - 8);
-        if (v27 > v6->i64[0])
+        v27 = (*v6 + 8 * v26 - 8);
+        if (v27 > *v6)
         {
-          v28 = v6->i64[0] + 8;
+          v28 = *v6 + 8;
           do
           {
             v29 = *(v28 - 8);
@@ -8716,12 +8714,12 @@ unint64_t swift::Demangle::Demangler::popSILPack(swift::Demangle::Demangler *thi
   v7 = *(*(this + 7) + v5);
   if (v7 == 105)
   {
-    v8 = ((*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8);
+    v8 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
     *(this + 1) = v8;
     if (v8)
     {
       v9 = 239;
-      if (&v8[1].u64[1] <= *(this + 2))
+      if (v8 + 24 <= *(this + 2))
       {
         goto LABEL_16;
       }
@@ -8740,12 +8738,12 @@ unint64_t swift::Demangle::Demangler::popSILPack(swift::Demangle::Demangler *thi
       return 0;
     }
 
-    v8 = ((*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8);
+    v8 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
     *(this + 1) = v8;
     if (v8)
     {
       v9 = 238;
-      if (&v8[1].u64[1] <= *(this + 2))
+      if (v8 + 24 <= *(this + 2))
       {
         goto LABEL_16;
       }
@@ -8768,13 +8766,13 @@ unint64_t swift::Demangle::Demangler::popSILPack(swift::Demangle::Demangler *thi
   v13 = malloc_type_malloc(v11 + 8, 0x2004093837F09uLL);
   v14 = v13 + v12;
   *v13 = *(this + 3);
-  v8 = ((v13 + 15) & 0xFFFFFFFFFFFFFFF8);
+  v8 = (v13 + 15) & 0xFFFFFFFFFFFFFFF8;
   *(this + 2) = v14;
   *(this + 3) = v13;
 LABEL_16:
   *(this + 1) = v8 + 24;
-  v8[1].i16[0] = v9;
-  v8[1].i8[2] = 0;
+  *(v8 + 16) = v9;
+  *(v8 + 18) = 0;
   v15 = *(this + 24);
   if (!v15 || (v16 = v15 - 1, *(*(*(this + 11) + 8 * v16) + 16) != 287))
   {
@@ -8810,16 +8808,16 @@ LABEL_16:
       swift::Demangle::Node::addChild(v8, v27, this, a4, a5);
       if (v25 == 288)
       {
-        v28 = v8[1].u8[2];
+        v28 = *(v8 + 18);
         if (v28 == 5)
         {
-          v29 = v8->u32[2];
+          v29 = *(v8 + 8);
           if (v29)
           {
-            v30 = (v8->i64[0] + 8 * v29 - 8);
-            if (v30 > v8->i64[0])
+            v30 = (*v8 + 8 * v29 - 8);
+            if (v30 > *v8)
             {
-              v31 = v8->i64[0] + 8;
+              v31 = *v8 + 8;
               do
               {
                 v32 = *(v31 - 8);
@@ -8875,9 +8873,9 @@ LABEL_19:
 
 int8x16_t *swift::Demangle::Demangler::popTypeList(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  v6 = ((*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8);
+  v6 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
   *(this + 1) = v6;
-  if (!v6 || &v6[1].u64[1] > *(this + 2))
+  if (!v6 || v6 + 24 > *(this + 2))
   {
     v7 = 2 * *(this + 4);
     if (v7 <= 0x20)
@@ -8890,14 +8888,14 @@ int8x16_t *swift::Demangle::Demangler::popTypeList(swift::Demangle::Demangler *t
     v9 = malloc_type_malloc(v7 + 8, 0x2004093837F09uLL);
     v10 = v9 + v8;
     *v9 = *(this + 3);
-    v6 = ((v9 + 15) & 0xFFFFFFFFFFFFFFF8);
+    v6 = (v9 + 15) & 0xFFFFFFFFFFFFFFF8;
     *(this + 2) = v10;
     *(this + 3) = v9;
   }
 
   *(this + 1) = v6 + 24;
-  v6[1].i16[0] = 246;
-  v6[1].i8[2] = 0;
+  *(v6 + 16) = 246;
+  *(v6 + 18) = 0;
   v11 = *(this + 24);
   if (v11 && (v12 = v11 - 1, *(*(*(this + 11) + 8 * v12) + 16) == 287))
   {
@@ -8939,16 +8937,16 @@ int8x16_t *swift::Demangle::Demangler::popTypeList(swift::Demangle::Demangler *t
     }
 
     while (v16 != 288);
-    v19 = v6[1].u8[2];
+    v19 = *(v6 + 18);
     if (v19 == 5)
     {
-      v21 = v6->u32[2];
+      v21 = *(v6 + 8);
       if (v21)
       {
-        v22 = (v6->i64[0] + 8 * v21 - 8);
-        if (v22 > v6->i64[0])
+        v22 = (*v6 + 8 * v21 - 8);
+        if (v22 > *v6)
         {
-          v23 = v6->i64[0] + 8;
+          v23 = *v6 + 8;
           do
           {
             v24 = *(v23 - 8);
@@ -8974,9 +8972,9 @@ int8x16_t *swift::Demangle::Demangler::popTypeList(swift::Demangle::Demangler *t
 
 int8x16_t *swift::Demangle::Demangler::popAnyProtocolConformanceList(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  v6 = ((*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8);
+  v6 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
   *(this + 1) = v6;
-  if (!v6 || &v6[1].u64[1] > *(this + 2))
+  if (!v6 || v6 + 24 > *(this + 2))
   {
     v7 = 2 * *(this + 4);
     if (v7 <= 0x20)
@@ -8989,14 +8987,14 @@ int8x16_t *swift::Demangle::Demangler::popAnyProtocolConformanceList(swift::Dema
     v9 = malloc_type_malloc(v7 + 8, 0x2004093837F09uLL);
     v10 = v9 + v8;
     *v9 = *(this + 3);
-    v6 = ((v9 + 15) & 0xFFFFFFFFFFFFFFF8);
+    v6 = (v9 + 15) & 0xFFFFFFFFFFFFFFF8;
     *(this + 2) = v10;
     *(this + 3) = v9;
   }
 
   *(this + 1) = v6 + 24;
-  v6[1].i16[0] = 2;
-  v6[1].i8[2] = 0;
+  *(v6 + 16) = 2;
+  *(v6 + 18) = 0;
   v11 = *(this + 24);
   if (v11 && (v12 = v11 - 1, *(*(*(this + 11) + 8 * v12) + 16) == 287))
   {
@@ -9039,16 +9037,16 @@ int8x16_t *swift::Demangle::Demangler::popAnyProtocolConformanceList(swift::Dema
     }
 
     while (v19 != 288);
-    v21 = v6[1].u8[2];
+    v21 = *(v6 + 18);
     if (v21 == 5)
     {
-      v22 = v6->u32[2];
+      v22 = *(v6 + 8);
       if (v22)
       {
-        v23 = (v6->i64[0] + 8 * v22 - 8);
-        if (v23 > v6->i64[0])
+        v23 = (*v6 + 8 * v22 - 8);
+        if (v23 > *v6)
         {
-          v24 = v6->i64[0] + 8;
+          v24 = *v6 + 8;
           do
           {
             v25 = *(v24 - 8);
@@ -9295,7 +9293,7 @@ unint64_t swift::Demangle::Demangler::demangleDependentConformanceIndex(swift::D
   return v5;
 }
 
-unint64_t swift::Demangle::Demangler::popDependentAssociatedConformance(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+swift::Demangle::Node *swift::Demangle::Demangler::popDependentAssociatedConformance(swift::Demangle::Demangler *this, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   result = swift::Demangle::Demangler::popProtocol(this, a2, a3, a4, a5);
   v9 = *(this + 24);
@@ -9367,9 +9365,9 @@ int8x16_t *swift::Demangle::Demangler::popRetroactiveConformances(swift::Demangl
     *(this + 24) = v14;
     if (!v7)
     {
-      v7 = ((*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8);
+      v7 = (*(this + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
       *(this + 1) = v7;
-      if (!v7 || &v7[1].u64[1] > *(this + 2))
+      if (!v7 || v7 + 24 > *(this + 2))
       {
         v8 = 2 * *(this + 4);
         if (v8 <= 0x20)
@@ -9384,14 +9382,14 @@ int8x16_t *swift::Demangle::Demangler::popRetroactiveConformances(swift::Demangl
         v12 = v10;
         v13 = v11 + v9;
         *v11 = *(this + 3);
-        v7 = ((v11 + 15) & 0xFFFFFFFFFFFFFFF8);
+        v7 = (v11 + 15) & 0xFFFFFFFFFFFFFFF8;
         *(this + 2) = v13;
         *(this + 3) = v11;
       }
 
       *(this + 1) = v7 + 24;
-      v7[1].i16[0] = 246;
-      v7[1].i8[2] = 0;
+      *(v7 + 16) = 246;
+      *(v7 + 18) = 0;
     }
 
     swift::Demangle::Node::addChild(v7, v12, this, a4, a5);
@@ -9408,16 +9406,16 @@ int8x16_t *swift::Demangle::Demangler::popRetroactiveConformances(swift::Demangl
   }
 
 LABEL_15:
-  v15 = v7[1].u8[2];
+  v15 = *(v7 + 18);
   if (v15 == 5)
   {
-    v16 = v7->u32[2];
+    v16 = *(v7 + 8);
     if (v16)
     {
-      v17 = (v7->i64[0] + 8 * v16 - 8);
-      if (v17 > v7->i64[0])
+      v17 = (*v7 + 8 * v16 - 8);
+      if (v17 > *v7)
       {
-        v18 = v7->i64[0] + 8;
+        v18 = *v7 + 8;
         do
         {
           v19 = *(v18 - 8);
@@ -9663,7 +9661,7 @@ LABEL_66:
       v46 = *v43;
       if (*(*v43 + 16) != 73)
       {
-        v50 = swift::Demangle::Demangler::demangleBoundGenericArgs(a1, *v43, a3);
+        v50 = swift::Demangle::Demangler::demangleBoundGenericArgs(a1, *v43, a3, a4, a5);
         v53 = v10;
         v54 = v50;
 LABEL_80:
@@ -9774,7 +9772,7 @@ LABEL_89:
         {
           v49 = 0;
 LABEL_68:
-          v55 = swift::Demangle::Demangler::demangleBoundGenericArgs(a1, v49, a3);
+          v55 = swift::Demangle::Demangler::demangleBoundGenericArgs(a1, v49, a3, a4, a5);
           v57 = *(v46 + 18);
           v58 = v46;
           if ((v57 - 1) >= 2)
@@ -9821,7 +9819,7 @@ LABEL_74:
         v48 = *v46;
       }
 
-      v49 = *(v48 + 1);
+      v49 = v48[1];
       goto LABEL_68;
     }
 

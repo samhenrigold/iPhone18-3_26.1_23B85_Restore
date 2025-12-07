@@ -63,7 +63,7 @@
   [(ASDStream *)&v5 setPhysicalFormat:formatCopy];
   if (formatCopy)
   {
-    [formatCopy audioStreamBasicDescription];
+    objc_msgSend_audioStreamBasicDescription(formatCopy);
   }
 
   operator new();
@@ -94,87 +94,81 @@
   return v3;
 }
 
-uint64_t __42__ASDRingBufferInputStream_readInputBlock__block_invoke(uint64_t a1, int a2, uint64_t a3, void *a4)
+uint64_t __42__ASDRingBufferInputStream_readInputBlock__block_invoke(uint64_t a1, int a2, int a3, void *a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   ASDBufferList::setBufferListFromData(**(*(*(a1 + 32) + 8) + 24), a4, a2);
-  v6 = *(**(*(*(a1 + 32) + 8) + 24) + 40);
-  v7 = *(a3 + 80);
-  v8 = (*(*(*(*(a1 + 40) + 8) + 40) + 16))();
-  v9 = v8;
-  if ((v8 + 2) >= 5)
+  v5 = (*(*(*(*(a1 + 40) + 8) + 40) + 16))();
+  v6 = v5;
+  if ((v5 + 2) < 5)
   {
-    if ((v8 - 3) >= 2)
+    return 0;
+  }
+
+  if ((v5 - 3) >= 2)
+  {
+    if (CALog_DefaultScope)
     {
-      if (CALog_DefaultScope)
-      {
-        v11 = *CALog_DefaultScope;
-      }
-
-      else
-      {
-        v11 = MEMORY[0x277D86220];
-        v16 = MEMORY[0x277D86220];
-      }
-
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_15;
-      }
-
-      *buf = 136315650;
-      v19 = LogFilenameOnly("/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDRingBufferStream.mm");
-      v20 = 1024;
-      v21 = 213;
-      v22 = 2080;
-      v23 = "[ASDRingBufferInputStream readInputBlock]_block_invoke";
-      v13 = "%s:%d:%s: Unknown audio ring buffer error";
-      v14 = v11;
-      v15 = 28;
+      v8 = *CALog_DefaultScope;
     }
 
     else
     {
-      if (CALog_DefaultScope)
-      {
-        v11 = *CALog_DefaultScope;
-      }
-
-      else
-      {
-        v11 = MEMORY[0x277D86220];
-        v12 = MEMORY[0x277D86220];
-      }
-
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_15;
-      }
-
-      *buf = 136315906;
-      v19 = LogFilenameOnly("/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDRingBufferStream.mm");
-      v20 = 1024;
-      v21 = 208;
-      v22 = 2080;
-      v23 = "[ASDRingBufferInputStream readInputBlock]_block_invoke";
-      v24 = 1024;
-      v25 = v9;
-      v13 = "%s:%d:%s: Audio ring buffer error %d";
-      v14 = v11;
-      v15 = 34;
+      v8 = MEMORY[0x277D86220];
+      v13 = MEMORY[0x277D86220];
     }
 
-    _os_log_impl(&dword_2415D8000, v14, OS_LOG_TYPE_ERROR, v13, buf, v15);
-LABEL_15:
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_15;
+    }
 
-    result = 2003329396;
-    goto LABEL_16;
+    *buf = 136315650;
+    v15 = LogFilenameOnly("/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDRingBufferStream.mm");
+    v16 = 1024;
+    v17 = 213;
+    v18 = 2080;
+    v19 = "[ASDRingBufferInputStream readInputBlock]_block_invoke";
+    v10 = "%s:%d:%s: Unknown audio ring buffer error";
+    v11 = v8;
+    v12 = 28;
   }
 
-  result = 0;
-LABEL_16:
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  else
+  {
+    if (CALog_DefaultScope)
+    {
+      v8 = *CALog_DefaultScope;
+    }
+
+    else
+    {
+      v8 = MEMORY[0x277D86220];
+      v9 = MEMORY[0x277D86220];
+    }
+
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_15;
+    }
+
+    *buf = 136315906;
+    v15 = LogFilenameOnly("/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDRingBufferStream.mm");
+    v16 = 1024;
+    v17 = 208;
+    v18 = 2080;
+    v19 = "[ASDRingBufferInputStream readInputBlock]_block_invoke";
+    v20 = 1024;
+    v21 = v6;
+    v10 = "%s:%d:%s: Audio ring buffer error %d";
+    v11 = v8;
+    v12 = 34;
+  }
+
+  _os_log_impl(&dword_2415D8000, v11, OS_LOG_TYPE_ERROR, v10, buf, v12);
+LABEL_15:
+
+  return 2003329396;
 }
 
 @end

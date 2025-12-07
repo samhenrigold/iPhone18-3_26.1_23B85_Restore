@@ -123,25 +123,23 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v23 = DefaultLog();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v24 = DefaultLog(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = [array2 count];
+    v25 = [array2 count];
     *buf = 134218498;
-    v35 = v24;
+    v35 = v25;
     v36 = 2114;
     v37 = keyCopy;
     v38 = 2114;
     v39 = array2;
-    _os_log_impl(&dword_1DF7C6000, v23, OS_LOG_TYPE_DEFAULT, "Cache evicted %lu objects with prefixKey: %{public}@, Evicted objects: %{public}@", buf, 0x20u);
+    _os_log_impl(&dword_1DF7C6000, v24, OS_LOG_TYPE_DEFAULT, "Cache evicted %lu objects with prefixKey: %{public}@, Evicted objects: %{public}@", buf, 0x20u);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearCache
 {
-  v3 = DefaultLog();
+  v3 = DefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

@@ -21,7 +21,7 @@
 
 - (id)_recentStationsResponseWithConnectionResponse:(id)response returningError:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   radio_decompressedBodyData = [response radio_decompressedBodyData];
   if (![radio_decompressedBodyData length])
   {
@@ -35,11 +35,11 @@
     goto LABEL_10;
   }
 
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
-  v7 = [radio_decompressedBodyData propertyListForRadioResponseReturningError:&v19 unparsedResponseDictionary:&v18];
-  v8 = v19;
-  v9 = v18;
+  v7 = [radio_decompressedBodyData propertyListForRadioResponseReturningError:&v18 unparsedResponseDictionary:&v17];
+  v8 = v18;
+  v9 = v17;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -55,7 +55,7 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&dword_261792000, v13, OS_LOG_TYPE_ERROR, "Error: Unable to deserialize get stations response (%@)", buf, 0xCu);
     }
 
@@ -75,7 +75,6 @@ LABEL_10:
 LABEL_11:
   v15 = v10;
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -199,17 +198,17 @@ void __57__RadioRecentStationsRequest_startWithCompletionHandler___block_invoke_
   if (!v4)
   {
     [v5 setStatus:5];
-    v31 = dispatch_get_global_queue(0, 0);
+    v30 = dispatch_get_global_queue(0, 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __57__RadioRecentStationsRequest_startWithCompletionHandler___block_invoke_3;
     block[3] = &unk_279AEACF0;
-    v32 = *(a1 + 48);
+    v31 = *(a1 + 48);
     block[4] = *(a1 + 32);
-    v46 = v32;
-    dispatch_async(v31, block);
+    v45 = v31;
+    dispatch_async(v30, block);
 
-    v6 = v46;
+    v6 = v45;
     goto LABEL_10;
   }
 
@@ -219,80 +218,79 @@ void __57__RadioRecentStationsRequest_startWithCompletionHandler___block_invoke_
   v9 = [v8 mutableCopy];
 
   v10 = *(a1 + 32);
-  v44 = 0;
-  [v10 _configureRequestPropertiesForCaching:v9 returningCacheKey:&v44];
-  v11 = v44;
-  v12 = *(a1 + 32);
-  v13 = [objc_opt_class() defaultURLCache];
   v43 = 0;
-  v14 = [v13 cachedConnectionResponseForRequestProperties:v9 cachedResponse:&v43];
-  v37 = v43;
+  [v10 _configureRequestPropertiesForCaching:v9 returningCacheKey:&v43];
+  v11 = v43;
+  v12 = [objc_opt_class() defaultURLCache];
+  v42 = 0;
+  v13 = [v12 cachedConnectionResponseForRequestProperties:v9 cachedResponse:&v42];
+  v36 = v42;
 
-  if (v14)
+  if (v13)
   {
-    if (([v14 ssv_isExpiredResponse] & 1) == 0)
+    if (([v13 ssv_isExpiredResponse] & 1) == 0)
     {
-      v15 = [v37 userInfo];
-      [v15 objectForKey:@"com.apple.Radio.RadioRecentStationsRequest.bodyMD5"];
-      v36 = v9;
-      v16 = v14;
-      v17 = v4;
-      v18 = v3;
-      v19 = v7;
-      v20 = v6;
-      v22 = v21 = v11;
-      v23 = [v22 isEqual:v21];
+      v14 = [v36 userInfo];
+      [v14 objectForKey:@"com.apple.Radio.RadioRecentStationsRequest.bodyMD5"];
+      v35 = v9;
+      v15 = v13;
+      v16 = v4;
+      v17 = v3;
+      v18 = v7;
+      v19 = v6;
+      v21 = v20 = v11;
+      v22 = [v21 isEqual:v20];
 
-      v11 = v21;
-      v6 = v20;
-      v7 = v19;
-      v3 = v18;
-      v4 = v17;
-      v14 = v16;
-      v9 = v36;
+      v11 = v20;
+      v6 = v19;
+      v7 = v18;
+      v3 = v17;
+      v4 = v16;
+      v13 = v15;
+      v9 = v35;
 
-      if (v23)
+      if (v22)
       {
-        v24 = *(a1 + 32);
-        v42 = 0;
-        v25 = [v24 _recentStationsResponseWithConnectionResponse:v14 returningError:&v42];
-        v26 = v42;
-        if (!v26)
+        v23 = *(a1 + 32);
+        v41 = 0;
+        v24 = [v23 _recentStationsResponseWithConnectionResponse:v13 returningError:&v41];
+        v25 = v41;
+        if (!v25)
         {
           [*(a1 + 32) setCachedResponse:1];
-          v33 = *(a1 + 48);
-          if (v33)
+          v32 = *(a1 + 48);
+          if (v32)
           {
-            (*(v33 + 16))(v33, v25, 0);
+            (*(v32 + 16))(v32, v24, 0);
           }
 
           [MEMORY[0x277CCAB98] defaultCenter];
-          v35 = v34 = v25;
-          [v35 postNotificationName:@"RadioRequestDidFinishNotification" object:*(a1 + 32)];
+          v34 = v33 = v24;
+          [v34 postNotificationName:@"RadioRequestDidFinishNotification" object:*(a1 + 32)];
 
           goto LABEL_8;
         }
 
-        v27 = v26;
+        v26 = v25;
       }
     }
   }
 
-  v28 = +[RadioNetworkObserver sharedNetworkObserver];
-  [v28 beginUsingNetwork];
+  v27 = +[RadioNetworkObserver sharedNetworkObserver];
+  [v27 beginUsingNetwork];
 
   objc_storeStrong((*(a1 + 32) + 72), v7);
-  v29 = *(a1 + 32);
-  v30 = *(v29 + 72);
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __57__RadioRecentStationsRequest_startWithCompletionHandler___block_invoke_4;
-  v38[3] = &unk_279AEABB0;
-  v38[4] = v29;
-  v39 = v9;
-  v40 = v11;
-  v41 = *(a1 + 48);
-  [v30 startWithConnectionResponseBlock:v38];
+  v28 = *(a1 + 32);
+  v29 = *(v28 + 72);
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __57__RadioRecentStationsRequest_startWithCompletionHandler___block_invoke_4;
+  v37[3] = &unk_279AEABB0;
+  v37[4] = v28;
+  v38 = v9;
+  v39 = v11;
+  v40 = *(a1 + 48);
+  [v29 startWithConnectionResponseBlock:v37];
 
 LABEL_8:
 LABEL_10:
@@ -313,7 +311,7 @@ void __57__RadioRecentStationsRequest_startWithCompletionHandler___block_invoke_
 
 void __57__RadioRecentStationsRequest_startWithCompletionHandler___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[RadioNetworkObserver sharedNetworkObserver];
@@ -335,7 +333,7 @@ void __57__RadioRecentStationsRequest_startWithCompletionHandler___block_invoke_
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v42 = v8;
+    v40 = v8;
     _os_log_impl(&dword_261792000, v11, OS_LOG_TYPE_INFO, "[RadioRecentStationsRequest] Status code: %lli", buf, 0xCu);
   }
 
@@ -345,7 +343,7 @@ void __57__RadioRecentStationsRequest_startWithCompletionHandler___block_invoke_
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v42 = v6;
+      v40 = v6;
       _os_log_impl(&dword_261792000, v12, OS_LOG_TYPE_ERROR, "Error: Unable to get recent stations (%@)", buf, 0xCu);
     }
 
@@ -354,10 +352,10 @@ void __57__RadioRecentStationsRequest_startWithCompletionHandler___block_invoke_
     {
       v14 = MEMORY[0x277CCA9B8];
       v15 = *MEMORY[0x277D6A110];
-      v39 = *MEMORY[0x277D6A118];
+      v37 = *MEMORY[0x277D6A118];
       v16 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
-      v40 = v16;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      v38 = v16;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
       v13 = [v14 errorWithDomain:v15 code:109 userInfo:v17];
     }
 
@@ -394,38 +392,35 @@ LABEL_22:
   }
 
   v19 = *(a1 + 32);
-  v36 = v6;
-  v20 = [v19 _recentStationsResponseWithConnectionResponse:v5 returningError:&v36];
-  v13 = v36;
+  v34 = v6;
+  v20 = [v19 _recentStationsResponseWithConnectionResponse:v5 returningError:&v34];
+  v13 = v34;
 
   if (v20)
   {
-    v21 = *(a1 + 32);
-    v22 = [objc_opt_class() defaultURLCache];
-    v24 = *(a1 + 40);
-    v23 = *(a1 + 48);
-    v37 = @"com.apple.Radio.RadioRecentStationsRequest.bodyMD5";
-    v38 = v23;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-    [v22 storeConnectionResponse:v5 forRequestProperties:v24 userInfo:v25];
+    v21 = [objc_opt_class() defaultURLCache];
+    v23 = *(a1 + 40);
+    v22 = *(a1 + 48);
+    v35 = @"com.apple.Radio.RadioRecentStationsRequest.bodyMD5";
+    v36 = v22;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    [v21 storeConnectionResponse:v5 forRequestProperties:v23 userInfo:v24];
   }
 
 LABEL_23:
-  v26 = dispatch_get_global_queue(0, 0);
+  v25 = dispatch_get_global_queue(0, 0);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __57__RadioRecentStationsRequest_startWithCompletionHandler___block_invoke_11;
   block[3] = &unk_279AEAB88;
-  v27 = *(a1 + 56);
-  v32 = v20;
-  v33 = v13;
-  v34 = *(a1 + 32);
-  v35 = v27;
-  v28 = v13;
-  v29 = v20;
-  dispatch_async(v26, block);
-
-  v30 = *MEMORY[0x277D85DE8];
+  v26 = *(a1 + 56);
+  v30 = v20;
+  v31 = v13;
+  v32 = *(a1 + 32);
+  v33 = v26;
+  v27 = v13;
+  v28 = v20;
+  dispatch_async(v25, block);
 }
 
 void __57__RadioRecentStationsRequest_startWithCompletionHandler___block_invoke_11(void *a1)
@@ -459,30 +454,29 @@ void __83__RadioRecentStationsRequest_getCachedRecentStationsResponseWithComplet
   if (v3)
   {
     v4 = [*(a1 + 32) _newRecentStationsURLRequestPropertiesWithBaseURL:v3];
-    v5 = *(a1 + 32);
-    v6 = [objc_opt_class() defaultURLCache];
-    v7 = [v6 cachedConnectionResponseForRequestProperties:v4];
+    v5 = [objc_opt_class() defaultURLCache];
+    v6 = [v5 cachedConnectionResponseForRequestProperties:v4];
 
-    if (v7)
+    if (v6)
     {
-      v9 = [*(a1 + 32) _recentStationsResponseWithConnectionResponse:v7 returningError:0];
+      v8 = [*(a1 + 32) _recentStationsResponseWithConnectionResponse:v6 returningError:0];
     }
 
     else
     {
-      v9 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  v8 = *(a1 + 40);
-  if (v8)
+  v7 = *(a1 + 40);
+  if (v7)
   {
-    (*(v8 + 16))(v8, v9);
+    (*(v7 + 16))(v7, v8);
   }
 }
 

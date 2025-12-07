@@ -5,7 +5,7 @@
 
 void ___MRServiceHandleClientPriorityMessage_block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   uint64 = xpc_dictionary_get_uint64(*(a1 + 32), "MRXPC_MESSAGE_ID_KEY");
   if (uint64 == 0x800000000000001)
   {
@@ -72,11 +72,11 @@ void ___MRServiceHandleClientPriorityMessage_block_invoke(uint64_t a1)
       v21 = [v9 copy];
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v26 = ___MRServiceHandleRemoteCommandMessage_block_invoke;
-      v27 = &unk_1E769C708;
-      v28 = v4;
-      v29 = v9;
-      v30 = v13;
+      v25 = ___MRServiceHandleRemoteCommandMessage_block_invoke;
+      v26 = &unk_1E769C708;
+      v27 = v4;
+      v28 = v9;
+      v29 = v13;
       v22 = v9;
       v20(v19, v5, v21, &buf);
     }
@@ -93,8 +93,6 @@ void ___MRServiceHandleClientPriorityMessage_block_invoke(uint64_t a1)
       _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "Client XPC message with ID %lu not handled.", &buf, 0xCu);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -198,7 +198,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10001E970(v8);
+  sub_10001E970(v8, v9);
 }
 
 - (id)checklistHandler
@@ -245,7 +245,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10001E970(v8);
+  sub_10001E970(v8, v9);
 }
 
 - (id)userGuideHandler
@@ -292,7 +292,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10001E970(v8);
+  sub_10001E970(v8, v9);
 }
 
 - (id)supportFlowHandler
@@ -339,7 +339,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10001E970(v8);
+  sub_10001E970(v8, v9);
 }
 
 - (BOOL)hasCollections

@@ -34,7 +34,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   fireCopy = fire;
   symptomDisappearanceTimer = [(HMSymptomFixSession *)self symptomDisappearanceTimer];
 
@@ -47,11 +47,11 @@
     {
       v9 = HMFGetLogIdentifier();
       [fireCopy timeInterval];
-      v13 = 138543618;
-      v14 = v9;
-      v15 = 2048;
-      v16 = v10;
-      _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_ERROR, "%{public}@Symptom still exists %fs after being fixed. Marking as finished with timeout error", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v9;
+      v14 = 2048;
+      v15 = v10;
+      _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_ERROR, "%{public}@Symptom still exists %fs after being fixed. Marking as finished with timeout error", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -60,13 +60,11 @@
 
     [(HMSymptomFixSession *)selfCopy setSymptomDisappearanceTimer:0];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startSymptomDisappearanceTimer
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   _createSymptomDisappearanceTimer = [objc_opt_class() _createSymptomDisappearanceTimer];
   [_createSymptomDisappearanceTimer setDelegate:self];
   v4 = objc_autoreleasePoolPush();
@@ -75,18 +73,16 @@
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = _createSymptomDisappearanceTimer;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Starting timer for symptom disappearance: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = _createSymptomDisappearanceTimer;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Starting timer for symptom disappearance: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   [_createSymptomDisappearanceTimer resume];
   [(HMSymptomFixSession *)selfCopy setSymptomDisappearanceTimer:_createSymptomDisappearanceTimer];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateState
@@ -122,36 +118,35 @@
 
 - (void)noteSymptomDisappeared
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Notified that symptom has disappeared", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Notified that symptom has disappeared", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMSymptomFixSession *)selfCopy setHasSymptomDisappeared:1];
   [(HMSymptomFixSession *)selfCopy setSymptomDisappearanceTimer:0];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stop
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v15 = 138543362;
-    v16 = v6;
-    _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Asked to stop symptom fix session", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v6;
+    _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Asked to stop symptom fix session", &v14, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -166,9 +161,9 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         v13 = HMFGetLogIdentifier();
-        v15 = 138543362;
-        v16 = v13;
-        _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Not stopping symptom fix session because it is already finished", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = v13;
+        _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Not stopping symptom fix session because it is already finished", &v14, 0xCu);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -185,17 +180,15 @@
 
     [(HMSymptomFixSession *)selfCopy setSymptomDisappearanceTimer:0];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)start
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   if ([(HMSymptomFixSession *)self state])
   {
-    v29 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Cannot start a session that has already been started" userInfo:0];
-    objc_exception_throw(v29);
+    v28 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Cannot start a session that has already been started" userInfo:0];
+    objc_exception_throw(v28);
   }
 
   v3 = objc_autoreleasePoolPush();
@@ -215,16 +208,16 @@
 
   location = 0;
   p_location = &location;
-  v34 = 0x2050000000;
+  v33 = 0x2050000000;
   v8 = getSFDeviceClass_softClass;
-  v35 = getSFDeviceClass_softClass;
+  v34 = getSFDeviceClass_softClass;
   if (!getSFDeviceClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getSFDeviceClass_block_invoke;
-    v37 = &unk_1E754CB30;
-    *v38 = &location;
+    v36 = &unk_1E754CB30;
+    *v37 = &location;
     __getSFDeviceClass_block_invoke(buf);
     v8 = p_location[3];
   }
@@ -247,13 +240,13 @@
   [deviceRepairSession3 setRepairFlags:deviceRepairFlags];
 
   objc_initWeak(&location, selfCopy);
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __28__HMSymptomFixSession_start__block_invoke;
-  v30[3] = &unk_1E754BD30;
-  objc_copyWeak(&v31, &location);
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __28__HMSymptomFixSession_start__block_invoke;
+  v29[3] = &unk_1E754BD30;
+  objc_copyWeak(&v30, &location);
   deviceRepairSession4 = [(HMSymptomFixSession *)selfCopy deviceRepairSession];
-  [deviceRepairSession4 setProgressHandler:v30];
+  [deviceRepairSession4 setProgressHandler:v29];
 
   v18 = objc_autoreleasePoolPush();
   v19 = selfCopy;
@@ -271,13 +264,13 @@
     *&buf[12] = 2112;
     *&buf[14] = deviceRepairSession5;
     *&buf[22] = 2112;
-    v37 = symptom;
-    *v38 = 2112;
-    *&v38[2] = deviceIdentifier2;
-    v39 = 2112;
-    v40 = presentingViewController2;
-    v41 = 1024;
-    v42 = deviceRepairFlags2;
+    v36 = symptom;
+    *v37 = 2112;
+    *&v37[2] = deviceIdentifier2;
+    v38 = 2112;
+    v39 = presentingViewController2;
+    v40 = 1024;
+    v41 = deviceRepairFlags2;
     _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_INFO, "%{public}@Activating SFDeviceRepairSession %@ for symptom %@ with deviceIdentifier: %@ presentingViewController: %@ repairFlags: %d", buf, 0x3Au);
   }
 
@@ -286,15 +279,13 @@
   [deviceRepairSession6 activate];
 
   [(HMSymptomFixSession *)v19 setState:1];
-  objc_destroyWeak(&v31);
+  objc_destroyWeak(&v30);
   objc_destroyWeak(&location);
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __28__HMSymptomFixSession_start__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = objc_autoreleasePoolPush();
@@ -982,22 +973,20 @@ LABEL_211:
     }
 
 LABEL_212:
-    v15 = 138544130;
-    v16 = v10;
-    v17 = 2080;
-    v18 = v12;
-    v19 = 1024;
-    v20 = a2;
-    v21 = 2112;
-    v22 = v5;
-    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Received new device repair session progress event: %s (%d) and info: %@", &v15, 0x26u);
+    v14 = 138544130;
+    v15 = v10;
+    v16 = 2080;
+    v17 = v12;
+    v18 = 1024;
+    v19 = a2;
+    v20 = 2112;
+    v21 = v5;
+    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Received new device repair session progress event: %s (%d) and info: %@", &v14, 0x26u);
   }
 
   objc_autoreleasePoolPop(v7);
   v13 = [v5 objectForKeyedSubscript:@"eo"];
   [v8 _updateForDeviceSetupProgressEvent:a2 error:v13];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSymptomDisappearanceTimer:(id)timer
@@ -1129,7 +1118,7 @@ LABEL_212:
 
 - (void)setState:(int64_t)state
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if ([(HMSymptomFixSession *)self state]!= state)
   {
     v5 = objc_autoreleasePoolPush();
@@ -1139,10 +1128,10 @@ LABEL_212:
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v17 = v8;
-      v18 = 2048;
+      v16 = v8;
+      v17 = 2048;
       state = [(HMSymptomFixSession *)selfCopy state];
-      v20 = 2048;
+      v19 = 2048;
       stateCopy = state;
       _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating state from %ld to %ld", buf, 0x20u);
     }
@@ -1156,17 +1145,15 @@ LABEL_212:
     {
       context = [(HMSymptomFixSession *)selfCopy context];
       delegateCaller = [context delegateCaller];
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __32__HMSymptomFixSession_setState___block_invoke;
-      v13[3] = &unk_1E754E5C0;
-      v14 = delegate;
-      v15 = selfCopy;
-      [delegateCaller invokeBlock:v13];
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __32__HMSymptomFixSession_setState___block_invoke;
+      v12[3] = &unk_1E754E5C0;
+      v13 = delegate;
+      v14 = selfCopy;
+      [delegateCaller invokeBlock:v12];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __32__HMSymptomFixSession_setState___block_invoke(uint64_t a1)
@@ -1244,12 +1231,11 @@ uint64_t __32__HMSymptomFixSession_setState___block_invoke(uint64_t a1)
 
 uint64_t __34__HMSymptomFixSession_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v25_42242;
-  logCategory__hmf_once_v25_42242 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v25_42242;
+  logCategory__hmf_once_v25_42242 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_createSymptomDisappearanceTimer

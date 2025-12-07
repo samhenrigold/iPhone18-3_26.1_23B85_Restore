@@ -22,6 +22,7 @@
 - (void)acceptSharedScope:(id)scope completionHandler:(id)handler;
 - (void)acknowledgeChangedStatuses:(id)statuses;
 - (void)activateScopeWithIdentifier:(id)identifier completionHandler:(id)handler;
+- (void)addDropDerivativesRecipe:(id)recipe writeToUserDefaults:(BOOL)defaults withCompletionHandler:(id)handler;
 - (void)addInfoToLog:(id)log;
 - (void)addStatusChangesForRecordsWithScopedIdentifiers:(id)identifiers persist:(BOOL)persist;
 - (void)attachComputeStates:(id)states completionHandler:(id)handler;
@@ -50,6 +51,7 @@
 - (void)engineLibrary:(id)library didStartUploadTask:(id)task;
 - (void)engineLibrary:(id)library getStatusDictionaryWithCompletionHandler:(id)handler;
 - (void)engineLibrary:(id)library getStatusWithCompletionHandler:(id)handler;
+- (void)engineLibrary:(id)library noteClientIsInForeground:(BOOL)foreground;
 - (void)engineLibrary:(id)library provideLocalResource:(id)resource recordClass:(Class)class completionHandler:(id)handler;
 - (void)engineLibrary:(id)library providePayloadForComputeStates:(id)states inFolderWithURL:(id)l completionHandler:(id)handler;
 - (void)engineLibrary:(id)library pushAllChangesWithCompletionHandler:(id)handler;
@@ -77,6 +79,7 @@
 - (void)markLibraryManagerAsInvalid;
 - (void)noteClientIsEndingSignificantWork;
 - (void)noteClientIsInBackground;
+- (void)noteClientIsInForegroundQuietly:(BOOL)quietly;
 - (void)noteClientReceivedNotificationOfServerChanges;
 - (void)openWithCompletionHandler:(id)handler;
 - (void)queryUserDetailsForShareParticipants:(id)participants completionHandler:(id)handler;
@@ -159,15 +162,15 @@
     v10 = 0;
   }
 
-  v36[0] = _NSConcreteStackBlock;
-  v36[1] = 3221225472;
-  v36[2] = sub_1001B013C;
-  v36[3] = &unk_100275AF0;
-  v36[4] = self;
-  v38 = v10;
+  v37[0] = _NSConcreteStackBlock;
+  v37[1] = 3221225472;
+  v37[2] = sub_1001B013C;
+  v37[3] = &unk_100275AF0;
+  v37[4] = self;
+  v39 = v10;
   v11 = handlerCopy;
-  v37 = v11;
-  v12 = objc_retainBlock(v36);
+  v38 = v11;
+  v12 = objc_retainBlock(v37);
   v13 = v12;
   if (self->_engineLibrary)
   {
@@ -177,7 +180,7 @@
   else if (v10)
   {
     self->_ownsLibrary = 1;
-    v27 = [CPLEngineLibrary alloc];
+    v28 = [CPLEngineLibrary alloc];
     abstractObject2 = [(CPLDirectLibraryManager *)self abstractObject];
     clientLibraryBaseURL2 = [abstractObject2 clientLibraryBaseURL];
     abstractObject3 = [(CPLDirectLibraryManager *)self abstractObject];
@@ -189,22 +192,22 @@
     abstractObject6 = [(CPLDirectLibraryManager *)self abstractObject];
     mainScopeIdentifier = [abstractObject6 mainScopeIdentifier];
     abstractObject7 = [(CPLDirectLibraryManager *)self abstractObject];
-    v19 = [v27 initWithClientLibraryBaseURL:clientLibraryBaseURL2 cloudLibraryStateStorageURL:cloudLibraryStateStorageURL2 cloudLibraryResourceStorageURL:cloudLibraryResourceStorageURL2 libraryIdentifier:libraryIdentifier2 mainScopeIdentifier:mainScopeIdentifier options:{objc_msgSend(abstractObject7, "libraryOptions")}];
+    v19 = [v28 initWithClientLibraryBaseURL:clientLibraryBaseURL2 cloudLibraryStateStorageURL:cloudLibraryStateStorageURL2 cloudLibraryResourceStorageURL:cloudLibraryResourceStorageURL2 libraryIdentifier:libraryIdentifier2 mainScopeIdentifier:mainScopeIdentifier options:{objc_msgSend(abstractObject7, "libraryOptions")}];
     engineLibrary = self->_engineLibrary;
     self->_engineLibrary = v19;
 
-    [(CPLEngineLibrary *)self->_engineLibrary setOwner:self];
+    v21 = [(CPLEngineLibrary *)self->_engineLibrary setOwner:self];
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v21 = sub_10011B768();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v22 = sub_10011B768(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        v22 = self->_engineLibrary;
+        v23 = self->_engineLibrary;
         *buf = 138412546;
         selfCopy = self;
-        v41 = 2112;
-        v42 = v22;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "%@ will own %@", buf, 0x16u);
+        v42 = 2112;
+        v43 = v23;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "%@ will own %@", buf, 0x16u);
       }
     }
 
@@ -214,21 +217,21 @@
       configureEngineBeforeOpeningBlock[2](configureEngineBeforeOpeningBlock, self->_engineLibrary);
     }
 
-    v24 = self->_engineLibrary;
-    v33[0] = _NSConcreteStackBlock;
-    v33[1] = 3221225472;
-    v33[2] = sub_10011C19C;
-    v33[3] = &unk_100279720;
-    v33[4] = self;
-    v34 = v13;
-    v35 = v11;
-    [(CPLEngineLibrary *)v24 openWithCompletionHandler:v33];
+    v25 = self->_engineLibrary;
+    v34[0] = _NSConcreteStackBlock;
+    v34[1] = 3221225472;
+    v34[2] = sub_10011C19C;
+    v34[3] = &unk_100279720;
+    v34[4] = self;
+    v35 = v13;
+    v36 = v11;
+    [(CPLEngineLibrary *)v25 openWithCompletionHandler:v34];
   }
 
   else
   {
-    v25 = [CPLErrors incorrectMachineStateErrorWithReason:@"Library Manager has no Engine to manage"];
-    (*(v11 + 2))(v11, v25, 0, 0, 0, 0);
+    v26 = [CPLErrors incorrectMachineStateErrorWithReason:@"Library Manager has no Engine to manage"];
+    (*(v11 + 2))(v11, v26, 0, 0, 0, 0);
   }
 }
 
@@ -1001,34 +1004,15 @@ LABEL_12:
 - (BOOL)_isValidScopeForClient:(id)client error:(id *)error
 {
   clientCopy = client;
-  if (([clientCopy scopeType] & 0xFFFFFFFFFFFFFFFELL) != 4)
+  if ([clientCopy scopeType] & 0xFFFFFFFFFFFFFFFELL) != 4 || (-[CPLDirectLibraryManager engineLibrary](self, "engineLibrary"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "libraryOptions"), v7, (v8 & 2) != 0) || (-[CPLDirectLibraryManager engineLibrary](self, "engineLibrary"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "store"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(clientCopy, "scopeIdentifier"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "mainScopeSupportsSharingScopeWithIdentifier:", v11), v11, v10, v9, (v12))
   {
-    goto LABEL_4;
-  }
-
-  engineLibrary = [(CPLDirectLibraryManager *)self engineLibrary];
-  libraryOptions = [engineLibrary libraryOptions];
-
-  if ((libraryOptions & 2) != 0)
-  {
-    goto LABEL_4;
-  }
-
-  engineLibrary2 = [(CPLDirectLibraryManager *)self engineLibrary];
-  store = [engineLibrary2 store];
-  scopeIdentifier = [clientCopy scopeIdentifier];
-  v12 = [store mainScopeSupportsSharingScopeWithIdentifier:scopeIdentifier];
-
-  if (v12)
-  {
-LABEL_4:
     v13 = 1;
   }
 
   else
   {
-    scopeIdentifier2 = [clientCopy scopeIdentifier];
-    v16 = [CPLErrors cplErrorWithCode:2001 description:@"%@ is not a valid scope for this engine", scopeIdentifier2];
+    scopeIdentifier = [clientCopy scopeIdentifier];
+    v16 = [CPLErrors cplErrorWithCode:2001 description:@"%@ is not a valid scope for this engine", scopeIdentifier];
 
     if (error)
     {
@@ -1530,6 +1514,31 @@ LABEL_10:
   [scheduler getCurrentRequiredStateWithCompletionHandler:v13];
 }
 
+- (void)noteClientIsInForegroundQuietly:(BOOL)quietly
+{
+  quietlyCopy = quietly;
+  foregroundCalls = self->_foregroundCalls;
+  self->_foregroundCalls = foregroundCalls + 1;
+  if (foregroundCalls)
+  {
+    if (self->_foregroundCallsHaveBeenQuiet && !quietly)
+    {
+      self->_foregroundCallsHaveBeenQuiet = 0;
+      scheduler = [(CPLEngineLibrary *)self->_engineLibrary scheduler];
+      [scheduler noteClientIsInForegroundQuietly:0];
+      [scheduler noteClientIsInBackground];
+    }
+  }
+
+  else
+  {
+    scheduler2 = [(CPLEngineLibrary *)self->_engineLibrary scheduler];
+    [scheduler2 noteClientIsInForegroundQuietly:quietlyCopy];
+
+    self->_foregroundCallsHaveBeenQuiet = quietlyCopy;
+  }
+}
+
 - (void)disableSynchronizationWithReason:(id)reason
 {
   reasonCopy = reason;
@@ -1847,35 +1856,35 @@ LABEL_10:
   resourcesCopy = resources;
   mappingCopy = mapping;
   unsafeResourcesCopy = unsafeResources;
-  v88 = objc_alloc_init(NSMutableArray);
+  v96 = objc_alloc_init(NSMutableArray);
   v16 = objc_alloc_init(NSMutableArray);
   store = [(CPLEngineLibrary *)self->_engineLibrary store];
   scopes = [store scopes];
   cloudCache = [store cloudCache];
   outgoingResources = [store outgoingResources];
   idMapping = [store idMapping];
-  v87 = store;
+  v95 = store;
   resourceStorage = [store resourceStorage];
-  v91 = objc_alloc_init(NSMutableDictionary);
-  v92 = objc_alloc_init(NSMutableDictionary);
-  v85 = objc_alloc_init(NSMutableSet);
-  v97 = objc_alloc_init(NSMutableDictionary);
-  v99 = objc_alloc_init(NSMutableSet);
-  v115[0] = _NSConcreteStackBlock;
-  v115[1] = 3221225472;
-  v115[2] = sub_10012FEE4;
-  v115[3] = &unk_10027A6C0;
+  v99 = objc_alloc_init(NSMutableDictionary);
+  v100 = objc_alloc_init(NSMutableDictionary);
+  v93 = objc_alloc_init(NSMutableSet);
+  v105 = objc_alloc_init(NSMutableDictionary);
+  v107 = objc_alloc_init(NSMutableSet);
+  v123[0] = _NSConcreteStackBlock;
+  v123[1] = 3221225472;
+  v123[2] = sub_10012FEE4;
+  v123[3] = &unk_10027A6C0;
   v19 = resourceStorage;
-  v116 = v19;
+  v124 = v19;
   pruneCopy = prune;
   v20 = unsafeResourcesCopy;
-  v117 = v20;
-  v21 = objc_retainBlock(v115);
-  v84 = necessaryCopy;
-  v98 = v16;
-  v82 = v20;
+  v125 = v20;
+  v21 = objc_retainBlock(v123);
+  v92 = necessaryCopy;
+  v106 = v16;
+  v90 = v20;
   serverCopy = server;
-  v81 = v19;
+  v89 = v19;
   if (necessaryCopy)
   {
     if (qword_1002D2800 != -1)
@@ -1883,83 +1892,84 @@ LABEL_10:
       sub_1001B4264();
     }
 
-    v103 = byte_1002D2808;
+    v111 = byte_1002D2808;
   }
 
   else
   {
-    v103 = 0;
+    v111 = 0;
   }
 
-  v113 = 0u;
-  v114 = 0u;
-  v111 = 0u;
-  v112 = 0u;
+  v121 = 0u;
+  v122 = 0u;
+  v119 = 0u;
+  v120 = 0u;
   obj = resourcesCopy;
-  v106 = [obj countByEnumeratingWithState:&v111 objects:v123 count:16];
-  if (v106)
+  v114 = [obj countByEnumeratingWithState:&v119 objects:v131 count:16];
+  if (v114)
   {
-    v104 = *v112;
-    v90 = mappingCopy;
+    v112 = *v120;
+    v98 = mappingCopy;
     do
     {
       v22 = 0;
       do
       {
-        if (*v112 != v104)
+        if (*v120 != v112)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v111 + 1) + 8 * v22);
+        v23 = *(*(&v119 + 1) + 8 * v22);
         itemScopedIdentifier = [v23 itemScopedIdentifier];
         if (!itemScopedIdentifier)
         {
           if (_CPLSilentLogging)
           {
-            v26 = @"resource has no item identifier";
-            v27 = 50;
+            v27 = @"resource has no item identifier";
+            v28 = 50;
           }
 
           else
           {
-            v25 = sub_10011B768();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v26 = sub_10011B768(0);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v120 = v23;
-              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Client is asking to delete a resource with no item identifier: %@", buf, 0xCu);
+              v128 = v23;
+              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Client is asking to delete a resource with no item identifier: %@", buf, 0xCu);
             }
 
-            v26 = @"resource has no item identifier";
-            v27 = 50;
+            v27 = @"resource has no item identifier";
+            v28 = 50;
 LABEL_21:
           }
 
           goto LABEL_22;
         }
 
-        if ([outgoingResources shouldUploadResource:v23])
+        v25 = [outgoingResources shouldUploadResource:v23];
+        if (v25)
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v25 = sub_10011B768();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v26 = sub_10011B768(v25);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v120 = v23;
-              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Client is asking to delete %@ but that resource is still in transit for upload", buf, 0xCu);
+              v128 = v23;
+              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Client is asking to delete %@ but that resource is still in transit for upload", buf, 0xCu);
             }
 
-            v26 = @"resource has not been uploaded yet";
-            v27 = 27;
+            v27 = @"resource has not been uploaded yet";
+            v28 = 27;
             goto LABEL_21;
           }
 
-          v26 = @"resource has not been uploaded yet";
-          v27 = 27;
+          v27 = @"resource has not been uploaded yet";
+          v28 = 27;
 LABEL_22:
-          if ((v103 & 1) == 0)
+          if ((v111 & 1) == 0)
           {
             goto LABEL_67;
           }
@@ -1968,125 +1978,127 @@ LABEL_22:
         }
 
         scopeIdentifier = [itemScopedIdentifier scopeIdentifier];
-        if (([v99 containsObject:scopeIdentifier] & 1) == 0)
+        if (([v107 containsObject:scopeIdentifier] & 1) == 0)
         {
-          v26 = [v97 objectForKeyedSubscript:scopeIdentifier];
-          if (v26)
+          v40 = [v105 objectForKeyedSubscript:scopeIdentifier];
+          v27 = v40;
+          if (v40)
           {
             goto LABEL_61;
           }
 
-          v38 = [scopes scopeWithIdentifier:scopeIdentifier];
-          if (!v38)
+          v41 = [scopes scopeWithIdentifier:scopeIdentifier];
+          if (!v41)
           {
-            v26 = @"scope is unknown";
+            v27 = @"scope is unknown";
             goto LABEL_60;
           }
 
-          v39 = [scopes flagsForScope:v38];
-          v26 = @"scope has been deleted";
-          if ([v39 valueForFlag:4] & 1) != 0 || (v26 = @"scope has been disabled", (objc_msgSend(v39, "valueForFlag:", 8)) || (v26 = @"scope is inactive", objc_msgSend(v39, "valueForFlag:", 16)))
+          v42 = [scopes flagsForScope:v41];
+          v27 = @"scope has been deleted";
+          if ([v42 valueForFlag:4] & 1) != 0 || (v27 = @"scope has been disabled", (objc_msgSend(v42, "valueForFlag:", 8)) || (v27 = @"scope is inactive", objc_msgSend(v42, "valueForFlag:", 16)))
           {
 
 LABEL_60:
-            [v97 setObject:v26 forKeyedSubscript:scopeIdentifier];
+            [v105 setObject:v27 forKeyedSubscript:scopeIdentifier];
 
 LABEL_61:
             if ((_CPLSilentLogging & 1) == 0)
             {
-              v51 = sub_10011B768();
-              if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+              v56 = sub_10011B768(v40);
+              if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v120 = v23;
-                v121 = 2112;
-                v122 = v26;
-                _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Client is asking to delete %@ but it's not safe because of its scope: %@", buf, 0x16u);
+                v128 = v23;
+                v129 = 2112;
+                v130 = v27;
+                _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "Client is asking to delete %@ but it's not safe because of its scope: %@", buf, 0x16u);
               }
             }
 
-            if ((v103 & 1) == 0)
+            if ((v111 & 1) == 0)
             {
-              v27 = 33;
+              v28 = 33;
               goto LABEL_67;
             }
 
             goto LABEL_23;
           }
 
-          [v99 addObject:scopeIdentifier];
+          [v107 addObject:scopeIdentifier];
         }
 
-        v110 = 0;
-        v33 = [idMapping cloudScopedIdentifierForLocalScopedIdentifier:itemScopedIdentifier isFinal:&v110];
-        if (!v33)
+        v118 = 0;
+        v34 = [idMapping cloudScopedIdentifierForLocalScopedIdentifier:itemScopedIdentifier isFinal:&v118];
+        v35 = v34;
+        if (!v34)
         {
           goto LABEL_30;
         }
 
-        v34 = [v92 objectForKey:v33];
-        if (v34)
+        v36 = [v100 objectForKey:v34];
+        if (v36)
         {
-          v35 = v34;
-          v36 = +[NSNull null];
+          v37 = v36;
+          v38 = +[NSNull null];
 
-          if (v35 == v36)
+          if (v37 == v38)
           {
 
 LABEL_30:
             if ((_CPLSilentLogging & 1) == 0)
             {
-              v37 = sub_10011B768();
-              if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+              v39 = sub_10011B768(v34);
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v120 = v23;
-                _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Client is asking to delete %@ but the record is not even in the cloud", buf, 0xCu);
+                v128 = v23;
+                _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Client is asking to delete %@ but the record is not even in the cloud", buf, 0xCu);
               }
             }
 
-            if ((v103 & 1) == 0)
+            if ((v111 & 1) == 0)
             {
-              v26 = @"record is not in the cloud";
-              v27 = 25;
+              v27 = @"record is not in the cloud";
+              v28 = 25;
 LABEL_67:
-              (v21[2])(v21, v23, v27, v26);
+              (v21[2])(v21, v23, v28, v27);
               goto LABEL_68;
             }
 
-            v26 = @"record is not in the cloud";
+            v27 = @"record is not in the cloud";
             goto LABEL_23;
           }
         }
 
         else
         {
-          v109 = 0;
-          v108 = 0;
-          v40 = [cloudCache recordWithScopedIdentifier:v33 isConfirmed:&v109 isStaged:&v108];
-          if (!v40)
+          v117 = 0;
+          v116 = 0;
+          v43 = [cloudCache recordWithScopedIdentifier:v35 isConfirmed:&v117 isStaged:&v116];
+          if (!v43)
           {
-            sub_1001B428C(v92, v33);
+            sub_1001B428C(v100, v35);
             goto LABEL_30;
           }
 
-          v35 = v40;
-          [v92 setObject:v40 forKey:v33];
-          if ((v109 & 1) != 0 || unconfirmedCopy)
+          v37 = v43;
+          [v100 setObject:v43 forKey:v35];
+          if ((v117 & 1) != 0 || unconfirmedCopy)
           {
-            [v85 addObject:v33];
+            [v93 addObject:v35];
           }
         }
 
-        v41 = [v91 objectForKey:itemScopedIdentifier];
-        v94 = v33;
-        v95 = v35;
-        if (v41)
+        v44 = [v99 objectForKey:itemScopedIdentifier];
+        v102 = v35;
+        v103 = v37;
+        if (v44)
         {
-          v42 = v41;
-          v43 = +[NSNull null];
+          v45 = v44;
+          v46 = +[NSNull null];
 
-          if (v42 == v43)
+          if (v45 == v46)
           {
             goto LABEL_88;
           }
@@ -2094,47 +2106,48 @@ LABEL_67:
 
         else
         {
-          transactionClientCacheView = [v87 transactionClientCacheView];
-          v45 = [transactionClientCacheView recordViewWithScopedIdentifier:itemScopedIdentifier];
-          v42 = [v45 changeForType:8];
+          transactionClientCacheView = [v95 transactionClientCacheView];
+          v48 = [transactionClientCacheView recordViewWithScopedIdentifier:itemScopedIdentifier];
+          v45 = [v48 changeForType:8];
 
-          if (!v42)
+          if (!v45)
           {
-            v42 = +[NSNull null];
-            [v91 setObject:v42 forKey:itemScopedIdentifier];
+            v45 = +[NSNull null];
+            [v99 setObject:v45 forKey:itemScopedIdentifier];
 LABEL_88:
-            v93 = 0;
+            v101 = 0;
 LABEL_89:
 
-            if ([v35 serverRecordIsCorrupted])
+            serverRecordIsCorrupted = [v37 serverRecordIsCorrupted];
+            if (serverRecordIsCorrupted)
             {
               if (_CPLSilentLogging)
               {
-                v58 = 1;
-                v26 = @"record's resources is corrupted";
-                v27 = 31;
-                v63 = v103;
+                v63 = 1;
+                v27 = @"record's resources is corrupted";
+                v28 = 31;
+                v69 = v111;
                 goto LABEL_110;
               }
 
-              v42 = sub_10011B768();
-              if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+              v45 = sub_10011B768(serverRecordIsCorrupted);
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v120 = v23;
-                v121 = 2112;
-                v122 = v35;
-                _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Client is asking to delete %@ but we determined %@ is incoherent on server", buf, 0x16u);
+                v128 = v23;
+                v129 = 2112;
+                v130 = v37;
+                _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Client is asking to delete %@ but we determined %@ is incoherent on server", buf, 0x16u);
               }
 
-              v58 = 1;
-              v26 = @"record's resources is corrupted";
-              v27 = 31;
+              v63 = 1;
+              v27 = @"record's resources is corrupted";
+              v28 = 31;
               goto LABEL_94;
             }
 
-            v42 = [v35 resourceForType:{objc_msgSend(v23, "resourceType")}];
-            identity = [v42 identity];
+            v45 = [v37 resourceForType:{objc_msgSend(v23, "resourceType")}];
+            identity = [v45 identity];
             fingerPrint = [identity fingerPrint];
 
             identity2 = [v23 identity];
@@ -2142,25 +2155,25 @@ LABEL_89:
 
             if (fingerPrint && fingerPrint2)
             {
-              v68 = [fingerPrint isEqual:fingerPrint2];
+              v74 = [fingerPrint isEqual:fingerPrint2];
 
-              if ((v68 & 1) == 0)
+              if ((v74 & 1) == 0)
               {
 LABEL_103:
                 if ((_CPLSilentLogging & 1) == 0)
                 {
-                  v74 = sub_10011B768();
-                  if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+                  v81 = sub_10011B768(v75);
+                  if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412546;
-                    v120 = v23;
-                    v121 = 2112;
-                    v122 = v42;
-                    _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "Client is asking to delete %@ but it does not match the cloud cache: %@", buf, 0x16u);
+                    v128 = v23;
+                    v129 = 2112;
+                    v130 = v45;
+                    _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_DEFAULT, "Client is asking to delete %@ but it does not match the cloud cache: %@", buf, 0x16u);
                   }
 
-                  v58 = 1;
-                  v26 = @"resource is stale";
+                  v63 = 1;
+                  v27 = @"resource is stale";
                   goto LABEL_107;
                 }
 
@@ -2177,7 +2190,7 @@ LABEL_103:
               }
             }
 
-            identity3 = [v42 identity];
+            identity3 = [v45 identity];
             fileUTI = [identity3 fileUTI];
 
             identity4 = [v23 identity];
@@ -2185,9 +2198,9 @@ LABEL_103:
 
             if (fileUTI && fileUTI2)
             {
-              v73 = [fileUTI isEqual:fileUTI2];
+              v80 = [fileUTI isEqual:fileUTI2];
 
-              if (v73)
+              if (v80)
               {
                 goto LABEL_115;
               }
@@ -2199,85 +2212,86 @@ LABEL_103:
               if (!(fileUTI | fileUTI2))
               {
 LABEL_115:
-                if ([v85 containsObject:v33])
+                v83 = [v93 containsObject:v35];
+                if (v83)
                 {
                   if (_CPLSilentLogging)
                   {
-                    v26 = 0;
                     v27 = 0;
-                    v58 = v103;
-                    v63 = v103;
+                    v28 = 0;
+                    v63 = v111;
+                    v69 = v111;
                     goto LABEL_109;
                   }
 
-                  v76 = sub_10011B768();
-                  if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
+                  v84 = sub_10011B768(v83);
+                  if (os_log_type_enabled(v84, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412290;
-                    v120 = v23;
-                    _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEBUG, "Client is asking to delete %@ and it seems safe to do so", buf, 0xCu);
+                    v128 = v23;
+                    _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEBUG, "Client is asking to delete %@ and it seems safe to do so", buf, 0xCu);
                   }
 
-                  v26 = 0;
                   v27 = 0;
-                  v58 = v103;
-                  v75 = v76;
-                  v63 = v103;
+                  v28 = 0;
+                  v63 = v111;
+                  v82 = v84;
+                  v69 = v111;
                   goto LABEL_108;
                 }
 
-                if (v84)
+                if (v92)
                 {
                   if (_CPLSilentLogging)
                   {
-                    v26 = 0;
                     v27 = 0;
+                    v28 = 0;
+                    v69 = 1;
                     v63 = 1;
-                    v58 = 1;
                     goto LABEL_109;
                   }
 
-                  v77 = sub_10011B768();
-                  if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
+                  v85 = sub_10011B768(v83);
+                  if (os_log_type_enabled(v85, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412290;
-                    v120 = v23;
-                    _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEBUG, "Client is asking to delete %@ and we need to confirm with server", buf, 0xCu);
+                    v128 = v23;
+                    _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEBUG, "Client is asking to delete %@ and we need to confirm with server", buf, 0xCu);
                   }
 
-                  v26 = 0;
                   v27 = 0;
-                  v75 = v77;
+                  v28 = 0;
+                  v82 = v85;
+                  v69 = 1;
                   v63 = 1;
-                  v58 = 1;
                   goto LABEL_108;
                 }
 
                 if ((_CPLSilentLogging & 1) == 0)
                 {
-                  v74 = sub_10011B768();
-                  if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+                  v81 = sub_10011B768(v83);
+                  if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412546;
-                    v120 = v23;
-                    v121 = 2112;
-                    v122 = v42;
-                    _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "Client is asking to delete %@ but it has not been confirmed yet: %@", buf, 0x16u);
+                    v128 = v23;
+                    v129 = 2112;
+                    v130 = v45;
+                    _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_DEFAULT, "Client is asking to delete %@ but it has not been confirmed yet: %@", buf, 0x16u);
                   }
 
-                  v58 = 1;
-                  v26 = @"resource is not confirmed";
+                  v63 = 1;
+                  v27 = @"resource is not confirmed";
 LABEL_107:
-                  v27 = 27;
-                  v75 = v74;
-                  v63 = v103;
+                  v28 = 27;
+                  v82 = v81;
+                  v69 = v111;
 LABEL_108:
 
                   goto LABEL_109;
                 }
 
-                v58 = 1;
-                v26 = @"resource is not confirmed";
+                v63 = 1;
+                v27 = @"resource is not confirmed";
                 goto LABEL_79;
               }
             }
@@ -2285,35 +2299,36 @@ LABEL_108:
             goto LABEL_103;
           }
 
-          if (([v42 supportsResources]& 1) == 0)
+          supportsResources = [v45 supportsResources];
+          if ((supportsResources & 1) == 0)
           {
             if ((_CPLSilentLogging & 1) == 0)
             {
-              v59 = sub_10011B768();
-              if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+              v64 = sub_10011B768(supportsResources);
+              if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
               {
-                v60 = objc_opt_class();
+                v65 = objc_opt_class();
                 *buf = 138412546;
-                v120 = v60;
-                v121 = 2112;
-                v122 = v23;
-                v61 = v60;
-                _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "Client is asking to delete a resource for a record that does not support resources (%@): %@", buf, 0x16u);
+                v128 = v65;
+                v129 = 2112;
+                v130 = v23;
+                v66 = v65;
+                _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "Client is asking to delete a resource for a record that does not support resources (%@): %@", buf, 0x16u);
               }
             }
 
-            v62 = +[NSNull null];
-            [v91 setObject:v62 forKey:itemScopedIdentifier];
+            v67 = +[NSNull null];
+            [v99 setObject:v67 forKey:itemScopedIdentifier];
 
             goto LABEL_88;
           }
 
-          [v91 setObject:v42 forKey:itemScopedIdentifier];
+          [v99 setObject:v45 forKey:itemScopedIdentifier];
         }
 
-        v93 = v42;
-        v42 = -[NSObject resourceForType:](v42, "resourceForType:", [v23 resourceType]);
-        identity5 = [v42 identity];
+        v101 = v45;
+        v45 = -[NSObject resourceForType:](v45, "resourceForType:", [v23 resourceType]);
+        identity5 = [v45 identity];
         fingerPrint3 = [identity5 fingerPrint];
 
         identity6 = [v23 identity];
@@ -2321,9 +2336,9 @@ LABEL_108:
 
         if (fingerPrint3 && fingerPrint4)
         {
-          v50 = [fingerPrint3 isEqual:fingerPrint4];
+          v54 = [fingerPrint3 isEqual:fingerPrint4];
 
-          if ((v50 & 1) == 0)
+          if ((v54 & 1) == 0)
           {
             goto LABEL_74;
           }
@@ -2338,7 +2353,7 @@ LABEL_108:
           }
         }
 
-        identity7 = [v42 identity];
+        identity7 = [v45 identity];
         fileUTI3 = [identity7 fileUTI];
 
         identity8 = [v23 identity];
@@ -2346,9 +2361,9 @@ LABEL_108:
 
         if (fileUTI3 && fileUTI4)
         {
-          v56 = [fileUTI3 isEqual:fileUTI4];
+          v61 = [fileUTI3 isEqual:fileUTI4];
 
-          if (v56)
+          if (v61)
           {
             goto LABEL_82;
           }
@@ -2360,7 +2375,7 @@ LABEL_108:
           if (!(fileUTI3 | fileUTI4))
           {
 LABEL_82:
-            v35 = v95;
+            v37 = v103;
             goto LABEL_89;
           }
         }
@@ -2368,35 +2383,35 @@ LABEL_82:
 LABEL_74:
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v57 = sub_10011B768();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+          v62 = sub_10011B768(v55);
+          if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v120 = v23;
-            v121 = 2112;
-            v122 = v42;
-            _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "Client is asking to delete %@ but it does not match the client cache: %@", buf, 0x16u);
+            v128 = v23;
+            v129 = 2112;
+            v130 = v45;
+            _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "Client is asking to delete %@ but it does not match the client cache: %@", buf, 0x16u);
           }
         }
 
 LABEL_78:
-        v58 = 1;
-        v26 = @"resource is stale";
+        v63 = 1;
+        v27 = @"resource is stale";
 LABEL_79:
-        v27 = 27;
+        v28 = 27;
 LABEL_94:
-        v63 = v103;
+        v69 = v111;
 LABEL_109:
 
 LABEL_110:
-        mappingCopy = v90;
-        if ((v58 & 1) == 0)
+        mappingCopy = v98;
+        if ((v63 & 1) == 0)
         {
-          [v88 addObject:v23];
+          [v96 addObject:v23];
           goto LABEL_68;
         }
 
-        if ((v63 & 1) == 0)
+        if ((v69 & 1) == 0)
         {
           goto LABEL_67;
         }
@@ -2405,12 +2420,12 @@ LABEL_23:
         itemScopedIdentifier2 = [v23 itemScopedIdentifier];
         scopeIdentifier2 = [itemScopedIdentifier2 scopeIdentifier];
 
-        v107 = 0;
-        v30 = [mappingCopy addTransportScopeForScopeIdentifier:scopeIdentifier2 scopes:scopes useStagingScopeIfNecessary:1 error:&v107];
-        v31 = v107;
-        if (v30)
+        v115 = 0;
+        v31 = [mappingCopy addTransportScopeForScopeIdentifier:scopeIdentifier2 scopes:scopes useStagingScopeIfNecessary:1 error:&v115];
+        v32 = v115;
+        if (v31)
         {
-          [v98 addObject:v23];
+          [v106 addObject:v23];
         }
 
         else
@@ -2422,21 +2437,21 @@ LABEL_68:
         v22 = v22 + 1;
       }
 
-      while (v106 != v22);
-      v78 = [obj countByEnumeratingWithState:&v111 objects:v123 count:16];
-      v106 = v78;
+      while (v114 != v22);
+      v86 = [obj countByEnumeratingWithState:&v119 objects:v131 count:16];
+      v114 = v86;
     }
 
-    while (v78);
+    while (v86);
   }
 
   if (serverCopy)
   {
-    v79 = v98;
-    *serverCopy = v98;
+    v87 = v106;
+    *serverCopy = v106;
   }
 
-  return v88;
+  return v96;
 }
 
 - (void)_deleteResources:(id)resources dryRun:(BOOL)run checkServerIfNecessary:(BOOL)necessary completionHandler:(id)handler
@@ -2446,153 +2461,154 @@ LABEL_68:
   handlerCopy = handler;
   store = [(CPLEngineLibrary *)self->_engineLibrary store];
   resourceStorage = [store resourceStorage];
-  if ([(CPLEngineLibrary *)self->_engineLibrary iCloudLibraryClientVersionTooOld])
+  iCloudLibraryClientVersionTooOld = [(CPLEngineLibrary *)self->_engineLibrary iCloudLibraryClientVersionTooOld];
+  if (iCloudLibraryClientVersionTooOld)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = sub_10011B768();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_10011B768(iCloudLibraryClientVersionTooOld);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = "prune";
+        v12 = "prune";
         if (runCopy)
         {
-          v11 = "check (prune)";
+          v12 = "check (prune)";
         }
 
         LODWORD(buf) = 136315138;
-        *(&buf + 4) = v11;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Asked to %s some resources while engine not syncing due to server blacklisting client", &buf, 0xCu);
+        *(&buf + 4) = v12;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Asked to %s some resources while engine not syncing due to server blacklisting client", &buf, 0xCu);
       }
     }
 
     clientQueue = self->_clientQueue;
-    v85[0] = _NSConcreteStackBlock;
-    v85[1] = 3221225472;
-    v85[2] = sub_10013078C;
-    v85[3] = &unk_100272E20;
-    v88 = handlerCopy;
-    v86 = resourcesCopy;
-    v87 = resourceStorage;
-    v13 = v85;
+    v86[0] = _NSConcreteStackBlock;
+    v86[1] = 3221225472;
+    v86[2] = sub_10013078C;
+    v86[3] = &unk_100272E20;
+    v89 = handlerCopy;
+    v87 = resourcesCopy;
+    v88 = resourceStorage;
+    v14 = v86;
     *&buf = _NSConcreteStackBlock;
     *(&buf + 1) = 3221225472;
-    v90 = sub_100002BB8;
-    v91 = &unk_100271E98;
-    v92 = v13;
-    v14 = clientQueue;
-    v15 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &buf);
-    dispatch_async(v14, v15);
+    v91 = sub_100002BB8;
+    v92 = &unk_100271E98;
+    v93 = v14;
+    v15 = clientQueue;
+    v16 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &buf);
+    dispatch_async(v15, v16);
   }
 
   else
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v90 = 0x3032000000;
-    v91 = sub_100004550;
-    v92 = sub_10000538C;
-    v93 = 0;
-    v83[0] = 0;
-    v83[1] = v83;
-    v83[2] = 0x3032000000;
-    v83[3] = sub_100004550;
-    v83[4] = sub_10000538C;
-    v84 = objc_alloc_init(NSMutableArray);
-    v81[0] = 0;
-    v81[1] = v81;
-    v81[2] = 0x3032000000;
-    v81[3] = sub_100004550;
-    v81[4] = sub_10000538C;
-    v82 = objc_alloc_init(NSMutableDictionary);
-    v79[0] = 0;
-    v79[1] = v79;
-    v79[2] = 0x3032000000;
-    v79[3] = sub_100004550;
-    v79[4] = sub_10000538C;
-    v80 = 0;
-    v16 = +[NSFileManager defaultManager];
-    v75[0] = _NSConcreteStackBlock;
-    v75[1] = 3221225472;
-    v75[2] = sub_100130830;
-    v75[3] = &unk_10027A6E8;
-    v17 = resourceStorage;
-    v78 = !runCopy;
-    v76 = v17;
-    v77 = v81;
-    v18 = objc_retainBlock(v75);
-    v67[0] = _NSConcreteStackBlock;
-    v67[1] = 3221225472;
-    v67[2] = sub_1001308F4;
-    v67[3] = &unk_10027A710;
-    v73 = runCopy;
-    v74 = !runCopy;
-    v31 = v17;
-    v68 = v31;
-    v71 = v83;
-    v29 = v16;
-    v69 = v29;
-    v72 = v81;
-    v30 = v18;
+    v91 = 0x3032000000;
+    v92 = sub_100004550;
+    v93 = sub_10000538C;
+    v94 = 0;
+    v84[0] = 0;
+    v84[1] = v84;
+    v84[2] = 0x3032000000;
+    v84[3] = sub_100004550;
+    v84[4] = sub_10000538C;
+    v85 = objc_alloc_init(NSMutableArray);
+    v82[0] = 0;
+    v82[1] = v82;
+    v82[2] = 0x3032000000;
+    v82[3] = sub_100004550;
+    v82[4] = sub_10000538C;
+    v83 = objc_alloc_init(NSMutableDictionary);
+    v80[0] = 0;
+    v80[1] = v80;
+    v80[2] = 0x3032000000;
+    v80[3] = sub_100004550;
+    v80[4] = sub_10000538C;
+    v81 = 0;
+    v17 = +[NSFileManager defaultManager];
+    v76[0] = _NSConcreteStackBlock;
+    v76[1] = 3221225472;
+    v76[2] = sub_100130830;
+    v76[3] = &unk_10027A6E8;
+    v18 = resourceStorage;
+    v79 = !runCopy;
+    v77 = v18;
+    v78 = v82;
+    v19 = objc_retainBlock(v76);
+    v68[0] = _NSConcreteStackBlock;
+    v68[1] = 3221225472;
+    v68[2] = sub_1001308F4;
+    v68[3] = &unk_10027A710;
+    v74 = runCopy;
+    v75 = !runCopy;
+    v32 = v18;
+    v69 = v32;
+    v72 = v84;
+    v30 = v17;
     v70 = v30;
-    v19 = objc_retainBlock(v67);
-    v20 = objc_alloc_init(CPLRecordTargetMapping);
-    v21 = [CPLTransportScopeMapping alloc];
+    v73 = v82;
+    v31 = v19;
+    v71 = v31;
+    v20 = objc_retainBlock(v68);
+    v21 = objc_alloc_init(CPLRecordTargetMapping);
+    v22 = [CPLTransportScopeMapping alloc];
     engineLibrary = [(CPLDirectLibraryManager *)self engineLibrary];
     transport = [engineLibrary transport];
-    v24 = [v21 initWithTranslator:transport];
+    v25 = [v22 initWithTranslator:transport];
 
-    v65[0] = 0;
-    v65[1] = v65;
-    v65[2] = 0x3032000000;
-    v65[3] = sub_100004550;
-    v65[4] = sub_10000538C;
-    v66 = 0;
-    v52[0] = _NSConcreteStackBlock;
-    v52[1] = 3221225472;
-    v52[2] = sub_100130A34;
-    v52[3] = &unk_10027A738;
+    v66[0] = 0;
+    v66[1] = v66;
+    v66[2] = 0x3032000000;
+    v66[3] = sub_100004550;
+    v66[4] = sub_10000538C;
+    v67 = 0;
+    v53[0] = _NSConcreteStackBlock;
+    v53[1] = 3221225472;
+    v53[2] = sub_100130A34;
+    v53[3] = &unk_10027A738;
     necessaryCopy = necessary;
-    v52[4] = self;
-    v64 = !runCopy;
-    v53 = resourcesCopy;
-    v58 = v79;
-    v54 = v24;
-    v59 = v81;
-    v62 = a2;
-    v57 = v19;
+    v53[4] = self;
+    v65 = !runCopy;
+    v54 = resourcesCopy;
+    v59 = v80;
+    v55 = v25;
+    v60 = v82;
+    v63 = a2;
+    v58 = v20;
     p_buf = &buf;
-    v55 = store;
-    v61 = v65;
-    v56 = v20;
-    v37[0] = _NSConcreteStackBlock;
-    v37[1] = 3221225472;
-    v37[2] = sub_100130C40;
-    v37[3] = &unk_10027A828;
-    v50 = runCopy;
-    v45 = v83;
-    v37[4] = self;
-    v43 = handlerCopy;
-    v38 = v53;
-    v51 = !runCopy;
-    v39 = v31;
-    v46 = v65;
-    v47 = v81;
-    v25 = v56;
-    v40 = v25;
-    v26 = v54;
+    v56 = store;
+    v62 = v66;
+    v57 = v21;
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_100130C40;
+    v38[3] = &unk_10027A828;
+    v51 = runCopy;
+    v46 = v84;
+    v38[4] = self;
+    v44 = handlerCopy;
+    v39 = v54;
+    v52 = !runCopy;
+    v40 = v32;
+    v47 = v66;
+    v48 = v82;
+    v26 = v57;
     v41 = v26;
-    v48 = v79;
-    v42 = v55;
-    v49 = &buf;
-    v27 = v57;
-    v44 = v27;
-    v28 = [v42 performWriteTransactionWithBlock:v52 completionHandler:v37];
+    v27 = v55;
+    v42 = v27;
+    v49 = v80;
+    v43 = v56;
+    v50 = &buf;
+    v28 = v58;
+    v45 = v28;
+    v29 = [v43 performWriteTransactionWithBlock:v53 completionHandler:v38];
 
-    _Block_object_dispose(v65, 8);
-    _Block_object_dispose(v79, 8);
+    _Block_object_dispose(v66, 8);
+    _Block_object_dispose(v80, 8);
 
-    _Block_object_dispose(v81, 8);
-    _Block_object_dispose(v83, 8);
+    _Block_object_dispose(v82, 8);
+    _Block_object_dispose(v84, 8);
 
     _Block_object_dispose(&buf, 8);
   }
@@ -3046,6 +3062,16 @@ LABEL_68:
   [engineLibrary requestClientToPullAllChangesWithScopeIdentifiers:identifiersCopy completionHandler:handlerCopy];
 }
 
+- (void)addDropDerivativesRecipe:(id)recipe writeToUserDefaults:(BOOL)defaults withCompletionHandler:(id)handler
+{
+  defaultsCopy = defaults;
+  engineLibrary = self->_engineLibrary;
+  handlerCopy = handler;
+  recipeCopy = recipe;
+  syncManager = [(CPLEngineLibrary *)engineLibrary syncManager];
+  [syncManager addDropDerivativesRecipe:recipeCopy writeToUserDefaults:defaultsCopy withCompletionHandler:handlerCopy];
+}
+
 - (id)displayableNameForEngineLibrary:(id)library
 {
   abstractObject = [(CPLDirectLibraryManager *)self abstractObject];
@@ -3411,6 +3437,14 @@ LABEL_68:
   return fingerprintContext;
 }
 
+- (void)engineLibrary:(id)library noteClientIsInForeground:(BOOL)foreground
+{
+  foregroundCopy = foreground;
+  abstractObject = [(CPLDirectLibraryManager *)self abstractObject];
+  owner = [abstractObject owner];
+  [owner libraryManager:abstractObject noteClientIsInForeground:foregroundCopy];
+}
+
 - (id)ownerNameForEngineLibrary:(id)library
 {
   abstractObject = [(CPLDirectLibraryManager *)self abstractObject];
@@ -3458,7 +3492,7 @@ LABEL_68:
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_10011B768();
+    v4 = sub_10011B768(self);
     if (sub_10000FBDC(v4))
     {
       v5 = NSStringFromSelector(a2);
@@ -3487,7 +3521,7 @@ LABEL_68:
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v8 = sub_10011B768();
+    v8 = sub_10011B768(self);
     if (sub_10000FBDC(v8))
     {
       v9 = NSStringFromSelector(a2);
@@ -3502,7 +3536,7 @@ LABEL_68:
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_10011B768();
+    v4 = sub_10011B768(self);
     if (sub_100021E38(v4))
     {
       LOWORD(v10) = 0;
@@ -3531,7 +3565,7 @@ LABEL_7:
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_10011B768();
+    v6 = sub_10011B768(0);
     if (sub_100003448(v6))
     {
       v7 = NSStringFromSelector(a2);
@@ -3547,19 +3581,20 @@ LABEL_7:
 - (void)getSystemBudgetsWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
+  v6 = handlerCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_10011B768();
-    if (sub_100021E20(v6))
+    v7 = sub_10011B768(handlerCopy);
+    if (sub_100021E20(v7))
     {
-      LOWORD(v12) = 0;
+      LOWORD(v13) = 0;
       sub_100139348();
-      _os_log_impl(v7, v8, OS_LOG_TYPE_DEBUG, v9, v10, 2u);
+      _os_log_impl(v8, v9, OS_LOG_TYPE_DEBUG, v10, v11, 2u);
     }
   }
 
   transport = [(CPLEngineLibrary *)self->_engineLibrary transport];
-  [transport getSystemBudgetsWithCompletionHandler:handlerCopy];
+  [transport getSystemBudgetsWithCompletionHandler:v6];
 }
 
 - (void)setShouldOverride:(BOOL)override forSystemBudgets:(unint64_t)budgets
@@ -3568,26 +3603,27 @@ LABEL_7:
   v6 = v5;
   v8 = v7;
   systemMonitor = [*(v9 + 96) systemMonitor];
+  v11 = systemMonitor;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v11 = sub_10011B768();
-    if (sub_10000FBAC(v11))
+    v12 = sub_10011B768(systemMonitor);
+    if (sub_10000FBAC(v12))
     {
-      v12 = [objc_opt_class() descriptionForBudgets:v6];
+      v13 = [objc_opt_class() descriptionForBudgets:v6];
       sub_100139338();
       sub_100139440();
-      _os_log_impl(v13, v14, v15, v16, v17, 0x16u);
+      _os_log_impl(v14, v15, v16, v17, v18, 0x16u);
     }
   }
 
   if (v8)
   {
-    [systemMonitor startOverridingSystemBudgetsForClient:v6];
+    [v11 startOverridingSystemBudgetsForClient:v6];
   }
 
   else
   {
-    [systemMonitor stopOverridingSystemBudgetsForClient:v6];
+    [v11 stopOverridingSystemBudgetsForClient:v6];
   }
 
   sub_100139520();
@@ -3603,7 +3639,7 @@ LABEL_7:
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10011B768();
+    v5 = sub_10011B768(self);
     if (sub_10000FBDC(v5))
     {
       v6 = NSStringFromSelector(a2);
@@ -3630,7 +3666,7 @@ LABEL_7:
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_10011B768();
+    v6 = sub_10011B768(self);
     if (sub_10000FBDC(v6))
     {
       v7 = NSStringFromSelector(a2);
@@ -3647,7 +3683,7 @@ LABEL_7:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = sub_10011B768();
+      v5 = sub_10011B768(self);
       if (sub_100003448(v5))
       {
         v6 = NSStringFromSelector(a2);
@@ -3670,13 +3706,12 @@ LABEL_7:
 {
   if (!self->_closing && (_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10011B768();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v4 = sub_10011B768(self);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      engineLibrary = self->_engineLibrary;
       sub_10000343C();
       sub_100139378();
-      sub_10000FB94(v7, v8, v9, v10, v11);
+      sub_10000FB94(v5, v6, v7, v8, v9);
     }
   }
 }
@@ -3685,7 +3720,7 @@ LABEL_7:
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10011B768();
+    v5 = sub_10011B768(self);
     if (sub_100021E38(v5))
     {
       abstractObject = [(CPLDirectLibraryManager *)self abstractObject];
@@ -3706,7 +3741,7 @@ LABEL_7:
   v27 = &unk_100271E98;
   v28 = v13;
   v14 = clientQueue;
-  v22 = sub_1001393C0(v14, v15, v16, v17, v18, v19, v20, v21, v23, v24, 3221225472, sub_1001330C8, &unk_100271F40, self, block);
+  v22 = sub_1001393C0(v14, v15, v16, v17, v18, v19, v20, v21, v23, v24, 3221225472, sub_1001330C8, &unk_100271F40, self);
   dispatch_async(self, v22);
 }
 
@@ -3714,7 +3749,7 @@ LABEL_7:
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10011B768();
+    v5 = sub_10011B768(self);
     if (sub_100021E38(v5))
     {
       abstractObject = [(CPLDirectLibraryManager *)self abstractObject];
@@ -3735,68 +3770,70 @@ LABEL_7:
   v27 = &unk_100271E98;
   v28 = v13;
   v14 = clientQueue;
-  v22 = sub_1001393C0(v14, v15, v16, v17, v18, v19, v20, v21, v23, v24, 3221225472, sub_100133144, &unk_100271F40, self, block);
+  v22 = sub_1001393C0(v14, v15, v16, v17, v18, v19, v20, v21, v23, v24, 3221225472, sub_100133144, &unk_100271F40, self);
   dispatch_async(self, v22);
 }
 
 - (void)engineLibrary:(id)library didDownloadResourceInBackground:(id)background
 {
   backgroundCopy = background;
+  v7 = backgroundCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = sub_10011B768();
-    if (sub_100021E20(v7))
+    v8 = sub_10011B768(backgroundCopy);
+    if (sub_100021E20(v8))
     {
       abstractObject = [(CPLDirectLibraryManager *)self abstractObject];
       resourceProgressDelegate = [abstractObject resourceProgressDelegate];
       sub_10013948C();
-      sub_100037514(&_mh_execute_header, v4, v10, "Notifying %@ that %@ was downloaded in background", block);
+      sub_100037514(&_mh_execute_header, v4, v11, "Notifying %@ that %@ was downloaded in background", block);
     }
   }
 
-  sub_100139354(104);
+  sub_100139354();
   selfCopy = self;
-  v12 = v11;
+  v13 = v12;
   *block = _NSConcreteStackBlock;
-  v29 = 3221225472;
+  v30 = 3221225472;
   sub_1001392E0();
-  v30 = v13;
-  v31 = &unk_100271E98;
-  v32 = v14;
-  v15 = v4;
-  v16 = backgroundCopy;
-  v24 = sub_1001393C0(v16, v17, v18, v19, v20, v21, v22, v23, v25, 3221225472, sub_1001331DC, &unk_1002720E0, selfCopy, backgroundCopy, block[0]);
-  sub_1001393A4(v24);
+  v31 = v14;
+  v32 = &unk_100271E98;
+  v33 = v15;
+  v16 = v4;
+  v17 = v7;
+  v25 = sub_1001393C0(v17, v18, v19, v20, v21, v22, v23, v24, v26, 3221225472, sub_1001331DC, &unk_1002720E0, selfCopy, v7);
+  sub_1001393A4(v25);
 }
 
 - (void)engineLibrary:(id)library didFailBackgroundDownloadOfResource:(id)resource
 {
   resourceCopy = resource;
+  v7 = resourceCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = sub_10011B768();
-    if (sub_100021E20(v7))
+    v8 = sub_10011B768(resourceCopy);
+    if (sub_100021E20(v8))
     {
       abstractObject = [(CPLDirectLibraryManager *)self abstractObject];
       resourceProgressDelegate = [abstractObject resourceProgressDelegate];
       sub_10013948C();
-      sub_100037514(&_mh_execute_header, v4, v10, "Notifying %@ that %@ did fail to download in background", block);
+      sub_100037514(&_mh_execute_header, v4, v11, "Notifying %@ that %@ did fail to download in background", block);
     }
   }
 
-  sub_100139354(104);
+  sub_100139354();
   selfCopy = self;
-  v12 = v11;
+  v13 = v12;
   *block = _NSConcreteStackBlock;
-  v29 = 3221225472;
+  v30 = 3221225472;
   sub_1001392E0();
-  v30 = v13;
-  v31 = &unk_100271E98;
-  v32 = v14;
-  v15 = v4;
-  v16 = resourceCopy;
-  v24 = sub_1001393C0(v16, v17, v18, v19, v20, v21, v22, v23, v25, 3221225472, sub_100133264, &unk_1002720E0, selfCopy, resourceCopy, block[0]);
-  sub_1001393A4(v24);
+  v31 = v14;
+  v32 = &unk_100271E98;
+  v33 = v15;
+  v16 = v4;
+  v17 = v7;
+  v25 = sub_1001393C0(v17, v18, v19, v20, v21, v22, v23, v24, v26, 3221225472, sub_100133264, &unk_1002720E0, selfCopy, v7);
+  sub_1001393A4(v25);
 }
 
 - (void)addInfoToLog:(id)log

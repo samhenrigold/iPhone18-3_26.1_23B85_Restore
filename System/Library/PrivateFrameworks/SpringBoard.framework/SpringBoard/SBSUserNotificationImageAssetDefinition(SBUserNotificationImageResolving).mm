@@ -19,7 +19,7 @@
       goto LABEL_19;
     }
 
-    v7 = SBLogAlertItems();
+    v7 = SBLogAlertItems(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SBSUserNotificationImageAssetDefinition(SBUserNotificationImageResolving) sb_resolvedImage];
@@ -35,14 +35,14 @@
     v8 = objc_alloc(MEMORY[0x277D75DE0]);
     v9 = [MEMORY[0x277CBEBC0] fileURLWithPath:catalogPath];
     currentDevice = [MEMORY[0x277D75418] currentDevice];
-    v14 = 0;
-    v11 = [v8 initWithURL:v9 idiom:objc_msgSend(currentDevice error:{"userInterfaceIdiom"), &v14}];
-    v7 = v14;
+    v16 = 0;
+    v11 = [v8 initWithURL:v9 idiom:objc_msgSend(currentDevice error:{"userInterfaceIdiom"), &v16}];
+    v7 = v16;
 
     if (v11)
     {
       v6 = [v11 imageNamed:v5 withTrait:0];
-      [v6 _sbSetAssociatedAssetManager:v11];
+      v13 = [v6 _sbSetAssociatedAssetManager:v11];
       if (v6)
       {
 LABEL_17:
@@ -51,8 +51,8 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      v12 = SBLogAlertItems();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = SBLogAlertItems(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [SBSUserNotificationImageAssetDefinition(SBUserNotificationImageResolving) sb_resolvedImage];
       }
@@ -67,8 +67,8 @@ LABEL_16:
         goto LABEL_17;
       }
 
-      v12 = SBLogAlertItems();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = SBLogAlertItems(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [SBSUserNotificationImageAssetDefinition(SBUserNotificationImageResolving) sb_resolvedImage];
       }

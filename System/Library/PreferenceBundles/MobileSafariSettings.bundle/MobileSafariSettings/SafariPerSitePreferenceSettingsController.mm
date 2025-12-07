@@ -32,6 +32,7 @@
 - (void)_showContentUnavailableView;
 - (void)_updateDeleteButtonEnabled;
 - (void)reloadSpecifiers;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)tableView:(id)view didDeselectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
@@ -124,6 +125,78 @@
 
   table = [(SafariPerSitePreferenceSettingsController *)self table];
   [table setHidden:0];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  v17.receiver = self;
+  v17.super_class = SafariPerSitePreferenceSettingsController;
+  [SafariPerSitePreferenceSettingsController setEditing:"setEditing:animated:" animated:?];
+  navigationItem = [(SafariPerSitePreferenceSettingsController *)self navigationItem];
+  if (editingCopy)
+  {
+    _cancelBarButtonItem = [(SafariPerSitePreferenceSettingsController *)self _cancelBarButtonItem];
+    [navigationItem setRightBarButtonItem:_cancelBarButtonItem animated:animatedCopy];
+
+    _deleteBarButtonItem = [(SafariPerSitePreferenceSettingsController *)self _deleteBarButtonItem];
+    [navigationItem setLeftBarButtonItem:_deleteBarButtonItem animated:animatedCopy];
+
+    v10 = &OBJC_IVAR___SafariPerSitePreferenceSettingsController__websiteSpecifiers;
+    v11 = &OBJC_IVAR___SafariPerSitePreferenceSettingsController__editableSpecifiers;
+  }
+
+  else
+  {
+    editButtonItem = [(SafariPerSitePreferenceSettingsController *)self editButtonItem];
+    [navigationItem setRightBarButtonItem:editButtonItem animated:animatedCopy];
+
+    [navigationItem setLeftBarButtonItem:0 animated:animatedCopy];
+    v10 = &OBJC_IVAR___SafariPerSitePreferenceSettingsController__editableSpecifiers;
+    v11 = &OBJC_IVAR___SafariPerSitePreferenceSettingsController__websiteSpecifiers;
+  }
+
+  [(SafariPerSitePreferenceSettingsController *)self _updateDeleteButtonEnabled];
+  [(SafariPerSitePreferenceSettingsController *)self replaceContiguousSpecifiers:*&self->_SFPerSitePreferenceNotifyingListController_opaque[*v10] withSpecifiers:*&self->_SFPerSitePreferenceNotifyingListController_opaque[*v11] animated:0];
+  if ([(SafariPerSitePreferenceSettingsController *)self _shouldShowOtherWebsitesSection])
+  {
+    v13 = &OBJC_IVAR___SafariPerSitePreferenceSettingsController__cachedClearAllSettingsSectionSpecifiers;
+    if (editingCopy)
+    {
+      v14 = &OBJC_IVAR___SafariPerSitePreferenceSettingsController__cachedOtherWebsitesSectionSpecifiers;
+    }
+
+    else
+    {
+      v14 = &OBJC_IVAR___SafariPerSitePreferenceSettingsController__cachedClearAllSettingsSectionSpecifiers;
+    }
+
+    if (!editingCopy)
+    {
+      v13 = &OBJC_IVAR___SafariPerSitePreferenceSettingsController__cachedOtherWebsitesSectionSpecifiers;
+    }
+
+    [(SafariPerSitePreferenceSettingsController *)self replaceContiguousSpecifiers:*&self->_SFPerSitePreferenceNotifyingListController_opaque[*v14] withSpecifiers:*&self->_SFPerSitePreferenceNotifyingListController_opaque[*v13] animated:1];
+  }
+
+  else
+  {
+    cachedClearAllSettingsSectionSpecifiers = self->_cachedClearAllSettingsSectionSpecifiers;
+    if (editingCopy)
+    {
+      [(SafariPerSitePreferenceSettingsController *)self addSpecifiersFromArray:cachedClearAllSettingsSectionSpecifiers animated:animatedCopy];
+    }
+
+    else
+    {
+      [(SafariPerSitePreferenceSettingsController *)self removeContiguousSpecifiers:cachedClearAllSettingsSectionSpecifiers animated:animatedCopy];
+    }
+  }
+
+  table = [(SafariPerSitePreferenceSettingsController *)self table];
+  [table setAllowsMultipleSelectionDuringEditing:editingCopy];
+  [table setEditing:editingCopy animated:animatedCopy];
 }
 
 - (void)_loadDomains

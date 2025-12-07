@@ -26,7 +26,7 @@
   v11 = [v9 progressWithTotalUnitCount:10];
   [v11 setCompletedUnitCount:1];
   timeRangeProvider = self->_timeRangeProvider;
-  [assetCopy duration];
+  objc_msgSend_duration(assetCopy);
   v14 = v13;
 
   v15 = timeRangeProvider[2](timeRangeProvider, v14);

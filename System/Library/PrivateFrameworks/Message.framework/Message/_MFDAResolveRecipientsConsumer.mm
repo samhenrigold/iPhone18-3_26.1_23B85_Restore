@@ -54,24 +54,22 @@
 
 - (void)actionFailed:(int64_t)failed forTask:(id)task error:(id)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   errorCopy = error;
   [(MFConditionLock *)self->_conditionLock lock];
   v10 = DALoggingwithCategory();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v12 = 138412546;
-    v13 = taskCopy;
-    v14 = 2048;
+    v11 = 138412546;
+    v12 = taskCopy;
+    v13 = 2048;
     failedCopy = failed;
-    _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_ERROR, "reslove recipients task %@ failed with code %ld", &v12, 0x16u);
+    _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_ERROR, "reslove recipients task %@ failed with code %ld", &v11, 0x16u);
   }
 
   objc_storeStrong(&self->_error, error);
   [(MFConditionLock *)self->_conditionLock unlockWithCondition:1];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

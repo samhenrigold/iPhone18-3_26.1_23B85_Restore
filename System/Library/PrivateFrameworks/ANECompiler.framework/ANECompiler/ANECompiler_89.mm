@@ -1,6 +1,621 @@
-uint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string>>::raw_hash_set<char const* const*>(uint64_t *a1, const char **a2, const char **a3, unint64_t a4)
+uint64_t google::protobuf::internal::cpp::GetUtf8CheckMode(google::protobuf::internal::cpp *this, const google::protobuf::FieldDescriptor *a2)
 {
-  v5 = a2;
+  v2 = *(this + 3);
+  if (v2 && (v28 = this, v29 = google::protobuf::FieldDescriptor::TypeOnceInit, atomic_load_explicit(v2, memory_order_acquire) != 221))
+  {
+    v7 = this;
+    v8 = a2;
+    absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v2, 1, &v29, &v28);
+    this = v7;
+    LODWORD(a2) = v8;
+    v3 = v7[2];
+    if (v3 == 9)
+    {
+      goto LABEL_4;
+    }
+  }
+
+  else
+  {
+    v3 = *(this + 2);
+    if (v3 == 9)
+    {
+      goto LABEL_4;
+    }
+  }
+
+  v9 = *(this + 3);
+  if (v9)
+  {
+    v28 = this;
+    v29 = google::protobuf::FieldDescriptor::TypeOnceInit;
+    if (atomic_load_explicit(v9, memory_order_acquire) != 221)
+    {
+      v14 = this;
+      v15 = a2;
+      absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v9, 1, &v29, &v28);
+      this = v14;
+      LODWORD(a2) = v15;
+    }
+
+    v3 = *(this + 2);
+  }
+
+  if (v3 != 11 || *(*(*(this + 6) + 32) + 83) != 1)
+  {
+    return 2;
+  }
+
+  v10 = *(this + 3);
+  if (!v10)
+  {
+    goto LABEL_20;
+  }
+
+  v29 = this;
+  if (atomic_load_explicit(v10, memory_order_acquire) != 221)
+  {
+    v24 = this;
+    v22 = a2;
+    absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v10, 1, google::protobuf::FieldDescriptor::TypeOnceInit, &v29);
+    this = v24;
+    LODWORD(a2) = v22;
+    if ((*(v24 + 2) & 0xFE) != 0xA)
+    {
+      goto LABEL_24;
+    }
+
+LABEL_20:
+    v11 = *(this + 6);
+    if (*(*(v11 + 32) + 83) == 1)
+    {
+      goto LABEL_21;
+    }
+
+LABEL_25:
+    v12 = 0;
+    v13 = MEMORY[0x18];
+    if (!MEMORY[0x18])
+    {
+      goto LABEL_27;
+    }
+
+    goto LABEL_26;
+  }
+
+  if ((*(this + 2) & 0xFE) == 0xA)
+  {
+    goto LABEL_20;
+  }
+
+LABEL_24:
+  v11 = 0;
+  if (*(MEMORY[0x20] + 83) != 1)
+  {
+    goto LABEL_25;
+  }
+
+LABEL_21:
+  v12 = *(v11 + 56);
+  v13 = *(v12 + 24);
+  if (!v13)
+  {
+LABEL_27:
+    if (*(v12 + 2) == 9)
+    {
+      goto LABEL_4;
+    }
+
+    goto LABEL_28;
+  }
+
+LABEL_26:
+  v28 = v12;
+  v29 = google::protobuf::FieldDescriptor::TypeOnceInit;
+  if (atomic_load_explicit(v13, memory_order_acquire) == 221)
+  {
+    goto LABEL_27;
+  }
+
+  v25 = this;
+  v19 = a2;
+  absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v13, 1, &v29, &v28);
+  this = v25;
+  LODWORD(a2) = v19;
+  if (*(v12 + 2) == 9)
+  {
+    goto LABEL_4;
+  }
+
+LABEL_28:
+  v16 = *(this + 3);
+  if (!v16 || (v29 = this, atomic_load_explicit(v16, memory_order_acquire) == 221))
+  {
+    if ((*(this + 2) & 0xFE) == 0xA)
+    {
+      goto LABEL_31;
+    }
+
+LABEL_36:
+    v17 = 0;
+    if (*(MEMORY[0x20] + 83) != 1)
+    {
+      goto LABEL_32;
+    }
+
+LABEL_37:
+    v18 = *(v17 + 56) + 88;
+    goto LABEL_38;
+  }
+
+  v26 = this;
+  v23 = a2;
+  absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v16, 1, google::protobuf::FieldDescriptor::TypeOnceInit, &v29);
+  this = v26;
+  LODWORD(a2) = v23;
+  if ((*(v26 + 2) & 0xFE) != 0xA)
+  {
+    goto LABEL_36;
+  }
+
+LABEL_31:
+  v17 = *(this + 6);
+  if (*(*(v17 + 32) + 83) == 1)
+  {
+    goto LABEL_37;
+  }
+
+LABEL_32:
+  v18 = 0;
+LABEL_38:
+  v20 = *(v18 + 24);
+  if (v20 && (v28 = v18, v29 = google::protobuf::FieldDescriptor::TypeOnceInit, atomic_load_explicit(v20, memory_order_acquire) != 221))
+  {
+    v27 = this;
+    v21 = a2;
+    absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v20, 1, &v29, &v28);
+    this = v27;
+    LODWORD(a2) = v21;
+    if (*(v18 + 2) != 9)
+    {
+      return 2;
+    }
+  }
+
+  else if (*(v18 + 2) != 9)
+  {
+    return 2;
+  }
+
+LABEL_4:
+  v4 = *(*(this + 9) + 60);
+  result = v4 != 2;
+  if (v4 != 2 && a2 != 0)
+  {
+    return 2;
+  }
+
+  return result;
+}
+
+BOOL google::protobuf::internal::cpp::IsLazilyInitializedFile(void *a1, int64_t __n)
+{
+  v3 = 0;
+  if (__n > 33)
+  {
+    if (__n != 34)
+    {
+      if (__n != 39)
+      {
+        return v3;
+      }
+
+      return *a1 == 0x61705F6472696874 && a1[1] == 0x746F72702F797472 && a1[2] == 0x7070632F6675626FLL && a1[3] == 0x657275746165665FLL && *(a1 + 31) == 0x6F746F72702E7365;
+    }
+
+    v4 = "google/protobuf/cpp_features.proto";
+  }
+
+  else if (__n == 32)
+  {
+    v4 = "google/protobuf/descriptor.proto";
+  }
+
+  else
+  {
+    if (__n != 33)
+    {
+      return v3;
+    }
+
+    v4 = "net/proto2/proto/descriptor.proto";
+  }
+
+  return memcmp(a1, v4, __n) == 0;
+}
+
+uint64_t *google::protobuf::internal::ShortEditionName(google::protobuf *a1)
+{
+  v2 = google::protobuf::Edition_descriptor(a1);
+  result = google::protobuf::internal::NameOfEnum(v2, a1);
+  v4 = result[1];
+  if (*(result + 23) >= 0)
+  {
+    v5 = *(result + 23);
+  }
+
+  else
+  {
+    result = *result;
+    v5 = v4;
+  }
+
+  if (v5 >= 8 && *result == 0x5F4E4F4954494445)
+  {
+    ++result;
+  }
+
+  return result;
+}
+
+void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::string,std::unique_ptr<google::protobuf::FeatureSet>>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::pair<std::string const,std::unique_ptr<google::protobuf::FeatureSet>>>>::destroy_slots(void *a1)
+{
+  v2 = a1[2];
+  v1 = a1[3];
+  if (*a1 > 6uLL)
+  {
+    v8 = a1[1];
+    if (v8 >= 2)
+    {
+      v9 = v8 >> 1;
+      do
+      {
+        v10 = *v2 & 0x8080808080808080;
+        if (v10 != 0x8080808080808080)
+        {
+          v11 = v10 ^ 0x8080808080808080;
+          do
+          {
+            v12 = v1 + ((4 * __clz(__rbit64(v11))) & 0x1E0);
+            v13 = *(v12 + 24);
+            *(v12 + 24) = 0;
+            if (v13)
+            {
+              google::protobuf::FeatureSet::~FeatureSet(v13);
+              MEMORY[0x23EED9460]();
+            }
+
+            if (*(v12 + 23) < 0)
+            {
+              operator delete(*v12);
+            }
+
+            --v9;
+            v11 &= v11 - 1;
+          }
+
+          while (v11);
+        }
+
+        ++v2;
+        v1 += 256;
+      }
+
+      while (v9);
+    }
+  }
+
+  else
+  {
+    v3 = *(v2 + *a1) & 0x8080808080808080;
+    if (v3 != 0x8080808080808080)
+    {
+      v4 = v1 - 32;
+      v5 = v3 ^ 0x8080808080808080;
+      do
+      {
+        v6 = v4 + ((4 * __clz(__rbit64(v5))) & 0x1E0);
+        v7 = *(v6 + 24);
+        *(v6 + 24) = 0;
+        if (v7)
+        {
+          google::protobuf::FeatureSet::~FeatureSet(v7);
+          MEMORY[0x23EED9460]();
+        }
+
+        if (*(v6 + 23) < 0)
+        {
+          operator delete(*v6);
+        }
+
+        v5 &= v5 - 1;
+      }
+
+      while (v5);
+    }
+  }
+}
+
+void absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::clear(unsigned __int8 ***a1)
+{
+  if (!a1[2])
+  {
+    goto LABEL_4;
+  }
+
+  v2 = *a1;
+  if (*(*a1 + 11) || !*(v2 + 10))
+  {
+    operator delete(v2);
+    goto LABEL_4;
+  }
+
+  v3 = *v2;
+  do
+  {
+    v2 = v2[32];
+  }
+
+  while (!*(v2 + 11));
+  v4 = *(v2 + 8);
+  v5 = *v2;
+  while (1)
+  {
+    v6 = *&v5[8 * v4 + 256];
+    if (!v6[11])
+    {
+      break;
+    }
+
+    v7 = v5;
+    operator delete(*&v5[8 * v4 + 256]);
+    v5 = v7;
+    if (v4 >= v7[10])
+    {
+      goto LABEL_15;
+    }
+
+LABEL_9:
+    ++v4;
+  }
+
+  do
+  {
+    v6 = *(v6 + 32);
+  }
+
+  while (!v6[11]);
+  v4 = v6[8];
+  v8 = *v6;
+  operator delete(v6);
+  v5 = v8;
+  if (v4 < v8[10])
+  {
+    goto LABEL_9;
+  }
+
+LABEL_15:
+  while (1)
+  {
+    v4 = v5[8];
+    v9 = *v5;
+    operator delete(v5);
+    if (v9 == v3)
+    {
+      break;
+    }
+
+    v5 = v9;
+    if (v4 < v9[10])
+    {
+      goto LABEL_9;
+    }
+  }
+
+LABEL_4:
+  *a1 = &absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::EmptyNode(void)::empty_node;
+  a1[1] = &absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::EmptyNode(void)::empty_node;
+  a1[2] = 0;
+}
+
+unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string>>::~raw_hash_set(unint64_t *a1)
+{
+  v2 = *a1;
+  if (*a1)
+  {
+    v4 = a1[2];
+    v3 = a1[3];
+    if (v2 > 6)
+    {
+      v9 = a1[1];
+      if (v9 >= 2)
+      {
+        v11 = v9 >> 1;
+        do
+        {
+          v12 = *v4 & 0x8080808080808080;
+          if (v12 != 0x8080808080808080)
+          {
+            v13 = v12 ^ 0x8080808080808080;
+            do
+            {
+              v14 = v3 + 24 * (__clz(__rbit64(v13)) >> 3);
+              if (*(v14 + 23) < 0)
+              {
+                operator delete(*v14);
+              }
+
+              --v11;
+              v13 &= v13 - 1;
+            }
+
+            while (v13);
+          }
+
+          ++v4;
+          v3 += 192;
+        }
+
+        while (v11);
+      }
+    }
+
+    else
+    {
+      v5 = *(v4 + v2) & 0x8080808080808080;
+      if (v5 != 0x8080808080808080)
+      {
+        v6 = v3 - 24;
+        v7 = v5 ^ 0x8080808080808080;
+        do
+        {
+          v8 = v6 + 24 * (__clz(__rbit64(v7)) >> 3);
+          if (*(v8 + 23) < 0)
+          {
+            operator delete(*v8);
+          }
+
+          v7 &= v7 - 1;
+        }
+
+        while (v7);
+      }
+    }
+
+    operator delete((a1[2] - (a1[1] & 1) - 8));
+  }
+
+  return a1;
+}
+
+char *google::protobuf::Symbol::full_name(unsigned __int8 **this, uint64_t a2, uint64_t a3)
+{
+  v5 = *this;
+  v6 = **this;
+  if (v6 <= 4)
+  {
+    if (**this > 2u)
+    {
+      if (v6 == 3)
+      {
+        v8 = *(v5 + 8);
+        if ((*(v8 + 47) & 0x8000000000000000) == 0)
+        {
+          return (v8 + 24);
+        }
+      }
+
+      else
+      {
+        if (v6 != 4)
+        {
+          goto LABEL_34;
+        }
+
+        v8 = *(v5 + 8);
+        if ((*(v8 + 47) & 0x8000000000000000) == 0)
+        {
+          return (v8 + 24);
+        }
+      }
+    }
+
+    else if (v6 == 1)
+    {
+      v8 = *(v5 + 8);
+      if ((*(v8 + 47) & 0x8000000000000000) == 0)
+      {
+        return (v8 + 24);
+      }
+    }
+
+    else
+    {
+      if (v6 != 2)
+      {
+        goto LABEL_34;
+      }
+
+      v8 = *(v5 + 8);
+      if ((*(v8 + 47) & 0x8000000000000000) == 0)
+      {
+        return (v8 + 24);
+      }
+    }
+
+    return *(v8 + 24);
+  }
+
+  if (**this <= 7u)
+  {
+    if (v6 == 5)
+    {
+      v8 = *(v5 + 8);
+      if ((*(v8 + 47) & 0x8000000000000000) == 0)
+      {
+        return (v8 + 24);
+      }
+    }
+
+    else
+    {
+      if (v6 != 7)
+      {
+        goto LABEL_34;
+      }
+
+      v8 = *(v5 + 8);
+      if ((*(v8 + 47) & 0x8000000000000000) == 0)
+      {
+        return (v8 + 24);
+      }
+    }
+
+    return *(v8 + 24);
+  }
+
+  if (v6 == 8)
+  {
+    v8 = *(v5 + 8);
+    if ((*(v8 + 47) & 0x8000000000000000) == 0)
+    {
+      return (v8 + 24);
+    }
+
+    return *(v8 + 24);
+  }
+
+  if (v6 != 9)
+  {
+    if (v6 == 10)
+    {
+      result = *(*(v5 + 8) + 16);
+      if ((result[23] & 0x8000000000000000) != 0)
+      {
+        return *result;
+      }
+
+      return result;
+    }
+
+LABEL_34:
+    v9[2] = v3;
+    v9[3] = v4;
+    google::protobuf::DescriptorPool::Tables::RollbackToLastCheckpoint(v9, a2, a3);
+  }
+
+  result = *(v5 + 16);
+  if ((result[23] & 0x8000000000000000) != 0)
+  {
+    return *result;
+  }
+
+  return result;
+}
+
+unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string>>::raw_hash_set<char const* const*>(unint64_t *a1, char **a2, const char **a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v8 = a2;
   if (!a4)
   {
     if (a3 - a2 == 56)
@@ -10,44 +625,44 @@ uint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_2024072
 
     else
     {
-      a4 = (a3 - a2 - 1) / 7 + a3 - a2;
+      a4 = (((a3 - a2) >> 3) - 1) / 7 + ((a3 - a2) >> 3);
     }
   }
 
   absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string>>::raw_hash_set(a1, a4);
-  for (; v5 != a3; ++v5)
+  for (; v8 != a3; ++v8)
   {
-    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string>>::find_or_prepare_insert_non_soo<char const*>(a1, v5, v12);
-    if (v14 == 1)
+    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string>>::find_or_prepare_insert_non_soo<char const*>(a1, v8, &v15);
+    if (v17 == 1)
     {
-      v7 = v13;
-      v8 = *v5;
-      v9 = strlen(*v5);
-      if (v9 >= 0x7FFFFFFFFFFFFFF8)
+      v10 = v16;
+      v11 = *v8;
+      v12 = strlen(*v8);
+      if (v12 >= 0x7FFFFFFFFFFFFFF8)
       {
         std::string::__throw_length_error[abi:ne200100]();
       }
 
-      v10 = v9;
-      if (v9 >= 0x17)
+      v13 = v12;
+      if (v12 >= 0x17)
       {
         operator new();
       }
 
-      v13[23] = v9;
-      if (v9)
+      v16[23] = v12;
+      if (v12)
       {
-        memmove(v7, v8, v9);
+        memmove(v10, v11, v12);
       }
 
-      *(v7 + v10) = 0;
+      *(v10 + v13) = 0;
     }
   }
 
   return a1;
 }
 
-void *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string>>::raw_hash_set(void *result, unint64_t a2)
+unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string>>::raw_hash_set(unint64_t *result, unint64_t a2)
 {
   *result = 0;
   result[1] = 0;
@@ -60,7 +675,7 @@ void *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::c
   return result;
 }
 
-unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string>>::find_or_prepare_insert_non_soo<char const*>@<X0>(uint64_t *a1@<X0>, const char **a2@<X1>, uint64_t a3@<X8>)
+unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string>>::find_or_prepare_insert_non_soo<char const*>@<X0>(unint64_t *a1@<X0>, char **a2@<X1>, uint64_t a3@<X8>)
 {
   _X8 = a1[2];
   __asm { PRFM            #4, [X8] }
@@ -181,7 +796,7 @@ void absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::
   }
 }
 
-unsigned __int8 **google::protobuf::Symbol::parent_name_key@<X0>(unsigned __int8 **this@<X0>, void *a2@<X8>)
+unsigned __int8 **google::protobuf::Symbol::parent_name_key@<X0>(uint64_t *__return_ptr a1@<X8>, unsigned __int8 **this@<X0>)
 {
   v4 = *this;
   v5 = **this;
@@ -279,20 +894,20 @@ LABEL_23:
 LABEL_24:
   v11 = *(v4 + v9);
   v12 = *(v11 + 23);
-  v13 = v11[1];
-  if (v12 < 0)
+  v13 = *(v11 + 8);
+  if ((v12 & 0x80u) != 0)
   {
     v11 = *v11;
     v12 = v13;
   }
 
-  *a2 = v7;
-  a2[1] = v11;
-  a2[2] = v12;
+  *a1 = v7;
+  a1[1] = v11;
+  a1[2] = v12;
   return this;
 }
 
-void *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::EnumValueDescriptor const*>,google::protobuf::anonymous namespace::ParentNumberHash,google::protobuf::anonymous namespace::ParentNumberEq,std::allocator<google::protobuf::EnumValueDescriptor const*>>::find<google::protobuf::anonymous namespace::ParentNumberQuery>(uint64_t *a1, uint64_t a2, unsigned int a3)
+void *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::EnumValueDescriptor const*>,google::protobuf::anonymous namespace::ParentNumberHash,google::protobuf::anonymous namespace::ParentNumberEq,std::allocator<google::protobuf::EnumValueDescriptor const*>>::find<google::protobuf::anonymous namespace::ParentNumberQuery>(unint64_t *a1, uint64_t a2, unsigned int a3)
 {
   v3 = *a1;
   if (*a1 > 1)
@@ -360,22 +975,22 @@ LABEL_14:
   return &absl::lts_20240722::container_internal::kSooControl;
 }
 
-uint64_t google::protobuf::anonymous namespace::FlatAllocatorImpl<char,std::string,google::protobuf::SourceCodeInfo,google::protobuf::FileDescriptorTables,google::protobuf::FeatureSet,google::protobuf::MessageOptions,google::protobuf::FieldOptions,google::protobuf::EnumOptions,google::protobuf::EnumValueOptions,google::protobuf::ExtensionRangeOptions,google::protobuf::OneofOptions,google::protobuf::ServiceOptions,google::protobuf::MethodOptions,google::protobuf::FileOptions>::AllocateArray<std::string>(uint64_t a1, int a2)
+uint64_t google::protobuf::anonymous namespace::FlatAllocatorImpl<char,std::string,google::protobuf::SourceCodeInfo,google::protobuf::FileDescriptorTables,google::protobuf::FeatureSet,google::protobuf::MessageOptions,google::protobuf::FieldOptions,google::protobuf::EnumOptions,google::protobuf::EnumValueOptions,google::protobuf::ExtensionRangeOptions,google::protobuf::OneofOptions,google::protobuf::ServiceOptions,google::protobuf::MethodOptions,google::protobuf::FileOptions>::AllocateArray<std::string>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!*a1)
   {
   }
 
-  v3 = *(a1 + 8);
-  v4 = *(a1 + 172);
-  v5 = v4 + a2;
-  *(a1 + 172) = v4 + a2;
-  v6 = *(a1 + 116);
-  if (v5 > v6)
+  v4 = *(a1 + 8);
+  v5 = *(a1 + 172);
+  v6 = v5 + a2;
+  *(a1 + 172) = v5 + a2;
+  v7 = *(a1 + 116);
+  if (v6 > v7)
   {
   }
 
-  return v3 + 24 * v4;
+  return v4 + 24 * v5;
 }
 
 double google::protobuf::Arena::DefaultConstruct<google::protobuf::ExtensionRangeOptions>(google::protobuf::Arena *a1)
@@ -766,35 +1381,35 @@ LABEL_13:
 
 void google::protobuf::anonymous namespace::SourceLocationCommentPrinter::FormatComment(std::string *a1, uint64_t a2, uint64_t a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v35, *a3, *(a3 + 8));
+    std::string::__init_copy_ctor_external(&v34, *a3, *(a3 + 8));
   }
 
   else
   {
-    v35 = *a3;
+    v34 = *a3;
   }
 
-  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v5 = (&v35 + HIBYTE(v35.__r_.__value_.__r.__words[2]));
-  }
-
-  else
-  {
-    v5 = (v35.__r_.__value_.__r.__words[0] + v35.__r_.__value_.__l.__size_);
-  }
-
-  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v6 = &v35;
+    v5 = (&v34 + HIBYTE(v34.__r_.__value_.__r.__words[2]));
   }
 
   else
   {
-    v6 = v35.__r_.__value_.__r.__words[0];
+    v5 = (v34.__r_.__value_.__r.__words[0] + v34.__r_.__value_.__l.__size_);
+  }
+
+  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v6 = &v34;
+  }
+
+  else
+  {
+    v6 = v34.__r_.__value_.__r.__words[0];
   }
 
   while (v5 != v6)
@@ -810,25 +1425,25 @@ void google::protobuf::anonymous namespace::SourceLocationCommentPrinter::Format
 
   v8 = v6;
 LABEL_14:
-  std::string::erase(&v35, v8 - v6, 0xFFFFFFFFFFFFFFFFLL);
-  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::string::erase(&v34, v8 - v6, 0xFFFFFFFFFFFFFFFFLL);
+  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v9 = &v35;
+    v9 = &v34;
   }
 
   else
   {
-    v9 = v35.__r_.__value_.__r.__words[0];
+    v9 = v34.__r_.__value_.__r.__words[0];
   }
 
-  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v35.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v34.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v35.__r_.__value_.__l.__size_;
+    size = v34.__r_.__value_.__l.__size_;
   }
 
   if (size)
@@ -851,76 +1466,76 @@ LABEL_14:
     v12 = v9;
   }
 
-  std::string::erase(&v35, 0, v12 - v9);
+  std::string::erase(&v34, 0, v12 - v9);
   a1->__r_.__value_.__r.__words[0] = 0;
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
-  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v13 = &v35;
+    v13 = &v34;
   }
 
   else
   {
-    v13 = v35.__r_.__value_.__r.__words[0];
+    v13 = v34.__r_.__value_.__r.__words[0];
   }
 
-  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v14 = HIBYTE(v35.__r_.__value_.__r.__words[2]);
+    v14 = HIBYTE(v34.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v14 = v35.__r_.__value_.__l.__size_;
+    v14 = v34.__r_.__value_.__l.__size_;
   }
 
-  v32 = v13;
-  v33 = v14;
-  v34 = 10;
-  v31[0] = 10;
+  v31 = v13;
+  v32 = v14;
+  v33 = 10;
+  v30[0] = 10;
   if (v13)
   {
-    v15 = absl::lts_20240722::ByChar::Find(v31, v13, v14, 0);
-    v29 = v13 + v14 == v15;
+    v15 = absl::lts_20240722::ByChar::Find(v30, v13, v14, 0);
+    v28 = v13 + v14 == v15;
     v17 = v14;
     if (v14 >= v15 - v13)
     {
       v17 = v15 - v13;
     }
 
-    *&v30 = v13;
-    *(&v30 + 1) = v17;
-    v18 = v33;
-    v28 = v16 + v17;
+    *&v29 = v13;
+    *(&v29 + 1) = v17;
+    v18 = v32;
+    v27 = v16 + v17;
     while (1)
     {
-      v21 = *(a2 + 127);
-      if ((v21 & 0x80u) == 0)
+      v20 = *(a2 + 127);
+      if ((v20 & 0x80u) == 0)
       {
-        v22 = a2 + 104;
+        v21 = a2 + 104;
       }
 
       else
       {
-        v22 = *(a2 + 104);
+        v21 = *(a2 + 104);
       }
 
-      if ((v21 & 0x80u) != 0)
+      if ((v20 & 0x80u) != 0)
       {
-        v21 = *(a2 + 112);
+        v20 = *(a2 + 112);
       }
 
-      v36[0] = v22;
-      v36[1] = v21;
-      v37 = v30;
-      absl::lts_20240722::substitute_internal::SubstituteAndAppendArray(a1, "$0// $1\n", 8uLL, v36, 2uLL);
-      if (v29 == 1)
+      v35[0] = v21;
+      v35[1] = v20;
+      v36 = v29;
+      absl::lts_20240722::substitute_internal::SubstituteAndAppendArray(a1, "$0// $1\n", 8uLL, v35, 2uLL);
+      if (v28 == 1)
       {
-        v29 = 2;
-        v20 = v28;
+        v28 = 2;
+        v19 = v27;
 LABEL_40:
-        if (v20 == v18)
+        if (v19 == v18)
         {
           break;
         }
@@ -928,30 +1543,30 @@ LABEL_40:
 
       else
       {
+        v22 = v31;
         v23 = v32;
-        v24 = v33;
-        v25 = absl::lts_20240722::ByChar::Find(v31, v32, v33, v28);
-        if ((v23 + v24) == v25)
+        v24 = absl::lts_20240722::ByChar::Find(v30, v31, v32, v27);
+        if ((v22 + v23) == v24)
         {
-          v29 = 1;
+          v28 = 1;
         }
 
-        v27 = (v24 - v28);
-        if (v24 < v28)
+        v26 = (v23 - v27);
+        if (v23 < v27)
         {
           std::__throw_out_of_range[abi:ne200100]("string_view::substr");
         }
 
-        if (v27 >= &v25[-v23 - v28])
+        if (v26 >= &v24[-v22 - v27])
         {
-          v27 = &v25[-v23 - v28];
+          v26 = &v24[-v22 - v27];
         }
 
-        *&v30 = v23 + v28;
-        *(&v30 + 1) = v27;
-        v20 = &v27[v28 + v26];
-        v28 = v20;
-        if (v29 == 2)
+        *&v29 = v22 + v27;
+        *(&v29 + 1) = v26;
+        v19 = &v26[v27 + v25];
+        v27 = v19;
+        if (v28 == 2)
         {
           goto LABEL_40;
         }
@@ -959,12 +1574,10 @@ LABEL_40:
     }
   }
 
-  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v35.__r_.__value_.__l.__data_);
+    operator delete(v34.__r_.__value_.__l.__data_);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23CD91844(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -982,25 +1595,25 @@ void sub_23CD91844(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-double absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::raw_hash_set(_OWORD *a1, unint64_t a2)
+double absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::raw_hash_set(unint64_t *result, unint64_t a2)
 {
-  *&result = 1;
-  *a1 = xmmword_23CE306D0;
+  *&v2 = 1;
+  *result = xmmword_23CE306D0;
   if (a2 >= 2)
   {
-    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::resize_impl(a1, 0xFFFFFFFFFFFFFFFFLL >> __clz(a2));
+    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::resize_impl(result, 0xFFFFFFFFFFFFFFFFLL >> __clz(a2));
   }
 
-  return result;
+  return v2;
 }
 
-int64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>@<X0>(int64_t result@<X0>, _DWORD *a2@<X1>, uint64_t a3@<X8>)
+unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::find_or_prepare_insert<int>@<X0>(unint64_t *result@<X0>, _DWORD *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = *result;
-  if (*result > 1uLL)
+  if (*result > 1)
   {
     v6 = 0;
-    _X10 = *(result + 16);
+    _X10 = result[2];
     __asm { PRFM            #4, [X10] }
 
     v13 = *a2;
@@ -1015,7 +1628,7 @@ int64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722:
     }
 
 LABEL_5:
-    v19 = *(result + 24);
+    v19 = result[3];
     do
     {
       v20 = (v16 + (__clz(__rbit64(v18)) >> 3)) & v3;
@@ -1052,20 +1665,20 @@ LABEL_8:
 
     v22 = result;
     result = absl::lts_20240722::container_internal::PrepareInsertNonSoo(result, v14, (v16 + (__clz(__rbit64(v21)) >> 3)) & v3, v6, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::GetPolicyFunctions(void)::value);
-    v24 = *(v22 + 24) + 4 * result;
-    *a3 = *(v22 + 16) + result;
+    v24 = v22[3] + 4 * result;
+    *a3 = result + v22[2];
     *(a3 + 8) = v24;
     *(a3 + 16) = 1;
   }
 
   else
   {
-    if (*(result + 8) > 1uLL)
+    if (result[1] > 1)
     {
-      v4 = (result + 16);
-      if (*(result + 16) != *a2)
+      v4 = result + 2;
+      if (*(result + 4) != *a2)
       {
-        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::resize_impl(result, 3);
+        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<int>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<int>>::resize_impl(result, 3uLL);
       }
 
       v5 = 0;
@@ -1073,8 +1686,8 @@ LABEL_8:
 
     else
     {
-      *(result + 8) = 2;
-      v4 = (result + 16);
+      result[1] = 2;
+      v4 = result + 2;
       v5 = 1;
     }
 
@@ -1086,7 +1699,7 @@ LABEL_8:
   return result;
 }
 
-BOOL google::protobuf::anonymous namespace::RetrieveOptions(int a1, google::protobuf::MessageLite *a2, uint64_t a3, void ***a4)
+BOOL google::protobuf::anonymous namespace::RetrieveOptions(uint64_t a1, google::protobuf::MessageLite *a2, uint64_t a3, void ***a4)
 {
   if (*(*((*(*a2 + 80))(a2) + 16) + 24) != a3)
   {
@@ -1108,28 +1721,28 @@ BOOL google::protobuf::anonymous namespace::RetrieveOptions(int a1, google::prot
       {
 LABEL_4:
         v12 = v11;
-        google::protobuf::DynamicMessageFactory::DynamicMessageFactory(v35);
-        Prototype = google::protobuf::DynamicMessageFactory::GetPrototype(v35, v12);
+        google::protobuf::DynamicMessageFactory::DynamicMessageFactory(v33);
+        Prototype = google::protobuf::DynamicMessageFactory::GetPrototype(v33, v12);
         v14 = (*(*Prototype + 16))(Prototype, 0);
-        google::protobuf::MessageLite::SerializeAsString(a2, &__p);
-        v15 = v34;
-        if ((v34 & 0x80u) == 0)
+        google::protobuf::MessageLite::SerializeAsString(&__p, a2);
+        v15 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           p_p = &__p;
         }
 
         else
         {
-          p_p = __p;
+          p_p = __p.__r_.__value_.__r.__words[0];
         }
 
-        if ((v34 & 0x80u) != 0)
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v15 = v33;
+          v15 = __p.__r_.__value_.__r.__words[1];
         }
 
         v23[0] = p_p;
-        v23[1] = &p_p[v15];
+        v23[1] = p_p + v15;
         v23[2] = 0;
         v24 = v15;
         memset(v25, 0, sizeof(v25));
@@ -1138,7 +1751,7 @@ LABEL_4:
         v28 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
         v29 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
         v30 = a3;
-        v31 = v35;
+        v31 = v33;
         v17 = google::protobuf::MessageLite::ParseFromCodedStream(v14, v23);
         v18 = v14;
         if ((v17 & 1) == 0)
@@ -1152,9 +1765,9 @@ LABEL_4:
         }
 
         google::protobuf::io::CodedInputStream::~CodedInputStream(v23);
-        if (v34 < 0)
+        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(__p);
+          operator delete(__p.__r_.__value_.__l.__data_);
         }
 
         if (v14)
@@ -1162,14 +1775,14 @@ LABEL_4:
           (*(*v14 + 8))(v14);
         }
 
-        google::protobuf::DynamicMessageFactory::~DynamicMessageFactory(v35);
+        google::protobuf::DynamicMessageFactory::~DynamicMessageFactory(v33);
         return OptionsAssumingRightPool;
       }
     }
   }
 }
 
-void sub_23CD91EC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27, char a28)
+void sub_23CD91EC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27, char a28)
 {
   google::protobuf::io::CodedInputStream::~CodedInputStream(&a12);
   if (a27 < 0)
@@ -1193,8 +1806,9 @@ LABEL_3:
   _Unwind_Resume(a1);
 }
 
-BOOL google::protobuf::anonymous namespace::RetrieveOptionsAssumingRightPool(int a1, uint64_t a2, void ***a3)
+BOOL google::protobuf::anonymous namespace::RetrieveOptionsAssumingRightPool(uint64_t a1, uint64_t a2, void ***a3)
 {
+  v4 = a1;
   v106 = *MEMORY[0x277D85DE8];
   v5 = *a3;
   v6 = a3[1];
@@ -1219,8 +1833,8 @@ BOOL google::protobuf::anonymous namespace::RetrieveOptionsAssumingRightPool(int
   v78 = v87;
   if (v86 != v87)
   {
-    v81 = a1 + 1;
-    __n = 2 * a1;
+    v81 = v4 + 1;
+    __n = 2 * v4;
     while (1)
     {
       v14 = *v13;
@@ -1242,7 +1856,7 @@ LABEL_7:
       if (v79 + 8 == v78)
       {
         v13 = v86;
-        goto LABEL_106;
+        goto LABEL_109;
       }
     }
 
@@ -1265,7 +1879,17 @@ LABEL_12:
 
       if ((*(v14 + 2) & 0xFE) != 0xA)
       {
-        google::protobuf::TextFormat::PrintFieldValueToString();
+        if (v15 == 96)
+        {
+          v26 = v17;
+        }
+
+        else
+        {
+          v26 = -1;
+        }
+
+        google::protobuf::TextFormat::PrintFieldValueToString(a2, v14, v26, &v85);
       }
 
       v91 = 0;
@@ -1311,65 +1935,65 @@ LABEL_12:
       std::string::append(&v85, "}");
       if (v102 > 1)
       {
-        v27 = v104;
-        v26 = v105;
+        v28 = v104;
+        v27 = v105;
         if (v102 > 6)
         {
           if (v103 >= 2)
           {
-            v63 = v103 >> 1;
+            v64 = v103 >> 1;
             do
             {
-              v64 = *v27 & 0x8080808080808080;
-              if (v64 != 0x8080808080808080)
+              v65 = *v28 & 0x8080808080808080;
+              if (v65 != 0x8080808080808080)
               {
-                v65 = v64 ^ 0x8080808080808080;
+                v66 = v65 ^ 0x8080808080808080;
                 do
                 {
-                  v66 = v26 + ((2 * __clz(__rbit64(v65))) & 0xF0);
-                  v67 = *(v66 + 8);
-                  *(v66 + 8) = 0;
-                  if (v67)
+                  v67 = v27 + ((2 * __clz(__rbit64(v66))) & 0xF0);
+                  v68 = *(v67 + 8);
+                  *(v67 + 8) = 0;
+                  if (v68)
                   {
-                    (*(*v67 + 8))(v67);
+                    (*(*v68 + 8))(v68);
                   }
 
-                  --v63;
-                  v65 &= v65 - 1;
+                  --v64;
+                  v66 &= v66 - 1;
                 }
 
-                while (v65);
+                while (v66);
               }
 
-              ++v27;
-              v26 += 128;
+              ++v28;
+              v27 += 128;
             }
 
-            while (v63);
+            while (v64);
           }
         }
 
         else
         {
-          v28 = *(v104 + v102) & 0x8080808080808080;
-          if (v28 != 0x8080808080808080)
+          v29 = *(v104 + v102) & 0x8080808080808080;
+          if (v29 != 0x8080808080808080)
           {
-            v29 = v105 - 16;
-            v30 = v28 ^ 0x8080808080808080;
+            v30 = v105 - 16;
+            v31 = v29 ^ 0x8080808080808080;
             do
             {
-              v31 = v29 + ((2 * __clz(__rbit64(v30))) & 0xF0);
-              v32 = *(v31 + 8);
-              *(v31 + 8) = 0;
-              if (v32)
+              v32 = v30 + ((2 * __clz(__rbit64(v31))) & 0xF0);
+              v33 = *(v32 + 8);
+              *(v32 + 8) = 0;
+              if (v33)
               {
-                (*(*v32 + 8))(v32);
+                (*(*v33 + 8))(v33);
               }
 
-              v30 &= v30 - 1;
+              v31 &= v31 - 1;
             }
 
-            while (v30);
+            while (v31);
           }
         }
 
@@ -1388,7 +2012,7 @@ LABEL_33:
             }
           }
 
-          goto LABEL_53;
+          goto LABEL_56;
         }
       }
 
@@ -1411,75 +2035,75 @@ LABEL_33:
         }
       }
 
-      v34 = v100;
-      v33 = v101;
+      v35 = v100;
+      v34 = v101;
       if (v24 > 6)
       {
         if (v99 >= 2)
         {
-          v68 = v99 >> 1;
+          v69 = v99 >> 1;
           do
           {
-            v69 = *v34 & 0x8080808080808080;
-            if (v69 != 0x8080808080808080)
+            v70 = *v35 & 0x8080808080808080;
+            if (v70 != 0x8080808080808080)
             {
-              v70 = v69 ^ 0x8080808080808080;
+              v71 = v70 ^ 0x8080808080808080;
               do
               {
-                v71 = v33 + ((2 * __clz(__rbit64(v70))) & 0xF0);
-                v72 = *(v71 + 8);
-                *(v71 + 8) = 0;
-                if (v72)
+                v72 = v34 + ((2 * __clz(__rbit64(v71))) & 0xF0);
+                v73 = *(v72 + 8);
+                *(v72 + 8) = 0;
+                if (v73)
                 {
-                  (*(*v72 + 8))(v72);
+                  (*(*v73 + 8))(v73);
                 }
 
-                --v68;
-                v70 &= v70 - 1;
+                --v69;
+                v71 &= v71 - 1;
               }
 
-              while (v70);
+              while (v71);
             }
 
-            ++v34;
-            v33 += 128;
+            ++v35;
+            v34 += 128;
           }
 
-          while (v68);
+          while (v69);
         }
       }
 
       else
       {
-        v35 = *(v100 + v24) & 0x8080808080808080;
-        if (v35 != 0x8080808080808080)
+        v36 = *(v100 + v24) & 0x8080808080808080;
+        if (v36 != 0x8080808080808080)
         {
-          v36 = v101 - 16;
-          v37 = v35 ^ 0x8080808080808080;
+          v37 = v101 - 16;
+          v38 = v36 ^ 0x8080808080808080;
           do
           {
-            v38 = v36 + ((2 * __clz(__rbit64(v37))) & 0xF0);
-            v39 = *(v38 + 8);
-            *(v38 + 8) = 0;
-            if (v39)
+            v39 = v37 + ((2 * __clz(__rbit64(v38))) & 0xF0);
+            v40 = *(v39 + 8);
+            *(v39 + 8) = 0;
+            if (v40)
             {
-              (*(*v39 + 8))(v39);
+              (*(*v40 + 8))(v40);
             }
 
-            v37 &= v37 - 1;
+            v38 &= v38 - 1;
           }
 
-          while (v37);
+          while (v38);
         }
       }
 
       operator delete(v100 - (v99 & 1) - 8);
-LABEL_53:
-      v40 = v97;
+LABEL_56:
+      v41 = v97;
       v97 = 0;
-      if (v40)
+      if (v41)
       {
-        (*(*v40 + 8))(v40);
+        (*(*v41 + 8))(v41);
       }
 
       if (SHIBYTE(v93) < 0)
@@ -1488,27 +2112,27 @@ LABEL_53:
         memset(&__p, 0, sizeof(__p));
         if ((*(v14 + 1) & 8) != 0)
         {
-LABEL_59:
+LABEL_62:
           v94 = "(.";
           v95 = 2;
-          v41 = *(v14 + 8);
-          v44 = *(v41 + 24);
-          v42 = v41 + 24;
-          v43 = v44;
-          v45 = *(v42 + 8);
-          if (*(v42 + 23) >= 0)
+          v42 = *(v14 + 8);
+          v45 = *(v42 + 24);
+          v43 = v42 + 24;
+          v44 = v45;
+          v46 = *(v43 + 8);
+          if (*(v43 + 23) >= 0)
           {
-            v46 = *(v42 + 23);
+            v47 = *(v43 + 23);
           }
 
           else
           {
-            v42 = v43;
-            v46 = v45;
+            v43 = v44;
+            v47 = v46;
           }
 
-          v91 = v42;
-          v92 = v46;
+          v91 = v43;
+          v92 = v47;
           v89 = ")";
           v90 = 1;
           absl::lts_20240722::StrCat(&v94, &v91, &v89, &v83);
@@ -1518,7 +2142,7 @@ LABEL_59:
           }
 
           __p = v83;
-          goto LABEL_65;
+          goto LABEL_68;
         }
       }
 
@@ -1527,12 +2151,12 @@ LABEL_59:
         memset(&__p, 0, sizeof(__p));
         if ((*(v14 + 1) & 8) != 0)
         {
-          goto LABEL_59;
+          goto LABEL_62;
         }
       }
 
       std::string::operator=(&__p, *(v14 + 8));
-LABEL_65:
+LABEL_68:
       size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       p_p = &__p;
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
@@ -1545,48 +2169,48 @@ LABEL_65:
       v95 = size;
       v91 = " = ";
       v92 = 3;
-      v49 = HIBYTE(v85.__r_.__value_.__r.__words[2]);
-      v50 = &v85;
+      v50 = HIBYTE(v85.__r_.__value_.__r.__words[2]);
+      v51 = &v85;
       if ((v85.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v49 = v85.__r_.__value_.__l.__size_;
-        v50 = v85.__r_.__value_.__r.__words[0];
+        v50 = v85.__r_.__value_.__l.__size_;
+        v51 = v85.__r_.__value_.__r.__words[0];
       }
 
-      v89 = v50;
-      v90 = v49;
+      v89 = v51;
+      v90 = v50;
       absl::lts_20240722::StrCat(&v94, &v91, &v89, &v83);
-      v52 = a3[1];
-      v51 = a3[2];
-      if (v52 >= v51)
+      v53 = a3[1];
+      v52 = a3[2];
+      if (v53 >= v52)
       {
-        v54 = *a3;
-        v55 = v52 - *a3;
-        v56 = 0xAAAAAAAAAAAAAAABLL * (v55 >> 3) + 1;
-        if (v56 > 0xAAAAAAAAAAAAAAALL)
+        v55 = *a3;
+        v56 = v53 - *a3;
+        v57 = 0xAAAAAAAAAAAAAAABLL * (v56 >> 3) + 1;
+        if (v57 > 0xAAAAAAAAAAAAAAALL)
         {
           std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
         }
 
-        v57 = 0xAAAAAAAAAAAAAAABLL * (v51 - v54);
-        if (2 * v57 > v56)
+        v58 = 0xAAAAAAAAAAAAAAABLL * (v52 - v55);
+        if (2 * v58 > v57)
         {
-          v56 = 2 * v57;
+          v57 = 2 * v58;
         }
 
-        if (v57 >= 0x555555555555555)
+        if (v58 >= 0x555555555555555)
         {
-          v58 = 0xAAAAAAAAAAAAAAALL;
+          v59 = 0xAAAAAAAAAAAAAAALL;
         }
 
         else
         {
-          v58 = v56;
+          v59 = v57;
         }
 
-        if (v58)
+        if (v59)
         {
-          if (v58 <= 0xAAAAAAAAAAAAAAALL)
+          if (v59 <= 0xAAAAAAAAAAAAAAALL)
           {
             operator new();
           }
@@ -1594,43 +2218,43 @@ LABEL_65:
           std::__throw_bad_array_new_length[abi:ne200100]();
         }
 
-        v59 = (8 * (v55 >> 3));
-        *v59 = v83;
+        v60 = (8 * (v56 >> 3));
+        *v60 = v83;
         memset(&v83, 0, sizeof(v83));
-        v60 = v59 + 1;
-        v61 = (&v59->__r_.__value_.__l.__data_ - v55);
-        memcpy(v59 - v55, v54, v55);
-        *a3 = v61;
-        a3[1] = &v60->__r_.__value_.__l.__data_;
+        p_data = &v60[1].__r_.__value_.__l.__data_;
+        v62 = (&v60->__r_.__value_.__l.__data_ - v56);
+        memcpy(v60 - v56, v55, v56);
+        *a3 = v62;
+        a3[1] = p_data;
         a3[2] = 0;
-        if (v54)
+        if (v55)
         {
-          operator delete(v54);
-          v62 = SHIBYTE(v83.__r_.__value_.__r.__words[2]);
-          a3[1] = &v60->__r_.__value_.__l.__data_;
-          if ((v62 & 0x80000000) == 0)
+          operator delete(v55);
+          v63 = SHIBYTE(v83.__r_.__value_.__r.__words[2]);
+          a3[1] = p_data;
+          if ((v63 & 0x80000000) == 0)
           {
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               goto LABEL_13;
             }
 
-            goto LABEL_84;
+            goto LABEL_87;
           }
 
           operator delete(v83.__r_.__value_.__l.__data_);
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
-            goto LABEL_84;
+            goto LABEL_87;
           }
         }
 
         else
         {
-          a3[1] = &v60->__r_.__value_.__l.__data_;
+          a3[1] = p_data;
           if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
-            goto LABEL_84;
+            goto LABEL_87;
           }
         }
 
@@ -1638,7 +2262,7 @@ LABEL_13:
         operator delete(__p.__r_.__value_.__l.__data_);
         if (SHIBYTE(v85.__r_.__value_.__r.__words[2]) < 0)
         {
-          goto LABEL_85;
+          goto LABEL_88;
         }
 
 LABEL_14:
@@ -1650,22 +2274,22 @@ LABEL_14:
 
       else
       {
-        v53 = *&v83.__r_.__value_.__l.__data_;
-        v52[2] = v83.__r_.__value_.__r.__words[2];
-        *v52 = v53;
-        a3[1] = v52 + 3;
+        v54 = *&v83.__r_.__value_.__l.__data_;
+        v53[2] = v83.__r_.__value_.__r.__words[2];
+        *v53 = v54;
+        a3[1] = v53 + 3;
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           goto LABEL_13;
         }
 
-LABEL_84:
+LABEL_87:
         if ((SHIBYTE(v85.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_14;
         }
 
-LABEL_85:
+LABEL_88:
         operator delete(v85.__r_.__value_.__l.__data_);
         if (++v17 == v16)
         {
@@ -1675,18 +2299,16 @@ LABEL_85:
     }
   }
 
-LABEL_106:
-  v74 = *a3;
-  v73 = a3[1];
+LABEL_109:
+  v75 = *a3;
+  v74 = a3[1];
   if (v13)
   {
     v87 = v13;
     operator delete(v13);
   }
 
-  result = v74 != v73;
-  v76 = *MEMORY[0x277D85DE8];
-  return result;
+  return v75 != v74;
 }
 
 void sub_23CD927C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *__p, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, int a46, __int16 a47, char a48, char a49)
@@ -1884,40 +2506,39 @@ void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::co
   }
 }
 
-char *absl::lts_20240722::strings_internal::JoinAlgorithm<std::__wrap_iter<std::string const*>,void>@<X0>(char *__src@<X0>, char *a2@<X1>, const void *a3@<X2>, size_t a4@<X3>, std::string *a5@<X8>)
+uint64_t *absl::lts_20240722::strings_internal::JoinAlgorithm<std::__wrap_iter<std::string const*>,void>@<X0>(std::string *__return_ptr a1@<X8>, uint64_t *__src@<X0>, uint64_t *a3@<X1>, const void *a4@<X2>, size_t a5@<X3>)
 {
-  a5->__r_.__value_.__r.__words[0] = 0;
-  a5->__r_.__value_.__l.__size_ = 0;
-  a5->__r_.__value_.__r.__words[2] = 0;
-  if (__src == a2)
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  if (__src == a3)
   {
     return __src;
   }
 
   v8 = __src;
-  v9 = __src[23];
+  v9 = *(__src + 23);
   if ((v9 & 0x8000000000000000) != 0)
   {
-    v9 = *(__src + 1);
+    v9 = __src[1];
   }
 
-  v10 = __src + 24;
-  if (__src + 24 != a2)
+  v10 = __src + 3;
+  if (__src + 3 != a3)
   {
-    v11 = __src + 24;
+    v11 = __src + 3;
     do
     {
-      v12 = v11[23];
+      v12 = *(v11 + 23);
       if (v12 < 0)
       {
-        v12 = *(v11 + 1);
+        v12 = v11[1];
       }
 
-      v9 += a4 + v12;
-      v11 += 24;
+      v9 += a5 + v12;
+      v11 += 3;
     }
 
-    while (v11 != a2);
+    while (v11 != a3);
   }
 
   if (!v9)
@@ -1925,7 +2546,7 @@ char *absl::lts_20240722::strings_internal::JoinAlgorithm<std::__wrap_iter<std::
     return __src;
   }
 
-  if (v9 >= 0x17 && (v13 = a5, std::string::__grow_by(a5, 0x16uLL, v9 - 22, 0, 0, 0, 0), a5 = v13, v13->__r_.__value_.__l.__size_ = 0, SHIBYTE(v13->__r_.__value_.__r.__words[2]) < 0))
+  if (v9 >= 0x17 && (v13 = a1, std::string::__grow_by(a1, 0x16uLL, v9 - 22, 0, 0, 0, 0), a1 = v13, v13->__r_.__value_.__l.__size_ = 0, SHIBYTE(v13->__r_.__value_.__r.__words[2]) < 0))
   {
     v14 = v13->__r_.__value_.__r.__words[0];
     v13->__r_.__value_.__l.__size_ = v9;
@@ -1933,20 +2554,20 @@ char *absl::lts_20240722::strings_internal::JoinAlgorithm<std::__wrap_iter<std::
 
   else
   {
-    *(&a5->__r_.__value_.__s + 23) = v9 & 0x7F;
-    v14 = a5;
+    *(&a1->__r_.__value_.__s + 23) = v9 & 0x7F;
+    v14 = a1;
   }
 
   v14->__r_.__value_.__s.__data_[v9] = 0;
   v15 = *(v8 + 23);
-  if ((a5->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((a1->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v16 = a5;
+    v16 = a1;
   }
 
   else
   {
-    v16 = a5->__r_.__value_.__r.__words[0];
+    v16 = a1->__r_.__value_.__r.__words[0];
   }
 
   if ((v15 & 0x8000000000000000) == 0)
@@ -1970,30 +2591,30 @@ LABEL_18:
   }
 
 LABEL_19:
-  if (v10 != a2)
+  if (v10 != a3)
   {
     v18 = v16 + v17;
     do
     {
-      memcpy(v18, a3, a4);
-      v19 = v10[23];
+      memcpy(v18, a4, a5);
+      v19 = *(v10 + 23);
       if ((v19 & 0x8000000000000000) != 0)
       {
-        v20 = &v18[a4];
-        __src = memcpy(v20, *v10, *(v10 + 1));
-        v21 = v10[23];
+        v20 = &v18[a5];
+        __src = memcpy(v20, *v10, v10[1]);
+        v21 = *(v10 + 23);
         if (v21 < 0)
         {
 LABEL_26:
-          v21 = *(v10 + 1);
+          v21 = v10[1];
         }
       }
 
       else
       {
-        v20 = &v18[a4];
+        v20 = &v18[a5];
         __src = memcpy(v20, v10, v19);
-        v21 = v10[23];
+        v21 = *(v10 + 23);
         if (v21 < 0)
         {
           goto LABEL_26;
@@ -2001,10 +2622,10 @@ LABEL_26:
       }
 
       v18 = &v20[v21];
-      v10 += 24;
+      v10 += 3;
     }
 
-    while (v10 != a2);
+    while (v10 != a3);
   }
 
   return __src;
@@ -2032,143 +2653,16 @@ google::protobuf::FileDescriptorTables *google::protobuf::internal::OnShutdownDe
   return result;
 }
 
-uint64_t google::protobuf::PlanAllocationSize(uint64_t result, uint64_t a2)
+uint64_t google::protobuf::PlanAllocationSize(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (*a2)
   {
-    google::protobuf::PlanAllocationSize(v23);
+    google::protobuf::PlanAllocationSize(v30, a2, a3);
   }
 
-  v3 = *(a2 + 116);
+  v4 = *(a2 + 116);
   *(a2 + 112) += 152 * *(result + 8);
-  *(a2 + 116) = v3 + 2 * *(result + 8);
-  if (*result)
-  {
-    v4 = *result + 7;
-  }
-
-  else
-  {
-    v4 = result;
-  }
-
-  v5 = *(result + 8);
-  if (v5)
-  {
-    v6 = v4 + 8 * v5;
-    do
-    {
-      v7 = *v4;
-      if ((*(*v4 + 16) & 2) != 0)
-      {
-        ++*(a2 + 132);
-      }
-
-      google::protobuf::PlanAllocationSize(v7 + 48, a2);
-      google::protobuf::PlanAllocationSize(v7 + 24, a2);
-      google::protobuf::PlanAllocationSize(v7 + 120, a2);
-      if (*a2)
-      {
-        google::protobuf::PlanAllocationSize(v23);
-      }
-
-      v8 = *(v7 + 96);
-      v9 = *(a2 + 112) + 40 * *(v7 + 104);
-      *(a2 + 112) = v9;
-      if (v8)
-      {
-        v10 = v8 + 7;
-      }
-
-      else
-      {
-        v10 = v7 + 96;
-      }
-
-      v11 = *(v7 + 104);
-      if (v11)
-      {
-        v12 = *(a2 + 148);
-        v13 = 8 * v11;
-        do
-        {
-          if (*(*v10 + 16))
-          {
-            *(a2 + 148) = ++v12;
-          }
-
-          v10 += 8;
-          v13 -= 8;
-        }
-
-        while (v13);
-      }
-
-      v14 = *(v7 + 176);
-      *(a2 + 112) = v9 + 8 * v14;
-      *(a2 + 112) = v9 + 8 * (v14 + *(v7 + 200));
-      *(a2 + 116) += *(v7 + 200);
-      result = google::protobuf::PlanAllocationSize(v7 + 72, a2);
-      if (*a2)
-      {
-        google::protobuf::PlanAllocationSize(v23);
-      }
-
-      v16 = *(v7 + 144);
-      v15 = v7 + 144;
-      v17 = *(a2 + 116);
-      *(a2 + 112) += 56 * *(v15 + 8);
-      *(a2 + 116) = v17 + 2 * *(v15 + 8);
-      v18 = v16 + 7;
-      if (v16)
-      {
-        v19 = v18;
-      }
-
-      else
-      {
-        v19 = v15;
-      }
-
-      v20 = *(v15 + 8);
-      if (v20)
-      {
-        v21 = *(a2 + 152);
-        v22 = 8 * v20;
-        do
-        {
-          if ((*(*v19 + 16) & 2) != 0)
-          {
-            *(a2 + 152) = ++v21;
-          }
-
-          v19 += 8;
-          v22 -= 8;
-        }
-
-        while (v22);
-      }
-
-      v4 += 8;
-    }
-
-    while (v4 != v6);
-  }
-
-  return result;
-}
-
-{
-  if (*a2)
-  {
-    google::protobuf::PlanAllocationSize(&v18);
-  }
-
-  v2 = *(a2 + 116);
-  v3 = *(a2 + 112) + 88 * *(result + 8);
-  *(a2 + 112) = v3;
-  v4 = v2 + 2 * *(result + 8);
-  *(a2 + 116) = v4;
+  *(a2 + 116) = v4 + 2 * *(result + 8);
   if (*result)
   {
     v5 = *result + 7;
@@ -2183,57 +2677,99 @@ uint64_t google::protobuf::PlanAllocationSize(uint64_t result, uint64_t a2)
   if (v6)
   {
     v7 = v5 + 8 * v6;
-    v8 = *(a2 + 140);
-    v9 = *(a2 + 144);
     do
     {
-      v11 = *v5;
+      v8 = *v5;
       if ((*(*v5 + 16) & 2) != 0)
       {
-        *(a2 + 140) = ++v8;
+        ++*(a2 + 132);
       }
 
-      v12 = *(v11 + 24);
-      v13 = v3 + 48 * *(v11 + 32);
-      *(a2 + 112) = v13;
-      v14 = v4 + 2 * *(v11 + 32);
-      *(a2 + 116) = v14;
-      result = v12 + 7;
-      if (v12)
+      google::protobuf::PlanAllocationSize(v8 + 48, a2);
+      google::protobuf::PlanAllocationSize(v8 + 24, a2, v9);
+      google::protobuf::PlanAllocationSize(v8 + 120, a2, v10);
+      if (*a2)
       {
-        v15 = v12 + 7;
+        google::protobuf::PlanAllocationSize(v30, v11, v12);
+      }
+
+      v13 = *(v8 + 96);
+      v14 = *(a2 + 112) + 40 * *(v8 + 104);
+      *(a2 + 112) = v14;
+      if (v13)
+      {
+        v15 = v13 + 7;
       }
 
       else
       {
-        v15 = v11 + 24;
+        v15 = v8 + 96;
       }
 
-      v16 = *(v11 + 32);
+      v16 = *(v8 + 104);
       if (v16)
       {
-        v17 = 8 * v16;
+        v17 = *(a2 + 148);
+        v18 = 8 * v16;
         do
         {
-          result = *(*v15 + 16);
-          if ((result & 2) != 0)
+          if (*(*v15 + 16))
           {
-            *(a2 + 144) = ++v9;
+            *(a2 + 148) = ++v17;
           }
 
           v15 += 8;
-          v17 -= 8;
+          v18 -= 8;
         }
 
-        while (v17);
+        while (v18);
       }
 
-      v10 = *(v11 + 56);
-      *(a2 + 112) = v13 + 8 * v10;
-      v3 = v13 + 8 * (v10 + *(v11 + 80));
-      *(a2 + 112) = v3;
-      v4 = *(v11 + 80) + v14;
-      *(a2 + 116) = v4;
+      v19 = *(v8 + 176);
+      *(a2 + 112) = v14 + 8 * v19;
+      *(a2 + 112) = v14 + 8 * (v19 + *(v8 + 200));
+      *(a2 + 116) += *(v8 + 200);
+      result = google::protobuf::PlanAllocationSize(v8 + 72, a2, v12);
+      if (*a2)
+      {
+        google::protobuf::PlanAllocationSize(v30, v20, v21);
+      }
+
+      v23 = *(v8 + 144);
+      v22 = v8 + 144;
+      v24 = *(a2 + 116);
+      *(a2 + 112) += 56 * *(v22 + 8);
+      *(a2 + 116) = v24 + 2 * *(v22 + 8);
+      v25 = v23 + 7;
+      if (v23)
+      {
+        v26 = v25;
+      }
+
+      else
+      {
+        v26 = v22;
+      }
+
+      v27 = *(v22 + 8);
+      if (v27)
+      {
+        v28 = *(a2 + 152);
+        v29 = 8 * v27;
+        do
+        {
+          if ((*(*v26 + 16) & 2) != 0)
+          {
+            *(a2 + 152) = ++v28;
+          }
+
+          v26 += 8;
+          v29 -= 8;
+        }
+
+        while (v29);
+      }
+
       v5 += 8;
     }
 
@@ -2243,60 +2779,146 @@ uint64_t google::protobuf::PlanAllocationSize(uint64_t result, uint64_t a2)
   return result;
 }
 
-void google::protobuf::PlanAllocationSize(uint64_t a1, uint64_t *a2)
 {
-  *&v61 = *MEMORY[0x277D85DE8];
   if (*a2)
   {
-    google::protobuf::PlanAllocationSize(&__s1);
+    google::protobuf::PlanAllocationSize(&v19, a2, a3);
   }
 
-  *(a2 + 28) += 88 * *(a1 + 8);
-  if (*a1)
+  v3 = *(a2 + 116);
+  v4 = *(a2 + 112) + 88 * *(result + 8);
+  *(a2 + 112) = v4;
+  v5 = v3 + 2 * *(result + 8);
+  *(a2 + 116) = v5;
+  if (*result)
   {
-    v3 = *a1 + 7;
+    v6 = *result + 7;
   }
 
   else
   {
-    v3 = a1;
+    v6 = result;
   }
 
-  v4 = *(a1 + 8);
-  if (v4)
+  v7 = *(result + 8);
+  if (v7)
   {
-    v5 = v3 + 8 * v4;
+    v8 = v6 + 8 * v7;
+    v9 = *(a2 + 140);
+    v10 = *(a2 + 144);
     do
     {
-      v6 = *v3;
-      v7 = *(*v3 + 16);
-      if ((v7 & 0x20) != 0)
+      v12 = *v6;
+      if ((*(*v6 + 16) & 2) != 0)
       {
-        if (*a2)
-        {
-          google::protobuf::PlanAllocationSize(&__s1);
-        }
-
-        ++*(a2 + 34);
-        v7 = *(v6 + 16);
+        *(a2 + 140) = ++v9;
       }
 
-      v8 = (*(v6 + 24) & 0xFFFFFFFFFFFFFFFCLL);
-      v9 = *a2;
-      if ((v7 & 0x10) != 0)
+      v13 = *(v12 + 24);
+      v14 = v4 + 48 * *(v12 + 32);
+      *(a2 + 112) = v14;
+      v15 = v5 + 2 * *(v12 + 32);
+      *(a2 + 116) = v15;
+      result = v13 + 7;
+      if (v13)
       {
-        if (v9)
+        v16 = v13 + 7;
+      }
+
+      else
+      {
+        v16 = v12 + 24;
+      }
+
+      v17 = *(v12 + 32);
+      if (v17)
+      {
+        v18 = 8 * v17;
+        do
         {
-LABEL_107:
-          google::protobuf::PlanAllocationSize(&__s1);
+          result = *(*v16 + 16);
+          if ((result & 2) != 0)
+          {
+            *(a2 + 144) = ++v10;
+          }
+
+          v16 += 8;
+          v18 -= 8;
         }
 
-        v10 = *(v8 + 23);
-        v11 = *(v6 + 56) & 0xFFFFFFFFFFFFFFFCLL;
-        if (v11)
+        while (v18);
+      }
+
+      v11 = *(v12 + 56);
+      *(a2 + 112) = v14 + 8 * v11;
+      v4 = v14 + 8 * (v11 + *(v12 + 80));
+      *(a2 + 112) = v4;
+      v5 = *(v12 + 80) + v15;
+      *(a2 + 116) = v5;
+      v6 += 8;
+    }
+
+    while (v6 != v8);
+  }
+
+  return result;
+}
+
+void google::protobuf::PlanAllocationSize(uint64_t a1, uint64_t *a2, void *a3)
+{
+  *&v57 = *MEMORY[0x277D85DE8];
+  if (*a2)
+  {
+    google::protobuf::PlanAllocationSize(__s1, a2, a3);
+  }
+
+  v3 = a2;
+  *(a2 + 28) += 88 * *(a1 + 8);
+  if (*a1)
+  {
+    v4 = *a1 + 7;
+  }
+
+  else
+  {
+    v4 = a1;
+  }
+
+  v5 = *(a1 + 8);
+  if (v5)
+  {
+    v6 = v4 + 8 * v5;
+    do
+    {
+      v7 = *v4;
+      v8 = *(*v4 + 16);
+      if ((v8 & 0x20) != 0)
+      {
+        if (*v3)
         {
-          v12 = 0;
-          if ((v10 & 0x80) == 0)
+          google::protobuf::PlanAllocationSize(__s1, a2, a3);
+        }
+
+        ++*(v3 + 34);
+        v8 = *(v7 + 16);
+      }
+
+      v9 = (*(v7 + 24) & 0xFFFFFFFFFFFFFFFCLL);
+      v10 = *v3;
+      if ((v8 & 0x10) != 0)
+      {
+        if (v10)
+        {
+LABEL_107:
+          google::protobuf::PlanAllocationSize(__s1);
+        }
+
+        v11 = v9[23];
+        v12 = *(v7 + 56) & 0xFFFFFFFFFFFFFFFCLL;
+        if (v12)
+        {
+          v13 = 0;
+          if ((v11 & 0x80) == 0)
           {
             goto LABEL_23;
           }
@@ -2307,39 +2929,39 @@ LABEL_107:
 
       else
       {
-        if (v9)
+        if (v10)
         {
           goto LABEL_107;
         }
 
-        v10 = *(v8 + 23);
+        v11 = v9[23];
       }
 
-      if ((v10 & 0x80) != 0)
+      if ((v11 & 0x80) != 0)
       {
-        v13 = *v8;
-        if (**v8 - 97 >= 0x1A)
+        a2 = *v9;
+        if (**v9 - 97 >= 0x1A)
         {
-          v11 = 0;
-          v12 = 1;
+          v12 = 0;
+          v13 = 1;
           goto LABEL_40;
         }
 
-        v14 = v8[1];
+        v14 = *(v9 + 1);
       }
 
       else
       {
-        v13 = (*(v6 + 24) & 0xFFFFFFFFFFFFFFFCLL);
-        v14 = v10;
-        if (*v8 - 97 >= 0x1A)
+        a2 = (*(v7 + 24) & 0xFFFFFFFFFFFFFFFCLL);
+        v14 = v11;
+        if (*v9 - 97 >= 0x1A)
         {
-          v11 = 0;
-          v12 = 1;
+          v12 = 0;
+          v13 = 1;
 LABEL_23:
-          v15 = *v8;
-          v51.__r_.__value_.__r.__words[2] = v8[2];
-          *&v51.__r_.__value_.__l.__data_ = v15;
+          v15 = *v9;
+          v48.__r_.__value_.__r.__words[2] = *(v9 + 2);
+          *&v48.__r_.__value_.__l.__data_ = v15;
           goto LABEL_41;
         }
       }
@@ -2347,42 +2969,43 @@ LABEL_23:
       if (!v14)
       {
 LABEL_38:
-        v20 = *(a2 + 29) + 2;
+        v20 = *(v3 + 29) + 2;
 LABEL_82:
-        *(a2 + 29) = v20;
-        if ((~*(v6 + 16) & 0x408) != 0)
+        *(v3 + 29) = v20;
+        if ((~*(v7 + 16) & 0x408) != 0)
         {
           goto LABEL_9;
         }
 
 LABEL_97:
-        v47 = *(v6 + 88);
-        if (v47 == 12 || v47 == 9)
+        v45 = *(v7 + 88);
+        if (v45 == 12 || v45 == 9)
         {
-          if (*a2)
+          if (*v3)
           {
-            google::protobuf::PlanAllocationSize(&__s1);
+            google::protobuf::PlanAllocationSize(__s1, a2, a3);
           }
 
-          ++*(a2 + 29);
+          ++*(v3 + 29);
         }
 
         goto LABEL_9;
       }
 
-      v16 = &v14[v13];
+      v16 = &v14[a2];
       v17 = 1;
       while (1)
       {
         while (1)
         {
-          v18 = *v13;
+          v18 = *a2;
           if ((v18 - 97) >= 0x1A && (v18 - 48) >= 0xA)
           {
             break;
           }
 
-          if (++v13 == v16)
+          a2 = (a2 + 1);
+          if (a2 == v16)
           {
             if (v17)
             {
@@ -2390,7 +3013,7 @@ LABEL_97:
             }
 
 LABEL_81:
-            v20 = *(a2 + 29) + 3;
+            v20 = *(v3 + 29) + 3;
             goto LABEL_82;
           }
         }
@@ -2401,58 +3024,59 @@ LABEL_81:
         }
 
         v17 = 0;
-        if (++v13 == v16)
+        a2 = (a2 + 1);
+        if (a2 == v16)
         {
           goto LABEL_81;
         }
       }
 
-      v11 = 0;
-      v12 = 1;
-      if ((v10 & 0x80) == 0)
+      v12 = 0;
+      v13 = 1;
+      if ((v11 & 0x80) == 0)
       {
         goto LABEL_23;
       }
 
 LABEL_19:
-      v13 = *v8;
+      a2 = *v9;
 LABEL_40:
-      std::string::__init_copy_ctor_external(&v51, v13, v8[1]);
+      std::string::__init_copy_ctor_external(&v48, a2, *(v9 + 1));
 LABEL_41:
-      absl::lts_20240722::AsciiStrToLower(&v51);
-      if (v12)
+      absl::lts_20240722::AsciiStrToLower(&v48);
+      if (v13)
       {
-        memset(&v49, 0, sizeof(v49));
-        if (*(v8 + 23) >= 0)
+        memset(&v46, 0, sizeof(v46));
+        if ((v9[23] & 0x80u) == 0)
         {
-          v21 = *(v8 + 23);
+          v21 = v9[23];
         }
 
         else
         {
-          v21 = v8[1];
+          v21 = *(v9 + 1);
         }
 
-        std::string::reserve(&v49, v21);
-        v22 = *(v8 + 23);
+        std::string::reserve(&v46, v21);
+        v22 = v9[23];
         if (v22 >= 0)
         {
-          v23 = v8;
+          v23 = v9;
         }
 
         else
         {
-          v23 = *v8;
+          v23 = *v9;
         }
 
         if (v22 >= 0)
         {
-          v24 = *(v8 + 23);
+          v24 = v9[23];
         }
 
         else
         {
-          v24 = v8[1];
+          v24 = *(v9 + 1);
         }
 
         if (v24)
@@ -2469,7 +3093,7 @@ LABEL_41:
                 LOBYTE(v26) = absl::lts_20240722::ascii_internal::kToUpper[v26];
               }
 
-              std::string::push_back(&v49, v26);
+              std::string::push_back(&v46, v26);
             }
 
             ++v23;
@@ -2481,46 +3105,46 @@ LABEL_41:
         }
       }
 
-      else if (*(v11 + 23) < 0)
+      else if (*(v12 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v49, *v11, *(v11 + 8));
+        std::string::__init_copy_ctor_external(&v46, *v12, *(v12 + 8));
       }
 
       else
       {
-        v28 = *v11;
-        v49.__r_.__value_.__r.__words[2] = *(v11 + 16);
-        *&v49.__r_.__value_.__l.__data_ = v28;
+        v28 = *v12;
+        v46.__r_.__value_.__r.__words[2] = *(v12 + 16);
+        *&v46.__r_.__value_.__l.__data_ = v28;
       }
 
-      v29 = *(v8 + 23);
-      if ((v29 & 0x80u) == 0)
+      v29 = v9[23];
+      if (v29 >= 0)
       {
-        v30 = v8;
+        v30 = v9;
       }
 
       else
       {
-        v30 = *v8;
+        v30 = *v9;
       }
 
-      if ((v29 & 0x80u) != 0)
+      if (v29 < 0)
       {
-        v29 = v8[1];
+        v29 = *(v9 + 1);
       }
 
-      __s1 = v30;
-      __n = v29;
-      size = HIBYTE(v51.__r_.__value_.__r.__words[2]);
-      v32 = &v51;
-      if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      __s1[0] = v30;
+      __s1[1] = v29;
+      size = HIBYTE(v48.__r_.__value_.__r.__words[2]);
+      v32 = &v48;
+      if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        size = v51.__r_.__value_.__l.__size_;
-        v32 = v51.__r_.__value_.__r.__words[0];
+        size = v48.__r_.__value_.__l.__size_;
+        v32 = v48.__r_.__value_.__r.__words[0];
       }
 
       __s2 = v32;
-      v56 = size;
+      v52 = size;
       v33 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       p_p = &__p;
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
@@ -2529,37 +3153,38 @@ LABEL_41:
         p_p = __p.__r_.__value_.__r.__words[0];
       }
 
-      v57 = p_p;
-      v58 = v33;
-      v35 = HIBYTE(v49.__r_.__value_.__r.__words[2]);
-      v36 = &v49;
-      if ((v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v53 = p_p;
+      v54 = v33;
+      v35 = HIBYTE(v46.__r_.__value_.__r.__words[2]);
+      v36 = &v46;
+      if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v35 = v49.__r_.__value_.__l.__size_;
-        v36 = v49.__r_.__value_.__r.__words[0];
+        v35 = v46.__r_.__value_.__l.__size_;
+        v36 = v46.__r_.__value_.__r.__words[0];
       }
 
-      v59 = v36;
-      v60 = v35;
-      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,false>(&__s1, &v61, v52, 4, 1);
-      v37 = v56;
-      if (__n == v56 && !memcmp(__s1, __s2, __n))
+      v55 = v36;
+      v56 = v35;
+      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,false>(__s1, &v57, v49, 4, 1);
+      a3 = __s1[1];
+      v37 = v52;
+      if (__s1[1] == v52 && !memcmp(__s1[0], __s2, __s1[1]))
       {
         v42 = 0;
-        p_s1 = &__s1;
-        v43 = &v57;
-        v44 = 48;
-        v45 = __n;
-        if (__n != v58)
+        p_s2 = __s1;
+        v43 = &v53;
+        v44 = 6;
+        a3 = __s1[1];
+        if (__s1[1] != v54)
         {
 LABEL_86:
-          *(p_s1 + 1) = *v43;
-          p_s1 += 2;
+          *(p_s2 + 1) = *v43;
+          p_s2 += 2;
           goto LABEL_87;
         }
 
 LABEL_85:
-        if (memcmp(*p_s1, *v43, v45))
+        if (memcmp(*p_s2, *v43, a3))
         {
           goto LABEL_86;
         }
@@ -2567,28 +3192,28 @@ LABEL_85:
 LABEL_87:
         if ((v42 & 1) == 0)
         {
-          v46 = p_s1[1];
-          if (v46 != v43[3] || memcmp(*p_s1, *(&__s1 + v44), v46))
+          a3 = p_s2[1];
+          if (a3 != v43[3] || memcmp(*p_s2, __s1[v44], a3))
           {
-            *(p_s1 + 1) = *(&__s1 + v44);
-            p_s1 += 2;
+            *(p_s2 + 1) = *&__s1[v44];
+            p_s2 += 2;
           }
         }
 
 LABEL_91:
-        v39 = (p_s1 + 2);
+        v39 = (p_s2 + 2);
         goto LABEL_92;
       }
 
-      v38 = v58;
-      if (v37 == v58 && !memcmp(__s2, v57, v37))
+      v38 = v54;
+      if (v37 == v54 && !memcmp(__s2, v53, v37))
       {
         v42 = 1;
-        p_s1 = &__s2;
-        v43 = &v59;
-        v44 = 64;
-        v45 = v56;
-        if (v56 != v60)
+        p_s2 = &__s2;
+        v43 = &v55;
+        v44 = 8;
+        a3 = v52;
+        if (v52 != v56)
         {
           goto LABEL_86;
         }
@@ -2596,12 +3221,12 @@ LABEL_91:
         goto LABEL_85;
       }
 
-      v39 = &v61;
-      if (v38 == v60)
+      v39 = &v57;
+      if (v38 == v56)
       {
-        v40 = memcmp(v57, v59, v38);
-        p_s1 = &v57;
-        v39 = &v61;
+        v40 = memcmp(v53, v55, v38);
+        p_s2 = &v53;
+        v39 = &v57;
         if (!v40)
         {
           goto LABEL_91;
@@ -2609,20 +3234,20 @@ LABEL_91:
       }
 
 LABEL_92:
-      if (*a2)
+      if (*v3)
       {
-        absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(v52, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/descriptor.cc", 369);
-        absl::lts_20240722::log_internal::LogMessageFatal::~LogMessageFatal(v52);
+        absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(v49, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/descriptor.cc", 369);
+        absl::lts_20240722::log_internal::LogMessageFatal::~LogMessageFatal(v49);
       }
 
-      *(a2 + 29) += ((v39 - &__s1) >> 4) + 1;
-      if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
+      *(v3 + 29) += ((v39 - __s1) >> 4) + 1;
+      if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v49.__r_.__value_.__l.__data_);
+        operator delete(v46.__r_.__value_.__l.__data_);
         if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
 LABEL_95:
-          if ((SHIBYTE(v51.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          if ((SHIBYTE(v48.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
             goto LABEL_96;
           }
@@ -2637,10 +3262,10 @@ LABEL_95:
       }
 
       operator delete(__p.__r_.__value_.__l.__data_);
-      if ((SHIBYTE(v51.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v48.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_96:
-        if ((~*(v6 + 16) & 0x408) == 0)
+        if ((~*(v7 + 16) & 0x408) == 0)
         {
           goto LABEL_97;
         }
@@ -2649,20 +3274,18 @@ LABEL_96:
       }
 
 LABEL_102:
-      operator delete(v51.__r_.__value_.__l.__data_);
-      if ((~*(v6 + 16) & 0x408) == 0)
+      operator delete(v48.__r_.__value_.__l.__data_);
+      if ((~*(v7 + 16) & 0x408) == 0)
       {
         goto LABEL_97;
       }
 
 LABEL_9:
-      v3 += 8;
+      v4 += 8;
     }
 
-    while (v3 != v5);
+    while (v4 != v6);
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23CD93770(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -2681,7 +3304,7 @@ void sub_23CD93770(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,false>(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4, char a5)
+__n128 std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,false>(__int128 *a1, __int128 *a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
   v9 = a1;
@@ -2706,7 +3329,7 @@ LABEL_2:
           return result;
         case 5uLL:
 
-          result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,0>(v9, (v9 + 1), (v9 + 2), (v9 + 3), (a2 - 1)).n128_u64[0];
+          result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,0>(v9, v9 + 1, v9 + 2, v9 + 3, a2 - 1).n128_u64[0];
           return result;
       }
     }
@@ -2791,7 +3414,7 @@ LABEL_2:
     v14 = &v9[v12 >> 1];
     if (v12 < 0x81)
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,0>((a1 + 16 * (v12 >> 1)), a1, a2 - 1);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,0>(&a1[v12 >> 1], a1, a2 - 1);
       if (a5)
       {
         goto LABEL_23;
@@ -2800,12 +3423,12 @@ LABEL_2:
 
     else
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,0>(a1, (a1 + 16 * (v12 >> 1)), a2 - 1);
-      v15 = 16 * v13;
-      v16 = (16 * v13 + a1 - 16);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,0>((a1 + 16), v16, a2 - 2);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,0>((a1 + 32), (a1 + 16 + v15), a2 - 3);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,0>(v16, v14, (a1 + 16 + v15));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,0>(a1, &a1[v12 >> 1], a2 - 1);
+      v15 = v13;
+      v16 = &a1[v13 - 1];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,0>(a1 + 1, v16, a2 - 2);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,0>(a1 + 2, &a1[v15 + 1], a2 - 3);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,0>(v16, v14, &a1[v15 + 1]);
       v65 = *a1;
       *a1 = *v14;
       *v14 = v65;
@@ -2815,19 +3438,19 @@ LABEL_2:
       }
     }
 
-    v17 = *(a1 - 8);
-    v18 = *(a1 + 8);
+    v17 = *(a1 - 1);
+    v18 = *(a1 + 1);
     if (v18 >= v17)
     {
-      v19 = *(a1 - 8);
+      v19 = *(a1 - 1);
     }
 
     else
     {
-      v19 = *(a1 + 8);
+      v19 = *(a1 + 1);
     }
 
-    v20 = memcmp(*(a1 - 16), *a1, v19);
+    v20 = memcmp(*(a1 - 2), *a1, v19);
     if (v20)
     {
       if ((v20 & 0x80000000) == 0)
@@ -2868,7 +3491,7 @@ LABEL_23:
     if ((v23 & 1) == 0)
     {
 LABEL_26:
-      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,false>(a1, v21, a3, -v11, a5 & 1);
+      result.n128_u64[0] = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string_view *,false>(a1, v21, a3, -v11, a5 & 1).n128_u64[0];
       v9 = v21 + 1;
 LABEL_28:
       a5 = 0;
@@ -2951,7 +3574,7 @@ LABEL_74:
           v36 = (v9 + v45);
 LABEL_56:
           *v36 = v37;
-          v36[1] = v38;
+          *(v36 + 1) = v38;
 LABEL_57:
           v31 = v35 + 1;
           v34 += 16;
@@ -3044,10 +3667,10 @@ LABEL_82:
         }
       }
 
-      v31 = (a1 + 16);
+      v31 = a1 + 1;
     }
 
-    while ((a1 + 16) != a2);
+    while (a1 + 1 != a2);
   }
 
   return result;
@@ -3065,7 +3688,7 @@ google::protobuf::FeatureSetDefaults *google::protobuf::internal::OnShutdownDele
   return result;
 }
 
-uint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string_view>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>>::raw_hash_set<char const* const*>(uint64_t *a1, const char **a2, const char **a3, unint64_t a4, uint64_t a5, unint64_t a6, const unint64_t *a7)
+unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string_view>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>>::raw_hash_set<char const* const*>(unint64_t *a1, char **a2, const char **a3, unint64_t a4, uint64_t a5, unint64_t a6, const unint64_t *a7)
 {
   v8 = a2;
   if (!a4)
@@ -3077,7 +3700,7 @@ uint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_2024072
 
     else
     {
-      a4 = (a3 - a2 - 1) / 7 + a3 - a2;
+      a4 = (((a3 - a2) >> 3) - 1) / 7 + ((a3 - a2) >> 3);
     }
   }
 
@@ -3086,12 +3709,12 @@ uint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_2024072
   {
     if (*a1 > 1)
     {
-      absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string_view>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>>::find_or_prepare_insert_non_soo<char const*>(a1, v8, v13);
+      absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string_view>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>>::find_or_prepare_insert_non_soo<char const*>(a1, v8, &v13);
     }
 
     else
     {
-      absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string_view>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>>::find_or_prepare_insert_soo<char const*>(a1, v8, v13);
+      absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string_view>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>>::find_or_prepare_insert_soo<char const*>(a1, v8, &v13);
     }
 
     if (v15 == 1)
@@ -3118,16 +3741,16 @@ void sub_23CD93E6C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-double absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string_view>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>>::raw_hash_set(_OWORD *a1, unint64_t a2, uint64_t a3, unint64_t a4, const unint64_t *a5)
+double absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string_view>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>>::raw_hash_set(_OWORD *result, unint64_t a2, uint64_t a3, unint64_t a4, const unint64_t *a5)
 {
-  *&result = 1;
-  *a1 = xmmword_23CE306D0;
+  *&v5 = 1;
+  *result = xmmword_23CE306D0;
   if (a2 >= 2)
   {
-    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string_view>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>>::resize_impl(a1, 0xFFFFFFFFFFFFFFFFLL >> __clz(a2), a3, a4, a5);
+    absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string_view>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>>::resize_impl(result, 0xFFFFFFFFFFFFFFFFLL >> __clz(a2), a3, a4, a5);
   }
 
-  return result;
+  return v5;
 }
 
 void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string_view>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>>::resize_impl(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, const unint64_t *a5)
@@ -3136,24 +3759,27 @@ void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::co
   v9 = *a1 < 2uLL && *(a1 + 8) > 1uLL;
   if (v9)
   {
-    absl::lts_20240722::hash_internal::MixingHashState::combine_contiguous(&absl::lts_20240722::hash_internal::MixingHashState::kSeed, *(a1 + 16), *(a1 + 24), a4, a5);
-    v11 = *a1;
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 24);
+    v11 = absl::lts_20240722::hash_internal::MixingHashState::combine_contiguous(&absl::lts_20240722::hash_internal::MixingHashState::kSeed, *(a1 + 16), v10, a4, a5);
+    v12 = ((((v11 + v10) * 0x9DDFEA08EB382D69) >> 64) ^ (105 * (v11 + v10))) & 0x7F;
+    v14 = *a1;
+    v13 = *(a1 + 8);
   }
 
   else
   {
-    v10 = *(a1 + 8);
-    v11 = *a1;
+    v12 = 0x80;
+    v13 = *(a1 + 8);
+    v14 = *a1;
   }
 
-  v13 = v11;
-  v14 = v10 & 1;
-  v15 = v7 < 2;
-  v16 = v9;
-  v12 = *(a1 + 16);
+  v16 = v14;
+  v17 = v13 & 1;
+  v18 = v7 < 2;
+  v19 = v9;
+  v15 = *(a1 + 16);
   *a1 = a2;
-  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,16ul,true,true,8ul>(&v12, a1);
+  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,16ul,true,true,8ul>(&v15, a1, v12);
 }
 
 uint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string_view>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>>::find_or_prepare_insert_soo<char const*>@<X0>(uint64_t result@<X0>, const char **a2@<X1>, uint64_t a3@<X8>)
@@ -3184,7 +3810,7 @@ uint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722
   return result;
 }
 
-unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string_view>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>>::find_or_prepare_insert_non_soo<char const*>@<X0>(uint64_t *a1@<X0>, const char **a2@<X1>, uint64_t a3@<X8>)
+unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string_view>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>>::find_or_prepare_insert_non_soo<char const*>@<X0>(unint64_t *a1@<X0>, char **a2@<X1>, uint64_t a3@<X8>)
 {
   _X8 = a1[2];
   __asm { PRFM            #4, [X8] }
@@ -3373,11 +3999,10 @@ unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_202407
   return a1;
 }
 
-void google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretOptionsImpl(google::protobuf::DescriptorBuilder::OptionInterpreter *this, google::protobuf::_anonymous_namespace_::OptionsToInterpret *a2)
+void google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretOptionsImpl(google::protobuf::DescriptorBuilder::OptionInterpreter *this, google::protobuf::_anonymous_namespace_::OptionsToInterpret *a2, int a3)
 {
-  v3 = *(a2 + 9);
-  v16 = *(a2 + 10);
-  v4 = v16;
+  v15 = *(a2 + 10);
+  v4 = v15;
   *(this + 1) = a2;
   v5 = (*(*v4 + 80))(v4);
   NestedSymbol = google::protobuf::FileDescriptorTables::FindNestedSymbol(*(*(v5 + 16) + 152), v5, "uninterpreted_option", 0x14uLL, v6);
@@ -3389,7 +4014,7 @@ void google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretOptionsImp
       (*(*v4 + 80))(v4);
       google::protobuf::Reflection::ClearField(v9, v4, v8, v10, v11);
       v12 = *(a2 + 6);
-      memset(v15, 0, sizeof(v15));
+      memset(v14, 0, sizeof(v14));
       v13 = *(a2 + 7);
       if (v13 != v12)
       {
@@ -3401,17 +4026,16 @@ void google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretOptionsImp
         std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
       }
 
-      v14 = *(v8 + 1);
       operator new();
     }
   }
 
-  absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(v15, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/descriptor.cc", 8429);
-  absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v15, "No field named uninterpreted_option in the Options proto.", 0x3BuLL);
-  absl::lts_20240722::log_internal::LogMessageFatal::~LogMessageFatal(v15);
+  absl::lts_20240722::log_internal::LogMessageFatal::LogMessageFatal(v14, "/Library/Caches/com.apple.xbs/Binaries/ANECompiler/install/TempContent/Objects/ZinAneCompiler.build/or_tools_build/_deps/Protobuf-src/src/google/protobuf/descriptor.cc", 8429);
+  absl::lts_20240722::log_internal::LogMessage::CopyToEncodedBuffer<(absl::lts_20240722::log_internal::LogMessage::StringType)0>(v14, "No field named uninterpreted_option in the Options proto.", 0x3BuLL);
+  absl::lts_20240722::log_internal::LogMessageFatal::~LogMessageFatal(v14);
 }
 
-void sub_23CD95044(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, void *a22, uint64_t a23)
+void sub_23CD95044(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, void *a22, uint64_t a23)
 {
   if (a20 < 0)
   {
@@ -3420,7 +4044,7 @@ void sub_23CD95044(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a21)
   {
-    (*(*a21 + 8))(a21);
+    (*(*a21 + 8))(a21, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a22)
@@ -3431,12 +4055,11 @@ void sub_23CD95044(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretOptionsImpl(google::protobuf::anonymous namespace::OptionsToInterpret *,BOOL)::$_0,std::string>(uint64_t **a1)
+void absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretOptionsImpl(google::protobuf::anonymous namespace::OptionsToInterpret *,BOOL)::$_0,std::string>()
 {
   v2[27] = *MEMORY[0x277D85DE8];
   v2[21] = "Some options could not be correctly parsed using the proto descriptors compiled into this binary.\nUnparsed options: ";
   v2[22] = 116;
-  v1 = **a1;
   google::protobuf::Message::ShortDebugString(v2);
 }
 
@@ -3458,7 +4081,7 @@ void sub_23CD95220(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 std::string *google::protobuf::anonymous namespace::AggregateErrorCollector::RecordError(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v8 = *(a1 + 31);
   if (v8 < 0)
   {
@@ -3467,16 +4090,14 @@ std::string *google::protobuf::anonymous namespace::AggregateErrorCollector::Rec
 
   if (v8)
   {
-    v11 = "; ";
-    v12 = 2;
-    absl::lts_20240722::StrAppend((a1 + 8), &v11);
+    v10 = "; ";
+    v11 = 2;
+    absl::lts_20240722::StrAppend((a1 + 8), &v10);
   }
 
-  v11 = a4;
-  v12 = a5;
-  result = absl::lts_20240722::StrAppend((a1 + 8), &v11);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  v10 = a4;
+  v11 = a5;
+  return absl::lts_20240722::StrAppend((a1 + 8), &v10);
 }
 
 void google::protobuf::DescriptorBuilder::OptionInterpreter::AggregateOptionFinder::~AggregateOptionFinder(google::protobuf::DescriptorBuilder::OptionInterpreter::AggregateOptionFinder *this)
@@ -3599,7 +4220,7 @@ LABEL_10:
   return result;
 }
 
-_BYTE *google::protobuf::DescriptorBuilder::OptionInterpreter::AggregateOptionFinder::FindAnyType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+_BYTE *google::protobuf::DescriptorBuilder::OptionInterpreter::AggregateOptionFinder::FindAnyType(uint64_t a1, uint64_t a2, uint64_t a3, std::string *a4)
 {
   v7 = strlen("type.googleapis.com/");
   v8 = *(a3 + 23);
@@ -3682,7 +4303,7 @@ uint64_t google::protobuf::Arena::DefaultConstruct<google::protobuf::SourceCodeI
   return google::protobuf::SourceCodeInfo_Location::SourceCodeInfo_Location(v2, v3);
 }
 
-unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string>>::find_or_prepare_insert_non_soo<std::string>@<X0>(uint64_t *a1@<X0>, absl::lts_20240722::hash_internal::MixingHashState *a2@<X1>, unint64_t a3@<X3>, const unint64_t *a4@<X4>, uint64_t a5@<X8>)
+unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string>>::find_or_prepare_insert_non_soo<std::string>@<X0>(unint64_t *a1@<X0>, absl::lts_20240722::hash_internal::MixingHashState *a2@<X1>, unint64_t a3@<X3>, const unint64_t *a4@<X4>, uint64_t a5@<X8>)
 {
   v5 = a2;
   _X8 = a1[2];
@@ -3707,8 +4328,8 @@ unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_2024072
   v18 = vdup_n_s8(v16 & 0x7F);
   v19 = *a1;
   v20 = *(v5 + 23);
-  _NF = (v20 & 0x80u) != 0;
-  if ((v20 & 0x80u) == 0)
+  _NF = v20 < 0;
+  if (v20 >= 0)
   {
     v22 = *(v5 + 23);
   }
@@ -4280,7 +4901,7 @@ void std::allocator_traits<std::allocator<std::unique_ptr<google::protobuf::anon
   }
 }
 
-unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::string,google::protobuf::Descriptor::WellKnownType>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::pair<std::string const,google::protobuf::Descriptor::WellKnownType>>>::find_or_prepare_insert_non_soo<std::string>@<X0>(uint64_t *a1@<X0>, absl::lts_20240722::hash_internal::MixingHashState *a2@<X1>, unint64_t a3@<X3>, const unint64_t *a4@<X4>, uint64_t a5@<X8>)
+unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::string,google::protobuf::Descriptor::WellKnownType>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::pair<std::string const,google::protobuf::Descriptor::WellKnownType>>>::find_or_prepare_insert_non_soo<std::string>@<X0>(unint64_t *a1@<X0>, absl::lts_20240722::hash_internal::MixingHashState *a2@<X1>, unint64_t a3@<X3>, const unint64_t *a4@<X4>, uint64_t a5@<X8>)
 {
   v5 = a2;
   _X8 = a1[2];
@@ -4305,8 +4926,8 @@ unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_2024072
   v18 = *a1;
   v19 = vdup_n_s8(v16 & 0x7F);
   v20 = *(v5 + 23);
-  _NF = (v20 & 0x80u) != 0;
-  if ((v20 & 0x80u) == 0)
+  _NF = v20 < 0;
+  if (v20 >= 0)
   {
     v22 = *(v5 + 23);
   }
@@ -4403,13 +5024,13 @@ LABEL_20:
   return result;
 }
 
-void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::string,google::protobuf::Descriptor::WellKnownType>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::pair<std::string const,google::protobuf::Descriptor::WellKnownType>>>::resize_impl(uint64_t a1, uint64_t a2)
+void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::string,google::protobuf::Descriptor::WellKnownType>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::pair<std::string const,google::protobuf::Descriptor::WellKnownType>>>::resize_impl(unint64_t *a1, unint64_t a2)
 {
   v6 = a1;
   v3 = *a1;
-  v4 = *(a1 + 8) & 1;
+  v4 = a1[1] & 1;
   v5 = 0;
-  v2 = *(a1 + 16);
+  v2 = *(a1 + 1);
   *a1 = a2;
   absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,32ul,false,false,8ul>(&v2, a1);
 }
@@ -4419,8 +5040,7 @@ void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::co
   v3 = *a3;
   *(a2 + 16) = *(a3 + 2);
   *a2 = v3;
-  *(a3 + 1) = 0;
-  *(a3 + 2) = 0;
+  *(a3 + 8) = 0uLL;
   *a3 = 0;
   *(a2 + 24) = *(a3 + 6);
   if (*(a3 + 23) < 0)
@@ -4429,7 +5049,7 @@ void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::co
   }
 }
 
-uint64_t std::vector<google::protobuf::DescriptorPool::Tables::CheckPoint>::__emplace_back_slow_path<google::protobuf::DescriptorPool::Tables*>(uint64_t a1, uint64_t a2)
+_DWORD *std::vector<google::protobuf::DescriptorPool::Tables::CheckPoint>::__emplace_back_slow_path<google::protobuf::DescriptorPool::Tables*>(uint64_t a1, uint64_t a2)
 {
   v3 = *a1;
   v2 = *(a1 + 8);
@@ -4488,7 +5108,7 @@ uint64_t std::vector<google::protobuf::DescriptorPool::Tables::CheckPoint>::__em
   return v12;
 }
 
-void absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::erase_range(uint64_t a1@<X0>, uint64_t *a2@<X1>, unint64_t a3@<X2>, uint64_t **a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+void absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::erase_range(uint64_t a1@<X0>, uint64_t **a2@<X1>, unint64_t a3@<X2>, uint64_t **a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
   v6 = a3;
   v7 = a2;
@@ -4709,7 +5329,7 @@ LABEL_25:
   return result;
 }
 
-uint64_t absl::lts_20240722::container_internal::btree_iterator<absl::lts_20240722::container_internal::btree_node<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>,std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>&,std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>*>::operator-(uint64_t ***a1, uint64_t *a2, int a3)
+uint64_t absl::lts_20240722::container_internal::btree_iterator<absl::lts_20240722::container_internal::btree_node<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>,std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>&,std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>*>::operator-(uint64_t ***a1, uint64_t **a2, int a3)
 {
   v3 = *a1;
   if (*a1 != a2)
@@ -4765,7 +5385,7 @@ LABEL_2:
     {
       do
       {
-        v10 = v10[32];
+        v10 = *(v10 + 256);
       }
 
       while (!*(v10 + 11));
@@ -4940,8 +5560,8 @@ unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_2024072
 {
   v3 = a3;
   v4 = a2;
-  v17 = a2;
-  v18 = a3;
+  v16 = a2;
+  v17 = a3;
   if (*a1 == a2)
   {
     goto LABEL_8;
@@ -4952,36 +5572,34 @@ unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_2024072
     goto LABEL_9;
   }
 
-  v6 = absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::try_merge_or_rebalance(a1, &v17);
-  v4 = v17;
-  v3 = v3 & 0xFFFFFFFF00000000 | v18;
+  v6 = absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::try_merge_or_rebalance(a1, &v16);
+  v4 = v16;
+  v3 = v3 & 0xFFFFFFFF00000000 | v17;
   if (!v6)
   {
     goto LABEL_9;
   }
 
-  LODWORD(v18) = v17[8];
-  v7 = *v17;
-  v17 = v7;
+  LODWORD(v17) = v16[8];
+  v7 = *v16;
+  v16 = v7;
   if (v7 == *a1)
   {
 LABEL_8:
     absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::try_shrink(a1);
     if (!a1[2])
     {
-      result = a1[1];
-      v14 = result[10];
-      return result;
+      return a1[1];
     }
   }
 
   else
   {
-    while (v7[10] <= 4u && absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::try_merge_or_rebalance(a1, &v17))
+    while (v7[10] <= 4u && absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::try_merge_or_rebalance(a1, &v16))
     {
-      LODWORD(v18) = v17[8];
-      v7 = *v17;
-      v17 = v7;
+      LODWORD(v17) = v16[8];
+      v7 = *v16;
+      v16 = v7;
       if (v7 == *a1)
       {
         goto LABEL_8;
@@ -5021,15 +5639,15 @@ LABEL_9:
     return v4;
   }
 
-  v15 = &v4[8 * v8 + 256];
+  v14 = &v4[8 * v8 + 256];
   do
   {
-    result = *v15;
-    v16 = *(*v15 + 11);
-    v15 = *v15 + 256;
+    result = *v14;
+    v15 = *(*v14 + 11);
+    v14 = *v14 + 256;
   }
 
-  while (!v16);
+  while (!v15);
   return result;
 }
 
@@ -5109,7 +5727,7 @@ unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_2024072
       {
         v20 = *v19;
         v21 = *(*v19 + 11);
-        v19 = *v19 + 256;
+        v19 = (*v19 + 256);
       }
 
       while (!v21);
@@ -5235,14 +5853,14 @@ uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::conta
       if (v10 + v11 + 1 <= 0xA)
       {
         v12 = v5 + 24 * *(*a2 + 8);
-        v13 = &v4[3 * *(v4 + 10)];
+        v13 = v4 + 24 * *(v4 + 10);
         v14 = *(v12 + 16);
-        v13[4] = *(v12 + 32);
-        *(v13 + 1) = v14;
+        *(v13 + 32) = *(v12 + 32);
+        *(v13 + 16) = v14;
         if (*(v9 + 10))
         {
           v15 = v9 + 16;
-          v16 = &v4[3 * v10 + 5];
+          v16 = v4 + 24 * v10 + 40;
           v17 = 24 * *(v9 + 10);
           do
           {
@@ -5270,7 +5888,7 @@ uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::conta
           {
             ++v10;
             v42 = *(v9 + 256 + 8 * v19);
-            v4[v10 + 32] = v42;
+            *(v4 + 256 + 8 * v10) = v42;
             *(v42 + 8) = v10;
             *v42 = v4;
             ++v19;
@@ -5360,16 +5978,16 @@ uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::conta
   v25 = v21;
   if (*(v4 + 10))
   {
-    v26 = v4 + 2;
+    v26 = v4 + 16;
     v27 = v7 + 24 * v21 + 40;
     v28 = 24 * *(v4 + 10);
     do
     {
       v29 = *v26;
-      *(v27 + 16) = v26[2];
+      *(v27 + 16) = *(v26 + 16);
       *v27 = v29;
       v27 += 24;
-      v26 += 3;
+      v26 += 24;
       v28 -= 24;
     }
 
@@ -5388,7 +6006,7 @@ uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::conta
     do
     {
       ++v25;
-      v41 = v4[v30 + 32];
+      v41 = *(v4 + 256 + 8 * v30);
       *(v7 + 256 + 8 * v25) = v41;
       *(v41 + 8) = v25;
       *v41 = v7;
@@ -5752,7 +6370,7 @@ void std::vector<std::unique_ptr<int,google::protobuf::DescriptorPool::Tables::M
   }
 }
 
-unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::pair<void const*,std::string_view>,google::protobuf::FieldDescriptor const*>,absl::lts_20240722::hash_internal::Hash<std::pair<void const*,std::string_view>>,std::equal_to<std::pair<void const*,std::string_view>>,std::allocator<std::pair<std::pair<void const*,std::string_view> const,google::protobuf::FieldDescriptor const*>>>::find_or_prepare_insert_non_soo<std::pair<void const*,std::string_view>>@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, unint64_t a3@<X3>, const unint64_t *a4@<X4>, uint64_t a5@<X8>)
+unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::pair<void const*,std::string_view>,google::protobuf::FieldDescriptor const*>,absl::lts_20240722::hash_internal::Hash<std::pair<void const*,std::string_view>>,std::equal_to<std::pair<void const*,std::string_view>>,std::allocator<std::pair<std::pair<void const*,std::string_view> const,google::protobuf::FieldDescriptor const*>>>::find_or_prepare_insert_non_soo<std::pair<void const*,std::string_view>>@<X0>(unint64_t *a1@<X0>, uint64_t *a2@<X1>, unint64_t a3@<X3>, const unint64_t *a4@<X4>, uint64_t a5@<X8>)
 {
   _X8 = a1[2];
   __asm { PRFM            #4, [X8] }
@@ -6268,7 +6886,7 @@ LABEL_51:
   return v12;
 }
 
-void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::EnumValueDescriptor const*>,google::protobuf::anonymous namespace::ParentNumberHash,google::protobuf::anonymous namespace::ParentNumberEq,std::allocator<google::protobuf::EnumValueDescriptor const*>>::resize_impl(uint64_t *a1, uint64_t a2)
+void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::EnumValueDescriptor const*>,google::protobuf::anonymous namespace::ParentNumberHash,google::protobuf::anonymous namespace::ParentNumberEq,std::allocator<google::protobuf::EnumValueDescriptor const*>>::resize_impl(unint64_t *a1, unint64_t a2)
 {
   v2 = *a1;
   v3 = a1[1];
@@ -6279,17 +6897,23 @@ void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::co
   {
     v6 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *(v8 + 16)) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *(v8 + 16)))) + *(v8 + 16);
     v7 = (((v6 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v6)) + *(v8 + 4);
+    v9 = (((v7 * 0x9DDFEA08EB382D69) >> 64) ^ (105 * v7)) & 0x7F;
   }
 
-  v11 = v3 & 1;
-  v12 = v2 < 2;
-  v13 = v5;
-  v9 = a1[3];
-  v10[0] = v8;
-  v10[1] = v9;
-  v10[2] = v2;
+  else
+  {
+    v9 = 0x80;
+  }
+
+  v12 = v3 & 1;
+  v13 = v2 < 2;
+  v14 = v5;
+  v10 = a1[3];
+  v11[0] = v8;
+  v11[1] = v10;
+  v11[2] = v2;
   *a1 = a2;
-  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,8ul,true,true,8ul>(v10, a1);
+  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,8ul,true,true,8ul>(v11, a1, v9);
 }
 
 uint64_t absl::lts_20240722::container_internal::TypeErasedApplyToSlotFn<google::protobuf::anonymous namespace::ParentNumberHash,google::protobuf::EnumValueDescriptor const*>(uint64_t a1, uint64_t a2)
@@ -6299,73 +6923,79 @@ uint64_t absl::lts_20240722::container_internal::TypeErasedApplyToSlotFn<google:
   return ((v3 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v3);
 }
 
-void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::Symbol>,google::protobuf::anonymous namespace::SymbolByFullNameHash,google::protobuf::anonymous namespace::SymbolByFullNameEq,std::allocator<google::protobuf::Symbol>>::resize_impl(uint64_t a1, uint64_t a2)
+void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::Symbol>,google::protobuf::anonymous namespace::SymbolByFullNameHash,google::protobuf::anonymous namespace::SymbolByFullNameEq,std::allocator<google::protobuf::Symbol>>::resize_impl(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *a1;
-  v6 = *a1 < 2uLL && *(a1 + 8) > 1uLL;
-  if (v6)
+  v5 = *a1;
+  v7 = *a1 < 2uLL && *(a1 + 8) > 1uLL;
+  if (v7)
   {
-    v7 = google::protobuf::Symbol::full_name((a1 + 16));
-    absl::lts_20240722::hash_internal::MixingHashState::combine_contiguous(&absl::lts_20240722::hash_internal::MixingHashState::kSeed, v7, v8, v9, v10);
-    v12 = *a1;
-    v11 = *(a1 + 8);
+    v8 = google::protobuf::Symbol::full_name((a1 + 16), a2, a3);
+    v10 = v9;
+    v13 = absl::lts_20240722::hash_internal::MixingHashState::combine_contiguous(&absl::lts_20240722::hash_internal::MixingHashState::kSeed, v8, v9, v11, v12);
+    v14 = ((((v13 + v10) * 0x9DDFEA08EB382D69) >> 64) ^ (105 * (v13 + v10))) & 0x7F;
+    v16 = *a1;
+    v15 = *(a1 + 8);
   }
 
   else
   {
-    v11 = *(a1 + 8);
-    v12 = *a1;
+    v14 = 0x80;
+    v15 = *(a1 + 8);
+    v16 = *a1;
   }
 
-  v14 = v12;
-  v15 = v11 & 1;
-  v16 = v4 < 2;
-  v17 = v6;
-  v13 = *(a1 + 16);
+  v18 = v16;
+  v19 = v15 & 1;
+  v20 = v5 < 2;
+  v21 = v7;
+  v17 = *(a1 + 16);
   *a1 = a2;
-  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,8ul,true,true,8ul>(&v13, a1);
+  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,8ul,true,true,8ul>(&v17, a1, v14);
 }
 
-uint64_t absl::lts_20240722::container_internal::TypeErasedApplyToSlotFn<google::protobuf::anonymous namespace::SymbolByFullNameHash,google::protobuf::Symbol>(int a1, unsigned __int8 **this)
+uint64_t absl::lts_20240722::container_internal::TypeErasedApplyToSlotFn<google::protobuf::anonymous namespace::SymbolByFullNameHash,google::protobuf::Symbol>(int a1, unsigned __int8 **this, uint64_t a3)
 {
-  v2 = google::protobuf::Symbol::full_name(this);
-  v4 = v3;
-  v7 = absl::lts_20240722::hash_internal::MixingHashState::combine_contiguous(&absl::lts_20240722::hash_internal::MixingHashState::kSeed, v2, v3, v5, v6);
-  return (((v7 + v4) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (v7 + v4));
+  v3 = google::protobuf::Symbol::full_name(this, this, a3);
+  v5 = v4;
+  v8 = absl::lts_20240722::hash_internal::MixingHashState::combine_contiguous(&absl::lts_20240722::hash_internal::MixingHashState::kSeed, v3, v4, v6, v7);
+  return (((v8 + v5) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (v8 + v5));
 }
 
 void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::Symbol>,google::protobuf::anonymous namespace::SymbolByParentHash,google::protobuf::anonymous namespace::SymbolByParentEq,std::allocator<google::protobuf::Symbol>>::resize_impl(uint64_t a1, uint64_t a2)
 {
-  v17 = a1;
+  v20 = a1;
   v4 = *a1;
   v6 = *a1 < 2uLL && *(a1 + 8) > 1uLL;
   if (v6)
   {
-    google::protobuf::Symbol::parent_name_key((a1 + 16), v12);
-    v7 = v12[0] + ((((v12[0] + &absl::lts_20240722::hash_internal::MixingHashState::kSeed) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (v12[0] + &absl::lts_20240722::hash_internal::MixingHashState::kSeed)));
-    absl::lts_20240722::hash_internal::MixingHashState::combine_contiguous((((v7 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v7)), v12[1], v13, v8, v9);
-    v11 = *a1;
-    v10 = *(a1 + 8);
+    google::protobuf::Symbol::parent_name_key(v15, (a1 + 16));
+    v7 = v15[0] + ((((v15[0] + &absl::lts_20240722::hash_internal::MixingHashState::kSeed) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (v15[0] + &absl::lts_20240722::hash_internal::MixingHashState::kSeed)));
+    v8 = v16;
+    v11 = absl::lts_20240722::hash_internal::MixingHashState::combine_contiguous((((v7 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v7)), v15[1], v16, v9, v10);
+    v12 = ((((v11 + v8) * 0x9DDFEA08EB382D69) >> 64) ^ (105 * (v11 + v8))) & 0x7F;
+    v14 = *a1;
+    v13 = *(a1 + 8);
   }
 
   else
   {
-    v10 = *(a1 + 8);
-    v11 = *a1;
+    v12 = 0x80;
+    v13 = *(a1 + 8);
+    v14 = *a1;
   }
 
-  v13 = v11;
-  v14 = v10 & 1;
-  v15 = v4 < 2;
-  v16 = v6;
-  *v12 = *(a1 + 16);
+  v16 = v14;
+  v17 = v13 & 1;
+  v18 = v4 < 2;
+  v19 = v6;
+  *v15 = *(a1 + 16);
   *a1 = a2;
-  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,8ul,true,true,8ul>(v12, a1);
+  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,8ul,true,true,8ul>(v15, a1, v12);
 }
 
 absl::lts_20240722::hash_internal::MixingHashState *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::Symbol>,google::protobuf::anonymous namespace::SymbolByParentHash,google::protobuf::anonymous namespace::SymbolByParentEq,std::allocator<google::protobuf::Symbol>>::resize_impl(absl::lts_20240722::container_internal::CommonFields &,unsigned long,absl::lts_20240722::container_internal::HashtablezInfoHandle)::{lambda(google::protobuf::Symbol*)#1}::operator()(uint64_t a1, unsigned __int8 **this)
 {
-  google::protobuf::Symbol::parent_name_key(this, v17);
+  google::protobuf::Symbol::parent_name_key(v17, this);
   v4 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v17[0]) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v17[0]))) + v17[0];
   v5 = v18;
   result = absl::lts_20240722::hash_internal::MixingHashState::combine_contiguous((((v4 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v4)), v17[1], v18, v6, v7);
@@ -6402,14 +7032,14 @@ absl::lts_20240722::hash_internal::MixingHashState *absl::lts_20240722::containe
 
 uint64_t absl::lts_20240722::container_internal::TypeErasedApplyToSlotFn<google::protobuf::anonymous namespace::SymbolByParentHash,google::protobuf::Symbol>(int a1, unsigned __int8 **this)
 {
-  google::protobuf::Symbol::parent_name_key(this, v8);
+  google::protobuf::Symbol::parent_name_key(v8, this);
   v2 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v8[0]) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v8[0]))) + v8[0];
   v3 = v9;
   v6 = absl::lts_20240722::hash_internal::MixingHashState::combine_contiguous((((v2 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v2)), v8[1], v9, v4, v5);
   return (((v6 + v3) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (v6 + v3));
 }
 
-void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::FileDescriptor const*>,google::protobuf::anonymous namespace::DescriptorsByNameHash<google::protobuf::FileDescriptor>,google::protobuf::anonymous namespace::DescriptorsByNameEq<google::protobuf::FileDescriptor>,std::allocator<google::protobuf::FileDescriptor const*>>::resize_impl(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, const unint64_t *a5)
+void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::FileDescriptor const*>,google::protobuf::anonymous namespace::DescriptorsByNameHash<google::protobuf::FileDescriptor>,google::protobuf::anonymous namespace::DescriptorsByNameEq<google::protobuf::FileDescriptor>,std::allocator<google::protobuf::FileDescriptor const*>>::resize_impl(unint64_t *a1, unint64_t a2, uint64_t a3, unint64_t a4, const unint64_t *a5)
 {
   v7 = *a1;
   v9 = *a1 < 2 && a1[1] > 1;
@@ -6437,24 +7067,26 @@ void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::co
       v13 = *(v10 + 8);
     }
 
-    absl::lts_20240722::hash_internal::MixingHashState::combine_contiguous(&absl::lts_20240722::hash_internal::MixingHashState::kSeed, v12, v13, a4, a5);
-    v15 = *a1;
-    v14 = a1[1];
+    v14 = absl::lts_20240722::hash_internal::MixingHashState::combine_contiguous(&absl::lts_20240722::hash_internal::MixingHashState::kSeed, v12, v13, a4, a5);
+    v15 = ((((v14 + v13) * 0x9DDFEA08EB382D69) >> 64) ^ (105 * (v14 + v13))) & 0x7F;
+    v17 = *a1;
+    v16 = a1[1];
   }
 
   else
   {
-    v14 = a1[1];
-    v15 = *a1;
+    v15 = 0x80;
+    v16 = a1[1];
+    v17 = *a1;
   }
 
-  v17 = v15;
-  v18 = v14 & 1;
-  v19 = v7 < 2;
-  v20 = v9;
-  v16 = *(a1 + 1);
+  v19 = v17;
+  v20 = v16 & 1;
+  v21 = v7 < 2;
+  v22 = v9;
+  v18 = *(a1 + 1);
   *a1 = a2;
-  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,8ul,true,true,8ul>(&v16, a1);
+  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,8ul,true,true,8ul>(&v18, a1, v15);
 }
 
 uint64_t absl::lts_20240722::container_internal::TypeErasedApplyToSlotFn<google::protobuf::anonymous namespace::DescriptorsByNameHash<google::protobuf::FileDescriptor>,google::protobuf::FileDescriptor const*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, const unint64_t *a5)
@@ -6485,7 +7117,7 @@ uint64_t absl::lts_20240722::container_internal::TypeErasedApplyToSlotFn<google:
   return (((v9 + v8) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (v9 + v8));
 }
 
-void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::FieldDescriptor const*>,google::protobuf::anonymous namespace::ParentNumberHash,google::protobuf::anonymous namespace::ParentNumberEq,std::allocator<google::protobuf::FieldDescriptor const*>>::resize_impl(uint64_t *a1, uint64_t a2)
+void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::FieldDescriptor const*>,google::protobuf::anonymous namespace::ParentNumberHash,google::protobuf::anonymous namespace::ParentNumberEq,std::allocator<google::protobuf::FieldDescriptor const*>>::resize_impl(unint64_t *a1, unint64_t a2)
 {
   v2 = *a1;
   v3 = a1[1];
@@ -6496,17 +7128,23 @@ void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::co
   {
     v6 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *(v8 + 32)) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + *(v8 + 32)))) + *(v8 + 32);
     v7 = (((v6 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v6)) + *(v8 + 4);
+    v9 = (((v7 * 0x9DDFEA08EB382D69) >> 64) ^ (105 * v7)) & 0x7F;
   }
 
-  v11 = v3 & 1;
-  v12 = v2 < 2;
-  v13 = v5;
-  v9 = a1[3];
-  v10[0] = v8;
-  v10[1] = v9;
-  v10[2] = v2;
+  else
+  {
+    v9 = 0x80;
+  }
+
+  v12 = v3 & 1;
+  v13 = v2 < 2;
+  v14 = v5;
+  v10 = a1[3];
+  v11[0] = v8;
+  v11[1] = v10;
+  v11[2] = v2;
   *a1 = a2;
-  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,8ul,true,true,8ul>(v10, a1);
+  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,8ul,true,true,8ul>(v11, a1, v9);
 }
 
 uint64_t absl::lts_20240722::container_internal::TypeErasedApplyToSlotFn<google::protobuf::anonymous namespace::ParentNumberHash,google::protobuf::FieldDescriptor const*>(uint64_t a1, uint64_t a2)
@@ -6516,7 +7154,7 @@ uint64_t absl::lts_20240722::container_internal::TypeErasedApplyToSlotFn<google:
   return ((v3 * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * v3);
 }
 
-unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::insert_unique<std::pair<google::protobuf::Descriptor const*,int>,std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>@<X0>(unsigned __int8 *result@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::insert_unique<std::pair<google::protobuf::Descriptor const*,int>,std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>@<X0>(unsigned __int8 *result@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>, uint64_t a4@<X2>)
 {
   if (!*(result + 2))
   {
@@ -6564,24 +7202,24 @@ LABEL_11:
 
   v14 = v11;
   v15 = v8;
-  while (v11 == v15[10])
+  while (v11 == *(v15 + 10))
   {
-    LODWORD(v11) = v15[8];
+    LODWORD(v11) = *(v15 + 8);
     v15 = *v15;
-    if (v15[11])
+    if (*(v15 + 11))
     {
       goto LABEL_20;
     }
   }
 
-  v16 = &v15[24 * v11];
-  v19 = *(v16 + 2);
-  v17 = v16 + 16;
+  v16 = &v15[3 * v11];
+  v19 = v16[2];
+  v17 = v16 + 2;
   v18 = v19;
   if (v6 < v19 || v18 >= v6 && v7 < *(v17 + 2))
   {
 LABEL_20:
-    result = absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::internal_emplace<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>(result, v8, v14, a3);
+    result = absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::internal_emplace<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>(result, v8, v14, a4);
     v15 = result;
     LODWORD(v11) = v20;
     v21 = 1;
@@ -6590,13 +7228,13 @@ LABEL_20:
 
   v21 = 0;
 LABEL_21:
-  *a4 = v15;
-  *(a4 + 8) = v11;
-  *(a4 + 16) = v21;
+  *a3 = v15;
+  *(a3 + 8) = v11;
+  *(a3 + 16) = v21;
   return result;
 }
 
-unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::internal_emplace<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
+unsigned __int8 *absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::internal_emplace<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>(uint64_t *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
 {
   i = a2;
   v20 = a3;
@@ -6689,11 +7327,11 @@ LABEL_16:
     }
   }
 
-  ++*(a1 + 16);
+  ++a1[2];
   return i;
 }
 
-uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::rebalance_or_split(unsigned __int8 **a1, unsigned __int8 **a2)
+uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::rebalance_or_split(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a2;
   v4 = **a2;
@@ -6706,7 +7344,7 @@ uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::conta
   if (v3[8])
   {
     v6 = *(v4 + 8 * (v5 - 1) + 256);
-    v7 = v6[10];
+    v7 = *(v6 + 10);
     if (v7 <= 9)
     {
       v8 = *(a2 + 2);
@@ -6722,9 +7360,9 @@ uint64_t absl::lts_20240722::container_internal::btree<absl::lts_20240722::conta
           return result;
         }
 
-        v24 = v13 + v6[10] + 1;
+        v22 = v13 + *(v6 + 10) + 1;
 LABEL_30:
-        *(a2 + 2) = v24;
+        *(a2 + 2) = v22;
         *a2 = v6;
         return result;
       }
@@ -6732,18 +7370,16 @@ LABEL_30:
   }
 
   v14 = *(v4 + 10);
-  if (v5 >= v14 || (v6 = *(v4 + 8 * (v5 + 1) + 256), v15 = v6[10], v15 > 9) || ((v16 = *(a2 + 2), (10 - v15) >> (v16 > 0) <= 1u) ? (v17 = 1) : (v17 = (10 - v15) >> (v16 > 0)), (v18 = (v17 + v15), (v3[10] - v17) < v16) ? (v19 = v18 > 9) : (v19 = 0), v19))
+  if (v5 >= v14 || (v6 = *(v4 + 8 * (v5 + 1) + 256), v15 = *(v6 + 10), v15 > 9) || ((v16 = *(a2 + 2), (10 - v15) >> (v16 > 0) <= 1u) ? (v17 = 1) : (v17 = (10 - v15) >> (v16 > 0)), (v18 = (v17 + v15), v3[10] - v17 < v16) ? (v19 = v18 > 9) : (v19 = 0), v19))
   {
     if (v14 == 10)
     {
-      v25 = v4;
-      v26 = v5;
-      absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::rebalance_or_split(a1, &v25);
+      v23 = v4;
+      v24 = v5;
+      absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::rebalance_or_split(a1, &v23);
       v3 = *a2;
-      v22 = **a2;
     }
 
-    v23 = v3[8] + 1;
     if (v3[11])
     {
       operator new();
@@ -6754,17 +7390,17 @@ LABEL_30:
 
   result = absl::lts_20240722::container_internal::btree_node<absl::lts_20240722::container_internal::map_params<google::protobuf::internal::VariantKey,google::protobuf::internal::NodeBase *,std::less<google::protobuf::internal::VariantKey>,google::protobuf::internal::MapAllocator<std::pair<google::protobuf::internal::VariantKey const,google::protobuf::internal::NodeBase *>>,256,false>>::rebalance_left_to_right(v3, v17, *(v4 + 8 * (v5 + 1) + 256));
   v20 = *(a2 + 2);
-  v21 = (*a2)[10];
+  v21 = *(*a2 + 10);
   if (v20 > v21)
   {
-    v24 = v20 + ~v21;
+    v22 = v20 + ~v21;
     goto LABEL_30;
   }
 
   return result;
 }
 
-unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::string,std::unique_ptr<google::protobuf::FeatureSet>>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::pair<std::string const,std::unique_ptr<google::protobuf::FeatureSet>>>>::find_or_prepare_insert_non_soo<std::string>@<X0>(uint64_t *a1@<X0>, absl::lts_20240722::hash_internal::MixingHashState *a2@<X1>, unint64_t a3@<X3>, const unint64_t *a4@<X4>, uint64_t a5@<X8>)
+unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::string,std::unique_ptr<google::protobuf::FeatureSet>>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::pair<std::string const,std::unique_ptr<google::protobuf::FeatureSet>>>>::find_or_prepare_insert_non_soo<std::string>@<X0>(unint64_t *a1@<X0>, absl::lts_20240722::hash_internal::MixingHashState *a2@<X1>, unint64_t a3@<X3>, const unint64_t *a4@<X4>, uint64_t a5@<X8>)
 {
   v5 = a2;
   _X8 = a1[2];
@@ -6789,8 +7425,8 @@ unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_2024072
   v18 = *a1;
   v19 = vdup_n_s8(v16 & 0x7F);
   v20 = *(v5 + 23);
-  _NF = (v20 & 0x80u) != 0;
-  if ((v20 & 0x80u) == 0)
+  _NF = v20 < 0;
+  if (v20 >= 0)
   {
     v22 = *(v5 + 23);
   }
@@ -6970,11 +7606,9 @@ void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::co
   v4 = *a3;
   *(a2 + 16) = *(a3 + 2);
   *a2 = v4;
-  *a3 = 0;
-  *(a3 + 1) = 0;
+  *a3 = 0uLL;
   v5 = *(a3 + 3);
-  *(a3 + 2) = 0;
-  *(a3 + 3) = 0;
+  a3[1] = 0uLL;
   *(a2 + 24) = v5;
   v6 = *(a3 + 3);
   *(a3 + 3) = 0;
@@ -6994,33 +7628,25 @@ void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::co
 
 std::string *absl::lts_20240722::strings_internal::JoinAlgorithm<google::protobuf::internal::RepeatedIterator<int const>,absl::lts_20240722::strings_internal::AlphaNumFormatterImpl>@<X0>(std::string *result@<X0>, unsigned int *a2@<X1>, const std::string::value_type *a3@<X2>, std::string::size_type a4@<X3>, std::string *a5@<X8>)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  a5->__r_.__value_.__r.__words[0] = 0;
-  a5->__r_.__value_.__l.__size_ = 0;
+  v17 = *MEMORY[0x277D85DE8];
+  *&a5->__r_.__value_.__l.__data_ = 0uLL;
   a5->__r_.__value_.__r.__words[2] = 0;
   if (result != a2)
   {
-    v10 = result;
+    v9 = result;
     std::string::append(a5, &byte_23CE7F131, 0);
-    v12 = absl::lts_20240722::numbers_internal::FastIntToBuffer(LODWORD(v10->__r_.__value_.__l.__data_), v17, v11);
-    v15 = v17;
-    v16 = v12 - v17;
-    for (result = absl::lts_20240722::StrAppend(a5, &v15); ; result = absl::lts_20240722::StrAppend(a5, &v15))
+    v11 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*v9, v16, v10);
+    v14 = v16;
+    v15 = v11 - v16;
+    for (result = absl::lts_20240722::StrAppend(a5, &v14); ++v9 != a2; result = absl::lts_20240722::StrAppend(a5, &v14))
     {
-      v10 = (v10 + 4);
-      if (v10 == a2)
-      {
-        break;
-      }
-
       std::string::append(a5, a3, a4);
-      v14 = absl::lts_20240722::numbers_internal::FastIntToBuffer(LODWORD(v10->__r_.__value_.__l.__data_), v17, v13);
-      v15 = v17;
-      v16 = v14 - v17;
+      v13 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*v9, v16, v12);
+      v14 = v16;
+      v15 = v13 - v16;
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7034,7 +7660,7 @@ void sub_23CD9A004(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::string,google::protobuf::SourceCodeInfo_Location const*>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::pair<std::string const,google::protobuf::SourceCodeInfo_Location const*>>>::find_or_prepare_insert_non_soo<std::string>@<X0>(uint64_t *a1@<X0>, absl::lts_20240722::hash_internal::MixingHashState *a2@<X1>, unint64_t a3@<X3>, const unint64_t *a4@<X4>, uint64_t a5@<X8>)
+unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::string,google::protobuf::SourceCodeInfo_Location const*>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::pair<std::string const,google::protobuf::SourceCodeInfo_Location const*>>>::find_or_prepare_insert_non_soo<std::string>@<X0>(unint64_t *a1@<X0>, absl::lts_20240722::hash_internal::MixingHashState *a2@<X1>, unint64_t a3@<X3>, const unint64_t *a4@<X4>, uint64_t a5@<X8>)
 {
   v5 = a2;
   _X8 = a1[2];
@@ -7059,8 +7685,8 @@ unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_2024072
   v18 = *a1;
   v19 = vdup_n_s8(v16 & 0x7F);
   v20 = *(v5 + 23);
-  _NF = (v20 & 0x80u) != 0;
-  if ((v20 & 0x80u) == 0)
+  _NF = v20 < 0;
+  if (v20 >= 0)
   {
     v22 = *(v5 + 23);
   }
@@ -7173,8 +7799,7 @@ void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::co
   v3 = *a3;
   *(a2 + 16) = *(a3 + 2);
   *a2 = v3;
-  *(a3 + 1) = 0;
-  *(a3 + 2) = 0;
+  *(a3 + 8) = 0uLL;
   *a3 = 0;
   *(a2 + 24) = *(a3 + 3);
   if (*(a3 + 23) < 0)
@@ -7200,33 +7825,25 @@ void absl::lts_20240722::base_internal::CallOnceImpl<void (&)(std::pair<google::
 
 std::string *absl::lts_20240722::strings_internal::JoinAlgorithm<std::__wrap_iter<int const*>,absl::lts_20240722::strings_internal::AlphaNumFormatterImpl>@<X0>(std::string *result@<X0>, unsigned int *a2@<X1>, const std::string::value_type *a3@<X2>, std::string::size_type a4@<X3>, std::string *a5@<X8>)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  a5->__r_.__value_.__r.__words[0] = 0;
-  a5->__r_.__value_.__l.__size_ = 0;
+  v17 = *MEMORY[0x277D85DE8];
+  *&a5->__r_.__value_.__l.__data_ = 0uLL;
   a5->__r_.__value_.__r.__words[2] = 0;
   if (result != a2)
   {
-    v10 = result;
+    v9 = result;
     std::string::append(a5, &byte_23CE7F131, 0);
-    v12 = absl::lts_20240722::numbers_internal::FastIntToBuffer(LODWORD(v10->__r_.__value_.__l.__data_), v17, v11);
-    v15 = v17;
-    v16 = v12 - v17;
-    for (result = absl::lts_20240722::StrAppend(a5, &v15); ; result = absl::lts_20240722::StrAppend(a5, &v15))
+    v11 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*v9, v16, v10);
+    v14 = v16;
+    v15 = v11 - v16;
+    for (result = absl::lts_20240722::StrAppend(a5, &v14); ++v9 != a2; result = absl::lts_20240722::StrAppend(a5, &v14))
     {
-      v10 = (v10 + 4);
-      if (v10 == a2)
-      {
-        break;
-      }
-
       std::string::append(a5, a3, a4);
-      v14 = absl::lts_20240722::numbers_internal::FastIntToBuffer(LODWORD(v10->__r_.__value_.__l.__data_), v17, v13);
-      v15 = v17;
-      v16 = v14 - v17;
+      v13 = absl::lts_20240722::numbers_internal::FastIntToBuffer(*v9, v16, v12);
+      v14 = v16;
+      v15 = v13 - v16;
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7252,7 +7869,7 @@ google::protobuf::DescriptorPool *google::protobuf::internal::OnShutdownDelete<g
   return result;
 }
 
-uint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::Descriptor const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Eq,std::allocator<google::protobuf::Descriptor const*>>::find_or_prepare_insert<google::protobuf::Descriptor const*>@<X0>(uint64_t *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::Descriptor const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Eq,std::allocator<google::protobuf::Descriptor const*>>::find_or_prepare_insert<google::protobuf::Descriptor const*>@<X0>(unint64_t *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = *result;
   if (*result > 1)
@@ -7324,7 +7941,7 @@ LABEL_8:
       v4 = result + 2;
       if (result[2] != *a2)
       {
-        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::Descriptor const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Eq,std::allocator<google::protobuf::Descriptor const*>>::resize_impl(result, 3);
+        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::Descriptor const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Eq,std::allocator<google::protobuf::Descriptor const*>>::resize_impl(result, 3uLL);
       }
 
       v5 = 0;
@@ -7362,7 +7979,7 @@ double google::protobuf::Arena::DefaultConstruct<google::protobuf::FeatureSet>(g
   return google::protobuf::FeatureSet::FeatureSet(v2, v3);
 }
 
-unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string>>::EmplaceDecomposable::operator()<std::string_view,std::string_view&>@<X0>(uint64_t **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, const unint64_t *a5@<X4>, uint64_t a6@<X8>)
+unint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string>>::EmplaceDecomposable::operator()<std::string_view,std::string_view&>@<X0>(unint64_t **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, const unint64_t *a5@<X4>, uint64_t a6@<X8>)
 {
   v8 = *a1;
   _X8 = (*a1)[2];
@@ -7636,22 +8253,14 @@ void sub_23CD9AD84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorPool::BuildFileFromDatabase(google::protobuf::FileDescriptorProto const&)::$_0,void>(uint64_t a1)
+void sub_23CD9AE44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  v1 = *(a1 + 8);
-  v2 = *(v1 + 40);
-  v3 = *(v1 + 16);
-  operator new();
-}
-
-void sub_23CD9AE44(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<google::protobuf::DescriptorBuilder>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-size_t absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::AddError(std::string const&,google::protobuf::Message const&,google::protobuf::DescriptorPool::ErrorCollector::ErrorLocation,char const*)::$_0,std::string>@<X0>(const char **a1@<X0>, _BYTE *a2@<X8>)
+size_t absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::AddError(std::string const&,google::protobuf::Message const&,google::protobuf::DescriptorPool::ErrorCollector::ErrorLocation,char const*)::$_0,std::string>@<X0>(const char **a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
   result = strlen(*a1);
@@ -7666,11 +8275,11 @@ size_t absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::D
     operator new();
   }
 
-  a2[23] = result;
+  *(a2 + 23) = result;
   if (result)
   {
     result = memmove(a2, v3, result);
-    a2[v5] = 0;
+    *(a2 + v5) = 0;
   }
 
   else
@@ -7683,30 +8292,28 @@ size_t absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::D
 
 const void **absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::AddNotDefinedError(std::string const&,google::protobuf::Message const&,google::protobuf::DescriptorPool::ErrorCollector::ErrorLocation,std::string const&)::$_0,std::string>@<X0>(uint64_t ***a1@<X0>, std::string *a2@<X8>)
 {
-  v9[6] = *MEMORY[0x277D85DE8];
+  v8[6] = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v9[0] = "";
-  v9[1] = 1;
+  v8[0] = "";
+  v8[1] = 1;
   v3 = *(v2 + 23);
   v4 = v2[1];
-  if (v3 < 0)
+  if ((v3 & 0x80u) != 0)
   {
     v2 = *v2;
     v3 = v4;
   }
 
-  v8[0] = v2;
-  v8[1] = v3;
-  v7[0] = " is not defined.";
-  v7[1] = 17;
-  result = absl::lts_20240722::StrCat(v9, v8, v7, a2);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v7[0] = v2;
+  v7[1] = v3;
+  v6[0] = " is not defined.";
+  v6[1] = 17;
+  return absl::lts_20240722::StrCat(v8, v7, v6, a2);
 }
 
 char *absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::AddNotDefinedError(std::string const&,google::protobuf::Message const&,google::protobuf::DescriptorPool::ErrorCollector::ErrorLocation,std::string const&)::$_1,std::string>@<X0>(uint64_t *a1@<X0>, std::string *a2@<X8>)
 {
-  v15[14] = *MEMORY[0x277D85DE8];
+  v14[14] = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = *a1 + 280;
   v4 = *(*a1 + 303);
@@ -7725,16 +8332,16 @@ char *absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::De
     v6 = v7;
   }
 
-  v15[0] = "";
-  v15[1] = 1;
-  v15[2] = v3;
-  v15[3] = v4;
-  v15[4] = " seems to be defined in ";
-  v15[5] = 26;
-  v15[6] = v5;
-  v15[7] = v6;
-  v15[8] = ", which is not imported by ";
-  v15[9] = 29;
+  v14[0] = "";
+  v14[1] = 1;
+  v14[2] = v3;
+  v14[3] = v4;
+  v14[4] = " seems to be defined in ";
+  v14[5] = 26;
+  v14[6] = v5;
+  v14[7] = v6;
+  v14[8] = ", which is not imported by ";
+  v14[9] = 29;
   v10 = *(v2 + 136);
   v8 = v2 + 136;
   v9 = v10;
@@ -7750,18 +8357,16 @@ char *absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::De
     v12 = v11;
   }
 
-  v15[10] = v8;
-  v15[11] = v12;
-  v15[12] = ".  To use it here, please add the necessary import.";
-  v15[13] = 52;
-  result = absl::lts_20240722::strings_internal::CatPieces(v15, 7, a2);
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  v14[10] = v8;
+  v14[11] = v12;
+  v14[12] = ".  To use it here, please add the necessary import.";
+  v14[13] = 52;
+  return absl::lts_20240722::strings_internal::CatPieces(v14, 7, a2);
 }
 
 char *absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::AddNotDefinedError(std::string const&,google::protobuf::Message const&,google::protobuf::DescriptorPool::ErrorCollector::ErrorLocation,std::string const&)::$_2,std::string>@<X0>(void **a1@<X0>, std::string *a2@<X8>)
 {
-  v11[14] = *MEMORY[0x277D85DE8];
+  v10[14] = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = a1[1];
   v4 = *(*a1 + 23);
@@ -7785,26 +8390,24 @@ char *absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::De
     v5 = v8;
   }
 
-  v11[0] = "";
-  v11[1] = 1;
-  v11[2] = v2;
-  v11[3] = v4;
-  v11[4] = " is resolved to ";
-  v11[5] = 18;
-  v11[6] = v5;
-  v11[7] = v7;
-  v11[8] = ", which is not defined. The innermost scope is searched first in name resolution. Consider using a leading '.'(i.e., .";
-  v11[9] = 120;
-  v11[10] = v2;
-  v11[11] = v4;
-  v11[12] = ") to start from the outermost scope.";
-  v11[13] = 37;
-  result = absl::lts_20240722::strings_internal::CatPieces(v11, 7, a2);
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  v10[0] = "";
+  v10[1] = 1;
+  v10[2] = v2;
+  v10[3] = v4;
+  v10[4] = " is resolved to ";
+  v10[5] = 18;
+  v10[6] = v5;
+  v10[7] = v7;
+  v10[8] = ", which is not defined. The innermost scope is searched first in name resolution. Consider using a leading '.'(i.e., .";
+  v10[9] = 120;
+  v10[10] = v2;
+  v10[11] = v4;
+  v10[12] = ") to start from the outermost scope.";
+  v10[13] = 37;
+  return absl::lts_20240722::strings_internal::CatPieces(v10, 7, a2);
 }
 
-uint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::FileDescriptor const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Eq,std::allocator<google::protobuf::FileDescriptor const*>>::find_or_prepare_insert<google::protobuf::FileDescriptor const*>@<X0>(uint64_t *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::FileDescriptor const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Eq,std::allocator<google::protobuf::FileDescriptor const*>>::find_or_prepare_insert<google::protobuf::FileDescriptor const*>@<X0>(unint64_t *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = *result;
   if (*result > 1)
@@ -7876,7 +8479,7 @@ LABEL_8:
       v4 = result + 2;
       if (result[2] != *a2)
       {
-        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::FileDescriptor const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Eq,std::allocator<google::protobuf::FileDescriptor const*>>::resize_impl(result, 3);
+        absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::FileDescriptor const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Eq,std::allocator<google::protobuf::FileDescriptor const*>>::resize_impl(result, 3uLL);
       }
 
       v5 = 0;
@@ -7897,72 +8500,80 @@ LABEL_8:
   return result;
 }
 
-void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::FileDescriptor const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Eq,std::allocator<google::protobuf::FileDescriptor const*>>::resize_impl(uint64_t *a1, uint64_t a2)
+void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::FileDescriptor const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Eq,std::allocator<google::protobuf::FileDescriptor const*>>::resize_impl(unint64_t *a1, unint64_t a2)
 {
   v2 = *a1;
   v3 = a1[1];
-  v5 = *a1 < 2 && v3 > 1;
-  v6 = a1[2];
-  v9 = v3 & 1;
-  v10 = v2 < 2;
-  v11 = v5;
-  v7 = a1[3];
-  v8[0] = v6;
-  v8[1] = v7;
-  v8[2] = v2;
+  v4 = *a1 < 2 && v3 > 1;
+  v5 = v4;
+  v7 = a1[2];
+  if (v4)
+  {
+    v6 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v7) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v7))) + v7;
+    v8 = (((v6 * 0x9DDFEA08EB382D69) >> 64) ^ (105 * v6)) & 0x7F;
+  }
+
+  else
+  {
+    v8 = 0x80;
+  }
+
+  v11 = v3 & 1;
+  v12 = v2 < 2;
+  v13 = v5;
+  v9 = a1[3];
+  v10[0] = v7;
+  v10[1] = v9;
+  v10[2] = v2;
   *a1 = a2;
-  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,8ul,true,true,8ul>(v8, a1);
+  absl::lts_20240722::container_internal::HashSetResizeHelper::InitializeSlots<std::allocator<char>,8ul,true,true,8ul>(v10, a1, v8);
 }
 
 const void **absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::AddSymbol(std::string const&,void const*,std::string const&,google::protobuf::Message const&,google::protobuf::Symbol)::$_0,std::string>@<X0>(uint64_t ***a1@<X0>, std::string *a2@<X8>)
 {
-  v9[6] = *MEMORY[0x277D85DE8];
+  v8[6] = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v9[0] = "";
-  v9[1] = 1;
+  v8[0] = "";
+  v8[1] = 1;
   v3 = *(v2 + 23);
   v4 = v2[1];
-  if (v3 < 0)
+  if ((v3 & 0x80u) != 0)
   {
     v2 = *v2;
     v3 = v4;
   }
 
-  v8[0] = v2;
-  v8[1] = v3;
-  v7[0] = " contains null character.";
-  v7[1] = 26;
-  result = absl::lts_20240722::StrCat(v9, v8, v7, a2);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v7[0] = v2;
+  v7[1] = v3;
+  v6[0] = " contains null character.";
+  v6[1] = 26;
+  return absl::lts_20240722::StrCat(v8, v7, v6, a2);
 }
 
 const void **absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::AddSymbol(std::string const&,void const*,std::string const&,google::protobuf::Message const&,google::protobuf::Symbol)::$_1,std::string>@<X0>(uint64_t ***a1@<X0>, std::string *a2@<X8>)
 {
-  v9[6] = *MEMORY[0x277D85DE8];
+  v8[6] = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v9[0] = "";
-  v9[1] = 1;
+  v8[0] = "";
+  v8[1] = 1;
   v3 = *(v2 + 23);
   v4 = v2[1];
-  if (v3 < 0)
+  if ((v3 & 0x80u) != 0)
   {
     v2 = *v2;
     v3 = v4;
   }
 
-  v8[0] = v2;
-  v8[1] = v3;
-  v7[0] = " is already defined.";
-  v7[1] = 21;
-  result = absl::lts_20240722::StrCat(v9, v8, v7, a2);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v7[0] = v2;
+  v7[1] = v3;
+  v6[0] = " is already defined.";
+  v6[1] = 21;
+  return absl::lts_20240722::StrCat(v8, v7, v6, a2);
 }
 
 void absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::AddSymbol(std::string const&,void const*,std::string const&,google::protobuf::Message const&,google::protobuf::Symbol)::$_2,std::string>(void **a1@<X0>, std::string *a2@<X8>)
 {
-  v21[10] = *MEMORY[0x277D85DE8];
+  v19[10] = *MEMORY[0x277D85DE8];
   v4 = *a1;
   v5 = *a1[1] + 1;
   v6 = *(*a1 + 23);
@@ -8003,14 +8614,14 @@ LABEL_4:
     operator new();
   }
 
-  v20 = v7;
+  v18 = v7;
   if (v6 != v5)
   {
     memmove(__dst, v4 + v5, v7);
   }
 
   *(__dst + v7) = 0;
-  if ((v20 & 0x80u) == 0)
+  if ((v18 & 0x80u) == 0)
   {
     v8 = __dst;
   }
@@ -8020,9 +8631,9 @@ LABEL_4:
     v8 = __dst[0];
   }
 
-  if ((v20 & 0x80u) == 0)
+  if ((v18 & 0x80u) == 0)
   {
-    v9 = v20;
+    v9 = v18;
   }
 
   else
@@ -8058,50 +8669,49 @@ LABEL_4:
     operator new();
   }
 
-  v18 = v12;
+  v16 = v12;
   if (v12)
   {
     memmove(__p, v10, v12);
   }
 
   *(__p + v12) = 0;
-  v13 = v18;
+  v13 = v16;
   v14 = __p;
-  if ((v18 & 0x80u) != 0)
+  if ((v16 & 0x80u) != 0)
   {
     v14 = __p[0];
     v13 = __p[1];
   }
 
-  v21[0] = "";
-  v21[1] = 1;
-  v21[2] = v8;
-  v21[3] = v9;
-  v21[4] = " is already defined in ";
-  v21[5] = 25;
-  v21[6] = v14;
-  v21[7] = v13;
-  v21[8] = ".";
-  v21[9] = 2;
-  absl::lts_20240722::strings_internal::CatPieces(v21, 5, a2);
-  if (v18 < 0)
+  v19[0] = "";
+  v19[1] = 1;
+  v19[2] = v8;
+  v19[3] = v9;
+  v19[4] = " is already defined in ";
+  v19[5] = 25;
+  v19[6] = v14;
+  v19[7] = v13;
+  v19[8] = ".";
+  v19[9] = 2;
+  absl::lts_20240722::strings_internal::CatPieces(v19, 5, a2);
+  if ((v16 & 0x80000000) == 0)
   {
-    operator delete(__p[0]);
-    if ((v20 & 0x80000000) == 0)
+    if ((v18 & 0x80000000) == 0)
     {
-      goto LABEL_30;
+      return;
     }
-  }
 
-  else if ((v20 & 0x80000000) == 0)
-  {
-LABEL_30:
-    v15 = *MEMORY[0x277D85DE8];
+LABEL_35:
+    operator delete(__dst[0]);
     return;
   }
 
-  operator delete(__dst[0]);
-  v16 = *MEMORY[0x277D85DE8];
+  operator delete(__p[0]);
+  if (v18 < 0)
+  {
+    goto LABEL_35;
+  }
 }
 
 void sub_23CD9BA94(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -8127,7 +8737,7 @@ LABEL_3:
 
 void absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::AddSymbol(std::string const&,void const*,std::string const&,google::protobuf::Message const&,google::protobuf::Symbol)::$_3,std::string>(void **a1@<X0>, std::string *a2@<X8>)
 {
-  v13[10] = *MEMORY[0x277D85DE8];
+  v12[10] = *MEMORY[0x277D85DE8];
   v2 = *a1[1];
   v3 = *(*a1 + 23);
   if (v3 >= 0)
@@ -8182,23 +8792,21 @@ void absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::Des
     p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  v13[0] = "";
-  v13[1] = 1;
-  v13[2] = v4;
-  v13[3] = v5;
-  v13[4] = " is already defined in file ";
-  v13[5] = 30;
-  v13[6] = p_p;
-  v13[7] = size;
-  v13[8] = ".";
-  v13[9] = 2;
-  absl::lts_20240722::strings_internal::CatPieces(v13, 5, a2);
+  v12[0] = "";
+  v12[1] = 1;
+  v12[2] = v4;
+  v12[3] = v5;
+  v12[4] = " is already defined in file ";
+  v12[5] = 30;
+  v12[6] = p_p;
+  v12[7] = size;
+  v12[8] = ".";
+  v12[9] = 2;
+  absl::lts_20240722::strings_internal::CatPieces(v12, 5, a2);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23CD9BC20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -8213,30 +8821,28 @@ void sub_23CD9BC20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 const void **absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::AddPackage(std::string const&,google::protobuf::Message const&,google::protobuf::FileDescriptor *)::$_0,std::string>@<X0>(uint64_t ***a1@<X0>, std::string *a2@<X8>)
 {
-  v9[6] = *MEMORY[0x277D85DE8];
+  v8[6] = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v9[0] = "";
-  v9[1] = 1;
+  v8[0] = "";
+  v8[1] = 1;
   v3 = *(v2 + 23);
   v4 = v2[1];
-  if (v3 < 0)
+  if ((v3 & 0x80u) != 0)
   {
     v2 = *v2;
     v3 = v4;
   }
 
-  v8[0] = v2;
-  v8[1] = v3;
-  v7[0] = " contains null character.";
-  v7[1] = 26;
-  result = absl::lts_20240722::StrCat(v9, v8, v7, a2);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v7[0] = v2;
+  v7[1] = v3;
+  v6[0] = " contains null character.";
+  v6[1] = 26;
+  return absl::lts_20240722::StrCat(v8, v7, v6, a2);
 }
 
 void absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::AddPackage(std::string const&,google::protobuf::Message const&,google::protobuf::FileDescriptor *)::$_1,std::string>(void **a1@<X0>, std::string *a2@<X8>)
 {
-  v13[10] = *MEMORY[0x277D85DE8];
+  v12[10] = *MEMORY[0x277D85DE8];
   v2 = *a1[1];
   v3 = *(*a1 + 23);
   if (v3 >= 0)
@@ -8291,23 +8897,21 @@ void absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::Des
     p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  v13[0] = "";
-  v13[1] = 1;
-  v13[2] = v4;
-  v13[3] = v5;
-  v13[4] = " is already defined (as something other than a package) in file ";
-  v13[5] = 66;
-  v13[6] = p_p;
-  v13[7] = size;
-  v13[8] = ".";
-  v13[9] = 2;
-  absl::lts_20240722::strings_internal::CatPieces(v13, 5, a2);
+  v12[0] = "";
+  v12[1] = 1;
+  v12[2] = v4;
+  v12[3] = v5;
+  v12[4] = " is already defined (as something other than a package) in file ";
+  v12[5] = 66;
+  v12[6] = p_p;
+  v12[7] = size;
+  v12[8] = ".";
+  v12[9] = 2;
+  absl::lts_20240722::strings_internal::CatPieces(v12, 5, a2);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23CD9BE14(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -8322,28 +8926,26 @@ void sub_23CD9BE14(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 const void **absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateSymbolName(std::string const&,std::string const&,google::protobuf::Message const&)::$_0,std::string>@<X0>(uint64_t ***a1@<X0>, std::string *a2@<X8>)
 {
-  v9[6] = *MEMORY[0x277D85DE8];
+  v8[6] = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v9[0] = "";
-  v9[1] = 1;
+  v8[0] = "";
+  v8[1] = 1;
   v3 = *(v2 + 23);
   v4 = v2[1];
-  if (v3 < 0)
+  if ((v3 & 0x80u) != 0)
   {
     v2 = *v2;
     v3 = v4;
   }
 
-  v8[0] = v2;
-  v8[1] = v3;
-  v7[0] = " is not a valid identifier.";
-  v7[1] = 28;
-  result = absl::lts_20240722::StrCat(v9, v8, v7, a2);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v7[0] = v2;
+  v7[1] = v3;
+  v6[0] = " is not a valid identifier.";
+  v6[1] = 28;
+  return absl::lts_20240722::StrCat(v8, v7, v6, a2);
 }
 
-void std::vector<google::protobuf::anonymous namespace::OptionsToInterpret>::push_back[abi:ne200100](uint64_t *a1, __int128 *a2)
+void std::vector<google::protobuf::anonymous namespace::OptionsToInterpret>::push_back[abi:ne200100](__int128 **a1, __int128 *a2)
 {
   v3 = a1[1];
   v4 = a1[2];
@@ -8352,22 +8954,19 @@ void std::vector<google::protobuf::anonymous namespace::OptionsToInterpret>::pus
     v5 = *a2;
     *(v3 + 16) = *(a2 + 2);
     *v3 = v5;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = *(a2 + 24);
     *(v3 + 40) = *(a2 + 5);
     *(v3 + 24) = v6;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     *(v3 + 48) = 0;
     *(v3 + 56) = 0;
     *(v3 + 64) = 0;
     *(v3 + 48) = a2[3];
     *(v3 + 64) = *(a2 + 8);
-    *(a2 + 6) = 0;
-    *(a2 + 7) = 0;
+    a2[3] = 0uLL;
     *(a2 + 8) = 0;
     *(v3 + 72) = *(a2 + 72);
     v7 = v3 + 88;
@@ -8412,29 +9011,25 @@ LABEL_3:
   v12 = 88 * v8;
   *v12 = *a2;
   *(v12 + 16) = *(a2 + 2);
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v13 = *(a2 + 24);
-  *(a2 + 2) = 0;
-  *(a2 + 3) = 0;
+  a2[1] = 0uLL;
   *(v12 + 24) = v13;
   *(v12 + 40) = *(a2 + 5);
-  *(a2 + 4) = 0;
-  *(a2 + 5) = 0;
+  a2[2] = 0uLL;
   *(v12 + 48) = a2[3];
   *(v12 + 64) = *(a2 + 8);
-  *(a2 + 7) = 0;
-  *(a2 + 8) = 0;
+  *(a2 + 56) = 0uLL;
   *(a2 + 6) = 0;
   *(v12 + 72) = *(a2 + 72);
   v7 = 88 * v8 + 88;
   v14 = *a1;
   v15 = a1[1];
-  v16 = v12 + *a1 - v15;
+  v16 = *a1 + v12 - v15;
   if (*a1 != v15)
   {
     v17 = *a1;
-    v18 = v12 + *a1 - v15;
+    v18 = *a1 + v12 - v15;
     do
     {
       v19 = *v17;
@@ -8464,16 +9059,16 @@ LABEL_3:
     while (v17 != v15);
     while (1)
     {
-      v21 = *(v14 + 48);
+      v21 = *(v14 + 6);
       if (v21)
       {
-        *(v14 + 56) = v21;
+        *(v14 + 7) = v21;
         operator delete(v21);
       }
 
       if (*(v14 + 47) < 0)
       {
-        operator delete(*(v14 + 24));
+        operator delete(*(v14 + 3));
         if (*(v14 + 23) < 0)
         {
 LABEL_24:
@@ -8486,7 +9081,7 @@ LABEL_24:
         goto LABEL_24;
       }
 
-      v14 += 88;
+      v14 = (v14 + 88);
       if (v14 == v15)
       {
         v14 = *a1;
@@ -8507,7 +9102,7 @@ LABEL_24:
   a1[1] = v7;
 }
 
-char *google::protobuf::anonymous namespace::OptionsToInterpret::OptionsToInterpret(char *__dst, const void *a2, size_t __len, void *__src, size_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t *google::protobuf::anonymous namespace::OptionsToInterpret::OptionsToInterpret(uint64_t *__dst, const void *a2, size_t __len, void *__src, size_t a5, const void *a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (__len > 0x7FFFFFFFFFFFFFF7)
   {
@@ -8519,13 +9114,13 @@ char *google::protobuf::anonymous namespace::OptionsToInterpret::OptionsToInterp
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, a2, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   if (a5 > 0x7FFFFFFFFFFFFFF7)
   {
     std::string::__throw_length_error[abi:ne200100]();
@@ -8536,14 +9131,14 @@ char *google::protobuf::anonymous namespace::OptionsToInterpret::OptionsToInterp
     operator new();
   }
 
-  __dst[47] = a5;
-  v16 = __dst + 24;
+  *(__dst + 47) = a5;
+  v16 = __dst + 3;
   if (!a5)
   {
-    __dst[24] = 0;
-    *(__dst + 6) = 0;
-    *(__dst + 7) = 0;
-    *(__dst + 8) = 0;
+    *(__dst + 24) = 0;
+    __dst[6] = 0;
+    __dst[7] = 0;
+    __dst[8] = 0;
     if (!a7)
     {
       goto LABEL_16;
@@ -8559,18 +9154,18 @@ LABEL_14:
   }
 
   memmove(v16, __src, a5);
-  v16[a5] = 0;
-  *(__dst + 6) = 0;
-  *(__dst + 7) = 0;
-  *(__dst + 8) = 0;
+  *(v16 + a5) = 0;
+  __dst[6] = 0;
+  __dst[7] = 0;
+  __dst[8] = 0;
   if (a7)
   {
     goto LABEL_14;
   }
 
 LABEL_16:
-  *(__dst + 9) = a8;
-  *(__dst + 10) = a9;
+  __dst[9] = a8;
+  __dst[10] = a9;
   return __dst;
 }
 
@@ -8658,14 +9253,14 @@ uint64_t *absl::lts_20240722::StatusOr<google::protobuf::FeatureSet>::~StatusOr(
   }
 }
 
-uint64_t **absl::lts_20240722::functional_internal::InvokeObject<void google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::FileDescriptor>(google::protobuf::Edition,google::protobuf::FileDescriptor::Proto const&,google::protobuf::FileDescriptor::Proto*,google::protobuf::FileDescriptor::Proto::OptionsType *,google::protobuf::internal::FlatAllocator &,google::protobuf::DescriptorPool::ErrorCollector::ErrorLocation,BOOL)::{lambda(void)#1},std::basic_string<char,std::basic_string::char_traits<char>,std::basic_string::allocator<char>>>@<X0>(uint64_t **result@<X0>, _BYTE *a2@<X8>)
+uint64_t **absl::lts_20240722::functional_internal::InvokeObject<void google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::FileDescriptor>(google::protobuf::Edition,google::protobuf::FileDescriptor::Proto const&,google::protobuf::FileDescriptor::Proto*,google::protobuf::FileDescriptor::Proto::OptionsType *,google::protobuf::internal::FlatAllocator &,google::protobuf::DescriptorPool::ErrorCollector::ErrorLocation,BOOL)::{lambda(void)#1},std::basic_string<char,std::basic_string::char_traits<char>,std::basic_string::allocator<char>>>@<X0>(uint64_t **result@<X0>, void *a2@<X8>)
 {
   v3 = **result;
   if (v3)
   {
     if ((v3 & 2) == 0)
     {
-      a2[23] = 0;
+      *(a2 + 23) = 0;
 LABEL_7:
       *a2 = 0;
       return result;
@@ -8700,14 +9295,14 @@ LABEL_13:
   }
 
 LABEL_11:
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (!v4)
   {
     goto LABEL_7;
   }
 
   result = memmove(a2, v5, v4);
-  a2[v4] = 0;
+  *(a2 + v4) = 0;
   return result;
 }
 
@@ -8723,11 +9318,11 @@ void sub_23CD9C68C(_Unwind_Exception *exception_object)
 
 const void **absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::AddTwiceListedError(google::protobuf::FileDescriptorProto const&,int)::$_0,std::string>@<X0>(uint64_t *a1@<X0>, std::string *a2@<X8>)
 {
-  v14[6] = *MEMORY[0x277D85DE8];
+  v13[6] = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = *a1[1];
-  v14[0] = "Import ";
-  v14[1] = 8;
+  v13[0] = "Import ";
+  v13[1] = 8;
   v5 = *(v2 + 24);
   v4 = (v2 + 24);
   v6 = v5 + 8 * v3 + 7;
@@ -8745,22 +9340,20 @@ const void **absl::lts_20240722::functional_internal::InvokeObject<google::proto
     v8 = v9;
   }
 
-  v13[0] = v7;
-  v13[1] = v8;
-  v12[0] = " was listed twice.";
-  v12[1] = 19;
-  result = absl::lts_20240722::StrCat(v14, v13, v12, a2);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v12[0] = v7;
+  v12[1] = v8;
+  v11[0] = " was listed twice.";
+  v11[1] = 19;
+  return absl::lts_20240722::StrCat(v13, v12, v11, a2);
 }
 
 const void **absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::AddImportError(google::protobuf::FileDescriptorProto const&,int)::$_0,std::string>@<X0>(uint64_t a1@<X0>, std::string *a2@<X8>)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (*(**a1 + 8))
   {
-    v23 = "Import ";
-    v24 = 8;
+    v22 = "Import ";
+    v23 = 8;
     v2 = *(a1 + 8);
     v4 = *(v2 + 24);
     v3 = (v2 + 24);
@@ -8779,16 +9372,16 @@ const void **absl::lts_20240722::functional_internal::InvokeObject<google::proto
       v7 = v8;
     }
 
-    v21 = v6;
-    v22 = v7;
+    v20 = v6;
+    v21 = v7;
     v9 = " was not found or had errors.";
     v10 = 30;
   }
 
   else
   {
-    v23 = "Import ";
-    v24 = 8;
+    v22 = "Import ";
+    v23 = 8;
     v11 = *(a1 + 8);
     v13 = *(v11 + 24);
     v12 = (v11 + 24);
@@ -8807,17 +9400,15 @@ const void **absl::lts_20240722::functional_internal::InvokeObject<google::proto
       v16 = v17;
     }
 
-    v21 = v15;
-    v22 = v16;
+    v20 = v15;
+    v21 = v16;
     v9 = " has not been loaded.";
     v10 = 22;
   }
 
-  v20[0] = v9;
-  v20[1] = v10;
-  result = absl::lts_20240722::StrCat(&v23, &v21, v20, a2);
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  v19[0] = v9;
+  v19[1] = v10;
+  return absl::lts_20240722::StrCat(&v22, &v20, v19, a2);
 }
 
 uint64_t std::vector<std::string>::__emplace_back_slow_path<std::string const&>(uint64_t a1, uint64_t a2)
@@ -8885,10 +9476,10 @@ uint64_t std::vector<std::string>::__emplace_back_slow_path<std::string const&>(
 
 const void **absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::BuildFileImpl(google::protobuf::FileDescriptorProto const&,google::protobuf::internal::FlatAllocator &)::$_0,std::string>@<X0>(uint64_t a1@<X0>, std::string *a2@<X8>)
 {
-  v9[6] = *MEMORY[0x277D85DE8];
+  v8[6] = *MEMORY[0x277D85DE8];
   v2 = *(*a1 + 192);
-  v9[0] = "Unrecognized syntax: ";
-  v9[1] = 21;
+  v8[0] = "Unrecognized syntax: ";
+  v8[1] = 21;
   v3 = v2 & 0xFFFFFFFFFFFFFFFCLL;
   v4 = *(v3 + 23);
   v5 = *(v3 + 8);
@@ -8898,21 +9489,19 @@ const void **absl::lts_20240722::functional_internal::InvokeObject<google::proto
     v4 = v5;
   }
 
-  v8[0] = v3;
-  v8[1] = v4;
-  result = absl::lts_20240722::StrCat(v9, v8, a2);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  v7[0] = v3;
+  v7[1] = v4;
+  return absl::lts_20240722::StrCat(v8, v7, a2);
 }
 
-uint64_t **absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::BuildFileImpl(google::protobuf::FileDescriptorProto const&,google::protobuf::internal::FlatAllocator &)::$_1,std::string>@<X0>(uint64_t **result@<X0>, _BYTE *a2@<X8>)
+uint64_t **absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::BuildFileImpl(google::protobuf::FileDescriptorProto const&,google::protobuf::internal::FlatAllocator &)::$_1,std::string>@<X0>(uint64_t **result@<X0>, void *a2@<X8>)
 {
   v3 = **result;
   if (v3)
   {
     if ((v3 & 2) == 0)
     {
-      a2[23] = 0;
+      *(a2 + 23) = 0;
 LABEL_7:
       *a2 = 0;
       return result;
@@ -8947,41 +9536,39 @@ LABEL_13:
   }
 
 LABEL_11:
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (!v4)
   {
     goto LABEL_7;
   }
 
   result = memmove(a2, v5, v4);
-  a2[v4] = 0;
+  *(a2 + v4) = 0;
   return result;
 }
 
 const void **absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::BuildFileImpl(google::protobuf::FileDescriptorProto const&,google::protobuf::internal::FlatAllocator &)::$_2,std::string>@<X0>(uint64_t a1@<X0>, std::string *a2@<X8>)
 {
-  v9[6] = *MEMORY[0x277D85DE8];
+  v8[6] = *MEMORY[0x277D85DE8];
   v2 = *(**a1 + 8);
-  v9[0] = "";
-  v9[1] = 1;
+  v8[0] = "";
+  v8[1] = 1;
   v3 = *(v2 + 23);
   v4 = v2[1];
-  if (v3 < 0)
+  if ((v3 & 0x80u) != 0)
   {
     v2 = *v2;
     v3 = v4;
   }
 
-  v8[0] = v2;
-  v8[1] = v3;
-  v7[0] = " contains null character.";
-  v7[1] = 26;
-  result = absl::lts_20240722::StrCat(v9, v8, v7, a2);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v7[0] = v2;
+  v7[1] = v3;
+  v6[0] = " contains null character.";
+  v6[1] = 26;
+  return absl::lts_20240722::StrCat(v8, v7, v6, a2);
 }
 
-uint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string_view>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>>::find_or_prepare_insert_soo<std::string>@<X0>(uint64_t result@<X0>, void *a2@<X1>, unint64_t a3@<X3>, const unint64_t *a4@<X4>, uint64_t a5@<X8>)
+uint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string_view>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>>::find_or_prepare_insert_soo<std::string>@<X0>(uint64_t result@<X0>, absl::lts_20240722::hash_internal::MixingHashState *a2@<X1>, unint64_t a3@<X3>, const unint64_t *a4@<X4>, uint64_t a5@<X8>)
 {
   v5 = result;
   if (*(result + 8) > 1uLL)
@@ -8991,7 +9578,7 @@ uint64_t absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722
     v11 = v10;
     if ((v10 & 0x80u) != 0)
     {
-      v10 = a2[1];
+      v10 = *(a2 + 1);
     }
 
     if (v9 != v10)
@@ -9028,13 +9615,13 @@ LABEL_10:
   return result;
 }
 
-void google::protobuf::internal::VisitImpl<google::protobuf::internal::VisitorImpl<google::protobuf::DescriptorBuilder::BuildFileImpl(google::protobuf::FileDescriptorProto const&,google::protobuf::internal::FlatAllocator &)::$_3>>::Visit<google::protobuf::DescriptorProto const>(uint64_t *a1, uint64_t a2, uint64_t a3, double a4)
+void google::protobuf::internal::VisitImpl<google::protobuf::internal::VisitorImpl<google::protobuf::DescriptorBuilder::BuildFileImpl(google::protobuf::FileDescriptorProto const&,google::protobuf::internal::FlatAllocator &)::$_3>>::Visit<google::protobuf::DescriptorProto const>(uint64_t *a1, uint64_t a2, void *a3, double a4)
 {
-  google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::Descriptor>(*a1, *(*(a2 + 16) + 32), a3, a2, *(a2 + 32), a4, a1[1], 0, 0);
+  google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::Descriptor>(*a1, *(*(a2 + 16) + 32), a3, a2, *(a2 + 32), a1[1], 0, 0, a4);
   if (*(a2 + 132) >= 1)
   {
     v7 = 0;
-    v8 = (a3 + 72);
+    v8 = a3 + 9;
     do
     {
       v9 = *(a2 + 80) + 88 * v7;
@@ -9045,11 +9632,11 @@ void google::protobuf::internal::VisitImpl<google::protobuf::internal::VisitorIm
 
       else
       {
-        v10 = (a3 + 72);
+        v10 = a3 + 9;
       }
 
       v11 = *v10;
-      google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::EnumDescriptor>(*a1, *(*(v9 + 16) + 32), *v10, *(a2 + 80) + 88 * v7, *(v9 + 32), v6, a1[1], 0, 0);
+      google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::EnumDescriptor>(*a1, *(*(v9 + 16) + 32), *v10, (*(a2 + 80) + 88 * v7), *(v9 + 32), a1[1], 0, 0, v6);
       if (*(v9 + 4) >= 1)
       {
         v12 = 0;
@@ -9068,7 +9655,7 @@ void google::protobuf::internal::VisitImpl<google::protobuf::internal::VisitorIm
             v16 = v14;
           }
 
-          google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::EnumValueDescriptor>(*a1, *(*(*(*(v9 + 56) + v12 + 16) + 16) + 32), *v16, *(v9 + 56) + v12, *(*(v9 + 56) + v12 + 24), v6, a1[1], 0, 0);
+          google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::EnumValueDescriptor>(*a1, *(*(*(*(v9 + 56) + v12 + 16) + 16) + 32), *v16, (*(v9 + 56) + v12), *(*(v9 + 56) + v12 + 24), a1[1], 0, 0, v6);
           ++v13;
           v15 += 8;
           v12 += 48;
@@ -9087,7 +9674,7 @@ void google::protobuf::internal::VisitImpl<google::protobuf::internal::VisitorIm
   {
     v17 = 0;
     v18 = 0;
-    v19 = (a3 + 144);
+    v19 = a3 + 18;
     v20 = 8;
     do
     {
@@ -9098,10 +9685,10 @@ void google::protobuf::internal::VisitImpl<google::protobuf::internal::VisitorIm
 
       else
       {
-        v21 = (a3 + 144);
+        v21 = a3 + 18;
       }
 
-      google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::OneofDescriptor>(*a1, *(*(*(*(a2 + 64) + v17 + 16) + 16) + 32), *v21, *(a2 + 64) + v17, *(*(a2 + 64) + v17 + 24), v6, a1[1], 0, 0);
+      google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::OneofDescriptor>(*a1, *(*(*(*(a2 + 64) + v17 + 16) + 16) + 32), *v21, (*(a2 + 64) + v17), *(*(a2 + 64) + v17 + 24), a1[1], 0, 0, v6);
       ++v18;
       v20 += 8;
       v17 += 56;
@@ -9114,7 +9701,7 @@ void google::protobuf::internal::VisitImpl<google::protobuf::internal::VisitorIm
   {
     v22 = 0;
     v23 = 0;
-    v24 = (a3 + 24);
+    v24 = a3 + 3;
     v25 = 8;
     do
     {
@@ -9125,10 +9712,10 @@ void google::protobuf::internal::VisitImpl<google::protobuf::internal::VisitorIm
 
       else
       {
-        v26 = (a3 + 24);
+        v26 = a3 + 3;
       }
 
-      google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::FieldDescriptor>(*a1, *(*(*(a2 + 56) + v22 + 16) + 32), *v26, *(a2 + 56) + v22, *(*(a2 + 56) + v22 + 56), v6, a1[1], 0, 0);
+      google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::FieldDescriptor>(*a1, *(*(*(a2 + 56) + v22 + 16) + 32), *v26, *(a2 + 56) + v22, *(*(a2 + 56) + v22 + 56), a1[1], 0, 0, v6);
       ++v23;
       v25 += 8;
       v22 += 88;
@@ -9141,7 +9728,7 @@ void google::protobuf::internal::VisitImpl<google::protobuf::internal::VisitorIm
   {
     v27 = 0;
     v28 = 0;
-    v29 = (a3 + 48);
+    v29 = a3 + 6;
     v30 = 8;
     do
     {
@@ -9152,7 +9739,7 @@ void google::protobuf::internal::VisitImpl<google::protobuf::internal::VisitorIm
 
       else
       {
-        v31 = (a3 + 48);
+        v31 = (a3 + 6);
       }
 
       google::protobuf::internal::VisitImpl<google::protobuf::internal::VisitorImpl<google::protobuf::DescriptorBuilder::BuildFileImpl(google::protobuf::FileDescriptorProto const&,google::protobuf::internal::FlatAllocator &)::$_3>>::Visit<google::protobuf::DescriptorProto const>(a1, *(a2 + 72) + v27, *v31);
@@ -9168,7 +9755,7 @@ void google::protobuf::internal::VisitImpl<google::protobuf::internal::VisitorIm
   {
     v32 = 0;
     v33 = 0;
-    v34 = (a3 + 120);
+    v34 = a3 + 15;
     v35 = 8;
     do
     {
@@ -9179,10 +9766,10 @@ void google::protobuf::internal::VisitImpl<google::protobuf::internal::VisitorIm
 
       else
       {
-        v36 = (a3 + 120);
+        v36 = a3 + 15;
       }
 
-      google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::FieldDescriptor>(*a1, *(*(*(a2 + 96) + v32 + 16) + 32), *v36, *(a2 + 96) + v32, *(*(a2 + 96) + v32 + 56), v6, a1[1], 0, 0);
+      google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::FieldDescriptor>(*a1, *(*(*(a2 + 96) + v32 + 16) + 32), *v36, *(a2 + 96) + v32, *(*(a2 + 96) + v32 + 56), a1[1], 0, 0, v6);
       ++v33;
       v35 += 8;
       v32 += 88;
@@ -9195,7 +9782,7 @@ void google::protobuf::internal::VisitImpl<google::protobuf::internal::VisitorIm
   {
     v37 = 0;
     v38 = 0;
-    v39 = (a3 + 96);
+    v39 = a3 + 12;
     v40 = 8;
     do
     {
@@ -9206,10 +9793,10 @@ void google::protobuf::internal::VisitImpl<google::protobuf::internal::VisitorIm
 
       else
       {
-        v41 = (a3 + 96);
+        v41 = a3 + 12;
       }
 
-      google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::Descriptor::ExtensionRange>(*a1, *(*(*(*(a2 + 88) + v37 + 16) + 16) + 32), *v41, (*(a2 + 88) + v37), *(*(a2 + 88) + v37 + 8), v6, a1[1], 0, 0);
+      google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::Descriptor::ExtensionRange>(*a1, *(*(*(*(a2 + 88) + v37 + 16) + 16) + 32), *v41, (*(a2 + 88) + v37), *(*(a2 + 88) + v37 + 8), a1[1], 0, 0, v6);
       ++v38;
       v40 += 8;
       v37 += 40;
@@ -9217,642 +9804,4 @@ void google::protobuf::internal::VisitImpl<google::protobuf::internal::VisitorIm
 
     while (v38 < *(a2 + 136));
   }
-}
-
-void google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::Descriptor>(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v16 = *(a4 + 24);
-  if (v16)
-  {
-    v17 = *(v16 + 48);
-    *(a4 + 40) = &google::protobuf::_FeatureSet_default_instance_;
-    *(a4 + 48) = &google::protobuf::_FeatureSet_default_instance_;
-    if (*(a1 + 96))
-    {
-      goto LABEL_3;
-    }
-
-LABEL_8:
-    google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::FileDescriptor>(&v25);
-  }
-
-  v17 = *(*(a4 + 16) + 144);
-  *(a4 + 40) = &google::protobuf::_FeatureSet_default_instance_;
-  *(a4 + 48) = &google::protobuf::_FeatureSet_default_instance_;
-  if ((*(a1 + 96) & 1) == 0)
-  {
-    goto LABEL_8;
-  }
-
-LABEL_3:
-  if (!a5)
-  {
-    google::protobuf::FeatureSet::FeatureSet(v27, 0, &google::protobuf::_FeatureSet_default_instance_, a6);
-    if (a2 > 999)
-    {
-      goto LABEL_16;
-    }
-
-    goto LABEL_14;
-  }
-
-  if ((*(a5 + 40) & 1) == 0)
-  {
-    google::protobuf::FeatureSet::FeatureSet(v27, 0, &google::protobuf::_FeatureSet_default_instance_, a6);
-    if (a2 > 999)
-    {
-      goto LABEL_16;
-    }
-
-    goto LABEL_14;
-  }
-
-  v18 = google::protobuf::DescriptorPool::Tables::InternFeatureSet(*(a1 + 8), *(a5 + 72));
-  *(a4 + 40) = v18;
-  v20 = *(a5 + 72);
-  if (v20)
-  {
-    google::protobuf::FeatureSet::Clear(v20);
-    v18 = *(a4 + 40);
-  }
-
-  *(a5 + 40) &= ~1u;
-  google::protobuf::FeatureSet::FeatureSet(v27, 0, v18, v19);
-  if (a2 <= 999)
-  {
-LABEL_14:
-    if (*(a4 + 40) != &google::protobuf::_FeatureSet_default_instance_)
-    {
-      google::protobuf::DescriptorBuilder::AddError(a1, *(a4 + 8), a3, a8, "Features are only valid under editions.");
-    }
-  }
-
-LABEL_16:
-  if (google::protobuf::FeatureSet::ByteSizeLong(v27) || (a9 & 1) != 0)
-  {
-    google::protobuf::FeatureResolver::MergeFeatures((a1 + 24), v17, v27, &v25, v21);
-    if (v25 == 1)
-    {
-      *(a4 + 48) = google::protobuf::DescriptorPool::Tables::InternFeatureSet(*(a1 + 8), v26);
-    }
-
-    else
-    {
-      v23 = *(a4 + 8);
-      v24 = &v25;
-      google::protobuf::DescriptorBuilder::AddError(a1, v23, a3, a8, &v24, absl::lts_20240722::functional_internal::InvokeObject<void google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::Descriptor>(google::protobuf::Edition,google::protobuf::Descriptor::Proto const&,google::protobuf::Descriptor::Proto*,google::protobuf::Descriptor::Proto::OptionsType *,google::protobuf::internal::FlatAllocator &,google::protobuf::DescriptorPool::ErrorCollector::ErrorLocation,BOOL)::{lambda(void)#1},std::basic_string<char,std::basic_string::char_traits<char>,std::basic_string::allocator<char>>>);
-    }
-
-    if (v25 == 1)
-    {
-      google::protobuf::FeatureSet::~FeatureSet(v26);
-    }
-
-    else if ((v25 & 1) == 0)
-    {
-      absl::lts_20240722::status_internal::StatusRep::Unref(v25, v22);
-    }
-  }
-
-  else
-  {
-    *(a4 + 48) = v17;
-  }
-
-  google::protobuf::FeatureSet::~FeatureSet(v27);
-}
-
-void sub_23CD9D2AC(_Unwind_Exception *a1, absl::lts_20240722::cord_internal::CordRepBtree *a2, uint64_t a3, ...)
-{
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  absl::lts_20240722::StatusOr<google::protobuf::FeatureSet>::~StatusOr(va, a2);
-  google::protobuf::FeatureSet::~FeatureSet(va1);
-  _Unwind_Resume(a1);
-}
-
-void sub_23CD9D2CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  google::protobuf::FeatureSet::~FeatureSet(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_23CD9D2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  google::protobuf::FeatureSet::~FeatureSet(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t **absl::lts_20240722::functional_internal::InvokeObject<void google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::Descriptor>(google::protobuf::Edition,google::protobuf::Descriptor::Proto const&,google::protobuf::Descriptor::Proto*,google::protobuf::Descriptor::Proto::OptionsType *,google::protobuf::internal::FlatAllocator &,google::protobuf::DescriptorPool::ErrorCollector::ErrorLocation,BOOL)::{lambda(void)#1},std::basic_string<char,std::basic_string::char_traits<char>,std::basic_string::allocator<char>>>@<X0>(uint64_t **result@<X0>, _BYTE *a2@<X8>)
-{
-  v3 = **result;
-  if (v3)
-  {
-    if ((v3 & 2) == 0)
-    {
-      a2[23] = 0;
-LABEL_7:
-      *a2 = 0;
-      return result;
-    }
-
-    goto LABEL_13;
-  }
-
-  v4 = *(v3 + 31);
-  if ((v4 & 0x8000000000000000) != 0)
-  {
-    v4 = *(v3 + 16);
-    if (v4 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      std::string::__throw_length_error[abi:ne200100]();
-    }
-
-    v5 = *(v3 + 8);
-    if (v4 < 0x17)
-    {
-      goto LABEL_11;
-    }
-
-LABEL_13:
-    operator new();
-  }
-
-  v5 = (v3 + 8);
-  if (v4 >= 0x17)
-  {
-    goto LABEL_13;
-  }
-
-LABEL_11:
-  a2[23] = v4;
-  if (!v4)
-  {
-    goto LABEL_7;
-  }
-
-  result = memmove(a2, v5, v4);
-  a2[v4] = 0;
-  return result;
-}
-
-void google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::OneofDescriptor>(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v9 = *(*(a4 + 16) + 48);
-  *(a4 + 32) = &google::protobuf::_FeatureSet_default_instance_;
-  *(a4 + 40) = &google::protobuf::_FeatureSet_default_instance_;
-  if ((*(a1 + 96) & 1) == 0)
-  {
-    google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::FileDescriptor>(&v24);
-  }
-
-  if (!a5)
-  {
-    google::protobuf::FeatureSet::FeatureSet(v26, 0, &google::protobuf::_FeatureSet_default_instance_, a6);
-    if (a2 > 999)
-    {
-      goto LABEL_13;
-    }
-
-    goto LABEL_11;
-  }
-
-  if ((*(a5 + 40) & 1) == 0)
-  {
-    google::protobuf::FeatureSet::FeatureSet(v26, 0, &google::protobuf::_FeatureSet_default_instance_, a6);
-    if (a2 > 999)
-    {
-      goto LABEL_13;
-    }
-
-    goto LABEL_11;
-  }
-
-  v17 = google::protobuf::DescriptorPool::Tables::InternFeatureSet(*(a1 + 8), *(a5 + 72));
-  *(a4 + 32) = v17;
-  v19 = *(a5 + 72);
-  if (v19)
-  {
-    google::protobuf::FeatureSet::Clear(v19);
-    v17 = *(a4 + 32);
-  }
-
-  *(a5 + 40) &= ~1u;
-  google::protobuf::FeatureSet::FeatureSet(v26, 0, v17, v18);
-  if (a2 <= 999)
-  {
-LABEL_11:
-    if (*(a4 + 32) != &google::protobuf::_FeatureSet_default_instance_)
-    {
-      google::protobuf::DescriptorBuilder::AddError(a1, *(a4 + 8), a3, a8, "Features are only valid under editions.");
-    }
-  }
-
-LABEL_13:
-  if (google::protobuf::FeatureSet::ByteSizeLong(v26) || (a9 & 1) != 0)
-  {
-    google::protobuf::FeatureResolver::MergeFeatures((a1 + 24), v9, v26, &v24, v20);
-    if (v24 == 1)
-    {
-      *(a4 + 40) = google::protobuf::DescriptorPool::Tables::InternFeatureSet(*(a1 + 8), v25);
-    }
-
-    else
-    {
-      v22 = *(a4 + 8);
-      v23 = &v24;
-      google::protobuf::DescriptorBuilder::AddError(a1, v22, a3, a8, &v23, absl::lts_20240722::functional_internal::InvokeObject<void google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::OneofDescriptor>(google::protobuf::Edition,google::protobuf::OneofDescriptor::Proto const&,google::protobuf::OneofDescriptor::Proto*,google::protobuf::OneofDescriptor::Proto::OptionsType *,google::protobuf::internal::FlatAllocator &,google::protobuf::DescriptorPool::ErrorCollector::ErrorLocation,BOOL)::{lambda(void)#1},std::basic_string<char,std::basic_string::char_traits<char>,std::basic_string::allocator<char>>>);
-    }
-
-    if (v24 == 1)
-    {
-      google::protobuf::FeatureSet::~FeatureSet(v25);
-    }
-
-    else if ((v24 & 1) == 0)
-    {
-      absl::lts_20240722::status_internal::StatusRep::Unref(v24, v21);
-    }
-  }
-
-  else
-  {
-    *(a4 + 40) = v9;
-  }
-
-  google::protobuf::FeatureSet::~FeatureSet(v26);
-}
-
-void sub_23CD9D5D8(_Unwind_Exception *a1, absl::lts_20240722::cord_internal::CordRepBtree *a2, uint64_t a3, ...)
-{
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  absl::lts_20240722::StatusOr<google::protobuf::FeatureSet>::~StatusOr(va, a2);
-  google::protobuf::FeatureSet::~FeatureSet(va1);
-  _Unwind_Resume(a1);
-}
-
-void sub_23CD9D5F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  google::protobuf::FeatureSet::~FeatureSet(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_23CD9D60C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  google::protobuf::FeatureSet::~FeatureSet(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t **absl::lts_20240722::functional_internal::InvokeObject<void google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::OneofDescriptor>(google::protobuf::Edition,google::protobuf::OneofDescriptor::Proto const&,google::protobuf::OneofDescriptor::Proto*,google::protobuf::OneofDescriptor::Proto::OptionsType *,google::protobuf::internal::FlatAllocator &,google::protobuf::DescriptorPool::ErrorCollector::ErrorLocation,BOOL)::{lambda(void)#1},std::basic_string<char,std::basic_string::char_traits<char>,std::basic_string::allocator<char>>>@<X0>(uint64_t **result@<X0>, _BYTE *a2@<X8>)
-{
-  v3 = **result;
-  if (v3)
-  {
-    if ((v3 & 2) == 0)
-    {
-      a2[23] = 0;
-LABEL_7:
-      *a2 = 0;
-      return result;
-    }
-
-    goto LABEL_13;
-  }
-
-  v4 = *(v3 + 31);
-  if ((v4 & 0x8000000000000000) != 0)
-  {
-    v4 = *(v3 + 16);
-    if (v4 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      std::string::__throw_length_error[abi:ne200100]();
-    }
-
-    v5 = *(v3 + 8);
-    if (v4 < 0x17)
-    {
-      goto LABEL_11;
-    }
-
-LABEL_13:
-    operator new();
-  }
-
-  v5 = (v3 + 8);
-  if (v4 >= 0x17)
-  {
-    goto LABEL_13;
-  }
-
-LABEL_11:
-  a2[23] = v4;
-  if (!v4)
-  {
-    goto LABEL_7;
-  }
-
-  result = memmove(a2, v5, v4);
-  a2[v4] = 0;
-  return result;
-}
-
-void google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::Descriptor::ExtensionRange>(uint64_t a1, int a2, uint64_t a3, void *a4, uint64_t a5, double a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v9 = *(a4[2] + 48);
-  a4[3] = &google::protobuf::_FeatureSet_default_instance_;
-  a4[4] = &google::protobuf::_FeatureSet_default_instance_;
-  if ((*(a1 + 96) & 1) == 0)
-  {
-    google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::FileDescriptor>(&v24);
-  }
-
-  if (!a5)
-  {
-    google::protobuf::FeatureSet::FeatureSet(v26, 0, &google::protobuf::_FeatureSet_default_instance_, a6);
-    if (a2 > 999)
-    {
-      goto LABEL_13;
-    }
-
-    goto LABEL_11;
-  }
-
-  if ((*(a5 + 40) & 1) == 0)
-  {
-    google::protobuf::FeatureSet::FeatureSet(v26, 0, &google::protobuf::_FeatureSet_default_instance_, a6);
-    if (a2 > 999)
-    {
-      goto LABEL_13;
-    }
-
-    goto LABEL_11;
-  }
-
-  v17 = google::protobuf::DescriptorPool::Tables::InternFeatureSet(*(a1 + 8), *(a5 + 96));
-  a4[3] = v17;
-  v19 = *(a5 + 96);
-  if (v19)
-  {
-    google::protobuf::FeatureSet::Clear(v19);
-    v17 = a4[3];
-  }
-
-  *(a5 + 40) &= ~1u;
-  google::protobuf::FeatureSet::FeatureSet(v26, 0, v17, v18);
-  if (a2 <= 999)
-  {
-LABEL_11:
-    if (a4[3] != &google::protobuf::_FeatureSet_default_instance_)
-    {
-      google::protobuf::DescriptorBuilder::AddError(a1, *(a4[2] + 8), a3, a8, "Features are only valid under editions.");
-    }
-  }
-
-LABEL_13:
-  if (google::protobuf::FeatureSet::ByteSizeLong(v26) || (a9 & 1) != 0)
-  {
-    google::protobuf::FeatureResolver::MergeFeatures((a1 + 24), v9, v26, &v24, v20);
-    if (v24 == 1)
-    {
-      a4[4] = google::protobuf::DescriptorPool::Tables::InternFeatureSet(*(a1 + 8), v25);
-    }
-
-    else
-    {
-      v22 = *(a4[2] + 8);
-      v23 = &v24;
-      google::protobuf::DescriptorBuilder::AddError(a1, v22, a3, a8, &v23, absl::lts_20240722::functional_internal::InvokeObject<void google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::Descriptor::ExtensionRange>(google::protobuf::Edition,google::protobuf::Descriptor::ExtensionRange::Proto const&,google::protobuf::Descriptor::ExtensionRange::Proto*,google::protobuf::Descriptor::ExtensionRange::Proto::OptionsType *,google::protobuf::internal::FlatAllocator &,google::protobuf::DescriptorPool::ErrorCollector::ErrorLocation,BOOL)::{lambda(void)#1},std::basic_string<char,std::basic_string::char_traits<char>,std::basic_string::allocator<char>>>);
-    }
-
-    if (v24 == 1)
-    {
-      google::protobuf::FeatureSet::~FeatureSet(v25);
-    }
-
-    else if ((v24 & 1) == 0)
-    {
-      absl::lts_20240722::status_internal::StatusRep::Unref(v24, v21);
-    }
-  }
-
-  else
-  {
-    a4[4] = v9;
-  }
-
-  google::protobuf::FeatureSet::~FeatureSet(v26);
-}
-
-void sub_23CD9D90C(_Unwind_Exception *a1, absl::lts_20240722::cord_internal::CordRepBtree *a2, uint64_t a3, ...)
-{
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  absl::lts_20240722::StatusOr<google::protobuf::FeatureSet>::~StatusOr(va, a2);
-  google::protobuf::FeatureSet::~FeatureSet(va1);
-  _Unwind_Resume(a1);
-}
-
-void sub_23CD9D92C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  google::protobuf::FeatureSet::~FeatureSet(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_23CD9D940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  google::protobuf::FeatureSet::~FeatureSet(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t **absl::lts_20240722::functional_internal::InvokeObject<void google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::Descriptor::ExtensionRange>(google::protobuf::Edition,google::protobuf::Descriptor::ExtensionRange::Proto const&,google::protobuf::Descriptor::ExtensionRange::Proto*,google::protobuf::Descriptor::ExtensionRange::Proto::OptionsType *,google::protobuf::internal::FlatAllocator &,google::protobuf::DescriptorPool::ErrorCollector::ErrorLocation,BOOL)::{lambda(void)#1},std::basic_string<char,std::basic_string::char_traits<char>,std::basic_string::allocator<char>>>@<X0>(uint64_t **result@<X0>, _BYTE *a2@<X8>)
-{
-  v3 = **result;
-  if (v3)
-  {
-    if ((v3 & 2) == 0)
-    {
-      a2[23] = 0;
-LABEL_7:
-      *a2 = 0;
-      return result;
-    }
-
-    goto LABEL_13;
-  }
-
-  v4 = *(v3 + 31);
-  if ((v4 & 0x8000000000000000) != 0)
-  {
-    v4 = *(v3 + 16);
-    if (v4 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      std::string::__throw_length_error[abi:ne200100]();
-    }
-
-    v5 = *(v3 + 8);
-    if (v4 < 0x17)
-    {
-      goto LABEL_11;
-    }
-
-LABEL_13:
-    operator new();
-  }
-
-  v5 = (v3 + 8);
-  if (v4 >= 0x17)
-  {
-    goto LABEL_13;
-  }
-
-LABEL_11:
-  a2[23] = v4;
-  if (!v4)
-  {
-    goto LABEL_7;
-  }
-
-  result = memmove(a2, v5, v4);
-  a2[v4] = 0;
-  return result;
-}
-
-void google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::EnumDescriptor>(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v16 = *(a4 + 24);
-  if (v16)
-  {
-    v17 = *(v16 + 48);
-    *(a4 + 40) = &google::protobuf::_FeatureSet_default_instance_;
-    *(a4 + 48) = &google::protobuf::_FeatureSet_default_instance_;
-    if (*(a1 + 96))
-    {
-      goto LABEL_3;
-    }
-
-LABEL_8:
-    google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::FileDescriptor>(&v25);
-  }
-
-  v17 = *(*(a4 + 16) + 144);
-  *(a4 + 40) = &google::protobuf::_FeatureSet_default_instance_;
-  *(a4 + 48) = &google::protobuf::_FeatureSet_default_instance_;
-  if ((*(a1 + 96) & 1) == 0)
-  {
-    goto LABEL_8;
-  }
-
-LABEL_3:
-  if (!a5)
-  {
-    google::protobuf::FeatureSet::FeatureSet(v27, 0, &google::protobuf::_FeatureSet_default_instance_, a6);
-    if (a2 > 999)
-    {
-      goto LABEL_16;
-    }
-
-    goto LABEL_14;
-  }
-
-  if ((*(a5 + 40) & 1) == 0)
-  {
-    google::protobuf::FeatureSet::FeatureSet(v27, 0, &google::protobuf::_FeatureSet_default_instance_, a6);
-    if (a2 > 999)
-    {
-      goto LABEL_16;
-    }
-
-    goto LABEL_14;
-  }
-
-  v18 = google::protobuf::DescriptorPool::Tables::InternFeatureSet(*(a1 + 8), *(a5 + 72));
-  *(a4 + 40) = v18;
-  v20 = *(a5 + 72);
-  if (v20)
-  {
-    google::protobuf::FeatureSet::Clear(v20);
-    v18 = *(a4 + 40);
-  }
-
-  *(a5 + 40) &= ~1u;
-  google::protobuf::FeatureSet::FeatureSet(v27, 0, v18, v19);
-  if (a2 <= 999)
-  {
-LABEL_14:
-    if (*(a4 + 40) != &google::protobuf::_FeatureSet_default_instance_)
-    {
-      google::protobuf::DescriptorBuilder::AddError(a1, *(a4 + 8), a3, a8, "Features are only valid under editions.");
-    }
-  }
-
-LABEL_16:
-  if (google::protobuf::FeatureSet::ByteSizeLong(v27) || (a9 & 1) != 0)
-  {
-    google::protobuf::FeatureResolver::MergeFeatures((a1 + 24), v17, v27, &v25, v21);
-    if (v25 == 1)
-    {
-      *(a4 + 48) = google::protobuf::DescriptorPool::Tables::InternFeatureSet(*(a1 + 8), v26);
-    }
-
-    else
-    {
-      v23 = *(a4 + 8);
-      v24 = &v25;
-      google::protobuf::DescriptorBuilder::AddError(a1, v23, a3, a8, &v24, absl::lts_20240722::functional_internal::InvokeObject<void google::protobuf::DescriptorBuilder::ResolveFeaturesImpl<google::protobuf::EnumDescriptor>(google::protobuf::Edition,google::protobuf::EnumDescriptor::Proto const&,google::protobuf::EnumDescriptor::Proto*,google::protobuf::EnumDescriptor::Proto::OptionsType *,google::protobuf::internal::FlatAllocator &,google::protobuf::DescriptorPool::ErrorCollector::ErrorLocation,BOOL)::{lambda(void)#1},std::basic_string<char,std::basic_string::char_traits<char>,std::basic_string::allocator<char>>>);
-    }
-
-    if (v25 == 1)
-    {
-      google::protobuf::FeatureSet::~FeatureSet(v26);
-    }
-
-    else if ((v25 & 1) == 0)
-    {
-      absl::lts_20240722::status_internal::StatusRep::Unref(v25, v22);
-    }
-  }
-
-  else
-  {
-    *(a4 + 48) = v17;
-  }
-
-  google::protobuf::FeatureSet::~FeatureSet(v27);
 }

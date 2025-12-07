@@ -11,32 +11,32 @@
 
 - (id)newTextureByBindingIOSurface:(__IOSurface *)surface pixelFormat:(unint64_t)format width:(unint64_t)width height:(unint64_t)height usage:(unint64_t)usage plane:(unint64_t)plane error:(id *)error
 {
-  v30[1] = *MEMORY[0x277D85DE8];
-  v13 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], a2, format, width, height, 0);
-  v15 = v13;
+  v25[1] = *MEMORY[0x277D85DE8];
+  v13 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:format width:width height:height mipmapped:0];
+  v14 = v13;
   if (v13)
   {
-    objc_msgSend_setUsage_(v13, v14, usage);
-    v17 = objc_msgSend_newTextureWithDescriptor_iosurface_plane_(self->_device, v16, v15, surface, plane);
-    if (v17)
+    [v13 setUsage:usage];
+    v15 = [(MTLDevice *)self->_device newTextureWithDescriptor:v14 iosurface:surface plane:plane];
+    if (v15)
     {
-      v19 = v17;
-      v20 = v19;
+      v16 = v15;
+      v17 = v16;
     }
 
     else
     {
       if (error)
       {
-        v23 = MEMORY[0x277CCA9B8];
-        v27 = *MEMORY[0x277CBEE30];
-        v28 = @"Cannot create MTLTexture.";
-        v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v18, &v28, &v27, 1);
-        *error = objc_msgSend_errorWithDomain_code_userInfo_(v23, v25, @"MRCErrorDomain", -1, v24);
+        v19 = MEMORY[0x277CCA9B8];
+        v22 = *MEMORY[0x277CBEE30];
+        v23 = @"Cannot create MTLTexture.";
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+        *error = [v19 errorWithDomain:@"MRCErrorDomain" code:-1 userInfo:v20];
       }
 
-      v19 = 0;
-      v20 = 0;
+      v16 = 0;
+      v17 = 0;
     }
   }
 
@@ -44,58 +44,58 @@
   {
     if (!error)
     {
-      v20 = 0;
+      v17 = 0;
       goto LABEL_10;
     }
 
-    v21 = MEMORY[0x277CCA9B8];
-    v29 = *MEMORY[0x277CBEE30];
-    v30[0] = @"Cannot create MTLTextureDescriptor.";
-    v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v30, &v29, 1);
-    objc_msgSend_errorWithDomain_code_userInfo_(v21, v22, @"MRCErrorDomain", -1, v19);
-    *error = v20 = 0;
+    v18 = MEMORY[0x277CCA9B8];
+    v24 = *MEMORY[0x277CBEE30];
+    v25[0] = @"Cannot create MTLTextureDescriptor.";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    [v18 errorWithDomain:@"MRCErrorDomain" code:-1 userInfo:v16];
+    *error = v17 = 0;
   }
 
 LABEL_10:
-  return v20;
+  return v17;
 }
 
 - (id)newComputePipelineStateWithFunctionName:(id)name constantValues:(id)values error:(id *)error
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   valuesCopy = values;
   library = self->_library;
   if (!valuesCopy)
   {
-    v12 = objc_msgSend_newFunctionWithName_(library, v9, nameCopy);
-    if (!v12)
+    v11 = [(MTLLibrary *)library newFunctionWithName:nameCopy];
+    if (!v11)
     {
       if (!error)
       {
         goto LABEL_7;
       }
 
-      v16 = MEMORY[0x277CCA9B8];
-      v14 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v13, @"Cannot create MTLFunction named %@.", nameCopy, *MEMORY[0x277CBEE30]);
-      v21[0] = v14;
-      v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, v21, &v20, 1);
-      *error = objc_msgSend_errorWithDomain_code_userInfo_(v16, v19, @"MRCErrorDomain", -1, v18);
+      v14 = MEMORY[0x277CCA9B8];
+      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Cannot create MTLFunction named %@.", nameCopy, *MEMORY[0x277CBEE30]];
+      v17[0] = v12;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      *error = [v14 errorWithDomain:@"MRCErrorDomain" code:-1 userInfo:v15];
 
       error = 0;
       goto LABEL_6;
     }
 
 LABEL_5:
-    v14 = v12;
-    error = objc_msgSend_newComputePipelineStateWithFunction_error_(self->_device, v13, v12, error);
+    v12 = v11;
+    error = [(MTLDevice *)self->_device newComputePipelineStateWithFunction:v11 error:error];
 LABEL_6:
 
     goto LABEL_7;
   }
 
-  v12 = objc_msgSend_newFunctionWithName_constantValues_error_(library, v9, nameCopy, valuesCopy, error);
-  if (v12)
+  v11 = [(MTLLibrary *)library newFunctionWithName:nameCopy constantValues:valuesCopy error:error];
+  if (v11)
   {
     goto LABEL_5;
   }
@@ -109,10 +109,10 @@ LABEL_7:
 - (void)commitCommandBufferShouldWaitUntilCompleted:(BOOL)completed
 {
   completedCopy = completed;
-  objc_msgSend_commit(self->_currentCommandBuffer, a2, completed);
+  [(MTLCommandBuffer *)self->_currentCommandBuffer commit];
   if (completedCopy)
   {
-    objc_msgSend_waitUntilCompleted(self->_currentCommandBuffer, v5, v6);
+    [(MTLCommandBuffer *)self->_currentCommandBuffer waitUntilCompleted];
   }
 
   currentCommandBuffer = self->_currentCommandBuffer;
@@ -121,37 +121,37 @@ LABEL_7:
 
 - (id)beginCommandBufferWithError:(id *)error
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v5 = objc_msgSend_commandBuffer(self->_commandQueue, a2, error);
+  v13[1] = *MEMORY[0x277D85DE8];
+  commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
   currentCommandBuffer = self->_currentCommandBuffer;
-  self->_currentCommandBuffer = v5;
+  self->_currentCommandBuffer = commandBuffer;
 
-  v8 = self->_currentCommandBuffer;
-  if (v8)
+  v7 = self->_currentCommandBuffer;
+  if (v7)
   {
-    v9 = v8;
+    v8 = v7;
   }
 
   else if (error)
   {
-    v10 = MEMORY[0x277CCA9B8];
-    v14 = *MEMORY[0x277CBEE30];
-    v15[0] = @"Cannot create MTLCommandBuffer.";
-    v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v7, v15, &v14, 1);
-    *error = objc_msgSend_errorWithDomain_code_userInfo_(v10, v12, @"MRCErrorDomain", -1, v11);
+    v9 = MEMORY[0x277CCA9B8];
+    v12 = *MEMORY[0x277CBEE30];
+    v13[0] = @"Cannot create MTLCommandBuffer.";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    *error = [v9 errorWithDomain:@"MRCErrorDomain" code:-1 userInfo:v10];
   }
 
-  return v8;
+  return v7;
 }
 
 - (_MRCMetalContext)initWithDevice:(id)device libraryURL:(id)l error:(id *)error
 {
-  v58[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   lCopy = l;
-  v52.receiver = self;
-  v52.super_class = _MRCMetalContext;
-  v10 = [(_MRCMetalContext *)&v52 init];
+  v36.receiver = self;
+  v36.super_class = _MRCMetalContext;
+  v10 = [(_MRCMetalContext *)&v36 init];
   if (!v10)
   {
     goto LABEL_21;
@@ -170,14 +170,15 @@ LABEL_7:
   device = v10->_device;
   v10->_device = v11;
 
-  if (v10->_device)
+  v13 = v10->_device;
+  if (v13)
   {
     if (lCopy)
     {
 LABEL_7:
-      v15 = objc_msgSend_newLibraryWithURL_error_(v10->_device, v13, lCopy, error);
+      v14 = [(MTLDevice *)v13 newLibraryWithURL:lCopy error:error];
       library = v10->_library;
-      v10->_library = v15;
+      v10->_library = v14;
 LABEL_19:
 
       if (!v10->_library)
@@ -187,9 +188,9 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      v37 = objc_msgSend_newCommandQueue(v10->_device, v35, v36);
+      newCommandQueue = [(MTLDevice *)v10->_device newCommandQueue];
       commandQueue = v10->_commandQueue;
-      v10->_commandQueue = v37;
+      v10->_commandQueue = newCommandQueue;
 
       if (v10->_commandQueue)
       {
@@ -203,25 +204,29 @@ LABEL_21:
         goto LABEL_26;
       }
 
-      v17 = MEMORY[0x277CCA9B8];
-      v53 = *MEMORY[0x277CBEE30];
-      v54 = @"Cannot create MTLCommandQueue.";
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v39, &v54, &v53, 1);
-      v40 = LABEL_24:;
-      *error = objc_msgSend_errorWithDomain_code_userInfo_(v17, v41, @"MRCErrorDomain", -1, v40);
+      v16 = MEMORY[0x277CCA9B8];
+      v37 = *MEMORY[0x277CBEE30];
+      v38 = @"Cannot create MTLCommandQueue.";
+      v17 = MEMORY[0x277CBEAC0];
+      v18 = &v38;
+      v19 = &v37;
+LABEL_24:
+      v28 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:1];
+      *error = [v16 errorWithDomain:@"MRCErrorDomain" code:-1 userInfo:v28];
 
       goto LABEL_25;
     }
 
-    v18 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], v13, v14);
-    v20 = objc_msgSend_objectForKey_(v18, v19, @"_MRCMetalContextDefaultLibraryPath");
+    standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+    v21 = [standardUserDefaults objectForKey:@"_MRCMetalContextDefaultLibraryPath"];
 
-    if (v20 || (v21 = objc_alloc(MEMORY[0x277CBEBD0]), v23 = objc_msgSend_initWithSuiteName_(v21, v22, @"com.apple.Quagga"), objc_msgSend_objectForKey_(v23, v24, @"_MRCMetalContextDefaultLibraryPath"), v20 = objc_claimAutoreleasedReturnValue(), v23, v20)) && (objc_opt_class(), (objc_opt_isKindOfClass()) && objc_msgSend_length(v20, v25, v26))
+    if (v21 || (v22 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.Quagga"], objc_msgSend(v22, "objectForKey:", @"_MRCMetalContextDefaultLibraryPath"), v21 = objc_claimAutoreleasedReturnValue(), v22, v21)) && (objc_opt_class(), (objc_opt_isKindOfClass()) && objc_msgSend(v21, "length"))
     {
-      lCopy = objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v27, v20);
+      lCopy = [MEMORY[0x277CBEBC0] fileURLWithPath:v21];
 
       if (lCopy)
       {
+        v13 = v10->_device;
         goto LABEL_7;
       }
     }
@@ -230,10 +235,8 @@ LABEL_21:
     {
     }
 
-    v28 = MEMORY[0x277CCA8D8];
-    v29 = objc_opt_class();
-    v31 = objc_msgSend_bundleForClass_(v28, v30, v29);
-    if (!v31)
+    v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    if (!v23)
     {
       if (!error)
       {
@@ -241,24 +244,24 @@ LABEL_21:
         goto LABEL_26;
       }
 
-      v43 = MEMORY[0x277CCA9B8];
-      v55 = *MEMORY[0x277CBEE30];
-      v44 = MEMORY[0x277CCACA8];
-      v45 = objc_opt_class();
-      v46 = NSStringFromClass(v45);
-      v48 = objc_msgSend_stringWithFormat_(v44, v47, @"Cannot get bundle for class %@.", v46);
-      v56 = v48;
-      v50 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v49, &v56, &v55, 1);
-      *error = objc_msgSend_errorWithDomain_code_userInfo_(v43, v51, @"MRCErrorDomain", -1, v50);
+      v30 = MEMORY[0x277CCA9B8];
+      v39 = *MEMORY[0x277CBEE30];
+      v31 = MEMORY[0x277CCACA8];
+      v32 = objc_opt_class();
+      v33 = NSStringFromClass(v32);
+      v34 = [v31 stringWithFormat:@"Cannot get bundle for class %@.", v33];
+      v40 = v34;
+      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      *error = [v30 errorWithDomain:@"MRCErrorDomain" code:-1 userInfo:v35];
 
       lCopy = 0;
       goto LABEL_25;
     }
 
-    library = v31;
-    v33 = objc_msgSend_newDefaultLibraryWithBundle_error_(v10->_device, v32, v31, error);
-    v34 = v10->_library;
-    v10->_library = v33;
+    library = v23;
+    v24 = [(MTLDevice *)v10->_device newDefaultLibraryWithBundle:v23 error:error];
+    v25 = v10->_library;
+    v10->_library = v24;
 
     lCopy = 0;
     goto LABEL_19;
@@ -266,10 +269,12 @@ LABEL_21:
 
   if (error)
   {
-    v17 = MEMORY[0x277CCA9B8];
-    v57 = *MEMORY[0x277CBEE30];
-    v58[0] = @"Cannot create MTLDevice.";
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v58, &v57, 1);
+    v16 = MEMORY[0x277CCA9B8];
+    v41 = *MEMORY[0x277CBEE30];
+    v42[0] = @"Cannot create MTLDevice.";
+    v17 = MEMORY[0x277CBEAC0];
+    v18 = v42;
+    v19 = &v41;
     goto LABEL_24;
   }
 
@@ -280,7 +285,7 @@ LABEL_26:
 
 - (_MRCMetalContext)init
 {
-  result = objc_msgSend_doesNotRecognizeSelector_(self, a2, a2);
+  result = [(_MRCMetalContext *)self doesNotRecognizeSelector:a2];
   __break(1u);
   return result;
 }

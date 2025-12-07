@@ -15,6 +15,7 @@
 - (void)setClientInfo:(id)info;
 - (void)setMetricsOverlay:(id)overlay;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -104,6 +105,14 @@
   v3.super_class = AMSUISubscriptionsViewController;
   [(AMSUISubscriptionsViewController *)&v3 viewDidLoad];
   [(AMSUISubscriptionsViewController *)self _setup];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AMSUISubscriptionsViewController;
+  [(AMSUISubscriptionsViewController *)&v4 viewWillAppear:appear];
+  [(AMSUISubscriptionsViewController *)self _startLoading];
 }
 
 - (void)viewWillLayoutSubviews

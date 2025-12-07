@@ -1,11 +1,13 @@
 @interface NEFilterSocketFlow
 + (void)writeMessageWithControlSocket:(int)socket drop:(uint64_t)drop socketID:(uint64_t)d inboundPassOffset:(uint64_t)offset inboundPeekOffset:(uint64_t)peekOffset outboundPassOffset:(uint64_t)passOffset outboundPeekOffset:(uint64_t)outboundPeekOffset statsReportFrequency:;
+- (BOOL)createDataCompleteReply:(id)reply controlSocket:(int)socket direction:(int64_t)direction verdict:(id)verdict context:(id)context;
 - (BOOL)createDataReply:(id)reply controlSocket:(int)socket direction:(int64_t)direction verdict:(id)verdict context:(id)context;
 - (BOOL)createNewFlowReply:(id)reply controlSocket:(int)socket verdict:(id)verdict context:(id)context;
 - (NEFilterSocketFlow)initWithCoder:(id)coder;
 - (NWEndpoint)localEndpoint;
 - (NWEndpoint)remoteEndpoint;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)identifier;
 - (id)identifierString;
 - (void)encodeWithCoder:(id)coder;
@@ -16,6 +18,26 @@
 @end
 
 @implementation NEFilterSocketFlow
+
+- (BOOL)createDataCompleteReply:(id)reply controlSocket:(int)socket direction:(int64_t)direction verdict:(id)verdict context:(id)context
+{
+  v9 = *&socket;
+  contextCopy = context;
+  replyCopy = reply;
+  if ([verdict drop])
+  {
+    +[NEFilterDataVerdict dropVerdict];
+  }
+
+  else
+  {
+    +[NEFilterDataVerdict allowVerdict];
+  }
+  v14 = ;
+  v15 = [(NEFilterSocketFlow *)self createDataReply:replyCopy controlSocket:v9 direction:direction verdict:v14 context:contextCopy];
+
+  return v15;
+}
 
 - (BOOL)createDataReply:(id)reply controlSocket:(int)socket direction:(int64_t)direction verdict:(id)verdict context:(id)context
 {
@@ -56,14 +78,14 @@
 
 + (void)writeMessageWithControlSocket:(int)socket drop:(uint64_t)drop socketID:(uint64_t)d inboundPassOffset:(uint64_t)offset inboundPeekOffset:(uint64_t)peekOffset outboundPassOffset:(uint64_t)passOffset outboundPeekOffset:(uint64_t)outboundPeekOffset statsReportFrequency:
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   if (a2 < 0)
   {
-    goto LABEL_14;
+    return;
   }
 
-  v26 = 0x100000040;
+  v25 = 0x100000040;
   if (socket)
   {
     v16 = 17;
@@ -74,14 +96,14 @@
     v16 = 16;
   }
 
-  v27 = 2;
-  v28 = v16;
+  v26 = 2;
+  v27 = v16;
   dropCopy = drop;
   dCopy = d;
   offsetCopy = offset;
   peekOffsetCopy = peekOffset;
   passOffsetCopy = passOffset;
-  v34 = 0;
+  v33 = 0;
   objc_opt_self();
   if ((outboundPeekOffset - 1) > 2)
   {
@@ -94,10 +116,10 @@
   }
 
   v18 = 0;
-  LODWORD(v34) = v17;
+  LODWORD(v33) = v17;
   while (1)
   {
-    v19 = write(a2, &v26 + v18, 64 - v18);
+    v19 = write(a2, &v25 + v18, 64 - v18);
     if (v19 < 1)
     {
       break;
@@ -107,7 +129,7 @@
 LABEL_13:
     if (v18 > 0x3F)
     {
-      goto LABEL_14;
+      return;
     }
   }
 
@@ -116,68 +138,65 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v21 = *__error();
-  v22 = ne_log_obj();
-  v23 = v22;
-  if (v21 == 22)
+  v20 = *__error();
+  v21 = ne_log_obj();
+  v22 = v21;
+  if (v20 == 22)
   {
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      v36 = v28;
-      _os_log_debug_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_DEBUG, "Sent a %d message for a non-existent socket", buf, 8u);
+      v35 = v27;
+      _os_log_debug_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_DEBUG, "Sent a %d message for a non-existent socket", buf, 8u);
     }
   }
 
-  else if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
-    v24 = v28;
-    v25 = strerror(v21);
+    v23 = v27;
+    v24 = strerror(v20);
     *buf = 67109378;
-    v36 = v24;
-    v37 = 2080;
-    v38 = v25;
-    _os_log_error_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_ERROR, "Write operation on the control socket failed while sending a %d message (%s)", buf, 0x12u);
+    v35 = v23;
+    v36 = 2080;
+    v37 = v24;
+    _os_log_error_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_ERROR, "Write operation on the control socket failed while sending a %d message (%s)", buf, 0x12u);
   }
-
-LABEL_14:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeXPCMessage:(int)message drop:(uint64_t)drop inboundPassOffset:(uint64_t)offset inboundPeekOffset:(uint64_t)peekOffset outboundPassOffset:(uint64_t)passOffset outboundPeekOffset:(uint64_t)outboundPeekOffset statsReportFrequency:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v15 = a2;
   v16 = ne_log_obj();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     Property = objc_getProperty(self, v17, 128, 1);
-    v24 = "allow";
-    *v25 = 138413570;
-    *&v25[4] = Property;
-    *&v25[12] = 2080;
+    v23 = "allow";
+    *v24 = 138413570;
+    *&v24[4] = Property;
+    *&v24[12] = 2080;
     if (message)
     {
-      v24 = "drop";
+      v23 = "drop";
     }
 
-    *&v25[14] = v24;
-    v26 = 2048;
+    *&v24[14] = v23;
+    v25 = 2048;
     dropCopy = drop;
-    v28 = 2048;
+    v27 = 2048;
     offsetCopy = offset;
-    v30 = 2048;
+    v29 = 2048;
     peekOffsetCopy = peekOffset;
-    v32 = 2048;
+    v31 = 2048;
     passOffsetCopy = passOffset;
-    _os_log_debug_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEBUG, "%@ send verdict: %s, in (%lld/%lld), out (%lld/%lld)", v25, 0x3Eu);
+    _os_log_debug_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEBUG, "%@ send verdict: %s, in (%lld/%lld), out (%lld/%lld)", v24, 0x3Eu);
   }
 
-  *v25 = 0;
-  *&v25[8] = 0;
-  uuid_clear(v25);
+  *v24 = 0;
+  *&v24[8] = 0;
+  uuid_clear(v24);
   [objc_getProperty(self v18];
-  xpc_dictionary_set_uuid(v15, "flow-uuid", v25);
+  xpc_dictionary_set_uuid(v15, "flow-uuid", v24);
   v19 = 3;
   if ((peekOffset & drop) == 0xFFFFFFFFFFFFFFFFLL)
   {
@@ -207,13 +226,11 @@ LABEL_14:
   }
 
   xpc_dictionary_set_uint64(v15, "stats-report-frequency", v21);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)createNewFlowReply:(id)reply controlSocket:(int)socket verdict:(id)verdict context:(id)context
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   verdictCopy = verdict;
   contextCopy = context;
@@ -310,14 +327,13 @@ LABEL_13:
   {
     identifierString = [(NEFilterSocketFlow *)self identifierString];
     *buf = 138412290;
-    v36 = identifierString;
+    v35 = identifierString;
     _os_log_debug_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_DEBUG, "Dropping new flow %@", buf, 0xCu);
   }
 
   v22 = 1;
 LABEL_22:
 
-  v32 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -385,7 +401,7 @@ LABEL_7:
 
 void __32__NEFilterSocketFlow_identifier__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   memset(dst, 0, sizeof(dst));
   uuid_copy(dst, "؛[]y<I@");
   *&dst[8] = *(a1 + 40);
@@ -393,8 +409,57 @@ void __32__NEFilterSocketFlow_identifier__block_invoke(uint64_t a1)
   v3 = *(a1 + 32);
   v4 = *(v3 + 208);
   *(v3 + 208) = v2;
+}
 
-  v5 = *MEMORY[0x1E69E9840];
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v18.receiver = self;
+  v18.super_class = NEFilterSocketFlow;
+  v7 = [NEFilterFlow descriptionWithIndent:sel_descriptionWithIndent_options_ options:?];
+  if (self)
+  {
+    if (self->_socketID == -1)
+    {
+      goto LABEL_5;
+    }
+
+    v8 = objc_alloc(MEMORY[0x1E696AEC0]);
+    socketID = self->_socketID;
+  }
+
+  else
+  {
+    v8 = objc_alloc(MEMORY[0x1E696AEC0]);
+    socketID = 0;
+  }
+
+  socketID = [v8 initWithFormat:@"%llx", socketID];
+  [v7 appendPrettyObject:socketID withName:@"socketID" andIndent:v5 options:options];
+
+LABEL_5:
+  localFlowEndpoint = [(NEFilterSocketFlow *)self localFlowEndpoint];
+  [v7 appendPrettyObject:localFlowEndpoint withName:@"localEndpoint" andIndent:v5 options:options | 1];
+
+  remoteFlowEndpoint = [(NEFilterSocketFlow *)self remoteFlowEndpoint];
+  [v7 appendPrettyObject:remoteFlowEndpoint withName:@"remoteEndpoint" andIndent:v5 options:options | 1];
+
+  remoteHostname = [(NEFilterSocketFlow *)self remoteHostname];
+  [v7 appendPrettyObject:remoteHostname withName:@"remoteHostname" andIndent:v5 options:options | 1];
+
+  [v7 appendPrettyInt:-[NEFilterSocketFlow socketProtocol](self withName:"socketProtocol") andIndent:@"protocol" options:{v5, options}];
+  [v7 appendPrettyInt:-[NEFilterSocketFlow socketFamily](self withName:"socketFamily") andIndent:@"family" options:{v5, options}];
+  [v7 appendPrettyInt:-[NEFilterSocketFlow socketType](self withName:"socketType") andIndent:@"type" options:{v5, options}];
+  uuid = [(NEFilterSocketFlow *)self uuid];
+  [v7 appendPrettyObject:uuid withName:@"procUUID" andIndent:v5 options:options];
+
+  euuid = [(NEFilterSocketFlow *)self euuid];
+  [v7 appendPrettyObject:euuid withName:@"eprocUUID" andIndent:v5 options:options];
+
+  ruuid = [(NEFilterSocketFlow *)self ruuid];
+  [v7 appendPrettyObject:ruuid withName:@"rprocUUID" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (NWEndpoint)localEndpoint
@@ -600,12 +665,15 @@ LABEL_3:
     {
       v5 = result;
       v6 = nw_endpoint_create_address(address);
+      v7 = v6;
       if (v6)
       {
-        [v5 setRemoteFlowEndpoint:v6];
+        v8 = v6;
+        v6 = [v5 setRemoteFlowEndpoint:v6];
+        v7 = v8;
       }
 
-      return MEMORY[0x1EEE66BB8]();
+      return MEMORY[0x1EEE66BB8](v6, v7);
     }
   }
 
@@ -621,12 +689,15 @@ LABEL_3:
     {
       v5 = result;
       v6 = nw_endpoint_create_address(address);
+      v7 = v6;
       if (v6)
       {
-        [v5 setLocalFlowEndpoint:v6];
+        v8 = v6;
+        v6 = [v5 setLocalFlowEndpoint:v6];
+        v7 = v8;
       }
 
-      return MEMORY[0x1EEE66BB8]();
+      return MEMORY[0x1EEE66BB8](v6, v7);
     }
   }
 

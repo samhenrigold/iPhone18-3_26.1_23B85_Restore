@@ -57,7 +57,7 @@
 
 - (NSUUID)identifier
 {
-  v3 = sub_1000CE6B8(&unk_101918E50);
+  v3 = sub_1000CE6B8(&unk_101918E50, &unk_1011E4770);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   selfCopy = self;
@@ -79,7 +79,7 @@
 
 - (void)setIdentifier:(id)identifier
 {
-  v5 = sub_1000CE6B8(&unk_101918E50);
+  v5 = sub_1000CE6B8(&unk_101918E50, &unk_1011E4770);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v8);
@@ -97,10 +97,10 @@
     (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
   }
 
-  sub_1000D2DFC(v10, v7, &unk_101918E50);
+  sub_1000D2DFC(v10, v7, &unk_101918E50, &unk_1011E4770);
   selfCopy = self;
   dispatch thunk of MapsSyncObject.identifier.setter();
-  sub_100024F64(v10, &unk_101918E50);
+  sub_100024F64(v10, &unk_101918E50, &unk_1011E4770);
 }
 
 - (GEOMapItemStorage)mapItemStorage
@@ -120,7 +120,7 @@
 
 - (NSDate)createTime
 {
-  v3 = sub_1000CE6B8(&qword_10190EBD0);
+  v3 = sub_1000CE6B8(&qword_10190EBD0, &unk_1011F0880);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   selfCopy = self;
@@ -142,7 +142,7 @@
 
 - (void)setCreateTime:(id)time
 {
-  v5 = sub_1000CE6B8(&qword_10190EBD0);
+  v5 = sub_1000CE6B8(&qword_10190EBD0, &unk_1011F0880);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v8);
@@ -160,10 +160,10 @@
     (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
   }
 
-  sub_1000D2DFC(v10, v7, &qword_10190EBD0);
+  sub_1000D2DFC(v10, v7, &qword_10190EBD0, &unk_1011F0880);
   selfCopy = self;
   dispatch thunk of MapsSyncObject.createTime.setter();
-  sub_100024F64(v10, &qword_10190EBD0);
+  sub_100024F64(v10, &qword_10190EBD0, &unk_1011F0880);
 }
 
 - (NSNumber)latitude

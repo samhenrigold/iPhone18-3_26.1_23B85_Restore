@@ -28,138 +28,136 @@
   v31 = *MEMORY[0x1E69E9840];
   queriesCopy = queries;
   connectionCopy = connection;
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  if ([__LSDefaultsGetSharedInstance(connectionCopy v11)])
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"LSQueryContext.mm" lineNumber:338 description:@"Hit the client-side query resolution codepath from within lsd! This is a serious bug! Please file a radar against Launch Services."];
   }
 
-  v11 = [MEMORY[0x1E695DFA8] set];
+  v12 = [MEMORY[0x1E695DFA8] set];
   v28 = 0u;
   v29 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v12 = queriesCopy;
-  v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
-  if (v13)
+  v13 = queriesCopy;
+  v14 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v14)
   {
-    v14 = *v27;
+    v15 = *v27;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v27 != v14)
+        if (*v27 != v15)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v13);
         }
 
-        v16 = *(*(&v26 + 1) + 8 * i);
-        if ([v16 _canResolveLocallyWithoutMappingDatabase])
+        v17 = *(*(&v26 + 1) + 8 * i);
+        if ([v17 _canResolveLocallyWithoutMappingDatabase])
         {
-          [v11 addObject:v16];
+          [v12 addObject:v17];
         }
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 
-  if ([v11 count])
+  if ([v12 count])
   {
     localResolver = self->_localResolver;
     v25 = 0;
-    v18 = [(_LSLocalQueryResolver *)localResolver _resolveQueries:v11 XPCConnection:connectionCopy error:&v25];
-    v19 = v25;
-    v20 = v19;
-    if (error && !v18)
+    v19 = [(_LSLocalQueryResolver *)localResolver _resolveQueries:v12 XPCConnection:connectionCopy error:&v25];
+    v20 = v25;
+    v21 = v20;
+    if (error && !v19)
     {
-      v21 = v19;
-      v18 = 0;
-      *error = v20;
+      v22 = v20;
+      v19 = 0;
+      *error = v21;
     }
   }
 
   else
   {
-    v20 = 0;
-    v18 = MEMORY[0x1E695E0F8];
+    v21 = 0;
+    v19 = MEMORY[0x1E695E0F8];
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v19;
 }
 
 - (id)resolveExpensiveRemoteQueriesInSet:(id)set XPCConnection:(id)connection error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   setCopy = set;
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  if ([__LSDefaultsGetSharedInstance(v7 v8)])
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"LSQueryContext.mm" lineNumber:372 description:@"Hit the client-side remote-expensive query resolution codepath from within lsd! This is a serious bug! Please file a radar against Launch Services."];
   }
 
+  v26 = 0u;
+  v27 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v8 = setCopy;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v28 count:16];
-  if (v9)
+  v9 = setCopy;
+  v10 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  if (v10)
   {
-    v10 = 0;
-    v11 = *v23;
+    v11 = 0;
+    v12 = *v25;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v25 != v12)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
-        if ([v13 _remoteResolutionIsExpensive])
+        v14 = *(*(&v24 + 1) + 8 * i);
+        _remoteResolutionIsExpensive = [v14 _remoteResolutionIsExpensive];
+        if (_remoteResolutionIsExpensive)
         {
-          if ((v10 & 1) == 0)
+          if ((v11 & 1) == 0)
           {
-            __LAUNCH_SERVICES_IS_FAULTING_BECAUSE_THIS_PROCESS_IS_USING_VERY_EXPENSIVE_SPI__();
+            __LAUNCH_SERVICES_IS_FAULTING_BECAUSE_THIS_PROCESS_IS_USING_VERY_EXPENSIVE_SPI__(_remoteResolutionIsExpensive);
           }
 
-          v21 = 0;
-          v14 = [v13 resolveExpensiveQueryRemotelyUsingResolver:self error:&v21];
-          v15 = v21;
-          if (v14)
+          v23 = 0;
+          v16 = [v14 resolveExpensiveQueryRemotelyUsingResolver:self error:&v23];
+          v17 = v23;
+          v18 = v17;
+          if (v16)
           {
-            [v7 setObject:v14 forKeyedSubscript:v13];
+            [v7 setObject:v16 forKeyedSubscript:v14];
           }
 
           else
           {
-            v16 = _LSDefaultLog();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+            v19 = _LSDefaultLog(v17);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412290;
-              v27 = v15;
-              _os_log_fault_impl(&dword_18162D000, v16, OS_LOG_TYPE_FAULT, "Could not resolve expensive query remotely! This may lead to lsd jetsams! %@", buf, 0xCu);
+              v29 = v18;
+              _os_log_fault_impl(&dword_18162D000, v19, OS_LOG_TYPE_FAULT, "Could not resolve expensive query remotely! This may lead to lsd jetsams! %@", buf, 0xCu);
             }
           }
 
-          v10 = 1;
+          v11 = 1;
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
-    while (v9);
+    while (v10);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -268,18 +266,19 @@ LABEL_11:
       while (1)
       {
         v29[2](v29);
-        if (!_LSNSErrorIsXPCConnectionInterrupted(*(v49[0] + 40)))
+        IsXPCConnectionInterrupted = _LSNSErrorIsXPCConnectionInterrupted(*(v49[0] + 40));
+        if (!IsXPCConnectionInterrupted)
         {
           break;
         }
 
-        v31 = _LSDefaultLog();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v32 = _LSDefaultLog(IsXPCConnectionInterrupted);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          [(_LSXPCQueryResolver *)buf _resolveQueries:v49 XPCConnection:&v58 error:v31];
+          [(_LSXPCQueryResolver *)buf _resolveQueries:v49 XPCConnection:&v58 error:v32];
         }
 
-        v32 = *(v49[0] + 40);
+        v33 = *(v49[0] + 40);
         *(v49[0] + 40) = 0;
 
         if (++v30 == 5)
@@ -290,10 +289,10 @@ LABEL_11:
 
       if (v30)
       {
-        v33 = _LSDefaultLog();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+        v34 = _LSDefaultLog(IsXPCConnectionInterrupted);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
         {
-          [_LSXPCQueryResolver _resolveQueries:v30 XPCConnection:v33 error:?];
+          [_LSXPCQueryResolver _resolveQueries:v30 XPCConnection:v34 error:?];
         }
       }
 
@@ -309,13 +308,12 @@ LABEL_27:
     v18 = v52[5];
   }
 
-  v34 = v18;
+  v35 = v18;
   _Block_object_dispose(&v48, 8);
 
   _Block_object_dispose(&v51, 8);
-  v35 = *MEMORY[0x1E69E9840];
 
-  return v34;
+  return v35;
 }
 
 - (void)_enumerateResolvedResultsOfQuery:(id)query XPCConnection:(id)connection withBlock:(id)block
@@ -348,11 +346,10 @@ LABEL_27:
 
 - (void)_resolveQueries:(int)a1 XPCConnection:(NSObject *)a2 error:.cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Got result for query with attempt %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Got result for query with attempt %d", v2, 8u);
 }
 
 - (void)_resolveQueries:(void *)a3 XPCConnection:(os_log_t)log error:.cold.2(uint8_t *buf, uint64_t a2, void *a3, os_log_t log)

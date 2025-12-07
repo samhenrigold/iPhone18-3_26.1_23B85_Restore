@@ -26,6 +26,7 @@
 - (void)_stConversationCommonInitWithBundleIdentifier:(id)identifier contactStore:(id)store completionHandler:(id)handler;
 - (void)_stConversationCommonInitWithThirdPartyBundleIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)_updateAllContextsForNewWhileLimitedPolicyOrWhitelist;
+- (void)_updateAllContextsUpdateGeneral:(BOOL)general updateLimited:(BOOL)limited updateCurrentApplicationState:(BOOL)state updateAllowedByContactsHandle:(BOOL)handle refreshContacts:(BOOL)contacts refreshWhitelist:(BOOL)whitelist updateEmergencyMode:(BOOL)mode;
 - (void)_updateAllThirdPartyContexts;
 - (void)_updateContext:(id)context forHandles:(id)handles updateGeneral:(BOOL)general updateLimited:(BOOL)limited updateCurrentApplicationState:(BOOL)state updateAllowedByContactsHandle:(BOOL)handle refreshContacts:(BOOL)contacts refreshWhitelist:(BOOL)self0 updateEmergencyMode:(BOOL)self1;
 - (void)_updateThirdPartyContext:(id)context forHandles:(id)handles;
@@ -113,19 +114,19 @@
 
 - (id)initSynchronouslyWithBundleIdentifier:(id)identifier
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   communicationBundleIdentifiers = [MEMORY[0x1E6999F50] communicationBundleIdentifiers];
   if ([communicationBundleIdentifiers containsObject:identifierCopy])
   {
-    v47.receiver = self;
-    v47.super_class = STConversation;
-    v6 = [(STConversation *)&v47 init];
+    v46.receiver = self;
+    v46.super_class = STConversation;
+    v6 = [(STConversation *)&v46 init];
     v7 = +[STLog conversation];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v49 = identifierCopy;
+      v48 = identifierCopy;
       _os_log_impl(&dword_1B831F000, v7, OS_LOG_TYPE_DEFAULT, "Initializing STConversation synchronously for bundle identifier: %{public}@", buf, 0xCu);
     }
 
@@ -133,9 +134,9 @@
     [(STConversation *)v6 _stConversationCommonInitWithBundleIdentifier:identifierCopy contactStore:v8 completionHandler:0];
 
     managementState = v6->_managementState;
-    v46 = 0;
-    v10 = [(STManagementState *)managementState communicationPoliciesWithError:&v46];
-    v11 = v46;
+    v45 = 0;
+    v10 = [(STManagementState *)managementState communicationPoliciesWithError:&v45];
+    v11 = v45;
     if (v10)
     {
       v12 = [v10 objectForKeyedSubscript:0x1F3048DC0];
@@ -148,9 +149,9 @@
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218240;
-        v49 = longLongValue;
-        v50 = 2048;
-        v51 = longLongValue2;
+        v48 = longLongValue;
+        v49 = 2048;
+        v50 = longLongValue2;
         _os_log_impl(&dword_1B831F000, v16, OS_LOG_TYPE_DEFAULT, "Fetched initial communication policies. General policy: %lld. While limited policy: %lld.", buf, 0x16u);
       }
 
@@ -168,9 +169,9 @@
     }
 
     communicationPolicyMonitor = v6->_communicationPolicyMonitor;
-    v45 = v11;
-    v20 = [(DMFCommunicationPolicyMonitor *)communicationPolicyMonitor requestPoliciesByBundleIdentifierWithError:&v45];
-    v21 = v45;
+    v44 = v11;
+    v20 = [(DMFCommunicationPolicyMonitor *)communicationPolicyMonitor requestPoliciesByBundleIdentifierWithError:&v44];
+    v21 = v44;
 
     if (v20)
     {
@@ -183,9 +184,9 @@
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v49 = identifierCopy;
-          v50 = 2048;
-          v51 = unsignedIntegerValue;
+          v48 = identifierCopy;
+          v49 = 2048;
+          v50 = unsignedIntegerValue;
           _os_log_impl(&dword_1B831F000, v25, OS_LOG_TYPE_DEFAULT, "Fetched initial %{public}@ application state: %lu", buf, 0x16u);
         }
 
@@ -197,7 +198,7 @@
         v26 = +[STLog conversation];
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          [(STConversation *)identifierCopy initSynchronouslyWithBundleIdentifier:v6];
+          [STConversation initSynchronouslyWithBundleIdentifier:];
         }
       }
     }
@@ -212,9 +213,9 @@
     }
 
     emergencyModeMonitor = v6->_emergencyModeMonitor;
-    v44 = v21;
-    v28 = [(DMFEmergencyModeMonitor *)emergencyModeMonitor emergencyModeStatusWithError:&v44];
-    v29 = v44;
+    v43 = v21;
+    v28 = [(DMFEmergencyModeMonitor *)emergencyModeMonitor emergencyModeStatusWithError:&v43];
+    v29 = v43;
 
     if (v28)
     {
@@ -225,7 +226,7 @@
       if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v49) = v31 > 0.0;
+        LODWORD(v48) = v31 > 0.0;
         _os_log_impl(&dword_1B831F000, v33, OS_LOG_TYPE_DEFAULT, "Fetched initial emergency mode status: %d", buf, 8u);
       }
 
@@ -242,9 +243,9 @@
     }
 
     v35 = v6->_managementState;
-    v43 = v29;
-    v36 = [(STManagementState *)v35 managingGuardianAppleIDsForLocalUserWithError:&v43];
-    v37 = v43;
+    v42 = v29;
+    v36 = [(STManagementState *)v35 managingGuardianAppleIDsForLocalUserWithError:&v42];
+    v37 = v42;
 
     v38 = +[STLog conversation];
     p_super = v38;
@@ -253,7 +254,7 @@
       if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138477827;
-        v49 = v36;
+        v48 = v36;
         _os_log_impl(&dword_1B831F000, p_super, OS_LOG_TYPE_DEFAULT, "Fetched managing guardian Apple IDs: %{private}@", buf, 0xCu);
       }
 
@@ -276,32 +277,31 @@
     v17 = [(STConversation *)self initSynchronouslyWithThirdPartyBundleIdentifier:identifierCopy];
   }
 
-  v41 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (id)initSynchronouslyWithThirdPartyBundleIdentifier:(id)identifier
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v20.receiver = self;
-  v20.super_class = STConversation;
-  v5 = [(STConversation *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = STConversation;
+  v5 = [(STConversation *)&v19 init];
   v6 = +[STLog conversation];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v22 = identifierCopy;
+    v21 = identifierCopy;
     _os_log_impl(&dword_1B831F000, v6, OS_LOG_TYPE_DEFAULT, "Initializing STConversation synchronously for third party bundle identifier: %{public}@", buf, 0xCu);
   }
 
   [(STConversation *)v5 _stConversationCommonInitWithThirdPartyBundleIdentifier:identifierCopy completionHandler:0];
   thirdPartyApplicationPolicyMonitor = v5->_thirdPartyApplicationPolicyMonitor;
-  v25[0] = identifierCopy;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
-  v19 = 0;
-  v9 = [(DMFApplicationPolicyMonitor *)thirdPartyApplicationPolicyMonitor requestPoliciesForBundleIdentifiers:v8 withError:&v19];
-  v10 = v19;
+  v24[0] = identifierCopy;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+  v18 = 0;
+  v9 = [(DMFApplicationPolicyMonitor *)thirdPartyApplicationPolicyMonitor requestPoliciesForBundleIdentifiers:v8 withError:&v18];
+  v10 = v18;
 
   if (v9)
   {
@@ -314,9 +314,9 @@
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v22 = identifierCopy;
-        v23 = 2048;
-        v24 = integerValue;
+        v21 = identifierCopy;
+        v22 = 2048;
+        v23 = integerValue;
         _os_log_impl(&dword_1B831F000, v14, OS_LOG_TYPE_DEFAULT, "Fetched initial %{public}@ application state: %ld", buf, 0x16u);
       }
 
@@ -328,7 +328,7 @@
       v15 = +[STLog conversation];
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [(STConversation *)identifierCopy initSynchronouslyWithThirdPartyBundleIdentifier:v5];
+        [STConversation initSynchronouslyWithThirdPartyBundleIdentifier:];
       }
     }
   }
@@ -343,73 +343,71 @@
   }
 
   v16 = v5;
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (STConversation)initWithBundleIdentifier:(id)identifier contactStore:(id)store completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v35.receiver = self;
-  v35.super_class = STConversation;
+  v34.receiver = self;
+  v34.super_class = STConversation;
   handlerCopy = handler;
   storeCopy = store;
-  v11 = [(STConversation *)&v35 init];
+  v11 = [(STConversation *)&v34 init];
   v12 = +[STLog conversation];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v37 = identifierCopy;
+    v36 = identifierCopy;
     _os_log_impl(&dword_1B831F000, v12, OS_LOG_TYPE_DEFAULT, "Initializing STConversation asynchronously for bundle identifier: %{public}@", buf, 0xCu);
   }
 
   [(STConversation *)v11 _stConversationCommonInitWithBundleIdentifier:identifierCopy contactStore:storeCopy completionHandler:handlerCopy];
   managementState = v11->_managementState;
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __74__STConversation_initWithBundleIdentifier_contactStore_completionHandler___block_invoke;
-  v33[3] = &unk_1E7CE7268;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __74__STConversation_initWithBundleIdentifier_contactStore_completionHandler___block_invoke;
+  v32[3] = &unk_1E7CE7268;
   v14 = v11;
-  v34 = v14;
-  [(STManagementState *)managementState communicationPoliciesWithCompletionHandler:v33];
+  v33 = v14;
+  [(STManagementState *)managementState communicationPoliciesWithCompletionHandler:v32];
   communicationPolicyMonitor = v14->_communicationPolicyMonitor;
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __74__STConversation_initWithBundleIdentifier_contactStore_completionHandler___block_invoke_71;
-  v30[3] = &unk_1E7CE7290;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __74__STConversation_initWithBundleIdentifier_contactStore_completionHandler___block_invoke_71;
+  v29[3] = &unk_1E7CE7290;
   v16 = v14;
-  v31 = v16;
-  v32 = identifierCopy;
+  v30 = v16;
+  v31 = identifierCopy;
   v17 = identifierCopy;
-  [(DMFCommunicationPolicyMonitor *)communicationPolicyMonitor requestPoliciesByBundleIdentifierWithCompletionHandler:v30];
+  [(DMFCommunicationPolicyMonitor *)communicationPolicyMonitor requestPoliciesByBundleIdentifierWithCompletionHandler:v29];
   emergencyModeMonitor = v16->_emergencyModeMonitor;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __74__STConversation_initWithBundleIdentifier_contactStore_completionHandler___block_invoke_73;
-  v28[3] = &unk_1E7CE72B8;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __74__STConversation_initWithBundleIdentifier_contactStore_completionHandler___block_invoke_73;
+  v27[3] = &unk_1E7CE72B8;
   v19 = v16;
-  v29 = v19;
-  [(DMFEmergencyModeMonitor *)emergencyModeMonitor emergencyModeStatusWithCompletionHandler:v28];
+  v28 = v19;
+  [(DMFEmergencyModeMonitor *)emergencyModeMonitor emergencyModeStatusWithCompletionHandler:v27];
   v20 = v11->_managementState;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __74__STConversation_initWithBundleIdentifier_contactStore_completionHandler___block_invoke_75;
-  v26[3] = &unk_1E7CE72E0;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __74__STConversation_initWithBundleIdentifier_contactStore_completionHandler___block_invoke_75;
+  v25[3] = &unk_1E7CE72E0;
   v21 = v19;
-  v27 = v21;
-  [(STManagementState *)v20 managingGuardianAppleIDsForLocalUserWithCompletionHandler:v26];
+  v26 = v21;
+  [(STManagementState *)v20 managingGuardianAppleIDsForLocalUserWithCompletionHandler:v25];
   [(STConversation *)v21 _stConversationCommonInitSetupObservationOfStateChanges];
-  v22 = v27;
+  v22 = v26;
   v23 = v21;
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 void __74__STConversation_initWithBundleIdentifier_contactStore_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = +[STLog conversation];
   v9 = v8;
@@ -430,16 +428,16 @@ void __74__STConversation_initWithBundleIdentifier_contactStore_completionHandle
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v14 = a2;
-      v15 = 2048;
-      v16 = a3;
+      v13 = a2;
+      v14 = 2048;
+      v15 = a3;
       _os_log_impl(&dword_1B831F000, v9, OS_LOG_TYPE_DEFAULT, "Fetched initial communication policies. General policy: %lld. While limited policy: %lld.", buf, 0x16u);
     }
 
     [*(a1 + 32) setGeneralScreenTimePolicy:a2];
     [*(a1 + 32) setWhileLimitedPolicy:a3];
-    LOBYTE(v12) = 0;
-    [*(a1 + 32) _updateAllContextsUpdateGeneral:1 updateLimited:1 updateCurrentApplicationState:0 updateAllowedByContactsHandle:1 refreshContacts:0 refreshWhitelist:0 updateEmergencyMode:v12];
+    LOBYTE(v11) = 0;
+    [*(a1 + 32) _updateAllContextsUpdateGeneral:1 updateLimited:1 updateCurrentApplicationState:0 updateAllowedByContactsHandle:1 refreshContacts:0 refreshWhitelist:0 updateEmergencyMode:v11];
     v10 = *(*(a1 + 32) + 24);
     objc_sync_enter(v10);
     [*(a1 + 32) setDidFetchInitialScreenTimePolicyState:1];
@@ -447,13 +445,11 @@ void __74__STConversation_initWithBundleIdentifier_contactStore_completionHandle
   }
 
   objc_sync_exit(v10);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __74__STConversation_initWithBundleIdentifier_contactStore_completionHandler___block_invoke_71(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -468,15 +464,15 @@ void __74__STConversation_initWithBundleIdentifier_contactStore_completionHandle
       {
         v11 = *(a1 + 40);
         *buf = 138543618;
-        v19 = v11;
-        v20 = 2048;
-        v21 = v9;
+        v18 = v11;
+        v19 = 2048;
+        v20 = v9;
         _os_log_impl(&dword_1B831F000, v10, OS_LOG_TYPE_DEFAULT, "Fetched initial %{public}@ application state: %lu", buf, 0x16u);
       }
 
       [*(a1 + 32) setCurrentApplicationState:v9];
-      LOBYTE(v17) = 0;
-      [*(a1 + 32) _updateAllContextsUpdateGeneral:0 updateLimited:0 updateCurrentApplicationState:1 updateAllowedByContactsHandle:1 refreshContacts:0 refreshWhitelist:0 updateEmergencyMode:v17];
+      LOBYTE(v16) = 0;
+      [*(a1 + 32) _updateAllContextsUpdateGeneral:0 updateLimited:0 updateCurrentApplicationState:1 updateAllowedByContactsHandle:1 refreshContacts:0 refreshWhitelist:0 updateEmergencyMode:v16];
     }
 
     else
@@ -510,13 +506,11 @@ void __74__STConversation_initWithBundleIdentifier_contactStore_completionHandle
     [*(a1 + 32) callCompletionHandlerIfNeededWithConversation:0 error:v6];
     objc_sync_exit(v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __74__STConversation_initWithBundleIdentifier_contactStore_completionHandler___block_invoke_73(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -527,13 +521,13 @@ void __74__STConversation_initWithBundleIdentifier_contactStore_completionHandle
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v15 = v8 > 0.0;
+      v14 = v8 > 0.0;
       _os_log_impl(&dword_1B831F000, v9, OS_LOG_TYPE_DEFAULT, "Fetched initial emergency mode status: %d", buf, 8u);
     }
 
     [*(a1 + 32) setEmergencyModeEnabled:v8 > 0.0];
-    LOBYTE(v13) = 1;
-    [*(a1 + 32) _updateAllContextsUpdateGeneral:1 updateLimited:1 updateCurrentApplicationState:0 updateAllowedByContactsHandle:1 refreshContacts:0 refreshWhitelist:0 updateEmergencyMode:v13];
+    LOBYTE(v12) = 1;
+    [*(a1 + 32) _updateAllContextsUpdateGeneral:1 updateLimited:1 updateCurrentApplicationState:0 updateAllowedByContactsHandle:1 refreshContacts:0 refreshWhitelist:0 updateEmergencyMode:v12];
     v10 = *(*(a1 + 32) + 24);
     objc_sync_enter(v10);
     [*(a1 + 32) setDidFetchInitialEmergencyModeState:1];
@@ -554,13 +548,11 @@ void __74__STConversation_initWithBundleIdentifier_contactStore_completionHandle
   }
 
   objc_sync_exit(v10);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __74__STConversation_initWithBundleIdentifier_contactStore_completionHandler___block_invoke_75(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[STLog conversation];
@@ -582,13 +574,13 @@ void __74__STConversation_initWithBundleIdentifier_contactStore_completionHandle
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      v13 = v5;
+      v12 = v5;
       _os_log_impl(&dword_1B831F000, v8, OS_LOG_TYPE_DEFAULT, "Fetched managing guardian Apple IDs: %{private}@", buf, 0xCu);
     }
 
     [*(a1 + 32) setManagingParentAppleIDs:v5];
-    LOBYTE(v11) = 0;
-    [*(a1 + 32) _updateAllContextsUpdateGeneral:1 updateLimited:0 updateCurrentApplicationState:0 updateAllowedByContactsHandle:1 refreshContacts:0 refreshWhitelist:0 updateEmergencyMode:v11];
+    LOBYTE(v10) = 0;
+    [*(a1 + 32) _updateAllContextsUpdateGeneral:1 updateLimited:0 updateCurrentApplicationState:0 updateAllowedByContactsHandle:1 refreshContacts:0 refreshWhitelist:0 updateEmergencyMode:v10];
     v9 = *(*(a1 + 32) + 24);
     objc_sync_enter(v9);
     [*(a1 + 32) setDidFetchManagingGuardianState:1];
@@ -596,50 +588,47 @@ void __74__STConversation_initWithBundleIdentifier_contactStore_completionHandle
   }
 
   objc_sync_exit(v9);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (STConversation)initWithThirdPartyBundleIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v21.receiver = self;
-  v21.super_class = STConversation;
+  v20.receiver = self;
+  v20.super_class = STConversation;
   handlerCopy = handler;
-  v8 = [(STConversation *)&v21 init];
+  v8 = [(STConversation *)&v20 init];
   v9 = +[STLog conversation];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v24 = identifierCopy;
+    v23 = identifierCopy;
     _os_log_impl(&dword_1B831F000, v9, OS_LOG_TYPE_DEFAULT, "Initializing STConversation asynchronously for third party bundle identifier: %{public}@", buf, 0xCu);
   }
 
   [(STConversation *)v8 _stConversationCommonInitWithThirdPartyBundleIdentifier:identifierCopy completionHandler:handlerCopy];
   thirdPartyApplicationPolicyMonitor = v8->_thirdPartyApplicationPolicyMonitor;
-  v22 = identifierCopy;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __71__STConversation_initWithThirdPartyBundleIdentifier_completionHandler___block_invoke;
-  v18[3] = &unk_1E7CE7290;
+  v21 = identifierCopy;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __71__STConversation_initWithThirdPartyBundleIdentifier_completionHandler___block_invoke;
+  v17[3] = &unk_1E7CE7290;
   v12 = v8;
-  v19 = v12;
-  v20 = identifierCopy;
+  v18 = v12;
+  v19 = identifierCopy;
   v13 = identifierCopy;
-  [(DMFApplicationPolicyMonitor *)thirdPartyApplicationPolicyMonitor requestPoliciesForBundleIdentifiers:v11 completionHandler:v18];
+  [(DMFApplicationPolicyMonitor *)thirdPartyApplicationPolicyMonitor requestPoliciesForBundleIdentifiers:v11 completionHandler:v17];
 
-  v14 = v20;
+  v14 = v19;
   v15 = v12;
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 void __71__STConversation_initWithThirdPartyBundleIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -653,11 +642,11 @@ void __71__STConversation_initWithThirdPartyBundleIdentifier_completionHandler__
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v11 = *(a1 + 40);
-        v17 = 138543618;
-        v18 = v11;
-        v19 = 2048;
-        v20 = v9;
-        _os_log_impl(&dword_1B831F000, v10, OS_LOG_TYPE_DEFAULT, "Fetched initial %{public}@ application state: %ld", &v17, 0x16u);
+        v16 = 138543618;
+        v17 = v11;
+        v18 = 2048;
+        v19 = v9;
+        _os_log_impl(&dword_1B831F000, v10, OS_LOG_TYPE_DEFAULT, "Fetched initial %{public}@ application state: %ld", &v16, 0x16u);
       }
 
       [*(a1 + 32) setCurrentThirdPartyApplicationState:v9];
@@ -695,8 +684,6 @@ void __71__STConversation_initWithThirdPartyBundleIdentifier_completionHandler__
     [*(a1 + 32) callCompletionHandlerIfNeededWithThirdPartyConversation:0 error:v6];
     objc_sync_exit(v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stConversationCommonInitWithBundleIdentifier:(id)identifier contactStore:(id)store completionHandler:(id)handler
@@ -927,7 +914,7 @@ void __92__STConversation__stConversationCommonInitWithThirdPartyBundleIdentifie
   handleCopy = handle;
   limitedCopy = limited;
   generalCopy = general;
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlesCopy = handles;
   allowedByScreenTime = [contextCopy allowedByScreenTime];
@@ -935,7 +922,7 @@ void __92__STConversation__stConversationCommonInitWithThirdPartyBundleIdentifie
   shouldBeAllowedByScreenTimeWhenLimited = [contextCopy shouldBeAllowedByScreenTimeWhenLimited];
   emergencyModeEnabled = [contextCopy emergencyModeEnabled];
   allowedByContactsHandle = [contextCopy allowedByContactsHandle];
-  v44 = [allowedByContactsHandle copy];
+  v43 = [allowedByContactsHandle copy];
 
   if (contacts)
   {
@@ -1013,7 +1000,7 @@ LABEL_19:
   shouldBeAllowedByScreenTimeWhenLimited3 = [contextCopy shouldBeAllowedByScreenTimeWhenLimited];
   emergencyModeEnabled2 = [contextCopy emergencyModeEnabled];
   allowedByContactsHandle2 = [contextCopy allowedByContactsHandle];
-  if (allowedByScreenTime != allowedByScreenTime2 || ((applicationCurrentlyLimited ^ applicationCurrentlyLimited2) & 1) != 0 || ((shouldBeAllowedByScreenTimeWhenLimited ^ shouldBeAllowedByScreenTimeWhenLimited3) & 1) != 0 || ((emergencyModeEnabled ^ emergencyModeEnabled2) & 1) != 0 || ([v44 isEqualToDictionary:allowedByContactsHandle2] & 1) == 0)
+  if (allowedByScreenTime != allowedByScreenTime2 || ((applicationCurrentlyLimited ^ applicationCurrentlyLimited2) & 1) != 0 || ((shouldBeAllowedByScreenTimeWhenLimited ^ shouldBeAllowedByScreenTimeWhenLimited3) & 1) != 0 || ((emergencyModeEnabled ^ emergencyModeEnabled2) & 1) != 0 || ([v43 isEqualToDictionary:allowedByContactsHandle2] & 1) == 0)
   {
     v31 = +[STLog conversation];
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
@@ -1027,35 +1014,33 @@ LABEL_19:
       emergencyModeEnabled3 = [contextCopy emergencyModeEnabled];
       allowedByContactsHandle3 = [contextCopy allowedByContactsHandle];
       *buf = 138545411;
-      v47 = bundleIdentifier;
-      v48 = 2113;
-      v49 = handlesCopy;
-      v50 = 2048;
-      v51 = generalScreenTimePolicy3;
-      v52 = 2048;
-      v53 = whileLimitedPolicy;
-      v54 = 1024;
-      v55 = allowedByScreenTime3;
-      v56 = 1024;
-      v57 = applicationCurrentlyLimited3;
-      v58 = 1024;
-      v59 = shouldBeAllowedByScreenTimeWhenLimited4;
-      v60 = 1024;
-      v61 = emergencyModeEnabled3;
-      v62 = 2113;
-      v63 = allowedByContactsHandle3;
+      v46 = bundleIdentifier;
+      v47 = 2113;
+      v48 = handlesCopy;
+      v49 = 2048;
+      v50 = generalScreenTimePolicy3;
+      v51 = 2048;
+      v52 = whileLimitedPolicy;
+      v53 = 1024;
+      v54 = allowedByScreenTime3;
+      v55 = 1024;
+      v56 = applicationCurrentlyLimited3;
+      v57 = 1024;
+      v58 = shouldBeAllowedByScreenTimeWhenLimited4;
+      v59 = 1024;
+      v60 = emergencyModeEnabled3;
+      v61 = 2113;
+      v62 = allowedByContactsHandle3;
       _os_log_impl(&dword_1B831F000, v31, OS_LOG_TYPE_DEFAULT, "Updated %{public}@ context for handles:%{private}@. General policy: %lld. While limited policy: %lld. allowedByScreenTime:%d applicationCurrentlyLimited:%d shouldBeAllowedByScreenTimeWhenLimited:%d emergencyModeEnabled:%d allowedByContactsHandle:%{private}@", buf, 0x4Cu);
     }
 
     v22 = handlesCopy;
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateThirdPartyContext:(id)context forHandles:(id)handles
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlesCopy = handles;
   allowedByScreenTime = [contextCopy allowedByScreenTime];
@@ -1069,53 +1054,106 @@ LABEL_19:
       bundleIdentifier = [(STConversation *)self bundleIdentifier];
       allowedByScreenTime2 = [contextCopy allowedByScreenTime];
       allowedByContactsHandle = [contextCopy allowedByContactsHandle];
-      v14 = 138544131;
-      v15 = bundleIdentifier;
-      v16 = 2113;
-      v17 = handlesCopy;
-      v18 = 1024;
-      v19 = allowedByScreenTime2;
-      v20 = 2113;
-      v21 = allowedByContactsHandle;
-      _os_log_impl(&dword_1B831F000, v9, OS_LOG_TYPE_DEFAULT, "Updated %{public}@ third party context for handles:%{private}@. allowedByScreenTime:%d allowedByContactsHandle:%{private}@", &v14, 0x26u);
+      v13 = 138544131;
+      v14 = bundleIdentifier;
+      v15 = 2113;
+      v16 = handlesCopy;
+      v17 = 1024;
+      v18 = allowedByScreenTime2;
+      v19 = 2113;
+      v20 = allowedByContactsHandle;
+      _os_log_impl(&dword_1B831F000, v9, OS_LOG_TYPE_DEFAULT, "Updated %{public}@ third party context for handles:%{private}@. allowedByScreenTime:%d allowedByContactsHandle:%{private}@", &v13, 0x26u);
     }
   }
+}
 
-  v13 = *MEMORY[0x1E69E9840];
+- (void)_updateAllContextsUpdateGeneral:(BOOL)general updateLimited:(BOOL)limited updateCurrentApplicationState:(BOOL)state updateAllowedByContactsHandle:(BOOL)handle refreshContacts:(BOOL)contacts refreshWhitelist:(BOOL)whitelist updateEmergencyMode:(BOOL)mode
+{
+  stateCopy = state;
+  handleCopy = handle;
+  limitedCopy = limited;
+  generalCopy = general;
+  v31 = *MEMORY[0x1E69E9840];
+  obj = self->_contextByHandles;
+  objc_sync_enter(obj);
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v12 = self->_contextByHandles;
+  v13 = [(NSMapTable *)v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v13)
+  {
+    v14 = *v27;
+    do
+    {
+      for (i = 0; i != v13; ++i)
+      {
+        if (*v27 != v14)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        v16 = *(*(&v26 + 1) + 8 * i);
+        v17 = [(NSMapTable *)self->_contextByHandles objectForKey:v16];
+        if (v17)
+        {
+          BYTE2(v20) = mode;
+          BYTE1(v20) = whitelist;
+          LOBYTE(v20) = contacts;
+          [STConversation _updateContext:"_updateContext:forHandles:updateGeneral:updateLimited:updateCurrentApplicationState:updateAllowedByContactsHandle:refreshContacts:refreshWhitelist:updateEmergencyMode:" forHandles:v17 updateGeneral:v16 updateLimited:generalCopy updateCurrentApplicationState:limitedCopy updateAllowedByContactsHandle:stateCopy refreshContacts:handleCopy refreshWhitelist:v20 updateEmergencyMode:?];
+        }
+      }
+
+      v13 = [(NSMapTable *)v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    }
+
+    while (v13);
+  }
+
+  processName = [(STConversation *)self processName];
+  v19 = [processName isEqualToString:@"suggestd"];
+
+  if (v19)
+  {
+    notify_post("com.apple.ScreenTime.ConversationDidObserveChangesNotification");
+  }
+
+  objc_sync_exit(obj);
 }
 
 - (void)_updateAllThirdPartyContexts
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = self->_contextByHandles;
   objc_sync_enter(v3);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_contextByHandles;
-  v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
-        v9 = [(NSMapTable *)self->_contextByHandles objectForKey:v8, v13];
+        v8 = *(*(&v12 + 1) + 8 * i);
+        v9 = [(NSMapTable *)self->_contextByHandles objectForKey:v8, v12];
         if (v9)
         {
           [(STConversation *)self _updateThirdPartyContext:v9 forHandles:v8];
         }
       }
 
-      v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -1130,8 +1168,6 @@ LABEL_19:
   }
 
   objc_sync_exit(v3);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_screenTimePolicyDidChange
@@ -1145,9 +1181,9 @@ LABEL_19:
   [managementState communicationPoliciesWithCompletionHandler:v4];
 }
 
-void __44__STConversation__screenTimePolicyDidChange__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void __44__STConversation__screenTimePolicyDidChange__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v7 = a4;
   if (v7)
   {
@@ -1172,9 +1208,9 @@ void __44__STConversation__screenTimePolicyDidChange__block_invoke(uint64_t a1, 
         {
           v13 = [*(a1 + 32) whileLimitedPolicy];
           *buf = 134218240;
-          v24 = v13;
-          v25 = 2048;
-          v26 = a3;
+          v23 = v13;
+          v24 = 2048;
+          v25 = a3;
           _os_log_impl(&dword_1B831F000, v12, OS_LOG_TYPE_DEFAULT, "While limited policy changed from %lld to %lld.", buf, 0x16u);
         }
 
@@ -1190,9 +1226,9 @@ void __44__STConversation__screenTimePolicyDidChange__block_invoke(uint64_t a1, 
       {
         v15 = [*(a1 + 32) generalScreenTimePolicy];
         *buf = 134218240;
-        v24 = v15;
-        v25 = 2048;
-        v26 = a2;
+        v23 = v15;
+        v24 = 2048;
+        v25 = a2;
         _os_log_impl(&dword_1B831F000, v14, OS_LOG_TYPE_DEFAULT, "General policy changed from %lld to %lld.", buf, 0x16u);
       }
 
@@ -1201,7 +1237,7 @@ void __44__STConversation__screenTimePolicyDidChange__block_invoke(uint64_t a1, 
       {
         v16 = [*(a1 + 32) currentApplicationState] == 0;
         v17 = *(a1 + 32);
-        LOBYTE(v22) = 0;
+        LOBYTE(v21) = 0;
         v18 = 0;
       }
 
@@ -1212,24 +1248,22 @@ void __44__STConversation__screenTimePolicyDidChange__block_invoke(uint64_t a1, 
         {
           v20 = [*(a1 + 32) whileLimitedPolicy];
           *buf = 134218240;
-          v24 = v20;
-          v25 = 2048;
-          v26 = a3;
+          v23 = v20;
+          v24 = 2048;
+          v25 = a3;
           _os_log_impl(&dword_1B831F000, v19, OS_LOG_TYPE_DEFAULT, "While limited policy changed from %lld to %lld.", buf, 0x16u);
         }
 
         [*(a1 + 32) setWhileLimitedPolicy:a3];
         v16 = [*(a1 + 32) currentApplicationState] != 2;
         v17 = *(a1 + 32);
-        LOBYTE(v22) = 0;
+        LOBYTE(v21) = 0;
         v18 = 1;
       }
 
-      [v17 _updateAllContextsUpdateGeneral:1 updateLimited:v18 updateCurrentApplicationState:0 updateAllowedByContactsHandle:v16 refreshContacts:0 refreshWhitelist:0 updateEmergencyMode:v22];
+      [v17 _updateAllContextsUpdateGeneral:1 updateLimited:v18 updateCurrentApplicationState:0 updateAllowedByContactsHandle:v16 refreshContacts:0 refreshWhitelist:0 updateEmergencyMode:v21];
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateAllContextsForNewWhileLimitedPolicyOrWhitelist
@@ -1290,7 +1324,7 @@ void __40__STConversation__contactStoreDidChange__block_invoke(uint64_t a1)
 
 void __51__STConversation__currentApplicationStateDidChange__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -1310,15 +1344,15 @@ void __51__STConversation__currentApplicationStateDidChange__block_invoke(uint64
         {
           v13 = [*v7 bundleIdentifier];
           *buf = 138543618;
-          v18 = v13;
-          v19 = 2048;
-          v20 = v11;
+          v17 = v13;
+          v18 = 2048;
+          v19 = v11;
           _os_log_impl(&dword_1B831F000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ application state changed to %lu", buf, 0x16u);
         }
 
         [*v7 setCurrentApplicationState:v11];
-        LOBYTE(v16) = 0;
-        [*v7 _updateAllContextsUpdateGeneral:0 updateLimited:0 updateCurrentApplicationState:1 updateAllowedByContactsHandle:1 refreshContacts:0 refreshWhitelist:0 updateEmergencyMode:v16];
+        LOBYTE(v15) = 0;
+        [*v7 _updateAllContextsUpdateGeneral:0 updateLimited:0 updateCurrentApplicationState:1 updateAllowedByContactsHandle:1 refreshContacts:0 refreshWhitelist:0 updateEmergencyMode:v15];
       }
     }
 
@@ -1340,30 +1374,26 @@ void __51__STConversation__currentApplicationStateDidChange__block_invoke(uint64
       [STConversation initSynchronouslyWithBundleIdentifier:];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_currentThirdPartyApplicationStateDidChange
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   thirdPartyApplicationPolicyMonitor = [(STConversation *)self thirdPartyApplicationPolicyMonitor];
   bundleIdentifier = [(STConversation *)self bundleIdentifier];
-  v8[0] = bundleIdentifier;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __61__STConversation__currentThirdPartyApplicationStateDidChange__block_invoke;
-  v7[3] = &unk_1E7CE7358;
-  v7[4] = self;
-  [thirdPartyApplicationPolicyMonitor requestPoliciesForBundleIdentifiers:v5 completionHandler:v7];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = bundleIdentifier;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __61__STConversation__currentThirdPartyApplicationStateDidChange__block_invoke;
+  v6[3] = &unk_1E7CE7358;
+  v6[4] = self;
+  [thirdPartyApplicationPolicyMonitor requestPoliciesForBundleIdentifiers:v5 completionHandler:v6];
 }
 
 void __61__STConversation__currentThirdPartyApplicationStateDidChange__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -1382,11 +1412,11 @@ void __61__STConversation__currentThirdPartyApplicationStateDidChange__block_inv
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           v13 = [*v7 bundleIdentifier];
-          v16 = 138543618;
-          v17 = v13;
-          v18 = 2048;
-          v19 = v11;
-          _os_log_impl(&dword_1B831F000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ application state changed to %ld", &v16, 0x16u);
+          v15 = 138543618;
+          v16 = v13;
+          v17 = 2048;
+          v18 = v11;
+          _os_log_impl(&dword_1B831F000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ application state changed to %ld", &v15, 0x16u);
         }
 
         [*v7 setCurrentThirdPartyApplicationState:v11];
@@ -1412,8 +1442,6 @@ void __61__STConversation__currentThirdPartyApplicationStateDidChange__block_inv
       [STConversation initSynchronouslyWithThirdPartyBundleIdentifier:];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_emergencyModeDidChange
@@ -1429,7 +1457,7 @@ void __61__STConversation__currentThirdPartyApplicationStateDidChange__block_inv
 
 void __41__STConversation__emergencyModeDidChange__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -1443,13 +1471,13 @@ void __41__STConversation__emergencyModeDidChange__block_invoke(uint64_t a1, voi
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v15 = v9;
+        v14 = v9;
         _os_log_impl(&dword_1B831F000, v10, OS_LOG_TYPE_DEFAULT, "Emergency mode changed to %d", buf, 8u);
       }
 
       [*(a1 + 32) setEmergencyModeEnabled:v8 > 0.0];
-      LOBYTE(v13) = 1;
-      [*(a1 + 32) _updateAllContextsUpdateGeneral:1 updateLimited:1 updateCurrentApplicationState:0 updateAllowedByContactsHandle:1 refreshContacts:0 refreshWhitelist:0 updateEmergencyMode:v13];
+      LOBYTE(v12) = 1;
+      [*(a1 + 32) _updateAllContextsUpdateGeneral:1 updateLimited:1 updateCurrentApplicationState:0 updateAllowedByContactsHandle:1 refreshContacts:0 refreshWhitelist:0 updateEmergencyMode:v12];
     }
   }
 
@@ -1461,8 +1489,6 @@ void __41__STConversation__emergencyModeDidChange__block_invoke(uint64_t a1, voi
       [STConversation initSynchronouslyWithBundleIdentifier:];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_shouldGeneralScreenTimeAllowHandles:(id)handles context:(id)context
@@ -1619,19 +1645,19 @@ LABEL_22:
 
 - (BOOL)_doesContainAtLeastOneContactInHandles:(id)handles contactsByHandle:(id)handle
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   handlesCopy = handles;
   handleCopy = handle;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
-  contactStore = [(STConversation *)self contactStore];
-  v36[0] = *MEMORY[0x1E695C258];
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
   v31 = 0;
-  v10 = [contactStore _crossPlatformUnifiedMeContactWithKeysToFetch:v9 error:&v31];
-  v11 = v31;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
+  contactStore = [(STConversation *)self contactStore];
+  v35[0] = *MEMORY[0x1E695C258];
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
+  v30 = 0;
+  v10 = [contactStore _crossPlatformUnifiedMeContactWithKeysToFetch:v9 error:&v30];
+  v11 = v30;
 
   if (!v10)
   {
@@ -1643,40 +1669,39 @@ LABEL_22:
   }
 
   identifier = [v10 identifier];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0;
-  v20 = MEMORY[0x1E69E9820];
-  v21 = 3221225472;
-  v22 = __74__STConversation__doesContainAtLeastOneContactInHandles_contactsByHandle___block_invoke;
-  v23 = &unk_1E7CE73A8;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = __74__STConversation__doesContainAtLeastOneContactInHandles_contactsByHandle___block_invoke;
+  v22 = &unk_1E7CE73A8;
   v14 = identifier;
-  v24 = v14;
-  v25 = &v27;
-  v26 = &v32;
-  [handleCopy enumerateKeysAndObjectsUsingBlock:&v20];
-  if (v28[3])
+  v23 = v14;
+  v24 = &v26;
+  v25 = &v31;
+  [handleCopy enumerateKeysAndObjectsUsingBlock:&v19];
+  if (v27[3])
   {
     v15 = [handlesCopy count];
-    v16 = v33;
-    if (v15 == v28[3])
+    v16 = v32;
+    if (v15 == v27[3])
     {
-      *(v33 + 24) = 1;
+      *(v32 + 24) = 1;
     }
   }
 
   else
   {
-    v16 = v33;
+    v16 = v32;
   }
 
   v17 = *(v16 + 24);
 
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v31, 8);
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17 & 1;
 }
 
@@ -1691,23 +1716,8 @@ void __74__STConversation__doesContainAtLeastOneContactInHandles_contactsByHandl
     v16 = 0x2020000000;
     v17 = 0;
     v9 = a1[4];
-    if (!v9)
+    if (!v9 || (v10[0] = MEMORY[0x1E69E9820], v10[1] = 3221225472, v10[2] = __74__STConversation__doesContainAtLeastOneContactInHandles_contactsByHandle___block_invoke_2, v10[3] = &unk_1E7CE7380, v11 = v9, v12 = &v14, v13 = a1[5], [v8 enumerateObjectsUsingBlock:v10], v11, (v15[3] & 1) == 0))
     {
-      goto LABEL_4;
-    }
-
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __74__STConversation__doesContainAtLeastOneContactInHandles_contactsByHandle___block_invoke_2;
-    v10[3] = &unk_1E7CE7380;
-    v11 = v9;
-    v12 = &v14;
-    v13 = a1[5];
-    [v8 enumerateObjectsUsingBlock:v10];
-
-    if ((v15[3] & 1) == 0)
-    {
-LABEL_4:
       *(*(a1[6] + 8) + 24) = 1;
       *a4 = 1;
     }
@@ -1731,29 +1741,29 @@ void __74__STConversation__doesContainAtLeastOneContactInHandles_contactsByHandl
 
 - (BOOL)_shouldAllowContactsOnlyCommunicationForHandles:(id)handles contactsByHandle:(id)handle
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   handlesCopy = handles;
   handleCopy = handle;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = handlesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         managingParentAppleIDs = [(STConversation *)self managingParentAppleIDs];
         if ([managingParentAppleIDs containsObject:v13])
         {
@@ -1772,7 +1782,7 @@ void __74__STConversation__doesContainAtLeastOneContactInHandles_contactsByHandl
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v10)
       {
         continue;
@@ -1785,33 +1795,32 @@ void __74__STConversation__doesContainAtLeastOneContactInHandles_contactsByHandl
   v17 = 1;
 LABEL_13:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (BOOL)_shouldAllowGroupsWithOneContactCommunicationForHandles:(id)handles
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   handlesCopy = handles;
-  v5 = [handlesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [handlesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(handlesCopy);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         managingParentAppleIDs = [(STConversation *)self managingParentAppleIDs];
         LOBYTE(v9) = [managingParentAppleIDs containsObject:v9];
 
@@ -1822,7 +1831,7 @@ LABEL_13:
         }
       }
 
-      v6 = [handlesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [handlesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -1835,13 +1844,12 @@ LABEL_13:
   v11 = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (void)_populateAllowedContactsByHandlesForContactHandles:(id)handles context:(id)context
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   handlesCopy = handles;
   contextCopy = context;
   whileLimitedPolicy = [(STConversation *)self whileLimitedPolicy];
@@ -1851,40 +1859,40 @@ LABEL_11:
   currentApplicationState = [(STConversation *)self currentApplicationState];
   v12 = currentApplicationState;
   v14 = currentApplicationState == 1 && whileLimitedPolicy == 3;
-  v38 = v14;
-  v34 = contextCopy;
+  v37 = v14;
+  v33 = contextCopy;
   v15 = !currentApplicationState && [(STConversation *)self generalScreenTimePolicy]== 1 || v12 == 1 && whileLimitedPolicy == 1;
-  v37 = v15;
+  v36 = v15;
   v17 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(handlesCopy, "count")}];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v18 = handlesCopy;
-  v19 = [v18 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v40;
+    v21 = *v39;
     v22 = MEMORY[0x1E695E118];
-    v35 = v12;
+    v34 = v12;
     do
     {
       v23 = 0;
       do
       {
-        if (*v40 != v21)
+        if (*v39 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v24 = *(*(&v39 + 1) + 8 * v23);
+        v24 = *(*(&v38 + 1) + 8 * v23);
         if (allowedByScreenTime)
         {
           v25 = v17;
           v26 = v22;
 LABEL_25:
-          [v25 setObject:v26 forKeyedSubscript:{*(*(&v39 + 1) + 8 * v23), v34}];
+          [v25 setObject:v26 forKeyedSubscript:{*(*(&v38 + 1) + 8 * v23), v33}];
           goto LABEL_26;
         }
 
@@ -1893,9 +1901,9 @@ LABEL_25:
           goto LABEL_24;
         }
 
-        if (v38)
+        if (v37)
         {
-          v27 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(whitelistedHandles, "containsObject:", *(*(&v39 + 1) + 8 * v23))}];
+          v27 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(whitelistedHandles, "containsObject:", *(*(&v38 + 1) + 8 * v23))}];
           [v17 setObject:v27 forKeyedSubscript:v24];
 
           v22 = MEMORY[0x1E695E118];
@@ -1903,7 +1911,7 @@ LABEL_25:
 
         else
         {
-          if (v37)
+          if (v36)
           {
 LABEL_24:
             v25 = v17;
@@ -1919,7 +1927,7 @@ LABEL_24:
 
           v22 = MEMORY[0x1E695E118];
           whitelistedHandles = v29;
-          v12 = v35;
+          v12 = v34;
         }
 
 LABEL_26:
@@ -1927,34 +1935,33 @@ LABEL_26:
       }
 
       while (v20 != v23);
-      v32 = [v18 countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v32 = [v18 countByEnumeratingWithState:&v38 objects:v42 count:16];
       v20 = v32;
     }
 
     while (v32);
   }
 
-  [v34 setAllowedByContactsHandle:v17];
-  v33 = *MEMORY[0x1E69E9840];
+  [v33 setAllowedByContactsHandle:v17];
 }
 
 - (void)_populateThirdPartyAllowedContactsByHandlesForContactHandles:(id)handles context:(id)context
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   handlesCopy = handles;
   contextCopy = context;
   allowedByScreenTime = [contextCopy allowedByScreenTime];
   v8 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(handlesCopy, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v9 = handlesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     if (allowedByScreenTime)
     {
       v13 = MEMORY[0x1E695E118];
@@ -1970,28 +1977,27 @@ LABEL_26:
       v14 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [v8 setObject:v13 forKeyedSubscript:{*(*(&v16 + 1) + 8 * v14++), v16}];
+        [v8 setObject:v13 forKeyedSubscript:{*(*(&v15 + 1) + 8 * v14++), v15}];
       }
 
       while (v11 != v14);
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
   }
 
   [contextCopy setAllowedByContactsHandle:v8];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_contactsByHandle:(id)handle error:(id *)error
 {
-  v29[3] = *MEMORY[0x1E69E9840];
+  v28[3] = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   managementState = [(STConversation *)self managementState];
   v8 = [managementState primaryiCloudCardDAVAccountIdentifierWithError:error];
@@ -2006,27 +2012,27 @@ LABEL_26:
     {
       v13 = objc_alloc(MEMORY[0x1E695CD78]);
       v14 = *MEMORY[0x1E695C208];
-      v29[0] = *MEMORY[0x1E695C258];
-      v29[1] = v14;
-      v29[2] = *MEMORY[0x1E695C330];
-      v26 = v11;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
+      v28[0] = *MEMORY[0x1E695C258];
+      v28[1] = v14;
+      v28[2] = *MEMORY[0x1E695C330];
+      v25 = v11;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:3];
       v16 = [v13 initWithKeysToFetch:v15];
 
       v17 = [(STConversation *)self _filteredArrayForKnownHandlesInArray:handleCopy];
       v18 = MEMORY[0x1E695CD58];
       [firstObject identifier];
-      v28 = v27 = handleCopy;
-      v19 = v28;
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+      v27 = v26 = handleCopy;
+      v19 = v27;
+      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
       v21 = [v18 predicateForContactsMatchingHandleStrings:v17 inContainersWithIdentifiers:v20];
       [v16 setPredicate:v21];
 
-      v11 = v26;
+      v11 = v25;
       v22 = [contactStore executeFetchRequest:v16 error:error];
       value = [v22 value];
 
-      handleCopy = v27;
+      handleCopy = v26;
     }
 
     else
@@ -2034,7 +2040,7 @@ LABEL_26:
       v16 = +[STLog conversation];
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [STConversation _contactsByHandle:v8 error:error];
+        [STConversation _contactsByHandle:error:];
       }
 
       value = 0;
@@ -2052,8 +2058,6 @@ LABEL_26:
     value = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return value;
 }
 
@@ -2068,7 +2072,7 @@ LABEL_26:
 
 - (BOOL)_shouldAllowWhitelistedContactsCommunicationForHandles:(id)handles context:(id)context
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   handlesCopy = handles;
   contextCopy = context;
   v8 = [(STConversation *)self _filteredArrayForKnownHandlesInArray:handlesCopy];
@@ -2082,9 +2086,9 @@ LABEL_26:
   else
   {
     whitelist = [(STConversation *)self whitelist];
-    v33 = 0;
-    v10 = [whitelist whitelistedHandleStringsFromHandleStrings:v8 error:&v33];
-    v11 = v33;
+    v32 = 0;
+    v10 = [whitelist whitelistedHandleStringsFromHandleStrings:v8 error:&v32];
+    v11 = v32;
 
     if (!v10)
     {
@@ -2110,31 +2114,31 @@ LABEL_25:
     [v15 minusSet:v14];
     if ([v15 count])
     {
-      v28 = v11;
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
+      v27 = v11;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       v16 = v15;
-      v17 = [v16 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
       if (v17)
       {
         v18 = v17;
-        v25 = v14;
-        v26 = v8;
-        v27 = contextCopy;
-        v19 = *v30;
+        v24 = v14;
+        v25 = v8;
+        v26 = contextCopy;
+        v19 = *v29;
         while (2)
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v30 != v19)
+            if (*v29 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = *(*(&v29 + 1) + 8 * i);
-            v22 = [(STConversation *)self managingParentAppleIDs:v25];
+            v21 = *(*(&v28 + 1) + 8 * i);
+            v22 = [(STConversation *)self managingParentAppleIDs:v24];
             LODWORD(v21) = [v22 containsObject:v21];
 
             if (!v21)
@@ -2144,7 +2148,7 @@ LABEL_25:
             }
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v29 objects:v34 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
           if (v18)
           {
             continue;
@@ -2155,9 +2159,9 @@ LABEL_25:
 
         v13 = 1;
 LABEL_17:
-        v8 = v26;
-        contextCopy = v27;
-        v14 = v25;
+        v8 = v25;
+        contextCopy = v26;
+        v14 = v24;
       }
 
       else
@@ -2165,7 +2169,7 @@ LABEL_17:
         v13 = 1;
       }
 
-      v11 = v28;
+      v11 = v27;
     }
 
     else
@@ -2179,163 +2183,63 @@ LABEL_17:
   v13 = 0;
 LABEL_26:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v13;
-}
-
-- (void)initSynchronouslyWithBundleIdentifier:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Could not fetch communication policies: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initSynchronouslyWithBundleIdentifier:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 120);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1B831F000, v3, v4, "%{public}@ application state does not exist, preferring to keep state as %lu");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initSynchronouslyWithBundleIdentifier:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Could not fetch application state: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initSynchronouslyWithBundleIdentifier:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Could not fetch emergency mode status: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initSynchronouslyWithBundleIdentifier:.cold.5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Failed to fetch managing guardian Apple IDs. Error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initSynchronouslyWithThirdPartyBundleIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 128);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1B831F000, v3, v4, "%{public}@ application state does not exist, preferring to keep state as %ld");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initSynchronouslyWithThirdPartyBundleIdentifier:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Could not fetch third party application state: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __74__STConversation_initWithBundleIdentifier_contactStore_completionHandler___block_invoke_71_cold_1(uint64_t *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   [*(a2 + 32) currentApplicationState];
+  LODWORD(v9) = 138543618;
+  *(&v9 + 4) = v2;
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_3_3(&dword_1B831F000, v3, v4, "%{public}@ application state does not exist, preferring to keep state as %lu", v5, v6, v7, v8, 2u);
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_3(&dword_1B831F000, v3, v4, "%{public}@ application state does not exist, preferring to keep state as %lu", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 void __71__STConversation_initWithThirdPartyBundleIdentifier_completionHandler___block_invoke_cold_1(uint64_t *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   [*(a2 + 32) currentThirdPartyApplicationState];
+  LODWORD(v9) = 138543618;
+  *(&v9 + 4) = v2;
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_3_3(&dword_1B831F000, v3, v4, "%{public}@ application state does not exist, preferring to keep state as %ld", v5, v6, v7, v8, 2u);
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_3(&dword_1B831F000, v3, v4, "%{public}@ application state does not exist, preferring to keep state as %ld", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 void __51__STConversation__currentApplicationStateDidChange__block_invoke_cold_1(id *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [*a1 bundleIdentifier];
   [*a1 currentApplicationState];
+  LODWORD(v9) = 138543618;
+  *(&v9 + 4) = v2;
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_3_3(&dword_1B831F000, v3, v4, "%{public}@ application state does not exist, preferring to keep state as %lu", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_3(&dword_1B831F000, v3, v4, "%{public}@ application state does not exist, preferring to keep state as %lu", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 void __61__STConversation__currentThirdPartyApplicationStateDidChange__block_invoke_cold_1(id *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [*a1 bundleIdentifier];
   [*a1 currentThirdPartyApplicationState];
+  LODWORD(v9) = 138543618;
+  *(&v9 + 4) = v2;
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_3_3(&dword_1B831F000, v3, v4, "%{public}@ application state does not exist, preferring to keep state as %ld", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_shouldGeneralScreenTimeAllowHandles:context:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Unknown communication policy: %lld, preferring to allow all handles", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_3(&dword_1B831F000, v3, v4, "%{public}@ application state does not exist, preferring to keep state as %ld", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)_shouldGeneralScreenTimeAllowHandles:(void *)a1 context:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 componentsJoinedByString:{@", "}];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5_1();
-  OUTLINED_FUNCTION_3_3(&dword_1B831F000, v2, v3, "Error fetching contacts (%{private}@), preferring to allow all handles: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_shouldWhileLimitedAllowHandles:context:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Unknown communication while limited policy: %lld, preferring to allow all handles", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_doesContainAtLeastOneContactInHandles:contactsByHandle:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1B831F000, v0, v1, "Error fetching Me Contact, preferring to allow Me Contact in groups: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_contactsByHandle:(uint64_t)a1 error:(uint64_t *)a2 .cold.1(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1B831F000, v3, v4, "Failed to fetch contacts container with identifier %{public}@: %{public}@");
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_3(&dword_1B831F000, v2, v3, "Error fetching contacts (%{private}@), preferring to allow all handles: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)_shouldAllowWhitelistedContactsCommunicationForHandles:(void *)a1 context:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 componentsJoinedByString:{@", "}];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_5_1();
-  OUTLINED_FUNCTION_3_3(&dword_1B831F000, v2, v3, "Error fetching whitelisted contacts (%{private}@), preferring to allow all handles: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_3(&dword_1B831F000, v2, v3, "Error fetching whitelisted contacts (%{private}@), preferring to allow all handles: %{public}@", v4, v5, v6, v7);
 }
 
 @end

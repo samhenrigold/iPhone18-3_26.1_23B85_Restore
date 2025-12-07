@@ -30,10 +30,7 @@
 
 - (void)setOptions:(id)options
 {
-  v4 = [options copy];
-  decoderInternal = self->_decoderInternal;
-  v6 = decoderInternal[1];
-  decoderInternal[1] = v4;
+  *(self->_decoderInternal + 1) = [options copy];
 
   MEMORY[0x2821F96F8]();
 }

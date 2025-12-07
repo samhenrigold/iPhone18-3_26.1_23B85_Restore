@@ -110,7 +110,7 @@ LABEL_3:
 
 - (void)_onqueue_prepareDeviceWithConnection:(uint64_t)connection
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (connection)
   {
@@ -126,70 +126,77 @@ LABEL_3:
       goto LABEL_16;
     }
 
-    if ([v3 isInvalid] & 1) != 0 || (objc_msgSend(*(connection + 24), "isCancelled"))
+    if ([v3 isInvalid])
     {
       goto LABEL_17;
     }
 
-    v5 = _gc_log_generic_device();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    isCancelled = [*(connection + 24) isCancelled];
+    if (isCancelled)
     {
-      [(_GCGenericPhysicalDevicePending *)connection _onqueue_prepareDeviceWithConnection:v5];
+      goto LABEL_17;
     }
 
-    v6 = [(_GCDeviceDriverServiceConnection *)_GCGenericDeviceDriverConfigurationServiceConnection connectionToServiceInDriver:v3 withClient:connection];
-    v35 = 0;
-    v36 = 0;
-    v7 = [v6 waitForResult:&v36 error:&v35];
-    v8 = v36;
-    currentHandler = v35;
+    v6 = _gc_log_generic_device(isCancelled);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      [(_GCGenericPhysicalDevicePending *)connection _onqueue_prepareDeviceWithConnection:v6];
+    }
 
-    if (!v7)
+    v7 = [(_GCDeviceDriverServiceConnection *)_GCGenericDeviceDriverConfigurationServiceConnection connectionToServiceInDriver:v3 withClient:connection];
+    v42 = 0;
+    v43 = 0;
+    v8 = [v7 waitForResult:&v43 error:&v42];
+    v9 = v43;
+    currentHandler = v42;
+
+    if (!v8)
     {
       goto LABEL_14;
     }
 
-    if (v7 == 1)
+    if (v8 == 1)
     {
-      v10 = _gc_log_generic_device();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = _gc_log_generic_device(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [_GCGenericPhysicalDevicePending _onqueue_prepareDeviceWithConnection:];
       }
 
-      v11 = 0;
+      v13 = 0;
       goto LABEL_12;
     }
 
-    if ([*(connection + 24) isCancelled])
+    isCancelled2 = [*(connection + 24) isCancelled];
+    if (isCancelled2)
     {
 LABEL_14:
-      v11 = 0;
+      v13 = 0;
       goto LABEL_15;
     }
 
-    v13 = _gc_log_generic_device();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v15 = _gc_log_generic_device(isCancelled2);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      [(_GCGenericPhysicalDevicePending *)connection _onqueue_prepareDeviceWithConnection:v13];
+      [(_GCGenericPhysicalDevicePending *)connection _onqueue_prepareDeviceWithConnection:v15];
     }
 
-    fetchDeviceSnapshot = [v8 fetchDeviceSnapshot];
-    v33 = 0;
-    v34 = 0;
-    v15 = [fetchDeviceSnapshot waitForResult:&v34 error:&v33];
-    v11 = v34;
-    v16 = v33;
+    fetchDeviceSnapshot = [v9 fetchDeviceSnapshot];
+    v40 = 0;
+    v41 = 0;
+    v17 = [fetchDeviceSnapshot waitForResult:&v41 error:&v40];
+    v13 = v41;
+    v18 = v40;
 
-    if (!v15)
+    if (!v17)
     {
       goto LABEL_26;
     }
 
-    if (v15 == 1)
+    if (v17 == 1)
     {
-      v10 = _gc_log_generic_device();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = _gc_log_generic_device(v19);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [_GCGenericPhysicalDevicePending _onqueue_prepareDeviceWithConnection:];
       }
@@ -200,43 +207,44 @@ LABEL_14:
     if ([*(connection + 24) isCancelled])
     {
 LABEL_26:
-      currentHandler = v16;
+      currentHandler = v18;
       goto LABEL_15;
     }
 
-    v29 = GCLookupService(*(connection + 32), &unk_1F4E3BA08, 0, 0);
-    if (v29)
+    v20 = GCLookupService(*(connection + 32), &unk_1F4E3BA08, 0, 0);
+    v36 = v20;
+    if (v20)
     {
-      v17 = _gc_log_generic_device();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v21 = _gc_log_generic_device(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        v18 = [v11 debugDescription];
-        [(_GCGenericPhysicalDevicePending *)connection _onqueue_prepareDeviceWithConnection:v18, v39];
+        v22 = [v13 debugDescription];
+        [(_GCGenericPhysicalDevicePending *)connection _onqueue_prepareDeviceWithConnection:v22, v46];
       }
 
-      v19 = [v29 preparedModelForDevice:v11];
-      v31 = 0;
-      v32 = 0;
-      v20 = [v19 waitForResult:&v32 error:&v31];
-      v10 = v32;
-      v21 = v31;
+      v23 = [v36 preparedModelForDevice:v13];
+      v38 = 0;
+      v39 = 0;
+      v24 = [v23 waitForResult:&v39 error:&v38];
+      v12 = v39;
+      v25 = v38;
 
-      if (v20)
+      if (v24)
       {
-        if (v20 == 1)
+        if (v24 == 1)
         {
-          v22 = _gc_log_generic_device();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v27 = _gc_log_generic_device(v26);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             [_GCGenericPhysicalDevicePending _onqueue_prepareDeviceWithConnection:];
           }
 
-          v16 = v21;
+          v18 = v25;
 LABEL_38:
 
 LABEL_41:
 LABEL_42:
-          currentHandler = v16;
+          currentHandler = v18;
 LABEL_12:
 
 LABEL_15:
@@ -248,30 +256,31 @@ LABEL_17:
           goto LABEL_18;
         }
 
-        if (([*(connection + 24) isCancelled] & 1) == 0)
+        isCancelled3 = [*(connection + 24) isCancelled];
+        if ((isCancelled3 & 1) == 0)
         {
-          v23 = _gc_log_generic_device();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          v29 = _gc_log_generic_device(isCancelled3);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
-            driver = [v10 driver];
-            [(_GCGenericPhysicalDevicePending *)connection _onqueue_prepareDeviceWithConnection:driver, v38];
+            driver = [v12 driver];
+            [(_GCGenericPhysicalDevicePending *)connection _onqueue_prepareDeviceWithConnection:driver, v45];
           }
 
-          driver2 = [v10 driver];
-          v26 = [v8 applyConfiguration:driver2];
-          v30 = 0;
-          v28 = [v26 waitForResult:0 error:&v30];
-          v16 = v30;
+          driver2 = [v12 driver];
+          v32 = [v9 applyConfiguration:driver2];
+          v37 = 0;
+          v35 = [v32 waitForResult:0 error:&v37];
+          v18 = v37;
 
-          if (!v28)
+          if (!v35)
           {
             goto LABEL_41;
           }
 
-          if (v28 == 1)
+          if (v35 == 1)
           {
-            v22 = _gc_log_generic_device();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v27 = _gc_log_generic_device(v33);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
             {
               [_GCGenericPhysicalDevicePending _onqueue_prepareDeviceWithConnection:];
             }
@@ -279,26 +288,26 @@ LABEL_17:
 
           else
           {
-            v22 = [connection _onqueue_createDeviceWithModel:v10 service:*(connection + 56)];
-            if (v22)
+            v27 = [connection _onqueue_createDeviceWithModel:v12 service:*(connection + 56)];
+            if (v27)
             {
               if (objc_opt_respondsToSelector())
               {
-                [v22 setDriverConnection:*(connection + 48)];
+                [v27 setDriverConnection:*(connection + 48)];
               }
 
               if ((objc_opt_respondsToSelector() & 1) != 0 && *(connection + 40))
               {
-                [v22 setFilterConnection:?];
+                [v27 setFilterConnection:?];
               }
 
-              [*(connection + 24) succeedWithResult:v22];
+              [*(connection + 24) succeedWithResult:v27];
             }
 
             else
             {
-              v27 = _gc_log_generic_device();
-              [(_GCGenericPhysicalDevicePending *)v27 _onqueue_prepareDeviceWithConnection:connection];
+              v34 = _gc_log_generic_device(0);
+              [(_GCGenericPhysicalDevicePending *)v34 _onqueue_prepareDeviceWithConnection:connection];
             }
           }
 
@@ -306,23 +315,21 @@ LABEL_17:
         }
       }
 
-      v16 = v21;
+      v18 = v25;
       goto LABEL_41;
     }
 
-    v22 = _gc_log_generic_device();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v27 = _gc_log_generic_device(0);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      [(_GCGenericPhysicalDevicePending *)connection _onqueue_prepareDeviceWithConnection:v22];
+      [(_GCGenericPhysicalDevicePending *)connection _onqueue_prepareDeviceWithConnection:v27];
     }
 
-    v10 = 0;
+    v12 = 0;
     goto LABEL_38;
   }
 
 LABEL_18:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setFilterConnection:(id)connection invalidatingPrevious:(BOOL)previous
@@ -371,36 +378,18 @@ LABEL_18:
 
 - (void)_onqueue_prepareDeviceWithConnection:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_DEBUG, "%@ Connect to GCGenericDeviceDriverConfigurationService", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_onqueue_prepareDeviceWithConnection:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_1_13(&dword_1D2C3B000, v0, v1, "%@ Failed to connect to GCGenericDeviceDriverConfigurationService: %@");
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_DEBUG, "%@ Connect to GCGenericDeviceDriverConfigurationService", &v2, 0xCu);
 }
 
 - (void)_onqueue_prepareDeviceWithConnection:(uint64_t)a1 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_DEBUG, "%@ Fetching HID device snapshot", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_onqueue_prepareDeviceWithConnection:.cold.4()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_1_13(&dword_1D2C3B000, v0, v1, "%@ Failed to fetch HID device snapshot: %@");
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_DEBUG, "%@ Fetching HID device snapshot", &v2, 0xCu);
 }
 
 - (void)_onqueue_prepareDeviceWithConnection:(uint64_t)a3 .cold.5(uint64_t a1, void *a2, uint64_t a3)
@@ -409,48 +398,29 @@ LABEL_18:
   _os_log_debug_impl(&dword_1D2C3B000, v5, OS_LOG_TYPE_DEBUG, "%@ Fetching HID device model for snapshot %@", v4, 0x16u);
 }
 
-- (void)_onqueue_prepareDeviceWithConnection:.cold.6()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_1_13(&dword_1D2C3B000, v0, v1, "%@ Failed to retrieve device model: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_onqueue_prepareDeviceWithConnection:(uint64_t)a3 .cold.7(uint64_t a1, void *a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_2_11(a1, a2, a3, 5.778e-34);
   _os_log_debug_impl(&dword_1D2C3B000, v5, OS_LOG_TYPE_DEBUG, "%@ Configuring driver with model: %@", v4, 0x16u);
 }
 
-- (void)_onqueue_prepareDeviceWithConnection:.cold.8()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_1_13(&dword_1D2C3B000, v0, v1, "%@ Failed to configure driver: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_onqueue_prepareDeviceWithConnection:(NSObject *)a1 .cold.9(NSObject *a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = a2;
-    _os_log_error_impl(&dword_1D2C3B000, a1, OS_LOG_TYPE_ERROR, "%@ Failed to create device with model", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = a2;
+    _os_log_error_impl(&dword_1D2C3B000, a1, OS_LOG_TYPE_ERROR, "%@ Failed to create device with model", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_onqueue_prepareDeviceWithConnection:(uint64_t)a1 .cold.10(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_ERROR, "%@ No device DB.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_ERROR, "%@ No device DB.", &v2, 0xCu);
 }
 
 @end

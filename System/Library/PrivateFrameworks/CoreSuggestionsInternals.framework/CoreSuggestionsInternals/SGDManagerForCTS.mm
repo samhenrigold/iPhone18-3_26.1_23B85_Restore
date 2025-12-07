@@ -69,7 +69,7 @@
 
 - (BOOL)_shouldDissectContentWithUniqueIdentifier:(id)identifier domainIdentifier:(id)domainIdentifier bundleIdentifier:(id)bundleIdentifier headers:(id)headers accountIdentifier:(id)accountIdentifier
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   domainIdentifierCopy = domainIdentifier;
   bundleIdentifierCopy = bundleIdentifier;
@@ -84,7 +84,7 @@
       v19 = [[SGDuplicateKey alloc] initWithMessageIdHeaderValues:v18 accountIdentifier:accountIdentifierCopy];
       if (v19)
       {
-        v30 = v17;
+        v29 = v17;
         v20 = (*(self->_harvestStoreGetter + 2))();
         emailKey = [(SGDuplicateKey *)v19 emailKey];
         v22 = [v20 addSpotlightReferenceToEmailIfFullyDownloaded:emailKey withBundleIdentifier:bundleIdentifierCopy uniqueIdentifier:identifierCopy domainIdentifier:domainIdentifierCopy];
@@ -96,19 +96,19 @@
           {
             emailKey2 = [(SGDuplicateKey *)v19 emailKey];
             *buf = 138413058;
-            v32 = identifierCopy;
-            v33 = 2112;
-            v34 = domainIdentifierCopy;
-            v35 = 2112;
-            v36 = bundleIdentifierCopy;
-            v37 = 2112;
-            v38 = emailKey2;
+            v31 = identifierCopy;
+            v32 = 2112;
+            v33 = domainIdentifierCopy;
+            v34 = 2112;
+            v35 = bundleIdentifierCopy;
+            v36 = 2112;
+            v37 = emailKey2;
             _os_log_impl(&dword_231E60000, v23, OS_LOG_TYPE_DEFAULT, "_shouldDissectContentWithUniqueIdentifier:%@ domainIdentifier:%@ bundleIdentifier:%@ added an additional Spotlight reference to existing harvested email record %@", buf, 0x2Au);
           }
         }
 
         v25 = v22 ^ 1;
-        v17 = v30;
+        v17 = v29;
       }
 
       else
@@ -134,7 +134,6 @@
     v26 = 1;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -166,38 +165,38 @@
 
 - (BOOL)_processMessage:(id)message pipeline:(id)pipeline context:(id)context harvestMetrics:(id)metrics
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   pipelineCopy = pipeline;
   contextCopy = context;
   metricsCopy = metrics;
   context = objc_autoreleasePoolPush();
-  v40 = metricsCopy;
+  v39 = metricsCopy;
   [messageCopy setHarvestMetrics:metricsCopy];
   [SGDPowerLog startDissectionOfMessage:messageCopy inContext:1];
   v12 = (*(self->_harvestStoreGetter + 2))();
   [v12 incStatsCounterWithKey:@"dissected_items"];
 
   v13 = [[SGPipelineEntity alloc] initWithMessage:messageCopy];
-  [(SGPipelineEntity *)v13 setHarvestMetrics:v40];
-  v61[0] = 0;
-  v61[1] = v61;
-  v61[2] = 0x3810000000;
+  [(SGPipelineEntity *)v13 setHarvestMetrics:v39];
+  v60[0] = 0;
+  v60[1] = v60;
+  v60[2] = 0x3810000000;
+  v61 = 0;
   v62 = 0;
-  v63 = 0;
-  v61[3] = "";
-  v61[4] = @"backgroundDissectAndWrite";
-  v62 = mach_absolute_time();
-  v63 = 0;
-  v58[0] = 0;
-  v58[1] = v58;
-  v58[2] = 0x3810000000;
+  v60[3] = "";
+  v60[4] = @"backgroundDissectAndWrite";
+  v61 = mach_absolute_time();
+  v62 = 0;
+  v57[0] = 0;
+  v57[1] = v57;
+  v57[2] = 0x3810000000;
+  v58 = 0;
   v59 = 0;
-  v60 = 0;
-  v58[3] = "";
-  v58[4] = @"backgroundDissect";
-  v59 = mach_absolute_time();
-  v60 = 0;
+  v57[3] = "";
+  v57[4] = @"backgroundDissect";
+  v58 = mach_absolute_time();
+  v59 = 0;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -222,8 +221,8 @@
   {
     [MEMORY[0x277CCA8C8] blockOperationWithBlock:&__block_literal_global_164];
   }
-  v43 = ;
-  [v15 addObject:v43];
+  v42 = ;
+  [v15 addObject:v42];
   if ([MEMORY[0x277D02098] shouldHarvestEvents])
   {
     [pipelineCopy geocodeOperation:v13 withDependencies:v15];
@@ -233,45 +232,45 @@
   {
     [MEMORY[0x277CCA8C8] blockOperationWithBlock:&__block_literal_global_166];
   }
-  v42 = ;
-  [v15 addObject:v42];
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __68__SGDManagerForCTS__processMessage_pipeline_context_harvestMetrics___block_invoke_3;
-  v57[3] = &unk_278955BF0;
-  v57[4] = v58;
-  v18 = [MEMORY[0x277CCA8C8] blockOperationWithBlock:v57];
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
+  v41 = ;
+  [v15 addObject:v41];
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __68__SGDManagerForCTS__processMessage_pipeline_context_harvestMetrics___block_invoke_3;
+  v56[3] = &unk_278955BF0;
+  v56[4] = v57;
+  v18 = [MEMORY[0x277CCA8C8] blockOperationWithBlock:v56];
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v19 = v14;
-  v20 = [v19 countByEnumeratingWithState:&v53 objects:v74 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v52 objects:v73 count:16];
   if (v20)
   {
-    v21 = *v54;
+    v21 = *v53;
     do
     {
       v22 = 0;
       do
       {
-        if (*v54 != v21)
+        if (*v53 != v21)
         {
           objc_enumerationMutation(v19);
         }
 
-        [v18 addDependency:*(*(&v53 + 1) + 8 * v22++)];
+        [v18 addDependency:*(*(&v52 + 1) + 8 * v22++)];
       }
 
       while (v20 != v22);
-      v20 = [v19 countByEnumeratingWithState:&v53 objects:v74 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v52 objects:v73 count:16];
     }
 
     while (v20);
   }
 
   [v15 addObject:v18];
-  v41 = (*(self->_harvestStoreGetter + 2))();
+  v40 = (*(self->_harvestStoreGetter + 2))();
   v23 = sgLogHandle();
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
@@ -279,40 +278,40 @@
     spotlightUniqueIdentifier = [messageCopy spotlightUniqueIdentifier];
     spotlightDomainIdentifier = [messageCopy spotlightDomainIdentifier];
     *buf = 138413315;
-    v65 = spotlightBundleIdentifier;
-    v66 = 2112;
-    v67 = spotlightUniqueIdentifier;
-    v68 = 2112;
-    v69 = spotlightDomainIdentifier;
-    v70 = 2112;
-    v71 = v41;
-    v72 = 2117;
-    v73 = v13;
+    v64 = spotlightBundleIdentifier;
+    v65 = 2112;
+    v66 = spotlightUniqueIdentifier;
+    v67 = 2112;
+    v68 = spotlightDomainIdentifier;
+    v69 = 2112;
+    v70 = v40;
+    v71 = 2117;
+    v72 = v13;
     _os_log_impl(&dword_231E60000, v23, OS_LOG_TYPE_DEFAULT, "Constructing store op for bid:%@ uid:%@ did:%@ store:%@ entity:%{sensitive}@", buf, 0x34u);
   }
 
   spotlightBundleIdentifier2 = [messageCopy spotlightBundleIdentifier];
   spotlightUniqueIdentifier2 = [messageCopy spotlightUniqueIdentifier];
   spotlightDomainIdentifier2 = [messageCopy spotlightDomainIdentifier];
-  v30 = [pipelineCopy storeOperation:v13 spotlightBundleIdentifier:spotlightBundleIdentifier2 spotlightUniqueIdentifier:spotlightUniqueIdentifier2 spotlightDomainIdentifier:spotlightDomainIdentifier2 withStore:v41 dependencies:v15];
+  v30 = [pipelineCopy storeOperation:v13 spotlightBundleIdentifier:spotlightBundleIdentifier2 spotlightUniqueIdentifier:spotlightUniqueIdentifier2 spotlightDomainIdentifier:spotlightDomainIdentifier2 withStore:v40 dependencies:v15];
 
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __68__SGDManagerForCTS__processMessage_pipeline_context_harvestMetrics___block_invoke_167;
-  v49[3] = &unk_278953F60;
-  v51 = v61;
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __68__SGDManagerForCTS__processMessage_pipeline_context_harvestMetrics___block_invoke_167;
+  v48[3] = &unk_278953F60;
+  v50 = v60;
   v31 = v13;
-  v50 = v31;
-  v52 = v58;
-  [v30 setCompletionBlock:v49];
+  v49 = v31;
+  v51 = v57;
+  [v30 setCompletionBlock:v48];
   processingQueue = [contextCopy processingQueue];
   [processingQueue addOperations:v19 waitUntilFinished:0];
 
   processingQueue2 = [contextCopy processingQueue];
-  [processingQueue2 addOperation:v43];
+  [processingQueue2 addOperation:v42];
 
   processingQueue3 = [contextCopy processingQueue];
-  [processingQueue3 addOperation:v42];
+  [processingQueue3 addOperation:v41];
 
   processingQueue4 = [contextCopy processingQueue];
   [processingQueue4 addOperation:v18];
@@ -325,25 +324,24 @@
 
   else
   {
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __68__SGDManagerForCTS__processMessage_pipeline_context_harvestMetrics___block_invoke_2_170;
-    v46[3] = &unk_278955830;
-    v47 = contextCopy;
-    v48 = v30;
-    [SGSpotlightContactsAdapter notifyWhenFlushed:v46];
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __68__SGDManagerForCTS__processMessage_pipeline_context_harvestMetrics___block_invoke_2_170;
+    v45[3] = &unk_278955830;
+    v46 = contextCopy;
+    v47 = v30;
+    [SGSpotlightContactsAdapter notifyWhenFlushed:v45];
 
-    storageQueue = v47;
+    storageQueue = v46;
   }
 
   [v30 waitUntilFinished];
   [SGDPowerLog endDissectionOfMessage:messageCopy inContext:1];
 
-  _Block_object_dispose(v58, 8);
-  _Block_object_dispose(v61, 8);
+  _Block_object_dispose(v57, 8);
+  _Block_object_dispose(v60, 8);
 
   objc_autoreleasePoolPop(context);
-  v37 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -364,13 +362,13 @@ void __68__SGDManagerForCTS__processMessage_pipeline_context_harvestMetrics___bl
 
 - (BOOL)processMailMessage:(id)message headers:(id)headers pipeline:(id)pipeline context:(id)context harvestMetrics:(id)metrics
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   headersCopy = headers;
   pipelineCopy = pipeline;
   contextCopy = context;
   metricsCopy = metrics;
-  v39 = contextCopy;
+  v38 = contextCopy;
   if ([messageCopy isSent])
   {
     from = (*(self->_harvestStoreGetter + 2))();
@@ -394,20 +392,20 @@ LABEL_7:
   v22 = metricsCopy;
   v24 = v23 = pipelineCopy;
   emailAddress2 = [v24 emailAddress];
-  v38 = [accountHandles containsObject:emailAddress2];
+  v37 = [accountHandles containsObject:emailAddress2];
 
   pipelineCopy = v23;
   metricsCopy = v22;
   headersCopy = v21;
 
-  if (v38)
+  if (v37)
   {
     v26 = sgLogHandle();
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       uniqueIdentifier = [messageCopy uniqueIdentifier];
       *buf = 138412290;
-      v41 = uniqueIdentifier;
+      v40 = uniqueIdentifier;
       v28 = "SGSimpleMailMessage %@ appears to be a sent email not in the sent mail folder, so it will be dropped from the dissector pipeline.";
 LABEL_12:
       _os_log_impl(&dword_231E60000, v26, OS_LOG_TYPE_DEFAULT, v28, buf, 0xCu);
@@ -416,7 +414,7 @@ LABEL_12:
 LABEL_13:
 
     v35 = 0;
-    v34 = v39;
+    v34 = v38;
     goto LABEL_14;
   }
 
@@ -434,7 +432,7 @@ LABEL_8:
     {
       uniqueIdentifier = [messageCopy uniqueIdentifier];
       *buf = 138412290;
-      v41 = uniqueIdentifier;
+      v40 = uniqueIdentifier;
       v28 = "SGSimpleMailMessage %@ has been processed without dissection, so it will be dropped from the dissector pipeline.";
       goto LABEL_12;
     }
@@ -442,17 +440,16 @@ LABEL_8:
     goto LABEL_13;
   }
 
-  v34 = v39;
-  v35 = [(SGDManagerForCTS *)self _processMessage:messageCopy pipeline:pipelineCopy context:v39 harvestMetrics:metricsCopy];
+  v34 = v38;
+  v35 = [(SGDManagerForCTS *)self _processMessage:messageCopy pipeline:pipelineCopy context:v38 harvestMetrics:metricsCopy];
 LABEL_14:
 
-  v36 = *MEMORY[0x277D85DE8];
   return v35;
 }
 
 - (BOOL)processTextMessage:(id)message pipeline:(id)pipeline context:(id)context harvestMetrics:(id)metrics
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   pipelineCopy = pipeline;
   contextCopy = context;
@@ -473,21 +470,20 @@ LABEL_14:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       uniqueIdentifier = [messageCopy uniqueIdentifier];
-      v23 = 138412290;
-      v24 = uniqueIdentifier;
-      _os_log_impl(&dword_231E60000, v19, OS_LOG_TYPE_DEFAULT, "SGTextMessage %@ has been processed without dissection, so it will be dropped from the dissector pipeline.", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = uniqueIdentifier;
+      _os_log_impl(&dword_231E60000, v19, OS_LOG_TYPE_DEFAULT, "SGTextMessage %@ has been processed without dissection, so it will be dropped from the dissector pipeline.", &v22, 0xCu);
     }
 
     v18 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (BOOL)processSearchableItem:(id)item pipeline:(id)pipeline context:(id)context harvestMetrics:(id)metrics
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   pipelineCopy = pipeline;
   contextCopy = context;
@@ -538,11 +534,11 @@ LABEL_14:
       block[1] = 3221225472;
       block[2] = __74__SGDManagerForCTS_processSearchableItem_pipeline_context_harvestMetrics___block_invoke_2;
       block[3] = &unk_278955830;
-      v53 = itemCopy;
-      v54 = metricsCopy;
+      v52 = itemCopy;
+      v53 = metricsCopy;
       dispatch_async(v27, block);
 
-      v28 = v53;
+      v28 = v52;
     }
 
     else
@@ -555,7 +551,7 @@ LABEL_14:
       {
         uniqueIdentifier3 = [itemCopy uniqueIdentifier];
         *buf = 138412290;
-        v56 = uniqueIdentifier3;
+        v55 = uniqueIdentifier3;
         _os_log_impl(&dword_231E60000, v28, OS_LOG_TYPE_DEFAULT, "Plugins finished CSSI processing via CTS: %@", buf, 0xCu);
       }
     }
@@ -569,7 +565,7 @@ LABEL_14:
     {
       uniqueIdentifier4 = [itemCopy uniqueIdentifier];
       *buf = 138412290;
-      v56 = uniqueIdentifier4;
+      v55 = uniqueIdentifier4;
       _os_log_impl(&dword_231E60000, v20, OS_LOG_TYPE_INFO, "Dissector pipeline ignoring %@", buf, 0xCu);
     }
 
@@ -585,7 +581,7 @@ LABEL_14:
   {
     attributeSet = [itemCopy attributeSet];
     authors = [attributeSet authors];
-    v36 = [authors count];
+    v36 = objc_msgSend_count(authors);
 
     if (v36)
     {
@@ -601,28 +597,28 @@ LABEL_23:
         goto LABEL_24;
       }
 
-      v46 = sgLogHandle();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+      v45 = sgLogHandle();
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
       {
         uniqueIdentifier5 = [itemCopy uniqueIdentifier];
         *buf = 138412290;
-        v56 = uniqueIdentifier5;
-        v49 = "text message CSSI %@ has no accountIdentifier";
+        v55 = uniqueIdentifier5;
+        v48 = "text message CSSI %@ has no accountIdentifier";
         goto LABEL_33;
       }
     }
 
     else
     {
-      v46 = sgLogHandle();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+      v45 = sgLogHandle();
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
       {
         uniqueIdentifier5 = [itemCopy uniqueIdentifier];
         *buf = 138412290;
-        v56 = uniqueIdentifier5;
-        v49 = "text message CSSI %@ has no authors";
+        v55 = uniqueIdentifier5;
+        v48 = "text message CSSI %@ has no authors";
 LABEL_33:
-        _os_log_fault_impl(&dword_231E60000, v46, OS_LOG_TYPE_FAULT, v49, buf, 0xCu);
+        _os_log_fault_impl(&dword_231E60000, v45, OS_LOG_TYPE_FAULT, v48, buf, 0xCu);
         goto LABEL_34;
       }
     }
@@ -631,9 +627,9 @@ LABEL_33:
   else
   {
     bundleID4 = [itemCopy bundleID];
-    v43 = [bundleID4 isEqualToString:*MEMORY[0x277D021C0]];
+    v42 = [bundleID4 isEqualToString:*MEMORY[0x277D021C0]];
 
-    if (v43)
+    if (v42)
     {
       v20 = [(SGMessage *)SGSimpleMailMessage messageWithSearchableItem:itemCopy];
       attributeSet3 = [itemCopy attributeSet];
@@ -643,16 +639,16 @@ LABEL_33:
       goto LABEL_23;
     }
 
-    v46 = sgLogHandle();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+    v45 = sgLogHandle();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
     {
       uniqueIdentifier5 = [itemCopy uniqueIdentifier];
       bundleID5 = [itemCopy bundleID];
       *buf = 138412546;
-      v56 = uniqueIdentifier5;
-      v57 = 2112;
-      v58 = bundleID5;
-      _os_log_fault_impl(&dword_231E60000, v46, OS_LOG_TYPE_FAULT, "Unhandled CSSI %@ from %@ in [SGDManagerForCTS processSearchableItem:pipeline:context:]", buf, 0x16u);
+      v55 = uniqueIdentifier5;
+      v56 = 2112;
+      v57 = bundleID5;
+      _os_log_fault_impl(&dword_231E60000, v45, OS_LOG_TYPE_FAULT, "Unhandled CSSI %@ from %@ in [SGDManagerForCTS processSearchableItem:pipeline:context:]", buf, 0x16u);
 
 LABEL_34:
     }
@@ -667,13 +663,12 @@ LABEL_34:
 LABEL_24:
   objc_autoreleasePoolPop(v14);
 
-  v40 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 void __74__SGDManagerForCTS_processSearchableItem_pipeline_context_harvestMetrics___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = +[SGDPluginManager sharedInstance];
   v3 = [v2 processSearchableItem:*(a1 + 32) harvestMetrics:*(a1 + 40)];
 
@@ -681,12 +676,10 @@ void __74__SGDManagerForCTS_processSearchableItem_pipeline_context_harvestMetric
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) uniqueIdentifier];
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEFAULT, "Plugins finished async CSSI processing via CTS: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEFAULT, "Plugins finished async CSSI processing via CTS: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SGDManagerForCTS_processSearchableItem_pipeline_context_harvestMetrics___block_invoke()
@@ -701,7 +694,7 @@ void __74__SGDManagerForCTS_processSearchableItem_pipeline_context_harvestMetric
 
 - (void)_performHarvestedURLMetricUploadAcitivity:(id)acitivity
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   acitivityCopy = acitivity;
   isClassCLocked = [MEMORY[0x277D42598] isClassCLocked];
   v4 = sgLogHandle();
@@ -742,9 +735,9 @@ void __74__SGDManagerForCTS_processSearchableItem_pipeline_context_harvestMetric
     v14 = sgLogHandle();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = [v13 count];
+      v15 = objc_msgSend_count(v13);
       *buf = 134217984;
-      v63 = v15;
+      v62 = v15;
       _os_log_impl(&dword_231E60000, v14, OS_LOG_TYPE_DEFAULT, "[HarvestedURLMetric] Got %tu URL(s) in the store.", buf, 0xCu);
     }
 
@@ -762,54 +755,54 @@ void __74__SGDManagerForCTS_processSearchableItem_pipeline_context_harvestMetric
 
     else
     {
-      v43 = v11;
-      v44 = v6;
-      v45 = v4;
-      v47 = objc_opt_new();
+      v42 = v11;
+      v43 = v6;
+      v44 = v4;
+      v46 = objc_opt_new();
+      v53 = 0u;
       v54 = 0u;
       v55 = 0u;
       v56 = 0u;
-      v57 = 0u;
-      v42 = v13;
+      v41 = v13;
       v17 = v13;
-      v18 = [v17 countByEnumeratingWithState:&v54 objects:v61 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v53 objects:v60 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v55;
+        v20 = *v54;
         while (2)
         {
           v21 = 0;
-          v46 = v19;
+          v45 = v19;
           do
           {
-            if (*v55 != v20)
+            if (*v54 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v54 + 1) + 8 * v21);
+            v22 = *(*(&v53 + 1) + 8 * v21);
             v23 = objc_autoreleasePoolPush();
             if (([v22 flags] & 8) != 0)
             {
               v24 = v17;
               bundleIdentifier = [v22 bundleIdentifier];
-              v26 = [v47 objectForKeyedSubscript:bundleIdentifier];
+              v26 = [v46 objectForKeyedSubscript:bundleIdentifier];
               if (!v26)
               {
-                v59[0] = @"offeredCount";
-                v59[1] = @"acceptedCount";
-                v60[0] = &unk_284749290;
-                v60[1] = &unk_284749290;
-                v59[2] = @"bundleIdentifier";
+                v58[0] = @"offeredCount";
+                v58[1] = @"acceptedCount";
+                v59[0] = &unk_284749290;
+                v59[1] = &unk_284749290;
+                v58[2] = @"bundleIdentifier";
                 _pas_stringBackedByUTF8CString = [bundleIdentifier _pas_stringBackedByUTF8CString];
-                v59[3] = @"urlType";
-                v60[2] = _pas_stringBackedByUTF8CString;
-                v60[3] = @"FaceTime";
-                v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:4];
+                v58[3] = @"urlType";
+                v59[2] = _pas_stringBackedByUTF8CString;
+                v59[3] = @"FaceTime";
+                v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:4];
                 v26 = [v28 mutableCopy];
 
-                [v47 setObject:v26 forKeyedSubscript:bundleIdentifier];
+                [v46 setObject:v26 forKeyedSubscript:bundleIdentifier];
               }
 
               v29 = [v26 objectForKeyedSubscript:@"offeredCount"];
@@ -826,8 +819,8 @@ void __74__SGDManagerForCTS_processSearchableItem_pipeline_context_harvestMetric
               if ([(SGXPCActivityManagerProtocol *)self->_xpcActivityManager shouldDefer:acitivityCopy])
               {
                 v40 = sgLogHandle();
-                v11 = v43;
-                v6 = v44;
+                v11 = v42;
+                v6 = v43;
                 if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
@@ -836,12 +829,12 @@ void __74__SGDManagerForCTS_processSearchableItem_pipeline_context_harvestMetric
 
                 [(SGXPCActivityManagerProtocol *)self->_xpcActivityManager setState:acitivityCopy state:3];
                 objc_autoreleasePoolPop(v23);
-                v4 = v45;
+                v4 = v44;
                 goto LABEL_43;
               }
 
               v17 = v24;
-              v19 = v46;
+              v19 = v45;
             }
 
             objc_autoreleasePoolPop(v23);
@@ -849,7 +842,7 @@ void __74__SGDManagerForCTS_processSearchableItem_pipeline_context_harvestMetric
           }
 
           while (v19 != v21);
-          v19 = [v17 countByEnumeratingWithState:&v54 objects:v61 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v53 objects:v60 count:16];
           if (v19)
           {
             continue;
@@ -859,38 +852,38 @@ void __74__SGDManagerForCTS_processSearchableItem_pipeline_context_harvestMetric
         }
       }
 
-      v52 = 0u;
-      v53 = 0u;
-      v50 = 0u;
       v51 = 0u;
-      allValues = [v47 allValues];
-      v34 = [allValues countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v52 = 0u;
+      v49 = 0u;
+      v50 = 0u;
+      allValues = [v46 allValues];
+      v34 = [allValues countByEnumeratingWithState:&v49 objects:v57 count:16];
       if (v34)
       {
         v35 = v34;
-        v36 = *v51;
+        v36 = *v50;
         do
         {
           for (i = 0; i != v35; ++i)
           {
-            if (*v51 != v36)
+            if (*v50 != v36)
             {
               objc_enumerationMutation(allValues);
             }
 
-            v38 = *(*(&v50 + 1) + 8 * i);
+            v38 = *(*(&v49 + 1) + 8 * i);
             v39 = sgLogHandle();
             if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v63 = v38;
+              v62 = v38;
               _os_log_impl(&dword_231E60000, v39, OS_LOG_TYPE_DEFAULT, "[HarvestedURLMetric] payload: %@", buf, 0xCu);
             }
 
             AnalyticsSendEvent();
           }
 
-          v35 = [allValues countByEnumeratingWithState:&v50 objects:v58 count:16];
+          v35 = [allValues countByEnumeratingWithState:&v49 objects:v57 count:16];
         }
 
         while (v35);
@@ -903,15 +896,13 @@ void __74__SGDManagerForCTS_processSearchableItem_pipeline_context_harvestMetric
         _os_log_impl(&dword_231E60000, v24, OS_LOG_TYPE_DEFAULT, "[HarvestedURLMetric] Done with harvested URL metric upload CTS job.", buf, 2u);
       }
 
-      v6 = v44;
-      v4 = v45;
-      v11 = v43;
+      v6 = v43;
+      v4 = v44;
+      v11 = v42;
 LABEL_43:
-      v13 = v42;
+      v13 = v41;
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerHarvestedURLMetricUploadActivity
@@ -1143,12 +1134,12 @@ void __58__SGDManagerForCTS__registerMailIntelligenceTasksActivity__block_invoke
 
 - (void)_performProcessPendingVerificationActivity:(id)activity overrideVerificationStatus:(id)status
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   statusCopy = status;
-  v72[2] = 0;
-  v72[0] = @"com.apple.suggestd.process-pending-verification";
-  v72[1] = mach_absolute_time();
+  v71[2] = 0;
+  v71[0] = @"com.apple.suggestd.process-pending-verification";
+  v71[1] = mach_absolute_time();
   v5 = sgEventsLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -1175,36 +1166,36 @@ void __58__SGDManagerForCTS__registerMailIntelligenceTasksActivity__block_invoke
     v8 = (*(self->_harvestStoreGetter + 2))();
     emailsPendingVerification = [v8 emailsPendingVerification];
 
-    v70 = 0u;
-    v71 = 0u;
-    v68 = 0u;
     v69 = 0u;
+    v70 = 0u;
+    v67 = 0u;
+    v68 = 0u;
     log = emailsPendingVerification;
-    v10 = [log countByEnumeratingWithState:&v68 objects:v76 count:16];
+    v10 = [log countByEnumeratingWithState:&v67 objects:v75 count:16];
     if (v10)
     {
-      v51 = *v69;
+      v50 = *v68;
       *&v11 = 138543362;
-      v42 = v11;
+      v41 = v11;
       while (2)
       {
-        v52 = v10;
-        for (i = 0; i != v52; ++i)
+        v51 = v10;
+        for (i = 0; i != v51; ++i)
         {
-          if (*v69 != v51)
+          if (*v68 != v50)
           {
             objc_enumerationMutation(log);
           }
 
-          v56 = *(*(&v68 + 1) + 8 * i);
+          v55 = *(*(&v67 + 1) + 8 * i);
           if (activityCopy && [(SGXPCActivityManagerProtocol *)self->_xpcActivityManager shouldDefer:activityCopy])
           {
             v37 = sgEventsLogHandle();
             if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
             {
-              loggingIdentifier = [v56 loggingIdentifier];
-              *buf = v42;
-              v75 = loggingIdentifier;
+              loggingIdentifier = [v55 loggingIdentifier];
+              *buf = v41;
+              v74 = loggingIdentifier;
               _os_log_impl(&dword_231E60000, v37, OS_LOG_TYPE_DEFAULT, "SGDManagerForCTS _performProcessPendingVerificationActivity: Deferring CTS document verification for [SGEntity (%{public}@)]", buf, 0xCu);
             }
 
@@ -1213,9 +1204,9 @@ void __58__SGDManagerForCTS__registerMailIntelligenceTasksActivity__block_invoke
               v39 = sgEventsLogHandle();
               if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
               {
-                loggingIdentifier2 = [v56 loggingIdentifier];
-                *buf = v42;
-                v75 = loggingIdentifier2;
+                loggingIdentifier2 = [v55 loggingIdentifier];
+                *buf = v41;
+                v74 = loggingIdentifier2;
                 _os_log_error_impl(&dword_231E60000, v39, OS_LOG_TYPE_ERROR, "SGDManagerForCTS _performProcessPendingVerificationActivity: Could not defer CTS document verification for [SGEntity (%{public}@)]", buf, 0xCu);
               }
             }
@@ -1223,14 +1214,14 @@ void __58__SGDManagerForCTS__registerMailIntelligenceTasksActivity__block_invoke
             goto LABEL_45;
           }
 
-          duplicateKey = [v56 duplicateKey];
+          duplicateKey = [v55 duplicateKey];
           entityKey = [duplicateKey entityKey];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
 
           if (isKindOfClass)
           {
-            duplicateKey2 = [v56 duplicateKey];
+            duplicateKey2 = [v55 duplicateKey];
             entityKey2 = [duplicateKey2 entityKey];
 
             messageId = [entityKey2 messageId];
@@ -1239,30 +1230,30 @@ void __58__SGDManagerForCTS__registerMailIntelligenceTasksActivity__block_invoke
               v18 = sgEventsLogHandle();
               if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
               {
-                loggingIdentifier3 = [v56 loggingIdentifier];
-                *buf = v42;
-                v75 = loggingIdentifier3;
+                loggingIdentifier3 = [v55 loggingIdentifier];
+                *buf = v41;
+                v74 = loggingIdentifier3;
                 _os_log_impl(&dword_231E60000, v18, OS_LOG_TYPE_DEFAULT, "SGDManagerForCTS _performProcessPendingVerificationActivity: Starting CTS document verification for [SGEntity (%{public}@)]", buf, 0xCu);
               }
 
-              v47 = dispatch_semaphore_create(0);
+              v46 = dispatch_semaphore_create(0);
               v20 = (*(self->_harvestStoreGetter + 2))();
-              v49 = [v20 loadEntitiesFoundInEmail:entityKey2 entityType:2];
+              v48 = [v20 loadEntitiesFoundInEmail:entityKey2 entityType:2];
 
               if (statusCopy)
               {
                 integerValue = [statusCopy integerValue];
                 v21 = 0;
-                v22 = v47;
+                v22 = v46;
               }
 
               else
               {
                 v26 = +[SGMailClientUtil sharedInstance];
-                v67 = 0;
-                v27 = [v26 verifyDKIMSignatureForMailWithIdentifier:messageId error:&v67];
-                v44 = v26;
-                v43 = v67;
+                v66 = 0;
+                v27 = [v26 verifyDKIMSignatureForMailWithIdentifier:messageId error:&v66];
+                v43 = v26;
+                v42 = v66;
                 integerValue = v27;
                 if (v27)
                 {
@@ -1274,53 +1265,53 @@ void __58__SGDManagerForCTS__registerMailIntelligenceTasksActivity__block_invoke
                   v28 = 11;
                 }
 
+                v62 = 0u;
                 v63 = 0u;
                 v64 = 0u;
                 v65 = 0u;
-                v66 = 0u;
-                v29 = v49;
-                v30 = [v29 countByEnumeratingWithState:&v63 objects:v73 count:16];
+                v29 = v48;
+                v30 = [v29 countByEnumeratingWithState:&v62 objects:v72 count:16];
                 if (v30)
                 {
-                  v31 = *v64;
+                  v31 = *v63;
                   do
                   {
                     for (j = 0; j != v30; ++j)
                     {
-                      if (*v64 != v31)
+                      if (*v63 != v31)
                       {
                         objc_enumerationMutation(v29);
                       }
 
-                      v33 = *(*(&v63 + 1) + 8 * j);
+                      v33 = *(*(&v62 + 1) + 8 * j);
                       v34 = +[SGRTCLogging defaultLogger];
                       [v34 logEventInteractionForEntity:v33 interface:0 actionType:v28];
                     }
 
-                    v30 = [v29 countByEnumeratingWithState:&v63 objects:v73 count:16];
+                    v30 = [v29 countByEnumeratingWithState:&v62 objects:v72 count:16];
                   }
 
                   while (v30);
                 }
 
-                v22 = v47;
-                v21 = v43;
+                v22 = v46;
+                v21 = v42;
               }
 
               block[0] = MEMORY[0x277D85DD0];
               block[1] = 3221225472;
               block[2] = __90__SGDManagerForCTS__performProcessPendingVerificationActivity_overrideVerificationStatus___block_invoke;
               block[3] = &unk_27894C0B8;
-              v62 = integerValue;
-              block[4] = v56;
+              v61 = integerValue;
+              block[4] = v55;
               block[5] = self;
-              v58 = entityKey2;
-              v59 = v49;
-              v60 = v21;
-              v61 = v22;
+              v57 = entityKey2;
+              v58 = v48;
+              v59 = v21;
+              v60 = v22;
               v24 = v22;
               v35 = v21;
-              v36 = v49;
+              v36 = v48;
               dispatch_async(queue, block);
               dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
             }
@@ -1330,9 +1321,9 @@ void __58__SGDManagerForCTS__registerMailIntelligenceTasksActivity__block_invoke
               v24 = sgEventsLogHandle();
               if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
               {
-                loggingIdentifier4 = [v56 loggingIdentifier];
-                *buf = v42;
-                v75 = loggingIdentifier4;
+                loggingIdentifier4 = [v55 loggingIdentifier];
+                *buf = v41;
+                v74 = loggingIdentifier4;
                 _os_log_fault_impl(&dword_231E60000, v24, OS_LOG_TYPE_FAULT, "SGDManagerForCTS _performProcessPendingVerificationActivity: Entity pending source verification did not have a message ID. [SGEntity (%{public}@)]", buf, 0xCu);
               }
             }
@@ -1343,15 +1334,15 @@ void __58__SGDManagerForCTS__registerMailIntelligenceTasksActivity__block_invoke
             entityKey2 = sgEventsLogHandle();
             if (os_log_type_enabled(entityKey2, OS_LOG_TYPE_FAULT))
             {
-              loggingIdentifier5 = [v56 loggingIdentifier];
-              *buf = v42;
-              v75 = loggingIdentifier5;
+              loggingIdentifier5 = [v55 loggingIdentifier];
+              *buf = v41;
+              v74 = loggingIdentifier5;
               _os_log_fault_impl(&dword_231E60000, entityKey2, OS_LOG_TYPE_FAULT, "SGDManagerForCTS _performProcessPendingVerificationActivity: Entity pending source verification did not have an email entity key. [SGEntity (%{public}@)]", buf, 0xCu);
             }
           }
         }
 
-        v10 = [log countByEnumeratingWithState:&v68 objects:v76 count:16];
+        v10 = [log countByEnumeratingWithState:&v67 objects:v75 count:16];
         if (v10)
         {
           continue;
@@ -1366,15 +1357,13 @@ LABEL_45:
     pthread_mutex_unlock(&self->_verificationLock);
   }
 
-  SGRecordMeasurementState(v72);
-  SGRecordMeasurementState(v72);
-
-  v40 = *MEMORY[0x277D85DE8];
+  SGRecordMeasurementState(v71);
+  SGRecordMeasurementState(v71);
 }
 
 intptr_t __90__SGDManagerForCTS__performProcessPendingVerificationActivity_overrideVerificationStatus___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 80);
   switch(v2)
   {
@@ -1382,12 +1371,12 @@ intptr_t __90__SGDManagerForCTS__performProcessPendingVerificationActivity_overr
       v6 = sgEventsLogHandle();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v14 = *(a1 + 64);
+        v13 = *(a1 + 64);
         v8 = [*(a1 + 32) loggingIdentifier];
         *buf = 138412546;
-        v16 = v14;
-        v17 = 2114;
-        v18 = v8;
+        v15 = v13;
+        v16 = 2114;
+        v17 = v8;
         v9 = "SGDManagerForCTS _performProcessPendingVerificationActivity: DKIM verification resulted in permanent failure: %@. [SGEntity (%{public}@)]";
         goto LABEL_14;
       }
@@ -1401,7 +1390,7 @@ LABEL_10:
       [v5 deleteMessages:v11];
 
 LABEL_11:
-      break;
+      return dispatch_semaphore_signal(*(a1 + 72));
     case 1:
       v6 = sgEventsLogHandle();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
@@ -1409,9 +1398,9 @@ LABEL_11:
         v7 = *(a1 + 64);
         v8 = [*(a1 + 32) loggingIdentifier];
         *buf = 138412546;
-        v16 = v7;
-        v17 = 2114;
-        v18 = v8;
+        v15 = v7;
+        v16 = 2114;
+        v17 = v8;
         v9 = "SGDManagerForCTS _performProcessPendingVerificationActivity: DKIM verification resulted in temporary failure for 2nd time. Treating as permanent failure: %@. [SGEntity (%{public}@)]";
 LABEL_14:
         _os_log_error_impl(&dword_231E60000, v6, OS_LOG_TYPE_ERROR, v9, buf, 0x16u);
@@ -1426,7 +1415,7 @@ LABEL_14:
       {
         v4 = [*(a1 + 32) loggingIdentifier];
         *buf = 138543362;
-        v16 = v4;
+        v15 = v4;
         _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "SGDManagerForCTS _performProcessPendingVerificationActivity: Successfully verified DKIM signature. [SGEntity (%{public}@)]", buf, 0xCu);
       }
 
@@ -1435,9 +1424,7 @@ LABEL_14:
       goto LABEL_11;
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 72));
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 72));
 }
 
 - (void)_registerProcessPendingVerificationActivity
@@ -1900,93 +1887,20 @@ void __49__SGDManagerForCTS__registerForCTSVacuumActivity__block_invoke(uint64_t
     v32 = v6;
     v33 = &v37;
     v7 = MEMORY[0x2383809F0](v31);
-    if (([(SGXPCActivityManagerProtocol *)self->_xpcActivityManager shouldDefer:v6]& 1) != 0)
+    if (([(SGXPCActivityManagerProtocol *)self->_xpcActivityManager shouldDefer:v6]& 1) != 0
+      || (v30[0] = MEMORY[0x277D85DD0], v30[1] = 3221225472, v30[2] = __41__SGDManagerForCTS__performTrimActivity___block_invoke_2, v30[3] = &unk_27894C018, v30[4] = self, [MEMORY[0x277CC5A40] sg_usingSharedStoreForReadingOnly:v30], (-[SGXPCActivityManagerProtocol shouldDefer:](self->_xpcActivityManager, "shouldDefer:", v6) & 1) != 0)
+      || ((*(self->_harvestStoreGetter + 2))(), v12 = objc_claimAutoreleasedReturnValue(), [v12 pruneEntitiesOlderThanOneYearWithSuspensionHandler:v7], v12, (-[SGXPCActivityManagerProtocol shouldDefer:](self->_xpcActivityManager, "shouldDefer:", v6) & 1) != 0)
+      || ((*(self->_harvestStoreGetter + 2))(), v13 = objc_claimAutoreleasedReturnValue(), [v13 pruneMailIntelligenceOlderThanOneYearWithSuspensionHandler:v7], v13, (-[SGXPCActivityManagerProtocol shouldDefer:](self->_xpcActivityManager, "shouldDefer:", v6) & 1) != 0)
+      || ((*(self->_harvestStoreGetter + 2))(), v14 = objc_claimAutoreleasedReturnValue(), [v14 deleteInteractionEntitiesExceedingLimit:&unk_284749278 withSuspensionHandler:v7], v14, (-[SGXPCActivityManagerProtocol shouldDefer:](self->_xpcActivityManager, "shouldDefer:", v6) & 1) != 0)
+      || ((*(self->_harvestStoreGetter + 2))(), v15 = objc_claimAutoreleasedReturnValue(), [v15 deleteCompletedReimportRequests], v15, (-[SGXPCActivityManagerProtocol shouldDefer:](self->_xpcActivityManager, "shouldDefer:", v6) & 1) != 0)
+      || ((*(self->_harvestStoreGetter + 2))(), v16 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-1209600.0], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "deleteAllReimportRequestsOlderThanDate:", v17), v17, v16, (-[SGXPCActivityManagerProtocol shouldDefer:](self->_xpcActivityManager, "shouldDefer:", v6) & 1) != 0)
+      || ((*(self->_harvestStoreGetter + 2))(), v18 = objc_claimAutoreleasedReturnValue(), [v18 trimURLs], v18, (-[SGXPCActivityManagerProtocol shouldDefer:](self->_xpcActivityManager, "shouldDefer:", v6) & 1) != 0)
+      || ((*(self->_harvestStoreGetter + 2))(), v19 = objc_claimAutoreleasedReturnValue(), [v19 pruneNLEventEntitiesOlderThanTwoWeeks], v19, (-[SGXPCActivityManagerProtocol shouldDefer:](self->_xpcActivityManager, "shouldDefer:", v6) & 1) != 0)
+      || ((*(self->_harvestStoreGetter + 2))(), v20 = objc_claimAutoreleasedReturnValue(), [v20 pruneReminders], v20, (-[SGXPCActivityManagerProtocol shouldDefer:](self->_xpcActivityManager, "shouldDefer:", v6) & 1) != 0)
+      || ((*(self->_harvestStoreGetter + 2))(), v21 = objc_claimAutoreleasedReturnValue(), [v21 analyzeDatabase], v21, (-[SGXPCActivityManagerProtocol shouldDefer:](self->_xpcActivityManager, "shouldDefer:", v6) & 1) != 0)
+      || (+[SGExtractionModel cleanModelAssets], ([(SGXPCActivityManagerProtocol *)self->_xpcActivityManager shouldDefer:v6]& 1) != 0)
+      || ((*(self->_harvestStoreGetter + 2))(), v22 = objc_claimAutoreleasedReturnValue(), [v22 vacuum], v22, (-[SGXPCActivityManagerProtocol shouldDefer:](self->_xpcActivityManager, "shouldDefer:", v6) & 1) != 0))
     {
-      goto LABEL_17;
-    }
-
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __41__SGDManagerForCTS__performTrimActivity___block_invoke_2;
-    v30[3] = &unk_27894C018;
-    v30[4] = self;
-    [MEMORY[0x277CC5A40] sg_usingSharedStoreForReadingOnly:v30];
-    if (([(SGXPCActivityManagerProtocol *)self->_xpcActivityManager shouldDefer:v6]& 1) != 0)
-    {
-      goto LABEL_17;
-    }
-
-    v12 = (*(self->_harvestStoreGetter + 2))();
-    [v12 pruneEntitiesOlderThanOneYearWithSuspensionHandler:v7];
-
-    if (([(SGXPCActivityManagerProtocol *)self->_xpcActivityManager shouldDefer:v6]& 1) != 0)
-    {
-      goto LABEL_17;
-    }
-
-    v13 = (*(self->_harvestStoreGetter + 2))();
-    [v13 pruneMailIntelligenceOlderThanOneYearWithSuspensionHandler:v7];
-
-    if (([(SGXPCActivityManagerProtocol *)self->_xpcActivityManager shouldDefer:v6]& 1) != 0)
-    {
-      goto LABEL_17;
-    }
-
-    v14 = (*(self->_harvestStoreGetter + 2))();
-    [v14 deleteInteractionEntitiesExceedingLimit:&unk_284749278 withSuspensionHandler:v7];
-
-    if (([(SGXPCActivityManagerProtocol *)self->_xpcActivityManager shouldDefer:v6]& 1) != 0)
-    {
-      goto LABEL_17;
-    }
-
-    v15 = (*(self->_harvestStoreGetter + 2))();
-    [v15 deleteCompletedReimportRequests];
-
-    if (([(SGXPCActivityManagerProtocol *)self->_xpcActivityManager shouldDefer:v6]& 1) != 0)
-    {
-      goto LABEL_17;
-    }
-
-    v16 = (*(self->_harvestStoreGetter + 2))();
-    v17 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-1209600.0];
-    [v16 deleteAllReimportRequestsOlderThanDate:v17];
-
-    if (([(SGXPCActivityManagerProtocol *)self->_xpcActivityManager shouldDefer:v6]& 1) != 0)
-    {
-      goto LABEL_17;
-    }
-
-    v18 = (*(self->_harvestStoreGetter + 2))();
-    [v18 trimURLs];
-
-    if (([(SGXPCActivityManagerProtocol *)self->_xpcActivityManager shouldDefer:v6]& 1) != 0)
-    {
-      goto LABEL_17;
-    }
-
-    v19 = (*(self->_harvestStoreGetter + 2))();
-    [v19 pruneNLEventEntitiesOlderThanTwoWeeks];
-
-    if (([(SGXPCActivityManagerProtocol *)self->_xpcActivityManager shouldDefer:v6]& 1) != 0)
-    {
-      goto LABEL_17;
-    }
-
-    v20 = (*(self->_harvestStoreGetter + 2))();
-    [v20 pruneReminders];
-
-    if (([(SGXPCActivityManagerProtocol *)self->_xpcActivityManager shouldDefer:v6]& 1) != 0)
-    {
-      goto LABEL_17;
-    }
-
-    v21 = (*(self->_harvestStoreGetter + 2))();
-    [v21 analyzeDatabase];
-
-    if (-[SGXPCActivityManagerProtocol shouldDefer:](self->_xpcActivityManager, "shouldDefer:", v6) & 1) != 0 || (+[SGExtractionModel cleanModelAssets](SGExtractionModel, "cleanModelAssets"), (-[SGXPCActivityManagerProtocol shouldDefer:](self->_xpcActivityManager, "shouldDefer:", v6)) || ((*(self->_harvestStoreGetter + 2))(), v22 = objc_claimAutoreleasedReturnValue(), [v22 vacuum], v22, (-[SGXPCActivityManagerProtocol shouldDefer:](self->_xpcActivityManager, "shouldDefer:", v6)))
-    {
-LABEL_17:
       if (*(v38 + 24) == 1)
       {
         [(SGXPCActivityManagerProtocol *)self->_xpcActivityManager setState:v6 state:3];
@@ -2099,7 +2013,7 @@ void __47__SGDManagerForCTS__registerForCTSTrimActivity__block_invoke(uint64_t a
     [v6 setLimitingStartDate:v4];
 
     recentCalls = [v6 recentCalls];
-    if ([recentCalls count])
+    if (objc_msgSend_count(recentCalls))
     {
       [SGDManagerForCTS _logCallInteractions:recentCalls];
     }
@@ -2194,33 +2108,31 @@ void __50__SGDManagerForCTS__registerForCollectWeeklyStats__block_invoke(uint64_
 
 void __64__SGDManagerForCTS__performMobileAssetMetadataDownloadActivity___block_invoke(uint64_t a1, int a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6[0] = 67109120;
-    v6[1] = a2;
-    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_INFO, "CoreSuggestionsModelAssets metadata download success? %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = a2;
+    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_INFO, "CoreSuggestionsModelAssets metadata download success? %d", v5, 8u);
   }
 
   dispatch_group_leave(*(a1 + 32));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __64__SGDManagerForCTS__performMobileAssetMetadataDownloadActivity___block_invoke_52(uint64_t a1, int a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v4 = sgLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6[0] = 67109120;
-    v6[1] = a2;
-    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_INFO, "CoreSuggestionsAssets metadata download success? %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = a2;
+    _os_log_impl(&dword_231E60000, v4, OS_LOG_TYPE_INFO, "CoreSuggestionsAssets metadata download success? %d", v5, 8u);
   }
 
   SGRecordMeasurementState((*(*(a1 + 40) + 8) + 32));
   dispatch_group_leave(*(a1 + 32));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __64__SGDManagerForCTS__performMobileAssetMetadataDownloadActivity___block_invoke_53(uint64_t a1)
@@ -2342,33 +2254,33 @@ void __64__SGDManagerForCTS__registerMobileAssetMetadataDownloadActivity__block_
 
 + (void)_logCallInteractions:(id)interactions
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   interactionsCopy = interactions;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v4 = [interactionsCopy countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v4 = [interactionsCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v28;
+    v6 = *v27;
     v7 = *MEMORY[0x277CF7D98];
     v8 = *MEMORY[0x277CF7DA8];
-    v26 = *MEMORY[0x277CF7E08];
-    v23 = *MEMORY[0x277D021A8];
-    v24 = *MEMORY[0x277CF7E00];
-    v25 = *MEMORY[0x277D021E8];
+    v25 = *MEMORY[0x277CF7E08];
+    v22 = *MEMORY[0x277D021A8];
+    v23 = *MEMORY[0x277CF7E00];
+    v24 = *MEMORY[0x277D021E8];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v28 != v6)
+        if (*v27 != v6)
         {
           objc_enumerationMutation(interactionsCopy);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         v11 = v7 & [v10 callStatus];
         if (v11 || (v8 & [v10 callStatus]) != 0)
         {
@@ -2381,10 +2293,10 @@ void __64__SGDManagerForCTS__registerMobileAssetMetadataDownloadActivity__block_
             if (serviceProvider)
             {
               serviceProvider2 = [v10 serviceProvider];
-              v16 = [serviceProvider2 isEqualToString:v26];
+              v16 = [serviceProvider2 isEqualToString:v25];
 
-              v17 = v25;
-              if ((v16 & 1) != 0 || ([v10 serviceProvider], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "isEqualToString:", v24), v18, v17 = v23, v19))
+              v17 = v24;
+              if ((v16 & 1) != 0 || ([v10 serviceProvider], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "isEqualToString:", v23), v18, v17 = v22, v19))
               {
                 v20 = v17;
                 callerIdForDisplay2 = [v10 callerIdForDisplay];
@@ -2395,13 +2307,11 @@ void __64__SGDManagerForCTS__registerMobileAssetMetadataDownloadActivity__block_
         }
       }
 
-      v5 = [interactionsCopy countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v5 = [interactionsCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v5);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (SGDManagerForCTS)defaultInstance

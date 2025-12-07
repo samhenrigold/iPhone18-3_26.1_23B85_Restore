@@ -330,7 +330,6 @@ LABEL_12:
   has = self->_has;
   if ((has & 0x200) != 0)
   {
-    success = self->_success;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -350,7 +349,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  expired = self->_expired;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -365,7 +363,6 @@ LABEL_4:
   }
 
 LABEL_15:
-  nobuf = self->_nobuf;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -380,7 +377,6 @@ LABEL_5:
   }
 
 LABEL_16:
-  noack = self->_noack;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -395,7 +391,6 @@ LABEL_6:
   }
 
 LABEL_17:
-  txfailure = self->_txfailure;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -410,7 +405,6 @@ LABEL_7:
   }
 
 LABEL_18:
-  noresources = self->_noresources;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -425,7 +419,6 @@ LABEL_8:
   }
 
 LABEL_19:
-  ioerror = self->_ioerror;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -440,7 +433,6 @@ LABEL_9:
   }
 
 LABEL_20:
-  mbfree = self->_mbfree;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -452,7 +444,6 @@ LABEL_10:
     }
 
 LABEL_22:
-    noremotepeer = self->_noremotepeer;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -463,7 +454,6 @@ LABEL_22:
   }
 
 LABEL_21:
-  chipmodeerror = self->_chipmodeerror;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) != 0)
@@ -478,7 +468,6 @@ LABEL_11:
   }
 
 LABEL_23:
-  internalerror = self->_internalerror;
 
   PBDataWriterWriteUint32Field();
 }

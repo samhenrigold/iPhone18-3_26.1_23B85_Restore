@@ -694,7 +694,7 @@ uint64_t __51__PXUIPlayButtonTile__updatePlayButtonViewIfNeeded__block_invoke_4(
   return result;
 }
 
-uint64_t __35__PXUIPlayButtonTile_preferredSize__block_invoke()
+void *__35__PXUIPlayButtonTile_preferredSize__block_invoke()
 {
   result = [MEMORY[0x1E69DD250] px_videoOverlayButtonSize];
   preferredSize_preferredSize_0 = v1;

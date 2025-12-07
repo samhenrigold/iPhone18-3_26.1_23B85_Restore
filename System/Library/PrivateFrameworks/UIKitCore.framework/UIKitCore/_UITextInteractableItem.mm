@@ -185,9 +185,9 @@
     WeakRetained = objc_loadWeakRetained(&self->_textItemInteractingView);
     v9 = [WeakRetained _primaryActionForTextInteractableItem:self defaultAction:v5];
 
-    v10 = [v9 isEqual:v5];
+    isEqual = objc_msgSend_isEqual_(v9);
     v11 = v5;
-    if ((v10 & 1) != 0 || (v11 = v9) != 0)
+    if ((isEqual & 1) != 0 || (v11 = v9) != 0)
     {
       v12 = v11;
       primaryAction = self->_primaryAction;
@@ -196,7 +196,7 @@
   }
 
   v14 = actionCopy;
-  if (![(UIAction *)self->_primaryAction isEqual:v5])
+  if ((objc_msgSend_isEqual_(self->_primaryAction) & 1) == 0)
   {
     v14 = self->_primaryAction;
   }
@@ -231,11 +231,11 @@
 - (BOOL)showsMenuPreview
 {
   preparedMenuConfiguration = [(_UITextInteractableItem *)self preparedMenuConfiguration];
-  preview = [preparedMenuConfiguration preview];
+  v4 = objc_msgSend_preview(preparedMenuConfiguration);
 
-  if (preview)
+  if (v4)
   {
-    _previewView = [preview _previewView];
+    _previewView = [v4 _previewView];
     if (_previewView)
     {
       _showsPreviewByDefault = 1;
@@ -260,7 +260,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    LOBYTE(v10) = 1;
+    LOBYTE(isEqual) = 1;
   }
 
   else
@@ -278,7 +278,7 @@
 
       else
       {
-        LOBYTE(v10) = 0;
+        LOBYTE(isEqual) = 0;
         v11 = v8;
         v12 = v7;
         if (!v7 || !v8)
@@ -289,9 +289,9 @@ LABEL_18:
           goto LABEL_19;
         }
 
-        v10 = [v7 isEqual:v8];
+        isEqual = objc_msgSend_isEqual_(v7);
 
-        if (!v10)
+        if (!isEqual)
         {
           goto LABEL_18;
         }
@@ -304,27 +304,27 @@ LABEL_18:
       v11 = v15;
       if (v12 == v15)
       {
-        LOBYTE(v10) = 1;
+        LOBYTE(isEqual) = 1;
       }
 
       else
       {
-        LOBYTE(v10) = 0;
+        LOBYTE(isEqual) = 0;
         if (v12 && v15)
         {
-          LOBYTE(v10) = [v12 isEqual:v15];
+          LOBYTE(isEqual) = objc_msgSend_isEqual_(v12);
         }
       }
 
       goto LABEL_17;
     }
 
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqual) = 0;
   }
 
 LABEL_19:
 
-  return v10;
+  return isEqual;
 }
 
 - (id)contextMenuConfiguration
@@ -460,9 +460,9 @@ LABEL_19:
 - (BOOL)_actionPresentsMenu:(id)menu
 {
   identifier = [menu identifier];
-  v4 = [identifier isEqualToString:0x1EFB17D30];
+  isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (BOOL)_allowInteraction:(int64_t)interaction

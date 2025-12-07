@@ -1,6 +1,7 @@
 @interface SystemAssistantPromptEntryViewAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)setIsInTamale:(BOOL)tamale;
 @end
 
 @implementation SystemAssistantPromptEntryViewAccessibility
@@ -73,6 +74,14 @@ id __89__SystemAssistantPromptEntryViewAccessibility__accessibilityLoadAccessibi
 LABEL_6:
 
   return v6;
+}
+
+- (void)setIsInTamale:(BOOL)tamale
+{
+  v3.receiver = self;
+  v3.super_class = SystemAssistantPromptEntryViewAccessibility;
+  [(SystemAssistantPromptEntryViewAccessibility *)&v3 setIsInTamale:tamale];
+  AXPerformBlockOnMainThreadAfterDelay();
 }
 
 @end

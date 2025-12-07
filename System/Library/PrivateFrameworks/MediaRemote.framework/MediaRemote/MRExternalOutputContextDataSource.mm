@@ -120,87 +120,86 @@ uint64_t __58__MRExternalOutputContextDataSource__updateOutputDevices___block_in
 {
   v3 = [a2 uid];
   v4 = [*(a1 + 32) uid];
-  v5 = [v3 isEqualToString:v4];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  return v5;
+  return isEqualToString;
 }
 
 - (void)removeOutputDevices:(id)devices
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v18 = [(NSMutableArray *)selfCopy->_outputDevices copy];
-  v27 = 0u;
-  v28 = 0u;
+  v16 = [(NSMutableArray *)selfCopy->_outputDevices copy];
   v25 = 0u;
   v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   obj = devicesCopy;
-  v19 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
-  if (v19)
+  v17 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  if (v17)
   {
-    v17 = *v26;
+    v15 = *v24;
     do
     {
-      for (i = 0; i != v19; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v26 != v17)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v25 + 1) + 8 * i);
+        v19 = 0u;
+        v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
-        v24 = 0u;
-        v7 = v18;
-        v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
-        if (v8)
+        v6 = v16;
+        v7 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        if (v7)
         {
-          v9 = *v22;
+          v8 = *v20;
           do
           {
-            for (j = 0; j != v8; ++j)
+            for (j = 0; j != v7; ++j)
             {
-              if (*v22 != v9)
+              if (*v20 != v8)
               {
-                objc_enumerationMutation(v7);
+                objc_enumerationMutation(v6);
               }
 
-              v11 = *(*(&v21 + 1) + 8 * j);
-              v12 = [v11 uid];
-              if ([v12 isEqualToString:v6])
+              v10 = *(*(&v19 + 1) + 8 * j);
+              v11 = [v10 uid];
+              if (objc_msgSend_isEqualToString_(v11))
               {
               }
 
               else
               {
-                parentUID = [v11 parentUID];
-                v14 = [parentUID isEqualToString:v6];
+                parentUID = [v10 parentUID];
+                isEqualToString = objc_msgSend_isEqualToString_(parentUID);
 
-                if (!v14)
+                if (!isEqualToString)
                 {
                   continue;
                 }
               }
 
-              [(NSMutableArray *)selfCopy->_outputDevices removeObject:v11];
-              [(MROutputContextDataSource *)selfCopy notifyOutputDeviceRemoved:v11];
+              [(NSMutableArray *)selfCopy->_outputDevices removeObject:v10];
+              [(MROutputContextDataSource *)selfCopy notifyOutputDeviceRemoved:v10];
             }
 
-            v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+            v7 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
           }
 
-          while (v8);
+          while (v7);
         }
       }
 
-      v19 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v17 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
-    while (v19);
+    while (v17);
   }
 
   [(MRExternalOutputContextDataSource *)selfCopy _reevaluateMasterVolume];
@@ -208,29 +207,28 @@ uint64_t __58__MRExternalOutputContextDataSource__updateOutputDevices___block_in
   [(MRExternalOutputContextDataSource *)selfCopy _reevaluateMasterVolumeControlCapabilities];
 
   objc_sync_exit(selfCopy);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllOutputDevices
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v3 = selfCopy->_outputDevices;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v4)
   {
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v3);
         }
@@ -239,7 +237,7 @@ uint64_t __58__MRExternalOutputContextDataSource__updateOutputDevices___block_in
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
@@ -250,8 +248,6 @@ uint64_t __58__MRExternalOutputContextDataSource__updateOutputDevices___block_in
   [(MRExternalOutputContextDataSource *)selfCopy _reevaluateMasterVolume];
   [(MRExternalOutputContextDataSource *)selfCopy _reevaluateMasterVolumeControlCapabilities];
   objc_sync_exit(selfCopy);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateVolumeControlCapabilities:(unsigned int)capabilities outputDeviceUID:(id)d
@@ -277,7 +273,7 @@ uint64_t __58__MRExternalOutputContextDataSource__updateOutputDevices___block_in
 
 - (void)_updateOutputDevice:(void *)device predicate:(void *)predicate update:(void *)update action:
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v9 = a2;
   deviceCopy = device;
   predicateCopy = predicate;
@@ -289,13 +285,13 @@ uint64_t __58__MRExternalOutputContextDataSource__updateOutputDevices___block_in
     if (v9)
     {
       v14 = selfCopy[4];
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __81__MRExternalOutputContextDataSource__updateOutputDevice_predicate_update_action___block_invoke;
-      v23[3] = &unk_1E769CDC0;
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __81__MRExternalOutputContextDataSource__updateOutputDevice_predicate_update_action___block_invoke;
+      v22[3] = &unk_1E769CDC0;
       v15 = v9;
-      v24 = v15;
-      v16 = [v14 msv_firstWhere:v23];
+      v23 = v15;
+      v16 = [v14 msv_firstWhere:v22];
       v17 = v16;
       if (v16)
       {
@@ -318,11 +314,11 @@ uint64_t __58__MRExternalOutputContextDataSource__updateOutputDevices___block_in
         {
           v20 = objc_opt_class();
           *buf = 138543874;
-          v26 = v20;
-          v27 = 2048;
-          v28 = selfCopy;
-          v29 = 2114;
-          v30 = v15;
+          v25 = v20;
+          v26 = 2048;
+          v27 = selfCopy;
+          v28 = 2114;
+          v29 = v15;
           v21 = v20;
           _os_log_impl(&dword_1A2860000, descriptor, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Attempted to update a non-existent outputDevice %{public}@", buf, 0x20u);
         }
@@ -331,8 +327,6 @@ uint64_t __58__MRExternalOutputContextDataSource__updateOutputDevices___block_in
 
     objc_sync_exit(selfCopy);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateVolume:(float)volume outputDeviceUID:(id)d
@@ -387,37 +381,37 @@ BOOL __66__MRExternalOutputContextDataSource_updateVolume_outputDeviceUID___bloc
 
 uint64_t __81__MRExternalOutputContextDataSource__updateOutputDevice_predicate_update_action___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 uid];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 uid];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (id)outputDevices
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   obj = self;
   objc_sync_enter(obj);
   v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v3 = obj->_outputDevices;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v4)
   {
-    v5 = *v34;
+    v5 = *v33;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v34 != v5)
+        if (*v33 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v33 + 1) + 8 * i);
+        v7 = *(*(&v32 + 1) + 8 * i);
         parentUID = [v7 parentUID];
         if (!parentUID)
         {
@@ -434,31 +428,31 @@ uint64_t __81__MRExternalOutputContextDataSource__updateOutputDevice_predicate_u
         }
       }
 
-      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v4);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v11 = obj->_outputDevices;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v12)
   {
-    v13 = *v30;
+    v13 = *v29;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v30 != v13)
+        if (*v29 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v29 + 1) + 8 * j);
+        v15 = *(*(&v28 + 1) + 8 * j);
         parentUID2 = [v15 parentUID];
 
         if (parentUID2)
@@ -482,7 +476,7 @@ uint64_t __81__MRExternalOutputContextDataSource__updateOutputDevice_predicate_u
         }
       }
 
-      v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v12);
@@ -491,41 +485,40 @@ uint64_t __81__MRExternalOutputContextDataSource__updateOutputDevice_predicate_u
   allValues = [v2 allValues];
 
   objc_sync_exit(obj);
-  v25 = *MEMORY[0x1E69E9840];
 
   return allValues;
 }
 
 - (void)initializeVolumeCapabilitiesForLegacyCleints
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   outputDevices = [(MRExternalOutputContextDataSource *)self outputDevices];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [outputDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [outputDevices countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(outputDevices);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         if ([v8 volumeCapabilities])
         {
           [(MRExternalOutputContextDataSource *)v8 initializeVolumeCapabilitiesForLegacyCleints];
         }
       }
 
-      v5 = [outputDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [outputDevices countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -536,8 +529,6 @@ uint64_t __81__MRExternalOutputContextDataSource__updateOutputDevice_predicate_u
   {
     [(MROutputContextDataSource *)self notifyVolumeCapabilitiesDidChange:volumeControlCapabilities outputDevice:0];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -554,13 +545,13 @@ uint64_t __81__MRExternalOutputContextDataSource__updateOutputDevice_predicate_u
 
 - (MRExternalOutputContextDataSource)initWithCoder:(id)coder
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
   v6 = [v4 alloc];
-  v17[0] = objc_opt_class();
-  v17[1] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16[0] = objc_opt_class();
+  v16[1] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
   v8 = [v6 initWithArray:v7];
 
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"outputDevices"];
@@ -576,7 +567,6 @@ uint64_t __81__MRExternalOutputContextDataSource__updateOutputDevice_predicate_u
   v12->_masterVolume = [(MRExternalOutputContextDataSource *)v12 _calculateMasterVolume];
   v12->_groupVolumeMuted = [(MRExternalOutputContextDataSource *)v12 _calculateGroupMute];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -590,39 +580,39 @@ MRAVDistantOutputDevice *__51__MRExternalOutputContextDataSource_initWithCoder__
 
 - (void)_updateOutputDevices:(id *)devices
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (devices)
   {
     v4 = [devices[4] mutableCopy];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v25 objects:v31 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v27;
-      v24 = v5;
+      v8 = *v26;
+      v23 = v5;
       do
       {
         v9 = 0;
         do
         {
-          if (*v27 != v8)
+          if (*v26 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v26 + 1) + 8 * v9);
-          v25[0] = MEMORY[0x1E69E9820];
-          v25[1] = 3221225472;
-          v25[2] = __58__MRExternalOutputContextDataSource__updateOutputDevices___block_invoke;
-          v25[3] = &unk_1E769CDC0;
-          v25[4] = v10;
-          v11 = [v4 msv_firstWhere:v25];
+          v10 = *(*(&v25 + 1) + 8 * v9);
+          v24[0] = MEMORY[0x1E69E9820];
+          v24[1] = 3221225472;
+          v24[2] = __58__MRExternalOutputContextDataSource__updateOutputDevices___block_invoke;
+          v24[3] = &unk_1E769CDC0;
+          v24[4] = v10;
+          v11 = [v4 msv_firstWhere:v24];
           if (v11)
           {
             v13 = [v10 mergingVolumeFrom:v11];
@@ -645,7 +635,7 @@ MRAVDistantOutputDevice *__51__MRExternalOutputContextDataSource_initWithCoder__
             }
 
             isVolumeMuted = [v13 isVolumeMuted];
-            v5 = v24;
+            v5 = v23;
             if (isVolumeMuted != [v11 isVolumeMuted])
             {
               [(MROutputContextDataSource *)devices notifyVolumeMutedDidChange:v13 outputDevice:?];
@@ -675,7 +665,7 @@ MRAVDistantOutputDevice *__51__MRExternalOutputContextDataSource_initWithCoder__
               if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
               {
                 *buf = 138412290;
-                v31 = v10;
+                v30 = v10;
                 _os_log_fault_impl(&dword_1A2860000, v13, OS_LOG_TYPE_FAULT, "Empty outputDeviceUID: %@", buf, 0xCu);
               }
             }
@@ -685,15 +675,13 @@ MRAVDistantOutputDevice *__51__MRExternalOutputContextDataSource_initWithCoder__
         }
 
         while (v7 != v9);
-        v22 = [v5 countByEnumeratingWithState:&v26 objects:v32 count:16];
+        v22 = [v5 countByEnumeratingWithState:&v25 objects:v31 count:16];
         v7 = v22;
       }
 
       while (v22);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reevaluateMasterVolumeControlCapabilities
@@ -704,10 +692,9 @@ MRAVDistantOutputDevice *__51__MRExternalOutputContextDataSource_initWithCoder__
     if (_calculateMasterVolumeCapabilities != *(self + 44))
     {
       *(self + 44) = _calculateMasterVolumeCapabilities;
-      v3 = *(self + 44);
-      v4 = OUTLINED_FUNCTION_35();
+      v3 = OUTLINED_FUNCTION_35();
 
-      [(MROutputContextDataSource *)v4 notifyVolumeCapabilitiesDidChange:v5 outputDevice:v6];
+      [(MROutputContextDataSource *)v3 notifyVolumeCapabilitiesDidChange:v4 outputDevice:v5];
     }
   }
 }
@@ -716,14 +703,14 @@ MRAVDistantOutputDevice *__51__MRExternalOutputContextDataSource_initWithCoder__
 {
   if (self)
   {
-    _calculateMasterVolume = [(MRExternalOutputContextDataSource *)self _calculateMasterVolume];
-    v5 = OUTLINED_FUNCTION_36(_calculateMasterVolume);
-    if (!(v7 ^ v8 | v6))
+    [(MRExternalOutputContextDataSource *)self _calculateMasterVolume];
+    OUTLINED_FUNCTION_36();
+    if (!(v6 ^ v7 | v5))
     {
-      *&self[v4] = v5;
-      v9 = *&self[*(v3 + 3380)];
+      *&self[v3] = v4;
+      v8 = *&self[*(v2 + 3380)];
 
-      [(MROutputContextDataSource *)self notifyVolumeDidChange:v9 outputDevice:?];
+      [(MROutputContextDataSource *)self notifyVolumeDidChange:v8 outputDevice:?];
     }
   }
 }
@@ -772,168 +759,147 @@ void __71__MRExternalOutputContextDataSource_updateVolumeMuted_outputDeviceUID__
 
 - (uint64_t)_calculateMasterVolumeCapabilities
 {
-  v40 = *MEMORY[0x1E69E9840];
-  if (self)
+  if (!self)
   {
-    OUTLINED_FUNCTION_10_1();
-    v3 = *(v2 + 32);
-    v5 = OUTLINED_FUNCTION_13_0(v3, v4);
-    if (v5)
-    {
-      v13 = v5;
-      LODWORD(v14) = 0;
-      OUTLINED_FUNCTION_32(v5, v6, v7, v8, v9, v10, v11, v12, v27, v29, v31);
-      do
-      {
-        v23 = 0;
-        do
-        {
-          OUTLINED_FUNCTION_14_0(volumeCapabilities, v16, v17, v18, v19, v20, v21, v22, v28, v30, v32);
-          if (!v24)
-          {
-            objc_enumerationMutation(v1);
-          }
+    return 0;
+  }
 
-          volumeCapabilities = [*(v30 + 8 * v23) volumeCapabilities];
-          v14 = volumeCapabilities | v14;
-          ++v23;
+  OUTLINED_FUNCTION_10_1();
+  v3 = *(v2 + 32);
+  v11 = OUTLINED_FUNCTION_13_0(v3, v4, v5, v6, v7, v8, v9, v10, v25, v27, v29, v31, v33, v35, v37, v39, v41);
+  if (v11)
+  {
+    v12 = v11;
+    LODWORD(v13) = 0;
+    OUTLINED_FUNCTION_32();
+    do
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        OUTLINED_FUNCTION_14_0();
+        if (!v15)
+        {
+          objc_enumerationMutation(v1);
         }
 
-        while (v13 != v23);
-        volumeCapabilities = OUTLINED_FUNCTION_12_0(volumeCapabilities, v16, v17, v18, v19, v20, v21, v22, v28, v30, v32, v33, v34, v35, v36, v37, v38, v39);
-        v13 = volumeCapabilities;
+        volumeCapabilities = [*(v28 + 8 * i) volumeCapabilities];
+        v13 = volumeCapabilities | v13;
       }
 
-      while (volumeCapabilities);
+      v12 = OUTLINED_FUNCTION_12_0(volumeCapabilities, v17, v18, v19, v20, v21, v22, v23, v26, v28, v30, v32, v34, v36, v38, v40, v42);
     }
 
-    else
-    {
-      v14 = 0;
-    }
+    while (v12);
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v13;
 }
 
 - (float)_calculateMasterVolume
 {
-  v43 = *MEMORY[0x1E69E9840];
-  if (self)
+  if (!self)
   {
-    OUTLINED_FUNCTION_10_1();
-    v3 = *(v2 + 32);
-    v5 = OUTLINED_FUNCTION_13_0(v3, v4);
-    if (v5)
+    return 0.0;
+  }
+
+  OUTLINED_FUNCTION_10_1();
+  v3 = *(v2 + 32);
+  v11 = OUTLINED_FUNCTION_13_0(v3, v4, v5, v6, v7, v8, v9, v10, v28, v30, v32, v34, v36, v38, v40, v42, v44);
+  if (v11)
+  {
+    v12 = v11;
+    OUTLINED_FUNCTION_32();
+    v13 = 0.0;
+    do
     {
-      v13 = v5;
-      OUTLINED_FUNCTION_32(v5, v6, v7, v8, v9, v10, v11, v12, v30, v32, v34);
-      v22 = 0.0;
-      do
+      for (i = 0; i != v12; ++i)
       {
-        v23 = 0;
-        do
+        OUTLINED_FUNCTION_14_0();
+        if (!v15)
         {
-          OUTLINED_FUNCTION_14_0(volumeCapabilities, v15, v16, v17, v18, v19, v20, v21, v31, v33, v35);
-          if (!v24)
-          {
-            objc_enumerationMutation(v1);
-          }
-
-          v25 = *(v33 + 8 * v23);
-          volumeCapabilities = [v25 volumeCapabilities];
-          if ((volumeCapabilities & 2) != 0)
-          {
-            volumeCapabilities = [v25 volume];
-            if (v26 > v22)
-            {
-              volumeCapabilities = [v25 volume];
-              v22 = v27;
-            }
-          }
-
-          ++v23;
+          objc_enumerationMutation(v1);
         }
 
-        while (v13 != v23);
-        volumeCapabilities = OUTLINED_FUNCTION_12_0(volumeCapabilities, v15, v16, v17, v18, v19, v20, v21, v31, v33, v35, v36, v37, v38, v39, v40, v41, v42);
-        v13 = volumeCapabilities;
+        v16 = *(v31 + 8 * i);
+        volumeCapabilities = [v16 volumeCapabilities];
+        if ((volumeCapabilities & 2) != 0)
+        {
+          volumeCapabilities = [v16 volume];
+          if (v25 > v13)
+          {
+            volumeCapabilities = [v16 volume];
+            v13 = v26;
+          }
+        }
       }
 
-      while (volumeCapabilities);
+      v12 = OUTLINED_FUNCTION_12_0(volumeCapabilities, v18, v19, v20, v21, v22, v23, v24, v29, v31, v33, v35, v37, v39, v41, v43, v45);
     }
 
-    else
-    {
-      v22 = 0.0;
-    }
+    while (v12);
   }
 
   else
   {
-    v22 = 0.0;
+    v13 = 0.0;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-  return v22;
+  return v13;
 }
 
 - (uint64_t)_calculateGroupMute
 {
-  v31 = *MEMORY[0x1E69E9840];
   if (self)
   {
     OUTLINED_FUNCTION_10_1();
     v3 = *(v2 + 32);
-    v5 = OUTLINED_FUNCTION_13_0(v3, v4);
-    if (v5)
+    v11 = OUTLINED_FUNCTION_13_0(v3, v4, v5, v6, v7, v8, v9, v10, v26, v28, v30, v32, v34, v36, v38, v40, v42);
+    if (v11)
     {
-      v6 = v5;
-      v7 = 0;
-      v8 = *v23;
+      v12 = v11;
+      v13 = 0;
+      v14 = *v31;
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v23 != v8)
+          if (*v31 != v14)
           {
             objc_enumerationMutation(v1);
           }
 
-          v10 = *(v22 + 8 * i);
-          volumeCapabilities = [v10 volumeCapabilities];
+          v16 = *(v29 + 8 * i);
+          volumeCapabilities = [v16 volumeCapabilities];
           if ((volumeCapabilities & 8) != 0)
           {
-            volumeCapabilities = [v10 isVolumeMuted];
-            v7 |= volumeCapabilities;
+            volumeCapabilities = [v16 isVolumeMuted];
+            v13 |= volumeCapabilities;
           }
         }
 
-        v6 = OUTLINED_FUNCTION_12_0(volumeCapabilities, v12, v13, v14, v15, v16, v17, v18, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30);
+        v12 = OUTLINED_FUNCTION_12_0(volumeCapabilities, v18, v19, v20, v21, v22, v23, v24, v27, v29, v31, v33, v35, v37, v39, v41, v43);
       }
 
-      while (v6);
+      while (v12);
     }
 
     else
     {
-      v7 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v7 = 0;
+    v13 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-  return v7 & 1;
+  return v13 & 1;
 }
 
 @end

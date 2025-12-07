@@ -14,85 +14,82 @@
 - (id)copyAsShapeInfoWithContext:(id)context
 {
   contextCopy = context;
-  v7 = objc_msgSend_textStorage(self, v5, v6);
-  v9 = objc_msgSend_copyWithContext_(v7, v8, contextCopy);
+  textStorage = [(KNPlaceholderInfo *)self textStorage];
+  v6 = [textStorage copyWithContext:contextCopy];
 
-  v12 = objc_msgSend_pathSource(self, v10, v11);
-  v15 = objc_msgSend_copy(v12, v13, v14);
+  pathSource = [(KNPlaceholderInfo *)self pathSource];
+  v8 = [pathSource copy];
 
-  v18 = objc_msgSend_geometry(self, v16, v17);
-  v21 = objc_msgSend_copy(v18, v19, v20);
+  geometry = [(KNPlaceholderInfo *)self geometry];
+  v10 = [geometry copy];
 
-  v22 = objc_alloc(MEMORY[0x277D80F00]);
-  v25 = objc_msgSend_shapeStyle(self, v23, v24);
-  v27 = objc_msgSend_initWithContext_geometry_style_pathSource_wpStorage_(v22, v26, contextCopy, v21, v25, v15, v9);
+  v11 = objc_alloc(MEMORY[0x277D80F00]);
+  shapeStyle = [(KNPlaceholderInfo *)self shapeStyle];
+  v13 = [v11 initWithContext:contextCopy geometry:v10 style:shapeStyle pathSource:v8 wpStorage:v6];
 
-  v30 = objc_msgSend_hyperlinkURL(self, v28, v29);
-  objc_msgSend_setHyperlinkURL_(v27, v31, v30);
+  hyperlinkURL = [(KNPlaceholderInfo *)self hyperlinkURL];
+  [v13 setHyperlinkURL:hyperlinkURL];
 
-  v34 = objc_msgSend_accessibilityDescription(self, v32, v33);
-  objc_msgSend_setAccessibilityDescription_(v27, v35, v34);
+  accessibilityDescription = [(KNPlaceholderInfo *)self accessibilityDescription];
+  [v13 setAccessibilityDescription:accessibilityDescription];
 
-  v38 = objc_msgSend_comment(self, v36, v37);
-  v41 = v38;
-  if (v38)
+  comment = [(KNPlaceholderInfo *)self comment];
+  v17 = comment;
+  if (comment)
   {
-    v42 = objc_msgSend_storage(v38, v39, v40);
-    v44 = objc_msgSend_copyWithContext_(v42, v43, contextCopy);
+    storage = [comment storage];
+    v19 = [storage copyWithContext:contextCopy];
 
-    v45 = objc_alloc(MEMORY[0x277D80218]);
-    v47 = objc_msgSend_initWithParent_storage_(v45, v46, v27, v44);
-    objc_msgSend_setComment_(v27, v48, v47);
+    v20 = [objc_alloc(MEMORY[0x277D80218]) initWithParent:v13 storage:v19];
+    [v13 setComment:v20];
   }
 
-  v49 = objc_msgSend_titleInfoIgnoringVisibility(self, v39, v40);
-  v52 = v49;
-  if (v49)
+  titleInfoIgnoringVisibility = [(KNPlaceholderInfo *)self titleInfoIgnoringVisibility];
+  v22 = titleInfoIgnoringVisibility;
+  if (titleInfoIgnoringVisibility)
   {
-    v53 = objc_msgSend_replicateForReinsertion(v49, v50, v51);
-    objc_msgSend_setTitle_(v27, v54, v53);
-    v57 = objc_msgSend_titleHidden(self, v55, v56);
-    objc_msgSend_setTitleHidden_(v27, v58, v57);
+    replicateForReinsertion = [titleInfoIgnoringVisibility replicateForReinsertion];
+    [v13 setTitle:replicateForReinsertion];
+    [v13 setTitleHidden:{-[KNPlaceholderInfo titleHidden](self, "titleHidden")}];
   }
 
-  v59 = objc_msgSend_captionInfoIgnoringVisibility(self, v50, v51);
-  v62 = v59;
-  if (v59)
+  captionInfoIgnoringVisibility = [(KNPlaceholderInfo *)self captionInfoIgnoringVisibility];
+  v25 = captionInfoIgnoringVisibility;
+  if (captionInfoIgnoringVisibility)
   {
-    v63 = objc_msgSend_replicateForReinsertion(v59, v60, v61);
-    objc_msgSend_setCaption_(v27, v64, v63);
-    v67 = objc_msgSend_captionHidden(self, v65, v66);
-    objc_msgSend_setCaptionHidden_(v27, v68, v67);
+    replicateForReinsertion2 = [captionInfoIgnoringVisibility replicateForReinsertion];
+    [v13 setCaption:replicateForReinsertion2];
+    [v13 setCaptionHidden:{-[KNPlaceholderInfo captionHidden](self, "captionHidden")}];
   }
 
-  return v27;
+  return v13;
 }
 
 - (id)defaultInstructionalText
 {
-  v3 = objc_msgSend_documentRoot(self, a2, v2);
-  v6 = objc_msgSend_documentLocale(v3, v4, v5);
+  documentRoot = [(KNPlaceholderInfo *)self documentRoot];
+  documentLocale = [documentRoot documentLocale];
 
-  v8 = objc_msgSend_localizedStringForKey_value_table_(v6, v7, @"Double-tap to edit", &stru_2884D8E20, @"Keynote");
+  v4 = [documentLocale localizedStringForKey:@"Double-tap to edit" value:&stru_2884D8E20 table:@"Keynote"];
 
-  return v8;
+  return v4;
 }
 
 - (BOOL)isEmpty
 {
-  v3 = objc_msgSend_textStorage(self, a2, v2);
-  v6 = objc_msgSend_length(v3, v4, v5) == 0;
+  textStorage = [(KNPlaceholderInfo *)self textStorage];
+  v3 = [textStorage length] == 0;
 
-  return v6;
+  return v3;
 }
 
 + (Class)classForUnarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v5, off_2812EA908[18]);
+  v5 = [unarchiverCopy messageWithDescriptor:off_2812EA908[18]];
 
-  if (*(v6 + 32) == 1 || objc_msgSend_messageType(unarchiverCopy, v7, v8) == 12 || (*(v6 + 32) - 2) <= 2)
+  if (*(v5 + 32) == 1 || [unarchiverCopy messageType] == 12 || (*(v5 + 32) - 2) <= 2)
   {
     self = objc_opt_class();
   }
@@ -106,18 +103,18 @@
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812EA908[18]);
+  v4 = [unarchiverCopy messageWithDescriptor:off_2812EA908[18]];
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v6, v5, unarchiverCopy);
+  [(KNPlaceholderInfo *)self loadFromArchive:v4 unarchiver:unarchiverCopy];
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_275D6DFBC, off_2812EA908[18]);
+  v4 = [archiverCopy messageWithNewFunction:sub_275D6DFBC descriptor:off_2812EA908[18]];
 
-  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
+  [(KNPlaceholderInfo *)self saveToArchive:v4 archiver:archiverCopy];
 }
 
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver
@@ -133,42 +130,42 @@
     v7 = MEMORY[0x277D81070];
   }
 
-  v22.receiver = self;
-  v22.super_class = KNPlaceholderInfo;
-  [(KNPlaceholderInfo *)&v22 loadFromArchive:v7 unarchiver:unarchiverCopy];
-  hasPreUFFVersion = objc_msgSend_hasPreUFFVersion(unarchiverCopy, v8, v9);
-  v13 = objc_msgSend_preUFFVersion(unarchiverCopy, v11, v12);
-  v14 = unarchiverCopy;
+  v16.receiver = self;
+  v16.super_class = KNPlaceholderInfo;
+  [(KNPlaceholderInfo *)&v16 loadFromArchive:v7 unarchiver:unarchiverCopy];
+  hasPreUFFVersion = [unarchiverCopy hasPreUFFVersion];
+  preUFFVersion = [unarchiverCopy preUFFVersion];
+  v10 = unarchiverCopy;
   google::protobuf::internal::AssignDescriptors();
-  v16 = objc_msgSend_messageWithDescriptor_(v14, v15, off_2812EA908[18]);
+  v11 = [v10 messageWithDescriptor:off_2812EA908[18]];
 
-  v17 = *(v16 + 32);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = sub_275D6DC90;
-  v19[3] = &unk_27A698148;
-  v21 = hasPreUFFVersion;
-  v19[4] = self;
-  v19[5] = v13;
-  v20 = v17;
-  objc_msgSend_addFinalizeHandler_(v14, v18, v19);
+  v12 = *(v11 + 32);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = sub_275D6DC90;
+  v13[3] = &unk_27A698148;
+  v15 = hasPreUFFVersion;
+  v13[4] = self;
+  v13[5] = preUFFVersion;
+  v14 = v12;
+  [v10 addFinalizeHandler:v13];
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
 {
   archiverCopy = archiver;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = sub_275D6DF2C;
-  v12[3] = &unk_27A697C88;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_275D6DF2C;
+  v9[3] = &unk_27A697C88;
   archiveCopy = archive;
   v7 = archiverCopy;
-  v13 = v7;
+  v10 = v7;
   selfCopy = self;
-  objc_msgSend_pushScopeForField_message_usingBlock_(v7, v8, 1, archive, v12);
-  v11 = objc_msgSend_kind(self, v9, v10);
+  [v7 pushScopeForField:1 message:archive usingBlock:v9];
+  kind = [(KNPlaceholderInfo *)self kind];
   *(archive + 4) |= 2u;
-  *(archive + 8) = v11;
+  *(archive + 8) = kind;
 }
 
 @end

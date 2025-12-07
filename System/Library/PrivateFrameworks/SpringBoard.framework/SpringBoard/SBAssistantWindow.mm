@@ -182,12 +182,12 @@ void __46__SBAssistantWindow_hostedSceneIdentityTokens__block_invoke(uint64_t a1
 
 - (void)_usesWindowServerHitTesting
 {
-  if (self)
+  if (result)
   {
-    return [self allowsTouchPassThrough];
+    return [result allowsTouchPassThrough];
   }
 
-  return self;
+  return result;
 }
 
 @end

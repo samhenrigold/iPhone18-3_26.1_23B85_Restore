@@ -7,6 +7,8 @@
 - (void)bindInternalBufferForStage:(id)stage index:(unint64_t)index stage:(unint64_t)a5 offset:(unint64_t)offset;
 - (void)dispatchThreadsPerTile:(id *)tile;
 - (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region;
+- (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region withRenderTargetArrayIndex:(unsigned int)index;
+- (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region withRenderTargetArrayIndex:(unsigned int)index withCondition:(int64_t)condition;
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(unint64_t)buffer indexBufferLength:(unint64_t)length;
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(unint64_t)buffer indexBufferLength:(unint64_t)length instanceCount:(unint64_t)instanceCount;
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(unint64_t)buffer indexBufferLength:(unint64_t)length instanceCount:(unint64_t)instanceCount baseVertex:(int64_t)vertex baseInstance:(unint64_t)self0;
@@ -240,7 +242,6 @@
     [(MTL4GPUDebugRenderCommandEncoder *)self bindInternalBufferForStage:self->super.super.super._device[3].samplerObjectCache index:21 stage:4];
     [(MTL4GPUDebugRenderCommandEncoder *)self bindInternalBufferForStage:*&self->super.super.super._device[3]._integrated index:7 stage:4];
     *&self->_drawID.encoderID = [(MTLToolsDepthStencilState *)self->_currentDepthStencil tileFunctionData];
-    *(self->_drawID.pipelineStateID + 20);
     [MTL4GPUDebugRenderCommandEncoder setInternalBytesForStage:"setInternalBytesForStage:length:atIndex:stage:" length:? atIndex:? stage:?];
     v20 = 0;
     [(MTL4GPUDebugRenderCommandEncoder *)self setInternalBytesForStage:&v20 length:4 atIndex:24 stage:4];
@@ -276,7 +277,6 @@
     [(MTL4GPUDebugRenderCommandEncoder *)self bindInternalBufferForStage:self->super.super.super._device[3].samplerObjectCache index:21 stage:16];
     [(MTL4GPUDebugRenderCommandEncoder *)self bindInternalBufferForStage:*&self->super.super.super._device[3]._integrated index:7 stage:16];
     *&self->_drawID.encoderID = [(MTLToolsDepthStencilState *)self->_currentDepthStencil meshFunctionData];
-    *(self->_drawID.pipelineStateID + 20);
     [MTL4GPUDebugRenderCommandEncoder setInternalBytesForStage:"setInternalBytesForStage:length:atIndex:stage:" length:? atIndex:? stage:?];
     v20 = 0;
     [(MTL4GPUDebugRenderCommandEncoder *)self setInternalBytesForStage:&v20 length:4 atIndex:24 stage:16];
@@ -367,7 +367,7 @@ LABEL_7:
 
 - (void)setRenderPipelineStateBuffers:(id)buffers
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (*(&self->_enableUseResourceValidation + 1))
   {
     vertexConstantsBuffer = [buffers vertexConstantsBuffer];
@@ -398,7 +398,7 @@ LABEL_7:
     tileConstantsBuffer = 0;
   }
 
-  v20 = fragmentConstantsBuffer;
+  v18 = fragmentConstantsBuffer;
   if (BYTE1(self->_tileThreadgroup.entries[0].offset) == 1)
   {
     meshConstantsBuffer = [buffers meshConstantsBuffer];
@@ -421,42 +421,42 @@ LABEL_7:
 
   if ((*(self->_drawID.pipelineStateID + 22) & 0x80) != 0)
   {
-    v19 = meshConstantsBuffer;
-    v23 = 0u;
-    v24 = 0u;
+    v17 = meshConstantsBuffer;
     v21 = 0u;
     v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     binaryFunctionData = [buffers binaryFunctionData];
-    v13 = [binaryFunctionData countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v13)
+    v12 = [binaryFunctionData countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v12)
     {
-      v14 = v13;
-      v15 = *v22;
+      v13 = v12;
+      v14 = *v20;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v22 != v15)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(binaryFunctionData);
           }
 
-          v17 = *(*(*(&v21 + 1) + 8 * i) + 8);
-          if (v17)
+          v16 = *(*(*(&v19 + 1) + 8 * i) + 8);
+          if (v16)
           {
             if ((*(self->_drawID.pipelineStateID + 20) & 0x200000001) != 0)
             {
-              [(MTL4CommandBuffer *)[(MTL4ToolsCommandEncoder *)self commandBuffer] markBuffer:v17 usage:3 stages:31];
+              [(MTL4CommandBuffer *)[(MTL4ToolsCommandEncoder *)self commandBuffer] markBuffer:v16 usage:3 stages:31];
             }
 
-            -[MTL4CommandBuffer setResidencyForResource:](-[MTL4ToolsCommandEncoder commandBuffer](self, "commandBuffer"), "setResidencyForResource:", [v17 baseObject]);
+            -[MTL4CommandBuffer setResidencyForResource:](-[MTL4ToolsCommandEncoder commandBuffer](self, "commandBuffer"), "setResidencyForResource:", [v16 baseObject]);
           }
         }
 
-        v14 = [binaryFunctionData countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v13 = [binaryFunctionData countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
-      while (v14);
+      while (v13);
     }
 
     if (vertexConstantsBuffer)
@@ -469,14 +469,14 @@ LABEL_7:
       -[MTL4CommandBuffer setResidencyForResource:](-[MTL4ToolsCommandEncoder commandBuffer](self, "commandBuffer"), "setResidencyForResource:", [vertexConstantsBuffer baseObject]);
     }
 
-    if (v20)
+    if (v18)
     {
       if ((*(self->_drawID.pipelineStateID + 20) & 0x200000001) != 0)
       {
-        [(MTL4CommandBuffer *)[(MTL4ToolsCommandEncoder *)self commandBuffer] markBuffer:v20 usage:3 stages:31];
+        [(MTL4CommandBuffer *)[(MTL4ToolsCommandEncoder *)self commandBuffer] markBuffer:v18 usage:3 stages:31];
       }
 
-      -[MTL4CommandBuffer setResidencyForResource:](-[MTL4ToolsCommandEncoder commandBuffer](self, "commandBuffer"), "setResidencyForResource:", [v20 baseObject]);
+      -[MTL4CommandBuffer setResidencyForResource:](-[MTL4ToolsCommandEncoder commandBuffer](self, "commandBuffer"), "setResidencyForResource:", [v18 baseObject]);
     }
 
     if (*(&self->_enableUseResourceValidation + 1))
@@ -486,7 +486,7 @@ LABEL_7:
 
     if (self->_enableUseResourceValidation)
     {
-      [(MTL4GPUDebugRenderCommandEncoder *)self bindInternalBufferForStage:v20 index:12 stage:2];
+      [(MTL4GPUDebugRenderCommandEncoder *)self bindInternalBufferForStage:v18 index:12 stage:2];
     }
 
     if (self->_objectStageActive)
@@ -496,7 +496,7 @@ LABEL_7:
 
     if (BYTE1(self->_tileThreadgroup.entries[0].offset) == 1)
     {
-      [(MTL4GPUDebugRenderCommandEncoder *)self bindInternalBufferForStage:v19 index:12 stage:16];
+      [(MTL4GPUDebugRenderCommandEncoder *)self bindInternalBufferForStage:v17 index:12 stage:16];
     }
 
     if (LOBYTE(self->_tileThreadgroup.entries[0].offset) == 1)
@@ -514,14 +514,14 @@ LABEL_7:
       -[MTL4CommandBuffer setResidencyForResource:](-[MTL4ToolsCommandEncoder commandBuffer](self, "commandBuffer"), "setResidencyForResource:", [tileConstantsBuffer baseObject]);
     }
 
-    if (BYTE1(self->_tileThreadgroup.entries[0].offset) == 1 && v19)
+    if (BYTE1(self->_tileThreadgroup.entries[0].offset) == 1 && v17)
     {
       if ((*(self->_drawID.pipelineStateID + 20) & 0x200000001) != 0)
       {
-        [(MTL4CommandBuffer *)[(MTL4ToolsCommandEncoder *)self commandBuffer] markBuffer:v19 usage:3 stages:31];
+        [(MTL4CommandBuffer *)[(MTL4ToolsCommandEncoder *)self commandBuffer] markBuffer:v17 usage:3 stages:31];
       }
 
-      -[MTL4CommandBuffer setResidencyForResource:](-[MTL4ToolsCommandEncoder commandBuffer](self, "commandBuffer"), "setResidencyForResource:", [v19 baseObject]);
+      -[MTL4CommandBuffer setResidencyForResource:](-[MTL4ToolsCommandEncoder commandBuffer](self, "commandBuffer"), "setResidencyForResource:", [v17 baseObject]);
     }
 
     if (LOBYTE(self->_tileThreadgroup.entries[0].offset) == 1 && objectConstantsBuffer)
@@ -533,41 +533,37 @@ LABEL_7:
 
       -[MTL4CommandBuffer setResidencyForResource:](-[MTL4ToolsCommandEncoder commandBuffer](self, "commandBuffer"), "setResidencyForResource:", [objectConstantsBuffer baseObject]);
     }
-
-    goto LABEL_72;
   }
 
-  if (vertexConstantsBuffer)
+  else
   {
-    [(MTL4GPUDebugRenderCommandEncoder *)self bindInternalBufferForStage:vertexConstantsBuffer index:12 stage:1];
+    if (vertexConstantsBuffer)
+    {
+      [(MTL4GPUDebugRenderCommandEncoder *)self bindInternalBufferForStage:vertexConstantsBuffer index:12 stage:1];
+    }
+
+    if (v18)
+    {
+      -[MTL4GPUDebugRenderCommandEncoder bindInternalValueForStage:index:stage:](self, "bindInternalValueForStage:index:stage:", [v18 gpuAddress], 12, 2);
+    }
+
+    if (tileConstantsBuffer)
+    {
+      -[MTL4GPUDebugRenderCommandEncoder bindInternalValueForStage:index:stage:](self, "bindInternalValueForStage:index:stage:", [tileConstantsBuffer gpuAddress], 12, 4);
+    }
+
+    if (meshConstantsBuffer)
+    {
+      -[MTL4GPUDebugRenderCommandEncoder bindInternalValueForStage:index:stage:](self, "bindInternalValueForStage:index:stage:", [meshConstantsBuffer gpuAddress], 12, 16);
+    }
+
+    if (objectConstantsBuffer)
+    {
+      gpuAddress = [objectConstantsBuffer gpuAddress];
+
+      [(MTL4GPUDebugRenderCommandEncoder *)self bindInternalValueForStage:gpuAddress index:12 stage:8];
+    }
   }
-
-  if (v20)
-  {
-    -[MTL4GPUDebugRenderCommandEncoder bindInternalValueForStage:index:stage:](self, "bindInternalValueForStage:index:stage:", [v20 gpuAddress], 12, 2);
-  }
-
-  if (tileConstantsBuffer)
-  {
-    -[MTL4GPUDebugRenderCommandEncoder bindInternalValueForStage:index:stage:](self, "bindInternalValueForStage:index:stage:", [tileConstantsBuffer gpuAddress], 12, 4);
-  }
-
-  if (meshConstantsBuffer)
-  {
-    -[MTL4GPUDebugRenderCommandEncoder bindInternalValueForStage:index:stage:](self, "bindInternalValueForStage:index:stage:", [meshConstantsBuffer gpuAddress], 12, 16);
-  }
-
-  if (!objectConstantsBuffer)
-  {
-LABEL_72:
-    v18 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  gpuAddress = [objectConstantsBuffer gpuAddress];
-  v11 = *MEMORY[0x277D85DE8];
-
-  [(MTL4GPUDebugRenderCommandEncoder *)self bindInternalValueForStage:gpuAddress index:12 stage:8];
 }
 
 - (void)setThreadgroupMemoryLength:(unint64_t)length offset:(unint64_t)offset atIndex:(unint64_t)index
@@ -703,11 +699,43 @@ LABEL_72:
   [(MTL4ToolsRenderCommandEncoder *)&v9 dispatchThreadsPerTile:&v11 inRegion:v10];
 }
 
+- (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region withRenderTargetArrayIndex:(unsigned int)index
+{
+  v5 = *&index;
+  [(MTL4GPUDebugRenderCommandEncoder *)self flushBindings];
+  v9 = *&tile->var0;
+  var2 = tile->var2;
+  v10 = *&region->var0.var2;
+  v12[0] = *&region->var0.var0;
+  v12[1] = v10;
+  v12[2] = *&region->var1.var1;
+  v13 = v9;
+  v11.receiver = self;
+  v11.super_class = MTL4GPUDebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v11 dispatchThreadsPerTile:&v13 inRegion:v12 withRenderTargetArrayIndex:v5];
+}
+
 - (void)resetTileCondition
 {
   v2.receiver = self;
   v2.super_class = MTL4GPUDebugRenderCommandEncoder;
   [(MTL4GPUDebugRenderCommandEncoder *)&v2 resetTileCondition];
+}
+
+- (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region withRenderTargetArrayIndex:(unsigned int)index withCondition:(int64_t)condition
+{
+  v7 = *&index;
+  [(MTL4GPUDebugRenderCommandEncoder *)self flushBindings];
+  v11 = *&tile->var0;
+  var2 = tile->var2;
+  v12 = *&region->var0.var2;
+  v14[0] = *&region->var0.var0;
+  v14[1] = v12;
+  v14[2] = *&region->var1.var1;
+  v15 = v11;
+  v13.receiver = self;
+  v13.super_class = MTL4GPUDebugRenderCommandEncoder;
+  [(MTL4GPUDebugRenderCommandEncoder *)&v13 dispatchThreadsPerTile:&v15 inRegion:v14 withRenderTargetArrayIndex:v7 withCondition:condition];
 }
 
 - (void)drawMeshThreadgroups:(id *)threadgroups threadsPerObjectThreadgroup:(id *)threadgroup threadsPerMeshThreadgroup:(id *)meshThreadgroup

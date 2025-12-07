@@ -17,11 +17,11 @@
 
 - (void)temperatureService:(id)service didUpdateTargetTemperature:(id)temperature
 {
-  v6 = sub_1000040E8(&unk_100114790);
+  v6 = sub_1000040E8(&unk_100114790, &qword_1000D6820);
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v9 = &v12 - v8;
-  sub_10000827C(0, &qword_100114AB0);
+  sub_10000827C(0, &qword_100114AB0, NSUnitTemperature_ptr);
   static Measurement._unconditionallyBridgeFromObjectiveC(_:)();
   serviceCopy = service;
   selfCopy = self;
@@ -35,7 +35,7 @@
   y = test.y;
   x = test.x;
   v14.receiver = self;
-  v14.super_class = type metadata accessor for ClimateTargetTemperatureStepper();
+  v14.super_class = type metadata accessor for ClimateTargetTemperatureStepper(0);
   v7 = v14.receiver;
   eventCopy = event;
   v9 = [(ClimateTargetTemperatureStepper *)&v14 hitTest:eventCopy withEvent:x, y];
@@ -71,7 +71,7 @@
   managerCopy = manager;
   unitCopy = unit;
   selfCopy = self;
-  sub_100030100();
+  sub_100030100(unitCopy);
 }
 
 - (void)didUpdateColorFilterPreferenceWithFilter:(int64_t)filter

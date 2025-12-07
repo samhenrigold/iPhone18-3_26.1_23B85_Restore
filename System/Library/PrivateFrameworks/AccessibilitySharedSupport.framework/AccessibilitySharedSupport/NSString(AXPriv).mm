@@ -10,29 +10,28 @@
 
 + (uint64_t)_characterSetWithPattern:()AXPriv
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a3;
-  HIDWORD(v9) = 0;
+  HIDWORD(v11) = 0;
   v4 = [v3 length];
   if ([v3 _fastCharacterContents])
   {
-    v5 = uset_openPattern();
+    v8 = uset_openPattern();
   }
 
   else
   {
-    MEMORY[0x1EEE9AC00](0);
-    [v3 getCharacters:&v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0) range:{0, v4}];
-    v5 = uset_openPattern();
+    MEMORY[0x1EEE9AC00](0, v5, v6, v7);
+    [v3 getCharacters:&v11 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0) range:{0, v4}];
+    v8 = uset_openPattern();
   }
 
-  if (SHIDWORD(v9) >= 1)
+  if (SHIDWORD(v11) >= 1)
   {
     NSLog(&cfstr_CouldnTCreateU.isa, v3);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v8;
 }
 
 + (uint64_t)_ideographSet

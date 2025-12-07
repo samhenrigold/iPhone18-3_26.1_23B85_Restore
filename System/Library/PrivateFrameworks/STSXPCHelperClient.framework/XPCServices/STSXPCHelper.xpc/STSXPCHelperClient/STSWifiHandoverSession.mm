@@ -12,7 +12,6 @@
   portCopy = port;
   if (self)
   {
-    isServer = self->_isServer;
     sub_10002483C(OS_LOG_TYPE_INFO, 0, "[STSWifiHandoverSession wifiP2PController:didConnectTo:port:]", 42, self, @"TargetAddr=%@, port=%@, isServer=%d", v9, v10, toCopy);
     if (self->_isServer)
     {

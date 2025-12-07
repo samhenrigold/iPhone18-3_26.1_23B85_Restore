@@ -26,10 +26,10 @@
 
 - (id)runAction
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = AMSUIWebFamilyAction;
-  runAction = [(AMSUIWebAction *)&v19 runAction];
+  v23 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = AMSUIWebFamilyAction;
+  runAction = [(AMSUIWebAction *)&v18 runAction];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -42,9 +42,9 @@
     v6 = objc_opt_class();
     v7 = AMSLogKey();
     *buf = 138543618;
-    v21 = v6;
-    v22 = 2114;
-    v23 = v7;
+    v20 = v6;
+    v21 = 2114;
+    v22 = v7;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Performing family lookup", buf, 0x16u);
   }
 
@@ -58,14 +58,12 @@
   [v12 setLogKey:v13];
 
   performFamilyInfoLookup = [v12 performFamilyInfoLookup];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __33__AMSUIWebFamilyAction_runAction__block_invoke;
-  v18[3] = &unk_1E7F26110;
-  v18[4] = self;
-  v15 = [performFamilyInfoLookup thenWithBlock:v18];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __33__AMSUIWebFamilyAction_runAction__block_invoke;
+  v17[3] = &unk_1E7F26110;
+  v17[4] = self;
+  v15 = [performFamilyInfoLookup thenWithBlock:v17];
 
   return v15;
 }
@@ -81,35 +79,35 @@ id __33__AMSUIWebFamilyAction_runAction__block_invoke(uint64_t a1, uint64_t a2)
 
 - (id)_dictionaryFromLookupResult:(id)result
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v5 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(resultCopy, "isHeadOfHouseholdSharingPayment")}];
-  v27 = v4;
+  v26 = v4;
   [v4 setObject:v5 forKeyedSubscript:@"sharedPaymentMethod"];
 
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v26 = resultCopy;
+  v25 = resultCopy;
   obj = [resultCopy familyMembers];
-  v7 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v7 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v30;
+    v9 = *v29;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
+        v11 = *(*(&v28 + 1) + 8 * i);
         v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
         v13 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v11, "isAskToBuyEnabled")}];
         [v12 setObject:v13 forKeyedSubscript:@"askToBuyEnabled"];
@@ -143,16 +141,15 @@ id __33__AMSUIWebFamilyAction_runAction__block_invoke(uint64_t a1, uint64_t a2)
         [v6 addObject:v12];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v8);
   }
 
-  [v27 setObject:v6 forKeyedSubscript:@"familyMembers"];
-  v24 = *MEMORY[0x1E69E9840];
+  [v26 setObject:v6 forKeyedSubscript:@"familyMembers"];
 
-  return v27;
+  return v26;
 }
 
 @end

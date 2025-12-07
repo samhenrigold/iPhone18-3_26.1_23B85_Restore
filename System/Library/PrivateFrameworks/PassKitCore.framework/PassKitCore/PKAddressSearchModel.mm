@@ -23,7 +23,7 @@
     resultsQueue = v2->_resultsQueue;
     v2->_resultsQueue = v3;
 
-    v5 = objc_alloc_init(getMKLocalSearchCompleterClass[0]());
+    v5 = objc_alloc_init(getMKLocalSearchCompleterClass());
     completer = v2->_completer;
     v2->_completer = v5;
 

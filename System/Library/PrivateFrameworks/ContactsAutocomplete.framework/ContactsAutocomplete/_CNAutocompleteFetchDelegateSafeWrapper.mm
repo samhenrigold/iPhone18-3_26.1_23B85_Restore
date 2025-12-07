@@ -127,23 +127,23 @@
 
   if (v9)
   {
-    v10 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = CNALoggingContextDebug(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_2155FE000, v10, OS_LOG_TYPE_DEFAULT, "Asking delegate to adjust results", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_DEFAULT, "Asking delegate to adjust results", v15, 2u);
     }
 
-    v11 = objc_loadWeakRetained(&self->_delegate);
-    v12 = [v11 autocompleteFetch:fetchCopy willAdjustResults:resultsCopy];
+    v12 = objc_loadWeakRetained(&self->_delegate);
+    v13 = [v12 autocompleteFetch:fetchCopy willAdjustResults:resultsCopy];
   }
 
   else
   {
-    v12 = MEMORY[0x277CBEC10];
+    v13 = MEMORY[0x277CBEC10];
   }
 
-  return v12;
+  return v13;
 }
 
 - (void)autocompleteFetch:(id)fetch willSortResults:(id)results

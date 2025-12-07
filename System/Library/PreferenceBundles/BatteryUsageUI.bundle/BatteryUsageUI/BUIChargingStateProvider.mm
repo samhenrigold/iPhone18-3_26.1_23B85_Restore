@@ -5,6 +5,7 @@
 - (id)debugDescription;
 - (void)dealloc;
 - (void)lastChargeInfoChanged;
+- (void)setIsExternallyConnected:(BOOL)connected;
 - (void)stateCalculation;
 @end
 
@@ -130,6 +131,15 @@ LABEL_19:
   }
 }
 
+- (void)setIsExternallyConnected:(BOOL)connected
+{
+  connectedCopy = connected;
+  self->_connectedStatusJustChanged = [(ChargingStateProvider *)self isExternallyConnected]^ connected;
+  v5.receiver = self;
+  v5.super_class = BUIChargingStateProvider;
+  [(ChargingStateProvider *)&v5 setIsExternallyConnected:connectedCopy];
+}
+
 - (void)lastChargeInfoChanged
 {
   [(ChargingStateProvider *)self computeStates];
@@ -148,7 +158,7 @@ LABEL_19:
 - (BOOL)shouldShowCardForType:(signed __int16)type
 {
   typeCopy = type;
-  v5 = [(BUIChargingStateProvider *)self isOverridableType:?];
+  LODWORD(v5) = [(BUIChargingStateProvider *)self isOverridableType:?];
   if (!v5)
   {
     return v5;
@@ -200,10 +210,10 @@ LABEL_15:
 LABEL_11:
   v11 = v8;
   v12 = *v7;
-  LOBYTE(v5) = v11 == &dword_0 + 1;
+  v5 = v11 == &dword_0 + 1;
   if (v12)
   {
-    v13 = BUILogCommon();
+    v13 = BUILogCommon(v5);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10F718(v12, typeCopy, v13);

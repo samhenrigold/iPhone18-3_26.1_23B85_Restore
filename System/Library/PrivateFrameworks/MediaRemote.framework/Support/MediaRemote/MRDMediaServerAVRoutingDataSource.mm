@@ -1,12 +1,15 @@
 @interface MRDMediaServerAVRoutingDataSource
 - (BOOL)currentRouteSupportsVolumeControl;
 - (BOOL)resetPickedRouteForSource:(unsigned int)source;
+- (BOOL)setPickedSystemRoute:(id)route withPassword:(id)password forSource:(unsigned int)source;
 - (BOOL)unpickAirPlayRoutes;
 - (MRDMediaServerAVRoutingDataSource)init;
 - (id)_descriptionForDiscoveryMode:(unsigned int)mode;
 - (id)_oddsShimDataSource;
 - (id)pickableRoutesForCategory:(id)category source:(unsigned int)source;
 - (id)pickedRoute;
+- (id)pickedRouteForCategory:(id)category source:(unsigned int)source;
+- (id)pickedRoutesForCategory:(id)category source:(unsigned int)source;
 - (unsigned)externalScreenType;
 - (void)_avSessionMediaServicesResetNotification:(id)notification;
 - (void)_externalScreenDidChangeNotification:(id)notification;
@@ -15,6 +18,7 @@
 - (void)_registerAVSystemControllerNotifications;
 - (void)_unregisterAVSystemControllerNotifications;
 - (void)dealloc;
+- (void)setDiscoveryMode:(unsigned int)mode;
 - (void)userCancelledPickingRoute:(id)route;
 @end
 
@@ -76,6 +80,16 @@
   [(MRDMediaServerAVRoutingDataSource *)&v4 dealloc];
 }
 
+- (void)setDiscoveryMode:(unsigned int)mode
+{
+  v3 = *&mode;
+  v6.receiver = self;
+  v6.super_class = MRDMediaServerAVRoutingDataSource;
+  [(MRDAVRoutingDataSource *)&v6 setDiscoveryMode:?];
+  _oddsShimDataSource = [(MRDMediaServerAVRoutingDataSource *)self _oddsShimDataSource];
+  [_oddsShimDataSource setDiscoveryMode:v3];
+}
+
 - (BOOL)currentRouteSupportsVolumeControl
 {
   _mediaServerController = [(MRDMediaServerAVRoutingDataSource *)self _mediaServerController];
@@ -90,6 +104,54 @@
   firstObject = [pickedRoutes firstObject];
 
   return firstObject;
+}
+
+- (id)pickedRouteForCategory:(id)category source:(unsigned int)source
+{
+  v4 = [(MRDMediaServerAVRoutingDataSource *)self pickedRoutesForCategory:category source:*&source];
+  firstObject = [v4 firstObject];
+
+  return firstObject;
+}
+
+- (id)pickedRoutesForCategory:(id)category source:(unsigned int)source
+{
+  v4 = *&source;
+  categoryCopy = category;
+  v7 = objc_alloc_init(NSMutableArray);
+  v8 = [(MRDMediaServerAVRoutingDataSource *)self pickableRoutesForCategory:categoryCopy source:v4];
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v16;
+    do
+    {
+      for (i = 0; i != v10; i = i + 1)
+      {
+        if (*v16 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(*(&v15 + 1) + 8 * i);
+        if ([v13 isPicked])
+        {
+          [v7 addObject:v13];
+        }
+      }
+
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v10);
+  }
+
+  return v7;
 }
 
 - (id)pickableRoutesForCategory:(id)category source:(unsigned int)source
@@ -169,6 +231,45 @@
   }
 
   return v10;
+}
+
+- (BOOL)setPickedSystemRoute:(id)route withPassword:(id)password forSource:(unsigned int)source
+{
+  v5 = *&source;
+  routeCopy = route;
+  passwordCopy = password;
+  _oddsShimDataSource = [(MRDMediaServerAVRoutingDataSource *)self _oddsShimDataSource];
+  v11 = [_oddsShimDataSource setPickedSystemRoute:routeCopy withPassword:passwordCopy forSource:v5];
+
+  v12 = _MRLogForCategory();
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  if (v11)
+  {
+    if (v13)
+    {
+      name = [routeCopy name];
+      v17 = 138412546;
+      v18 = name;
+      v19 = 2112;
+      v20 = 0;
+      v15 = "Successfully picked route named %@. (error = %@)";
+LABEL_6:
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v15, &v17, 0x16u);
+    }
+  }
+
+  else if (v13)
+  {
+    name = [routeCopy name];
+    v17 = 138412546;
+    v18 = name;
+    v19 = 2112;
+    v20 = 0;
+    v15 = "Failed to pick route named %@. (error = %@)";
+    goto LABEL_6;
+  }
+
+  return v11;
 }
 
 - (BOOL)resetPickedRouteForSource:(unsigned int)source

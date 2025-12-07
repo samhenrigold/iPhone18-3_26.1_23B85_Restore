@@ -161,16 +161,17 @@ uint64_t __39__SBReachabilityManager_sharedInstance__block_invoke()
 
 - (BOOL)reachabilityEnabled
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if ([(NSMutableSet *)self->_temporaryEnabledReasons count])
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = [(NSMutableSet *)self->_temporaryEnabledReasons count];
+  if (v3)
   {
-    v3 = SBLogReachability();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = SBLogReachability(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       temporaryEnabledReasons = self->_temporaryEnabledReasons;
-      v7 = 138543362;
-      v8 = temporaryEnabledReasons;
-      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Allowing entering reachability mode temporarily for reasons: %{public}@", &v7, 0xCu);
+      v8 = 138543362;
+      v9 = temporaryEnabledReasons;
+      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Allowing entering reachability mode temporarily for reasons: %{public}@", &v8, 0xCu);
     }
 
     return 1;
@@ -185,8 +186,9 @@ uint64_t __39__SBReachabilityManager_sharedInstance__block_invoke()
 - (void)setReachabilityEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v13 = *MEMORY[0x277D85DE8];
-  if (+[SBReachabilityManager reachabilitySupported])
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = +[SBReachabilityManager reachabilitySupported];
+  if (v5)
   {
     if (enabledCopy)
     {
@@ -196,10 +198,10 @@ uint64_t __39__SBReachabilityManager_sharedInstance__block_invoke()
       }
 
       self->_reachabilityModeEnabled = 1;
-      v10 = +[SBDefaults localDefaults];
-      accessibilityDefaults = [v10 accessibilityDefaults];
-      v6 = accessibilityDefaults;
-      v7 = 1;
+      v11 = +[SBDefaults localDefaults];
+      accessibilityDefaults = [v11 accessibilityDefaults];
+      v7 = accessibilityDefaults;
+      v8 = 1;
     }
 
     else
@@ -211,29 +213,29 @@ uint64_t __39__SBReachabilityManager_sharedInstance__block_invoke()
 
       [(SBReachabilityManager *)self deactivateReachability];
       self->_reachabilityModeEnabled = 0;
-      v10 = +[SBDefaults localDefaults];
-      accessibilityDefaults = [v10 accessibilityDefaults];
-      v6 = accessibilityDefaults;
-      v7 = 0;
+      v11 = +[SBDefaults localDefaults];
+      accessibilityDefaults = [v11 accessibilityDefaults];
+      v7 = accessibilityDefaults;
+      v8 = 0;
     }
 
-    [accessibilityDefaults setAllowReachability:v7];
+    [accessibilityDefaults setAllowReachability:v8];
   }
 
   else
   {
-    v8 = SBLogReachability();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogReachability(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = @"disable";
+      v10 = @"disable";
       if (enabledCopy)
       {
-        v9 = @"enable";
+        v10 = @"enable";
       }
 
       *buf = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Can't %{public}@ reachability on an unsupported device!", buf, 0xCu);
+      v13 = v10;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Can't %{public}@ reachability on an unsupported device!", buf, 0xCu);
     }
   }
 }
@@ -241,74 +243,84 @@ uint64_t __39__SBReachabilityManager_sharedInstance__block_invoke()
 - (void)setReachabilityTemporarilyDisabled:(BOOL)disabled forReason:(id)reason
 {
   disabledCopy = disabled;
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
+  v7 = reasonCopy;
   if (disabledCopy)
   {
-    v7 = SBLogReachability();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      v9 = 138543362;
-      v10 = reasonCopy;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Adding temporary reason for disabling reachability: %{public}@", &v9, 0xCu);
-    }
-
-    [(NSMutableSet *)self->_temporaryDisabledReasons addObject:reasonCopy];
-  }
-
-  else if ([(NSMutableSet *)self->_temporaryDisabledReasons containsObject:reasonCopy])
-  {
-    v8 = SBLogReachability();
+    v8 = SBLogReachability(reasonCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
-      v10 = reasonCopy;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Removing temporary reason for disabling reachability: %{public}@", &v9, 0xCu);
+      v11 = 138543362;
+      v12 = v7;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Adding temporary reason for disabling reachability: %{public}@", &v11, 0xCu);
     }
 
-    [(NSMutableSet *)self->_temporaryDisabledReasons removeObject:reasonCopy];
+    [(NSMutableSet *)self->_temporaryDisabledReasons addObject:v7];
+  }
+
+  else
+  {
+    v9 = objc_msgSend_containsObject_(self->_temporaryDisabledReasons);
+    if (v9)
+    {
+      v10 = SBLogReachability(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = 138543362;
+        v12 = v7;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Removing temporary reason for disabling reachability: %{public}@", &v11, 0xCu);
+      }
+
+      [(NSMutableSet *)self->_temporaryDisabledReasons removeObject:v7];
+    }
   }
 }
 
 - (void)setReachabilityTemporarilyEnabled:(BOOL)enabled forReason:(id)reason
 {
   enabledCopy = enabled;
-  v14 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
+  v7 = reasonCopy;
   if (enabledCopy)
   {
-    v7 = SBLogReachability();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogReachability(reasonCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
-      v13 = reasonCopy;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Adding temporary reason for enabling reachability: %{public}@", &v12, 0xCu);
+      v14 = 138543362;
+      v15 = v7;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Adding temporary reason for enabling reachability: %{public}@", &v14, 0xCu);
     }
 
     temporaryEnabledReasons = self->_temporaryEnabledReasons;
     if (!temporaryEnabledReasons)
     {
-      v9 = [MEMORY[0x277CBEB58] set];
-      v10 = self->_temporaryEnabledReasons;
-      self->_temporaryEnabledReasons = v9;
+      v10 = [MEMORY[0x277CBEB58] set];
+      v11 = self->_temporaryEnabledReasons;
+      self->_temporaryEnabledReasons = v10;
 
       temporaryEnabledReasons = self->_temporaryEnabledReasons;
     }
 
-    [(NSMutableSet *)temporaryEnabledReasons addObject:reasonCopy];
+    [(NSMutableSet *)temporaryEnabledReasons addObject:v7];
   }
 
-  else if ([(NSMutableSet *)self->_temporaryEnabledReasons containsObject:reasonCopy])
+  else
   {
-    v11 = SBLogReachability();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = objc_msgSend_containsObject_(self->_temporaryEnabledReasons);
+    if (v12)
     {
-      v12 = 138543362;
-      v13 = reasonCopy;
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Removing temporary reason for enabling reachability: %{public}@", &v12, 0xCu);
-    }
+      v13 = SBLogReachability(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      {
+        v14 = 138543362;
+        v15 = v7;
+        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Removing temporary reason for enabling reachability: %{public}@", &v14, 0xCu);
+      }
 
-    [(NSMutableSet *)self->_temporaryEnabledReasons removeObject:reasonCopy];
+      [(NSMutableSet *)self->_temporaryEnabledReasons removeObject:v7];
+    }
   }
 }
 
@@ -353,7 +365,7 @@ uint64_t __39__SBReachabilityManager_sharedInstance__block_invoke()
 - (void)ignoreWindowForReachability:(id)reachability
 {
   reachabilityCopy = reachability;
-  if (![(NSHashTable *)self->_ignoredWindows containsObject:?])
+  if ((objc_msgSend_containsObject_(self->_ignoredWindows) & 1) == 0)
   {
     [(NSHashTable *)self->_ignoredWindows addObject:reachabilityCopy];
     inverseReachabilityTransform = self->_inverseReachabilityTransform;
@@ -409,20 +421,20 @@ uint64_t __39__SBReachabilityManager_sharedInstance__block_invoke()
 {
   if (self->_reachabilityModeActive != active)
   {
-    v27 = v7;
-    v28 = v6;
-    v29 = v4;
-    v30 = v5;
+    v28 = v7;
+    v29 = v6;
+    v30 = v4;
+    v31 = v5;
     animatedCopy = animated;
     activeCopy = active;
     self->_reachabilityModeActive = active;
     if (self->_attentionAwarenessClient)
     {
-      v11 = SBLogReachability();
+      v11 = SBLogReachability(self);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v26[0] = 0;
-        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "invalidate attention client", v26, 2u);
+        v27[0] = 0;
+        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "invalidate attention client", v27, 2u);
       }
 
       [(AWAttentionAwarenessClient *)self->_attentionAwarenessClient invalidateWithError:0];
@@ -431,73 +443,73 @@ uint64_t __39__SBReachabilityManager_sharedInstance__block_invoke()
     }
 
     mEMORY[0x277D6A798] = [MEMORY[0x277D6A798] sharedInstance];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __64__SBReachabilityManager__updateReachabilityModeActive_animated___block_invoke;
-    v24[3] = &__block_descriptor_33_e5__8__0l;
-    v25 = activeCopy;
-    [mEMORY[0x277D6A798] logBlock:v24];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __64__SBReachabilityManager__updateReachabilityModeActive_animated___block_invoke;
+    v25[3] = &__block_descriptor_33_e5__8__0l;
+    v26 = activeCopy;
+    [mEMORY[0x277D6A798] logBlock:v25];
 
-    v14 = SBLogReachability();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v15 = SBLogReachability(v14);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
     if (activeCopy)
     {
-      if (v15)
+      if (v16)
       {
-        v26[0] = 0;
-        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "reachability activated", v26, 2u);
+        v27[0] = 0;
+        _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "reachability activated", v27, 2u);
       }
 
       [(SBReachabilityManager *)self _setKeepAliveTimer];
       zStackResolver = [(SBWindowScene *)self->_windowScene zStackResolver];
-      v17 = [zStackResolver acquireParticipantWithIdentifier:25 delegate:self];
+      v18 = [zStackResolver acquireParticipantWithIdentifier:25 delegate:self];
       zStackParticipant = self->_zStackParticipant;
-      self->_zStackParticipant = v17;
+      self->_zStackParticipant = v18;
 
-      v19 = 6;
+      v20 = 6;
     }
 
     else
     {
-      if (v15)
+      if (v16)
       {
-        v26[0] = 0;
-        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "reachability deactivated", v26, 2u);
+        v27[0] = 0;
+        _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "reachability deactivated", v27, 2u);
       }
 
       [(SBFZStackParticipant *)self->_zStackParticipant invalidate];
       zStackResolver = self->_zStackParticipant;
       self->_zStackParticipant = 0;
-      v19 = 7;
+      v20 = 7;
     }
 
     [(SBReachabilityManager *)self _setupReachabilityWindowIfNecessary];
     mEMORY[0x277D65DD0] = [MEMORY[0x277D65DD0] sharedInstance];
-    [mEMORY[0x277D65DD0] emitEvent:v19];
+    [mEMORY[0x277D65DD0] emitEvent:v20];
 
-    v21 = 0;
+    v22 = 0;
     if (activeCopy)
     {
       [(SBReachabilityManager *)self reachabilityYOffset];
     }
 
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __64__SBReachabilityManager__updateReachabilityModeActive_animated___block_invoke_55;
-    v23[3] = &unk_2783A9158;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __64__SBReachabilityManager__updateReachabilityModeActive_animated___block_invoke_55;
+    v24[3] = &unk_2783A9158;
     if (animatedCopy)
     {
-      v22 = 3;
+      v23 = 3;
     }
 
     else
     {
-      v22 = 2;
+      v23 = 2;
     }
 
-    v23[4] = self;
-    v23[5] = v21;
-    [(SBReachabilityManager *)self _updateReachabilityWindowForYOffset:v22 mode:v23 completion:?];
+    v24[4] = self;
+    v24[5] = v22;
+    [(SBReachabilityManager *)self _updateReachabilityWindowForYOffset:v23 mode:v24 completion:?];
     [(SBReachabilityManager *)self _notifyObserversReachabilityModeActive:self->_reachabilityModeActive];
   }
 }
@@ -605,29 +617,29 @@ _BYTE *__64__SBReachabilityManager__updateReachabilityModeActive_animated___bloc
     v5 = self->_attentionAwarenessClient;
     v6 = MEMORY[0x277D85CD0];
     v7 = MEMORY[0x277D85CD0];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __43__SBReachabilityManager__setKeepAliveTimer__block_invoke;
-    v10[3] = &unk_2783A9180;
-    objc_copyWeak(&v11, &location);
-    [(AWAttentionAwarenessClient *)v5 setEventHandlerWithQueue:v6 block:v10];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __43__SBReachabilityManager__setKeepAliveTimer__block_invoke;
+    v11[3] = &unk_2783A9180;
+    objc_copyWeak(&v12, &location);
+    [(AWAttentionAwarenessClient *)v5 setEventHandlerWithQueue:v6 block:v11];
 
-    v8 = SBLogReachability();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogReachability(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "timer start", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "timer start", v10, 2u);
     }
 
     [(AWAttentionAwarenessClient *)self->_attentionAwarenessClient resumeWithError:0];
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(&location);
   }
 }
 
 void __43__SBReachabilityManager__setKeepAliveTimer__block_invoke(uint64_t a1, void *a2)
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (!WeakRetained)
@@ -637,80 +649,81 @@ void __43__SBReachabilityManager__setKeepAliveTimer__block_invoke(uint64_t a1, v
 
   if ([v3 eventMask])
   {
-    v9 = objc_opt_class();
-    v10 = v3;
-    if (v9)
+    v10 = objc_opt_class();
+    v11 = v3;
+    if (v10)
     {
       if (objc_opt_isKindOfClass())
       {
-        v11 = v10;
+        v12 = v11;
       }
 
       else
       {
-        v11 = 0;
+        v12 = 0;
       }
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
 
-    v7 = v11;
+    v8 = v12;
 
-    v12 = [v7 associatedObject];
-    v13 = v12;
-    if (v12)
+    v13 = [v8 associatedObject];
+    v14 = v13;
+    if (v13)
     {
-      v14 = [v12 isEqual:@"start"];
-      v15 = SBLogReachability();
-      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-      if ((v14 & 1) == 0)
+      v15 = [v13 isEqual:@"start"];
+      v16 = v15;
+      v17 = SBLogReachability(v15);
+      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+      if ((v16 & 1) == 0)
       {
-        if (v16)
+        if (v18)
         {
-          v24 = 138543362;
-          v25 = v13;
-          _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "timed out (%{public}@)", &v24, 0xCu);
+          v26 = 138543362;
+          v27 = v14;
+          _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "timed out (%{public}@)", &v26, 0xCu);
         }
 
-        v28 = *MEMORY[0x277D67608];
-        v29[0] = &unk_28336F980;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-        v21 = MEMORY[0x277D65DD0];
-        v22 = v20;
-        v23 = [v21 sharedInstance];
-        [v23 emitEvent:8 withPayload:v22];
+        v30 = *MEMORY[0x277D67608];
+        v31[0] = &unk_28336F980;
+        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+        v23 = MEMORY[0x277D65DD0];
+        v24 = v22;
+        v25 = [v23 sharedInstance];
+        [v25 emitEvent:8 withPayload:v24];
 
         [WeakRetained _updateReachabilityModeActive:0];
         goto LABEL_25;
       }
 
-      if (v16)
+      if (v18)
       {
-        v24 = 138543618;
-        v25 = v13;
-        v26 = 2114;
-        v27 = v7;
-        v17 = "ignoring attn lost (%{public}@) -- %{public}@";
-        v18 = v15;
-        v19 = 22;
+        v26 = 138543618;
+        v27 = v14;
+        v28 = 2114;
+        v29 = v8;
+        v19 = "ignoring attn lost (%{public}@) -- %{public}@";
+        v20 = v17;
+        v21 = 22;
 LABEL_20:
-        _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, v17, &v24, v19);
+        _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, v19, &v26, v21);
       }
     }
 
     else
     {
-      v15 = SBLogReachability();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = SBLogReachability(0);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = 134217984;
-        v25 = [v7 eventMask];
-        v17 = "ignoring attn reset (mask %llX)";
-        v18 = v15;
-        v19 = 12;
+        v26 = 134217984;
+        v27 = [v8 eventMask];
+        v19 = "ignoring attn reset (mask %llX)";
+        v20 = v17;
+        v21 = 12;
         goto LABEL_20;
       }
     }
@@ -724,25 +737,25 @@ LABEL_26:
   v5 = [v3 tag];
   v6 = [v5 isEqual:@"nonInteractive"];
 
-  v7 = SBLogReachability();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = SBLogReachability(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (!v6)
   {
-    if (v8)
+    if (v9)
     {
-      v24 = 134217984;
-      v25 = [v3 eventMask];
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "already in interactive mode -- ignoring event (%llX)", &v24, 0xCu);
+      v26 = 134217984;
+      v27 = [v3 eventMask];
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "already in interactive mode -- ignoring event (%llX)", &v26, 0xCu);
     }
 
     goto LABEL_26;
   }
 
-  if (v8)
+  if (v9)
   {
-    v24 = 134217984;
-    v25 = [v3 eventMask];
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "event (%llX) -- shortening to interactive timeout", &v24, 0xCu);
+    v26 = 134217984;
+    v27 = [v3 eventMask];
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "event (%llX) -- shortening to interactive timeout", &v26, 0xCu);
   }
 
   [WeakRetained _applyInteractiveConfiguration];
@@ -759,22 +772,23 @@ LABEL_27:
   v16 = 0u;
   v17 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
-  if (v6)
+  handleReachabilityModeActivated = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
+  if (handleReachabilityModeActivated)
   {
-    v7 = v6;
+    v7 = handleReachabilityModeActivated;
     v8 = *v15;
     do
     {
-      for (i = 0; i != v7; ++i)
+      v9 = 0;
+      do
       {
         if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        v11 = SBLogReachability();
+        v10 = *(*(&v14 + 1) + 8 * v9);
+        v11 = SBLogReachability(handleReachabilityModeActivated);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           v12 = objc_opt_class();
@@ -786,22 +800,31 @@ LABEL_27:
 
         if (activeCopy)
         {
-          if (objc_opt_respondsToSelector())
+          handleReachabilityModeActivated = objc_opt_respondsToSelector();
+          if (handleReachabilityModeActivated)
           {
-            [v10 handleReachabilityModeActivated];
+            handleReachabilityModeActivated = [v10 handleReachabilityModeActivated];
           }
         }
 
-        else if (objc_opt_respondsToSelector())
+        else
         {
-          [v10 handleReachabilityModeDeactivated];
+          handleReachabilityModeActivated = objc_opt_respondsToSelector();
+          if (handleReachabilityModeActivated)
+          {
+            handleReachabilityModeActivated = [v10 handleReachabilityModeDeactivated];
+          }
         }
+
+        ++v9;
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
+      while (v7 != v9);
+      handleReachabilityModeActivated = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v7 = handleReachabilityModeActivated;
     }
 
-    while (v7);
+    while (handleReachabilityModeActivated);
   }
 }
 
@@ -814,22 +837,23 @@ LABEL_27:
   v14 = 0u;
   v15 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
-  if (v4)
+  handleReachabilityYOffsetDidChange = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+  if (handleReachabilityYOffsetDidChange)
   {
-    v5 = v4;
+    v5 = handleReachabilityYOffsetDidChange;
     v6 = *v13;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
-        v9 = SBLogReachability();
+        v8 = *(*(&v12 + 1) + 8 * v7);
+        v9 = SBLogReachability(handleReachabilityYOffsetDidChange);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
           v10 = objc_opt_class();
@@ -839,16 +863,21 @@ LABEL_27:
           _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "notifying observer of reachability yOffset change: %{public}@", buf, 0xCu);
         }
 
-        if (objc_opt_respondsToSelector())
+        handleReachabilityYOffsetDidChange = objc_opt_respondsToSelector();
+        if (handleReachabilityYOffsetDidChange)
         {
-          [v8 handleReachabilityYOffsetDidChange];
+          handleReachabilityYOffsetDidChange = [v8 handleReachabilityYOffsetDidChange];
         }
+
+        ++v7;
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      while (v5 != v7);
+      handleReachabilityYOffsetDidChange = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v5 = handleReachabilityYOffsetDidChange;
     }
 
-    while (v5);
+    while (handleReachabilityYOffsetDidChange);
   }
 }
 
@@ -861,22 +890,23 @@ LABEL_27:
   v14 = 0u;
   v15 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
-  if (v4)
+  handleWillBeginReachabilityAnimation = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+  if (handleWillBeginReachabilityAnimation)
   {
-    v5 = v4;
+    v5 = handleWillBeginReachabilityAnimation;
     v6 = *v13;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
-        v9 = SBLogReachability();
+        v8 = *(*(&v12 + 1) + 8 * v7);
+        v9 = SBLogReachability(handleWillBeginReachabilityAnimation);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
           v10 = objc_opt_class();
@@ -886,16 +916,21 @@ LABEL_27:
           _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "notifying observer of will begin reachability animation: %{public}@", buf, 0xCu);
         }
 
-        if (objc_opt_respondsToSelector())
+        handleWillBeginReachabilityAnimation = objc_opt_respondsToSelector();
+        if (handleWillBeginReachabilityAnimation)
         {
-          [v8 handleWillBeginReachabilityAnimation];
+          handleWillBeginReachabilityAnimation = [v8 handleWillBeginReachabilityAnimation];
         }
+
+        ++v7;
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      while (v5 != v7);
+      handleWillBeginReachabilityAnimation = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v5 = handleWillBeginReachabilityAnimation;
     }
 
-    while (v5);
+    while (handleWillBeginReachabilityAnimation);
   }
 }
 
@@ -908,22 +943,23 @@ LABEL_27:
   v14 = 0u;
   v15 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
-  if (v4)
+  handleDidEndReachabilityAnimation = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+  if (handleDidEndReachabilityAnimation)
   {
-    v5 = v4;
+    v5 = handleDidEndReachabilityAnimation;
     v6 = *v13;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
-        v9 = SBLogReachability();
+        v8 = *(*(&v12 + 1) + 8 * v7);
+        v9 = SBLogReachability(handleDidEndReachabilityAnimation);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
           v10 = objc_opt_class();
@@ -933,16 +969,21 @@ LABEL_27:
           _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "notifying observer of did end reachability animation: %{public}@", buf, 0xCu);
         }
 
-        if (objc_opt_respondsToSelector())
+        handleDidEndReachabilityAnimation = objc_opt_respondsToSelector();
+        if (handleDidEndReachabilityAnimation)
         {
-          [v8 handleDidEndReachabilityAnimation];
+          handleDidEndReachabilityAnimation = [v8 handleDidEndReachabilityAnimation];
         }
+
+        ++v7;
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      while (v5 != v7);
+      handleDidEndReachabilityAnimation = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v5 = handleDidEndReachabilityAnimation;
     }
 
-    while (v5);
+    while (handleDidEndReachabilityAnimation);
   }
 }
 
@@ -967,79 +1008,82 @@ LABEL_27:
 
 - (BOOL)canActivateReachability
 {
-  v22 = *MEMORY[0x277D85DE8];
-  if (![(SBReachabilityManager *)self reachabilityEnabled])
+  v26 = *MEMORY[0x277D85DE8];
+  reachabilityEnabled = [(SBReachabilityManager *)self reachabilityEnabled];
+  if ((reachabilityEnabled & 1) == 0)
   {
-    v6 = SBLogReachability();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogReachability(reachabilityEnabled);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Can't enter reachability mode since it is disabled.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Can't enter reachability mode since it is disabled.", buf, 2u);
     }
 
     mEMORY[0x277D6A798] = [MEMORY[0x277D6A798] sharedInstance];
-    v8 = mEMORY[0x277D6A798];
-    v9 = &__block_literal_global_101;
+    v11 = mEMORY[0x277D6A798];
+    v12 = &__block_literal_global_101;
     goto LABEL_13;
   }
 
-  if ([SBApp activeInterfaceOrientation] != 1)
+  activeInterfaceOrientation = [SBApp activeInterfaceOrientation];
+  if (activeInterfaceOrientation != 1)
   {
-    v10 = SBLogReachability();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v13 = SBLogReachability(activeInterfaceOrientation);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Can't enter reachability mode in a non-portrait orientation", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "Can't enter reachability mode in a non-portrait orientation", buf, 2u);
     }
 
     mEMORY[0x277D6A798] = [MEMORY[0x277D6A798] sharedInstance];
-    v8 = mEMORY[0x277D6A798];
-    v9 = &__block_literal_global_121;
+    v11 = mEMORY[0x277D6A798];
+    v12 = &__block_literal_global_121;
 LABEL_13:
-    [mEMORY[0x277D6A798] logBlock:v9];
+    [mEMORY[0x277D6A798] logBlock:v12];
 
     return 0;
   }
 
-  if ([(NSMutableSet *)self->_temporaryDisabledReasons count])
+  v5 = [(NSMutableSet *)self->_temporaryDisabledReasons count];
+  if (v5)
   {
-    v3 = SBLogReachability();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogReachability(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       temporaryDisabledReasons = self->_temporaryDisabledReasons;
       *buf = 138543362;
-      v21 = temporaryDisabledReasons;
-      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Can't enter reachability mode temporarily for these reasons: %{public}@", buf, 0xCu);
+      v25 = temporaryDisabledReasons;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Can't enter reachability mode temporarily for these reasons: %{public}@", buf, 0xCu);
     }
 
     mEMORY[0x277D6A798]2 = [MEMORY[0x277D6A798] sharedInstance];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __48__SBReachabilityManager_canActivateReachability__block_invoke_133;
-    v19[3] = &unk_2783A91C8;
-    v19[4] = self;
-    [mEMORY[0x277D6A798]2 logBlock:v19];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __48__SBReachabilityManager_canActivateReachability__block_invoke_133;
+    v23[3] = &unk_2783A91C8;
+    v23[4] = self;
+    [mEMORY[0x277D6A798]2 logBlock:v23];
 
     return 0;
   }
 
-  v13 = SBWorkspaceApplicationSceneHandlesInLockedOrUnlockedEnvironmentLayoutState();
-  anyObject = [v13 anyObject];
+  v16 = SBWorkspaceApplicationSceneHandlesInLockedOrUnlockedEnvironmentLayoutState();
+  anyObject = [v16 anyObject];
 
   application = [anyObject application];
-  if (application && ([anyObject isReachabilitySupported] & 1) == 0)
+  if (application && (v19 = [anyObject isReachabilitySupported], (v19 & 1) == 0))
   {
-    v17 = SBLogReachability();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v21 = SBLogReachability(v19);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Can't enter reachability mode because the app doesn't support reachability.", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "Can't enter reachability mode because the app doesn't support reachability.", buf, 2u);
     }
 
     mEMORY[0x277D6A798]3 = [MEMORY[0x277D6A798] sharedInstance];
     [mEMORY[0x277D6A798]3 logBlock:&__block_literal_global_142];
 
-    v11 = 0;
+    v14 = 0;
   }
 
   else
@@ -1047,10 +1091,10 @@ LABEL_13:
     mEMORY[0x277D6A798]4 = [MEMORY[0x277D6A798] sharedInstance];
     [mEMORY[0x277D6A798]4 logBlock:&__block_literal_global_155];
 
-    v11 = 1;
+    v14 = 1;
   }
 
-  return v11;
+  return v14;
 }
 
 id __48__SBReachabilityManager_canActivateReachability__block_invoke_133(uint64_t a1)

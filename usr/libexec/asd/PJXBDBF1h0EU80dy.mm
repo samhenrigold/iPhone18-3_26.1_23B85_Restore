@@ -26,6 +26,7 @@
 - (void)removeAllBindings;
 - (void)serializeCacheEntryV2WithMaxCacheAge:(int64_t)age gXKoR0dNwQUyaeOl:(unsigned int)ol lEWFPyiFIAJ2uoyd:(id)j2uoyd;
 - (void)serializeCacheEntryWithCacheWritingTTL:(int64_t)l gXKoR0dNwQUyaeOl:(unsigned int)ol lEWFPyiFIAJ2uoyd:(id)j2uoyd;
+- (void)tuV7J33gT8DSDOWz:(unint64_t)wz forDFVersion:(unsigned int)version withCompletion:(id)completion;
 @end
 
 @implementation PJXBDBF1h0EU80dy
@@ -182,6 +183,53 @@
   _Block_object_dispose(&v12, 8);
 
   return v6;
+}
+
+- (void)tuV7J33gT8DSDOWz:(unint64_t)wz forDFVersion:(unsigned int)version withCompletion:(id)completion
+{
+  v5 = *&version;
+  completionCopy = completion;
+  v9 = [NSPredicate predicateWithFormat:@"queryKey == %lld", wz];
+  v10 = [(PJXBDBF1h0EU80dy *)self YKIcrg8ijyspX6ho:v9 forVersion:v5];
+  finalResult = [v10 finalResult];
+
+  [(PJXBDBF1h0EU80dy *)self cacheOperationCompletionQueue];
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_10003E2B8;
+  v12 = v26[3] = &unk_100690E30;
+  v27 = v12;
+  v13 = completionCopy;
+  v28 = v13;
+  v14 = objc_retainBlock(v26);
+  managedObjectContext = self->_managedObjectContext;
+  if (v5 == 1)
+  {
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_10003E37C;
+    v23[3] = &unk_100690E58;
+    v16 = &v24;
+    v17 = &v25;
+    v24 = finalResult;
+    v25 = v14;
+    v18 = v14;
+    [(NSManagedObjectContext *)managedObjectContext performBlock:v23];
+  }
+
+  else
+  {
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_10003E594;
+    v20[3] = &unk_100690E58;
+    v16 = &v21;
+    v17 = &v22;
+    v21 = finalResult;
+    v22 = v14;
+    v19 = v14;
+    [(NSManagedObjectContext *)managedObjectContext performBlock:v20];
+  }
 }
 
 - (void)cZK3HwMuoGcCgDQI

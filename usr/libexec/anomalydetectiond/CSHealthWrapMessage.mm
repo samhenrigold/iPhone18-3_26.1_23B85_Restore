@@ -43,7 +43,7 @@
     *&v26->_shouldCloseStream = 1;
     objc_storeStrong(&v26->_uuid, d);
     objc_storeStrong(&v27->_studyUUID, uID);
-    v28 = +[(GPBMessage *)CSHWProtoPayloadHeader];
+    v28 = objc_msgSend_message(CSHWProtoPayloadHeader);
     payloadHeader = v27->_payloadHeader;
     v27->_payloadHeader = v28;
 

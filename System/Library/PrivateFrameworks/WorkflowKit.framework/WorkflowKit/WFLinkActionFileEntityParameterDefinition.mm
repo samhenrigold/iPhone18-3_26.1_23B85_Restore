@@ -4,6 +4,7 @@
 - (id)parameterDefinitionDictionary;
 - (id)parameterStateFromLinkValue:(id)value;
 - (id)supportedUTIs;
+- (void)getLinkValueFromProcessedParameterValue:(id)value parameterState:(id)state permissionRequestor:(id)requestor runningFromToolKit:(BOOL)kit action:(id)action parameterKey:(id)key completionHandler:(id)handler;
 @end
 
 @implementation WFLinkActionFileEntityParameterDefinition
@@ -86,6 +87,39 @@ LABEL_17:
 LABEL_18:
 
   return v5;
+}
+
+- (void)getLinkValueFromProcessedParameterValue:(id)value parameterState:(id)state permissionRequestor:(id)requestor runningFromToolKit:(BOOL)kit action:(id)action parameterKey:(id)key completionHandler:(id)handler
+{
+  kitCopy = kit;
+  valueCopy = value;
+  stateCopy = state;
+  requestorCopy = requestor;
+  actionCopy = action;
+  keyCopy = key;
+  handlerCopy = handler;
+  v21 = MEMORY[0x1E696E840];
+  supportedUTIs = [(WFLinkActionFileEntityParameterDefinition *)self supportedUTIs];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __177__WFLinkActionFileEntityParameterDefinition_getLinkValueFromProcessedParameterValue_parameterState_permissionRequestor_runningFromToolKit_action_parameterKey_completionHandler___block_invoke;
+  v27[3] = &unk_1E837D470;
+  v23 = handlerCopy;
+  v27[4] = self;
+  v28 = v23;
+  LOBYTE(v21) = [v21 wf_processParameterValue:valueCopy parameterState:stateCopy coerceToSupportedUTIs:supportedUTIs array:0 dynamicOptions:0 completionHandler:v27];
+
+  if ((v21 & 1) == 0)
+  {
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __177__WFLinkActionFileEntityParameterDefinition_getLinkValueFromProcessedParameterValue_parameterState_permissionRequestor_runningFromToolKit_action_parameterKey_completionHandler___block_invoke_2;
+    v25[3] = &unk_1E837B530;
+    v26 = v23;
+    v24.receiver = self;
+    v24.super_class = WFLinkActionFileEntityParameterDefinition;
+    [(WFLinkActionDynamicOptionsParameterDefinition *)&v24 getLinkValueFromProcessedParameterValue:valueCopy parameterState:stateCopy permissionRequestor:requestorCopy runningFromToolKit:kitCopy action:actionCopy parameterKey:keyCopy completionHandler:v25];
+  }
 }
 
 void __177__WFLinkActionFileEntityParameterDefinition_getLinkValueFromProcessedParameterValue_parameterState_permissionRequestor_runningFromToolKit_action_parameterKey_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -184,17 +218,15 @@ LABEL_12:
 
 - (id)parameterDefinitionDictionary
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = WFLinkActionFileEntityParameterDefinition;
-  parameterDefinitionDictionary = [(WFLinkActionParameterDefinition *)&v9 parameterDefinitionDictionary];
-  v10 = @"FilePickerSupportedTypes";
+  v10[1] = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = WFLinkActionFileEntityParameterDefinition;
+  parameterDefinitionDictionary = [(WFLinkActionParameterDefinition *)&v8 parameterDefinitionDictionary];
+  v9 = @"FilePickerSupportedTypes";
   supportedUTIs = [(WFLinkActionFileEntityParameterDefinition *)self supportedUTIs];
-  v11[0] = supportedUTIs;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = supportedUTIs;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v6 = [parameterDefinitionDictionary definitionByAddingEntriesInDictionary:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

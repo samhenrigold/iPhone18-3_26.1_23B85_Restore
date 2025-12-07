@@ -54,46 +54,44 @@
 
 - (id)hf_allServices
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   accessories = [self accessories];
-  v4 = [accessories countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(accessories);
         }
 
-        services = [*(*(&v11 + 1) + 8 * i) services];
+        services = [*(*(&v10 + 1) + 8 * i) services];
         [v2 addObjectsFromArray:services];
       }
 
-      v5 = [accessories countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 - (id)hf_allZones
 {
-  home = [self home];
-  zones = [home zones];
+  v2 = objc_msgSend_home(self);
+  zones = [v2 zones];
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
   v6[2] = __34__HMRoom_HFAdditions__hf_allZones__block_invoke;
@@ -254,45 +252,43 @@ LABEL_5:
 
 - (uint64_t)hf_shouldShowAnnounceButtonForThisRoom
 {
-  v16 = *MEMORY[0x277D85DE8];
-  home = [self home];
-  home2 = [self home];
-  currentUser = [home2 currentUser];
-  v5 = [home homeAccessControlForUser:currentUser];
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = objc_msgSend_home(self);
+  v3 = objc_msgSend_home(self);
+  currentUser = [v3 currentUser];
+  v5 = [v2 homeAccessControlForUser:currentUser];
 
   isAnnounceAccessAllowed = [v5 isAnnounceAccessAllowed];
   hf_atleastOneMediaAccessorySupportsAndHasAnnounceEnabled = [self hf_atleastOneMediaAccessorySupportsAndHasAnnounceEnabled];
   v8 = HFLogForCategory(7uLL);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109634;
-    v11[1] = isAnnounceAccessAllowed;
-    v12 = 1024;
-    v13 = hf_atleastOneMediaAccessorySupportsAndHasAnnounceEnabled;
-    v14 = 2112;
+    v10[0] = 67109634;
+    v10[1] = isAnnounceAccessAllowed;
+    v11 = 1024;
+    v12 = hf_atleastOneMediaAccessorySupportsAndHasAnnounceEnabled;
+    v13 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "isAnnounceAccessAllowedForThisUser = %d, atleastOneMediaAccessorySupportsAnnounce = [%d], for room = %@", v11, 0x18u);
+    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "isAnnounceAccessAllowedForThisUser = %d, atleastOneMediaAccessorySupportsAnnounce = [%d], for room = %@", v10, 0x18u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return isAnnounceAccessAllowed & hf_atleastOneMediaAccessorySupportsAndHasAnnounceEnabled;
 }
 
 - (uint64_t)hf_shouldShowAnnounceFeatureForThisRoom
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   hf_atleastOneHomePodSupportsAnnounce = [self hf_atleastOneHomePodSupportsAnnounce];
   v3 = HFLogForCategory(7uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109378;
-    v6[1] = hf_atleastOneHomePodSupportsAnnounce;
-    v7 = 2112;
+    v5[0] = 67109378;
+    v5[1] = hf_atleastOneHomePodSupportsAnnounce;
+    v6 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "atleastOneHomePodSupportsAnnounce = [%d], for room = %@", v6, 0x12u);
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "atleastOneHomePodSupportsAnnounce = [%d], for room = %@", v5, 0x12u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return hf_atleastOneHomePodSupportsAnnounce;
 }
 
@@ -352,8 +348,8 @@ LABEL_5:
 - (id)hf_roomsSortDescriptorUsingDashboardSectionOrder
 {
   v2 = objc_alloc(MEMORY[0x277CCAC98]);
-  home = [self home];
-  hf_dashboardSectionReorderableUUIDStringComparator = [home hf_dashboardSectionReorderableUUIDStringComparator];
+  v3 = objc_msgSend_home(self);
+  hf_dashboardSectionReorderableUUIDStringComparator = [v3 hf_dashboardSectionReorderableUUIDStringComparator];
   v5 = [v2 initWithKey:@"uniqueIdentifier.UUIDString" ascending:1 comparator:hf_dashboardSectionReorderableUUIDStringComparator];
 
   return v5;
@@ -361,8 +357,8 @@ LABEL_5:
 
 - (id)hf_allNonEmptyActionSets
 {
-  home = [self home];
-  hf_allNonEmptyActionSets = [home hf_allNonEmptyActionSets];
+  v2 = objc_msgSend_home(self);
+  hf_allNonEmptyActionSets = [v2 hf_allNonEmptyActionSets];
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
   v6[2] = __47__HMRoom_HFAdditions__hf_allNonEmptyActionSets__block_invoke;
@@ -377,8 +373,8 @@ LABEL_5:
 {
   v4 = a3;
   v5 = [HFBiomeUsageCountsFetchRequest alloc];
-  home = [self home];
-  v7 = [(HFBiomeUsageCountsFetchRequest *)v5 initWithHome:home];
+  v6 = objc_msgSend_home(self);
+  v7 = [(HFBiomeUsageCountsFetchRequest *)v5 initWithHome:v6];
 
   [(HFBiomeAbstractFetchRequest *)v7 setRoom:self];
   [(HFBiomeUsageCountsFetchRequest *)v7 setFilter:v4];

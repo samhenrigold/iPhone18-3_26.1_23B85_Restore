@@ -28,7 +28,7 @@ void __51___DASExtensionRemoteContext_hostContextWithError___block_invoke(uint64
   }
 }
 
-uint64_t __39___DASExtensionRemoteContext_extension__block_invoke(uint64_t a1)
+void *__39___DASExtensionRemoteContext_extension__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _principalObject];
   v3 = extension_extension;
@@ -57,22 +57,20 @@ void __46___DASExtensionRemoteContext_performActivity___block_invoke(uint64_t a1
 
 void __51___DASExtensionRemoteContext_hostContextWithError___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B6E2F000, a2, OS_LOG_TYPE_ERROR, "Error getting host context %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B6E2F000, a2, OS_LOG_TYPE_ERROR, "Error getting host context %@", &v2, 0xCu);
 }
 
 void __39___DASExtensionRemoteContext_extension__block_invoke_cold_1(NSObject *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 138412546;
-  v4 = objc_opt_class();
-  v5 = 2112;
-  v6 = extension_extension;
-  _os_log_fault_impl(&dword_1B6E2F000, a1, OS_LOG_TYPE_FAULT, "Found unexpected principalObject of class %@: %@.", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 138412546;
+  v3 = objc_opt_class();
+  v4 = 2112;
+  v5 = extension_extension;
+  _os_log_fault_impl(&dword_1B6E2F000, a1, OS_LOG_TYPE_FAULT, "Found unexpected principalObject of class %@: %@.", &v2, 0x16u);
 }
 
 @end

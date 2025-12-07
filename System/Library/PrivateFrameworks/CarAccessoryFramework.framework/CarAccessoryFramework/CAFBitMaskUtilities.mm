@@ -36,28 +36,28 @@
 
 + (int64_t)compareBitmask1:(unint64_t)bitmask1 bitmask2:(unint64_t)bitmask2 optionsSort:(id)sort
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   sortCopy = sort;
-  v9 = [sortCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [sortCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(sortCopy);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
-        v14 = [self bitmask:bitmask1 hasOption:{objc_msgSend(v13, "unsignedLongLongValue", v18)}];
+        v13 = *(*(&v17 + 1) + 8 * i);
+        v14 = [self bitmask:bitmask1 hasOption:{objc_msgSend(v13, "unsignedLongLongValue", v17)}];
         if (v14 != [self bitmask:bitmask2 hasOption:{objc_msgSend(v13, "unsignedLongLongValue")}])
         {
           if (v14)
@@ -74,7 +74,7 @@
         }
       }
 
-      v10 = [sortCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [sortCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v10)
       {
         continue;
@@ -87,7 +87,6 @@
   v15 = 0;
 LABEL_13:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

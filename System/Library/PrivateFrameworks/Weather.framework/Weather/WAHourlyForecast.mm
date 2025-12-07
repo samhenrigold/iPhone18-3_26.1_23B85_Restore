@@ -144,28 +144,7 @@ LABEL_3:
 
     v7 = v6;
 
-    if (!v7)
-    {
-      goto LABEL_11;
-    }
-
-    eventType = [(WAHourlyForecast *)v7 eventType];
-    if (eventType != [(WAHourlyForecast *)self eventType])
-    {
-      goto LABEL_11;
-    }
-
-    time = [(WAHourlyForecast *)v7 time];
-    time2 = [(WAHourlyForecast *)self time];
-    v11 = [time isEqualToString:time2];
-
-    if (!v11)
-    {
-      goto LABEL_11;
-    }
-
-    conditionCode = [(WAHourlyForecast *)v7 conditionCode];
-    if (conditionCode == [(WAHourlyForecast *)self conditionCode]&& ([(WAHourlyForecast *)v7 percentPrecipitation], v14 = v13, [(WAHourlyForecast *)self percentPrecipitation], v16 = v15, WAFloatIsEqual(v14, v16)))
+    if (v7 && (v8 = -[WAHourlyForecast eventType](v7, "eventType"), v8 == -[WAHourlyForecast eventType](self, "eventType")) && (-[WAHourlyForecast time](v7, "time"), v9 = objc_claimAutoreleasedReturnValue(), -[WAHourlyForecast time](self, "time"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v9 isEqualToString:v10], v10, v9, v11) && (v12 = -[WAHourlyForecast conditionCode](v7, "conditionCode"), v12 == -[WAHourlyForecast conditionCode](self, "conditionCode")) && (-[WAHourlyForecast percentPrecipitation](v7, "percentPrecipitation"), v14 = v13, -[WAHourlyForecast percentPrecipitation](self, "percentPrecipitation"), v16 = v15, WAFloatIsEqual(v14, v16)))
     {
       temperature = [(WAHourlyForecast *)v7 temperature];
       temperature2 = [(WAHourlyForecast *)self temperature];
@@ -174,7 +153,6 @@ LABEL_3:
 
     else
     {
-LABEL_11:
       IsEqual = 0;
     }
   }

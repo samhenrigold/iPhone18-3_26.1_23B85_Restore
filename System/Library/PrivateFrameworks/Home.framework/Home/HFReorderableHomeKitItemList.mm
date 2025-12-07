@@ -552,18 +552,16 @@ uint64_t __66__HFReorderableHomeKitItemList__sortedHomeKitIdentifierComparator__
 
 void __56__HFReorderableHomeKitItemList__actionSetTypeComparator__block_invoke_2()
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CCF188];
-  v5[0] = *MEMORY[0x277CCF1B0];
-  v5[1] = v0;
+  v4[0] = *MEMORY[0x277CCF1B0];
+  v4[1] = v0;
   v1 = *MEMORY[0x277CCF198];
-  v5[2] = *MEMORY[0x277CCF180];
-  v5[3] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
+  v4[2] = *MEMORY[0x277CCF180];
+  v4[3] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
   v3 = qword_280E03CD8;
   qword_280E03CD8 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

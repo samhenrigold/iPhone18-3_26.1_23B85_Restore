@@ -31,19 +31,19 @@
 
 - (void)contextKitTopicsWithCompletionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   [(NSDate *)self->_lastContextKitRequestDate timeIntervalSinceNow];
   v6 = v5;
   if (v5 >= -20.0)
   {
-    handlerCopy[2](handlerCopy, self->_mostRecentUserVisibleTopics);
-    v12 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v12 = handlerCopy[2](handlerCopy, self->_mostRecentUserVisibleTopics);
+    v14 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v16 = v6 + 20.0;
-      _os_log_impl(&dword_1C6968000, v12, OS_LOG_TYPE_INFO, "Using cached ContextKit topics (and will for +%fs)", buf, 0xCu);
+      v18 = v6 + 20.0;
+      _os_log_impl(&dword_1C6968000, v14, OS_LOG_TYPE_INFO, "Using cached ContextKit topics (and will for +%fs)", buf, 0xCu);
     }
   }
 
@@ -63,94 +63,94 @@
     self->_lastContextKitRequestDate = date;
 
     v11 = self->_historyTopicTagController;
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __63__WBSForYouTopicManager_contextKitTopicsWithCompletionHandler___block_invoke;
-    v13[3] = &unk_1E8282F48;
-    v13[4] = self;
-    v14 = handlerCopy;
-    [(WBSRecentHistoryTopicTagController *)v11 loadTopicsWithCompletionHandler:v13];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __63__WBSForYouTopicManager_contextKitTopicsWithCompletionHandler___block_invoke;
+    v15[3] = &unk_1E8282F48;
+    v15[4] = self;
+    v16 = handlerCopy;
+    [(WBSRecentHistoryTopicTagController *)v11 loadTopicsWithCompletionHandler:v15];
   }
 }
 
 void __63__WBSForYouTopicManager_contextKitTopicsWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v6 = a2;
-  v25 = a3;
-  v26 = v6;
+  v26 = a3;
+  v27 = v6;
   if ([v6 count])
   {
-    v24 = a1;
-    v7 = [MEMORY[0x1E695DF70] array];
-    v33 = 0u;
+    v25 = a1;
+    v8 = [MEMORY[0x1E695DF70] array];
     v34 = 0u;
-    v31 = 0u;
+    v35 = 0u;
     v32 = 0u;
+    v33 = 0u;
     obj = v6;
-    v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
-    if (v8)
+    v9 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+    if (v9)
     {
-      v9 = *v32;
+      v10 = *v33;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v32 != v9)
+          if (*v33 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v31 + 1) + 8 * i);
-          v12 = [v11 historyItems];
-          v13 = [v12 firstObject];
+          v12 = *(*(&v32 + 1) + 8 * i);
+          v13 = [v12 historyItems];
+          v14 = [v13 firstObject];
 
-          v14 = [WBSForYouTopic alloc];
-          v15 = [v11 title];
-          v16 = [v11 identifier];
-          v17 = [v13 lastVisitedDate];
-          v18 = v17;
-          if (!v17)
+          v15 = [WBSForYouTopic alloc];
+          v16 = [v12 title];
+          v17 = [v12 identifier];
+          v18 = [v14 lastVisitedDate];
+          v19 = v18;
+          if (!v18)
           {
             v3 = [MEMORY[0x1E695DF00] distantPast];
-            v18 = v3;
+            v19 = v3;
           }
 
-          v19 = [(WBSForYouTopic *)v14 initWithTitle:v15 identifier:v16 relevancyDate:v18 source:1];
-          if (!v17)
+          v20 = [(WBSForYouTopic *)v15 initWithTitle:v16 identifier:v17 relevancyDate:v19 source:1];
+          if (!v18)
           {
           }
 
-          [v7 addObject:v19];
+          [v8 addObject:v20];
         }
 
-        v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v9 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
 
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __63__WBSForYouTopicManager_contextKitTopicsWithCompletionHandler___block_invoke_7;
     block[3] = &unk_1E8283450;
-    v20 = *(v24 + 40);
-    block[4] = *(v24 + 32);
-    v29 = v7;
-    v30 = v20;
-    v21 = v7;
+    v21 = *(v25 + 40);
+    block[4] = *(v25 + 32);
+    v30 = v8;
+    v31 = v21;
+    v22 = v8;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
   else
   {
-    if (v25)
+    if (v26)
     {
-      v22 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(0, v7);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v23 = [v25 safari_privacyPreservingDescription];
-        __63__WBSForYouTopicManager_contextKitTopicsWithCompletionHandler___block_invoke_cold_1(v23, buf, v22);
+        v24 = [v26 safari_privacyPreservingDescription];
+        __63__WBSForYouTopicManager_contextKitTopicsWithCompletionHandler___block_invoke_cold_1(v24, buf, v23);
       }
     }
 
@@ -187,7 +187,7 @@ uint64_t __63__WBSForYouTopicManager_contextKitTopicsWithCompletionHandler___blo
 
 void __68__WBSForYouTopicManager_portraitNamedEntitiesWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (!*(*(a1 + 32) + 16))
   {
     v2 = objc_opt_new();
@@ -205,32 +205,33 @@ void __68__WBSForYouTopicManager_portraitNamedEntitiesWithCompletionHandler___bl
   [v5 setMatchingCategories:v7];
 
   v8 = *(*(a1 + 32) + 16);
-  v16 = 0;
-  v9 = [v8 rankedNamedEntitiesWithQuery:v5 error:&v16];
-  v10 = v16;
+  v18 = 0;
+  v9 = [v8 rankedNamedEntitiesWithQuery:v5 error:&v18];
+  v10 = v18;
+  v12 = v10;
   if (v10)
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v12 = [v10 safari_privacyPreservingDescription];
-      __68__WBSForYouTopicManager_portraitNamedEntitiesWithCompletionHandler___block_invoke_cold_1(v12, buf, v11);
+      v14 = [v12 safari_privacyPreservingDescription];
+      __68__WBSForYouTopicManager_portraitNamedEntitiesWithCompletionHandler___block_invoke_cold_1(v14, buf, v13);
     }
 
-    v13 = *(a1 + 40);
-    if (v13)
+    v15 = *(a1 + 40);
+    if (v15)
     {
-      (*(v13 + 16))(v13, 0);
+      (*(v15 + 16))(v15, 0);
     }
   }
 
   else
   {
-    v14 = [v9 safari_mapAndFilterObjectsUsingBlock:&__block_literal_global_15];
-    v15 = *(a1 + 40);
-    if (v15)
+    v16 = [v9 safari_mapAndFilterObjectsUsingBlock:&__block_literal_global_15];
+    v17 = *(a1 + 40);
+    if (v17)
     {
-      (*(v15 + 16))(v15, v14);
+      (*(v17 + 16))(v17, v16);
     }
   }
 }

@@ -62,7 +62,7 @@ LABEL_7:
 
 - (void)syncSession:(id)session applyChanges:(id)changes completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   completionCopy = completion;
   store = [(SYStoreSessionOwner *)self store];
@@ -77,26 +77,24 @@ LABEL_7:
   {
     v12 = v11;
     *buf = 134217984;
-    v25 = [changesCopy count];
+    v24 = [changesCopy count];
     _os_log_impl(&dword_1DF835000, v12, OS_LOG_TYPE_DEFAULT, "SYStore shim: forwarding %lu changes to SYStoreDelegate", buf, 0xCu);
   }
 
   delegateQueue = [store delegateQueue];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __67__SYStoreIncomingSessionOwner_syncSession_applyChanges_completion___block_invoke;
-  v19[3] = &unk_1E86CA1B8;
-  v20 = changesCopy;
-  v21 = delegate;
-  v22 = store;
-  v23 = completionCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __67__SYStoreIncomingSessionOwner_syncSession_applyChanges_completion___block_invoke;
+  v18[3] = &unk_1E86CA1B8;
+  v19 = changesCopy;
+  v20 = delegate;
+  v21 = store;
+  v22 = completionCopy;
   v14 = completionCopy;
   v15 = store;
   v16 = delegate;
   v17 = changesCopy;
-  dispatch_async(delegateQueue, v19);
-
-  v18 = *MEMORY[0x1E69E9840];
+  dispatch_async(delegateQueue, v18);
 }
 
 void __67__SYStoreIncomingSessionOwner_syncSession_applyChanges_completion___block_invoke(id *a1)
@@ -120,27 +118,27 @@ void __67__SYStoreIncomingSessionOwner_syncSession_applyChanges_completion___blo
 
 uint64_t __67__SYStoreIncomingSessionOwner_syncSession_applyChanges_completion___block_invoke_2(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v19;
+    v5 = *v18;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v19 != v5)
+        if (*v18 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v18 + 1) + 8 * i);
+        v7 = *(*(&v17 + 1) + 8 * i);
         v8 = [v7 changeType];
         switch(v8)
         {
@@ -167,15 +165,13 @@ uint64_t __67__SYStoreIncomingSessionOwner_syncSession_applyChanges_completion__
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v4);
   }
 
-  result = (*(*(a1 + 56) + 16))();
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 56) + 16))();
 }
 
 @end

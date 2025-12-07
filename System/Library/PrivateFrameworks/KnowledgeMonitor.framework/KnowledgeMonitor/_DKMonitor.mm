@@ -234,7 +234,7 @@
 
 - (void)endCurrentEvent:(id)event
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = [(NSMutableDictionary *)self->_instantState objectForKeyedSubscript:@"kCurrentEvent"];
   if (v5)
@@ -250,16 +250,14 @@
       if (historicalHandler)
       {
         historicalHandler2 = [(_DKMonitor *)self historicalHandler];
-        v12[0] = v5;
-        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+        v11[0] = v5;
+        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
         (historicalHandler2)[2](historicalHandler2, v10);
       }
     }
 
     [(NSMutableDictionary *)self->_instantState removeObjectForKey:@"kCurrentEvent"];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)historicalStateHasChanged:(id)changed

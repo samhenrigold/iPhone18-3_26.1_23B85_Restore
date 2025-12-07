@@ -67,21 +67,20 @@
     }
   }
 
-  v4 = *MEMORY[0x277D86238];
   IMRegisterSADAwareXPCActivity();
-  v5 = objc_alloc_init(IMDSpotlightDaemonClient);
-  [(IMDaemonLegacyCoreSpotlightManager *)self setIndexingDelegate:v5];
+  v4 = objc_alloc_init(IMDSpotlightDaemonClient);
+  [(IMDaemonLegacyCoreSpotlightManager *)self setIndexingDelegate:v4];
 
   indexingDelegate = [(IMDaemonLegacyCoreSpotlightManager *)self indexingDelegate];
   SpotlightDaemonClientRegister();
 
   if (IMOSLoggingEnabled())
   {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v6 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Initialized Spotlight daemon client", buf, 2u);
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Initialized Spotlight daemon client", buf, 2u);
     }
   }
 }
@@ -142,7 +141,7 @@
 
 - (void)_indexNextBatchIfNecessaryForActivity:(id)activity
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   if (IMOSLoggingEnabled())
   {
@@ -169,7 +168,7 @@
         }
 
         *buf = 138412290;
-        v19 = v8;
+        v18 = v8;
         _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Skipping indexing next batch since skipIndexing is set to %@", buf, 0xCu);
       }
     }
@@ -184,26 +183,24 @@
     block[1] = 3221225472;
     block[2] = sub_22B535BEC;
     block[3] = &unk_278702FF0;
-    v17 = v9;
+    v16 = v9;
     v11 = v9;
     dispatch_async(v10, block);
 
     v12 = +[IMDaemonCoreSpotlightUtilities spotlightIndexQueue];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = sub_22B535EA4;
-    v14[3] = &unk_278702FA0;
-    v14[4] = self;
-    v15 = activityCopy;
-    dispatch_group_notify(v11, v12, v14);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = sub_22B535EA4;
+    v13[3] = &unk_278702FA0;
+    v13[4] = self;
+    v14 = activityCopy;
+    dispatch_group_notify(v11, v12, v13);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_deviceConditionsAllowsSpotlightIndexingForActivity:(id)activity
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   if (!activityCopy)
   {
@@ -222,11 +219,11 @@
         v7 = @"YES";
       }
 
-      v16 = 136315394;
-      v17 = "[IMDaemonLegacyCoreSpotlightManager _deviceConditionsAllowsSpotlightIndexingForActivity:]";
-      v18 = 2112;
-      v19 = v7;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "%s xpc_activity_should_defer should defer %@", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[IMDaemonLegacyCoreSpotlightManager _deviceConditionsAllowsSpotlightIndexingForActivity:]";
+      v17 = 2112;
+      v18 = v7;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "%s xpc_activity_should_defer should defer %@", &v15, 0x16u);
     }
   }
 
@@ -242,12 +239,12 @@
   {
     if (IMOSLoggingEnabled())
     {
-      v15 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v14 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v16 = 136315138;
-        v17 = "[IMDaemonLegacyCoreSpotlightManager _deviceConditionsAllowsSpotlightIndexingForActivity:]";
-        _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "%s deferring activity due to LPM", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = "[IMDaemonLegacyCoreSpotlightManager _deviceConditionsAllowsSpotlightIndexingForActivity:]";
+        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "%s deferring activity due to LPM", &v15, 0xCu);
       }
 
 LABEL_24:
@@ -264,12 +261,12 @@ LABEL_24:
 
     if (IMOSLoggingEnabled())
     {
-      v15 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v14 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v16 = 136315138;
-        v17 = "[IMDaemonLegacyCoreSpotlightManager _deviceConditionsAllowsSpotlightIndexingForActivity:]";
-        _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "%s deferring activity due to throttling", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = "[IMDaemonLegacyCoreSpotlightManager _deviceConditionsAllowsSpotlightIndexingForActivity:]";
+        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "%s deferring activity due to throttling", &v15, 0xCu);
       }
 
       goto LABEL_24;
@@ -282,8 +279,8 @@ LABEL_9:
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Setting xpc_activity_t to XPC_ACTIVITY_STATE_DEFER because conditions are no longer met", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Setting xpc_activity_t to XPC_ACTIVITY_STATE_DEFER because conditions are no longer met", &v15, 2u);
     }
   }
 
@@ -292,15 +289,14 @@ LABEL_9:
     v9 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Error forcing xpc_activity_t to XPC_ACTIVITY_STATE_DEFER", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Error forcing xpc_activity_t to XPC_ACTIVITY_STATE_DEFER", &v15, 2u);
     }
   }
 
   v10 = 0;
 LABEL_19:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

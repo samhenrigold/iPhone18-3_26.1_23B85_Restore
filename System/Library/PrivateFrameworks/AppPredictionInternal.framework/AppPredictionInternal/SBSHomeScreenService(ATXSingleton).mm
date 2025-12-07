@@ -11,9 +11,9 @@
     +[SBSHomeScreenService(ATXSingleton) atx_sharedInstance];
   }
 
-  v1 = atx_sharedInstance_service;
+  v2 = atx_sharedInstance_service;
 
-  return v1;
+  return v2;
 }
 
 @end

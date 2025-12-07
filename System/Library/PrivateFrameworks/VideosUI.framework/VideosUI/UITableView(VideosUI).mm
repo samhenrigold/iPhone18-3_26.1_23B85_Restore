@@ -40,35 +40,36 @@
 
 - (void)_vui_applyDeleteChange:()VideosUI inSection:rowAnimation:
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     sourceIndexes = [a3 sourceIndexes];
+    v9 = sourceIndexes;
     if (a4 == -1)
     {
-      v11 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v12 = VUIDefaultLogObject(sourceIndexes);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v12 = 138412290;
-        v13 = sourceIndexes;
-        _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_INFO, "Applying Delete Change: Deleting Sections At: %@", &v12, 0xCu);
+        v13 = 138412290;
+        v14 = v9;
+        _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_INFO, "Applying Delete Change: Deleting Sections At: %@", &v13, 0xCu);
       }
 
-      [self deleteSections:sourceIndexes withRowAnimation:100];
+      [self deleteSections:v9 withRowAnimation:100];
     }
 
     else
     {
-      v9 = [objc_opt_class() _vui_indexPathsWithIndexSet:sourceIndexes andSection:a4];
-      v10 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v10 = [objc_opt_class() _vui_indexPathsWithIndexSet:sourceIndexes andSection:a4];
+      v11 = VUIDefaultLogObject(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v12 = 138412290;
-        v13 = v9;
-        _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_INFO, "Applying Delete Change. Deleting Rows At: %@", &v12, 0xCu);
+        v13 = 138412290;
+        v14 = v10;
+        _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_INFO, "Applying Delete Change. Deleting Rows At: %@", &v13, 0xCu);
       }
 
-      [self deleteRowsAtIndexPaths:v9 withRowAnimation:a5];
+      [self deleteRowsAtIndexPaths:v10 withRowAnimation:a5];
     }
   }
 }
@@ -80,7 +81,7 @@
   {
     destinationIndexes = [a3 destinationIndexes];
     v9 = [objc_opt_class() _vui_indexPathsWithIndexSet:destinationIndexes andSection:a4];
-    v10 = VUIDefaultLogObject();
+    v10 = VUIDefaultLogObject(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = 138412290;
@@ -123,7 +124,7 @@
         firstIndex2 = [destinationIndexes firstIndex];
         v15 = [MEMORY[0x1E696AC88] indexPathForRow:firstIndex inSection:a4];
         v16 = [MEMORY[0x1E696AC88] indexPathForRow:firstIndex2 inSection:a4];
-        v17 = VUIDefaultLogObject();
+        v17 = VUIDefaultLogObject(v16);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           *buf = v18;
@@ -145,30 +146,30 @@
 
 - (void)_vui_applyUpdateChanges:()VideosUI inSection:rowAnimation:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v22;
     do
     {
       v13 = 0;
       do
       {
-        if (*v21 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        destinationIndexes = [*(*(&v20 + 1) + 8 * v13) destinationIndexes];
+        destinationIndexes = [*(*(&v21 + 1) + 8 * v13) destinationIndexes];
         firstIndex = [destinationIndexes firstIndex];
         v16 = [MEMORY[0x1E696AC88] indexPathForRow:firstIndex inSection:a4];
         [v8 addObject:v16];
@@ -177,23 +178,24 @@
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v11);
   }
 
-  if ([v8 count])
+  v17 = [v8 count];
+  if (v17)
   {
-    v17 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v18 = VUIDefaultLogObject(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a4];
+      v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a4];
       *buf = 138412546;
-      v25 = v18;
-      v26 = 2112;
-      v27 = v8;
-      _os_log_impl(&dword_1E323F000, v17, OS_LOG_TYPE_INFO, "Applying Update Change To Section: %@. Reloading Rows At: %@", buf, 0x16u);
+      v26 = v19;
+      v27 = 2112;
+      v28 = v8;
+      _os_log_impl(&dword_1E323F000, v18, OS_LOG_TYPE_INFO, "Applying Update Change To Section: %@. Reloading Rows At: %@", buf, 0x16u);
     }
 
     [self reloadRowsAtIndexPaths:v8 withRowAnimation:a5];

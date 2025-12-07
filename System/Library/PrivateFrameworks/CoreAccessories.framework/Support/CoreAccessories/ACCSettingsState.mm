@@ -52,8 +52,7 @@
     v2 = @"false";
   }
 
-  defaultValue = self->_defaultValue;
-  return [NSString stringWithFormat:@"<ACCSettingsState>[%@:%@ = %ld (= %@), default = %ld, invalid = %ld]", self->_applicationID, self->_key, self->_intValue, v2, defaultValue, self->_invalidValue];
+  return [NSString stringWithFormat:@"<ACCSettingsState>[%@:%@ = %ld (= %@), default = %ld, invalid = %ld]", self->_applicationID, self->_key, self->_intValue, v2, self->_defaultValue, self->_invalidValue];
 }
 
 - (void)_readLoggingPrefs

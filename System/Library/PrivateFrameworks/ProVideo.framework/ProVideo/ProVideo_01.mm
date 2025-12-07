@@ -66,7 +66,7 @@ float64_t pv_transform_info_make(uint64_t a1, float64x2_t *a2, float64x2_t a3)
   return result;
 }
 
-double pv_simd_float4x4_from_pv_transform_info(float64x2_t *a1)
+double pv_simd_float4x4_from_pv_transform_info(float32x4_t *a1)
 {
   *v20.columns[1].f32 = vcvt_f32_f64(a1[2]);
   v2 = vmul_f32(*v20.columns[1].f32, *v20.columns[1].f32);
@@ -92,27 +92,27 @@ double pv_simd_float4x4_from_pv_transform_info(float64x2_t *a1)
   v20.columns[2].f32[1] = (v10 - v3.f32[0]) + (v10 - v3.f32[0]);
   v20.columns[2].f32[2] = (vaddv_f32(v4) - v2.f32[0]) - v2.f32[1];
   v20.columns[3] = xmmword_2603427D0;
-  v11 = a1[4].f64[0];
-  v3.f32[0] = a1[4].f64[1];
-  v4.f32[0] = a1[5].f64[0];
+  v11 = *a1[4].i64;
+  v3.f32[0] = *&a1[4].i64[1];
+  v4.f32[0] = *a1[5].i64;
   v12 = pv_simd_matrix_scale(v20, v11, v3.f32[0], v4.f32[0]);
   v17 = *a1;
   *v17.f32 = vcvt_f32_f64(*a1);
-  v16 = a1[1].f64[0];
+  v16 = *a1[1].i64;
   v17.f32[2] = v16;
 
   return pv_simd_matrix_translate(v12, v13, v14, v15, v17);
 }
 
-double pv_simd_double4x4_from_pv_transform_info@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int128 a17, __int128 a18, __int128 a19, __int128 a20, __int128 a21, __int128 a22, __int128 a23, __int128 a24)
+double pv_simd_double4x4_from_pv_transform_info@<D0>(double *a1@<X0>, __int128 *a2@<X8>, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int128 a17, __int128 a18, __int128 a19, __int128 a20, __int128 a21, __int128 a22, __int128 a23, __int128 a24)
 {
-  v27 = *(a1 + 32);
-  v26 = *(a1 + 48);
+  v27 = *(a1 + 4);
+  v26 = *(a1 + 6);
   v28 = vmuld_n_f64(v27.f64[0], v27.f64[0]);
-  v29 = *(a1 + 40);
+  v29 = a1[5];
   v30 = vmuld_lane_f64(v29, v27, 1);
   v31 = vmuld_n_f64(v26.f64[0], v26.f64[0]);
-  v32 = vmuld_lane_f64(*(a1 + 56), v26, 1);
+  v32 = vmuld_lane_f64(a1[7], v26, 1);
   *&v33 = v32 + v28 - v30 - v31;
   v34 = vmuld_lane_f64(v27.f64[0], v27, 1);
   v35 = vmuld_lane_f64(v26.f64[0], v26, 1);
@@ -120,54 +120,53 @@ double pv_simd_double4x4_from_pv_transform_info@<D0>(uint64_t a1@<X0>, uint64_t 
   v37 = vmuld_lane_f64(v29, v26, 1);
   *(&v33 + 1) = v34 + v35 + v34 + v35;
   *a2 = v33;
-  *(a2 + 16) = COERCE_UNSIGNED_INT64(v36 - v37 + v36 - v37);
+  a2[1] = COERCE_UNSIGNED_INT64(v36 - v37 + v36 - v37);
   *&v33 = v34 - v35 + v34 - v35;
   v38 = vmuld_lane_f64(v26.f64[0], v27, 1);
   v26.f64[0] = vmuld_lane_f64(v27.f64[0], v26, 1);
   *(&v33 + 1) = v32 + v30 - v31 - v28;
-  *(a2 + 32) = v33;
-  *(a2 + 48) = COERCE_UNSIGNED_INT64(v38 + v26.f64[0] + v38 + v26.f64[0]);
+  a2[2] = v33;
+  a2[3] = COERCE_UNSIGNED_INT64(v38 + v26.f64[0] + v38 + v26.f64[0]);
   v27.f64[0] = v36 + v37 + v36 + v37;
   v27.f64[1] = v38 - v26.f64[0] + v38 - v26.f64[0];
-  *(a2 + 64) = v27;
-  *(a2 + 80) = COERCE_UNSIGNED_INT64(v31 + v32 - v28 - v30);
-  *(a2 + 96) = 0;
-  *(a2 + 104) = 0;
-  *(a2 + 112) = xmmword_260342700;
-  v39 = *(a1 + 64);
-  v40 = *(a1 + 80);
-  v41 = *(a2 + 80);
-  a21 = *(a2 + 64);
+  a2[4] = v27;
+  a2[5] = COERCE_UNSIGNED_INT64(v31 + v32 - v28 - v30);
+  a2[6] = 0uLL;
+  a2[7] = xmmword_260342700;
+  v39 = *(a1 + 4);
+  v40 = *(a1 + 10);
+  v41 = a2[5];
+  a21 = a2[4];
   a22 = v41;
-  v42 = *(a2 + 112);
-  a23 = *(a2 + 96);
+  v42 = a2[7];
+  a23 = a2[6];
   a24 = v42;
-  v43 = *(a2 + 16);
+  v43 = a2[1];
   a17 = *a2;
   a18 = v43;
-  v44 = *(a2 + 48);
-  a19 = *(a2 + 32);
+  v44 = a2[3];
+  a19 = a2[2];
   a20 = v44;
   pv_simd_matrix_scale(&a17, a2, v39, *(&v39 + 1), v40);
   v45 = *a1;
-  v46 = *(a1 + 16);
+  v46 = *(a1 + 2);
   vars0 = *a2;
   v52[0] = v45;
   v52[1] = v46;
   pv_simd_matrix_translate(&vars0, v52, &a17);
   v47 = a22;
-  *(a2 + 64) = a21;
-  *(a2 + 80) = v47;
+  a2[4] = a21;
+  a2[5] = v47;
   v48 = a24;
-  *(a2 + 96) = a23;
-  *(a2 + 112) = v48;
+  a2[6] = a23;
+  a2[7] = v48;
   v49 = a18;
   *a2 = a17;
-  *(a2 + 16) = v49;
+  a2[1] = v49;
   result = *&a19;
   v51 = a20;
-  *(a2 + 32) = a19;
-  *(a2 + 48) = v51;
+  a2[2] = a19;
+  a2[3] = v51;
   return result;
 }
 
@@ -552,17 +551,17 @@ void ConvertToHDR(HGColorConform **a1@<X0>, void *a2@<X1>, void *a3@<X2>, void *
   }
 }
 
-void sub_25F92ED60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9)
+void sub_25F92ED60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
 {
   if (v10)
   {
-    (*(*v10 + 24))(v10);
+    (*(*v10 + 24))(v10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
 }
 
-void ColorConformInput(HGColorConform **a1@<X0>, void *a2@<X1>, void *a3@<X2>, int a4@<W3>, void *a5@<X4>, HGColorConform **a6@<X8>)
+void ColorConformInput(HGColorClamp **a1@<X0>, void *a2@<X1>, void *a3@<X2>, int a4@<W3>, void *a5@<X4>, HGColorConform **a6@<X8>)
 {
   v11 = a2;
   v12 = a3;
@@ -629,7 +628,7 @@ LABEL_29:
       HGPQ::OOTF::OOTF(v25, 1, 100.0, 100.0);
       (*(*v25 + 120))(v25, 0, v24);
       v26 = HGObject::operator new(0x1C0uLL);
-      HGHLG::InverseOOTF::InverseOOTF(v26);
+      HGHLG::InverseOOTF::InverseOOTF(v26, 1u, 100.0);
     }
 
     v27 = 0;
@@ -670,7 +669,7 @@ LABEL_51:
           {
             v36 = HGObject::operator new(0x320uLL);
             HGColorConform::HGColorConform(v36);
-            HGColorConform::SetConversion(v36, 0, 0xE, 1, 3);
+            HGColorConform::SetConversion(v36, 0, 0xE, 1u, 3);
             v37 = *a6;
             (*(*v36 + 120))(v36, 0, *a6);
             if (v37 != v36)
@@ -688,7 +687,7 @@ LABEL_51:
             HGPQ::OOTF::OOTF(v38, 1, 100.0, 100.0);
             (*(*v38 + 120))(v38, 0, v36);
             v39 = HGObject::operator new(0x1C0uLL);
-            HGHLG::InverseOOTF::InverseOOTF(v39);
+            HGHLG::InverseOOTF::InverseOOTF(v39, 1u, 100.0);
           }
 
           {
@@ -967,9 +966,9 @@ LABEL_9:
   return v7;
 }
 
-void sub_25F930894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25F930894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
 
   _Unwind_Resume(a1);
@@ -1046,7 +1045,7 @@ void sub_25F930CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 3))(a10);
+    (*(*a10 + 3))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v15 = *(v10 + 200);
@@ -1059,13 +1058,13 @@ void sub_25F930CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   v16 = *(v10 + 104);
   if (v16)
   {
-    (*(*v16 + 24))(v16);
+    (*(*v16 + 24))(v16, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v17 = *(v10 + 96);
   if (v17)
   {
-    (*(*v17 + 24))(v17);
+    (*(*v17 + 24))(v17, a2, a3, a4, a5, a6, a7, a8);
   }
 
   a10 = v13;
@@ -1382,9 +1381,9 @@ void PVRenderJob::BuildGraph(PVRenderJob *this)
   HGTraceGuard::~HGTraceGuard(v6);
 }
 
-void sub_25F931678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25F931678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
@@ -2026,10 +2025,10 @@ void sub_25F932B44(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25F932C10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25F932C10(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PVRenderEffectLoader;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2115,14 +2114,14 @@ void *std::deque<PVLoadedEffectItem>::erase(int64x2_t *a1, char *a2, uint64_t a3
     {
       v22 = 254 - v14;
       v16 = &v9[-(v22 >> 8)];
-      v17 = &(*v16)[2 * ~v22];
+      v17 = (*v16 + 16 * ~v22);
     }
 
     else
     {
       v15 = v14 + 1;
       v16 = &v9[v15 >> 8];
-      v17 = &(*v16)[2 * v15];
+      v17 = (*v16 + 16 * v15);
     }
 
     v23 = a1[2].i64[0] + v13;
@@ -2135,7 +2134,7 @@ void *std::deque<PVLoadedEffectItem>::erase(int64x2_t *a1, char *a2, uint64_t a3
 
     else
     {
-      v26 = &(*v25)[2 * v23];
+      v26 = (*v25 + 16 * v23);
     }
 
     v37[0].n128_u64[0] = v11;
@@ -2379,7 +2378,7 @@ uint64_t std::deque<PVLoadedEffectItem>::__maybe_remove_front_spare[abi:ne200100
   return v4 ^ 1u;
 }
 
-__n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<PVLoadedEffectItem,PVLoadedEffectItem*,PVLoadedEffectItem&,PVLoadedEffectItem**,long,256l>,std::__deque_iterator<PVLoadedEffectItem,PVLoadedEffectItem*,PVLoadedEffectItem&,PVLoadedEffectItem**,long,256l>,0>@<Q0>(uint64_t *a1@<X1>, uint64_t a2@<X2>, uint64_t *a3@<X3>, uint64_t a4@<X4>, void *a5@<X5>, uint64_t a6@<X6>, __n128 *a7@<X8>)
+__n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<PVLoadedEffectItem,PVLoadedEffectItem*,PVLoadedEffectItem&,PVLoadedEffectItem**,long,256l>,std::__deque_iterator<PVLoadedEffectItem,PVLoadedEffectItem*,PVLoadedEffectItem&,PVLoadedEffectItem**,long,256l>,0>@<Q0>(uint64_t *a1@<X1>, uint64_t a2@<X2>, uint64_t *a3@<X3>, unint64_t a4@<X4>, void *a5@<X5>, uint64_t a6@<X6>, __n128 *a7@<X8>)
 {
   if (a1 == a3)
   {
@@ -2502,7 +2501,7 @@ uint64_t std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200
   return a3;
 }
 
-double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<PVLoadedEffectItem,PVLoadedEffectItem*,PVLoadedEffectItem&,PVLoadedEffectItem**,long,256l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<PVLoadedEffectItem,PVLoadedEffectItem*,PVLoadedEffectItem&,PVLoadedEffectItem**,long,256l>,std::__deque_iterator<PVLoadedEffectItem,PVLoadedEffectItem*,PVLoadedEffectItem&,PVLoadedEffectItem**,long,256l>>>(id **a1, id *a2, id **a3, id *a4, id **a5)
+double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<PVLoadedEffectItem,PVLoadedEffectItem*,PVLoadedEffectItem&,PVLoadedEffectItem**,long,256l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<PVLoadedEffectItem,PVLoadedEffectItem*,PVLoadedEffectItem&,PVLoadedEffectItem**,long,256l>,std::__deque_iterator<PVLoadedEffectItem,PVLoadedEffectItem*,PVLoadedEffectItem&,PVLoadedEffectItem**,long,256l>>>(uint64_t *a1, id *a2, uint64_t *a3, id *a4, id **a5)
 {
   if (a1 == a3)
   {
@@ -2515,9 +2514,9 @@ double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<PVLoadedEffec
     v10 = a1 + 1;
     v7 = *a5;
     v8 = a5[1];
-    for (i = *a1 + 512; ; i = v12 + 512)
+    for (i = (*a1 + 4096); ; i = v12 + 512)
     {
-      std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PVLoadedEffectItem *,std::__deque_iterator<PVLoadedEffectItem,PVLoadedEffectItem *,PVLoadedEffectItem&,PVLoadedEffectItem **,long,256l>,0>(v8, a2, i, v7, &v14);
+      std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PVLoadedEffectItem *,std::__deque_iterator<PVLoadedEffectItem,PVLoadedEffectItem *,PVLoadedEffectItem&,PVLoadedEffectItem **,long,256l>,0>(&v14, v8, a2, i, v7);
       v8 = *(&v15 + 1);
       v7 = v15;
       *a5 = v15;
@@ -2534,35 +2533,35 @@ double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<PVLoadedEffec
     a2 = *v10;
   }
 
-  std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PVLoadedEffectItem *,std::__deque_iterator<PVLoadedEffectItem,PVLoadedEffectItem *,PVLoadedEffectItem&,PVLoadedEffectItem **,long,256l>,0>(v8, a2, a4, v7, &v14);
+  std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PVLoadedEffectItem *,std::__deque_iterator<PVLoadedEffectItem,PVLoadedEffectItem *,PVLoadedEffectItem&,PVLoadedEffectItem **,long,256l>,0>(&v14, v8, a2, a4, v7);
   result = *&v15;
   *a5 = v15;
   return result;
 }
 
-void std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PVLoadedEffectItem *,std::__deque_iterator<PVLoadedEffectItem,PVLoadedEffectItem *,PVLoadedEffectItem&,PVLoadedEffectItem **,long,256l>,0>(id *location@<X4>, id *a2@<X1>, id *a3@<X2>, id *a4@<X3>, id **a5@<X8>)
+void std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PVLoadedEffectItem *,std::__deque_iterator<PVLoadedEffectItem,PVLoadedEffectItem *,PVLoadedEffectItem&,PVLoadedEffectItem **,long,256l>,0>(id **__return_ptr a1@<X8>, id *location@<X4>, id *a3@<X1>, id *a4@<X2>, id *a5@<X3>)
 {
-  v5 = a4;
-  i = a2;
-  if (a2 != a3)
+  v5 = a5;
+  i = a3;
+  if (a3 != a4)
   {
-    v9 = *a4 - location + 4096;
-    if ((a3 - a2) >> 4 >= v9 >> 4)
+    v9 = *a5 - location + 4096;
+    if ((a4 - a3) >> 4 >= v9 >> 4)
     {
       v10 = v9 >> 4;
     }
 
     else
     {
-      v10 = (a3 - a2) >> 4;
+      v10 = (a4 - a3) >> 4;
     }
 
-    for (i = std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PVLoadedEffectItem *,PVLoadedEffectItem *,PVLoadedEffectItem *>(&v16, a2, &a2[2 * v10], location); i != a3; i = std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PVLoadedEffectItem *,PVLoadedEffectItem *,PVLoadedEffectItem *>(&v16, i, &i[2 * v14], v12))
+    for (i = std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PVLoadedEffectItem *,PVLoadedEffectItem *,PVLoadedEffectItem *>(&v16, a3, &a3[2 * v10], location); i != a4; i = std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PVLoadedEffectItem *,PVLoadedEffectItem *,PVLoadedEffectItem *>(&v16, i, &i[2 * v14], v12))
     {
       v13 = v5[1];
       ++v5;
       v12 = v13;
-      v14 = (a3 - i) >> 4;
+      v14 = (a4 - i) >> 4;
       if (v14 >= 256)
       {
         v14 = 256;
@@ -2578,9 +2577,9 @@ void std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PVLoaded
     }
   }
 
-  *a5 = i;
-  a5[1] = v5;
-  a5[2] = location;
+  *a1 = i;
+  a1[1] = v5;
+  a1[2] = location;
 }
 
 id *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<PVLoadedEffectItem *,PVLoadedEffectItem *,PVLoadedEffectItem *>(int a1, id *a2, id *a3, id *location)
@@ -2636,7 +2635,7 @@ void *std::__find_segment_if[abi:ne200100]<std::__deque_iterator<PVLoadedEffectI
 
   else
   {
-    v5 = *a1 + 4096;
+    v5 = (*a1 + 4096);
     if (v5 == a2)
     {
       goto LABEL_20;
@@ -2711,10 +2710,10 @@ LABEL_20:
   return a3;
 }
 
-const void **std::deque<PVLoadedEffectItem>::__add_front_capacity(uint64_t a1)
+void std::deque<PVLoadedEffectItem>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -2726,15 +2725,15 @@ const void **std::deque<PVLoadedEffectItem>::__add_front_capacity(uint64_t a1)
     v4 = 32 * (v2 - v1) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x100)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x100)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -2742,24 +2741,24 @@ const void **std::deque<PVLoadedEffectItem>::__add_front_capacity(uint64_t a1)
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1, v10);
+    v10[4] = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1, v9);
   }
 
-  *(a1 + 32) = v5 + 256;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<PVLoadedEffectItem *>::emplace_front<PVLoadedEffectItem *&>(a1, v11);
+  a1[4] = (v5 + 256);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<PVLoadedEffectItem *>::emplace_front<PVLoadedEffectItem *&>(a1, v10);
 }
 
 void sub_25F934380(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -2773,14 +2772,13 @@ void sub_25F934380(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const void **std::__split_buffer<PVLoadedEffectItem *>::emplace_front<PVLoadedEffectItem *&>(const void **result, void *a2)
+void std::__split_buffer<PVLoadedEffectItem *>::emplace_front<PVLoadedEffectItem *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -2793,52 +2791,50 @@ const void **std::__split_buffer<PVLoadedEffectItem *>::emplace_front<PVLoadedEf
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<PVLoadedEffectItem *>::emplace_back<PVLoadedEffectItem *>(void *result, void *a2)
+void std::__split_buffer<PVLoadedEffectItem *>::emplace_back<PVLoadedEffectItem *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -2847,40 +2843,38 @@ void *std::__split_buffer<PVLoadedEffectItem *>::emplace_back<PVLoadedEffectItem
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -2889,18 +2883,17 @@ void *std::__split_buffer<PVLoadedEffectItem *>::emplace_back<PVLoadedEffectItem
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void sub_25F93713C(_Unwind_Exception *a1)
@@ -3291,35 +3284,35 @@ BOOL pv_is_finite(PVCGPointQuad *a1)
   return pv_is_finite(d);
 }
 
-void *PVCGPointQuad_from_CGRect@<X0>(CGRect a1@<0:D0, 8:D1, 16:D2, 24:D3>, _OWORD *a2@<X8>)
+uint64_t *PVCGPointQuad_from_CGRect@<X0>(uint64_t *__return_ptr a1@<X8>, CGRect a2@<0:D0, 8:D1, 16:D2, 24:D3>)
 {
   v2 = 0;
   v11[7] = *MEMORY[0x277D85DE8];
   v3 = v11;
-  x = a1.origin.x;
-  v11[0] = *&a1.origin.y;
-  *&v11[1] = a1.origin.x + a1.size.width;
-  v11[2] = *&a1.origin.y;
-  v4 = a1.origin.y + a1.size.height;
-  *&v11[3] = a1.origin.x + a1.size.width;
+  x = a2.origin.x;
+  v11[0] = *&a2.origin.y;
+  *&v11[1] = a2.origin.x + a2.size.width;
+  v11[2] = *&a2.origin.y;
+  v4 = a2.origin.y + a2.size.height;
+  *&v11[3] = a2.origin.x + a2.size.width;
   *&v11[4] = v4;
-  a2[3] = 0u;
-  a2[2] = 0u;
-  a2[1] = 0u;
-  v11[5] = *&a1.origin.x;
+  *(a1 + 3) = 0u;
+  *(a1 + 2) = 0u;
+  *(a1 + 1) = 0u;
+  v11[5] = *&a2.origin.x;
   *&v11[6] = v4;
-  *a2 = 0u;
+  *a1 = 0u;
   do
   {
     v5 = *v3;
     if (v2 == 2)
     {
-      result = a2 + 2;
+      result = a1 + 4;
     }
 
     else
     {
-      result = a2 + 3;
+      result = a1 + 6;
     }
 
     if (v2 == 2)
@@ -3334,12 +3327,12 @@ void *PVCGPointQuad_from_CGRect@<X0>(CGRect a1@<0:D0, 8:D1, 16:D2, 24:D3>, _OWOR
 
     if (v2)
     {
-      v8 = a2 + 1;
+      v8 = a1 + 2;
     }
 
     else
     {
-      v8 = a2;
+      v8 = a1;
     }
 
     if (v2)
@@ -3359,7 +3352,7 @@ void *PVCGPointQuad_from_CGRect@<X0>(CGRect a1@<0:D0, 8:D1, 16:D2, 24:D3>, _OWOR
     }
 
     *result = *(v3 - 1);
-    *(a2 + v7) = v5;
+    *(a1 + v7) = v5;
     ++v2;
     v3 += 2;
   }
@@ -3372,7 +3365,7 @@ uint64_t pv_is_CGPoint_in_quad(CGPoint a1, PVCGPointQuad *a2)
 {
   y = a1.y;
   x = a1.x;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   c = a2->c;
   a = a2->a;
   d = a2->d;
@@ -3412,18 +3405,18 @@ uint64_t pv_is_CGPoint_in_quad(CGPoint a1, PVCGPointQuad *a2)
 
   v7 = 0;
   v8 = 0;
-  v9 = v26;
+  v9 = v25 + 1;
   LODWORD(v10) = 3;
   do
   {
     v11 = v10;
     v10 = v7;
     v12 = *v9;
-    v13 = *&v26[v11];
+    v13 = *(&v25[v11] + 1);
     v14 = *v9 <= y && y < v13;
     if (v14 || (y < v12 ? (v15 = v13 > y) : (v15 = 1), !v15))
     {
-      if (x < *(v9 - 1) + (y - v12) * (*&v25[16 * v11] - *(v9 - 1)) / (*&v26[v11] - v12))
+      if (x < *(v9 - 1) + (y - v12) * (*&v25[v11] - *(v9 - 1)) / (*(&v25[v11] + 1) - v12))
       {
         v8 ^= 1u;
       }
@@ -3835,26 +3828,26 @@ LABEL_11:
   return result;
 }
 
-void PVCGPointQuad_scale(PVCGPointQuad *a1@<X0>, CGPoint a2@<0:D0, 8:D1>, _OWORD *a3@<X8>)
+void PVCGPointQuad_scale(uint64_t *__return_ptr a1@<X8>, PVCGPointQuad *a2@<X0>, CGPoint a3@<0:D0, 8:D1>)
 {
-  y = a2.y;
-  x = a2.x;
+  y = a3.y;
+  x = a3.x;
   v34 = 0x6010000000;
-  b = a1->b;
-  a = a1->a;
+  b = a2->b;
+  a = a2->a;
   v37 = b;
-  d = a1->d;
-  v10 = a1->a;
-  v9 = a1->b;
-  c = a1->c;
+  d = a2->d;
+  v10 = a2->a;
+  v9 = a2->b;
+  c = a2->c;
   v39 = d;
   v32 = 0;
   v33 = &v32;
   v35 = &unk_260C3B1FE;
   v31.a = v10;
   v31.b = v9;
-  v11 = a1->d;
-  v31.c = a1->c;
+  v11 = a2->d;
+  v31.c = a2->c;
   v31.d = v11;
   *&v12 = pv_CGPoint_get_quad_center(&v31);
   *(&v12 + 1) = v13;
@@ -3866,10 +3859,10 @@ void PVCGPointQuad_scale(PVCGPointQuad *a1@<X0>, CGPoint a2@<0:D0, 8:D1>, _OWORD
   v29 = x;
   v30 = y;
   v28 = &v32;
-  v22 = a1->c;
-  v23 = a1->a;
-  v20 = a1->d;
-  v21 = a1->b;
+  v22 = a2->c;
+  v23 = a2->a;
+  v20 = a2->d;
+  v21 = a2->b;
   v14 = v24;
   v15 = 0;
   do
@@ -3900,11 +3893,11 @@ void PVCGPointQuad_scale(PVCGPointQuad *a1@<X0>, CGPoint a2@<0:D0, 8:D1>, _OWORD
 
   v17 = v33;
   v18 = *(v33 + 3);
-  *a3 = *(v33 + 2);
-  a3[1] = v18;
+  *a1 = *(v33 + 2);
+  *(a1 + 1) = v18;
   v19 = *(v17 + 5);
-  a3[2] = *(v17 + 4);
-  a3[3] = v19;
+  *(a1 + 2) = *(v17 + 4);
+  *(a1 + 3) = v19;
   _Block_object_dispose(&v32, 8);
 }
 
@@ -3964,21 +3957,21 @@ uint64_t ___ZL22PVCGPointQuad_to_array13PVCGPointQuadP7CGPoint_block_invoke(uint
   return result;
 }
 
-void sub_25F938988(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25F938988(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25F938B9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25F938B9C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -3992,17 +3985,17 @@ void sub_25F938D94(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25F939770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25F939770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  if (a2)
+  va_start(va, a5);
+  if (a4)
   {
-    (*(*a2 + 24))(a2);
+    (*(*a4 + 24))(a4, a2, a3);
   }
 
-  if (a3)
+  if (a5)
   {
-    (*(*a3 + 24))(a3);
+    (*(*a5 + 24))(a5, a2, a3);
   }
 
   HGSynchronizer::~HGSynchronizer(va);
@@ -4017,9 +4010,9 @@ void sub_25F939890(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25F939A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25F939A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
@@ -4140,16 +4133,16 @@ HGSynchronizable *DocumentAccessJob::Wait(DocumentAccessJob *this)
   return HGSynchronizable::Unlock(v2);
 }
 
-void PVDocumentAccessController::LoadEffectDocument(PVDocumentAccessController *this, PVMotionEffect *a2)
+void PVDocumentAccessController::LoadEffectDocument(HGRenderQueue **this, PVMotionEffect *a2)
 {
   v3 = a2;
   v2 = HGObject::operator new(0x168uLL);
   LoadEffectJob::LoadEffectJob(v2, v3);
 }
 
-void sub_25F93B63C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+void sub_25F93B63C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10)
 {
-  (*(*v10 + 24))(v10);
+  (*(*v10 + 24))(v10, a2, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
@@ -4247,10 +4240,10 @@ void ReleaseDocumentJob::~ReleaseDocumentJob(HGRenderJob *this)
   HGObject::operator delete(v1);
 }
 
-void sub_25F93BD98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25F93BD98(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PVCGImageBufferImpl;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -4258,12 +4251,12 @@ void sub_25F93C208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a15)
   {
-    (*(*a15 + 24))(a15);
+    (*(*a15 + 24))(a15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
@@ -4273,38 +4266,39 @@ void sub_25F93C520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
 }
 
-void sub_25F93D378(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_25F93D378(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  HGObject::operator delete(v30);
-  (*(*v29 + 24))(v29);
-  if (v28)
-  {
-    (*(*v28 + 24))(v28);
-  }
-
-  HGTransform::~HGTransform(&a9);
-  HGTransform::~HGTransform(&a27);
+  va_start(va, a26);
+  HGObject::operator delete(v29);
+  (*(*v28 + 24))(v28);
   if (v27)
   {
     (*(*v27 + 24))(v27);
   }
 
-  v33 = *(v31 - 112);
+  HGTransform::~HGTransform(&a9);
+  HGTransform::~HGTransform(va);
+  if (v26)
+  {
+    (*(*v26 + 24))(v26);
+  }
+
+  v32 = *(v30 - 112);
+  if (v32)
+  {
+    (*(*v32 + 24))(v32);
+  }
+
+  v33 = *(v30 - 104);
   if (v33)
   {
     (*(*v33 + 24))(v33);
-  }
-
-  v34 = *(v31 - 104);
-  if (v34)
-  {
-    (*(*v34 + 24))(v34);
   }
 
   _Unwind_Resume(a1);
@@ -4440,23 +4434,23 @@ double pv_PCMatrix44d_from_simd_double4x4(__int128 *a1, uint64_t a2)
   return result;
 }
 
-uint64_t pv_simd_quaternion_get_euler_angles(int a1, uint64_t a2, float32x4_t a3)
+uint64_t pv_simd_quaternion_get_euler_angles(float32x4_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = vmulq_f32(a3, a3).f32[0];
-  v4 = vmuls_lane_f32(a3.f32[1], *a3.f32, 1);
-  v5 = vmuls_lane_f32(a3.f32[2], a3, 2);
-  v6 = vmuls_lane_f32(a3.f32[3], a3, 3);
-  v7 = vmuls_lane_f32(a3.f32[0], *a3.f32, 1);
-  v8 = vmuls_lane_f32(a3.f32[2], a3, 3);
-  v9 = vmuls_lane_f32(a3.f32[0], a3, 2);
-  v10 = vmuls_lane_f32(a3.f32[1], a3, 3);
+  v3 = vmulq_f32(a1, a1).f32[0];
+  v4 = vmuls_lane_f32(a1.f32[1], *a1.f32, 1);
+  v5 = vmuls_lane_f32(a1.f32[2], a1, 2);
+  v6 = vmuls_lane_f32(a1.f32[3], a1, 3);
+  v7 = vmuls_lane_f32(a1.f32[0], *a1.f32, 1);
+  v8 = vmuls_lane_f32(a1.f32[2], a1, 3);
+  v9 = vmuls_lane_f32(a1.f32[0], a1, 2);
+  v10 = vmuls_lane_f32(a1.f32[1], a1, 3);
   v11.i32[3] = 0;
   v11.f32[0] = v6 + ((v3 - v4) - v5);
   v15.columns[2].i32[3] = 0;
   v11.f32[1] = (v7 + v8) + (v7 + v8);
   v11.f32[2] = (v9 - v10) + (v9 - v10);
-  v12 = vmuls_lane_f32(a3.f32[1], a3, 2);
-  v13 = vmuls_lane_f32(a3.f32[0], a3, 3);
+  v12 = vmuls_lane_f32(a1.f32[1], a1, 2);
+  v13 = vmuls_lane_f32(a1.f32[0], a1, 3);
   v15.columns[1].i32[3] = 0;
   v15.columns[1].f32[0] = (v7 - v8) + (v7 - v8);
   v15.columns[1].f32[1] = (v6 + (v4 - v5)) - v3;
@@ -4465,10 +4459,10 @@ uint64_t pv_simd_quaternion_get_euler_angles(int a1, uint64_t a2, float32x4_t a3
   v15.columns[2].f32[1] = (v12 - v13) + (v12 - v13);
   v15.columns[2].f32[2] = ((v5 + v6) - v3) - v4;
   v15.columns[0] = v11;
-  return pv_simd_matrix_get_euler_angles(a1, a2, v15);
+  return pv_simd_matrix_get_euler_angles(a2, a3, v15);
 }
 
-uint64_t pv_simd_quaternion_get_euler_angles(float64x2_t *a1, int a2, uint64_t a3)
+uint64_t pv_simd_quaternion_get_euler_angles(float64x2_t *a1, uint64_t a2, uint64_t a3)
 {
   v4 = *a1;
   v3 = a1[1];
@@ -4928,13 +4922,14 @@ __int128 *pv_simd_matrix_rotate@<X0>(__int128 *a1@<X0>, float64x2_t *a2@<X1>, _O
   return pv_simd_matrix_rotate(v19, v18, a3);
 }
 
-uint64_t pv_simd_matrix_get_euler_angles(int a1, uint64_t a2, simd_float3x3 a3)
+uint64_t pv_simd_matrix_get_euler_angles(uint64_t a1, uint64_t a2, simd_float3x3 a3)
 {
+  v4 = a1;
   a3.columns[0].i32[3] = 0;
   a3.columns[1].i32[3] = 0;
   a3.columns[2].i32[3] = 0;
   rotation_matrix = pv_simd_matrix_get_rotation_matrix(a3);
-  pv_simd_matrix_get_euler_angles(a1, a2, rotation_matrix, v6, v7);
+  pv_simd_matrix_get_euler_angles(v4, a2, rotation_matrix, v6, v7);
   return 1;
 }
 
@@ -5072,8 +5067,9 @@ LABEL_33:
   return 1;
 }
 
-uint64_t pv_simd_matrix_get_euler_angles(float64x2_t *a1, int a2, uint64_t a3)
+uint64_t pv_simd_matrix_get_euler_angles(float64x2_t *a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v5 = a1[1];
   v6 = a1[2];
   v7 = a1[3];
@@ -5086,7 +5082,7 @@ uint64_t pv_simd_matrix_get_euler_angles(float64x2_t *a1, int a2, uint64_t a3)
   v12[4] = v8;
   v12[5] = v9;
   pv_simd_matrix_get_rotation_matrix(v12, v11);
-  pv_simd_matrix_get_euler_angles(v11, a2, a3);
+  pv_simd_matrix_get_euler_angles(v11, v4, a3);
   return 1;
 }
 
@@ -5441,7 +5437,7 @@ LABEL_7:
       {
         v3 = vzip2q_s64(*result, result[2]);
         v4.i64[0] = vdupq_laneq_s64(result[4], 1).u64[0];
-        v5 = &result[6].i64[1];
+        v5 = &result[6].i8[8];
 LABEL_8:
         v4.i64[1] = *v5;
         goto LABEL_12;
@@ -5473,7 +5469,7 @@ LABEL_11:
   {
     v3 = vzip2q_s64(result[1], result[3]);
     v4.i64[0] = vdupq_laneq_s64(result[5], 1).u64[0];
-    v5 = &result[7].i64[1];
+    v5 = &result[7].i8[8];
     goto LABEL_8;
   }
 
@@ -5573,7 +5569,7 @@ __n128 pv_simd_matrix_set_row@<Q0>(uint64_t a1@<X0>, int8x16_t *a2@<X1>, int a3@
   {
     v12 = vextq_s8(v4, v4, 8uLL).u64[0];
     v13.i64[0] = a2->i64[0];
-    v14 = a2[1].u64[0];
+    v14 = a2[1].i64[0];
 LABEL_7:
     v4 = vzip1q_s64(v5, v7);
     v15 = vextq_s8(v4, v4, 8uLL);
@@ -5726,22 +5722,22 @@ LABEL_7:
 void pv_simd_matrix_lerp(simd_float4x4 a1, simd_float4x4 a2, int a3, float a4)
 {
   v21 = xmmword_260342820;
-  v22 = unk_260342830;
+  v22 = qword_260342830;
   v23 = xmmword_260342840;
-  v24 = unk_260342850;
+  v24 = qword_260342850;
   v17 = pv_transform_info_identity;
   v18 = *algn_2603427F0;
   v19 = xmmword_260342800;
-  v20 = unk_260342810;
+  v20 = qword_260342810;
   pv_transform_info_make(a1, &v17);
   v13 = xmmword_260342820;
-  v14 = unk_260342830;
+  v14 = qword_260342830;
   v15 = xmmword_260342840;
-  v16 = unk_260342850;
+  v16 = qword_260342850;
   v9 = pv_transform_info_identity;
   v10 = *algn_2603427F0;
   v11 = xmmword_260342800;
-  v12 = unk_260342810;
+  v12 = qword_260342810;
   pv_transform_info_make(a2, &v9);
   v7[4] = v21;
   v7[5] = v22;
@@ -5763,7 +5759,7 @@ void pv_simd_matrix_lerp(simd_float4x4 a1, simd_float4x4 a2, int a3, float a4)
   pv_simd_float4x4_from_pv_transform_info(v8);
 }
 
-void pv_simd_matrix_lerp(__int128 *a1@<X0>, _OWORD *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>, double a5@<D0>)
+void pv_simd_matrix_lerp(__int128 *a1@<X0>, _OWORD *a2@<X1>, int a3@<W2>, __int128 *a4@<X8>, double a5@<D0>)
 {
   v9 = a1[4];
   v40 = xmmword_260342820;
@@ -6077,7 +6073,7 @@ void sub_25F941E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_25F941F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+void sub_25F941F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t *a12)
 {
   a12 = &a9;
   std::vector<HGRef<PVRenderJob>>::__destroy_vector::operator()[abi:ne200100](&a12);
@@ -6088,12 +6084,12 @@ void sub_25F942068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v11)
   {
-    (*(*v11 + 24))(v11);
+    (*(*v11 + 24))(v11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
@@ -6183,7 +6179,7 @@ void PVPerfStats::~PVPerfStats(PVPerfStats *this)
   std::vector<PVPerfStats::FrameStats>::__destroy_vector::operator()[abi:ne200100](&v9);
 }
 
-uint64_t std::vector<HGRef<PVRenderJob>>::__init_with_size[abi:ne200100]<HGRef<PVRenderJob>*,HGRef<PVRenderJob>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<HGRef<PVRenderJob>>::__init_with_size[abi:ne200100]<HGRef<PVRenderJob>*,HGRef<PVRenderJob>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6193,14 +6189,14 @@ uint64_t std::vector<HGRef<PVRenderJob>>::__init_with_size[abi:ne200100]<HGRef<P
   return result;
 }
 
-void sub_25F942D18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_25F942D18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<HGRef<PVRenderJob>>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<HGRef<PVRenderJob>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<HGRef<PVRenderJob>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -6310,16 +6306,16 @@ void std::vector<HGRef<PVRenderJob>>::__destroy_vector::operator()[abi:ne200100]
   }
 }
 
-uint64_t std::vector<HGRef<PVRenderJob>>::__emplace_back_slow_path<HGRef<PVRenderJob> const&>(uint64_t a1, uint64_t *a2)
+uint64_t std::vector<HGRef<PVRenderJob>>::__emplace_back_slow_path<HGRef<PVRenderJob> const&>(uint64_t **a1, uint64_t *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 3;
+  v2 = a1[1] - *a1;
   v3 = v2 + 1;
   if ((v2 + 1) >> 61)
   {
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 2 > v3)
   {
     v3 = v6 >> 2;
@@ -6360,14 +6356,14 @@ uint64_t std::vector<HGRef<PVRenderJob>>::__emplace_back_slow_path<HGRef<PVRende
   }
 
   *&v19 = v10 + 8;
-  v11 = *(a1 + 8);
+  v11 = a1[1];
   v12 = (v8 + *a1 - v11);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<HGRef<PVRenderJob>>,HGRef<PVRenderJob>*>(a1, *a1, v11, v12);
   v13 = *a1;
   *a1 = v12;
-  v14 = *(a1 + 16);
+  v14 = a1[2];
   v16 = v19;
-  *(a1 + 8) = v19;
+  *(a1 + 1) = v19;
   *&v19 = v13;
   *(&v19 + 1) = v14;
   v17 = v13;
@@ -6376,9 +6372,9 @@ uint64_t std::vector<HGRef<PVRenderJob>>::__emplace_back_slow_path<HGRef<PVRende
   return v16;
 }
 
-void sub_25F9430BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25F9430BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<HGRef<PVRenderJob>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6489,91 +6485,91 @@ uint64_t *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<HGR
   return v5;
 }
 
-void sub_25F943378(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25F943378(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25F943420(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25F943420(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25F9434C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25F9434C8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25F943570(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25F943570(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25F943620(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25F943620(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25F9436D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25F9436D0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25F9437D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25F9437D8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25F943A88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25F943A88(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25F943B54(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25F943B54(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6795,22 +6791,22 @@ double pv_bounding_CGRect(void *a1)
   return v2;
 }
 
-void sub_25F944190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25F944190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 112), 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 112), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t ___Z18pv_bounding_CGRectP7NSArrayIP7NSValueE_block_invoke(void *a1, void *a2)
+void *___Z18pv_bounding_CGRectP7NSArrayIP7NSValueE_block_invoke(void *a1, void *a2)
 {
   result = [a2 CGPointValue];
   v6 = *(a1[4] + 8);
@@ -6921,7 +6917,7 @@ CGPath *pv_create_closed_CGPath_with_points(void *a1)
 uint64_t *PVThermalLevelEntry(int a1)
 {
   v4 = a1;
-  if ((atomic_load_explicit(&_MergedGlobals_3, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_3, memory_order_acquire) & 1) == 0)
   {
     PVThermalLevelEntry();
   }
@@ -6956,7 +6952,7 @@ LABEL_12:
   }
 
   v5 = &v4;
-  return std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(&qword_280C5CC48, &v4) + 5;
+  return std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(&qword_280C5CC48, &v4, &std::piecewise_construct, &v5) + 5;
 }
 
 id PVThermalMonitorLevelName(int a1)
@@ -6966,28 +6962,28 @@ id PVThermalMonitorLevelName(int a1)
   return v1;
 }
 
-void sub_25F945914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25F945914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25F945A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25F945A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25F945B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25F945B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25F945CAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_25F945CAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -7005,99 +7001,99 @@ void ___ZL19PVThermalLevelEntry28PVSPI_OSThermalPressureLevel_block_invoke()
 {
   v14 = 0;
   v15 = &v14;
-  v0 = std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(&qword_280C5CC48, &v14);
+  v0 = std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(&qword_280C5CC48, &v14, &std::piecewise_construct, &v15);
   v1 = v0[5];
   v0[5] = @"nominal";
 
   v0[6] = 0xA00000000;
   v14 = 10;
   v15 = &v14;
-  v2 = std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(&qword_280C5CC48, &v14);
+  v2 = std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(&qword_280C5CC48, &v14, &std::piecewise_construct, &v15);
   v3 = v2[5];
   v2[5] = @"light";
 
   v2[6] = 0x1400000000;
   v14 = 20;
   v15 = &v14;
-  v4 = std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(&qword_280C5CC48, &v14);
+  v4 = std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(&qword_280C5CC48, &v14, &std::piecewise_construct, &v15);
   v5 = v4[5];
   v4[5] = @"moderate";
 
   v4[6] = 0x1E0000000ALL;
   v14 = 30;
   v15 = &v14;
-  v6 = std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(&qword_280C5CC48, &v14);
+  v6 = std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(&qword_280C5CC48, &v14, &std::piecewise_construct, &v15);
   v7 = v6[5];
   v6[5] = @"heavy";
 
   v6[6] = 0x2800000014;
   v14 = 40;
   v15 = &v14;
-  v8 = std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(&qword_280C5CC48, &v14);
+  v8 = std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(&qword_280C5CC48, &v14, &std::piecewise_construct, &v15);
   v9 = v8[5];
   v8[5] = @"trapping";
 
   v8[6] = 0x320000001ELL;
   v14 = 50;
   v15 = &v14;
-  v10 = std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(&qword_280C5CC48, &v14);
+  v10 = std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(&qword_280C5CC48, &v14, &std::piecewise_construct, &v15);
   v11 = v10[5];
   v10[5] = @"sleeping";
 
   v10[6] = 0x3200000028;
   v15 = &PVThermalLevelEntry(PVSPI_OSThermalPressureLevel)::kNotFoundMaxLevel;
-  v12 = std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(&qword_280C5CC48, &PVThermalLevelEntry(PVSPI_OSThermalPressureLevel)::kNotFoundMaxLevel);
+  v12 = std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(&qword_280C5CC48, &PVThermalLevelEntry(PVSPI_OSThermalPressureLevel)::kNotFoundMaxLevel, &std::piecewise_construct, &v15);
   v13 = v12[5];
   v12[5] = @"unknown";
 
   v12[6] = 0x3200000000;
 }
 
-uint64_t *std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::__map_value_compare<PVSPI_OSThermalPressureLevel,std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>,std::less<PVSPI_OSThermalPressureLevel>,true>,std::allocator<std::__value_type<PVSPI_OSThermalPressureLevel,PVSPI_OSThermalPressureLevel_Entry>>>::__emplace_unique_key_args<PVSPI_OSThermalPressureLevel,std::piecewise_construct_t const&,std::tuple<PVSPI_OSThermalPressureLevel&&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-void sub_25F9464E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25F9464E4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PVHGBitmapImageBufferImpl;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7170,6 +7166,43 @@ uint64_t pv_get_string_representation(simd_float3x3 a1, char *a2, size_t a3, uin
   }
 
   return (string_representation + v17);
+}
+
+uint64_t pv_buffer_size_for_string_representation(_OWORD *a1, uint64_t a2)
+{
+  v2 = a1[3];
+  v6[2] = a1[2];
+  v6[3] = v2;
+  v3 = a1[5];
+  v6[4] = a1[4];
+  v6[5] = v3;
+  v4 = a1[1];
+  v6[0] = *a1;
+  v6[1] = v4;
+  return pv_get_string_representation(v6, 0, 0, a2) + 1;
+}
+
+{
+  v2 = a1[5];
+  v7[4] = a1[4];
+  v7[5] = v2;
+  v3 = a1[7];
+  v7[6] = a1[6];
+  v7[7] = v3;
+  v4 = a1[1];
+  v7[0] = *a1;
+  v7[1] = v4;
+  v5 = a1[3];
+  v7[2] = a1[2];
+  v7[3] = v5;
+  return pv_get_string_representation(v7, 0, 0, a2) + 1;
+}
+
+{
+  v2 = a1[1];
+  v4[0] = *a1;
+  v4[1] = v2;
+  return pv_get_string_representation(v4, 0, 0, a2) + 1;
 }
 
 uint64_t pv_get_string_representation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -7253,7 +7286,7 @@ uint64_t pv_get_string_representation(uint64_t a1, uint64_t a2, uint64_t a3, uin
     v16 = a2 ? a3 - v10 : 0;
     v24 = v32[0];
     v25 = v32[1];
-    string_representation = pv_get_string_representation(v24.i8, v15, v16, a4);
+    string_representation = pv_get_string_representation(v24.i64, v15, v16, a4);
     v18 = (string_representation + v9);
     if (v8 == 3)
     {
@@ -7369,10 +7402,10 @@ void sub_25F946DC4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25F946ED8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25F946ED8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PVEffectScheduler;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7386,9 +7419,9 @@ void sub_25F9471C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25F947858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25F947858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
@@ -7417,11 +7450,11 @@ uint64_t LoadableInstruction::LoadInstructionGraphNodes(uint64_t result, uint64_
   return result;
 }
 
-void sub_25F9479DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25F9479DC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7555,15 +7588,15 @@ BOOL LoadableInstruction::ShouldReleaseForTime(LoadableInstruction *this, CMTime
   return CMTimeRangeContainsTime(&range, &v13) == 0;
 }
 
-uint64_t std::__tree<HGRef<LoadableInstruction>,LoadableInstructionCompare,std::allocator<HGRef<LoadableInstruction>>>::__emplace_unique_key_args<HGRef<LoadableInstruction>,HGRef<LoadableInstruction> const&>(uint64_t a1, uint64_t *a2)
+void *std::__tree<HGRef<LoadableInstruction>,LoadableInstructionCompare,std::allocator<HGRef<LoadableInstruction>>>::__emplace_unique_key_args<HGRef<LoadableInstruction>,HGRef<LoadableInstruction> const&>(uint64_t **a1, uint64_t *a2, uint64_t a3)
 {
-  v2 = *std::__tree<HGRef<LoadableInstruction>,LoadableInstructionCompare,std::allocator<HGRef<LoadableInstruction>>>::__find_equal<HGRef<LoadableInstruction>>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<HGRef<LoadableInstruction>,LoadableInstructionCompare,std::allocator<HGRef<LoadableInstruction>>>::__find_equal<HGRef<LoadableInstruction>>(a1, &v5, a2);
+  if (!v3)
   {
     std::__tree<HGRef<LoadableInstruction>,LoadableInstructionCompare,std::allocator<HGRef<LoadableInstruction>>>::__construct_node<HGRef<LoadableInstruction> const&>();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<HGRef<LoadableInstruction>,LoadableInstructionCompare,std::allocator<HGRef<LoadableInstruction>>>::__find_equal<HGRef<LoadableInstruction>>(uint64_t a1, void *a2, uint64_t *a3)
@@ -7612,7 +7645,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t std::unique_ptr<std::__tree_node<HGRef<LoadableInstruction>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<HGRef<LoadableInstruction>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<HGRef<LoadableInstruction>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<HGRef<LoadableInstruction>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -7634,7 +7667,7 @@ BOOL LoadableInstruction::operator<(uint64_t a1, uint64_t a2)
   v3 = *(a1 + 16);
   if (v3)
   {
-    [v3 timeRange];
+    objc_msgSend_timeRange(v3);
   }
 
   else
@@ -7649,7 +7682,7 @@ BOOL LoadableInstruction::operator<(uint64_t a1, uint64_t a2)
   v4 = *(a2 + 16);
   if (v4)
   {
-    [v4 timeRange];
+    objc_msgSend_timeRange(v4);
   }
 
   else
@@ -7714,7 +7747,7 @@ void LoadableInstruction::LoadableInstruction(LoadableInstruction *this, PVVideo
   v21 = v20.start;
   if (v6)
   {
-    [(PVVideoCompositionInstruction *)v6 timeRange];
+    objc_msgSend_timeRange(v6);
   }
 
   else
@@ -7730,7 +7763,7 @@ void LoadableInstruction::LoadableInstruction(LoadableInstruction *this, PVVideo
   CMTimeSubtract(&start, &lhs, &rhs);
   if (v6)
   {
-    [(PVVideoCompositionInstruction *)v6 timeRange];
+    objc_msgSend_timeRange(v6);
   }
 
   else
@@ -7753,7 +7786,7 @@ void LoadableInstruction::LoadableInstruction(LoadableInstruction *this, PVVideo
   {
     if (v6)
     {
-      [(PVVideoCompositionInstruction *)v6 timeRange];
+      objc_msgSend_timeRange(v6);
     }
 
     else
@@ -7769,7 +7802,7 @@ void LoadableInstruction::LoadableInstruction(LoadableInstruction *this, PVVideo
     CMTimeSubtract(&start, &lhs, &rhs);
     if (v6)
     {
-      [(PVVideoCompositionInstruction *)v6 timeRange];
+      objc_msgSend_timeRange(v6);
     }
 
     else
@@ -7788,7 +7821,7 @@ void LoadableInstruction::LoadableInstruction(LoadableInstruction *this, PVVideo
     *(this + 60) = *&v20.duration.timescale;
     if (v6)
     {
-      [(PVVideoCompositionInstruction *)v6 timeRange];
+      objc_msgSend_timeRange(v6);
     }
 
     else
@@ -7804,7 +7837,7 @@ void LoadableInstruction::LoadableInstruction(LoadableInstruction *this, PVVideo
     CMTimeSubtract(&start, &lhs, &rhs);
     if (v6)
     {
-      [(PVVideoCompositionInstruction *)v6 timeRange];
+      objc_msgSend_timeRange(v6);
     }
 
     else
@@ -7823,7 +7856,7 @@ void LoadableInstruction::LoadableInstruction(LoadableInstruction *this, PVVideo
   {
     if (v6)
     {
-      [(PVVideoCompositionInstruction *)v6 timeRange];
+      objc_msgSend_timeRange(v6);
     }
 
     else
@@ -7839,7 +7872,7 @@ void LoadableInstruction::LoadableInstruction(LoadableInstruction *this, PVVideo
     CMTimeSubtract(&start, &lhs, &rhs);
     if (v6)
     {
-      [(PVVideoCompositionInstruction *)v6 timeRange];
+      objc_msgSend_timeRange(v6);
     }
 
     else
@@ -7858,7 +7891,7 @@ void LoadableInstruction::LoadableInstruction(LoadableInstruction *this, PVVideo
     *(this + 60) = *&v20.duration.timescale;
     if (v6)
     {
-      [(PVVideoCompositionInstruction *)v6 timeRange];
+      objc_msgSend_timeRange(v6);
     }
 
     else
@@ -7874,7 +7907,7 @@ void LoadableInstruction::LoadableInstruction(LoadableInstruction *this, PVVideo
     CMTimeSubtract(&start, &lhs, &rhs);
     if (v6)
     {
-      [(PVVideoCompositionInstruction *)v6 timeRange];
+      objc_msgSend_timeRange(v6);
     }
 
     else
@@ -8135,9 +8168,9 @@ HGSynchronizable *CachedImageInfo::Init(CachedImageInfo *this)
   return HGSynchronizable::Unlock(lock);
 }
 
-void sub_25F9497A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25F9497A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGSynchronizer::~HGSynchronizer(va);
   _Unwind_Resume(a1);
 }
@@ -8179,7 +8212,7 @@ void sub_25F94A5A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
@@ -8189,7 +8222,7 @@ void sub_25F94A9A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a11)
   {
-    (*(*a11 + 24))(a11);
+    (*(*a11 + 24))(a11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
@@ -8208,13 +8241,13 @@ void sub_25F94B148(_Unwind_Exception *a1)
 
 void sub_25F94D308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25)
 {
-  (*(*v25 + 24))(v25);
+  (*(*v25 + 24))(v25, a2, a3, a4, a5, a6, a7, a8);
 
   HGTraceGuard::~HGTraceGuard(&STACK[0x2A8]);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<HGRef<HGBitmap>>::__init_with_size[abi:ne200100]<HGRef<HGBitmap>*,HGRef<HGBitmap>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<HGRef<HGBitmap>>::__init_with_size[abi:ne200100]<HGRef<HGBitmap>*,HGRef<HGBitmap>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8351,7 +8384,7 @@ void std::vector<HGRef<HGBitmap>>::__vdeallocate(uint64_t **a1)
   }
 }
 
-uint64_t *std::__copy_impl::operator()[abi:ne200100]<HGRef<HGBitmap> *,HGRef<HGBitmap> *,HGRef<HGBitmap> *>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__copy_impl::operator()[abi:ne200100]<HGRef<HGBitmap> *,HGRef<HGBitmap> *,HGRef<HGBitmap> *>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -8405,12 +8438,12 @@ void sub_25F950B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   v65 = *(v63 - 208);
   if (v65)
   {
-    (*(*v65 + 24))(v65);
+    (*(*v65 + 24))(v65, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (STACK[0x298])
   {
-    (*(*STACK[0x298] + 24))(STACK[0x298]);
+    (*(*STACK[0x298] + 24))(STACK[0x298], a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (*v61)
@@ -8509,11 +8542,11 @@ LABEL_9:
   }
 }
 
-void coloredDotHGNode(double a1, double a2, double a3, double a4)
+void coloredDotHGNode(double a3)
 {
-  HGRectMakeWithCGRect(*&a1);
-  v4 = HGObject::operator new(0x1A0uLL);
-  HGSolidColor::HGSolidColor(v4);
+  HGRectMakeWithCGRect(*&a3);
+  v6 = HGObject::operator new(0x1A0uLL);
+  HGSolidColor::HGSolidColor(v6);
 }
 
 void sub_25F951408(_Unwind_Exception *a1)
@@ -8527,7 +8560,7 @@ void sub_25F952160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
@@ -8538,7 +8571,7 @@ void sub_25F9529A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   v25 = *(v23 - 72);
   if (v25)
   {
-    (*(*v25 + 24))(v25);
+    (*(*v25 + 24))(v25, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a19)
@@ -8627,7 +8660,7 @@ void sub_25F9538C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
@@ -8637,16 +8670,16 @@ void sub_25F953AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
 }
 
-void sub_25F953B88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25F953B88(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PVCVPixelBufferImageBufferImpl;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8654,7 +8687,7 @@ void sub_25F953DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a17)
   {
-    (*(*a17 + 24))(a17);
+    (*(*a17 + 24))(a17, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
@@ -8664,12 +8697,12 @@ void sub_25F953FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
@@ -8710,59 +8743,59 @@ CGFloat CGAffineTransformFromPVAnimInfo@<D0>(CGFloat *a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-CGFloat CGAffineTransformFromPointWithPVAnimInfo@<D0>(PVTransformAnimationInfo *a1@<X0>, CGPoint a2@<0:D0, 8:D1>, uint64_t a3@<X8>)
+CGFloat CGAffineTransformFromPointWithPVAnimInfo@<D0>(uint64_t *__return_ptr a1@<X8>, PVTransformAnimationInfo *a2@<X0>, CGPoint a3@<0:D0, 8:D1>)
 {
-  v3 = *&a1->time.epoch;
-  *&v6.time.value = *&a1->time.value;
+  v3 = *&a2->time.epoch;
+  *&v6.time.value = *&a2->time.value;
   *&v6.time.epoch = v3;
-  *&v6.translation.y = *&a1->translation.y;
-  v6.rotation = a1->rotation;
+  *&v6.translation.y = *&a2->translation.y;
+  v6.rotation = a2->rotation;
   v4 = 1.0;
   *&v3 = 1.0;
-  return CGAffineTransformFromPointWithPVAnimInfo(&v6, a2, *(&v3 - 8), a3);
+  return CGAffineTransformFromPointWithPVAnimInfo(a1, &v6, a3, *(&v3 - 8));
 }
 
-CGFloat CGAffineTransformFromPointWithPVAnimInfo@<D0>(PVTransformAnimationInfo *a1@<X0>, CGPoint a2@<0:D0, 8:D1>, CGSize a3@<0:D2, 8:D3>, uint64_t a4@<X8>)
+CGFloat CGAffineTransformFromPointWithPVAnimInfo@<D0>(uint64_t *__return_ptr a1@<X8>, PVTransformAnimationInfo *a2@<X0>, CGPoint a3@<0:D0, 8:D1>, CGSize a4@<0:D2, 8:D3>)
 {
-  height = a3.height;
-  width = a3.width;
-  y = a2.y;
-  x = a2.x;
-  *(a4 + 16) = 0u;
-  *(a4 + 32) = 0u;
-  *a4 = 0u;
-  CGAffineTransformMakeTranslation(a4, -a2.x, -a2.y);
-  v10 = *(a4 + 16);
-  *&t1.a = *a4;
+  height = a4.height;
+  width = a4.width;
+  y = a3.y;
+  x = a3.x;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
+  CGAffineTransformMakeTranslation(a1, -a3.x, -a3.y);
+  v10 = *(a1 + 1);
+  *&t1.a = *a1;
   *&t1.c = v10;
-  *&t1.tx = *(a4 + 32);
-  CGAffineTransformMakeRotation(&v17, a1->rotation * 3.14159265 / 180.0);
+  *&t1.tx = *(a1 + 2);
+  CGAffineTransformMakeRotation(&v17, a2->rotation * 3.14159265 / 180.0);
   CGAffineTransformConcat(&v19, &t1, &v17);
   v11 = *&v19.c;
-  *a4 = *&v19.a;
-  *(a4 + 16) = v11;
-  *(a4 + 32) = *&v19.tx;
-  v12 = *(a4 + 16);
-  *&t1.a = *a4;
+  *a1 = *&v19.a;
+  *(a1 + 1) = v11;
+  *(a1 + 2) = *&v19.tx;
+  v12 = *(a1 + 1);
+  *&t1.a = *a1;
   *&t1.c = v12;
-  *&t1.tx = *(a4 + 32);
-  CGAffineTransformMakeScale(&v17, a1->scale, a1->scale);
+  *&t1.tx = *(a1 + 2);
+  CGAffineTransformMakeScale(&v17, a2->scale, a2->scale);
   CGAffineTransformConcat(&v19, &t1, &v17);
   v13 = *&v19.c;
-  *a4 = *&v19.a;
-  *(a4 + 16) = v13;
-  *(a4 + 32) = *&v19.tx;
-  v14 = *(a4 + 16);
-  *&t1.a = *a4;
+  *a1 = *&v19.a;
+  *(a1 + 1) = v13;
+  *(a1 + 2) = *&v19.tx;
+  v14 = *(a1 + 1);
+  *&t1.a = *a1;
   *&t1.c = v14;
-  *&t1.tx = *(a4 + 32);
-  CGAffineTransformMakeTranslation(&v17, x + width * a1->translation.x, y + height * a1->translation.y);
+  *&t1.tx = *(a1 + 2);
+  CGAffineTransformMakeTranslation(&v17, x + width * a2->translation.x, y + height * a2->translation.y);
   CGAffineTransformConcat(&v19, &t1, &v17);
   v15 = *&v19.c;
-  *a4 = *&v19.a;
-  *(a4 + 16) = v15;
+  *a1 = *&v19.a;
+  *(a1 + 1) = v15;
   result = v19.tx;
-  *(a4 + 32) = *&v19.tx;
+  *(a1 + 2) = *&v19.tx;
   return result;
 }
 
@@ -8927,9 +8960,9 @@ id NSStringFromPVTransformAnimationInfo(uint64_t a1, int a2)
   return v9;
 }
 
-void sub_25F956D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25F956D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -8937,7 +8970,7 @@ void sub_25F956D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void OZChannelDouble::OZChannelDouble(OZChannelDouble *this, const PCString *a2, OZChannelFolder *a3, unsigned int a4, int a5, OZChannelImpl *a6, OZChannelInfo *a7)
 {
-  OZChannelDouble_FactoryBase = getOZChannelDouble_FactoryBase();
+  OZChannelDouble_FactoryBase = getOZChannelDouble_FactoryBase(this);
   OZChannel::OZChannel(this, OZChannelDouble_FactoryBase, a2, a3, a4, a5, a6, a7);
   *this = &unk_287245C60;
   *(this + 2) = &unk_287245FC0;
@@ -9127,7 +9160,7 @@ void sub_25F957FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t pv_buffer_size_for_string_representation(simd_quatd a1, __int128 *a2, uint64_t a3)
+uint64_t pv_buffer_size_for_string_representation(simd_quatd a1, _OWORD *a2, uint64_t a3)
 {
   v3 = a2[1];
   v5[0] = *a2;
@@ -9143,26 +9176,27 @@ uint64_t pv_get_string_representation(simd_quatd a1, char *a2, char *a3, size_t 
   return pv_get_string_representation(v7, a3, a4, a5);
 }
 
-void sub_25F9594DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_25F9594DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  HGObject::operator delete(v20);
-  (*(*v19 + 24))(v19);
+  va_start(va, a16);
+  HGObject::operator delete(v19);
   (*(*v18 + 24))(v18);
-  if (*v17)
+  (*(*v17 + 24))(v17);
+  if (*v16)
   {
-    (*(**v17 + 24))(*v17);
+    (*(**v16 + 24))(*v16);
   }
 
-  HGTraceGuard::~HGTraceGuard(&a17);
+  HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25F959FFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21)
+void sub_25F959FFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21)
 {
   v27 = v25;
   if (v27)
   {
-    (*(*v27 + 24))(v27);
+    (*(*v27 + 24))(v27, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
@@ -9170,9 +9204,9 @@ void sub_25F959FFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void PVInputHGNodeMap<PVInstructionGraphSourceNode * {__strong}>::SetNode(uint64_t a1, void *a2, uint64_t *a3)
 {
-  v8[0] = a2;
-  v8[2] = v8;
-  v5 = std::__tree<std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>,std::__map_value_compare<PVInstructionGraphSourceNode * {__strong},std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>,std::less<PVInstructionGraphSourceNode * {__strong}>,true>,std::allocator<std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>>>::__emplace_unique_key_args<PVInstructionGraphSourceNode * {__strong},std::piecewise_construct_t const&,std::tuple<PVInstructionGraphSourceNode * const {__strong}&>,std::tuple<>>(a1, v8);
+  v8 = a2;
+  v9 = &v8;
+  v5 = std::__tree<std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>,std::__map_value_compare<PVInstructionGraphSourceNode * {__strong},std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>,std::less<PVInstructionGraphSourceNode * {__strong}>,true>,std::allocator<std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>>>::__emplace_unique_key_args<PVInstructionGraphSourceNode * {__strong},std::piecewise_construct_t const&,std::tuple<PVInstructionGraphSourceNode * const {__strong}&>,std::tuple<>>(a1, &v8, &std::piecewise_construct, &v9);
   v6 = v5[5];
   v7 = *a3;
   if (v6 != *a3)
@@ -9193,9 +9227,9 @@ void PVInputHGNodeMap<PVInstructionGraphSourceNode * {__strong}>::SetNode(uint64
 
 void PVInputHGNodeMap<PVInstructionGraphSourceNode * {__strong}>::SetFrameDataPixelBuffer(uint64_t a1, void *a2, uint64_t *a3)
 {
-  v8[0] = a2;
-  v8[2] = v8;
-  v5 = std::__tree<std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>,std::__map_value_compare<PVInstructionGraphSourceNode * {__strong},std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>,std::less<PVInstructionGraphSourceNode * {__strong}>,true>,std::allocator<std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>>>::__emplace_unique_key_args<PVInstructionGraphSourceNode * {__strong},std::piecewise_construct_t const&,std::tuple<PVInstructionGraphSourceNode * const {__strong}&>,std::tuple<>>(a1 + 72, v8);
+  v8 = a2;
+  v9 = &v8;
+  v5 = std::__tree<std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>,std::__map_value_compare<PVInstructionGraphSourceNode * {__strong},std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>,std::less<PVInstructionGraphSourceNode * {__strong}>,true>,std::allocator<std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>>>::__emplace_unique_key_args<PVInstructionGraphSourceNode * {__strong},std::piecewise_construct_t const&,std::tuple<PVInstructionGraphSourceNode * const {__strong}&>,std::tuple<>>(a1 + 72, &v8, &std::piecewise_construct, &v9);
   v6 = v5[5];
   v7 = *a3;
   if (v6 != *a3)
@@ -9216,9 +9250,9 @@ void PVInputHGNodeMap<PVInstructionGraphSourceNode * {__strong}>::SetFrameDataPi
 
 __n128 PVInputHGNodeMap<PVInstructionGraphSourceNode * {__strong}>::SetInputSize(uint64_t a1, void *a2, __int128 *a3)
 {
-  v8[0] = a2;
-  v8[2] = v8;
-  v5 = std::__tree<std::__value_type<PVInstructionGraphSourceNode * {__strong},PCRect<double>>,std::__map_value_compare<PVInstructionGraphSourceNode * {__strong},std::__value_type<PVInstructionGraphSourceNode * {__strong},PCRect<double>>,std::less<PVInstructionGraphSourceNode * {__strong}>,true>,std::allocator<std::__value_type<PVInstructionGraphSourceNode * {__strong},PCRect<double>>>>::__emplace_unique_key_args<PVInstructionGraphSourceNode * {__strong},std::piecewise_construct_t const&,std::tuple<PVInstructionGraphSourceNode * const {__strong}&>,std::tuple<>>(a1 + 24, v8);
+  v8 = a2;
+  v9 = &v8;
+  v5 = std::__tree<std::__value_type<PVInstructionGraphSourceNode * {__strong},PCRect<double>>,std::__map_value_compare<PVInstructionGraphSourceNode * {__strong},std::__value_type<PVInstructionGraphSourceNode * {__strong},PCRect<double>>,std::less<PVInstructionGraphSourceNode * {__strong}>,true>,std::allocator<std::__value_type<PVInstructionGraphSourceNode * {__strong},PCRect<double>>>>::__emplace_unique_key_args<PVInstructionGraphSourceNode * {__strong},std::piecewise_construct_t const&,std::tuple<PVInstructionGraphSourceNode * const {__strong}&>,std::tuple<>>(a1 + 24, &v8, &std::piecewise_construct, &v9);
   v6 = *a3;
   *(v5 + 7) = a3[1];
   *(v5 + 5) = v6;
@@ -9243,17 +9277,17 @@ void sub_25F95BFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_25F95C5BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25F95C5BC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void **PVInputHGNodeMap<PVInstructionGraphSourceNode * {__strong}>::~PVInputHGNodeMap(void **a1)
+void *PVInputHGNodeMap<PVInstructionGraphSourceNode * {__strong}>::~PVInputHGNodeMap(void *a1)
 {
   std::__tree<std::__value_type<PVInstructionGraphSourceNode * {__strong},AVTimedMetadataGroup * {__strong}>,std::__map_value_compare<PVInstructionGraphSourceNode * {__strong},std::__value_type<PVInstructionGraphSourceNode * {__strong},AVTimedMetadataGroup * {__strong}>,std::less<PVInstructionGraphSourceNode * {__strong}>,true>,std::allocator<std::__value_type<PVInstructionGraphSourceNode * {__strong},AVTimedMetadataGroup * {__strong}>>>::destroy((a1 + 15), a1[16]);
   std::__tree<std::__value_type<PVInstructionGraphSourceNode * {__strong},int>,std::__map_value_compare<PVInstructionGraphSourceNode * {__strong},std::__value_type<PVInstructionGraphSourceNode * {__strong},int>,std::less<PVInstructionGraphSourceNode * {__strong}>,true>,std::allocator<std::__value_type<PVInstructionGraphSourceNode * {__strong},int>>>::destroy((a1 + 12), a1[13]);
@@ -9318,82 +9352,82 @@ void std::__tree<std::__value_type<PVInstructionGraphSourceNode * {__strong},HGR
   }
 }
 
-void *std::__tree<std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>,std::__map_value_compare<PVInstructionGraphSourceNode * {__strong},std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>,std::less<PVInstructionGraphSourceNode * {__strong}>,true>,std::allocator<std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>>>::__emplace_unique_key_args<PVInstructionGraphSourceNode * {__strong},std::piecewise_construct_t const&,std::tuple<PVInstructionGraphSourceNode * const {__strong}&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>,std::__map_value_compare<PVInstructionGraphSourceNode * {__strong},std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>,std::less<PVInstructionGraphSourceNode * {__strong}>,true>,std::allocator<std::__value_type<PVInstructionGraphSourceNode * {__strong},HGRef<HGNode>>>>::__emplace_unique_key_args<PVInstructionGraphSourceNode * {__strong},std::piecewise_construct_t const&,std::tuple<PVInstructionGraphSourceNode * const {__strong}&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, id **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-void *std::__tree<std::__value_type<PVInstructionGraphSourceNode * {__strong},PCRect<double>>,std::__map_value_compare<PVInstructionGraphSourceNode * {__strong},std::__value_type<PVInstructionGraphSourceNode * {__strong},PCRect<double>>,std::less<PVInstructionGraphSourceNode * {__strong}>,true>,std::allocator<std::__value_type<PVInstructionGraphSourceNode * {__strong},PCRect<double>>>>::__emplace_unique_key_args<PVInstructionGraphSourceNode * {__strong},std::piecewise_construct_t const&,std::tuple<PVInstructionGraphSourceNode * const {__strong}&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<PVInstructionGraphSourceNode * {__strong},PCRect<double>>,std::__map_value_compare<PVInstructionGraphSourceNode * {__strong},std::__value_type<PVInstructionGraphSourceNode * {__strong},PCRect<double>>,std::less<PVInstructionGraphSourceNode * {__strong}>,true>,std::allocator<std::__value_type<PVInstructionGraphSourceNode * {__strong},PCRect<double>>>>::__emplace_unique_key_args<PVInstructionGraphSourceNode * {__strong},std::piecewise_construct_t const&,std::tuple<PVInstructionGraphSourceNode * const {__strong}&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, id **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -9416,39 +9450,39 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<PVInstructionGraphSo
   return a1;
 }
 
-void PVFrameStatsDescription::GetStringForLabels(_BYTE *a1@<X8>, int a2@<W1>)
+void PVFrameStatsDescription::GetStringForLabels(int a2@<W1>, void *a3@<X8>)
 {
   if (a2 == 1)
   {
-    PVFrameStatsDescription::GetStringForLabelsJSON(a1);
+    PVFrameStatsDescription::GetStringForLabelsJSON(a3);
   }
 
   else
   {
     if (a2)
     {
-      v2 = "";
+      v3 = "";
     }
 
     else
     {
-      v2 = " Num |  FrameTime | Playback | RendPasses | WaitToBuildGraph | SetupInputs | BuildGraph | WaitToRender | SetupDest | DeferredBitmaps | ShaderCompile | RenderTime | FinishReq | TotalTime | TimeSinceLastStart | fTimeDiff |";
+      v3 = " Num |  FrameTime | Playback | RendPasses | WaitToBuildGraph | SetupInputs | BuildGraph | WaitToRender | SetupDest | DeferredBitmaps | ShaderCompile | RenderTime | FinishReq | TotalTime | TimeSinceLastStart | fTimeDiff |";
     }
 
-    std::string::basic_string[abi:ne200100]<0>(a1, v2);
+    std::string::basic_string[abi:ne200100]<0>(a3, v3);
   }
 }
 
-void PVFrameStatsDescription::GetStringForLabelsJSON(_BYTE *a1@<X8>)
+void PVFrameStatsDescription::GetStringForLabelsJSON(void *a1@<X8>)
 {
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:{@"Num", @"FrameTime", @"Playback", @"RendPasses", @"WaitToBuildGraph", @"SetupInputs", @"BuildGraph", @"WaitToRender", @"SetupDest", @"DeferredBitmaps", @"ShaderCompile", @"RenderTime", @"FinishReq", @"TotalTime", @"TimeSinceLastStart", @"fTimeDiff", 0}];
-  v7 = 0;
-  v4 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v3 options:4 error:&v7];
-  v5 = v7;
-  if (v4)
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:{@"Num", @"FrameTime", @"Playback", @"RendPasses", @"WaitToBuildGraph", @"SetupInputs", @"BuildGraph", @"WaitToRender", @"SetupDest", @"DeferredBitmaps", @"ShaderCompile", @"RenderTime", @"FinishReq", @"TotalTime", @"TimeSinceLastStart", @"fTimeDiff", 0}];
+  v6 = 0;
+  v3 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v2 options:4 error:&v6];
+  v4 = v6;
+  if (v3)
   {
-    v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v4 encoding:4];
-    std::string::basic_string[abi:ne200100]<0>(a1, [v6 UTF8String]);
+    v5 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v3 encoding:4];
+    std::string::basic_string[abi:ne200100]<0>(a1, [v5 UTF8String]);
   }
 
   else
@@ -9457,11 +9491,11 @@ void PVFrameStatsDescription::GetStringForLabelsJSON(_BYTE *a1@<X8>)
   }
 }
 
-void PVFrameStatsDescription::GetStringForStats(PVPerfStats::FrameStats *a1@<X2>, PVPerfStats::FrameStats *a2@<X3>, PVFrameStatsDescription *a3@<X0>, int a4@<W1>, _BYTE *a5@<X8>)
+void PVFrameStatsDescription::GetStringForStats(PVPerfStats::FrameStats *a1@<X2>, PVPerfStats::FrameStats *a2@<X3>, PVFrameStatsDescription *a3@<X0>, int a4@<W1>, void *a5@<X8>)
 {
   if (a4 == 2)
   {
-    PVFrameStatsDescription::GetStringForStatsPMR(a3, a1, a1);
+    PVFrameStatsDescription::GetStringForStatsPMR(a3, a1);
   }
 
   else if (a4 == 1)
@@ -9480,20 +9514,20 @@ void PVFrameStatsDescription::GetStringForStats(PVPerfStats::FrameStats *a1@<X2>
   }
 }
 
-uint64_t PVFrameStatsDescription::GetStringForStatsTEXT(PVFrameStatsDescription *this, const PVPerfStats::FrameStats *a2, const PVPerfStats::FrameStats *a3)
+uint64_t PVFrameStatsDescription::GetStringForStatsTEXT(void x0_0, const PVPerfStats::FrameStats *a1, const PVPerfStats::FrameStats *a2)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v52);
   v5 = v53;
   *(&v53 + *(v53 - 24) + 8) = *(&v53 + *(v53 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v55[1].__locale_ + *(v5 - 24)) = 4;
   *(&v55[0].__locale_ + *(v5 - 24)) = 0;
-  v6 = MEMORY[0x2666E9B60](&v53, *(a2 + 1));
+  v6 = MEMORY[0x2666E9B60](&v53, *(a1 + 1));
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, " | ", 3);
   v7 = v53;
   *(&v53 + *(v53 - 24) + 8) = *(&v53 + *(v53 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v55[1].__locale_ + *(v7 - 24)) = 10;
   *(&v55[0].__locale_ + *(v7 - 24)) = 3;
-  v51 = *(a2 + 8);
+  v51 = *(a1 + 8);
   Seconds = CMTimeGetSeconds(&v51);
   v9 = MEMORY[0x2666E9B30](&v53, Seconds);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " | ", 3);
@@ -9501,90 +9535,90 @@ uint64_t PVFrameStatsDescription::GetStringForStatsTEXT(PVFrameStatsDescription 
   *(&v53 + *(v53 - 24) + 8) = *(&v53 + *(v53 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v55[1].__locale_ + *(v10 - 24)) = 8;
   *(&v55[0].__locale_ + *(v10 - 24)) = 0;
-  v11 = MEMORY[0x2666E9B20](&v53, *(a2 + 56));
+  v11 = MEMORY[0x2666E9B20](&v53, *(a1 + 56));
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, " | ", 3);
   v12 = v53;
   *(&v53 + *(v53 - 24) + 8) = *(&v53 + *(v53 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v55[1].__locale_ + *(v12 - 24)) = 10;
   *(&v55[0].__locale_ + *(v12 - 24)) = 0;
-  ValueForIndex = PVPerfStats::FrameStats::GetValueForIndex(a2, 0xAu);
+  ValueForIndex = PVPerfStats::FrameStats::GetValueForIndex(a1, 0xAu);
   v14 = MEMORY[0x2666E9B50](&v53, ValueForIndex);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, " | ", 3);
   v15 = v53;
   *(&v53 + *(v53 - 24) + 8) = *(&v53 + *(v53 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v55[1].__locale_ + *(v15 - 24)) = 16;
   *(&v55[0].__locale_ + *(v15 - 24)) = 3;
-  v16 = PVPerfStats::FrameStats::GetValueForIndex(a2, 0);
+  v16 = PVPerfStats::FrameStats::GetValueForIndex(a1, 0);
   v17 = MEMORY[0x2666E9B30](&v53, v16 * 1000.0);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, " | ", 3);
   v18 = v53;
   *(&v53 + *(v53 - 24) + 8) = *(&v53 + *(v53 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v55[1].__locale_ + *(v18 - 24)) = 11;
   *(&v55[0].__locale_ + *(v18 - 24)) = 3;
-  v19 = PVPerfStats::FrameStats::GetValueForIndex(a2, 1u);
+  v19 = PVPerfStats::FrameStats::GetValueForIndex(a1, 1u);
   v20 = MEMORY[0x2666E9B30](&v53, v19 * 1000.0);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, " | ", 3);
   v21 = v53;
   *(&v53 + *(v53 - 24) + 8) = *(&v53 + *(v53 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v55[1].__locale_ + *(v21 - 24)) = 10;
   *(&v55[0].__locale_ + *(v21 - 24)) = 3;
-  v22 = PVPerfStats::FrameStats::GetValueForIndex(a2, 2u);
+  v22 = PVPerfStats::FrameStats::GetValueForIndex(a1, 2u);
   v23 = MEMORY[0x2666E9B30](&v53, v22 * 1000.0);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, " | ", 3);
   v24 = v53;
   *(&v53 + *(v53 - 24) + 8) = *(&v53 + *(v53 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v55[1].__locale_ + *(v24 - 24)) = 12;
   *(&v55[0].__locale_ + *(v24 - 24)) = 3;
-  v25 = PVPerfStats::FrameStats::GetValueForIndex(a2, 3u);
+  v25 = PVPerfStats::FrameStats::GetValueForIndex(a1, 3u);
   v26 = MEMORY[0x2666E9B30](&v53, v25 * 1000.0);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, " | ", 3);
   v27 = v53;
   *(&v53 + *(v53 - 24) + 8) = *(&v53 + *(v53 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v55[1].__locale_ + *(v27 - 24)) = 9;
   *(&v55[0].__locale_ + *(v27 - 24)) = 3;
-  v28 = PVPerfStats::FrameStats::GetValueForIndex(a2, 4u);
+  v28 = PVPerfStats::FrameStats::GetValueForIndex(a1, 4u);
   v29 = MEMORY[0x2666E9B30](&v53, v28 * 1000.0);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, " | ", 3);
   v30 = v53;
   *(&v53 + *(v53 - 24) + 8) = *(&v53 + *(v53 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v55[1].__locale_ + *(v30 - 24)) = 15;
   *(&v55[0].__locale_ + *(v30 - 24)) = 3;
-  v31 = PVPerfStats::FrameStats::GetValueForIndex(a2, 5u);
+  v31 = PVPerfStats::FrameStats::GetValueForIndex(a1, 5u);
   v32 = MEMORY[0x2666E9B30](&v53, v31 * 1000.0);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, " | ", 3);
   v33 = v53;
   *(&v53 + *(v53 - 24) + 8) = *(&v53 + *(v53 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v55[1].__locale_ + *(v33 - 24)) = 13;
   *(&v55[0].__locale_ + *(v33 - 24)) = 3;
-  v34 = PVPerfStats::FrameStats::GetValueForIndex(a2, 6u);
+  v34 = PVPerfStats::FrameStats::GetValueForIndex(a1, 6u);
   v35 = MEMORY[0x2666E9B30](&v53, v34 * 1000.0);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, " | ", 3);
   v36 = v53;
   *(&v53 + *(v53 - 24) + 8) = *(&v53 + *(v53 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v55[1].__locale_ + *(v36 - 24)) = 10;
   *(&v55[0].__locale_ + *(v36 - 24)) = 3;
-  v37 = PVPerfStats::FrameStats::GetValueForIndex(a2, 7u);
+  v37 = PVPerfStats::FrameStats::GetValueForIndex(a1, 7u);
   v38 = MEMORY[0x2666E9B30](&v53, v37 * 1000.0);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, " | ", 3);
   v39 = v53;
   *(&v53 + *(v53 - 24) + 8) = *(&v53 + *(v53 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v55[1].__locale_ + *(v39 - 24)) = 9;
   *(&v55[0].__locale_ + *(v39 - 24)) = 3;
-  v40 = PVPerfStats::FrameStats::GetValueForIndex(a2, 8u);
+  v40 = PVPerfStats::FrameStats::GetValueForIndex(a1, 8u);
   v41 = MEMORY[0x2666E9B30](&v53, v40 * 1000.0);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, " | ", 3);
   v42 = v53;
   *(&v53 + *(v53 - 24) + 8) = *(&v53 + *(v53 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v55[1].__locale_ + *(v42 - 24)) = 9;
   *(&v55[0].__locale_ + *(v42 - 24)) = 3;
-  v43 = PVPerfStats::FrameStats::GetValueForIndex(a2, 9u);
+  v43 = PVPerfStats::FrameStats::GetValueForIndex(a1, 9u);
   v44 = MEMORY[0x2666E9B30](&v53, v43 * 1000.0);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, " | ", 3);
-  if (a3)
+  if (a2)
   {
-    v51 = *(a2 + 8);
+    v51 = *(a1 + 8);
     CMTimeGetSeconds(&v51);
-    v51 = *(a3 + 8);
+    v51 = *(a2 + 8);
     CMTimeGetSeconds(&v51);
   }
 
@@ -9615,28 +9649,28 @@ uint64_t PVFrameStatsDescription::GetStringForStatsTEXT(PVFrameStatsDescription 
   return MEMORY[0x2666E9E10](&v57);
 }
 
-void sub_25F95DE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25F95DE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t PVFrameStatsDescription::GetStringForStatsJSON(PVFrameStatsDescription *this, const PVPerfStats::FrameStats *a2, const PVPerfStats::FrameStats *a3)
+uint64_t PVFrameStatsDescription::GetStringForStatsJSON(void x0_0, const PVPerfStats::FrameStats *a1, const PVPerfStats::FrameStats *a2)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v89);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v90, "[", 1);
   v5 = v90;
   *(&v90 + *(v90 - 24) + 8) = *(&v90 + *(v90 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v92[0].__locale_ + *(v5 - 24)) = 0;
-  v6 = MEMORY[0x2666E9B60](&v90, *(a2 + 1));
+  v6 = MEMORY[0x2666E9B60](&v90, *(a1 + 1));
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, ", ", 2);
   v7 = v90;
   *(&v90 + *(v90 - 24) + 8) = *(&v90 + *(v90 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v92[0].__locale_ + *(v7 - 24)) = 3;
-  v87 = *(a2 + 8);
+  v87 = *(a1 + 8);
   Seconds = CMTimeGetSeconds(&v87);
-  formatValue(Seconds, &__p);
+  formatValue(&__p, Seconds);
   if (__p.epoch >= 0)
   {
     p_p = &__p;
@@ -9667,8 +9701,8 @@ uint64_t PVFrameStatsDescription::GetStringForStatsJSON(PVFrameStatsDescription 
   v13 = v90;
   *(&v90 + *(v90 - 24) + 8) = *(&v90 + *(v90 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v92[0].__locale_ + *(v13 - 24)) = 0;
-  LOBYTE(v12) = *(a2 + 56);
-  formatValue(v12, &__p);
+  LOBYTE(v12) = *(a1 + 56);
+  formatValue(&__p, v12);
   if (__p.epoch >= 0)
   {
     value = &__p;
@@ -9699,8 +9733,8 @@ uint64_t PVFrameStatsDescription::GetStringForStatsJSON(PVFrameStatsDescription 
   v17 = v90;
   *(&v90 + *(v90 - 24) + 8) = *(&v90 + *(v90 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v92[0].__locale_ + *(v17 - 24)) = 0;
-  ValueForIndex = PVPerfStats::FrameStats::GetValueForIndex(a2, 0xAu);
-  formatValue(ValueForIndex, &__p);
+  ValueForIndex = PVPerfStats::FrameStats::GetValueForIndex(a1, 0xAu);
+  formatValue(&__p, ValueForIndex);
   if (__p.epoch >= 0)
   {
     v19 = &__p;
@@ -9731,8 +9765,8 @@ uint64_t PVFrameStatsDescription::GetStringForStatsJSON(PVFrameStatsDescription 
   v22 = v90;
   *(&v90 + *(v90 - 24) + 8) = *(&v90 + *(v90 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v92[0].__locale_ + *(v22 - 24)) = 3;
-  v23 = PVPerfStats::FrameStats::GetValueForIndex(a2, 0);
-  formatValue(v23 * 1000.0, &__p);
+  v23 = PVPerfStats::FrameStats::GetValueForIndex(a1, 0);
+  formatValue(&__p, v23 * 1000.0);
   if (__p.epoch >= 0)
   {
     v24 = &__p;
@@ -9763,8 +9797,8 @@ uint64_t PVFrameStatsDescription::GetStringForStatsJSON(PVFrameStatsDescription 
   v27 = v90;
   *(&v90 + *(v90 - 24) + 8) = *(&v90 + *(v90 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v92[0].__locale_ + *(v27 - 24)) = 3;
-  v28 = PVPerfStats::FrameStats::GetValueForIndex(a2, 1u);
-  formatValue(v28 * 1000.0, &__p);
+  v28 = PVPerfStats::FrameStats::GetValueForIndex(a1, 1u);
+  formatValue(&__p, v28 * 1000.0);
   if (__p.epoch >= 0)
   {
     v29 = &__p;
@@ -9795,8 +9829,8 @@ uint64_t PVFrameStatsDescription::GetStringForStatsJSON(PVFrameStatsDescription 
   v32 = v90;
   *(&v90 + *(v90 - 24) + 8) = *(&v90 + *(v90 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v92[0].__locale_ + *(v32 - 24)) = 3;
-  v33 = PVPerfStats::FrameStats::GetValueForIndex(a2, 2u);
-  formatValue(v33 * 1000.0, &__p);
+  v33 = PVPerfStats::FrameStats::GetValueForIndex(a1, 2u);
+  formatValue(&__p, v33 * 1000.0);
   if (__p.epoch >= 0)
   {
     v34 = &__p;
@@ -9827,8 +9861,8 @@ uint64_t PVFrameStatsDescription::GetStringForStatsJSON(PVFrameStatsDescription 
   v37 = v90;
   *(&v90 + *(v90 - 24) + 8) = *(&v90 + *(v90 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v92[0].__locale_ + *(v37 - 24)) = 3;
-  v38 = PVPerfStats::FrameStats::GetValueForIndex(a2, 3u);
-  formatValue(v38 * 1000.0, &__p);
+  v38 = PVPerfStats::FrameStats::GetValueForIndex(a1, 3u);
+  formatValue(&__p, v38 * 1000.0);
   if (__p.epoch >= 0)
   {
     v39 = &__p;
@@ -9859,8 +9893,8 @@ uint64_t PVFrameStatsDescription::GetStringForStatsJSON(PVFrameStatsDescription 
   v42 = v90;
   *(&v90 + *(v90 - 24) + 8) = *(&v90 + *(v90 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v92[0].__locale_ + *(v42 - 24)) = 3;
-  v43 = PVPerfStats::FrameStats::GetValueForIndex(a2, 4u);
-  formatValue(v43 * 1000.0, &__p);
+  v43 = PVPerfStats::FrameStats::GetValueForIndex(a1, 4u);
+  formatValue(&__p, v43 * 1000.0);
   if (__p.epoch >= 0)
   {
     v44 = &__p;
@@ -9891,8 +9925,8 @@ uint64_t PVFrameStatsDescription::GetStringForStatsJSON(PVFrameStatsDescription 
   v47 = v90;
   *(&v90 + *(v90 - 24) + 8) = *(&v90 + *(v90 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v92[0].__locale_ + *(v47 - 24)) = 3;
-  v48 = PVPerfStats::FrameStats::GetValueForIndex(a2, 5u);
-  formatValue(v48 * 1000.0, &__p);
+  v48 = PVPerfStats::FrameStats::GetValueForIndex(a1, 5u);
+  formatValue(&__p, v48 * 1000.0);
   if (__p.epoch >= 0)
   {
     v49 = &__p;
@@ -9923,8 +9957,8 @@ uint64_t PVFrameStatsDescription::GetStringForStatsJSON(PVFrameStatsDescription 
   v52 = v90;
   *(&v90 + *(v90 - 24) + 8) = *(&v90 + *(v90 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v92[0].__locale_ + *(v52 - 24)) = 3;
-  v53 = PVPerfStats::FrameStats::GetValueForIndex(a2, 6u);
-  formatValue(v53 * 1000.0, &__p);
+  v53 = PVPerfStats::FrameStats::GetValueForIndex(a1, 6u);
+  formatValue(&__p, v53 * 1000.0);
   if (__p.epoch >= 0)
   {
     v54 = &__p;
@@ -9955,8 +9989,8 @@ uint64_t PVFrameStatsDescription::GetStringForStatsJSON(PVFrameStatsDescription 
   v57 = v90;
   *(&v90 + *(v90 - 24) + 8) = *(&v90 + *(v90 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v92[0].__locale_ + *(v57 - 24)) = 3;
-  v58 = PVPerfStats::FrameStats::GetValueForIndex(a2, 7u);
-  formatValue(v58 * 1000.0, &__p);
+  v58 = PVPerfStats::FrameStats::GetValueForIndex(a1, 7u);
+  formatValue(&__p, v58 * 1000.0);
   if (__p.epoch >= 0)
   {
     v59 = &__p;
@@ -9987,8 +10021,8 @@ uint64_t PVFrameStatsDescription::GetStringForStatsJSON(PVFrameStatsDescription 
   v62 = v90;
   *(&v90 + *(v90 - 24) + 8) = *(&v90 + *(v90 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v92[0].__locale_ + *(v62 - 24)) = 3;
-  v63 = PVPerfStats::FrameStats::GetValueForIndex(a2, 8u);
-  formatValue(v63 * 1000.0, &__p);
+  v63 = PVPerfStats::FrameStats::GetValueForIndex(a1, 8u);
+  formatValue(&__p, v63 * 1000.0);
   if (__p.epoch >= 0)
   {
     v64 = &__p;
@@ -10019,8 +10053,8 @@ uint64_t PVFrameStatsDescription::GetStringForStatsJSON(PVFrameStatsDescription 
   v67 = v90;
   *(&v90 + *(v90 - 24) + 8) = *(&v90 + *(v90 - 24) + 8) & 0xFFFFFEFB | 4;
   *(&v92[0].__locale_ + *(v67 - 24)) = 3;
-  v68 = PVPerfStats::FrameStats::GetValueForIndex(a2, 9u);
-  formatValue(v68 * 1000.0, &__p);
+  v68 = PVPerfStats::FrameStats::GetValueForIndex(a1, 9u);
+  formatValue(&__p, v68 * 1000.0);
   if (__p.epoch >= 0)
   {
     v69 = &__p;
@@ -10046,20 +10080,20 @@ uint64_t PVFrameStatsDescription::GetStringForStatsJSON(PVFrameStatsDescription 
   if (SHIBYTE(__p.epoch) < 0)
   {
     operator delete(__p.value);
-    if (a3)
+    if (a2)
     {
       goto LABEL_105;
     }
   }
 
-  else if (a3)
+  else if (a2)
   {
 LABEL_105:
-    v72 = *(a2 + 4);
-    v73 = *(a3 + 4);
-    __p = *(a2 + 8);
+    v72 = *(a1 + 4);
+    v73 = *(a2 + 4);
+    __p = *(a1 + 8);
     v74 = CMTimeGetSeconds(&__p);
-    __p = *(a3 + 8);
+    __p = *(a2 + 8);
     v75 = CMTimeGetSeconds(&__p);
     v76 = (v72 - v73) * 1000.0;
     v77 = v74 - v75;
@@ -10072,7 +10106,7 @@ LABEL_105:
   v79 = 0.0;
 LABEL_108:
   *(&v92[0].__locale_ + *(v90 - 24)) = 3;
-  formatValue(v78, &__p);
+  formatValue(&__p, v78);
   if (__p.epoch >= 0)
   {
     v80 = &__p;
@@ -10101,7 +10135,7 @@ LABEL_108:
   }
 
   *(&v92[0].__locale_ + *(v90 - 24)) = 3;
-  formatValue(v79, &__p);
+  formatValue(&__p, v79);
   if (__p.epoch >= 0)
   {
     v83 = &__p;

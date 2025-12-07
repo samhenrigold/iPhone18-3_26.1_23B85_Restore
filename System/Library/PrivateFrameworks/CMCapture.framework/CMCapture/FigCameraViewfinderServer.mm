@@ -2,7 +2,7 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (FigCameraViewfinderServer)init;
 - (id)osStatePropertyList;
-- (uint64_t)_remoteViewfinderForLocalViewfinder:(_DWORD *)viewfinder remotePID:;
+- (void)_remoteViewfinderForLocalViewfinder:(_DWORD *)viewfinder remotePID:;
 - (void)cameraViewfinder:(id)viewfinder viewfinderSessionDidBegin:(id)begin;
 - (void)cameraViewfinder:(id)viewfinder viewfinderSessionDidEnd:(id)end;
 - (void)cameraViewfinder:(id)viewfinder viewfinderSessionWillBegin:(id)begin;
@@ -58,7 +58,7 @@
 {
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection, a2);
   }
 
   else
@@ -189,11 +189,12 @@ void __64__FigCameraViewfinderServer_listener_shouldAcceptNewConnection___block_
   fig_dispatch_async_autoreleasepool(v4, v8);
 }
 
-uint64_t __64__FigCameraViewfinderServer_listener_shouldAcceptNewConnection___block_invoke_2_70()
+double __64__FigCameraViewfinderServer_listener_shouldAcceptNewConnection___block_invoke_2_70()
 {
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
   os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-  return fig_log_call_emit_and_clean_up_after_send_and_compose();
+  fig_log_call_emit_and_clean_up_after_send_and_compose();
+  return result;
 }
 
 - (void)cameraViewfinder:(id)viewfinder viewfinderSessionWillBegin:(id)begin
@@ -201,7 +202,7 @@ uint64_t __64__FigCameraViewfinderServer_listener_shouldAcceptNewConnection___bl
   memset(v15, 0, sizeof(v15));
   if (begin)
   {
-    [begin clientAuditToken];
+    objc_msgSend_clientAuditToken(begin, a2);
   }
 
   v7 = [MEMORY[0x1E695DEF0] dataWithBytes:v15 length:32];
@@ -219,7 +220,7 @@ uint64_t __64__FigCameraViewfinderServer_listener_shouldAcceptNewConnection___bl
   [v8 viewfinderSessionWillBegin:begin withIdentifier:objc_msgSend(begin clientAuditTokenData:"identifier" usesPhotoOutput:v10 usesMovieFileOutput:{v11), v7, objc_msgSend(begin, "usesPhotoOutput"), objc_msgSend(begin, "usesMovieFileOutput")}];
 }
 
-- (uint64_t)_remoteViewfinderForLocalViewfinder:(_DWORD *)viewfinder remotePID:
+- (void)_remoteViewfinderForLocalViewfinder:(_DWORD *)viewfinder remotePID:
 {
   result = 0;
   if (self && a2)
@@ -305,7 +306,7 @@ uint64_t __64__FigCameraViewfinderServer_listener_shouldAcceptNewConnection___bl
   memset(v15, 0, sizeof(v15));
   if (begin)
   {
-    [begin clientAuditToken];
+    objc_msgSend_clientAuditToken(begin, a2);
   }
 
   v7 = [MEMORY[0x1E695DEF0] dataWithBytes:v15 length:32];

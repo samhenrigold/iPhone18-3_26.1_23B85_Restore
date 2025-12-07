@@ -233,7 +233,7 @@ LABEL_9:
   [(PXGLayout *)self setContentSize:v24, v25];
 }
 
-uint64_t __37__PXGSingleViewLayout__updateContent__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _WORD *a5)
+void *__37__PXGSingleViewLayout__updateContent__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _WORD *a5)
 {
   v9 = *(a1 + 72);
   v10 = *(a1 + 40);

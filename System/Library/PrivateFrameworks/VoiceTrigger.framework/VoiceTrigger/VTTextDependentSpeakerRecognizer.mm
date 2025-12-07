@@ -483,7 +483,7 @@ void __45__VTTextDependentSpeakerRecognizer_updateSAT__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __53__VTTextDependentSpeakerRecognizer_getSATVectorCount__block_invoke(uint64_t a1)
+void *__53__VTTextDependentSpeakerRecognizer_getSATVectorCount__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _getSATVectorCount];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -707,7 +707,7 @@ void __54__VTTextDependentSpeakerRecognizer_resetForNewRequest__block_invoke(uin
 
 - (VTTextDependentSpeakerRecognizer)initWithResourcePath:(id)path satDirectory:(id)directory assetHash:(id)hash shouldCreateModelDir:(BOOL)dir delegate:(id)delegate
 {
-  v31 = *MEMORY[0x277D85DE8];
+  *&v30[5] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   directoryCopy = directory;
   hashCopy = hash;
@@ -734,7 +734,7 @@ void __54__VTTextDependentSpeakerRecognizer_resetForNewRequest__block_invoke(uin
       {
         v22 = p_isa[6];
         *buf = 138543362;
-        v30 = v22;
+        *v30 = v22;
         _os_log_impl(&dword_223A31000, v20, OS_LOG_TYPE_DEFAULT, "TDSR:: resourcePath: %{public}@", buf, 0xCu);
         v20 = VTLogContextFacilityVoiceTrigger;
       }
@@ -742,7 +742,7 @@ void __54__VTTextDependentSpeakerRecognizer_resetForNewRequest__block_invoke(uin
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v30 = v17;
+        *v30 = v17;
         _os_log_impl(&dword_223A31000, v20, OS_LOG_TYPE_DEFAULT, "TDSR:: tdSrConfigFilePath: %{public}@", buf, 0xCu);
         v20 = VTLogContextFacilityVoiceTrigger;
       }
@@ -751,7 +751,7 @@ void __54__VTTextDependentSpeakerRecognizer_resetForNewRequest__block_invoke(uin
       {
         v23 = p_isa[7];
         *buf = 138543362;
-        v30 = v23;
+        *v30 = v23;
         _os_log_impl(&dword_223A31000, v20, OS_LOG_TYPE_DEFAULT, "TDSR:: _satDirectory: %{public}@", buf, 0xCu);
         v20 = VTLogContextFacilityVoiceTrigger;
       }
@@ -760,7 +760,7 @@ void __54__VTTextDependentSpeakerRecognizer_resetForNewRequest__block_invoke(uin
       {
         v24 = p_isa[9];
         *buf = 138543362;
-        v30 = v24;
+        *v30 = v24;
         _os_log_impl(&dword_223A31000, v20, OS_LOG_TYPE_DEFAULT, "TDSR:: _assetHash: %{public}@", buf, 0xCu);
       }
 

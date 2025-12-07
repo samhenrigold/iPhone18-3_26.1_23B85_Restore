@@ -6,7 +6,7 @@
 
 + (void)reportProcessingMetricsWithSourceType:(int64_t)type intervalProcessed:(id)processed processingDuration:(double)duration recordsProcessed:(unint64_t)recordsProcessed error:(id)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   processedCopy = processed;
   errorCopy = error;
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
@@ -58,19 +58,17 @@
       v25 = ACHLogDefault();
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = 138412546;
-        v29 = v24;
-        v30 = 2048;
+        v27 = 138412546;
+        v28 = v24;
+        v29 = 2048;
         typeCopy = type;
-        _os_log_impl(&dword_221DDC000, v25, OS_LOG_TYPE_DEFAULT, "Logging historical processing metric event %@ for source %ld", &v28, 0x16u);
+        _os_log_impl(&dword_221DDC000, v25, OS_LOG_TYPE_DEFAULT, "Logging historical processing metric event %@ for source %ld", &v27, 0x16u);
       }
 
       v26 = [v17 copy];
       FIActivityAnalyticsSubmissionWithPayload();
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 @end

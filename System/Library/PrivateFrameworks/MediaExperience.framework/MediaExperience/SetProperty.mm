@@ -8,27 +8,26 @@ void __discoverer_SetProperty_block_invoke_2(uint64_t a1)
   theArray[16] = *MEMORY[0x1E69E9840];
   if (CFEqual(*(a1 + 40), @"DiscoveryMode"))
   {
-    v2 = *(*(a1 + 48) + 16);
-    if (FigCFEqual() && MX_FeatureFlags_IsCorianderEnabled())
+    v2 = FigCFEqual();
+    if (v2 && MX_FeatureFlags_IsCorianderEnabled(v2, v3))
     {
-      v3 = *(a1 + 56);
-      if (v3)
+      v4 = *(a1 + 56);
+      if (v4)
       {
-        CFRetain(v3);
+        CFRetain(v4);
       }
 
       NotificationQueue = FigRouteDiscoveryManagerGetNotificationQueue();
-      v46[0] = MEMORY[0x1E69E9820];
-      v46[1] = 3221225472;
-      v46[2] = __discoverer_SetProperty_block_invoke_3;
-      v46[3] = &__block_descriptor_40_e5_v8__0l;
-      v46[4] = *(a1 + 56);
-      MXDispatchAsync("discoverer_SetProperty_block_invoke_2", "FigRouteDiscoverer.m", 635, 0, 0, NotificationQueue, v46);
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __discoverer_SetProperty_block_invoke_3;
+      v28[3] = &__block_descriptor_40_e5_v8__0l;
+      v28[4] = *(a1 + 56);
+      MXDispatchAsync("discoverer_SetProperty_block_invoke_2", "FigRouteDiscoverer.m", 635, 0, 0, NotificationQueue, v28);
     }
 
     else
     {
-      v5 = *(*(a1 + 48) + 16);
       if (FigCFEqual())
       {
         v6 = dword_1EB75DF60 == 0;
@@ -41,7 +40,7 @@ void __discoverer_SetProperty_block_invoke_2(uint64_t a1)
 
       if (!v6)
       {
-        v45 = 0;
+        v27 = 0;
         type = OS_LOG_TYPE_DEFAULT;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -74,36 +73,27 @@ void __discoverer_SetProperty_block_invoke_2(uint64_t a1)
         CFRelease(v10);
       }
 
-      v12 = **(a1 + 48);
-      if (FigCFEqual())
+      v12 = FigCFEqual();
+      if (v12)
       {
-        v13 = *(*(a1 + 48) + 80);
         FigSimpleMutexLock();
-        v14 = *(a1 + 48);
-        *(v14 + 88) = 0;
-        v15 = *(v14 + 80);
-        FigSimpleMutexUnlock();
+        *(*(a1 + 48) + 88) = 0;
+        v12 = FigSimpleMutexUnlock();
       }
 
-      if (MX_FeatureFlags_IsAVODDiscoveryEnhancementEnabled())
+      if (MX_FeatureFlags_IsAVODDiscoveryEnhancementEnabled(v12, v13) && !FigCFEqual())
       {
-        v16 = **(a1 + 48);
-        if (!FigCFEqual())
-        {
-          v17 = *(a1 + 56);
-          FigRouteDiscoveryManagerRemoveCachedDiscoverers();
-        }
+        FigRouteDiscoveryManagerRemoveCachedDiscoverers(*(a1 + 56));
       }
 
-      v18 = **(a1 + 48);
       if (FigCFEqual())
       {
         if (dword_1EB75DF60)
         {
-          v45 = 0;
+          v27 = 0;
           type = OS_LOG_TYPE_DEFAULT;
-          v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+          v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
       }
@@ -112,75 +102,62 @@ void __discoverer_SetProperty_block_invoke_2(uint64_t a1)
       {
         if (dword_1EB75DF60)
         {
-          v45 = 0;
+          v27 = 0;
           type = OS_LOG_TYPE_DEFAULT;
-          v20 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+          v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        v21 = **(a1 + 48);
-        if (!FigRouteDiscovereryManagerIsNewDiscoveryModeHigher())
+        IsNewDiscoveryModeHigher = FigRouteDiscovereryManagerIsNewDiscoveryModeHigher(v9, **(a1 + 48));
+        if (!IsNewDiscoveryModeHigher)
         {
-          v22 = *(*(a1 + 48) + 16);
-          if (FigRouteDiscovererShouldLogForClient())
+          IsNewDiscoveryModeHigher = FigRouteDiscovererShouldLogForClient(*(*(a1 + 48) + 16));
+          if (IsNewDiscoveryModeHigher)
           {
             UpTimeNanoseconds = FigGetUpTimeNanoseconds();
-            v24 = *(*(a1 + 48) + 80);
             FigSimpleMutexLock();
-            v25 = *(*(a1 + 48) + 96);
-            v26 = *(a1 + 48);
-            *(v26 + 64) = UpTimeNanoseconds;
-            v27 = *(v26 + 80);
+            v19 = *(*(a1 + 48) + 96);
+            *(*(a1 + 48) + 64) = UpTimeNanoseconds;
             FigSimpleMutexUnlock();
-            discoverer_logAvailableRouteDetails(*(*(a1 + 48) + 16), *(*(a1 + 48) + 56), v25);
-            if (v25)
+            discoverer_logAvailableRouteDetails(*(*(a1 + 48) + 16), *(*(a1 + 48) + 56), v19);
+            if (v19)
             {
-              CFRelease(v25);
+              CFRelease(v19);
             }
           }
         }
 
-        if (MX_FeatureFlags_IsAVODDiscoveryEnhancementEnabled())
+        if (MX_FeatureFlags_IsAVODDiscoveryEnhancementEnabled(IsNewDiscoveryModeHigher, v17) && FigCFEqual())
         {
-          v28 = **(a1 + 48);
-          if (FigCFEqual())
-          {
-            v29 = *(a1 + 56);
-            FigRouteDiscoveryManagerAddToCachedDiscoverers();
-          }
+          FigRouteDiscoveryManagerAddToCachedDiscoverers(*(a1 + 56));
         }
 
         FigRouteDiscoveryManagerUpdateDiscoveryMode();
-        v30 = **(a1 + 48);
-        if (FigRouteDiscovereryManagerIsNewDiscoveryModeHigher())
+        if (FigRouteDiscovereryManagerIsNewDiscoveryModeHigher(v9, **(a1 + 48)))
         {
           theArray[0] = 0;
           FigRouteDiscoveryManagerCopyRoutesForTypeAndAudioSessionID(*MEMORY[0x1E695E480], *(*(a1 + 48) + 56), *(*(a1 + 48) + 8), *(*(a1 + 48) + 24), theArray);
-          v31 = FigRouteDiscoveryManagerCopyRouteDescriptorsFromEndpointsAndAudioSessionID(theArray[0], *(*(a1 + 48) + 8));
-          v32 = *(*(a1 + 48) + 80);
+          v20 = FigRouteDiscoveryManagerCopyRouteDescriptorsFromEndpointsAndAudioSessionID(theArray[0], *(*(a1 + 48) + 8));
           FigSimpleMutexLock();
 
-          v33 = theArray[0];
-          v34 = *(a1 + 48);
-          *(v34 + 104) = v33;
+          v21 = theArray[0];
+          v22 = *(a1 + 48);
+          *(v22 + 104) = v21;
 
-          if (*(*(a1 + 48) + 56) == 8 && v31 && CFArrayGetCount(v31))
+          if (*(*(a1 + 48) + 56) == 8 && v20 && CFArrayGetCount(v20))
           {
-            [-[__CFArray objectAtIndex:](v31 objectAtIndex:{0), "setValue:forKey:", @"Default", @"RouteType"}];
+            [-[__CFArray objectAtIndex:](v20 objectAtIndex:{0), "setValue:forKey:", @"Default", @"RouteType"}];
           }
 
-          v35 = v31;
-          v36 = *(a1 + 48);
-          *(v36 + 96) = v35;
-          v37 = *(v36 + 80);
+          *(*(a1 + 48) + 96) = v20;
           FigSimpleMutexUnlock();
-          if (v31)
+          if (v20)
           {
-            CFRelease(v31);
+            CFRelease(v20);
           }
 
-          if (FigCFEqual() && (v38 = **(a1 + 48), FigCFEqual()) || FigCFEqual() && (v39 = **(a1 + 48), FigCFEqual()) && *(*(a1 + 48) + 56) == 8)
+          if (FigCFEqual() && FigCFEqual() || FigCFEqual() && FigCFEqual() && *(*(a1 + 48) + 56) == 8)
           {
             discoverer_updateUserSelectionAvailableAndNotifyIfRoutePresentChanged(*(a1 + 56), theArray[0], 0);
           }
@@ -189,19 +166,19 @@ void __discoverer_SetProperty_block_invoke_2(uint64_t a1)
           {
             if (CFArrayGetCount(theArray[0]))
             {
-              v40 = *(a1 + 56);
-              if (v40)
+              v23 = *(a1 + 56);
+              if (v23)
               {
-                CFRetain(v40);
+                CFRetain(v23);
               }
 
-              v41 = FigRouteDiscoveryManagerGetNotificationQueue();
-              v43[0] = MEMORY[0x1E69E9820];
-              v43[1] = 3221225472;
-              v43[2] = __discoverer_SetProperty_block_invoke_2_53;
-              v43[3] = &__block_descriptor_40_e5_v8__0l;
-              v43[4] = *(a1 + 56);
-              MXDispatchAsync("discoverer_SetProperty_block_invoke", "FigRouteDiscoverer.m", 757, 0, 0, v41, v43);
+              v24 = FigRouteDiscoveryManagerGetNotificationQueue();
+              v25[0] = MEMORY[0x1E69E9820];
+              v25[1] = 3221225472;
+              v25[2] = __discoverer_SetProperty_block_invoke_2_53;
+              v25[3] = &__block_descriptor_40_e5_v8__0l;
+              v25[4] = *(a1 + 56);
+              MXDispatchAsync("discoverer_SetProperty_block_invoke", "FigRouteDiscoverer.m", 757, 0, 0, v24, v25);
             }
 
             if (theArray[0])
@@ -223,8 +200,6 @@ void __discoverer_SetProperty_block_invoke_2(uint64_t a1)
   {
     *(*(*(a1 + 32) + 8) + 24) = -12784;
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __central_SetProperty_block_invoke(void *a1)
@@ -235,7 +210,7 @@ uint64_t __central_SetProperty_block_invoke(void *a1)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (*DerivedStorage)
   {
-    v10 = FigSignalErrorAtGM();
+    v10 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, v15, v16);
   }
 
   else
@@ -282,14 +257,11 @@ uint64_t __central_SetProperty_block_invoke(void *a1)
 
     else
     {
-      v11 = *(v5 + 1);
       CMBaseObject = FigEndpointGetCMBaseObject();
-      VTable = CMBaseObjectGetVTable();
-      v14 = *(*(VTable + 8) + 56);
-      if (v14)
+      v12 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+      if (v12)
       {
-        v15 = *(VTable + 8) + 56;
-        v10 = v14(CMBaseObject, v2, v3);
+        v10 = v12(CMBaseObject, v2, v3);
       }
 
       else
@@ -305,26 +277,24 @@ uint64_t __central_SetProperty_block_invoke(void *a1)
 void __discoverer_SetProperty_block_invoke_3(uint64_t a1)
 {
   CMNotificationCenterGetDefaultLocalCenter();
-  v2 = *(a1 + 32);
   CMNotificationCenterPostNotification();
-  v3 = *(a1 + 32);
-  if (v3)
+  v2 = *(a1 + 32);
+  if (v2)
   {
 
-    CFRelease(v3);
+    CFRelease(v2);
   }
 }
 
 void __discoverer_SetProperty_block_invoke_2_53(uint64_t a1)
 {
   CMNotificationCenterGetDefaultLocalCenter();
-  v2 = *(a1 + 32);
   CMNotificationCenterPostNotification();
-  v3 = *(a1 + 32);
-  if (v3)
+  v2 = *(a1 + 32);
+  if (v2)
   {
 
-    CFRelease(v3);
+    CFRelease(v2);
   }
 }
 
@@ -332,33 +302,27 @@ uint64_t __routingContextResilientRemote_SetProperty_block_invoke(uint64_t a1, u
 {
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 8) + 56);
-  if (!v6)
-  {
-    return 4294954514;
-  }
-
-  v7 = *(VTable + 8) + 56;
-
-  return v6(a2, v3, v4);
-}
-
-uint64_t __endpointAggregate_SetProperty_block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  CMBaseObject = FigEndpointGetCMBaseObject();
-  VTable = CMBaseObjectGetVTable();
-  v5 = *(*(VTable + 8) + 56);
+  v5 = *(*(CMBaseObjectGetVTable() + 8) + 56);
   if (!v5)
   {
     return 4294954514;
   }
 
-  v6 = *(VTable + 8) + 56;
+  return v5(a2, v3, v4);
+}
 
-  return v5(CMBaseObject, v1, v2);
+uint64_t __endpointAggregate_SetProperty_block_invoke(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  CMBaseObject = FigEndpointGetCMBaseObject();
+  v5 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (!v5)
+  {
+    return 4294954514;
+  }
+
+  return v5(CMBaseObject, v2, v3);
 }
 
 @end

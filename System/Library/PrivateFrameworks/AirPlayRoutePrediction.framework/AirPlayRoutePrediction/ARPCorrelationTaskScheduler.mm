@@ -123,29 +123,29 @@
   if (v13)
   {
     queue = [(ARPCorrelationTaskScheduler *)self queue];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __55__ARPCorrelationTaskScheduler_nowPlayingEventInserted___block_invoke;
-    v19[3] = &unk_278C646A0;
-    v19[4] = self;
-    v15 = v19;
-    v16 = os_transaction_create();
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __55__ARPCorrelationTaskScheduler_nowPlayingEventInserted___block_invoke;
+    v20[3] = &unk_278C646A0;
+    v20[4] = self;
+    v16 = v20;
+    v17 = os_transaction_create();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __cd_dispatch_async_capture_tx_block_invoke;
     block[3] = &unk_278C646F0;
-    v21 = v16;
-    v22 = v15;
-    v17 = v16;
+    v22 = v17;
+    v23 = v16;
+    v18 = v17;
     dispatch_async(queue, block);
   }
 
   else
   {
-    v18 = ARPLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v19 = ARPLog(v14);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      [ARPCorrelationTaskScheduler nowPlayingEventInserted:v18];
+      [ARPCorrelationTaskScheduler nowPlayingEventInserted:v19];
     }
   }
 }

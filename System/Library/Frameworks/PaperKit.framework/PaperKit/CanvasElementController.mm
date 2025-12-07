@@ -70,9 +70,10 @@
 {
   colorCopy = color;
   selfCopy = self;
-  v6 = specialized CanvasElementController._toolPickerCurrentSelectionColor(_:)();
+  specialized CanvasElementController._toolPickerCurrentSelectionColor(_:)();
+  v7 = v6;
 
-  return v6;
+  return v7;
 }
 
 - (void)_toolPickerDidInvokeAddTextBox:(id)box

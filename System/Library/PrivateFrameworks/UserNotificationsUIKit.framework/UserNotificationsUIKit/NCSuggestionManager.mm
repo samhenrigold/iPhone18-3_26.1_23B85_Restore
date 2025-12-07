@@ -1968,7 +1968,7 @@ void __46__NCSuggestionManager_reloadRemoteSuggestions__block_invoke_cold_2(uint
   v5 = [v4 un_logDigest];
   v6 = [a2 sectionIdentifier];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_0_4(&dword_21E77E000, v7, v8, "Not adding suggestion for request %{public}@ from section %{public}@ since the section doesnt have user configurable settings", v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_0_4(&dword_21E77E000, v7, v8, "Not adding suggestion for request %{public}@ from section %{public}@ since the section doesnt have user configurable settings", v9, v10, v11, v12);
 }
 
 - (void)_addSuggestionForNotificationRequest:(void *)a1 managementContentProvider:(void *)a2 .cold.2(void *a1, void *a2)
@@ -1978,7 +1978,7 @@ void __46__NCSuggestionManager_reloadRemoteSuggestions__block_invoke_cold_2(uint
   v5 = [v4 un_logDigest];
   v6 = [a2 sectionIdentifier];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_0_4(&dword_21E77E000, v7, v8, "Not adding suggestion for request %{public}@ from section %{public}@ since there is an existing suggestion for this section", v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_0_4(&dword_21E77E000, v7, v8, "Not adding suggestion for request %{public}@ from section %{public}@ since there is an existing suggestion for this section", v9, v10, v11, v12);
 }
 
 @end

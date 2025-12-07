@@ -10,7 +10,7 @@
 
 - (void)handleCommand:(id)command withContext:(id)context taskTracker:(id)tracker completion:(id)completion
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   contextCopy = context;
   trackerCopy = tracker;
@@ -23,8 +23,8 @@
   }
 
   objc_opt_class();
-  v41 = completionCopy;
-  v42 = commandCopy;
+  v40 = completionCopy;
+  v41 = commandCopy;
   if (objc_opt_isKindOfClass())
   {
     array = contextCopy;
@@ -39,37 +39,37 @@
   v15 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
-    v39 = v15;
+    v38 = v15;
     *buf = 136315394;
-    v61 = "[SVXServiceCommandHandlerUIAddDialogs handleCommand:withContext:taskTracker:completion:]";
-    v62 = 2048;
-    v63 = [v14 count];
-    _os_log_debug_impl(&dword_2695B9000, v39, OS_LOG_TYPE_DEBUG, "%s AddDialogs handler retrieved %tu command/context pairs from context", buf, 0x16u);
+    v60 = "[SVXServiceCommandHandlerUIAddDialogs handleCommand:withContext:taskTracker:completion:]";
+    v61 = 2048;
+    v62 = [v14 count];
+    _os_log_debug_impl(&dword_2695B9000, v38, OS_LOG_TYPE_DEBUG, "%s AddDialogs handler retrieved %tu command/context pairs from context", buf, 0x16u);
   }
 
-  v43 = contextCopy;
+  v42 = contextCopy;
   v16 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v14, "count")}];
   v17 = dispatch_group_create();
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   obj = v14;
-  v18 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
+  v18 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v57;
+    v20 = *v56;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v57 != v20)
+        if (*v56 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v56 + 1) + 8 * i);
+        v22 = *(*(&v55 + 1) + 8 * i);
         command = [v22 command];
         handlersByCommandType = self->_handlersByCommandType;
         v25 = objc_opt_class();
@@ -83,25 +83,25 @@
           if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
-            v61 = "[SVXServiceCommandHandlerUIAddDialogs handleCommand:withContext:taskTracker:completion:]";
-            v62 = 2112;
-            v63 = command;
+            v60 = "[SVXServiceCommandHandlerUIAddDialogs handleCommand:withContext:taskTracker:completion:]";
+            v61 = 2112;
+            v62 = command;
             _os_log_debug_impl(&dword_2695B9000, v28, OS_LOG_TYPE_DEBUG, "%s AddDialogs handler delegating command handling for command %@", buf, 0x16u);
           }
 
           dispatch_group_enter(v17);
           context = [v22 context];
-          v52[0] = MEMORY[0x277D85DD0];
-          v52[1] = 3221225472;
-          v52[2] = __89__SVXServiceCommandHandlerUIAddDialogs_handleCommand_withContext_taskTracker_completion___block_invoke;
-          v52[3] = &unk_279C67508;
-          v53 = v16;
+          v51[0] = MEMORY[0x277D85DD0];
+          v51[1] = 3221225472;
+          v51[2] = __89__SVXServiceCommandHandlerUIAddDialogs_handleCommand_withContext_taskTracker_completion___block_invoke;
+          v51[3] = &unk_279C67508;
+          v52 = v16;
           v31 = command;
-          v54 = v31;
-          v55 = v17;
-          [v27 handleCommand:v31 withContext:context taskTracker:trackerCopy completion:v52];
+          v53 = v31;
+          v54 = v17;
+          [v27 handleCommand:v31 withContext:context taskTracker:trackerCopy completion:v51];
 
-          v32 = v53;
+          v32 = v52;
         }
 
         else
@@ -110,11 +110,11 @@
           {
             v33 = self->_handlersByCommandType;
             *buf = 136315650;
-            v61 = "[SVXServiceCommandHandlerUIAddDialogs handleCommand:withContext:taskTracker:completion:]";
-            v62 = 2112;
-            v63 = command;
-            v64 = 2112;
-            v65 = v33;
+            v60 = "[SVXServiceCommandHandlerUIAddDialogs handleCommand:withContext:taskTracker:completion:]";
+            v61 = 2112;
+            v62 = command;
+            v63 = 2112;
+            v64 = v33;
             _os_log_error_impl(&dword_2695B9000, v28, OS_LOG_TYPE_ERROR, "%s AddDialogs could not find an handler for command: %@ with handlers: %@", buf, 0x20u);
           }
 
@@ -123,7 +123,7 @@
         }
       }
 
-      v19 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
+      v19 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
     }
 
     while (v19);
@@ -133,53 +133,50 @@
   block[1] = 3221225472;
   block[2] = __89__SVXServiceCommandHandlerUIAddDialogs_handleCommand_withContext_taskTracker_completion___block_invoke_47;
   block[3] = &unk_279C69038;
-  v48 = v17;
-  v49 = v42;
-  v50 = v16;
-  v51 = v41;
+  v47 = v17;
+  v48 = v41;
+  v49 = v16;
+  v50 = v40;
   v34 = v16;
-  v35 = v41;
-  v36 = v42;
+  v35 = v40;
+  v36 = v41;
   v37 = v17;
   dispatch_group_notify(v37, MEMORY[0x277D85CD0], block);
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __89__SVXServiceCommandHandlerUIAddDialogs_handleCommand_withContext_taskTracker_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) addObject:a2];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
-    v5 = *(a1 + 40);
-    v6 = 136315394;
-    v7 = "[SVXServiceCommandHandlerUIAddDialogs handleCommand:withContext:taskTracker:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v5;
-    _os_log_debug_impl(&dword_2695B9000, v3, OS_LOG_TYPE_DEBUG, "%s AddDialogs handler received a result command handling for command %@", &v6, 0x16u);
+    v4 = *(a1 + 40);
+    v5 = 136315394;
+    v6 = "[SVXServiceCommandHandlerUIAddDialogs handleCommand:withContext:taskTracker:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v4;
+    _os_log_debug_impl(&dword_2695B9000, v3, OS_LOG_TYPE_DEBUG, "%s AddDialogs handler received a result command handling for command %@", &v5, 0x16u);
   }
 
   dispatch_group_leave(*(a1 + 48));
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __89__SVXServiceCommandHandlerUIAddDialogs_handleCommand_withContext_taskTracker_completion___block_invoke_47(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v3 = a1[4];
     v4 = a1[5];
-    v8 = 136315650;
-    v9 = "[SVXServiceCommandHandlerUIAddDialogs handleCommand:withContext:taskTracker:completion:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v4;
-    _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_INFO, "%s End TTS request group %@ for %@.", &v8, 0x20u);
+    v7 = 136315650;
+    v8 = "[SVXServiceCommandHandlerUIAddDialogs handleCommand:withContext:taskTracker:completion:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v4;
+    _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_INFO, "%s End TTS request group %@ for %@.", &v7, 0x20u);
   }
 
   v5 = a1[7];
@@ -188,13 +185,11 @@ void __89__SVXServiceCommandHandlerUIAddDialogs_handleCommand_withContext_taskTr
     v6 = [SVXServiceCommandResult resultWithResults:a1[6]];
     (*(v5 + 16))(v5, v6);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareToHandleCommand:(id)command completion:(id)completion
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   completionCopy = completion;
   objc_opt_class();
@@ -204,41 +199,41 @@ void __89__SVXServiceCommandHandlerUIAddDialogs_handleCommand_withContext_taskTr
     [currentHandler handleFailureInMethod:a2 object:self file:@"SVXServiceCommandHandlerUIAddDialogs.m" lineNumber:97 description:{@"Invalid parameter not satisfying: %@", @"[command isKindOfClass:[SAUIAddDialogs class]]"}];
   }
 
-  v30 = commandCopy;
+  v29 = commandCopy;
   v8 = [(SVXDialogTransformer *)self->_dialogTransformer transformAddDialogs:commandCopy];
   v9 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v47 = "[SVXServiceCommandHandlerUIAddDialogs prepareToHandleCommand:completion:]";
-    v48 = 2112;
-    v49 = v8;
+    v46 = "[SVXServiceCommandHandlerUIAddDialogs prepareToHandleCommand:completion:]";
+    v47 = 2112;
+    v48 = v8;
     _os_log_debug_impl(&dword_2695B9000, v9, OS_LOG_TYPE_DEBUG, "%s AddDialogs transformed into commands: %@", buf, 0x16u);
   }
 
-  v33 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v8, "count")}];
+  v32 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v8, "count")}];
   array = [MEMORY[0x277CBEB18] array];
   group = dispatch_group_create();
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   obj = v8;
-  v11 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
+  v11 = [obj countByEnumeratingWithState:&v41 objects:v51 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v43;
+    v13 = *v42;
 LABEL_7:
     v14 = 0;
     while (1)
     {
-      if (*v43 != v13)
+      if (*v42 != v13)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v42 + 1) + 8 * v14);
+      v15 = *(*(&v41 + 1) + 8 * v14);
       if ([array count])
       {
         break;
@@ -257,28 +252,28 @@ LABEL_7:
           if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
-            v47 = "[SVXServiceCommandHandlerUIAddDialogs prepareToHandleCommand:completion:]";
-            v48 = 2112;
-            v49 = v15;
+            v46 = "[SVXServiceCommandHandlerUIAddDialogs prepareToHandleCommand:completion:]";
+            v47 = 2112;
+            v48 = v15;
             _os_log_debug_impl(&dword_2695B9000, v20, OS_LOG_TYPE_DEBUG, "%s AddDialogs handler delegating command handling for command %@", buf, 0x16u);
           }
 
           dispatch_group_enter(group);
-          v38[0] = MEMORY[0x277D85DD0];
-          v38[1] = 3221225472;
-          v38[2] = __74__SVXServiceCommandHandlerUIAddDialogs_prepareToHandleCommand_completion___block_invoke;
-          v38[3] = &unk_279C674E0;
-          v38[4] = v15;
-          v39 = v33;
-          v40 = array;
-          v41 = group;
-          [v19 prepareToHandleCommand:v15 completion:v38];
+          v37[0] = MEMORY[0x277D85DD0];
+          v37[1] = 3221225472;
+          v37[2] = __74__SVXServiceCommandHandlerUIAddDialogs_prepareToHandleCommand_completion___block_invoke;
+          v37[3] = &unk_279C674E0;
+          v37[4] = v15;
+          v38 = v32;
+          v39 = array;
+          v40 = group;
+          [v19 prepareToHandleCommand:v15 completion:v37];
         }
 
         else
         {
           v22 = [[_AddDialogsContextPair alloc] initWithCommand:v15 context:0];
-          [v33 addObject:v22];
+          [v32 addObject:v22];
         }
       }
 
@@ -289,11 +284,11 @@ LABEL_7:
         {
           v23 = self->_handlersByCommandType;
           *buf = 136315650;
-          v47 = "[SVXServiceCommandHandlerUIAddDialogs prepareToHandleCommand:completion:]";
-          v48 = 2112;
-          v49 = v15;
-          v50 = 2112;
-          v51 = v23;
+          v46 = "[SVXServiceCommandHandlerUIAddDialogs prepareToHandleCommand:completion:]";
+          v47 = 2112;
+          v48 = v15;
+          v49 = 2112;
+          v50 = v23;
           _os_log_error_impl(&dword_2695B9000, v21, OS_LOG_TYPE_ERROR, "%s AddDialogs could not find an handler for command: %@ with handlers: %@", buf, 0x20u);
         }
 
@@ -302,7 +297,7 @@ LABEL_7:
 
       if (v12 == ++v14)
       {
-        v12 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
+        v12 = [obj countByEnumeratingWithState:&v41 objects:v51 count:16];
         if (v12)
         {
           goto LABEL_7;
@@ -317,20 +312,18 @@ LABEL_7:
   block[1] = 3221225472;
   block[2] = __74__SVXServiceCommandHandlerUIAddDialogs_prepareToHandleCommand_completion___block_invoke_39;
   block[3] = &unk_279C68EA8;
-  v35 = v33;
-  v36 = array;
-  v37 = completionCopy;
+  v34 = v32;
+  v35 = array;
+  v36 = completionCopy;
   v24 = completionCopy;
   v25 = array;
-  v26 = v33;
+  v26 = v32;
   dispatch_group_notify(group, MEMORY[0x277D85CD0], block);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SVXServiceCommandHandlerUIAddDialogs_prepareToHandleCommand_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *MEMORY[0x277CEF098];
   v7 = *MEMORY[0x277CEF098];
@@ -338,12 +331,12 @@ void __74__SVXServiceCommandHandlerUIAddDialogs_prepareToHandleCommand_completio
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v11 = *(a1 + 32);
-      v13 = 136315394;
-      v14 = "[SVXServiceCommandHandlerUIAddDialogs prepareToHandleCommand:completion:]_block_invoke";
-      v15 = 2112;
-      v16 = v11;
-      _os_log_debug_impl(&dword_2695B9000, v6, OS_LOG_TYPE_DEBUG, "%s AddDialogs handler successfully prepared context for command %@", &v13, 0x16u);
+      v10 = *(a1 + 32);
+      v12 = 136315394;
+      v13 = "[SVXServiceCommandHandlerUIAddDialogs prepareToHandleCommand:completion:]_block_invoke";
+      v14 = 2112;
+      v15 = v10;
+      _os_log_debug_impl(&dword_2695B9000, v6, OS_LOG_TYPE_DEBUG, "%s AddDialogs handler successfully prepared context for command %@", &v12, 0x16u);
     }
 
     v8 = *(a1 + 40);
@@ -355,57 +348,49 @@ void __74__SVXServiceCommandHandlerUIAddDialogs_prepareToHandleCommand_completio
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 32);
-      v13 = 136315394;
-      v14 = "[SVXServiceCommandHandlerUIAddDialogs prepareToHandleCommand:completion:]_block_invoke";
-      v15 = 2112;
-      v16 = v12;
-      _os_log_error_impl(&dword_2695B9000, v6, OS_LOG_TYPE_ERROR, "%s AddDialogs handler preparing context failed for command %@", &v13, 0x16u);
+      v11 = *(a1 + 32);
+      v12 = 136315394;
+      v13 = "[SVXServiceCommandHandlerUIAddDialogs prepareToHandleCommand:completion:]_block_invoke";
+      v14 = 2112;
+      v15 = v11;
+      _os_log_error_impl(&dword_2695B9000, v6, OS_LOG_TYPE_ERROR, "%s AddDialogs handler preparing context failed for command %@", &v12, 0x16u);
     }
 
     [*(a1 + 48) addObject:*(a1 + 32)];
   }
 
   dispatch_group_leave(*(a1 + 56));
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SVXServiceCommandHandlerUIAddDialogs_prepareToHandleCommand_completion___block_invoke_39(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
-    v5 = *(a1 + 32);
-    v6 = v2;
-    v7 = [v5 count];
-    v8 = [*(a1 + 40) count];
-    v9 = 136315650;
-    v10 = "[SVXServiceCommandHandlerUIAddDialogs prepareToHandleCommand:completion:]_block_invoke";
+    v3 = *(a1 + 32);
+    v4 = v2;
+    v5 = [v3 count];
+    v6 = [*(a1 + 40) count];
+    v7 = 136315650;
+    v8 = "[SVXServiceCommandHandlerUIAddDialogs prepareToHandleCommand:completion:]_block_invoke";
+    v9 = 2048;
+    v10 = v5;
     v11 = 2048;
-    v12 = v7;
-    v13 = 2048;
-    v14 = v8;
-    _os_log_debug_impl(&dword_2695B9000, v6, OS_LOG_TYPE_DEBUG, "%s AddDialogs handler finished preparing commands with %tu command/context pairs and %tu failed commands", &v9, 0x20u);
+    v12 = v6;
+    _os_log_debug_impl(&dword_2695B9000, v4, OS_LOG_TYPE_DEBUG, "%s AddDialogs handler finished preparing commands with %tu command/context pairs and %tu failed commands", &v7, 0x20u);
   }
 
   if (*(a1 + 48))
   {
-    if (![*(a1 + 40) count])
-    {
-      v3 = *(a1 + 32);
-    }
-
+    [*(a1 + 40) count];
     (*(*(a1 + 48) + 16))();
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isCommandUUFR:(id)r
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   rCopy = r;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -415,25 +400,25 @@ void __74__SVXServiceCommandHandlerUIAddDialogs_prepareToHandleCommand_completio
   }
 
   [(SVXDialogTransformer *)self->_dialogTransformer transformAddDialogs:rCopy];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v6 = v23 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = v22 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         handlersByCommandType = self->_handlersByCommandType;
         v13 = objc_opt_class();
         v14 = NSStringFromClass(v13);
@@ -447,7 +432,7 @@ void __74__SVXServiceCommandHandlerUIAddDialogs_prepareToHandleCommand_completio
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v8)
       {
         continue;
@@ -460,7 +445,6 @@ void __74__SVXServiceCommandHandlerUIAddDialogs_prepareToHandleCommand_completio
   v16 = 0;
 LABEL_15:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -484,15 +468,15 @@ LABEL_15:
 
 - (SVXServiceCommandHandlerUIAddDialogs)initWithHandlers:(id)handlers dialogTransformer:(id)transformer
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   handlersCopy = handlers;
   transformerCopy = transformer;
-  v32.receiver = self;
-  v32.super_class = SVXServiceCommandHandlerUIAddDialogs;
-  v8 = [(SVXServiceCommandHandlerUIAddDialogs *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = SVXServiceCommandHandlerUIAddDialogs;
+  v8 = [(SVXServiceCommandHandlerUIAddDialogs *)&v31 init];
   if (v8)
   {
-    v27 = transformerCopy;
+    v26 = transformerCopy;
     v9 = objc_alloc(MEMORY[0x277CCACA8]);
     supportedCommandClass = [objc_opt_class() supportedCommandClass];
     v11 = NSStringFromClass(supportedCommandClass);
@@ -501,27 +485,27 @@ LABEL_15:
     v8->_identifier = v12;
 
     v14 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(handlersCopy, "count")}];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v15 = handlersCopy;
-    v16 = [v15 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v29;
+      v18 = *v28;
       do
       {
         v19 = 0;
         do
         {
-          if (*v29 != v18)
+          if (*v28 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v28 + 1) + 8 * v19);
+          v20 = *(*(&v27 + 1) + 8 * v19);
           supportedCommandClass2 = [objc_opt_class() supportedCommandClass];
           v22 = NSStringFromClass(supportedCommandClass2);
           [v14 setObject:v20 forKey:v22];
@@ -530,7 +514,7 @@ LABEL_15:
         }
 
         while (v17 != v19);
-        v17 = [v15 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v17);
@@ -541,10 +525,9 @@ LABEL_15:
     v8->_handlersByCommandType = v23;
 
     objc_storeStrong(&v8->_dialogTransformer, transformer);
-    transformerCopy = v27;
+    transformerCopy = v26;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

@@ -229,7 +229,7 @@ uint64_t __62__PSSpecifierDataSource_enumerateObserversOfClass_usingBlock___bloc
       goto LABEL_6;
     }
 
-    currentDevice = _PSLoggingFacility();
+    currentDevice = _PSLoggingFacility(v9);
     if (os_log_type_enabled(currentDevice, OS_LOG_TYPE_ERROR))
     {
       [PSSpecifierDataSource performUpdatesAnimated:currentDevice usingBlock:?];
@@ -239,18 +239,18 @@ uint64_t __62__PSSpecifierDataSource_enumerateObserversOfClass_usingBlock___bloc
 LABEL_6:
   if (blockCopy)
   {
-    v9 = [PSSpecifierUpdates updatesWithSpecifiers:self->_specifiers];
-    context = [v9 context];
+    v10 = [PSSpecifierUpdates updatesWithSpecifiers:self->_specifiers];
+    context = [v10 context];
     [context setAnimated:animatedCopy];
 
-    blockCopy[2](blockCopy, v9);
-    v11 = objc_alloc(MEMORY[0x1E695DF70]);
-    currentSpecifiers = [v9 currentSpecifiers];
-    v13 = [v11 initWithArray:currentSpecifiers];
+    blockCopy[2](blockCopy, v10);
+    v12 = objc_alloc(MEMORY[0x1E695DF70]);
+    currentSpecifiers = [v10 currentSpecifiers];
+    v14 = [v12 initWithArray:currentSpecifiers];
     specifiers = self->_specifiers;
-    self->_specifiers = v13;
+    self->_specifiers = v14;
 
-    [(PSSpecifierDataSource *)self performUpdates:v9];
+    [(PSSpecifierDataSource *)self performUpdates:v10];
   }
 }
 

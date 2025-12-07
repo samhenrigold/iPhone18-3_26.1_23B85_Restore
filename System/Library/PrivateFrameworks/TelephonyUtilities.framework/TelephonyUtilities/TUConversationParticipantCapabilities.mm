@@ -61,55 +61,7 @@
 {
   capabilitiesCopy = capabilities;
   isMomentsAvailable = [(TUConversationParticipantCapabilities *)self isMomentsAvailable];
-  if (isMomentsAvailable != [capabilitiesCopy isMomentsAvailable])
-  {
-    goto LABEL_16;
-  }
-
-  isScreenSharingAvailable = [(TUConversationParticipantCapabilities *)self isScreenSharingAvailable];
-  if (isScreenSharingAvailable != [capabilitiesCopy isScreenSharingAvailable])
-  {
-    goto LABEL_16;
-  }
-
-  isGondolaCallingAvailable = [(TUConversationParticipantCapabilities *)self isGondolaCallingAvailable];
-  if (isGondolaCallingAvailable != [capabilitiesCopy isGondolaCallingAvailable])
-  {
-    goto LABEL_16;
-  }
-
-  isPersonaAvailable = [(TUConversationParticipantCapabilities *)self isPersonaAvailable];
-  if (isPersonaAvailable != [capabilitiesCopy isPersonaAvailable])
-  {
-    goto LABEL_16;
-  }
-
-  isGFTDowngradeToOneToOneAvailable = [(TUConversationParticipantCapabilities *)self isGFTDowngradeToOneToOneAvailable];
-  if (isGFTDowngradeToOneToOneAvailable != [capabilitiesCopy isGFTDowngradeToOneToOneAvailable])
-  {
-    goto LABEL_16;
-  }
-
-  isUPlusNDowngradeAvailable = [(TUConversationParticipantCapabilities *)self isUPlusNDowngradeAvailable];
-  if (isUPlusNDowngradeAvailable != [capabilitiesCopy isUPlusNDowngradeAvailable])
-  {
-    goto LABEL_16;
-  }
-
-  sharePlayProtocolVersion = [(TUConversationParticipantCapabilities *)self sharePlayProtocolVersion];
-  if (sharePlayProtocolVersion != [capabilitiesCopy sharePlayProtocolVersion])
-  {
-    goto LABEL_16;
-  }
-
-  supportsLeaveContext = [(TUConversationParticipantCapabilities *)self supportsLeaveContext];
-  if (supportsLeaveContext != [capabilitiesCopy supportsLeaveContext])
-  {
-    goto LABEL_16;
-  }
-
-  isUPlusOneAVLessAvailable = [(TUConversationParticipantCapabilities *)self isUPlusOneAVLessAvailable];
-  if (isUPlusOneAVLessAvailable == [capabilitiesCopy isUPlusOneAVLessAvailable] && (v14 = -[TUConversationParticipantCapabilities visionFeatureVersion](self, "visionFeatureVersion"), v14 == objc_msgSend(capabilitiesCopy, "visionFeatureVersion")) && (v15 = -[TUConversationParticipantCapabilities visionCallEstablishmentVersion](self, "visionCallEstablishmentVersion"), v15 == objc_msgSend(capabilitiesCopy, "visionCallEstablishmentVersion")) && (v16 = -[TUConversationParticipantCapabilities isUPlusOneVisionToVisionAvailable](self, "isUPlusOneVisionToVisionAvailable"), v16 == objc_msgSend(capabilitiesCopy, "isUPlusOneVisionToVisionAvailable")) && (v17 = -[TUConversationParticipantCapabilities supportsRequestToScreenShare](self, "supportsRequestToScreenShare"), v17 == objc_msgSend(capabilitiesCopy, "supportsRequestToScreenShare")) && (v18 = -[TUConversationParticipantCapabilities isPhotosSharePlayAvailable](self, "isPhotosSharePlayAvailable"), v18 == objc_msgSend(capabilitiesCopy, "isPhotosSharePlayAvailable")) && (v19 = -[TUConversationParticipantCapabilities isTranslationAvailable](self, "isTranslationAvailable"), v19 == objc_msgSend(capabilitiesCopy, "isTranslationAvailable")))
+  if (isMomentsAvailable == [capabilitiesCopy isMomentsAvailable] && (v6 = -[TUConversationParticipantCapabilities isScreenSharingAvailable](self, "isScreenSharingAvailable"), v6 == objc_msgSend(capabilitiesCopy, "isScreenSharingAvailable")) && (v7 = -[TUConversationParticipantCapabilities isGondolaCallingAvailable](self, "isGondolaCallingAvailable"), v7 == objc_msgSend(capabilitiesCopy, "isGondolaCallingAvailable")) && (v8 = -[TUConversationParticipantCapabilities isPersonaAvailable](self, "isPersonaAvailable"), v8 == objc_msgSend(capabilitiesCopy, "isPersonaAvailable")) && (v9 = -[TUConversationParticipantCapabilities isGFTDowngradeToOneToOneAvailable](self, "isGFTDowngradeToOneToOneAvailable"), v9 == objc_msgSend(capabilitiesCopy, "isGFTDowngradeToOneToOneAvailable")) && (v10 = -[TUConversationParticipantCapabilities isUPlusNDowngradeAvailable](self, "isUPlusNDowngradeAvailable"), v10 == objc_msgSend(capabilitiesCopy, "isUPlusNDowngradeAvailable")) && (v11 = -[TUConversationParticipantCapabilities sharePlayProtocolVersion](self, "sharePlayProtocolVersion"), v11 == objc_msgSend(capabilitiesCopy, "sharePlayProtocolVersion")) && (v12 = -[TUConversationParticipantCapabilities supportsLeaveContext](self, "supportsLeaveContext"), v12 == objc_msgSend(capabilitiesCopy, "supportsLeaveContext")) && (v13 = -[TUConversationParticipantCapabilities isUPlusOneAVLessAvailable](self, "isUPlusOneAVLessAvailable"), v13 == objc_msgSend(capabilitiesCopy, "isUPlusOneAVLessAvailable")) && (v14 = -[TUConversationParticipantCapabilities visionFeatureVersion](self, "visionFeatureVersion"), v14 == objc_msgSend(capabilitiesCopy, "visionFeatureVersion")) && (v15 = -[TUConversationParticipantCapabilities visionCallEstablishmentVersion](self, "visionCallEstablishmentVersion"), v15 == objc_msgSend(capabilitiesCopy, "visionCallEstablishmentVersion")) && (v16 = -[TUConversationParticipantCapabilities isUPlusOneVisionToVisionAvailable](self, "isUPlusOneVisionToVisionAvailable"), v16 == objc_msgSend(capabilitiesCopy, "isUPlusOneVisionToVisionAvailable")) && (v17 = -[TUConversationParticipantCapabilities supportsRequestToScreenShare](self, "supportsRequestToScreenShare"), v17 == objc_msgSend(capabilitiesCopy, "supportsRequestToScreenShare")) && (v18 = -[TUConversationParticipantCapabilities isPhotosSharePlayAvailable](self, "isPhotosSharePlayAvailable"), v18 == objc_msgSend(capabilitiesCopy, "isPhotosSharePlayAvailable")) && (v19 = -[TUConversationParticipantCapabilities isTranslationAvailable](self, "isTranslationAvailable"), v19 == objc_msgSend(capabilitiesCopy, "isTranslationAvailable")))
   {
     nearbyFeatureVersion = [(TUConversationParticipantCapabilities *)self nearbyFeatureVersion];
     v20 = nearbyFeatureVersion == [capabilitiesCopy nearbyFeatureVersion];
@@ -117,7 +69,6 @@
 
   else
   {
-LABEL_16:
     v20 = 0;
   }
 

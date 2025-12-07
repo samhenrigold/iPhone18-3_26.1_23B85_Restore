@@ -61,9 +61,9 @@
 
         parentModel = v9;
 LABEL_13:
-        v14 = [role isEqualToString:@"content"];
+        v14 = objc_msgSend_isEqualToString_(role);
         v15 = &OBJC_IVAR___TUIShelfBox__content;
-        if (v14 & 1) != 0 || (v16 = [role isEqualToString:@"content-background"], v15 = &OBJC_IVAR___TUIShelfBox__contentBackground, (v16) || (v17 = objc_msgSend(role, "isEqualToString:", @"background"), v15 = &OBJC_IVAR___TUIShelfBox__background, v17))
+        if (v14 & 1) != 0 || (v16 = objc_msgSend_isEqualToString_(role), v15 = &OBJC_IVAR___TUIShelfBox__contentBackground, (v16) || (v17 = objc_msgSend_isEqualToString_(role), v15 = &OBJC_IVAR___TUIShelfBox__background, v17))
         {
           objc_storeStrong((&self->super.super.super.isa + *v15), v8);
         }

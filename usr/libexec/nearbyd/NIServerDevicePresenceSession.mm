@@ -4,6 +4,7 @@
 - (BOOL)isInterestedInSamplesForDevice:(id)device;
 - (NIServerDevicePresenceSession)initWithResourcesManager:(id)manager configuration:(id)configuration error:(id *)error;
 - (id).cxx_construct;
+- (id)_disableAllServicesAndSendHangupSignal:(BOOL)signal;
 - (id)configure;
 - (id)description;
 - (id)disableAllServices;
@@ -14,6 +15,7 @@
 - (int)_niPlacementToAlgoPlacement:(int64_t)placement;
 - (int64_t)_roseMotionStateToNIMotionActivityState:(int)state;
 - (optional<unsigned)identifierFromDiscoveryToken:(id)token;
+- (void)_handleMotionStateChange:(int)change;
 - (void)consumeBluetoothSample:(id)sample;
 - (void)invalidate;
 - (void)processVisionInput:(id)input;
@@ -74,7 +76,7 @@
     {
       if (managerCopy)
       {
-        [managerCopy protobufLogger];
+        objc_msgSend_protobufLogger(managerCopy);
         v17 = *location;
       }
 
@@ -171,6 +173,32 @@ LABEL_22:
   else
   {
     return state == 2;
+  }
+}
+
+- (void)_handleMotionStateChange:(int)change
+{
+  v3 = *&change;
+  dispatch_assert_queue_V2(*(self + 10));
+  v5 = qword_1009F9820;
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    sub_1002225C8(v3, __p);
+    v6 = v9 >= 0 ? __p : __p[0];
+    *buf = 136315138;
+    v11 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#ses-devicepresence,received new motion state %s", buf, 0xCu);
+    if (v9 < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  v7 = [(NIServerDevicePresenceSession *)self _roseMotionStateToNIMotionActivityState:v3];
+  if (*(self + 40) != v7)
+  {
+    [*(self + 8) acceptDeviceMovingState:v7 == 2];
+    *(self + 40) = v7;
   }
 }
 
@@ -290,7 +318,7 @@ LABEL_22:
 
         v76 = [(NIDiscoveryToken *)token2 hash];
         *buf = &v76;
-        v27 = sub_1001C346C(self + 22, &v76);
+        v27 = sub_1001C346C(self + 22, &v76, &unk_100548C50, buf);
         v28 = v27[3];
         v27[3] = v24;
       }
@@ -413,7 +441,7 @@ LABEL_22:
 
         v64 = [(NIDiscoveryToken *)v54 hash];
         v76 = &v64;
-        v57 = sub_1000135F8(self + 35, &v64);
+        v57 = sub_1000135F8(self + 70, &v64, &unk_100548C50, &v76);
         v58 = v57[3];
         v57[3] = v55;
         v59 = v55;
@@ -824,6 +852,19 @@ LABEL_11:
   {
     return 0;
   }
+}
+
+- (id)_disableAllServicesAndSendHangupSignal:(BOOL)signal
+{
+  v7.receiver = self;
+  v7.super_class = NIServerDevicePresenceSession;
+  disableAllServices = [(NIServerBaseSession *)&v7 disableAllServices];
+  sub_1001C1ED8(self + 136);
+  [*(self + 8) invalidate];
+  v5 = *(self + 8);
+  *(self + 8) = 0;
+
+  return disableAllServices;
 }
 
 - (id)discoveryTokenFromIdentifier:(unint64_t)identifier

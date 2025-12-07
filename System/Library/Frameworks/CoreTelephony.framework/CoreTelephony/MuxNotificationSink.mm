@@ -56,8 +56,8 @@ LABEL_6:
 - (void)clientDidTriggerFault:(id)fault
 {
   faultCopy = fault;
-  v4 = CTLogClient();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v5 = CTLogClient(faultCopy, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     [MuxNotificationSink clientDidTriggerFault:];
   }

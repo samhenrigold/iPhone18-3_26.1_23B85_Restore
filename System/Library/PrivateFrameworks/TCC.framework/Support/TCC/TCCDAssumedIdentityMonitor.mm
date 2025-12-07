@@ -44,80 +44,81 @@
 {
   dispatch_assert_queue_V2(self->_queue);
   selfCopy = self;
-  v22 = objc_opt_new();
-  v29 = 0u;
+  v23 = objc_opt_new();
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
   obj = self->_assumedIdentityIdentifiersToProcesses;
-  v3 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v3 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v3)
   {
     v4 = v3;
-    v20 = *v30;
+    v21 = *v31;
     do
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v30 != v20)
+        if (*v31 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v29 + 1) + 8 * i);
+        v6 = *(*(&v30 + 1) + 8 * i);
         v7 = objc_opt_new();
-        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
+        v29 = 0u;
         v8 = [(NSMutableDictionary *)selfCopy->_assumedIdentityIdentifiersToProcesses objectForKeyedSubscript:v6];
-        v9 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v26;
+          v11 = *v27;
           do
           {
             for (j = 0; j != v10; j = j + 1)
             {
-              if (*v26 != v11)
+              if (*v27 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v25 + 1) + 8 * j);
-              memset(v24, 0, sizeof(v24));
+              v13 = *(*(&v26 + 1) + 8 * j);
+              memset(v25, 0, sizeof(v25));
               if (v13)
               {
-                [v13 auditToken];
+                objc_msgSend_auditToken(v13);
               }
 
-              v14 = [NSData dataWithBytes:v24 length:32];
+              v14 = [NSData dataWithBytes:v25 length:32];
               [v7 addObject:v14];
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
           }
 
           while (v10);
         }
 
-        [v22 setObject:v7 forKeyedSubscript:v6];
+        [v23 setObject:v7 forKeyedSubscript:v6];
       }
 
-      v4 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v4 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v4);
   }
 
-  v23 = 0;
-  v15 = [NSKeyedArchiver archivedDataWithRootObject:v22 requiringSecureCoding:1 error:&v23];
-  v16 = v23;
+  v24 = 0;
+  v15 = [NSKeyedArchiver archivedDataWithRootObject:v23 requiringSecureCoding:1 error:&v24];
+  v16 = v24;
+  v17 = v16;
   if (v16)
   {
-    v17 = tcc_assumed_identity_monitor_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = tcc_assumed_identity_monitor_log(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10002A23C();
     }
@@ -142,13 +143,14 @@
   dispatch_assert_queue_V2(self->_queue);
   _serializeState = [(TCCDAssumedIdentityMonitor *)self _serializeState];
   stateFilePath = self->_stateFilePath;
-  v8 = 0;
-  v5 = [_serializeState writeToFile:stateFilePath options:1 error:&v8];
-  v6 = v8;
+  v9 = 0;
+  v5 = [_serializeState writeToFile:stateFilePath options:1 error:&v9];
+  v6 = v9;
+  v7 = v6;
   if ((v5 & 1) == 0)
   {
-    v7 = tcc_assumed_identity_monitor_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = tcc_assumed_identity_monitor_log(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10002A4F8();
     }
@@ -187,10 +189,11 @@
 {
   processCopy = process;
   identityCopy = identity;
-  if ([identityCopy client_type])
+  client_type = [identityCopy client_type];
+  if (client_type)
   {
-    v8 = tcc_assumed_identity_monitor_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = tcc_assumed_identity_monitor_log(client_type);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10002A644();
     }
@@ -204,8 +207,8 @@
     block[2] = sub_100029CC8;
     block[3] = &unk_1000A5098;
     block[4] = self;
-    v11 = identityCopy;
-    v12 = processCopy;
+    v12 = identityCopy;
+    v13 = processCopy;
     dispatch_async(queue, block);
   }
 }

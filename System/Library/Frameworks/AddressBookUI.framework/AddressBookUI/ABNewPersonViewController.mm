@@ -1,5 +1,6 @@
 @interface ABNewPersonViewController
 - (ABAddressBookRef)addressBook;
+- (ABNewPersonViewController)initWithNibName:(id)name bundle:(id)bundle style:(int)style;
 - (CGSize)preferredContentSize;
 - (void)contactViewController:(id)controller didCompleteWithContact:(id)contact;
 - (void)dealloc;
@@ -8,9 +9,26 @@
 - (void)setAddressBook:(ABAddressBookRef)addressBook;
 - (void)setDisplayedPerson:(ABRecordRef)displayedPerson;
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation ABNewPersonViewController
+
+- (ABNewPersonViewController)initWithNibName:(id)name bundle:(id)bundle style:(int)style
+{
+  v9.receiver = self;
+  v9.super_class = ABNewPersonViewController;
+  v5 = [(ABNewPersonViewController *)&v9 initWithNibName:0 bundle:0, *&style];
+  v7 = v5;
+  if (v5)
+  {
+    -[ABNewPersonViewController setTitle:](v5, "setTitle:", [ABAddressBookUIBundle(v5 v6)]);
+    [(ABNewPersonViewController *)v7 setRestorationClass:objc_opt_class()];
+    [(ABNewPersonViewController *)v7 setRestorationIdentifier:@"kABNewPersonViewControllerRestorationIdentifier"];
+  }
+
+  return v7;
+}
 
 - (void)dealloc
 {
@@ -128,9 +146,17 @@ LABEL_9:
   return result;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ABNewPersonViewController;
+  [(ABNewPersonViewController *)&v4 viewDidAppear:appear];
+  [(ABNewPersonViewController *)self preferredContentSize];
+  [(ABNewPersonViewController *)self setPreferredContentSize:?];
+}
+
 - (void)contactViewController:(id)controller didCompleteWithContact:(id)contact
 {
-  newPersonViewDelegate = self->_newPersonViewDelegate;
   if (objc_opt_respondsToSelector())
   {
     if (contact)
@@ -150,26 +176,26 @@ LABEL_9:
         [contact updateNewPublicABPerson:-[ABNewPersonViewController displayedPerson](self inAddressBook:{"displayedPerson"), addressBook}];
       }
 
-      v11 = self->_newPersonViewDelegate;
+      newPersonViewDelegate = self->_newPersonViewDelegate;
       displayedPerson = [(ABNewPersonViewController *)self displayedPerson];
-      v8 = v11;
+      v7 = newPersonViewDelegate;
       selfCopy2 = self;
     }
 
     else
     {
-      v8 = self->_newPersonViewDelegate;
+      v7 = self->_newPersonViewDelegate;
       selfCopy2 = self;
       displayedPerson = 0;
     }
 
-    [(ABNewPersonViewControllerDelegate *)v8 newPersonViewController:selfCopy2 didCompleteWithNewPerson:displayedPerson];
+    [(ABNewPersonViewControllerDelegate *)v7 newPersonViewController:selfCopy2 didCompleteWithNewPerson:displayedPerson];
   }
 }
 
 - (void)loadContactViewController
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   if (![(ABNewPersonViewController *)self displayedPerson])
   {
     if ([(ABNewPersonViewController *)self parentGroup])
@@ -209,20 +235,20 @@ LABEL_9:
   }
 
 LABEL_12:
-  v16[0] = [MEMORY[0x277CBDC48] descriptorForRequiredKeys];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = [MEMORY[0x277CBDC48] descriptorForRequiredKeys];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v8 = [v7 arrayByAddingObjectsFromArray:{objc_msgSend(MEMORY[0x277CBDC40], "allCardProperties")}];
   v9 = [MEMORY[0x277CBDA58] contactFromPublicABPerson:-[ABNewPersonViewController displayedPerson](self keysToFetch:"displayedPerson") mutable:{v8, 1}];
   if ([(ABNewPersonViewController *)self parentGroup])
   {
     if ([objc_msgSend(MEMORY[0x277CFBDB8] "sharedInstance")])
     {
-      v15 = 0;
-      v10 = [objc_msgSend(MEMORY[0x277CBDAB8] contactStoreForPublicAddressBook:{-[ABNewPersonViewController addressBook](self, "addressBook")), "groupsMatchingPredicate:error:", objc_msgSend(MEMORY[0x277CBDB10], "predicateForiOSLegacyIdentifier:", MEMORY[0x2383B6570](-[ABNewPersonViewController parentGroup](self, "parentGroup"))), &v15}];
+      v14 = 0;
+      v10 = [objc_msgSend(MEMORY[0x277CBDAB8] contactStoreForPublicAddressBook:{-[ABNewPersonViewController addressBook](self, "addressBook")), "groupsMatchingPredicate:error:", objc_msgSend(MEMORY[0x277CBDB10], "predicateForiOSLegacyIdentifier:", MEMORY[0x2383B6570](-[ABNewPersonViewController parentGroup](self, "parentGroup"))), &v14}];
       firstObject = v10;
       if (!v10)
       {
-        NSLog(&cfstr_CanTRetrieveGr.isa, v15);
+        NSLog(&cfstr_CanTRetrieveGr.isa, v14);
         goto LABEL_21;
       }
 
@@ -282,7 +308,6 @@ LABEL_21:
   [-[ABNewPersonViewController view](self "view")];
   [(CNContactViewController *)[(ABNewPersonViewController *)self cnContactViewController] didMoveToParentViewController:self];
   [(ABNewPersonViewController *)self setEditing:1 animated:0];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

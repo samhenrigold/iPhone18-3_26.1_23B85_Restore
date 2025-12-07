@@ -273,7 +273,7 @@ LABEL_6:
 
 - (id)toDictionary
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v5 = objc_alloc_init(MEMORY[0x277CCA968]);
@@ -413,30 +413,30 @@ LABEL_6:
   if (self->_signpostMetrics)
   {
     v42 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
     v43 = self->_signpostMetrics;
-    v44 = [(NSArray *)v43 countByEnumeratingWithState:&v51 objects:v55 count:16];
+    v44 = [(NSArray *)v43 countByEnumeratingWithState:&v50 objects:v54 count:16];
     if (v44)
     {
       v45 = v44;
-      v46 = *v52;
+      v46 = *v51;
       do
       {
         for (i = 0; i != v45; ++i)
         {
-          if (*v52 != v46)
+          if (*v51 != v46)
           {
             objc_enumerationMutation(v43);
           }
 
-          toDictionary16 = [*(*(&v51 + 1) + 8 * i) toDictionary];
+          toDictionary16 = [*(*(&v50 + 1) + 8 * i) toDictionary];
           [v42 addObject:toDictionary16];
         }
 
-        v45 = [(NSArray *)v43 countByEnumeratingWithState:&v51 objects:v55 count:16];
+        v45 = [(NSArray *)v43 countByEnumeratingWithState:&v50 objects:v54 count:16];
       }
 
       while (v45);
@@ -444,8 +444,6 @@ LABEL_6:
 
     [v3 setObject:v42 forKey:@"signpostMetrics"];
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

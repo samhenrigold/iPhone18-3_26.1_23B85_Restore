@@ -37,77 +37,75 @@
   selfCopy = self;
   receivedCopy = received;
   v14 = sub_1C645C674();
-  v15 = *(*(v14 - 8) + 64);
-  v16 = MEMORY[0x1EEE9AC00](v14 - 8);
-  v18 = &recipientsCopy - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v20 = &recipientsCopy - v19;
+  v15 = MEMORY[0x1EEE9AC00](v14 - 8);
+  v17 = &recipientsCopy - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v19 = &recipientsCopy - v18;
   if (identifier)
   {
-    v21 = sub_1C645C874();
-    v41 = v22;
-    v42 = v21;
+    v20 = sub_1C645C874();
+    v40 = v21;
+    v41 = v20;
   }
 
   else
   {
+    v40 = 0;
     v41 = 0;
-    v42 = 0;
   }
 
   senderCopy = sender;
   recipientsCopy = recipients;
-  v39 = sub_1C645CA14();
+  v38 = sub_1C645CA14();
   if (title)
   {
-    v24 = sub_1C645C874();
-    v26 = v25;
+    v23 = sub_1C645C874();
+    v25 = v24;
   }
 
   else
   {
-    v24 = 0;
-    v26 = 0;
+    v23 = 0;
+    v25 = 0;
   }
 
-  v27 = sub_1C645C874();
-  v29 = v28;
+  v26 = sub_1C645C874();
+  v28 = v27;
   sub_1C645C654();
   sub_1C645C654();
   if (sender)
   {
     senderCopy = sub_1C645C874();
-    v31 = v30;
+    v30 = v29;
   }
 
   else
   {
-    v31 = 0;
+    v30 = 0;
   }
 
-  v32 = dCopy;
-  v33 = idCopy;
-  v34 = sub_1C645CA14();
-  v37._object = v31;
-  v37._countAndFlagsBits = senderCopy;
-  v35 = sub_1C643690C(v42, v41, v39, v32, v33, v24, v26, v27, v29, v20, v18, v37, v34);
+  v31 = dCopy;
+  v32 = idCopy;
+  v33 = sub_1C645CA14();
+  v36._object = v30;
+  v36._countAndFlagsBits = senderCopy;
+  v34 = sub_1C643690C(v41, v40, v38, v31, v32, v23, v25, v26, v28, v19, v17, v36, v33);
 
-  return v35;
+  return v34;
 }
 
 - (void)addToAttributes:(id)attributes
 {
-  v5 = type metadata accessor for SearchableRichLink();
-  v6 = *(*(v5 - 8) + 64);
+  v5 = type metadata accessor for SearchableRichLink(0);
   MEMORY[0x1EEE9AC00](v5);
-  v8 = &v11[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = &v11[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   sub_1C640DBAC(self + OBJC_IVAR___EDSearchableRichLink__underlying, v11);
   attributesCopy = attributes;
   selfCopy = self;
   swift_dynamicCast();
   sub_1C6443AE0(attributesCopy);
 
-  sub_1C64368B0(v8);
+  sub_1C64368B0(v7, v10);
 }
 
 - (EDSearchableRichLink)init

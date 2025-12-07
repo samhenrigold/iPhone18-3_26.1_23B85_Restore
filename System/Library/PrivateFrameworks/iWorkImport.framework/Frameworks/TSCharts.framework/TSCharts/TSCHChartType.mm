@@ -1543,113 +1543,109 @@ LABEL_8:
 
 + (id)constantDepthInfoChartScaleForInfoChartScale:(id)scale chartType:(id)type barShape:(int)shape
 {
-  v5 = *&shape;
   scaleCopy = scale;
   typeCopy = type;
   if (!typeCopy)
   {
-    v14 = MEMORY[0x277D81150];
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v11, v12, v13, "+[TSCHChartType constantDepthInfoChartScaleForInfoChartScale:chartType:barShape:]");
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartType.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v21, v22, v23, v24, v15, v20, 875, 0, "invalid nil value for '%{public}s'", "chartType");
+    v13 = MEMORY[0x277D81150];
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v10, v11, v12, "+[TSCHChartType constantDepthInfoChartScaleForInfoChartScale:chartType:barShape:]");
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartType.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v20, v21, v22, v23, v14, v19, 875, 0, "invalid nil value for '%{public}s'", "chartType");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27, v28);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26, v27);
   }
 
   if (scaleCopy)
   {
-    objc_msgSend_value3(scaleCopy, v9, v11, v12, v13);
+    objc_msgSend_value3(scaleCopy, v10, v11, v12);
   }
 
   else
   {
-    v33 = MEMORY[0x277D81150];
-    v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v11, v12, v13, "+[TSCHChartType constantDepthInfoChartScaleForInfoChartScale:chartType:barShape:]");
-    v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, v36, v37, v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartType.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v33, v40, v41, v42, v43, v34, v39, 876, 0, "invalid nil value for '%{public}s'", "infoChartScaleVector");
+    v31 = MEMORY[0x277D81150];
+    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, v10, v11, v12, "+[TSCHChartType constantDepthInfoChartScaleForInfoChartScale:chartType:barShape:]");
+    v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, v34, v35, v36, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartType.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v38, v39, v40, v41, v32, v37, 876, 0, "invalid nil value for '%{public}s'", "infoChartScaleVector");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v44, v45, v46, v47);
-    v110 = 0;
-    v109 = 0.0;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v42, v43, v44, v45);
+    v91 = 0.0;
+    v90 = 0.0;
   }
 
-  objc_msgSend_adjustedScaleForInfoChartScale_chartType_barShape_(TSCH3DChartType, v29, v30, v31, v32, &v109, typeCopy, v5);
-  v52 = objc_msgSend_chartTypePlaceholderForDefault3DScaleProperty(self, v48, v49, v50, v51);
-  if (v52 == typeCopy)
+  objc_msgSend_adjustedScaleForInfoChartScale_chartType_barShape_(TSCH3DChartType, v28, v29, v30);
+  v50 = objc_msgSend_chartTypePlaceholderForDefault3DScaleProperty(self, v46, v47, v48, v49);
+  if (v50 == typeCopy)
   {
     for (i = 0; i != 3; ++i)
     {
-      *(__p + i) = *(&v109 + i) == *(&v107 + i);
+      *(__p + i) = *(&v90 + i) == v88[i];
     }
 
-    v57 = 0;
-    v58 = 1;
+    v55 = 0;
+    v56 = 1;
     do
     {
-      while ((v58 & 1) == 0)
+      while ((v56 & 1) == 0)
       {
-        v58 = 0;
-        if (++v57 == 3)
+        v56 = 0;
+        if (++v55 == 3)
         {
 
           goto LABEL_17;
         }
       }
 
-      v58 = *(__p + v57++);
+      v56 = *(__p + v55++);
     }
 
-    while (v57 != 3);
+    while (v55 != 3);
 
-    if (v58)
+    if (v56)
     {
       goto LABEL_28;
     }
 
 LABEL_17:
-    v60 = MEMORY[0x277D81150];
-    v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, v59, v54, v55, "+[TSCHChartType constantDepthInfoChartScaleForInfoChartScale:chartType:barShape:]");
-    v66 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v62, v63, v64, v65, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartType.mm");
-    v67 = MEMORY[0x277CCACA8];
-    v104 = *&v109;
-    sub_276152FD4("vec3(%f, %f, %f)", v68, v69, v70, v71, v72, v73, v74, SLOBYTE(v104));
-    if (v112 >= 0)
+    v58 = MEMORY[0x277D81150];
+    v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v51, v57, v52, v53, "+[TSCHChartType constantDepthInfoChartScaleForInfoChartScale:chartType:barShape:]");
+    v64 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v60, v61, v62, v63, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartType.mm");
+    v65 = MEMORY[0x277CCACA8];
+    sub_276152FD4(__p, "vec3(%f, %f, %f)", *&v90, *(&v90 + 1), v91);
+    if (v93 >= 0)
     {
-      objc_msgSend_stringWithUTF8String_(v67, v75, v76, v77, v78, __p);
+      objc_msgSend_stringWithUTF8String_(v65, v66, v67, v68, v69, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v67, v75, v76, v77, v78, __p[0]);
+      objc_msgSend_stringWithUTF8String_(v65, v66, v67, v68, v69, __p[0]);
     }
-    v86 = ;
-    if (v112 < 0)
+    v70 = ;
+    if (v93 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v87 = MEMORY[0x277CCACA8];
-    v106 = v108;
-    v105 = v107;
-    sub_276152FD4("vec3(%f, %f, %f)", v79, v80, v81, v82, v83, v84, v85, SLOBYTE(v105));
-    if (v112 >= 0)
+    v71 = MEMORY[0x277CCACA8];
+    sub_276152FD4(__p, "vec3(%f, %f, %f)", v88[0], v88[1], v89);
+    if (v93 >= 0)
     {
-      objc_msgSend_stringWithUTF8String_(v87, v88, v89, v90, v91, __p);
+      objc_msgSend_stringWithUTF8String_(v71, v72, v73, v74, v75, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v87, v88, v89, v90, v91, __p[0]);
+      objc_msgSend_stringWithUTF8String_(v71, v72, v73, v74, v75, __p[0]);
     }
-    v93 = ;
-    if (v112 < 0)
+    v77 = ;
+    if (v93 < 0)
     {
       operator delete(__p[0]);
     }
 
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v60, v92, v94, v95, v96, v61, v66, 882, 0, "placeholder chart type should not adjust chart scale %@ to %@", v86, v93, *&v106);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v58, v76, v78, v79, v80, v59, v64, 882, 0, "placeholder chart type should not adjust chart scale %@ to %@", v70, v77);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v97, v98, v99, v100);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v81, v82, v83, v84);
   }
 
   else
@@ -1657,12 +1653,12 @@ LABEL_17:
   }
 
 LABEL_28:
-  *&v101 = v109;
-  *(&v101 + 1) = __PAIR64__(LODWORD(v108), v110);
-  *__p = v101;
-  v102 = objc_msgSend_vectorWithVec4_(TSCH3DVector, v53, v109, v54, v55, __p);
+  *&v85 = v90;
+  *(&v85 + 1) = __PAIR64__(LODWORD(v89), LODWORD(v91));
+  *__p = v85;
+  v86 = objc_msgSend_vectorWithVec4_(TSCH3DVector, v51, v90, v52, v53, __p);
 
-  return v102;
+  return v86;
 }
 
 + (double)sageDepthFactorForExportingChartInfo:(id)info

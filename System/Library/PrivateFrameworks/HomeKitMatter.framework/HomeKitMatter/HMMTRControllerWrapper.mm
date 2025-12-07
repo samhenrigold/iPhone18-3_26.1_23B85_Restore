@@ -38,14 +38,12 @@
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   name = [(HMMTRControllerWrapper *)self name];
   v5 = [v3 initWithName:@"Name" value:name];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -62,27 +60,27 @@
 
 - (void)_revokeAvailable:(BOOL)available
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   obj = [(HMMTRControllerWrapper *)self revokeHandlers];
-  v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         queue = [v9 queue];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
@@ -94,13 +92,11 @@
         dispatch_async(queue, block);
       }
 
-      v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __43__HMMTRControllerWrapper__revokeAvailable___block_invoke(uint64_t a1)
@@ -217,7 +213,7 @@ void __65__HMMTRControllerWrapper_registerRevokeHandlerWithQueue_handler___block
 
 - (void)shutdown
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -225,7 +221,7 @@ void __65__HMMTRControllerWrapper_registerRevokeHandlerWithQueue_handler___block
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v11 = v6;
+    v10 = v6;
     _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Shutting down", buf, 0xCu);
   }
 
@@ -237,13 +233,11 @@ void __65__HMMTRControllerWrapper_registerRevokeHandlerWithQueue_handler___block
   block[3] = &unk_2786F0CA8;
   block[4] = selfCopy;
   dispatch_async(workQueue, block);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __34__HMMTRControllerWrapper_shutdown__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) cachedDeviceController];
   v3 = [v2 controllerNodeID];
 
@@ -253,11 +247,11 @@ void __34__HMMTRControllerWrapper_shutdown__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_INFO, "%{public}@Shutting down Matter controller with Node ID %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v3;
+    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_INFO, "%{public}@Shutting down Matter controller with Node ID %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -271,13 +265,11 @@ void __34__HMMTRControllerWrapper_shutdown__block_invoke(uint64_t a1)
 
   [*(a1 + 32) setCachedDeviceController:0];
   [*(a1 + 32) _revokeAvailable:0];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)suspend
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -285,7 +277,7 @@ void __34__HMMTRControllerWrapper_shutdown__block_invoke(uint64_t a1)
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v11 = v6;
+    v10 = v6;
     _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Suspending stack", buf, 0xCu);
   }
 
@@ -297,13 +289,11 @@ void __34__HMMTRControllerWrapper_shutdown__block_invoke(uint64_t a1)
   block[3] = &unk_2786F0CA8;
   block[4] = selfCopy;
   dispatch_async(workQueue, block);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __33__HMMTRControllerWrapper_suspend__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) cachedDeviceController];
   v3 = [v2 controllerNodeID];
 
@@ -313,18 +303,16 @@ void __33__HMMTRControllerWrapper_suspend__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_INFO, "%{public}@Suspending Matter controller with Node ID %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_INFO, "%{public}@Suspending Matter controller with Node ID %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 32) _revokeAvailable:0];
   [*(a1 + 32) setDidSendRevokeAvailableOnResume:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)suspendOrShutdown
@@ -352,7 +340,7 @@ void __33__HMMTRControllerWrapper_suspend__block_invoke(uint64_t a1)
 
 void __32__HMMTRControllerWrapper_resume__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) didSendRevokeAvailableOnResume] & 1) == 0)
   {
     [*(a1 + 32) setDidSendRevokeAvailableOnResume:1];
@@ -365,23 +353,21 @@ void __32__HMMTRControllerWrapper_resume__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_INFO, "%{public}@Resuming Matter controller with Node ID %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_INFO, "%{public}@Resuming Matter controller with Node ID %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 32) _revokeAvailable:1];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replaceStartupParams:(id)params
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -390,7 +376,7 @@ void __32__HMMTRControllerWrapper_resume__block_invoke(uint64_t a1)
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v17 = v8;
+    v16 = v8;
     _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Replacing startup params", buf, 0xCu);
   }
 
@@ -401,24 +387,22 @@ void __32__HMMTRControllerWrapper_resume__block_invoke(uint64_t a1)
   block[2] = __47__HMMTRControllerWrapper_replaceStartupParams___block_invoke;
   block[3] = &unk_2786EF328;
   block[4] = selfCopy;
-  v15 = paramsCopy;
+  v14 = paramsCopy;
   v10 = paramsCopy;
   dispatch_sync(workQueue, block);
 
   workQueue2 = [(HMMTRControllerWrapper *)selfCopy workQueue];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __47__HMMTRControllerWrapper_replaceStartupParams___block_invoke_90;
-  v13[3] = &unk_2786F0CA8;
-  v13[4] = selfCopy;
-  dispatch_async(workQueue2, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __47__HMMTRControllerWrapper_replaceStartupParams___block_invoke_90;
+  v12[3] = &unk_2786F0CA8;
+  v12[4] = selfCopy;
+  dispatch_async(workQueue2, v12);
 }
 
 void __47__HMMTRControllerWrapper_replaceStartupParams___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -427,11 +411,11 @@ void __47__HMMTRControllerWrapper_replaceStartupParams___block_invoke(uint64_t a
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 32) cachedDeviceController];
     v7 = [v6 controllerNodeID];
-    v20 = 138543618;
-    v21 = v5;
-    v22 = 2112;
-    v23 = v7;
-    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_INFO, "%{public}@Shutting down Matter controller with Node ID %@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v5;
+    v21 = 2112;
+    v22 = v7;
+    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_INFO, "%{public}@Shutting down Matter controller with Node ID %@", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -455,18 +439,17 @@ void __47__HMMTRControllerWrapper_replaceStartupParams___block_invoke(uint64_t a
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     v18 = HMFGetLogIdentifier();
-    v20 = 138543362;
-    v21 = v18;
-    _os_log_impl(&dword_22AEAE000, v17, OS_LOG_TYPE_INFO, "%{public}@Replaced startup params", &v20, 0xCu);
+    v19 = 138543362;
+    v20 = v18;
+    _os_log_impl(&dword_22AEAE000, v17, OS_LOG_TYPE_INFO, "%{public}@Replaced startup params", &v19, 0xCu);
   }
 
   objc_autoreleasePoolPop(v15);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remove
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -474,7 +457,7 @@ void __47__HMMTRControllerWrapper_replaceStartupParams___block_invoke(uint64_t a
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v11 = v6;
+    v10 = v6;
     _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Removing", buf, 0xCu);
   }
 
@@ -486,13 +469,11 @@ void __47__HMMTRControllerWrapper_replaceStartupParams___block_invoke(uint64_t a
   block[3] = &unk_2786F0CA8;
   block[4] = selfCopy;
   dispatch_async(workQueue, block);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __32__HMMTRControllerWrapper_remove__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) cachedDeviceController];
   v3 = [v2 controllerNodeID];
 
@@ -515,22 +496,20 @@ void __32__HMMTRControllerWrapper_remove__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v12;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_INFO, "%{public}@Removed by Shutting down Matter controller with Node ID %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v12;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_INFO, "%{public}@Removed by Shutting down Matter controller with Node ID %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   [*(a1 + 32) _revokeAvailable:0];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (MTRDeviceController)controller
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -545,18 +524,18 @@ void __32__HMMTRControllerWrapper_remove__block_invoke(uint64_t a1)
   objc_autoreleasePoolPop(v3);
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__3457;
-  v24 = __Block_byref_object_dispose__3458;
-  v25 = 0;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__3457;
+  v23 = __Block_byref_object_dispose__3458;
+  v24 = 0;
   workQueue = [(HMMTRControllerWrapper *)selfCopy workQueue];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __36__HMMTRControllerWrapper_controller__block_invoke;
-  v16[3] = &unk_2786EDE38;
-  v16[4] = selfCopy;
-  v16[5] = &buf;
-  dispatch_sync(workQueue, v16);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __36__HMMTRControllerWrapper_controller__block_invoke;
+  v15[3] = &unk_2786EDE38;
+  v15[4] = selfCopy;
+  v15[5] = &buf;
+  dispatch_sync(workQueue, v15);
 
   v8 = objc_autoreleasePoolPush();
   v9 = selfCopy;
@@ -565,25 +544,23 @@ void __32__HMMTRControllerWrapper_remove__block_invoke(uint64_t a1)
   {
     v11 = HMFGetLogIdentifier();
     v12 = *(*(&buf + 1) + 40);
-    *v17 = 138543618;
-    v18 = v11;
-    v19 = 2048;
-    v20 = v12;
-    _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Obtained device controller: %p", v17, 0x16u);
+    *v16 = 138543618;
+    v17 = v11;
+    v18 = 2048;
+    v19 = v12;
+    _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Obtained device controller: %p", v16, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   v13 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 void __36__HMMTRControllerWrapper_controller__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) cachedDeviceController];
 
   v3 = *(a1 + 32);
@@ -593,38 +570,35 @@ void __36__HMMTRControllerWrapper_controller__block_invoke(uint64_t a1)
     v5 = *(*(a1 + 40) + 8);
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
-    v7 = *MEMORY[0x277D85DE8];
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v4, v6);
   }
 
   else
   {
-    v8 = [v3 factory];
+    v7 = [v3 factory];
 
-    if (!v8)
+    if (!v7)
     {
-      v9 = objc_autoreleasePoolPush();
-      v10 = *(a1 + 32);
-      v11 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v8 = objc_autoreleasePoolPush();
+      v9 = *(a1 + 32);
+      v10 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v12 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v12;
-        _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_ERROR, "%{public}@Cannot obtain device controller after wrapper is removed", &v18, 0xCu);
+        v11 = HMFGetLogIdentifier();
+        v16 = 138543362;
+        v17 = v11;
+        _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_ERROR, "%{public}@Cannot obtain device controller after wrapper is removed", &v16, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v9);
+      objc_autoreleasePoolPop(v8);
     }
 
-    v13 = [*(a1 + 32) factory];
-    v14 = [v13 _createControllerForGetter:*(a1 + 32)];
-    v15 = *(*(a1 + 40) + 8);
-    v16 = *(v15 + 40);
-    *(v15 + 40) = v14;
-
-    v17 = *MEMORY[0x277D85DE8];
+    v12 = [*(a1 + 32) factory];
+    v13 = [v12 _createControllerForGetter:*(a1 + 32)];
+    v14 = *(*(a1 + 40) + 8);
+    v15 = *(v14 + 40);
+    *(v14 + 40) = v13;
   }
 }
 
@@ -642,10 +616,11 @@ void __36__HMMTRControllerWrapper_controller__block_invoke(uint64_t a1)
 
 uint64_t __37__HMMTRControllerWrapper_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v14_3547 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14_3547;
+  logCategory__hmf_once_v14_3547 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)shortDescription

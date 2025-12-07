@@ -23,7 +23,7 @@
   y = bounds.origin.y;
   x = bounds.origin.x;
   v24.receiver = self;
-  v24.super_class = type metadata accessor for Slider();
+  v24.super_class = type metadata accessor for Slider(self, a2);
   v7 = v24.receiver;
   [(Slider *)&v24 trackRectForBounds:x, y, width, height];
   v8 = v27.origin.x;
@@ -89,7 +89,7 @@
 - (BOOL)isEnabled
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for Slider();
+  v3.super_class = type metadata accessor for Slider(self, a2);
   return [(Slider *)&v3 isEnabled];
 }
 
@@ -99,24 +99,25 @@
   {
     v4 = *((*MEMORY[0x1E69E7D40] & self->super.super.super.super.super.isa) + 0x110);
     selfCopy = self;
-    v6 = v4();
+    selfCopy2 = v4();
+    v8 = selfCopy2;
   }
 
   else
   {
     selfCopy2 = self;
-    v6 = 0;
+    v8 = 0;
   }
 
-  v8.receiver = self;
-  v8.super_class = type metadata accessor for Slider();
-  [(Slider *)&v8 setEnabled:v6 & 1];
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for Slider(selfCopy2, v7);
+  [(Slider *)&v9 setEnabled:v8 & 1];
 }
 
 - (CGRect)hitRect
 {
   v18.receiver = self;
-  v18.super_class = type metadata accessor for Slider();
+  v18.super_class = type metadata accessor for Slider(self, a2);
   v2 = v18.receiver;
   hitRect = [(Slider *)&v18 hitRect];
   v5 = v4;
@@ -155,17 +156,18 @@
   v4 = v2();
   if (v4)
   {
-    v5 = v4;
+    v6 = v5;
+    v7 = v4;
     v4();
 
-    sub_1A210F5C0(v5);
+    sub_1A210F5C0(v7, v6);
   }
 
   else
   {
-    v6.receiver = selfCopy;
-    v6.super_class = type metadata accessor for Slider();
-    [(Slider *)&v6 accessibilityIncrement];
+    v8.receiver = selfCopy;
+    v8.super_class = type metadata accessor for Slider(0, v5);
+    [(Slider *)&v8 accessibilityIncrement];
   }
 }
 
@@ -176,17 +178,18 @@
   v4 = v2();
   if (v4)
   {
-    v5 = v4;
+    v6 = v5;
+    v7 = v4;
     v4();
 
-    sub_1A210F5C0(v5);
+    sub_1A210F5C0(v7, v6);
   }
 
   else
   {
-    v6.receiver = selfCopy;
-    v6.super_class = type metadata accessor for Slider();
-    [(Slider *)&v6 accessibilityDecrement];
+    v8.receiver = selfCopy;
+    v8.super_class = type metadata accessor for Slider(0, v5);
+    [(Slider *)&v8 accessibilityDecrement];
   }
 }
 

@@ -89,25 +89,29 @@
   v83 = objc_msgSend_chart(v9, v79, v80, v81, v82);
   objc_msgSend_legendSizeForChartInfo_initialWidth_(TSCHChartLayout, v84, width, v85, v86, v83);
 
-  objc_msgSend_position(v72, v87, v88, v89, v90);
-  objc_msgSend_size(v72, v91, v92, v93, v94);
+  objc_msgSend_position(v72, v87, v88, v89);
+  objc_msgSend_size(v72, v90, v91, v92);
   TSURectWithOriginAndSize();
+  v94 = v93;
+  v96 = v95;
+  v98 = v97;
+  v100 = v99;
   TSURectWithOriginAndSize();
-  v142 = *MEMORY[0x277CBF348];
-  v141 = *MEMORY[0x277CBF3A8];
-  sub_27628348C(&v142, &v141, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104);
-  v105 = v142;
-  v110 = objc_msgSend_chart(v9, v106, v107, v108, v109);
-  v115 = objc_msgSend_legend(v110, v111, v112, v113, v114);
-  objc_msgSend_setLegendOffset_(v115, v116, *&v105, *(&v105 + 1), v117);
+  v148 = *MEMORY[0x277CBF348];
+  v147 = *MEMORY[0x277CBF3A8];
+  sub_27628348C(&v148, &v147, v101, v102, v103, v104, v105, v106, *MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24), v94, v96, v98, v100, v107, v108, v109, v110);
+  v111 = v148;
+  v116 = objc_msgSend_chart(v9, v112, v113, v114, v115);
+  v121 = objc_msgSend_legend(v116, v117, v118, v119, v120);
+  objc_msgSend_setLegendOffset_(v121, v122, *&v111, *(&v111 + 1), v123);
 
-  v118 = v141;
-  v123 = objc_msgSend_chart(v9, v119, v120, v121, v122);
-  v128 = objc_msgSend_legend(v123, v124, v125, v126, v127);
-  objc_msgSend_setLegendSize_(v128, v129, *&v118, *(&v118 + 1), v130);
+  v124 = v147;
+  v129 = objc_msgSend_chart(v9, v125, v126, v127, v128);
+  v134 = objc_msgSend_legend(v129, v130, v131, v132, v133);
+  objc_msgSend_setLegendSize_(v134, v135, *&v124, *(&v124 + 1), v136);
 
-  v135 = objc_msgSend_chart(v9, v131, v132, v133, v134);
-  objc_msgSend_setGeometry_omitLegendResize_(v135, v136, v137, v138, v139, v72, 1);
+  v141 = objc_msgSend_chart(v9, v137, v138, v139, v140);
+  objc_msgSend_setGeometry_omitLegendResize_(v141, v142, v143, v144, v145, v72, 1);
 
   return v9;
 }
@@ -453,28 +457,28 @@
   v11 = objc_msgSend_chartLayoutWithChartInfo_(TSCHChartLayout, v7, v8, v9, v10, v6);
 
   v16 = objc_msgSend_geometry(self, v12, v13, v14, v15);
-  objc_msgSend_size(v16, v17, v18, v19, v20);
-  objc_msgSend_layoutForChartBodySize_(v11, v21, v22, v23, v24);
+  objc_msgSend_size(v16, v17, v18, v19);
+  objc_msgSend_layoutForChartBodySize_(v11, v20, v21, v22, v23);
 
-  objc_msgSend_outerLayoutFrame(v11, v25, v26, v27, v28);
-  objc_msgSend_chartBodyFrame(v11, v29, v30, v31, v32);
-  v37 = objc_msgSend_geometry(self, v33, v34, v35, v36);
-  objc_msgSend_position(v37, v38, v39, v40, v41);
+  objc_msgSend_outerLayoutFrame(v11, v24, v25, v26, v27);
+  objc_msgSend_chartBodyFrame(v11, v28, v29, v30, v31);
+  v36 = objc_msgSend_geometry(self, v32, v33, v34, v35);
+  objc_msgSend_position(v36, v37, v38, v39);
   TSUSubtractPoints();
   TSURectWithOriginAndSize();
+  v41 = v40;
   v43 = v42;
   v45 = v44;
   v47 = v46;
-  v49 = v48;
 
-  v50 = v43;
-  v51 = v45;
-  v52 = v47;
-  v53 = v49;
-  result.size.height = v53;
-  result.size.width = v52;
-  result.origin.y = v51;
-  result.origin.x = v50;
+  v48 = v41;
+  v49 = v43;
+  v50 = v45;
+  v51 = v47;
+  result.size.height = v51;
+  result.size.width = v50;
+  result.origin.y = v49;
+  result.origin.x = v48;
   return result;
 }
 
@@ -755,37 +759,37 @@
 
 - (id)transformedGeometryWithTransform:(CGAffineTransform *)transform inBounds:(CGRect)bounds
 {
-  v49.receiver = self;
-  v49.super_class = TSCHChartDrawableInfo;
+  v45.receiver = self;
+  v45.super_class = TSCHChartDrawableInfo;
   v5 = *&transform->c;
-  v48[0] = *&transform->a;
-  v48[1] = v5;
-  v48[2] = *&transform->tx;
-  v6 = [(TSCHChartDrawableInfo *)&v49 transformedGeometryWithTransform:v48 inBounds:bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height];
+  v44[0] = *&transform->a;
+  v44[1] = v5;
+  v44[2] = *&transform->tx;
+  v6 = [(TSCHChartDrawableInfo *)&v45 transformedGeometryWithTransform:v44 inBounds:bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height];
   v11 = objc_msgSend_chart(self, v7, v8, v9, v10);
   objc_msgSend_minimumChartBodySizeForTransformingGeometryForChart_(TSCHChartInfo, v12, v13, v14, v15, v11);
   v17 = v16;
   v19 = v18;
 
-  objc_msgSend_size(v6, v20, v21, v22, v23);
-  v25 = v24;
-  objc_msgSend_size(v6, v26, v24, v27, v28);
-  if (v25 < v17 || v31 < v19)
+  objc_msgSend_size(v6, v20, v21, v22);
+  v24 = v23;
+  objc_msgSend_size(v6, v23, v25, v26);
+  if (v24 < v17 || v28 < v19)
   {
-    objc_msgSend_size(v6, v29, v30, v31, v32);
-    v35 = fmax(v34, v17);
-    objc_msgSend_size(v6, v36, v34, v37, v38);
-    v40 = fmax(v39, v19);
-    v46 = objc_msgSend_mutableCopy(v6, v41, v42, v39, v43);
-    objc_msgSend_setSize_(v46, v44, v35, v40, v45);
+    objc_msgSend_size(v6, v27, v28, v29);
+    v32 = fmax(v31, v17);
+    objc_msgSend_size(v6, v31, v33, v34);
+    v36 = fmax(v35, v19);
+    v42 = objc_msgSend_mutableCopy(v6, v37, v38, v35, v39);
+    objc_msgSend_setSize_(v42, v40, v32, v36, v41);
   }
 
   else
   {
-    v46 = v6;
+    v42 = v6;
   }
 
-  return v46;
+  return v42;
 }
 
 - (Class)repClass

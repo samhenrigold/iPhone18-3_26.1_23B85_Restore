@@ -37,7 +37,7 @@
 
 - (id)_dateComponentsForTimePeriodElement:(id)element home:(id)home
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   homeCopy = home;
   v8 = objc_opt_class();
@@ -106,11 +106,11 @@
         {
           v37 = HMFGetLogIdentifier();
           significantEvent3 = [v21 significantEvent];
-          v41 = 138543618;
-          v42 = v37;
-          v43 = 2112;
-          v44 = significantEvent3;
-          _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_ERROR, "%{public}@Only sunrise & sunset are supported, not: %@", &v41, 0x16u);
+          v40 = 138543618;
+          v41 = v37;
+          v42 = 2112;
+          v43 = significantEvent3;
+          _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_ERROR, "%{public}@Only sunrise & sunset are supported, not: %@", &v40, 0x16u);
         }
 
         objc_autoreleasePoolPop(v34);
@@ -144,25 +144,23 @@ LABEL_21:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     v13 = HMFGetLogIdentifier();
-    v41 = 138543618;
-    v42 = v13;
-    v43 = 2112;
-    v44 = elementCopy;
-    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unsupported HMDTimePeriodElement: %@", &v41, 0x16u);
+    v40 = 138543618;
+    v41 = v13;
+    v42 = 2112;
+    v43 = elementCopy;
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unsupported HMDTimePeriodElement: %@", &v40, 0x16u);
   }
 
   objc_autoreleasePoolPop(v10);
   v14 = 0;
 LABEL_22:
 
-  v39 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (BOOL)conditionPasses:(id)passes registrationUser:(id)user
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   passesCopy = passes;
   userCopy = user;
   v7 = passesCopy;
@@ -184,9 +182,9 @@ LABEL_22:
     startElement = [v9 startElement];
     endElement = [v9 endElement];
     home = [(HMDTimePeriodNotificationConditionHandler *)self home];
-    v48 = startElement;
+    v47 = startElement;
     v13 = [(HMDTimePeriodNotificationConditionHandler *)self _dateComponentsForTimePeriodElement:startElement home:home];
-    v47 = endElement;
+    v46 = endElement;
     v14 = [(HMDTimePeriodNotificationConditionHandler *)self _dateComponentsForTimePeriodElement:endElement home:home];
     v15 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -195,18 +193,18 @@ LABEL_22:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v51 = v18;
-      v52 = 2112;
-      v53 = v13;
-      v54 = 2112;
-      v55 = v14;
+      v50 = v18;
+      v51 = 2112;
+      v52 = v13;
+      v53 = 2112;
+      v54 = v14;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Start: %@ End: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v15);
     if (v13 && v14)
     {
-      v45 = home;
+      v44 = home;
       v19 = [(HMDTimePeriodNotificationConditionHandler *)selfCopy _dateTodayMatchingComponents:v13];
       v20 = [(HMDTimePeriodNotificationConditionHandler *)selfCopy _dateTodayMatchingComponents:v14];
       timeProvider = [(HMDTimePeriodNotificationConditionHandler *)selfCopy timeProvider];
@@ -214,7 +212,7 @@ LABEL_22:
 
       v23 = [v19 compare:v20];
       v24 = objc_alloc(MEMORY[0x277CCA970]);
-      v46 = currentDate;
+      v45 = currentDate;
       if (v23 == -1)
       {
         v25 = [v24 initWithStartDate:v19 endDate:v20];
@@ -233,30 +231,30 @@ LABEL_22:
       if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v38 = v44 = v14;
+        v38 = v43 = v14;
         HMFBooleanToString();
-        v39 = v42 = v35;
+        v39 = v41 = v35;
         *buf = 138544642;
-        v51 = v38;
-        v52 = 2112;
-        v53 = v7;
-        v54 = 2112;
-        v55 = v39;
-        v56 = 2112;
-        v57 = v19;
-        v58 = 2112;
-        v59 = v20;
-        v60 = 2112;
-        v61 = v46;
+        v50 = v38;
+        v51 = 2112;
+        v52 = v7;
+        v53 = 2112;
+        v54 = v39;
+        v55 = 2112;
+        v56 = v19;
+        v57 = 2112;
+        v58 = v20;
+        v59 = 2112;
+        v60 = v45;
         _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@Condition: %@ passes: %@ for Start: %@ End: %@ Time: %@", buf, 0x3Eu);
 
-        v35 = v42;
-        v14 = v44;
+        v35 = v41;
+        v14 = v43;
       }
 
       objc_autoreleasePoolPop(v35);
-      v32 = v47;
-      home = v45;
+      v32 = v46;
+      home = v44;
     }
 
     else
@@ -264,22 +262,22 @@ LABEL_22:
       v30 = objc_autoreleasePoolPush();
       v26 = selfCopy;
       v31 = HMFGetOSLogHandle();
-      v32 = v47;
+      v32 = v46;
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v43 = v14;
+        v42 = v14;
         v34 = v33 = home;
         *buf = 138543874;
-        v51 = v34;
-        v52 = 2112;
-        v53 = v48;
-        v54 = 2112;
-        v55 = v47;
+        v50 = v34;
+        v51 = 2112;
+        v52 = v47;
+        v53 = 2112;
+        v54 = v46;
         _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Unable to retrieve date components for startElement: %@ endElement: %@", buf, 0x20u);
 
         home = v33;
-        v14 = v43;
+        v14 = v42;
       }
 
       objc_autoreleasePoolPop(v30);
@@ -296,9 +294,9 @@ LABEL_22:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v51 = v29;
-      v52 = 2112;
-      v53 = v7;
+      v50 = v29;
+      v51 = 2112;
+      v52 = v7;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Attempting to evaluate a non-time period condition: %@", buf, 0x16u);
     }
 
@@ -306,7 +304,6 @@ LABEL_22:
     LOBYTE(v26) = 0;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -362,10 +359,9 @@ LABEL_22:
 
 void __56__HMDTimePeriodNotificationConditionHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v11_35921;
-  logCategory__hmf_once_v11_35921 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v11_35921;
+  logCategory__hmf_once_v11_35921 = v0;
 }
 
 @end

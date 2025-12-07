@@ -52,25 +52,25 @@
 
 - (id)_dictionaryRepresentation
 {
-  v73[19] = *MEMORY[0x1E69E9840];
-  v72[0] = @"code";
+  v72[19] = *MEMORY[0x1E69E9840];
+  v71[0] = @"code";
   code = [(INGetCarPowerLevelStatusIntentResponse *)self code];
-  v70 = code;
+  v69 = code;
   if (code < (INGetCarPowerLevelStatusIntentResponseCodeFailure|INGetCarPowerLevelStatusIntentResponseCodeInProgress))
   {
     null = *(&off_1E7283320 + code);
-    v69 = null;
+    v68 = null;
   }
 
   else
   {
     null = [MEMORY[0x1E695DFB0] null];
-    v69 = 0;
+    v68 = 0;
   }
 
-  v57 = null;
-  v73[0] = null;
-  v72[1] = @"carIdentifier";
+  v56 = null;
+  v72[0] = null;
+  v71[1] = @"carIdentifier";
   carIdentifier = [(INGetCarPowerLevelStatusIntentResponse *)self carIdentifier];
   v6 = carIdentifier;
   if (!carIdentifier)
@@ -78,9 +78,9 @@
     carIdentifier = [MEMORY[0x1E695DFB0] null];
   }
 
-  v56 = carIdentifier;
-  v73[1] = carIdentifier;
-  v72[2] = @"fuelPercentRemaining";
+  v55 = carIdentifier;
+  v72[1] = carIdentifier;
+  v71[2] = @"fuelPercentRemaining";
   fuelPercentRemaining = [(INGetCarPowerLevelStatusIntentResponse *)self fuelPercentRemaining];
   v8 = fuelPercentRemaining;
   if (!fuelPercentRemaining)
@@ -88,9 +88,9 @@
     fuelPercentRemaining = [MEMORY[0x1E695DFB0] null];
   }
 
-  v55 = fuelPercentRemaining;
-  v73[2] = fuelPercentRemaining;
-  v72[3] = @"chargePercentRemaining";
+  v54 = fuelPercentRemaining;
+  v72[2] = fuelPercentRemaining;
+  v71[3] = @"chargePercentRemaining";
   chargePercentRemaining = [(INGetCarPowerLevelStatusIntentResponse *)self chargePercentRemaining];
   v10 = chargePercentRemaining;
   if (!chargePercentRemaining)
@@ -98,9 +98,9 @@
     chargePercentRemaining = [MEMORY[0x1E695DFB0] null];
   }
 
-  v54 = chargePercentRemaining;
-  v73[3] = chargePercentRemaining;
-  v72[4] = @"distanceRemaining";
+  v53 = chargePercentRemaining;
+  v72[3] = chargePercentRemaining;
+  v71[4] = @"distanceRemaining";
   distanceRemaining = [(INGetCarPowerLevelStatusIntentResponse *)self distanceRemaining];
   v12 = distanceRemaining;
   if (!distanceRemaining)
@@ -108,9 +108,9 @@
     distanceRemaining = [MEMORY[0x1E695DFB0] null];
   }
 
-  v53 = distanceRemaining;
-  v73[4] = distanceRemaining;
-  v72[5] = @"charging";
+  v52 = distanceRemaining;
+  v72[4] = distanceRemaining;
+  v71[5] = @"charging";
   charging = [(INGetCarPowerLevelStatusIntentResponse *)self charging];
   v14 = charging;
   if (!charging)
@@ -118,9 +118,9 @@
     charging = [MEMORY[0x1E695DFB0] null];
   }
 
-  v52 = charging;
-  v73[5] = charging;
-  v72[6] = @"minutesToFull";
+  v51 = charging;
+  v72[5] = charging;
+  v71[6] = @"minutesToFull";
   minutesToFull = [(INGetCarPowerLevelStatusIntentResponse *)self minutesToFull];
   v16 = minutesToFull;
   if (!minutesToFull)
@@ -128,9 +128,9 @@
     minutesToFull = [MEMORY[0x1E695DFB0] null];
   }
 
-  v51 = minutesToFull;
-  v73[6] = minutesToFull;
-  v72[7] = @"maximumDistance";
+  v50 = minutesToFull;
+  v72[6] = minutesToFull;
+  v71[7] = @"maximumDistance";
   maximumDistance = [(INGetCarPowerLevelStatusIntentResponse *)self maximumDistance];
   v18 = maximumDistance;
   if (!maximumDistance)
@@ -138,19 +138,19 @@
     maximumDistance = [MEMORY[0x1E695DFB0] null];
   }
 
-  v50 = maximumDistance;
-  v73[7] = maximumDistance;
-  v72[8] = @"distanceRemainingElectric";
+  v49 = maximumDistance;
+  v72[7] = maximumDistance;
+  v71[8] = @"distanceRemainingElectric";
   distanceRemainingElectric = [(INGetCarPowerLevelStatusIntentResponse *)self distanceRemainingElectric];
-  v62 = distanceRemainingElectric;
+  v61 = distanceRemainingElectric;
   if (!distanceRemainingElectric)
   {
     distanceRemainingElectric = [MEMORY[0x1E695DFB0] null];
   }
 
-  v49 = distanceRemainingElectric;
-  v73[8] = distanceRemainingElectric;
-  v72[9] = @"maximumDistanceElectric";
+  v48 = distanceRemainingElectric;
+  v72[8] = distanceRemainingElectric;
+  v71[9] = @"maximumDistanceElectric";
   maximumDistanceElectric = [(INGetCarPowerLevelStatusIntentResponse *)self maximumDistanceElectric];
   v21 = maximumDistanceElectric;
   if (!maximumDistanceElectric)
@@ -158,9 +158,9 @@
     maximumDistanceElectric = [MEMORY[0x1E695DFB0] null];
   }
 
-  v48 = maximumDistanceElectric;
-  v73[9] = maximumDistanceElectric;
-  v72[10] = @"distanceRemainingFuel";
+  v47 = maximumDistanceElectric;
+  v72[9] = maximumDistanceElectric;
+  v71[10] = @"distanceRemainingFuel";
   distanceRemainingFuel = [(INGetCarPowerLevelStatusIntentResponse *)self distanceRemainingFuel];
   v23 = distanceRemainingFuel;
   if (!distanceRemainingFuel)
@@ -168,31 +168,31 @@
     distanceRemainingFuel = [MEMORY[0x1E695DFB0] null];
   }
 
-  v47 = distanceRemainingFuel;
-  v73[10] = distanceRemainingFuel;
-  v72[11] = @"maximumDistanceFuel";
+  v46 = distanceRemainingFuel;
+  v72[10] = distanceRemainingFuel;
+  v71[11] = @"maximumDistanceFuel";
   maximumDistanceFuel = [(INGetCarPowerLevelStatusIntentResponse *)self maximumDistanceFuel];
-  v71 = maximumDistanceFuel;
+  v70 = maximumDistanceFuel;
   if (!maximumDistanceFuel)
   {
     maximumDistanceFuel = [MEMORY[0x1E695DFB0] null];
   }
 
-  v65 = v12;
-  v46 = maximumDistanceFuel;
-  v73[11] = maximumDistanceFuel;
-  v72[12] = @"consumptionFormulaArguments";
+  v64 = v12;
+  v45 = maximumDistanceFuel;
+  v72[11] = maximumDistanceFuel;
+  v71[12] = @"consumptionFormulaArguments";
   consumptionFormulaArguments = [(INGetCarPowerLevelStatusIntentResponse *)self consumptionFormulaArguments];
-  v59 = consumptionFormulaArguments;
+  v58 = consumptionFormulaArguments;
   if (!consumptionFormulaArguments)
   {
     consumptionFormulaArguments = [MEMORY[0x1E695DFB0] null];
   }
 
-  v63 = v18;
-  v45 = consumptionFormulaArguments;
-  v73[12] = consumptionFormulaArguments;
-  v72[13] = @"chargingFormulaArguments";
+  v62 = v18;
+  v44 = consumptionFormulaArguments;
+  v72[12] = consumptionFormulaArguments;
+  v71[13] = @"chargingFormulaArguments";
   chargingFormulaArguments = [(INGetCarPowerLevelStatusIntentResponse *)self chargingFormulaArguments];
   v27 = chargingFormulaArguments;
   if (!chargingFormulaArguments)
@@ -200,10 +200,10 @@
     chargingFormulaArguments = [MEMORY[0x1E695DFB0] null];
   }
 
-  v68 = v6;
-  v44 = chargingFormulaArguments;
-  v73[13] = chargingFormulaArguments;
-  v72[14] = @"dateOfLastStateUpdate";
+  v67 = v6;
+  v43 = chargingFormulaArguments;
+  v72[13] = chargingFormulaArguments;
+  v71[14] = @"dateOfLastStateUpdate";
   dateOfLastStateUpdate = [(INGetCarPowerLevelStatusIntentResponse *)self dateOfLastStateUpdate];
   v29 = dateOfLastStateUpdate;
   if (!dateOfLastStateUpdate)
@@ -211,11 +211,11 @@
     dateOfLastStateUpdate = [MEMORY[0x1E695DFB0] null];
   }
 
-  v60 = v23;
-  v67 = v8;
-  v43 = dateOfLastStateUpdate;
-  v73[14] = dateOfLastStateUpdate;
-  v72[15] = @"activeConnector";
+  v59 = v23;
+  v66 = v8;
+  v42 = dateOfLastStateUpdate;
+  v72[14] = dateOfLastStateUpdate;
+  v71[15] = @"activeConnector";
   activeConnector = [(INGetCarPowerLevelStatusIntentResponse *)self activeConnector];
   v31 = activeConnector;
   if (!activeConnector)
@@ -223,11 +223,11 @@
     activeConnector = [MEMORY[0x1E695DFB0] null];
   }
 
-  v61 = v21;
-  v64 = v14;
-  v66 = v10;
-  v73[15] = activeConnector;
-  v72[16] = @"maximumBatteryCapacity";
+  v60 = v21;
+  v63 = v14;
+  v65 = v10;
+  v72[15] = activeConnector;
+  v71[16] = @"maximumBatteryCapacity";
   maximumBatteryCapacity = [(INGetCarPowerLevelStatusIntentResponse *)self maximumBatteryCapacity];
   null2 = maximumBatteryCapacity;
   if (!maximumBatteryCapacity)
@@ -236,8 +236,8 @@
   }
 
   v34 = v16;
-  v73[16] = null2;
-  v72[17] = @"currentBatteryCapacity";
+  v72[16] = null2;
+  v71[17] = @"currentBatteryCapacity";
   currentBatteryCapacity = [(INGetCarPowerLevelStatusIntentResponse *)self currentBatteryCapacity];
   null3 = currentBatteryCapacity;
   if (!currentBatteryCapacity)
@@ -245,8 +245,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v73[17] = null3;
-  v72[18] = @"minimumBatteryCapacity";
+  v72[17] = null3;
+  v71[18] = @"minimumBatteryCapacity";
   minimumBatteryCapacity = [(INGetCarPowerLevelStatusIntentResponse *)self minimumBatteryCapacity];
   null4 = minimumBatteryCapacity;
   if (!minimumBatteryCapacity)
@@ -254,8 +254,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v73[18] = null4;
-  v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:v72 count:19];
+  v72[18] = null4;
+  v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v72 forKeys:v71 count:19];
   if (!minimumBatteryCapacity)
   {
   }
@@ -280,15 +280,19 @@
   {
   }
 
-  if (!v59)
+  if (!v58)
   {
   }
 
-  v39 = v71;
-  if (!v71)
+  v39 = v70;
+  if (!v70)
   {
 
     v39 = 0;
+  }
+
+  if (!v59)
+  {
   }
 
   if (!v60)
@@ -303,11 +307,11 @@
   {
   }
 
-  if (!v63)
+  if (!v34)
   {
   }
 
-  if (!v34)
+  if (!v63)
   {
   }
 
@@ -327,17 +331,11 @@
   {
   }
 
-  if (!v68)
+  if (v69 >= 6)
   {
   }
 
-  if (v70 >= 6)
-  {
-  }
-
-  v40 = *MEMORY[0x1E69E9840];
-
-  return v58;
+  return v57;
 }
 
 - (void)setMinimumBatteryCapacity:(NSMeasurement *)minimumBatteryCapacity
@@ -842,7 +840,7 @@
 
 - (INGetCarPowerLevelStatusIntentResponse)initWithCode:(INGetCarPowerLevelStatusIntentResponseCode)code userActivity:(NSUserActivity *)userActivity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = userActivity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -860,21 +858,20 @@
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INGetCarPowerLevelStatusIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
-    v18 = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v6;
+    v15 = "[INGetCarPowerLevelStatusIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
+    v17 = code;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v6;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INGetCarPowerLevelStatusIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:v6];
+  v13.receiver = self;
+  v13.super_class = INGetCarPowerLevelStatusIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:v6];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

@@ -49,44 +49,43 @@
 
 - (BOOL)update
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v17 = 0;
+  v18 = *MEMORY[0x277D85DE8];
   v15 = 0;
-  MemoryUse = getMemoryUse(&v17, &v16, &v15);
+  v16 = 0;
+  v14 = 0;
+  MemoryUse = getMemoryUse(&v16, &v15, &v14);
   if (MemoryUse)
   {
-    [(ACCMemUsageStatInfo *)self->_statInfo updateResident:v17 virtualValue:v16 physFootprintValue:v15];
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
+    [(ACCMemUsageStatInfo *)self->_statInfo updateResident:v16 virtualValue:v15 physFootprintValue:v14];
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     allValues = [(NSMutableDictionary *)self->_markList allValues];
-    v5 = [allValues countByEnumeratingWithState:&v11 objects:v18 count:16];
+    v5 = [allValues countByEnumeratingWithState:&v10 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v12;
+      v7 = *v11;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [*(*(&v11 + 1) + 8 * i) updateResident:v17 virtualValue:v16 physFootprintValue:v15];
+          [*(*(&v10 + 1) + 8 * i) updateResident:v16 virtualValue:v15 physFootprintValue:v14];
         }
 
-        v6 = [allValues countByEnumeratingWithState:&v11 objects:v18 count:16];
+        v6 = [allValues countByEnumeratingWithState:&v10 objects:v17 count:16];
       }
 
       while (v6);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return MemoryUse;
 }
 

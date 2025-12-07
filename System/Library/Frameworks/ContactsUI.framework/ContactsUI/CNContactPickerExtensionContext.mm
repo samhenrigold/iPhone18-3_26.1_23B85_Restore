@@ -93,7 +93,7 @@ void __68__CNContactPickerExtensionContext__extensionAuxiliaryVendorProtocol__bl
 void __50__CNContactPickerExtensionContext_pickerDidCancel__block_invoke(uint64_t a1, void *a2)
 {
   v6 = [a2 localizedDescription];
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerServiceViewController.m", 304, 3, @"error calling host - %@", v2, v3, v4, v5, v6);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerServiceViewController.m", 304, 3u, @"error calling host - %@", v2, v3, v4, v5, v6);
 }
 
 - (void)pickerDidCompleteWithNewContact:(id)contact
@@ -114,7 +114,7 @@ void __50__CNContactPickerExtensionContext_pickerDidCancel__block_invoke(uint64_
 void __67__CNContactPickerExtensionContext_pickerDidCompleteWithNewContact___block_invoke(uint64_t a1, void *a2)
 {
   v6 = [a2 localizedDescription];
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerServiceViewController.m", 294, 3, @"error calling host - %@", v2, v3, v4, v5, v6);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerServiceViewController.m", 294, 3u, @"error calling host - %@", v2, v3, v4, v5, v6);
 }
 
 - (void)pickerDidSelectContacts:(id)contacts properties:(id)properties
@@ -136,7 +136,7 @@ void __67__CNContactPickerExtensionContext_pickerDidCompleteWithNewContact___blo
 void __70__CNContactPickerExtensionContext_pickerDidSelectContacts_properties___block_invoke(uint64_t a1, void *a2)
 {
   v6 = [a2 localizedDescription];
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerServiceViewController.m", 284, 3, @"error calling host - %@", v2, v3, v4, v5, v6);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerServiceViewController.m", 284, 3u, @"error calling host - %@", v2, v3, v4, v5, v6);
 }
 
 - (void)pickerDidSelectContact:(id)contact property:(id)property
@@ -158,7 +158,7 @@ void __70__CNContactPickerExtensionContext_pickerDidSelectContacts_properties___
 void __67__CNContactPickerExtensionContext_pickerDidSelectContact_property___block_invoke(uint64_t a1, void *a2)
 {
   v6 = [a2 localizedDescription];
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerServiceViewController.m", 274, 3, @"error calling host - %@", v2, v3, v4, v5, v6);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerServiceViewController.m", 274, 3u, @"error calling host - %@", v2, v3, v4, v5, v6);
 }
 
 - (void)pickerDidSelectAddNewContact
@@ -181,7 +181,7 @@ void __67__CNContactPickerExtensionContext_pickerDidSelectContact_property___blo
 void __63__CNContactPickerExtensionContext_pickerDidSelectAddNewContact__block_invoke(uint64_t a1, void *a2)
 {
   v6 = [a2 localizedDescription];
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerServiceViewController.m", 264, 3, @"error calling host - %@", v2, v3, v4, v5, v6);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerServiceViewController.m", 264, 3u, @"error calling host - %@", v2, v3, v4, v5, v6);
 }
 
 - (void)invalidateSelectionAnimated:(BOOL)animated
@@ -225,7 +225,7 @@ void __63__CNContactPickerExtensionContext_setupWithOptions_readyBlock___block_i
   v3 = v2;
   if (v2)
   {
-    [v2 auditToken];
+    objc_msgSend_auditToken(v2);
   }
 
   else

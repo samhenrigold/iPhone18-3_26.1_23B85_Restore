@@ -97,7 +97,6 @@
   objc_storeStrong(v21, 0);
   objc_storeStrong(&v22, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -486,19 +485,13 @@ LABEL_30:
             v26 = [v24 encodeDataAndRecord:v23 dataTypeContent:? baseKey:? errorOut:?];
             objc_storeStrong(&v102, v78);
             MEMORY[0x277D82BD8](v25);
-            if ((v26 & 1) != 1)
-            {
-              goto LABEL_53;
-            }
-
-            if (!v102)
+            if ((v26 & 1) == 1 && !v102)
             {
               v105 = 0;
             }
 
             else
             {
-LABEL_53:
               NSLog(&cfstr_FailedToSubmit.isa, v102);
               v18 = objc_alloc(MEMORY[0x277CCA9B8]);
               v22 = [v18 initWithDomain:AMDLighthouseODMLPluginErrorDomain code:144 userInfo:0];
@@ -564,7 +557,6 @@ LABEL_59:
 
   objc_storeStrong(&v112, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v20 = v116;
 
   return v20;
@@ -714,7 +706,6 @@ LABEL_22:
   objc_storeStrong(&v38, 0);
   objc_storeStrong(&v40, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v43;
 
   return v6;
@@ -971,7 +962,6 @@ LABEL_36:
 
   objc_storeStrong(&triExperimentIdentifiers, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v14 = v76;
 
   return v14;
@@ -1141,7 +1131,6 @@ LABEL_36:
 
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v41;
 
   return v7;
@@ -1622,7 +1611,6 @@ LABEL_82:
   objc_storeStrong(&v119, 0);
   objc_storeStrong(&v120, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v31 = v123;
 
   return v31;

@@ -77,32 +77,32 @@
 
   if (context)
   {
-    v4 = sub_10017DF3C();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_10017DF3C(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_100226274(v4);
+      sub_100226274(v5);
     }
   }
 
   else
   {
-    v4 = objc_alloc_init(LAContext);
-    [(FMDOwnerAuthenticationManager *)self setContext:v4];
+    v5 = objc_alloc_init(LAContext);
+    [(FMDOwnerAuthenticationManager *)self setContext:v5];
     evaluationOptions = [(FMDOwnerAuthenticationManager *)self evaluationOptions];
-    v6 = sub_10017DF3C();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_10017DF3C(evaluationOptions);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v9 = evaluationOptions;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Evaluating location-based owner authentication policy with options %@.", buf, 0xCu);
+      v10 = evaluationOptions;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Evaluating location-based owner authentication policy with options %@.", buf, 0xCu);
     }
 
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_100136458;
-    v7[3] = &unk_1002CD7C0;
-    v7[4] = self;
-    [v4 evaluatePolicy:1025 options:evaluationOptions reply:v7];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_100136458;
+    v8[3] = &unk_1002CD7C0;
+    v8[4] = self;
+    [v5 evaluatePolicy:1025 options:evaluationOptions reply:v8];
   }
 }
 

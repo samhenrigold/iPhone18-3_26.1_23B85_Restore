@@ -38,7 +38,7 @@
   return result;
 }
 
-uint64_t __37__GKBluetoothSupport_bluetoothStatus__block_invoke(uint64_t a1)
+void *__37__GKBluetoothSupport_bluetoothStatus__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _determineBluetoothStatus];
   __bluetoothStatus = result;
@@ -54,7 +54,7 @@ uint64_t __37__GKBluetoothSupport_bluetoothStatus__block_invoke(uint64_t a1)
 
 + (int)_determineBluetoothStatus
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = [objc_msgSend(self "_bluetoothManagerClass")];
   if (v3)
   {
@@ -84,20 +84,20 @@ uint64_t __37__GKBluetoothSupport_bluetoothStatus__block_invoke(uint64_t a1)
             if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
             {
               v16 = @"OFF";
-              v19 = 136315906;
-              v20 = v14;
-              v21 = 2080;
-              v22 = "+[GKBluetoothSupport _determineBluetoothStatus]";
+              v18 = 136315906;
+              v19 = v14;
+              v20 = 2080;
+              v21 = "+[GKBluetoothSupport _determineBluetoothStatus]";
               if (powered)
               {
                 v16 = @"ON";
               }
 
-              v23 = 1024;
-              v24 = 142;
-              v25 = 2112;
-              v26 = v16;
-              _os_log_impl(&dword_24E50C000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d determined bluetooth is %@", &v19, 0x26u);
+              v22 = 1024;
+              v23 = 142;
+              v24 = 2112;
+              v25 = v16;
+              _os_log_impl(&dword_24E50C000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d determined bluetooth is %@", &v18, 0x26u);
             }
           }
         }
@@ -113,10 +113,10 @@ uint64_t __37__GKBluetoothSupport_bluetoothStatus__block_invoke(uint64_t a1)
             }
           }
 
-          v6 = 1;
+          return 1;
         }
 
-        goto LABEL_36;
+        return v6;
       }
 
       if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -128,12 +128,10 @@ uint64_t __37__GKBluetoothSupport_bluetoothStatus__block_invoke(uint64_t a1)
           +[GKBluetoothSupport _determineBluetoothStatus];
         }
 
-        goto LABEL_36;
+        return v6;
       }
 
-LABEL_27:
-      v6 = 3;
-      goto LABEL_36;
+      return 3;
     }
 
     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -145,7 +143,7 @@ LABEL_27:
       }
     }
 
-    v6 = 0;
+    return 0;
   }
 
   else
@@ -173,14 +171,14 @@ LABEL_27:
         }
       }
 
-      v6 = 2;
+      return 2;
     }
 
     else
     {
       if (ErrorLogLevelForModule < 3)
       {
-        goto LABEL_27;
+        return 3;
       }
 
       v6 = 3;
@@ -193,8 +191,6 @@ LABEL_27:
     }
   }
 
-LABEL_36:
-  v17 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -224,7 +220,7 @@ LABEL_5:
   }
 }
 
-uint64_t __43__GKBluetoothSupport__btPowerStateChanged___block_invoke(uint64_t a1)
+void *__43__GKBluetoothSupport__btPowerStateChanged___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _determineBluetoothStatus];
   __bluetoothStatus = result;
@@ -233,11 +229,9 @@ uint64_t __43__GKBluetoothSupport__btPowerStateChanged___block_invoke(uint64_t a
 
 + (void)_determineBluetoothStatus
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_17();
   OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d Device does not have Bluetooth.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_24E50C000, v0, v1, " [%s] %s:%d Device does not have Bluetooth.", v2, v3, v4, v5);
 }
 
 @end

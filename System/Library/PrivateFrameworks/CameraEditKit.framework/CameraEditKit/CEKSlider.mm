@@ -93,13 +93,13 @@
 - (CEKSlider)initWithTitle:(id)title tickMarkStyle:(unint64_t)style
 {
   titleCopy = title;
-  v38.receiver = self;
-  v38.super_class = CEKSlider;
+  v40.receiver = self;
+  v40.super_class = CEKSlider;
   v7 = *MEMORY[0x1E695F058];
   v8 = *(MEMORY[0x1E695F058] + 8);
   v9 = *(MEMORY[0x1E695F058] + 16);
   v10 = *(MEMORY[0x1E695F058] + 24);
-  v11 = [(CEKSlider *)&v38 initWithFrame:*MEMORY[0x1E695F058], v8, v9, v10];
+  v11 = [(CEKSlider *)&v40 initWithFrame:*MEMORY[0x1E695F058], v8, v9, v10];
   v12 = v11;
   if (v11)
   {
@@ -182,35 +182,36 @@
     v12->_minimumValue = -1.0;
     v12->_maximumValue = 1.0;
     v12->_markedValue = 1.79769313e308;
-    if ([titleCopy length])
+    _updateFonts = [titleCopy length];
+    if (_updateFonts)
     {
-      v29 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v7, v8, v9, v10}];
+      v31 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v7, v8, v9, v10}];
       clearColor = [MEMORY[0x1E69DC888] clearColor];
-      [(UILabel *)v29 setBackgroundColor:clearColor];
+      [(UILabel *)v31 setBackgroundColor:clearColor];
 
-      [(UILabel *)v29 setTextAlignment:4];
-      [(UILabel *)v29 setLineBreakMode:0];
-      [(UILabel *)v29 setNumberOfLines:0];
-      [(UILabel *)v29 setTranslatesAutoresizingMaskIntoConstraints:0];
+      [(UILabel *)v31 setTextAlignment:4];
+      [(UILabel *)v31 setLineBreakMode:0];
+      [(UILabel *)v31 setNumberOfLines:0];
+      [(UILabel *)v31 setTranslatesAutoresizingMaskIntoConstraints:0];
       labelColor2 = [MEMORY[0x1E69DC888] labelColor];
       [(CEKSlider *)v12 titleAlpha];
-      v32 = [labelColor2 colorWithAlphaComponent:?];
-      [(UILabel *)v29 setTextColor:v32];
+      v34 = [labelColor2 colorWithAlphaComponent:?];
+      [(UILabel *)v31 setTextColor:v34];
 
-      [(UILabel *)v29 setText:titleCopy];
+      [(UILabel *)v31 setText:titleCopy];
       titleLabel = v12->__titleLabel;
-      v12->__titleLabel = v29;
-      v34 = v29;
+      v12->__titleLabel = v31;
+      v36 = v31;
 
       [(CEKSlider *)v12 addSubview:v12->__titleLabel];
-      [(CEKSlider *)v12 _updateFonts];
+      _updateFonts = [(CEKSlider *)v12 _updateFonts];
     }
 
-    if (CEKHapticsAllowed())
+    if (CEKHapticsAllowed(_updateFonts, v30))
     {
-      v35 = objc_alloc_init(CEKSelectionFeedbackGenerator);
+      v37 = objc_alloc_init(CEKSelectionFeedbackGenerator);
       feedbackGenerator = v12->__feedbackGenerator;
-      v12->__feedbackGenerator = v35;
+      v12->__feedbackGenerator = v37;
     }
 
     v12->_feedbackScope = 2;
@@ -1518,13 +1519,14 @@ LABEL_10:
 - (void)_updateFonts
 {
   fontStyle = [(CEKSlider *)self fontStyle];
-  v4 = CEKFontOfSizeAndStyle(fontStyle, 14.0);
+  v4.n128_u64[0] = 14.0;
+  v5 = CEKFontOfSizeAndStyle(fontStyle, v4);
   _titleLabel = [(CEKSlider *)self _titleLabel];
-  [_titleLabel setFont:v4];
+  [_titleLabel setFont:v5];
 
-  v7 = CEKMonospacedStylisticNumeralFontOfSizeAndStyle(fontStyle, 14.0);
+  v8 = CEKMonospacedStylisticNumeralFontOfSizeAndStyle(fontStyle, 14.0);
   _valueLabel = [(CEKSlider *)self _valueLabel];
-  [_valueLabel setFont:v7];
+  [_valueLabel setFont:v8];
 }
 
 - (void)setSelectionFeedbackProfile:(int64_t)profile
@@ -2010,18 +2012,18 @@ LABEL_30:
     }
 
     [(CEKSlider *)self bounds];
-    v55 = v16;
-    LOBYTE(v56) = 1;
-    *(&v56 + 1) = 0;
-    HIDWORD(v56) = 0;
-    v57 = v18;
+    v57 = v16;
     LOBYTE(v58) = 1;
     *(&v58 + 1) = 0;
     HIDWORD(v58) = 0;
+    v59 = v18;
+    LOBYTE(v60) = 1;
+    *(&v60 + 1) = 0;
+    HIDWORD(v60) = 0;
     BSUIConstrainValueToIntervalWithRubberBand();
     v14 = v21;
 LABEL_13:
-    [(CEKSlider *)self _setExternalOverScroll:v20, *&v55, v56, *&v57, v58];
+    [(CEKSlider *)self _setExternalOverScroll:v20, *&v57, v58, *&v59, v60];
     if ([(CEKSlider *)self _snapped])
     {
       [(CEKSlider *)self _unsnappingProgress];
@@ -2034,21 +2036,22 @@ LABEL_13:
       {
         [(CEKSlider *)self _setUnsnappingProgress:?];
         [(CEKSlider *)self _snappedOffset];
-        v32 = v44;
+        v34 = v46;
       }
 
       else
       {
         [(CEKSlider *)self _snappedOffset];
         [(CEKSlider *)self _valueForScrollViewXOffset:?];
-        v23 = os_log_create("com.apple.camera", "CameraEditKit");
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v24 = v23;
+        v25 = os_log_create("com.apple.camera", "CameraEditKit");
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
-          [(CEKSlider *)v23 contactUpdatedWithAction:v24, v25, v26, v27, v28, v29, v30];
+          [(CEKSlider *)v25 contactUpdatedWithAction:v26, v27, v28, v29, v30, v31, v32, v24];
         }
 
         [(CEKSlider *)self _snappedOffset];
-        v32 = v10 + v31;
+        v34 = v10 + v33;
         [(CEKSlider *)self _resetSnapped];
       }
 
@@ -2062,56 +2065,56 @@ LABEL_13:
     }
 
     [(CEKSlider *)self value];
-    v34 = [magneticRange indexOfValueClosestToValue:?];
-    if (v34 == 0x7FFFFFFFFFFFFFFFLL)
+    v36 = [magneticRange indexOfValueClosestToValue:?];
+    if (v36 == 0x7FFFFFFFFFFFFFFFLL)
     {
       goto LABEL_32;
     }
 
-    v35 = [magneticRange valueAtIndex:v34];
-    [v35 doubleValue];
-    v37 = v36;
+    v37 = [magneticRange valueAtIndex:v36];
+    [v37 doubleValue];
+    v39 = v38;
 
-    [(CEKSlider *)self xOffsetForValue:v37];
+    [(CEKSlider *)self xOffsetForValue:v39];
     traitCollection = [(CEKSlider *)self traitCollection];
     [traitCollection displayScale];
     UIRoundToScale();
-    v32 = v39;
+    v34 = v41;
 
-    v41 = 0;
-    if (v10 > 0.0 && v13 < v32)
+    v43 = 0;
+    if (v10 > 0.0 && v13 < v34)
     {
-      v40 = v14 + 0.3;
-      v41 = v14 + 0.3 >= v32;
+      v42 = v14 + 0.3;
+      v43 = v14 + 0.3 >= v34;
     }
 
-    v42 = 1;
-    if (v10 < 0.0 && v13 > v32)
+    v44 = 1;
+    if (v10 < 0.0 && v13 > v34)
     {
-      v40 = v14 + -0.3;
-      v42 = v14 + -0.3 > v32;
+      v42 = v14 + -0.3;
+      v44 = v14 + -0.3 > v34;
     }
 
     [(CEKSlider *)self minimumValue];
-    if (v37 == v43)
+    if (v39 == v45)
     {
       goto LABEL_32;
     }
 
     [(CEKSlider *)self maximumValue];
-    if (v41)
+    if (v43)
     {
-      if (v37 != v45)
+      if (v39 != v47)
       {
 LABEL_44:
-        v47 = os_log_create("com.apple.camera", "CameraEditKit");
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+        v49 = os_log_create("com.apple.camera", "CameraEditKit");
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
         {
-          [(CEKSlider *)v47 contactUpdatedWithAction:v48, v49, v50, v51, v52, v53, v54];
+          [(CEKSlider *)v49 contactUpdatedWithAction:v50, v51, v52, v53, v54, v55, v56, v39];
         }
 
-        [(CEKSlider *)self _setSnappedOffset:v32];
-        [(CEKSlider *)self _setUnsnappingProgress:dbl_1B7EDA710[v10 > 0.0] + v14 - v32];
+        [(CEKSlider *)self _setSnappedOffset:v34];
+        [(CEKSlider *)self _setUnsnappingProgress:dbl_1B7EDA710[v10 > 0.0] + v14 - v34];
         [(CEKSlider *)self _setSnapped:1];
         goto LABEL_33;
       }
@@ -2119,19 +2122,19 @@ LABEL_44:
 
     else
     {
-      v46 = v37 == v45 || v42;
-      if ((v46 & 1) == 0)
+      v48 = v39 == v47 || v44;
+      if ((v48 & 1) == 0)
       {
         goto LABEL_44;
       }
     }
 
 LABEL_32:
-    v32 = v14;
+    v34 = v14;
 LABEL_33:
 
 LABEL_35:
-    [(CEKSlider *)self _applyExternalTarget:5 mode:v32];
+    [(CEKSlider *)self _applyExternalTarget:5 mode:v34];
   }
 }
 
@@ -2189,7 +2192,7 @@ LABEL_35:
           v35 = os_log_create("com.apple.camera", "CameraEditKit");
           if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
           {
-            [(CEKDiscreteSlider *)v35 contactEndedWithAction:v50, v51, v52, v53, v54, v55, v56];
+            [(CEKDiscreteSlider *)v35 contactEndedWithAction:v50, v51, v52, v53, v54, v55, v56, v7];
           }
 
           goto LABEL_22;
@@ -2301,7 +2304,7 @@ LABEL_22:
 LABEL_27:
 }
 
-uint64_t __36__CEKSlider_contactEndedWithAction___block_invoke(uint64_t a1)
+void *__36__CEKSlider_contactEndedWithAction___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isScrollExternallyAnimating];
   if ((result & 1) == 0)
@@ -2465,6 +2468,20 @@ void __50__CEKSlider__createExternalScrollAnimatorIfNeeded__block_invoke(uint64_
   WeakRetained = objc_loadWeakRetained(&self->_contactObserver);
 
   return WeakRetained;
+}
+
+- (void)contactUpdatedWithAction:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_0(&dword_1B7E93000, a1, a3, "ScrollDiagnostic: Snapping while scrolling to magnetic value %.3f", a5, a6, a7, a8, v9, DWORD2(v9));
+}
+
+- (void)contactUpdatedWithAction:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_0(&dword_1B7E93000, a1, a3, "ScrollDiagnostic: Un-snapping while scrolling from magnetic value %.3f", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 @end

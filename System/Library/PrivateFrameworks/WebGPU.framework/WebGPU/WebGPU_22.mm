@@ -1,4 +1,4 @@
-void WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WGSL::AST::Identifier,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WGSL::AST::Identifier,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, int *a2, unint64_t *a3, uint64_t *a4, unint64_t *a5, uint64_t *a6, unint64_t *a7)
+void WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::Indentation<4u>,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WGSL::AST::Identifier,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WGSL::AST::Identifier,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, int *a2, unint64_t *a3, uint64_t *a4, unsigned __int8 **a5, uint64_t *a6, unsigned __int8 **a7)
 {
   v13 = *a4;
   v14 = *a6;
@@ -260,7 +260,7 @@ LABEL_42:
   WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(&v47[v50], v48 - v50, v51, v52, v53, v54, v55, v56);
 }
 
-_BYTE *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned char,void>>(WTF::StringBuilder *a1, unint64_t *a2, unsigned __int8 *a3)
+char *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned char,void>>(WTF::StringBuilder *a1, char **a2, unsigned __int8 *a3)
 {
   v5 = 0;
   v6 = *a3;
@@ -378,8 +378,8 @@ _BYTE *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIIL
     }
 
 LABEL_17:
-    v29 = &v15[-v16 - 2];
-    if (v29 < 0xE || (v16 < v13 + (v29 >> 1) + 1 ? (v30 = v13 >= (v29 & 0xFFFFFFFFFFFFFFFELL) + v16 + 2) : (v30 = 1), !v30))
+    v29 = v15 - v16 - 2;
+    if (v29 < 0xE || (v16 < v13 + (v29 >> 1) + 1 ? (v30 = v13 >= &v16[(v29 & 0xFFFFFFFFFFFFFFFELL) + 2]) : (v30 = 1), !v30))
     {
       v33 = v13;
       v34 = v16;
@@ -415,7 +415,7 @@ LABEL_17:
 
       if ((v31 & 0x18) == 0)
       {
-        v34 = (v16 + 2 * v32);
+        v34 = &v16[2 * v32];
         v33 = (v13 + v32);
         goto LABEL_26;
       }
@@ -427,8 +427,8 @@ LABEL_17:
     }
 
     v33 = (v13 + (v31 & 0xFFFFFFFFFFFFFFF8));
-    v34 = (v16 + 2 * (v31 & 0xFFFFFFFFFFFFFFF8));
-    v53 = (v16 + 2 * v32);
+    v34 = &v16[2 * (v31 & 0xFFFFFFFFFFFFFFF8)];
+    v53 = &v16[2 * v32];
     v54 = (v13 + v32);
     v55 = v32 - (v31 & 0xFFFFFFFFFFFFFFF8);
     do
@@ -448,7 +448,8 @@ LABEL_17:
     {
 LABEL_26:
       v35 = *v33++;
-      *v34++ = v35;
+      *v34 = v35;
+      v34 += 2;
     }
 
     while (v34 != v15);
@@ -539,12 +540,12 @@ LABEL_63:
     return result;
   }
 
-  v46[1] = v57[v39 + 5];
+  *(v46 + 1) = v57[v39 + 5];
   if ((v38 & 1) == 0)
   {
     if (v37 != 2)
     {
-      v46[2] = v57[v39 + 6];
+      *(v46 + 2) = v57[v39 + 6];
       return result;
     }
 
@@ -554,7 +555,7 @@ LABEL_63:
   return result;
 }
 
-_BYTE *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WGSL::AST::Identifier,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, unint64_t *a2, uint64_t *a3, unint64_t *a4)
+char *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WGSL::AST::Identifier,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, char **a2, uint64_t *a3, char **a4)
 {
   v7 = *a3;
   v8 = *(a1 + 1);
@@ -769,8 +770,8 @@ LABEL_113:
     }
 
 LABEL_17:
-    v32 = &v16[-v17 - 2];
-    if (v32 < 0xE || (v17 < v12 + (v32 >> 1) + 1 ? (v33 = v12 >= (v32 & 0xFFFFFFFFFFFFFFFELL) + v17 + 2) : (v33 = 1), !v33))
+    v32 = v16 - v17 - 2;
+    if (v32 < 0xE || (v17 < v12 + (v32 >> 1) + 1 ? (v33 = v12 >= &v17[(v32 & 0xFFFFFFFFFFFFFFFELL) + 2]) : (v33 = 1), !v33))
     {
       v36 = v12;
       v37 = v17;
@@ -806,7 +807,7 @@ LABEL_17:
 
       if ((v34 & 0x18) == 0)
       {
-        v37 = (v17 + 2 * v35);
+        v37 = &v17[2 * v35];
         v36 = (v12 + v35);
         goto LABEL_26;
       }
@@ -818,8 +819,8 @@ LABEL_17:
     }
 
     v36 = (v12 + (v34 & 0xFFFFFFFFFFFFFFF8));
-    v37 = (v17 + 2 * (v34 & 0xFFFFFFFFFFFFFFF8));
-    v104 = (v17 + 2 * v35);
+    v37 = &v17[2 * (v34 & 0xFFFFFFFFFFFFFFF8)];
+    v104 = &v17[2 * v35];
     v105 = (v12 + v35);
     v106 = v35 - (v34 & 0xFFFFFFFFFFFFFFF8);
     do
@@ -839,7 +840,8 @@ LABEL_17:
     {
 LABEL_26:
       v38 = *v36++;
-      *v37++ = v38;
+      *v37 = v38;
+      v37 += 2;
     }
 
     while (v37 != v16);
@@ -897,7 +899,7 @@ LABEL_27:
   v43 = *(v13 + 4);
   if ((*(v13 + 16) & 4) != 0)
   {
-    v45 = &v41[v43];
+    v45 = &v41[2 * v43];
     if (v43 < 0x40)
     {
       v46 = &result[2 * v39];
@@ -909,7 +911,7 @@ LABEL_27:
 
     else
     {
-      v46 = &v41[v43 & 0xFFFFFFC0];
+      v46 = &v41[2 * (v43 & 0xFFFFFFC0)];
       v47 = 0uLL;
       v48 = &result[2 * v39];
       do
@@ -942,8 +944,8 @@ LABEL_27:
       }
     }
 
-    v66 = &result[2 * v43 + 2 * v39 - v46 - 2];
-    if (v66 < 0xE || (v46 < v42->u64 + (v66 >> 1) + 1 ? (v67 = v42 >= (v66 & 0xFFFFFFFFFFFFFFFELL) + v46 + 2) : (v67 = 1), !v67))
+    v66 = &result[2 * v43 + 2 * v39] - v46 - 2;
+    if (v66 < 0xE || (v46 < &v42->i8[(v66 >> 1) + 1] ? (v67 = v42 >= &v46[(v66 & 0xFFFFFFFFFFFFFFFELL) + 2]) : (v67 = 1), !v67))
     {
       v70 = v42;
       v71 = v46;
@@ -979,7 +981,7 @@ LABEL_27:
 
       if ((v68 & 0x18) == 0)
       {
-        v71 = (v46 + 2 * v69);
+        v71 = &v46[2 * v69];
         v70 = (v42 + v69);
         goto LABEL_62;
       }
@@ -991,8 +993,8 @@ LABEL_27:
     }
 
     v70 = (v42 + (v68 & 0xFFFFFFFFFFFFFFF8));
-    v71 = (v46 + 2 * (v68 & 0xFFFFFFFFFFFFFFF8));
-    v124 = (v46 + 2 * v69);
+    v71 = &v46[2 * (v68 & 0xFFFFFFFFFFFFFFF8)];
+    v124 = &v46[2 * v69];
     v125 = &v42->i8[v69];
     v126 = v69 - (v68 & 0xFFFFFFFFFFFFFFF8);
     do
@@ -1013,7 +1015,8 @@ LABEL_27:
 LABEL_62:
       v72 = v70->u8[0];
       v70 = (v70 + 1);
-      *v71++ = v72;
+      *v71 = v72;
+      v71 += 2;
     }
 
     while (v71 != v45);
@@ -1043,7 +1046,7 @@ LABEL_65:
   }
 
 LABEL_66:
-  v74 = &v41[v44];
+  v74 = &v41[2 * v44];
   v75 = (v74 + 2 * v14);
   if (v14 >= 0x40)
   {
@@ -1156,7 +1159,7 @@ LABEL_80:
   return result;
 }
 
-void WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<long long,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4)
+void WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<long long,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, unint64_t *a2, unint64_t *a3, unsigned __int8 **a4)
 {
   v7 = *a3;
   if ((*a3 & 0x8000000000000000) != 0)
@@ -1350,7 +1353,7 @@ LABEL_31:
   }
 }
 
-_BYTE *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4)
+char *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, char **a2, char **a3, char **a4)
 {
   v7 = *(a1 + 1);
   if (!v7 && (v7 = *a1) == 0 || (*(v7 + 16) & 4) != 0)
@@ -1450,8 +1453,8 @@ LABEL_100:
     }
 
 LABEL_15:
-    v33 = &v16[-v17 - 2];
-    if (v33 < 0xE || (v17 < v11 + (v33 >> 1) + 1 ? (v34 = v11 >= (v33 & 0xFFFFFFFFFFFFFFFELL) + v17 + 2) : (v34 = 1), !v34))
+    v33 = v16 - v17 - 2;
+    if (v33 < 0xE || (v17 < v11 + (v33 >> 1) + 1 ? (v34 = v11 >= &v17[(v33 & 0xFFFFFFFFFFFFFFFELL) + 2]) : (v34 = 1), !v34))
     {
       v37 = v11;
       v38 = v17;
@@ -1487,7 +1490,7 @@ LABEL_15:
 
       if ((v35 & 0x18) == 0)
       {
-        v38 = (v17 + 2 * v36);
+        v38 = &v17[2 * v36];
         v37 = (v11 + v36);
         goto LABEL_24;
       }
@@ -1499,8 +1502,8 @@ LABEL_15:
     }
 
     v37 = (v11 + (v35 & 0xFFFFFFFFFFFFFFF8));
-    v38 = (v17 + 2 * (v35 & 0xFFFFFFFFFFFFFFF8));
-    v88 = (v17 + 2 * v36);
+    v38 = &v17[2 * (v35 & 0xFFFFFFFFFFFFFFF8)];
+    v88 = &v17[2 * v36];
     v89 = (v11 + v36);
     v90 = v36 - (v35 & 0xFFFFFFFFFFFFFFF8);
     do
@@ -1520,7 +1523,8 @@ LABEL_15:
     {
 LABEL_24:
       v39 = *v37++;
-      *v38++ = v39;
+      *v38 = v39;
+      v38 += 2;
     }
 
     while (v38 != v16);
@@ -1577,8 +1581,8 @@ LABEL_25:
     }
 
 LABEL_32:
-    v52 = &result[2 * v12 + 2 * v10 - v43 - 2];
-    if (v52 < 0xE || (v43 < v13 + (v52 >> 1) + 1 ? (v53 = v13 >= (v52 & 0xFFFFFFFFFFFFFFFELL) + v43 + 2) : (v53 = 1), !v53))
+    v52 = &result[2 * v12 + 2 * v10] - v43 - 2;
+    if (v52 < 0xE || (v43 < v13 + (v52 >> 1) + 1 ? (v53 = v13 >= &v43[(v52 & 0xFFFFFFFFFFFFFFFELL) + 2]) : (v53 = 1), !v53))
     {
       v56 = v13;
       v57 = v43;
@@ -1614,7 +1618,7 @@ LABEL_32:
 
       if ((v54 & 0x18) == 0)
       {
-        v57 = (v43 + 2 * v55);
+        v57 = &v43[2 * v55];
         v56 = (v13 + v55);
         goto LABEL_41;
       }
@@ -1626,8 +1630,8 @@ LABEL_32:
     }
 
     v56 = (v13 + (v54 & 0xFFFFFFFFFFFFFFF8));
-    v57 = (v43 + 2 * (v54 & 0xFFFFFFFFFFFFFFF8));
-    v98 = (v43 + 2 * v55);
+    v57 = &v43[2 * (v54 & 0xFFFFFFFFFFFFFFF8)];
+    v98 = &v43[2 * v55];
     v99 = (v13 + v55);
     v100 = v55 - (v54 & 0xFFFFFFFFFFFFFFF8);
     do
@@ -1647,7 +1651,8 @@ LABEL_32:
     {
 LABEL_41:
       v58 = *v56++;
-      *v57++ = v58;
+      *v57 = v58;
+      v57 += 2;
     }
 
     while (v57 != v42);
@@ -2205,7 +2210,8 @@ LABEL_7:
       {
         v13 = vld2q_s8(v7);
         v7 += 32;
-        *v12++ = v13;
+        *v12 = v13;
+        v12 += 16;
       }
 
       while (v12 != &result[v10 & 0xFFFFFFF0]);
@@ -2228,7 +2234,7 @@ LABEL_7:
     {
       v32 = v30 & 0xFFFFFFFFFFFFFFE0;
       v46 = (v7 + 32);
-      v47 = (v12 + 1);
+      v47 = (v12 + 16);
       v48 = v30 & 0xFFFFFFFFFFFFFFE0;
       do
       {
@@ -2252,7 +2258,7 @@ LABEL_7:
       if ((v30 & 0x1C) == 0)
       {
         v34 = (v7 + 2 * v32);
-        v33 = (v12 + v32);
+        v33 = &v12[v32];
         goto LABEL_56;
       }
     }
@@ -2262,15 +2268,16 @@ LABEL_7:
       v32 = 0;
     }
 
-    v33 = (v12 + (v30 & 0xFFFFFFFFFFFFFFFCLL));
+    v33 = &v12[v30 & 0xFFFFFFFFFFFFFFFCLL];
     v34 = (v7 + 2 * (v30 & 0xFFFFFFFFFFFFFFFCLL));
     v53 = (v7 + 2 * v32);
-    v54 = (v12 + v32);
+    v54 = &v12[v32];
     v55 = v32 - (v30 & 0xFFFFFFFFFFFFFFFCLL);
     do
     {
       v56 = *v53++;
-      *v54++ = vuzp1_s8(v56, v56).u32[0];
+      *v54 = vuzp1_s8(v56, v56).u32[0];
+      v54 += 4;
       v55 += 4;
     }
 
@@ -2285,8 +2292,7 @@ LABEL_7:
 LABEL_56:
       v35 = *v34;
       v34 += 2;
-      *v33 = v35;
-      v33 = (v33 + 1);
+      *v33++ = v35;
     }
 
     while (v33 != v11);
@@ -2373,7 +2379,7 @@ LABEL_42:
     if (v23 >= 0x3E)
     {
       v26 = v25 & 0xFFFFFFFFFFFFFFE0;
-      v36 = (result + 32);
+      v36 = result + 32;
       v37 = (v7 + 16);
       v38 = v25 & 0xFFFFFFFFFFFFFFE0;
       do
@@ -2381,11 +2387,11 @@ LABEL_42:
         v39 = *v37[-2].i8;
         v40 = vmovl_u8(*v37);
         v41 = vmovl_high_u8(*v37->i8);
-        v36[-2] = vmovl_u8(*v39.i8);
-        v36[-1] = vmovl_high_u8(v39);
+        *(v36 - 2) = vmovl_u8(*v39.i8);
+        *(v36 - 1) = vmovl_high_u8(v39);
         *v36 = v40;
-        v36[1] = v41;
-        v36 += 4;
+        *(v36 + 1) = v41;
+        v36 += 64;
         v37 += 4;
         v38 -= 32;
       }
@@ -2441,7 +2447,7 @@ LABEL_39:
   return result;
 }
 
-_BYTE *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<char,void>>(WTF::StringBuilder *a1, unint64_t *a2, char *a3)
+char *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<char,void>>(WTF::StringBuilder *a1, char **a2, char *a3)
 {
   v5 = *(a1 + 1);
   if (!v5 && (v5 = *a1) == 0 || (*(v5 + 16) & 4) != 0)
@@ -2502,8 +2508,8 @@ LABEL_40:
     }
 
 LABEL_15:
-    v25 = &v11[-v12 - 2];
-    if (v25 < 0xE || (v12 < v9 + (v25 >> 1) + 1 ? (v26 = v9 >= (v25 & 0xFFFFFFFFFFFFFFFELL) + v12 + 2) : (v26 = 1), !v26))
+    v25 = v11 - v12 - 2;
+    if (v25 < 0xE || (v12 < v9 + (v25 >> 1) + 1 ? (v26 = v9 >= &v12[(v25 & 0xFFFFFFFFFFFFFFFELL) + 2]) : (v26 = 1), !v26))
     {
       v29 = v9;
       v30 = v12;
@@ -2539,7 +2545,7 @@ LABEL_15:
 
       if ((v27 & 0x18) == 0)
       {
-        v30 = (v12 + 2 * v28);
+        v30 = &v12[2 * v28];
         v29 = (v9 + v28);
         goto LABEL_24;
       }
@@ -2551,8 +2557,8 @@ LABEL_15:
     }
 
     v29 = (v9 + (v27 & 0xFFFFFFFFFFFFFFF8));
-    v30 = (v12 + 2 * (v27 & 0xFFFFFFFFFFFFFFF8));
-    v40 = (v12 + 2 * v28);
+    v30 = &v12[2 * (v27 & 0xFFFFFFFFFFFFFFF8)];
+    v40 = &v12[2 * v28];
     v41 = (v9 + v28);
     v42 = v28 - (v27 & 0xFFFFFFFFFFFFFFF8);
     do
@@ -2572,7 +2578,8 @@ LABEL_15:
     {
 LABEL_24:
       v31 = *v29++;
-      *v30++ = v31;
+      *v30 = v31;
+      v30 += 2;
     }
 
     while (v30 != v11);
@@ -2621,7 +2628,7 @@ LABEL_25:
   return result;
 }
 
-int8x16_t *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>>(WTF::StringBuilder *a1, uint64_t *a2, char *a3)
+char *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>>(WTF::StringBuilder *a1, uint64_t *a2, char *a3)
 {
   v5 = *a2;
   if (*a2)
@@ -2677,7 +2684,7 @@ LABEL_7:
       {
         if (v17 == 1)
         {
-          result->i8[0] = *v16;
+          *result = *v16;
         }
 
         else
@@ -2693,7 +2700,7 @@ LABEL_7:
 
     else
     {
-      v18 = (result + v17);
+      v18 = &result[v17];
       if (v17 < 0x10)
       {
         v19 = result;
@@ -2706,16 +2713,17 @@ LABEL_7:
         {
           v20 = vld2q_s8(v16);
           v16 += 32;
-          *v19++ = v20;
+          *v19 = v20;
+          v19 += 16;
         }
 
-        while (v19 != &result->i8[v17 & 0xFFFFFFF0]);
+        while (v19 != &result[v17 & 0xFFFFFFF0]);
       }
 
       if (v19 != v18)
       {
-        v42 = &result->i8[v17] - v19;
-        if (v42 < 4 || (v19 < &v16[2 * v42] ? (v43 = v16 >= &result->i8[v17]) : (v43 = 1), !v43))
+        v42 = &result[v17] - v19;
+        if (v42 < 4 || (v19 < &v16[2 * v42] ? (v43 = v16 >= &result[v17]) : (v43 = 1), !v43))
         {
           v45 = v19;
           v46 = v16;
@@ -2726,7 +2734,7 @@ LABEL_7:
         {
           v44 = v42 & 0xFFFFFFFFFFFFFFE0;
           v60 = (v16 + 32);
-          v61 = v19 + 1;
+          v61 = (v19 + 16);
           v62 = v42 & 0xFFFFFFFFFFFFFFE0;
           do
           {
@@ -2750,14 +2758,13 @@ LABEL_7:
           if ((v42 & 0x1C) == 0)
           {
             v46 = &v16[2 * v44];
-            v45 = (v19 + v44);
+            v45 = &v19[v44];
             do
             {
 LABEL_60:
               v47 = *v46;
               v46 += 2;
-              v45->i8[0] = v47;
-              v45 = (v45 + 1);
+              *v45++ = v47;
             }
 
             while (v45 != v18);
@@ -2770,15 +2777,16 @@ LABEL_60:
           v44 = 0;
         }
 
-        v45 = (v19 + (v42 & 0xFFFFFFFFFFFFFFFCLL));
+        v45 = &v19[v42 & 0xFFFFFFFFFFFFFFFCLL];
         v46 = &v16[2 * (v42 & 0xFFFFFFFFFFFFFFFCLL)];
         v67 = &v16[2 * v44];
-        v68 = (v19->i32 + v44);
+        v68 = &v19[v44];
         v69 = v44 - (v42 & 0xFFFFFFFFFFFFFFFCLL);
         do
         {
           v70 = *v67++;
-          *v68++ = vuzp1_s8(v70, v70).u32[0];
+          *v68 = vuzp1_s8(v70, v70).u32[0];
+          v68 += 4;
           v69 += 4;
         }
 
@@ -2800,7 +2808,7 @@ LABEL_63:
 LABEL_64:
     if (v13 != v32)
     {
-      result->i8[v32] = v15;
+      result[v32] = v15;
       return result;
     }
 
@@ -2826,7 +2834,7 @@ LABEL_9:
   v12 = *(v9 + 4);
   if ((*(v9 + 16) & 4) != 0)
   {
-    v22 = (result + 2 * v12);
+    v22 = &result[2 * v12];
     if (v12 < 0x40)
     {
       v23 = result;
@@ -2838,7 +2846,7 @@ LABEL_9:
 
     else
     {
-      v23 = result + 2 * (v12 & 0xFFFFFFC0);
+      v23 = &result[2 * (v12 & 0xFFFFFFC0)];
       v24 = 0uLL;
       v25 = result;
       do
@@ -2872,7 +2880,7 @@ LABEL_9:
     }
 
     v33 = v22 - v23 - 2;
-    if (v33 < 0xE || (v23 < v11 + (v33 >> 1) + 1 ? (v34 = v11 >= (v33 & 0xFFFFFFFFFFFFFFFELL) + v23 + 2) : (v34 = 1), !v34))
+    if (v33 < 0xE || (v23 < v11 + (v33 >> 1) + 1 ? (v34 = v11 >= &v23[(v33 & 0xFFFFFFFFFFFFFFFELL) + 2]) : (v34 = 1), !v34))
     {
       v37 = v11;
       v38 = v23;
@@ -2908,7 +2916,7 @@ LABEL_9:
 
       if ((v35 & 0x18) == 0)
       {
-        v38 = (v23 + 2 * v36);
+        v38 = &v23[2 * v36];
         v37 = (v11 + v36);
         goto LABEL_42;
       }
@@ -2920,8 +2928,8 @@ LABEL_9:
     }
 
     v37 = (v11 + (v35 & 0xFFFFFFFFFFFFFFF8));
-    v38 = (v23 + 2 * (v35 & 0xFFFFFFFFFFFFFFF8));
-    v56 = (v23 + 2 * v36);
+    v38 = &v23[2 * (v35 & 0xFFFFFFFFFFFFFFF8)];
+    v56 = &v23[2 * v36];
     v57 = (v11 + v36);
     v58 = v36 - (v35 & 0xFFFFFFFFFFFFFFF8);
     do
@@ -2941,8 +2949,8 @@ LABEL_9:
     {
 LABEL_42:
       v39 = *v37++;
-      v38->i16[0] = v39;
-      v38 = (v38 + 2);
+      *v38 = v39;
+      v38 += 2;
     }
 
     while (v38 != v22);
@@ -2953,7 +2961,7 @@ LABEL_42:
   {
     if (v12 == 1)
     {
-      result->i16[0] = *v11;
+      *result = *v11;
     }
 
     else
@@ -2981,7 +2989,7 @@ LABEL_46:
     goto LABEL_84;
   }
 
-  result->i16[v21] = v10;
+  *&result[2 * v21] = v10;
   return result;
 }
 
@@ -3177,7 +3185,7 @@ LABEL_24:
   }
 }
 
-uint64_t WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<long long,void>>(WTF::StringBuilder *a1, unint64_t *a2)
+uint16x8_t *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<long long,void>>(WTF::StringBuilder *a1, unint64_t *a2)
 {
   v76 = *MEMORY[0x277D85DE8];
   v3 = *a2;
@@ -3279,7 +3287,7 @@ uint64_t WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<long long
           }
 
           v61 = v53 + v51;
-          v62 = (result + 2 * v53);
+          v62 = &result->i16[v53];
           v63 = v61 + 1;
           for (i = v11 - v53; i; --i)
           {
@@ -3364,7 +3372,7 @@ uint64_t WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<long long
 
         v71 = v18 - v16;
         v72 = v18 - v16 - 1;
-        v73 = (result + 2 * v18);
+        v73 = &result->i16[v18];
         for (j = v11 - v18; j; --j)
         {
           *v73++ = v75[v72 + 25];
@@ -3450,7 +3458,7 @@ uint64_t WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<long long
           }
 
           v37 = v29 + v27;
-          v38 = (result + v29);
+          v38 = &result->i8[v29];
           v39 = v37 + 1;
           for (k = v19 - v29; k; --k)
           {
@@ -3534,7 +3542,7 @@ uint64_t WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<long long
 
         v47 = v26 - v24;
         v48 = v47 - 1;
-        v49 = (result + v26);
+        v49 = &result->i8[v26];
         for (m = v19 - v26; m; --m)
         {
           *v49++ = *(&v76 + v48++);
@@ -3697,7 +3705,7 @@ LABEL_19:
   }
 }
 
-int8x16_t *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, uint64_t *a2, unint64_t *a3)
+char *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, uint64_t *a2, char **a3)
 {
   v5 = *a2;
   v6 = *(a1 + 1);
@@ -3727,7 +3735,7 @@ int8x16_t *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::St
       {
         if (v20 == 1)
         {
-          result->i8[0] = *v19;
+          *result = *v19;
         }
 
         else
@@ -3745,7 +3753,7 @@ int8x16_t *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::St
 
     else
     {
-      v21 = (result + v20);
+      v21 = &result[v20];
       if (v20 < 0x10)
       {
         v22 = result;
@@ -3758,16 +3766,17 @@ int8x16_t *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::St
         {
           v23 = vld2q_s8(v19);
           v19 += 32;
-          *v22++ = v23;
+          *v22 = v23;
+          v22 += 16;
         }
 
-        while (v22 != &result->i8[v20 & 0xFFFFFFF0]);
+        while (v22 != &result[v20 & 0xFFFFFFF0]);
       }
 
       if (v22 != v21)
       {
-        v62 = &result->i8[v20];
-        v63 = &result->i8[v20] - v22;
+        v62 = &result[v20];
+        v63 = &result[v20] - v22;
         if (v63 < 4 || (v22 < &v19[2 * v63] ? (v64 = v19 >= v62) : (v64 = 1), !v64))
         {
           v66 = v22;
@@ -3779,7 +3788,7 @@ int8x16_t *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::St
         {
           v65 = v63 & 0xFFFFFFFFFFFFFFE0;
           v93 = (v19 + 32);
-          v94 = v22 + 1;
+          v94 = (v22 + 16);
           v95 = v63 & 0xFFFFFFFFFFFFFFE0;
           do
           {
@@ -3803,14 +3812,13 @@ int8x16_t *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::St
           if ((v63 & 0x1C) == 0)
           {
             v67 = &v19[2 * v65];
-            v66 = (v22 + v65);
+            v66 = &v22[v65];
             do
             {
 LABEL_70:
               v68 = *v67;
               v67 += 2;
-              v66->i8[0] = v68;
-              v66 = (v66 + 1);
+              *v66++ = v68;
             }
 
             while (v66 != v21);
@@ -3823,15 +3831,16 @@ LABEL_70:
           v65 = 0;
         }
 
-        v66 = (v22 + (v63 & 0xFFFFFFFFFFFFFFFCLL));
+        v66 = &v22[v63 & 0xFFFFFFFFFFFFFFFCLL];
         v67 = &v19[2 * (v63 & 0xFFFFFFFFFFFFFFFCLL)];
         v100 = &v19[2 * v65];
-        v101 = (v22->i32 + v65);
+        v101 = &v22[v65];
         v102 = v65 - (v63 & 0xFFFFFFFFFFFFFFFCLL);
         do
         {
           v103 = *v100++;
-          *v101++ = vuzp1_s8(v103, v103).u32[0];
+          *v101 = vuzp1_s8(v103, v103).u32[0];
+          v101 += 4;
           v102 += 4;
         }
 
@@ -3855,12 +3864,12 @@ LABEL_82:
     {
       if (v18 == 1)
       {
-        result->i8[v35] = *v17;
+        result[v35] = *v17;
       }
 
       else
       {
-        v82 = &result->i8[v35];
+        v82 = &result[v35];
 
         return memcpy(v82, v17, v18);
       }
@@ -3888,7 +3897,7 @@ LABEL_82:
   v13 = *(v9 + 4);
   if ((*(v9 + 16) & 4) != 0)
   {
-    v25 = (result + 2 * v13);
+    v25 = &result[2 * v13];
     if (v13 < 0x40)
     {
       v26 = result;
@@ -3900,7 +3909,7 @@ LABEL_82:
 
     else
     {
-      v26 = result + 2 * (v13 & 0xFFFFFFC0);
+      v26 = &result[2 * (v13 & 0xFFFFFFC0)];
       v27 = 0uLL;
       v28 = result;
       do
@@ -3934,7 +3943,7 @@ LABEL_82:
     }
 
     v36 = v25 - v26 - 2;
-    if (v36 < 0xE || (v26 < v12 + (v36 >> 1) + 1 ? (v37 = v12 >= (v36 & 0xFFFFFFFFFFFFFFFELL) + v26 + 2) : (v37 = 1), !v37))
+    if (v36 < 0xE || (v26 < v12 + (v36 >> 1) + 1 ? (v37 = v12 >= &v26[(v36 & 0xFFFFFFFFFFFFFFFELL) + 2]) : (v37 = 1), !v37))
     {
       v40 = v12;
       v41 = v26;
@@ -3970,7 +3979,7 @@ LABEL_82:
 
       if ((v38 & 0x18) == 0)
       {
-        v41 = (v26 + 2 * v39);
+        v41 = &v26[2 * v39];
         v40 = (v12 + v39);
         goto LABEL_39;
       }
@@ -3982,8 +3991,8 @@ LABEL_82:
     }
 
     v40 = (v12 + (v38 & 0xFFFFFFFFFFFFFFF8));
-    v41 = (v26 + 2 * (v38 & 0xFFFFFFFFFFFFFFF8));
-    v89 = (v26 + 2 * v39);
+    v41 = &v26[2 * (v38 & 0xFFFFFFFFFFFFFFF8)];
+    v89 = &v26[2 * v39];
     v90 = (v12 + v39);
     v91 = v39 - (v38 & 0xFFFFFFFFFFFFFFF8);
     do
@@ -4003,8 +4012,8 @@ LABEL_82:
     {
 LABEL_39:
       v42 = *v40++;
-      v41->i16[0] = v42;
-      v41 = (v41 + 2);
+      *v41 = v42;
+      v41 += 2;
     }
 
     while (v41 != v25);
@@ -4015,7 +4024,7 @@ LABEL_39:
   {
     if (v13 == 1)
     {
-      result->i16[0] = *v12;
+      *result = *v12;
     }
 
     else
@@ -4038,11 +4047,11 @@ LABEL_107:
   }
 
 LABEL_43:
-  v45 = result + 2 * v24;
-  v46 = (v45 + 2 * v10);
+  v45 = &result[2 * v24];
+  v46 = &v45[2 * v10];
   if (v10 >= 0x40)
   {
-    v47 = v45 + 2 * (v10 & 0x7FFFFFFFFFFFFFC0);
+    v47 = &v45[2 * (v10 & 0x7FFFFFFFFFFFFFC0)];
     v48 = 0uLL;
     do
     {
@@ -4060,9 +4069,9 @@ LABEL_43:
       v52 += 32;
       v110.val[1] = 0uLL;
       vst2q_s8(v52, v110);
-      v53 = (v45 + 64);
+      v53 = v45 + 64;
       vst2q_s8(v53, v108);
-      v54 = (v45 + 96);
+      v54 = v45 + 96;
       vst2q_s8(v54, *(&v48 - 1));
       v45 += 128;
     }
@@ -4074,7 +4083,7 @@ LABEL_43:
   if (v45 != v46)
   {
     v55 = v46 - v45 - 2;
-    if (v55 < 0xE || (v45 < v11 + (v55 >> 1) + 1 ? (v56 = v11 >= (v55 & 0xFFFFFFFFFFFFFFFELL) + v45 + 2) : (v56 = 1), !v56))
+    if (v55 < 0xE || (v45 < v11 + (v55 >> 1) + 1 ? (v56 = v11 >= &v45[(v55 & 0xFFFFFFFFFFFFFFFELL) + 2]) : (v56 = 1), !v56))
     {
       v59 = v11;
       v60 = v45;
@@ -4110,13 +4119,14 @@ LABEL_43:
 
       if ((v57 & 0x18) == 0)
       {
-        v60 = (v45 + 2 * v58);
+        v60 = &v45[2 * v58];
         v59 = (v11 + v58);
         do
         {
 LABEL_57:
           v61 = *v59++;
-          *v60++ = v61;
+          *v60 = v61;
+          v60 += 2;
         }
 
         while (v60 != v46);
@@ -4130,8 +4140,8 @@ LABEL_57:
     }
 
     v59 = (v11 + (v57 & 0xFFFFFFFFFFFFFFF8));
-    v60 = (v45 + 2 * (v57 & 0xFFFFFFFFFFFFFFF8));
-    v75 = (v45 + 2 * v58);
+    v60 = &v45[2 * (v57 & 0xFFFFFFFFFFFFFFF8)];
+    v75 = &v45[2 * v58];
     v76 = (v11 + v58);
     v77 = v58 - (v57 & 0xFFFFFFFFFFFFFFF8);
     do
@@ -4151,7 +4161,7 @@ LABEL_57:
   return result;
 }
 
-int8x16_t *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, unint64_t *a2, uint64_t *a3, unint64_t *a4, uint64_t *a5, uint64_t a6)
+int8x16_t *WTF::StringBuilder::appendFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(WTF::StringBuilder *a1, __int8 **a2, uint64_t *a3, unint64_t *a4, uint64_t *a5, uint64_t a6)
 {
   v11 = *a3;
   v12 = *a5;
@@ -4240,7 +4250,7 @@ LABEL_164:
 
 LABEL_19:
     v43 = v24 - v25 - 2;
-    if (v43 < 0xE || (v25 < v17 + (v43 >> 1) + 1 ? (v44 = v17 >= (v43 & 0xFFFFFFFFFFFFFFFELL) + v25 + 2) : (v44 = 1), !v44))
+    if (v43 < 0xE || (v25 < v17 + (v43 >> 1) + 1 ? (v44 = v17 >= v25->u64 + (v43 & 0xFFFFFFFFFFFFFFFELL) + 2) : (v44 = 1), !v44))
     {
       v47 = v17;
       v48 = v25;
@@ -4251,7 +4261,7 @@ LABEL_19:
     if (v43 >= 0x3E)
     {
       v46 = v45 & 0xFFFFFFFFFFFFFFE0;
-      v143 = (v25 + 32);
+      i8 = v25[2].i8;
       v144 = (v17 + 16);
       v145 = v45 & 0xFFFFFFFFFFFFFFE0;
       do
@@ -4259,11 +4269,11 @@ LABEL_19:
         v146 = *v144[-2].i8;
         v147 = vmovl_u8(*v144);
         v148 = vmovl_high_u8(*v144->i8);
-        v143[-2] = vmovl_u8(*v146.i8);
-        v143[-1] = vmovl_high_u8(v146);
-        *v143 = v147;
-        v143[1] = v148;
-        v143 += 4;
+        *(i8 - 2) = vmovl_u8(*v146.i8);
+        *(i8 - 1) = vmovl_high_u8(v146);
+        *i8 = v147;
+        i8[1] = v148;
+        i8 += 4;
         v144 += 4;
         v145 -= 32;
       }
@@ -4317,7 +4327,7 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v25 = result + 2 * (v16 & 0x7FFFFFFFFFFFFFC0);
+  v25 = (result + 2 * (v16 & 0x7FFFFFFFFFFFFFC0));
   v26 = 0uLL;
   v27 = result;
   do
@@ -4336,8 +4346,8 @@ LABEL_28:
     v31 += 32;
     v204.val[1] = 0uLL;
     vst2q_s8(v31, v204);
-    i8 = v27[4].i8;
-    vst2q_s8(i8, v199);
+    v32 = v27[4].i8;
+    vst2q_s8(v32, v199);
     v33 = v27[6].i8;
     vst2q_s8(v33, *(&v26 - 1));
     v27 += 8;
@@ -4371,7 +4381,7 @@ LABEL_29:
     v56 = &v52[v54];
     if (v54 < 0x40)
     {
-      v57 = result + 2 * v50;
+      v57 = &result->i8[2 * v50];
       if (v52 == v56)
       {
         goto LABEL_60;
@@ -4413,8 +4423,8 @@ LABEL_29:
       }
     }
 
-    v66 = result->u64 + 2 * v54 + 2 * v50 - v57 - 2;
-    if (v66 < 0xE || (v57 < v53->u64 + (v66 >> 1) + 1 ? (v67 = v53 >= (v66 & 0xFFFFFFFFFFFFFFFELL) + v57 + 2) : (v67 = 1), !v67))
+    v66 = result + 2 * v54 + 2 * v50 - v57 - 2;
+    if (v66 < 0xE || (v57 < &v53->i8[(v66 >> 1) + 1] ? (v67 = v53 >= &v57[(v66 & 0xFFFFFFFFFFFFFFFELL) + 2]) : (v67 = 1), !v67))
     {
       v70 = v53;
       v71 = v57;
@@ -4450,7 +4460,7 @@ LABEL_29:
 
       if ((v68 & 0x18) == 0)
       {
-        v71 = (v57 + 2 * v69);
+        v71 = &v57[2 * v69];
         v70 = (v53 + v69);
         goto LABEL_51;
       }
@@ -4462,8 +4472,8 @@ LABEL_29:
     }
 
     v70 = (v53 + (v68 & 0xFFFFFFFFFFFFFFF8));
-    v71 = (v57 + 2 * (v68 & 0xFFFFFFFFFFFFFFF8));
-    v179 = (v57 + 2 * v69);
+    v71 = &v57[2 * (v68 & 0xFFFFFFFFFFFFFFF8)];
+    v179 = &v57[2 * v69];
     v180 = &v53->i8[v69];
     v181 = v69 - (v68 & 0xFFFFFFFFFFFFFFF8);
     do
@@ -4484,7 +4494,8 @@ LABEL_29:
 LABEL_51:
       v72 = v70->u8[0];
       v70 = (v70 + 1);
-      *v71++ = v72;
+      *v71 = v72;
+      v71 += 2;
     }
 
     while (v71 != v56);
@@ -5283,313 +5294,313 @@ LABEL_15:
   }
 }
 
-uint64_t WGSL::OverloadResolver::resolve@<X0>(uint64_t this@<X0>, _BYTE *a2@<X8>)
+uint64_t WGSL::OverloadResolver::resolve@<X0>(uint64_t this@<X0>, _BYTE *a3@<X8>)
 {
-  v4 = *(*(this + 8) + 12);
-  if (!v4)
+  v5 = *(*(this + 8) + 12);
+  if (!v5)
   {
-    *a2 = 0;
-    a2[16] = 0;
+    *a3 = 0;
+    a3[16] = 0;
     return this;
   }
 
-  v5 = this;
-  v6 = 40 * v4;
-  v7 = WTF::fastMalloc((40 * v4 + 8));
-  v9 = v7;
-  *v7 = v4;
-  v10 = v7 + 2;
-  v11 = v7 + 2;
-  if ((40 * v4 - 40) < 0x28)
+  v6 = this;
+  v7 = 40 * v5;
+  v8 = WTF::fastMalloc((40 * v5 + 8));
+  v10 = v8;
+  *v8 = v5;
+  v11 = v8 + 2;
+  v12 = v8 + 2;
+  if ((40 * v5 - 40) < 0x28)
   {
     goto LABEL_210;
   }
 
-  v12 = (v6 - 40) / 0x28uLL + 1;
-  v11 = &v10[10 * (v12 & 0xFFFFFFFFFFFFFFELL)];
-  v13 = v7 + 10;
-  v14 = v12 & 0xFFFFFFFFFFFFFFELL;
+  v13 = (v7 - 40) / 0x28uLL + 1;
+  v12 = &v11[10 * (v13 & 0xFFFFFFFFFFFFFFELL)];
+  v14 = v8 + 10;
+  v15 = v13 & 0xFFFFFFFFFFFFFFELL;
   do
   {
-    *(v13 - 32) = 0;
-    v13[8] = 0;
-    *v13 = 0;
-    v13[40] = 0;
-    v13 += 80;
-    v14 -= 2;
+    *(v14 - 32) = 0;
+    v14[8] = 0;
+    *v14 = 0;
+    v14[40] = 0;
+    v14 += 80;
+    v15 -= 2;
   }
 
-  while (v14);
-  if (v12 != (v12 & 0xFFFFFFFFFFFFFFELL))
+  while (v15);
+  if (v13 != (v13 & 0xFFFFFFFFFFFFFFELL))
   {
 LABEL_210:
     do
     {
-      *v11 = 0;
-      v11[32] = 0;
-      v11 += 40;
+      *v12 = 0;
+      v12[32] = 0;
+      v12 += 40;
     }
 
-    while (v11 != v10 + v6);
+    while (v12 != v11 + v7);
   }
 
-  v15 = *(v5 + 1);
-  if (*(v15 + 3))
+  v16 = *(v6 + 1);
+  if (*(v16 + 3))
   {
-    for (i = 0; i < *(v15 + 3); ++i)
+    for (i = 0; i < *(v16 + 3); ++i)
     {
-      v17 = *v15 + 88 * i;
-      if (*(v17 + 60) != *(*(v5 + 2) + 12) || (v18 = *(v5 + 3), v19 = *(v18 + 3), v19 > *(v17 + 12)))
+      v18 = *v16 + 88 * i;
+      if (*(v18 + 60) != *(*(v6 + 2) + 12) || (v19 = *(v6 + 3), v20 = *(v19 + 3), v20 > *(v18 + 12)))
       {
 LABEL_12:
-        v20 = 0;
-        v6 &= 0xFFFFFFFFFFFFFF00;
+        v21 = 0;
+        v7 &= 0xFFFFFFFFFFFFFF00;
         goto LABEL_13;
       }
 
-      v26 = *(v5 + 4);
-      if (v26)
+      v27 = *(v6 + 4);
+      if (v27)
       {
-        v27 = *v26;
-        if (v27)
+        v28 = *v27;
+        if (v28)
         {
-          bzero(v26 + 2, 8 * v27);
+          bzero(v27 + 2, 8 * v28);
         }
       }
 
-      v28 = *(v5 + 5);
-      if (!v28)
-      {
-        goto LABEL_48;
-      }
-
-      v29 = *v28;
+      v29 = *(v6 + 5);
       if (!v29)
       {
         goto LABEL_48;
       }
 
-      v30 = v28 + 1;
-      if (v29 == 1)
+      v30 = *v29;
+      if (!v30)
       {
-        v31 = *v28;
+        goto LABEL_48;
+      }
+
+      v31 = v29 + 1;
+      if (v30 == 1)
+      {
+        v32 = *v29;
       }
 
       else
       {
-        v30 += 8 * (v29 & 0xFFFFFFFE);
-        v31 = v29 & 1;
-        v32 = v28 + 4;
-        v33 = v29 & 0xFFFFFFFE;
+        v31 += 8 * (v30 & 0xFFFFFFFE);
+        v32 = v30 & 1;
+        v33 = v29 + 4;
+        v34 = v30 & 0xFFFFFFFE;
         do
         {
-          *(v32 - 12) = 0;
-          *(v32 - 4) = 0;
-          *(v32 - 8) = 0;
-          *v32 = 0;
-          v32 += 16;
-          v33 -= 2;
+          *(v33 - 12) = 0;
+          *(v33 - 4) = 0;
+          *(v33 - 8) = 0;
+          *v33 = 0;
+          v33 += 16;
+          v34 -= 2;
         }
 
-        while (v33);
-        if ((v29 & 0xFFFFFFFE) == v29)
+        while (v34);
+        if ((v30 & 0xFFFFFFFE) == v30)
         {
           goto LABEL_47;
         }
       }
 
-      v34 = v31 + 1;
+      v35 = v32 + 1;
       do
       {
-        *v30 = 0;
-        v30[4] = 0;
-        v30 += 8;
-        --v34;
+        *v31 = 0;
+        v31[4] = 0;
+        v31 += 8;
+        --v35;
       }
 
-      while (v34 > 1);
+      while (v35 > 1);
 LABEL_47:
-      v18 = *(v5 + 3);
-      v19 = *(v18 + 3);
+      v19 = *(v6 + 3);
+      v20 = *(v19 + 3);
 LABEL_48:
-      if (v19)
+      if (v20)
       {
-        v35 = 0;
-        v36 = *(v17 + 12);
-        v37 = *v17;
+        v36 = 0;
+        v37 = *(v18 + 12);
+        v38 = *v18;
         do
         {
-          if (v35 == v36)
+          if (v36 == v37)
           {
             __break(0xC471u);
             JUMPOUT(0x225766EF0);
           }
 
-          v38 = *(v37 + 8 * v35);
-          v39 = *(*v18 + 8 * v35);
-          if (BYTE4(v38))
+          v39 = *(v38 + 8 * v36);
+          v40 = *(*v19 + 8 * v36);
+          if (BYTE4(v39))
           {
-            if (!v39)
+            if (!v40)
             {
               goto LABEL_12;
             }
 
-            v40 = *(*v18 + 8 * v35);
-            while (v40[48] == 10)
+            v41 = *(*v19 + 8 * v36);
+            while (v41[48] == 10)
             {
-              v40 = *(v40 + 1);
-              if (!v40)
+              v41 = *(v41 + 1);
+              if (!v41)
               {
                 goto LABEL_12;
               }
             }
 
-            if (v40[48])
+            if (v41[48])
             {
               goto LABEL_12;
             }
 
-            v41 = *v40;
-            if (v41 <= 2)
+            v42 = *v41;
+            if (v42 <= 2)
             {
-              if (v41)
+              if (v42)
               {
-                if (v41 == 1)
+                if (v42 == 1)
                 {
-                  if ((v38 & 0x400000000) == 0)
+                  if ((v39 & 0x400000000) == 0)
                   {
                     goto LABEL_12;
                   }
                 }
 
-                else if ((v38 & 0x800000000) == 0)
+                else if ((v39 & 0x800000000) == 0)
                 {
                   goto LABEL_12;
                 }
               }
 
-              else if (BYTE4(v38) == 1)
+              else if (BYTE4(v39) == 1)
               {
                 goto LABEL_12;
               }
             }
 
-            else if (v41 > 4)
+            else if (v42 > 4)
             {
-              if (v41 == 5)
+              if (v42 == 5)
               {
-                if ((v38 & 0x2000000000) == 0)
+                if ((v39 & 0x2000000000) == 0)
                 {
                   goto LABEL_12;
                 }
               }
 
-              else if (v41 != 7 || (v38 & 0x100000000) == 0)
+              else if (v42 != 7 || (v39 & 0x100000000) == 0)
               {
                 goto LABEL_12;
               }
             }
 
-            else if (v41 == 3)
+            else if (v42 == 3)
             {
-              if ((v38 & 0x7000000000) == 0)
+              if ((v39 & 0x7000000000) == 0)
               {
                 goto LABEL_12;
               }
             }
 
-            else if ((v38 & 0x4000000000) == 0)
+            else if ((v39 & 0x4000000000) == 0)
             {
               goto LABEL_12;
             }
           }
 
-          v42 = *(v5 + 4);
-          if (*v42 <= v38)
+          v43 = *(v6 + 4);
+          if (*v43 <= v39)
           {
             __break(0xC471u);
             JUMPOUT(0x225766F58);
           }
 
-          *&v42[2 * v38 + 2] = v39;
-          ++v35;
+          *&v43[2 * v39 + 2] = v40;
+          ++v36;
         }
 
-        while (v35 != v19);
+        while (v36 != v20);
       }
 
-      v43 = *(*(v5 + 2) + 12);
-      if (!v43)
+      v44 = *(*(v6 + 2) + 12);
+      if (!v44)
       {
-        v44 = 0;
+        v45 = 0;
 LABEL_143:
-        v47 = 0;
+        v48 = 0;
 LABEL_144:
-        v74 = WGSL::OverloadResolver::materialize(v5, (v17 + 80));
-        if (!v74)
+        v75 = WGSL::OverloadResolver::materialize(v6, (v18 + 80));
+        if (!v75)
         {
           goto LABEL_148;
         }
 
 LABEL_145:
-        v2 = v47;
-        v20 = 1;
-        v96 = v74;
-        v3 = v44;
-        v6 = v17;
+        v3 = v48;
+        v21 = 1;
+        v97 = v75;
+        v4 = v45;
+        v7 = v18;
         goto LABEL_13;
       }
 
-      v44 = WTF::fastMalloc((4 * v43 + 4));
-      *v44 = v43;
-      v45 = *(*(v5 + 2) + 12);
-      if (!v45)
+      v45 = WTF::fastMalloc((4 * v44 + 4));
+      *v45 = v44;
+      v46 = *(*(v6 + 2) + 12);
+      if (!v46)
       {
         goto LABEL_143;
       }
 
-      v46 = WTF::fastMalloc((8 * v45 + 8));
-      *v46 = v45;
-      v47 = v46;
-      v48 = *(v5 + 2);
-      if (!*(v48 + 3))
+      v47 = WTF::fastMalloc((8 * v46 + 8));
+      *v47 = v46;
+      v48 = v47;
+      v49 = *(v6 + 2);
+      if (!*(v49 + 3))
       {
         goto LABEL_144;
       }
 
-      v94 = v9;
-      v95 = v46;
-      v49 = 0;
+      v95 = v10;
+      v96 = v47;
       v50 = 0;
+      v51 = 0;
       do
       {
-        if (v50 >= *(v17 + 60))
+        if (v51 >= *(v18 + 60))
         {
           __break(0xC471u);
           JUMPOUT(0x225766EE8);
         }
 
-        if ((WGSL::OverloadResolver::unify(v5, (*(v17 + 48) + v49), *(*v48 + 8 * v50)) & 1) == 0)
+        if ((WGSL::OverloadResolver::unify(v6, (*(v18 + 48) + v50), *(*v49 + 8 * v51)) & 1) == 0)
         {
-          v6 &= 0xFFFFFFFFFFFFFF00;
-          v9 = v94;
-          v47 = v95;
+          v7 &= 0xFFFFFFFFFFFFFF00;
+          v10 = v95;
+          v48 = v96;
           goto LABEL_149;
         }
 
-        ++v50;
-        v48 = *(v5 + 2);
-        v52 = *(v48 + 3);
-        v49 += 8;
+        ++v51;
+        v49 = *(v6 + 2);
+        v53 = *(v49 + 3);
+        v50 += 8;
       }
 
-      while (v50 < v52);
-      if (!v52)
+      while (v51 < v53);
+      if (!v53)
       {
-        v9 = v94;
-        v47 = v95;
-        v74 = WGSL::OverloadResolver::materialize(v5, (v17 + 80));
-        if (!v74)
+        v10 = v95;
+        v48 = v96;
+        v75 = WGSL::OverloadResolver::materialize(v6, (v18 + 80));
+        if (!v75)
         {
           goto LABEL_148;
         }
@@ -5597,52 +5608,52 @@ LABEL_145:
         goto LABEL_145;
       }
 
-      v53 = 0;
-      v93 = v44 + 4;
-      v91 = v6;
+      v54 = 0;
+      v94 = v45 + 4;
+      v92 = v7;
       do
       {
-        if (v53 >= *(v17 + 60))
+        if (v54 >= *(v18 + 60))
         {
           __break(0xC471u);
           JUMPOUT(0x225766EF8);
         }
 
-        v54 = (*(v17 + 48) + 8 * v53);
-        v55 = (*v48 + 8 * v53);
-        v56 = v54;
+        v55 = (*(v18 + 48) + 8 * v54);
+        v56 = (*v49 + 8 * v54);
+        v57 = v55;
         while (1)
         {
           while (1)
           {
             while (1)
             {
-              v55 = *v55;
-              v57 = *v56;
-              if (!*v56)
+              v56 = *v56;
+              v58 = *v57;
+              if (!*v57)
               {
                 goto LABEL_97;
               }
 
-              v58 = *(v57 + 24);
-              if (v58 != 5)
+              v59 = *(v58 + 24);
+              if (v59 != 5)
               {
                 break;
               }
 
-              if (*(v55 + 48) != 10)
+              if (*(v56 + 48) != 10)
               {
                 goto LABEL_185;
               }
 
 LABEL_92:
-              v56 = (v57 + 2);
-              v55 = (v55 + 8);
+              v57 = (v58 + 2);
+              v56 = (v56 + 8);
             }
 
-            if (v58 == 6)
+            if (v59 == 6)
             {
-              if (*(v55 + 48) != 11)
+              if (*(v56 + 48) != 11)
               {
                 goto LABEL_185;
               }
@@ -5650,34 +5661,34 @@ LABEL_92:
               goto LABEL_92;
             }
 
-            if (v58 == 9)
+            if (v59 == 9)
             {
-              v65 = *v57;
-              v66 = *(v5 + 4);
-              if (*v66 <= v65)
+              v66 = *v58;
+              v67 = *(v6 + 4);
+              if (*v67 <= v66)
               {
                 goto LABEL_197;
               }
 
-              v67 = *&v66[2 * v65 + 2];
-              if (!BYTE4(v65))
+              v68 = *&v67[2 * v66 + 2];
+              if (!BYTE4(v66))
               {
                 goto LABEL_136;
               }
 
-              v68 = *(v17 + 48) + 8 * v53;
-              v69 = v3;
-              v70 = v2;
-              v71 = v44;
-              v72 = v55;
-              v67 = WGSL::satisfyOrPromote(v67, BYTE4(v65), *v5);
-              v55 = v72;
-              v44 = v71;
-              v2 = v70;
-              v3 = v69;
-              v54 = v68;
-              v6 = v91;
-              if (v67)
+              v69 = *(v18 + 48) + 8 * v54;
+              v70 = v4;
+              v71 = v3;
+              v72 = v45;
+              v73 = v56;
+              v68 = WGSL::satisfyOrPromote(v68, BYTE4(v66), *v6);
+              v56 = v73;
+              v45 = v72;
+              v3 = v71;
+              v4 = v70;
+              v55 = v69;
+              v7 = v92;
+              if (v68)
               {
                 goto LABEL_136;
               }
@@ -5688,71 +5699,71 @@ LABEL_198:
             }
 
 LABEL_97:
-            if (!v55 || *(v55 + 48) != 10)
+            if (!v56 || *(v56 + 48) != 10)
             {
               break;
             }
 
-            v55 = (v55 + 8);
+            v56 = (v56 + 8);
           }
 
-          if (!v57)
+          if (!v58)
           {
             break;
           }
 
-          v59 = *(v57 + 24);
-          if (v59 <= 1)
+          v60 = *(v58 + 24);
+          if (v60 <= 1)
           {
-            if (*(v57 + 24))
+            if (*(v58 + 24))
             {
-              if (v59 != 1)
+              if (v60 != 1)
               {
                 goto LABEL_120;
               }
 
-              if (*(v55 + 48) != 2)
+              if (*(v56 + 48) != 2)
               {
                 goto LABEL_185;
               }
 
-              v56 = (v57 + 4);
+              v57 = (v58 + 4);
             }
 
             else
             {
-              if (*(v55 + 48) != 1)
+              if (*(v56 + 48) != 1)
               {
                 goto LABEL_185;
               }
 
-              v56 = (v57 + 2);
+              v57 = (v58 + 2);
             }
           }
 
           else
           {
-            switch(v59)
+            switch(v60)
             {
               case 2u:
-                if (*(v55 + 48) != 7)
+                if (*(v56 + 48) != 7)
                 {
                   goto LABEL_185;
                 }
 
-                v56 = (v57 + 2);
+                v57 = (v58 + 2);
                 break;
               case 7u:
-                v56 = v57;
-                if (*(v55 + 48) != 3)
+                v57 = v58;
+                if (*(v56 + 48) != 3)
                 {
                   goto LABEL_185;
                 }
 
                 break;
               case 8u:
-                v56 = v57;
-                if (*(v55 + 48) != 12)
+                v57 = v58;
+                if (*(v56 + 48) != 12)
                 {
                   goto LABEL_185;
                 }
@@ -5764,39 +5775,39 @@ LABEL_97:
           }
         }
 
-        v59 = MEMORY[0x18];
+        v60 = MEMORY[0x18];
 LABEL_120:
-        if (v59 == 3)
+        if (v60 == 3)
         {
-          v60 = 0;
+          v61 = 0;
           goto LABEL_137;
         }
 
-        if (!v57 || v59 != 4)
+        if (!v58 || v60 != 4)
         {
-          if (v59 == 10)
+          if (v60 == 10)
           {
             goto LABEL_135;
           }
 
 LABEL_185:
-          mpark::throw_bad_variant_access(v55);
+          mpark::throw_bad_variant_access(v56);
         }
 
-        v61 = *v57;
-        v62 = *(v57 + 4);
-        if (v62 == 1)
+        v62 = *v58;
+        v63 = *(v58 + 4);
+        if (v63 == 1)
         {
           goto LABEL_129;
         }
 
-        if (v62)
+        if (v63)
         {
           goto LABEL_185;
         }
 
-        v63 = *(v5 + 5);
-        if (*v63 <= v61)
+        v64 = *(v6 + 5);
+        if (*v64 <= v62)
         {
           __break(0xC471u);
 LABEL_196:
@@ -5806,87 +5817,87 @@ LABEL_197:
           JUMPOUT(0x225766FB8);
         }
 
-        v64 = *&v63[2 * v61 + 1];
-        if ((v64 & 0x100000000) == 0)
+        v65 = *&v64[2 * v62 + 1];
+        if ((v65 & 0x100000000) == 0)
         {
           goto LABEL_196;
         }
 
-        LOBYTE(v61) = v64;
+        LOBYTE(v62) = v65;
 LABEL_129:
-        v57 = (*v5 + qword_2258826A0[v61]);
+        v58 = (*v6 + qword_2258826A0[v62]);
 LABEL_135:
-        v67 = *v57;
+        v68 = *v58;
 LABEL_136:
-        v60 = WGSL::conversionRank(v55, v67, v51);
-        if (v60 == -1)
+        v61 = WGSL::conversionRank(v56, v68, v52);
+        if (v61 == -1)
         {
           __break(0xC471u);
           JUMPOUT(0x225766F78);
         }
 
 LABEL_137:
-        if (v53 >= *v44)
+        if (v54 >= *v45)
         {
           __break(0xC471u);
           JUMPOUT(0x225766F18);
         }
 
-        *&v93[4 * v53] = v60;
-        v73 = WGSL::OverloadResolver::materialize(v5, v54);
-        if (v53 >= *v95)
+        *&v94[4 * v54] = v61;
+        v74 = WGSL::OverloadResolver::materialize(v6, v55);
+        if (v54 >= *v96)
         {
           __break(0xC471u);
           JUMPOUT(0x225766F38);
         }
 
-        *(v95 + ++v53) = v73;
-        v48 = *(v5 + 2);
-        v9 = v94;
+        *(v96 + ++v54) = v74;
+        v49 = *(v6 + 2);
+        v10 = v95;
       }
 
-      while (v53 < *(v48 + 3));
-      v47 = v95;
-      v74 = WGSL::OverloadResolver::materialize(v5, (v17 + 80));
-      if (v74)
+      while (v54 < *(v49 + 3));
+      v48 = v96;
+      v75 = WGSL::OverloadResolver::materialize(v6, (v18 + 80));
+      if (v75)
       {
         goto LABEL_145;
       }
 
 LABEL_148:
-      v6 &= 0xFFFFFFFFFFFFFF00;
-      if (v47)
+      v7 &= 0xFFFFFFFFFFFFFF00;
+      if (v48)
       {
 LABEL_149:
-        WTF::fastFree(v47, v8);
+        WTF::fastFree(v48, v9);
       }
 
-      if (v44)
+      if (v45)
       {
-        WTF::fastFree(v44, v8);
+        WTF::fastFree(v45, v9);
       }
 
-      v20 = 0;
+      v21 = 0;
 LABEL_13:
-      if (i >= *v9)
+      if (i >= *v10)
       {
         __break(0xC471u);
         JUMPOUT(0x225766EE0);
       }
 
-      v21 = &v10[10 * i];
-      if (*(v21 + 32) != v20)
+      v22 = &v11[10 * i];
+      if (*(v22 + 32) != v21)
       {
-        if (!*(v21 + 32))
+        if (!*(v22 + 32))
         {
-          *v21 = v6;
-          *(v21 + 1) = v3;
-          *(v21 + 2) = v2;
-          *(v21 + 3) = v96;
-          *(v21 + 32) = 1;
-          v2 = 0;
+          *v22 = v7;
+          *(v22 + 1) = v4;
+          *(v22 + 2) = v3;
+          *(v22 + 3) = v97;
+          *(v22 + 32) = 1;
           v3 = 0;
-          if (v20)
+          v4 = 0;
+          if (v21)
           {
             goto LABEL_29;
           }
@@ -5894,23 +5905,23 @@ LABEL_13:
           goto LABEL_9;
         }
 
-        v24 = *(v21 + 2);
-        *(v21 + 2) = 0;
-        if (v24)
-        {
-          WTF::fastFree(v24, v8);
-        }
-
-        v25 = *(v21 + 1);
-        *(v21 + 1) = 0;
+        v25 = *(v22 + 2);
+        *(v22 + 2) = 0;
         if (v25)
         {
-          WTF::fastFree(v25, v8);
+          WTF::fastFree(v25, v9);
         }
 
-        *(v21 + 32) = 0;
+        v26 = *(v22 + 1);
+        *(v22 + 1) = 0;
+        if (v26)
+        {
+          WTF::fastFree(v26, v9);
+        }
+
+        *(v22 + 32) = 0;
 LABEL_28:
-        if (v20)
+        if (v21)
         {
           goto LABEL_29;
         }
@@ -5918,102 +5929,102 @@ LABEL_28:
         goto LABEL_9;
       }
 
-      if (!*(v21 + 32))
+      if (!*(v22 + 32))
       {
         goto LABEL_28;
       }
 
-      v22 = *(v21 + 1);
-      *v21 = v6;
-      *(v21 + 1) = v3;
-      if (v22)
-      {
-        WTF::fastFree(v22, v8);
-      }
-
-      v23 = *(v21 + 2);
-      *(v21 + 2) = v2;
+      v23 = *(v22 + 1);
+      *v22 = v7;
+      *(v22 + 1) = v4;
       if (v23)
       {
-        WTF::fastFree(v23, v8);
+        WTF::fastFree(v23, v9);
       }
 
-      v2 = 0;
+      v24 = *(v22 + 2);
+      *(v22 + 2) = v3;
+      if (v24)
+      {
+        WTF::fastFree(v24, v9);
+      }
+
       v3 = 0;
-      *(v21 + 3) = v96;
-      if (v20)
+      v4 = 0;
+      *(v22 + 3) = v97;
+      if (v21)
       {
 LABEL_29:
-        if (v2)
-        {
-          WTF::fastFree(v2, v8);
-        }
-
         if (v3)
         {
-          WTF::fastFree(v3, v8);
+          WTF::fastFree(v3, v9);
+        }
+
+        if (v4)
+        {
+          WTF::fastFree(v4, v9);
         }
       }
 
 LABEL_9:
-      v15 = *(v5 + 1);
+      v16 = *(v6 + 1);
     }
   }
 
-  v97[0] = 0;
-  v100 = 0;
-  if (!*v9)
+  v98[0] = 0;
+  v101 = 0;
+  if (!*v10)
   {
     goto LABEL_172;
   }
 
-  v75 = v9 + 40 * *v9 + 8;
+  v76 = v10 + 40 * *v10 + 8;
   do
   {
-    if (*(v10 + 32) == 1)
+    if (*(v11 + 32) == 1)
     {
-      if (v100 != 1)
+      if (v101 != 1)
       {
-        std::__optional_storage_base<WGSL::ViableOverload,false>::__assign_from[abi:sn200100]<std::__optional_copy_assign_base<WGSL::ViableOverload,false> const&>(v97, v10);
+        std::__optional_storage_base<WGSL::ViableOverload,false>::__assign_from[abi:sn200100]<std::__optional_copy_assign_base<WGSL::ViableOverload,false> const&>(v98, v11);
         goto LABEL_156;
       }
 
-      v76 = *(v10 + 1);
-      if (v76)
+      v77 = *(v11 + 1);
+      if (v77)
       {
-        v77 = *v76;
-        if (v77)
+        v78 = *v77;
+        if (v78)
         {
-          v78 = 0;
-          v79 = v98;
-          v80 = *v98;
-          v81 = 1;
-          while (v80)
+          v79 = 0;
+          v80 = v99;
+          v81 = *v99;
+          v82 = 1;
+          while (v81)
           {
-            v82 = v76[v81];
-            v83 = *(v98 + v81 * 4);
-            if (v82 > v83)
+            v83 = v77[v82];
+            v84 = *(v99 + v82 * 4);
+            if (v83 > v84)
             {
               goto LABEL_156;
             }
 
-            v78 |= v82 < v83;
-            --v80;
-            ++v81;
-            if (!--v77)
+            v79 |= v83 < v84;
+            --v81;
+            ++v82;
+            if (!--v78)
             {
-              if (v78)
+              if (v79)
               {
-                v84 = v99;
-                v98 = 0;
-                *&v99 = 0;
-                std::__optional_storage_base<WGSL::ViableOverload,false>::__assign_from[abi:sn200100]<std::__optional_copy_assign_base<WGSL::ViableOverload,false> const&>(v97, v10);
-                if (v84)
+                v85 = v100;
+                v99 = 0;
+                *&v100 = 0;
+                std::__optional_storage_base<WGSL::ViableOverload,false>::__assign_from[abi:sn200100]<std::__optional_copy_assign_base<WGSL::ViableOverload,false> const&>(v98, v11);
+                if (v85)
                 {
-                  WTF::fastFree(v84, v85);
+                  WTF::fastFree(v85, v86);
                 }
 
-                WTF::fastFree(v79, v85);
+                WTF::fastFree(v80, v86);
               }
 
               goto LABEL_156;
@@ -6027,58 +6038,58 @@ LABEL_9:
     }
 
 LABEL_156:
-    v10 += 10;
+    v11 += 10;
   }
 
-  while (v10 != v75);
-  if ((v100 & 1) == 0)
+  while (v11 != v76);
+  if ((v101 & 1) == 0)
   {
 LABEL_172:
-    *a2 = 0;
-    a2[16] = 0;
+    *a3 = 0;
+    a3[16] = 0;
     goto LABEL_173;
   }
 
-  *a2 = v99;
-  a2[16] = 1;
-  if (v98)
+  *a3 = v100;
+  a3[16] = 1;
+  if (v99)
   {
-    WTF::fastFree(v98, v8);
+    WTF::fastFree(v99, v9);
   }
 
 LABEL_173:
-  v86 = *v9;
-  if (v86)
+  v87 = *v10;
+  if (v87)
   {
-    v87 = 40 * v86;
-    v88 = v9 + 24;
+    v88 = 40 * v87;
+    v89 = v10 + 24;
     do
     {
-      if (v88[16] == 1)
+      if (v89[16] == 1)
       {
-        v89 = *v88;
-        *v88 = 0;
-        if (v89)
-        {
-          WTF::fastFree(v89, v8);
-        }
-
-        v90 = *(v88 - 1);
-        *(v88 - 1) = 0;
+        v90 = *v89;
+        *v89 = 0;
         if (v90)
         {
-          WTF::fastFree(v90, v8);
+          WTF::fastFree(v90, v9);
+        }
+
+        v91 = *(v89 - 1);
+        *(v89 - 1) = 0;
+        if (v91)
+        {
+          WTF::fastFree(v91, v9);
         }
       }
 
-      v88 += 40;
-      v87 -= 40;
+      v89 += 40;
+      v88 -= 40;
     }
 
-    while (v87);
+    while (v88);
   }
 
-  return WTF::fastFree(v9, v8);
+  return WTF::fastFree(v10, v9);
 }
 
 unsigned __int8 *WGSL::OverloadResolver::materialize(unsigned __int8 *result, void *a2)
@@ -6107,7 +6118,7 @@ unsigned __int8 *WGSL::OverloadResolver::materialize(unsigned __int8 *result, vo
           goto LABEL_123;
         }
 
-        result = WGSL::OverloadResolver::materialize(result, v3 + 8);
+        result = WGSL::OverloadResolver::materialize(result, v3 + 1);
         if (result)
         {
           v26 = result;
@@ -6251,7 +6262,7 @@ LABEL_99:
         goto LABEL_123;
       }
 
-      result = WGSL::OverloadResolver::materialize(result, v3 + 8);
+      result = WGSL::OverloadResolver::materialize(result, v3 + 1);
       if (!result)
       {
         return result;
@@ -6272,7 +6283,7 @@ LABEL_99:
         }
 
         v22 = *v3;
-        v23 = v2[5];
+        v23 = *(v2 + 5);
         if (*v23 <= v22)
         {
           __break(0xC471u);
@@ -6297,7 +6308,7 @@ LABEL_99:
       goto LABEL_123;
     }
 
-    result = WGSL::OverloadResolver::materialize(result, v3 + 16);
+    result = WGSL::OverloadResolver::materialize(result, v3 + 2);
     if (!result)
     {
       return result;
@@ -6317,7 +6328,7 @@ LABEL_86:
         }
 
         v45 = *(v3 + 2);
-        v46 = v2[5];
+        v46 = *(v2 + 5);
         if (*v46 <= v45)
         {
           goto LABEL_135;
@@ -6341,7 +6352,7 @@ LABEL_86:
       }
 
       v42 = *v3;
-      v43 = v2[5];
+      v43 = *(v2 + 5);
       if (*v43 <= v42)
       {
         __break(0xC471u);
@@ -6382,7 +6393,7 @@ LABEL_113:
         goto LABEL_123;
       }
 
-      result = WGSL::OverloadResolver::materialize(result, v3 + 8);
+      result = WGSL::OverloadResolver::materialize(result, v3 + 1);
       if (!result)
       {
         return result;
@@ -6402,7 +6413,7 @@ LABEL_15:
           }
 
           v10 = *(v3 + 4);
-          v11 = v2[5];
+          v11 = *(v2 + 5);
           if (*v11 <= v10)
           {
             __break(0xC471u);
@@ -6432,7 +6443,7 @@ LABEL_118:
       }
 
       v7 = *v3;
-      v8 = v2[5];
+      v8 = *(v2 + 5);
       if (*v8 <= v7)
       {
         __break(0xC471u);
@@ -6477,7 +6488,7 @@ LABEL_123:
       goto LABEL_123;
     }
 
-    result = WGSL::OverloadResolver::materialize(result, v3 + 8);
+    result = WGSL::OverloadResolver::materialize(result, v3 + 1);
     if (!result)
     {
       return result;
@@ -6497,7 +6508,7 @@ LABEL_61:
         }
 
         v33 = *(v3 + 4);
-        v34 = v2[5];
+        v34 = *(v2 + 5);
         if (*v34 <= v33)
         {
           __break(0xC471u);
@@ -6522,7 +6533,7 @@ LABEL_61:
       }
 
       v30 = *v3;
-      v31 = v2[5];
+      v31 = *(v2 + 5);
       if (*v31 <= v30)
       {
         __break(0xC471u);
@@ -7805,18 +7816,18 @@ LABEL_63:
   return result;
 }
 
-WTF *WGSL::parse<WGSL::Lexer<unsigned char>>@<X0>(uint64_t *a1@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
+WTF *WGSL::parse<WGSL::Lexer<unsigned char>>@<X0>(void *a1@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
 {
-  v259 = 0;
-  v258 = 0u;
-  v257 = 0u;
+  v261 = 0;
+  v260 = 0u;
+  v259 = 0u;
   v5 = *a1;
   if (*a1)
   {
     v6 = *(v5 + 8);
     v7 = *(v5 + 4);
-    *&v257 = v6;
-    *(&v257 + 1) = v7;
+    *&v259 = v6;
+    *(&v259 + 1) = v7;
     if (v7)
     {
       v8 = *v6;
@@ -7831,48 +7842,48 @@ WTF *WGSL::parse<WGSL::Lexer<unsigned char>>@<X0>(uint64_t *a1@<X0>, char *a2@<X
   else
   {
     v8 = 0;
-    v257 = 0uLL;
+    v259 = 0uLL;
   }
 
-  v256[0] = v8;
-  *&v258 = 1;
-  DWORD2(v258) = 0;
-  v245[0] = a1;
-  v245[1] = a1 + 38;
-  v245[2] = v256;
-  WGSL::Lexer<unsigned char>::lex(v256, a2, &v246);
-  v249 = 0;
-  v250 = 0;
-  if (!v248)
+  v258[0] = v8;
+  *&v260 = 1;
+  DWORD2(v260) = 0;
+  v245 = a1;
+  v246 = a1 + 38;
+  v247 = v258;
+  WGSL::Lexer<unsigned char>::lex(v258, a2, &v248);
+  v251 = 0;
+  v252 = 0;
+  if (!v250)
   {
     __break(0xC471u);
     JUMPOUT(0x22576A0ACLL);
   }
 
-  v251 = *v246;
-  v252 = *(v246 + 4);
-  v12 = *v246;
-  if (*v246 <= 8u)
+  v253 = *v248;
+  v254 = *(v248 + 4);
+  v12 = *v248;
+  if (*v248 <= 8u)
   {
     if (((1 << v12) & 0x38) != 0)
     {
-      v253 = *(v246 + 3);
+      v255 = *(v248 + 3);
     }
 
     else if (((1 << v12) & 0xC4) != 0)
     {
-      v253 = *(v246 + 3);
+      v255 = *(v248 + 3);
     }
 
     else if (v12 == 8)
     {
-      v253 = 0;
-      v192 = *(v246 + 3);
+      v255 = 0;
+      v192 = *(v248 + 3);
       if (v192)
       {
         atomic_fetch_add_explicit(v192, 2u, memory_order_relaxed);
-        v193 = v253;
-        v253 = v192;
+        v193 = v255;
+        v255 = v192;
         if (v193)
         {
           if (atomic_fetch_add_explicit(v193, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -7885,16 +7896,16 @@ WTF *WGSL::parse<WGSL::Lexer<unsigned char>>@<X0>(uint64_t *a1@<X0>, char *a2@<X
   }
 
   v238 = a3;
-  v254 = v252;
-  v231 = DWORD2(v252);
-  v255 = DWORD2(v252);
-  v13 = v252;
+  v256 = v254;
+  v231 = DWORD2(v254);
+  v257 = DWORD2(v254);
+  v13 = v254;
   *v265 = 0u;
   *&v265[16] = v267;
   v266 = 16;
   v14 = 16;
-  v15 = v248 - 1;
-  if (v248 == 1)
+  v15 = v250 - 1;
+  if (v250 == 1)
   {
     v68 = 0;
     v67 = 0;
@@ -7906,27 +7917,27 @@ WTF *WGSL::parse<WGSL::Lexer<unsigned char>>@<X0>(uint64_t *a1@<X0>, char *a2@<X
     v16 = 0;
     while (2)
     {
-      v17 = v248;
-      if (v16 >= v248)
+      v17 = v250;
+      if (v16 >= v250)
       {
         __break(0xC471u);
         JUMPOUT(0x22576A05CLL);
       }
 
-      v18 = v246;
-      v19 = (v246 + 32 * v16);
+      v18 = v248;
+      v19 = (v248 + 32 * v16);
       switch(*v19)
       {
         case 8:
         case 0x22:
           v28 = v16 + 1;
-          if (v16 + 1 >= v248)
+          if (v16 + 1 >= v250)
           {
             __break(0xC471u);
             JUMPOUT(0x22576A08CLL);
           }
 
-          v29 = (v246 + 32 * v28);
+          v29 = (v248 + 32 * v28);
           if (*v29 != 55)
           {
             goto LABEL_15;
@@ -8392,7 +8403,7 @@ LABEL_474:
             }
           }
 
-          if (v248 <= v16)
+          if (v250 <= v16)
           {
             __break(0xC471u);
             JUMPOUT(0x22576A094);
@@ -8493,25 +8504,25 @@ LABEL_133:
   while (1)
   {
 LABEL_138:
-    v73 = v251;
-    if (v251 == 29)
+    v73 = v253;
+    if (v253 == 29)
     {
-      v3 = v254;
-      v15 = v255;
+      v3 = v256;
+      v15 = v257;
       while (1)
       {
-        v75 = (v249 + 1);
-        LODWORD(v249) = v75;
-        if (v248 <= v75)
+        v75 = (v251 + 1);
+        LODWORD(v251) = v75;
+        if (v250 <= v75)
         {
           __break(0xC471u);
           JUMPOUT(0x22576A034);
         }
 
-        v76 = v246 + 32 * v75;
+        v76 = v248 + 32 * v75;
         v74 = *v76;
-        v251 = *v76;
-        v252 = *(v76 + 4);
+        v253 = *v76;
+        v254 = *(v76 + 4);
         v77 = *v76;
         if (*v76 > 8u)
         {
@@ -8520,12 +8531,12 @@ LABEL_138:
 
         if (((1 << v77) & 0x38) != 0)
         {
-          v253 = *(v76 + 3);
+          v255 = *(v76 + 3);
         }
 
         else if (((1 << v77) & 0xC4) != 0)
         {
-          v253 = *(v76 + 3);
+          v255 = *(v76 + 3);
         }
 
         else
@@ -8535,13 +8546,13 @@ LABEL_138:
             goto LABEL_142;
           }
 
-          v253 = 0;
+          v255 = 0;
           v78 = *(v76 + 3);
           if (v78)
           {
             atomic_fetch_add_explicit(v78, 2u, memory_order_relaxed);
-            v79 = v253;
-            v253 = v78;
+            v79 = v255;
+            v255 = v78;
             if (v79)
             {
               if (atomic_fetch_add_explicit(v79, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -8552,10 +8563,10 @@ LABEL_138:
           }
         }
 
-        v74 = v251;
+        v74 = v253;
 LABEL_142:
-        v254 = v252;
-        v255 = DWORD2(v252);
+        v256 = v254;
+        v257 = DWORD2(v254);
         if (v74 != 82)
         {
           v80 = 0;
@@ -8569,56 +8580,56 @@ LABEL_142:
             }
 
             *v265 = 8;
-            *&v265[4] = v252;
+            *&v265[4] = v254;
             v266 = 0;
-            v81 = v253;
-            if (v253)
+            v81 = v255;
+            if (v255)
             {
-              atomic_fetch_add_explicit(v253, 2u, memory_order_relaxed);
+              atomic_fetch_add_explicit(v255, 2u, memory_order_relaxed);
               v266 = v81;
             }
 
             LOBYTE(v267[0]) = 0;
             do
             {
-              v83 = (v249 + 1);
-              LODWORD(v249) = v83;
-              if (v248 <= v83)
+              v83 = (v251 + 1);
+              LODWORD(v251) = v83;
+              if (v250 <= v83)
               {
                 __break(0xC471u);
                 JUMPOUT(0x22576A024);
               }
 
-              v84 = v246 + 32 * v83;
+              v84 = v248 + 32 * v83;
               v82 = *v84;
-              v251 = *v84;
-              v252 = *(v84 + 4);
+              v253 = *v84;
+              v254 = *(v84 + 4);
               v85 = *v84;
               if (*v84 <= 8u)
               {
                 if (((1 << v85) & 0x38) != 0)
                 {
-                  v253 = *(v84 + 3);
+                  v255 = *(v84 + 3);
 LABEL_159:
-                  v82 = v251;
+                  v82 = v253;
                   goto LABEL_160;
                 }
 
                 if (((1 << v85) & 0xC4) != 0)
                 {
-                  v253 = *(v84 + 3);
+                  v255 = *(v84 + 3);
                   goto LABEL_159;
                 }
 
                 if (v85 == 8)
                 {
-                  v253 = 0;
+                  v255 = 0;
                   v86 = *(v84 + 3);
                   if (v86)
                   {
                     atomic_fetch_add_explicit(v86, 2u, memory_order_relaxed);
-                    v87 = v253;
-                    v253 = v86;
+                    v87 = v255;
+                    v255 = v86;
                     if (v87)
                     {
                       if (atomic_fetch_add_explicit(v87, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -8633,8 +8644,8 @@ LABEL_159:
               }
 
 LABEL_160:
-              v254 = v252;
-              v255 = DWORD2(v252);
+              v256 = v254;
+              v257 = DWORD2(v254);
             }
 
             while (v82 == 82);
@@ -8643,11 +8654,11 @@ LABEL_160:
               if (!WGSL::parseLanguageFeature(&v266))
               {
                 WTF::StringImpl::createWithoutCopyingNonEmpty();
-                v14 = v260;
+                v14 = v262;
                 goto LABEL_221;
               }
 
-              if (v251 != 48)
+              if (v253 != 48)
               {
                 v99 = 4;
                 v100 = LOBYTE(v267[0]);
@@ -8661,42 +8672,42 @@ LABEL_160:
 
               while (2)
               {
-                v102 = (v249 + 1);
-                LODWORD(v249) = v102;
-                if (v248 <= v102)
+                v102 = (v251 + 1);
+                LODWORD(v251) = v102;
+                if (v250 <= v102)
                 {
                   __break(0xC471u);
                   JUMPOUT(0x22576A03CLL);
                 }
 
-                v103 = v246 + 32 * v102;
+                v103 = v248 + 32 * v102;
                 v101 = *v103;
-                v251 = *v103;
-                v252 = *(v103 + 4);
+                v253 = *v103;
+                v254 = *(v103 + 4);
                 v104 = *v103;
                 if (*v103 <= 8u)
                 {
                   if (((1 << v104) & 0x38) != 0)
                   {
-                    v253 = *(v103 + 3);
+                    v255 = *(v103 + 3);
                     goto LABEL_201;
                   }
 
                   if (((1 << v104) & 0xC4) != 0)
                   {
-                    v253 = *(v103 + 3);
+                    v255 = *(v103 + 3);
                     goto LABEL_201;
                   }
 
                   if (v104 == 8)
                   {
-                    v253 = 0;
+                    v255 = 0;
                     v105 = *(v103 + 3);
                     if (v105)
                     {
                       atomic_fetch_add_explicit(v105, 2u, memory_order_relaxed);
-                      v106 = v253;
-                      v253 = v105;
+                      v106 = v255;
+                      v255 = v105;
                       if (v106)
                       {
                         if (atomic_fetch_add_explicit(v106, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -8707,12 +8718,12 @@ LABEL_160:
                     }
 
 LABEL_201:
-                    v101 = v251;
+                    v101 = v253;
                   }
                 }
 
-                v254 = v252;
-                v255 = DWORD2(v252);
+                v256 = v254;
+                v257 = DWORD2(v254);
                 if (v101 != 82)
                 {
                   v99 = 0;
@@ -8830,9 +8841,9 @@ LABEL_195:
             }
 
 LABEL_214:
-            WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v96, v98, "Expected a ", 0xBuLL, v274, ", but got a ", 0xCuLL, v91, &v260);
-            v14 = v260;
-            if (!v260)
+            WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v96, v98, "Expected a ", 0xBuLL, v274, ", but got a ", 0xCuLL, &v262, v91);
+            v14 = v262;
+            if (!v262)
             {
               goto LABEL_581;
             }
@@ -8853,7 +8864,7 @@ LABEL_214:
 
 LABEL_221:
             v243 = v3;
-            v244 = v15 | ((v255 - v15) << 32);
+            v244 = v15 | ((v257 - v15) << 32);
             v80 = 1;
             v99 = 1;
             v100 = LOBYTE(v267[0]);
@@ -8881,7 +8892,7 @@ LABEL_227:
             {
               if (v99 == 4)
               {
-                if (v251 == 73)
+                if (v253 == 73)
                 {
                   goto LABEL_239;
                 }
@@ -8957,7 +8968,7 @@ LABEL_480:
                   if (!v11 || (v205 & 4) == 0)
                   {
 LABEL_504:
-                    WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v204, v206, "Expected a ", 0xBuLL, v10, ", but got a ", 0xCuLL, v11, v265);
+                    WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v204, v206, "Expected a ", 0xBuLL, v10, ", but got a ", 0xCuLL, v265, v11);
                     v14 = *v265;
                     if (*v265)
                     {
@@ -8975,7 +8986,7 @@ LABEL_504:
                         WTF::StringImpl::destroy(v212, v9);
                       }
 
-                      v213 = v15 | ((v255 - v15) << 32);
+                      v213 = v15 | ((v257 - v15) << 32);
 LABEL_512:
                       atomic_fetch_add_explicit(v14, 2u, memory_order_relaxed);
                       v242 = v213;
@@ -9023,24 +9034,24 @@ LABEL_525:
               goto LABEL_526;
             }
 
-            v74 = v251;
-            if (v251 == 73)
+            v74 = v253;
+            if (v253 == 73)
             {
               while (1)
               {
 LABEL_239:
-                v111 = (v249 + 1);
-                LODWORD(v249) = v111;
-                if (v248 <= v111)
+                v111 = (v251 + 1);
+                LODWORD(v251) = v111;
+                if (v250 <= v111)
                 {
                   __break(0xC471u);
                   JUMPOUT(0x22576A044);
                 }
 
-                v112 = v246 + 32 * v111;
+                v112 = v248 + 32 * v111;
                 v110 = *v112;
-                v251 = *v112;
-                v252 = *(v112 + 4);
+                v253 = *v112;
+                v254 = *(v112 + 4);
                 v113 = *v112;
                 if (*v112 > 8u)
                 {
@@ -9049,12 +9060,12 @@ LABEL_239:
 
                 if (((1 << v113) & 0x38) != 0)
                 {
-                  v253 = *(v112 + 3);
+                  v255 = *(v112 + 3);
                 }
 
                 else if (((1 << v113) & 0xC4) != 0)
                 {
-                  v253 = *(v112 + 3);
+                  v255 = *(v112 + 3);
                 }
 
                 else
@@ -9064,13 +9075,13 @@ LABEL_239:
                     goto LABEL_238;
                   }
 
-                  v253 = 0;
+                  v255 = 0;
                   v114 = *(v112 + 3);
                   if (v114)
                   {
                     atomic_fetch_add_explicit(v114, 2u, memory_order_relaxed);
-                    v115 = v253;
-                    v253 = v114;
+                    v115 = v255;
+                    v255 = v114;
                     if (v115)
                     {
                       if (atomic_fetch_add_explicit(v115, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -9081,10 +9092,10 @@ LABEL_239:
                   }
                 }
 
-                v110 = v251;
+                v110 = v253;
 LABEL_238:
-                v254 = v252;
-                v255 = DWORD2(v252);
+                v256 = v254;
+                v257 = DWORD2(v254);
                 if (v110 != 82)
                 {
                   v14 &= 0xFFFFFFFFFFFFFF00;
@@ -9097,12 +9108,12 @@ LABEL_238:
       }
     }
 
-    if (v251 == 18)
+    if (v253 == 18)
     {
       break;
     }
 
-    if (v251 != 21)
+    if (v253 != 21)
     {
       v175 = v234;
       v174 = v236;
@@ -9117,28 +9128,28 @@ LABEL_417:
           goto LABEL_533;
         }
 
-        WGSL::Parser<WGSL::Lexer<unsigned char>>::parseDeclaration(v265, v245);
+        WGSL::Parser<WGSL::Lexer<unsigned char>>::parseDeclaration(v265, &v245);
         v177 = v266;
         if (!v266)
         {
-          v184 = v245[0];
-          v185 = *(v245[0] + 76);
-          if (v185 == *(v245[0] + 72))
+          v184 = v245;
+          v185 = *(v245 + 19);
+          if (v185 == *(v245 + 18))
           {
-            v186 = WTF::Vector<WebGPU::BindGroupLayout::Entry const*,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(v245[0] + 64, v185 + 1, v265);
-            v185 = *(v184 + 76);
-            v187 = *(v184 + 64);
+            v186 = WTF::Vector<WebGPU::BindGroupLayout::Entry const*,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>((v245 + 8), v185 + 1, v265);
+            v185 = *(v184 + 19);
+            v187 = v184[8];
             v188 = *v186;
           }
 
           else
           {
-            v187 = *(v245[0] + 64);
+            v187 = v245[8];
             v188 = *v265;
           }
 
           *(v187 + 8 * v185) = v188;
-          ++*(v184 + 76);
+          ++*(v184 + 19);
           v178 = v266;
           if (!v266)
           {
@@ -9190,23 +9201,23 @@ LABEL_446:
           goto LABEL_450;
         }
 
-        v73 = v251;
+        v73 = v253;
       }
 
       while (1)
       {
-        v179 = (v249 + 1);
-        LODWORD(v249) = v179;
-        if (v248 <= v179)
+        v179 = (v251 + 1);
+        LODWORD(v251) = v179;
+        if (v250 <= v179)
         {
           __break(0xC471u);
           JUMPOUT(0x22576A04CLL);
         }
 
-        v180 = v246 + 32 * v179;
+        v180 = v248 + 32 * v179;
         v73 = *v180;
-        v251 = *v180;
-        v252 = *(v180 + 4);
+        v253 = *v180;
+        v254 = *(v180 + 4);
         v181 = *v180;
         if (*v180 > 8u)
         {
@@ -9215,12 +9226,12 @@ LABEL_446:
 
         if (((1 << v181) & 0x38) != 0)
         {
-          v253 = *(v180 + 3);
+          v255 = *(v180 + 3);
         }
 
         else if (((1 << v181) & 0xC4) != 0)
         {
-          v253 = *(v180 + 3);
+          v255 = *(v180 + 3);
         }
 
         else
@@ -9230,13 +9241,13 @@ LABEL_446:
             goto LABEL_427;
           }
 
-          v253 = 0;
+          v255 = 0;
           v182 = *(v180 + 3);
           if (v182)
           {
             atomic_fetch_add_explicit(v182, 2u, memory_order_relaxed);
-            v183 = v253;
-            v253 = v182;
+            v183 = v255;
+            v255 = v182;
             if (v183)
             {
               if (atomic_fetch_add_explicit(v183, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -9247,10 +9258,10 @@ LABEL_446:
           }
         }
 
-        v73 = v251;
+        v73 = v253;
 LABEL_427:
-        v254 = v252;
-        v255 = DWORD2(v252);
+        v256 = v254;
+        v257 = DWORD2(v254);
         if (v73 != 82)
         {
           goto LABEL_417;
@@ -9258,48 +9269,48 @@ LABEL_427:
       }
     }
 
-    v3 = v254;
-    v116 = v255;
+    v3 = v256;
+    v116 = v257;
     do
     {
-      v118 = (v249 + 1);
-      LODWORD(v249) = v118;
-      if (v248 <= v118)
+      v118 = (v251 + 1);
+      LODWORD(v251) = v118;
+      if (v250 <= v118)
       {
         __break(0xC471u);
         JUMPOUT(0x22576A074);
       }
 
-      v119 = v246 + 32 * v118;
+      v119 = v248 + 32 * v118;
       v117 = *v119;
-      v251 = *v119;
-      v252 = *(v119 + 4);
+      v253 = *v119;
+      v254 = *(v119 + 4);
       v120 = *v119;
       if (*v119 <= 8u)
       {
         if (((1 << v120) & 0x38) != 0)
         {
-          v253 = *(v119 + 3);
+          v255 = *(v119 + 3);
 LABEL_255:
-          v117 = v251;
+          v117 = v253;
           goto LABEL_256;
         }
 
         if (((1 << v120) & 0xC4) != 0)
         {
-          v253 = *(v119 + 3);
+          v255 = *(v119 + 3);
           goto LABEL_255;
         }
 
         if (v120 == 8)
         {
-          v253 = 0;
+          v255 = 0;
           v121 = *(v119 + 3);
           if (v121)
           {
             atomic_fetch_add_explicit(v121, 2u, memory_order_relaxed);
-            v122 = v253;
-            v253 = v121;
+            v122 = v255;
+            v255 = v121;
             if (v122)
             {
               if (atomic_fetch_add_explicit(v122, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -9314,8 +9325,8 @@ LABEL_255:
       }
 
 LABEL_256:
-      v254 = v252;
-      v255 = DWORD2(v252);
+      v256 = v254;
+      v257 = DWORD2(v254);
     }
 
     while (v117 == 82);
@@ -9326,9 +9337,9 @@ LABEL_256:
       {
         WGSL::toString();
         WGSL::toString();
-        if (v260)
+        if (v262)
         {
-          v199 = *(v260 + 1);
+          v199 = *(v262 + 4);
           if (v274)
           {
 LABEL_468:
@@ -9394,14 +9405,14 @@ LABEL_494:
           goto LABEL_600;
         }
 
-        if (v260)
+        if (v262)
         {
-          v209 = *(v260 + 4);
+          v209 = *(v262 + 16);
           v210 = (v209 >> 2) & 1;
           if (!v274 || (v209 & 4) == 0)
           {
 LABEL_515:
-            WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v208, v210, "Expected a ", 0xBuLL, v260, ", but got a ", 0xCuLL, v274, v265);
+            WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v208, v210, "Expected a ", 0xBuLL, v262, ", but got a ", 0xCuLL, v265, v274);
             v14 = *v265;
             if (*v265)
             {
@@ -9412,8 +9423,8 @@ LABEL_515:
                 WTF::StringImpl::destroy(v214, v9);
               }
 
-              v215 = v260;
-              v260 = 0;
+              v215 = v262;
+              *&v262 = 0;
               if (!v215)
               {
                 goto LABEL_522;
@@ -9426,7 +9437,7 @@ LABEL_520:
               }
 
 LABEL_522:
-              v242 = v116 | ((v255 - v116) << 32);
+              v242 = v116 | ((v257 - v116) << 32);
               v191 = v3;
               goto LABEL_523;
             }
@@ -9447,52 +9458,52 @@ LABEL_600:
         goto LABEL_515;
       }
 
-      v129 = v253;
-      if (v253)
+      v129 = v255;
+      if (v255)
       {
-        atomic_fetch_add_explicit(v253, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v255, 2u, memory_order_relaxed);
       }
 
       do
       {
-        v131 = (v249 + 1);
-        LODWORD(v249) = v131;
-        if (v248 <= v131)
+        v131 = (v251 + 1);
+        LODWORD(v251) = v131;
+        if (v250 <= v131)
         {
           __break(0xC471u);
           JUMPOUT(0x22576A054);
         }
 
-        v132 = v246 + 32 * v131;
+        v132 = v248 + 32 * v131;
         v130 = *v132;
-        v251 = *v132;
-        v252 = *(v132 + 4);
+        v253 = *v132;
+        v254 = *(v132 + 4);
         v133 = *v132;
         if (*v132 <= 8u)
         {
           if (((1 << v133) & 0x38) != 0)
           {
-            v253 = *(v132 + 3);
+            v255 = *(v132 + 3);
 LABEL_285:
-            v130 = v251;
+            v130 = v253;
             goto LABEL_286;
           }
 
           if (((1 << v133) & 0xC4) != 0)
           {
-            v253 = *(v132 + 3);
+            v255 = *(v132 + 3);
             goto LABEL_285;
           }
 
           if (v133 == 8)
           {
-            v253 = 0;
+            v255 = 0;
             v134 = *(v132 + 3);
             if (v134)
             {
               atomic_fetch_add_explicit(v134, 2u, memory_order_relaxed);
-              v135 = v253;
-              v253 = v134;
+              v135 = v255;
+              v255 = v134;
               if (v135)
               {
                 if (atomic_fetch_add_explicit(v135, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -9507,8 +9518,8 @@ LABEL_285:
         }
 
 LABEL_286:
-        v254 = v252;
-        v255 = DWORD2(v252);
+        v256 = v254;
+        v257 = DWORD2(v254);
       }
 
       while (v130 == 82);
@@ -9530,7 +9541,7 @@ LABEL_326:
         WTF::StringImpl::createWithoutCopyingNonEmpty();
         v239 = v3;
         v240 = *v265;
-        v242 = v116 | ((v255 - v116) << 32);
+        v242 = v116 | ((v257 - v116) << 32);
         v241 = 1;
         v139 = 1;
         if (v129)
@@ -9557,23 +9568,23 @@ LABEL_326:
       }
 
 LABEL_309:
-      *(v245[0] + 34) |= 1u;
+      *(v245 + 34) |= 1u;
       if (v130 == 48)
       {
         while (1)
         {
-          v141 = (v249 + 1);
-          LODWORD(v249) = v141;
-          if (v248 <= v141)
+          v141 = (v251 + 1);
+          LODWORD(v251) = v141;
+          if (v250 <= v141)
           {
             __break(0xC471u);
             JUMPOUT(0x22576A064);
           }
 
-          v142 = v246 + 32 * v141;
+          v142 = v248 + 32 * v141;
           v140 = *v142;
-          v251 = *v142;
-          v252 = *(v142 + 4);
+          v253 = *v142;
+          v254 = *(v142 + 4);
           v143 = *v142;
           if (*v142 > 8u)
           {
@@ -9582,12 +9593,12 @@ LABEL_309:
 
           if (((1 << v143) & 0x38) != 0)
           {
-            v253 = *(v142 + 3);
+            v255 = *(v142 + 3);
           }
 
           else if (((1 << v143) & 0xC4) != 0)
           {
-            v253 = *(v142 + 3);
+            v255 = *(v142 + 3);
           }
 
           else
@@ -9597,13 +9608,13 @@ LABEL_309:
               goto LABEL_313;
             }
 
-            v253 = 0;
+            v255 = 0;
             v144 = *(v142 + 3);
             if (v144)
             {
               atomic_fetch_add_explicit(v144, 2u, memory_order_relaxed);
-              v145 = v253;
-              v253 = v144;
+              v145 = v255;
+              v255 = v144;
               if (v145)
               {
                 if (atomic_fetch_add_explicit(v145, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -9614,10 +9625,10 @@ LABEL_309:
             }
           }
 
-          v140 = v251;
+          v140 = v253;
 LABEL_313:
-          v254 = v252;
-          v255 = DWORD2(v252);
+          v256 = v254;
+          v257 = DWORD2(v254);
           if (v140 != 82)
           {
             v139 = 0;
@@ -9639,8 +9650,8 @@ LABEL_330:
         break;
       }
 
-      v117 = v251;
-      if (v251 == 73)
+      v117 = v253;
+      if (v253 == 73)
       {
         goto LABEL_359;
       }
@@ -9648,23 +9659,23 @@ LABEL_330:
 
     if (v139 == 4)
     {
-      if (v251 == 73)
+      if (v253 == 73)
       {
         while (1)
         {
 LABEL_359:
-          v155 = (v249 + 1);
-          LODWORD(v249) = v155;
-          if (v248 <= v155)
+          v155 = (v251 + 1);
+          LODWORD(v251) = v155;
+          if (v250 <= v155)
           {
             __break(0xC471u);
             JUMPOUT(0x22576A07CLL);
           }
 
-          v156 = v246 + 32 * v155;
+          v156 = v248 + 32 * v155;
           v154 = *v156;
-          v251 = *v156;
-          v252 = *(v156 + 4);
+          v253 = *v156;
+          v254 = *(v156 + 4);
           v157 = *v156;
           if (*v156 > 8u)
           {
@@ -9673,12 +9684,12 @@ LABEL_359:
 
           if (((1 << v157) & 0x38) != 0)
           {
-            v253 = *(v156 + 3);
+            v255 = *(v156 + 3);
           }
 
           else if (((1 << v157) & 0xC4) != 0)
           {
-            v253 = *(v156 + 3);
+            v255 = *(v156 + 3);
           }
 
           else
@@ -9688,13 +9699,13 @@ LABEL_359:
               goto LABEL_358;
             }
 
-            v253 = 0;
+            v255 = 0;
             v158 = *(v156 + 3);
             if (v158)
             {
               atomic_fetch_add_explicit(v158, 2u, memory_order_relaxed);
-              v159 = v253;
-              v253 = v158;
+              v159 = v255;
+              v255 = v158;
               if (v159)
               {
                 if (atomic_fetch_add_explicit(v159, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -9705,10 +9716,10 @@ LABEL_359:
             }
           }
 
-          v154 = v251;
+          v154 = v253;
 LABEL_358:
-          v254 = v252;
-          v255 = DWORD2(v252);
+          v256 = v254;
+          v257 = DWORD2(v254);
           if (v154 != 82)
           {
             v240 &= 0xFFFFFFFFFFFFFF00;
@@ -9776,7 +9787,7 @@ LABEL_358:
         if (!v272 || (v228 & 4) == 0)
         {
 LABEL_571:
-          WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v227, v229, "Expected a ", 0xBuLL, v273, ", but got a ", 0xCuLL, v272, v265);
+          WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v227, v229, "Expected a ", 0xBuLL, v273, ", but got a ", 0xCuLL, v265, v272);
           v14 = *v265;
           if (*v265)
           {
@@ -9840,44 +9851,44 @@ LABEL_524:
 
   do
   {
-    v124 = (v249 + 1);
-    LODWORD(v249) = v124;
-    if (v248 <= v124)
+    v124 = (v251 + 1);
+    LODWORD(v251) = v124;
+    if (v250 <= v124)
     {
       __break(0xC471u);
       JUMPOUT(0x22576A06CLL);
     }
 
-    v125 = v246 + 32 * v124;
+    v125 = v248 + 32 * v124;
     v123 = *v125;
-    v251 = *v125;
-    v252 = *(v125 + 4);
+    v253 = *v125;
+    v254 = *(v125 + 4);
     v126 = *v125;
     if (*v125 <= 8u)
     {
       if (((1 << v126) & 0x38) != 0)
       {
-        v253 = *(v125 + 3);
+        v255 = *(v125 + 3);
 LABEL_268:
-        v123 = v251;
+        v123 = v253;
         goto LABEL_269;
       }
 
       if (((1 << v126) & 0xC4) != 0)
       {
-        v253 = *(v125 + 3);
+        v255 = *(v125 + 3);
         goto LABEL_268;
       }
 
       if (v126 == 8)
       {
-        v253 = 0;
+        v255 = 0;
         v127 = *(v125 + 3);
         if (v127)
         {
           atomic_fetch_add_explicit(v127, 2u, memory_order_relaxed);
-          v128 = v253;
-          v253 = v127;
+          v128 = v255;
+          v255 = v127;
           if (v128)
           {
             if (atomic_fetch_add_explicit(v128, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -9892,41 +9903,41 @@ LABEL_268:
     }
 
 LABEL_269:
-    v254 = v252;
-    v255 = DWORD2(v252);
+    v256 = v254;
+    v257 = DWORD2(v254);
   }
 
   while (v123 == 82);
-  WGSL::Parser<WGSL::Lexer<unsigned char>>::parseDiagnostic(v265, v245);
+  WGSL::Parser<WGSL::Lexer<unsigned char>>::parseDiagnostic(v265, &v245);
   if (!v270)
   {
-    if (v251 == 73)
+    if (v253 == 73)
     {
       while (1)
       {
-        v149 = (v249 + 1);
-        LODWORD(v249) = v149;
-        if (v248 <= v149)
+        v149 = (v251 + 1);
+        LODWORD(v251) = v149;
+        if (v250 <= v149)
         {
           __break(0xC471u);
           JUMPOUT(0x22576A084);
         }
 
-        v150 = v246 + 32 * v149;
+        v150 = v248 + 32 * v149;
         v148 = *v150;
-        v251 = *v150;
-        v252 = *(v150 + 4);
+        v253 = *v150;
+        v254 = *(v150 + 4);
         v151 = *v150;
         if (*v150 <= 8u)
         {
           if (((1 << v151) & 0x38) != 0)
           {
-            v253 = *(v150 + 3);
+            v255 = *(v150 + 3);
           }
 
           else if (((1 << v151) & 0xC4) != 0)
           {
-            v253 = *(v150 + 3);
+            v255 = *(v150 + 3);
           }
 
           else
@@ -9936,13 +9947,13 @@ LABEL_269:
               goto LABEL_342;
             }
 
-            v253 = 0;
+            v255 = 0;
             v152 = *(v150 + 3);
             if (v152)
             {
               atomic_fetch_add_explicit(v152, 2u, memory_order_relaxed);
-              v153 = v253;
-              v253 = v152;
+              v153 = v255;
+              v255 = v152;
               if (v153)
               {
                 if (atomic_fetch_add_explicit(v153, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -9953,18 +9964,18 @@ LABEL_269:
             }
           }
 
-          v148 = v251;
+          v148 = v253;
         }
 
 LABEL_342:
-        v254 = v252;
-        v255 = DWORD2(v252);
+        v256 = v254;
+        v257 = DWORD2(v254);
         if (v148 != 82)
         {
-          v260 = v13;
-          v261 = v231;
-          v262 = DWORD2(v252) - v231;
-          WGSL::AST::Builder::construct<WGSL::AST::DiagnosticDirective,WGSL::SourceSpan,WGSL::AST::Diagnostic,void>();
+          *&v262 = v13;
+          DWORD2(v262) = v231;
+          HIDWORD(v262) = DWORD2(v254) - v231;
+          WGSL::AST::Builder::construct<WGSL::AST::DiagnosticDirective,WGSL::SourceSpan,WGSL::AST::Diagnostic,void>(v246, &v262, v265);
         }
       }
     }
@@ -10048,9 +10059,9 @@ LABEL_386:
       if (!v162 || (v168 & 4) == 0)
       {
 LABEL_396:
-        WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v167, v169, "Expected a ", 0xBuLL, v264, ", but got a ", 0xCuLL, v162, &v260);
-        v147 = v260;
-        if (v260)
+        WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>>(v167, v169, "Expected a ", 0xBuLL, v264, ", but got a ", 0xCuLL, &v262, v162);
+        v147 = v262;
+        if (v262)
         {
           v170 = v263;
           v263 = 0;
@@ -10067,7 +10078,7 @@ LABEL_396:
           }
 
           v233 = v13;
-          v235 = v231 | ((v255 - v231) << 32);
+          v235 = v231 | ((v257 - v231) << 32);
           goto LABEL_404;
         }
 
@@ -10186,10 +10197,10 @@ LABEL_526:
   }
 
 LABEL_533:
-  if (v251 == 8)
+  if (v253 == 8)
   {
-    v217 = v253;
-    v253 = 0;
+    v217 = v255;
+    v255 = 0;
     if (v217)
     {
       if (atomic_fetch_add_explicit(v217, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -10199,11 +10210,11 @@ LABEL_533:
     }
   }
 
-  result = v246;
-  if (v248)
+  result = v248;
+  if (v250)
   {
-    v219 = 32 * v248;
-    v220 = (v246 + 24);
+    v219 = 32 * v250;
+    v220 = (v248 + 24);
     do
     {
       if (*(v220 - 6) == 8)
@@ -10224,13 +10235,13 @@ LABEL_533:
     }
 
     while (v219);
-    result = v246;
+    result = v248;
   }
 
   if (result)
   {
-    v246 = 0;
-    v247 = 0;
+    v248 = 0;
+    v249 = 0;
     return WTF::fastFree(result, v9);
   }
 

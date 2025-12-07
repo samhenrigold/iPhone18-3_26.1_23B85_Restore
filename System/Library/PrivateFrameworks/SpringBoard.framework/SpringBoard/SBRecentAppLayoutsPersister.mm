@@ -113,108 +113,109 @@ id __54__SBRecentAppLayoutsPersister_syncToDiskSynchronously__block_invoke(uint6
 
 - (void)_loadRecents
 {
-  v49 = *MEMORY[0x277D85DE8];
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __43__SBRecentAppLayoutsPersister__loadRecents__block_invoke;
-  v41[3] = &unk_2783A8BC8;
-  v41[4] = self;
-  v41[5] = a2;
-  v3 = MEMORY[0x223D6F7F0](v41);
+  v51 = *MEMORY[0x277D85DE8];
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __43__SBRecentAppLayoutsPersister__loadRecents__block_invoke;
+  v43[3] = &unk_2783A8BC8;
+  v43[4] = self;
+  v43[5] = a2;
+  v3 = MEMORY[0x223D6F7F0](v43);
   selfCopy = self;
   persistenceURL = self->_persistenceURL;
-  v40 = 0;
-  v6 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:persistenceURL options:0 error:&v40];
-  v7 = v40;
+  v42 = 0;
+  v6 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:persistenceURL options:0 error:&v42];
+  v7 = v42;
+  v8 = v7;
   if (v6)
   {
-    v39 = 0;
-    v8 = [v6 decompressedDataUsingAlgorithm:0 error:&v39];
-    v9 = v39;
-    v10 = v9;
-    if (v8)
+    v41 = 0;
+    v9 = [v6 decompressedDataUsingAlgorithm:0 error:&v41];
+    v10 = v41;
+    v11 = v10;
+    if (v9)
     {
-      v30 = v9;
-      v32 = v7;
-      v33 = v3;
-      v31 = v8;
-      v11 = [objc_alloc(MEMORY[0x277D43170]) initWithData:v8];
-      v12 = objc_alloc_init(SBPBAppLayoutList);
-      v29 = v11;
-      [(SBPBAppLayoutList *)v12 readFrom:v11];
+      v32 = v10;
+      v34 = v8;
+      v35 = v3;
+      v33 = v9;
+      v12 = [objc_alloc(MEMORY[0x277D43170]) initWithData:v9];
+      v13 = objc_alloc_init(SBPBAppLayoutList);
+      v31 = v12;
+      [(SBPBAppLayoutList *)v13 readFrom:v12];
       array = [MEMORY[0x277CBEB18] array];
-      v35 = 0u;
-      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v28 = v12;
-      obj = [(SBPBAppLayoutList *)v12 applayouts];
-      v14 = [obj countByEnumeratingWithState:&v35 objects:v42 count:16];
-      if (v14)
+      v39 = 0u;
+      v40 = 0u;
+      v30 = v13;
+      obj = [(SBPBAppLayoutList *)v13 applayouts];
+      v15 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+      if (v15)
       {
-        v15 = v14;
-        v16 = *v36;
+        v16 = v15;
+        v17 = *v38;
         do
         {
-          v17 = 0;
+          v18 = 0;
           do
           {
-            if (*v36 != v16)
+            if (*v38 != v17)
             {
               objc_enumerationMutation(obj);
             }
 
-            v18 = *(*(&v35 + 1) + 8 * v17);
+            v19 = *(*(&v37 + 1) + 8 * v18);
             WeakRetained = objc_loadWeakRetained(&selfCopy->_layoutAttributesProvider);
-            v20 = [SBAppLayout appLayoutWithProtobufRepresentation:v18 layoutAttributesProvider:WeakRetained];
+            v21 = [SBAppLayout appLayoutWithProtobufRepresentation:v19 layoutAttributesProvider:WeakRetained];
 
-            if (v20)
+            if (v21)
             {
-              [array addObject:v20];
+              [array addObject:v21];
             }
 
             else
             {
-              v21 = SBLogAppSwitcher();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+              v23 = SBLogAppSwitcher(v22);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
               {
-                v22 = _SBFLoggingMethodProem();
+                v24 = _SBFLoggingMethodProem();
                 *buf = 138543618;
-                v44 = v22;
-                v45 = 2114;
-                v46 = v18;
-                _os_log_error_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_ERROR, "%{public}@ Couldn't derive app layout from Protobuf representation: %{public}@", buf, 0x16u);
+                v46 = v24;
+                v47 = 2114;
+                v48 = v19;
+                _os_log_error_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_ERROR, "%{public}@ Couldn't derive app layout from Protobuf representation: %{public}@", buf, 0x16u);
               }
             }
 
-            ++v17;
+            ++v18;
           }
 
-          while (v15 != v17);
-          v15 = [obj countByEnumeratingWithState:&v35 objects:v42 count:16];
+          while (v16 != v18);
+          v16 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
         }
 
-        while (v15);
+        while (v16);
       }
 
       [(SBRecentAppLayoutsPersister *)selfCopy setRecents:array];
-      v3 = v33;
-      v8 = v31;
-      v7 = v32;
-      v10 = v30;
+      v3 = v35;
+      v9 = v33;
+      v8 = v34;
+      v11 = v32;
     }
 
     else
     {
-      v24 = SBLogAppSwitcher();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = SBLogAppSwitcher(v10);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        v27 = _SBFLoggingMethodProem();
+        v29 = _SBFLoggingMethodProem();
         *buf = 138543618;
-        v44 = v27;
-        v45 = 2114;
-        v46 = v10;
-        _os_log_error_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_ERROR, "%{public}@ Error decompressing recents: %{public}@", buf, 0x16u);
+        v46 = v29;
+        v47 = 2114;
+        v48 = v11;
+        _os_log_error_impl(&dword_21ED4E000, v26, OS_LOG_TYPE_ERROR, "%{public}@ Error decompressing recents: %{public}@", buf, 0x16u);
       }
 
       v3[2](v3);
@@ -223,18 +224,18 @@ id __54__SBRecentAppLayoutsPersister_syncToDiskSynchronously__block_invoke(uint6
 
   else
   {
-    v23 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v25 = SBLogAppSwitcher(v7);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v25 = _SBFLoggingMethodProem();
-      v26 = selfCopy->_persistenceURL;
+      v27 = _SBFLoggingMethodProem();
+      v28 = selfCopy->_persistenceURL;
       *buf = 138543874;
-      v44 = v25;
-      v45 = 2114;
-      v46 = v26;
+      v46 = v27;
       v47 = 2114;
-      v48 = v7;
-      _os_log_error_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_ERROR, "%{public}@ Error reading recents from %{public}@: %{public}@", buf, 0x20u);
+      v48 = v28;
+      v49 = 2114;
+      v50 = v8;
+      _os_log_error_impl(&dword_21ED4E000, v25, OS_LOG_TYPE_ERROR, "%{public}@ Error reading recents from %{public}@: %{public}@", buf, 0x20u);
     }
 
     v3[2](v3);
@@ -243,53 +244,53 @@ id __54__SBRecentAppLayoutsPersister_syncToDiskSynchronously__block_invoke(uint6
 
 void __43__SBRecentAppLayoutsPersister__loadRecents__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = SBLogAppSwitcher();
+  v21 = *MEMORY[0x277D85DE8];
+  v2 = SBLogAppSwitcher(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = _SBFLoggingMethodProem();
     *buf = 138543362;
-    v15 = v3;
+    v16 = v3;
     _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_INFO, "%{public}@ Using empty switcher model to recover from error with persisted switcher model", buf, 0xCu);
   }
 
   [*(a1 + 32) setRecents:MEMORY[0x277CBEBF8]];
   v4 = [MEMORY[0x277CCAA00] defaultManager];
   v5 = *(*(a1 + 32) + 16);
-  v13 = 0;
-  v6 = [v4 removeItemAtURL:v5 error:&v13];
-  v7 = v13;
+  v14 = 0;
+  v6 = [v4 removeItemAtURL:v5 error:&v14];
+  v7 = v14;
 
-  v8 = SBLogAppSwitcher();
-  v9 = v8;
+  v9 = SBLogAppSwitcher(v8);
+  v10 = v9;
   if (!v6)
   {
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_8;
     }
 
-    v10 = _SBFLoggingMethodProem();
-    v12 = *(*(a1 + 32) + 16);
+    v11 = _SBFLoggingMethodProem();
+    v13 = *(*(a1 + 32) + 16);
     *buf = 138543874;
-    v15 = v10;
-    v16 = 2114;
-    v17 = v12;
-    v18 = 2114;
-    v19 = v7;
-    _os_log_error_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_ERROR, "%{public}@ Error removing faulty switcher model from %{public}@: %{public}@", buf, 0x20u);
+    v16 = v11;
+    v17 = 2114;
+    v18 = v13;
+    v19 = 2114;
+    v20 = v7;
+    _os_log_error_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Error removing faulty switcher model from %{public}@: %{public}@", buf, 0x20u);
     goto LABEL_6;
   }
 
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v10 = _SBFLoggingMethodProem();
-    v11 = *(*(a1 + 32) + 16);
+    v11 = _SBFLoggingMethodProem();
+    v12 = *(*(a1 + 32) + 16);
     *buf = 138543618;
-    v15 = v10;
-    v16 = 2114;
-    v17 = v11;
-    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "%{public}@ Removed faulty switcher model from %{public}@", buf, 0x16u);
+    v16 = v11;
+    v17 = 2114;
+    v18 = v12;
+    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "%{public}@ Removed faulty switcher model from %{public}@", buf, 0x16u);
 LABEL_6:
   }
 
@@ -332,7 +333,7 @@ id __48__SBRecentAppLayoutsPersister__enqueueDiskWrite__block_invoke(uint64_t a1
 
 - (void)_queue_writeCompressedProtobufRepresentationToDisk:(id)disk
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   ioQueue = self->_ioQueue;
   diskCopy = disk;
   dispatch_assert_queue_V2(ioQueue);
@@ -343,44 +344,46 @@ id __48__SBRecentAppLayoutsPersister__enqueueDiskWrite__block_invoke(uint64_t a1
   v8 = objc_alloc_init(MEMORY[0x277D43178]);
   [(SBPBAppLayoutList *)v6 writeTo:v8];
   immutableData = [v8 immutableData];
-  v20 = 0;
-  v10 = [immutableData compressedDataUsingAlgorithm:0 error:&v20];
-  v11 = v20;
+  v22 = 0;
+  v10 = [immutableData compressedDataUsingAlgorithm:0 error:&v22];
+  v11 = v22;
+  v12 = v11;
   if (v10)
   {
     persistenceURL = self->_persistenceURL;
-    v19 = 0;
-    v13 = [v10 writeToURL:persistenceURL options:268435457 error:&v19];
-    v14 = v19;
-    if ((v13 & 1) == 0)
+    v21 = 0;
+    v14 = [v10 writeToURL:persistenceURL options:268435457 error:&v21];
+    v15 = v21;
+    v16 = v15;
+    if ((v14 & 1) == 0)
     {
-      v15 = SBLogAppSwitcher();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = SBLogAppSwitcher(v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v17 = _SBFLoggingMethodProem();
-        v18 = self->_persistenceURL;
+        v19 = _SBFLoggingMethodProem();
+        v20 = self->_persistenceURL;
         *buf = 138543874;
-        v22 = v17;
-        v23 = 2112;
-        v24 = v18;
+        v24 = v19;
         v25 = 2112;
-        v26 = v14;
-        _os_log_error_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_ERROR, "%{public}@ Error writing recents to %@: %@", buf, 0x20u);
+        v26 = v20;
+        v27 = 2112;
+        v28 = v16;
+        _os_log_error_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_ERROR, "%{public}@ Error writing recents to %@: %@", buf, 0x20u);
       }
     }
   }
 
   else
   {
-    v14 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = SBLogAppSwitcher(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v16 = _SBFLoggingMethodProem();
+      v18 = _SBFLoggingMethodProem();
       *buf = 138543618;
-      v22 = v16;
-      v23 = 2112;
-      v24 = v11;
-      _os_log_error_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_ERROR, "%{public}@ Error compressing data: %@", buf, 0x16u);
+      v24 = v18;
+      v25 = 2112;
+      v26 = v12;
+      _os_log_error_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_ERROR, "%{public}@ Error compressing data: %@", buf, 0x16u);
     }
   }
 }

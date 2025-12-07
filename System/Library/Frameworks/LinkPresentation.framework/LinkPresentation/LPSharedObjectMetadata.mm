@@ -20,9 +20,9 @@
 - (LPSharedObjectMetadata)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v22.receiver = self;
-  v22.super_class = LPSharedObjectMetadata;
-  v5 = [(LPSharedObjectMetadata *)&v22 init];
+  v24.receiver = self;
+  v24.super_class = LPSharedObjectMetadata;
+  v5 = [(LPSharedObjectMetadata *)&v24 init];
   if (v5)
   {
     v6 = decodeStringForKey(coderCopy, @"title");
@@ -45,23 +45,23 @@
     if ([coderCopy containsValueForKey:@"specialization"])
     {
       v14 = decodableSpecializationClasses([coderCopy _lp_coderType]);
-      v21 = 0;
-      v15 = [coderCopy _lp_strictlyDecodeTopLevelObjectOfClasses:v14 forKey:@"specialization" error:&v21];
-      v16 = v21;
+      v23 = 0;
+      v15 = [coderCopy _lp_strictlyDecodeTopLevelObjectOfClasses:v14 forKey:@"specialization" error:&v23];
+      v16 = v23;
       icon = v5->_icon;
       v5->_icon = v15;
 
       if (v16)
       {
-        v18 = LPLogChannelSerialization();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v20 = LPLogChannelSerialization(v18, v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           [LPSharedObjectMetadata initWithCoder:];
         }
       }
     }
 
-    v19 = v5;
+    v21 = v5;
   }
 
   return v5;
@@ -173,9 +173,10 @@ void __55__LPSharedObjectMetadata__enumerateAsynchronousFields___block_invoke(ui
   lCopy = l;
   if (lCopy && ([MEMORY[0x1E69635C0] currentProcessHasReadAccess] & 1) != 0)
   {
-    v11 = 0;
-    v4 = [MEMORY[0x1E69635C0] appLinksWithURL:lCopy limit:1 includeLinksForCurrentApplication:1 error:&v11];
-    v5 = v11;
+    v13 = 0;
+    v4 = [MEMORY[0x1E69635C0] appLinksWithURL:lCopy limit:1 includeLinksForCurrentApplication:1 error:&v13];
+    v5 = v13;
+    v7 = v5;
     if (v4)
     {
       firstObject = [v4 firstObject];
@@ -193,10 +194,10 @@ void __55__LPSharedObjectMetadata__enumerateAsynchronousFields___block_invoke(ui
 
     else
     {
-      v9 = LPLogChannelUI();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = LPLogChannelUI(v5, v6);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(LPSharedObjectMetadata(Transformers) *)lCopy _applicationFromURL:v5, v9];
+        [(LPSharedObjectMetadata(Transformers) *)lCopy _applicationFromURL:v7, v11];
       }
 
       localizedName = 0;

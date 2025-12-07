@@ -1,309 +1,3 @@
-uint64_t ExternalTrace::named_event_enabled(ExternalTrace *this)
-{
-  v1 = *(this + 2);
-  if (*v1 < 2uLL)
-  {
-    return 0;
-  }
-
-  v2 = v1[38];
-  if (v2)
-  {
-    return v2(*(this + 3));
-  }
-
-  else
-  {
-    return v1[37] != 0;
-  }
-}
-
-uint64_t ExternalTrace::compare_failed(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v9 = *(result + 16);
-  if (*v9 >= 4uLL)
-  {
-    v11[5] = v7;
-    v11[6] = v8;
-    v11[0] = a3;
-    v11[1] = a4;
-    v11[2] = a5;
-    v11[3] = a6;
-    v11[4] = a7;
-    v10 = v9[41];
-    if (v10)
-    {
-      return v10(*(result + 24), a2, v11);
-    }
-  }
-
-  return result;
-}
-
-CFURLRef AGDebugServerCopyURL()
-{
-  result = AG::DebugServer::_shared_server;
-  if (AG::DebugServer::_shared_server)
-  {
-    return AG::DebugServer::copy_url(AG::DebugServer::_shared_server);
-  }
-
-  return result;
-}
-
-void AGDebugServerRun(int a1)
-{
-  if (AG::DebugServer::_shared_server)
-  {
-    AG::DebugServer::run(AG::DebugServer::_shared_server, a1);
-  }
-}
-
-unint64_t AGWeakAttribute.init(_:)(uint64_t a1)
-{
-  if ((a1 & 0x100000000) != 0)
-  {
-    LODWORD(a1) = 2;
-  }
-
-  return AGCreateWeakAttribute(a1);
-}
-
-unint64_t AGWeakAttribute.attribute.getter(unint64_t a1)
-{
-  Attribute = AGWeakAttributeGetAttribute(a1);
-  if (Attribute == 2)
-  {
-    v2 = 0;
-  }
-
-  else
-  {
-    v2 = Attribute;
-  }
-
-  return v2 | ((Attribute == 2) << 32);
-}
-
-unint64_t AGWeakAttribute.attribute.setter(uint64_t a1)
-{
-  if ((a1 & 0x100000000) != 0)
-  {
-    LODWORD(a1) = 2;
-  }
-
-  result = AGCreateWeakAttribute(a1);
-  *v1 = result;
-  return result;
-}
-
-uint64_t (*AGWeakAttribute.attribute.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  Attribute = AGWeakAttributeGetAttribute(*v1);
-  *(a1 + 16) = 2;
-  if (Attribute == 2)
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = Attribute;
-  }
-
-  *(a1 + 8) = v4;
-  *(a1 + 12) = Attribute == 2;
-  return sub_1B493ECE0;
-}
-
-uint64_t AGWeakAttribute.description.getter(unint64_t a1)
-{
-  if (AGWeakAttributeGetAttribute(a1) == 2)
-  {
-    return 7104878;
-  }
-
-  else
-  {
-    return AGAttribute.description.getter();
-  }
-}
-
-uint64_t AGWeakAttribute.hashValue.getter()
-{
-  sub_1B4949CC8();
-  sub_1B4949CE8();
-  sub_1B4949CE8();
-  return sub_1B4949CF8();
-}
-
-uint64_t sub_1B493D218()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  sub_1B4949CC8();
-  sub_1B4949CE8();
-  sub_1B4949CE8();
-  return sub_1B4949CF8();
-}
-
-uint64_t sub_1B493D274()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  sub_1B4949CC8();
-  sub_1B4949CE8();
-  sub_1B4949CE8();
-  return sub_1B4949CF8();
-}
-
-unint64_t WeakAttribute.init(_:)(uint64_t a1)
-{
-  if ((a1 & 0x100000000) != 0)
-  {
-    LODWORD(a1) = 2;
-  }
-
-  return AGCreateWeakAttribute(a1);
-}
-
-uint64_t (*WeakAttribute.attribute.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  Attribute = AGWeakAttributeGetAttribute(*v1);
-  *(a1 + 16) = 2;
-  if (Attribute == 2)
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = Attribute;
-  }
-
-  *(a1 + 8) = v4;
-  *(a1 + 12) = Attribute == 2;
-  return sub_1B493ECE0;
-}
-
-uint64_t WeakAttribute.changedValue(options:)@<X0>(char a1@<W0>, unint64_t a2@<X1>, AG::swift::metadata *a3@<X2>, uint64_t a4@<X8>)
-{
-  WeakValue = AGGraphGetWeakValue(a2, a1, a3);
-  if (WeakValue)
-  {
-    v8 = WeakValue;
-    v9 = v7;
-    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    v11 = *(TupleTypeMetadata2 + 48);
-    (*(*(a3 - 1) + 16))(a4, v8, a3);
-    *(a4 + v11) = v9 & 1;
-    v12 = *(*(TupleTypeMetadata2 - 8) + 56);
-    v13 = a4;
-    v14 = 0;
-    v15 = TupleTypeMetadata2;
-  }
-
-  else
-  {
-    v16 = swift_getTupleTypeMetadata2();
-    v12 = *(*(v16 - 8) + 56);
-    v15 = v16;
-    v13 = a4;
-    v14 = 1;
-  }
-
-  return v12(v13, v14, 1, v15);
-}
-
-uint64_t sub_1B493D4DC@<X0>(unint64_t a1@<X0>, AG::swift::metadata *a2@<X1>, uint64_t a3@<X8>)
-{
-  WeakValue = AGGraphGetWeakValue(a1, 0, a2);
-  if (WeakValue)
-  {
-    v10 = *(a2 - 1);
-    (*(v10 + 16))(a3, WeakValue, a2);
-    v6 = v10;
-    v7 = 0;
-  }
-
-  else
-  {
-    v6 = *(a2 - 1);
-    v7 = 1;
-  }
-
-  v8 = *(v6 + 56);
-
-  return v8(a3, v7, 1, a2);
-}
-
-unint64_t sub_1B493D5DC(unint64_t a1)
-{
-  Attribute = AGWeakAttributeGetAttribute(a1);
-  if (Attribute == 2)
-  {
-    v2 = 0;
-  }
-
-  else
-  {
-    v2 = Attribute;
-  }
-
-  return v2 | ((Attribute == 2) << 32);
-}
-
-unint64_t sub_1B493D620(uint64_t a1, unint64_t *a2)
-{
-  if (*(a1 + 4))
-  {
-    v3 = &AGAttributeNil;
-  }
-
-  else
-  {
-    v3 = a1;
-  }
-
-  result = AGCreateWeakAttribute(*v3);
-  *a2 = result;
-  return result;
-}
-
-unint64_t sub_1B493D664(uint64_t a1)
-{
-  if ((a1 & 0x100000000) != 0)
-  {
-    LODWORD(a1) = 2;
-  }
-
-  result = AGCreateWeakAttribute(a1);
-  *v1 = result;
-  return result;
-}
-
-uint64_t (*WeakAttribute.projectedValue.modify(uint64_t a1))()
-{
-  *a1 = v1;
-  Attribute = AGWeakAttributeGetAttribute(*v1);
-  *(a1 + 16) = 2;
-  if (Attribute == 2)
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = Attribute;
-  }
-
-  *(a1 + 8) = v4;
-  *(a1 + 12) = Attribute == 2;
-  return sub_1B493D700;
-}
-
 unint64_t sub_1B493D704(uint64_t a1)
 {
   v1 = (a1 + 8);
@@ -318,9 +12,9 @@ unint64_t sub_1B493D704(uint64_t a1)
   return result;
 }
 
-unint64_t WeakAttribute.subscript.getter(void *a1, unint64_t a2)
+unint64_t WeakAttribute.subscript.getter(uint64_t *a1, unint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = *a1;
   Attribute = AGWeakAttributeGetAttribute(a2);
   if (Attribute == 2)
@@ -333,19 +27,18 @@ unint64_t WeakAttribute.subscript.getter(void *a1, unint64_t a2)
     v6 = sub_1B4949BF8();
     if (v7)
     {
-      v18 = Attribute;
-      v19 = a1;
+      v20 = Attribute;
+      v21 = a1;
       MEMORY[0x1EEE9AC00](v6);
       v8 = (v3 + *MEMORY[0x1E69E77B0]);
-      v14[2] = v8[1];
-      v9 = *v8;
-      v15 = type metadata accessor for Focus();
+      v16 = v8[1];
+      v17 = type metadata accessor for Focus(0, *v8, v16, v9);
       WitnessTable = swift_getWitnessTable();
-      v10 = type metadata accessor for Attribute();
+      v12 = type metadata accessor for Attribute(0, v16, v10, v11);
 
-      sub_1B493DA34(&v18, sub_1B493E28C, v14, v15, MEMORY[0x1E69E73E0], v10, MEMORY[0x1E69E7410], v11);
+      sub_1B493DA34(&v20, sub_1B493E28C, &v15, v17, MEMORY[0x1E69E73E0], v12, MEMORY[0x1E69E7410], v13);
 
-      OffsetAttribute2 = v17;
+      OffsetAttribute2 = v19;
     }
 
     else
@@ -354,12 +47,10 @@ unint64_t WeakAttribute.subscript.getter(void *a1, unint64_t a2)
     }
   }
 
-  LOBYTE(v18) = Attribute == 2;
-  v12 = *MEMORY[0x1E69E9840];
   return OffsetAttribute2 | ((Attribute == 2) << 32);
 }
 
-uint64_t WeakAttribute.hashValue.getter()
+uint64_t WeakAttribute.hashValue.getter(unint64_t a1)
 {
   sub_1B4949CC8();
   sub_1B4949CE8();
@@ -367,11 +58,9 @@ uint64_t WeakAttribute.hashValue.getter()
   return sub_1B4949CF8();
 }
 
-uint64_t sub_1B493D9E0()
+uint64_t sub_1B493D9E0(uint64_t a1)
 {
   sub_1B4949CC8();
-  v1 = *v0;
-  v2 = v0[1];
   sub_1B4949CE8();
   sub_1B4949CE8();
   return sub_1B4949CF8();
@@ -380,13 +69,12 @@ uint64_t sub_1B493D9E0()
 uint64_t sub_1B493DA34(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v11 = *(a5 - 8);
-  v12 = *(v11 + 64);
-  v13 = MEMORY[0x1EEE9AC00]();
-  v15 = &v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = v16(v13, v15);
+  v12 = MEMORY[0x1EEE9AC00](a1);
+  v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = v15(v12);
   if (v8)
   {
-    return (*(v11 + 32))(a8, v15, a5);
+    return (*(v11 + 32))(a8, v14, a5);
   }
 
   return result;
@@ -449,36 +137,32 @@ uint64_t sub_1B493DCEC@<X0>(uint64_t *a1@<X8>)
 
 uint64_t sub_1B493DD30()
 {
-  v1 = *v0;
-  v2 = sub_1B4949B78();
-  v3 = MEMORY[0x1B8C7A8E0](v2);
+  v0 = sub_1B4949B78();
+  v1 = MEMORY[0x1B8C7A8E0](v0);
 
-  return v3;
+  return v1;
 }
 
-uint64_t sub_1B493DD6C()
+uint64_t sub_1B493DD6C(uint64_t a1)
 {
-  v1 = *v0;
   sub_1B4949B78();
   sub_1B4949B98();
 }
 
-uint64_t sub_1B493DDC0()
+uint64_t sub_1B493DDC0(uint64_t a1)
 {
-  v1 = *v0;
   sub_1B4949B78();
   sub_1B4949CC8();
   sub_1B4949B98();
-  v2 = sub_1B4949CF8();
+  v1 = sub_1B4949CF8();
 
-  return v2;
+  return v1;
 }
 
-uint64_t sub_1B493DE48()
+uint64_t sub_1B493DE48(uint64_t a1)
 {
-  v2 = *v0;
-  sub_1B4915E8C(&qword_1EB8A45E8, type metadata accessor for AnyAttribute);
-  sub_1B4915E8C(&qword_1EB8A45F0, type metadata accessor for AnyAttribute);
+  sub_1B4915E8C(&qword_1EB8A45E8, type metadata accessor for AnyAttribute, &protocol conformance descriptor for AGAttribute);
+  sub_1B4915E8C(&qword_1EB8A45F0, type metadata accessor for AnyAttribute, &unk_1B494B29C);
   return sub_1B4949C48();
 }
 
@@ -519,62 +203,37 @@ int *sub_1B493DF7C@<X0>(int *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_1B493E018()
-{
-  v1 = *v0;
-  swift_getWitnessTable();
-  return sub_1B4949AF8();
-}
-
-uint64_t sub_1B493E064()
-{
-  v1 = *v0;
-  swift_getWitnessTable();
-  return sub_1B4949AE8();
-}
-
-uint64_t sub_1B493E0BC()
+uint64_t sub_1B493E0BC(uint64_t a1, uint64_t a2)
 {
   sub_1B4949CC8();
-  v1 = *v0;
   swift_getWitnessTable();
   sub_1B4949AE8();
   return sub_1B4949CF8();
 }
 
-uint64_t sub_1B493E124(uint64_t *a1, uint64_t *a2)
+uint64_t sub_1B493E124(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = sub_1B4949B78();
-  v6 = v5;
-  if (v4 == sub_1B4949B78() && v6 == v7)
+  v2 = sub_1B4949B78();
+  v4 = v3;
+  if (v2 == sub_1B4949B78() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = sub_1B4949C78();
+    v7 = sub_1B4949C78();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
-uint64_t sub_1B493E1C4()
+uint64_t sub_1B493E1C4(uint64_t a1)
 {
-  v2 = *v0;
-  sub_1B4915E8C(&qword_1EB8A45C8, type metadata accessor for Metadata);
-  sub_1B4915E8C(&qword_1EB8A45D0, type metadata accessor for Metadata);
+  sub_1B4915E8C(&qword_1EB8A45C8, type metadata accessor for Metadata, &protocol conformance descriptor for AGTypeID);
+  sub_1B4915E8C(&qword_1EB8A45D0, type metadata accessor for Metadata, &unk_1B494B3F4);
   sub_1B493E8D0();
   return sub_1B4949C48();
-}
-
-uint64_t sub_1B493E28C@<X0>(void *a1@<X0>, _DWORD *a2@<X8>)
-{
-  v3 = v2[2];
-  v4 = v2[3];
-  return sub_1B493EEAC(a1, v2[4], a2);
 }
 
 __n128 __swift_memcpy16_8(__n128 *a1, __n128 *a2)
@@ -744,29 +403,26 @@ uint64_t sub_1B493E4D8@<X0>(uint64_t a1@<X0>, _DWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_1B493E518@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_1B493E518@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = sub_1B4949B48();
+  v3 = sub_1B4949B48();
 
-  *a2 = v5;
+  *a2 = v3;
   return result;
 }
 
 uint64_t sub_1B493E560@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = sub_1B4949B78();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
-uint64_t sub_1B493E58C()
+uint64_t sub_1B493E58C(uint64_t a1)
 {
-  sub_1B4915E8C(&qword_1EB8A45F8, type metadata accessor for AGDescriptionOption);
-  sub_1B4915E8C(&qword_1EB8A4600, type metadata accessor for AGDescriptionOption);
+  sub_1B4915E8C(&qword_1EB8A45F8, type metadata accessor for AGDescriptionOption, &unk_1B494B4BC);
+  sub_1B4915E8C(&qword_1EB8A4600, type metadata accessor for AGDescriptionOption, &unk_1B494B020);
 
   return sub_1B4949C48();
 }
@@ -789,7 +445,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -1113,20 +768,20 @@ uint64_t sub_1B493EC48(uint64_t result, unsigned int a2, unsigned int a3)
   return result;
 }
 
-uint64_t sub_1B493ECF8@<X0>(uint64_t a1@<X8>)
+uint64_t sub_1B493ECF8@<X0>(uint64_t a3@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v3 = *(*(AssociatedTypeWitness - 8) + 56);
+  v5 = *(*(AssociatedTypeWitness - 8) + 56);
 
-  return v3(a1, 1, 1, AssociatedTypeWitness);
+  return v5(a3, 1, 1, AssociatedTypeWitness);
 }
 
-uint64_t static Rule.initialValue.getter@<X0>(uint64_t a1@<X8>)
+uint64_t static Rule.initialValue.getter@<X0>(uint64_t a3@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v3 = *(*(AssociatedTypeWitness - 8) + 56);
+  v5 = *(*(AssociatedTypeWitness - 8) + 56);
 
-  return v3(a1, 1, 1, AssociatedTypeWitness);
+  return v5(a3, 1, 1, AssociatedTypeWitness);
 }
 
 uint64_t Attribute.init<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -1134,7 +789,7 @@ uint64_t Attribute.init<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
   v9[2] = a2;
   v9[3] = a3;
   v9[4] = a4;
-  v6 = type metadata accessor for Attribute();
+  v6 = type metadata accessor for Attribute(0, a2, a3, a4);
   sub_1B493DA34(a1, sub_1B493EF40, v9, a3, MEMORY[0x1E69E73E0], v6, MEMORY[0x1E69E7410], v7);
   (*(*(a3 - 8) + 8))(a1, a3);
   return v10;
@@ -1144,54 +799,54 @@ uint64_t Attribute.init<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
   v9[2] = a2;
   v9[3] = a3;
   v9[4] = a4;
-  v6 = type metadata accessor for Attribute();
+  v6 = type metadata accessor for Attribute(0, a2, a3, a4);
   sub_1B493DA34(a1, sub_1B4940438, v9, a3, MEMORY[0x1E69E73E0], v6, MEMORY[0x1E69E7410], v7);
   (*(*(a3 - 8) + 8))(a1, a3);
   return v10;
 }
 
-uint64_t sub_1B493EEAC@<X0>(void *a1@<X0>, uint64_t a2@<X3>, _DWORD *a3@<X8>)
+uint64_t sub_1B493EEAC@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _DWORD *a5@<X8>)
 {
-  sub_1B490E4D0();
-  v6 = *(a2 + 8);
-  result = Attribute.init<A>(body:value:flags:update:)(a1, 0);
-  *a3 = result;
+  v11[2] = a2;
+  v11[3] = a3;
+  v11[4] = a4;
+  v9 = sub_1B490E4D0();
+  result = Attribute.init<A>(body:value:flags:update:)(a1, 0, v9, sub_1B49401B8, v11, a2, a3);
+  *a5 = result;
   return result;
 }
 
 uint64_t sub_1B493EF40@<X0>(void *a1@<X0>, _DWORD *a2@<X8>)
 {
-  v7 = v2[2];
-  v8 = v2[3];
-  v9 = v2[4];
-  sub_1B490E4D0();
-  v5 = *(v9 + 8);
-  result = Attribute.init<A>(body:value:flags:update:)(a1, 0);
+  v5 = v2[2];
+  v6 = v2[3];
+  v7 = v2[4];
+  v10[2] = v5;
+  v10[3] = v6;
+  v10[4] = v7;
+  v8 = sub_1B490E4D0();
+  result = Attribute.init<A>(body:value:flags:update:)(a1, 0, v8, sub_1B49401B8, v10, v5, v6);
   *a2 = result;
   return result;
 }
 
 uint64_t static Rule._update(_:attribute:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v7 = *(a3 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v10 = &v19[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v9 = &v17[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v12 = *(AssociatedTypeWitness - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v15 = &v19[-v14];
-  (*(v7 + 16))(v10, a1, a3);
+  v11 = *(AssociatedTypeWitness - 8);
+  v12 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v14 = &v17[-v13];
+  (*(v7 + 16))(v9, a1, a3, v12);
   (*(a4 + 32))(a3, a4);
-  (*(v7 + 8))(v10, a3);
-  v21 = a3;
-  v22 = a4;
-  sub_1B493F82C(v15, sub_1B4940268, v20, AssociatedTypeWitness, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v16);
-  result = (*(v12 + 8))(v15, AssociatedTypeWitness);
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  (*(v7 + 8))(v9, a3);
+  v19 = a3;
+  v20 = a4;
+  sub_1B493F82C(v14, sub_1B4940268, v18, AssociatedTypeWitness, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v15);
+  return (*(v11 + 8))(v14, AssociatedTypeWitness);
 }
 
 uint64_t Attribute.init<A>(_:initialValue:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -1200,7 +855,7 @@ uint64_t Attribute.init<A>(_:initialValue:)(uint64_t a1, uint64_t a2, uint64_t a
   v13[3] = a4;
   v13[4] = a5;
   v13[5] = a2;
-  v9 = type metadata accessor for Attribute();
+  v9 = type metadata accessor for Attribute(0, a3, a3, a4);
   sub_1B493DA34(a1, sub_1B493F908, v13, a4, MEMORY[0x1E69E73E0], v9, MEMORY[0x1E69E7410], v10);
   (*(*(a4 - 8) + 8))(a1, a4);
   v11 = v14;
@@ -1213,7 +868,7 @@ uint64_t Attribute.init<A>(_:initialValue:)(uint64_t a1, uint64_t a2, uint64_t a
   v13[3] = a4;
   v13[4] = a5;
   v13[5] = a2;
-  v9 = type metadata accessor for Attribute();
+  v9 = type metadata accessor for Attribute(0, a3, a3, a4);
   sub_1B493DA34(a1, sub_1B4940694, v13, a4, MEMORY[0x1E69E73E0], v9, MEMORY[0x1E69E7410], v10);
   (*(*(a4 - 8) + 8))(a1, a4);
   v11 = v14;
@@ -1227,30 +882,26 @@ uint64_t sub_1B493F2F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v10[3] = a4;
   v10[4] = a5;
   v10[5] = a1;
-  v7 = type metadata accessor for Attribute();
+  v7 = type metadata accessor for Attribute(0, a3, a3, a4);
   return sub_1B493DA34(a2, sub_1B4940090, v10, a3, MEMORY[0x1E69E73E0], v7, MEMORY[0x1E69E7410], v8);
 }
 
 uint64_t sub_1B493F380(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v11 = *(a5 - 8);
-  v12 = *(v11 + 64);
-  v13 = MEMORY[0x1EEE9AC00](a1);
-  v15 = &v24[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 64);
-  MEMORY[0x1EEE9AC00](v13);
-  v20 = &v24[-((v19 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  (*(v11 + 16))(v15);
+  MEMORY[0x1EEE9AC00](a1);
+  v13 = &v22[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v15 = *(v14 - 8);
+  v17 = MEMORY[0x1EEE9AC00](v16);
+  v19 = &v22[-((v18 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  (*(v11 + 16))(v13, v17);
   (*(a6 + 32))(a5, a6);
-  (*(v11 + 8))(v15, a5);
-  v26 = a5;
-  v27 = a6;
-  sub_1B493F82C(v20, a7, v25, a4, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v21);
-  result = (*(v17 + 8))(v20, a4);
-  v23 = *MEMORY[0x1E69E9840];
-  return result;
+  (*(v11 + 8))(v13, a5);
+  v24 = a5;
+  v25 = a6;
+  sub_1B493F82C(v19, a7, v23, a4, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v20);
+  return (*(v15 + 8))(v19, a4);
 }
 
 uint64_t _s14AttributeGraph12StatefulRulePAAE7contextAA0D7ContextVy5ValueQzGvg_0()
@@ -1266,47 +917,38 @@ uint64_t _s14AttributeGraph12StatefulRulePAAE7contextAA0D7ContextVy5ValueQzGvg_0
 
 uint64_t static Rule._updateDefault(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v6 = sub_1B4949BD8();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x1EEE9AC00](v6);
-  v11 = v20 - v10;
-  v12 = *(AssociatedTypeWitness - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v15 = v20 - v14;
-  (*(a3 + 24))(a2, a3);
-  if ((*(v12 + 48))(v11, 1, AssociatedTypeWitness) == 1)
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = v18 - v8;
+  v10 = *(AssociatedTypeWitness - 8);
+  v12 = MEMORY[0x1EEE9AC00](v11);
+  v14 = v18 - v13;
+  (*(a3 + 24))(a2, a3, v12);
+  if ((*(v10 + 48))(v9, 1, AssociatedTypeWitness) == 1)
   {
-    result = (*(v7 + 8))(v11, v6);
+    return (*(v7 + 8))(v9, v6);
   }
 
-  else
-  {
-    v17 = (*(v12 + 32))(v15, v11, AssociatedTypeWitness);
-    MEMORY[0x1EEE9AC00](v17);
-    v20[-2] = a2;
-    v20[-1] = a3;
-    sub_1B493F82C(v15, sub_1B493FF78, &v20[-4], AssociatedTypeWitness, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v18);
-    result = (*(v12 + 8))(v15, AssociatedTypeWitness);
-  }
-
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  v16 = (*(v10 + 32))(v14, v9, AssociatedTypeWitness);
+  MEMORY[0x1EEE9AC00](v16);
+  v18[-2] = a2;
+  v18[-1] = a3;
+  sub_1B493F82C(v14, sub_1B493FF78, &v18[-4], AssociatedTypeWitness, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v17);
+  return (*(v10 + 8))(v14, AssociatedTypeWitness);
 }
 
 uint64_t sub_1B493F82C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v11 = *(a5 - 8);
-  v12 = *(v11 + 64);
-  v13 = MEMORY[0x1EEE9AC00]();
-  v15 = &v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = v16(v13, v15);
+  v12 = MEMORY[0x1EEE9AC00](a1);
+  v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = v15(v12);
   if (v8)
   {
-    return (*(v11 + 32))(a8, v15, a5);
+    return (*(v11 + 32))(a8, v14, a5);
   }
 
   return result;
@@ -1337,25 +979,21 @@ uint64_t sub_1B493F9D4@<X0>(const void *a1@<X0>, char a2@<W1>, unint64_t a3@<X2>
 
 uint64_t sub_1B493FAEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v8 = *(a4 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v11 = &v20[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v10 = &v18[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v13 = *(AssociatedTypeWitness - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v16 = &v20[-v15];
-  (*(v8 + 16))(v11, a1, a4);
+  v12 = *(AssociatedTypeWitness - 8);
+  v13 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v15 = &v18[-v14];
+  (*(v8 + 16))(v10, a1, a4, v13);
   (*(a5 + 32))(a4, a5);
-  (*(v8 + 8))(v11, a4);
-  v22 = a4;
-  v23 = a5;
-  sub_1B493F82C(v16, sub_1B4940268, v21, AssociatedTypeWitness, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v17);
-  result = (*(v13 + 8))(v16, AssociatedTypeWitness);
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  (*(v8 + 8))(v10, a4);
+  v20 = a4;
+  v21 = a5;
+  sub_1B493F82C(v15, sub_1B4940268, v19, AssociatedTypeWitness, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v16);
+  return (*(v12 + 8))(v15, AssociatedTypeWitness);
 }
 
 uint64_t Rule<>.cachedValueIfExists(options:owner:)(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -1371,37 +1009,29 @@ uint64_t Rule<>.cachedValueIfExists(options:owner:)(int a1, uint64_t a2, uint64_
   return sub_1B493DA34(v5, sub_1B493FFD4, v10, a3, MEMORY[0x1E69E73E0], v7, MEMORY[0x1E69E7410], v8);
 }
 
-uint64_t sub_1B493FDC4@<X0>(const void *a1@<X0>, char a2@<W2>, uint64_t a3@<X3>, void *a4@<X4>, uint64_t a5@<X8>)
+uint64_t sub_1B493FDC4@<X0>(const void *a1@<X0>, char a2@<W2>, uint64_t a3@<X3>, void *a4@<X4>, uint64_t a7@<X8>)
 {
-  v10 = sub_1B4949B18();
+  v12 = sub_1B4949B18();
   if ((a3 & 0x100000000) != 0)
   {
     LODWORD(a3) = 2;
   }
 
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  CachedAttributeIfExists = AGGraphReadCachedAttributeIfExists(v10, a4, a1, AssociatedTypeWitness, a2, a3, 0, v12);
-  v14 = *(AssociatedTypeWitness - 1);
+  CachedAttributeIfExists = AGGraphReadCachedAttributeIfExists(v12, a4, a1, AssociatedTypeWitness, a2, a3, 0, v14);
+  v16 = *(AssociatedTypeWitness - 1);
   if (CachedAttributeIfExists)
   {
-    (*(v14 + 16))(a5, CachedAttributeIfExists, AssociatedTypeWitness);
-    v15 = 0;
+    (*(v16 + 16))(a7, CachedAttributeIfExists, AssociatedTypeWitness);
+    v17 = 0;
   }
 
   else
   {
-    v15 = 1;
+    v17 = 1;
   }
 
-  return (*(v14 + 56))(a5, v15, 1, AssociatedTypeWitness);
-}
-
-uint64_t sub_1B493FFD4@<X0>(const void *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = *(v2 + 24);
-  v5 = *(v2 + 32);
-  v4 = *(v2 + 40);
-  return sub_1B493FDC4(a1, *(v2 + 48), *(v2 + 52) | (*(v2 + 56) << 32), *(v2 + 16), a2);
+  return (*(v16 + 56))(a7, v17, 1, AssociatedTypeWitness);
 }
 
 uint64_t (*sub_1B4940028())(uint64_t a1, uint64_t a2)
@@ -1415,15 +1045,17 @@ uint64_t (*sub_1B4940028())(uint64_t a1, uint64_t a2)
   return sub_1B4940084;
 }
 
-uint64_t sub_1B4940090@<X0>(unint64_t a1@<X0>, _DWORD *a2@<X8>)
+uint64_t sub_1B4940090@<X0>(unsigned __int8 *a1@<X0>, _DWORD *a2@<X8>)
 {
   v5 = v2[2];
   v6 = v2[3];
   v8 = v2[4];
   v7 = v2[5];
-  sub_1B490E4D0();
-  v9 = *(v8 + 8);
-  result = Attribute.init<A>(body:value:flags:update:)(v7, a1);
+  v11[2] = v5;
+  v11[3] = v6;
+  v11[4] = v8;
+  v9 = sub_1B490E4D0();
+  result = Attribute.init<A>(body:value:flags:update:)(v7, a1, v9, sub_1B4940128, v11, v5, v6);
   *a2 = result;
   return result;
 }
@@ -1450,38 +1082,32 @@ uint64_t (*sub_1B49401B8())(uint64_t a1, uint64_t a2)
   return sub_1B4940184;
 }
 
-uint64_t sub_1B4940214(unsigned __int8 *a1)
+uint64_t sub_1B4940284@<X0>(uint64_t a3@<X8>)
 {
-  v4 = *(v1 + 16);
-  v3 = *(v1 + 24);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  return AGGraphSetOutputValue(a1, AssociatedTypeWitness);
+  v5 = *(*(AssociatedTypeWitness - 8) + 56);
+
+  return v5(a3, 1, 1, AssociatedTypeWitness);
 }
 
-uint64_t sub_1B4940284@<X0>(uint64_t a1@<X8>)
+uint64_t static StatefulRule.initialValue.getter@<X0>(uint64_t a3@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v3 = *(*(AssociatedTypeWitness - 8) + 56);
+  v5 = *(*(AssociatedTypeWitness - 8) + 56);
 
-  return v3(a1, 1, 1, AssociatedTypeWitness);
-}
-
-uint64_t static StatefulRule.initialValue.getter@<X0>(uint64_t a1@<X8>)
-{
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v3 = *(*(AssociatedTypeWitness - 8) + 56);
-
-  return v3(a1, 1, 1, AssociatedTypeWitness);
+  return v5(a3, 1, 1, AssociatedTypeWitness);
 }
 
 uint64_t sub_1B4940438@<X0>(void *a1@<X0>, _DWORD *a2@<X8>)
 {
-  v7 = v2[2];
-  v8 = v2[3];
-  v9 = v2[4];
-  sub_1B490E4D0();
-  v5 = *(v9 + 8);
-  result = Attribute.init<A>(body:value:flags:update:)(a1, 0);
+  v5 = v2[2];
+  v6 = v2[3];
+  v7 = v2[4];
+  v10[2] = v5;
+  v10[3] = v6;
+  v10[4] = v7;
+  v8 = sub_1B490E4D0();
+  result = Attribute.init<A>(body:value:flags:update:)(a1, 0, v8, sub_1B49412AC, v10, v5, v6);
   *a2 = result;
   return result;
 }
@@ -1492,19 +1118,19 @@ uint64_t sub_1B4940604(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v10[3] = a4;
   v10[4] = a5;
   v10[5] = a1;
-  v7 = type metadata accessor for Attribute();
+  v7 = type metadata accessor for Attribute(0, a3, a3, a4);
   return sub_1B493DA34(a2, sub_1B494117C, v10, a3, MEMORY[0x1E69E73E0], v7, MEMORY[0x1E69E7410], v8);
 }
 
-uint64_t StatefulRule.value.getter@<X0>(uint64_t a1@<X8>)
+uint64_t StatefulRule.value.getter@<X0>(uint64_t a3@<X8>)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  result = AGGraphGetOutputValue(AssociatedTypeWitness, v3);
+  result = AGGraphGetOutputValue(AssociatedTypeWitness, v5);
   if (result)
   {
-    v5 = *(*(AssociatedTypeWitness - 1) + 16);
+    v7 = *(*(AssociatedTypeWitness - 1) + 16);
 
-    return v5(a1, result, AssociatedTypeWitness);
+    return v7(a3, result, AssociatedTypeWitness);
   }
 
   else
@@ -1519,10 +1145,9 @@ uint64_t sub_1B4940778@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>
 {
   v5 = *(a2 + a3 - 16);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](a1);
+  v7 = MEMORY[0x1EEE9AC00](a1);
   v9 = &v14 - v8;
-  (*(v6 + 16))(&v14 - v8, v10, v5);
+  (*(v6 + 16))(&v14 - v8, v10, v5, v7);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   result = AGGraphGetOutputValue(AssociatedTypeWitness, v12);
   if (result)
@@ -1539,10 +1164,10 @@ uint64_t sub_1B4940778@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>
   return result;
 }
 
-uint64_t StatefulRule.value.unsafeAddressor()
+uint64_t StatefulRule.value.unsafeAddressor(uint64_t a1, uint64_t a2)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  result = AGGraphGetOutputValue(AssociatedTypeWitness, v1);
+  result = AGGraphGetOutputValue(AssociatedTypeWitness, v3);
   if (!result)
   {
     __break(1u);
@@ -1553,21 +1178,18 @@ uint64_t StatefulRule.value.unsafeAddressor()
 
 uint64_t sub_1B49408F4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = *(a3 + a4 - 16);
   v6 = *(a3 + a4 - 8);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v8 = *(AssociatedTypeWitness - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v11 = &v15[-v10];
-  (*(v8 + 16))(&v15[-v10], a1, AssociatedTypeWitness);
-  v17 = v5;
-  v18 = v6;
-  sub_1B493DA34(v11, sub_1B494130C, v16, AssociatedTypeWitness, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v12);
-  result = (*(v8 + 8))(v11, AssociatedTypeWitness);
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  v9 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v11 = &v14[-v10];
+  (*(v8 + 16))(&v14[-v10], a1, AssociatedTypeWitness, v9);
+  v16 = v5;
+  v17 = v6;
+  sub_1B493DA34(v11, sub_1B494130C, v15, AssociatedTypeWitness, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v12);
+  return (*(v8 + 8))(v11, AssociatedTypeWitness);
 }
 
 uint64_t StatefulRule.value.setter(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1581,7 +1203,6 @@ uint64_t StatefulRule.value.setter(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void (*StatefulRule.value.modify(void *a1, uint64_t a2, uint64_t a3))(void **a1, char a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
   {
@@ -1627,7 +1248,6 @@ void (*StatefulRule.value.modify(void *a1, uint64_t a2, uint64_t a3))(void **a1,
   v8[6] = v17;
   v8[7] = (v11 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
   v17(v15, OutputValue, AssociatedTypeWitness);
-  v18 = *MEMORY[0x1E69E9840];
   return sub_1B4940CCC;
 }
 
@@ -1636,90 +1256,74 @@ void sub_1B4940CCC(void **a1, char a2)
   v2 = *a1;
   if (a2)
   {
-    v4 = v2[6];
-    v3 = v2[7];
-    v6 = v2[4];
-    v5 = v2[5];
-    v7 = v2[2];
-    v8 = v2[3];
-    v19 = *v2;
-    v9 = v4(v6, v5, v7);
-    MEMORY[0x1EEE9AC00](v9);
-    v18 = v19;
-    sub_1B493DA34(v6, sub_1B494130C, v17, v7, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v10);
-    v11 = *(v8 + 8);
-    v11(v6, v7);
-    v11(v5, v7);
+    v3 = v2[6];
+    v5 = v2[4];
+    v4 = v2[5];
+    v6 = v2[2];
+    v7 = v2[3];
+    v17 = *v2;
+    v8 = v3(v5, v4, v6);
+    MEMORY[0x1EEE9AC00](v8);
+    v16 = v17;
+    sub_1B493DA34(v5, sub_1B494130C, v15, v6, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v9);
+    v10 = *(v7 + 8);
+    v10(v5, v6);
+    v10(v4, v6);
   }
 
   else
   {
-    v6 = v2[4];
-    v5 = v2[5];
-    v12 = v2[2];
-    v13 = v2[3];
-    v14 = *v2;
-    *&v15 = MEMORY[0x1EEE9AC00](a1);
-    v18 = v15;
-    sub_1B493DA34(v5, sub_1B494130C, v17, v12, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v16);
-    (*(v13 + 8))(v5, v12);
+    v5 = v2[4];
+    v4 = v2[5];
+    v11 = v2[2];
+    v12 = v2[3];
+    *&v13 = MEMORY[0x1EEE9AC00](a1);
+    v16 = v13;
+    sub_1B493DA34(v4, sub_1B494130C, v15, v11, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v14);
+    (*(v12 + 8))(v4, v11);
   }
 
+  free(v4);
   free(v5);
-  free(v6);
   free(v2);
 }
 
 uint64_t static StatefulRule._updateDefault(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v6 = sub_1B4949BD8();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = v21 - v9;
-  v11 = *(AssociatedTypeWitness - 8);
-  v12 = *(v11 + 64);
-  v14 = MEMORY[0x1EEE9AC00](v13);
-  v16 = v21 - v15;
-  (*(a3 + 24))(a2, a3, v14);
-  if ((*(v11 + 48))(v10, 1, AssociatedTypeWitness) == 1)
+  v9 = v18 - v8;
+  v10 = *(AssociatedTypeWitness - 8);
+  v12 = MEMORY[0x1EEE9AC00](v11);
+  v14 = v18 - v13;
+  (*(a3 + 24))(a2, a3, v12);
+  if ((*(v10 + 48))(v9, 1, AssociatedTypeWitness) == 1)
   {
-    result = (*(v7 + 8))(v10, v6);
+    return (*(v7 + 8))(v9, v6);
   }
 
-  else
-  {
-    v18 = (*(v11 + 32))(v16, v10, AssociatedTypeWitness);
-    MEMORY[0x1EEE9AC00](v18);
-    v21[-2] = a2;
-    v21[-1] = a3;
-    sub_1B493F82C(v16, sub_1B4941100, &v21[-4], AssociatedTypeWitness, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v19);
-    result = (*(v11 + 8))(v16, AssociatedTypeWitness);
-  }
-
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
+  v16 = (*(v10 + 32))(v14, v9, AssociatedTypeWitness);
+  MEMORY[0x1EEE9AC00](v16);
+  v18[-2] = a2;
+  v18[-1] = a3;
+  sub_1B493F82C(v14, sub_1B4941100, &v18[-4], AssociatedTypeWitness, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v17);
+  return (*(v10 + 8))(v14, AssociatedTypeWitness);
 }
 
-uint64_t sub_1B494112C(unsigned __int8 *a1)
-{
-  v4 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  return AGGraphSetOutputValue(a1, AssociatedTypeWitness);
-}
-
-uint64_t sub_1B494117C@<X0>(unint64_t a1@<X0>, _DWORD *a2@<X8>)
+uint64_t sub_1B494117C@<X0>(unsigned __int8 *a1@<X0>, _DWORD *a2@<X8>)
 {
   v5 = v2[2];
   v6 = v2[3];
   v8 = v2[4];
   v7 = v2[5];
-  sub_1B490E4D0();
-  v9 = *(v8 + 8);
-  result = Attribute.init<A>(body:value:flags:update:)(v7, a1);
+  v11[2] = v5;
+  v11[3] = v6;
+  v11[4] = v8;
+  v9 = sub_1B490E4D0();
+  result = Attribute.init<A>(body:value:flags:update:)(v7, a1, v9, sub_1B4941214, v11, v5, v6);
   *a2 = result;
   return result;
 }
@@ -1756,70 +1360,60 @@ uint64_t AGAttribute.description.getter()
 
 unint64_t Attribute.subscript.getter(void *a1, unint64_t a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v4 = *a1;
-  v5 = sub_1B4949BF8();
-  if (v6)
-  {
-    v19 = a2;
-    v20 = a1;
-    MEMORY[0x1EEE9AC00](v5);
-    v7 = (v4 + *MEMORY[0x1E69E77B0]);
-    v15[2] = v7[1];
-    v8 = *v7;
-    v16 = type metadata accessor for Focus();
-    WitnessTable = swift_getWitnessTable();
-    v9 = type metadata accessor for Attribute();
-
-    sub_1B493DA34(&v19, sub_1B493E28C, v15, v16, MEMORY[0x1E69E73E0], v9, MEMORY[0x1E69E7410], v10);
-
-    result = v18;
-    v12 = *MEMORY[0x1E69E9840];
-  }
-
-  else
-  {
-    v13 = *(*(*(v4 + *MEMORY[0x1E69E77B0] + 8) - 8) + 64);
-    v14 = *MEMORY[0x1E69E9840];
-
-    return AGGraphCreateOffsetAttribute2(a2, v5, v13);
-  }
-
-  return result;
-}
-
-{
   v22 = *MEMORY[0x1E69E9840];
   v4 = *a1;
   v5 = sub_1B4949BF8();
   if (v6)
   {
-    v19 = a2;
-    v20 = sub_1B4942A40;
+    v20 = a2;
     v21 = a1;
     MEMORY[0x1EEE9AC00](v5);
     v7 = (v4 + *MEMORY[0x1E69E77B0]);
-    v15[2] = v7[1];
-    v8 = *v7;
-    v16 = type metadata accessor for Map();
+    v16 = v7[1];
+    v17 = type metadata accessor for Focus(0, *v7, v16, v8);
     WitnessTable = swift_getWitnessTable();
-    v9 = type metadata accessor for Attribute();
+    v11 = type metadata accessor for Attribute(0, v16, v9, v10);
 
-    sub_1B493DA34(&v19, sub_1B4942BC8, v15, v16, MEMORY[0x1E69E73E0], v9, MEMORY[0x1E69E7410], v10);
+    sub_1B493DA34(&v20, sub_1B493E28C, &v15, v17, MEMORY[0x1E69E73E0], v11, MEMORY[0x1E69E7410], v12);
 
-    result = v18;
-    v12 = *MEMORY[0x1E69E9840];
+    return v19;
   }
 
   else
   {
-    v13 = *(*(*(v4 + *MEMORY[0x1E69E77B0] + 8) - 8) + 64);
-    v14 = *MEMORY[0x1E69E9840];
+    v14 = *(*(*(v4 + *MEMORY[0x1E69E77B0] + 8) - 8) + 64);
 
-    return AGGraphCreateOffsetAttribute2(a2, v5, v13);
+    return AGGraphCreateOffsetAttribute2(a2, v5, v14);
+  }
+}
+
+{
+  v23 = *MEMORY[0x1E69E9840];
+  v4 = *a1;
+  v5 = sub_1B4949BF8();
+  if (v6)
+  {
+    v20 = a2;
+    v21 = sub_1B4942A40;
+    v22 = a1;
+    MEMORY[0x1EEE9AC00](v5);
+    v7 = (v4 + *MEMORY[0x1E69E77B0]);
+    v16 = v7[1];
+    v17 = type metadata accessor for Map(0, *v7, v16, v8);
+    WitnessTable = swift_getWitnessTable();
+    v11 = type metadata accessor for Attribute(0, v16, v9, v10);
+
+    sub_1B493DA34(&v20, sub_1B4942BC8, &v15, v17, MEMORY[0x1E69E73E0], v11, MEMORY[0x1E69E7410], v12);
+
+    return v19;
   }
 
-  return result;
+  else
+  {
+    v14 = *(*(*(v4 + *MEMORY[0x1E69E77B0] + 8) - 8) + 64);
+
+    return AGGraphCreateOffsetAttribute2(a2, v5, v14);
+  }
 }
 
 unint64_t static AGAttribute.current.getter()
@@ -1845,7 +1439,7 @@ void AGAttribute.setFlags(_:mask:)(int a1, const char *a2, char *a3)
   AGGraphSetFlags(a3, v4);
 }
 
-void AGAttribute.mutateBody<A>(as:invalidating:_:)(int a1, char a2, uint64_t a3, uint64_t a4, char *a5, const char *a6)
+void AGAttribute.mutateBody<A>(as:invalidating:_:)(int a1, uint64_t a2, uint64_t a3, uint64_t a4, char *a5, const char *a6)
 {
   v6[2] = a6;
   v6[3] = a3;
@@ -1907,7 +1501,6 @@ void (*AGAttribute.indirectDependency.modify(uint64_t a1, const char *a2))(unsig
 void sub_1B49417E4(unsigned int *a1)
 {
   v1 = a1 + 3;
-  v2 = a1[2];
   if (!*(a1 + 4))
   {
     v1 = a1;
@@ -1945,9 +1538,8 @@ uint64_t Attribute.setValue(_:)(uint64_t a1, int a2, uint64_t a3, uint64_t a4, u
   return v11;
 }
 
-void (*Attribute.value.modify(uint64_t *a1, unint64_t a2, AG::swift::metadata *a3))(void **a1, char a2)
+void (*Attribute.value.modify(uint64_t *a1, unint64_t a2, AG::swift::metadata *a3))(void **a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
   {
@@ -1986,7 +1578,6 @@ void (*Attribute.value.modify(uint64_t *a1, unint64_t a2, AG::swift::metadata *a
   v8[4] = v17;
   v8[5] = (v10 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
   v17(v15, Value, a3);
-  v18 = *MEMORY[0x1E69E9840];
   return sub_1B4941BD0;
 }
 
@@ -2016,20 +1607,17 @@ uint64_t _s14AttributeGraph08IndirectA0V12wrappedValuexvg_0@<X0>(unint64_t a1@<X
 
 uint64_t sub_1B4941D6C(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + a4 - 8);
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v11 = &v16[-v10];
-  (*(v8 + 16))(&v16[-v10]);
+  v9 = MEMORY[0x1EEE9AC00](a1);
+  v11 = &v15[-v10];
+  (*(v8 + 16))(&v15[-v10], v9);
   v12 = *a2;
-  v18 = v7;
-  v19 = v12;
-  sub_1B493DA34(v11, a5, v17, v7, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], v13);
-  result = (*(v8 + 8))(v11, v7);
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  v17 = v7;
+  v18 = v12;
+  sub_1B493DA34(v11, a5, v16, v7, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], v13);
+  return (*(v8 + 8))(v11, v7);
 }
 
 uint64_t sub_1B4941ED4(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -2040,9 +1628,8 @@ uint64_t sub_1B4941ED4(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a
   return (*(*(a3 - 8) + 8))(a1, a3);
 }
 
-void (*Attribute.wrappedValue.modify(uint64_t *a1, unint64_t a2, AG::swift::metadata *a3))(void **a1, char a2)
+void (*Attribute.wrappedValue.modify(uint64_t *a1, unint64_t a2, AG::swift::metadata *a3))(void **a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
   {
@@ -2081,7 +1668,6 @@ void (*Attribute.wrappedValue.modify(uint64_t *a1, unint64_t a2, AG::swift::meta
   v8[4] = v17;
   v8[5] = (v10 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
   v17(v15, Value, a3);
-  v18 = *MEMORY[0x1E69E9840];
   return sub_1B4941BD0;
 }
 
@@ -2090,38 +1676,36 @@ void sub_1B49420EC(void **a1, char a2, uint64_t a3, uint64_t a4)
   v4 = *a1;
   if (a2)
   {
-    v6 = v4[5];
-    v8 = v4[2];
-    v7 = v4[3];
-    v9 = *v4;
-    v10 = v4[1];
-    v11 = *(v4 + 12);
-    v12 = (v4[4])(v8, v7, *v4);
-    MEMORY[0x1EEE9AC00](v12);
-    v22 = v9;
-    v23 = v11;
-    sub_1B493DA34(v8, a4, v21, v9, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], v13);
-    v14 = *(v10 + 8);
-    v14(v8, v9);
-    v14(v7, v9);
+    v7 = v4[2];
+    v6 = v4[3];
+    v8 = *v4;
+    v9 = v4[1];
+    v10 = *(v4 + 12);
+    v11 = (v4[4])(v7, v6, *v4);
+    MEMORY[0x1EEE9AC00](v11);
+    v20 = v8;
+    v21 = v10;
+    sub_1B493DA34(v7, a4, v19, v8, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], v12);
+    v13 = *(v9 + 8);
+    v13(v7, v8);
+    v13(v6, v8);
   }
 
   else
   {
-    v8 = v4[2];
-    v7 = v4[3];
-    v15 = *v4;
-    v16 = v4[1];
-    v17 = *(v4 + 12);
+    v7 = v4[2];
+    v6 = v4[3];
+    v14 = *v4;
+    v15 = v4[1];
     MEMORY[0x1EEE9AC00](a1);
-    v22 = v15;
-    v23 = v18;
-    sub_1B493DA34(v7, v19, v21, v15, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], v20);
-    (*(v16 + 8))(v7, v15);
+    v20 = v14;
+    v21 = v16;
+    sub_1B493DA34(v6, v17, v19, v14, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], v18);
+    (*(v15 + 8))(v6, v14);
   }
 
+  free(v6);
   free(v7);
-  free(v8);
   free(v4);
 }
 
@@ -2148,10 +1732,10 @@ unint64_t Attribute.subscript.getter(uint64_t (*a1)(uint64_t), uint64_t a2, unin
   return AGGraphCreateOffsetAttribute2(a3, v7, v6);
 }
 
-uint64_t sub_1B49425B8@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
+uint64_t sub_1B49425B8@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, _BYTE *a7@<X8>)
 {
-  result = AGGraphSetValue(a2, a1, a3);
-  *a4 = result;
+  result = AGGraphSetValue(a2, a1, a3, a4, a5, a6);
+  *a7 = result;
   return result;
 }
 
@@ -2162,7 +1746,7 @@ id Attribute.subgraph.getter(int a1, const char *a2)
   return AttributeSubgraph;
 }
 
-void Attribute.mutateBody<A>(as:invalidating:_:)(int a1, char a2, uint64_t a3, uint64_t a4, char *a5, uint64_t a6, const char *a7)
+void Attribute.mutateBody<A>(as:invalidating:_:)(int a1, uint64_t a2, uint64_t a3, uint64_t a4, char *a5, uint64_t a6, const char *a7)
 {
   v7[2] = a7;
   v7[3] = a3;
@@ -2170,70 +1754,57 @@ void Attribute.mutateBody<A>(as:invalidating:_:)(int a1, char a2, uint64_t a3, u
   AGGraphMutateAttribute(a5, a7, a2, sub_1B4942C04, v7);
 }
 
-uint64_t Attribute.hashValue.getter()
+uint64_t Attribute.hashValue.getter(uint64_t a1)
 {
   sub_1B4949CC8();
   sub_1B4949CE8();
   return sub_1B4949CF8();
 }
 
-uint64_t sub_1B4942780()
+uint64_t sub_1B4942780(uint64_t a1)
 {
   sub_1B4949CC8();
-  v1 = *v0;
   sub_1B4949CE8();
   return sub_1B4949CF8();
 }
 
-uint64_t Attribute.init(value:)(uint64_t a1, uint64_t a2)
+uint64_t Attribute.init(value:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7[2] = a2;
-  v4 = type metadata accessor for Attribute();
-  sub_1B493DA34(a1, sub_1B4942A48, v7, a2, MEMORY[0x1E69E73E0], v4, MEMORY[0x1E69E7410], v5);
+  v9[2] = a2;
+  v6 = type metadata accessor for Attribute(0, a2, a3, a4);
+  sub_1B493DA34(a1, sub_1B4942A48, v9, a2, MEMORY[0x1E69E73E0], v6, MEMORY[0x1E69E7410], v7);
   (*(*(a2 - 8) + 8))(a1, a2);
-  return v8;
+  return v10;
 }
 
-uint64_t sub_1B494287C(uint64_t a1, uint64_t a2)
+uint64_t sub_1B494287C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6[5] = *MEMORY[0x1E69E9840];
-  v6[2] = a2;
-  v6[3] = a1;
-  v2 = type metadata accessor for Attribute();
-  result = sub_1B493DA34(v2, sub_1B4942B60, v6, &type metadata for _External, MEMORY[0x1E69E73E0], v2, MEMORY[0x1E69E7410], v3);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v7[5] = *MEMORY[0x1E69E9840];
+  v7[2] = a2;
+  v7[3] = a1;
+  v4 = type metadata accessor for Attribute(0, a2, a3, a4);
+  return sub_1B493DA34(v4, sub_1B4942B60, v7, &type metadata for _External, MEMORY[0x1E69E73E0], v4, MEMORY[0x1E69E7410], v5);
 }
 
-uint64_t Attribute.init(type:)(uint64_t a1, uint64_t a2)
+uint64_t Attribute.init(type:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = a2;
-  v2 = type metadata accessor for Attribute();
-  sub_1B493DA34(v2, sub_1B4942A68, v7, &type metadata for _External, MEMORY[0x1E69E73E0], v2, MEMORY[0x1E69E7410], v3);
-  result = v6;
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v10 = *MEMORY[0x1E69E9840];
+  v9 = a2;
+  v4 = type metadata accessor for Attribute(0, a2, a3, a4);
+  sub_1B493DA34(v4, sub_1B4942A68, v8, &type metadata for _External, MEMORY[0x1E69E73E0], v4, MEMORY[0x1E69E7410], v5);
+  return v7;
 }
 
-uint64_t sub_1B49429DC()
+uint64_t sub_1B4942A04@<X0>(char *a1@<X0>, uint64_t a2@<X3>, uint64_t a3@<X4>, uint64_t a4@<X5>, _BYTE *a5@<X8>)
 {
-  v1 = *(v0 + 24);
-  v2 = *(v0 + 32);
-  return v1();
-}
-
-uint64_t sub_1B4942A04@<X0>(char *a1@<X0>, _BYTE *a2@<X8>)
-{
-  result = AGGraphSetValue(*(v2 + 24), a1, *(v2 + 16));
-  *a2 = result;
+  result = AGGraphSetValue(*(v5 + 24), a1, *(v5 + 16), a2, a3, a4);
+  *a5 = result;
   return result;
 }
 
 uint64_t sub_1B4942A68@<X0>(void *a1@<X0>, _DWORD *a2@<X8>)
 {
-  v4 = *(v2 + 16);
-  result = Attribute.init<A>(body:value:flags:update:)(a1, 0);
+  result = Attribute.init<A>(body:value:flags:update:)(a1, 0, 16, sub_1B4942920, 0, *(v2 + 16), &type metadata for _External);
   *a2 = result;
   return result;
 }
@@ -2249,8 +1820,7 @@ uint64_t keypath_get_12Tm@<X0>(unsigned int *a1@<X0>, uint64_t a2@<X1>, uint64_t
 
 uint64_t sub_1B4942B60@<X0>(void *a1@<X0>, _DWORD *a2@<X8>)
 {
-  v4 = *(v2 + 16);
-  result = Attribute.init<A>(body:value:flags:update:)(a1, *(v2 + 24));
+  result = Attribute.init<A>(body:value:flags:update:)(a1, *(v2 + 24), 16, sub_1B4942920, 0, *(v2 + 16), &type metadata for _External);
   *a2 = result;
   return result;
 }
@@ -2271,11 +1841,11 @@ void AGGraphRef.withoutSubgraphInvalidation<A>(_:)(void (*a1)(void), const char 
   AGGraphEndDeferringSubgraphInvalidation(v2, v4);
 }
 
-uint64_t *AGGraphRef.withDeadline<A>(_:_:)(const char *a1, const char *a2)
+uint64_t *AGGraphRef.withDeadline<A>(_:_:)(const char *a1, void (*a2)(uint64_t *))
 {
   Deadline = AGGraphGetDeadline(v2, a2);
   v6 = AGGraphSetDeadline(v2, a1);
-  (a2)(v6);
+  a2(v6);
 
   return AGGraphSetDeadline(v2, Deadline);
 }
@@ -2312,7 +1882,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -2398,36 +1967,35 @@ Swift::Void __swiftcall AGGraphRef.archiveJSON(name:)(Swift::String_optional nam
   v2 = v1;
   object = name.value._object;
   countAndFlagsBits = name.value._countAndFlagsBits;
-  v42 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v5 = sub_1B4949AA8();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v38 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v36 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB8A4620, &qword_1B494B878);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1B494B860;
   *(inited + 32) = @"format";
-  v11 = MEMORY[0x1E69E6158];
+  v10 = MEMORY[0x1E69E6158];
   *(inited + 40) = 0x69642F6870617267;
   *(inited + 48) = 0xEA00000000007463;
-  *(inited + 64) = v11;
+  *(inited + 64) = v10;
   *(inited + 72) = @"include-values";
   *(inited + 104) = MEMORY[0x1E69E6370];
   *(inited + 80) = 1;
-  v12 = @"format";
-  v13 = @"include-values";
+  v11 = @"format";
+  v12 = @"include-values";
   sub_1B4943B08(inited);
   swift_setDeallocating();
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB8A4628, &qword_1B494B880);
   swift_arrayDestroy();
   type metadata accessor for AGDescriptionOption(0);
   sub_1B4943C10();
-  v14 = sub_1B4949B08();
+  v13 = sub_1B4949B08();
 
-  v15 = AGGraphDescription(v2, v14);
+  v14 = AGGraphDescription(v2, v13);
 
-  if (v15)
+  if (v14)
   {
     sub_1B4949BE8();
     swift_unknownObjectRelease();
@@ -2435,115 +2003,113 @@ Swift::Void __swiftcall AGGraphRef.archiveJSON(name:)(Swift::String_optional nam
 
   else
   {
-    v40 = 0u;
-    v39 = 0u;
+    v38 = 0u;
+    v37 = 0u;
   }
 
-  v41[0] = v39;
-  v41[1] = v40;
-  if (!*(&v40 + 1))
+  v39[0] = v37;
+  v39[1] = v38;
+  if (*(&v38 + 1))
   {
-    sub_1B4943C68(v41);
-    goto LABEL_14;
-  }
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB8A4638, &qword_1B494B890);
+    if (swift_dynamicCast())
+    {
+      v15 = 0x6870617267;
+      if (object)
+      {
+        v15 = countAndFlagsBits;
+        v16 = object;
+      }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB8A4638, &qword_1B494B890);
-  if ((swift_dynamicCast() & 1) == 0)
-  {
-LABEL_14:
-    v37 = *MEMORY[0x1E69E9840];
-    return;
-  }
+      else
+      {
+        v16 = 0xE500000000000000;
+      }
 
-  v16 = 0x6870617267;
-  if (object)
-  {
-    v16 = countAndFlagsBits;
-    v17 = object;
+      *&v39[0] = v15;
+      *(&v39[0] + 1) = v16;
+
+      MEMORY[0x1B8C7A8D0](0x6E6F736A2D67612ELL, 0xE800000000000000);
+
+      v17 = NSTemporaryDirectory();
+      if (v17)
+      {
+        v18 = v17;
+        v19 = sub_1B4949B48();
+
+        v20 = [(NSString *)v18 stringByAppendingPathComponent:v19];
+
+        v21 = sub_1B4949B78();
+        v23 = v22;
+
+        v24 = objc_opt_self();
+        v25 = MEMORY[0x1E69E6158];
+        v26 = sub_1B4949B08();
+
+        *&v39[0] = 0;
+        v27 = [v24 dataWithJSONObject:v26 options:0 error:v39];
+
+        v28 = *&v39[0];
+        if (v27)
+        {
+          v29 = sub_1B4949AB8();
+          v31 = v30;
+
+          sub_1B4949A98();
+          sub_1B4949AC8();
+          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB8A4618, &qword_1B494B870);
+          v34 = swift_allocObject();
+          *(v34 + 16) = xmmword_1B494B850;
+          *&v39[0] = 0;
+          *(&v39[0] + 1) = 0xE000000000000000;
+          sub_1B4949C18();
+
+          *&v39[0] = 0xD000000000000015;
+          *(&v39[0] + 1) = 0x80000001B494E980;
+          MEMORY[0x1B8C7A8D0](v21, v23);
+
+          MEMORY[0x1B8C7A8D0](11810, 0xE200000000000000);
+          v35 = v39[0];
+          *(v34 + 56) = v25;
+          *(v34 + 32) = v35;
+          sub_1B4949C98();
+          sub_1B4943E84(v29, v31);
+
+          (*(v6 + 8))(v8, v5);
+        }
+
+        else
+        {
+          v32 = v28;
+
+          v33 = sub_1B4949A88();
+
+          swift_willThrow();
+          MEMORY[0x1B8C7B560](v33);
+        }
+      }
+
+      else
+      {
+        __break(1u);
+      }
+    }
   }
 
   else
   {
-    v17 = 0xE500000000000000;
+    sub_1B4943C68(v39);
   }
-
-  *&v41[0] = v16;
-  *(&v41[0] + 1) = v17;
-
-  MEMORY[0x1B8C7A8D0](0x6E6F736A2D67612ELL, 0xE800000000000000);
-
-  v18 = NSTemporaryDirectory();
-  if (v18)
-  {
-    v19 = v18;
-    v20 = sub_1B4949B48();
-
-    v21 = [(NSString *)v19 stringByAppendingPathComponent:v20];
-
-    v22 = sub_1B4949B78();
-    v24 = v23;
-
-    v25 = objc_opt_self();
-    v26 = MEMORY[0x1E69E6158];
-    v27 = sub_1B4949B08();
-
-    *&v41[0] = 0;
-    v28 = [v25 dataWithJSONObject:v27 options:0 error:v41];
-
-    v29 = *&v41[0];
-    if (v28)
-    {
-      v30 = sub_1B4949AB8();
-      v32 = v31;
-
-      sub_1B4949A98();
-      sub_1B4949AC8();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB8A4618, &qword_1B494B870);
-      v35 = swift_allocObject();
-      *(v35 + 16) = xmmword_1B494B850;
-      *&v41[0] = 0;
-      *(&v41[0] + 1) = 0xE000000000000000;
-      sub_1B4949C18();
-
-      *&v41[0] = 0xD000000000000015;
-      *(&v41[0] + 1) = 0x80000001B494E980;
-      MEMORY[0x1B8C7A8D0](v22, v24);
-
-      MEMORY[0x1B8C7A8D0](11810, 0xE200000000000000);
-      v36 = v41[0];
-      *(v35 + 56) = v26;
-      *(v35 + 32) = v36;
-      sub_1B4949C98();
-      sub_1B4943E84(v30, v32);
-
-      (*(v6 + 8))(v9, v5);
-    }
-
-    else
-    {
-      v33 = v29;
-
-      v34 = sub_1B4949A88();
-
-      swift_willThrow();
-      MEMORY[0x1B8C7B560](v34);
-    }
-
-    goto LABEL_14;
-  }
-
-  __break(1u);
 }
 
 unint64_t sub_1B4943970(uint64_t a1)
 {
-  v3 = *(v1 + 40);
   sub_1B4949B78();
   sub_1B4949CC8();
   sub_1B4949B98();
-  v4 = sub_1B4949CF8();
+  v2 = sub_1B4949CF8();
 
-  return sub_1B4943A04(a1, v4);
+  return sub_1B4943A04(a1, v2);
 }
 
 unint64_t sub_1B4943A04(uint64_t a1, uint64_t a2)
@@ -2555,17 +2121,16 @@ unint64_t sub_1B4943A04(uint64_t a1, uint64_t a2)
     v5 = ~v3;
     while (1)
     {
-      v6 = *(*(v2 + 48) + 8 * v4);
-      v7 = sub_1B4949B78();
-      v9 = v8;
-      if (v7 == sub_1B4949B78() && v9 == v10)
+      v6 = sub_1B4949B78();
+      v8 = v7;
+      if (v6 == sub_1B4949B78() && v8 == v9)
       {
         break;
       }
 
-      v12 = sub_1B4949C78();
+      v11 = sub_1B4949C78();
 
-      if ((v12 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
         v4 = (v4 + 1) & v5;
         if ((*(v2 + 64 + ((v4 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v4))
@@ -2708,13 +2273,13 @@ uint64_t _sSo10AGGraphRefa14AttributeGraphE16stackDescription9maxFramesSSSi_tFZ_
   return 0;
 }
 
-uint64_t sub_1B4943E84(uint64_t a1, unint64_t a2)
+uint64_t sub_1B4943E84(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -2806,17 +2371,15 @@ __n128 sub_1B494412C(uint64_t a1)
 
 uint64_t sub_1B4944170(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(*(a3 - 8) + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  (*(v5 + 16))(&v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v3 = MEMORY[0x1EEE9AC00](a1);
+  (*(v5 + 16))(&v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v3);
   return sub_1B4949B88();
 }
 
 uint64_t sub_1B4944220(uint64_t a1, uint64_t a2, AG::swift::metadata *a3)
 {
-  v4 = *(*(a3 - 1) + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  (*(v6 + 16))(v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v4 = MEMORY[0x1EEE9AC00](a1);
+  (*(v6 + 16))(v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v4);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB8A4648, &qword_1B494B948);
   if (swift_dynamicCast())
   {
@@ -2865,15 +2428,17 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t AGTupleType.init(_:)(uint64_t a1)
@@ -2977,7 +2542,7 @@ uint64_t AGUnsafeMutableTuple.subscript.setter(uint64_t result, uint64_t a2, uin
   return result;
 }
 
-uint64_t (*AGUnsafeMutableTuple.subscript.modify(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4))()
+void (*AGUnsafeMutableTuple.subscript.modify(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4))()
 {
   if (a4 == a2)
   {
@@ -3029,23 +2594,6 @@ uint64_t sub_1B4944AF8()
   return v2;
 }
 
-BOOL static AGTypeSignature.== infix(_:_:)(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, unsigned int a6)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  result = a1 == a4 && a2 == a5 && a3 == a6;
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-BOOL sub_1B4944BA4(uint64_t a1, uint64_t a2)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *(a1 + 16);
-  result = *a1 == *a2 && *(a1 + 8) >> 64 == *(a2 + 8) >> 64 && *(a1 + 16) == *(a2 + 16);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
 uint64_t sub_1B4944C50(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9[2] = a4;
@@ -3065,12 +2613,12 @@ uint64_t sub_1B4944CC8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return sub_1B493DA34(v9, sub_1B4944E4C, &v12, v13, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], a8);
 }
 
-void AGSetTypeForKey(void *a1, void *a2)
+void AGSetTypeForKey(void *a1, void *a2, uint64_t a3)
 {
-  v3 = a1;
-  v4 = a2;
+  v4 = a1;
+  v5 = a2;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB8A4658, &qword_1B494B960);
-  [v3 setObject:sub_1B4949C88() forKeyedSubscript:v4];
+  [v4 setObject:sub_1B4949C88() forKeyedSubscript:v5];
   swift_unknownObjectRelease();
 }
 
@@ -3152,17 +2700,14 @@ void (*IndirectAttribute.dependency.modify(uint64_t a1, const char *a2))(unsigne
   return sub_1B49417E4;
 }
 
-uint64_t IndirectAttribute.value.setter(uint64_t a1, int a2, uint64_t a3)
+uint64_t IndirectAttribute.value.setter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   return sub_1B49454C8(a1, a2, a3, sub_1B4945C24);
 }
 
-void (*IndirectAttribute.value.modify(uint64_t *a1, unint64_t a2, AG::swift::metadata *a3))(uint64_t **a1, char a2)
+void (*IndirectAttribute.value.modify(uint64_t *a1, unint64_t a2, AG::swift::metadata *a3))(uint64_t **a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
   {
@@ -3203,7 +2748,6 @@ void (*IndirectAttribute.value.modify(uint64_t *a1, unint64_t a2, AG::swift::met
   v8[5] = v17;
   v8[6] = (v10 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
   v17(v15, Value, a3);
-  v18 = *MEMORY[0x1E69E9840];
   return sub_1B494520C;
 }
 
@@ -3217,57 +2761,48 @@ uint64_t IndirectAttribute.changedValue(options:)(uint64_t a1, const char *a2, u
 
 uint64_t sub_1B49452B4(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v7 = *(a3 + a4 - 8);
   v8 = *(v7 - 8);
-  v9 = v8[8];
-  v10 = MEMORY[0x1EEE9AC00](a1);
-  v12 = &v20[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x1EEE9AC00](v10);
-  v14 = &v20[-v13];
-  v15 = v8[2];
-  v15(&v20[-v13]);
+  MEMORY[0x1EEE9AC00](a1);
+  v10 = &v19[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v12 = MEMORY[0x1EEE9AC00](v11);
+  v14 = &v19[-v13];
+  v15 = *(v8 + 16);
+  v15(&v19[-v13], v12);
   LODWORD(a2) = *a2;
-  (v15)(v12, v14, v7);
-  v22 = v7;
-  v23 = a2;
-  sub_1B493DA34(v12, a5, v21, v7, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], v16);
-  v17 = v8[1];
-  v17(v12, v7);
-  result = (v17)(v14, v7);
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  (v15)(v10, v14, v7);
+  v21 = v7;
+  v22 = a2;
+  sub_1B493DA34(v10, a5, v20, v7, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], v16);
+  v17 = *(v8 + 8);
+  v17(v10, v7);
+  return (v17)(v14, v7);
 }
 
-uint64_t IndirectAttribute.wrappedValue.setter(uint64_t a1, int a2, uint64_t a3)
+uint64_t IndirectAttribute.wrappedValue.setter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   return sub_1B49454C8(a1, a2, a3, sub_1B4945C64);
 }
 
 uint64_t sub_1B49454C8(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v8 = *(a3 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x1EEE9AC00](a1);
-  v12 = &v18[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  (*(v8 + 16))(v12, a1, v10);
-  v19 = a3;
-  v20 = a2;
-  sub_1B493DA34(v12, a4, v18, a3, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], v13);
-  v14 = *(v8 + 8);
-  v14(a1, a3);
-  result = (v14)(v12, a3);
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  v9 = MEMORY[0x1EEE9AC00](a1);
+  v11 = &v16[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  (*(v8 + 16))(v11, a1, v9);
+  v17 = a3;
+  v18 = a2;
+  sub_1B493DA34(v11, a4, v16, a3, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], v12);
+  v13 = *(v8 + 8);
+  v13(a1, a3);
+  return (v13)(v11, a3);
 }
 
-void (*IndirectAttribute.wrappedValue.modify(uint64_t *a1, unint64_t a2, AG::swift::metadata *a3))(uint64_t **a1, char a2)
+void (*IndirectAttribute.wrappedValue.modify(uint64_t *a1, unint64_t a2, AG::swift::metadata *a3))(uint64_t **a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
   {
@@ -3308,93 +2843,84 @@ void (*IndirectAttribute.wrappedValue.modify(uint64_t *a1, unint64_t a2, AG::swi
   v8[5] = v17;
   v8[6] = (v10 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
   v17(v15, Value, a3);
-  v18 = *MEMORY[0x1E69E9840];
   return sub_1B494520C;
 }
 
 void sub_1B49457C0(uint64_t **a1, char a2, uint64_t a3, uint64_t a4)
 {
   v7 = *a1;
-  v8 = (*a1)[6];
-  v9 = ((*a1)[5])((*a1)[3], v7[4], *v7);
+  v8 = ((*a1)[5])((*a1)[3], v7[4], *v7);
   if (a2)
   {
-    v10 = v7[6];
-    v12 = v7[3];
-    v11 = v7[4];
-    v14 = v7[1];
-    v13 = v7[2];
-    v15 = *v7;
-    v16 = *(v7 + 14);
-    v17 = (v7[5])(v13, v12, *v7);
-    MEMORY[0x1EEE9AC00](v17);
-    v27 = v15;
-    v28 = v16;
-    sub_1B493DA34(v13, a4, v26, v15, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], v18);
-    v19 = *(v14 + 8);
-    v19(v13, v15);
-    v19(v12, v15);
-    v19(v11, v15);
+    v10 = v7[3];
+    v9 = v7[4];
+    v12 = v7[1];
+    v11 = v7[2];
+    v13 = *v7;
+    v14 = *(v7 + 14);
+    v15 = (v7[5])(v11, v10, *v7);
+    MEMORY[0x1EEE9AC00](v15);
+    v24 = v13;
+    v25 = v14;
+    sub_1B493DA34(v11, a4, v23, v13, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], v16);
+    v17 = *(v12 + 8);
+    v17(v11, v13);
+    v17(v10, v13);
+    v17(v9, v13);
   }
 
   else
   {
-    v12 = v7[3];
-    v11 = v7[4];
-    v20 = v7[1];
-    v13 = v7[2];
-    v21 = *v7;
-    v22 = *(v7 + 14);
-    MEMORY[0x1EEE9AC00](v9);
-    v27 = v21;
-    v28 = v23;
-    sub_1B493DA34(v12, a3, v26, v21, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], v24);
-    v25 = *(v20 + 8);
-    v25(v12, v21);
-    v25(v11, v21);
+    v10 = v7[3];
+    v9 = v7[4];
+    v18 = v7[1];
+    v11 = v7[2];
+    v19 = *v7;
+    MEMORY[0x1EEE9AC00](v8);
+    v24 = v19;
+    v25 = v20;
+    sub_1B493DA34(v10, a3, v23, v19, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6370], MEMORY[0x1E69E7410], v21);
+    v22 = *(v18 + 8);
+    v22(v10, v19);
+    v22(v9, v19);
   }
 
+  free(v9);
+  free(v10);
   free(v11);
-  free(v12);
-  free(v13);
   free(v7);
 }
 
 unint64_t IndirectAttribute.subscript.getter(void *a1, unint64_t a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = *a1;
   v5 = sub_1B4949BF8();
   if (v6)
   {
-    v19 = a2;
-    v20 = a1;
+    v20 = a2;
+    v21 = a1;
     MEMORY[0x1EEE9AC00](v5);
     v7 = (v4 + *MEMORY[0x1E69E77B0]);
-    v15[2] = v7[1];
-    v8 = *v7;
-    v16 = type metadata accessor for Focus();
+    v16 = v7[1];
+    v17 = type metadata accessor for Focus(0, *v7, v16, v8);
     WitnessTable = swift_getWitnessTable();
-    v9 = type metadata accessor for Attribute();
+    v11 = type metadata accessor for Attribute(0, v16, v9, v10);
 
-    sub_1B493DA34(&v19, sub_1B493E28C, v15, v16, MEMORY[0x1E69E73E0], v9, MEMORY[0x1E69E7410], v10);
+    sub_1B493DA34(&v20, sub_1B493E28C, &v15, v17, MEMORY[0x1E69E73E0], v11, MEMORY[0x1E69E7410], v12);
 
-    result = v18;
-    v12 = *MEMORY[0x1E69E9840];
+    return v19;
   }
 
   else
   {
-    v13 = *(*(*(v4 + *MEMORY[0x1E69E77B0] + 8) - 8) + 64);
-    v14 = *MEMORY[0x1E69E9840];
+    v14 = *(*(*(v4 + *MEMORY[0x1E69E77B0] + 8) - 8) + 64);
 
-    return AGGraphCreateOffsetAttribute2(a2, v5, v13);
+    return AGGraphCreateOffsetAttribute2(a2, v5, v14);
   }
-
-  return result;
 }
 
-uint64_t IndirectAttribute.hashValue.getter()
+uint64_t IndirectAttribute.hashValue.getter(uint64_t a1)
 {
   sub_1B4949CC8();
   sub_1B4949CE8();
@@ -3483,10 +3009,10 @@ __n128 sub_1B4945EB8@<Q0>(__n128 *a1@<X8>)
 
 uint64_t sub_1B4945EEC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v14 = a4;
-  v15 = a5;
-  v16 = a6;
+  v16 = *MEMORY[0x1E69E9840];
+  v13 = a4;
+  v14 = a5;
+  v15 = a6;
   if (a2)
   {
     if (a3)
@@ -3501,13 +3027,13 @@ uint64_t sub_1B4945EEC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
       v10 = a3 - 1;
       while (1)
       {
-        NextChild2 = AGTreeElementGetNextChild2(&v14, 0);
+        NextChild2 = AGTreeElementGetNextChild2(&v13, 0);
         if (!NextChild2)
         {
-          a4 = v14;
-          a5 = v15;
+          a4 = v13;
+          a5 = v14;
           a3 = v8;
-          a6 = v16;
+          a6 = v15;
           goto LABEL_13;
         }
 
@@ -3524,9 +3050,9 @@ uint64_t sub_1B4945EEC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
         }
       }
 
-      a4 = v14;
-      a5 = v15;
-      a6 = v16;
+      a4 = v13;
+      a5 = v14;
+      a6 = v15;
       a3 = v9;
     }
   }
@@ -3541,7 +3067,6 @@ LABEL_13:
   *a1 = a4;
   a1[1] = a5;
   a1[2] = a6;
-  v12 = *MEMORY[0x1E69E9840];
   return a3;
 }
 
@@ -3793,7 +3318,7 @@ unint64_t sub_1B4946350()
   return result;
 }
 
-uint64_t sub_1B494647C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1B494647C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3808,11 +3333,11 @@ uint64_t sub_1B494647C(unint64_t *a1, void (*a2)(uint64_t))
 
 void *sub_1B49464D4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v24[3] = *MEMORY[0x1E69E9840];
-  v24[0] = a1;
-  v24[1] = a2;
-  v24[2] = a3;
-  NextChild2 = AGTreeElementGetNextChild2(v24, 0);
+  v23[3] = *MEMORY[0x1E69E9840];
+  v23[0] = a1;
+  v23[1] = a2;
+  v23[2] = a3;
+  NextChild2 = AGTreeElementGetNextChild2(v23, 0);
   v4 = MEMORY[0x1E69E7CC0];
   v5 = 0;
   if (NextChild2)
@@ -3878,7 +3403,7 @@ void *sub_1B49464D4(uint64_t a1, uint64_t a2, uint64_t a3)
       }
 
       *v6++ = NextChild2;
-      NextChild2 = AGTreeElementGetNextChild2(v24, 0);
+      NextChild2 = AGTreeElementGetNextChild2(v23, 0);
       if (!NextChild2)
       {
         goto LABEL_21;
@@ -3907,11 +3432,10 @@ LABEL_21:
     v4[2] = v21;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
-uint64_t sub_1B4946674(uint64_t a1, uint64_t a2, uint64_t a3)
+void *sub_1B4946674(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v22[0] = a1;
   v22[1] = a2;
@@ -4016,7 +3540,7 @@ LABEL_27:
   return result;
 }
 
-uint64_t sub_1B49467E0(uint64_t a1, uint64_t a2)
+void *sub_1B49467E0(uint64_t a1, uint64_t a2)
 {
   v21[0] = a1;
   v21[1] = a2;
@@ -4120,7 +3644,7 @@ LABEL_27:
   return result;
 }
 
-uint64_t sub_1B4946948(uint64_t a1, uint64_t a2)
+void *sub_1B4946948(uint64_t a1, uint64_t a2)
 {
   v21[0] = a1;
   v21[1] = a2;
@@ -4228,38 +3752,35 @@ LABEL_27:
 
 uint64_t sub_1B4946AF0@<X0>(void (*a1)(char *, char *)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X6>, uint64_t a6@<X8>)
 {
-  v29 = a5;
-  v30 = a2;
-  v32 = a4;
-  v31 = a1;
-  v28 = *(a3 - 8);
-  v10 = *(v28 + 64);
-  v11 = (MEMORY[0x1EEE9AC00])();
-  v13 = &v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = *(v14 + 16);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v11);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = *(*(v21 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v18);
-  v24 = &v28 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v25 + 16))(v24, v6);
-  v26 = 1;
-  if ((*(v16 + 48))(v24, 1, v15) != 1)
+  v26 = a5;
+  v27 = a2;
+  v29 = a4;
+  v28 = a1;
+  v25 = *(a3 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v11 = &v25 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = *(v12 + 16);
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v25 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = MEMORY[0x1EEE9AC00](v18);
+  v21 = &v25 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v22 + 16))(v21, v6, v19);
+  v23 = 1;
+  if ((*(v14 + 48))(v21, 1, v13) != 1)
   {
-    (*(v16 + 32))(v20, v24, v15);
-    v31(v20, v13);
-    (*(v16 + 8))(v20, v15);
+    (*(v14 + 32))(v17, v21, v13);
+    v28(v17, v11);
+    (*(v14 + 8))(v17, v13);
     if (v7)
     {
-      return (*(v28 + 32))(v29, v13, a3);
+      return (*(v25 + 32))(v26, v11, a3);
     }
 
-    v26 = 0;
+    v23 = 0;
   }
 
-  return (*(*(v32 - 8) + 56))(a6, v26, 1);
+  return (*(*(v29 - 8) + 56))(a6, v23, 1);
 }
 
 uint64_t AnyRuleContext.subscript.getter@<X0>(const char *a1@<X0>, unint64_t a2@<X1>, AG::swift::metadata *a3@<X2>, uint64_t a4@<X8>)
@@ -4275,42 +3796,42 @@ uint64_t AnyRuleContext.subscript.getter@<X0>(unint64_t a1@<X0>, int a2@<W1>, ui
   Attribute = AGWeakAttributeGetAttribute(a1);
   if (Attribute == 2)
   {
-    v8 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v8 = Attribute;
+    v10 = Attribute;
   }
 
-  v13 = v8;
-  v14 = Attribute == 2;
-  v11[2] = a3;
-  v12 = a2;
-  type metadata accessor for Attribute();
+  v15 = v10;
+  v16 = Attribute == 2;
+  v13[2] = a3;
+  v14 = a2;
+  type metadata accessor for Attribute(255, a3, v8, v9);
   sub_1B4949BD8();
-  return sub_1B4946AF0(sub_1B4947A88, v11, MEMORY[0x1E69E73E0], a3, v9, a4);
+  return sub_1B4946AF0(sub_1B4947A88, v13, MEMORY[0x1E69E73E0], a3, v11, a4);
 }
 
-uint64_t AnyRuleContext.subscript.getter@<X0>(int a1@<W0>, int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t AnyRuleContext.subscript.getter@<X0>(int a1@<W0>, int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v9[2] = a3;
+  v10[2] = a3;
   if (a1 == 2)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = a1;
+    v7 = a1;
   }
 
-  v11 = v6;
-  v12 = a1 == 2;
-  v10 = a2;
-  type metadata accessor for Attribute();
+  v12 = v7;
+  v13 = a1 == 2;
+  v11 = a2;
+  type metadata accessor for Attribute(255, a3, a3, a4);
   sub_1B4949BD8();
-  return sub_1B4946AF0(sub_1B4947C48, v9, MEMORY[0x1E69E73E0], a3, v7, a4);
+  return sub_1B4946AF0(sub_1B4947C48, v10, MEMORY[0x1E69E73E0], a3, v8, a5);
 }
 
 uint64_t AnyRuleContext.changedValue<A>(of:options:)(uint64_t a1, const char *a2, uint64_t a3, unint64_t a4, AG::swift::metadata *a5)
@@ -4379,18 +3900,15 @@ uint64_t RuleContext.value.unsafeAddressor(uint64_t a1, AG::swift::metadata *a2)
 
 uint64_t sub_1B4947258(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = *(a3 + a4 - 8);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v8 = &v12[-v7];
-  (*(v5 + 16))(&v12[-v7]);
-  v14 = v4;
-  sub_1B493DA34(v8, sub_1B4947C78, v13, v4, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v9);
-  result = (*(v5 + 8))(v8, v4);
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  v6 = MEMORY[0x1EEE9AC00](a1);
+  v8 = &v11[-v7];
+  (*(v5 + 16))(&v11[-v7], v6);
+  v13 = v4;
+  sub_1B493DA34(v8, sub_1B4947C78, v12, v4, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v9);
+  return (*(v5 + 8))(v8, v4);
 }
 
 uint64_t RuleContext.value.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -4402,7 +3920,6 @@ uint64_t RuleContext.value.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
 
 void (*RuleContext.value.modify(void *a1, uint64_t a2, AG::swift::metadata *a3))(void **a1, char a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
   {
@@ -4445,7 +3962,6 @@ void (*RuleContext.value.modify(void *a1, uint64_t a2, AG::swift::metadata *a3))
   v7[4] = v15;
   v7[5] = (v9 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
   v15(v13, OutputValue, a3);
-  v16 = *MEMORY[0x1E69E9840];
   return sub_1B49475B4;
 }
 
@@ -4454,34 +3970,33 @@ void sub_1B49475B4(void **a1, char a2)
   v2 = *a1;
   if (a2)
   {
-    v3 = v2[5];
-    v5 = v2[2];
-    v4 = v2[3];
-    v6 = *v2;
-    v7 = v2[1];
-    v8 = (v2[4])(v5, v4, *v2);
-    MEMORY[0x1EEE9AC00](v8);
-    v15 = v6;
-    sub_1B493DA34(v5, sub_1B4947C78, v14, v6, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v9);
-    v10 = *(v7 + 8);
-    v10(v5, v6);
-    v10(v4, v6);
+    v4 = v2[2];
+    v3 = v2[3];
+    v5 = *v2;
+    v6 = v2[1];
+    v7 = (v2[4])(v4, v3, *v2);
+    MEMORY[0x1EEE9AC00](v7);
+    v14 = v5;
+    sub_1B493DA34(v4, sub_1B4947C78, v13, v5, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v8);
+    v9 = *(v6 + 8);
+    v9(v4, v5);
+    v9(v3, v5);
   }
 
   else
   {
-    v5 = v2[2];
-    v4 = v2[3];
-    v11 = *v2;
-    v12 = v2[1];
+    v4 = v2[2];
+    v3 = v2[3];
+    v10 = *v2;
+    v11 = v2[1];
     MEMORY[0x1EEE9AC00](a1);
-    v15 = v11;
-    sub_1B493DA34(v4, sub_1B4947C78, v14, v11, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v13);
-    (*(v12 + 8))(v4, v11);
+    v14 = v10;
+    sub_1B493DA34(v3, sub_1B4947C78, v13, v10, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v12);
+    (*(v11 + 8))(v3, v10);
   }
 
+  free(v3);
   free(v4);
-  free(v5);
   free(v2);
 }
 
@@ -4498,22 +4013,22 @@ uint64_t RuleContext.subscript.getter@<X0>(unint64_t a1@<X0>, int a2@<W1>, uint6
   Attribute = AGWeakAttributeGetAttribute(a1);
   if (Attribute == 2)
   {
-    v10 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v10 = Attribute;
+    v12 = Attribute;
   }
 
-  v15 = v10;
-  v16 = Attribute == 2;
-  v13[2] = a3;
-  v13[3] = a4;
-  v14 = a2;
-  type metadata accessor for Attribute();
+  v17 = v12;
+  v18 = Attribute == 2;
+  v15[2] = a3;
+  v15[3] = a4;
+  v16 = a2;
+  type metadata accessor for Attribute(255, a4, v10, v11);
   sub_1B4949BD8();
-  return sub_1B4946AF0(sub_1B4947B4C, v13, MEMORY[0x1E69E73E0], a4, v11, a5);
+  return sub_1B4946AF0(sub_1B4947B4C, v15, MEMORY[0x1E69E73E0], a4, v13, a5);
 }
 
 uint64_t RuleContext.subscript.getter@<X0>(int a1@<W0>, int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
@@ -4533,7 +4048,7 @@ uint64_t RuleContext.subscript.getter@<X0>(int a1@<W0>, int a2@<W1>, uint64_t a3
   v10[2] = a3;
   v10[3] = a4;
   v11 = a2;
-  type metadata accessor for Attribute();
+  type metadata accessor for Attribute(255, a4, a3, a4);
   sub_1B4949BD8();
   return sub_1B4946AF0(sub_1B4947C60, v10, MEMORY[0x1E69E73E0], a4, v8, a5);
 }
@@ -4568,7 +4083,7 @@ uint64_t sub_1B4947B64@<X0>(unsigned int *a1@<X0>, uint64_t a2@<X8>)
   return (*(*(v4 - 1) + 16))(a2, InputValue, v4);
 }
 
-uint64_t sub_1B4947BF4()
+uint64_t sub_1B4947BF4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -4586,7 +4101,6 @@ uint64_t static External.flags.getter()
 
 uint64_t Focus.keyPath.setter(uint64_t a1)
 {
-  v3 = *(v1 + 8);
 
   *(v1 + 8) = a1;
   return result;
@@ -4595,40 +4109,35 @@ uint64_t Focus.keyPath.setter(uint64_t a1)
 uint64_t Focus.value.getter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(a3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  Value = AGGraphGetValue(v8, 0, v9, v10, v11);
-  (*(v4 + 16))(v7, Value, a3);
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  Value = AGGraphGetValue(v7, 0, v8, v9, v10);
+  (*(v4 + 16))(v6, Value, a3);
   swift_getAtKeyPath();
-  return (*(v4 + 8))(v7, a3);
+  return (*(v4 + 8))(v6, a3);
 }
 
 uint64_t sub_1B4947E78(uint64_t a1)
 {
   v2 = *(a1 + 16);
   v3 = *(v2 - 1);
-  v4 = *(v3 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *v1;
-  v8 = *(v1 + 1);
-  Value = AGGraphGetValue(v7, 0, v2, v9, v10);
-  (*(v3 + 16))(v6, Value, v2);
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  Value = AGGraphGetValue(*v1, 0, v2, v6, v7);
+  (*(v3 + 16))(v5, Value, v2);
   swift_getAtKeyPath();
-  return (*(v3 + 8))(v6, v2);
+  return (*(v3 + 8))(v5, v2);
 }
 
 uint64_t Map.value.getter(uint64_t a1, void (*a2)(char *), uint64_t a3, uint64_t a4)
 {
   v6 = *(a4 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  Value = AGGraphGetValue(v10, 0, v11, v11, v12);
-  (*(v6 + 16))(v9, Value, a4);
-  a2(v9);
-  return (*(v6 + 8))(v9, a4);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  Value = AGGraphGetValue(v9, 0, v10, v10, v11);
+  (*(v6 + 16))(v8, Value, a4);
+  a2(v8);
+  return (*(v6 + 8))(v8, a4);
 }
 
 uint64_t sub_1B4948108(uint64_t a1, int a2)
@@ -4759,13 +4268,13 @@ uint64_t static PointerOffset.offset(_:)(uint64_t (*a1)(uint64_t), uint64_t a2, 
   }
 }
 
-uint64_t static PointerOffset.of(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t static PointerOffset.of(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8[2] = a2;
-  v8[3] = a3;
-  v5 = type metadata accessor for PointerOffset();
-  sub_1B493F82C(a1, sub_1B4948324, v8, a3, MEMORY[0x1E69E73E0], v5, MEMORY[0x1E69E7410], v6);
-  return v8[5];
+  v9[2] = a2;
+  v9[3] = a3;
+  v6 = type metadata accessor for PointerOffset(0, a2, a3, a4);
+  sub_1B493F82C(a1, sub_1B4948324, v9, a3, MEMORY[0x1E69E73E0], v6, MEMORY[0x1E69E7410], v7);
+  return v9[5];
 }
 
 uint64_t static PointerOffset.+ infix<A>(_:_:)(uint64_t a1, uint64_t a2)
@@ -4886,7 +4395,7 @@ uint64_t AnyOptionalAttribute.description.getter(int a1)
   }
 }
 
-uint64_t AnyOptionalAttribute.hashValue.getter()
+uint64_t AnyOptionalAttribute.hashValue.getter(uint64_t a1)
 {
   sub_1B4949CC8();
   sub_1B4949CE8();
@@ -4895,15 +4404,13 @@ uint64_t AnyOptionalAttribute.hashValue.getter()
 
 uint64_t sub_1B4948684()
 {
-  v1 = *v0;
   sub_1B4949CC8();
   sub_1B4949CE8();
   return sub_1B4949CF8();
 }
 
-uint64_t sub_1B49486CC()
+uint64_t sub_1B49486CC(uint64_t a1)
 {
-  v1 = *v0;
   sub_1B4949CC8();
   sub_1B4949CE8();
   return sub_1B4949CF8();
@@ -5053,7 +4560,7 @@ uint64_t (*OptionalAttribute.projectedValue.modify(uint64_t a1))(uint64_t result
 
 unint64_t OptionalAttribute.subscript.getter(void *a1, unint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (a2 == 2)
   {
     OffsetAttribute2 = 0;
@@ -5065,19 +4572,18 @@ unint64_t OptionalAttribute.subscript.getter(void *a1, unint64_t a2)
     v6 = sub_1B4949BF8();
     if (v7)
     {
-      v18 = a2;
-      v19 = a1;
+      v20 = a2;
+      v21 = a1;
       MEMORY[0x1EEE9AC00](v6);
       v8 = (v5 + *MEMORY[0x1E69E77B0]);
-      v14[2] = v8[1];
-      v9 = *v8;
-      v15 = type metadata accessor for Focus();
+      v16 = v8[1];
+      v17 = type metadata accessor for Focus(0, *v8, v16, v9);
       WitnessTable = swift_getWitnessTable();
-      v10 = type metadata accessor for Attribute();
+      v12 = type metadata accessor for Attribute(0, v16, v10, v11);
 
-      sub_1B493DA34(&v18, sub_1B493E28C, v14, v15, MEMORY[0x1E69E73E0], v10, MEMORY[0x1E69E7410], v11);
+      sub_1B493DA34(&v20, sub_1B493E28C, &v15, v17, MEMORY[0x1E69E73E0], v12, MEMORY[0x1E69E7410], v13);
 
-      OffsetAttribute2 = v17;
+      OffsetAttribute2 = v19;
     }
 
     else
@@ -5086,12 +4592,10 @@ unint64_t OptionalAttribute.subscript.getter(void *a1, unint64_t a2)
     }
   }
 
-  LOBYTE(v18) = a2 == 2;
-  v12 = *MEMORY[0x1E69E9840];
   return OffsetAttribute2 | ((a2 == 2) << 32);
 }
 
-uint64_t OptionalAttribute.description.getter(uint64_t a1)
+uint64_t OptionalAttribute.description.getter(int a1)
 {
   if (a1 == 2)
   {
@@ -5100,11 +4604,11 @@ uint64_t OptionalAttribute.description.getter(uint64_t a1)
 
   else
   {
-    return Attribute.description.getter(a1);
+    return Attribute.description.getter();
   }
 }
 
-uint64_t OptionalAttribute.hashValue.getter()
+uint64_t OptionalAttribute.hashValue.getter(uint64_t a1)
 {
   sub_1B4949CC8();
   sub_1B4949CE8();
@@ -5125,10 +4629,10 @@ unint64_t sub_1B4948DEC()
 
 void AG::Graph::TraceRecorder::field_backtrace()
 {
-  if (__cxa_guard_acquire(&qword_1ED56D380))
+  if (__cxa_guard_acquire(byte_1ED56D380))
   {
     _MergedGlobals = AG::Graph::TraceRecorder::field_backtrace(AG::Encoder &,unsigned long,unsigned int)::$_0::operator()();
-    __cxa_guard_release(&qword_1ED56D380);
+    __cxa_guard_release(byte_1ED56D380);
   }
 }
 
@@ -5391,19 +4895,19 @@ uint64_t AG::Subgraph::add_child()
 
 void AG::Graph::print_cycle()
 {
-  v0 = __cxa_guard_acquire(&qword_1ED56D3C8);
+  v0 = __cxa_guard_acquire(byte_1ED56D3C8);
   if (v0)
   {
 
-    __cxa_guard_release(&qword_1ED56D3C8);
+    __cxa_guard_release(byte_1ED56D3C8);
   }
 }
 
 {
-  v0 = __cxa_guard_acquire(&qword_1ED56D3D0);
+  v0 = __cxa_guard_acquire(byte_1ED56D3D0);
   if (v0)
   {
-    __cxa_guard_release(&qword_1ED56D3D0);
+    __cxa_guard_release(byte_1ED56D3D0);
   }
 }
 
@@ -5416,22 +4920,21 @@ void AGGraphVerifyType_cold_1(AG::swift::metadata *a1, uint64_t a2, void *a3, ui
 
 void AG::error_log()
 {
-  if (__cxa_guard_acquire(qword_1ED56D3F0))
+  if (__cxa_guard_acquire(byte_1ED56D3F0))
   {
     qword_1ED56D3E8 = os_log_create("com.apple.attributegraph", "error");
 
-    __cxa_guard_release(qword_1ED56D3F0);
+    __cxa_guard_release(byte_1ED56D3F0);
   }
 }
 
 void AG::non_fatal_precondition_failure(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 136315138;
-  v5 = v2;
-  _os_log_fault_impl(&dword_1B490B000, a2, OS_LOG_TYPE_FAULT, "precondition failure: %s", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 136315138;
+  v4 = v2;
+  _os_log_fault_impl(&dword_1B490B000, a2, OS_LOG_TYPE_FAULT, "precondition failure: %s", &v3, 0xCu);
 }
 
 void operator delete(void *__p)

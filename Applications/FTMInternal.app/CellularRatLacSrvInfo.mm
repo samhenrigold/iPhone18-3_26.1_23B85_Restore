@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)roamStatusAsString:(int)string;
 - (int)StringAsRoamStatus:(id)status;
 - (int)roamStatus;
 - (unint64_t)hash;
@@ -246,6 +247,83 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFBFFF | v3);
+}
+
+- (id)roamStatusAsString:(int)string
+{
+  v4 = @"SYS_ROAM_STATUS_NONE";
+  switch(string)
+  {
+    case -1:
+      goto LABEL_28;
+    case 0:
+      v4 = @"SYS_ROAM_STATUS_OFF";
+
+      break;
+    case 1:
+      v4 = @"SYS_ROAM_STATUS_ON";
+
+      break;
+    case 2:
+      v4 = @"SYS_ROAM_STATUS_BLINK";
+
+      break;
+    case 3:
+      v4 = @"SYS_ROAM_STATUS_OUT_OF_NEIGHBORHOOD";
+
+      break;
+    case 4:
+      v4 = @"SYS_ROAM_STATUS_OUT_OF_BLDG";
+
+      break;
+    case 5:
+      v4 = @"SYS_ROAM_STATUS_PREF_SYS";
+
+      break;
+    case 6:
+      v4 = @"SYS_ROAM_STATUS_AVAIL_SYS";
+
+      break;
+    case 7:
+      v4 = @"SYS_ROAM_STATUS_ALLIANCE_PARTNER";
+
+      break;
+    case 8:
+      v4 = @"SYS_ROAM_STATUS_PREMIUM_PARTNER";
+
+      break;
+    case 9:
+      v4 = @"SYS_ROAM_STATUS_FULL_SVC";
+
+      break;
+    case 10:
+      v4 = @"SYS_ROAM_STATUS_PARTIAL_SVC";
+
+      break;
+    case 11:
+      v4 = @"SYS_ROAM_STATUS_BANNER_ON";
+
+      break;
+    case 12:
+      v4 = @"SYS_ROAM_STATUS_BANNER_OFF";
+
+      break;
+    default:
+      if (string == 64)
+      {
+        v4 = @"SYS_ROAM_STATUS_HOME_SYSTEM";
+      }
+
+      else
+      {
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_28:
+      }
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsRoamStatus:(id)status
@@ -1050,7 +1128,6 @@ LABEL_41:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x2000000) == 0)
@@ -1070,12 +1147,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  version = self->_version;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x200000) != 0)
   {
 LABEL_4:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1087,7 +1162,6 @@ LABEL_5:
 
   if ((*(&self->_has + 2) & 0x10) != 0)
   {
-    standbyPref = self->_standbyPref;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1096,16 +1170,15 @@ LABEL_5:
     PBDataWriterWriteDataField();
   }
 
-  v7 = self->_has;
-  if ((*&v7 & 0x8000) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x8000) != 0)
   {
-    sid = self->_sid;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
-    if ((*&v7 & 0x800) == 0)
+    v5 = self->_has;
+    if ((*&v5 & 0x800) == 0)
     {
 LABEL_13:
-      if ((*&v7 & 4) == 0)
+      if ((*&v5 & 4) == 0)
       {
         goto LABEL_14;
       }
@@ -1114,18 +1187,17 @@ LABEL_13:
     }
   }
 
-  else if ((*&v7 & 0x800) == 0)
+  else if ((*&v5 & 0x800) == 0)
   {
     goto LABEL_13;
   }
 
-  nid = self->_nid;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 4) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 4) == 0)
   {
 LABEL_14:
-    if ((*&v7 & 0x200) == 0)
+    if ((*&v5 & 0x200) == 0)
     {
       goto LABEL_15;
     }
@@ -1134,13 +1206,12 @@ LABEL_14:
   }
 
 LABEL_49:
-  cellId = self->_cellId;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x200) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x200) == 0)
   {
 LABEL_15:
-    if ((*&v7 & 0x80) == 0)
+    if ((*&v5 & 0x80) == 0)
     {
       goto LABEL_16;
     }
@@ -1149,13 +1220,12 @@ LABEL_15:
   }
 
 LABEL_50:
-  lac = self->_lac;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x80) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x80) == 0)
   {
 LABEL_16:
-    if ((*&v7 & 0x10) == 0)
+    if ((*&v5 & 0x10) == 0)
     {
       goto LABEL_17;
     }
@@ -1164,13 +1234,12 @@ LABEL_16:
   }
 
 LABEL_51:
-  gizmoMode = self->_gizmoMode;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x10) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x10) == 0)
   {
 LABEL_17:
-    if ((*&v7 & 0x400000) == 0)
+    if ((*&v5 & 0x400000) == 0)
     {
       goto LABEL_18;
     }
@@ -1179,13 +1248,12 @@ LABEL_17:
   }
 
 LABEL_52:
-  companionType = self->_companionType;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x400000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x400000) == 0)
   {
 LABEL_18:
-    if ((*&v7 & 0x40000) == 0)
+    if ((*&v5 & 0x40000) == 0)
     {
       goto LABEL_19;
     }
@@ -1194,13 +1262,12 @@ LABEL_18:
   }
 
 LABEL_53:
-  sysMode = self->_sysMode;
   PBDataWriterWriteInt32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x40000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x40000) == 0)
   {
 LABEL_19:
-    if ((*&v7 & 0x10000) == 0)
+    if ((*&v5 & 0x10000) == 0)
     {
       goto LABEL_20;
     }
@@ -1209,13 +1276,12 @@ LABEL_19:
   }
 
 LABEL_54:
-  srvStatus = self->_srvStatus;
   PBDataWriterWriteInt32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x10000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x10000) == 0)
   {
 LABEL_20:
-    if ((*&v7 & 0x4000) == 0)
+    if ((*&v5 & 0x4000) == 0)
     {
       goto LABEL_21;
     }
@@ -1224,13 +1290,12 @@ LABEL_20:
   }
 
 LABEL_55:
-  srvDomain = self->_srvDomain;
   PBDataWriterWriteInt32Field();
-  v7 = self->_has;
-  if ((*&v7 & 0x4000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x4000) == 0)
   {
 LABEL_21:
-    if ((*&v7 & 2) == 0)
+    if ((*&v5 & 2) == 0)
     {
       goto LABEL_23;
     }
@@ -1239,12 +1304,10 @@ LABEL_21:
   }
 
 LABEL_56:
-  roamStatus = self->_roamStatus;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_22:
-    asubsId = self->_asubsId;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1259,16 +1322,15 @@ LABEL_23:
     PBDataWriterWriteDataField();
   }
 
-  v9 = self->_has;
-  if ((*&v9 & 0x400) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x400) != 0)
   {
-    lac2nd = self->_lac2nd;
     PBDataWriterWriteUint32Field();
-    v9 = self->_has;
-    if ((*&v9 & 0x800000) == 0)
+    v6 = self->_has;
+    if ((*&v6 & 0x800000) == 0)
     {
 LABEL_29:
-      if ((*&v9 & 0x80000) == 0)
+      if ((*&v6 & 0x80000) == 0)
       {
         goto LABEL_30;
       }
@@ -1277,18 +1339,17 @@ LABEL_29:
     }
   }
 
-  else if ((*&v9 & 0x800000) == 0)
+  else if ((*&v6 & 0x800000) == 0)
   {
     goto LABEL_29;
   }
 
-  sysMode2nd = self->_sysMode2nd;
   PBDataWriterWriteInt32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x80000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x80000) == 0)
   {
 LABEL_30:
-    if ((*&v9 & 0x20000) == 0)
+    if ((*&v6 & 0x20000) == 0)
     {
       goto LABEL_31;
     }
@@ -1297,13 +1358,12 @@ LABEL_30:
   }
 
 LABEL_60:
-  srvStatus2nd = self->_srvStatus2nd;
   PBDataWriterWriteInt32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x20000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x20000) == 0)
   {
 LABEL_31:
-    if ((*&v9 & 8) == 0)
+    if ((*&v6 & 8) == 0)
     {
       goto LABEL_32;
     }
@@ -1312,13 +1372,12 @@ LABEL_31:
   }
 
 LABEL_61:
-  srvDomain2nd = self->_srvDomain2nd;
   PBDataWriterWriteInt32Field();
-  v9 = self->_has;
-  if ((*&v9 & 8) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 8) == 0)
   {
 LABEL_32:
-    if ((*&v9 & 0x100) == 0)
+    if ((*&v6 & 0x100) == 0)
     {
       goto LABEL_33;
     }
@@ -1327,13 +1386,12 @@ LABEL_32:
   }
 
 LABEL_62:
-  cellId2nd = self->_cellId2nd;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x100) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x100) == 0)
   {
 LABEL_33:
-    if ((*&v9 & 0x40) == 0)
+    if ((*&v6 & 0x40) == 0)
     {
       goto LABEL_34;
     }
@@ -1342,13 +1400,12 @@ LABEL_33:
   }
 
 LABEL_63:
-  hdrPersonality = self->_hdrPersonality;
   PBDataWriterWriteInt32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x40) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x40) == 0)
   {
 LABEL_34:
-    if ((*&v9 & 0x1000) == 0)
+    if ((*&v6 & 0x1000) == 0)
     {
       goto LABEL_35;
     }
@@ -1357,13 +1414,12 @@ LABEL_34:
   }
 
 LABEL_64:
-  elapsedMs = self->_elapsedMs;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x1000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x1000) == 0)
   {
 LABEL_35:
-    if ((*&v9 & 0x8000000) == 0)
+    if ((*&v6 & 0x8000000) == 0)
     {
       goto LABEL_36;
     }
@@ -1372,13 +1428,12 @@ LABEL_35:
   }
 
 LABEL_65:
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x8000000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x8000000) == 0)
   {
 LABEL_36:
-    if ((*&v9 & 0x4000000) == 0)
+    if ((*&v6 & 0x4000000) == 0)
     {
       goto LABEL_37;
     }
@@ -1387,13 +1442,12 @@ LABEL_36:
   }
 
 LABEL_66:
-  upperLayerIndication = self->_upperLayerIndication;
   PBDataWriterWriteBOOLField();
-  v9 = self->_has;
-  if ((*&v9 & 0x4000000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x4000000) == 0)
   {
 LABEL_37:
-    if ((*&v9 & 0x2000) == 0)
+    if ((*&v6 & 0x2000) == 0)
     {
       goto LABEL_38;
     }
@@ -1402,13 +1456,12 @@ LABEL_37:
   }
 
 LABEL_67:
-  scgEverConfigured = self->_scgEverConfigured;
   PBDataWriterWriteBOOLField();
-  v9 = self->_has;
-  if ((*&v9 & 0x2000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x2000) == 0)
   {
 LABEL_38:
-    if ((*&v9 & 0x1000000) == 0)
+    if ((*&v6 & 0x1000000) == 0)
     {
       goto LABEL_39;
     }
@@ -1417,13 +1470,12 @@ LABEL_38:
   }
 
 LABEL_68:
-  psPref = self->_psPref;
   PBDataWriterWriteUint32Field();
-  v9 = self->_has;
-  if ((*&v9 & 0x1000000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x1000000) == 0)
   {
 LABEL_39:
-    if ((*&v9 & 0x20) == 0)
+    if ((*&v6 & 0x20) == 0)
     {
       goto LABEL_41;
     }
@@ -1432,12 +1484,10 @@ LABEL_39:
   }
 
 LABEL_69:
-  uiNr5gSwitch = self->_uiNr5gSwitch;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_40:
-    dynNr5gEnabling = self->_dynNr5gEnabling;
     PBDataWriterWriteUint32Field();
   }
 
@@ -2603,7 +2653,6 @@ LABEL_32:
       goto LABEL_158;
     }
 
-    v15 = *(equalCopy + 153);
     if (self->_upperLayerIndication)
     {
       if ((*(equalCopy + 153) & 1) == 0)
@@ -2631,7 +2680,7 @@ LABEL_32:
     }
 
 LABEL_158:
-    v17 = 0;
+    v15 = 0;
     goto LABEL_159;
   }
 
@@ -2640,7 +2689,6 @@ LABEL_158:
     goto LABEL_158;
   }
 
-  v16 = *(equalCopy + 152);
   if (self->_scgEverConfigured)
   {
     if ((*(equalCopy + 152) & 1) == 0)
@@ -2688,17 +2736,17 @@ LABEL_131:
       goto LABEL_158;
     }
 
-    v17 = 1;
+    v15 = 1;
   }
 
   else
   {
-    v17 = (*(equalCopy + 39) & 0x20) == 0;
+    v15 = (*(equalCopy + 39) & 0x20) == 0;
   }
 
 LABEL_159:
 
-  return v17;
+  return v15;
 }
 
 - (unint64_t)hash

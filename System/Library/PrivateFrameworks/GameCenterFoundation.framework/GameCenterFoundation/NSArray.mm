@@ -10,29 +10,35 @@ uint64_t __58__NSArray_GKCollectionUtils___gkMapConcurrentlyWithBlock___block_in
   v7 = *(v6 + 8 * a3);
   *(v6 + 8 * a3) = v5;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v5, v7);
 }
 
 uint64_t __46__NSArray_GKCollectionUtils___gkMapWithBlock___block_invoke(uint64_t a1)
 {
   v2 = (*(*(a1 + 40) + 16))();
+  v3 = v2;
   if (v2)
   {
-    [*(a1 + 32) addObject:v2];
+    v5 = v2;
+    v2 = [*(a1 + 32) addObject:v2];
+    v3 = v5;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 uint64_t __49__NSArray_GKCollectionUtils___gkFilterWithBlock___block_invoke(uint64_t a1)
 {
   v2 = (*(*(a1 + 40) + 16))();
+  v3 = v2;
   if (v2)
   {
-    [*(a1 + 32) addObject:v2];
+    v5 = v2;
+    v2 = [*(a1 + 32) addObject:v2];
+    v3 = v5;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 void __57__NSArray_GKCollectionUtils___gkSubarraysByKeyWithBlock___block_invoke(uint64_t a1, void *a2)
@@ -91,41 +97,40 @@ void *__56__NSArray_ScopedIDs___gkUpdateInternalPlayersScopedIDs___block_invoke(
 
 void __56__NSArray_ScopedIDs___gkUpdateInternalPlayersScopedIDs___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         v10 = [v9 playerID];
         v11 = [v3 objectForKeyedSubscript:v10];
         [v9 setScopedIDs:v11];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 id __70__NSArray_GKPlayerCanonicalization___gkIncompletePlayersFromPlayerIDs__block_invoke(uint64_t a1, void *a2)
@@ -347,10 +352,9 @@ id __59__NSArray_GKGuestPlayerFilters___gkGuestPlayersFromPlayers__block_invoke(
 
 void __60__NSArray_GKPlayerCanonicalization___gkInternalsFromPlayers__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_227904000, v0, OS_LOG_TYPE_DEBUG, "filtering player internal with nil playerID %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_227904000, v0, OS_LOG_TYPE_DEBUG, "filtering player internal with nil playerID %@", v1, 0xCu);
 }
 
 @end

@@ -24,14 +24,14 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFCameraGeneralObservable.cameraGeneralService(_:didUpdateOn:)();
+  CAFCameraGeneralObservable.cameraGeneralService(_:didUpdateOn:)(selfCopy, on);
 }
 
 - (void)cameraGeneralService:(id)service didUpdateUserDismissible:(BOOL)dismissible
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFCameraGeneralObservable.cameraGeneralService(_:didUpdateUserDismissible:)();
+  CAFCameraGeneralObservable.cameraGeneralService(_:didUpdateUserDismissible:)(selfCopy, dismissible);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

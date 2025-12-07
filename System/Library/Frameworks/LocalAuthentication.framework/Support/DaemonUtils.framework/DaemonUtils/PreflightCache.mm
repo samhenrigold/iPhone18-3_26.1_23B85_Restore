@@ -5,6 +5,8 @@
 - (PreflightCache)init;
 - (id)acquireBypassAssertionWithReason:(id)reason;
 - (id)cachedPreflightResultForKey:(id)key;
+- (id)keyForPreflightOfACL:(id)l operation:(id)operation options:(id)options auditToken:(id *)token uid:(unsigned int)uid;
+- (id)keyForPreflightOfPolicy:(int64_t)policy options:(id)options auditToken:(id *)token uid:(unsigned int)uid;
 - (void)addPreflightResult:(id)result forKey:(id)key;
 - (void)invalidateWithReason:(id)reason;
 @end
@@ -32,10 +34,10 @@ uint64_t __32__PreflightCache_sharedInstance__block_invoke()
 
 - (PreflightCache)init
 {
-  v23[8] = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = PreflightCache;
-  v2 = [(PreflightCache *)&v22 init];
+  v22[8] = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = PreflightCache;
+  v2 = [(PreflightCache *)&v21 init];
   if (v2)
   {
     v3 = objc_opt_new();
@@ -48,15 +50,15 @@ uint64_t __32__PreflightCache_sharedInstance__block_invoke()
     v2->_bypassAssertions = weakObjectsHashTable;
 
     v7 = [[BiometryLockoutInvalidationSource alloc] initWithPreflightCache:v2];
-    v23[0] = v7;
+    v22[0] = v7;
     v8 = [[DarwinNotificationInvalidationSource alloc] initWithPreflightCache:v2 notificationName:"com.apple.BiometricKit.enrollmentChanged"];
-    v23[1] = v8;
+    v22[1] = v8;
     v9 = [[DarwinNotificationInvalidationSource alloc] initWithPreflightCache:v2 notificationName:"com.apple.BiometricKit.systemProtectedConfigUpdated"];
-    v23[2] = v9;
+    v22[2] = v9;
     v10 = [[DarwinNotificationInvalidationSource alloc] initWithPreflightCache:v2 notificationName:"com.apple.BiometricKit.userProtectedConfigUpdated"];
-    v23[3] = v10;
+    v22[3] = v10;
     v11 = [[DarwinNotificationInvalidationSource alloc] initWithPreflightCache:v2 notificationName:"com.apple.BiometricKit.connectedAccessoriesChanged"];
-    v23[4] = v11;
+    v22[4] = v11;
     v12 = +[(LACBiometryHelper *)BiometryHelper];
     if ([v12 biometryType] == 2)
     {
@@ -69,26 +71,76 @@ uint64_t __32__PreflightCache_sharedInstance__block_invoke()
     }
 
     v14 = v13;
-    v23[5] = v13;
+    v22[5] = v13;
     v15 = [[PasscodeInvalidationSource alloc] initWithPreflightCache:v2];
-    v23[6] = v15;
+    v22[6] = v15;
     v16 = [NotificationCenterInvalidationSource alloc];
     v17 = [(NotificationCenterInvalidationSource *)v16 initWithPreflightCache:v2 notificationName:*MEMORY[0x277CBE620]];
-    v23[7] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:8];
+    v22[7] = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:8];
     invalidationSources = v2->_invalidationSources;
     v2->_invalidationSources = v18;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v2;
+}
+
+- (id)keyForPreflightOfPolicy:(int64_t)policy options:(id)options auditToken:(id *)token uid:(unsigned int)uid
+{
+  v6 = *&uid;
+  v15[3] = *MEMORY[0x277D85DE8];
+  optionsCopy = options;
+  if (optionsCopy && [(PreflightCache *)self _isCacheable:optionsCopy callerUid:v6]&& [(PreflightCache *)self _isPolicyCacheable:policy])
+  {
+    v11 = [MEMORY[0x277CCABB0] numberWithInteger:policy];
+    v12 = [MEMORY[0x277CBEA90] dataWithBytes:token length:{32, v11, optionsCopy}];
+    v15[2] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
+}
+
+- (id)keyForPreflightOfACL:(id)l operation:(id)operation options:(id)options auditToken:(id *)token uid:(unsigned int)uid
+{
+  v7 = *&uid;
+  v19[4] = *MEMORY[0x277D85DE8];
+  lCopy = l;
+  operationCopy = operation;
+  optionsCopy = options;
+  v15 = optionsCopy;
+  v16 = 0;
+  if (lCopy && operationCopy && optionsCopy)
+  {
+    if ([(PreflightCache *)self _isCacheable:optionsCopy callerUid:v7])
+    {
+      v19[0] = lCopy;
+      v19[1] = operationCopy;
+      v19[2] = v15;
+      v17 = [MEMORY[0x277CBEA90] dataWithBytes:token length:32];
+      v19[3] = v17;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+  }
+
+  return v16;
 }
 
 - (id)cachedPreflightResultForKey:(id)key
 {
   keyCopy = key;
   v5 = [(NSCache *)self->_cache objectForKey:keyCopy];
-  v6 = LA_LOG_0();
+  v6 = LA_LOG_0(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [(PreflightCache *)keyCopy cachedPreflightResultForKey:v5];
@@ -104,7 +156,7 @@ uint64_t __32__PreflightCache_sharedInstance__block_invoke()
   v8 = keyCopy;
   if (resultCopy && keyCopy)
   {
-    v9 = LA_LOG_0();
+    v9 = LA_LOG_0(keyCopy);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [PreflightCache addPreflightResult:v8 forKey:resultCopy];
@@ -116,18 +168,17 @@ uint64_t __32__PreflightCache_sharedInstance__block_invoke()
 
 - (void)invalidateWithReason:(id)reason
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  v5 = LA_LOG_0();
+  v5 = LA_LOG_0(reasonCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = reasonCopy;
-    _os_log_impl(&dword_238B7F000, v5, OS_LOG_TYPE_DEFAULT, "Invalidating preflight cache (%{public}@)", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = reasonCopy;
+    _os_log_impl(&dword_238B7F000, v5, OS_LOG_TYPE_DEFAULT, "Invalidating preflight cache (%{public}@)", &v6, 0xCu);
   }
 
   [(NSCache *)self->_cache removeAllObjects];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)acquireBypassAssertionWithReason:(id)reason
@@ -193,24 +244,18 @@ uint64_t __41__PreflightCache__isCacheable_callerUid___block_invoke(uint64_t a1)
 
 - (void)cachedPreflightResultForKey:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = [a2 domain];
   [a2 code];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_238B7F000, v4, v5, "Queried preflight cache for %@: %{public}@[%d]", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_238B7F000, v4, v5, "Queried preflight cache for %@: %{public}@[%d]", v6, v7, v8, v9);
 }
 
 - (void)addPreflightResult:(uint64_t)a1 forKey:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = [a2 domain];
   [a2 code];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_238B7F000, v4, v5, "Will cache preflight result for %@: %{public}@[%d]", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_238B7F000, v4, v5, "Will cache preflight result for %@: %{public}@[%d]", v6, v7, v8, v9);
 }
 
 @end

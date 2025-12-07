@@ -1,7 +1,7 @@
 @interface FigCaptureSessionParsedConfigurationRestrictions
 - (FigCaptureSessionParsedConfigurationRestrictions)initWithAllowedAVMediaTypes:(id)types clientIsNonStandard:(BOOL)standard;
 - (FigCaptureSessionParsedConfigurationRestrictions)initWithClientAuditToken:(id *)token;
-- (uint64_t)_parseRestrictionsWithAllowedAVMediaTypes:(int)types clientIsNonStandard:;
+- (void)_parseRestrictionsWithAllowedAVMediaTypes:(uint64_t)types clientIsNonStandard:;
 - (void)dealloc;
 @end
 
@@ -54,7 +54,7 @@
   [(FigCaptureSessionParsedConfigurationRestrictions *)&v3 dealloc];
 }
 
-- (uint64_t)_parseRestrictionsWithAllowedAVMediaTypes:(int)types clientIsNonStandard:
+- (void)_parseRestrictionsWithAllowedAVMediaTypes:(uint64_t)types clientIsNonStandard:
 {
   if (result)
   {
@@ -87,9 +87,9 @@ LABEL_29:
         v39 = array2;
         [array2 removeAllObjects];
 LABEL_32:
-        *(v4 + 16) = [v38 copy];
+        v4[2] = [v38 copy];
         result = [v39 copy];
-        *(v4 + 24) = result;
+        v4[3] = result;
         return result;
       }
 
@@ -170,7 +170,7 @@ LABEL_32:
             else
             {
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) == 0 || ![v13 isEqualToString:@"AVMediaTypeMetadataObject"])
+              if ((objc_opt_isKindOfClass() & 1) == 0 || !objc_msgSend_isEqualToString_(v13))
               {
                 goto LABEL_29;
               }
@@ -325,13 +325,6 @@ LABEL_20:
   }
 
   return result;
-}
-
-- (uint64_t)initWithClientAuditToken:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 @end

@@ -64,23 +64,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::blendColor(WebKit::RemoteGraphicsConte
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::blendFuncSeparate(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::blendFuncSeparate(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v5 = *(this + 7);
+  if (v5)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::blendFuncSeparate(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v5 + 2);
+    result = WebCore::GraphicsContextGLANGLE::blendFuncSeparate(v5);
+    if (*(v5 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v7 = *(*v5 + 16);
 
-      return v3(v1);
+      return v7(v5);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v5 + 2);
     }
   }
 
@@ -122,23 +122,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::clearColor(WebKit::RemoteGraphicsConte
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::colorMask(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::colorMask(WebKit::RemoteGraphicsContextGL *this, unsigned __int8 a2, unsigned __int8 a3, unsigned __int8 a4, unsigned __int8 a5)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v5 = *(this + 7);
+  if (v5)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::colorMask(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v5 + 2);
+    result = WebCore::GraphicsContextGLANGLE::colorMask(v5);
+    if (*(v5 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v7 = *(*v5 + 16);
 
-      return v3(v1);
+      return v7(v5);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v5 + 2);
     }
   }
 
@@ -209,23 +209,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::copyTexSubImage2D(WebKit::RemoteGraphi
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::drawElements(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::drawElements(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, int a3, unsigned int a4, uint64_t a5)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v5 = *(this + 7);
+  if (v5)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::drawElements(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v5 + 2);
+    result = WebCore::GraphicsContextGLANGLE::drawElements(v5);
+    if (*(v5 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v7 = *(*v5 + 16);
 
-      return v3(v1);
+      return v7(v5);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v5 + 2);
     }
   }
 
@@ -274,30 +274,30 @@ uint64_t WebKit::RemoteGraphicsContextGL::framebufferRenderbuffer(uint64_t this,
   return this;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::framebufferTexture2D(uint64_t this, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5)
+uint64_t WebKit::RemoteGraphicsContextGL::framebufferTexture2D(uint64_t this, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, int a6)
 {
-  v7 = a5;
+  v8 = a5;
   if (a5 <= 0xFFFFFFFD)
   {
-    v5 = this;
+    v6 = this;
     if (a5)
     {
-      v7 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>((this + 216), &v7);
+      v8 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>((this + 216), &v8);
     }
 
-    v6 = *(v5 + 56);
-    if (v6)
+    v7 = *(v6 + 56);
+    if (v7)
     {
-      ++*(v6 + 2);
-      this = WebCore::GraphicsContextGLANGLE::framebufferTexture2D(v6);
-      if (*(v6 + 2) == 1)
+      ++*(v7 + 2);
+      this = WebCore::GraphicsContextGLANGLE::framebufferTexture2D(v7);
+      if (*(v7 + 2) == 1)
       {
-        return (*(*v6 + 16))(v6);
+        return (*(*v7 + 16))(v7);
       }
 
       else
       {
-        --*(v6 + 2);
+        --*(v7 + 2);
       }
     }
 
@@ -310,23 +310,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::framebufferTexture2D(uint64_t this, un
   return this;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::renderbufferStorage(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::renderbufferStorage(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, unsigned int a3, int a4, int a5)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v5 = *(this + 7);
+  if (v5)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::renderbufferStorage(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v5 + 2);
+    result = WebCore::GraphicsContextGLANGLE::renderbufferStorage(v5);
+    if (*(v5 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v7 = *(*v5 + 16);
 
-      return v3(v1);
+      return v7(v5);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v5 + 2);
     }
   }
 
@@ -339,23 +339,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::renderbufferStorage(WebKit::RemoteGrap
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::scissor(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::scissor(WebKit::RemoteGraphicsContextGL *this, int a2, int a3, int a4, int a5)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v5 = *(this + 7);
+  if (v5)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::scissor(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v5 + 2);
+    result = WebCore::GraphicsContextGLANGLE::scissor(v5);
+    if (*(v5 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v7 = *(*v5 + 16);
 
-      return v3(v1);
+      return v7(v5);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v5 + 2);
     }
   }
 
@@ -405,23 +405,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::shaderSource(uint64_t result, uint64_t
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::stencilFuncSeparate(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::stencilFuncSeparate(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, unsigned int a3, int a4, unsigned int a5)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v5 = *(this + 7);
+  if (v5)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::stencilFuncSeparate(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v5 + 2);
+    result = WebCore::GraphicsContextGLANGLE::stencilFuncSeparate(v5);
+    if (*(v5 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v7 = *(*v5 + 16);
 
-      return v3(v1);
+      return v7(v5);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v5 + 2);
     }
   }
 
@@ -434,23 +434,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::stencilFuncSeparate(WebKit::RemoteGrap
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::stencilOpSeparate(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::stencilOpSeparate(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v5 = *(this + 7);
+  if (v5)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::stencilOpSeparate(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v5 + 2);
+    result = WebCore::GraphicsContextGLANGLE::stencilOpSeparate(v5);
+    if (*(v5 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v7 = *(*v5 + 16);
 
-      return v3(v1);
+      return v7(v5);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v5 + 2);
     }
   }
 
@@ -463,52 +463,52 @@ uint64_t WebKit::RemoteGraphicsContextGL::stencilOpSeparate(WebKit::RemoteGraphi
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::uniform3f(WebKit::RemoteGraphicsContextGL *this, float a2, float a3, float a4)
+uint64_t WebKit::RemoteGraphicsContextGL::uniform3f(WebKit::RemoteGraphicsContextGL *this, int a2, float a3, float a4, float a5)
 {
-  v4 = *(this + 7);
-  if (v4)
+  v5 = *(this + 7);
+  if (v5)
   {
-    ++*(v4 + 2);
-    result = WebCore::GraphicsContextGLANGLE::uniform3f(v4, a2, a3, a4);
-    if (*(v4 + 2) == 1)
+    ++*(v5 + 2);
+    result = WebCore::GraphicsContextGLANGLE::uniform3f(v5, a3, a4, a5);
+    if (*(v5 + 2) == 1)
     {
-      v6 = *(*v4 + 16);
+      v7 = *(*v5 + 16);
 
-      return v6(v4);
+      return v7(v5);
     }
 
     else
     {
-      --*(v4 + 2);
+      --*(v5 + 2);
     }
   }
 
   else
   {
 
-    return WebCore::GraphicsContextGLANGLE::uniform3f(0, a2, a3, a4);
+    return WebCore::GraphicsContextGLANGLE::uniform3f(0, a3, a4, a5);
   }
 
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::uniform3i(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::uniform3i(WebKit::RemoteGraphicsContextGL *this, int a2, int a3, int a4, int a5)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v5 = *(this + 7);
+  if (v5)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::uniform3i(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v5 + 2);
+    result = WebCore::GraphicsContextGLANGLE::uniform3i(v5);
+    if (*(v5 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v7 = *(*v5 + 16);
 
-      return v3(v1);
+      return v7(v5);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v5 + 2);
     }
   }
 
@@ -521,13 +521,129 @@ uint64_t WebKit::RemoteGraphicsContextGL::uniform3i(WebKit::RemoteGraphicsContex
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::uniform4f(WebKit::RemoteGraphicsContextGL *this, float a2, float a3, float a4, float a5)
+uint64_t WebKit::RemoteGraphicsContextGL::uniform4f(WebKit::RemoteGraphicsContextGL *this, int a2, float a3, float a4, float a5, float a6)
+{
+  v6 = *(this + 7);
+  if (v6)
+  {
+    ++*(v6 + 2);
+    result = WebCore::GraphicsContextGLANGLE::uniform4f(v6, a3, a4, a5, a6);
+    if (*(v6 + 2) == 1)
+    {
+      v8 = *(*v6 + 16);
+
+      return v8(v6);
+    }
+
+    else
+    {
+      --*(v6 + 2);
+    }
+  }
+
+  else
+  {
+
+    return WebCore::GraphicsContextGLANGLE::uniform4f(0, a3, a4, a5, a6);
+  }
+
+  return result;
+}
+
+uint64_t WebKit::RemoteGraphicsContextGL::uniform4i(WebKit::RemoteGraphicsContextGL *this, int a2, int a3, int a4, int a5, int a6)
+{
+  v6 = *(this + 7);
+  if (v6)
+  {
+    ++*(v6 + 2);
+    result = WebCore::GraphicsContextGLANGLE::uniform4i(v6);
+    if (*(v6 + 2) == 1)
+    {
+      v8 = *(*v6 + 16);
+
+      return v8(v6);
+    }
+
+    else
+    {
+      --*(v6 + 2);
+    }
+  }
+
+  else
+  {
+
+    return WebCore::GraphicsContextGLANGLE::uniform4i(0);
+  }
+
+  return result;
+}
+
+uint64_t WebKit::RemoteGraphicsContextGL::vertexAttrib1fv(uint64_t a1, uint64_t a2, void *a3)
+{
+  v3 = *(a1 + 56);
+  if (v3)
+  {
+    ++v3[2];
+    result = WebCore::GraphicsContextGLANGLE::vertexAttrib1fv();
+    if (v3[2] == 1)
+    {
+      v5 = *(*v3 + 16);
+
+      return v5(v3);
+    }
+
+    else
+    {
+      --v3[2];
+    }
+  }
+
+  else
+  {
+
+    return WebCore::GraphicsContextGLANGLE::vertexAttrib1fv();
+  }
+
+  return result;
+}
+
+uint64_t WebKit::RemoteGraphicsContextGL::vertexAttrib2fv(uint64_t a1, uint64_t a2, void *a3)
+{
+  v3 = *(a1 + 56);
+  if (v3)
+  {
+    ++v3[2];
+    result = WebCore::GraphicsContextGLANGLE::vertexAttrib2fv();
+    if (v3[2] == 1)
+    {
+      v5 = *(*v3 + 16);
+
+      return v5(v3);
+    }
+
+    else
+    {
+      --v3[2];
+    }
+  }
+
+  else
+  {
+
+    return WebCore::GraphicsContextGLANGLE::vertexAttrib2fv();
+  }
+
+  return result;
+}
+
+uint64_t WebKit::RemoteGraphicsContextGL::vertexAttrib3f(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, float a3, float a4, float a5)
 {
   v5 = *(this + 7);
   if (v5)
   {
     ++*(v5 + 2);
-    result = WebCore::GraphicsContextGLANGLE::uniform4f(v5, a2, a3, a4, a5);
+    result = WebCore::GraphicsContextGLANGLE::vertexAttrib3f(v5, a3, a4, a5);
     if (*(v5 + 2) == 1)
     {
       v7 = *(*v5 + 16);
@@ -544,106 +660,164 @@ uint64_t WebKit::RemoteGraphicsContextGL::uniform4f(WebKit::RemoteGraphicsContex
   else
   {
 
-    return WebCore::GraphicsContextGLANGLE::uniform4f(0, a2, a3, a4, a5);
+    return WebCore::GraphicsContextGLANGLE::vertexAttrib3f(0, a3, a4, a5);
   }
 
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::uniform4i(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::vertexAttrib3fv(uint64_t a1, uint64_t a2, void *a3)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v3 = *(a1 + 56);
+  if (v3)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::uniform4i(v1);
-    if (*(v1 + 2) == 1)
+    ++v3[2];
+    result = WebCore::GraphicsContextGLANGLE::vertexAttrib3fv();
+    if (v3[2] == 1)
     {
-      v3 = *(*v1 + 16);
+      v5 = *(*v3 + 16);
 
-      return v3(v1);
+      return v5(v3);
     }
 
     else
     {
-      --*(v1 + 2);
+      --v3[2];
     }
   }
 
   else
   {
 
-    return WebCore::GraphicsContextGLANGLE::uniform4i(0);
+    return WebCore::GraphicsContextGLANGLE::vertexAttrib3fv();
   }
 
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::vertexAttrib1fv(uint64_t a1)
+uint64_t WebKit::RemoteGraphicsContextGL::vertexAttrib4f(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, float a3, float a4, float a5, float a6)
 {
-  v1 = *(a1 + 56);
-  if (v1)
+  v6 = *(this + 7);
+  if (v6)
   {
-    ++v1[2];
-    result = WebCore::GraphicsContextGLANGLE::vertexAttrib1fv();
-    if (v1[2] == 1)
+    ++*(v6 + 2);
+    result = WebCore::GraphicsContextGLANGLE::vertexAttrib4f(v6, a3, a4, a5, a6);
+    if (*(v6 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v8 = *(*v6 + 16);
 
-      return v3(v1);
+      return v8(v6);
     }
 
     else
     {
-      --v1[2];
+      --*(v6 + 2);
     }
   }
 
   else
   {
 
-    return WebCore::GraphicsContextGLANGLE::vertexAttrib1fv();
+    return WebCore::GraphicsContextGLANGLE::vertexAttrib4f(0, a3, a4, a5, a6);
   }
 
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::vertexAttrib2fv(uint64_t a1)
+uint64_t WebKit::RemoteGraphicsContextGL::vertexAttrib4fv(uint64_t a1, uint64_t a2, void *a3)
 {
-  v1 = *(a1 + 56);
-  if (v1)
+  v3 = *(a1 + 56);
+  if (v3)
   {
-    ++v1[2];
-    result = WebCore::GraphicsContextGLANGLE::vertexAttrib2fv();
-    if (v1[2] == 1)
+    ++v3[2];
+    result = WebCore::GraphicsContextGLANGLE::vertexAttrib4fv();
+    if (v3[2] == 1)
     {
-      v3 = *(*v1 + 16);
+      v5 = *(*v3 + 16);
 
-      return v3(v1);
+      return v5(v3);
     }
 
     else
     {
-      --v1[2];
+      --v3[2];
     }
   }
 
   else
   {
 
-    return WebCore::GraphicsContextGLANGLE::vertexAttrib2fv();
+    return WebCore::GraphicsContextGLANGLE::vertexAttrib4fv();
   }
 
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::vertexAttrib3f(WebKit::RemoteGraphicsContextGL *this, float a2, float a3, float a4)
+uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribPointer(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, int a3, unsigned int a4, unsigned __int8 a5, int a6, uint64_t a7)
+{
+  v7 = *(this + 7);
+  if (v7)
+  {
+    ++*(v7 + 2);
+    result = WebCore::GraphicsContextGLANGLE::vertexAttribPointer(v7);
+    if (*(v7 + 2) == 1)
+    {
+      v9 = *(*v7 + 16);
+
+      return v9(v7);
+    }
+
+    else
+    {
+      --*(v7 + 2);
+    }
+  }
+
+  else
+  {
+
+    return WebCore::GraphicsContextGLANGLE::vertexAttribPointer(0);
+  }
+
+  return result;
+}
+
+uint64_t WebKit::RemoteGraphicsContextGL::viewport(WebKit::RemoteGraphicsContextGL *this, int a2, int a3, int a4, int a5)
+{
+  v5 = *(this + 7);
+  if (v5)
+  {
+    ++*(v5 + 2);
+    result = WebCore::GraphicsContextGLANGLE::viewport(v5);
+    if (*(v5 + 2) == 1)
+    {
+      v7 = *(*v5 + 16);
+
+      return v7(v5);
+    }
+
+    else
+    {
+      --*(v5 + 2);
+    }
+  }
+
+  else
+  {
+
+    return WebCore::GraphicsContextGLANGLE::viewport(0);
+  }
+
+  return result;
+}
+
+uint64_t WebKit::RemoteGraphicsContextGL::bufferData0(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, uint64_t a3, unsigned int a4)
 {
   v4 = *(this + 7);
   if (v4)
   {
     ++*(v4 + 2);
-    result = WebCore::GraphicsContextGLANGLE::vertexAttrib3f(v4, a2, a3, a4);
+    result = WebCore::GraphicsContextGLANGLE::bufferData(v4);
     if (*(v4 + 2) == 1)
     {
       v6 = *(*v4 + 16);
@@ -660,203 +834,29 @@ uint64_t WebKit::RemoteGraphicsContextGL::vertexAttrib3f(WebKit::RemoteGraphicsC
   else
   {
 
-    return WebCore::GraphicsContextGLANGLE::vertexAttrib3f(0, a2, a3, a4);
-  }
-
-  return result;
-}
-
-uint64_t WebKit::RemoteGraphicsContextGL::vertexAttrib3fv(uint64_t a1)
-{
-  v1 = *(a1 + 56);
-  if (v1)
-  {
-    ++v1[2];
-    result = WebCore::GraphicsContextGLANGLE::vertexAttrib3fv();
-    if (v1[2] == 1)
-    {
-      v3 = *(*v1 + 16);
-
-      return v3(v1);
-    }
-
-    else
-    {
-      --v1[2];
-    }
-  }
-
-  else
-  {
-
-    return WebCore::GraphicsContextGLANGLE::vertexAttrib3fv();
-  }
-
-  return result;
-}
-
-uint64_t WebKit::RemoteGraphicsContextGL::vertexAttrib4f(WebKit::RemoteGraphicsContextGL *this, float a2, float a3, float a4, float a5)
-{
-  v5 = *(this + 7);
-  if (v5)
-  {
-    ++*(v5 + 2);
-    result = WebCore::GraphicsContextGLANGLE::vertexAttrib4f(v5, a2, a3, a4, a5);
-    if (*(v5 + 2) == 1)
-    {
-      v7 = *(*v5 + 16);
-
-      return v7(v5);
-    }
-
-    else
-    {
-      --*(v5 + 2);
-    }
-  }
-
-  else
-  {
-
-    return WebCore::GraphicsContextGLANGLE::vertexAttrib4f(0, a2, a3, a4, a5);
-  }
-
-  return result;
-}
-
-uint64_t WebKit::RemoteGraphicsContextGL::vertexAttrib4fv(uint64_t a1)
-{
-  v1 = *(a1 + 56);
-  if (v1)
-  {
-    ++v1[2];
-    result = WebCore::GraphicsContextGLANGLE::vertexAttrib4fv();
-    if (v1[2] == 1)
-    {
-      v3 = *(*v1 + 16);
-
-      return v3(v1);
-    }
-
-    else
-    {
-      --v1[2];
-    }
-  }
-
-  else
-  {
-
-    return WebCore::GraphicsContextGLANGLE::vertexAttrib4fv();
-  }
-
-  return result;
-}
-
-uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribPointer(WebKit::RemoteGraphicsContextGL *this)
-{
-  v1 = *(this + 7);
-  if (v1)
-  {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::vertexAttribPointer(v1);
-    if (*(v1 + 2) == 1)
-    {
-      v3 = *(*v1 + 16);
-
-      return v3(v1);
-    }
-
-    else
-    {
-      --*(v1 + 2);
-    }
-  }
-
-  else
-  {
-
-    return WebCore::GraphicsContextGLANGLE::vertexAttribPointer(0);
-  }
-
-  return result;
-}
-
-uint64_t WebKit::RemoteGraphicsContextGL::viewport(WebKit::RemoteGraphicsContextGL *this)
-{
-  v1 = *(this + 7);
-  if (v1)
-  {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::viewport(v1);
-    if (*(v1 + 2) == 1)
-    {
-      v3 = *(*v1 + 16);
-
-      return v3(v1);
-    }
-
-    else
-    {
-      --*(v1 + 2);
-    }
-  }
-
-  else
-  {
-
-    return WebCore::GraphicsContextGLANGLE::viewport(0);
-  }
-
-  return result;
-}
-
-uint64_t WebKit::RemoteGraphicsContextGL::bufferData0(WebKit::RemoteGraphicsContextGL *this)
-{
-  v1 = *(this + 7);
-  if (v1)
-  {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::bufferData(v1);
-    if (*(v1 + 2) == 1)
-    {
-      v3 = *(*v1 + 16);
-
-      return v3(v1);
-    }
-
-    else
-    {
-      --*(v1 + 2);
-    }
-  }
-
-  else
-  {
-
     return WebCore::GraphicsContextGLANGLE::bufferData(0);
   }
 
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::bufferData1(uint64_t a1)
+uint64_t WebKit::RemoteGraphicsContextGL::bufferData1(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v1 = *(a1 + 56);
-  if (v1)
+  v4 = *(a1 + 56);
+  if (v4)
   {
-    ++v1[2];
+    ++v4[2];
     result = WebCore::GraphicsContextGLANGLE::bufferData();
-    if (v1[2] == 1)
+    if (v4[2] == 1)
     {
-      v3 = *(*v1 + 16);
+      v6 = *(*v4 + 16);
 
-      return v3(v1);
+      return v6(v4);
     }
 
     else
     {
-      --v1[2];
+      --v4[2];
     }
   }
 
@@ -869,23 +869,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::bufferData1(uint64_t a1)
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::bufferSubData(uint64_t a1)
+uint64_t WebKit::RemoteGraphicsContextGL::bufferSubData(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v1 = *(a1 + 56);
-  if (v1)
+  v4 = *(a1 + 56);
+  if (v4)
   {
-    ++v1[2];
+    ++v4[2];
     result = WebCore::GraphicsContextGLANGLE::bufferSubData();
-    if (v1[2] == 1)
+    if (v4[2] == 1)
     {
-      v3 = *(*v1 + 16);
+      v6 = *(*v4 + 16);
 
-      return v3(v1);
+      return v6(v4);
     }
 
     else
     {
-      --v1[2];
+      --v4[2];
     }
   }
 
@@ -898,31 +898,31 @@ uint64_t WebKit::RemoteGraphicsContextGL::bufferSubData(uint64_t a1)
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::readPixelsBufferObject(uint64_t a1, IntRect *a2)
+uint64_t WebKit::RemoteGraphicsContextGL::readPixelsBufferObject(uint64_t a1, IntRect *a2, unsigned int a3, unsigned int a4, uint64_t a5, int a6, int a7)
 {
-  v2 = *(a1 + 56);
-  if (v2)
+  v7 = *(a1 + 56);
+  if (v7)
   {
-    ++*(v2 + 2);
-    result = WebCore::GraphicsContextGLANGLE::readPixelsBufferObject(v2, *a2);
-    if (*(v2 + 2) == 1)
+    ++*(v7 + 2);
+    result = WebCore::GraphicsContextGLANGLE::readPixelsBufferObject(v7, *a2);
+    if (*(v7 + 2) == 1)
     {
-      v4 = *(*v2 + 16);
+      v9 = *(*v7 + 16);
 
-      return v4(v2);
+      return v9(v7);
     }
 
     else
     {
-      --*(v2 + 2);
+      --*(v7 + 2);
     }
   }
 
   else
   {
-    v5 = *a2;
+    v10 = *a2;
 
-    return WebCore::GraphicsContextGLANGLE::readPixelsBufferObject(0, v5);
+    return WebCore::GraphicsContextGLANGLE::readPixelsBufferObject(0, v10);
   }
 
   return result;
@@ -1144,23 +1144,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::compressedTexSubImage2D1(WebKit::Remot
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::drawArraysInstanced(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::drawArraysInstanced(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, int a3, int a4, int a5)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v5 = *(this + 7);
+  if (v5)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::drawArraysInstanced(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v5 + 2);
+    result = WebCore::GraphicsContextGLANGLE::drawArraysInstanced(v5);
+    if (*(v5 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v7 = *(*v5 + 16);
 
-      return v3(v1);
+      return v7(v5);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v5 + 2);
     }
   }
 
@@ -1173,23 +1173,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::drawArraysInstanced(WebKit::RemoteGrap
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::drawElementsInstanced(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::drawElementsInstanced(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, int a3, unsigned int a4, uint64_t a5, int a6)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v6 = *(this + 7);
+  if (v6)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::drawElementsInstanced(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v6 + 2);
+    result = WebCore::GraphicsContextGLANGLE::drawElementsInstanced(v6);
+    if (*(v6 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v8 = *(*v6 + 16);
 
-      return v3(v1);
+      return v8(v6);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v6 + 2);
     }
   }
 
@@ -1202,23 +1202,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::drawElementsInstanced(WebKit::RemoteGr
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::copyBufferSubData(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::copyBufferSubData(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v6 = *(this + 7);
+  if (v6)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::copyBufferSubData(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v6 + 2);
+    result = WebCore::GraphicsContextGLANGLE::copyBufferSubData(v6);
+    if (*(v6 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v8 = *(*v6 + 16);
 
-      return v3(v1);
+      return v8(v6);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v6 + 2);
     }
   }
 
@@ -1260,30 +1260,30 @@ uint64_t WebKit::RemoteGraphicsContextGL::blitFramebuffer(WebKit::RemoteGraphics
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::framebufferTextureLayer(uint64_t this, unsigned int a2, unsigned int a3, unsigned int a4)
+uint64_t WebKit::RemoteGraphicsContextGL::framebufferTextureLayer(uint64_t this, unsigned int a2, unsigned int a3, unsigned int a4, int a5, int a6)
 {
-  v6 = a4;
+  v8 = a4;
   if (a4 <= 0xFFFFFFFD)
   {
-    v4 = this;
+    v6 = this;
     if (a4)
     {
-      v6 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>((this + 216), &v6);
+      v8 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>((this + 216), &v8);
     }
 
-    v5 = *(v4 + 56);
-    if (v5)
+    v7 = *(v6 + 56);
+    if (v7)
     {
-      ++*(v5 + 2);
-      this = WebCore::GraphicsContextGLANGLE::framebufferTextureLayer(v5);
-      if (*(v5 + 2) == 1)
+      ++*(v7 + 2);
+      this = WebCore::GraphicsContextGLANGLE::framebufferTextureLayer(v7);
+      if (*(v7 + 2) == 1)
       {
-        return (*(*v5 + 16))(v5);
+        return (*(*v7 + 16))(v7);
       }
 
       else
       {
-        --*(v5 + 2);
+        --*(v7 + 2);
       }
     }
 
@@ -1296,23 +1296,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::framebufferTextureLayer(uint64_t this,
   return this;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::renderbufferStorageMultisample(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::renderbufferStorageMultisample(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, int a3, unsigned int a4, int a5, int a6)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v6 = *(this + 7);
+  if (v6)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::renderbufferStorageMultisample(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v6 + 2);
+    result = WebCore::GraphicsContextGLANGLE::renderbufferStorageMultisample(v6);
+    if (*(v6 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v8 = *(*v6 + 16);
 
-      return v3(v1);
+      return v8(v6);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v6 + 2);
     }
   }
 
@@ -1325,23 +1325,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::renderbufferStorageMultisample(WebKit:
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::texStorage2D(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::texStorage2D(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, int a3, unsigned int a4, int a5, int a6)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v6 = *(this + 7);
+  if (v6)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::texStorage2D(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v6 + 2);
+    result = WebCore::GraphicsContextGLANGLE::texStorage2D(v6);
+    if (*(v6 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v8 = *(*v6 + 16);
 
-      return v3(v1);
+      return v8(v6);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v6 + 2);
     }
   }
 
@@ -1354,23 +1354,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::texStorage2D(WebKit::RemoteGraphicsCon
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::texStorage3D(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::texStorage3D(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, int a3, unsigned int a4, int a5, int a6, int a7)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v7 = *(this + 7);
+  if (v7)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::texStorage3D(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v7 + 2);
+    result = WebCore::GraphicsContextGLANGLE::texStorage3D(v7);
+    if (*(v7 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v9 = *(*v7 + 16);
 
-      return v3(v1);
+      return v9(v7);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v7 + 2);
     }
   }
 
@@ -1628,23 +1628,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::compressedTexSubImage3D1(WebKit::Remot
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::uniform3ui(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::uniform3ui(WebKit::RemoteGraphicsContextGL *this, int a2, unsigned int a3, unsigned int a4, unsigned int a5)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v5 = *(this + 7);
+  if (v5)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::uniform3ui(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v5 + 2);
+    result = WebCore::GraphicsContextGLANGLE::uniform3ui(v5);
+    if (*(v5 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v7 = *(*v5 + 16);
 
-      return v3(v1);
+      return v7(v5);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v5 + 2);
     }
   }
 
@@ -1657,23 +1657,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::uniform3ui(WebKit::RemoteGraphicsConte
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::uniform4ui(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::uniform4ui(WebKit::RemoteGraphicsContextGL *this, int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v6 = *(this + 7);
+  if (v6)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::uniform4ui(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v6 + 2);
+    result = WebCore::GraphicsContextGLANGLE::uniform4ui(v6);
+    if (*(v6 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v8 = *(*v6 + 16);
 
-      return v3(v1);
+      return v8(v6);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v6 + 2);
     }
   }
 
@@ -1686,23 +1686,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::uniform4ui(WebKit::RemoteGraphicsConte
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribI4i(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribI4i(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, int a3, int a4, int a5, int a6)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v6 = *(this + 7);
+  if (v6)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::vertexAttribI4i(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v6 + 2);
+    result = WebCore::GraphicsContextGLANGLE::vertexAttribI4i(v6);
+    if (*(v6 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v8 = *(*v6 + 16);
 
-      return v3(v1);
+      return v8(v6);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v6 + 2);
     }
   }
 
@@ -1715,23 +1715,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribI4i(WebKit::RemoteGraphics
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribI4iv(uint64_t a1)
+uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribI4iv(uint64_t a1, uint64_t a2, void *a3)
 {
-  v1 = *(a1 + 56);
-  if (v1)
+  v3 = *(a1 + 56);
+  if (v3)
   {
-    ++v1[2];
+    ++v3[2];
     result = WebCore::GraphicsContextGLANGLE::vertexAttribI4iv();
-    if (v1[2] == 1)
+    if (v3[2] == 1)
     {
-      v3 = *(*v1 + 16);
+      v5 = *(*v3 + 16);
 
-      return v3(v1);
+      return v5(v3);
     }
 
     else
     {
-      --v1[2];
+      --v3[2];
     }
   }
 
@@ -1744,23 +1744,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribI4iv(uint64_t a1)
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribI4ui(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribI4ui(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v6 = *(this + 7);
+  if (v6)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::vertexAttribI4ui(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v6 + 2);
+    result = WebCore::GraphicsContextGLANGLE::vertexAttribI4ui(v6);
+    if (*(v6 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v8 = *(*v6 + 16);
 
-      return v3(v1);
+      return v8(v6);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v6 + 2);
     }
   }
 
@@ -1773,23 +1773,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribI4ui(WebKit::RemoteGraphic
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribI4uiv(uint64_t a1)
+uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribI4uiv(uint64_t a1, uint64_t a2, void *a3)
 {
-  v1 = *(a1 + 56);
-  if (v1)
+  v3 = *(a1 + 56);
+  if (v3)
   {
-    ++v1[2];
+    ++v3[2];
     result = WebCore::GraphicsContextGLANGLE::vertexAttribI4uiv();
-    if (v1[2] == 1)
+    if (v3[2] == 1)
     {
-      v3 = *(*v1 + 16);
+      v5 = *(*v3 + 16);
 
-      return v3(v1);
+      return v5(v3);
     }
 
     else
     {
-      --v1[2];
+      --v3[2];
     }
   }
 
@@ -1802,23 +1802,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribI4uiv(uint64_t a1)
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribIPointer(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribIPointer(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, int a3, unsigned int a4, int a5, uint64_t a6)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v6 = *(this + 7);
+  if (v6)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::vertexAttribIPointer(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v6 + 2);
+    result = WebCore::GraphicsContextGLANGLE::vertexAttribIPointer(v6);
+    if (*(v6 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v8 = *(*v6 + 16);
 
-      return v3(v1);
+      return v8(v6);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v6 + 2);
     }
   }
 
@@ -1831,23 +1831,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::vertexAttribIPointer(WebKit::RemoteGra
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::drawRangeElements(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::drawRangeElements(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, unsigned int a3, unsigned int a4, int a5, unsigned int a6, uint64_t a7)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v7 = *(this + 7);
+  if (v7)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::drawRangeElements(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v7 + 2);
+    result = WebCore::GraphicsContextGLANGLE::drawRangeElements(v7);
+    if (*(v7 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v9 = *(*v7 + 16);
 
-      return v3(v1);
+      return v9(v7);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v7 + 2);
     }
   }
 
@@ -1860,23 +1860,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::drawRangeElements(WebKit::RemoteGraphi
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::clearBufferiv(uint64_t a1)
+uint64_t WebKit::RemoteGraphicsContextGL::clearBufferiv(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v1 = *(a1 + 56);
-  if (v1)
+  v4 = *(a1 + 56);
+  if (v4)
   {
-    ++v1[2];
+    ++v4[2];
     result = WebCore::GraphicsContextGLANGLE::clearBufferiv();
-    if (v1[2] == 1)
+    if (v4[2] == 1)
     {
-      v3 = *(*v1 + 16);
+      v6 = *(*v4 + 16);
 
-      return v3(v1);
+      return v6(v4);
     }
 
     else
     {
-      --v1[2];
+      --v4[2];
     }
   }
 
@@ -1889,23 +1889,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::clearBufferiv(uint64_t a1)
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::clearBufferuiv(uint64_t a1)
+uint64_t WebKit::RemoteGraphicsContextGL::clearBufferuiv(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v1 = *(a1 + 56);
-  if (v1)
+  v4 = *(a1 + 56);
+  if (v4)
   {
-    ++v1[2];
+    ++v4[2];
     result = WebCore::GraphicsContextGLANGLE::clearBufferuiv();
-    if (v1[2] == 1)
+    if (v4[2] == 1)
     {
-      v3 = *(*v1 + 16);
+      v6 = *(*v4 + 16);
 
-      return v3(v1);
+      return v6(v4);
     }
 
     else
     {
-      --v1[2];
+      --v4[2];
     }
   }
 
@@ -1918,23 +1918,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::clearBufferuiv(uint64_t a1)
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::clearBufferfv(uint64_t a1)
+uint64_t WebKit::RemoteGraphicsContextGL::clearBufferfv(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v1 = *(a1 + 56);
-  if (v1)
+  v4 = *(a1 + 56);
+  if (v4)
   {
-    ++v1[2];
+    ++v4[2];
     result = WebCore::GraphicsContextGLANGLE::clearBufferfv();
-    if (v1[2] == 1)
+    if (v4[2] == 1)
     {
-      v3 = *(*v1 + 16);
+      v6 = *(*v4 + 16);
 
-      return v3(v1);
+      return v6(v4);
     }
 
     else
     {
-      --v1[2];
+      --v4[2];
     }
   }
 
@@ -1947,52 +1947,52 @@ uint64_t WebKit::RemoteGraphicsContextGL::clearBufferfv(uint64_t a1)
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::clearBufferfi(WebKit::RemoteGraphicsContextGL *this, float a2)
+uint64_t WebKit::RemoteGraphicsContextGL::clearBufferfi(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, int a3, float a4, int a5)
 {
-  v2 = *(this + 7);
-  if (v2)
+  v5 = *(this + 7);
+  if (v5)
   {
-    ++*(v2 + 2);
-    result = WebCore::GraphicsContextGLANGLE::clearBufferfi(v2, a2);
-    if (*(v2 + 2) == 1)
+    ++*(v5 + 2);
+    result = WebCore::GraphicsContextGLANGLE::clearBufferfi(v5, a4);
+    if (*(v5 + 2) == 1)
     {
-      v4 = *(*v2 + 16);
+      v7 = *(*v5 + 16);
 
-      return v4(v2);
+      return v7(v5);
     }
 
     else
     {
-      --*(v2 + 2);
+      --*(v5 + 2);
     }
   }
 
   else
   {
 
-    return WebCore::GraphicsContextGLANGLE::clearBufferfi(0, a2);
+    return WebCore::GraphicsContextGLANGLE::clearBufferfi(0, a4);
   }
 
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::waitSync(WebKit::RemoteGraphicsContextGL *this, void *a2)
+uint64_t WebKit::RemoteGraphicsContextGL::waitSync(WebKit::RemoteGraphicsContextGL *this, void *a2, unsigned int a3, uint64_t a4)
 {
-  v2 = *(this + 7);
-  if (v2)
+  v4 = *(this + 7);
+  if (v4)
   {
-    ++*(v2 + 2);
-    result = WebCore::GraphicsContextGLANGLE::waitSync(v2, a2);
-    if (*(v2 + 2) == 1)
+    ++*(v4 + 2);
+    result = WebCore::GraphicsContextGLANGLE::waitSync(v4, a2);
+    if (*(v4 + 2) == 1)
     {
-      v4 = *(*v2 + 16);
+      v6 = *(*v4 + 16);
 
-      return v4(v2);
+      return v6(v4);
     }
 
     else
     {
-      --*(v2 + 2);
+      --*(v4 + 2);
     }
   }
 
@@ -2005,30 +2005,30 @@ uint64_t WebKit::RemoteGraphicsContextGL::waitSync(WebKit::RemoteGraphicsContext
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::transformFeedbackVaryings(uint64_t result, unsigned int a2)
+uint64_t WebKit::RemoteGraphicsContextGL::transformFeedbackVaryings(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = a2;
+  v6 = a2;
   if (a2 <= 0xFFFFFFFD)
   {
-    v2 = result;
+    v4 = result;
     if (a2)
     {
-      v4 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>((result + 216), &v4);
+      v6 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>((result + 216), &v6);
     }
 
-    v3 = *(v2 + 56);
-    if (v3)
+    v5 = *(v4 + 56);
+    if (v5)
     {
-      ++v3[2];
+      ++v5[2];
       result = WebCore::GraphicsContextGLANGLE::transformFeedbackVaryings();
-      if (v3[2] == 1)
+      if (v5[2] == 1)
       {
-        return (*(*v3 + 16))(v3);
+        return (*(*v5 + 16))(v5);
       }
 
       else
       {
-        --v3[2];
+        --v5[2];
       }
     }
 
@@ -2041,30 +2041,30 @@ uint64_t WebKit::RemoteGraphicsContextGL::transformFeedbackVaryings(uint64_t res
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::bindBufferRange(uint64_t this, unsigned int a2, unsigned int a3, unsigned int a4)
+uint64_t WebKit::RemoteGraphicsContextGL::bindBufferRange(uint64_t this, unsigned int a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6)
 {
-  v6 = a4;
+  v8 = a4;
   if (a4 <= 0xFFFFFFFD)
   {
-    v4 = this;
+    v6 = this;
     if (a4)
     {
-      v6 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>((this + 216), &v6);
+      v8 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>((this + 216), &v8);
     }
 
-    v5 = *(v4 + 56);
-    if (v5)
+    v7 = *(v6 + 56);
+    if (v7)
     {
-      ++*(v5 + 2);
-      this = WebCore::GraphicsContextGLANGLE::bindBufferRange(v5);
-      if (*(v5 + 2) == 1)
+      ++*(v7 + 2);
+      this = WebCore::GraphicsContextGLANGLE::bindBufferRange(v7);
+      if (*(v7 + 2) == 1)
       {
-        return (*(*v5 + 16))(v5);
+        return (*(*v7 + 16))(v7);
       }
 
       else
       {
-        --*(v5 + 2);
+        --*(v7 + 2);
       }
     }
 
@@ -2077,23 +2077,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::bindBufferRange(uint64_t this, unsigne
   return this;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::blendFuncSeparateiOES(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::blendFuncSeparateiOES(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v6 = *(this + 7);
+  if (v6)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::blendFuncSeparateiOES(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v6 + 2);
+    result = WebCore::GraphicsContextGLANGLE::blendFuncSeparateiOES(v6);
+    if (*(v6 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v8 = *(*v6 + 16);
 
-      return v3(v1);
+      return v8(v6);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v6 + 2);
     }
   }
 
@@ -2106,23 +2106,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::blendFuncSeparateiOES(WebKit::RemoteGr
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::colorMaskiOES(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::colorMaskiOES(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, unsigned __int8 a3, unsigned __int8 a4, unsigned __int8 a5, unsigned __int8 a6)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v6 = *(this + 7);
+  if (v6)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::colorMaskiOES(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v6 + 2);
+    result = WebCore::GraphicsContextGLANGLE::colorMaskiOES(v6);
+    if (*(v6 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v8 = *(*v6 + 16);
 
-      return v3(v1);
+      return v8(v6);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v6 + 2);
     }
   }
 
@@ -2135,23 +2135,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::colorMaskiOES(WebKit::RemoteGraphicsCo
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::drawArraysInstancedBaseInstanceANGLE(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::drawArraysInstancedBaseInstanceANGLE(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, int a3, int a4, int a5, unsigned int a6)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v6 = *(this + 7);
+  if (v6)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::drawArraysInstancedBaseInstanceANGLE(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v6 + 2);
+    result = WebCore::GraphicsContextGLANGLE::drawArraysInstancedBaseInstanceANGLE(v6);
+    if (*(v6 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v8 = *(*v6 + 16);
 
-      return v3(v1);
+      return v8(v6);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v6 + 2);
     }
   }
 
@@ -2164,23 +2164,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::drawArraysInstancedBaseInstanceANGLE(W
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::drawElementsInstancedBaseVertexBaseInstanceANGLE(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::drawElementsInstancedBaseVertexBaseInstanceANGLE(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, int a3, unsigned int a4, uint64_t a5, int a6, int a7, unsigned int a8)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v8 = *(this + 7);
+  if (v8)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::drawElementsInstancedBaseVertexBaseInstanceANGLE(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v8 + 2);
+    result = WebCore::GraphicsContextGLANGLE::drawElementsInstancedBaseVertexBaseInstanceANGLE(v8);
+    if (*(v8 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v10 = *(*v8 + 16);
 
-      return v3(v1);
+      return v10(v8);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v8 + 2);
     }
   }
 
@@ -2193,23 +2193,23 @@ uint64_t WebKit::RemoteGraphicsContextGL::drawElementsInstancedBaseVertexBaseIns
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::renderbufferStorageMultisampleANGLE(WebKit::RemoteGraphicsContextGL *this)
+uint64_t WebKit::RemoteGraphicsContextGL::renderbufferStorageMultisampleANGLE(WebKit::RemoteGraphicsContextGL *this, unsigned int a2, int a3, unsigned int a4, int a5, int a6)
 {
-  v1 = *(this + 7);
-  if (v1)
+  v6 = *(this + 7);
+  if (v6)
   {
-    ++*(v1 + 2);
-    result = WebCore::GraphicsContextGLANGLE::renderbufferStorageMultisampleANGLE(v1);
-    if (*(v1 + 2) == 1)
+    ++*(v6 + 2);
+    result = WebCore::GraphicsContextGLANGLE::renderbufferStorageMultisampleANGLE(v6);
+    if (*(v6 + 2) == 1)
     {
-      v3 = *(*v1 + 16);
+      v8 = *(*v6 + 16);
 
-      return v3(v1);
+      return v8(v6);
     }
 
     else
     {
-      --*(v1 + 2);
+      --*(v6 + 2);
     }
   }
 
@@ -2251,7 +2251,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::setDrawingBufferColorSpace(uint64_t a1
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::checkFramebufferStatus(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t WebKit::RemoteGraphicsContextGL::checkFramebufferStatus(uint64_t a1, unsigned int a2, uint64_t *a3)
 {
   v4 = *(a1 + 56);
   if (v4)
@@ -2282,7 +2282,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::checkFramebufferStatus(uint64_t a1, ui
   return v7(v6);
 }
 
-uint64_t *WebKit::RemoteGraphicsContextGL::getActiveAttrib(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t *a4)
+WTF::StringImpl *WebKit::RemoteGraphicsContextGL::getActiveAttrib(WTF::StringImpl *result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v12 = a2;
   if (a2 <= 0xFFFFFFFD)
@@ -2296,7 +2296,7 @@ uint64_t *WebKit::RemoteGraphicsContextGL::getActiveAttrib(uint64_t *result, uin
 
     v11[0] = 0;
     v11[1] = 0;
-    v7 = v6[7];
+    v7 = *(v6 + 7);
     if (v7)
     {
       ++v7[2];
@@ -2335,7 +2335,7 @@ uint64_t *WebKit::RemoteGraphicsContextGL::getActiveAttrib(uint64_t *result, uin
   return result;
 }
 
-uint64_t *WebKit::RemoteGraphicsContextGL::getActiveUniform(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t *a4)
+WTF::StringImpl *WebKit::RemoteGraphicsContextGL::getActiveUniform(WTF::StringImpl *result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v12 = a2;
   if (a2 <= 0xFFFFFFFD)
@@ -2349,7 +2349,7 @@ uint64_t *WebKit::RemoteGraphicsContextGL::getActiveUniform(uint64_t *result, ui
 
     v11[0] = 0;
     v11[1] = 0;
-    v7 = v6[7];
+    v7 = *(v6 + 7);
     if (v7)
     {
       ++v7[2];
@@ -2430,7 +2430,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getAttribLocation(uint64_t result, uin
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getBufferParameteri(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t WebKit::RemoteGraphicsContextGL::getBufferParameteri(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t *a4)
 {
   v5 = *(a1 + 56);
   if (v5)
@@ -2461,14 +2461,16 @@ uint64_t WebKit::RemoteGraphicsContextGL::getBufferParameteri(uint64_t a1, uint6
   return v8(v7);
 }
 
-WTF::StringImpl *WebKit::RemoteGraphicsContextGL::getString(uint64_t a1, uint64_t a2, uint64_t *a3)
+WTF::StringImpl *WebKit::RemoteGraphicsContextGL::getString(uint64_t a1, unsigned int a2, uint64_t *a3)
 {
   v4 = *(a1 + 56);
   if (v4)
   {
     ++*(v4 + 2);
-    WebCore::GraphicsContextGLANGLE::getString(v4);
-    v9 = v8;
+    WebCore::GraphicsContextGLANGLE::getString(&v9, v4);
+    v5 = v9;
+    v9 = 0;
+    v10 = v5;
     if (*(v4 + 2) == 1)
     {
       (*(*v4 + 16))(v4);
@@ -2482,28 +2484,28 @@ WTF::StringImpl *WebKit::RemoteGraphicsContextGL::getString(uint64_t a1, uint64_
 
   else
   {
-    WebCore::GraphicsContextGLANGLE::getString(0);
-    v9 = v8;
+    WebCore::GraphicsContextGLANGLE::getString(&v9, 0);
+    v10 = v9;
   }
 
-  v5 = *a3;
+  v6 = *a3;
   *a3 = 0;
-  (*(*v5 + 16))(v5, &v9);
-  (*(*v5 + 8))(v5);
-  result = v9;
-  v9 = 0;
+  (*(*v6 + 16))(v6, &v10);
+  (*(*v6 + 8))(v6);
+  result = v10;
+  v10 = 0;
   if (result)
   {
     if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      return WTF::StringImpl::destroy(result, v6);
+      return WTF::StringImpl::destroy(result, v7);
     }
   }
 
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getFloatv(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t *a4)
+WTF *WebKit::RemoteGraphicsContextGL::getFloatv(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t *a4)
 {
   v12 = v13;
   if (a3 >> 30)
@@ -2527,7 +2529,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getFloatv(uint64_t a1, uint64_t a2, un
     goto LABEL_8;
   }
 
-  v7 = WTF::fastMalloc((4 * v6));
+  v7 = WTF::fastMalloc(0x10, (4 * v6));
   v12 = v7;
   if (v6)
   {
@@ -2573,7 +2575,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getIntegerv(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t *a4)
+WTF *WebKit::RemoteGraphicsContextGL::getIntegerv(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t *a4)
 {
   v12 = v13;
   if (a3 >> 30)
@@ -2597,7 +2599,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getIntegerv(uint64_t a1, uint64_t a2, 
     goto LABEL_8;
   }
 
-  v7 = WTF::fastMalloc((4 * v6));
+  v7 = WTF::fastMalloc(4, (4 * v6));
   v12 = v7;
   if (v6)
   {
@@ -2674,7 +2676,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getIntegeri_v(uint64_t a1, uint64_t a2
   return (*(*v6 + 8))(v6);
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getInteger64(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t WebKit::RemoteGraphicsContextGL::getInteger64(uint64_t a1, unsigned int a2, uint64_t *a3)
 {
   v4 = *(a1 + 56);
   if (v4)
@@ -2705,7 +2707,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getInteger64(uint64_t a1, uint64_t a2,
   return v7(v6);
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getInteger64i(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t WebKit::RemoteGraphicsContextGL::getInteger64i(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t *a4)
 {
   v5 = *(a1 + 56);
   if (v5)
@@ -2777,7 +2779,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getProgrami(uint64_t result, unsigned 
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getBooleanv(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t *a4)
+WTF *WebKit::RemoteGraphicsContextGL::getBooleanv(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t *a4)
 {
   v12 = (&v13 + 4);
   if (HIDWORD(a3))
@@ -2797,7 +2799,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getBooleanv(uint64_t a1, uint64_t a2, 
 
   else
   {
-    v7 = WTF::fastMalloc(v6);
+    v7 = WTF::fastMalloc(4, v6);
     v12 = v7;
   }
 
@@ -2839,7 +2841,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getBooleanv(uint64_t a1, uint64_t a2, 
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getFramebufferAttachmentParameteri(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t WebKit::RemoteGraphicsContextGL::getFramebufferAttachmentParameteri(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, uint64_t *a5)
 {
   v6 = *(a1 + 56);
   if (v6)
@@ -2870,23 +2872,25 @@ uint64_t WebKit::RemoteGraphicsContextGL::getFramebufferAttachmentParameteri(uin
   return v9(v8);
 }
 
-uint64_t *WebKit::RemoteGraphicsContextGL::getProgramInfoLog(uint64_t *result, unsigned int a2, uint64_t *a3)
+WTF::StringImpl *WebKit::RemoteGraphicsContextGL::getProgramInfoLog(WTF::StringImpl *result, unsigned int a2, uint64_t *a3)
 {
-  v10 = a2;
+  v11 = a2;
   if (a2 <= 0xFFFFFFFD)
   {
     v4 = result;
     if (a2)
     {
-      v10 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>(result + 27, &v10);
+      v11 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>(result + 27, &v11);
     }
 
-    v5 = v4[7];
+    v5 = *(v4 + 7);
     if (v5)
     {
       ++*(v5 + 2);
-      WebCore::GraphicsContextGLANGLE::getProgramInfoLog(v5);
-      v9 = v8;
+      WebCore::GraphicsContextGLANGLE::getProgramInfoLog(&v9, v5);
+      v6 = v9;
+      v9 = 0;
+      v10 = v6;
       if (*(v5 + 2) == 1)
       {
         (*(*v5 + 16))(v5);
@@ -2900,21 +2904,21 @@ uint64_t *WebKit::RemoteGraphicsContextGL::getProgramInfoLog(uint64_t *result, u
 
     else
     {
-      WebCore::GraphicsContextGLANGLE::getProgramInfoLog(0);
-      v9 = v8;
+      WebCore::GraphicsContextGLANGLE::getProgramInfoLog(&v9, 0);
+      v10 = v9;
     }
 
-    v6 = *a3;
+    v7 = *a3;
     *a3 = 0;
-    (*(*v6 + 16))(v6, &v9);
-    (*(*v6 + 8))(v6);
-    result = v9;
-    v9 = 0;
+    (*(*v7 + 16))(v7, &v10);
+    (*(*v7 + 8))(v7);
+    result = v10;
+    v10 = 0;
     if (result)
     {
       if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        return WTF::StringImpl::destroy(result, v7);
+        return WTF::StringImpl::destroy(result, v8);
       }
     }
   }
@@ -2922,7 +2926,7 @@ uint64_t *WebKit::RemoteGraphicsContextGL::getProgramInfoLog(uint64_t *result, u
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getRenderbufferParameteri(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t WebKit::RemoteGraphicsContextGL::getRenderbufferParameteri(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t *a4)
 {
   v5 = *(a1 + 56);
   if (v5)
@@ -2994,23 +2998,25 @@ uint64_t WebKit::RemoteGraphicsContextGL::getShaderi(uint64_t result, unsigned i
   return result;
 }
 
-uint64_t *WebKit::RemoteGraphicsContextGL::getShaderInfoLog(uint64_t *result, unsigned int a2, uint64_t *a3)
+WTF::StringImpl *WebKit::RemoteGraphicsContextGL::getShaderInfoLog(WTF::StringImpl *result, unsigned int a2, uint64_t *a3)
 {
-  v10 = a2;
+  v11 = a2;
   if (a2 <= 0xFFFFFFFD)
   {
     v4 = result;
     if (a2)
     {
-      v10 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>(result + 27, &v10);
+      v11 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>(result + 27, &v11);
     }
 
-    v5 = v4[7];
+    v5 = *(v4 + 7);
     if (v5)
     {
       ++*(v5 + 2);
-      WebCore::GraphicsContextGLANGLE::getShaderInfoLog(v5);
-      v9 = v8;
+      WebCore::GraphicsContextGLANGLE::getShaderInfoLog(&v9, v5);
+      v6 = v9;
+      v9 = 0;
+      v10 = v6;
       if (*(v5 + 2) == 1)
       {
         (*(*v5 + 16))(v5);
@@ -3024,21 +3030,21 @@ uint64_t *WebKit::RemoteGraphicsContextGL::getShaderInfoLog(uint64_t *result, un
 
     else
     {
-      WebCore::GraphicsContextGLANGLE::getShaderInfoLog(0);
-      v9 = v8;
+      WebCore::GraphicsContextGLANGLE::getShaderInfoLog(&v9, 0);
+      v10 = v9;
     }
 
-    v6 = *a3;
+    v7 = *a3;
     *a3 = 0;
-    (*(*v6 + 16))(v6, &v9);
-    (*(*v6 + 8))(v6);
-    result = v9;
-    v9 = 0;
+    (*(*v7 + 16))(v7, &v10);
+    (*(*v7 + 8))(v7);
+    result = v10;
+    v10 = 0;
     if (result)
     {
       if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        return WTF::StringImpl::destroy(result, v7);
+        return WTF::StringImpl::destroy(result, v8);
       }
     }
   }
@@ -3076,23 +3082,25 @@ uint64_t WebKit::RemoteGraphicsContextGL::getShaderPrecisionFormat(uint64_t a1, 
   return (*(*v6 + 8))(v6);
 }
 
-uint64_t *WebKit::RemoteGraphicsContextGL::getShaderSource(uint64_t *result, unsigned int a2, uint64_t *a3)
+WTF::StringImpl *WebKit::RemoteGraphicsContextGL::getShaderSource(WTF::StringImpl *result, unsigned int a2, uint64_t *a3)
 {
-  v10 = a2;
+  v11 = a2;
   if (a2 <= 0xFFFFFFFD)
   {
     v4 = result;
     if (a2)
     {
-      v10 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>(result + 27, &v10);
+      v11 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>(result + 27, &v11);
     }
 
-    v5 = v4[7];
+    v5 = *(v4 + 7);
     if (v5)
     {
       ++*(v5 + 2);
-      WebCore::GraphicsContextGLANGLE::getShaderSource(v5);
-      v9 = v8;
+      WebCore::GraphicsContextGLANGLE::getShaderSource(&v9, v5);
+      v6 = v9;
+      v9 = 0;
+      v10 = v6;
       if (*(v5 + 2) == 1)
       {
         (*(*v5 + 16))(v5);
@@ -3106,21 +3114,21 @@ uint64_t *WebKit::RemoteGraphicsContextGL::getShaderSource(uint64_t *result, uns
 
     else
     {
-      WebCore::GraphicsContextGLANGLE::getShaderSource(0);
-      v9 = v8;
+      WebCore::GraphicsContextGLANGLE::getShaderSource(&v9, 0);
+      v10 = v9;
     }
 
-    v6 = *a3;
+    v7 = *a3;
     *a3 = 0;
-    (*(*v6 + 16))(v6, &v9);
-    (*(*v6 + 8))(v6);
-    result = v9;
-    v9 = 0;
+    (*(*v7 + 16))(v7, &v10);
+    (*(*v7 + 8))(v7);
+    result = v10;
+    v10 = 0;
     if (result)
     {
       if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        return WTF::StringImpl::destroy(result, v7);
+        return WTF::StringImpl::destroy(result, v8);
       }
     }
   }
@@ -3128,7 +3136,7 @@ uint64_t *WebKit::RemoteGraphicsContextGL::getShaderSource(uint64_t *result, uns
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getTexParameterf(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t WebKit::RemoteGraphicsContextGL::getTexParameterf(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t *a4)
 {
   v5 = *(a1 + 56);
   if (v5)
@@ -3161,7 +3169,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getTexParameterf(uint64_t a1, uint64_t
   return v9(v8);
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getTexParameteri(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t WebKit::RemoteGraphicsContextGL::getTexParameteri(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t *a4)
 {
   v5 = *(a1 + 56);
   if (v5)
@@ -3192,7 +3200,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getTexParameteri(uint64_t a1, uint64_t
   return v8(v7);
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getUniformfv(uint64_t result, unsigned int a2, uint64_t a3, unint64_t a4, uint64_t *a5)
+WTF *WebKit::RemoteGraphicsContextGL::getUniformfv(WTF *result, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t *a5)
 {
   v15 = a2;
   if (a2 > 0xFFFFFFFD)
@@ -3203,7 +3211,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getUniformfv(uint64_t result, unsigned
   v7 = result;
   if (a2)
   {
-    v15 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>((result + 216), &v15);
+    v15 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>(result + 27, &v15);
   }
 
   v13 = v14;
@@ -3219,7 +3227,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getUniformfv(uint64_t result, unsigned
 
   if (v8 >= 0x11)
   {
-    v9 = WTF::fastMalloc((4 * v8));
+    v9 = WTF::fastMalloc(0x10, (4 * v8));
     v13 = v9;
     if (!v8)
     {
@@ -3274,7 +3282,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getUniformiv(uint64_t result, unsigned int a2, uint64_t a3, unint64_t a4, uint64_t *a5)
+WTF *WebKit::RemoteGraphicsContextGL::getUniformiv(WTF *result, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t *a5)
 {
   v15 = a2;
   if (a2 > 0xFFFFFFFD)
@@ -3285,7 +3293,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getUniformiv(uint64_t result, unsigned
   v7 = result;
   if (a2)
   {
-    v15 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>((result + 216), &v15);
+    v15 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>(result + 27, &v15);
   }
 
   v13 = v14;
@@ -3301,7 +3309,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getUniformiv(uint64_t result, unsigned
 
   if (v8 >= 5)
   {
-    v9 = WTF::fastMalloc((4 * v8));
+    v9 = WTF::fastMalloc(4, (4 * v8));
     v13 = v9;
     if (!v8)
     {
@@ -3356,7 +3364,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getUniformuiv(uint64_t result, unsigned int a2, uint64_t a3, unint64_t a4, uint64_t *a5)
+WTF *WebKit::RemoteGraphicsContextGL::getUniformuiv(WTF *result, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t *a5)
 {
   v15 = a2;
   if (a2 > 0xFFFFFFFD)
@@ -3367,7 +3375,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getUniformuiv(uint64_t result, unsigne
   v7 = result;
   if (a2)
   {
-    v15 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>((result + 216), &v15);
+    v15 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>(result + 27, &v15);
   }
 
   v13 = v14;
@@ -3383,7 +3391,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getUniformuiv(uint64_t result, unsigne
 
   if (v8 >= 5)
   {
-    v9 = WTF::fastMalloc((4 * v8));
+    v9 = WTF::fastMalloc(4, (4 * v8));
     v13 = v9;
     if (!v8)
     {
@@ -3480,7 +3488,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getUniformLocation(uint64_t result, ui
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getVertexAttribOffset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t WebKit::RemoteGraphicsContextGL::getVertexAttribOffset(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t *a4)
 {
   v5 = *(a1 + 56);
   if (v5)
@@ -3552,7 +3560,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::isBuffer(uint64_t result, unsigned int
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::isEnabled(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t WebKit::RemoteGraphicsContextGL::isEnabled(uint64_t a1, unsigned int a2, uint64_t *a3)
 {
   v4 = *(a1 + 56);
   if (v4)
@@ -3912,7 +3920,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::isQuery(uint64_t result, unsigned int 
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getQuery(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t WebKit::RemoteGraphicsContextGL::getQuery(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t *a4)
 {
   v5 = *(a1 + 56);
   if (v5)
@@ -4109,7 +4117,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getSamplerParameteri(uint64_t result, 
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::fenceSync(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t WebKit::RemoteGraphicsContextGL::fenceSync(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t *a4)
 {
   v5 = *(a1 + 56);
   if (v5)
@@ -4171,7 +4179,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::isSync(uint64_t a1, void *a2, uint64_t
   return v7(v6);
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::clientWaitSync(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t WebKit::RemoteGraphicsContextGL::clientWaitSync(uint64_t a1, void *a2, unsigned int a3, unint64_t a4, uint64_t *a5)
 {
   v6 = *(a1 + 56);
   if (v6)
@@ -4202,7 +4210,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::clientWaitSync(uint64_t a1, void *a2, 
   return v9(v8);
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getSynci(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4)
+uint64_t WebKit::RemoteGraphicsContextGL::getSynci(uint64_t a1, void *a2, unsigned int a3, uint64_t *a4)
 {
   v5 = *(a1 + 56);
   if (v5)
@@ -4274,7 +4282,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::isTransformFeedback(uint64_t result, u
   return result;
 }
 
-uint64_t *WebKit::RemoteGraphicsContextGL::getTransformFeedbackVarying(uint64_t *result, unsigned int a2, uint64_t a3, uint64_t *a4)
+WTF::StringImpl *WebKit::RemoteGraphicsContextGL::getTransformFeedbackVarying(WTF::StringImpl *result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v10 = a2;
   if (a2 <= 0xFFFFFFFD)
@@ -4287,7 +4295,7 @@ uint64_t *WebKit::RemoteGraphicsContextGL::getTransformFeedbackVarying(uint64_t 
 
     v9[0] = 0;
     v9[1] = 0;
-    v6 = v5[7];
+    v6 = *(v5 + 7);
     if (v6)
     {
       ++v6[2];
@@ -4326,7 +4334,7 @@ uint64_t *WebKit::RemoteGraphicsContextGL::getTransformFeedbackVarying(uint64_t 
   return result;
 }
 
-uint64_t *WebKit::RemoteGraphicsContextGL::getUniformIndices(uint64_t *result, unsigned int a2, uint64_t a3, uint64_t *a4)
+WTF *WebKit::RemoteGraphicsContextGL::getUniformIndices(WTF *result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v13 = a2;
   if (a2 <= 0xFFFFFFFD)
@@ -4337,7 +4345,7 @@ uint64_t *WebKit::RemoteGraphicsContextGL::getUniformIndices(uint64_t *result, u
       v13 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>(result + 27, &v13);
     }
 
-    v6 = v5[7];
+    v6 = *(v5 + 7);
     if (v6)
     {
       ++v6[2];
@@ -4375,7 +4383,7 @@ uint64_t *WebKit::RemoteGraphicsContextGL::getUniformIndices(uint64_t *result, u
   return result;
 }
 
-uint64_t *WebKit::RemoteGraphicsContextGL::getActiveUniforms(uint64_t *result, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+WTF *WebKit::RemoteGraphicsContextGL::getActiveUniforms(WTF *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   v14 = a2;
   if (a2 <= 0xFFFFFFFD)
@@ -4386,7 +4394,7 @@ uint64_t *WebKit::RemoteGraphicsContextGL::getActiveUniforms(uint64_t *result, u
       v14 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>(result + 27, &v14);
     }
 
-    v7 = v6[7];
+    v7 = *(v6 + 7);
     if (v7)
     {
       ++v7[2];
@@ -4466,23 +4474,25 @@ uint64_t WebKit::RemoteGraphicsContextGL::getUniformBlockIndex(uint64_t result, 
   return result;
 }
 
-uint64_t *WebKit::RemoteGraphicsContextGL::getActiveUniformBlockName(uint64_t *result, unsigned int a2, unsigned int a3, uint64_t *a4)
+WTF::StringImpl *WebKit::RemoteGraphicsContextGL::getActiveUniformBlockName(WTF::StringImpl *result, unsigned int a2, unsigned int a3, uint64_t *a4)
 {
-  v11 = a2;
+  v12 = a2;
   if (a2 <= 0xFFFFFFFD)
   {
     v5 = result;
     if (a2)
     {
-      v11 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>(result + 27, &v11);
+      v12 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>(result + 27, &v12);
     }
 
-    v6 = v5[7];
+    v6 = *(v5 + 7);
     if (v6)
     {
       ++*(v6 + 2);
-      WebCore::GraphicsContextGLANGLE::getActiveUniformBlockName(v6);
-      v10 = v9;
+      WebCore::GraphicsContextGLANGLE::getActiveUniformBlockName(&v10, v6);
+      v7 = v10;
+      v10 = 0;
+      v11 = v7;
       if (*(v6 + 2) == 1)
       {
         (*(*v6 + 16))(v6);
@@ -4496,21 +4506,21 @@ uint64_t *WebKit::RemoteGraphicsContextGL::getActiveUniformBlockName(uint64_t *r
 
     else
     {
-      WebCore::GraphicsContextGLANGLE::getActiveUniformBlockName(0);
-      v10 = v9;
+      WebCore::GraphicsContextGLANGLE::getActiveUniformBlockName(&v10, 0);
+      v11 = v10;
     }
 
-    v7 = *a4;
+    v8 = *a4;
     *a4 = 0;
-    (*(*v7 + 16))(v7, &v10);
-    (*(*v7 + 8))(v7);
-    result = v10;
-    v10 = 0;
+    (*(*v8 + 16))(v8, &v11);
+    (*(*v8 + 8))(v8);
+    result = v11;
+    v11 = 0;
     if (result)
     {
       if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        return WTF::StringImpl::destroy(result, v8);
+        return WTF::StringImpl::destroy(result, v9);
       }
     }
   }
@@ -4518,7 +4528,7 @@ uint64_t *WebKit::RemoteGraphicsContextGL::getActiveUniformBlockName(uint64_t *r
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getActiveUniformBlockiv(uint64_t result, unsigned int a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t *a6)
+WTF *WebKit::RemoteGraphicsContextGL::getActiveUniformBlockiv(WTF *result, unint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t *a6)
 {
   v16 = a2;
   if (a2 > 0xFFFFFFFD)
@@ -4529,7 +4539,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getActiveUniformBlockiv(uint64_t resul
   v8 = result;
   if (a2)
   {
-    v16 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>((result + 216), &v16);
+    v16 = WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::get<WTF::IdentityHashTranslator<WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::IntHash<unsigned int>>,unsigned int>(result + 27, &v16);
   }
 
   v14 = v15;
@@ -4545,7 +4555,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getActiveUniformBlockiv(uint64_t resul
 
   if (v9 >= 5)
   {
-    v10 = WTF::fastMalloc((4 * v9));
+    v10 = WTF::fastMalloc(4, (4 * v9));
     v14 = v10;
     if (!v9)
     {
@@ -4600,7 +4610,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t *WebKit::RemoteGraphicsContextGL::getTranslatedShaderSourceANGLE(uint64_t *result, uint64_t a2, uint64_t *a3)
+WTF::StringImpl *WebKit::RemoteGraphicsContextGL::getTranslatedShaderSourceANGLE(WTF::StringImpl *result, uint64_t a2, uint64_t *a3)
 {
   v11 = a2;
   if (a2 <= 0xFFFFFFFD)
@@ -4612,7 +4622,7 @@ uint64_t *WebKit::RemoteGraphicsContextGL::getTranslatedShaderSourceANGLE(uint64
       v11 = a2;
     }
 
-    v5 = v4[7];
+    v5 = *(v4 + 7);
     if (v5)
     {
       ++v5[2];
@@ -4691,7 +4701,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::isQueryEXT(uint64_t result, unsigned i
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getQueryiEXT(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t WebKit::RemoteGraphicsContextGL::getQueryiEXT(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t *a4)
 {
   v5 = *(a1 + 56);
   if (v5)
@@ -4804,7 +4814,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getQueryObjectui64EXT(uint64_t result,
   return result;
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getInteger64EXT(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t WebKit::RemoteGraphicsContextGL::getInteger64EXT(uint64_t a1, unsigned int a2, uint64_t *a3)
 {
   v4 = *(a1 + 56);
   if (v4)
@@ -4835,7 +4845,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getInteger64EXT(uint64_t a1, uint64_t 
   return v7(v6);
 }
 
-uint64_t WebKit::RemoteGraphicsContextGL::getInternalformativ(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t *a6)
+WTF *WebKit::RemoteGraphicsContextGL::getInternalformativ(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t *a6)
 {
   v14 = v15;
   if (a5 >> 30)
@@ -4859,7 +4869,7 @@ uint64_t WebKit::RemoteGraphicsContextGL::getInternalformativ(uint64_t a1, uint6
     goto LABEL_8;
   }
 
-  v9 = WTF::fastMalloc((4 * v8));
+  v9 = WTF::fastMalloc(4, (4 * v8));
   v14 = v9;
   if (v8)
   {
@@ -5037,7 +5047,7 @@ LABEL_15:
   v22 = 1;
 LABEL_20:
   *v8 = v14;
-  v8[1] = v23;
+  *(v8 + 8) = v23;
   *(v8 + 16) = v22;
   return result;
 }
@@ -5047,7 +5057,7 @@ void *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,unsigned int>,W
   v3 = *a1;
   if (*a1 && (v4 = *(v3 - 4)) != 0)
   {
-    v5 = v4 << (6 * *(v3 - 12) >= (2 * v4));
+    v5 = (v4 << (6 * *(v3 - 12) >= (2 * v4)));
   }
 
   else
@@ -5058,8 +5068,9 @@ void *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,unsigned int>,W
   return WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,unsigned int>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,unsigned int>>,WTF::IntHash<unsigned int>,WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(a1, v5, a2);
 }
 
-void *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,unsigned int>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,unsigned int>>,WTF::IntHash<unsigned int>,WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, _DWORD *a3)
+void *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,unsigned int>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<unsigned int,unsigned int>>,WTF::IntHash<unsigned int>,WTF::HashMap<unsigned int,unsigned int,WTF::IntHash<unsigned int>,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::HashTraits<unsigned int>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::UnsignedWithZeroKeyHashTraits<unsigned int>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, _DWORD *a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -5073,11 +5084,11 @@ void *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,unsigned int>,W
     v8 = 0;
   }
 
-  v9 = WTF::fastMalloc((8 * a2 + 16));
-  if (a2)
+  v9 = WTF::fastMalloc((8 * a2), (8 * a2 + 16));
+  if (v4)
   {
-    v11 = a2;
-    v12 = v9 + 4;
+    v11 = v4;
+    v12 = v9 + 2;
     do
     {
       *v12++ = 0xFFFFFFFFLL;
@@ -5087,11 +5098,11 @@ void *WTF::HashTable<unsigned int,WTF::KeyValuePair<unsigned int,unsigned int>,W
     while (v11);
   }
 
-  *a1 = (v9 + 4);
-  v9[2] = a2 - 1;
-  v9[3] = a2;
+  *a1 = (v9 + 2);
+  *(v9 + 2) = v4 - 1;
+  *(v9 + 3) = v4;
   *v9 = 0;
-  v9[1] = v8;
+  *(v9 + 1) = v8;
   if (v7)
   {
     v13 = 0;
@@ -5583,7 +5594,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages12
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v3 + 2);
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -5640,7 +5651,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages12
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v3 + 2);
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -5697,7 +5708,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages12
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v3 + 2);
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -5801,7 +5812,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages12
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v3 + 2);
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -5858,7 +5869,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages12
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v3 + 2);
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -6494,7 +6505,7 @@ uint64_t IPC::Decoder::decode<std::tuple<WebCore::CompositeMode>>(IPC::Decoder *
   return v2 & 0x1FF00 | (v2 & ((v2 << 15 >> 8) >> 23));
 }
 
-unsigned int *IPC::Decoder::decode<WebCore::GraphicsDropShadow>(uint64_t a1, IPC::Decoder *a2)
+unsigned int *IPC::Decoder::decode<WebCore::GraphicsDropShadow>(uint64_t a1, unsigned __int8 **a2)
 {
   result = IPC::ArgumentCoder<WebCore::GraphicsDropShadow,void>::decode(a2, a1);
   if ((*(a1 + 32) & 1) == 0)
@@ -6690,7 +6701,7 @@ uint64_t *WTF::EmbeddedFixedVector<double,WTF::FastMalloc>::create<double const,
   {
     v5 = result;
     v6 = 8 * a2;
-    result = WTF::fastMalloc((8 * a2 + 8));
+    result = WTF::fastMalloc(0, (8 * a2 + 8));
     *result = a2;
     if (a2)
     {
@@ -6755,7 +6766,7 @@ uint64_t IPC::ArgumentCoder<std::tuple<WebCore::FloatRoundedRect>,void>::decode<
 
 WTF *IPC::Decoder::decode<WebCore::Path>(uint64_t a1, IPC::Decoder *a2)
 {
-  result = IPC::ArgumentCoder<WebCore::Path,void>::decode(a2, a2, a1);
+  result = IPC::ArgumentCoder<WebCore::Path,void>::decode(a2, a1, a2);
   if ((*(a1 + 64) & 1) == 0)
   {
 
@@ -7193,7 +7204,7 @@ IPC::Decoder *IPC::ArgumentCoder<std::tuple<WebCore::PathDataLine>,void>::decode
   return result;
 }
 
-uint64_t IPC::ArgumentCoder<std::tuple<WebCore::PathClosedArc>,void>::decode<IPC::Decoder>(uint64_t a1, IPC::Decoder *a2)
+uint64_t IPC::ArgumentCoder<std::tuple<WebCore::PathClosedArc>,void>::decode<IPC::Decoder>(uint64_t a1, unsigned int **a2)
 {
   result = IPC::ArgumentCoder<WebCore::PathClosedArc,void>::decode(a2, &v6);
   if (v8)
@@ -7350,7 +7361,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC18handleMessageAsyncIN8Messages18
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v3 + 2);
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -7420,7 +7431,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC24handleMessageSynchronousIN8Mess
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v3 + 2);
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -7583,7 +7594,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN3IPC24handleMessageSynchronousIN8Mess
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v3 + 2);
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -8192,7 +8203,7 @@ uint64_t *IPC::ArgumentCoder<std::tuple<float,float,float,float>,void>::decode<I
       v9 = *v3;
       v15 = 1;
       v14 = v9;
-      return IPC::ArgumentCoder<std::tuple<float,float,float,float>,void>::decode<IPC::Decoder,float>(a1, &v14, a2);
+      return IPC::ArgumentCoder<std::tuple<float,float,float,float>,void>::decode<IPC::Decoder,float>(a1, a2, &v14);
     }
 
     v12 = a2;
@@ -8242,7 +8253,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t *IPC::ArgumentCoder<std::tuple<float,float,float,float>,void>::decode<IPC::Decoder,float>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t *IPC::ArgumentCoder<std::tuple<float,float,float,float>,void>::decode<IPC::Decoder,float>@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>, uint64_t a3@<X1>)
 {
   v4 = a1[1];
   v5 = ((a1[2] + 3) & 0xFFFFFFFFFFFFFFFCLL);
@@ -8258,16 +8269,16 @@ uint64_t *IPC::ArgumentCoder<std::tuple<float,float,float,float>,void>::decode<I
       v11 = *v5;
       v17 = 1;
       v16 = v11;
-      return IPC::ArgumentCoder<std::tuple<float,float,float,float>,void>::decode<IPC::Decoder,float,float>(a1, a2, &v16, a3);
+      return IPC::ArgumentCoder<std::tuple<float,float,float,float>,void>::decode<IPC::Decoder,float,float>(a1, a2, a3, &v16);
     }
 
-    v14 = a3;
+    v14 = a2;
     v15 = a1;
   }
 
   else
   {
-    v14 = a3;
+    v14 = a2;
     v15 = a1;
     *a1 = 0;
     a1[1] = 0;
@@ -8308,7 +8319,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t *IPC::ArgumentCoder<std::tuple<float,float,float,float>,void>::decode<IPC::Decoder,float,float>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, int *a3@<X2>, _BYTE *a4@<X8>)
+uint64_t *IPC::ArgumentCoder<std::tuple<float,float,float,float>,void>::decode<IPC::Decoder,float,float>@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>, uint64_t a3@<X1>, int *a4@<X2>)
 {
   v6 = a1[1];
   v7 = ((a1[2] + 3) & 0xFFFFFFFFFFFFFFFCLL);
@@ -8324,16 +8335,16 @@ uint64_t *IPC::ArgumentCoder<std::tuple<float,float,float,float>,void>::decode<I
       v13 = *v7;
       v19 = 1;
       v18 = v13;
-      return IPC::ArgumentCoder<std::tuple<float,float,float,float>,void>::decode<IPC::Decoder,float,float,float>(a1, a2, a3, &v18, a4);
+      return IPC::ArgumentCoder<std::tuple<float,float,float,float>,void>::decode<IPC::Decoder,float,float,float>(a1, a3, a4, &v18, a2);
     }
 
-    v16 = a4;
+    v16 = a2;
     v17 = a1;
   }
 
   else
   {
-    v16 = a4;
+    v16 = a2;
     v17 = a1;
     *a1 = 0;
     a1[1] = 0;
@@ -8434,7 +8445,7 @@ LABEL_17:
   result = v19[3];
   if (result && v7)
   {
-    result = (*(*result + 16))(result, v9);
+    result = (*(*result + 16))(result, v9, v7, a4);
   }
 
   v16 = 0;
@@ -8481,7 +8492,7 @@ uint64_t *IPC::ArgumentCoder<std::tuple<unsigned int,unsigned int,unsigned int,u
       v9 = *v3;
       v15 = 1;
       v14 = v9;
-      return IPC::ArgumentCoder<std::tuple<unsigned int,unsigned int,unsigned int,unsigned int>,void>::decode<IPC::Decoder,unsigned int>(a1, &v14, a2);
+      return IPC::ArgumentCoder<std::tuple<unsigned int,unsigned int,unsigned int,unsigned int>,void>::decode<IPC::Decoder,unsigned int>(a1, a2, &v14);
     }
 
     v12 = a2;
@@ -8531,7 +8542,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t *IPC::ArgumentCoder<std::tuple<unsigned int,unsigned int,unsigned int,unsigned int>,void>::decode<IPC::Decoder,unsigned int>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t *IPC::ArgumentCoder<std::tuple<unsigned int,unsigned int,unsigned int,unsigned int>,void>::decode<IPC::Decoder,unsigned int>@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>, uint64_t a3@<X1>)
 {
   v4 = a1[1];
   v5 = ((a1[2] + 3) & 0xFFFFFFFFFFFFFFFCLL);
@@ -8547,16 +8558,16 @@ uint64_t *IPC::ArgumentCoder<std::tuple<unsigned int,unsigned int,unsigned int,u
       v11 = *v5;
       v17 = 1;
       v16 = v11;
-      return IPC::ArgumentCoder<std::tuple<unsigned int,unsigned int,unsigned int,unsigned int>,void>::decode<IPC::Decoder,unsigned int,unsigned int>(a1, a2, &v16, a3);
+      return IPC::ArgumentCoder<std::tuple<unsigned int,unsigned int,unsigned int,unsigned int>,void>::decode<IPC::Decoder,unsigned int,unsigned int>(a1, a2, a3, &v16);
     }
 
-    v14 = a3;
+    v14 = a2;
     v15 = a1;
   }
 
   else
   {
-    v14 = a3;
+    v14 = a2;
     v15 = a1;
     *a1 = 0;
     a1[1] = 0;
@@ -8597,7 +8608,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t *IPC::ArgumentCoder<std::tuple<unsigned int,unsigned int,unsigned int,unsigned int>,void>::decode<IPC::Decoder,unsigned int,unsigned int>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, int *a3@<X2>, _BYTE *a4@<X8>)
+uint64_t *IPC::ArgumentCoder<std::tuple<unsigned int,unsigned int,unsigned int,unsigned int>,void>::decode<IPC::Decoder,unsigned int,unsigned int>@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>, uint64_t a3@<X1>, int *a4@<X2>)
 {
   v6 = a1[1];
   v7 = ((a1[2] + 3) & 0xFFFFFFFFFFFFFFFCLL);
@@ -8613,16 +8624,16 @@ uint64_t *IPC::ArgumentCoder<std::tuple<unsigned int,unsigned int,unsigned int,u
       v13 = *v7;
       v19 = 1;
       v18 = v13;
-      return IPC::ArgumentCoder<std::tuple<unsigned int,unsigned int,unsigned int,unsigned int>,void>::decode<IPC::Decoder,unsigned int,unsigned int,unsigned int>(a1, a2, a3, &v18, a4);
+      return IPC::ArgumentCoder<std::tuple<unsigned int,unsigned int,unsigned int,unsigned int>,void>::decode<IPC::Decoder,unsigned int,unsigned int,unsigned int>(a1, a3, a4, &v18, a2);
     }
 
-    v16 = a4;
+    v16 = a2;
     v17 = a1;
   }
 
   else
   {
-    v16 = a4;
+    v16 = a2;
     v17 = a1;
     *a1 = 0;
     a1[1] = 0;
@@ -8723,7 +8734,7 @@ LABEL_16:
   result = v19[3];
   if (result && v7)
   {
-    result = (*(*result + 16))(result, v9);
+    result = (*(*result + 16))(result, v9, v7, a4);
   }
 
   v16 = 0;
@@ -8857,10 +8868,10 @@ LABEL_30:
   return result;
 }
 
-IPC::Decoder *IPC::Decoder::decode<std::tuple<unsigned int,WTF::String>>(uint64_t a1, IPC::Decoder *a2)
+IPC::Decoder *IPC::Decoder::decode<std::tuple<unsigned int,WTF::String>>(_BYTE *a1, IPC::Decoder *a2)
 {
   result = IPC::ArgumentCoder<std::tuple<unsigned int,WTF::String>,void>::decode<IPC::Decoder>(a2, a1);
-  if ((*(a1 + 16) & 1) == 0)
+  if ((a1[16] & 1) == 0)
   {
     v5 = *(a2 + 1);
     *a2 = 0;
@@ -8877,7 +8888,7 @@ IPC::Decoder *IPC::Decoder::decode<std::tuple<unsigned int,WTF::String>>(uint64_
   return result;
 }
 
-IPC::Decoder *IPC::ArgumentCoder<std::tuple<unsigned int,WTF::String>,void>::decode<IPC::Decoder>@<X0>(IPC::Decoder *a1@<X0>, uint64_t a2@<X8>)
+IPC::Decoder *IPC::ArgumentCoder<std::tuple<unsigned int,WTF::String>,void>::decode<IPC::Decoder>@<X0>(IPC::Decoder *a1@<X0>, _BYTE *a2@<X8>)
 {
   v2 = *(a1 + 1);
   v3 = ((*(a1 + 2) + 3) & 0xFFFFFFFFFFFFFFFCLL);
@@ -8994,7 +9005,7 @@ LABEL_4:
   return result;
 }
 
-unint64_t IPC::Decoder::decode<std::tuple<unsigned int,unsigned int,float>>(uint64_t *a1)
+uint64_t IPC::Decoder::decode<std::tuple<unsigned int,unsigned int,float>>(uint64_t *a1)
 {
   v1 = a1[1];
   v2 = ((a1[2] + 3) & 0xFFFFFFFFFFFFFFFCLL);
@@ -9743,18 +9754,4 @@ void IPC::ArgumentCoder<std::tuple<WebCore::DestinationColorSpace>,void>::decode
   }
 
   *(a2 + 8) = v4;
-}
-
-void *_ZN3WTF6Detail15CallableWrapperIZN3IPC24handleMessageSynchronousIN8Messages23RemoteGraphicsContextGL17PrepareForDisplayEN6WebKit23RemoteGraphicsContextGLES8_FvONS2_9SemaphoreEONS_17CompletionHandlerIFvONS_13MachSendRightEEEEEEEvRNS2_22StreamServerConnectionERNS2_7DecoderEPT0_MT1_T2_EUlDpOT_E_vJSD_EED1Ev(void *a1)
-{
-  *a1 = &unk_1F10EC5A8;
-  v2 = a1[2];
-  a1[2] = 0;
-  if (v2 && atomic_fetch_add(v2 + 2, 0xFFFFFFFF) == 1)
-  {
-    atomic_store(1u, v2 + 2);
-    (*(*v2 + 8))(v2);
-  }
-
-  return a1;
 }

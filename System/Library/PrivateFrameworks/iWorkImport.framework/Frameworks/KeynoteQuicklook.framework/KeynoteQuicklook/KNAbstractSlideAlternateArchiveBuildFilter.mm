@@ -8,17 +8,16 @@
 
 - (KNAbstractSlideAlternateArchiveBuildFilter)initWithExcludedBuildMinVersion:(unint64_t)version capacity:(unint64_t)capacity
 {
-  v13.receiver = self;
-  v13.super_class = KNAbstractSlideAlternateArchiveBuildFilter;
-  v6 = [(KNAbstractSlideAlternateArchiveBuildFilter *)&v13 init];
+  v11.receiver = self;
+  v11.super_class = KNAbstractSlideAlternateArchiveBuildFilter;
+  v6 = [(KNAbstractSlideAlternateArchiveBuildFilter *)&v11 init];
   v7 = v6;
   if (v6)
   {
     v6->_excludedBuildMinVersion = version;
-    v8 = objc_alloc(MEMORY[0x277CCAA50]);
-    v10 = objc_msgSend_initWithOptions_capacity_(v8, v9, 512, capacity);
+    v8 = [objc_alloc(MEMORY[0x277CCAA50]) initWithOptions:512 capacity:capacity];
     excludedBuilds = v7->_excludedBuilds;
-    v7->_excludedBuilds = v10;
+    v7->_excludedBuilds = v8;
   }
 
   return v7;
@@ -26,90 +25,86 @@
 
 - (id)filteredBuildsForBuilds:(id)builds
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   buildsCopy = builds;
-  v5 = objc_alloc(MEMORY[0x277CBEB18]);
-  v8 = objc_msgSend_count(buildsCopy, v6, v7);
-  v10 = objc_msgSend_initWithCapacity_(v5, v9, v8);
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v11 = buildsCopy;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v20, v24, 16);
-  if (v13)
+  v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(buildsCopy, "count")}];
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v6 = buildsCopy;
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v7)
   {
-    v15 = v13;
-    v16 = *v21;
+    v8 = v7;
+    v9 = *v14;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v16)
+        if (*v14 != v9)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v6);
         }
 
-        v18 = *(*(&v20 + 1) + 8 * i);
-        if ((objc_msgSend_containsObject_(self->_excludedBuilds, v14, v18, v20) & 1) == 0)
+        v11 = *(*(&v13 + 1) + 8 * i);
+        if (![(NSHashTable *)self->_excludedBuilds containsObject:v11, v13])
         {
-          objc_msgSend_addObject_(v10, v14, v18);
+          [v5 addObject:v11];
         }
       }
 
-      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v20, v24, 16);
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v15);
+    while (v8);
   }
 
-  return v10;
+  return v5;
 }
 
 - (id)filteredBuildChunksForBuildChunks:(id)chunks
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   chunksCopy = chunks;
-  v5 = objc_alloc(MEMORY[0x277CBEB18]);
-  v8 = objc_msgSend_count(chunksCopy, v6, v7);
-  v10 = objc_msgSend_initWithCapacity_(v5, v9, v8);
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v11 = chunksCopy;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v24, v28, 16);
-  if (v13)
+  v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(chunksCopy, "count")}];
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v6 = chunksCopy;
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v7)
   {
-    v16 = v13;
-    v17 = *v25;
+    v8 = v7;
+    v9 = *v16;
     do
     {
-      for (i = 0; i != v16; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v17)
+        if (*v16 != v9)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v6);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         excludedBuilds = self->_excludedBuilds;
-        v21 = objc_msgSend_build(v19, v14, v15, v24);
-        LOBYTE(excludedBuilds) = objc_msgSend_containsObject_(excludedBuilds, v22, v21);
+        build = [v11 build];
+        LOBYTE(excludedBuilds) = [(NSHashTable *)excludedBuilds containsObject:build];
 
         if ((excludedBuilds & 1) == 0)
         {
-          objc_msgSend_addObject_(v10, v14, v19);
+          [v5 addObject:v11];
         }
       }
 
-      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v24, v28, 16);
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    while (v16);
+    while (v8);
   }
 
-  return v10;
+  return v5;
 }
 
 @end

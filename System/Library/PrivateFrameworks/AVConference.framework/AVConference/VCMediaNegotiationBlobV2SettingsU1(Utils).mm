@@ -7,11 +7,16 @@
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v0 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      *v7 = 136315650;
+      *&v7[4] = v0;
+      *&v7[12] = 2080;
+      *&v7[14] = "[VCMediaNegotiationBlobV2SettingsU1(Utils) initWithU1Config:]";
       OUTLINED_FUNCTION_4_2();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to load encodeDecodeFeatures to U1 Settings", v2, v3, v4, v5, 2u);
+      v8 = 32;
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v1, v2, " [%s] %s:%d Failed to load encodeDecodeFeatures to U1 Settings", v3, v4, v5, v6, *v7, *&v7[8], *&v7[16], v8);
     }
   }
 }
@@ -20,11 +25,16 @@
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v0 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      *v7 = 136315650;
+      *&v7[4] = v0;
+      *&v7[12] = 2080;
+      *&v7[14] = "[VCMediaNegotiationBlobV2SettingsU1(Utils) initWithU1Config:]";
       OUTLINED_FUNCTION_4_2();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d U1 config is nil", v2, v3, v4, v5, 2u);
+      v8 = 28;
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v1, v2, " [%s] %s:%d U1 config is nil", v3, v4, v5, v6, *v7, *&v7[8], *&v7[16], v8);
     }
   }
 }

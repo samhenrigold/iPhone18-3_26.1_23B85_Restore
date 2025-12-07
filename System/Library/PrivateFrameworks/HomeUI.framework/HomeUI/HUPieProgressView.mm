@@ -112,7 +112,7 @@ void __37__HUPieProgressView_startWithFuture___block_invoke(uint64_t a1)
   [MEMORY[0x277CD9FF0] commit];
 }
 
-uint64_t __37__HUPieProgressView_startWithFuture___block_invoke_2(uint64_t a1)
+void *__37__HUPieProgressView_startWithFuture___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) setIsAnimating:0];
   result = [*(a1 + 32) hidesWhenStopped];
@@ -126,7 +126,7 @@ uint64_t __37__HUPieProgressView_startWithFuture___block_invoke_2(uint64_t a1)
   return result;
 }
 
-uint64_t __37__HUPieProgressView_startWithFuture___block_invoke_3(uint64_t a1)
+void *__37__HUPieProgressView_startWithFuture___block_invoke_3(uint64_t a1)
 {
   v2 = [*(a1 + 32) progressLayer];
   v3 = [v2 presentationLayer];

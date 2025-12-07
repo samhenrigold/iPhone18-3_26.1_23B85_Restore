@@ -67,7 +67,7 @@
   }
 
   selfCopy = self;
-  sub_204C();
+  sub_204C(selfCopy);
 }
 
 @end

@@ -41,7 +41,7 @@
       if (!v9)
       {
         sub_100014A08(v33, "");
-        sub_1001EDF78("Cannot find channel in settings dictionary", &v36);
+        sub_1001EDF78(&v36, "Cannot find channel in settings dictionary");
         sub_1000E661C(v33, &v36, 1);
         if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
         {

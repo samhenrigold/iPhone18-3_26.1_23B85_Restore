@@ -30,7 +30,7 @@
 
 - (void)closeSessionWithEvent:(id)event
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   stateTracker = [(HMDMatterThirdPartyPairingTagProcessor *)self stateTracker];
   [stateTracker endWithTime:{objc_msgSend(eventCopy, "tagTime")}];
@@ -52,33 +52,33 @@
   [(HMMLogEventTagProcessor *)selfCopy closeForReason:0];
   if (isInternalBuild())
   {
-    v33 = eventCopy;
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
+    v32 = eventCopy;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     stateTracker3 = [(HMDMatterThirdPartyPairingTagProcessor *)selfCopy stateTracker];
     states = [stateTracker3 states];
 
     obj = states;
-    v18 = [states countByEnumeratingWithState:&v36 objects:v48 count:16];
+    v18 = [states countByEnumeratingWithState:&v35 objects:v47 count:16];
     if (v18)
     {
       v19 = v18;
       v20 = 0;
-      v21 = *v37;
+      v21 = *v36;
       do
       {
         v22 = 0;
-        v34 = v19;
+        v33 = v19;
         do
         {
-          if (*v37 != v21)
+          if (*v36 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v23 = *(*(&v36 + 1) + 8 * v22);
+          v23 = *(*(&v35 + 1) + 8 * v22);
           v24 = objc_autoreleasePoolPush();
           v25 = selfCopy;
           v26 = HMFGetOSLogHandle();
@@ -88,20 +88,20 @@
             v27 = v21;
             v29 = v28 = selfCopy;
             name = [v23 name];
-            duration = [v23 duration];
+            v31 = objc_msgSend_duration(v23);
             *buf = 138544130;
-            v41 = v29;
-            v42 = 2048;
-            v43 = v20;
-            v44 = 2112;
-            v45 = name;
-            v46 = 2048;
-            v47 = duration;
+            v40 = v29;
+            v41 = 2048;
+            v42 = v20;
+            v43 = 2112;
+            v44 = name;
+            v45 = 2048;
+            v46 = v31;
             _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Matter pairing state %ld: %@ for %lu msec", buf, 0x2Au);
 
             selfCopy = v28;
             v21 = v27;
-            v19 = v34;
+            v19 = v33;
           }
 
           objc_autoreleasePoolPop(v24);
@@ -110,21 +110,19 @@
         }
 
         while (v19 != v22);
-        v19 = [obj countByEnumeratingWithState:&v36 objects:v48 count:16];
+        v19 = [obj countByEnumeratingWithState:&v35 objects:v47 count:16];
       }
 
       while (v19);
     }
 
-    eventCopy = v33;
+    eventCopy = v32;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processStateChange:(id)change
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   tagData = [changeCopy tagData];
   v6 = *MEMORY[0x277D179E0];
@@ -235,17 +233,15 @@ LABEL_27:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v15;
-      v23 = 2112;
-      v24 = v6;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Missing tag field %@, or not an NSNumber", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v6;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Missing tag field %@, or not an NSNumber", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processLongestPairingState:(id)state
@@ -820,49 +816,47 @@ LABEL_27:
 
 void __61__HMDMatterThirdPartyPairingTagProcessor_tagProcessingBlocks__block_invoke()
 {
-  v11[15] = *MEMORY[0x277D85DE8];
+  v10[15] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D17A80];
-  v10[0] = *MEMORY[0x277D17A78];
-  v10[1] = v0;
-  v11[0] = &__block_literal_global_11_273593;
-  v11[1] = &__block_literal_global_13_273594;
+  v9[0] = *MEMORY[0x277D17A78];
+  v9[1] = v0;
+  v10[0] = &__block_literal_global_11_273593;
+  v10[1] = &__block_literal_global_13_273594;
   v1 = *MEMORY[0x277D179E8];
-  v10[2] = *MEMORY[0x277D17A70];
-  v10[3] = v1;
-  v11[2] = &__block_literal_global_15_273595;
-  v11[3] = &__block_literal_global_17_273596;
+  v9[2] = *MEMORY[0x277D17A70];
+  v9[3] = v1;
+  v10[2] = &__block_literal_global_15_273595;
+  v10[3] = &__block_literal_global_17_273596;
   v2 = *MEMORY[0x277D179B0];
-  v10[4] = *MEMORY[0x277D179A8];
-  v10[5] = v2;
-  v11[4] = &__block_literal_global_19_273597;
-  v11[5] = &__block_literal_global_21_273598;
+  v9[4] = *MEMORY[0x277D179A8];
+  v9[5] = v2;
+  v10[4] = &__block_literal_global_19_273597;
+  v10[5] = &__block_literal_global_21_273598;
   v3 = *MEMORY[0x277D17A68];
-  v10[6] = *MEMORY[0x277D179F8];
-  v10[7] = v3;
-  v11[6] = &__block_literal_global_23_273599;
-  v11[7] = &__block_literal_global_25_273600;
+  v9[6] = *MEMORY[0x277D179F8];
+  v9[7] = v3;
+  v10[6] = &__block_literal_global_23_273599;
+  v10[7] = &__block_literal_global_25_273600;
   v4 = *MEMORY[0x277D17A90];
-  v10[8] = *MEMORY[0x277D17A10];
-  v10[9] = v4;
-  v11[8] = &__block_literal_global_27_273601;
-  v11[9] = &__block_literal_global_29_273602;
+  v9[8] = *MEMORY[0x277D17A10];
+  v9[9] = v4;
+  v10[8] = &__block_literal_global_27_273601;
+  v10[9] = &__block_literal_global_29_273602;
   v5 = *MEMORY[0x277D179D8];
-  v10[10] = *MEMORY[0x277D17AA0];
-  v10[11] = v5;
-  v11[10] = &__block_literal_global_31_273603;
-  v11[11] = &__block_literal_global_33_273604;
+  v9[10] = *MEMORY[0x277D17AA0];
+  v9[11] = v5;
+  v10[10] = &__block_literal_global_31_273603;
+  v10[11] = &__block_literal_global_33_273604;
   v6 = *MEMORY[0x277D179B8];
-  v10[12] = *MEMORY[0x277D17A40];
-  v10[13] = v6;
-  v11[12] = &__block_literal_global_35_273605;
-  v11[13] = &__block_literal_global_37_273606;
-  v10[14] = *MEMORY[0x277D179D0];
-  v11[14] = &__block_literal_global_39_273607;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:15];
+  v9[12] = *MEMORY[0x277D17A40];
+  v9[13] = v6;
+  v10[12] = &__block_literal_global_35_273605;
+  v10[13] = &__block_literal_global_37_273606;
+  v9[14] = *MEMORY[0x277D179D0];
+  v10[14] = &__block_literal_global_39_273607;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:15];
   v8 = tagProcessingBlocks_processingBlocks;
   tagProcessingBlocks_processingBlocks = v7;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMatterThirdPartyPairingTagProcessor)initWithSubmitter:(id)submitter

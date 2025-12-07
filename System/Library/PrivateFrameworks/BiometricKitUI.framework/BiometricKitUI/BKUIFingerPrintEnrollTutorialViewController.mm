@@ -11,6 +11,7 @@
 - (id)_headerTitlePhase2;
 - (id)_videoAssetName;
 - (id)combinedTutorialText;
+- (id)initInBuddy:(BOOL)buddy displayRect:(CGRect)rect;
 - (id)tutorialImage;
 - (id)tutorialText;
 - (void)_continuePressed:(id)pressed;
@@ -20,6 +21,8 @@
 - (void)_setupTouchIDAnimation;
 - (void)loadAVPlayer;
 - (void)setEnrollViewState:(unint64_t)state;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
@@ -27,12 +30,43 @@
 
 @implementation BKUIFingerPrintEnrollTutorialViewController
 
+- (id)initInBuddy:(BOOL)buddy displayRect:(CGRect)rect
+{
+  height = rect.size.height;
+  width = rect.size.width;
+  y = rect.origin.y;
+  x = rect.origin.x;
+  buddyCopy = buddy;
+  v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v11 = [v10 localizedStringForKey:@"SET_UP_MESA" value:&stru_2853BB280 table:@"BiometricKitUI"];
+  v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v13 = [v12 localizedStringForKey:@"INTRO_TEXT" value:&stru_2853BB280 table:@"BiometricKitUI"];
+  v18.receiver = self;
+  v18.super_class = BKUIFingerPrintEnrollTutorialViewController;
+  v14 = [(BKUIFingerPrintEnrollTutorialViewController *)&v18 initWithTitle:v11 detailText:v13 icon:0 contentLayout:1];
+
+  if (v14)
+  {
+    [(BKUIFingerPrintEnrollTutorialViewController *)v14 setInBuddy:buddyCopy];
+    v14->_enrollViewState = 0;
+    v14->_displayRect.origin.x = x;
+    v14->_displayRect.origin.y = y;
+    v14->_displayRect.size.width = width;
+    v14->_displayRect.size.height = height;
+    tutorialImage = [(BKUIFingerPrintEnrollTutorialViewController *)v14 tutorialImage];
+    enrollTutorialImageView = [(BKUIFingerPrintEnrollTutorialViewController *)v14 enrollTutorialImageView];
+    [enrollTutorialImageView setImage:tutorialImage];
+  }
+
+  return v14;
+}
+
 - (void)viewDidLoad
 {
-  v82[4] = *MEMORY[0x277D85DE8];
-  v79.receiver = self;
-  v79.super_class = BKUIFingerPrintEnrollTutorialViewController;
-  [(OBBaseWelcomeController *)&v79 viewDidLoad];
+  v81[4] = *MEMORY[0x277D85DE8];
+  v78.receiver = self;
+  v78.super_class = BKUIFingerPrintEnrollTutorialViewController;
+  [(OBBaseWelcomeController *)&v78 viewDidLoad];
   v3 = os_log_create("com.apple.biometrickitui", "TouchID Tutorial Animation View");
   bkui_animation_view_log = self->bkui_animation_view_log;
   self->bkui_animation_view_log = v3;
@@ -104,29 +138,29 @@
     posedVideoPlayerView2 = [(BKUIFingerPrintEnrollTutorialViewController *)self posedVideoPlayerView];
     [enrollTutorialImageView addSubview:posedVideoPlayerView2];
 
-    v60 = MEMORY[0x277CCAAD0];
+    v59 = MEMORY[0x277CCAAD0];
     posedVideoPlayerView3 = [(BKUIFingerPrintEnrollTutorialViewController *)self posedVideoPlayerView];
     leadingAnchor = [posedVideoPlayerView3 leadingAnchor];
     leadingAnchor2 = [enrollTutorialImageView leadingAnchor];
-    v67 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v82[0] = v67;
+    v66 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v81[0] = v66;
     posedVideoPlayerView4 = [(BKUIFingerPrintEnrollTutorialViewController *)self posedVideoPlayerView];
     trailingAnchor = [posedVideoPlayerView4 trailingAnchor];
     trailingAnchor2 = [enrollTutorialImageView trailingAnchor];
-    v61 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v82[1] = v61;
+    v60 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v81[1] = v60;
     posedVideoPlayerView5 = [(BKUIFingerPrintEnrollTutorialViewController *)self posedVideoPlayerView];
     topAnchor = [posedVideoPlayerView5 topAnchor];
     topAnchor2 = [enrollTutorialImageView topAnchor];
     v35 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v82[2] = v35;
+    v81[2] = v35;
     posedVideoPlayerView6 = [(BKUIFingerPrintEnrollTutorialViewController *)self posedVideoPlayerView];
     bottomAnchor = [posedVideoPlayerView6 bottomAnchor];
     bottomAnchor2 = [enrollTutorialImageView bottomAnchor];
     v39 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v82[3] = v39;
-    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:4];
-    [v60 activateConstraints:v40];
+    v81[3] = v39;
+    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:4];
+    [v59 activateConstraints:v40];
   }
 
   else
@@ -148,44 +182,42 @@
   v47 = [topAnchor3 constraintEqualToAnchor:topAnchor4 constant:?];
   [(BKUIFingerPrintEnrollTutorialViewController *)self setContentViewTopConstraint:v47];
 
-  v64 = MEMORY[0x277CCAAD0];
+  v63 = MEMORY[0x277CCAAD0];
   contentViewTopConstraint = [(BKUIFingerPrintEnrollTutorialViewController *)self contentViewTopConstraint];
-  v81[0] = contentViewTopConstraint;
+  v80[0] = contentViewTopConstraint;
   bottomAnchor3 = [enrollTutorialImageView bottomAnchor];
   contentView4 = [(BKUIFingerPrintEnrollTutorialViewController *)self contentView];
   bottomAnchor4 = [contentView4 bottomAnchor];
-  v66 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-  v81[1] = v66;
+  v65 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
+  v80[1] = v65;
   leadingAnchor3 = [enrollTutorialImageView leadingAnchor];
   contentView5 = [(BKUIFingerPrintEnrollTutorialViewController *)self contentView];
   leadingAnchor4 = [contentView5 leadingAnchor];
   v51 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v81[2] = v51;
+  v80[2] = v51;
   trailingAnchor3 = [enrollTutorialImageView trailingAnchor];
   contentView6 = [(BKUIFingerPrintEnrollTutorialViewController *)self contentView];
   trailingAnchor4 = [contentView6 trailingAnchor];
   v55 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v81[3] = v55;
-  v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:4];
-  [v64 activateConstraints:v56];
+  v80[3] = v55;
+  v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:4];
+  [v63 activateConstraints:v56];
 
   [(BKUIFingerPrintEnrollTutorialViewController *)self _setupTouchIDAnimation];
   [(BKUIFingerPrintEnrollTutorialViewController *)self loadAVPlayer];
   objc_initWeak(&location, self);
-  v80 = objc_opt_class();
-  v57 = [MEMORY[0x277CBEA60] arrayWithObjects:&v80 count:1];
-  v76[0] = MEMORY[0x277D85DD0];
-  v76[1] = 3221225472;
-  v76[2] = __58__BKUIFingerPrintEnrollTutorialViewController_viewDidLoad__block_invoke;
-  v76[3] = &unk_278D09928;
-  objc_copyWeak(&v77, &location);
-  v58 = [(BKUIFingerPrintEnrollTutorialViewController *)self registerForTraitChanges:v57 withHandler:v76];
+  v79 = objc_opt_class();
+  v57 = [MEMORY[0x277CBEA60] arrayWithObjects:&v79 count:1];
+  v75[0] = MEMORY[0x277D85DD0];
+  v75[1] = 3221225472;
+  v75[2] = __58__BKUIFingerPrintEnrollTutorialViewController_viewDidLoad__block_invoke;
+  v75[3] = &unk_278D09928;
+  objc_copyWeak(&v76, &location);
+  v58 = [(BKUIFingerPrintEnrollTutorialViewController *)self registerForTraitChanges:v57 withHandler:v75];
   [(BKUIFingerPrintEnrollTutorialViewController *)self setTraitChangeRegistration:v58];
 
-  objc_destroyWeak(&v77);
+  objc_destroyWeak(&v76);
   objc_destroyWeak(&location);
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 void __58__BKUIFingerPrintEnrollTutorialViewController_viewDidLoad__block_invoke(uint64_t a1)
@@ -205,6 +237,14 @@ void __58__BKUIFingerPrintEnrollTutorialViewController_viewDidLoad__block_invoke
   v4 = v3;
   contentViewTopConstraint = [(BKUIFingerPrintEnrollTutorialViewController *)self contentViewTopConstraint];
   [contentViewTopConstraint setConstant:v4];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = BKUIFingerPrintEnrollTutorialViewController;
+  [(OBBaseWelcomeController *)&v4 viewDidAppear:appear];
+  [(BKUIFingerPrintEnrollTutorialViewController *)self performSelector:sel__performInitialAnimationSetup withObject:0 afterDelay:0.5];
 }
 
 - (void)_performInitialAnimationSetup
@@ -228,6 +268,17 @@ void __58__BKUIFingerPrintEnrollTutorialViewController_viewDidLoad__block_invoke
 
   animationController2 = [(BKUIFingerPrintEnrollTutorialViewController *)self animationController];
   [animationController2 startAnimation];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = BKUIFingerPrintEnrollTutorialViewController;
+  [(OBBaseWelcomeController *)&v5 viewDidDisappear:disappear];
+  animationTimer = [(BKUIFingerPrintEnrollTutorialViewController *)self animationTimer];
+  [animationTimer invalidate];
+
+  [(BKUIFingerPrintEnrollTutorialViewController *)self setAnimationTimer:0];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -658,7 +709,7 @@ void __59__BKUIFingerPrintEnrollTutorialViewController_loadAVPlayer__block_invok
 
 - (void)_setupTouchIDAnimation
 {
-  v45[4] = *MEMORY[0x277D85DE8];
+  v44[4] = *MEMORY[0x277D85DE8];
   posedVideoPlayerView = [(BKUIFingerPrintEnrollTutorialViewController *)self posedVideoPlayerView];
 
   if (!posedVideoPlayerView)
@@ -686,37 +737,37 @@ void __59__BKUIFingerPrintEnrollTutorialViewController_loadAVPlayer__block_invok
       v14 = v14 + -2.5;
     }
 
-    v37 = MEMORY[0x277CCAAD0];
+    v36 = MEMORY[0x277CCAAD0];
     animationView4 = [(BKUIFingerPrintEnrollTutorialViewController *)self animationView];
     centerXAnchor = [animationView4 centerXAnchor];
     view = [(BKUIFingerPrintEnrollTutorialViewController *)self view];
     centerXAnchor2 = [view centerXAnchor];
-    v39 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v45[0] = v39;
+    v38 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v44[0] = v38;
     animationView5 = [(BKUIFingerPrintEnrollTutorialViewController *)self animationView];
     topAnchor = [animationView5 topAnchor];
     contentView3 = [(BKUIFingerPrintEnrollTutorialViewController *)self contentView];
     topAnchor2 = [contentView3 topAnchor];
     v16 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:v14];
-    v45[1] = v16;
+    v44[1] = v16;
     animationView6 = [(BKUIFingerPrintEnrollTutorialViewController *)self animationView];
     widthAnchor = [animationView6 widthAnchor];
     v19 = [widthAnchor constraintEqualToConstant:32.0];
-    v45[2] = v19;
+    v44[2] = v19;
     animationView7 = [(BKUIFingerPrintEnrollTutorialViewController *)self animationView];
     heightAnchor = [animationView7 heightAnchor];
     v22 = [heightAnchor constraintEqualToConstant:32.0];
-    v45[3] = v22;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:4];
-    [v37 activateConstraints:v23];
+    v44[3] = v22;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:4];
+    [v36 activateConstraints:v23];
 
     v24 = [objc_alloc(MEMORY[0x277D37608]) initWithStateName:@"Start" transitionDuration:0.01 transitionSpeed:1.0];
-    v44[0] = v24;
+    v43[0] = v24;
     v25 = [objc_alloc(MEMORY[0x277D37608]) initWithStateName:@"Animate IN" transitionDuration:2.3 transitionSpeed:1.0];
-    v44[1] = v25;
+    v43[1] = v25;
     v26 = [objc_alloc(MEMORY[0x277D37608]) initWithStateName:@"Animate OUT" transitionDuration:1.0 transitionSpeed:1.0];
-    v44[2] = v26;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
+    v43[2] = v26;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
 
     v28 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v29 = [v28 URLForResource:@"touch_ID_animation" withExtension:@"ca"];
@@ -735,8 +786,6 @@ void __59__BKUIFingerPrintEnrollTutorialViewController_loadAVPlayer__block_invok
     v33 = [v31 initWithUrlToPackage:v29 animationView:animationView8 animatedStates:v27 startAtFirstState:0];
     [(BKUIFingerPrintEnrollTutorialViewController *)self setAnimationController:v33];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (double)_contentViewTopOffset

@@ -355,10 +355,10 @@ void __77__SKUITracklistHeaderCollectionViewCell_reloadWithViewElement_width_con
 
 void __55__SKUITracklistHeaderCollectionViewCell_layoutSubviews__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v21 = a2;
+  v22 = a2;
   v5 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:a3];
   v6 = [*(*(a1 + 32) + 840) objectForKey:v5];
-  [v21 width];
+  [v22 width];
   v8 = v7;
   if (!v6)
   {
@@ -371,7 +371,7 @@ void __55__SKUITracklistHeaderCollectionViewCell_layoutSubviews__block_invoke(ui
   v13 = v12;
   *&v10 = (*(a1 + 72) - v12) * 0.5;
   v14 = floorf(*&v10);
-  v15 = [v21 headerAlignment];
+  v15 = [v22 headerAlignment];
   if (v15 > 2)
   {
     if ((v15 - 3) >= 2)
@@ -389,26 +389,26 @@ LABEL_8:
     case 0:
       goto LABEL_8;
     case 1:
-      v16 = (v8 - v11) * 0.5 + *(*(*(a1 + 40) + 8) + 24);
+      v17 = (v8 - v11) * 0.5 + *(*(*(a1 + 40) + 8) + 24);
       goto LABEL_10;
     case 2:
-      v16 = v8 + *(*(*(a1 + 40) + 8) + 24) - v11;
+      v17 = v8 + *(*(*(a1 + 40) + 8) + 24) - v11;
 LABEL_10:
-      v17 = v16;
-      v9 = floorf(v17);
+      v18 = v17;
+      v9 = floorf(v18);
       break;
   }
 
 LABEL_11:
-  v18 = v14;
+  v19 = v14;
   if (*(a1 + 88) == 1)
   {
-    v9 = CGRectWithFlippedOriginRelativeToBoundingRect(v9, v18, v11, v13, *(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72));
-    v11 = v19;
-    v13 = v20;
+    v9 = CGRectWithFlippedOriginRelativeToBoundingRect(v9, v19, v11, v13, *(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72), v15, v16);
+    v11 = v20;
+    v13 = v21;
   }
 
-  [v6 setFrame:{v9, v18, v11, v13}];
+  [v6 setFrame:{v9, v19, v11, v13}];
 LABEL_14:
   *(*(*(a1 + 40) + 8) + 24) = v8 + *(a1 + 80) + *(*(*(a1 + 40) + 8) + 24);
 }
@@ -445,6 +445,42 @@ LABEL_14:
   v15 = [text attributedStringWithDefaultFont:v8 foregroundColor:v13 style:style];
 
   return v15;
+}
+
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITracklistHeaderCollectionViewCell initWithFrame:]";
+}
+
++ (void)sizeForHeaderTitleLabel:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITracklistHeaderCollectionViewCell sizeForHeaderTitleLabel:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITracklistHeaderCollectionViewCell prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITracklistHeaderCollectionViewCell preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITracklistHeaderCollectionViewCell requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITracklistHeaderCollectionViewCell sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

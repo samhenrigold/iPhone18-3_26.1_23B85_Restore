@@ -853,7 +853,7 @@ void __48__SUUIGiftComposeViewController_viewWillAppear___block_invoke(uint64_t 
         }
 
         name = [notificationCopy name];
-        -[SUUIGiftComposeViewController _validateGiftThrottled:](self, "_validateGiftThrottled:", [name isEqualToString:*MEMORY[0x277D770B0]]);
+        [(SUUIGiftComposeViewController *)self _validateGiftThrottled:objc_msgSend_isEqualToString_(name)];
       }
     }
   }

@@ -1481,7 +1481,7 @@ LABEL_44:
         if ([(IDSPairingManager *)self _isPairedToDevice:v11])
         {
           uniqueID = [v11 uniqueID];
-          v13 = [uniqueID isEqualToIgnoringCase:dCopy];
+          v13 = objc_msgSend_isEqualToIgnoringCase_(uniqueID);
 
           if (v13)
           {
@@ -1964,7 +1964,7 @@ LABEL_37:
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Switching active paired device from %@ to %@", buf, 0x16u);
   }
 
-  if ([dCopy isEqualToIgnoringCase:_activePairedDeviceCBUUID])
+  if (objc_msgSend_isEqualToIgnoringCase_(dCopy))
   {
     v9 = +[IMRGLog watchPairing];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
@@ -3186,10 +3186,10 @@ LABEL_32:
       }
     }
 
-    v59 = [v53 isEqualToIgnoringCase:v35];
-    v60 = [v76 isEqualToIgnoringCase:versionCopy];
-    v61 = [pairedDeviceProductVersion isEqualToIgnoringCase:v78];
-    v62 = [pairedDeviceProductName isEqualToIgnoringCase:v84];
+    v59 = objc_msgSend_isEqualToIgnoringCase_(v53);
+    v60 = objc_msgSend_isEqualToIgnoringCase_(v76);
+    v61 = objc_msgSend_isEqualToIgnoringCase_(pairedDeviceProductVersion);
+    v62 = objc_msgSend_isEqualToIgnoringCase_(pairedDeviceProductName);
     if (v60 && v61 && (v62 & 1) != 0)
     {
       pairedDevice = [(IDSPairingManager *)self pairedDevice];

@@ -3,6 +3,7 @@
 - (void)_updateNavigationButtonStateWithNewOption:(unint64_t)option;
 - (void)_userDidConfirmDisplayZoomModeWithSpecifier:(id)specifier;
 - (void)_userDidSelectSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -59,6 +60,26 @@
 
   objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v13.receiver = self;
+  v13.super_class = DTDisplayZoomSelectionListController;
+  [(DTDisplayZoomSelectionListController *)&v13 viewDidAppear:appear];
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v4 bundleURL];
+
+  v6 = [_NSLocalizedStringResource alloc];
+  v7 = +[NSLocale currentLocale];
+  v8 = [v6 initWithKey:@"DEVELOPER" table:@"DTSettings" locale:v7 bundleURL:bundleURL];
+
+  v9 = [_NSLocalizedStringResource alloc];
+  v10 = +[NSLocale currentLocale];
+  v11 = [v9 initWithKey:@"DISPLAY_ZOOM" table:@"DTDisplayZoom" locale:v10 bundleURL:bundleURL];
+
+  v12 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Developer/MAGNIFY"];
+  [(DTDisplayZoomSelectionListController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.developer-tools" title:v11 localizedNavigationComponents:&__NSArray0__struct deepLink:v12];
 }
 
 - (id)specifiers

@@ -10,12 +10,14 @@
 - (_CRRecentsLibrary)init;
 - (_CRRecentsLibrary)initWithPath:(id)path accountAdaptor:(id)adaptor;
 - (id)_activeConnectionWrapper;
+- (id)_connectionForWriting:(BOOL)writing;
 - (id)_copyRecentContactForID:(int64_t)d;
 - (id)_copyRecentContactForRecordHash:(id)hash recentsDomain:(id)domain;
 - (id)_nts_expungeGroupRecentsOverLimit:(unint64_t)limit domain:(id)domain storeKeys:(id *)keys connection:(id)connection;
 - (id)_nts_expungeIndividualRecentsOverLimit:(unint64_t)limit domain:(id)domain storeKeys:(id *)keys connection:(id)connection;
 - (id)_nts_expungeRecentsOlderThanDate:(id)date domain:(id)domain storeKeys:(id *)keys connection:(id)connection;
 - (id)_recentsDomainForStore:(id)store;
+- (id)_setActiveConnection:(id)connection forWriting:(BOOL)writing;
 - (id)_whereClauseFromPredicate:(id)predicate inDomains:(id)domains bindings:(id *)bindings error:(id *)error;
 - (id)addressFromExternalAddress:(id)address kind:(id)kind;
 - (id)bindingForDomain:(id)domain;
@@ -35,6 +37,7 @@
 - (id)recentsHashForAddress:(id)address kind:(id)kind;
 - (id)recentsHashForExternalAddress:(id)address kind:(id)kind;
 - (id)upcomingEventIdentifierForRecentID:(int64_t)d;
+- (int)beginTransaction:(id)transaction withType:(int)type;
 - (int)commitTransaction:(id)transaction;
 - (int)handleSqliteError:(sqlite3 *)error format:(id)format;
 - (int)rollbackTransaction:(id)transaction;
@@ -52,6 +55,7 @@
 - (void)_handleSQLiteErrorCode:(int)code;
 - (void)_initializeCloudStores;
 - (void)_insertRecentContacts:(id)contacts;
+- (void)_performTransaction:(id)transaction forWriting:(BOOL)writing;
 - (void)_registerForRemoteKVSChanges;
 - (void)_removeDatabase;
 - (void)_removeDatabaseFromUnexpectedLocationAndAbort;
@@ -70,6 +74,7 @@
 - (void)populateMetadataForRecents:(id)recents;
 - (void)removeAllRecentContactsWithCompletion:(id)completion;
 - (void)removeContact:(id)contact;
+- (void)removeLocalRecordsForDomain:(id)domain removeInUbiquitousStore:(BOOL)store;
 - (void)renameOrRemoveDatabaseAndAbort;
 - (void)restorePreviouslyDeletedRecentContacts:(id)contacts completion:(id)completion;
 - (void)scheduleSynchronizationForStore:(id)store;
@@ -386,6 +391,41 @@
   return v8;
 }
 
+- (id)_setActiveConnection:(id)connection forWriting:(BOOL)writing
+{
+  writingCopy = writing;
+  threadDictionary = [+[NSThread currentThread](NSThread threadDictionary];
+  v7 = [(NSMutableDictionary *)threadDictionary objectForKey:@"com.apple.corerecents.recentsLibrary.connection"];
+  if (connection)
+  {
+    v8 = v7;
+    if ([(_CRRecentsSQLiteConnectionWrapper *)v7 connection]!= connection)
+    {
+      v8 = [_CRRecentsSQLiteConnectionWrapper wrapperWithConnection:connection forWriting:writingCopy];
+      [(NSMutableDictionary *)threadDictionary setObject:v8 forKey:@"com.apple.corerecents.recentsLibrary.connection"];
+    }
+  }
+
+  else
+  {
+    [(NSMutableDictionary *)threadDictionary removeObjectForKey:@"com.apple.corerecents.recentsLibrary.connection"];
+    return 0;
+  }
+
+  return v8;
+}
+
+- (int)beginTransaction:(id)transaction withType:(int)type
+{
+  v6 = [transaction beginTransactionWithType:*&type];
+  if (v6)
+  {
+    -[_CRRecentsLibrary handleSqliteError:format:](self, "handleSqliteError:format:", [transaction db], @"recents: beginning transaction");
+  }
+
+  return v6;
+}
+
 - (int)commitTransaction:(id)transaction
 {
   commitTransaction = [transaction commitTransaction];
@@ -422,6 +462,85 @@
 
     [(_CRRecentsLibrary *)self _setActiveConnection:0 forWriting:0];
   }
+}
+
+- (id)_connectionForWriting:(BOOL)writing
+{
+  writingCopy = writing;
+  _activeConnectionWrapper = [(_CRRecentsLibrary *)self _activeConnectionWrapper];
+  connection = [_activeConnectionWrapper connection];
+  if (connection)
+  {
+    v7 = connection;
+    if (!_activeConnectionWrapper)
+    {
+      return v7;
+    }
+
+    goto LABEL_9;
+  }
+
+  connectionPool = self->_connectionPool;
+  if (writingCopy)
+  {
+    writerConnection = [(CRSQLiteConnectionPool *)connectionPool writerConnection];
+  }
+
+  else
+  {
+    writerConnection = [(CRSQLiteConnectionPool *)connectionPool readerConnection];
+  }
+
+  v7 = writerConnection;
+  if (!writerConnection)
+  {
+    sub_1000181F0();
+  }
+
+  _activeConnectionWrapper = [(_CRRecentsLibrary *)self _setActiveConnection:writerConnection forWriting:writingCopy];
+  if (_activeConnectionWrapper)
+  {
+LABEL_9:
+    if (writingCopy)
+    {
+      if (pthread_main_np())
+      {
+        v10 = +[CRLogging log];
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        {
+          *v12 = 0;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Warning: getting writer connection on the main thread", v12, 2u);
+        }
+      }
+
+      if (([_activeConnectionWrapper writer] & 1) == 0)
+      {
+        sub_1000181C4();
+      }
+    }
+
+    [_activeConnectionWrapper incrementRefcount];
+  }
+
+  return v7;
+}
+
+- (void)_performTransaction:(id)transaction forWriting:(BOOL)writing
+{
+  writingCopy = writing;
+  v7 = [(_CRRecentsLibrary *)self _connectionForWriting:writing];
+  [(_CRRecentsLibrary *)self beginTransaction:v7 withType:writingCopy];
+  if ((*(transaction + 2))(transaction, v7))
+  {
+    [(_CRRecentsLibrary *)self commitTransaction:v7];
+  }
+
+  else
+  {
+    [(_CRRecentsLibrary *)self rollbackTransaction:v7];
+  }
+
+  [(_CRRecentsLibrary *)self unlockConnection:v7];
 }
 
 - (id)copyRecentContactFromStatement:(sqlite3_stmt *)statement columnIndexes:(id *)indexes populateMetadata:(BOOL)metadata
@@ -3143,6 +3262,44 @@ LABEL_71:
   v6 = *(v10 + 24);
   _Block_object_dispose(&v9, 8);
   return v6;
+}
+
+- (void)removeLocalRecordsForDomain:(id)domain removeInUbiquitousStore:(BOOL)store
+{
+  storeCopy = store;
+  v7 = +[CRLogging log];
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543362;
+    domainCopy = domain;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Removing local records for domain %{public}@", buf, 0xCu);
+  }
+
+  v8 = objc_alloc_init(CRSearchQuery);
+  domainCopy2 = domain;
+  [v8 setDomains:{+[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &domainCopy2, 1)}];
+  [v8 setImplicitGroupThreshold:1];
+  v9 = [(_CRRecentsLibrary *)self copyRecentsForQuery:v8 error:0];
+  v10 = [v9 cr_map:&stru_10002D138];
+  v21 = 0;
+  v11 = [(_CRRecentsLibrary *)self removeRecentContactsWithRecentIDs:v10 syncKeys:0 domain:domain removeInUbiquitousStore:storeCopy error:&v21];
+  v12 = +[CRLogging log];
+  v13 = v12;
+  if (v11)
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = [v10 count];
+      *buf = 134217984;
+      domainCopy = v14;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Removed %lu record(s)", buf, 0xCu);
+    }
+  }
+
+  else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  {
+    sub_100018758(&v21, v13, v15, v16, v17, v18, v19, v20);
+  }
 }
 
 - (void)mergeCloudDataOneWayIntoLocalStoreWithReason:(unint64_t)reason

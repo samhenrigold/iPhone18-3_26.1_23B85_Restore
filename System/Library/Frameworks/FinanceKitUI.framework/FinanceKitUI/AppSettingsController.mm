@@ -5,9 +5,39 @@
 - (void)provider:(id)provider specifierDidChange:(id)change;
 - (void)providerReloadSpecifiers:(id)specifiers;
 - (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation AppSettingsController
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  sub_23875ED50();
+  sub_23875ED40();
+  sub_23875ECE0();
+  if ((swift_task_isCurrentExecutor() & 1) == 0)
+  {
+    swift_task_reportUnexpectedExecutor();
+  }
+
+  v10.receiver = self;
+  v10.super_class = type metadata accessor for AppSettingsController();
+  selfCopy = self;
+  [(AppSettingsController *)&v10 viewWillDisappear:disappearCopy];
+  v6 = [(AppSettingsController *)selfCopy specifier:v10.receiver];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = sub_23875ECD0();
+    v9 = sub_23875EA50();
+    [v7 setProperty:v8 forKey:v9];
+  }
+
+  else
+  {
+  }
+}
 
 - (_TtC12FinanceKitUI21AppSettingsController)initWithNibName:(id)name bundle:(id)bundle
 {

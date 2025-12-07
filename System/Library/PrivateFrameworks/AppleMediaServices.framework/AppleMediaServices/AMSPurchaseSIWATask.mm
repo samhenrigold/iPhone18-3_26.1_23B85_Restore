@@ -446,7 +446,7 @@ LABEL_29:
   return v14;
 }
 
-id __42__AMSPurchaseSIWATask_performPurchaseSIWA__block_invoke_18(uint64_t a1, uint64_t a2, void *a3)
+id __42__AMSPurchaseSIWATask_performPurchaseSIWA__block_invoke_18(void *a1, uint64_t a2, void *a3)
 {
   v14 = *MEMORY[0x1E69E9840];
   v4 = a3;
@@ -462,7 +462,7 @@ id __42__AMSPurchaseSIWATask_performPurchaseSIWA__block_invoke_18(uint64_t a1, u
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = objc_opt_class();
-      v8 = *(a1 + 40);
+      v8 = a1[5];
       *v12 = 138543874;
       *&v12[4] = v7;
       *&v12[12] = 2114;
@@ -474,12 +474,12 @@ id __42__AMSPurchaseSIWATask_performPurchaseSIWA__block_invoke_18(uint64_t a1, u
     }
   }
 
-  v10 = [AMSPromise promiseWithError:*(a1 + 48), *v12, *&v12[16], v13];
+  v10 = [AMSPromise promiseWithError:a1[6], *v12, *&v12[8], v13];
 
   return v10;
 }
 
-id __42__AMSPurchaseSIWATask_performPurchaseSIWA__block_invoke_21(uint64_t a1, void *a2, void *a3)
+id __42__AMSPurchaseSIWATask_performPurchaseSIWA__block_invoke_21(void *a1, void *a2, void *a3)
 {
   v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -496,7 +496,7 @@ id __42__AMSPurchaseSIWATask_performPurchaseSIWA__block_invoke_21(uint64_t a1, v
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = objc_opt_class();
-      v10 = *(a1 + 40);
+      v10 = a1[5];
       *v19 = 138543874;
       *&v19[4] = v9;
       *&v19[12] = 2114;
@@ -519,8 +519,8 @@ id __42__AMSPurchaseSIWATask_performPurchaseSIWA__block_invoke_21(uint64_t a1, v
     v14 = 0;
   }
 
-  v15 = [(AMSPurchaseSIWAAuthorizationResult *)v12 initWithAuthorization:v13 error:v14, *v19, *&v19[16], v20];
-  v16 = [[AMSPurchaseSIWAResult alloc] initWithPurchaseResult:*(a1 + 48) authorizationResult:v15];
+  v15 = [(AMSPurchaseSIWAAuthorizationResult *)v12 initWithAuthorization:v13 error:v14, *v19, *&v19[8], v20];
+  v16 = [[AMSPurchaseSIWAResult alloc] initWithPurchaseResult:a1[6] authorizationResult:v15];
   v17 = [AMSPromise promiseWithResult:v16];
 
   return v17;

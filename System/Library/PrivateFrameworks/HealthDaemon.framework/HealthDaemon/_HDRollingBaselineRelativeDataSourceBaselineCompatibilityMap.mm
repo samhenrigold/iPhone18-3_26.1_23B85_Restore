@@ -98,7 +98,7 @@ LABEL_10:
 
 - (id)_bundleIDForSourceID:(int64_t)d error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   bundleIDBySourceID = self->_bundleIDBySourceID;
   v8 = [MEMORY[0x277CCABB0] numberWithLongLong:?];
   bundleIdentifier = [(NSMutableDictionary *)bundleIDBySourceID objectForKeyedSubscript:v8];
@@ -108,9 +108,9 @@ LABEL_10:
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     sourceManager = [WeakRetained sourceManager];
     v12 = [MEMORY[0x277CCABB0] numberWithLongLong:d];
-    v24 = 0;
-    v13 = [sourceManager clientSourceForPersistentID:v12 error:&v24];
-    v14 = v24;
+    v23 = 0;
+    v13 = [sourceManager clientSourceForPersistentID:v12 error:&v23];
+    v14 = v23;
 
     if (v13)
     {
@@ -129,13 +129,13 @@ LABEL_11:
     v18 = *MEMORY[0x277CCC308];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v23 = [MEMORY[0x277CCABB0] numberWithLongLong:d];
+      v22 = [MEMORY[0x277CCABB0] numberWithLongLong:d];
       *buf = 138543874;
       selfCopy = self;
-      v27 = 2114;
-      v28 = v23;
-      v29 = 2114;
-      v30 = v14;
+      v26 = 2114;
+      v27 = v22;
+      v28 = 2114;
+      v29 = v14;
       _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "[%{public}@] Error determining source for ID %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -159,14 +159,13 @@ LABEL_11:
   }
 
 LABEL_12:
-  v21 = *MEMORY[0x277D85DE8];
 
   return bundleIdentifier;
 }
 
 - (id)predicateForDataEntitiesWithSourceIDsCompatibleWithSourceID:(int64_t)d
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   isAppleInternalInstall = [mEMORY[0x277CCDD30] isAppleInternalInstall];
 
@@ -178,42 +177,42 @@ LABEL_12:
     goto LABEL_29;
   }
 
-  v34 = 0;
-  v23 = [(_HDRollingBaselineRelativeDataSourceBaselineCompatibilityMap *)self _bundleIDForSourceID:d error:&v34];
-  v5 = v34;
-  if (v23)
+  v33 = 0;
+  v22 = [(_HDRollingBaselineRelativeDataSourceBaselineCompatibilityMap *)self _bundleIDForSourceID:d error:&v33];
+  v5 = v33;
+  if (v22)
   {
-    v27 = [(NSDictionary *)self->_canonicalBundleIDByBundleID objectForKeyedSubscript:?];
-    if (v27)
+    v26 = [(NSDictionary *)self->_canonicalBundleIDByBundleID objectForKeyedSubscript:?];
+    if (v26)
     {
-      v26 = [MEMORY[0x277CBEB58] set];
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
+      v25 = [MEMORY[0x277CBEB58] set];
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       obj = self->_canonicalBundleIDByBundleID;
-      v6 = [(NSDictionary *)obj countByEnumeratingWithState:&v30 objects:v41 count:16];
+      v6 = [(NSDictionary *)obj countByEnumeratingWithState:&v29 objects:v40 count:16];
       if (v6)
       {
-        v7 = *v31;
+        v7 = *v30;
         while (2)
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v31 != v7)
+            if (*v30 != v7)
             {
               objc_enumerationMutation(obj);
             }
 
-            v9 = *(*(&v30 + 1) + 8 * i);
+            v9 = *(*(&v29 + 1) + 8 * i);
             v10 = [(NSDictionary *)self->_canonicalBundleIDByBundleID objectForKeyedSubscript:v9];
-            if ([v10 isEqual:v27])
+            if ([v10 isEqual:v26])
             {
               WeakRetained = objc_loadWeakRetained(&self->_profile);
               sourceManager = [WeakRetained sourceManager];
-              v29 = v5;
-              v13 = [sourceManager allSourcesForBundleIdentifier:v9 error:&v29];
-              v14 = v29;
+              v28 = v5;
+              v13 = [sourceManager allSourcesForBundleIdentifier:v9 error:&v28];
+              v14 = v28;
 
               if (!v13)
               {
@@ -223,10 +222,10 @@ LABEL_12:
                 {
                   *buf = 138543874;
                   selfCopy2 = self;
-                  v37 = 2114;
-                  v38 = v9;
-                  v39 = 2114;
-                  v40 = v14;
+                  v36 = 2114;
+                  v37 = v9;
+                  v38 = 2114;
+                  v39 = v14;
                   _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "[%{public}@] Error source entities for bundle ID %{public}@: %{public}@", buf, 0x20u);
                 }
 
@@ -234,13 +233,13 @@ LABEL_12:
                 goto LABEL_21;
               }
 
-              [v26 unionSet:v13];
+              [v25 unionSet:v13];
 
               v5 = v14;
             }
           }
 
-          v6 = [(NSDictionary *)obj countByEnumeratingWithState:&v30 objects:v41 count:16];
+          v6 = [(NSDictionary *)obj countByEnumeratingWithState:&v29 objects:v40 count:16];
           if (v6)
           {
             continue;
@@ -252,7 +251,7 @@ LABEL_12:
 
 LABEL_21:
 
-      if (![v26 count])
+      if (![v25 count])
       {
         _HKInitializeLogging();
         v19 = *MEMORY[0x277CCC308];
@@ -260,8 +259,8 @@ LABEL_21:
         {
           *buf = 138543618;
           selfCopy2 = self;
-          v37 = 2114;
-          v38 = v27;
+          v36 = 2114;
+          v37 = v26;
           _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "[%{public}@] No source entities found for canonical bundle ID %{public}@", buf, 0x16u);
         }
 
@@ -271,13 +270,13 @@ LABEL_21:
         goto LABEL_27;
       }
 
-      v17 = HDDataEntityPredicateForSourceEntitySet(7, v26);
+      v17 = HDDataEntityPredicateForSourceEntitySet(7, v25);
     }
 
     else
     {
-      v26 = [MEMORY[0x277CCABB0] numberWithLongLong:d];
-      v17 = HDDataEntityPredicateForSourceIdentifier(v26);
+      v25 = [MEMORY[0x277CCABB0] numberWithLongLong:d];
+      v17 = HDDataEntityPredicateForSourceIdentifier(v25);
     }
 
     v16 = v17;
@@ -286,12 +285,11 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  v27 = [MEMORY[0x277CCABB0] numberWithLongLong:d];
-  v16 = HDDataEntityPredicateForSourceIdentifier(v27);
+  v26 = [MEMORY[0x277CCABB0] numberWithLongLong:d];
+  v16 = HDDataEntityPredicateForSourceIdentifier(v26);
 LABEL_28:
 
 LABEL_29:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

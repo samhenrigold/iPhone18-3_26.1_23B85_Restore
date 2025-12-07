@@ -73,7 +73,7 @@
     v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.FileProvider.ExtensionDataSource.queue (%p)", v7];
     uTF8String = [v8 UTF8String];
     v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v11 = FPDataSourceBaseQueue();
+    v11 = FPDataSourceBaseQueue(v10);
     v12 = dispatch_queue_create_with_target_V2(uTF8String, v10, v11);
     queue = v7->_queue;
     v7->_queue = v12;
@@ -213,10 +213,24 @@ void __30__FPExtensionDataSource_start__block_invoke_4(uint64_t a1)
 
 - (void)_invalidate
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  if (!self->_invalidated)
+  {
+    v3 = fp_current_or_default_log();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    {
+      [FPExtensionDataSource _invalidate];
+    }
+
+    self->_invalidated = 1;
+    [(FPXEnumerator *)self->_enumerator invalidate];
+    [(FPDLifetimeServicing *)self->_lifetimeExtender stopExtendingLifetime];
+    lifetimeExtender = self->_lifetimeExtender;
+    self->_lifetimeExtender = 0;
+
+    self->_enumeratingExtensionResults = 0;
+    enumerator = self->_enumerator;
+    self->_enumerator = 0;
+  }
 }
 
 - (void)invalidate
@@ -243,7 +257,7 @@ void __30__FPExtensionDataSource_start__block_invoke_4(uint64_t a1)
 
 void __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke(uint64_t a1)
 {
-  v2 = (a1 + 32);
+  v2 = a1 + 32;
   v1 = *(a1 + 32);
   v3 = *(v1 + 24);
   v4 = *(v1 + 25);
@@ -254,7 +268,7 @@ void __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke(uint6
       v6 = fp_current_or_default_log();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_1(v2);
+        __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_1();
       }
 
       goto LABEL_11;
@@ -264,7 +278,7 @@ LABEL_7:
     v6 = fp_current_or_default_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_5(v2);
+      __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_5();
     }
 
 LABEL_11:
@@ -282,7 +296,7 @@ LABEL_11:
     v5 = fp_current_or_default_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_4(v2);
+      __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_4();
     }
 
 LABEL_15:
@@ -298,7 +312,7 @@ LABEL_15:
   {
     if (v8)
     {
-      __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_3(v2);
+      __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_3();
     }
 
     goto LABEL_15;
@@ -306,7 +320,7 @@ LABEL_15:
 
   if (v8)
   {
-    __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_2(v2);
+    __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_2();
   }
 
   v9 = *v2;
@@ -340,26 +354,23 @@ LABEL_15:
 
 void __39__FPExtensionDataSource_didUpdateItem___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 80));
   v3 = *(a1 + 32);
-  v6[0] = *(a1 + 40);
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
+  v5[0] = *(a1 + 40);
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
   [WeakRetained dataSource:v3 receivedUpdatedItems:v4 deletedItems:MEMORY[0x1E695E0F0] hasMoreChanges:*(*(a1 + 32) + 72)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateItems
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(self + 40);
-  v5 = 134218242;
-  v6 = a2;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] ┣%llx fetching changes from token: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 134218242;
+  v5 = a2;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_debug_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] ┣%llx fetching changes from token: %@", &v4, 0x16u);
 }
 
 - (id)_initialPageFromSortDescriptors:(id)descriptors
@@ -399,10 +410,23 @@ LABEL_7:
 
 - (void)_gatherInitialItems
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  dispatch_assert_queue_V2(self->_queue);
+  changeToken = self->_changeToken;
+  self->_changeToken = 0;
+
+  self->_numGatheredItems = 0;
+  self->_hasMoreIncoming = 1;
+  sortDescriptors = [(FPEnumerationSettings *)self->_enumerationSettings sortDescriptors];
+  v5 = [(FPExtensionDataSource *)self _initialPageFromSortDescriptors:sortDescriptors];
+
+  section = __fp_create_section();
+  v7 = fp_current_or_default_log();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    [FPExtensionDataSource _gatherInitialItems];
+  }
+
+  [(FPExtensionDataSource *)self _gatherMoreItemsAfterPage:v5 section:section];
 }
 
 - (BOOL)hasMoreIncoming
@@ -502,16 +526,16 @@ void __62__FPExtensionDataSource__updateItemsWithUpdatesCount_section___block_in
 
 void __62__FPExtensionDataSource__updateItemsWithUpdatesCount_section___block_invoke_2(uint64_t a1)
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (*(v1 + 16) == *(a1 + 40))
   {
     *(v1 + 27) = 0;
-    v68 = *(a1 + 80);
+    v67 = *(a1 + 80);
     v3 = fp_current_or_default_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      __62__FPExtensionDataSource__updateItemsWithUpdatesCount_section___block_invoke_2_cold_1(&v68);
+      __62__FPExtensionDataSource__updateItemsWithUpdatesCount_section___block_invoke_2_cold_1();
     }
 
     v4 = fp_current_or_default_log();
@@ -525,20 +549,20 @@ void __62__FPExtensionDataSource__updateItemsWithUpdatesCount_section___block_in
       v47 = v46;
       v48 = "";
       *buf = 134219010;
-      *v73 = v42;
-      *&v73[8] = 2048;
+      *v72 = v42;
+      *&v72[8] = 2048;
       if (v44)
       {
         v48 = " (more coming)";
       }
 
-      v74 = v43;
-      v75 = 2080;
-      v76 = v48;
-      v77 = 2112;
-      v78 = v45;
-      v79 = 2112;
-      v80 = v46;
+      v73 = v43;
+      v74 = 2080;
+      v75 = v48;
+      v76 = 2112;
+      v77 = v45;
+      v78 = 2112;
+      v79 = v46;
       _os_log_debug_impl(&dword_1AAAE1000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] updates: %lld, deletion: %lld%s, changeToken: %@, error: %@\n", buf, 0x34u);
     }
 
@@ -547,15 +571,15 @@ void __62__FPExtensionDataSource__updateItemsWithUpdatesCount_section___block_in
     {
       [v5 _invalidateWithError:?];
 LABEL_60:
-      __fp_leave_section_Debug(&v68);
-      goto LABEL_61;
+      __fp_leave_section_Debug(&v67);
+      return;
     }
 
     v6 = [v5 delegate];
-    v54 = [v6 lastForcedUpdate];
-    v53 = *(a1 + 88);
+    v53 = [v6 lastForcedUpdate];
+    v52 = *(a1 + 88);
 
-    if (v54 != v53)
+    if (v53 != v52)
     {
       v7 = fp_current_or_default_log();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -564,7 +588,7 @@ LABEL_60:
       }
     }
 
-    *(*(a1 + 32) + 72) = *(a1 + 96) | (v54 != v53);
+    *(*(a1 + 32) + 72) = *(a1 + 96) | (v53 != v52);
     objc_storeStrong((*(a1 + 32) + 40), *(a1 + 64));
     if (!*(a1 + 64) && !*(a1 + 72))
     {
@@ -578,73 +602,73 @@ LABEL_60:
       goto LABEL_60;
     }
 
-    if (v54 == v53 && ![*(*(a1 + 32) + 64) count])
+    if (v53 == v52 && ![*(*(a1 + 32) + 64) count])
     {
-      goto LABEL_64;
+      goto LABEL_63;
     }
 
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
     v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     v8 = *(a1 + 48);
-    v9 = [v8 countByEnumeratingWithState:&v64 objects:v71 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v63 objects:v70 count:16];
     if (v9)
     {
-      v10 = *v65;
+      v10 = *v64;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v65 != v10)
+          if (*v64 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v64 + 1) + 8 * i);
+          v12 = *(*(&v63 + 1) + 8 * i);
           v13 = *(*(a1 + 32) + 64);
           v14 = [v12 itemID];
           [v13 setObject:v12 forKeyedSubscript:v14];
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v64 objects:v71 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v63 objects:v70 count:16];
       }
 
       while (v9);
     }
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     v15 = *(a1 + 56);
-    v16 = [v15 countByEnumeratingWithState:&v60 objects:v70 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v59 objects:v69 count:16];
     if (v16)
     {
-      v17 = *v61;
+      v17 = *v60;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v61 != v17)
+          if (*v60 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          v19 = *(*(&v60 + 1) + 8 * j);
+          v19 = *(*(&v59 + 1) + 8 * j);
           v20 = [MEMORY[0x1E695DFB0] null];
           [*(*(a1 + 32) + 64) setObject:v20 forKeyedSubscript:v19];
         }
 
-        v16 = [v15 countByEnumeratingWithState:&v60 objects:v70 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v59 objects:v69 count:16];
       }
 
       while (v16);
     }
 
-    if (v54 == v53)
+    if (v53 == v52)
     {
-LABEL_64:
+LABEL_63:
       if ([*(*(a1 + 32) + 64) count])
       {
         v22 = fp_current_or_default_log();
@@ -653,27 +677,27 @@ LABEL_64:
           __62__FPExtensionDataSource__updateItemsWithUpdatesCount_section___block_invoke_2_cold_3();
         }
 
-        v55 = objc_opt_new();
+        v54 = objc_opt_new();
         v23 = objc_opt_new();
-        v58 = 0u;
-        v59 = 0u;
-        v56 = 0u;
         v57 = 0u;
+        v58 = 0u;
+        v55 = 0u;
+        v56 = 0u;
         v24 = *(*(a1 + 32) + 64);
-        v25 = [v24 countByEnumeratingWithState:&v56 objects:v69 count:16];
+        v25 = [v24 countByEnumeratingWithState:&v55 objects:v68 count:16];
         if (v25)
         {
-          v26 = *v57;
+          v26 = *v56;
           do
           {
             for (k = 0; k != v25; ++k)
             {
-              if (*v57 != v26)
+              if (*v56 != v26)
               {
                 objc_enumerationMutation(v24);
               }
 
-              v28 = *(*(&v56 + 1) + 8 * k);
+              v28 = *(*(&v55 + 1) + 8 * k);
               v29 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:v28];
               objc_opt_class();
               isKindOfClass = objc_opt_isKindOfClass();
@@ -681,7 +705,7 @@ LABEL_64:
               if (isKindOfClass)
               {
                 v31 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:v28];
-                [v55 addObject:v31];
+                [v54 addObject:v31];
               }
 
               else
@@ -690,7 +714,7 @@ LABEL_64:
               }
             }
 
-            v25 = [v24 countByEnumeratingWithState:&v56 objects:v69 count:16];
+            v25 = [v24 countByEnumeratingWithState:&v55 objects:v68 count:16];
           }
 
           while (v25);
@@ -702,9 +726,9 @@ LABEL_64:
         *(v33 + 64) = v32;
 
         WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 80));
-        [WeakRetained dataSource:*(a1 + 32) receivedUpdatedItems:v55 deletedItems:v23 hasMoreChanges:0];
+        [WeakRetained dataSource:*(a1 + 32) receivedUpdatedItems:v54 deletedItems:v23 hasMoreChanges:0];
 
-        v36 = [v55 count];
+        v36 = [v54 count];
         v37 = [v23 count];
 
         v38 = v37 + v36;
@@ -719,7 +743,7 @@ LABEL_64:
         v38 = [*(a1 + 56) count] + v40;
       }
 
-      if ((*(a1 + 96) & 1) == 0 && v54 == v53 && *(*(a1 + 32) + 26) != 1)
+      if ((*(a1 + 96) & 1) == 0 && v53 == v52 && *(*(a1 + 32) + 26) != 1)
       {
         goto LABEL_60;
       }
@@ -740,23 +764,20 @@ LABEL_64:
     v41 = fp_current_or_default_log();
     if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
     {
-      v51 = *(a1 + 96);
-      v52 = *(*(a1 + 32) + 26);
+      v50 = *(a1 + 96);
+      v51 = *(*(a1 + 32) + 26);
       *buf = 67109632;
-      *v73 = v51;
-      *&v73[4] = 1024;
-      *&v73[6] = v54 != v53;
-      LOWORD(v74) = 1024;
-      *(&v74 + 2) = v52;
+      *v72 = v50;
+      *&v72[4] = 1024;
+      *&v72[6] = v53 != v52;
+      LOWORD(v73) = 1024;
+      *(&v73 + 2) = v51;
       _os_log_debug_impl(&dword_1AAAE1000, v41, OS_LOG_TYPE_DEBUG, "[DEBUG] fetching more changes [moreChanges: %d, concurrentChanges: %d, shouldUpdate: %d]", buf, 0x14u);
     }
 
     [*(a1 + 32) _updateItemsWithUpdatesCount:v21 section:*(a1 + 80)];
     goto LABEL_60;
   }
-
-LABEL_61:
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_gatherMoreItemsAfterPage:(id)page section:(unint64_t)section
@@ -829,14 +850,14 @@ void __59__FPExtensionDataSource__gatherMoreItemsAfterPage_section___block_invok
 
 void __59__FPExtensionDataSource__gatherMoreItemsAfterPage_section___block_invoke_2(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 16) == *(a1 + 40))
   {
-    v20 = *(a1 + 88);
+    v19 = *(a1 + 88);
     v2 = fp_current_or_default_log();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      __59__FPExtensionDataSource__gatherMoreItemsAfterPage_section___block_invoke_2_cold_1(&v20);
+      __59__FPExtensionDataSource__gatherMoreItemsAfterPage_section___block_invoke_2_cold_1();
     }
 
     v3 = fp_current_or_default_log();
@@ -922,10 +943,8 @@ void __59__FPExtensionDataSource__gatherMoreItemsAfterPage_section___block_invok
       }
     }
 
-    __fp_leave_section_Debug(&v20);
+    __fp_leave_section_Debug(&v19);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (FPCollectionDataSourceDelegate)delegate
@@ -935,49 +954,44 @@ void __59__FPExtensionDataSource__gatherMoreItemsAfterPage_section___block_invok
   return WeakRetained;
 }
 
-void __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_1(uint64_t *a1)
+void __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_45(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_45(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_2(uint64_t *a1)
+void __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_45(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_45(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_3(uint64_t *a1)
+void __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_45(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_45(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_4(uint64_t *a1)
+void __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_4()
 {
-  OUTLINED_FUNCTION_45(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_45(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_5(uint64_t *a1)
+void __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_5()
 {
-  OUTLINED_FUNCTION_45(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_45(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)_updateItemsWithUpdatesCount:section:.cold.1()
@@ -987,13 +1001,12 @@ void __52__FPExtensionDataSource_enumerationResultsDidChange__block_invoke_cold_
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __62__FPExtensionDataSource__updateItemsWithUpdatesCount_section___block_invoke_2_cold_1(uint64_t *a1)
+void __62__FPExtensionDataSource__updateItemsWithUpdatesCount_section___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_45(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_45(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __62__FPExtensionDataSource__updateItemsWithUpdatesCount_section___block_invoke_2_cold_2()
@@ -1017,13 +1030,12 @@ void __62__FPExtensionDataSource__updateItemsWithUpdatesCount_section___block_in
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __59__FPExtensionDataSource__gatherMoreItemsAfterPage_section___block_invoke_2_cold_1(uint64_t *a1)
+void __59__FPExtensionDataSource__gatherMoreItemsAfterPage_section___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_45(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_45(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __59__FPExtensionDataSource__gatherMoreItemsAfterPage_section___block_invoke_2_cold_2(uint64_t a1, uint8_t *buf, uint64_t a3, os_log_t log)

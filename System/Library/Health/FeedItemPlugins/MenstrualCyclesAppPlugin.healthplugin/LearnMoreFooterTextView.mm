@@ -14,7 +14,7 @@
   v4 = (&self->super.super.super.isa + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin23LearnMoreFooterTextView_highlightedText);
   *v4 = 0;
   v4[1] = 0;
-  v5 = (&self->super.super.super.isa + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin23LearnMoreFooterTextView_tapCompletion);
+  v5 = (self + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin23LearnMoreFooterTextView_tapCompletion);
   *v5 = nullsub_1;
   v5[1] = 0;
   result = sub_29E2C4724();

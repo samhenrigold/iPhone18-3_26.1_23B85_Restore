@@ -36,7 +36,7 @@
 
 void __48__FedStatsPluginCoreConsentCheck_sharedInstance__block_invoke()
 {
-  v38[6] = *MEMORY[0x277D85DE8];
+  v33[6] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v1 = +[FedStatsPluginLog logger];
   v2 = os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG);
@@ -58,8 +58,8 @@ void __48__FedStatsPluginCoreConsentCheck_sharedInstance__block_invoke()
   v1 = [v0 URLForResource:@"FedStatsPluginCoreConsentConfiguration" withExtension:@"plist"];
   if (!v1)
   {
-    v4 = +[FedStatsPluginLog logger];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v3 = +[FedStatsPluginLog logger];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __48__FedStatsPluginCoreConsentCheck_sharedInstance__block_invoke_cold_6();
     }
@@ -67,12 +67,11 @@ void __48__FedStatsPluginCoreConsentCheck_sharedInstance__block_invoke()
     goto LABEL_35;
   }
 
-  v3 = 0x277CBE000uLL;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v1];
-  if (!v4)
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v1];
+  if (!v3)
   {
-    v22 = +[FedStatsPluginLog logger];
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v18 = +[FedStatsPluginLog logger];
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       __48__FedStatsPluginCoreConsentCheck_sharedInstance__block_invoke_cold_5();
     }
@@ -80,49 +79,47 @@ void __48__FedStatsPluginCoreConsentCheck_sharedInstance__block_invoke()
     goto LABEL_35;
   }
 
-  v38[0] = @"needsDnU";
-  v38[1] = @"needsLocation";
-  v38[2] = @"needsIHA";
-  v38[3] = @"needsIDV";
-  v38[4] = @"needsCNAI";
-  v38[5] = @"needsCommSafety";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:6];
-  v6 = sharedInstance_kFedStatsPluginCoreConsentConfigurationAllowedKeys;
-  sharedInstance_kFedStatsPluginCoreConsentConfigurationAllowedKeys = v5;
+  v33[0] = @"needsDnU";
+  v33[1] = @"needsLocation";
+  v33[2] = @"needsIHA";
+  v33[3] = @"needsIDV";
+  v33[4] = @"needsCNAI";
+  v33[5] = @"needsCommSafety";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:6];
+  v5 = sharedInstance_kFedStatsPluginCoreConsentConfigurationAllowedKeys;
+  sharedInstance_kFedStatsPluginCoreConsentConfigurationAllowedKeys = v4;
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v4 = v4;
-  v7 = [v4 countByEnumeratingWithState:&v32 objects:v37 count:16];
-  if (!v7)
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v3 = v3;
+  v6 = [v3 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  if (!v6)
   {
     goto LABEL_23;
   }
 
-  v8 = v7;
-  v9 = *v33;
-  v10 = 0x277CCA000uLL;
-  v26 = *v33;
+  v7 = v6;
+  v8 = *v28;
+  v21 = *v28;
   while (2)
   {
-    v11 = 0;
-    v27 = v8;
+    v9 = 0;
+    v22 = v7;
     do
     {
-      if (*v33 != v9)
+      if (*v28 != v8)
       {
-        objc_enumerationMutation(v4);
+        objc_enumerationMutation(v3);
       }
 
-      v12 = *(*(&v32 + 1) + 8 * v11);
-      v13 = *(v10 + 3240);
+      v10 = *(*(&v27 + 1) + 8 * v9);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v14 = +[FedStatsPluginLog logger];
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v11 = +[FedStatsPluginLog logger];
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           __48__FedStatsPluginCoreConsentCheck_sharedInstance__block_invoke_cold_2();
         }
@@ -130,13 +127,12 @@ void __48__FedStatsPluginCoreConsentCheck_sharedInstance__block_invoke()
         goto LABEL_34;
       }
 
-      v14 = [v4 objectForKey:v12];
-      v15 = *(v3 + 2752);
+      v11 = [v3 objectForKey:v10];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v25 = +[FedStatsPluginLog logger];
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+        v20 = +[FedStatsPluginLog logger];
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           __48__FedStatsPluginCoreConsentCheck_sharedInstance__block_invoke_cold_3();
         }
@@ -145,29 +141,29 @@ LABEL_34:
         goto LABEL_35;
       }
 
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
-      v29 = 0u;
-      v14 = v14;
-      v16 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
-      if (v16)
+      v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
+      v11 = v11;
+      v12 = [v11 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      if (v12)
       {
-        v17 = v16;
-        v18 = *v29;
+        v13 = v12;
+        v14 = *v24;
         while (2)
         {
-          for (i = 0; i != v17; ++i)
+          for (i = 0; i != v13; ++i)
           {
-            if (*v29 != v18)
+            if (*v24 != v14)
             {
-              objc_enumerationMutation(v14);
+              objc_enumerationMutation(v11);
             }
 
-            if (([sharedInstance_kFedStatsPluginCoreConsentConfigurationAllowedKeys containsObject:{*(*(&v28 + 1) + 8 * i), v26}] & 1) == 0)
+            if (([sharedInstance_kFedStatsPluginCoreConsentConfigurationAllowedKeys containsObject:{*(*(&v23 + 1) + 8 * i), v21}] & 1) == 0)
             {
-              v23 = +[FedStatsPluginLog logger];
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+              v19 = +[FedStatsPluginLog logger];
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
               {
                 __48__FedStatsPluginCoreConsentCheck_sharedInstance__block_invoke_cold_4();
               }
@@ -176,8 +172,8 @@ LABEL_34:
             }
           }
 
-          v17 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
-          if (v17)
+          v13 = [v11 countByEnumeratingWithState:&v23 objects:v31 count:16];
+          if (v13)
           {
             continue;
           }
@@ -186,15 +182,13 @@ LABEL_34:
         }
       }
 
-      ++v11;
-      v9 = v26;
-      v3 = 0x277CBE000;
-      v10 = 0x277CCA000;
+      ++v9;
+      v8 = v21;
     }
 
-    while (v11 != v27);
-    v8 = [v4 countByEnumeratingWithState:&v32 objects:v37 count:16];
-    if (v8)
+    while (v9 != v22);
+    v7 = [v3 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    if (v7)
     {
       continue;
     }
@@ -204,14 +198,12 @@ LABEL_34:
 
 LABEL_23:
 
-  v20 = [[FedStatsPluginCoreConsentCheck alloc] initWithConsentConfiguration:v4];
-  v21 = sharedInstance_consentChecker;
-  sharedInstance_consentChecker = v20;
+  v16 = [[FedStatsPluginCoreConsentCheck alloc] initWithConsentConfiguration:v3];
+  v17 = sharedInstance_consentChecker;
+  sharedInstance_consentChecker = v16;
 
 LABEL_35:
 LABEL_36:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)checkConsentConfigurationItem:(id)item
@@ -378,22 +370,6 @@ LABEL_46:
   }
 
   return v10;
-}
-
-void __48__FedStatsPluginCoreConsentCheck_sharedInstance__block_invoke_cold_4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)isConsentedForUseCase:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -22,6 +22,7 @@
 - (id)persistentStoreOfAccountWithAccountID:(id)d;
 - (unint64_t)_validateDirtyEffectiveMinimumSupportedVersionsWithBatchSize:(unint64_t)size isManualValidation:(BOOL)validation;
 - (unint64_t)countForFetchRequest:(id)request error:(id *)error;
+- (void)_rem_setAllowsExpandedUserInfoKeys:(BOOL)keys;
 - (void)confirmOrRejectFilePurgeCandidatesThatMightBeDeduplicatedAcrossMultipleAttachments;
 - (void)notifyDidMarkExtraneousAlarmsPendingToSyncUpDelete;
 - (void)proposePurgingFileAttachmentWithSha512Sum:(id)sum fileExtension:(id)extension account:(id)account;
@@ -1546,6 +1547,16 @@ LABEL_9:
 
   v5 = +[NSNotificationCenter defaultCenter];
   [v5 postNotificationName:@"RDStoreControllerManagedObjectContextDidMarkExtraneousAlarmsPendingToSyncUpDeleteNotification" object:0 userInfo:v6];
+}
+
+- (void)_rem_setAllowsExpandedUserInfoKeys:(BOOL)keys
+{
+  keysCopy = keys;
+  if (objc_opt_respondsToSelector())
+  {
+
+    [(RDStoreControllerManagedObjectContext *)self _setAllowsExpandedUserInfoKeys:keysCopy];
+  }
 }
 
 - (id)_debug_managedObjectIDsSortedByTopologicalWeightsForEffectiveMinimumSupportedVersionPropagation:(id)propagation

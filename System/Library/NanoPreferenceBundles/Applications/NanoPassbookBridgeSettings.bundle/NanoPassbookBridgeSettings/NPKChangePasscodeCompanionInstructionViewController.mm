@@ -8,7 +8,10 @@
 - (id)_unlockRequiredTitle;
 - (void)didMoveToParentViewController:(id)controller;
 - (void)handleChangePasscodeUnlockRequired;
+- (void)setIsViewVisible:(BOOL)visible;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NPKChangePasscodeCompanionInstructionViewController
@@ -38,6 +41,29 @@
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = NPKChangePasscodeCompanionInstructionViewController;
+  [(NPKChangePasscodeCompanionInstructionViewController *)&v4 viewWillAppear:appear];
+  PKPaymentSetupApplyContextAppearance();
+  if (![(NPKChangePasscodeCompanionInstructionViewController *)self isViewVisible])
+  {
+    [(NPKChangePasscodeCompanionInstructionViewController *)self setIsViewVisible:1];
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = NPKChangePasscodeCompanionInstructionViewController;
+  [(NPKChangePasscodeCompanionInstructionViewController *)&v4 viewDidDisappear:disappear];
+  if ([(NPKChangePasscodeCompanionInstructionViewController *)self isViewVisible])
+  {
+    [(NPKChangePasscodeCompanionInstructionViewController *)self setIsViewVisible:0];
+  }
+}
+
 - (void)didMoveToParentViewController:(id)controller
 {
   v6.receiver = self;
@@ -51,6 +77,17 @@
     {
       cancellationHandler[2](cancellationHandler);
     }
+  }
+}
+
+- (void)setIsViewVisible:(BOOL)visible
+{
+  if (self->_isViewVisible != visible)
+  {
+    visibleCopy = visible;
+    self->_isViewVisible = visible;
+    delegate = [(NPKChangePasscodeCompanionInstructionViewController *)self delegate];
+    [delegate changePasscodeCompanionInstructionViewController:self didChangeVisibilityWithIsVisible:visibleCopy];
   }
 }
 

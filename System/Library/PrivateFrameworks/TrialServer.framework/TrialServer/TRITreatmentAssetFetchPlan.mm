@@ -80,39 +80,8 @@ LABEL_3:
 {
   planCopy = plan;
   v5 = planCopy;
-  if (!planCopy)
+  if (!planCopy || (v6 = self->_metadataForRequestedUnlinkedAssets == 0, [planCopy metadataForRequestedUnlinkedAssets], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (metadataForRequestedUnlinkedAssets = self->_metadataForRequestedUnlinkedAssets) != 0 && (objc_msgSend(v5, "metadataForRequestedUnlinkedAssets"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[TRIGenericUniqueRequiredAssets isEqual:](metadataForRequestedUnlinkedAssets, "isEqual:", v10), v10, !v11) || (v12 = self->_fetchPlansForTreatmentIds == 0, objc_msgSend(v5, "fetchPlansForTreatmentIds"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14))
   {
-    goto LABEL_8;
-  }
-
-  v6 = self->_metadataForRequestedUnlinkedAssets == 0;
-  metadataForRequestedUnlinkedAssets = [planCopy metadataForRequestedUnlinkedAssets];
-  v8 = metadataForRequestedUnlinkedAssets != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_8;
-  }
-
-  metadataForRequestedUnlinkedAssets = self->_metadataForRequestedUnlinkedAssets;
-  if (metadataForRequestedUnlinkedAssets)
-  {
-    metadataForRequestedUnlinkedAssets2 = [v5 metadataForRequestedUnlinkedAssets];
-    v11 = [(TRIGenericUniqueRequiredAssets *)metadataForRequestedUnlinkedAssets isEqual:metadataForRequestedUnlinkedAssets2];
-
-    if (!v11)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v12 = self->_fetchPlansForTreatmentIds == 0;
-  fetchPlansForTreatmentIds = [v5 fetchPlansForTreatmentIds];
-  v14 = fetchPlansForTreatmentIds != 0;
-
-  if (v12 == v14)
-  {
-LABEL_8:
     v17 = 0;
   }
 
@@ -121,8 +90,8 @@ LABEL_8:
     fetchPlansForTreatmentIds = self->_fetchPlansForTreatmentIds;
     if (fetchPlansForTreatmentIds)
     {
-      fetchPlansForTreatmentIds2 = [v5 fetchPlansForTreatmentIds];
-      v17 = [(NSDictionary *)fetchPlansForTreatmentIds isEqual:fetchPlansForTreatmentIds2];
+      fetchPlansForTreatmentIds = [v5 fetchPlansForTreatmentIds];
+      v17 = [(NSDictionary *)fetchPlansForTreatmentIds isEqual:fetchPlansForTreatmentIds];
     }
 
     else

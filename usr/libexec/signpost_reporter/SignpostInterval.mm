@@ -17,8 +17,7 @@
       v5 = [attributes objectForKeyedSubscript:@"BundleIdOverride"];
 
       [coreAnalyticsPayload setObject:v5 forKeyedSubscript:@"StartProcessName"];
-      [coreAnalyticsPayload setObject:v5 forKeyedSubscript:@"EndProcessName"];
-      v6 = sub_100002620();
+      v6 = sub_100002620([coreAnalyticsPayload setObject:v5 forKeyedSubscript:@"EndProcessName"]);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         sub_10000C2BC(self);

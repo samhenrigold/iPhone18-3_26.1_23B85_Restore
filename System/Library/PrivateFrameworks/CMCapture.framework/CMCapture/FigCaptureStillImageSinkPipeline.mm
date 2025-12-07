@@ -1,6 +1,6 @@
 @interface FigCaptureStillImageSinkPipeline
 - (FigCaptureStillImageSinkPipeline)initWithConfiguration:(id)configuration captureDevice:(id)device sourceOutputsByPortType:(id)type captureStatusDelegate:(id)delegate inferenceScheduler:(id)scheduler graph:(id)graph name:(id)name;
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:(void *)configuration sourceOutputsByPortType:(uint64_t)type captureStatusDelegate:(uint64_t)delegate inferenceScheduler:(void *)scheduler graph:;
+- (unint64_t)_buildStillImageSinkPipelineWithConfiguration:(void *)configuration sourceOutputsByPortType:(uint64_t)type captureStatusDelegate:(uint64_t)delegate inferenceScheduler:(void *)scheduler graph:;
 - (void)dealloc;
 @end
 
@@ -25,7 +25,7 @@
   return v15;
 }
 
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:(void *)configuration sourceOutputsByPortType:(uint64_t)type captureStatusDelegate:(uint64_t)delegate inferenceScheduler:(void *)scheduler graph:
+- (unint64_t)_buildStillImageSinkPipelineWithConfiguration:(void *)configuration sourceOutputsByPortType:(uint64_t)type captureStatusDelegate:(uint64_t)delegate inferenceScheduler:(void *)scheduler graph:
 {
   if (!result)
   {
@@ -33,8 +33,8 @@
   }
 
   v8 = result;
-  v373 = 0;
-  v372 = 0;
+  v377 = 0;
+  v376 = 0;
   [a2 sinkConfiguration];
   objc_opt_class();
   sinkConfiguration = 0;
@@ -43,47 +43,47 @@
     sinkConfiguration = [a2 sinkConfiguration];
   }
 
-  v263 = objc_alloc_init(BWStillImageNodeConfiguration);
-  [(BWStillImageNodeConfiguration *)v263 setFigThreadPriority:14];
+  v267 = objc_alloc_init(BWStillImageNodeConfiguration);
+  [(BWStillImageNodeConfiguration *)v267 setFigThreadPriority:14];
   v10 = [BWPipelineStage pipelineStageWithName:@"com.apple.coremedia.capture.stillimage" priority:14];
-  v270 = [objc_msgSend(*(v8 + 48) "captureStream")];
-  v258 = +[FigCaptureCameraParameters sharedInstance];
-  cameraTuningParameters = [(FigCaptureCameraParameters *)v258 cameraTuningParameters];
-  v11 = [objc_msgSend(*(v8 + 48) "bravoTelephotoCaptureStream")];
-  v12 = [objc_msgSend(*(v8 + 48) "pearlInfraredCaptureStream")];
-  v255 = v12;
+  v274 = [objc_msgSend(v8[6] "captureStream")];
+  v262 = +[FigCaptureCameraParameters sharedInstance];
+  cameraTuningParameters = [(FigCaptureCameraParameters *)v262 cameraTuningParameters];
+  v11 = [objc_msgSend(v8[6] "bravoTelephotoCaptureStream")];
+  v12 = [objc_msgSend(v8[6] "pearlInfraredCaptureStream")];
+  v259 = v12;
   obj = configuration;
   if (v12)
   {
-    v289 = [configuration objectForKeyedSubscript:v12];
+    v293 = [configuration objectForKeyedSubscript:v12];
   }
 
   else
   {
-    v289 = 0;
+    v293 = 0;
   }
 
-  isBravoVariant = [*(v8 + 48) isBravoVariant];
-  pearlInfraredCaptureStream = [*(v8 + 48) pearlInfraredCaptureStream];
-  v264 = [objc_msgSend(*(v8 + 48) "captureStream")];
-  v262 = [objc_msgSend(*(v8 + 48) "bravoTelephotoCaptureStream")];
-  v246 = [objc_msgSend(*(v8 + 48) "pearlInfraredCaptureStream")];
-  captureStream = [*(v8 + 48) captureStream];
-  v269 = isBravoVariant;
+  isBravoVariant = [v8[6] isBravoVariant];
+  pearlInfraredCaptureStream = [v8[6] pearlInfraredCaptureStream];
+  v268 = [objc_msgSend(v8[6] "captureStream")];
+  v266 = [objc_msgSend(v8[6] "bravoTelephotoCaptureStream")];
+  v250 = [objc_msgSend(v8[6] "pearlInfraredCaptureStream")];
+  captureStream = [v8[6] captureStream];
+  v273 = isBravoVariant;
   if (isBravoVariant)
   {
-    captureStream = [*(v8 + 48) bravoTelephotoCaptureStream];
+    captureStream = [v8[6] bravoTelephotoCaptureStream];
   }
 
   else if (pearlInfraredCaptureStream)
   {
-    captureStream = [*(v8 + 48) pearlInfraredCaptureStream];
+    captureStream = [v8[6] pearlInfraredCaptureStream];
   }
 
   v16 = captureStream;
-  [*(v8 + 48) setStillImageCaptureEnabled:1];
-  [*(v8 + 48) setIrisFrameHarvestingEnabled:{objc_msgSend(sinkConfiguration, "irisFrameHarvestingEnabled")}];
-  [*(v8 + 48) setStillImageFusionScheme:{objc_msgSend(a2, "noiseReductionAndFusionScheme")}];
+  [v8[6] setStillImageCaptureEnabled:1];
+  [v8[6] setIrisFrameHarvestingEnabled:{objc_msgSend(sinkConfiguration, "irisFrameHarvestingEnabled")}];
+  [v8[6] setStillImageFusionScheme:{objc_msgSend(a2, "noiseReductionAndFusionScheme")}];
   depthDataDeliveryEnabled = [sinkConfiguration depthDataDeliveryEnabled];
   if (a2)
   {
@@ -98,48 +98,48 @@
   portraitEffectsMatteDeliveryEnabled = [sinkConfiguration portraitEffectsMatteDeliveryEnabled];
   [a2 portraitEffectsMatteMainImageDownscalingFactor];
   v19 = v18;
-  v267 = v11;
-  v254 = pearlInfraredCaptureStream;
+  v271 = v11;
+  v258 = pearlInfraredCaptureStream;
   if (a2 && *(a2 + 115) == 1)
   {
-    v275 = *(a2 + 116);
-    v261 = 1;
+    v279 = *(a2 + 116);
+    v265 = 1;
   }
 
   else
   {
-    v261 = 0;
-    v275 = 0;
+    v265 = 0;
+    v279 = 0;
   }
 
-  v285 = v8;
+  v289 = v8;
   allowsMultipleInflightCaptures = [a2 allowsMultipleInflightCaptures];
   bravoConstituentPhotoDeliveryEnabled = [sinkConfiguration bravoConstituentPhotoDeliveryEnabled];
   v22 = bravoConstituentPhotoDeliveryEnabled;
-  v271 = depthDataDeliveryEnabled | bravoConstituentPhotoDeliveryEnabled;
-  v272 = allowsMultipleInflightCaptures;
+  v275 = depthDataDeliveryEnabled | bravoConstituentPhotoDeliveryEnabled;
+  v276 = allowsMultipleInflightCaptures;
   if (a2 && ((depthDataDeliveryEnabled | bravoConstituentPhotoDeliveryEnabled) & 1) == 0 && (*(a2 + 113) & 1) != 0)
   {
-    v247 = 1;
-    v274 = 1;
+    v251 = 1;
+    v278 = 1;
     v23 = depthDataDeliveryEnabled;
   }
 
   else
   {
-    v247 = 0;
+    v251 = 0;
     v23 = depthDataDeliveryEnabled;
-    v274 = bravoConstituentPhotoDeliveryEnabled | depthDataDeliveryEnabled & v269;
+    v278 = bravoConstituentPhotoDeliveryEnabled | depthDataDeliveryEnabled & v273;
   }
 
   filterRenderingEnabled = [sinkConfiguration filterRenderingEnabled];
-  [*(v285 + 48) requestedZoomFactorRelativeToPortType:{objc_msgSend(v16, "portType")}];
+  [v289[6] requestedZoomFactorRelativeToPortType:{objc_msgSend(v16, "portType")}];
   v26 = v25;
   portType = [v16 portType];
   sensorIDString = [v16 sensorIDString];
   LODWORD(v29) = v26;
-  v30 = [(FigCaptureCameraParameters *)v258 disparityRefinementTypeForPortType:portType sensorIDString:sensorIDString zoomFactor:v29];
-  v257 = filterRenderingEnabled;
+  v30 = [(FigCaptureCameraParameters *)v262 disparityRefinementTypeForPortType:portType sensorIDString:sensorIDString zoomFactor:v29];
+  v261 = filterRenderingEnabled;
   if ((v23 & portraitEffectsMatteDeliveryEnabled) == 1)
   {
     if (v30)
@@ -152,61 +152,61 @@
       v31 = 0;
     }
 
-    v243 = v31;
+    v247 = v31;
   }
 
   else
   {
-    v243 = 0;
+    v247 = 0;
   }
 
-  [*(v285 + 48) setStillImageISPChromaNoiseReductionEnabled:v17 & 1];
-  [*(v285 + 48) setStillImageGNRHDREnabled:v275 & 1];
-  v32 = [MEMORY[0x1E695DF70] arrayWithObject:v270];
-  v259 = v10;
+  [v289[6] setStillImageISPChromaNoiseReductionEnabled:v17 & 1];
+  [v289[6] setStillImageGNRHDREnabled:v279 & 1];
+  v32 = [MEMORY[0x1E695DF70] arrayWithObject:v274];
+  v263 = v10;
   v33 = v10;
   v34 = v10;
-  if (v274)
+  if (v278)
   {
     v34 = [BWPipelineStage pipelineStageWithName:@"com.apple.coremedia.capture.stillimage.gnr.default" priority:14];
     v33 = [BWPipelineStage pipelineStageWithName:@"com.apple.coremedia.capture.stillimage.gnr.telephoto" priority:14];
-    v259 = [BWPipelineStage pipelineStageWithName:@"com.apple.coremedia.capture.stillimage.stereofusion" priority:14];
+    v263 = [BWPipelineStage pipelineStageWithName:@"com.apple.coremedia.capture.stillimage.stereofusion" priority:14];
   }
 
-  v278 = v32;
-  v249 = v22;
-  v240 = v34;
-  v280 = [a2 stillImageStabilizationSupported] && (objc_msgSend(a2, "allowedToModifyInputBuffers") & 1) != 0;
-  v242 = sinkConfiguration;
+  v282 = v32;
+  v253 = v22;
+  v244 = v34;
+  v284 = [a2 stillImageStabilizationSupported] && (objc_msgSend(a2, "allowedToModifyInputBuffers") & 1) != 0;
+  v246 = sinkConfiguration;
   irisFrameHarvestingEnabled = [sinkConfiguration irisFrameHarvestingEnabled];
-  v35 = *(v285 + 48);
+  v35 = v289[6];
   stillImageStabilizationSupported = [a2 stillImageStabilizationSupported];
-  v376 = 0u;
-  v377 = 0u;
-  v378 = 0u;
-  v379 = 0u;
+  v380 = 0u;
+  v381 = 0u;
+  v382 = 0u;
+  v383 = 0u;
   captureStreams = [v35 captureStreams];
-  v38 = [captureStreams countByEnumeratingWithState:&v376 objects:&v374 count:16];
+  v38 = [captureStreams countByEnumeratingWithState:&v380 objects:&v378 count:16];
   if (v38)
   {
-    v39 = *v377;
+    v39 = *v381;
     while (2)
     {
       for (i = 0; i != v38; ++i)
       {
-        if (*v377 != v39)
+        if (*v381 != v39)
         {
           objc_enumerationMutation(captureStreams);
         }
 
-        if ([*(*(&v376 + 1) + 8 * i) hasSphere])
+        if ([*(*(&v380 + 1) + 8 * i) hasSphere])
         {
           LODWORD(v38) = 1;
           goto LABEL_44;
         }
       }
 
-      v38 = [captureStreams countByEnumeratingWithState:&v376 objects:&v374 count:16];
+      v38 = [captureStreams countByEnumeratingWithState:&v380 objects:&v378 count:16];
       if (v38)
       {
         continue;
@@ -224,26 +224,26 @@ LABEL_44:
   }
 
   v42 = noiseReductionAndFusionScheme;
-  v239 = v33;
-  v286 = noiseReductionAndFusionScheme != 2;
-  if (!v261)
+  v243 = v33;
+  v290 = noiseReductionAndFusionScheme != 2;
+  if (!v265)
   {
-    v251 = 0;
-    v250 = 0;
+    v255 = 0;
+    v254 = 0;
     goto LABEL_49;
   }
 
-  if (((noiseReductionAndFusionScheme == 2) & v275) != 0)
+  if (((noiseReductionAndFusionScheme == 2) & v279) != 0)
   {
-    v250 = 0;
-    v251 = v247;
+    v254 = 0;
+    v255 = v251;
 LABEL_49:
-    v43 = v285;
+    v43 = v289;
     goto LABEL_54;
   }
 
   v44 = [BWHDRNode alloc];
-  v43 = v285;
+  v43 = v289;
   if (a2)
   {
     v45 = *(a2 + 96);
@@ -254,10 +254,10 @@ LABEL_49:
     v45 = 0;
   }
 
-  v46 = [(BWHDRNode *)v44 initWithClientPID:v45 sensorIDDictionary:v264];
-  v371.receiver = v285;
-  v371.super_class = FigCaptureStillImageSinkPipeline;
-  if ((objc_msgSendSuper2(&v371, sel_addNode_error_, v46, &v372) & 1) == 0)
+  v46 = [(BWHDRNode *)v44 initWithClientPID:v45 sensorIDDictionary:v268];
+  v375.receiver = v289;
+  v375.super_class = FigCaptureStillImageSinkPipeline;
+  if ((objc_msgSendSuper2(&v375, sel_addNode_error_, v46, &v376) & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
@@ -265,23 +265,23 @@ LABEL_49:
 
   [(BWHDRNode *)v46 setAttachesInputBracketToOutputSampleBuffer:0];
   [(BWHDRNode *)v46 setAlwaysRequestsPreBracketedEV0:irisFrameHarvestingEnabled];
-  v250 = v46;
-  [(BWHDRNode *)v46 setSupportsStereoFusionCaptures:v247];
-  v251 = v247;
+  v254 = v46;
+  [(BWHDRNode *)v46 setSupportsStereoFusionCaptures:v251];
+  v255 = v251;
 LABEL_54:
   v47 = stillImageStabilizationSupported & v38;
   v48 = [objc_msgSend(v43[6] "captureStream")];
   v49 = [objc_msgSend(v43[6] "bravoTelephotoCaptureStream")];
-  v238 = [objc_msgSend(v43[6] "pearlInfraredCaptureStream")];
-  v268 = v42;
-  v241 = v48;
-  v248 = v49;
-  v265 = stillImageStabilizationSupported;
+  v242 = [objc_msgSend(v43[6] "pearlInfraredCaptureStream")];
+  v272 = v42;
+  v245 = v48;
+  v252 = v49;
+  v269 = stillImageStabilizationSupported;
   if (v42 == 2)
   {
     v50 = [BWGNRNode alloc];
-    v51 = v267;
-    if ((v269 & (v274 ^ 1)) != 0)
+    v51 = v271;
+    if ((v273 & (v278 ^ 1)) != 0)
     {
       v52 = v49;
     }
@@ -292,53 +292,53 @@ LABEL_54:
       v52 = 0;
     }
 
-    v53 = v262;
-    if ((v269 & (v274 ^ 1)) == 0)
+    v53 = v266;
+    if ((v273 & (v278 ^ 1)) == 0)
     {
       v53 = 0;
     }
 
-    v54 = [BWGNRNode initWithSISEnabled:v50 OISEnabled:"initWithSISEnabled:OISEnabled:LTMHDREnabled:processingLTMHDRFusion:portType:sensorID:sensorIDDictionary:telephotoPortType:telephotoSensorID:telephotoSensorIDDictionary:" LTMHDREnabled:stillImageStabilizationSupported processingLTMHDRFusion:v264 portType:v51 sensorID:v52 sensorIDDictionary:v53 telephotoPortType:? telephotoSensorID:? telephotoSensorIDDictionary:?];
-    v370.receiver = v43;
-    v370.super_class = FigCaptureStillImageSinkPipeline;
-    if (!objc_msgSendSuper2(&v370, sel_addNode_error_, v54, &v372))
+    v54 = [BWGNRNode initWithSISEnabled:v50 OISEnabled:"initWithSISEnabled:OISEnabled:LTMHDREnabled:processingLTMHDRFusion:portType:sensorID:sensorIDDictionary:telephotoPortType:telephotoSensorID:telephotoSensorIDDictionary:" LTMHDREnabled:stillImageStabilizationSupported processingLTMHDRFusion:v268 portType:v51 sensorID:v52 sensorIDDictionary:v53 telephotoPortType:? telephotoSensorID:? telephotoSensorIDDictionary:?];
+    v374.receiver = v43;
+    v374.super_class = FigCaptureStillImageSinkPipeline;
+    if (!objc_msgSendSuper2(&v374, sel_addNode_error_, v54, &v376))
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
     [(BWGNRNode *)v54 setAttachesInputBracketToOutputSampleBuffer:0];
-    [(BWGNRNode *)v54 setUsesHDRPreBracketFrameForErrorRecoveryDownstream:v275 & 1];
-    [(BWGNRNode *)v54 setAllowedToModifyInputBuffers:v280];
+    [(BWGNRNode *)v54 setUsesHDRPreBracketFrameForErrorRecoveryDownstream:v279 & 1];
+    [(BWGNRNode *)v54 setAllowedToModifyInputBuffers:v284];
     [v43[6] registerForAEMatrixMetadata];
-    if (v274)
+    if (v278)
     {
-      v270 = [MEMORY[0x1E696AEC0] stringWithFormat:@"GNR-%@", v270];
+      v274 = [MEMORY[0x1E696AEC0] stringWithFormat:@"GNR-%@", v274];
     }
 
     else
     {
-      v270 = @"GNR";
+      v274 = @"GNR";
     }
 
-    v56 = v267;
+    v56 = v271;
     v47 = v47;
-    v57 = v286;
-    [(BWNode *)v54 setName:v270];
+    v57 = v290;
+    [(BWNode *)v54 setName:v274];
   }
 
   else
   {
     v54 = 0;
-    v56 = v267;
-    v57 = v286;
+    v56 = v271;
+    v57 = v290;
   }
 
-  if ((v57 & v265) != 0)
+  if ((v57 & v269) != 0)
   {
-    v58 = [[BWSISNode alloc] initWithCameraTuningDictionary:cameraTuningParameters sensorIDDictionary:v264 fusionScheme:v268];
+    v58 = [[BWSISNode alloc] initWithCameraTuningDictionary:cameraTuningParameters sensorIDDictionary:v268 fusionScheme:v272];
     v59 = v58;
-    if (v268 == 1)
+    if (v272 == 1)
     {
       v60 = @"TMBNR";
     }
@@ -349,16 +349,16 @@ LABEL_54:
     }
 
     [(BWNode *)v58 setName:v60];
-    v369.receiver = v43;
-    v369.super_class = FigCaptureStillImageSinkPipeline;
-    if ((objc_msgSendSuper2(&v369, sel_addNode_error_, v59, &v372) & 1) == 0)
+    v373.receiver = v43;
+    v373.super_class = FigCaptureStillImageSinkPipeline;
+    if ((objc_msgSendSuper2(&v373, sel_addNode_error_, v59, &v376) & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
     [(BWSISNode *)v59 setAttachesInputBracketToOutputSampleBuffer:0];
-    v260 = v59;
+    v264 = v59;
     [(BWSISNode *)v59 setAlwaysRequestsPreBracketedEV0:irisFrameHarvestingEnabled];
     if (a2)
     {
@@ -373,46 +373,46 @@ LABEL_54:
     v62 = &classRef_BWDerectificationInferenceProvider;
     [(BWSISNode *)v59 setLivePhotoSupported:v61 & 1];
     [(BWSISNode *)v59 setOISSupported:v47];
-    [*(v285 + 48) registerForAEMatrixMetadata];
-    *(v285 + 96) = v59;
+    [v289[6] registerForAEMatrixMetadata];
+    v289[12] = v59;
   }
 
   else
   {
-    v260 = 0;
+    v264 = 0;
     v62 = &classRef_BWDerectificationInferenceProvider;
   }
 
-  v256 = v54;
-  if (v274)
+  v260 = v54;
+  if (v278)
   {
     if (v47)
     {
-      v63 = v285;
-      v64 = [objc_msgSend(*(v285 + 48) "bravoTelephotoCaptureStream")];
+      v63 = v289;
+      v64 = [objc_msgSend(v289[6] "bravoTelephotoCaptureStream")];
     }
 
     else
     {
       v64 = 0;
-      v63 = v285;
+      v63 = v289;
     }
 
-    v65 = [[BWGNRNode alloc] initWithSISEnabled:v265 OISEnabled:v64 LTMHDREnabled:v271 & v275 & 1 processingLTMHDRFusion:v271 & v275 & 1 portType:v56 sensorID:v248 sensorIDDictionary:v262 telephotoPortType:0 telephotoSensorID:0 telephotoSensorIDDictionary:0];
+    v65 = [[BWGNRNode alloc] initWithSISEnabled:v269 OISEnabled:v64 LTMHDREnabled:v275 & v279 & 1 processingLTMHDRFusion:v275 & v279 & 1 portType:v56 sensorID:v252 sensorIDDictionary:v266 telephotoPortType:0 telephotoSensorID:0 telephotoSensorIDDictionary:0];
     v68 = v62[304];
-    v368.receiver = v63;
-    v368.super_class = v68;
+    v372.receiver = v63;
+    v372.super_class = v68;
     v66 = obj;
-    v67 = v278;
-    if (!objc_msgSendSuper2(&v368, sel_addNode_error_, v65, &v372))
+    v67 = v282;
+    if (!objc_msgSendSuper2(&v372, sel_addNode_error_, v65, &v376))
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
     [(BWGNRNode *)v65 setAttachesInputBracketToOutputSampleBuffer:0];
-    [(BWGNRNode *)v65 setUsesHDRPreBracketFrameForErrorRecoveryDownstream:v275 & 1];
-    [(BWGNRNode *)v65 setAllowedToModifyInputBuffers:v280];
+    [(BWGNRNode *)v65 setUsesHDRPreBracketFrameForErrorRecoveryDownstream:v279 & 1];
+    [(BWGNRNode *)v65 setAllowedToModifyInputBuffers:v284];
     -[BWNode setName:](v65, "setName:", [MEMORY[0x1E696AEC0] stringWithFormat:@"GNR-%@", v56]);
   }
 
@@ -420,13 +420,13 @@ LABEL_54:
   {
     v65 = 0;
     v66 = obj;
-    v67 = v278;
+    v67 = v282;
   }
 
-  v253 = v65;
-  if (!v289)
+  v257 = v65;
+  if (!v293)
   {
-    v290 = 0;
+    v294 = 0;
     if (!v56)
     {
       goto LABEL_90;
@@ -436,18 +436,18 @@ LABEL_54:
   }
 
   v69 = [BWAttachedMediaSplitNode alloc];
-  v367 = @"Depth";
-  v70 = -[BWAttachedMediaSplitNode initWithAttachedMediaKeys:](v69, "initWithAttachedMediaKeys:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v367 count:1]);
+  v371 = @"Depth";
+  v70 = -[BWAttachedMediaSplitNode initWithAttachedMediaKeys:](v69, "initWithAttachedMediaKeys:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v371 count:1]);
   v71 = v62[304];
-  v366.receiver = v285;
-  v366.super_class = v71;
-  if ((objc_msgSendSuper2(&v366, sel_addNode_error_, v70, &v372) & 1) == 0)
+  v370.receiver = v289;
+  v370.super_class = v71;
+  if ((objc_msgSendSuper2(&v370, sel_addNode_error_, v70, &v376) & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
   }
 
-  if (([scheduler connectOutput:v289 toInput:-[BWNode input](v70 pipelineStage:{"input"), v10}] & 1) == 0)
+  if (([scheduler connectOutput:v293 toInput:-[BWNode input](v70 pipelineStage:{"input"), v10}] & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
@@ -455,7 +455,7 @@ LABEL_54:
 
   [(BWNode *)v70 setName:@"Still Image IR-Depth Splitter"];
   [(BWAttachedMediaSplitNode *)v70 setEmitsNodeErrorsForMissingAttachedMedia:1];
-  v290 = [(NSArray *)[(BWNode *)v70 outputs] objectAtIndexedSubscript:0];
+  v294 = [(NSArray *)[(BWNode *)v70 outputs] objectAtIndexedSubscript:0];
   if (v56)
   {
 LABEL_88:
@@ -466,18 +466,18 @@ LABEL_88:
   }
 
 LABEL_90:
-  if (v255 && [v66 objectForKeyedSubscript:v255])
+  if (v259 && [v66 objectForKeyedSubscript:v259])
   {
-    [v67 addObject:v255];
+    [v67 addObject:v259];
   }
 
-  if ([*(v285 + 48) zeroShutterLagEnabled])
+  if ([v289[6] zeroShutterLagEnabled])
   {
     v72 = [[BWStillImageTimeMachineFrameCoordinatorNode alloc] initWithPortTypes:v67];
     v73 = v62[304];
-    v365.receiver = v285;
-    v365.super_class = v73;
-    if ((objc_msgSendSuper2(&v365, sel_addNode_error_, v72, &v372) & 1) == 0)
+    v369.receiver = v289;
+    v369.super_class = v73;
+    if ((objc_msgSendSuper2(&v369, sel_addNode_error_, v72, &v376) & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
@@ -489,73 +489,72 @@ LABEL_90:
     v72 = 0;
   }
 
-  v74 = [[BWStillImageCoordinatorNode alloc] initWithNodeConfiguration:v263 captureDevice:*(v285 + 48) inputPortTypes:v67 sensorRawInputPortTypes:0 highResStillImageDimensions:0];
+  v74 = [[BWStillImageCoordinatorNode alloc] initWithNodeConfiguration:v267 captureDevice:v289[6] inputPortTypes:v67 sensorRawInputPortTypes:0 highResStillImageDimensions:0];
   [(BWStillImageCoordinatorNode *)v74 setStillImageCaptureStatusDelegate:type];
-  [(BWStillImageCoordinatorNode *)v74 setStillImageCapturePipeliningMode:v272];
+  [(BWStillImageCoordinatorNode *)v74 setStillImageCapturePipeliningMode:v276];
   v75 = v62[304];
-  v76 = v285;
-  v364.receiver = v285;
-  v364.super_class = v75;
-  if ((objc_msgSendSuper2(&v364, sel_addNode_error_, v74, &v372) & 1) == 0)
+  v76 = v289;
+  v368.receiver = v289;
+  v368.super_class = v75;
+  if ((objc_msgSendSuper2(&v368, sel_addNode_error_, v74, &v376) & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
   }
 
-  v273 = a2;
-  v287 = v74;
-  *(v285 + 56) = v74;
-  v281 = v10;
+  v277 = a2;
+  v291 = v74;
+  v289[7] = v74;
+  v285 = v10;
   if (v72)
   {
-    v363 = 0uLL;
-    v362 = 0uLL;
-    v361 = 0uLL;
-    v360 = 0uLL;
-    v77 = [v66 countByEnumeratingWithState:&v360 objects:v359 count:16];
+    v367 = 0uLL;
+    v366 = 0uLL;
+    v365 = 0uLL;
+    v364 = 0uLL;
+    v77 = [v66 countByEnumeratingWithState:&v364 objects:v363 count:16];
     if (v77)
     {
       v78 = v77;
-      v79 = *v361;
-      v80 = *off_1E798A0E8;
+      v79 = *v365;
       while (2)
       {
         for (j = 0; j != v78; ++j)
         {
-          if (*v361 != v79)
+          if (*v365 != v79)
           {
             objc_enumerationMutation(obj);
           }
 
-          v82 = *(*(&v360 + 1) + 8 * j);
-          v83 = [obj objectForKeyedSubscript:v82];
-          v84 = [(BWStillImageTimeMachineFrameCoordinatorNode *)v72 inputForPortType:v82];
-          if ([v82 isEqualToString:v80])
+          v81 = *(*(&v364 + 1) + 8 * j);
+          v82 = [obj objectForKeyedSubscript:v81];
+          v83 = [(BWStillImageTimeMachineFrameCoordinatorNode *)v72 inputForPortType:v81];
+          if (objc_msgSend_isEqualToString_(v81))
           {
-            v85 = v290;
+            v84 = v294;
           }
 
           else
           {
-            v85 = v83;
+            v84 = v82;
           }
 
-          v10 = v281;
-          if (([scheduler connectOutput:v85 toInput:v84 pipelineStage:v281] & 1) == 0)
+          v10 = v285;
+          if (([scheduler connectOutput:v84 toInput:v83 pipelineStage:v285] & 1) == 0)
           {
             [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
             goto LABEL_374;
           }
 
-          if (([scheduler connectOutput:-[BWStillImageTimeMachineFrameCoordinatorNode outputForPortType:](v72 toInput:"outputForPortType:" pipelineStage:{v82), objc_msgSend(*(v285 + 56), "inputForPortType:", v82), v281}] & 1) == 0)
+          if (([scheduler connectOutput:-[BWStillImageTimeMachineFrameCoordinatorNode outputForPortType:](v72 toInput:"outputForPortType:" pipelineStage:{v81), objc_msgSend(v289[7], "inputForPortType:", v81), v285}] & 1) == 0)
           {
             [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
             goto LABEL_374;
           }
         }
 
-        v78 = [obj countByEnumeratingWithState:&v360 objects:v359 count:16];
-        v76 = v285;
+        v78 = [obj countByEnumeratingWithState:&v364 objects:v363 count:16];
+        v76 = v289;
         if (v78)
         {
           continue;
@@ -568,47 +567,46 @@ LABEL_90:
 
   else
   {
-    v358 = 0uLL;
-    v357 = 0uLL;
-    v356 = 0uLL;
-    v355 = 0uLL;
-    v86 = [v66 countByEnumeratingWithState:&v355 objects:v354 count:16];
-    if (v86)
+    v362 = 0uLL;
+    v361 = 0uLL;
+    v360 = 0uLL;
+    v359 = 0uLL;
+    v85 = [v66 countByEnumeratingWithState:&v359 objects:v358 count:16];
+    if (v85)
     {
-      v87 = v86;
-      v88 = *v356;
-      v89 = *off_1E798A0E8;
+      v86 = v85;
+      v87 = *v360;
       while (2)
       {
-        for (k = 0; k != v87; ++k)
+        for (k = 0; k != v86; ++k)
         {
-          if (*v356 != v88)
+          if (*v360 != v87)
           {
             objc_enumerationMutation(obj);
           }
 
-          v91 = *(*(&v355 + 1) + 8 * k);
-          v92 = [obj objectForKeyedSubscript:v91];
-          v93 = [*(v285 + 56) inputForPortType:v91];
-          if ([v91 isEqualToString:v89])
+          v89 = *(*(&v359 + 1) + 8 * k);
+          v90 = [obj objectForKeyedSubscript:v89];
+          v91 = [v289[7] inputForPortType:v89];
+          if (objc_msgSend_isEqualToString_(v89))
           {
-            v94 = v290;
+            v92 = v294;
           }
 
           else
           {
-            v94 = v92;
+            v92 = v90;
           }
 
-          if (![scheduler connectOutput:v94 toInput:v93 pipelineStage:v10])
+          if (![scheduler connectOutput:v92 toInput:v91 pipelineStage:v10])
           {
             [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
             goto LABEL_374;
           }
         }
 
-        v87 = [obj countByEnumeratingWithState:&v355 objects:v354 count:16];
-        if (v87)
+        v86 = [obj countByEnumeratingWithState:&v359 objects:v358 count:16];
+        if (v86)
         {
           continue;
         }
@@ -618,55 +616,55 @@ LABEL_90:
     }
   }
 
-  v95 = [BWStillImageBufferRouterNode alloc];
-  if (v268 == 2)
+  v93 = [BWStillImageBufferRouterNode alloc];
+  if (v272 == 2)
   {
-    v96 = v265;
+    v94 = v269;
   }
 
   else
   {
-    v96 = 0;
+    v94 = 0;
   }
 
-  v97 = [(BWStillImageBufferRouterNode *)v95 initWithInputPortTypes:v278 HDRSupported:v261 SISSupported:v265 GNRSISSupported:v96 LTMHDRSupported:v275 & 1 depthDataDeliveryEnabled:depthDataDeliveryEnabled];
-  v98 = v76;
-  v353.receiver = v76;
-  v353.super_class = FigCaptureStillImageSinkPipeline;
-  if ((objc_msgSendSuper2(&v353, sel_addNode_error_, v97, &v372) & 1) == 0)
+  v95 = [(BWStillImageBufferRouterNode *)v93 initWithInputPortTypes:v282 HDRSupported:v265 SISSupported:v269 GNRSISSupported:v94 LTMHDRSupported:v279 & 1 depthDataDeliveryEnabled:depthDataDeliveryEnabled];
+  v96 = v76;
+  v357.receiver = v76;
+  v357.super_class = FigCaptureStillImageSinkPipeline;
+  if ((objc_msgSendSuper2(&v357, sel_addNode_error_, v95, &v376) & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
   }
 
-  v352 = 0u;
-  v351 = 0u;
-  v350 = 0u;
-  v349 = 0u;
-  v99 = [v278 countByEnumeratingWithState:&v349 objects:v348 count:16];
+  v356 = 0u;
+  v355 = 0u;
+  v354 = 0u;
+  v353 = 0u;
+  v97 = [v282 countByEnumeratingWithState:&v353 objects:v352 count:16];
   schedulerCopy6 = scheduler;
-  if (v99)
+  if (v97)
   {
-    v101 = v99;
-    v102 = *v350;
+    v99 = v97;
+    v100 = *v354;
     while (2)
     {
-      for (m = 0; m != v101; ++m)
+      for (m = 0; m != v99; ++m)
       {
-        if (*v350 != v102)
+        if (*v354 != v100)
         {
-          objc_enumerationMutation(v278);
+          objc_enumerationMutation(v282);
         }
 
-        if (![scheduler connectOutput:-[BWStillImageCoordinatorNode outputForPortType:](v287 toInput:"outputForPortType:" pipelineStage:{*(*(&v349 + 1) + 8 * m)), -[BWStillImageBufferRouterNode inputForPortType:](v97, "inputForPortType:", *(*(&v349 + 1) + 8 * m)), v10}])
+        if (![scheduler connectOutput:-[BWStillImageCoordinatorNode outputForPortType:](v291 toInput:"outputForPortType:" pipelineStage:{*(*(&v353 + 1) + 8 * m)), -[BWStillImageBufferRouterNode inputForPortType:](v95, "inputForPortType:", *(*(&v353 + 1) + 8 * m)), v10}])
         {
           [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
           goto LABEL_374;
         }
       }
 
-      v101 = [v278 countByEnumeratingWithState:&v349 objects:v348 count:16];
-      if (v101)
+      v99 = [v282 countByEnumeratingWithState:&v353 objects:v352 count:16];
+      if (v99)
       {
         continue;
       }
@@ -675,124 +673,124 @@ LABEL_90:
     }
   }
 
-  defaultOutput = [(BWStillImageBufferRouterNode *)v97 defaultOutput];
-  bravoTelephotoOutput = [(BWStillImageBufferRouterNode *)v97 bravoTelephotoOutput];
-  pearlInfraredOutput = [(BWStillImageBufferRouterNode *)v97 pearlInfraredOutput];
-  if (v250)
+  defaultOutput = [(BWStillImageBufferRouterNode *)v95 defaultOutput];
+  bravoTelephotoOutput = [(BWStillImageBufferRouterNode *)v95 bravoTelephotoOutput];
+  pearlInfraredOutput = [(BWStillImageBufferRouterNode *)v95 pearlInfraredOutput];
+  if (v254)
   {
-    if ((v271 | v251))
+    if ((v275 | v255))
     {
-      if (v271 & v269)
+      if (v275 & v273)
       {
-        if (([scheduler connectOutput:-[BWStillImageBufferRouterNode bravoTelephotoOutput](v97 toInput:"bravoTelephotoOutput") pipelineStage:{-[BWNode input](v250, "input"), v10}] & 1) == 0)
+        if (([scheduler connectOutput:-[BWStillImageBufferRouterNode bravoTelephotoOutput](v95 toInput:"bravoTelephotoOutput") pipelineStage:{-[BWNode input](v254, "input"), v10}] & 1) == 0)
         {
           [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
           goto LABEL_374;
         }
 
-        bravoTelephotoOutput = [(BWNode *)v250 output];
+        bravoTelephotoOutput = [(BWNode *)v254 output];
       }
     }
 
-    else if (([scheduler connectOutput:-[BWStillImageBufferRouterNode HDROutput](v97 toInput:"HDROutput") pipelineStage:{-[BWNode input](v250, "input"), v10}] & 1) == 0)
+    else if (([scheduler connectOutput:-[BWStillImageBufferRouterNode HDROutput](v95 toInput:"HDROutput") pipelineStage:{-[BWNode input](v254, "input"), v10}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
   }
 
-  if (v260 && ([scheduler connectOutput:-[BWStillImageBufferRouterNode SISOutput](v97 toInput:"SISOutput") pipelineStage:{-[BWNode input](v260, "input"), v10}] & 1) == 0)
+  if (v264 && ([scheduler connectOutput:-[BWStillImageBufferRouterNode SISOutput](v95 toInput:"SISOutput") pipelineStage:{-[BWNode input](v264, "input"), v10}] & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
   }
 
-  v106 = bravoTelephotoOutput;
-  if (v250)
+  v104 = bravoTelephotoOutput;
+  if (v254)
   {
-    v107 = v251;
+    v105 = v255;
   }
 
   else
   {
-    v107 = 1;
+    v105 = 1;
   }
 
-  if (v268)
+  if (v272)
   {
-    v108 = 1;
+    v106 = 1;
   }
 
   else
   {
-    v108 = v260 == 0;
+    v106 = v264 == 0;
   }
 
-  v109 = !v108;
-  if (((v271 | v107) & 1) == 0 || v109)
+  v107 = !v106;
+  if (((v275 | v105) & 1) == 0 || v107)
   {
-    if ((v271 | v107))
+    if ((v275 | v105))
     {
-      v110 = 1;
+      v108 = 1;
     }
 
     else
     {
-      v110 = 2;
-    }
-
-    if (v109)
-    {
-      v111 = v110;
-    }
-
-    else
-    {
-      v111 = ((v271 | v107) & 1) == 0;
-    }
-
-    v112 = [[BWFunnelNode alloc] initWithNumberOfInputs:(v111 + 1) mediaType:1986618469];
-    v347.receiver = v98;
-    v347.super_class = FigCaptureStillImageSinkPipeline;
-    if ((objc_msgSendSuper2(&v347, sel_addNode_error_, v112, &v372) & 1) == 0)
-    {
-      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-      goto LABEL_374;
-    }
-
-    if (([scheduler connectOutput:-[BWStillImageBufferRouterNode defaultOutput](v97 toInput:"defaultOutput") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v112, "inputs"), "objectAtIndexedSubscript:", 0), v10}] & 1) == 0)
-    {
-      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-      goto LABEL_374;
+      v108 = 2;
     }
 
     if (v107)
     {
-      v113 = 1;
-      if (!v109)
+      v109 = v108;
+    }
+
+    else
+    {
+      v109 = ((v275 | v105) & 1) == 0;
+    }
+
+    v110 = [[BWFunnelNode alloc] initWithNumberOfInputs:(v109 + 1) mediaType:1986618469];
+    v351.receiver = v96;
+    v351.super_class = FigCaptureStillImageSinkPipeline;
+    if ((objc_msgSendSuper2(&v351, sel_addNode_error_, v110, &v376) & 1) == 0)
+    {
+      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+      goto LABEL_374;
+    }
+
+    if (([scheduler connectOutput:-[BWStillImageBufferRouterNode defaultOutput](v95 toInput:"defaultOutput") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v110, "inputs"), "objectAtIndexedSubscript:", 0), v10}] & 1) == 0)
+    {
+      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+      goto LABEL_374;
+    }
+
+    if (v105)
+    {
+      v111 = 1;
+      if (!v107)
       {
 LABEL_169:
-        defaultOutput = [(BWNode *)v112 output];
+        defaultOutput = [(BWNode *)v110 output];
         goto LABEL_170;
       }
     }
 
     else
     {
-      if (([scheduler connectOutput:-[BWNode output](v250 toInput:"output") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v112, "inputs"), "objectAtIndexedSubscript:", 1), v10}] & 1) == 0)
+      if (([scheduler connectOutput:-[BWNode output](v254 toInput:"output") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v110, "inputs"), "objectAtIndexedSubscript:", 1), v10}] & 1) == 0)
       {
         [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
         goto LABEL_374;
       }
 
-      v113 = 2;
-      if (!v109)
+      v111 = 2;
+      if (!v107)
       {
         goto LABEL_169;
       }
     }
 
-    if (([scheduler connectOutput:-[BWNode output](v260 toInput:"output") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v112, "inputs"), "objectAtIndexedSubscript:", v113), v10}] & 1) == 0)
+    if (([scheduler connectOutput:-[BWNode output](v264 toInput:"output") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v110, "inputs"), "objectAtIndexedSubscript:", v111), v10}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
@@ -802,303 +800,303 @@ LABEL_169:
   }
 
 LABEL_170:
-  if (v274 & 1 | ((v269 & 1) == 0))
+  if (v278 & 1 | ((v273 & 1) == 0))
   {
-    v114 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
+    v112 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
   }
 
   else
   {
-    v115 = [[BWCrossoverNode alloc] initWithMediaType:1986618469 numberOfInputs:2];
-    v346.receiver = v98;
+    v113 = [[BWCrossoverNode alloc] initWithMediaType:1986618469 numberOfInputs:2];
+    v350.receiver = v96;
+    v350.super_class = FigCaptureStillImageSinkPipeline;
+    v112 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
+    if ((objc_msgSendSuper2(&v350, sel_addNode_error_, v113, &v376) & 1) == 0)
+    {
+      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+      goto LABEL_374;
+    }
+
+    if (([scheduler connectOutput:defaultOutput toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v113 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", 0), v10}] & 1) == 0)
+    {
+      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+      goto LABEL_374;
+    }
+
+    if (([scheduler connectOutput:v104 toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v113 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", 1), v10}] & 1) == 0)
+    {
+      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+      goto LABEL_374;
+    }
+
+    defaultOutput = [(BWNode *)v113 output];
+  }
+
+  v114 = objc_alloc_init(BWPixelTransferNode);
+  [(BWNode *)v114 setName:@"Still Image Format Converter"];
+  -[BWPixelTransferNode setOutputPixelFormat:](v114, "setOutputPixelFormat:", [v277 outputPixelFormat]);
+  -[BWPixelTransferNode setOutputColorSpaceProperties:](v114, "setOutputColorSpaceProperties:", [v277 outputColorSpaceProperties]);
+  [(BWPixelTransferNode *)v114 setCropMode:3];
+  v349.receiver = v96;
+  v349.super_class = FigCaptureStillImageSinkPipeline;
+  if ((objc_msgSendSuper2(&v349, sel_addNode_error_, v114, &v376) & 1) == 0)
+  {
+    [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+    goto LABEL_374;
+  }
+
+  if (([scheduler connectOutput:defaultOutput toInput:-[BWNode input](v114 pipelineStage:{"input"), v10}] & 1) == 0)
+  {
+    [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+    goto LABEL_374;
+  }
+
+  output = [(BWNode *)v114 output];
+  if (v257)
+  {
+    v116 = objc_alloc_init(BWPixelTransferNode);
+    [(BWNode *)v116 setName:@"Telephoto Still Image Format Converter"];
+    -[BWPixelTransferNode setOutputPixelFormat:](v116, "setOutputPixelFormat:", [v277 outputPixelFormat]);
+    -[BWPixelTransferNode setOutputColorSpaceProperties:](v116, "setOutputColorSpaceProperties:", [v277 outputColorSpaceProperties]);
+    [(BWPixelTransferNode *)v116 setCropMode:3];
+    v348.receiver = v289;
+    v348.super_class = FigCaptureStillImageSinkPipeline;
+    v117 = pearlInfraredOutput;
+    if ((objc_msgSendSuper2(&v348, sel_addNode_error_, v116, &v376) & 1) == 0)
+    {
+      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+      goto LABEL_374;
+    }
+
+    if (([scheduler connectOutput:v104 toInput:-[BWNode input](v116 pipelineStage:{"input"), v285}] & 1) == 0)
+    {
+      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+      goto LABEL_374;
+    }
+
+    output2 = [(BWNode *)v116 output];
+  }
+
+  else
+  {
+    output2 = v104;
+    v117 = pearlInfraredOutput;
+  }
+
+  if (v117)
+  {
+    v119 = [[BWDepthSynchronizerNode alloc] initForStreaming:0 separateDepthComponentsEnabled:0];
+    v347.receiver = v289;
+    v347.super_class = FigCaptureStillImageSinkPipeline;
+    if ((objc_msgSendSuper2(&v347, sel_addNode_error_, v119, &v376) & 1) == 0)
+    {
+      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+      goto LABEL_374;
+    }
+
+    [v119 setName:@"Still Image Depth Synchronizer"];
+    if (([scheduler connectOutput:output toInput:objc_msgSend(v119 pipelineStage:{"imageInput"), v285}] & 1) == 0)
+    {
+      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+      goto LABEL_374;
+    }
+
+    if (([scheduler connectOutput:v117 toInput:objc_msgSend(v119 pipelineStage:{"depthInput"), v285}] & 1) == 0)
+    {
+      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+      goto LABEL_374;
+    }
+
+    output = [v119 output];
+  }
+
+  v120 = v277;
+  if (v260)
+  {
+    if (([scheduler connectOutput:output toInput:-[BWNode input](v260 pipelineStage:{"input"), v244}] & 1) == 0)
+    {
+      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+      goto LABEL_374;
+    }
+
+    output = [(BWNode *)v260 output];
+  }
+
+  if (v257)
+  {
+    if (([scheduler connectOutput:output2 toInput:-[BWNode input](v257 pipelineStage:{"input"), v243}] & 1) == 0)
+    {
+      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+      goto LABEL_374;
+    }
+
+    output2 = [(BWNode *)v257 output];
+  }
+
+  if (v272 != 2)
+  {
+    v121 = [[BWNoiseReducerNode alloc] initWithCameraTuningDictionary:cameraTuningParameters sensorIDDictionary:v268];
+    v346.receiver = v289;
     v346.super_class = FigCaptureStillImageSinkPipeline;
-    v114 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
-    if ((objc_msgSendSuper2(&v346, sel_addNode_error_, v115, &v372) & 1) == 0)
+    if ((objc_msgSendSuper2(&v346, sel_addNode_error_, v121, &v376) & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    if (([scheduler connectOutput:defaultOutput toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v115 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", 0), v10}] & 1) == 0)
+    if (([scheduler connectOutput:output toInput:-[BWNode input](v121 pipelineStage:{"input"), v285}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    if (([scheduler connectOutput:v106 toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v115 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", 1), v10}] & 1) == 0)
+    v260 = v121;
+    output = [(BWNode *)v121 output];
+    if (v272 == 1)
     {
-      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-      goto LABEL_374;
+      if (v264)
+      {
+        v122 = [[BWFunnelNode alloc] initWithNumberOfInputs:2 mediaType:1986618469];
+        v345.receiver = v289;
+        v345.super_class = FigCaptureStillImageSinkPipeline;
+        if ((objc_msgSendSuper2(&v345, sel_addNode_error_, v122, &v376) & 1) == 0)
+        {
+          [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+          goto LABEL_374;
+        }
+
+        if (([scheduler connectOutput:output toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v122 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", 0), v285}] & 1) == 0)
+        {
+          [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+          goto LABEL_374;
+        }
+
+        if (([scheduler connectOutput:-[BWNode output](v264 toInput:"output") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v122, "inputs"), "objectAtIndexedSubscript:", 1), v285}] & 1) == 0)
+        {
+          [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+          goto LABEL_374;
+        }
+
+        output = [(BWNode *)v122 output];
+      }
     }
-
-    defaultOutput = [(BWNode *)v115 output];
   }
 
-  v116 = objc_alloc_init(BWPixelTransferNode);
-  [(BWNode *)v116 setName:@"Still Image Format Converter"];
-  -[BWPixelTransferNode setOutputPixelFormat:](v116, "setOutputPixelFormat:", [v273 outputPixelFormat]);
-  -[BWPixelTransferNode setOutputColorSpaceProperties:](v116, "setOutputColorSpaceProperties:", [v273 outputColorSpaceProperties]);
-  [(BWPixelTransferNode *)v116 setCropMode:3];
-  v345.receiver = v98;
-  v345.super_class = FigCaptureStillImageSinkPipeline;
-  if ((objc_msgSendSuper2(&v345, sel_addNode_error_, v116, &v372) & 1) == 0)
+  v123 = depthDataDeliveryEnabled;
+  if (!v258)
   {
-    [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-    goto LABEL_374;
+    v123 = 0;
   }
 
-  if (([scheduler connectOutput:defaultOutput toInput:-[BWNode input](v116 pipelineStage:{"input"), v10}] & 1) == 0)
+  v296 = v123;
+  if (v275 & v261)
   {
-    [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-    goto LABEL_374;
-  }
-
-  output = [(BWNode *)v116 output];
-  if (v253)
-  {
-    v118 = objc_alloc_init(BWPixelTransferNode);
-    [(BWNode *)v118 setName:@"Telephoto Still Image Format Converter"];
-    -[BWPixelTransferNode setOutputPixelFormat:](v118, "setOutputPixelFormat:", [v273 outputPixelFormat]);
-    -[BWPixelTransferNode setOutputColorSpaceProperties:](v118, "setOutputColorSpaceProperties:", [v273 outputColorSpaceProperties]);
-    [(BWPixelTransferNode *)v118 setCropMode:3];
-    v344.receiver = v285;
+    v124 = objc_alloc_init(BWPortraitHDRStagingNode);
+    v344.receiver = v289;
     v344.super_class = FigCaptureStillImageSinkPipeline;
-    v119 = pearlInfraredOutput;
-    if ((objc_msgSendSuper2(&v344, sel_addNode_error_, v118, &v372) & 1) == 0)
+    if ((objc_msgSendSuper2(&v344, sel_addNode_error_, v124, &v376) & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    if (([scheduler connectOutput:v106 toInput:-[BWNode input](v118 pipelineStage:{"input"), v281}] & 1) == 0)
+    v125 = v124;
+    v289[11] = v125;
+    if (v273)
     {
-      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-      goto LABEL_374;
+      if (([scheduler connectOutput:output2 toInput:-[BWNode input](v125 pipelineStage:{"input"), v263}] & 1) == 0)
+      {
+        [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+        goto LABEL_374;
+      }
+
+      output2 = [v289[11] output];
     }
 
-    output2 = [(BWNode *)v118 output];
+    else if (v258)
+    {
+      if (([scheduler connectOutput:output toInput:-[BWNode input](v125 pipelineStage:{"input"), v263}] & 1) == 0)
+      {
+        [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+        goto LABEL_374;
+      }
+
+      output = [v289[11] output];
+    }
   }
 
-  else
+  if (v296)
   {
-    output2 = v106;
-    v119 = pearlInfraredOutput;
-  }
-
-  if (v119)
-  {
-    v121 = [[BWDepthSynchronizerNode alloc] initForStreaming:0 separateDepthComponentsEnabled:0];
-    v343.receiver = v285;
+    v126 = [[BWInferenceNode alloc] initWithConvEngineSupportWithCaptureDevice:*(v289 + v112[4]) scheduler:delegate priority:14];
+    [(BWNode *)v126 setName:@"RGB Segmentation and Landmarks"];
+    [(BWInferenceNode *)v126 addInferenceOfType:103 version:+[BWRGBPersonSegmentationInferenceConfiguration portraitVersion]& 0xFFFFFFFFFFFFLL];
+    v127 = +[BWLandmarksInferenceConfiguration configuration];
+    [v127 setMaximumNumberOfFaces:{+[BWLandmarksInferenceConfiguration portraitMaximumNumberOfFaces](BWLandmarksInferenceConfiguration, "portraitMaximumNumberOfFaces")}];
+    -[BWInferenceNode addInferenceOfType:version:configuration:](v126, "addInferenceOfType:version:configuration:", 801, [v127 landmarksInferenceVersion] & 0xFFFFFFFFFFFFLL, v127);
+    v343.receiver = v289;
     v343.super_class = FigCaptureStillImageSinkPipeline;
-    if ((objc_msgSendSuper2(&v343, sel_addNode_error_, v121, &v372) & 1) == 0)
+    if ((objc_msgSendSuper2(&v343, sel_addNode_error_, v126, &v376) & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    [v121 setName:@"Still Image Depth Synchronizer"];
-    if (([scheduler connectOutput:output toInput:objc_msgSend(v121 pipelineStage:{"imageInput"), v281}] & 1) == 0)
+    input = [(BWNode *)v126 input];
+    if ((v278 & 1) == 0)
     {
-      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-      goto LABEL_374;
-    }
-
-    if (([scheduler connectOutput:v119 toInput:objc_msgSend(v121 pipelineStage:{"depthInput"), v281}] & 1) == 0)
-    {
-      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-      goto LABEL_374;
-    }
-
-    output = [v121 output];
-  }
-
-  v122 = v273;
-  if (v256)
-  {
-    if (([scheduler connectOutput:output toInput:-[BWNode input](v256 pipelineStage:{"input"), v240}] & 1) == 0)
-    {
-      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-      goto LABEL_374;
-    }
-
-    output = [(BWNode *)v256 output];
-  }
-
-  if (v253)
-  {
-    if (([scheduler connectOutput:output2 toInput:-[BWNode input](v253 pipelineStage:{"input"), v239}] & 1) == 0)
-    {
-      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-      goto LABEL_374;
-    }
-
-    output2 = [(BWNode *)v253 output];
-  }
-
-  if (v268 != 2)
-  {
-    v123 = [[BWNoiseReducerNode alloc] initWithCameraTuningDictionary:cameraTuningParameters sensorIDDictionary:v264];
-    v342.receiver = v285;
-    v342.super_class = FigCaptureStillImageSinkPipeline;
-    if ((objc_msgSendSuper2(&v342, sel_addNode_error_, v123, &v372) & 1) == 0)
-    {
-      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-      goto LABEL_374;
-    }
-
-    if (([scheduler connectOutput:output toInput:-[BWNode input](v123 pipelineStage:{"input"), v281}] & 1) == 0)
-    {
-      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-      goto LABEL_374;
-    }
-
-    v256 = v123;
-    output = [(BWNode *)v123 output];
-    if (v268 == 1)
-    {
-      if (v260)
-      {
-        v124 = [[BWFunnelNode alloc] initWithNumberOfInputs:2 mediaType:1986618469];
-        v341.receiver = v285;
-        v341.super_class = FigCaptureStillImageSinkPipeline;
-        if ((objc_msgSendSuper2(&v341, sel_addNode_error_, v124, &v372) & 1) == 0)
-        {
-          [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-          goto LABEL_374;
-        }
-
-        if (([scheduler connectOutput:output toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v124 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", 0), v281}] & 1) == 0)
-        {
-          [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-          goto LABEL_374;
-        }
-
-        if (([scheduler connectOutput:-[BWNode output](v260 toInput:"output") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v124, "inputs"), "objectAtIndexedSubscript:", 1), v281}] & 1) == 0)
-        {
-          [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-          goto LABEL_374;
-        }
-
-        output = [(BWNode *)v124 output];
-      }
-    }
-  }
-
-  v125 = depthDataDeliveryEnabled;
-  if (!v254)
-  {
-    v125 = 0;
-  }
-
-  v292 = v125;
-  if (v271 & v257)
-  {
-    v126 = objc_alloc_init(BWPortraitHDRStagingNode);
-    v340.receiver = v285;
-    v340.super_class = FigCaptureStillImageSinkPipeline;
-    if ((objc_msgSendSuper2(&v340, sel_addNode_error_, v126, &v372) & 1) == 0)
-    {
-      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-      goto LABEL_374;
-    }
-
-    v127 = v126;
-    *(v285 + 88) = v127;
-    if (v269)
-    {
-      if (([scheduler connectOutput:output2 toInput:-[BWNode input](v127 pipelineStage:{"input"), v259}] & 1) == 0)
+      v112 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
+      if (([scheduler connectOutput:output toInput:input pipelineStage:v285] & 1) == 0)
       {
         [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
         goto LABEL_374;
       }
 
-      output2 = [*(v285 + 88) output];
-    }
-
-    else if (v254)
-    {
-      if (([scheduler connectOutput:output toInput:-[BWNode input](v127 pipelineStage:{"input"), v259}] & 1) == 0)
-      {
-        [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-        goto LABEL_374;
-      }
-
-      output = [*(v285 + 88) output];
-    }
-  }
-
-  if (v292)
-  {
-    v128 = [[BWInferenceNode alloc] initWithConvEngineSupportWithCaptureDevice:*(v285 + v114[4]) scheduler:delegate priority:14];
-    [(BWNode *)v128 setName:@"RGB Segmentation and Landmarks"];
-    [(BWInferenceNode *)v128 addInferenceOfType:103 version:+[BWRGBPersonSegmentationInferenceConfiguration portraitVersion]& 0xFFFFFFFFFFFFLL];
-    v129 = +[BWLandmarksInferenceConfiguration configuration];
-    [v129 setMaximumNumberOfFaces:{+[BWLandmarksInferenceConfiguration portraitMaximumNumberOfFaces](BWLandmarksInferenceConfiguration, "portraitMaximumNumberOfFaces")}];
-    -[BWInferenceNode addInferenceOfType:version:configuration:](v128, "addInferenceOfType:version:configuration:", 801, [v129 landmarksInferenceVersion] & 0xFFFFFFFFFFFFLL, v129);
-    v339.receiver = v285;
-    v339.super_class = FigCaptureStillImageSinkPipeline;
-    if ((objc_msgSendSuper2(&v339, sel_addNode_error_, v128, &v372) & 1) == 0)
-    {
-      [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-      goto LABEL_374;
-    }
-
-    input = [(BWNode *)v128 input];
-    if ((v274 & 1) == 0)
-    {
-      v114 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
-      if (([scheduler connectOutput:output toInput:input pipelineStage:v281] & 1) == 0)
-      {
-        [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-        goto LABEL_374;
-      }
-
-      output = [(BWNode *)v128 output];
-      v132 = v270;
+      output = [(BWNode *)v126 output];
+      v130 = v274;
       goto LABEL_288;
     }
 
-    v114 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
-    if (([scheduler connectOutput:output2 toInput:input pipelineStage:v281] & 1) == 0)
+    v112 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
+    if (([scheduler connectOutput:output2 toInput:input pipelineStage:v285] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    output2 = [(BWNode *)v128 output];
+    output2 = [(BWNode *)v126 output];
   }
 
-  else if ((v274 & 1) == 0)
+  else if ((v278 & 1) == 0)
   {
-    v132 = v270;
+    v130 = v274;
     goto LABEL_291;
   }
 
-  if (v271)
+  if (v275)
   {
-    v131 = objc_alloc_init(BWStillImageDisparitySplitterNode);
-    [(BWNode *)v131 setName:@"Disparity/HDR Splitter"];
-    v338.receiver = v285;
-    v338.super_class = FigCaptureStillImageSinkPipeline;
-    if ((objc_msgSendSuper2(&v338, sel_addNode_error_, v131, &v372) & 1) == 0)
+    v129 = objc_alloc_init(BWStillImageDisparitySplitterNode);
+    [(BWNode *)v129 setName:@"Disparity/HDR Splitter"];
+    v342.receiver = v289;
+    v342.super_class = FigCaptureStillImageSinkPipeline;
+    if ((objc_msgSendSuper2(&v342, sel_addNode_error_, v129, &v376) & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    if (([scheduler connectOutput:output2 toInput:-[BWNode input](v131 pipelineStage:{"input"), v259}] & 1) == 0)
+    if (([scheduler connectOutput:output2 toInput:-[BWNode input](v129 pipelineStage:{"input"), v263}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    obja = v131;
-    output2 = [(BWStillImageDisparitySplitterNode *)v131 disparityOutput];
+    obja = v129;
+    output2 = [(BWStillImageDisparitySplitterNode *)v129 disparityOutput];
   }
 
   else
   {
-    if (!v247)
+    if (!v251)
     {
       goto LABEL_267;
     }
@@ -1106,148 +1104,148 @@ LABEL_170:
     obja = 0;
   }
 
-  v337[0] = v270;
-  v337[1] = v267;
-  v133 = [MEMORY[0x1E695DEC8] arrayWithObjects:v337 count:2];
-  v134 = [[BWStillImageMultiCameraDoserNode alloc] initWithPortTypes:v133];
-  v336.receiver = v285;
-  v336.super_class = FigCaptureStillImageSinkPipeline;
-  if ((objc_msgSendSuper2(&v336, sel_addNode_error_, v134, &v372) & 1) == 0)
+  v341[0] = v274;
+  v341[1] = v271;
+  v131 = [MEMORY[0x1E695DEC8] arrayWithObjects:v341 count:2];
+  v132 = [[BWStillImageMultiCameraDoserNode alloc] initWithPortTypes:v131];
+  v340.receiver = v289;
+  v340.super_class = FigCaptureStillImageSinkPipeline;
+  if ((objc_msgSendSuper2(&v340, sel_addNode_error_, v132, &v376) & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
   }
 
-  v135 = [v133 indexOfObject:v270];
+  v133 = [v131 indexOfObject:v274];
+  if (v133 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    goto LABEL_379;
+  }
+
+  v134 = v133;
+  v135 = [v131 indexOfObject:v271];
   if (v135 == 0x7FFFFFFFFFFFFFFFLL)
   {
     goto LABEL_379;
   }
 
   v136 = v135;
-  v137 = [v133 indexOfObject:v267];
-  if (v137 == 0x7FFFFFFFFFFFFFFFLL)
-  {
-    goto LABEL_379;
-  }
-
-  v138 = v137;
-  v139 = [(NSArray *)[(BWNode *)v134 inputs] objectAtIndexedSubscript:v136];
+  v137 = [(NSArray *)[(BWNode *)v132 inputs] objectAtIndexedSubscript:v134];
   schedulerCopy6 = scheduler;
-  if (([scheduler connectOutput:output toInput:v139 pipelineStage:v259] & 1) == 0)
+  if (([scheduler connectOutput:output toInput:v137 pipelineStage:v263] & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
   }
 
-  if (([scheduler connectOutput:output2 toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v134 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", v138), v259}] & 1) == 0)
+  if (([scheduler connectOutput:output2 toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v132 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", v136), v263}] & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
   }
 
-  v140 = [(BWStillImageMultiCameraDoserNode *)v134 outputIndexForPortType:v270];
-  if (v140 == 0x7FFFFFFFFFFFFFFFLL || (v141 = v140, v142 = [(BWStillImageMultiCameraDoserNode *)v134 outputIndexForPortType:v267], v142 == 0x7FFFFFFFFFFFFFFFLL))
+  v138 = [(BWStillImageMultiCameraDoserNode *)v132 outputIndexForPortType:v274];
+  if (v138 == 0x7FFFFFFFFFFFFFFFLL || (v139 = v138, v140 = [(BWStillImageMultiCameraDoserNode *)v132 outputIndexForPortType:v271], v140 == 0x7FFFFFFFFFFFFFFFLL))
   {
 LABEL_379:
-    v373 = -12780;
+    v377 = -12780;
     goto LABEL_374;
   }
 
-  v143 = v142;
-  output = [(NSArray *)[(BWNode *)v134 outputs] objectAtIndexedSubscript:v141];
-  output2 = [(NSArray *)[(BWNode *)v134 outputs] objectAtIndexedSubscript:v143];
-  if (v249)
+  v141 = v140;
+  output = [(NSArray *)[(BWNode *)v132 outputs] objectAtIndexedSubscript:v139];
+  output2 = [(NSArray *)[(BWNode *)v132 outputs] objectAtIndexedSubscript:v141];
+  if (v253)
   {
     array = [MEMORY[0x1E695DF70] array];
-    v145 = v114[4];
-    v146 = v114;
-    v147 = v285;
-    if ([*(v285 + v145) bravoTelephotoCaptureStream])
+    v143 = v112[4];
+    v144 = v112;
+    v145 = v289;
+    if ([*(v289 + v143) bravoTelephotoCaptureStream])
     {
-      v148 = MEMORY[0x1E696AD98];
-      [objc_msgSend(*(v285 + v146[4]) "bravoTelephotoCaptureStream")];
-      [array addObject:{objc_msgSend(v148, "numberWithFloat:")}];
-      v149 = MEMORY[0x1E696AD98];
-      [objc_msgSend(*(v285 + v146[4]) "masterCaptureStream")];
-      [array addObject:{objc_msgSend(v149, "numberWithFloat:")}];
+      v146 = MEMORY[0x1E696AD98];
+      [objc_msgSend(*(v289 + v144[4]) "bravoTelephotoCaptureStream")];
+      [array addObject:{objc_msgSend(v146, "numberWithFloat:")}];
+      v147 = MEMORY[0x1E696AD98];
+      [objc_msgSend(*(v289 + v144[4]) "masterCaptureStream")];
+      [array addObject:{objc_msgSend(v147, "numberWithFloat:")}];
     }
 
     else
     {
       FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
-      v335 = 0;
+      v339 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      v147 = v285;
+      v145 = v289;
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      captureStreams2 = [*(v285 + 48) captureStreams];
-      v374 = 138412290;
-      v375 = captureStreams2;
-      v152 = _os_log_send_and_compose_impl();
-      FigCapturePleaseFileRadar(FrameworkRadarComponent, v152, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/CaptureSession/FigCaptureStillImageSinkPipeline.m", 986, @"LastShownDate:FigCaptureStillImageSinkPipeline.m:986", @"LastShownBuild:FigCaptureStillImageSinkPipeline.m:986", 0);
-      free(v152);
+      captureStreams2 = [v289[6] captureStreams];
+      v378 = 138412290;
+      v379 = captureStreams2;
+      v150 = _os_log_send_and_compose_impl();
+      FigCapturePleaseFileRadar(FrameworkRadarComponent, v150, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/CaptureSession/FigCaptureStillImageSinkPipeline.m", 986, @"LastShownDate:FigCaptureStillImageSinkPipeline.m:986", @"LastShownBuild:FigCaptureStillImageSinkPipeline.m:986", 0);
+      free(v150);
       schedulerCopy6 = scheduler;
     }
 
-    v153 = [[BWStillImageDualPhotoFacePropagatorNode alloc] initWithBaseZoomFactors:array];
-    v333.receiver = v147;
-    v333.super_class = FigCaptureStillImageSinkPipeline;
-    if ((objc_msgSendSuper2(&v333, sel_addNode_error_, v153, &v372) & 1) == 0)
+    v151 = [[BWStillImageDualPhotoFacePropagatorNode alloc] initWithBaseZoomFactors:array];
+    v337.receiver = v145;
+    v337.super_class = FigCaptureStillImageSinkPipeline;
+    if ((objc_msgSendSuper2(&v337, sel_addNode_error_, v151, &v376) & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    v114 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
-    v122 = v273;
-    if (([schedulerCopy6 connectOutput:output toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v153 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", 0), v259}] & 1) == 0)
+    v112 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
+    v120 = v277;
+    if (([schedulerCopy6 connectOutput:output toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v151 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", 0), v263}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    if (([schedulerCopy6 connectOutput:output2 toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v153 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", 1), v259}] & 1) == 0)
+    if (([schedulerCopy6 connectOutput:output2 toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v151 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", 1), v263}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    output = [(NSArray *)[(BWNode *)v153 outputs] objectAtIndexedSubscript:0];
-    output2 = [(NSArray *)[(BWNode *)v153 outputs] objectAtIndexedSubscript:1];
+    output = [(NSArray *)[(BWNode *)v151 outputs] objectAtIndexedSubscript:0];
+    output2 = [(NSArray *)[(BWNode *)v151 outputs] objectAtIndexedSubscript:1];
   }
 
   else
   {
-    v122 = v273;
+    v120 = v277;
   }
 
-  if (!v247)
+  if (!v251)
   {
-    if (v271)
+    if (v275)
     {
-      v288 = output2;
-      if (v257)
+      v292 = output2;
+      if (v261)
       {
-        v161 = [BWPipelineStage pipelineStageWithName:@"com.apple.coremedia.capture.stillimage.inference.bravo" priority:14];
-        v162 = [[BWInferenceNode alloc] initWithConvEngineSupportWithCaptureDevice:*(v285 + v114[4]) scheduler:delegate priority:14];
-        [(BWNode *)v162 setName:@"Disparity/Landmarks Inference Node"];
-        v163 = +[BWLandmarksInferenceConfiguration configuration];
-        [v163 setMaximumNumberOfFaces:{+[BWLandmarksInferenceConfiguration portraitMaximumNumberOfFaces](BWLandmarksInferenceConfiguration, "portraitMaximumNumberOfFaces")}];
-        -[BWInferenceNode addInferenceOfType:version:configuration:](v162, "addInferenceOfType:version:configuration:", 801, [v163 landmarksInferenceVersion] & 0xFFFFFFFFFFFFLL, v163);
-        v328.receiver = v285;
-        v328.super_class = FigCaptureStillImageSinkPipeline;
-        if ((objc_msgSendSuper2(&v328, sel_addNode_error_, v162, &v372) & 1) == 0)
+        v159 = [BWPipelineStage pipelineStageWithName:@"com.apple.coremedia.capture.stillimage.inference.bravo" priority:14];
+        v160 = [[BWInferenceNode alloc] initWithConvEngineSupportWithCaptureDevice:*(v289 + v112[4]) scheduler:delegate priority:14];
+        [(BWNode *)v160 setName:@"Disparity/Landmarks Inference Node"];
+        v161 = +[BWLandmarksInferenceConfiguration configuration];
+        [v161 setMaximumNumberOfFaces:{+[BWLandmarksInferenceConfiguration portraitMaximumNumberOfFaces](BWLandmarksInferenceConfiguration, "portraitMaximumNumberOfFaces")}];
+        -[BWInferenceNode addInferenceOfType:version:configuration:](v160, "addInferenceOfType:version:configuration:", 801, [v161 landmarksInferenceVersion] & 0xFFFFFFFFFFFFLL, v161);
+        v332.receiver = v289;
+        v332.super_class = FigCaptureStillImageSinkPipeline;
+        if ((objc_msgSendSuper2(&v332, sel_addNode_error_, v160, &v376) & 1) == 0)
         {
           [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
           goto LABEL_374;
         }
 
         processedOutput = [(BWStillImageDisparitySplitterNode *)obja processedOutput];
-        objb = v162;
-        v114 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
-        if (([schedulerCopy6 connectOutput:processedOutput toInput:-[BWNode input](v162 pipelineStage:{"input"), v161}] & 1) == 0)
+        objb = v160;
+        v112 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
+        if (([schedulerCopy6 connectOutput:processedOutput toInput:-[BWNode input](v160 pipelineStage:{"input"), v159}] & 1) == 0)
         {
           [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
           goto LABEL_374;
@@ -1259,198 +1257,198 @@ LABEL_379:
         objb = 0;
       }
 
-      depthDataSourceDimensions = [v122 depthDataSourceDimensions];
-      cameraInfoByPortType = [*(v285 + v114[4]) cameraInfoByPortType];
-      v169 = -[BWSensorConfiguration initWithPortType:sensorIDString:sensorIDDictionary:cameraInfo:]([BWSensorConfiguration alloc], "initWithPortType:sensorIDString:sensorIDDictionary:cameraInfo:", v267, v248, v262, [cameraInfoByPortType objectForKeyedSubscript:v267]);
-      v170 = -[BWSensorConfiguration initWithPortType:sensorIDString:sensorIDDictionary:cameraInfo:]([BWSensorConfiguration alloc], "initWithPortType:sensorIDString:sensorIDDictionary:cameraInfo:", v270, v241, v264, [cameraInfoByPortType objectForKeyedSubscript:v270]);
-      v326[0] = v270;
-      v326[1] = v267;
-      v327[0] = v169;
-      v327[1] = v170;
-      v171 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v327 forKeys:v326 count:2];
+      depthDataSourceDimensions = [v120 depthDataSourceDimensions];
+      cameraInfoByPortType = [*(v289 + v112[4]) cameraInfoByPortType];
+      v167 = -[BWSensorConfiguration initWithPortType:sensorIDString:sensorIDDictionary:cameraInfo:]([BWSensorConfiguration alloc], "initWithPortType:sensorIDString:sensorIDDictionary:cameraInfo:", v271, v252, v266, [cameraInfoByPortType objectForKeyedSubscript:v271]);
+      v168 = -[BWSensorConfiguration initWithPortType:sensorIDString:sensorIDDictionary:cameraInfo:]([BWSensorConfiguration alloc], "initWithPortType:sensorIDString:sensorIDDictionary:cameraInfo:", v274, v245, v268, [cameraInfoByPortType objectForKeyedSubscript:v274]);
+      v330[0] = v274;
+      v330[1] = v271;
+      v331[0] = v167;
+      v331[1] = v168;
+      v169 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v331 forKeys:v330 count:2];
 
-      v172 = [[BWStillImageBravoDisparityNode alloc] initWithNodeConfiguration:0 sensorConfigurationsByPortType:v171 disparityMapWidth:depthDataSourceDimensions disparityMapHeight:depthDataSourceDimensions >> 32 outputDisparityBufferCount:0];
-      v325.receiver = v285;
-      v325.super_class = FigCaptureStillImageSinkPipeline;
-      if ((objc_msgSendSuper2(&v325, sel_addNode_error_, v172, &v372) & 1) == 0)
+      v170 = [[BWStillImageBravoDisparityNode alloc] initWithNodeConfiguration:0 sensorConfigurationsByPortType:v169 disparityMapWidth:depthDataSourceDimensions disparityMapHeight:depthDataSourceDimensions >> 32 outputDisparityBufferCount:0];
+      v329.receiver = v289;
+      v329.super_class = FigCaptureStillImageSinkPipeline;
+      if ((objc_msgSendSuper2(&v329, sel_addNode_error_, v170, &v376) & 1) == 0)
       {
         [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
         goto LABEL_374;
       }
 
-      *(v285 + 72) = v172;
-      -[BWStillImageBravoDisparityNode setShouldComputeDisparityWhenCalibrationFails:](v172, "setShouldComputeDisparityWhenCalibrationFails:", [*(v285 + v114[4]) shallowDepthOfFieldEffectEnabled] ^ 1);
-      [(BWStillImageBravoDisparityNode *)v172 setAttachesInputBracketToOutputSampleBuffer:0];
-      if (([schedulerCopy6 connectOutput:output toInput:-[BWStillImageBravoDisparityNode wideInput](v172 pipelineStage:{"wideInput"), v259}] & 1) == 0)
+      v289[9] = v170;
+      -[BWStillImageBravoDisparityNode setShouldComputeDisparityWhenCalibrationFails:](v170, "setShouldComputeDisparityWhenCalibrationFails:", [*(v289 + v112[4]) shallowDepthOfFieldEffectEnabled] ^ 1);
+      [(BWStillImageBravoDisparityNode *)v170 setAttachesInputBracketToOutputSampleBuffer:0];
+      if (([schedulerCopy6 connectOutput:output toInput:-[BWStillImageBravoDisparityNode wideInput](v170 pipelineStage:{"wideInput"), v263}] & 1) == 0)
       {
         [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
         goto LABEL_374;
       }
 
-      v122 = v273;
-      if (([schedulerCopy6 connectOutput:v288 toInput:-[BWStillImageBravoDisparityNode telephotoInput](v172 pipelineStage:{"telephotoInput"), v259}] & 1) == 0)
+      v120 = v277;
+      if (([schedulerCopy6 connectOutput:v292 toInput:-[BWStillImageBravoDisparityNode telephotoInput](v170 pipelineStage:{"telephotoInput"), v263}] & 1) == 0)
       {
         [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
         goto LABEL_374;
       }
 
-      output = [(BWNode *)v172 output];
-      if (v257)
+      output = [(BWNode *)v170 output];
+      if (v261)
       {
-        v173 = [[BWInferenceSynchronizerNode alloc] initWithIndexOfInputProvidingOutputSampleBuffer:1 indexOfInputProvidingPreferredInferences:1 errorHandlingModel:0];
-        [(BWNode *)v173 setName:@"Disparity/Landmarks Sync"];
-        [(BWInferenceSynchronizerNode *)v173 setSynchronizesTopLevelAttachments:1];
-        v324.receiver = v285;
-        v324.super_class = FigCaptureStillImageSinkPipeline;
-        if ((objc_msgSendSuper2(&v324, sel_addNode_error_, v173, &v372) & 1) == 0)
+        v171 = [[BWInferenceSynchronizerNode alloc] initWithIndexOfInputProvidingOutputSampleBuffer:1 indexOfInputProvidingPreferredInferences:1 errorHandlingModel:0];
+        [(BWNode *)v171 setName:@"Disparity/Landmarks Sync"];
+        [(BWInferenceSynchronizerNode *)v171 setSynchronizesTopLevelAttachments:1];
+        v328.receiver = v289;
+        v328.super_class = FigCaptureStillImageSinkPipeline;
+        if ((objc_msgSendSuper2(&v328, sel_addNode_error_, v171, &v376) & 1) == 0)
         {
           [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
           goto LABEL_374;
         }
 
-        if (([schedulerCopy6 connectOutput:output toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v173 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", 0), v259}] & 1) == 0)
+        if (([schedulerCopy6 connectOutput:output toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v171 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", 0), v263}] & 1) == 0)
         {
           [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
           goto LABEL_374;
         }
 
-        if (([schedulerCopy6 connectOutput:-[BWNode output](objb toInput:"output") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v173, "inputs"), "objectAtIndexedSubscript:", 1), v259}] & 1) == 0)
+        if (([schedulerCopy6 connectOutput:-[BWNode output](objb toInput:"output") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v171, "inputs"), "objectAtIndexedSubscript:", 1), v263}] & 1) == 0)
         {
           [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
           goto LABEL_374;
         }
 
-        output = [(BWNode *)v173 output];
+        output = [(BWNode *)v171 output];
       }
 
       goto LABEL_282;
     }
 
 LABEL_267:
-    v132 = v270;
-    if ((v249 & 1) == 0)
+    v130 = v274;
+    if ((v253 & 1) == 0)
     {
       goto LABEL_287;
     }
 
-    v165 = [[BWFunnelNode alloc] initWithNumberOfInputs:2 mediaType:1986618469];
-    v323.receiver = v285;
-    v323.super_class = FigCaptureStillImageSinkPipeline;
-    if ((objc_msgSendSuper2(&v323, sel_addNode_error_, v165, &v372) & 1) == 0)
+    v163 = [[BWFunnelNode alloc] initWithNumberOfInputs:2 mediaType:1986618469];
+    v327.receiver = v289;
+    v327.super_class = FigCaptureStillImageSinkPipeline;
+    if ((objc_msgSendSuper2(&v327, sel_addNode_error_, v163, &v376) & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    if (([schedulerCopy6 connectOutput:output toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v165 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", 0), v259}] & 1) == 0)
+    if (([schedulerCopy6 connectOutput:output toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v163 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", 0), v263}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    if (([schedulerCopy6 connectOutput:output2 toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v165 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", 1), v259}] & 1) == 0)
+    if (([schedulerCopy6 connectOutput:output2 toInput:-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v163 pipelineStage:{"inputs"), "objectAtIndexedSubscript:", 1), v263}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    output4 = [(NSArray *)[(BWNode *)v165 outputs] objectAtIndexedSubscript:0];
+    output4 = [(NSArray *)[(BWNode *)v163 outputs] objectAtIndexedSubscript:0];
     goto LABEL_286;
   }
 
-  v154 = -[BWStereoFusionNode initWithTelephotoSensorIDDictionary:cameraInfoByPortType:]([BWStereoFusionNode alloc], "initWithTelephotoSensorIDDictionary:cameraInfoByPortType:", v262, [*(v285 + v114[4]) cameraInfoByPortType]);
-  v332.receiver = v285;
-  v332.super_class = FigCaptureStillImageSinkPipeline;
-  if ((objc_msgSendSuper2(&v332, sel_addNode_error_, v154, &v372) & 1) == 0)
+  v152 = -[BWStereoFusionNode initWithTelephotoSensorIDDictionary:cameraInfoByPortType:]([BWStereoFusionNode alloc], "initWithTelephotoSensorIDDictionary:cameraInfoByPortType:", v266, [*(v289 + v112[4]) cameraInfoByPortType]);
+  v336.receiver = v289;
+  v336.super_class = FigCaptureStillImageSinkPipeline;
+  if ((objc_msgSendSuper2(&v336, sel_addNode_error_, v152, &v376) & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
   }
 
-  [(BWStereoFusionNode *)v154 setAttachesInputBracketToOutputSampleBuffer:0];
-  if (([schedulerCopy6 connectOutput:output toInput:-[BWStereoFusionNode wideInput](v154 pipelineStage:{"wideInput"), v259}] & 1) == 0)
+  [(BWStereoFusionNode *)v152 setAttachesInputBracketToOutputSampleBuffer:0];
+  if (([schedulerCopy6 connectOutput:output toInput:-[BWStereoFusionNode wideInput](v152 pipelineStage:{"wideInput"), v263}] & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
   }
 
-  if (([schedulerCopy6 connectOutput:output2 toInput:-[BWStereoFusionNode telephotoInput](v154 pipelineStage:{"telephotoInput"), v259}] & 1) == 0)
+  if (([schedulerCopy6 connectOutput:output2 toInput:-[BWStereoFusionNode telephotoInput](v152 pipelineStage:{"telephotoInput"), v263}] & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
   }
 
-  defaultOutput2 = [(BWStereoFusionNode *)v154 defaultOutput];
-  if (!v251)
+  defaultOutput2 = [(BWStereoFusionNode *)v152 defaultOutput];
+  if (!v255)
   {
     output = defaultOutput2;
 LABEL_282:
-    v132 = v270;
+    v130 = v274;
     goto LABEL_287;
   }
 
+  v154 = [[BWFunnelNode alloc] initWithNumberOfInputs:2 mediaType:1986618469];
+  v335.receiver = v289;
+  v335.super_class = FigCaptureStillImageSinkPipeline;
+  if ((objc_msgSendSuper2(&v335, sel_addNode_error_, v154, &v376) & 1) == 0)
+  {
+    [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+    goto LABEL_374;
+  }
+
+  v155 = [[BWGNRNode alloc] initWithSISEnabled:0 OISEnabled:0 LTMHDREnabled:v279 & 1 processingLTMHDRFusion:v279 & 1 portType:v274 sensorID:v245 sensorIDDictionary:v268 telephotoPortType:v271 telephotoSensorID:v252 telephotoSensorIDDictionary:v266];
+  v334.receiver = v289;
+  v334.super_class = FigCaptureStillImageSinkPipeline;
+  if ((objc_msgSendSuper2(&v334, sel_addNode_error_, v155, &v376) & 1) == 0)
+  {
+    [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
+    goto LABEL_374;
+  }
+
+  [(BWGNRNode *)v155 setAttachesInputBracketToOutputSampleBuffer:0];
+  [(BWNode *)v155 setName:@"GNR"];
   v156 = [[BWFunnelNode alloc] initWithNumberOfInputs:2 mediaType:1986618469];
-  v331.receiver = v285;
-  v331.super_class = FigCaptureStillImageSinkPipeline;
-  if ((objc_msgSendSuper2(&v331, sel_addNode_error_, v156, &v372) & 1) == 0)
+  v333.receiver = v289;
+  v333.super_class = FigCaptureStillImageSinkPipeline;
+  if ((objc_msgSendSuper2(&v333, sel_addNode_error_, v156, &v376) & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
   }
 
-  v157 = [[BWGNRNode alloc] initWithSISEnabled:0 OISEnabled:0 LTMHDREnabled:v275 & 1 processingLTMHDRFusion:v275 & 1 portType:v270 sensorID:v241 sensorIDDictionary:v264 telephotoPortType:v267 telephotoSensorID:v248 telephotoSensorIDDictionary:v262];
-  v330.receiver = v285;
-  v330.super_class = FigCaptureStillImageSinkPipeline;
-  if ((objc_msgSendSuper2(&v330, sel_addNode_error_, v157, &v372) & 1) == 0)
+  if (([scheduler connectOutput:-[BWStillImageBufferRouterNode HDROutput](v95 toInput:"HDROutput") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v154, "inputs"), "objectAtIndexedSubscript:", 0), v285}] & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
   }
 
-  [(BWGNRNode *)v157 setAttachesInputBracketToOutputSampleBuffer:0];
-  [(BWNode *)v157 setName:@"GNR"];
-  v158 = [[BWFunnelNode alloc] initWithNumberOfInputs:2 mediaType:1986618469];
-  v329.receiver = v285;
-  v329.super_class = FigCaptureStillImageSinkPipeline;
-  if ((objc_msgSendSuper2(&v329, sel_addNode_error_, v158, &v372) & 1) == 0)
+  v130 = v274;
+  if (([scheduler connectOutput:-[BWStereoFusionNode stereoHDROutput](v152 toInput:"stereoHDROutput") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v154, "inputs"), "objectAtIndexedSubscript:", 1), v285}] & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
   }
 
-  if (([scheduler connectOutput:-[BWStillImageBufferRouterNode HDROutput](v97 toInput:"HDROutput") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v156, "inputs"), "objectAtIndexedSubscript:", 0), v281}] & 1) == 0)
+  if (([scheduler connectOutput:-[BWStereoFusionNode defaultOutput](v152 toInput:"defaultOutput") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v156, "inputs"), "objectAtIndexedSubscript:", 0), v285}] & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
   }
 
-  v132 = v270;
-  if (([scheduler connectOutput:-[BWStereoFusionNode stereoHDROutput](v154 toInput:"stereoHDROutput") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v156, "inputs"), "objectAtIndexedSubscript:", 1), v281}] & 1) == 0)
+  if (([scheduler connectOutput:-[BWNode output](v155 toInput:"output") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v156, "inputs"), "objectAtIndexedSubscript:", 1), v285}] & 1) == 0)
   {
     [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
     goto LABEL_374;
   }
 
-  if (([scheduler connectOutput:-[BWStereoFusionNode defaultOutput](v154 toInput:"defaultOutput") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v158, "inputs"), "objectAtIndexedSubscript:", 0), v281}] & 1) == 0)
+  output3 = [(BWNode *)v154 output];
+  if (v279)
   {
-    [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-    goto LABEL_374;
-  }
-
-  if (([scheduler connectOutput:-[BWNode output](v157 toInput:"output") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v158, "inputs"), "objectAtIndexedSubscript:", 1), v281}] & 1) == 0)
-  {
-    [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
-    goto LABEL_374;
-  }
-
-  output3 = [(BWNode *)v156 output];
-  if (v275)
-  {
-    input2 = [(BWNode *)v157 input];
+    input2 = [(BWNode *)v155 input];
     schedulerCopy6 = scheduler;
-    v114 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
-    v122 = v273;
-    if (([scheduler connectOutput:output3 toInput:input2 pipelineStage:v281] & 1) == 0)
+    v112 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
+    v120 = v277;
+    if (([scheduler connectOutput:output3 toInput:input2 pipelineStage:v285] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
@@ -1459,85 +1457,85 @@ LABEL_282:
 
   else
   {
-    v122 = v273;
-    if (([scheduler connectOutput:output3 toInput:-[BWNode input](v250 pipelineStage:{"input"), v281}] & 1) == 0)
+    v120 = v277;
+    if (([scheduler connectOutput:output3 toInput:-[BWNode input](v254 pipelineStage:{"input"), v285}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    v174 = [scheduler connectOutput:-[BWNode output](v250 toInput:"output") pipelineStage:{-[BWNode input](v157, "input"), v281}];
+    v172 = [scheduler connectOutput:-[BWNode output](v254 toInput:"output") pipelineStage:{-[BWNode input](v155, "input"), v285}];
     schedulerCopy6 = scheduler;
-    v114 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
-    if ((v174 & 1) == 0)
+    v112 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
+    if ((v172 & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
   }
 
-  output4 = [(BWNode *)v158 output];
+  output4 = [(BWNode *)v156 output];
 LABEL_286:
   output = output4;
 LABEL_287:
-  if (v292)
+  if (v296)
   {
 LABEL_288:
-    clientIsCameraOrDerivative = [v122 clientIsCameraOrDerivative];
-    v176 = v114[4];
+    clientIsCameraOrDerivative = [v120 clientIsCameraOrDerivative];
+    v174 = v112[4];
     LOBYTE(v236) = 0;
-    v177 = -[BWDepthConverterNode initWithStillImageNodeConfiguration:cameraInfoByPortType:sensorIDDictionary:rgbPersonSegmentationEnabled:depthIsAlwaysHighQuality:depthOriginatesFromNeuralNetwork:backPressureDrivenPipelining:]([BWDepthConverterNode alloc], "initWithStillImageNodeConfiguration:cameraInfoByPortType:sensorIDDictionary:rgbPersonSegmentationEnabled:depthIsAlwaysHighQuality:depthOriginatesFromNeuralNetwork:backPressureDrivenPipelining:", 0, [*(v285 + v176) cameraInfoByPortType], v246, 1, clientIsCameraOrDerivative, 0, v236);
-    v322.receiver = v285;
-    v322.super_class = FigCaptureStillImageSinkPipeline;
-    if ((objc_msgSendSuper2(&v322, sel_addNode_error_, v177, &v372) & 1) == 0)
+    v175 = -[BWDepthConverterNode initWithStillImageNodeConfiguration:cameraInfoByPortType:sensorIDDictionary:rgbPersonSegmentationEnabled:depthIsAlwaysHighQuality:depthOriginatesFromNeuralNetwork:backPressureDrivenPipelining:]([BWDepthConverterNode alloc], "initWithStillImageNodeConfiguration:cameraInfoByPortType:sensorIDDictionary:rgbPersonSegmentationEnabled:depthIsAlwaysHighQuality:depthOriginatesFromNeuralNetwork:backPressureDrivenPipelining:", 0, [*(v289 + v174) cameraInfoByPortType], v250, 1, clientIsCameraOrDerivative, 0, v236);
+    v326.receiver = v289;
+    v326.super_class = FigCaptureStillImageSinkPipeline;
+    if ((objc_msgSendSuper2(&v326, sel_addNode_error_, v175, &v376) & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    [(BWNode *)v177 setName:@"Still Image Depth Converter"];
-    -[BWDepthConverterNode setHorizontalSensorBinningFactor:](v177, "setHorizontalSensorBinningFactor:", [v122 horizontalSensorBinningFactor]);
-    -[BWDepthConverterNode setVerticalSensorBinningFactor:](v177, "setVerticalSensorBinningFactor:", [v122 verticalSensorBinningFactor]);
-    v178 = FigCaptureFrontDepthDataToRGBRotationAngle();
-    [(BWDepthConverterNode *)v177 setStillGDRFilteringSupportEnabled:1];
-    [(BWDepthConverterNode *)v177 setOutputFormat:1751411059];
-    -[BWDepthConverterNode setOutputDimensions:](v177, "setOutputDimensions:", [v122 depthDataTargetDimensions]);
-    [(BWDepthConverterNode *)v177 setBaseRotationDegrees:v178];
-    if (([schedulerCopy6 connectOutput:output toInput:-[BWNode input](v177 pipelineStage:{"input"), v281}] & 1) == 0)
+    [(BWNode *)v175 setName:@"Still Image Depth Converter"];
+    -[BWDepthConverterNode setHorizontalSensorBinningFactor:](v175, "setHorizontalSensorBinningFactor:", [v120 horizontalSensorBinningFactor]);
+    v176 = -[BWDepthConverterNode setVerticalSensorBinningFactor:](v175, "setVerticalSensorBinningFactor:", [v120 verticalSensorBinningFactor]);
+    v178 = FigCaptureFrontDepthDataToRGBRotationAngle(v176, v177);
+    [(BWDepthConverterNode *)v175 setStillGDRFilteringSupportEnabled:1];
+    [(BWDepthConverterNode *)v175 setOutputFormat:1751411059];
+    -[BWDepthConverterNode setOutputDimensions:](v175, "setOutputDimensions:", [v120 depthDataTargetDimensions]);
+    [(BWDepthConverterNode *)v175 setBaseRotationDegrees:v178];
+    if (([schedulerCopy6 connectOutput:output toInput:-[BWNode input](v175 pipelineStage:{"input"), v285}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    *(v285 + 80) = v177;
-    output = [(BWNode *)v177 output];
-    v114 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
+    v289[10] = v175;
+    output = [(BWNode *)v175 output];
+    v112 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
   }
 
 LABEL_291:
   if (depthDataDeliveryEnabled)
   {
-    v179 = v255;
-    if (!v254)
+    v179 = v259;
+    if (!v258)
     {
-      v179 = v132;
+      v179 = v130;
     }
 
-    v180 = v241;
-    if (v254)
+    v180 = v245;
+    if (v258)
     {
-      v180 = v238;
+      v180 = v242;
     }
 
-    v181 = v264;
-    if (v254)
+    v181 = v268;
+    if (v258)
     {
-      v181 = v246;
+      v181 = v250;
     }
 
-    if (v269)
+    if (v273)
     {
-      v182 = v267;
+      v182 = v271;
     }
 
     else
@@ -1545,9 +1543,9 @@ LABEL_291:
       v182 = v179;
     }
 
-    if (v269)
+    if (v273)
     {
-      v183 = v248;
+      v183 = v252;
     }
 
     else
@@ -1555,9 +1553,9 @@ LABEL_291:
       v183 = v180;
     }
 
-    if (v269)
+    if (v273)
     {
-      v184 = v262;
+      v184 = v266;
     }
 
     else
@@ -1565,58 +1563,58 @@ LABEL_291:
       v184 = v181;
     }
 
-    v185 = -[BWSensorConfiguration initWithPortType:sensorIDString:sensorIDDictionary:cameraInfo:]([BWSensorConfiguration alloc], "initWithPortType:sensorIDString:sensorIDDictionary:cameraInfo:", v182, v183, v184, [objc_msgSend(*(v285 + v114[4]) "cameraInfoByPortType")]);
+    v185 = -[BWSensorConfiguration initWithPortType:sensorIDString:sensorIDDictionary:cameraInfo:]([BWSensorConfiguration alloc], "initWithPortType:sensorIDString:sensorIDDictionary:cameraInfo:", v182, v183, v184, [objc_msgSend(*(v289 + v112[4]) "cameraInfoByPortType")]);
     LODWORD(v186) = v26;
-    v187 = [(FigCaptureCameraParameters *)v258 sdofRenderingVersionForPortType:v182 sensorIDString:v183 zoomFactor:v186];
+    v187 = [(FigCaptureCameraParameters *)v262 sdofRenderingVersionForPortType:v182 sensorIDString:v183 zoomFactor:v186];
     v188 = [BWStillImagePortraitMetadataNode alloc];
-    v320 = v182;
-    v293 = v185;
-    v321 = v185;
-    v189 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v321 forKeys:&v320 count:1];
+    v324 = v182;
+    v297 = v185;
+    v325 = v185;
+    v189 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v325 forKeys:&v324 count:1];
     LODWORD(v190) = v26;
     v191 = [(BWStillImagePortraitMetadataNode *)v188 initWithNodeConfiguration:0 sdofRenderingVersion:v187 sensorConfigurationsByPortType:v189 defaultPortType:v182 defaultZoomFactor:v190];
-    v319.receiver = v285;
-    v319.super_class = FigCaptureStillImageSinkPipeline;
-    if ((objc_msgSendSuper2(&v319, sel_addNode_error_, v191, &v372) & 1) == 0)
+    v323.receiver = v289;
+    v323.super_class = FigCaptureStillImageSinkPipeline;
+    if ((objc_msgSendSuper2(&v323, sel_addNode_error_, v191, &v376) & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    if (([schedulerCopy6 connectOutput:output toInput:-[BWNode input](v191 pipelineStage:{"input"), v281}] & 1) == 0)
+    if (([schedulerCopy6 connectOutput:output toInput:-[BWNode input](v191 pipelineStage:{"input"), v285}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
     output = [(BWNode *)v191 output];
-    v114 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
+    v112 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
   }
 
   else
   {
     v182 = 0;
-    v293 = 0;
+    v297 = 0;
   }
 
   if (portraitEffectsMatteDeliveryEnabled)
   {
-    if ((v257 & 1) == 0)
+    if ((v261 & 1) == 0)
     {
-      v192 = [[BWInferenceNode alloc] initWithConvEngineSupportWithCaptureDevice:*(v285 + v114[4]) scheduler:delegate priority:14];
+      v192 = [[BWInferenceNode alloc] initWithConvEngineSupportWithCaptureDevice:*(v289 + v112[4]) scheduler:delegate priority:14];
       [(BWNode *)v192 setName:@"Landmarks Inference Node"];
       v193 = +[BWLandmarksInferenceConfiguration configuration];
       [v193 setMaximumNumberOfFaces:{+[BWLandmarksInferenceConfiguration portraitMaximumNumberOfFaces](BWLandmarksInferenceConfiguration, "portraitMaximumNumberOfFaces")}];
       -[BWInferenceNode addInferenceOfType:version:configuration:](v192, "addInferenceOfType:version:configuration:", 801, [v193 landmarksInferenceVersion] & 0xFFFFFFFFFFFFLL, v193);
-      v318.receiver = v285;
-      v318.super_class = FigCaptureStillImageSinkPipeline;
-      if ((objc_msgSendSuper2(&v318, sel_addNode_error_, v192, &v372) & 1) == 0)
+      v322.receiver = v289;
+      v322.super_class = FigCaptureStillImageSinkPipeline;
+      if ((objc_msgSendSuper2(&v322, sel_addNode_error_, v192, &v376) & 1) == 0)
       {
         [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
         goto LABEL_374;
       }
 
-      if (([schedulerCopy6 connectOutput:output toInput:-[BWNode input](v192 pipelineStage:{"input"), v281}] & 1) == 0)
+      if (([schedulerCopy6 connectOutput:output toInput:-[BWNode input](v192 pipelineStage:{"input"), v285}] & 1) == 0)
       {
         [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
         goto LABEL_374;
@@ -1628,24 +1626,24 @@ LABEL_291:
     v194 = +[BWStillImageConditionalRouterPersonSegmentationAndMattingConfiguration personSegmentationAndMattingConfiguration];
     v195 = [[BWStillImageConditionalRouterNode alloc] initWithRoutingConfiguration:v194];
     [(BWNode *)v195 setName:@"Person Segmentation and Matting Conditional Router"];
-    v317.receiver = v285;
-    v317.super_class = FigCaptureStillImageSinkPipeline;
-    if ((objc_msgSendSuper2(&v317, sel_addNode_error_, v195, &v372) & 1) == 0)
+    v321.receiver = v289;
+    v321.super_class = FigCaptureStillImageSinkPipeline;
+    if ((objc_msgSendSuper2(&v321, sel_addNode_error_, v195, &v376) & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    v196 = [[BWInferenceNode alloc] initWithConvEngineSupportWithCaptureDevice:*(v285 + 48) scheduler:delegate priority:14];
-    v197 = v264;
-    if (v254)
+    v196 = [[BWInferenceNode alloc] initWithConvEngineSupportWithCaptureDevice:v289[6] scheduler:delegate priority:14];
+    v197 = v268;
+    if (v258)
     {
-      v197 = v246;
+      v197 = v250;
     }
 
-    if (v269)
+    if (v273)
     {
-      v198 = v262;
+      v198 = v266;
     }
 
     else
@@ -1660,15 +1658,15 @@ LABEL_291:
     [(BWMattingInferenceConfiguration *)v199 setSdofRenderingTuningParameters:[FigCaptureCameraParameters sdofTuningParametersForSensorIDDictionary:v198 zoomFactor:v200]];
     LODWORD(v201) = v19;
     [(BWMattingInferenceConfiguration *)v199 setMainImageDownscalingFactor:v201];
-    [(BWMattingInferenceConfiguration *)v199 setRefinedDepthDeliveryEnabled:v243];
+    [(BWMattingInferenceConfiguration *)v199 setRefinedDepthDeliveryEnabled:v247];
     [(BWMattingInferenceConfiguration *)v199 setMetalCommandQueue:0];
     v202 = +[BWPersonSegmentationConfiguration portraitVersion];
     [(BWInferenceNode *)v196 addInferenceOfType:102 version:v202 & 0xFFFFFFFFFFFFLL];
     [(BWInferenceNode *)v196 addInferenceOfType:201 version:v202 & 0xFFFFFFFFFFFFLL configuration:v199];
     [(BWNode *)v196 setName:@"Person Segmentation and Matting Node"];
-    v316.receiver = v285;
-    v316.super_class = FigCaptureStillImageSinkPipeline;
-    if ((objc_msgSendSuper2(&v316, sel_addNode_error_, v196, &v372) & 1) == 0)
+    v320.receiver = v289;
+    v320.super_class = FigCaptureStillImageSinkPipeline;
+    if ((objc_msgSendSuper2(&v320, sel_addNode_error_, v196, &v376) & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
@@ -1676,52 +1674,52 @@ LABEL_291:
 
     v203 = [[BWFunnelNode alloc] initWithNumberOfInputs:2 mediaType:1986618469];
     [(BWNode *)v203 setName:@"Person Segmentation and Matting Funnel"];
-    v315.receiver = v285;
-    v315.super_class = FigCaptureStillImageSinkPipeline;
-    if ((objc_msgSendSuper2(&v315, sel_addNode_error_, v203, &v372) & 1) == 0)
+    v319.receiver = v289;
+    v319.super_class = FigCaptureStillImageSinkPipeline;
+    if ((objc_msgSendSuper2(&v319, sel_addNode_error_, v203, &v376) & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    if (([scheduler connectOutput:output toInput:-[BWNode input](v195 pipelineStage:{"input"), v281}] & 1) == 0)
+    if (([scheduler connectOutput:output toInput:-[BWNode input](v195 pipelineStage:{"input"), v285}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    if (([scheduler connectOutput:-[NSArray objectAtIndexedSubscript:](-[BWNode outputs](v195 toInput:"outputs") pipelineStage:{"objectAtIndexedSubscript:", objc_msgSend(v194, "defaultOutputIndex")), -[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v203, "inputs"), "objectAtIndexedSubscript:", 0), v281}] & 1) == 0)
+    if (([scheduler connectOutput:-[NSArray objectAtIndexedSubscript:](-[BWNode outputs](v195 toInput:"outputs") pipelineStage:{"objectAtIndexedSubscript:", objc_msgSend(v194, "defaultOutputIndex")), -[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v203, "inputs"), "objectAtIndexedSubscript:", 0), v285}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    if (([scheduler connectOutput:-[NSArray objectAtIndexedSubscript:](-[BWNode outputs](v195 toInput:"outputs") pipelineStage:{"objectAtIndexedSubscript:", objc_msgSend(v194, "personSegmentationAndMattingOuputIndex")), -[BWNode input](v196, "input"), v281}] & 1) == 0)
+    if (([scheduler connectOutput:-[NSArray objectAtIndexedSubscript:](-[BWNode outputs](v195 toInput:"outputs") pipelineStage:{"objectAtIndexedSubscript:", objc_msgSend(v194, "personSegmentationAndMattingOuputIndex")), -[BWNode input](v196, "input"), v285}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
     schedulerCopy6 = scheduler;
-    if (([scheduler connectOutput:-[BWNode output](v196 toInput:"output") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v203, "inputs"), "objectAtIndexedSubscript:", 1), v281}] & 1) == 0)
+    if (([scheduler connectOutput:-[BWNode output](v196 toInput:"output") pipelineStage:{-[NSArray objectAtIndexedSubscript:](-[BWNode inputs](v203, "inputs"), "objectAtIndexedSubscript:", 1), v285}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
     output = [(BWNode *)v203 output];
-    v114 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
-    v122 = v273;
+    v112 = &OBJC_IVAR___FigCaptureStillImageSinkPipelineConfiguration__stereoFusionSupported;
+    v120 = v277;
   }
 
-  if (v257)
+  if (v261)
   {
     v204 = [BWStillImageFilterNode alloc];
-    if (v293)
+    if (v297)
     {
-      portType2 = [(BWSensorConfiguration *)v293 portType];
-      v314 = v293;
-      v206 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v314 forKeys:&portType2 count:1];
+      portType2 = [(BWSensorConfiguration *)v297 portType];
+      v318 = v297;
+      v206 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v318 forKeys:&portType2 count:1];
     }
 
     else
@@ -1729,19 +1727,19 @@ LABEL_291:
       v206 = 0;
     }
 
-    LOBYTE(v237) = 0;
+    LOBYTE(v238) = 0;
     LODWORD(v236) = 0;
     LODWORD(v205) = v26;
-    v207 = [(BWStillImageFilterNode *)v204 initWithNodeConfiguration:v263 sensorConfigurationsByPortType:v206 statusDelegate:0 depthDataDeliveryEnabled:depthDataDeliveryEnabled personSegmentationEnabled:portraitEffectsMatteDeliveryEnabled refinedDepthEnabled:v243 portraitRenderQuality:0.0 targetAspectRatio:v205 defaultPortType:v236 defaultZoomFactor:v182 backPressureDrivenPipelining:v237];
-    v312.receiver = v285;
-    v312.super_class = FigCaptureStillImageSinkPipeline;
-    if ((objc_msgSendSuper2(&v312, sel_addNode_error_, v207, &v372) & 1) == 0)
+    v207 = [(BWStillImageFilterNode *)v204 initWithNodeConfiguration:v267 sensorConfigurationsByPortType:v206 statusDelegate:0 depthDataDeliveryEnabled:depthDataDeliveryEnabled personSegmentationEnabled:portraitEffectsMatteDeliveryEnabled refinedDepthEnabled:v247 portraitRenderQuality:0.0 targetAspectRatio:v205 defaultPortType:v236 defaultZoomFactor:v182 backPressureDrivenPipelining:v238];
+    v316.receiver = v289;
+    v316.super_class = FigCaptureStillImageSinkPipeline;
+    if ((objc_msgSendSuper2(&v316, sel_addNode_error_, v207, &v376) & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    if (([schedulerCopy6 connectOutput:output toInput:-[BWNode input](v207 pipelineStage:{"input"), v259}] & 1) == 0)
+    if (([schedulerCopy6 connectOutput:output toInput:-[BWNode input](v207 pipelineStage:{"input"), v263}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
@@ -1750,18 +1748,18 @@ LABEL_291:
     output = [(BWNode *)v207 output];
   }
 
-  if ([v122 allowsMultipleInflightCaptures])
+  if ([v120 allowsMultipleInflightCaptures])
   {
-    v208 = [[BWStillImageTurnstileNode alloc] initWithStillImageCoordinator:*(v285 + 56)];
-    v311.receiver = v285;
-    v311.super_class = FigCaptureStillImageSinkPipeline;
-    if ((objc_msgSendSuper2(&v311, sel_addNode_error_, v208, &v372) & 1) == 0)
+    v208 = [[BWStillImageTurnstileNode alloc] initWithStillImageCoordinator:v289[7]];
+    v315.receiver = v289;
+    v315.super_class = FigCaptureStillImageSinkPipeline;
+    if ((objc_msgSendSuper2(&v315, sel_addNode_error_, v208, &v376) & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
     }
 
-    if (([schedulerCopy6 connectOutput:output toInput:-[BWNode input](v208 pipelineStage:{"input"), v281}] & 1) == 0)
+    if (([schedulerCopy6 connectOutput:output toInput:-[BWNode input](v208 pipelineStage:{"input"), v285}] & 1) == 0)
     {
       [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
       goto LABEL_374;
@@ -1771,70 +1769,70 @@ LABEL_291:
   }
 
   v209 = [[BWStillImageScalerNode alloc] initWithBasePoolCapacity:1 nodeConfiguration:0];
-  [(BWStillImageScalerNode *)v209 setBlackFillingRequired:v249 & 1];
+  [(BWStillImageScalerNode *)v209 setBlackFillingRequired:v253 & 1];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  [v122 portraitEffectsMatteMainImageDownscalingFactor];
+  [v120 portraitEffectsMatteMainImageDownscalingFactor];
   if (v211 != 0.0)
   {
     v212 = MEMORY[0x1E696AD98];
-    [v122 portraitEffectsMatteMainImageDownscalingFactor];
+    [v120 portraitEffectsMatteMainImageDownscalingFactor];
     [dictionary setObject:objc_msgSend(v212 forKeyedSubscript:{"numberWithFloat:"), 0x1F21AABB0}];
   }
 
   [(BWStillImageScalerNode *)v209 setMainImageDownscalingFactorByAttachedMediaKey:dictionary];
-  v310.receiver = v285;
-  v310.super_class = FigCaptureStillImageSinkPipeline;
-  if (objc_msgSendSuper2(&v310, sel_addNode_error_, v209, &v372))
+  v314.receiver = v289;
+  v314.super_class = FigCaptureStillImageSinkPipeline;
+  if (objc_msgSendSuper2(&v314, sel_addNode_error_, v209, &v376))
   {
-    if ([schedulerCopy6 connectOutput:output toInput:-[BWNode input](v209 pipelineStage:{"input"), v281}])
+    if ([schedulerCopy6 connectOutput:output toInput:-[BWNode input](v209 pipelineStage:{"input"), v285}])
     {
       output5 = [(BWNode *)v209 output];
-      if ((v275 & 1) == 0)
+      if ((v279 & 1) == 0)
       {
-        v215 = v285;
+        v215 = v289;
         goto LABEL_349;
       }
 
       v214 = [[BWMeteorHeadroomNode alloc] initWithNodeConfiguration:0 sensorConfigurationsByPortType:0];
-      [(BWMeteorHeadroomNode *)v214 setHeadroomProcessingType:[(FigCaptureCameraParameters *)v258 meteorHeadroomProcessingType]];
-      v215 = v285;
-      v309.receiver = v285;
-      v309.super_class = FigCaptureStillImageSinkPipeline;
-      if (objc_msgSendSuper2(&v309, sel_addNode_error_, v214, &v372))
+      [(BWMeteorHeadroomNode *)v214 setHeadroomProcessingType:[(FigCaptureCameraParameters *)v262 meteorHeadroomProcessingType]];
+      v215 = v289;
+      v313.receiver = v289;
+      v313.super_class = FigCaptureStillImageSinkPipeline;
+      if (objc_msgSendSuper2(&v313, sel_addNode_error_, v214, &v376))
       {
-        if ([schedulerCopy6 connectOutput:output5 toInput:-[BWNode input](v214 pipelineStage:{"input"), v281}])
+        if ([schedulerCopy6 connectOutput:output5 toInput:-[BWNode input](v214 pipelineStage:{"input"), v285}])
         {
           output5 = [(BWNode *)v214 output];
 LABEL_349:
           v216 = [BWPhotoEncoderNode alloc];
-          BYTE1(v236) = [v273 clientIsCameraOrDerivative];
+          BYTE1(v236) = [v277 clientIsCameraOrDerivative];
           LOBYTE(v236) = 0;
-          v217 = [(BWPhotoEncoderNode *)v216 initWithNodeConfiguration:v263 sensorConfigurationsByPortType:0 semanticDevelopmentVersion:0 inferenceScheduler:0 alwaysAwaitInference:0 portraitRenderQuality:0 deferredPhotoProcessorEnabled:v236 clientIsCameraOrDerivative:?];
-          if (v273)
+          v217 = [(BWPhotoEncoderNode *)v216 initWithNodeConfiguration:v267 sensorConfigurationsByPortType:0 semanticDevelopmentVersion:0 inferenceScheduler:0 alwaysAwaitInference:0 portraitRenderQuality:0 deferredPhotoProcessorEnabled:v236 clientIsCameraOrDerivative:?];
+          if (v277)
           {
-            [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:v273 sourceOutputsByPortType:v217 captureStatusDelegate:v256 inferenceScheduler:? graph:?];
+            [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:v277 sourceOutputsByPortType:v217 captureStatusDelegate:v260 inferenceScheduler:? graph:?];
           }
 
-          -[BWPhotoEncoderNode setCameraSupportsFlash:](v217, "setCameraSupportsFlash:", [*(v215 + v114[4]) hasFlash]);
+          -[BWPhotoEncoderNode setCameraSupportsFlash:](v217, "setCameraSupportsFlash:", [*(v215 + v112[4]) hasFlash]);
           if (portraitEffectsMatteDeliveryEnabled)
           {
             v218 = [BWPhotoEncoderNodeAttachedMediaConfiguration alloc];
             LODWORD(v219) = v19;
-            v307 = 0x1F21AABB0;
-            v308 = [(BWPhotoEncoderNodeAttachedMediaConfiguration *)v218 initWithMainImageDownscalingFactor:0 propagationMode:v219];
-            -[BWPhotoEncoderNode setAttachedMediaConfigurationByAttachedMediaKey:](v217, "setAttachedMediaConfigurationByAttachedMediaKey:", [MEMORY[0x1E695DF20] dictionaryWithObjects:&v308 forKeys:&v307 count:1]);
+            v311 = 0x1F21AABB0;
+            v312 = [(BWPhotoEncoderNodeAttachedMediaConfiguration *)v218 initWithMainImageDownscalingFactor:0 propagationMode:v219];
+            -[BWPhotoEncoderNode setAttachedMediaConfigurationByAttachedMediaKey:](v217, "setAttachedMediaConfigurationByAttachedMediaKey:", [MEMORY[0x1E695DF20] dictionaryWithObjects:&v312 forKeys:&v311 count:1]);
           }
 
-          -[BWPhotoEncoderNode setUsesHighEncodingPriority:](v217, "setUsesHighEncodingPriority:", [v273 usesHighEncodingPriority]);
-          -[BWPhotoEncoderNode setZeroShutterLagEnabled:](v217, "setZeroShutterLagEnabled:", [*(v215 + v114[4]) zeroShutterLagEnabled]);
-          v306.receiver = v215;
-          v306.super_class = FigCaptureStillImageSinkPipeline;
-          if (objc_msgSendSuper2(&v306, sel_addNode_error_, v217, &v372))
+          -[BWPhotoEncoderNode setUsesHighEncodingPriority:](v217, "setUsesHighEncodingPriority:", [v277 usesHighEncodingPriority]);
+          -[BWPhotoEncoderNode setZeroShutterLagEnabled:](v217, "setZeroShutterLagEnabled:", [*(v215 + v112[4]) zeroShutterLagEnabled]);
+          v310.receiver = v215;
+          v310.super_class = FigCaptureStillImageSinkPipeline;
+          if (objc_msgSendSuper2(&v310, sel_addNode_error_, v217, &v376))
           {
-            if ([schedulerCopy6 connectOutput:output5 toInput:-[BWNode input](v217 pipelineStage:{"input"), v281}])
+            if ([schedulerCopy6 connectOutput:output5 toInput:-[BWNode input](v217 pipelineStage:{"input"), v285}])
             {
               output6 = [(BWNode *)v217 output];
-              if ([v242 optimizesImagesForOfflineVideoStabilization] && (v221 = objc_msgSend(v273, "horizontalSensorBinningFactor"), v222 = objc_msgSend(v273, "verticalSensorBinningFactor"), objc_msgSend(v273, "maxSupportedFrameRate"), output6 = FigCaptureBuildMotionAttachmentsNode(v215, output6, v221, v222, v281, objc_msgSend(v273, "motionAttachmentsSource"), objc_msgSend(*(v215 + v114[4]), "sensorIDDictionaryByPortType"), objc_msgSend(*(v215 + v114[4]), "cameraInfoByPortType"), v223, objc_msgSend(*(v215 + v114[4]), "activePortTypes"), 0, 0, 1, 1, 0, &v373), v373))
+              if ([v246 optimizesImagesForOfflineVideoStabilization] && (v221 = objc_msgSend(v277, "horizontalSensorBinningFactor"), v222 = objc_msgSend(v277, "verticalSensorBinningFactor"), objc_msgSend(v277, "maxSupportedFrameRate"), output6 = FigCaptureBuildMotionAttachmentsNode(v215, output6, v221, v222, v285, objc_msgSend(v277, "motionAttachmentsSource"), objc_msgSend(*(v215 + v112[4]), "sensorIDDictionaryByPortType"), objc_msgSend(*(v215 + v112[4]), "cameraInfoByPortType"), v223, objc_msgSend(*(v215 + v112[4]), "activePortTypes"), 0, 0, 1, 1, 0, &v377), v377))
               {
                 [FigCaptureStillImageSinkPipeline _buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:];
               }
@@ -1843,71 +1841,71 @@ LABEL_349:
               {
                 v224 = -[BWStillImageSampleBufferSinkNode initWithSinkID:]([BWStillImageSampleBufferSinkNode alloc], "initWithSinkID:", [v215 sinkID]);
                 [(BWNode *)v224 setName:@"Still Image Sink"];
-                -[BWStillImageSampleBufferSinkNode setCameraSupportsFlash:](v224, "setCameraSupportsFlash:", [*(v215 + v114[4]) hasFlash]);
-                v305.receiver = v215;
-                v305.super_class = FigCaptureStillImageSinkPipeline;
-                if (objc_msgSendSuper2(&v305, sel_addNode_error_, v224, &v372))
+                -[BWStillImageSampleBufferSinkNode setCameraSupportsFlash:](v224, "setCameraSupportsFlash:", [*(v215 + v112[4]) hasFlash]);
+                v309.receiver = v215;
+                v309.super_class = FigCaptureStillImageSinkPipeline;
+                if (objc_msgSendSuper2(&v309, sel_addNode_error_, v224, &v376))
                 {
-                  *(v215 + 64) = v224;
-                  if ([schedulerCopy6 connectOutput:output6 toInput:-[BWNode input](v224 pipelineStage:{"input"), v281}])
+                  v215[8] = v224;
+                  if ([schedulerCopy6 connectOutput:output6 toInput:-[BWNode input](v224 pipelineStage:{"input"), v285}])
                   {
-                    v303 = 0u;
-                    v304 = 0u;
-                    v301 = 0u;
-                    v302 = 0u;
+                    v307 = 0u;
+                    v308 = 0u;
+                    v305 = 0u;
+                    v306 = 0u;
                     nodes = [v215 nodes];
-                    v226 = [nodes countByEnumeratingWithState:&v301 objects:v300 count:16];
+                    v226 = [nodes countByEnumeratingWithState:&v305 objects:v304 count:16];
                     if (v226)
                     {
                       v227 = v226;
-                      v228 = *v302;
+                      v228 = *v306;
                       do
                       {
                         for (n = 0; n != v227; ++n)
                         {
-                          if (*v302 != v228)
+                          if (*v306 != v228)
                           {
                             objc_enumerationMutation(nodes);
                           }
 
-                          v230 = *(*(&v301 + 1) + 8 * n);
+                          v230 = *(*(&v305 + 1) + 8 * n);
                           [v230 setDeferredPreparePriority:1];
-                          v298 = 0u;
-                          v299 = 0u;
-                          v296 = 0u;
-                          v297 = 0u;
+                          v302 = 0u;
+                          v303 = 0u;
+                          v300 = 0u;
+                          v301 = 0u;
                           inputs = [v230 inputs];
-                          v232 = [inputs countByEnumeratingWithState:&v296 objects:v295 count:16];
+                          v232 = [inputs countByEnumeratingWithState:&v300 objects:v299 count:16];
                           if (v232)
                           {
                             v233 = v232;
-                            v234 = *v297;
+                            v234 = *v301;
                             do
                             {
                               for (ii = 0; ii != v233; ++ii)
                               {
-                                if (*v297 != v234)
+                                if (*v301 != v234)
                                 {
                                   objc_enumerationMutation(inputs);
                                 }
 
-                                [objc_msgSend(*(*(&v296 + 1) + 8 * ii) "connection")];
+                                [objc_msgSend(*(*(&v300 + 1) + 8 * ii) "connection")];
                               }
 
-                              v233 = [inputs countByEnumeratingWithState:&v296 objects:v295 count:16];
+                              v233 = [inputs countByEnumeratingWithState:&v300 objects:v299 count:16];
                             }
 
                             while (v233);
                           }
                         }
 
-                        v227 = [nodes countByEnumeratingWithState:&v301 objects:v300 count:16];
+                        v227 = [nodes countByEnumeratingWithState:&v305 objects:v304 count:16];
                       }
 
                       while (v227);
                     }
 
-                    [*(v215 + 56) setDeferredPreparePriority:4];
+                    [v215[7] setDeferredPreparePriority:4];
                   }
 
                   else
@@ -1932,7 +1930,8 @@ LABEL_349:
           else
           {
             fig_log_get_emitter();
-            FigDebugAssert3();
+            LODWORD(v237) = 0;
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v237, v241, v238, v239, v240, v241, v242, v243);
           }
 
           goto LABEL_374;
@@ -1959,12 +1958,12 @@ LABEL_349:
   }
 
 LABEL_374:
-  result = v373;
-  if (!v373)
+  result = v377;
+  if (!v377)
   {
-    if (v372)
+    if (v376)
     {
-      return [v372 code];
+      return [v376 code];
     }
   }
 
@@ -1978,683 +1977,12 @@ LABEL_374:
   [(FigCaptureSinkPipeline *)&v3 dealloc];
 }
 
-- (void)initWithConfiguration:(uint64_t)a1 captureDevice:(void *)a2 sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:name:.cold.1(uint64_t a1, void *a2)
+- (void)initWithConfiguration:(int)a1 captureDevice:(void *)a2 sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:name:.cold.1(int a1, void *a2)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1_6();
-  FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.7()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.8()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.9()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.10()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.11()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.12()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.13()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.14()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.15()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.16()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.17()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.18()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.19()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.20()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.21()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.22()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.23()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.24()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.25()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.26()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.27()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.28()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.29()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.30()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.31()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.32()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.33()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.34()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.35()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.36()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.37()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.38()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.39()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.40()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.41()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.42()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.43()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.44()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.45()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.46()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.47()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.48()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.49()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.50()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.51()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.52()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.53()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.54()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.55()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.56()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.57()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.58()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.59()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.60()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.61()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.62()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.63()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.64()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.65()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.66()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.67()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.68()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.69()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.70()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.71()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.72()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.73()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.74()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.75()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.76()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.77()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.78()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.79()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.80()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.81()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.82()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.83()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.84()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.85()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.86()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.87()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.88()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.89()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.90()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.91()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.92()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.93()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.94()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.95()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.96()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
+  v4 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
 }
 
 - (void)_buildStillImageSinkPipelineWithConfiguration:(void *)a3 sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.97(void *result, void *a2, void *a3)
@@ -2674,34 +2002,6 @@ LABEL_374:
   }
 
   return result;
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.98()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.99()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.100()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_buildStillImageSinkPipelineWithConfiguration:sourceOutputsByPortType:captureStatusDelegate:inferenceScheduler:graph:.cold.101()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

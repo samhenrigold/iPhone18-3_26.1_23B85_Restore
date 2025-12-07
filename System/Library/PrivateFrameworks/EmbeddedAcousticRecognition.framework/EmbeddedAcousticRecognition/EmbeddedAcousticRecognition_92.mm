@@ -822,18 +822,18 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,quasar::SymbolMap::
   return result;
 }
 
-quasar::SymbolMap::SortedSymbolMapQuasarImpl *quasar::SymbolMap::SortedSymbolMapQuasarImpl::SortedSymbolMapQuasarImpl(quasar::SymbolMap::SortedSymbolMapQuasarImpl *this, const quasar::SymbolMap::SortedSymbolMapQuasarImpl *a2)
+quasar::SymbolMap::SortedSymbolMapQuasarImpl *quasar::SymbolMap::SortedSymbolMapQuasarImpl::SortedSymbolMapQuasarImpl(quasar::SymbolMap::SortedSymbolMapQuasarImpl *this, __int128 **a2)
 {
   quasar::SymbolMap::SymbolMapQuasarImpl::SymbolMapQuasarImpl(this, a2);
   *v4 = &unk_1F2D299F0;
   v4[8] = 0;
   v4[9] = 0;
   v4[7] = 0;
-  std::vector<std::pair<char const*,int>>::__init_with_size[abi:ne200100]<std::pair<char const*,int>*,std::pair<char const*,int>*>((v4 + 7), *(a2 + 7), *(a2 + 8), (*(a2 + 8) - *(a2 + 7)) >> 4);
+  std::vector<std::pair<char const*,int>>::__init_with_size[abi:ne200100]<std::pair<char const*,int>*,std::pair<char const*,int>*>(v4 + 7, a2[7], a2[8], a2[8] - a2[7]);
   return this;
 }
 
-uint64_t std::vector<std::pair<char const*,int>>::__init_with_size[abi:ne200100]<std::pair<char const*,int>*,std::pair<char const*,int>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<char const*,int>>::__init_with_size[abi:ne200100]<std::pair<char const*,int>*,std::pair<char const*,int>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -855,7 +855,7 @@ void sub_1B56ED080(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<char const*,int>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<char const*,int>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -867,8 +867,8 @@ void std::vector<std::pair<char const*,int>>::__vallocate[abi:ne200100](uint64_t
 
 void sub_1B56ED184(_Unwind_Exception *a1)
 {
-  marisa::Trie::~Trie((v1 + 6));
-  v3 = v1[4];
+  marisa::Trie::~Trie((v1 + 48));
+  v3 = *(v1 + 32);
   if (v3)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
@@ -888,7 +888,7 @@ void quasar::SymbolMap::SymbolMapMarisaImpl::~SymbolMapMarisaImpl(quasar::Symbol
 {
   *this = &unk_1F2D29B70;
   *(this + 2) = &unk_1F2D29C20;
-  marisa::Trie::~Trie((this + 48));
+  marisa::Trie::~Trie(this + 6);
   v2 = *(this + 4);
   if (v2)
   {
@@ -898,7 +898,7 @@ void quasar::SymbolMap::SymbolMapMarisaImpl::~SymbolMapMarisaImpl(quasar::Symbol
   fst::SymbolTable::~SymbolTable(this);
 }
 
-uint64_t quasar::SymbolMap::SymbolMapMarisaImpl::AddSymbol(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t quasar::SymbolMap::SymbolMapMarisaImpl::AddSymbol(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   result = (*(*a1 + 96))(a1);
   if (result == -1)
@@ -912,7 +912,7 @@ uint64_t quasar::SymbolMap::SymbolMapMarisaImpl::AddSymbol(uint64_t *a1, uint64_
   return result;
 }
 
-uint64_t quasar::SymbolMap::SymbolMapMarisaImpl::AddSymbol(uint64_t *a1, uint64_t a2)
+uint64_t quasar::SymbolMap::SymbolMapMarisaImpl::AddSymbol(uint64_t *a1, uint64_t *a2)
 {
   result = (*(*a1 + 96))(a1);
   if (result == -1)
@@ -976,7 +976,7 @@ void sub_1B56ED540(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::SymbolMap::SymbolMapMarisaImpl::Find(quasar::SymbolMap::SymbolMapMarisaImpl *this@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void quasar::SymbolMap::SymbolMapMarisaImpl::Find(quasar::SymbolMap::SymbolMapMarisaImpl *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   if (a2)
   {
@@ -1006,7 +1006,7 @@ void quasar::SymbolMap::SymbolMapMarisaImpl::Find(quasar::SymbolMap::SymbolMapMa
   }
 }
 
-uint64_t quasar::SymbolMap::SymbolMapMarisaImpl::Find(uint64_t a1, uint64_t *a2)
+uint64_t quasar::SymbolMap::SymbolMapMarisaImpl::Find(uint64_t a1, uint64_t **a2)
 {
   if (*(a2 + 23) < 0)
   {
@@ -1023,30 +1023,30 @@ uint64_t quasar::SymbolMap::SymbolMapMarisaImpl::Find(fst::SymbolTableImpl **thi
     return 0;
   }
 
-  marisa::Agent::Agent(v8);
-  marisa::Agent::set_query(v8, __s1);
-  if (marisa::Trie::lookup(this + 6, v8))
+  marisa::Agent::Agent(v10);
+  marisa::Agent::set_query(v10, __s1);
+  if (marisa::Trie::lookup(this + 6, v10, v4, v5))
   {
-    v4 = v9 + 1;
+    v6 = v11 + 1;
   }
 
   else
   {
-    v5 = marisa::Trie::num_keys((this + 6));
-    v6 = fst::SymbolTableImpl::Find(this[1], __s1);
-    if (v6 == -1)
+    v7 = marisa::Trie::num_keys((this + 6));
+    v8 = fst::SymbolTableImpl::Find(this[1], __s1);
+    if (v8 == -1)
     {
-      v4 = -1;
+      v6 = -1;
     }
 
     else
     {
-      v4 = v5 + v6 + 1;
+      v6 = v7 + v8 + 1;
     }
   }
 
-  marisa::Agent::~Agent(v8);
-  return v4;
+  marisa::Agent::~Agent(v10);
+  return v6;
 }
 
 void quasar::SymbolMap::SymbolMapMarisaImpl::FindSymbolsWithPrefix(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
@@ -1054,7 +1054,7 @@ void quasar::SymbolMap::SymbolMapMarisaImpl::FindSymbolsWithPrefix(uint64_t a1@<
   *a3 = 0;
   *(a3 + 8) = 0;
   *(a3 + 16) = 0;
-  marisa::Agent::Agent(v15);
+  marisa::Agent::Agent(v17);
   if (*(a2 + 23) >= 0)
   {
     v6 = a2;
@@ -1065,57 +1065,57 @@ void quasar::SymbolMap::SymbolMapMarisaImpl::FindSymbolsWithPrefix(uint64_t a1@<
     v6 = *a2;
   }
 
-  marisa::Agent::set_query(v15, v6);
-  while (marisa::Trie::predictive_search((a1 + 48), v15))
+  marisa::Agent::set_query(v17, v6);
+  while (marisa::Trie::predictive_search((a1 + 48), v17, v7, v8))
   {
-    __p[0] = (v16 + 1);
+    __p[0] = (v18 + 1);
     std::vector<long long>::push_back[abi:ne200100](a3, __p);
   }
 
-  v7 = marisa::Trie::num_keys((a1 + 48));
-  v8 = *(a1 + 8);
-  if (*(v8 + 7) != *(v8 + 6))
+  v9 = marisa::Trie::num_keys((a1 + 48));
+  v10 = *(a1 + 8);
+  if (*(v10 + 7) != *(v10 + 6))
   {
-    v9 = 0;
-    v10 = v7 + 1;
+    v11 = 0;
+    v12 = v9 + 1;
     while (1)
     {
-      fst::SymbolTableImpl::Find(v8, v9, __p);
-      v11 = quasar::startsWith(__p, a2);
-      v12 = v11;
-      if ((v14 & 0x80000000) == 0)
+      fst::SymbolTableImpl::Find(v10, v11, __p);
+      v13 = quasar::startsWith(__p, a2);
+      v14 = v13;
+      if ((v16 & 0x80000000) == 0)
       {
         break;
       }
 
       operator delete(__p[0]);
-      if (v12)
+      if (v14)
       {
         goto LABEL_13;
       }
 
 LABEL_14:
-      ++v9;
-      v8 = *(a1 + 8);
-      if (v9 >= (*(v8 + 7) - *(v8 + 6)) >> 3)
+      ++v11;
+      v10 = *(a1 + 8);
+      if (v11 >= (*(v10 + 7) - *(v10 + 6)) >> 3)
       {
         goto LABEL_15;
       }
     }
 
-    if (!v11)
+    if (!v13)
     {
       goto LABEL_14;
     }
 
 LABEL_13:
-    __p[0] = (v10 + v9);
+    __p[0] = (v12 + v11);
     std::vector<long long>::push_back[abi:ne200100](a3, __p);
     goto LABEL_14;
   }
 
 LABEL_15:
-  marisa::Agent::~Agent(v15);
+  marisa::Agent::~Agent(v17);
 }
 
 void sub_1B56ED908(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
@@ -1166,8 +1166,8 @@ quasar::SymbolMap::SymbolMapMarisaImpl *quasar::SymbolMap::SymbolMapMarisaImpl::
 
 void sub_1B56EDAD8(_Unwind_Exception *a1)
 {
-  marisa::Trie::~Trie((v1 + 6));
-  v3 = v1[4];
+  marisa::Trie::~Trie((v1 + 48));
+  v3 = *(v1 + 32);
   if (v3)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
@@ -1297,7 +1297,7 @@ uint64_t std::__shared_ptr_pointer<quasar::SymbolMap::SymbolMapMarisaImpl *,std:
   }
 }
 
-uint64_t quasar::SyncPSRAudioProcessor::SyncPSRAudioProcessor(uint64_t a1, quasar::SystemConfig *a2, uint64_t a3, int a4, char a5, int a6)
+uint64_t quasar::SyncPSRAudioProcessor::SyncPSRAudioProcessor(uint64_t a1, quasar::SystemConfig *a2, const void **a3, int a4, char a5, int a6)
 {
   *(a1 + 48) = 0u;
   *(a1 + 64) = 0u;
@@ -1307,131 +1307,132 @@ uint64_t quasar::SyncPSRAudioProcessor::SyncPSRAudioProcessor(uint64_t a1, quasa
   *(a1 + 80) = 27;
   *(a1 + 84) = 0;
   kaldi::Matrix<float>::Matrix(a1 + 88);
-  Ptree = quasar::SystemConfig::getPtree(a2, a3);
-  LODWORD(v29[0]) = a4;
-  v29[1] = 0;
-  v30 = 0;
-  v36 = 0;
+  quasar::SystemConfig::getPtree(a2, a3);
+  v13 = v12;
+  LODWORD(v30[0]) = a4;
+  v30[1] = 0;
+  v31 = 0;
   v37 = 0;
-  v31 = 0u;
+  v38 = 0;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  memset(v35, 0, sizeof(v35));
-  v38 = 0u;
-  memset(v39, 0, 28);
-  memset(&v39[32], 0, 48);
-  v39[80] = 1;
-  v13 = quasar::PTree::begin(Ptree);
-  for (i = quasar::PTree::end(Ptree); v13 != i; v13 += 88)
+  v35 = 0u;
+  memset(v36, 0, sizeof(v36));
+  v39 = 0u;
+  memset(v40, 0, 28);
+  memset(&v40[32], 0, 48);
+  v40[80] = 1;
+  v14 = quasar::PTree::begin(v12);
+  for (i = quasar::PTree::end(v13); v14 != i; v14 += 88)
   {
-    if (*(v13 + 23) < 0)
+    if (*(v14 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v28, *v13, *(v13 + 8));
+      std::string::__init_copy_ctor_external(&v29, *v14, *(v14 + 8));
     }
 
     else
     {
-      v15 = *v13;
-      v28.__r_.__value_.__r.__words[2] = *(v13 + 16);
-      *&v28.__r_.__value_.__l.__data_ = v15;
+      v16 = *v14;
+      v29.__r_.__value_.__r.__words[2] = *(v14 + 16);
+      *&v29.__r_.__value_.__l.__data_ = v16;
     }
 
     if (*(a3 + 23) >= 0)
     {
-      v16 = *(a3 + 23);
+      v17 = *(a3 + 23);
     }
 
     else
     {
-      v16 = *(a3 + 8);
+      v17 = a3[1];
     }
 
-    std::string::basic_string[abi:ne200100](&v24, v16 + 1);
-    if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::string::basic_string[abi:ne200100](&v25, v17 + 1);
+    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v17 = &v24;
+      v18 = &v25;
     }
 
     else
     {
-      v17 = v24.__r_.__value_.__r.__words[0];
+      v18 = v25.__r_.__value_.__r.__words[0];
     }
 
-    if (v16)
+    if (v17)
     {
       if (*(a3 + 23) >= 0)
       {
-        v18 = a3;
+        v19 = a3;
       }
 
       else
       {
-        v18 = *a3;
+        v19 = *a3;
       }
 
-      memmove(v17, v18, v16);
+      memmove(v18, v19, v17);
     }
 
-    *(&v17->__r_.__value_.__l.__data_ + v16) = 46;
-    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    *(&v18->__r_.__value_.__l.__data_ + v17) = 46;
+    if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v19 = &v28;
+      v20 = &v29;
     }
 
     else
     {
-      v19 = v28.__r_.__value_.__r.__words[0];
+      v20 = v29.__r_.__value_.__r.__words[0];
     }
 
-    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v28.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v29.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v28.__r_.__value_.__l.__size_;
+      size = v29.__r_.__value_.__l.__size_;
     }
 
-    v21 = std::string::append(&v24, v19, size);
-    v22 = *&v21->__r_.__value_.__l.__data_;
-    __p.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
-    *&__p.__r_.__value_.__l.__data_ = v22;
-    v21->__r_.__value_.__l.__size_ = 0;
-    v21->__r_.__value_.__r.__words[2] = 0;
-    v21->__r_.__value_.__r.__words[0] = 0;
-    quasar::FeatureExtractorSimpleFactory::createSyncFeatureExtractorOrNull(&__p, &v26);
+    v22 = std::string::append(&v25, v20, size);
+    v23 = *&v22->__r_.__value_.__l.__data_;
+    __p.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
+    *&__p.__r_.__value_.__l.__data_ = v23;
+    v22->__r_.__value_.__l.__size_ = 0;
+    v22->__r_.__value_.__r.__words[2] = 0;
+    v22->__r_.__value_.__r.__words[0] = 0;
+    quasar::FeatureExtractorSimpleFactory::createSyncFeatureExtractorOrNull(&__p, &v27);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v24.__r_.__value_.__l.__data_);
-    }
-
-    if (v26)
-    {
-      quasar::FeatureExtractor::init(v26, a2);
+      operator delete(v25.__r_.__value_.__l.__data_);
     }
 
     if (v27)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+      quasar::FeatureExtractor::init(v27, a2);
     }
 
-    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+    if (v28)
     {
-      operator delete(v28.__r_.__value_.__l.__data_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+    }
+
+    if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v29.__r_.__value_.__l.__data_);
     }
   }
 
   *(a1 + 132) = a4;
   *(a1 + 136) = a6;
   *(a1 + 140) = a5;
-  quasar::FeatureExtractorArgs::~FeatureExtractorArgs(v29);
+  quasar::FeatureExtractorArgs::~FeatureExtractorArgs(v30);
   return a1;
 }
 
@@ -1458,9 +1459,9 @@ void sub_1B56EE0DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B56EE3FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B56EE3FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   quasar::FeatureExtractorArgs::~FeatureExtractorArgs(va);
   _Unwind_Resume(a1);
 }
@@ -1479,15 +1480,15 @@ void quasar::SyncPSRAudioProcessor::compute(quasar::SyncPSRAudioProcessor *this)
         std::vector<kaldi::Vector<float>>::resize(&v15, 1uLL);
       }
 
-      kaldi::OnlineFeatureMatrix::GetFrame(*(this + 8), *(this + 32), &v11);
-      v3 = v16 - 24;
-      kaldi::Vector<float>::Resize((v16 - 24), v12, 1);
+      kaldi::OnlineFeatureMatrix::GetFrame(&v11, *(this + 8), *(this + 32));
+      v3 = (v16 - 24);
+      kaldi::Vector<float>::Resize(v16 - 3, v12, 1);
       kaldi::VectorBase<float>::CopyFromVec(v3, &v11);
     }
 
     else
     {
-      kaldi::OnlineFeatureMatrix::GetFrame(*(this + 8), *(this + 32), &v11);
+      kaldi::OnlineFeatureMatrix::GetFrame(&v11, *(this + 8), *(this + 32));
       v4 = v16;
       if (v16 >= v17)
       {
@@ -1497,7 +1498,7 @@ void quasar::SyncPSRAudioProcessor::compute(quasar::SyncPSRAudioProcessor *this)
       else
       {
         std::vector<kaldi::Vector<float>>::__construct_one_at_end[abi:ne200100]<kaldi::SubVector<float>>(&v15, &v11);
-        v5 = v4 + 24;
+        v5 = (v4 + 24);
       }
 
       v16 = v5;
@@ -1508,7 +1509,7 @@ void quasar::SyncPSRAudioProcessor::compute(quasar::SyncPSRAudioProcessor *this)
 
   if (v16 != v15)
   {
-    kaldi::Matrix<float>::Resize(this + 88, -1431655765 * ((v16 - v15) >> 3), *(*(this + 8) + 24), 1, 0);
+    kaldi::Matrix<float>::Resize(this + 11, -1431655765 * ((v16 - v15) >> 3), *(*(this + 8) + 24), 1, 0);
     if (v16 != v15)
     {
       v6 = 0;
@@ -1522,7 +1523,7 @@ void quasar::SyncPSRAudioProcessor::compute(quasar::SyncPSRAudioProcessor *this)
         v14 = 0;
         v11 = (v8 + 4 * v9 * v7);
         v12 = v10;
-        kaldi::VectorBase<float>::CopyFromVec(&v11, (v15 + v6));
+        kaldi::VectorBase<float>::CopyFromVec(&v11, &v15[v6]);
         ++v7;
         v6 += 24;
       }
@@ -1553,9 +1554,9 @@ void quasar::SyncPSRAudioProcessor::addAudio(quasar::SyncRecogAudioBuffer **this
   quasar::SyncPSRAudioProcessor::compute(this);
 }
 
-void quasar::SyncPSRAudioProcessor::endAudio(quasar::SyncPSRAudioProcessor *this)
+void quasar::SyncPSRAudioProcessor::endAudio(quasar::SyncRecogAudioBuffer **this)
 {
-  quasar::SyncRecogAudioBuffer::endAudio(*(this + 3));
+  quasar::SyncRecogAudioBuffer::endAudio(this[3]);
 
   quasar::SyncPSRAudioProcessor::compute(this);
 }
@@ -1646,9 +1647,9 @@ uint64_t std::vector<kaldi::Vector<float>>::__emplace_back_slow_path<kaldi::SubV
   return v13;
 }
 
-void sub_1B56EEAA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B56EEAA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<kaldi::Vector<float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1658,20 +1659,17 @@ __n128 quasar::MetaInfo::Sense::Sense(uint64_t a1, __int128 *a2, __int128 *a3, _
   v4 = *a2;
   *(a1 + 16) = *(a2 + 2);
   *a1 = v4;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   v5 = *a3;
   *(a1 + 40) = *(a3 + 2);
   *(a1 + 24) = v5;
-  *(a3 + 1) = 0;
-  *(a3 + 2) = 0;
+  *(a3 + 8) = 0uLL;
   *a3 = 0;
   result = *a4;
   *(a1 + 64) = a4[1].n128_u64[0];
   *(a1 + 48) = result;
-  a4->n128_u64[1] = 0;
-  a4[1].n128_u64[0] = 0;
+  *(a4 + 8) = 0uLL;
   a4->n128_u64[0] = 0;
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
@@ -1727,13 +1725,13 @@ void quasar::MetaInfo::Impl::fromJson(const void *a1@<X0>, size_t a2@<X1>, uint6
         *(&__p[0].__r_.__value_.__s + 23) = a2;
         memmove(__p, a1, a2);
         __p[0].__r_.__value_.__s.__data_[a2] = 0;
-        std::istringstream::basic_istringstream[abi:ne200100](&v8, __p, 8);
+        std::istringstream::basic_istringstream[abi:ne200100](v8, __p, 8);
         if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p[0].__r_.__value_.__l.__data_);
         }
 
-        quasar::PTree::readJson();
+        quasar::PTree::readJson(a3, v8);
       }
 
       operator new();
@@ -1784,14 +1782,14 @@ void sub_1B56EF080(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t quasar::MetaInfo::operator=(uint64_t result, uint64_t a2)
+const quasar::MetaInfo::Impl **quasar::MetaInfo::operator=(const quasar::MetaInfo::Impl **a1, const quasar::MetaInfo::Impl **a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 void *quasar::MetaInfo::MetaInfo(void *result, uint64_t *a2)
@@ -1827,7 +1825,7 @@ void quasar::MetaInfo::Impl::update(quasar::MetaInfo::Impl *this, const quasar::
   }
 }
 
-void quasar::MetaInfo::Impl::update(uint64_t **this, uint64_t **a2)
+void quasar::MetaInfo::Impl::update(uint64_t **this, std::string **a2)
 {
   quasar::MetaInfo::Impl::update(this, a2);
   if (this != a2)
@@ -1835,7 +1833,7 @@ void quasar::MetaInfo::Impl::update(uint64_t **this, uint64_t **a2)
     std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__tree_node<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,void *> *,long>>(this + 12, a2[12], a2 + 13);
   }
 
-  std::__optional_storage_base<std::vector<quasar::MetaInfo::Sense>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<quasar::MetaInfo::Sense>,false> const&>((this + 8), (a2 + 8));
+  std::__optional_storage_base<std::vector<quasar::MetaInfo::Sense>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<quasar::MetaInfo::Sense>,false> const&>((this + 8), a2 + 8);
   std::__optional_storage_base<std::vector<quasar::AlternativeSelectionSpan>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<quasar::AlternativeSelectionSpan>,false> const&>((this + 15), (a2 + 15));
   v4 = a2[22];
   *(this + 184) = *(a2 + 184);
@@ -1891,13 +1889,13 @@ void quasar::MetaInfo::Impl::setRomanization(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_1B56EF460(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B56EF460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   quasar::PTree::~PTree(va);
-  if (*(v2 - 17) < 0)
+  if (*(v3 - 17) < 0)
   {
-    operator delete(*(v2 - 40));
+    operator delete(*(v3 - 40));
   }
 
   _Unwind_Resume(a1);
@@ -1923,9 +1921,9 @@ void sub_1B56EF574(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::MetaInfo::Impl::json(quasar::MetaInfo::Impl *this@<X0>, _BYTE *a2@<X8>)
+void quasar::MetaInfo::Impl::json(quasar::MetaInfo::Impl *this@<X0>, void *a2@<X8>)
 {
-  v5 = *this;
+  LODWORD(v5) = *this;
   if (*(this + 31) < 0)
   {
     std::string::__init_copy_ctor_external(&v6, *(this + 1), *(this + 2));
@@ -1944,19 +1942,18 @@ void quasar::MetaInfo::Impl::json(quasar::MetaInfo::Impl *this@<X0>, _BYTE *a2@<
   if (!quasar::PTree::empty(&v5))
   {
     std::ostringstream::basic_ostringstream[abi:ne200100](&v4);
-    quasar::PTree::writeJson();
+    quasar::PTree::writeJson(&v5, &v4, 0);
   }
 
   std::string::basic_string[abi:ne200100]<0>(a2, "");
   quasar::PTree::~PTree(&v5);
 }
 
-void sub_1B56EF7D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B56EF7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v6 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
@@ -1969,14 +1966,15 @@ void sub_1B56EF7D0(_Unwind_Exception *a1, uint64_t a2, ...)
   v17 = va_arg(va1, void);
   v18 = va_arg(va1, void);
   v19 = va_arg(va1, void);
-  if (*(v2 + 23) < 0)
+  v20 = va_arg(va1, void);
+  if (*(v3 + 23) < 0)
   {
-    operator delete(*v2);
+    operator delete(*v3);
   }
 
   std::ostringstream::~ostringstream(va, MEMORY[0x1E69E54E8]);
   MEMORY[0x1B8C85200](va1);
-  quasar::PTree::~PTree((v3 - 96));
+  quasar::PTree::~PTree((v4 - 96));
   _Unwind_Resume(a1);
 }
 
@@ -1985,29 +1983,28 @@ void quasar::MetaInfo::setAmbiguityAnnotatorSenses(quasar::MetaInfo::Impl **a1, 
   v2 = *a1;
   v3 = *a2;
   v4 = *(a2 + 2);
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   quasar::MetaInfo::Impl::setAmbiguityAnnotatorSenses(v2, &v3);
   v5 = &v3;
   std::vector<quasar::MetaInfo::Sense>::__destroy_vector::operator()[abi:ne200100](&v5);
 }
 
-void sub_1B56EF894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+void sub_1B56EF894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t *a12)
 {
   a12 = &a9;
   std::vector<quasar::MetaInfo::Sense>::__destroy_vector::operator()[abi:ne200100](&a12);
   _Unwind_Resume(a1);
 }
 
-void quasar::MetaInfo::Impl::setAmbiguityAnnotatorSenses(quasar::MetaInfo::Impl *a1, void *a2)
+void quasar::MetaInfo::Impl::setAmbiguityAnnotatorSenses(quasar::MetaInfo::Impl *result, void *a2)
 {
   if (*a2 != a2[1])
   {
-    quasar::MetaInfo::Impl::eraseSenses(a1);
-    std::optional<std::vector<quasar::MetaInfo::Sense>>::operator=[abi:ne200100]<std::vector<quasar::MetaInfo::Sense>,void>(a1 + 64, a2);
+    quasar::MetaInfo::Impl::eraseSenses(result);
+    std::optional<std::vector<quasar::MetaInfo::Sense>>::operator=[abi:ne200100]<std::vector<quasar::MetaInfo::Sense>,void>(result + 64, a2);
 
-    quasar::MetaInfo::Impl::updatePTreeWithAmbiguityAnnotatorSenses(a1);
+    quasar::MetaInfo::Impl::updatePTreeWithAmbiguityAnnotatorSenses(result);
   }
 }
 
@@ -2136,7 +2133,7 @@ void sub_1B56EFC20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::MetaInfo::setStructuredPrediction(quasar::MetaInfo::Impl **a1, uint64_t a2)
+void quasar::MetaInfo::setStructuredPrediction(uint64_t ***a1, uint64_t a2)
 {
   v2 = *a1;
   *__p = *a2;
@@ -2159,13 +2156,13 @@ void quasar::MetaInfo::setStructuredPrediction(quasar::MetaInfo::Impl **a1, uint
   }
 }
 
-void quasar::MetaInfo::Impl::setStructuredPrediction(quasar::MetaInfo::Impl *a1, const void **a2)
+void quasar::MetaInfo::Impl::setStructuredPrediction(uint64_t **a1, const void **a2)
 {
-  v4 = std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::find<std::string>(a1 + 96, a2);
+  v4 = std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::find<std::string>((a1 + 12), a2);
   v5 = v4;
-  if ((a1 + 104) == v4)
+  if (a1 + 13 == v4)
   {
-    std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::__emplace_hint_unique_key_args<std::string,std::string&,quasar::MetaInfo::StructuredPrediction>(a1 + 12, v4, a2);
+    std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::__emplace_hint_unique_key_args<std::string,std::string&,quasar::MetaInfo::StructuredPrediction>(a1 + 12, v4, a2, a2, a2);
 
     quasar::MetaInfo::Impl::updatePTreeWithStructuredPredictions(a1, a1);
   }
@@ -2235,8 +2232,7 @@ void quasar::MetaInfo::setAlternativeSelectionSpans(uint64_t *a1, __int128 *a2)
   v2 = *a1;
   v3 = *a2;
   v4 = *(a2 + 2);
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   std::optional<std::vector<quasar::AlternativeSelectionSpan>>::operator=[abi:ne200100]<std::vector<quasar::AlternativeSelectionSpan>,void>(v2 + 120, &v3);
   v5 = &v3;
@@ -2250,14 +2246,13 @@ void sub_1B56EFF1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void quasar::MetaInfo::setStructurePredictionToSourceTokenAlignments(uint64_t *a1, uint64_t a2, uint64_t a3, __n128 *a4)
+void quasar::MetaInfo::setStructurePredictionToSourceTokenAlignments(uint64_t *a1, uint64_t a2, uint64_t a3, __int128 *a4)
 {
   v4 = *a1;
   v5 = *a4;
-  v6 = a4[1].n128_u64[0];
-  a4->n128_u64[1] = 0;
-  a4[1].n128_u64[0] = 0;
-  a4->n128_u64[0] = 0;
+  v6 = *(a4 + 2);
+  *(a4 + 8) = 0uLL;
+  *a4 = 0;
   quasar::MetaInfo::Impl::setStructurePredictionToSourceTokenAlignments(v4, a2, a3, &v5);
   v7 = &v5;
   std::vector<std::map<int,quasar::Expansion::SegmentTypeData>>::__destroy_vector::operator()[abi:ne200100](&v7);
@@ -2278,7 +2273,7 @@ __n128 quasar::MetaInfo::Impl::setStructurePredictionToSourceTokenAlignments(uin
   v7 = v6;
   if (a1 + 160 == v6)
   {
-    std::__tree<std::__value_type<std::string,std::vector<std::set<int>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::set<int>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,std::vector<std::set<int>>>>>::__emplace_hint_unique_impl<std::string_view &,std::vector<std::set<int>>>();
+    std::__tree<std::__value_type<std::string,std::vector<std::set<int>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::set<int>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,std::vector<std::set<int>>>>>::__emplace_hint_unique_impl<std::string_view &,std::vector<std::set<int>>>((a1 + 152), v6, v9, a4);
   }
 
   std::vector<std::set<int>>::__vdeallocate((v6 + 56));
@@ -2321,7 +2316,7 @@ uint64_t *quasar::MetaInfo::setOutputTokensNumber(uint64_t *this, uint64_t a2)
   return this;
 }
 
-char *quasar::MetaInfo::Impl::setStructuredPredictionFromPTree(quasar::MetaInfo::Impl *this)
+void quasar::MetaInfo::Impl::setStructuredPredictionFromPTree(quasar::MetaInfo::Impl *this)
 {
   v2 = (this + 104);
   std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::destroy(this + 96, *(this + 13));
@@ -2329,10 +2324,10 @@ char *quasar::MetaInfo::Impl::setStructuredPredictionFromPTree(quasar::MetaInfo:
   *(this + 14) = 0;
   *v2 = 0;
   v3 = quasar::PTree::begin(this);
-  result = quasar::PTree::end(this);
-  if (v3 != result)
+  v4 = quasar::PTree::end(this);
+  if (v3 != v4)
   {
-    v5 = result;
+    v5 = v4;
     do
     {
       v6 = *(v3 + 23);
@@ -2350,20 +2345,20 @@ char *quasar::MetaInfo::Impl::setStructuredPredictionFromPTree(quasar::MetaInfo:
       if (v6 >= 13)
       {
         v8 = &v7[v6];
-        result = v7;
+        v9 = v7;
         do
         {
-          result = memchr(result, 95, v6 - 12);
-          if (!result)
+          v10 = memchr(v9, 95, v6 - 12);
+          if (!v10)
           {
             break;
           }
 
-          if (*result == 0x616E7265746C615FLL && *(result + 5) == 0x7365766974616E72)
+          if (*v10 == 0x616E7265746C615FLL && *(v10 + 5) == 0x7365766974616E72)
           {
-            if (result != v8 && result - v7 != -1)
+            if (v10 != v8 && v10 - v7 != -1)
             {
-              std::string::basic_string(&v11, v3, 0, result - v7, __p);
+              std::string::basic_string(&v13, v3, 0, v10 - v7, __p);
               std::string::basic_string[abi:ne200100]<0>(__p, "spans");
               quasar::PTree::getChildOptional(v3 + 24, __p);
             }
@@ -2371,11 +2366,11 @@ char *quasar::MetaInfo::Impl::setStructuredPredictionFromPTree(quasar::MetaInfo:
             break;
           }
 
-          ++result;
-          v6 = v8 - result;
+          v9 = v10 + 1;
+          v6 = v8 - v9;
         }
 
-        while (v8 - result >= 13);
+        while (v8 - v9 >= 13);
       }
 
       v3 += 88;
@@ -2383,8 +2378,6 @@ char *quasar::MetaInfo::Impl::setStructuredPredictionFromPTree(quasar::MetaInfo:
 
     while (v3 != v5);
   }
-
-  return result;
 }
 
 void sub_1B56F077C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, char a45)
@@ -2420,7 +2413,7 @@ void sub_1B56F0A5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void quasar::MetaInfo::Impl::setPhrasebookSenseFromPTree(quasar::MetaInfo::Impl *this)
 {
   v6 = *MEMORY[0x1E69E9840];
-  v2 = *this;
+  LODWORD(v2) = *this;
   if (*(this + 31) < 0)
   {
     std::string::__init_copy_ctor_external(&v3, *(this + 1), *(this + 2));
@@ -2602,7 +2595,7 @@ void quasar::MetaInfo::Impl::updatePTreeWithStructuredPredictions(quasar::MetaIn
   }
 }
 
-void sub_1B56F1020(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_1B56F1020(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34)
 {
   if (a28 < 0)
   {
@@ -2636,14 +2629,14 @@ void quasar::MetaInfo::Impl::updatePTreeWithStructuredPredictionAlignments(quasa
             do
             {
               v8 = *(v7 + 7);
-              Type = quasar::getType(v8);
+              LODWORD(v17) = quasar::getType(v8);
               std::to_string(&v18, v8);
               v19 = 0;
               v20 = 0;
               v21 = 0;
               v22 = 1;
-              quasar::PTree::addChild(__p, &Type);
-              quasar::PTree::~PTree(&Type);
+              quasar::PTree::addChild(__p, &v17);
+              quasar::PTree::~PTree(&v17);
               v9 = v7[1];
               if (v9)
               {
@@ -2756,7 +2749,7 @@ void quasar::MetaInfo::Impl::updatePTreeWithStructuredPredictionAlignments(quasa
   }
 }
 
-void sub_1B56F12FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1B56F12FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29)
 {
   if (a23 < 0)
   {
@@ -3194,7 +3187,7 @@ void quasar::MetaInfo::Impl::toPTree(int *a1@<X0>, quasar::PTree *a2@<X8>)
   }
 }
 
-void sub_1B56F2760(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+void sub_1B56F2760(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15)
 {
   quasar::PTree::~PTree(&a15);
   if (a14 < 0)
@@ -3322,34 +3315,34 @@ void std::allocator_traits<std::allocator<std::__tree_node<std::__value_type<std
   }
 }
 
-void std::__optional_storage_base<std::vector<quasar::MetaInfo::Sense>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<quasar::MetaInfo::Sense>,false> const&>(uint64_t a1, uint64_t a2)
+void std::__optional_storage_base<std::vector<quasar::MetaInfo::Sense>,false>::__assign_from[abi:ne200100]<std::__optional_copy_assign_base<std::vector<quasar::MetaInfo::Sense>,false> const&>(uint64_t result, std::string **a2)
 {
-  if (*(a1 + 24) == *(a2 + 24))
+  if (*(result + 24) == *(a2 + 24))
   {
-    if (a1 != a2 && *(a1 + 24))
+    if (result != a2 && *(result + 24))
     {
-      v3 = *(a2 + 8);
+      v3 = a2[1];
       v4 = 0x14C1BACF914C1BADLL * ((v3 - *a2) >> 3);
       v5 = *a2;
 
-      std::vector<quasar::MetaInfo::Sense>::__assign_with_size[abi:ne200100]<quasar::MetaInfo::Sense*,quasar::MetaInfo::Sense*>(a1, v5, v3, v4);
+      std::vector<quasar::MetaInfo::Sense>::__assign_with_size[abi:ne200100]<quasar::MetaInfo::Sense*,quasar::MetaInfo::Sense*>(result, v5, v3, v4);
     }
   }
 
-  else if (*(a1 + 24))
+  else if (*(result + 24))
   {
-    v6 = a1;
+    v6 = result;
     std::vector<quasar::MetaInfo::Sense>::__destroy_vector::operator()[abi:ne200100](&v6);
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 
   else
   {
-    *a1 = 0;
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
-    std::vector<quasar::MetaInfo::Sense>::__init_with_size[abi:ne200100]<quasar::MetaInfo::Sense*,quasar::MetaInfo::Sense*>(a1, *a2, *(a2 + 8), 0x14C1BACF914C1BADLL * ((*(a2 + 8) - *a2) >> 3));
-    *(a1 + 24) = 1;
+    *result = 0;
+    *(result + 8) = 0;
+    *(result + 16) = 0;
+    std::vector<quasar::MetaInfo::Sense>::__init_with_size[abi:ne200100]<quasar::MetaInfo::Sense*,quasar::MetaInfo::Sense*>(result, *a2, a2[1], 0x14C1BACF914C1BADLL * ((a2[1] - *a2) >> 3));
+    *(result + 24) = 1;
   }
 }
 
@@ -3409,7 +3402,7 @@ void std::vector<quasar::MetaInfo::Sense>::__assign_with_size[abi:ne200100]<quas
   }
 }
 
-void std::vector<quasar::MetaInfo::Sense>::__vdeallocate(void **a1)
+void std::vector<quasar::MetaInfo::Sense>::__vdeallocate(void ***a1)
 {
   v1 = *a1;
   if (*a1)
@@ -3435,7 +3428,7 @@ void std::vector<quasar::MetaInfo::Sense>::__vdeallocate(void **a1)
   }
 }
 
-void std::vector<quasar::MetaInfo::Sense>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<quasar::MetaInfo::Sense>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xDD67C8A60DD67DLL)
   {
@@ -3524,7 +3517,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<quasar::MetaInfo::Sen
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<quasar::MetaInfo::Sense>::__init_with_size[abi:ne200100]<quasar::MetaInfo::Sense*,quasar::MetaInfo::Sense*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+std::string *std::vector<quasar::MetaInfo::Sense>::__init_with_size[abi:ne200100]<quasar::MetaInfo::Sense*,quasar::MetaInfo::Sense*>(std::string *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3534,7 +3527,7 @@ uint64_t std::vector<quasar::MetaInfo::Sense>::__init_with_size[abi:ne200100]<qu
   return result;
 }
 
-void sub_1B56F3000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1B56F3000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<quasar::MetaInfo::Sense>::__destroy_vector::operator()[abi:ne200100](&a9);
@@ -3589,8 +3582,7 @@ void std::optional<std::string>::value_or[abi:ne200100]<char const(&)[1]>(uint64
 
     else
     {
-      *&a3->__r_.__value_.__l.__data_ = *a1;
-      a3->__r_.__value_.__r.__words[2] = *(a1 + 16);
+      *a3 = *a1;
     }
   }
 
@@ -3782,7 +3774,7 @@ uint64_t quasar::MetaInfo::Impl::Impl(uint64_t a1, uint64_t a2)
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  std::vector<std::pair<std::string,quasar::PTree>>::__init_with_size[abi:ne200100]<std::pair<std::string,quasar::PTree>*,std::pair<std::string,quasar::PTree>*>(a1 + 32, *(a2 + 32), *(a2 + 40), 0x2E8BA2E8BA2E8BA3 * ((*(a2 + 40) - *(a2 + 32)) >> 3));
+  std::vector<std::pair<std::string,quasar::PTree>>::__init_with_size[abi:ne200100]<std::pair<std::string,quasar::PTree>*,std::pair<std::string,quasar::PTree>*>((a1 + 32), *(a2 + 32), *(a2 + 40), 0x2E8BA2E8BA2E8BA3 * ((*(a2 + 40) - *(a2 + 32)) >> 3));
   v5 = *(a2 + 56);
   *(a1 + 64) = 0;
   *(a1 + 56) = v5;
@@ -3889,11 +3881,11 @@ quasar::MetaInfo::Impl *quasar::MetaInfo::Impl::Impl(quasar::MetaInfo::Impl *thi
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 6) = 0;
-  std::vector<std::pair<std::string,quasar::PTree>>::__init_with_size[abi:ne200100]<std::pair<std::string,quasar::PTree>*,std::pair<std::string,quasar::PTree>*>(this + 32, *(a2 + 4), *(a2 + 5), 0x2E8BA2E8BA2E8BA3 * ((*(a2 + 5) - *(a2 + 4)) >> 3));
+  std::vector<std::pair<std::string,quasar::PTree>>::__init_with_size[abi:ne200100]<std::pair<std::string,quasar::PTree>*,std::pair<std::string,quasar::PTree>*>(this + 4, *(a2 + 4), *(a2 + 5), 0x2E8BA2E8BA2E8BA3 * ((*(a2 + 5) - *(a2 + 4)) >> 3));
   *(this + 56) = *(a2 + 56);
-  std::__optional_copy_base<std::vector<quasar::MetaInfo::Sense>,false>::__optional_copy_base[abi:ne200100](this + 64, a2 + 64);
+  std::__optional_copy_base<std::vector<quasar::MetaInfo::Sense>,false>::__optional_copy_base[abi:ne200100]((this + 64), a2 + 64);
   std::map<std::string,quasar::MetaInfo::StructuredPrediction>::map[abi:ne200100](this + 12, a2 + 12);
-  std::__optional_copy_base<std::vector<quasar::AlternativeSelectionSpan>,false>::__optional_copy_base[abi:ne200100](this + 120, a2 + 120);
+  std::__optional_copy_base<std::vector<quasar::AlternativeSelectionSpan>,false>::__optional_copy_base[abi:ne200100](this + 15, a2 + 120);
   std::map<std::string,std::vector<std::set<int>>>::map[abi:ne200100](this + 19, a2 + 19);
   v5 = *(a2 + 11);
   *(this + 185) = *(a2 + 185);
@@ -3901,21 +3893,21 @@ quasar::MetaInfo::Impl *quasar::MetaInfo::Impl::Impl(quasar::MetaInfo::Impl *thi
   return this;
 }
 
-void sub_1B56F3758(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B56F3758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*(v2 + 144) == 1)
+  va_start(va, a3);
+  if (*(v3 + 144) == 1)
   {
     std::vector<quasar::AlternativeSelectionSpan>::__destroy_vector::operator()[abi:ne200100](va);
   }
 
-  std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::destroy(v2 + 96, *(v2 + 104));
-  if (*(v2 + 88) == 1)
+  std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::destroy(v3 + 96, *(v3 + 104));
+  if (*(v3 + 88) == 1)
   {
     std::vector<quasar::MetaInfo::Sense>::__destroy_vector::operator()[abi:ne200100](va);
   }
 
-  quasar::PTree::~PTree(v2);
+  quasar::PTree::~PTree(v3);
   _Unwind_Resume(a1);
 }
 
@@ -3929,10 +3921,10 @@ void sub_1B56F37C0()
   JUMPOUT(0x1B56F37B8);
 }
 
-uint64_t std::__optional_copy_base<std::vector<quasar::MetaInfo::Sense>,false>::__optional_copy_base[abi:ne200100](uint64_t a1, uint64_t a2)
+std::string *std::__optional_copy_base<std::vector<quasar::MetaInfo::Sense>,false>::__optional_copy_base[abi:ne200100](std::string *a1, uint64_t a2)
 {
-  *a1 = 0;
-  *(a1 + 24) = 0;
+  a1->__r_.__value_.__s.__data_[0] = 0;
+  a1[1].__r_.__value_.__s.__data_[0] = 0;
   std::__optional_storage_base<std::vector<quasar::MetaInfo::Sense>,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<std::vector<quasar::MetaInfo::Sense>,false> const&>(a1, a2);
   return a1;
 }
@@ -3948,31 +3940,30 @@ void sub_1B56F3810(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__optional_storage_base<std::vector<quasar::MetaInfo::Sense>,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<std::vector<quasar::MetaInfo::Sense>,false> const&>(void *result, uint64_t a2)
+std::string *std::__optional_storage_base<std::vector<quasar::MetaInfo::Sense>,false>::__construct_from[abi:ne200100]<std::__optional_copy_base<std::vector<quasar::MetaInfo::Sense>,false> const&>(std::string *result, uint64_t a2)
 {
   if (*(a2 + 24) == 1)
   {
     v2 = result;
-    *result = 0;
-    result[1] = 0;
-    result[2] = 0;
+    *&result->__r_.__value_.__l.__data_ = 0uLL;
+    result->__r_.__value_.__r.__words[2] = 0;
     result = std::vector<quasar::MetaInfo::Sense>::__init_with_size[abi:ne200100]<quasar::MetaInfo::Sense*,quasar::MetaInfo::Sense*>(result, *a2, *(a2 + 8), 0x14C1BACF914C1BADLL * ((*(a2 + 8) - *a2) >> 3));
-    *(v2 + 24) = 1;
+    v2[1].__r_.__value_.__s.__data_[0] = 1;
   }
 
   return result;
 }
 
-void *std::map<std::string,quasar::MetaInfo::StructuredPrediction>::map[abi:ne200100](void *a1, const void ***a2)
+uint64_t **std::map<std::string,quasar::MetaInfo::StructuredPrediction>::map[abi:ne200100](uint64_t **a1, const void ***a2)
 {
   a1[2] = 0;
   a1[1] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   std::map<std::string,quasar::MetaInfo::StructuredPrediction>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__tree_node<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,void *> *,long>>>(a1, *a2, a2 + 1);
   return a1;
 }
 
-uint64_t std::map<std::string,quasar::MetaInfo::StructuredPrediction>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__tree_node<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,void *> *,long>>>(uint64_t result, const void **a2, const void ***a3)
+uint64_t **std::map<std::string,quasar::MetaInfo::StructuredPrediction>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__tree_node<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,void *> *,long>>>(uint64_t **result, const void **a2, const void ***a3)
 {
   if (a2 != a3)
   {
@@ -3980,7 +3971,7 @@ uint64_t std::map<std::string,quasar::MetaInfo::StructuredPrediction>::insert[ab
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,quasar::MetaInfo::StructuredPrediction> const&>(v5, (v5 + 1), v4 + 4);
+      result = std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,quasar::MetaInfo::StructuredPrediction> const&>(v5, (v5 + 1), v4 + 4, (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -4014,9 +4005,9 @@ uint64_t std::map<std::string,quasar::MetaInfo::StructuredPrediction>::insert[ab
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,quasar::MetaInfo::StructuredPrediction> const&>(void *a1, uint64_t a2, const void **a3)
+void *std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,quasar::MetaInfo::StructuredPrediction> const&>(uint64_t **a1, uint64_t a2, const void **a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::__construct_node<std::pair<std::string const,quasar::MetaInfo::StructuredPrediction> const&>();
@@ -4091,16 +4082,16 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   }
 }
 
-void *std::map<std::string,std::vector<std::set<int>>>::map[abi:ne200100](void *a1, const void ***a2)
+uint64_t **std::map<std::string,std::vector<std::set<int>>>::map[abi:ne200100](uint64_t **a1, const void ***a2)
 {
   a1[2] = 0;
   a1[1] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   std::map<std::string,std::vector<std::set<int>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::vector<std::set<int>>>,std::__tree_node<std::__value_type<std::string,std::vector<std::set<int>>>,void *> *,long>>>(a1, *a2, a2 + 1);
   return a1;
 }
 
-uint64_t std::map<std::string,std::vector<std::set<int>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::vector<std::set<int>>>,std::__tree_node<std::__value_type<std::string,std::vector<std::set<int>>>,void *> *,long>>>(uint64_t result, const void **a2, const void ***a3)
+uint64_t **std::map<std::string,std::vector<std::set<int>>>::insert[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::vector<std::set<int>>>,std::__tree_node<std::__value_type<std::string,std::vector<std::set<int>>>,void *> *,long>>>(uint64_t **result, const void **a2, const void ***a3)
 {
   if (a2 != a3)
   {
@@ -4108,7 +4099,7 @@ uint64_t std::map<std::string,std::vector<std::set<int>>>::insert[abi:ne200100]<
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<std::string,std::vector<std::set<int>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::set<int>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,std::vector<std::set<int>>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::vector<std::set<int>>> const&>(v5, (v5 + 1), v4 + 4);
+      result = std::__tree<std::__value_type<std::string,std::vector<std::set<int>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::set<int>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,std::vector<std::set<int>>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::vector<std::set<int>>> const&>(v5, (v5 + 1), v4 + 4, (v4 + 4));
       v6 = v4[1];
       if (v6)
       {
@@ -4142,15 +4133,15 @@ uint64_t std::map<std::string,std::vector<std::set<int>>>::insert[abi:ne200100]<
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::vector<std::set<int>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::set<int>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,std::vector<std::set<int>>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::vector<std::set<int>>> const&>(void *a1, uint64_t a2, const void **a3)
+void *std::__tree<std::__value_type<std::string,std::vector<std::set<int>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::set<int>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,std::vector<std::set<int>>>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,std::vector<std::set<int>>> const&>(uint64_t **a1, uint64_t a2, const void **a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::string,std::vector<std::set<int>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::set<int>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,std::vector<std::set<int>>>>>::__construct_node<std::pair<std::string const,std::vector<std::set<int>>> const&>();
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<std::set<int>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<std::set<int>>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -4201,7 +4192,7 @@ void sub_1B56F3E80(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::set<int>>::__init_with_size[abi:ne200100]<std::set<int>*,std::set<int>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::set<int>>::__init_with_size[abi:ne200100]<std::set<int>*,std::set<int>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4334,7 +4325,7 @@ uint64_t **std::__tree<std::__value_type<std::string,quasar::MetaInfo::Structure
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::__emplace_multi<std::pair<std::string const,quasar::MetaInfo::StructuredPrediction> const&>();
+    std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::__emplace_multi<std::pair<std::string const,quasar::MetaInfo::StructuredPrediction> const&>(v5);
   }
 
   return result;
@@ -4532,16 +4523,16 @@ uint64_t std::vector<quasar::MetaInfo::StructuredPrediction::Span>::__emplace_ba
   return v16;
 }
 
-void sub_1B56F45C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B56F45C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<quasar::MetaInfo::StructuredPrediction::Span>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<std::string&,int &&,std::vector<quasar::MetaInfo::StructuredPrediction::Span> &>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<std::string&,int &&,std::vector<quasar::MetaInfo::StructuredPrediction::Span> &>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<std::string&,int &&,std::vector<quasar::MetaInfo::StructuredPrediction::Span> &>>();
@@ -4589,7 +4580,7 @@ std::string *std::pair<std::string const,quasar::MetaInfo::StructuredPrediction>
   v10 = *a3[1];
   v13 = 0;
   v12 = 0uLL;
-  std::vector<quasar::MetaInfo::StructuredPrediction::Span>::__init_with_size[abi:ne200100]<quasar::MetaInfo::StructuredPrediction::Span*,quasar::MetaInfo::StructuredPrediction::Span*>(&v12, *v9, v9[1], 0xCCCCCCCCCCCCCCCDLL * ((v9[1] - *v9) >> 4));
+  std::vector<quasar::MetaInfo::StructuredPrediction::Span>::__init_with_size[abi:ne200100]<quasar::MetaInfo::StructuredPrediction::Span*,quasar::MetaInfo::StructuredPrediction::Span*>(&v12, *v9, *(v9 + 1), 0xCCCCCCCCCCCCCCCDLL * ((*(v9 + 1) - *v9) >> 4));
   this[1] = v14;
   memset(&v14, 0, sizeof(v14));
   LODWORD(this[2].__r_.__value_.__l.__data_) = v10;
@@ -4617,9 +4608,9 @@ void sub_1B56F4840(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::__emplace_hint_unique_key_args<std::string,std::string&,quasar::MetaInfo::StructuredPrediction>(void *a1, uint64_t a2, const void **a3)
+void *std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::__emplace_hint_unique_key_args<std::string,std::string&,quasar::MetaInfo::StructuredPrediction>(uint64_t **a1, uint64_t a2, const void **a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, a2, &v7, &v6, a3);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>,std::less<void>,true>,std::allocator<std::__value_type<std::string,quasar::MetaInfo::StructuredPrediction>>>::__construct_node<std::string&,quasar::MetaInfo::StructuredPrediction>();
@@ -4789,7 +4780,7 @@ uint64_t *std::__tree<std::__value_type<std::string,quasar::MetaInfo::Structured
   return v4;
 }
 
-void std::vector<std::set<int>>::__vdeallocate(void **a1)
+void std::vector<std::set<int>>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -4817,14 +4808,14 @@ void std::vector<std::set<int>>::__vdeallocate(void **a1)
   }
 }
 
-void sub_1B56F4CAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B56F4CAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<std::set<int>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<std::set<int>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<quasar::MetaInfo::Sense>::__init_with_size[abi:ne200100]<quasar::MetaInfo::Sense const*,quasar::MetaInfo::Sense const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<quasar::MetaInfo::Sense>::__init_with_size[abi:ne200100]<quasar::MetaInfo::Sense const*,quasar::MetaInfo::Sense const*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4879,21 +4870,21 @@ void sub_1B56F4EC4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<quasar::MetaInfo::Sense>::__emplace_back_slow_path<quasar::MetaInfo::Sense&>(uint64_t a1, __int128 *a2)
+uint64_t std::vector<quasar::MetaInfo::Sense>::__emplace_back_slow_path<quasar::MetaInfo::Sense&>(uint64_t *a1, __int128 *a2)
 {
-  v2 = 0x14C1BACF914C1BADLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0x14C1BACF914C1BADLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if ((v2 + 1) > 0xDD67C8A60DD67CLL)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x2983759F2298375ALL * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x2983759F2298375ALL * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x2983759F2298375ALL * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x2983759F2298375ALL * ((a1[2] - *a1) >> 3);
   }
 
-  if ((0x14C1BACF914C1BADLL * ((*(a1 + 16) - *a1) >> 3)) >= 0x6EB3E45306EB3ELL)
+  if ((0x14C1BACF914C1BADLL * ((a1[2] - *a1) >> 3)) >= 0x6EB3E45306EB3ELL)
   {
     v6 = 0xDD67C8A60DD67CLL;
   }
@@ -4913,14 +4904,14 @@ uint64_t std::vector<quasar::MetaInfo::Sense>::__emplace_back_slow_path<quasar::
   v14 = 296 * v2;
   quasar::MetaInfo::Sense::Sense((296 * v2), a2);
   v15 = (296 * v2 + 296);
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = 296 * v2 + *a1 - v7;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<quasar::MetaInfo::Sense>,quasar::MetaInfo::Sense*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   v12 = v15;
-  *(a1 + 8) = v15;
+  *(a1 + 1) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -4929,9 +4920,9 @@ uint64_t std::vector<quasar::MetaInfo::Sense>::__emplace_back_slow_path<quasar::
   return v12;
 }
 
-void sub_1B56F501C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B56F501C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<quasar::MetaInfo::Sense>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5225,7 +5216,7 @@ BOOL TLexicon::checkBits(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, ui
   return result;
 }
 
-void TLexicon::getCategoryTag(void *a1, uint64_t a2, void *a3)
+void TLexicon::getCategoryTag(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v14 = *MEMORY[0x1E69E9840];
   TBuffer<wchar_t>::assign(a3, dword_1B5B1DF50);
@@ -5261,7 +5252,7 @@ void TLexicon::getCategoryTag(void *a1, uint64_t a2, void *a3)
 
           TBuffer<wchar_t>::resize(a3, 0);
           TLocaleInfo::multiByteToUnicode((a1 + 28), (a1[50] + v10 + v10 * a1[49]), a1[49], a3);
-          v11 = a3[2];
+          v11 = *(a3 + 16);
           if (v11)
           {
             v12 = 0;
@@ -5381,7 +5372,7 @@ uint64_t *TWord::getOptionalTagBits(TWord *this)
   return v1;
 }
 
-uint64_t TLexicon::getWrittenForm(int a1, __int32 *__s, uint64_t a3)
+const void **TLexicon::getWrittenForm(int a1, __int32 *__s, const void **a3)
 {
   v5 = wcschr(__s, 92);
   if (v5)
@@ -5413,7 +5404,7 @@ uint64_t TLexicon::getWrittenForm(int a1, __int32 *__s, uint64_t a3)
   }
 }
 
-uint64_t TLexicon::getTokenName(int a1, __int32 *a2, uint64_t a3)
+const void *TLexicon::getTokenName(int a1, __int32 *a2, uint64_t a3)
 {
   TLexicon::getWrittenForm(a1, a2, a3);
   v6 = v8;
@@ -5464,7 +5455,7 @@ uint64_t TWord::getWordSpec(TWord *this)
   }
 }
 
-uint64_t TLexicon::findHeadClone(void *a1, __int32 *a2)
+void *TLexicon::findHeadClone(void *a1, __int32 *a2)
 {
   v9 = v11;
   v10 = xmmword_1B5AE2110;
@@ -5498,7 +5489,7 @@ uint64_t TLexicon::findHeadClone(void *a1, __int32 *a2)
 
   Word = TLexicon::findWord(a1, v3);
   v5 = Word;
-  if (!Word || (*(Word + 32) & 2) == 0)
+  if (!Word || (Word[4] & 2) == 0)
   {
     if (*(&v10 + 1) >= v10)
     {
@@ -5637,11 +5628,11 @@ void sub_1B56F5FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t TLexicon::computeClones(uint64_t a1, __int32 *a2)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   ++*(a1 + 464);
   std::wstring::basic_string[abi:ne200100]<0>(&__p, a2);
   v4 = std::__tree<std::__value_type<std::wstring,unsigned long>,std::__map_value_compare<std::wstring,std::__value_type<std::wstring,unsigned long>,std::less<std::wstring>,true>,std::allocator<std::__value_type<std::wstring,unsigned long>>>::find<std::wstring>(a1 + 160, &__p);
-  if (SHIBYTE(v36) < 0)
+  if (SHIBYTE(v42) < 0)
   {
     operator delete(__p);
   }
@@ -5653,127 +5644,127 @@ uint64_t TLexicon::computeClones(uint64_t a1, __int32 *a2)
   }
 
   Word = TLexicon::findWord(a1, a2);
-  if (Word && (*(Word + 32) & 1) != 0)
+  if (Word && (Word[4] & 1) != 0)
   {
     v5 = 0;
     ++*(a1 + 488);
     return v5;
   }
 
-  __p = v37;
-  v36 = xmmword_1B5AE2110;
-  v38 = 1;
+  __p = v43;
+  v42 = xmmword_1B5AE2110;
+  v44 = 1;
   getSecondField(a2, &__p);
-  v43 = v45;
-  v44 = xmmword_1B5AE2110;
-  v46 = 1;
-  TLocaleInfo::unicodeToMultiByte(a1 + 224, a2, &v43);
-  v34 = 0;
-  v33 = 0;
-  v32 = 0;
-  v31 = 0;
+  v49 = v51;
+  v50 = xmmword_1B5AE2110;
+  v52 = 1;
+  TLocaleInfo::unicodeToMultiByte(a1 + 224, a2, &v49);
+  v40 = 0;
+  v39 = 0;
+  v38 = 0;
+  v37 = 0;
   v8 = *(a1 + 88);
-  if (*(&v44 + 1) >= v44)
+  if (*(&v50 + 1) >= v50)
   {
-    if (v46)
+    if (v52)
     {
-      LOBYTE(v24) = 0;
-      TBuffer<char>::insert(&v43, *(&v44 + 1), &v24, 1uLL);
-      --*(&v44 + 1);
+      LOBYTE(v30) = 0;
+      TBuffer<char>::insert(&v49, *(&v50 + 1), &v30, 1uLL);
+      --*(&v50 + 1);
     }
 
-    else if (v44)
+    else if (v50)
     {
-      v43[v44 - 1] = 0;
+      v49[v50 - 1] = 0;
     }
   }
 
   else
   {
-    v43[*(&v44 + 1)] = 0;
+    v49[*(&v50 + 1)] = 0;
   }
 
-  if (*(&v36 + 1))
+  if (*(&v42 + 1))
   {
-    v9 = "\";
+    v9 = "\"";
   }
 
   else
   {
-    v9 = "\\\";
+    v9 = "\\\"";
   }
 
-  SDVoc_GetWords(v8, 2, v43, v9, *(a1 + 424), *(a1 + 408), &v34, &v32, &v33, callBackMRECArrayReallocator, 0, &v31);
-  v29 = 0;
-  v28 = 0;
-  v30 = 0;
-  if (v34)
+  SDVoc_GetWords(v8, 2, v49, v9, *(a1 + 424), *(a1 + 408), &v40, &v38, &v39, callBackMRECArrayReallocator, 0, &v37);
+  v35 = 0;
+  v34 = 0;
+  v36 = 0;
+  if (v40)
   {
-    for (i = 0; i < v34; ++i)
+    for (i = 0; i < v40; ++i)
     {
       ++*(a1 + 504);
-      v11 = *(v32 + 8 * i);
-      v12 = TStringParam::get((*(a1 + 320) + 488));
-      if (!TLexicon::applyMask(a1, v11, v12, 0))
+      v13 = *(v38 + 8 * i);
+      v14 = TStringParam::get((*(a1 + 320) + 488));
+      if (!TLexicon::applyMask(a1, v13, v14, 0))
       {
-        if (SDWord_GetName(*(a1 + 88), v11, v42, 0x100uLL) < 0x101)
+        if (SDWord_GetName(*(a1 + 88), v13, v48, 0x100uLL) < 0x101)
         {
-          v24 = v26;
-          v25 = xmmword_1B5AE2110;
-          v27 = 1;
-          if (TLocaleInfo::multiByteToUnicode(a1 + 224, v42, &v24))
+          v30 = v32;
+          v31 = xmmword_1B5AE2110;
+          v33 = 1;
+          if (TLocaleInfo::multiByteToUnicode(a1 + 224, v48, &v30))
           {
-            tknPrintf("Warning: '%s' : Can't convert to Unicode. Ignored.\n", v42);
+            tknPrintf("Warning: '%s' : Can't convert to Unicode. Ignored.\n", v17, v18, v48);
           }
 
           else
           {
-            if (*(&v25 + 1) >= v25)
+            if (*(&v31 + 1) >= v31)
             {
-              if (v27)
+              if (v33)
               {
-                LODWORD(v39[0]) = 0;
-                TBuffer<wchar_t>::insert(&v24, *(&v25 + 1), v39, 1uLL);
-                v13 = v24;
-                --*(&v25 + 1);
+                LODWORD(v45[0]) = 0;
+                TBuffer<wchar_t>::insert(&v30, *(&v31 + 1), v45, 1uLL);
+                v19 = v30;
+                --*(&v31 + 1);
               }
 
               else
               {
-                v13 = v24;
-                if (v25)
+                v19 = v30;
+                if (v31)
                 {
-                  *(v24 + v25 - 1) = 0;
+                  *(v30 + v31 - 1) = 0;
                 }
               }
             }
 
             else
             {
-              v13 = v24;
-              *(v24 + *(&v25 + 1)) = 0;
+              v19 = v30;
+              *(v30 + *(&v31 + 1)) = 0;
             }
 
-            v41[0] = v13;
-            v41[1] = 0;
-            THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::find(a1 + 184, v41, v39);
-            if (!v40)
+            v47[0] = v19;
+            v47[1] = 0;
+            THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::find(a1 + 184, v47, v45);
+            if (!v46)
             {
-              v23 = 0;
+              v29 = 0;
 LABEL_35:
               operator new[]();
             }
 
-            v23 = *(v40 + 16);
-            if (!v23)
+            v29 = *(v46 + 16);
+            if (!v29)
             {
               goto LABEL_35;
             }
 
-            std::vector<TVertex *>::push_back[abi:ne200100](&v28, &v23);
+            std::vector<TVertex *>::push_back[abi:ne200100](&v34, &v29);
           }
 
-          if (v27 == 1 && v24 != v26 && v24)
+          if (v33 == 1 && v30 != v32 && v30)
           {
             MEMORY[0x1B8C85310]();
           }
@@ -5781,31 +5772,31 @@ LABEL_35:
 
         else
         {
-          tknPrintf("Warning: The voc contains a >= %llu-byte word name, prefix is '%s'. Ignored.\n", 256, v42);
+          tknPrintf("Warning: The voc contains a >= %llu-byte word name, prefix is '%s'. Ignored.\n", v15, v16, 256, v48);
         }
       }
     }
   }
 
-  if (v32 != *(a1 + 424))
+  if (v38 != *(a1 + 424))
   {
-    tknPrintf("Warning: Inefficient head-clone search. Required dynamic allocation of size %llu\n", v33);
-    v14 = *(a1 + 424);
-    if (v14)
+    tknPrintf("Warning: Inefficient head-clone search. Required dynamic allocation of size %llu\n", v10, v11, v39);
+    v20 = *(a1 + 424);
+    if (v20)
     {
-      MEMORY[0x1B8C85310](v14, 0x80C80B8603338);
+      MEMORY[0x1B8C85310](v20, 0x80C80B8603338);
     }
 
-    *(a1 + 424) = v32;
-    *(a1 + 408) = v33;
+    *(a1 + 424) = v38;
+    *(a1 + 408) = v39;
   }
 
-  v15 = v28;
-  v16 = v29;
-  if (v28 == v29)
+  v21 = v34;
+  v22 = v35;
+  if (v34 == v35)
   {
     v5 = 0;
-    if (!v28)
+    if (!v34)
     {
       goto LABEL_52;
     }
@@ -5813,42 +5804,42 @@ LABEL_35:
 
   else
   {
-    v17 = *v28;
-    v18 = *(*v28 + 32);
-    *(*v28 + 32) = v18 | 1;
-    v19 = (v16 - v15) >> 3;
-    v20 = v19 - 1;
-    if (v19 > 1 || (v18 & 2) == 0)
+    v23 = *v34;
+    v24 = *(*v34 + 32);
+    *(*v34 + 32) = v24 | 1;
+    v25 = (v22 - v21) >> 3;
+    v26 = v25 - 1;
+    if (v25 > 1 || (v24 & 2) == 0)
     {
-      *(v17 + 32) = v18 | 3;
-      if (v19 >= 2)
+      *(v23 + 32) = v24 | 3;
+      if (v25 >= 2)
       {
-        v21 = v15 + 1;
+        v27 = v21 + 1;
         do
         {
-          v22 = *v21++;
-          *(v22 + 32) |= 1uLL;
-          --v20;
+          v28 = *v27++;
+          *(v28 + 32) |= 1uLL;
+          --v26;
         }
 
-        while (v20);
+        while (v26);
       }
 
-      TWordBlock::create();
+      TWordBlock::create(&v34, *(a1 + 312), 0);
     }
 
     v5 = 0;
   }
 
-  v29 = v15;
-  operator delete(v15);
+  v35 = v21;
+  operator delete(v21);
 LABEL_52:
-  if (v46 == 1 && v43 != v45 && v43)
+  if (v52 == 1 && v49 != v51 && v49)
   {
     MEMORY[0x1B8C85310]();
   }
 
-  if (v38 == 1 && __p != v37 && __p)
+  if (v44 == 1 && __p != v43 && __p)
   {
     MEMORY[0x1B8C85310]();
   }
@@ -5877,7 +5868,7 @@ void sub_1B56F6644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     {
       if (v25)
       {
-        MEMORY[0x1B8C85310](v25, 0x1000C8077774924);
+        MEMORY[0x1B8C85310](v25, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
       }
     }
   }
@@ -5889,7 +5880,7 @@ void sub_1B56F6644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     {
       if (v26)
       {
-        MEMORY[0x1B8C85310](v26, 0x1000C8052888210);
+        MEMORY[0x1B8C85310](v26, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
       }
     }
   }
@@ -5897,7 +5888,7 @@ void sub_1B56F6644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t *TLexiconScore::TLexiconScore(uint64_t *a1, const __int32 *a2, unsigned int *a3, size_t a4, size_t a5, uint64_t a6)
+uint64_t *TLexiconScore::TLexiconScore(uint64_t *a1, unsigned int *a2, unsigned int *a3, size_t a4, size_t a5, uint64_t a6)
 {
   *(a1 + 8) = 0;
   *a1 = 0;
@@ -6030,7 +6021,7 @@ LABEL_27:
         v27 = v47;
         if (v48)
         {
-          *&v47[4 * v48 - 4] = 0;
+          v47[v48 - 1] = 0;
         }
       }
     }
@@ -6038,7 +6029,7 @@ LABEL_27:
     else
     {
       v27 = v47;
-      *&v47[4 * *(&v48 + 1)] = 0;
+      v47[*(&v48 + 1)] = 0;
     }
 
     if (*(&v44 + 1) >= v44)
@@ -6056,7 +6047,7 @@ LABEL_27:
         v28 = v43;
         if (v44)
         {
-          *&v43[4 * v44 - 4] = 0;
+          v43[v44 - 1] = 0;
         }
       }
     }
@@ -6064,10 +6055,10 @@ LABEL_27:
     else
     {
       v28 = v43;
-      *&v43[4 * *(&v44 + 1)] = 0;
+      v43[*(&v44 + 1)] = 0;
     }
 
-    if (!wcscmp((v27 + 4), (v28 + 4)))
+    if (!wcscmp(v27 + 1, v28 + 1))
     {
       goto LABEL_51;
     }
@@ -6157,7 +6148,7 @@ LABEL_79:
 
 void sub_1B56F6E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
-  MEMORY[0x1B8C85350](a10, 0x1070C40ADD13FEBLL);
+  MEMORY[0x1B8C85350](a10, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   if (LOBYTE(STACK[0x458]) == 1 && a17 != v17 && a17)
   {
     MEMORY[0x1B8C85310]();
@@ -6207,27 +6198,27 @@ void TLexiconParamManager::TLexiconParamManager(TLexiconParamManager *this, TLex
   TParamManager::TParamManager(this, 1, (a2 + 224));
   *v4 = &unk_1F2D29DE8;
   v5 = (v4 + 17);
-  TIntParam::TIntParam((v4 + 17), &unk_1B5B1AA88, &unk_1B5B1AAE4, 256, 2, 4, 4, &unk_1B5B1AED4, &unk_1B5B1AF0C);
-  TStringParam::TStringParam(this + 488, &unk_1B5B1AF10, &unk_1B5B1AF48, 0, &unk_1B5B1B2FC, &unk_1B5B1B414, &unk_1B5B1AF0C);
+  TIntParam::TIntParam((v4 + 17), &unk_1B5B1AA88, &unk_1B5B1AAE4, 256, 2, 4, 4, &unk_1B5B1AED4, &dword_1B5B1AF0C);
+  TStringParam::TStringParam(this + 488, &unk_1B5B1AF10, &unk_1B5B1AF48, 0, dword_1B5B1B2FC, &unk_1B5B1B414, &dword_1B5B1AF0C);
   TIntParam::TIntParam((this + 1864), &unk_1B5B1B44C, &unk_1B5B1B4D8, 0, 1, 256, 4, &unk_1B5B1B414, &unk_1B5B1BC64);
   TIntParam::TIntParam((this + 2216), &unk_1B5B1BCA4, &unk_1B5B1BD28, 0, 1, 256, 4, &unk_1B5B1B414, &unk_1B5B1BC64);
-  TIntParam::TIntParam((this + 2568), &unk_1B5B1C548, &unk_1B5B1C5F0, 0, 0, 0x7FFFFFFF, 2000, &unk_1B5B1B414, &unk_1B5B1AF0C);
-  TIntParam::TIntParam((this + 2920), &unk_1B5B1C760, &unk_1B5B1C810, 0, 0, 0x7FFFFFFF, 5000, &unk_1B5B1B414, &unk_1B5B1AF0C);
-  TStringParam::TStringParam(this + 3272, &unk_1B5B1CA1C, &unk_1B5B1CA50, 256, &unk_1B5B1AF0C, &unk_1B5B1CB6C, &unk_1B5B1AF0C);
-  TStringParam::TStringParam(this + 4648, &unk_1B5B1CBA4, &unk_1B5B1CBD4, 0, &unk_1B5B1AF0C, &unk_1B5B1CCF4, &unk_1B5B1AF0C);
-  TStringParam::TStringParam(this + 6024, &unk_1B5B1CD2C, &unk_1B5B1CD68, 0, &unk_1B5B1AF0C, &unk_1B5B1CCF4, &unk_1B5B1AF0C);
-  TStringParam::TStringParam(this + 7400, &unk_1B5B1CE90, &unk_1B5B1CED8, 0, &unk_1B5B1AF0C, &unk_1B5B1CCF4, &unk_1B5B1AF0C);
-  TStringParam::TStringParam(this + 8776, &unk_1B5B1D018);
-  TStringParam::TStringParam(this + 10152, &unk_1B5B1D078, &unk_1B5B1D0C0, 0, &unk_1B5B1AF0C, &unk_1B5B1CCF4, &unk_1B5B1AF0C);
-  TStringParam::TStringParam(this + 11528, &unk_1B5B1D160, &unk_1B5B1D1A4, 0, &unk_1B5B1AF0C, &unk_1B5B1CCF4, &unk_1B5B1AF0C);
-  TStringParam::TStringParam(this + 12904, &unk_1B5B1D2D0, &unk_1B5B1D32C, 0, &unk_1B5B1AF0C, &unk_1B5B1CCF4, &unk_1B5B1AF0C);
-  TStringParam::TStringParam(this + 14280, &unk_1B5B1D3E4, &unk_1B5B1D43C, 0, &unk_1B5B1AF0C, &unk_1B5B1CCF4, &unk_1B5B1AF0C);
-  TStringParam::TStringParam(this + 15656, &unk_1B5B1D568);
-  TStringParam::TStringParam(this + 17032, &unk_1B5B1D5C0, &unk_1B5B1D5F8, 0, &unk_1B5B1AF0C, &unk_1B5B1CCF4, &unk_1B5B1AF0C);
-  TStringParam::TStringParam(this + 18408, &unk_1B5B1D700, &unk_1B5B1D734, 0, &unk_1B5B1AF0C, &unk_1B5B1CCF4, &unk_1B5B1AF0C);
-  TStringParam::TStringParam(this + 19784, &unk_1B5B1D7A0, &unk_1B5B1D7D4, 0, &unk_1B5B1AF0C, &unk_1B5B1CCF4, &unk_1B5B1AF0C);
-  TIntParam::TIntParam((this + 21160), &unk_1B5B1D840, &unk_1B5B1D884, 0, 0, 99, 29, &unk_1B5B1CCF4, &unk_1B5B1AF0C);
-  TBoolParam::TBoolParam(this + 21512, &unk_1B5B1DB14, &unk_1B5B1DB60, 0, 0, &unk_1B5B1B414, &unk_1B5B1AF0C);
+  TIntParam::TIntParam((this + 2568), &unk_1B5B1C548, &unk_1B5B1C5F0, 0, 0, 0x7FFFFFFF, 2000, &unk_1B5B1B414, &dword_1B5B1AF0C);
+  TIntParam::TIntParam((this + 2920), &unk_1B5B1C760, &unk_1B5B1C810, 0, 0, 0x7FFFFFFF, 5000, &unk_1B5B1B414, &dword_1B5B1AF0C);
+  TStringParam::TStringParam(this + 3272, &unk_1B5B1CA1C, &unk_1B5B1CA50, 256, &dword_1B5B1AF0C, &unk_1B5B1CB6C, &dword_1B5B1AF0C);
+  TStringParam::TStringParam(this + 4648, &unk_1B5B1CBA4, &unk_1B5B1CBD4, 0, &dword_1B5B1AF0C, &unk_1B5B1CCF4, &dword_1B5B1AF0C);
+  TStringParam::TStringParam(this + 6024, &unk_1B5B1CD2C, &unk_1B5B1CD68, 0, &dword_1B5B1AF0C, &unk_1B5B1CCF4, &dword_1B5B1AF0C);
+  TStringParam::TStringParam(this + 7400, &unk_1B5B1CE90, &unk_1B5B1CED8, 0, &dword_1B5B1AF0C, &unk_1B5B1CCF4, &dword_1B5B1AF0C);
+  TStringParam::TStringParam(this + 1097, &unk_1B5B1D018);
+  TStringParam::TStringParam(this + 10152, &unk_1B5B1D078, &unk_1B5B1D0C0, 0, &dword_1B5B1AF0C, &unk_1B5B1CCF4, &dword_1B5B1AF0C);
+  TStringParam::TStringParam(this + 11528, &unk_1B5B1D160, &unk_1B5B1D1A4, 0, &dword_1B5B1AF0C, &unk_1B5B1CCF4, &dword_1B5B1AF0C);
+  TStringParam::TStringParam(this + 12904, &unk_1B5B1D2D0, &unk_1B5B1D32C, 0, &dword_1B5B1AF0C, &unk_1B5B1CCF4, &dword_1B5B1AF0C);
+  TStringParam::TStringParam(this + 14280, &unk_1B5B1D3E4, &unk_1B5B1D43C, 0, &dword_1B5B1AF0C, &unk_1B5B1CCF4, &dword_1B5B1AF0C);
+  TStringParam::TStringParam(this + 1957, &unk_1B5B1D568);
+  TStringParam::TStringParam(this + 17032, &unk_1B5B1D5C0, &unk_1B5B1D5F8, 0, &dword_1B5B1AF0C, &unk_1B5B1CCF4, &dword_1B5B1AF0C);
+  TStringParam::TStringParam(this + 18408, &unk_1B5B1D700, &unk_1B5B1D734, 0, &dword_1B5B1AF0C, &unk_1B5B1CCF4, &dword_1B5B1AF0C);
+  TStringParam::TStringParam(this + 19784, &unk_1B5B1D7A0, &unk_1B5B1D7D4, 0, &dword_1B5B1AF0C, &unk_1B5B1CCF4, &dword_1B5B1AF0C);
+  TIntParam::TIntParam((this + 21160), &unk_1B5B1D840, &unk_1B5B1D884, 0, 0, 99, 29, &unk_1B5B1CCF4, &dword_1B5B1AF0C);
+  TBoolParam::TBoolParam(this + 21512, &unk_1B5B1DB14, &unk_1B5B1DB60, 0, 0, &unk_1B5B1B414, &dword_1B5B1AF0C);
   TParamManager::add(this, v5);
   TParamManager::add(this, (this + 488));
   TParamManager::add(this, (this + 1864));
@@ -6240,7 +6231,7 @@ void TLexiconParamManager::TLexiconParamManager(TLexiconParamManager *this, TLex
   TParamManager::add(this, (this + 7400));
   MEMORY[0x1B8C84940](this + 8816, &unk_1B5B1DBC8);
   MEMORY[0x1B8C84940](this + 8840, &unk_1B5B1CCF4);
-  MEMORY[0x1B8C84940](this + 8864, &unk_1B5B1AF0C);
+  MEMORY[0x1B8C84940](this + 8864, &dword_1B5B1AF0C);
   std::vector<std::wstring>::vector[abi:ne200100](v13, 4uLL);
   std::vector<std::wstring>::vector[abi:ne200100](v12, 4uLL);
   v6 = 0;
@@ -6266,7 +6257,7 @@ void TLexiconParamManager::TLexiconParamManager(TLexiconParamManager *this, TLex
   TParamManager::add(this, (this + 14280));
   MEMORY[0x1B8C84940](this + 15696, &unk_1B5B1DD30);
   MEMORY[0x1B8C84940](this + 15720, &unk_1B5B1DE18);
-  MEMORY[0x1B8C84940](this + 15744, &unk_1B5B1AF0C);
+  MEMORY[0x1B8C84940](this + 15744, &dword_1B5B1AF0C);
   std::vector<std::wstring>::vector[abi:ne200100](v13, 3uLL);
   std::vector<std::wstring>::vector[abi:ne200100](v12, 3uLL);
   v8 = 0;
@@ -6379,7 +6370,7 @@ void TLexicon::TLexicon(TLexicon *this, TDataManager *a2, void *a3)
   operator new();
 }
 
-void sub_1B56F862C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, void *a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *__p, uint64_t a42, int a43, __int16 a44, char a45, char a46)
+void sub_1B56F862C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, void *a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *__p, uint64_t a42, int a43, __int16 a44, char a45, char a46)
 {
   if (a46 < 0)
   {
@@ -6729,7 +6720,7 @@ LABEL_26:
   }
 }
 
-void sub_1B56F9020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20)
+void sub_1B56F9020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char *__p, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   __p = &a17;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
@@ -6751,75 +6742,75 @@ void sub_1B56F9020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t TLexicon::validateLexicon(TLexicon *this)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v17 = 0;
-  v16 = 0;
-  v15 = 0;
-  v14 = 0;
-  SDVoc_GetWords(*(this + 11), 1, "", "", 0, 0, &v17, &v15, &v16, callBackMRECArrayReallocator, 0, &v14);
-  result = v15;
-  if (v15)
+  v24 = *MEMORY[0x1E69E9840];
+  v21 = 0;
+  v20 = 0;
+  v19 = 0;
+  v18 = 0;
+  SDVoc_GetWords(*(this + 11), 1, "", "", 0, 0, &v21, &v19, &v20, callBackMRECArrayReallocator, 0, &v18);
+  result = v19;
+  if (v19)
   {
-    if (!v17)
+    if (!v21)
     {
       return MEMORY[0x1B8C85310]();
     }
 
-    for (i = 0; i < v17; ++i)
+    for (i = 0; i < v21; ++i)
     {
-      v4 = *(v15 + 8 * i);
+      v4 = *(v19 + 8 * i);
       v5 = TStringParam::get((*(this + 40) + 488));
       if (!TLexicon::applyMask(this, v4, v5, 0))
       {
-        if (SDWord_GetName(*(this + 11), v4, v19, 0x100uLL) < 0x101)
+        if (SDWord_GetName(*(this + 11), v4, v23, 0x100uLL) < 0x101)
         {
-          v10 = v12;
-          v11 = xmmword_1B5AE2110;
-          v13 = 1;
-          v6 = TLocaleInfo::multiByteToUnicode(this + 224, v19, &v10);
-          v7 = "Warning: '%s' : Can't convert to Unicode.\n";
-          if (v6)
+          v14 = v16;
+          v15 = xmmword_1B5AE2110;
+          v17 = 1;
+          v10 = TLocaleInfo::multiByteToUnicode(this + 224, v23, &v14);
+          v11 = "Warning: '%s' : Can't convert to Unicode.\n";
+          if (v10)
           {
             goto LABEL_15;
           }
 
-          if (*(&v11 + 1) >= v11)
+          if (*(&v15 + 1) >= v15)
           {
-            if (v13)
+            if (v17)
             {
-              v18 = 0;
-              TBuffer<wchar_t>::insert(&v10, *(&v11 + 1), &v18, 1uLL);
-              v8 = v10;
-              --*(&v11 + 1);
+              v22 = 0;
+              TBuffer<wchar_t>::insert(&v14, *(&v15 + 1), &v22, 1uLL);
+              v12 = v14;
+              --*(&v15 + 1);
             }
 
             else
             {
-              v8 = v10;
-              if (v11)
+              v12 = v14;
+              if (v15)
               {
-                v10[v11 - 1] = 0;
+                v14[v15 - 1] = 0;
               }
             }
           }
 
           else
           {
-            v8 = v10;
-            v10[*(&v11 + 1)] = 0;
+            v12 = v14;
+            v14[*(&v15 + 1)] = 0;
           }
 
-          v9 = TLexicon::checkName(this, v8, 0, 0xFFFFFFFFFFFFFFFFLL);
-          v7 = "Warning: '%s' : Invalid word found in voc.\n";
-          if (v9)
+          v13 = TLexicon::checkName(this, v12, 0, 0xFFFFFFFFFFFFFFFFLL);
+          v11 = "Warning: '%s' : Invalid word found in voc.\n";
+          if (v13)
           {
 LABEL_15:
-            tknPrintf(v7, v19);
+            tknPrintf(v11, v8, v9, v23);
           }
 
-          if (v13 == 1 && v10 != v12)
+          if (v17 == 1 && v14 != v16)
           {
-            if (v10)
+            if (v14)
             {
               MEMORY[0x1B8C85310]();
             }
@@ -6828,13 +6819,13 @@ LABEL_15:
 
         else
         {
-          tknPrintf("Warning: The voc contains a >= %llu-byte word name, prefix is '%s'.\n", 256, v19);
+          tknPrintf("Warning: The voc contains a >= %llu-byte word name, prefix is '%s'.\n", v6, v7, 256, v23);
         }
       }
     }
 
-    result = v15;
-    if (v15)
+    result = v19;
+    if (v19)
     {
       return MEMORY[0x1B8C85310]();
     }
@@ -6843,12 +6834,12 @@ LABEL_15:
   return result;
 }
 
-void sub_1B56F9358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1B56F9358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   if (LOBYTE(STACK[0x450]) == 1)
   {
-    buildRegExp(va, v8);
+    buildRegExp(va, v15);
   }
 
   _Unwind_Resume(a1);
@@ -7142,48 +7133,48 @@ LABEL_47:
   if (*(v54 + TParam::getValidConfig((v54 + 21512), v55) + 21664) == 1)
   {
     tknPrintString("-- TLexicon --\n");
-    tknPrintf("  Clean calls   : %llu\n", *(this + 64));
+    tknPrintf("  Clean calls   : %llu\n", v56, v57, *(this + 64));
     tknPrintString("findWord\n");
-    tknPrintf("  Cache lookups : %llu\n", *(this + 56));
-    tknPrintf("  Cache hits    : %llu\n", *(this + 59));
+    tknPrintf("  Cache lookups : %llu\n", v58, v59, *(this + 56));
+    tknPrintf("  Cache hits    : %llu\n", v60, v61, *(this + 59));
     tknPrintString("collationSearch\n");
-    tknPrintf("  Cache lookups : %llu\n", *(this + 57));
-    tknPrintf("  Cache hits    : %llu\n", *(this + 60));
-    tknPrintf("  Iterations    : %llu\n", *(this + 62));
+    tknPrintf("  Cache lookups : %llu\n", v62, v63, *(this + 57));
+    tknPrintf("  Cache hits    : %llu\n", v64, v65, *(this + 60));
+    tknPrintf("  Iterations    : %llu\n", v66, v67, *(this + 62));
     tknPrintString("computeClones\n");
-    tknPrintf("  Cache lookups : %llu\n", *(this + 58));
-    tknPrintf("  Cache hits    : %llu\n", *(this + 61));
-    tknPrintf("  Iterations    : %llu\n", *(this + 63));
+    tknPrintf("  Cache lookups : %llu\n", v68, v69, *(this + 58));
+    tknPrintf("  Cache hits    : %llu\n", v70, v71, *(this + 61));
+    tknPrintf("  Iterations    : %llu\n", v72, v73, *(this + 63));
   }
 
-  v56 = *(this + 42);
-  if (v56)
+  v74 = *(this + 42);
+  if (v74)
   {
-    TDataSaver::~TDataSaver(v56);
+    TDataSaver::~TDataSaver(v74);
     MEMORY[0x1B8C85350]();
   }
 
-  v57 = *(this + 40);
-  if (v57)
+  v75 = *(this + 40);
+  if (v75)
   {
-    (*(*v57 + 8))(v57);
+    (*(*v75 + 8))(v75);
   }
 
-  v58 = *(this + 41);
-  if (v58)
+  v76 = *(this + 41);
+  if (v76)
   {
-    (*(*v58 + 8))(v58);
+    (*(*v76 + 8))(v76);
   }
 
   TCollation::~TCollation((this + 240));
   THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::~THashBase(this + 23);
   std::__tree<std::string>::destroy(this + 160, *(this + 21));
   THashBase<std::pair<wchar_t * const,TWordBlock *>,THashMapCompare<std::pair<wchar_t * const,TWordBlock *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t * const,TWordBlock *>,THash<wchar_t const*>>>::~THashBase(this + 15);
-  v59 = *(this + 12);
-  if (v59)
+  v77 = *(this + 12);
+  if (v77)
   {
-    *(this + 13) = v59;
-    operator delete(v59);
+    *(this + 13) = v77;
+    operator delete(v77);
   }
 
   if (*(this + 79) < 0)
@@ -7381,7 +7372,7 @@ LABEL_149:
       {
         if (v52)
         {
-          v43[0] = 0;
+          LOBYTE(v43[0]) = 0;
           TBuffer<char>::insert(&v49, *(&v50 + 1), v43, 1uLL);
           --*(&v50 + 1);
         }
@@ -7439,7 +7430,7 @@ LABEL_113:
           {
             if (v52)
             {
-              v42[0] = 0;
+              LOBYTE(v42[0]) = 0;
               TBuffer<char>::insert(&v49, *(&v50 + 1), v42, 1uLL);
               --*(&v50 + 1);
             }
@@ -7461,7 +7452,7 @@ LABEL_113:
             {
               if (v52)
               {
-                v42[0] = 0;
+                LOBYTE(v42[0]) = 0;
                 TBuffer<char>::insert(&v49, *(&v50 + 1), v42, 1uLL);
                 --*(&v50 + 1);
               }
@@ -7684,9 +7675,9 @@ LABEL_153:
   return v17;
 }
 
-void sub_1B56FA308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42)
+void sub_1B56FA308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42)
 {
-  MEMORY[0x1B8C85350](a11, 0x1070C40ADD13FEBLL);
+  MEMORY[0x1B8C85350](a11, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   TSegmenter::~TSegmenter(&a28);
   if (LOBYTE(STACK[0x648]) == 1)
   {
@@ -7711,7 +7702,7 @@ void sub_1B56FA308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t TLexicon::findWord(void *a1, __int32 *a2)
+void *TLexicon::findWord(void *a1, __int32 *a2)
 {
   v12 = *MEMORY[0x1E69E9840];
   ++a1[39];
@@ -7770,7 +7761,7 @@ uint64_t TLexicon::findWord(void *a1, __int32 *a2)
 
 void sub_1B56FA664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
 {
-  MEMORY[0x1B8C85350](v51, 0x10F0C4030D8D1E0);
+  MEMORY[0x1B8C85350](v51, 0x10F0C4030D8D1E0, a3, a4, a5, a6, a7, a8);
   if (a51 == 1 && a16 != v52)
   {
     if (a16)
@@ -7865,42 +7856,42 @@ void *TLexicon::collationSearch(void *a1, unsigned int *a2)
 {
   ++a1[39];
   ++a1[57];
-  v23 = v25;
-  v24 = xmmword_1B5AE2110;
-  v26 = 1;
-  TCollation::collate(a1 + 30, a2, &v23);
-  v16 = v23;
-  *&v17 = 0;
-  THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::find((a1 + 15), &v16, &v21);
-  if (!v22)
+  v25 = v27;
+  v26 = xmmword_1B5AE2110;
+  v28 = 1;
+  TCollation::collate(a1 + 30, a2, &v25);
+  v18 = v25;
+  *&v19 = 0;
+  THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::find((a1 + 15), &v18, &v23);
+  if (!v24)
   {
-    memset(v20, 0, sizeof(v20));
+    memset(v22, 0, sizeof(v22));
     if (!wcschr(a2, 92) || !wcscmp(a2, dword_1B5B1DF44))
     {
       if (a1[12] == a1[13])
       {
-        TLexicon::collationSearchInternal(a1, a2, v20, 0, 0, 0);
+        TLexicon::collationSearchInternal(a1, a2, v22, 0, 0, 0);
       }
 
       else
       {
-        v17 = xmmword_1B5AE2110;
-        v19 = 1;
-        v15 = 100;
-        v16 = v18;
-        TLexicon::collationSearchRec(a1, a2, v20, &v16, &v15);
-        if (!v15)
+        v19 = xmmword_1B5AE2110;
+        v21 = 1;
+        v17 = 100;
+        v18 = v20;
+        TLexicon::collationSearchRec(a1, a2, v22, &v18, &v17);
+        if (!v17)
         {
           loggableUnicode(a2, &__p);
-          v10 = v14 >= 0 ? &__p : __p;
-          tknPrintf("Warning: '%s' : Ran over 100 voc searches due to mismatched collation tables. Giving up.\n", v10);
-          if (v14 < 0)
+          v12 = v16 >= 0 ? &__p : __p;
+          tknPrintf("Warning: '%s' : Ran over 100 voc searches due to mismatched collation tables. Giving up.\n", v10, v11, v12);
+          if (v16 < 0)
           {
             operator delete(__p);
           }
         }
 
-        if (v19 == 1 && v16 != v18 && v16)
+        if (v21 == 1 && v18 != v20 && v18)
         {
           MEMORY[0x1B8C85310]();
         }
@@ -7910,7 +7901,7 @@ void *TLexicon::collationSearch(void *a1, unsigned int *a2)
     operator new[]();
   }
 
-  v4 = *(v22 + 16);
+  v4 = *(v24 + 16);
   v5 = a1[39];
   *v4 = v5;
   v6 = v4[1];
@@ -7929,7 +7920,7 @@ void *TLexicon::collationSearch(void *a1, unsigned int *a2)
   }
 
   ++a1[60];
-  if (v26 == 1 && v23 != v25 && v23 != 0)
+  if (v28 == 1 && v25 != v27 && v25 != 0)
   {
     MEMORY[0x1B8C85310]();
   }
@@ -8109,13 +8100,13 @@ void sub_1B56FAFC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void TLexicon::findHeadClonesCollatedPrefix(void *a1, char *a2, TSegmenter *this, int *a4, size_t a5, size_t a6, uint64_t a7)
 {
   v10 = a2;
-  v37 = 0;
-  *v47 = v49;
-  v48 = xmmword_1B5AE2110;
-  v50 = 1;
-  v43 = v45;
-  v44 = xmmword_1B5AE2110;
-  v46 = 1;
+  v39 = 0;
+  *v49 = v51;
+  v50 = xmmword_1B5AE2110;
+  v52 = 1;
+  v45 = v47;
+  v46 = xmmword_1B5AE2110;
+  v48 = 1;
   while (1)
   {
     Segment = TSegmenter::getSegment(this, v10);
@@ -8139,37 +8130,37 @@ void TLexicon::findHeadClonesCollatedPrefix(void *a1, char *a2, TSegmenter *this
         ;
       }
 
-      TBuffer<wchar_t>::insert(v47, *(&v48 + 1), v16, v15 - 1);
+      TBuffer<wchar_t>::insert(v49, *(&v50 + 1), v16, v15 - 1);
 LABEL_8:
-      if (*(&v48 + 1) > 0xFFuLL)
+      if (*(&v50 + 1) > 0xFFuLL)
       {
         break;
       }
 
-      if (*(&v48 + 1) >= v48)
+      if (*(&v50 + 1) >= v50)
       {
-        if (v50)
+        if (v52)
         {
           LODWORD(__p) = 0;
-          TBuffer<wchar_t>::insert(v47, *(&v48 + 1), &__p, 1uLL);
-          v18 = *v47;
-          --*(&v48 + 1);
+          TBuffer<wchar_t>::insert(v49, *(&v50 + 1), &__p, 1uLL);
+          v18 = *v49;
+          --*(&v50 + 1);
         }
 
         else
         {
-          v18 = *v47;
-          if (v48)
+          v18 = *v49;
+          if (v50)
           {
-            *(*v47 + 4 * v48 - 4) = 0;
+            *(*v49 + 4 * v50 - 4) = 0;
           }
         }
       }
 
       else
       {
-        v18 = *v47;
-        *(*v47 + 4 * *(&v48 + 1)) = 0;
+        v18 = *v49;
+        *(*v49 + 4 * *(&v50 + 1)) = 0;
       }
 
       v21 = TLexicon::collationSearch(a1, v18);
@@ -8178,7 +8169,7 @@ LABEL_8:
         goto LABEL_72;
       }
 
-      v22 = *(*v47 + 4 * *(&v48 + 1) - 4);
+      v22 = *(*v49 + 4 * *(&v50 + 1) - 4);
       {
         operator new();
       }
@@ -8199,13 +8190,13 @@ LABEL_8:
 LABEL_35:
           loggableUnicode(**v21[2], &__p);
           p_p = &__p;
-          if (v41 < 0)
+          if (v43 < 0)
           {
             p_p = __p;
           }
 
-          tknPrintf("Warning: '%s' : found a match that ends with a space. Ignored.\n", p_p);
-          if (SHIBYTE(v41) < 0)
+          tknPrintf("Warning: '%s' : found a match that ends with a space. Ignored.\n", v24, v25, p_p);
+          if (SHIBYTE(v43) < 0)
           {
             operator delete(__p);
           }
@@ -8216,80 +8207,80 @@ LABEL_35:
 
       if (v21[1])
       {
-        v28 = v21[2];
+        v30 = v21[2];
         do
         {
-          v29 = *v28;
-          v30 = TLexicon::applyMask((*v28)[1], (*v28)[2], a4, *v28 + 4);
-          if (!v30)
+          v31 = *v30;
+          v32 = TLexicon::applyMask((*v30)[1], (*v30)[2], a4, *v30 + 4);
+          if (!v32)
           {
-            TLexicon::getWrittenForm(v30, *v29, &v43);
-            if (*(&v48 + 1) >= v48)
+            TLexicon::getWrittenForm(v32, *v31, &v45);
+            if (*(&v50 + 1) >= v50)
             {
-              if (v50)
+              if (v52)
               {
                 LODWORD(__p) = 0;
-                TBuffer<wchar_t>::insert(v47, *(&v48 + 1), &__p, 1uLL);
-                v31 = *v47;
-                --*(&v48 + 1);
+                TBuffer<wchar_t>::insert(v49, *(&v50 + 1), &__p, 1uLL);
+                v33 = *v49;
+                --*(&v50 + 1);
               }
 
               else
               {
-                v31 = *v47;
-                if (v48)
+                v33 = *v49;
+                if (v50)
                 {
-                  *(*v47 + 4 * v48 - 4) = 0;
+                  *(*v49 + 4 * v50 - 4) = 0;
                 }
               }
             }
 
             else
             {
-              v31 = *v47;
-              *(*v47 + 4 * *(&v48 + 1)) = 0;
+              v33 = *v49;
+              *(*v49 + 4 * *(&v50 + 1)) = 0;
             }
 
-            if (*(&v44 + 1) >= v44)
+            if (*(&v46 + 1) >= v46)
             {
-              if (v46)
+              if (v48)
               {
                 LODWORD(__p) = 0;
-                TBuffer<wchar_t>::insert(&v43, *(&v44 + 1), &__p, 1uLL);
-                v32 = v43;
-                --*(&v44 + 1);
+                TBuffer<wchar_t>::insert(&v45, *(&v46 + 1), &__p, 1uLL);
+                v34 = v45;
+                --*(&v46 + 1);
               }
 
               else
               {
-                v32 = v43;
-                if (v44)
+                v34 = v45;
+                if (v46)
                 {
-                  v43[v44 - 1] = 0;
+                  v45[v46 - 1] = 0;
                 }
               }
             }
 
             else
             {
-              v32 = v43;
-              v43[*(&v44 + 1)] = 0;
+              v34 = v45;
+              v45[*(&v46 + 1)] = 0;
             }
 
-            TLexiconScore::TLexiconScore(&__p, v31, v32, a5, a6, (a1 + 28));
-            v33 = __p;
-            v34 = BYTE8(__p);
-            *&__p = v29;
+            TLexiconScore::TLexiconScore(&__p, v33, v34, a5, a6, (a1 + 28));
+            v35 = __p;
+            v36 = BYTE8(__p);
+            *&__p = v31;
             *(&__p + 1) = v10 - a2;
-            v41 = v33;
-            v42 = v34;
+            v43 = v35;
+            v44 = v36;
             std::vector<TLexiconMatch>::push_back[abi:ne200100](a7, &__p);
           }
 
-          ++v28;
+          ++v30;
         }
 
-        while (v28 != (v21[2] + 8 * v21[1]));
+        while (v30 != (v21[2] + 8 * v21[1]));
       }
 
 LABEL_72:
@@ -8301,7 +8292,7 @@ LABEL_72:
 
     else
     {
-      if (!*(&v48 + 1))
+      if (!*(&v50 + 1))
       {
         break;
       }
@@ -8313,7 +8304,7 @@ LABEL_72:
         break;
       }
 
-      if (*(*v47 + 4 * *(&v48 + 1) - 4) == 32)
+      if (*(*v49 + 4 * *(&v50 + 1) - 4) == 32)
       {
         goto LABEL_42;
       }
@@ -8344,37 +8335,37 @@ LABEL_41:
 
       v19 = *v13;
 LABEL_42:
-      v25 = *v19;
+      v27 = *v19;
       {
         operator new();
       }
 
-      if (v25 != 13 && v25 != 10)
+      if (v27 != 13 && v27 != 10)
       {
         goto LABEL_53;
       }
 
-      if (v37)
+      if (v39)
       {
         break;
       }
 
-      v37 = 1;
-      if (*(*v47 + 4 * *(&v48 + 1) - 4) != 45)
+      v39 = 1;
+      if (*(*v49 + 4 * *(&v50 + 1) - 4) != 45)
       {
-        v27 = TSegmenter::getSegment(this, v10);
-        if (!v27 || *(v27 + 24) == 5)
+        v29 = TSegmenter::getSegment(this, v10);
+        if (!v29 || *(v29 + 24) == 5)
         {
           break;
         }
 
-        v37 = 1;
-        if (**v27 != 45)
+        v39 = 1;
+        if (**v29 != 45)
         {
 LABEL_53:
-          if (*(*v47 + 4 * *(&v48 + 1) - 4) != 32)
+          if (*(*v49 + 4 * *(&v50 + 1) - 4) != 32)
           {
-            TBuffer<wchar_t>::insert(v47, *(&v48 + 1), &unk_1B5B1DF3C, 1uLL);
+            TBuffer<wchar_t>::insert(v49, *(&v50 + 1), &unk_1B5B1DF3C, 1uLL);
             goto LABEL_8;
           }
         }
@@ -8382,14 +8373,14 @@ LABEL_53:
     }
   }
 
-  if (v46 == 1 && v43 != v45 && v43 != 0)
+  if (v48 == 1 && v45 != v47 && v45 != 0)
   {
     MEMORY[0x1B8C85310]();
   }
 
-  if (v50 == 1 && *v47 != v49)
+  if (v52 == 1 && *v49 != v51)
   {
-    if (*v47)
+    if (*v49)
     {
       MEMORY[0x1B8C85310]();
     }
@@ -8398,7 +8389,7 @@ LABEL_53:
 
 void sub_1B56FB5E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
-  MEMORY[0x1B8C85350](v20, 0x1070C40ADD13FEBLL);
+  MEMORY[0x1B8C85350](v20, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   if (LOBYTE(STACK[0x470]) == 1 && a20 != a11 && a20 != 0)
   {
     MEMORY[0x1B8C85310]();
@@ -8421,35 +8412,35 @@ void sub_1B56FB5E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t TLexicon::collationSearchInternal(uint64_t a1, unsigned int *a2, void *a3, int *a4, int a5, unint64_t a6)
 {
-  v61 = *MEMORY[0x1E69E9840];
-  v57 = v59;
-  v58 = xmmword_1B5AE2110;
-  v60 = 1;
-  TLocaleInfo::unicodeToMultiByte(a1 + 224, a2, &v57);
-  v54 = 0;
-  v53 = 0;
-  v52 = 0;
-  v51 = 0;
+  v67 = *MEMORY[0x1E69E9840];
+  v63 = v65;
+  v64 = xmmword_1B5AE2110;
+  v66 = 1;
+  TLocaleInfo::unicodeToMultiByte(a1 + 224, a2, &v63);
+  v60 = 0;
+  v59 = 0;
+  v58 = 0;
+  v57 = 0;
   v10 = *(a1 + 88);
   v11 = *(a1 + 80);
-  if (*(&v58 + 1) >= v58)
+  if (*(&v64 + 1) >= v64)
   {
-    if (v60)
+    if (v66)
     {
-      LOBYTE(v47) = 0;
-      TBuffer<char>::insert(&v57, *(&v58 + 1), &v47, 1uLL);
-      --*(&v58 + 1);
+      LOBYTE(v53) = 0;
+      TBuffer<char>::insert(&v63, *(&v64 + 1), &v53, 1uLL);
+      --*(&v64 + 1);
     }
 
-    else if (v58)
+    else if (v64)
     {
-      v57[v58 - 1] = 0;
+      v63[v64 - 1] = 0;
     }
   }
 
   else
   {
-    v57[*(&v58 + 1)] = 0;
+    v63[*(&v64 + 1)] = 0;
   }
 
   if (a5)
@@ -8459,34 +8450,34 @@ uint64_t TLexicon::collationSearchInternal(uint64_t a1, unsigned int *a2, void *
 
   else
   {
-    v12 = "\";
+    v12 = "\"";
   }
 
-  SDVoc_GetWords(v10, v11, v57, v12, *(a1 + 432), *(a1 + 416), &v54, &v52, &v53, callBackMRECArrayReallocator, 0, &v51);
-  v47 = v49;
-  v48 = xmmword_1B5AE2110;
-  v50 = 1;
-  if (v54)
+  SDVoc_GetWords(v10, v11, v63, v12, *(a1 + 432), *(a1 + 416), &v60, &v58, &v59, callBackMRECArrayReallocator, 0, &v57);
+  v53 = v55;
+  v54 = xmmword_1B5AE2110;
+  v56 = 1;
+  if (v60)
   {
     v13 = 0;
     v14 = 0;
-    v37 = 0;
+    v43 = 0;
     do
     {
       ++*(a1 + 496);
-      v15 = *(v52 + 8 * v14);
+      v15 = *(v58 + 8 * v14);
       v16 = TStringParam::get((*(a1 + 320) + 488));
       if (!TLexicon::applyMask(a1, v15, v16, 0) && (!a4 || !TLexicon::applyMask(a1, v15, a4, 0)))
       {
-        if (SDWord_GetName(*(a1 + 88), v15, v56, 0x100uLL) < 0x101)
+        if (SDWord_GetName(*(a1 + 88), v15, v62, 0x100uLL) < 0x101)
         {
-          __p = v45;
-          v44 = xmmword_1B5AE2110;
-          v46 = 1;
-          v17 = TLocaleInfo::multiByteToUnicode(a1 + 224, v56, &__p);
-          if (v17)
+          __p = v51;
+          v50 = xmmword_1B5AE2110;
+          v52 = 1;
+          v19 = TLocaleInfo::multiByteToUnicode(a1 + 224, v62, &__p);
+          if (v19)
           {
-            tknPrintf("Warning: '%s' : Can't convert to Unicode. Ignored.\n", v56);
+            tknPrintf("Warning: '%s' : Can't convert to Unicode. Ignored.\n", v20, v21, v62);
           }
 
           else
@@ -8496,161 +8487,161 @@ uint64_t TLexicon::collationSearchInternal(uint64_t a1, unsigned int *a2, void *
               goto LABEL_97;
             }
 
-            v39 = v41;
-            v40 = xmmword_1B5AE2110;
-            v42 = 1;
-            if (*(&v44 + 1) >= v44)
+            v45 = v47;
+            v46 = xmmword_1B5AE2110;
+            v48 = 1;
+            if (*(&v50 + 1) >= v50)
             {
-              if (v46)
+              if (v52)
               {
-                LODWORD(v55[0]) = 0;
-                v17 = TBuffer<wchar_t>::insert(&__p, *(&v44 + 1), v55, 1uLL);
-                v18 = __p;
-                --*(&v44 + 1);
+                LODWORD(v61[0]) = 0;
+                v19 = TBuffer<wchar_t>::insert(&__p, *(&v50 + 1), v61, 1uLL);
+                v22 = __p;
+                --*(&v50 + 1);
               }
 
               else
               {
-                v18 = __p;
-                if (v44)
+                v22 = __p;
+                if (v50)
                 {
-                  *(__p + v44 - 1) = 0;
+                  *(__p + v50 - 1) = 0;
                 }
               }
             }
 
             else
             {
-              v18 = __p;
-              *(__p + *(&v44 + 1)) = 0;
+              v22 = __p;
+              *(__p + *(&v50 + 1)) = 0;
             }
 
-            TLexicon::getWrittenForm(v17, v18, &v39);
-            v19 = *(&v40 + 1);
-            if (v42 == 1 && v39 != v41 && v39)
+            TLexicon::getWrittenForm(v19, v22, &v45);
+            v23 = *(&v46 + 1);
+            if (v48 == 1 && v45 != v47 && v45)
             {
               MEMORY[0x1B8C85310]();
             }
 
-            if (v19 <= a6)
+            if (v23 <= a6)
             {
 LABEL_97:
-              v20 = *(&v48 + 1);
-              if (!*(&v48 + 1))
+              v24 = *(&v54 + 1);
+              if (!*(&v54 + 1))
               {
-                TCollation::collate((a1 + 240), a2, &v47);
-                v20 = *(&v48 + 1);
+                TCollation::collate((a1 + 240), a2, &v53);
+                v24 = *(&v54 + 1);
               }
 
-              if (v20 >= v48)
+              if (v24 >= v54)
               {
-                if (v50)
+                if (v56)
                 {
-                  LODWORD(v39) = 0;
-                  TBuffer<wchar_t>::insert(&v47, v20, &v39, 1uLL);
-                  v21 = v47;
-                  --*(&v48 + 1);
+                  LODWORD(v45) = 0;
+                  TBuffer<wchar_t>::insert(&v53, v24, &v45, 1uLL);
+                  v25 = v53;
+                  --*(&v54 + 1);
                 }
 
                 else
                 {
-                  v21 = v47;
-                  if (v48)
+                  v25 = v53;
+                  if (v54)
                   {
-                    v47[v48 - 1] = 0;
+                    v53[v54 - 1] = 0;
                   }
                 }
               }
 
               else
               {
-                v21 = v47;
-                v47[v20] = 0;
+                v25 = v53;
+                v53[v24] = 0;
               }
 
-              if (*(&v44 + 1) >= v44)
+              if (*(&v50 + 1) >= v50)
               {
-                if (v46)
+                if (v52)
                 {
-                  LODWORD(v39) = 0;
-                  TBuffer<wchar_t>::insert(&__p, *(&v44 + 1), &v39, 1uLL);
-                  v22 = __p;
-                  --*(&v44 + 1);
+                  LODWORD(v45) = 0;
+                  TBuffer<wchar_t>::insert(&__p, *(&v50 + 1), &v45, 1uLL);
+                  v26 = __p;
+                  --*(&v50 + 1);
                 }
 
                 else
                 {
-                  v22 = __p;
-                  if (v44)
+                  v26 = __p;
+                  if (v50)
                   {
-                    *(__p + v44 - 1) = 0;
+                    *(__p + v50 - 1) = 0;
                   }
                 }
               }
 
               else
               {
-                v22 = __p;
-                *(__p + *(&v44 + 1)) = 0;
+                v26 = __p;
+                *(__p + *(&v50 + 1)) = 0;
               }
 
-              if (!TCollation::collprefixcmp((a1 + 240), v21, v22))
+              if (!TCollation::collprefixcmp((a1 + 240), v25, v26))
               {
-                if (*(&v44 + 1) >= v44)
+                if (*(&v50 + 1) >= v50)
                 {
-                  if (v46)
+                  if (v52)
                   {
-                    LODWORD(v39) = 0;
-                    TBuffer<wchar_t>::insert(&__p, *(&v44 + 1), &v39, 1uLL);
-                    v23 = __p;
-                    --*(&v44 + 1);
+                    LODWORD(v45) = 0;
+                    TBuffer<wchar_t>::insert(&__p, *(&v50 + 1), &v45, 1uLL);
+                    v27 = __p;
+                    --*(&v50 + 1);
                   }
 
                   else
                   {
-                    v23 = __p;
-                    if (v44)
+                    v27 = __p;
+                    if (v50)
                     {
-                      *(__p + v44 - 1) = 0;
+                      *(__p + v50 - 1) = 0;
                     }
                   }
                 }
 
                 else
                 {
-                  v23 = __p;
-                  *(__p + *(&v44 + 1)) = 0;
+                  v27 = __p;
+                  *(__p + *(&v50 + 1)) = 0;
                 }
 
-                v55[0] = v23;
-                v55[1] = 0;
-                THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::find(a1 + 184, v55, &v39);
-                if (!*(&v40 + 1))
+                v61[0] = v27;
+                v61[1] = 0;
+                THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::find(a1 + 184, v61, &v45);
+                if (!*(&v46 + 1))
                 {
-                  v38 = 0;
+                  v44 = 0;
 LABEL_56:
                   operator new[]();
                 }
 
-                v24 = *(*(&v40 + 1) + 16);
-                v38 = v24;
-                if (!v24)
+                v28 = *(*(&v46 + 1) + 16);
+                v44 = v28;
+                if (!v28)
                 {
                   goto LABEL_56;
                 }
 
-                if ((*(v24 + 32) & 2) != 0 || TLexicon::findHeadClone(*(v24 + 8), *v24) == v24)
+                if ((*(v28 + 32) & 2) != 0 || TLexicon::findHeadClone(*(v28 + 8), *v28) == v28)
                 {
-                  std::vector<TVertex *>::push_back[abi:ne200100](a3, &v38);
+                  std::vector<TVertex *>::push_back[abi:ne200100](a3, &v44);
                   ++v13;
                 }
 
-                ++v37;
+                ++v43;
               }
             }
           }
 
-          if (v46 == 1 && __p != v45 && __p)
+          if (v52 == 1 && __p != v51 && __p)
           {
             MEMORY[0x1B8C85310]();
           }
@@ -8658,26 +8649,26 @@ LABEL_56:
 
         else
         {
-          tknPrintf("Warning: The voc contains a >= %llu-byte word name, prefix is '%s'. Ignored.\n", 256, v56);
+          tknPrintf("Warning: The voc contains a >= %llu-byte word name, prefix is '%s'. Ignored.\n", v17, v18, 256, v62);
         }
       }
 
       ++v14;
     }
 
-    while (v14 < v54);
+    while (v14 < v60);
   }
 
   else
   {
     v13 = 0;
-    v37 = 0;
+    v43 = 0;
   }
 
-  if (v52 != *(a1 + 432))
+  if (v58 != *(a1 + 432))
   {
     loggableUnicode(a2, &__p);
-    if (v44 >= 0)
+    if (v50 >= 0)
     {
       p_p = &__p;
     }
@@ -8687,55 +8678,55 @@ LABEL_56:
       p_p = __p;
     }
 
-    tknPrintf("Warning: '%s' : Inefficient voc search. Required dynamic allocation of size %llu\n", p_p, v53);
-    if (SHIBYTE(v44) < 0)
+    tknPrintf("Warning: '%s' : Inefficient voc search. Required dynamic allocation of size %llu\n", v29, v30, p_p, v59);
+    if (SHIBYTE(v50) < 0)
     {
       operator delete(__p);
     }
 
-    v26 = *(a1 + 432);
-    if (v26)
+    v32 = *(a1 + 432);
+    if (v32)
     {
-      MEMORY[0x1B8C85310](v26, 0x80C80B8603338);
+      MEMORY[0x1B8C85310](v32, 0x80C80B8603338);
     }
 
-    *(a1 + 432) = v52;
-    *(a1 + 416) = v53;
+    *(a1 + 432) = v58;
+    *(a1 + 416) = v59;
   }
 
-  if (v37 == v13)
+  if (v43 == v13)
   {
-    v27 = (a3[1] - *a3) >> 3;
-    if (v27 - v13 < v27)
+    v33 = (a3[1] - *a3) >> 3;
+    if (v33 - v13 < v33)
     {
-      v28 = -v13;
-      v29 = *a3 + 8 * v27;
+      v34 = -v13;
+      v35 = *a3 + 8 * v33;
       do
       {
-        *(*(v29 + 8 * v28) + 32) |= 1uLL;
+        *(*(v35 + 8 * v34) + 32) |= 1uLL;
       }
 
-      while (!__CFADD__(v28++, 1));
+      while (!__CFADD__(v34++, 1));
     }
   }
 
-  v31 = v51;
-  if (v50 == 1 && v47 != v49 && v47 != 0)
+  v37 = v57;
+  if (v56 == 1 && v53 != v55 && v53 != 0)
   {
     MEMORY[0x1B8C85310]();
   }
 
-  if (v60 == 1 && v57 != v59 && v57 != 0)
+  if (v66 == 1 && v63 != v65 && v63 != 0)
   {
     MEMORY[0x1B8C85310]();
   }
 
-  return v31;
+  return v37;
 }
 
 void sub_1B56FBE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
-  MEMORY[0x1B8C85350](v15, 0x10F0C4030D8D1E0);
+  MEMORY[0x1B8C85350](v15, 0x10F0C4030D8D1E0, a3, a4, a5, a6, a7, a8);
   if (LOBYTE(STACK[0x8A8]) == 1)
   {
     v17 = STACK[0x490];
@@ -8891,68 +8882,68 @@ LABEL_15:
   return v25 & 1;
 }
 
-uint64_t THashBase<std::pair<wchar_t * const,TWordBlock *>,THashMapCompare<std::pair<wchar_t * const,TWordBlock *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t * const,TWordBlock *>,THash<wchar_t const*>>>::insert@<X0>(uint64_t a1@<X0>, const __int32 **a2@<X1>, uint64_t a3@<X8>)
+uint64_t THashBase<std::pair<wchar_t * const,TWordBlock *>,THashMapCompare<std::pair<wchar_t * const,TWordBlock *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t * const,TWordBlock *>,THash<wchar_t const*>>>::insert@<X0>(uint64_t a1@<X0>, const __int32 **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v5 = *(a1 + 24);
-  if (v5 == *(a1 + 16))
+  v6 = *(a1 + 24);
+  if (v6 == *(a1 + 16))
   {
-    if (v5)
+    if (v6)
     {
       if (*(a1 + 34) == 1)
       {
-        tknPrintf("Warning: hashtable resizing, size was %llu\n", *(a1 + 24));
-        v5 = *(a1 + 16);
+        tknPrintf("Warning: hashtable resizing, size was %llu\n", a2, a3, *(a1 + 24));
+        v6 = *(a1 + 16);
       }
 
-      v6 = 2 * v5;
+      v7 = 2 * v6;
     }
 
     else
     {
-      v6 = 10781;
+      v7 = 10781;
     }
 
-    THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::resize(a1, v6);
+    THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::resize(a1, v7);
   }
 
-  v7 = *a2;
-  v8 = wcslen(*a2);
-  v9 = 0;
-  v10 = 4 * v8;
-  if (4 * v8)
+  v8 = *a2;
+  v9 = wcslen(*a2);
+  v10 = 0;
+  v11 = 4 * v9;
+  if (4 * v9)
   {
-    v11 = v7;
+    v12 = v8;
     do
     {
-      v12 = *v11;
-      v11 = (v11 + 1);
-      v9 = 33 * v9 + v12;
-      --v10;
+      v13 = *v12;
+      v12 = (v12 + 1);
+      v10 = 33 * v10 + v13;
+      --v11;
     }
 
-    while (v10);
+    while (v11);
   }
 
-  v14 = *(a1 + 8);
-  v13 = *(a1 + 16);
-  v15 = (v14 + 8 * (v9 % v13));
-  v16 = v15;
+  v15 = *(a1 + 8);
+  v14 = *(a1 + 16);
+  v16 = (v15 + 8 * (v10 % v14));
+  v17 = v16;
   do
   {
-    v16 = *v16;
-    if (!v16)
+    v17 = *v17;
+    if (!v17)
     {
       operator new();
     }
 
-    result = wcscmp(v16[1], v7);
+    result = wcscmp(v17[1], v8);
   }
 
   while (result);
-  *a3 = v15;
-  *(a3 + 8) = v14 + 8 * v13;
-  *(a3 + 16) = v16;
-  *(a3 + 24) = 0;
+  *a4 = v16;
+  *(a4 + 8) = v15 + 8 * v14;
+  *(a4 + 16) = v17;
+  *(a4 + 24) = 0;
   return result;
 }
 
@@ -9444,7 +9435,7 @@ void sub_1B56FCAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-__int32 *getSecondField(__int32 *a1, uint64_t a2)
+const void **getSecondField(__int32 *a1, const void **a2)
 {
   TBuffer<wchar_t>::resize(a2, 0);
   if (*a1 != 92)
@@ -9489,7 +9480,7 @@ LABEL_7:
   }
 }
 
-__int32 *getThirdField(__int32 *a1, uint64_t a2)
+__int32 *getThirdField(__int32 *a1, const void **a2)
 {
   TBuffer<wchar_t>::resize(a2, 0);
   if (*a1 != 92)
@@ -9667,7 +9658,7 @@ LABEL_8:
     v10 = v18;
     if ((v9 & 1) == 0)
     {
-      *&v18[4 * v7] = *(s_pszUnaccentedVowels + v8 - s_pszAccentedVowels);
+      v18[v7] = *(s_pszUnaccentedVowels + v8 - s_pszAccentedVowels);
     }
 
     v11 = *(&v19 + 1);
@@ -9744,4 +9735,17 @@ LABEL_8:
   }
 
   return v5;
+}
+
+void sub_1B56FD028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (LOBYTE(STACK[0x420]) == 1 && a10 != v10)
+  {
+    if (a10)
+    {
+      MEMORY[0x1B8C85310]();
+    }
+  }
+
+  _Unwind_Resume(a1);
 }

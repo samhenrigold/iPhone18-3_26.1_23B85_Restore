@@ -8,7 +8,7 @@
 
 - (id)initWithDatabase:(void *)database delegate:(void *)delegate recordZoneID:
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v8 = a2;
   databaseCopy = database;
   delegateCopy = delegate;
@@ -19,15 +19,15 @@
 
   if (!v8 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "database != nil"];
+    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "database != nil"];
     *buf = 136315906;
-    v18 = "[FCCKRecordZone initWithDatabase:delegate:recordZoneID:]";
-    v19 = 2080;
-    v20 = "FCCKRecordZone.m";
-    v21 = 1024;
-    v22 = 42;
-    v23 = 2114;
-    v24 = v14;
+    v17 = "[FCCKRecordZone initWithDatabase:delegate:recordZoneID:]";
+    v18 = 2080;
+    v19 = "FCCKRecordZone.m";
+    v20 = 1024;
+    v21 = 42;
+    v22 = 2114;
+    v23 = v13;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (!delegateCopy)
@@ -35,15 +35,15 @@
 LABEL_5:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "recordZoneID != nil"];
+        v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "recordZoneID != nil"];
         *buf = 136315906;
-        v18 = "[FCCKRecordZone initWithDatabase:delegate:recordZoneID:]";
-        v19 = 2080;
-        v20 = "FCCKRecordZone.m";
-        v21 = 1024;
-        v22 = 43;
-        v23 = 2114;
-        v24 = v15;
+        v17 = "[FCCKRecordZone initWithDatabase:delegate:recordZoneID:]";
+        v18 = 2080;
+        v19 = "FCCKRecordZone.m";
+        v20 = 1024;
+        v21 = 43;
+        v22 = 2114;
+        v23 = v14;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
     }
@@ -54,9 +54,9 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v16.receiver = self;
-  v16.super_class = FCCKRecordZone;
-  v11 = objc_msgSendSuper2(&v16, sel_init);
+  v15.receiver = self;
+  v15.super_class = FCCKRecordZone;
+  v11 = objc_msgSendSuper2(&v15, sel_init);
   self = v11;
   if (v11)
   {
@@ -76,7 +76,6 @@ LABEL_5:
 
 LABEL_12:
 
-  v12 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -115,7 +114,7 @@ uint64_t __46__FCCKRecordZone_performActionWithRecordZone___block_invoke(uint64_
 
 - (void)fetchChangesWithChangeToken:(void *)token desiredKeys:(char)keys fetchAllChanges:(uint64_t)changes qualityOfService:(void *)service completion:
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v11 = a2;
   tokenCopy = token;
   serviceCopy = service;
@@ -124,21 +123,21 @@ uint64_t __46__FCCKRecordZone_performActionWithRecordZone___block_invoke(uint64_
   {
     if (serviceCopy)
     {
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v22 = __102__FCCKRecordZone_fetchChangesWithChangeToken_desiredKeys_fetchAllChanges_qualityOfService_completion___block_invoke;
-      v23 = &unk_1E7C387A0;
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v21 = __102__FCCKRecordZone_fetchChangesWithChangeToken_desiredKeys_fetchAllChanges_qualityOfService_completion___block_invoke;
+      v22 = &unk_1E7C387A0;
       selfCopy = self;
-      v25 = v11;
+      v24 = v11;
       keysCopy = keys;
-      v26 = tokenCopy;
+      v25 = tokenCopy;
       changesCopy = changes;
-      v27 = v14;
-      v15 = v21;
+      v26 = v14;
+      v15 = v20;
       v16 = v15;
       if (*(self + 8))
       {
-        (v22)(v15, *(self + 16), 0);
+        (v21)(v15, *(self + 16), 0);
       }
 
       else
@@ -148,9 +147,9 @@ uint64_t __46__FCCKRecordZone_performActionWithRecordZone___block_invoke(uint64_
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __46__FCCKRecordZone_performActionWithRecordZone___block_invoke;
-        *&v31 = &unk_1E7C38750;
-        *(&v31 + 1) = self;
-        v32 = v16;
+        *&v30 = &unk_1E7C38750;
+        *(&v30 + 1) = self;
+        v31 = v16;
         [WeakRetained ensureRecordZoneExistsWithID:v19 completionHandler:buf];
       }
     }
@@ -163,14 +162,12 @@ uint64_t __46__FCCKRecordZone_performActionWithRecordZone___block_invoke(uint64_
       *&buf[12] = 2080;
       *&buf[14] = "FCCKRecordZone.m";
       *&buf[22] = 1024;
-      LODWORD(v31) = 96;
-      WORD2(v31) = 2114;
-      *(&v31 + 6) = v17;
+      LODWORD(v30) = 96;
+      WORD2(v30) = 2114;
+      *(&v30 + 6) = v17;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __102__FCCKRecordZone_fetchChangesWithChangeToken_desiredKeys_fetchAllChanges_qualityOfService_completion___block_invoke(uint64_t a1, uint64_t a2)

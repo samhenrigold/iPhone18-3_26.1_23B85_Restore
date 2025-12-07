@@ -21,45 +21,45 @@
 - (NTKUnity2025Quad)initWithDevice:(id)device
 {
   deviceCopy = device;
-  v20.receiver = self;
-  v20.super_class = NTKUnity2025Quad;
-  v6 = [(CLKUIQuad *)&v20 init];
+  v38.receiver = self;
+  v38.super_class = NTKUnity2025Quad;
+  v6 = [(CLKUIQuad *)&v38 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_device, device);
-    mEMORY[0x277CFA798] = [MEMORY[0x277CFA798] sharedDevice];
+    v10 = objc_msgSend_sharedDevice(MEMORY[0x277CFA798], v8, v9);
     mtlDevice = v7->_mtlDevice;
-    v7->_mtlDevice = mEMORY[0x277CFA798];
+    v7->_mtlDevice = v10;
 
-    v10 = v7->_mtlDevice;
-    v11 = sub_23C09DC80();
-    v12 = [(MTLDevice *)v10 newDefaultLibraryWithBundle:v11 error:0];
+    v12 = v7->_mtlDevice;
+    v14 = sub_23C09DC80(v13);
+    v16 = objc_msgSend_newDefaultLibraryWithBundle_error_(v12, v15, v14, 0);
     library = v7->_library;
-    v7->_library = v12;
+    v7->_library = v16;
 
-    [deviceCopy screenScale];
-    v7->_screenScale = v14;
+    v20 = objc_msgSend_screenScale(deviceCopy, v18, v19);
+    v7->_screenScale = v23;
     v7->_currentSettingIdx = 0;
     v7->_smoothedTritiumProgress = 0.0;
     v7->_deviceFPS = 30.0;
     v7->_deltaTime = 0.0333333333;
-    v15 = &xmmword_23C0A0B60;
-    v16 = &xmmword_27E1EE140;
-    v17 = 12;
+    v24 = &xmmword_23C0A0B60;
+    v25 = &xmmword_27E1EE140;
+    v26 = 12;
     do
     {
-      v16[-2] = NTKUnity2025MathLinearizeRGBColor(*(v15 - 3));
-      v16[-1] = NTKUnity2025MathLinearizeRGBColor(*(v15 - 2));
-      *v16 = NTKUnity2025MathLinearizeRGBColor(*(v15 - 1));
-      v18 = *v15;
-      v15 += 8;
-      v16[1] = NTKUnity2025MathLinearizeRGBColor(v18);
-      v16 += 4;
-      --v17;
+      v25[-2] = NTKUnity2025MathLinearizeRGBColor(*(v24 - 3), v20, v21, v22);
+      v25[-1] = NTKUnity2025MathLinearizeRGBColor(*(v24 - 2), v27, v28, v29);
+      *v25 = NTKUnity2025MathLinearizeRGBColor(*(v24 - 1), v30, v31, v32);
+      v33 = *v24;
+      v24 += 8;
+      v25[1] = NTKUnity2025MathLinearizeRGBColor(v33, v34, v35, v36);
+      v25 += 4;
+      --v26;
     }
 
-    while (v17);
+    while (v26);
   }
 
   return v7;
@@ -68,30 +68,30 @@
 - (void)setupForQuadView:(id)view
 {
   viewCopy = view;
-  [viewCopy bounds];
+  objc_msgSend_bounds(viewCopy, v5, v6);
   screenScale = self->_screenScale;
-  self->_renderSize.width = v6 * screenScale;
-  self->_renderSize.height = v7 * screenScale;
-  superview = [viewCopy superview];
-  [superview safeAreaInsets];
-  v10 = v9;
-  superview2 = [viewCopy superview];
-  [superview2 safeAreaInsets];
-  v13 = v10 - v12;
+  self->_renderSize.width = v8 * screenScale;
+  self->_renderSize.height = v9 * screenScale;
+  v12 = objc_msgSend_superview(viewCopy, v10, v11);
+  objc_msgSend_safeAreaInsets(v12, v13, v14);
+  v16 = v15;
+  v19 = objc_msgSend_superview(viewCopy, v17, v18);
+  objc_msgSend_safeAreaInsets(v19, v20, v21);
+  v23 = v16 - v22;
 
-  v14 = -v13;
-  if (v13 >= 0.0)
+  v26 = -v23;
+  if (v23 >= 0.0)
   {
-    v14 = v13;
+    v26 = v23;
   }
 
-  v15 = self->_screenScale * v14;
-  self->_renderSize.height = self->_renderSize.height + v15;
-  colorPixelFormat = [viewCopy colorPixelFormat];
+  v27 = self->_screenScale * v26;
+  self->_renderSize.height = self->_renderSize.height + v27;
+  v28 = objc_msgSend_colorPixelFormat(viewCopy, v24, v25);
 
-  self->_pixelFormat = colorPixelFormat;
+  self->_pixelFormat = v28;
 
-  MEMORY[0x2821F9670](self, sel_initRenderPipeline);
+  MEMORY[0x2821F9670](self, sel_initRenderPipeline, v29);
 }
 
 - (void)renderWithCommandBuffer:(id)buffer passDescriptor:(id)descriptor
@@ -114,19 +114,19 @@
   descriptorCopy = descriptor;
   bufferCopy = buffer;
   *&v12 = editingFraction;
-  [(NTKUnity2025Quad *)self blendBackgroundWithIdx1:v6 idx2:v7 percent:v12];
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  colorAttachments = [descriptorCopy colorAttachments];
-  v20 = [colorAttachments objectAtIndexedSubscript:0];
-  [v20 setClearColor:{v14, v16, v18, 1.0}];
+  objc_msgSend_blendBackgroundWithIdx1_idx2_percent_(self, v13, v6, v7, v12);
+  v15 = v14;
+  v17 = v16;
+  v19 = v18;
+  v22 = objc_msgSend_colorAttachments(descriptorCopy, v20, v21);
+  v24 = objc_msgSend_objectAtIndexedSubscript_(v22, v23, 0);
+  objc_msgSend_setClearColor_(v24, v25, v26, v15, v17, v19, 1.0);
 
-  v21 = [bufferCopy renderCommandEncoderWithDescriptor:descriptorCopy];
+  v32 = objc_msgSend_renderCommandEncoderWithDescriptor_(bufferCopy, v27, descriptorCopy);
 
-  [v21 setDepthStencilState:self->_depthStencilState];
-  [(NTKUnity2025Quad *)self renderForDisplayWithEncoder:v21];
-  [v21 endEncoding];
+  objc_msgSend_setDepthStencilState_(v32, v28, self->_depthStencilState);
+  objc_msgSend_renderForDisplayWithEncoder_(self, v29, v32);
+  objc_msgSend_endEncoding(v32, v30, v31);
 }
 
 - (void)renderForDisplayWithEncoder:(id)encoder
@@ -134,187 +134,189 @@
   encoderCopy = encoder;
   if (self->_editingColors)
   {
-    v64 = 2 * self->_editingIndex2;
-    v65 = 2 * self->_editingIndex1;
+    v123 = 2 * self->_editingIndex2;
+    v124 = 2 * self->_editingIndex1;
     editingFraction = self->_editingFraction;
   }
 
   else
   {
     currentSettingIdx = self->_currentSettingIdx;
-    v64 = (2 * currentSettingIdx) | 1;
-    v65 = 2 * currentSettingIdx;
+    v123 = (2 * currentSettingIdx) | 1;
+    v124 = 2 * currentSettingIdx;
     editingFraction = self->_smoothedTritiumProgress;
   }
 
   overrideDate = self->_overrideDate;
   if (overrideDate)
   {
-    faceDate = overrideDate;
+    v10 = overrideDate;
   }
 
   else
   {
-    faceDate = [MEMORY[0x277D2BFD8] faceDate];
+    v10 = objc_msgSend_faceDate(MEMORY[0x277D2BFD8], v4, v5);
   }
 
-  v9 = faceDate;
-  currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-  v56 = v9;
-  v54 = [currentCalendar components:96 fromDate:v9];
-  hour = [v54 hour];
-  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
-  v11 = CLKLocaleIs24HourMode();
-  v12 = 12;
-  v13 = hour - 12;
-  if (hour <= 12)
+  v13 = v10;
+  v114 = objc_msgSend_currentCalendar(MEMORY[0x277CBEA80], v11, v12);
+  v115 = v13;
+  v113 = objc_msgSend_components_fromDate_(v114, v14, 96, v13);
+  v17 = objc_msgSend_hour(v113, v15, v16);
+  v111 = objc_msgSend_currentLocale(MEMORY[0x277CBEAF8], v18, v19);
+  v20 = CLKLocaleIs24HourMode();
+  v22 = 12;
+  v23 = v17 - 12;
+  if (v17 <= 12)
   {
-    v13 = hour;
+    v23 = v17;
   }
 
-  if (hour)
+  if (v17)
   {
-    v12 = v13;
+    v22 = v23;
   }
 
-  if ((v11 & 1) == 0)
+  if ((v20 & 1) == 0)
   {
-    hour = v12;
+    v17 = v22;
   }
 
-  [(NTKUnity2025Quad *)self ensureMeshLoaded:hour, currentLocale];
-  [encoderCopy setLabel:@"Unity2025 Render Encoder"];
-  v79 = 0uLL;
+  objc_msgSend_ensureMeshLoaded_(self, v21, v17, v111);
+  objc_msgSend_setLabel_(encoderCopy, v24, @"Unity2025 Render Encoder");
+  v138 = 0uLL;
   renderSize = self->_renderSize;
-  v81 = xmmword_23C0A0A80;
-  [encoderCopy setViewport:&v79];
-  [encoderCopy setRenderPipelineState:self->_unity2025PipelineState];
-  [encoderCopy setCullMode:1];
-  [(CLKDevice *)self->_device screenBounds];
-  v15 = v14;
-  [(CLKDevice *)self->_device screenBounds];
-  v17 = v15 / v16;
-  *&v18 = NTKUnity2025MathBuildProjectionMatrix(0.25307, v17);
-  v62 = v19;
-  v63 = v18;
-  v60 = v21;
-  v61 = v20;
-  v66 = &self->_hourStructs[hour];
-  if (v66->numDigits >= 1)
+  v140 = xmmword_23C0A0A80;
+  objc_msgSend_setViewport_(encoderCopy, v25, &v138);
+  objc_msgSend_setRenderPipelineState_(encoderCopy, v26, self->_unity2025PipelineState);
+  objc_msgSend_setCullMode_(encoderCopy, v27, 1);
+  objc_msgSend_screenBounds(self->_device, v28, v29);
+  v31 = v30;
+  objc_msgSend_screenBounds(self->_device, v32, v33);
+  v35 = v31 / v34;
+  *&v37 = NTKUnity2025MathBuildProjectionMatrix(0.25307, v35);
+  v121 = v38;
+  v122 = v37;
+  v119 = v40;
+  v120 = v39;
+  v125 = &self->_hourStructs[v17];
+  if (v125->numDigits >= 1)
   {
-    v22 = 0;
-    v23 = &unk_23C0A1120 + 20 * hour;
-    v24 = *(v23 + 4);
-    v58 = v23;
-    v57 = v23 + 8;
-    v25 = xmmword_23C0A0A90;
-    v26 = xmmword_23C0A0AA0;
-    v27 = xmmword_23C0A0AD0;
-    v28 = xmmword_23C0A0AE0;
+    v41 = 0;
+    v42 = &unk_23C0A1120 + 20 * v17;
+    v43 = *(v42 + 4);
+    v117 = v42;
+    v116 = v42 + 8;
+    v44 = xmmword_23C0A0A90;
+    v45 = xmmword_23C0A0AA0;
+    v46 = xmmword_23C0A0AD0;
+    v47 = xmmword_23C0A0AE0;
     selfCopy = self;
     do
     {
-      v29 = 0;
-      v87 = 0;
-      v88 = 0;
-      *&v30 = self->_smoothedTritiumProgress;
-      v87 = __PAIR64__(v24, v30);
-      v83 = v63;
-      v84 = v62;
-      v85 = v61;
-      v86 = v60;
-      v89[0] = v25;
-      v89[1] = v26;
-      v89[2] = xmmword_23C0A0AB0;
-      v89[3] = xmmword_23C0A0AC0;
-      v73 = 0u;
-      v74 = 0;
-      v75 = 0u;
-      v76 = 0u;
+      v48 = 0;
+      v146 = 0;
+      v147 = 0;
+      *&v49 = self->_smoothedTritiumProgress;
+      v146 = __PAIR64__(v43, v49);
+      v142 = v122;
+      v143 = v121;
+      v144 = v120;
+      v145 = v119;
+      v148[0] = v44;
+      v148[1] = v45;
+      v148[2] = xmmword_23C0A0AB0;
+      v148[3] = xmmword_23C0A0AC0;
+      v132 = 0u;
+      v133 = 0;
+      v134 = 0u;
+      v135 = 0u;
       do
       {
-        *(&v73 + v29 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v25, COERCE_FLOAT(v89[v29])), v26, *&v89[v29], 1), v27, v89[v29], 2), v28, v89[v29], 3);
-        ++v29;
+        *(&v132 + v48 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v44, COERCE_FLOAT(v148[v48])), v45, *&v148[v48], 1), v46, v148[v48], 2), v47, v148[v48], 3);
+        ++v48;
       }
 
-      while (v29 != 4);
-      v79 = v73;
-      renderSize = v74;
-      v81 = v75;
-      v82 = v76;
-      v68 = [(MTLDevice *)self->_mtlDevice newBufferWithBytes:&v79 length:144 options:1];
-      [encoderCopy setVertexBuffer:? offset:? atIndex:?];
-      v77 = 0u;
-      v78 = 0u;
-      v75 = 0u;
-      v76 = 0u;
-      v73 = 0u;
-      v74 = 0;
-      v32 = *&v57[4 * v22];
-      DWORD1(v78) = *&v58[4 * v22];
-      *&v31 = DWORD1(v78);
-      DWORD2(v78) = v32;
-      *&v31 = editingFraction;
-      [(NTKUnity2025Quad *)self blendToFragmentUniformsWithIdx1:v65 idx2:v64 percent:&v73 uniforms:v31];
-      v67 = [(MTLDevice *)self->_mtlDevice newBufferWithBytes:&v73 length:96 options:1];
-      [encoderCopy setFragmentBuffer:? offset:? atIndex:?];
-      v33 = 0;
-      v69 = v22;
-      v70 = &v66->digits[v22];
+      while (v48 != 4);
+      v138 = v132;
+      renderSize = v133;
+      v140 = v134;
+      v141 = v135;
+      v127 = objc_msgSend_newBufferWithBytes_length_options_(self->_mtlDevice, v36, &v138, 144, 1);
+      objc_msgSend_setVertexBuffer_offset_atIndex_(encoderCopy, v50, v127, 0, 1);
+      v136 = 0u;
+      v137 = 0u;
+      v134 = 0u;
+      v135 = 0u;
+      v132 = 0u;
+      v133 = 0;
+      v52 = *&v116[4 * v41];
+      DWORD1(v137) = *&v117[4 * v41];
+      *&v51 = DWORD1(v137);
+      DWORD2(v137) = v52;
+      *&v51 = editingFraction;
+      objc_msgSend_blendToFragmentUniformsWithIdx1_idx2_percent_uniforms_(self, v53, v124, v123, &v132, v51);
+      v126 = objc_msgSend_newBufferWithBytes_length_options_(self->_mtlDevice, v54, &v132, 96, 1);
+      objc_msgSend_setFragmentBuffer_offset_atIndex_(encoderCopy, v55, v126, 0, 0);
+      v56 = 0;
+      v128 = v41;
+      v129 = &v125->digits[v41];
       do
       {
-        v72 = v33;
-        v34 = *(v70 + 8 * v33);
-        vertexBuffers = [v34 vertexBuffers];
-        v36 = [vertexBuffers objectAtIndexedSubscript:0];
+        v131 = v56;
+        v57 = *(v129 + 8 * v56);
+        v60 = objc_msgSend_vertexBuffers(v57, v58, v59);
+        v62 = objc_msgSend_objectAtIndexedSubscript_(v60, v61, 0);
 
-        buffer = [v36 buffer];
-        v71 = v36;
-        [encoderCopy setVertexBuffer:buffer offset:objc_msgSend(v36 atIndex:{"offset"), 0}];
+        v65 = objc_msgSend_buffer(v62, v63, v64);
+        v130 = v62;
+        v68 = objc_msgSend_offset(v62, v66, v67);
+        objc_msgSend_setVertexBuffer_offset_atIndex_(encoderCopy, v69, v65, v68, 0);
 
-        submeshes = [v34 submeshes];
-        v39 = [submeshes count];
+        v72 = objc_msgSend_submeshes(v57, v70, v71);
+        v75 = objc_msgSend_count(v72, v73, v74);
 
-        v40 = encoderCopy;
-        if (v39)
+        v78 = encoderCopy;
+        if (v75)
         {
-          v41 = 0;
+          v79 = 0;
           do
           {
-            submeshes2 = [v34 submeshes];
-            v43 = [submeshes2 objectAtIndexedSubscript:v41];
+            v80 = objc_msgSend_submeshes(v57, v76, v77);
+            v82 = objc_msgSend_objectAtIndexedSubscript_(v80, v81, v79);
 
-            primitiveType = [v43 primitiveType];
-            indexCount = [v43 indexCount];
-            indexType = [v43 indexType];
-            indexBuffer = [v43 indexBuffer];
-            buffer2 = [indexBuffer buffer];
-            indexBuffer2 = [v43 indexBuffer];
-            [v40 drawIndexedPrimitives:primitiveType indexCount:indexCount indexType:indexType indexBuffer:buffer2 indexBufferOffset:{objc_msgSend(indexBuffer2, "offset")}];
+            v85 = objc_msgSend_primitiveType(v82, v83, v84);
+            v88 = objc_msgSend_indexCount(v82, v86, v87);
+            v91 = objc_msgSend_indexType(v82, v89, v90);
+            v94 = objc_msgSend_indexBuffer(v82, v92, v93);
+            v97 = objc_msgSend_buffer(v94, v95, v96);
+            v100 = objc_msgSend_indexBuffer(v82, v98, v99);
+            v103 = objc_msgSend_offset(v100, v101, v102);
+            objc_msgSend_drawIndexedPrimitives_indexCount_indexType_indexBuffer_indexBufferOffset_(v78, v104, v85, v88, v91, v97, v103);
 
-            ++v41;
-            submeshes3 = [v34 submeshes];
-            v51 = [submeshes3 count];
+            ++v79;
+            v107 = objc_msgSend_submeshes(v57, v105, v106);
+            v110 = objc_msgSend_count(v107, v108, v109);
           }
 
-          while (v51 > v41);
+          while (v110 > v79);
         }
 
-        v33 = v72 + 1;
-        encoderCopy = v40;
+        v56 = v131 + 1;
+        encoderCopy = v78;
       }
 
-      while (v72 != 4);
+      while (v131 != 4);
 
-      v22 = v69 + 1;
+      v41 = v128 + 1;
       self = selfCopy;
-      v26 = xmmword_23C0A0AA0;
-      v25 = xmmword_23C0A0A90;
-      v28 = xmmword_23C0A0AE0;
-      v27 = xmmword_23C0A0AD0;
+      v45 = xmmword_23C0A0AA0;
+      v44 = xmmword_23C0A0A90;
+      v47 = xmmword_23C0A0AE0;
+      v46 = xmmword_23C0A0AD0;
     }
 
-    while (v69 + 1 < v66->numDigits);
+    while (v128 + 1 < v125->numDigits);
   }
 }
 
@@ -323,10 +325,10 @@
   hourStructs = self->_hourStructs;
   if (!self->_hourStructs[loaded].digits[0].meshes[0])
   {
-    [(NTKUnity2025Quad *)self loadMesh:loaded];
+    objc_msgSend_loadMesh_(self, a2, loaded);
   }
 
-  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v6 = objc_msgSend_currentLocale(MEMORY[0x277CBEAF8], a2, loaded);
   v7 = CLKLocaleIs24HourMode();
   v8 = 13;
   if (v7)
@@ -385,20 +387,20 @@
 
 - (void)loadMesh:(int64_t)mesh
 {
-  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"NumberMesh%ld%ld", mesh / 10, mesh % 10];
-  [NTKUnity2025Quad loadMeshesWithAssetName:"loadMeshesWithAssetName:numberPath:hour:" numberPath:? hour:?];
+  v8 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"NumberMesh%ld%ld", mesh / 10, mesh % 10);
+  objc_msgSend_loadMeshesWithAssetName_numberPath_hour_(self, v5, v8, @"/numbers", mesh);
   if (mesh > 2)
   {
-    v5 = -3;
+    v7 = -3;
   }
 
   else
   {
-    [(NTKUnity2025Quad *)self unloadMesh:mesh + 21];
-    v5 = 9;
+    objc_msgSend_unloadMesh_(self, v6, mesh + 21);
+    v7 = 9;
   }
 
-  [(NTKUnity2025Quad *)self unloadMesh:v5 + mesh];
+  objc_msgSend_unloadMesh_(self, v6, v7 + mesh);
 }
 
 - (id)loadAssetWithPath:(id)path enableMeshAllocation:(BOOL)allocation
@@ -409,14 +411,15 @@
   {
     if (!self->_allocator)
     {
-      v7 = [objc_alloc(MEMORY[0x277CD71E8]) initWithDevice:self->_mtlDevice];
+      v7 = objc_alloc(MEMORY[0x277CD71E8]);
+      v9 = objc_msgSend_initWithDevice_(v7, v8, self->_mtlDevice);
       allocator = self->_allocator;
-      self->_allocator = v7;
+      self->_allocator = v9;
 
       if (!self->_allocator)
       {
-        v9 = _NTKLoggingObjectForDomain();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+        v11 = _NTKLoggingObjectForDomain();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
         {
           sub_23C09FAF0();
         }
@@ -425,51 +428,54 @@
 
     if (!self->_descriptor)
     {
-      v10 = objc_alloc_init(MEMORY[0x277CD7B90]);
+      v12 = objc_alloc_init(MEMORY[0x277CD7B90]);
       descriptor = self->_descriptor;
-      self->_descriptor = v10;
+      self->_descriptor = v12;
 
-      v12 = objc_alloc(MEMORY[0x277CBEB18]);
-      v13 = objc_alloc(MEMORY[0x277CD7B80]);
-      v14 = [v13 initWithName:*MEMORY[0x277CD7AB0] format:786435 offset:0 bufferIndex:0];
+      v14 = objc_alloc(MEMORY[0x277CBEB18]);
       v15 = objc_alloc(MEMORY[0x277CD7B80]);
-      v16 = [v15 initWithName:*MEMORY[0x277CD7AC0] format:720898 offset:16 bufferIndex:0];
-      v17 = [v12 initWithObjects:{v14, v16, 0}];
-      [(MDLVertexDescriptor *)self->_descriptor setAttributes:v17];
+      v17 = objc_msgSend_initWithName_format_offset_bufferIndex_(v15, v16, *MEMORY[0x277CD7AB0], 786435, 0, 0);
+      v18 = objc_alloc(MEMORY[0x277CD7B80]);
+      v20 = objc_msgSend_initWithName_format_offset_bufferIndex_(v18, v19, *MEMORY[0x277CD7AC0], 720898, 16, 0);
+      v22 = objc_msgSend_initWithObjects_(v14, v21, v17, v20, 0);
+      objc_msgSend_setAttributes_(self->_descriptor, v23, v22);
 
-      v18 = objc_alloc(MEMORY[0x277CBEB18]);
-      v19 = [objc_alloc(MEMORY[0x277CD7B88]) initWithStride:32];
-      v20 = [v18 initWithObjects:{v19, 0}];
-      [(MDLVertexDescriptor *)self->_descriptor setLayouts:v20];
+      v24 = objc_alloc(MEMORY[0x277CBEB18]);
+      v25 = objc_alloc(MEMORY[0x277CD7B88]);
+      v27 = objc_msgSend_initWithStride_(v25, v26, 32);
+      v29 = objc_msgSend_initWithObjects_(v24, v28, v27, 0);
+      objc_msgSend_setLayouts_(self->_descriptor, v30, v29);
     }
   }
 
-  v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v22 = v21;
-  if (v21)
+  v31 = MEMORY[0x277CCA8D8];
+  v32 = objc_opt_class();
+  v34 = objc_msgSend_bundleForClass_(v31, v33, v32);
+  v36 = v34;
+  if (v34)
   {
-    v23 = [v21 URLForResource:pathCopy withExtension:@"usdc"];
-    if (v23)
+    v37 = objc_msgSend_URLForResource_withExtension_(v34, v35, pathCopy, @"usdc");
+    if (v37)
     {
-      v24 = objc_alloc(MEMORY[0x277CD7AD0]);
+      v38 = objc_alloc(MEMORY[0x277CD7AD0]);
       if (allocationCopy)
       {
-        v25 = [v24 initWithURL:v23 vertexDescriptor:self->_descriptor bufferAllocator:self->_allocator];
+        v40 = objc_msgSend_initWithURL_vertexDescriptor_bufferAllocator_(v38, v39, v37, self->_descriptor, self->_allocator);
       }
 
       else
       {
-        v25 = [v24 initWithURL:v23];
+        v40 = objc_msgSend_initWithURL_(v38, v39, v37);
       }
 
-      v26 = v25;
-      if (v25)
+      v41 = v40;
+      if (v40)
       {
         goto LABEL_24;
       }
 
-      v27 = _NTKLoggingObjectForDomain();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+      v42 = _NTKLoggingObjectForDomain();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
       {
         sub_23C09FB24();
       }
@@ -477,45 +483,45 @@
 
     else
     {
-      v27 = _NTKLoggingObjectForDomain();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+      v42 = _NTKLoggingObjectForDomain();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
       {
         sub_23C09FB58();
       }
 
-      v26 = 0;
+      v41 = 0;
     }
   }
 
   else
   {
-    v23 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+    v37 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
     {
       sub_23C09FB8C();
     }
 
-    v26 = 0;
+    v41 = 0;
   }
 
 LABEL_24:
 
-  return v26;
+  return v41;
 }
 
 - (void)loadMeshesWithAssetName:(id)name numberPath:(id)path hour:(int)hour
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v9 = [(NTKUnity2025Quad *)self loadAssetWithPath:name enableMeshAllocation:1];
-  v10 = [v9 objectAtPath:pathCopy];
-  v11 = v10;
-  v51 = v9;
-  v52 = pathCopy;
-  if (!v10)
+  v10 = objc_msgSend_loadAssetWithPath_enableMeshAllocation_(self, v9, name, 1);
+  v12 = objc_msgSend_objectAtPath_(v10, v11, pathCopy);
+  v15 = v12;
+  v90 = v10;
+  v91 = pathCopy;
+  if (!v12)
   {
-    v49 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
+    v89 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v89, OS_LOG_TYPE_FAULT))
     {
       sub_23C09FBF4();
     }
@@ -523,19 +529,19 @@ LABEL_24:
     goto LABEL_35;
   }
 
-  children = [v10 children];
-  v13 = [children count];
+  v16 = objc_msgSend_children(v12, v13, v14, v10, pathCopy);
+  v19 = objc_msgSend_count(v16, v17, v18);
 
-  v55 = v13;
-  if (v13 != 1)
+  v94 = v19;
+  if (v19 != 1)
   {
-    children2 = [v11 children];
-    v15 = [children2 count];
+    v22 = objc_msgSend_children(v15, v20, v21);
+    v25 = objc_msgSend_count(v22, v23, v24);
 
-    if (v15 != 24)
+    if (v25 != 24)
     {
-      v49 = _NTKLoggingObjectForDomain();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
+      v89 = _NTKLoggingObjectForDomain();
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_FAULT))
       {
         sub_23C09FBC0();
       }
@@ -556,201 +562,205 @@ LABEL_35:
     hourCopy = hour;
   }
 
-  v17 = hour & ~(hour >> 31);
-  if (v17 <= hourCopy)
+  v27 = hour & ~(hour >> 31);
+  if (v27 <= hourCopy)
   {
-    v53 = hourCopy + 1;
-    digits = self->_hourStructs[v17].digits;
-    v54 = v11;
+    v92 = hourCopy + 1;
+    digits = self->_hourStructs[v27].digits;
+    v93 = v15;
     while (1)
     {
-      v18 = &self->_hourStructs[v17];
-      v18->hour = v17;
-      children3 = [v11 children];
-      v20 = children3;
-      v58 = v17;
-      v21 = v55 == 1 ? 0 : v17;
-      v22 = [children3 objectAtIndexedSubscript:v21];
+      v28 = &self->_hourStructs[v27];
+      v28->hour = v27;
+      v29 = objc_msgSend_children(v15, v20, v21);
+      v31 = v29;
+      v97 = v27;
+      if (v94 == 1)
+      {
+        objc_msgSend_objectAtIndexedSubscript_(v29, v30, 0);
+      }
 
-      children4 = [v22 children];
-      if ([children4 count] == 1)
+      else
+      {
+        objc_msgSend_objectAtIndexedSubscript_(v29, v30, v27);
+      }
+      v32 = ;
+
+      v35 = objc_msgSend_children(v32, v33, v34);
+      if (objc_msgSend_count(v35, v36, v37) == 1)
       {
         break;
       }
 
-      children5 = [v22 children];
-      v25 = [children5 count];
+      v42 = objc_msgSend_children(v32, v38, v39);
+      v45 = objc_msgSend_count(v42, v43, v44);
 
-      if (v25 == 2)
+      if (v45 == 2)
       {
         goto LABEL_15;
       }
 
 LABEL_29:
 
-      v17 = v58 + 1;
+      v27 = v97 + 1;
       digits = (digits + 96);
-      v11 = v54;
-      if (v58 + 1 == v53)
+      v15 = v93;
+      if (v97 + 1 == v92)
       {
         goto LABEL_36;
       }
     }
 
 LABEL_15:
-    v18->centerZ = 0.0;
-    children6 = [v22 children];
-    v27 = [children6 count];
+    v28->centerZ = 0.0;
+    v46 = objc_msgSend_children(v32, v40, v41);
+    v49 = objc_msgSend_count(v46, v47, v48);
 
-    if (v27)
+    if (v49)
     {
-      v28 = 0;
-      v29 = digits;
-      v30 = 99999.0;
-      v31 = -99999.0;
-      v57 = v22;
+      v52 = 0;
+      v53 = digits;
+      v54 = 99999.0;
+      v55 = -99999.0;
+      v96 = v32;
       do
       {
-        v59 = v28 + 1;
-        v18->numDigits = v28 + 1;
-        children7 = [v22 children];
-        v60 = v28;
-        v33 = [children7 objectAtIndexedSubscript:v28];
+        v98 = v52 + 1;
+        v28->numDigits = v52 + 1;
+        v56 = objc_msgSend_children(v32, v50, v51);
+        v99 = v52;
+        v58 = objc_msgSend_objectAtIndexedSubscript_(v56, v57, v52);
 
         for (i = 0; i != 5; ++i)
         {
-          children8 = [v33 children];
-          v36 = [children8 objectAtIndexedSubscript:i];
-          children9 = [v36 children];
-          v38 = [children9 objectAtIndexedSubscript:0];
+          v62 = objc_msgSend_children(v58, v59, v60);
+          v64 = objc_msgSend_objectAtIndexedSubscript_(v62, v63, i);
+          v67 = objc_msgSend_children(v64, v65, v66);
+          v69 = objc_msgSend_objectAtIndexedSubscript_(v67, v68, 0);
 
-          if (!v38)
+          if (!v69)
           {
             goto LABEL_24;
           }
 
-          v39 = objc_alloc(MEMORY[0x277CD71E0]);
+          v70 = objc_alloc(MEMORY[0x277CD71E0]);
           mtlDevice = self->_mtlDevice;
-          v61 = 0;
-          v41 = [v39 initWithMesh:v38 device:mtlDevice error:&v61];
-          v42 = v61;
-          v43 = v29->meshes[i];
-          v29->meshes[i] = v41;
+          v100 = 0;
+          v73 = objc_msgSend_initWithMesh_device_error_(v70, v72, v69, mtlDevice, &v100);
+          v74 = v100;
+          v75 = v53->meshes[i];
+          v53->meshes[i] = v73;
 
-          [v38 boundingBox];
-          if (v30 >= v44)
+          objc_msgSend_boundingBox(v69, v76, v77);
+          if (v54 >= v80)
           {
-            v30 = v44;
+            v54 = v80;
           }
 
-          [v38 boundingBox];
-          if (v31 < v45)
+          objc_msgSend_boundingBox(v69, v78, v79);
+          if (v55 < v81)
           {
-            v31 = v45;
+            v55 = v81;
           }
 
-          v18->centerZ = (v30 + v31) * 0.5;
+          v28->centerZ = (v54 + v55) * 0.5;
 
-          if (!v29->meshes[i])
+          if (!v53->meshes[i])
           {
 LABEL_24:
-            v46 = _NTKLoggingObjectForDomain();
-            if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+            v82 = _NTKLoggingObjectForDomain();
+            if (os_log_type_enabled(v82, OS_LOG_TYPE_FAULT))
             {
               *buf = 67109632;
-              v63 = v58;
-              v64 = 1024;
-              v65 = v60;
-              v66 = 1024;
-              v67 = i;
-              _os_log_fault_impl(&dword_23C099000, v46, OS_LOG_TYPE_FAULT, "Error loading or creating mesh for hour:%d digit:%d submesh:%d", buf, 0x14u);
+              v102 = v97;
+              v103 = 1024;
+              v104 = v99;
+              v105 = 1024;
+              v106 = i;
+              _os_log_fault_impl(&dword_23C099000, v82, OS_LOG_TYPE_FAULT, "Error loading or creating mesh for hour:%d digit:%d submesh:%d", buf, 0x14u);
             }
           }
         }
 
-        v22 = v57;
-        children10 = [v57 children];
-        v48 = [children10 count];
+        v32 = v96;
+        v85 = objc_msgSend_children(v96, v83, v84);
+        v88 = objc_msgSend_count(v85, v86, v87);
 
-        ++v29;
-        v28 = v59;
+        ++v53;
+        v52 = v98;
       }
 
-      while (v48 > v59);
+      while (v88 > v98);
     }
 
     goto LABEL_29;
   }
 
 LABEL_36:
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initRenderPipeline
 {
   if (!self->_binaryArchive)
   {
-    v3 = MEMORY[0x277CFA788];
-    v4 = sub_23C09DC80();
-    v5 = [v3 archiveWithName:@"unity2025" bundle:v4 device:self->_mtlDevice];
+    v4 = MEMORY[0x277CFA788];
+    v5 = sub_23C09DC80(self);
+    v7 = objc_msgSend_archiveWithName_bundle_device_(v4, v6, @"unity2025", v5, self->_mtlDevice);
     binaryArchive = self->_binaryArchive;
-    self->_binaryArchive = v5;
+    self->_binaryArchive = v7;
   }
 
-  functionDescriptor = [MEMORY[0x277CD6D78] functionDescriptor];
-  [functionDescriptor setName:@"unity2025VertexShader"];
-  v8 = [(CLKUIMetalBinaryArchive *)self->_binaryArchive newFunctionInLibrary:self->_library withDescriptor:functionDescriptor];
-  if (!v8)
+  v9 = objc_msgSend_functionDescriptor(MEMORY[0x277CD6D78], a2, v2);
+  objc_msgSend_setName_(v9, v10, @"unity2025VertexShader");
+  v14 = objc_msgSend_newFunctionInLibrary_withDescriptor_(self->_binaryArchive, v11, self->_library, v9);
+  if (!v14)
   {
-    v9 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v15 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      sub_23C09FC28(self);
+      sub_23C09FC28();
     }
   }
 
-  functionDescriptor2 = [MEMORY[0x277CD6D78] functionDescriptor];
-  [functionDescriptor2 setName:@"unity2025FragmentShader"];
-  v11 = [(CLKUIMetalBinaryArchive *)self->_binaryArchive newFunctionInLibrary:self->_library withDescriptor:functionDescriptor2];
-  if (!v11)
+  v16 = objc_msgSend_functionDescriptor(MEMORY[0x277CD6D78], v12, v13);
+  objc_msgSend_setName_(v16, v17, @"unity2025FragmentShader");
+  v19 = objc_msgSend_newFunctionInLibrary_withDescriptor_(self->_binaryArchive, v18, self->_library, v16);
+  if (!v19)
   {
-    v12 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v20 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      sub_23C09FCB4(self);
+      sub_23C09FCB4();
     }
   }
 
-  v13 = objc_alloc_init(MEMORY[0x277CD6F78]);
-  [v13 setVertexFunction:v8];
-  [v13 setFragmentFunction:v11];
-  [v13 setDepthAttachmentPixelFormat:252];
-  [v13 setRasterSampleCount:4];
-  [v13 setLabel:@"Unity2025 Render Pipeline"];
-  colorAttachments = [v13 colorAttachments];
-  v15 = [colorAttachments objectAtIndexedSubscript:0];
+  v21 = objc_alloc_init(MEMORY[0x277CD6F78]);
+  objc_msgSend_setVertexFunction_(v21, v22, v14);
+  objc_msgSend_setFragmentFunction_(v21, v23, v19);
+  objc_msgSend_setDepthAttachmentPixelFormat_(v21, v24, 252);
+  objc_msgSend_setRasterSampleCount_(v21, v25, 4);
+  objc_msgSend_setLabel_(v21, v26, @"Unity2025 Render Pipeline");
+  v29 = objc_msgSend_colorAttachments(v21, v27, v28);
+  v31 = objc_msgSend_objectAtIndexedSubscript_(v29, v30, 0);
 
-  [v15 setPixelFormat:self->_pixelFormat];
-  [v15 setBlendingEnabled:0];
-  v16 = [(CLKUIMetalBinaryArchive *)self->_binaryArchive newRenderPipelineStateForDevice:self->_mtlDevice withDescriptor:v13];
+  objc_msgSend_setPixelFormat_(v31, v32, self->_pixelFormat);
+  objc_msgSend_setBlendingEnabled_(v31, v33, 0);
+  v35 = objc_msgSend_newRenderPipelineStateForDevice_withDescriptor_(self->_binaryArchive, v34, self->_mtlDevice, v21);
   unity2025PipelineState = self->_unity2025PipelineState;
-  self->_unity2025PipelineState = v16;
+  self->_unity2025PipelineState = v35;
 
-  v18 = objc_opt_new();
-  [v18 setDepthCompareFunction:3];
-  [v18 setDepthWriteEnabled:1];
-  mEMORY[0x277CFA798] = [MEMORY[0x277CFA798] sharedDevice];
-  v20 = [mEMORY[0x277CFA798] newDepthStencilStateWithDescriptor:v18];
+  v37 = objc_opt_new();
+  objc_msgSend_setDepthCompareFunction_(v37, v38, 3);
+  objc_msgSend_setDepthWriteEnabled_(v37, v39, 1);
+  v42 = objc_msgSend_sharedDevice(MEMORY[0x277CFA798], v40, v41);
+  v44 = objc_msgSend_newDepthStencilStateWithDescriptor_(v42, v43, v37);
   depthStencilState = self->_depthStencilState;
-  self->_depthStencilState = v20;
+  self->_depthStencilState = v44;
 }
 
 - (void)setOverrideDate:(id)date duration:(double)duration
 {
   dateCopy = date;
-  overrideDate = self->_overrideDate;
-  v8 = dateCopy;
   if ((NTKEqualObjects() & 1) == 0)
   {
     objc_storeStrong(&self->_overrideDate, date);

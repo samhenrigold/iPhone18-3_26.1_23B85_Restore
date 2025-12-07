@@ -165,12 +165,13 @@
     v15 = v15 + (v20 * v19);
   }
 
-  if ([(SKUIStarRatingControl *)self _isRTL])
+  _isRTL = [(SKUIStarRatingControl *)self _isRTL];
+  if (_isRTL)
   {
-    v12 = CGRectWithFlippedOriginRelativeToBoundingRect(v12, v6, v15, v10, v4, v6, v8, v10);
-    v6 = v21;
-    v15 = v22;
-    v10 = v23;
+    v12 = CGRectWithFlippedOriginRelativeToBoundingRect(v12, v6, v15, v10, v4, v6, v8, v10, _isRTL, v22);
+    v6 = v23;
+    v15 = v24;
+    v10 = v25;
   }
 
   filledStarsImageView = self->_filledStarsImageView;

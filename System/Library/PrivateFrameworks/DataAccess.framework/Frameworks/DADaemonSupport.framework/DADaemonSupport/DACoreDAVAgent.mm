@@ -38,7 +38,7 @@
 
 - (void)_serverProbeTimedOut
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   account = [(DAAgent *)self account];
   taskManager = [account taskManager];
   activeModalTask = [taskManager activeModalTask];
@@ -50,8 +50,8 @@
     v8 = *(MEMORY[0x277D03988] + 6);
     if (os_log_type_enabled(v6, v8))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_248524000, v7, v8, "The options task timer fired, but the task manager is modal. We'll wait until it drops modal before tearing down this task.", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_248524000, v7, v8, "The options task timer fired, but the task manager is modal. We'll wait until it drops modal before tearing down this task.", &v15, 2u);
     }
   }
 
@@ -63,11 +63,11 @@
       account2 = [(DAAgent *)self account];
       principalURL = [account2 principalURL];
       [MEMORY[0x277D03910] defaultDAVProbeTimeout];
-      v16 = 138412546;
-      v17 = principalURL;
-      v18 = 2048;
-      v19 = v12;
-      _os_log_impl(&dword_248524000, v7, v9, "We weren't able to reach the server at %@ within %lf seconds. Bailing out of this refresh early.", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = principalURL;
+      v17 = 2048;
+      v18 = v12;
+      _os_log_impl(&dword_248524000, v7, v9, "We weren't able to reach the server at %@ within %lf seconds. Bailing out of this refresh early.", &v15, 0x16u);
     }
 
     [(DACoreDAVAgent *)self _cancelOptionsTimer];
@@ -77,13 +77,11 @@
 
     [(DACoreDAVAgent *)self setOptionsProbe:0];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_probeAndSyncWithBlock:(id)block
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   optionsProbe = [(DACoreDAVAgent *)self optionsProbe];
 
@@ -127,8 +125,8 @@ LABEL_8:
       [MEMORY[0x277D03910] defaultDAVProbeTimeout];
       *buf = 138412546;
       selfCopy = principalURL2;
-      v40 = 2048;
-      v41 = v21;
+      v39 = 2048;
+      v40 = v21;
       _os_log_impl(&dword_248524000, v17, v18, "Probing the host at %@ to see if we have a good enough network connection. We'll wait up to %lf seconds.", buf, 0x16u);
     }
 
@@ -141,15 +139,15 @@ LABEL_8:
     [v25 setAccountInfoProvider:account4];
 
     objc_initWeak(buf, self);
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __41__DACoreDAVAgent__probeAndSyncWithBlock___block_invoke;
-    v34[3] = &unk_278F1D4F0;
-    objc_copyWeak(&v37, buf);
-    v36 = blockCopy;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __41__DACoreDAVAgent__probeAndSyncWithBlock___block_invoke;
+    v33[3] = &unk_278F1D4F0;
+    objc_copyWeak(&v36, buf);
+    v35 = blockCopy;
     v6 = v13;
-    v35 = v6;
-    [v25 setCompletionBlock:v34];
+    v34 = v6;
+    [v25 setCompletionBlock:v33];
     v27 = MEMORY[0x277CBEBB8];
     [MEMORY[0x277D03910] defaultDAVProbeTimeout];
     v28 = [v27 scheduledTimerWithTimeInterval:self target:sel__serverProbeTimedOut selector:0 userInfo:1 repeats:?];
@@ -161,29 +159,27 @@ LABEL_8:
     optionsProbe2 = [(DACoreDAVAgent *)self optionsProbe];
     [taskManager submitQueuedCoreDAVTask:optionsProbe2];
 
-    objc_destroyWeak(&v37);
+    objc_destroyWeak(&v36);
     objc_destroyWeak(buf);
 
     goto LABEL_8;
   }
 
-  v33 = *(MEMORY[0x277D03988] + 3);
-  if (os_log_type_enabled(v16, v33))
+  v32 = *(MEMORY[0x277D03988] + 3);
+  if (os_log_type_enabled(v16, v32))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_248524000, v17, v33, "The babysitter has put this account in timeout, so giving up on this probe sync. %@", buf, 0xCu);
+    _os_log_impl(&dword_248524000, v17, v32, "The babysitter has put this account in timeout, so giving up on this probe sync. %@", buf, 0xCu);
   }
 
   (*(blockCopy + 2))(blockCopy, 0);
 LABEL_9:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __41__DACoreDAVAgent__probeAndSyncWithBlock___block_invoke(uint64_t a1)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   [WeakRetained _cancelOptionsTimer];
 
@@ -201,9 +197,9 @@ LABEL_5:
     ShouldTurnOnReachability = statusAndErrorIndicateWeShouldTurnOnReachability();
 
     v11 = ShouldTurnOnReachability;
-    v9 = v40;
-    v8 = v42;
-    v10 = v39;
+    v9 = v39;
+    v8 = v41;
+    v10 = v38;
     if (!v7)
     {
       goto LABEL_7;
@@ -217,9 +213,9 @@ LABEL_5:
   v10 = [v9 error];
   if ([v10 code] != 1)
   {
-    v39 = v10;
-    v40 = v9;
-    v42 = v8;
+    v38 = v10;
+    v39 = v9;
+    v41 = v8;
     goto LABEL_5;
   }
 
@@ -233,26 +229,26 @@ LABEL_7:
     v17 = *(MEMORY[0x277D03988] + 4);
     if (os_log_type_enabled(v16, v17))
     {
-      v43 = objc_loadWeakRetained((a1 + 48));
-      v41 = [v43 account];
-      v18 = [v41 accountDescription];
-      v38 = objc_loadWeakRetained((a1 + 48));
-      v37 = [v38 account];
-      v19 = [v37 publicDescription];
-      v36 = objc_loadWeakRetained((a1 + 48));
-      v20 = [v36 account];
+      v42 = objc_loadWeakRetained((a1 + 48));
+      v40 = [v42 account];
+      v18 = [v40 accountDescription];
+      v37 = objc_loadWeakRetained((a1 + 48));
+      v36 = [v37 account];
+      v19 = [v36 publicDescription];
+      v35 = objc_loadWeakRetained((a1 + 48));
+      v20 = [v35 account];
       v21 = [v20 host];
       v22 = objc_loadWeakRetained((a1 + 48));
       v23 = [v22 optionsProbe];
       v24 = [v23 error];
       *buf = 138413058;
-      v45 = v18;
-      v46 = 2114;
-      v47 = v19;
-      v48 = 2112;
-      v49 = v21;
-      v50 = 2112;
-      v51 = v24;
+      v44 = v18;
+      v45 = 2114;
+      v46 = v19;
+      v47 = 2112;
+      v48 = v21;
+      v49 = 2112;
+      v50 = v24;
       _os_log_impl(&dword_248524000, v16, v17, "Account %@ (%{public}@) couldn't reach the server at %@: %@", buf, 0x2Au);
     }
 
@@ -277,7 +273,7 @@ LABEL_7:
       v31 = [v30 account];
       v32 = [v31 host];
       *buf = 138412290;
-      v45 = v32;
+      v44 = v32;
       _os_log_impl(&dword_248524000, v27, v29, "We were able to reach the server at %@. Continuing with the refresh", buf, 0xCu);
     }
   }
@@ -286,8 +282,6 @@ LABEL_7:
   v33 = [MEMORY[0x277D03768] sharedBabysitter];
   v34 = objc_loadWeakRetained((a1 + 48));
   [v33 unregisterAccount:v34 forOperationWithName:*(a1 + 32)];
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)waiterID

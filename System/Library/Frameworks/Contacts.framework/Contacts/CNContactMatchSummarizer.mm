@@ -233,7 +233,7 @@ void __100__CNContactMatchSummarizer_summariesFutureForContactsIdentifiers_match
   }
 }
 
-uint64_t __100__CNContactMatchSummarizer_summariesFutureForContactsIdentifiers_matchInfos_contactStore_scheduler___block_invoke_4(uint64_t a1, uint64_t a2)
+void *__100__CNContactMatchSummarizer_summariesFutureForContactsIdentifiers_matchInfos_contactStore_scheduler___block_invoke_4(uint64_t a1, uint64_t a2)
 {
   result = [MEMORY[0x1E6996708] isCanceledError:a2];
   if (result)

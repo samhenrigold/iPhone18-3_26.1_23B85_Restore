@@ -40,11 +40,11 @@
 
 - (void)CBApplicationDidBecomeActive
 {
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(self);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
@@ -118,7 +118,7 @@
 
 - (void)awakeWithSession:(id)session environment:(id)environment
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   targetQueue = [sessionCopy targetQueue];
   targetQueue = self->_targetQueue;
@@ -129,28 +129,28 @@
   self->_hidEventSource = hidEventSource;
 
   v10 = NSClassFromString(&cfstr_Gckeyboardcont.isa);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   deviceProviders = [sessionCopy deviceProviders];
-  v12 = [deviceProviders countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v12 = [deviceProviders countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(deviceProviders);
         }
 
         if (v10)
         {
-          v16 = *(*(&v18 + 1) + 8 * i);
+          v16 = *(*(&v17 + 1) + 8 * i);
           if (objc_opt_isKindOfClass())
           {
             objc_storeStrong(&self->_keyboardControllerManager, v16);
@@ -159,7 +159,7 @@
         }
       }
 
-      v13 = [deviceProviders countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [deviceProviders countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v13)
       {
         continue;
@@ -170,8 +170,6 @@
   }
 
 LABEL_12:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activateWithSession:(id)session environment:(id)environment options:(unint64_t)options
@@ -229,44 +227,45 @@ LABEL_12:
 {
   if (self->_serverConnection)
   {
-    if (!gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(self, a2);
+    if (!isInternalBuild)
     {
       return;
     }
 
-    v2 = getGCLogger();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = getGCLogger(isInternalBuild);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_INFO, "Game Controller daemon connection has already been established.", buf, 2u);
+      _os_log_impl(&dword_1D2CD5000, v3, OS_LOG_TYPE_INFO, "Game Controller daemon connection has already been established.", buf, 2u);
     }
   }
 
   else
   {
-    v4 = objc_opt_new();
-    [v4 setClient:self];
+    v5 = objc_opt_new();
+    [v5 setClient:self];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __49___GCControllerManagerAppClient__connectToDaemon__block_invoke;
+    v12[3] = &unk_1E8418C28;
+    v12[4] = self;
+    v6 = [v5 addInvalidationHandler:v12];
+    serverConnectionInvalidation = self->_serverConnectionInvalidation;
+    self->_serverConnectionInvalidation = v6;
+
     v11[0] = MEMORY[0x1E69E9820];
     v11[1] = 3221225472;
-    v11[2] = __49___GCControllerManagerAppClient__connectToDaemon__block_invoke;
+    v11[2] = __49___GCControllerManagerAppClient__connectToDaemon__block_invoke_136;
     v11[3] = &unk_1E8418C28;
     v11[4] = self;
-    v5 = [v4 addInvalidationHandler:v11];
-    serverConnectionInvalidation = self->_serverConnectionInvalidation;
-    self->_serverConnectionInvalidation = v5;
-
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __49___GCControllerManagerAppClient__connectToDaemon__block_invoke_136;
-    v10[3] = &unk_1E8418C28;
-    v10[4] = self;
-    v7 = [v4 addInterruptionHandler:v10];
+    v8 = [v5 addInterruptionHandler:v11];
     serverConnectionInterruption = self->_serverConnectionInterruption;
-    self->_serverConnectionInterruption = v7;
+    self->_serverConnectionInterruption = v8;
 
     serverConnection = self->_serverConnection;
-    self->_serverConnection = v4;
-    v2 = v4;
+    self->_serverConnection = v5;
+    v3 = v5;
 
     [(GCIPCOutgoingConnection *)self->_serverConnection resume];
     [(_GCControllerManagerAppClient *)self _resumeDaemonConnection];
@@ -313,11 +312,11 @@ LABEL_12:
 - (void)_onqueue_refreshPublishedControllers
 {
   OUTLINED_FUNCTION_5();
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_12(5.7779e-34);
-    OUTLINED_FUNCTION_5_9(&dword_1D2CD5000, v2, v3, "Materialized controller: '%@'");
+    OUTLINED_FUNCTION_5_9(&dword_1D2CD5000, v3, v4, "Materialized controller: '%@'");
   }
 }
 
@@ -370,58 +369,56 @@ LABEL_12:
 
 - (id)matchingHIDServiceAttributes
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
-  v15[0] = @"DeviceUsagePage";
-  v15[1] = @"DeviceUsage";
-  v16[0] = &unk_1F4E8E3F0;
-  v16[1] = &unk_1F4E8E408;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v14[0] = @"DeviceUsagePage";
+  v14[1] = @"DeviceUsage";
+  v15[0] = &unk_1F4E8E3F0;
+  v15[1] = &unk_1F4E8E408;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
   [array addObject:v3];
-  v13[0] = @"DeviceUsagePage";
-  v13[1] = @"DeviceUsage";
-  v14[0] = &unk_1F4E8E3F0;
-  v14[1] = &unk_1F4E8E420;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v12[0] = @"DeviceUsagePage";
+  v12[1] = @"DeviceUsage";
+  v13[0] = &unk_1F4E8E3F0;
+  v13[1] = &unk_1F4E8E420;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [array addObject:v4];
-  v11[0] = @"DeviceUsagePage";
-  v11[1] = @"DeviceUsage";
-  v12[0] = &unk_1F4E8E3F0;
-  v12[1] = &unk_1F4E8E438;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v10[0] = @"DeviceUsagePage";
+  v10[1] = @"DeviceUsage";
+  v11[0] = &unk_1F4E8E3F0;
+  v11[1] = &unk_1F4E8E438;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   [array addObject:v5];
-  v9[0] = @"DeviceUsagePage";
-  v9[1] = @"DeviceUsage";
-  v10[0] = &unk_1F4E8E450;
-  v10[1] = &unk_1F4E8E468;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v8[0] = @"DeviceUsagePage";
+  v8[1] = @"DeviceUsage";
+  v9[0] = &unk_1F4E8E450;
+  v9[1] = &unk_1F4E8E468;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
   [array addObject:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (void)servicesDidChange:(id)change withAddedServices:(id)services removedServices:(id)removedServices
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   servicesCopy = services;
   removedServicesCopy = removedServices;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v9 = [removedServicesCopy countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v9 = [removedServicesCopy countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       v12 = 0;
       do
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(removedServicesCopy);
         }
@@ -430,28 +427,28 @@ LABEL_12:
       }
 
       while (v10 != v12);
-      v10 = [removedServicesCopy countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v10 = [removedServicesCopy countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v10);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v13 = servicesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       v17 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
@@ -460,41 +457,39 @@ LABEL_12:
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v15);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setProperty:(id)property forKey:(id)key forHIDServiceClientWithRegistryID:(id)d
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   propertyCopy = property;
   keyCopy = key;
   dCopy = d;
-  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
   v11 = self->_knownHIDServices;
-  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v23;
 LABEL_3:
     v15 = 0;
     while (1)
     {
-      if (*v22 != v14)
+      if (*v23 != v14)
       {
         objc_enumerationMutation(v11);
       }
 
-      v16 = *(*(&v21 + 1) + 8 * v15);
+      v16 = *(*(&v22 + 1) + 8 * v15);
       registryID = [v16 registryID];
       v18 = [registryID isEqualToNumber:dCopy];
 
@@ -505,7 +500,7 @@ LABEL_3:
 
       if (v13 == ++v15)
       {
-        v13 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v13 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v13)
         {
           goto LABEL_3;
@@ -522,9 +517,9 @@ LABEL_3:
       goto LABEL_15;
     }
 
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v20, v21))
     {
-      [_GCControllerManagerAppClient setProperty:forKey:forHIDServiceClientWithRegistryID:];
+      [_GCControllerManagerAppClient setProperty:propertyCopy forKey:? forHIDServiceClientWithRegistryID:?];
     }
 
     IOHIDServiceClientSetProperty([(NSMutableSet *)v19 service], keyCopy, propertyCopy);
@@ -537,7 +532,6 @@ LABEL_9:
   }
 
 LABEL_15:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startVideoRecording
@@ -615,25 +609,25 @@ LABEL_15:
   if (![(GCDeviceSessionConfiguration *)self->_configuration disableShareGestures])
   {
     object = [bufferingCopy object];
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(object, v6))
     {
-      [_GCControllerManagerAppClient startVideoRecordingBuffering:];
+      [_GCControllerManagerAppClient startVideoRecordingBuffering:object];
     }
 
-    v6 = self->_publishedControllers;
-    objc_sync_enter(v6);
-    if (!object || (publishedControllers = self->_publishedControllers, [object identifier], v8 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary objectForKey:](publishedControllers, "objectForKey:", v8), v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v9 != object))
+    v7 = self->_publishedControllers;
+    objc_sync_enter(v7);
+    if (!object || (publishedControllers = self->_publishedControllers, [object identifier], v9 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary objectForKey:](publishedControllers, "objectForKey:", v9), v10 = objc_claimAutoreleasedReturnValue(), v10, v9, v10 != object))
     {
 
       object = 0;
     }
 
-    objc_sync_exit(v6);
+    objc_sync_exit(v7);
 
     if (object)
     {
-      v10 = +[_GCCurrentApplicationForegroundMonitor sharedInstance];
-      isAppInBackground = [v10 isAppInBackground];
+      v11 = +[_GCCurrentApplicationForegroundMonitor sharedInstance];
+      isAppInBackground = [v11 isAppInBackground];
 
       if (isAppInBackground)
       {
@@ -662,20 +656,20 @@ LABEL_15:
   if (![(GCDeviceSessionConfiguration *)self->_configuration disableShareGestures])
   {
     object = [toggledCopy object];
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(object, v6))
     {
-      [_GCControllerManagerAppClient onVideoRecordingToggled:];
+      [_GCControllerManagerAppClient onVideoRecordingToggled:object];
     }
 
-    v6 = self->_publishedControllers;
-    objc_sync_enter(v6);
-    if (!object || (publishedControllers = self->_publishedControllers, [object identifier], v8 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary objectForKey:](publishedControllers, "objectForKey:", v8), v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v9 != object))
+    v7 = self->_publishedControllers;
+    objc_sync_enter(v7);
+    if (!object || (publishedControllers = self->_publishedControllers, [object identifier], v9 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary objectForKey:](publishedControllers, "objectForKey:", v9), v10 = objc_claimAutoreleasedReturnValue(), v10, v9, v10 != object))
     {
 
       object = 0;
     }
 
-    objc_sync_exit(v6);
+    objc_sync_exit(v7);
 
     if (!object)
     {
@@ -683,13 +677,13 @@ LABEL_15:
     }
 
     userInfo = [toggledCopy userInfo];
-    v11 = [userInfo objectForKeyedSubscript:@"mode"];
-    integerValue = [v11 integerValue];
+    v12 = [userInfo objectForKeyedSubscript:@"mode"];
+    integerValue = [v12 integerValue];
 
-    v13 = +[_GCCurrentApplicationForegroundMonitor sharedInstance];
-    LOBYTE(v11) = [v13 isAppInBackground];
+    v14 = +[_GCCurrentApplicationForegroundMonitor sharedInstance];
+    LOBYTE(v12) = [v14 isAppInBackground];
 
-    if (v11)
+    if (v12)
     {
       goto LABEL_24;
     }
@@ -702,15 +696,15 @@ LABEL_24:
       goto LABEL_25;
     }
 
-    v14 = GCLookupService();
-    isRecording = [v14 isRecording];
+    v15 = GCLookupService();
+    isRecording = [v15 isRecording];
 
-    isInternalBuild = gc_isInternalBuild();
+    isInternalBuild = gc_isInternalBuild(v17, v18);
     if (isRecording)
     {
       if (isInternalBuild)
       {
-        [_GCControllerManagerAppClient onVideoRecordingToggled:];
+        [_GCControllerManagerAppClient onVideoRecordingToggled:?];
       }
 
       [(_GCControllerManagerAppClient *)self stopVideoRecordingWithClipBuffering:self->_bufferingStarted controller:object];
@@ -719,15 +713,16 @@ LABEL_24:
 
     if (isInternalBuild)
     {
-      [_GCControllerManagerAppClient onVideoRecordingToggled:];
+      [_GCControllerManagerAppClient onVideoRecordingToggled:?];
       if (integerValue)
       {
 LABEL_18:
         if (integerValue == 1)
         {
-          if (gc_isInternalBuild())
+          v21 = gc_isInternalBuild(isInternalBuild, v20);
+          if (v21)
           {
-            [_GCControllerManagerAppClient onVideoRecordingToggled:];
+            [_GCControllerManagerAppClient onVideoRecordingToggled:v21];
           }
 
           [(_GCControllerManagerAppClient *)self startBuffering];
@@ -757,55 +752,56 @@ LABEL_25:
     goto LABEL_12;
   }
 
-  v16 = 0;
-  v17[0] = &v16;
-  v17[1] = 0x3032000000;
-  v17[2] = __Block_byref_object_copy__6;
-  v17[3] = __Block_byref_object_dispose__6;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__6;
+  v22 = __Block_byref_object_dispose__6;
   object = [triggeredCopy object];
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(object, v5);
+  if (isInternalBuild)
   {
-    v14 = getGCLogger();
-    [(_GCControllerManagerAppClient *)v14 onScreenshotTriggered:v17];
+    v16 = getGCLogger(isInternalBuild);
+    [_GCControllerManagerAppClient onScreenshotTriggered:v16];
   }
 
-  v5 = self->_publishedControllers;
-  objc_sync_enter(v5);
-  v6 = v17[0];
-  v7 = *(v17[0] + 40);
-  if (!v7)
+  v7 = self->_publishedControllers;
+  objc_sync_enter(v7);
+  v8 = v19;
+  v9 = v19[5];
+  if (!v9)
   {
-    v12 = 0;
+    v14 = 0;
     goto LABEL_8;
   }
 
   publishedControllers = self->_publishedControllers;
-  identifier = [v7 identifier];
-  v10 = [(NSMutableDictionary *)publishedControllers objectForKey:identifier];
-  v11 = *(v17[0] + 40);
+  identifier = [v9 identifier];
+  v12 = [(NSMutableDictionary *)publishedControllers objectForKey:identifier];
+  v13 = v19[5];
 
-  if (v10 != v11)
+  if (v12 != v13)
   {
-    v6 = v17[0];
-    v12 = *(v17[0] + 40);
+    v8 = v19;
+    v14 = v19[5];
 LABEL_8:
-    *(v6 + 40) = 0;
+    v8[5] = 0;
   }
 
-  objc_sync_exit(v5);
+  objc_sync_exit(v7);
 
-  if (*(v17[0] + 40))
+  if (v19[5])
   {
     photoVideoService = self->_photoVideoService;
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __55___GCControllerManagerAppClient_onScreenshotTriggered___block_invoke;
-    v15[3] = &unk_1E8419E30;
-    v15[4] = &v16;
-    [(GCPhotoVideoXPCProxyServiceRemoteServerInterface *)photoVideoService takeScreenshotWithReply:v15];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __55___GCControllerManagerAppClient_onScreenshotTriggered___block_invoke;
+    v17[3] = &unk_1E8419E30;
+    v17[4] = &v18;
+    [(GCPhotoVideoXPCProxyServiceRemoteServerInterface *)photoVideoService takeScreenshotWithReply:v17];
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v18, 8);
 
 LABEL_12:
 }
@@ -934,89 +930,76 @@ LABEL_12:
   [v6 handleFailureInMethod:v4 object:v3 file:@"GCControllerManagerApp.m" lineNumber:399 description:{@"Asked to add %@, which is not in the valid set.", a3}];
 }
 
-- (void)setProperty:forKey:forHIDServiceClientWithRegistryID:.cold.1()
+- (void)setProperty:(uint64_t)a1 forKey:forHIDServiceClientWithRegistryID:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0x20u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x20u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-- (void)startVideoRecordingBuffering:.cold.1()
+- (void)startVideoRecordingBuffering:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1_0();
     _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-- (void)onVideoRecordingToggled:.cold.1()
+- (void)onVideoRecordingToggled:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1_0();
     _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-- (void)onVideoRecordingToggled:.cold.2()
+- (void)onVideoRecordingToggled:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_1_0();
-    _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 2u);
+    _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 2u);
   }
 }
 
-- (void)onVideoRecordingToggled:.cold.3()
+- (void)onVideoRecordingToggled:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_1_0();
-    _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 2u);
+    _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 2u);
   }
 }
 
-- (void)onVideoRecordingToggled:.cold.4()
+- (void)onVideoRecordingToggled:(uint64_t)a1 .cold.4(uint64_t a1)
 {
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_1_0();
-    _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 2u);
+    _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 2u);
   }
 }
 
-- (void)onScreenshotTriggered:(NSObject *)a1 .cold.1(NSObject *a1, uint64_t a2)
+- (void)onScreenshotTriggered:(NSObject *)a1 .cold.1(NSObject *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG))
   {
-    v5 = *(*a2 + 40);
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_1_0();
-    _os_log_debug_impl(v6, v7, OS_LOG_TYPE_DEBUG, v8, v9, 0xCu);
+    _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

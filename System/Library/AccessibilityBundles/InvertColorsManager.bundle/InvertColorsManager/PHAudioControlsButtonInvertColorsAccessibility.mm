@@ -1,69 +1,69 @@
 @interface PHAudioControlsButtonInvertColorsAccessibility
 - (PHAudioControlsButtonInvertColorsAccessibility)initWithFrame:(CGRect)frame;
 - (void)_accessibilityLoadInvertColors;
+- (void)updateRoundViewColorAnimated:(BOOL)animated;
 @end
 
 @implementation PHAudioControlsButtonInvertColorsAccessibility
 
 - (void)_accessibilityLoadInvertColors
 {
-  v39 = 0;
+  v38 = 0;
   objc_opt_class();
-  v28 = __UIAccessibilityCastAsClass();
+  v27 = __UIAccessibilityCastAsClass();
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  obj = [v28 subviews];
-  v3 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+  obj = [v27 subviews];
+  v3 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v30 = *v36;
+    v29 = *v35;
     do
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v36 != v30)
+        if (*v35 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v35 + 1) + 8 * i);
+        v7 = *(*(&v34 + 1) + 8 * i);
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
         layer = [v7 layer];
         sublayers = [layer sublayers];
 
-        v10 = [sublayers countByEnumeratingWithState:&v31 objects:v40 count:16];
+        v10 = [sublayers countByEnumeratingWithState:&v30 objects:v39 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v32;
+          v12 = *v31;
           while (2)
           {
-            for (j = 0; j != v11; j = j + 1)
+            for (j = 0; j != v11; ++j)
             {
-              if (*v32 != v12)
+              if (*v31 != v12)
               {
                 objc_enumerationMutation(sublayers);
               }
 
-              v14 = *(*(&v31 + 1) + 8 * j);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v15 = v7;
+                v14 = v7;
 
-                v5 = v15;
+                v5 = v14;
                 goto LABEL_16;
               }
             }
 
-            v11 = [sublayers countByEnumeratingWithState:&v31 objects:v40 count:16];
+            v11 = [sublayers countByEnumeratingWithState:&v30 objects:v39 count:16];
             if (v11)
             {
               continue;
@@ -76,7 +76,7 @@
 LABEL_16:
       }
 
-      v4 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v4 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
     }
 
     while (v4);
@@ -91,18 +91,18 @@ LABEL_16:
   [AXInvertColorsAppHelper toggleInvertColors:layer2];
 
   [v5 setAccessibilityIgnoresInvertColors:0];
-  v39 = 0;
+  v38 = 0;
   objc_opt_class();
-  v17 = [(PHAudioControlsButtonInvertColorsAccessibility *)self safeValueForKey:@"roundView"];
-  v18 = __UIAccessibilityCastAsClass();
+  v16 = [(PHAudioControlsButtonInvertColorsAccessibility *)self safeValueForKey:@"roundView"];
+  v17 = __UIAccessibilityCastAsClass();
 
-  if (v39 == 1)
+  if (v38 == 1)
   {
     abort();
   }
 
   _accessibilityBackgroundColor = [(PHAudioControlsButtonInvertColorsAccessibility *)self _accessibilityBackgroundColor];
-  v20 = _accessibilityBackgroundColor;
+  v19 = _accessibilityBackgroundColor;
   if (_accessibilityBackgroundColor)
   {
     backgroundColor = _accessibilityBackgroundColor;
@@ -110,34 +110,43 @@ LABEL_16:
 
   else
   {
-    backgroundColor = [v18 backgroundColor];
+    backgroundColor = [v17 backgroundColor];
   }
 
-  v22 = backgroundColor;
+  v21 = backgroundColor;
 
   if (_AXSInvertColorsEnabled())
   {
     if (!AXProcessIsInCallService())
     {
-      v26 = AXInvertColorForColorPreservingAlpha();
+      v25 = AXInvertColorForColorPreservingAlpha();
       goto LABEL_29;
     }
 
-    window = [v18 window];
+    window = [v17 window];
     traitCollection = [window traitCollection];
     userInterfaceStyle = [traitCollection userInterfaceStyle];
 
     if (userInterfaceStyle == &dword_0 + 1)
     {
-      v26 = +[UIColor blackColor];
+      v25 = +[UIColor blackColor];
 LABEL_29:
-      v27 = v26;
+      v26 = v25;
 
-      v22 = v27;
+      v21 = v26;
     }
   }
 
-  [v18 setBackgroundColor:v22];
+  [v17 setBackgroundColor:v21];
+}
+
+- (void)updateRoundViewColorAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = PHAudioControlsButtonInvertColorsAccessibility;
+  [(PHAudioControlsButtonInvertColorsAccessibility *)&v4 updateRoundViewColorAnimated:animated];
+  [(PHAudioControlsButtonInvertColorsAccessibility *)self _setAccessibilityBackgroundColor:0];
+  [(PHAudioControlsButtonInvertColorsAccessibility *)self _accessibilityLoadInvertColors];
 }
 
 - (PHAudioControlsButtonInvertColorsAccessibility)initWithFrame:(CGRect)frame

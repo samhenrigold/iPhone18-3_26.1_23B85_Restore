@@ -1,5 +1,6 @@
 @interface HDMedicationTimeZoneManager
 - (BOOL)_isAuthorizedToFireTimeZoneNotificationWithProfile:(id)profile;
+- (BOOL)_updateTimeZoneExperienceAsEnabled:(BOOL)enabled transaction:(id)transaction error:(id *)error;
 - (BOOL)_updateTimeZoneOffsetOffset:(id)offset transaction:(id)transaction error:(id *)error;
 - (HDMedicationTimeZoneManager)initWithProfile:(id)profile;
 - (id)_mostRecentTimeZoneOffsetWithProfile:(id)profile;
@@ -41,26 +42,24 @@
 
 - (void)handleTimeZoneChange
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = HKLogMedication();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_25181C000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Time zone changed", &v6, 0xCu);
+    _os_log_impl(&dword_25181C000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Time zone changed", &v5, 0xCu);
   }
 
   [MEMORY[0x277CBEBB0] resetSystemTimeZone];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   [(HDMedicationTimeZoneManager *)self _performTimeZoneDetectionOperationOrJournalWithProfile:1 motive:?];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isAuthorizedToFireTimeZoneNotificationWithProfile:(id)profile
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   v5 = MEMORY[0x253084B70](self->_unitTestingAuthorizedToFireTimeZoneNotificationHandler);
   v6 = v5;
@@ -77,7 +76,7 @@
       v14 = HKLogMedication();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138543362;
+        v17 = 138543362;
         selfCopy3 = self;
         v15 = "[%{public}@]: Should not fire timezone alert. Setting toggle off";
         goto LABEL_12;
@@ -99,11 +98,11 @@
       v14 = HKLogMedication();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138543362;
+        v17 = 138543362;
         selfCopy3 = self;
         v15 = "[%{public}@]: Should not fire timezone alert. Health notifications not authorized.";
 LABEL_12:
-        _os_log_impl(&dword_25181C000, v14, OS_LOG_TYPE_DEFAULT, v15, &v18, 0xCu);
+        _os_log_impl(&dword_25181C000, v14, OS_LOG_TYPE_DEFAULT, v15, &v17, 0xCu);
       }
     }
 
@@ -117,15 +116,14 @@ LABEL_12:
   if (os_log_type_enabled(medicationUserDefaults, OS_LOG_TYPE_DEFAULT))
   {
     v9 = HKStringFromBool();
-    v18 = 138543618;
+    v17 = 138543618;
     selfCopy3 = self;
-    v20 = 2114;
-    v21 = v9;
-    _os_log_impl(&dword_25181C000, medicationUserDefaults, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Unit testing. Handler returned value: '%{public}@'", &v18, 0x16u);
+    v19 = 2114;
+    v20 = v9;
+    _os_log_impl(&dword_25181C000, medicationUserDefaults, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Unit testing. Handler returned value: '%{public}@'", &v17, 0x16u);
 LABEL_14:
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -143,9 +141,93 @@ LABEL_14:
   return error;
 }
 
+- (BOOL)_updateTimeZoneExperienceAsEnabled:(BOOL)enabled transaction:(id)transaction error:(id *)error
+{
+  enabledCopy = enabled;
+  v34 = *MEMORY[0x277D85DE8];
+  v7 = MEMORY[0x277D10718];
+  WeakRetained = objc_loadWeakRetained(&self->_profile);
+  v9 = [v7 hdmd_timeZoneDomainWithProfile:WeakRetained];
+
+  _HKInitializeLogging();
+  v10 = HKLogMedication();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = HKStringFromBool();
+    *buf = 138543618;
+    selfCopy2 = self;
+    v32 = 2114;
+    v33 = v11;
+  }
+
+  v12 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  v13 = *MEMORY[0x277D11498];
+  v28 = 0;
+  [v9 setNumber:v12 forKey:v13 error:&v28];
+  v14 = v28;
+
+  if (v14)
+  {
+    _HKInitializeLogging();
+    hkmd_requestForTimeZoneNotification = HKLogMedication();
+    if (os_log_type_enabled(hkmd_requestForTimeZoneNotification, OS_LOG_TYPE_ERROR))
+    {
+      [HDMedicationTimeZoneManager _updateTimeZoneExperienceAsEnabled:transaction:error:];
+    }
+  }
+
+  else
+  {
+    hkmd_requestForTimeZoneNotification = [MEMORY[0x277CE1FC0] hkmd_requestForTimeZoneNotification];
+    if (enabledCopy)
+    {
+      _HKInitializeLogging();
+      v16 = HKLogMedication();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      {
+        content = [hkmd_requestForTimeZoneNotification content];
+        title = [content title];
+        *buf = 138543618;
+        selfCopy2 = self;
+        v32 = 2114;
+        v33 = title;
+        _os_log_impl(&dword_25181C000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Will post notification request: %{public}@", buf, 0x16u);
+      }
+
+      v19 = MEMORY[0x253084B70](self->_unitTestingNotificationFiringHandler);
+      v20 = v19;
+      if (v19)
+      {
+        (*(v19 + 16))(v19, hkmd_requestForTimeZoneNotification);
+      }
+
+      v21 = objc_loadWeakRetained(&self->_profile);
+      notificationManager = [v21 notificationManager];
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __84__HDMedicationTimeZoneManager__updateTimeZoneExperienceAsEnabled_transaction_error___block_invoke;
+      v27[3] = &unk_2796CE3B0;
+      v27[4] = self;
+      [notificationManager postNotificationWithRequest:hkmd_requestForTimeZoneNotification completion:v27];
+    }
+
+    else
+    {
+      v20 = objc_loadWeakRetained(&self->_profile);
+      notificationManager2 = [v20 notificationManager];
+      identifier = [hkmd_requestForTimeZoneNotification identifier];
+      v29 = identifier;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+      [notificationManager2 removeDeliveredNotificationsWithIdentifiers:v25];
+    }
+  }
+
+  return v14 == 0;
+}
+
 void __84__HDMedicationTimeZoneManager__updateTimeZoneExperienceAsEnabled_transaction_error___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = HKLogMedication();
@@ -155,9 +237,9 @@ void __84__HDMedicationTimeZoneManager__updateTimeZoneExperienceAsEnabled_transa
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_25181C000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Did successfully post timezone changed notification", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_25181C000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Did successfully post timezone changed notification", &v9, 0xCu);
     }
   }
 
@@ -165,8 +247,6 @@ void __84__HDMedicationTimeZoneManager__updateTimeZoneExperienceAsEnabled_transa
   {
     __84__HDMedicationTimeZoneManager__updateTimeZoneExperienceAsEnabled_transaction_error___block_invoke_cold_1(a1, v5, v7);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_mostRecentTimeZoneOffsetWithProfile:(id)profile
@@ -190,15 +270,15 @@ void __84__HDMedicationTimeZoneManager__updateTimeZoneExperienceAsEnabled_transa
 
 - (void)_performTimeZoneDetectionOperationOrJournalWithProfile:(uint64_t)profile motive:
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v5 = a2;
     v6 = [[HDMedicationTimeZoneDetectionOperation alloc] initWithMotive:profile];
-    v15 = 0;
-    v7 = [(HDJournalableOperation *)v6 performOrJournalWithProfile:v5 error:&v15];
+    v14 = 0;
+    v7 = [(HDJournalableOperation *)v6 performOrJournalWithProfile:v5 error:&v14];
 
-    v8 = v15;
+    v8 = v14;
     v9 = MEMORY[0x253084B70](*(self + 32));
     if (v9)
     {
@@ -229,52 +309,40 @@ void __84__HDMedicationTimeZoneManager__updateTimeZoneExperienceAsEnabled_transa
 
       *buf = 138544130;
       selfCopy = self;
-      v18 = 2114;
-      v19 = profile;
-      v20 = 2114;
-      v21 = v13;
-      v22 = 2114;
-      v23 = v8;
+      v17 = 2114;
+      v18 = profile;
+      v19 = 2114;
+      v20 = v13;
+      v21 = 2114;
+      v22 = v8;
       _os_log_impl(&dword_25181C000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@]: TimeZone operation ran with motive: '%{public}@' and returned result: '%{public}@ error: '%{public}@'", buf, 0x2Au);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleManager:(id)manager didAddOrModifySchedules:(id)schedules
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = HKLogMedication();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_25181C000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: schedules modified re-evaluating our timezone tile status.", &v8, 0xCu);
+    _os_log_impl(&dword_25181C000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: schedules modified re-evaluating our timezone tile status.", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   [(HDMedicationTimeZoneManager *)self _performTimeZoneDetectionOperationOrJournalWithProfile:2 motive:?];
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_updateTimeZoneExperienceAsEnabled:transaction:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __84__HDMedicationTimeZoneManager__updateTimeZoneExperienceAsEnabled_transaction_error___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1(&dword_25181C000, a2, a3, "[%{public}@]: Failed to post timezone changed notification request error:%{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1(&dword_25181C000, a2, a3, "[%{public}@]: Failed to post timezone changed notification request error:%{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

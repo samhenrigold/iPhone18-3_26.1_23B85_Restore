@@ -1273,9 +1273,9 @@ LABEL_14:
   _frame = [(WebHTMLView *)self _frame];
   if (!_frame || (v10 = *(_frame[1] + 8)) == 0)
   {
-    v21 = retstr;
+    v23 = retstr;
 
-    return MEMORY[0x1EEE5AD70](v21, v7, v8, v9);
+    return MEMORY[0x1EEE5AD70](v23, v7, v8, v9);
   }
 
   v11 = *(v10 + 224);
@@ -1284,7 +1284,8 @@ LABEL_14:
     *(v11 + 7) += 2;
   }
 
-  v12 = WebCore::Document::editor(v11);
+  Ref = WebCore::Document::editor(v11);
+  v14 = Ref;
   if (!v11)
   {
 LABEL_8:
@@ -1294,9 +1295,9 @@ LABEL_8:
     }
 
 LABEL_22:
-    qword_1ED6A6128 = createSelectorExceptionMap();
+    qword_1ED6A6128 = createSelectorExceptionMap(Ref, v13);
     byte_1ED6A611A = 1;
-    v13 = *qword_1ED6A6128;
+    v15 = *qword_1ED6A6128;
     if (!*qword_1ED6A6128)
     {
       goto LABEL_23;
@@ -1311,14 +1312,14 @@ LABEL_22:
     goto LABEL_8;
   }
 
-  WebCore::Node::removedLastRef(v11);
+  Ref = WebCore::Node::removedLastRef(v11);
   if (byte_1ED6A611A != 1)
   {
     goto LABEL_22;
   }
 
 LABEL_9:
-  v13 = *qword_1ED6A6128;
+  v15 = *qword_1ED6A6128;
   if (!*qword_1ED6A6128)
   {
     goto LABEL_23;
@@ -1335,43 +1336,43 @@ LABEL_10:
   {
     v7 = "/AppleInternal/Library/BuildRoots/4~CAs2ugA2tpMBixvyjjzI_x8zmF9N4IlVu0-_j7U/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/wtf/HashTable.h";
     v8 = "void WTF::checkHashTableKey(const T &) [Key = SEL *, Value = WTF::KeyValuePair<SEL *, WTF::String>, Extractor = WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<SEL *, WTF::String>>, HashFunctions = WTF::DefaultHash<SEL *>, Traits = WTF::HashMap<SEL *, WTF::String>::KeyValuePairTraits, KeyTraits = WTF::HashTraits<SEL *>, HashTranslator = WTF::IdentityHashTranslator<WTF::HashMap<SEL *, WTF::String>::KeyValuePairTraits, WTF::DefaultHash<SEL *>>, shouldValidateKey = WTF::ShouldValidateKey::Yes, T = SEL *]";
-    v21 = 371;
+    v23 = 371;
     v9 = 4;
     __break(0xC471u);
-    return MEMORY[0x1EEE5AD70](v21, v7, v8, v9);
+    return MEMORY[0x1EEE5AD70](v23, v7, v8, v9);
   }
 
-  v14 = *(v13 - 8);
-  v15 = &a4[~(a4 << 32)] ^ (&a4[~(a4 << 32)] >> 22);
-  v16 = 9 * ((v15 + ~(v15 << 13)) ^ ((v15 + ~(v15 << 13)) >> 8));
-  v17 = (v16 ^ (v16 >> 15)) + ~((v16 ^ (v16 >> 15)) << 27);
-  v18 = v14 & ((v17 >> 31) ^ v17);
-  v19 = *(v13 + 16 * v18);
-  if (v19 == a4)
+  v16 = *(v15 - 8);
+  v17 = &a4[~(a4 << 32)] ^ (&a4[~(a4 << 32)] >> 22);
+  v18 = 9 * ((v17 + ~(v17 << 13)) ^ ((v17 + ~(v17 << 13)) >> 8));
+  v19 = (v18 ^ (v18 >> 15)) + ~((v18 ^ (v18 >> 15)) << 27);
+  v20 = v16 & ((v19 >> 31) ^ v19);
+  v21 = *(v15 + 16 * v20);
+  if (v21 == a4)
   {
 LABEL_16:
-    if (v18 != *(v13 - 4))
+    if (v20 != *(v15 - 4))
     {
-      v24 = *(v13 + 16 * v18 + 8);
-      if (v24)
+      v26 = *(v15 + 16 * v20 + 8);
+      if (v26)
       {
-        atomic_fetch_add_explicit(v24, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v26, 2u, memory_order_relaxed);
       }
 
-      v27 = v24;
+      v29 = v26;
       goto LABEL_30;
     }
   }
 
   else
   {
-    v20 = 1;
-    while (v19)
+    v22 = 1;
+    while (v21)
     {
-      v18 = (v18 + v20) & v14;
-      v19 = *(v13 + 16 * v18);
-      ++v20;
-      if (v19 == a4)
+      v20 = (v20 + v22) & v16;
+      v21 = *(v15 + 16 * v20);
+      ++v22;
+      if (v21 == a4)
       {
         goto LABEL_16;
       }
@@ -1380,26 +1381,26 @@ LABEL_16:
 
 LABEL_23:
   Name = sel_getName(a4);
-  v23 = strlen(Name);
-  if (v23 >= 2 && Name[v23 - 1] == 58)
+  v25 = strlen(Name);
+  if (v25 >= 2 && Name[v25 - 1] == 58)
   {
     WTF::String::String();
   }
 
   else
   {
-    v27 = 0;
+    v29 = 0;
   }
 
 LABEL_30:
-  WebCore::Editor::command(v12, &v27);
-  result = v27;
-  v27 = 0;
+  WebCore::Editor::command(retstr, v14, &v29);
+  result = v29;
+  v29 = 0;
   if (result)
   {
     if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      return WTF::StringImpl::destroy(result, v25);
+      return WTF::StringImpl::destroy(result, v27);
     }
   }
 
@@ -1432,7 +1433,7 @@ LABEL_30:
     }
 
     WTF::String::String(&v15, a4);
-    WebCore::Editor::command(v12, &v15);
+    WebCore::Editor::command(retstr, v12, &v15);
     result = v15;
     v15 = 0;
     if (result)
@@ -1459,25 +1460,25 @@ LABEL_30:
   {
     if (self)
     {
-      [(WebHTMLView *)self coreCommandBySelector:selector];
+      objc_msgSend_coreCommandBySelector_(self);
     }
 
     else
     {
-      v5 = 0;
+      v4 = 0;
     }
 
     WebCore::Editor::Command::execute();
-    if (v5)
+    if (v4)
     {
-      if (*(v5 + 7) == 2)
+      if (*(v4 + 7) == 2)
       {
-        WebCore::Node::removedLastRef(v5);
+        WebCore::Node::removedLastRef(v4);
       }
 
       else
       {
-        *(v5 + 7) -= 2;
+        *(v4 + 7) -= 2;
       }
     }
   }
@@ -1487,7 +1488,7 @@ LABEL_30:
 {
   if (self)
   {
-    [(WebHTMLView *)self coreCommandByName:name];
+    objc_msgSend_coreCommandByName_(self, a2, name);
   }
 
   else
@@ -3394,7 +3395,7 @@ LABEL_20:
       goto LABEL_34;
     }
 
-    [(WebHTMLView *)self coreCommandBySelector:selector];
+    objc_msgSend_coreCommandBySelector_(self);
     if (WebCore::Editor::Command::isSupported(&v32))
     {
       v23 = WebCore::Editor::Command::execute();
@@ -3503,7 +3504,7 @@ LABEL_15:
   v18 = *(var0 + 45);
   if (v18 == *(var0 + 44))
   {
-    v19 = WTF::Vector<WebCore::KeypressCommand,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(var0 + 168, v18 + 1, &v32);
+    v19 = WTF::Vector<WebCore::KeypressCommand,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(var0 + 21, v18 + 1, &v32);
     v20 = *(var0 + 21) + 80 * *(var0 + 45);
     v21 = *v19;
     *v19 = 0;
@@ -3805,7 +3806,7 @@ LABEL_11:
   v15 = *(var0 + 45);
   if (v15 == *(var0 + 44))
   {
-    v16 = WTF::Vector<WebCore::KeypressCommand,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(var0 + 168, v15 + 1, &v42);
+    v16 = WTF::Vector<WebCore::KeypressCommand,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(var0 + 21, v15 + 1, &v42);
     v17 = *(var0 + 21) + 80 * *(var0 + 45);
     v18 = *v16;
     *v16 = 0;

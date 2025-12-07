@@ -50,7 +50,7 @@
 - (uint64_t)slideOverConfiguration;
 - (uint64_t)version;
 - (unint64_t)hash;
-- (void)copyTo:(uint64_t)to;
+- (void)copyTo:(uint64_t)result;
 - (void)setSlideOverConfiguration:(uint64_t)configuration;
 - (void)writeTo:(id)to;
 @end
@@ -696,31 +696,31 @@ LABEL_4:
   return v6;
 }
 
-- (void)copyTo:(uint64_t)to
+- (void)copyTo:(uint64_t)result
 {
-  if (to)
+  if (result)
   {
-    *(a2 + 88) = *(to + 88);
-    *(a2 + 80) = *(to + 80);
-    *(a2 + 8) = *(to + 8);
-    *(a2 + 16) = *(to + 16);
-    *(a2 + 32) = *(to + 32);
-    *(a2 + 96) = *(to + 96);
-    *(a2 + 128) = *(to + 128);
-    *(a2 + 120) = *(to + 120);
-    *(a2 + 24) = *(to + 24);
-    *(a2 + 72) = *(to + 72);
-    *(a2 + 56) = *(to + 56);
-    *(a2 + 148) = *(to + 148);
-    *(a2 + 64) = *(to + 64);
-    *(a2 + 48) = *(to + 48);
-    *(a2 + 144) = *(to + 144);
-    *(a2 + 161) = *(to + 161);
-    *(a2 + 40) = *(to + 40);
-    *(a2 + 136) = *(to + 136);
-    *(a2 + 104) = *(to + 104);
-    *(a2 + 112) = *(to + 112);
-    *(a2 + 160) = *(to + 160);
+    *(a2 + 88) = *(result + 88);
+    *(a2 + 80) = *(result + 80);
+    *(a2 + 8) = *(result + 8);
+    *(a2 + 16) = *(result + 16);
+    *(a2 + 32) = *(result + 32);
+    *(a2 + 96) = *(result + 96);
+    *(a2 + 128) = *(result + 128);
+    *(a2 + 120) = *(result + 120);
+    *(a2 + 24) = *(result + 24);
+    *(a2 + 72) = *(result + 72);
+    *(a2 + 56) = *(result + 56);
+    *(a2 + 148) = *(result + 148);
+    *(a2 + 64) = *(result + 64);
+    *(a2 + 48) = *(result + 48);
+    *(a2 + 144) = *(result + 144);
+    *(a2 + 161) = *(result + 161);
+    *(a2 + 40) = *(result + 40);
+    *(a2 + 136) = *(result + 136);
+    *(a2 + 104) = *(result + 104);
+    *(a2 + 112) = *(result + 112);
+    *(a2 + 160) = *(result + 160);
     [(SBPBDisplayItemLayoutAttributes *)a2 setSlideOverConfiguration:?];
   }
 }

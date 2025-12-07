@@ -12,61 +12,60 @@
   formCopy = form;
   actionCopy = action;
   v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6C4100, &qword_1B01511B0);
-  v13 = *(*(v12 - 8) + 64);
   MEMORY[0x1EEE9AC00](v12 - 8);
-  v15 = &actionCopy - v14;
-  v16 = _Block_copy(completion);
+  v14 = &actionCopy - v13;
+  v15 = _Block_copy(completion);
   if (!d)
   {
-    v18 = 0;
+    v17 = 0;
     if (id)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v19 = 0;
-    v21 = 0;
+    v18 = 0;
+    v20 = 0;
     goto LABEL_6;
   }
 
   d = sub_1B014CC1C();
-  v18 = v17;
+  v17 = v16;
   if (!id)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  v19 = sub_1B014CC1C();
-  v21 = v20;
+  v18 = sub_1B014CC1C();
+  v20 = v19;
 LABEL_6:
-  v22 = swift_allocObject();
-  *(v22 + 16) = v16;
+  v21 = swift_allocObject();
+  *(v21 + 16) = v15;
   ObjCClassMetadata = swift_getObjCClassMetadata();
   type metadata accessor for FBKSInteraction(0);
   interactionCopy = interaction;
-  v25 = sub_1B00F76D4(interactionCopy);
-  v26 = sub_1B014CEAC();
-  (*(*(v26 - 8) + 56))(v15, 1, 1, v26);
-  v27 = swift_allocObject();
-  *(v27 + 16) = 0;
-  *(v27 + 24) = 0;
-  v28 = actionCopy;
-  *(v27 + 32) = ObjCClassMetadata;
-  *(v27 + 40) = v28;
-  *(v27 + 48) = v25;
-  *(v27 + 56) = d;
-  *(v27 + 64) = v18;
-  *(v27 + 72) = v19;
-  *(v27 + 80) = v21;
-  LOBYTE(v28) = formCopy;
-  *(v27 + 88) = accountCopy;
-  *(v27 + 89) = v28;
-  *(v27 + 96) = sub_1B00F9900;
-  *(v27 + 104) = v22;
-  v29 = v25;
-  sub_1B00F8B5C(0, 0, v15, &unk_1B0151210, v27);
+  v24 = sub_1B00F76D4(interactionCopy);
+  v25 = sub_1B014CEAC();
+  (*(*(v25 - 8) + 56))(v14, 1, 1, v25);
+  v26 = swift_allocObject();
+  *(v26 + 16) = 0;
+  *(v26 + 24) = 0;
+  v27 = actionCopy;
+  *(v26 + 32) = ObjCClassMetadata;
+  *(v26 + 40) = v27;
+  *(v26 + 48) = v24;
+  *(v26 + 56) = d;
+  *(v26 + 64) = v17;
+  *(v26 + 72) = v18;
+  *(v26 + 80) = v20;
+  LOBYTE(v27) = formCopy;
+  *(v26 + 88) = accountCopy;
+  *(v26 + 89) = v27;
+  *(v26 + 96) = sub_1B00F9900;
+  *(v26 + 104) = v21;
+  v28 = v24;
+  sub_1B00F8B5C(0, 0, v14, &unk_1B0151210, v26);
 }
 
 + (void)presentedWithInteraction:(id)interaction completion:(id)completion

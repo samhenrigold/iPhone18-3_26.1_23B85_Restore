@@ -183,11 +183,11 @@
     return 1;
   }
 
-  v9 = PHDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = PHDefaultLog(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    *v10 = 0;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "CarPlay Voicemail Tab Selected, but visual voicemail is not available. Calling voicemail instead.", v10, 2u);
+    *v11 = 0;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "CarPlay Voicemail Tab Selected, but visual voicemail is not available. Calling voicemail instead.", v11, 2u);
   }
 
   return [UIApp dialVoicemail] ^ 1;
@@ -276,27 +276,28 @@
       v10 = [rootViewControllerDictionaries2 objectAtIndexedSubscript:v8];
       v11 = [v10 objectForKeyedSubscript:@"kPHCarPlayMenuItemDeepLinkScheme"];
 
-      if ([scheme isEqualToString:v11])
+      v12 = [scheme isEqualToString:v11];
+      if (v12)
       {
         break;
       }
 
       ++v8;
       rootViewControllerDictionaries3 = [(PHCarPlayMainMenuContainerViewController *)self rootViewControllerDictionaries];
-      v13 = [rootViewControllerDictionaries3 count];
+      v14 = [rootViewControllerDictionaries3 count];
 
-      if (v13 <= v8)
+      if (v14 <= v8)
       {
         goto LABEL_9;
       }
     }
 
-    v14 = PHDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = PHDefaultLog(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v59 = v8;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Switching to CarPlay tab: %i.", buf, 8u);
+      v61 = v8;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Switching to CarPlay tab: %i.", buf, 8u);
     }
 
     rootViewController = [(PHCarPlayMainMenuContainerViewController *)self rootViewController];
@@ -317,83 +318,83 @@ LABEL_9:
       goto LABEL_29;
     }
 
-    v49 = selectedViewController;
-    v20 = [NSURLComponents componentsWithURL:lCopy resolvingAgainstBaseURL:0];
-    queryItems = [v20 queryItems];
+    v51 = selectedViewController;
+    v21 = [NSURLComponents componentsWithURL:lCopy resolvingAgainstBaseURL:0];
+    queryItems = [v21 queryItems];
 
+    v54 = 0u;
+    v55 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v22 = queryItems;
-    v23 = [v22 countByEnumeratingWithState:&v50 objects:v57 count:16];
-    v24 = v22;
-    if (v23)
+    v23 = queryItems;
+    v24 = [v23 countByEnumeratingWithState:&v52 objects:v59 count:16];
+    v25 = v23;
+    if (v24)
     {
-      v25 = v23;
-      v47 = lCopy;
-      v48 = lowercaseString;
-      v24 = 0;
-      v26 = *v51;
+      v26 = v24;
+      v49 = lCopy;
+      v50 = lowercaseString;
+      v25 = 0;
+      v27 = *v53;
       do
       {
-        for (i = 0; i != v25; i = i + 1)
+        for (i = 0; i != v26; i = i + 1)
         {
-          if (*v51 != v26)
+          if (*v53 != v27)
           {
-            objc_enumerationMutation(v22);
+            objc_enumerationMutation(v23);
           }
 
-          v28 = *(*(&v50 + 1) + 8 * i);
-          name = [v28 name];
-          v30 = [name isEqualToString:@"id"];
+          v29 = *(*(&v52 + 1) + 8 * i);
+          name = [v29 name];
+          v31 = [name isEqualToString:@"id"];
 
-          if (v30)
+          if (v31)
           {
-            value = [v28 value];
+            value = [v29 value];
 
-            v24 = value;
+            v25 = value;
           }
         }
 
-        v25 = [v22 countByEnumeratingWithState:&v50 objects:v57 count:16];
+        v26 = [v23 countByEnumeratingWithState:&v52 objects:v59 count:16];
       }
 
-      while (v25);
+      while (v26);
 
-      lCopy = v47;
-      lowercaseString = v48;
-      if (!v24)
+      lCopy = v49;
+      lowercaseString = v50;
+      if (!v25)
       {
         goto LABEL_28;
       }
 
-      v32 = +[(PHApplicationServices *)MPApplicationServices];
-      contactStore = [v32 contactStore];
+      v33 = +[(PHApplicationServices *)MPApplicationServices];
+      contactStore = [v33 contactStore];
 
-      v34 = +[CNContactViewController descriptorForRequiredKeys];
-      v56 = v34;
-      v35 = [NSArray arrayWithObjects:&v56 count:1];
-      v36 = [contactStore contactForIdentifier:v24 keysToFetch:v35];
+      v35 = +[CNContactViewController descriptorForRequiredKeys];
+      v58 = v35;
+      v36 = [NSArray arrayWithObjects:&v58 count:1];
+      v37 = [contactStore contactForIdentifier:v25 keysToFetch:v36];
 
-      if (v36)
+      if (v37)
       {
-        v37 = PHDefaultLog();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v39 = PHDefaultLog(v38);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Loading Contact Into Tab", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Loading Contact Into Tab", buf, 2u);
         }
 
-        delegate = [v49 delegate];
-        [delegate contactListViewController:v49 didSelectContact:v36];
+        delegate = [v51 delegate];
+        [delegate contactListViewController:v51 didSelectContact:v37];
 
-        lowercaseString = v48;
+        lowercaseString = v50;
       }
     }
 
 LABEL_28:
-    selectedViewController = v49;
+    selectedViewController = v51;
 LABEL_29:
   }
 
@@ -405,34 +406,35 @@ LABEL_29:
       if (voicemailMessageUUID || [UIApp hasEnhancedVoicemail])
       {
         voicemailMessageUUID2 = [lCopy voicemailMessageUUID];
+        v43 = voicemailMessageUUID2;
         if (voicemailMessageUUID2)
         {
-          v41 = [[MPMessageID alloc] initWithUuid:voicemailMessageUUID2];
-          if (v41)
+          voicemailMessageUUID2 = [[MPMessageID alloc] initWithUuid:voicemailMessageUUID2];
+          if (voicemailMessageUUID2)
           {
             goto LABEL_42;
           }
         }
 
-        v42 = PHDefaultLog();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+        v44 = PHDefaultLog(voicemailMessageUUID2);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
         {
-          [(PHVoicemailNavigationController *)lCopy handleURL:v42];
+          [(PHVoicemailNavigationController *)lCopy handleURL:v44];
         }
 
         voicemailRecordID = [lCopy voicemailRecordID];
         if (voicemailRecordID >= 1)
         {
-          v41 = [[MPMessageID alloc] initWithValue:voicemailRecordID];
-          if (v41)
+          voicemailMessageUUID2 = [[MPMessageID alloc] initWithValue:voicemailRecordID];
+          if (voicemailMessageUUID2)
           {
 LABEL_42:
-            v44 = v41;
-            v45 = +[NSNotificationCenter defaultCenter];
-            v54 = @"kPHCarPlayVoicemailViewControllerVoicemailIDKey";
-            v55 = v44;
-            v46 = [NSDictionary dictionaryWithObjects:&v55 forKeys:&v54 count:1];
-            [v45 postNotificationName:@"PHCarPlayVoicemailViewControllerPlayVoicemailEventNotification" object:0 userInfo:v46];
+            v46 = voicemailMessageUUID2;
+            v47 = +[NSNotificationCenter defaultCenter];
+            v56 = @"kPHCarPlayVoicemailViewControllerVoicemailIDKey";
+            v57 = v46;
+            v48 = [NSDictionary dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+            [v47 postNotificationName:@"PHCarPlayVoicemailViewControllerPlayVoicemailEventNotification" object:0 userInfo:v48];
           }
         }
       }

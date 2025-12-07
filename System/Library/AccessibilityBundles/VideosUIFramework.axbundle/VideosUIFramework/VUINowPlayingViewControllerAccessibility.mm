@@ -1,6 +1,7 @@
 @interface VUINowPlayingViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)showSkipAndPromoView:(BOOL)view animated:(BOOL)animated skipInfo:(id)info;
 @end
 
 @implementation VUINowPlayingViewControllerAccessibility
@@ -35,6 +36,18 @@
   if (v11)
   {
     [v11 setAccessibilityValue:v4];
+  }
+}
+
+- (void)showSkipAndPromoView:(BOOL)view animated:(BOOL)animated skipInfo:(id)info
+{
+  viewCopy = view;
+  v7.receiver = self;
+  v7.super_class = VUINowPlayingViewControllerAccessibility;
+  [(VUINowPlayingViewControllerAccessibility *)&v7 showSkipAndPromoView:view animated:animated skipInfo:info];
+  if (viewCopy)
+  {
+    [(VUINowPlayingViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
   }
 }
 

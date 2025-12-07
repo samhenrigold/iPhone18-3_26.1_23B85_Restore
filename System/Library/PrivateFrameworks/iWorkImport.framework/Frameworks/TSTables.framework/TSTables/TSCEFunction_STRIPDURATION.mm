@@ -7,40 +7,40 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v7 = **arguments;
-  if (objc_msgSend_deepType_(v7, v8, context, v9, v10) == 5 || objc_msgSend_deepType_(v7, v11, context, v12, v13) == 7)
+  if (objc_msgSend_deepType_(v7, v8, context, v9) == 5 || objc_msgSend_deepType_(v7, v10, context, v11) == 7)
   {
-    v31 = 0;
-    v14 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v7, v11, context, spec, 0, &v31);
-    v19 = v31;
-    if (!v19 && objc_msgSend_isDuration(v14, v15, v16, v17, v18))
+    v26 = 0;
+    v12 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v7, v10, context, spec, 0, &v26);
+    v16 = v26;
+    if (!v16 && objc_msgSend_isDuration(v12, v13, v14, v15))
     {
-      objc_msgSend_rawTimeIntervalValue(v14, v20, v21, v22, v23);
+      objc_msgSend_rawTimeIntervalValue(v12, v17, v18, v19);
       TSUDecimal::operator=();
       if (v7)
       {
-        objc_msgSend_formatWithContext_(v7, v24, context, v25, v26);
+        objc_msgSend_formatWithContext_(v7, v20, context, v21);
       }
 
       else
       {
-        memset(v29, 0, sizeof(v29));
+        memset(v24, 0, sizeof(v24));
       }
 
-      v27 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v24, v30, v29, v26);
+      v22 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v20, v25, v24);
       goto LABEL_10;
     }
   }
 
   else
   {
-    v19 = 0;
+    v16 = 0;
   }
 
-  v27 = v7;
-  v14 = v19;
+  v22 = v7;
+  v12 = v16;
 LABEL_10:
 
-  return v27;
+  return v22;
 }
 
 @end

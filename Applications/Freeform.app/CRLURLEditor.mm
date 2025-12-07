@@ -18,7 +18,7 @@
 
 - (void)willResignCurrentEditor
 {
-  v3 = sub_1005B981C(&qword_1019FB750);
+  v3 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v3 - 8);
   v5 = &v11 - v4;
   v6 = type metadata accessor for TaskPriority();
@@ -41,7 +41,7 @@
 + (BOOL)canOpenItemURLFor:(id)for
 {
   type metadata accessor for CRLBoardItem(0);
-  sub_100928BCC(&qword_1019FCB80, type metadata accessor for CRLBoardItem);
+  sub_100928BCC(&qword_1019FCB80, type metadata accessor for CRLBoardItem, &protocol conformance descriptor for NSObject);
   v3 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   v4 = sub_10092888C(v3);
 
@@ -81,7 +81,7 @@
 
   v8 = sub_100923550(action, v10);
 
-  sub_10000CAAC(v10, &unk_1019F4D00);
+  sub_10000CAAC(v10, &unk_1019F4D00, &unk_10146E7F0);
   return v8;
 }
 

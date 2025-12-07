@@ -49,27 +49,26 @@
 
 - (BOOL)evaluateWithObject:(id)object substitutionVariables:(id)variables
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     __p = 0;
+    v7 = 0;
     v8 = 0;
-    v9 = 0;
     operator new();
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (BOOL)getRanges:(void *)ranges inDescription:(id)description options:(unint64_t)options limit:(unint64_t)limit searchedInRange:(_NSRange *)range
 {
-  v37[2] = *MEMORY[0x1E69E9840];
+  v36[2] = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   context = objc_autoreleasePoolPush();
-  v33 = self->_searchString;
+  v32 = self->_searchString;
   string = [descriptionCopy string];
   v14 = string;
   title = self->_title;
@@ -77,8 +76,8 @@
   {
     v16 = [_CSVisualizer rangeOfValueForTitle:title inDescription:descriptionCopy];
     v18 = v17;
-    v35.location = v16;
-    v35.length = v17;
+    v34.location = v16;
+    v34.length = v17;
     v19 = v16 != 0x7FFFFFFFFFFFFFFFLL;
   }
 
@@ -86,15 +85,15 @@
   {
     v18 = [string length];
     v16 = 0;
-    v35.location = 0;
-    v35.length = v18;
+    v34.location = 0;
+    v34.length = v18;
     v19 = 1;
   }
 
-  v31 = v19;
+  v30 = v19;
   if (range)
   {
-    *range = v35;
+    *range = v34;
   }
 
   if (v14 && v16 != 0x7FFFFFFFFFFFFFFFLL)
@@ -103,7 +102,7 @@
     {
       if ([(_CSVisualizerPredicate *)self evaluateNumerically:descriptionCopy])
       {
-        std::vector<_NSRange>::push_back[abi:nn200100](ranges, &v35);
+        std::vector<_NSRange>::push_back[abi:nn200100](ranges, &v34);
       }
     }
 
@@ -125,16 +124,16 @@
       }
 
       v21 = *v20;
-      v36[0] = @"HAYSTACK";
+      v35[0] = @"HAYSTACK";
       v22 = [v14 substringWithRange:{v16, v18}];
-      v36[1] = @"NEEDLE";
-      v37[0] = v22;
-      v37[1] = v33;
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:2];
+      v35[1] = @"NEEDLE";
+      v36[0] = v22;
+      v36[1] = v32;
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:2];
 
       if ([v21 evaluateWithObject:0 substitutionVariables:v23])
       {
-        std::vector<_NSRange>::push_back[abi:nn200100](ranges, &v35);
+        std::vector<_NSRange>::push_back[abi:nn200100](ranges, &v34);
       }
     }
 
@@ -149,16 +148,16 @@
           break;
         }
 
-        v26 = [v14 rangeOfString:v33 options:options | 1 range:{v25, v24}];
+        v26 = [v14 rangeOfString:v32 options:options | 1 range:{v25, v24}];
         v28 = v27;
-        *&v34 = v26;
-        *(&v34 + 1) = v27;
+        *&v33 = v26;
+        *(&v33 + 1) = v27;
         if (v26 == 0x7FFFFFFFFFFFFFFFLL)
         {
           break;
         }
 
-        std::vector<_NSRange>::push_back[abi:nn200100](ranges, &v34);
+        std::vector<_NSRange>::push_back[abi:nn200100](ranges, &v33);
         v25 = v28 + v26;
         if (v28 + v26 == 0x7FFFFFFFFFFFFFFFLL)
         {
@@ -173,13 +172,12 @@
   }
 
   objc_autoreleasePoolPop(context);
-  v29 = *MEMORY[0x1E69E9840];
-  return v31;
+  return v30;
 }
 
 - (BOOL)evaluateNumerically:(id)numerically
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   numericallyCopy = numerically;
   v5 = numericallyCopy;
   title = self->_title;
@@ -200,33 +198,33 @@
     v11 = [v10 attribute:@"_CSVNum" atIndex:0 effectiveRange:0];
     if (!v11)
     {
-      v17 = objc_alloc(MEMORY[0x1E696AE88]);
+      v16 = objc_alloc(MEMORY[0x1E696AE88]);
       string = [v10 string];
-      v14 = [v17 initWithString:string];
+      v14 = [v16 initWithString:string];
 
       [v14 setCaseSensitive:0];
-      v24 = 0;
-      v22 = 0uLL;
       v23 = 0;
-      if ([v14 scanString:@"0x" intoString:0] && objc_msgSend(v14, "scanHexLongLong:", &v24))
+      v21 = 0uLL;
+      v22 = 0;
+      if ([v14 scanString:@"0x" intoString:0] && objc_msgSend(v14, "scanHexLongLong:", &v23))
       {
-        v19 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v24];
+        v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v23];
       }
 
       else
       {
-        if (([v14 scanDecimal:&v22] & 1) == 0)
+        if (([v14 scanDecimal:&v21] & 1) == 0)
         {
           v9 = 0;
           goto LABEL_8;
         }
 
+        v19 = v21;
         v20 = v22;
-        v21 = v23;
-        v19 = [MEMORY[0x1E696AB90] decimalNumberWithDecimal:&v20];
+        v18 = [MEMORY[0x1E696AB90] decimalNumberWithDecimal:&v19];
       }
 
-      v11 = v19;
+      v11 = v18;
 
       if (!v11)
       {
@@ -236,9 +234,9 @@
     }
 
     numericPredicate = self->_numericPredicate;
-    v25 = @"HAYSTACK";
-    v26[0] = v11;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = @"HAYSTACK";
+    v25[0] = v11;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v9 = [(NSPredicate *)numericPredicate evaluateWithObject:0 substitutionVariables:v13];
 
     v14 = v11;
@@ -251,36 +249,35 @@ LABEL_9:
   v9 = 0;
 LABEL_10:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (_CSVisualizerPredicate)initWithSearchString:(id)string forTitle:(id)title operator:(unint64_t)operator error:(id *)error
 {
-  v42[6] = *MEMORY[0x1E69E9840];
+  v41[6] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   titleCopy = title;
-  v36.receiver = self;
-  v36.super_class = _CSVisualizerPredicate;
-  v12 = [(_CSVisualizerPredicate *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = _CSVisualizerPredicate;
+  v12 = [(_CSVisualizerPredicate *)&v35 init];
   if (!v12)
   {
     v24 = MEMORY[0x1E696ABC0];
-    v37[0] = *MEMORY[0x1E696A278];
-    v37[1] = @"Line";
-    v38[0] = @"mFulErr";
-    v38[1] = &unk_1F37D7F58;
+    v36[0] = *MEMORY[0x1E696A278];
+    v36[1] = @"Line";
+    v37[0] = @"mFulErr";
+    v37[1] = &unk_1F37D7F58;
     v25 = *MEMORY[0x1E696A588];
-    v38[2] = @"Failed to allocate NSPredicate instance.";
-    v37[2] = v25;
-    v37[3] = @"Operator";
+    v37[2] = @"Failed to allocate NSPredicate instance.";
+    v36[2] = v25;
+    v36[3] = @"Operator";
     v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:operator];
-    v38[3] = v26;
-    v38[4] = stringCopy;
-    v37[4] = @"SearchString";
-    v37[5] = @"Title";
-    v38[5] = titleCopy;
-    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:6];
+    v37[3] = v26;
+    v37[4] = stringCopy;
+    v36[4] = @"SearchString";
+    v36[5] = @"Title";
+    v37[5] = titleCopy;
+    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:6];
     v28 = [v24 errorWithDomain:*MEMORY[0x1E696A768] code:-41 userInfo:v27];
 LABEL_8:
     v17 = v28;
@@ -328,43 +325,43 @@ LABEL_8:
         goto LABEL_11;
       }
 
-      v34 = MEMORY[0x1E696ABC0];
-      v41[0] = *MEMORY[0x1E696A278];
-      v41[1] = @"Line";
-      v42[0] = @"kCSStorePredicateErr";
-      v42[1] = &unk_1F37D7F28;
-      v35 = *MEMORY[0x1E696A588];
-      v42[2] = @"Unsupported operator type.";
-      v41[2] = v35;
-      v41[3] = @"Operator";
+      v33 = MEMORY[0x1E696ABC0];
+      v40[0] = *MEMORY[0x1E696A278];
+      v40[1] = @"Line";
+      v41[0] = @"kCSStorePredicateErr";
+      v41[1] = &unk_1F37D7F28;
+      v34 = *MEMORY[0x1E696A588];
+      v41[2] = @"Unsupported operator type.";
+      v40[2] = v34;
+      v40[3] = @"Operator";
       v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:operator];
-      v42[3] = v26;
-      v42[4] = stringCopy;
-      v41[4] = @"SearchString";
-      v41[5] = @"Title";
-      v42[5] = titleCopy;
-      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:6];
-      v28 = [v34 errorWithDomain:*MEMORY[0x1E696A768] code:-9495 userInfo:v27];
+      v41[3] = v26;
+      v41[4] = stringCopy;
+      v40[4] = @"SearchString";
+      v40[5] = @"Title";
+      v41[5] = titleCopy;
+      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:6];
+      v28 = [v33 errorWithDomain:*MEMORY[0x1E696A768] code:-9495 userInfo:v27];
     }
 
     else
     {
 
-      v32 = MEMORY[0x1E696ABC0];
-      v39[0] = *MEMORY[0x1E696A278];
-      v39[1] = @"Line";
-      v40[0] = @"kCSStorePredicateErr";
-      v40[1] = &unk_1F37D7F40;
-      v33 = *MEMORY[0x1E696A588];
-      v40[2] = @"Unsupported operator type.";
-      v39[2] = v33;
-      v39[3] = @"Operator";
+      v31 = MEMORY[0x1E696ABC0];
+      v38[0] = *MEMORY[0x1E696A278];
+      v38[1] = @"Line";
+      v39[0] = @"kCSStorePredicateErr";
+      v39[1] = &unk_1F37D7F40;
+      v32 = *MEMORY[0x1E696A588];
+      v39[2] = @"Unsupported operator type.";
+      v38[2] = v32;
+      v38[3] = @"Operator";
       v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:operator];
-      v39[4] = @"SearchString";
-      v40[3] = v26;
-      v40[4] = stringCopy;
-      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:5];
-      v28 = [v32 errorWithDomain:*MEMORY[0x1E696A768] code:-9495 userInfo:v27];
+      v38[4] = @"SearchString";
+      v39[3] = v26;
+      v39[4] = stringCopy;
+      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:5];
+      v28 = [v31 errorWithDomain:*MEMORY[0x1E696A768] code:-9495 userInfo:v27];
     }
 
     goto LABEL_8;
@@ -372,7 +369,6 @@ LABEL_8:
 
 LABEL_11:
 
-  v30 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -396,7 +392,7 @@ LABEL_11:
 
 + (void)getRanges:(void *)ranges matchingPredicate:(id)predicate inDescription:(id)description
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   descriptionCopy = description;
   v11 = descriptionCopy;
@@ -442,30 +438,30 @@ LABEL_3:
       v14 = predicateCopy;
       if ([v14 compoundPredicateType])
       {
-        v24 = 0u;
-        v25 = 0u;
-        v22 = 0u;
         v23 = 0u;
+        v24 = 0u;
+        v21 = 0u;
+        v22 = 0u;
         subpredicates = [v14 subpredicates];
-        v16 = [subpredicates countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v16 = [subpredicates countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v16)
         {
-          v17 = *v23;
+          v17 = *v22;
           do
           {
             v18 = 0;
             do
             {
-              if (*v23 != v17)
+              if (*v22 != v17)
               {
                 objc_enumerationMutation(subpredicates);
               }
 
-              [self getRanges:ranges matchingPredicate:*(*(&v22 + 1) + 8 * v18++) inDescription:v11];
+              [self getRanges:ranges matchingPredicate:*(*(&v21 + 1) + 8 * v18++) inDescription:v11];
             }
 
             while (v16 != v18);
-            v16 = [subpredicates countByEnumeratingWithState:&v22 objects:v26 count:16];
+            v16 = [subpredicates countByEnumeratingWithState:&v21 objects:v25 count:16];
           }
 
           while (v16);
@@ -473,21 +469,19 @@ LABEL_3:
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 + (id)predicateWithFormatString:(id)string error:(id *)error
 {
-  v20[15] = *MEMORY[0x1E69E9840];
+  v19[15] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v7 = objc_autoreleasePoolPush();
   v8 = [MEMORY[0x1E696AE18] predicateWithFormat:stringCopy argumentArray:MEMORY[0x1E695E0F0]];
   if (v8)
   {
-    v18[0] = 0;
-    v9 = [self translateNSPredicate:v8 error:v18];
-    v10 = v18[0];
+    v17[0] = 0;
+    v9 = [self translateNSPredicate:v8 error:v17];
+    v10 = v17[0];
 
     if (v9)
     {
@@ -507,15 +501,15 @@ LABEL_3:
     if (!v9)
     {
       v12 = MEMORY[0x1E696ABC0];
-      v19[0] = *MEMORY[0x1E696A278];
-      v19[1] = @"Line";
-      v20[0] = @"kCSStorePredicateErr";
-      v20[1] = &unk_1F37D7EF8;
-      v19[2] = *MEMORY[0x1E696A588];
-      v19[3] = @"Expression";
-      v20[2] = @"Could not translate generated expression to a form usable by CoreServicesStore.";
-      v20[3] = v11;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:4];
+      v18[0] = *MEMORY[0x1E696A278];
+      v18[1] = @"Line";
+      v19[0] = @"kCSStorePredicateErr";
+      v19[1] = &unk_1F37D7EF8;
+      v18[2] = *MEMORY[0x1E696A588];
+      v18[3] = @"Expression";
+      v19[2] = @"Could not translate generated expression to a form usable by CoreServicesStore.";
+      v19[3] = v11;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:4];
       v14 = [v12 errorWithDomain:*MEMORY[0x1E696A768] code:-9495 userInfo:v13];
 
       v9 = 0;
@@ -536,18 +530,16 @@ LABEL_10:
     *error = v10;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (id)translateNSPredicate:(id)predicate error:(id *)error
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
-  v39 = [MEMORY[0x1E696AE18] predicateWithValue:1];
-  v38 = [MEMORY[0x1E696AE18] predicateWithValue:0];
-  if (([predicateCopy isEqual:v39] & 1) != 0 || objc_msgSend(predicateCopy, "isEqual:", v38))
+  v38 = [MEMORY[0x1E696AE18] predicateWithValue:1];
+  v37 = [MEMORY[0x1E696AE18] predicateWithValue:0];
+  if (([predicateCopy isEqual:v38] & 1) != 0 || objc_msgSend(predicateCopy, "isEqual:", v37))
   {
     goto LABEL_3;
   }
@@ -555,19 +547,19 @@ LABEL_10:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v36 = predicateCopy;
-    subpredicates = [v36 subpredicates];
+    v35 = predicateCopy;
+    subpredicates = [v35 subpredicates];
     if ([subpredicates count] == 1)
     {
-      compoundPredicateType = [v36 compoundPredicateType];
+      compoundPredicateType = [v35 compoundPredicateType];
 
       if (compoundPredicateType)
       {
-        subpredicates2 = [v36 subpredicates];
+        subpredicates2 = [v35 subpredicates];
         array = [subpredicates2 objectAtIndexedSubscript:0];
-        v48 = 0;
-        v5 = [self translateNSPredicate:array error:&v48];
-        v6 = v48;
+        v47 = 0;
+        v5 = [self translateNSPredicate:array error:&v47];
+        v6 = v47;
 LABEL_35:
 
         array = subpredicates2;
@@ -580,47 +572,47 @@ LABEL_35:
     }
 
     array = [MEMORY[0x1E695DF70] array];
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
-    subpredicates2 = [v36 subpredicates];
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    subpredicates2 = [v35 subpredicates];
     v6 = 0;
-    v25 = [subpredicates2 countByEnumeratingWithState:&v44 objects:v57 count:16];
-    if (v25)
+    v24 = [subpredicates2 countByEnumeratingWithState:&v43 objects:v56 count:16];
+    if (v24)
     {
-      v26 = *v45;
+      v25 = *v44;
       while (2)
       {
-        v27 = 0;
-        v28 = v6;
+        v26 = 0;
+        v27 = v6;
         do
         {
-          if (*v45 != v26)
+          if (*v44 != v25)
           {
             objc_enumerationMutation(subpredicates2);
           }
 
-          v29 = *(*(&v44 + 1) + 8 * v27);
-          v43 = v28;
-          v30 = [self translateNSPredicate:v29 error:&v43];
-          v6 = v43;
+          v28 = *(*(&v43 + 1) + 8 * v26);
+          v42 = v27;
+          v29 = [self translateNSPredicate:v28 error:&v42];
+          v6 = v42;
 
-          if (!v30)
+          if (!v29)
           {
             v5 = 0;
             goto LABEL_35;
           }
 
-          [array addObject:v30];
+          [array addObject:v29];
 
-          ++v27;
-          v28 = v6;
+          ++v26;
+          v27 = v6;
         }
 
-        while (v25 != v27);
-        v25 = [subpredicates2 countByEnumeratingWithState:&v44 objects:v57 count:16];
-        if (v25)
+        while (v24 != v26);
+        v24 = [subpredicates2 countByEnumeratingWithState:&v43 objects:v56 count:16];
+        if (v24)
         {
           continue;
         }
@@ -635,7 +627,7 @@ LABEL_35:
       goto LABEL_37;
     }
 
-    v5 = [objc_alloc(MEMORY[0x1E696AB28]) initWithType:objc_msgSend(v36 subpredicates:{"compoundPredicateType"), array}];
+    v5 = [objc_alloc(MEMORY[0x1E696AB28]) initWithType:objc_msgSend(v35 subpredicates:{"compoundPredicateType"), array}];
 LABEL_36:
 
 LABEL_37:
@@ -645,87 +637,87 @@ LABEL_37:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = predicateCopy;
-    leftExpression = [v16 leftExpression];
-    v18 = [self constantValueForExpression:leftExpression];
+    v15 = predicateCopy;
+    leftExpression = [v15 leftExpression];
+    v17 = [self constantValueForExpression:leftExpression];
 
-    predicateOperatorType = [v16 predicateOperatorType];
-    rightExpression = [v16 rightExpression];
-    v21 = [self constantValueForExpression:rightExpression];
+    predicateOperatorType = [v15 predicateOperatorType];
+    rightExpression = [v15 rightExpression];
+    v20 = [self constantValueForExpression:rightExpression];
 
-    if (v18)
+    if (v17)
     {
-      if (v21)
+      if (v20)
       {
-        if (![v16 comparisonPredicateModifier])
+        if (![v15 comparisonPredicateModifier])
         {
-          v23 = v18;
-          v33 = v21;
-          if ([v23 isEqualToString:@"*"])
+          v22 = v17;
+          v32 = v20;
+          if ([v22 isEqualToString:@"*"])
           {
-            v42 = 0;
-            v34 = &v42;
-            v35 = [[_CSVisualizerPredicate alloc] initWithSearchString:v33 operator:predicateOperatorType error:&v42];
+            v41 = 0;
+            v33 = &v41;
+            v34 = [[_CSVisualizerPredicate alloc] initWithSearchString:v32 operator:predicateOperatorType error:&v41];
           }
 
           else
           {
-            v41 = 0;
-            v34 = &v41;
-            v35 = [[_CSVisualizerPredicate alloc] initWithSearchString:v33 forTitle:v23 operator:predicateOperatorType error:&v41];
+            v40 = 0;
+            v33 = &v40;
+            v34 = [[_CSVisualizerPredicate alloc] initWithSearchString:v32 forTitle:v22 operator:predicateOperatorType error:&v40];
           }
 
-          v5 = v35;
-          v6 = *v34;
+          v5 = v34;
+          v6 = *v33;
 
           goto LABEL_41;
         }
 
-        v22 = MEMORY[0x1E696ABC0];
-        v51[0] = *MEMORY[0x1E696A278];
-        v51[1] = @"Line";
-        v52[0] = @"kCSStorePredicateErr";
-        v52[1] = &unk_1F37D7EB0;
-        v51[2] = *MEMORY[0x1E696A588];
-        v51[3] = @"Predicate";
-        v52[2] = @"Aggregate operations (ANY, ALL, etc.) are not supported.";
-        v52[3] = v16;
-        v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:4];
-        v24 = [v22 errorWithDomain:*MEMORY[0x1E696A768] code:-9495 userInfo:v23];
+        v21 = MEMORY[0x1E696ABC0];
+        v50[0] = *MEMORY[0x1E696A278];
+        v50[1] = @"Line";
+        v51[0] = @"kCSStorePredicateErr";
+        v51[1] = &unk_1F37D7EB0;
+        v50[2] = *MEMORY[0x1E696A588];
+        v50[3] = @"Predicate";
+        v51[2] = @"Aggregate operations (ANY, ALL, etc.) are not supported.";
+        v51[3] = v15;
+        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:4];
+        v23 = [v21 errorWithDomain:*MEMORY[0x1E696A768] code:-9495 userInfo:v22];
       }
 
       else
       {
-        v32 = MEMORY[0x1E696ABC0];
-        v53[0] = *MEMORY[0x1E696A278];
-        v53[1] = @"Line";
-        v54[0] = @"kCSStorePredicateErr";
-        v54[1] = &unk_1F37D7E98;
-        v53[2] = *MEMORY[0x1E696A588];
-        v53[3] = @"Predicate";
-        v54[2] = @"Unsupported expression type (right-hand side).";
-        v54[3] = v16;
-        v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:v53 count:4];
-        v24 = [v32 errorWithDomain:*MEMORY[0x1E696A768] code:-9495 userInfo:v23];
+        v31 = MEMORY[0x1E696ABC0];
+        v52[0] = *MEMORY[0x1E696A278];
+        v52[1] = @"Line";
+        v53[0] = @"kCSStorePredicateErr";
+        v53[1] = &unk_1F37D7E98;
+        v52[2] = *MEMORY[0x1E696A588];
+        v52[3] = @"Predicate";
+        v53[2] = @"Unsupported expression type (right-hand side).";
+        v53[3] = v15;
+        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:4];
+        v23 = [v31 errorWithDomain:*MEMORY[0x1E696A768] code:-9495 userInfo:v22];
       }
     }
 
     else
     {
-      v31 = MEMORY[0x1E696ABC0];
-      v55[0] = *MEMORY[0x1E696A278];
-      v55[1] = @"Line";
-      v56[0] = @"kCSStorePredicateErr";
-      v56[1] = &unk_1F37D7E80;
-      v55[2] = *MEMORY[0x1E696A588];
-      v55[3] = @"Predicate";
-      v56[2] = @"Unsupported expression type (left-hand side).";
-      v56[3] = v16;
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:4];
-      v24 = [v31 errorWithDomain:*MEMORY[0x1E696A768] code:-9495 userInfo:v23];
+      v30 = MEMORY[0x1E696ABC0];
+      v54[0] = *MEMORY[0x1E696A278];
+      v54[1] = @"Line";
+      v55[0] = @"kCSStorePredicateErr";
+      v55[1] = &unk_1F37D7E80;
+      v54[2] = *MEMORY[0x1E696A588];
+      v54[3] = @"Predicate";
+      v55[2] = @"Unsupported expression type (left-hand side).";
+      v55[3] = v15;
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:4];
+      v23 = [v30 errorWithDomain:*MEMORY[0x1E696A768] code:-9495 userInfo:v22];
     }
 
-    v6 = v24;
+    v6 = v23;
     v5 = 0;
 LABEL_41:
 
@@ -749,23 +741,21 @@ LABEL_4:
     if (!v6)
     {
       v7 = MEMORY[0x1E696ABC0];
-      v49[0] = *MEMORY[0x1E696A278];
-      v49[1] = @"Line";
-      v50[0] = @"kCSStorePredicateErr";
-      v50[1] = &unk_1F37D7EC8;
-      v49[2] = *MEMORY[0x1E696A588];
-      v49[3] = @"Predicate";
-      v50[2] = @"Could not translate generated predicate to a form usable by CoreServicesStore.";
-      v50[3] = predicateCopy;
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:4];
+      v48[0] = *MEMORY[0x1E696A278];
+      v48[1] = @"Line";
+      v49[0] = @"kCSStorePredicateErr";
+      v49[1] = &unk_1F37D7EC8;
+      v48[2] = *MEMORY[0x1E696A588];
+      v48[3] = @"Predicate";
+      v49[2] = @"Could not translate generated predicate to a form usable by CoreServicesStore.";
+      v49[3] = predicateCopy;
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:4];
       v6 = [v7 errorWithDomain:*MEMORY[0x1E696A768] code:-9495 userInfo:v8];
     }
 
     v9 = v6;
     *error = v6;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

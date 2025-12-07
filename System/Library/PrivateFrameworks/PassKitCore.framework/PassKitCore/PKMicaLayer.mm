@@ -136,14 +136,14 @@ LABEL_31:
           v41 = [v32 substringWithRange:{v39, v40}];
         }
 
-        if ([v38 isEqualToString:@"layer"])
+        if (objc_msgSend_isEqualToString_(v38))
         {
           v42 = [v57 publishedObjectWithName:v32];
           v25[2](v25, v42, v41);
           goto LABEL_20;
         }
 
-        if ([v38 isEqualToString:@"shape"])
+        if (objc_msgSend_isEqualToString_(v38))
         {
           v42 = [v57 publishedObjectWithName:v32];
           v56[2](v56, v42, v41);

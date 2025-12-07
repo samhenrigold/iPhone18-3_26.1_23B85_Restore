@@ -11,9 +11,9 @@
     +[NSUserDefaults(TranslationAdditions) lt_appGroupDefaults];
   }
 
-  v1 = lt_appGroupDefaults_appGroupDefaults;
+  v2 = lt_appGroupDefaults_appGroupDefaults;
 
-  return v1;
+  return v2;
 }
 
 @end

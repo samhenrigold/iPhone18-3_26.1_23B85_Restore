@@ -29,13 +29,11 @@
 
 - (void)aa_jsonData
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   localizedDescription = [self localizedDescription];
-  v5 = 138412290;
-  v6 = localizedDescription;
-  _os_log_error_impl(&dword_25C6BF000, a2, OS_LOG_TYPE_ERROR, "error: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = localizedDescription;
+  _os_log_error_impl(&dword_25C6BF000, a2, OS_LOG_TYPE_ERROR, "error: %@", &v4, 0xCu);
 }
 
 @end

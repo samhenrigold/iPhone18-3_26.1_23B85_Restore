@@ -147,72 +147,71 @@ uint64_t __31__ACRateLimiter_vacuumIfNeeded__block_invoke(uint64_t a1)
 
 - (void)_vacuumQueue_vacuum
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__2;
-  v23 = __Block_byref_object_dispose__2;
-  v24 = 0;
+  v29 = *MEMORY[0x1E69E9840];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__2;
+  v24 = __Block_byref_object_dispose__2;
+  v25 = 0;
   instanceQueue = [(ACRateLimiter *)self instanceQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __36__ACRateLimiter__vacuumQueue_vacuum__block_invoke;
   block[3] = &unk_1E79772B8;
   block[4] = self;
-  block[5] = &v19;
+  block[5] = &v20;
   dispatch_sync(instanceQueue, block);
 
-  v4 = _ACLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _ACLogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v20[5], "count")}];
+    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v21[5], "count")}];
     *buf = 138543362;
-    v27 = v5;
-    _os_log_impl(&dword_1AC3CD000, v4, OS_LOG_TYPE_DEFAULT, "Started rate limiter vacuuming (%{public}@ keys)", buf, 0xCu);
+    v28 = v6;
+    _os_log_impl(&dword_1AC3CD000, v5, OS_LOG_TYPE_DEFAULT, "Started rate limiter vacuuming (%{public}@ keys)", buf, 0xCu);
   }
 
-  v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v6 = v20[5];
-  v7 = 0;
-  v8 = [v6 countByEnumeratingWithState:&v14 objects:v25 count:16];
-  if (v8)
+  v16 = 0u;
+  v7 = v21[5];
+  v8 = 0;
+  v9 = [v7 countByEnumeratingWithState:&v15 objects:v26 count:16];
+  if (v9)
   {
-    v9 = *v15;
+    v10 = *v16;
     do
     {
-      v10 = 0;
+      v11 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v16 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        v7 += [(ACRateLimiter *)self _vacuumQueue_vacuumKey:*(*(&v14 + 1) + 8 * v10++), v14];
+        v8 += [(ACRateLimiter *)self _vacuumQueue_vacuumKey:*(*(&v15 + 1) + 8 * v11++), v15];
       }
 
-      while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v25 count:16];
+      while (v9 != v11);
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v26 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
-  v11 = _ACLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v13 = _ACLogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v7];
+    v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v8];
     *buf = 138543362;
-    v27 = v12;
-    _os_log_impl(&dword_1AC3CD000, v11, OS_LOG_TYPE_DEFAULT, "Finished rate limiter vacuuming (removed %{public}@ keys)", buf, 0xCu);
+    v28 = v14;
+    _os_log_impl(&dword_1AC3CD000, v13, OS_LOG_TYPE_DEFAULT, "Finished rate limiter vacuuming (removed %{public}@ keys)", buf, 0xCu);
   }
 
-  _Block_object_dispose(&v19, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v20, 8);
 }
 
 void __36__ACRateLimiter__vacuumQueue_vacuum__block_invoke(uint64_t a1)

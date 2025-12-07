@@ -22,9 +22,8 @@
   return v2;
 }
 
-uint64_t __32__NRMockXPCStuff_sharedInstance__block_invoke(uint64_t a1)
+uint64_t __32__NRMockXPCStuff_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   objc_opt_class();
   v2 = objc_opt_new();
   v3 = _MergedGlobals_1;

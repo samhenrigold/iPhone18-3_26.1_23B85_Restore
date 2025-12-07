@@ -469,16 +469,16 @@ const char *sub_1000010F0(const char *a1, char a2)
   return &a1[v5];
 }
 
-char *sub_100001178(char *__s2, char *a2, uint64_t a3, int a4)
+char *sub_100001178(char *__s2, char *a2, uint64_t a3, unsigned int a4)
 {
-  memset(v11, 0, sizeof(v11));
+  memset(v10, 0, sizeof(v10));
   if (a4 < 1)
   {
     return 0;
   }
 
   v6 = a4;
-  for (i = (a3 + 8); strcmp(*(i - 1), __s2); i += 2)
+  for (i = a3 + 8; strcmp(*(i - 8), __s2); i += 16)
   {
     if (!--v6)
     {
@@ -486,14 +486,13 @@ char *sub_100001178(char *__s2, char *a2, uint64_t a3, int a4)
     }
   }
 
-  v8 = *i;
   __strcpy_chk();
-  v9 = sub_1000010F0(v11, 34);
-  strcpy(a2, v9);
+  v8 = sub_1000010F0(v10, 34);
+  strcpy(a2, v8);
   return a2;
 }
 
-uint64_t sub_100001264(char *a1, int a2, _BYTE *a3)
+uint64_t sub_100001264(char *a1, unsigned int a2, _BYTE *a3)
 {
   if (a2 >= 2)
   {
@@ -600,7 +599,7 @@ uint64_t sub_10000135C(void *a1, int a2)
   return 0;
 }
 
-uint64_t sub_100001398(uint64_t a1, int a2)
+uint64_t sub_100001398(uint64_t a1, unsigned int a2)
 {
   if (a2 >= 1)
   {
@@ -1174,7 +1173,7 @@ uint64_t sub_100002398()
   return asl_log(0, 0, 5, "eloop_run done\n");
 }
 
-uint64_t sub_100002420()
+uint64_t sub_100002420(uint64_t a1)
 {
   wapi_state = lib_get_wapi_state();
   result = asl_log(0, 0, 5, "%s: wapi state = %d\n", "wapi_supplicant_watchdog", wapi_state);
@@ -1229,7 +1228,7 @@ LABEL_27:
 
       if (!sub_10000354C(v6, v8))
       {
-        sub_100003960(v6, 0, 0x186A0u, v12, v13, v14, v15, v16);
+        sub_100003960(v6, 0, 100000, v12, v13, v14, v15, v16);
         sub_100002330(2);
         sub_100002330(15);
         sub_100002330(1);
@@ -1541,7 +1540,7 @@ LABEL_47:
         }
 
         v29 = strlen(v28);
-        if (sub_1000052C8(v28, v29, v35, 2048, v34 + 4, 2048))
+        if (sub_1000052C8(v28, v29, v35, 0x800u, v34 + 4, 0x800u))
         {
           asl_log(0, 0, 5, "Could not parse cert data!\n");
 LABEL_42:
@@ -1586,15 +1585,14 @@ uint64_t sub_100002DD8(uint64_t a1)
     {
       asl_log(0, 0, 5, "%s wapic already initialized..reconfiguring\n", "run_wapi_thread");
 LABEL_4:
-      v4 = *(a1 + 24);
-      v5 = sub_1000027F4();
-      v2[16] = v5;
-      if (v5 && !sub_10000354C(v2, 1))
+      v4 = sub_1000027F4();
+      v2[16] = v4;
+      if (v4 && !sub_10000354C(v2, 1))
       {
-        v6 = getpwnam("mobile");
-        if (v6)
+        v5 = getpwnam("mobile");
+        if (v5)
         {
-          if (setuid(v6->pw_uid))
+          if (setuid(v5->pw_uid))
           {
             asl_log(0, 0, 5, "%s ERROR: unabled to switch to mobile user\n");
           }
@@ -1608,16 +1606,16 @@ LABEL_4:
         if (*(a1 + 24))
         {
           asl_log(0, 0, 5, "%s calling  wpa_drv_set_scan_result wpa_s = %p\n", "run_wapi_thread", v2);
-          v12 = *(v2[23] + 120);
-          if (v12)
+          v11 = *(v2[23] + 120);
+          if (v11)
           {
-            v12(v2[20], *(a1 + 24));
+            v11(v2[20], *(a1 + 24));
           }
         }
 
         else
         {
-          sub_100003960(v2, 0, 0x186A0u, v7, v8, v9, v10, v11);
+          sub_100003960(v2, 0, 100000, v6, v7, v8, v9, v10);
         }
 
         sub_100002330(2);
@@ -1791,7 +1789,7 @@ uint64_t sub_100003378(uint64_t a1, char *a2, const char *a3, const char *a4)
   {
     v12 = "No driver interfaces build into wpa_supplicant.\n";
 LABEL_14:
-    asl_log(0, 0, 5, v12, v20);
+    asl_log(0, 0, 5, v12, v18);
     return 0xFFFFFFFFLL;
   }
 
@@ -1804,7 +1802,7 @@ LABEL_14:
       v9 = v11;
       if (!v11)
       {
-        v20 = a3;
+        v18 = a3;
         v12 = "Unsupported driver '%s'.\n\n";
         goto LABEL_14;
       }
@@ -1835,12 +1833,10 @@ LABEL_14:
             }
 
             asl_log(0, 0, 5, "Configuration file '%s' -> '%s'\n", a2, v15);
-            v16 = *(a1 + 120);
-            v17 = sub_100004C4C();
-            *(a1 + 128) = v17;
-            if (!v17)
+            v16 = sub_100004C4C();
+            *(a1 + 128) = v16;
+            if (!v16)
             {
-              v19 = *(a1 + 120);
               printf("Failed to read configuration file '%s'.\n");
               return 0xFFFFFFFFLL;
             }
@@ -1962,7 +1958,7 @@ uint64_t sub_100003788(uint64_t a1)
       sub_100004B78(*(a1 + 128));
       *(a1 + 128) = v9;
       *(a1 + 148) = *(v9 + 60);
-      sub_100003878(v10, v11, "Reconfiguration completed", v12, v13, v14, v15, v16, v20);
+      sub_100003878(v10, v11, "Reconfiguration completed", v12, v13, v14, v15, v16);
       v17 = *(*(a1 + 184) + 56);
       if (v17)
       {
@@ -1986,21 +1982,22 @@ uint64_t sub_100003788(uint64_t a1)
   return 0xFFFFFFFFLL;
 }
 
-void sub_100003878(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100003878(uint64_t a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v10 = malloc_type_malloc(0x800uLL, 0x5813E8C9uLL);
-  if (v10)
+  va_start(va, a8);
+  v9 = malloc_type_malloc(0x800uLL, 0x5813E8C9uLL);
+  if (v9)
   {
-    v11 = v10;
-    vsnprintf(v10, 0x800uLL, a3, &a9);
-    asl_log(0, 0, 5, "%s\n", v11);
-    free(v11);
+    v10 = v9;
+    vsnprintf(v9, 0x800uLL, a3, va);
+    asl_log(0, 0, 5, "%s\n", v10);
+    free(v10);
   }
 
   else
   {
     puts("Failed to allocate message buffer for:");
-    vprintf(a3, &a9);
+    vprintf(a3, va);
     putchar(10);
   }
 }
@@ -2012,13 +2009,14 @@ void sub_100003924(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   sub_1000023F0();
 }
 
-uint64_t sub_100003960(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100003960(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v8 = a3;
   v9 = a2;
-  sub_100003878(a1, a2, "Setting scan request: %d sec %d usec", a4, a5, a6, a7, a8, a2);
+  sub_100003878(a1, a2, "Setting scan request: %d sec %d usec", a4, a5, a6, a7, a8, a2, a3);
   sub_10000207C(sub_1000039EC, a1, 0);
 
-  return sub_100001EF8(v9, a3, sub_1000039EC, a1, 0);
+  return sub_100001EF8(v9, v8, sub_1000039EC, a1, 0);
 }
 
 uint64_t sub_1000039EC(uint64_t result)
@@ -2063,7 +2061,7 @@ uint64_t sub_1000039EC(uint64_t result)
       {
         asl_log(0, 0, 5, "Failed to initiate AP scan.\n");
 
-        return sub_100003960(v1, 10, 0);
+        return sub_100003960(v1, 10, 0, v7, v8, v9, v10, v11);
       }
     }
   }
@@ -2076,7 +2074,7 @@ uint64_t sub_100003B08(uint64_t a1)
   v2 = malloc_type_malloc(0x8C00uLL, 0x100004049EB3C7BuLL);
   if (!v2)
   {
-    sub_100003878(0, v3, "Failed to allocate memory for scan results", v4, v5, v6, v7, v8, v29);
+    sub_100003878(0, v3, "Failed to allocate memory for scan results", v4, v5, v6, v7, v8);
     return 0xFFFFFFFFLL;
   }
 
@@ -2084,14 +2082,13 @@ uint64_t sub_100003B08(uint64_t a1)
   v10 = *(*(a1 + 184) + 112);
   if (!v10)
   {
-    sub_100003878(v2, v3, "Scan results: %d", v4, v5, v6, v7, v8, -1);
+    sub_100003878(v2, v3, "Scan results: %d", v4, v5, v6, v7, v8, 0xFFFFFFFFLL);
     goto LABEL_14;
   }
 
   v11 = v10(*(a1 + 160), v2, 128);
-  v12 = v11;
-  sub_100003878(v11, v13, "Scan results: %d", v14, v15, v16, v17, v18, v11);
-  if ((v12 & 0x80000000) != 0)
+  sub_100003878(v11, v12, "Scan results: %d", v13, v14, v15, v16, v17, v11);
+  if ((v11 & 0x80000000) != 0)
   {
 LABEL_14:
     asl_log(0, 0, 5, "Failed to get scan results\n");
@@ -2099,32 +2096,32 @@ LABEL_14:
     return 0xFFFFFFFFLL;
   }
 
-  if (v12 >= 0x81)
+  if (v11 >= 0x81)
   {
-    sub_100003878(v19, v20, "Not enough room for all APs (%d < %d)", v21, v22, v23, v24, v25, v12);
-    v12 = 128;
+    sub_100003878(v18, v19, "Not enough room for all APs (%d < %d)", v20, v21, v22, v23, v24, v11, 128);
+    LODWORD(v11) = 128;
   }
 
-  v26 = malloc_type_realloc(v9, 280 * v12, 0x100004049EB3C7BuLL);
-  if (v26)
+  v25 = malloc_type_realloc(v9, (280 * v11), 0x100004049EB3C7BuLL);
+  if (v25)
   {
-    v27 = 1;
+    v26 = 1;
   }
 
   else
   {
-    v27 = v12 == 0;
+    v26 = v11 == 0;
   }
 
-  if (v27)
+  if (v26)
   {
-    v9 = v26;
+    v9 = v25;
   }
 
   free(*(a1 + 168));
   result = 0;
   *(a1 + 168) = v9;
-  *(a1 + 176) = v12;
+  *(a1 + 176) = v11;
   return result;
 }
 
@@ -2306,30 +2303,26 @@ LABEL_16:
   return result;
 }
 
-uint64_t sub_100003F50(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100003F50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v8 = a3;
   v9 = a2;
-  sub_100003878(a1, a2, "Setting authentication timeout: %d sec %d usec", a4, a5, a6, a7, a8, a2);
+  sub_100003878(a1, a2, "Setting authentication timeout: %d sec %d usec", a4, a5, a6, a7, a8, a2, a3);
   sub_10000207C(sub_100003FDC, a1, 0);
 
-  return sub_100001EF8(v9, a3, sub_100003FDC, a1, 0);
+  return sub_100001EF8(v9, v8, sub_100003FDC, a1, 0);
 }
 
 uint64_t sub_100003FDC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v18 = *(a1 + 18);
-  v19 = *(a1 + 19);
-  v16 = *(a1 + 16);
-  v17 = *(a1 + 17);
-  v15 = *(a1 + 15);
-  sub_100003878(a1, a2, "Authentication with %02x:%02x:%02x:%02x:%02x:%02x timed out.", a4, a5, a6, a7, a8, *(a1 + 14));
+  sub_100003878(a1, a2, "Authentication with %02x:%02x:%02x:%02x:%02x:%02x timed out.", a4, a5, a6, a7, a8, *(a1 + 14), *(a1 + 15), *(a1 + 16), *(a1 + 17), *(a1 + 18), *(a1 + 19));
   sub_100003D4C(a1);
   *(a1 + 136) = 1;
 
   return sub_100003960(a1, 5, 0, v9, v10, v11, v12, v13);
 }
 
-uint64_t sub_100004064(uint64_t a1, char *a2, unsigned int a3, u_char *a4, size_t a5)
+uint64_t sub_100004064(uint64_t *a1, char *a2, uint64_t a3, u_char *a4, size_t a5)
 {
   v6 = *a1;
   if (!v6)
@@ -2339,7 +2332,7 @@ uint64_t sub_100004064(uint64_t a1, char *a2, unsigned int a3, u_char *a4, size_
 
   v9 = a3;
   v11 = sub_1000055D4(v6, a2, a3, a4, a5);
-  if (!v11 && *(a1 + 228) <= 0xAu)
+  if (!v11 && *(a1 + 57) <= 0xAu)
   {
     sub_1000047F0(a1, a2, v9, a4, a5);
   }
@@ -2349,7 +2342,7 @@ uint64_t sub_100004064(uint64_t a1, char *a2, unsigned int a3, u_char *a4, size_
 
 CFIndex sub_1000040E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  sub_100003878(a1, a2, "Cancelling authentication timeout", a4, a5, a6, a7, a8, v10);
+  sub_100003878(a1, a2, "Cancelling authentication timeout", a4, a5, a6, a7, a8);
 
   return sub_10000207C(sub_100003FDC, a1, 0);
 }
@@ -2406,7 +2399,7 @@ uint64_t sub_100004138(uint64_t result, int a2)
     v11 = WAI_Msg_Input(1, v26, &v25, 0, 0);
     asl_log(0, 0, 5, "WAI_Msg_Input  success\n", v11);
     *(v2 + 228) = 0;
-    return sub_100003960(v2, 5, 0x186A0u, v12, v13, v14, v15, v16);
+    return sub_100003960(v2, 5, 100000, v12, v13, v14, v15, v16);
   }
 
   else
@@ -2439,8 +2432,8 @@ uint64_t sub_100004138(uint64_t result, int a2)
       v9 = 0;
     }
 
-    WAI_Msg_Input(0, &v28, &v27, v9, *(v2 + 776));
-    sub_100003878(v17, v18, "Cancelling authentication timeout", v19, v20, v21, v22, v23, v24);
+    v17 = WAI_Msg_Input(0, &v28, &v27, v9, *(v2 + 776));
+    sub_100003878(v18, v19, "Cancelling authentication timeout", v20, v21, v22, v23, v24, v17);
     result = sub_10000207C(sub_100003FDC, v2, 0);
     *(v2 + 228) = 4;
   }
@@ -2577,12 +2570,13 @@ uint64_t sub_1000048DC(uint64_t a1, _BYTE *a2)
   return sub_1000055D4(a1, v4, v6, v7, v8);
 }
 
-uint64_t sub_10000497C(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10000497C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  sub_100003878(a1, 1, "Setting retry request: %d sec %d usec", a4, a5, a6, a7, a8, a3);
+  v8 = a3;
+  sub_100003878(a1, 1, "Setting retry request: %d sec %d usec", a4, a5, a6, a7, a8, a3, 0);
   sub_10000207C(sub_100004AB8, a1, a2);
 
-  return sub_100001EF8(a3, 0, sub_100004AB8, a1, a2);
+  return sub_100001EF8(v8, 0, sub_100004AB8, a1, a2);
 }
 
 CFIndex sub_100004A0C(uint64_t a1, int a2)
@@ -2611,18 +2605,18 @@ uint64_t sub_100004AB8(void *a1, uint64_t a2)
 
   else
   {
-    v4 = *(*(a2 + 32) + 2);
-    if (v4 == 4)
+    v9 = *(*(a2 + 32) + 2);
+    if (v9 == 4)
     {
-      v7 = 31;
+      v12 = 31;
     }
 
     else
     {
-      v7 = v4 == 12 || v4 == 9;
+      v12 = v9 == 12 || v9 == 9;
     }
 
-    return sub_10000497C(a1, a2, v7);
+    return sub_10000497C(a1, a2, v12, v4, v5, v6, v7, v8);
   }
 }
 
@@ -2867,7 +2861,7 @@ uint64_t sub_1000051BC()
   }
 }
 
-uint64_t sub_1000052C8(char *a1, int a2, uint64_t a3, int a4, char *a5, int a6)
+uint64_t sub_1000052C8(char *a1, int a2, uint64_t a3, unsigned int a4, char *a5, unsigned int a6)
 {
   result = 0xFFFFFFFFLL;
   if (a6 >= 1 && a4 >= 1)
@@ -3030,7 +3024,7 @@ uint64_t sub_1000055D4(uint64_t a1, char *a2, unsigned int a3, u_char *a4, uint6
   return pcap_sendpacket(v8, a4, a5);
 }
 
-uint64_t sub_1000056CC(unsigned __int8 *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+uint64_t sub_1000056CC(unsigned __int8 *a1, char *a2, int a3, uint64_t a4, uint64_t a5, int a6)
 {
   v12 = sub_100006294(0x90uLL);
   v13 = v12;
@@ -3048,15 +3042,15 @@ uint64_t sub_1000056CC(unsigned __int8 *a1, char *a2, uint64_t a3, uint64_t a4, 
     sub_1000061CC((v13 + 112), a2, 6);
   }
 
-  v50.bf_insns = 0;
-  *v51 = 0;
-  *&v50.bf_len = 0;
-  pcap_lookupnet((v13 + 12), v51, &v51[1], v52);
-  v14 = pcap_open_live((v13 + 12), 2500, 0, 10, v52);
+  v27.bf_insns = 0;
+  *v28 = 0;
+  *&v27.bf_len = 0;
+  pcap_lookupnet((v13 + 12), v28, &v28[1], v29);
+  v14 = pcap_open_live((v13 + 12), 2500, 0, 10, v29);
   *v13 = v14;
   if (!v14)
   {
-    fprintf(__stderrp, "2. pcap_open_live: %s\n", v52);
+    fprintf(__stderrp, "2. pcap_open_live: %s\n", v29);
     fprintf(__stderrp, "ifname='%s'\n");
 LABEL_19:
     j__free(v13);
@@ -3065,65 +3059,47 @@ LABEL_19:
 
   if (pcap_datalink(v14) != 1 && pcap_set_datalink(*v13, 1) < 0)
   {
-    v27 = __stderrp;
-    v30 = pcap_geterr(*v13);
-    v28 = "pcap_set_datalink(DLT_EN10MB): %s\n";
+    v22 = __stderrp;
+    v25 = pcap_geterr(*v13);
+    v23 = "pcap_set_datalink(DLT_EN10MB): %s\n";
     goto LABEL_18;
   }
 
-  if (pcap_setnonblock(*v13, 1, v52) < 0)
+  if (pcap_setnonblock(*v13, 1, v29) < 0)
   {
-    v20 = __stderrp;
-    v21 = pcap_geterr(*v13);
-    fprintf(v20, "pcap_setnonblock: %s\n", v21);
+    v15 = __stderrp;
+    v16 = pcap_geterr(*v13);
+    fprintf(v15, "pcap_setnonblock: %s\n", v16);
   }
 
-  v47 = 3;
-  v48 = a3;
-  v45 = 0;
-  v46 = 0;
-  v44 = 194;
-  v42 = 1;
-  v43 = 128;
-  v40 = *(v13 + 116);
-  v41 = *(v13 + 117);
-  v38 = *(v13 + 114);
-  v39 = *(v13 + 115);
-  v36 = *(v13 + 112);
-  v37 = *(v13 + 113);
-  v34 = v40;
-  v35 = v41;
-  v32 = v38;
-  v33 = v39;
-  v31 = v37;
-  sub_1000064E0(v53, 0xC8uLL, "not ether src %02x:%02x:%02x:%02x:%02x:%02x and(ether dst %02x:%02x:%02x:%02x:%02x:%02x or ether dst %02x:%02x:%02x:%02x:%02x:%02x) and ether proto 0x%x", v15, v16, v17, v18, v19, *(v13 + 112));
-  if (pcap_compile(*v13, &v50, v53, 1, v51[0]) < 0)
+  sub_1000064E0(v30, 0xC8uLL, "not ether src %02x:%02x:%02x:%02x:%02x:%02x and(ether dst %02x:%02x:%02x:%02x:%02x:%02x or ether dst %02x:%02x:%02x:%02x:%02x:%02x) and ether proto 0x%x", *(v13 + 112), *(v13 + 113), *(v13 + 114), *(v13 + 115), *(v13 + 116), *(v13 + 117), *(v13 + 112), *(v13 + 113), *(v13 + 114), *(v13 + 115), *(v13 + 116), *(v13 + 117), 1, 128, 194, 0, 0, 3, a3);
+  if (pcap_compile(*v13, &v27, v30, 1, v28[0]) < 0)
   {
-    v27 = __stderrp;
-    v30 = pcap_geterr(*v13);
-    v28 = "pcap_compile: %s\n";
+    v22 = __stderrp;
+    v25 = pcap_geterr(*v13);
+    v23 = "pcap_compile: %s\n";
 LABEL_18:
-    fprintf(v27, v28, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48);
+    fprintf(v22, v23, v25);
     goto LABEL_19;
   }
 
-  if (pcap_setfilter(*v13, &v50) < 0)
+  if (pcap_setfilter(*v13, &v27) < 0)
   {
-    v27 = __stderrp;
-    v30 = pcap_geterr(*v13);
-    v28 = "pcap_setfilter: %s\n";
+    v22 = __stderrp;
+    v25 = pcap_geterr(*v13);
+    v23 = "pcap_setfilter: %s\n";
     goto LABEL_18;
   }
 
-  pcap_freecode(&v50);
-  v49 = 1;
-  v22 = pcap_fileno(*v13);
-  if (ioctl(v22, 0x80044270uLL, &v49) < 0)
+  pcap_freecode(&v27);
+  v26 = 1;
+  v17 = pcap_fileno(*v13);
+  if (ioctl(v17, 0x80044270uLL, &v26) < 0)
   {
-    v23 = __stderrp;
-    v24 = __error();
-    v25 = strerror(*v24);
-    fprintf(v23, "%s: cannot enable immediate mode on interface %s: %s\n", "l2_packet_init_libpcap", (v13 + 12), v25);
+    v18 = __stderrp;
+    v19 = __error();
+    v20 = strerror(*v19);
+    fprintf(v18, "%s: cannot enable immediate mode on interface %s: %s\n", "l2_packet_init_libpcap", (v13 + 12), v20);
   }
 
   selectable_fd = pcap_get_selectable_fd(*v13);
@@ -3166,17 +3142,17 @@ uint64_t sub_100005A60(uint64_t a1, pcap_t *a2)
 
 uint64_t sub_100005AF0(uint64_t a1, char *a2, size_t a3)
 {
-  v19 = 0;
-  if (pcap_findalldevs(&v19, v20) < 0)
+  v14 = 0;
+  if (pcap_findalldevs(&v14, v15) < 0)
   {
-    asl_log(0, 0, 5, "pcap_findalldevs: %s\n\n", v20);
+    asl_log(0, 0, 5, "pcap_findalldevs: %s\n\n", v15);
     return 0xFFFFFFFFLL;
   }
 
   else
   {
-    v6 = v19;
-    if (v19)
+    v6 = v14;
+    if (v14)
     {
       while (1)
       {
@@ -3193,7 +3169,7 @@ LABEL_4:
         v6 = v6->next;
         if (!v6)
         {
-          v17 = 0xFFFFFFFFLL;
+          v12 = 0xFFFFFFFFLL;
           goto LABEL_14;
         }
       }
@@ -3218,22 +3194,22 @@ LABEL_4:
 
       v9.s_addr = *&addr->sa_data[2];
       v10 = inet_ntoa(v9);
-      sub_1000064E0(a2, a3, "%s", v11, v12, v13, v14, v15, v10);
-      v17 = 0;
+      sub_1000064E0(a2, a3, "%s", v10);
+      v12 = 0;
 LABEL_14:
-      v16 = v19;
+      v11 = v14;
     }
 
     else
     {
-      v16 = 0;
-      v17 = 0xFFFFFFFFLL;
+      v11 = 0;
+      v12 = 0xFFFFFFFFLL;
     }
 
-    pcap_freealldevs(v16);
+    pcap_freealldevs(v11);
   }
 
-  return v17;
+  return v12;
 }
 
 uint64_t sub_100005C28(uint64_t a1)
@@ -3838,9 +3814,10 @@ _BYTE *sub_100006470(_BYTE *result, unsigned __int8 *a2)
   return result;
 }
 
-uint64_t sub_1000064E0(char *a1, size_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t sub_1000064E0(char *a1, size_t a2, const char *a3, ...)
 {
-  result = vsnprintf(a1, a2, a3, &a9);
+  va_start(va, a3);
+  result = vsnprintf(a1, a2, a3, va);
   if (a2)
   {
     a1[a2 - 1] = 0;
@@ -3855,39 +3832,38 @@ uint64_t sub_100006528(uint64_t a1, _BYTE *a2)
   *(a1 + 96) = 6;
   *(a1 + 104) = a2;
   strncpy((a1 + 72), (a1 + 36), 0x10uLL);
-  v4 = *(a1 + 8);
   if ((Apple80211RawGet() & 0x80000000) == 0)
   {
     return 0;
   }
 
-  v6 = *(a1 + 64);
-  if (v6 && (Value = CFDictionaryGetValue(v6, @"BSSID")) != 0)
+  v5 = *(a1 + 64);
+  if (v5 && (Value = CFDictionaryGetValue(v5, @"BSSID")) != 0)
   {
-    v14 = 0;
-    v15 = 0;
     v13 = 0;
+    v14 = 0;
+    v12 = 0;
     CStringPtr = CFStringGetCStringPtr(Value, 0);
-    sscanf(CStringPtr, "%x:%x:%x:%x:%x:%x", &v15 + 4, &v15, &v14 + 4, &v14, &v13 + 4, &v13);
-    v5 = 0;
-    v9 = v15;
-    *a2 = BYTE4(v15);
-    a2[1] = v9;
-    v10 = v14;
-    a2[2] = BYTE4(v14);
-    a2[3] = v10;
-    v11 = v13;
-    a2[4] = BYTE4(v13);
-    a2[5] = v11;
+    sscanf(CStringPtr, "%x:%x:%x:%x:%x:%x", &v14 + 4, &v14, &v13 + 4, &v13, &v12 + 4, &v12);
+    v4 = 0;
+    v8 = v14;
+    *a2 = BYTE4(v14);
+    a2[1] = v8;
+    v9 = v13;
+    a2[2] = BYTE4(v13);
+    a2[3] = v9;
+    v10 = v12;
+    a2[4] = BYTE4(v12);
+    a2[5] = v10;
   }
 
   else
   {
-    v5 = 0xFFFFFFFFLL;
+    v4 = 0xFFFFFFFFLL;
     asl_log(0, 0, 5, "%s: APPLE80211_IOC_BSSID failed (%d)\n", "wpa_driver_apple80211_get_bssid", -1);
   }
 
-  return v5;
+  return v4;
 }
 
 uint64_t sub_100006640(void *a1)
@@ -3973,14 +3949,13 @@ uint64_t sub_1000067FC(uint64_t a1, uint64_t a2)
   *(a1 + 96) = 0;
   *(a1 + 104) = a2;
   strncpy((a1 + 72), (a1 + 36), 0x10uLL);
-  v3 = *(a1 + 8);
   if ((Apple80211RawGet() & 0x80000000) == 0)
   {
     return *(a1 + 96);
   }
 
-  v5 = __error();
-  asl_log(0, 0, 5, "%s: Unable to retrieve SSID (%d)\n\n", "wpa_driver_apple80211_get_ssid", *v5);
+  v4 = __error();
+  asl_log(0, 0, 5, "%s: Unable to retrieve SSID (%d)\n\n", "wpa_driver_apple80211_get_ssid", *v4);
   return 0xFFFFFFFFLL;
 }
 
@@ -3990,28 +3965,26 @@ uint64_t sub_10000688C(uint64_t a1, uint64_t a2, int a3)
   *(a1 + 96) = a3;
   *(a1 + 104) = a2;
   strncpy((a1 + 72), (a1 + 36), 0x10uLL);
-  v4 = *(a1 + 8);
 
   return Apple80211RawSet();
 }
 
 uint64_t sub_1000068E4(uint64_t a1)
 {
-  v1 = *(a1 + 8);
-  v2 = Apple80211CopyValue();
+  v1 = Apple80211CopyValue();
   asl_log(0, 0, 5, "Failed to get SSID\n");
-  if (v2)
+  if (v1)
   {
-    v3 = v2;
+    v2 = v1;
   }
 
   else
   {
-    v3 = 4294963394;
+    v2 = 4294963394;
   }
 
-  asl_log(0, 0, 5, "%s = %d\n", "wpa_driver_check_status", v3);
-  return v3;
+  asl_log(0, 0, 5, "%s = %d\n", "wpa_driver_check_status", v2);
+  return v2;
 }
 
 _DWORD *sub_1000069FC(uint64_t a1, const char *a2)
@@ -4026,7 +3999,7 @@ _DWORD *sub_1000069FC(uint64_t a1, const char *a2)
 
   v5 = v4;
   *(v4 + 8) = 0u;
-  v6 = (v4 + 8);
+  v6 = v4 + 8;
   *(v4 + 104) = 0u;
   *(v4 + 88) = 0u;
   *(v4 + 72) = 0u;
@@ -4038,7 +4011,7 @@ _DWORD *sub_1000069FC(uint64_t a1, const char *a2)
   v7 = Apple80211Open();
   if (v7)
   {
-    v15 = v7;
+    v14 = v7;
     sub_100013A28(v7, v8, v9);
   }
 
@@ -4048,14 +4021,13 @@ _DWORD *sub_1000069FC(uint64_t a1, const char *a2)
     if (v10)
     {
       v11 = v10;
-      v12 = *v6;
-      v13 = Apple80211BindToInterface();
-      if (v13)
+      v12 = Apple80211BindToInterface();
+      if (v12)
       {
-        v14 = v13;
-        asl_log(0, 0, 5, "%s: Apple80211BindToInterface() failed (%s, %d)  ! \n", "wpa_driver_apple80211_init", a2, v13);
+        v13 = v12;
+        asl_log(0, 0, 5, "%s: Apple80211BindToInterface() failed (%s, %d)  ! \n", "wpa_driver_apple80211_init", a2, v12);
         CFRelease(v11);
-        v15 = v14;
+        v14 = v13;
       }
 
       else
@@ -4063,72 +4035,66 @@ _DWORD *sub_1000069FC(uint64_t a1, const char *a2)
         CFRelease(v11);
         if (*v6)
         {
-          v19 = Apple80211EventMonitoringInit2();
-          if (v19)
+          v18 = Apple80211EventMonitoringInit2();
+          if (v18)
           {
-            v15 = v19;
-            sub_100013888(v19, v20, v21);
+            v14 = v18;
+            sub_100013888(v18, v19, v20);
           }
 
           else
           {
-            v22 = *v6;
             started = Apple80211StartMonitoringEvent();
             if (started)
             {
-              v15 = started;
-              sub_1000138BC(started, v24, v25);
+              v14 = started;
+              sub_1000138BC(started, v22, v23);
             }
 
             else
             {
-              v26 = *v6;
-              v27 = Apple80211StartMonitoringEvent();
-              if (v27)
+              v24 = Apple80211StartMonitoringEvent();
+              if (v24)
               {
-                v15 = v27;
-                sub_1000138F0(v27, v28, v29);
+                v14 = v24;
+                sub_1000138F0(v24, v25, v26);
               }
 
               else
               {
-                v30 = *v6;
-                v31 = Apple80211StartMonitoringEvent();
-                if (v31)
+                v27 = Apple80211StartMonitoringEvent();
+                if (v27)
                 {
-                  v15 = v31;
-                  sub_100013924(v31, v32, v33);
+                  v14 = v27;
+                  sub_100013924(v27, v28, v29);
                 }
 
                 else
                 {
-                  v34 = *v6;
-                  v35 = Apple80211StartMonitoringEvent();
-                  if (v35)
+                  v30 = Apple80211StartMonitoringEvent();
+                  if (v30)
                   {
-                    v15 = v35;
-                    sub_100013958(v35, v36, v37);
+                    v14 = v30;
+                    sub_100013958(v30, v31, v32);
                   }
 
                   else
                   {
-                    v38 = *v6;
-                    v39 = Apple80211StartMonitoringEvent();
-                    if (v39)
+                    v33 = Apple80211StartMonitoringEvent();
+                    if (v33)
                     {
-                      v15 = v39;
-                      sub_10001398C(v39, v40, v41);
+                      v14 = v33;
+                      sub_10001398C(v33, v34, v35);
                     }
 
                     else
                     {
-                      v42 = *v6;
-                      v43 = Apple80211StartMonitoringEvent();
-                      if (!v43)
+                      v36 = Apple80211StartMonitoringEvent();
+                      if (!v36)
                       {
-                        v46 = socket(2, 2, 0);
-                        v5[8] = v46;
-                        if ((v46 & 0x80000000) == 0)
+                        v39 = socket(2, 2, 0);
+                        v5[8] = v39;
+                        if ((v39 & 0x80000000) == 0)
                         {
                           asl_log(0, 0, 5, "%s: success  ! \n", "wpa_driver_apple80211_init");
                           return v5;
@@ -4138,8 +4104,8 @@ _DWORD *sub_1000069FC(uint64_t a1, const char *a2)
                         goto LABEL_10;
                       }
 
-                      v15 = v43;
-                      sub_1000139C0(v43, v44, v45);
+                      v14 = v36;
+                      sub_1000139C0(v36, v37, v38);
                     }
                   }
                 }
@@ -4150,23 +4116,23 @@ _DWORD *sub_1000069FC(uint64_t a1, const char *a2)
 
         else
         {
-          sub_1000139F4(0, v17, v18);
-          v15 = 0;
+          sub_1000139F4(0, v16, v17);
+          v14 = 0;
         }
       }
     }
 
     else
     {
-      v15 = -3901;
+      v14 = -3901;
     }
   }
 
-  asl_log(0, 0, 5, "%s: Failed to init (%d)! \n", "wpa_driver_apple80211_init", v15);
-  v16 = v5[8];
-  if (v16)
+  asl_log(0, 0, 5, "%s: Failed to init (%d)! \n", "wpa_driver_apple80211_init", v14);
+  v15 = v5[8];
+  if (v15)
   {
-    close(v16);
+    close(v15);
   }
 
   if (*v6)
@@ -4220,14 +4186,13 @@ void sub_100006D9C(void *a1)
   if (a1[1])
   {
     Apple80211EventMonitoringHalt();
-    v5 = a1[1];
     Apple80211Close();
   }
 
-  v6 = a1[7];
-  if (v6)
+  v5 = a1[7];
+  if (v5)
   {
-    free(v6);
+    free(v5);
   }
 
   free(a1);
@@ -4246,10 +4211,10 @@ uint64_t sub_100006E58(uint64_t a1, const char *a2)
   {
     valuePtr = 1;
     v5 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
-    v14 = 30;
-    v6 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &v14);
-    v13 = 3;
-    v7 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &v13);
+    v13 = 30;
+    v6 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &v13);
+    v12 = 3;
+    v7 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &v12);
     Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     CFDictionaryAddValue(Mutable, @"SCAN_MERGE", kCFBooleanFalse);
     CFDictionaryAddValue(Mutable, @"SCAN_TYPE", v7);
@@ -4269,12 +4234,11 @@ uint64_t sub_100006E58(uint64_t a1, const char *a2)
       }
     }
 
-    v11 = *(a1 + 8);
-    v12 = Apple80211ScanAsync();
+    v11 = Apple80211ScanAsync();
     CFRelease(Mutable);
-    if (v12)
+    if (v11)
     {
-      asl_log(0, 0, 5, "%s: Apple80211ScanAsync error %d\n", "wpa_driver_apple80211_scan", v12);
+      asl_log(0, 0, 5, "%s: Apple80211ScanAsync error %d\n", "wpa_driver_apple80211_scan", v11);
       return 0xFFFFFFFFLL;
     }
 
@@ -4480,21 +4444,20 @@ LABEL_38:
 uint64_t sub_1000074E0(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   v3 = a3;
-  v39 = 0u;
-  memset(v40, 0, sizeof(v40));
-  v37 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  memset(v39, 0, sizeof(v39));
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
+  v29 = 0u;
   v26 = 0u;
+  v27 = 0u;
   v25 = 0u;
   v24 = 0u;
   v23 = 0u;
@@ -4510,19 +4473,19 @@ uint64_t sub_1000074E0(uint64_t a1, uint64_t a2, unint64_t a3)
   v13 = 0u;
   v12 = 0u;
   v11 = 0u;
+  v10 = 0u;
   if (a3 < 0x801)
   {
     sub_100000B44(1, "setting WAPI IE:", a2, a3);
-    v7 = 0x400000001;
-    v8 = 1;
+    v6 = 0x400000001;
+    v7 = 1;
+    v8 = v3;
     v9 = v3;
-    v10 = v3;
     __memcpy_chk();
     *(a1 + 88) = 85;
     *(a1 + 96) = 2068;
-    *(a1 + 104) = &v7;
+    *(a1 + 104) = &v6;
     strncpy((a1 + 72), (a1 + 36), 0x10uLL);
-    v6 = *(a1 + 8);
     if (Apple80211RawSet())
     {
       return 0xFFFFFFFFLL;
@@ -4546,14 +4509,14 @@ uint64_t sub_100007678(uint64_t a1, int a2, uint64_t a3, int a4, int a5, uint64_
   v9 = a7;
   v11 = a4;
   asl_log(0, 0, 5, "%s: alg=%d key_idx=%d set_tx=%d seq_len=%lu key_len=%lu\n", "wpa_driver_apple80211_set_key", a2, a4, a5, a7, a9);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  memset(v25, 0, sizeof(v25));
+  memset(v24, 0, sizeof(v24));
   if (a2)
   {
     if (a2 != 4)
@@ -4562,27 +4525,26 @@ uint64_t sub_100007678(uint64_t a1, int a2, uint64_t a3, int a4, int a5, uint64_
       return 0xFFFFFFFFLL;
     }
 
-    LODWORD(v18) = 8;
+    LODWORD(v17) = 8;
   }
 
-  v17[0] = 1;
-  v17[1] = a9;
-  WORD3(v18) = v11;
+  v16[0] = 1;
+  v16[1] = a9;
+  WORD3(v17) = v11;
   __memcpy_chk();
-  DWORD2(v22) = v9;
+  DWORD2(v21) = v9;
   __memcpy_chk();
-  DWORD1(v23) = *a3;
-  WORD4(v23) = *(a3 + 4);
+  DWORD1(v22) = *a3;
+  WORD4(v22) = *(a3 + 4);
   if (a5)
   {
-    WORD2(v18) = 4;
+    WORD2(v17) = 4;
   }
 
   *(a1 + 88) = 3;
   *(a1 + 96) = 148;
-  *(a1 + 104) = v17;
+  *(a1 + 104) = v16;
   strncpy((a1 + 72), (a1 + 36), 0x10uLL);
-  v15 = *(a1 + 8);
   if (Apple80211RawSet())
   {
     return 0xFFFFFFFFLL;
@@ -4596,16 +4558,15 @@ uint64_t sub_100007678(uint64_t a1, int a2, uint64_t a3, int a4, int a5, uint64_
 
 uint64_t sub_10000782C(uint64_t a1, uint64_t a2, int a3)
 {
-  v6[0] = 1;
-  v6[1] = a3;
-  v6[2] = *a2;
-  v7 = 0;
-  LOWORD(v7) = *(a2 + 4);
+  v4[0] = 1;
+  v4[1] = a3;
+  v4[2] = *a2;
+  v5 = 0;
+  LOWORD(v5) = *(a2 + 4);
   *(a1 + 88) = 29;
   *(a1 + 96) = 16;
-  *(a1 + 104) = v6;
+  *(a1 + 104) = v4;
   strncpy((a1 + 72), (a1 + 36), 0x10uLL);
-  v4 = *(a1 + 8);
   if (Apple80211RawSet())
   {
     return 0xFFFFFFFFLL;
@@ -4623,7 +4584,6 @@ uint64_t sub_1000078A8(uint64_t a1)
   *(a1 + 96) = 0;
   *(a1 + 104) = 0;
   strncpy((a1 + 72), (a1 + 36), 0x10uLL);
-  v2 = *(a1 + 8);
   if (Apple80211RawSet())
   {
     return 0xFFFFFFFFLL;
@@ -4700,49 +4660,47 @@ LABEL_16:
   }
 
   asl_log(0, 0, 5, "Trying to associate with a BSS found from scan results\n");
-  bzero(v27, 0x388uLL);
-  v26 = 1;
+  bzero(v25, 0x388uLL);
+  v24 = 1;
   sub_100000C88(1, " bssid =", *a2, 6uLL);
   v18 = *a2;
   if (*a2)
   {
     v19 = *v18;
-    v31 = *(v18 + 2);
-    v30 = v19;
+    v29 = *(v18 + 2);
+    v28 = v19;
   }
 
-  v20 = *(a2 + 8);
-  v21 = *(a2 + 16);
+  v20 = *(a2 + 16);
   __memcpy_chk();
-  v29 = v21;
-  v32 = 1;
-  v34 = 8;
-  v28 = 0x20000000001;
-  v27[0] = 2;
-  v35 = *(v4 + 777);
+  v27 = v20;
+  v30 = 1;
+  v32 = 8;
+  v26 = 0x20000000001;
+  v25[0] = 2;
+  v33 = *(v4 + 777);
   __memcpy_chk();
   if (*(v5 + 92))
   {
     asl_log(0, 0, 5, "%s WFMacRandomisation : Private MAC address enabled\n", "wpa_driver_apple80211_associate");
-    v22 = *(v5 + 96);
-    if ((*v22 & 3) == 2)
+    v21 = *(v5 + 96);
+    if ((*v21 & 3) == 2)
     {
-      v36 |= 8u;
-      v23 = *(v22 + 2);
-      v37 = *v22;
-      v38 = v23;
-      asl_log(0, 0, 5, "%s WFMacRandomisation : Valid Private MAC address found. Will be used for association :  %02x:%02x:%02x:%02x:%02x:%02x\n \n", "wpa_driver_apple80211_associate", v37, BYTE1(v37), BYTE2(v37), HIBYTE(v37), v23, HIBYTE(v23));
-      v24 = a1[7];
-      asl_log(0, 0, 5, "%s WFMacRandomisation : Sanity Check. Mac Address with WAPI : %02x:%02x:%02x:%02x:%02x:%02x\n \n", "wpa_driver_apple80211_associate", *v24, v24[1], v24[2], v24[3], v24[4], v24[5]);
+      v34 |= 8u;
+      v22 = *(v21 + 2);
+      v35 = *v21;
+      v36 = v22;
+      asl_log(0, 0, 5, "%s WFMacRandomisation : Valid Private MAC address found. Will be used for association :  %02x:%02x:%02x:%02x:%02x:%02x\n \n", "wpa_driver_apple80211_associate", v35, BYTE1(v35), BYTE2(v35), HIBYTE(v35), v22, HIBYTE(v22));
+      v23 = a1[7];
+      asl_log(0, 0, 5, "%s WFMacRandomisation : Sanity Check. Mac Address with WAPI : %02x:%02x:%02x:%02x:%02x:%02x\n \n", "wpa_driver_apple80211_associate", *v23, v23[1], v23[2], v23[3], v23[4], v23[5]);
     }
   }
 
-  asl_log(0, 0, 5, "ad.ad_auth_lower = %d ad.ad_auth_upper = %d ad.ad_key.key_len = %d ad.ad_key.key_cipher_type = %d\n\n", v28, HIDWORD(v28), v33, v34);
+  asl_log(0, 0, 5, "ad.ad_auth_lower = %d ad.ad_auth_upper = %d ad.ad_key.key_len = %d ad.ad_key.key_cipher_type = %d\n\n", v26, HIDWORD(v26), v31, v32);
   *(a1 + 22) = 20;
   *(a1 + 24) = 908;
-  a1[13] = &v26;
+  a1[13] = &v24;
   strncpy(a1 + 72, a1 + 36, 0x10uLL);
-  v25 = a1[1];
   if (!Apple80211RawSet())
   {
     return 0;
@@ -5379,43 +5337,7 @@ uint64_t unpack_private_key(_BYTE *a1, _BYTE *a2, unsigned int a3)
   *a1 = a2[2];
   v3 = a2[3];
   a1[1] = v3;
-  if (v3 + 4 > a3)
-  {
-    return -1;
-  }
-
-  memcpy(a1 + 2, a2 + 4, v3);
-  a1[4] = a2[v3 + 4];
-  v7 = a2[v3 + 5];
-  a1[5] = v7;
-  v8 = v3 + 6;
-  if (v7 + v8 > a3)
-  {
-    return -1;
-  }
-
-  memcpy(a1 + 8, &a2[v8], v7);
-  v9 = (v8 + v7);
-  a1[264] = a2[v9];
-  a1[265] = a2[v9 + 1];
-  a1[266] = a2[v9 + 2];
-  v10 = a2[v9 + 3];
-  a1[267] = v10;
-  v11 = v9 + 4;
-  if (v10 + v9 + 4 > a3)
-  {
-    return -1;
-  }
-
-  memcpy(a1 + 268, &a2[v11], v10);
-  v12 = (v11 + v10);
-  a1[524] = a2[v12];
-  a1[525] = a2[v12 + 1];
-  a1[526] = a2[v12 + 2];
-  v13 = a2[v12 + 3];
-  a1[527] = v13;
-  v14 = v12 + 4;
-  if (v13 + v12 + 4 <= a3)
+  if (v3 + 4 <= a3 && (memcpy(a1 + 2, a2 + 4, v3), a1[4] = a2[v3 + 4], v7 = a2[v3 + 5], a1[5] = v7, v8 = v3 + 6, v7 + v8 <= a3) && (memcpy(a1 + 8, &a2[v8], v7), v9 = (v8 + v7), a1[264] = a2[v9], a1[265] = a2[v9 + 1], a1[266] = a2[v9 + 2], v10 = a2[v9 + 3], a1[267] = v10, v11 = v9 + 4, v10 + v9 + 4 <= a3) && (memcpy(a1 + 268, &a2[v11], v10), v12 = (v11 + v10), a1[524] = a2[v12], a1[525] = a2[v12 + 1], a1[526] = a2[v12 + 2], v13 = a2[v12 + 3], a1[527] = v13, v14 = v12 + 4, v13 + v12 + 4 <= a3))
   {
     memcpy(a1 + 528, &a2[v14], v13);
     return (v14 + v13);
@@ -5427,7 +5349,7 @@ uint64_t unpack_private_key(_BYTE *a1, _BYTE *a2, unsigned int a3)
   }
 }
 
-uint64_t ParsePubKey(unsigned __int8 **a1, unint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t ParsePubKey(unsigned __int8 **a1, unint64_t a2, uint64_t a3, unint64_t *a4)
 {
   v23 = *a1;
   v21 = 0;
@@ -5945,7 +5867,7 @@ char *sub_1000096EC(char *__s1, int a2, void *__s2, size_t __n)
   return result;
 }
 
-uint64_t iwn_x509_get_pubkey(uint64_t a1)
+_WORD *iwn_x509_get_pubkey(uint64_t a1)
 {
   v9 = 0;
   if (!a1)
@@ -6055,7 +5977,7 @@ uint64_t sub_100009A5C(unsigned __int8 **a1, unint64_t a2)
   return result;
 }
 
-uint64_t iwn_x509_get_subject_name(uint64_t a1)
+_BYTE *iwn_x509_get_subject_name(uint64_t a1)
 {
   v8 = 0;
   if (!a1)
@@ -6115,7 +6037,7 @@ uint64_t iwn_x509_get_subject_name(uint64_t a1)
   return buffer;
 }
 
-uint64_t iwn_x509_get_serial_number(uint64_t a1)
+_BYTE *iwn_x509_get_serial_number(uint64_t a1)
 {
   if (!a1)
   {
@@ -6148,7 +6070,7 @@ uint64_t iwn_x509_get_serial_number(uint64_t a1)
   return buffer;
 }
 
-uint64_t iwn_x509_get_issuer_name(uint64_t a1)
+_BYTE *iwn_x509_get_issuer_name(uint64_t a1)
 {
   v8 = 0;
   if (!a1)
@@ -6313,91 +6235,78 @@ uint64_t iwn_x509_get_sign_inlen(uint64_t a1)
   return v4;
 }
 
-void *cert_obj_register(void *a1)
+void *cert_obj_register(int *a1)
 {
   v2 = *a1;
-  if (v2 < 3)
+  if (v2 >= 3)
   {
-    v4 = qword_1000207A0[v2];
-    if (v4)
-    {
-      v5 = v4 == a1;
-    }
+    return asl_log(0, 0, 5, "%s: certificate %s has an invalid cert_index %u\n\n");
+  }
 
-    else
-    {
-      v5 = 1;
-    }
-
-    if (v5)
-    {
-      result = iwn_get_buffer(16);
-      a1[6] = result;
-      if (result)
-      {
-        result = iwn_get_buffer(16);
-        a1[7] = result;
-        if (result)
-        {
-          v6 = *a1;
-          qword_1000207A0[v6] = a1;
-          word_100020358 = v6;
-        }
-      }
-    }
-
-    else
-    {
-      v7 = a1[1];
-      return asl_log(0, 0, 5, "%s: certificate object %s registered with a different template\n\n");
-    }
+  v4 = qword_1000207A0[v2];
+  if (v4)
+  {
+    v5 = v4 == a1;
   }
 
   else
   {
-    v8 = a1[1];
-    return asl_log(0, 0, 5, "%s: certificate %s has an invalid cert_index %u\n\n");
+    v5 = 1;
+  }
+
+  if (!v5)
+  {
+    return asl_log(0, 0, 5, "%s: certificate object %s registered with a different template\n\n");
+  }
+
+  result = iwn_get_buffer(16);
+  *(a1 + 6) = result;
+  if (result)
+  {
+    result = iwn_get_buffer(16);
+    *(a1 + 7) = result;
+    if (result)
+    {
+      v6 = *a1;
+      qword_1000207A0[v6] = a1;
+      word_100020358 = v6;
+    }
   }
 
   return result;
 }
 
-uint64_t cert_obj_unregister(void *a1)
+uint64_t cert_obj_unregister(int *a1)
 {
   v2 = *a1;
-  if (v2 < 4)
+  if (v2 >= 4)
   {
-    v5 = qword_1000207A0[v2];
-    if (v5)
-    {
-      v6 = v5 == a1;
-    }
+    return asl_log(0, 0, 5, "%s: certificate %s has an invalid cert_index %u\n\n");
+  }
 
-    else
-    {
-      v6 = 1;
-    }
-
-    if (v6)
-    {
-      iwn_free_buffer(v5[6], 16);
-      result = iwn_free_buffer(*(qword_1000207A0[*a1] + 56), 16);
-      qword_1000207A0[v2] = 0;
-    }
-
-    else
-    {
-      asl_log(0, 0, 5, "cert_obj address \t%p\n\n", a1);
-      asl_log(0, 0, 5, "obj address \t\t%p\n\n", qword_1000207A0[*a1]);
-      v7 = a1[1];
-      return asl_log(0, 0, 5, "%s: certificate object %s registered with a different template\n\n");
-    }
+  v4 = qword_1000207A0[v2];
+  if (v4)
+  {
+    v5 = v4 == a1;
   }
 
   else
   {
-    v3 = a1[1];
-    return asl_log(0, 0, 5, "%s: certificate %s has an invalid cert_index %u\n\n");
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    iwn_free_buffer(*(v4 + 6), 16);
+    result = iwn_free_buffer(*(qword_1000207A0[*a1] + 56), 16);
+    qword_1000207A0[v2] = 0;
+  }
+
+  else
+  {
+    asl_log(0, 0, 5, "cert_obj address \t%p\n\n", a1);
+    asl_log(0, 0, 5, "obj address \t\t%p\n\n", qword_1000207A0[*a1]);
+    return asl_log(0, 0, 5, "%s: certificate object %s registered with a different template\n\n");
   }
 
   return result;
@@ -6531,7 +6440,7 @@ uint64_t get_x509_cert(uint64_t a1, uint64_t a2)
             v10 = strlen(byte_100020FB8);
             bzero(byte_1000207B8, 0x800uLL);
             v11 = Base64Dec(byte_1000207B8, byte_100020FB8, v10);
-            if ((v11 & 0x80000000) != 0)
+            if (v11 < 0)
             {
               asl_log(0, 0, 5, "Base64 decode user cert error\n\n");
             }
@@ -6558,7 +6467,7 @@ uint64_t get_x509_cert(uint64_t a1, uint64_t a2)
                   v16 = strlen(byte_100020FB8);
                   bzero(byte_1000207B8, 0x800uLL);
                   v17 = Base64Dec(byte_1000207B8, byte_100020FB8, v16);
-                  if ((v17 & 0x80000000) != 0)
+                  if (v17 < 0)
                   {
                     asl_log(0, 0, 5, "Base64 decode asu cert error\n\n");
                   }
@@ -6701,10 +6610,10 @@ _BYTE *get_random(_BYTE *a1, uint64_t a2)
 
   v7[0] = xmmword_1000181F8;
   v7[1] = unk_100018208;
-  return KD_hmac_sha256(a1, a2, v7, 0x20u, a1, a2);
+  return KD_hmac_sha256(a1, a2, v7, 32, a1, a2);
 }
 
-uint64_t iwn_wpa_hexdump(uint64_t result, const char *a2, uint64_t a3, int a4)
+uint64_t iwn_wpa_hexdump(uint64_t result, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (result >= 2)
   {
@@ -6716,23 +6625,23 @@ uint64_t iwn_wpa_hexdump(uint64_t result, const char *a2, uint64_t a3, int a4)
 
 uint64_t print_buf(const char *a1, uint64_t a2, int a3)
 {
-  v37 = 0;
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
+  v36 = 0;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  *__s = 0u;
+  v25 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  *__s = 0u;
+  v21 = 0u;
   __sprintf_chk(__s, 0, 0x104uLL, "%s(len=%d,0x%X)\n", a1, a3, a3);
   asl_log(0, 0, 5, "%s\n", __s);
   if (a3 >= -14)
@@ -6755,14 +6664,14 @@ uint64_t print_buf(const char *a1, uint64_t a2, int a3)
       v8 = a3 & 0xF;
     }
 
-    v19 = v8;
-    v20 = v7;
-    v18 = (v7 + 1);
+    v18 = v8;
+    v19 = v7;
+    v17 = (v7 + 1);
     while (1)
     {
-      v9 = v5 != v20 || v19 == 0;
+      v9 = v5 != v19 || v18 == 0;
       v10 = v9;
-      v11 = v9 ? 16 : v19;
+      v11 = v9 ? 16 : v18;
       __sprintf_chk(__s, 0, 0x104uLL, "%.4X  ", 16 * v5);
       if (v11 >= 1)
       {
@@ -6773,7 +6682,7 @@ LABEL_30:
       asl_log(0, 0, 5, "%s\n", __s);
       ++v5;
       a2 += 16;
-      if (v5 == v18)
+      if (v5 == v17)
       {
         return asl_log(0, 0, 5, "\n\n");
       }
@@ -6799,7 +6708,6 @@ LABEL_27:
       {
         for (i = 0; i != v11; ++i)
         {
-          v16 = *(a2 + i);
           __strcat_chk();
         }
 
@@ -6828,7 +6736,7 @@ LABEL_23:
   return asl_log(0, 0, 5, "\n\n");
 }
 
-BOOL x509_ecc_verify(uint64_t a1, int a2, char *a3, signed int a4, uint64_t a5, int a6)
+BOOL x509_ecc_verify(uint64_t a1, int a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   result = 0;
   if (a1 && a2 >= 1 && a3 && a4 >= 1 && a5 && a6 >= 1)
@@ -6839,7 +6747,7 @@ BOOL x509_ecc_verify(uint64_t a1, int a2, char *a3, signed int a4, uint64_t a5, 
   return result;
 }
 
-uint64_t x509_ecc_sign(uint64_t a1, uint64_t a2, char *a3, signed int a4, uint64_t a5)
+uint64_t x509_ecc_sign(uint64_t a1, uint64_t a2, char *a3, int a4, uint64_t a5)
 {
   if (a1 && a3 && a4 >= 1 && a5)
   {
@@ -7025,9 +6933,10 @@ LABEL_28:
   return 8;
 }
 
-_BYTE *KD_hmac_sha256(_BYTE *result, int a2, __int128 *a3, unsigned int a4, char *a5, uint64_t a6)
+_BYTE *KD_hmac_sha256(_BYTE *result, uint64_t a2, __int128 *a3, uint64_t a4, _BYTE *a5, uint64_t a6)
 {
   v6 = a6;
+  v8 = a4;
   if (a6 >= 0x20)
   {
     v11 = ((a6 - 32) >> 5) + 1;
@@ -7036,11 +6945,11 @@ _BYTE *KD_hmac_sha256(_BYTE *result, int a2, __int128 *a3, unsigned int a4, char
     do
     {
       v14 = v13;
-      hmac_sha256_0(result, a2, a3, a4, v13, 32);
+      hmac_sha256_0(result, a2, a3, v8, v13, 32);
       v6 = (v6 - 32);
       v13 = v14 + 32;
       result = v14;
-      a2 = 32;
+      LODWORD(a2) = 32;
       --v12;
     }
 
@@ -7062,7 +6971,7 @@ _BYTE *KD_hmac_sha256(_BYTE *result, int a2, __int128 *a3, unsigned int a4, char
     }
   }
 
-  return hmac_sha256_0(result, a2, a3, a4, &a5[v10], v6);
+  return hmac_sha256_0(result, a2, a3, v8, &a5[v10], v6);
 }
 
 uint64_t hmac_sha256_0(_BYTE *a1, int a2, __int128 *a3, unsigned int a4, void *a5, uint64_t a6)
@@ -7892,7 +7801,7 @@ uint64_t WAI_CNTAPPARA_SET(_DWORD *a1)
   return v1;
 }
 
-uint64_t sub_10000C8CC(__int128 *a1, unsigned int a2, char *a3)
+uint64_t sub_10000C8CC(__int128 *a1, uint64_t a2, _BYTE *a3)
 {
   strcpy(v8, "preshared key expansion for authentication and key negotiation");
   result = 0xFFFFFFFFLL;
@@ -8081,15 +7990,15 @@ double WAI_Msg_Input(int a1, int *a2, int *a3, void *__src, size_t __n)
               v13 = *(v7 + 17808);
               if (v13 == 2)
               {
-                *v22 = 0uLL;
+                v22 = 0uLL;
                 v23 = *v9;
                 v24 = *(v7 + 12);
                 v14 = *(v7 + 4);
                 v25 = *v7;
                 v26 = v14;
-                KD_hmac_sha256(&v23, 12, (v7 + 17812), 0x10u, v22, 16);
+                KD_hmac_sha256(&v23, 12, (v7 + 17812), 16, &v22, 16);
                 *(*(v7 + 40) + 352) = *(v7 + 17812);
-                *(*(v7 + 40) + 336) = *v22;
+                *(*(v7 + 40) + 336) = v22;
                 v13 = *(v7 + 17808);
               }
 
@@ -8330,12 +8239,12 @@ LABEL_5:
   return v8;
 }
 
-uint64_t sub_10000D1A0(uint64_t result)
+int *sub_10000D1A0(int *result)
 {
   if (result)
   {
     v1 = result;
-    iwn_free_buffer(*result, *(result + 12));
+    iwn_free_buffer(*result, result[3]);
 
     return iwn_free_buffer(v1, 16);
   }
@@ -8389,7 +8298,7 @@ uint64_t iwn_wai_fixdata_id_by_ident(uint64_t a1, _WORD *a2, unsigned int a3)
   return result;
 }
 
-uint64_t iwn_wapi_sm_rx_wai(uint64_t a1, uint64_t a2, unsigned __int16 *a3, unint64_t a4)
+int *iwn_wapi_sm_rx_wai(uint64_t a1, uint64_t a2, unsigned __int16 *a3, unint64_t a4)
 {
   if (*(a1 + 68))
   {
@@ -8398,7 +8307,7 @@ uint64_t iwn_wapi_sm_rx_wai(uint64_t a1, uint64_t a2, unsigned __int16 *a3, unin
     {
       if (a4 <= 0xB)
       {
-        iwn_wpa_printf(2, "WPA: WAI frame too short, len %d");
+        iwn_wpa_printf(2, "WPA: WAI frame too short, len %d", a3);
 LABEL_22:
         v7 = "WPA: WAI frame is wrong";
         goto LABEL_23;
@@ -8406,14 +8315,13 @@ LABEL_22:
 
       if (__rev16(*a3) != 1)
       {
-        iwn_wpa_printf(2, "WPA: WAI frame Version(%u) is wrong");
+        iwn_wpa_printf(2, "WPA: WAI frame Version(%u) is wrong", a3);
         goto LABEL_22;
       }
 
       if (*(a3 + 2) != 1)
       {
-        v17 = *(a3 + 2);
-        iwn_wpa_printf(2, "WPA: WAI frame type(%u) is wrong");
+        iwn_wpa_printf(2, "WPA: WAI frame type(%u) is wrong", a3);
         goto LABEL_22;
       }
 
@@ -8433,13 +8341,13 @@ LABEL_14:
         v11 = *(a3 + 7);
         if ((v11 | (v10 << 8)) != a4)
         {
-          iwn_wpa_printf(2, "WPA: WAI frame length(%u) is wrong");
+          iwn_wpa_printf(2, "WPA: WAI frame length(%u) is wrong", a3);
           goto LABEL_22;
         }
 
         if (__rev16(a3[4]) < *(a1 + 64))
         {
-          iwn_wpa_printf(2, "WPA: WAI frame packets_sc(%u) is wrong");
+          iwn_wpa_printf(2, "WPA: WAI frame packets_sc(%u) is wrong", a3);
           goto LABEL_22;
         }
 
@@ -8484,7 +8392,7 @@ LABEL_14:
             goto LABEL_47;
           }
 
-          if (sub_10000E3B0(a1, (a3 + 6), v14))
+          if (sub_10000E3B0(a1, a3 + 12, v14))
           {
 LABEL_52:
             timer_resend();
@@ -8499,7 +8407,6 @@ LABEL_52:
           if (v15 == 1)
           {
 LABEL_47:
-            v19 = *(a3 + 3);
             iwn_wpa_printf(2, "WPA: receive error frame stype %u");
             goto LABEL_48;
           }
@@ -8545,8 +8452,7 @@ LABEL_48:
         return iwn_wpa_printf(2, "WPA: receive unknown frame stype %u", *(a3 + 3));
       }
 
-      v18 = *(a3 + 3);
-      iwn_wpa_printf(2, "WPA: WAI frame stype(%u) is wrong ");
+      iwn_wpa_printf(2, "WPA: WAI frame stype(%u) is wrong ", a3);
       goto LABEL_22;
     }
 
@@ -8560,7 +8466,7 @@ LABEL_48:
 
 LABEL_23:
 
-  return iwn_wpa_printf(2, v7);
+  return iwn_wpa_printf(2, v7, a3, a4);
 }
 
 uint64_t sub_10000D6B8(uint64_t a1, uint64_t a2, int a3)
@@ -8978,7 +8884,7 @@ LABEL_31:
   return result;
 }
 
-uint64_t sub_10000E3B0(uint64_t a1, uint64_t a2, int a3)
+uint64_t sub_10000E3B0(uint64_t a1, _BYTE *a2, int a3)
 {
   v6 = *(a1 + 40);
   v7 = *v6;
@@ -8993,14 +8899,14 @@ uint64_t sub_10000E3B0(uint64_t a1, uint64_t a2, int a3)
 
   v8 = &v6[128 * v7];
   v9 = v8 + 4;
-  if (sub_10000F1D0(v8 + 100, (a2 + 30)))
+  if (sub_10000F1D0(v8 + 100, a2 + 30))
   {
     return 0xFFFFFFFFLL;
   }
 
-  v10 = (a2 + a3 - 20);
+  v10 = &a2[a3 - 20];
   hmac_sha256(a2, a3 - 20, v9 + 2, 0x10u, &v22, 20);
-  if (v22 != *v10 || v23 != *(a2 + a3 - 12) || v24 != *(a2 + a3 - 4))
+  if (v22 != *v10 || v23 != *&a2[a3 - 12] || v24 != *&a2[a3 - 4])
   {
     iwn_wpa_hexdump(2, "receive ap's mic", v10, 20);
     v13 = "own mic";
@@ -9012,11 +8918,11 @@ LABEL_11:
     return 0xFFFFFFFFLL;
   }
 
-  v18 = (*(a2 + 63) + 2);
-  iwn_wpa_hexdump(2, "AE's IE ", a2 + 62, (*(a2 + 63) + 2));
-  if ((*a2 & 0x10) == 0 && (v18 != v6[972] || memcmp((a2 + 62), v6 + 716, v18)))
+  v18 = (a2[63] + 2);
+  iwn_wpa_hexdump(2, "AE's IE ", (a2 + 62), v18);
+  if ((*a2 & 0x10) == 0 && (v18 != v6[972] || memcmp(a2 + 62, v6 + 716, v18)))
   {
-    iwn_wpa_hexdump(5, "AE's IE ", a2 + 62, v18);
+    iwn_wpa_hexdump(5, "AE's IE ", (a2 + 62), v18);
     v16 = v6[972];
     v13 = "ASUE's IE ";
     v14 = (v6 + 716);
@@ -9024,7 +8930,7 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  *v6 = *(a2 + 17);
+  *v6 = a2[17];
   v19 = *(a1 + 40);
   v20 = *v19;
   v21 = &v19[128 * v20];
@@ -9336,7 +9242,7 @@ uint64_t sub_10000EF2C(uint64_t a1)
   v10[3] = v4;
   memset(&v10[6] + 15, 0, 145);
   qmemcpy(&v10[4], "base key expansion for key and additional nonce", 47);
-  KD_hmac_sha256(v10, 111, &v6, 0x18u, &v8, 48);
+  KD_hmac_sha256(v10, 111, &v6, 24, &v8, 48);
   iwn_wpa_hexdump(2, "text", v10, 111);
   iwn_wpa_hexdump(2, "temp_out", &v8, 48);
   *(*(a1 + 40) + 352) = v8;
@@ -9346,7 +9252,7 @@ uint64_t sub_10000EF2C(uint64_t a1)
   WORD5(v10[0]) = *(a1 + 4);
   *(v10 + 6) = *a1;
   iwn_wpa_hexdump(2, "text1", v10, 111);
-  KD_hmac_sha256(v10, 12, (*(a1 + 40) + 352), 0x10u, (*(a1 + 40) + 336), 16);
+  KD_hmac_sha256(v10, 12, (*(a1 + 40) + 352), 16, (*(a1 + 40) + 336), 16);
   mhash_sha256(v9, 0x20u, a1 + 84);
   iwn_wpa_hexdump(5, "bk", *(a1 + 40) + 352, 16);
   return iwn_wpa_hexdump(5, "bkid", *(a1 + 40) + 336, 16);
@@ -9420,7 +9326,7 @@ uint64_t sub_10000F254(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-uint64_t FpMinus(int *a1, unsigned int *a2, void *a3)
+uint64_t FpMinus(int *a1, unsigned int *a2, _DWORD *a3)
 {
   if (*a1 == 1 && !a1[1])
   {
@@ -9428,7 +9334,7 @@ uint64_t FpMinus(int *a1, unsigned int *a2, void *a3)
     *a3 = 1;
     do
     {
-      *(a3 + v4) = a1[v4];
+      a3[v4] = a1[v4];
     }
 
     while (v4++ < *a1);
@@ -9532,7 +9438,7 @@ LABEL_29:
   return result;
 }
 
-uint64_t PubKeyToOctetString(uint64_t a1, unsigned int a2, _DWORD *a3, uint64_t a4)
+uint64_t PubKeyToOctetString(uint64_t a1, uint64_t a2, _DWORD *a3, uint64_t a4)
 {
   memset(v18, 0, 60);
   v8 = *a1;
@@ -9584,7 +9490,7 @@ LABEL_13:
   return 0;
 }
 
-uint64_t sub_10000F704(_DWORD *a1, int a2, unsigned int a3, _DWORD *a4, uint64_t a5)
+uint64_t sub_10000F704(_DWORD *a1, int a2, uint64_t a3, _DWORD *a4, uint64_t a5)
 {
   v14 = 0;
   result = sub_10000F840(a1, a3, &v14, a5);
@@ -9631,8 +9537,9 @@ uint64_t sub_10000F704(_DWORD *a1, int a2, unsigned int a3, _DWORD *a4, uint64_t
   return result;
 }
 
-uint64_t PriKeyToOctetString(void *__src, int a2, unsigned int a3, _DWORD *a4, uint64_t a5)
+uint64_t PriKeyToOctetString(void *__src, unsigned int a2, uint64_t a3, _DWORD *a4, uint64_t a5)
 {
+  v7 = a3;
   v12 = 0;
   memset(v11, 0, sizeof(v11));
   if (a2 >= 1)
@@ -9641,7 +9548,7 @@ uint64_t PriKeyToOctetString(void *__src, int a2, unsigned int a3, _DWORD *a4, u
   }
 
   v10 = a2;
-  sub_10000F840(&v10, a3, a4, a5);
+  sub_10000F840(&v10, v7, a4, a5);
   return 0;
 }
 
@@ -9721,7 +9628,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t OctetStringToPriKey(uint64_t a1, int a2, void *a3, _DWORD *a4)
+uint64_t OctetStringToPriKey(uint64_t a1, uint64_t a2, void *a3, _DWORD *a4)
 {
   memset(v8, 0, 60);
   sub_10000F984(a1, a2, v8);
@@ -9735,7 +9642,7 @@ uint64_t OctetStringToPriKey(uint64_t a1, int a2, void *a3, _DWORD *a4)
   return 0;
 }
 
-uint64_t sub_10000F984(uint64_t result, int a2, _DWORD *a3)
+uint64_t sub_10000F984(uint64_t result, unsigned int a2, _DWORD *a3)
 {
   if (a2 >= 1)
   {
@@ -9799,4 +9706,277 @@ uint64_t sub_10000F984(uint64_t result, int a2, _DWORD *a3)
 LABEL_17:
   *a3 = v15;
   return result;
+}
+
+uint64_t OctetStringToPubKey(uint64_t a1, unsigned int a2, void **a3)
+{
+  memset(v10, 0, 60);
+  v5 = a2 >> 1;
+  memset(v9, 0, 60);
+  sub_10000F984(a1, a2 >> 1, v10);
+  sub_10000F984(a1 + v5, v5, v9);
+  v6 = SLODWORD(v10[0]);
+  if (SLODWORD(v10[0]) < 1 || (memcpy(*a3, v10 + 4, 4 * LODWORD(v10[0])), v6 <= 5))
+  {
+    bzero(*a3 + 4 * v6, 4 * (5 - v6) + 4);
+  }
+
+  v7 = SLODWORD(v9[0]);
+  if (SLODWORD(v9[0]) < 1 || (memcpy(a3[1], v9 + 4, 4 * LODWORD(v9[0])), v7 <= 5))
+  {
+    bzero(a3[1] + 4 * v7, 4 * (5 - v7) + 4);
+  }
+
+  return 0;
+}
+
+uint64_t DPrint_string(const char *a1, unsigned __int8 *a2, int a3)
+{
+  v3 = a3;
+  if (a1)
+  {
+    printf("%s(%d) :\n", a1, a3);
+  }
+
+  if (v3 >= 1)
+  {
+    v5 = 1;
+    do
+    {
+      v6 = *a2++;
+      printf("%02X ", v6);
+      if ((v5 & 0xF) == 0)
+      {
+        putchar(10);
+      }
+
+      ++v5;
+      --v3;
+    }
+
+    while (v3);
+  }
+
+  return putchar(10);
+}
+
+uint64_t KTimesPoint(const void *a1, unsigned int *a2, uint64_t *a3, uint64_t a4, void *a5)
+{
+  memset(v46, 0, 60);
+  memset(v45, 0, sizeof(v45));
+  v44 = 0;
+  memset(v43, 0, sizeof(v43));
+  sub_100010078(a3, v45);
+  v8 = *a2;
+  if (v8 >= 1)
+  {
+    memcpy(v43, a1, 4 * v8);
+  }
+
+  v42 = v8;
+  if ((sub_10001011C(&v42, dword_1000234C4) & 0x80000000) == 0)
+  {
+    return 0;
+  }
+
+  memset(v48, 0, 60);
+  memset(v47, 0, sizeof(v47));
+  if (!v8 || v8 == 1 && !LODWORD(v43[0]))
+  {
+    goto LABEL_56;
+  }
+
+  memset(v60, 0, 60);
+  memset(v59, 0, sizeof(v59));
+  v58 = 0uLL;
+  v57 = 0uLL;
+  v56 = 0uLL;
+  memset(v50, 0, 60);
+  v55 = 0;
+  *&v59[1] = 0x100000001;
+  v60[1] = 0;
+  if (v8 <= 0)
+  {
+    v23 = 0;
+    v24 = 2 * v8;
+  }
+
+  else
+  {
+    v10 = 0;
+    v11 = 0;
+    do
+    {
+      v12 = 0;
+      v13 = 0;
+      v14 = 0;
+      v15 = v10;
+      v16 = *(v43 + v10);
+      do
+      {
+        v17 = (v16 >> v13) & 3 | v11;
+        v11 = dword_1000184B4[v17];
+        v14 |= dword_1000184D4[v17] << v12;
+        ++v13;
+        v12 += 2;
+      }
+
+      while (v13 != 16);
+      v18 = 0;
+      v19 = 0;
+      v50[2 * v15 + 1] = v14;
+      v20 = 16;
+      do
+      {
+        v21 = (v16 >> v20) & 3 | v11;
+        v11 = dword_1000184B4[v21];
+        v19 |= dword_1000184D4[v21] << v18;
+        ++v20;
+        v18 += 2;
+      }
+
+      while (v18 != 30);
+      v22 = v11 | (v16 >> 31);
+      v10 = v15 + 1;
+      if (v15 != v8 - 1)
+      {
+        v22 |= 2 * (*(v43 + v10) & 1);
+      }
+
+      v11 = dword_1000184B4[v22];
+      v50[2 * v15 + 2] = v19 | (dword_1000184D4[v22] << 30);
+    }
+
+    while (v10 != v8);
+    v23 = 2 * v8;
+    v24 = 2 * v8;
+    if (((0x17uLL >> v22) & 1) == 0)
+    {
+      v25 = 1;
+      goto LABEL_21;
+    }
+  }
+
+  v25 = 0;
+LABEL_21:
+  v50[v23 + 1] = v25;
+  v26 = v24 | 1u;
+  v27 = v24 + 2;
+  v28 = v26 & (v24 >> 31);
+  while (v26 >= 1)
+  {
+    v29 = v50[v26--];
+    --v27;
+    if (v29)
+    {
+      goto LABEL_26;
+    }
+  }
+
+  v27 = v28;
+LABEL_26:
+  memset(v54, 0, 124);
+  v50[0] = v27;
+  v30 = DWORD1(v45[0]);
+  v54[1] = DWORD1(v45[0]);
+  if (SDWORD1(v45[0]) >= 1)
+  {
+    memcpy(&v54[2], v45 + 8, 4 * DWORD1(v45[0]));
+  }
+
+  v54[16] = v46[0];
+  if (SLODWORD(v46[0]) >= 1)
+  {
+    memcpy(&v54[17], v46 + 4, 4 * LODWORD(v46[0]));
+  }
+
+  memset(v52, 0, sizeof(v52));
+  memset(v53, 0, 60);
+  v52[1] = v30;
+  if (v30 >= 1)
+  {
+    memcpy(&v52[2], v45 + 8, 4 * v30);
+  }
+
+  FpMinus(v46, dword_100023358, v53);
+  v31 = __OFSUB__(v27, 1);
+  v32 = (v27 - 1);
+  if (v32 < 0 != v31)
+  {
+    goto LABEL_56;
+  }
+
+  v33 = v32;
+  do
+  {
+    v34 = v50[v33 + 1];
+    v35 = 32;
+    if (v33 != v32 || v34 >> 30)
+    {
+      goto LABEL_38;
+    }
+
+    do
+    {
+      v36 = v34 >> 28;
+      v34 *= 4;
+      v35 -= 2;
+    }
+
+    while (!v36);
+    if (v35 >= 1)
+    {
+LABEL_38:
+      v37 = v35 + 2;
+      while (1)
+      {
+        sub_100012568(&v55, &v55);
+        if (v34 >> 30 == 1)
+        {
+          break;
+        }
+
+        if (v34 >> 30 == 3)
+        {
+          v38 = v52;
+LABEL_43:
+          sub_1000129F0(&v55, v38, &v55);
+        }
+
+        v34 *= 4;
+        v37 -= 2;
+        if (v37 <= 2)
+        {
+          goto LABEL_45;
+        }
+      }
+
+      v38 = v54;
+      goto LABEL_43;
+    }
+
+LABEL_45:
+    ;
+  }
+
+  while (v33-- > 0);
+  v41 = v60[0] == 1 && v60[1] == 0;
+  if (v60[0] && !v41)
+  {
+    memset(v51, 0, 60);
+    memset(v49, 0, 60);
+    v47[0] = 0;
+    sub_100010EC8(v60, dword_100023358, v51);
+    sub_100010C9C(v51, v51, dword_100023358, v49);
+    sub_100010C9C(&v55, v49, dword_100023358, &v47[1]);
+    sub_100010C9C(v49, v51, dword_100023358, v51);
+    sub_100010C9C(&v59[1], v51, dword_100023358, v48);
+    goto LABEL_57;
+  }
+
+LABEL_56:
+  v47[0] = 1;
+LABEL_57:
+  sub_100010190(v47, a5);
+  return 1;
 }

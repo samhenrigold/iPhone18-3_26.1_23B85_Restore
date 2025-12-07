@@ -23,10 +23,7 @@ uint64_t __50___PASLRUCache_enumerateKeysAndObjectsUsingBlock___block_invoke(uin
   *(v6 + 40) = v5;
 
   v8 = v4[2];
-  v9 = [v8 copy];
-  v10 = *(*(a1 + 40) + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v9;
+  *(*(*(a1 + 40) + 8) + 40) = [v8 copy];
 
   return MEMORY[0x1EEE66BB8]();
 }

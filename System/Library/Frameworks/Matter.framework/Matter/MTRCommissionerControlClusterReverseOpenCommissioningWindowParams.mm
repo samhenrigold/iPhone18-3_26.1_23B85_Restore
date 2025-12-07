@@ -86,11 +86,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:valueCopy clusterID:1873 commandID:2 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v20)
   {
     sub_2393C5AAC(v19);
-    sub_2393C5ADC(v19, *(v20 + 1), *(v20 + 3));
+    sub_2393C5ADC(v19, *(v20 + 8), *(v20 + 24));
     v8 = sub_2393C6FD0(v19, 256);
     if (!v8)
     {

@@ -10,9 +10,9 @@
 
 - (CKMomentShareStatusBalloonView)initWithFrame:(CGRect)frame
 {
-  v22.receiver = self;
-  v22.super_class = CKMomentShareStatusBalloonView;
-  v3 = [(CKColoredBalloonView *)&v22 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v23.receiver = self;
+  v23.super_class = CKMomentShareStatusBalloonView;
+  v3 = [(CKColoredBalloonView *)&v23 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = [MEMORY[0x1E69DCAB8] px_imageNamed:@"PXMessagesPlaceholderIcon"];
@@ -33,26 +33,26 @@
     v3->_primaryLabel = v10;
 
     v12 = v3->_primaryLabel;
-    v13 = CKFrameworkBundle();
-    v14 = [v13 localizedStringForKey:@"CKMomentShareStatusBalloonViewTitle" value:&stru_1F04268F8 table:@"ChatKit"];
-    [(UILabel *)v12 setText:v14];
+    v14 = CKFrameworkBundle(v13);
+    v15 = [v14 localizedStringForKey:@"CKMomentShareStatusBalloonViewTitle" value:&stru_1F04268F8 table:@"ChatKit"];
+    [(UILabel *)v12 setText:v15];
 
     [(UILabel *)v3->_primaryLabel setFont:v9];
     [(UILabel *)v3->_primaryLabel setNumberOfLines:0];
     [(CKMomentShareStatusBalloonView *)v3 addSubview:v3->_primaryLabel];
-    v15 = objc_alloc_init(MEMORY[0x1E69DCC10]);
+    v16 = objc_alloc_init(MEMORY[0x1E69DCC10]);
     secondaryLabel = v3->_secondaryLabel;
-    v3->_secondaryLabel = v15;
+    v3->_secondaryLabel = v16;
 
-    v17 = v3->_secondaryLabel;
+    v18 = v3->_secondaryLabel;
     _secondaryLabelString = [objc_opt_class() _secondaryLabelString];
-    [(UILabel *)v17 setText:_secondaryLabelString];
+    [(UILabel *)v18 setText:_secondaryLabelString];
 
     [(UILabel *)v3->_secondaryLabel setFont:v9];
     [(UILabel *)v3->_secondaryLabel setNumberOfLines:0];
-    v19 = v3->_secondaryLabel;
+    v20 = v3->_secondaryLabel;
     secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
-    [(UILabel *)v19 setTextColor:secondaryLabelColor];
+    [(UILabel *)v20 setTextColor:secondaryLabelColor];
 
     [(CKMomentShareStatusBalloonView *)v3 addSubview:v3->_secondaryLabel];
   }
@@ -116,7 +116,7 @@ void __47__CKMomentShareStatusBalloonView_sizeThatFits___block_invoke(uint64_t a
 {
   framesCopy = frames;
   v6 = +[CKUIBehavior sharedBehaviors];
-  [(CKColoredBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self);
   [v6 balloonMaskTailSizeForTailShape:v53];
   v8 = v7;
 

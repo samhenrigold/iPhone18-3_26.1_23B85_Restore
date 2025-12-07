@@ -58,27 +58,25 @@
 
 void __23__HKDevice_localDevice__block_invoke()
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v0 = [HKDevice alloc];
   v1 = +[_HKBehavior currentDeviceName];
   v2 = +[_HKBehavior currentDeviceManufacturer];
   v3 = +[_HKBehavior currentDeviceClass];
   v4 = +[_HKBehavior currentDeviceProductType];
-  v5 = +[_HKBehavior currentOSVersion];
+  v5 = objc_msgSend_currentOSVersion(_HKBehavior);
   v6 = [(HKDevice *)v0 initWithName:v1 manufacturer:v2 model:v3 hardwareVersion:v4 firmwareVersion:0 softwareVersion:v5 localIdentifier:0 UDIDeviceIdentifier:0];
   v7 = localDevice__localDevice;
   localDevice__localDevice = v6;
 
-  _HKInitializeLogging();
-  v8 = HKLogDefault;
+  _HKInitializeLogging(v8, v9);
+  v10 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = localDevice__localDevice;
-    _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "Created localDevice: %@", buf, 0xCu);
+    v12 = localDevice__localDevice;
+    _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "Created localDevice: %@", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (HKDevice)init
@@ -542,7 +540,7 @@ LABEL_10:
   name = self->_name;
   self->_name = hk_copyNonEmptyString;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](hk_copyNonEmptyString, name);
 }
 
 - (void)_setBluetoothIdentifier:(id)identifier
@@ -551,7 +549,7 @@ LABEL_10:
   bluetoothIdentifier = self->_bluetoothIdentifier;
   self->_bluetoothIdentifier = hk_copyNonEmptyString;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](hk_copyNonEmptyString, bluetoothIdentifier);
 }
 
 - (void)_setManufacturer:(id)manufacturer
@@ -560,7 +558,7 @@ LABEL_10:
   manufacturer = self->_manufacturer;
   self->_manufacturer = hk_copyNonEmptyString;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](hk_copyNonEmptyString, manufacturer);
 }
 
 - (void)_setModel:(id)model
@@ -569,7 +567,7 @@ LABEL_10:
   model = self->_model;
   self->_model = hk_copyNonEmptyString;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](hk_copyNonEmptyString, model);
 }
 
 - (void)_setHardwareVersion:(id)version
@@ -578,7 +576,7 @@ LABEL_10:
   hardwareVersion = self->_hardwareVersion;
   self->_hardwareVersion = hk_copyNonEmptyString;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](hk_copyNonEmptyString, hardwareVersion);
 }
 
 - (void)_setFirmwareVersion:(id)version
@@ -587,7 +585,7 @@ LABEL_10:
   firmwareVersion = self->_firmwareVersion;
   self->_firmwareVersion = hk_copyNonEmptyString;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](hk_copyNonEmptyString, firmwareVersion);
 }
 
 - (void)_setSoftwareVersion:(id)version
@@ -596,7 +594,7 @@ LABEL_10:
   softwareVersion = self->_softwareVersion;
   self->_softwareVersion = hk_copyNonEmptyString;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](hk_copyNonEmptyString, softwareVersion);
 }
 
 - (void)_setLocalIdentifier:(id)identifier
@@ -605,7 +603,7 @@ LABEL_10:
   localIdentifier = self->_localIdentifier;
   self->_localIdentifier = hk_copyNonEmptyString;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](hk_copyNonEmptyString, localIdentifier);
 }
 
 - (void)_setUDIDeviceIdentifier:(id)identifier
@@ -614,7 +612,7 @@ LABEL_10:
   UDIDeviceIdentifier = self->_UDIDeviceIdentifier;
   self->_UDIDeviceIdentifier = hk_copyNonEmptyString;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](hk_copyNonEmptyString, UDIDeviceIdentifier);
 }
 
 - (void)_setCreationDate:(id)date
@@ -623,7 +621,7 @@ LABEL_10:
   creationDate = self->_creationDate;
   self->_creationDate = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, creationDate);
 }
 
 - (void)encodeWithCoder:(id)coder

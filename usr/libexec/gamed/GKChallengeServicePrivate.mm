@@ -117,7 +117,7 @@
   v32 = @"invited-player-ids";
   v35 = dsCopy;
   handlerCopy = handler;
-  v21 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v30 count:3];
+  v21 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v22 = [NSMutableDictionary dictionaryWithDictionary:v21];
 
   if (limitCopy)
@@ -147,7 +147,7 @@
   v10 = +[GKNetworkRequestManager commonNetworkRequestManager];
   v13 = @"challenge-id";
   v14 = dCopy;
-  v11 = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   clientProxy = [(GKService *)self clientProxy];
   [v10 readEntityWithRequest:v11 bagKey:@"gk-challenge-detail" includeStaleCacheData:dataCopy clientProxy:clientProxy completionHandler:handlerCopy entityMaker:&stru_100365658];
@@ -157,12 +157,8 @@
 {
   dCopy = d;
   iDCopy = iD;
-  v15[0] = @"player-id";
-  v15[1] = @"get-recent-completed-challenges";
-  v16[0] = dCopy;
-  v16[1] = &__kCFBooleanTrue;
   handlerCopy = handler;
-  v11 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v12 = [NSMutableDictionary dictionaryWithDictionary:v11];
 
   if (iDCopy)
@@ -182,9 +178,9 @@
   v10 = @"challenge-id";
   handlerCopy = handler;
   dCopy2 = d;
-  v8 = [NSDictionary dictionaryWithObjects:&dCopy forKeys:&v10 count:1];
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v13 = v8;
-  v9 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   [(GKChallengeServicePrivate *)self acceptForLeaderboardChallengeInvite:v9 completionHandler:handlerCopy];
 }
@@ -196,9 +192,9 @@
   v10 = @"invite-code";
   handlerCopy = handler;
   codeCopy2 = code;
-  v8 = [NSDictionary dictionaryWithObjects:&codeCopy forKeys:&v10 count:1];
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v13 = v8;
-  v9 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   [(GKChallengeServicePrivate *)self acceptForLeaderboardChallengeInvite:v9 completionHandler:handlerCopy];
 }
@@ -225,11 +221,11 @@
   dsCopy = ds;
   dCopy = d;
   v11 = +[GKNetworkRequestManager commonNetworkRequestManager];
-  v17[0] = @"challenge-id";
-  v17[1] = @"player-ids";
-  v18[0] = dCopy;
-  v18[1] = dsCopy;
-  v12 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v17 = @"challenge-id";
+  v18 = @"player-ids";
+  v19 = dCopy;
+  v20 = dsCopy;
+  v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   clientProxy = [(GKService *)self clientProxy];
   v15[0] = _NSConcreteStackBlock;
   v15[1] = 3221225472;
@@ -243,14 +239,14 @@
 
 - (void)createLeaderboardChallengeInviteCodeWithChallengeID:(id)d playerID:(id)iD completionHandler:(id)handler
 {
-  v12[0] = @"challenge-id";
-  v12[1] = @"player-id";
-  v13[0] = d;
-  v13[1] = iD;
-  handlerCopy = handler;
-  iDCopy = iD;
+  v12 = @"challenge-id";
+  v13 = @"player-id";
   dCopy = d;
-  v11 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:2];
+  iDCopy = iD;
+  handlerCopy = handler;
+  iDCopy2 = iD;
+  dCopy2 = d;
+  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   [(GKChallengeServicePrivate *)self getStringWithRequest:v11 bagKey:@"gk-challenge-create-invite-code" stringResponseKey:@"invite-code" completionHandler:handlerCopy];
 }
@@ -277,11 +273,11 @@
     dispatch_async(replyQueue, &v20);
   }
 
-  v25[0] = @"challenge-id";
-  v25[1] = @"invite-code";
-  v26[0] = dCopy;
-  v26[1] = codeCopy;
-  v19 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:2, v20, v21, v22, v23];
+  v25 = @"challenge-id";
+  v26 = @"invite-code";
+  v27 = dCopy;
+  v28 = codeCopy;
+  v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary, v20, v21, v22, v23);
   [(GKChallengeServicePrivate *)self getStringWithRequest:v19 bagKey:@"gk-challenge-detail" stringResponseKey:@"invite-code-status" completionHandler:handlerCopy];
 }
 
@@ -290,12 +286,8 @@
   dCopy = d;
   iDCopy = iD;
   bundleIDCopy = bundleID;
-  v18[0] = @"player-id";
-  v18[1] = @"compare-to-player-id";
-  v19[0] = dCopy;
-  v19[1] = iDCopy;
   handlerCopy = handler;
-  v14 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v15 = [NSMutableDictionary dictionaryWithDictionary:v14];
 
   if (bundleIDCopy)
@@ -313,12 +305,8 @@
   dCopy = d;
   typeCopy = type;
   iDCopy = iD;
-  v18[0] = @"player-id";
-  v18[1] = @"type";
-  v19[0] = dCopy;
-  v19[1] = typeCopy;
   handlerCopy = handler;
-  v14 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v15 = [NSMutableDictionary dictionaryWithDictionary:v14];
 
   if (iDCopy)
@@ -336,12 +324,8 @@
   dCopy = d;
   typeCopy = type;
   iDCopy = iD;
-  v18[0] = @"player-id";
-  v18[1] = @"type";
-  v19[0] = dCopy;
-  v19[1] = typeCopy;
   handlerCopy = handler;
-  v14 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v15 = [NSMutableDictionary dictionaryWithDictionary:v14];
 
   if (iDCopy)
@@ -356,14 +340,14 @@
 
 - (void)leaveLeaderboardChallengeWithChallengeID:(id)d playerID:(id)iD completionHandler:(id)handler
 {
-  v12[0] = @"challenge-id";
-  v12[1] = @"player-id";
-  v13[0] = d;
-  v13[1] = iD;
-  handlerCopy = handler;
-  iDCopy = iD;
+  v12 = @"challenge-id";
+  v13 = @"player-id";
   dCopy = d;
-  v11 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:2];
+  iDCopy = iD;
+  handlerCopy = handler;
+  iDCopy2 = iD;
+  dCopy2 = d;
+  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   [(GKChallengeServicePrivate *)self getStringWithRequest:v11 bagKey:@"gk-challenge-leave" stringResponseKey:@"response-status" completionHandler:handlerCopy];
 }

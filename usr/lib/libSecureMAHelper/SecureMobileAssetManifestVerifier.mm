@@ -46,7 +46,7 @@ uint64_t __51__SecureMobileAssetManifestVerifier_sharedInstance__block_invoke()
 
 - (BOOL)verifyManifest:(id)manifest manifestType:(unint64_t)type
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   manifestCopy = manifest;
   v7 = [(SecureMobileAssetManifestVerifier *)self _manifestDigest:manifestCopy];
   cachedManifestVerificationResults = [(SecureMobileAssetManifestVerifier *)self cachedManifestVerificationResults];
@@ -63,16 +63,16 @@ uint64_t __51__SecureMobileAssetManifestVerifier_sharedInstance__block_invoke()
       v14 = _MAClientLog(@"SecureMA");
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v23 = 67109378;
+        v22 = 67109378;
         bOOLValue = v13;
-        v25 = 2080;
-        v26 = strerror(v13);
+        v24 = 2080;
+        v25 = strerror(v13);
         v15 = "[SMA] Manifest verification failed: %d (%s)";
         v16 = v14;
         v17 = OS_LOG_TYPE_ERROR;
         v18 = 18;
 LABEL_10:
-        _os_log_impl(&dword_2981ED000, v16, v17, v15, &v23, v18);
+        _os_log_impl(&dword_2981ED000, v16, v17, v15, &v22, v18);
       }
     }
 
@@ -81,7 +81,7 @@ LABEL_10:
       v14 = _MAClientLog(@"SecureMA");
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v23) = 0;
+        LOWORD(v22) = 0;
         v15 = "[SMA] Manifest verification succeeded";
         v16 = v14;
         v17 = OS_LOG_TYPE_DEFAULT;
@@ -100,22 +100,21 @@ LABEL_10:
   v11 = _MAClientLog(@"SecureMA");
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 67109120;
+    v22 = 67109120;
     bOOLValue = [v10 BOOLValue];
-    _os_log_impl(&dword_2981ED000, v11, OS_LOG_TYPE_DEFAULT, "[SMA] Cached manifest verification result: %i", &v23, 8u);
+    _os_log_impl(&dword_2981ED000, v11, OS_LOG_TYPE_DEFAULT, "[SMA] Cached manifest verification result: %i", &v22, 8u);
   }
 
   bOOLValue2 = [v10 BOOLValue];
 LABEL_12:
 
   objc_sync_exit(cachedManifestVerificationResults);
-  v21 = *MEMORY[0x29EDCA608];
   return bOOLValue2;
 }
 
 - (BOOL)verifyPlist:(id)plist manifest:(id)manifest manifestType:(unint64_t)type result:(id *)result error:(id *)error
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   v8 = [(SecureMobileAssetManifestVerifier *)self _verifyPlist:plist manifest:manifest manifestType:type result:result];
   v9 = _MAClientLog(@"SecureMA");
   v10 = v9;
@@ -123,11 +122,11 @@ LABEL_12:
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v13[0] = 67109378;
-      v13[1] = v8;
-      v14 = 2080;
-      v15 = strerror(v8);
-      _os_log_impl(&dword_2981ED000, v10, OS_LOG_TYPE_ERROR, "[SMA] Info plist verification failed: %d (%s)", v13, 0x12u);
+      v12[0] = 67109378;
+      v12[1] = v8;
+      v13 = 2080;
+      v14 = strerror(v8);
+      _os_log_impl(&dword_2981ED000, v10, OS_LOG_TYPE_ERROR, "[SMA] Info plist verification failed: %d (%s)", v12, 0x12u);
     }
 
     if (error)
@@ -140,22 +139,20 @@ LABEL_12:
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13[0]) = 0;
-      _os_log_impl(&dword_2981ED000, v10, OS_LOG_TYPE_DEFAULT, "[SMA] Info plist verification succeeded", v13, 2u);
+      LOWORD(v12[0]) = 0;
+      _os_log_impl(&dword_2981ED000, v10, OS_LOG_TYPE_DEFAULT, "[SMA] Info plist verification succeeded", v12, 2u);
     }
   }
 
-  result = v8 == 0;
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  return v8 == 0;
 }
 
 - (id)_manifestDigest:(id)digest
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   digestCopy = digest;
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   *md = 0u;
   CC_SHA384([digestCopy bytes], objc_msgSend(digestCopy, "length"), md);
   v4 = [MEMORY[0x29EDBA050] stringWithCapacity:96];
@@ -166,14 +163,12 @@ LABEL_12:
 
   v6 = [v4 copy];
 
-  v7 = *MEMORY[0x29EDCA608];
-
   return v6;
 }
 
 - (int)_verifyPlist:(id)plist manifest:(id)manifest manifestType:(unint64_t)type result:(id *)result
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   plistCopy = plist;
   manifestCopy = manifest;
   if ([manifestCopy length])
@@ -183,14 +178,14 @@ LABEL_12:
       if (type == 2)
       {
         *buf = xmmword_2A1EA37A8;
-        v20 = *&off_2A1EA37B8;
-        v21 = xmmword_2A1EA37C8;
+        v19 = *&off_2A1EA37B8;
+        v20 = xmmword_2A1EA37C8;
         image4_environment_set_callbacks();
       }
 
       [manifestCopy bytes];
       [manifestCopy length];
-      v17 = image4_trust_new();
+      v16 = image4_trust_new();
       if (plistCopy)
       {
         [plistCopy bytes];
@@ -198,7 +193,7 @@ LABEL_12:
         image4_trust_set_payload();
       }
 
-      v16 = 1;
+      v15 = 1;
       image4_trust_evaluate();
       image4_trust_destroy();
       image4_environment_destroy();
@@ -208,7 +203,7 @@ LABEL_12:
         [(SecureMobileAssetManifestVerifier *)self _logBase64Data:plistCopy description:@"failing payload"];
       }
 
-      v11 = v16;
+      v11 = v15;
     }
 
     else
@@ -236,28 +231,25 @@ LABEL_12:
     v11 = 22;
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return v11;
 }
 
 - (void)_logBase64Data:(id)data description:(id)description
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   descriptionCopy = description;
   v6 = [data base64EncodedStringWithOptions:0];
   v7 = _MAClientLog(@"SecureMA");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138543874;
-    v10 = descriptionCopy;
-    v11 = 2114;
-    v12 = v6;
-    v13 = 2114;
-    v14 = descriptionCopy;
-    _os_log_impl(&dword_2981ED000, v7, OS_LOG_TYPE_ERROR, "[SMA] %{public}@:<<<<<<<<<<\n%{public}@\n%{public}@:>>>>>>>>>>", &v9, 0x20u);
+    v8 = 138543874;
+    v9 = descriptionCopy;
+    v10 = 2114;
+    v11 = v6;
+    v12 = 2114;
+    v13 = descriptionCopy;
+    _os_log_impl(&dword_2981ED000, v7, OS_LOG_TYPE_ERROR, "[SMA] %{public}@:<<<<<<<<<<\n%{public}@\n%{public}@:>>>>>>>>>>", &v8, 0x20u);
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 @end

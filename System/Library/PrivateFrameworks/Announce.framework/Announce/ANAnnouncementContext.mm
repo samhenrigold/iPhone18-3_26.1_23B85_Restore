@@ -13,11 +13,11 @@
 
 - (ANAnnouncementContext)initWithDictionary:(id)dictionary
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v73.receiver = self;
-  v73.super_class = ANAnnouncementContext;
-  v5 = [(ANAnnouncementContext *)&v73 init];
+  v74.receiver = self;
+  v74.super_class = ANAnnouncementContext;
+  v5 = [(ANAnnouncementContext *)&v74 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"AnnouncementID"];
@@ -297,30 +297,29 @@
       v5->_played = 0;
     }
 
-    v67 = ANLogHandleAnnouncementContext();
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+    v68 = ANLogHandleAnnouncementContext(v67);
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
     {
-      v68 = v5->_announcementAudioURL;
+      v69 = v5->_announcementAudioURL;
       *buf = 138412546;
-      v75 = &stru_2836DAA20;
-      v76 = 2112;
-      v77 = v68;
-      _os_log_impl(&dword_2237C8000, v67, OS_LOG_TYPE_DEFAULT, "%@Announcement Context URL: %@", buf, 0x16u);
+      v76 = &stru_2836DAA20;
+      v77 = 2112;
+      v78 = v69;
+      _os_log_impl(&dword_2237C8000, v68, OS_LOG_TYPE_DEFAULT, "%@Announcement Context URL: %@", buf, 0x16u);
     }
 
-    v69 = ANLogHandleAnnouncementContext();
-    if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+    v71 = ANLogHandleAnnouncementContext(v70);
+    if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
     {
       announcementAudioPath = v5->_announcementAudioPath;
       *buf = 138412546;
-      v75 = &stru_2836DAA20;
-      v76 = 2112;
-      v77 = announcementAudioPath;
-      _os_log_impl(&dword_2237C8000, v69, OS_LOG_TYPE_DEFAULT, "%@Announcement Context File Path: %@", buf, 0x16u);
+      v76 = &stru_2836DAA20;
+      v77 = 2112;
+      v78 = announcementAudioPath;
+      _os_log_impl(&dword_2237C8000, v71, OS_LOG_TYPE_DEFAULT, "%@Announcement Context File Path: %@", buf, 0x16u);
     }
   }
 
-  v71 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

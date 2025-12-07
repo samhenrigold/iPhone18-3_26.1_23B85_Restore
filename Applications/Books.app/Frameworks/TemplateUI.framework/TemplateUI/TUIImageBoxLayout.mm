@@ -45,7 +45,7 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)specifiedIntrinsicWidth
 {
-  v3 = [(TUILayout *)self box];
+  v3 = objc_msgSend_box(self, a3);
   intrinsicWidth = [v3 intrinsicWidth];
 
   return intrinsicWidth;
@@ -53,7 +53,7 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)specifiedIntrinsicHeight
 {
-  v3 = [(TUILayout *)self box];
+  v3 = objc_msgSend_box(self, a3);
   intrinsicHeight = [v3 intrinsicHeight];
 
   return intrinsicHeight;
@@ -74,14 +74,14 @@
 
 - (id)_newIntrinsicImageResource
 {
-  v3 = [(TUILayout *)self box];
+  v3 = objc_msgSend_box(self, a2);
   urlString = [v3 urlString];
 
   if (urlString)
   {
-    v5 = [(TUILayout *)self box];
+    v5 = objc_msgSend_box(self);
     urlString2 = [v5 urlString];
-    v7 = [(TUILayout *)self box];
+    v7 = objc_msgSend_box(self);
     baseURL = [v7 baseURL];
     v9 = [NSURL URLWithString:urlString2 relativeToURL:baseURL];
 
@@ -95,7 +95,7 @@
 
   else
   {
-    v15 = [(TUILayout *)self box];
+    v15 = objc_msgSend_box(self);
     resourceKind = [v15 resourceKind];
 
     if (!resourceKind)
@@ -105,11 +105,11 @@
     }
 
     controller3 = [(TUILayout *)self controller];
-    controller = [(TUILayout *)self box];
+    controller = objc_msgSend_box(self);
     manager = [controller resourceKind];
-    imageResourceCache = [(TUILayout *)self box];
+    imageResourceCache = objc_msgSend_box(self);
     controller2 = [imageResourceCache resourceInstance];
-    v18 = [(TUILayout *)self box];
+    v18 = objc_msgSend_box(self);
     resourceOptions = [v18 resourceOptions];
     v14 = [controller3 intrinsicImageResourceForKind:manager instance:controller2 options:resourceOptions];
 
@@ -133,14 +133,14 @@ LABEL_6:
   manager = [controller manager];
   imageResourceCache = [manager imageResourceCache];
 
-  v13 = [(TUILayout *)self box];
+  v13 = objc_msgSend_box(self);
   urlString = [v13 urlString];
 
   if (urlString)
   {
-    controller2 = [(TUILayout *)self box];
+    controller2 = objc_msgSend_box(self);
     urlString2 = [controller2 urlString];
-    resourceKind2 = [(TUILayout *)self box];
+    resourceKind2 = objc_msgSend_box(self);
     baseURL = [resourceKind2 baseURL];
     v19 = [imageResourceCache imageResourceForTemplatedURL:urlString2 baseURL:baseURL naturalSize:v5 contentsScale:{v7, v9}];
 LABEL_5:
@@ -148,17 +148,17 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v20 = [(TUILayout *)self box];
+  v20 = objc_msgSend_box(self);
   resourceKind = [v20 resourceKind];
 
   if (resourceKind)
   {
     controller2 = [(TUILayout *)self controller];
-    urlString2 = [(TUILayout *)self box];
+    urlString2 = objc_msgSend_box(self);
     resourceKind2 = [urlString2 resourceKind];
-    baseURL = [(TUILayout *)self box];
+    baseURL = objc_msgSend_box(self);
     resourceInstance = [baseURL resourceInstance];
-    v23 = [(TUILayout *)self box];
+    v23 = objc_msgSend_box(self);
     resourceOptions = [v23 resourceOptions];
     v19 = [controller2 imageResourceForKind:resourceKind2 naturalSize:resourceInstance contentsScale:resourceOptions instance:v5 options:{v7, v9}];
 
@@ -167,12 +167,12 @@ LABEL_5:
 
   v19 = 0;
 LABEL_6:
-  v25 = [(TUILayout *)self box];
+  v25 = objc_msgSend_box(self);
   maskColor = [v25 maskColor];
 
   if (maskColor)
   {
-    v27 = [(TUILayout *)self box];
+    v27 = objc_msgSend_box(self);
     maskColor2 = [v27 maskColor];
     v29 = [imageResourceCache imageResource:v19 tintedWithColor:maskColor2];
   }
@@ -192,7 +192,7 @@ LABEL_6:
     filterOptions = 0;
   }
 
-  v31 = [(TUILayout *)self box];
+  v31 = objc_msgSend_box(self);
   filter = [v31 filter];
 
   if (filter)
@@ -202,7 +202,7 @@ LABEL_6:
     v36 = v35;
     [contextCopy contentsScale];
     v38 = v37;
-    v39 = [(TUILayout *)self box];
+    v39 = objc_msgSend_box(self);
     filter2 = [v39 filter];
     v41 = [imageResourceCache imageResource:v29 naturalSize:filter2 contentsScale:filterOptions withFilter:v34 filterOptions:{v36, v38}];
 
@@ -236,7 +236,7 @@ LABEL_6:
 
 - (double)constrainComputedWidth:(double)width
 {
-  v5 = [(TUILayout *)self box];
+  v5 = objc_msgSend_box(self, a2);
   [v5 maxAspectRatio];
   v7 = v6;
 
@@ -251,7 +251,7 @@ LABEL_6:
 
 - (double)constrainComputedHeight:(double)height
 {
-  v5 = [(TUILayout *)self box];
+  v5 = objc_msgSend_box(self, a2);
   [v5 maxAspectRatio];
   v7 = v6;
 
@@ -266,7 +266,7 @@ LABEL_6:
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicWidth
 {
-  [(TUIImageBoxLayout *)self _computeIntrinsicContentSize];
+  objc_msgSend__computeIntrinsicContentSize(self, a3);
   width = self->_intrinsicContentSize.width;
   if (width <= -3.40282347e38)
   {
@@ -289,7 +289,7 @@ LABEL_6:
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicHeight
 {
-  [(TUIImageBoxLayout *)self _computeIntrinsicContentSize];
+  objc_msgSend__computeIntrinsicContentSize(self, a3);
   height = self->_intrinsicContentSize.height;
   if (height <= -3.40282347e38)
   {
@@ -312,7 +312,7 @@ LABEL_6:
 
 - ($E297CC25127479E857BE23A4F8632EA4)validatedIntrinsicWidthConsideringSpecified
 {
-  specifiedWidth = [(TUILayout *)self specifiedWidth];
+  v4 = objc_msgSend_specifiedWidth(self, a3);
   v6 = v5;
   if ((v5 & 0x6000000000000) == 0x2000000000000)
   {
@@ -333,18 +333,18 @@ LABEL_6:
       }
     }
 
-    specifiedWidth = v8 | specifiedWidth & 0xFFFFFFFF00000000;
+    v4 = v8 | v4 & 0xFFFFFFFF00000000;
     v6 &= 0xFFE8FFFFFFFFFFFFLL;
   }
 
   validatedIntrinsicWidth = [(TUILayout *)self validatedIntrinsicWidth];
 
-  return TUILengthCombineSpecifiedAndIntrinsic(specifiedWidth, v6, validatedIntrinsicWidth, v11);
+  return TUILengthCombineSpecifiedAndIntrinsic(v4, v6, validatedIntrinsicWidth, v11);
 }
 
 - ($E297CC25127479E857BE23A4F8632EA4)validatedIntrinsicHeightConsideringSpecified
 {
-  specifiedWidth = [(TUILayout *)self specifiedWidth];
+  v4 = objc_msgSend_specifiedWidth(self, a3);
   v6 = v5;
   if ((v5 & 0x6000000000000) == 0x2000000000000)
   {
@@ -365,18 +365,18 @@ LABEL_6:
       }
     }
 
-    specifiedWidth = v8 | specifiedWidth & 0xFFFFFFFF00000000;
+    v4 = v8 | v4 & 0xFFFFFFFF00000000;
     v6 &= 0xFFE8FFFFFFFFFFFFLL;
   }
 
   validatedIntrinsicHeight = [(TUILayout *)self validatedIntrinsicHeight];
 
-  return TUILengthCombineSpecifiedAndIntrinsic(specifiedWidth, v6, validatedIntrinsicHeight, v11);
+  return TUILengthCombineSpecifiedAndIntrinsic(v4, v6, validatedIntrinsicHeight, v11);
 }
 
 - (double)computeIntrinsicAspectRatio
 {
-  [(TUIImageBoxLayout *)self _computeIntrinsicContentSize];
+  objc_msgSend__computeIntrinsicContentSize(self, a2);
   width = self->_intrinsicContentSize.width;
   result = 1.0;
   if (width > 0.0)
@@ -418,24 +418,24 @@ LABEL_6:
 
     v41 = v11;
     v12 = [v11 url];
-    v13 = [(TUILayout *)self box];
+    v13 = objc_msgSend_box(self);
     v14 = TUIResourceLoadForURL(v12, [v13 load]);
 
-    v15 = [(TUILayout *)self box];
+    v15 = objc_msgSend_box(self);
     [v15 cornerRadius];
     v17 = v16;
 
-    v18 = [(TUILayout *)self box];
+    v18 = objc_msgSend_box(self);
     fallbackColor = [v18 fallbackColor];
 
-    v19 = [(TUILayout *)self box];
+    v19 = objc_msgSend_box(self);
     contentsGravity = [v19 contentsGravity];
 
-    v20 = [(TUILayout *)self box];
+    v20 = objc_msgSend_box(self);
     [v20 opacity];
     v22 = v21;
 
-    v23 = [(TUILayout *)self box];
+    v23 = objc_msgSend_box(self);
     if ([v23 hflipForRTL])
     {
       v40 = [(TUILayout *)self computedLayoutDirection]== &dword_0 + 2;
@@ -446,17 +446,17 @@ LABEL_6:
       v40 = 0;
     }
 
-    v24 = [(TUILayout *)self box];
+    v24 = objc_msgSend_box(self);
     crossfadesContents = [v24 crossfadesContents];
 
     v26 = [TUIImageLayerConfig alloc];
     [contextCopy contentsScale];
     v28 = v27;
-    v29 = [(TUILayout *)self box];
+    v29 = objc_msgSend_box(self);
     continuousCorners = [v29 continuousCorners];
-    v31 = [(TUILayout *)self box];
+    v31 = objc_msgSend_box(self);
     shouldRasterize = [v31 shouldRasterize];
-    v33 = [(TUILayout *)self box];
+    v33 = objc_msgSend_box(self);
     blendMode = [v33 blendMode];
     BYTE1(v39) = shouldRasterize;
     LOBYTE(v39) = continuousCorners;
@@ -464,7 +464,7 @@ LABEL_6:
 
     v8 = [[TUIRenderModelLayer alloc] initWithSubmodels:0 config:v35 erasableInsets:UIEdgeInsetsZero.top, UIEdgeInsetsZero.left, UIEdgeInsetsZero.bottom, UIEdgeInsetsZero.right];
     [(TUIRenderModelLayer *)v8 setSize:v9, v10];
-    v36 = [(TUILayout *)self box];
+    v36 = objc_msgSend_box(self);
     identifier = [v36 identifier];
     [(TUIRenderModelLayer *)v8 setIdentifier:identifier];
   }
@@ -484,7 +484,7 @@ LABEL_6:
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  v11 = [(TUILayout *)self box];
+  v11 = objc_msgSend_box(self);
   filter = [v11 filter];
 
   if (filter)
@@ -509,7 +509,7 @@ LABEL_6:
     [controller2 contentsScale];
     v23 = v22;
 
-    v24 = [(TUILayout *)self box];
+    v24 = objc_msgSend_box(self);
     urlString = [v24 urlString];
 
     if (urlString)
@@ -517,16 +517,16 @@ LABEL_6:
       controller3 = [(TUILayout *)self controller];
       manager2 = [controller3 manager];
       imageResourceCache = [manager2 imageResourceCache];
-      v29 = [(TUILayout *)self box];
+      v29 = objc_msgSend_box(self);
       urlString2 = [v29 urlString];
-      v31 = [(TUILayout *)self box];
+      v31 = objc_msgSend_box(self);
       baseURL = [v31 baseURL];
       v33 = [imageResourceCache imageResourceForTemplatedURL:urlString2 baseURL:baseURL naturalSize:v18 contentsScale:{v20, v23}];
     }
 
     else
     {
-      v45 = [(TUILayout *)self box];
+      v45 = objc_msgSend_box(self);
       resourceKind = [v45 resourceKind];
 
       if (!resourceKind)
@@ -536,11 +536,11 @@ LABEL_6:
       }
 
       controller3 = [(TUILayout *)self controller];
-      manager2 = [(TUILayout *)self box];
+      manager2 = objc_msgSend_box(self);
       imageResourceCache = [manager2 resourceKind];
-      v29 = [(TUILayout *)self box];
+      v29 = objc_msgSend_box(self);
       urlString2 = [v29 resourceInstance];
-      v31 = [(TUILayout *)self box];
+      v31 = objc_msgSend_box(self);
       baseURL = [v31 resourceOptions];
       v33 = [controller3 imageResourceForKind:imageResourceCache naturalSize:urlString2 contentsScale:baseURL instance:v18 options:{v20, v23}];
     }

@@ -25,68 +25,68 @@
   v3 = *&self->super.AXUISettingsBaseListController_opaque[OBJC_IVAR___PSListController__specifiers];
   if (!v3)
   {
-    v20 = OBJC_IVAR___PSListController__specifiers;
+    v21 = OBJC_IVAR___PSListController__specifiers;
     v4 = objc_alloc_init(NSMutableArray);
     selfCopy = self;
     captionPreviewSpecifiers = [(AXCaptionStyleChooserController *)self captionPreviewSpecifiers];
-    v23 = v4;
+    v24 = v4;
     [v4 addObjectsFromArray:captionPreviewSpecifiers];
 
-    v22 = AXCaptionTextEdgeStyleDefault();
-    v25 = 0u;
+    v23 = AXCaptionTextEdgeStyleDefault(v6);
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    obj = AXCaptionTextEdgeStyles();
-    v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
-    if (v6)
+    v29 = 0u;
+    obj = AXCaptionTextEdgeStyles(v23);
+    v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+    if (v7)
     {
-      v7 = v6;
-      v8 = *v26;
-      v9 = PSCellClassKey;
+      v8 = v7;
+      v9 = *v27;
+      v10 = PSCellClassKey;
       do
       {
-        for (i = 0; i != v7; i = i + 1)
+        for (i = 0; i != v8; i = i + 1)
         {
-          if (*v26 != v8)
+          if (*v27 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v25 + 1) + 8 * i);
-          v12 = [v11 objectForKeyedSubscript:@"name"];
-          v13 = settingsLocString(v12, @"CaptioningStyle");
-          v14 = [PSSpecifier preferenceSpecifierNamed:v13 target:selfCopy set:0 get:0 detail:0 cell:3 edit:0];
+          v12 = *(*(&v26 + 1) + 8 * i);
+          v13 = [v12 objectForKeyedSubscript:@"name"];
+          v14 = settingsLocString(v13, @"CaptioningStyle");
+          v15 = [PSSpecifier preferenceSpecifierNamed:v14 target:selfCopy set:0 get:0 detail:0 cell:3 edit:0];
 
-          [v14 setProperty:objc_opt_class() forKey:v9];
-          v15 = [v11 objectForKeyedSubscript:@"name"];
-          [v14 setProperty:v15 forKey:@"name"];
+          [v15 setProperty:objc_opt_class() forKey:v10];
+          v16 = [v12 objectForKeyedSubscript:@"name"];
+          [v15 setProperty:v16 forKey:@"name"];
 
-          v16 = [v11 objectForKeyedSubscript:@"edgeKey"];
-          [v14 setProperty:v16 forKey:@"edgeKey"];
+          v17 = [v12 objectForKeyedSubscript:@"edgeKey"];
+          [v15 setProperty:v17 forKey:@"edgeKey"];
 
-          if ([v22 isEqualToDictionary:v11])
+          if ([v23 isEqualToDictionary:v12])
           {
-            [v14 setProperty:&__kCFBooleanTrue forKey:@"isDefault"];
+            [v15 setProperty:&__kCFBooleanTrue forKey:@"isDefault"];
           }
 
-          [v14 setCellType:3];
-          [v23 addObject:v14];
+          [v15 setCellType:3];
+          [v24 addObject:v15];
         }
 
-        v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
 
     videoOverrideSpecifiers = [(AXCaptionStyleChooserController *)selfCopy videoOverrideSpecifiers];
-    [v23 addObjectsFromArray:videoOverrideSpecifiers];
+    [v24 addObjectsFromArray:videoOverrideSpecifiers];
 
-    v18 = *&selfCopy->super.AXUISettingsBaseListController_opaque[v20];
-    *&selfCopy->super.AXUISettingsBaseListController_opaque[v20] = v23;
+    v19 = *&selfCopy->super.AXUISettingsBaseListController_opaque[v21];
+    *&selfCopy->super.AXUISettingsBaseListController_opaque[v21] = v24;
 
-    v3 = *&selfCopy->super.AXUISettingsBaseListController_opaque[v20];
+    v3 = *&selfCopy->super.AXUISettingsBaseListController_opaque[v21];
   }
 
   return v3;
@@ -102,7 +102,7 @@
   v9 = MACaptionAppearancePrefCopyTextEdgeStyle();
   if (!v9)
   {
-    v10 = AXCaptionTextEdgeStyleDefault();
+    v10 = AXCaptionTextEdgeStyleDefault(0);
     v9 = [v10 objectForKey:@"edgeKey"];
   }
 

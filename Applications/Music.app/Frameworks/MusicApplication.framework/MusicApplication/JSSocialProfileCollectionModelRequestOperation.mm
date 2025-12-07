@@ -11,7 +11,7 @@
   v5.super_class = type metadata accessor for JSSocialProfileCollectionModelRequestOperation();
   v2 = v5.receiver;
   [(JSSocialProfileCollectionModelRequestOperation *)&v5 execute];
-  sub_13C80(0, &qword_DE8ED0);
+  sub_13C80(0, &qword_DE8ED0, OS_dispatch_queue_ptr);
   v3 = swift_allocObject();
   *(v3 + 16) = v2;
   v4 = v2;

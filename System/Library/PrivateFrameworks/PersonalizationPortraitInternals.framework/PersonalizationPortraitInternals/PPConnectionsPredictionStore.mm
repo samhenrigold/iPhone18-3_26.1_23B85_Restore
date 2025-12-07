@@ -24,7 +24,7 @@
 
 - (id)recentLocationsForConsumer:(unint64_t)consumer criteria:(id)criteria limit:(unint64_t)limit explanationSet:(id)set timeout:(unint64_t)timeout error:(id *)error
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   criteriaCopy = criteria;
   setCopy = set;
   context = objc_autoreleasePoolPush();
@@ -38,8 +38,8 @@
     *&buf[14] = criteriaCopy;
     *&buf[22] = 2048;
     limitCopy = limit;
-    LOWORD(v49) = 2048;
-    *(&v49 + 2) = timeout / 1000000000.0;
+    LOWORD(v48) = 2048;
+    *(&v48 + 2) = timeout / 1000000000.0;
     _os_log_impl(&dword_23224A000, v15, OS_LOG_TYPE_DEFAULT, "PPConnectionsPredictionStore: recentLocationsForConsumer: c:%tu cr:%@ l:%tu t:%f", buf, 0x2Au);
   }
 
@@ -78,42 +78,41 @@
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
   limitCopy = __Block_byref_object_copy__8842;
-  *&v49 = __Block_byref_object_dispose__8843;
-  *(&v49 + 1) = 0;
+  *&v48 = __Block_byref_object_dispose__8843;
+  *(&v48 + 1) = 0;
   if ([MEMORY[0x277D425A0] waitForGroup:v20 timeoutSeconds:v16] == 1)
   {
     v36 = pp_connections_log_handle();
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      *v45 = 0;
-      _os_log_impl(&dword_23224A000, v36, OS_LOG_TYPE_DEFAULT, "PPConnectionsPredictionStore recentLocationsForConsumer timed out before all sources responded.", v45, 2u);
+      *v44 = 0;
+      _os_log_impl(&dword_23224A000, v36, OS_LOG_TYPE_DEFAULT, "PPConnectionsPredictionStore recentLocationsForConsumer timed out before all sources responded.", v44, 2u);
     }
   }
 
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __103__PPConnectionsPredictionStore_recentLocationsForConsumer_criteria_limit_explanationSet_timeout_error___block_invoke;
-  v44[3] = &unk_278974008;
-  v44[4] = buf;
-  v44[5] = consumer;
-  v44[6] = limit;
-  [v19 runWithLockAcquired:v44];
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __103__PPConnectionsPredictionStore_recentLocationsForConsumer_criteria_limit_explanationSet_timeout_error___block_invoke;
+  v43[3] = &unk_278974008;
+  v43[4] = buf;
+  v43[5] = consumer;
+  v43[6] = limit;
+  [v19 runWithLockAcquired:v43];
   v37 = [*(*&buf[8] + 40) _pas_mappedArrayWithTransform:&__block_literal_global_34];
   v38 = [v37 _pas_componentsJoinedByString:{@", "}];
 
   v39 = pp_connections_log_handle();
   if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
-    *v45 = 138412290;
-    v46 = v38;
-    _os_log_impl(&dword_23224A000, v39, OS_LOG_TYPE_DEFAULT, "PPConnectionsPredictionStore: recentLocationsForConsumer: returning items from: %@", v45, 0xCu);
+    *v44 = 138412290;
+    v45 = v38;
+    _os_log_impl(&dword_23224A000, v39, OS_LOG_TYPE_DEFAULT, "PPConnectionsPredictionStore: recentLocationsForConsumer: returning items from: %@", v44, 0xCu);
   }
 
   v40 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
 
   objc_autoreleasePoolPop(context);
-  v41 = *MEMORY[0x277D85DE8];
 
   return v40;
 }
@@ -147,15 +146,15 @@
 
 void __103__PPConnectionsPredictionStore_recentLocationsForConsumer_criteria_limit_explanationSet_timeout_error___block_invoke(void *a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = pp_connections_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3[1] count];
-    v14 = 134217984;
-    v15 = v5;
-    _os_log_impl(&dword_23224A000, v4, OS_LOG_TYPE_DEFAULT, "PPConnectionsPredictionStore: recentLocationsForConsumer: %tu items total.", &v14, 0xCu);
+    v13 = 134217984;
+    v14 = v5;
+    _os_log_impl(&dword_23224A000, v4, OS_LOG_TYPE_DEFAULT, "PPConnectionsPredictionStore: recentLocationsForConsumer: %tu items total.", &v13, 0xCu);
   }
 
   [v3[1] sortUsingComparator:&__block_literal_global_8853];
@@ -181,8 +180,6 @@ void __103__PPConnectionsPredictionStore_recentLocationsForConsumer_criteria_lim
   v11 = *(a1[4] + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = v10;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __103__PPConnectionsPredictionStore_recentLocationsForConsumer_criteria_limit_explanationSet_timeout_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -250,7 +247,7 @@ uint64_t __103__PPConnectionsPredictionStore_recentLocationsForConsumer_criteria
 
 void __131__PPConnectionsPredictionStore__asyncFillLocationData_group_source_consumer_criteria_earliestDate_latestDate_limit_explanationSet___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = pp_connections_signpost_handle();
   v3 = os_signpost_id_generate(v2);
 
@@ -261,7 +258,7 @@ void __131__PPConnectionsPredictionStore__asyncFillLocationData_group_source_con
   {
     v7 = [*(a1 + 32) identifier];
     *buf = 138412290;
-    v29 = v7;
+    v28 = v7;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "PPConnectionsPredictionStore.recentLocationsForConsumer", "%@", buf, 0xCu);
   }
 
@@ -275,34 +272,34 @@ void __131__PPConnectionsPredictionStore__asyncFillLocationData_group_source_con
       v11 = [*(a1 + 32) identifier];
       v12 = [v8 count];
       *buf = 138412546;
-      v29 = v11;
-      v30 = 2048;
-      v31 = v12;
+      v28 = v11;
+      v29 = 2048;
+      v30 = v12;
       _os_log_impl(&dword_23224A000, v9, OS_LOG_TYPE_DEFAULT, "PPConnectionsPredictionStore: %@: %tu items", buf, 0x16u);
     }
 
     v13 = *(a1 + 72);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __131__PPConnectionsPredictionStore__asyncFillLocationData_group_source_consumer_criteria_earliestDate_latestDate_limit_explanationSet___block_invoke_23;
-    v24[3] = &unk_278973FB8;
-    v25 = v8;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __131__PPConnectionsPredictionStore__asyncFillLocationData_group_source_consumer_criteria_earliestDate_latestDate_limit_explanationSet___block_invoke_23;
+    v23[3] = &unk_278973FB8;
+    v24 = v8;
     v14 = *(a1 + 32);
     v15 = *(a1 + 88);
-    v26 = v14;
-    v27 = v15;
-    [v13 runWithLockAcquired:v24];
+    v25 = v14;
+    v26 = v15;
+    [v13 runWithLockAcquired:v23];
     v16 = pp_connections_signpost_handle();
     v17 = v16;
     if (v6 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
       v18 = [*(a1 + 32) identifier];
       *buf = 138412290;
-      v29 = v18;
+      v28 = v18;
       _os_signpost_emit_with_name_impl(&dword_23224A000, v17, OS_SIGNPOST_INTERVAL_END, v3, "PPConnectionsPredictionStore.recentLocationsForConsumer", "%@", buf, 0xCu);
     }
 
-    v19 = v25;
+    v19 = v24;
   }
 
   else
@@ -311,7 +308,7 @@ void __131__PPConnectionsPredictionStore__asyncFillLocationData_group_source_con
     {
       v20 = [*(a1 + 32) identifier];
       *buf = 138412290;
-      v29 = v20;
+      v28 = v20;
       _os_log_impl(&dword_23224A000, v9, OS_LOG_TYPE_DEFAULT, "PPConnectionsPredictionStore: %@: returned nil", buf, 0xCu);
     }
 
@@ -321,40 +318,38 @@ void __131__PPConnectionsPredictionStore__asyncFillLocationData_group_source_con
     {
       v22 = [*(a1 + 32) identifier];
       *buf = 138412290;
-      v29 = v22;
+      v28 = v22;
       _os_signpost_emit_with_name_impl(&dword_23224A000, v19, OS_SIGNPOST_INTERVAL_END, v3, "PPConnectionsPredictionStore.recentLocationsForConsumer", "%@", buf, 0xCu);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __131__PPConnectionsPredictionStore__asyncFillLocationData_group_source_consumer_criteria_earliestDate_latestDate_limit_explanationSet___block_invoke_23(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = *(a1 + 32);
-  v4 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+  v4 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v38;
-    v35 = *MEMORY[0x277D3A650];
+    v6 = *v37;
+    v34 = *MEMORY[0x277D3A650];
     do
     {
       v7 = 0;
       do
       {
-        if (*v38 != v6)
+        if (*v37 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v37 + 1) + 8 * v7);
+        v8 = *(*(&v36 + 1) + 8 * v7);
         v9 = [v8 originatingBundleID];
         v10 = CFPreferencesCopyAppValue(@"SiriCanLearnFromAppBlacklist", @"com.apple.suggestions");
         v11 = [v10 containsObject:v9];
@@ -366,7 +361,7 @@ void __131__PPConnectionsPredictionStore__asyncFillLocationData_group_source_con
           {
             v13 = [*(a1 + 40) identifier];
             *buf = 138412290;
-            v42 = v13;
+            v41 = v13;
             v14 = v12;
             v15 = "PPConnectionsPredictionStore: rejecting location from %@ due to user settings.";
             goto LABEL_14;
@@ -379,7 +374,7 @@ void __131__PPConnectionsPredictionStore__asyncFillLocationData_group_source_con
         if (v16 == 4 || v16 == 2)
         {
           v17 = [v8 originatingBundleID];
-          v18 = [v17 isEqualToString:v35];
+          v18 = [v17 isEqualToString:v34];
 
           if (v18)
           {
@@ -388,7 +383,7 @@ void __131__PPConnectionsPredictionStore__asyncFillLocationData_group_source_con
             {
               v13 = [*(a1 + 40) identifier];
               *buf = 138412290;
-              v42 = v13;
+              v41 = v13;
               v14 = v12;
               v15 = "PPConnectionsPredictionStore: rejecting location from %@ since its from Maps and Maps is the consumer.";
 LABEL_14:
@@ -417,7 +412,7 @@ LABEL_18:
             {
               v30 = [*(a1 + 40) identifier];
               *buf = 138412290;
-              v42 = v30;
+              v41 = v30;
               v31 = "PPConnectionsPredictionStore: using location from %@";
               goto LABEL_30;
             }
@@ -454,7 +449,7 @@ LABEL_31:
             {
               v30 = [*(a1 + 40) identifier];
               *buf = 138412290;
-              v42 = v30;
+              v41 = v30;
               v31 = "PPConnectionsPredictionStore: using location with mapItemURL from %@";
 LABEL_30:
               _os_log_impl(&dword_23224A000, v32, OS_LOG_TYPE_DEFAULT, v31, buf, 0xCu);
@@ -469,7 +464,7 @@ LABEL_19:
       }
 
       while (v5 != v7);
-      v29 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v29 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
       v5 = v29;
     }
 
@@ -477,8 +472,6 @@ LABEL_19:
   }
 
 LABEL_32:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (PPConnectionsPredictionStore)initWithParameters:(id)parameters pasteboardSource:(id)source calendarSource:(id)calendarSource duetSource:(id)duetSource namedEntitySource:(id)entitySource fiaSource:(id)fiaSource metricsTracker:(id)tracker

@@ -1,4 +1,5 @@
 @interface SATelemetryManager
++ (BOOL)shouldSendTelemetry:(BOOL)telemetry;
 + (id)SATelAppInfoTranslationTable;
 + (id)SATelTimeInfoTranslationTable;
 + (id)SATelTotalsDirStatsInfoTranslationTable;
@@ -36,6 +37,7 @@
 - (void)hasResultsError;
 - (void)removeAppsWithMultipleVendors;
 - (void)saveTelemetryDataToDisk:(id)disk thirdPartyAppKeys:(id)keys;
+- (void)sendTelemetry:(BOOL)telemetry;
 - (void)setSystemDataSize:(unint64_t)size;
 - (void)setValue:(unint64_t)value forAppInfoEntry:(int64_t)entry forBundleIDs:(id)ds;
 - (void)setValue:(unint64_t)value forDirStatsTotalsInfoEntry:(int64_t)entry;
@@ -1265,6 +1267,231 @@ LABEL_5:
   [v3 enumerateKeysAndObjectsUsingBlock:v4];
 }
 
+- (void)sendTelemetry:(BOOL)telemetry
+{
+  telemetryCopy = telemetry;
+  selfCopy = self;
+  [(SATelemetryManager *)self hasResultsError];
+  timeInfo = selfCopy->_timeInfo;
+  v6 = [(SATelemetryManager *)selfCopy getTelTimeInfoTranslation:0];
+  if (telemetryCopy)
+  {
+    v7 = @"daily-activity-time-info";
+  }
+
+  else
+  {
+    v7 = @"user-time-info";
+  }
+
+  [(NSMutableDictionary *)timeInfo setValue:v7 forKey:v6];
+
+  [(SATelemetryManager *)selfCopy removeAppsWithMultipleVendors];
+  [(SATelemetryManager *)selfCopy setValue:[(SATelemetryManager *)selfCopy appsNumber] forTotalsInfoEntry:4];
+  v8 = +[SASupport getEnterpriseVolumesPaths];
+  -[SATelemetryManager setValue:forTotalsInfoEntry:](selfCopy, "setValue:forTotalsInfoEntry:", [v8 count], 5);
+
+  [(SATelemetryManager *)selfCopy setValue:[(SATelemetryManager *)selfCopy appsNumber] forTimeInfoEntry:2];
+  getFirstPartyAppsInfoKeys = [(SATelemetryManager *)selfCopy getFirstPartyAppsInfoKeys];
+  v10 = [(SATelemetryManager *)selfCopy sortAppsInfo:getFirstPartyAppsInfoKeys by:23 withOption:1];
+  v11 = [NSArray arrayWithArray:v10];
+
+  getThirdPartyAppsInfoKeys = [(SATelemetryManager *)selfCopy getThirdPartyAppsInfoKeys];
+  v13 = [(SATelemetryManager *)selfCopy sortAppsInfo:getThirdPartyAppsInfoKeys by:23 withOption:1];
+  v14 = [NSArray arrayWithArray:v13];
+
+  if ((byte_1000737A8 & 1) == 0)
+  {
+    v15 = [(SATelemetryManager *)selfCopy fillFilteredInfoDict:selfCopy->_thirdPartyfilteredInfo withNumberOfApps:10 withAppInfoArr:v14 withFilterCriteria:23 withMetricType:@"filtered-third-party-apps-info"];
+
+    v16 = [(SATelemetryManager *)selfCopy fillFilteredInfoDict:selfCopy->_firstPartyfilteredInfo withNumberOfApps:265 withAppInfoArr:v11 withFilterCriteria:23 withMetricType:@"filtered-first-party-apps-info"];
+
+    v14 = v15;
+    v11 = v16;
+  }
+
+  [(SATelemetryManager *)selfCopy saveTelemetryDataToDisk:v11 thirdPartyAppKeys:v14];
+  if (+[SATelemetryManager shouldSendTelemetry:](SATelemetryManager, "shouldSendTelemetry:", telemetryCopy) || +[SAVolumeScanner shouldForceTelemetry])
+  {
+    v17 = SALog();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Sending telemetry", buf, 2u);
+    }
+
+    v75 = _NSConcreteStackBlock;
+    v76 = 3221225472;
+    v77 = sub_100037D3C;
+    v78 = &unk_1000657A8;
+    v79 = selfCopy;
+    if ((AnalyticsSendEventLazy() & 1) == 0)
+    {
+      v18 = SALog();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000420DC();
+      }
+    }
+
+    v70 = _NSConcreteStackBlock;
+    v71 = 3221225472;
+    v72 = sub_100037D44;
+    v73 = &unk_1000657A8;
+    v74 = selfCopy;
+    if ((AnalyticsSendEventLazy() & 1) == 0)
+    {
+      v19 = SALog();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        sub_100042118();
+      }
+    }
+
+    v65 = _NSConcreteStackBlock;
+    v66 = 3221225472;
+    v67 = sub_100037D4C;
+    v68 = &unk_1000657A8;
+    v69 = selfCopy;
+    if ((AnalyticsSendEventLazy() & 1) == 0)
+    {
+      v20 = SALog();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        sub_100042154();
+      }
+    }
+
+    v60 = _NSConcreteStackBlock;
+    v61 = 3221225472;
+    v62 = sub_100037D54;
+    v63 = &unk_1000657A8;
+    v64 = selfCopy;
+    if ((AnalyticsSendEventLazy() & 1) == 0)
+    {
+      v21 = SALog();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        sub_100042190();
+      }
+    }
+
+    v55 = _NSConcreteStackBlock;
+    v56 = 3221225472;
+    v57 = sub_100037D5C;
+    v58 = &unk_1000657A8;
+    v59 = selfCopy;
+    if ((AnalyticsSendEventLazy() & 1) == 0)
+    {
+      v22 = SALog();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000421CC();
+      }
+    }
+
+    v40 = v11;
+    v39 = telemetryCopy;
+    v51 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v38 = v14;
+    v23 = v14;
+    v24 = [v23 countByEnumeratingWithState:&v51 objects:v83 count:16];
+    v25 = selfCopy;
+    if (v24)
+    {
+      v26 = v24;
+      v27 = *v52;
+      do
+      {
+        v28 = 0;
+        do
+        {
+          if (*v52 != v27)
+          {
+            objc_enumerationMutation(v23);
+          }
+
+          v29 = *(*(&v51 + 1) + 8 * v28);
+          v45 = _NSConcreteStackBlock;
+          v46 = 3221225472;
+          v47 = sub_100037D64;
+          v48 = &unk_100065C50;
+          v49 = selfCopy;
+          v50 = v29;
+          if ((AnalyticsSendEventLazy() & 1) == 0)
+          {
+            v30 = SALog();
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 138412290;
+              v82 = v29;
+              _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "FAILED to log %@ appInfo using AnalyticsSendEventLazy\n", buf, 0xCu);
+            }
+
+            selfCopy = v25;
+          }
+
+          v28 = v28 + 1;
+        }
+
+        while (v26 != v28);
+        v26 = [v23 countByEnumeratingWithState:&v51 objects:v83 count:16];
+      }
+
+      while (v26);
+    }
+
+    v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v31 = v40;
+    v32 = [v31 countByEnumeratingWithState:&v41 objects:v80 count:16];
+    if (v32)
+    {
+      v33 = v32;
+      v34 = *v42;
+      do
+      {
+        v35 = 0;
+        do
+        {
+          if (*v42 != v34)
+          {
+            objc_enumerationMutation(v31);
+          }
+
+          v36 = *(*(&v41 + 1) + 8 * v35);
+          if ((AnalyticsSendEventLazy() & 1) == 0)
+          {
+            v37 = SALog();
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 138412290;
+              v82 = v36;
+              _os_log_error_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "FAILED to log %@ appInfo using AnalyticsSendEventLazy\n", buf, 0xCu);
+            }
+          }
+
+          v35 = v35 + 1;
+        }
+
+        while (v33 != v35);
+        v33 = [v31 countByEnumeratingWithState:&v41 objects:v80 count:16];
+      }
+
+      while (v33);
+    }
+
+    [SATelemetryManager updateLastSentTelemetryDate:v39];
+    v11 = v40;
+    v14 = v38;
+  }
+}
+
 + (id)SATelAppInfoTranslationTable
 {
   if (qword_1000737B8 != -1)
@@ -1391,137 +1618,130 @@ LABEL_3:
   [SATapToRadar sendTapToRadarNotificationWithDescription:0x640000000 highPriorityProblem:0];
 LABEL_13:
   v8 = +[SASupport getDiskCapacity];
+  v36 = 0u;
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
   obj = selfCopy->_appsInfo;
-  v29 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v38 objects:v47 count:16];
-  if (v29)
+  v27 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v36 objects:v45 count:16];
+  if (v27)
   {
-    v28 = *v39;
-    v9 = &SBSCopyDisplayIdentifiers_ptr;
-    v31 = selfCopy;
+    v26 = *v37;
+    v29 = selfCopy;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v39 != v28)
+        if (*v37 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = v10;
-        v32 = *(*(&v38 + 1) + 8 * v10);
-        v11 = [(NSMutableDictionary *)selfCopy->_appsInfo objectForKey:?];
+        v28 = v9;
+        v30 = *(*(&v36 + 1) + 8 * v9);
+        v10 = [(NSMutableDictionary *)selfCopy->_appsInfo objectForKey:?];
+        v32 = 0u;
+        v33 = 0u;
         v34 = 0u;
         v35 = 0u;
-        v36 = 0u;
-        v37 = 0u;
-        v12 = [v11 countByEnumeratingWithState:&v34 objects:v46 count:16];
-        if (v12)
+        v11 = [v10 countByEnumeratingWithState:&v32 objects:v44 count:16];
+        if (v11)
         {
-          v13 = v12;
-          v33 = *v35;
+          v12 = v11;
+          v31 = *v33;
           do
           {
-            for (i = 0; i != v13; i = i + 1)
+            for (i = 0; i != v12; i = i + 1)
             {
-              if (*v35 != v33)
+              if (*v33 != v31)
               {
-                objc_enumerationMutation(v11);
+                objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v34 + 1) + 8 * i);
-              v16 = [v11 objectForKey:v15];
-              v17 = v9[190];
+              v14 = *(*(&v32 + 1) + 8 * i);
+              v15 = [v10 objectForKey:v14];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                longLongValue = [v16 longLongValue];
+                longLongValue = [v15 longLongValue];
                 if ((longLongValue & 0x8000000000000000) != 0)
                 {
-                  v21 = v8;
-                  v22 = [(SATelemetryManager *)selfCopy getTelAppInfoTranslation:9];
-                  if ([v15 isEqualToString:v22])
+                  v19 = v8;
+                  v20 = [(SATelemetryManager *)selfCopy getTelAppInfoTranslation:9];
+                  if ([v14 isEqualToString:v20])
                   {
 
+LABEL_33:
+                    v8 = v19;
+                    goto LABEL_37;
+                  }
+
+                  v21 = [(SATelemetryManager *)selfCopy getTelAppInfoTranslation:17];
+                  v22 = [v14 isEqualToString:v21];
+
+                  if (v22)
+                  {
+                    selfCopy = v29;
+                    v4 = SASpeculativeDownloadAnalytics;
                     goto LABEL_33;
                   }
 
-                  v23 = [(SATelemetryManager *)selfCopy getTelAppInfoTranslation:17];
-                  v24 = [v15 isEqualToString:v23];
+                  v23 = [NSString stringWithFormat:@"%@ %@: < 0", v30, v14];
 
-                  if (v24)
-                  {
-                    selfCopy = v31;
-                    v4 = SASpeculativeDownloadAnalytics;
-LABEL_33:
-                    v8 = v21;
-                  }
-
-                  else
-                  {
-                    v25 = [NSString stringWithFormat:@"%@ %@: < 0", v32, v15];
-
-                    v26 = SALog();
-                    v4 = SASpeculativeDownloadAnalytics;
-                    v8 = v21;
-                    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
-                    {
-                      *buf = 136315394;
-                      v43 = "[SATelemetryManager hasResultsError]";
-                      v44 = 2112;
-                      v45 = v25;
-                      _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%s: %@", buf, 0x16u);
-                    }
-
-                    [SATapToRadar sendTapToRadarNotificationWithDescription:v25 highPriorityProblem:0];
-                    0x640000000 = v25;
-                    selfCopy = v31;
-                  }
-
-                  v9 = &SBSCopyDisplayIdentifiers_ptr;
-                  goto LABEL_38;
-                }
-
-                if (longLongValue > v8)
-                {
-                  v19 = [NSString stringWithFormat:@"%@ %@: %llu > diskCapacity: %llu", v32, v15, longLongValue, v8];
-
-                  v20 = SALog();
-                  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+                  v24 = SALog();
+                  v4 = SASpeculativeDownloadAnalytics;
+                  v8 = v19;
+                  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 136315394;
-                    v43 = "[SATelemetryManager hasResultsError]";
-                    v44 = 2112;
-                    v45 = v19;
-                    _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%s: %@", buf, 0x16u);
+                    v41 = "[SATelemetryManager hasResultsError]";
+                    v42 = 2112;
+                    v43 = v23;
+                    _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%s: %@", buf, 0x16u);
                   }
 
-                  [&v4[15] sendTapToRadarNotificationWithDescription:v19 highPriorityProblem:1];
-                  0x640000000 = v19;
+                  [SATapToRadar sendTapToRadarNotificationWithDescription:v23 highPriorityProblem:0];
+                  0x640000000 = v23;
+                  selfCopy = v29;
+                }
+
+                else if (longLongValue > v8)
+                {
+                  v17 = [NSString stringWithFormat:@"%@ %@: %llu > diskCapacity: %llu", v30, v14, longLongValue, v8];
+
+                  v18 = SALog();
+                  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+                  {
+                    *buf = 136315394;
+                    v41 = "[SATelemetryManager hasResultsError]";
+                    v42 = 2112;
+                    v43 = v17;
+                    _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%s: %@", buf, 0x16u);
+                  }
+
+                  [&v4[15] sendTapToRadarNotificationWithDescription:v17 highPriorityProblem:1];
+                  0x640000000 = v17;
                 }
               }
 
-LABEL_38:
+LABEL_37:
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v34 objects:v46 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v32 objects:v44 count:16];
           }
 
-          while (v13);
+          while (v12);
         }
 
-        v10 = v30 + 1;
+        v9 = v28 + 1;
       }
 
-      while ((v30 + 1) != v29);
-      v29 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v38 objects:v47 count:16];
+      while ((v28 + 1) != v27);
+      v27 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v36 objects:v45 count:16];
     }
 
-    while (v29);
+    while (v27);
   }
 }
 
@@ -1551,6 +1771,36 @@ LABEL_38:
   }
 
   return [SARunTimeDataManager runTimeDataObjectForKey:v3];
+}
+
++ (BOOL)shouldSendTelemetry:(BOOL)telemetry
+{
+  telemetryCopy = telemetry;
+  v4 = [SATelemetryManager getLastSentTelemetryDate:?];
+  if (v4)
+  {
+    if (telemetryCopy)
+    {
+      v5 = 86400.0;
+    }
+
+    else
+    {
+      v5 = 604800.0;
+    }
+
+    v6 = +[NSDate date];
+    [v6 timeIntervalSinceDate:v4];
+    v8 = v7 >= v5;
+  }
+
+  else
+  {
+    [SATelemetryManager updateLastSentTelemetryDate:telemetryCopy];
+    v8 = 0;
+  }
+
+  return v8;
 }
 
 - (void)saveTelemetryDataToDisk:(id)disk thirdPartyAppKeys:(id)keys

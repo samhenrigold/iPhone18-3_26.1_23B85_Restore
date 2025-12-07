@@ -74,9 +74,8 @@
   v4 = [v3 appendObject:self->_storeAccountToken withName:@"storeAccountToken" skipIfNil:1];
   v5 = [v3 appendObject:self->_appleAccountToken withName:@"appleAccountToken" skipIfNil:1];
   [v3 appendString:self->_nonce withName:@"nonce" skipIfEmpty:1];
-  deviceFlags = self->_deviceFlags;
-  v7 = CUPrintFlags64();
-  [v3 appendString:v7 withName:@"deviceFlags"];
+  v6 = CUPrintFlags64();
+  [v3 appendString:v6 withName:@"deviceFlags"];
 
   [v3 appendString:self->_deviceModel withName:@"deviceModel" skipIfEmpty:1];
   [v3 appendString:self->_deviceName withName:@"deviceName" skipIfEmpty:1];

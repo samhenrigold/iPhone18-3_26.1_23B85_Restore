@@ -1,6 +1,7 @@
 @interface CSCrownPressSelfLoggerWatch
 - (CSCrownPressSelfLoggerWatch)init;
 - (void)CSSiriAssertionMonitor:(id)monitor didReceiveBacklightOnEnabled:(BOOL)enabled atHostTime:(unint64_t)time;
+- (void)_emitCrownPressedEventwithMHUUID:(id)d didUseAOM:(BOOL)m;
 - (void)_handleDidStartStreamWithContext:(id)context withOption:(id)option successfully:(BOOL)successfully;
 - (void)dealloc;
 - (void)setup;
@@ -70,6 +71,39 @@
       optionCopy = v14;
     }
   }
+}
+
+- (void)_emitCrownPressedEventwithMHUUID:(id)d didUseAOM:(BOOL)m
+{
+  mCopy = m;
+  dCopy = d;
+  if (!dCopy)
+  {
+    v6 = +[NSUUID UUID];
+    dCopy = [v6 UUIDString];
+
+    v7 = CSLogContextFacilityCoreSpeech;
+    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = 136315138;
+      v16 = "[CSCrownPressSelfLoggerWatch _emitCrownPressedEventwithMHUUID:didUseAOM:]";
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s Mint a new MHUUID for crown press events", &v15, 0xCu);
+    }
+  }
+
+  v8 = objc_alloc_init(MHSchemaMHCrownPressed);
+  [v8 setIsAlwaysOnMicAudioUsed:mCopy];
+  v9 = objc_alloc_init(MHSchemaMHClientEvent);
+  v10 = objc_alloc_init(MHSchemaMHClientEventMetadata);
+  v11 = [SISchemaUUID alloc];
+  v12 = [[NSUUID alloc] initWithUUIDString:dCopy];
+  v13 = [v11 initWithNSUUID:v12];
+  [v10 setMhId:v13];
+
+  [v9 setEventMetadata:v10];
+  [v9 setCrownPressed:v8];
+  v14 = +[AssistantSiriAnalytics sharedStream];
+  [v14 emitMessage:v9];
 }
 
 - (void)setup

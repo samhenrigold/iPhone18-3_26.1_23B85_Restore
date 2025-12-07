@@ -163,7 +163,7 @@
         v28 = PLSyndicationGetLog();
         if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
         {
-          v29 = [v26 count];
+          v29 = objc_msgSend_count(v26);
           *buf = 134218498;
           v62 = v29;
           v63 = 2114;
@@ -213,21 +213,21 @@
 
 void __155__PLSyndicationResourceDataStore_provideFileURLAndUnwrapLivePhotoIfNeededForItemIdentifiersWithBundleIDs_destURLs_options_resultHandler_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = PLSyndicationGetLog();
-  v55 = v5;
+  v54 = v5;
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
     *buf = 138543874;
-    v70 = v8;
-    v5 = v55;
-    v71 = 2048;
-    v72 = [v55 count];
-    v73 = 2112;
-    v74 = v6;
+    v69 = v8;
+    v5 = v54;
+    v70 = 2048;
+    v71 = objc_msgSend_count(v54);
+    v72 = 2112;
+    v73 = v6;
     _os_log_impl(&dword_19BF1F000, v7, OS_LOG_TYPE_DEFAULT, "[resource] batch request for bundle ID %{public}@ returned %tu results, error: %@", buf, 0x20u);
   }
 
@@ -240,48 +240,47 @@ void __155__PLSyndicationResourceDataStore_provideFileURLAndUnwrapLivePhotoIfNee
     goto LABEL_54;
   }
 
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
   v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   v9 = *(a1 + 40);
-  v57 = [v9 countByEnumeratingWithState:&v65 objects:v79 count:16];
-  if (v57)
+  v56 = [v9 countByEnumeratingWithState:&v64 objects:v78 count:16];
+  if (v56)
   {
     v49 = v6;
-    v58 = a1;
-    v56 = *v66;
-    v52 = *MEMORY[0x1E696A278];
-    v53 = *MEMORY[0x1E69BFF70];
-    v51 = *MEMORY[0x1E69C09D0];
+    v57 = a1;
+    v55 = *v65;
+    v51 = *MEMORY[0x1E696A278];
+    v52 = *MEMORY[0x1E69BFF70];
     obj = v9;
     while (1)
     {
       v10 = 0;
       do
       {
-        if (*v66 != v56)
+        if (*v65 != v55)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v65 + 1) + 8 * v10);
+        v11 = *(*(&v64 + 1) + 8 * v10);
         v12 = [v5 objectForKeyedSubscript:v11];
         v13 = v12;
         if (!v12)
         {
           v17 = MEMORY[0x1E696ABC0];
-          v77 = v52;
+          v76 = v51;
           v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"no batch result for item identifier: %@", v11];
-          v78 = v18;
-          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
-          v15 = [v17 errorWithDomain:v53 code:4 userInfo:v19];
+          v77 = v18;
+          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+          v15 = [v17 errorWithDomain:v52 code:4 userInfo:v19];
 
           v20 = PLSyndicationGetLog();
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v70 = v11;
+            v69 = v11;
             _os_log_impl(&dword_19BF1F000, v20, OS_LOG_TYPE_ERROR, "[resource] no batch result for item identifier %{public}@", buf, 0xCu);
           }
 
@@ -303,19 +302,19 @@ void __155__PLSyndicationResourceDataStore_provideFileURLAndUnwrapLivePhotoIfNee
         {
           v21 = [v13 error];
           *buf = 138543618;
-          v70 = v11;
-          v71 = 2112;
-          v72 = v21;
+          v69 = v11;
+          v70 = 2112;
+          v71 = v21;
           _os_log_impl(&dword_19BF1F000, v20, OS_LOG_TYPE_ERROR, "[resource] batch result for item identifier %{public}@ returned error %@", buf, 0x16u);
 
 LABEL_16:
-          v5 = v55;
+          v5 = v54;
         }
 
         v16 = 0;
 LABEL_18:
-        v22 = [*(v58 + 48) objectForKeyedSubscript:v11];
-        v59 = v22;
+        v22 = [*(v57 + 48) objectForKeyedSubscript:v11];
+        v58 = v22;
         if (!v16)
         {
           v32 = 0;
@@ -327,14 +326,14 @@ LABEL_18:
         }
 
         v23 = v22;
-        if ([v22 count] != 2)
+        if (objc_msgSend_count(v22) != 2)
         {
           v35 = PLSyndicationGetLog();
           if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
           {
-            v36 = [v23 count];
+            v36 = objc_msgSend_count(v23);
             *buf = 134217984;
-            v70 = v36;
+            v69 = v36;
             _os_log_impl(&dword_19BF1F000, v35, OS_LOG_TYPE_ERROR, "[resource] invalid number of destination URLs provided: %tu", buf, 0xCu);
           }
 
@@ -347,19 +346,19 @@ LABEL_18:
 
         v24 = [v13 url];
         v25 = [v24 pathExtension];
-        v26 = [v25 isEqualToString:v51];
+        isEqualToString = objc_msgSend_isEqualToString_(v25);
 
-        if (v26)
+        if (isEqualToString)
         {
-          v27 = *(v58 + 80);
+          v27 = *(v57 + 80);
           v28 = [v13 url];
+          v62 = 0;
           v63 = 0;
-          v64 = 0;
-          v62 = v15;
-          LODWORD(v27) = [v27 _unpackPVTBundleAtURL:v28 primaryURL:&v64 secondaryURL:&v63 error:&v62];
-          v29 = v64;
-          v30 = v63;
-          v31 = v62;
+          v61 = v15;
+          LODWORD(v27) = [v27 _unpackPVTBundleAtURL:v28 primaryURL:&v63 secondaryURL:&v62 error:&v61];
+          v29 = v63;
+          v30 = v62;
+          v31 = v61;
 
           if (!v27)
           {
@@ -380,11 +379,11 @@ LABEL_18:
         }
 
         v33 = [v29 lastPathComponent];
-        v34 = [v59 objectAtIndexedSubscript:0];
-        v37 = *(v58 + 80);
-        v61 = 0;
-        v38 = [v37 _safeCopyItemAtURL:v29 toURLAndReplaceIfNeeded:v34 error:&v61];
-        v39 = v61;
+        v34 = [v58 objectAtIndexedSubscript:0];
+        v37 = *(v57 + 80);
+        v60 = 0;
+        v38 = [v37 _safeCopyItemAtURL:v29 toURLAndReplaceIfNeeded:v34 error:&v60];
+        v39 = v60;
         v40 = v39;
         if ((v38 & 1) == 0)
         {
@@ -392,13 +391,13 @@ LABEL_18:
           if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
             *buf = 138544130;
-            v70 = v11;
-            v71 = 2112;
-            v72 = v29;
-            v73 = 2112;
-            v74 = v34;
-            v75 = 2112;
-            v76 = v40;
+            v69 = v11;
+            v70 = 2112;
+            v71 = v29;
+            v72 = 2112;
+            v73 = v34;
+            v74 = 2112;
+            v75 = v40;
             _os_log_impl(&dword_19BF1F000, v44, OS_LOG_TYPE_ERROR, "[resource] failed to copy primary resource for identifier: %{public}@ from url: %@ to url: %@, error: %@", buf, 0x2Au);
           }
 
@@ -416,14 +415,14 @@ LABEL_37:
 
         if (v30)
         {
-          v35 = [v59 objectAtIndexedSubscript:1];
+          v35 = [v58 objectAtIndexedSubscript:1];
           v41 = [MEMORY[0x1E696AC08] defaultManager];
           [v41 removeItemAtURL:v35 error:0];
 
-          v42 = *(v58 + 80);
-          v60 = 0;
-          LOBYTE(v41) = [v42 _safeCopyItemAtURL:v30 toURLAndReplaceIfNeeded:v35 error:&v60];
-          v43 = v60;
+          v42 = *(v57 + 80);
+          v59 = 0;
+          LOBYTE(v41) = [v42 _safeCopyItemAtURL:v30 toURLAndReplaceIfNeeded:v35 error:&v59];
+          v43 = v59;
           if ((v41 & 1) == 0)
           {
             v50 = v43;
@@ -431,13 +430,13 @@ LABEL_37:
             if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
             {
               *buf = 138544130;
-              v70 = v11;
-              v71 = 2112;
-              v72 = v30;
-              v73 = 2112;
-              v74 = v35;
-              v75 = 2112;
-              v76 = v50;
+              v69 = v11;
+              v70 = 2112;
+              v71 = v30;
+              v72 = 2112;
+              v73 = v35;
+              v74 = 2112;
+              v75 = v50;
               _os_log_impl(&dword_19BF1F000, v45, OS_LOG_TYPE_ERROR, "[resource] failed to copy secondary resource for identifier: %{public}@ from url: %@ to url: %@, error: %@", buf, 0x2Au);
             }
 
@@ -462,29 +461,29 @@ LABEL_37:
         if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v70 = v11;
-          v71 = 2112;
-          v72 = v34;
+          v69 = v11;
+          v70 = 2112;
+          v71 = v34;
           _os_log_impl(&dword_19BF1F000, v35, OS_LOG_TYPE_DEFAULT, "[resource] delivering individual result of batch download for identifier: %{public}@, primary url: %@", buf, 0x16u);
         }
 
 LABEL_38:
 
 LABEL_39:
-        v5 = v55;
+        v5 = v54;
 LABEL_40:
-        (*(*(v58 + 64) + 16))();
+        (*(*(v57 + 64) + 16))();
 
         ++v10;
       }
 
-      while (v57 != v10);
+      while (v56 != v10);
       v9 = obj;
-      v46 = [obj countByEnumeratingWithState:&v65 objects:v79 count:16];
-      v57 = v46;
+      v46 = [obj countByEnumeratingWithState:&v64 objects:v78 count:16];
+      v56 = v46;
       if (!v46)
       {
-        a1 = v58;
+        a1 = v57;
         v6 = v49;
         break;
       }
@@ -503,29 +502,29 @@ LABEL_54:
   neededCopy = needed;
   pathComponents = [neededCopy pathComponents];
   v10 = pathComponents;
-  if (!neededCopy || [pathComponents count] < 6)
+  if (!neededCopy || objc_msgSend_count(pathComponents) < 6)
   {
     goto LABEL_12;
   }
 
-  v11 = [v10 objectAtIndexedSubscript:{objc_msgSend(v10, "count") - 3}];
-  if (![v11 isEqualToString:*MEMORY[0x1E69BFF28]])
+  v11 = [v10 objectAtIndexedSubscript:objc_msgSend_count(v10) - 3];
+  if (!objc_msgSend_isEqualToString_(v11))
   {
     goto LABEL_11;
   }
 
-  v12 = [v10 objectAtIndexedSubscript:{objc_msgSend(v10, "count") - 4}];
-  if (([v12 isEqualToString:*MEMORY[0x1E69BFF88]] & 1) == 0)
+  v12 = [v10 objectAtIndexedSubscript:objc_msgSend_count(v10) - 4];
+  if ((objc_msgSend_isEqualToString_(v12) & 1) == 0)
   {
 
 LABEL_11:
     goto LABEL_12;
   }
 
-  v13 = [v10 objectAtIndexedSubscript:{objc_msgSend(v10, "count") - 5}];
-  v14 = [v13 isEqualToString:*MEMORY[0x1E69BFF80]];
+  v13 = [v10 objectAtIndexedSubscript:objc_msgSend_count(v10) - 5];
+  isEqualToString = objc_msgSend_isEqualToString_(v13);
 
-  if (!v14)
+  if (!isEqualToString)
   {
 LABEL_12:
     v21 = MEMORY[0x1E696ABC0];
@@ -1272,9 +1271,9 @@ LABEL_13:
   v24 = v12;
   v13 = _Block_copy(aBlock);
   v14 = [v12 pathExtension];
-  v15 = [v14 isEqualToString:*MEMORY[0x1E69C09D0]];
+  isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-  if (v15)
+  if (isEqualToString)
   {
     v16 = *(a1 + 56);
     v21 = 0;
@@ -1297,7 +1296,7 @@ LABEL_13:
   v13[2](v13, v17, v18, v6);
 }
 
-uint64_t __162__PLSyndicationResourceDataStore__provideFileURLAndUnwrapLivePhotoIfNeededForBundleID_syndicationIdentifier_typeIdentifier_isLivePhoto_options_completionHandler___block_invoke_89(uint64_t a1)
+void *__162__PLSyndicationResourceDataStore__provideFileURLAndUnwrapLivePhotoIfNeededForBundleID_syndicationIdentifier_typeIdentifier_isLivePhoto_options_completionHandler___block_invoke_89(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   if (*(a1 + 48) == 1)

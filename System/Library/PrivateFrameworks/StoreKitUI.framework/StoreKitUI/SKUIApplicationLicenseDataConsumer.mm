@@ -42,7 +42,7 @@
       fontName = [v10 fontName];
       v12 = [v9 initWithFormat:@"body { padding: 10px; background: white; font-family: '%@'; font-size: 13px; color: black; line-height: 18px; }p { margin-top: 0; padding-top: 0 }", fontName];
 
-      if ([v8 isEqualToString:@"markup"])
+      if (objc_msgSend_isEqualToString_(v8))
       {
         v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<html><head><style type=text/css>%@</style></head><body><div>%@</div></body></html>", v12, v7];
       }

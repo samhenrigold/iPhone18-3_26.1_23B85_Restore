@@ -28,44 +28,44 @@
 - (CUSPAKEM1)initWithDictionary:(id)dictionary error:(id *)error
 {
   dictionaryCopy = dictionary;
-  v24.receiver = self;
-  v24.super_class = CUSPAKEM1;
-  v12 = [(CUSPAKEM1 *)&v24 init];
-  if (v12)
+  v13.receiver = self;
+  v13.super_class = CUSPAKEM1;
+  v7 = [(CUSPAKEM1 *)&v13 init];
+  if (v7)
   {
-    v23 = -6700;
+    v12 = -6700;
     TypeID = CFDataGetTypeID();
-    v19 = CFDictionaryGetTypedValue(dictionaryCopy, @"shareP", TypeID, &v23);
-    if (v19)
+    v9 = CFDictionaryGetTypedValue(dictionaryCopy, @"shareP", TypeID, &v12);
+    if (v9)
     {
-      objc_storeStrong(&v12->_sharePData, v19);
-      v20 = v12;
+      objc_storeStrong(&v7->_sharePData, v9);
+      v10 = v7;
     }
 
     else if (error)
     {
-      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "get sharePData failed: %d", v14, v15, v16, v17, v18, v23);
-      *error = v20 = 0;
+      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "get sharePData failed: %d", v12);
+      *error = v10 = 0;
     }
 
     else
     {
-      v20 = 0;
+      v10 = 0;
     }
   }
 
   else if (error)
   {
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "super init failed", v7, v8, v9, v10, v11, v22);
-    *error = v20 = 0;
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "super init failed");
+    *error = v10 = 0;
   }
 
   else
   {
-    v20 = 0;
+    v10 = 0;
   }
 
-  return v20;
+  return v10;
 }
 
 @end

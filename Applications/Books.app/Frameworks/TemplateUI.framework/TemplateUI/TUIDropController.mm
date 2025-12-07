@@ -97,10 +97,10 @@
 
   v13 = [view2 hitTest:0 withEvent:{v9, v11}];
 
-  objc_opt_class();
-  v14 = TUIPlatformAncestorOfClass(v13);
+  v14 = objc_opt_class();
+  v15 = TUIPlatformAncestorOfClass(v13, v14);
 
-  return v14;
+  return v15;
 }
 
 - (BOOL)dropInteraction:(id)interaction canHandleSession:(id)session

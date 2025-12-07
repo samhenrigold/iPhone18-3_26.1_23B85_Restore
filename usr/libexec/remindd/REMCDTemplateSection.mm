@@ -35,6 +35,8 @@
   contextCopy = context;
   v12 = static REMCDTemplateSection.existingCloudObject(for:accountID:managedObjectContext:)(dCopy, v7, v9, contextCopy);
 
+  v9, v13, v14, v15, v16, v17, v18, v19;
+
   return v12;
 }
 
@@ -65,6 +67,8 @@
   v11._countAndFlagsBits = v6;
   v11._object = v8;
   REMCDTemplateSection.mergeData(from:accountID:)(recordCopy, v11);
+
+  v8, v12, v13, v14, v15, v16, v17, v18;
 }
 
 - (id)newlyCreatedRecord
@@ -126,9 +130,10 @@
   if (!cdEntityName)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v3 = String._bridgeToObjectiveC()();
-
-    cdEntityName = v3;
+    v4 = v3;
+    v5 = String._bridgeToObjectiveC()();
+    v4, v6, v7, v8, v9, v10, v11, v12;
+    cdEntityName = v5;
   }
 
   return cdEntityName;
@@ -154,11 +159,12 @@
 
 + (id)keyPathsForValuesAffectingEffectiveMinimumSupportedVersion
 {
-  sub_1001A5660(&off_1008DEDB0);
+  v2 = sub_1001A5660(&off_1008DEDB0);
   sub_100034610(&unk_1008DEDD0);
-  v2.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v3.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v2, v4, v5, v6, v7, v8, v9, v10;
 
-  return v2.super.isa;
+  return v3.super.isa;
 }
 
 - (REMCDTemplateSection)initWithEntity:(id)entity insertIntoManagedObjectContext:(id)context

@@ -9,18 +9,18 @@ void __57___UIStackedImageContainerLayer__layerStackObservingKeys__block_invoke(
   qword_1EA994A90 = &unk_1EFE2E068;
 }
 
-uint64_t __63___UIStackedImageContainerLayer__updateRadiosityFromLayerStack__block_invoke(uint64_t result, uint64_t a2, double a3, double a4)
+double *__63___UIStackedImageContainerLayer__updateRadiosityFromLayerStack__block_invoke(double *result, uint64_t a2, double a3, double a4)
 {
-  v6 = *(result + 32);
-  if (*(result + 40) == *(v6 + 144))
+  v6 = *(result + 4);
+  if (result[5] == *(v6 + 144))
   {
     v7 = result;
     [*(v6 + 272) setContents:a2];
-    v8 = (*(v7 + 32) + 104);
+    v8 = (*(v7 + 4) + 104);
     *v8 = a3;
     v8[1] = a4;
-    *(*(v7 + 32) + 120) = 1;
-    v9 = *(v7 + 32);
+    *(*(v7 + 4) + 120) = 1;
+    v9 = *(v7 + 4);
 
     return [v9 setNeedsLayout];
   }
@@ -56,7 +56,7 @@ uint64_t __96___UIStackedImageContainerLayer__setControlState_animated_focusAnim
   return result;
 }
 
-uint64_t __96___UIStackedImageContainerLayer__setControlState_animated_focusAnimationCoordinator_completion___block_invoke_3(uint64_t a1)
+void *__96___UIStackedImageContainerLayer__setControlState_animated_focusAnimationCoordinator_completion___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) _resetAnimatingToNormalState];
   *(*(a1 + 32) + 74) = 0;
@@ -197,7 +197,7 @@ void __52___UIStackedImageContainerLayer__setParallaxImages___block_invoke(uint6
   }
 }
 
-uint64_t __62___UIStackedImageContainerLayer__updateInnerParallaxTransform__block_invoke(uint64_t a1)
+BOOL __62___UIStackedImageContainerLayer__updateInnerParallaxTransform__block_invoke(uint64_t a1)
 {
   result = _UIInternalPreferenceUsesDefault(&_MergedGlobals_960, @"UISolariumNewStackedImageRenderingInnerParallaxProgressiveScale", _UIInternalPreferenceUpdateBool);
   if ((result & 1) != 0 || byte_1ED48B88C)

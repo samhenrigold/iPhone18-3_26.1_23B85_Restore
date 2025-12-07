@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    date = self->_date;
     PBDataWriterWriteDoubleField();
   }
 }

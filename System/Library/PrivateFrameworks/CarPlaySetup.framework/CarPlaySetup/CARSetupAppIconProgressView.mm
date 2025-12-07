@@ -11,10 +11,10 @@
 
 - (CARSetupAppIconProgressView)initWithFrame:(CGRect)frame
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = CARSetupAppIconProgressView;
-  v3 = [(CARSetupAppIconProgressView *)&v18 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v20 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = CARSetupAppIconProgressView;
+  v3 = [(CARSetupAppIconProgressView *)&v17 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -36,7 +36,7 @@
       }
 
       *buf = 138543362;
-      v20 = v9;
+      v19 = v9;
       _os_log_impl(&dword_242FD5000, v8, OS_LOG_TYPE_DEFAULT, "show system experience CarPlay animation: %{public}@", buf, 0xCu);
     }
 
@@ -55,7 +55,6 @@
     [(CARSetupAppIconProgressView *)v3 setMicaPlayer:v14];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

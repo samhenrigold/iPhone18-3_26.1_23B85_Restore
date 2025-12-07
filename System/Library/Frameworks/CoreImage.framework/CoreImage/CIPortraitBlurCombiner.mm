@@ -9,7 +9,7 @@
 - (id)_blendKernel:(BOOL)kernel
 {
   kernelCopy = kernel;
-  v4 = SDOFV2MetalLibURL();
+  v4 = SDOFV2MetalLibURL(self, a2);
   if (kernelCopy)
   {
     v5 = @"_CIPortraitBlurBlendWithMaskFromAlphaWithMatte";

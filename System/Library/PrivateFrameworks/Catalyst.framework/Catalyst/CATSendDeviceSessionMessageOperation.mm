@@ -31,7 +31,7 @@
   v4[3] = &unk_278DA72D0;
   v4[4] = self;
   v2 = v4;
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_0;
@@ -42,7 +42,7 @@
 
 - (void)sendMessage
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   if ([(CATSendDeviceSessionMessageOperation *)self isCancelled])

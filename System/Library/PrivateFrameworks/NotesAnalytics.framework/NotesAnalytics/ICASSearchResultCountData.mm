@@ -26,8 +26,8 @@
 
 - (id)toDict
 {
-  v16[3] = *MEMORY[0x277D85DE8];
-  v15[0] = @"topHitCount";
+  v15[3] = *MEMORY[0x277D85DE8];
+  v14[0] = @"topHitCount";
   topHitCount = [(ICASSearchResultCountData *)self topHitCount];
   if (topHitCount)
   {
@@ -40,8 +40,8 @@
   }
 
   v5 = topHitCount2;
-  v16[0] = topHitCount2;
-  v15[1] = @"notesCount";
+  v15[0] = topHitCount2;
+  v14[1] = @"notesCount";
   notesCount = [(ICASSearchResultCountData *)self notesCount];
   if (notesCount)
   {
@@ -54,8 +54,8 @@
   }
 
   v8 = notesCount2;
-  v16[1] = notesCount2;
-  v15[2] = @"attachmentsCount";
+  v15[1] = notesCount2;
+  v14[2] = @"attachmentsCount";
   attachmentsCount = [(ICASSearchResultCountData *)self attachmentsCount];
   if (attachmentsCount)
   {
@@ -68,10 +68,8 @@
   }
 
   v11 = attachmentsCount2;
-  v16[2] = attachmentsCount2;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[2] = attachmentsCount2;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   return v12;
 }

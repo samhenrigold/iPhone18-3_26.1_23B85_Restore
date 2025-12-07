@@ -37,7 +37,7 @@
   (*(v5 + 8))(v7, v4);
   if (v9)
   {
-    sub_1001E27A8(&unk_1004D9A70);
+    sub_1001E27A8(&unk_1004D9A70, &qword_1003F0878);
     v10.super.isa = sub_100399178().super.isa;
   }
 
@@ -51,7 +51,7 @@
 
 - (BOOL)removeEntries:(id)entries
 {
-  type metadata accessor for AggregatedTimeSpentEntry();
+  type metadata accessor for AggregatedTimeSpentEntry(0);
   v4 = sub_100399198();
   selfCopy = self;
   v6 = AggregatedTimeSpentStoreDatabase.removeEntries(_:)(v4);

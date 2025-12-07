@@ -108,7 +108,7 @@
   swift_unknownObjectRelease();
   sub_1D7988();
 
-  sub_18E310(&v8);
+  sub_18E310(v8);
 }
 
 - (NSString)accessibilityLabel

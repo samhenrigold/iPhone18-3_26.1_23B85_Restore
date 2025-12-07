@@ -1,12 +1,12 @@
 @interface EKEvent(CalendarUIKit)
 - (BOOL)CUIK_deleteActionShouldDeclineEvent;
+- (BOOL)_isFirstFutureOccurrenceReminder;
 - (__CFString)CUIK_attendeesIconSymbolWithAttendeesIconState:()CalendarUIKit myParticipantStatus:;
 - (__CFString)CUIK_symbolName:()CalendarUIKit;
 - (id)CUIK_currentReminder;
 - (id)CUIK_disabledSymbolColor;
 - (id)CUIK_symbolColor;
 - (uint64_t)CUIK_attendeesIconState;
-- (uint64_t)_isFirstFutureOccurrenceReminder;
 @end
 
 @implementation EKEvent(CalendarUIKit)
@@ -291,7 +291,7 @@ LABEL_40:
   return v2;
 }
 
-- (uint64_t)_isFirstFutureOccurrenceReminder
+- (BOOL)_isFirstFutureOccurrenceReminder
 {
   if (![self isReminderIntegrationEvent])
   {

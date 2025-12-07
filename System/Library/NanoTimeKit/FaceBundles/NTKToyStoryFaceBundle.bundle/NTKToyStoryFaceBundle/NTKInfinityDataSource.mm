@@ -235,7 +235,7 @@
   listings = self->_listings;
   self->_listings = v3;
 
-  _objc_release_x1();
+  _objc_release_x1(v3, listings);
 }
 
 - (void)_countListings

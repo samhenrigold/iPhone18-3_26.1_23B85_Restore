@@ -3,7 +3,7 @@
 
 @implementation AXSExtendedVoiceIsolationMediaModesEnabled
 
-uint64_t ___AXSExtendedVoiceIsolationMediaModesEnabled_block_invoke()
+void *___AXSExtendedVoiceIsolationMediaModesEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

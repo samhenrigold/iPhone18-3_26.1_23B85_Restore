@@ -64,43 +64,43 @@ uint64_t __57__HKXPCEventObserver_setAuthorizationStreamEventHandler___block_inv
 
 void __54__HKXPCEventObserver__registerEventHandler_forStream___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogInfrastructure();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogInfrastructure(v5, v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
 
-  if (v5)
+  if (v8)
   {
-    v6 = HKLogInfrastructure();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v11 = HKLogInfrastructure(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v7 = *(a1 + 40);
-      v16 = 136315138;
-      v17 = v7;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_INFO, "Received XPC event for %s", &v16, 0xCu);
+      v12 = *(a1 + 40);
+      v26 = 136315138;
+      v27 = v12;
+      _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_INFO, "Received XPC event for %s", &v26, 0xCu);
     }
   }
 
-  v8 = MEMORY[0x193B04A90](v3);
-  if (v8 != MEMORY[0x1E69E9E80])
+  v13 = MEMORY[0x193B04A90](v3);
+  if (v13 != MEMORY[0x1E69E9E80])
   {
-    v9 = v8;
-    v10 = MEMORY[0x1E69E9E98];
-    _HKInitializeLogging();
-    reply = HKLogInfrastructure();
-    v12 = os_log_type_enabled(reply, OS_LOG_TYPE_ERROR);
-    if (v9 == v10)
+    v15 = v13;
+    v16 = MEMORY[0x1E69E9E98];
+    _HKInitializeLogging(v13, v14);
+    reply = HKLogInfrastructure(v17, v18);
+    v20 = os_log_type_enabled(reply, OS_LOG_TYPE_ERROR);
+    if (v15 == v16)
     {
-      if (v12)
+      if (v20)
       {
         __54__HKXPCEventObserver__registerEventHandler_forStream___block_invoke_cold_2(v3);
       }
     }
 
-    else if (v12)
+    else if (v20)
     {
-      __54__HKXPCEventObserver__registerEventHandler_forStream___block_invoke_cold_1(v9);
+      __54__HKXPCEventObserver__registerEventHandler_forStream___block_invoke_cold_1(v15);
     }
 
 LABEL_18:
@@ -118,15 +118,15 @@ LABEL_18:
 
     else
     {
-      v13 = MEMORY[0x193B04A30](v3);
-      _HKInitializeLogging();
-      v14 = HKLogInfrastructure();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v21 = MEMORY[0x193B04A30](v3);
+      _HKInitializeLogging(v21, v22);
+      v25 = HKLogInfrastructure(v23, v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        __54__HKXPCEventObserver__registerEventHandler_forStream___block_invoke_cold_3(v13, v14);
+        __54__HKXPCEventObserver__registerEventHandler_forStream___block_invoke_cold_3(v21, v25);
       }
 
-      free(v13);
+      free(v21);
     }
 
     goto LABEL_18;
@@ -134,8 +134,6 @@ LABEL_18:
 
   (*(*(a1 + 32) + 16))();
 LABEL_19:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_subscribeToStream:(const char *)stream clientIdentifier:(const char *)identifier
@@ -146,27 +144,24 @@ LABEL_19:
 
 void __54__HKXPCEventObserver__registerEventHandler_forStream___block_invoke_cold_1(const _xpc_type_s *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  xpc_type_get_name(a1);
-  OUTLINED_FUNCTION_0_23(&dword_19197B000, v1, v2, "XPC events subscriber received event of unexpected type %s", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = xpc_type_get_name(a1);
+  OUTLINED_FUNCTION_0_23(&dword_19197B000, v1, v2, "XPC events subscriber received event of unexpected type %s", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void __54__HKXPCEventObserver__registerEventHandler_forStream___block_invoke_cold_2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  xpc_dictionary_get_string(a1, *MEMORY[0x1E69E9E28]);
-  OUTLINED_FUNCTION_0_23(&dword_19197B000, v1, v2, "XPC events subscriber received error: %s", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = xpc_dictionary_get_string(a1, *MEMORY[0x1E69E9E28]);
+  OUTLINED_FUNCTION_0_23(&dword_19197B000, v1, v2, "XPC events subscriber received error: %s", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void __54__HKXPCEventObserver__registerEventHandler_forStream___block_invoke_cold_3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Failed to create reply for XPC event: %s", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Failed to create reply for XPC event: %s", &v2, 0xCu);
 }
 
 @end

@@ -13,11 +13,28 @@
 - (void)_fetchMDMDataAtURL:(id)l completionHandler:(id)handler;
 - (void)_processDataResponseWithURL:(id)l response:(id)response error:(id)error completionHandler:(id)handler;
 - (void)_processDownloadResponseWithURL:(id)l downloadURL:(id)rL response:(id)response error:(id)error completionHandler:(id)handler;
+- (void)downloadDataAtURL:(id)l downloadURL:(id)rL extensionToken:(id)token useDDM:(BOOL)m completionHandler:(id)handler;
 - (void)downloadResponseDataAtURL:(id)l downloadURL:(id)rL extensionToken:(id)token useDDM:(BOOL)m additionalHeaders:(id)headers completionHandler:(id)handler;
+- (void)fetchDataAtURL:(id)l useDDM:(BOOL)m completionHandler:(id)handler;
 - (void)fetchResponseDataAtURL:(id)l useDDM:(BOOL)m additionalHeaders:(id)headers completionHandler:(id)handler;
 @end
 
 @implementation RMStoreDataFetcher
+
+- (void)fetchDataAtURL:(id)l useDDM:(BOOL)m completionHandler:(id)handler
+{
+  mCopy = m;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100081C88;
+  v9[3] = &unk_1000D3000;
+  selfCopy = self;
+  lCopy = l;
+  handlerCopy = handler;
+  v7 = handlerCopy;
+  v8 = lCopy;
+  [(RMStoreDataFetcher *)selfCopy fetchResponseDataAtURL:v8 useDDM:mCopy additionalHeaders:0 completionHandler:v9];
+}
 
 - (void)fetchResponseDataAtURL:(id)l useDDM:(BOOL)m additionalHeaders:(id)headers completionHandler:(id)handler
 {
@@ -55,6 +72,55 @@
 
     handlerCopy[2](handlerCopy, 0, v16);
   }
+}
+
+- (void)downloadDataAtURL:(id)l downloadURL:(id)rL extensionToken:(id)token useDDM:(BOOL)m completionHandler:(id)handler
+{
+  mCopy = m;
+  lCopy = l;
+  rLCopy = rL;
+  tokenCopy = token;
+  handlerCopy = handler;
+  if (!tokenCopy)
+  {
+    v16 = -1;
+LABEL_7:
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_100081FE4;
+    v20[3] = &unk_1000D3050;
+    v20[4] = self;
+    v21 = lCopy;
+    v22 = rLCopy;
+    v24 = v16;
+    v23 = handlerCopy;
+    [(RMStoreDataFetcher *)self downloadResponseDataAtURL:v21 downloadURL:v22 extensionToken:0 useDDM:mCopy additionalHeaders:0 completionHandler:v20];
+
+    goto LABEL_11;
+  }
+
+  v16 = [RMSandbox consumeToken:tokenCopy];
+  v17 = +[RMLog storeDataFetcher];
+  v18 = v17;
+  if (v16 != -1)
+  {
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100083E7C();
+    }
+
+    goto LABEL_7;
+  }
+
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  {
+    sub_100083EE4();
+  }
+
+  v19 = +[RMErrorUtilities createInternalError];
+  (*(handlerCopy + 2))(handlerCopy, v19);
+
+LABEL_11:
 }
 
 - (void)downloadResponseDataAtURL:(id)l downloadURL:(id)rL extensionToken:(id)token useDDM:(BOOL)m additionalHeaders:(id)headers completionHandler:(id)handler

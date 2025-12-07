@@ -1,13 +1,13 @@
-id STStorageDeviceKey()
+id STStorageDeviceKey(uint64_t a1)
 {
   if (STStorageDeviceKey_onceToken != -1)
   {
     STStorageDeviceKey_cold_1();
   }
 
-  v1 = STStorageDeviceKey_deviceKey;
+  v2 = STStorageDeviceKey_deviceKey;
 
-  return v1;
+  return v2;
 }
 
 void __STStorageDeviceKey_block_invoke()
@@ -62,36 +62,34 @@ LABEL_5:
 
 void __STColorForCategoryKey_block_invoke()
 {
-  v12[8] = *MEMORY[0x277D85DE8];
-  v11[0] = *MEMORY[0x277D69968];
+  v11[8] = *MEMORY[0x277D85DE8];
+  v10[0] = *MEMORY[0x277D69968];
   v0 = [MEMORY[0x277D75348] systemPinkColor];
-  v12[0] = v0;
-  v11[1] = *MEMORY[0x277D69998];
+  v11[0] = v0;
+  v10[1] = *MEMORY[0x277D69998];
   v1 = [MEMORY[0x277D75348] systemYellowColor];
-  v12[1] = v1;
-  v11[2] = *MEMORY[0x277D69990];
+  v11[1] = v1;
+  v10[2] = *MEMORY[0x277D69990];
   v2 = [MEMORY[0x277D75348] systemGreenColor];
-  v12[2] = v2;
-  v11[3] = *MEMORY[0x277D69970];
+  v11[2] = v2;
+  v10[3] = *MEMORY[0x277D69970];
   v3 = [MEMORY[0x277D75348] systemOrangeColor];
-  v12[3] = v3;
-  v11[4] = *MEMORY[0x277D69988];
+  v11[3] = v3;
+  v10[4] = *MEMORY[0x277D69988];
   v4 = [MEMORY[0x277D75348] systemPurpleColor];
-  v12[4] = v4;
-  v11[5] = *MEMORY[0x277D69980];
+  v11[4] = v4;
+  v10[5] = *MEMORY[0x277D69980];
   v5 = [MEMORY[0x277D75348] systemBlueColor];
-  v12[5] = v5;
-  v11[6] = *MEMORY[0x277D69978];
+  v11[5] = v5;
+  v10[6] = *MEMORY[0x277D69978];
   v6 = [MEMORY[0x277D75348] systemTealColor];
-  v12[6] = v6;
-  v11[7] = *MEMORY[0x277D699A0];
+  v11[6] = v6;
+  v10[7] = *MEMORY[0x277D699A0];
   v7 = [MEMORY[0x277D75348] systemDarkMidGrayColor];
-  v12[7] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:8];
+  v11[7] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:8];
   v9 = STColorForCategoryKey_gCategoryColors;
   STColorForCategoryKey_gCategoryColors = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 id STColorForCategory()
@@ -135,12 +133,14 @@ void _STLoadHeaderIconForAppID(void *a1, void *a2, char a3)
 
   else
   {
+    v9 = _gTableIconsByID;
     if (_gTableIconsByID)
     {
-      v8 = _CachedIconForAppID(_gTableIconsByID, v5);
-      if (v8)
+      v9 = _CachedIconForAppID(_gTableIconsByID, v5);
+      v8 = v9;
+      if (v9)
       {
-        v6[2](v6, v8);
+        v9 = (v6[2])(v6, v9);
       }
     }
 
@@ -149,15 +149,15 @@ void _STLoadHeaderIconForAppID(void *a1, void *a2, char a3)
       v8 = 0;
     }
 
-    v9 = getIconLoaderQueue();
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = ___STLoadHeaderIconForAppID_block_invoke_2;
-    v10[3] = &unk_2782E28E0;
-    v11 = v5;
-    v13 = a3;
-    v12 = v6;
-    [v9 addOperationWithBlock:v10];
+    v10 = getIconLoaderQueue(v9);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = ___STLoadHeaderIconForAppID_block_invoke_2;
+    v11[3] = &unk_2782E28E0;
+    v12 = v5;
+    v14 = a3;
+    v13 = v6;
+    [v10 addOperationWithBlock:v11];
   }
 }
 
@@ -208,7 +208,7 @@ void _STLoadTableIconForAppID(void *a1, void *a2, char a3)
 
   else
   {
-    v8 = getIconLoaderQueue();
+    v8 = getIconLoaderQueue(0);
     v9[0] = MEMORY[0x277D85DD0];
     v9[1] = 3221225472;
     v9[2] = ___STLoadTableIconForAppID_block_invoke_2;
@@ -249,16 +249,16 @@ id _CachedIconForAppID(void *a1, void *a2)
   return v5;
 }
 
-id getIconLoaderQueue()
+id getIconLoaderQueue(uint64_t a1)
 {
   if (getIconLoaderQueue_onceToken != -1)
   {
     getIconLoaderQueue_cold_1();
   }
 
-  v1 = getIconLoaderQueue__iconLoaderQueue;
+  v2 = getIconLoaderQueue__iconLoaderQueue;
 
-  return v1;
+  return v2;
 }
 
 id _LoadIconForAppID(void *a1, void *a2, int a3, int a4)
@@ -433,9 +433,9 @@ LABEL_24:
   return v11;
 }
 
-void sub_21B8E07BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_21B8E07BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -455,29 +455,29 @@ uint64_t __getIconLoaderQueue_block_invoke()
 id STFrameworkLocStr(void *a1)
 {
   v1 = a1;
-  v2 = _FrameworkBundle();
+  v2 = _FrameworkBundle(v1);
   v3 = [v2 localizedStringForKey:v1 value:v1 table:0];
 
   return v3;
 }
 
-id _FrameworkBundle()
+id _FrameworkBundle(uint64_t a1)
 {
   if (_FrameworkBundle_onceToken != -1)
   {
     _FrameworkBundle_cold_1();
   }
 
-  v1 = _FrameworkBundle_bundle;
+  v2 = _FrameworkBundle_bundle;
 
-  return v1;
+  return v2;
 }
 
 id STFrameworkImage(void *a1)
 {
   v1 = MEMORY[0x277D755B8];
   v2 = a1;
-  v3 = _FrameworkBundle();
+  v3 = _FrameworkBundle(v2);
   v4 = [v1 imageNamed:v2 inBundle:v3];
 
   return v4;
@@ -492,4 +492,14 @@ uint64_t __PercentString_block_invoke()
   v2 = PercentString__formatter;
 
   return [v2 setNumberStyle:3];
+}
+
+CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)
+{
+  MEMORY[0x2821115C8](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, dx, dy);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
+  return result;
 }

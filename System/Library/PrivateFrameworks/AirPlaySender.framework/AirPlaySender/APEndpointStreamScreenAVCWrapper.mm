@@ -56,7 +56,7 @@
       *error = v17;
       if (v17)
       {
-        [APEndpointStreamScreenAVCWrapper initWithClientPID:hdrMode:presentationMode:hdrMirroringSupported:eventHandlers:error:];
+        [APEndpointStreamScreenAVCWrapper initWithClientPID:v17 hdrMode:? presentationMode:? hdrMirroringSupported:? eventHandlers:? error:?];
       }
     }
 
@@ -151,68 +151,78 @@ LABEL_14:
 
 - (int)initScreeenCaptureWithScreenOptions:(id *)options
 {
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3052000000;
-  v21 = __Block_byref_object_copy__0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3052000000;
+  v22 = __Block_byref_object_copy__0;
   v5 = getAVCScreenCaptureConfigurationClass_softClass;
-  v22 = __Block_byref_object_dispose__0;
-  v23 = getAVCScreenCaptureConfigurationClass_softClass;
+  v23 = __Block_byref_object_dispose__0;
+  v24 = getAVCScreenCaptureConfigurationClass_softClass;
   if (!getAVCScreenCaptureConfigurationClass_softClass)
   {
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __getAVCScreenCaptureConfigurationClass_block_invoke;
-    v16 = &unk_27849ACC8;
-    v17 = &v18;
-    __getAVCScreenCaptureConfigurationClass_block_invoke(&v13);
-    v5 = v19[5];
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __getAVCScreenCaptureConfigurationClass_block_invoke;
+    v17 = &unk_27849ACC8;
+    v18 = &v19;
+    __getAVCScreenCaptureConfigurationClass_block_invoke(&v14);
+    v5 = v20[5];
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v19, 8);
   v6 = objc_alloc_init(v5);
   v7 = v6;
   if (!v6)
   {
-    goto LABEL_12;
+    v13 = 1783;
+LABEL_14:
+    [APEndpointStreamScreenAVCWrapper initScreeenCaptureWithScreenOptions:v13];
+    v11 = -6718;
+    goto LABEL_11;
   }
 
   [v6 setScreenCaptureDisplayID:0xFFFFFFFFLL];
-  v8 = options->var7 ? 1 : 2;
-  [v7 setDisplayMode:v8];
-  [v7 setPdProtectionOptions:options->var9];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3052000000;
-  v21 = __Block_byref_object_copy__0;
-  v9 = getAVCScreenCaptureClass_softClass;
-  v22 = __Block_byref_object_dispose__0;
-  v23 = getAVCScreenCaptureClass_softClass;
-  if (!getAVCScreenCaptureClass_softClass)
+  if (options->var7)
   {
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __getAVCScreenCaptureClass_block_invoke;
-    v16 = &unk_27849ACC8;
-    v17 = &v18;
-    __getAVCScreenCaptureClass_block_invoke(&v13);
-    v9 = v19[5];
-  }
-
-  _Block_object_dispose(&v18, 8);
-  v10 = [[v9 alloc] initWithDelegate:self withConfig:v7];
-  self->_avcScreenCapture = v10;
-  if (v10)
-  {
-    v11 = 0;
+    v8 = 1;
   }
 
   else
   {
-LABEL_12:
-    [APEndpointStreamScreenAVCWrapper initScreeenCaptureWithScreenOptions:];
-    v11 = -6718;
+    v8 = 2;
   }
+
+  [v7 setDisplayMode:v8];
+  [v7 setPdProtectionOptions:options->var9];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3052000000;
+  v22 = __Block_byref_object_copy__0;
+  v9 = getAVCScreenCaptureClass_softClass;
+  v23 = __Block_byref_object_dispose__0;
+  v24 = getAVCScreenCaptureClass_softClass;
+  if (!getAVCScreenCaptureClass_softClass)
+  {
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __getAVCScreenCaptureClass_block_invoke;
+    v17 = &unk_27849ACC8;
+    v18 = &v19;
+    __getAVCScreenCaptureClass_block_invoke(&v14);
+    v9 = v20[5];
+  }
+
+  _Block_object_dispose(&v19, 8);
+  v10 = [[v9 alloc] initWithDelegate:self withConfig:v7];
+  self->_avcScreenCapture = v10;
+  if (!v10)
+  {
+    v13 = 1788;
+    goto LABEL_14;
+  }
+
+  v11 = 0;
+LABEL_11:
 
   return v11;
 }
@@ -318,7 +328,7 @@ LABEL_31:
   if (v13)
   {
     LODWORD(start) = v13;
-    [APEndpointStreamScreenAVCWrapper startWithNWConnectionClientID:negotiatedBlob:screenOptions:completion:];
+    [APEndpointStreamScreenAVCWrapper startWithNWConnectionClientID:v13 negotiatedBlob:? screenOptions:? completion:?];
     goto LABEL_31;
   }
 
@@ -326,7 +336,7 @@ LABEL_31:
   if (v14)
   {
     LODWORD(start) = v14;
-    [APEndpointStreamScreenAVCWrapper startWithNWConnectionClientID:negotiatedBlob:screenOptions:completion:];
+    [APEndpointStreamScreenAVCWrapper startWithNWConnectionClientID:v14 negotiatedBlob:? screenOptions:? completion:?];
     goto LABEL_31;
   }
 
@@ -334,7 +344,7 @@ LABEL_31:
   if (v15)
   {
     LODWORD(start) = v15;
-    [APEndpointStreamScreenAVCWrapper startWithNWConnectionClientID:negotiatedBlob:screenOptions:completion:];
+    [APEndpointStreamScreenAVCWrapper startWithNWConnectionClientID:v15 negotiatedBlob:? screenOptions:? completion:?];
     goto LABEL_31;
   }
 
@@ -534,7 +544,7 @@ LABEL_26:
 
 - (int)restartWithScreenOptions:(id *)options negotiatedBlob:(id)blob
 {
-  v19 = 0;
+  v20 = 0;
   v7 = 56;
   if (options->var4)
   {
@@ -572,16 +582,16 @@ LABEL_26:
   stop = [(APEndpointStreamScreenAVCWrapper *)self stop];
   if (stop)
   {
-    start = stop;
-    [APEndpointStreamScreenAVCWrapper restartWithScreenOptions:negotiatedBlob:];
+    v18 = stop;
+    [APEndpointStreamScreenAVCWrapper restartWithScreenOptions:stop negotiatedBlob:?];
   }
 
   else
   {
     if (blob)
     {
-      [v12 setAnswer:blob withError:&v19];
-      if (v19)
+      [v12 setAnswer:blob withError:&v20];
+      if (v20)
       {
         goto LABEL_26;
       }
@@ -598,44 +608,45 @@ LABEL_26:
       v14 = -[APEndpointStreamScreenAVCWrapper createVideoStreamConfig:withDirection:screenOptions:previousConfig:](self, "createVideoStreamConfig:withDirection:screenOptions:previousConfig:", p_videoStreamConfigForPresentationMode, [v9 direction], options, v9);
       if (v14)
       {
-        start = v14;
-        [APEndpointStreamScreenAVCWrapper restartWithScreenOptions:negotiatedBlob:];
-        return start;
+        v18 = v14;
+        [APEndpointStreamScreenAVCWrapper restartWithScreenOptions:v14 negotiatedBlob:?];
+        return v18;
       }
     }
 
     v15 = [(APEndpointStreamScreenAVCWrapper *)self initScreeenCaptureWithScreenOptions:options];
     if (v15)
     {
-      start = v15;
-      [APEndpointStreamScreenAVCWrapper restartWithScreenOptions:negotiatedBlob:];
-      return start;
+      v18 = v15;
+      [APEndpointStreamScreenAVCWrapper restartWithScreenOptions:v15 negotiatedBlob:?];
+      return v18;
     }
 
     v16 = [(APEndpointStreamScreenAVCWrapper *)self setCaptureSourceIDForStreamConfig:*(&self->super.isa + v8)];
     if (v16)
     {
-      start = v16;
-      [APEndpointStreamScreenAVCWrapper restartWithScreenOptions:negotiatedBlob:];
-      return start;
+      v18 = v16;
+      [APEndpointStreamScreenAVCWrapper restartWithScreenOptions:v16 negotiatedBlob:?];
+      return v18;
     }
 
-    [(AVCVideoStream *)self->_avcVideoStream configure:*(&self->super.isa + v8) error:&v19];
-    if (v19)
+    [(AVCVideoStream *)self->_avcVideoStream configure:*(&self->super.isa + v8) error:&v20];
+    if (v20)
     {
 LABEL_26:
       APSLogErrorAt();
-      return [v19 code];
+      return [v20 code];
     }
 
     start = [(APEndpointStreamScreenAVCWrapper *)self start];
+    v18 = start;
     if (start)
     {
-      [APEndpointStreamScreenAVCWrapper restartWithScreenOptions:negotiatedBlob:];
+      [APEndpointStreamScreenAVCWrapper restartWithScreenOptions:start negotiatedBlob:?];
     }
   }
 
-  return start;
+  return v18;
 }
 
 - (int)createVideoStreamConfig:(id *)config withDirection:(int64_t)direction screenOptions:(id *)options previousConfig:(id)previousConfig
@@ -846,6 +857,7 @@ LABEL_26:
 
 - (void)stream:(id)stream didStart:(BOOL)start error:(id)error
 {
+  startCopy = start;
   if (error)
   {
     code = [error code];
@@ -858,7 +870,13 @@ LABEL_26:
 
   if (gLogCategory_APEndpointStreamScreenUDP <= 30 && (gLogCategory_APEndpointStreamScreenUDP != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    v9 = @"NO";
+    if (startCopy)
+    {
+      v9 = @"YES";
+    }
+
+    LogPrintF(&gLogCategory_APEndpointStreamScreenUDP, "[APEndpointStreamScreenAVCWrapper stream:didStart:error:]", 33554462, "AVCVideoStream %{ptr} didStart[%@]", stream, v9);
   }
 
   self->_didStartStatus = code;
@@ -871,7 +889,7 @@ LABEL_26:
 {
   if (gLogCategory_APEndpointStreamScreenUDP <= 30 && (gLogCategory_APEndpointStreamScreenUDP != -1 || _LogCategory_Initialize()))
   {
-    [APEndpointStreamScreenAVCWrapper streamDidStop:];
+    [(APEndpointStreamScreenAVCWrapper *)stop streamDidStop:a2, stop];
   }
 
   completionSemaphore = self->_completionSemaphore;
@@ -883,7 +901,7 @@ LABEL_26:
 {
   if (gLogCategory_APEndpointStreamScreenUDP <= 30 && (gLogCategory_APEndpointStreamScreenUDP != -1 || _LogCategory_Initialize()))
   {
-    [APEndpointStreamScreenAVCWrapper streamDidServerDie:];
+    [(APEndpointStreamScreenAVCWrapper *)die streamDidServerDie:a2, die];
   }
 
   [(APEndpointStreamScreenAVCWrapper *)self handleFailureWithError:4294960543 reason:@"Server Died"];
@@ -891,17 +909,37 @@ LABEL_26:
 
 - (void)screenCapture:(id)capture didStop:(BOOL)stop withError:(id)error
 {
-  if (gLogCategory_APEndpointStreamScreenUDP <= 40 && (gLogCategory_APEndpointStreamScreenUDP != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_APEndpointStreamScreenUDP <= 40)
   {
-    LogPrintF();
+    stopCopy = stop;
+    if (gLogCategory_APEndpointStreamScreenUDP != -1 || _LogCategory_Initialize())
+    {
+      v7 = @"NO";
+      if (stopCopy)
+      {
+        v7 = @"YES";
+      }
+
+      LogPrintF(&gLogCategory_APEndpointStreamScreenUDP, "[APEndpointStreamScreenAVCWrapper screenCapture:didStop:withError:]", 33554472, "AVCScreenCapture %{ptr} didStop[%@]", capture, v7);
+    }
   }
 }
 
 - (void)screenCapture:(id)capture didStart:(BOOL)start withError:(id)error
 {
-  if (gLogCategory_APEndpointStreamScreenUDP <= 40 && (gLogCategory_APEndpointStreamScreenUDP != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_APEndpointStreamScreenUDP <= 40)
   {
-    LogPrintF();
+    startCopy = start;
+    if (gLogCategory_APEndpointStreamScreenUDP != -1 || _LogCategory_Initialize())
+    {
+      v7 = @"NO";
+      if (startCopy)
+      {
+        v7 = @"YES";
+      }
+
+      LogPrintF(&gLogCategory_APEndpointStreamScreenUDP, "[APEndpointStreamScreenAVCWrapper screenCapture:didStart:withError:]", 33554472, "AVCScreenCapture %{ptr} didStart[%@]", capture, v7);
+    }
   }
 }
 
@@ -910,20 +948,26 @@ LABEL_26:
   clearCopy = clear;
   if (gLogCategory_APEndpointStreamScreenUDP <= 40 && (gLogCategory_APEndpointStreamScreenUDP != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    v7 = @"NO";
+    if (clearCopy)
+    {
+      v7 = @"YES";
+    }
+
+    LogPrintF(&gLogCategory_APEndpointStreamScreenUDP, "[APEndpointStreamScreenAVCWrapper screenCapture:screenDidClear:]", 33554472, "AVCScreenCapture %{ptr} screenDidClear[%@]", capture, v7);
   }
 
   if (self->_eventHandleClearScreen)
   {
     if (self->_eventWeakContext)
     {
-      v6 = FigCFWeakReferenceHolderCopyReferencedObject();
-      if (v6)
+      v8 = FigCFWeakReferenceHolderCopyReferencedObject();
+      if (v8)
       {
-        v7 = v6;
-        (self->_eventHandleClearScreen)(v6, clearCopy);
+        v9 = v8;
+        (self->_eventHandleClearScreen)(v8, clearCopy);
 
-        CFRelease(v7);
+        CFRelease(v9);
       }
     }
   }
@@ -933,7 +977,7 @@ LABEL_26:
 {
   if (gLogCategory_APEndpointStreamScreenUDP <= 40 && (gLogCategory_APEndpointStreamScreenUDP != -1 || _LogCategory_Initialize()))
   {
-    [APEndpointStreamScreenAVCWrapper serverDidDisconnect:];
+    [APEndpointStreamScreenAVCWrapper serverDidDisconnect:disconnect];
   }
 }
 
@@ -956,7 +1000,7 @@ LABEL_26:
   [objc_msgSend(a2 "video")];
   [objc_msgSend(a2 "video")];
   [objc_msgSend(a2 "video")];
-  return OUTLINED_FUNCTION_2();
+  return OUTLINED_FUNCTION_2(&gLogCategory_APEndpointStreamScreenUDP, "[APEndpointStreamScreenAVCWrapper createVideoStreamConfig:withDirection:screenOptions:previousConfig:]", v3, "Created %s config with tilesPeFrame=%d, HDRmode=%d, pixelFormat=%d\n");
 }
 
 - (void)getClientUPID:.cold.1()
@@ -973,13 +1017,13 @@ LABEL_26:
   {
     if (gLogCategory_APEndpointStreamScreenUDP != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APEndpointStreamScreenUDP, "[APEndpointStreamScreenAVCWrapper getClientUPID:]", 33554522, "Failed to get daemon process info\n");
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APEndpointStreamScreenUDP, "[APEndpointStreamScreenAVCWrapper getClientUPID:]", 33554522, "Failed to get daemon process info\n");
     }
   }
 

@@ -46,28 +46,28 @@
 
 - (id)specifiers
 {
-  v24[1] = *MEMORY[0x277D85DE8];
-  v18 = objc_opt_new();
+  v23[1] = *MEMORY[0x277D85DE8];
+  v17 = objc_opt_new();
   v3 = objc_opt_new();
   bundleControllers = self->_bundleControllers;
   self->_bundleControllers = v3;
 
-  v23 = *MEMORY[0x277D3FE08];
-  v24[0] = @"CellularNetworkTelephonySettings";
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
-  v20 = v5;
-  v21 = @"items";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
-  v22 = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v22 = *MEMORY[0x277D3FE08];
+  v23[0] = @"CellularNetworkTelephonySettings";
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+  v19 = v5;
+  v20 = @"items";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+  v21 = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
   WeakRetained = objc_loadWeakRetained(&self->_parentSpecifier);
   v9 = objc_loadWeakRetained(&self->_listController);
   bundle = [v9 bundle];
   v11 = objc_loadWeakRetained(&self->_listController);
-  v19 = 0;
+  v18 = 0;
   v12 = SpecifiersFromPlist();
 
-  v13 = v19;
+  v13 = v18;
   firstObject = [v12 firstObject];
   v15 = firstObject;
   if (firstObject)
@@ -76,17 +76,15 @@
     *&v15[*MEMORY[0x277D3FCA8]] = sel_localizedCellularNetworkName_;
   }
 
-  [v18 addObjectsFromArray:v12];
+  [v17 addObjectsFromArray:v12];
   [(NSMutableArray *)self->_bundleControllers addObjectsFromArray:v13];
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v18;
+  return v17;
 }
 
 - (id)localizedCellularNetworkName:(id)name
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_parentSpecifier);
   v5 = [WeakRetained propertyForKey:*MEMORY[0x277D40128]];
 
@@ -101,9 +99,9 @@
   getLogger = [(PSUINetworkSelectionSubgroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = v7;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Localized cellular network name: %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v7;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Localized cellular network name: %{public}@", &v10, 0xCu);
   }
 
   if (!v7)
@@ -111,8 +109,6 @@
 LABEL_5:
     v7 = &stru_287733598;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -138,7 +134,7 @@ LABEL_5:
 
 - (void)networkSelected:(id)selected success:(BOOL)success mode:(id)mode
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   selectedCopy = selected;
   modeCopy = mode;
   slotID = [selectedCopy slotID];
@@ -152,9 +148,9 @@ LABEL_5:
   {
     if (v14)
     {
-      v16 = 138543362;
-      v17 = modeCopy;
-      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Network selected changed to %{public}@", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = modeCopy;
+      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Network selected changed to %{public}@", &v15, 0xCu);
     }
 
     [(PSUINetworkSelectionSubgroup *)self reloadCellularNetworkSpecifier];
@@ -164,18 +160,16 @@ LABEL_5:
   {
     if (v14)
     {
-      v16 = 138412290;
-      v17 = selectedCopy;
-      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Ignoring network selected for %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = selectedCopy;
+      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Ignoring network selected for %@", &v15, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)operatorNameChanged:(id)changed name:(id)name
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   nameCopy = name;
   slotID = [changedCopy slotID];
@@ -189,9 +183,9 @@ LABEL_5:
   {
     if (v13)
     {
-      v15 = 138543362;
-      v16 = nameCopy;
-      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Operator name changed to %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = nameCopy;
+      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Operator name changed to %{public}@", &v14, 0xCu);
     }
 
     [(PSUINetworkSelectionSubgroup *)self reloadCellularNetworkSpecifier];
@@ -201,13 +195,11 @@ LABEL_5:
   {
     if (v13)
     {
-      v15 = 138412290;
-      v16 = changedCopy;
-      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Ignoring operator name change for %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = changedCopy;
+      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Ignoring operator name change for %@", &v14, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (PSListController)listController

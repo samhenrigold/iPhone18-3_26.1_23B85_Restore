@@ -5,14 +5,14 @@
 - (NSString)debugDescription;
 - (NSString)stateCaptureTitle;
 - (RBAssertionOriginatorPidStore)initWithPath:(id)path;
-- (uint64_t)_lock_indexOfPidInSharedMemory:(uint64_t)result;
 - (uint64_t)_lock_isHeaderValid;
 - (uint64_t)_lock_isPidDataValid;
 - (uint64_t)_lock_resizeSharedMemoryIfNecessary;
+- (unint64_t)_lock_indexOfPidInSharedMemory:(unint64_t)result;
 - (void)_allocSharedMemory;
 - (void)_lock_addPidToSharedMemory:(void *)memory;
 - (void)_lock_deallocSharedMemory;
-- (void)_lock_removePidFromSharedMemory:(uint64_t)memory;
+- (void)_lock_removePidFromSharedMemory:(unint64_t)memory;
 - (void)addPid:(int)pid;
 - (void)dealloc;
 - (void)removePid:(int)pid;
@@ -24,42 +24,46 @@
 - (uint64_t)_lock_resizeSharedMemoryIfNecessary
 {
   selfCopy = self;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (self)
   {
-    if (!self[3] || (v2 = self[1]) == 0)
+    if (!self[3])
     {
-      selfCopy = 0;
-      goto LABEL_7;
+      return 0;
+    }
+
+    v2 = self[1];
+    if (!v2)
+    {
+      return 0;
     }
 
     v3 = *v2;
     if (v2[1] < *v2)
     {
-      selfCopy = 1;
-      goto LABEL_7;
+      return 1;
     }
 
-    v6 = 2 * v3;
-    v7 = 4 * (2 * v3);
-    v8 = self[2];
+    v5 = 2 * v3;
+    v6 = 4 * (2 * v3);
+    v7 = self[2];
     if (v2[2])
     {
-      v9 = @"pids1";
+      v8 = @"pids1";
     }
 
     else
     {
-      v9 = @"pids2";
+      v8 = @"pids2";
     }
 
-    v10 = [v8 stringByAppendingPathComponent:v9];
+    v9 = [v7 stringByAppendingPathComponent:v8];
     __dst = 0;
-    v20 = 0;
-    shm_unlink([v10 UTF8String]);
-    if (-[RBAssertionOriginatorPidStore _lock_allocSharedMemoryWithName:size:address:fileDescriptor:created:](selfCopy, [v10 UTF8String], v7, &__dst, &v20, &v19))
+    v19 = 0;
+    shm_unlink([v9 UTF8String]);
+    if (-[RBAssertionOriginatorPidStore _lock_allocSharedMemoryWithName:size:address:fileDescriptor:created:](selfCopy, [v9 UTF8String], v6, &__dst, &v19, &v18))
     {
-      v11 = __dst;
+      v10 = __dst;
       if (__dst)
       {
         memcpy(__dst, *(selfCopy + 24), 4 * **(selfCopy + 8));
@@ -67,54 +71,54 @@
         close(*(selfCopy + 36));
         if (*(*(selfCopy + 8) + 8))
         {
-          v12 = "pids2";
+          v11 = "pids2";
         }
 
         else
         {
-          v12 = "pids1";
+          v11 = "pids1";
         }
 
-        shm_unlink(v12);
-        *(selfCopy + 24) = v11;
-        *(selfCopy + 36) = v20;
-        v13 = *(selfCopy + 8);
-        v13[2] = 1 - v13[2];
-        *v13 = v6;
-        v14 = rbs_assertion_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        shm_unlink(v11);
+        *(selfCopy + 24) = v10;
+        *(selfCopy + 36) = v19;
+        v12 = *(selfCopy + 8);
+        v12[2] = 1 - v12[2];
+        *v12 = v5;
+        v13 = rbs_assertion_log();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109120;
-          v23 = v6;
-          _os_log_debug_impl(&dword_262485000, v14, OS_LOG_TYPE_DEBUG, "Resized RBSAssertionManagerStore shared memory to %d", buf, 8u);
+          v22 = v5;
+          _os_log_debug_impl(&dword_262485000, v13, OS_LOG_TYPE_DEBUG, "Resized RBSAssertionManagerStore shared memory to %d", buf, 8u);
         }
 
         selfCopy = 1;
         goto LABEL_19;
       }
 
-      v15 = rbs_assertion_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = rbs_assertion_log();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v18 = *__error();
+        v17 = *__error();
         *buf = 67109120;
-        v23 = v18;
-        v17 = "Unexpected NULL value for address when setting size of shared memory for RBSAssertionManagerStore: %d";
+        v22 = v17;
+        v16 = "Unexpected NULL value for address when setting size of shared memory for RBSAssertionManagerStore: %d";
         goto LABEL_24;
       }
     }
 
     else
     {
-      v15 = rbs_assertion_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = rbs_assertion_log();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v16 = *__error();
+        v15 = *__error();
         *buf = 67109120;
-        v23 = v16;
-        v17 = "Error setting size of shared memory for RBSAssertionManagerStore: %d";
+        v22 = v15;
+        v16 = "Error setting size of shared memory for RBSAssertionManagerStore: %d";
 LABEL_24:
-        _os_log_error_impl(&dword_262485000, v15, OS_LOG_TYPE_ERROR, v17, buf, 8u);
+        _os_log_error_impl(&dword_262485000, v14, OS_LOG_TYPE_ERROR, v16, buf, 8u);
       }
     }
 
@@ -123,8 +127,6 @@ LABEL_24:
 LABEL_19:
   }
 
-LABEL_7:
-  v4 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -366,117 +368,108 @@ LABEL_15:
 
 - (void)_lock_addPidToSharedMemory:(void *)memory
 {
-  v21 = *MEMORY[0x277D85DE8];
   if (memory && memory[3] && memory[1])
   {
     if ([(RBAssertionOriginatorPidStore *)memory _lock_indexOfPidInSharedMemory:a2]== -1)
     {
       if (![(RBAssertionOriginatorPidStore *)memory _lock_resizeSharedMemoryIfNecessary])
       {
-        v5 = rbs_assertion_log();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        v4 = rbs_assertion_log();
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
         {
           OUTLINED_FUNCTION_4_4();
-          _os_log_error_impl(v17, v18, OS_LOG_TYPE_ERROR, v19, v20, 2u);
+          _os_log_error_impl(v14, v15, OS_LOG_TYPE_ERROR, v16, v17, 2u);
         }
 
         goto LABEL_9;
       }
 
-      v11 = memory[1];
-      *(memory[3] + 4 * (*(v11 + 4))++) = a2;
+      v10 = memory[1];
+      *(memory[3] + 4 * (*(v10 + 4))++) = a2;
       OUTLINED_FUNCTION_0_12();
-      qsort(v12, v13, 4uLL, v14);
-      v5 = rbs_assertion_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      qsort(v11, v12, 4uLL, v13);
+      v4 = rbs_assertion_log();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v15 = *memory[1];
-        v16 = *(memory[1] + 4);
         OUTLINED_FUNCTION_1_15();
         OUTLINED_FUNCTION_4_4();
-        v10 = 20;
+        v9 = 20;
         goto LABEL_8;
       }
     }
 
     else
     {
-      v5 = rbs_assertion_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v4 = rbs_assertion_log();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         OUTLINED_FUNCTION_4_4();
-        v10 = 8;
+        v9 = 8;
 LABEL_8:
-        _os_log_impl(v6, v7, OS_LOG_TYPE_INFO, v8, v9, v10);
+        _os_log_impl(v5, v6, OS_LOG_TYPE_INFO, v7, v8, v9);
       }
     }
 
 LABEL_9:
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-- (void)_lock_removePidFromSharedMemory:(uint64_t)memory
+- (void)_lock_removePidFromSharedMemory:(unint64_t)memory
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (memory && *(memory + 24) && *(memory + 8))
   {
-    v5 = [(RBAssertionOriginatorPidStore *)memory _lock_indexOfPidInSharedMemory:a2];
-    if (v5 == -1)
+    v4 = [(RBAssertionOriginatorPidStore *)memory _lock_indexOfPidInSharedMemory:a2];
+    if (v4 == -1)
     {
-      v11 = rbs_assertion_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = rbs_assertion_log();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v14 = 67109120;
-        v15 = a2;
-        _os_log_error_impl(&dword_262485000, v11, OS_LOG_TYPE_ERROR, "Cannot remove unknown pid %d from RBSAssertionManagerStore", &v14, 8u);
+        v11 = 67109120;
+        v12 = a2;
+        _os_log_error_impl(&dword_262485000, v10, OS_LOG_TYPE_ERROR, "Cannot remove unknown pid %d from RBSAssertionManagerStore", &v11, 8u);
       }
     }
 
     else
     {
-      v6 = *(memory + 8);
-      v7 = *(v6 + 4);
-      LODWORD(v8) = v7 - 1;
-      if (v7 <= 1)
+      v5 = *(memory + 8);
+      v6 = *(v5 + 4);
+      LODWORD(v7) = v6 - 1;
+      if (v6 <= 1)
       {
-        v9 = *(memory + 24);
+        v8 = *(memory + 24);
       }
 
       else
       {
-        v9 = *(memory + 24);
-        if (v5 < v8)
+        v8 = *(memory + 24);
+        if (v4 < v7)
         {
-          v10 = v5;
+          v9 = v4;
           do
           {
-            *(v9 + 4 * v10) = *(v9 + 4 * v10 + 4);
-            v8 = (*(v6 + 4) - 1);
-            ++v10;
+            *(v8 + 4 * v9) = *(v8 + 4 * v9 + 4);
+            v7 = (*(v5 + 4) - 1);
+            ++v9;
           }
 
-          while (v10 < v8);
+          while (v9 < v7);
         }
       }
 
-      *(v6 + 4) = v8;
-      *(v9 + 4 * v8) = 0;
-      v11 = rbs_assertion_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      *(v5 + 4) = v7;
+      *(v8 + 4 * v7) = 0;
+      v10 = rbs_assertion_log();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v12 = **(memory + 8);
-        v13 = *(*(memory + 8) + 4);
-        v14 = 67109632;
-        v15 = a2;
+        v11 = 67109632;
+        v12 = a2;
         OUTLINED_FUNCTION_1_15();
-        _os_log_impl(&dword_262485000, v11, OS_LOG_TYPE_INFO, "Removed pid %d from RBSAssertionManagerStore; count %d; size %d", &v14, 0x14u);
+        _os_log_impl(&dword_262485000, v10, OS_LOG_TYPE_INFO, "Removed pid %d from RBSAssertionManagerStore; count %d; size %d", &v11, 0x14u);
       }
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)containsPid:(int)pid
@@ -498,10 +491,10 @@ LABEL_9:
 
 - (BOOL)_lock_allocSharedMemoryWithName:(off_t)name size:(void *)size address:(int *)address fileDescriptor:(_BYTE *)descriptor created:
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (!result)
   {
-    goto LABEL_17;
+    return result;
   }
 
   *size = -1;
@@ -513,10 +506,10 @@ LABEL_9:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v22 = *__error();
-      v30.st_dev = 67109120;
-      *&v30.st_mode = v22;
+      v29.st_dev = 67109120;
+      *&v29.st_mode = v22;
       v23 = "Error opening shared memory for RBSAssertionManagerStore: %d";
-      v24 = &v30;
+      v24 = &v29;
 LABEL_12:
       _os_log_error_impl(&dword_262485000, v21, OS_LOG_TYPE_ERROR, v23, v24, 8u);
     }
@@ -527,10 +520,10 @@ LABEL_13:
   }
 
   v11 = v10;
-  bzero(&v30, 0x90uLL);
-  v12 = fstat(v11, &v30);
+  bzero(&v29, 0x90uLL);
+  v12 = fstat(v11, &v29);
   v16 = *address;
-  if (v12 == -1 || v30.st_size)
+  if (v12 == -1 || v29.st_size)
   {
     *size = OUTLINED_FUNCTION_3_4(v12, v13, v14, v15, v16);
     *descriptor = 0;
@@ -545,7 +538,7 @@ LABEL_13:
     {
       v25 = *__error();
       *buf = 67109120;
-      v29 = v25;
+      v28 = v25;
       v23 = "Error setting size of shared memory for RBSAssertionManagerStore: %d";
       v24 = buf;
       goto LABEL_12;
@@ -564,97 +557,83 @@ LABEL_14:
     *size = 0;
   }
 
-  result = v26 != 0;
-LABEL_17:
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return v26 != 0;
 }
 
 - (uint64_t)_lock_isHeaderValid
 {
-  v11 = *MEMORY[0x277D85DE8];
   if (result)
   {
-    v1 = result;
-    v2 = *(result + 8);
-    if (v2)
+    v1 = *(result + 8);
+    if (!v1)
     {
-      if (*(*(result + 8) + 4) <= *v2)
-      {
-        result = 1;
-        goto LABEL_9;
-      }
-
-      v3 = rbs_assertion_log();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-      {
-        v5 = **(v1 + 8);
-        v6 = *(*(v1 + 8) + 4);
-        OUTLINED_FUNCTION_2_9();
-        OUTLINED_FUNCTION_4_4();
-        _os_log_error_impl(v7, v8, OS_LOG_TYPE_ERROR, v9, v10, 0xEu);
-      }
+      return 0;
     }
 
-    result = 0;
+    if (*(*(result + 8) + 4) > *v1)
+    {
+      v2 = rbs_assertion_log();
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+      {
+        OUTLINED_FUNCTION_2_9();
+        OUTLINED_FUNCTION_4_4();
+        _os_log_error_impl(v3, v4, OS_LOG_TYPE_ERROR, v5, v6, 0xEu);
+      }
+
+      return 0;
+    }
+
+    return 1;
   }
 
-LABEL_9:
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (uint64_t)_lock_isPidDataValid
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (result)
   {
-    v1 = result;
-    v2 = *(result + 24);
-    if (v2 && (v3 = *(result + 8)) != 0)
+    v1 = *(result + 24);
+    if (v1 && (v2 = *(result + 8)) != 0)
     {
-      v4 = *(v3 + 4);
-      if (v4 >= 2)
+      v3 = *(v2 + 4);
+      if (v3 >= 2)
       {
-        v5 = 0;
-        v6 = 4 * (v4 - 1);
-        while (v6 != v5)
+        v4 = 0;
+        v5 = 4 * (v3 - 1);
+        while (v5 != v4)
         {
-          v8 = *(v2 + v5);
-          v7 = *(v2 + v5 + 4);
-          v5 += 4;
-          if (v8 >= v7)
+          v7 = *(v1 + v4);
+          v6 = *(v1 + v4 + 4);
+          v4 += 4;
+          if (v7 >= v6)
           {
-            v9 = rbs_assertion_log();
-            if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+            v8 = rbs_assertion_log();
+            if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
             {
-              v11 = (*(v1 + 24) + v5);
-              v13 = *(v11 - 1);
-              v12 = *v11;
               OUTLINED_FUNCTION_2_9();
-              _os_log_error_impl(&dword_262485000, v9, OS_LOG_TYPE_ERROR, "Shared memory for RBSAssertionManagerStore contains misordered or duplicate pids: %d; %d", v14, 0xEu);
+              _os_log_error_impl(&dword_262485000, v8, OS_LOG_TYPE_ERROR, "Shared memory for RBSAssertionManagerStore contains misordered or duplicate pids: %d; %d", v9, 0xEu);
             }
 
-            goto LABEL_11;
+            return 0;
           }
         }
       }
 
-      result = 1;
+      return 1;
     }
 
     else
     {
-LABEL_11:
-      result = 0;
+      return 0;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-- (uint64_t)_lock_indexOfPidInSharedMemory:(uint64_t)result
+- (unint64_t)_lock_indexOfPidInSharedMemory:(unint64_t)result
 {
   __key = a2;
   if (result)

@@ -21,10 +21,11 @@ uint64_t AutoGsmaSettingsSpecifiers(uint64_t a1)
   return [MEMORY[0x277CBEB18] arrayWithObjects:{v2, v3, 0}];
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t startTcpdumpServer(const char *a1, const char *a2, const char *a3)
@@ -50,14 +51,15 @@ uint64_t startTcpdumpServer(const char *a1, const char *a2, const char *a3)
   }
 }
 
-void stopTcpdumpServer(int a1)
+void stopTcpdumpServer(uint64_t a1)
 {
+  v1 = a1;
   sp = 0;
   if (!bootstrap_look_up(*MEMORY[0x277D85F18], "com.apple.tcpdump.server", &sp))
   {
-    stop_tcpdump(sp, a1);
+    stop_tcpdump(sp, v1);
     mach_port_deallocate(*MEMORY[0x277D85F48], sp);
-    syslog(3, "Stopped tcpdump with pid %d.", a1);
+    syslog(3, "Stopped tcpdump with pid %d.", v1);
   }
 }
 
@@ -87,27 +89,27 @@ void moveTcpdumps()
 
 uint64_t start_tcpdump(mach_port_t a1, const char *a2, const char *a3, const char *a4, _DWORD *a5)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v32 = 0u;
-  memset(v33, 0, 464);
-  *reply_port = 0u;
+  v33 = *MEMORY[0x277D85DE8];
   v31 = 0u;
-  *(&v31 + 1) = *MEMORY[0x277D85EF8];
+  memset(v32, 0, 464);
+  *reply_port = 0u;
+  v30 = 0u;
+  *(&v30 + 1) = *MEMORY[0x277D85EF8];
   if (MEMORY[0x28223BE50])
   {
-    v9 = mig_strncpy_zerofill(&v32 + 8, a2, 1024);
+    v9 = mig_strncpy_zerofill(&v31 + 8, a2, 1024);
   }
 
   else
   {
-    v9 = mig_strncpy(&v32 + 8, a2, 1024);
+    v9 = mig_strncpy(&v31 + 8, a2, 1024);
   }
 
-  LODWORD(v32) = 0;
-  DWORD1(v32) = v9;
+  LODWORD(v31) = 0;
+  DWORD1(v31) = v9;
   v10 = (v9 + 3) & 0xFFFFFFFC;
   v11 = &reply_port[-256] + v10;
-  v12 = v33 + v10;
+  v12 = v32 + v10;
   if (MEMORY[0x28223BE50])
   {
     v13 = mig_strncpy_zerofill(v12, a3, 1024);
@@ -144,7 +146,7 @@ uint64_t start_tcpdump(mach_port_t a1, const char *a2, const char *a3, const cha
   reply_port[2] = a1;
   reply_port[3] = v23;
   reply_port[0] = 5395;
-  *&v31 = 0xA82A00000000;
+  *&v30 = 0xA82A00000000;
   if (MEMORY[0x28223BE58])
   {
     voucher_mach_msg_set(reply_port);
@@ -163,15 +165,15 @@ uint64_t start_tcpdump(mach_port_t a1, const char *a2, const char *a3, const cha
     if (v25)
     {
       mig_dealloc_reply_port(reply_port[3]);
-      goto LABEL_34;
+      return v26;
     }
 
-    if (DWORD1(v31) == 71)
+    if (DWORD1(v30) == 71)
     {
       v26 = 4294966988;
     }
 
-    else if (DWORD1(v31) == 43150)
+    else if (DWORD1(v30) == 43150)
     {
       if ((reply_port[0] & 0x80000000) == 0)
       {
@@ -179,11 +181,11 @@ uint64_t start_tcpdump(mach_port_t a1, const char *a2, const char *a3, const cha
         {
           if (!reply_port[2])
           {
-            v26 = v32;
-            if (!v32)
+            v26 = v31;
+            if (!v31)
             {
-              *a5 = DWORD1(v32);
-              goto LABEL_34;
+              *a5 = DWORD1(v31);
+              return v26;
             }
 
             goto LABEL_33;
@@ -199,7 +201,7 @@ uint64_t start_tcpdump(mach_port_t a1, const char *a2, const char *a3, const cha
 
           else
           {
-            v27 = v32 == 0;
+            v27 = v31 == 0;
           }
 
           if (v27)
@@ -209,7 +211,7 @@ uint64_t start_tcpdump(mach_port_t a1, const char *a2, const char *a3, const cha
 
           else
           {
-            v26 = v32;
+            v26 = v31;
           }
 
           goto LABEL_33;
@@ -226,12 +228,10 @@ uint64_t start_tcpdump(mach_port_t a1, const char *a2, const char *a3, const cha
 
 LABEL_33:
     mach_msg_destroy(reply_port);
-    goto LABEL_34;
+    return v26;
   }
 
   mig_put_reply_port(reply_port[3]);
-LABEL_34:
-  v28 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -313,29 +313,29 @@ LABEL_18:
 
 uint64_t dump_setkey(mach_port_t a1, const char *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  memset(v13, 0, 480);
+  v13 = *MEMORY[0x277D85DE8];
+  memset(v12, 0, 480);
   *reply_port = 0u;
-  v12 = 0u;
-  *(&v12 + 1) = *MEMORY[0x277D85EF8];
+  v11 = 0u;
+  *(&v11 + 1) = *MEMORY[0x277D85EF8];
   if (MEMORY[0x28223BE50])
   {
-    v3 = mig_strncpy_zerofill(v13 + 8, a2, 1024);
+    v3 = mig_strncpy_zerofill(v12 + 8, a2, 1024);
   }
 
   else
   {
-    v3 = mig_strncpy(v13 + 8, a2, 1024);
+    v3 = mig_strncpy(v12 + 8, a2, 1024);
   }
 
-  LODWORD(v13[0]) = 0;
-  DWORD1(v13[0]) = v3;
+  LODWORD(v12[0]) = 0;
+  DWORD1(v12[0]) = v3;
   v4 = (v3 + 3) & 0xFFFFFFFC;
   v5 = mig_get_reply_port();
   reply_port[2] = a1;
   reply_port[3] = v5;
   reply_port[0] = 5395;
-  *&v12 = 0xA82C00000000;
+  *&v11 = 0xA82C00000000;
   if (MEMORY[0x28223BE58])
   {
     voucher_mach_msg_set(reply_port);
@@ -352,24 +352,24 @@ uint64_t dump_setkey(mach_port_t a1, const char *a2)
   if ((v7 - 268435458) <= 0xE && ((1 << (v7 - 2)) & 0x4003) != 0)
   {
     mig_put_reply_port(reply_port[3]);
-    goto LABEL_22;
+    return v8;
   }
 
   if (v7)
   {
     mig_dealloc_reply_port(reply_port[3]);
-    goto LABEL_22;
+    return v8;
   }
 
-  if (DWORD1(v12) == 71)
+  if (DWORD1(v11) == 71)
   {
     v8 = 4294966988;
 LABEL_21:
     mach_msg_destroy(reply_port);
-    goto LABEL_22;
+    return v8;
   }
 
-  if (DWORD1(v12) != 43152)
+  if (DWORD1(v11) != 43152)
   {
     v8 = 4294966995;
     goto LABEL_21;
@@ -391,14 +391,12 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v8 = LODWORD(v13[0]);
-  if (LODWORD(v13[0]))
+  v8 = LODWORD(v12[0]);
+  if (LODWORD(v12[0]))
   {
     goto LABEL_21;
   }
 
-LABEL_22:
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

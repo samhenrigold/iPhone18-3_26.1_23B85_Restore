@@ -27,7 +27,7 @@
 
 - (void)handleGroupsBackupDataMessage:(id)message
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -35,11 +35,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v28 = 138543618;
-    v29 = v8;
-    v30 = 2112;
-    v31 = messageCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling backup group data message: %@", &v28, 0x16u);
+    v27 = 138543618;
+    v28 = v8;
+    v29 = 2112;
+    v30 = messageCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling backup group data message: %@", &v27, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -67,11 +67,11 @@
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           v26 = HMFGetLogIdentifier();
-          v28 = 138543618;
-          v29 = v26;
-          v30 = 2112;
-          v31 = v22;
-          _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to notify delegate of received backup due to unconfigured delegate error: %@", &v28, 0x16u);
+          v27 = 138543618;
+          v28 = v26;
+          v29 = 2112;
+          v30 = v22;
+          _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to notify delegate of received backup due to unconfigured delegate error: %@", &v27, 0x16u);
         }
 
         objc_autoreleasePoolPop(v23);
@@ -90,13 +90,13 @@
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         v21 = HMFGetLogIdentifier();
-        v28 = 138543874;
-        v29 = v21;
-        v30 = 2112;
-        v31 = v10;
-        v32 = 2112;
-        v33 = v13;
-        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Failed to decode group backup data payload: %@ error: %@", &v28, 0x20u);
+        v27 = 138543874;
+        v28 = v21;
+        v29 = 2112;
+        v30 = v10;
+        v31 = 2112;
+        v32 = v13;
+        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Failed to decode group backup data payload: %@ error: %@", &v27, 0x20u);
       }
 
       objc_autoreleasePoolPop(v18);
@@ -113,38 +113,34 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v28 = 138543874;
-      v29 = v17;
-      v30 = 2112;
-      v31 = messageCopy;
-      v32 = 2112;
-      v33 = v11;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to get message payload from group backup data message: %@ error: %@", &v28, 0x20u);
+      v27 = 138543874;
+      v28 = v17;
+      v29 = 2112;
+      v30 = messageCopy;
+      v31 = 2112;
+      v32 = v11;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to get message payload from group backup data message: %@ error: %@", &v27, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
     [messageCopy respondWithError:v11];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForMessagesWithHome:(id)home messageDispatcher:(id)dispatcher
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   dispatcherCopy = dispatcher;
   homeCopy = home;
   v8 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
   v9 = [HMDXPCMessagePolicy policyWithEntitlements:5];
   v10 = [HMDUserMessagePolicy userMessagePolicyWithHome:homeCopy userPrivilege:3 remoteAccessRequired:0];
 
-  v13[0] = v8;
-  v13[1] = v9;
-  v13[2] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
+  v12[0] = v8;
+  v12[1] = v9;
+  v12[2] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
   [dispatcherCopy registerForMessage:@"HMDMediaGroupsBackupDataMessage" receiver:self policies:v11 selector:sel_handleGroupsBackupDataMessage_];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithHome:(id)home messageDispatcher:(id)dispatcher
@@ -186,10 +182,9 @@
 
 void __53__HMDMediaGroupsAggregatorBackupReceiver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_6030;
-  logCategory__hmf_once_v5_6030 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_6030;
+  logCategory__hmf_once_v5_6030 = v0;
 }
 
 @end

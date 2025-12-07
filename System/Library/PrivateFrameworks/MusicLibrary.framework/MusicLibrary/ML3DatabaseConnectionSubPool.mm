@@ -94,7 +94,7 @@ LABEL_8:
   }
 }
 
-uint64_t __50___ML3DatabaseConnectionSubPool_isBusyConnection___block_invoke(void *a1)
+void *__50___ML3DatabaseConnectionSubPool_isBusyConnection___block_invoke(void *a1)
 {
   result = [*(a1[4] + 48) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -124,7 +124,7 @@ void __50___ML3DatabaseConnectionSubPool_handleDiagnostic___block_invoke(uint64_
   }
 }
 
-uint64_t __95___ML3DatabaseConnectionSubPool_closeConnectionsForOwningPoolClosed_andWaitForBusyConnections___block_invoke(uint64_t a1)
+void *__95___ML3DatabaseConnectionSubPool_closeConnectionsForOwningPoolClosed_andWaitForBusyConnections___block_invoke(uint64_t a1)
 {
   v26 = *MEMORY[0x277D85DE8];
   v19 = 0u;
@@ -313,7 +313,7 @@ void __64___ML3DatabaseConnectionSubPool_checkInConnection_returnToPool___block_
   [v2 connectionDidClose:v3];
 }
 
-uint64_t __51___ML3DatabaseConnectionSubPool_hasBusyConnections__block_invoke(uint64_t a1)
+void *__51___ML3DatabaseConnectionSubPool_hasBusyConnections__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 48) count];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;

@@ -24,9 +24,11 @@
 
 uint64_t __37__SBFAnalyticsBackend_sharedInstance__block_invoke()
 {
-  sharedInstance___backend = objc_alloc_init(SBFAnalyticsBackend);
+  v0 = objc_alloc_init(SBFAnalyticsBackend);
+  v1 = sharedInstance___backend;
+  sharedInstance___backend = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (SBFAnalyticsBackend)init

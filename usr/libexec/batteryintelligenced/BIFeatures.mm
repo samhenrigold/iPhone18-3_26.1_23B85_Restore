@@ -747,53 +747,54 @@ LABEL_59:
       sub_100030A68();
     }
 
-    v18 = 0;
+    v20 = 0;
     goto LABEL_97;
   }
 
   v12 = os_transaction_create();
+  v14 = v12;
   selfCopy = self;
   if (paramsCopy)
   {
-    v13 = [paramsCopy objectForKeyedSubscript:@"UseCachedFeatures"];
-    bOOLValue = [v13 BOOLValue];
+    v15 = [paramsCopy objectForKeyedSubscript:@"UseCachedFeatures"];
+    bOOLValue = [v15 BOOLValue];
 
-    v15 = [paramsCopy objectForKeyedSubscript:@"HistogramStartDate"];
+    v17 = [paramsCopy objectForKeyedSubscript:@"HistogramStartDate"];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
     if (isKindOfClass)
     {
-      v17 = [paramsCopy objectForKeyedSubscript:@"HistogramStartDate"];
+      v19 = [paramsCopy objectForKeyedSubscript:@"HistogramStartDate"];
     }
 
     else
     {
-      v17 = 0;
+      v19 = 0;
     }
 
-    v20 = [paramsCopy objectForKeyedSubscript:@"HistogramEndDate"];
-    objc_opt_class();
-    v21 = objc_opt_isKindOfClass();
-
-    if (v21)
-    {
-      v73 = [paramsCopy objectForKeyedSubscript:@"HistogramEndDate"];
-    }
-
-    else
-    {
-      v73 = 0;
-    }
-
-    v22 = [paramsCopy objectForKeyedSubscript:@"DesignCapacity"];
+    v22 = [paramsCopy objectForKeyedSubscript:@"HistogramEndDate"];
     objc_opt_class();
     v23 = objc_opt_isKindOfClass();
 
     if (v23)
     {
-      v24 = [paramsCopy objectForKeyedSubscript:@"DesignCapacity"];
-      unsignedIntValue = [v24 unsignedIntValue];
+      v74 = [paramsCopy objectForKeyedSubscript:@"HistogramEndDate"];
+    }
+
+    else
+    {
+      v74 = 0;
+    }
+
+    v24 = [paramsCopy objectForKeyedSubscript:@"DesignCapacity"];
+    objc_opt_class();
+    v25 = objc_opt_isKindOfClass();
+
+    if (v25)
+    {
+      v26 = [paramsCopy objectForKeyedSubscript:@"DesignCapacity"];
+      unsignedIntValue = [v26 unsignedIntValue];
     }
 
     else
@@ -806,70 +807,70 @@ LABEL_59:
   {
     bOOLValue = 0;
     unsignedIntValue = 0;
-    v73 = 0;
-    v17 = 0;
+    v74 = 0;
+    v19 = 0;
   }
 
   uisocHistogramCache = self->_uisocHistogramCache;
   location = &self->_uisocHistogramCache;
-  v69 = v12;
-  v70 = paramsCopy;
+  v70 = v14;
+  v71 = paramsCopy;
   if (uisocHistogramCache && self->_temperatureHistogramCache)
   {
-    v26 = self->_cRateHistogramCache ? bOOLValue : 0;
-    if (v26 == 1)
+    v28 = self->_cRateHistogramCache ? bOOLValue : 0;
+    if (v28 == 1)
     {
-      v71 = v17;
+      v72 = v19;
       locationa = binnersCopy;
-      v27 = uisocHistogramCache;
-      v28 = self->_temperatureHistogramCache;
-      v29 = self->_cRateHistogramCache;
-      v72 = 0;
+      v29 = uisocHistogramCache;
+      v30 = self->_temperatureHistogramCache;
+      v31 = self->_cRateHistogramCache;
+      v73 = 0;
 LABEL_70:
-      v82 = 0u;
       v83 = 0u;
-      v80 = 0u;
+      v84 = 0u;
       v81 = 0u;
-      v77 = typesCopy;
-      v55 = typesCopy;
-      v56 = [v55 countByEnumeratingWithState:&v80 objects:v89 count:16];
-      if (!v56)
+      v82 = 0u;
+      v78 = typesCopy;
+      v56 = typesCopy;
+      v57 = [v56 countByEnumeratingWithState:&v81 objects:v90 count:16];
+      if (!v57)
       {
         goto LABEL_86;
       }
 
-      v57 = v56;
-      v58 = *v81;
+      v58 = v57;
+      v59 = *v82;
       while (1)
       {
-        for (i = 0; i != v57; i = i + 1)
+        for (i = 0; i != v58; i = i + 1)
         {
-          if (*v81 != v58)
+          if (*v82 != v59)
           {
-            objc_enumerationMutation(v55);
+            objc_enumerationMutation(v56);
           }
 
-          v60 = *(*(&v80 + 1) + 8 * i);
-          integerValue = [v60 integerValue];
+          v61 = *(*(&v81 + 1) + 8 * i);
+          integerValue = [v61 integerValue];
           if (integerValue == 2)
           {
-            v63 = v29;
+            v64 = v31;
             goto LABEL_81;
           }
 
-          v62 = integerValue;
+          v63 = integerValue;
           if (integerValue == 1)
           {
-            v63 = v28;
+            v64 = v30;
             goto LABEL_81;
           }
 
           if (!integerValue)
           {
-            v63 = v27;
+            v64 = v29;
 LABEL_81:
-            copyHistogramWithNormalizedCounts = [(BIHistogram *)v63 copyHistogramWithNormalizedCounts];
-            [v11 setObject:copyHistogramWithNormalizedCounts forKeyedSubscript:v60];
+            copyHistogramWithNormalizedCounts = [(BIHistogram *)v64 copyHistogramWithNormalizedCounts];
+            [v11 setObject:copyHistogramWithNormalizedCounts forKeyedSubscript:v61];
 
             continue;
           }
@@ -878,48 +879,50 @@ LABEL_81:
           if (os_log_type_enabled(logger, OS_LOG_TYPE_ERROR))
           {
             *buf = 134217984;
-            v91 = v62;
+            v92 = v63;
             _os_log_error_impl(&_mh_execute_header, logger, OS_LOG_TYPE_ERROR, "Unknown BIFeatureType %lu", buf, 0xCu);
           }
         }
 
-        v57 = [v55 countByEnumeratingWithState:&v80 objects:v89 count:16];
-        if (!v57)
+        v58 = [v56 countByEnumeratingWithState:&v81 objects:v90 count:16];
+        if (!v58)
         {
 LABEL_86:
 
-          v18 = v11;
+          v20 = v11;
           binnersCopy = locationa;
-          typesCopy = v77;
-          v30 = v73;
+          typesCopy = v78;
+          v32 = v74;
           goto LABEL_96;
         }
       }
     }
   }
 
-  v30 = v73;
-  if (!v73)
+  v32 = v74;
+  if (!v74)
   {
-    v30 = +[NSDate now];
-    if (v17)
+    v12 = +[NSDate now];
+    v32 = v12;
+    if (v19)
     {
       goto LABEL_25;
     }
 
 LABEL_64:
-    v17 = [v30 dateByAddingTimeInterval:-2592000.0];
+    v12 = [v32 dateByAddingTimeInterval:-2592000.0];
+    v19 = v12;
     goto LABEL_25;
   }
 
-  if (!v17)
+  if (!v19)
   {
     goto LABEL_64;
   }
 
 LABEL_25:
-  v71 = v17;
-  if (v17 && v30 && ([v17 laterDate:v30], v31 = objc_claimAutoreleasedReturnValue(), v31, v31 == v17))
+  v72 = v19;
+  if (v19 && v32 && ([v19 laterDate:v32], v33 = objc_claimAutoreleasedReturnValue(), v33, v33 == v19))
   {
     if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_ERROR))
     {
@@ -929,45 +932,45 @@ LABEL_25:
 
   else
   {
-    if (unsignedIntValue || (unsignedIntValue = sub_10001EA68()) != 0)
+    if (unsignedIntValue || (unsignedIntValue = sub_10001EA68(v12, v13)) != 0)
     {
-      v32 = self->_logger;
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      v34 = self->_logger;
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
       {
-        sub_100030914(unsignedIntValue, v32);
+        sub_100030914(unsignedIntValue, v34);
       }
 
-      v68 = unsignedIntValue;
-      v73 = v30;
-      v78 = objc_alloc_init(NSMutableSet);
-      v76 = objc_alloc_init(NSMutableArray);
+      v69 = unsignedIntValue;
+      v74 = v32;
+      v79 = objc_alloc_init(NSMutableSet);
+      v77 = objc_alloc_init(NSMutableArray);
       if ([typesCopy count])
       {
-        v34 = 0;
-        v27 = 0;
-        v28 = 0;
+        v36 = 0;
         v29 = 0;
-        *&v33 = 134217984;
-        v67 = v33;
+        v30 = 0;
+        v31 = 0;
+        *&v35 = 134217984;
+        v68 = v35;
         while (1)
         {
-          v35 = [typesCopy objectAtIndexedSubscript:{v34, v67}];
-          integerValue2 = [v35 integerValue];
+          v37 = [typesCopy objectAtIndexedSubscript:{v36, v68}];
+          integerValue2 = [v37 integerValue];
 
           if (integerValue2 == 2)
           {
             if (binnersCopy)
             {
-              v43 = [binnersCopy objectAtIndexedSubscript:v34];
-              if (v43)
+              v45 = [binnersCopy objectAtIndexedSubscript:v36];
+              if (v45)
               {
-                v44 = [binnersCopy objectAtIndexedSubscript:v34];
-                v45 = objc_retainBlock(v44);
+                v46 = [binnersCopy objectAtIndexedSubscript:v36];
+                v47 = objc_retainBlock(v46);
               }
 
               else
               {
-                v45 = objc_retainBlock(self->_defaultCRateBinner);
+                v47 = objc_retainBlock(self->_defaultCRateBinner);
               }
 
               selfCopy3 = selfCopy;
@@ -975,17 +978,17 @@ LABEL_25:
 
             else
             {
-              v45 = objc_retainBlock(self->_defaultCRateBinner);
+              v47 = objc_retainBlock(self->_defaultCRateBinner);
               selfCopy3 = self;
             }
 
-            v49 = [[BIHistogram alloc] initWithBinLabelGenerator:v45 allLabels:&off_10004CC10];
+            v51 = [[BIHistogram alloc] initWithBinLabelGenerator:v47 allLabels:&off_10004CC10];
 
-            [v78 addObject:@"amperage"];
-            [v76 addObject:&off_10004D420];
-            objc_storeStrong(&selfCopy3->_cRateHistogramCache, v49);
+            [v79 addObject:@"amperage"];
+            [v77 addObject:&off_10004D420];
+            objc_storeStrong(&selfCopy3->_cRateHistogramCache, v51);
 
-            v29 = v49;
+            v31 = v51;
           }
 
           else
@@ -994,12 +997,12 @@ LABEL_25:
             {
               if (integerValue2)
               {
-                v46 = self->_logger;
-                if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+                v48 = self->_logger;
+                if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
                 {
-                  *buf = v67;
-                  v91 = integerValue2;
-                  _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Unknown BIFeatureType %lu", buf, 0xCu);
+                  *buf = v68;
+                  v92 = integerValue2;
+                  _os_log_error_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "Unknown BIFeatureType %lu", buf, 0xCu);
                 }
               }
 
@@ -1007,31 +1010,31 @@ LABEL_25:
               {
                 if (binnersCopy)
                 {
-                  v37 = [binnersCopy objectAtIndexedSubscript:v34];
-                  if (v37)
+                  v39 = [binnersCopy objectAtIndexedSubscript:v36];
+                  if (v39)
                   {
-                    v38 = [binnersCopy objectAtIndexedSubscript:v34];
-                    v39 = objc_retainBlock(v38);
+                    v40 = [binnersCopy objectAtIndexedSubscript:v36];
+                    v41 = objc_retainBlock(v40);
                   }
 
                   else
                   {
-                    v39 = objc_retainBlock(self->_defaultUISocBinner);
+                    v41 = objc_retainBlock(self->_defaultUISocBinner);
                   }
                 }
 
                 else
                 {
-                  v39 = objc_retainBlock(self->_defaultUISocBinner);
+                  v41 = objc_retainBlock(self->_defaultUISocBinner);
                 }
 
-                v50 = [[BIHistogram alloc] initWithBinLabelGenerator:v39 allLabels:&off_10004CBE0];
+                v52 = [[BIHistogram alloc] initWithBinLabelGenerator:v41 allLabels:&off_10004CBE0];
 
-                [v78 addObject:@"uisoc"];
-                [v76 addObject:&off_10004D420];
-                objc_storeStrong(location, v50);
+                [v79 addObject:@"uisoc"];
+                [v77 addObject:&off_10004D420];
+                objc_storeStrong(location, v52);
 
-                v27 = v50;
+                v29 = v52;
                 self = selfCopy;
               }
 
@@ -1040,16 +1043,16 @@ LABEL_25:
 
             if (binnersCopy)
             {
-              v40 = [binnersCopy objectAtIndexedSubscript:v34];
-              if (v40)
+              v42 = [binnersCopy objectAtIndexedSubscript:v36];
+              if (v42)
               {
-                v41 = [binnersCopy objectAtIndexedSubscript:v34];
-                v42 = objc_retainBlock(v41);
+                v43 = [binnersCopy objectAtIndexedSubscript:v36];
+                v44 = objc_retainBlock(v43);
               }
 
               else
               {
-                v42 = objc_retainBlock(self->_defaultTemperatureBinner);
+                v44 = objc_retainBlock(self->_defaultTemperatureBinner);
               }
 
               selfCopy3 = selfCopy;
@@ -1057,59 +1060,58 @@ LABEL_25:
 
             else
             {
-              v42 = objc_retainBlock(self->_defaultTemperatureBinner);
+              v44 = objc_retainBlock(self->_defaultTemperatureBinner);
               selfCopy3 = self;
             }
 
-            v48 = [[BIHistogram alloc] initWithBinLabelGenerator:v42 allLabels:&off_10004CBF8];
+            v50 = [[BIHistogram alloc] initWithBinLabelGenerator:v44 allLabels:&off_10004CBF8];
 
-            [v78 addObject:@"temp"];
-            [v76 addObject:&off_10004D420];
-            objc_storeStrong(&selfCopy3->_temperatureHistogramCache, v48);
+            [v79 addObject:@"temp"];
+            [v77 addObject:&off_10004D420];
+            objc_storeStrong(&selfCopy3->_temperatureHistogramCache, v50);
 
-            v28 = v48;
+            v30 = v50;
           }
 
           self = selfCopy3;
 LABEL_61:
-          if ([typesCopy count] <= ++v34)
+          if ([typesCopy count] <= ++v36)
           {
             goto LABEL_66;
           }
         }
       }
 
+      v31 = 0;
+      v30 = 0;
       v29 = 0;
-      v28 = 0;
-      v27 = 0;
 LABEL_66:
-      v30 = v73;
-      v51 = [[BIDataEnumerator alloc] initWithStartDate:v71 endDate:v73 forBDCStream:@"BDC_SBC" atOrAboveVersion:@"1.3" usingDataFromCSVs:0];
-      v52 = self->_logger;
-      if (v51)
+      v32 = v74;
+      v53 = [[BIDataEnumerator alloc] initWithStartDate:v72 endDate:v74 forBDCStream:@"BDC_SBC" atOrAboveVersion:@"1.3" usingDataFromCSVs:0];
+      if (v53)
       {
-        v53 = v51;
+        v54 = v53;
         if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_DEBUG))
         {
           sub_10003098C();
         }
 
         locationa = binnersCopy;
-        allObjects = [v78 allObjects];
-        v84[0] = _NSConcreteStackBlock;
-        v84[1] = 3221225472;
-        v84[2] = sub_100016648;
-        v84[3] = &unk_100048BF8;
-        v84[4] = self;
-        v27 = v27;
-        v85 = v27;
-        v28 = v28;
-        v86 = v28;
-        v88 = v68;
+        allObjects = [v79 allObjects];
+        v85[0] = _NSConcreteStackBlock;
+        v85[1] = 3221225472;
+        v85[2] = sub_100016648;
+        v85[3] = &unk_100048BF8;
+        v85[4] = self;
         v29 = v29;
-        v87 = v29;
-        v72 = v53;
-        [(BIFeatures *)self resampleUsingEnumerator:v53 forBDCDataColumns:allObjects samplingPeriodSeconds:900 aggregationTypes:v76 callBack:v84];
+        v86 = v29;
+        v30 = v30;
+        v87 = v30;
+        v89 = v69;
+        v31 = v31;
+        v88 = v31;
+        v73 = v54;
+        [(BIFeatures *)self resampleUsingEnumerator:v54 forBDCDataColumns:allObjects samplingPeriodSeconds:900 aggregationTypes:v77 callBack:v85];
 
         goto LABEL_70;
       }
@@ -1128,17 +1130,17 @@ LABEL_66:
     }
   }
 
+  v31 = 0;
+  v30 = 0;
   v29 = 0;
-  v28 = 0;
-  v27 = 0;
 LABEL_95:
-  v18 = 0;
+  v20 = 0;
 LABEL_96:
 
-  paramsCopy = v70;
+  paramsCopy = v71;
 LABEL_97:
 
-  return v18;
+  return v20;
 }
 
 - (id)getDeviceManufactureDate
@@ -1843,16 +1845,16 @@ LABEL_36:
       goto LABEL_16;
     }
 
-    v20 = [paramsCopy objectForKey:@"DesignCapacity"];
-    if (v20)
+    v21 = [paramsCopy objectForKey:@"DesignCapacity"];
+    if (v21)
     {
-      v21 = [paramsCopy objectForKey:@"DesignCapacity"];
-      unsignedIntValue = [v21 unsignedIntValue];
+      v22 = [paramsCopy objectForKey:@"DesignCapacity"];
+      unsignedIntValue = [v22 unsignedIntValue];
     }
 
     else
     {
-      unsignedIntValue = sub_10001EA68();
+      unsignedIntValue = sub_10001EA68(0, v20);
     }
 
     if (!unsignedIntValue)
@@ -1865,9 +1867,9 @@ LABEL_36:
       goto LABEL_16;
     }
 
-    v98 = v11;
-    v23 = [paramsCopy objectForKey:@"ManufactureDate"];
-    if (v23)
+    v99 = v11;
+    v24 = [paramsCopy objectForKey:@"ManufactureDate"];
+    if (v24)
     {
       getDeviceManufactureDate = [paramsCopy objectForKey:@"ManufactureDate"];
       selfCopy3 = self;
@@ -1887,80 +1889,80 @@ LABEL_36:
         sub_100030FB0();
       }
 
-      v29 = [paramsCopy objectForKeyedSubscript:@"HealthHistoryStartDate"];
-      v30 = [paramsCopy objectForKeyedSubscript:@"HealthHistoryEndDate"];
-      v31 = [(BIDataEnumerator *)v19 getBDCDataFromStartDate:v29 toEndDate:v30 forStream:@"BDC_Daily" withMetrics:0 withLimit:1000];
+      v30 = [paramsCopy objectForKeyedSubscript:@"HealthHistoryStartDate"];
+      v31 = [paramsCopy objectForKeyedSubscript:@"HealthHistoryEndDate"];
+      v32 = [(BIDataEnumerator *)v19 getBDCDataFromStartDate:v30 toEndDate:v31 forStream:@"BDC_Daily" withMetrics:0 withLimit:1000];
 
-      if (v31 && [v31 count])
+      if (v32 && [v32 count])
       {
-        v96 = paramsCopy;
-        v97 = getDeviceManufactureDate;
-        v32 = selfCopy[1];
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+        v97 = paramsCopy;
+        v98 = getDeviceManufactureDate;
+        v33 = selfCopy[1];
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
         {
-          sub_100031034(v32, v31);
+          sub_100031034(v33, v32);
         }
 
-        v94 = v19;
-        v95 = dimensionsCopy;
+        v95 = v19;
+        v96 = dimensionsCopy;
         version = [(BIDataEnumerator *)v19 version];
-        v126[0] = @"DesignCapacity";
-        v34 = [NSNumber numberWithUnsignedInt:unsignedIntValue];
-        v126[1] = @"ManufactureDate";
-        v127[0] = v34;
-        v127[1] = getDeviceManufactureDate;
-        v35 = [NSDictionary dictionaryWithObjects:v127 forKeys:v126 count:2];
-        v93 = v31;
-        v36 = [(os_log_t *)selfCopy parseHealthHistoryFromPPSData:v31 withBDCversion:version andParams:v35];
+        v127[0] = @"DesignCapacity";
+        v35 = [NSNumber numberWithUnsignedInt:unsignedIntValue];
+        v127[1] = @"ManufactureDate";
+        v128[0] = v35;
+        v128[1] = getDeviceManufactureDate;
+        v36 = [NSDictionary dictionaryWithObjects:v128 forKeys:v127 count:2];
+        v94 = v32;
+        v37 = [(os_log_t *)selfCopy parseHealthHistoryFromPPSData:v32 withBDCversion:version andParams:v36];
 
         if (os_log_type_enabled(selfCopy[1], OS_LOG_TYPE_DEBUG))
         {
           sub_1000310D0();
         }
 
-        v110 = 0u;
         v111 = 0u;
-        v108 = 0u;
+        v112 = 0u;
         v109 = 0u;
-        v37 = v36;
-        v38 = [v37 countByEnumeratingWithState:&v108 objects:v125 count:16];
-        if (v38)
+        v110 = 0u;
+        v38 = v37;
+        v39 = [v38 countByEnumeratingWithState:&v109 objects:v126 count:16];
+        if (v39)
         {
-          v39 = v38;
-          v40 = *v109;
+          v40 = v39;
+          v41 = *v110;
           while (2)
           {
-            for (i = 0; i != v39; i = i + 1)
+            for (i = 0; i != v40; i = i + 1)
             {
-              if (*v109 != v40)
+              if (*v110 != v41)
               {
-                objc_enumerationMutation(v37);
+                objc_enumerationMutation(v38);
               }
 
-              v42 = [v37 objectForKey:*(*(&v108 + 1) + 8 * i)];
-              v43 = [v42 count];
+              v43 = [v38 objectForKey:*(*(&v109 + 1) + 8 * i)];
+              v44 = [v43 count];
 
-              if (!v43)
+              if (!v44)
               {
-                v76 = selfCopy[1];
-                v74 = v31;
-                if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+                v77 = selfCopy[1];
+                v75 = v32;
+                if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
                 {
-                  sub_100031138(v76, v31);
+                  sub_100031138(v77, v32);
                 }
 
-                v26 = 0;
-                v45 = v37;
-                dimensionsCopy = v95;
-                paramsCopy = v96;
-                v11 = v98;
-                v75 = v94;
+                v27 = 0;
+                v46 = v38;
+                dimensionsCopy = v96;
+                paramsCopy = v97;
+                v11 = v99;
+                v76 = v95;
                 goto LABEL_80;
               }
             }
 
-            v39 = [v37 countByEnumeratingWithState:&v108 objects:v125 count:16];
-            if (v39)
+            v40 = [v38 countByEnumeratingWithState:&v109 objects:v126 count:16];
+            if (v40)
             {
               continue;
             }
@@ -1969,51 +1971,51 @@ LABEL_36:
           }
         }
 
-        v44 = objc_alloc_init(NSMutableDictionary);
-        v123[0] = &off_10004D468;
-        v123[1] = &off_10004D480;
-        v124[0] = @"nccpHistory";
-        v124[1] = @"wraHistory";
-        v123[2] = &off_10004D498;
-        v123[3] = &off_10004D4B0;
-        v124[2] = @"qmaxpHistory";
-        v124[3] = @"cycleCountHistory";
-        v123[4] = &off_10004D4C8;
-        v123[5] = &off_10004D4E0;
-        v124[4] = @"ageHistory";
-        v124[5] = @"timeSinceLastReadingDays";
-        v45 = [NSDictionary dictionaryWithObjects:v124 forKeys:v123 count:6];
-        v104 = 0u;
+        v45 = objc_alloc_init(NSMutableDictionary);
+        v124[0] = &off_10004D468;
+        v124[1] = &off_10004D480;
+        v125[0] = @"nccpHistory";
+        v125[1] = @"wraHistory";
+        v124[2] = &off_10004D498;
+        v124[3] = &off_10004D4B0;
+        v125[2] = @"qmaxpHistory";
+        v125[3] = @"cycleCountHistory";
+        v124[4] = &off_10004D4C8;
+        v124[5] = &off_10004D4E0;
+        v125[4] = @"ageHistory";
+        v125[5] = @"timeSinceLastReadingDays";
+        v46 = [NSDictionary dictionaryWithObjects:v125 forKeys:v124 count:6];
         v105 = 0u;
         v106 = 0u;
         v107 = 0u;
-        v90 = featuresCopy;
-        v46 = featuresCopy;
-        v47 = [v46 countByEnumeratingWithState:&v104 objects:v122 count:16];
-        if (v47)
+        v108 = 0u;
+        v91 = featuresCopy;
+        v47 = featuresCopy;
+        v48 = [v47 countByEnumeratingWithState:&v105 objects:v123 count:16];
+        if (v48)
         {
-          v48 = v47;
-          v49 = *v105;
+          v49 = v48;
+          v50 = *v106;
           do
           {
-            for (j = 0; j != v48; j = j + 1)
+            for (j = 0; j != v49; j = j + 1)
             {
-              if (*v105 != v49)
+              if (*v106 != v50)
               {
-                objc_enumerationMutation(v46);
+                objc_enumerationMutation(v47);
               }
 
-              v51 = *(*(&v104 + 1) + 8 * j);
-              v52 = [v45 objectForKeyedSubscript:v51];
-              v53 = [v37 objectForKeyedSubscript:v52];
-              v54 = [v45 objectForKeyedSubscript:v51];
-              [v44 setObject:v53 forKeyedSubscript:v54];
+              v52 = *(*(&v105 + 1) + 8 * j);
+              v53 = [v46 objectForKeyedSubscript:v52];
+              v54 = [v38 objectForKeyedSubscript:v53];
+              v55 = [v46 objectForKeyedSubscript:v52];
+              [v45 setObject:v54 forKeyedSubscript:v55];
             }
 
-            v48 = [v46 countByEnumeratingWithState:&v104 objects:v122 count:16];
+            v49 = [v47 countByEnumeratingWithState:&v105 objects:v123 count:16];
           }
 
-          while (v48);
+          while (v49);
         }
 
         if (os_log_type_enabled(selfCopy[1], OS_LOG_TYPE_DEBUG))
@@ -2021,155 +2023,155 @@ LABEL_36:
           sub_1000311C0();
         }
 
-        v55 = [v96 objectForKeyedSubscript:@"MaxHealthHistoryLenDays"];
-        unsignedIntValue2 = [v55 unsignedIntValue];
+        v56 = [v97 objectForKeyedSubscript:@"MaxHealthHistoryLenDays"];
+        unsignedIntValue2 = [v56 unsignedIntValue];
 
-        v56 = [v46 objectAtIndex:0];
-        v57 = [v45 objectForKeyedSubscript:v56];
-        v58 = [v44 objectForKey:v57];
-        v91 = [v58 count];
+        v57 = [v47 objectAtIndex:0];
+        v58 = [v46 objectForKeyedSubscript:v57];
+        v59 = [v45 objectForKey:v58];
+        v92 = [v59 count];
 
-        v102 = 0u;
         v103 = 0u;
-        v100 = 0u;
+        v104 = 0u;
         v101 = 0u;
-        v59 = v44;
-        v60 = [v59 countByEnumeratingWithState:&v100 objects:v121 count:16];
-        if (v60)
+        v102 = 0u;
+        v60 = v45;
+        v61 = [v60 countByEnumeratingWithState:&v101 objects:v122 count:16];
+        if (v61)
         {
-          v61 = v60;
-          v62 = *v101;
+          v62 = v61;
+          v63 = *v102;
           do
           {
-            for (k = 0; k != v61; k = k + 1)
+            for (k = 0; k != v62; k = k + 1)
             {
-              if (*v101 != v62)
+              if (*v102 != v63)
               {
-                objc_enumerationMutation(v59);
+                objc_enumerationMutation(v60);
               }
 
-              v64 = *(*(&v100 + 1) + 8 * k);
-              v65 = [v59 objectForKey:v64];
-              v66 = selfCopy[1];
-              if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
+              v65 = *(*(&v101 + 1) + 8 * k);
+              v66 = [v60 objectForKey:v65];
+              v67 = selfCopy[1];
+              if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
               {
-                v67 = v66;
-                v68 = [v65 count];
+                v68 = v67;
+                v69 = [v66 count];
                 *buf = 138413058;
-                v114 = v64;
-                v115 = 2048;
-                v116 = v68;
-                v117 = 2112;
-                v118 = v64;
-                v119 = 2112;
-                v120 = v65;
-                _os_log_debug_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEBUG, "%@ length: %lu \n %@: %@", buf, 0x2Au);
+                v115 = v65;
+                v116 = 2048;
+                v117 = v69;
+                v118 = 2112;
+                v119 = v65;
+                v120 = 2112;
+                v121 = v66;
+                _os_log_debug_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEBUG, "%@ length: %lu \n %@: %@", buf, 0x2Au);
               }
             }
 
-            v61 = [v59 countByEnumeratingWithState:&v100 objects:v121 count:16];
+            v62 = [v60 countByEnumeratingWithState:&v101 objects:v122 count:16];
           }
 
-          while (v61);
+          while (v62);
         }
 
-        v69 = &selRef_stringForKey_;
-        v70 = unsignedIntValue2;
-        if (v91 <= unsignedIntValue2)
+        v70 = &selRef_stringForKey_;
+        v71 = unsignedIntValue2;
+        if (v92 <= unsignedIntValue2)
         {
-          featuresCopy = v90;
-          dimensionsCopy = v95;
+          featuresCopy = v91;
+          dimensionsCopy = v96;
         }
 
         else
         {
-          v71 = selfCopy[1];
-          featuresCopy = v90;
-          dimensionsCopy = v95;
-          if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
+          v72 = selfCopy[1];
+          featuresCopy = v91;
+          dimensionsCopy = v96;
+          if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
           {
-            v87 = v71;
-            v88 = [v96 objectForKeyedSubscript:@"HealthHistoryStartDate"];
-            v70 = unsignedIntValue2;
-            v89 = [v96 objectForKeyedSubscript:@"HealthHistoryEndDate"];
+            v88 = v72;
+            v89 = [v97 objectForKeyedSubscript:@"HealthHistoryStartDate"];
+            v71 = unsignedIntValue2;
+            v90 = [v97 objectForKeyedSubscript:@"HealthHistoryEndDate"];
             *buf = 134218754;
-            v114 = v91;
-            v115 = 2112;
-            v116 = v88;
-            v117 = 2112;
-            v118 = v89;
-            v119 = 2048;
-            v120 = unsignedIntValue2;
-            _os_log_debug_impl(&_mh_execute_header, v87, OS_LOG_TYPE_DEBUG, "Actual daily history length = %lu pulled from start date %@ to end date %@ exceeds model max input length of %lu", buf, 0x2Au);
+            v115 = v92;
+            v116 = 2112;
+            v117 = v89;
+            v118 = 2112;
+            v119 = v90;
+            v120 = 2048;
+            v121 = unsignedIntValue2;
+            _os_log_debug_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEBUG, "Actual daily history length = %lu pulled from start date %@ to end date %@ exceeds model max input length of %lu", buf, 0x2Au);
 
-            v69 = &selRef_stringForKey_;
+            v70 = &selRef_stringForKey_;
           }
 
-          v72 = [v69 + 309 createSubArraysFromArrays:v59 fromStartIndex:&v91[-unsignedIntValue2] withSize:v70];
-          v73 = [v72 copy];
+          v73 = [v70 + 309 createSubArraysFromArrays:v60 fromStartIndex:&v92[-unsignedIntValue2] withSize:v71];
+          v74 = [v73 copy];
 
-          v59 = v73;
-          if (!v73)
+          v60 = v74;
+          if (!v74)
           {
             if (os_log_type_enabled(selfCopy[1], OS_LOG_TYPE_ERROR))
             {
               sub_100030E10();
             }
 
-            v26 = 0;
-            paramsCopy = v96;
-            v11 = v98;
-            v74 = v93;
+            v27 = 0;
+            paramsCopy = v97;
+            v11 = v99;
             v75 = v94;
+            v76 = v95;
 LABEL_80:
 
             goto LABEL_17;
           }
         }
 
-        allValues = [v59 allValues];
-        v78 = [allValues objectAtIndex:0];
-        v79 = v69;
-        v80 = [v78 count];
+        allValues = [v60 allValues];
+        v79 = [allValues objectAtIndex:0];
+        v80 = v70;
+        v81 = [v79 count];
 
-        v112[0] = &off_10004D438;
-        v81 = [NSNumber numberWithUnsignedInteger:v80];
-        v112[1] = v81;
-        v82 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v59 count]);
-        v112[2] = v82;
-        v83 = [NSArray arrayWithObjects:v112 count:3];
+        v113[0] = &off_10004D438;
+        v82 = [NSNumber numberWithUnsignedInteger:v81];
+        v113[1] = v82;
+        v83 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v60 count]);
+        v113[2] = v83;
+        v84 = [NSArray arrayWithObjects:v113 count:3];
 
-        v84 = [dimensionsCopy objectForKey:@"daily_history_input"];
-        v85 = [v79 + 309 create3DMultiArrayFromFeatureArrays:v59 withInputShape:v83 usingFeatureDimensionsDict:v84];
+        v85 = [dimensionsCopy objectForKey:@"daily_history_input"];
+        v86 = [v80 + 309 create3DMultiArrayFromFeatureArrays:v60 withInputShape:v84 usingFeatureDimensionsDict:v85];
 
-        if (v85)
+        if (v86)
         {
-          [v98 setObject:v85 forKeyedSubscript:@"daily_history_input"];
-          v86 = selfCopy[1];
-          v75 = v94;
-          if (os_log_type_enabled(v86, OS_LOG_TYPE_DEBUG))
+          [v99 setObject:v86 forKeyedSubscript:@"daily_history_input"];
+          v87 = selfCopy[1];
+          v76 = v95;
+          if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
           {
-            sub_100031228(v86, v59, v85);
+            sub_100031228(v87, v60, v86);
           }
 
-          v26 = v98;
-          v74 = v93;
+          v27 = v99;
+          v75 = v94;
         }
 
         else
         {
-          v74 = v93;
           v75 = v94;
+          v76 = v95;
           if (os_log_type_enabled(selfCopy[1], OS_LOG_TYPE_ERROR))
           {
             sub_1000312DC();
           }
 
-          v26 = 0;
+          v27 = 0;
         }
 
-        paramsCopy = v96;
-        v11 = v98;
+        paramsCopy = v97;
+        v11 = v99;
         goto LABEL_80;
       }
 
@@ -2187,8 +2189,8 @@ LABEL_80:
       }
     }
 
-    v26 = 0;
-    v11 = v98;
+    v27 = 0;
+    v11 = v99;
     goto LABEL_17;
   }
 
@@ -2198,10 +2200,10 @@ LABEL_80:
   }
 
 LABEL_16:
-  v26 = 0;
+  v27 = 0;
 LABEL_17:
 
-  return v26;
+  return v27;
 }
 
 @end

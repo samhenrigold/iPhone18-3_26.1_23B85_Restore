@@ -9,6 +9,7 @@
 - (void)addDependent:(id)dependent ofParent:(id)parent inDomain:(id)domain toSystem:(BOOL)system user:(BOOL)user;
 - (void)commitChanges;
 - (void)commitChangesCompletion:(id)completion;
+- (void)memberQueueAddDependent:(id)dependent toParent:(id)parent inDomain:(id)domain toSystem:(BOOL)system user:(BOOL)user;
 - (void)memberQueueAddOrphanParent:(id)parent inDomain:(id)domain toSystem:(BOOL)system user:(BOOL)user;
 - (void)memberQueueRemoveDependent:(id)dependent fromParent:(id)parent inDomain:(id)domain fromSystem:(BOOL)system user:(BOOL)user;
 - (void)memberQueueRemoveOrphanParent:(id)parent inDomain:(id)domain fromSystem:(BOOL)system user:(BOOL)user;
@@ -318,6 +319,84 @@
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Attempting to add dependent %{public}@ to parent %{public}@ in domain %{public}@. Ignoring.", buf, 0x20u);
     }
   }
+}
+
+- (void)memberQueueAddDependent:(id)dependent toParent:(id)parent inDomain:(id)domain toSystem:(BOOL)system user:(BOOL)user
+{
+  userCopy = user;
+  systemCopy = system;
+  dependentCopy = dependent;
+  parentCopy = parent;
+  domainCopy = domain;
+  if (systemCopy)
+  {
+    v15 = _MCLogObjects[0];
+    if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEBUG))
+    {
+      v25 = 138543874;
+      v26 = dependentCopy;
+      v27 = 2114;
+      v28 = parentCopy;
+      v29 = 2114;
+      v30 = domainCopy;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "Adding dependent %{public}@ to parent %{public}@ in domain %{public}@ to system", &v25, 0x20u);
+    }
+
+    memberQueueSystemDomainsDict = [(MCDependencyManager *)self memberQueueSystemDomainsDict];
+    v17 = [memberQueueSystemDomainsDict objectForKeyedSubscript:domainCopy];
+
+    if (!v17)
+    {
+      v17 = +[NSMutableDictionary dictionary];
+      memberQueueSystemDomainsDict2 = [(MCDependencyManager *)self memberQueueSystemDomainsDict];
+      [memberQueueSystemDomainsDict2 setObject:v17 forKeyedSubscript:domainCopy];
+    }
+
+    v19 = [v17 objectForKeyedSubscript:parentCopy];
+    if (!v19)
+    {
+      v19 = +[NSMutableArray array];
+      [v17 setObject:v19 forKeyedSubscript:parentCopy];
+    }
+
+    [v19 addObject:dependentCopy];
+  }
+
+  if (userCopy)
+  {
+    v20 = _MCLogObjects[0];
+    if (os_log_type_enabled(_MCLogObjects[0], OS_LOG_TYPE_DEBUG))
+    {
+      v25 = 138543874;
+      v26 = dependentCopy;
+      v27 = 2114;
+      v28 = parentCopy;
+      v29 = 2114;
+      v30 = domainCopy;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "Adding dependent %{public}@ to parent %{public}@ in domain %{public}@ to user", &v25, 0x20u);
+    }
+
+    memberQueueUserDomainsDict = [(MCDependencyManager *)self memberQueueUserDomainsDict];
+    v22 = [memberQueueUserDomainsDict objectForKeyedSubscript:domainCopy];
+
+    if (!v22)
+    {
+      v22 = +[NSMutableDictionary dictionary];
+      memberQueueUserDomainsDict2 = [(MCDependencyManager *)self memberQueueUserDomainsDict];
+      [memberQueueUserDomainsDict2 setObject:v22 forKeyedSubscript:domainCopy];
+    }
+
+    v24 = [v22 objectForKeyedSubscript:parentCopy];
+    if (!v24)
+    {
+      v24 = +[NSMutableArray array];
+      [v22 setObject:v24 forKeyedSubscript:parentCopy];
+    }
+
+    [v24 addObject:dependentCopy];
+  }
+
+  [(MCDependencyManager *)self memberQueueRemoveOrphanParent:parentCopy inDomain:domainCopy fromSystem:systemCopy user:userCopy];
 }
 
 - (void)removeDependent:(id)dependent fromParent:(id)parent inDomain:(id)domain fromSystem:(BOOL)system user:(BOOL)user

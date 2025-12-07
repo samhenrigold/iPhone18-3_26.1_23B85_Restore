@@ -1,12 +1,12 @@
 @interface UIView(PhotoLibraryAdditions)
 - (uint64_t)pl_drawBorderWithColor:()PhotoLibraryAdditions width:;
-- (uint64_t)pl_isOnScreen:()PhotoLibraryAdditions;
-- (uint64_t)pl_setHidden:()PhotoLibraryAdditions delay:animated:;
+- (void)pl_isOnScreen:()PhotoLibraryAdditions;
+- (void)pl_setHidden:()PhotoLibraryAdditions delay:animated:;
 @end
 
 @implementation UIView(PhotoLibraryAdditions)
 
-- (uint64_t)pl_setHidden:()PhotoLibraryAdditions delay:animated:
+- (void)pl_setHidden:()PhotoLibraryAdditions delay:animated:
 {
   if (a3)
   {
@@ -61,7 +61,7 @@
   return [layer setBorderWidth:a2];
 }
 
-- (uint64_t)pl_isOnScreen:()PhotoLibraryAdditions
+- (void)pl_isOnScreen:()PhotoLibraryAdditions
 {
   [self bounds];
   [self convertRect:0 toView:?];

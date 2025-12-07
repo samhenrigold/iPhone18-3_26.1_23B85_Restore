@@ -3,7 +3,7 @@
 
 @implementation FigExternalStorageDeviceManager
 
-uint64_t __FigExternalStorageDeviceManager_BeginMonitoring_block_invoke(uint64_t a1)
+void *__FigExternalStorageDeviceManager_BeginMonitoring_block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   v3[0] = MEMORY[0x1E69E9820];

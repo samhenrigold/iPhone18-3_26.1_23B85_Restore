@@ -30,7 +30,7 @@
   if (v9)
   {
     v9->_anchor = anchor;
-    v11 = [versionCopy copy];
+    v11 = objc_msgSend_copy(versionCopy);
     ontologyVersion = v10->_ontologyVersion;
     v10->_ontologyVersion = v11;
 
@@ -54,11 +54,10 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   anchor = self->_anchor;
-  maximumPropertyType = self->_maximumPropertyType;
-  v7 = HKStringFromUserDomainConceptPropertyType();
-  v8 = [v3 stringWithFormat:@"<%@:%p %lld, %@ (%ld), %@>", v4, self, anchor, v7, self->_maximumPropertyType, self->_ontologyVersion];
+  v6 = HKStringFromUserDomainConceptPropertyType();
+  v7 = [v3 stringWithFormat:@"<%@:%p %lld, %@ (%ld), %@>", v4, self, anchor, v6, self->_maximumPropertyType, self->_ontologyVersion];
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -89,12 +88,12 @@
 
 + (id)fetchFromKeyValueDomain:(id)domain error:(id *)error
 {
-  v32[3] = *MEMORY[0x277D85DE8];
+  v31[3] = *MEMORY[0x277D85DE8];
   domainCopy = domain;
-  v32[0] = @"UserDomainConceptProcessingStateAnchor";
-  v32[1] = @"UserDomainConceptProcessingStateVersionString";
-  v32[2] = @"UserDomainConceptProcessingStateMaxPropertyType";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
+  v31[0] = @"UserDomainConceptProcessingStateAnchor";
+  v31[1] = @"UserDomainConceptProcessingStateVersionString";
+  v31[2] = @"UserDomainConceptProcessingStateMaxPropertyType";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:3];
   v7 = [domainCopy valuesForKeys:v6 error:error];
   v8 = v7;
   if (v7)
@@ -117,10 +116,10 @@
     {
       v15 = domainCopy;
       objc_opt_self();
-      v31 = 0;
-      v16 = [HDUserDomainConceptPersistableProcessingState fetchFromKeyValueDomain:v15 stateOut:&v31 error:error];
+      v30 = 0;
+      v16 = [HDUserDomainConceptPersistableProcessingState fetchFromKeyValueDomain:v15 stateOut:&v30 error:error];
 
-      v17 = v31;
+      v17 = v30;
       v25 = 0;
       if (v16)
       {
@@ -128,12 +127,12 @@
         if (v17)
         {
           anchor = [v17 anchor];
-          v29 = v18;
+          v28 = v18;
           v19 = objc_alloc(MEMORY[0x277CCD768]);
           initEmptyVersion = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v17, "ontologyVersion")}];
           stringValue = [initEmptyVersion stringValue];
           v21 = [v19 initWithString:stringValue];
-          v25 = -[HDUserDomainConceptProcessingState initWithAnchor:ontologyVersion:maximumPropertyType:](v29, "initWithAnchor:ontologyVersion:maximumPropertyType:", anchor, v21, [v17 maximumPropertyType]);
+          v25 = -[HDUserDomainConceptProcessingState initWithAnchor:ontologyVersion:maximumPropertyType:](v28, "initWithAnchor:ontologyVersion:maximumPropertyType:", anchor, v21, [v17 maximumPropertyType]);
         }
 
         else
@@ -158,33 +157,31 @@
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 - (BOOL)persistInKeyValueDomain:(id)domain error:(id *)error
 {
-  v24[3] = *MEMORY[0x277D85DE8];
+  v23[3] = *MEMORY[0x277D85DE8];
   domainCopy = domain;
-  v23[0] = @"UserDomainConceptProcessingStateAnchor";
+  v22[0] = @"UserDomainConceptProcessingStateAnchor";
   v7 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_anchor];
-  v24[0] = v7;
-  v23[1] = @"UserDomainConceptProcessingStateVersionString";
+  v23[0] = v7;
+  v22[1] = @"UserDomainConceptProcessingStateVersionString";
   string = [(HKOntologyVersion *)self->_ontologyVersion string];
-  v24[1] = string;
-  v23[2] = @"UserDomainConceptProcessingStateMaxPropertyType";
+  v23[1] = string;
+  v22[2] = @"UserDomainConceptProcessingStateMaxPropertyType";
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:self->_maximumPropertyType];
-  v24[2] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:3];
+  v23[2] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
 
   v11 = [domainCopy setValuesWithDictionary:v10 error:error];
   if (v11)
   {
     v12 = [MEMORY[0x277CBEB98] setWithObject:@"LastProcessedUserDomainConceptStateKey"];
-    v18 = 0;
-    v13 = [domainCopy removeValuesForKeys:v12 error:&v18];
-    v14 = v18;
+    v17 = 0;
+    v13 = [domainCopy removeValuesForKeys:v12 error:&v17];
+    v14 = v17;
 
     if ((v13 & 1) == 0)
     {
@@ -194,14 +191,13 @@
       {
         *buf = 138543618;
         selfCopy = self;
-        v21 = 2114;
-        v22 = v14;
+        v20 = 2114;
+        v21 = v14;
         _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "%{public}@: Unable to clear legacy state from key-value domain %{public}@", buf, 0x16u);
       }
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

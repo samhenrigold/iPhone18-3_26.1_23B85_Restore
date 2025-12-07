@@ -1,7 +1,9 @@
 @interface APFixedHTTPSessionManager
 - (APFixedHTTPSessionManager)init;
 - (BOOL)cancelTasksForService:(id)service withCompletionHandler:(id)handler;
+- (BOOL)invalidateService:(id)service andCancelTasks:(BOOL)tasks;
 - (id)sessionForService:(id)service;
+- (void)invalidateAllServicesAndCancelTasks:(BOOL)tasks;
 @end
 
 @implementation APFixedHTTPSessionManager
@@ -56,9 +58,27 @@
   return v18;
 }
 
+- (void)invalidateAllServicesAndCancelTasks:(BOOL)tasks
+{
+  v6 = objc_msgSend_lock(self, a2, tasks, v3);
+  objc_msgSend_lock(v6, v7, v8, v9);
+  v13 = objc_msgSend_sessions(self, v10, v11, v12);
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = sub_1BAF04D90;
+  v26[3] = &unk_1E7F1CC48;
+  tasksCopy = tasks;
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v13, v14, v26, v15);
+
+  v19 = objc_msgSend_sessions(self, v16, v17, v18);
+  objc_msgSend_removeAllObjects(v19, v20, v21, v22);
+
+  objc_msgSend_unlock(v6, v23, v24, v25);
+}
+
 - (BOOL)cancelTasksForService:(id)service withCompletionHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   handlerCopy = handler;
   v11 = objc_msgSend_lock(self, v8, v9, v10);
@@ -72,9 +92,9 @@
     v24 = APLogForCategory(0x22uLL);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      v31 = 138543362;
-      v32 = serviceCopy;
-      _os_log_impl(&dword_1BADC1000, v24, OS_LOG_TYPE_INFO, "All pending tasks of %{public}@ are canceled.", &v31, 0xCu);
+      v30 = 138543362;
+      v31 = serviceCopy;
+      _os_log_impl(&dword_1BADC1000, v24, OS_LOG_TYPE_INFO, "All pending tasks of %{public}@ are canceled.", &v30, 0xCu);
     }
   }
 
@@ -83,9 +103,9 @@
     v28 = APLogForCategory(0x22uLL);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v31 = 138543362;
-      v32 = serviceCopy;
-      _os_log_impl(&dword_1BADC1000, v28, OS_LOG_TYPE_ERROR, "Service %{public}@ is not found.", &v31, 0xCu);
+      v30 = 138543362;
+      v31 = serviceCopy;
+      _os_log_impl(&dword_1BADC1000, v28, OS_LOG_TYPE_ERROR, "Service %{public}@ is not found.", &v30, 0xCu);
     }
 
     handlerCopy[2](handlerCopy);
@@ -93,8 +113,54 @@
 
   objc_msgSend_unlock(v11, v25, v26, v27);
 
-  v29 = *MEMORY[0x1E69E9840];
   return v21 != 0;
+}
+
+- (BOOL)invalidateService:(id)service andCancelTasks:(BOOL)tasks
+{
+  tasksCopy = tasks;
+  v39 = *MEMORY[0x1E69E9840];
+  serviceCopy = service;
+  v10 = objc_msgSend_lock(self, v7, v8, v9);
+  objc_msgSend_lock(v10, v11, v12, v13);
+  v17 = objc_msgSend_sessions(self, v14, v15, v16);
+  v20 = objc_msgSend_objectForKey_(v17, v18, serviceCopy, v19);
+
+  if (v20)
+  {
+    objc_msgSend_invalidateSessionAndCancelTasks_(v20, v21, tasksCopy, v22);
+    v26 = objc_msgSend_sessions(self, v23, v24, v25);
+    objc_msgSend_removeObjectForKey_(v26, v27, serviceCopy, v28);
+
+    v29 = APLogForCategory(0x22uLL);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    {
+      v37 = 138543362;
+      v38 = serviceCopy;
+      v30 = "Service %{public}@ is invalidated.";
+      v31 = v29;
+      v32 = OS_LOG_TYPE_INFO;
+LABEL_6:
+      _os_log_impl(&dword_1BADC1000, v31, v32, v30, &v37, 0xCu);
+    }
+  }
+
+  else
+  {
+    v29 = APLogForCategory(0x22uLL);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    {
+      v37 = 138543362;
+      v38 = serviceCopy;
+      v30 = "Service %{public}@ is not found.";
+      v31 = v29;
+      v32 = OS_LOG_TYPE_ERROR;
+      goto LABEL_6;
+    }
+  }
+
+  objc_msgSend_unlock(v10, v33, v34, v35);
+  return v20 != 0;
 }
 
 @end

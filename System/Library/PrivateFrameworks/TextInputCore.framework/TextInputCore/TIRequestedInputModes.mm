@@ -20,9 +20,7 @@
 - (void)removeAllInputModes:(id)modes
 {
   modesCopy = modes;
-  dispatchQueue = self->_dispatchQueue;
-  v7 = modesCopy;
-  v6 = modesCopy;
+  v3 = modesCopy;
   TIDispatchAsync();
 }
 
@@ -30,11 +28,8 @@
 {
   dateCopy = date;
   handlerCopy = handler;
-  dispatchQueue = self->_dispatchQueue;
-  v11 = dateCopy;
-  v12 = handlerCopy;
-  v9 = handlerCopy;
-  v10 = dateCopy;
+  v5 = handlerCopy;
+  v6 = dateCopy;
   TIDispatchAsync();
 }
 
@@ -43,22 +38,16 @@
   modeCopy = mode;
   dateCopy = date;
   handlerCopy = handler;
-  dispatchQueue = self->_dispatchQueue;
-  v15 = modeCopy;
-  v16 = dateCopy;
-  v17 = handlerCopy;
-  v12 = handlerCopy;
-  v13 = dateCopy;
-  v14 = modeCopy;
+  v7 = handlerCopy;
+  v8 = dateCopy;
+  v9 = modeCopy;
   TIDispatchAsync();
 }
 
 - (void)inputModes:(id)modes
 {
   modesCopy = modes;
-  dispatchQueue = self->_dispatchQueue;
-  v7 = modesCopy;
-  v6 = modesCopy;
+  v3 = modesCopy;
   TIDispatchAsync();
 }
 

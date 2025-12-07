@@ -54,7 +54,7 @@
   }
 }
 
-uint64_t __41__SUScriptMediaQuery_addFilterPredicate___block_invoke(uint64_t a1)
+void *__41__SUScriptMediaQuery_addFilterPredicate___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) nativePredicate];
   if (result)
@@ -139,7 +139,7 @@ uint64_t __42__SUScriptMediaQuery_canFilterByProperty___block_invoke(uint64_t a1
   }
 }
 
-uint64_t __44__SUScriptMediaQuery_removeFilterPredicate___block_invoke(uint64_t a1)
+void *__44__SUScriptMediaQuery_removeFilterPredicate___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) nativePredicate];
   if (result)

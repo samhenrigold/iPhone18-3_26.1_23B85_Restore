@@ -87,7 +87,7 @@ void __82__WBSCyclerBookmarksTestSuite_relativeProbabilitiesForOperationsWithTop
 
 - (void)setUp
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXCycler();
+  v2 = WBS_LOG_CHANNEL_PREFIXCycler(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -100,7 +100,7 @@ void __82__WBSCyclerBookmarksTestSuite_relativeProbabilitiesForOperationsWithTop
 
 - (void)tearDown
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXCycler();
+  v2 = WBS_LOG_CHANNEL_PREFIXCycler(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -113,24 +113,24 @@ void __82__WBSCyclerBookmarksTestSuite_relativeProbabilitiesForOperationsWithTop
 
 - (void)runWithTarget:(id)target completionHandler:(id)handler
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   targetCopy = target;
   handlerCopy = handler;
   if (![(WBSCyclerTestSuiteBookmarkAuxiliary *)self->_bookmarkAuxiliary hasPerformedOperation:0])
   {
     if (shouldRunInCloudKitMode)
     {
-      v22 = @"forCloudKitTest";
-      v23[0] = MEMORY[0x1E695E118];
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v24 = @"forCloudKitTest";
+      v25[0] = MEMORY[0x1E695E118];
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     }
 
     else
     {
-      v13 = 0;
+      v15 = 0;
     }
 
-    [(WBSCyclerTestSuiteBookmarkAuxiliary *)self->_bookmarkAuxiliary performOperation:0 withTarget:targetCopy options:v13 completionHandler:handlerCopy];
+    [(WBSCyclerTestSuiteBookmarkAuxiliary *)self->_bookmarkAuxiliary performOperation:0 withTarget:targetCopy options:v15 completionHandler:handlerCopy];
 
     goto LABEL_17;
   }
@@ -147,30 +147,30 @@ void __82__WBSCyclerBookmarksTestSuite_relativeProbabilitiesForOperationsWithTop
       }
 
       bookmarkAuxiliary = self->_bookmarkAuxiliary;
-      v14 = 3;
+      v16 = 3;
     }
 
     else
     {
-      v14 = 1;
+      v16 = 1;
     }
 
-    [(WBSCyclerTestSuiteBookmarkAuxiliary *)bookmarkAuxiliary performOperation:v14 withTarget:targetCopy completionHandler:handlerCopy];
+    [(WBSCyclerTestSuiteBookmarkAuxiliary *)bookmarkAuxiliary performOperation:v16 withTarget:targetCopy completionHandler:handlerCopy];
     goto LABEL_17;
   }
 
 LABEL_5:
-  [(WBSCyclerIterationCounter *)self->_iterationCounter incrementIterationCount];
-  v10 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  incrementIterationCount = [(WBSCyclerIterationCounter *)self->_iterationCounter incrementIterationCount];
+  v12 = WBS_LOG_CHANNEL_PREFIXCycler(incrementIterationCount, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     iterationCounter = self->_iterationCounter;
-    v12 = v10;
+    v14 = v12;
     *buf = 134218240;
     iterationCount = [(WBSCyclerIterationCounter *)iterationCounter iterationCount];
-    v20 = 2048;
-    v21 = +[WBSCyclerRandomnessUtilities seed];
-    _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_DEFAULT, "Beginning iteration %lu with seed %lu", buf, 0x16u);
+    v22 = 2048;
+    v23 = +[WBSCyclerRandomnessUtilities seed];
+    _os_log_impl(&dword_1BB6F3000, v14, OS_LOG_TYPE_DEFAULT, "Beginning iteration %lu with seed %lu", buf, 0x16u);
   }
 
   if (__ROR8__(0x8F5C28F5C28F5C29 * [(WBSCyclerIterationCounter *)self->_iterationCounter iterationCount], 2) <= 0x28F5C28F5C28F5CuLL)
@@ -180,14 +180,14 @@ LABEL_5:
 
   else
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __63__WBSCyclerBookmarksTestSuite_runWithTarget_completionHandler___block_invoke;
-    v15[3] = &unk_1E7FC4FC0;
-    v15[4] = self;
-    v16 = targetCopy;
-    v17 = handlerCopy;
-    [v16 fetchTopLevelBookmarkList:v15];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __63__WBSCyclerBookmarksTestSuite_runWithTarget_completionHandler___block_invoke;
+    v17[3] = &unk_1E7FC4FC0;
+    v17[4] = self;
+    v18 = targetCopy;
+    v19 = handlerCopy;
+    [v18 fetchTopLevelBookmarkList:v17];
   }
 
 LABEL_17:
@@ -198,40 +198,40 @@ void __63__WBSCyclerBookmarksTestSuite_runWithTarget_completionHandler___block_i
   v3 = a2;
   [*(*(a1 + 32) + 8) setTestTarget:*(a1 + 40)];
   [*(*(a1 + 32) + 8) setTopLevelItem:v3];
-  [*(*(a1 + 32) + 8) setTitlePrefix:bookmarkTitlePrefix];
+  v4 = [*(*(a1 + 32) + 8) setTitlePrefix:bookmarkTitlePrefix];
   if (!*(*(a1 + 32) + 24))
   {
 LABEL_10:
-    v5 = [v3 randomProfileDescendant];
-    [*(*(a1 + 32) + 8) setTabGroupsParent:v5];
-    v7 = [*(a1 + 32) operations];
-    v8 = [*(a1 + 32) relativeProbabilitiesForOperationsWithTopLevelItem:v5];
-    v9 = [WBSCyclerRandomnessUtilities randomElementOfArray:v7 relativeProbabilities:v8];
+    v7 = [v3 randomProfileDescendant];
+    [*(*(a1 + 32) + 8) setTabGroupsParent:v7];
+    v10 = [*(a1 + 32) operations];
+    v11 = [*(a1 + 32) relativeProbabilitiesForOperationsWithTopLevelItem:v7];
+    v12 = [WBSCyclerRandomnessUtilities randomElementOfArray:v10 relativeProbabilities:v11];
 
-    v10 = *(a1 + 32);
-    v11 = *(v10 + 8);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __63__WBSCyclerBookmarksTestSuite_runWithTarget_completionHandler___block_invoke_16;
-    v12[3] = &unk_1E7FC4F98;
-    v12[4] = v10;
-    v13 = *(a1 + 48);
-    [v9 executeWithContext:v11 completionHandler:v12];
+    v13 = *(a1 + 32);
+    v14 = *(v13 + 8);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __63__WBSCyclerBookmarksTestSuite_runWithTarget_completionHandler___block_invoke_16;
+    v15[3] = &unk_1E7FC4F98;
+    v15[4] = v13;
+    v16 = *(a1 + 48);
+    [v12 executeWithContext:v14 completionHandler:v15];
 
     goto LABEL_11;
   }
 
-  v4 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v6 = WBS_LOG_CHANNEL_PREFIXCycler(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     __63__WBSCyclerBookmarksTestSuite_runWithTarget_completionHandler___block_invoke_cold_1();
   }
 
-  v5 = [*(*(a1 + 32) + 16) validateBookmarks:v3 expectingBookmarks:*(*(a1 + 32) + 24) context:*(*(a1 + 32) + 8)];
-  v6 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (!v5)
+  v7 = [*(*(a1 + 32) + 16) validateBookmarks:v3 expectingBookmarks:*(*(a1 + 32) + 24) context:*(*(a1 + 32) + 8)];
+  v9 = WBS_LOG_CHANNEL_PREFIXCycler(v7, v8);
+  if (!v7)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       __63__WBSCyclerBookmarksTestSuite_runWithTarget_completionHandler___block_invoke_cold_3();
     }
@@ -239,7 +239,7 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     __63__WBSCyclerBookmarksTestSuite_runWithTarget_completionHandler___block_invoke_cold_2();
   }
@@ -269,112 +269,116 @@ void __63__WBSCyclerBookmarksTestSuite_runWithTarget_completionHandler___block_i
 
 + (BOOL)setValue:(id)value forConfigurationKey:(id)key
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"bookmark-prefix"])
+  v8 = [keyCopy isEqualToString:@"bookmark-prefix"];
+  if (v8)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXCycler();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = WBS_LOG_CHANNEL_PREFIXCycler(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v15 = 138543362;
-      v16 = valueCopy;
-      _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Bookmark prefix set to %{public}@", &v15, 0xCu);
+      v21 = 138543362;
+      v22 = valueCopy;
+      _os_log_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_INFO, "Bookmark prefix set to %{public}@", &v21, 0xCu);
     }
 
     objc_storeStrong(&bookmarkTitlePrefix, value);
-    v9 = 1;
+    v11 = 1;
     goto LABEL_19;
   }
 
   if ([keyCopy isEqualToString:@"enable-cloudkit"])
   {
-    shouldRunInCloudKitMode = [(__CFString *)valueCopy BOOLValue];
-    v10 = WBS_LOG_CHANNEL_PREFIXCycler();
-    v9 = 1;
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    bOOLValue = [(__CFString *)valueCopy BOOLValue];
+    shouldRunInCloudKitMode = bOOLValue;
+    v14 = WBS_LOG_CHANNEL_PREFIXCycler(bOOLValue, v13);
+    v11 = 1;
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       goto LABEL_19;
     }
 
     if (shouldRunInCloudKitMode)
     {
-      v11 = @"enabled";
+      v15 = @"enabled";
     }
 
     else
     {
-      v11 = @"disabled";
+      v15 = @"disabled";
     }
 
-    v15 = 138543362;
-    v16 = v11;
-    v12 = "CloudKit mode %{public}@";
+    v21 = 138543362;
+    v22 = v15;
+    v16 = "CloudKit mode %{public}@";
 LABEL_17:
-    _os_log_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_INFO, v12, &v15, 0xCu);
+    _os_log_impl(&dword_1BB6F3000, v14, OS_LOG_TYPE_INFO, v16, &v21, 0xCu);
     goto LABEL_19;
   }
 
   if (![keyCopy isEqualToString:@"enable-secondary-migration"])
   {
-    v9 = 0;
+    v11 = 0;
     goto LABEL_19;
   }
 
-  shouldSyncDownUsingSecondaryMigration = [(__CFString *)valueCopy BOOLValue];
-  v10 = WBS_LOG_CHANNEL_PREFIXCycler();
-  v9 = 1;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  bOOLValue2 = [(__CFString *)valueCopy BOOLValue];
+  shouldSyncDownUsingSecondaryMigration = bOOLValue2;
+  v14 = WBS_LOG_CHANNEL_PREFIXCycler(bOOLValue2, v18);
+  v11 = 1;
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     if (shouldSyncDownUsingSecondaryMigration)
     {
-      v13 = @"enabled";
+      v19 = @"enabled";
     }
 
     else
     {
-      v13 = @"disabled";
+      v19 = @"disabled";
     }
 
-    v15 = 138543362;
-    v16 = v13;
-    v12 = "CloudKit secondary migration sync down %{public}@";
+    v21 = 138543362;
+    v22 = v19;
+    v16 = "CloudKit secondary migration sync down %{public}@";
     goto LABEL_17;
   }
 
 LABEL_19:
 
-  return v9;
+  return v11;
 }
 
 - (void)_validateServerBookmarksWithTarget:(id)target completionHandler:(id)handler
 {
   targetCopy = target;
   handlerCopy = handler;
-  v8 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = WBS_LOG_CHANNEL_PREFIXCycler(handlerCopy, v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (v10)
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_DEFAULT, "Validating server bookmarks", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_DEFAULT, "Validating server bookmarks", buf, 2u);
   }
 
-  v9 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v12 = WBS_LOG_CHANNEL_PREFIXCycler(v10, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Performing initial sync before syncing down server bookmarks", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Performing initial sync before syncing down server bookmarks", buf, 2u);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __84__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_completionHandler___block_invoke;
-  v12[3] = &unk_1E7FC4FE8;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __84__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_completionHandler___block_invoke;
+  v15[3] = &unk_1E7FC4FE8;
+  v16 = targetCopy;
+  v17 = handlerCopy;
+  v15[4] = self;
   v13 = targetCopy;
   v14 = handlerCopy;
-  v12[4] = self;
-  v10 = targetCopy;
-  v11 = handlerCopy;
-  [v10 syncBookmarksWithCompletionHandler:v12];
+  [v13 syncBookmarksWithCompletionHandler:v15];
 }
 
 void __84__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -382,7 +386,7 @@ void __84__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_comple
   switch(a2)
   {
     case 2:
-      v9 = WBS_LOG_CHANNEL_PREFIXCycler();
+      v9 = WBS_LOG_CHANNEL_PREFIXCycler(a1, 2);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *v10 = 0;
@@ -399,7 +403,7 @@ void __84__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_comple
       [v6 _validateServerBookmarksAfterInitialSyncWithTarget:v7 completionHandler:v8];
       break;
     case 0:
-      v3 = WBS_LOG_CHANNEL_PREFIXCycler();
+      v3 = WBS_LOG_CHANNEL_PREFIXCycler(a1, 0);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         __84__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_completionHandler___block_invoke_cold_1();
@@ -417,94 +421,95 @@ void __84__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_comple
 {
   targetCopy = target;
   handlerCopy = handler;
-  v8 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = WBS_LOG_CHANNEL_PREFIXCycler(handlerCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Saving off initial bookmarks before server bookmark validation", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Saving off initial bookmarks before server bookmark validation", buf, 2u);
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __100__WBSCyclerBookmarksTestSuite__validateServerBookmarksAfterInitialSyncWithTarget_completionHandler___block_invoke;
-  v11[3] = &unk_1E7FC4FC0;
-  v11[4] = self;
-  v12 = targetCopy;
-  v13 = handlerCopy;
-  v9 = handlerCopy;
-  v10 = targetCopy;
-  [v10 fetchTopLevelBookmarkList:v11];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __100__WBSCyclerBookmarksTestSuite__validateServerBookmarksAfterInitialSyncWithTarget_completionHandler___block_invoke;
+  v12[3] = &unk_1E7FC4FC0;
+  v12[4] = self;
+  v13 = targetCopy;
+  v14 = handlerCopy;
+  v10 = handlerCopy;
+  v11 = targetCopy;
+  [v11 fetchTopLevelBookmarkList:v12];
 }
 
 - (void)_validateServerBookmarksWithTarget:(id)target initialBookmarks:(id)bookmarks completionHandler:(id)handler
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   targetCopy = target;
   bookmarksCopy = bookmarks;
   handlerCopy = handler;
-  v11 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = WBS_LOG_CHANNEL_PREFIXCycler(handlerCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, "Clearing local bookmarks for server bookmark validation", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Clearing local bookmarks for server bookmark validation", buf, 2u);
   }
 
   if (shouldRunInCloudKitMode == 1)
   {
     if (shouldSyncDownUsingSecondaryMigration == 1)
     {
-      v26 = @"includeMigrationState";
-      v27[0] = MEMORY[0x1E695E118];
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+      v27 = @"includeMigrationState";
+      v28[0] = MEMORY[0x1E695E118];
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
     [(WBSCyclerTestSuiteBookmarkAuxiliary *)self->_bookmarkAuxiliary resetOperation:4];
     bookmarkAuxiliary = self->_bookmarkAuxiliary;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __101__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_initialBookmarks_completionHandler___block_invoke;
-    v21[3] = &unk_1E7FC5010;
-    v21[4] = self;
-    v22 = targetCopy;
-    v23 = bookmarksCopy;
-    v24 = handlerCopy;
-    v15 = bookmarksCopy;
-    v13 = targetCopy;
-    v14 = handlerCopy;
-    [(WBSCyclerTestSuiteBookmarkAuxiliary *)bookmarkAuxiliary performOperation:4 withTarget:v13 options:v12 completionHandler:v21];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __101__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_initialBookmarks_completionHandler___block_invoke;
+    v22[3] = &unk_1E7FC5010;
+    v22[4] = self;
+    v23 = targetCopy;
+    v24 = bookmarksCopy;
+    v25 = handlerCopy;
+    v16 = bookmarksCopy;
+    v14 = targetCopy;
+    v15 = handlerCopy;
+    [(WBSCyclerTestSuiteBookmarkAuxiliary *)bookmarkAuxiliary performOperation:4 withTarget:v14 options:v13 completionHandler:v22];
   }
 
   else
   {
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __101__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_initialBookmarks_completionHandler___block_invoke_38;
-    v17[3] = &unk_1E7FC5038;
-    v17[4] = self;
-    v18 = targetCopy;
-    v19 = bookmarksCopy;
-    v20 = handlerCopy;
-    v13 = bookmarksCopy;
-    v14 = targetCopy;
-    v12 = handlerCopy;
-    [v14 clearBookmarksWithOptions:0 completionHandler:v17];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __101__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_initialBookmarks_completionHandler___block_invoke_38;
+    v18[3] = &unk_1E7FC5038;
+    v18[4] = self;
+    v19 = targetCopy;
+    v20 = bookmarksCopy;
+    v21 = handlerCopy;
+    v14 = bookmarksCopy;
+    v15 = targetCopy;
+    v13 = handlerCopy;
+    [v15 clearBookmarksWithOptions:0 completionHandler:v18];
 
-    v15 = v20;
+    v16 = v21;
   }
 }
 
 void __101__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_initialBookmarks_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXCycler();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXCycler(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __101__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_initialBookmarks_completionHandler___block_invoke_cold_1();
     }
@@ -518,7 +523,7 @@ void __101__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_initi
   }
 }
 
-void __101__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_initialBookmarks_completionHandler___block_invoke_38(uint64_t a1, char a2)
+void __101__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_initialBookmarks_completionHandler___block_invoke_38(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -532,7 +537,7 @@ void __101__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_initi
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXCycler();
+    v7 = WBS_LOG_CHANNEL_PREFIXCycler(a1, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __101__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_initialBookmarks_completionHandler___block_invoke_38_cold_1();
@@ -549,11 +554,11 @@ void __101__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_initi
   targetCopy = target;
   bookmarksCopy = bookmarks;
   handlerCopy = handler;
-  v11 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = WBS_LOG_CHANNEL_PREFIXCycler(handlerCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, "Cleared local bookmarks for server bookmark validation. Performing sync.", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Cleared local bookmarks for server bookmark validation. Performing sync.", buf, 2u);
   }
 
   if (shouldRunInCloudKitMode == 1 && shouldSyncDownUsingSecondaryMigration == 1)
@@ -563,20 +568,20 @@ void __101__WBSCyclerBookmarksTestSuite__validateServerBookmarksWithTarget_initi
 
   else
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __121__WBSCyclerBookmarksTestSuite__validateServerBookmarksAfterClearingLocallyWithTarget_initialBookmarks_completionHandler___block_invoke;
-    v12[3] = &unk_1E7FC4FE8;
-    v14 = handlerCopy;
-    v12[4] = self;
-    v13 = bookmarksCopy;
-    [targetCopy syncBookmarksWithCompletionHandler:v12];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __121__WBSCyclerBookmarksTestSuite__validateServerBookmarksAfterClearingLocallyWithTarget_initialBookmarks_completionHandler___block_invoke;
+    v13[3] = &unk_1E7FC4FE8;
+    v15 = handlerCopy;
+    v13[4] = self;
+    v14 = bookmarksCopy;
+    [targetCopy syncBookmarksWithCompletionHandler:v13];
   }
 }
 
 void __121__WBSCyclerBookmarksTestSuite__validateServerBookmarksAfterClearingLocallyWithTarget_initialBookmarks_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = WBS_LOG_CHANNEL_PREFIXCycler();
+  v4 = WBS_LOG_CHANNEL_PREFIXCycler(a1, a2);
   v5 = v4;
   if (a2 == 2)
   {
@@ -618,44 +623,44 @@ void __121__WBSCyclerBookmarksTestSuite__validateServerBookmarksAfterClearingLoc
   bookmarksCopy = bookmarks;
   handlerCopy = handler;
   targetCopy = target;
-  v11 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = WBS_LOG_CHANNEL_PREFIXCycler(targetCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, "Cleared local bookmarks for server bookmark validation. Performing secondary migration.", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Cleared local bookmarks for server bookmark validation. Performing secondary migration.", buf, 2u);
   }
 
   [(WBSCyclerTestSuiteBookmarkAuxiliary *)self->_bookmarkAuxiliary resetOperation:3];
   bookmarkAuxiliary = self->_bookmarkAuxiliary;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __133__WBSCyclerBookmarksTestSuite__performCloudKitSecondaryMigrationAfterClearingBookmarksWithTarget_initialBookmarks_completionHandler___block_invoke;
-  v15[3] = &unk_1E7FC5060;
-  v15[4] = self;
-  v16 = bookmarksCopy;
-  v17 = handlerCopy;
-  v13 = handlerCopy;
-  v14 = bookmarksCopy;
-  [(WBSCyclerTestSuiteBookmarkAuxiliary *)bookmarkAuxiliary performOperation:3 withTarget:targetCopy completionHandler:v15];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __133__WBSCyclerBookmarksTestSuite__performCloudKitSecondaryMigrationAfterClearingBookmarksWithTarget_initialBookmarks_completionHandler___block_invoke;
+  v16[3] = &unk_1E7FC5060;
+  v16[4] = self;
+  v17 = bookmarksCopy;
+  v18 = handlerCopy;
+  v14 = handlerCopy;
+  v15 = bookmarksCopy;
+  [(WBSCyclerTestSuiteBookmarkAuxiliary *)bookmarkAuxiliary performOperation:3 withTarget:targetCopy completionHandler:v16];
 }
 
 void __133__WBSCyclerBookmarksTestSuite__performCloudKitSecondaryMigrationAfterClearingBookmarksWithTarget_initialBookmarks_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCycler();
-  v5 = v4;
+  v5 = WBS_LOG_CHANNEL_PREFIXCycler(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __133__WBSCyclerBookmarksTestSuite__performCloudKitSecondaryMigrationAfterClearingBookmarksWithTarget_initialBookmarks_completionHandler___block_invoke_cold_1(v3, v5);
+      __133__WBSCyclerBookmarksTestSuite__performCloudKitSecondaryMigrationAfterClearingBookmarksWithTarget_initialBookmarks_completionHandler___block_invoke_cold_1(v3, v6);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Secondary migration succeeded", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Secondary migration succeeded", v7, 2u);
   }
 
   [*(a1 + 32) _performFinalServerBookmarkValidationAfterClearingAndSyncingWithInitialBookmarks:*(a1 + 40) completionHandler:*(a1 + 48)];
@@ -665,42 +670,42 @@ void __133__WBSCyclerBookmarksTestSuite__performCloudKitSecondaryMigrationAfterC
 {
   handlerCopy = handler;
   bookmarksCopy = bookmarks;
-  v8 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = WBS_LOG_CHANNEL_PREFIXCycler(bookmarksCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_INFO, "Performing final validation of bookmarks after clearing and syncing down from server", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Performing final validation of bookmarks after clearing and syncing down from server", buf, 2u);
   }
 
   p_operationContext = &self->_operationContext;
   operationContext = self->_operationContext;
-  v10 = p_operationContext[1];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __130__WBSCyclerBookmarksTestSuite__performFinalServerBookmarkValidationAfterClearingAndSyncingWithInitialBookmarks_completionHandler___block_invoke;
-  v13[3] = &unk_1E7FB8300;
-  v14 = handlerCopy;
-  v12 = handlerCopy;
-  [(WBSCyclerOperationContext *)v10 fetchAndValidateBookmarksWithExpectedBookmarks:bookmarksCopy context:operationContext completionHandler:v13];
+  v11 = p_operationContext[1];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __130__WBSCyclerBookmarksTestSuite__performFinalServerBookmarkValidationAfterClearingAndSyncingWithInitialBookmarks_completionHandler___block_invoke;
+  v14[3] = &unk_1E7FB8300;
+  v15 = handlerCopy;
+  v13 = handlerCopy;
+  [(WBSCyclerOperationContext *)v11 fetchAndValidateBookmarksWithExpectedBookmarks:bookmarksCopy context:operationContext completionHandler:v14];
 }
 
 void __130__WBSCyclerBookmarksTestSuite__performFinalServerBookmarkValidationAfterClearingAndSyncingWithInitialBookmarks_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = WBS_LOG_CHANNEL_PREFIXCycler();
-  v5 = v4;
+  v5 = WBS_LOG_CHANNEL_PREFIXCycler(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __130__WBSCyclerBookmarksTestSuite__performFinalServerBookmarkValidationAfterClearingAndSyncingWithInitialBookmarks_completionHandler___block_invoke_cold_1(v3, v5);
+      __130__WBSCyclerBookmarksTestSuite__performFinalServerBookmarkValidationAfterClearingAndSyncingWithInitialBookmarks_completionHandler___block_invoke_cold_1(v3, v6);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_DEFAULT, "Validated server-side bookmarks successfully", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_DEFAULT, "Validated server-side bookmarks successfully", v7, 2u);
   }
 
   (*(*(a1 + 32) + 16))();

@@ -79,7 +79,7 @@
 
 - (CGPoint)centerScreenPoint
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   if (v9)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v9);
@@ -87,7 +87,7 @@
 
   if (v8)
   {
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     v3 = gdc::Canvas::centerScreenPoint(v8 + 46);
     v5 = v4;
     if (v9)
@@ -147,13 +147,13 @@
       [canvas6 size];
       v27 = v26;
 
-      vkCamera = [(VKCameraController *)self vkCamera];
+      v28 = objc_msgSend_vkCamera(self);
       v29 = (v24 + v24) / v27;
       v30 = (v19 + v19) / v22;
       v31 = (v14 + v14) / v17;
       v32 = (v9 + v9) / v12;
       v35 = 0;
-      VKCameraCalculateEnclosingRegion(vkCamera, &v35, 0, v32, v31, v30, v29);
+      VKCameraCalculateEnclosingRegion(v28, &v35, 0, v32, v31, v30, v29);
       v33 = v35;
 
       goto LABEL_6;
@@ -195,9 +195,9 @@ LABEL_6:
 
     if (v7 != 0.0)
     {
-      vkCamera = [(VKCameraController *)self vkCamera];
+      v8 = objc_msgSend_vkCamera(self);
       v11 = 0;
-      VKCameraCalculateEnclosingRegion(vkCamera, &v11, 0, 0.0, 0.0, 0.0, 0.0);
+      VKCameraCalculateEnclosingRegion(v8, &v11, 0, 0.0, 0.0, 0.0, 0.0);
       v9 = v11;
 
       goto LABEL_6;
@@ -632,12 +632,12 @@ LABEL_6:
   -[VKCameraController setEdgeInsetsAnimating:](self, "setEdgeInsetsAnimating:", [controllerCopy edgeInsetsAnimating]);
   if (objc_opt_respondsToSelector())
   {
-    vkCamera = [controllerCopy vkCamera];
+    v5 = objc_msgSend_vkCamera(controllerCopy);
 
-    if (vkCamera)
+    if (v5)
     {
-      vkCamera2 = [controllerCopy vkCamera];
-      regionRestriction = [vkCamera2 regionRestriction];
+      v6 = objc_msgSend_vkCamera(controllerCopy);
+      regionRestriction = [v6 regionRestriction];
       [(VKCameraController *)self setRegionRestriction:regionRestriction];
     }
   }
@@ -653,7 +653,7 @@ LABEL_6:
       [v8 stopTrackingAnnotation];
       if (v8)
       {
-        [v8 annotationTrackingBehavior];
+        objc_msgSend_annotationTrackingBehavior(v8);
       }
 
       else

@@ -23,7 +23,7 @@
 
     else
     {
-      v14 = _MSLogingFacility();
+      v14 = _MSLogingFacility(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [HMUser(MediaSetup) _settingForKeyPath:v8 home:v14];
@@ -38,13 +38,12 @@
 
 - (void)_settingForKeyPath:()MediaSetup home:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2112;
-  v6 = 0;
-  _os_log_error_impl(&dword_23986C000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch HomeKit settings objects. settingsContainer: %@, settings: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2112;
+  v5 = 0;
+  _os_log_error_impl(&dword_23986C000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch HomeKit settings objects. settingsContainer: %@, settings: %@", &v2, 0x16u);
 }
 
 @end

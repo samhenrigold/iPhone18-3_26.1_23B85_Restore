@@ -11,6 +11,7 @@
 - (NDNWBackgroundSession)initWithConfiguration:(id)configuration bundleID:(id)d isSpringBoardApp:(BOOL)app downloadDirectory:(id)directory options:(id)options clientProxy:(id)proxy delegate:(id)delegate workQueue:(id)self0 db:(id)self1;
 - (id)_URLSession:(id)session downloadTaskNeedsDownloadDirectory:(id)directory;
 - (id)configurationWithClientConfiguration:(id)configuration;
+- (id)createTaskIfNeeded:(unsigned int)needed;
 - (id)descriptionForRequest:(id)request;
 - (id)getTasksForReconnection;
 - (id)inputStreamWithFileHandle:(id)handle taskIdentifier:(unint64_t)identifier;
@@ -37,6 +38,7 @@
 - (void)URLSession:(id)session task:(id)task willBeginDelayedRequest:(id)request completionHandler:(id)handler;
 - (void)URLSession:(id)session task:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler;
 - (void)_URLSession:(id)session downloadTask:(id)task didReceiveResponse:(id)response;
+- (void)_URLSession:(id)session openFileAtPath:(id)path mode:(int)mode completionHandler:(id)handler;
 - (void)_URLSession:(id)session task:(id)task getAuthHeadersForResponse:(id)response completionHandler:(id)handler;
 - (void)_cancelTaskWithIdentifier:(unint64_t)identifier error:(id)error;
 - (void)_resumeTask:(unint64_t)task;
@@ -63,6 +65,7 @@
 - (void)errorOccurredDuringAuthCallbackDelivery:(id)delivery completionHandler:(id)handler;
 - (void)errorOccurredDuringFinishedCallbackDelivery:(id)delivery;
 - (void)fillInByteCountsForTaskInfo:(id)info withTaskID:(id)d;
+- (void)handleCompletionOfTask:(id)task identifier:(unint64_t)identifier taskInfo:(id)info suppressWake:(BOOL)wake;
 - (void)invalidateWithReply:(id)reply;
 - (void)obliterate;
 - (void)queueUpdatesForTask:(id)task updateType:(unint64_t)type highPriority:(BOOL)priority;
@@ -222,6 +225,96 @@
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0, 0);
   }
+}
+
+- (void)_URLSession:(id)session openFileAtPath:(id)path mode:(int)mode completionHandler:(id)handler
+{
+  v7 = *&mode;
+  sessionCopy = session;
+  pathCopy = path;
+  handlerCopy = handler;
+  v13 = qword_1000EB210;
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    uuid = [(NDNWBackgroundSession *)self uuid];
+    *buf = 138543618;
+    v36 = uuid;
+    v37 = 2112;
+    v38 = pathCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "NDNWSession <%{public}@> Need file descriptor for file at path %@", buf, 0x16u);
+  }
+
+  if (self->_sendsLaunchEvents && [(NDApplication *)self->_clientApplication supportsWakes])
+  {
+    goto LABEL_9;
+  }
+
+  clientProxy = self->_clientProxy;
+  v16 = qword_1000EB210;
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+  if (clientProxy)
+  {
+    if (v17)
+    {
+      uuid2 = [(NDNWBackgroundSession *)self uuid];
+      clientBundleID = self->_clientBundleID;
+      *buf = 138543618;
+      v36 = uuid2;
+      v37 = 2114;
+      v38 = clientBundleID;
+      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "NDNWSession <%{public}@> Client %{public}@ does not support app wakes, but it is still running. Will attempt to get file descriptor for download file.", buf, 0x16u);
+    }
+
+LABEL_9:
+    v30 = _NSConcreteStackBlock;
+    v31 = 3221225472;
+    v32 = sub_100044B88;
+    v33 = &unk_1000D58B8;
+    v34 = handlerCopy;
+    v18 = objc_retainBlock(&v30);
+    v19 = [PendingCallback alloc];
+    v20 = [NSNumber numberWithInt:v7];
+    v21 = [v18 copy];
+    v22 = [NSArray arrayWithObjects:pathCopy, v20, v21, 0, v30, v31, v32, v33];
+    v23 = [(PendingCallback *)v19 initWithCallbackType:6 taskIdentifier:0 args:v22];
+
+    callbackQueue = self->_callbackQueue;
+    if (self->_sendsLaunchEvents)
+    {
+      if ([(NDApplication *)self->_clientApplication supportsWakes])
+      {
+        v25 = 2;
+      }
+
+      else
+      {
+        v25 = 0;
+      }
+    }
+
+    else
+    {
+      v25 = 0;
+    }
+
+    [(NDCallbackQueue *)callbackQueue addPendingCallback:v23 wakeRequirement:v25];
+
+    goto LABEL_18;
+  }
+
+  if (v17)
+  {
+    uuid3 = [(NDNWBackgroundSession *)self uuid];
+    v29 = self->_clientBundleID;
+    *buf = 138543618;
+    v36 = uuid3;
+    v37 = 2114;
+    v38 = v29;
+    _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "NDNWSession <%{public}@> Client %{public}@ does not support app wakes, cannot get file descriptor for download file!", buf, 0x16u);
+  }
+
+  (*(handlerCopy + 2))(handlerCopy, 0xFFFFFFFFLL);
+LABEL_18:
 }
 
 - (id)_URLSession:(id)session downloadTaskNeedsDownloadDirectory:(id)directory
@@ -2125,7 +2218,7 @@ LABEL_13:
         v20 = v24;
         if (v24)
         {
-          [v24 auditToken];
+          objc_msgSend_auditToken(v24);
         }
 
         else
@@ -2226,7 +2319,7 @@ LABEL_20:
         v17 = v19;
         if (v19)
         {
-          [v19 auditToken];
+          objc_msgSend_auditToken(v19);
         }
 
         else
@@ -2577,7 +2670,6 @@ LABEL_6:
   trackerCopy = tracker;
   urlCopy = url;
   [(NSString *)self->_monitoredAppBundleID UTF8String];
-  neTrackerTCCResult = self->_neTrackerTCCResult;
   host = [urlCopy host];
   [host UTF8String];
   v9 = ne_tracker_check_is_hostname_blocked();
@@ -2589,8 +2681,8 @@ LABEL_6:
     {
       uuid = [(NDNWBackgroundSession *)self uuid];
       *buf = 138543618;
-      v16 = uuid;
-      v17 = 2048;
+      v15 = uuid;
+      v16 = 2048;
       taskIdentifier = [trackerCopy taskIdentifier];
       _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "NDNWSession <%{public}@> <%zu> is blocked due to tracker policy", buf, 0x16u);
     }
@@ -3347,6 +3439,16 @@ LABEL_31:
   return 0;
 }
 
+- (void)handleCompletionOfTask:(id)task identifier:(unint64_t)identifier taskInfo:(id)info suppressWake:(BOOL)wake
+{
+  wakeCopy = wake;
+  taskCopy = task;
+  infoCopy = info;
+  [(NDNWBackgroundSession *)self cancelMonitorForTask:identifier];
+  sub_10006E114(3, self->_clientBundleID, self->_identifier, self->_monitoredAppBundleID, self->_secondaryID, taskCopy, infoCopy);
+  [(NDNWBackgroundSession *)self finalizeTaskCompletionWithSuppressedWake:wakeCopy];
+}
+
 - (BOOL)clientIsActive
 {
   clientProxy = self->_clientProxy;
@@ -3913,6 +4015,33 @@ LABEL_32:
   }
 }
 
+- (id)createTaskIfNeeded:(unsigned int)needed
+{
+  v3 = *&needed;
+  identifiersToTasks = self->_identifiersToTasks;
+  v6 = [NSNumber numberWithUnsignedInt:?];
+  v7 = [(NSMutableDictionary *)identifiersToTasks objectForKeyedSubscript:v6];
+
+  if (v7)
+  {
+    v8 = v7;
+  }
+
+  else
+  {
+    identifiersToTaskInfo = self->_identifiersToTaskInfo;
+    v10 = [NSNumber numberWithUnsignedInt:v3];
+    v11 = [(NSMutableDictionary *)identifiersToTaskInfo objectForKeyedSubscript:v10];
+
+    v8 = [(NDNWBackgroundSession *)self taskWithTaskInfo:v11];
+    v12 = self->_identifiersToTasks;
+    v13 = [NSNumber numberWithUnsignedInt:v3];
+    [(NSMutableDictionary *)v12 setObject:v8 forKeyedSubscript:v13];
+  }
+
+  return v8;
+}
+
 - (id)taskWithTaskInfo:(id)info
 {
   infoCopy = info;
@@ -4209,7 +4338,7 @@ LABEL_17:
         _directoryForDownloadedFiles2 = [v7 _directoryForDownloadedFiles];
         if (v5)
         {
-          [v5 auditToken];
+          objc_msgSend_auditToken(v5);
         }
 
         else
@@ -4293,7 +4422,7 @@ LABEL_17:
     v39 = v38;
     if (v38)
     {
-      [v38 auditToken];
+      objc_msgSend_auditToken(v38);
     }
 
     else
@@ -4767,7 +4896,7 @@ LABEL_6:
     v14 = self->_xpcConn;
     if (v14)
     {
-      [(NSXPCConnection *)v14 auditToken];
+      objc_msgSend_auditToken(v14);
     }
 
     else

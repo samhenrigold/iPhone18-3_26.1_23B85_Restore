@@ -13,25 +13,24 @@
 
 - (BOOL)validateOperation
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v6.receiver = self;
-  v6.super_class = FCResourcesFetchOperation;
-  validateOperation = [(FCOperation *)&v6 validateOperation];
+  v14 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = FCResourcesFetchOperation;
+  validateOperation = [(FCOperation *)&v5 validateOperation];
   if (!validateOperation && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"resources fetch operation's superclass failed validation"];
+    v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"resources fetch operation's superclass failed validation"];
     *buf = 136315906;
-    v8 = "[FCResourcesFetchOperation validateOperation]";
-    v9 = 2080;
-    v10 = "FCResourcesFetchOperation.m";
-    v11 = 1024;
-    v12 = 66;
-    v13 = 2114;
-    v14 = v5;
+    v7 = "[FCResourcesFetchOperation validateOperation]";
+    v8 = 2080;
+    v9 = "FCResourcesFetchOperation.m";
+    v10 = 1024;
+    v11 = 66;
+    v12 = 2114;
+    v13 = v4;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return validateOperation;
 }
 
@@ -300,31 +299,31 @@ FCResource *__58__FCResourcesFetchOperation_fetchResourcesWithCompletion___block
 
 - (id)downloadAssetsWithCompletion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   array = [MEMORY[0x1E695DF70] array];
   if (self && self->_downloadAssets)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v6 = self->_resources;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v20;
+      v9 = *v19;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
+          v11 = *(*(&v18 + 1) + 8 * i);
           assetHandle = [v11 assetHandle];
 
           if (assetHandle)
@@ -334,7 +333,7 @@ FCResource *__58__FCResourcesFetchOperation_fetchResourcesWithCompletion___block
           }
         }
 
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v8);
@@ -349,8 +348,6 @@ FCResource *__58__FCResourcesFetchOperation_fetchResourcesWithCompletion___block
   [(FCFetchOperation *)v14 setFetchCompletionBlock:completionCopy];
   interestTokenHandler = [(FCResourcesFetchOperation *)self interestTokenHandler];
   [(FCAssetsFetchOperation *)v14 setInterestTokenHandler:interestTokenHandler];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

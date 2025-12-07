@@ -43,9 +43,9 @@
 
 void __72__ICSPrivateEmailUpdateCacheHook__removePrivateEmailKey_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = LogSubsystem();
+  v4 = LogSubsystem(v3);
   v5 = v4;
   if (v3)
   {
@@ -68,9 +68,9 @@ LABEL_10:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v8;
-      _os_log_impl(&dword_275819000, v5, OS_LOG_TYPE_DEFAULT, "private email remove for key %@ is success", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v8;
+      _os_log_impl(&dword_275819000, v5, OS_LOG_TYPE_DEFAULT, "private email remove for key %@ is success", &v10, 0xCu);
     }
 
     v9 = *(a1 + 40);
@@ -80,8 +80,6 @@ LABEL_10:
       goto LABEL_10;
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldMatchElement:(id)element
@@ -110,14 +108,13 @@ LABEL_10:
 
 void __72__ICSPrivateEmailUpdateCacheHook__removePrivateEmailKey_withCompletion___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_275819000, log, OS_LOG_TYPE_ERROR, "private email remove for key %@ failed with error %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_275819000, log, OS_LOG_TYPE_ERROR, "private email remove for key %@ failed with error %@", &v4, 0x16u);
 }
 
 @end

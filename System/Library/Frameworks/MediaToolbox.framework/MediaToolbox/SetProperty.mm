@@ -3,10 +3,10 @@
 
 @implementation SetProperty
 
-uint64_t __audioRendererAirPlay_SetProperty_block_invoke(uint64_t a1)
+uint64_t __audioRendererAirPlay_SetProperty_block_invoke(void *a1)
 {
-  result = audioRendererAirPlay_setRoutingContextAndRemoteDeviceIDInternal(*(a1 + 40), *(a1 + 48), *(*(a1 + 56) + 32));
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  result = audioRendererAirPlay_setRoutingContextAndRemoteDeviceIDInternal(a1[5], a1[6], *(a1[7] + 32));
+  *(*(a1[4] + 8) + 24) = result;
   return result;
 }
 
@@ -57,6 +57,7 @@ void __videoReceiver_SetProperty_block_invoke(uint64_t a1)
 
 void __videoReceiver_SetProperty_block_invoke_2(uint64_t a1)
 {
+  v7 = *MEMORY[0x1E69E9840];
   CMBaseObjectGetDerivedStorage();
   if (dword_1ED4CBE90 >= 2)
   {
@@ -186,6 +187,7 @@ void __surrogateAIG_SetProperty_block_invoke(uint64_t a1)
 
 void __fpic_SetProperty_block_invoke(uint64_t a1)
 {
+  v23 = *MEMORY[0x1E69E9840];
   if (FigCFEqual())
   {
     if (*(a1 + 48))
@@ -314,7 +316,7 @@ LABEL_35:
 
   if (!FigCFEqual())
   {
-    v10 = FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v20, v21, v22);
 LABEL_13:
     *(*(*(a1 + 32) + 8) + 24) = v10;
     return;
@@ -354,13 +356,12 @@ uint64_t __remoteSampleCursor_SetProperty_block_invoke(int a1, OpaqueCMBlockBuff
   return result;
 }
 
-uint64_t __surrogateAIG_SetProperty_block_invoke_cold_1(uint64_t a1)
+void __surrogateAIG_SetProperty_block_invoke_cold_1(uint64_t a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
-  *(*(*(a1 + 40) + 8) + 24) = result;
-  return result;
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
+  *(*(*(a1 + 40) + 8) + 24) = v2;
 }
 
 @end

@@ -3,7 +3,7 @@
 
 @implementation RWIProtocolCSSSourceRange
 
-uint64_t __72__RWIProtocolCSSSourceRange_IKJSInspector__ik_rangeWithNewLineIndexSet___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__72__RWIProtocolCSSSourceRange_IKJSInspector__ik_rangeWithNewLineIndexSet___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   v6 = *(*(*(a1 + 40) + 8) + 24);
   if (v6 == [*(a1 + 32) startLine])

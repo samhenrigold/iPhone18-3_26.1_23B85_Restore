@@ -200,9 +200,17 @@ LABEL_49:
       v51 = v50;
       if (v50)
       {
-        if (v48 && !MEMORY[0x19EAEE230]([v50 setCountOfAssetsAddedByCameraSmartSharing:{objc_msgSend(v50, "countOfAssetsAddedByCameraSmartSharing") + 1}]))
+        if (v48)
         {
-          v49 = 2;
+          if (MEMORY[0x19EAEE230]([v50 setCountOfAssetsAddedByCameraSmartSharing:{objc_msgSend(v50, "countOfAssetsAddedByCameraSmartSharing") + 1}]))
+          {
+            v49 = v49;
+          }
+
+          else
+          {
+            v49 = 2;
+          }
         }
 
         PLLibraryScopeAssetSetSuggestedByClientType(v49, assetCopy);
@@ -211,7 +219,7 @@ LABEL_49:
       }
 
       self = selfCopy2;
-      goto LABEL_55;
+      goto LABEL_56;
     }
 
     if (sharedLibraryMode == 3)
@@ -220,14 +228,14 @@ LABEL_49:
     }
   }
 
-LABEL_55:
+LABEL_56:
   faceObservations = [(PFCameraMetadata *)self->_cameraMetadata faceObservations];
-  if ([faceObservations count] && (objc_msgSend(objc_opt_class(), "faceObservationIngestDisabled") & 1) == 0)
+  if (objc_msgSend_count(faceObservations) && ([objc_opt_class() faceObservationIngestDisabled] & 1) == 0)
   {
     torsoprints = [(PFCameraMetadata *)self->_cameraMetadata torsoprints];
-    v54 = [torsoprints count];
+    v54 = objc_msgSend_count(torsoprints);
     v55 = assetCopy;
-    if (v54 >= [faceObservations count])
+    if (v54 >= objc_msgSend_count(faceObservations))
     {
       facePrintIngestDisabled = [objc_opt_class() facePrintIngestDisabled];
       selfCopy4 = self;

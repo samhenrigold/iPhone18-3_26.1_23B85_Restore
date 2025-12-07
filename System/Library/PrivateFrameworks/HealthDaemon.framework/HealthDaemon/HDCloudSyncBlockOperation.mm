@@ -40,7 +40,7 @@ void __79__HDCloudSyncBlockOperation_initWithConfiguration_cloudState_synchronou
   v9 = [(HDCloudSyncOperation *)&v13 initWithConfiguration:configuration cloudState:state];
   if (v9)
   {
-    v10 = [blockCopy copy];
+    v10 = objc_msgSend_copy(blockCopy);
     block = v9->_block;
     v9->_block = v10;
   }

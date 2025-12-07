@@ -213,7 +213,7 @@ void __71__MOPeopleDiscoveryManager__fetchProxBetweenStartDate_EndDate_handler__
     v7 = _mo_log_facility_get_os_log(&MOLogFacilityPeopleDiscovery);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __71__MOPeopleDiscoveryManager__fetchProxBetweenStartDate_EndDate_handler___block_invoke_cold_1(a1);
+      __71__MOPeopleDiscoveryManager__fetchProxBetweenStartDate_EndDate_handler___block_invoke_cold_1();
     }
 
     v8 = *(*(a1 + 56) + 16);
@@ -338,7 +338,7 @@ void __80__MOPeopleDiscoveryManager__fetchPeopleDensityBetweenStartDate_EndDate_
     v7 = _mo_log_facility_get_os_log(&MOLogFacilityPeopleDiscovery);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __80__MOPeopleDiscoveryManager__fetchPeopleDensityBetweenStartDate_EndDate_handler___block_invoke_cold_1(a1);
+      __80__MOPeopleDiscoveryManager__fetchPeopleDensityBetweenStartDate_EndDate_handler___block_invoke_cold_1();
     }
 
     v8 = *(*(a1 + 56) + 16);
@@ -842,7 +842,6 @@ void __51__MOPeopleDiscoveryManager__rehydrateProx_handler___block_invoke_2(uint
       __51__MOPeopleDiscoveryManager__rehydrateProx_handler___block_invoke_2_cold_1(a1, v2);
     }
 
-    v6 = *(a1 + 32);
     (*(*(a1 + 72) + 16))();
   }
 
@@ -850,19 +849,19 @@ void __51__MOPeopleDiscoveryManager__rehydrateProx_handler___block_invoke_2(uint
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v7 = [*(a1 + 48) count];
-      v8 = [*(a1 + 40) startDate];
-      v9 = [*(a1 + 40) endDate];
-      v11 = 134218498;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "fetch %lu proximity event, start date, %@, end date, %@", &v11, 0x20u);
+      v6 = [*(a1 + 48) count];
+      v7 = [*(a1 + 40) startDate];
+      v8 = [*(a1 + 40) endDate];
+      v10 = 134218498;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v8;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "fetch %lu proximity event, start date, %@, end date, %@", &v10, 0x20u);
     }
 
-    v10 = [*(a1 + 56) _rehydrateStoredEvents:*(a1 + 64) fromProxEvents:*(a1 + 48)];
+    v9 = [*(a1 + 56) _rehydrateStoredEvents:*(a1 + 64) fromProxEvents:*(a1 + 48)];
     (*(*(a1 + 72) + 16))();
   }
 }
@@ -1085,7 +1084,7 @@ void __66__MOPeopleDiscoveryManager__rehydratePeopleDensityEvents_handler___bloc
     v7 = _mo_log_facility_get_os_log(&MOLogFacilityPeopleDiscovery);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __66__MOPeopleDiscoveryManager__rehydratePeopleDensityEvents_handler___block_invoke_cold_1(a1);
+      __66__MOPeopleDiscoveryManager__rehydratePeopleDensityEvents_handler___block_invoke_cold_1(a1, v6);
     }
 
     v8 = *(*(a1 + 56) + 16);
@@ -1390,7 +1389,7 @@ void __94__MOPeopleDiscoveryManager__fetchProxEventsBetweenStartDate_endDate_wit
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __94__MOPeopleDiscoveryManager__fetchProxEventsBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_2_cold_1(a1, v2);
+      __94__MOPeopleDiscoveryManager__fetchProxEventsBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_2_cold_1();
     }
 
     if ([*v2 code] == 5)
@@ -1719,7 +1718,7 @@ void __103__MOPeopleDiscoveryManager__fetchPeopleDensityEventsBetweenStartDate_e
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __103__MOPeopleDiscoveryManager__fetchPeopleDensityEventsBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_cold_1(a1);
+      __103__MOPeopleDiscoveryManager__fetchPeopleDensityEventsBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_cold_1();
     }
 
     if ([v6 code] == 5)
@@ -1987,52 +1986,28 @@ void __103__MOPeopleDiscoveryManager__fetchPeopleDensityEventsBetweenStartDate_e
   return v45;
 }
 
-void __71__MOPeopleDiscoveryManager__fetchProxBetweenStartDate_EndDate_handler___block_invoke_cold_1(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_5(&_mh_execute_header, v3, v4, "proximity event fetch hit error, start date, %@, end date, %@, error, %@");
-}
-
-void __80__MOPeopleDiscoveryManager__fetchPeopleDensityBetweenStartDate_EndDate_handler___block_invoke_cold_1(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_5(&_mh_execute_header, v3, v4, "people density fetch hit error, start date, %@, end date, %@, error, %@");
-}
-
-void __51__MOPeopleDiscoveryManager__rehydrateProx_handler___block_invoke_2_cold_1(uint64_t a1, uint64_t *a2)
+void __51__MOPeopleDiscoveryManager__rehydrateProx_handler___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
   v4 = [*(a1 + 40) startDate];
-  v11 = [*(a1 + 40) endDate];
-  v12 = *a2;
-  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v5, v6, "proximity event fetch hit error, start date, %@, end date, %@, error, %@", v7, v8, v9, v10, 2u);
+  v5 = [*(a1 + 40) endDate];
+  *v12 = 138412802;
+  *&v12[4] = v4;
+  *&v12[12] = 2112;
+  *&v12[14] = v5;
+  *&v12[22] = 2112;
+  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v6, v7, "proximity event fetch hit error, start date, %@, end date, %@, error, %@", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16], *a2);
 }
 
-void __66__MOPeopleDiscoveryManager__rehydratePeopleDensityEvents_handler___block_invoke_cold_1(uint64_t a1)
+void __66__MOPeopleDiscoveryManager__rehydratePeopleDensityEvents_handler___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = [*(a1 + 32) startDate];
-  v9 = [*(a1 + 32) endDate];
-  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v3, v4, "People density event fetch hit error, start date, %@, end date, %@, error, %@", v5, v6, v7, v8, 2u);
-}
-
-void __94__MOPeopleDiscoveryManager__fetchProxEventsBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_2_cold_1(uint64_t a1, uint64_t *a2)
-{
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  v4 = *a2;
-  OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_5(&_mh_execute_header, v5, v6, "proximity event fetch hit error, start date, %@, end date, %@, error, %@");
-}
-
-void __103__MOPeopleDiscoveryManager__fetchPeopleDensityEventsBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_cold_1(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_5(&_mh_execute_header, v3, v4, "density event fetch hit error, start date, %@, end date, %@, error, %@");
+  v4 = [*(a1 + 32) startDate];
+  v5 = [*(a1 + 32) endDate];
+  *v12 = 138412802;
+  *&v12[4] = v4;
+  *&v12[12] = 2112;
+  *&v12[14] = v5;
+  *&v12[22] = 2112;
+  OUTLINED_FUNCTION_3_0(&_mh_execute_header, v6, v7, "People density event fetch hit error, start date, %@, end date, %@, error, %@", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16], a2);
 }
 
 @end

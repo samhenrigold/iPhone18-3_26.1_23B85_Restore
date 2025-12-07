@@ -285,7 +285,7 @@ void __50__MADMovieBlastDoorAnalyzer_queryVideoProperties___block_invoke(uint64_
 
 - (int)processFrame:(__CVBuffer *)frame timestamp:(id *)timestamp duration:(id *)duration
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   cancelBlock = self->_cancelBlock;
   if (cancelBlock && (cancelBlock[2](cancelBlock, a2) & 1) != 0)
   {
@@ -323,10 +323,10 @@ void __50__MADMovieBlastDoorAnalyzer_queryVideoProperties___block_invoke(uint64_
 
     if ((self->_timeRange.start.timescale & 1) != 0 || (v17 = *&timestamp->var0, *&self->_timeRange.start.flags = timestamp->var3, *(&self->_orientation + 1) = v17, (v10 = [(MADMovieBlastDoorAnalyzer *)self configureAnalyzers]) == 0))
     {
-      v18 = objc_alloc_init(VCPFrameAnalysisStats);
-      v37 = 0;
+      v19 = objc_alloc_init(VCPFrameAnalysisStats);
+      v38 = 0;
       sceneClassifier = self->_sceneClassifier;
-      if (!sceneClassifier || (*&time.duration.value = *&timestamp->var0, time.duration.epoch = timestamp->var3, v36 = *duration, (v10 = [(VCPVideoSceneClassifier *)sceneClassifier analyzeFrame:frame withTimestamp:&time andDuration:&v36 flags:&v37]) == 0))
+      if (!sceneClassifier || (*&time.duration.value = *&timestamp->var0, time.duration.epoch = timestamp->var3, v37 = *duration, (v10 = [(VCPVideoSceneClassifier *)sceneClassifier analyzeFrame:frame withTimestamp:&time andDuration:&v37 flags:&v38]) == 0))
       {
         if (!self->_safetyClassifier)
         {
@@ -334,18 +334,18 @@ void __50__MADMovieBlastDoorAnalyzer_queryVideoProperties___block_invoke(uint64_
         }
 
         sampleBufferOut = 0;
-        v36 = *timestamp;
+        v37 = *timestamp;
         formatDescriptionOut = 0;
         if (CMVideoFormatDescriptionCreateForImageBuffer(0, frame, &formatDescriptionOut))
         {
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             LOWORD(time.duration.value) = 0;
-            v20 = MEMORY[0x1E69E9C10];
-            v21 = "[CVPixelBuffer->CMSampleBuffer] Failed to create format description";
+            v21 = MEMORY[0x1E69E9C10];
+            v22 = "[CVPixelBuffer->CMSampleBuffer] Failed to create format description";
             p_time = &time;
 LABEL_27:
-            _os_log_impl(&dword_1C9B70000, v20, OS_LOG_TYPE_ERROR, v21, p_time, 2u);
+            _os_log_impl(&dword_1C9B70000, v21, OS_LOG_TYPE_ERROR, v22, p_time, 2u);
             goto LABEL_28;
           }
 
@@ -354,15 +354,15 @@ LABEL_27:
 
         *&time.duration.value = *MEMORY[0x1E6960C70];
         time.duration.epoch = *(MEMORY[0x1E6960C70] + 16);
-        time.presentationTimeStamp = v36;
+        time.presentationTimeStamp = v37;
         time.decodeTimeStamp = time.duration;
         if (CMSampleBufferCreateReadyWithImageBuffer(*MEMORY[0x1E695E480], frame, formatDescriptionOut, &time, &sampleBufferOut))
         {
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            v20 = MEMORY[0x1E69E9C10];
-            v21 = "[CVPixelBuffer->CMSampleBuffer] Failed to create CMSampleBuffer";
+            v21 = MEMORY[0x1E69E9C10];
+            v22 = "[CVPixelBuffer->CMSampleBuffer] Failed to create CMSampleBuffer";
             p_time = buf;
             goto LABEL_27;
           }
@@ -382,45 +382,45 @@ LABEL_28:
         safetyClassifier = self->_safetyClassifier;
         *&time.duration.value = *&timestamp->var0;
         time.duration.epoch = timestamp->var3;
-        v36 = *duration;
-        v10 = [(MADVideoSafetyClassifier *)safetyClassifier analyzeFrameWithSampleBuffer:sampleBufferOut timestamp:&time duration:&v36 andFlags:&v37];
+        v37 = *duration;
+        v10 = [(MADVideoSafetyClassifier *)safetyClassifier analyzeFrameWithSampleBuffer:sampleBufferOut timestamp:&time duration:&v37 andFlags:&v38];
         if (!v10)
         {
 LABEL_31:
           CF<__CVBuffer *>::~CF(&sampleBufferOut);
 LABEL_32:
           humanActionAnalyzer = self->_humanActionAnalyzer;
-          if (!humanActionAnalyzer || (*&time.duration.value = *&timestamp->var0, time.duration.epoch = timestamp->var3, v36 = *duration, (v10 = [(VCPVideoHumanActionAnalyzer *)humanActionAnalyzer analyzeFrame:frame timestamp:&time duration:&v36 frameStats:v18 flags:&v37]) == 0))
+          if (!humanActionAnalyzer || (*&time.duration.value = *&timestamp->var0, time.duration.epoch = timestamp->var3, v37 = *duration, humanActionAnalyzer = [(VCPVideoHumanActionAnalyzer *)humanActionAnalyzer analyzeFrame:frame timestamp:&time duration:&v37 frameStats:v19 flags:&v38], (v10 = humanActionAnalyzer) == 0))
           {
             if (!self->_videoAnalysis)
             {
               goto LABEL_39;
             }
 
-            if (SocType() >= 247)
+            if (SocType(humanActionAnalyzer, v18) >= 247)
             {
-              v25 = self->_sceneClassifier;
-              if (v25)
+              v26 = self->_sceneClassifier;
+              if (v26)
               {
                 videoAnalysis = self->_videoAnalysis;
-                frameScenes = [(VCPVideoSceneClassifier *)v25 frameScenes];
+                frameScenes = [(VCPVideoSceneClassifier *)v26 frameScenes];
                 [(VCPFullVideoAnalyzer *)videoAnalysis prepareVideoAnalysisByScenes:frameScenes];
               }
             }
 
-            v28 = [VCPSaliencyRegion salientRegionsFromPixelBuffer:frame];
-            [VCPSaliencyRegion attachSalientRegions:v28 toPixelBuffer:frame];
+            v29 = [VCPSaliencyRegion salientRegionsFromPixelBuffer:frame];
+            [VCPSaliencyRegion attachSalientRegions:v29 toPixelBuffer:frame];
 
-            v29 = self->_videoAnalysis;
+            v30 = self->_videoAnalysis;
             *&time.duration.value = *&timestamp->var0;
             time.duration.epoch = timestamp->var3;
-            v36 = *duration;
-            v10 = [(VCPFullVideoAnalyzer *)v29 analyzeFrame:frame timestamp:&time duration:&v36 frameStats:v18 flags:&v37 cancel:self->_cancelBlock];
+            v37 = *duration;
+            v10 = [(VCPFullVideoAnalyzer *)v30 analyzeFrame:frame timestamp:&time duration:&v37 frameStats:v19 flags:&v38 cancel:self->_cancelBlock];
             if (!v10)
             {
 LABEL_39:
               videoCNNAnalyzer = self->_videoCNNAnalyzer;
-              if (!videoCNNAnalyzer || (v31 = self->_videoAnalysis, v32 = self->_humanActionAnalyzer, *&time.duration.value = *&timestamp->var0, time.duration.epoch = timestamp->var3, (v10 = [(VCPVideoCNNAnalyzer *)videoCNNAnalyzer loadAnalysisResultsFrom:v31 actionAnalyzer:v32 atTime:&time]) == 0) && (v33 = self->_videoCNNAnalyzer, *&time.duration.value = *&timestamp->var0, time.duration.epoch = timestamp->var3, v36 = *duration, (v10 = [(VCPVideoCNNAnalyzer *)v33 analyzeFrame:frame withTimestamp:&time andDuration:&v36 flags:&v37]) == 0))
+              if (!videoCNNAnalyzer || (v32 = self->_videoAnalysis, v33 = self->_humanActionAnalyzer, *&time.duration.value = *&timestamp->var0, time.duration.epoch = timestamp->var3, (v10 = [(VCPVideoCNNAnalyzer *)videoCNNAnalyzer loadAnalysisResultsFrom:v32 actionAnalyzer:v33 atTime:&time]) == 0) && (v34 = self->_videoCNNAnalyzer, *&time.duration.value = *&timestamp->var0, time.duration.epoch = timestamp->var3, v37 = *duration, (v10 = [(VCPVideoCNNAnalyzer *)v34 analyzeFrame:frame withTimestamp:&time andDuration:&v37 flags:&v38]) == 0))
               {
                 v10 = 0;
               }
@@ -646,7 +646,7 @@ void __42__MADMovieBlastDoorAnalyzer_processVideo___block_invoke(uint64_t a1, vo
     }
 
     memset(&v23, 0, sizeof(v23));
-    [v13 timestamp];
+    objc_msgSend_timestamp(v13);
     CMTimeMakeWithSeconds(&v23, v16, *(*(a1 + 40) + 84));
     v17 = *(*(*(a1 + 56) + 8) + 48);
     if (v17)

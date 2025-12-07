@@ -1,6 +1,7 @@
 @interface CalPreferences
 + (id)log;
 - (BOOL)getBooleanPreference:(id)preference defaultValue:(BOOL)value;
+- (CalPreferences)initWithDomain:(id)domain readOnly:(BOOL)only;
 - (CalPreferences)initWithDomain:(id)domain store:(id)store readOnly:(BOOL)only;
 - (id)getValueForPreference:(id)preference expectedClass:(Class)class;
 - (int64_t)getIntegerPreference:(id)preference defaultValue:(int64_t)value;
@@ -34,6 +35,16 @@ uint64_t __21__CalPreferences_log__block_invoke()
   log_log = os_log_create("com.apple.calendar", "Preferences");
 
   return MEMORY[0x1EEE66BB8]();
+}
+
+- (CalPreferences)initWithDomain:(id)domain readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  domainCopy = domain;
+  v7 = +[CalCFPreferencesStore shared];
+  v8 = [(CalPreferences *)self initWithDomain:domainCopy store:v7 readOnly:onlyCopy];
+
+  return v8;
 }
 
 - (CalPreferences)initWithDomain:(id)domain store:(id)store readOnly:(BOOL)only
@@ -205,7 +216,7 @@ uint64_t __21__CalPreferences_log__block_invoke()
 
 - (id)getValueForPreference:(id)preference expectedClass:(Class)class
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   preferenceCopy = preference;
   v7 = preferenceCopy;
   if (!preferenceCopy || ![preferenceCopy length])
@@ -219,31 +230,29 @@ uint64_t __21__CalPreferences_log__block_invoke()
     goto LABEL_11;
   }
 
-  v15 = 0;
-  [(CalPreferencesStore *)self->_store getValue:&v15 forDomain:self->_domain key:v7];
-  v8 = v15;
+  v14 = 0;
+  [(CalPreferencesStore *)self->_store getValue:&v14 forDomain:self->_domain key:v7];
+  v8 = v14;
   v9 = v8;
   if (class && v8 && (objc_opt_isKindOfClass() & 1) == 0)
   {
     v10 = +[CalPreferences log];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = objc_opt_class();
+      v12 = objc_opt_class();
       *buf = 138543874;
-      v17 = v7;
-      v18 = 2114;
+      v16 = v7;
+      v17 = 2114;
       classCopy = class;
-      v20 = 2114;
-      v21 = v13;
-      v14 = v13;
+      v19 = 2114;
+      v20 = v12;
+      v13 = v12;
       _os_log_error_impl(&dword_1B990D000, v10, OS_LOG_TYPE_ERROR, "Unexpected type for preference [%{public}@] encountered.  Expected type: [%{public}@].  Actual type: [%{public}@]", buf, 0x20u);
     }
 
 LABEL_11:
     v9 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

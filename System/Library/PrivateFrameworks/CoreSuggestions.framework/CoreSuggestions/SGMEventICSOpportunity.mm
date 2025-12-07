@@ -7,7 +7,7 @@
 
 - (void)trackEventWithScalar:(unint64_t)scalar source:(SGMEventICSSourceType_)source recipient:(SGMEventICSSourceType_)recipient accountSetup:(SGMTypeSafeBool_)setup
 {
-  v23[3] = *MEMORY[0x1E69E9840];
+  v22[3] = *MEMORY[0x1E69E9840];
   if (source.var0 >= 5)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -62,37 +62,34 @@ LABEL_6:
 
 LABEL_11:
   tracker = self->_tracker;
-  v23[0] = v11;
-  v23[1] = v14;
-  v23[2] = v15;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:3];
+  v22[0] = v11;
+  v22[1] = v14;
+  v22[2] = v15;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:3];
   [(PETScalarEventTracker *)tracker trackEventWithPropertyValues:v21 value:scalar];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (SGMEventICSOpportunity)init
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = SGMEventICSOpportunity;
-  v2 = [(SGMEventICSOpportunity *)&v12 init];
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = SGMEventICSOpportunity;
+  v2 = [(SGMEventICSOpportunity *)&v11 init];
   if (v2)
   {
     v3 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Source"];
     v4 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Recipient"];
     v5 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"AccountSetup"];
     v6 = objc_alloc(MEMORY[0x1E69C5B58]);
-    v13[0] = v3;
-    v13[1] = v4;
-    v13[2] = v5;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
+    v12[0] = v3;
+    v12[1] = v4;
+    v12[2] = v5;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
     v8 = [v6 initWithFeatureId:@"Found" event:@"ICSOpportunity" registerProperties:v7 propertySubsets:MEMORY[0x1E695E0F0]];
     tracker = v2->_tracker;
     v2->_tracker = v8;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

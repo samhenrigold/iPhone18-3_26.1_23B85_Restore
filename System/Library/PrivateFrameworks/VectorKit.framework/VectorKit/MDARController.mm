@@ -247,7 +247,7 @@ LABEL_15:
     sessionConfiguration = v3->_sessionConfiguration;
     v3->_sessionConfiguration = 0;
 
-    if ([getARPositionalTrackingConfigurationClass() isSupported])
+    if ([(objc_class *)getARPositionalTrackingConfigurationClass() isSupported])
     {
       getARPositionalTrackingConfigurationClass();
       v7 = objc_opt_new();

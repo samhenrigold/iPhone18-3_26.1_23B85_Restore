@@ -1,818 +1,3 @@
-void *ExpandChildren(apr_array_header_t *a1, uint64_t a2, uint64_t a3)
-{
-  *apr_array_push(a1) = a2;
-  result = find_entry(a3, (a2 + 8), 8uLL, 0);
-  if (*result)
-  {
-    v7 = *(*result + 32);
-    if (v7)
-    {
-      if (*(v7 + 12) >= 1)
-      {
-        v8 = 0;
-        do
-        {
-          result = ExpandChildren(a1, *(*(v7 + 24) + 8 * v8++), a3);
-        }
-
-        while (v8 < *(v7 + 12));
-      }
-    }
-  }
-
-  return result;
-}
-
-void CreateResourceFromStream(id *a1, uint64_t a2, unint64_t a3)
-{
-  v5 = a1;
-  v6 = *(*a1 + 2);
-  v32 = a1[1];
-  v7 = *(a2 + 32);
-  ConstructorType = GTFenum_getConstructorType(*(v7 + 72));
-  v8 = 0;
-  while (1)
-  {
-    v9 = atomic_load((v7 + 4));
-    v10 = v8 + (v9 >> 6) - 1;
-    if (v10 > 0)
-    {
-      break;
-    }
-
-    v7 = *(v7 + 40);
-    v8 = v10;
-    if (!v7)
-    {
-      v8 = v10;
-      goto LABEL_6;
-    }
-  }
-
-  v10 = 0;
-LABEL_6:
-  v11 = v8 | (v10 << 32);
-  v12 = v32;
-  while (v7)
-  {
-    v13 = v7 + 64;
-    v14 = v7 + 64 + ((HIDWORD(v11) - v11) << 6);
-    if ((*(v14 + 15) & 8) == 0 || *v14 >= a3)
-    {
-      break;
-    }
-
-    if (*(v14 + 8) != -16120 || (GT_SUPPORT_0 & 0x80000) == 0)
-    {
-      v15 = objc_autoreleasePoolPush();
-      v16 = *(v14 + 8);
-      if (v16 <= -14803)
-      {
-        if (v16 == -16313)
-        {
-          goto LABEL_23;
-        }
-
-        if (v16 != -16236)
-        {
-          v18 = -14969;
-LABEL_20:
-          if (v16 != v18 || ConstructorType != 80)
-          {
-            GTMTLReplayController_defaultDispatchFunction(v5, v13 + ((HIDWORD(v11) - v11) << 6));
-          }
-        }
-      }
-
-      else
-      {
-        v17 = (v16 + 10238);
-        if (v17 > 0x30)
-        {
-          goto LABEL_16;
-        }
-
-        if (((1 << (v16 - 2)) & 0x1100000000005) == 0)
-        {
-          if (v17 != 1)
-          {
-LABEL_16:
-            v18 = -14802;
-            goto LABEL_20;
-          }
-
-LABEL_23:
-          if ((GT_SUPPORT_0 & 0x80000) == 0)
-          {
-            v29 = v5;
-            v19 = GTTraceFunc_argumentBytesWithMap((v13 + ((HIDWORD(v11) - v11) << 6)), *(v14 + 13), v6);
-            v20 = [v32 deviceForKey:*v19];
-            v21 = v20;
-            v22 = *(v19 + 3) & 0xFFFFFFFFFFEFFFFFLL;
-            if ((qword_27F09CF90 & 4) != 0)
-            {
-              v23 = 32;
-            }
-
-            else
-            {
-              v23 = *(v19 + 3) & 0xFFFFFFFFFFEFFFFFLL;
-            }
-
-            v24 = [v20 newBufferWithLength:*(v19 + 2) options:{v23, v6, v29}];
-            if (v24)
-            {
-              [v32 setBuffer:v24 forKey:*(v19 + 1)];
-            }
-
-            v6 = v28;
-            v5 = v30;
-          }
-        }
-      }
-
-      objc_autoreleasePoolPop(v15);
-      v12 = v32;
-    }
-
-    v25 = atomic_load((v7 + 4));
-    v26 = v11 + (v25 >> 6);
-    v27 = (HIDWORD(v11) + 1);
-    v11 = (v27 << 32) | v11;
-    if (v27 == v26 - 1)
-    {
-      v11 = (v27 << 32) | v27;
-      v7 = *(v7 + 40);
-    }
-  }
-}
-
-void MapSparseTextureRegions(void *a1, void *a2, uint64_t a3, apr_pool_t *a4)
-{
-  v7 = a1;
-  v41 = a2;
-  v8 = apr_array_make(a4, 8, 48);
-  arr = apr_array_make(a4, 8, 48);
-  v43 = apr_array_make(a4, 8, 8);
-  v42 = apr_array_make(a4, 8, 8);
-  v40 = v7;
-  v39 = [v7 device];
-  if (*(a3 + 12) < 1)
-  {
-    v12 = 0;
-  }
-
-  else
-  {
-    v9 = 0;
-    v10 = 0;
-    v11 = 0;
-    v12 = 0;
-    v13 = 0;
-    do
-    {
-      v14 = *(a3 + 24);
-      v15 = v14 + v9;
-      v16 = *(v14 + v9 + 8);
-      if (v16 != v11)
-      {
-        if (v8->nelts >= 1)
-        {
-          v47 = 0uLL;
-          v48 = 0;
-          v17 = [v12 textureType];
-          v18 = [v12 pixelFormat];
-          v19 = [v12 sampleCount];
-          if (v39)
-          {
-            [v39 sparseTileSizeWithTextureType:v17 pixelFormat:v18 sampleCount:v19];
-          }
-
-          else
-          {
-            v47 = 0uLL;
-            v48 = 0;
-          }
-
-          elts = v8->elts;
-          v21 = arr->elts;
-          nelts = v8->nelts;
-          v45 = v47;
-          v46 = v48;
-          [v39 convertSparsePixelRegions:elts toTileRegions:v21 withTileSize:&v45 alignmentMode:0 numRegions:{nelts, v39}];
-          [v40 updateTextureMappings:v12 mode:0 regions:arr->elts mipLevels:v43->elts slices:v42->elts numRegions:v8->nelts];
-          arr->nelts = 0;
-          v8->nelts = 0;
-          v43->nelts = 0;
-          v42->nelts = 0;
-          v16 = *(v15 + 8);
-        }
-
-        v23 = [v41 textureForKey:{v16, v39}];
-
-        v13 = [v23 firstMipmapInTail];
-        v11 = *(v15 + 8);
-        v12 = v23;
-      }
-
-      if (v13 >= *(v15 + 34))
-      {
-        apr_array_push(arr);
-        v24 = apr_array_push(v8);
-        v25 = *(v14 + v9 + 44);
-        v26 = *(v14 + v9 + 46);
-        v27 = vmovl_u16(*(v14 + v9 + 36));
-        *&v28 = v27.u32[0];
-        *(&v28 + 1) = v27.u32[1];
-        v29 = v28;
-        *&v28 = v27.u32[2];
-        *(&v28 + 1) = v27.u32[3];
-        *v24 = v29;
-        v24[1] = v28;
-        *(v24 + 4) = v25;
-        *(v24 + 5) = v26;
-        v30 = *(v15 + 34);
-        *apr_array_push(v43) = v30;
-        v31 = *(v14 + v9 + 32);
-        *apr_array_push(v42) = v31;
-      }
-
-      ++v10;
-      v9 += 448;
-    }
-
-    while (v10 < *(a3 + 12));
-  }
-
-  v32 = v39;
-  if (v8->nelts > 0)
-  {
-    v47 = 0uLL;
-    v48 = 0;
-    v33 = [v12 textureType];
-    v34 = [v12 pixelFormat];
-    v35 = [v12 sampleCount];
-    if (v39)
-    {
-      [v39 sparseTileSizeWithTextureType:v33 pixelFormat:v34 sampleCount:v35];
-    }
-
-    else
-    {
-      v47 = 0uLL;
-      v48 = 0;
-    }
-
-    v36 = v8->elts;
-    v37 = arr->elts;
-    v38 = v8->nelts;
-    v45 = v47;
-    v46 = v48;
-    [v39 convertSparsePixelRegions:v36 toTileRegions:v37 withTileSize:&v45 alignmentMode:0 numRegions:{v38, v39}];
-    [v40 updateTextureMappings:v12 mode:0 regions:arr->elts mipLevels:v43->elts slices:v42->elts numRegions:v8->nelts];
-  }
-}
-
-void FillRequestsAlignment(uint64_t a1, uint64_t *a2, void *a3)
-{
-  v5 = a3;
-  v6 = *(a1 + 12);
-  if (v6 >= 1)
-  {
-    v7 = 0;
-    for (i = 0; i < v6; ++i)
-    {
-      v9 = *(a1 + 24);
-      if (*(v9 + v7) == 80)
-      {
-        v29 = 0;
-        v27 = 0u;
-        v28 = 0u;
-        v26 = 0u;
-        v10 = v9 + v7;
-        GTMTLSMContext_getTextureDescriptor(a2, *(v9 + v7 + 8), *(v9 + v7 + 16), &v26);
-        v11 = WORD1(v28);
-        v25 = 0;
-        memset(v24, 0, sizeof(v24));
-        GTMTLPixelFormatGetInfoForDevice(v24, v5, WORD1(v28));
-        v13 = xmmword_24DA8BC50;
-        if ((~DWORD2(v24[0]) & 0x60) != 0)
-        {
-          v12.i32[0] = 0;
-          v14.i64[1] = v19;
-          v14.i64[0] = 0;
-          v13.i32[0] = WORD4(v24[0]) & 0x2000;
-          v15 = vdupq_lane_s32(*&vceqq_s32(v13, v12), 0);
-          v16.i64[1] = v19;
-          v16.i64[0] = 4;
-          v13 = vbslq_s8(v15, v14, v16);
-        }
-
-        v23 = 0;
-        v21 = 0u;
-        v22 = 0u;
-        v19 = v13.i64[1];
-        memset(v20, 0, sizeof(v20));
-        v17 = v13.i8[0];
-        v18 = *(v10 + 34);
-        GTMTLGetTextureLevelInfoForDeviceWithOptions(v20, v5, v11, DWORD2(v27), v28, HIWORD(v27), HIBYTE(v28));
-        *(v10 + 60) = WORD4(v21);
-        *(v10 + 62) = v17;
-        v6 = *(a1 + 12);
-      }
-
-      v7 += 448;
-    }
-  }
-}
-
-void GroupRequestsByCapacity(apr_array_header_t *a1, uint64_t a2, uint64_t a3, apr_allocator_t *a4)
-{
-  newpool = 0;
-  apr_pool_create_ex(&newpool, a1->pool, 0, a4);
-  v5 = newpool;
-  v6 = apr_array_copy(newpool, a1);
-  qsort(v6->elts, v6->nelts, v6->elt_size, CompareRequestsBySize);
-  a1->nelts = 0;
-  while (v6->nelts)
-  {
-    elts = v6->elts;
-    v8 = apr_array_push(a1);
-    memcpy(v8, elts, 0x1C0uLL);
-    v9 = RequestSize(elts);
-    nelts = v6->nelts;
-    v6->nelts = 0;
-    if (nelts < 2)
-    {
-      break;
-    }
-
-    v11 = v9;
-    v12 = 448 * nelts;
-    v13 = 448;
-    do
-    {
-      v14 = v6->elts;
-      v15 = RequestAlignment(&v14[v13]);
-      v16 = (v11 + v15 - 1) & -v15;
-      v17 = v16 + RequestSize(&v14[v13]);
-      v18 = v6;
-      if (v17 <= 0x2000000)
-      {
-        v11 = v16 + RequestSize(&v14[v13]);
-        v18 = a1;
-      }
-
-      v19 = apr_array_push(v18);
-      memcpy(v19, &v14[v13], 0x1C0uLL);
-      v13 += 448;
-    }
-
-    while (v12 != v13);
-  }
-
-  apr_pool_destroy(v5);
-}
-
-uint64_t AppendRestoreJobsToLoadQueue(uint64_t result, uint64_t a2)
-{
-  if (a2 && *(a2 + 12) >= 1)
-  {
-    v3 = result;
-    v4 = 0;
-    do
-    {
-      v5 = apr_array_push(*(v3 + 22584));
-      *v5 = 0;
-      v6 = *(a2 + 24) + 448 * v4;
-      v5[1] = v6;
-      v7 = *(a2 + 12);
-      result = CountRequestsWithinCapacity(v6, (v7 - v4));
-      *(v5 + 1) = result;
-      v4 += result;
-    }
-
-    while (v4 < v7);
-  }
-
-  return result;
-}
-
-intptr_t SignalLoadQueueThreads(intptr_t result, int a2)
-{
-  atomic_store(0, (result + 22592));
-  if (*(result + 22656) >= a2)
-  {
-    v2 = a2;
-  }
-
-  else
-  {
-    v2 = *(result + 22656);
-  }
-
-  if (v2 >= 1)
-  {
-    v3 = result;
-    do
-    {
-      dispatch_group_enter(*(v3 + 22608));
-      result = dispatch_semaphore_signal(*(v3 + 22600));
-      --v2;
-    }
-
-    while (v2);
-  }
-
-  return result;
-}
-
-void RestoreOrderedResourcesFromArchive(const char ****a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  v132 = *MEMORY[0x277D85DE8];
-  v5 = a4;
-  if (s_logUsingOsLog == 1)
-  {
-    v6 = gt_tagged_log(0xEu);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v7 = "s";
-      if (a3 == 1)
-      {
-        v7 = "";
-      }
-
-      *buf = 67109378;
-      *&buf[4] = a3;
-      *&buf[8] = 2080;
-      *&buf[10] = v7;
-      _os_log_impl(&dword_24D764000, v6, OS_LOG_TYPE_DEFAULT, "Restoring %d ordered resource%s", buf, 0x12u);
-    }
-  }
-
-  else
-  {
-    v8 = *MEMORY[0x277D85E08];
-    v9 = "s";
-    if (a3 == 1)
-    {
-      v9 = "";
-    }
-
-    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Restoring %d ordered resource%s", a3, v9];
-    fprintf(v8, "%s\n", [v10 UTF8String]);
-  }
-
-  v11 = os_signpost_id_make_with_pointer(g_signpostLog, a1);
-  [v5 enterRestoreResources:a2 count:a3];
-  v110 = a1[3];
-  v105 = [a1[1] defaultDevice];
-  v12 = [v105 sharedMemorySize];
-  v13 = g_signpostLog;
-  v14 = v13;
-  spid = v11;
-  v15 = v11 - 1;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
-  {
-    *buf = 67109120;
-    *&buf[4] = a3;
-    _os_signpost_emit_with_name_impl(&dword_24D764000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "Replayer-2-restore", "RestoreOrderedResourcesFromArchive x%d", buf, 8u);
-  }
-
-  v106 = v5;
-
-  if (a3 >= 1)
-  {
-    v16 = 0;
-    v17 = 0;
-    v18 = a3;
-    v19 = 0;
-    v120 = v18;
-    v121 = 4 * v12 / 0xAuLL;
-    v20 = MEMORY[0x277D86228];
-    v113 = v15;
-    while (1)
-    {
-      v21 = objc_autoreleasePoolPush();
-      v22 = a2 + 448 * v16;
-      v23 = RequestSize(v22);
-      v24 = v20;
-      if (v15 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
-      {
-        v25 = *(v22 + 8);
-        v26 = *(v22 + 24);
-        *buf = 134218498;
-        *&buf[4] = v25;
-        *&buf[12] = 2048;
-        *&buf[14] = v23;
-        *&buf[22] = 2082;
-        *&buf[24] = v26;
-        _os_signpost_emit_with_name_impl(&dword_24D764000, v20, OS_SIGNPOST_INTERVAL_BEGIN, spid, "Replayer-6-high", "%llu. %{xcode:size-in-bytes}zu %{public}s", buf, 0x20u);
-      }
-
-      if (*v22 == 16)
-      {
-        v124 = v16;
-        v125 = v23;
-        v114 = v21;
-        v45 = **a1;
-        v46 = a1[23];
-        v47 = a1[1];
-        v48 = *(v22 + 24);
-        v112 = v47;
-        v49 = [v47 accelerationStructureForKey:*(v22 + 8)];
-        v50 = a1[3];
-        FileWithFilename = GTCaptureArchive_getFileWithFilename(v45, v48);
-        v118 = v50;
-        v52 = v50;
-        v53 = v46;
-        v54 = [v52 bufferWithLength:*(FileWithFilename + 8) alignment:32];
-        GTCaptureArchive_fillBuffer(v45, v53, v48, [v54 contents], *(FileWithFilename + 8), 0);
-        v55 = v54;
-        v56 = [a1[1] defaultDevice];
-        v111 = v56;
-        v116 = v55;
-        if ([v55 length] > 0x17)
-        {
-          v108 = v53;
-          v57 = v19;
-          v58 = [v55 contents];
-          v59 = *v58;
-          v60 = v58[1];
-          v61 = v58[2];
-          v62 = *(FileWithFilename + 8);
-          v63 = [v49 size];
-          v64 = [v56 isCompatibleWithAccelerationStructure:v59];
-          v65 = v60 > v62 || v61 > v63;
-          if (v65 || (v64 & 1) == 0)
-          {
-            apr_pool_clear(*v108);
-            v15 = v113;
-            v21 = v114;
-            v20 = MEMORY[0x277D86228];
-            v19 = v57;
-            v42 = v112;
-            v16 = v124;
-            v23 = v125;
-          }
-
-          else
-          {
-            v107 = [v118 accelerationStructureCommandEncoder];
-            v21 = v114;
-            v19 = v57;
-            if (*(v22 + 40))
-            {
-              if (s_logUsingOsLog)
-              {
-                v66 = gt_tagged_log(0xEu);
-                if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
-                {
-                  v67 = *(v22 + 8);
-                  v68 = [v49 label];
-                  v69 = [v68 UTF8String];
-                  v70 = *(v22 + 24);
-                  v71 = *(v22 + 32);
-                  v72 = *(v22 + 48);
-                  *buf = 134219010;
-                  *&buf[4] = v67;
-                  *&buf[12] = 2080;
-                  *&buf[14] = v69;
-                  *&buf[22] = 2080;
-                  *&buf[24] = v70;
-                  LOWORD(v127) = 2048;
-                  *(&v127 + 2) = v71;
-                  WORD5(v127) = 1024;
-                  HIDWORD(v127) = v72;
-                  _os_log_impl(&dword_24D764000, v66, OS_LOG_TYPE_DEFAULT, "Restoring instance acceleration structure %llu '%s' from file '%s' [serializedSize = %llu, primitiveAccelerationStructuresCount = %d]", buf, 0x30u);
-                }
-              }
-
-              else
-              {
-                v79 = *MEMORY[0x277D85E08];
-                v80 = MEMORY[0x277CCACA8];
-                v81 = *(v22 + 8);
-                v66 = [v49 label];
-                v82 = [v80 stringWithFormat:@"Restoring instance acceleration structure %llu '%s' from file '%s' [serializedSize = %llu, primitiveAccelerationStructuresCount = %d]", v81, -[NSObject UTF8String](v66, "UTF8String"), *(v22 + 24), *(v22 + 32), *(v22 + 48)];
-                fprintf(v79, "%s\n", [v82 UTF8String]);
-              }
-
-              v42 = v112;
-
-              v83 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:*(v22 + 48)];
-              v16 = v124;
-              if (*(v22 + 48))
-              {
-                v84 = 0;
-                do
-                {
-                  v85 = [v112 accelerationStructureForKey:*(*(v22 + 40) + 8 * v84)];
-                  [v83 addObject:v85];
-
-                  ++v84;
-                }
-
-                while (v84 < *(v22 + 48));
-              }
-
-              v86 = [MEMORY[0x277CCACA8] stringWithFormat:@"deserializeInstanceAccelerationStructure %llu", *(v22 + 8)];
-              v87 = v107;
-              [v107 insertDebugSignpost:v86];
-
-              v88 = [v116 heapBuffer];
-              [v107 deserializeInstanceAccelerationStructure:v49 primitiveAccelerationStructures:v83 fromBuffer:v88 serializedBufferOffset:{objc_msgSend(v116, "heapLocation")}];
-
-              v15 = v113;
-              v21 = v114;
-              v23 = v125;
-            }
-
-            else
-            {
-              if (s_logUsingOsLog)
-              {
-                v73 = gt_tagged_log(0xEu);
-                v23 = v125;
-                if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
-                {
-                  v74 = *(v22 + 8);
-                  v75 = [v49 label];
-                  v76 = [v75 UTF8String];
-                  v77 = *(v22 + 24);
-                  v78 = *(v22 + 32);
-                  *buf = 134218754;
-                  *&buf[4] = v74;
-                  *&buf[12] = 2080;
-                  *&buf[14] = v76;
-                  *&buf[22] = 2080;
-                  *&buf[24] = v77;
-                  LOWORD(v127) = 2048;
-                  *(&v127 + 2) = v78;
-                  _os_log_impl(&dword_24D764000, v73, OS_LOG_TYPE_DEFAULT, "Restoring primitive acceleration structure %llu '%s' from file '%s' [serializedSize = %llu]", buf, 0x2Au);
-                }
-
-                v15 = v113;
-              }
-
-              else
-              {
-                v89 = *MEMORY[0x277D85E08];
-                v90 = MEMORY[0x277CCACA8];
-                v91 = *(v22 + 8);
-                v73 = [v49 label];
-                v92 = [v90 stringWithFormat:@"Restoring primitive acceleration structure %llu '%s' from file '%s' [serializedSize = %llu]", v91, -[NSObject UTF8String](v73, "UTF8String"), *(v22 + 24), *(v22 + 32)];
-                fprintf(v89, "%s\n", [v92 UTF8String]);
-
-                v15 = v113;
-                v23 = v125;
-              }
-
-              v42 = v112;
-
-              v93 = [MEMORY[0x277CCACA8] stringWithFormat:@"deserializePrimitiveAccelerationStructure %llu", *(v22 + 8)];
-              v87 = v107;
-              [v107 insertDebugSignpost:v93];
-
-              v83 = [v116 heapBuffer];
-              [v107 deserializePrimitiveAccelerationStructure:v49 fromBuffer:v83 serializedBufferOffset:{objc_msgSend(v116, "heapLocation")}];
-              v16 = v124;
-            }
-
-            apr_pool_clear(*v108);
-            v20 = MEMORY[0x277D86228];
-          }
-        }
-
-        else
-        {
-          apr_pool_clear(*v53);
-          v15 = v113;
-          v21 = v114;
-          v20 = MEMORY[0x277D86228];
-          v16 = v124;
-          v23 = v125;
-          v42 = v112;
-        }
-      }
-
-      else
-      {
-        if (*v22 != 57)
-        {
-          goto LABEL_47;
-        }
-
-        v27 = *a1;
-        Object = GTMTLSMContext_getObject(*(*a1)[5], *(v22 + 8), *(v22 + 16));
-        v29 = *(Object + 36);
-        v115 = v29;
-        v117 = v19;
-        v30 = Object[14];
-        v31 = MakeMTLIndirectCommandBufferDescriptorWithoutResourceIndex(v30);
-        v32 = [a1[1] defaultDevice];
-        v123 = v16;
-        v33 = [v32 newIndirectCommandBufferWithDescriptor:v31 maxCommandCount:v29 options:256];
-
-        v34 = a1[23];
-        v35 = *v34;
-        Data = GTCaptureArchive_readData(*v27, v34, *(v22 + 24), *v34, 0);
-        v131 = 0;
-        v129 = 0u;
-        v130 = 0u;
-        v127 = 0u;
-        v128 = 0u;
-        memset(buf, 0, sizeof(buf));
-        GTMTLSMContext_indirectCommandBufferResources(buf, v27[5], v27[11], v35);
-        v37 = [v33 size];
-        [a1[1] restoreIndirectCommandBufferDataMap];
-        v38 = v17;
-        v40 = v39 = v21;
-        v41 = v37;
-        v15 = v113;
-        GTMTLEncodeIndirectCommandBufferWithRange(v33, 0, v41, v30, Data, buf, v40);
-
-        v21 = v39;
-        v17 = v38;
-        v42 = v33;
-        v16 = v123;
-        v43 = [a1[1] indirectCommandBufferForKey:*(v22 + 8)];
-        v44 = [a1[3] blitCommandEncoder];
-        [v44 copyIndirectCommandBuffer:v42 sourceRange:0 destination:v115 destinationIndex:{v43, 0}];
-
-        v20 = MEMORY[0x277D86228];
-        apr_pool_clear(v35);
-
-        v19 = v117;
-      }
-
-LABEL_47:
-      v94 = g_signpostLog;
-      v95 = v94;
-      if (v15 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v94))
-      {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_24D764000, v95, OS_SIGNPOST_INTERVAL_END, spid, "Replayer-6-high", &unk_24DA93952, buf, 2u);
-      }
-
-      v19 += v23;
-
-      if (v19 >= v121)
-      {
-        if (s_logUsingOsLog == 1)
-        {
-          v96 = gt_tagged_log(0xEu);
-          if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 0;
-            _os_log_impl(&dword_24D764000, v96, OS_LOG_TYPE_DEFAULT, "RestoreOrderedResourcesFromArchive ran over the shared blit buffer usage limit, flushing shared blit buffer", buf, 2u);
-          }
-        }
-
-        else
-        {
-          v97 = *MEMORY[0x277D85E08];
-          v96 = [MEMORY[0x277CCACA8] stringWithFormat:@"RestoreOrderedResourcesFromArchive ran over the shared blit buffer usage limit, flushing shared blit buffer"];
-          fprintf(v97, "%s\n", [v96 UTF8String]);
-        }
-
-        v98 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", @"com.apple.gputools.replay", @"RestoreOrderedResourcesFromArchive"];
-        v99 = [v110 commandBuffer];
-        [v99 setLabel:v98];
-
-        [v110 commitCommandBuffer];
-        v19 = 0;
-      }
-
-      v17 += v23;
-      objc_autoreleasePoolPop(v21);
-      if (++v16 == v120)
-      {
-        goto LABEL_59;
-      }
-    }
-  }
-
-  v17 = 0;
-LABEL_59:
-  v100 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", @"com.apple.gputools.replay", @"RestoreOrderedResourcesFromArchive"];
-  v101 = [v110 commandBuffer];
-  [v101 setLabel:v100];
-
-  [v110 commitCommandBuffer];
-  v102 = g_signpostLog;
-  v103 = v102;
-  if (v15 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v102))
-  {
-    *buf = 134217984;
-    *&buf[4] = v17;
-    _os_signpost_emit_with_name_impl(&dword_24D764000, v103, OS_SIGNPOST_INTERVAL_END, spid, "Replayer-2-restore", "%{xcode:size-in-bytes}zu", buf, 0xCu);
-  }
-
-  [v106 leaveActivity];
-  v104 = *MEMORY[0x277D85DE8];
-}
-
 apr_hash_index_t *RestoreVisibleFunctionTablesForFunctionIndex(id *a1, unint64_t a2)
 {
   v3 = a1;
@@ -1022,7 +207,7 @@ LABEL_55:
 
 apr_hash_index_t *RestoreIntersectionFunctionTablesForFunctionIndex(uint64_t *a1, unint64_t a2)
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   v4 = *(*a1 + 184);
   *(v4 + 24) = 0;
   *(v4 + 32) = 0;
@@ -1031,7 +216,7 @@ apr_hash_index_t *RestoreIntersectionFunctionTablesForFunctionIndex(uint64_t *a1
   result = apr_hash_next((v4 + 16));
   if (!result)
   {
-    goto LABEL_92;
+    return result;
   }
 
   v6 = result;
@@ -1139,15 +324,15 @@ LABEL_24:
       v18 = *a1;
     }
 
-    v89 = *(v18 + 16);
-    v90 = a1[1];
+    v88 = *(v18 + 16);
+    v89 = a1[1];
     v31 = *(*a1 + 8);
     *buf = v11;
     v32 = *(*(*find_entry(v31, buf, 8uLL, 0) + 32) + 32);
     if (v32)
     {
       v33 = 0;
-      v34 = v89;
+      v34 = v88;
       while (1)
       {
         v35 = atomic_load((v32 + 4));
@@ -1174,10 +359,10 @@ LABEL_42:
     else
     {
       v37 = 0;
-      v34 = v89;
+      v34 = v88;
     }
 
-    v88 = v6;
+    v87 = v6;
     while (2)
     {
       v38 = v32 + 64;
@@ -1185,7 +370,7 @@ LABEL_45:
       if (v32)
       {
         v39 = HIDWORD(v37);
-        v40 = (v38 + ((HIDWORD(v37) - v37) << 6));
+        v40 = v38 + ((HIDWORD(v37) - v37) << 6);
         if ((*(v40 + 15) & 8) != 0)
         {
           v41 = *v40;
@@ -1211,9 +396,9 @@ LABEL_88:
             goto LABEL_45;
           }
 
-          v43 = *(v40 + 2);
-          v91 = HIDWORD(v37);
-          v92 = v37;
+          v43 = *(v40 + 8);
+          v90 = HIDWORD(v37);
+          v91 = v37;
           if (v43 > -15531)
           {
             if (v43 <= -15259)
@@ -1221,7 +406,7 @@ LABEL_88:
               if (v43 == -15530)
               {
                 v74 = GTTraceFunc_argumentBytesWithMap((v38 + ((HIDWORD(v37) - v37) << 6)), *(v40 + 13), v34);
-                v52 = [v90 intersectionFunctionTableForKey:*v74];
+                v52 = [v89 intersectionFunctionTableForKey:*v74];
                 [v52 setOpaqueTriangleIntersectionFunctionWithSignature:*(v74 + 1) atIndex:*(v74 + 2)];
               }
 
@@ -1233,7 +418,7 @@ LABEL_88:
                 }
 
                 v68 = GTTraceFunc_argumentBytesWithMap((v38 + ((HIDWORD(v37) - v37) << 6)), *(v40 + 13), v34);
-                v52 = [v90 intersectionFunctionTableForKey:*v68];
+                v52 = [v89 intersectionFunctionTableForKey:*v68];
                 [v52 setOpaqueTriangleIntersectionFunctionWithSignature:*(v68 + 1) withRange:{*(v68 + 2), *(v68 + 3)}];
               }
             }
@@ -1244,12 +429,12 @@ LABEL_88:
               {
                 case -15258:
                   v73 = GTTraceFunc_argumentBytesWithMap((v38 + ((HIDWORD(v37) - v37) << 6)), *(v40 + 13), v34);
-                  v52 = [v90 intersectionFunctionTableForKey:*v73];
+                  v52 = [v89 intersectionFunctionTableForKey:*v73];
                   [v52 setOpaqueCurveIntersectionFunctionWithSignature:*(v73 + 1) atIndex:*(v73 + 2)];
                   break;
                 case -15257:
                   v75 = GTTraceFunc_argumentBytesWithMap((v38 + ((HIDWORD(v37) - v37) << 6)), *(v40 + 13), v34);
-                  v52 = [v90 intersectionFunctionTableForKey:*v75];
+                  v52 = [v89 intersectionFunctionTableForKey:*v75];
                   [v52 setOpaqueCurveIntersectionFunctionWithSignature:*(v75 + 1) withRange:{*(v75 + 2), *(v75 + 3)}];
                   break;
                 case -10152:
@@ -1262,11 +447,11 @@ LABEL_88:
                   }
 
                   v44 = GTTraceFunc_argumentBytesWithMap((v38 + ((HIDWORD(v37) - v37) << 6)), *(v40 + 13), v34);
-                  v45 = [v90 intersectionFunctionTableForKey:*v44];
-                  v46 = GTTraceFunc_argumentBytesWithMap(v40, v44[8], v89);
+                  v45 = [v89 intersectionFunctionTableForKey:*v44];
+                  v46 = GTTraceFunc_argumentBytesWithMap(v40, v44[8], v88);
                   v47 = 8 * *v46;
-                  v85 = [a1[1] defaultCommandQueue];
-                  v48 = [v85 commandBuffer];
+                  v84 = [a1[1] defaultCommandQueue];
+                  v48 = [v84 commandBuffer];
                   v49 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", @"com.apple.gputools.replay", @"RestoreIFT"];
                   [v48 setLabel:v49];
 
@@ -1275,17 +460,17 @@ LABEL_88:
                   [v50 setIntersectionFunctionTable:v45 atBufferIndex:0];
                   v51 = v47;
                   v52 = v45;
-                  v34 = v89;
+                  v34 = v88;
                   [v50 setBytes:v46 + 8 length:v51 atIndex:1];
                   [v50 setBytes:v46 length:8 atIndex:2];
                   v53 = *v46;
-                  v6 = v88;
+                  v6 = v87;
                   *buf = v53;
                   *pb = vdupq_n_s64(1uLL);
                   *&buf[8] = *pb;
-                  v93 = [a1[19] threadExecutionWidth];
-                  v94 = *pb;
-                  [v50 dispatchThreads:buf threadsPerThreadgroup:&v93];
+                  v92 = [a1[19] threadExecutionWidth];
+                  v93 = *pb;
+                  [v50 dispatchThreads:buf threadsPerThreadgroup:&v92];
                   [v50 endEncoding];
                   [v48 addCompletedHandler:&__block_literal_global_260];
                   GTMTLReplay_commitCommandBuffer(v48);
@@ -1309,21 +494,21 @@ LABEL_88:
               }
 
               v60 = GTTraceFunc_argumentBytesWithMap((v38 + ((HIDWORD(v37) - v37) << 6)), *(v40 + 13), v34);
-              v87 = [v90 intersectionFunctionTableForKey:*v60];
-              v109 = 0;
-              v107 = 0u;
-              v108 = 0u;
-              v105 = 0u;
+              v86 = [v89 intersectionFunctionTableForKey:*v60];
+              v108 = 0;
               v106 = 0u;
-              v103 = 0u;
+              v107 = 0u;
               v104 = 0u;
-              v101 = 0u;
+              v105 = 0u;
               v102 = 0u;
-              v99 = 0u;
+              v103 = 0u;
               v100 = 0u;
-              v97 = 0u;
+              v101 = 0u;
               v98 = 0u;
+              v99 = 0u;
               v96 = 0u;
+              v97 = 0u;
+              v95 = 0u;
               memset(buf, 0, sizeof(buf));
               v61 = GTTraceFunc_argumentBytesWithMap(v40, v60[24], v34);
               v62 = GTTraceFunc_argumentBytesWithMap(v40, v60[25], v34);
@@ -1334,7 +519,7 @@ LABEL_88:
                 v64 = 0;
                 do
                 {
-                  v65 = [v90 bufferForKey:{*&v61[8 * v64], v63}];
+                  v65 = [v89 bufferForKey:{*&v61[8 * v64], v63}];
                   v66 = *&buf[8 * v64];
                   *&buf[8 * v64] = v65;
 
@@ -1343,8 +528,8 @@ LABEL_88:
                 }
 
                 while (v67 > v64);
-                v6 = v88;
-                v34 = v89;
+                v6 = v87;
+                v34 = v88;
                 v63 = pa;
               }
 
@@ -1353,8 +538,8 @@ LABEL_88:
                 v67 = 0;
               }
 
-              v52 = v87;
-              [v87 setBuffers:buf offsets:v63 withRange:{*(v60 + 1), v67}];
+              v52 = v86;
+              [v86 setBuffers:buf offsets:v63 withRange:{*(v60 + 1), v67}];
               for (i = 240; i != -8; i -= 8)
               {
               }
@@ -1363,9 +548,9 @@ LABEL_88:
             }
 
             v72 = GTTraceFunc_argumentBytesWithMap((v38 + ((HIDWORD(v37) - v37) << 6)), *(v40 + 13), v34);
-            v70 = [v90 intersectionFunctionTableForKey:*v72];
-            v34 = v89;
-            v71 = [v90 bufferForKey:*(v72 + 1)];
+            v70 = [v89 intersectionFunctionTableForKey:*v72];
+            v34 = v88;
+            v71 = [v89 bufferForKey:*(v72 + 1)];
             [v70 setBuffer:v71 offset:*(v72 + 2) atIndex:*(v72 + 3)];
           }
 
@@ -1379,7 +564,7 @@ LABEL_88:
               }
 
               v54 = GTTraceFunc_argumentBytesWithMap((v38 + ((HIDWORD(v37) - v37) << 6)), *(v40 + 13), v34);
-              v86 = [v90 intersectionFunctionTableForKey:*v54];
+              v85 = [v89 intersectionFunctionTableForKey:*v54];
               p = *a1[23];
               v55 = apr_palloc(p, 8 * *(v54 + 2));
               v56 = GTTraceFunc_argumentBytesWithMap(v40, v54[24], v34);
@@ -1389,13 +574,13 @@ LABEL_88:
                 v58 = 0;
                 do
                 {
-                  v55[v58] = [v90 functionHandleForKey:*&v57[8 * v58]];
+                  v55[v58] = [v89 functionHandleForKey:*&v57[8 * v58]];
                   ++v58;
                   v59 = *(v54 + 2);
                 }
 
                 while (v59 > v58);
-                v34 = v89;
+                v34 = v88;
               }
 
               else
@@ -1403,25 +588,25 @@ LABEL_88:
                 v59 = 0;
               }
 
-              v52 = v86;
-              [v86 setFunctions:v55 withRange:{*(v54 + 1), v59}];
+              v52 = v85;
+              [v85 setFunctions:v55 withRange:{*(v54 + 1), v59}];
               apr_pool_clear(p);
-              v6 = v88;
+              v6 = v87;
               goto LABEL_87;
             }
 
             v69 = GTTraceFunc_argumentBytesWithMap((v38 + ((HIDWORD(v37) - v37) << 6)), *(v40 + 13), v34);
-            v70 = [v90 intersectionFunctionTableForKey:*v69];
-            v34 = v89;
-            v71 = [v90 functionHandleForKey:*(v69 + 1)];
+            v70 = [v89 intersectionFunctionTableForKey:*v69];
+            v34 = v88;
+            v71 = [v89 functionHandleForKey:*(v69 + 1)];
             [v70 setFunction:v71 atIndex:*(v69 + 2)];
           }
 
           v52 = v70;
 LABEL_87:
 
-          LODWORD(v39) = v91;
-          LODWORD(v37) = v92;
+          LODWORD(v39) = v90;
+          LODWORD(v37) = v91;
           v38 = v32 + 64;
           goto LABEL_88;
         }
@@ -1439,14 +624,12 @@ LABEL_25:
   }
 
   while (result);
-LABEL_92:
-  v81 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void DoLoadJob(void **a1, uint64_t a2, void *a3, apr_hash_t *a4)
+void DoLoadJob(const char ****a1, uint64_t a2, void *a3, apr_hash_t *a4)
 {
-  v125 = *MEMORY[0x277D85DE8];
+  v124 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = v6;
   if (*a2 == 1)
@@ -1456,24 +639,24 @@ void DoLoadJob(void **a1, uint64_t a2, void *a3, apr_hash_t *a4)
     v14 = *(a2 + 4);
     v15 = v6;
     v16 = os_signpost_id_make_with_pointer(g_signpostLog, a1);
-    v98 = v15;
-    v105 = v13;
+    v97 = v15;
+    v104 = v13;
     [v15 enterRestoreResources:v13 count:v14];
     v17 = a1[3];
-    v115 = a1[1];
-    v114 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v14];
+    v114 = a1[1];
+    v113 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v14];
     v18 = g_signpostLog;
     v19 = v18;
-    v101 = v16 - 1;
+    v100 = v16 - 1;
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
       *buf = 0;
       _os_signpost_emit_with_name_impl(&dword_24D764000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v16, "Replayer-2-restore", "DownloadBufferContent", buf, 2u);
     }
 
-    v103 = v16;
+    v102 = v16;
 
-    v104 = v14;
+    v103 = v14;
     if (v14 >= 1)
     {
       v20 = v14;
@@ -1482,7 +665,7 @@ void DoLoadJob(void **a1, uint64_t a2, void *a3, apr_hash_t *a4)
       {
         if (*(v21 - 5) == 22)
         {
-          v22 = [v115 bufferForKey:*(v21 - 4)];
+          v22 = [v114 bufferForKey:*(v21 - 4)];
           v23 = [v17 bufferWithLength:*v21 alignment:1];
           v24 = [v17 blitCommandEncoder];
           v25 = *(v21 - 1);
@@ -1490,7 +673,7 @@ void DoLoadJob(void **a1, uint64_t a2, void *a3, apr_hash_t *a4)
           [v24 copyFromBuffer:v22 sourceOffset:v25 toBuffer:v26 destinationOffset:objc_msgSend(v23 size:{"heapLocation"), *v21}];
 
           v27 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(v21 - 4)];
-          [v114 setObject:v23 forKey:v27];
+          [v113 setObject:v23 forKey:v27];
         }
 
         v21 += 56;
@@ -1510,31 +693,31 @@ void DoLoadJob(void **a1, uint64_t a2, void *a3, apr_hash_t *a4)
     v30 = &unk_27F09B000;
     v31 = g_signpostLog;
     v32 = v31;
-    v33 = v101;
-    v34 = v103;
-    if (v101 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v31))
+    v33 = v100;
+    v34 = v102;
+    if (v100 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v31))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_24D764000, v32, OS_SIGNPOST_INTERVAL_END, v103, "Replayer-2-restore", &unk_24DA93952, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_24D764000, v32, OS_SIGNPOST_INTERVAL_END, v102, "Replayer-2-restore", &unk_24DA93952, buf, 2u);
     }
 
-    v100 = **a1;
+    v99 = **a1;
     p = *ht;
-    v113 = a1[23];
+    v112 = a1[23];
     v35 = g_signpostLog;
     v36 = v35;
-    v38 = v104;
-    v37 = v105;
-    if (v101 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
+    v38 = v103;
+    v37 = v104;
+    if (v100 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
     {
       *buf = 67109120;
-      *v122 = v104;
-      _os_signpost_emit_with_name_impl(&dword_24D764000, v36, OS_SIGNPOST_INTERVAL_BEGIN, v103, "Replayer-2-restore", "CompareAndRestoreResourcesFromArchive x%d", buf, 8u);
+      *v121 = v103;
+      _os_signpost_emit_with_name_impl(&dword_24D764000, v36, OS_SIGNPOST_INTERVAL_BEGIN, v102, "Replayer-2-restore", "CompareAndRestoreResourcesFromArchive x%d", buf, 8u);
     }
 
-    v99 = v7;
+    v98 = v7;
 
-    if (v104 < 1)
+    if (v103 < 1)
     {
       v40 = 0;
     }
@@ -1543,12 +726,12 @@ void DoLoadJob(void **a1, uint64_t a2, void *a3, apr_hash_t *a4)
     {
       v39 = 0;
       v40 = 0;
-      v106 = v17;
+      v105 = v17;
       do
       {
-        v117 = objc_autoreleasePoolPush();
+        v116 = objc_autoreleasePoolPush();
         v41 = v37 + 448 * v39;
-        v120 = RequestSize(v41);
+        v119 = RequestSize(v41);
         v42 = MEMORY[0x277D86228];
         v43 = MEMORY[0x277D86228];
         if (v33 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
@@ -1556,16 +739,16 @@ void DoLoadJob(void **a1, uint64_t a2, void *a3, apr_hash_t *a4)
           v44 = *(v41 + 8);
           v45 = *(v41 + 24);
           *buf = 134218498;
-          *v122 = v44;
-          *&v122[8] = 2048;
-          *&v122[10] = v120;
-          v123 = 2082;
-          v124 = v45;
+          *v121 = v44;
+          *&v121[8] = 2048;
+          *&v121[10] = v119;
+          v122 = 2082;
+          v123 = v45;
           _os_signpost_emit_with_name_impl(&dword_24D764000, v42, OS_SIGNPOST_INTERVAL_BEGIN, v34, "Replayer-6-high", "%llu. %{xcode:size-in-bytes}zu %{public}s", buf, 0x20u);
         }
 
         v46 = *v41;
-        v118 = v39;
+        v117 = v39;
         if (*v41 > 85)
         {
           if (v46 == 86)
@@ -1581,17 +764,17 @@ void DoLoadJob(void **a1, uint64_t a2, void *a3, apr_hash_t *a4)
 
         else if (v46 == 22)
         {
-          v111 = v40;
+          v110 = v40;
           v47 = [v17 bufferWithLength:*(v41 + 40) alignment:1];
-          GTCaptureArchive_fillBuffer(v100, v113, *(v41 + 24), [v47 contents], *(v41 + 40), 0);
+          GTCaptureArchive_fillBuffer(v99, v112, *(v41 + 24), [v47 contents], *(v41 + 40), 0);
           v48 = apr_array_make(p, 0, 16);
-          v109 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(v41 + 8)];
-          v49 = [v114 objectForKeyedSubscript:?];
+          v108 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(v41 + 8)];
+          v49 = [v113 objectForKeyedSubscript:?];
           v50 = v47;
           v51 = [v49 length];
-          v108 = v49;
+          v107 = v49;
           v52 = [v49 contents];
-          v110 = v50;
+          v109 = v50;
           v53 = [v50 contents];
           if (v51)
           {
@@ -1643,19 +826,19 @@ LABEL_50:
           v64 = apr_palloc(p, 8uLL);
           *v64 = *(v41 + 8);
           apr_hash_set(ht, v64, 8, v48);
-          v65 = [v115 bufferForKey:*(v41 + 8)];
-          v17 = v106;
-          v66 = [v106 blitCommandEncoder];
-          v67 = [v110 heapBuffer];
-          [v66 copyFromBuffer:v67 sourceOffset:objc_msgSend(v110 toBuffer:"heapLocation") destinationOffset:v65 size:{*(v41 + 32), *(v41 + 40)}];
+          v65 = [v114 bufferForKey:*(v41 + 8)];
+          v17 = v105;
+          v66 = [v105 blitCommandEncoder];
+          v67 = [v109 heapBuffer];
+          [v66 copyFromBuffer:v67 sourceOffset:objc_msgSend(v109 toBuffer:"heapLocation") destinationOffset:v65 size:{*(v41 + 32), *(v41 + 40)}];
 
-          apr_pool_clear(*v113);
-          v34 = v103;
-          v38 = v104;
+          apr_pool_clear(*v112);
+          v34 = v102;
+          v38 = v103;
           v30 = &unk_27F09B000;
-          v37 = v105;
-          v33 = v101;
-          v40 = v111;
+          v37 = v104;
+          v33 = v100;
+          v40 = v110;
         }
 
         else if (v46 == 80)
@@ -1671,13 +854,13 @@ LABEL_50:
           _os_signpost_emit_with_name_impl(&dword_24D764000, v69, OS_SIGNPOST_INTERVAL_END, v34, "Replayer-6-high", &unk_24DA93952, buf, 2u);
         }
 
-        v40 += v120;
+        v40 += v119;
 
-        objc_autoreleasePoolPop(v117);
-        v39 = v118 + 1;
+        objc_autoreleasePoolPop(v116);
+        v39 = v117 + 1;
       }
 
-      while (v118 + 1 != v38);
+      while (v117 + 1 != v38);
     }
 
     v92 = v40;
@@ -1685,17 +868,17 @@ LABEL_50:
     v94 = [v17 commandBuffer];
     [v94 setLabel:v93];
 
-    [v17 commitCommandBufferWithLog:v98];
+    [v17 commitCommandBufferWithLog:v97];
     v95 = v30[262];
     v96 = v95;
     if (v33 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v95))
     {
       *buf = 134217984;
-      *v122 = v92;
+      *v121 = v92;
       _os_signpost_emit_with_name_impl(&dword_24D764000, v96, OS_SIGNPOST_INTERVAL_END, v34, "Replayer-2-restore", "%{xcode:size-in-bytes}zu", buf, 0xCu);
     }
 
-    [v98 leaveActivity];
+    [v97 leaveActivity];
     goto LABEL_93;
   }
 
@@ -1716,9 +899,9 @@ LABEL_50:
         }
 
         *buf = 67109378;
-        *v122 = v9;
-        *&v122[4] = 2080;
-        *&v122[6] = v12;
+        *v121 = v9;
+        *&v121[4] = 2080;
+        *&v121[6] = v12;
         _os_log_impl(&dword_24D764000, v11, OS_LOG_TYPE_DEFAULT, "Restoring %d resource%s", buf, 0x12u);
       }
     }
@@ -1745,13 +928,13 @@ LABEL_50:
     if (v73 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v75))
     {
       *buf = 67109120;
-      *v122 = v9;
+      *v121 = v9;
       _os_signpost_emit_with_name_impl(&dword_24D764000, v76, OS_SIGNPOST_INTERVAL_BEGIN, v73, "Replayer-2-restore", "RestoreResourceFromArchive x%d", buf, 8u);
     }
 
-    v119 = v10;
-    v107 = v74;
-    v99 = v7;
+    v118 = v10;
+    v106 = v74;
+    v98 = v7;
 
     if (v9 < 1)
     {
@@ -1772,11 +955,11 @@ LABEL_50:
           v83 = v8[1];
           v84 = v8[3];
           *buf = 134218498;
-          *v122 = v83;
-          *&v122[8] = 2048;
-          *&v122[10] = v81;
-          v123 = 2082;
-          v124 = v84;
+          *v121 = v83;
+          *&v121[8] = 2048;
+          *&v121[10] = v81;
+          v122 = 2082;
+          v123 = v84;
           _os_signpost_emit_with_name_impl(&dword_24D764000, v79, OS_SIGNPOST_INTERVAL_BEGIN, v73, "Replayer-6-high", "%llu. %{xcode:size-in-bytes}zu %{public}s", buf, 0x20u);
         }
 
@@ -1824,26 +1007,24 @@ LABEL_50:
     }
 
     v88 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", @"com.apple.gputools.replay", @"RestoreResourcesFromArchive"];
-    v17 = v107;
-    v89 = [v107 commandBuffer];
+    v17 = v106;
+    v89 = [v106 commandBuffer];
     [v89 setLabel:v88];
 
-    [v107 commitCommandBufferWithLog:v119];
+    [v106 commitCommandBufferWithLog:v118];
     v90 = g_signpostLog;
     v91 = v90;
     if (v77 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v90))
     {
       *buf = 134217984;
-      *v122 = v78;
+      *v121 = v78;
       _os_signpost_emit_with_name_impl(&dword_24D764000, v91, OS_SIGNPOST_INTERVAL_END, v73, "Replayer-2-restore", "%{xcode:size-in-bytes}zu", buf, 0xCu);
     }
 
-    [v119 leaveActivity];
+    [v118 leaveActivity];
 LABEL_93:
-    v7 = v99;
+    v7 = v98;
   }
-
-  v97 = *MEMORY[0x277D85DE8];
 }
 
 void GTMTLReplayController_restoreIOSurfaceData_length_forPlane(uint64_t a1, uint64_t a2)
@@ -2045,7 +1226,7 @@ uint64_t CompareRequestsBySize(uint64_t a1, uint64_t a2)
 uint64_t StartLoadingThread()
 {
   v0 = MEMORY[0x28223BE20]();
-  v46[2809] = *MEMORY[0x277D85DE8];
+  v45[2809] = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   pool = 0;
   newpool = 0;
@@ -2055,13 +1236,14 @@ uint64_t StartLoadingThread()
   v4 = newpool;
   apr_pool_create_ex(&pool, newpool, 0, v5);
   *(v0 + 16) = apr_hash_make(pool);
-  v33[0] = *v2;
-  v30 = v3;
-  v33[1] = v30;
-  v33[2] = 0;
+  v32[0] = *v2;
+  v29 = v3;
+  v32[1] = v29;
+  v32[2] = 0;
   v6 = [GTMTLReplaySharedBlitBuffer alloc];
-  v7 = [v30 defaultCommandQueue];
-  v34 = [(GTMTLReplaySharedBlitBuffer *)v6 initWithCommandQueue:v7 resourcePool:*(v2 + 16) sync:v2 + 40];
+  v7 = [v29 defaultCommandQueue];
+  v33 = [(GTMTLReplaySharedBlitBuffer *)v6 initWithCommandQueue:v7 resourcePool:*(v2 + 16) sync:v2 + 40];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
@@ -2070,10 +1252,9 @@ uint64_t StartLoadingThread()
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v44 = 0;
-  v45 = GTCaptureArchiveDecompressor_create(v4);
-  bzero(v46, 0x57C8uLL);
+  v43 = 0;
+  v44 = GTCaptureArchiveDecompressor_create(v4);
+  bzero(v45, 0x57C8uLL);
 
   while (1)
   {
@@ -2135,7 +1316,7 @@ LABEL_13:
         do
         {
           v23 = objc_autoreleasePoolPush();
-          DoLoadJob(v33, v22, v11, *(v0 + 16));
+          DoLoadJob(v32, v22, v11, *(v0 + 16));
           objc_autoreleasePoolPop(v23);
           v24 = atomic_fetch_add((v2 + 22592), 1u);
           v25 = *(v2 + 22584);
@@ -2152,15 +1333,14 @@ LABEL_13:
       }
     }
 
-    [(GTMTLReplaySharedBlitBuffer *)v34 releaseBuffer];
+    [(GTMTLReplaySharedBlitBuffer *)v33 releaseBuffer];
     dispatch_group_leave(*(v2 + 22608));
   }
 
   apr_pool_destroy(newpool);
-  __destructor_8_s8_s16_s24_S_s40_s56_s64_s72_s80_s88_s96_s104_s112_s120_s128_s136_s144_s152_s160_s168_S_s176_S_s22600_s22608_S_s22616_s22640_s22648(v33);
+  __destructor_8_s8_s16_s24_S_s40_s56_s64_s72_s80_s88_s96_s104_s112_s120_s128_s136_s144_s152_s160_s168_S_s176_S_s22600_s22608_S_s22616_s22640_s22648(v32);
 
   objc_autoreleasePoolPop(context);
-  v27 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2243,24 +1423,24 @@ uint64_t GTMTLReplayController_cleanup(intptr_t a1)
 
 void GTMTLReplayController_optimizeRestores(_DWORD *a1, unint64_t a2)
 {
-  v155 = *MEMORY[0x277D85DE8];
+  v154 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 2827);
   *(a1 + 2827) = 0;
 
   apr_hash_clear(*(a1 + 2828));
   *(a1 + 2829) = *(*a1 + 144);
-  v144 = a2;
+  v143 = a2;
   if (a2 && (qword_27F09CF90 & 0x10) == 0)
   {
     [*(a1 + 3) releaseBuffer];
     [*(a1 + 2) waitUntilCapacity];
     [g_activityLog enterOptimizeRestores];
-    v127 = a1;
+    v126 = a1;
     v5 = os_signpost_id_generate(g_signpostLog);
     v6 = g_signpostLog;
     v7 = v6;
     spid = v5;
-    v113 = v5 - 1;
+    v112 = v5 - 1;
     if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
     {
       *buf = 0;
@@ -2270,36 +1450,36 @@ void GTMTLReplayController_optimizeRestores(_DWORD *a1, unint64_t a2)
     newpool = 0;
     apr_pool_create_ex(&newpool, 0, 0, v8);
     p = newpool;
-    v117 = apr_hash_make(newpool);
-    GTMTLReplayController_rewind(v127);
-    v9 = *(*v127 + 128);
-    for (i = v127[5640]; i < *(v9 + 12); v127[5640] = i)
+    v116 = apr_hash_make(newpool);
+    GTMTLReplayController_rewind(v126);
+    v9 = *(*v126 + 128);
+    for (i = v126[5640]; i < *(v9 + 12); v126[5640] = i)
     {
       v11 = objc_autoreleasePoolPush();
-      v12 = *(v9 + 24) + (v127[5640] << 6);
+      v12 = *(v9 + 24) + (v126[5640] << 6);
       v13 = *(v12 + 8);
       if (GTFenum_isBeginCommandBuffer(v13))
       {
-        CompareCommandBufferRestore(v127, v12, v117);
+        CompareCommandBufferRestore(v126, v12, v116);
         v13 = *(v12 + 8);
       }
 
       if (GTFenum_getConstructorType(v13) == 51)
       {
-        CompareCommandBufferRestore(v127, v12, v117);
+        CompareCommandBufferRestore(v126, v12, v116);
       }
 
-      GTMTLReplayController_updateCommandEncoder(v127, v12);
-      GTMTLReplayController_defaultDispatchFunction(v127, v12);
+      GTMTLReplayController_updateCommandEncoder(v126, v12);
+      GTMTLReplayController_defaultDispatchFunction(v126, v12);
       objc_autoreleasePoolPop(v11);
-      i = v127[5640] + 1;
+      i = v126[5640] + 1;
     }
 
-    RewindWithoutRestore(v127);
-    RestoreCommandBuffer(v127, 0, p, v117);
+    RewindWithoutRestore(v126);
+    RestoreCommandBuffer(v126, 0, p, v116);
     v14 = g_signpostLog;
     v15 = v14;
-    if (v113 > 0xFFFFFFFFFFFFFFFDLL)
+    if (v112 > 0xFFFFFFFFFFFFFFFDLL)
     {
 
       v16 = g_signpostLog;
@@ -2321,13 +1501,13 @@ void GTMTLReplayController_optimizeRestores(_DWORD *a1, unint64_t a2)
       }
     }
 
-    v17 = *(*v127 + 144);
+    v17 = *(*v126 + 144);
     arr = apr_array_make(p, *(v17 + 48), 8);
     *(v17 + 24) = 0;
     *(v17 + 32) = 0;
     *(v17 + 16) = v17;
     *(v17 + 40) = 0;
-    v139 = v17;
+    v138 = v17;
     for (j = (v17 + 16); ; j = v20)
     {
       v19 = apr_hash_next(j);
@@ -2355,7 +1535,7 @@ void GTMTLReplayController_optimizeRestores(_DWORD *a1, unint64_t a2)
 
     v24 = g_signpostLog;
     v25 = v24;
-    if (v113 > 0xFFFFFFFFFFFFFFFDLL)
+    if (v112 > 0xFFFFFFFFFFFFFFFDLL)
     {
 
       v26 = g_signpostLog;
@@ -2377,7 +1557,7 @@ void GTMTLReplayController_optimizeRestores(_DWORD *a1, unint64_t a2)
       }
     }
 
-    v118 = **(v127 + 2829);
+    v117 = **(v126 + 2829);
     ht = apr_hash_make(p);
     if (arr->nelts < 1)
     {
@@ -2391,9 +1571,9 @@ void GTMTLReplayController_optimizeRestores(_DWORD *a1, unint64_t a2)
       v29 = arr;
       do
       {
-        v142 = v27;
-        *&v151[0] = *&v29->elts[8 * v27];
-        v30 = *find_entry(v117, v151, 8uLL, 0);
+        v141 = v27;
+        *&v150[0] = *&v29->elts[8 * v27];
+        v30 = *find_entry(v116, v150, 8uLL, 0);
         if (v30)
         {
           v31 = *(v30 + 32);
@@ -2404,7 +1584,7 @@ void GTMTLReplayController_optimizeRestores(_DWORD *a1, unint64_t a2)
           v31 = 0;
         }
 
-        v32 = *find_entry(v139, v151, 8uLL, 0);
+        v32 = *find_entry(v138, v150, 8uLL, 0);
         if (v32)
         {
           v33 = *(v32 + 32);
@@ -2415,7 +1595,7 @@ void GTMTLReplayController_optimizeRestores(_DWORD *a1, unint64_t a2)
           v33 = 0;
         }
 
-        v34 = apr_array_copy(v118, v33);
+        v34 = apr_array_copy(v117, v33);
         qsort(v34->elts, v34->nelts, v34->elt_size, CompareRequestsBySize);
         v35 = v34->nelts;
         v34->nelts = 0;
@@ -2432,7 +1612,7 @@ void GTMTLReplayController_optimizeRestores(_DWORD *a1, unint64_t a2)
               }
 
               memset(buf, 0, 56);
-              GTMTLSMContext_getTextureDescriptor(*(*v127 + 40), *(v37 + 1), *(v37 + 2), buf);
+              GTMTLSMContext_getTextureDescriptor(*(*v126 + 40), *(v37 + 1), *(v37 + 2), buf);
               if (GetPlanePixelFormat(*&buf[34], 0))
               {
                 continue;
@@ -2472,7 +1652,7 @@ void GTMTLReplayController_optimizeRestores(_DWORD *a1, unint64_t a2)
 
             v45 = RequestAlignment(v37);
             v46 = ((v28 + v45 - 1) & -v45) + v42;
-            if (v46 <= v144)
+            if (v46 <= v143)
             {
               v47 = v34->nelts;
               v34->nelts = v47 + 1;
@@ -2487,29 +1667,29 @@ void GTMTLReplayController_optimizeRestores(_DWORD *a1, unint64_t a2)
         }
 
         v29 = arr;
-        apr_hash_set(ht, &arr->elts[8 * v142], 8, v34);
+        apr_hash_set(ht, &arr->elts[8 * v141], 8, v34);
         v49 = v34->nelts;
-        v50 = apr_palloc(v118, 0x20uLL);
-        v50->pool = v118;
+        v50 = apr_palloc(v117, 0x20uLL);
+        v50->pool = v117;
         elt_size = v34->elt_size;
         v50->nelts = v35 - v49;
         v50->nalloc = v35 - v49;
         v50->elt_size = elt_size;
         v50->elts = &v34->elts[elt_size * v49];
         GroupRequestsByCapacity(v50, v52, v53, v54);
-        v55 = *(v127 + 2829);
-        v56 = apr_palloc(v118, 8uLL);
-        *v56 = *&v151[0];
+        v55 = *(v126 + 2829);
+        v56 = apr_palloc(v117, 8uLL);
+        *v56 = *&v150[0];
         apr_hash_set(v55, v56, 8, v50);
-        v27 = v142 + 1;
+        v27 = v141 + 1;
       }
 
-      while (v142 + 1 < arr->nelts);
+      while (v141 + 1 < arr->nelts);
     }
 
     v57 = g_signpostLog;
     v58 = v57;
-    if (v113 >= 0xFFFFFFFFFFFFFFFELL)
+    if (v112 >= 0xFFFFFFFFFFFFFFFELL)
     {
 
       v59 = g_signpostLog;
@@ -2531,43 +1711,43 @@ void GTMTLReplayController_optimizeRestores(_DWORD *a1, unint64_t a2)
       }
     }
 
-    v60 = v127;
-    v111 = [*(v127 + 1) defaultDevice];
+    v60 = v126;
+    v110 = [*(v126 + 1) defaultDevice];
     if (v28)
     {
-      v61 = [v111 newBufferWithLength:v28 options:288];
-      v62 = *(v127 + 2827);
-      *(v127 + 2827) = v61;
+      v61 = [v110 newBufferWithLength:v28 options:288];
+      v62 = *(v126 + 2827);
+      *(v126 + 2827) = v61;
 
-      v60 = v127;
+      v60 = v126;
     }
 
     v63 = arr;
     if (arr->nelts >= 1)
     {
       v64 = 0;
-      v145 = 0;
+      v144 = 0;
       while (1)
       {
-        v115 = v64;
-        v146 = *&v63->elts[8 * v64];
-        v65 = *find_entry(v117, &v146, 8uLL, 0);
-        v122 = v65 ? *(v65 + 32) : 0;
-        v66 = *find_entry(ht, &v146, 8uLL, 0);
+        v114 = v64;
+        v145 = *&v63->elts[8 * v64];
+        v65 = *find_entry(v116, &v145, 8uLL, 0);
+        v121 = v65 ? *(v65 + 32) : 0;
+        v66 = *find_entry(ht, &v145, 8uLL, 0);
         v67 = v66 ? *(v66 + 32) : 0;
-        v68 = apr_array_make(v118, *(v67 + 12), 48);
+        v68 = apr_array_make(v117, *(v67 + 12), 48);
         v69 = *(v60 + 2828);
-        v70 = apr_palloc(v118, 8uLL);
-        *v70 = v146;
-        v138 = v68;
+        v70 = apr_palloc(v117, 8uLL);
+        *v70 = v145;
+        v137 = v68;
         apr_hash_set(v69, v70, 8, v68);
-        v125 = *(v67 + 24);
+        v124 = *(v67 + 24);
         v71 = *(v67 + 12);
-        v130 = *(v60 + 2827);
-        v120 = **v60;
-        v126 = *(v60 + 23);
-        v121 = *(v60 + 3);
-        v124 = v71;
+        v129 = *(v60 + 2827);
+        v119 = **v60;
+        v125 = *(v60 + 23);
+        v120 = *(v60 + 3);
+        v123 = v71;
         if (v71 >= 1)
         {
           break;
@@ -2575,21 +1755,21 @@ void GTMTLReplayController_optimizeRestores(_DWORD *a1, unint64_t a2)
 
 LABEL_123:
 
-        v60 = v127;
-        [*(v127 + 3) commitCommandBuffer];
-        v64 = v115 + 1;
+        v60 = v126;
+        [*(v126 + 3) commitCommandBuffer];
+        v64 = v114 + 1;
         v63 = arr;
-        if (v115 + 1 >= arr->nelts)
+        if (v114 + 1 >= arr->nelts)
         {
           goto LABEL_124;
         }
       }
 
-      v129 = 0;
+      v128 = 0;
       while (1)
       {
         context = objc_autoreleasePoolPush();
-        v72 = v125 + 448 * v129;
+        v72 = v124 + 448 * v128;
         if (*v72 == 80)
         {
           break;
@@ -2597,9 +1777,9 @@ LABEL_123:
 
         if (*v72 == 22)
         {
-          if (v122)
+          if (v121)
           {
-            entry = find_entry(v122, (v72 + 8), 8uLL, 0);
+            entry = find_entry(v121, (v72 + 8), 8uLL, 0);
             if (*entry)
             {
               v74 = *(*entry + 32);
@@ -2612,15 +1792,15 @@ LABEL_123:
 
             if (*(v74 + 12))
             {
-              v140 = [v121 bufferWithLength:*(v72 + 40) alignment:1];
-              GTCaptureArchive_fillBuffer(v120, v126, *(v72 + 24), [v140 contents], *(v72 + 40), 0);
+              v139 = [v120 bufferWithLength:*(v72 + 40) alignment:1];
+              GTCaptureArchive_fillBuffer(v119, v125, *(v72 + 24), [v139 contents], *(v72 + 40), 0);
               if (*(v74 + 12) >= 1)
               {
                 v106 = 0;
                 v107 = 0;
                 do
                 {
-                  v145 = FillBufferWithBufferBlitOperation(*(v127 + 3), v72, v140, *(*(v74 + 24) + v106), *(*(v74 + 24) + v106 + 8), v130, v145, v138);
+                  v144 = FillBufferWithBufferBlitOperation(*(v126 + 3), v72, v139, *(*(v74 + 24) + v106), *(*(v74 + 24) + v106 + 8), v129, v144, v137);
                   ++v107;
                   v106 += 16;
                 }
@@ -2634,28 +1814,28 @@ LABEL_121:
 
           else
           {
-            v141 = [v121 bufferWithLength:*(v72 + 40) alignment:1];
-            GTCaptureArchive_fillBuffer(v120, v126, *(v72 + 24), [v141 contents], *(v72 + 40), 0);
-            v145 = FillBufferWithBufferBlitOperation(*(v127 + 3), v72, v141, 0, *(v72 + 40), v130, v145, v138);
+            v140 = [v120 bufferWithLength:*(v72 + 40) alignment:1];
+            GTCaptureArchive_fillBuffer(v119, v125, *(v72 + 24), [v140 contents], *(v72 + 40), 0);
+            v144 = FillBufferWithBufferBlitOperation(*(v126 + 3), v72, v140, 0, *(v72 + 40), v129, v144, v137);
           }
         }
 
-        apr_pool_clear(*v126);
+        apr_pool_clear(*v125);
         objc_autoreleasePoolPop(context);
-        if (++v129 == v124)
+        if (++v128 == v123)
         {
           goto LABEL_123;
         }
       }
 
-      v140 = v130;
-      v75 = **v127;
-      v76 = *(v127 + 23);
-      v137 = *(v127 + 3);
-      v123 = *(v127 + 1);
-      v136 = [v123 defaultDevice];
+      v139 = v129;
+      v75 = **v126;
+      v76 = *(v126 + 23);
+      v136 = *(v126 + 3);
+      v122 = *(v126 + 1);
+      v135 = [v122 defaultDevice];
       FileWithFilename = GTCaptureArchive_getFileWithFilename(v75, *(v72 + 24));
-      v78 = [v137 bufferWithLength:*(FileWithFilename + 8) alignment:1];
+      v78 = [v136 bufferWithLength:*(FileWithFilename + 8) alignment:1];
       GTCaptureArchive_fillBuffer(v75, v76, *(v72 + 24), [v78 contents], *(FileWithFilename + 8), 0);
       v79 = [v78 contents];
       v80 = [v78 length];
@@ -2689,21 +1869,21 @@ LABEL_121:
       }
 
       v83 = RequestAlignment(v72);
-      v153 = 0;
-      v152 = 0u;
-      memset(v151, 0, sizeof(v151));
-      GTMTLSMContext_getTextureDescriptor(*(*v127 + 40), *(v72 + 8), *(v72 + 16), v151);
-      v150 = 0;
-      memset(v149, 0, sizeof(v149));
-      v135 = WORD1(v152);
-      GTMTLPixelFormatGetInfoForDevice(v149, v136, WORD1(v152));
-      *&v154 = 0;
-      v143 = v78;
-      if ((~DWORD2(v149[0]) & 0x60) != 0)
+      v152 = 0;
+      v151 = 0u;
+      memset(v150, 0, sizeof(v150));
+      GTMTLSMContext_getTextureDescriptor(*(*v126 + 40), *(v72 + 8), *(v72 + 16), v150);
+      v149 = 0;
+      memset(v148, 0, sizeof(v148));
+      v134 = WORD1(v151);
+      GTMTLPixelFormatGetInfoForDevice(v148, v135, WORD1(v151));
+      *&v153 = 0;
+      v142 = v78;
+      if ((~DWORD2(v148[0]) & 0x60) != 0)
       {
-        if ((WORD4(v149[0]) & 0x2000) != 0)
+        if ((WORD4(v148[0]) & 0x2000) != 0)
         {
-          *&v154 = 4;
+          *&v153 = 4;
         }
 
         v84 = 1;
@@ -2711,18 +1891,18 @@ LABEL_121:
 
       else
       {
-        v154 = xmmword_24DA8BC50;
+        v153 = xmmword_24DA8BC50;
         v84 = 2;
       }
 
-      v132 = v84;
-      v133 = v79;
+      v131 = v84;
+      v132 = v79;
       v85 = 0;
-      v145 = (v145 + v83 - 1) & -v83;
-      v86 = BYTE1(v153);
-      v134 = HIBYTE(v152);
+      v144 = (v144 + v83 - 1) & -v83;
+      v86 = BYTE1(v152);
+      v133 = HIBYTE(v151);
       v87 = (v79 + 64);
-      v131 = BYTE1(v153);
+      v130 = BYTE1(v152);
       while (1)
       {
         if (v79 && *(v79 + 10) == 1 && *(v79 + 16) >= v85)
@@ -2749,8 +1929,8 @@ LABEL_121:
 
 LABEL_106:
         memset(buf, 0, 104);
-        v90 = *(&v154 + v85);
-        *&v91 = GTMTLGetTextureLevelInfoForDeviceWithOptions(buf, v136, v135, *(v72 + 42), *(v72 + 44), *(v72 + 46), v134).n128_u64[0];
+        v90 = *(&v153 + v85);
+        *&v91 = GTMTLGetTextureLevelInfoForDeviceWithOptions(buf, v135, v134, *(v72 + 42), *(v72 + 44), *(v72 + 46), v133, 0, v90).n128_u64[0];
         if (v88)
         {
           v92 = v88;
@@ -2771,13 +1951,13 @@ LABEL_106:
           v93 = v92 * *&buf[32];
         }
 
-        v94 = [v137 blitCommandEncoder];
-        v95 = [v143 heapBuffer];
-        v96 = [v143 heapLocation];
+        v94 = [v136 blitCommandEncoder];
+        v95 = [v142 heapBuffer];
+        v96 = [v142 heapLocation];
         v97 = *&buf[96];
-        [v94 copyFromBuffer:v95 sourceOffset:v96 + v82 toBuffer:v140 destinationOffset:v145 size:*&buf[96]];
+        [v94 copyFromBuffer:v95 sourceOffset:v96 + v82 toBuffer:v139 destinationOffset:v144 size:*&buf[96]];
 
-        v98 = apr_array_push(v138);
+        v98 = apr_array_push(v137);
         v99 = *(v72 + 42);
         v100 = *(v72 + 44);
         v101 = *(v72 + 8);
@@ -2785,7 +1965,7 @@ LABEL_106:
         v103 = *(v72 + 38);
         v104 = *(v72 + 32);
         v105 = *(v72 + 34);
-        *v98 = v145;
+        *v98 = v144;
         v98[1] = 80;
         v98[2] = v92;
         v98[3] = v93;
@@ -2796,15 +1976,15 @@ LABEL_106:
         v98[9] = v103;
         *(v98 + 20) = v104;
         *(v98 + 42) = v105;
-        v145 += v97;
+        v144 += v97;
         v82 += v97;
         *(v98 + 43) = v90;
         ++v85;
         v87 += 6;
         v98[11] = 0;
-        v79 = v133;
-        v86 = v131;
-        if (v132 == v85)
+        v79 = v132;
+        v86 = v130;
+        if (v131 == v85)
         {
 
           goto LABEL_121;
@@ -2821,7 +2001,7 @@ LABEL_124:
     apr_pool_destroy(p);
     v108 = g_signpostLog;
     v109 = v108;
-    if (v113 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v108))
+    if (v112 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v108))
     {
       *buf = 0;
       _os_signpost_emit_with_name_impl(&dword_24D764000, v109, OS_SIGNPOST_INTERVAL_END, spid, "Replayer-1-serial", &unk_24DA93952, buf, 2u);
@@ -2829,8 +2009,6 @@ LABEL_124:
 
     [g_activityLog leaveActivity];
   }
-
-  v110 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t GTMTLReplayController_rewind(uint64_t a1)
@@ -2877,11 +2055,11 @@ uint64_t CompareCommandBufferRestore(apr_array_header_t **a1, uint64_t a2, apr_p
   return [g_activityLog leaveActivity];
 }
 
-void RewindWithoutRestore(uint64_t a1)
+void RewindWithoutRestore(uint64_t *a1)
 {
   v1 = a1;
   GTMTLReplayController_tileMemoryFree(a1);
-  v2 = *(v1 + 8);
+  v2 = v1[1];
   v3 = *v1;
   v4 = *(*v1 + 216);
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:*(v4 + 12)];
@@ -2903,11 +2081,11 @@ void RewindWithoutRestore(uint64_t a1)
 
   if ((qword_27F09CF90 & 0x10000) != 0 || (*(v3 + 352) & 4) != 0)
   {
-    v8 = [*(v1 + 8) defaultCommandQueue];
+    v8 = [v1[1] defaultCommandQueue];
     [v8 finish];
-    v9 = *(v1 + 40);
-    add = atomic_fetch_add((v1 + 48), 1uLL);
-    v11 = [*(v1 + 8) defaultCommandQueue4];
+    v9 = v1[5];
+    add = atomic_fetch_add(v1 + 6, 1uLL);
+    v11 = [v1[1] defaultCommandQueue4];
     [v11 signalEvent:v9 value:add];
 
     [v9 waitUntilSignaledValue:add timeoutMS:10000];
@@ -2927,8 +2105,8 @@ void RewindWithoutRestore(uint64_t a1)
       }
 
       v16 = *(v3 + 8);
-      *&v69 = v15;
-      v17 = *find_entry(v16, &v69, 8uLL, 0);
+      *&v66 = v15;
+      v17 = *find_entry(v16, &v66, 8uLL, 0);
       if (v17)
       {
         v18 = *(v17 + 32);
@@ -2950,23 +2128,23 @@ void RewindWithoutRestore(uint64_t a1)
   {
     context = objc_autoreleasePoolPush();
     v19 = [v2 defaultCommandQueue];
-    v20 = InternalCommandBuffer(v19, @"MapSparseTextureRegions", v1 + 40);
+    v20 = InternalCommandBuffer(v19, @"MapSparseTextureRegions", (v1 + 5));
 
-    v53 = v20;
+    v51 = v20;
     v21 = [v20 resourceStateCommandEncoder];
-    v57 = v1;
-    v22 = **(v1 + 184);
-    v55 = v3;
+    v55 = v1;
+    v22 = *v1[23];
+    v53 = v3;
     v23 = *(v3 + 248);
     v24 = v21;
-    v56 = v2;
-    v60 = v2;
+    v54 = v2;
+    v58 = v2;
     v25 = apr_array_make(v22, 8, 48);
     v26 = apr_array_make(v22, 8, 48);
     v27 = apr_array_make(v22, 8, 8);
-    v52 = v22;
+    v50 = v22;
     v28 = apr_array_make(v22, 8, 8);
-    v61 = v24;
+    v59 = v24;
     v29 = [v24 device];
     v30 = v29;
     v31 = *(v23 + 12);
@@ -2974,8 +2152,8 @@ void RewindWithoutRestore(uint64_t a1)
     {
       v32 = 0;
       v33 = 0;
-      v58 = v29;
-      v59 = v23;
+      v56 = v29;
+      v57 = v23;
       do
       {
         v34 = *(v23 + 24) + 448 * v32;
@@ -2983,16 +2161,15 @@ void RewindWithoutRestore(uint64_t a1)
         v35 = (v34 + 8);
         if (v36 != v33)
         {
-          v64 = v35;
-          v65 = v32;
-          v37 = [v60 textureForKey:?];
+          v61 = v35;
+          v62 = v32;
+          v37 = [v58 textureForKey:?];
           v38 = [v37 textureType];
           v39 = [v37 width];
           v40 = [v37 height];
           v41 = [v37 depth];
-          v66 = [v37 firstMipmapInTail];
-          v62 = v38;
-          v63 = v37;
+          v63 = [v37 firstMipmapInTail];
+          v60 = v37;
           v42 = [v37 arrayLength];
           v43 = 0;
           if ((v38 - 5) >= 2)
@@ -3057,39 +2234,39 @@ void RewindWithoutRestore(uint64_t a1)
             ++v43;
           }
 
-          while (v43 <= v66);
-          v69 = 0uLL;
-          v70 = 0;
-          v47 = [v63 pixelFormat];
-          v48 = [v63 sampleCount];
-          v30 = v58;
-          if (v58)
+          while (v43 <= v63);
+          v66 = 0uLL;
+          v67 = 0;
+          [v60 pixelFormat];
+          [v60 sampleCount];
+          v30 = v56;
+          if (v56)
           {
-            [v58 sparseTileSizeWithTextureType:v62 pixelFormat:v47 sampleCount:v48];
+            objc_msgSend_sparseTileSizeWithTextureType_pixelFormat_sampleCount_(v56);
           }
 
           else
           {
-            v69 = 0uLL;
-            v70 = 0;
+            v66 = 0uLL;
+            v67 = 0;
           }
 
-          v23 = v59;
+          v23 = v57;
           elts = v25->elts;
-          v50 = v26->elts;
+          v48 = v26->elts;
           nelts = v25->nelts;
-          v67 = v69;
-          v68 = v70;
-          [v58 convertSparsePixelRegions:elts toTileRegions:v50 withTileSize:&v67 alignmentMode:0 numRegions:nelts];
-          [v61 updateTextureMappings:v63 mode:1 regions:v26->elts mipLevels:v27->elts slices:v28->elts numRegions:v25->nelts];
+          v64 = v66;
+          v65 = v67;
+          [v56 convertSparsePixelRegions:elts toTileRegions:v48 withTileSize:&v64 alignmentMode:0 numRegions:nelts];
+          [v59 updateTextureMappings:v60 mode:1 regions:v26->elts mipLevels:v27->elts slices:v28->elts numRegions:v25->nelts];
           v25->nelts = 0;
           v26->nelts = 0;
           v27->nelts = 0;
           v28->nelts = 0;
-          v33 = *v64;
+          v33 = *v61;
 
-          v31 = *(v59 + 12);
-          v32 = v65;
+          v31 = *(v57 + 12);
+          v32 = v62;
         }
 
         ++v32;
@@ -3098,18 +2275,18 @@ void RewindWithoutRestore(uint64_t a1)
       while (v32 < v31);
     }
 
-    MapSparseTextureRegions(v61, v60, *(v55 + 248), v52);
-    apr_pool_clear(v52);
-    [v61 endEncoding];
-    GTMTLReplay_commitCommandBuffer(v53);
+    MapSparseTextureRegions(v59, v58, *(v53 + 248), v50);
+    apr_pool_clear(v50);
+    [v59 endEncoding];
+    GTMTLReplay_commitCommandBuffer(v51);
 
     objc_autoreleasePoolPop(context);
-    v2 = v56;
-    v1 = v57;
+    v2 = v54;
+    v1 = v55;
   }
 
-  *(v1 + 22560) = 0;
-  bzero((v1 + 192), 0x5750uLL);
+  v1[2820] = 0;
+  bzero(v1 + 24, 0x5750uLL);
 }
 
 uint64_t RestoreCommandBuffer(apr_array_header_t **a1, uint64_t a2, apr_pool_t *pool, apr_hash_t *a4)
@@ -3283,16 +2460,16 @@ uint64_t CompareU64Pointer(void *a1, void *a2)
   }
 }
 
-uint64_t Rewind(uint64_t result)
+_DWORD *Rewind(_DWORD *result)
 {
-  v1 = result + 20480;
-  if (*(result + 22560))
+  v1 = result + 5120;
+  if (result[5640])
   {
     v2 = result;
     [g_activityLog enterRewind];
     RewindWithoutRestore(v2);
     v84 = 0;
-    v3 = *find_entry(*(v2 + 22632), &v84, 8uLL, 0);
+    v3 = *find_entry(*(v2 + 2829), &v84, 8uLL, 0);
     if (v3)
     {
       v4 = *(v3 + 32);
@@ -3304,17 +2481,17 @@ uint64_t Rewind(uint64_t result)
     }
 
     AppendRestoreJobsToLoadQueue(v2, v4);
-    SignalLoadQueueThreads(v2, *(*(v2 + 22584) + 12));
+    SignalLoadQueueThreads(v2, *(*(v2 + 2823) + 12));
     v5 = [GTMTLReplayActivityLog alloc];
     v6 = [(GTMTLReplayActivityLog *)v5 initWithLog:g_activityLog];
     v81 = v1;
-    entry = find_entry(*(v2 + 22624), &v84, 8uLL, 0);
+    entry = find_entry(*(v2 + 2828), &v84, 8uLL, 0);
     if (*entry)
     {
       v8 = *(*entry + 32);
       if (v8)
       {
-        RestoreResourcesFromBuffer(v2, *(v2 + 22616), *(v8 + 24), *(v8 + 12), v6);
+        RestoreResourcesFromBuffer(v2, *(v2 + 2827), *(v8 + 24), *(v8 + 12), v6);
       }
     }
 
@@ -3340,7 +2517,7 @@ uint64_t Rewind(uint64_t result)
         v16 = *(*v2 + 72);
         if (v16 > v15 || *(*v2 + 80) + v16 <= v15)
         {
-          v18 = *(v2 + 8);
+          v18 = *(v2 + 1);
           v19 = [v18 mtl4ArgumentTableForKey:v14[1]];
           v20 = v14[6];
           v21 = v20[1];
@@ -3444,8 +2621,8 @@ uint64_t Rewind(uint64_t result)
     }
 
     apr_pool_destroy(p);
-    add = atomic_fetch_add((v1 + 2112), 1u);
-    v33 = *(v2 + 22584);
+    add = atomic_fetch_add(v1 + 528, 1u);
+    v33 = *(v2 + 2823);
     if (add >= *(v33 + 12))
     {
       v34 = 0;
@@ -3460,8 +2637,8 @@ uint64_t Rewind(uint64_t result)
     {
       v35 = objc_autoreleasePoolPush();
       DoLoadJob(v2, v34, v80, 0);
-      v36 = atomic_fetch_add((v81 + 2112), 1u);
-      v37 = *(v2 + 22584);
+      v36 = atomic_fetch_add(v81 + 528, 1u);
+      v37 = *(v2 + 2823);
       if (v36 >= *(v37 + 12))
       {
         v34 = 0;
@@ -3475,8 +2652,8 @@ uint64_t Rewind(uint64_t result)
       objc_autoreleasePoolPop(v35);
     }
 
-    dispatch_group_wait(*(v2 + 22608), 0xFFFFFFFFFFFFFFFFLL);
-    *(*(v2 + 22584) + 12) = 0;
+    dispatch_group_wait(*(v2 + 2826), 0xFFFFFFFFFFFFFFFFLL);
+    *(*(v2 + 2823) + 12) = 0;
     v38 = *v2;
     v39 = *(*v2 + 88);
     v40 = *(*v2 + 280);
@@ -3488,7 +2665,7 @@ uint64_t Rewind(uint64_t result)
         v42 = *(*(v40 + 24) + 8 * v41);
         if ((qword_27F09CF90 & 0x400) != 0 || *(v42 + 16) < v38[11])
         {
-          v43 = [*(v2 + 8) residencySetForKey:{*(v42 + 8), v80}];
+          v43 = [*(v2 + 1) residencySetForKey:{*(v42 + 8), v80}];
           [v43 removeAllAllocations];
 
           v44 = 0;
@@ -3523,7 +2700,7 @@ uint64_t Rewind(uint64_t result)
     v48 = *(v38[36] + 12);
     if (v48)
     {
-      v49 = **(v2 + 184);
+      v49 = **(v2 + 23);
       v50 = 8 * v48;
       v51 = apr_palloc(v49, 8 * v48);
       v52 = v51;
@@ -3538,7 +2715,7 @@ uint64_t Rewind(uint64_t result)
         v54 = 0;
         do
         {
-          v55 = [*(v2 + 8) residencySetForKey:{*(*(v38[36] + 24) + v53), v80}];
+          v55 = [*(v2 + 1) residencySetForKey:{*(*(v38[36] + 24) + v53), v80}];
           if (v55)
           {
             v52[v54++] = v55;
@@ -3550,7 +2727,7 @@ uint64_t Rewind(uint64_t result)
         while (v50 != v53);
         if (v54)
         {
-          v56 = [*(v2 + 8) defaultCommandQueue];
+          v56 = [*(v2 + 1) defaultCommandQueue];
           [v56 removeResidencySets:v52 count:v54];
         }
       }
@@ -3668,17 +2845,17 @@ LABEL_95:
   return result;
 }
 
-uint64_t RestoreResourcesFromBuffer(id *a1, void *a2, uint64_t a3, int a4, void *a5)
+uint64_t RestoreResourcesFromBuffer(id *a1, void *a2, uint64_t a3, unsigned int a4, void *a5)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a5;
   v11 = os_signpost_id_make_with_pointer(g_signpostLog, a1);
-  v48 = a1[3];
+  v44 = a1[3];
   v12 = a1[1];
   v13 = g_signpostLog;
   v14 = v13;
-  v42 = v11 - 1;
+  v38 = v11 - 1;
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     LODWORD(buf) = 67109120;
@@ -3687,15 +2864,15 @@ uint64_t RestoreResourcesFromBuffer(id *a1, void *a2, uint64_t a3, int a4, void 
   }
 
   spid = v11;
-  v43 = v10;
+  v39 = v10;
 
   if (a4 >= 1)
   {
     v15 = 0;
     v16 = (a3 + 22);
     v17 = a4;
-    v44 = v12;
-    v45 = v9;
+    v40 = v12;
+    v41 = v9;
     while (1)
     {
       v18 = objc_autoreleasePoolPush();
@@ -3708,7 +2885,7 @@ uint64_t RestoreResourcesFromBuffer(id *a1, void *a2, uint64_t a3, int a4, void 
       if (v19 == 22)
       {
         v20 = [v12 bufferForKey:*(v16 - 7)];
-        v21 = [v48 blitCommandEncoder];
+        v21 = [v44 blitCommandEncoder];
         [v21 copyFromBuffer:v9 sourceOffset:*(v16 - 11) toBuffer:v20 destinationOffset:*(v16 - 3) size:*(v16 - 1)];
 
         v22 = *(v16 - 1);
@@ -3725,32 +2902,29 @@ LABEL_10:
     }
 
     v20 = [v12 textureForKey:*(v16 + 1)];
-    v47 = *(v16 - 3);
-    v46 = *(v16 - 1);
+    v43 = *(v16 - 3);
+    v42 = *(v16 - 1);
     v23 = *v16;
     v24 = v18;
     v25 = v15;
     v26 = *(v16 + 5);
     v27 = v16[7];
     v28 = v16[8];
-    v29 = [v48 blitCommandEncoder];
-    v30 = *(v16 - 11);
-    v31 = *(v16 - 7);
-    v32 = *(v16 - 5);
-    v33 = v16[9];
-    v34 = *(v16 + 20);
-    v35 = *(v16 + 21);
-    v49[2] = v28;
-    *&buf = v47;
-    *(&buf + 1) = v46;
-    v51 = v23;
-    v12 = v44;
-    v49[0] = v26;
-    v49[1] = v27;
+    v29 = [v44 blitCommandEncoder];
+    v30 = v16[9];
+    v31 = *(v16 + 20);
+    v32 = *(v16 + 21);
+    v45[2] = v28;
+    *&buf = v43;
+    *(&buf + 1) = v42;
+    v47 = v23;
+    v12 = v40;
+    v45[0] = v26;
+    v45[1] = v27;
     v15 = v25;
     v18 = v24;
-    v9 = v45;
-    [v29 copyFromBuffer:v33 sourceOffset:v34 sourceBytesPerRow:v49 sourceBytesPerImage:v35 sourceSize:? toTexture:? destinationSlice:? destinationLevel:? destinationOrigin:? options:?];
+    v9 = v41;
+    [v29 copyFromBuffer:v30 sourceOffset:v31 sourceBytesPerRow:v45 sourceBytesPerImage:v32 sourceSize:? toTexture:? destinationSlice:? destinationLevel:? destinationOrigin:? options:?];
 
     v22 = *(v16 - 5) * *v16;
     goto LABEL_10;
@@ -3758,18 +2932,17 @@ LABEL_10:
 
   v15 = 0;
 LABEL_14:
-  v36 = [v48 commitCommandBufferWithLog:v43];
-  v37 = g_signpostLog;
-  v38 = v37;
-  if (v42 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v37))
+  v33 = [v44 commitCommandBufferWithLog:v39];
+  v34 = g_signpostLog;
+  v35 = v34;
+  if (v38 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v34))
   {
     LODWORD(buf) = 134217984;
     *(&buf + 4) = v15;
-    _os_signpost_emit_with_name_impl(&dword_24D764000, v38, OS_SIGNPOST_INTERVAL_END, spid, "Replayer-2-restore", "%{xcode:size-in-bytes}zu", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_24D764000, v35, OS_SIGNPOST_INTERVAL_END, spid, "Replayer-2-restore", "%{xcode:size-in-bytes}zu", &buf, 0xCu);
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-  return v36;
+  return v33;
 }
 
 void RestoreResourceFromStream(uint64_t a1, uint64_t a2, unint64_t a3, int a4)
@@ -3818,7 +2991,7 @@ LABEL_8:
     if (!a4 || !GTFenum_getConstructorType(*(v13 + 8)))
     {
       v14 = objc_autoreleasePoolPush();
-      GTMTLReplayController_defaultDispatchFunction(a1, v8 + 64 + ((HIDWORD(v12) - v12) << 6));
+      GTMTLReplayController_defaultDispatchFunction(a1, (v8 + 64 + ((HIDWORD(v12) - v12) << 6)));
       objc_autoreleasePoolPop(v14);
     }
 
@@ -4175,10 +3348,10 @@ LABEL_12:
   return MTLSetReportFailureBlock();
 }
 
-void *ShouldInstrumentFragmentStage(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void *ShouldInstrumentFragmentStage(uint64_t *a1, uint64_t a2, void *a3, unint64_t a4)
 {
   v8 = *a1;
-  v9 = *(a3 + 8);
+  v9 = *(a3 + 2);
   if (GTFenum_isDrawCall(v9))
   {
     if (*(a1 + 2840) == 70)
@@ -4349,17 +3522,17 @@ LABEL_21:
   return a1;
 }
 
-uint64_t std::unordered_map<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>,std::hash<unsigned long>,FunctionHandleKeyHash<unsigned long>,std::equal_to<FunctionHandleKey><std::allocator<unsigned long const>>>::unordered_map(uint64_t result, unint64_t *a2, uint64_t a3)
+uint64_t std::unordered_map<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>,std::hash<unsigned long>,FunctionHandleKeyHash<unsigned long>,std::equal_to<FunctionHandleKey><std::allocator<unsigned long const>>>::unordered_map(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
-  *result = 0u;
-  *(result + 16) = 0u;
-  *(result + 32) = 1065353216;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 1065353216;
   if (a3)
   {
     for (i = a2; i != &a2[6 * a3]; i += 6)
     {
       v4 = *i;
-      v5 = *(result + 8);
+      v5 = *(a1 + 8);
       if (!*&v5)
       {
         goto LABEL_19;
@@ -4381,7 +3554,7 @@ uint64_t std::unordered_map<unsigned long,std::unordered_map<FunctionHandleKey,o
         v7 = (*&v5 - 1) & v4;
       }
 
-      v8 = *(*result + 8 * v7);
+      v8 = *(*a1 + 8 * v7);
       if (!v8 || (v9 = *v8) == 0)
       {
 LABEL_19:
@@ -4429,14 +3602,14 @@ LABEL_18:
     }
   }
 
-  return result;
+  return a1;
 }
 
-void sub_24D92D1BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D92D1BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>>,void *>,std::__hash_node_destructor<std::equal_to<FunctionHandleKey><void *>>>::~unique_ptr[abi:nn200100](va);
-  std::__hash_table<std::__hash_value_type<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>>,std::__unordered_map_hasher<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>,std::hash<unsigned long>,FunctionHandleKeyHash<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>,std::hash<unsigned long>,std::hash,true>,std::equal_to<FunctionHandleKey><std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>>>::~__hash_table(v2);
+  std::__hash_table<std::__hash_value_type<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>>,std::__unordered_map_hasher<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>,std::hash<unsigned long>,FunctionHandleKeyHash<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>,std::hash<unsigned long>,std::hash,true>,std::equal_to<FunctionHandleKey><std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>>>::~__hash_table(v3);
   _Unwind_Resume(a1);
 }
 
@@ -4603,7 +3776,7 @@ LABEL_27:
             {
               v61[0] = *(v14 + 8);
               *&v62 = v61;
-              v31 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>(v54, v61[0]);
+              v31 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>(v54, v61[0], &v62);
               objc_storeStrong(v31 + 3, v27);
               [*(a2 + 8) setVisibleFunctionTable:v27 forKey:*(v14 + 8)];
             }
@@ -4741,7 +3914,7 @@ LABEL_58:
       {
         v61[0] = *(v34 + 8);
         *&v62 = v61;
-        v51 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>(v52, v61[0]);
+        v51 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>(v52, v61[0], &v62);
         objc_storeStrong(v51 + 3, v45);
         [*(a2 + 8) setIntersectionFunctionTable:v45 forKey:*(v34 + 8)];
       }
@@ -4751,20 +3924,20 @@ LABEL_58:
   }
 }
 
-void sub_24D92D8F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_24D92D8F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(va1);
 
   std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(va);
-  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(a2);
-  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(a4);
+  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(a9);
+  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(a11);
   _Unwind_Resume(a1);
 }
 
@@ -4941,32 +4114,32 @@ void SetupRegularVisibleFunctionTable(void *a1, uint64_t *a2, void *a3, uint64_t
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>(void *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = a1[1];
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -4974,49 +4147,49 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void sub_24D92DF5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D92DF5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>,void *>,std::__hash_node_destructor<std::allocator<void *>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -5263,32 +4436,32 @@ LABEL_22:
   while (v21 != 31);
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>(float *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -5296,49 +4469,49 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void sub_24D92E9DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D92E9DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>,void *>,std::__hash_node_destructor<std::allocator<void *>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -5354,7 +4527,7 @@ void FlushCommandQueue(id *a1)
   [v3 status];
 }
 
-id ObtainTracingRenderPipelineState(uint64_t *a1, void *a2, void *a3, int8x8_t *a4, unint64_t a5, apr_pool_t *a6)
+id ObtainTracingRenderPipelineState(uint64_t *a1, void *a2, void *a3, uint64_t a4, unint64_t a5, apr_pool_t *a6)
 {
   v11 = a2;
   v12 = [v11 defaultDevice];
@@ -5365,12 +4538,12 @@ id ObtainTracingRenderPipelineState(uint64_t *a1, void *a2, void *a3, int8x8_t *
 
   v121 = a3[1];
   v114 = &v121;
-  v13 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(&a4[30], v121)[3];
+  v13 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>((a4 + 240), v121, &v114)[3];
   if (!v13)
   {
-    v14 = a4[61];
-    v15 = (*&v14 == 2) << 31;
-    v16 = *&v14 == 1;
+    v14 = *(a4 + 488);
+    v15 = (v14 == 2) << 31;
+    v16 = v14 == 1;
     v17 = 0x40000000;
     if (!v16)
     {
@@ -5452,7 +4625,7 @@ LABEL_25:
             v45 = [v11 renderPipelineDescriptorMap];
             v95 = v44(v115, v45);
 
-            v46 = a4[62].i32[0];
+            v46 = *(a4 + 496);
             if (v46)
             {
               v92 = [v11 libraryForKey:*(v43 + 40)];
@@ -5470,7 +4643,7 @@ LABEL_25:
               v71 = ObtainTracingLinkedFunctions(a1, v11, a4, v118, 1, a5);
               [v95 setVertexLinkedFunctions:v71];
 
-              v46 = a4[62].i32[0];
+              v46 = *(a4 + 496);
             }
 
             else
@@ -5530,16 +4703,16 @@ LABEL_25:
             v60 = v110;
             v40 = v109;
 
-            v80 = a4[62].i32[0];
+            v80 = *(a4 + 496);
             if (v80)
             {
               v81 = [v60 vertexBindings];
               v82 = TraceBufferBindingIndex(v81, 1u);
 
               v108 = a3[1];
-              v122 = &v108;
-              *(std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a4, v108) + 6) = v82;
-              v80 = a4[62].i32[0];
+              v122[0] = &v108;
+              *(std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a4, v108, v122) + 6) = v82;
+              v80 = *(a4 + 496);
             }
 
             if ((v80 & 2) != 0)
@@ -5548,8 +4721,8 @@ LABEL_25:
               v67 = TraceBufferBindingIndex(v83, 2u);
 
               v108 = a3[1];
-              v122 = &v108;
-              v68 = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(&a4[5], v108);
+              v122[0] = &v108;
+              v68 = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((a4 + 40), v108, v122);
               goto LABEL_94;
             }
 
@@ -5557,8 +4730,8 @@ LABEL_95:
 
             if (v13)
             {
-              v122 = &v121;
-              v84 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(&a4[30], v121);
+              v122[0] = &v121;
+              v84 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>((a4 + 240), v121, v122);
               objc_storeStrong(v84 + 3, v13);
               v85 = a3[1];
               if (v114 != 2)
@@ -5568,11 +4741,11 @@ LABEL_95:
                   goto LABEL_43;
                 }
 
-                v86 = a4[62].i32[0];
+                v86 = *(a4 + 496);
                 if (v86)
                 {
                   CreateRenderFunctionHandles(a4, a3[1], v118, 1uLL);
-                  v86 = a4[62].i32[0];
+                  v86 = *(a4 + 496);
                 }
 
                 if ((v86 & 2) == 0)
@@ -5585,7 +4758,7 @@ LABEL_95:
                 goto LABEL_104;
               }
 
-              if ((a4[62].i8[0] & 4) != 0)
+              if ((*(a4 + 496) & 4) != 0)
               {
                 v87 = 4;
                 v88 = v115;
@@ -5603,7 +4776,7 @@ LABEL_42:
             GTMTLReplay_handleNSError(v40);
             goto LABEL_43;
           case 2:
-            if (a4[62].i32[0] == 4)
+            if (*(a4 + 496) == 4)
             {
               v31 = GTMTLSMContext_lastFunction(*a1, v116, a5);
               if (!v31)
@@ -5662,8 +4835,8 @@ LABEL_2:
                   v74 = TraceBufferBindingIndex(v73, 4u);
 
                   v108 = a3[1];
-                  v122 = &v108;
-                  *(std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(&a4[10], v108) + 6) = v74;
+                  v122[0] = &v108;
+                  *(std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((a4 + 80), v108, v122) + 6) = v74;
                   v38 = v97;
                 }
 
@@ -5683,7 +4856,7 @@ LABEL_28:
             v27 = [v11 renderPipelineDescriptorMap];
             v95 = v26(v115, v27);
 
-            v28 = a4[62].i32[0];
+            v28 = *(a4 + 496);
             if ((v28 & 0x10) == 0)
             {
               v94 = 0;
@@ -5715,7 +4888,7 @@ LABEL_28:
 
                 [v95 setObjectFunction:v50];
 
-                v28 = a4[62].i32[0];
+                v28 = *(a4 + 496);
                 if ((v28 & 0x20) == 0)
                 {
 LABEL_30:
@@ -5754,7 +4927,7 @@ LABEL_55:
                 {
                   [v95 setMeshFunction:v54];
 
-                  if ((a4[62].i32[0] & 2) == 0)
+                  if ((*(a4 + 496) & 2) == 0)
                   {
                     goto LABEL_31;
                   }
@@ -5807,16 +4980,16 @@ LABEL_83:
                     v60 = v99;
                     v40 = v98;
 
-                    v61 = a4[62].i32[0];
+                    v61 = *(a4 + 496);
                     if ((v61 & 0x10) != 0)
                     {
                       v62 = [v60 objectBindings];
                       v63 = TraceBufferBindingIndex(v62, 0x10u);
 
                       v108 = a3[1];
-                      v122 = &v108;
-                      *(std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(&a4[15], v108) + 6) = v63;
-                      v61 = a4[62].i32[0];
+                      v122[0] = &v108;
+                      *(std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((a4 + 120), v108, v122) + 6) = v63;
+                      v61 = *(a4 + 496);
                     }
 
                     if ((v61 & 0x20) != 0)
@@ -5825,9 +4998,9 @@ LABEL_83:
                       v65 = TraceBufferBindingIndex(v64, 0x20u);
 
                       v108 = a3[1];
-                      v122 = &v108;
-                      *(std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(&a4[20], v108) + 6) = v65;
-                      v61 = a4[62].i32[0];
+                      v122[0] = &v108;
+                      *(std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((a4 + 160), v108, v122) + 6) = v65;
+                      v61 = *(a4 + 496);
                     }
 
                     if ((v61 & 2) != 0)
@@ -5836,8 +5009,8 @@ LABEL_83:
                       v67 = TraceBufferBindingIndex(v66, 2u);
 
                       v108 = a3[1];
-                      v122 = &v108;
-                      v68 = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(&a4[5], v108);
+                      v122[0] = &v108;
+                      v68 = std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((a4 + 40), v108, v122);
 LABEL_94:
                       *(v68 + 6) = v67;
                       goto LABEL_95;
@@ -5901,14 +5074,14 @@ LABEL_44:
   return v13;
 }
 
-void ReplaceSamplerStatesWithIndirected(uint64_t a1, uint64_t a2, unint64_t a3, apr_pool_t *p)
+void ReplaceSamplerStatesWithIndirected(uint64_t *a1, uint64_t a2, unint64_t a3, apr_pool_t *p)
 {
   v6 = *a2;
   v7 = apr_array_make(p, 5, 8);
   GTMTLSMContext_getObjects(*(v6[5] + 32), a3, v7);
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
   nelts = v7->nelts;
   if (nelts >= 1)
   {
@@ -6002,7 +5175,7 @@ void ReplaceSamplerStatesWithIndirected(uint64_t a1, uint64_t a2, unint64_t a3, 
     }
 
     v26 = *(v20 + 8);
-    v27 = *(a1 + 8);
+    v27 = a1[1];
     if (!*&v27)
     {
       goto LABEL_42;
@@ -6170,7 +5343,7 @@ LABEL_76:
               abort();
             }
 
-            SetupInstrumentedFunctionTable(v26, *(v11 + 40), (v27 + 3), &v70, *(a5 + 8), a4);
+            SetupInstrumentedFunctionTable(v26, *(v11 + 40), v27 + 3, &v70, *(a5 + 8), a4);
           }
 
           goto LABEL_30;
@@ -6191,7 +5364,7 @@ LABEL_76:
           v26 = v30;
           if (v30)
           {
-            SetupInstrumentedFunctionTable(v30, *(v11 + 40), a3 + 400, &v70, *(a5 + 8), a4);
+            SetupInstrumentedFunctionTable(v30, *(v11 + 40), (a3 + 400), &v70, *(a5 + 8), a4);
           }
 
 LABEL_30:
@@ -6201,7 +5374,7 @@ LABEL_32:
           {
             v69[0] = *(v15 + 8);
             *&v70 = v69;
-            v31 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>(v63, v69[0]);
+            v31 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>(v63, v69[0], &v70);
             objc_storeStrong(v31 + 3, v26);
             [*(a2 + 8) setVisibleFunctionTable:v26 forKey:*(v15 + 8)];
           }
@@ -6316,7 +5489,7 @@ LABEL_36:
             {
               v54 = *(v11 + 40);
               std::unordered_map<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>::unordered_map(v69, v68);
-              SetupInstrumentedIntersectionFunctionTable(v47, v62, v54, a3 + 400, v69, &v70, *(v34 + 128), v66);
+              SetupInstrumentedIntersectionFunctionTable(v47, v62, v54, (a3 + 400), v69, &v70, *(v34 + 128), v66);
               v41 = v62;
               goto LABEL_66;
             }
@@ -6338,7 +5511,7 @@ LABEL_71:
       {
         v69[0] = *(v34 + 8);
         *&v70 = v69;
-        v55 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>(v59, v69[0]);
+        v55 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto28MTLIntersectionFunctionTable}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>(v59, v69[0], &v70);
         objc_storeStrong(v55 + 3, v47);
         [*(a2 + 8) setIntersectionFunctionTable:v47 forKey:*(v34 + 8)];
       }
@@ -6374,7 +5547,7 @@ LABEL_74:
 
         v49 = v48;
         std::unordered_map<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>::unordered_map(v69, v68);
-        v50 = (v49 + 3);
+        v50 = v49 + 3;
         v41 = v62;
         SetupInstrumentedIntersectionFunctionTable(v47, v62, v56, v50, v69, &v70, *(v34 + 136), v66);
 LABEL_66:
@@ -6390,20 +5563,20 @@ LABEL_70:
   }
 }
 
-void sub_24D9305E0(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_24D9305E0(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(va1);
 
   std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(va);
-  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(a4);
-  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(a7);
+  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(a11);
+  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(a14);
   _Unwind_Resume(a1);
 }
 
@@ -6598,7 +5771,7 @@ LABEL_22:
   return v18;
 }
 
-uint64_t UpdateSamplerStates(int a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, unint64_t a7, void *a8)
+uint64_t UpdateSamplerStates(unsigned int a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, unint64_t a7, void *a8)
 {
   v15 = a2;
   v16 = v15;
@@ -6734,19 +5907,19 @@ LABEL_24:
     {
       switch(a1)
       {
-        case 8:
+        case 8u:
           LODWORD(v30) = *(v35 + 4 * v18);
           LODWORD(v31) = *(v34 + 4 * v18);
           [v16 setSamplerState:v29 lodMinClamp:v18 lodMaxClamp:v30 atIndex:v31];
           v17 = v19;
           break;
-        case 16:
+        case 0x10u:
           LODWORD(v30) = *(v35 + 4 * v18);
           LODWORD(v31) = *(v34 + 4 * v18);
           [v16 setObjectSamplerState:v29 lodMinClamp:v18 lodMaxClamp:v30 atIndex:v31];
           v17 = v19;
           break;
-        case 32:
+        case 0x20u:
           LODWORD(v30) = *(v35 + 4 * v18);
           LODWORD(v31) = *(v34 + 4 * v18);
           [v16 setMeshSamplerState:v29 lodMinClamp:v18 lodMaxClamp:v30 atIndex:v31];
@@ -6759,19 +5932,19 @@ LABEL_24:
     {
       switch(a1)
       {
-        case 1:
+        case 1u:
           LODWORD(v30) = *(v35 + 4 * v18);
           LODWORD(v31) = *(v34 + 4 * v18);
           [v16 setVertexSamplerState:v29 lodMinClamp:v18 lodMaxClamp:v30 atIndex:v31];
           v17 = v19;
           break;
-        case 2:
+        case 2u:
           LODWORD(v30) = *(v35 + 4 * v18);
           LODWORD(v31) = *(v34 + 4 * v18);
           [v16 setFragmentSamplerState:v29 lodMinClamp:v18 lodMaxClamp:v30 atIndex:v31];
           v17 = v19;
           break;
-        case 4:
+        case 4u:
           LODWORD(v30) = *(v35 + 4 * v18);
           LODWORD(v31) = *(v34 + 4 * v18);
           [v16 setTileSamplerState:v29 lodMinClamp:v18 lodMaxClamp:v30 atIndex:v31];
@@ -6792,7 +5965,7 @@ LABEL_46:
   return v17 & 1;
 }
 
-uint64_t UpdateFunctionTables(int a1, void *a2, uint64_t a3, void *a4, uint64_t *a5, unint64_t a6, void *a7)
+uint64_t UpdateFunctionTables(unsigned int a1, void *a2, uint64_t a3, void *a4, uint64_t *a5, unint64_t a6, void *a7)
 {
   v13 = a2;
   v14 = v13;
@@ -7004,7 +6177,7 @@ uint64_t UpdateDrawSamplerStates(uint64_t a1, uint64_t *a2, void *a3, uint64_t a
   v12 = *(a1 + 496);
   if (v12)
   {
-    updated = UpdateSamplerStates(1, v11, a4 + 1792, a4 + 10052, a4 + 10116, a2, a6, a3);
+    updated = UpdateSamplerStates(1u, v11, a4 + 1792, a4 + 10052, a4 + 10116, a2, a6, a3);
     v12 = *(a1 + 496);
     if ((v12 & 0x10) == 0)
     {
@@ -7027,7 +6200,7 @@ LABEL_3:
     }
   }
 
-  updated = updated & UpdateSamplerStates(16, v11, a4 + 5104, a4 + 10308, a4 + 10372, a2, a6, a3);
+  updated = updated & UpdateSamplerStates(0x10u, v11, a4 + 5104, a4 + 10308, a4 + 10372, a2, a6, a3);
   v12 = *(a1 + 496);
   if ((v12 & 0x20) == 0)
   {
@@ -7041,11 +6214,11 @@ LABEL_4:
   }
 
 LABEL_8:
-  updated = updated & UpdateSamplerStates(32, v11, a4 + 6760, a4 + 10436, a4 + 10500, a2, a6, a3);
+  updated = updated & UpdateSamplerStates(0x20u, v11, a4 + 6760, a4 + 10436, a4 + 10500, a2, a6, a3);
   if ((*(a1 + 496) & 2) != 0)
   {
 LABEL_9:
-    updated = updated & UpdateSamplerStates(2, v11, a4 + 3448, a4 + 10180, a4 + 10244, a2, a6, a3);
+    updated = updated & UpdateSamplerStates(2u, v11, a4 + 3448, a4 + 10180, a4 + 10244, a2, a6, a3);
   }
 
 LABEL_10:
@@ -7059,7 +6232,7 @@ uint64_t UpdateDrawFunctionTables(uint64_t a1, uint64_t *a2, void *a3, void *a4,
   v12 = *(a1 + 496);
   if (v12)
   {
-    updated = UpdateFunctionTables(1, v11, (a4 + 3), a4 + 1, a2, a6, a3);
+    updated = UpdateFunctionTables(1u, v11, (a4 + 3), a4 + 1, a2, a6, a3);
     v12 = *(a1 + 496);
     if ((v12 & 0x10) == 0)
     {
@@ -7082,7 +6255,7 @@ LABEL_3:
     }
   }
 
-  updated = updated & UpdateFunctionTables(16, v11, (a4 + 448), a4 + 447, a2, a6, a3);
+  updated = updated & UpdateFunctionTables(0x10u, v11, (a4 + 448), a4 + 447, a2, a6, a3);
   v12 = *(a1 + 496);
   if ((v12 & 0x20) == 0)
   {
@@ -7096,11 +6269,11 @@ LABEL_4:
   }
 
 LABEL_8:
-  updated = updated & UpdateFunctionTables(32, v11, (a4 + 655), a4 + 654, a2, a6, a3);
+  updated = updated & UpdateFunctionTables(0x20u, v11, (a4 + 655), a4 + 654, a2, a6, a3);
   if ((*(a1 + 496) & 2) != 0)
   {
 LABEL_9:
-    updated = updated & UpdateFunctionTables(2, v11, (a4 + 241), a4 + 240, a2, a6, a3);
+    updated = updated & UpdateFunctionTables(2u, v11, (a4 + 241), a4 + 240, a2, a6, a3);
   }
 
 LABEL_10:
@@ -7121,7 +6294,7 @@ id ObtainTracingComputePipelineState(uint64_t *a1, void *a2, void *a3, uint64_t 
   v14 = [v11 defaultDevice];
   v52 = a3[1];
   v49[0] = &v52;
-  v15 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLComputePipelineState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>((a4 + 320), v52)[3];
+  v15 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLComputePipelineState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>((a4 + 320), v52, v49)[3];
   v16 = SupportsGlobalRelocation(v14, a4);
   if (v15)
   {
@@ -7209,15 +6382,15 @@ LABEL_16:
       v36 = TraceBufferBindingIndex(v35, 8u);
 
       v45 = a3[1];
-      v53 = &v45;
-      *(std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((a4 + 200), v45) + 6) = v36;
+      v53[0] = &v45;
+      *(std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((a4 + 200), v45, v53) + 6) = v36;
       v43 = v34;
     }
 
     if (v15)
     {
-      v53 = &v52;
-      v37 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLComputePipelineState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>((a4 + 320), v52);
+      v53[0] = &v52;
+      v37 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLComputePipelineState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>((a4 + 320), v52, v53);
       objc_storeStrong(v37 + 3, v15);
       if (*(a4 + 496) == 8)
       {
@@ -7255,32 +6428,32 @@ LABEL_18:
   return v13;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLComputePipelineState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLComputePipelineState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(float *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -7288,56 +6461,56 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void sub_24D931CC4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D931CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>,void *>,std::__hash_node_destructor<std::allocator<void *>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
 
 id ObtainTracingFunction(void *a1, void *a2, uint64_t a3, uint64_t a4, int a5, void *a6, uint64_t a7)
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   v13 = a1;
   v14 = a2;
   v15 = a6;
@@ -7346,9 +6519,9 @@ id ObtainTracingFunction(void *a1, void *a2, uint64_t a3, uint64_t a4, int a5, v
     goto LABEL_2;
   }
 
-  v35 = *(a4 + 8);
-  v36[0] = &v35;
-  v16 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>((a3 + 360), v35)[3];
+  v34 = *(a4 + 8);
+  v35[0] = &v34;
+  v16 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>((a3 + 360), v34, v35)[3];
   if (!v16)
   {
     v17 = *(a4 + 112);
@@ -7438,15 +6611,15 @@ LABEL_27:
           v30 = v29;
           if (v29)
           {
-            v36[0] = v29;
-            v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+            v35[0] = v29;
+            v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
             [v27 setRelocations:v31];
           }
 
 LABEL_31:
-          v35 = *(a4 + 8);
-          v36[0] = &v35;
-          v32 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>((a3 + 360), v35);
+          v34 = *(a4 + 8);
+          v35[0] = &v34;
+          v32 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>((a3 + 360), v34, v35);
           objc_storeStrong(v32 + 3, v16);
           goto LABEL_32;
         }
@@ -7461,19 +6634,18 @@ LABEL_31:
 
 LABEL_32:
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
-id ObtainTracingLinkedFunctions(uint64_t *a1, void *a2, uint64_t a3, uint64_t a4, int a5, unint64_t a6)
+id ObtainTracingLinkedFunctions(uint64_t *a1, void *a2, uint64_t a3, uint64_t **a4, uint64_t a5, unint64_t a6)
 {
+  v7 = a5;
   v11 = a2;
   if (a4)
   {
-    v12 = ObtainTracingFunctions(a1, v11, a3, *(a4 + 16), *(a4 + 24), a5, a6);
-    v13 = ObtainTracingFunctions(a1, v11, a3, *a4, *(a4 + 8), a5, a6);
-    v14 = ObtainTracingFunctions(a1, v11, a3, *(a4 + 48), *(a4 + 56), a5, a6);
+    v12 = ObtainTracingFunctions(a1, v11, a3, a4[2], a4[3], v7, a6);
+    v13 = ObtainTracingFunctions(a1, v11, a3, *a4, a4[1], v7, a6);
+    v14 = ObtainTracingFunctions(a1, v11, a3, a4[6], a4[7], v7, a6);
     v15 = v14;
     if (v12 || v13 || v14)
     {
@@ -7497,9 +6669,9 @@ id ObtainTracingLinkedFunctions(uint64_t *a1, void *a2, uint64_t a3, uint64_t a4
   return v16;
 }
 
-uint64_t TraceBufferBindingIndex(void *a1, unsigned int a2)
+char *TraceBufferBindingIndex(void *a1, unsigned int a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = 0;
   if (a2 <= 0x20 && ((1 << a2) & 0x100010116) != 0)
@@ -7507,25 +6679,25 @@ uint64_t TraceBufferBindingIndex(void *a1, unsigned int a2)
     v4 = 0;
     while (2)
     {
-      v14 = 0u;
-      v15 = 0u;
-      v12 = 0u;
       v13 = 0u;
+      v14 = 0u;
+      v11 = 0u;
+      v12 = 0u;
       v5 = v3;
-      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
-        v7 = *v13;
+        v7 = *v12;
 LABEL_6:
         v8 = 0;
         while (1)
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v12 + 1) + 8 * v8);
+          v9 = *(*(&v11 + 1) + 8 * v8);
           if (![v9 type] && objc_msgSend(v9, "index") == v4)
           {
             break;
@@ -7533,7 +6705,7 @@ LABEL_6:
 
           if (v6 == ++v8)
           {
-            v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+            v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
             if (v6)
             {
               goto LABEL_6;
@@ -7560,36 +6732,35 @@ LABEL_16:
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned int>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(void *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = a1[1];
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -7597,44 +6768,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 void CreateComputeFunctionHandles(GTMTLReplayAccessTracking *a1, unint64_t a2, const unint64_t *a3, uint64_t a4)
@@ -7653,23 +6824,23 @@ void CreateComputeFunctionHandles(GTMTLReplayAccessTracking *a1, unint64_t a2, c
         v14[0] = a2;
         v14[1] = v8;
         v17 = v14;
-        v9 = std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::__emplace_unique_key_args<FunctionHandleKey,std::piecewise_construct_t const&,std::tuple<FunctionHandleKey const&>,std::piecewise_construct_t const&<>>(a1 + 50, v14)[4];
+        v9 = std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::__emplace_unique_key_args<FunctionHandleKey,std::piecewise_construct_t const&,std::tuple<FunctionHandleKey const&>,std::piecewise_construct_t const&<>>(a1 + 50, v14, &v17)[4];
         if (!v9)
         {
           v17 = &v16;
-          v10 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLComputePipelineState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(a1 + 40, v16)[3];
+          v10 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLComputePipelineState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLComputePipelineState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(a1 + 80, v16, &v17)[3];
           if (v10)
           {
             v11 = v10;
             v17 = &v15;
-            v12 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(a1 + 45, v15)[3];
+            v12 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(a1 + 45, v15, &v17)[3];
             if (v12)
             {
               v9 = [v11 functionHandleWithFunction:v12];
               if (v9)
               {
                 v17 = v14;
-                v13 = std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::__emplace_unique_key_args<FunctionHandleKey,std::piecewise_construct_t const&,std::tuple<FunctionHandleKey const&>,std::piecewise_construct_t const&<>>(a1 + 50, v14);
+                v13 = std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::__emplace_unique_key_args<FunctionHandleKey,std::piecewise_construct_t const&,std::tuple<FunctionHandleKey const&>,std::piecewise_construct_t const&<>>(a1 + 50, v14, &v17);
                 objc_storeStrong(v13 + 4, v9);
               }
             }
@@ -7694,33 +6865,33 @@ void CreateComputeFunctionHandles(GTMTLReplayAccessTracking *a1, unint64_t a2, c
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::__emplace_unique_key_args<FunctionHandleKey,std::piecewise_construct_t const&,std::tuple<FunctionHandleKey const&>,std::piecewise_construct_t const&<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::__emplace_unique_key_args<FunctionHandleKey,std::piecewise_construct_t const&,std::tuple<FunctionHandleKey const&>,std::piecewise_construct_t const&<>>(void *a1, void *a2, _OWORD **a3)
 {
-  v2 = a2[1] ^ (*a2 << 32);
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = a2[1] ^ (*a2 << 32);
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_22;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = a2[1] ^ (*a2 << 32);
-    if (v2 >= *&v3)
+    v6 = a2[1] ^ (*a2 << 32);
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_22:
     operator new();
@@ -7728,8 +6899,88 @@ LABEL_22:
 
   while (1)
   {
+    v9 = v8[1];
+    if (v9 == v3)
+    {
+      break;
+    }
+
+    if (v5.u32[0] > 1uLL)
+    {
+      if (v9 >= *&v4)
+      {
+        v9 %= *&v4;
+      }
+    }
+
+    else
+    {
+      v9 &= *&v4 - 1;
+    }
+
+    if (v9 != v6)
+    {
+      goto LABEL_22;
+    }
+
+LABEL_21:
+    v8 = *v8;
+    if (!v8)
+    {
+      goto LABEL_22;
+    }
+  }
+
+  if (v8[2] != *a2 || v8[3] != a2[1])
+  {
+    goto LABEL_21;
+  }
+
+  return v8;
+}
+
+void sub_24D932944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,void *>,std::__hash_node_destructor<std::allocator<void *>>>::~unique_ptr[abi:nn200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(void *a1, unint64_t a2, void **a3)
+{
+  v3 = a1[1];
+  if (!*&v3)
+  {
+    goto LABEL_18;
+  }
+
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
+  {
+    v5 = a2;
+    if (*&v3 <= a2)
+    {
+      v5 = a2 % *&v3;
+    }
+  }
+
+  else
+  {
+    v5 = (*&v3 - 1) & a2;
+  }
+
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
     v8 = v7[1];
-    if (v8 == v2)
+    if (v8 == a2)
     {
       break;
     }
@@ -7749,108 +7000,28 @@ LABEL_22:
 
     if (v8 != v5)
     {
-      goto LABEL_22;
+      goto LABEL_18;
     }
 
-LABEL_21:
+LABEL_17:
     v7 = *v7;
     if (!v7)
     {
-      goto LABEL_22;
+      goto LABEL_18;
     }
   }
 
-  if (v7[2] != *a2 || v7[3] != a2[1])
+  if (v7[2] != a2)
   {
-    goto LABEL_21;
+    goto LABEL_17;
   }
 
   return v7;
 }
 
-void sub_24D932944(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D932B94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,void *>,std::__hash_node_destructor<std::allocator<void *>>>::~unique_ptr[abi:nn200100](va);
-  _Unwind_Resume(a1);
-}
-
-void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(void *a1, unint64_t a2)
-{
-  v2 = a1[1];
-  if (!*&v2)
-  {
-    goto LABEL_18;
-  }
-
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
-  {
-    v4 = a2;
-    if (*&v2 <= a2)
-    {
-      v4 = a2 % *&v2;
-    }
-  }
-
-  else
-  {
-    v4 = (*&v2 - 1) & a2;
-  }
-
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v7 = v6[1];
-    if (v7 == a2)
-    {
-      break;
-    }
-
-    if (v3.u32[0] > 1uLL)
-    {
-      if (v7 >= *&v2)
-      {
-        v7 %= *&v2;
-      }
-    }
-
-    else
-    {
-      v7 &= *&v2 - 1;
-    }
-
-    if (v7 != v4)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v6 = *v6;
-    if (!v6)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (v6[2] != a2)
-  {
-    goto LABEL_17;
-  }
-
-  return v6;
-}
-
-void sub_24D932B94(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>,void *>,std::__hash_node_destructor<std::allocator<void *>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -7929,32 +7100,32 @@ id ObtainTracingFunctions(uint64_t *a1, void *a2, uint64_t a3, uint64_t *a4, uin
   return v20;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::piecewise_construct_t const&<>>(void *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = a1[1];
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -7962,49 +7133,49 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void sub_24D933000(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D933000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>,void *>,std::__hash_node_destructor<std::allocator<void *>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -8038,51 +7209,43 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {
     return 0;
   }
 
-  result = *v5;
-  if (*v5)
+  for (result = *v5; result; result = *result)
   {
-    do
+    v7 = result[1];
+    if (v7 == a3)
     {
-      v7 = result[1];
-      if (v7 == a3)
+      if (result[2] == a3)
       {
-        if (result[2] == a3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v3.u32[0] > 1uLL)
+      {
+        if (v7 >= a2)
         {
-          return result;
+          v7 %= a2;
         }
       }
 
       else
       {
-        if (v3.u32[0] > 1uLL)
-        {
-          if (v7 >= a2)
-          {
-            v7 %= a2;
-          }
-        }
-
-        else
-        {
-          v7 &= a2 - 1;
-        }
-
-        if (v7 != v4)
-        {
-          return 0;
-        }
+        v7 &= a2 - 1;
       }
 
-      result = *result;
+      if (v7 != v4)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void SetupInstrumentedFunctionTable(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
+void SetupInstrumentedFunctionTable(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t a5, unint64_t a6)
 {
   v17 = a1;
   if (*(a4 + 192))
@@ -8099,7 +7262,7 @@ void SetupInstrumentedFunctionTable(void *a1, uint64_t *a2, uint64_t a3, uint64_
           v14 = Object[6];
           v18[0] = a5;
           v18[1] = v14;
-          v15 = std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::find<FunctionHandleKey>(*a3, *(a3 + 8), v18);
+          v15 = std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::find<FunctionHandleKey>(*a3, a3[1], v18);
           if (v15)
           {
             v16 = v15[4];
@@ -8120,7 +7283,7 @@ void SetupInstrumentedFunctionTable(void *a1, uint64_t *a2, uint64_t a3, uint64_
   }
 }
 
-void SetupInstrumentedIntersectionFunctionTable(void *a1, void *a2, uint64_t *a3, uint64_t a4, void *a5, void *a6, uint64_t a7, unint64_t a8)
+void SetupInstrumentedIntersectionFunctionTable(void *a1, void *a2, uint64_t *a3, uint64_t *a4, void *a5, void *a6, uint64_t a7, unint64_t a8)
 {
   v30 = a1;
   v15 = a2;
@@ -8150,7 +7313,7 @@ void SetupInstrumentedIntersectionFunctionTable(void *a1, void *a2, uint64_t *a3
               v22 = Object[6];
               v31[0] = a7;
               v31[1] = v22;
-              v23 = std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::find<FunctionHandleKey>(*a4, *(a4 + 8), v31);
+              v23 = std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::find<FunctionHandleKey>(*a4, a4[1], v31);
               if (v23)
               {
                 v24 = v23[4];
@@ -8240,76 +7403,68 @@ void *std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {o
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v3 == v8)
     {
-      v8 = result[1];
-      if (v3 == v8)
+      if (result[2] == *a3 && result[3] == a3[1])
       {
-        if (result[2] == *a3 && result[3] == a3[1])
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= a2)
         {
-          return result;
+          v8 %= a2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= a2)
-          {
-            v8 %= a2;
-          }
-        }
-
-        else
-        {
-          v8 &= a2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= a2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(float *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -8317,54 +7472,54 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void sub_24D9338DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D9338DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>,void *>,std::__hash_node_destructor<std::allocator<void *>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
 
-void CreateRenderFunctionHandles(int8x8_t *a1, unint64_t a2, uint64_t a3, unint64_t a4)
+void CreateRenderFunctionHandles(GTMTLReplayAccessTracking *a1, unint64_t a2, uint64_t a3, unint64_t a4)
 {
   CreateRenderFunctionHandles(a1, a2, *(a3 + 16), *(a3 + 24), a4);
   v8 = *a3;
@@ -8373,7 +7528,7 @@ void CreateRenderFunctionHandles(int8x8_t *a1, unint64_t a2, uint64_t a3, unint6
   CreateRenderFunctionHandles(a1, a2, v8, v9, a4);
 }
 
-void CreateRenderFunctionHandles(int8x8_t *a1, unint64_t a2, const unint64_t *a3, uint64_t a4, unint64_t a5)
+void CreateRenderFunctionHandles(GTMTLReplayAccessTracking *a1, unint64_t a2, const unint64_t *a3, uint64_t a4, unint64_t a5)
 {
   if (!a3 || !a4)
   {
@@ -8381,13 +7536,13 @@ void CreateRenderFunctionHandles(int8x8_t *a1, unint64_t a2, const unint64_t *a3
   }
 
   v8 = 0;
-  v9 = a1 + 35;
+  v9 = (a1 + 280);
   do
   {
     v10 = a3[v8];
     v25 = v10;
     v26 = a2;
-    v11 = a1[36];
+    v11 = *(a1 + 288);
     if (!*&v11)
     {
       goto LABEL_20;
@@ -8458,24 +7613,24 @@ LABEL_19:
     v28[0] = a2;
     v28[1] = v10;
     v27 = v28;
-    v17 = std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::__emplace_unique_key_args<FunctionHandleKey,std::piecewise_construct_t const&,std::tuple<FunctionHandleKey const&>,std::piecewise_construct_t const&<>>(v15 + 3, v28)[4];
+    v17 = std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::__emplace_unique_key_args<FunctionHandleKey,std::piecewise_construct_t const&,std::tuple<FunctionHandleKey const&>,std::piecewise_construct_t const&<>>(v15 + 3, v28, &v27)[4];
     v18 = v17;
     if (!v17)
     {
       v27 = &v26;
-      v19 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(&a1[30], v26)[3];
+      v19 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto22MTLRenderPipelineState}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto22MTLRenderPipelineState}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(a1 + 60, v26, &v27)[3];
       if (v19)
       {
         v20 = v19;
         v27 = &v25;
-        v21 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(&a1[45], v25)[3];
+        v21 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto11MTLFunction}* {__strong}>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::piecewise_construct_t const&<>>(a1 + 45, v25, &v27)[3];
         if (v21)
         {
           v18 = [v20 functionHandleWithFunction:v21 stage:a5];
           if (v18)
           {
             v27 = v28;
-            v22 = std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::__emplace_unique_key_args<FunctionHandleKey,std::piecewise_construct_t const&,std::tuple<FunctionHandleKey const&>,std::piecewise_construct_t const&<>>(v15 + 3, v28);
+            v22 = std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::__emplace_unique_key_args<FunctionHandleKey,std::piecewise_construct_t const&,std::tuple<FunctionHandleKey const&>,std::piecewise_construct_t const&<>>(v15 + 3, v28, &v27);
             objc_storeStrong(v22 + 4, v18);
           }
         }
@@ -8533,7 +7688,7 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long l
 
 uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1, unint64_t *a2, unint64_t a3, void *a4)
 {
-  v314 = *MEMORY[0x277D85DE8];
+  v313 = *MEMORY[0x277D85DE8];
   v7 = *a1;
   v8 = [*(a1 + 8) defaultDevice];
   v9 = [v8 argumentBuffersSupport];
@@ -8541,27 +7696,27 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
   if (!v9)
   {
     v123 = 0;
-    goto LABEL_190;
+    return v123 & 1;
   }
 
-  v225 = a3;
-  v228 = a1;
+  v224 = a3;
+  v227 = a1;
   newpool = 0;
   apr_pool_create_ex(&newpool, 0, 0, v10);
-  v258 = 0;
-  memset(v257, 0, sizeof(v257));
+  v257 = 0;
+  memset(v256, 0, sizeof(v256));
   v11 = *a2;
   v12 = newpool;
   v13 = v7[5];
   v14 = apr_array_make(newpool, 32, 8);
-  memset(v283, 0, sizeof(v283));
-  v282 = 0u;
+  memset(v282, 0, sizeof(v282));
   v281 = 0u;
-  *&v280[8] = 0u;
+  v280 = 0u;
+  *&v279[8] = 0u;
   v14->nelts = 0;
   GTMTLSMContext_getObjects(v13[1], v11, v14);
   v15 = apr_array_make(v12, v14->nelts, 32);
-  *&v279 = v15;
+  *&v278 = v15;
   nelts = v14->nelts;
   if (nelts >= 1)
   {
@@ -8585,7 +7740,7 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
   v14->nelts = 0;
   GTMTLSMContext_getObjects(v13[2], v11, v14);
   v24 = apr_array_make(v12, v14->nelts, 32);
-  *(&v279 + 1) = v24;
+  *(&v278 + 1) = v24;
   v25 = v14->nelts;
   if (v25 >= 1)
   {
@@ -8608,7 +7763,7 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
   v14->nelts = 0;
   GTMTLSMContext_getObjects(v13[3], v11, v14);
   v33 = apr_array_make(v12, v14->nelts, 32);
-  *v280 = v33;
+  *v279 = v33;
   v34 = v14->nelts;
   if (v34 >= 1)
   {
@@ -8631,7 +7786,7 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
   v14->nelts = 0;
   GTMTLSMContext_getObjects(v13[4], v11, v14);
   v42 = apr_array_make(v12, v14->nelts, 32);
-  *&v280[8] = v42;
+  *&v279[8] = v42;
   v43 = v14->nelts;
   if (v43 >= 1)
   {
@@ -8654,7 +7809,7 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
   v14->nelts = 0;
   GTMTLSMContext_getObjects(v13[11], v11, v14);
   v51 = apr_array_make(v12, v14->nelts, 32);
-  v283[1] = v51;
+  v282[1] = v51;
   v52 = v14->nelts;
   if (v52 >= 1)
   {
@@ -8674,11 +7829,11 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
     }
   }
 
-  v231 = a2;
+  v230 = a2;
   v14->nelts = 0;
   GTMTLSMContext_getObjects(v13[5], v11, v14);
   v60 = apr_array_make(v12, v14->nelts, 32);
-  *&v280[16] = v60;
+  *&v279[16] = v60;
   v61 = v14->nelts;
   if (v61 >= 1)
   {
@@ -8702,7 +7857,7 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
   v14->nelts = 0;
   GTMTLSMContext_getObjects(v13[6], v11, v14);
   v69 = apr_array_make(v12, v14->nelts, 32);
-  *&v281 = v69;
+  *&v280 = v69;
   v70 = v14->nelts;
   if (v70 >= 1)
   {
@@ -8726,7 +7881,7 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
   v14->nelts = 0;
   GTMTLSMContext_getObjects(v13[7], v11, v14);
   v78 = apr_array_make(v12, v14->nelts, 32);
-  *(&v281 + 1) = v78;
+  *(&v280 + 1) = v78;
   v79 = v14->nelts;
   if (v79 >= 1)
   {
@@ -8749,7 +7904,7 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
   v14->nelts = 0;
   GTMTLSMContext_getObjects(v13[8], v11, v14);
   v87 = apr_array_make(v12, v14->nelts, 32);
-  *&v282 = v87;
+  *&v281 = v87;
   v88 = v14->nelts;
   if (v88 >= 1)
   {
@@ -8772,7 +7927,7 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
   v14->nelts = 0;
   GTMTLSMContext_getObjects(v13[9], v11, v14);
   v96 = apr_array_make(v12, v14->nelts, 32);
-  *(&v282 + 1) = v96;
+  *(&v281 + 1) = v96;
   v97 = v14->nelts;
   if (v97 >= 1)
   {
@@ -8795,7 +7950,7 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
   v14->nelts = 0;
   GTMTLSMContext_getObjects(v13[10], v11, v14);
   v105 = apr_array_make(v12, v14->nelts, 32);
-  v283[0] = v105;
+  v282[0] = v105;
   v106 = v14->nelts;
   if (v106 >= 1)
   {
@@ -8821,7 +7976,7 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
   if (v114 < 1)
   {
     LODWORD(v116) = 0;
-    v118 = v228;
+    v118 = v227;
   }
 
   else
@@ -8829,7 +7984,7 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
     v115 = 0;
     v116 = 0;
     v117 = v7[9];
-    v118 = v228;
+    v118 = v227;
     do
     {
       v119 = *&v14->elts[8 * v115];
@@ -8857,7 +8012,7 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
   }
 
   v124 = apr_array_make(v12, v116, 24);
-  v283[2] = v124;
+  v282[2] = v124;
   if (v14->nelts >= 1)
   {
     v125 = 0;
@@ -8926,18 +8081,18 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
     while (v125 < v14->nelts);
   }
 
-  GTMTLIndirectResources_optimizeByKey(v257, &v279, 0, v12);
+  GTMTLIndirectResources_optimizeByKey(v256, &v278, 0, v12);
   v141 = objc_autoreleasePoolPush();
-  v142 = *(v231 + 8);
+  v142 = *(v230 + 2);
   context = v141;
   if (GTFenum_isDrawCall(v142))
   {
     if (GTFenum_isMeshCall(v142))
     {
-      if (*(v118 + 11360) == 70 && (Object = GTMTLSMContext_getObject(**(*v118 + 40), *(v118 + 8792), *v231)) != 0 && (v144 = Object[9]) != 0 && *(v144 + 368))
+      if (*(v118 + 11360) == 70 && (Object = GTMTLSMContext_getObject(**(*v118 + 40), *(v118 + 8792), *v230)) != 0 && (v144 = Object[9]) != 0 && *(v144 + 368))
       {
         v145 = [*(v118 + 8) defaultDevice];
-        v146 = ObtainResourceTrackingTracingBufferV2(v145, v257);
+        v146 = ObtainResourceTrackingTracingBufferV2(v145, v256);
 
         v147 = 48;
       }
@@ -8949,164 +8104,164 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
       }
 
       v149 = [*(v118 + 8) defaultDevice];
-      v151 = ObtainResourceTrackingTracingBufferV2(v149, v257);
+      v151 = ObtainResourceTrackingTracingBufferV2(v149, v256);
       v150 = 0;
     }
 
     else
     {
       v149 = [*(v118 + 8) defaultDevice];
-      v150 = ObtainResourceTrackingTracingBufferV2(v149, v257);
+      v150 = ObtainResourceTrackingTracingBufferV2(v149, v256);
       v151 = 0;
       v146 = 0;
       v147 = 1;
     }
 
-    if (ShouldInstrumentFragmentStage(v118, v257, v231, v225))
+    if (ShouldInstrumentFragmentStage(v118, v256, v230, v224))
     {
       v161 = [*(v118 + 8) defaultDevice];
-      v226 = ObtainResourceTrackingTracingBufferV2(v161, v257);
+      v225 = ObtainResourceTrackingTracingBufferV2(v161, v256);
 
       v147 |= 2u;
     }
 
     else
     {
-      v226 = 0;
+      v225 = 0;
     }
 
-    *v280 = 0u;
-    v279 = 0u;
+    *v279 = 0u;
+    v278 = 0u;
+    v280 = 0u;
     v281 = 0u;
-    v282 = 0u;
-    *&v280[16] = 1065353216;
-    LODWORD(v283[0]) = 1065353216;
-    *&v283[1] = 0u;
-    v284 = 0u;
+    *&v279[16] = 1065353216;
+    LODWORD(v282[0]) = 1065353216;
+    *&v282[1] = 0u;
+    v283 = 0u;
+    v285 = 0u;
     v286 = 0u;
-    v287 = 0u;
-    v285 = 1065353216;
-    v288 = 1065353216;
+    v284 = 1065353216;
+    v287 = 1065353216;
+    v288 = 0u;
     v289 = 0u;
-    v290 = 0u;
-    v293 = 0u;
     v292 = 0u;
-    v291 = 1065353216;
-    v294 = 1065353216;
-    v296 = 0u;
+    v291 = 0u;
+    v290 = 1065353216;
+    v293 = 1065353216;
     v295 = 0u;
-    v297 = 1065353216;
+    v294 = 0u;
+    v296 = 1065353216;
+    v253 = 0u;
     v254 = 0u;
-    v255 = 0u;
-    v260 = 1;
-    v256 = 1065353216;
-    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v261, &v254);
+    v259 = 1;
+    v255 = 1065353216;
+    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v260, &v253);
+    v250 = 0u;
     v251 = 0u;
-    v252 = 0u;
-    v253 = 1065353216;
-    v265 = 2;
-    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v266, &v251);
+    v252 = 1065353216;
+    v264 = 2;
+    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v265, &v250);
+    v247 = 0u;
     v248 = 0u;
-    v249 = 0u;
-    v250 = 1065353216;
-    v270 = 4;
-    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v271, &v248);
+    v249 = 1065353216;
+    v269 = 4;
+    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v270, &v247);
+    v244 = 0u;
     v245 = 0u;
-    v246 = 0u;
-    v247 = 1065353216;
-    v275 = 16;
-    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v276, &v245);
+    v246 = 1065353216;
+    v274 = 16;
+    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v275, &v244);
+    v241 = 0u;
     v242 = 0u;
-    v243 = 0u;
-    v244 = 1065353216;
-    v277 = 8;
-    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v278, &v242);
-    std::unordered_map<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>,std::hash<unsigned long>,FunctionHandleKeyHash<unsigned long>,std::equal_to<FunctionHandleKey><std::allocator<unsigned long const>>>::unordered_map(v298, &v260, 5);
+    v243 = 1065353216;
+    v276 = 8;
+    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v277, &v241);
+    std::unordered_map<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>,std::hash<unsigned long>,FunctionHandleKeyHash<unsigned long>,std::equal_to<FunctionHandleKey><std::allocator<unsigned long const>>>::unordered_map(v297, &v259, 5);
     for (i2 = 200; i2 != -40; i2 -= 48)
     {
-      std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v260 + i2);
+      std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v259 + i2);
     }
 
-    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v242);
-    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v245);
-    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v248);
-    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v251);
-    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v254);
+    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v241);
+    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v244);
+    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v247);
+    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v250);
+    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v253);
+    v298 = 0u;
     v299 = 0u;
-    v300 = 0u;
-    v301 = 1065353216;
+    v300 = 1065353216;
+    v301 = 0u;
     v302 = 0u;
-    v303 = 0u;
-    v304 = 1065353216;
+    v303 = 1065353216;
+    v304 = 0u;
     v305 = 0u;
-    v306 = 0u;
-    v307 = 1065353216;
+    v306 = 1065353216;
     v163 = v150;
-    *&v308 = v163;
-    v164 = v226;
-    *(&v308 + 1) = v164;
-    *&v309 = 0;
+    *&v307 = v163;
+    v164 = v225;
+    *(&v307 + 1) = v164;
+    *&v308 = 0;
     v165 = v146;
-    *(&v309 + 1) = v165;
+    *(&v308 + 1) = v165;
     v166 = v151;
-    v310 = v166;
-    v311 = 0;
-    v312 = 2;
-    LODWORD(v313) = v147;
-    BYTE4(v313) = 0;
-    BYTE5(v313) = GTFenum_isMeshCall(*(v231 + 8));
-    HIWORD(v313) = 0;
+    v309 = v166;
+    v310 = 0;
+    v311 = 2;
+    LODWORD(v312) = v147;
+    BYTE4(v312) = 0;
+    BYTE5(v312) = GTFenum_isMeshCall(*(v230 + 2));
+    HIWORD(v312) = 0;
     v167 = newpool;
-    InstrumentFunctionWithResourceTrackingV2(&v260, v228, v231, &v279, v257, newpool);
-    v123 = v260;
-    ReplaceFunctionTablesWithRegular(v240, v228, v147, *v231, v257, v167);
-    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v241);
-    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(v240);
+    InstrumentFunctionWithResourceTrackingV2(&v259, v227, v230, &v278, v256, newpool);
+    v123 = v259;
+    ReplaceFunctionTablesWithRegular(v239, v227, v147, *v230, v256, v167);
+    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v240);
+    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(v239);
     v168 = objc_alloc(MEMORY[0x277CBEB18]);
-    v156 = [v168 initWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v262 - v261) >> 3) - 0x5555555555555555 * ((v264 - v263) >> 3) - 0x5555555555555555 * ((v267 - v266) >> 3) - 0x5555555555555555 * ((v269 - v268) >> 3)];
-    v169 = v263;
-    v170 = v264;
+    v156 = [v168 initWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v261 - v260) >> 3) - 0x5555555555555555 * ((v263 - v262) >> 3) - 0x5555555555555555 * ((v266 - v265) >> 3) - 0x5555555555555555 * ((v268 - v267) >> 3)];
+    v169 = v262;
+    v170 = v263;
     while (v169 != v170)
     {
-      v254 = *v169;
-      *&v255 = v169[2];
-      v171 = MakeResourceUsageItem(&v254, 8);
+      v253 = *v169;
+      *&v254 = v169[2];
+      v171 = MakeResourceUsageItem(&v253, 8);
       [v156 addObject:v171];
 
       v169 += 3;
     }
 
-    v172 = v266;
-    v173 = v267;
+    v172 = v265;
+    v173 = v266;
     while (v172 != v173)
     {
-      v254 = *v172;
-      *&v255 = v172[2];
-      v174 = MakeResourceUsageItem(&v254, 16);
+      v253 = *v172;
+      *&v254 = v172[2];
+      v174 = MakeResourceUsageItem(&v253, 16);
       [v156 addObject:v174];
 
       v172 += 3;
     }
 
-    v175 = v261;
-    v176 = v262;
+    v175 = v260;
+    v176 = v261;
     while (v175 != v176)
     {
-      v254 = *v175;
-      *&v255 = v175[2];
-      v177 = MakeResourceUsageItem(&v254, 1);
+      v253 = *v175;
+      *&v254 = v175[2];
+      v177 = MakeResourceUsageItem(&v253, 1);
       [v156 addObject:v177];
 
       v175 += 3;
     }
 
-    v178 = v268;
-    v179 = v269;
+    v178 = v267;
+    v179 = v268;
     while (v178 != v179)
     {
-      v254 = *v178;
-      *&v255 = v178[2];
-      v180 = MakeResourceUsageItem(&v254, 2);
+      v253 = *v178;
+      *&v254 = v178[2];
+      v180 = MakeResourceUsageItem(&v253, 2);
       [v156 addObject:v180];
 
       v178 += 3;
@@ -9114,41 +8269,41 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
 
     if (__p)
     {
-      v274 = __p;
+      v273 = __p;
       operator delete(__p);
     }
 
-    if (v271)
+    if (v270)
     {
-      v272 = v271;
-      operator delete(v271);
+      v271 = v270;
+      operator delete(v270);
     }
 
-    if (v268)
+    if (v267)
     {
-      v269 = v268;
-      operator delete(v268);
+      v268 = v267;
+      operator delete(v267);
     }
 
-    if (v266)
+    if (v265)
     {
-      v267 = v266;
-      operator delete(v266);
+      v266 = v265;
+      operator delete(v265);
     }
 
-    if (v263)
+    if (v262)
     {
-      v264 = v263;
-      operator delete(v263);
+      v263 = v262;
+      operator delete(v262);
     }
 
-    if (v261)
+    if (v260)
     {
-      v262 = v261;
-      operator delete(v261);
+      v261 = v260;
+      operator delete(v260);
     }
 
-    GTMTLReplayAccessTracking::~GTMTLReplayAccessTracking(&v279);
+    GTMTLReplayAccessTracking::~GTMTLReplayAccessTracking(&v278);
 
     goto LABEL_186;
   }
@@ -9176,95 +8331,95 @@ uint64_t GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(uint64_t a1,
   if (v142 == v148)
   {
 LABEL_135:
-    *v280 = 0u;
-    v279 = 0u;
+    *v279 = 0u;
+    v278 = 0u;
+    v280 = 0u;
     v281 = 0u;
-    v282 = 0u;
-    *&v280[16] = 1065353216;
-    LODWORD(v283[0]) = 1065353216;
-    *&v283[1] = 0u;
-    v284 = 0u;
+    *&v279[16] = 1065353216;
+    LODWORD(v282[0]) = 1065353216;
+    *&v282[1] = 0u;
+    v283 = 0u;
+    v285 = 0u;
     v286 = 0u;
-    v287 = 0u;
-    v285 = 1065353216;
-    v288 = 1065353216;
+    v284 = 1065353216;
+    v287 = 1065353216;
+    v288 = 0u;
     v289 = 0u;
-    v290 = 0u;
-    v293 = 0u;
     v292 = 0u;
-    v291 = 1065353216;
-    v294 = 1065353216;
-    v296 = 0u;
+    v291 = 0u;
+    v290 = 1065353216;
+    v293 = 1065353216;
     v295 = 0u;
-    v297 = 1065353216;
+    v294 = 0u;
+    v296 = 1065353216;
+    v253 = 0u;
     v254 = 0u;
-    v255 = 0u;
-    v260 = 1;
-    v256 = 1065353216;
-    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v261, &v254);
+    v259 = 1;
+    v255 = 1065353216;
+    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v260, &v253);
+    v250 = 0u;
     v251 = 0u;
-    v252 = 0u;
-    v253 = 1065353216;
-    v265 = 2;
-    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v266, &v251);
+    v252 = 1065353216;
+    v264 = 2;
+    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v265, &v250);
+    v247 = 0u;
     v248 = 0u;
-    v249 = 0u;
-    v250 = 1065353216;
-    v270 = 4;
-    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v271, &v248);
+    v249 = 1065353216;
+    v269 = 4;
+    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v270, &v247);
+    v244 = 0u;
     v245 = 0u;
-    v246 = 0u;
-    v247 = 1065353216;
-    v275 = 16;
-    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v276, &v245);
+    v246 = 1065353216;
+    v274 = 16;
+    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v275, &v244);
+    v241 = 0u;
     v242 = 0u;
-    v243 = 0u;
-    v244 = 1065353216;
-    v277 = 8;
-    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v278, &v242);
-    std::unordered_map<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>,std::hash<unsigned long>,FunctionHandleKeyHash<unsigned long>,std::equal_to<FunctionHandleKey><std::allocator<unsigned long const>>>::unordered_map(v298, &v260, 5);
+    v243 = 1065353216;
+    v276 = 8;
+    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v277, &v241);
+    std::unordered_map<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>,std::hash<unsigned long>,FunctionHandleKeyHash<unsigned long>,std::equal_to<FunctionHandleKey><std::allocator<unsigned long const>>>::unordered_map(v297, &v259, 5);
     for (i3 = 200; i3 != -40; i3 -= 48)
     {
-      std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v260 + i3);
+      std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v259 + i3);
     }
 
-    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v242);
-    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v245);
-    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v248);
-    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v251);
-    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v254);
+    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v241);
+    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v244);
+    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v247);
+    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v250);
+    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v253);
+    v298 = 0u;
     v299 = 0u;
-    v300 = 0u;
-    v301 = 1065353216;
+    v300 = 1065353216;
+    v301 = 0u;
     v302 = 0u;
-    v303 = 0u;
-    v304 = 1065353216;
+    v303 = 1065353216;
+    v304 = 0u;
     v305 = 0u;
-    v306 = 0u;
-    v307 = 1065353216;
-    v308 = 0uLL;
+    v306 = 1065353216;
+    v307 = 0uLL;
     v153 = [*(v118 + 8) defaultDevice];
-    v309 = ObtainResourceTrackingTracingBufferV2(v153, v257);
-    v311 = 0;
+    v308 = ObtainResourceTrackingTracingBufferV2(v153, v256);
     v310 = 0;
-    v312 = 2;
-    v313 = 0x100000004;
+    v309 = 0;
+    v311 = 2;
+    v312 = 0x100000004;
 
     v154 = newpool;
-    InstrumentFunctionWithResourceTrackingV2(&v260, v118, v231, &v279, v257, newpool);
-    v123 = v260;
-    ReplaceFunctionTablesWithRegular(v238, v118, 4, *v231, v257, v154);
-    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v239);
-    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(v238);
+    InstrumentFunctionWithResourceTrackingV2(&v259, v118, v230, &v278, v256, newpool);
+    v123 = v259;
+    ReplaceFunctionTablesWithRegular(v237, v118, 4, *v230, v256, v154);
+    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v238);
+    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(v237);
     v155 = objc_alloc(MEMORY[0x277CBEB18]);
-    v156 = [v155 initWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v272 - v271) >> 3)];
-    v157 = v271;
-    v158 = v272;
+    v156 = [v155 initWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v271 - v270) >> 3)];
+    v157 = v270;
+    v158 = v271;
     while (v157 != v158)
     {
-      v254 = *v157;
-      *&v255 = v157[2];
-      v159 = MakeResourceUsageItem(&v254, 4);
+      v253 = *v157;
+      *&v254 = v157[2];
+      v159 = MakeResourceUsageItem(&v253, 4);
       [v156 addObject:v159];
 
       v157 += 3;
@@ -9276,7 +8431,7 @@ LABEL_135:
       goto LABEL_143;
     }
 
-    v274 = __p;
+    v273 = __p;
     goto LABEL_142;
   }
 
@@ -9286,223 +8441,223 @@ LABEL_135:
     {
       if ((v142 & 0xFFFFFFFE) == 0xFFFFC1A6)
       {
-        if (IsSubFuncEnumDrawMeshCall(v118, v231, v225))
+        if (IsSubFuncEnumDrawMeshCall(v118, v230, v224))
         {
-          if (ShouldInstrumentICBObjectStage(v118, v231, v225))
+          if (ShouldInstrumentICBObjectStage(v118, v230, v224))
           {
-            v191 = [*(v118 + 8) defaultDevice];
-            v229 = ObtainResourceTrackingTracingBufferV2(v191, v257);
+            v190 = [*(v118 + 8) defaultDevice];
+            v228 = ObtainResourceTrackingTracingBufferV2(v190, v256);
 
-            v192 = 48;
+            v191 = 48;
           }
 
           else
           {
-            v229 = 0;
-            v192 = 32;
+            v228 = 0;
+            v191 = 32;
           }
 
-          v200 = [*(v118 + 8) defaultDevice];
-          v202 = ObtainResourceTrackingTracingBufferV2(v200, v257);
+          v199 = [*(v118 + 8) defaultDevice];
+          v201 = ObtainResourceTrackingTracingBufferV2(v199, v256);
+          v200 = 0;
+        }
+
+        else
+        {
+          v199 = [*(v118 + 8) defaultDevice];
+          v200 = ObtainResourceTrackingTracingBufferV2(v199, v256);
+          v228 = 0;
           v201 = 0;
+          v191 = 1;
+        }
+
+        if (ShouldInstrumentFragmentStage(v118, v256, v230, v224))
+        {
+          v202 = [*(v118 + 8) defaultDevice];
+          v223 = ObtainResourceTrackingTracingBufferV2(v202, v256);
+          v191 |= 2u;
         }
 
         else
         {
-          v200 = [*(v118 + 8) defaultDevice];
-          v201 = ObtainResourceTrackingTracingBufferV2(v200, v257);
-          v229 = 0;
-          v202 = 0;
-          v192 = 1;
+          v223 = 0;
         }
 
-        if (ShouldInstrumentFragmentStage(v118, v257, v231, v225))
-        {
-          v203 = [*(v118 + 8) defaultDevice];
-          v224 = ObtainResourceTrackingTracingBufferV2(v203, v257);
-          v192 |= 2u;
-        }
-
-        else
-        {
-          v224 = 0;
-        }
-
-        *v280 = 0u;
-        v279 = 0u;
+        *v279 = 0u;
+        v278 = 0u;
+        v280 = 0u;
         v281 = 0u;
-        v282 = 0u;
-        *&v280[16] = 1065353216;
-        LODWORD(v283[0]) = 1065353216;
-        *&v283[1] = 0u;
-        v284 = 0u;
+        *&v279[16] = 1065353216;
+        LODWORD(v282[0]) = 1065353216;
+        *&v282[1] = 0u;
+        v283 = 0u;
+        v285 = 0u;
         v286 = 0u;
-        v287 = 0u;
-        v285 = 1065353216;
-        v288 = 1065353216;
+        v284 = 1065353216;
+        v287 = 1065353216;
+        v288 = 0u;
         v289 = 0u;
-        v290 = 0u;
-        v293 = 0u;
         v292 = 0u;
-        v291 = 1065353216;
-        v294 = 1065353216;
-        v296 = 0u;
+        v291 = 0u;
+        v290 = 1065353216;
+        v293 = 1065353216;
         v295 = 0u;
-        v297 = 1065353216;
+        v294 = 0u;
+        v296 = 1065353216;
+        v253 = 0u;
         v254 = 0u;
-        v255 = 0u;
-        v260 = 1;
-        v256 = 1065353216;
-        v223 = v201;
-        std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v261, &v254);
+        v259 = 1;
+        v255 = 1065353216;
+        v222 = v200;
+        std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v260, &v253);
+        v250 = 0u;
         v251 = 0u;
-        v252 = 0u;
-        v253 = 1065353216;
-        v265 = 2;
-        std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v266, &v251);
+        v252 = 1065353216;
+        v264 = 2;
+        std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v265, &v250);
+        v247 = 0u;
         v248 = 0u;
-        v249 = 0u;
-        v250 = 1065353216;
-        v270 = 4;
-        std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v271, &v248);
+        v249 = 1065353216;
+        v269 = 4;
+        std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v270, &v247);
+        v244 = 0u;
         v245 = 0u;
-        v246 = 0u;
-        v247 = 1065353216;
-        v275 = 16;
-        std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v276, &v245);
+        v246 = 1065353216;
+        v274 = 16;
+        std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v275, &v244);
+        v241 = 0u;
         v242 = 0u;
-        v243 = 0u;
-        v244 = 1065353216;
-        v277 = 8;
-        std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v278, &v242);
-        std::unordered_map<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>,std::hash<unsigned long>,FunctionHandleKeyHash<unsigned long>,std::equal_to<FunctionHandleKey><std::allocator<unsigned long const>>>::unordered_map(v298, &v260, 5);
+        v243 = 1065353216;
+        v276 = 8;
+        std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v277, &v241);
+        std::unordered_map<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>,std::hash<unsigned long>,FunctionHandleKeyHash<unsigned long>,std::equal_to<FunctionHandleKey><std::allocator<unsigned long const>>>::unordered_map(v297, &v259, 5);
         for (i4 = 200; i4 != -40; i4 -= 48)
         {
-          std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v260 + i4);
+          std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v259 + i4);
         }
 
-        std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v242);
-        std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v245);
-        std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v248);
-        std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v251);
-        std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v254);
+        std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v241);
+        std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v244);
+        std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v247);
+        std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v250);
+        std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v253);
+        v298 = 0u;
         v299 = 0u;
-        v300 = 0u;
-        v301 = 1065353216;
+        v300 = 1065353216;
+        v301 = 0u;
         v302 = 0u;
-        v303 = 0u;
-        v304 = 1065353216;
+        v303 = 1065353216;
+        v304 = 0u;
         v305 = 0u;
-        v306 = 0u;
-        v307 = 1065353216;
-        v205 = v201;
-        *&v308 = v205;
-        v206 = v224;
+        v306 = 1065353216;
+        v204 = v200;
+        *&v307 = v204;
+        v205 = v223;
+        *(&v307 + 1) = v205;
+        *&v308 = 0;
+        v206 = v228;
         *(&v308 + 1) = v206;
-        *&v309 = 0;
-        v207 = v229;
-        *(&v309 + 1) = v207;
-        v208 = v202;
-        v310 = v208;
-        v311 = 0;
-        v312 = 2;
-        LODWORD(v313) = v192;
-        BYTE4(v313) = 1;
-        BYTE5(v313) = IsSubFuncEnumDrawMeshCall(v118, v231, v225);
-        HIWORD(v313) = 0;
-        v209 = newpool;
+        v207 = v201;
+        v309 = v207;
+        v310 = 0;
+        v311 = 2;
+        LODWORD(v312) = v191;
+        BYTE4(v312) = 1;
+        BYTE5(v312) = IsSubFuncEnumDrawMeshCall(v118, v230, v224);
+        HIWORD(v312) = 0;
+        v208 = newpool;
         InstrumentSubCommandWithAccessTrackingV2();
-        v123 = v260;
-        ReplaceFunctionTablesWithRegular(v234, v118, v192, *v231, v257, v209);
-        std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v235);
-        std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(v234);
-        v210 = objc_alloc(MEMORY[0x277CBEB18]);
-        v156 = [v210 initWithCapacity:{0xAAAAAAAAAAAAAAABLL * ((v262 - v261) >> 3) - 0x5555555555555555 * ((v269 - v268) >> 3) - 0x5555555555555555 * ((v264 - v263) >> 3) - 0x5555555555555555 * ((v267 - v266) >> 3), v223}];
+        v123 = v259;
+        ReplaceFunctionTablesWithRegular(v233, v118, v191, *v230, v256, v208);
+        std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v234);
+        std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(v233);
+        v209 = objc_alloc(MEMORY[0x277CBEB18]);
+        v156 = [v209 initWithCapacity:{0xAAAAAAAAAAAAAAABLL * ((v261 - v260) >> 3) - 0x5555555555555555 * ((v268 - v267) >> 3) - 0x5555555555555555 * ((v263 - v262) >> 3) - 0x5555555555555555 * ((v266 - v265) >> 3), v222}];
+        v210 = v262;
         v211 = v263;
-        v212 = v264;
-        while (v211 != v212)
+        while (v210 != v211)
         {
-          v254 = *v211;
-          *&v255 = v211[2];
-          v213 = MakeResourceUsageItem(&v254, 8);
-          [v156 addObject:v213];
+          v253 = *v210;
+          *&v254 = v210[2];
+          v212 = MakeResourceUsageItem(&v253, 8);
+          [v156 addObject:v212];
 
-          v211 += 3;
+          v210 += 3;
         }
 
+        v213 = v265;
         v214 = v266;
-        v215 = v267;
-        while (v214 != v215)
+        while (v213 != v214)
         {
-          v254 = *v214;
-          *&v255 = v214[2];
-          v216 = MakeResourceUsageItem(&v254, 16);
-          [v156 addObject:v216];
+          v253 = *v213;
+          *&v254 = v213[2];
+          v215 = MakeResourceUsageItem(&v253, 16);
+          [v156 addObject:v215];
 
-          v214 += 3;
+          v213 += 3;
         }
 
+        v216 = v260;
         v217 = v261;
-        v218 = v262;
-        while (v217 != v218)
+        while (v216 != v217)
         {
-          v254 = *v217;
-          *&v255 = v217[2];
-          v219 = MakeResourceUsageItem(&v254, 1);
-          [v156 addObject:v219];
+          v253 = *v216;
+          *&v254 = v216[2];
+          v218 = MakeResourceUsageItem(&v253, 1);
+          [v156 addObject:v218];
 
-          v217 += 3;
+          v216 += 3;
         }
 
+        v219 = v267;
         v220 = v268;
-        v221 = v269;
-        while (v220 != v221)
+        while (v219 != v220)
         {
-          v254 = *v220;
-          *&v255 = v220[2];
-          v222 = MakeResourceUsageItem(&v254, 2);
-          [v156 addObject:v222];
+          v253 = *v219;
+          *&v254 = v219[2];
+          v221 = MakeResourceUsageItem(&v253, 2);
+          [v156 addObject:v221];
 
-          v220 += 3;
+          v219 += 3;
         }
 
         if (__p)
         {
-          v274 = __p;
+          v273 = __p;
           operator delete(__p);
         }
 
-        if (v271)
+        if (v270)
         {
-          v272 = v271;
-          operator delete(v271);
+          v271 = v270;
+          operator delete(v270);
         }
 
-        if (v268)
+        if (v267)
         {
-          v269 = v268;
-          operator delete(v268);
+          v268 = v267;
+          operator delete(v267);
         }
 
-        if (v266)
+        if (v265)
         {
-          v267 = v266;
-          operator delete(v266);
+          v266 = v265;
+          operator delete(v265);
         }
 
-        if (v263)
+        if (v262)
         {
-          v264 = v263;
-          operator delete(v263);
+          v263 = v262;
+          operator delete(v262);
         }
 
-        if (v261)
+        if (v260)
         {
-          v262 = v261;
-          operator delete(v261);
+          v261 = v260;
+          operator delete(v260);
         }
 
-        GTMTLReplayAccessTracking::~GTMTLReplayAccessTracking(&v279);
+        GTMTLReplayAccessTracking::~GTMTLReplayAccessTracking(&v278);
       }
 
       else
@@ -9514,245 +8669,245 @@ LABEL_135:
       goto LABEL_186;
     }
 
-    *v280 = 0u;
-    v279 = 0u;
+    *v279 = 0u;
+    v278 = 0u;
+    v280 = 0u;
     v281 = 0u;
-    v282 = 0u;
-    *&v280[16] = 1065353216;
-    LODWORD(v283[0]) = 1065353216;
-    *&v283[1] = 0u;
-    v284 = 0u;
+    *&v279[16] = 1065353216;
+    LODWORD(v282[0]) = 1065353216;
+    *&v282[1] = 0u;
+    v283 = 0u;
+    v285 = 0u;
     v286 = 0u;
-    v287 = 0u;
-    v285 = 1065353216;
-    v288 = 1065353216;
+    v284 = 1065353216;
+    v287 = 1065353216;
+    v288 = 0u;
     v289 = 0u;
-    v290 = 0u;
-    v293 = 0u;
     v292 = 0u;
-    v291 = 1065353216;
-    v294 = 1065353216;
-    v296 = 0u;
+    v291 = 0u;
+    v290 = 1065353216;
+    v293 = 1065353216;
     v295 = 0u;
-    v297 = 1065353216;
+    v294 = 0u;
+    v296 = 1065353216;
+    v253 = 0u;
     v254 = 0u;
-    v255 = 0u;
-    v260 = 1;
-    v256 = 1065353216;
-    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v261, &v254);
+    v259 = 1;
+    v255 = 1065353216;
+    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v260, &v253);
+    v250 = 0u;
     v251 = 0u;
-    v252 = 0u;
-    v253 = 1065353216;
-    v265 = 2;
-    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v266, &v251);
+    v252 = 1065353216;
+    v264 = 2;
+    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v265, &v250);
+    v247 = 0u;
     v248 = 0u;
-    v249 = 0u;
-    v250 = 1065353216;
-    v270 = 4;
-    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v271, &v248);
+    v249 = 1065353216;
+    v269 = 4;
+    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v270, &v247);
+    v244 = 0u;
     v245 = 0u;
-    v246 = 0u;
-    v247 = 1065353216;
-    v275 = 16;
-    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v276, &v245);
+    v246 = 1065353216;
+    v274 = 16;
+    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v275, &v244);
+    v241 = 0u;
     v242 = 0u;
-    v243 = 0u;
-    v244 = 1065353216;
-    v277 = 8;
-    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v278, &v242);
-    std::unordered_map<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>,std::hash<unsigned long>,FunctionHandleKeyHash<unsigned long>,std::equal_to<FunctionHandleKey><std::allocator<unsigned long const>>>::unordered_map(v298, &v260, 5);
+    v243 = 1065353216;
+    v276 = 8;
+    std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v277, &v241);
+    std::unordered_map<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>,std::hash<unsigned long>,FunctionHandleKeyHash<unsigned long>,std::equal_to<FunctionHandleKey><std::allocator<unsigned long const>>>::unordered_map(v297, &v259, 5);
     for (i5 = 200; i5 != -40; i5 -= 48)
     {
-      std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v260 + i5);
+      std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v259 + i5);
     }
 
-    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v242);
-    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v245);
-    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v248);
-    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v251);
-    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v254);
+    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v241);
+    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v244);
+    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v247);
+    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v250);
+    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v253);
+    v298 = 0u;
     v299 = 0u;
-    v300 = 0u;
-    v301 = 1065353216;
+    v300 = 1065353216;
+    v301 = 0u;
     v302 = 0u;
-    v303 = 0u;
-    v304 = 1065353216;
+    v303 = 1065353216;
+    v304 = 0u;
     v305 = 0u;
-    v306 = 0u;
-    v307 = 1065353216;
+    v306 = 1065353216;
+    v307 = 0u;
     v308 = 0u;
-    v309 = 0u;
-    v310 = 0;
-    v194 = [*(v118 + 8) defaultDevice];
-    v311 = ObtainResourceTrackingTracingBufferV2(v194, v257);
-    v312 = 2;
-    v313 = 8;
+    v309 = 0;
+    v193 = [*(v118 + 8) defaultDevice];
+    v310 = ObtainResourceTrackingTracingBufferV2(v193, v256);
+    v311 = 2;
+    v312 = 8;
 
-    v195 = newpool;
+    v194 = newpool;
     InstrumentSubCommandWithAccessTrackingV2();
-    v123 = v260;
-    ReplaceFunctionTablesWithRegular(v232, v118, 8, *v231, v257, v195);
-    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v233);
-    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(v232);
-    v196 = objc_alloc(MEMORY[0x277CBEB18]);
-    v156 = [v196 initWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v274 - __p) >> 3)];
-    v197 = __p;
-    v198 = v274;
-    while (v197 != v198)
+    v123 = v259;
+    ReplaceFunctionTablesWithRegular(v231, v118, 8, *v230, v256, v194);
+    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v232);
+    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(v231);
+    v195 = objc_alloc(MEMORY[0x277CBEB18]);
+    v156 = [v195 initWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v273 - __p) >> 3)];
+    v196 = __p;
+    v197 = v273;
+    while (v196 != v197)
     {
-      v254 = *v197;
-      *&v255 = v197[2];
-      v199 = MakeResourceUsageItem(&v254);
-      [v156 addObject:v199];
+      v253 = *v196;
+      *&v254 = v196[2];
+      v198 = MakeResourceUsageItem(&v253);
+      [v156 addObject:v198];
 
-      v197 += 3;
+      v196 += 3;
     }
 
-    InstrumentV2Result::~InstrumentV2Result(&v260);
+    InstrumentV2Result::~InstrumentV2Result(&v259);
     goto LABEL_153;
   }
 
-  *v280 = 0u;
-  v279 = 0u;
+  *v279 = 0u;
+  v278 = 0u;
+  v280 = 0u;
   v281 = 0u;
-  v282 = 0u;
-  *&v280[16] = 1065353216;
-  LODWORD(v283[0]) = 1065353216;
-  *&v283[1] = 0u;
-  v284 = 0u;
+  *&v279[16] = 1065353216;
+  LODWORD(v282[0]) = 1065353216;
+  *&v282[1] = 0u;
+  v283 = 0u;
+  v285 = 0u;
   v286 = 0u;
-  v287 = 0u;
-  v285 = 1065353216;
-  v288 = 1065353216;
+  v284 = 1065353216;
+  v287 = 1065353216;
+  v288 = 0u;
   v289 = 0u;
-  v290 = 0u;
-  v293 = 0u;
   v292 = 0u;
-  v291 = 1065353216;
-  v294 = 1065353216;
-  v296 = 0u;
+  v291 = 0u;
+  v290 = 1065353216;
+  v293 = 1065353216;
   v295 = 0u;
-  v297 = 1065353216;
+  v294 = 0u;
+  v296 = 1065353216;
+  v253 = 0u;
   v254 = 0u;
-  v255 = 0u;
-  v260 = 1;
-  v256 = 1065353216;
-  std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v261, &v254);
+  v259 = 1;
+  v255 = 1065353216;
+  std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v260, &v253);
+  v250 = 0u;
   v251 = 0u;
-  v252 = 0u;
-  v253 = 1065353216;
-  v265 = 2;
-  std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v266, &v251);
+  v252 = 1065353216;
+  v264 = 2;
+  std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v265, &v250);
+  v247 = 0u;
   v248 = 0u;
-  v249 = 0u;
-  v250 = 1065353216;
-  v270 = 4;
-  std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v271, &v248);
+  v249 = 1065353216;
+  v269 = 4;
+  std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(&v270, &v247);
+  v244 = 0u;
   v245 = 0u;
-  v246 = 0u;
-  v247 = 1065353216;
-  v275 = 16;
-  std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v276, &v245);
+  v246 = 1065353216;
+  v274 = 16;
+  std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v275, &v244);
+  v241 = 0u;
   v242 = 0u;
-  v243 = 0u;
-  v244 = 1065353216;
-  v277 = 8;
-  std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v278, &v242);
-  std::unordered_map<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>,std::hash<unsigned long>,FunctionHandleKeyHash<unsigned long>,std::equal_to<FunctionHandleKey><std::allocator<unsigned long const>>>::unordered_map(v298, &v260, 5);
+  v243 = 1065353216;
+  v276 = 8;
+  std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>::unordered_map(v277, &v241);
+  std::unordered_map<unsigned long,std::unordered_map<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,std::allocator<std::pair<FunctionHandleKey const,objc_object  {objcproto17MTLFunctionHandle}*>>>,std::hash<unsigned long>,FunctionHandleKeyHash<unsigned long>,std::equal_to<FunctionHandleKey><std::allocator<unsigned long const>>>::unordered_map(v297, &v259, 5);
   for (i6 = 200; i6 != -40; i6 -= 48)
   {
-    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v260 + i6);
+    std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v259 + i6);
   }
 
-  std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v242);
-  std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v245);
-  std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v248);
-  std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v251);
-  std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v254);
+  std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v241);
+  std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v244);
+  std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v247);
+  std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v250);
+  std::__hash_table<std::__hash_value_type<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong}>,std::__unordered_map_hasher<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},FunctionHandleKeyHash,std::equal_to<FunctionHandleKey>,true>,std::__unordered_map_equal<FunctionHandleKey,objc_object  {objcproto17MTLFunctionHandle}* {__strong},std::equal_to,std::__unordered_map_hasher,true>,std::allocator<objc_object  {objcproto17MTLFunctionHandle}* {__strong}>>::~__hash_table(&v253);
+  v298 = 0u;
   v299 = 0u;
-  v300 = 0u;
-  v301 = 1065353216;
+  v300 = 1065353216;
+  v301 = 0u;
   v302 = 0u;
-  v303 = 0u;
-  v304 = 1065353216;
+  v303 = 1065353216;
+  v304 = 0u;
   v305 = 0u;
-  v306 = 0u;
-  v307 = 1065353216;
+  v306 = 1065353216;
+  v307 = 0u;
   v308 = 0u;
-  v309 = 0u;
-  v310 = 0;
-  v185 = [*(v118 + 8) defaultDevice];
-  v311 = ObtainResourceTrackingTracingBufferV2(v185, v257);
-  v312 = 2;
-  v313 = 0x100000008;
+  v309 = 0;
+  v184 = [*(v118 + 8) defaultDevice];
+  v310 = ObtainResourceTrackingTracingBufferV2(v184, v256);
+  v311 = 2;
+  v312 = 0x100000008;
 
-  v186 = newpool;
-  InstrumentFunctionWithResourceTrackingV2(&v260, v118, v231, &v279, v257, newpool);
-  v123 = v260;
-  ReplaceFunctionTablesWithRegular(v236, v118, 8, *v231, v257, v186);
-  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v237);
-  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(v236);
-  v187 = objc_alloc(MEMORY[0x277CBEB18]);
-  v156 = [v187 initWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v274 - __p) >> 3)];
-  v188 = __p;
-  v189 = v274;
-  if (__p != v274)
+  v185 = newpool;
+  InstrumentFunctionWithResourceTrackingV2(&v259, v118, v230, &v278, v256, newpool);
+  v123 = v259;
+  ReplaceFunctionTablesWithRegular(v235, v118, 8, *v230, v256, v185);
+  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v236);
+  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(v235);
+  v186 = objc_alloc(MEMORY[0x277CBEB18]);
+  v156 = [v186 initWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v273 - __p) >> 3)];
+  v187 = __p;
+  v188 = v273;
+  if (__p != v273)
   {
     do
     {
-      v254 = *v188;
-      *&v255 = v188[2];
-      v190 = MakeResourceUsageItem(&v254);
-      [v156 addObject:v190];
+      v253 = *v187;
+      *&v254 = v187[2];
+      v189 = MakeResourceUsageItem(&v253);
+      [v156 addObject:v189];
 
-      v188 += 3;
+      v187 += 3;
     }
 
-    while (v188 != v189);
-    v188 = __p;
+    while (v187 != v188);
+    v187 = __p;
   }
 
-  if (v188)
+  if (v187)
   {
-    v274 = v188;
-    v160 = v188;
+    v273 = v187;
+    v160 = v187;
 LABEL_142:
     operator delete(v160);
   }
 
 LABEL_143:
-  if (v271)
+  if (v270)
   {
-    v272 = v271;
-    operator delete(v271);
+    v271 = v270;
+    operator delete(v270);
   }
 
-  if (v268)
+  if (v267)
   {
-    v269 = v268;
-    operator delete(v268);
+    v268 = v267;
+    operator delete(v267);
   }
 
-  if (v266)
+  if (v265)
   {
-    v267 = v266;
-    operator delete(v266);
+    v266 = v265;
+    operator delete(v265);
   }
 
-  if (v263)
+  if (v262)
   {
-    v264 = v263;
-    operator delete(v263);
+    v263 = v262;
+    operator delete(v262);
   }
 
-  if (v261)
+  if (v260)
   {
-    v262 = v261;
-    operator delete(v261);
+    v261 = v260;
+    operator delete(v260);
   }
 
 LABEL_153:
-  GTMTLReplayAccessTracking::~GTMTLReplayAccessTracking(&v279);
+  GTMTLReplayAccessTracking::~GTMTLReplayAccessTracking(&v278);
 LABEL_186:
   objc_autoreleasePoolPop(context);
   apr_pool_destroy(newpool);
@@ -9767,7 +8922,805 @@ LABEL_186:
     *a4 = MEMORY[0x277CBEBF8];
   }
 
-LABEL_190:
-  v182 = *MEMORY[0x277D85DE8];
   return v123 & 1;
+}
+
+id ObtainResourceTrackingTracingBufferV2(void *a1, void *a2)
+{
+  v3 = a1;
+  v4 = [v3 newBufferWithLength:24 * *(*a2 + 12) + 16 * (*(a2[4] + 48) + *(a2[1] + 48) + *(a2[5] + 48) + *(a2[6] + 48) + *(a2[7] + 48) + *(a2[8] + 48) + *(a2[9] + 48) + 2 * *(a2[10] + 48)) + 64 options:0];
+
+  return v4;
+}
+
+void InstrumentFunctionWithResourceTrackingV2(uint64_t a1, uint64_t *a2, void *a3, uint64_t a4, __n128 *a5, apr_pool_t *a6)
+{
+  v12 = [a2[1] defaultDevice];
+  if (*(a3 + 2) >> 2 == 1073737833)
+  {
+    goto LABEL_67;
+  }
+
+  v13 = *a2;
+  GTMTLReplayController_debugSubCommandResume(a2, (*a3 - *(*a2 + 88) + 1), -1);
+  v14 = [a2[1] defaultDevice];
+  v15 = *a2;
+  v16 = a2 + 24;
+  v17 = *(a2 + 2840);
+  if (v17 != 28)
+  {
+    if (v17 != 70)
+    {
+LABEL_66:
+
+      GTMTLReplay_handleError(101, "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/GPUTools/GTMTLCapture/replayer/GTMTLReplay_accessTracking.mm", "InstrumentFunctionWithResourceTrackingV2", 5564, 64, "Resource access tracking failed");
+      FlushCommandQueue(a2);
+LABEL_67:
+      *(a1 + 144) = 0;
+      *(a1 + 112) = 0u;
+      *(a1 + 128) = 0u;
+      *(a1 + 80) = 0u;
+      *(a1 + 96) = 0u;
+      *(a1 + 48) = 0u;
+      *(a1 + 64) = 0u;
+      *(a1 + 16) = 0u;
+      *(a1 + 32) = 0u;
+      *a1 = 0u;
+      goto LABEL_68;
+    }
+
+    v52 = *(*a2 + 40);
+    v58 = v14;
+    p = [a2[1] renderCommandEncoderForKey:a2[25]];
+    if (!p)
+    {
+      goto LABEL_64;
+    }
+
+    v18 = *(a2 + 2840);
+    if (v18 - 95) <= 0xA && ((0x409u >> (v18 - 95)))
+    {
+      v19 = 14;
+    }
+
+    else
+    {
+      if (!v18)
+      {
+        v23 = 0;
+        goto LABEL_15;
+      }
+
+      v19 = 1075;
+    }
+
+    v23 = v16[v19];
+LABEL_15:
+    Object = GTMTLSMContext_getObject(**(v15 + 40), v23, *a3);
+    if (!Object)
+    {
+      goto LABEL_64;
+    }
+
+    v25 = Object;
+    v26 = ObtainTracingRenderPipelineState(*(v15 + 40), a2[1], Object, a4, *a3, a6);
+    if (!v26)
+    {
+      goto LABEL_64;
+    }
+
+    ReplaceSamplerStatesWithIndirected(&v74, a2, *a3, a6);
+    ReplaceFunctionTablesWithInstrumented(&v70, a2, a4, *a3, v25, a5, a6);
+    [(apr_pool_t *)p setRenderPipelineState:v26];
+    MakeTraceBufferResident(a4, p);
+    if ((SupportsGlobalRelocation(v58, a4) & 1) == 0 && (BindTraceBufferUsingBindings(a4, v25, p) & 1) == 0)
+    {
+LABEL_63:
+      std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v72 + 8);
+      std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v70);
+      std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v74);
+
+LABEL_64:
+      goto LABEL_65;
+    }
+
+    v27 = *(a3 + 2);
+    if (v27 > -15298)
+    {
+      if (v27 == -15059)
+      {
+        goto LABEL_39;
+      }
+
+      v28 = -15297;
+    }
+
+    else
+    {
+      if (v27 == -16137)
+      {
+        goto LABEL_39;
+      }
+
+      v28 = -15486;
+    }
+
+    if (v27 != v28)
+    {
+      if (GTFenum_isDrawCall(v27) && (!UpdateDrawSamplerStates(a4, v52, &v74, (a2 + 31), p, *a3) || !UpdateDrawFunctionTables(a4, v52, &v70, a2 + 31, p, *a3)))
+      {
+        goto LABEL_63;
+      }
+
+LABEL_45:
+      std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v72 + 8);
+      std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v70);
+      std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v74);
+
+      v14 = v58;
+      goto LABEL_46;
+    }
+
+LABEL_39:
+    if ((UpdateSamplerStates(4u, p, (a2 + 1083), a2 + 10812, a2 + 10876, v52, *a3, &v74) & 1) == 0 || (UpdateFunctionTables(4u, p, (a2 + 893), a2 + 892, v52, *a3, &v70) & 1) == 0)
+    {
+      goto LABEL_63;
+    }
+
+    goto LABEL_45;
+  }
+
+  v53 = *(*a2 + 40);
+  v58 = v14;
+  v20 = [a2[1] computeCommandEncoderForKey:a2[25]];
+  if (!v20)
+  {
+LABEL_33:
+
+LABEL_65:
+    v14 = v58;
+    goto LABEL_66;
+  }
+
+  v21 = *(a2 + 2840);
+  if (v21 - 95) <= 0xA && ((0x409u >> (v21 - 95)))
+  {
+    v22 = 7;
+  }
+
+  else
+  {
+    if (!v21)
+    {
+      v29 = 0;
+      goto LABEL_25;
+    }
+
+    v22 = 8;
+  }
+
+  v29 = v16[v22];
+LABEL_25:
+  v30 = GTMTLSMContext_getObject(**(*a2 + 40), v29, *a3);
+  if (!v30)
+  {
+    goto LABEL_33;
+  }
+
+  v31 = v30;
+  v32 = ObtainTracingComputePipelineState(*(*a2 + 40), a2[1], v30, a4, *a3, a6);
+  if (!v32)
+  {
+    goto LABEL_33;
+  }
+
+  pa = v32;
+  ReplaceSamplerStatesWithIndirected(&v74, a2, *a3, a6);
+  ReplaceFunctionTablesWithInstrumented(&v70, a2, a4, *a3, v31, a5, a6);
+  MakeTraceBufferResident(a4, v20);
+  if ((SupportsGlobalRelocation(v58, a4) & 1) == 0 && (BindTraceBufferUsingBindings(a4, v31, v20) & 1) == 0 || ([v20 setComputePipelineState:pa], (UpdateSamplerStates(8u, v20, (a2 + 256), (a2 + 296), (a2 + 304), v53, *a3, &v74) & 1) == 0))
+  {
+    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v72 + 8);
+    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v70);
+    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v74);
+
+    goto LABEL_33;
+  }
+
+  updated = UpdateFunctionTables(8u, v20, (a2 + 35), a2 + 33, v53, *a3, &v70);
+  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v72 + 8);
+  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v70);
+  std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(&v74);
+
+  v14 = v58;
+  if ((updated & 1) == 0)
+  {
+    goto LABEL_66;
+  }
+
+LABEL_46:
+
+  v34 = a6;
+  v35 = *(v13 + 40);
+  v36 = a2[1];
+  v54 = v36;
+  pb = v34;
+  v37 = GTMTLIndirectResources_remap(a5, v36, v34);
+  v74 = *v37;
+  v75 = *(v37 + 1);
+  v59 = v37[4];
+  v70 = *(v37 + 5);
+  v38 = *(v37 + 9);
+  v71 = *(v37 + 7);
+  v72 = v38;
+  v73 = v37[11];
+  *&v60[3] = *(v37 + 25);
+  *v60 = *(v37 + 97);
+  v50 = *(v37 + 96);
+  if (!v50)
+  {
+    v39 = apr_array_make(v34, 10, 8);
+    GTMTLSMContext_getObjects(*(v35 + 32), *a3, v39);
+    if (v39->nelts >= 1)
+    {
+      v40 = 0;
+      v51 = a4;
+      do
+      {
+        v41 = *&v39->elts[8 * v40];
+        if (v41)
+        {
+          v42 = *(v41 + 8);
+        }
+
+        else
+        {
+          v42 = 0;
+        }
+
+        v43 = [v36 samplerStateForKey:v42];
+        v44 = v43;
+        if (v43)
+        {
+          v69 = [v43 uniqueIdentifier];
+          v45 = *find_entry(v59, &v69, 8uLL, 0);
+          if (!v45 || !*(v45 + 32))
+          {
+            v46 = apr_palloc(pb, 0x20uLL);
+            v47 = v46;
+            if (v46)
+            {
+              *v46 = 0u;
+              *(v46 + 1) = 0u;
+            }
+
+            v48 = v69;
+            if (v41)
+            {
+              v41 = *(v41 + 8);
+            }
+
+            v49 = [v44 gpuResourceID];
+            *v47 = v48;
+            v47[1] = v41;
+            v47[2] = v49;
+            v47[3] = 0;
+            apr_hash_set(v59, v47, 8, v47);
+            a4 = v51;
+            v36 = v54;
+          }
+        }
+
+        ++v40;
+      }
+
+      while (v40 < v39->nelts);
+    }
+  }
+
+  v61[0] = v74;
+  v61[1] = v75;
+  v63 = v70;
+  v64 = v71;
+  v62 = v59;
+  v65 = v72;
+  v66 = v73;
+  v67 = v50;
+  *v68 = *v60;
+  *&v68[3] = *&v60[3];
+  if (!PopulateResourceTrackingBuffersV2(a4, v61))
+  {
+    goto LABEL_67;
+  }
+
+  GTMTLReplayController_defaultDispatchFunction(a2, a3);
+  FlushCommandQueue(a2);
+  DecodeResourceTrackingBuffersV2(a1, a4, v61);
+LABEL_68:
+}
+
+GTMTLResourceUsageItem *MakeResourceUsageItem(uint64_t a1, uint64_t a2)
+{
+  v4 = objc_alloc_init(GTMTLResourceUsageItem);
+  [(GTMTLResourceUsageItem *)v4 setStage:a2];
+  [(GTMTLResourceUsageItem *)v4 setKind:*(a1 + 8)];
+  [(GTMTLResourceUsageItem *)v4 setResourceID:*a1];
+  [(GTMTLResourceUsageItem *)v4 setUsage:*(a1 + 16)];
+
+  return v4;
+}
+
+void InstrumentV2Result::~InstrumentV2Result(InstrumentV2Result *this)
+{
+  v2 = *(this + 16);
+  if (v2)
+  {
+    *(this + 17) = v2;
+    operator delete(v2);
+  }
+
+  v3 = *(this + 13);
+  if (v3)
+  {
+    *(this + 14) = v3;
+    operator delete(v3);
+  }
+
+  v4 = *(this + 10);
+  if (v4)
+  {
+    *(this + 11) = v4;
+    operator delete(v4);
+  }
+
+  v5 = *(this + 7);
+  if (v5)
+  {
+    *(this + 8) = v5;
+    operator delete(v5);
+  }
+
+  v6 = *(this + 4);
+  if (v6)
+  {
+    *(this + 5) = v6;
+    operator delete(v6);
+  }
+
+  v7 = *(this + 1);
+  if (v7)
+  {
+    *(this + 2) = v7;
+    operator delete(v7);
+  }
+}
+
+GTMTLResourceUsageItem *MakeResourceUsageItem(uint64_t a1)
+{
+  v2 = objc_alloc_init(GTMTLResourceUsageItem);
+  [(GTMTLResourceUsageItem *)v2 setStage:0];
+  [(GTMTLResourceUsageItem *)v2 setKind:*(a1 + 8)];
+  [(GTMTLResourceUsageItem *)v2 setResourceID:*a1];
+  [(GTMTLResourceUsageItem *)v2 setUsage:*(a1 + 16)];
+
+  return v2;
+}
+
+BOOL IsSubFuncEnumDrawMeshCall(uint64_t *a1, uint64_t a2, unint64_t a3)
+{
+  if (*(a2 + 8) >> 2 != 1073737833)
+  {
+    return 0;
+  }
+
+  v5 = *a1;
+  v6 = a1[1];
+  v15 = 0;
+  v13 = 0u;
+  v14 = 0u;
+  GetExecuteCommandsInBufferArgs(&v13, a2, *(v5 + 16));
+  Object = GTMTLSMContext_getObject(**(v5 + 40), v13, *a2);
+  GTMTLCreateIndirectCommandEncoder(v10, Object[14]);
+  v8 = *(&v13 + 1) <= a3 && v14 + *(&v13 + 1) >= a3 && *(&v14 + 1) && ((*(*(&v14 + 1) + v12 * a3 + v11) - 128) & 0xFFFFFFFFFFFFFF7FLL) == 0;
+
+  return v8;
+}
+
+BOOL ShouldInstrumentICBObjectStage(uint64_t *a1, unint64_t *a2, unint64_t a3)
+{
+  if (*(a2 + 2) >> 2 == 1073737833)
+  {
+    v6 = *a1;
+    v7 = a1[1];
+    v8 = *a1[23];
+    v29 = 0;
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    memset(v24, 0, sizeof(v24));
+    GTMTLSMContext_indirectCommandBufferResources(v24, *(v6 + 40), *a2, v8);
+    v23 = 0;
+    v21 = 0u;
+    v22 = 0u;
+    GetExecuteCommandsInBufferArgs(&v21, a2, *(v6 + 16));
+    Object = GTMTLSMContext_getObject(**(v6 + 40), v21, *a2);
+    GTMTLCreateIndirectCommandEncoder(v18, Object[14]);
+    if (*(&v21 + 1) > a3)
+    {
+      goto LABEL_18;
+    }
+
+    if (v22 + *(&v21 + 1) < a3)
+    {
+      goto LABEL_18;
+    }
+
+    if (!*(&v22 + 1))
+    {
+      goto LABEL_18;
+    }
+
+    v10 = Object[14];
+    if (!v10)
+    {
+      goto LABEL_18;
+    }
+
+    if (*(v10 + 26))
+    {
+      v11 = *(a1 + 2840);
+      if (v11 - 95) <= 0xA && ((0x409u >> (v11 - 95)))
+      {
+        v12 = 14;
+      }
+
+      else
+      {
+        if (!v11)
+        {
+          v14 = 0;
+          goto LABEL_15;
+        }
+
+        v12 = 1075;
+      }
+
+      v14 = a1[v12 + 24];
+    }
+
+    else
+    {
+      v14 = GTMTLIndirectResources_renderPipelineIdForUniqueIdentifier(*(&v25 + 1), *(*(&v22 + 1) + v20 * a3 + v19));
+    }
+
+LABEL_15:
+    v15 = GTMTLSMContext_getObject(**(v6 + 40), v14, *a2);
+    if (v15)
+    {
+      v16 = v15[9];
+      if (v16)
+      {
+        v13 = *(v16 + 368) != 0;
+LABEL_19:
+
+        return v13;
+      }
+    }
+
+LABEL_18:
+    v13 = 0;
+    goto LABEL_19;
+  }
+
+  return 0;
+}
+
+void InstrumentSubCommandWithAccessTrackingV2()
+{
+  v0 = MEMORY[0x28223BE20]();
+  v7 = v0;
+  v65 = *MEMORY[0x277D85DE8];
+  v8 = *(v2 + 8);
+  if (v8 >> 2 != 1073737833)
+  {
+    goto LABEL_11;
+  }
+
+  v9 = v6;
+  v10 = v5;
+  v11 = v4;
+  v12 = v3;
+  v13 = v2;
+  v14 = v1;
+  v15 = v8 & 0xFFFFC1A6;
+  if (v15 == -15964)
+  {
+    v25 = *v1;
+    v17 = *(v1 + 8);
+    v61 = 0;
+    v59 = 0u;
+    v60 = 0u;
+    GetExecuteCommandsInBufferArgs(&v59, v13, *(v25 + 16));
+    Object = GTMTLSMContext_getObject(**(v25 + 40), v59, *v13);
+    GTMTLCreateIndirectCommandEncoder(&v55, Object[14]);
+    if (*(&v59 + 1) > v12 || v60 + *(&v59 + 1) < v12)
+    {
+      goto LABEL_51;
+    }
+
+    GTMTLReplayController_debugSubCommandResume(v14, (*v13 - *(v25 + 88) + 1), v12 + 1);
+    v27 = *v14;
+    v54 = *(v14 + 8);
+    v28 = *(&v60 + 1) + v58 * v12;
+    v29 = *(v28 + v56);
+    if (v29 != 64 && v29 != 32)
+    {
+      if (!v29)
+      {
+
+        goto LABEL_18;
+      }
+
+      goto LABEL_49;
+    }
+
+    if (*(v14 + 11360))
+    {
+      v31 = *(v14 + 200);
+    }
+
+    else
+    {
+      v31 = 0;
+    }
+
+    v51 = [v54 computeCommandEncoderForKey:v31];
+    if (v51)
+    {
+      MakeTraceBufferResident(v11, v51);
+      v49 = v55;
+      if (v55[26])
+      {
+        v32 = *(v14 + 11360);
+        if (v32 - 95) <= 0xA && ((0x409u >> (v32 - 95)))
+        {
+          v33 = 56;
+        }
+
+        else
+        {
+          if (!v32)
+          {
+            goto LABEL_48;
+          }
+
+          v33 = 64;
+        }
+
+        v37 = *(v14 + 192 + v33);
+      }
+
+      else
+      {
+        v37 = GTMTLIndirectResources_renderPipelineIdForUniqueIdentifier(v10[3].n128_i64[0], *(v28 + v57));
+      }
+
+      if (v37)
+      {
+        v39 = GTMTLSMContext_getObject(**(v27 + 40), v37, *v13);
+        if (v39)
+        {
+          v40 = v39;
+          v41 = ObtainTracingComputePipelineState(*(v27 + 40), v54, v39, v11, *v13, v9);
+          if (v41)
+          {
+            v47 = v41;
+            ReplaceFunctionTablesWithInstrumented(v62, v14, v11, *v13, v40, v10, v9);
+            std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(v63);
+            std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(v62);
+            if (v49[19])
+            {
+              [v51 setComputePipelineState:v47];
+              DYMTLDispatchComputeCommandEncoder(v51, &v55, v28);
+LABEL_66:
+
+              goto LABEL_18;
+            }
+
+            memcpy(__dst, (v14 + 248), 0x8D0uLL);
+            if (GTMTLSMComputeCommandEncoder_loadIndirectCommand(v14 + 248, &v55, v28, v10))
+            {
+              GTMTLReplayController_restoreComputeCommandEncoder(v51, v14 + 248, __dst, v54);
+              [v51 setComputePipelineState:v47];
+              DYMTLDispatchComputeCommandEncoder(v51, &v55, v28);
+              goto LABEL_66;
+            }
+
+            v41 = v47;
+          }
+
+          goto LABEL_50;
+        }
+      }
+    }
+
+LABEL_48:
+
+LABEL_49:
+LABEL_50:
+    FlushCommandQueue(v14);
+LABEL_51:
+    *(v7 + 144) = 0;
+    *(v7 + 112) = 0u;
+    *(v7 + 128) = 0u;
+    *(v7 + 80) = 0u;
+    *(v7 + 96) = 0u;
+    *(v7 + 48) = 0u;
+    *(v7 + 64) = 0u;
+    *(v7 + 16) = 0u;
+    *(v7 + 32) = 0u;
+    *v7 = 0u;
+    goto LABEL_52;
+  }
+
+  if (v15 != -15962)
+  {
+LABEL_11:
+    *(v0 + 144) = 0;
+    *(v0 + 112) = 0u;
+    *(v0 + 128) = 0u;
+    *(v0 + 80) = 0u;
+    *(v0 + 96) = 0u;
+    *(v0 + 48) = 0u;
+    *(v0 + 64) = 0u;
+    *(v0 + 16) = 0u;
+    *(v0 + 32) = 0u;
+    *v0 = 0u;
+    return;
+  }
+
+  v16 = *v1;
+  v17 = *(v1 + 8);
+  v61 = 0;
+  v59 = 0u;
+  v60 = 0u;
+  GetExecuteCommandsInBufferArgs(&v59, v13, *(v16 + 16));
+  v18 = GTMTLSMContext_getObject(**(v16 + 40), v59, *v13);
+  GTMTLCreateIndirectCommandEncoder(&v55, v18[14]);
+  if (*(&v59 + 1) > v12)
+  {
+    goto LABEL_51;
+  }
+
+  if (v60 + *(&v59 + 1) < v12)
+  {
+    goto LABEL_51;
+  }
+
+  v19 = *(&v60 + 1);
+  if (!*(&v60 + 1))
+  {
+    goto LABEL_51;
+  }
+
+  v53 = v17;
+  GTMTLReplayController_debugSubCommandResume(v14, (*v13 - *(v16 + 88) + 1), v12 + 1);
+  v20 = *v14;
+  v21 = *(v14 + 8);
+  v48 = v20;
+  GTMTLReplayController_debugSubCommandResume(v14, (*v13 - *(v20 + 88) + 1), v12 + 1);
+  v22 = v19 + v58 * v12;
+  v23 = *(v22 + v56);
+  v17 = v53;
+  if (v23 > 8)
+  {
+    goto LABEL_36;
+  }
+
+  if (((1 << v23) & 0x116) != 0)
+  {
+    goto LABEL_9;
+  }
+
+  if (v23)
+  {
+LABEL_36:
+    if (v23 != 128 && v23 != 256)
+    {
+
+LABEL_62:
+      FlushCommandQueue(v14);
+      goto LABEL_51;
+    }
+
+LABEL_9:
+    if (*(v14 + 11360))
+    {
+      v24 = *(v14 + 200);
+    }
+
+    else
+    {
+      v24 = 0;
+    }
+
+    v52 = v21;
+    v34 = [v21 renderCommandEncoderForKey:v24];
+    if (v34)
+    {
+      MakeTraceBufferResident(v11, v34);
+      v46 = v55;
+      if (!v55[26])
+      {
+        v38 = GTMTLIndirectResources_renderPipelineIdForUniqueIdentifier(v10[2].n128_i64[1], *(v22 + v57));
+LABEL_56:
+        if (v38)
+        {
+          v42 = GTMTLSMContext_getObject(**(v48 + 40), v38, *v13);
+          if (v42)
+          {
+            v43 = v42;
+            v50 = ObtainTracingRenderPipelineState(*(v48 + 40), v52, v42, v11, *v13, v9);
+            if (v50)
+            {
+              ReplaceFunctionTablesWithInstrumented(v62, v14, v11, *v13, v43, v10, v9);
+              std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(v63);
+              std::__hash_table<std::__hash_value_type<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>,std::__unordered_map_hasher<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto23MTLVisibleFunctionTable}* {__strong}>>::~__hash_table(v62);
+              if (v46[19])
+              {
+                [v34 setRenderPipelineState:v50];
+                v44 = [v52 executeIndirectCommandBufferMap];
+                DYMTLDrawRenderCommandEncoder(v34, &v55, v22, v10, v44);
+
+LABEL_69:
+                goto LABEL_18;
+              }
+
+              memcpy(__dst, (v14 + 248), sizeof(__dst));
+              if (GTMTLSMRenderCommandEncoder_loadIndirectCommand(__dst, &v55, v22, v10))
+              {
+                GTMTLReplayController_restoreRenderCommandEncoder(v34, v14 + 248, __dst, v52);
+                [v34 setRenderPipelineState:v50];
+                v45 = [v52 executeIndirectCommandBufferMap];
+                DYMTLDrawRenderCommandEncoder(v34, &v55, v22, v10, v45);
+
+                goto LABEL_69;
+              }
+            }
+
+            goto LABEL_62;
+          }
+        }
+
+        goto LABEL_61;
+      }
+
+      v35 = *(v14 + 11360);
+      if (v35 - 95) <= 0xA && ((0x409u >> (v35 - 95)))
+      {
+        v36 = 112;
+LABEL_55:
+        v38 = *(v14 + 192 + v36);
+        goto LABEL_56;
+      }
+
+      if (v35)
+      {
+        v36 = 8600;
+        goto LABEL_55;
+      }
+    }
+
+LABEL_61:
+
+    goto LABEL_62;
+  }
+
+LABEL_18:
+  v30 = GTMTLIndirectResources_remap(v10, *(v14 + 8), v9);
+  PopulateResourceTrackingBuffersV2(v11, v30);
+  FlushCommandQueue(v14);
+  DecodeResourceTrackingBuffersV2(v7, v11, v30);
+LABEL_52:
 }

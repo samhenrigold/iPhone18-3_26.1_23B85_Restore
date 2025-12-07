@@ -611,25 +611,25 @@ LABEL_4:
   observersCopy = observers;
   if ([observersCopy count])
   {
-    v27 = 0u;
-    v28 = 0u;
     v25 = 0u;
     v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     obj = observersCopy;
-    v9 = [obj countByEnumeratingWithState:&v25 objects:v41 count:16];
+    v9 = [obj countByEnumeratingWithState:&v23 objects:v39 count:16];
     if (v9)
     {
-      v10 = *v26;
+      v10 = *v24;
       do
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v26 != v10)
+          if (*v24 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v25 + 1) + 8 * i);
+          v12 = *(*(&v23 + 1) + 8 * i);
           if (deviceCopy)
           {
             v13 = stateCopy;
@@ -639,27 +639,26 @@ LABEL_4:
               WeakRetained = objc_loadWeakRetained((v12 + 8));
               if (WeakRetained)
               {
-                v37 = 0;
-                v38 = &v37;
-                v39 = 0x2020000000;
-                v40 = 0;
-                v16 = *(v12 + 16);
-                v29 = _NSConcreteStackBlock;
-                v30 = 3221225472;
-                v31 = sub_10002924C;
-                v32 = &unk_1000826F8;
-                v36 = &v37;
-                v33 = v12;
-                v34 = v14;
-                v35 = v13;
+                v35 = 0;
+                v36 = &v35;
+                v37 = 0x2020000000;
+                v38 = 0;
+                v27 = _NSConcreteStackBlock;
+                v28 = 3221225472;
+                v29 = sub_10002924C;
+                v30 = &unk_1000826F8;
+                v34 = &v35;
+                v31 = v12;
+                v32 = v14;
+                v33 = v13;
                 geo_isolate_sync_data();
-                if (*(v38 + 24) == 1)
+                if (*(v36 + 24) == 1)
                 {
                   connection = [WeakRetained connection];
                   [connection initiateBarrierIfNecessary:0 delegate:v12];
                 }
 
-                _Block_object_dispose(&v37, 8);
+                _Block_object_dispose(&v35, 8);
               }
             }
           }
@@ -670,36 +669,35 @@ LABEL_4:
             v14 = identifierCopy;
             if (v12)
             {
-              v18 = objc_loadWeakRetained((v12 + 8));
-              if (v18)
+              v17 = objc_loadWeakRetained((v12 + 8));
+              if (v17)
               {
-                v37 = 0;
-                v38 = &v37;
-                v39 = 0x2020000000;
-                v40 = 0;
-                v19 = *(v12 + 16);
-                v29 = _NSConcreteStackBlock;
-                v30 = 3221225472;
-                v31 = sub_1000291AC;
-                v32 = &unk_1000826F8;
-                v36 = &v37;
-                v33 = v12;
-                v34 = v14;
-                v35 = v13;
+                v35 = 0;
+                v36 = &v35;
+                v37 = 0x2020000000;
+                v38 = 0;
+                v27 = _NSConcreteStackBlock;
+                v28 = 3221225472;
+                v29 = sub_1000291AC;
+                v30 = &unk_1000826F8;
+                v34 = &v35;
+                v31 = v12;
+                v32 = v14;
+                v33 = v13;
                 geo_isolate_sync_data();
-                if (*(v38 + 24) == 1)
+                if (*(v36 + 24) == 1)
                 {
-                  connection2 = [v18 connection];
+                  connection2 = [v17 connection];
                   [connection2 initiateBarrierIfNecessary:0 delegate:v12];
                 }
 
-                _Block_object_dispose(&v37, 8);
+                _Block_object_dispose(&v35, 8);
               }
             }
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v25 objects:v41 count:16];
+        v9 = [obj countByEnumeratingWithState:&v23 objects:v39 count:16];
       }
 
       while (v9);
@@ -712,16 +710,15 @@ LABEL_4:
   managerCopy = manager;
   stateCopy = state;
   identifierCopy = identifier;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = sub_100029428;
-  v16 = sub_100029438;
-  v17 = 0;
-  stateObserversLock = self->_stateObserversLock;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = sub_100029428;
+  v15 = sub_100029438;
+  v16 = 0;
   geo_isolate_sync_data();
-  [(GEOMapSubscriptionsServer *)self broadcastState:stateCopy forIdentifier:identifierCopy fromPairedDevice:1 toObservers:v13[5], _NSConcreteStackBlock, 3221225472, sub_100029440, &unk_100082ED0, self, &v12];
-  _Block_object_dispose(&v12, 8);
+  [(GEOMapSubscriptionsServer *)self broadcastState:stateCopy forIdentifier:identifierCopy fromPairedDevice:1 toObservers:v12[5], _NSConcreteStackBlock, 3221225472, sub_100029440, &unk_100082ED0, self, &v11];
+  _Block_object_dispose(&v11, 8);
 }
 
 - (void)subscriptionManager:(id)manager didUpdateState:(id)state forIdentifier:(id)identifier
@@ -729,16 +726,15 @@ LABEL_4:
   managerCopy = manager;
   stateCopy = state;
   identifierCopy = identifier;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = sub_100029428;
-  v16 = sub_100029438;
-  v17 = 0;
-  stateObserversLock = self->_stateObserversLock;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = sub_100029428;
+  v15 = sub_100029438;
+  v16 = 0;
   geo_isolate_sync_data();
-  [(GEOMapSubscriptionsServer *)self broadcastState:stateCopy forIdentifier:identifierCopy fromPairedDevice:0 toObservers:v13[5], _NSConcreteStackBlock, 3221225472, sub_1000295FC, &unk_100082ED0, self, &v12];
-  _Block_object_dispose(&v12, 8);
+  [(GEOMapSubscriptionsServer *)self broadcastState:stateCopy forIdentifier:identifierCopy fromPairedDevice:0 toObservers:v12[5], _NSConcreteStackBlock, 3221225472, sub_1000295FC, &unk_100082ED0, self, &v11];
+  _Block_object_dispose(&v11, 8);
 }
 
 - (void)_stopObservingStatesOnBehalfOfPeer:(id)peer
@@ -992,7 +988,7 @@ LABEL_30:
   deviceCopy = device;
   identifierCopy = identifier;
   peerCopy = peer;
-  v44 = self->_stateObserversLock;
+  v43 = self->_stateObserversLock;
   _geo_isolate_lock();
   daemon = [(GEOMapSubscriptionsServer *)self daemon];
   peers = [daemon peers];
@@ -1014,28 +1010,28 @@ LABEL_30:
     stateObserverForPeer = self->_stateObserverForPeer;
   }
 
-  v38 = [(NSMapTable *)stateObserverForPeer count];
+  v37 = [(NSMapTable *)stateObserverForPeer count];
   if (deviceCopy)
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v15 = self->_stateObserverForPeer;
-    v16 = [(NSMapTable *)v15 countByEnumeratingWithState:&v40 objects:v46 count:16];
+    v16 = [(NSMapTable *)v15 countByEnumeratingWithState:&v39 objects:v45 count:16];
     if (v16)
     {
-      v17 = *v41;
+      v17 = *v40;
       while (2)
       {
         for (i = 0; i != v16; i = i + 1)
         {
-          if (*v41 != v17)
+          if (*v40 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          v19 = [(NSMapTable *)self->_stateObserverForPeer objectForKey:*(*(&v40 + 1) + 8 * i)];
+          v19 = [(NSMapTable *)self->_stateObserverForPeer objectForKey:*(*(&v39 + 1) + 8 * i)];
           v20 = sub_100029990(v19, identifierCopy);
 
           if (v20)
@@ -1045,7 +1041,7 @@ LABEL_30:
           }
         }
 
-        v16 = [(NSMapTable *)v15 countByEnumeratingWithState:&v40 objects:v46 count:16];
+        v16 = [(NSMapTable *)v15 countByEnumeratingWithState:&v39 objects:v45 count:16];
         if (v16)
         {
           continue;
@@ -1071,15 +1067,14 @@ LABEL_16:
     v23 = peerCopy;
     if (v22)
     {
-      v45.receiver = v22;
-      v45.super_class = _GEOMapSubscriptionStateObserverHelper;
-      v24 = [(GEOMapSubscriptionsServer *)&v45 init];
+      v44.receiver = v22;
+      v44.super_class = _GEOMapSubscriptionStateObserverHelper;
+      v24 = [(GEOMapSubscriptionsServer *)&v44 init];
       v22 = v24;
       if (v24)
       {
         objc_storeWeak(&v24->_queue, v23);
-        v37 = v23;
-        v25 = geo_isolater_create_with_format();
+        v25 = geo_isolater_create_with_format("geo.subscription_state_observer.%p", v23);
         isolater = v22->_isolater;
         v22->_isolater = v25;
       }
@@ -1093,7 +1088,7 @@ LABEL_16:
   {
     if (v22)
     {
-      v45.receiver = v22->_isolater;
+      v44.receiver = v22->_isolater;
       _geo_isolate_lock_data();
       if (([(NSMutableArray *)v22->_observingPairedDeviceIdentifiers containsObject:v27]& 1) == 0)
       {
@@ -1107,7 +1102,7 @@ LABEL_16:
           observingPairedDeviceIdentifiers = v22->_observingPairedDeviceIdentifiers;
         }
 
-        [(NSMutableArray *)observingPairedDeviceIdentifiers addObject:v27, v37];
+        [(NSMutableArray *)observingPairedDeviceIdentifiers addObject:v27];
       }
 
 LABEL_34:
@@ -1117,7 +1112,7 @@ LABEL_34:
 
   else if (v22)
   {
-    v45.receiver = v22->_isolater;
+    v44.receiver = v22->_isolater;
     _geo_isolate_lock_data();
     if (([(NSMutableArray *)v22->_observingIdentifiers containsObject:v27]& 1) == 0)
     {
@@ -1131,13 +1126,13 @@ LABEL_34:
         observingIdentifiers = v22->_observingIdentifiers;
       }
 
-      [(NSMutableArray *)observingIdentifiers addObject:v27, v37];
+      [(NSMutableArray *)observingIdentifiers addObject:v27];
     }
 
     goto LABEL_34;
   }
 
-  if (!v38)
+  if (!v37)
   {
     v34 = +[GEOMapDataSubscriptionManager sharedManager];
     [v34 _addStateObserver:self];
@@ -1548,46 +1543,45 @@ LABEL_6:
 
 LABEL_7:
       *buf = 0;
-      v16 = buf;
-      v17 = 0x3032000000;
-      v18 = sub_100029428;
-      v19 = sub_100029438;
-      v20 = 0;
-      sizeEstimationRequestsIsolation = self->_sizeEstimationRequestsIsolation;
-      v14 = requestCopy;
+      v14 = buf;
+      v15 = 0x3032000000;
+      v16 = sub_100029428;
+      v17 = sub_100029438;
+      v18 = 0;
+      v12 = requestCopy;
       geo_isolate_sync_data();
-      [*(v16 + 5) cancel];
+      [*(v14 + 5) cancel];
 
       _Block_object_dispose(buf, 8);
       goto LABEL_8;
     }
 
     peer2 = [requestCopy peer];
-    v8 = [peer2 hasEntitlement:@"com.apple.geoservices.map-subscriptions.size-estimate"];
+    v7 = [peer2 hasEntitlement:@"com.apple.geoservices.map-subscriptions.size-estimate"];
 
-    if (v8)
+    if (v7)
     {
       goto LABEL_7;
     }
 
     peer3 = [requestCopy peer];
-    v10 = [peer3 valueForEntitlement:@"application-identifier"];
+    v9 = [peer3 valueForEntitlement:@"application-identifier"];
 
-    if (v10)
+    if (v9)
     {
-      v11 = [v10 isEqualToString:@"com.apple.Spotlight"];
+      v10 = [v9 isEqualToString:@"com.apple.Spotlight"];
 
-      if (v11)
+      if (v10)
       {
         goto LABEL_7;
       }
     }
 
-    v13 = GEOGetSubscriptionsLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v11 = GEOGetSubscriptionsLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Attempt from unentitled peer to cancel estimated region size request", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Attempt from unentitled peer to cancel estimated region size request", buf, 2u);
     }
   }
 
@@ -1614,21 +1608,20 @@ LABEL_6:
     region = [requestCopy region];
     dataTypes = [requestCopy dataTypes];
     queue = self->_queue;
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_10002C448;
-    v24[3] = &unk_1000825A8;
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_10002C448;
+    v23[3] = &unk_1000825A8;
     v17 = requestUUID;
-    v25 = v17;
+    v24 = v17;
     selfCopy = self;
-    v27 = v5;
-    v18 = [v13 determineEstimatedSizeForSubscriptionWithRegion:region dataTypes:dataTypes queue:queue completionHandler:v24];
+    v26 = v5;
+    v18 = [v13 determineEstimatedSizeForSubscriptionWithRegion:region dataTypes:dataTypes queue:queue completionHandler:v23];
 
     if (v18 && v17)
     {
-      sizeEstimationRequestsIsolation = self->_sizeEstimationRequestsIsolation;
-      v22 = v18;
-      v23 = requestCopy;
+      v21 = v18;
+      v22 = requestCopy;
       geo_isolate_sync_data();
     }
 
@@ -1656,15 +1649,15 @@ LABEL_6:
     }
   }
 
-  v20 = GEOGetSubscriptionsLog();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  v19 = GEOGetSubscriptionsLog();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Attempt from unentitled peer to calculate estimated region size", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Attempt from unentitled peer to calculate estimated region size", buf, 2u);
   }
 
-  v21 = [NSError GEOErrorWithCode:-5];
-  [v5 setError:v21];
+  v20 = [NSError GEOErrorWithCode:-5];
+  [v5 setError:v20];
 
   [v5 send];
 LABEL_10:

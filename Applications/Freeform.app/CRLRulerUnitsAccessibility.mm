@@ -46,10 +46,11 @@ LABEL_5:
   }
 
   v6 = 1.0;
-  if (CRLAccessibilityShouldPerformValidationChecks())
+  ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(self, a2);
+  if (ShouldPerformValidationChecks)
   {
-    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Measurement units must be CRLRulerUnitTypeCentimeters or CRLRulerUnitTypeInches.", v9, v10, v11, v12, v13, v14))
+    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Measurement units must be CRLRulerUnitTypeCentimeters or CRLRulerUnitTypeInches.", v10, v11, v12, v13, v14, v15))
     {
       abort();
     }
@@ -62,10 +63,11 @@ LABEL_5:
 {
   if (units >= 5)
   {
-    if (CRLAccessibilityShouldPerformValidationChecks())
+    ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(self, a2);
+    if (ShouldPerformValidationChecks)
     {
-      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Unknown CRLRulerUnitType", v7, v8, v9, v10, v11, v13))
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Unknown CRLRulerUnitType", v8, v9, v10, v11, v12, v14))
       {
         abort();
       }
@@ -88,10 +90,11 @@ LABEL_5:
 {
   if (units >= 5)
   {
-    if (CRLAccessibilityShouldPerformValidationChecks())
+    ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(self, a2);
+    if (ShouldPerformValidationChecks)
     {
-      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Unknown CRLRulerUnitType", v8, v9, v10, v11, v12, v14))
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Unknown CRLRulerUnitType", v9, v10, v11, v12, v13, v15))
       {
         abort();
       }

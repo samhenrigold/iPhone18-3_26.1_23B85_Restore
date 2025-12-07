@@ -39,16 +39,15 @@ void sub_24A4(uint64_t a1, int a2)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v5;
-    v9 = 1024;
-    v10 = a2;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "completed electing extension (%@): %d", &v7, 0x12u);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 1024;
+    v9 = a2;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "completed electing extension (%@): %d", &v6, 0x12u);
   }
 
   if (a2)
   {
-    v6 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 }
@@ -57,14 +56,13 @@ uint64_t ILClassificationAndReportingSettingsBundleController.isStateDrivenNavig
 {
   v2 = sub_3624();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin();
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = [a1 traitCollection];
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = [a1 traitCollection];
   sub_3674();
 
   LOBYTE(a1) = sub_3604();
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   return a1 & 1;
 }
 
@@ -72,25 +70,23 @@ uint64_t ILClassificationAndReportingSettingsBundleController.handleUserDidTapOn
 {
   v3 = sub_3624();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin();
-  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(*(sub_3694() - 8) + 64);
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_3694();
   __chkstk_darwin();
-  v9 = sub_35F4();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
+  v7 = sub_35F4();
+  v8 = *(v7 - 8);
   __chkstk_darwin();
-  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_3684();
   sub_35E4();
-  v14 = [a2 traitCollection];
+  v11 = [a2 traitCollection];
   sub_3674();
 
   sub_2CF4();
   sub_3614();
-  (*(v4 + 8))(v7, v3);
-  return (*(v10 + 8))(v13, v9);
+  (*(v4 + 8))(v6, v3);
+  return (*(v8 + 8))(v10, v7);
 }
 
 unint64_t sub_2CF4()
@@ -120,15 +116,13 @@ unint64_t sub_300C()
 
 uint64_t sub_307C@<X0>(uint64_t a1@<X8>)
 {
-  v16 = a1;
+  v14 = a1;
   v1 = sub_35A4();
-  v2 = *(*(v1 - 8) + 64);
   __chkstk_darwin(v1 - 8);
-  v3 = sub_3584();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v3);
-  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = sub_3584();
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_3664();
   sub_3654();
   sub_3644();
@@ -142,15 +136,15 @@ uint64_t sub_307C@<X0>(uint64_t a1@<X8>)
   sub_3574();
   sub_35B4();
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v9 = [objc_opt_self() bundleForClass:{ObjCClassFromMetadata, v16}];
-  v10 = sub_35C4();
+  v7 = [objc_opt_self() bundleForClass:{ObjCClassFromMetadata, v14}];
+  v8 = sub_35C4();
+  v10 = v9;
   v12 = v11;
-  v14 = v13;
   sub_3400();
   sub_35D4();
-  sub_34A4(v10, v12, v14 & 1);
+  sub_34A4(v8, v10, v12 & 1);
 
-  (*(v4 + 8))(v7, v3);
+  (*(v3 + 8))(v5, v2);
 }
 
 uint64_t sub_3310()
@@ -167,7 +161,6 @@ uint64_t sub_33B8(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -230,7 +223,6 @@ uint64_t sub_352C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }

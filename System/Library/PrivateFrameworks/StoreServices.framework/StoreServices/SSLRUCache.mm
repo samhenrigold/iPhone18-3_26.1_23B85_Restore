@@ -74,7 +74,7 @@
   return v4;
 }
 
-uint64_t __19__SSLRUCache_count__block_invoke(uint64_t a1)
+void *__19__SSLRUCache_count__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -127,26 +127,26 @@ void __31__SSLRUCache_allObjectsAndKeys__block_invoke_2(uint64_t a1, void *a2, v
 
 - (id)objectForKey:(id)key
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__50;
-  v33 = __Block_byref_object_dispose__50;
-  v34 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__50;
+  v31 = __Block_byref_object_dispose__50;
+  v32 = 0;
   accessQueue = [(SSLRUCache *)self accessQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __27__SSLRUCache_objectForKey___block_invoke;
   block[3] = &unk_1E84ABF90;
-  v28 = &v29;
+  v26 = &v27;
   block[4] = self;
   v6 = keyCopy;
-  v27 = v6;
+  v25 = v6;
   dispatch_sync(accessQueue, block);
 
-  object = [v30[5] object];
+  object = [v28[5] object];
   if (!object)
   {
     logConfig = [(SSLRUCache *)self logConfig];
@@ -155,51 +155,54 @@ void __31__SSLRUCache_allObjectsAndKeys__block_invoke_2(uint64_t a1, void *a2, v
       logConfig = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [logConfig shouldLog];
+    LODWORD(v9) = [logConfig shouldLog];
     shouldLogToDisk = [logConfig shouldLogToDisk];
     oSLogObject = [logConfig OSLogObject];
     v12 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v9) = v9 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      shouldLog &= 2u;
+      v9 = v9;
     }
 
-    if (shouldLog)
+    else
+    {
+      v9 &= 2u;
+    }
+
+    if (v9)
     {
       v13 = objc_opt_class();
-      v35 = 138412546;
-      v36 = v13;
-      v37 = 2112;
-      v38 = v6;
+      v33 = 138412546;
+      v34 = v13;
+      v35 = 2112;
+      v36 = v6;
       v14 = v13;
-      LODWORD(v25) = 22;
-      v24 = &v35;
-      v15 = _os_log_send_and_compose_impl();
+      v15 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1D48BA000, v12, 2, "%@: %@ resulted in a cache miss.", &v33, 22);
 
       if (!v15)
       {
-LABEL_12:
+LABEL_13:
 
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      v12 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v35, v25}];
+      v12 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
       free(v15);
       SSFileLog(logConfig, @"%@", v16, v17, v18, v19, v20, v21, v12);
     }
 
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
-LABEL_13:
+LABEL_14:
   v7Object = [object object];
 
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v27, 8);
 
   return v7Object;
 }
@@ -384,7 +387,7 @@ void __25__SSLRUCache_description__block_invoke(uint64_t a1)
     _count = [(SSLRUCache *)self _count];
     if (_count <= [(SSLRUCache *)self maxSize])
     {
-      goto LABEL_17;
+      goto LABEL_18;
     }
 
     logConfig = [(SSLRUCache *)self logConfig];
@@ -396,31 +399,35 @@ void __25__SSLRUCache_description__block_invoke(uint64_t a1)
     shouldLog = [logConfig shouldLog];
     if ([logConfig shouldLogToDisk])
     {
-      v18 = shouldLog | 2;
+      LODWORD(v18) = shouldLog | 2;
     }
 
     else
     {
-      v18 = shouldLog;
+      LODWORD(v18) = shouldLog;
     }
 
     oSLogObject = [logConfig OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = v18;
+    }
+
+    else
     {
       v18 &= 2u;
     }
 
     if (v18)
     {
-      LODWORD(v33) = 138412290;
-      *(&v33 + 4) = objc_opt_class();
-      v20 = *(&v33 + 4);
-      LODWORD(v32) = 12;
-      v21 = _os_log_send_and_compose_impl();
+      v32 = 138412290;
+      v33 = objc_opt_class();
+      v20 = v33;
+      v21 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%@: Cache is full. The oldest object will be evicted.", &v32, 12);
 
       if (!v21)
       {
-LABEL_16:
+LABEL_17:
 
         backingList3 = [(SSLRUCache *)self backingList];
         tail = [backingList3 tail];
@@ -429,19 +436,19 @@ LABEL_16:
         v31 = [object key];
         [(SSLRUCache *)self _removeObjectForKey:v31];
 
-LABEL_17:
-        goto LABEL_18;
+LABEL_18:
+        goto LABEL_19;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:{4, &v33, v32, v33}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
       free(v21);
       SSFileLog(logConfig, @"%@", v22, v23, v24, v25, v26, v27, oSLogObject);
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
-LABEL_18:
+LABEL_19:
 }
 
 - (void)_removeObjectForKey:(id)key

@@ -218,7 +218,7 @@
   }
 
   fontName = self->_fontName;
-  if ((equalCopy->_fontName != 0) == (fontName == 0) || fontName && ![(NSString *)fontName isEqualToString:?])
+  if ((equalCopy->_fontName != 0) == (fontName == 0) || fontName && !objc_msgSend_isEqualToString_(fontName))
   {
     goto LABEL_33;
   }
@@ -249,13 +249,13 @@
   }
 
   textColor = self->_textColor;
-  if ((textColor == 0) == (equalCopy->_textColor != 0) || textColor && ![(NSString *)textColor isEqualToString:?])
+  if ((textColor == 0) == (equalCopy->_textColor != 0) || textColor && !objc_msgSend_isEqualToString_(textColor))
   {
     goto LABEL_33;
   }
 
   etchColor = self->_etchColor;
-  if ((etchColor == 0) == (equalCopy->_etchColor != 0) || etchColor && ![(NSString *)etchColor isEqualToString:?])
+  if ((etchColor == 0) == (equalCopy->_etchColor != 0) || etchColor && !objc_msgSend_isEqualToString_(etchColor))
   {
     goto LABEL_33;
   }

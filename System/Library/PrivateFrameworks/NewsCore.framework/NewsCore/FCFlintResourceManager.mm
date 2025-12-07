@@ -51,7 +51,7 @@
 
 - (FCResourcesFetchOperation)fetchResourcesWithIdentifiers:(uint64_t)identifiers downloadAssets:(uint64_t)assets cacheLifetimeHint:(uint64_t)hint relativePriority:(void *)priority callBackQueue:(void *)queue completionBlock:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v13 = a2;
   priorityCopy = priority;
   queueCopy = queue;
@@ -63,15 +63,15 @@
 
   if (!v13 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "resourceIdentifiers"];
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "resourceIdentifiers"];
     *buf = 136315906;
-    v27 = "[FCFlintResourceManager fetchResourcesWithIdentifiers:downloadAssets:cacheLifetimeHint:relativePriority:callBackQueue:completionBlock:]";
-    v28 = 2080;
-    v29 = "FCFlintResourceManager.m";
-    v30 = 1024;
-    v31 = 111;
-    v32 = 2114;
-    v33 = v22;
+    v26 = "[FCFlintResourceManager fetchResourcesWithIdentifiers:downloadAssets:cacheLifetimeHint:relativePriority:callBackQueue:completionBlock:]";
+    v27 = 2080;
+    v28 = "FCFlintResourceManager.m";
+    v29 = 1024;
+    v30 = 111;
+    v31 = 2114;
+    v32 = v21;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (!queueCopy)
@@ -79,15 +79,15 @@
 LABEL_5:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "completionBlock"];
+        v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "completionBlock"];
         *buf = 136315906;
-        v27 = "[FCFlintResourceManager fetchResourcesWithIdentifiers:downloadAssets:cacheLifetimeHint:relativePriority:callBackQueue:completionBlock:]";
-        v28 = 2080;
-        v29 = "FCFlintResourceManager.m";
-        v30 = 1024;
-        v31 = 112;
-        v32 = 2114;
-        v33 = v23;
+        v26 = "[FCFlintResourceManager fetchResourcesWithIdentifiers:downloadAssets:cacheLifetimeHint:relativePriority:callBackQueue:completionBlock:]";
+        v27 = 2080;
+        v28 = "FCFlintResourceManager.m";
+        v29 = 1024;
+        v30 = 112;
+        v31 = 2114;
+        v32 = v22;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
     }
@@ -120,36 +120,35 @@ LABEL_5:
   [(FCOperation *)v16 setQualityOfService:v18];
   [(FCOperation *)v16 setRelativePriority:hint];
   [(FCFetchOperation *)v16 setFetchCompletionQueue:priorityCopy];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __136__FCFlintResourceManager_fetchResourcesWithIdentifiers_downloadAssets_cacheLifetimeHint_relativePriority_callBackQueue_completionBlock___block_invoke;
-  v24[3] = &unk_1E7C37A38;
-  v25 = queueCopy;
-  [(FCFetchOperation *)v16 setFetchCompletionBlock:v24];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __136__FCFlintResourceManager_fetchResourcesWithIdentifiers_downloadAssets_cacheLifetimeHint_relativePriority_callBackQueue_completionBlock___block_invoke;
+  v23[3] = &unk_1E7C37A38;
+  v24 = queueCopy;
+  [(FCFetchOperation *)v16 setFetchCompletionBlock:v23];
   fc_sharedConcurrentQueue = [MEMORY[0x1E696ADC8] fc_sharedConcurrentQueue];
   [fc_sharedConcurrentQueue addOperation:v16];
 
 LABEL_13:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (id)cachedResourcesWithIdentifiers:(id)identifiers
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   if (!identifiersCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "resourceIdentifiers"];
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "resourceIdentifiers"];
     *buf = 136315906;
-    v14 = "[FCFlintResourceManager cachedResourcesWithIdentifiers:]";
-    v15 = 2080;
-    v16 = "FCFlintResourceManager.m";
-    v17 = 1024;
-    v18 = 80;
-    v19 = 2114;
-    v20 = v12;
+    v13 = "[FCFlintResourceManager cachedResourcesWithIdentifiers:]";
+    v14 = 2080;
+    v15 = "FCFlintResourceManager.m";
+    v16 = 1024;
+    v17 = 80;
+    v18 = 2114;
+    v19 = v11;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -172,8 +171,6 @@ LABEL_13:
   [(FCResourcesFetchOperation *)v7 waitUntilFinished];
   result = [(FCFetchOperation *)v7 result];
   fetchedObject = [result fetchedObject];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return fetchedObject;
 }
@@ -199,7 +196,7 @@ LABEL_13:
 
 void __136__FCFlintResourceManager_fetchResourcesWithIdentifiers_downloadAssets_cacheLifetimeHint_relativePriority_callBackQueue_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 status])
   {
@@ -209,43 +206,43 @@ void __136__FCFlintResourceManager_fetchResourcesWithIdentifiers_downloadAssets_
 
   else
   {
-    v17 = a1;
+    v16 = a1;
     v5 = [MEMORY[0x1E695DF90] dictionary];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v18 = v3;
+    v17 = v3;
     v6 = [v3 fetchedObject];
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v31 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v18 objects:v30 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v20;
+      v9 = *v19;
       v10 = MEMORY[0x1E69E9C10];
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * i);
+          v12 = *(*(&v18 + 1) + 8 * i);
           v13 = [v12 resourceID];
 
           if (!v13 && os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "resource.resourceID"];
             *buf = 136315906;
-            v24 = "[FCFlintResourceManager fetchResourcesWithIdentifiers:downloadAssets:cacheLifetimeHint:relativePriority:callBackQueue:completionBlock:]_block_invoke";
-            v25 = 2080;
-            v26 = "FCFlintResourceManager.m";
-            v27 = 1024;
-            v28 = 131;
-            v29 = 2114;
-            v30 = v15;
+            v23 = "[FCFlintResourceManager fetchResourcesWithIdentifiers:downloadAssets:cacheLifetimeHint:relativePriority:callBackQueue:completionBlock:]_block_invoke";
+            v24 = 2080;
+            v25 = "FCFlintResourceManager.m";
+            v26 = 1024;
+            v27 = 131;
+            v28 = 2114;
+            v29 = v15;
             _os_log_error_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
           }
 
@@ -253,20 +250,18 @@ void __136__FCFlintResourceManager_fetchResourcesWithIdentifiers_downloadAssets_
           [v5 setObject:v12 forKey:v14];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v31 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v18 objects:v30 count:16];
       }
 
       while (v8);
     }
 
     v4 = 0;
-    a1 = v17;
-    v3 = v18;
+    a1 = v16;
+    v3 = v17;
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

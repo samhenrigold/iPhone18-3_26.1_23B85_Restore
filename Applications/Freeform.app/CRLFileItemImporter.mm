@@ -12,7 +12,7 @@
 
 + (NSArray)protected_supportedFileUTTypes
 {
-  sub_1005B981C(&qword_101A054A0);
+  sub_1005B981C(&qword_101A054A0, &unk_101471D20);
   type metadata accessor for UTType();
   *(swift_allocObject() + 16) = xmmword_10146C6B0;
   static UTType.item.getter();
@@ -26,13 +26,13 @@
   v4 = type metadata accessor for URL();
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v8 = sub_1009DB410();
+  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = sub_1009DB410(v7, v8, v9);
 
   (*(v5 + 8))(v7, v4);
-  return v8 & 1;
+  return v10 & 1;
 }
 
 + (BOOL)protected_canImportFileWithPreinsertionAsset:(id)asset type:(id)type
@@ -41,14 +41,14 @@
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
   v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_1005B981C(&unk_1019F8DB0);
+  v8 = sub_1005B981C(&unk_1019F8DB0, &unk_101471FC0);
   __chkstk_darwin(v8 - 8);
   v10 = &v15 - v9;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   UTType.init(_:)();
   if ((*(v5 + 48))(v10, 1, v4) == 1)
   {
-    sub_10000CAAC(v10, &unk_1019F8DB0);
+    sub_10000CAAC(v10, &unk_1019F8DB0, &unk_101471FC0);
     v11 = 1;
   }
 
@@ -71,7 +71,7 @@
   {
     selfCopy = self;
 
-    sub_1005B981C(&unk_1019F6B40);
+    sub_1005B981C(&unk_1019F6B40, &qword_10146F320);
     Task.cancel()();
   }
 
@@ -85,7 +85,7 @@
 
 - (void)importBoardItemWithCompletionHandler:(id)handler
 {
-  v5 = sub_1005B981C(&qword_1019FB750);
+  v5 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

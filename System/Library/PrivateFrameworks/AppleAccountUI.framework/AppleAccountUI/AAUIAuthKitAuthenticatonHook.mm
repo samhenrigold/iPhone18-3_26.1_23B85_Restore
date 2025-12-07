@@ -97,28 +97,28 @@ void __79__AAUIAuthKitAuthenticatonHook__reauthenticateWithServerAttributes_comp
 
   if (v6)
   {
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _AAUILogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __79__AAUIAuthKitAuthenticatonHook__reauthenticateWithServerAttributes_completion___block_invoke_cold_1(v6, v9);
+      __79__AAUIAuthKitAuthenticatonHook__reauthenticateWithServerAttributes_completion___block_invoke_cold_1(v6, v10);
     }
 
-    v10 = *(a1 + 40);
-    if (v10)
+    v11 = *(a1 + 40);
+    if (v11)
     {
-      v11 = *(v10 + 16);
+      v12 = *(v11 + 16);
 LABEL_8:
-      v11();
+      v12();
     }
   }
 
   else
   {
     [*(a1 + 32) _updateResponseWithAuthResults:v5];
-    v12 = *(a1 + 40);
-    if (v12)
+    v13 = *(a1 + 40);
+    if (v13)
     {
-      v11 = *(v12 + 16);
+      v12 = *(v13 + 16);
       goto LABEL_8;
     }
   }

@@ -33,12 +33,12 @@
   visibleIndexSet = self->_visibleIndexSet;
   if (hidden)
   {
-    objc_msgSend_removeIndex_(visibleIndexSet, a2, index, index, v4);
+    objc_msgSend_removeIndex_(visibleIndexSet, a2, index, index);
   }
 
   else
   {
-    objc_msgSend_addIndex_(visibleIndexSet, a2, index, index, v4);
+    objc_msgSend_addIndex_(visibleIndexSet, a2, index, index);
   }
 }
 
@@ -47,12 +47,12 @@
   visibleIndexSet = self->_visibleIndexSet;
   if (hidden)
   {
-    objc_msgSend_removeIndexes_(visibleIndexSet, a2, indexes, indexes, v4);
+    objc_msgSend_removeIndexes_(visibleIndexSet, a2, indexes, indexes);
   }
 
   else
   {
-    objc_msgSend_addIndexes_(visibleIndexSet, a2, indexes, indexes, v4);
+    objc_msgSend_addIndexes_(visibleIndexSet, a2, indexes, indexes);
   }
 }
 
@@ -61,20 +61,20 @@
   visibleIndexSet = self->_visibleIndexSet;
   if (hidden)
   {
-    objc_msgSend_removeIndexesInRange_(visibleIndexSet, a2, range.location, range.length, range.length);
+    objc_msgSend_removeIndexesInRange_(visibleIndexSet, a2, range.location, range.length);
   }
 
   else
   {
-    objc_msgSend_addIndexesInRange_(visibleIndexSet, a2, range.location, range.length, range.length);
+    objc_msgSend_addIndexesInRange_(visibleIndexSet, a2, range.location, range.length);
   }
 }
 
 - (id)visibleIndices
 {
-  v5 = objc_msgSend_copy(self->_visibleIndexSet, a2, v2, v3, v4);
+  v4 = objc_msgSend_copy(self->_visibleIndexSet, a2, v2, v3);
 
-  return v5;
+  return v4;
 }
 
 - (unint64_t)findNthPreviousVisibleIndex:(unint64_t)index fromIndex:(unint64_t)fromIndex
@@ -103,37 +103,37 @@
 
 - (unint64_t)findNthNextVisibleIndex:(unint64_t)index fromIndex:(unint64_t)fromIndex
 {
-  Index = objc_msgSend_lastIndex(self->_visibleIndexSet, a2, index, fromIndex, v4);
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
+  Index = objc_msgSend_lastIndex(self->_visibleIndexSet, a2, index, fromIndex);
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
   fromIndexCopy = fromIndex;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
   indexCopy = index;
   visibleIndexSet = self->_visibleIndexSet;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = sub_2212194B8;
-  v13[3] = &unk_2784616A8;
-  v13[4] = &v14;
-  v13[5] = &v18;
-  objc_msgSend_enumerateRangesInRange_options_usingBlock_(visibleIndexSet, v10, fromIndex, Index + 1, 0, v13);
-  if (v15[3])
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = sub_2212194B8;
+  v12[3] = &unk_2784616A8;
+  v12[4] = &v13;
+  v12[5] = &v17;
+  objc_msgSend_enumerateRangesInRange_options_usingBlock_(visibleIndexSet, v9, fromIndex, Index + 1, 0, v12);
+  if (v14[3])
   {
-    v11 = 0x7FFFFFFFFFFFFFFFLL;
-    v19[3] = 0x7FFFFFFFFFFFFFFFLL;
+    v10 = 0x7FFFFFFFFFFFFFFFLL;
+    v18[3] = 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v11 = v19[3];
+    v10 = v18[3];
   }
 
-  _Block_object_dispose(&v14, 8);
-  _Block_object_dispose(&v18, 8);
-  return v11;
+  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v17, 8);
+  return v10;
 }
 
 - (void)enumerateVisibleIndexesInRange:(_NSRange)range usingBlock:(id)block
@@ -153,22 +153,22 @@
 
 - (void)swapIndex:(unint64_t)index withIndex:(unint64_t)withIndex
 {
-  isIndexHidden = objc_msgSend_isIndexHidden_(self, a2, index, withIndex, v4);
-  v12 = objc_msgSend_isIndexHidden_(self, v9, withIndex, v10, v11);
-  objc_msgSend_setHidden_atIndex_(self, v13, isIndexHidden, withIndex, v14);
+  isIndexHidden = objc_msgSend_isIndexHidden_(self, a2, index, withIndex);
+  v10 = objc_msgSend_isIndexHidden_(self, v8, withIndex, v9);
+  objc_msgSend_setHidden_atIndex_(self, v11, isIndexHidden, withIndex);
 
-  objc_msgSend_setHidden_atIndex_(self, v15, v12, index, v16);
+  objc_msgSend_setHidden_atIndex_(self, v12, v10, index);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v5 = objc_opt_class();
-  v9 = objc_msgSend_allocWithZone_(v5, v6, zone, v7, v8);
-  v14 = objc_msgSend_init(v9, v10, v11, v12, v13);
-  v19 = objc_msgSend_mutableCopy(self->_visibleIndexSet, v15, v16, v17, v18);
-  objc_msgSend_setVisibleIndexSet_(v14, v20, v19, v21, v22);
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  v12 = objc_msgSend_init(v8, v9, v10, v11);
+  v16 = objc_msgSend_mutableCopy(self->_visibleIndexSet, v13, v14, v15);
+  objc_msgSend_setVisibleIndexSet_(v12, v17, v16, v18);
 
-  return v14;
+  return v12;
 }
 
 @end

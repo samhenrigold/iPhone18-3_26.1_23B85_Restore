@@ -94,10 +94,10 @@
   v10 = display;
   if (!display)
   {
-    v33 = sub_100003634();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v34 = sub_100003634(0);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      sub_100005EF8(v33, v34, v35, v36, v37, v38, v39, v40);
+      sub_100005EF8(v34, v35, v36, v37, v38, v39, v40, v41);
     }
 
     if (error)
@@ -108,48 +108,48 @@
     goto LABEL_8;
   }
 
-  v62 = secureCopy;
-  v64 = display;
+  v64 = secureCopy;
+  v66 = display;
   height = [sizeCopy height];
   width = [sizeCopy width];
   v13 = (4 * width + 63) & 0xFFFFFFFFFFFFFFC0;
   v14 = vm_page_mask;
   v15 = vm_page_mask + v13 * height;
-  v76[0] = kIOSurfaceWidth;
-  v58 = width;
+  v78[0] = kIOSurfaceWidth;
+  v60 = width;
   v16 = [NSNumber numberWithUnsignedLong:?];
-  v77[0] = v16;
-  v76[1] = kIOSurfaceHeight;
+  v79[0] = v16;
+  v78[1] = kIOSurfaceHeight;
   height = height;
   v17 = [NSNumber numberWithUnsignedLong:height];
-  v77[1] = v17;
-  v76[2] = kIOSurfacePixelFormat;
+  v79[1] = v17;
+  v78[2] = kIOSurfacePixelFormat;
   v18 = [NSNumber numberWithInt:1111970369];
-  v77[2] = v18;
-  v77[3] = &off_10000CBB8;
-  v76[3] = kIOSurfaceBytesPerElement;
-  v76[4] = kIOSurfaceBytesPerRow;
-  v59 = v13;
+  v79[2] = v18;
+  v79[3] = &off_10000CBB8;
+  v78[3] = kIOSurfaceBytesPerElement;
+  v78[4] = kIOSurfaceBytesPerRow;
+  v61 = v13;
   v19 = [NSNumber numberWithUnsignedLong:v13];
-  v77[4] = v19;
-  v76[5] = kIOSurfaceAllocSize;
-  v63 = v15;
-  v61 = v14;
+  v79[4] = v19;
+  v78[5] = kIOSurfaceAllocSize;
+  v65 = v15;
+  v63 = v14;
   v20 = [NSNumber numberWithUnsignedLong:v15 & ~v14];
-  v76[6] = kIOSurfaceCacheMode;
-  v77[5] = v20;
-  v77[6] = &off_10000CBD0;
-  [NSDictionary dictionaryWithObjects:v77 forKeys:v76 count:7];
+  v78[6] = kIOSurfaceCacheMode;
+  v79[5] = v20;
+  v79[6] = &off_10000CBD0;
+  [NSDictionary dictionaryWithObjects:v79 forKeys:v78 count:7];
   v22 = v21 = sizeCopy;
   v23 = IOSurfaceCreate(v22);
 
   if (!v23)
   {
-    v41 = sub_100003634();
-    v10 = v64;
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v42 = sub_100003634(v24);
+    v10 = v66;
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
-      sub_100005EC0(v41, v42, v43, v44, v45, v46, v47, v48);
+      sub_100005EC0(v42, v43, v44, v45, v46, v47, v48, v49);
     }
 
     sizeCopy = v21;
@@ -158,78 +158,78 @@ LABEL_15:
     {
 LABEL_16:
       CRKErrorWithCodeAndUserInfo();
-      *error = v32 = 0;
+      *error = v33 = 0;
       goto LABEL_17;
     }
 
 LABEL_8:
-    v32 = 0;
+    v33 = 0;
     goto LABEL_17;
   }
 
+  v74 = 0u;
+  v75 = 0u;
   v72 = 0u;
   v73 = 0u;
   v70 = 0u;
   v71 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v66 = 0u;
-  v67 = 0u;
-  [(CSSQuartzBackedScreenshotter *)self transformForFinalScreenshotSize:v21];
-  v74[0] = kCASnapshotMode;
-  v74[1] = kCASnapshotDestination;
-  v75[0] = kCASnapshotModeDisplay;
-  v75[1] = v23;
-  v74[2] = kCASnapshotDisplayName;
-  v10 = v64;
-  name = [v64 name];
-  v75[2] = name;
-  v75[3] = &off_10000CBE8;
-  v74[3] = kCASnapshotOriginX;
-  v74[4] = kCASnapshotOriginY;
-  v75[4] = &off_10000CBE8;
-  v74[5] = kCASnapshotEnforceSecureMode;
-  v25 = [NSNumber numberWithBool:v62];
-  v75[5] = v25;
-  v74[6] = kCASnapshotTransform;
-  v65[4] = v70;
-  v65[5] = v71;
-  v65[6] = v72;
-  v65[7] = v73;
-  v65[0] = v66;
-  v65[1] = v67;
-  v65[2] = v68;
-  v65[3] = v69;
-  v26 = [NSValue valueWithCATransform3D:v65];
-  v75[6] = v26;
-  v27 = [NSDictionary dictionaryWithObjects:v75 forKeys:v74 count:7];
+  objc_msgSend_transformForFinalScreenshotSize_(self);
+  v76[0] = kCASnapshotMode;
+  v76[1] = kCASnapshotDestination;
+  v77[0] = kCASnapshotModeDisplay;
+  v77[1] = v23;
+  v76[2] = kCASnapshotDisplayName;
+  v10 = v66;
+  name = [v66 name];
+  v77[2] = name;
+  v77[3] = &off_10000CBE8;
+  v76[3] = kCASnapshotOriginX;
+  v76[4] = kCASnapshotOriginY;
+  v77[4] = &off_10000CBE8;
+  v76[5] = kCASnapshotEnforceSecureMode;
+  v26 = [NSNumber numberWithBool:v64];
+  v77[5] = v26;
+  v76[6] = kCASnapshotTransform;
+  v67[4] = v72;
+  v67[5] = v73;
+  v67[6] = v74;
+  v67[7] = v75;
+  v67[0] = v68;
+  v67[1] = v69;
+  v67[2] = v70;
+  v67[3] = v71;
+  v27 = [NSValue valueWithCATransform3D:v67];
+  v77[6] = v27;
+  v28 = [NSDictionary dictionaryWithObjects:v77 forKeys:v76 count:7];
   CARenderServerSnapshot();
 
   IOSurfaceLock(v23, 1u, 0);
   BaseAddress = IOSurfaceGetBaseAddress(v23);
-  v29 = CGDataProviderCreateWithData(v23, BaseAddress, v63 & ~v61, sub_100003678);
+  v30 = CGDataProviderCreateWithData(v23, BaseAddress, v65 & ~v63, sub_100003678);
   sizeCopy = v21;
-  if (!v29)
+  if (!v30)
   {
     IOSurfaceUnlock(v23, 1u, 0);
     CFRelease(v23);
-    v49 = sub_100003634();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+    v51 = sub_100003634(v50);
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
     {
-      sub_100005E88(v49, v50, v51, v52, v53, v54, v55, v56);
+      sub_100005E88(v51, v52, v53, v54, v55, v56, v57, v58);
     }
 
     goto LABEL_15;
   }
 
-  v30 = v29;
+  v31 = v30;
   DeviceRGB = CGColorSpaceCreateDeviceRGB();
-  v32 = CGImageCreate(v58, height, 8uLL, 0x20uLL, v59, DeviceRGB, 0x2002u, v30, 0, 1, kCGRenderingIntentDefault);
+  v33 = CGImageCreate(v60, height, 8uLL, 0x20uLL, v61, DeviceRGB, 0x2002u, v31, 0, 1, kCGRenderingIntentDefault);
   CGColorSpaceRelease(DeviceRGB);
-  CGDataProviderRelease(v30);
+  CGDataProviderRelease(v31);
 LABEL_17:
 
-  return v32;
+  return v33;
 }
 
 - (CATransform3D)transformForFinalScreenshotSize:(SEL)size
@@ -261,7 +261,7 @@ LABEL_17:
   [v7 appendTransform:&v16];
   if (v7)
   {
-    [v7 composedTransform];
+    objc_msgSend_composedTransform(v7);
   }
 
   else

@@ -19,7 +19,7 @@
 - (gss_cred_id_t_desc_struct)acquireCredentialForUUID:(id)d
 {
   dCopy = d;
-  v4 = SO_LOG_SOKerberosHelper();
+  v4 = SO_LOG_SOKerberosHelper(dCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosHelper acquireCredentialForUUID:];
@@ -49,8 +49,8 @@ LABEL_14:
     uUIDString2 = [dCopy UUIDString];
     v13 = [v11 stringWithFormat:@"failed to find credential: %@", uUIDString2];
 
-    v14 = SO_LOG_SOKerberosHelper();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = SO_LOG_SOKerberosHelper(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [SOKerberosHelper acquireCredentialForUUID:];
     }
@@ -84,7 +84,7 @@ LABEL_19:
 - (gss_cred_id_t_desc_struct)acquireCredentialForUPN:(id)n
 {
   nCopy = n;
-  v5 = SO_LOG_SOKerberosHelper();
+  v5 = SO_LOG_SOKerberosHelper(nCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosHelper acquireCredentialForUPN:];
@@ -102,7 +102,7 @@ LABEL_19:
   {
     if (v7)
     {
-      v9 = SO_LOG_SOKerberosHelper();
+      v9 = SO_LOG_SOKerberosHelper(v7);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [SOKerberosHelper acquireCredentialForUPN:];
@@ -136,31 +136,31 @@ LABEL_11:
 - (BOOL)_testForUPNForUser:(id)user
 {
   v3 = MEMORY[0x277CCAC68];
-  v14 = 0;
+  v15 = 0;
   userCopy = user;
-  v5 = [v3 regularExpressionWithPattern:@"@" options:1 error:&v14];
+  v5 = [v3 regularExpressionWithPattern:@"@" options:1 error:&v15];
   v6 = [v5 numberOfMatchesInString:userCopy options:0 range:{0, objc_msgSend(userCopy, "length")}];
 
-  v7 = SO_LOG_SOKerberosHelper();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = SO_LOG_SOKerberosHelper(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (v6 < 2)
   {
-    if (v8)
+    if (v9)
     {
-      v12 = 0;
-      v9 = "kerbGetTGTForUser: User entered a standard username in the username field.";
-      v10 = &v12;
+      v13 = 0;
+      v10 = "kerbGetTGTForUser: User entered a standard username in the username field.";
+      v11 = &v13;
       goto LABEL_6;
     }
   }
 
-  else if (v8)
+  else if (v9)
   {
-    v13 = 0;
-    v9 = "kerbGetTGTForUser: User entered a UPN in the username field.";
-    v10 = &v13;
+    v14 = 0;
+    v10 = "kerbGetTGTForUser: User entered a UPN in the username field.";
+    v11 = &v14;
 LABEL_6:
-    _os_log_impl(&dword_24006C000, v7, OS_LOG_TYPE_DEFAULT, v9, v10, 2u);
+    _os_log_impl(&dword_24006C000, v8, OS_LOG_TYPE_DEFAULT, v10, v11, 2u);
   }
 
   return v6 > 1;
@@ -173,7 +173,7 @@ LABEL_6:
   newPasswordCopy = newPassword;
   realmCopy = realm;
   nCopy = n;
-  v16 = SO_LOG_SOKerberosHelper();
+  v16 = SO_LOG_SOKerberosHelper(nCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosHelper changePasswordForUPN:realm:withOldPassword:withNewPassword:withError:];
@@ -195,10 +195,10 @@ LABEL_6:
   {
     if (*error)
     {
-      v19 = SO_LOG_SOKerberosHelper();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = SO_LOG_SOKerberosHelper(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [SOKerberosHelper changePasswordForUPN:error realm:? withOldPassword:? withNewPassword:? withError:?];
+        [SOKerberosHelper changePasswordForUPN:realm:withOldPassword:withNewPassword:withError:];
       }
     }
   }
@@ -207,13 +207,13 @@ LABEL_6:
   {
     if (!gss_aapl_change_password(name, MEMORY[0x277CCAF18], v17, &error))
     {
-      v20 = 1;
+      v21 = 1;
       goto LABEL_9;
     }
 
     if (error)
     {
-      v20 = 0;
+      v21 = 0;
       *error = error;
       goto LABEL_9;
     }
@@ -221,39 +221,38 @@ LABEL_6:
     CFRelease(error);
   }
 
-  v20 = 0;
+  v21 = 0;
 LABEL_9:
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v21;
 }
 
 - (BOOL)validatePassword:(id)password forUser:(id)user
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   passwordCopy = password;
   userCopy = user;
-  v8 = SO_LOG_SOKerberosHelper();
+  v8 = SO_LOG_SOKerberosHelper(userCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosHelper validatePassword:forUser:];
   }
 
   context = 0;
-  v30 = 0;
+  v29 = 0;
   memset(creds, 0, sizeof(creds));
   inited = krb5_init_context(&context);
   if (inited)
   {
     v10 = inited;
     error_message = krb5_get_error_message(context, inited);
-    v12 = SO_LOG_SOKerberosHelper();
+    v12 = SO_LOG_SOKerberosHelper(error_message);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
-      v33 = v10;
-      v34 = 2080;
-      v35 = error_message;
+      v32 = v10;
+      v33 = 2080;
+      v34 = error_message;
       v13 = "kerbValidatePassword: krb5_init_context failed with error: %d - %s";
 LABEL_17:
       _os_log_impl(&dword_24006C000, v12, OS_LOG_TYPE_DEFAULT, v13, buf, 0x12u);
@@ -268,25 +267,25 @@ LABEL_17:
   uTF8String = [userCopy UTF8String];
   if (v14)
   {
-    v17 = krb5_parse_name_flags(v15, uTF8String, 4, &v30);
+    v17 = krb5_parse_name_flags(v15, uTF8String, 4, &v29);
   }
 
   else
   {
-    v17 = krb5_parse_name(v15, uTF8String, &v30);
+    v17 = krb5_parse_name(v15, uTF8String, &v29);
   }
 
   v18 = v17;
   if (v17)
   {
     v19 = krb5_get_error_message(context, v17);
-    v12 = SO_LOG_SOKerberosHelper();
+    v12 = SO_LOG_SOKerberosHelper(v19);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
-      v33 = v18;
-      v34 = 2080;
-      v35 = v19;
+      v32 = v18;
+      v33 = 2080;
+      v34 = v19;
       v13 = "kerbValidatePassword: krb5_parse_name failed with error: %d - %s";
       goto LABEL_17;
     }
@@ -310,20 +309,20 @@ LABEL_18:
   krb5_get_init_creds_opt_set_pac_request();
   krb5_get_init_creds_opt_set_forwardable(opt, 1);
   v21 = context;
-  v22 = v30;
+  v22 = v29;
   uTF8String2 = [passwordCopy UTF8String];
   init_creds_password = krb5_get_init_creds_password(v21, creds, v22, uTF8String2, 0, 0, 0, 0, opt);
   krb5_get_init_creds_opt_free(context, opt);
   if (init_creds_password)
   {
     v25 = krb5_get_error_message(context, init_creds_password);
-    v12 = SO_LOG_SOKerberosHelper();
+    v12 = SO_LOG_SOKerberosHelper(v25);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
-      v33 = init_creds_password;
-      v34 = 2080;
-      v35 = v25;
+      v32 = init_creds_password;
+      v33 = 2080;
+      v34 = v25;
       v13 = "kerbValidatePassword: krb5_get_init_creds_password failed with error: %d - %s";
       goto LABEL_17;
     }
@@ -333,9 +332,9 @@ LABEL_18:
 
 LABEL_19:
   krb5_free_cred_contents(context, creds);
-  if (v30)
+  if (v29)
   {
-    krb5_free_principal(context, v30);
+    krb5_free_principal(context, v29);
   }
 
   if (context)
@@ -343,14 +342,13 @@ LABEL_19:
     MEMORY[0x245CB7430]();
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (unsigned)createGSSName:(id)name gname:(gss_name_t_desc_struct *)gname error:(id *)error
 {
   nameCopy = name;
-  v8 = SO_LOG_SOKerberosHelper();
+  v8 = SO_LOG_SOKerberosHelper(nameCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosHelper createGSSName:gname:error:];
@@ -372,10 +370,10 @@ LABEL_19:
 
     else
     {
-      v15 = SO_LOG_SOKerberosHelper();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = SO_LOG_SOKerberosHelper(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [SOKerberosHelper createGSSName:? gname:? error:?];
+        [SOKerberosHelper createGSSName:gname:error:];
       }
 
       if (error)
@@ -394,12 +392,12 @@ LABEL_19:
 
   else
   {
-    v18 = 0;
-    v11 = krb5_parse_name_flags(0, [nameCopy UTF8String], 4, &v18);
+    v19 = 0;
+    v11 = krb5_parse_name_flags(0, [nameCopy UTF8String], 4, &v19);
     if (v11)
     {
       v12 = v11;
-      v13 = SO_LOG_SOKerberosHelper();
+      v13 = SO_LOG_SOKerberosHelper(v11);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [SOKerberosHelper createGSSName:gname:error:];
@@ -411,11 +409,12 @@ LABEL_12:
     }
 
     input_name_buffer.length = 8;
-    input_name_buffer.value = &v18;
-    v12 = gss_import_name(&minor_status, &input_name_buffer, MEMORY[0x277CCAF28], gname);
-    if (v12)
+    input_name_buffer.value = &v19;
+    v15 = gss_import_name(&minor_status, &input_name_buffer, MEMORY[0x277CCAF28], gname);
+    v12 = v15;
+    if (v15)
     {
-      v13 = SO_LOG_SOKerberosHelper();
+      v13 = SO_LOG_SOKerberosHelper(v15);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [SOKerberosHelper createGSSName:gname:error:];
@@ -434,7 +433,7 @@ LABEL_19:
 {
   optionsCopy = options;
   credentialCopy = credential;
-  v10 = SO_LOG_SOKerberosHelper();
+  v10 = SO_LOG_SOKerberosHelper(credentialCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosHelper createCredential:withOptions:andError:];
@@ -450,33 +449,33 @@ LABEL_19:
   {
     if (*error)
     {
-      v12 = SO_LOG_SOKerberosHelper();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = SO_LOG_SOKerberosHelper(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [SOKerberosHelper changePasswordForUPN:error realm:? withOldPassword:? withNewPassword:? withError:?];
+        [SOKerberosHelper changePasswordForUPN:realm:withOldPassword:withNewPassword:withError:];
       }
     }
   }
 
   else
   {
-    v15 = gss_aapl_initial_cred(desired_name, MEMORY[0x277CCAF18], optionsCopy, &output_cred_handle, &error);
-    gss_release_name(&minor_status, &desired_name);
-    if (!v15)
+    v16 = gss_aapl_initial_cred(desired_name, MEMORY[0x277CCAF18], optionsCopy, &output_cred_handle, &error);
+    v17 = gss_release_name(&minor_status, &desired_name);
+    if (!v16)
     {
-      v13 = output_cred_handle;
+      v14 = output_cred_handle;
       goto LABEL_9;
     }
 
-    v16 = SO_LOG_SOKerberosHelper();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = SO_LOG_SOKerberosHelper(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [SOKerberosHelper createCredential:? withOptions:? andError:?];
+      [SOKerberosHelper createCredential:withOptions:andError:];
     }
 
     if (error)
     {
-      v13 = 0;
+      v14 = 0;
       *error = error;
       goto LABEL_9;
     }
@@ -484,18 +483,17 @@ LABEL_19:
     CFRelease(error);
   }
 
-  v13 = 0;
+  v14 = 0;
 LABEL_9:
 
-  return v13;
+  return v14;
 }
 
 - (void)destroyAllCredentials
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 uint64_t __41__SOKerberosHelper_destroyAllCredentials__block_invoke(uint64_t a1, uint64_t a2, gss_cred_id_t_desc_struct *a3)
@@ -508,7 +506,7 @@ uint64_t __41__SOKerberosHelper_destroyAllCredentials__block_invoke(uint64_t a1,
 - (void)destroyCredential:(id)credential
 {
   credentialCopy = credential;
-  v4 = SO_LOG_SOKerberosHelper();
+  v4 = SO_LOG_SOKerberosHelper(credentialCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosHelper destroyCredential:];
@@ -525,8 +523,8 @@ uint64_t __41__SOKerberosHelper_destroyAllCredentials__block_invoke(uint64_t a1,
       uUIDString2 = [credentialCopy UUIDString];
       v8 = [v6 stringWithFormat:@"failed to find credential to destroy: %@", uUIDString2];
 
-      v9 = SO_LOG_SOKerberosHelper();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = SO_LOG_SOKerberosHelper(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
 LABEL_12:
         [SOKerberosHelper acquireCredentialForUUID:];
@@ -535,12 +533,12 @@ LABEL_12:
 
     else
     {
-      v10 = CFUUIDCreateFromString(0, uUIDString);
-      if (v10)
+      v11 = CFUUIDCreateFromString(0, uUIDString);
+      if (v11)
       {
-        v11 = v10;
-        cred_handle = GSSCreateCredentialFromUUID(v10);
-        CFRelease(v11);
+        v12 = v11;
+        cred_handle = GSSCreateCredentialFromUUID(v11);
+        CFRelease(v12);
         if (cred_handle)
         {
           gss_destroy_cred(&min_stat, &cred_handle);
@@ -553,12 +551,12 @@ LABEL_12:
         goto LABEL_14;
       }
 
-      v12 = MEMORY[0x277CCACA8];
+      v13 = MEMORY[0x277CCACA8];
       uUIDString3 = [credentialCopy UUIDString];
-      v8 = [v12 stringWithFormat:@"failed to find credential to destroy: %@", uUIDString3];
+      v8 = [v13 stringWithFormat:@"failed to find credential to destroy: %@", uUIDString3];
 
-      v9 = SO_LOG_SOKerberosHelper();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = SO_LOG_SOKerberosHelper(v15);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_12;
       }
@@ -571,7 +569,7 @@ LABEL_14:
 - (void)destroyCredentialForUPN:(id)n
 {
   nCopy = n;
-  v5 = SO_LOG_SOKerberosHelper();
+  v5 = SO_LOG_SOKerberosHelper(nCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosHelper destroyCredentialForUPN:];
@@ -580,21 +578,21 @@ LABEL_14:
   if (nCopy)
   {
     min_stat = 0;
-    v7 = [(SOKerberosHelper *)self acquireCredentialForUPN:nCopy];
-    if (v7)
+    v8 = [(SOKerberosHelper *)self acquireCredentialForUPN:nCopy];
+    if (v8)
     {
-      gss_destroy_cred(&min_stat, &v7);
-      if (v7)
+      gss_destroy_cred(&min_stat, &v8);
+      if (v8)
       {
-        gss_release_cred(&min_stat, &v7);
+        gss_release_cred(&min_stat, &v8);
       }
     }
   }
 
   else
   {
-    v6 = SO_LOG_SOKerberosHelper();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SO_LOG_SOKerberosHelper(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SOKerberosHelper destroyCredentialForUPN:];
     }
@@ -603,9 +601,9 @@ LABEL_14:
 
 - (BOOL)authenticate:(gss_cred_id_t_desc_struct *)authenticate toServer:(id)server returningToken:(id *)token andError:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   serverCopy = server;
-  v10 = SO_LOG_SOKerberosHelper();
+  v10 = SO_LOG_SOKerberosHelper(serverCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosHelper authenticate:toServer:returningToken:andError:];
@@ -638,17 +636,17 @@ LABEL_14:
     {
       v21 = inited;
       v22 = GSSCreateError(v14, inited, minor_status);
-      v23 = SO_LOG_SOKerberosHelper();
+      v23 = SO_LOG_SOKerberosHelper(v22);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 138413058;
-        v33 = serverCopy;
-        v34 = 1024;
-        v35 = v21;
-        v36 = 1024;
-        v37 = minor_status;
-        v38 = 2114;
-        v39 = v22;
+        v32 = serverCopy;
+        v33 = 1024;
+        v34 = v21;
+        v35 = 1024;
+        v36 = minor_status;
+        v37 = 2114;
+        v38 = v22;
         _os_log_error_impl(&dword_24006C000, v23, OS_LOG_TYPE_ERROR, "gss_init_sec_context failed server: %@, maj_stat: %d, min_stat: %d, %{public}@", buf, 0x22u);
       }
 
@@ -666,11 +664,11 @@ LABEL_14:
 
     else
     {
-      v17 = SO_LOG_SOKerberosHelper();
+      v17 = SO_LOG_SOKerberosHelper(inited);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
-        LODWORD(v33) = buffer.length;
+        LODWORD(v32) = buffer.length;
         _os_log_impl(&dword_24006C000, v17, OS_LOG_TYPE_INFO, "have a buffer of length: %d, success", buf, 8u);
       }
 
@@ -685,10 +683,10 @@ LABEL_14:
 
   else
   {
-    v20 = SO_LOG_SOKerberosHelper();
+    v20 = SO_LOG_SOKerberosHelper(0);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [SOKerberosHelper authenticate:serverCopy toServer:&error returningToken:? andError:?];
+      [SOKerberosHelper authenticate:toServer:returningToken:andError:];
     }
 
     if (error)
@@ -704,7 +702,6 @@ LABEL_14:
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -759,8 +756,8 @@ void __35__SOKerberosHelper_listCredentials__block_invoke(uint64_t a1, uint64_t 
 
 - (BOOL)getPACForCred:(gss_cred_id_t_desc_struct *)cred pac:(id *)pac
 {
-  v47 = *MEMORY[0x277D85DE8];
-  v6 = SO_LOG_SOKerberosHelper();
+  v60 = *MEMORY[0x277D85DE8];
+  v6 = SO_LOG_SOKerberosHelper(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosHelper getPACForCred:pac:];
@@ -771,27 +768,28 @@ void __35__SOKerberosHelper_listCredentials__block_invoke(uint64_t a1, uint64_t 
     *pac = 0;
   }
 
-  v45 = 0;
-  *&v46.byte0 = 0;
+  v58 = 0;
+  *&v59.byte0 = 0;
   principal = 0;
+  v55 = 0;
+  v52 = 0;
+  v53 = 0;
+  *&v59.byte8 = 0;
+  v51 = 0;
+  v50 = 0;
+  v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v45 = 0;
+  v44 = 0;
   v43 = 0;
-  v40 = 0;
-  v41 = 0;
-  *&v46.byte8 = 0;
-  v39 = 0;
-  v38 = 0;
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v33 = 0;
-  v32 = 0;
-  v31 = 0;
+  v57 = 0u;
   memset(creds, 0, sizeof(creds));
   if (!cred)
   {
-    v7 = SO_LOG_SOKerberosHelper();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = SO_LOG_SOKerberosHelper(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SOKerberosHelper getPACForCred:pac:];
     }
@@ -799,43 +797,45 @@ void __35__SOKerberosHelper_listCredentials__block_invoke(uint64_t a1, uint64_t 
     goto LABEL_11;
   }
 
-  if (krb5_init_context(&v41))
+  inited = krb5_init_context(&v53);
+  if (inited)
   {
-    v7 = SO_LOG_SOKerberosHelper();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = SO_LOG_SOKerberosHelper(inited);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SOKerberosHelper getPACForCred:pac:];
     }
 
 LABEL_11:
 
-    v8 = 0;
-    goto LABEL_12;
+    return 0;
   }
 
-  v11 = GSSCredentialCopyUUID(cred);
-  if (!v11)
+  v12 = GSSCredentialCopyUUID(cred);
+  if (!v12)
   {
-    v14 = SO_LOG_SOKerberosHelper();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = SO_LOG_SOKerberosHelper(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SOKerberosHelper getPACForCred:pac:];
     }
 
-    v15 = 0;
-    v8 = 1;
+    v17 = 0;
+    v10 = 1;
     goto LABEL_28;
   }
 
-  v12 = v11;
-  v46 = CFUUIDGetUUIDBytes(v11);
-  CFRelease(v12);
-  if (!krb5_cc_resolve_by_uuid())
+  v13 = v12;
+  v59 = CFUUIDGetUUIDBytes(v12);
+  CFRelease(v13);
+  v14 = krb5_cc_resolve_by_uuid();
+  if (!v14)
   {
-    if (krb5_cc_get_principal(v41, v45, &principal))
+    v18 = krb5_cc_get_principal(v53, v58, &principal);
+    if (v18)
     {
-      v13 = SO_LOG_SOKerberosHelper();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = SO_LOG_SOKerberosHelper(v18);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [SOKerberosHelper getPACForCred:pac:];
       }
@@ -844,10 +844,11 @@ LABEL_11:
     }
 
     realm = krb5_principal_get_realm();
-    if (krb5_make_principal())
+    v19 = krb5_make_principal();
+    if (v19)
     {
-      v13 = SO_LOG_SOKerberosHelper();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = SO_LOG_SOKerberosHelper(v19);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [SOKerberosHelper getPACForCred:pac:];
       }
@@ -855,15 +856,16 @@ LABEL_11:
       goto LABEL_26;
     }
 
-    v30 = 0u;
+    v42 = 0u;
     memset(&mcreds[16], 0, 112);
     krb5_cc_clear_mcred();
-    *&mcreds[8] = v40;
+    *&mcreds[8] = v52;
     *mcreds = principal;
-    if (krb5_cc_retrieve_cred(v41, v45, 0, mcreds, creds))
+    cred = krb5_cc_retrieve_cred(v53, v58, 0, mcreds, creds);
+    if (cred)
     {
-      v16 = SO_LOG_SOKerberosHelper();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v21 = SO_LOG_SOKerberosHelper(cred);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [SOKerberosHelper getPACForCred:pac:];
       }
@@ -873,12 +875,13 @@ LABEL_11:
     }
 
     krb5_cc_clear_mcred();
-    krb5_free_principal(v41, v40);
-    v40 = 0;
-    if (krb5_get_creds_opt_alloc())
+    krb5_free_principal(v53, v52);
+    v52 = 0;
+    creds_opt_alloc = krb5_get_creds_opt_alloc();
+    if (creds_opt_alloc)
     {
-      v13 = SO_LOG_SOKerberosHelper();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = SO_LOG_SOKerberosHelper(creds_opt_alloc);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [SOKerberosHelper getPACForCred:pac:];
       }
@@ -890,12 +893,13 @@ LABEL_11:
     krb5_get_creds_opt_add_options();
     krb5_get_creds_opt_add_options();
     krb5_get_creds_opt_add_options();
-    v28 = 0;
-    memset(&v27[26], 0, 64);
-    if (decode_Ticket())
+    v40 = 0;
+    memset(&v39[26], 0, 64);
+    v23 = decode_Ticket();
+    if (v23)
     {
-      v13 = SO_LOG_SOKerberosHelper();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = SO_LOG_SOKerberosHelper(v23);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [SOKerberosHelper getPACForCred:pac:];
       }
@@ -904,11 +908,11 @@ LABEL_11:
     }
 
     creds_opt_set_ticket = krb5_get_creds_opt_set_ticket();
-    free_Ticket();
+    v25 = free_Ticket();
     if (creds_opt_set_ticket)
     {
-      v13 = SO_LOG_SOKerberosHelper();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = SO_LOG_SOKerberosHelper(v25);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [SOKerberosHelper getPACForCred:pac:];
       }
@@ -916,10 +920,11 @@ LABEL_11:
       goto LABEL_26;
     }
 
-    if (krb5_get_creds())
+    v26 = krb5_get_creds();
+    if (v26)
     {
-      v13 = SO_LOG_SOKerberosHelper();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = SO_LOG_SOKerberosHelper(v26);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [SOKerberosHelper getPACForCred:pac:];
       }
@@ -927,12 +932,11 @@ LABEL_11:
       goto LABEL_26;
     }
 
-    addresses = v43->addresses;
-    v18 = *&v43->ticket.magic;
-    if (decode_Ticket())
+    v27 = decode_Ticket();
+    if (v27)
     {
-      v13 = SO_LOG_SOKerberosHelper();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = SO_LOG_SOKerberosHelper(v27);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [SOKerberosHelper getPACForCred:pac:];
       }
@@ -940,22 +944,13 @@ LABEL_11:
       goto LABEL_26;
     }
 
-    v26 = malloc_type_calloc(1uLL, 0x98uLL, 0x10B0040764A81A9uLL);
-    v20 = krb5_decrypt_ticket();
-    free_Ticket();
-    if (v20)
+    v38 = malloc_type_calloc(1uLL, 0x98uLL, 0x10B0040764A81A9uLL);
+    v28 = krb5_decrypt_ticket();
+    v29 = free_Ticket();
+    if (v28)
     {
-      v21 = SO_LOG_SOKerberosHelper();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-      {
-        [SOKerberosHelper getPACForCred:pac:];
-      }
-    }
-
-    else if (krb5_ticket_get_authorization_data_type())
-    {
-      v21 = SO_LOG_SOKerberosHelper();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v30 = SO_LOG_SOKerberosHelper(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         [SOKerberosHelper getPACForCred:pac:];
       }
@@ -963,12 +958,11 @@ LABEL_11:
 
     else
     {
-      v22 = krb5_pac_parse();
-      krb5_data_free();
-      if (v22)
+      authorization_data_type = krb5_ticket_get_authorization_data_type();
+      if (authorization_data_type)
       {
-        v21 = SO_LOG_SOKerberosHelper();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v30 = SO_LOG_SOKerberosHelper(authorization_data_type);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           [SOKerberosHelper getPACForCred:pac:];
         }
@@ -976,11 +970,12 @@ LABEL_11:
 
       else
       {
-        v23 = *&v26[1].enc_part.ciphertext.magic;
-        if (krb5_pac_verify())
+        v32 = krb5_pac_parse();
+        v33 = krb5_data_free();
+        if (v32)
         {
-          v21 = SO_LOG_SOKerberosHelper();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v30 = SO_LOG_SOKerberosHelper(v33);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             [SOKerberosHelper getPACForCred:pac:];
           }
@@ -988,45 +983,59 @@ LABEL_11:
 
         else
         {
-          krb5_data_zero();
-          if (!krb5_pac_get_buffer())
+          v34 = krb5_pac_verify();
+          if (v34)
           {
-            memset(v27, 0, 416);
-            get_kerbvalidationinfo(v32, v31, v27);
-            if (!v24)
+            v30 = SO_LOG_SOKerberosHelper(v34);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
-              if (pac)
-              {
-                *pac = [[SOKerberosPacData alloc] initWithValidationInfo:v27, "krbtgt", realm, 0];
-              }
-
-              free_kerbvalidationinfo(v27);
+              [SOKerberosHelper getPACForCred:pac:];
             }
-
-            krb5_data_free();
-            krb5_pac_free();
-            v33 = 0;
-            v8 = 1;
-            goto LABEL_79;
           }
 
-          v21 = SO_LOG_SOKerberosHelper();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          else
           {
-            [SOKerberosHelper getPACForCred:pac:];
+            krb5_data_zero();
+            buffer = krb5_pac_get_buffer();
+            if (!buffer)
+            {
+              memset(v39, 0, 416);
+              get_kerbvalidationinfo(v44, v43, v39);
+              if (!v36)
+              {
+                if (pac)
+                {
+                  *pac = [[SOKerberosPacData alloc] initWithValidationInfo:v39, "krbtgt", realm, 0];
+                }
+
+                free_kerbvalidationinfo(v39);
+              }
+
+              krb5_data_free();
+              krb5_pac_free();
+              v45 = 0;
+              v10 = 1;
+              goto LABEL_79;
+            }
+
+            v30 = SO_LOG_SOKerberosHelper(buffer);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+            {
+              [SOKerberosHelper getPACForCred:pac:];
+            }
           }
         }
       }
     }
 
-    v8 = 0;
+    v10 = 0;
 LABEL_79:
-    v15 = v26;
+    v17 = v38;
     goto LABEL_28;
   }
 
-  v13 = SO_LOG_SOKerberosHelper();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v15 = SO_LOG_SOKerberosHelper(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     [SOKerberosHelper getPACForCred:pac:];
   }
@@ -1034,135 +1043,122 @@ LABEL_79:
 LABEL_26:
 
 LABEL_27:
-  v15 = 0;
-  v8 = 0;
+  v17 = 0;
+  v10 = 0;
 LABEL_28:
-  krb5_free_cred_contents(v41, creds);
-  if (v43)
+  krb5_free_cred_contents(v53, creds);
+  if (v55)
   {
-    krb5_free_creds(v41, v43);
-    v43 = 0;
+    krb5_free_creds(v53, v55);
+    v55 = 0;
   }
 
-  if (v45)
+  if (v58)
   {
-    krb5_cc_close(v41, v45);
-    v45 = 0;
+    krb5_cc_close(v53, v58);
+    v58 = 0;
   }
 
   if (principal)
   {
-    krb5_free_principal(v41, principal);
+    krb5_free_principal(v53, principal);
     principal = 0;
   }
 
-  if (v40)
+  if (v52)
   {
-    krb5_free_principal(v41, v40);
-    v40 = 0;
+    krb5_free_principal(v53, v52);
+    v52 = 0;
   }
 
-  if (v39)
+  if (v51)
   {
     krb5_get_creds_opt_free();
-    v39 = 0;
+    v51 = 0;
   }
 
-  if (v15)
+  if (v17)
   {
-    krb5_free_ticket(v41, v15);
+    krb5_free_ticket(v53, v17);
   }
 
-  if (v33)
+  if (v45)
   {
     krb5_pac_free();
-    v33 = 0;
+    v45 = 0;
   }
 
-  if (v41)
+  if (v53)
   {
     MEMORY[0x245CB7430]();
   }
 
-LABEL_12:
-  v9 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v10;
 }
 
 - (void)acquireCredentialForUUID:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)acquireCredentialForUUID:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)acquireCredentialForUPN:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)acquireCredentialForUPN:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)changePasswordForUPN:realm:withOldPassword:withNewPassword:withError:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
-- (void)changePasswordForUPN:(uint64_t *)a1 realm:withOldPassword:withNewPassword:withError:.cold.2(uint64_t *a1)
+- (void)changePasswordForUPN:realm:withOldPassword:withNewPassword:withError:.cold.2()
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)validatePassword:forUser:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)createGSSName:gname:error:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
-- (void)createGSSName:(uint64_t *)a1 gname:error:.cold.2(uint64_t *a1)
+- (void)createGSSName:gname:error:.cold.2()
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)createGSSName:gname:error:.cold.3()
@@ -1181,35 +1177,31 @@ LABEL_12:
 
 - (void)createCredential:withOptions:andError:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
-- (void)createCredential:(uint64_t *)a1 withOptions:andError:.cold.3(uint64_t *a1)
+- (void)createCredential:withOptions:andError:.cold.3()
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)destroyCredential:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)destroyCredentialForUPN:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)destroyCredentialForUPN:.cold.2()
@@ -1221,164 +1213,130 @@ LABEL_12:
 
 - (void)authenticate:toServer:returningToken:andError:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
-- (void)authenticate:(uint64_t)a1 toServer:(uint64_t *)a2 returningToken:andError:.cold.2(uint64_t a1, uint64_t *a2)
+- (void)authenticate:toServer:returningToken:andError:.cold.2()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_0();
-  v7 = 2114;
-  v8 = v3;
-  _os_log_error_impl(&dword_24006C000, v4, OS_LOG_TYPE_ERROR, "failed to import %@: %{public}@", v6, 0x16u);
   v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0();
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_24006C000, v1, OS_LOG_TYPE_ERROR, "failed to import %@: %{public}@", v2, 0x16u);
 }
 
 - (void)getPACForCred:pac:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_24006C000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)getPACForCred:pac:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPACForCred:pac:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPACForCred:pac:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPACForCred:pac:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPACForCred:pac:.cold.6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPACForCred:pac:.cold.7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPACForCred:pac:.cold.8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPACForCred:pac:.cold.9()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPACForCred:pac:.cold.10()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPACForCred:pac:.cold.11()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPACForCred:pac:.cold.12()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPACForCred:pac:.cold.13()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPACForCred:pac:.cold.14()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPACForCred:pac:.cold.15()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPACForCred:pac:.cold.16()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPACForCred:pac:.cold.17()

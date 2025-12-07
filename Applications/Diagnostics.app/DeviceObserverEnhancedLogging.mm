@@ -12,22 +12,23 @@
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
   selfCopy = self;
-  v7 = sub_10013C6F4(sub_10013EB1C, v5);
+  sub_10013C6F4(sub_10013EB1C, v5);
+  v8 = v7;
 
-  return v7;
+  return v8;
 }
 
 - (void)endDiscoveringDevicesWithIdentifier:(id)identifier
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_10013CA0C();
+  sub_10013CA0C(identifier);
   swift_unknownObjectRelease();
 }
 
 - (void)discoverAllDevicesWithCompletionHandler:(id)handler
 {
-  v5 = sub_10003C49C(&unk_1001FFE20);
+  v5 = sub_10003C49C(&unk_1001FFE20, &unk_10017ED10);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

@@ -17,7 +17,7 @@
 {
   appearingCopy = appearing;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for EmojiForegroundSpiralLayersViewController();
+  v5.super_class = type metadata accessor for EmojiForegroundSpiralLayersViewController(0);
   v4 = v5.receiver;
   [(EmojiForegroundSpiralLayersViewController *)&v5 viewIsAppearing:appearingCopy];
   sub_249FF1754();
@@ -25,11 +25,11 @@
 
 - (void)viewDidLayoutSubviews
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for EmojiForegroundSpiralLayersViewController();
-  v2 = v3.receiver;
-  [(EmojiForegroundSpiralLayersViewController *)&v3 viewDidLayoutSubviews];
-  sub_249FF1BCC();
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for EmojiForegroundSpiralLayersViewController(0);
+  v2 = v4.receiver;
+  viewDidLayoutSubviews = [(EmojiForegroundSpiralLayersViewController *)&v4 viewDidLayoutSubviews];
+  sub_249FF1BCC(viewDidLayoutSubviews);
 }
 
 - (_TtC11EmojiPoster41EmojiForegroundSpiralLayersViewController)initWithNibName:(id)name bundle:(id)bundle

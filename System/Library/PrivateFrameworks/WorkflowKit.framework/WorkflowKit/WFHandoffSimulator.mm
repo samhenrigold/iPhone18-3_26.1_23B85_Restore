@@ -81,24 +81,24 @@ void __94__WFHandoffSimulator_getStateForContinuingWorkflowFromUserActivityUserI
 
 + (id)userActivityForContinuingWorkflowWithState:(id)state fromSource:(id)source
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   sourceCopy = source;
   v8 = *MEMORY[0x1E69970A8];
-  v19[0] = *MEMORY[0x1E69970B8];
-  v19[1] = v8;
-  v20[0] = stateCopy;
-  v20[1] = sourceCopy;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v18[0] = *MEMORY[0x1E69970B8];
+  v18[1] = v8;
+  v19[0] = stateCopy;
+  v19[1] = sourceCopy;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
   v10 = [self temporaryFileURLBySerializingUserInfo:v9];
   if (v10)
   {
     v11 = objc_alloc(MEMORY[0x1E69636A8]);
     v12 = [v11 initWithActivityType:*MEMORY[0x1E69970A0]];
-    v17 = @"userInfoURL";
+    v16 = @"userInfoURL";
     absoluteString = [v10 absoluteString];
-    v18 = absoluteString;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v17 = absoluteString;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     [v12 setUserInfo:v14];
   }
 
@@ -106,8 +106,6 @@ void __94__WFHandoffSimulator_getStateForContinuingWorkflowFromUserActivityUserI
   {
     v12 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -181,7 +179,7 @@ void __94__WFHandoffSimulator_getStateForContinuingWorkflowFromUserActivityUserI
 
 + (id)URLForContinuingWorkflowWithState:(id)state fromSource:(id)source
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   sourceCopy = source;
   v9 = sourceCopy;
@@ -192,14 +190,12 @@ void __94__WFHandoffSimulator_getStateForContinuingWorkflowFromUserActivityUserI
   }
 
   v10 = *MEMORY[0x1E69970A8];
-  v16[0] = *MEMORY[0x1E69970B8];
-  v16[1] = v10;
-  v17[0] = stateCopy;
-  v17[1] = v9;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = *MEMORY[0x1E69970B8];
+  v15[1] = v10;
+  v16[0] = stateCopy;
+  v16[1] = v9;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
   v12 = [self URLForSimulatingHandoffWithActivityType:*MEMORY[0x1E69970A0] userInfo:v11 webpageURL:0 fromSource:v9];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -217,8 +213,8 @@ void __94__WFHandoffSimulator_getStateForContinuingWorkflowFromUserActivityUserI
     [currentHandler handleFailureInMethod:a2 object:self file:@"WFHandoffSimulator.m" lineNumber:41 description:{@"Invalid parameter not satisfying: %@", @"userInfo && handoffSource"}];
   }
 
-  v16 = [typeCopy isEqualToString:*MEMORY[0x1E696AA68]];
-  if (lCopy && v16)
+  isEqualToString = objc_msgSend_isEqualToString_(typeCopy);
+  if (lCopy && isEqualToString)
   {
     v17 = lCopy;
     goto LABEL_13;

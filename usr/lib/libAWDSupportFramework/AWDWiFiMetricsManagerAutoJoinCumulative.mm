@@ -298,40 +298,36 @@ LABEL_11:
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   if (self->_scanTypesCounts.count)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = self->_scanTypesCounts.list[v5];
       PBDataWriterWriteUint32Field();
-      ++v5;
+      ++v4;
     }
 
-    while (v5 < self->_scanTypesCounts.count);
+    while (v4 < self->_scanTypesCounts.count);
   }
 
   if (self->_excludedDueToAJBlacklistCounts.count)
   {
-    v7 = 0;
+    v5 = 0;
     do
     {
-      v8 = self->_excludedDueToAJBlacklistCounts.list[v7];
       PBDataWriterWriteUint32Field();
-      ++v7;
+      ++v5;
     }
 
-    while (v7 < self->_excludedDueToAJBlacklistCounts.count);
+    while (v5 < self->_excludedDueToAJBlacklistCounts.count);
   }
 
   has = self->_has;
   if ((has & 0x100) != 0)
   {
-    userChoseToAssociateToAJBlacklistedCount = self->_userChoseToAssociateToAJBlacklistedCount;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -351,7 +347,6 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  ajScansPerformedWithLocation = self->_ajScansPerformedWithLocation;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -366,7 +361,6 @@ LABEL_12:
   }
 
 LABEL_20:
-  ajScansPerformedWithoutLocation = self->_ajScansPerformedWithoutLocation;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -381,7 +375,6 @@ LABEL_13:
   }
 
 LABEL_21:
-  didAssocTo5GHzAfterBroadcastPeriodicAllBandScanCount = self->_didAssocTo5GHzAfterBroadcastPeriodicAllBandScanCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -396,7 +389,6 @@ LABEL_14:
   }
 
 LABEL_22:
-  rssiBitmap = self->_rssiBitmap;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -408,7 +400,6 @@ LABEL_15:
     }
 
 LABEL_24:
-    bandScanCount24 = self->_bandScanCount24;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x10) == 0)
     {
@@ -419,7 +410,6 @@ LABEL_24:
   }
 
 LABEL_23:
-  ccaBitmap = self->_ccaBitmap;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -434,7 +424,6 @@ LABEL_16:
   }
 
 LABEL_25:
-  bandScanCount5 = self->_bandScanCount5;
 
   PBDataWriterWriteUint32Field();
 }

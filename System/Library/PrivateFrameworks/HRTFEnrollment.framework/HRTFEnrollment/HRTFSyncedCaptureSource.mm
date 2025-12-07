@@ -14,31 +14,31 @@
 
 - (BOOL)_verifyCaptureDevice:(id)device
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   formats = [deviceCopy formats];
-  v6 = [formats countByEnumeratingWithState:&v57 objects:v64 count:16];
+  v6 = [formats countByEnumeratingWithState:&v56 objects:v63 count:16];
   if (v6)
   {
     v7 = v6;
-    v50 = deviceCopy;
-    v51 = 0;
+    v49 = deviceCopy;
+    v50 = 0;
     v8 = 0;
-    v9 = *v58;
+    v9 = *v57;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v58 != v9)
+        if (*v57 != v9)
         {
           objc_enumerationMutation(formats);
         }
 
-        v11 = *(*(&v57 + 1) + 8 * i);
+        v11 = *(*(&v56 + 1) + 8 * i);
         supportedDepthDataFormats = [v11 supportedDepthDataFormats];
         v13 = [supportedDepthDataFormats count];
 
@@ -59,7 +59,7 @@
                 if (self->_preferredColorResolutionX == v16.width)
                 {
                   v8 = v16.width * v16.height;
-                  v51 = v19;
+                  v50 = v19;
                   if (self->_preferredColorResolutionY == v17)
                   {
                     goto LABEL_20;
@@ -69,7 +69,7 @@
                 else
                 {
                   v8 = v16.width * v16.height;
-                  v51 = v19;
+                  v50 = v19;
                 }
               }
             }
@@ -77,17 +77,17 @@
         }
       }
 
-      v7 = [formats countByEnumeratingWithState:&v57 objects:v64 count:16];
-      v19 = v51;
+      v7 = [formats countByEnumeratingWithState:&v56 objects:v63 count:16];
+      v19 = v50;
     }
 
     while (v7);
 LABEL_20:
 
-    deviceCopy = v50;
+    deviceCopy = v49;
     if (v19)
     {
-      v49 = v19;
+      v48 = v19;
       objc_storeStrong(&self->_finalColorFormat, v19);
       if (onceTokenHRTFSyncedCaptureSource != -1)
       {
@@ -102,32 +102,32 @@ LABEL_20:
         v23 = [(AVCaptureDeviceFormat *)finalColorFormat description];
         uTF8String = [v23 UTF8String];
         *buf = 136315138;
-        v63 = uTF8String;
+        v62 = uTF8String;
         _os_log_impl(&dword_250984000, v22, OS_LOG_TYPE_INFO, "capture device color format: %s", buf, 0xCu);
       }
 
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
       v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
       supportedDepthDataFormats2 = [v19 supportedDepthDataFormats];
-      v26 = [supportedDepthDataFormats2 countByEnumeratingWithState:&v53 objects:v61 count:16];
+      v26 = [supportedDepthDataFormats2 countByEnumeratingWithState:&v52 objects:v60 count:16];
       if (v26)
       {
         v27 = v26;
-        v52 = 0;
+        v51 = 0;
         v28 = 0;
-        v29 = *v54;
+        v29 = *v53;
         do
         {
           for (j = 0; j != v27; ++j)
           {
-            if (*v54 != v29)
+            if (*v53 != v29)
             {
               objc_enumerationMutation(supportedDepthDataFormats2);
             }
 
-            v31 = *(*(&v53 + 1) + 8 * j);
+            v31 = *(*(&v52 + 1) + 8 * j);
             formatDescription2 = [v31 formatDescription];
             if (CMFormatDescriptionGetMediaSubType(formatDescription2) == self->_preferredDepthFormat)
             {
@@ -143,7 +143,7 @@ LABEL_20:
                   if (self->_preferredDepthResolutionX == v34.width)
                   {
                     v28 = v34.width * v34.height;
-                    v52 = v37;
+                    v51 = v37;
                     if (self->_preferredDepthResolutionY == v35)
                     {
                       goto LABEL_43;
@@ -153,21 +153,21 @@ LABEL_20:
                   else
                   {
                     v28 = v34.width * v34.height;
-                    v52 = v37;
+                    v51 = v37;
                   }
                 }
               }
             }
           }
 
-          v27 = [supportedDepthDataFormats2 countByEnumeratingWithState:&v53 objects:v61 count:16];
-          v37 = v52;
+          v27 = [supportedDepthDataFormats2 countByEnumeratingWithState:&v52 objects:v60 count:16];
+          v37 = v51;
         }
 
         while (v27);
 LABEL_43:
 
-        deviceCopy = v50;
+        deviceCopy = v49;
         if (v37)
         {
           objc_storeStrong(&self->_finalDepthFormat, v37);
@@ -176,7 +176,7 @@ LABEL_43:
             [HRTFSyncedCaptureSource _verifyCaptureDevice:];
           }
 
-          v38 = v49;
+          v38 = v48;
           v39 = logObjHRTFSyncedCaptureSource;
           if (os_log_type_enabled(logObjHRTFSyncedCaptureSource, OS_LOG_TYPE_INFO))
           {
@@ -185,7 +185,7 @@ LABEL_43:
             v42 = [(AVCaptureDeviceFormat *)finalDepthFormat description];
             uTF8String2 = [v42 UTF8String];
             *buf = 136315138;
-            v63 = uTF8String2;
+            v62 = uTF8String2;
             _os_log_impl(&dword_250984000, v41, OS_LOG_TYPE_INFO, "capture device depth format: %s", buf, 0xCu);
           }
 
@@ -205,7 +205,7 @@ LABEL_61:
         [HRTFSyncedCaptureSource _verifyCaptureDevice:];
       }
 
-      v38 = v49;
+      v38 = v48;
       v46 = logObjHRTFSyncedCaptureSource;
       if (os_log_type_enabled(logObjHRTFSyncedCaptureSource, OS_LOG_TYPE_ERROR))
       {
@@ -237,13 +237,12 @@ LABEL_61:
   v44 = 0;
 LABEL_62:
 
-  v47 = *MEMORY[0x277D85DE8];
   return v44;
 }
 
 - (BOOL)_configureVideoOutputsForDevice:(id)device inSession:(id)session
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   [sessionCopy beginConfiguration];
   v6 = objc_alloc_init(MEMORY[0x277CE5B60]);
@@ -296,8 +295,8 @@ LABEL_62:
 
     if (v15)
     {
-      v25[0] = v14;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+      v24[0] = v14;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
       [(AVCaptureMetadataOutput *)v12 setMetadataObjectTypes:v16];
     }
   }
@@ -315,16 +314,15 @@ LABEL_62:
   outputSynchronizer = self->_outputSynchronizer;
   self->_outputSynchronizer = v21;
 
-  v23 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)_initialize
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v49[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CE5AD0];
-  v48[0] = *MEMORY[0x277CE5868];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:1];
+  v49[0] = *MEMORY[0x277CE5868];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:1];
   v5 = [v3 discoverySessionWithDeviceTypes:v4 mediaType:*MEMORY[0x277CE5EA8] position:2];
 
   devices = [v5 devices];
@@ -346,29 +344,29 @@ LABEL_62:
     goto LABEL_26;
   }
 
-  v43 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
+  v43 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v41 objects:v47 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (!v9)
   {
     goto LABEL_11;
   }
 
   v10 = v9;
-  v11 = *v42;
+  v11 = *v43;
   while (2)
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v42 != v11)
+      if (*v43 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v41 + 1) + 8 * i);
+      v13 = *(*(&v42 + 1) + 8 * i);
       if ([(HRTFSyncedCaptureSource *)self _verifyCaptureDevice:v13])
       {
         v15 = v13;
@@ -378,9 +376,9 @@ LABEL_62:
           goto LABEL_26;
         }
 
-        v40 = 0;
-        v16 = [MEMORY[0x277CE5AD8] deviceInputWithDevice:v15 error:&v40];
-        v17 = v40;
+        v41 = 0;
+        v16 = [MEMORY[0x277CE5AD8] deviceInputWithDevice:v15 error:&v41];
+        v17 = v41;
         if (v16)
         {
           v18 = v17 == 0;
@@ -406,7 +404,7 @@ LABEL_62:
             v22 = [v19 description];
             uTF8String = [v22 UTF8String];
             *buf = 136315138;
-            v46 = uTF8String;
+            v47 = uTF8String;
             _os_log_impl(&dword_250984000, v21, OS_LOG_TYPE_ERROR, "failed to create input device: %s", buf, 0xCu);
           }
 
@@ -414,31 +412,31 @@ LABEL_62:
           goto LABEL_48;
         }
 
-        v27 = objc_alloc_init(MEMORY[0x277CE5B38]);
-        [v27 beginConfiguration];
-        if ([v27 canAddInput:v16])
+        v26 = objc_alloc_init(MEMORY[0x277CE5B38]);
+        [v26 beginConfiguration];
+        if ([v26 canAddInput:v16])
         {
-          [v27 addInput:v16];
-          v39 = 0;
-          [v15 lockForConfiguration:&v39];
-          v28 = v39;
-          if (v28)
+          [v26 addInput:v16];
+          v40 = 0;
+          [v15 lockForConfiguration:&v40];
+          v27 = v40;
+          if (v27)
           {
-            v19 = v28;
+            v19 = v27;
             if (onceTokenHRTFSyncedCaptureSource != -1)
             {
               [HRTFSyncedCaptureSource _verifyCaptureDevice:];
             }
 
-            v29 = logObjHRTFSyncedCaptureSource;
+            v28 = logObjHRTFSyncedCaptureSource;
             if (os_log_type_enabled(logObjHRTFSyncedCaptureSource, OS_LOG_TYPE_ERROR))
             {
-              v30 = v29;
-              v31 = [v19 description];
-              uTF8String2 = [v31 UTF8String];
+              v29 = v28;
+              v30 = [v19 description];
+              uTF8String2 = [v30 UTF8String];
               *buf = 136315138;
-              v46 = uTF8String2;
-              _os_log_impl(&dword_250984000, v30, OS_LOG_TYPE_ERROR, "failed to lock device for configuration: %s", buf, 0xCu);
+              v47 = uTF8String2;
+              _os_log_impl(&dword_250984000, v29, OS_LOG_TYPE_ERROR, "failed to lock device for configuration: %s", buf, 0xCu);
             }
 
             goto LABEL_46;
@@ -447,20 +445,20 @@ LABEL_62:
           [v15 setActiveFormat:self->_finalColorFormat];
           [v15 setActiveDepthDataFormat:self->_finalDepthFormat];
           [v15 unlockForConfiguration];
-          v34 = [(HRTFSyncedCaptureSource *)self _configureVideoOutputsForDevice:v15 inSession:v27];
-          [v27 commitConfiguration];
-          if (v34)
+          v33 = [(HRTFSyncedCaptureSource *)self _configureVideoOutputsForDevice:v15 inSession:v26];
+          commitConfiguration = [v26 commitConfiguration];
+          if (v33)
           {
-            v35 = [objc_alloc(MEMORY[0x277CE5B68]) initWithSession:v27];
+            v35 = [objc_alloc(MEMORY[0x277CE5B68]) initWithSession:v26];
             previewLayer = self->_previewLayer;
             self->_previewLayer = v35;
 
-            objc_storeStrong(&self->_captureSession, v27);
-            v37 = HRTFLogObjectForCategory_HRTFSyncedCaptureSource();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+            objc_storeStrong(&self->_captureSession, v26);
+            v38 = HRTFLogObjectForCategory_HRTFSyncedCaptureSource(v37);
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_250984000, v37, OS_LOG_TYPE_INFO, "successfully configured capture session", buf, 2u);
+              _os_log_impl(&dword_250984000, v38, OS_LOG_TYPE_INFO, "successfully configured capture session", buf, 2u);
             }
 
             v19 = 0;
@@ -468,27 +466,27 @@ LABEL_62:
             goto LABEL_47;
           }
 
-          v38 = HRTFLogObjectForCategory_HRTFSyncedCaptureSource();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          v39 = HRTFLogObjectForCategory_HRTFSyncedCaptureSource(commitConfiguration);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_250984000, v38, OS_LOG_TYPE_ERROR, "failed to config outputs", buf, 2u);
+            _os_log_impl(&dword_250984000, v39, OS_LOG_TYPE_ERROR, "failed to config outputs", buf, 2u);
           }
         }
 
         else
         {
-          [v27 commitConfiguration];
+          [v26 commitConfiguration];
           if (onceTokenHRTFSyncedCaptureSource != -1)
           {
             [HRTFSyncedCaptureSource _verifyCaptureDevice:];
           }
 
-          v33 = logObjHRTFSyncedCaptureSource;
+          v32 = logObjHRTFSyncedCaptureSource;
           if (os_log_type_enabled(logObjHRTFSyncedCaptureSource, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_250984000, v33, OS_LOG_TYPE_ERROR, "input device not usable", buf, 2u);
+            _os_log_impl(&dword_250984000, v32, OS_LOG_TYPE_ERROR, "input device not usable", buf, 2u);
           }
         }
 
@@ -502,7 +500,7 @@ LABEL_48:
       }
     }
 
-    v10 = [v8 countByEnumeratingWithState:&v41 objects:v47 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v42 objects:v48 count:16];
     if (v10)
     {
       continue;
@@ -517,7 +515,6 @@ LABEL_26:
   v24 = 0;
 LABEL_27:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -549,7 +546,7 @@ LABEL_27:
 
 - (void)dataOutputSynchronizer:(id)synchronizer didOutputSynchronizedDataCollection:(id)collection
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
   v6 = [collectionCopy objectForKeyedSubscript:self->_colorDataOutput];
   v7 = [collectionCopy objectForKeyedSubscript:self->_depthDataOutput];
@@ -567,43 +564,28 @@ LABEL_27:
 
   if (!v10)
   {
-    if (!v8)
+    if (v8 && ([v8 metadataObjects], (v11 = objc_claimAutoreleasedReturnValue()) != 0) && (v12 = v11, objc_msgSend(v9, "metadataObjects"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "count"), v13, v12, v14))
     {
-      goto LABEL_17;
-    }
-
-    metadataObjects = [v8 metadataObjects];
-    if (!metadataObjects)
-    {
-      goto LABEL_17;
-    }
-
-    v12 = metadataObjects;
-    metadataObjects2 = [v9 metadataObjects];
-    v14 = [metadataObjects2 count];
-
-    if (v14)
-    {
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
-      metadataObjects3 = [v9 metadataObjects];
-      v16 = [metadataObjects3 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
+      metadataObjects = [v9 metadataObjects];
+      v16 = [metadataObjects countByEnumeratingWithState:&v28 objects:v34 count:16];
       if (v16)
       {
-        v28 = v6;
-        v17 = *v30;
+        v27 = v6;
+        v17 = *v29;
         while (2)
         {
           for (i = 0; i != v16; i = i + 1)
           {
-            if (*v30 != v17)
+            if (*v29 != v17)
             {
-              objc_enumerationMutation(metadataObjects3);
+              objc_enumerationMutation(metadataObjects);
             }
 
-            v19 = *(*(&v29 + 1) + 8 * i);
+            v19 = *(*(&v28 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -617,7 +599,7 @@ LABEL_27:
             }
           }
 
-          v16 = [metadataObjects3 countByEnumeratingWithState:&v29 objects:v35 count:16];
+          v16 = [metadataObjects countByEnumeratingWithState:&v28 objects:v34 count:16];
           if (v16)
           {
             continue;
@@ -627,13 +609,12 @@ LABEL_27:
         }
 
 LABEL_19:
-        v6 = v28;
+        v6 = v27;
       }
     }
 
     else
     {
-LABEL_17:
       v16 = 0;
     }
 
@@ -646,7 +627,7 @@ LABEL_17:
     if (os_log_type_enabled(logObjHRTFSyncedCaptureSource, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      v34 = v16 != 0;
+      v33 = v16 != 0;
       _os_log_impl(&dword_250984000, v24, OS_LOG_TYPE_DEBUG, "received synced output frame, has face object: %u", buf, 8u);
     }
 
@@ -658,13 +639,11 @@ LABEL_17:
       [v26 didReceiveVideoData:self->_previewLayer colorData:v6 depthData:v7 faceObject:v16];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCaptureSessionNotification:(id)notification
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   name = [notificationCopy name];
   v6 = [name isEqualToString:*MEMORY[0x277CE5930]];
@@ -698,9 +677,9 @@ LABEL_17:
       v13 = logObjHRTFSyncedCaptureSource;
       if (os_log_type_enabled(logObjHRTFSyncedCaptureSource, OS_LOG_TYPE_INFO))
       {
-        v17 = 138412290;
-        v18 = v12;
-        _os_log_impl(&dword_250984000, v13, OS_LOG_TYPE_INFO, "received AVCaptureSessionRuntimeErrorNotification: %@", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = v12;
+        _os_log_impl(&dword_250984000, v13, OS_LOG_TYPE_INFO, "received AVCaptureSessionRuntimeErrorNotification: %@", &v16, 0xCu);
       }
 
       if (v12)
@@ -715,8 +694,6 @@ LABEL_17:
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startCaptureSession

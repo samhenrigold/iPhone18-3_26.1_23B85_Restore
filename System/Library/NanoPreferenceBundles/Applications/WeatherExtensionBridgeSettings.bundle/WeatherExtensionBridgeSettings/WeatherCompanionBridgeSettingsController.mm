@@ -6,6 +6,8 @@
 - (id)localizedPaneTitle;
 - (id)specifiers;
 - (void)monitorObservedReload:(id)reload;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation WeatherCompanionBridgeSettingsController
@@ -62,6 +64,35 @@
   v3 = [v2 localizedStringForKey:@"APP_PANE_TITLE" value:&stru_8488 table:@"WeatherBridgeSettings"];
 
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(WeatherCompanionBridgeSettingsController *)self reload];
+  v14.receiver = self;
+  v14.super_class = WeatherCompanionBridgeSettingsController;
+  [(WeatherCompanionBridgeSettingsController *)&v14 viewWillAppear:appearCopy];
+  v5 = [_NSLocalizedStringResource alloc];
+  v6 = +[NSLocale currentLocale];
+  v7 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v7 bundleURL];
+  v9 = [v5 initWithKey:@"APP_PANE_TITLE" table:@"WeatherBridgeSettings" locale:v6 bundleURL:bundleURL];
+
+  v10 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleIdentifier = [v10 bundleIdentifier];
+
+  v12 = [@"bridge:root=" stringByAppendingString:bundleIdentifier];
+  v13 = [NSURL URLWithString:v12];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v9 localizedNavigationComponents:&__NSArray0__struct deepLink:v13];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  self->_needsRefresh = 1;
+  v3.receiver = self;
+  v3.super_class = WeatherCompanionBridgeSettingsController;
+  [(WeatherCompanionBridgeSettingsController *)&v3 viewWillDisappear:disappear];
 }
 
 - (id)specifiers

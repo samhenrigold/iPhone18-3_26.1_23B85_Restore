@@ -2,8 +2,8 @@
 - (PKSqueezePaletteView)paletteView;
 - (id)_selectedTool;
 - (id)initWithContext:(void *)context drawingTools:(void *)tools selectedToolIndex:(void *)index visibleToolsCount:;
-- (uint64_t)_updateToolsUIStyle;
 - (void)_performDrawingToolTapAction:(uint64_t)action;
+- (void)_updateToolsUIStyle;
 - (void)handlePencilInteractionDidTap:(int64_t)tap;
 - (void)setupUI;
 - (void)updateUI;
@@ -291,7 +291,7 @@
       v30 = 0;
     }
 
-    [(PKSqueezePaletteView *)v26 updateUIStartAngle:1 endAngle:v27 clockwise:lastFloat + toolWidth / 6.0 / v24 animated:?];
+    [(PKSqueezePaletteView *)v26 updateUIStartAngle:v27 endAngle:lastFloat + toolWidth / 6.0 / v24 clockwise:1u animated:?];
 
     _Block_object_dispose(from, 8);
     objc_destroyWeak(&location);
@@ -375,11 +375,11 @@ void __50__PKSqueezePaletteViewExpandedToolsLayout_setupUI__block_invoke_2(uint6
   *(*(*(a1 + 56) + 8) + 24) = v15;
 }
 
-- (uint64_t)_updateToolsUIStyle
+- (void)_updateToolsUIStyle
 {
   if (result)
   {
-    v1 = *(result + 72);
+    v1 = result[9];
     v2[0] = MEMORY[0x1E69E9820];
     v2[1] = 3221225472;
     v2[2] = __62__PKSqueezePaletteViewExpandedToolsLayout__updateToolsUIStyle__block_invoke;

@@ -98,30 +98,29 @@
 
 - (SUCoreDDMDeclarationGlobalSettings)initWithCoder:(id)coder
 {
-  v12[14] = *MEMORY[0x277D85DE8];
+  v11[14] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v12[2] = objc_opt_class();
-  v12[3] = objc_opt_class();
-  v12[4] = objc_opt_class();
-  v12[5] = objc_opt_class();
-  v12[6] = objc_opt_class();
-  v12[7] = objc_opt_class();
-  v12[8] = objc_opt_class();
-  v12[9] = objc_opt_class();
-  v12[10] = objc_opt_class();
-  v12[11] = objc_opt_class();
-  v12[12] = objc_opt_class();
-  v12[13] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:14];
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  v11[2] = objc_opt_class();
+  v11[3] = objc_opt_class();
+  v11[4] = objc_opt_class();
+  v11[5] = objc_opt_class();
+  v11[6] = objc_opt_class();
+  v11[7] = objc_opt_class();
+  v11[8] = objc_opt_class();
+  v11[9] = objc_opt_class();
+  v11[10] = objc_opt_class();
+  v11[11] = objc_opt_class();
+  v11[12] = objc_opt_class();
+  v11[13] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:14];
   v7 = [v4 setWithArray:v6];
 
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"SUCoreDDMDeclarationGlobalSettings"];
 
   v9 = [(SUCoreDDMDeclarationGlobalSettings *)self initWithDeclarationKeys:v8];
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

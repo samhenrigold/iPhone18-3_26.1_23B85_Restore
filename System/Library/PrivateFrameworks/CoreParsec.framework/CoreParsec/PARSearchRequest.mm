@@ -7,11 +7,11 @@
 
 - (PARSearchRequest)initWithCoder:(id)coder
 {
-  v28[3] = *MEMORY[0x1E69E9840];
+  v27[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v26.receiver = self;
-  v26.super_class = PARSearchRequest;
-  v5 = [(PARRequest *)&v26 initWithCoder:coderCopy];
+  v25.receiver = self;
+  v25.super_class = PARSearchRequest;
+  v5 = [(PARRequest *)&v25 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"query"];
@@ -19,10 +19,10 @@
     v5->_queryString = v6;
 
     v8 = MEMORY[0x1E695DFD8];
-    v28[0] = objc_opt_class();
-    v28[1] = objc_opt_class();
-    v28[2] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:3];
+    v27[0] = objc_opt_class();
+    v27[1] = objc_opt_class();
+    v27[2] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:3];
     v10 = [v8 setWithArray:v9];
 
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"topics"];
@@ -34,9 +34,9 @@
     v5->_engagedSuggestion = v13;
 
     v15 = MEMORY[0x1E695DFD8];
-    v27[0] = objc_opt_class();
-    v27[1] = objc_opt_class();
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+    v26[0] = objc_opt_class();
+    v26[1] = objc_opt_class();
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
     v17 = [v15 setWithArray:v16];
 
     v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"localContextualSuggestions"];
@@ -55,7 +55,6 @@
     v5->_exp = [coderCopy decodeIntegerForKey:@"exp"];
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

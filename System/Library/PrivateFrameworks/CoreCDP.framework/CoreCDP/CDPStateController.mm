@@ -4,6 +4,9 @@
 - (BOOL)isManateeAvailable:(id *)available;
 - (BOOL)isRecoveryKeyAvailableWithError:(id *)error;
 - (BOOL)isWalrusRecoveryKeyAvailableWithError:(id *)error;
+- (BOOL)shouldPerformAuthenticatedRepairWithOptionForceFetch:(BOOL)fetch error:(id *)error;
+- (BOOL)shouldPerformRepairWithOptionForceFetch:(BOOL)fetch error:(id *)error;
+- (BOOL)shouldPerformSilentEscrowRecordRepairUsingCache:(BOOL)cache error:(id *)error;
 - (BOOL)updateLastSilentEscrowRecordRepairAttemptDate:(id)date error:(id *)error;
 - (BOOL)verifyRecoveryKeyObservingSystemsHaveMatchingStateWithError:(id *)error;
 - (CDPStateController)init;
@@ -15,19 +18,24 @@
 - (void)authenticateAndGenerateNewRecoveryKeyWithCompletion:(id)completion;
 - (void)deleteRecoveryKey:(id)key;
 - (void)deviceEscrowRecordRecoverableWithContext:(id)context completion:(id)completion;
+- (void)fetchEscrowRecordDevicesWithContext:(id)context usingCache:(BOOL)cache completion:(id)completion;
 - (void)finishCyrusFlowAfterTermsAgreementWithContext:(id)context;
 - (void)finishOfflineLocalSecretChangeWithCompletion:(id)completion;
+- (void)generateEscrowRecordReportUsingCache:(BOOL)cache completion:(id)completion;
 - (void)generateNewRecoveryKey:(id)key;
 - (void)handleCloudDataProtectionStateWithCompletion:(id)completion;
 - (void)handleURLActionWithInfo:(id)info completion:(id)completion;
 - (void)isRecoveryKeyAvailableWithCompletion:(id)completion;
 - (void)isWalrusRecoveryKeyAvailableWithCompletion:(id)completion;
 - (void)localSecretChangedTo:(id)to secretType:(unint64_t)type completion:(id)completion;
+- (void)performEscrowRecordCheckWithContext:(id)context isBackground:(BOOL)background completion:(id)completion;
 - (void)performSilentEscrowRecordRepairWithCompletion:(id)completion;
 - (void)recoverAndSynchronizeWithSquirrel:(id)squirrel;
 - (void)recoverWithSquirrel:(id)squirrel;
 - (void)repairCloudDataProtectionStateWithCompletion:(id)completion;
 - (void)setKeyChainSyncCompatibilityState:(unint64_t)state withAltDSID:(id)d;
+- (void)shouldPerformRepairWithOptionForceFetch:(BOOL)fetch completion:(id)completion;
+- (void)shouldPerformSilentEscrowRecordRepairUsingCache:(BOOL)cache completion:(id)completion;
 - (void)startCircleApplicationApprovalServer:(id)server;
 - (void)startCircleApplicationApprovalServerSkipEscrowFetches:(id)fetches;
 - (void)startSilentEscrowRecordRepairWithCompletion:(id)completion;
@@ -49,47 +57,48 @@
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _CDPLogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _CDPLogSystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "Requesting manatee state...", buf, 2u);
+    _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Requesting manatee state...", buf, 2u);
   }
 
-  v7 = [CDPManateeStateController alloc];
+  v8 = [CDPManateeStateController alloc];
   context = [(CDPController *)self context];
-  v9 = [(CDPManateeStateController *)v7 initWithContext:context];
+  v10 = [(CDPManateeStateController *)v8 initWithContext:context];
 
-  v16 = 0;
-  v10 = [(CDPManateeStateController *)v9 isManateeAvailable:&v16];
-  v11 = v16;
-  if (v10)
+  v18 = 0;
+  v11 = [(CDPManateeStateController *)v10 isManateeAvailable:&v18];
+  v12 = v18;
+  v13 = v12;
+  if (v11)
   {
-    v12 = _CDPLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = _CDPLogSystem(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "Manatee is available", buf, 2u);
+      _os_log_impl(&dword_1DED99000, v14, OS_LOG_TYPE_DEFAULT, "Manatee is available", buf, 2u);
     }
   }
 
   else
   {
-    v13 = _CDPLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = _CDPLogSystem(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [CDPStateController isManateeAvailable:];
     }
 
     if (available)
     {
-      v14 = v11;
-      *available = v11;
+      v16 = v13;
+      *available = v13;
     }
   }
 
   os_activity_scope_leave(&state);
-  return v10;
+  return v11;
 }
 
 - (void)handleCloudDataProtectionStateWithCompletion:(id)completion
@@ -176,73 +185,71 @@ uint64_t __67__CDPStateController_handleCloudDataProtectionStateWithCompletion__
 
 - (void)_handleCloudDataProtectionStateWithCompletion:(id)completion
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = _os_activity_create(&dword_1DED99000, "cdp/statemachine-handle", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _CDPSignpostLogSystem();
-  v7 = _CDPSignpostCreate(v6);
-  v9 = v8;
+  v7 = _CDPSignpostLogSystem(v6);
+  v8 = _CDPSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _CDPSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _CDPSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "HandleCloudDataProtectionState", " enableTelemetry=YES ", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "HandleCloudDataProtectionState", " enableTelemetry=YES ", &buf, 2u);
   }
 
-  v12 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = _CDPSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v7;
-    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: HandleCloudDataProtectionState  enableTelemetry=YES ", &buf, 0xCu);
+    *(&buf + 4) = v8;
+    _os_log_impl(&dword_1DED99000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: HandleCloudDataProtectionState  enableTelemetry=YES ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__3;
-  v35 = __Block_byref_object_dispose__3;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__3;
+  v38 = __Block_byref_object_dispose__3;
   selfCopy = self;
-  v36 = selfCopy;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __68__CDPStateController__handleCloudDataProtectionStateWithCompletion___block_invoke;
-  v26[3] = &unk_1E869DFC0;
-  v29 = v7;
-  v30 = v9;
+  v39 = selfCopy;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __68__CDPStateController__handleCloudDataProtectionStateWithCompletion___block_invoke;
+  v29[3] = &unk_1E869DFC0;
+  v32 = v8;
+  v33 = v10;
   p_buf = &buf;
-  v14 = completionCopy;
-  v27 = v14;
-  v15 = MEMORY[0x1E12CA380](v26);
+  v17 = completionCopy;
+  v30 = v17;
+  v18 = MEMORY[0x1E12CA380](v29);
   daemonConn = [(CDPController *)selfCopy daemonConn];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __68__CDPStateController__handleCloudDataProtectionStateWithCompletion___block_invoke_33;
-  v24[3] = &unk_1E869D588;
-  v17 = v15;
-  v25 = v17;
-  v18 = [daemonConn daemonWithErrorHandler:v24];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __68__CDPStateController__handleCloudDataProtectionStateWithCompletion___block_invoke_33;
+  v27[3] = &unk_1E869D588;
+  v20 = v18;
+  v28 = v20;
+  v21 = [daemonConn daemonWithErrorHandler:v27];
 
-  v19 = _CDPLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v23 = _CDPLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    *v23 = 0;
-    _os_log_impl(&dword_1DED99000, v19, OS_LOG_TYPE_DEFAULT, "Requesting start of CDP state machine...", v23, 2u);
+    *v26 = 0;
+    _os_log_impl(&dword_1DED99000, v23, OS_LOG_TYPE_DEFAULT, "Requesting start of CDP state machine...", v26, 2u);
   }
 
   context = [(CDPController *)selfCopy context];
   uiProviderProxy = [(CDPController *)selfCopy uiProviderProxy];
-  [v18 handleCloudDataProtectionStateWithContext:context uiProvider:uiProviderProxy completion:v17];
+  [v21 handleCloudDataProtectionStateWithContext:context uiProvider:uiProviderProxy completion:v20];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __68__CDPStateController__handleCloudDataProtectionStateWithCompletion___block_invoke(void *a1, uint64_t a2, uint64_t a3, void *a4)
@@ -250,7 +257,7 @@ void __68__CDPStateController__handleCloudDataProtectionStateWithCompletion___bl
   v25 = *MEMORY[0x1E69E9840];
   v7 = a4;
   Nanoseconds = _CDPSignpostGetNanoseconds(a1[6], a1[7]);
-  v9 = _CDPSignpostLogSystem();
+  v9 = _CDPSignpostLogSystem(Nanoseconds);
   v10 = v9;
   v11 = a1[6];
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
@@ -260,33 +267,33 @@ void __68__CDPStateController__handleCloudDataProtectionStateWithCompletion___bl
     _os_signpost_emit_with_name_impl(&dword_1DED99000, v10, OS_SIGNPOST_INTERVAL_END, v11, "HandleCloudDataProtectionState", " Error=%{public,signpost.telemetry:number1,name=Error}d ", &v21, 8u);
   }
 
-  v12 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = _CDPSignpostLogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = Nanoseconds / 1000000000.0;
-    v14 = a1[6];
-    v15 = [v7 code];
+    v14 = Nanoseconds / 1000000000.0;
+    v15 = a1[6];
+    v16 = [v7 code];
     v21 = 134218496;
-    *v22 = v14;
+    *v22 = v15;
     *&v22[8] = 2048;
-    *v23 = v13;
+    *v23 = v14;
     *&v23[8] = 1026;
-    v24 = v15;
-    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: HandleCloudDataProtectionState  Error=%{public,signpost.telemetry:number1,name=Error}d ", &v21, 0x1Cu);
+    v24 = v16;
+    _os_log_impl(&dword_1DED99000, v13, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: HandleCloudDataProtectionState  Error=%{public,signpost.telemetry:number1,name=Error}d ", &v21, 0x1Cu);
   }
 
-  v16 = *(a1[5] + 8);
-  v17 = *(v16 + 40);
-  *(v16 + 40) = 0;
+  v17 = *(a1[5] + 8);
+  v18 = *(v17 + 40);
+  *(v17 + 40) = 0;
 
-  v18 = a1[4];
-  if (v18)
+  v19 = a1[4];
+  if (v19)
   {
-    (*(v18 + 16))(v18, a2, a3, v7);
+    v19 = (*(v19 + 16))(v19, a2, a3, v7);
   }
 
-  v19 = _CDPLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = _CDPLogSystem(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v21 = 67109634;
     *v22 = a2;
@@ -294,16 +301,14 @@ void __68__CDPStateController__handleCloudDataProtectionStateWithCompletion___bl
     *&v22[6] = a3;
     *v23 = 2112;
     *&v23[2] = v7;
-    _os_log_impl(&dword_1DED99000, v19, OS_LOG_TYPE_DEFAULT, "State machine completed shouldCompleteSignIn=%{BOOL}d cloudDataProtectionEnabled=%{BOOL}d error=%@", &v21, 0x18u);
+    _os_log_impl(&dword_1DED99000, v20, OS_LOG_TYPE_DEFAULT, "State machine completed shouldCompleteSignIn=%{BOOL}d cloudDataProtectionEnabled=%{BOOL}d error=%@", &v21, 0x18u);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __68__CDPStateController__handleCloudDataProtectionStateWithCompletion___block_invoke_33(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __68__CDPStateController__handleCloudDataProtectionStateWithCompletion___block_invoke_33_cold_1();
@@ -314,73 +319,71 @@ void __68__CDPStateController__handleCloudDataProtectionStateWithCompletion___bl
 
 - (void)repairCloudDataProtectionStateWithCompletion:(id)completion
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = _os_activity_create(&dword_1DED99000, "cdp/statemachine-repair", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _CDPSignpostLogSystem();
-  v7 = _CDPSignpostCreate(v6);
-  v9 = v8;
+  v7 = _CDPSignpostLogSystem(v6);
+  v8 = _CDPSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _CDPSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _CDPSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "RepairCloudDataProtectionState", " enableTelemetry=YES ", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "RepairCloudDataProtectionState", " enableTelemetry=YES ", &buf, 2u);
   }
 
-  v12 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = _CDPSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v7;
-    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RepairCloudDataProtectionState  enableTelemetry=YES ", &buf, 0xCu);
+    *(&buf + 4) = v8;
+    _os_log_impl(&dword_1DED99000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RepairCloudDataProtectionState  enableTelemetry=YES ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__3;
-  v35 = __Block_byref_object_dispose__3;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__3;
+  v38 = __Block_byref_object_dispose__3;
   selfCopy = self;
-  v36 = selfCopy;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __67__CDPStateController_repairCloudDataProtectionStateWithCompletion___block_invoke;
-  v26[3] = &unk_1E869E010;
-  v29 = v7;
-  v30 = v9;
+  v39 = selfCopy;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __67__CDPStateController_repairCloudDataProtectionStateWithCompletion___block_invoke;
+  v29[3] = &unk_1E869E010;
+  v32 = v8;
+  v33 = v10;
   p_buf = &buf;
-  v14 = completionCopy;
-  v27 = v14;
-  v15 = MEMORY[0x1E12CA380](v26);
+  v17 = completionCopy;
+  v30 = v17;
+  v18 = MEMORY[0x1E12CA380](v29);
   daemonConn = [(CDPController *)selfCopy daemonConn];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __67__CDPStateController_repairCloudDataProtectionStateWithCompletion___block_invoke_37;
-  v24[3] = &unk_1E869D588;
-  v17 = v15;
-  v25 = v17;
-  v18 = [daemonConn daemonWithErrorHandler:v24];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __67__CDPStateController_repairCloudDataProtectionStateWithCompletion___block_invoke_37;
+  v27[3] = &unk_1E869D588;
+  v20 = v18;
+  v28 = v20;
+  v21 = [daemonConn daemonWithErrorHandler:v27];
 
-  v19 = _CDPLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v23 = _CDPLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    *v23 = 0;
-    _os_log_impl(&dword_1DED99000, v19, OS_LOG_TYPE_DEFAULT, "Requesting repair of CDP state...", v23, 2u);
+    *v26 = 0;
+    _os_log_impl(&dword_1DED99000, v23, OS_LOG_TYPE_DEFAULT, "Requesting repair of CDP state...", v26, 2u);
   }
 
   context = [(CDPController *)selfCopy context];
   uiProviderProxy = [(CDPController *)selfCopy uiProviderProxy];
-  [v18 repairCloudDataProtectionStateWithContext:context uiProvider:uiProviderProxy completion:v17];
+  [v21 repairCloudDataProtectionStateWithContext:context uiProvider:uiProviderProxy completion:v20];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __67__CDPStateController_repairCloudDataProtectionStateWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -388,7 +391,7 @@ void __67__CDPStateController_repairCloudDataProtectionStateWithCompletion___blo
   v28 = *MEMORY[0x1E69E9840];
   v5 = a3;
   Nanoseconds = _CDPSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v7 = _CDPSignpostLogSystem();
+  v7 = _CDPSignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = *(a1 + 48);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -398,19 +401,19 @@ void __67__CDPStateController_repairCloudDataProtectionStateWithCompletion___blo
     _os_signpost_emit_with_name_impl(&dword_1DED99000, v8, OS_SIGNPOST_INTERVAL_END, v9, "RepairCloudDataProtectionState", " Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 8u);
   }
 
-  v10 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _CDPSignpostLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = Nanoseconds / 1000000000.0;
-    v12 = *(a1 + 48);
-    v13 = [v5 code];
+    v12 = Nanoseconds / 1000000000.0;
+    v13 = *(a1 + 48);
+    v14 = [v5 code];
     *buf = 134218496;
-    v23 = v12;
+    v23 = v13;
     v24 = 2048;
-    v25 = v11;
+    v25 = v12;
     v26 = 1026;
-    v27 = v13;
-    _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RepairCloudDataProtectionState  Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 0x1Cu);
+    v27 = v14;
+    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RepairCloudDataProtectionState  Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 0x1Cu);
   }
 
   block[0] = MEMORY[0x1E69E9820];
@@ -420,12 +423,10 @@ void __67__CDPStateController_repairCloudDataProtectionStateWithCompletion___blo
   v21 = a2;
   v19 = v5;
   v17 = *(a1 + 32);
-  v14 = v17;
+  v15 = v17;
   v20 = v17;
-  v15 = v5;
+  v16 = v5;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __67__CDPStateController_repairCloudDataProtectionStateWithCompletion___block_invoke_35(uint64_t a1)
@@ -435,32 +436,31 @@ uint64_t __67__CDPStateController_repairCloudDataProtectionStateWithCompletion__
   v3 = *(v2 + 40);
   *(v2 + 40) = 0;
 
-  v4 = _CDPLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _CDPLogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 32);
+    v6 = *(a1 + 56);
+    v7 = *(a1 + 32);
     v9[0] = 67109378;
-    v9[1] = v5;
+    v9[1] = v6;
     v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_1DED99000, v4, OS_LOG_TYPE_DEFAULT, "State machine repair completed didRepair=%{BOOL}d error=%@", v9, 0x12u);
+    v11 = v7;
+    _os_log_impl(&dword_1DED99000, v5, OS_LOG_TYPE_DEFAULT, "State machine repair completed didRepair=%{BOOL}d error=%@", v9, 0x12u);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 56), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 56), *(a1 + 32));
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __67__CDPStateController_repairCloudDataProtectionStateWithCompletion___block_invoke_37(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __67__CDPStateController_repairCloudDataProtectionStateWithCompletion___block_invoke_37_cold_1();
@@ -472,41 +472,41 @@ void __67__CDPStateController_repairCloudDataProtectionStateWithCompletion___blo
 - (void)startCircleApplicationApprovalServer:(id)server
 {
   serverCopy = server;
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x3032000000;
-  v19[3] = __Block_byref_object_copy__3;
-  v19[4] = __Block_byref_object_dispose__3;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x3032000000;
+  v20[3] = __Block_byref_object_copy__3;
+  v20[4] = __Block_byref_object_dispose__3;
   selfCopy = self;
-  v20 = selfCopy;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __59__CDPStateController_startCircleApplicationApprovalServer___block_invoke;
-  v16[3] = &unk_1E869E060;
-  v18 = v19;
+  v21 = selfCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __59__CDPStateController_startCircleApplicationApprovalServer___block_invoke;
+  v17[3] = &unk_1E869E060;
+  v19 = v20;
   v6 = serverCopy;
-  v17 = v6;
-  v7 = MEMORY[0x1E12CA380](v16);
+  v18 = v6;
+  v7 = MEMORY[0x1E12CA380](v17);
   daemonConn = [(CDPController *)selfCopy daemonConn];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __59__CDPStateController_startCircleApplicationApprovalServer___block_invoke_3;
-  v14[3] = &unk_1E869D588;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __59__CDPStateController_startCircleApplicationApprovalServer___block_invoke_3;
+  v15[3] = &unk_1E869D588;
   v9 = v7;
-  v15 = v9;
-  v10 = [daemonConn daemonWithErrorHandler:v14];
+  v16 = v9;
+  v10 = [daemonConn daemonWithErrorHandler:v15];
 
-  v11 = _CDPLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _CDPLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 0;
-    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "Requesting start of accepting sharing session...", v13, 2u);
+    *v14 = 0;
+    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "Requesting start of accepting sharing session...", v14, 2u);
   }
 
   context = [(CDPController *)selfCopy context];
   [v10 startCircleApplicationApprovalServerWithContext:context completion:v9];
 
-  _Block_object_dispose(v19, 8);
+  _Block_object_dispose(v20, 8);
 }
 
 void __59__CDPStateController_startCircleApplicationApprovalServer___block_invoke(uint64_t a1, char a2, void *a3)
@@ -534,11 +534,9 @@ uint64_t __59__CDPStateController_startCircleApplicationApprovalServer___block_i
   result = *(a1 + 40);
   if (result)
   {
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 32);
-    v7 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v7();
+    return v5();
   }
 
   return result;
@@ -547,7 +545,7 @@ uint64_t __59__CDPStateController_startCircleApplicationApprovalServer___block_i
 void __59__CDPStateController_startCircleApplicationApprovalServer___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __59__CDPStateController_startCircleApplicationApprovalServer___block_invoke_3_cold_1();
@@ -559,7 +557,7 @@ void __59__CDPStateController_startCircleApplicationApprovalServer___block_invok
 - (void)startCircleApplicationApprovalServerSkipEscrowFetches:(id)fetches
 {
   fetchesCopy = fetches;
-  v5 = _CDPLogSystem();
+  v5 = _CDPLogSystem(fetchesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -575,42 +573,42 @@ void __59__CDPStateController_startCircleApplicationApprovalServer___block_invok
 - (void)recoverAndSynchronizeWithSquirrel:(id)squirrel
 {
   squirrelCopy = squirrel;
-  v20[0] = 0;
-  v20[1] = v20;
-  v20[2] = 0x3032000000;
-  v20[3] = __Block_byref_object_copy__3;
-  v20[4] = __Block_byref_object_dispose__3;
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x3032000000;
+  v21[3] = __Block_byref_object_copy__3;
+  v21[4] = __Block_byref_object_dispose__3;
   selfCopy = self;
-  v21 = selfCopy;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __56__CDPStateController_recoverAndSynchronizeWithSquirrel___block_invoke;
-  v17[3] = &unk_1E869E060;
-  v19 = v20;
+  v22 = selfCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __56__CDPStateController_recoverAndSynchronizeWithSquirrel___block_invoke;
+  v18[3] = &unk_1E869E060;
+  v20 = v21;
   v6 = squirrelCopy;
-  v18 = v6;
-  v7 = MEMORY[0x1E12CA380](v17);
+  v19 = v6;
+  v7 = MEMORY[0x1E12CA380](v18);
   daemonConn = [(CDPController *)selfCopy daemonConn];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __56__CDPStateController_recoverAndSynchronizeWithSquirrel___block_invoke_3;
-  v15[3] = &unk_1E869D588;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __56__CDPStateController_recoverAndSynchronizeWithSquirrel___block_invoke_3;
+  v16[3] = &unk_1E869D588;
   v9 = v7;
-  v16 = v9;
-  v10 = [daemonConn daemonWithErrorHandler:v15];
+  v17 = v9;
+  v10 = [daemonConn daemonWithErrorHandler:v16];
 
-  v11 = _CDPLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _CDPLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "Requesting repair and synchronization of CDP state with Squirrel...", v14, 2u);
+    *v15 = 0;
+    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "Requesting repair and synchronization of CDP state with Squirrel...", v15, 2u);
   }
 
   context = [(CDPController *)selfCopy context];
   uiProviderProxy = [(CDPController *)selfCopy uiProviderProxy];
   [v10 recoverAndSynchronizeSquirrelWithContext:context uiProvider:uiProviderProxy completion:v9];
 
-  _Block_object_dispose(v20, 8);
+  _Block_object_dispose(v21, 8);
 }
 
 void __56__CDPStateController_recoverAndSynchronizeWithSquirrel___block_invoke(uint64_t a1, char a2, void *a3)
@@ -638,11 +636,9 @@ uint64_t __56__CDPStateController_recoverAndSynchronizeWithSquirrel___block_invo
   result = *(a1 + 40);
   if (result)
   {
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 32);
-    v7 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v7();
+    return v5();
   }
 
   return result;
@@ -651,7 +647,7 @@ uint64_t __56__CDPStateController_recoverAndSynchronizeWithSquirrel___block_invo
 void __56__CDPStateController_recoverAndSynchronizeWithSquirrel___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __67__CDPStateController_repairCloudDataProtectionStateWithCompletion___block_invoke_37_cold_1();
@@ -663,42 +659,42 @@ void __56__CDPStateController_recoverAndSynchronizeWithSquirrel___block_invoke_3
 - (void)recoverWithSquirrel:(id)squirrel
 {
   squirrelCopy = squirrel;
-  v20[0] = 0;
-  v20[1] = v20;
-  v20[2] = 0x3032000000;
-  v20[3] = __Block_byref_object_copy__3;
-  v20[4] = __Block_byref_object_dispose__3;
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x3032000000;
+  v21[3] = __Block_byref_object_copy__3;
+  v21[4] = __Block_byref_object_dispose__3;
   selfCopy = self;
-  v21 = selfCopy;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __42__CDPStateController_recoverWithSquirrel___block_invoke;
-  v17[3] = &unk_1E869E060;
-  v19 = v20;
+  v22 = selfCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __42__CDPStateController_recoverWithSquirrel___block_invoke;
+  v18[3] = &unk_1E869E060;
+  v20 = v21;
   v6 = squirrelCopy;
-  v18 = v6;
-  v7 = MEMORY[0x1E12CA380](v17);
+  v19 = v6;
+  v7 = MEMORY[0x1E12CA380](v18);
   daemonConn = [(CDPController *)selfCopy daemonConn];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __42__CDPStateController_recoverWithSquirrel___block_invoke_3;
-  v15[3] = &unk_1E869D588;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __42__CDPStateController_recoverWithSquirrel___block_invoke_3;
+  v16[3] = &unk_1E869D588;
   v9 = v7;
-  v16 = v9;
-  v10 = [daemonConn daemonWithErrorHandler:v15];
+  v17 = v9;
+  v10 = [daemonConn daemonWithErrorHandler:v16];
 
-  v11 = _CDPLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _CDPLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "Requesting repair of CDP state with Squirrel...", v14, 2u);
+    *v15 = 0;
+    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "Requesting repair of CDP state with Squirrel...", v15, 2u);
   }
 
   context = [(CDPController *)selfCopy context];
   uiProviderProxy = [(CDPController *)selfCopy uiProviderProxy];
   [v10 recoverSquirrelWithContext:context uiProvider:uiProviderProxy completion:v9];
 
-  _Block_object_dispose(v20, 8);
+  _Block_object_dispose(v21, 8);
 }
 
 void __42__CDPStateController_recoverWithSquirrel___block_invoke(uint64_t a1, char a2, void *a3)
@@ -726,11 +722,9 @@ uint64_t __42__CDPStateController_recoverWithSquirrel___block_invoke_2(uint64_t 
   result = *(a1 + 40);
   if (result)
   {
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 32);
-    v7 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v7();
+    return v5();
   }
 
   return result;
@@ -739,7 +733,7 @@ uint64_t __42__CDPStateController_recoverWithSquirrel___block_invoke_2(uint64_t 
 void __42__CDPStateController_recoverWithSquirrel___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __67__CDPStateController_repairCloudDataProtectionStateWithCompletion___block_invoke_37_cold_1();
@@ -752,41 +746,41 @@ void __42__CDPStateController_recoverWithSquirrel___block_invoke_3(uint64_t a1, 
 {
   recordCopy = record;
   completionCopy = completion;
-  v22[0] = 0;
-  v22[1] = v22;
-  v22[2] = 0x3032000000;
-  v22[3] = __Block_byref_object_copy__3;
-  v22[4] = __Block_byref_object_dispose__3;
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x3032000000;
+  v23[3] = __Block_byref_object_copy__3;
+  v23[4] = __Block_byref_object_dispose__3;
   selfCopy = self;
-  v23 = selfCopy;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __58__CDPStateController_attemptToEscrowPreRecord_completion___block_invoke;
-  v19[3] = &unk_1E869E060;
-  v21 = v22;
+  v24 = selfCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __58__CDPStateController_attemptToEscrowPreRecord_completion___block_invoke;
+  v20[3] = &unk_1E869E060;
+  v22 = v23;
   v9 = completionCopy;
-  v20 = v9;
-  v10 = MEMORY[0x1E12CA380](v19);
+  v21 = v9;
+  v10 = MEMORY[0x1E12CA380](v20);
   daemonConn = [(CDPController *)selfCopy daemonConn];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __58__CDPStateController_attemptToEscrowPreRecord_completion___block_invoke_3;
-  v17[3] = &unk_1E869D588;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __58__CDPStateController_attemptToEscrowPreRecord_completion___block_invoke_3;
+  v18[3] = &unk_1E869D588;
   v12 = v10;
-  v18 = v12;
-  v13 = [daemonConn daemonWithErrorHandler:v17];
+  v19 = v12;
+  v13 = [daemonConn daemonWithErrorHandler:v18];
 
-  v14 = _CDPLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _CDPLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    *v16 = 0;
-    _os_log_impl(&dword_1DED99000, v14, OS_LOG_TYPE_DEFAULT, "Informing daemon of attempting to escrow preRecord...", v16, 2u);
+    *v17 = 0;
+    _os_log_impl(&dword_1DED99000, v15, OS_LOG_TYPE_DEFAULT, "Informing daemon of attempting to escrow preRecord...", v17, 2u);
   }
 
   context = [(CDPController *)selfCopy context];
   [v13 attemptToEscrowPreRecord:recordCopy context:context completion:v12];
 
-  _Block_object_dispose(v22, 8);
+  _Block_object_dispose(v23, 8);
 }
 
 void __58__CDPStateController_attemptToEscrowPreRecord_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -814,11 +808,9 @@ uint64_t __58__CDPStateController_attemptToEscrowPreRecord_completion___block_in
   result = *(a1 + 40);
   if (result)
   {
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 32);
-    v7 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v7();
+    return v5();
   }
 
   return result;
@@ -827,7 +819,7 @@ uint64_t __58__CDPStateController_attemptToEscrowPreRecord_completion___block_in
 void __58__CDPStateController_attemptToEscrowPreRecord_completion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __58__CDPStateController_attemptToEscrowPreRecord_completion___block_invoke_3_cold_1();
@@ -840,64 +832,64 @@ void __58__CDPStateController_attemptToEscrowPreRecord_completion___block_invoke
 {
   toCopy = to;
   completionCopy = completion;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy__3;
-  v41 = __Block_byref_object_dispose__3;
-  v42 = 0;
-  v36[0] = 0;
-  v36[1] = v36;
-  v36[2] = 0x2020000000;
-  v36[3] = 0;
-  v34[0] = 0;
-  v34[1] = v34;
-  v34[2] = 0x3032000000;
-  v34[3] = __Block_byref_object_copy__3;
-  v34[4] = __Block_byref_object_dispose__3;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__3;
+  v42 = __Block_byref_object_dispose__3;
+  v43 = 0;
+  v37[0] = 0;
+  v37[1] = v37;
+  v37[2] = 0x2020000000;
+  v37[3] = 0;
+  v35[0] = 0;
+  v35[1] = v35;
+  v35[2] = 0x3032000000;
+  v35[3] = __Block_byref_object_copy__3;
+  v35[4] = __Block_byref_object_dispose__3;
   selfCopy = self;
-  v35 = selfCopy;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke;
-  v28[3] = &unk_1E869E0D8;
-  v31 = &v37;
+  v36 = selfCopy;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke;
+  v29[3] = &unk_1E869E0D8;
+  v32 = &v38;
   v11 = toCopy;
-  v32 = v34;
+  v33 = v35;
   typeCopy = type;
-  v29 = v11;
+  v30 = v11;
   v12 = completionCopy;
-  v30 = v12;
-  v13 = MEMORY[0x1E12CA380](v28);
+  v31 = v12;
+  v13 = MEMORY[0x1E12CA380](v29);
   daemonConn = [(CDPController *)selfCopy daemonConn];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke_39;
-  v24[3] = &unk_1E869E100;
-  v27 = v36;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke_39;
+  v25[3] = &unk_1E869E100;
+  v28 = v37;
   v15 = v13;
-  v25 = v15;
+  v26 = v15;
   v16 = v12;
-  v26 = v16;
-  v17 = [daemonConn daemonWithErrorHandler:v24];
-  v18 = v38[5];
-  v38[5] = v17;
+  v27 = v16;
+  v17 = [daemonConn daemonWithErrorHandler:v25];
+  v18 = v39[5];
+  v39[5] = v17;
 
-  v19 = _CDPLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = _CDPLogSystem(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    *v23 = 0;
-    _os_log_impl(&dword_1DED99000, v19, OS_LOG_TYPE_DEFAULT, "Informing daemon of local secret change...", v23, 2u);
+    *v24 = 0;
+    _os_log_impl(&dword_1DED99000, v20, OS_LOG_TYPE_DEFAULT, "Informing daemon of local secret change...", v24, 2u);
   }
 
-  v20 = v38[5];
+  v21 = v39[5];
   context = [(CDPController *)selfCopy context];
   uiProviderProxy = [(CDPController *)selfCopy uiProviderProxy];
-  [v20 localSecretChangedTo:v11 secretType:type context:context uiProvider:uiProviderProxy completion:v15];
+  [v21 localSecretChangedTo:v11 secretType:type context:context uiProvider:uiProviderProxy completion:v15];
 
-  _Block_object_dispose(v34, 8);
-  _Block_object_dispose(v36, 8);
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(v35, 8);
+  _Block_object_dispose(v37, 8);
+  _Block_object_dispose(&v38, 8);
 }
 
 void __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -926,52 +918,49 @@ void __65__CDPStateController_localSecretChangedTo_secretType_completion___block
 
 void __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v3 = _CDPLogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v2 = _CDPLogSystem(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke_2_cold_1(v2);
+      __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke_2_cold_1();
     }
 
-    v4 = *(*(*(a1 + 56) + 8) + 40);
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 72);
-    v7 = [*(*(*(a1 + 64) + 8) + 40) context];
-    v8 = [*(*(*(a1 + 64) + 8) + 40) uiProviderProxy];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke_38;
-    v16[3] = &unk_1E869E088;
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 64);
-    v17 = v9;
-    v19 = v10;
-    v18 = *(a1 + 48);
-    [v4 localSecretChangedTo:v5 secretType:v6 context:v7 uiProvider:v8 completion:v16];
+    v3 = *(*(*(a1 + 56) + 8) + 40);
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 72);
+    v6 = [*(*(*(a1 + 64) + 8) + 40) context];
+    v7 = [*(*(*(a1 + 64) + 8) + 40) uiProviderProxy];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke_38;
+    v13[3] = &unk_1E869E088;
+    v8 = *(a1 + 32);
+    v9 = *(a1 + 64);
+    v14 = v8;
+    v16 = v9;
+    v15 = *(a1 + 48);
+    [v3 localSecretChangedTo:v4 secretType:v5 context:v6 uiProvider:v7 completion:v13];
   }
 
   else if (*(a1 + 48))
   {
-    v11 = *(*(a1 + 64) + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = 0;
+    v10 = *(*(a1 + 64) + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = 0;
 
-    v13 = *(a1 + 80);
-    v14 = *(a1 + 32);
-    v15 = *(*(a1 + 48) + 16);
+    v12 = *(*(a1 + 48) + 16);
 
-    v15();
+    v12();
   }
 }
 
 void __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke_38(void *a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a1[4];
-  v7 = _CDPLogSystem();
+  v7 = _CDPLogSystem(v5);
   v8 = v7;
   if (v6)
   {
@@ -985,13 +974,13 @@ void __65__CDPStateController_localSecretChangedTo_secretType_completion___block
   {
     v9 = [*(*(a1[6] + 8) + 40) uiProviderProxy];
     v10 = [*(*(a1[6] + 8) + 40) context];
-    v15[0] = 67109634;
-    v15[1] = a2;
-    v16 = 2112;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v10;
-    _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "Local Secret Updated after retry: %{BOOL}d. UIProxy: %@. Context: %@", v15, 0x1Cu);
+    v14[0] = 67109634;
+    v14[1] = a2;
+    v15 = 2112;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v10;
+    _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "Local Secret Updated after retry: %{BOOL}d. UIProxy: %@. Context: %@", v14, 0x1Cu);
   }
 
   v11 = *(a1[6] + 8);
@@ -1003,14 +992,12 @@ void __65__CDPStateController_localSecretChangedTo_secretType_completion___block
   {
     (*(v13 + 16))(v13, a2, v5);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke_39(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke_39_cold_1();
@@ -1035,42 +1022,42 @@ void __65__CDPStateController_localSecretChangedTo_secretType_completion___block
 - (void)finishOfflineLocalSecretChangeWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v20[0] = 0;
-  v20[1] = v20;
-  v20[2] = 0x3032000000;
-  v20[3] = __Block_byref_object_copy__3;
-  v20[4] = __Block_byref_object_dispose__3;
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x3032000000;
+  v21[3] = __Block_byref_object_copy__3;
+  v21[4] = __Block_byref_object_dispose__3;
   selfCopy = self;
-  v21 = selfCopy;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __67__CDPStateController_finishOfflineLocalSecretChangeWithCompletion___block_invoke;
-  v17[3] = &unk_1E869E060;
-  v19 = v20;
+  v22 = selfCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __67__CDPStateController_finishOfflineLocalSecretChangeWithCompletion___block_invoke;
+  v18[3] = &unk_1E869E060;
+  v20 = v21;
   v6 = completionCopy;
-  v18 = v6;
-  v7 = MEMORY[0x1E12CA380](v17);
+  v19 = v6;
+  v7 = MEMORY[0x1E12CA380](v18);
   daemonConn = [(CDPController *)selfCopy daemonConn];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __67__CDPStateController_finishOfflineLocalSecretChangeWithCompletion___block_invoke_3;
-  v15[3] = &unk_1E869D588;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __67__CDPStateController_finishOfflineLocalSecretChangeWithCompletion___block_invoke_3;
+  v16[3] = &unk_1E869D588;
   v9 = v7;
-  v16 = v9;
-  v10 = [daemonConn daemonWithErrorHandler:v15];
+  v17 = v9;
+  v10 = [daemonConn daemonWithErrorHandler:v16];
 
-  v11 = _CDPLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _CDPLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "Attempting to finish offline local secret change...", v14, 2u);
+    *v15 = 0;
+    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "Attempting to finish offline local secret change...", v15, 2u);
   }
 
   context = [(CDPController *)selfCopy context];
   uiProviderProxy = [(CDPController *)selfCopy uiProviderProxy];
   [v10 finishOfflineLocalSecretChangeWithContext:context uiProvider:uiProviderProxy completion:v9];
 
-  _Block_object_dispose(v20, 8);
+  _Block_object_dispose(v21, 8);
 }
 
 void __67__CDPStateController_finishOfflineLocalSecretChangeWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -1098,11 +1085,9 @@ uint64_t __67__CDPStateController_finishOfflineLocalSecretChangeWithCompletion__
   result = *(a1 + 40);
   if (result)
   {
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 32);
-    v7 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v7();
+    return v5();
   }
 
   return result;
@@ -1111,7 +1096,7 @@ uint64_t __67__CDPStateController_finishOfflineLocalSecretChangeWithCompletion__
 void __67__CDPStateController_finishOfflineLocalSecretChangeWithCompletion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke_39_cold_1();
@@ -1148,8 +1133,8 @@ void __67__CDPStateController_finishOfflineLocalSecretChangeWithCompletion___blo
   v20 = v9;
   v10 = [daemonConn daemonWithErrorHandler:v19];
 
-  v11 = _CDPLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _CDPLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     context = [(CDPController *)selfCopy context];
     altDSID = [context altDSID];
@@ -1159,7 +1144,7 @@ void __67__CDPStateController_finishOfflineLocalSecretChangeWithCompletion___blo
     v27 = altDSID;
     v28 = 2048;
     v29 = type;
-    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "Attempting to finish secure terms flow for %{sensitive}@ with type %ld", buf, 0x16u);
+    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "Attempting to finish secure terms flow for %{sensitive}@ with type %ld", buf, 0x16u);
   }
 
   context3 = [(CDPController *)selfCopy context];
@@ -1167,7 +1152,6 @@ void __67__CDPStateController_finishOfflineLocalSecretChangeWithCompletion___blo
   [v10 finishCyrusFlowAfterTermsAgreementWithContext:context3 uiProvider:uiProviderProxy completion:v9];
 
   _Block_object_dispose(v24, 8);
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __68__CDPStateController_finishCyrusFlowAfterTermsAgreementWithContext___block_invoke(uint64_t a1, char a2, void *a3)
@@ -1195,11 +1179,9 @@ uint64_t __68__CDPStateController_finishCyrusFlowAfterTermsAgreementWithContext_
   result = *(a1 + 40);
   if (result)
   {
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 32);
-    v7 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v7();
+    return v5();
   }
 
   return result;
@@ -1208,7 +1190,7 @@ uint64_t __68__CDPStateController_finishCyrusFlowAfterTermsAgreementWithContext_
 void __68__CDPStateController_finishCyrusFlowAfterTermsAgreementWithContext___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __68__CDPStateController_finishCyrusFlowAfterTermsAgreementWithContext___block_invoke_3_cold_1();
@@ -1217,12 +1199,60 @@ void __68__CDPStateController_finishCyrusFlowAfterTermsAgreementWithContext___bl
   (*(*(a1 + 32) + 16))();
 }
 
+- (BOOL)shouldPerformRepairWithOptionForceFetch:(BOOL)fetch error:(id *)error
+{
+  fetchCopy = fetch;
+  v7 = _os_activity_create(&dword_1DED99000, "cdp: repair state check", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v7, &state);
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__3;
+  v23 = __Block_byref_object_dispose__3;
+  v24 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
+  daemonConn = [(CDPController *)self daemonConn];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __68__CDPStateController_shouldPerformRepairWithOptionForceFetch_error___block_invoke;
+  v14[3] = &unk_1E869D758;
+  v14[4] = &v19;
+  v9 = [daemonConn synchronousDaemonWithErrorHandler:v14];
+
+  context = [(CDPController *)self context];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __68__CDPStateController_shouldPerformRepairWithOptionForceFetch_error___block_invoke_40;
+  v13[3] = &unk_1E869DAA0;
+  v13[4] = &v19;
+  v13[5] = &v15;
+  [v9 shouldPerformRepairForContext:context forceFetch:fetchCopy completion:v13];
+
+  if (error)
+  {
+    *error = v20[5];
+  }
+
+  v11 = *(v16 + 24);
+
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v19, 8);
+
+  os_activity_scope_leave(&state);
+  return v11;
+}
+
 void __68__CDPStateController_shouldPerformRepairWithOptionForceFetch_error___block_invoke(uint64_t a1, void *a2)
 {
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
-  v5 = _CDPLogSystem();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = _CDPLogSystem(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     __68__CDPStateController_shouldPerformRepairWithOptionForceFetch_error___block_invoke_cold_1();
   }
@@ -1233,6 +1263,52 @@ void __68__CDPStateController_shouldPerformRepairWithOptionForceFetch_error___bl
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), obj);
   v6 = obj;
   *(*(*(a1 + 40) + 8) + 24) = a2;
+}
+
+- (void)shouldPerformRepairWithOptionForceFetch:(BOOL)fetch completion:(id)completion
+{
+  fetchCopy = fetch;
+  completionCopy = completion;
+  v7 = _os_activity_create(&dword_1DED99000, "cdp/should-perform-repair", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v7, &state);
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x3032000000;
+  v23[3] = __Block_byref_object_copy__3;
+  v23[4] = __Block_byref_object_dispose__3;
+  selfCopy = self;
+  v24 = selfCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __73__CDPStateController_shouldPerformRepairWithOptionForceFetch_completion___block_invoke;
+  v20[3] = &unk_1E869E060;
+  v22 = v23;
+  v9 = completionCopy;
+  v21 = v9;
+  v10 = MEMORY[0x1E12CA380](v20);
+  daemonConn = [(CDPController *)selfCopy daemonConn];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __73__CDPStateController_shouldPerformRepairWithOptionForceFetch_completion___block_invoke_2;
+  v18[3] = &unk_1E869D588;
+  v12 = v10;
+  v19 = v12;
+  v13 = [daemonConn daemonWithErrorHandler:v18];
+
+  v15 = _CDPLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    *v17 = 0;
+    _os_log_impl(&dword_1DED99000, v15, OS_LOG_TYPE_DEFAULT, "Requesting to check if repair should be performed on the CDP state", v17, 2u);
+  }
+
+  context = [(CDPController *)selfCopy context];
+  [v13 shouldPerformRepairForContext:context forceFetch:fetchCopy completion:v12];
+
+  _Block_object_dispose(v23, 8);
+  os_activity_scope_leave(&state);
 }
 
 void __73__CDPStateController_shouldPerformRepairWithOptionForceFetch_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1252,7 +1328,7 @@ void __73__CDPStateController_shouldPerformRepairWithOptionForceFetch_completion
 void __73__CDPStateController_shouldPerformRepairWithOptionForceFetch_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __73__CDPStateController_shouldPerformRepairWithOptionForceFetch_completion___block_invoke_2_cold_1();
@@ -1261,12 +1337,60 @@ void __73__CDPStateController_shouldPerformRepairWithOptionForceFetch_completion
   (*(*(a1 + 32) + 16))();
 }
 
+- (BOOL)shouldPerformAuthenticatedRepairWithOptionForceFetch:(BOOL)fetch error:(id *)error
+{
+  fetchCopy = fetch;
+  v7 = _os_activity_create(&dword_1DED99000, "cdp: authenticated repair state check", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v7, &state);
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__3;
+  v23 = __Block_byref_object_dispose__3;
+  v24 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
+  daemonConn = [(CDPController *)self daemonConn];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __81__CDPStateController_shouldPerformAuthenticatedRepairWithOptionForceFetch_error___block_invoke;
+  v14[3] = &unk_1E869D758;
+  v14[4] = &v19;
+  v9 = [daemonConn synchronousDaemonWithErrorHandler:v14];
+
+  context = [(CDPController *)self context];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __81__CDPStateController_shouldPerformAuthenticatedRepairWithOptionForceFetch_error___block_invoke_41;
+  v13[3] = &unk_1E869DAA0;
+  v13[4] = &v19;
+  v13[5] = &v15;
+  [v9 shouldPerformAuthenticatedRepairForContext:context forceFetch:fetchCopy completion:v13];
+
+  if (error)
+  {
+    *error = v20[5];
+  }
+
+  v11 = *(v16 + 24);
+
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v19, 8);
+
+  os_activity_scope_leave(&state);
+  return v11;
+}
+
 void __81__CDPStateController_shouldPerformAuthenticatedRepairWithOptionForceFetch_error___block_invoke(uint64_t a1, void *a2)
 {
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
-  v5 = _CDPLogSystem();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = _CDPLogSystem(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     __81__CDPStateController_shouldPerformAuthenticatedRepairWithOptionForceFetch_error___block_invoke_cold_1();
   }
@@ -1279,88 +1403,151 @@ void __81__CDPStateController_shouldPerformAuthenticatedRepairWithOptionForceFet
   *(*(*(a1 + 40) + 8) + 24) = a2;
 }
 
+- (void)generateEscrowRecordReportUsingCache:(BOOL)cache completion:(id)completion
+{
+  cacheCopy = cache;
+  v37 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  v7 = _os_activity_create(&dword_1DED99000, "cdp/generate-escrow-record-report", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v7, &state);
+  v9 = _CDPSignpostLogSystem(v8);
+  v10 = _CDPSignpostCreate(v9);
+  v12 = v11;
+
+  v14 = _CDPSignpostLogSystem(v13);
+  v15 = v14;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  {
+    *buf = 67240192;
+    LODWORD(v34) = cacheCopy;
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v10, "GenerateEscrowRecordReport", " enableTelemetry=YES  UseCache=%{public,signpost.telemetry:number2,name=UseCache}d ", buf, 8u);
+  }
+
+  v17 = _CDPSignpostLogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218240;
+    v34 = v10;
+    v35 = 1026;
+    v36 = cacheCopy;
+    _os_log_impl(&dword_1DED99000, v17, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: GenerateEscrowRecordReport  enableTelemetry=YES  UseCache=%{public,signpost.telemetry:number2,name=UseCache}d ", buf, 0x12u);
+  }
+
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __70__CDPStateController_generateEscrowRecordReportUsingCache_completion___block_invoke;
+  v28[3] = &unk_1E869E128;
+  v28[4] = self;
+  v30 = v10;
+  v31 = v12;
+  v18 = completionCopy;
+  v29 = v18;
+  v19 = MEMORY[0x1E12CA380](v28);
+  daemonConn = [(CDPController *)self daemonConn];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __70__CDPStateController_generateEscrowRecordReportUsingCache_completion___block_invoke_43;
+  v26[3] = &unk_1E869D588;
+  v21 = v19;
+  v27 = v21;
+  v22 = [daemonConn synchronousDaemonWithErrorHandler:v26];
+
+  v24 = _CDPLogSystem(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    LODWORD(v34) = cacheCopy;
+    _os_log_impl(&dword_1DED99000, v24, OS_LOG_TYPE_DEFAULT, "Generating escrow record report (usingCache: %{BOOL}d)", buf, 8u);
+  }
+
+  context = [(CDPController *)self context];
+  [v22 generateEscrowRecordStatusReportForContext:context usingCache:cacheCopy withCompletion:v21];
+
+  os_activity_scope_leave(&state);
+}
+
 void __70__CDPStateController_generateEscrowRecordReportUsingCache_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   Nanoseconds = _CDPSignpostGetNanoseconds(a1[6], a1[7]);
-  v8 = _CDPSignpostLogSystem();
+  v8 = _CDPSignpostLogSystem(Nanoseconds);
   v9 = v8;
   v10 = a1[6];
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    v18 = 67240192;
-    LODWORD(v19) = [v6 code];
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v9, OS_SIGNPOST_INTERVAL_END, v10, "GenerateEscrowRecordReport", " Error=%{public,signpost.telemetry:number1,name=Error}d ", &v18, 8u);
+    v19 = 67240192;
+    LODWORD(v20) = [v6 code];
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v9, OS_SIGNPOST_INTERVAL_END, v10, "GenerateEscrowRecordReport", " Error=%{public,signpost.telemetry:number1,name=Error}d ", &v19, 8u);
   }
 
-  v11 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _CDPSignpostLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = Nanoseconds / 1000000000.0;
-    v13 = a1[6];
-    v14 = [v6 code];
-    v18 = 134218496;
-    v19 = v13;
-    v20 = 2048;
-    v21 = v12;
-    v22 = 1026;
-    v23 = v14;
-    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: GenerateEscrowRecordReport  Error=%{public,signpost.telemetry:number1,name=Error}d ", &v18, 0x1Cu);
+    v13 = Nanoseconds / 1000000000.0;
+    v14 = a1[6];
+    v15 = [v6 code];
+    v19 = 134218496;
+    v20 = v14;
+    v21 = 2048;
+    v22 = v13;
+    v23 = 1026;
+    v24 = v15;
+    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: GenerateEscrowRecordReport  Error=%{public,signpost.telemetry:number1,name=Error}d ", &v19, 0x1Cu);
   }
 
   if (v6)
   {
-    v15 = _CDPLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = _CDPLogSystem(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       __70__CDPStateController_generateEscrowRecordReportUsingCache_completion___block_invoke_cold_1();
     }
   }
 
-  v16 = a1[5];
-  if (v16)
+  v18 = a1[5];
+  if (v18)
   {
-    (*(v16 + 16))(v16, v5, v6);
+    (*(v18 + 16))(v18, v5, v6);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)authenticateAndGenerateNewRecoveryKeyWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v21[0] = 0;
-  v21[1] = v21;
-  v21[2] = 0x3032000000;
-  v21[3] = __Block_byref_object_copy__3;
-  v21[4] = __Block_byref_object_dispose__3;
+  v22[0] = 0;
+  v22[1] = v22;
+  v22[2] = 0x3032000000;
+  v22[3] = __Block_byref_object_copy__3;
+  v22[4] = __Block_byref_object_dispose__3;
   selfCopy = self;
-  v22 = selfCopy;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __74__CDPStateController_authenticateAndGenerateNewRecoveryKeyWithCompletion___block_invoke;
-  v18[3] = &unk_1E869E060;
-  v20 = v21;
+  v23 = selfCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __74__CDPStateController_authenticateAndGenerateNewRecoveryKeyWithCompletion___block_invoke;
+  v19[3] = &unk_1E869E060;
+  v21 = v22;
   v6 = completionCopy;
-  v19 = v6;
-  v7 = MEMORY[0x1E12CA380](v18);
+  v20 = v6;
+  v7 = MEMORY[0x1E12CA380](v19);
   v8 = _os_activity_create(&dword_1DED99000, "cdp/authenticate-and-generate-rk", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
   daemonConn = [(CDPController *)selfCopy daemonConn];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __74__CDPStateController_authenticateAndGenerateNewRecoveryKeyWithCompletion___block_invoke_45;
-  v15[3] = &unk_1E869D588;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __74__CDPStateController_authenticateAndGenerateNewRecoveryKeyWithCompletion___block_invoke_45;
+  v16[3] = &unk_1E869D588;
   v10 = v7;
-  v16 = v10;
-  v11 = [daemonConn daemonWithErrorHandler:v15];
+  v17 = v10;
+  v11 = [daemonConn daemonWithErrorHandler:v16];
 
-  v12 = _CDPLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = _CDPLogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [CDPStateController authenticateAndGenerateNewRecoveryKeyWithCompletion:];
   }
@@ -1370,7 +1557,7 @@ void __70__CDPStateController_generateEscrowRecordReportUsingCache_completion___
   [v11 authenticateAndGenerateNewRecoveryKeyWithContext:context uiProvider:uiProviderProxy completion:v10];
 
   os_activity_scope_leave(&state);
-  _Block_object_dispose(v21, 8);
+  _Block_object_dispose(v22, 8);
 }
 
 void __74__CDPStateController_authenticateAndGenerateNewRecoveryKeyWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -1395,8 +1582,8 @@ uint64_t __74__CDPStateController_authenticateAndGenerateNewRecoveryKeyWithCompl
   v3 = *(v2 + 40);
   *(v2 + 40) = 0;
 
-  v4 = _CDPLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = _CDPLogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __74__CDPStateController_authenticateAndGenerateNewRecoveryKeyWithCompletion___block_invoke_2_cold_1(a1);
   }
@@ -1413,7 +1600,7 @@ uint64_t __74__CDPStateController_authenticateAndGenerateNewRecoveryKeyWithCompl
 void __74__CDPStateController_authenticateAndGenerateNewRecoveryKeyWithCompletion___block_invoke_45(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__CDPStateController_authenticateAndGenerateNewRecoveryKeyWithCompletion___block_invoke_45_cold_1();
@@ -1425,55 +1612,55 @@ void __74__CDPStateController_authenticateAndGenerateNewRecoveryKeyWithCompletio
 - (void)generateNewRecoveryKey:(id)key
 {
   keyCopy = key;
-  v27[0] = 0;
-  v27[1] = v27;
-  v27[2] = 0x3032000000;
-  v27[3] = __Block_byref_object_copy__3;
-  v27[4] = __Block_byref_object_dispose__3;
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x3032000000;
+  v28[3] = __Block_byref_object_copy__3;
+  v28[4] = __Block_byref_object_dispose__3;
   selfCopy = self;
-  v28 = selfCopy;
-  v25[0] = 0;
-  v25[1] = v25;
-  v25[2] = 0x3032000000;
-  v25[3] = __Block_byref_object_copy__3;
-  v25[4] = __Block_byref_object_dispose__3;
-  v26 = objc_opt_new();
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __45__CDPStateController_generateNewRecoveryKey___block_invoke;
-  v21[3] = &unk_1E869E150;
-  v23 = v25;
-  v24 = v27;
+  v29 = selfCopy;
+  v26[0] = 0;
+  v26[1] = v26;
+  v26[2] = 0x3032000000;
+  v26[3] = __Block_byref_object_copy__3;
+  v26[4] = __Block_byref_object_dispose__3;
+  v27 = objc_opt_new();
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __45__CDPStateController_generateNewRecoveryKey___block_invoke;
+  v22[3] = &unk_1E869E150;
+  v24 = v26;
+  v25 = v28;
   v6 = keyCopy;
-  v22 = v6;
-  v7 = MEMORY[0x1E12CA380](v21);
+  v23 = v6;
+  v7 = MEMORY[0x1E12CA380](v22);
   v8 = _os_activity_create(&dword_1DED99000, "cdp/generate-rk", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
   daemonConn = [(CDPController *)selfCopy daemonConn];
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __45__CDPStateController_generateNewRecoveryKey___block_invoke_3;
-  v18 = &unk_1E869D588;
+  v16 = MEMORY[0x1E69E9820];
+  v17 = 3221225472;
+  v18 = __45__CDPStateController_generateNewRecoveryKey___block_invoke_3;
+  v19 = &unk_1E869D588;
   v10 = v7;
-  v19 = v10;
-  v11 = [daemonConn daemonWithErrorHandler:&v15];
+  v20 = v10;
+  v11 = [daemonConn daemonWithErrorHandler:&v16];
 
-  v12 = _CDPLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = _CDPLogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [CDPStateController generateNewRecoveryKey:];
   }
 
-  v13 = [(CDPController *)selfCopy context:v15];
+  v14 = [(CDPController *)selfCopy context:v16];
   uiProviderProxy = [(CDPController *)selfCopy uiProviderProxy];
-  [v11 generateNewRecoveryKeyWithContext:v13 uiProvider:uiProviderProxy completion:v10];
+  [v11 generateNewRecoveryKeyWithContext:v14 uiProvider:uiProviderProxy completion:v10];
 
   os_activity_scope_leave(&state);
-  _Block_object_dispose(v25, 8);
+  _Block_object_dispose(v26, 8);
 
-  _Block_object_dispose(v27, 8);
+  _Block_object_dispose(v28, 8);
 }
 
 void __45__CDPStateController_generateNewRecoveryKey___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1502,11 +1689,9 @@ uint64_t __45__CDPStateController_generateNewRecoveryKey___block_invoke_2(uint64
   result = *(a1 + 40);
   if (result)
   {
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 32);
-    v7 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v7();
+    return v5();
   }
 
   return result;
@@ -1515,7 +1700,7 @@ uint64_t __45__CDPStateController_generateNewRecoveryKey___block_invoke_2(uint64
 void __45__CDPStateController_generateNewRecoveryKey___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __45__CDPStateController_generateNewRecoveryKey___block_invoke_3_cold_1();
@@ -1527,36 +1712,36 @@ void __45__CDPStateController_generateNewRecoveryKey___block_invoke_3(uint64_t a
 - (void)authenticateAndDeleteRecoveryKeyWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v21[0] = 0;
-  v21[1] = v21;
-  v21[2] = 0x3032000000;
-  v21[3] = __Block_byref_object_copy__3;
-  v21[4] = __Block_byref_object_dispose__3;
+  v22[0] = 0;
+  v22[1] = v22;
+  v22[2] = 0x3032000000;
+  v22[3] = __Block_byref_object_copy__3;
+  v22[4] = __Block_byref_object_dispose__3;
   selfCopy = self;
-  v22 = selfCopy;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __69__CDPStateController_authenticateAndDeleteRecoveryKeyWithCompletion___block_invoke;
-  v18[3] = &unk_1E869E060;
-  v20 = v21;
+  v23 = selfCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __69__CDPStateController_authenticateAndDeleteRecoveryKeyWithCompletion___block_invoke;
+  v19[3] = &unk_1E869E060;
+  v21 = v22;
   v6 = completionCopy;
-  v19 = v6;
-  v7 = MEMORY[0x1E12CA380](v18);
+  v20 = v6;
+  v7 = MEMORY[0x1E12CA380](v19);
   v8 = _os_activity_create(&dword_1DED99000, "cdp/authenticate-and-delete-rk", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
   daemonConn = [(CDPController *)selfCopy daemonConn];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __69__CDPStateController_authenticateAndDeleteRecoveryKeyWithCompletion___block_invoke_47;
-  v15[3] = &unk_1E869D588;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __69__CDPStateController_authenticateAndDeleteRecoveryKeyWithCompletion___block_invoke_47;
+  v16[3] = &unk_1E869D588;
   v10 = v7;
-  v16 = v10;
-  v11 = [daemonConn daemonWithErrorHandler:v15];
+  v17 = v10;
+  v11 = [daemonConn daemonWithErrorHandler:v16];
 
-  v12 = _CDPLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = _CDPLogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [CDPStateController authenticateAndDeleteRecoveryKeyWithCompletion:];
   }
@@ -1566,7 +1751,7 @@ void __45__CDPStateController_generateNewRecoveryKey___block_invoke_3(uint64_t a
   [v11 authenticateAndDeleteRecoveryKeyWithContext:context uiProvider:uiProviderProxy completion:v10];
 
   os_activity_scope_leave(&state);
-  _Block_object_dispose(v21, 8);
+  _Block_object_dispose(v22, 8);
 }
 
 void __69__CDPStateController_authenticateAndDeleteRecoveryKeyWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -1591,8 +1776,8 @@ uint64_t __69__CDPStateController_authenticateAndDeleteRecoveryKeyWithCompletion
   v3 = *(v2 + 40);
   *(v2 + 40) = 0;
 
-  v4 = _CDPLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = _CDPLogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __74__CDPStateController_authenticateAndGenerateNewRecoveryKeyWithCompletion___block_invoke_2_cold_1(a1);
   }
@@ -1609,7 +1794,7 @@ uint64_t __69__CDPStateController_authenticateAndDeleteRecoveryKeyWithCompletion
 void __69__CDPStateController_authenticateAndDeleteRecoveryKeyWithCompletion___block_invoke_47(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __69__CDPStateController_authenticateAndDeleteRecoveryKeyWithCompletion___block_invoke_47_cold_1();
@@ -1621,55 +1806,55 @@ void __69__CDPStateController_authenticateAndDeleteRecoveryKeyWithCompletion___b
 - (void)deleteRecoveryKey:(id)key
 {
   keyCopy = key;
-  v27[0] = 0;
-  v27[1] = v27;
-  v27[2] = 0x3032000000;
-  v27[3] = __Block_byref_object_copy__3;
-  v27[4] = __Block_byref_object_dispose__3;
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x3032000000;
+  v28[3] = __Block_byref_object_copy__3;
+  v28[4] = __Block_byref_object_dispose__3;
   selfCopy = self;
-  v28 = selfCopy;
-  v25[0] = 0;
-  v25[1] = v25;
-  v25[2] = 0x3032000000;
-  v25[3] = __Block_byref_object_copy__3;
-  v25[4] = __Block_byref_object_dispose__3;
-  v26 = objc_opt_new();
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __40__CDPStateController_deleteRecoveryKey___block_invoke;
-  v21[3] = &unk_1E869E150;
-  v23 = v25;
-  v24 = v27;
+  v29 = selfCopy;
+  v26[0] = 0;
+  v26[1] = v26;
+  v26[2] = 0x3032000000;
+  v26[3] = __Block_byref_object_copy__3;
+  v26[4] = __Block_byref_object_dispose__3;
+  v27 = objc_opt_new();
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __40__CDPStateController_deleteRecoveryKey___block_invoke;
+  v22[3] = &unk_1E869E150;
+  v24 = v26;
+  v25 = v28;
   v6 = keyCopy;
-  v22 = v6;
-  v7 = MEMORY[0x1E12CA380](v21);
+  v23 = v6;
+  v7 = MEMORY[0x1E12CA380](v22);
   v8 = _os_activity_create(&dword_1DED99000, "cdp/delete-rk", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
   daemonConn = [(CDPController *)selfCopy daemonConn];
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __40__CDPStateController_deleteRecoveryKey___block_invoke_3;
-  v18 = &unk_1E869D588;
+  v16 = MEMORY[0x1E69E9820];
+  v17 = 3221225472;
+  v18 = __40__CDPStateController_deleteRecoveryKey___block_invoke_3;
+  v19 = &unk_1E869D588;
   v10 = v7;
-  v19 = v10;
-  v11 = [daemonConn daemonWithErrorHandler:&v15];
+  v20 = v10;
+  v11 = [daemonConn daemonWithErrorHandler:&v16];
 
-  v12 = _CDPLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = _CDPLogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [CDPStateController deleteRecoveryKey:];
   }
 
-  v13 = [(CDPController *)selfCopy context:v15];
+  v14 = [(CDPController *)selfCopy context:v16];
   uiProviderProxy = [(CDPController *)selfCopy uiProviderProxy];
-  [v11 deleteRecoveryKeyWithContext:v13 uiProvider:uiProviderProxy completion:v10];
+  [v11 deleteRecoveryKeyWithContext:v14 uiProvider:uiProviderProxy completion:v10];
 
   os_activity_scope_leave(&state);
-  _Block_object_dispose(v25, 8);
+  _Block_object_dispose(v26, 8);
 
-  _Block_object_dispose(v27, 8);
+  _Block_object_dispose(v28, 8);
 }
 
 void __40__CDPStateController_deleteRecoveryKey___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1698,11 +1883,9 @@ uint64_t __40__CDPStateController_deleteRecoveryKey___block_invoke_2(uint64_t a1
   result = *(a1 + 40);
   if (result)
   {
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 32);
-    v7 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v7();
+    return v5();
   }
 
   return result;
@@ -1711,7 +1894,7 @@ uint64_t __40__CDPStateController_deleteRecoveryKey___block_invoke_2(uint64_t a1
 void __40__CDPStateController_deleteRecoveryKey___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __40__CDPStateController_deleteRecoveryKey___block_invoke_3_cold_1();
@@ -1723,49 +1906,49 @@ void __40__CDPStateController_deleteRecoveryKey___block_invoke_3(uint64_t a1, vo
 - (void)verifyRecoveryKey:(id)key
 {
   keyCopy = key;
-  v27[0] = 0;
-  v27[1] = v27;
-  v27[2] = 0x3032000000;
-  v27[3] = __Block_byref_object_copy__3;
-  v27[4] = __Block_byref_object_dispose__3;
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x3032000000;
+  v28[3] = __Block_byref_object_copy__3;
+  v28[4] = __Block_byref_object_dispose__3;
   selfCopy = self;
-  v28 = selfCopy;
+  v29 = selfCopy;
   v6 = objc_opt_new();
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __40__CDPStateController_verifyRecoveryKey___block_invoke;
-  v23[3] = &unk_1E869E088;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __40__CDPStateController_verifyRecoveryKey___block_invoke;
+  v24[3] = &unk_1E869E088;
   v7 = v6;
-  v24 = v7;
-  v26 = v27;
+  v25 = v7;
+  v27 = v28;
   v8 = keyCopy;
-  v25 = v8;
-  v9 = MEMORY[0x1E12CA380](v23);
+  v26 = v8;
+  v9 = MEMORY[0x1E12CA380](v24);
   v10 = _os_activity_create(&dword_1DED99000, "cdp/verify-rk", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v10, &state);
   daemonConn = [(CDPController *)selfCopy daemonConn];
-  v17 = MEMORY[0x1E69E9820];
-  v18 = 3221225472;
-  v19 = __40__CDPStateController_verifyRecoveryKey___block_invoke_3;
-  v20 = &unk_1E869D588;
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __40__CDPStateController_verifyRecoveryKey___block_invoke_3;
+  v21 = &unk_1E869D588;
   v12 = v9;
-  v21 = v12;
-  v13 = [daemonConn daemonWithErrorHandler:&v17];
+  v22 = v12;
+  v13 = [daemonConn daemonWithErrorHandler:&v18];
 
-  v14 = _CDPLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = _CDPLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [CDPStateController verifyRecoveryKey:];
   }
 
-  v15 = [(CDPController *)selfCopy context:v17];
+  v16 = [(CDPController *)selfCopy context:v18];
   uiProviderProxy = [(CDPController *)selfCopy uiProviderProxy];
-  [v13 verifyRecoveryKeyWithContext:v15 uiProvider:uiProviderProxy completion:v12];
+  [v13 verifyRecoveryKeyWithContext:v16 uiProvider:uiProviderProxy completion:v12];
 
   os_activity_scope_leave(&state);
-  _Block_object_dispose(v27, 8);
+  _Block_object_dispose(v28, 8);
 }
 
 void __40__CDPStateController_verifyRecoveryKey___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1794,11 +1977,9 @@ uint64_t __40__CDPStateController_verifyRecoveryKey___block_invoke_2(uint64_t a1
   result = *(a1 + 40);
   if (result)
   {
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 32);
-    v7 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v7();
+    return v5();
   }
 
   return result;
@@ -1807,7 +1988,7 @@ uint64_t __40__CDPStateController_verifyRecoveryKey___block_invoke_2(uint64_t a1
 void __40__CDPStateController_verifyRecoveryKey___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __40__CDPStateController_verifyRecoveryKey___block_invoke_3_cold_1();
@@ -1818,62 +1999,62 @@ void __40__CDPStateController_verifyRecoveryKey___block_invoke_3(uint64_t a1, vo
 
 - (BOOL)deleteRecoveryKeyWithError:(id *)error
 {
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__3;
+  v21 = __Block_byref_object_dispose__3;
   v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__3;
-  v20 = __Block_byref_object_dispose__3;
-  v21 = 0;
   daemonConn = [(CDPController *)self daemonConn];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __49__CDPStateController_deleteRecoveryKeyWithError___block_invoke;
-  v15[3] = &unk_1E869D758;
-  v15[4] = &v16;
-  v6 = [daemonConn synchronousDaemonWithErrorHandler:v15];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __49__CDPStateController_deleteRecoveryKeyWithError___block_invoke;
+  v16[3] = &unk_1E869D758;
+  v16[4] = &v17;
+  v6 = [daemonConn synchronousDaemonWithErrorHandler:v16];
 
   v7 = _os_activity_create(&dword_1DED99000, "cdp/delete-rk", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
-  v8 = _CDPLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _CDPLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [CDPStateController deleteRecoveryKey:];
   }
 
   context = [(CDPController *)self context];
   uiProviderProxy = [(CDPController *)self uiProviderProxy];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __49__CDPStateController_deleteRecoveryKeyWithError___block_invoke_50;
-  v13[3] = &unk_1E869DAA0;
-  v13[4] = &v22;
-  v13[5] = &v16;
-  [v6 deleteRecoveryKeyWithContext:context uiProvider:uiProviderProxy completion:v13];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __49__CDPStateController_deleteRecoveryKeyWithError___block_invoke_50;
+  v14[3] = &unk_1E869DAA0;
+  v14[4] = &v23;
+  v14[5] = &v17;
+  [v6 deleteRecoveryKeyWithContext:context uiProvider:uiProviderProxy completion:v14];
 
-  v11 = *(v23 + 24);
-  if (error && (v23[3] & 1) == 0)
+  v12 = *(v24 + 24);
+  if (error && (v24[3] & 1) == 0)
   {
-    *error = v17[5];
-    v11 = *(v23 + 24);
+    *error = v18[5];
+    v12 = *(v24 + 24);
   }
 
   os_activity_scope_leave(&state);
 
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v22, 8);
-  return v11 & 1;
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v23, 8);
+  return v12 & 1;
 }
 
 void __49__CDPStateController_deleteRecoveryKeyWithError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __40__CDPStateController_deleteRecoveryKey___block_invoke_3_cold_1();
@@ -1886,17 +2067,17 @@ void __49__CDPStateController_deleteRecoveryKeyWithError___block_invoke(uint64_t
 
 - (BOOL)isRecoveryKeyAvailableWithError:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
+  v29 = *MEMORY[0x1E69E9840];
   v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   v17 = 0;
-  v18[0] = &v17;
-  v18[1] = 0x3032000000;
-  v18[2] = __Block_byref_object_copy__3;
-  v18[3] = __Block_byref_object_dispose__3;
-  v19 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__3;
+  v21 = __Block_byref_object_dispose__3;
+  v22 = 0;
   daemonConn = [(CDPController *)self daemonConn];
   v16[0] = MEMORY[0x1E69E9820];
   v16[1] = 3221225472;
@@ -1909,8 +2090,8 @@ void __49__CDPStateController_deleteRecoveryKeyWithError___block_invoke(uint64_t
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v6, &state);
-  v7 = _CDPLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _CDPLogSystem(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [CDPStateController isRecoveryKeyAvailableWithError:];
   }
@@ -1919,49 +2100,49 @@ void __49__CDPStateController_deleteRecoveryKeyWithError___block_invoke(uint64_t
   v14[1] = 3221225472;
   v14[2] = __54__CDPStateController_isRecoveryKeyAvailableWithError___block_invoke_51;
   v14[3] = &unk_1E869DAA0;
-  v14[4] = &v20;
+  v14[4] = &v23;
   v14[5] = &v17;
   [v5 isRecoveryKeyAvailableWithCompletion:v14];
-  v8 = *(v18[0] + 40);
-  if (v8)
+  v9 = v18[5];
+  if (v9)
   {
     if (error)
     {
-      *error = v8;
+      v9 = v9;
+      *error = v9;
     }
 
-    v9 = _CDPLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _CDPLogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [CDPStateController isRecoveryKeyAvailableWithError:v18];
+      [CDPStateController isRecoveryKeyAvailableWithError:];
     }
   }
 
   else
   {
-    v9 = _CDPLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _CDPLogSystem(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(v21 + 24);
+      v11 = *(v24 + 24);
       *buf = 67109120;
-      v25 = v10;
-      _os_log_impl(&dword_1DED99000, v9, OS_LOG_TYPE_DEFAULT, "Recovery key availability - %{BOOL}d", buf, 8u);
+      v28 = v11;
+      _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "Recovery key availability - %{BOOL}d", buf, 8u);
     }
   }
 
-  v11 = *(v21 + 24);
+  v12 = *(v24 + 24);
   os_activity_scope_leave(&state);
 
   _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v20, 8);
-  v12 = *MEMORY[0x1E69E9840];
-  return v11 & 1;
+  _Block_object_dispose(&v23, 8);
+  return v12 & 1;
 }
 
 void __54__CDPStateController_isRecoveryKeyAvailableWithError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__CDPStateController_isRecoveryKeyAvailableWithError___block_invoke_cold_1();
@@ -2001,7 +2182,7 @@ void __54__CDPStateController_isRecoveryKeyAvailableWithError___block_invoke(uin
   v9 = v5;
   v13 = v9;
   v10 = [(CDPDaemonConnection *)v8 daemonWithErrorHandler:v12];
-  v11 = _CDPLogSystem();
+  v11 = _CDPLogSystem(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [CDPStateController isRecoveryKeyAvailableWithError:];
@@ -2015,9 +2196,9 @@ void __54__CDPStateController_isRecoveryKeyAvailableWithError___block_invoke(uin
 
 void __59__CDPStateController_isRecoveryKeyAvailableWithCompletion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _CDPLogSystem();
+  v6 = _CDPLogSystem(v5);
   v7 = v6;
   if (v5)
   {
@@ -2030,7 +2211,7 @@ void __59__CDPStateController_isRecoveryKeyAvailableWithCompletion___block_invok
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v17 = a2;
+    v16 = a2;
     _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Recovery key availability - %{BOOL}d", buf, 8u);
   }
 
@@ -2038,15 +2219,13 @@ void __59__CDPStateController_isRecoveryKeyAvailableWithCompletion___block_invok
   block[1] = 3221225472;
   block[2] = __59__CDPStateController_isRecoveryKeyAvailableWithCompletion___block_invoke_52;
   block[3] = &unk_1E869E038;
-  v11 = *(a1 + 32);
-  v8 = v11;
-  v14 = v11;
-  v15 = a2;
-  v13 = v5;
+  v10 = *(a1 + 32);
+  v8 = v10;
+  v13 = v10;
+  v14 = a2;
+  v12 = v5;
   v9 = v5;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __59__CDPStateController_isRecoveryKeyAvailableWithCompletion___block_invoke_52(uint64_t a1)
@@ -2058,11 +2237,9 @@ uint64_t __59__CDPStateController_isRecoveryKeyAvailableWithCompletion___block_i
   result = *(a1 + 40);
   if (result)
   {
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 32);
-    v7 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v7();
+    return v5();
   }
 
   return result;
@@ -2071,7 +2248,7 @@ uint64_t __59__CDPStateController_isRecoveryKeyAvailableWithCompletion___block_i
 void __59__CDPStateController_isRecoveryKeyAvailableWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __59__CDPStateController_isRecoveryKeyAvailableWithCompletion___block_invoke_2_cold_1();
@@ -2082,17 +2259,17 @@ void __59__CDPStateController_isRecoveryKeyAvailableWithCompletion___block_invok
 
 - (BOOL)isWalrusRecoveryKeyAvailableWithError:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
+  v29 = *MEMORY[0x1E69E9840];
   v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   v17 = 0;
-  v18[0] = &v17;
-  v18[1] = 0x3032000000;
-  v18[2] = __Block_byref_object_copy__3;
-  v18[3] = __Block_byref_object_dispose__3;
-  v19 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__3;
+  v21 = __Block_byref_object_dispose__3;
+  v22 = 0;
   daemonConn = [(CDPController *)self daemonConn];
   v16[0] = MEMORY[0x1E69E9820];
   v16[1] = 3221225472;
@@ -2105,8 +2282,8 @@ void __59__CDPStateController_isRecoveryKeyAvailableWithCompletion___block_invok
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v6, &state);
-  v7 = _CDPLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _CDPLogSystem(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [CDPStateController isWalrusRecoveryKeyAvailableWithError:];
   }
@@ -2115,49 +2292,49 @@ void __59__CDPStateController_isRecoveryKeyAvailableWithCompletion___block_invok
   v14[1] = 3221225472;
   v14[2] = __60__CDPStateController_isWalrusRecoveryKeyAvailableWithError___block_invoke_54;
   v14[3] = &unk_1E869DAA0;
-  v14[4] = &v20;
+  v14[4] = &v23;
   v14[5] = &v17;
   [v5 isWalrusRecoveryKeyAvailableWithCompletion:v14];
-  v8 = *(v18[0] + 40);
-  if (v8)
+  v9 = v18[5];
+  if (v9)
   {
     if (error)
     {
-      *error = v8;
+      v9 = v9;
+      *error = v9;
     }
 
-    v9 = _CDPLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _CDPLogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [CDPStateController isWalrusRecoveryKeyAvailableWithError:v18];
+      [CDPStateController isWalrusRecoveryKeyAvailableWithError:];
     }
   }
 
   else
   {
-    v9 = _CDPLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _CDPLogSystem(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(v21 + 24);
+      v11 = *(v24 + 24);
       *buf = 67109120;
-      v25 = v10;
-      _os_log_impl(&dword_1DED99000, v9, OS_LOG_TYPE_DEFAULT, "Walrus Recovery key availability - %{BOOL}d", buf, 8u);
+      v28 = v11;
+      _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "Walrus Recovery key availability - %{BOOL}d", buf, 8u);
     }
   }
 
-  v11 = *(v21 + 24);
+  v12 = *(v24 + 24);
   os_activity_scope_leave(&state);
 
   _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v20, 8);
-  v12 = *MEMORY[0x1E69E9840];
-  return v11 & 1;
+  _Block_object_dispose(&v23, 8);
+  return v12 & 1;
 }
 
 void __60__CDPStateController_isWalrusRecoveryKeyAvailableWithError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __60__CDPStateController_isWalrusRecoveryKeyAvailableWithError___block_invoke_cold_1();
@@ -2197,7 +2374,7 @@ void __60__CDPStateController_isWalrusRecoveryKeyAvailableWithError___block_invo
   v9 = v5;
   v13 = v9;
   v10 = [(CDPDaemonConnection *)v8 daemonWithErrorHandler:v12];
-  v11 = _CDPLogSystem();
+  v11 = _CDPLogSystem(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [CDPStateController isWalrusRecoveryKeyAvailableWithError:];
@@ -2211,9 +2388,9 @@ void __60__CDPStateController_isWalrusRecoveryKeyAvailableWithError___block_invo
 
 void __65__CDPStateController_isWalrusRecoveryKeyAvailableWithCompletion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _CDPLogSystem();
+  v6 = _CDPLogSystem(v5);
   v7 = v6;
   if (v5)
   {
@@ -2226,7 +2403,7 @@ void __65__CDPStateController_isWalrusRecoveryKeyAvailableWithCompletion___block
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v17 = a2;
+    v16 = a2;
     _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Walrus Recovery key availability - %{BOOL}d", buf, 8u);
   }
 
@@ -2234,15 +2411,13 @@ void __65__CDPStateController_isWalrusRecoveryKeyAvailableWithCompletion___block
   block[1] = 3221225472;
   block[2] = __65__CDPStateController_isWalrusRecoveryKeyAvailableWithCompletion___block_invoke_55;
   block[3] = &unk_1E869E038;
-  v11 = *(a1 + 32);
-  v8 = v11;
-  v14 = v11;
-  v15 = a2;
-  v13 = v5;
+  v10 = *(a1 + 32);
+  v8 = v10;
+  v13 = v10;
+  v14 = a2;
+  v12 = v5;
   v9 = v5;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __65__CDPStateController_isWalrusRecoveryKeyAvailableWithCompletion___block_invoke_55(uint64_t a1)
@@ -2254,11 +2429,9 @@ uint64_t __65__CDPStateController_isWalrusRecoveryKeyAvailableWithCompletion___b
   result = *(a1 + 40);
   if (result)
   {
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 32);
-    v7 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v7();
+    return v5();
   }
 
   return result;
@@ -2267,7 +2440,7 @@ uint64_t __65__CDPStateController_isWalrusRecoveryKeyAvailableWithCompletion___b
 void __65__CDPStateController_isWalrusRecoveryKeyAvailableWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __65__CDPStateController_isWalrusRecoveryKeyAvailableWithCompletion___block_invoke_2_cold_1();
@@ -2282,60 +2455,60 @@ void __65__CDPStateController_isWalrusRecoveryKeyAvailableWithCompletion___block
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__3;
+  v24 = __Block_byref_object_dispose__3;
+  v25 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
   v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__3;
-  v23 = __Block_byref_object_dispose__3;
-  v24 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
   daemonConn = [(CDPController *)self daemonConn];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __82__CDPStateController_verifyRecoveryKeyObservingSystemsHaveMatchingStateWithError___block_invoke;
-  v14[3] = &unk_1E869D758;
-  v14[4] = &v19;
-  v7 = [daemonConn synchronousDaemonWithErrorHandler:v14];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __82__CDPStateController_verifyRecoveryKeyObservingSystemsHaveMatchingStateWithError___block_invoke;
+  v15[3] = &unk_1E869D758;
+  v15[4] = &v20;
+  v7 = [daemonConn synchronousDaemonWithErrorHandler:v15];
 
-  v8 = _CDPLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _CDPLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "Verifying all systems agree on RK state", buf, 2u);
+    _os_log_impl(&dword_1DED99000, v9, OS_LOG_TYPE_DEFAULT, "Verifying all systems agree on RK state", buf, 2u);
   }
 
   context = [(CDPController *)self context];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __82__CDPStateController_verifyRecoveryKeyObservingSystemsHaveMatchingStateWithError___block_invoke_56;
-  v12[3] = &unk_1E869DAA0;
-  v12[4] = &v19;
-  v12[5] = &v15;
-  [v7 verifyRecoveryKeyObservingSystemsHaveMatchingStateWithContext:context completion:v12];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __82__CDPStateController_verifyRecoveryKeyObservingSystemsHaveMatchingStateWithError___block_invoke_56;
+  v13[3] = &unk_1E869DAA0;
+  v13[4] = &v20;
+  v13[5] = &v16;
+  [v7 verifyRecoveryKeyObservingSystemsHaveMatchingStateWithContext:context completion:v13];
 
   if (error)
   {
-    *error = v20[5];
+    *error = v21[5];
   }
 
-  v10 = *(v16 + 24);
+  v11 = *(v17 + 24);
 
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v20, 8);
 
   os_activity_scope_leave(&state);
-  return v10;
+  return v11;
 }
 
 void __82__CDPStateController_verifyRecoveryKeyObservingSystemsHaveMatchingStateWithError___block_invoke(uint64_t a1, void *a2)
 {
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
-  v5 = _CDPLogSystem();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = _CDPLogSystem(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     __68__CDPStateController_shouldPerformRepairWithOptionForceFetch_error___block_invoke_cold_1();
   }
@@ -2355,27 +2528,27 @@ void __82__CDPStateController_verifyRecoveryKeyObservingSystemsHaveMatchingState
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __72__CDPStateController_anyRecoveryKeysAreOctagonDistrustedWithCompletion___block_invoke;
-  v16[3] = &unk_1E869D6C8;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __72__CDPStateController_anyRecoveryKeysAreOctagonDistrustedWithCompletion___block_invoke;
+  v17[3] = &unk_1E869D6C8;
   v6 = completionCopy;
-  v17 = v6;
-  v7 = MEMORY[0x1E12CA380](v16);
+  v18 = v6;
+  v7 = MEMORY[0x1E12CA380](v17);
   daemonConn = [(CDPController *)self daemonConn];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __72__CDPStateController_anyRecoveryKeysAreOctagonDistrustedWithCompletion___block_invoke_2;
-  v14[3] = &unk_1E869D588;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __72__CDPStateController_anyRecoveryKeysAreOctagonDistrustedWithCompletion___block_invoke_2;
+  v15[3] = &unk_1E869D588;
   v9 = v7;
-  v15 = v9;
-  v10 = [daemonConn daemonWithErrorHandler:v14];
+  v16 = v9;
+  v10 = [daemonConn daemonWithErrorHandler:v15];
 
-  v11 = _CDPLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _CDPLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 0;
-    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "Checking if any Recovery Keys are Octagon distrusted", v13, 2u);
+    *v14 = 0;
+    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "Checking if any Recovery Keys are Octagon distrusted", v14, 2u);
   }
 
   context = [(CDPController *)self context];
@@ -2386,9 +2559,9 @@ void __82__CDPStateController_verifyRecoveryKeyObservingSystemsHaveMatchingState
 
 void __72__CDPStateController_anyRecoveryKeysAreOctagonDistrustedWithCompletion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _CDPLogSystem();
+  v6 = _CDPLogSystem(v5);
   v7 = v6;
   if (v5)
   {
@@ -2401,7 +2574,7 @@ void __72__CDPStateController_anyRecoveryKeysAreOctagonDistrustedWithCompletion_
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v14 = a2;
+    v13 = a2;
     _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Are there any RKs distrusted in Octagon? - %{BOOL}d", buf, 8u);
   }
 
@@ -2418,20 +2591,18 @@ void __72__CDPStateController_anyRecoveryKeysAreOctagonDistrustedWithCompletion_
       block[1] = 3221225472;
       block[2] = __72__CDPStateController_anyRecoveryKeysAreOctagonDistrustedWithCompletion___block_invoke_58;
       block[3] = &unk_1E869DBD0;
-      v11 = *(a1 + 32);
-      v12 = a2;
-      v10 = v5;
+      v10 = *(a1 + 32);
+      v11 = a2;
+      v9 = v5;
       dispatch_async(MEMORY[0x1E69E96A0], block);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __72__CDPStateController_anyRecoveryKeysAreOctagonDistrustedWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __72__CDPStateController_anyRecoveryKeysAreOctagonDistrustedWithCompletion___block_invoke_2_cold_1();
@@ -2442,60 +2613,60 @@ void __72__CDPStateController_anyRecoveryKeysAreOctagonDistrustedWithCompletion_
 
 - (id)generateRandomRecoveryKey:(id *)key
 {
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__3;
+  v25 = __Block_byref_object_dispose__3;
+  v26 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__3;
+  v19 = __Block_byref_object_dispose__3;
   v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__3;
-  v24 = __Block_byref_object_dispose__3;
-  v25 = 0;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__3;
-  v18 = __Block_byref_object_dispose__3;
-  v19 = 0;
   daemonConn = [(CDPController *)self daemonConn];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __48__CDPStateController_generateRandomRecoveryKey___block_invoke;
-  v13[3] = &unk_1E869D758;
-  v13[4] = &v14;
-  v6 = [daemonConn synchronousDaemonWithErrorHandler:v13];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __48__CDPStateController_generateRandomRecoveryKey___block_invoke;
+  v14[3] = &unk_1E869D758;
+  v14[4] = &v15;
+  v6 = [daemonConn synchronousDaemonWithErrorHandler:v14];
 
-  v7 = _CDPLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _CDPLogSystem(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [CDPStateController generateNewRecoveryKey:];
   }
 
   context = [(CDPController *)self context];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __48__CDPStateController_generateRandomRecoveryKey___block_invoke_59;
-  v12[3] = &unk_1E869E178;
-  v12[4] = &v20;
-  v12[5] = &v14;
-  [v6 generateRandomRecoveryKeyWithContext:context completion:v12];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __48__CDPStateController_generateRandomRecoveryKey___block_invoke_59;
+  v13[3] = &unk_1E869E178;
+  v13[4] = &v21;
+  v13[5] = &v15;
+  [v6 generateRandomRecoveryKeyWithContext:context completion:v13];
 
-  v9 = v21[5];
-  if (key && !v9)
+  v10 = v22[5];
+  if (key && !v10)
   {
-    *key = v15[5];
-    v9 = v21[5];
+    *key = v16[5];
+    v10 = v22[5];
   }
 
-  v10 = v9;
+  v11 = v10;
 
-  _Block_object_dispose(&v14, 8);
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v21, 8);
 
-  return v10;
+  return v11;
 }
 
 void __48__CDPStateController_generateRandomRecoveryKey___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __45__CDPStateController_generateNewRecoveryKey___block_invoke_3_cold_1();
@@ -2522,15 +2693,15 @@ void __48__CDPStateController_generateRandomRecoveryKey___block_invoke_59(uint64
 
 - (void)handleURLActionWithInfo:(id)info completion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   completionCopy = completion;
-  v8 = _CDPLogSystem();
+  v8 = _CDPLogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = infoCopy;
-    _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "Handling URL action: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = infoCopy;
+    _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "Handling URL action: %@", &v10, 0xCu);
   }
 
   v9 = [infoCopy objectForKeyedSubscript:@"command"];
@@ -2548,8 +2719,52 @@ void __48__CDPStateController_generateRandomRecoveryKey___block_invoke_59(uint64
   {
     [(CDPStateController *)self generateNewRecoveryKey:completionCopy];
   }
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (void)fetchEscrowRecordDevicesWithContext:(id)context usingCache:(BOOL)cache completion:(id)completion
+{
+  cacheCopy = cache;
+  contextCopy = context;
+  completionCopy = completion;
+  v10 = _os_activity_create(&dword_1DED99000, "cdp/fetch-escrow-devices", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v10, &state);
+  v25[0] = 0;
+  v25[1] = v25;
+  v25[2] = 0x3032000000;
+  v25[3] = __Block_byref_object_copy__3;
+  v25[4] = __Block_byref_object_dispose__3;
+  selfCopy = self;
+  v26 = selfCopy;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __80__CDPStateController_fetchEscrowRecordDevicesWithContext_usingCache_completion___block_invoke;
+  v22[3] = &unk_1E869E1A0;
+  v24 = v25;
+  v12 = completionCopy;
+  v23 = v12;
+  v13 = MEMORY[0x1E12CA380](v22);
+  daemonConn = [(CDPController *)selfCopy daemonConn];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __80__CDPStateController_fetchEscrowRecordDevicesWithContext_usingCache_completion___block_invoke_3;
+  v20[3] = &unk_1E869D588;
+  v15 = v13;
+  v21 = v15;
+  v16 = [daemonConn daemonWithErrorHandler:v20];
+
+  v18 = _CDPLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    *v19 = 0;
+    _os_log_impl(&dword_1DED99000, v18, OS_LOG_TYPE_DEFAULT, "Requesting list of escrow-record associated devices", v19, 2u);
+  }
+
+  [v16 fetchEscrowRecordDevicesWithContext:contextCopy usingCache:cacheCopy completion:v15];
+  _Block_object_dispose(v25, 8);
+
+  os_activity_scope_leave(&state);
 }
 
 void __80__CDPStateController_fetchEscrowRecordDevicesWithContext_usingCache_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2587,7 +2802,7 @@ uint64_t __80__CDPStateController_fetchEscrowRecordDevicesWithContext_usingCache
 void __80__CDPStateController_fetchEscrowRecordDevicesWithContext_usingCache_completion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __73__CDPStateController_shouldPerformRepairWithOptionForceFetch_completion___block_invoke_2_cold_1();
@@ -2604,39 +2819,39 @@ void __80__CDPStateController_fetchEscrowRecordDevicesWithContext_usingCache_com
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v22[0] = 0;
-  v22[1] = v22;
-  v22[2] = 0x3032000000;
-  v22[3] = __Block_byref_object_copy__3;
-  v22[4] = __Block_byref_object_dispose__3;
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x3032000000;
+  v23[3] = __Block_byref_object_copy__3;
+  v23[4] = __Block_byref_object_dispose__3;
   selfCopy = self;
-  v23 = selfCopy;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __74__CDPStateController_deviceEscrowRecordRecoverableWithContext_completion___block_invoke;
-  v19[3] = &unk_1E869E1F0;
-  v21 = v22;
+  v24 = selfCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __74__CDPStateController_deviceEscrowRecordRecoverableWithContext_completion___block_invoke;
+  v20[3] = &unk_1E869E1F0;
+  v22 = v23;
   v10 = completionCopy;
-  v20 = v10;
-  v11 = MEMORY[0x1E12CA380](v19);
+  v21 = v10;
+  v11 = MEMORY[0x1E12CA380](v20);
   daemonConn = [(CDPController *)selfCopy daemonConn];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __74__CDPStateController_deviceEscrowRecordRecoverableWithContext_completion___block_invoke_3;
-  v17[3] = &unk_1E869D588;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __74__CDPStateController_deviceEscrowRecordRecoverableWithContext_completion___block_invoke_3;
+  v18[3] = &unk_1E869D588;
   v13 = v11;
-  v18 = v13;
-  v14 = [daemonConn daemonWithErrorHandler:v17];
+  v19 = v13;
+  v14 = [daemonConn daemonWithErrorHandler:v18];
 
-  v15 = _CDPLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = _CDPLogSystem(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    *v16 = 0;
-    _os_log_impl(&dword_1DED99000, v15, OS_LOG_TYPE_DEFAULT, "Checking for the current device's ecrow record being recoverable", v16, 2u);
+    *v17 = 0;
+    _os_log_impl(&dword_1DED99000, v16, OS_LOG_TYPE_DEFAULT, "Checking for the current device's ecrow record being recoverable", v17, 2u);
   }
 
   [v14 deviceEscrowRecordRecoverableWithContext:contextCopy completion:v13];
-  _Block_object_dispose(v22, 8);
+  _Block_object_dispose(v23, 8);
 
   os_activity_scope_leave(&state);
 }
@@ -2673,7 +2888,7 @@ uint64_t __74__CDPStateController_deviceEscrowRecordRecoverableWithContext_compl
 void __74__CDPStateController_deviceEscrowRecordRecoverableWithContext_completion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __73__CDPStateController_shouldPerformRepairWithOptionForceFetch_completion___block_invoke_2_cold_1();
@@ -2704,12 +2919,12 @@ void __74__CDPStateController_deviceEscrowRecordRecoverableWithContext_completio
   daemonConn = [(CDPController *)self daemonConn];
   v8 = [daemonConn synchronousDaemonWithErrorHandler:v6];
 
-  v9 = _CDPLogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _CDPLogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1DED99000, v9, OS_LOG_TYPE_DEFAULT, "%@: Checking current device's escrow record recoverability", buf, 0xCu);
+    _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "%@: Checking current device's escrow record recoverability", buf, 0xCu);
   }
 
   context = [(CDPController *)self context];
@@ -2719,372 +2934,506 @@ void __74__CDPStateController_deviceEscrowRecordRecoverableWithContext_completio
   _Block_object_dispose(&v14, 8);
   os_activity_scope_leave(&state);
 
-  v11 = *MEMORY[0x1E69E9840];
   return context & 1;
 }
 
 void __54__CDPStateController_isDeviceEscrowRecordRecoverable___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _CDPLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _CDPLogSystem(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __54__CDPStateController_isDeviceEscrowRecordRecoverable___block_invoke_cold_1(a1);
+      __54__CDPStateController_isDeviceEscrowRecordRecoverable___block_invoke_cold_1();
     }
   }
 
-  *(*(*(a1 + 40) + 8) + 24) = v3 == 0;
+  *(*(*(a1 + 40) + 8) + 24) = v4 == 0;
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0 && *(a1 + 48))
   {
-    v5 = v3;
-    **(a1 + 48) = v3;
+    v6 = v4;
+    **(a1 + 48) = v4;
   }
+}
+
+- (BOOL)shouldPerformSilentEscrowRecordRepairUsingCache:(BOOL)cache error:(id *)error
+{
+  cacheCopy = cache;
+  v45 = *MEMORY[0x1E69E9840];
+  v7 = _os_activity_create(&dword_1DED99000, "cdp/should-perform-silent-escrow-record-repair-sync", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v7, &state);
+  v9 = _CDPSignpostLogSystem(v8);
+  v10 = _CDPSignpostCreate(v9);
+  v12 = v11;
+
+  v14 = _CDPSignpostLogSystem(v13);
+  v15 = v14;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  {
+    LOWORD(buf) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v10, "ShouldPerformSilentEscrowRecordRepairSync", " enableTelemetry=YES ", &buf, 2u);
+  }
+
+  v17 = _CDPSignpostLogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    LODWORD(buf) = 134217984;
+    *(&buf + 4) = v10;
+    _os_log_impl(&dword_1DED99000, v17, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: ShouldPerformSilentEscrowRecordRepairSync  enableTelemetry=YES ", &buf, 0xCu);
+  }
+
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
+  *&buf = 0;
+  *(&buf + 1) = &buf;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__3;
+  v43 = __Block_byref_object_dispose__3;
+  v44 = 0;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __76__CDPStateController_shouldPerformSilentEscrowRecordRepairUsingCache_error___block_invoke;
+  v32[3] = &unk_1E869E240;
+  v32[7] = v10;
+  v32[8] = v12;
+  v32[4] = self;
+  v32[5] = &buf;
+  v32[6] = &v33;
+  v18 = MEMORY[0x1E12CA380](v32);
+  daemonConn = [(CDPController *)self daemonConn];
+  v27 = MEMORY[0x1E69E9820];
+  v28 = 3221225472;
+  v29 = __76__CDPStateController_shouldPerformSilentEscrowRecordRepairUsingCache_error___block_invoke_74;
+  v30 = &unk_1E869D588;
+  v20 = v18;
+  v31 = v20;
+  v21 = [daemonConn synchronousDaemonWithErrorHandler:&v27];
+
+  v23 = _CDPLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  {
+    *v38 = 67109120;
+    v39 = cacheCopy;
+    _os_log_impl(&dword_1DED99000, v23, OS_LOG_TYPE_DEFAULT, "Synchronously checking if silent escrow record repair should be performed (usingCache: %{BOOL}d)", v38, 8u);
+  }
+
+  v24 = [(CDPController *)self context:v27];
+  [v21 shouldPerformSilentEscrowRecordRepairWithContext:v24 usingCache:cacheCopy completion:v20];
+
+  if (error)
+  {
+    *error = *(*(&buf + 1) + 40);
+  }
+
+  v25 = *(v34 + 24);
+
+  _Block_object_dispose(&buf, 8);
+  _Block_object_dispose(&v33, 8);
+  os_activity_scope_leave(&state);
+
+  return v25 & 1;
 }
 
 void __76__CDPStateController_shouldPerformSilentEscrowRecordRepairUsingCache_error___block_invoke(void *a1, int a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a3;
   Nanoseconds = _CDPSignpostGetNanoseconds(a1[7], a1[8]);
-  v7 = _CDPSignpostLogSystem();
+  v7 = _CDPSignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[7];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     v10 = [*(*(a1[5] + 8) + 40) code];
-    v20 = 67240192;
-    LODWORD(v21) = v10;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v8, OS_SIGNPOST_INTERVAL_END, v9, "ShouldPerformSilentEscrowRecordRepairSync", " Error=%{public,signpost.telemetry:number1,name=Error}d ", &v20, 8u);
+    v21 = 67240192;
+    LODWORD(v22) = v10;
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v8, OS_SIGNPOST_INTERVAL_END, v9, "ShouldPerformSilentEscrowRecordRepairSync", " Error=%{public,signpost.telemetry:number1,name=Error}d ", &v21, 8u);
   }
 
-  v11 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _CDPSignpostLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = Nanoseconds / 1000000000.0;
-    v13 = a1[7];
-    v14 = [*(*(a1[5] + 8) + 40) code];
-    v20 = 134218496;
-    v21 = v13;
-    v22 = 2048;
-    v23 = v12;
-    v24 = 1026;
-    v25 = v14;
-    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: ShouldPerformSilentEscrowRecordRepairSync  Error=%{public,signpost.telemetry:number1,name=Error}d ", &v20, 0x1Cu);
+    v13 = Nanoseconds / 1000000000.0;
+    v14 = a1[7];
+    v15 = [*(*(a1[5] + 8) + 40) code];
+    v21 = 134218496;
+    v22 = v14;
+    v23 = 2048;
+    v24 = v13;
+    v25 = 1026;
+    v26 = v15;
+    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: ShouldPerformSilentEscrowRecordRepairSync  Error=%{public,signpost.telemetry:number1,name=Error}d ", &v21, 0x1Cu);
   }
 
-  v15 = _CDPLogSystem();
-  v16 = v15;
+  v17 = _CDPLogSystem(v16);
+  v18 = v17;
   if (v5)
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       __76__CDPStateController_shouldPerformSilentEscrowRecordRepairUsingCache_error___block_invoke_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 67109120;
-    LODWORD(v21) = a2;
-    _os_log_impl(&dword_1DED99000, v16, OS_LOG_TYPE_DEFAULT, "Escrow record repair is needed: %{BOOL}d", &v20, 8u);
+    v21 = 67109120;
+    LODWORD(v22) = a2;
+    _os_log_impl(&dword_1DED99000, v18, OS_LOG_TYPE_DEFAULT, "Escrow record repair is needed: %{BOOL}d", &v21, 8u);
   }
 
   *(*(a1[6] + 8) + 24) = a2;
-  v17 = *(a1[5] + 8);
-  v18 = *(v17 + 40);
-  *(v17 + 40) = v5;
+  v19 = *(a1[5] + 8);
+  v20 = *(v19 + 40);
+  *(v19 + 40) = v5;
+}
 
-  v19 = *MEMORY[0x1E69E9840];
+- (void)shouldPerformSilentEscrowRecordRepairUsingCache:(BOOL)cache completion:(id)completion
+{
+  cacheCopy = cache;
+  v35 = *MEMORY[0x1E69E9840];
+  completionCopy = completion;
+  v7 = _os_activity_create(&dword_1DED99000, "cdp/should-perform-silent-escrow-record-repair-async", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v7, &state);
+  v9 = _CDPSignpostLogSystem(v8);
+  v10 = _CDPSignpostCreate(v9);
+  v12 = v11;
+
+  v14 = _CDPSignpostLogSystem(v13);
+  v15 = v14;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v10, "ShouldPerformSilentEscrowRecordRepairAsync", " enableTelemetry=YES ", buf, 2u);
+  }
+
+  v17 = _CDPSignpostLogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134217984;
+    v34 = v10;
+    _os_log_impl(&dword_1DED99000, v17, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: ShouldPerformSilentEscrowRecordRepairAsync  enableTelemetry=YES ", buf, 0xCu);
+  }
+
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __81__CDPStateController_shouldPerformSilentEscrowRecordRepairUsingCache_completion___block_invoke;
+  v28[3] = &unk_1E869E268;
+  v28[4] = self;
+  v30 = v10;
+  v31 = v12;
+  v18 = completionCopy;
+  v29 = v18;
+  v19 = MEMORY[0x1E12CA380](v28);
+  daemonConn = [(CDPController *)self daemonConn];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __81__CDPStateController_shouldPerformSilentEscrowRecordRepairUsingCache_completion___block_invoke_75;
+  v26[3] = &unk_1E869D588;
+  v21 = v19;
+  v27 = v21;
+  v22 = [daemonConn daemonWithErrorHandler:v26];
+
+  v24 = _CDPLogSystem(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    LODWORD(v34) = cacheCopy;
+    _os_log_impl(&dword_1DED99000, v24, OS_LOG_TYPE_DEFAULT, "Checking if silent escrow record repair should be performed (usingCache: %{BOOL}d)", buf, 8u);
+  }
+
+  context = [(CDPController *)self context];
+  [v22 shouldPerformSilentEscrowRecordRepairWithContext:context usingCache:cacheCopy completion:v21];
+
+  os_activity_scope_leave(&state);
 }
 
 void __81__CDPStateController_shouldPerformSilentEscrowRecordRepairUsingCache_completion___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a3;
   Nanoseconds = _CDPSignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _CDPSignpostLogSystem();
+  v7 = _CDPSignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v18 = 67240192;
-    LODWORD(v19) = [v5 code];
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v8, OS_SIGNPOST_INTERVAL_END, v9, "ShouldPerformSilentEscrowRecordRepairAsync", " Error=%{public,signpost.telemetry:number1,name=Error}d ", &v18, 8u);
+    v19 = 67240192;
+    LODWORD(v20) = [v5 code];
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v8, OS_SIGNPOST_INTERVAL_END, v9, "ShouldPerformSilentEscrowRecordRepairAsync", " Error=%{public,signpost.telemetry:number1,name=Error}d ", &v19, 8u);
   }
 
-  v10 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _CDPSignpostLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = Nanoseconds / 1000000000.0;
-    v12 = a1[6];
-    v13 = [v5 code];
-    v18 = 134218496;
-    v19 = v12;
-    v20 = 2048;
-    v21 = v11;
-    v22 = 1026;
-    v23 = v13;
-    _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: ShouldPerformSilentEscrowRecordRepairAsync  Error=%{public,signpost.telemetry:number1,name=Error}d ", &v18, 0x1Cu);
+    v12 = Nanoseconds / 1000000000.0;
+    v13 = a1[6];
+    v14 = [v5 code];
+    v19 = 134218496;
+    v20 = v13;
+    v21 = 2048;
+    v22 = v12;
+    v23 = 1026;
+    v24 = v14;
+    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: ShouldPerformSilentEscrowRecordRepairAsync  Error=%{public,signpost.telemetry:number1,name=Error}d ", &v19, 0x1Cu);
   }
 
-  v14 = _CDPLogSystem();
-  v15 = v14;
+  v16 = _CDPLogSystem(v15);
+  v17 = v16;
   if (v5)
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       __76__CDPStateController_shouldPerformSilentEscrowRecordRepairUsingCache_error___block_invoke_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 67109120;
-    LODWORD(v19) = a2;
-    _os_log_impl(&dword_1DED99000, v15, OS_LOG_TYPE_DEFAULT, "Should perform silent escrow record repair: %{BOOL}d", &v18, 8u);
+    v19 = 67109120;
+    LODWORD(v20) = a2;
+    _os_log_impl(&dword_1DED99000, v17, OS_LOG_TYPE_DEFAULT, "Should perform silent escrow record repair: %{BOOL}d", &v19, 8u);
   }
 
-  v16 = a1[5];
-  if (v16)
+  v18 = a1[5];
+  if (v18)
   {
-    (*(v16 + 16))(v16, a2, v5);
+    (*(v18 + 16))(v18, a2, v5);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startSilentEscrowRecordRepairWithCompletion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = _os_activity_create(&dword_1DED99000, "cdp/start-silent-escrow-record-repair", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _CDPSignpostLogSystem();
-  v7 = _CDPSignpostCreate(v6);
-  v9 = v8;
+  v7 = _CDPSignpostLogSystem(v6);
+  v8 = _CDPSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _CDPSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _CDPSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "StartSilentEscrowRecordRepair", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "StartSilentEscrowRecordRepair", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v12 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = _CDPSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v29 = v7;
-    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: StartSilentEscrowRecordRepair  enableTelemetry=YES ", buf, 0xCu);
+    v32 = v8;
+    _os_log_impl(&dword_1DED99000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: StartSilentEscrowRecordRepair  enableTelemetry=YES ", buf, 0xCu);
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __66__CDPStateController_startSilentEscrowRecordRepairWithCompletion___block_invoke;
-  v23[3] = &unk_1E869E268;
-  v23[4] = self;
-  v25 = v7;
-  v26 = v9;
-  v13 = completionCopy;
-  v24 = v13;
-  v14 = MEMORY[0x1E12CA380](v23);
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __66__CDPStateController_startSilentEscrowRecordRepairWithCompletion___block_invoke;
+  v26[3] = &unk_1E869E268;
+  v26[4] = self;
+  v28 = v8;
+  v29 = v10;
+  v16 = completionCopy;
+  v27 = v16;
+  v17 = MEMORY[0x1E12CA380](v26);
   daemonConn = [(CDPController *)self daemonConn];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __66__CDPStateController_startSilentEscrowRecordRepairWithCompletion___block_invoke_76;
-  v21[3] = &unk_1E869D588;
-  v16 = v14;
-  v22 = v16;
-  v17 = [daemonConn daemonWithErrorHandler:v21];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __66__CDPStateController_startSilentEscrowRecordRepairWithCompletion___block_invoke_76;
+  v24[3] = &unk_1E869D588;
+  v19 = v17;
+  v25 = v19;
+  v20 = [daemonConn daemonWithErrorHandler:v24];
 
-  v18 = _CDPLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v22 = _CDPLogSystem(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1DED99000, v18, OS_LOG_TYPE_DEFAULT, "Requesting start of silent escrow record repair...", buf, 2u);
+    _os_log_impl(&dword_1DED99000, v22, OS_LOG_TYPE_DEFAULT, "Requesting start of silent escrow record repair...", buf, 2u);
   }
 
   context = [(CDPController *)self context];
-  [v17 startSilentEscrowRecordRepairWithContext:context completion:v16];
+  [v20 startSilentEscrowRecordRepairWithContext:context completion:v19];
 
   os_activity_scope_leave(&state);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __66__CDPStateController_startSilentEscrowRecordRepairWithCompletion___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a3;
   Nanoseconds = _CDPSignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _CDPSignpostLogSystem();
+  v7 = _CDPSignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v18 = 67240192;
-    LODWORD(v19) = [v5 code];
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v8, OS_SIGNPOST_INTERVAL_END, v9, "StartSilentEscrowRecordRepair", " Error=%{public,signpost.telemetry:number1,name=Error}d ", &v18, 8u);
+    v19 = 67240192;
+    LODWORD(v20) = [v5 code];
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v8, OS_SIGNPOST_INTERVAL_END, v9, "StartSilentEscrowRecordRepair", " Error=%{public,signpost.telemetry:number1,name=Error}d ", &v19, 8u);
   }
 
-  v10 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _CDPSignpostLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = Nanoseconds / 1000000000.0;
-    v12 = a1[6];
-    v13 = [v5 code];
-    v18 = 134218496;
-    v19 = v12;
-    v20 = 2048;
-    v21 = v11;
-    v22 = 1026;
-    v23 = v13;
-    _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: StartSilentEscrowRecordRepair  Error=%{public,signpost.telemetry:number1,name=Error}d ", &v18, 0x1Cu);
+    v12 = Nanoseconds / 1000000000.0;
+    v13 = a1[6];
+    v14 = [v5 code];
+    v19 = 134218496;
+    v20 = v13;
+    v21 = 2048;
+    v22 = v12;
+    v23 = 1026;
+    v24 = v14;
+    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: StartSilentEscrowRecordRepair  Error=%{public,signpost.telemetry:number1,name=Error}d ", &v19, 0x1Cu);
   }
 
-  v14 = _CDPLogSystem();
-  v15 = v14;
+  v16 = _CDPLogSystem(v15);
+  v17 = v16;
   if (a2)
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_1DED99000, v15, OS_LOG_TYPE_DEFAULT, "Successfully started silent escrow record repair", &v18, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_1DED99000, v17, OS_LOG_TYPE_DEFAULT, "Successfully started silent escrow record repair", &v19, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     __66__CDPStateController_startSilentEscrowRecordRepairWithCompletion___block_invoke_cold_1();
   }
 
-  v16 = a1[5];
-  if (v16)
+  v18 = a1[5];
+  if (v18)
   {
-    (*(v16 + 16))(v16, a2, v5);
+    (*(v18 + 16))(v18, a2, v5);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performSilentEscrowRecordRepairWithCompletion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = _os_activity_create(&dword_1DED99000, "cdp/perform-silent-escrow-record-repair", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _CDPSignpostLogSystem();
-  v7 = _CDPSignpostCreate(v6);
-  v9 = v8;
+  v7 = _CDPSignpostLogSystem(v6);
+  v8 = _CDPSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _CDPSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _CDPSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "PerformSilentEscrowRecordRepair", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "PerformSilentEscrowRecordRepair", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v12 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = _CDPSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v29 = v7;
-    _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PerformSilentEscrowRecordRepair  enableTelemetry=YES ", buf, 0xCu);
+    v32 = v8;
+    _os_log_impl(&dword_1DED99000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PerformSilentEscrowRecordRepair  enableTelemetry=YES ", buf, 0xCu);
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __68__CDPStateController_performSilentEscrowRecordRepairWithCompletion___block_invoke;
-  v23[3] = &unk_1E869E268;
-  v23[4] = self;
-  v25 = v7;
-  v26 = v9;
-  v13 = completionCopy;
-  v24 = v13;
-  v14 = MEMORY[0x1E12CA380](v23);
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __68__CDPStateController_performSilentEscrowRecordRepairWithCompletion___block_invoke;
+  v26[3] = &unk_1E869E268;
+  v26[4] = self;
+  v28 = v8;
+  v29 = v10;
+  v16 = completionCopy;
+  v27 = v16;
+  v17 = MEMORY[0x1E12CA380](v26);
   daemonConn = [(CDPController *)self daemonConn];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __68__CDPStateController_performSilentEscrowRecordRepairWithCompletion___block_invoke_77;
-  v21[3] = &unk_1E869D588;
-  v16 = v14;
-  v22 = v16;
-  v17 = [daemonConn daemonWithErrorHandler:v21];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __68__CDPStateController_performSilentEscrowRecordRepairWithCompletion___block_invoke_77;
+  v24[3] = &unk_1E869D588;
+  v19 = v17;
+  v25 = v19;
+  v20 = [daemonConn daemonWithErrorHandler:v24];
 
-  v18 = _CDPLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v22 = _CDPLogSystem(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1DED99000, v18, OS_LOG_TYPE_DEFAULT, "Performing silent escrow record repair...", buf, 2u);
+    _os_log_impl(&dword_1DED99000, v22, OS_LOG_TYPE_DEFAULT, "Performing silent escrow record repair...", buf, 2u);
   }
 
   context = [(CDPController *)self context];
-  [v17 performSilentEscrowRecordRepairWithContext:context completion:v16];
+  [v20 performSilentEscrowRecordRepairWithContext:context completion:v19];
 
   os_activity_scope_leave(&state);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __68__CDPStateController_performSilentEscrowRecordRepairWithCompletion___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a3;
   Nanoseconds = _CDPSignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _CDPSignpostLogSystem();
+  v7 = _CDPSignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v18 = 67240192;
-    LODWORD(v19) = [v5 code];
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v8, OS_SIGNPOST_INTERVAL_END, v9, "PerformSilentEscrowRecordRepair", " Error=%{public,signpost.telemetry:number1,name=Error}d ", &v18, 8u);
+    v19 = 67240192;
+    LODWORD(v20) = [v5 code];
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v8, OS_SIGNPOST_INTERVAL_END, v9, "PerformSilentEscrowRecordRepair", " Error=%{public,signpost.telemetry:number1,name=Error}d ", &v19, 8u);
   }
 
-  v10 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _CDPSignpostLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = Nanoseconds / 1000000000.0;
-    v12 = a1[6];
-    v13 = [v5 code];
-    v18 = 134218496;
-    v19 = v12;
-    v20 = 2048;
-    v21 = v11;
-    v22 = 1026;
-    v23 = v13;
-    _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PerformSilentEscrowRecordRepair  Error=%{public,signpost.telemetry:number1,name=Error}d ", &v18, 0x1Cu);
+    v12 = Nanoseconds / 1000000000.0;
+    v13 = a1[6];
+    v14 = [v5 code];
+    v19 = 134218496;
+    v20 = v13;
+    v21 = 2048;
+    v22 = v12;
+    v23 = 1026;
+    v24 = v14;
+    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PerformSilentEscrowRecordRepair  Error=%{public,signpost.telemetry:number1,name=Error}d ", &v19, 0x1Cu);
   }
 
-  v14 = _CDPLogSystem();
-  v15 = v14;
+  v16 = _CDPLogSystem(v15);
+  v17 = v16;
   if (a2)
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_1DED99000, v15, OS_LOG_TYPE_DEFAULT, "Successfully performed silent escrow record repair", &v18, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_1DED99000, v17, OS_LOG_TYPE_DEFAULT, "Successfully performed silent escrow record repair", &v19, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     __68__CDPStateController_performSilentEscrowRecordRepairWithCompletion___block_invoke_cold_1();
   }
 
-  v16 = a1[5];
-  if (v16)
+  v18 = a1[5];
+  if (v18)
   {
-    (*(v16 + 16))(v16, a2, v5);
+    (*(v18 + 16))(v18, a2, v5);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)updateLastSilentEscrowRecordRepairAttemptDate:(id)date error:(id *)error
@@ -3124,46 +3473,45 @@ void __68__CDPStateController_performSilentEscrowRecordRepairWithCompletion___bl
   v19 = v11;
   v12 = [daemonConn synchronousDaemonWithErrorHandler:v18];
 
-  v13 = _CDPLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = _CDPLogSystem(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v36 = v8;
-    _os_log_impl(&dword_1DED99000, v13, OS_LOG_TYPE_DEFAULT, "Requesting update of silent escrow record repair attempt date to %@...", buf, 0xCu);
+    _os_log_impl(&dword_1DED99000, v14, OS_LOG_TYPE_DEFAULT, "Requesting update of silent escrow record repair attempt date to %@...", buf, 0xCu);
   }
 
   context = [(CDPController *)self context];
   [v12 updateLastSilentEscrowRecordRepairAttemptDate:v8 context:context completion:v11];
 
-  v15 = *(v31 + 24);
+  v16 = *(v31 + 24);
   if (error && (v31[3] & 1) == 0)
   {
     *error = v25[5];
-    v15 = *(v31 + 24);
+    v16 = *(v31 + 24);
   }
 
   _Block_object_dispose(&v24, 8);
   _Block_object_dispose(&v30, 8);
   os_activity_scope_leave(&state);
 
-  v16 = *MEMORY[0x1E69E9840];
-  return v15 & 1;
+  return v16 & 1;
 }
 
 void __74__CDPStateController_updateLastSilentEscrowRecordRepairAttemptDate_error___block_invoke(void *a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _CDPLogSystem();
+  v6 = _CDPLogSystem(v5);
   v7 = v6;
   if (a2)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = a1[5];
-      v12 = 138412290;
-      v13 = v8;
-      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Successfully updated last silent escrow record repair attempt date to %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v8;
+      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Successfully updated last silent escrow record repair attempt date to %@", &v11, 0xCu);
     }
   }
 
@@ -3176,83 +3524,120 @@ void __74__CDPStateController_updateLastSilentEscrowRecordRepairAttemptDate_erro
   v9 = *(a1[7] + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v5;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setKeyChainSyncCompatibilityState:(unint64_t)state withAltDSID:(id)d
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v7 = _os_activity_create(&dword_1DED99000, "cdp/sos-compatibility-state-updated", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  v23.opaque[0] = 0;
-  v23.opaque[1] = 0;
-  os_activity_scope_enter(v7, &v23);
-  v8 = _CDPSignpostLogSystem();
-  v9 = _CDPSignpostCreate(v8);
-  v11 = v10;
+  v27.opaque[0] = 0;
+  v27.opaque[1] = 0;
+  os_activity_scope_enter(v7, &v27);
+  v9 = _CDPSignpostLogSystem(v8);
+  v10 = _CDPSignpostCreate(v9);
+  v12 = v11;
 
-  v12 = _CDPSignpostLogSystem();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v14 = _CDPSignpostLogSystem(v13);
+  v15 = v14;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v9, "SetKeyChainSyncCompatibilityState", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v10, "SetKeyChainSyncCompatibilityState", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v14 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v17 = _CDPSignpostLogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v25 = v9;
-    _os_log_impl(&dword_1DED99000, v14, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SetKeyChainSyncCompatibilityState  enableTelemetry=YES ", buf, 0xCu);
+    v29 = v10;
+    _os_log_impl(&dword_1DED99000, v17, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SetKeyChainSyncCompatibilityState  enableTelemetry=YES ", buf, 0xCu);
   }
 
   daemonConn = [(CDPController *)self daemonConn];
-  v16 = [daemonConn daemonWithErrorHandler:&__block_literal_global_80];
+  v19 = [daemonConn daemonWithErrorHandler:&__block_literal_global_80];
 
-  v17 = _CDPLogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_1DED99000, v17, OS_LOG_TYPE_DEFAULT, "Requesting setKeyChainSyncCompatibilityState", buf, 2u);
-  }
-
-  [v16 setKeyChainSyncCompatibilityState:state withAltDSID:dCopy];
-  Nanoseconds = _CDPSignpostGetNanoseconds(v9, v11);
-  v19 = _CDPSignpostLogSystem();
-  v20 = v19;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
-  {
-    *buf = 67240192;
-    LODWORD(v25) = state;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v20, OS_SIGNPOST_INTERVAL_END, v9, "SetKeyChainSyncCompatibilityState", " sosCompatibilityType=%{public,signpost.telemetry:number1,name=sosCompatibilityType}d ", buf, 8u);
-  }
-
-  v21 = _CDPSignpostLogSystem();
+  v21 = _CDPLogSystem(v20);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 134218496;
-    v25 = v9;
-    v26 = 2048;
-    v27 = Nanoseconds / 1000000000.0;
-    v28 = 1026;
-    stateCopy = state;
-    _os_log_impl(&dword_1DED99000, v21, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SetKeyChainSyncCompatibilityState  sosCompatibilityType=%{public,signpost.telemetry:number1,name=sosCompatibilityType}d ", buf, 0x1Cu);
+    *buf = 0;
+    _os_log_impl(&dword_1DED99000, v21, OS_LOG_TYPE_DEFAULT, "Requesting setKeyChainSyncCompatibilityState", buf, 2u);
   }
 
-  os_activity_scope_leave(&v23);
-  v22 = *MEMORY[0x1E69E9840];
+  [v19 setKeyChainSyncCompatibilityState:state withAltDSID:dCopy];
+  Nanoseconds = _CDPSignpostGetNanoseconds(v10, v12);
+  v23 = _CDPSignpostLogSystem(Nanoseconds);
+  v24 = v23;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+  {
+    *buf = 67240192;
+    LODWORD(v29) = state;
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v24, OS_SIGNPOST_INTERVAL_END, v10, "SetKeyChainSyncCompatibilityState", " sosCompatibilityType=%{public,signpost.telemetry:number1,name=sosCompatibilityType}d ", buf, 8u);
+  }
+
+  v26 = _CDPSignpostLogSystem(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218496;
+    v29 = v10;
+    v30 = 2048;
+    v31 = Nanoseconds / 1000000000.0;
+    v32 = 1026;
+    stateCopy = state;
+    _os_log_impl(&dword_1DED99000, v26, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SetKeyChainSyncCompatibilityState  sosCompatibilityType=%{public,signpost.telemetry:number1,name=sosCompatibilityType}d ", buf, 0x1Cu);
+  }
+
+  os_activity_scope_leave(&v27);
 }
 
 void __68__CDPStateController_setKeyChainSyncCompatibilityState_withAltDSID___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __67__CDPStateController_repairCloudDataProtectionStateWithCompletion___block_invoke_37_cold_1();
   }
+}
+
+- (void)performEscrowRecordCheckWithContext:(id)context isBackground:(BOOL)background completion:(id)completion
+{
+  backgroundCopy = background;
+  contextCopy = context;
+  completionCopy = completion;
+  v24[0] = 0;
+  v24[1] = v24;
+  v24[2] = 0x3032000000;
+  v24[3] = __Block_byref_object_copy__3;
+  v24[4] = __Block_byref_object_dispose__3;
+  selfCopy = self;
+  v25 = selfCopy;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __82__CDPStateController_performEscrowRecordCheckWithContext_isBackground_completion___block_invoke;
+  v21[3] = &unk_1E869E2E0;
+  v23 = v24;
+  v11 = completionCopy;
+  v22 = v11;
+  v12 = MEMORY[0x1E12CA380](v21);
+  daemonConn = [(CDPController *)selfCopy daemonConn];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __82__CDPStateController_performEscrowRecordCheckWithContext_isBackground_completion___block_invoke_82;
+  v19[3] = &unk_1E869D588;
+  v14 = v12;
+  v20 = v14;
+  v15 = [daemonConn daemonWithErrorHandler:v19];
+
+  v17 = _CDPLogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    *v18 = 0;
+    _os_log_impl(&dword_1DED99000, v17, OS_LOG_TYPE_DEFAULT, "Performing escrow check...", v18, 2u);
+  }
+
+  [v15 escrowCheckForContext:contextCopy isBackground:backgroundCopy completion:v14];
+  _Block_object_dispose(v24, 8);
 }
 
 void __82__CDPStateController_performEscrowRecordCheckWithContext_isBackground_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -3271,27 +3656,27 @@ void __82__CDPStateController_performEscrowRecordCheckWithContext_isBackground_c
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __82__CDPStateController_performEscrowRecordCheckWithContext_isBackground_completion___block_invoke_2(uint64_t *a1)
+uint64_t __82__CDPStateController_performEscrowRecordCheckWithContext_isBackground_completion___block_invoke_2(void *a1)
 {
   v2 = *(a1[6] + 8);
   v3 = *(v2 + 40);
   *(v2 + 40) = 0;
 
   v4 = a1[4];
-  v5 = _CDPLogSystem();
-  v6 = v5;
+  v6 = _CDPLogSystem(v5);
+  v7 = v6;
   if (v4)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __82__CDPStateController_performEscrowRecordCheckWithContext_isBackground_completion___block_invoke_2_cold_1(a1 + 4);
+      __82__CDPStateController_performEscrowRecordCheckWithContext_isBackground_completion___block_invoke_2_cold_1();
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "Successfully performed escrow record check", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Successfully performed escrow record check", v9, 2u);
   }
 
   result = a1[5];
@@ -3306,7 +3691,7 @@ uint64_t __82__CDPStateController_performEscrowRecordCheckWithContext_isBackgrou
 void __82__CDPStateController_performEscrowRecordCheckWithContext_isBackground_completion___block_invoke_82(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __82__CDPStateController_performEscrowRecordCheckWithContext_isBackground_completion___block_invoke_82_cold_1();
@@ -3315,285 +3700,49 @@ void __82__CDPStateController_performEscrowRecordCheckWithContext_isBackground_c
   (*(*(a1 + 32) + 16))();
 }
 
-- (void)isManateeAvailable:.cold.1()
+void __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Manatee is not available, error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68__CDPStateController__handleCloudDataProtectionStateWithCompletion___block_invoke_33_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while starting state machine: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __67__CDPStateController_repairCloudDataProtectionStateWithCompletion___block_invoke_37_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while repairing state: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __59__CDPStateController_startCircleApplicationApprovalServer___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while accepting sharing session: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __58__CDPStateController_attemptToEscrowPreRecord_completion___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while attempting to escrow preRecord: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke_2_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v1, v2, "Processing Local Secret Change failed: %@. Attempting one retry.", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke_38_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Retrying Local Secret Change failed: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __65__CDPStateController_localSecretChangedTo_secretType_completion___block_invoke_39_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while updating local secret: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68__CDPStateController_finishCyrusFlowAfterTermsAgreementWithContext___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while finishing Cyrus secure terms flow: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68__CDPStateController_shouldPerformRepairWithOptionForceFetch_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while checking recovery existence: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __73__CDPStateController_shouldPerformRepairWithOptionForceFetch_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to get remote object proxy for CDP daemon: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __81__CDPStateController_shouldPerformAuthenticatedRepairWithOptionForceFetch_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while checking authenticated repair state: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __70__CDPStateController_generateEscrowRecordReportUsingCache_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to generate escrow record report: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Processing Local Secret Change failed: %@. Attempting one retry.", v2, v3, v4, v5);
 }
 
 void __74__CDPStateController_authenticateAndGenerateNewRecoveryKeyWithCompletion___block_invoke_2_cold_1(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E12CA380](*(a1 + 40));
   v3 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 56)];
-  v4 = *(a1 + 32);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_7_0(&dword_1DED99000, v5, v6, "Calling completion %@ with result %@ and error %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7_0(&dword_1DED99000, v4, v5, "Calling completion %@ with result %@ and error %@", v6, v7, v8, v9);
 }
 
-void __74__CDPStateController_authenticateAndGenerateNewRecoveryKeyWithCompletion___block_invoke_45_cold_1()
+- (void)isRecoveryKeyAvailableWithError:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC error while authenticating and then generating a recovery key: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __45__CDPStateController_generateNewRecoveryKey___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while generating a recovery key: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __69__CDPStateController_authenticateAndDeleteRecoveryKeyWithCompletion___block_invoke_47_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC error while authenticating and then deleting a recovery key: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __40__CDPStateController_deleteRecoveryKey___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while deleting a recovery key: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __40__CDPStateController_verifyRecoveryKey___block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while verifying a recovery key: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)isRecoveryKeyAvailableWithError:(uint64_t *)a1 .cold.2(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(v1 + 40);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v3, v4, "Failed to fetch recovery key availability with error %@", v5, v6, v7, v8, v10);
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to fetch recovery key availability with error %@", v2, v3, v4, v5);
 }
 
-void __54__CDPStateController_isRecoveryKeyAvailableWithError___block_invoke_cold_1()
+- (void)isWalrusRecoveryKeyAvailableWithError:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while fetching recovery key state: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __59__CDPStateController_isRecoveryKeyAvailableWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to fetch recovery key availability with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)isWalrusRecoveryKeyAvailableWithError:(uint64_t *)a1 .cold.2(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(v1 + 40);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v3, v4, "Failed to fetch walrus recovery key availability with error %@", v5, v6, v7, v8, v10);
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to fetch walrus recovery key availability with error %@", v2, v3, v4, v5);
 }
 
-void __60__CDPStateController_isWalrusRecoveryKeyAvailableWithError___block_invoke_cold_1()
+void __54__CDPStateController_isDeviceEscrowRecordRecoverable___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while fetching walrus recovery key state: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __65__CDPStateController_isWalrusRecoveryKeyAvailableWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to walrus fetch recovery key availability with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __72__CDPStateController_anyRecoveryKeysAreOctagonDistrustedWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to check if any Recovery Keys are distrusted in Octagon due to error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __72__CDPStateController_anyRecoveryKeysAreOctagonDistrustedWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while checking if any Recovery Keys are distrusted in Octagon: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__CDPStateController_isDeviceEscrowRecordRecoverable___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_1DED99000, v3, OS_LOG_TYPE_ERROR, "%@: Failed to find recoverable escrow record for current device with error (%@)", v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1DED99000, v1, OS_LOG_TYPE_ERROR, "%@: Failed to find recoverable escrow record for current device with error (%@)", v2, 0x16u);
 }
 
-void __76__CDPStateController_shouldPerformSilentEscrowRecordRepairUsingCache_error___block_invoke_cold_1()
+void __82__CDPStateController_performEscrowRecordCheckWithContext_isBackground_completion___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to check if escrow record repair is needed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __66__CDPStateController_startSilentEscrowRecordRepairWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to start silent escrow record repair: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68__CDPStateController_performSilentEscrowRecordRepairWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to perform silent escrow record repair: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __74__CDPStateController_updateLastSilentEscrowRecordRepairAttemptDate_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to update last silent escrow record repair attempt date: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __82__CDPStateController_performEscrowRecordCheckWithContext_isBackground_completion___block_invoke_2_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v1, v2, "Failed to perform escrow record check: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __82__CDPStateController_performEscrowRecordCheckWithContext_isBackground_completion___block_invoke_82_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "XPC Error while checking escrow record viability: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to perform escrow record check: %@", v2, v3, v4, v5);
 }
 
 @end

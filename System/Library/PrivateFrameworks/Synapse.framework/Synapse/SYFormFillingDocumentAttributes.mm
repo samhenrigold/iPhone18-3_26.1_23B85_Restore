@@ -8,8 +8,8 @@
 - (SYFormFillingDocumentAttributes)initWithFormFillingCoachingDisabled:(BOOL)disabled;
 - (id)dictionaryRepresentation;
 - (uint64_t)_formFillingCoachingDisabledValueFromDictionary:(uint64_t)dictionary;
-- (uint64_t)initWithDictionary:(uint64_t)result;
 - (void)_saveToFileURL:(void *)l completion:;
+- (void)initWithDictionary:(void *)result;
 @end
 
 @implementation SYFormFillingDocumentAttributes
@@ -33,10 +33,9 @@
   objc_opt_self();
   v3 = @"SYFormFillingCoachingDisabled";
   v4[0] = &stru_2838DFF18;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
-  return v0;
+  return v1;
 }
 
 + (id)formFillingDocumentAttributesForFileAtURL:(id)l error:(id *)error
@@ -282,17 +281,17 @@ void __89__SYFormFillingDocumentAttributes_removeFormFillingDocumentAttributesFo
 {
   v4 = a2;
   lCopy = l;
-  objc_opt_self();
-  v6 = +[SYFormFillingDocumentAttributes dictionaryRepresentationWithNullValues];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __95__SYFormFillingDocumentAttributes__removeFormFillingDocumentAttributesForFileAtURL_completion___block_invoke;
-  v9[3] = &unk_27856B6E8;
-  v10 = v4;
-  v11 = lCopy;
-  v7 = lCopy;
-  v8 = v4;
-  [SYFileExtendedAttributes setPrivateAttributes:v6 forFileURL:v8 completion:v9];
+  v6 = objc_opt_self();
+  v7 = +[(SYFormFillingDocumentAttributes *)v6];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __95__SYFormFillingDocumentAttributes__removeFormFillingDocumentAttributesForFileAtURL_completion___block_invoke;
+  v10[3] = &unk_27856B6E8;
+  v11 = v4;
+  v12 = lCopy;
+  v8 = lCopy;
+  v9 = v4;
+  [SYFileExtendedAttributes setPrivateAttributes:v7 forFileURL:v9 completion:v10];
 }
 
 void __95__SYFormFillingDocumentAttributes__removeFormFillingDocumentAttributesForFileAtURL_completion___block_invoke(uint64_t a1, void *a2)
@@ -314,7 +313,7 @@ void __95__SYFormFillingDocumentAttributes__removeFormFillingDocumentAttributesF
   }
 }
 
-- (uint64_t)initWithDictionary:(uint64_t)result
+- (void)initWithDictionary:(void *)result
 {
   if (result)
   {
@@ -366,10 +365,10 @@ LABEL_8:
 
 - (id)dictionaryRepresentation
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   if (self)
   {
-    v5 = @"SYFormFillingCoachingDisabled";
+    v4 = @"SYFormFillingCoachingDisabled";
     formFillingCoachingDisabled = [self formFillingCoachingDisabled];
     v2 = @"0";
     if (formFillingCoachingDisabled)
@@ -377,11 +376,9 @@ LABEL_8:
       v2 = @"1";
     }
 
-    v6[0] = v2;
-    self = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+    v5[0] = v2;
+    self = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return self;
 }
@@ -431,7 +428,7 @@ void __88__SYFormFillingDocumentAttributes_formFillingDocumentAttributesForFileA
 
 + (uint64_t)formFillingDocumentAttributesForFileAtURL:(uint64_t)a1 completion:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v5 = [v4 objectForKey:@"SYFormFillingCoachingDisabled"];
 
@@ -441,11 +438,11 @@ void __88__SYFormFillingDocumentAttributes_formFillingDocumentAttributesForFileA
     v7 = os_log_create("com.apple.synapse", "DocumentWorkflows");
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412546;
-      v12 = @"SYFormFillingCoachingDisabled";
-      v13 = 1024;
-      v14 = v6;
-      _os_log_impl(&dword_225901000, v7, OS_LOG_TYPE_DEFAULT, "Found internal setting to override %@ state to %{BOOL}d", &v11, 0x12u);
+      v10 = 138412546;
+      v11 = @"SYFormFillingCoachingDisabled";
+      v12 = 1024;
+      v13 = v6;
+      _os_log_impl(&dword_225901000, v7, OS_LOG_TYPE_DEFAULT, "Found internal setting to override %@ state to %{BOOL}d", &v10, 0x12u);
     }
 
     if (a1)
@@ -461,31 +458,24 @@ void __88__SYFormFillingDocumentAttributes_formFillingDocumentAttributesForFileA
   else
   {
 
-    result = 1;
+    return 1;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __61__SYFormFillingDocumentAttributes__saveToFileURL_completion___block_invoke_2_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) path];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_225901000, v2, v3, "Unable to write form filling document attributes to: %@, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_225901000, v2, v3, "Unable to write form filling document attributes to: %@, error: %@", v4, v5, v6, v7);
 }
 
 void __95__SYFormFillingDocumentAttributes__removeFormFillingDocumentAttributesForFileAtURL_completion___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) path];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_0(&dword_225901000, v2, v3, "Unable to remove form filling document attributes from file: %@, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_225901000, v2, v3, "Unable to remove form filling document attributes from file: %@, error: %@", v4, v5, v6, v7);
 }
 
 @end

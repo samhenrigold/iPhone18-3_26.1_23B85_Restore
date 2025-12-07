@@ -447,28 +447,29 @@ LABEL_7:
 {
   v3 = mach_absolute_time();
   _lastTimePointReceived = [(AXMTHIDBasedLookAtPointTracker *)self _lastTimePointReceived];
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
   v5 = off_1000545B8;
-  v11 = off_1000545B8;
+  v12 = off_1000545B8;
   if (!off_1000545B8)
   {
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_100019E24;
-    v7[3] = &unk_100048BA8;
-    v7[4] = &v8;
-    sub_100019E24(v7);
-    v5 = v9[3];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_100019E24;
+    v8[3] = &unk_100048BA8;
+    v8[4] = &v9;
+    sub_100019E24(v8);
+    v5 = v10[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v9, 8);
   if (!v5)
   {
-    v6 = sub_100029794();
-    _Block_object_dispose(&v8, 8);
-    _Unwind_Resume(v6);
+    sub_100029794();
+    v7 = v6;
+    _Block_object_dispose(&v9, 8);
+    _Unwind_Resume(v7);
   }
 
   if (v5(v3 - _lastTimePointReceived) / 1000000000.0 <= 30.0)

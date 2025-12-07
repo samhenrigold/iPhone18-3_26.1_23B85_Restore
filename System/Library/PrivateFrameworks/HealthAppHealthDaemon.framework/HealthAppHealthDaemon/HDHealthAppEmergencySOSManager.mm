@@ -51,7 +51,7 @@
 
 - (void)submitSatelliteFollowUpItemIfNeeded
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (([(HKCoreTelephonySatelliteClient *)self->_satelliteStatusClient isSatelliteSupportedForEmergencyDemo]& 1) != 0)
   {
     getEmergencyOnboardingStatus = [(HDHealthAppEmergencySOSManager *)self getEmergencyOnboardingStatus];
@@ -60,10 +60,10 @@
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v18 = objc_opt_class();
-      v19 = 2112;
-      v20 = getEmergencyOnboardingStatus;
-      v5 = v18;
+      v16 = objc_opt_class();
+      v17 = 2112;
+      v18 = getEmergencyOnboardingStatus;
+      v5 = v16;
       _os_log_impl(&dword_22939E000, v4, OS_LOG_TYPE_DEFAULT, "[%@][FollowUp] Fetched emergency onboarding status: %@", buf, 0x16u);
     }
 
@@ -77,7 +77,7 @@
         {
           v7 = objc_opt_class();
           *buf = 138412290;
-          v18 = v7;
+          v16 = v7;
           v8 = v7;
           _os_log_impl(&dword_22939E000, v6, OS_LOG_TYPE_DEFAULT, "[%@][FollowUp] We received a status that onboarding was completed with satellite, so we want to clear the follow up item.", buf, 0xCu);
         }
@@ -88,36 +88,33 @@
       else
       {
         followUpController = [(HDHealthAppEmergencySOSManager *)self followUpController];
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __69__HDHealthAppEmergencySOSManager_submitSatelliteFollowUpItemIfNeeded__block_invoke;
-        v15[3] = &unk_2786586A0;
-        v15[4] = self;
-        v16 = getEmergencyOnboardingStatus;
-        [followUpController pendingFollowUpItemsWithCompletion:v15];
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __69__HDHealthAppEmergencySOSManager_submitSatelliteFollowUpItemIfNeeded__block_invoke;
+        v13[3] = &unk_2786586A0;
+        v13[4] = self;
+        v14 = getEmergencyOnboardingStatus;
+        [followUpController pendingFollowUpItemsWithCompletion:v13];
       }
     }
 
     else
     {
       _HKInitializeLogging();
-      v10 = HKLogWellnessDashboard();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v9 = HKLogWellnessDashboard();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = objc_opt_class();
+        v10 = objc_opt_class();
         *buf = 138412290;
-        v18 = v11;
-        v12 = v11;
-        _os_log_impl(&dword_22939E000, v10, OS_LOG_TYPE_DEFAULT, "[%@][FollowUp] We have a nil emergency onboaridng status, so we do nothing here.", buf, 0xCu);
+        v16 = v10;
+        v11 = v10;
+        _os_log_impl(&dword_22939E000, v9, OS_LOG_TYPE_DEFAULT, "[%@][FollowUp] We have a nil emergency onboaridng status, so we do nothing here.", buf, 0xCu);
       }
     }
-
-    v14 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v9 = *MEMORY[0x277D85DE8];
 
     [(HDHealthAppEmergencySOSManager *)self clearPendingFollowUpItems];
   }
@@ -125,55 +122,54 @@
 
 void __69__HDHealthAppEmergencySOSManager_submitSatelliteFollowUpItemIfNeeded__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v6)
   {
     [*(a1 + 32) actionIdentifierForOnboardingStatus:*(a1 + 40)];
-    v28 = v27 = a1;
-    v9 = [*(a1 + 32) makeFollowUpItemWithActionIdentifier:?];
+    v25 = v24 = a1;
+    v8 = [*(a1 + 32) makeFollowUpItemWithActionIdentifier:?];
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v29 = v5;
-    v10 = v5;
-    v11 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
-    if (v11)
+    v26 = v5;
+    v9 = v5;
+    v10 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    if (v10)
     {
-      v12 = v11;
-      v13 = *v31;
-      v14 = *MEMORY[0x277CCE330];
+      v11 = v10;
+      v12 = *v28;
+      v13 = *MEMORY[0x277CCE330];
       while (2)
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v31 != v13)
+          if (*v28 != v12)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v9);
           }
 
-          v16 = *(*(&v30 + 1) + 8 * i);
-          v17 = [v16 uniqueIdentifier];
-          if ([v17 isEqualToString:v14])
+          v15 = *(*(&v27 + 1) + 8 * i);
+          v16 = [v15 uniqueIdentifier];
+          if ([v16 isEqualToString:v13])
           {
-            v18 = [v16 informativeText];
-            v19 = [v9 informativeText];
-            v20 = [v18 isEqualToString:v19];
+            v17 = [v15 informativeText];
+            v18 = [v8 informativeText];
+            v19 = [v17 isEqualToString:v18];
 
-            if (v20)
+            if (v19)
             {
               _HKInitializeLogging();
-              v21 = HKLogWellnessDashboard();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+              v20 = HKLogWellnessDashboard();
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
               {
-                v23 = *(v27 + 32);
-                v24 = objc_opt_class();
+                v22 = objc_opt_class();
                 *buf = 138412290;
-                v36 = v24;
-                v25 = v24;
-                _os_log_impl(&dword_22939E000, v21, OS_LOG_TYPE_DEFAULT, "[%@][FollowUp] Found a pending satellite item that was previously submitted. We do not need to submit the item.", buf, 0xCu);
+                v33 = v22;
+                v23 = v22;
+                _os_log_impl(&dword_22939E000, v20, OS_LOG_TYPE_DEFAULT, "[%@][FollowUp] Found a pending satellite item that was previously submitted. We do not need to submit the item.", buf, 0xCu);
               }
 
               goto LABEL_19;
@@ -185,8 +181,8 @@ void __69__HDHealthAppEmergencySOSManager_submitSatelliteFollowUpItemIfNeeded__b
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
-        if (v12)
+        v11 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        if (v11)
         {
           continue;
         }
@@ -195,11 +191,11 @@ void __69__HDHealthAppEmergencySOSManager_submitSatelliteFollowUpItemIfNeeded__b
       }
     }
 
-    [*(v27 + 32) submitFollowUpItem:v9];
+    [*(v24 + 32) submitFollowUpItem:v8];
 LABEL_19:
     v6 = 0;
-    v5 = v29;
-    v7 = v28;
+    v5 = v26;
+    v7 = v25;
     goto LABEL_20;
   }
 
@@ -207,17 +203,14 @@ LABEL_19:
   v7 = HKLogWellnessDashboard();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
     *buf = 138412546;
-    v36 = objc_opt_class();
-    v37 = 2112;
-    v38 = v6;
-    v9 = v36;
+    v33 = objc_opt_class();
+    v34 = 2112;
+    v35 = v6;
+    v8 = v33;
     _os_log_impl(&dword_22939E000, v7, OS_LOG_TYPE_DEFAULT, "[%@][FollowUp] Error when fetching pending items: %@", buf, 0x16u);
 LABEL_20:
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)actionIdentifierForOnboardingStatus:(id)status
@@ -236,7 +229,7 @@ LABEL_20:
 
 - (id)makeFollowUpItemWithActionIdentifier:(id)identifier
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = objc_alloc_init(MEMORY[0x277CFE508]);
   v6 = v5;
@@ -256,9 +249,9 @@ LABEL_20:
     [v6 setGroupIdentifier:*MEMORY[0x277CFE440]];
     [v6 setCategoryIdentifier:v7];
     [v6 setDisplayStyle:0];
-    v29 = *MEMORY[0x277CFE4C0];
-    v30[0] = MEMORY[0x277CBEC38];
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v28 = *MEMORY[0x277CFE4C0];
+    v29[0] = MEMORY[0x277CBEC38];
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
     [v6 setUserInfo:v11];
 
     v12 = objc_alloc_init(MEMORY[0x277CBEAA8]);
@@ -275,8 +268,8 @@ LABEL_20:
       v18 = [v17 localizedStringForKey:@"STEWIE_FOLLOW_UP_ITEM_BUTTON" value:&stru_283CB5B18 table:@"Localizable"];
       [v16 setLabel:v18];
 
-      v28 = v16;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+      v27 = v16;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
       [v6 setActions:v19];
     }
   }
@@ -285,28 +278,26 @@ LABEL_20:
   v20 = HKLogWellnessDashboard();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 138412546;
-    v25 = objc_opt_class();
-    v26 = 2112;
-    v27 = v6;
-    v21 = v25;
-    _os_log_impl(&dword_22939E000, v20, OS_LOG_TYPE_DEFAULT, "[%@][FollowUp] Created follow-up item: %@", &v24, 0x16u);
+    v23 = 138412546;
+    v24 = objc_opt_class();
+    v25 = 2112;
+    v26 = v6;
+    v21 = v24;
+    _os_log_impl(&dword_22939E000, v20, OS_LOG_TYPE_DEFAULT, "[%@][FollowUp] Created follow-up item: %@", &v23, 0x16u);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)followUpItemDescription
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   medicalIDDataManager = [WeakRetained medicalIDDataManager];
 
-  v15 = 0;
-  v4 = [medicalIDDataManager medicalIDSetupStatusWithError:&v15];
-  v5 = v15;
+  v14 = 0;
+  v4 = [medicalIDDataManager medicalIDSetupStatusWithError:&v14];
+  v5 = v14;
   if (v5)
   {
     _HKInitializeLogging();
@@ -315,9 +306,9 @@ LABEL_20:
     {
       v7 = objc_opt_class();
       *buf = 138412546;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v5;
+      v16 = v7;
+      v17 = 2112;
+      v18 = v5;
       v8 = v7;
       _os_log_impl(&dword_22939E000, v6, OS_LOG_TYPE_DEFAULT, "[%@][FollowUp] Could not fetch user's Medical ID status: %@", buf, 0x16u);
     }
@@ -344,8 +335,6 @@ LABEL_20:
 
   v12 = [v9 localizedStringForKey:v11 value:&stru_283CB5B18 table:@"Localizable"];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
@@ -362,25 +351,22 @@ LABEL_20:
 
 void __53__HDHealthAppEmergencySOSManager_submitFollowUpItem___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v5 = a3;
+  v14 = *MEMORY[0x277D85DE8];
+  v4 = a3;
   _HKInitializeLogging();
-  v6 = *MEMORY[0x277CCC2E0];
+  v5 = *MEMORY[0x277CCC2E0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E0], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v8 = v6;
-    v11 = 138412802;
-    v12 = objc_opt_class();
-    v13 = 1024;
-    v14 = a2;
-    v15 = 2112;
-    v16 = v5;
-    v9 = v12;
-    _os_log_impl(&dword_22939E000, v8, OS_LOG_TYPE_DEFAULT, "[%@][FollowUp] Posted follow-up item with success %d and error %@", &v11, 0x1Cu);
+    v6 = v5;
+    v8 = 138412802;
+    v9 = objc_opt_class();
+    v10 = 1024;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v4;
+    v7 = v9;
+    _os_log_impl(&dword_22939E000, v6, OS_LOG_TYPE_DEFAULT, "[%@][FollowUp] Posted follow-up item with success %d and error %@", &v8, 0x1Cu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearPendingFollowUpItems
@@ -396,25 +382,22 @@ void __53__HDHealthAppEmergencySOSManager_submitFollowUpItem___block_invoke(uint
 
 void __59__HDHealthAppEmergencySOSManager_clearPendingFollowUpItems__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v5 = a3;
+  v14 = *MEMORY[0x277D85DE8];
+  v4 = a3;
   _HKInitializeLogging();
-  v6 = *MEMORY[0x277CCC2E0];
+  v5 = *MEMORY[0x277CCC2E0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E0], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v8 = v6;
-    v11 = 138412802;
-    v12 = objc_opt_class();
-    v13 = 1024;
-    v14 = a2;
-    v15 = 2112;
-    v16 = v5;
-    v9 = v12;
-    _os_log_impl(&dword_22939E000, v8, OS_LOG_TYPE_DEFAULT, "[%@][FollowUp] Cleared follow-up items with success %d and error %@", &v11, 0x1Cu);
+    v6 = v5;
+    v8 = 138412802;
+    v9 = objc_opt_class();
+    v10 = 1024;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v4;
+    v7 = v9;
+    _os_log_impl(&dword_22939E000, v6, OS_LOG_TYPE_DEFAULT, "[%@][FollowUp] Cleared follow-up items with success %d and error %@", &v8, 0x1Cu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getEmergencyOnboardingStatus
@@ -467,16 +450,14 @@ void __59__HDHealthAppEmergencySOSManager_clearPendingFollowUpItems__block_invok
 
 - (void)getEmergencyOnboardingStatus
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v7 = 138412546;
-  v8 = objc_opt_class();
-  v9 = 2112;
-  v10 = a3;
-  v5 = v8;
-  _os_log_error_impl(&dword_22939E000, selfCopy, OS_LOG_TYPE_ERROR, "[%@][FollowUp] Failed to get emergency onboarding status: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = objc_opt_class();
+  v8 = 2112;
+  v9 = a3;
+  v5 = v7;
+  _os_log_error_impl(&dword_22939E000, selfCopy, OS_LOG_TYPE_ERROR, "[%@][FollowUp] Failed to get emergency onboarding status: %@", &v6, 0x16u);
 }
 
 @end

@@ -137,9 +137,9 @@
   configurationCopy = configuration;
   optionsCopy = options;
   delegateCopy = delegate;
-  v108.receiver = self;
-  v108.super_class = _EARSpeechRecognizer;
-  v26 = [(_EARSpeechRecognizer *)&v108 init];
+  v111.receiver = self;
+  v111.super_class = _EARSpeechRecognizer;
+  v26 = [(_EARSpeechRecognizer *)&v111 init];
   if (!v26)
   {
     goto LABEL_37;
@@ -157,20 +157,20 @@
   trainingQueue = v26->_trainingQueue;
   v26->_trainingQueue = v31;
 
-  v106[0] = 0;
-  v106[1] = v106;
-  v106[2] = 0x4812000000;
-  v106[3] = __Block_byref_object_copy__531;
-  v106[4] = __Block_byref_object_dispose__532;
-  v106[5] = &unk_1B5CADD23;
-  memset(v107, 0, sizeof(v107));
-  v105[0] = MEMORY[0x1E69E9820];
-  v105[1] = 3221225472;
-  v105[2] = __227___EARSpeechRecognizer_initWithConfig_overrides_overrideConfigFiles_language_activeConfiguration_modelLoadingOptions_enableSpeakerCodeTraining_supportEmojiRecognition_voiceCommandActiveSet_modelContextDelegate_enableItn_error___block_invoke;
-  v105[3] = &unk_1E7C1A410;
-  v105[4] = v106;
-  v77 = languageCopy;
-  [filesCopy enumerateObjectsUsingBlock:v105];
+  v109[0] = 0;
+  v109[1] = v109;
+  v109[2] = 0x4812000000;
+  v109[3] = __Block_byref_object_copy__531;
+  v109[4] = __Block_byref_object_dispose__532;
+  v109[5] = &unk_1B5CADD23;
+  memset(v110, 0, sizeof(v110));
+  v108[0] = MEMORY[0x1E69E9820];
+  v108[1] = 3221225472;
+  v108[2] = __227___EARSpeechRecognizer_initWithConfig_overrides_overrideConfigFiles_language_activeConfiguration_modelLoadingOptions_enableSpeakerCodeTraining_supportEmojiRecognition_voiceCommandActiveSet_modelContextDelegate_enableItn_error___block_invoke;
+  v108[3] = &unk_1E7C1A410;
+  v108[4] = v109;
+  v82 = languageCopy;
+  [filesCopy enumerateObjectsUsingBlock:v108];
   v33 = [configCopy copy];
   configPath = v26->_configPath;
   v26->_configPath = v33;
@@ -195,21 +195,21 @@
   v26->_sessionId = &stru_1F2D44B60;
 
   v26->_loadLmeForVoiceCommand = 0;
-  v75 = vdupq_n_s64(0x4076800000000000uLL);
-  v102 = v75;
-  v26->_latitude = quasar::Location::getLatitude(&v102);
-  v102 = v75;
-  v26->_longitude = quasar::corrective_reranking::VoiceEditingWFST::Path::getWeight(&v102);
+  v80 = vdupq_n_s64(0x4076800000000000uLL);
+  v105 = v80;
+  v26->_latitude = quasar::Location::getLatitude(&v105);
+  v105 = v80;
+  v26->_longitude = quasar::corrective_reranking::VoiceEditingWFST::Path::getWeight(&v105);
   v26->_enableSpeakerCodeTraining = training;
   v26->_vadGatingLevel = 0;
   v26->_segmentationLatency = 2;
   taskBiasingSymbols = v26->_taskBiasingSymbols;
   v26->_taskBiasingSymbols = &stru_1F2D44B60;
 
-  v102.i64[0] = 0;
-  v102.i64[1] = &v102;
-  v103 = 0x2020000000;
-  v104 = 0;
+  v105.i64[0] = 0;
+  v105.i64[1] = &v105;
+  v106 = 0x2020000000;
+  v107 = 0;
   if (delegateCopy)
   {
     operator new();
@@ -221,28 +221,28 @@
     [currentHandler handleFailureInMethod:a2 object:v26 file:@"EARSpeechRecognizer.mm" lineNumber:4031 description:&stru_1F2D44B60];
   }
 
-  v93[0] = MEMORY[0x1E69E9820];
-  v93[1] = 3221225472;
-  v93[2] = __227___EARSpeechRecognizer_initWithConfig_overrides_overrideConfigFiles_language_activeConfiguration_modelLoadingOptions_enableSpeakerCodeTraining_supportEmojiRecognition_voiceCommandActiveSet_modelContextDelegate_enableItn_error___block_invoke_2;
-  v93[3] = &unk_1E7C1A438;
+  v96[0] = MEMORY[0x1E69E9820];
+  v96[1] = 3221225472;
+  v96[2] = __227___EARSpeechRecognizer_initWithConfig_overrides_overrideConfigFiles_language_activeConfiguration_modelLoadingOptions_enableSpeakerCodeTraining_supportEmojiRecognition_voiceCommandActiveSet_modelContextDelegate_enableItn_error___block_invoke_2;
+  v96[3] = &unk_1E7C1A438;
   v42 = v26;
-  v94 = v42;
+  v97 = v42;
   v43 = configCopy;
-  v101 = 86400;
-  v95 = v43;
-  v99 = v106;
-  v96 = overridesCopy;
-  v100 = &v102;
-  v97 = configurationCopy;
-  v98 = optionsCopy;
-  v44 = MEMORY[0x1B8C868A0](v93);
+  v104 = 86400;
+  v98 = v43;
+  v102 = v109;
+  v99 = overridesCopy;
+  v103 = &v105;
+  v100 = configurationCopy;
+  v101 = optionsCopy;
+  v44 = MEMORY[0x1B8C868A0](v96);
   v45 = v44;
   if (error)
   {
     if ((ConvertCXXExceptionToNSError(v44) & 1) == 0)
     {
       v46 = 0;
-      languageCopy = v77;
+      languageCopy = v82;
       goto LABEL_36;
     }
   }
@@ -252,28 +252,29 @@
     ConvertCXXExceptionToNSException(v44);
   }
 
-  v47 = *(v102.i64[1] + 24);
-  v76 = v47 == 0;
+  v47 = *(v105.i64[1] + 24);
+  v81 = v47 == 0;
   if (!v47)
   {
     v51 = [_EARSpeechModelInfo alloc];
     SysConfig = quasar::SpeechRecognizer::getSysConfig(v42->_recognizer.__ptr_);
-    v53 = [(_EARSpeechModelInfo *)v51 _initWithSpeechModelInfo:quasar::SystemConfig::getMainSpeechModelInfo(SysConfig)];
+    quasar::SystemConfig::getMainSpeechModelInfo(SysConfig);
+    v54 = [(_EARSpeechModelInfo *)v51 _initWithSpeechModelInfo:v53];
     modelInfo = v42->_modelInfo;
-    v42->_modelInfo = v53;
+    v42->_modelInfo = v54;
 
-    quasar::SpeechRecognizer::getTraining(v42->_recognizer.__ptr_, v91);
-    v55 = *v91;
-    v91[0] = 0;
-    v91[1] = 0;
+    quasar::SpeechRecognizer::getTraining(v94, v42->_recognizer.__ptr_);
+    v56 = *v94;
+    v94[0] = 0;
+    v94[1] = 0;
     cntrl = v42->_training.__cntrl_;
-    v42->_training = v55;
+    v42->_training = v56;
     if (cntrl)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](cntrl);
-      if (v91[1])
+      if (v94[1])
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v91[1]);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v94[1]);
       }
 
       if (!v42->_training.__ptr_)
@@ -282,16 +283,16 @@
       }
     }
 
-    else if (!v55.__ptr_)
+    else if (!v56.__ptr_)
     {
       goto LABEL_31;
     }
 
     if (v26->_enableSpeakerCodeTraining)
     {
-      v57 = [[_EARSpeakerCodeInfo alloc] initWithLanguage:v77];
+      v58 = [[_EARSpeakerCodeInfo alloc] initWithLanguage:v82];
       speakerCodeInfo = v42->_speakerCodeInfo;
-      v42->_speakerCodeInfo = v57;
+      v42->_speakerCodeInfo = v58;
 
       trainingSpeakerCode = [(_EARSpeakerCodeInfo *)v42->_speakerCodeInfo trainingSpeakerCode];
       if ([trainingSpeakerCode length])
@@ -300,21 +301,21 @@
         if ([inferenceSpeakerCode length])
         {
           accumulatedGradient = [(_EARSpeakerCodeInfo *)v42->_speakerCodeInfo accumulatedGradient];
-          v71 = [accumulatedGradient length];
+          v76 = [accumulatedGradient length];
 
-          if (v71)
+          if (v76)
           {
             trainingSpeakerCode2 = [(_EARSpeakerCodeInfo *)v42->_speakerCodeInfo trainingSpeakerCode];
             if (trainingSpeakerCode2)
             {
-              [trainingSpeakerCode2 ear_toString];
+              objc_msgSend_ear_toString(trainingSpeakerCode2);
             }
 
             else
             {
-              v91[0] = 0;
-              v91[1] = 0;
-              v92 = 0;
+              v94[0] = 0;
+              v94[1] = 0;
+              v95 = 0;
             }
 
             std::allocate_shared[abi:ne200100]<std::istringstream,std::allocator<std::istringstream>,std::string,0>();
@@ -322,21 +323,21 @@
 
 LABEL_28:
           ptr = v42->_training.__ptr_;
-          v91[0] = 0;
-          v91[1] = 0;
-          v89 = 0;
-          v90 = 0;
-          __p = 0;
-          v88 = 0;
+          v94[0] = 0;
+          v94[1] = 0;
+          v93[0] = 0;
+          v93[1] = 0;
+          __p[0] = 0;
+          __p[1] = 0;
           [(_EARSpeakerCodeInfo *)v42->_speakerCodeInfo nnetVersion];
-          [objc_claimAutoreleasedReturnValue() unsignedIntValue];
+          unsignedIntValue = [objc_claimAutoreleasedReturnValue() unsignedIntValue];
           [(_EARSpeakerCodeInfo *)v42->_speakerCodeInfo numFrames];
-          [objc_claimAutoreleasedReturnValue() unsignedLongValue];
+          unsignedLongValue = [objc_claimAutoreleasedReturnValue() unsignedLongValue];
           [(_EARSpeakerCodeInfo *)v42->_speakerCodeInfo trainingOffset];
-          [objc_claimAutoreleasedReturnValue() unsignedLongValue];
+          unsignedLongValue2 = [objc_claimAutoreleasedReturnValue() unsignedLongValue];
           [(_EARSpeakerCodeInfo *)v42->_speakerCodeInfo recognitionOffset];
-          [objc_claimAutoreleasedReturnValue() unsignedLongValue];
-          quasar::SpeakerCodeTraining::init(ptr);
+          unsignedLongValue3 = [objc_claimAutoreleasedReturnValue() unsignedLongValue];
+          quasar::SpeakerCodeTraining::init(ptr, v94, v93, __p, unsignedIntValue, unsignedLongValue, unsignedLongValue2, unsignedLongValue3);
         }
       }
 
@@ -355,28 +356,28 @@ LABEL_31:
 
     if (itn)
     {
-      v64 = v42->_recognizer.__ptr_;
-      if (v64)
+      v66 = v42->_recognizer.__ptr_;
+      if (v66)
       {
-        v65 = [_EARFormatter supportedByQuasarSystemConfig:quasar::SpeechRecognizer::getSysConfig(v64)];
-        v66 = v26->_formatterQueue;
+        v67 = [_EARFormatter supportedByQuasarSystemConfig:quasar::SpeechRecognizer::getSysConfig(v66)];
+        v68 = v26->_formatterQueue;
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __227___EARSpeechRecognizer_initWithConfig_overrides_overrideConfigFiles_language_activeConfiguration_modelLoadingOptions_enableSpeakerCodeTraining_supportEmojiRecognition_voiceCommandActiveSet_modelContextDelegate_enableItn_error___block_invoke_556;
         block[3] = &unk_1E7C1A460;
-        v85 = v65;
-        v81 = v42;
-        v82 = v43;
-        v83 = filesCopy;
+        v90 = v67;
+        v86 = v42;
+        v87 = v43;
+        v88 = filesCopy;
         recognitionCopy = recognition;
-        v84 = v77;
-        dispatch_async(v66, block);
+        v89 = v82;
+        dispatch_async(v68, block);
       }
     }
 
-    v67 = objc_alloc_init(_EARRelevantTextContext);
+    v69 = objc_alloc_init(_EARRelevantTextContext);
     relevantTextContext = v42->_relevantTextContext;
-    v42->_relevantTextContext = v67;
+    v42->_relevantTextContext = v69;
     goto LABEL_35;
   }
 
@@ -391,25 +392,25 @@ LABEL_31:
   EARSetError(error, v50);
 
 LABEL_35:
-  languageCopy = v77;
-  v46 = v76;
+  languageCopy = v82;
+  v46 = v81;
 LABEL_36:
 
-  _Block_object_dispose(&v102, 8);
-  _Block_object_dispose(v106, 8);
-  v102.i64[0] = v107;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v102);
+  _Block_object_dispose(&v105, 8);
+  _Block_object_dispose(v109, 8);
+  v105.i64[0] = v110;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v105);
   if (!v46)
   {
-    v68 = 0;
+    v70 = 0;
     goto LABEL_39;
   }
 
 LABEL_37:
-  v68 = v26;
+  v70 = v26;
 LABEL_39:
 
-  return v68;
+  return v70;
 }
 
 - (_EARSpeechRecognizer)initWithConfiguration:(id)configuration withLanguage:(id)language withSdapiConfig:(id)config
@@ -525,7 +526,7 @@ LABEL_7:
   OUTLINED_FUNCTION_0_2();
   (*(v0 + 16))();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_6(&dword_1B501D000, v1, v2, "Parser initialization std::bad_alloc: %s", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_6(&dword_1B501D000, v1, v2, "Parser initialization std::bad_alloc: %s", v3, v4, v5, v6);
 }
 
 - (void)setEnableVoiceCommands:(BOOL)commands
@@ -595,7 +596,7 @@ LABEL_7:
   v5 = textCopy;
   if (textCopy)
   {
-    [textCopy ear_toStringOrNothing];
+    objc_msgSend_ear_toStringOrNothing(textCopy);
     if (BYTE8(v19))
     {
       v6 = v5;
@@ -681,7 +682,7 @@ LABEL_7:
   v5 = contextCopy;
   if (contextCopy)
   {
-    [contextCopy ear_toStringOrNothing];
+    objc_msgSend_ear_toStringOrNothing(contextCopy);
     if (BYTE8(v11))
     {
       v6 = v5;
@@ -706,7 +707,7 @@ LABEL_7:
     operator delete(__p[0]);
   }
 
-  [(_EARSpeechRecognizer *)self splitWithTokenizer:v7 isLeftContext:0 shouldTruncate:1 outTokensInVocab:0, __p[0]];
+  objc_msgSend_splitWithTokenizer_isLeftContext_shouldTruncate_outTokensInVocab_(self, __p[0]);
   std::vector<std::string>::__vdeallocate(&self->_rightContextTokens);
   *&self->_rightContextTokens.__begin_ = *__p;
   self->_rightContextTokens.__cap_ = v11;
@@ -1016,84 +1017,84 @@ LABEL_7:
 - (void)updateUserProfileData:(id)data
 {
   dataCopy = data;
-  quasar::LmeDataStreams::LmeDataStreams(&v13);
+  quasar::LmeDataStreams::LmeDataStreams(&v11);
   if (dataCopy)
   {
-    EARHelpers::createNSDataInputStream(dataCopy, v5);
+    EARHelpers::createNSDataInputStream(dataCopy);
   }
 
-  addAotLmeStreams(&v13, self->_userProfiles, self->_muxIdMask);
+  addAotLmeStreams(&v11, self->_userProfiles, self->_muxIdMask);
   jitProfileData = self->_jitProfileData;
   if (jitProfileData)
   {
-    EARHelpers::createNSDataInputStream(jitProfileData, v6);
+    EARHelpers::createNSDataInputStream(jitProfileData);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3321888768;
-  v8[2] = __46___EARSpeechRecognizer_updateUserProfileData___block_invoke;
-  v8[3] = &unk_1F2D040A8;
-  v8[4] = self;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3321888768;
+  v6[2] = __46___EARSpeechRecognizer_updateUserProfileData___block_invoke;
+  v6[3] = &unk_1F2D040A8;
+  v6[4] = self;
+  v7 = 0;
+  v8 = 0;
   v9 = 0;
-  v10 = 0;
-  v11 = 0;
-  std::vector<quasar::LmeDataFactoryBase::LmeType>::__init_with_size[abi:ne200100]<quasar::LmeDataFactoryBase::LmeType*,quasar::LmeDataFactoryBase::LmeType*>(&v9, v13, v14, (v14 - v13) >> 2);
-  std::map<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>::map[abi:ne200100](v12, v15);
-  ConvertCXXExceptionToNSException(v8);
-  std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::destroy(v12, v12[1]);
-  if (v9)
+  std::vector<quasar::LmeDataFactoryBase::LmeType>::__init_with_size[abi:ne200100]<quasar::LmeDataFactoryBase::LmeType*,quasar::LmeDataFactoryBase::LmeType*>(&v7, v11, v12, (v12 - v11) >> 2);
+  std::map<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>::map[abi:ne200100](v10, v13);
+  ConvertCXXExceptionToNSException(v6);
+  std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::destroy(v10, v10[1]);
+  if (v7)
   {
-    v10 = v9;
-    operator delete(v9);
+    v8 = v7;
+    operator delete(v7);
   }
 
-  std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::destroy(v15, v15[1]);
-  if (v13)
+  std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::destroy(v13, v13[1]);
+  if (v11)
   {
-    v14 = v13;
-    operator delete(v13);
+    v12 = v11;
+    operator delete(v11);
   }
 }
 
 - (void)updateJitProfileData:(id)data
 {
   dataCopy = data;
-  quasar::LmeDataStreams::LmeDataStreams(&v13);
+  quasar::LmeDataStreams::LmeDataStreams(&v11);
   userProfileData = self->_userProfileData;
   if (userProfileData)
   {
-    EARHelpers::createNSDataInputStream(userProfileData, v5);
+    EARHelpers::createNSDataInputStream(userProfileData);
   }
 
-  addAotLmeStreams(&v13, self->_userProfiles, self->_muxIdMask);
+  addAotLmeStreams(&v11, self->_userProfiles, self->_muxIdMask);
   if (dataCopy)
   {
-    EARHelpers::createNSDataInputStream(dataCopy, v7);
+    EARHelpers::createNSDataInputStream(dataCopy);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3321888768;
-  v8[2] = __45___EARSpeechRecognizer_updateJitProfileData___block_invoke;
-  v8[3] = &unk_1F2D040A8;
-  v8[4] = self;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3321888768;
+  v6[2] = __45___EARSpeechRecognizer_updateJitProfileData___block_invoke;
+  v6[3] = &unk_1F2D040A8;
+  v6[4] = self;
+  v7 = 0;
+  v8 = 0;
   v9 = 0;
-  v10 = 0;
-  v11 = 0;
-  std::vector<quasar::LmeDataFactoryBase::LmeType>::__init_with_size[abi:ne200100]<quasar::LmeDataFactoryBase::LmeType*,quasar::LmeDataFactoryBase::LmeType*>(&v9, v13, v14, (v14 - v13) >> 2);
-  std::map<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>::map[abi:ne200100](v12, v15);
-  ConvertCXXExceptionToNSException(v8);
-  std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::destroy(v12, v12[1]);
-  if (v9)
+  std::vector<quasar::LmeDataFactoryBase::LmeType>::__init_with_size[abi:ne200100]<quasar::LmeDataFactoryBase::LmeType*,quasar::LmeDataFactoryBase::LmeType*>(&v7, v11, v12, (v12 - v11) >> 2);
+  std::map<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>::map[abi:ne200100](v10, v13);
+  ConvertCXXExceptionToNSException(v6);
+  std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::destroy(v10, v10[1]);
+  if (v7)
   {
-    v10 = v9;
-    operator delete(v9);
+    v8 = v7;
+    operator delete(v7);
   }
 
-  std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::destroy(v15, v15[1]);
-  if (v13)
+  std::__tree<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::__map_value_compare<quasar::LmeDataFactoryBase::LmeType,std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>,std::less<quasar::LmeDataFactoryBase::LmeType>,true>,std::allocator<std::__value_type<quasar::LmeDataFactoryBase::LmeType,std::vector<std::shared_ptr<quasar::LmeContainer>>>>>::destroy(v13, v13[1]);
+  if (v11)
   {
-    v14 = v13;
-    operator delete(v13);
+    v12 = v11;
+    operator delete(v11);
   }
 }
 
@@ -1178,14 +1179,14 @@ LABEL_7:
 
 - (shared_ptr<quasar::RecogAudioBufferBase>)_audioBufferWithLangauge:(id)langauge task:(id)task samplingRate:(unint64_t)rate userProfileData:(id)data resultStream:(shared_ptr<quasar::RecogResultStreamBase>)stream
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   langaugeCopy = langauge;
   task;
   dataCopy = data;
   v11 = [_EARRecognitionMetrics alloc];
   cntrl = self->_recognizer.__cntrl_;
   ptr = self->_recognizer.__ptr_;
-  v21 = cntrl;
+  v19 = cntrl;
   if (cntrl)
   {
     atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
@@ -1195,22 +1196,22 @@ LABEL_7:
   recognitionMetrics = self->_recognitionMetrics;
   self->_recognitionMetrics = v13;
 
-  if (v21)
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
 
-  quasar::LmeDataStreams::LmeDataStreams(&v19);
+  quasar::LmeDataStreams::LmeDataStreams(&v17);
   if (dataCopy)
   {
-    EARHelpers::createNSDataInputStream(dataCopy, v15);
+    EARHelpers::createNSDataInputStream(dataCopy);
   }
 
-  addAotLmeStreams(&v19, self->_userProfiles, self->_muxIdMask);
+  addAotLmeStreams(&v17, self->_userProfiles, self->_muxIdMask);
   jitProfileData = self->_jitProfileData;
   if (jitProfileData)
   {
-    EARHelpers::createNSDataInputStream(jitProfileData, v16);
+    EARHelpers::createNSDataInputStream(jitProfileData);
   }
 
   operator new();
@@ -1228,35 +1229,27 @@ LABEL_7:
       v5 = cntrl;
       if (cntrl && self->_currentResultStreamWrapper.__ptr_)
       {
-        currentLanguage = self->_currentLanguage;
-        currentTask = self->_currentTask;
-        currentSamplingRate = self->_currentSamplingRate;
-        userProfileData = self->_userProfileData;
         ptr = self->_currentResultStreamWrapper.__ptr_;
-        v15 = cntrl;
+        v11 = cntrl;
         atomic_fetch_add_explicit(&cntrl->__shared_owners_, 1uLL, memory_order_relaxed);
-        [(_EARSpeechRecognizer *)self _audioBufferWithLangauge:currentLanguage task:currentTask samplingRate:currentSamplingRate userProfileData:userProfileData resultStream:&ptr];
-        if (v15)
+        objc_msgSend__audioBufferWithLangauge_task_samplingRate_userProfileData_resultStream_(self);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+        v8 = *buf;
+        v9 = v13;
+        if (v13)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+          atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v12 = *buf;
-        v13 = v17;
-        if (v17)
+        [WeakRetained _setUnderlyingBuffer:&v8];
+        if (v9)
         {
-          atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v9);
         }
 
-        [WeakRetained _setUnderlyingBuffer:&v12];
         if (v13)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v13);
-        }
-
-        if (v17)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v17);
         }
 
 LABEL_20:
@@ -1270,11 +1263,11 @@ LABEL_20:
       v5 = 0;
     }
 
-    v11 = EARLogger::QuasarOSLogger(cntrl);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v7 = EARLogger::QuasarOSLogger(cntrl);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B501D000, v11, OS_LOG_TYPE_INFO, "Result stream wrapper has been deallocated; not restarting recognition", buf, 2u);
+      _os_log_impl(&dword_1B501D000, v7, OS_LOG_TYPE_INFO, "Result stream wrapper has been deallocated; not restarting recognition", buf, 2u);
     }
 
     if (v5)
@@ -1285,11 +1278,11 @@ LABEL_20:
 
   else
   {
-    v10 = EARLogger::QuasarOSLogger(0);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v6 = EARLogger::QuasarOSLogger(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B501D000, v10, OS_LOG_TYPE_INFO, "Audio buffer has been deallocated; not restarting recognition", buf, 2u);
+      _os_log_impl(&dword_1B501D000, v6, OS_LOG_TYPE_INFO, "Audio buffer has been deallocated; not restarting recognition", buf, 2u);
     }
   }
 
@@ -1331,7 +1324,7 @@ LABEL_21:
 
 - (id)testFormattingWithOneBestResults:(id)results uttMillis:(id)millis
 {
-  v41 = *MEMORY[0x1E69E9840];
+  *&v41 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   millisCopy = millis;
   v7 = [resultsCopy count];
@@ -1527,7 +1520,7 @@ LABEL_21:
     v8 = configurationCopy;
     std::string::basic_string[abi:ne200100]<0>(buf, [configurationCopy fileSystemRepresentation]);
     std::string::basic_string[abi:ne200100]<0>(&__p, ".mlmodelc");
-    getModelFilesWithSuffix();
+    getModelFilesWithSuffix(buf);
   }
 
   v9 = EARLogger::QuasarOSLogger(v7);
@@ -1555,7 +1548,7 @@ LABEL_21:
   {
     std::string::basic_string[abi:ne200100]<0>(buf, [configurationCopy fileSystemRepresentation]);
     std::string::basic_string[abi:ne200100]<0>(&__p, ".mlmodelc");
-    getModelFilesWithSuffix();
+    getModelFilesWithSuffix(buf);
   }
 
   v7 = EARLogger::QuasarOSLogger(v6);
@@ -1764,7 +1757,7 @@ LABEL_21:
 
 - (id)recognitionUtteranceInfos
 {
-  quasar::SpeechRecognizer::getUttInfos(self->_recognizer.__ptr_, v5);
+  quasar::SpeechRecognizer::getUttInfos(v5, self->_recognizer.__ptr_);
   if (v5[0] == v5[1])
   {
     v2 = 0;
@@ -1819,7 +1812,7 @@ LABEL_21:
   {
     if (supportedCopy)
     {
-      [supportedCopy ear_toString];
+      objc_msgSend_ear_toString(supportedCopy);
     }
 
     else
@@ -1852,7 +1845,7 @@ LABEL_21:
   ptr = self->_recognizer.__ptr_;
   if (taskCopy)
   {
-    [taskCopy ear_toString];
+    objc_msgSend_ear_toString(taskCopy);
     if (deviceCopy)
     {
       goto LABEL_3;
@@ -1867,7 +1860,7 @@ LABEL_21:
     if (deviceCopy)
     {
 LABEL_3:
-      [deviceCopy ear_toString];
+      objc_msgSend_ear_toString(deviceCopy);
       if (contextCopy)
       {
         goto LABEL_4;
@@ -1881,7 +1874,7 @@ LABEL_3:
   if (contextCopy)
   {
 LABEL_4:
-    [contextCopy ear_toString];
+    objc_msgSend_ear_toString(contextCopy);
     if (cpuContextCopy)
     {
       goto LABEL_5;
@@ -1905,11 +1898,11 @@ LABEL_9:
   }
 
 LABEL_5:
-  [cpuContextCopy ear_toString];
+  objc_msgSend_ear_toString(cpuContextCopy);
   if (gpuContextCopy)
   {
 LABEL_6:
-    [gpuContextCopy ear_toString];
+    objc_msgSend_ear_toString(gpuContextCopy);
     goto LABEL_12;
   }
 
@@ -2032,7 +2025,7 @@ LABEL_12:
                     v13 = v12;
                     if (v12)
                     {
-                      [v12 quasarToken];
+                      objc_msgSend_quasarToken(v12);
                     }
 
                     else
@@ -2183,17 +2176,17 @@ LABEL_12:
 
 - (void)resumeRecognitionWithLeftContext:(id)context rightContext:(id)rightContext selectedText:(id)text
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   rightContextCopy = rightContext;
   textCopy = text;
-  if (!contextCopy || ([contextCopy ear_toStringOrNothing], (v39 & 1) == 0))
+  if (!contextCopy || (objc_msgSend_ear_toStringOrNothing(contextCopy), (v38 & 1) == 0))
   {
     [(_EARSpeechRecognizer *)self resumeRecognitionWithLeftContext:&stru_1F2D44B60 rightContext:rightContextCopy selectedText:textCopy];
     goto LABEL_25;
   }
 
-  if (v38 < 0)
+  if (v37 < 0)
   {
     operator delete(__p[0]);
     if (!rightContextCopy)
@@ -2209,13 +2202,13 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  [rightContextCopy ear_toStringOrNothing];
-  if ((v39 & 1) == 0)
+  objc_msgSend_ear_toStringOrNothing(rightContextCopy);
+  if ((v38 & 1) == 0)
   {
     goto LABEL_24;
   }
 
-  if (v38 < 0)
+  if (v37 < 0)
   {
     operator delete(__p[0]);
   }
@@ -2226,78 +2219,77 @@ LABEL_24:
   block[1] = 3221225472;
   block[2] = __83___EARSpeechRecognizer_resumeRecognitionWithLeftContext_rightContext_selectedText___block_invoke;
   block[3] = &unk_1E7C1A610;
-  objc_copyWeak(&v29, &location);
+  objc_copyWeak(&v28, &location);
   dispatch_async(formatterQueue, block);
   array = [MEMORY[0x1E695DF70] array];
-  v26 = array;
-  [(_EARSpeechRecognizer *)self splitWithTokenizer:contextCopy isLeftContext:1 shouldTruncate:1 outTokensInVocab:&v26];
-  v23 = v26;
+  objc_msgSend_splitWithTokenizer_isLeftContext_shouldTruncate_outTokensInVocab_(self);
+  v22 = array;
 
-  [(_EARSpeechRecognizer *)self splitWithTokenizer:rightContextCopy isLeftContext:0 shouldTruncate:1 outTokensInVocab:0];
-  v13 = v23;
-  memset(v24, 0, sizeof(v24));
+  objc_msgSend_splitWithTokenizer_isLeftContext_shouldTruncate_outTokensInVocab_(self);
+  v12 = v22;
+  memset(v23, 0, sizeof(v23));
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v33 objects:__p count:16];
-  if (v15)
+  v13 = v12;
+  v14 = [v13 countByEnumeratingWithState:&v32 objects:__p count:16];
+  if (v14)
   {
-    v16 = *v34;
+    v15 = *v33;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v34 != v16)
+        if (*v33 != v15)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v33 + 1) + 8 * i);
-        v19 = v18;
-        if (v18)
+        v17 = *(*(&v32 + 1) + 8 * i);
+        v18 = v17;
+        if (v17)
         {
-          [v18 ear_toString];
+          objc_msgSend_ear_toString(v17);
         }
 
         else
         {
-          v31 = 0uLL;
-          v32 = 0;
+          v30 = 0uLL;
+          v31 = 0;
         }
 
-        std::vector<std::string>::push_back[abi:ne200100](v24, &v31);
-        if (SHIBYTE(v32) < 0)
+        std::vector<std::string>::push_back[abi:ne200100](v23, &v30);
+        if (SHIBYTE(v31) < 0)
         {
-          operator delete(v31);
+          operator delete(v30);
         }
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v33 objects:__p count:16];
+      v14 = [v13 countByEnumeratingWithState:&v32 objects:__p count:16];
     }
 
-    while (v15);
+    while (v14);
   }
 
   relevantTextContext = self->_relevantTextContext;
-  v21 = EARHelpers::VectorToArray<std::string>(v27);
-  v22 = EARHelpers::VectorToArray<std::string>(v25);
-  [(_EARRelevantTextContext *)relevantTextContext setLeftContext:contextCopy rightContext:rightContextCopy preItnLeftContext:v21 preItnRightContext:v22];
+  v20 = EARHelpers::VectorToArray<std::string>(v26);
+  v21 = EARHelpers::VectorToArray<std::string>(v24);
+  [(_EARRelevantTextContext *)relevantTextContext setLeftContext:contextCopy rightContext:rightContextCopy preItnLeftContext:v20 preItnRightContext:v21];
 
   [(_EARRelevantTextContext *)self->_relevantTextContext setLeftContextEndsWithAppendedAutoPunctuation:0];
   [(_EARRelevantTextContext *)self->_relevantTextContext setFavorCommandSuppression:0];
   [(_EARRelevantTextContext *)self->_relevantTextContext setAbortCommandSuppression:0];
   -[_EARRelevantTextContext setUtteranceStartedWithSelectedText:](self->_relevantTextContext, "setUtteranceStartedWithSelectedText:", [textCopy length] != 0);
-  quasar::SpeechRecognizer::resumeRecognition(self->_recognizer.__ptr_, v24, v27, v25, 0);
+  quasar::SpeechRecognizer::resumeRecognition(self->_recognizer.__ptr_, v23, v26, v24, 0);
+  __p[0] = v23;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__p);
   __p[0] = v24;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__p);
-  __p[0] = v25;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__p);
-  __p[0] = v27;
+  __p[0] = v26;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__p);
 
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(&location);
 LABEL_25:
 }
@@ -2395,7 +2387,7 @@ LABEL_25:
         ptr = self->_recognizer.__ptr_;
         if (v18)
         {
-          [v18 ear_toString];
+          objc_msgSend_ear_toString(v18);
         }
 
         else
@@ -2405,7 +2397,7 @@ LABEL_25:
           v71 = 0;
         }
 
-        quasar::SpeechRecognizer::findWord(ptr, &__p, v52);
+        quasar::SpeechRecognizer::findWord(v52, ptr, &__p);
         if (SHIBYTE(v71) < 0)
         {
           operator delete(__p);
@@ -2484,7 +2476,7 @@ LABEL_27:
     v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v52, "Tokenized text: ", 17);
     if (textCopy)
     {
-      [textCopy ear_toString];
+      objc_msgSend_ear_toString(textCopy);
       v29 = HIBYTE(v71);
       v31 = __p;
       v30 = v70;
@@ -2526,7 +2518,7 @@ LABEL_27:
     v37 = v36;
     if (v36)
     {
-      [v36 ear_toString];
+      objc_msgSend_ear_toString(v36);
       v38 = HIBYTE(v51);
       v40 = v49;
       v39 = v50;
@@ -2642,7 +2634,7 @@ LABEL_27:
           v16 = v15;
           if (v15)
           {
-            [v15 ear_toString];
+            objc_msgSend_ear_toString(v15);
           }
 
           else
@@ -2727,7 +2719,7 @@ LABEL_27:
   OUTLINED_FUNCTION_0_2();
   (*(v0 + 16))();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_3(&dword_1B501D000, v1, v2, "Exception (...): %s", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_3(&dword_1B501D000, v1, v2, "Exception (...): %s", v3, v4, v5, v6);
 }
 
 + (void)compileRecognizerModels2WithConfiguration:(uint64_t *)a3 error:.cold.4(uint64_t *a1, uint64_t a2, uint64_t **a3)
@@ -2736,7 +2728,7 @@ LABEL_27:
   *a3 = a1;
   (*(v3 + 16))();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_3(&dword_1B501D000, v4, v5, "Exception (...): %s", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_3(&dword_1B501D000, v4, v5, "Exception (...): %s", v6, v7, v8, v9);
 }
 
 @end

@@ -1,3 +1,294 @@
+uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_LLW_PARAMS(uint64_t a1, uint64_t a2)
+{
+  return AppleBCMWLANNANInterface::setNAN_LLW_PARAMS((a1 - 112), a2);
+}
+
+{
+  return AppleBCMWLANNANInterface::setNAN_LLW_PARAMS((a1 - 128), a2);
+}
+
+uint64_t AppleBCMWLANNANInterface::getHP2P_PARAMS(IO80211SkywalkInterface *this, char *a2, int a3, unsigned int a4)
+{
+  v6 = a2;
+  v44 = 0;
+  v42 = 0u;
+  v43 = 0u;
+  memset(v40, 170, sizeof(v40));
+  if (a3 == 357)
+  {
+    v10 = 0;
+    v8 = 0;
+    LODWORD(v42) = 6;
+    v9 = 1;
+  }
+
+  else
+  {
+    if (a3 == 356)
+    {
+      v10 = 0;
+      LODWORD(v42) = 7;
+      v9 = 1;
+      v8 = a2;
+    }
+
+    else
+    {
+      if (a3 != 355)
+      {
+        return 3758097090;
+      }
+
+      v8 = 0;
+      v42 = xmmword_10033C2F0;
+      LODWORD(v43) = 8;
+      v9 = 5;
+      v10 = a2;
+    }
+
+    v6 = 0;
+  }
+
+  v11 = IOMallocZeroData();
+  v12 = IOMallocZeroData();
+  v13 = *AppleBCMWLANCore::getBus(*(*(this + 17) + 64));
+  if (((*(v13 + 800))() & 1) == 0)
+  {
+    AppleBCMWLANNANInterface::getHP2P_PARAMS();
+    goto LABEL_62;
+  }
+
+  if (!v11)
+  {
+    AppleBCMWLANNANInterface::getHP2P_PARAMS();
+    goto LABEL_62;
+  }
+
+  if (!v12)
+  {
+    AppleBCMWLANNANInterface::getHP2P_PARAMS();
+    v38 = v41;
+    goto LABEL_50;
+  }
+
+  v14 = 0;
+  *v11 = 0x8000;
+  v15 = v11 + 4;
+  *(v11 + 2) = v9;
+  *(v11 + 3) = 0;
+  v16 = 4;
+  do
+  {
+    *v15 = *(&v42 + v14);
+    *(v15 + 2) = 4;
+    *(v15 + 4) = 1;
+    ++v14;
+    v16 += 8;
+    v15 += 8;
+  }
+
+  while (v14 < *(v11 + 2));
+  if (a3 == 357)
+  {
+    *v15 = 1;
+    *(v15 + 2) = a4;
+    v16 += 4;
+    *(v15 - 6) = 8;
+  }
+
+  if (v16)
+  {
+    v17 = v11;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  v40[2] = v17;
+  v40[3] = v16;
+  v40[0] = v12;
+  v40[1] = 0x40000000400;
+  v18 = *(*(this + 17) + 72);
+  InterfaceId = IO80211SkywalkInterface::getInterfaceId(this);
+  v20 = AppleBCMWLANCommander::runVirtualIOVarGet(v18, InterfaceId, "hp2p", &v40[2], v40, 0);
+  if (v20)
+  {
+    AppleBCMWLANNANInterface::getHP2P_PARAMS(this, v20, &v41);
+LABEL_62:
+    v38 = v41;
+    if (v12)
+    {
+      goto LABEL_48;
+    }
+
+    goto LABEL_49;
+  }
+
+  if (!*(v12 + 2))
+  {
+LABEL_47:
+    v38 = 0;
+    goto LABEL_48;
+  }
+
+  v21 = 0;
+  v22 = &v6[14 * a4];
+  v23 = 4;
+  while (1)
+  {
+    v24 = (v12 + v23);
+    v25 = *v24;
+    if (v25 > 5)
+    {
+      break;
+    }
+
+    if (!*v24)
+    {
+      if (v10)
+      {
+        v10[11] = *(v24 + 2) != 0;
+      }
+
+      goto LABEL_44;
+    }
+
+    if (v25 == 1)
+    {
+      if (v10)
+      {
+        v10[10] = *(v24 + 23);
+        *(v10 + 14) = *(v24 + 7);
+        *(v10 + 21) = v24[12];
+        v33 = *(v10 + 9) & 0xFFFE | v24[9] & 1;
+        *(v10 + 9) = *(v10 + 9) & 0xFFFE | v24[9] & 1;
+        v34 = v33 & 0xFFFFFFFD | (2 * ((v24[9] >> 1) & 1));
+        *(v10 + 9) = v34;
+        v35 = v34 & 0xFFFFFFFB | (4 * ((v24[9] >> 2) & 1));
+        *(v10 + 9) = v35;
+        v36 = *(v24 + 21);
+        v10[20] = v10[20] & 0xF0 | v36 & 0xF;
+        v10[20] = *(v24 + 21) & 0xF0 | v36 & 0xF;
+        LOWORD(v35) = v35 & 0xFF87 | (8 * (v24[10] & 0xF));
+        *(v10 + 9) = v35;
+        *(v10 + 9) = v35 & 0xFF7F | (8 * *(v24 + 20)) & 0x80;
+      }
+
+      goto LABEL_41;
+    }
+
+    if (v25 != 2)
+    {
+      goto LABEL_53;
+    }
+
+    v26 = *(v24 + 2);
+    *(v10 + 4) = v24[6];
+    *(v10 + 1) = v26;
+    v10[10] = *(v24 + 16);
+    *(v10 + 17) = v24[9];
+    v27 = v10[24] & 0xFE | v24[7] & 1;
+    v10[24] = v27;
+    v28 = v27 & 0xFFFFFFFD | (2 * ((*(v24 + 14) >> 1) & 1));
+    v10[24] = v28;
+    v29 = v28 & 0xFFFFFFFB | (4 * ((*(v24 + 14) >> 2) & 1));
+    v10[24] = v29;
+    v10[24] = v29 & 0xF7 | v24[7] & 8;
+    v30 = 16;
+LABEL_45:
+    v37 = v24[1];
+    if (v30 > v37)
+    {
+      AppleBCMWLANNANInterface::getHP2P_PARAMS();
+      v38 = v41;
+      goto LABEL_48;
+    }
+
+    v23 += v37 + 4;
+    if (++v21 >= *(v12 + 2))
+    {
+      goto LABEL_47;
+    }
+  }
+
+  if (*v24 <= 7u)
+  {
+    if (v25 != 6)
+    {
+      if (v25 != 7)
+      {
+        goto LABEL_53;
+      }
+
+      if (v8)
+      {
+        *(v8 + 1) = *(v24 + 2);
+      }
+
+      goto LABEL_44;
+    }
+
+    v31 = *(v24 + 6);
+    v32 = *(v24 + 2);
+    v22[4] = a4;
+    *(v22 + 6) = v32;
+    *(v22 + 14) = v31;
+LABEL_41:
+    v30 = 24;
+    goto LABEL_45;
+  }
+
+  if (v25 == 8)
+  {
+    if (v10)
+    {
+      *(v10 + 7) = *(v24 + 2);
+    }
+
+LABEL_44:
+    v30 = 8;
+    goto LABEL_45;
+  }
+
+  if (v25 == 9)
+  {
+    if (v10)
+    {
+      v10[32] = *(v24 + 8);
+      *(v10 + 18) = v24[8];
+      *(v10 + 38) = *(v24 + 9);
+      v10[42] = *(v24 + 22);
+    }
+
+    v30 = 20;
+    goto LABEL_45;
+  }
+
+LABEL_53:
+  if ((*(*this + 1088))(this))
+  {
+    (*(*this + 1088))(this);
+    if (CCLogStream::shouldLog())
+    {
+      AppleBCMWLANNANInterface::getHP2P_PARAMS();
+    }
+  }
+
+  v38 = 3758096385;
+LABEL_48:
+  IOFreeData();
+LABEL_49:
+  if (v11)
+  {
+LABEL_50:
+    IOFreeData();
+  }
+
+  return v38;
+}
+
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_LLW_PARAMS(uint64_t a1, char *a2)
 {
   return AppleBCMWLANNANInterface::getHP2P_PARAMS((a1 - 112), a2, 355, 0);
@@ -16,11 +307,11 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getHP2P_CAPS(uint64_t a1,
   return AppleBCMWLANNANInterface::getHP2P_PARAMS((a1 - 128), a2, 356, 0);
 }
 
-uint64_t AppleBCMWLANNANInterface::getRLLW_STATS(AppleBCMWLANNANInterface *a1, char *a2)
+uint64_t AppleBCMWLANNANInterface::getRLLW_STATS(IO80211SkywalkInterface *a1, char *a2)
 {
   AppleBCMWLANNANInterface::getHP2P_PARAMS(a1, a2, 357, 0);
 
-  return AppleBCMWLANNANInterface::getHP2P_PARAMS(a1, a2, 357, 1);
+  return AppleBCMWLANNANInterface::getHP2P_PARAMS(a1, a2, 357, 1u);
 }
 
 uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getRLLW_STATS(uint64_t a1, char *a2)
@@ -28,14 +319,14 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getRLLW_STATS(uint64_t a1
   v3 = (a1 - 112);
   AppleBCMWLANNANInterface::getHP2P_PARAMS((a1 - 112), a2, 357, 0);
 
-  return AppleBCMWLANNANInterface::getHP2P_PARAMS(v3, a2, 357, 1);
+  return AppleBCMWLANNANInterface::getHP2P_PARAMS(v3, a2, 357, 1u);
 }
 
 {
   v3 = (a1 - 128);
   AppleBCMWLANNANInterface::getHP2P_PARAMS((a1 - 128), a2, 357, 0);
 
-  return AppleBCMWLANNANInterface::getHP2P_PARAMS(v3, a2, 357, 1);
+  return AppleBCMWLANNANInterface::getHP2P_PARAMS(v3, a2, 357, 1u);
 }
 
 uint64_t AppleBCMWLANNANInterface::setNAN_OOB_AF_TX(AppleBCMWLANNANInterface *a1, uint64_t a2)
@@ -81,7 +372,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_OOB_AF_TX(AppleBCMWLANNANInterface *a1
               (*(*a1 + 1088))(a1);
               if (CCLogStream::shouldLog())
               {
-                AppleBCMWLANNANInterface::setNAN_OOB_AF_TX(a1);
+                AppleBCMWLANNANInterface::setNAN_OOB_AF_TX();
               }
             }
           }
@@ -96,7 +387,7 @@ LABEL_18:
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::setNAN_OOB_AF_TX(a1);
+            AppleBCMWLANNANInterface::setNAN_OOB_AF_TX();
           }
         }
       }
@@ -132,7 +423,7 @@ LABEL_18:
               (*(*a1 + 1088))(a1);
               if (CCLogStream::shouldLog())
               {
-                AppleBCMWLANNANInterface::setNAN_OOB_AF_TX(a1);
+                AppleBCMWLANNANInterface::setNAN_OOB_AF_TX();
               }
             }
           }
@@ -145,7 +436,7 @@ LABEL_18:
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANNANInterface::setNAN_OOB_AF_TX(a1);
+            AppleBCMWLANNANInterface::setNAN_OOB_AF_TX();
           }
         }
       }
@@ -159,7 +450,7 @@ LABEL_18:
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::setNAN_OOB_AF_TX(a1);
+      AppleBCMWLANNANInterface::setNAN_OOB_AF_TX();
     }
   }
 
@@ -175,7 +466,7 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setNAN_OOB_AF_TX(uint64_t
   return AppleBCMWLANNANInterface::setNAN_OOB_AF_TX((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::setAWDL_DFSP_CONFIG(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANNANInterface::setAWDL_DFSP_CONFIG(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   if (IO80211SkywalkInterface::getInterfaceId(a1) == -1)
   {
@@ -184,7 +475,7 @@ uint64_t AppleBCMWLANNANInterface::setAWDL_DFSP_CONFIG(uint64_t *a1, uint64_t a2
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setAWDL_DFSP_CONFIG(a1);
+        AppleBCMWLANNANInterface::setAWDL_DFSP_CONFIG();
       }
     }
 
@@ -196,22 +487,22 @@ uint64_t AppleBCMWLANNANInterface::setAWDL_DFSP_CONFIG(uint64_t *a1, uint64_t a2
     v5 = *(a2 + 4);
     v4 = a2 + 4;
     v6 = *(v4 + 8) | 0xD000;
-    v15 = 1310721;
-    v16 = v5;
-    v17 = *(v4 + 2);
-    v18 = v6;
+    v16 = 1310721;
+    v17 = v5;
+    v18 = *(v4 + 2);
+    v19 = v6;
     v7 = *(v4 + 14);
-    v19 = *(v4 + 10);
-    v20 = v7;
-    v14[0] = a1;
-    v14[1] = AppleBCMWLANNANInterface::handleProxIovarAsyncCallBack;
-    v14[2] = 0;
+    v20 = *(v4 + 10);
+    v21 = v7;
+    *&v14 = a1;
+    *(&v14 + 1) = AppleBCMWLANNANInterface::handleProxIovarAsyncCallBack;
+    v15 = 0;
     *(v4 + 8) = v6;
-    v8 = *(a1[17] + 72);
+    v8 = *(*(a1 + 17) + 72);
     InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
-    v13[0] = &v15;
+    v13[0] = &v16;
     v13[1] = 20;
-    v10 = AppleBCMWLANCommander::sendVirtualIOVarSet(v8, InterfaceId, "awdl_dfsp_cfg", v13, kNoRxExpected, v14, 0);
+    v10 = AppleBCMWLANCommander::sendVirtualIOVarSet(v8, InterfaceId, "awdl_dfsp_cfg", v13, kNoRxExpected, &v14, 0);
     v11 = (*(*a1 + 1088))(a1);
     if (v10)
     {
@@ -220,7 +511,7 @@ uint64_t AppleBCMWLANNANInterface::setAWDL_DFSP_CONFIG(uint64_t *a1, uint64_t a2
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setAWDL_DFSP_CONFIG(a1);
+          AppleBCMWLANNANInterface::setAWDL_DFSP_CONFIG();
         }
       }
     }
@@ -230,7 +521,7 @@ uint64_t AppleBCMWLANNANInterface::setAWDL_DFSP_CONFIG(uint64_t *a1, uint64_t a2
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setAWDL_DFSP_CONFIG(a1);
+        AppleBCMWLANNANInterface::setAWDL_DFSP_CONFIG();
       }
     }
   }
@@ -263,14 +554,14 @@ uint64_t AppleBCMWLANNANInterface::setP2P_COEX_PROTECTION_2G_Only(IO80211Skywalk
   *(v4 + 12) = v6;
   memcpy((v4 + 16), (a2 + 75), v6);
   *(v5 + 6) = v6 + 8;
-  v14[0] = a1;
-  v14[1] = AppleBCMWLANNANInterface::handleSlotBssIovarAsyncCallBack;
-  v14[2] = 0;
+  *&v14 = a1;
+  *(&v14 + 1) = AppleBCMWLANNANInterface::handleSlotBssIovarAsyncCallBack;
+  v15 = 0;
   v7 = *(*(a1 + 17) + 72);
   InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
   v13[0] = v5;
   v13[1] = v6 + ((v6 + 19) & 0x1FC) + 16;
-  v9 = AppleBCMWLANCommander::sendVirtualIOVarSet(v7, InterfaceId, "slot_bss", v13, kNoRxExpected, v14, 0);
+  v9 = AppleBCMWLANCommander::sendVirtualIOVarSet(v7, InterfaceId, "slot_bss", v13, kNoRxExpected, &v14, 0);
   if (v9)
   {
     v10 = v9;
@@ -279,7 +570,7 @@ uint64_t AppleBCMWLANNANInterface::setP2P_COEX_PROTECTION_2G_Only(IO80211Skywalk
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setP2P_COEX_PROTECTION_2G_Only(a1);
+        AppleBCMWLANNANInterface::setP2P_COEX_PROTECTION_2G_Only();
       }
     }
 
@@ -295,7 +586,7 @@ uint64_t AppleBCMWLANNANInterface::setP2P_COEX_PROTECTION_2G_Only(IO80211Skywalk
   return v11;
 }
 
-uint64_t AppleBCMWLANNANInterface::setP2P_COEX_PROTECTION(uint64_t *a1, unsigned __int8 *a2)
+uint64_t AppleBCMWLANNANInterface::setP2P_COEX_PROTECTION(IO80211SkywalkInterface *a1, unsigned __int8 *a2)
 {
   if (IO80211SkywalkInterface::getInterfaceId(a1) == -1)
   {
@@ -304,14 +595,14 @@ uint64_t AppleBCMWLANNANInterface::setP2P_COEX_PROTECTION(uint64_t *a1, unsigned
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setP2P_COEX_PROTECTION(a1);
+        AppleBCMWLANNANInterface::setP2P_COEX_PROTECTION();
       }
     }
 
     return 16;
   }
 
-  if (AppleBCMWLANCore::is4388Up(*(a1[17] + 64)))
+  if (AppleBCMWLANCore::is4388Up(*(*(a1 + 17) + 64)))
   {
     v4 = IOMallocZeroData();
     if (!v4)
@@ -336,14 +627,14 @@ uint64_t AppleBCMWLANNANInterface::setP2P_COEX_PROTECTION(uint64_t *a1, unsigned
     v6 += 8;
     memcpy((v7 + v6), a2 + 75, v8);
     *(v5 + 6) = v6 + v8 + 8;
-    v17[0] = a1;
-    v17[1] = AppleBCMWLANNANInterface::handleSlotBssIovarAsyncCallBack;
-    v17[2] = 0;
-    v10 = *(a1[17] + 72);
+    *&v17 = a1;
+    *(&v17 + 1) = AppleBCMWLANNANInterface::handleSlotBssIovarAsyncCallBack;
+    v18 = 0;
+    v10 = *(*(a1 + 17) + 72);
     InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
     v16[0] = v5;
     v16[1] = (v6 + v8 + ((v6 + v8 + 19) & 0x7FC) + 16);
-    v12 = AppleBCMWLANCommander::sendVirtualIOVarSet(v10, InterfaceId, "slot_bss", v16, kNoRxExpected, v17, 0);
+    v12 = AppleBCMWLANCommander::sendVirtualIOVarSet(v10, InterfaceId, "slot_bss", v16, kNoRxExpected, &v17, 0);
     if (v12)
     {
       v13 = v12;
@@ -352,7 +643,7 @@ uint64_t AppleBCMWLANNANInterface::setP2P_COEX_PROTECTION(uint64_t *a1, unsigned
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setP2P_COEX_PROTECTION(a1);
+          AppleBCMWLANNANInterface::setP2P_COEX_PROTECTION();
         }
       }
 
@@ -380,19 +671,19 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::setP2P_COEX_PROTECTION(ui
   return AppleBCMWLANNANInterface::setP2P_COEX_PROTECTION((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::enableDatapath(AppleBCMWLANNANInterface *this)
+uint64_t AppleBCMWLANNANInterface::enableDatapath(void *this)
 {
   if ((*(*this + 1064))(this))
   {
-    v2 = *(*(this + 17) + 176);
+    v2 = *(this[17] + 176);
     if (v2)
     {
       (*(*v2 + 192))(v2);
-      v3 = *(*(this + 17) + 184);
+      v3 = *(this[17] + 184);
       if (v3)
       {
         (*(*v3 + 200))(v3);
-        v4 = *(this + 17);
+        v4 = this[17];
         if (!*(v4 + 128))
         {
 LABEL_8:
@@ -404,7 +695,7 @@ LABEL_8:
               (*(*this + 1088))(this);
               if (CCLogStream::shouldLog())
               {
-                AppleBCMWLANNANInterface::enableDatapath(this);
+                AppleBCMWLANNANInterface::enableDatapath();
               }
             }
 
@@ -425,31 +716,31 @@ LABEL_8:
 
           (*(*v6 + 256))(v6);
           ++v5;
-          v4 = *(this + 17);
+          v4 = this[17];
           if (v5 >= *(v4 + 128))
           {
             goto LABEL_8;
           }
         }
 
-        AppleBCMWLANNANInterface::enableDatapath(v5, this);
+        AppleBCMWLANNANInterface::enableDatapath();
       }
 
       else
       {
-        AppleBCMWLANNANInterface::enableDatapath(this);
+        AppleBCMWLANNANInterface::enableDatapath();
       }
     }
 
     else
     {
-      AppleBCMWLANNANInterface::enableDatapath(this);
+      AppleBCMWLANNANInterface::enableDatapath();
     }
   }
 
   else
   {
-    AppleBCMWLANNANInterface::enableDatapath(this);
+    AppleBCMWLANNANInterface::enableDatapath();
   }
 
   v7 = 3758097084;
@@ -458,14 +749,14 @@ LABEL_8:
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::enableDatapath(this);
+      AppleBCMWLANNANInterface::enableDatapath();
     }
   }
 
   return v7;
 }
 
-uint64_t AppleBCMWLANNANInterface::enable(AppleBCMWLANNANInterface *this, unsigned int a2)
+uint64_t AppleBCMWLANNANInterface::enable(uint64_t this, unsigned int a2)
 {
   v4 = this & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000;
   if ((*(*this + 1088))(this))
@@ -473,12 +764,12 @@ uint64_t AppleBCMWLANNANInterface::enable(AppleBCMWLANNANInterface *this, unsign
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::enable(this);
+      AppleBCMWLANNANInterface::enable();
     }
   }
 
   IO80211SkywalkInterface::enable(this, a2);
-  if (AppleBCMWLANCore::isPoweredOn(*(*(this + 17) + 64)) && (AppleBCMWLANCore::isWatchdogRunning(*(*(this + 17) + 64)) & 1) == 0)
+  if (AppleBCMWLANCore::isPoweredOn(*(*(this + 136) + 64)) && (AppleBCMWLANCore::isWatchdogRunning(*(*(this + 136) + 64)) & 1) == 0)
   {
     (*(*this + 1232))(this);
   }
@@ -525,18 +816,18 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getTxSubQueue(uint64_t a1
   }
 }
 
-uint64_t AppleBCMWLANNANInterface::disableDatapath(AppleBCMWLANNANInterface *this)
+uint64_t AppleBCMWLANNANInterface::disableDatapath(void *this)
 {
   if ((*(*this + 1088))(this))
   {
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::disableDatapath(this);
+      AppleBCMWLANNANInterface::disableDatapath();
     }
   }
 
-  v2 = *(this + 17);
+  v2 = this[17];
   if (*(v2 + 128))
   {
     v3 = 0;
@@ -550,14 +841,14 @@ uint64_t AppleBCMWLANNANInterface::disableDatapath(AppleBCMWLANNANInterface *thi
 
       (*(*v4 + 272))(v4);
       ++v3;
-      v2 = *(this + 17);
+      v2 = this[17];
       if (v3 >= *(v2 + 128))
       {
         goto LABEL_8;
       }
     }
 
-    AppleBCMWLANNANInterface::disableDatapath(v3, this);
+    AppleBCMWLANNANInterface::disableDatapath();
   }
 
   else
@@ -567,26 +858,26 @@ LABEL_8:
     if (v5)
     {
       (*(*v5 + 72))(v5);
-      v2 = *(this + 17);
+      v2 = this[17];
     }
 
     v6 = *(v2 + 184);
     if (v6)
     {
       (*(*v6 + 208))(v6);
-      v7 = *(*(this + 17) + 176);
+      v7 = *(this[17] + 176);
       if (v7)
       {
         (*(*v7 + 200))(v7);
         return 0;
       }
 
-      AppleBCMWLANNANInterface::disableDatapath(this);
+      AppleBCMWLANNANInterface::disableDatapath();
     }
 
     else
     {
-      AppleBCMWLANNANInterface::disableDatapath(this);
+      AppleBCMWLANNANInterface::disableDatapath();
     }
   }
 
@@ -596,7 +887,7 @@ LABEL_8:
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::disableDatapath(this);
+      AppleBCMWLANNANInterface::disableDatapath();
     }
   }
 
@@ -610,7 +901,7 @@ uint64_t AppleBCMWLANNANInterface::disable(AppleBCMWLANNANInterface *this, unsig
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::disable(this);
+      AppleBCMWLANNANInterface::disable();
     }
   }
 
@@ -619,25 +910,26 @@ uint64_t AppleBCMWLANNANInterface::disable(AppleBCMWLANNANInterface *this, unsig
   return IO80211SkywalkInterface::disable(this, a2);
 }
 
-uint64_t AppleBCMWLANNANInterface::setPromiscuousModeEnable(AppleBCMWLANNANInterface *this, char a2)
+uint64_t AppleBCMWLANNANInterface::setPromiscuousModeEnable(uint64_t this, uint64_t a2)
 {
+  v2 = a2;
   if ((*(*this + 1088))(this))
   {
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::setPromiscuousModeEnable(this, this & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, a2);
+      AppleBCMWLANNANInterface::setPromiscuousModeEnable(this, this & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, v2);
     }
   }
 
   return 0;
 }
 
-uint64_t AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS(uint64_t *a1, int *a2)
+uint64_t AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS(AppleBCMWLANNANInterface *a1, int *a2)
 {
-  *&v56.octet[4] = 0;
-  *v56.octet = 0;
-  if (AppleBCMWLANNANInterface::getNAN_InterfaceAddr(a1, &v56))
+  *&v54.octet[4] = 0;
+  *v54.octet = 0;
+  if (AppleBCMWLANNANInterface::getNAN_InterfaceAddr(a1, &v54))
   {
     v4 = 3758097084;
     if ((*(*a1 + 1088))(a1))
@@ -645,7 +937,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS(uint64_t *a1, int *a2)
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS(a1);
+        AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS();
       }
     }
 
@@ -654,7 +946,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS(uint64_t *a1, int *a2)
 
   if (*a2 | *(a2 + 2))
   {
-    v6 = *a2 != *v56.octet || *(a2 + 2) != *&v56.octet[4];
+    v6 = *a2 != *v54.octet || *(a2 + 2) != *&v54.octet[4];
     if (*(a2 + 7) || *(a2 + 41) || *(a2 + 75) || *(a2 + 109) || *(a2 + 143) || *(a2 + 177) || *(a2 + 211))
     {
       if ((*(*a1 + 1088))(a1))
@@ -662,7 +954,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS(uint64_t *a1, int *a2)
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS(a1);
+          AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS();
         }
       }
 
@@ -748,8 +1040,8 @@ uint64_t AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS(uint64_t *a1, int *a2)
         v20 = v18 + 4;
         if (v6)
         {
-          *v20 = *v56.octet;
-          *(v18 + 8) = *&v56.octet[4];
+          *v20 = *v54.octet;
+          *(v18 + 8) = *&v54.octet[4];
           v20 = v18 + 10;
         }
 
@@ -884,15 +1176,14 @@ uint64_t AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS(uint64_t *a1, int *a2)
           *v44 = 0;
         }
 
-        v55 = -1431655766;
-        IOParseBootArgNumber("wlan.enableNANDebug", &v55, 4);
-        if (v55)
+        v53 = -1431655766;
+        IOParseBootArgNumber("wlan.enableNANDebug", &v53, 4);
+        if (v53)
         {
           v45 = 0;
           v46 = v19;
           do
           {
-            v47 = *(a1[17] + 80);
             IO80211Hexdump();
             v45 += 32;
             v46 += 32;
@@ -909,7 +1200,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS(uint64_t *a1, int *a2)
             (*(*a1 + 1088))(a1);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS(a1);
+              AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS();
             }
           }
         }
@@ -927,48 +1218,47 @@ LABEL_76:
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS(a1);
+          AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS();
         }
       }
 
-      v48 = IOMallocZeroData();
-      if (v48)
+      v47 = IOMallocZeroData();
+      if (v47)
       {
-        v49 = v48;
-        *v48 = 1;
-        v50 = v48 + 4;
+        v48 = v47;
+        *v47 = 1;
+        v49 = v47 + 4;
         if (v6)
         {
-          *v50 = *v56.octet;
-          *(v48 + 8) = *&v56.octet[4];
-          v50 = v48 + 10;
+          *v49 = *v54.octet;
+          *(v47 + 8) = *&v54.octet[4];
+          v49 = v47 + 10;
         }
 
-        v51 = *a2;
-        *(v50 + 4) = *(a2 + 2);
-        *v50 = v51;
-        *(v48 + 16) = 0x1000000091501;
-        *(v48 + 28) = 0;
-        *(v48 + 32) = 0x1000000091508;
-        *(v48 + 44) = 0;
-        *(v48 + 48) = 0x1000000091507;
-        *(v48 + 60) = 0;
-        v55 = -1431655766;
-        IOParseBootArgNumber("wlan.enableNANDebug", &v55, 4);
-        if (v55)
+        v50 = *a2;
+        *(v49 + 4) = *(a2 + 2);
+        *v49 = v50;
+        *(v47 + 16) = 0x1000000091501;
+        *(v47 + 28) = 0;
+        *(v47 + 32) = 0x1000000091508;
+        *(v47 + 44) = 0;
+        *(v47 + 48) = 0x1000000091507;
+        *(v47 + 60) = 0;
+        v53 = -1431655766;
+        IOParseBootArgNumber("wlan.enableNANDebug", &v53, 4);
+        if (v53)
         {
-          v52 = -32;
+          v51 = -32;
           do
           {
-            v53 = *(a1[17] + 80);
-            v52 += 32;
+            v51 += 32;
             IO80211Hexdump();
           }
 
-          while (v52 < 0x50);
+          while (v51 < 0x50);
         }
 
-        v4 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 5413, v49, 0x70u);
+        v4 = AppleBCMWLANNANInterface::issueSetIOVAR(a1, 5413, v48, 112);
         if (v4)
         {
           if ((*(*a1 + 1088))(a1))
@@ -976,7 +1266,7 @@ LABEL_76:
             (*(*a1 + 1088))(a1);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS(a1);
+              AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS();
             }
           }
         }
@@ -994,7 +1284,7 @@ LABEL_76:
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS(a1);
+      AppleBCMWLANNANInterface::setNAN_PAIRING_KEYS();
     }
   }
 
@@ -1045,7 +1335,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_CREATE_GCR_SESSION(IO80211SkywalkInter
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANNANInterface::setNAN_CREATE_GCR_SESSION(a1);
+          AppleBCMWLANNANInterface::setNAN_CREATE_GCR_SESSION();
         }
       }
 
@@ -1067,7 +1357,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_CREATE_GCR_SESSION(IO80211SkywalkInter
               (*(*a1 + 1088))(a1);
               if (CCLogStream::shouldLog())
               {
-                AppleBCMWLANNANInterface::setNAN_CREATE_GCR_SESSION(a1);
+                AppleBCMWLANNANInterface::setNAN_CREATE_GCR_SESSION();
               }
             }
           }
@@ -1101,11 +1391,11 @@ uint64_t AppleBCMWLANNANInterface::setNAN_GCR_Multicast_Bitmap(AppleBCMWLANNANIn
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANNANInterface::setNAN_GCR_Multicast_Bitmap(this);
+      AppleBCMWLANNANInterface::setNAN_GCR_Multicast_Bitmap();
     }
   }
 
-  v6 = AppleBCMWLANNANInterface::issueSetIOVAR(this, 290, v5, 0x28u);
+  v6 = AppleBCMWLANNANInterface::issueSetIOVAR(this, 290, v5, 40);
   if (v6)
   {
     if ((*(*this + 1088))(this))
@@ -1113,7 +1403,7 @@ uint64_t AppleBCMWLANNANInterface::setNAN_GCR_Multicast_Bitmap(AppleBCMWLANNANIn
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANNANInterface::setNAN_GCR_Multicast_Bitmap(this);
+        AppleBCMWLANNANInterface::setNAN_GCR_Multicast_Bitmap();
       }
     }
   }
@@ -1200,20 +1490,9 @@ uint64_t non-virtual thunk toAppleBCMWLANNANInterface::getNAN_GCR_LINK_CONDITION
   return AppleBCMWLANNANInterface::getNAN_GCR_LINK_CONDITION((a1 - 128), a2);
 }
 
-void OUTLINED_FUNCTION_27_1()
-{
-  v2 = v1[10];
-  v3 = *v0;
-  v4 = v1[5];
-  v5 = v1[6];
-  v6 = v1[7];
-  v7 = v1[8];
-  v8 = v1[9];
-}
-
 uint64_t AppleBCMWLANProximityInterface::setChannel(AppleBCMWLANProximityInterface *this, int a2)
 {
-  v10 = a2;
+  v11 = a2;
   *(*(this + 17) + 680) = a2;
   v3 = *(this + 17);
   v4 = v3[8];
@@ -1228,13 +1507,13 @@ uint64_t AppleBCMWLANProximityInterface::setChannel(AppleBCMWLANProximityInterfa
   }
 
   v6 = v3[3];
-  v9[0] = this;
-  v9[1] = v6;
-  v9[2] = 0;
+  *&v9 = this;
+  *(&v9 + 1) = v6;
+  v10 = 0;
   v7 = v3[120];
-  v8[0] = &v10;
+  v8[0] = &v11;
   v8[1] = 4;
-  return AppleBCMWLANCommander::sendIOCtlSet(v7, 30, v8, kNoRxExpected, v9, 0);
+  return AppleBCMWLANCommander::sendIOCtlSet(v7, 30, v8, kNoRxExpected, &v9, 0);
 }
 
 uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setSSID()
@@ -1246,10 +1525,10 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setSSID()
   return 102;
 }
 
-uint64_t AppleBCMWLANProximityInterface::resetInterface(AppleBCMWLANProximityInterface *this)
+uint64_t AppleBCMWLANProximityInterface::resetInterface(void *this)
 {
-  v1 = this + 136;
-  if (!*(*(this + 17) + 924))
+  v1 = this + 17;
+  if (!*(this[17] + 924))
   {
     return 0;
   }
@@ -1259,11 +1538,11 @@ uint64_t AppleBCMWLANProximityInterface::resetInterface(AppleBCMWLANProximityInt
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::resetInterface(this);
+      AppleBCMWLANProximityInterface::resetInterface();
     }
   }
 
-  isPoweredOn = AppleBCMWLANCore::isPoweredOn(*(*(this + 17) + 64));
+  isPoweredOn = AppleBCMWLANCore::isPoweredOn(*(this[17] + 64));
   v4 = *this;
   if (isPoweredOn)
   {
@@ -1278,8 +1557,8 @@ uint64_t AppleBCMWLANProximityInterface::resetInterface(AppleBCMWLANProximityInt
   }
 
   (*(v4 + 1472))(this, v5, 1);
-  AppleBCMWLANCore::addEventBit(*(*(this + 17) + 64));
-  v6 = AppleBCMWLANCore::writeEventBitField(*(*(this + 17) + 64));
+  AppleBCMWLANCore::addEventBit(*(this[17] + 64));
+  v6 = AppleBCMWLANCore::writeEventBitField(*(this[17] + 64));
   if (v6)
   {
     if ((*(*this + 1088))(this))
@@ -1287,7 +1566,7 @@ uint64_t AppleBCMWLANProximityInterface::resetInterface(AppleBCMWLANProximityInt
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::resetInterface(this);
+        AppleBCMWLANProximityInterface::resetInterface();
       }
     }
   }
@@ -1301,39 +1580,38 @@ uint64_t AppleBCMWLANProximityInterface::resetInterface(AppleBCMWLANProximityInt
   return v6;
 }
 
-uint64_t AppleBCMWLANProximityInterface::waitForDriverEvent(uint64_t *a1, unsigned int a2)
+uint64_t AppleBCMWLANProximityInterface::waitForDriverEvent(void *a1, unsigned int a2, uint64_t a3)
 {
   clock_interval_to_deadline();
-  v4 = (*(**(a1[17] + 64) + 104))(*(a1[17] + 64));
-  v5 = (*(*v4 + 80))(v4, a1[17] + 4 * a2 + 84, 0xAAAAAAAAAAAAAAAALL);
-  if (v5)
+  v5 = (*(**(a1[17] + 64) + 104))(*(a1[17] + 64));
+  v6 = (*(*v5 + 80))(v5, a1[17] + 4 * a2 + 84, 0xAAAAAAAAAAAAAAAALL);
+  if (v6)
   {
     if ((*(*a1 + 1088))(a1))
     {
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::waitForDriverEvent(a1);
+        AppleBCMWLANProximityInterface::waitForDriverEvent();
       }
     }
   }
 
-  return v5;
+  return v6;
 }
 
-uint64_t AppleBCMWLANProximityInterface::signalDriverEvent(uint64_t a1, unsigned int a2)
+uint64_t AppleBCMWLANProximityInterface::signalDriverEvent(uint64_t a1)
 {
-  v4 = *(*(*(**(*(a1 + 136) + 64) + 104))(*(*(a1 + 136) + 64)) + 88);
-  v5 = *(a1 + 136) + 4 * a2 + 84;
+  v1 = *(*(*(**(*(a1 + 136) + 64) + 104))(*(*(a1 + 136) + 64)) + 88);
 
-  return v4();
+  return v1();
 }
 
-void AppleBCMWLANProximityInterface::handleEvent(AppleBCMWLANProximityInterface *this, const IO80211BufferCursor *a2)
+void AppleBCMWLANProximityInterface::handleEvent(IO80211SkywalkInterface *this, const IO80211BufferCursor *a2)
 {
-  v93 = -1431655766;
-  v91 = 0;
-  v92 = 0;
+  v91 = -1431655766;
+  v89 = 0;
+  v90 = 0;
   v2 = *a2;
   if (!*a2)
   {
@@ -1360,8 +1638,8 @@ void AppleBCMWLANProximityInterface::handleEvent(AppleBCMWLANProximityInterface 
       return;
     }
 
-    v91 = v2 + 12;
-    v92 = v6;
+    v89 = v2 + 12;
+    v90 = v6;
     v7 = v6;
   }
 
@@ -1380,23 +1658,23 @@ void AppleBCMWLANProximityInterface::handleEvent(AppleBCMWLANProximityInterface 
       {
         case 0:
           v40 = *(this + 17);
-          v93 = *(v40 + 656);
+          v91 = *(v40 + 656);
           *(v40 + 836) = 0;
-          v94[0] = this;
-          v94[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-          v94[2] = 0;
+          *&v92 = this;
+          *(&v92 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+          v93 = 0;
           v41 = *(*(this + 17) + 960);
           InterfaceId = IO80211SkywalkInterface::getInterfaceId(this);
-          v90[0] = &v93;
-          v90[1] = 4;
-          if (AppleBCMWLANCommander::sendVirtualIOVarSet(v41, InterfaceId, "awdl_presencemode", v90, kNoRxExpected, v94, 0))
+          v88[0] = &v91;
+          v88[1] = 4;
+          if (AppleBCMWLANCommander::sendVirtualIOVarSet(v41, InterfaceId, "awdl_presencemode", v88, kNoRxExpected, &v92, 0))
           {
             if ((*(*this + 1088))(this))
             {
               (*(*this + 1088))(this);
               if (CCLogStream::shouldLog())
               {
-                AppleBCMWLANProximityInterface::handleEvent(this);
+                AppleBCMWLANProximityInterface::handleEvent();
               }
             }
           }
@@ -1406,7 +1684,7 @@ void AppleBCMWLANProximityInterface::handleEvent(AppleBCMWLANProximityInterface 
             (*(*this + 1088))(this);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANProximityInterface::handleEvent(this);
+              AppleBCMWLANProximityInterface::handleEvent();
             }
           }
 
@@ -1443,12 +1721,12 @@ void AppleBCMWLANProximityInterface::handleEvent(AppleBCMWLANProximityInterface 
         {
           if (v6 <= 4)
           {
-            AppleBCMWLANProximityInterface::handleEvent(this);
+            AppleBCMWLANProximityInterface::handleEvent();
           }
 
           else if (v4 && v7)
           {
-            v26 = IO80211BufferCursor::asType<wl_event_data_if>(&v91, 0, 5);
+            v26 = IO80211BufferCursor::asType<wl_event_data_if>(&v89, 0, 5);
             v28 = (v26 + (v27 >> 32));
             if (__CFADD__(v26, v27 >> 32))
             {
@@ -1475,17 +1753,17 @@ void AppleBCMWLANProximityInterface::handleEvent(AppleBCMWLANProximityInterface 
                 (*(*this + 1088))(this);
                 if (CCLogStream::shouldLog())
                 {
-                  v70 = (*(*this + 1088))(this);
+                  v69 = (*(*this + 1088))(this);
                   if (v31 < 0 || v32 + 5 > v31)
                   {
-                    AppleBCMWLANProximityInterface::handleEvent(v70, v71);
+                    AppleBCMWLANProximityInterface::handleEvent(v69, v70);
                   }
 
-                  v72 = v70;
-                  v73 = *v28;
-                  v74 = v28[3];
+                  v71 = v69;
+                  v72 = *v28;
+                  v73 = v28[3];
                   FirmwareInterfaceVersion = AppleBCMWLANCore::getFirmwareInterfaceVersion(*(*(this + 17) + 64));
-                  CCLogStream::logAlert(v72, "[dk] %s@%d: AWDL interface index is: %u (bsscfg=%u), fwVer %d opcode %d\n", "handleEvent", 446, v73, v74, FirmwareInterfaceVersion, v28[1]);
+                  CCLogStream::logAlert(v71, "[dk] %s@%d: AWDL interface index is: %u (bsscfg=%u), fwVer %d opcode %d\n", "handleEvent", 446, v72, v73, FirmwareInterfaceVersion, v28[1]);
                 }
               }
 
@@ -1524,7 +1802,7 @@ void AppleBCMWLANProximityInterface::handleEvent(AppleBCMWLANProximityInterface 
           (*(*this + 1088))(this);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::handleEvent(this);
+            AppleBCMWLANProximityInterface::handleEvent();
           }
         }
 
@@ -1570,7 +1848,7 @@ LABEL_25:
 
     if (v6 <= 0x1B)
     {
-      AppleBCMWLANProximityInterface::handleEvent(this);
+      AppleBCMWLANProximityInterface::handleEvent();
       return;
     }
 
@@ -1620,23 +1898,23 @@ LABEL_177:
       *(*(this + 17) + 916) = *(v13 + 18);
       if (*(v13 + 14))
       {
-        AppleBCMWLANProximityInterface::handleAvailabilityWindowEnd(this, &v91);
+        AppleBCMWLANProximityInterface::handleAvailabilityWindowEnd(this, &v89);
       }
 
       else if (v14)
       {
-        AppleBCMWLANProximityInterface::handleAvailabilityWindowExtension(this, &v91);
+        AppleBCMWLANProximityInterface::handleAvailabilityWindowExtension(this, &v89);
       }
 
       else
       {
-        AppleBCMWLANProximityInterface::handleAvailabilityWindowStart(this, &v91);
+        AppleBCMWLANProximityInterface::handleAvailabilityWindowStart(this, &v89);
       }
 
       return;
     }
 
-    v15 = IO80211BufferCursor::asType<ether_addr>(&v91, 4, 6);
+    v15 = IO80211BufferCursor::asType<ether_addr>(&v89, 4, 6);
     if (v7 < 0x1C)
     {
       return;
@@ -1670,13 +1948,13 @@ LABEL_177:
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        v76 = (*(*this + 1088))(this);
+        v75 = (*(*this + 1088))(this);
         if ((v17 & 0x8000000000000000) != 0 || HIDWORD(v17) + 6 > v17)
         {
-          AppleBCMWLANProximityInterface::handleEvent(v76, v77);
+          AppleBCMWLANProximityInterface::handleEvent(v75, v76);
         }
 
-        CCLogStream::logNotice(v76, "[dk] %s@%d:AW Event: master(%02x:%02x:%02x:%02x:%02x:%02x), fw_time(%lu), aw_counter(%d), ext_count(%d), role(%d), flags(%02x) rssi %d rxBcnCount %u\n", "handleEvent", 732, *v18, v18[1], v18[2], v18[3], v18[4], v18[5], *v13, *(v13 + 5), *(v13 + 12), *(v13 + 13), *(v13 + 14), *(v13 + 17), *(v13 + 18) - *(*(this + 17) + 916));
+        CCLogStream::logNotice(v75, "[dk] %s@%d:AW Event: master(%02x:%02x:%02x:%02x:%02x:%02x), fw_time(%lu), aw_counter(%d), ext_count(%d), role(%d), flags(%02x) rssi %d rxBcnCount %u\n", "handleEvent", 732, *v18, v18[1], v18[2], v18[3], v18[4], v18[5], *v13, *(v13 + 5), *(v13 + 12), *(v13 + 13), *(v13 + 14), *(v13 + 17), *(v13 + 18) - *(*(this + 17) + 916));
       }
     }
 
@@ -1707,23 +1985,21 @@ LABEL_177:
       }
     }
 
-    v94[0] = 0xAAAAAAAAAAAAAAAALL;
+    *&v92 = 0xAAAAAAAAAAAAAAAALL;
     mach_continuous_time();
     absolutetime_to_nanoseconds();
     v48 = *(this + 17);
-    v49 = v94[0] - *(v48 + 840);
+    v49 = v92 - *(v48 + 840);
     if (*(v48 + 712) >= 3u)
     {
       v50 = *v13;
-      v51 = *(v48 + 860);
       if ((*(*this + 1088))(this))
       {
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          v52 = (*(*this + 1088))(this);
-          v89 = *(*(this + 17) + 748);
-          CCLogStream::logNotice(v52, "[dk] %s@%d:%s %3u/%3u (%5lu [%5lu]) %llu.%03llu [%llu.%03llu] act %lu\n", "handleEvent", 768, v21, *(v13 + 12), *(v13 + 5), (v50 / 32.7));
+          v51 = (*(*this + 1088))(this);
+          CCLogStream::logNotice(v51, "[dk] %s@%d:%s %3u/%3u (%5lu [%5lu]) %llu.%03llu [%llu.%03llu] act %lu\n", "handleEvent", 768, v21, *(v13 + 12), *(v13 + 5), (v50 / 32.7));
         }
       }
 
@@ -1737,17 +2013,17 @@ LABEL_177:
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          v53 = (*(*this + 1088))(this);
-          v54 = v94[0] % 0x3B9ACA00uLL / 0xF4240;
-          v55 = v49 / 0x3B9ACA00;
-          v85 = (1125899907 * (v49 % 0x3B9ACA00)) >> 50;
-          v86 = *(*(this + 17) + 748);
-          v83 = *(v13 + 5);
-          v84 = v94[0] / 0x3B9ACA00uLL;
-          v81 = v21;
-          v82 = *(v13 + 12);
-          v80 = 773;
-          v56 = "[dk] %s@%d:%s %3u/%3u %llu.%03llu [%llu.%03llu] act %lu\n";
+          v52 = (*(*this + 1088))(this);
+          v53 = v92 % 0x3B9ACA00 / 0xF4240;
+          v54 = v49 / 0x3B9ACA00;
+          v84 = (1125899907 * (v49 % 0x3B9ACA00)) >> 50;
+          v85 = *(*(this + 17) + 748);
+          v82 = *(v13 + 5);
+          v83 = v92 / 0x3B9ACA00;
+          v80 = v21;
+          v81 = *(v13 + 12);
+          v79 = 773;
+          v55 = "[dk] %s@%d:%s %3u/%3u %llu.%03llu [%llu.%03llu] act %lu\n";
           goto LABEL_243;
         }
       }
@@ -1760,32 +2036,32 @@ LABEL_177:
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          v53 = (*(*this + 1088))(this);
-          v54 = v94[0] % 0x3B9ACA00uLL / 0xF4240;
-          v55 = v49 / 0x3B9ACA00;
-          v85 = v49 % 0x3B9ACA00 / 0xF4240;
-          v81 = v21;
-          v82 = *(v13 + 12);
-          v80 = 777;
-          v83 = *(v13 + 5);
-          v84 = v94[0] / 0x3B9ACA00uLL;
-          v56 = "[dk] %s@%d:%s %3u/%3u %llu.%03llu [%llu.%03llu]\n";
+          v52 = (*(*this + 1088))(this);
+          v53 = v92 % 0x3B9ACA00 / 0xF4240;
+          v54 = v49 / 0x3B9ACA00;
+          v84 = v49 % 0x3B9ACA00 / 0xF4240;
+          v80 = v21;
+          v81 = *(v13 + 12);
+          v79 = 777;
+          v82 = *(v13 + 5);
+          v83 = v92 / 0x3B9ACA00;
+          v55 = "[dk] %s@%d:%s %3u/%3u %llu.%03llu [%llu.%03llu]\n";
 LABEL_243:
-          CCLogStream::logNotice(v53, v56, "handleEvent", v80, v81, v82, v83, v84, v54, v55, v85, v86, v87, v88);
+          CCLogStream::logNotice(v52, v55, "handleEvent", v79, v80, v81, v82, v83, v53, v54, v84, v85, v86, v87);
         }
       }
     }
 
 LABEL_174:
-    v57 = v94[0];
-    *(*(this + 17) + 880) = v94[0];
-    v58 = *v13;
+    v56 = v92;
+    *(*(this + 17) + 880) = v92;
+    v57 = *v13;
     *(*(this + 17) + 888) = *v13;
     v14 = *(v13 + 12);
     if (!*(v13 + 12) && (*(v13 + 14) & 1) == 0)
     {
-      *(*(this + 17) + 860) = v58;
-      *(*(this + 17) + 840) = v57;
+      *(*(this + 17) + 860) = v57;
+      *(*(this + 17) + 840) = v56;
     }
 
     goto LABEL_177;
@@ -1815,7 +2091,7 @@ LABEL_174:
       {
         if (v24 == 1)
         {
-          LODWORD(v94[0]) = 0;
+          LODWORD(v92) = 0;
           goto LABEL_124;
         }
 
@@ -1823,18 +2099,18 @@ LABEL_174:
         {
           v25 = 1;
 LABEL_123:
-          LODWORD(v94[0]) = v25;
+          LODWORD(v92) = v25;
           goto LABEL_124;
         }
       }
 
-      LODWORD(v94[0]) = 4;
+      LODWORD(v92) = 4;
       if ((*(*this + 1088))(this))
       {
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::handleEvent(this);
+          AppleBCMWLANProximityInterface::handleEvent();
         }
       }
 
@@ -1844,21 +2120,21 @@ LABEL_124:
       {
         if (!v46)
         {
-          HIDWORD(v94[0]) = 0;
+          DWORD1(v92) = 0;
           goto LABEL_133;
         }
 
         if (v46 == 1 || v46 == 2)
         {
 LABEL_132:
-          HIDWORD(v94[0]) = v2[3];
+          DWORD1(v92) = v2[3];
 LABEL_133:
           v43 = *(*(this + 17) + 64);
           v44 = this;
           v45 = 135;
           v47 = 8;
 LABEL_134:
-          IO80211Controller::postMessage(v43, v44, v45, v94, v47, 1);
+          IO80211Controller::postMessage(v43, v44, v45, &v92, v47, 1);
           return;
         }
       }
@@ -1868,13 +2144,13 @@ LABEL_134:
         goto LABEL_132;
       }
 
-      HIDWORD(v94[0]) = 7;
+      DWORD1(v92) = 7;
       if ((*(*this + 1088))(this))
       {
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::handleEvent(this);
+          AppleBCMWLANProximityInterface::handleEvent();
         }
       }
 
@@ -1893,7 +2169,7 @@ LABEL_141:
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::handleEvent(this);
+        AppleBCMWLANProximityInterface::handleEvent();
       }
     }
 
@@ -1913,7 +2189,7 @@ LABEL_141:
     goto LABEL_141;
   }
 
-  v38 = this + 136;
+  v38 = (this + 136);
   v37 = *(this + 17);
   if (!*(v37 + 664))
   {
@@ -1940,13 +2216,13 @@ LABEL_141:
         return;
       }
 
-      LODWORD(v94[0]) = 0x10000;
+      LODWORD(v92) = 0x10000;
       if ((*(*this + 1088))(this))
       {
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::handleEvent(this);
+          AppleBCMWLANProximityInterface::handleEvent();
         }
       }
     }
@@ -1960,13 +2236,13 @@ LABEL_141:
           return;
         }
 
-        LODWORD(v94[0]) = 0x10000;
+        LODWORD(v92) = 0x10000;
         if ((*(*this + 1088))(this))
         {
           (*(*this + 1088))(this);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::handleEvent(this);
+            AppleBCMWLANProximityInterface::handleEvent();
           }
         }
 
@@ -1976,13 +2252,13 @@ LABEL_141:
         goto LABEL_186;
       }
 
-      LODWORD(v94[0]) = 0x1000000;
+      LODWORD(v92) = 0x1000000;
       if ((*(*this + 1088))(this))
       {
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::handleEvent(this);
+          AppleBCMWLANProximityInterface::handleEvent();
         }
       }
     }
@@ -2011,9 +2287,9 @@ LABEL_186:
 
     if (!v2[3])
     {
-      v69 = *(v37 + 64);
+      v68 = *(v37 + 64);
 
-      IO80211Controller::postMessage(v69, this, 0x40u, 0, 0, 1);
+      IO80211Controller::postMessage(v68, this, 0x40u, 0, 0, 1);
       return;
     }
 
@@ -2024,7 +2300,7 @@ LABEL_186:
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::handleEvent(this);
+          AppleBCMWLANProximityInterface::handleEvent();
         }
       }
 
@@ -2036,7 +2312,7 @@ LABEL_186:
       return;
     }
 
-    LOWORD(v94[0]) = *v4;
+    LOWORD(v92) = *v4;
     v43 = *(v37 + 64);
     v44 = this;
     v45 = 64;
@@ -2060,26 +2336,26 @@ LABEL_186:
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::handleEvent(this);
+        AppleBCMWLANProximityInterface::handleEvent();
       }
     }
 
-    v68 = *v38;
+    v67 = *v38;
     if (*(*v38 + 81) == 1)
     {
-      LOWORD(v94[0]) = 256;
-      IO80211Controller::postMessage(*(v68 + 64), this, 0x7Eu, v94, 2uLL, 1);
+      LOWORD(v92) = 256;
+      IO80211Controller::postMessage(*(v67 + 64), this, 0x7Eu, &v92, 2uLL, 1);
       *(*(this + 17) + 81) = 0;
       return;
     }
 
-    if (*(v68 + 82) != 1)
+    if (*(v67 + 82) != 1)
     {
       return;
     }
 
-    *(v68 + 82) = 0;
-    LOWORD(v94[0]) = 256;
+    *(v67 + 82) = 0;
+    LOWORD(v92) = 256;
     v43 = *(*(this + 17) + 64);
     v44 = this;
     v45 = 126;
@@ -2090,58 +2366,58 @@ LABEL_222:
 
   if (v6 >= 4)
   {
-    v59 = IO80211BufferCursor::asType<bcmv3_awdl_scan_event_data_min>(&v91, 0, 4);
-    v61 = (v59 + (v60 >> 32));
-    if (__CFADD__(v59, v60 >> 32))
+    v58 = IO80211BufferCursor::asType<bcmv3_awdl_scan_event_data_min>(&v89, 0, 4);
+    v60 = (v58 + (v59 >> 32));
+    if (__CFADD__(v58, v59 >> 32))
     {
-      v62 = (v60 >> 63) + 1;
+      v61 = (v59 >> 63) + 1;
     }
 
     else
     {
-      v62 = v60 >> 63;
+      v61 = v59 >> 63;
     }
 
-    v63 = v62 << 63 >> 63;
-    if (v63 != v62 || v63 < 0)
+    v62 = v61 << 63 >> 63;
+    if (v62 != v61 || v62 < 0)
     {
-      AppleBCMWLANProximityInterface::handleEvent(v59, v60);
+      AppleBCMWLANProximityInterface::handleEvent(v58, v59);
     }
 
-    if (v61)
+    if (v60)
     {
-      v64 = v60;
-      v65 = HIDWORD(v60);
+      v63 = v59;
+      v64 = HIDWORD(v59);
       shouldLog = (*(*this + 1088))(this);
       if (shouldLog && ((*(*this + 1088))(this), shouldLog = CCLogStream::shouldLog(), shouldLog))
       {
-        v78 = (*(*this + 1088))(this);
-        if (v64 < 0 || v65 + 4 > v64)
+        v77 = (*(*this + 1088))(this);
+        if (v63 < 0 || v64 + 4 > v63)
         {
-          AppleBCMWLANProximityInterface::handleEvent(v78, v79);
+          AppleBCMWLANProximityInterface::handleEvent(v77, v78);
         }
 
-        CCLogStream::logNoticeIf(v78, 0x440uLL, "[dk] %s@%d:WLC_E_AWDL_SCAN_START: usage: %d\n", "handleEvent", 490, *v61);
+        CCLogStream::logNoticeIf(v77, 0x440uLL, "[dk] %s@%d:WLC_E_AWDL_SCAN_START: usage: %d\n", "handleEvent", 490, *v60);
       }
 
-      else if (v64 < 0 || v65 + 4 > v64)
+      else if (v63 < 0 || v64 + 4 > v63)
       {
-        AppleBCMWLANProximityInterface::handleEvent(shouldLog, v67);
+        AppleBCMWLANProximityInterface::handleEvent(shouldLog, v66);
       }
 
-      if (!*v61)
+      if (!*v60)
       {
-        bzero(v94, 0x322uLL);
-        v95 = 1;
-        IO80211Controller::postMessage(*(*(this + 17) + 64), this, 0x7Du, v94, 0x323uLL, 1);
+        bzero(&v92, 0x322uLL);
+        v94 = 1;
+        IO80211Controller::postMessage(*(*(this + 17) + 64), this, 0x7Du, &v92, 0x323uLL, 1);
         *(*(this + 17) + 81) = 1;
         return;
       }
 
-      if (*v61 == 2)
+      if (*v60 == 2)
       {
-        bzero(v94, 0x322uLL);
-        v95 = 1;
+        bzero(&v92, 0x322uLL);
+        v94 = 1;
         v43 = *(*(this + 17) + 64);
         v44 = this;
         v45 = 125;
@@ -2196,7 +2472,7 @@ uint64_t IO80211BufferCursor::asType<bcmv3_awdl_scan_event_data_min>(uint64_t *a
   return result;
 }
 
-uint64_t AppleBCMWLANProximityInterface::handleActionFrame_rx(AppleBCMWLANProximityInterface *this, const IO80211BufferCursor *a2)
+uint64_t AppleBCMWLANProximityInterface::handleActionFrame_rx(IO80211VirtualInterface *this, const IO80211BufferCursor *a2)
 {
   if (*(a2 + 1) < 0x30uLL)
   {
@@ -2232,20 +2508,20 @@ uint64_t AppleBCMWLANProximityInterface::handleActionFrame_rx(AppleBCMWLANProxim
         result = CCLogStream::shouldLog();
         if (result)
         {
-          return AppleBCMWLANProximityInterface::handleActionFrame_rx(this);
+          return AppleBCMWLANProximityInterface::handleActionFrame_rx();
         }
       }
 
       return result;
     }
 
-    v31 = 0xAAAAAAAAAAAAAAAALL;
-    v32 = 0xAAAAAAAAAAAAAAAALL;
-    v8 = IO80211BufferCursor::_crop(a2, 0x30uLL, 0xFFFFFFFFFFFFFFFFLL, &v31);
-    v10 = v31;
-    if (v31 && v32)
+    v28 = 0xAAAAAAAAAAAAAAAALL;
+    v29 = 0xAAAAAAAAAAAAAAAALL;
+    v8 = IO80211BufferCursor::_crop(&v28, a2, 0x30uLL, -1);
+    v10 = v28;
+    if (v28 && v29)
     {
-      if (v32 < 0x10)
+      if (v29 < 0x10)
       {
         v11 = 0;
         v12 = 0;
@@ -2254,25 +2530,25 @@ uint64_t AppleBCMWLANProximityInterface::handleActionFrame_rx(AppleBCMWLANProxim
       else
       {
         v11 = 16;
-        if (v31 + 16 < v31)
+        if (v28 + 16 < v28)
         {
           AppleBCMWLANProximityInterface::handleEvent(v8, v9);
         }
 
-        v12 = v31;
+        v12 = v28;
       }
 
       v13 = (v12 + HIDWORD(v11));
       if (v13)
       {
-        *v33 = 0xAAAAAAAAAAAAAAAALL;
-        v34 = 0u;
-        v35 = 0u;
-        v36 = 0u;
-        v37 = 0;
-        *&v33[6] = 0u;
-        *v33 = *(v5 + 24);
-        *&v33[4] = *(v5 + 28);
+        *v30 = 0xAAAAAAAAAAAAAAAALL;
+        v31 = 0u;
+        v32 = 0u;
+        v33 = 0u;
+        v34 = 0;
+        *&v30[6] = 0u;
+        *v30 = *(v5 + 24);
+        *&v30[4] = *(v5 + 28);
         if (HIDWORD(v11) + 16 > v11)
         {
           AppleBCMWLANProximityInterface::handleEvent(v8, v9);
@@ -2280,7 +2556,7 @@ uint64_t AppleBCMWLANProximityInterface::handleActionFrame_rx(AppleBCMWLANProxim
 
         if (*v13 == 512)
         {
-          if (v32 < 0x18)
+          if (v29 < 0x18)
           {
             v14 = 0;
             v10 = 0;
@@ -2289,7 +2565,7 @@ uint64_t AppleBCMWLANProximityInterface::handleActionFrame_rx(AppleBCMWLANProxim
           else
           {
             v14 = 24;
-            if (v31 + 24 < v31)
+            if (v28 + 24 < v28)
             {
               AppleBCMWLANProximityInterface::handleEvent(v8, v9);
             }
@@ -2305,7 +2581,7 @@ uint64_t AppleBCMWLANProximityInterface::handleActionFrame_rx(AppleBCMWLANProxim
               result = CCLogStream::shouldLog();
               if (result)
               {
-                return AppleBCMWLANProximityInterface::handleActionFrame_rx(this);
+                return AppleBCMWLANProximityInterface::handleActionFrame_rx();
               }
             }
 
@@ -2318,12 +2594,12 @@ uint64_t AppleBCMWLANProximityInterface::handleActionFrame_rx(AppleBCMWLANProxim
           }
 
           v18 = 0;
-          *(&v35 + 2) = bswap32(v15[2].u32[0]);
-          *(&v35 + 6) = vrev32_s8(v15[1]);
-          *(&v36 + 10) = 1;
+          *(&v32 + 2) = bswap32(v15[2].u32[0]);
+          *(&v32 + 6) = vrev32_s8(v15[1]);
+          *(&v33 + 10) = 1;
           do
           {
-            *(&v36 + v18 + 14) = v15[2].i8[v18 + 4];
+            *(&v33 + v18 + 14) = v15[2].i8[v18 + 4];
             ++v18;
           }
 
@@ -2332,100 +2608,92 @@ uint64_t AppleBCMWLANProximityInterface::handleActionFrame_rx(AppleBCMWLANProxim
           v20 = v15 + 2;
           v21 = -24;
           v22 = 24;
+          goto LABEL_46;
+        }
+
+        if (v29 < 0x10)
+        {
+          v16 = 0;
+          v10 = 0;
         }
 
         else
         {
-          if (v32 < 0x10)
+          v16 = 16;
+          if (v28 + 16 < v28)
           {
-            v16 = 0;
-            v10 = 0;
+            AppleBCMWLANProximityInterface::handleEvent(v8, v9);
           }
+        }
 
-          else
-          {
-            v16 = 16;
-            if (v31 + 16 < v31)
-            {
-              AppleBCMWLANProximityInterface::handleEvent(v8, v9);
-            }
-          }
-
-          v17 = v10 + HIDWORD(v16);
-          if (!v17 || *v6 <= 0xFu)
-          {
-            result = (*(*this + 1088))(this);
-            if (result)
-            {
-              (*(*this + 1088))(this);
-              result = CCLogStream::shouldLog();
-              if (result)
-              {
-                return AppleBCMWLANProximityInterface::handleActionFrame_rx(this);
-              }
-            }
-
-            return result;
-          }
-
+        v17 = v10 + HIDWORD(v16);
+        if (v17 && *v6 > 0xFu)
+        {
           if (HIDWORD(v16) + 16 > v16)
           {
             AppleBCMWLANProximityInterface::handleEvent(v8, v9);
           }
 
-          *(&v35 + 2) = bswap32(*(v17 + 12));
-          *(&v35 + 6) = vrev32_s8(*(v17 + 4));
+          *(&v32 + 2) = bswap32(*(v17 + 12));
+          *(&v32 + 6) = vrev32_s8(*(v17 + 4));
           ChanSpecHandler = AppleBCMWLANCore::getChanSpecHandler(*(*(this + 17) + 64));
           v20 = (v17 + 2);
           v21 = -16;
           v22 = 16;
-        }
-
-        AppleBCMWLANChanSpec::getAppleChannelSpec(ChanSpecHandler, bswap32(*v20) >> 16);
-        ChanSpecConvToApple80211Channel();
-        v23 = *v6;
-        if (IO80211VirtualInterface::getMgmtFramePool(this))
-        {
-          MgmtFramePool = IO80211VirtualInterface::getMgmtFramePool(this);
-          v25 = (*(*MgmtFramePool + 56))(MgmtFramePool);
-          if (v25)
+LABEL_46:
+          AppleBCMWLANChanSpec::getAppleChannelSpec(ChanSpecHandler, bswap32(*v20) >> 16);
+          ChanSpecConvToApple80211Channel();
+          v23 = *v6;
+          if (IO80211VirtualInterface::getMgmtFramePool(this))
           {
-            v26 = v25;
-            v29 = 0xAAAAAAAAAAAAAAAALL;
-            v30 = 0xAAAAAAAAAAAAAAAALL;
-            IO80211Buffer::getCursor(&v29, v25);
-            if (!v29 || !v30)
+            MgmtFramePool = IO80211VirtualInterface::getMgmtFramePool(this);
+            v25 = (*(*MgmtFramePool + 56))(MgmtFramePool);
+            if (v25)
             {
-              if ((*(*this + 1088))(this))
+              v26 = v25;
+              IO80211Buffer::getCursor(v25);
+              memset(v27, 170, sizeof(v27));
+              IO80211BufferCursor::_crop(v27, &v28, v22, -1);
+              if (v27[0] && v27[1])
               {
-                (*(*this + 1088))(this);
-                if (CCLogStream::shouldLog())
+                if (IO80211BufferCursor::copyFrom(&v27[2], v27, v21 + v23))
                 {
-                  AppleBCMWLANProximityInterface::handleActionFrame_rx(this);
+                  result = (*(*this + 1088))(this);
+                  if (result)
+                  {
+                    (*(*this + 1088))(this);
+                    result = CCLogStream::shouldLog();
+                    if (result)
+                    {
+                      return AppleBCMWLANProximityInterface::handleActionFrame_rx();
+                    }
+                  }
+                }
+
+                else
+                {
+                  IO80211Buffer::setLength(v26, v21 + v23);
+                  ++*(*(this + 17) + 748);
+                  return IO80211VirtualInterface::bpfTapInput(this, v26, 0xCu, v30, 0x48uLL);
                 }
               }
 
-              return IO80211Buffer::returnBuffer(v26);
-            }
-
-            v27 = 0xAAAAAAAAAAAAAAAALL;
-            v28 = 0xAAAAAAAAAAAAAAAALL;
-            IO80211BufferCursor::_crop(&v31, v22, 0xFFFFFFFFFFFFFFFFLL, &v27);
-            if (!v27 || !v28)
-            {
-              if ((*(*this + 1088))(this))
+              else
               {
-                (*(*this + 1088))(this);
-                if (CCLogStream::shouldLog())
+                if ((*(*this + 1088))(this))
                 {
-                  AppleBCMWLANProximityInterface::handleActionFrame_rx(this);
+                  (*(*this + 1088))(this);
+                  if (CCLogStream::shouldLog())
+                  {
+                    AppleBCMWLANProximityInterface::handleActionFrame_rx();
+                  }
                 }
-              }
 
-              return IO80211Buffer::returnBuffer(v26);
+                return IO80211Buffer::returnBuffer(v26);
+              }
             }
 
-            if (IO80211BufferCursor::copyFrom(&v29, &v27, v21 + v23))
+            else
             {
               result = (*(*this + 1088))(this);
               if (result)
@@ -2434,16 +2702,9 @@ uint64_t AppleBCMWLANProximityInterface::handleActionFrame_rx(AppleBCMWLANProxim
                 result = CCLogStream::shouldLog();
                 if (result)
                 {
-                  return AppleBCMWLANProximityInterface::handleActionFrame_rx(this);
+                  return AppleBCMWLANProximityInterface::handleActionFrame_rx();
                 }
               }
-            }
-
-            else
-            {
-              IO80211Buffer::setLength(v26, v21 + v23);
-              ++*(*(this + 17) + 748);
-              return IO80211VirtualInterface::bpfTapInput(this, v26, 0xCu, v33, 0x48uLL);
             }
           }
 
@@ -2456,23 +2717,22 @@ uint64_t AppleBCMWLANProximityInterface::handleActionFrame_rx(AppleBCMWLANProxim
               result = CCLogStream::shouldLog();
               if (result)
               {
-                return AppleBCMWLANProximityInterface::handleActionFrame_rx(this);
+                return AppleBCMWLANProximityInterface::handleActionFrame_rx();
               }
             }
           }
+
+          return result;
         }
 
-        else
+        result = (*(*this + 1088))(this);
+        if (result)
         {
-          result = (*(*this + 1088))(this);
+          (*(*this + 1088))(this);
+          result = CCLogStream::shouldLog();
           if (result)
           {
-            (*(*this + 1088))(this);
-            result = CCLogStream::shouldLog();
-            if (result)
-            {
-              return AppleBCMWLANProximityInterface::handleActionFrame_rx(this);
-            }
+            return AppleBCMWLANProximityInterface::handleActionFrame_rx();
           }
         }
       }
@@ -2486,7 +2746,7 @@ uint64_t AppleBCMWLANProximityInterface::handleActionFrame_rx(AppleBCMWLANProxim
           result = CCLogStream::shouldLog();
           if (result)
           {
-            return AppleBCMWLANProximityInterface::handleActionFrame_rx(this);
+            return AppleBCMWLANProximityInterface::handleActionFrame_rx();
           }
         }
       }
@@ -2501,7 +2761,7 @@ uint64_t AppleBCMWLANProximityInterface::handleActionFrame_rx(AppleBCMWLANProxim
         result = CCLogStream::shouldLog();
         if (result)
         {
-          return AppleBCMWLANProximityInterface::handleActionFrame_rx(this);
+          return AppleBCMWLANProximityInterface::handleActionFrame_rx();
         }
       }
     }
@@ -2516,7 +2776,7 @@ uint64_t AppleBCMWLANProximityInterface::handleActionFrame_rx(AppleBCMWLANProxim
       result = CCLogStream::shouldLog();
       if (result)
       {
-        return AppleBCMWLANProximityInterface::handleActionFrame_rx(this);
+        return AppleBCMWLANProximityInterface::handleActionFrame_rx();
       }
     }
   }
@@ -2603,7 +2863,7 @@ IO80211VirtualInterface *AppleBCMWLANProximityInterface::handleProbeResponse_rx(
           result = CCLogStream::shouldLog();
           if (result)
           {
-            return AppleBCMWLANProximityInterface::handleProbeResponse_rx(v2);
+            return AppleBCMWLANProximityInterface::handleProbeResponse_rx();
           }
         }
       }
@@ -2618,7 +2878,7 @@ IO80211VirtualInterface *AppleBCMWLANProximityInterface::handleProbeResponse_rx(
         result = CCLogStream::shouldLog();
         if (result)
         {
-          return AppleBCMWLANProximityInterface::handleProbeResponse_rx(v2);
+          return AppleBCMWLANProximityInterface::handleProbeResponse_rx();
         }
       }
     }
@@ -2633,7 +2893,7 @@ IO80211VirtualInterface *AppleBCMWLANProximityInterface::handleProbeResponse_rx(
       result = CCLogStream::shouldLog();
       if (result)
       {
-        return AppleBCMWLANProximityInterface::handleProbeResponse_rx(v2);
+        return AppleBCMWLANProximityInterface::handleProbeResponse_rx();
       }
     }
   }
@@ -2663,7 +2923,7 @@ uint64_t IO80211BufferCursor::asType<ether_addr>(uint64_t *a1, uint64_t a2, cons
   return result;
 }
 
-IO80211SkywalkInterface *AppleBCMWLANProximityInterface::handleAvailabilityWindowEnd(IO80211SkywalkInterface *this, const IO80211BufferCursor *a2)
+OSObject *AppleBCMWLANProximityInterface::handleAvailabilityWindowEnd(OSObject *this, const IO80211BufferCursor *a2)
 {
   v3 = this;
   v23 = 0u;
@@ -2698,7 +2958,7 @@ IO80211SkywalkInterface *AppleBCMWLANProximityInterface::handleAvailabilityWindo
     v21[1] = v8;
     LOBYTE(v22) = *(v7 + 17);
     DWORD1(v22) = *(v7 + 18);
-    if (v4 < 0x1E || (*(*(this + 17) + 109) & 1) == 0)
+    if (v4 < 0x1E || (this[3].meta[3].reserved & 0x100) == 0)
     {
       return AppleBCMWLANProximityInterface::handleAvailabilityWindowEnd(v3 + 136, v3, v21);
     }
@@ -2747,7 +3007,7 @@ IO80211SkywalkInterface *AppleBCMWLANProximityInterface::handleAvailabilityWindo
         {
           if (v4 <= 0x33)
           {
-            AppleBCMWLANProximityInterface::handleAvailabilityWindowEnd(v3);
+            AppleBCMWLANProximityInterface::handleAvailabilityWindowEnd();
           }
 
           else
@@ -2876,7 +3136,7 @@ LABEL_18:
         (*(*v2 + 1088))(v2);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::handleAvailabilityWindowStart(v2);
+          AppleBCMWLANProximityInterface::handleAvailabilityWindowStart();
         }
       }
 
@@ -2911,7 +3171,7 @@ _DWORD *AppleBCMWLANProximityInterface::handleAvailabilityWindowExtension(AppleB
   return AppleBCMWLANProximityInterface::handleAvailabilityWindowExtension(&v6, v4, this, v2);
 }
 
-uint64_t AppleBCMWLANProximityInterface::handleMasterEvent(AppleBCMWLANProximityInterface *this)
+uint64_t AppleBCMWLANProximityInterface::handleMasterEvent(IO80211SkywalkInterface *this)
 {
   if (*(*(this + 17) + 712))
   {
@@ -2920,7 +3180,7 @@ uint64_t AppleBCMWLANProximityInterface::handleMasterEvent(AppleBCMWLANProximity
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::handleMasterEvent(this);
+        AppleBCMWLANProximityInterface::handleMasterEvent();
       }
     }
   }
@@ -2933,7 +3193,7 @@ uint64_t AppleBCMWLANProximityInterface::handleMasterEvent(AppleBCMWLANProximity
   return AppleBCMWLANProximityInterface::setAfTxMode(this);
 }
 
-uint64_t AppleBCMWLANProximityInterface::handleSlaveEvent(AppleBCMWLANProximityInterface *this)
+uint64_t AppleBCMWLANProximityInterface::handleSlaveEvent(IO80211SkywalkInterface *this)
 {
   if (*(*(this + 17) + 712))
   {
@@ -2942,7 +3202,7 @@ uint64_t AppleBCMWLANProximityInterface::handleSlaveEvent(AppleBCMWLANProximityI
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::handleSlaveEvent(this);
+        AppleBCMWLANProximityInterface::handleSlaveEvent();
       }
     }
   }
@@ -2955,7 +3215,7 @@ uint64_t AppleBCMWLANProximityInterface::handleSlaveEvent(AppleBCMWLANProximityI
   return AppleBCMWLANProximityInterface::setAfTxMode(this);
 }
 
-uint64_t AppleBCMWLANProximityInterface::handleNonElectionMasterEvent(AppleBCMWLANProximityInterface *this)
+uint64_t AppleBCMWLANProximityInterface::handleNonElectionMasterEvent(IO80211SkywalkInterface *this)
 {
   if (*(*(this + 17) + 712))
   {
@@ -2964,7 +3224,7 @@ uint64_t AppleBCMWLANProximityInterface::handleNonElectionMasterEvent(AppleBCMWL
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::handleNonElectionMasterEvent(this);
+        AppleBCMWLANProximityInterface::handleNonElectionMasterEvent();
       }
     }
   }
@@ -3084,7 +3344,7 @@ BOOL AppleBCMWLANProximityInterface::init(AppleBCMWLANProximityInterface *this, 
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::init(this);
+      AppleBCMWLANProximityInterface::init();
     }
   }
 
@@ -3134,7 +3394,7 @@ BOOL AppleBCMWLANProximityInterface::init(AppleBCMWLANProximityInterface *this, 
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::init(this);
+        AppleBCMWLANProximityInterface::init();
       }
     }
 
@@ -3144,9 +3404,9 @@ BOOL AppleBCMWLANProximityInterface::init(AppleBCMWLANProximityInterface *this, 
   return v7;
 }
 
-uint64_t AppleBCMWLANProximityInterface::setChannelAsyncCallback(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t AppleBCMWLANProximityInterface::setChannelAsyncCallback(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = (*(*a1 + 1088))(a1);
+  result = (*(*a1 + 1088))(a1, a2);
   if (result)
   {
     (*(*a1 + 1088))(a1);
@@ -3161,16 +3421,17 @@ uint64_t AppleBCMWLANProximityInterface::setChannelAsyncCallback(uint64_t *a1, u
 }
 
 {
-  v5 = OUTLINED_FUNCTION_11_4(a1);
-  v7 = (*(v6 + 1088))(v5);
-  v8 = OUTLINED_FUNCTION_16_3(*(v3 + 136));
-  (*(v9 + 112))(v8, a3);
+  OUTLINED_FUNCTION_11_4();
+  v6 = (*(v5 + 1088))();
+  v7 = OUTLINED_FUNCTION_16_3(*(v3 + 136));
+  (*(v8 + 112))(v7, a3);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v7, "[dk] %s@%d: WLC_SET_CHANNEL(), %s\n", v11, v12, v13);
+  return CCLogStream::logAlert(v6, "[dk] %s@%d: WLC_SET_CHANNEL(), %s\n", v10, v11, v12);
 }
 
-uint64_t AppleBCMWLANProximityInterface::setLifeTime(AppleBCMWLANProximityInterface *this, int a2)
+uint64_t AppleBCMWLANProximityInterface::setLifeTime(void *this, uint64_t a2)
 {
+  v2 = a2;
   result = (*(*this + 1088))(this);
   if (result)
   {
@@ -3178,16 +3439,17 @@ uint64_t AppleBCMWLANProximityInterface::setLifeTime(AppleBCMWLANProximityInterf
     result = CCLogStream::shouldLog();
     if (result)
     {
-      result = AppleBCMWLANProximityInterface::setLifeTime(this);
+      result = AppleBCMWLANProximityInterface::setLifeTime();
     }
   }
 
-  *(*(this + 17) + 792) = a2;
+  *(this[17] + 792) = v2;
   return result;
 }
 
-uint64_t AppleBCMWLANProximityInterface::setGuardTime(AppleBCMWLANProximityInterface *this, int a2)
+uint64_t AppleBCMWLANProximityInterface::setGuardTime(void *this, uint64_t a2)
 {
+  v2 = a2;
   result = (*(*this + 1088))(this);
   if (result)
   {
@@ -3195,16 +3457,17 @@ uint64_t AppleBCMWLANProximityInterface::setGuardTime(AppleBCMWLANProximityInter
     result = CCLogStream::shouldLog();
     if (result)
     {
-      result = AppleBCMWLANProximityInterface::setGuardTime(this);
+      result = AppleBCMWLANProximityInterface::setGuardTime();
     }
   }
 
-  *(*(this + 17) + 692) = a2;
+  *(this[17] + 692) = v2;
   return result;
 }
 
-uint64_t AppleBCMWLANProximityInterface::setMaxNoMasterPeriod(AppleBCMWLANProximityInterface *this, int a2)
+uint64_t AppleBCMWLANProximityInterface::setMaxNoMasterPeriod(void *this, uint64_t a2)
 {
+  v2 = a2;
   result = (*(*this + 1088))(this);
   if (result)
   {
@@ -3212,11 +3475,11 @@ uint64_t AppleBCMWLANProximityInterface::setMaxNoMasterPeriod(AppleBCMWLANProxim
     result = CCLogStream::shouldLog();
     if (result)
     {
-      result = AppleBCMWLANProximityInterface::setMaxNoMasterPeriod(this);
+      result = AppleBCMWLANProximityInterface::setMaxNoMasterPeriod();
     }
   }
 
-  *(*(this + 17) + 688) = a2;
+  *(this[17] + 688) = v2;
   return result;
 }
 
@@ -3285,7 +3548,7 @@ uint64_t AppleBCMWLANProximityInterface::stop(AppleBCMWLANProximityInterface *th
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::stop(this);
+      AppleBCMWLANProximityInterface::stop();
     }
   }
 
@@ -3362,7 +3625,7 @@ uint64_t AppleBCMWLANProximityInterface::stop(AppleBCMWLANProximityInterface *th
   return IO80211VirtualInterface::stop(this, a2);
 }
 
-uint64_t AppleBCMWLANProximityInterface::getSTATE(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::getSTATE(uint64_t a1, uint64_t a2)
 {
   *(a2 + 4) = 4;
   if ((*(*a1 + 1088))(a1))
@@ -3370,7 +3633,7 @@ uint64_t AppleBCMWLANProximityInterface::getSTATE(uint64_t *a1, uint64_t a2)
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::getSTATE(a1);
+      AppleBCMWLANProximityInterface::getSTATE();
     }
   }
 
@@ -3379,27 +3642,27 @@ uint64_t AppleBCMWLANProximityInterface::getSTATE(uint64_t *a1, uint64_t a2)
 
 uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::getSTATE(uint64_t a1, uint64_t a2)
 {
-  AppleBCMWLANProximityInterface::getSTATE((a1 - 112), a2);
+  AppleBCMWLANProximityInterface::getSTATE(a1 - 112, a2);
   return 0;
 }
 
 {
-  AppleBCMWLANProximityInterface::getSTATE((a1 - 128), a2);
+  AppleBCMWLANProximityInterface::getSTATE(a1 - 128, a2);
   return 0;
 }
 
-uint64_t AppleBCMWLANProximityInterface::setAWDL_AF_TX_MODE(IO80211SkywalkInterface *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::setAWDL_AF_TX_MODE(uint64_t a1, uint64_t a2)
 {
   v3 = (a2 + 4);
-  v11 = *(a2 + 4);
-  v10[0] = a1;
-  v10[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-  v10[2] = 0;
-  v4 = *(*(a1 + 17) + 960);
+  v12 = *(a2 + 4);
+  *&v10 = a1;
+  *(&v10 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+  v11 = 0;
+  v4 = *(*(a1 + 136) + 960);
   InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
-  v9[0] = &v11;
+  v9[0] = &v12;
   v9[1] = 4;
-  v6 = AppleBCMWLANCommander::sendVirtualIOVarSet(v4, InterfaceId, "awdl_aftxmode", v9, kNoRxExpected, v10, 0);
+  v6 = AppleBCMWLANCommander::sendVirtualIOVarSet(v4, InterfaceId, "awdl_aftxmode", v9, kNoRxExpected, &v10, 0);
   v7 = (*(*a1 + 1088))(a1);
   if (v6)
   {
@@ -3408,7 +3671,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_AF_TX_MODE(IO80211SkywalkInterf
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_AF_TX_MODE(a1);
+        AppleBCMWLANProximityInterface::setAWDL_AF_TX_MODE();
       }
     }
   }
@@ -3427,11 +3690,11 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_AF_TX_MODE(IO80211SkywalkInterf
 
 uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setAWDL_AF_TX_MODE(uint64_t a1, uint64_t a2)
 {
-  return AppleBCMWLANProximityInterface::setAWDL_AF_TX_MODE((a1 - 112), a2);
+  return AppleBCMWLANProximityInterface::setAWDL_AF_TX_MODE(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANProximityInterface::setAWDL_AF_TX_MODE((a1 - 128), a2);
+  return AppleBCMWLANProximityInterface::setAWDL_AF_TX_MODE(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANProximityInterface::getAWDL_AF_TX_MODE(IO80211SkywalkInterface *a1, uint64_t a2)
@@ -3451,7 +3714,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_AF_TX_MODE(IO80211SkywalkInterf
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getAWDL_AF_TX_MODE(a1);
+        AppleBCMWLANProximityInterface::getAWDL_AF_TX_MODE();
       }
     }
   }
@@ -3464,7 +3727,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_AF_TX_MODE(IO80211SkywalkInterf
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getAWDL_AF_TX_MODE(a1);
+        AppleBCMWLANProximityInterface::getAWDL_AF_TX_MODE();
       }
     }
   }
@@ -3481,7 +3744,7 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::getAWDL_AF_TX_MODE(
   return AppleBCMWLANProximityInterface::getAWDL_AF_TX_MODE((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANProximityInterface::bringdownLink(AppleBCMWLANProximityInterface *this)
+uint64_t AppleBCMWLANProximityInterface::bringdownLink(IO80211SkywalkInterface *this)
 {
   *(*(this + 17) + 32) = 0;
   v2 = *(this + 17);
@@ -3506,7 +3769,7 @@ uint64_t AppleBCMWLANProximityInterface::bringdownLink(AppleBCMWLANProximityInte
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::bringdownLink(this);
+      AppleBCMWLANProximityInterface::bringdownLink();
     }
   }
 
@@ -3514,10 +3777,11 @@ uint64_t AppleBCMWLANProximityInterface::bringdownLink(AppleBCMWLANProximityInte
   return v3;
 }
 
-uint64_t AppleBCMWLANProximityInterface::doSetSyncState(unint64_t this, int a2)
+uint64_t AppleBCMWLANProximityInterface::doSetSyncState(uint64_t this, _BOOL8 a2)
 {
+  v2 = a2;
   v24 = a2;
-  v4 = (this + 136);
+  v4 = this + 136;
   v5 = *(*(this + 136) + 64);
   if (v5)
   {
@@ -3529,13 +3793,13 @@ uint64_t AppleBCMWLANProximityInterface::doSetSyncState(unint64_t this, int a2)
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::doSetSyncState(this, this & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, v4, a2);
+      AppleBCMWLANProximityInterface::doSetSyncState(this, this & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, v4, v2);
     }
   }
 
   v6 = *v4;
   v7 = *(*v4 + 64);
-  if (a2)
+  if (v2)
   {
     if (!v7)
     {
@@ -3558,7 +3822,7 @@ uint64_t AppleBCMWLANProximityInterface::doSetSyncState(unint64_t this, int a2)
     return 0;
   }
 
-  if (a2)
+  if (v2)
   {
 LABEL_13:
     AppleBCMWLANCore::addEventBit(v7);
@@ -3579,7 +3843,7 @@ LABEL_13:
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::doSetSyncState(this);
+        AppleBCMWLANProximityInterface::doSetSyncState();
       }
     }
 
@@ -3594,7 +3858,7 @@ LABEL_13:
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::doSetSyncState(this);
+        AppleBCMWLANProximityInterface::doSetSyncState();
       }
     }
 
@@ -3618,7 +3882,7 @@ LABEL_25:
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::doSetSyncState(this);
+        AppleBCMWLANProximityInterface::doSetSyncState();
       }
     }
   }
@@ -3635,7 +3899,7 @@ LABEL_25:
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::doSetSyncState(this);
+          AppleBCMWLANProximityInterface::doSetSyncState();
         }
       }
 
@@ -3651,7 +3915,7 @@ LABEL_25:
       v12 = AppleBCMWLANCommander::sendVirtualIOVarSet(v10, InterfaceId, "awdl", v17, kNoRxExpected, &v18, 0);
       if (!v12)
       {
-        *(*(this + 136) + 664) = a2;
+        *(*(this + 136) + 664) = v2;
         AppleBCMWLANProximityInterface::setAfTxMode(this);
         v13 = *(this + 136);
         if (*(v13 + 664))
@@ -3672,14 +3936,14 @@ LABEL_25:
           (*(*this + 1088))(this);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::doSetSyncState(this);
+            AppleBCMWLANProximityInterface::doSetSyncState();
           }
         }
 
         v15 = *(*v4 + 64);
         if (v15)
         {
-          AppleBCMWLANCore::reportSystemPowerState(v15, 2, a2, 0);
+          AppleBCMWLANCore::reportSystemPowerState(v15, 2, v2, 0);
         }
 
         return 0;
@@ -3734,7 +3998,7 @@ uint64_t AppleBCMWLANProximityInterface::setBssRates(unint64_t this)
       result = CCLogStream::shouldLog();
       if (result)
       {
-        return AppleBCMWLANProximityInterface::setBssRates(this);
+        return AppleBCMWLANProximityInterface::setBssRates();
       }
     }
   }
@@ -3780,7 +4044,7 @@ uint64_t AppleBCMWLANProximityInterface::setBssRates(unint64_t this)
         result = CCLogStream::shouldLog();
         if (result)
         {
-          return AppleBCMWLANProximityInterface::setBssRates(this);
+          return AppleBCMWLANProximityInterface::setBssRates();
         }
       }
     }
@@ -3828,10 +4092,10 @@ uint64_t AppleBCMWLANProximityInterface::setBssRates(unint64_t this)
   return result;
 }
 
-uint64_t AppleBCMWLANProximityInterface::bringupLink(AppleBCMWLANProximityInterface *this)
+uint64_t AppleBCMWLANProximityInterface::bringupLink(void *this)
 {
-  v2 = this + 136;
-  if (*(*(this + 17) + 72) == 1)
+  v2 = this + 17;
+  if (*(this[17] + 72) == 1)
   {
     AppleBCMWLANProximityInterface::resetInterface(this);
   }
@@ -3841,7 +4105,7 @@ uint64_t AppleBCMWLANProximityInterface::bringupLink(AppleBCMWLANProximityInterf
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::bringupLink(this);
+      AppleBCMWLANProximityInterface::bringupLink();
     }
   }
 
@@ -3891,30 +4155,30 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::getCHANNEL()
   return 0;
 }
 
-uint64_t AppleBCMWLANProximityInterface::setAfTxMode(AppleBCMWLANProximityInterface *this)
+uint64_t AppleBCMWLANProximityInterface::setAfTxMode(IO80211SkywalkInterface *this)
 {
-  v14 = 0;
+  v15 = 0;
   if ((*(*this + 1088))(this))
   {
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::setAfTxMode(this);
+      AppleBCMWLANProximityInterface::setAfTxMode();
     }
   }
 
-  v3 = this + 136;
+  v3 = (this + 136);
   v2 = *(this + 17);
   if (*(v2 + 536))
   {
-    v13[0] = this;
-    v13[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-    v13[2] = 0;
+    *&v13 = this;
+    *(&v13 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+    v14 = 0;
     v4 = *(v2 + 960);
     InterfaceId = IO80211SkywalkInterface::getInterfaceId(this);
-    v12[0] = &v14;
+    v12[0] = &v15;
     v12[1] = 4;
-    v6 = AppleBCMWLANCommander::sendVirtualIOVarSet(v4, InterfaceId, "awdl_aftxmode", v12, kNoRxExpected, v13, 0);
+    v6 = AppleBCMWLANCommander::sendVirtualIOVarSet(v4, InterfaceId, "awdl_aftxmode", v12, kNoRxExpected, &v13, 0);
     if (v6)
     {
       if ((*(*this + 1088))(this))
@@ -3924,7 +4188,7 @@ uint64_t AppleBCMWLANProximityInterface::setAfTxMode(AppleBCMWLANProximityInterf
         {
           v7 = (*(*this + 1088))(this);
           v8 = *(*(this + 17) + 536);
-          v9 = v14;
+          v9 = v15;
           v10 = (*(*this + 920))(this, v6);
           CCLogStream::logCrit(v7, "[dk] %s@%d:Critical Error: cannot send %s iovar ivars->fAfTxMode %lu mode %lu: %s\n", "setAfTxMode", 1651, "awdl_aftxmode", v8, v9, v10);
         }
@@ -3933,7 +4197,7 @@ uint64_t AppleBCMWLANProximityInterface::setAfTxMode(AppleBCMWLANProximityInterf
 
     else
     {
-      *(*v3 + 536) = v14;
+      *(*v3 + 536) = v15;
     }
 
     v2 = *v3;
@@ -3951,7 +4215,7 @@ uint64_t AppleBCMWLANProximityInterface::setAfTxMode(AppleBCMWLANProximityInterf
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAfTxMode(this);
+        AppleBCMWLANProximityInterface::setAfTxMode();
       }
     }
   }
@@ -3959,47 +4223,43 @@ uint64_t AppleBCMWLANProximityInterface::setAfTxMode(AppleBCMWLANProximityInterf
   return v6;
 }
 
-uint64_t AppleBCMWLANProximityInterface::dump(OSObject *this, char *a2)
+uint64_t AppleBCMWLANProximityInterface::dump(OSObject *this, char *a2, unsigned int a3, int a4)
 {
-  (this->OSMetaClassBase::__vftable[19].isEqualTo)(this);
+  v8 = (this->OSMetaClassBase::__vftable[19].isEqualTo)(this);
   meta = this[3].meta;
-  v5 = meta[167];
-  if (v5 <= 4)
+  v10 = meta[167];
+  if (v10 > 4)
   {
-    v6 = off_1003C8858[v5];
+    v11 = "unknown";
   }
 
-  meta[177];
-  v17 = meta[223];
-  v20 = meta[224];
-  v7 = IO80211Print();
-  (this->OSMetaClassBase::__vftable[19].isEqualTo)(this);
-  v8 = this[3].meta;
-  v27 = v8[176];
-  v29 = v8[8];
-  v23 = v8[187];
-  v25 = v8[175];
-  v18 = v8[154];
-  v21 = v8[155];
-  v13 = v8[164];
-  v15 = v8[9];
-  v9 = IO80211Print() + v7;
-  (this->OSMetaClassBase::__vftable[19].isEqualTo)(this);
-  v10 = this[3].meta;
-  v28 = *(&v10[17].refcount + 3);
-  v30 = LOBYTE(v10[17].__vftable);
-  metaClassPrivate_high = HIDWORD(v10[16].metaClassPrivate);
-  metaClassPrivate_low = LODWORD(v10[16].metaClassPrivate);
-  v19 = LODWORD(v10[24].__vftable);
-  meta_high = HIDWORD(v10[23].meta);
-  refcount = v10[24].refcount;
-  meta_low = LODWORD(v10[23].meta);
-  v11 = IO80211Print() + v9;
-  AppleBCMWLANProximityInterface::dumpSyncParams(this, a2);
-  return v11;
+  else
+  {
+    v11 = off_1003C8858[v10];
+  }
+
+  if (meta[177])
+  {
+    v12 = "UP";
+  }
+
+  else
+  {
+    v12 = "DOWN";
+  }
+
+  v13 = IO80211Print(v8, 1, -1, 0, a2, a3, a4, "[role=%s] %s (%u/%u)\n", v11, v12, meta[223], meta[224]);
+  v14 = (this->OSMetaClassBase::__vftable[19].isEqualTo)(this);
+  v15 = this[3].meta;
+  v16 = IO80211Print(v14, 1, -1, 0, a2, v13 + a3, a4 - v13, "ivars->fPresenceMode = %u ivars->stalled=%u  ivars->fDropBootp %u ivars->fDropUcastArpResp %u ivars->fNumActionFrameRx %u ivars->fTotNumActionFramesRx %u ivars->fTotNumActionFramesRxNotAvailable %u ivars->fChannelSwitchDisabled %u\n", LODWORD(v15[20].meta), HIDWORD(v15[1].__vftable), v15[19].refcount, v15[19].reserved, v15[23].reserved, HIDWORD(v15[21].metaClassPrivate), LODWORD(v15[22].__vftable), LODWORD(v15[1].__vftable)) + v13;
+  v17 = (this->OSMetaClassBase::__vftable[19].isEqualTo)(this);
+  v18 = this[3].meta;
+  v19 = IO80211Print(v17, 1, -1, 0, a2, v16 + a3, a4 - v16, " ivars->totalNumTxUcastDat %u ivars->numTxDat %u ivars->totalNumTxDat %u ivars->numTxFail %u ivars->fAWDLEventsEnabled %u ivars->fAfTxMode %u fElectionMetric %u ivars->fLowLatencyTraffic:%u\n", v18[24].refcount, LODWORD(v18[23].meta), LODWORD(v18[24].__vftable), HIDWORD(v18[23].meta), HIDWORD(v18[16].metaClassPrivate), LODWORD(v18[16].metaClassPrivate), *(&v18[17].refcount + 3), LOBYTE(v18[17].__vftable)) + v16;
+  AppleBCMWLANProximityInterface::dumpSyncParams(this, a2, v19 + a3, a4 - v19);
+  return v19;
 }
 
-uint64_t AppleBCMWLANProximityInterface::dumpSyncParams(OSObject *this, char *a2)
+uint64_t AppleBCMWLANProximityInterface::dumpSyncParams(OSObject *this, char *a2, unsigned int a3, unsigned int a4)
 {
   if (!LODWORD(this[3].meta[20].metaClassPrivate))
   {
@@ -4009,38 +4269,37 @@ uint64_t AppleBCMWLANProximityInterface::dumpSyncParams(OSObject *this, char *a2
   WorkQueue = IO80211SkywalkInterface::getWorkQueue(this);
   if ((*(*WorkQueue + 136))(WorkQueue))
   {
-    (this->OSMetaClassBase::__vftable[19].isEqualTo)(this);
-    getClassNameHelper(this);
-    metaClassPrivate_low = LODWORD(this[3].meta[20].metaClassPrivate);
-    IO80211Print();
+    v9 = (this->OSMetaClassBase::__vftable[19].isEqualTo)(this);
+    ClassNameHelper = getClassNameHelper(this);
+    IO80211Print(v9, 1, -1, 0, a2, a3, a4, "%s::%s: skip awdl_sync_params while on workQueue; enabled %u\n", ClassNameHelper, "dumpSyncParams", LODWORD(this[3].meta[20].metaClassPrivate));
     return 0;
   }
 
-  v17 = 0;
-  memset(v16, 0, sizeof(v16));
-  v15[0] = v16;
-  v15[1] = 0x2400240024;
-  v5 = this[3].meta[30].__vftable;
+  v26 = 0;
+  v24 = 0u;
+  v25 = 0u;
+  v23[0] = &v24;
+  v23[1] = 0x2400240024;
+  v12 = this[3].meta[30].__vftable;
   InterfaceId = IO80211SkywalkInterface::getInterfaceId(this);
-  v14[0] = v16;
-  v14[1] = 36;
-  v7 = AppleBCMWLANCommander::runVirtualIOVarGet(v5, InterfaceId, "awdl_sync_params", v14, v15, 0);
-  v8 = (this->OSMetaClassBase::__vftable[19].isEqualTo)(this);
-  if (!v7)
+  v22[0] = &v24;
+  v22[1] = 36;
+  v14 = AppleBCMWLANCommander::runVirtualIOVarGet(v12, InterfaceId, "awdl_sync_params", v22, v23, 0);
+  v15 = (this->OSMetaClassBase::__vftable[19].isEqualTo)(this);
+  v16 = v15;
+  if (!v14)
   {
-    getClassNameHelper(this);
-    v12 = LODWORD(this[3].meta[20].metaClassPrivate);
-    v9 = IO80211Print();
+    v17 = getClassNameHelper(this);
+    v18 = IO80211Print(v16, 1, -1, 0, a2, a3, a4, "%s::%s: dumpSyncParams enabled %u:\n", v17, "dumpSyncParams", LODWORD(this[3].meta[20].metaClassPrivate));
+    v19 = (this->OSMetaClassBase::__vftable[19].isEqualTo)(this);
+    v20 = IO80211Print(v19, 1, -1, 0, a2, v18 + a3, a4 - v18, "   len %u aw_period %u action_frame_period %u aw_cmn_length %u aw_ext_length %u mst_channel %u secondary %u\n", *(&v24 + 1), WORD4(v24), WORD5(v24), v25, HIWORD(v24), BYTE6(v24), this[3].meta[21].reserved) + v18;
+    v21 = (this->OSMetaClassBase::__vftable[19].isEqualTo)(this);
+    LODWORD(v20) = IO80211Print(v21, 1, -1, 0, a2, v20 + a3, a4 - v20, "   min_ext %u max_ext_multi %u max_ext_uni %u max_ext_af %u pm %u awcounter %u\n", BYTE4(v25), BYTE5(v25), BYTE6(v25), BYTE7(v25), BYTE14(v25), v26) + v20;
     (this->OSMetaClassBase::__vftable[19].isEqualTo)(this);
-    reserved = this[3].meta[21].reserved;
-    v10 = IO80211Print() + v9;
-    (this->OSMetaClassBase::__vftable[19].isEqualTo)(this);
-    LODWORD(v10) = IO80211Print() + v10;
-    (this->OSMetaClassBase::__vftable[19].isEqualTo)(this);
-    return IO80211HexdumpIfKernel() + v10;
+    return IO80211HexdumpIfKernel() + v20;
   }
 
-  if (!v8)
+  if (!v15)
   {
     return 0;
   }
@@ -4049,19 +4308,19 @@ uint64_t AppleBCMWLANProximityInterface::dumpSyncParams(OSObject *this, char *a2
   result = CCLogStream::shouldLog();
   if (result)
   {
-    AppleBCMWLANProximityInterface::dumpSyncParams(this);
+    AppleBCMWLANProximityInterface::dumpSyncParams();
     return 0;
   }
 
   return result;
 }
 
-uint64_t AppleBCMWLANProximityInterface::getAWDL_SYNC_ENABLED(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::getAWDL_SYNC_ENABLED(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v11 = 0;
   v10[0] = &v11;
   v10[1] = 0x400040004;
-  if (IO80211SkywalkInterface::getInterfaceId(a1) == -1 || (v4 = *(a1[17] + 960), InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1), v9[0] = &v11, v9[1] = 4, v6 = AppleBCMWLANCommander::runVirtualIOVarGet(v4, InterfaceId, "awdl", v9, v10, 0), !v6))
+  if (IO80211SkywalkInterface::getInterfaceId(a1) == -1 || (v4 = *(*(a1 + 17) + 960), InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1), v9[0] = &v11, v9[1] = 4, v6 = AppleBCMWLANCommander::runVirtualIOVarGet(v4, InterfaceId, "awdl", v9, v10, 0), !v6))
   {
     v7 = 0;
     *(a2 + 8) = v11;
@@ -4075,7 +4334,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_SYNC_ENABLED(uint64_t *a1, uint
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getAWDL_SYNC_ENABLED(a1);
+        AppleBCMWLANProximityInterface::getAWDL_SYNC_ENABLED();
       }
     }
   }
@@ -4139,7 +4398,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_SYNC_PARAMS(IO80211SkywalkInter
               (*(*a1 + 1088))(a1);
               if (CCLogStream::shouldLog())
               {
-                AppleBCMWLANProximityInterface::getAWDL_SYNC_PARAMS(a1);
+                AppleBCMWLANProximityInterface::getAWDL_SYNC_PARAMS();
               }
             }
           }
@@ -4149,7 +4408,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_SYNC_PARAMS(IO80211SkywalkInter
             (*(*a1 + 1088))(a1);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANProximityInterface::getAWDL_SYNC_PARAMS(a1);
+              AppleBCMWLANProximityInterface::getAWDL_SYNC_PARAMS();
             }
           }
         }
@@ -4159,7 +4418,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_SYNC_PARAMS(IO80211SkywalkInter
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::getAWDL_SYNC_PARAMS(a1);
+            AppleBCMWLANProximityInterface::getAWDL_SYNC_PARAMS();
           }
         }
 
@@ -4171,7 +4430,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_SYNC_PARAMS(IO80211SkywalkInter
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::getAWDL_SYNC_PARAMS(a1);
+          AppleBCMWLANProximityInterface::getAWDL_SYNC_PARAMS();
         }
       }
 
@@ -4185,7 +4444,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_SYNC_PARAMS(IO80211SkywalkInter
     v4 = 1;
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::getAWDL_SYNC_PARAMS(a1);
+      AppleBCMWLANProximityInterface::getAWDL_SYNC_PARAMS();
     }
   }
 
@@ -4226,7 +4485,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_SYNC_STATE(IO80211SkywalkInterf
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getAWDL_SYNC_STATE(a1);
+        AppleBCMWLANProximityInterface::getAWDL_SYNC_STATE();
       }
     }
   }
@@ -4306,7 +4565,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_DEV_STATS(IO80211SkywalkInterfa
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::getAWDL_DEV_STATS(a1);
+          AppleBCMWLANProximityInterface::getAWDL_DEV_STATS();
         }
       }
 
@@ -4409,7 +4668,7 @@ LABEL_18:
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::getAWDL_CCA(a1);
+          AppleBCMWLANProximityInterface::getAWDL_CCA();
         }
       }
 
@@ -4454,7 +4713,7 @@ LABEL_17:
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::getAWDL_CCA(a1);
+      AppleBCMWLANProximityInterface::getAWDL_CCA();
     }
   }
 
@@ -4489,7 +4748,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_PRESENCE_MODE(IO80211SkywalkInt
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getAWDL_PRESENCE_MODE(a1);
+        AppleBCMWLANProximityInterface::getAWDL_PRESENCE_MODE();
       }
     }
 
@@ -4551,7 +4810,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_EXTENSION_STATE_MACHINE_PARAMET
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getAWDL_EXTENSION_STATE_MACHINE_PARAMETERS(a1);
+        AppleBCMWLANProximityInterface::getAWDL_EXTENSION_STATE_MACHINE_PARAMETERS();
       }
     }
 
@@ -4586,19 +4845,19 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::getAWDL_EXTENSION_S
   return AppleBCMWLANProximityInterface::getAWDL_EXTENSION_STATE_MACHINE_PARAMETERS((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANProximityInterface::setAWDL_EXTENSION_STATE_MACHINE_PARAMETERS(IO80211SkywalkInterface *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::setAWDL_EXTENSION_STATE_MACHINE_PARAMETERS(IO80211SkywalkInterface *a1, _DWORD *a2)
 {
-  v4 = vmovn_s32(*(a2 + 4));
+  v4 = vmovn_s32(*(a2 + 1));
   v5 = vext_s8(v4, v4, 6uLL);
-  v17 = vuzp1_s8(v5, v5).u32[0];
-  v16[0] = a1;
-  v16[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-  v16[2] = 0;
+  v18 = vuzp1_s8(v5, v5).u32[0];
+  *&v16 = a1;
+  *(&v16 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+  v17 = 0;
   v6 = *(*(a1 + 17) + 960);
   InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
-  v15[0] = &v17;
+  v15[0] = &v18;
   v15[1] = 4;
-  v8 = AppleBCMWLANCommander::sendVirtualIOVarSet(v6, InterfaceId, "awdl_extcounts", v15, kNoRxExpected, v16, 0);
+  v8 = AppleBCMWLANCommander::sendVirtualIOVarSet(v6, InterfaceId, "awdl_extcounts", v15, kNoRxExpected, &v16, 0);
   v9 = (*(*a1 + 1088))(a1);
   if (v8)
   {
@@ -4607,7 +4866,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_EXTENSION_STATE_MACHINE_PARAMET
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_EXTENSION_STATE_MACHINE_PARAMETERS(a1);
+        AppleBCMWLANProximityInterface::setAWDL_EXTENSION_STATE_MACHINE_PARAMETERS();
       }
     }
   }
@@ -4621,14 +4880,14 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_EXTENSION_STATE_MACHINE_PARAMET
       {
         v13 = (*(*a1 + 1088))(a1);
         v14 = (*(*a1 + 920))(a1, 0);
-        CCLogStream::logAlertIf(v13, 0x400uLL, "[dk] %s@%d: <%s> min %u maxuni %u maxmulti %u maxaction %u \n", "setAWDL_EXTENSION_STATE_MACHINE_PARAMETERS", 2137, v14, *(a2 + 16), *(a2 + 8), *(a2 + 4), *(a2 + 12));
+        CCLogStream::logAlertIf(v13, 0x400uLL, "[dk] %s@%d: <%s> min %u maxuni %u maxmulti %u maxaction %u \n", "setAWDL_EXTENSION_STATE_MACHINE_PARAMETERS", 2137, v14, a2[4], a2[2], a2[1], a2[3]);
       }
     }
 
-    v10 = *(a2 + 12);
-    *(*(a1 + 17) + 808) = *(a2 + 16);
-    v11 = *(a2 + 4);
-    *(*(a1 + 17) + 812) = *(a2 + 8);
+    v10 = a2[3];
+    *(*(a1 + 17) + 808) = a2[4];
+    v11 = a2[1];
+    *(*(a1 + 17) + 812) = a2[2];
     *(*(a1 + 17) + 816) = v11;
     *(*(a1 + 17) + 820) = v10;
   }
@@ -4636,7 +4895,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_EXTENSION_STATE_MACHINE_PARAMET
   return v8;
 }
 
-uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setAWDL_EXTENSION_STATE_MACHINE_PARAMETERS(uint64_t a1, uint64_t a2)
+uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setAWDL_EXTENSION_STATE_MACHINE_PARAMETERS(uint64_t a1, _DWORD *a2)
 {
   return AppleBCMWLANProximityInterface::setAWDL_EXTENSION_STATE_MACHINE_PARAMETERS((a1 - 112), a2);
 }
@@ -4709,7 +4968,7 @@ uint64_t AppleBCMWLANProximityInterface::getElectionParams(IO80211SkywalkInterfa
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getElectionParams(a1);
+        AppleBCMWLANProximityInterface::getElectionParams();
       }
     }
   }
@@ -4773,14 +5032,14 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_ELECTION_PARAMS(IO80211SkywalkI
   v5 = *(a2 + 32);
   *(*(a1 + 17) + 573) = *(a2 + 28);
   *(*(a1 + 17) + 555) = v5;
-  v13[0] = a1;
-  v13[1] = AppleBCMWLANProximityInterface::handleElectionTreeIovarAsyncCallBack;
-  v13[2] = 0;
+  *&v13 = a1;
+  *(&v13 + 1) = AppleBCMWLANProximityInterface::handleElectionTreeIovarAsyncCallBack;
+  v14 = 0;
   v6 = *(*(a1 + 17) + 960);
   InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
   v12[0] = *(a1 + 17) + 552;
   v12[1] = 42;
-  v8 = AppleBCMWLANCommander::sendVirtualIOVarSet(v6, InterfaceId, "awdl_election_tree", v12, kNoRxExpected, v13, 0);
+  v8 = AppleBCMWLANCommander::sendVirtualIOVarSet(v6, InterfaceId, "awdl_election_tree", v12, kNoRxExpected, &v13, 0);
   v9 = (*(*a1 + 1088))(a1);
   if (v8)
   {
@@ -4789,7 +5048,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_ELECTION_PARAMS(IO80211SkywalkI
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_ELECTION_PARAMS(a1);
+        AppleBCMWLANProximityInterface::setAWDL_ELECTION_PARAMS();
       }
     }
   }
@@ -4801,7 +5060,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_ELECTION_PARAMS(IO80211SkywalkI
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_ELECTION_PARAMS(a1);
+        AppleBCMWLANProximityInterface::setAWDL_ELECTION_PARAMS();
       }
     }
 
@@ -4825,25 +5084,25 @@ uint64_t AppleBCMWLANProximityInterface::handleElectionTreeIovarAsyncCallBack(ui
     v4 = result;
     if (a3 == -469794557)
     {
-      if ((*(*result + 1088))(result))
+      if ((*(*result + 1088))(result, a2))
       {
         (*(*v4 + 1088))(v4);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::handleElectionTreeIovarAsyncCallBack(v4);
+          AppleBCMWLANProximityInterface::handleElectionTreeIovarAsyncCallBack();
         }
       }
 
-      *(v4[17] + 589) = 0;
-      *(v4[17] + 552) = 0;
-      v9[0] = v4;
-      v9[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-      v9[2] = 0;
-      v5 = *(v4[17] + 960);
+      *(*(v4 + 136) + 589) = 0;
+      *(*(v4 + 136) + 552) = 0;
+      *&v9 = v4;
+      *(&v9 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+      v10 = 0;
+      v5 = *(*(v4 + 136) + 960);
       InterfaceId = IO80211SkywalkInterface::getInterfaceId(v4);
-      v8[0] = v4[17] + 552;
+      v8[0] = *(v4 + 136) + 552;
       v8[1] = 42;
-      result = AppleBCMWLANCommander::sendVirtualIOVarSet(v5, InterfaceId, "awdl_election_tree", v8, kNoRxExpected, v9, 0);
+      result = AppleBCMWLANCommander::sendVirtualIOVarSet(v5, InterfaceId, "awdl_election_tree", v8, kNoRxExpected, &v9, 0);
       if (result)
       {
         result = (*(*v4 + 1088))(v4);
@@ -4853,7 +5112,7 @@ uint64_t AppleBCMWLANProximityInterface::handleElectionTreeIovarAsyncCallBack(ui
           result = CCLogStream::shouldLog();
           if (result)
           {
-            return AppleBCMWLANProximityInterface::handleElectionTreeIovarAsyncCallBack(v4);
+            return AppleBCMWLANProximityInterface::handleElectionTreeIovarAsyncCallBack();
           }
         }
       }
@@ -4907,14 +5166,14 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_AWDL_ADVERTISERS(IO80211Skywalk
   *(v4 + 20) = v7;
   *(v4 + 4) = v6;
   *(v4 + 2) = 44;
-  v13[0] = a1;
-  v13[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-  v13[2] = 0;
+  *&v13 = a1;
+  *(&v13 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+  v14 = 0;
   v8 = *(*(a1 + 17) + 960);
   InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
   v12[0] = v5;
   v12[1] = 50;
-  v10 = AppleBCMWLANCommander::sendVirtualIOVarSet(v8, InterfaceId, "awdl_advertisers", v12, kNoRxExpected, v13, 0);
+  v10 = AppleBCMWLANCommander::sendVirtualIOVarSet(v8, InterfaceId, "awdl_advertisers", v12, kNoRxExpected, &v13, 0);
   if (v10)
   {
     if ((*(*a1 + 1088))(a1))
@@ -4922,7 +5181,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_AWDL_ADVERTISERS(IO80211Skywalk
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_AWDL_ADVERTISERS(a1);
+        AppleBCMWLANProximityInterface::setAWDL_AWDL_ADVERTISERS();
       }
     }
   }
@@ -4943,9 +5202,9 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setAWDL_AWDL_ADVERT
 uint64_t AppleBCMWLANProximityInterface::setAWDL_ELECTION_ID(IO80211SkywalkInterface *this, uint64_t a2)
 {
   *(*(this + 17) + 553) = *(a2 + 4);
-  v10[0] = this;
-  v10[1] = AppleBCMWLANProximityInterface::handleElectionTreeIovarAsyncCallBack;
-  v10[2] = 0;
+  *&v10 = this;
+  *(&v10 + 1) = AppleBCMWLANProximityInterface::handleElectionTreeIovarAsyncCallBack;
+  v11 = 0;
   if (*(*(this + 17) + 120) != 1 || IO80211SkywalkInterface::getInterfaceId(this) == -1 || IO80211SkywalkInterface::getInterfaceId(this) == 255 || IO80211SkywalkInterface::getInterfaceId(this) >= 0xC)
   {
     if ((*(*this + 1088))(this))
@@ -4953,7 +5212,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_ELECTION_ID(IO80211SkywalkInter
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_ELECTION_ID(this);
+        AppleBCMWLANProximityInterface::setAWDL_ELECTION_ID();
       }
     }
 
@@ -4964,7 +5223,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_ELECTION_ID(IO80211SkywalkInter
   InterfaceId = IO80211SkywalkInterface::getInterfaceId(this);
   v9[0] = *(this + 17) + 552;
   v9[1] = 42;
-  v3 = AppleBCMWLANCommander::sendVirtualIOVarSet(v5, InterfaceId, "awdl_election_tree", v9, kNoRxExpected, v10, 0);
+  v3 = AppleBCMWLANCommander::sendVirtualIOVarSet(v5, InterfaceId, "awdl_election_tree", v9, kNoRxExpected, &v10, 0);
   v7 = (*(*this + 1088))(this);
   if (!v3)
   {
@@ -4973,7 +5232,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_ELECTION_ID(IO80211SkywalkInter
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_ELECTION_ID(this);
+        AppleBCMWLANProximityInterface::setAWDL_ELECTION_ID();
       }
     }
 
@@ -4994,7 +5253,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_ELECTION_ID(IO80211SkywalkInter
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::setAWDL_ELECTION_ID(this);
+      AppleBCMWLANProximityInterface::setAWDL_ELECTION_ID();
     }
   }
 
@@ -5025,7 +5284,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_ELECTION_METRIC(IO80211SkywalkI
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getAWDL_ELECTION_METRIC(a1);
+        AppleBCMWLANProximityInterface::getAWDL_ELECTION_METRIC();
       }
     }
   }
@@ -5062,7 +5321,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_ELECTION_PARAMS(IO80211SkywalkI
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getAWDL_ELECTION_PARAMS(a1);
+        AppleBCMWLANProximityInterface::getAWDL_ELECTION_PARAMS();
       }
     }
   }
@@ -5092,7 +5351,7 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::getAWDL_ELECTION_PA
   return AppleBCMWLANProximityInterface::getAWDL_ELECTION_PARAMS((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANProximityInterface::setAWDL_ELECTION_METRIC(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::setAWDL_ELECTION_METRIC(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   if (IO80211SkywalkInterface::getInterfaceId(a1) == -1 || IO80211SkywalkInterface::getInterfaceId(a1) >= 0xC)
   {
@@ -5102,22 +5361,22 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_ELECTION_METRIC(uint64_t *a1, u
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_ELECTION_METRIC(a1);
+        AppleBCMWLANProximityInterface::setAWDL_ELECTION_METRIC();
       }
     }
   }
 
   else
   {
-    v11[0] = a1;
-    v11[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-    v11[2] = 0;
-    *(a1[17] + 555) = *(a2 + 4);
-    v5 = *(a1[17] + 960);
+    *&v11 = a1;
+    *(&v11 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+    v12 = 0;
+    *(*(a1 + 17) + 555) = *(a2 + 4);
+    v5 = *(*(a1 + 17) + 960);
     InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
-    v10[0] = a1[17] + 552;
+    v10[0] = *(a1 + 17) + 552;
     v10[1] = 42;
-    v4 = AppleBCMWLANCommander::sendVirtualIOVarSet(v5, InterfaceId, "awdl_election_tree", v10, kNoRxExpected, v11, 0);
+    v4 = AppleBCMWLANCommander::sendVirtualIOVarSet(v5, InterfaceId, "awdl_election_tree", v10, kNoRxExpected, &v11, 0);
     v7 = (*(*a1 + 1088))(a1);
     if (v4)
     {
@@ -5126,7 +5385,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_ELECTION_METRIC(uint64_t *a1, u
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::setAWDL_ELECTION_METRIC(a1);
+          AppleBCMWLANProximityInterface::setAWDL_ELECTION_METRIC();
         }
       }
     }
@@ -5161,14 +5420,14 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_ELECTION_RSSI_THRESHOLDS(IO8021
   v4 = a2[4];
   *(*(a1 + 17) + 559) = a2[3];
   *(*(a1 + 17) + 561) = v4;
-  v12[0] = a1;
-  v12[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-  v12[2] = 0;
+  *&v12 = a1;
+  *(&v12 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+  v13 = 0;
   v5 = *(*(a1 + 17) + 960);
   InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
   v11[0] = *(a1 + 17) + 552;
   v11[1] = 42;
-  v7 = AppleBCMWLANCommander::sendVirtualIOVarSet(v5, InterfaceId, "awdl_election_tree", v11, kNoRxExpected, v12, 0);
+  v7 = AppleBCMWLANCommander::sendVirtualIOVarSet(v5, InterfaceId, "awdl_election_tree", v11, kNoRxExpected, &v12, 0);
   v8 = (*(*a1 + 1088))(a1);
   if (v7)
   {
@@ -5177,7 +5436,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_ELECTION_RSSI_THRESHOLDS(IO8021
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_ELECTION_RSSI_THRESHOLDS(a1);
+        AppleBCMWLANProximityInterface::setAWDL_ELECTION_RSSI_THRESHOLDS();
       }
     }
   }
@@ -5220,7 +5479,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_ELECTION_RSSI_THRESHOLDS(IO8021
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getAWDL_ELECTION_RSSI_THRESHOLDS(a1);
+        AppleBCMWLANProximityInterface::getAWDL_ELECTION_RSSI_THRESHOLDS();
       }
     }
   }
@@ -5247,7 +5506,7 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::getAWDL_ELECTION_RS
   return AppleBCMWLANProximityInterface::getAWDL_ELECTION_RSSI_THRESHOLDS((a1 - 128), a2);
 }
 
-void AppleBCMWLANProximityInterface::handleOobAfIovarAsyncCallBack(IO80211SkywalkInterface *a1, int a2, uint64_t a3, int a4, _WORD *address)
+void AppleBCMWLANProximityInterface::handleOobAfIovarAsyncCallBack(IO80211SkywalkInterface *a1, uint64_t a2, uint64_t a3, int a4, _WORD *address)
 {
   --*(*(a1 + 17) + 48);
   if (a3 == -469794537 || a3 == 0)
@@ -5260,7 +5519,7 @@ void AppleBCMWLANProximityInterface::handleOobAfIovarAsyncCallBack(IO80211Skywal
     goto LABEL_12;
   }
 
-  if (!(*(*a1 + 1088))(a1) || ((*(*a1 + 1088))(a1), !CCLogStream::shouldLog()))
+  if (!(*(*a1 + 1088))(a1, a2) || ((*(*a1 + 1088))(a1), !CCLogStream::shouldLog()))
   {
     if (!address)
     {
@@ -5311,11 +5570,10 @@ uint64_t AppleBCMWLANProximityInterface::handleSlotBssIovarAsyncCallBack(uint64_
   return result;
 }
 
-uint64_t AppleBCMWLANProximityInterface::sendUnicastAFIOVar(AppleBCMWLANProximityInterface *this, iovec *a2, unsigned int a3)
+uint64_t AppleBCMWLANProximityInterface::sendUnicastAFIOVar(uint64_t this, iovec *a2, unsigned int a3)
 {
-  v26 = 0;
+  v26 = 0uLL;
   v27 = 0;
-  v28 = 0;
   if (!a3)
   {
     goto LABEL_15;
@@ -5336,7 +5594,7 @@ uint64_t AppleBCMWLANProximityInterface::sendUnicastAFIOVar(AppleBCMWLANProximit
   while (v8);
   if (v5 >= 0x26)
   {
-    if (v5 + 11 >= AppleBCMWLANCommander::getMaxCmdTxPayload(*(*(this + 17) + 960)))
+    if (v5 + 11 >= AppleBCMWLANCommander::getMaxCmdTxPayload(*(*(this + 136) + 960)))
     {
       v20 = 3758097128;
       if ((*(*this + 1088))(this))
@@ -5344,7 +5602,7 @@ uint64_t AppleBCMWLANProximityInterface::sendUnicastAFIOVar(AppleBCMWLANProximit
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::sendUnicastAFIOVar(this);
+          AppleBCMWLANProximityInterface::sendUnicastAFIOVar();
           return 3758097128;
         }
       }
@@ -5375,15 +5633,15 @@ uint64_t AppleBCMWLANProximityInterface::sendUnicastAFIOVar(AppleBCMWLANProximit
           v17 = *(v11 + 6);
           v13[2] = *(v11 + 10);
           *v13 = v17;
-          v26 = this;
-          v27 = AppleBCMWLANProximityInterface::handleOobAfIovarAsyncCallBack;
-          v28 = v13;
-          v18 = *(this + 17);
+          *&v26 = this;
+          *(&v26 + 1) = AppleBCMWLANProximityInterface::handleOobAfIovarAsyncCallBack;
+          v27 = v13;
+          v18 = *(this + 136);
           v19 = *(v18 + 48);
           if (v19 <= 0x10)
           {
             *(v18 + 48) = v19 + 1;
-            v22 = *(*(this + 17) + 960);
+            v22 = *(*(this + 136) + 960);
             InterfaceId = IO80211SkywalkInterface::getInterfaceId(this);
             if (v5)
             {
@@ -5418,7 +5676,7 @@ uint64_t AppleBCMWLANProximityInterface::sendUnicastAFIOVar(AppleBCMWLANProximit
               (*(*this + 1088))(this);
               if (CCLogStream::shouldLog())
               {
-                AppleBCMWLANProximityInterface::sendUnicastAFIOVar(this);
+                AppleBCMWLANProximityInterface::sendUnicastAFIOVar();
               }
             }
 
@@ -5429,7 +5687,7 @@ uint64_t AppleBCMWLANProximityInterface::sendUnicastAFIOVar(AppleBCMWLANProximit
 
         else
         {
-          AppleBCMWLANProximityInterface::sendUnicastAFIOVar(this);
+          AppleBCMWLANProximityInterface::sendUnicastAFIOVar();
           v20 = LODWORD(v25[0]);
         }
 
@@ -5444,7 +5702,7 @@ uint64_t AppleBCMWLANProximityInterface::sendUnicastAFIOVar(AppleBCMWLANProximit
           (*(*this + 1088))(this);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::sendUnicastAFIOVar(this);
+            AppleBCMWLANProximityInterface::sendUnicastAFIOVar();
           }
         }
       }
@@ -5460,7 +5718,7 @@ LABEL_15:
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::sendUnicastAFIOVar(this);
+        AppleBCMWLANProximityInterface::sendUnicastAFIOVar();
         return 3758097127;
       }
     }
@@ -5469,12 +5727,12 @@ LABEL_15:
   return v20;
 }
 
-uint64_t AppleBCMWLANProximityInterface::sendIOVarSetCommand(AppleBCMWLANProximityInterface *this, iovec *a2, unsigned int a3, const char *__s)
+uint64_t AppleBCMWLANProximityInterface::sendIOVarSetCommand(IO80211SkywalkInterface *this, iovec *a2, unsigned int a3, const char *__s)
 {
   LODWORD(v5) = a3;
-  v31[0] = this;
-  v31[1] = AppleBCMWLANProximityInterface::handleFlowControlledProxIovarAsyncCallBack;
-  v31[2] = 0;
+  *&v31 = this;
+  *(&v31 + 1) = AppleBCMWLANProximityInterface::handleFlowControlledProxIovarAsyncCallBack;
+  v32 = 0;
   v8 = 0;
   if (a3)
   {
@@ -5492,7 +5750,7 @@ uint64_t AppleBCMWLANProximityInterface::sendIOVarSetCommand(AppleBCMWLANProximi
   }
 
   v12 = strlen(__s) + v8;
-  v13 = this + 136;
+  v13 = (this + 136);
   if (v12 >= AppleBCMWLANCommander::getMaxCmdTxPayload(*(*(this + 17) + 960)))
   {
     v20 = 3758097128;
@@ -5551,7 +5809,7 @@ uint64_t AppleBCMWLANProximityInterface::sendIOVarSetCommand(AppleBCMWLANProximi
 
         v30[0] = v26;
         v30[1] = v8;
-        v20 = AppleBCMWLANCommander::sendVirtualIOVarSet(v24, InterfaceId, __s, v30, kNoRxExpected, v31, 0);
+        v20 = AppleBCMWLANCommander::sendVirtualIOVarSet(v24, InterfaceId, __s, v30, kNoRxExpected, &v31, 0);
         if (v20)
         {
           if ((*(*this + 1088))(this))
@@ -5575,7 +5833,7 @@ uint64_t AppleBCMWLANProximityInterface::sendIOVarSetCommand(AppleBCMWLANProximi
           (*(*this + 1088))(this);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::sendIOVarSetCommand(this);
+            AppleBCMWLANProximityInterface::sendIOVarSetCommand();
           }
         }
       }
@@ -5591,7 +5849,7 @@ uint64_t AppleBCMWLANProximityInterface::sendIOVarSetCommand(AppleBCMWLANProximi
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::sendIOVarSetCommand(this);
+          AppleBCMWLANProximityInterface::sendIOVarSetCommand();
         }
       }
     }
@@ -5629,14 +5887,14 @@ void *AppleBCMWLANProximityInterface::handleFlowControlledProxIovarAsyncCallBack
   return result;
 }
 
-uint64_t AppleBCMWLANProximityInterface::updateSyncParams(AppleBCMWLANProximityInterface *this)
+uint64_t AppleBCMWLANProximityInterface::updateSyncParams(IO80211SkywalkInterface *this)
 {
   if ((*(*this + 1088))(this))
   {
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::updateSyncParams(this);
+      AppleBCMWLANProximityInterface::updateSyncParams();
     }
   }
 
@@ -5649,11 +5907,11 @@ uint64_t AppleBCMWLANProximityInterface::updateSyncParams(AppleBCMWLANProximityI
   return AppleBCMWLANProximityInterface::setSyncParams(this);
 }
 
-uint64_t AppleBCMWLANProximityInterface::setSyncParams(AppleBCMWLANProximityInterface *this)
+uint64_t AppleBCMWLANProximityInterface::setSyncParams(IO80211SkywalkInterface *this)
 {
-  v8[0] = this;
-  v8[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-  v8[2] = 0;
+  *&v8 = this;
+  *(&v8 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+  v9 = 0;
   if (*(*(this + 17) + 120) != 1 || IO80211SkywalkInterface::getInterfaceId(this) == -1 || IO80211SkywalkInterface::getInterfaceId(this) == 255 || IO80211SkywalkInterface::getInterfaceId(this) >= 0xC)
   {
     if ((*(*this + 1088))(this))
@@ -5661,7 +5919,7 @@ uint64_t AppleBCMWLANProximityInterface::setSyncParams(AppleBCMWLANProximityInte
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setSyncParams(this);
+        AppleBCMWLANProximityInterface::setSyncParams();
       }
     }
 
@@ -5670,21 +5928,21 @@ uint64_t AppleBCMWLANProximityInterface::setSyncParams(AppleBCMWLANProximityInte
 
   else
   {
-    v9 = 0u;
     v10 = 0u;
-    v11 = 0;
-    *(&v9 + 1) = 36;
+    v11 = 0u;
+    v12 = 0;
+    *(&v10 + 1) = 36;
     v4 = *(this + 17);
-    WORD4(v9) = *(v4 + 720);
-    WORD5(v9) = *(v4 + 732);
-    HIWORD(v9) = *(v4 + 724);
-    LOWORD(v10) = *(v4 + 716);
-    BYTE6(v9) = *(v4 + 680);
+    WORD4(v10) = *(v4 + 720);
+    WORD5(v10) = *(v4 + 732);
+    HIWORD(v10) = *(v4 + 724);
+    LOWORD(v11) = *(v4 + 716);
+    BYTE6(v10) = *(v4 + 680);
     v5 = *(v4 + 960);
     InterfaceId = IO80211SkywalkInterface::getInterfaceId(this);
-    v7[0] = &v9;
+    v7[0] = &v10;
     v7[1] = 36;
-    v2 = AppleBCMWLANCommander::sendVirtualIOVarSet(v5, InterfaceId, "awdl_sync_params", v7, kNoRxExpected, v8, 0);
+    v2 = AppleBCMWLANCommander::sendVirtualIOVarSet(v5, InterfaceId, "awdl_sync_params", v7, kNoRxExpected, &v8, 0);
     if (v2)
     {
       if ((*(*this + 1088))(this))
@@ -5692,7 +5950,7 @@ uint64_t AppleBCMWLANProximityInterface::setSyncParams(AppleBCMWLANProximityInte
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::setSyncParams(this);
+          AppleBCMWLANProximityInterface::setSyncParams();
         }
       }
     }
@@ -5701,27 +5959,27 @@ uint64_t AppleBCMWLANProximityInterface::setSyncParams(AppleBCMWLANProximityInte
   return v2;
 }
 
-uint64_t AppleBCMWLANProximityInterface::setAWDL_SYNC_PARAMS(uint64_t *a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AppleBCMWLANProximityInterface::setAWDL_SYNC_PARAMS(IO80211SkywalkInterface *a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (!a2)
   {
     return 8;
   }
 
-  v9 = a1 + 17;
+  v9 = a1 + 136;
   v10 = a2[1];
-  *(a1[17] + 720) = a2[2];
+  *(*(a1 + 17) + 720) = a2[2];
   v11 = a2[3];
-  *(a1[17] + 732) = a2[4];
-  *(a1[17] + 724) = v11;
-  *(a1[17] + 716) = v10;
-  *(a1[17] + 660) = a2[5];
+  *(*(a1 + 17) + 732) = a2[4];
+  *(*(a1 + 17) + 724) = v11;
+  *(*(a1 + 17) + 716) = v10;
+  *(*(a1 + 17) + 660) = a2[5];
   if ((*(*a1 + 1088))(a1, a2, a3, a4, a5, a6, a7, a8, 0, 0, 0, 0, 0, 0, 0, 0))
   {
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::setAWDL_SYNC_PARAMS(a1);
+      AppleBCMWLANProximityInterface::setAWDL_SYNC_PARAMS();
     }
   }
 
@@ -5752,20 +6010,20 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setAWDL_SYNC_PARAMS
 
 uint64_t AppleBCMWLANProximityInterface::setPSF_DWELL(IO80211SkywalkInterface *this, uint64_t a2)
 {
-  v9[0] = this;
-  v9[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-  v9[2] = 0;
+  *&v9 = this;
+  *(&v9 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+  v10 = 0;
   if (a2)
   {
-    v10 = 0;
+    v11 = 0;
     v3 = *(a2 + 8);
-    WORD2(v10) = *(a2 + 4);
-    HIWORD(v10) = v3;
+    WORD2(v11) = *(a2 + 4);
+    HIWORD(v11) = v3;
     v4 = *(*(this + 17) + 960);
     InterfaceId = IO80211SkywalkInterface::getInterfaceId(this);
-    v8[0] = &v10;
+    v8[0] = &v11;
     v8[1] = 8;
-    v6 = AppleBCMWLANCommander::sendVirtualIOVarSet(v4, InterfaceId, "awdl_psf_dwell", v8, kNoRxExpected, v9, 0);
+    v6 = AppleBCMWLANCommander::sendVirtualIOVarSet(v4, InterfaceId, "awdl_psf_dwell", v8, kNoRxExpected, &v9, 0);
     if (v6)
     {
       if ((*(*this + 1088))(this))
@@ -5773,7 +6031,7 @@ uint64_t AppleBCMWLANProximityInterface::setPSF_DWELL(IO80211SkywalkInterface *t
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::setPSF_DWELL(this);
+          AppleBCMWLANProximityInterface::setPSF_DWELL();
         }
       }
     }
@@ -5787,7 +6045,7 @@ uint64_t AppleBCMWLANProximityInterface::setPSF_DWELL(IO80211SkywalkInterface *t
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setPSF_DWELL(this);
+        AppleBCMWLANProximityInterface::setPSF_DWELL();
       }
     }
   }
@@ -5804,11 +6062,11 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setPSF_DWELL(uint64
   return AppleBCMWLANProximityInterface::setPSF_DWELL((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANProximityInterface::setAWDL_SYNC_STATE(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::setAWDL_SYNC_STATE(IO80211SkywalkInterface *a1, uint64_t a2)
 {
-  v16 = 0uLL;
-  memset(v17, 0, sizeof(v17));
-  *(&v16 + 1) = *(a1[17] + 660);
+  v17 = 0uLL;
+  memset(v18, 0, sizeof(v18));
+  *(&v17 + 1) = *(*(a1 + 17) + 660);
   v4 = *(a2 + 4);
   if (v4 == 1)
   {
@@ -5822,7 +6080,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_SYNC_STATE(uint64_t *a1, uint64
     {
       v5 = 1;
 LABEL_6:
-      LOBYTE(v16) = v5;
+      LOBYTE(v17) = v5;
       goto LABEL_11;
     }
 
@@ -5831,7 +6089,7 @@ LABEL_6:
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_SYNC_STATE(a1);
+        AppleBCMWLANProximityInterface::setAWDL_SYNC_STATE();
       }
     }
   }
@@ -5841,11 +6099,11 @@ LABEL_11:
   if (*(a2 + 20))
   {
     v5 |= *(a2 + 20);
-    LOBYTE(v16) = v5;
+    LOBYTE(v17) = v5;
   }
 
   v6 = *(a2 + 16);
-  v15 = v6;
+  v16 = v6;
   if ((*(*a1 + 1088))(a1))
   {
     (*(*a1 + 1088))(a1);
@@ -5863,20 +6121,20 @@ LABEL_11:
         v12 = "MASTER";
       }
 
-      CCLogStream::logAlertIf(v11, 0x400uLL, "[dk] %s@%d: set awdl opmode %u %s ne_bcast_period %lu\n", "setAWDL_SYNC_STATE", 2744, v6, v12, *(a1[17] + 660));
+      CCLogStream::logAlertIf(v11, 0x400uLL, "[dk] %s@%d: set awdl opmode %u %s ne_bcast_period %lu\n", "setAWDL_SYNC_STATE", 2744, v6, v12, *(*(a1 + 17) + 660));
     }
   }
 
-  *(&v16 + 3) = *(a2 + 8);
-  *(&v16 + 7) = *(a2 + 12);
-  v14[0] = a1;
-  v14[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-  v14[2] = 0;
-  v7 = *(a1[17] + 960);
+  *(&v17 + 3) = *(a2 + 8);
+  *(&v17 + 7) = *(a2 + 12);
+  *&v14 = a1;
+  *(&v14 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+  v15 = 0;
+  v7 = *(*(a1 + 17) + 960);
   InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
-  v13[0] = &v15;
+  v13[0] = &v16;
   v13[1] = 28;
-  v9 = AppleBCMWLANCommander::sendVirtualIOVarSet(v7, InterfaceId, "awdl_opmode", v13, kNoRxExpected, v14, 0);
+  v9 = AppleBCMWLANCommander::sendVirtualIOVarSet(v7, InterfaceId, "awdl_opmode", v13, kNoRxExpected, &v14, 0);
   if (v9)
   {
     if ((*(*a1 + 1088))(a1))
@@ -5884,7 +6142,7 @@ LABEL_11:
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_SYNC_STATE(a1);
+        AppleBCMWLANProximityInterface::setAWDL_SYNC_STATE();
       }
     }
   }
@@ -5901,7 +6159,7 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setAWDL_SYNC_STATE(
   return AppleBCMWLANProximityInterface::setAWDL_SYNC_STATE((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANProximityInterface::setAWDL_SYNC_ENABLED(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::setAWDL_SYNC_ENABLED(void *a1, uint64_t a2)
 {
   if (AppleBCMWLANCore::isOpModeAllowed(*(a1[17] + 64), 2u))
   {
@@ -5916,7 +6174,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_SYNC_ENABLED(uint64_t *a1, uint
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_SYNC_ENABLED(a1);
+        AppleBCMWLANProximityInterface::setAWDL_SYNC_ENABLED();
       }
     }
 
@@ -5924,7 +6182,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_SYNC_ENABLED(uint64_t *a1, uint
   }
 }
 
-uint64_t AppleBCMWLANProximityInterface::setSYNC_ENABLED_internal(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::setSYNC_ENABLED_internal(void *a1, uint64_t a2)
 {
   v22 = 0u;
   v23 = 0u;
@@ -5985,7 +6243,7 @@ uint64_t AppleBCMWLANProximityInterface::setSYNC_ENABLED_internal(uint64_t *a1, 
     snprintf(&__str[v4], v11, "]\n");
     if ((AppleBCMWLANCore::isConcurrencyEnabled(*(a1[17] + 64)) & 1) != 0 && AppleBCMWLANCore::isConcurrencyOpModeSet(*(a1[17] + 64), 4))
     {
-      AppleBCMWLANCore::setSoftAPPowerState(*(a1[17] + 64), 1u, 6u);
+      AppleBCMWLANCore::setSoftAPPowerState(*(a1[17] + 64), 1, 6);
     }
 
     if ((*(*a1 + 1088))(a1))
@@ -5993,7 +6251,7 @@ uint64_t AppleBCMWLANProximityInterface::setSYNC_ENABLED_internal(uint64_t *a1, 
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setSYNC_ENABLED_internal(a1);
+        AppleBCMWLANProximityInterface::setSYNC_ENABLED_internal();
       }
     }
 
@@ -6002,7 +6260,7 @@ uint64_t AppleBCMWLANProximityInterface::setSYNC_ENABLED_internal(uint64_t *a1, 
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setSYNC_ENABLED_internal(a1);
+        AppleBCMWLANProximityInterface::setSYNC_ENABLED_internal();
       }
     }
   }
@@ -6012,7 +6270,7 @@ uint64_t AppleBCMWLANProximityInterface::setSYNC_ENABLED_internal(uint64_t *a1, 
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::setSYNC_ENABLED_internal(a1);
+      AppleBCMWLANProximityInterface::setSYNC_ENABLED_internal();
     }
   }
 
@@ -6057,7 +6315,7 @@ uint64_t AppleBCMWLANProximityInterface::setCHANNEL(AppleBCMWLANProximityInterfa
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::setCHANNEL(a1);
+      AppleBCMWLANProximityInterface::setCHANNEL();
     }
   }
 
@@ -6075,12 +6333,12 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setCHANNEL(uint64_t
   return 0;
 }
 
-uint64_t AppleBCMWLANProximityInterface::setAWDL_MASTER_CHANNEL(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::setAWDL_MASTER_CHANNEL(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v3 = *(a2 + 4);
   if (v3)
   {
-    *(a1[17] + 680) = v3;
+    *(*(a1 + 17) + 680) = v3;
   }
 
   else if ((*(*a1 + 1088))(a1))
@@ -6088,7 +6346,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_MASTER_CHANNEL(uint64_t *a1, ui
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::setAWDL_MASTER_CHANNEL(a1);
+      AppleBCMWLANProximityInterface::setAWDL_MASTER_CHANNEL();
     }
   }
 
@@ -6097,7 +6355,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_MASTER_CHANNEL(uint64_t *a1, ui
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::setAWDL_MASTER_CHANNEL(a1);
+      AppleBCMWLANProximityInterface::setAWDL_MASTER_CHANNEL();
     }
   }
 
@@ -6133,7 +6391,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_SECONDARY_MASTER_CHANNEL(IO8021
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getAWDL_SECONDARY_MASTER_CHANNEL(a1);
+        AppleBCMWLANProximityInterface::getAWDL_SECONDARY_MASTER_CHANNEL();
       }
     }
 
@@ -6183,7 +6441,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_AF_SECONDARY_PAYLOAD_CAPABILITI
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getAWDL_AF_SECONDARY_PAYLOAD_CAPABILITIES(a1);
+        AppleBCMWLANProximityInterface::getAWDL_AF_SECONDARY_PAYLOAD_CAPABILITIES();
       }
     }
   }
@@ -6195,7 +6453,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_AF_SECONDARY_PAYLOAD_CAPABILITI
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getAWDL_AF_SECONDARY_PAYLOAD_CAPABILITIES(a1);
+        AppleBCMWLANProximityInterface::getAWDL_AF_SECONDARY_PAYLOAD_CAPABILITIES();
       }
     }
 
@@ -6209,7 +6467,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_AF_SECONDARY_PAYLOAD_CAPABILITI
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::getAWDL_AF_SECONDARY_PAYLOAD_CAPABILITIES(a1);
+          AppleBCMWLANProximityInterface::getAWDL_AF_SECONDARY_PAYLOAD_CAPABILITIES();
         }
       }
 
@@ -6224,7 +6482,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_AF_SECONDARY_PAYLOAD_CAPABILITI
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::getAWDL_AF_SECONDARY_PAYLOAD_CAPABILITIES(a1);
+          AppleBCMWLANProximityInterface::getAWDL_AF_SECONDARY_PAYLOAD_CAPABILITIES();
         }
       }
 
@@ -6247,15 +6505,15 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::getAWDL_AF_SECONDAR
 
 uint64_t AppleBCMWLANProximityInterface::setAWDL_SECONDARY_MASTER_CHANNEL(IO80211SkywalkInterface *a1, uint64_t a2)
 {
-  v9 = *(a2 + 4);
-  v8[0] = a1;
-  v8[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-  v8[2] = 0;
+  v10 = *(a2 + 4);
+  *&v8 = a1;
+  *(&v8 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+  v9 = 0;
   v3 = *(*(a1 + 17) + 960);
   InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
-  v7[0] = &v9;
+  v7[0] = &v10;
   v7[1] = 4;
-  v5 = AppleBCMWLANCommander::sendVirtualIOVarSet(v3, InterfaceId, "awdl_osoc_chan", v7, kNoRxExpected, v8, 0);
+  v5 = AppleBCMWLANCommander::sendVirtualIOVarSet(v3, InterfaceId, "awdl_osoc_chan", v7, kNoRxExpected, &v8, 0);
   if (v5)
   {
     *(*(a1 + 17) + 684) = 0;
@@ -6264,20 +6522,20 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_SECONDARY_MASTER_CHANNEL(IO8021
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_SECONDARY_MASTER_CHANNEL(a1);
+        AppleBCMWLANProximityInterface::setAWDL_SECONDARY_MASTER_CHANNEL();
       }
     }
   }
 
   else
   {
-    *(*(a1 + 17) + 684) = v9;
+    *(*(a1 + 17) + 684) = v10;
     if ((*(*a1 + 1088))(a1))
     {
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_SECONDARY_MASTER_CHANNEL(a1);
+        AppleBCMWLANProximityInterface::setAWDL_SECONDARY_MASTER_CHANNEL();
       }
     }
   }
@@ -6312,7 +6570,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_MASTER_CHANNEL(IO80211SkywalkIn
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getAWDL_MASTER_CHANNEL(a1);
+        AppleBCMWLANProximityInterface::getAWDL_MASTER_CHANNEL();
       }
     }
 
@@ -6345,7 +6603,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_MASTER_CHANNEL(IO80211SkywalkIn
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::getAWDL_MASTER_CHANNEL(a1);
+            AppleBCMWLANProximityInterface::getAWDL_MASTER_CHANNEL();
           }
         }
       }
@@ -6355,7 +6613,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_MASTER_CHANNEL(IO80211SkywalkIn
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::getAWDL_MASTER_CHANNEL(a1);
+          AppleBCMWLANProximityInterface::getAWDL_MASTER_CHANNEL();
         }
       }
     }
@@ -6365,7 +6623,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_MASTER_CHANNEL(IO80211SkywalkIn
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getAWDL_MASTER_CHANNEL(a1);
+        AppleBCMWLANProximityInterface::getAWDL_MASTER_CHANNEL();
       }
     }
 
@@ -6382,7 +6640,7 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::getAWDL_MASTER_CHAN
   return AppleBCMWLANProximityInterface::getAWDL_MASTER_CHANNEL((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANProximityInterface::setAWDL_ENCRYPTION_KEYS(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::setAWDL_ENCRYPTION_KEYS(uint64_t a1, uint64_t a2)
 {
   v11 = 0;
   memset(v10, 0, sizeof(v10));
@@ -6408,7 +6666,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_ENCRYPTION_KEYS(uint64_t *a1, u
 
   else
   {
-    v7 = (*(**(a1[17] + 64) + 88))(*(a1[17] + 64));
+    v7 = (*(**(*(a1 + 136) + 64) + 88))(*(*(a1 + 136) + 64));
     if ((*(*v7 + 136))(v7))
     {
       return AppleBCMWLANProximityInterface::programKeyAsync(a1, v10);
@@ -6423,7 +6681,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_ENCRYPTION_KEYS(uint64_t *a1, u
   return v6;
 }
 
-uint64_t AppleBCMWLANProximityInterface::programKeyAsync(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::programKeyAsync(uint64_t a1, uint64_t a2)
 {
   v4 = a1 & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000;
   if ((*(*a1 + 1088))(a1))
@@ -6431,7 +6689,7 @@ uint64_t AppleBCMWLANProximityInterface::programKeyAsync(uint64_t *a1, uint64_t 
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::programKeyAsync(a1);
+      AppleBCMWLANProximityInterface::programKeyAsync();
     }
   }
 
@@ -6441,14 +6699,14 @@ uint64_t AppleBCMWLANProximityInterface::programKeyAsync(uint64_t *a1, uint64_t 
     CCLogStream::shouldLog(v5, 0x800uLL);
   }
 
-  v11[0] = a1;
-  v11[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-  v11[2] = 0;
-  v6 = *(a1[17] + 960);
+  *&v11 = a1;
+  *(&v11 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+  v12 = 0;
+  v6 = *(*(a1 + 136) + 960);
   InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
   v10[0] = a2;
   v10[1] = 164;
-  v8 = AppleBCMWLANCommander::sendVirtualIOVarSet(v6, InterfaceId, "wsec_key", v10, kNoRxExpected, v11, 0);
+  v8 = AppleBCMWLANCommander::sendVirtualIOVarSet(v6, InterfaceId, "wsec_key", v10, kNoRxExpected, &v11, 0);
   if (v8)
   {
     if ((*(*a1 + 1088))(a1))
@@ -6456,7 +6714,7 @@ uint64_t AppleBCMWLANProximityInterface::programKeyAsync(uint64_t *a1, uint64_t 
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::programKeyAsync(a1, v4, (a1 + 17), v8);
+        AppleBCMWLANProximityInterface::programKeyAsync(a1, v4, a1 + 136, v8);
       }
     }
   }
@@ -6464,14 +6722,14 @@ uint64_t AppleBCMWLANProximityInterface::programKeyAsync(uint64_t *a1, uint64_t 
   return v8;
 }
 
-uint64_t AppleBCMWLANProximityInterface::programKeySync(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::programKeySync(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   if ((*(*a1 + 1088))(a1))
   {
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::programKeySync(a1);
+      AppleBCMWLANProximityInterface::programKeySync();
     }
   }
 
@@ -6481,7 +6739,7 @@ uint64_t AppleBCMWLANProximityInterface::programKeySync(uint64_t *a1, uint64_t a
     CCLogStream::shouldLog(v4, 0x800uLL);
   }
 
-  v5 = *(a1[17] + 960);
+  v5 = *(*(a1 + 17) + 960);
   InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
   v9[0] = a2;
   v9[1] = 164;
@@ -6493,7 +6751,7 @@ uint64_t AppleBCMWLANProximityInterface::programKeySync(uint64_t *a1, uint64_t a
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::programKeySync(a1);
+        AppleBCMWLANProximityInterface::programKeySync();
       }
     }
   }
@@ -6503,11 +6761,11 @@ uint64_t AppleBCMWLANProximityInterface::programKeySync(uint64_t *a1, uint64_t a
 
 uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setAWDL_ENCRYPTION_KEYS(uint64_t a1, uint64_t a2)
 {
-  return AppleBCMWLANProximityInterface::setAWDL_ENCRYPTION_KEYS((a1 - 112), a2);
+  return AppleBCMWLANProximityInterface::setAWDL_ENCRYPTION_KEYS(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANProximityInterface::setAWDL_ENCRYPTION_KEYS((a1 - 128), a2);
+  return AppleBCMWLANProximityInterface::setAWDL_ENCRYPTION_KEYS(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANProximityInterface::getAWDL_ENCRYPTION_TYPE(IO80211SkywalkInterface *a1, uint64_t a2)
@@ -6528,7 +6786,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_ENCRYPTION_TYPE(IO80211SkywalkI
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getAWDL_ENCRYPTION_TYPE(a1);
+        AppleBCMWLANProximityInterface::getAWDL_ENCRYPTION_TYPE();
       }
     }
   }
@@ -6567,7 +6825,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_ENCRYPTION_TYPE(IO80211SkywalkI
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_ENCRYPTION_TYPE(a1);
+        AppleBCMWLANProximityInterface::setAWDL_ENCRYPTION_TYPE();
       }
     }
   }
@@ -6617,7 +6875,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_RTG_PEER_STATS_CONFIG(IO80211Sk
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::setAWDL_RTG_PEER_STATS_CONFIG(this);
+          AppleBCMWLANProximityInterface::setAWDL_RTG_PEER_STATS_CONFIG();
         }
       }
     }
@@ -6635,13 +6893,13 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setAWDL_RTG_PEER_ST
   return AppleBCMWLANProximityInterface::setAWDL_RTG_PEER_STATS_CONFIG((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION(uint64_t a1, uint64_t a2)
 {
-  v34 = 0;
+  v35 = 0;
   v4 = (a2 + 16);
   if (!strncmp((a2 + 16), "CARPLAY_UUID", *(a2 + 12)))
   {
-    v10 = a1[17];
+    v10 = *(a1 + 136);
     if (*(a2 + 168))
     {
       *(v10 + 92) = 1;
@@ -6668,21 +6926,21 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION(uint6
     v5 = *(a2 + 12);
     if (!strncmp(v4, "wifid-assisted-discovery", v5))
     {
-      v33[0] = a1;
-      v33[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-      v33[2] = 0;
-      v18 = a1 + 17;
-      if (AppleBCMWLANCore::checkForRangingEnabled(*(a1[17] + 64)))
+      *&v33 = a1;
+      *(&v33 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+      v34 = 0;
+      v18 = (a1 + 136);
+      if (AppleBCMWLANCore::checkForRangingEnabled(*(*(a1 + 136) + 64)))
       {
         if (AppleBCMWLANCore::getFirmwareInterfaceVersion(*(*v18 + 64)) <= 4)
         {
           v19 = *(a2 + 168) != 0;
-          v35[0] = 9;
-          v35[1] = v19;
+          v36[0] = 9;
+          v36[1] = v19;
           v20 = *(*v18 + 960);
-          v31 = v35;
+          v31 = v36;
           v32 = 8;
-          v21 = AppleBCMWLANCommander::sendIOVarSet(v20, "btc_flags");
+          v21 = AppleBCMWLANCommander::sendIOVarSet(v20, "btc_flags", &v31, kNoRxExpected, &v33, 0);
           if (v21)
           {
             v22 = v21;
@@ -6691,7 +6949,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION(uint6
               (*(*a1 + 1088))(a1);
               if (CCLogStream::shouldLog())
               {
-                AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION(a1, a1 & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, (a1 + 17), v22);
+                AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION(a1, a1 & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, a1 + 136, v22);
               }
             }
           }
@@ -6700,36 +6958,36 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION(uint6
 
       if (!*(a2 + 168))
       {
-        v35[0] = 0;
+        v36[0] = 0;
         if ((*(*a1 + 1088))(a1))
         {
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION(a1);
+            AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION();
           }
         }
 
-        v23 = *(a1[17] + 960);
+        v23 = *(*(a1 + 136) + 960);
         InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
-        v31 = v35;
+        v31 = v36;
         v32 = 4;
-        AppleBCMWLANCommander::sendVirtualIOVarSet(v23, InterfaceId, "wsec", &v31, kNoRxExpected, v33, 0);
+        AppleBCMWLANCommander::sendVirtualIOVarSet(v23, InterfaceId, "wsec", &v31, kNoRxExpected, &v33, 0);
       }
     }
 
     else if (!strncmp(v4, "sidecar", v5) || !strncmp(v4, "rtmode", v5) || (v6 = strncmp(v4, "airplay", v5), !v6))
     {
-      v11 = a1[17];
+      v11 = *(a1 + 136);
       if (*(a2 + 168))
       {
         if (*(v11 + 112))
         {
-          v12 = IOParseBootArgNumber("wlan.llw.awdlbssid", &v34, 4);
-          v13 = a1[17];
+          v12 = IOParseBootArgNumber("wlan.llw.awdlbssid", &v35, 4);
+          v13 = *(a1 + 136);
           v14 = *(v13 + 112);
           v15 = v13 + 600;
-          if (v12 && v34 != 0)
+          if (v12 && v35 != 0)
           {
             v16 = v15;
           }
@@ -6743,17 +7001,17 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION(uint6
         }
 
         AppleBCMWLANProximityInterface::setLowLatencyTrafficState(a1, 1, 1);
-        *(a1[17] + 548) = *(a2 + 176);
+        *(*(a1 + 136) + 548) = *(a2 + 176);
         v17 = *(a2 + 12);
         if (!strncmp(v4, "airplay", v17))
         {
-          *(a1[17] + 94) = 1;
+          *(*(a1 + 136) + 94) = 1;
         }
 
         if (!strncmp(v4, "sidecar", v17))
         {
-          *(a1[17] + 95) = 1;
-          AppleBCMWLANTxPowerManager::dynTxSDBStartUpdate(*(a1[17] + 992), 0);
+          *(*(a1 + 136) + 95) = 1;
+          AppleBCMWLANTxPowerManager::dynTxSDBStartUpdate(*(*(a1 + 136) + 992), 0);
         }
       }
 
@@ -6772,13 +7030,13 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION(uint6
         v26 = *(a2 + 12);
         if (!strncmp(v4, "airplay", v26))
         {
-          *(a1[17] + 94) = 0;
+          *(*(a1 + 136) + 94) = 0;
         }
 
         if (!strncmp(v4, "sidecar", v26))
         {
-          *(a1[17] + 95) = 0;
-          AppleBCMWLANTxPowerManager::dynTxSDBStopUpdate(*(a1[17] + 992), 0);
+          *(*(a1 + 136) + 95) = 0;
+          AppleBCMWLANTxPowerManager::dynTxSDBStopUpdate(*(*(a1 + 136) + 992), 0);
         }
       }
     }
@@ -6796,7 +7054,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION(uint6
 
         else
         {
-          v27 = a1[17];
+          v27 = *(a1 + 136);
           if (*(v27 + 544) == 1)
           {
             v28 = *(v27 + 112);
@@ -6816,7 +7074,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION(uint6
 
       if (!strncmp(v4, "airplay-connectivity-check", v5))
       {
-        v8 = *(a1[17] + 544);
+        v8 = *(*(a1 + 136) + 544);
         v9 = *(a2 + 168) != 0;
         v7 = a1;
 LABEL_49:
@@ -6830,7 +7088,6 @@ LABEL_49:
 
 uint64_t AppleBCMWLANProximityInterface::setLowLatencyTrafficState(uint64_t this, int a2, int a3)
 {
-  v3 = a3;
   v4 = a2;
   v5 = this;
   v6 = *(this + 136);
@@ -6839,27 +7096,27 @@ uint64_t AppleBCMWLANProximityInterface::setLowLatencyTrafficState(uint64_t this
     v7[0] = a2;
     v7[1] = a3;
     AppleBCMWLANCore::postMessageInfra(*(v6 + 64), 0xD0u, v7, 2uLL);
-    this = AppleBCMWLANCore::setBTMRejection(*(*(v5 + 136) + 64));
+    this = AppleBCMWLANCore::setBTMRejection(*(*(v5 + 136) + 64), a3);
     v6 = *(v5 + 136);
   }
 
   *(v6 + 544) = v4;
-  *(*(v5 + 136) + 93) = v3;
+  *(*(v5 + 136) + 93) = a3;
   return this;
 }
 
 uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION(uint64_t a1, uint64_t a2)
 {
-  AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION((a1 - 112), a2);
+  AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION(a1 - 112, a2);
   return 0;
 }
 
 {
-  AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION((a1 - 128), a2);
+  AppleBCMWLANProximityInterface::setAWDL_PEER_TRAFFIC_REGISTRATION(a1 - 128, a2);
   return 0;
 }
 
-uint64_t AppleBCMWLANProximityInterface::setMacAddress(AppleBCMWLANProximityInterface *this, ether_addr *a2)
+uint64_t AppleBCMWLANProximityInterface::setMacAddress(IO80211SkywalkInterface *this, ether_addr *a2)
 {
   v4 = (this + 136);
   v3 = *(this + 17);
@@ -6871,7 +7128,7 @@ uint64_t AppleBCMWLANProximityInterface::setMacAddress(AppleBCMWLANProximityInte
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setMacAddress(this);
+        AppleBCMWLANProximityInterface::setMacAddress();
       }
     }
 
@@ -6906,7 +7163,7 @@ LABEL_12:
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::setMacAddress(this);
+      AppleBCMWLANProximityInterface::setMacAddress();
     }
   }
 
@@ -6940,7 +7197,7 @@ uint64_t AppleBCMWLANProximityInterface::handleProxSlotBSSCompletion(uint64_t re
   v4 = result;
   if (a3)
   {
-    if ((*(*result + 1088))(result))
+    if ((*(*result + 1088))(result, a2, a3, a4))
     {
       (*(*v4 + 1088))(v4);
       if (CCLogStream::shouldLog())
@@ -6949,43 +7206,41 @@ uint64_t AppleBCMWLANProximityInterface::handleProxSlotBSSCompletion(uint64_t re
       }
     }
 
-    FaultReporter = AppleBCMWLANCore::getFaultReporter(*(v4[17] + 64));
+    FaultReporter = AppleBCMWLANCore::getFaultReporter(*(*(v4 + 136) + 64));
     return CCFaultReporter::reportFault(FaultReporter, 5u, "/Library/Caches/com.apple.xbs/Sources/AppleBCMWLANV3_driverkit/AppleBCMWLANProximityInterface.cpp", 0xD4Fu, "handleProxSlotBSSCompletion", 0, -469793489, " slot_bss, iovar retval %x", a3);
   }
 
   else
   {
-    v8 = *(*a4 + 17);
-    if (v8)
+    v7 = *(*a4 + 17);
+    if (v7)
     {
-      v9 = *(*a4 + 13);
-      if ((*(*result + 1088))(result))
+      v8 = *(*a4 + 13);
+      if ((*(*result + 1088))(result, a2))
       {
         (*(*v4 + 1088))(v4);
         if (CCLogStream::shouldLog())
         {
-          v15 = (*(*v4 + 1088))(v4);
-          CCLogStream::logAlert(v15, "[dk] %s@%d:ERROR: Async callback for SlotBSS command (0x%x) failed, return status %d (0x%x)\n", "handleProxSlotBSSCompletion", 3418, v9, v8, v8);
+          v12 = (*(*v4 + 1088))(v4);
+          CCLogStream::logAlert(v12, "[dk] %s@%d:ERROR: Async callback for SlotBSS command (0x%x) failed, return status %d (0x%x)\n", "handleProxSlotBSSCompletion", 3418, v8, v7, v7);
         }
       }
 
       (*(*v4 + 1088))(v4);
-      v10 = *a4;
-      v11 = a4[4];
       result = IO80211Hexdump();
-      if (v8 != -2081)
+      if (v7 != -2081)
       {
-        if (v8 == -16 || v8 == -25)
+        if (v7 == -16 || v7 == -25)
         {
-          v13 = *(v4[17] + 64);
+          v10 = *(*(v4 + 136) + 64);
 
-          return IO80211Controller::postMessage(v13, v4, 0xAAu, 0, 0, 1);
+          return IO80211Controller::postMessage(v10, v4, 0xAAu, 0, 0, 1);
         }
 
         else
         {
-          v14 = AppleBCMWLANCore::getFaultReporter(*(v4[17] + 64));
-          return CCFaultReporter::reportFault(v14, 5u, "/Library/Caches/com.apple.xbs/Sources/AppleBCMWLANV3_driverkit/AppleBCMWLANProximityInterface.cpp", 0xD65u, "handleProxSlotBSSCompletion", 0, -469793489, " Cmd status %x", v8);
+          v11 = AppleBCMWLANCore::getFaultReporter(*(*(v4 + 136) + 64));
+          return CCFaultReporter::reportFault(v11, 5u, "/Library/Caches/com.apple.xbs/Sources/AppleBCMWLANV3_driverkit/AppleBCMWLANProximityInterface.cpp", 0xD65u, "handleProxSlotBSSCompletion", 0, -469793489, " Cmd status %x", v7);
         }
       }
     }
@@ -7015,7 +7270,7 @@ uint64_t AppleBCMWLANProximityInterface::getTX_RATE(IO80211SkywalkInterface *a1,
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getTX_RATE(a1);
+        AppleBCMWLANProximityInterface::getTX_RATE();
       }
     }
   }
@@ -7031,20 +7286,20 @@ uint64_t AppleBCMWLANProximityInterface::getTX_RATE(IO80211SkywalkInterface *a1,
 uint64_t AppleBCMWLANProximityInterface::setTX_RATE(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v3 = *(a2 + 4);
-  v11[0] = 0x80000;
-  v11[1] = v3;
-  v12 = *(a2 + 8);
-  v13 = *(a2 + 12);
+  v12[0] = 0x80000;
+  v12[1] = v3;
+  v13 = *(a2 + 8);
+  v14 = *(a2 + 12);
   (*(*a1 + 1088))(a1);
   IO80211Hexdump();
-  v10[0] = a1;
-  v10[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-  v10[2] = 0;
+  *&v10 = a1;
+  *(&v10 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+  v11 = 0;
   v4 = *(*(a1 + 17) + 960);
   InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
-  v9[0] = v11;
+  v9[0] = v12;
   v9[1] = 12;
-  v6 = AppleBCMWLANCommander::sendVirtualIOVarSet(v4, InterfaceId, "txminrate", v9, kNoRxExpected, v10, 0);
+  v6 = AppleBCMWLANCommander::sendVirtualIOVarSet(v4, InterfaceId, "txminrate", v9, kNoRxExpected, &v10, 0);
   v7 = (*(*a1 + 1088))(a1);
   if (v6)
   {
@@ -7053,7 +7308,7 @@ uint64_t AppleBCMWLANProximityInterface::setTX_RATE(IO80211SkywalkInterface *a1,
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setTX_RATE(a1);
+        AppleBCMWLANProximityInterface::setTX_RATE();
       }
     }
   }
@@ -7063,7 +7318,7 @@ uint64_t AppleBCMWLANProximityInterface::setTX_RATE(IO80211SkywalkInterface *a1,
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::setTX_RATE(a1);
+      AppleBCMWLANProximityInterface::setTX_RATE();
     }
   }
 
@@ -7079,58 +7334,74 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setTX_RATE(uint64_t
   return AppleBCMWLANProximityInterface::setTX_RATE((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANProximityInterface::dumpAwdlStats(AppleBCMWLANProximityInterface *this, char *a2)
+uint64_t AppleBCMWLANProximityInterface::dumpAwdlStats(AppleBCMWLANProximityInterface *this, char *a2, unsigned int a3, unsigned int a4)
 {
-  v5 = 0;
-  memset(v4, 0, sizeof(v4));
-  (*(*this + 1824))(this, v4);
-  (*(*this + 1088))(this);
-  return IO80211Print();
-}
-
-uint64_t AppleBCMWLANProximityInterface::dumpPeerCache(AppleBCMWLANProximityInterface *this, char *a2)
-{
-  v3 = IOMallocZeroData();
-  if (!v3)
+  v16 = 0;
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v11 = 0u;
+  v8 = (*(*this + 1824))(this, &v11);
+  v9 = (*(*this + 1088))(this);
+  if (v8)
   {
-    return 0;
-  }
-
-  v4 = v3;
-  if (AppleBCMWLANProximityInterface::copyPeerCache(this, v3, 676))
-  {
-    v5 = 0;
-    goto LABEL_33;
-  }
-
-  v6 = *v4;
-  if (v6 <= 0x2A4)
-  {
-    v7 = 0;
+    return IO80211Print(v9, 1, -1, 0, a2, a3, a4, "cannot get stats\n");
   }
 
   else
   {
-    (*(*this + 1088))(this);
-    v7 = IO80211Print();
-    v6 = 676;
+    return IO80211Print(v9, 1, -1, 0, a2, a3, a4, "AWDL stats: afrx %lu aftx %lu datatx %lu datarx %lu txdrop %lu rxdrop%lu monrx %lu lostmaster %lu misalign %lu aws %lu aw_dur %lu debug %lu txsupr %lu afrxdrop %lu awdrop %lu noawchansw %lu rx80211 %lu peeropdrop %lu  psfchanswtchskip %lu psfstateupdskip %lu\n", DWORD1(v11), DWORD2(v11), HIDWORD(v11), v12, DWORD1(v12), DWORD2(v12), HIDWORD(v12), v13, DWORD1(v13), DWORD2(v13), HIDWORD(v13), v14, DWORD1(v14), DWORD2(v14), HIDWORD(v14), v15, DWORD1(v15), DWORD2(v15), v16, HIDWORD(v16));
+  }
+}
+
+uint64_t AppleBCMWLANProximityInterface::dumpPeerCache(AppleBCMWLANProximityInterface *this, char *a2, int a3, int a4)
+{
+  LODWORD(v4) = a4;
+  LODWORD(v5) = a3;
+  v8 = IOMallocZeroData();
+  if (!v8)
+  {
+    return 0;
   }
 
-  (*(*this + 1088))(this);
-  v5 = IO80211Print() + v7;
-  if (v6 >= 0xD)
+  v9 = v8;
+  if (AppleBCMWLANProximityInterface::copyPeerCache(this, v8, 676))
   {
-    v8 = (v4 + 1);
+    v10 = 0;
+    goto LABEL_33;
+  }
+
+  v11 = *v9;
+  if (v11 <= 0x2A4)
+  {
+    v13 = 0;
+    v5 = v5;
+    v4 = v4;
+  }
+
+  else
+  {
+    v12 = (*(*this + 1088))(this);
+    v5 = v5;
+    v4 = v4;
+    v13 = IO80211Print(v12, 1, -1, 0, a2, v5, v4, "Warning: Supplied buffer short: %d, Expected: %d. Parsing %d bytes\n", 676, v11, 676);
+    v11 = 676;
+  }
+
+  v14 = (*(*this + 1088))(this);
+  v10 = IO80211Print(v14, 1, -1, 0, a2, v13 + v5, v4 - v13, "Length %u:\nAddress\t\t\tFlags\t\t\t\t\tChanSeqLen\n", v11) + v13;
+  if (v11 >= 0xD)
+  {
+    v15 = (v9 + 1);
     do
     {
-      (*(*this + 1088))(this);
-      v22 = v8[4];
-      v23 = v8[5];
-      v20 = v8[2];
-      v21 = v8[3];
-      v15 = *v8;
-      v19 = v8[1];
-      v9 = IO80211Print();
+      v16 = (*(*this + 1088))(this);
+      v17 = IO80211Print(v16, 1, -1, 0, a2, v5 + v10, v4 - v10, "%02x:%02x:%02x:%02x:%02x:%02x\t", *v15, v15[1], v15[2], v15[3], v15[4], v15[5]);
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
       v38 = 0u;
       v39 = 0u;
       v36 = 0u;
@@ -7141,21 +7412,17 @@ uint64_t AppleBCMWLANProximityInterface::dumpPeerCache(AppleBCMWLANProximityInte
       v33 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
-      v27 = 0u;
       *__dst = 0u;
-      v25 = 0u;
-      v10 = *(v8 + 6);
-      if ((v10 & 0x20) != 0)
+      v29 = 0u;
+      v18 = *(v15 + 6);
+      if ((v18 & 0x20) != 0)
       {
         strlcat(__dst, "awdl ", 0x100uLL);
-        v10 = *(v8 + 6);
-        if ((v10 & 0x10) == 0)
+        v18 = *(v15 + 6);
+        if ((v18 & 0x10) == 0)
         {
 LABEL_12:
-          if ((v10 & 8) == 0)
+          if ((v18 & 8) == 0)
           {
             goto LABEL_13;
           }
@@ -7164,17 +7431,17 @@ LABEL_12:
         }
       }
 
-      else if ((v10 & 0x10) == 0)
+      else if ((v18 & 0x10) == 0)
       {
         goto LABEL_12;
       }
 
       strlcat(__dst, "qos ", 0x100uLL);
-      v10 = *(v8 + 6);
-      if ((v10 & 8) == 0)
+      v18 = *(v15 + 6);
+      if ((v18 & 8) == 0)
       {
 LABEL_13:
-        if ((v10 & 4) == 0)
+        if ((v18 & 4) == 0)
         {
           goto LABEL_14;
         }
@@ -7184,11 +7451,11 @@ LABEL_13:
 
 LABEL_24:
       strlcat(__dst, "aband ", 0x100uLL);
-      v10 = *(v8 + 6);
-      if ((v10 & 4) == 0)
+      v18 = *(v15 + 6);
+      if ((v18 & 4) == 0)
       {
 LABEL_14:
-        if ((v10 & 2) == 0)
+        if ((v18 & 2) == 0)
         {
           goto LABEL_15;
         }
@@ -7198,11 +7465,11 @@ LABEL_14:
 
 LABEL_25:
       strlcat(__dst, "pm ", 0x100uLL);
-      v10 = *(v8 + 6);
-      if ((v10 & 2) == 0)
+      v18 = *(v15 + 6);
+      if ((v18 & 2) == 0)
       {
 LABEL_15:
-        if (v10)
+        if (v18)
         {
           goto LABEL_27;
         }
@@ -7212,12 +7479,12 @@ LABEL_15:
 
 LABEL_26:
       strlcat(__dst, "ampdu ", 0x100uLL);
-      v10 = *(v8 + 6);
-      if (v10)
+      v18 = *(v15 + 6);
+      if (v18)
       {
 LABEL_27:
         strlcat(__dst, "ht ", 0x100uLL);
-        if ((*(v8 + 6) & 0x40) == 0)
+        if ((*(v15 + 6) & 0x40) == 0)
         {
           goto LABEL_18;
         }
@@ -7228,46 +7495,45 @@ LABEL_17:
       }
 
 LABEL_16:
-      if ((v10 & 0x40) != 0)
+      if ((v18 & 0x40) != 0)
       {
         goto LABEL_17;
       }
 
 LABEL_18:
-      (*(*this + 1088))(this);
-      v16 = *(v8 + 6);
-      v11 = v5 + v9 + IO80211Print();
-      v12 = *(v8 + 5);
-      if (v12 > 0x47 || (v13 = v12 + 13, v12 + 13 > v6))
+      v19 = (*(*this + 1088))(this);
+      v20 = v10 + v17 + IO80211Print(v19, 1, -1, 0, a2, v5 + (v10 + v17), v4 - (v10 + v17), "0x%-4x: %-32s ", *(v15 + 6), __dst);
+      v21 = *(v15 + 5);
+      if (v21 > 0x47 || (v22 = v21 + 13, v21 + 13 > v11))
       {
-        (*(*this + 1088))(this);
-        v18 = *(v8 + 5);
-        v5 = v11 + IO80211Print();
+        v26 = (*(*this + 1088))(this);
+        v10 = v20 + IO80211Print(v26, 1, -1, 0, a2, v5 + v20, v4 - v20, "\nError: parsing chanSeq len: %d too long\n", *(v15 + 5));
         break;
       }
 
-      if (*(v8 + 5))
+      if (*(v15 + 5))
       {
-        (*(*this + 1088))(this);
-        v17 = v8[13] + 1;
+        v23 = (*(*this + 1088))(this);
+        v24 = IO80211Print(v23, 1, -1, 0, a2, v5 + v20, v4 - v20, "%d\n", v15[13] + 1);
       }
 
       else
       {
-        (*(*this + 1088))(this);
+        v25 = (*(*this + 1088))(this);
+        v24 = IO80211Print(v25, 1, -1, 0, a2, v5 + v20, v4 - v20, "%d\n", 0);
       }
 
-      LOWORD(v6) = v6 - v13;
-      v8 += v13;
-      v5 = v11 + IO80211Print();
+      LOWORD(v11) = v11 - v22;
+      v15 += v22;
+      v10 = v20 + v24;
     }
 
-    while (v6 > 0xCu);
+    while (v11 > 0xCu);
   }
 
 LABEL_33:
   IOFreeData();
-  return v5;
+  return v10;
 }
 
 uint64_t AppleBCMWLANProximityInterface::copyPeerCache(IO80211SkywalkInterface *a1, uint64_t a2, int a3)
@@ -7301,7 +7567,7 @@ uint64_t AppleBCMWLANProximityInterface::copyPeerCache(IO80211SkywalkInterface *
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::copyPeerCache(a1);
+        AppleBCMWLANProximityInterface::copyPeerCache();
       }
     }
   }
@@ -7309,7 +7575,7 @@ uint64_t AppleBCMWLANProximityInterface::copyPeerCache(IO80211SkywalkInterface *
   return v8;
 }
 
-uint64_t AppleBCMWLANProximityInterface::setAWDL_CONFIG(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::setAWDL_CONFIG(unint64_t a1, uint64_t a2)
 {
   v3 = *(a2 + 4);
   if (v3)
@@ -7322,20 +7588,20 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_CONFIG(uint64_t *a1, uint64_t a
     v4 = 115;
   }
 
-  v12 = v4;
+  v13 = v4;
   v5 = a1 & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000;
   if ((*(*a1 + 1088))(a1))
   {
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::setAWDL_CONFIG(a1);
+      AppleBCMWLANProximityInterface::setAWDL_CONFIG();
     }
   }
 
-  v11[0] = a1;
-  v11[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-  v11[2] = 0;
+  *&v11 = a1;
+  *(&v11 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+  v12 = 0;
   if (IO80211SkywalkInterface::getInterfaceId(a1) == -1)
   {
     if ((*(*a1 + 1088))(a1))
@@ -7343,7 +7609,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_CONFIG(uint64_t *a1, uint64_t a
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_CONFIG(a1);
+        AppleBCMWLANProximityInterface::setAWDL_CONFIG();
       }
     }
 
@@ -7352,11 +7618,11 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_CONFIG(uint64_t *a1, uint64_t a
 
   else
   {
-    v6 = *(a1[17] + 960);
+    v6 = *(*(a1 + 136) + 960);
     InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
-    v10[0] = &v12;
+    v10[0] = &v13;
     v10[1] = 4;
-    v8 = AppleBCMWLANCommander::sendVirtualIOVarSet(v6, InterfaceId, "awdl_config", v10, kNoRxExpected, v11, 0);
+    v8 = AppleBCMWLANCommander::sendVirtualIOVarSet(v6, InterfaceId, "awdl_config", v10, kNoRxExpected, &v11, 0);
     if (v8)
     {
       if ((*(*a1 + 1088))(a1))
@@ -7364,7 +7630,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_CONFIG(uint64_t *a1, uint64_t a
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::setAWDL_CONFIG(a1, v5, a1 + 17, v8);
+          AppleBCMWLANProximityInterface::setAWDL_CONFIG(a1, v5, a1 + 136, v8);
         }
       }
     }
@@ -7375,14 +7641,14 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_CONFIG(uint64_t *a1, uint64_t a
 
 uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setAWDL_CONFIG(uint64_t a1, uint64_t a2)
 {
-  return AppleBCMWLANProximityInterface::setAWDL_CONFIG((a1 - 112), a2);
+  return AppleBCMWLANProximityInterface::setAWDL_CONFIG(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANProximityInterface::setAWDL_CONFIG((a1 - 128), a2);
+  return AppleBCMWLANProximityInterface::setAWDL_CONFIG(a1 - 128, a2);
 }
 
-uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t a1, uint64_t a2)
 {
   v34 = 0;
   v33 = 0;
@@ -7392,7 +7658,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::setAWDL_BSSID(a1);
+      AppleBCMWLANProximityInterface::setAWDL_BSSID();
     }
   }
 
@@ -7406,7 +7672,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::setAWDL_BSSID(a1);
+          AppleBCMWLANProximityInterface::setAWDL_BSSID();
         }
       }
 
@@ -7416,7 +7682,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2
     return ChipInterface;
   }
 
-  v6 = a1[17];
+  v6 = *(a1 + 136);
   v7 = *(a2 + 4);
   *(v6 + 604) = *(a2 + 8);
   *(v6 + 600) = v7;
@@ -7426,8 +7692,8 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2
     return ChipInterface;
   }
 
-  ConfigManager = AppleBCMWLANCore::getConfigManager(*(a1[17] + 64));
-  *(a1[17] + 555) = AppleBCMWLANConfigManager::getAWDLElectionMetric(ConfigManager);
+  ConfigManager = AppleBCMWLANCore::getConfigManager(*(*(a1 + 136) + 64));
+  *(*(a1 + 136) + 555) = AppleBCMWLANConfigManager::getAWDLElectionMetric(ConfigManager);
   v10 = (*(*a1 + 1072))(a1);
   if ((*(*a1 + 1088))(a1))
   {
@@ -7435,7 +7701,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2
     if (CCLogStream::shouldLog())
     {
       v23 = (*(*a1 + 1088))(a1);
-      CCLogStream::logAlert(v23, "[dk] %s@%d: bring up awdl if success! [%02X:%02X:%02X:%02X:%02X:%02X] election_metric=%ld\n", "setAWDL_BSSID", 3762, v10, BYTE1(v10), BYTE2(v10), BYTE3(v10), BYTE4(v10), BYTE5(v10), *(a1[17] + 555));
+      CCLogStream::logAlert(v23, "[dk] %s@%d: bring up awdl if success! [%02X:%02X:%02X:%02X:%02X:%02X] election_metric=%ld\n", "setAWDL_BSSID", 3762, v10, BYTE1(v10), BYTE2(v10), BYTE3(v10), BYTE4(v10), BYTE5(v10), *(*(a1 + 136) + 555));
     }
   }
 
@@ -7444,7 +7710,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2
   v29 = -1;
   v28 = -1;
   v30 = 127;
-  v11 = a1[17];
+  v11 = *(a1 + 136);
   v31 = *(v11 + 524);
   v32 = *(v11 + 525);
   if (IO80211SkywalkInterface::getInterfaceId(a1) == -1)
@@ -7455,7 +7721,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2
 
   else
   {
-    v12 = *(a1[17] + 960);
+    v12 = *(*(a1 + 136) + 960);
     InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
     v24 = &v28;
     v25 = 10;
@@ -7468,7 +7734,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::setAWDL_BSSID(a1);
+          AppleBCMWLANProximityInterface::setAWDL_BSSID();
         }
       }
     }
@@ -7480,12 +7746,12 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::setAWDL_BSSID(a1);
+          AppleBCMWLANProximityInterface::setAWDL_BSSID();
         }
       }
 
       v27 = 115;
-      v16 = *(a1[17] + 960);
+      v16 = *(*(a1 + 136) + 960);
       v17 = IO80211SkywalkInterface::getInterfaceId(a1);
       v24 = &v27;
       v25 = 4;
@@ -7498,7 +7764,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::setAWDL_BSSID(a1);
+            AppleBCMWLANProximityInterface::setAWDL_BSSID();
           }
         }
       }
@@ -7510,12 +7776,12 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::setAWDL_BSSID(a1);
+            AppleBCMWLANProximityInterface::setAWDL_BSSID();
           }
         }
 
         v26 = -60;
-        v19 = *(a1[17] + 960);
+        v19 = *(*(a1 + 136) + 960);
         v20 = IO80211SkywalkInterface::getInterfaceId(a1);
         v24 = &v26;
         v25 = 4;
@@ -7528,7 +7794,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2
             (*(*a1 + 1088))(a1);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANProximityInterface::setAWDL_BSSID(a1);
+              AppleBCMWLANProximityInterface::setAWDL_BSSID();
             }
           }
 
@@ -7537,7 +7803,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2
             (*(*a1 + 1088))(a1);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANProximityInterface::setAWDL_BSSID(a1);
+              AppleBCMWLANProximityInterface::setAWDL_BSSID();
             }
           }
 
@@ -7549,7 +7815,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::setAWDL_BSSID(a1);
+            AppleBCMWLANProximityInterface::setAWDL_BSSID();
           }
         }
       }
@@ -7563,7 +7829,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setAWDL_BSSID(a1);
+        AppleBCMWLANProximityInterface::setAWDL_BSSID();
       }
     }
   }
@@ -7571,7 +7837,7 @@ uint64_t AppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t *a1, uint64_t a2
   return v14;
 }
 
-uint64_t AppleBCMWLANProximityInterface::deleteChipInterface(unint64_t this)
+uint64_t AppleBCMWLANProximityInterface::deleteChipInterface(uint64_t this)
 {
   v2 = *(this + 136);
   v3 = this & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000;
@@ -7582,7 +7848,7 @@ uint64_t AppleBCMWLANProximityInterface::deleteChipInterface(unint64_t this)
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::deleteChipInterface(this);
+        AppleBCMWLANProximityInterface::deleteChipInterface();
       }
     }
 
@@ -7599,7 +7865,7 @@ uint64_t AppleBCMWLANProximityInterface::deleteChipInterface(unint64_t this)
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::deleteChipInterface(this);
+        AppleBCMWLANProximityInterface::deleteChipInterface();
       }
     }
 
@@ -7619,7 +7885,7 @@ uint64_t AppleBCMWLANProximityInterface::deleteChipInterface(unint64_t this)
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::deleteChipInterface(this);
+          AppleBCMWLANProximityInterface::deleteChipInterface();
         }
       }
 
@@ -7649,7 +7915,7 @@ LABEL_29:
   v13 = AppleBCMWLANCommander::runVirtualIOVarSet(v11, v12, "awdl_if", v16, 0, 0);
   if (!v13)
   {
-    v14 = AppleBCMWLANProximityInterface::waitForDriverEvent(this, 1u);
+    v14 = AppleBCMWLANProximityInterface::waitForDriverEvent(this, 1u, 1000);
     if (v14)
     {
       v15 = v14;
@@ -7673,7 +7939,7 @@ LABEL_29:
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::deleteChipInterface(this);
+      AppleBCMWLANProximityInterface::deleteChipInterface();
     }
   }
 
@@ -7694,7 +7960,7 @@ uint64_t AppleBCMWLANProximityInterface::createChipInterface(unint64_t this)
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::createChipInterface(this);
+      AppleBCMWLANProximityInterface::createChipInterface();
     }
   }
 
@@ -7731,7 +7997,7 @@ uint64_t AppleBCMWLANProximityInterface::createChipInterface(unint64_t this)
         (*(*this + 1088))(this);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::createChipInterface(this);
+          AppleBCMWLANProximityInterface::createChipInterface();
         }
       }
 
@@ -7785,7 +8051,7 @@ LABEL_20:
       (*(*this + 1088))(this);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::createChipInterface(this);
+        AppleBCMWLANProximityInterface::createChipInterface();
       }
     }
 
@@ -7795,7 +8061,7 @@ LABEL_20:
   v13 = *v2;
   if ((*(*v2 + 936) & 1) == 0)
   {
-    v14 = AppleBCMWLANProximityInterface::waitForDriverEvent(this, 0);
+    v14 = AppleBCMWLANProximityInterface::waitForDriverEvent(this, 0, 3000);
     if (v14)
     {
       v7 = v14;
@@ -7837,7 +8103,7 @@ LABEL_20:
     (*(*this + 1088))(this);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::createChipInterface(this);
+      AppleBCMWLANProximityInterface::createChipInterface();
     }
   }
 
@@ -7848,19 +8114,19 @@ LABEL_21:
 
 uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setAWDL_BSSID(uint64_t a1, uint64_t a2)
 {
-  return AppleBCMWLANProximityInterface::setAWDL_BSSID((a1 - 112), a2);
+  return AppleBCMWLANProximityInterface::setAWDL_BSSID(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANProximityInterface::setAWDL_BSSID((a1 - 128), a2);
+  return AppleBCMWLANProximityInterface::setAWDL_BSSID(a1 - 128, a2);
 }
 
-uint64_t AppleBCMWLANProximityInterface::setCOMPANION_SKYWALK_IF_CREATE(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::setCOMPANION_SKYWALK_IF_CREATE(IO80211SkywalkInterface *a1, uint64_t a2)
 {
   v3 = *(a2 + 4);
   if (!v3)
   {
-    v7 = a1[17];
+    v7 = *(a1 + 17);
     v8 = *(v7 + 112);
     if (!v8)
     {
@@ -7870,7 +8136,7 @@ uint64_t AppleBCMWLANProximityInterface::setCOMPANION_SKYWALK_IF_CREATE(uint64_t
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::setCOMPANION_SKYWALK_IF_CREATE(a1);
+          AppleBCMWLANProximityInterface::setCOMPANION_SKYWALK_IF_CREATE();
         }
       }
 
@@ -7888,15 +8154,15 @@ uint64_t AppleBCMWLANProximityInterface::setCOMPANION_SKYWALK_IF_CREATE(uint64_t
     return 0;
   }
 
-  v5 = a1 + 17;
-  if (*(a1[17] + 112))
+  v5 = a1 + 136;
+  if (*(*(a1 + 17) + 112))
   {
     if ((*(*a1 + 1088))(a1))
     {
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setCOMPANION_SKYWALK_IF_CREATE(a1, a1 & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, (a1 + 17));
+        AppleBCMWLANProximityInterface::setCOMPANION_SKYWALK_IF_CREATE();
       }
     }
 
@@ -7924,7 +8190,7 @@ uint64_t AppleBCMWLANProximityInterface::setCOMPANION_SKYWALK_IF_CREATE(uint64_t
   BYTE5(v21) = BYTE5(v13);
   v22 = 9;
   v20 = "llw";
-  SkywalkInterface = AppleBCMWLANCore::createSkywalkInterface(*(a1[17] + 64), (a1[17] + 112), &v20, a1);
+  SkywalkInterface = AppleBCMWLANCore::createSkywalkInterface(*(*(a1 + 17) + 64), (*(a1 + 17) + 112), &v20, a1);
   if (SkywalkInterface)
   {
     if ((*(*a1 + 1088))(a1))
@@ -7932,17 +8198,17 @@ uint64_t AppleBCMWLANProximityInterface::setCOMPANION_SKYWALK_IF_CREATE(uint64_t
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::setCOMPANION_SKYWALK_IF_CREATE(a1);
+        AppleBCMWLANProximityInterface::setCOMPANION_SKYWALK_IF_CREATE();
       }
     }
   }
 
   else
   {
-    v17 = *(a1[17] + 112);
+    v17 = *(*(a1 + 17) + 112);
     v18 = IO80211SkywalkInterface::getInterfaceId(a1);
     IO80211SkywalkInterface::setCompanionInterfaceId(v17, v18);
-    v19 = (*(**(a1[17] + 112) + 160))(*(a1[17] + 112));
+    v19 = (*(**(*(a1 + 17) + 112) + 160))(*(*(a1 + 17) + 112));
     strncpy((a2 + 8), v19, 0x10uLL);
   }
 
@@ -7978,7 +8244,7 @@ uint64_t AppleBCMWLANProximityInterface::getPEER_CACHE_MAXIMUM_SIZE(IO80211Skywa
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::getPEER_CACHE_MAXIMUM_SIZE(a1);
+          AppleBCMWLANProximityInterface::getPEER_CACHE_MAXIMUM_SIZE();
         }
       }
     }
@@ -7990,7 +8256,7 @@ uint64_t AppleBCMWLANProximityInterface::getPEER_CACHE_MAXIMUM_SIZE(IO80211Skywa
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::getPEER_CACHE_MAXIMUM_SIZE(a1);
+          AppleBCMWLANProximityInterface::getPEER_CACHE_MAXIMUM_SIZE();
         }
       }
 
@@ -8012,7 +8278,7 @@ uint64_t AppleBCMWLANProximityInterface::getPEER_CACHE_MAXIMUM_SIZE(IO80211Skywa
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::getPEER_CACHE_MAXIMUM_SIZE(a1);
+        AppleBCMWLANProximityInterface::getPEER_CACHE_MAXIMUM_SIZE();
       }
     }
   }
@@ -8029,15 +8295,14 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::getPEER_CACHE_MAXIM
   return AppleBCMWLANProximityInterface::getPEER_CACHE_MAXIMUM_SIZE((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL(uint64_t *a1, uint64_t a2)
+uint64_t AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL(uint64_t a1, uint64_t a2)
 {
   v4 = IOMallocZeroData();
   if (v4)
   {
     v5 = v4;
-    v40 = 0;
+    v40 = 0uLL;
     v41 = 0;
-    v42 = 0;
     if (a2)
     {
       if ((*(*a1 + 1088))(a1))
@@ -8045,15 +8310,15 @@ uint64_t AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL(uint64_t *a1, uin
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL(a1);
+          AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL();
         }
       }
 
       v6 = *(a2 + 8);
       *(v5 + 6) = *(a2 + 12);
       *(v5 + 2) = v6;
-      v7 = a1 + 17;
-      if (AppleBCMWLANCore::forceDisableAwdlAmpdu(*(a1[17] + 64)))
+      v7 = (a1 + 136);
+      if (AppleBCMWLANCore::forceDisableAwdlAmpdu(*(*(a1 + 136) + 64)))
       {
         v8 = 0;
       }
@@ -8081,7 +8346,7 @@ uint64_t AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL(uint64_t *a1, uin
             (*(*a1 + 1088))(a1);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL(a1);
+              AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL();
             }
           }
 
@@ -8113,7 +8378,7 @@ LABEL_17:
               (*(*a1 + 1088))(a1);
               if (CCLogStream::shouldLog())
               {
-                AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL(a1);
+                AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL();
               }
             }
 
@@ -8132,7 +8397,7 @@ LABEL_17:
                 (*(*a1 + 1088))(a1);
                 if (CCLogStream::shouldLog())
                 {
-                  AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL(a1);
+                  AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL();
                 }
               }
 
@@ -8170,14 +8435,14 @@ LABEL_42:
             v16 = (v14 + 13);
             v39 = 2;
             v17 = *(a2 + 68);
-            v44 = 0;
+            v43 = 0;
             *__source = 0;
             *__dst = 0u;
+            v45 = 0u;
             v46 = 0u;
             v47 = 0u;
             v48 = 0u;
             v49 = 0u;
-            v50 = 0u;
             if (v15)
             {
               v18 = 0;
@@ -8235,7 +8500,7 @@ LABEL_62:
                     (*(*a1 + 1088))(a1);
                     if (CCLogStream::shouldLog())
                     {
-                      AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL(a1);
+                      AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL();
                     }
                   }
                 }
@@ -8268,12 +8533,12 @@ LABEL_63:
 
             else
             {
-              v49 = 0u;
-              v50 = 0u;
-              v47 = 0u;
               v48 = 0u;
-              *__dst = 0u;
+              v49 = 0u;
               v46 = 0u;
+              v47 = 0u;
+              *__dst = 0u;
+              v45 = 0u;
               *(v38 + 8) = 0;
               LOBYTE(v24) = *(a2 + 69);
               if (v24)
@@ -8323,10 +8588,10 @@ LABEL_63:
           {
             v26 = v25;
             memcpy(v25, a2, 0x1D0uLL);
-            v40 = a1;
-            v41 = AppleBCMWLANProximityInterface::handleCacheControlAsyncCallBack;
-            v42 = v26;
-            v27 = *(a1[17] + 960);
+            *&v40 = a1;
+            *(&v40 + 1) = AppleBCMWLANProximityInterface::handleCacheControlAsyncCallBack;
+            v41 = v26;
+            v27 = *(*(a1 + 136) + 960);
             InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
             if (v13)
             {
@@ -8349,7 +8614,7 @@ LABEL_63:
                 (*(*a1 + 1088))(a1);
                 if (CCLogStream::shouldLog())
                 {
-                  AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL(a1);
+                  AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL();
                 }
               }
 
@@ -8364,7 +8629,7 @@ LABEL_63:
                 (*(*a1 + 1088))(a1);
                 if (CCLogStream::shouldLog())
                 {
-                  AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL(a1);
+                  AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL();
                 }
               }
 
@@ -8386,7 +8651,7 @@ LABEL_63:
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL(a1);
+          AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL();
         }
       }
     }
@@ -8410,11 +8675,11 @@ LABEL_88:
 
 uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL(uint64_t a1, uint64_t a2)
 {
-  return AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL((a1 - 112), a2);
+  return AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL(a1 - 112, a2);
 }
 
 {
-  return AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL((a1 - 128), a2);
+  return AppleBCMWLANProximityInterface::setPEER_CACHE_CONTROL(a1 - 128, a2);
 }
 
 uint64_t AppleBCMWLANProximityInterface::getAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE(IO80211SkywalkInterface *a1, _BYTE *a2)
@@ -8441,7 +8706,7 @@ uint64_t AppleBCMWLANProximityInterface::getAWDL_SYNCHRONIZATION_CHANNEL_SEQUENC
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::getAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE(a1);
+            AppleBCMWLANProximityInterface::getAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE();
           }
         }
 
@@ -8530,9 +8795,9 @@ uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::getAWDL_SYNCHRONIZA
   return AppleBCMWLANProximityInterface::getAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE((a1 - 128), a2);
 }
 
-uint64_t AppleBCMWLANProximityInterface::setAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE(uint64_t *a1, unsigned __int8 *a2)
+uint64_t AppleBCMWLANProximityInterface::setAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE(uint64_t a1, _BYTE *a2)
 {
-  v18 = 0;
+  v19 = 0;
   if (a2[5] - 33 >= 0xFFFFFFE0 && a2[6] < 2u)
   {
     v6 = IOMallocZeroData();
@@ -8569,14 +8834,14 @@ LABEL_31:
         (*(*a1 + 1088))(a1);
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANProximityInterface::setAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE(a1, a1 & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, a2 + 4);
+          AppleBCMWLANProximityInterface::setAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE();
         }
       }
     }
 
     else
     {
-      v10 = AppleBCMWLANProximityInterface::buildAWDLChanSequence(a1, a2, v6, &v18);
+      v10 = AppleBCMWLANProximityInterface::buildAWDLChanSequence(a1, a2, v6, &v19);
       v11 = (*(*a1 + 1088))(a1);
       if (v10)
       {
@@ -8585,19 +8850,19 @@ LABEL_31:
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::setAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE(a1);
+            AppleBCMWLANProximityInterface::setAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE();
           }
         }
 
         goto LABEL_29;
       }
 
-      v12 = v18;
+      v12 = v19;
       IO80211HexdumpIf();
-      v17[0] = a1;
-      v17[1] = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
-      v17[2] = 0;
-      v13 = *(a1[17] + 960);
+      *&v17 = a1;
+      *(&v17 + 1) = AppleBCMWLANProximityInterface::handleProxIovarAsyncCallBack;
+      v18 = 0;
+      v13 = *(*(a1 + 136) + 960);
       InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
       if (v12)
       {
@@ -8611,14 +8876,14 @@ LABEL_31:
 
       v16[0] = v15;
       v16[1] = v12;
-      if (AppleBCMWLANCommander::sendVirtualIOVarSet(v13, InterfaceId, "awdl_chan_seq", v16, kNoRxExpected, v17, 0))
+      if (AppleBCMWLANCommander::sendVirtualIOVarSet(v13, InterfaceId, "awdl_chan_seq", v16, kNoRxExpected, &v17, 0))
       {
         if ((*(*a1 + 1088))(a1))
         {
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::setAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE(a1);
+            AppleBCMWLANProximityInterface::setAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE();
           }
         }
 
@@ -8626,7 +8891,7 @@ LABEL_31:
       }
     }
 
-    memcpy((a1[17] + 124), a2, 0x190uLL);
+    memcpy((*(a1 + 136) + 124), a2, 0x190uLL);
     v4 = 0;
     goto LABEL_31;
   }
@@ -8636,19 +8901,19 @@ LABEL_31:
     (*(*a1 + 1088))(a1);
     if (CCLogStream::shouldLog())
     {
-      AppleBCMWLANProximityInterface::setAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE(a1);
+      AppleBCMWLANProximityInterface::setAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE();
     }
   }
 
   return 22;
 }
 
-uint64_t AppleBCMWLANProximityInterface::buildChanSequenceCommand(uint64_t *a1, _BYTE *a2, uint64_t a3)
+uint64_t AppleBCMWLANProximityInterface::buildChanSequenceCommand(AppleBCMWLANProximityInterface *a1, _BYTE *a2, uint64_t a3)
 {
-  P2PNANMgmtDataInterface = AppleBCMWLANCore::getP2PNANMgmtDataInterface(*(a1[17] + 64));
+  P2PNANMgmtDataInterface = AppleBCMWLANCore::getP2PNANMgmtDataInterface(*(*(a1 + 17) + 64));
+  v44 = 0;
   v43 = 0;
   v42 = 0;
-  v41 = 0;
   v7 = IOMallocZeroData();
   if (v7)
   {
@@ -8656,22 +8921,22 @@ uint64_t AppleBCMWLANProximityInterface::buildChanSequenceCommand(uint64_t *a1, 
     *v7 = 16875520;
     *(v7 + 4) = 1;
     *(v7 + 8) = 1;
-    v40 = 8;
+    *v41 = 8;
     v9 = v7 + 16;
     if (((v7 + 16) & 3) != 0)
     {
       v9 += 4 - ((v7 + 16) & 3u);
-      v42 = 4 - ((v7 + 16) & 3);
+      v43 = 4 - ((v7 + 16) & 3);
     }
 
     if (a2)
     {
-      v43 = 1;
+      v44 = 1;
       *v9 = 1;
       *(v9 + 4) = 0;
-      v40 = 16;
+      *v41 = 16;
       v10 = v9 + 8;
-      v11 = AppleBCMWLANProximityInterface::buildAWDLChanSequence(a1, a2, v9 + 8, &v41);
+      v11 = AppleBCMWLANProximityInterface::buildAWDLChanSequence(a1, a2, v9 + 8, &v42);
       if (v11)
       {
         v12 = v11;
@@ -8680,29 +8945,29 @@ uint64_t AppleBCMWLANProximityInterface::buildChanSequenceCommand(uint64_t *a1, 
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::buildChanSequenceCommand(a1);
+            AppleBCMWLANProximityInterface::buildChanSequenceCommand();
           }
         }
 
         goto LABEL_65;
       }
 
-      v26 = v41;
-      *(v9 + 2) = v41 + 4;
+      v26 = v42;
+      *(v9 + 2) = v42 + 4;
       v9 += v26 + 8;
       if ((v9 & 3) != 0)
       {
         v27 = 4 - (v9 & 3);
         v9 += v27;
-        v42 += v27;
+        v43 += v27;
       }
 
-      v13 = v40 + v26;
-      v40 += v26;
+      v13 = *v41 + v26;
+      *v41 += v26;
       if (!a3)
       {
 LABEL_35:
-        if (!v43)
+        if (!v44)
         {
 LABEL_57:
           v12 = 0;
@@ -8716,14 +8981,14 @@ LABEL_57:
             (*(*a1 + 1088))(a1);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANProximityInterface::buildChanSequenceCommand(a1);
+              AppleBCMWLANProximityInterface::buildChanSequenceCommand();
             }
           }
 
           goto LABEL_64;
         }
 
-        AppleBCMWLANProximityInterface::fillSliceDataForStandAloneAWDL(a1, a2, v10, v9, &v43, &v40, &v42);
+        AppleBCMWLANProximityInterface::fillSliceDataForStandAloneAWDL(a1, a2, v10, v9, &v44, v41, &v43);
         if ((a2[4] & 0x10) != 0)
         {
           v28 = 4;
@@ -8736,14 +9001,14 @@ LABEL_57:
           if ((a2[4] & 0x20) == 0)
           {
 LABEL_45:
-            v29 = v43;
-            v30 = v42;
-            v31 = v40 + v42;
-            *(v8 + 6) = v40 + v42;
+            v29 = v44;
+            v30 = v43;
+            v31 = v41[0] + v43;
+            *(v8 + 6) = v41[0] + v43;
             *(v8 + 13) = v29;
             if (v31 >= 0x7F5u && (*(*v22 + 1088))(v22) && ((*(*v22 + 1088))(v22), CCLogStream::shouldLog()))
             {
-              AppleBCMWLANProximityInterface::buildChanSequenceCommand(v22);
+              AppleBCMWLANProximityInterface::buildChanSequenceCommand();
               if (!a2)
               {
 LABEL_50:
@@ -8758,21 +9023,21 @@ LABEL_50:
                   v33 = v8;
                 }
 
-                v39[0] = v33;
-                v39[1] = v32;
-                v38[0] = v22;
-                v38[1] = AppleBCMWLANProximityInterface::handleProxSlotBSSCompletion;
-                v38[2] = 0;
-                v34 = *(v22[17] + 960);
+                v40[0] = v33;
+                v40[1] = v32;
+                *&v38 = v22;
+                *(&v38 + 1) = AppleBCMWLANProximityInterface::handleProxSlotBSSCompletion;
+                v39 = 0;
+                v34 = *(*(v22 + 17) + 960);
                 InterfaceId = IO80211SkywalkInterface::getInterfaceId(v22);
-                if (AppleBCMWLANCommander::sendVirtualIOVarSet(v34, InterfaceId, "slot_bss", v39, kNoRxExpected, v38, 0))
+                if (AppleBCMWLANCommander::sendVirtualIOVarSet(v34, InterfaceId, "slot_bss", v40, kNoRxExpected, &v38, 0))
                 {
                   if ((*(*v22 + 1088))(v22))
                   {
                     (*(*v22 + 1088))(v22);
                     if (CCLogStream::shouldLog())
                     {
-                      AppleBCMWLANProximityInterface::buildChanSequenceCommand(v22);
+                      AppleBCMWLANProximityInterface::buildChanSequenceCommand();
                     }
                   }
 
@@ -8790,7 +9055,7 @@ LABEL_64:
               goto LABEL_50;
             }
 
-            memcpy((v22[17] + 124), a2, 0x190uLL);
+            memcpy((*(v22 + 17) + 124), a2, 0x190uLL);
             goto LABEL_50;
           }
 
@@ -8814,8 +9079,8 @@ LABEL_44:
     }
 
     v37 = a2;
-    v14 = v43;
-    v15 = v42;
+    v14 = v44;
+    v15 = v43;
     if (*(a3 + 6))
     {
       v16 = 0;
@@ -8910,7 +9175,7 @@ LABEL_44:
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::buildChanSequenceCommand(a1);
+            AppleBCMWLANProximityInterface::buildChanSequenceCommand();
           }
 
           goto LABEL_64;
@@ -8924,13 +9189,13 @@ LABEL_44:
     else
     {
       v22 = a1;
-      if (v43)
+      if (v44)
       {
 LABEL_43:
-        v40 = v13;
-        v43 = v14;
+        *v41 = v13;
+        v44 = v14;
         v28 = 4;
-        v42 = v15;
+        v43 = v15;
         a2 = v37;
         goto LABEL_44;
       }
@@ -8945,37 +9210,37 @@ LABEL_65:
   return 12;
 }
 
-uint64_t AppleBCMWLANProximityInterface::buildAWDLChanSequence(uint64_t *a1, _BYTE *a2, uint64_t a3, _WORD *a4)
+uint64_t AppleBCMWLANProximityInterface::buildAWDLChanSequence(uint64_t a1, _BYTE *a2, uint64_t a3, _WORD *a4)
 {
   *a3 = a2[5] - 1;
   *(a3 + 3) = a2[7];
   *(a3 + 2) = a2[8];
   *(a3 + 4) = -1;
-  BssManager = AppleBCMWLANCore::getBssManager(*(a1[17] + 64));
+  BssManager = AppleBCMWLANCore::getBssManager(*(*(a1 + 136) + 64));
   CurrentBSS = AppleBCMWLANBssManager::getCurrentBSS(BssManager);
   v10 = CurrentBSS;
-  v68 = 0;
+  v66 = 0;
   if (CurrentBSS)
   {
     v11 = (*(*CurrentBSS + 256))(CurrentBSS);
-    v64 = (*(*v10 + 264))(v10) >> 14;
-    isDFSChannel = AppleBCMWLANCore::isDFSChannel(*(a1[17] + 64), v11, v64);
-    (*(**(a1[17] + 64) + 1008))();
-    LODWORD(v10) = WORD2(v68) == 23128;
+    v62 = (*(*v10 + 264))(v10) >> 14;
+    isDFSChannel = AppleBCMWLANCore::isDFSChannel(*(*(a1 + 136) + 64), v11, v62);
+    (*(**(*(a1 + 136) + 64) + 1008))();
+    LODWORD(v10) = WORD2(v66) == 23128;
   }
 
   else
   {
     v11 = 0;
     isDFSChannel = 0;
-    v64 = 0;
+    v62 = 0;
   }
 
   v13 = a1 & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000;
   if (a2[6])
   {
-    *(a3 + 1) = AppleBCMWLANCore::getFWAPIVer(*(a1[17] + 64));
-    SupportedMaxBW = AppleBCMWLANCore::getSupportedMaxBW(*(a1[17] + 64));
+    *(a3 + 1) = AppleBCMWLANCore::getFWAPIVer(*(*(a1 + 136) + 64));
+    SupportedMaxBW = AppleBCMWLANCore::getSupportedMaxBW(*(*(a1 + 136) + 64));
     v15 = a2[4] & 0xF;
     if ((v15 - 1) < 3)
     {
@@ -8988,7 +9253,7 @@ uint64_t AppleBCMWLANProximityInterface::buildAWDLChanSequence(uint64_t *a1, _BY
     }
 
     v17 = a2[9];
-    v66 = v16;
+    v64 = v16;
     if (v17 == 255)
     {
       v19 = 1;
@@ -8996,8 +9261,8 @@ uint64_t AppleBCMWLANProximityInterface::buildAWDLChanSequence(uint64_t *a1, _BY
 
     else
     {
-      v67 = v16;
-      ChanSpec = AppleBCMWLANCore::getChanSpec(*(a1[17] + 64), v17, &v67);
+      v65 = v16;
+      ChanSpec = AppleBCMWLANCore::getChanSpec(*(*(a1 + 136) + 64), v17, &v65);
       *(a3 + 4) = __rev16(ChanSpec);
       if (!ChanSpec)
       {
@@ -9015,25 +9280,25 @@ LABEL_99:
         return 6;
       }
 
-      if (v67 <= 1)
+      if (v65 <= 1)
       {
         v19 = 1;
       }
 
       else
       {
-        v19 = v67;
+        v19 = v65;
       }
 
-      LODWORD(v16) = v66;
+      LODWORD(v16) = v64;
     }
 
     LOWORD(v21) = a2[5];
     if (a2[5])
     {
-      v60 = a4;
+      v58 = a4;
       v26 = 0;
-      v65 = a3 + 6;
+      v63 = a3 + 6;
       if (v16 >= 4)
       {
         v27 = 4;
@@ -9045,8 +9310,8 @@ LABEL_99:
       }
 
       v28 = "-";
-      v62 = v27;
-      v63 = isDFSChannel | v10;
+      v60 = v27;
+      v61 = isDFSChannel | v10;
       v29 = "DFS";
       if (!isDFSChannel)
       {
@@ -9058,9 +9323,9 @@ LABEL_99:
         v28 = "XZ";
       }
 
-      v58 = v28;
-      v59 = v29;
-      v30 = (a2 + 16);
+      v56 = v28;
+      v57 = v29;
+      v30 = a2 + 16;
       while (1)
       {
         v31 = *v30;
@@ -9072,19 +9337,19 @@ LABEL_99:
 LABEL_79:
         ++v26;
         v21 = a2[5];
-        v30 += 3;
+        v30 += 12;
         if (v26 >= v21)
         {
-          a4 = v60;
+          a4 = v58;
           goto LABEL_84;
         }
       }
 
-      v67 = v16;
-      v32 = v30[1];
+      v65 = v16;
+      v32 = *(v30 + 1);
       if ((v32 & 0x10) != 0)
       {
-        v67 = v62;
+        v65 = v60;
         v33 = 3;
         if (!v11)
         {
@@ -9110,12 +9375,12 @@ LABEL_79:
             (*(*a1 + 1088))(a1);
             if (CCLogStream::shouldLog())
             {
-              AppleBCMWLANProximityInterface::buildAWDLChanSequence(a1);
+              AppleBCMWLANProximityInterface::buildAWDLChanSequence();
             }
           }
 
 LABEL_78:
-          LODWORD(v16) = v66;
+          LODWORD(v16) = v64;
           goto LABEL_79;
         }
 
@@ -9126,10 +9391,10 @@ LABEL_78:
         }
       }
 
-      v35 = v31 == v11 && v64 == v33;
-      if ((v35 & v63) == 1)
+      v35 = v31 == v11 && v62 == v33;
+      if ((v35 & v61) == 1)
       {
-        v36 = AppleBCMWLANCore::getBssManager(*(a1[17] + 64));
+        v36 = AppleBCMWLANCore::getBssManager(*(*(a1 + 136) + 64));
         v37 = *AppleBCMWLANBssManager::getCurrentBSS(v36);
         v38 = (*(v37 + 264))();
         v39 = v38;
@@ -9137,15 +9402,14 @@ LABEL_78:
         v41 = (v38 >> 11) & 7;
         if (v40 == 3 && v41 >= 5)
         {
-          v67 = 4;
-          *(v65 + 2 * v26) = __rev16(AppleBCMWLANCore::getChanSpec(*(a1[17] + 64), v11, 3, &v67));
+          v65 = 4;
+          *(v63 + 2 * v26) = __rev16(AppleBCMWLANCore::getChanSpec(*(*(a1 + 136) + 64), v11, 3, &v65));
           if ((*(*a1 + 1088))(a1))
           {
             (*(*a1 + 1088))(a1);
             if (CCLogStream::shouldLog())
             {
               v48 = (*(*a1 + 1088))(a1);
-              v57 = *(v65 + 2 * v26);
               CCLogStream::logAlert(v48, "[dk] %s@%d: for %s||%s 5G Channel %u (infra: %d) try to use higher bandwidth (%d) than 80MHz result chanSpec 0x%X\n", "buildAWDLChanSequence");
             }
           }
@@ -9153,9 +9417,9 @@ LABEL_78:
 
         else
         {
-          v67 = (v38 >> 11) & 7;
-          v61 = AppleBCMWLANCore::getChanSpec(*(a1[17] + 64), v11, v40, &v67);
-          if (v67 != v41)
+          v65 = (v38 >> 11) & 7;
+          v59 = AppleBCMWLANCore::getChanSpec(*(*(a1 + 136) + 64), v11, v40, &v65);
+          if (v65 != v41)
           {
             if ((*(*a1 + 1088))(a1))
             {
@@ -9163,26 +9427,26 @@ LABEL_78:
               if (CCLogStream::shouldLog())
               {
                 v50 = (*(*a1 + 1088))(a1);
-                CCLogStream::logAlert(v50, "[dk] %s@%d: requested bandwidth %d and actually bandwidth %d for channel %d\n", "buildAWDLChanSequence", 5382, v41, v67, v11);
+                CCLogStream::logAlert(v50, "[dk] %s@%d: requested bandwidth %d and actually bandwidth %d for channel %d\n", "buildAWDLChanSequence", 5382, v41, v65, v11);
               }
             }
           }
 
-          *(v65 + 2 * v26) = __rev16(v61);
+          *(v63 + 2 * v26) = __rev16(v59);
           if ((*(*a1 + 1088))(a1))
           {
             (*(*a1 + 1088))(a1);
             if (CCLogStream::shouldLog())
             {
               v49 = (*(*a1 + 1088))(a1);
-              CCLogStream::logAlert(v49, "[dk] %s@%d: applying channel spec for %s||%s channel (%d) infraChan=%d, chanSpec=%d, bcmSpec=0x%x bw=%d\n", "buildAWDLChanSequence", 5385, v59, v58, v26, v11, v39, v61, v67);
+              CCLogStream::logAlert(v49, "[dk] %s@%d: applying channel spec for %s||%s channel (%d) infraChan=%d, chanSpec=%d, bcmSpec=0x%x bw=%d\n", "buildAWDLChanSequence", 5385, v57, v56, v26, v11, v39, v59, v65);
             }
           }
 
           if (v40 == 3)
           {
-            ChanSpecHandler = AppleBCMWLANCore::getChanSpecHandler(*(a1[17] + 64));
-            if ((AppleBCMWLANChanSpec::isValid5GChanSpec(ChanSpecHandler, v61) & 1) == 0)
+            ChanSpecHandler = AppleBCMWLANCore::getChanSpecHandler(*(*(a1 + 136) + 64));
+            if ((AppleBCMWLANChanSpec::isValid5GChanSpec(ChanSpecHandler, v59) & 1) == 0)
             {
               if ((*(*a1 + 1088))(a1))
               {
@@ -9198,18 +9462,18 @@ LABEL_78:
         }
 
 LABEL_76:
-        if (v67 > v19)
+        if (v65 > v19)
         {
-          v19 = v67;
+          v19 = v65;
         }
 
         goto LABEL_78;
       }
 
 LABEL_65:
-      if (AppleBCMWLANCore::isDFSChannel(*(a1[17] + 64), v31, v33))
+      if (AppleBCMWLANCore::isDFSChannel(*(*(a1 + 136) + 64), v31, v33))
       {
-        v45 = v30[1];
+        v45 = *(v30 + 1);
         if ((v45 & 0x4C06) != 0 && (v45 & 0x4C00) == 0)
         {
           if ((v45 & 4) != 0)
@@ -9222,7 +9486,7 @@ LABEL_65:
             v46 = 2;
           }
 
-          v67 = v46;
+          v65 = v46;
         }
 
         if ((*(*a1 + 1088))(a1))
@@ -9230,13 +9494,13 @@ LABEL_65:
           (*(*a1 + 1088))(a1);
           if (CCLogStream::shouldLog())
           {
-            AppleBCMWLANProximityInterface::buildAWDLChanSequence(a1);
+            AppleBCMWLANProximityInterface::buildAWDLChanSequence();
           }
         }
       }
 
-      v47 = AppleBCMWLANCore::getChanSpec(*(a1[17] + 64), *v30, v33, &v67);
-      *(v65 + 2 * v26) = __rev16(v47);
+      v47 = AppleBCMWLANCore::getChanSpec(*(*(a1 + 136) + 64), *v30, v33, &v65);
+      *(v63 + 2 * v26) = __rev16(v47);
       if (!v47)
       {
         v54 = *v30;
@@ -9278,7 +9542,7 @@ LABEL_84:
     }
 
     v25 = 2;
-    v66 = 2;
+    v64 = 2;
   }
 
   *a4 = v21 + 6;
@@ -9288,8 +9552,7 @@ LABEL_84:
     if (CCLogStream::shouldLog())
     {
       v55 = (*(*a1 + 1088))(a1);
-      v56 = BW_STRING[v66];
-      CCLogStream::logAlertIf(v55, 0x400uLL, "[dk] %s@%d: set channel sequence len %u step %u enc %u flags %u max_bw_req %s, bw_used %s\n", "buildAWDLChanSequence", 5438, a2[5], a2[7], a2[6], a2[4], v56, BW_STRING[v25]);
+      CCLogStream::logAlertIf(v55, 0x400uLL, "[dk] %s@%d: set channel sequence len %u step %u enc %u flags %u max_bw_req %s, bw_used %s\n", "buildAWDLChanSequence", 5438, a2[5], a2[7], a2[6], a2[4], BW_STRING[v64], BW_STRING[v25]);
     }
   }
 
@@ -9302,14 +9565,14 @@ LABEL_84:
 
   if (a2[6])
   {
-    v67 = 2;
-    *v51 = __rev16(AppleBCMWLANCore::getChanSpec(*(a1[17] + 64), 6, 0, &v67));
+    v65 = 2;
+    *v51 = __rev16(AppleBCMWLANCore::getChanSpec(*(*(a1 + 136) + 64), 6, 0, &v65));
     if ((*(*a1 + 1088))(a1))
     {
       (*(*a1 + 1088))(a1);
       if (CCLogStream::shouldLog())
       {
-        AppleBCMWLANProximityInterface::buildAWDLChanSequence(a1);
+        AppleBCMWLANProximityInterface::buildAWDLChanSequence();
       }
     }
 
@@ -9324,416 +9587,10 @@ LABEL_84:
     result = CCLogStream::shouldLog();
     if (result)
     {
-      AppleBCMWLANProximityInterface::buildAWDLChanSequence(a1);
+      AppleBCMWLANProximityInterface::buildAWDLChanSequence();
       return 0;
     }
   }
 
   return result;
-}
-
-uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE(uint64_t a1, unsigned __int8 *a2)
-{
-  return AppleBCMWLANProximityInterface::setAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE((a1 - 112), a2);
-}
-
-{
-  return AppleBCMWLANProximityInterface::setAWDL_SYNCHRONIZATION_CHANNEL_SEQUENCE((a1 - 128), a2);
-}
-
-uint64_t AppleBCMWLANProximityInterface::setAWDL_OOB_REQUEST(uint64_t *a1, uint64_t a2)
-{
-  if (!*(a1[17] + 664))
-  {
-    return 3758097084;
-  }
-
-  *&v13[7] = 0;
-  v12 = 0;
-  v11 = 0;
-  *v13 = 0;
-  v4 = *(a2 + 40);
-  v9 = *(a2 + 4);
-  v10 = *(a2 + 8);
-  v7 = *(a2 + 22);
-  v8 = *(a2 + 26);
-  *&v13[8] = v4;
-  LODWORD(v12) = *(a2 + 20);
-  if ((*(*a1 + 1088))(a1))
-  {
-    (*(*a1 + 1088))(a1);
-    if (CCLogStream::shouldLog())
-    {
-      AppleBCMWLANProximityInterface::setAWDL_OOB_REQUEST(a1);
-    }
-  }
-
-  v14.iov_base = &v7;
-  v14.iov_len = 38;
-  v5 = *(a2 + 40);
-  v15 = *(a2 + 48);
-  v16 = v5;
-  return AppleBCMWLANProximityInterface::sendUnicastAFIOVar(a1, &v14, 2u);
-}
-
-uint64_t non-virtual thunk toAppleBCMWLANProximityInterface::setAWDL_OOB_REQUEST(uint64_t a1, uint64_t a2)
-{
-  return AppleBCMWLANProximityInterface::setAWDL_OOB_REQUEST((a1 - 112), a2);
-}
-
-{
-  return AppleBCMWLANProximityInterface::setAWDL_OOB_REQUEST((a1 - 128), a2);
-}
-
-uint64_t AppleBCMWLANProximityInterface::setLLW_PARAMSCallback(uint64_t result, uint64_t a2, uint64_t a3)
-{
-  if (a3)
-  {
-    v4 = result;
-    if (*(a2 + 8))
-    {
-      v5 = *(a2 + 8);
-    }
-
-    else
-    {
-      v5 = "(null)";
-    }
-
-    if ((*(*result + 1088))(result))
-    {
-      (*(*v4 + 1088))(v4);
-      if (CCLogStream::shouldLog())
-      {
-        AppleBCMWLANProximityInterface::setLLW_PARAMSCallback(v4, v4 & 0xFFFFFFFFFFFFLL | 0xCDA1000000000000, a3, v5);
-      }
-    }
-
-    FaultReporter = AppleBCMWLANCore::getFaultReporter(*(*(v4 + 136) + 64));
-    return CCFaultReporter::reportFault(FaultReporter, 5u, "/Library/Caches/com.apple.xbs/Sources/AppleBCMWLANV3_driverkit/AppleBCMWLANProximityInterface.cpp", 0x11DAu, "setLLW_PARAMSCallback", 0, -469793487, " %s iovar retval %x", v5, a3);
-  }
-
-  return result;
-}
-
-uint64_t AppleBCMWLANProximityInterface::setLLW_PARAMS(IO80211SkywalkInterface *a1, uint64_t a2)
-{
-  v53 = &_mh_execute_header;
-  v54 = 2;
-  v52 = 0;
-  memset(v50, 170, sizeof(v50));
-  v4 = IOMallocZeroData();
-  v5 = v4;
-  if (v4)
-  {
-    v6 = v4;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if (v4)
-  {
-    v7 = 1024;
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  if (v4)
-  {
-    v8 = v4 < 0xFFFFFFFFFFFFFC01;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  if (v4)
-  {
-    v9 = v4 + 1023;
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  Bus = AppleBCMWLANCore::getBus(*(*(a1 + 17) + 64));
-  if (((*(*Bus + 800))(Bus) & 1) == 0)
-  {
-    AppleBCMWLANProximityInterface::setLLW_PARAMS();
-    goto LABEL_105;
-  }
-
-  if (!a2)
-  {
-    AppleBCMWLANProximityInterface::setLLW_PARAMS();
-    goto LABEL_105;
-  }
-
-  if (!v5)
-  {
-    AppleBCMWLANProximityInterface::setLLW_PARAMS();
-    return v51;
-  }
-
-  v11 = 0;
-  v12 = *(a2 + 11) == 0;
-  v13 = &v53;
-  if (!*(a2 + 11))
-  {
-    v13 = &v52;
-  }
-
-  *v5 = 0x8000;
-  if (v12)
-  {
-    v14 = 1;
-  }
-
-  else
-  {
-    v14 = 3;
-  }
-
-  *(v5 + 2) = v14;
-  *(v5 + 3) = 1;
-  v15 = 4;
-  while (1)
-  {
-    if (!v8)
-    {
-      LODWORD(v25) = 4;
-      goto LABEL_79;
-    }
-
-    v16 = v5 + v15;
-    v17 = v16 + 7 >= v6 && v16 + 7 <= v9;
-    v18 = v17 && v16 < 0xFFFFFFFFFFFFFFF9;
-    v19 = v18 && v6 <= v16;
-    if (!v19 || v9 < v16)
-    {
-      break;
-    }
-
-    v21 = *(v13 + v11);
-    *v16 = v21;
-    *(v16 + 4) = 1;
-    v22 = v15 + 8;
-    v23 = (v5 + v22);
-    v24 = v5 + v22 + 3;
-    if (v24 < v6 || v24 > v9 || v5 + v22 >= 0xFFFFFFFFFFFFFFFDLL || v6 > v23 || v9 < v23)
-    {
-      if ((*(*a1 + 1088))(a1))
-      {
-        (*(*a1 + 1088))(a1);
-        if (CCLogStream::shouldLog())
-        {
-          v48 = (*(*a1 + 1088))(a1);
-          CCLogStream::logAlert(v48, "[dk] %s@%d: Range check failed, count[%u] length[%u] chkSize[%lu], getSize[%lu]\n", "setLLW_PARAMS", 4638, *(v5 + 2), v22, 4, v7);
-        }
-      }
-
-      LOWORD(v25) = v22;
-      goto LABEL_71;
-    }
-
-    *v23 = 1;
-    v25 = v15 + 12;
-    v26 = (v5 + v25);
-    v27 = v5 + v25 + 1;
-    if (v27 < v6 || v27 > v9 || v5 + v25 == -1 || v6 > v26 || v9 < v26)
-    {
-      if ((*(*a1 + 1088))(a1))
-      {
-        (*(*a1 + 1088))(a1);
-        if (CCLogStream::shouldLog())
-        {
-          v44 = (*(*a1 + 1088))(a1);
-          CCLogStream::logAlert(v44, "[dk] %s@%d: Range check failed, count[%u] length[%u] chkSize[%lu], getSize[%lu]\n", "setLLW_PARAMS", 4650, *(v5 + 2), v25, 2, v7);
-        }
-      }
-
-      goto LABEL_71;
-    }
-
-    *v26 = v21;
-    if (v21 == 2)
-    {
-      v26[1] = 12;
-      v25 = v15 + 16;
-      v34 = v5 + v25;
-      v35 = v5 + v25 + 11;
-      if (v35 < v6 || v35 > v9 || v5 + v25 >= 0xFFFFFFFFFFFFFFF5 || v6 > v34 || v9 < v34)
-      {
-        if ((*(*a1 + 1088))(a1))
-        {
-          (*(*a1 + 1088))(a1);
-          if (CCLogStream::shouldLog())
-          {
-            v46 = (*(*a1 + 1088))(a1);
-            CCLogStream::logAlert(v46, "[dk] %s@%d: Range check failed, count[%u] length[%u] chkSize[%lu], getSize[%lu]\n", "setLLW_PARAMS", 4701, *(v5 + 2), v25, 12, v7);
-          }
-        }
-
-        goto LABEL_71;
-      }
-
-      v36 = *(a2 + 4);
-      *(v34 + 4) = *(a2 + 8);
-      *v34 = v36;
-      *(v34 + 8) = *(a2 + 10);
-      LOWORD(v36) = *(v34 + 6) | *(a2 + 24) & 1;
-      *(v34 + 6) = v36;
-      LOWORD(v36) = v36 | *(a2 + 24) & 2;
-      *(v34 + 6) = v36;
-      LOWORD(v36) = v36 | *(a2 + 24) & 4;
-      *(v34 + 6) = v36;
-      *(v34 + 6) = v36 | *(a2 + 24) & 8;
-      LODWORD(v25) = v15 + 28;
-    }
-
-    else if (v21 == 1)
-    {
-      v26[1] = 20;
-      v25 = v15 + 16;
-      v31 = v5 + v25;
-      v32 = v5 + v25 + 19;
-      if (v32 < v6 || v32 > v9 || v5 + v25 >= 0xFFFFFFFFFFFFFFEDLL || v6 > v31 || v9 < v31)
-      {
-        if ((*(*a1 + 1088))(a1))
-        {
-          (*(*a1 + 1088))(a1);
-          if (CCLogStream::shouldLog())
-          {
-            v49 = (*(*a1 + 1088))(a1);
-            CCLogStream::logAlert(v49, "[dk] %s@%d: Range check failed, count[%u] length[%u] chkSize[%lu], getSize[%lu]\n", "setLLW_PARAMS", 4676, *(v5 + 2), v25, 20, v7);
-          }
-        }
-
-        goto LABEL_71;
-      }
-
-      v33 = *(a2 + 4);
-      *(v31 + 4) = *(a2 + 8);
-      *v31 = v33;
-      *(v31 + 15) = *(a2 + 10);
-      *(v31 + 16) = *(a2 + 21);
-      *(v31 + 6) = *(a2 + 14);
-      *(v31 + 18) = 14;
-      *(v31 + 14) = 5;
-      LOWORD(v33) = (2 * (*(a2 + 18) & 1)) | *(v31 + 10);
-      *(v31 + 10) = v33;
-      LOWORD(v33) = (*(a2 + 18) >> 1) & 1 | v33;
-      *(v31 + 10) = v33;
-      *(v31 + 10) = v33 | *(a2 + 18) & 4;
-      LOBYTE(v33) = (*(a2 + 18) >> 3) & 0x10 | *(v31 + 12);
-      *(v31 + 12) = v33;
-      *(v31 + 12) = (*(a2 + 18) >> 3) & 0xF | v33;
-      LOBYTE(v33) = *(a2 + 20);
-      *(v31 + 13) = v33 >> 4;
-      *(v31 + 13) = v33 & 0xF0 | *(a2 + 20) & 0xF;
-      LODWORD(v25) = v15 + 36;
-    }
-
-    else if (!v21)
-    {
-      if (v26 + 3 < v6 || v26 + 3 > v9 || v26 >= 0xFFFFFFFFFFFFFFFDLL)
-      {
-        if ((*(*a1 + 1088))(a1))
-        {
-          (*(*a1 + 1088))(a1);
-          if (CCLogStream::shouldLog())
-          {
-            v45 = (*(*a1 + 1088))(a1);
-            CCLogStream::logAlert(v45, "[dk] %s@%d: Range check failed, count[%u] length[%u] chkSize[%lu], getSize[%lu]\n", "setLLW_PARAMS", 4659, *(v5 + 2), v25, 4, v7);
-          }
-        }
-
-        goto LABEL_71;
-      }
-
-      v26[1] = 4;
-      v28 = v26 + 2;
-      v29 = v26 + 7;
-      v30 = (v26 + 2) >= 0xFFFFFFFFFFFFFFFDLL;
-      if (v29 < v6 || v29 > v9 || v30 || v6 > v28 || v9 < v28)
-      {
-        if ((*(*a1 + 1088))(a1))
-        {
-          (*(*a1 + 1088))(a1);
-          if (CCLogStream::shouldLog())
-          {
-            v47 = (*(*a1 + 1088))(a1);
-            CCLogStream::logAlert(v47, "[dk] %s@%d: Range check failed, count[%u] length[%u] chkSize[%lu], getSize[%lu]\n", "setLLW_PARAMS", 4665, *(v5 + 2), v25, 4, v7);
-          }
-        }
-
-        goto LABEL_71;
-      }
-
-      *v28 = *(a2 + 11);
-      LODWORD(v25) = v15 + 20;
-    }
-
-    *(v16 + 2) = v25 - (v15 + 8) + 4;
-    ++v11;
-    v15 = v25;
-    if (v11 >= *(v5 + 2))
-    {
-      goto LABEL_71;
-    }
-  }
-
-  LODWORD(v25) = v15;
-LABEL_79:
-  if ((*(*a1 + 1088))(a1))
-  {
-    (*(*a1 + 1088))(a1);
-    if (CCLogStream::shouldLog())
-    {
-      v43 = (*(*a1 + 1088))(a1);
-      CCLogStream::logAlert(v43, "[dk] %s@%d: Range check failed, count[%u] length[%u] chkSize[%lu], getSize[%lu]\n", "setLLW_PARAMS", 4624, *(v5 + 2), v25, 8, v7);
-    }
-  }
-
-LABEL_71:
-  v50[0] = a1;
-  v50[1] = AppleBCMWLANProximityInterface::setLLW_PARAMSCallback;
-  if (v25)
-  {
-    v37 = v6;
-  }
-
-  else
-  {
-    v37 = 0;
-  }
-
-  v50[2] = 0;
-  v50[3] = v37;
-  v50[4] = v25;
-  v38 = *(*(a1 + 17) + 960);
-  InterfaceId = IO80211SkywalkInterface::getInterfaceId(a1);
-  v40 = AppleBCMWLANCommander::sendVirtualIOVarSet(v38, InterfaceId, "hp2p", &v50[3], kNoRxExpected, v50, 0);
-  v41 = 0;
-  if (v40)
-  {
-    AppleBCMWLANProximityInterface::setLLW_PARAMS(a1, v40, &v51);
-LABEL_105:
-    v41 = v51;
-    if (!v5)
-    {
-      return v41;
-    }
-  }
-
-  IOFreeData();
-  return v41;
 }

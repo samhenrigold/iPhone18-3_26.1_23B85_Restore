@@ -392,7 +392,8 @@ LABEL_6:
   assetWriterVideoIn = [(ICDocCamDebugMovieController *)self assetWriterVideoIn];
   [assetWriterVideoIn setExpectsMediaDataInRealTime:1];
 
-  [(ICDocCamDebugMovieController *)self transformFromCurrentVideoOrientationToOrientation:[(ICDocCamDebugMovieController *)self referenceOrientation]];
+  [(ICDocCamDebugMovieController *)self referenceOrientation];
+  objc_msgSend_transformFromCurrentVideoOrientationToOrientation_(self);
   assetWriterVideoIn2 = [(ICDocCamDebugMovieController *)self assetWriterVideoIn];
   *v32 = *&v32[7];
   *&v32[2] = *&v32[9];

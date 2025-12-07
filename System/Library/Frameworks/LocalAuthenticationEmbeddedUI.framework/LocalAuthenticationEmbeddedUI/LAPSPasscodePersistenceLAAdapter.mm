@@ -8,11 +8,11 @@
 
 - (BOOL)canRemovePasscode:(id *)passcode
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CD4790]);
-  v22 = 0;
-  [v5 canEvaluatePolicy:1 error:&v22];
-  v6 = v22;
+  v21 = 0;
+  [v5 canEvaluatePolicy:1 error:&v21];
+  v6 = v21;
   if ([v6 code] == -7 || objc_msgSend(v6, "code") == -6)
   {
     v7 = LACLogPasscodeService();
@@ -24,7 +24,7 @@ LABEL_6:
     }
 
     *buf = 138412290;
-    v26 = v6;
+    v25 = v6;
     v8 = "canRemovePasscode: YES (%@)";
     v9 = v7;
     v10 = 12;
@@ -49,37 +49,36 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v15 = biometryType;
-  v23[0] = *MEMORY[0x277CCA068];
-  v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Biometry Enrolled (%@)", v6];
-  v24[0] = v16;
-  v23[1] = *MEMORY[0x277CCA450];
-  v17 = [(LAPSPasscodePersistenceLAAdapter *)self _localizedErrorTitleForBiometryType:v15];
-  v24[1] = v17;
-  v23[2] = *MEMORY[0x277CCA498];
-  v18 = [(LAPSPasscodePersistenceLAAdapter *)self _localizedErrorMessageForBiometryType:v15];
-  v23[3] = @"LAPSInteractiveErrorKey";
-  v24[2] = v18;
-  v24[3] = MEMORY[0x277CBEC38];
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
-  v7 = [LAPSErrorBuilder errorWithCode:8 userInfo:v19];
+  v14 = biometryType;
+  v22[0] = *MEMORY[0x277CCA068];
+  v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Biometry Enrolled (%@)", v6];
+  v23[0] = v15;
+  v22[1] = *MEMORY[0x277CCA450];
+  v16 = [(LAPSPasscodePersistenceLAAdapter *)self _localizedErrorTitleForBiometryType:v14];
+  v23[1] = v16;
+  v22[2] = *MEMORY[0x277CCA498];
+  v17 = [(LAPSPasscodePersistenceLAAdapter *)self _localizedErrorMessageForBiometryType:v14];
+  v22[3] = @"LAPSInteractiveErrorKey";
+  v23[2] = v17;
+  v23[3] = MEMORY[0x277CBEC38];
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:4];
+  v7 = [LAPSErrorBuilder errorWithCode:8 userInfo:v18];
 
   if (passcode)
   {
-    v20 = v7;
+    v19 = v7;
     *passcode = v7;
   }
 
-  v21 = LACLogPasscodeService();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v20 = LACLogPasscodeService();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    [(LAPSPasscodePersistenceLAAdapter *)v7 canRemovePasscode:v21];
+    [(LAPSPasscodePersistenceLAAdapter *)v7 canRemovePasscode:v20];
   }
 
   v11 = 0;
 LABEL_7:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -127,11 +126,10 @@ LABEL_7:
 
 - (void)canRemovePasscode:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_238BCD000, a2, OS_LOG_TYPE_ERROR, "canRemovePasscode: NO (%@)", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_238BCD000, a2, OS_LOG_TYPE_ERROR, "canRemovePasscode: NO (%@)", &v2, 0xCu);
 }
 
 @end

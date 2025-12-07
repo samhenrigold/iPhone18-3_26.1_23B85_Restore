@@ -204,7 +204,6 @@ LABEL_28:
         v29 = objc_opt_class();
         NSStringFromClass(v29);
         v31 = v30 = dataCopy;
-        v32 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
 
         dataCopy = v30;
@@ -229,22 +228,21 @@ LABEL_33:
 LABEL_36:
   if (!*&v6[*v9])
   {
-    v36 = 1;
+    v34 = 1;
     goto LABEL_40;
   }
 
 LABEL_37:
-  v33 = objc_opt_class();
-  v10 = NSStringFromClass(v33);
-  v34 = *&v6[*v9];
-  v35 = CCInvalidBufferErrorForMessage();
+  v32 = objc_opt_class();
+  v10 = NSStringFromClass(v32);
+  v33 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_38:
-  v36 = 0;
+  v34 = 0;
 LABEL_40:
 
-  return v36;
+  return v34;
 }
 
 - (CCAppCuratedEntityMetaContent)initWithSourceItemIdentifier:(id)identifier relevancyScore:(id)score error:(id *)error

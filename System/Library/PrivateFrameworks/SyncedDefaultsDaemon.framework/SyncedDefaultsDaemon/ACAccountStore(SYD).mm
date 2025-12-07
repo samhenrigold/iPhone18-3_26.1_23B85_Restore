@@ -8,7 +8,7 @@
 
 - (id)syd_accountForPersonaIdentifier:()SYD error:
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = SYDGetAccountsLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -16,11 +16,11 @@
     [ACAccountStore(SYD) syd_accountForPersonaIdentifier:error:];
   }
 
-  v31[0] = *MEMORY[0x277CB8BA0];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
-  v29 = 0;
-  v9 = [self accountsWithAccountTypeIdentifiers:v8 error:&v29];
-  v10 = v29;
+  v30[0] = *MEMORY[0x277CB8BA0];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+  v28 = 0;
+  v9 = [self accountsWithAccountTypeIdentifiers:v8 error:&v28];
+  v10 = v28;
 
   if (v10)
   {
@@ -31,25 +31,25 @@
     }
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v12 = v9;
-  v13 = [v12 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v13)
   {
-    v14 = *v26;
+    v14 = *v25;
     while (2)
     {
       for (i = 0; i != v13; i = i + 1)
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * i);
+        v16 = *(*(&v24 + 1) + 8 * i);
         personaIdentifier = [v16 personaIdentifier];
         v18 = [personaIdentifier isEqualToString:v6];
 
@@ -60,7 +60,7 @@
         }
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v13)
       {
         continue;
@@ -94,7 +94,6 @@ LABEL_17:
   }
 
   v22 = v13;
-  v23 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -154,49 +153,43 @@ LABEL_17:
 
 - (void)syd_accountForPersonaIdentifier:()SYD error:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_26C384000, v0, OS_LOG_TYPE_DEBUG, "Getting account for persona %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_26C384000, v0, OS_LOG_TYPE_DEBUG, "Getting account for persona %@", v1, 0xCu);
 }
 
 - (void)syd_accountForPersonaIdentifier:()SYD error:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_26C384000, v0, OS_LOG_TYPE_ERROR, "Error getting all AppleAccounts: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26C384000, v0, OS_LOG_TYPE_ERROR, "Error getting all AppleAccounts: %@", v1, 0xCu);
 }
 
 - (void)syd_accountForPersonaIdentifier:()SYD error:.cold.3(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 identifier];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_26C384000, a3, OS_LOG_TYPE_DEBUG, "Found account for persona %@: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_26C384000, a3, OS_LOG_TYPE_DEBUG, "Found account for persona %@: %@", &v6, 0x16u);
 }
 
 - (void)syd_accountForPersonaIdentifier:()SYD error:.cold.4()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_26C384000, v0, OS_LOG_TYPE_ERROR, "Couldn't find account for persona %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26C384000, v0, OS_LOG_TYPE_ERROR, "Couldn't find account for persona %@", v1, 0xCu);
 }
 
 - (void)syd_accountForCurrentPersonaWithError:()SYD .cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_26C384000, v1, OS_LOG_TYPE_ERROR, "Error getting account for persona %@: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_26C384000, v1, OS_LOG_TYPE_ERROR, "Error getting account for persona %@: %@", v2, 0x16u);
 }
 
 @end

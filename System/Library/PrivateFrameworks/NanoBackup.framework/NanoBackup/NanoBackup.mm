@@ -1,6 +1,6 @@
-void sub_100001B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100001B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -28,33 +28,32 @@ void sub_100001D00(uint64_t a1)
 
 id sub_100001D54(uint64_t a1)
 {
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v2 = *(*(a1 + 32) + 24);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(a1 + 40);
-        (*(*(*(&v9 + 1) + 8 * v6) + 16))(*(*(&v9 + 1) + 8 * v6));
+        (*(*(*(&v8 + 1) + 8 * v6) + 16))(*(*(&v8 + 1) + 8 * v6));
         v6 = v6 + 1;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
@@ -65,33 +64,32 @@ id sub_100001D54(uint64_t a1)
 
 id sub_100001F48(uint64_t a1)
 {
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v2 = *(*(a1 + 32) + 24);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(a1 + 40);
-        (*(*(*(&v9 + 1) + 8 * v6) + 16))(*(*(&v9 + 1) + 8 * v6));
+        (*(*(*(&v8 + 1) + 8 * v6) + 16))(*(*(&v8 + 1) + 8 * v6));
         v6 = v6 + 1;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
@@ -628,9 +626,9 @@ void sub_1000048C0(uint64_t a1, void *a2)
   (*(v2 + 16))(v2, v3);
 }
 
-void sub_100004B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100004B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1297,7 +1295,7 @@ void sub_100007EC8(uint64_t a1, void *a2)
     {
       v5 = *(a1 + 32);
       *buf = 138412290;
-      v59 = v5;
+      v56 = v5;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Backup for backupID (%@) could not be found", buf, 0xCu);
     }
 
@@ -1308,66 +1306,64 @@ void sub_100007EC8(uint64_t a1, void *a2)
 
   if (![v3 backupType])
   {
-    v13 = *(a1 + 40);
-    v14 = [objc_opt_class() retrieveGizmoWithPairingID:*(a1 + 48)];
-    if (!v14)
+    v13 = [objc_opt_class() retrieveGizmoWithPairingID:*(a1 + 48)];
+    if (!v13)
     {
-      v15 = nb_daemon_log;
+      v14 = nb_daemon_log;
       if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = *(a1 + 48);
+        v15 = *(a1 + 48);
         *buf = 138412290;
-        v59 = v16;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Failed to find device with pairingID: (%@)", buf, 0xCu);
+        v56 = v15;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Failed to find device with pairingID: (%@)", buf, 0xCu);
       }
 
-      v17 = *(a1 + 56);
-      v18 = NBError();
-      (*(v17 + 16))(v17, v18);
+      v16 = *(a1 + 56);
+      v17 = NBError();
+      (*(v16 + 16))(v16, v17);
     }
 
-    v19 = [v14 valueForProperty:NRDevicePropertyLocalPairingDataStorePath];
-    if (!v19)
+    v18 = [v13 valueForProperty:NRDevicePropertyLocalPairingDataStorePath];
+    if (!v18)
     {
-      v20 = nb_daemon_log;
+      v19 = nb_daemon_log;
       if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v59 = v14;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Failed to resolve pairing data store path for device: (%@)", buf, 0xCu);
+        v56 = v13;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Failed to resolve pairing data store path for device: (%@)", buf, 0xCu);
       }
 
-      v21 = *(a1 + 56);
-      v22 = NBError();
-      (*(v21 + 16))(v21, v22);
+      v20 = *(a1 + 56);
+      v21 = NBError();
+      (*(v20 + 16))(v20, v21);
     }
 
-    v23 = nb_daemon_log;
+    v22 = nb_daemon_log;
     if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Restoring from tombstone backup.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Restoring from tombstone backup.", buf, 2u);
     }
 
-    v24 = [*(*(a1 + 40) + 32) pathToBackup:v3];
+    v23 = [*(*(a1 + 40) + 32) pathToBackup:v3];
     +[NSFileManager defaultManager];
-    v54[0] = _NSConcreteStackBlock;
-    v54[1] = 3221225472;
-    v54[2] = sub_100008780;
-    v25 = v54[3] = &unk_10002CBE0;
-    v55 = v25;
-    v56 = *(a1 + 48);
-    v26 = v19;
-    v57 = v26;
-    v27 = objc_retainBlock(v54);
-    v28 = *(a1 + 40);
-    v29 = [objc_opt_class() localUserDefaultsDirectoryForBackupDirectory:v24];
-    v46 = v29;
-    v47 = v27;
-    if ([v25 fileExistsAtPath:v29])
+    v51[0] = _NSConcreteStackBlock;
+    v51[1] = 3221225472;
+    v51[2] = sub_100008780;
+    v24 = v51[3] = &unk_10002CBE0;
+    v52 = v24;
+    v53 = *(a1 + 48);
+    v25 = v18;
+    v54 = v25;
+    v26 = objc_retainBlock(v51);
+    v27 = [objc_opt_class() localUserDefaultsDirectoryForBackupDirectory:v23];
+    v43 = v27;
+    v44 = v26;
+    if ([v24 fileExistsAtPath:v27])
     {
-      v30 = (v27[2])(v27, v29);
-      if (v30)
+      v28 = (v26[2])(v26, v27);
+      if (v28)
       {
         (*(*(a1 + 56) + 16))();
       }
@@ -1375,37 +1371,36 @@ void sub_100007EC8(uint64_t a1, void *a2)
 
     else
     {
-      v30 = 0;
+      v28 = 0;
     }
 
-    v33 = *(a1 + 40);
-    v34 = [objc_opt_class() remoteBackupDirectoryForBackupDirectory:v24];
-    v35 = [*(a1 + 40) preferencesSyncBackupDirectoryForPairingDataStore:v26];
-    v48 = v26;
-    if ([v25 fileExistsAtPath:v35])
+    v31 = [objc_opt_class() remoteBackupDirectoryForBackupDirectory:v23];
+    v32 = [*(a1 + 40) preferencesSyncBackupDirectoryForPairingDataStore:v25];
+    v45 = v25;
+    if ([v24 fileExistsAtPath:v32])
     {
-      v36 = nb_daemon_log;
+      v33 = nb_daemon_log;
       if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v59 = v35;
-        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Paired device already has a backup directory (%@)", buf, 0xCu);
+        v56 = v32;
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Paired device already has a backup directory (%@)", buf, 0xCu);
       }
 
-      v53 = v30;
-      [v25 removeItemAtPath:v35 error:&v53];
-      v37 = v53;
+      v50 = v28;
+      [v24 removeItemAtPath:v32 error:&v50];
+      v34 = v50;
 
-      if (v37)
+      if (v34)
       {
-        v38 = nb_daemon_log;
+        v35 = nb_daemon_log;
         if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v59 = v35;
-          v60 = 2112;
-          v61 = v37;
-          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Failed to delete the paired device existing backup directory (%@) with error: (%@)", buf, 0x16u);
+          v56 = v32;
+          v57 = 2112;
+          v58 = v34;
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Failed to delete the paired device existing backup directory (%@) with error: (%@)", buf, 0x16u);
         }
 
         (*(*(a1 + 56) + 16))();
@@ -1414,67 +1409,67 @@ void sub_100007EC8(uint64_t a1, void *a2)
 
     else
     {
-      v45 = v24;
-      v39 = [v35 stringByDeletingLastPathComponent];
-      if ([v25 fileExistsAtPath:v39])
+      v42 = v23;
+      v36 = [v32 stringByDeletingLastPathComponent];
+      if ([v24 fileExistsAtPath:v36])
       {
-        v37 = v30;
+        v34 = v28;
       }
 
       else
       {
-        v40 = nb_daemon_log;
+        v37 = nb_daemon_log;
         if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v59 = v39;
-          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "PreferencesSync directory does not exist. Create it at path (%@)", buf, 0xCu);
+          v56 = v36;
+          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "PreferencesSync directory does not exist. Create it at path (%@)", buf, 0xCu);
         }
 
-        v64 = NSFileProtectionKey;
-        v65 = NSFileProtectionNone;
-        v41 = [NSDictionary dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-        v52 = v30;
-        [v25 createDirectoryAtPath:v39 withIntermediateDirectories:1 attributes:v41 error:&v52];
-        v37 = v52;
+        v61 = NSFileProtectionKey;
+        v62 = NSFileProtectionNone;
+        v38 = [NSDictionary dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+        v49 = v28;
+        [v24 createDirectoryAtPath:v36 withIntermediateDirectories:1 attributes:v38 error:&v49];
+        v34 = v49;
 
-        if (v37)
+        if (v34)
         {
-          v42 = nb_daemon_log;
+          v39 = nb_daemon_log;
           if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v59 = v39;
-            v60 = 2112;
-            v61 = v37;
-            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Failed to create PreferencesSync directory (%@) with error: (%@)", buf, 0x16u);
+            v56 = v36;
+            v57 = 2112;
+            v58 = v34;
+            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Failed to create PreferencesSync directory (%@) with error: (%@)", buf, 0x16u);
           }
 
           (*(*(a1 + 56) + 16))();
         }
       }
 
-      v24 = v45;
+      v23 = v42;
     }
 
-    if ([v25 fileExistsAtPath:v34])
+    if ([v24 fileExistsAtPath:v31])
     {
-      v51 = v37;
-      [v25 copyItemAtPath:v34 toPath:v35 error:&v51];
-      v43 = v51;
+      v48 = v34;
+      [v24 copyItemAtPath:v31 toPath:v32 error:&v48];
+      v40 = v48;
 
-      if (v43)
+      if (v40)
       {
-        v44 = nb_daemon_log;
+        v41 = nb_daemon_log;
         if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412802;
-          v59 = v34;
-          v60 = 2112;
-          v61 = v35;
-          v62 = 2112;
-          v63 = v43;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Failed to copy (%@) to (%@) with error: (%@)", buf, 0x20u);
+          v56 = v31;
+          v57 = 2112;
+          v58 = v32;
+          v59 = 2112;
+          v60 = v40;
+          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Failed to copy (%@) to (%@) with error: (%@)", buf, 0x20u);
         }
 
         (*(*(a1 + 56) + 16))();
@@ -1483,12 +1478,12 @@ void sub_100007EC8(uint64_t a1, void *a2)
 
     else
     {
-      v43 = v37;
+      v40 = v34;
     }
 
-    [*(a1 + 40) migrateLegacyContactPreferencesFromBackup:v3 device:v14];
-    [*(a1 + 40) migrateLegacyDigitalTouchPreferencesFromBackup:v3 device:v14];
-    [*(a1 + 40) migrateFitnessPreferencesFromBackup:v3 device:v14];
+    [*(a1 + 40) migrateLegacyContactPreferencesFromBackup:v3 device:v13];
+    [*(a1 + 40) migrateLegacyDigitalTouchPreferencesFromBackup:v3 device:v13];
+    [*(a1 + 40) migrateFitnessPreferencesFromBackup:v3 device:v13];
     [*(a1 + 40) migrateBreathePreferencesFromBackup:v3];
 
     goto LABEL_49;
@@ -1496,17 +1491,17 @@ void sub_100007EC8(uint64_t a1, void *a2)
 
   if ([v3 backupType] != 1)
   {
-    v31 = nb_daemon_log;
+    v29 = nb_daemon_log;
     if (!os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_50;
     }
 
-    v14 = v31;
-    v32 = [v3 backupType];
+    v13 = v29;
+    v30 = [v3 backupType];
     *buf = 134217984;
-    v59 = v32;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Unknown backup type: %lu", buf, 0xCu);
+    v56 = v30;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Unknown backup type: %lu", buf, 0xCu);
 LABEL_49:
 
     goto LABEL_50;
@@ -1524,13 +1519,13 @@ LABEL_49:
   }
 
   v12 = [v3 uuid];
-  v49[0] = _NSConcreteStackBlock;
-  v49[1] = 3221225472;
-  v49[2] = sub_100008D48;
-  v49[3] = &unk_10002CC08;
-  v49[4] = *(a1 + 40);
-  v50 = *(a1 + 56);
-  [v8 backupPayloadForID:v12 completion:v49];
+  v46[0] = _NSConcreteStackBlock;
+  v46[1] = 3221225472;
+  v46[2] = sub_100008D48;
+  v46[3] = &unk_10002CC08;
+  v46[4] = *(a1 + 40);
+  v47 = *(a1 + 56);
+  [v8 backupPayloadForID:v12 completion:v46];
 
 LABEL_50:
   (*(*(a1 + 56) + 16))();
@@ -1786,105 +1781,103 @@ void sub_100009254(uint64_t a1)
 
 id sub_100009318(id *a1)
 {
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x3032000000;
-  v61 = sub_100009BC8;
-  v62 = sub_100009BD8;
-  v63 = 0;
-  v2 = a1[4];
-  v3 = [objc_opt_class() retrieveGizmoWithPairingID:a1[5]];
-  v4 = v3;
-  if (v3)
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x3032000000;
+  v59 = sub_100009BC8;
+  v60 = sub_100009BD8;
+  v61 = 0;
+  v2 = [objc_opt_class() retrieveGizmoWithPairingID:a1[5]];
+  v3 = v2;
+  if (v2)
   {
-    v5 = NRDevicePropertyLocalPairingDataStorePath;
-    v6 = [v3 valueForProperty:NRDevicePropertyLocalPairingDataStorePath];
-    if (!v6)
+    v4 = NRDevicePropertyLocalPairingDataStorePath;
+    v5 = [v2 valueForProperty:NRDevicePropertyLocalPairingDataStorePath];
+    if (!v5)
     {
-      v23 = nb_daemon_log;
+      v21 = nb_daemon_log;
       if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v65 = v4;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Failed to resolve pairing data store path for existing device: (%@)", buf, 0xCu);
+        v63 = v3;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Failed to resolve pairing data store path for existing device: (%@)", buf, 0xCu);
       }
 
-      v20 = NBError();
+      v18 = NBError();
       goto LABEL_48;
     }
 
-    v7 = a1[4];
-    v8 = [objc_opt_class() retrieveGizmoWithPairingID:a1[6]];
-    v9 = v8;
+    v6 = [objc_opt_class() retrieveGizmoWithPairingID:a1[6]];
+    v7 = v6;
+    if (!v6)
+    {
+      v22 = nb_daemon_log;
+      if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
+      {
+        v23 = a1[6];
+        *buf = 138412290;
+        v63 = v23;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Failed to find device with pairingID: (%@)", buf, 0xCu);
+      }
+
+      v18 = NBError();
+      goto LABEL_47;
+    }
+
+    v8 = [v6 valueForProperty:v4];
     if (!v8)
     {
       v24 = nb_daemon_log;
       if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = a1[6];
         *buf = 138412290;
-        v65 = v25;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Failed to find device with pairingID: (%@)", buf, 0xCu);
+        v63 = v7;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Failed to resolve pairing data store path for device: (%@)", buf, 0xCu);
       }
 
-      v20 = NBError();
-      goto LABEL_47;
-    }
-
-    v10 = [v8 valueForProperty:v5];
-    if (!v10)
-    {
-      v26 = nb_daemon_log;
-      if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412290;
-        v65 = v9;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Failed to resolve pairing data store path for device: (%@)", buf, 0xCu);
-      }
-
-      v20 = NBError();
+      v18 = NBError();
       goto LABEL_46;
     }
 
-    v11 = [NPSDomainAccessor copyDomainListForPairingID:a1[5] pairingDataStore:v6];
-    v12 = [v11 mutableCopy];
+    v9 = [NPSDomainAccessor copyDomainListForPairingID:a1[5] pairingDataStore:v5];
+    v10 = [v9 mutableCopy];
 
-    v13 = [*(a1[4] + 5) excludedPerGizmoDomains];
-    [v12 minusSet:v13];
-    v14 = nb_daemon_log;
+    v11 = [*(a1[4] + 5) excludedPerGizmoDomains];
+    [v10 minusSet:v11];
+    v12 = nb_daemon_log;
     if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v65 = v13;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Excluding the following domains from the restore: (%@)", buf, 0xCu);
+      v63 = v11;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Excluding the following domains from the restore: (%@)", buf, 0xCu);
     }
 
-    v15 = nb_daemon_log;
+    v13 = nb_daemon_log;
     if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v65 = v12;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Restoring domains: (%@)", buf, 0xCu);
+      v63 = v10;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Restoring domains: (%@)", buf, 0xCu);
     }
 
-    v51[0] = _NSConcreteStackBlock;
-    v51[1] = 3221225472;
-    v51[2] = sub_100009BE0;
-    v51[3] = &unk_10002CCA8;
-    v52 = a1[6];
-    v16 = v10;
-    v53 = v16;
-    v57 = &v58;
-    v54 = a1[5];
-    v17 = v6;
-    v18 = a1[4];
-    v55 = v17;
-    v56 = v18;
-    [v12 enumerateObjectsUsingBlock:v51];
-    v19 = v59[5];
-    if (v19)
+    v49[0] = _NSConcreteStackBlock;
+    v49[1] = 3221225472;
+    v49[2] = sub_100009BE0;
+    v49[3] = &unk_10002CCA8;
+    v50 = a1[6];
+    v14 = v8;
+    v51 = v14;
+    v55 = &v56;
+    v52 = a1[5];
+    v15 = v5;
+    v16 = a1[4];
+    v53 = v15;
+    v54 = v16;
+    [v10 enumerateObjectsUsingBlock:v49];
+    v17 = v57[5];
+    if (v17)
     {
-      v20 = v19;
+      v18 = v17;
 LABEL_45:
 
 LABEL_46:
@@ -1894,39 +1887,39 @@ LABEL_48:
       goto LABEL_49;
     }
 
-    v47 = +[NSFileManager defaultManager];
-    v27 = [a1[4] preferencesSyncBackupDirectoryForPairingDataStore:v16];
-    v46 = [a1[4] preferencesSyncBackupDirectoryForPairingDataStore:v17];
-    v28 = v27;
-    if ([v47 fileExistsAtPath:v27])
+    v45 = +[NSFileManager defaultManager];
+    v25 = [a1[4] preferencesSyncBackupDirectoryForPairingDataStore:v14];
+    v44 = [a1[4] preferencesSyncBackupDirectoryForPairingDataStore:v15];
+    v26 = v25;
+    if ([v45 fileExistsAtPath:v25])
     {
-      v29 = nb_daemon_log;
+      v27 = nb_daemon_log;
       if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v65 = v27;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Paired device already has a backup directory (%@)", buf, 0xCu);
+        v63 = v25;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Paired device already has a backup directory (%@)", buf, 0xCu);
       }
 
-      v30 = (v59 + 5);
-      obj = v59[5];
-      [v47 removeItemAtPath:v27 error:&obj];
-      objc_storeStrong(v30, obj);
-      if (v59[5])
+      v28 = (v57 + 5);
+      obj = v57[5];
+      [v45 removeItemAtPath:v25 error:&obj];
+      objc_storeStrong(v28, obj);
+      if (v57[5])
       {
-        v31 = nb_daemon_log;
+        v29 = nb_daemon_log;
         if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
         {
-          v32 = v59[5];
+          v30 = v57[5];
           *buf = 138412546;
-          v65 = v27;
-          v66 = 2112;
-          v67 = v32;
-          v33 = "Failed to delete the paired device existing backup directory (%@) with error: (%@)";
-          v34 = v31;
-          v35 = 22;
+          v63 = v25;
+          v64 = 2112;
+          v65 = v30;
+          v31 = "Failed to delete the paired device existing backup directory (%@) with error: (%@)";
+          v32 = v29;
+          v33 = 22;
 LABEL_41:
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, v33, buf, v35);
+          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, v31, buf, v33);
           goto LABEL_42;
         }
 
@@ -1936,97 +1929,97 @@ LABEL_41:
 
     else
     {
-      v45 = [v27 stringByDeletingLastPathComponent];
-      v28 = v27;
-      if (([v47 fileExistsAtPath:v45] & 1) == 0)
+      v43 = [v25 stringByDeletingLastPathComponent];
+      v26 = v25;
+      if (([v45 fileExistsAtPath:v43] & 1) == 0)
       {
-        v36 = nb_daemon_log;
+        v34 = nb_daemon_log;
         if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v65 = v45;
-          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "PreferencesSync directory does not exist. Create it at path (%@)", buf, 0xCu);
+          v63 = v43;
+          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "PreferencesSync directory does not exist. Create it at path (%@)", buf, 0xCu);
         }
 
-        v70 = NSFileProtectionKey;
-        v71 = NSFileProtectionNone;
-        v37 = [NSDictionary dictionaryWithObjects:&v71 forKeys:&v70 count:1];
-        v38 = (v59 + 5);
-        v49 = v59[5];
-        [v47 createDirectoryAtPath:v45 withIntermediateDirectories:1 attributes:v37 error:&v49];
-        objc_storeStrong(v38, v49);
-        v28 = v27;
+        v68 = NSFileProtectionKey;
+        v69 = NSFileProtectionNone;
+        v35 = [NSDictionary dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+        v36 = (v57 + 5);
+        v47 = v57[5];
+        [v45 createDirectoryAtPath:v43 withIntermediateDirectories:1 attributes:v35 error:&v47];
+        objc_storeStrong(v36, v47);
+        v26 = v25;
 
-        if (v59[5])
+        if (v57[5])
         {
-          v39 = nb_daemon_log;
+          v37 = nb_daemon_log;
           if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
           {
-            v40 = v59[5];
+            v38 = v57[5];
             *buf = 138412546;
-            v65 = v45;
-            v66 = 2112;
-            v67 = v40;
-            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Failed to create PreferencesSync directory (%@) with error: (%@)", buf, 0x16u);
+            v63 = v43;
+            v64 = 2112;
+            v65 = v38;
+            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Failed to create PreferencesSync directory (%@) with error: (%@)", buf, 0x16u);
           }
 
-          v20 = v59[5];
+          v18 = v57[5];
 
           goto LABEL_44;
         }
       }
     }
 
-    if (![v47 fileExistsAtPath:v46] || (v41 = (v59 + 5), v48 = v59[5], objc_msgSend(v47, "copyItemAtPath:toPath:error:", v46, v28, &v48), objc_storeStrong(v41, v48), !v59[5]))
+    if (![v45 fileExistsAtPath:v44] || (v39 = (v57 + 5), v46 = v57[5], objc_msgSend(v45, "copyItemAtPath:toPath:error:", v44, v26, &v46), objc_storeStrong(v39, v46), !v57[5]))
     {
-      [a1[4] migrateBreathePreferencesFromDevice:v4];
-      v20 = 0;
+      [a1[4] migrateBreathePreferencesFromDevice:v3];
+      v18 = 0;
       goto LABEL_44;
     }
 
-    v42 = nb_daemon_log;
+    v40 = nb_daemon_log;
     if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = v59[5];
+      v41 = v57[5];
       *buf = 138412802;
-      v65 = v46;
+      v63 = v44;
+      v64 = 2112;
+      v65 = v26;
       v66 = 2112;
-      v67 = v28;
-      v68 = 2112;
-      v69 = v43;
-      v33 = "Failed to copy (%@) to (%@) with error: (%@)";
-      v34 = v42;
-      v35 = 32;
+      v67 = v41;
+      v31 = "Failed to copy (%@) to (%@) with error: (%@)";
+      v32 = v40;
+      v33 = 32;
       goto LABEL_41;
     }
 
 LABEL_42:
-    v20 = v59[5];
+    v18 = v57[5];
 LABEL_44:
 
     goto LABEL_45;
   }
 
-  v21 = nb_daemon_log;
+  v19 = nb_daemon_log;
   if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = a1[5];
+    v20 = a1[5];
     *buf = 138412290;
-    v65 = v22;
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Failed to find existing device with pairingID: (%@)", buf, 0xCu);
+    v63 = v20;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Failed to find existing device with pairingID: (%@)", buf, 0xCu);
   }
 
-  v20 = NBError();
+  v18 = NBError();
 LABEL_49:
 
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v56, 8);
 
-  return v20;
+  return v18;
 }
 
-void sub_100009B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100009B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2221,85 +2214,84 @@ void sub_10000A330(void *a1)
   _Block_object_dispose(&v9, 8);
 }
 
-void sub_10000A450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000A450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id sub_10000A468(void *a1)
 {
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = sub_100009BC8;
-  v27 = sub_100009BD8;
-  v28 = 0;
-  v2 = a1[4];
-  v3 = [objc_opt_class() retrieveGizmoWithPairingID:a1[5]];
-  v4 = v3;
-  if (v3)
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_100009BC8;
+  v26 = sub_100009BD8;
+  v27 = 0;
+  v2 = [objc_opt_class() retrieveGizmoWithPairingID:a1[5]];
+  v3 = v2;
+  if (v2)
   {
-    v5 = [v3 valueForProperty:NRDevicePropertyLocalPairingDataStorePath];
-    if (v5)
+    v4 = [v2 valueForProperty:NRDevicePropertyLocalPairingDataStorePath];
+    if (v4)
     {
-      v7 = a1[4];
-      v6 = a1[5];
-      v8 = *(v7 + 32);
-      v17[0] = _NSConcreteStackBlock;
-      v17[1] = 3221225472;
-      v17[2] = sub_10000A718;
-      v17[3] = &unk_10002CD70;
-      v21 = &v23;
-      v17[4] = v7;
-      v18 = v6;
-      v9 = v5;
-      v10 = a1[6];
-      v19 = v9;
-      v22 = v10;
-      v20 = v4;
-      [v8 createNewBackup:v17];
-      v11 = v24[5];
+      v6 = a1[4];
+      v5 = a1[5];
+      v7 = *(v6 + 32);
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_10000A718;
+      v16[3] = &unk_10002CD70;
+      v20 = &v22;
+      v16[4] = v6;
+      v17 = v5;
+      v8 = v4;
+      v9 = a1[6];
+      v18 = v8;
+      v21 = v9;
+      v19 = v3;
+      [v7 createNewBackup:v16];
+      v10 = v23[5];
     }
 
     else
     {
-      v14 = nb_daemon_log;
+      v13 = nb_daemon_log;
       if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = a1[5];
+        v14 = a1[5];
         *buf = 138412290;
-        v30 = v15;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Failed to retrieve the pairing data store for pairingID: (%@)", buf, 0xCu);
+        v29 = v14;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Failed to retrieve the pairing data store for pairingID: (%@)", buf, 0xCu);
       }
 
-      v11 = NBError();
+      v10 = NBError();
     }
   }
 
   else
   {
-    v12 = nb_daemon_log;
+    v11 = nb_daemon_log;
     if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = a1[5];
+      v12 = a1[5];
       *buf = 138412290;
-      v30 = v13;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Failed to find device with pairingID: (%@)", buf, 0xCu);
+      v29 = v12;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Failed to find device with pairingID: (%@)", buf, 0xCu);
     }
 
-    v11 = NBError();
+    v10 = NBError();
   }
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
 
-  return v11;
+  return v10;
 }
 
-void sub_10000A6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10000A6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2310,9 +2302,9 @@ void sub_10000A718(uint64_t a1, void *a2, void *a3, void *a4)
   v8 = a3;
   v9 = a4;
   v10 = +[NSFileManager defaultManager];
-  v88 = NSFileProtectionKey;
-  v89 = NSFileProtectionNone;
-  v11 = [NSDictionary dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+  v85 = NSFileProtectionKey;
+  v86 = NSFileProtectionNone;
+  v11 = [NSDictionary dictionaryWithObjects:&v86 forKeys:&v85 count:1];
   v12 = *(*(a1 + 64) + 8);
   obj = *(v12 + 40);
   [v10 createDirectoryAtPath:v8 withIntermediateDirectories:1 attributes:v11 error:&obj];
@@ -2332,184 +2324,181 @@ void sub_10000A718(uint64_t a1, void *a2, void *a3, void *a4)
     if (v15 == 516)
     {
 LABEL_4:
-      v16 = *(a1 + 32);
-      v17 = [objc_opt_class() localUserDefaultsDirectoryForBackupDirectory:v8];
-      v86 = NSFileProtectionKey;
-      v87 = NSFileProtectionNone;
-      v18 = [NSDictionary dictionaryWithObjects:&v87 forKeys:&v86 count:1];
-      v19 = *(*(a1 + 64) + 8);
-      v78 = *(v19 + 40);
-      [v10 createDirectoryAtPath:v17 withIntermediateDirectories:1 attributes:v18 error:&v78];
-      objc_storeStrong((v19 + 40), v78);
+      v16 = [objc_opt_class() localUserDefaultsDirectoryForBackupDirectory:v8];
+      v83 = NSFileProtectionKey;
+      v84 = NSFileProtectionNone;
+      v17 = [NSDictionary dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+      v18 = *(*(a1 + 64) + 8);
+      v75 = *(v18 + 40);
+      [v10 createDirectoryAtPath:v16 withIntermediateDirectories:1 attributes:v17 error:&v75];
+      objc_storeStrong((v18 + 40), v75);
 
       if (*(*(*(a1 + 64) + 8) + 40))
       {
-        v20 = nb_daemon_log;
+        v19 = nb_daemon_log;
         if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = *(*(*(a1 + 64) + 8) + 40);
+          v20 = *(*(*(a1 + 64) + 8) + 40);
           *buf = 138412546;
-          v81 = v8;
-          v82 = 2112;
-          v83 = v21;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Failed to create backup directory for local settings (%@) with error: (%@)", buf, 0x16u);
+          v78 = v8;
+          v79 = 2112;
+          v80 = v20;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Failed to create backup directory for local settings (%@) with error: (%@)", buf, 0x16u);
         }
       }
 
       else
       {
-        v24 = [NPSDomainAccessor copyDomainListForPairingID:*(a1 + 40) pairingDataStore:*(a1 + 48)];
-        v25 = [v24 mutableCopy];
+        v23 = [NPSDomainAccessor copyDomainListForPairingID:*(a1 + 40) pairingDataStore:*(a1 + 48)];
+        v24 = [v23 mutableCopy];
 
-        v26 = [*(*(a1 + 32) + 40) excludedPerGizmoDomains];
-        [v25 minusSet:v26];
+        v25 = [*(*(a1 + 32) + 40) excludedPerGizmoDomains];
+        [v24 minusSet:v25];
+        v26 = nb_daemon_log;
+        if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v78 = v25;
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Excluding the following domains from the backup: (%@)", buf, 0xCu);
+        }
+
         v27 = nb_daemon_log;
         if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v81 = v26;
-          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Excluding the following domains from the backup: (%@)", buf, 0xCu);
+          v78 = v24;
+          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Capturing domains: (%@)", buf, 0xCu);
         }
 
-        v28 = nb_daemon_log;
-        if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 138412290;
-          v81 = v25;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Capturing domains: (%@)", buf, 0xCu);
-        }
-
-        v72[0] = _NSConcreteStackBlock;
-        v72[1] = 3221225472;
-        v72[2] = sub_10000B1E4;
-        v72[3] = &unk_10002CD48;
-        v73 = *(a1 + 40);
-        v29 = *(a1 + 48);
-        v77 = *(a1 + 64);
-        v30 = *(a1 + 32);
-        v74 = v29;
-        v75 = v30;
-        v76 = v17;
-        [v25 enumerateObjectsUsingBlock:v72];
+        v69[0] = _NSConcreteStackBlock;
+        v69[1] = 3221225472;
+        v69[2] = sub_10000B1E4;
+        v69[3] = &unk_10002CD48;
+        v70 = *(a1 + 40);
+        v28 = *(a1 + 48);
+        v74 = *(a1 + 64);
+        v29 = *(a1 + 32);
+        v71 = v28;
+        v72 = v29;
+        v73 = v16;
+        [v24 enumerateObjectsUsingBlock:v69];
         if (!*(*(*(a1 + 64) + 8) + 40))
         {
-          v31 = *(a1 + 32);
-          v70 = [objc_opt_class() remoteBackupDirectoryForBackupDirectory:v8];
-          v69 = [*(a1 + 32) preferencesSyncBackupDirectoryForPairingDataStore:*(a1 + 48)];
-          if ([v10 fileExistsAtPath:?] && (v32 = *(*(a1 + 64) + 8), v71 = *(v32 + 40), objc_msgSend(v10, "copyItemAtPath:toPath:error:", v69, v70, &v71), objc_storeStrong((v32 + 40), v71), *(*(*(a1 + 64) + 8) + 40)))
+          v67 = [objc_opt_class() remoteBackupDirectoryForBackupDirectory:v8];
+          v66 = [*(a1 + 32) preferencesSyncBackupDirectoryForPairingDataStore:*(a1 + 48)];
+          if ([v10 fileExistsAtPath:?] && (v30 = *(*(a1 + 64) + 8), v68 = *(v30 + 40), objc_msgSend(v10, "copyItemAtPath:toPath:error:", v66, v67, &v68), objc_storeStrong((v30 + 40), v68), *(*(*(a1 + 64) + 8) + 40)))
           {
-            v33 = nb_daemon_log;
+            v31 = nb_daemon_log;
             if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
             {
-              v34 = *(*(*(a1 + 64) + 8) + 40);
+              v32 = *(*(*(a1 + 64) + 8) + 40);
               *buf = 138412802;
-              v81 = v69;
-              v82 = 2112;
-              v83 = v70;
-              v84 = 2112;
-              v85 = v34;
-              _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Failed to copy (%@) to (%@) with error: (%@)", buf, 0x20u);
+              v78 = v66;
+              v79 = 2112;
+              v80 = v67;
+              v81 = 2112;
+              v82 = v32;
+              _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Failed to copy (%@) to (%@) with error: (%@)", buf, 0x20u);
             }
           }
 
           else
           {
-            v35 = [v8 stringByAppendingPathComponent:@"ActiveWatchFace.png"];
-            v36 = [NBWatchFaceSnapshotter captureWatchFaceForPairingID:*(a1 + 40) toFilePath:v35];
-            v37 = *(*(a1 + 64) + 8);
-            v38 = *(v37 + 40);
-            *(v37 + 40) = v36;
+            v33 = [v8 stringByAppendingPathComponent:@"ActiveWatchFace.png"];
+            v34 = [NBWatchFaceSnapshotter captureWatchFaceForPairingID:*(a1 + 40) toFilePath:v33];
+            v35 = *(*(a1 + 64) + 8);
+            v36 = *(v35 + 40);
+            *(v35 + 40) = v34;
 
             if (!*(*(*(a1 + 64) + 8) + 40))
             {
-              v68 = v35;
-              v39 = objc_opt_new();
-              v40 = *(*(a1 + 72) + 8);
-              v41 = *(v40 + 40);
-              *(v40 + 40) = v39;
+              v65 = v33;
+              v37 = objc_opt_new();
+              v38 = *(*(a1 + 72) + 8);
+              v39 = *(v38 + 40);
+              *(v38 + 40) = v37;
 
               [*(*(*(a1 + 72) + 8) + 40) setUuid:v7];
               [*(*(*(a1 + 72) + 8) + 40) setBackupType:0];
-              v42 = +[NSDate date];
-              [*(*(*(a1 + 72) + 8) + 40) setLastModificationDate:v42];
+              v40 = +[NSDate date];
+              [*(*(*(a1 + 72) + 8) + 40) setLastModificationDate:v40];
 
-              v43 = *(a1 + 32);
-              v44 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [objc_opt_class() recursiveDirectorySize:v8]);
-              [*(*(*(a1 + 72) + 8) + 40) setSizeInBytes:v44];
+              v41 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [objc_opt_class() recursiveDirectorySize:v8]);
+              [*(*(*(a1 + 72) + 8) + 40) setSizeInBytes:v41];
 
-              v45 = [*(a1 + 56) valueForProperty:NRDevicePropertyName];
-              [*(*(*(a1 + 72) + 8) + 40) setName:v45];
+              v42 = [*(a1 + 56) valueForProperty:NRDevicePropertyName];
+              [*(*(*(a1 + 72) + 8) + 40) setName:v42];
 
-              v46 = [*(a1 + 56) valueForProperty:NRDevicePropertyProductType];
-              [*(*(*(a1 + 72) + 8) + 40) setProductType:v46];
+              v43 = [*(a1 + 56) valueForProperty:NRDevicePropertyProductType];
+              [*(*(*(a1 + 72) + 8) + 40) setProductType:v43];
 
-              v47 = [*(a1 + 56) valueForProperty:NRDevicePropertySystemName];
-              [*(*(*(a1 + 72) + 8) + 40) setProductName:v47];
+              v44 = [*(a1 + 56) valueForProperty:NRDevicePropertySystemName];
+              [*(*(*(a1 + 72) + 8) + 40) setProductName:v44];
 
-              v48 = [*(a1 + 56) valueForProperty:NRDevicePropertySystemVersion];
-              [*(*(*(a1 + 72) + 8) + 40) setSystemVersion:v48];
+              v45 = [*(a1 + 56) valueForProperty:NRDevicePropertySystemVersion];
+              [*(*(*(a1 + 72) + 8) + 40) setSystemVersion:v45];
 
-              v49 = [*(a1 + 56) valueForProperty:NRDevicePropertySystemBuildVersion];
-              [*(*(*(a1 + 72) + 8) + 40) setSystemBuildVersion:v49];
+              v46 = [*(a1 + 56) valueForProperty:NRDevicePropertySystemBuildVersion];
+              [*(*(*(a1 + 72) + 8) + 40) setSystemBuildVersion:v46];
 
-              v50 = [*(a1 + 56) valueForProperty:NRDevicePropertyMarketingVersion];
-              [*(*(*(a1 + 72) + 8) + 40) setMarketingVersion:v50];
+              v47 = [*(a1 + 56) valueForProperty:NRDevicePropertyMarketingVersion];
+              [*(*(*(a1 + 72) + 8) + 40) setMarketingVersion:v47];
 
-              v51 = [*(a1 + 56) valueForProperty:NRDevicePropertyColor];
-              [*(*(*(a1 + 72) + 8) + 40) setDeviceColor:v51];
+              v48 = [*(a1 + 56) valueForProperty:NRDevicePropertyColor];
+              [*(*(*(a1 + 72) + 8) + 40) setDeviceColor:v48];
 
-              v52 = [*(a1 + 56) valueForProperty:NRDevicePropertyEnclosureColor];
-              [*(*(*(a1 + 72) + 8) + 40) setDeviceEnclosureColor:v52];
+              v49 = [*(a1 + 56) valueForProperty:NRDevicePropertyEnclosureColor];
+              [*(*(*(a1 + 72) + 8) + 40) setDeviceEnclosureColor:v49];
 
-              v53 = [*(a1 + 56) valueForProperty:NRDevicePropertyDmin];
-              v54 = [v53 objectForKeyedSubscript:&off_10002E7C8];
-              [*(*(*(a1 + 72) + 8) + 40) setBottomEnclosureMaterial:v54];
+              v50 = [*(a1 + 56) valueForProperty:NRDevicePropertyDmin];
+              v51 = [v50 objectForKeyedSubscript:&off_10002E7C8];
+              [*(*(*(a1 + 72) + 8) + 40) setBottomEnclosureMaterial:v51];
 
-              v55 = [v53 objectForKeyedSubscript:&off_10002E7E0];
-              [*(*(*(a1 + 72) + 8) + 40) setTopEnclosureMaterial:v55];
+              v52 = [v50 objectForKeyedSubscript:&off_10002E7E0];
+              [*(*(*(a1 + 72) + 8) + 40) setTopEnclosureMaterial:v52];
 
-              v56 = [v53 objectForKeyedSubscript:&off_10002E7F8];
-              [*(*(*(a1 + 72) + 8) + 40) setFcmMaterial:v56];
+              v53 = [v50 objectForKeyedSubscript:&off_10002E7F8];
+              [*(*(*(a1 + 72) + 8) + 40) setFcmMaterial:v53];
 
-              v57 = [v53 objectForKeyedSubscript:&off_10002E810];
-              [*(*(*(a1 + 72) + 8) + 40) setBcmWindowMaterial:v57];
+              v54 = [v50 objectForKeyedSubscript:&off_10002E810];
+              [*(*(*(a1 + 72) + 8) + 40) setBcmWindowMaterial:v54];
 
-              v58 = [*(a1 + 56) valueForProperty:NRDevicePropertyDeviceCoverGlassColor];
-              [*(*(*(a1 + 72) + 8) + 40) setCoverGlassColor:v58];
+              v55 = [*(a1 + 56) valueForProperty:NRDevicePropertyDeviceCoverGlassColor];
+              [*(*(*(a1 + 72) + 8) + 40) setCoverGlassColor:v55];
 
-              v59 = [*(a1 + 56) valueForProperty:NRDevicePropertyDeviceHousingColor];
-              [*(*(*(a1 + 72) + 8) + 40) setHousingColor:v59];
+              v56 = [*(a1 + 56) valueForProperty:NRDevicePropertyDeviceHousingColor];
+              [*(*(*(a1 + 72) + 8) + 40) setHousingColor:v56];
 
-              v60 = [*(a1 + 56) valueForProperty:NRDevicePropertyDeviceBackingColor];
-              [*(*(*(a1 + 72) + 8) + 40) setBackingColor:v60];
+              v57 = [*(a1 + 56) valueForProperty:NRDevicePropertyDeviceBackingColor];
+              [*(*(*(a1 + 72) + 8) + 40) setBackingColor:v57];
 
-              v61 = +[MCProfileConnection sharedConnection];
-              [*(*(*(a1 + 72) + 8) + 40) setDiagnosticsOptInEnabled:{objc_msgSend(v61, "effectiveBoolValueForSetting:", MCFeatureDiagnosticsSubmissionAllowed) == 1}];
+              v58 = +[MCProfileConnection sharedConnection];
+              [*(*(*(a1 + 72) + 8) + 40) setDiagnosticsOptInEnabled:{objc_msgSend(v58, "effectiveBoolValueForSetting:", MCFeatureDiagnosticsSubmissionAllowed) == 1}];
 
               [*(*(*(a1 + 72) + 8) + 40) setLocationOptInEnabled:{+[CLLocationManager locationServicesEnabled](CLLocationManager, "locationServicesEnabled")}];
-              v62 = [*(a1 + 56) valueForProperty:NRDevicePropertyCSN];
-              [*(*(*(a1 + 72) + 8) + 40) setDeviceCSN:v62];
+              v59 = [*(a1 + 56) valueForProperty:NRDevicePropertyCSN];
+              [*(*(*(a1 + 72) + 8) + 40) setDeviceCSN:v59];
 
-              v63 = v9[2](v9, *(*(*(a1 + 72) + 8) + 40));
-              v64 = *(*(a1 + 64) + 8);
-              v65 = *(v64 + 40);
-              *(v64 + 40) = v63;
+              v60 = v9[2](v9, *(*(*(a1 + 72) + 8) + 40));
+              v61 = *(*(a1 + 64) + 8);
+              v62 = *(v61 + 40);
+              *(v61 + 40) = v60;
 
               if (!*(*(*(a1 + 64) + 8) + 40))
               {
-                v66 = nb_daemon_log;
+                v63 = nb_daemon_log;
                 if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
                 {
-                  v67 = *(*(*(a1 + 72) + 8) + 40);
+                  v64 = *(*(*(a1 + 72) + 8) + 40);
                   *buf = 138412290;
-                  v81 = v67;
-                  _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEFAULT, "Backing up succeeded: (%@)", buf, 0xCu);
+                  v78 = v64;
+                  _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "Backing up succeeded: (%@)", buf, 0xCu);
                 }
 
                 [*(*(a1 + 32) + 32) pruneLocalBackups];
               }
 
-              v35 = v68;
+              v33 = v65;
             }
           }
         }
@@ -2523,15 +2512,15 @@ LABEL_4:
   {
   }
 
-  v22 = nb_daemon_log;
+  v21 = nb_daemon_log;
   if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = *(*(*(a1 + 64) + 8) + 40);
+    v22 = *(*(*(a1 + 64) + 8) + 40);
     *buf = 138412546;
-    v81 = v8;
-    v82 = 2112;
-    v83 = v23;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Failed to create backup directory (%@) with error: (%@)", buf, 0x16u);
+    v78 = v8;
+    v79 = 2112;
+    v80 = v22;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Failed to create backup directory (%@) with error: (%@)", buf, 0x16u);
   }
 
 LABEL_29:
@@ -2677,9 +2666,9 @@ LABEL_15:
 LABEL_23:
 }
 
-void sub_10000B6BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10000B6BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3571,9 +3560,9 @@ void sub_100013CC0(uint64_t a1, unint64_t a2)
   _Block_object_dispose(&v20, 8);
 }
 
-void sub_100013F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100013F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

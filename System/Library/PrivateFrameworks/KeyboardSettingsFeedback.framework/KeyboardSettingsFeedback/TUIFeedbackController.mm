@@ -7,7 +7,9 @@
 - (id)currentInputModes;
 - (id)model;
 - (void)_presentSurveyWithParentController:(id)controller completionHandler:(id)handler;
+- (void)_updateStudyDataWithFinalPreferenceValue:(BOOL)value finalTimestamp:(id)timestamp;
 - (void)_updateStudyDataWithSurveyOutcome:(int64_t)outcome surveyError:(id)error initialState:(int64_t)state;
+- (void)completeStudyWithFinalPreferenceValue:(BOOL)value parentController:(id)controller;
 - (void)feedbackFeatureEnabled;
 @end
 
@@ -65,6 +67,24 @@
   }
 
   return feedbackFeatureEnabled;
+}
+
+- (void)completeStudyWithFinalPreferenceValue:(BOOL)value parentController:(id)controller
+{
+  valueCopy = value;
+  v6 = MEMORY[0x277D6F360];
+  controllerCopy = controller;
+  getFeedbackState = [v6 getFeedbackState];
+  v9 = [MEMORY[0x277CBEAA8] now];
+  [(TUIFeedbackController *)self _updateStudyDataWithFinalPreferenceValue:valueCopy finalTimestamp:v9];
+
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __80__TUIFeedbackController_completeStudyWithFinalPreferenceValue_parentController___block_invoke;
+  v10[3] = &unk_2797FCD18;
+  v10[4] = self;
+  v10[5] = getFeedbackState;
+  [(TUIFeedbackController *)self _presentSurveyWithParentController:controllerCopy completionHandler:v10];
 }
 
 - (void)_presentSurveyWithParentController:(id)controller completionHandler:(id)handler
@@ -175,6 +195,31 @@ LABEL_13:
   [v24 collectFeedbackWithLaunchConfiguration:v14 completion:v25];
 
 LABEL_14:
+}
+
+- (void)_updateStudyDataWithFinalPreferenceValue:(BOOL)value finalTimestamp:(id)timestamp
+{
+  valueCopy = value;
+  v14 = *MEMORY[0x277D85DE8];
+  timestampCopy = timestamp;
+  currentInputModes = [(TUIFeedbackController *)self currentInputModes];
+  [MEMORY[0x277D6F360] setFeedbackState:1];
+  [MEMORY[0x277D6F360] setFinalInputModes:currentInputModes];
+  [MEMORY[0x277D6F360] setFinalTimestamp:timestampCopy];
+  [MEMORY[0x277D6F360] setFinalPreferenceValue:valueCopy];
+  if (IXACanLogMessageAtLevel())
+  {
+    v8 = IXAFeedbackLogFacility();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      v9 = MEMORY[0x277CCACA8];
+      getStudyID = [MEMORY[0x277D6F360] getStudyID];
+      timestampCopy = [v9 stringWithFormat:@"%s Feedback %@: completeStudy finalPreferenceValue: %d finalInputModes: %@ finalTimestamp: %@", "-[TUIFeedbackController _updateStudyDataWithFinalPreferenceValue:finalTimestamp:]", getStudyID, valueCopy, currentInputModes, timestampCopy];
+      *buf = 138412290;
+      v13 = timestampCopy;
+      _os_log_debug_impl(&dword_25586B000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+    }
+  }
 }
 
 - (void)_updateStudyDataWithSurveyOutcome:(int64_t)outcome surveyError:(id)error initialState:(int64_t)state
@@ -341,68 +386,49 @@ void __30__TUIFeedbackController_model__block_invoke()
 
 - (void)shouldCompleteStudyWithPreferenceValue:(char)a1 .cold.1(char a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCACA8];
   v3 = [MEMORY[0x277D6F360] getStudyID];
-  v12 = a1 & 1;
-  v4 = [v2 stringWithFormat:@"%s Feedback %@: eligible: %d"];
+  v4 = [v2 stringWithFormat:@"%s Feedback %@: eligible: %d", "-[TUIFeedbackController shouldCompleteStudyWithPreferenceValue:]", v3, a1 & 1];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25586B000, v5, v6, "%@", v7, v8, v9, v10, "[TUIFeedbackController shouldCompleteStudyWithPreferenceValue:]", v3, v12, v13, v14);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_25586B000, v5, v6, "%@", v7, v8, v9, v10, v11, v12, v13, v14);
 }
 
 - (void)shouldCompleteStudyWithPreferenceValue:.cold.2()
 {
-  v10 = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CCACA8];
   v1 = [MEMORY[0x277D6F360] getStudyID];
-  v2 = [v0 stringWithFormat:@"%s Feedback %@: action: completionPending"];
-  OUTLINED_FUNCTION_2(&dword_25586B000, v3, v4, "%@", v5, v6, v7, v8, "[TUIFeedbackController shouldCompleteStudyWithPreferenceValue:]", v1, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = [v0 stringWithFormat:@"%s Feedback %@: action: completionPending", "-[TUIFeedbackController shouldCompleteStudyWithPreferenceValue:]", v1];
+  OUTLINED_FUNCTION_2(&dword_25586B000, v2, v3, "%@", v4, v5, v6, v7, v8, v9);
 }
 
 void __78__TUIFeedbackController__presentSurveyWithParentController_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCACA8];
   v3 = [MEMORY[0x277D6F360] getStudyID];
-  v12 = a1;
-  v4 = [v2 stringWithFormat:@"%s Feedback %@: error getting response from feedback service: %@"];
+  v4 = [v2 stringWithFormat:@"%s Feedback %@: error getting response from feedback service: %@", "-[TUIFeedbackController _presentSurveyWithParentController:completionHandler:]_block_invoke", v3, a1];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25586B000, v5, v6, "%@", v7, v8, v9, v10, "[TUIFeedbackController _presentSurveyWithParentController:completionHandler:]_block_invoke", v3, v12, v13, v14);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_25586B000, v5, v6, "%@", v7, v8, v9, v10, v11, v12, v13, v14);
 }
 
 void __78__TUIFeedbackController__presentSurveyWithParentController_completionHandler___block_invoke_cold_2()
 {
-  v10 = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CCACA8];
   v1 = [MEMORY[0x277D6F360] getStudyID];
-  v2 = [v0 stringWithFormat:@"%s Feedback %@: already running a campaign - should not happen"];
-  OUTLINED_FUNCTION_2(&dword_25586B000, v3, v4, "%@", v5, v6, v7, v8, "[TUIFeedbackController _presentSurveyWithParentController:completionHandler:]_block_invoke", v1, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = [v0 stringWithFormat:@"%s Feedback %@: already running a campaign - should not happen", "-[TUIFeedbackController _presentSurveyWithParentController:completionHandler:]_block_invoke", v1];
+  OUTLINED_FUNCTION_2(&dword_25586B000, v2, v3, "%@", v4, v5, v6, v7, v8, v9);
 }
 
 void __78__TUIFeedbackController__presentSurveyWithParentController_completionHandler___block_invoke_cold_3(uint64_t *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCACA8];
   v3 = [MEMORY[0x277D6F360] getStudyID];
-  v12 = *a1;
-  v4 = [v2 stringWithFormat:@"%s Feedback %@: launching survey: %@"];
+  v4 = [v2 stringWithFormat:@"%s Feedback %@: launching survey: %@", "-[TUIFeedbackController _presentSurveyWithParentController:completionHandler:]_block_invoke", v3, *a1];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25586B000, v5, v6, "%@", v7, v8, v9, v10, "[TUIFeedbackController _presentSurveyWithParentController:completionHandler:]_block_invoke", v3, v12, v13, v14);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_25586B000, v5, v6, "%@", v7, v8, v9, v10, v11, v12, v13, v14);
 }
 
 - (void)_updateStudyDataWithSurveyOutcome:(__CFString *)a1 surveyError:(uint64_t)a2 initialState:.cold.1(__CFString *a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCACA8];
   v5 = [MEMORY[0x277D6F360] getStudyID];
   v6 = v5;
@@ -414,22 +440,16 @@ void __78__TUIFeedbackController__presentSurveyWithParentController_completionHa
 
   v8 = [v4 stringWithFormat:@"%s Feedback %@: completeStudy surveyOutcome: %ld surveyError: %@", "-[TUIFeedbackController _updateStudyDataWithSurveyOutcome:surveyError:initialState:]", v5, a2, v7];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25586B000, v9, v10, "%@", v11, v12, v13, v14, v16, v17, v18, v19, v20);
-
-  v15 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_25586B000, v9, v10, "%@", v11, v12, v13, v14, v15, v16, v17, v18);
 }
 
 - (void)feedbackFeatureEnabled
 {
-  v15 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCACA8];
   getStudyID = [MEMORY[0x277D6F360] getStudyID];
-  v12 = self & 1;
-  v4 = [v2 stringWithFormat:@"%s Feedback %@: RC_SEED_BUILD: 0 enabled: %d"];
+  v4 = [v2 stringWithFormat:@"%s Feedback %@: RC_SEED_BUILD: 0 enabled: %d", "-[TUIFeedbackController feedbackFeatureEnabled]", getStudyID, self & 1];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_25586B000, v5, v6, "%@", v7, v8, v9, v10, "[TUIFeedbackController feedbackFeatureEnabled]", getStudyID, v12, v13, v14);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_25586B000, v5, v6, "%@", v7, v8, v9, v10, v11, v12, v13, v14);
 }
 
 @end

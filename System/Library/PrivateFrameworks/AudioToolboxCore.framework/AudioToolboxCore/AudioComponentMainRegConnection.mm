@@ -17,24 +17,24 @@
 
 - (void)canRegisterComponent:(id)component reply:(id)reply
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  memset(&v42, 0, sizeof(v42));
-  v41 = 0;
-  dictionaryToComponentDescription(component, &v42, &v41);
-  CAFormatter::CAFormatter(&v40, &v42);
+  memset(&v41, 0, sizeof(v41));
+  v40 = 0;
+  dictionaryToComponentDescription(component, &v41, &v40);
+  CAFormatter::CAFormatter(&v39, &v41);
   {
-    *v54.val = @"sandboxing-required";
-    *&v54.val[2] = @"entitlements-required";
+    *v53.val = @"sandboxing-required";
+    *&v53.val[2] = @"entitlements-required";
     *buf[0].val = MEMORY[0x1E695E110];
     *&buf[0].val[2] = &unk_1F034DEF0;
-    AudioComponentRegistrarImpl::componentRequirements(AudioComponentDescription const&)::audibleAudioFileEntitlements = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:&v54 count:2];
+    AudioComponentRegistrarImpl::componentRequirements(AudioComponentDescription const&)::audibleAudioFileEntitlements = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:&v53 count:2];
   }
 
-  if (v42.componentType == 1633969507)
+  if (v41.componentType == 1633969507)
   {
-    componentSubType = v42.componentSubType;
-    if (v42.componentSubType == 1633771875)
+    componentSubType = v41.componentSubType;
+    if (v41.componentSubType == 1633771875)
     {
 LABEL_8:
       v8 = AudioComponentRegistrarImpl::componentRequirements(AudioComponentDescription const&)::audibleAudioFileEntitlements;
@@ -46,12 +46,12 @@ LABEL_8:
 
   else
   {
-    if (v42.componentType != 1634101612)
+    if (v41.componentType != 1634101612)
     {
       goto LABEL_9;
     }
 
-    componentSubType = v42.componentSubType;
+    componentSubType = v41.componentSubType;
     v7 = 1635083362;
   }
 
@@ -63,8 +63,8 @@ LABEL_8:
 LABEL_9:
   v8 = 0;
 LABEL_10:
-  v36 = [v8 valueForKey:@"entitlements-required"];
-  if ([v36 count])
+  v35 = [v8 valueForKey:@"entitlements-required"];
+  if ([v35 count])
   {
     v9 = [v8 valueForKey:@"sandboxing-required"];
     bOOLValue = [v9 BOOLValue];
@@ -78,15 +78,15 @@ LABEL_10:
     v12 = WeakRetained;
     if (WeakRetained)
     {
-      [WeakRetained auditToken];
+      objc_msgSend_auditToken(WeakRetained);
     }
 
     else
     {
-      memset(&v54, 0, sizeof(v54));
+      memset(&v53, 0, sizeof(v53));
     }
 
-    buf[0] = v54;
+    buf[0] = v53;
     v15 = sandbox_check_by_audit_token() == 0;
 
     if (v15)
@@ -104,7 +104,7 @@ LABEL_10:
         LOWORD(buf[0].val[3]) = 1024;
         *(&buf[0].val[3] + 2) = 494;
         HIWORD(buf[0].val[4]) = 2080;
-        *&buf[0].val[5] = v40;
+        *&buf[0].val[5] = v39;
         _os_log_impl(&dword_18F5DF000, v33, OS_LOG_TYPE_INFO, "%25s:%-5d canRegisterComponent %s: NO, for a non-sandboxed process attempting to register a component that requires sandboxing", buf, 0x1Cu);
       }
     }
@@ -116,7 +116,7 @@ LABEL_22:
       v17 = v16;
       if (v16)
       {
-        [v16 auditToken];
+        objc_msgSend_auditToken(v16);
       }
 
       else
@@ -128,26 +128,26 @@ LABEL_22:
 
       if (task)
       {
+        v54 = 0u;
         v55 = 0u;
-        v56 = 0u;
-        memset(&v54, 0, sizeof(v54));
-        v18 = v36;
+        memset(&v53, 0, sizeof(v53));
+        v18 = v35;
         v19 = 0;
-        v20 = [v18 countByEnumeratingWithState:&v54 objects:buf count:16];
+        v20 = [v18 countByEnumeratingWithState:&v53 objects:buf count:16];
         if (v20)
         {
-          v38 = **&v54.val[4];
+          v37 = **&v53.val[4];
           v21 = v8;
           do
           {
             for (i = 0; i != v20; ++i)
             {
-              if (**&v54.val[4] != v38)
+              if (**&v53.val[4] != v37)
               {
                 objc_enumerationMutation(v18);
               }
 
-              v23 = *(*&v54.val[2] + 8 * i);
+              v23 = *(*&v53.val[2] + 8 * i);
               v24 = [v18 objectForKey:v23];
               v25 = SecTaskCopyValueForEntitlement(task, v23, 0);
               if (!gAudioComponentLogCategory)
@@ -158,17 +158,17 @@ LABEL_22:
               v26 = *gAudioComponentLogCategory;
               if (os_log_type_enabled(*gAudioComponentLogCategory, OS_LOG_TYPE_INFO))
               {
-                *v43 = 136316162;
-                v44 = "AudioComponentRegistrar.mm";
-                v45 = 1024;
-                v46 = 506;
-                v47 = 2112;
-                v48 = v23;
-                v49 = 2112;
-                v50 = v24;
-                v51 = 2112;
-                v52 = v25;
-                _os_log_impl(&dword_18F5DF000, v26, OS_LOG_TYPE_INFO, "%25s:%-5d canRegisterComponent: entitlement %@ requires value %@, prospective registrant has value %@", v43, 0x30u);
+                *v42 = 136316162;
+                v43 = "AudioComponentRegistrar.mm";
+                v44 = 1024;
+                v45 = 506;
+                v46 = 2112;
+                v47 = v23;
+                v48 = 2112;
+                v49 = v24;
+                v50 = 2112;
+                v51 = v25;
+                _os_log_impl(&dword_18F5DF000, v26, OS_LOG_TYPE_INFO, "%25s:%-5d canRegisterComponent: entitlement %@ requires value %@, prospective registrant has value %@", v42, 0x30u);
               }
 
               if (v25)
@@ -188,7 +188,7 @@ LABEL_22:
               }
             }
 
-            v20 = [v18 countByEnumeratingWithState:&v54 objects:buf count:16];
+            v20 = [v18 countByEnumeratingWithState:&v53 objects:buf count:16];
           }
 
           while (v20);
@@ -205,20 +205,20 @@ LABEL_22:
         if (os_log_type_enabled(*gAudioComponentLogCategory, OS_LOG_TYPE_INFO))
         {
           v32 = "NO";
-          *v43 = 136315906;
+          *v42 = 136315906;
           if (v19 == v28)
           {
             v32 = "YES, possessing all required entitlements";
           }
 
-          v44 = "AudioComponentRegistrar.mm";
-          v45 = 1024;
-          v46 = 515;
-          v47 = 2080;
-          v48 = v40;
-          v49 = 2080;
-          v50 = v32;
-          _os_log_impl(&dword_18F5DF000, v30, OS_LOG_TYPE_INFO, "%25s:%-5d canRegisterComponent %s: %s", v43, 0x26u);
+          v43 = "AudioComponentRegistrar.mm";
+          v44 = 1024;
+          v45 = 515;
+          v46 = 2080;
+          v47 = v39;
+          v48 = 2080;
+          v49 = v32;
+          _os_log_impl(&dword_18F5DF000, v30, OS_LOG_TYPE_INFO, "%25s:%-5d canRegisterComponent %s: %s", v42, 0x26u);
         }
 
         CFRelease(task);
@@ -245,26 +245,24 @@ LABEL_57:
     LOWORD(buf[0].val[3]) = 1024;
     *(&buf[0].val[3] + 2) = 484;
     HIWORD(buf[0].val[4]) = 2080;
-    *&buf[0].val[5] = v40;
+    *&buf[0].val[5] = v39;
     _os_log_impl(&dword_18F5DF000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d canRegisterComponent %s: YES, requiring no entitlements", buf, 0x1Cu);
   }
 
   replyCopy[2](replyCopy, 1);
 LABEL_58:
 
-  if (v40)
+  if (v39)
   {
-    free(v40);
+    free(v39);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getComponentList:(id)list linkedSDKRequiresEntitlement:(BOOL)entitlement includeExtensions:(BOOL)extensions forceWaitForExtensions:(BOOL)forExtensions reply:(id)reply
 {
   forExtensionsCopy = forExtensions;
   extensionsCopy = extensions;
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   self->mConnInfo.mLinkedSDKRequiresEntitlement = entitlement;
   mImpl = self->mImpl;
   listCopy = list;
@@ -277,15 +275,15 @@ LABEL_58:
   v14 = *gAudioComponentLogCategory;
   if (os_log_type_enabled(*gAudioComponentLogCategory, OS_LOG_TYPE_DEFAULT))
   {
-    *v30 = 136315906;
-    *&v30[4] = "AudioComponentRegistrar.mm";
-    *&v30[12] = 1024;
-    *&v30[14] = 332;
-    *&v30[18] = 1024;
-    *&v30[20] = extensionsCopy;
-    LOWORD(v31) = 1024;
-    *(&v31 + 2) = forExtensionsCopy;
-    _os_log_impl(&dword_18F5DF000, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d getComponentList includeExtensions: %d waitForExtensions: %d", v30, 0x1Eu);
+    *v29 = 136315906;
+    *&v29[4] = "AudioComponentRegistrar.mm";
+    *&v29[12] = 1024;
+    *&v29[14] = 332;
+    *&v29[18] = 1024;
+    *&v29[20] = extensionsCopy;
+    LOWORD(v30) = 1024;
+    *(&v30 + 2) = forExtensionsCopy;
+    _os_log_impl(&dword_18F5DF000, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d getComponentList includeExtensions: %d waitForExtensions: %d", v29, 0x1Eu);
   }
 
   v16 = *(mImpl + 31);
@@ -322,10 +320,10 @@ LABEL_58:
     goto LABEL_25;
   }
 
-  *v30 = 0;
+  *v29 = 0;
   v20 = MGCopyAnswerWithError();
   v21 = v20;
-  if (*v30)
+  if (*v29)
   {
     if (!v20)
     {
@@ -377,16 +375,16 @@ LABEL_20:
     goto LABEL_25;
   }
 
-  *v30 = MEMORY[0x1E69E9820];
-  *&v30[8] = 3221225472;
-  *&v30[16] = ___ZN27AudioComponentRegistrarImpl16getComponentListER14ConnectionInfoP8NSStringbbU13block_pointerFvP6NSDatabS5_P7NSArrayE_block_invoke;
-  v31 = &unk_1E72C2B40;
-  v35 = mImpl;
-  v36 = mExtUsePermission == 1;
-  v32 = listCopy;
-  v33 = v17;
-  v34 = replyCopy;
-  v25 = v30;
+  *v29 = MEMORY[0x1E69E9820];
+  *&v29[8] = 3221225472;
+  *&v29[16] = ___ZN27AudioComponentRegistrarImpl16getComponentListER14ConnectionInfoP8NSStringbbU13block_pointerFvP6NSDatabS5_P7NSArrayE_block_invoke;
+  v30 = &unk_1E72C2B40;
+  v34 = mImpl;
+  v35 = mExtUsePermission == 1;
+  v31 = listCopy;
+  v32 = v17;
+  v33 = replyCopy;
+  v25 = v29;
   if (!*(mImpl + 32))
   {
     operator new();
@@ -397,13 +395,12 @@ LABEL_20:
   block[1] = 3221225472;
   block[2] = ___ZN27AudioComponentRegistrarImpl21_initialExtensionScanEU13block_pointerFvvE_block_invoke;
   block[3] = &unk_1E72C2B18;
-  v38 = v25;
-  v39 = mImpl;
+  v37 = v25;
+  v38 = mImpl;
   v27 = v25;
   dispatch_async(v26, block);
 
 LABEL_29:
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (AudioComponentMainRegConnection)initWithRegistrar:(void *)registrar connection:(id)connection

@@ -43,7 +43,7 @@ void __31__HFErrorHandler_sharedHandler__block_invoke(uint64_t a1)
 
 - (void)handleError:(id)error operationType:(id)type options:(id)options retryBlock:(id)block cancelBlock:(id)cancelBlock
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   typeCopy = type;
   optionsCopy = options;
@@ -63,11 +63,11 @@ void __31__HFErrorHandler_sharedHandler__block_invoke(uint64_t a1)
         {
           v20 = [objc_opt_class() descriptionLocalizationKeyForError:errorCopy];
           *buf = 138543874;
-          v95 = v20;
-          v96 = 2114;
-          v97 = errorCopy;
-          v98 = 2114;
-          v99 = typeCopy;
+          v94 = v20;
+          v95 = 2114;
+          v96 = errorCopy;
+          v97 = 2114;
+          v98 = typeCopy;
           _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, "HFErrorHandler: Suppressing error: %{public}@ <%{public}@> for operation: %{public}@ because an alert for that operation is actively being presented", buf, 0x20u);
         }
       }
@@ -115,11 +115,11 @@ void __31__HFErrorHandler_sharedHandler__block_invoke(uint64_t a1)
           {
             v29 = [objc_opt_class() descriptionLocalizationKeyForError:errorCopy];
             *buf = 138543874;
-            v95 = typeCopy;
-            v96 = 2114;
-            v97 = v29;
-            v98 = 2114;
-            v99 = errorCopy;
+            v94 = typeCopy;
+            v95 = 2114;
+            v96 = v29;
+            v97 = 2114;
+            v98 = errorCopy;
             _os_log_impl(&dword_20D9BF000, v28, OS_LOG_TYPE_DEFAULT, "HFErrorHandler: [Ignore] Operation: %{public}@ encountered error: %{public}@ <%{public}@>", buf, 0x20u);
           }
 
@@ -133,17 +133,17 @@ void __31__HFErrorHandler_sharedHandler__block_invoke(uint64_t a1)
         {
           if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
-            v60 = [objc_opt_class() descriptionLocalizationKeyForError:errorCopy];
+            v59 = [objc_opt_class() descriptionLocalizationKeyForError:errorCopy];
             *buf = 138543874;
-            v95 = typeCopy;
-            v96 = 2114;
-            v97 = v60;
-            v98 = 2114;
-            v99 = errorCopy;
+            v94 = typeCopy;
+            v95 = 2114;
+            v96 = v59;
+            v97 = 2114;
+            v98 = errorCopy;
             _os_log_error_impl(&dword_20D9BF000, v28, OS_LOG_TYPE_ERROR, "HFErrorHandler: Operation: %{public}@ encountered error: %{public}@ <%{public}@>", buf, 0x20u);
           }
 
-          v67 = v23;
+          v66 = v23;
 
           v30 = [(HFErrorHandler *)self _localizedTitleForError:errorCopy operationType:typeCopy options:optionsCopy];
           v31 = [(HFErrorHandler *)self _localizedDescriptionForError:errorCopy operationType:typeCopy options:optionsCopy];
@@ -158,7 +158,7 @@ void __31__HFErrorHandler_sharedHandler__block_invoke(uint64_t a1)
           }
 
           hf_topmostViewController = [optionsCopy objectForKeyedSubscript:@"HFErrorHandlerOptionPresentingViewControllerForAlert"];
-          v69 = v31;
+          v68 = v31;
           if (!hf_topmostViewController)
           {
             v33 = v30;
@@ -173,7 +173,7 @@ void __31__HFErrorHandler_sharedHandler__block_invoke(uint64_t a1)
             }
 
             v30 = v33;
-            v31 = v69;
+            v31 = v68;
           }
 
           aBlock[0] = MEMORY[0x277D85DD0];
@@ -182,8 +182,8 @@ void __31__HFErrorHandler_sharedHandler__block_invoke(uint64_t a1)
           aBlock[3] = &unk_277DF8C40;
           aBlock[4] = self;
           v37 = _Block_copy(aBlock);
-          v66 = v30;
-          v70 = [MEMORY[0x277D75110] alertControllerWithTitle:v30 message:v31 preferredStyle:1];
+          v65 = v30;
+          v69 = [MEMORY[0x277D75110] alertControllerWithTitle:v30 message:v31 preferredStyle:1];
           if (v32)
           {
             v38 = _HFLocalizedStringWithDefaultValue(@"HFErrorButtonTitleTryAgain", @"HFErrorButtonTitleTryAgain", 1);
@@ -199,20 +199,20 @@ void __31__HFErrorHandler_sharedHandler__block_invoke(uint64_t a1)
             }
 
             v42 = MEMORY[0x277D750F8];
-            v79 = MEMORY[0x277D85DD0];
-            v80 = 3221225472;
-            v81 = __75__HFErrorHandler_handleError_operationType_options_retryBlock_cancelBlock___block_invoke_303;
-            v82 = &unk_277DF8C68;
-            v65 = &v83;
-            v83 = errorCopy;
-            v64 = &v85;
-            v85 = blockCopy;
+            v78 = MEMORY[0x277D85DD0];
+            v79 = 3221225472;
+            v80 = __75__HFErrorHandler_handleError_operationType_options_retryBlock_cancelBlock___block_invoke_303;
+            v81 = &unk_277DF8C68;
+            v64 = &v82;
+            v82 = errorCopy;
+            v63 = &v84;
+            v84 = blockCopy;
             v43 = v37;
-            v86 = v43;
-            v84 = v38;
-            v61 = v84;
+            v85 = v43;
+            v83 = v38;
+            v60 = v83;
             v44 = [v42 actionWithTitle:? style:? handler:?];
-            [v70 addAction:v44];
+            [v69 addAction:v44];
 
             v45 = _HFLocalizedStringWithDefaultValue(@"HFErrorButtonTitleCancel", @"HFErrorButtonTitleCancel", 1);
             v46 = [optionsCopy objectForKeyedSubscript:@"HFErrorHandlerOptionCancelButtonTextKey"];
@@ -227,51 +227,51 @@ void __31__HFErrorHandler_sharedHandler__block_invoke(uint64_t a1)
             }
 
             v49 = MEMORY[0x277D750F8];
-            v75[0] = MEMORY[0x277D85DD0];
-            v75[1] = 3221225472;
-            v75[2] = __75__HFErrorHandler_handleError_operationType_options_retryBlock_cancelBlock___block_invoke_308;
-            v75[3] = &unk_277DF8C90;
-            v77 = cancelBlockCopy;
-            v78 = v43;
-            v76 = v45;
-            v62 = v43;
+            v74[0] = MEMORY[0x277D85DD0];
+            v74[1] = 3221225472;
+            v74[2] = __75__HFErrorHandler_handleError_operationType_options_retryBlock_cancelBlock___block_invoke_308;
+            v74[3] = &unk_277DF8C90;
+            v76 = cancelBlockCopy;
+            v77 = v43;
+            v75 = v45;
+            v61 = v43;
             v50 = v45;
-            v51 = [v49 actionWithTitle:v50 style:0 handler:v75];
-            [v70 addAction:v51];
+            v51 = [v49 actionWithTitle:v50 style:0 handler:v74];
+            [v69 addAction:v51];
 
-            v52 = v70;
-            v53 = v84;
-            v55 = v61;
-            v54 = &v86;
+            v52 = v69;
+            v53 = v83;
+            v55 = v60;
+            v54 = &v85;
           }
 
           else
           {
             v56 = _HFLocalizedStringWithDefaultValue(@"HFErrorButtonTitleOK", @"HFErrorButtonTitleOK", 1);
-            v63 = MEMORY[0x277D750F8];
-            v71[0] = MEMORY[0x277D85DD0];
-            v71[1] = 3221225472;
-            v71[2] = __75__HFErrorHandler_handleError_operationType_options_retryBlock_cancelBlock___block_invoke_312;
-            v71[3] = &unk_277DF8C90;
-            v65 = &v73;
-            v73 = cancelBlockCopy;
-            v74 = v37;
-            v64 = &v74;
-            v54 = &v72;
-            v72 = v56;
+            v62 = MEMORY[0x277D750F8];
+            v70[0] = MEMORY[0x277D85DD0];
+            v70[1] = 3221225472;
+            v70[2] = __75__HFErrorHandler_handleError_operationType_options_retryBlock_cancelBlock___block_invoke_312;
+            v70[3] = &unk_277DF8C90;
+            v64 = &v72;
+            v72 = cancelBlockCopy;
+            v73 = v37;
+            v63 = &v73;
+            v54 = &v71;
+            v71 = v56;
             v57 = v56;
             v55 = v37;
-            v58 = v63;
-            v62 = v57;
-            v53 = [v58 actionWithTitle:v57 style:0 handler:v71];
-            v52 = v70;
-            [v70 addAction:v53];
+            v58 = v62;
+            v61 = v57;
+            v53 = [v58 actionWithTitle:v57 style:0 handler:v70];
+            v52 = v69;
+            [v69 addAction:v53];
           }
 
           [(HFErrorHandler *)self setPresentingAlertOperationType:typeCopy];
           [hf_topmostViewController presentViewController:v52 animated:1 completion:0];
 
-          v23 = v67;
+          v23 = v66;
         }
       }
     }
@@ -283,46 +283,43 @@ void __31__HFErrorHandler_sharedHandler__block_invoke(uint64_t a1)
       block[2] = __75__HFErrorHandler_handleError_operationType_options_retryBlock_cancelBlock___block_invoke;
       block[3] = &unk_277DF8C18;
       block[4] = self;
-      v89 = errorCopy;
+      v88 = errorCopy;
       typeCopy = typeCopy;
-      v90 = typeCopy;
+      v89 = typeCopy;
       optionsCopy = optionsCopy;
-      v91 = optionsCopy;
-      v92 = blockCopy;
-      v93 = cancelBlockCopy;
+      v90 = optionsCopy;
+      v91 = blockCopy;
+      v92 = cancelBlockCopy;
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HFErrorHandler_handleError_operationType_options_retryBlock_cancelBlock___block_invoke_295(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x4BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "HFErrorHandler: User dismissed error alert by tapping %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "HFErrorHandler: User dismissed error alert by tapping %{public}@", &v5, 0xCu);
   }
 
   [*(a1 + 32) setPresentingAlertOperationType:0];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __75__HFErrorHandler_handleError_operationType_options_retryBlock_cancelBlock___block_invoke_303(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x4BuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "HFErrorHandler: User tapped retry button from alert for error %{public}@", &v8, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "HFErrorHandler: User tapped retry button from alert for error %{public}@", &v6, 0xCu);
   }
 
   v4 = a1[6];
@@ -331,61 +328,52 @@ uint64_t __75__HFErrorHandler_handleError_operationType_options_retryBlock_cance
     (*(v4 + 16))();
   }
 
-  v5 = a1[5];
-  result = (*(a1[7] + 16))();
+  return (*(a1[7] + 16))();
+}
+
+uint64_t __75__HFErrorHandler_handleError_operationType_options_retryBlock_cancelBlock___block_invoke_308(uint64_t a1)
+{
   v7 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t __75__HFErrorHandler_handleError_operationType_options_retryBlock_cancelBlock___block_invoke_308(void *a1)
-{
-  v9 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x4BuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[HFErrorHandler handleError:operationType:options:retryBlock:cancelBlock:]_block_invoke";
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "(%s) User tapped cancel button from alert", &v7, 0xCu);
+    v5 = 136315138;
+    v6 = "[HFErrorHandler handleError:operationType:options:retryBlock:cancelBlock:]_block_invoke";
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "(%s) User tapped cancel button from alert", &v5, 0xCu);
   }
 
-  v3 = a1[5];
+  v3 = *(a1 + 40);
   if (v3)
   {
     (*(v3 + 16))();
   }
 
-  v4 = a1[4];
-  result = (*(a1[6] + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
-uint64_t __75__HFErrorHandler_handleError_operationType_options_retryBlock_cancelBlock___block_invoke_312(void *a1)
+uint64_t __75__HFErrorHandler_handleError_operationType_options_retryBlock_cancelBlock___block_invoke_312(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x4BuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[HFErrorHandler handleError:operationType:options:retryBlock:cancelBlock:]_block_invoke";
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "(%s) User tapped 'OK' from alert", &v7, 0xCu);
+    v5 = 136315138;
+    v6 = "[HFErrorHandler handleError:operationType:options:retryBlock:cancelBlock:]_block_invoke";
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "(%s) User tapped 'OK' from alert", &v5, 0xCu);
   }
 
-  v3 = a1[5];
+  v3 = *(a1 + 40);
   if (v3)
   {
     (*(v3 + 16))();
   }
 
-  v4 = a1[4];
-  result = (*(a1[6] + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)logError:(id)error operationDescription:(id)description
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   descriptionCopy = description;
   if (errorCopy)
@@ -397,35 +385,33 @@ uint64_t __75__HFErrorHandler_handleError_operationType_options_retryBlock_cance
       if (v8)
       {
         v9 = [objc_opt_class() descriptionLocalizationKeyForError:errorCopy];
-        v14 = 138543874;
-        v15 = descriptionCopy;
-        v16 = 2114;
-        v17 = v9;
-        v18 = 2114;
-        v19 = errorCopy;
+        v13 = 138543874;
+        v14 = descriptionCopy;
+        v15 = 2114;
+        v16 = v9;
+        v17 = 2114;
+        v18 = errorCopy;
         v10 = "HFErrorHandler: [Log] Operation: %{public}@ encountered error: %{public}@ <%{public}@>";
         v11 = v7;
         v12 = 32;
 LABEL_9:
-        _os_log_error_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, v10, &v14, v12);
+        _os_log_error_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, v10, &v13, v12);
       }
     }
 
     else if (v8)
     {
       v9 = [objc_opt_class() descriptionLocalizationKeyForError:errorCopy];
-      v14 = 138543618;
-      v15 = v9;
-      v16 = 2114;
-      v17 = errorCopy;
+      v13 = 138543618;
+      v14 = v9;
+      v15 = 2114;
+      v16 = errorCopy;
       v10 = "HFErrorHandler: Encountered error: %{public}@ <%{public}@>";
       v11 = v7;
       v12 = 22;
       goto LABEL_9;
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)canIgnoreError:(id)error operationType:(id)type
@@ -470,7 +456,7 @@ LABEL_9:
 
 - (BOOL)_isErrorIndicativeOfApplicationBug:(id)bug operationType:(id)type options:(id)options
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   bugCopy = bug;
   typeCopy = type;
   if ([typeCopy isEqualToString:@"HFOperationNamingObject"])
@@ -496,10 +482,10 @@ LABEL_14:
 
       if (((1 << code) & 0x8480000000000) != 0)
       {
-        v17[0] = @"HFOperationChangePassword";
-        v17[1] = @"HFOperationEditServiceGroup";
-        v17[2] = @"HFOperationEditService";
-        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
+        v16[0] = @"HFOperationChangePassword";
+        v16[1] = @"HFOperationEditServiceGroup";
+        v16[2] = @"HFOperationEditService";
+        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
         LOBYTE(v8) = [v12 containsObject:typeCopy] ^ 1;
 
         goto LABEL_15;
@@ -535,7 +521,6 @@ LABEL_14:
 
 LABEL_15:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8 & 1;
 }
 
@@ -809,31 +794,25 @@ LABEL_8:
 
 + (id)_descriptionForHMHomeAddWalletKeyErrorCode:(int64_t)code
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (code >= 9)
+  v13 = *MEMORY[0x277D85DE8];
+  if (code < 9)
   {
-    v6 = HFLogForCategory(0x49uLL);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      v8 = 136315650;
-      v9 = "+[HFErrorHandler _descriptionForHMHomeAddWalletKeyErrorCode:]";
-      v10 = 2112;
-      selfCopy = self;
-      v12 = 2048;
-      codeCopy = code;
-      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "%s(%@) UNKNOWN HOMEKIT ERROR %ld", &v8, 0x20u);
-    }
-
-    result = 0;
+    return off_277DF8CB0[code];
   }
 
-  else
+  v6 = HFLogForCategory(0x49uLL);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    result = off_277DF8CB0[code];
+    v7 = 136315650;
+    v8 = "+[HFErrorHandler _descriptionForHMHomeAddWalletKeyErrorCode:]";
+    v9 = 2112;
+    selfCopy = self;
+    v11 = 2048;
+    codeCopy = code;
+    _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "%s(%@) UNKNOWN HOMEKIT ERROR %ld", &v7, 0x20u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 + (id)_descriptionForHMErrorCode:(int64_t)code

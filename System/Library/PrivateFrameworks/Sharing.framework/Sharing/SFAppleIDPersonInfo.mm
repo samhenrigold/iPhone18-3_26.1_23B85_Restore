@@ -115,42 +115,70 @@ LABEL_8:
 
 - (id)description
 {
-  NSAppendPrintF();
-  v17 = 0;
-  accountIdentifier = self->_accountIdentifier;
-  NSAppendPrintF();
-  v3 = v17;
+  v24 = 0;
+  NSAppendPrintF(&v24, "SFAppleIDPersonInfo");
+  v3 = v24;
+  v23 = v3;
+  NSAppendPrintF(&v23, " Account ID: %@", self->_accountIdentifier);
+  v4 = v23;
 
-  altDSID = self->_altDSID;
-  NSAppendPrintF();
-  v4 = v3;
+  v22 = v4;
+  NSAppendPrintF(&v22, ", AltDSID: %@", self->_altDSID);
+  v5 = v22;
 
+  v21 = v5;
   certificateStatus = self->_certificateStatus;
-  if (certificateStatus <= 5)
+  if (certificateStatus > 5)
   {
-    v6 = *(&off_1E788DAE8 + certificateStatus);
+    v7 = @"?";
   }
 
-  NSAppendPrintF();
-  v7 = v4;
+  else
+  {
+    v7 = *(&off_1E788DAE8 + certificateStatus);
+  }
 
-  self->_didMatchEmail;
-  NSAppendPrintF();
-  v8 = v7;
+  NSAppendPrintF(&v21, ", Certificate Status: %@", v7);
+  v8 = v21;
 
-  self->_didMatchPhone;
-  NSAppendPrintF();
-  v9 = v8;
+  v20 = v8;
+  if (self->_didMatchEmail)
+  {
+    v9 = "yes";
+  }
 
-  matchedValue = self->_matchedValue;
-  NSAppendPrintF();
-  v10 = v9;
+  else
+  {
+    v9 = "no";
+  }
 
-  validUntilDate = self->_validUntilDate;
-  NSAppendPrintF();
-  v11 = v10;
+  NSAppendPrintF(&v20, ", Did Match Email: %s", v9);
+  v10 = v20;
 
-  return v10;
+  v19 = v10;
+  if (self->_didMatchPhone)
+  {
+    v11 = "yes";
+  }
+
+  else
+  {
+    v11 = "no";
+  }
+
+  NSAppendPrintF(&v19, ", Did Match Phone: %s", v11);
+  v12 = v19;
+
+  v18 = v12;
+  NSAppendPrintF(&v18, ", Matched Value: %@", self->_matchedValue);
+  v13 = v18;
+
+  v17 = v13;
+  NSAppendPrintF(&v17, ", Valid Until: %@", self->_validUntilDate);
+  v14 = v17;
+  v15 = v17;
+
+  return v14;
 }
 
 - (BOOL)isStale

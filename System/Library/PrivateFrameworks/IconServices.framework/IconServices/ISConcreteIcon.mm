@@ -112,15 +112,15 @@
 
 - (id)_imageFromStoreForDescriptor:(id)descriptor
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   manager = [(ISIcon *)self manager];
   iconCache = [manager iconCache];
-  v49 = 0;
-  v50 = 0;
-  v7 = [iconCache findStoreUnitForIcon:self descriptor:descriptorCopy UUID:&v50 validationToken:&v49];
-  v8 = v50;
-  v9 = v49;
+  v51 = 0;
+  v52 = 0;
+  v7 = [iconCache findStoreUnitForIcon:self descriptor:descriptorCopy UUID:&v52 validationToken:&v51];
+  v8 = v52;
+  v9 = v51;
 
   v10 = 0;
   if (v7)
@@ -139,105 +139,110 @@
 
       if (descriptorCopy)
       {
-        v20 = _ISPrepareISIconSignpostLog();
-        v21 = os_signpost_enabled(v20);
+        v21 = _ISPrepareISIconSignpostLog(cGImage);
+        v22 = os_signpost_enabled(v21);
 
-        if (v21)
+        if (v22)
         {
-          v41 = v13;
-          v42 = v9;
-          v43 = v8;
-          v44 = descriptorCopy;
-          v22 = [(ISIcon *)self _activeSignpostsForDescriptor:descriptorCopy];
-          v45 = 0u;
-          v46 = 0u;
+          v43 = v13;
+          v44 = v9;
+          v45 = v8;
+          v46 = descriptorCopy;
+          v23 = [(ISIcon *)self _activeSignpostsForDescriptor:descriptorCopy];
           v47 = 0u;
           v48 = 0u;
-          v23 = [v22 countByEnumeratingWithState:&v45 objects:v61 count:16];
-          if (v23)
+          v49 = 0u;
+          v50 = 0u;
+          v24 = [v23 countByEnumeratingWithState:&v47 objects:v63 count:16];
+          if (v24)
           {
-            v24 = v23;
-            v25 = *v46;
+            v25 = v24;
+            v26 = *v48;
             do
             {
-              for (i = 0; i != v24; ++i)
+              for (i = 0; i != v25; ++i)
               {
-                if (*v46 != v25)
+                if (*v48 != v26)
                 {
-                  objc_enumerationMutation(v22);
+                  objc_enumerationMutation(v23);
                 }
 
-                v27 = *(*(&v45 + 1) + 8 * i);
-                if ([v27 unsignedLongLongValue])
+                v28 = *(*(&v47 + 1) + 8 * i);
+                unsignedLongLongValue = [v28 unsignedLongLongValue];
+                if (unsignedLongLongValue)
                 {
-                  v28 = _ISPrepareISIconSignpostLog();
-                  v29 = os_signpost_enabled(v28);
+                  v30 = _ISPrepareISIconSignpostLog(unsignedLongLongValue);
+                  v31 = os_signpost_enabled(v30);
 
-                  if (v29)
+                  if (v31)
                   {
-                    v30 = _ISPrepareISIconSignpostLog();
-                    unsignedLongLongValue = [v27 unsignedLongLongValue];
-                    if ((unsignedLongLongValue - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+                    v33 = _ISPrepareISIconSignpostLog(v32);
+                    unsignedLongLongValue2 = [v28 unsignedLongLongValue];
+                    if ((unsignedLongLongValue2 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
                     {
-                      v32 = unsignedLongLongValue;
-                      if (os_signpost_enabled(v30))
+                      v35 = unsignedLongLongValue2;
+                      if (os_signpost_enabled(v33))
                       {
                         uuid = [v10 uuid];
                         *buf = 138412290;
                         selfCopy = uuid;
-                        _os_signpost_emit_with_name_impl(&dword_1A77B8000, v30, OS_SIGNPOST_EVENT, v32, "PrepareISIcon", "SATISFIED_PERSISTENT_CACHE: %@", buf, 0xCu);
+                        _os_signpost_emit_with_name_impl(&dword_1A77B8000, v33, OS_SIGNPOST_EVENT, v35, "PrepareISIcon", "SATISFIED_PERSISTENT_CACHE: %@", buf, 0xCu);
                       }
                     }
                   }
                 }
               }
 
-              v24 = [v22 countByEnumeratingWithState:&v45 objects:v61 count:16];
+              v25 = [v23 countByEnumeratingWithState:&v47 objects:v63 count:16];
             }
 
-            while (v24);
+            while (v25);
           }
 
-          v8 = v43;
-          descriptorCopy = v44;
-          v13 = v41;
-          v9 = v42;
+          v8 = v45;
+          descriptorCopy = v46;
+          v13 = v43;
+          v9 = v44;
         }
       }
 
-      if (v10 && [v10 CGImage])
+      if (v10)
       {
-        goto LABEL_28;
+        cGImage = [v10 CGImage];
+        if (cGImage)
+        {
+          goto LABEL_28;
+        }
       }
 
-      v34 = _ISDefaultLog();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+      v37 = _ISDefaultLog(cGImage);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
       {
         uUID2 = [v13 UUID];
         uUIDString = [uUID2 UUIDString];
-        cGImage = [v10 CGImage];
+        cGImage2 = [v10 CGImage];
         *buf = 138413314;
         selfCopy = self;
-        v53 = 2112;
-        v54 = descriptorCopy;
         v55 = 2112;
-        v56 = uUIDString;
+        v56 = descriptorCopy;
         v57 = 2112;
-        v58 = v10;
+        v58 = uUIDString;
         v59 = 2112;
-        v60 = cGImage;
-        _os_log_fault_impl(&dword_1A77B8000, v34, OS_LOG_TYPE_FAULT, "Failed to retrieve persistent cache entry. %@ - %@ with unitUUID: %@. Image: %@. Backing: %@", buf, 0x34u);
+        v60 = v10;
+        v61 = 2112;
+        v62 = cGImage2;
+        _os_log_fault_impl(&dword_1A77B8000, v37, OS_LOG_TYPE_FAULT, "Failed to retrieve persistent cache entry. %@ - %@ with unitUUID: %@. Image: %@. Backing: %@", buf, 0x34u);
       }
     }
 
     else
     {
-      v34 = _ISDefaultLog();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v37 = _ISDefaultLog(data);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         selfCopy = v8;
-        _os_log_impl(&dword_1A77B8000, v34, OS_LOG_TYPE_DEFAULT, "Store Unit: %@ not found.", buf, 0xCu);
+        _os_log_impl(&dword_1A77B8000, v37, OS_LOG_TYPE_DEFAULT, "Store Unit: %@ not found.", buf, 0xCu);
       }
 
       v10 = 0;
@@ -246,15 +251,14 @@
 LABEL_28:
   }
 
-  v38 = v10;
+  v41 = v10;
 
-  v39 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)_cachedImageForDescriptor:(id)descriptor
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   v5 = [(ISImageCache *)self->_imageCache imageForDescriptor:descriptorCopy];
   defaultIconSpecification = [MEMORY[0x1E69A8980] defaultIconSpecification];
@@ -268,13 +272,13 @@ LABEL_28:
   if (!v5 || ([v5 iconSize], v13 = v12, objc_msgSend(descriptorCopy, "size"), v13 >= v14) || (objc_msgSend(v5, "iconSize"), v15 == v8) && (objc_msgSend(v5, "scale"), v16 == v11))
   {
     [v5 minimumSize];
-    v32 = v31;
+    v33 = v32;
     [descriptorCopy size];
-    if (v32 > v33)
+    if (v33 > v34)
     {
-      v34 = [objc_alloc(MEMORY[0x1E69A89A0]) initWithImage:v5];
+      v35 = [objc_alloc(MEMORY[0x1E69A89A0]) initWithImage:v5];
 
-      v5 = v34;
+      v5 = v35;
     }
 
     if (!v5)
@@ -295,10 +299,10 @@ LABEL_28:
     [v5 iconSize];
     v25 = v24;
     [v23 size];
-    if (v25 == v26 && ([v5 iconSize], v28 = v27, objc_msgSend(v23, "size"), v28 == v29))
+    if (v25 == v26 && ([v5 iconSize], v28 = v27, v29 = objc_msgSend(v23, "size"), v28 == v30))
     {
-      v30 = _ISDefaultLog();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v31 = _ISDefaultLog(v29);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
         [ISConcreteIcon _cachedImageForDescriptor:];
       }
@@ -326,54 +330,52 @@ LABEL_16:
   if (validationToken)
   {
     validationToken2 = [v5 validationToken];
-    v37 = [(ISConcreteIcon *)self assessValidationToken:validationToken2];
+    v39 = [(ISConcreteIcon *)self assessValidationToken:validationToken2];
 
-    [v5 setPlaceholder:v37 == 2];
+    v37 = [v5 setPlaceholder:v39 == 2];
   }
 
   if (v5)
   {
-    v38 = _ISDefaultLog();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+    v40 = _ISDefaultLog(v37);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
     {
       [descriptorCopy size];
-      v42 = v41;
+      v43 = v42;
       [v5 size];
-      v44 = v43;
+      v45 = v44;
       [descriptorCopy size];
-      v46 = v45;
+      v47 = v46;
       [v5 size];
-      v48 = v47;
+      v49 = v48;
       [v5 scale];
-      v50 = 138414338;
+      v51 = 138414338;
       selfCopy = self;
-      v52 = 2112;
-      v53 = descriptorCopy;
-      v54 = 2048;
-      v55 = v42;
-      v56 = 2048;
-      v57 = v44;
-      v58 = 2048;
-      v59 = v46;
-      v60 = 2048;
-      v61 = v48;
-      v62 = 2048;
-      v63 = v49;
-      v64 = 1024;
+      v53 = 2112;
+      v54 = descriptorCopy;
+      v55 = 2048;
+      v56 = v43;
+      v57 = 2048;
+      v58 = v45;
+      v59 = 2048;
+      v60 = v47;
+      v61 = 2048;
+      v62 = v49;
+      v63 = 2048;
+      v64 = v50;
+      v65 = 1024;
       placeholder = [v5 placeholder];
-      v66 = 2112;
-      v67 = v5;
+      v67 = 2112;
+      v68 = v5;
     }
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (unint64_t)assessValidationToken:(id)token
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   _is_invalidToken = [MEMORY[0x1E695DEF0] _is_invalidToken];
   v6 = [tokenCopy isEqual:_is_invalidToken];
@@ -381,80 +383,85 @@ LABEL_16:
   if (!v6)
   {
     _is_staleToken = [MEMORY[0x1E695DEF0] _is_staleToken];
-    v12 = [tokenCopy isEqual:_is_staleToken];
+    v14 = [tokenCopy isEqual:_is_staleToken];
 
-    if (v12)
+    if (v14)
     {
-      v13 = _ISTraceLog();
-      v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
+      v16 = _ISTraceLog(v15);
+      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
 
-      if (v14)
+      if (v17)
       {
-        v10 = _ISTraceLog();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v12 = _ISTraceLog(v18);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           [ISConcreteIcon assessValidationToken:];
         }
 
-        v8 = 1;
+        v9 = 1;
         goto LABEL_35;
       }
 
-      v8 = 1;
+      v9 = 1;
       goto LABEL_36;
     }
 
     _is_validToken = [MEMORY[0x1E695DEF0] _is_validToken];
-    v16 = [tokenCopy isEqual:_is_validToken];
+    v20 = [tokenCopy isEqual:_is_validToken];
 
-    if (v16)
+    if (v20)
     {
-      v17 = _ISTraceLog();
-      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
+      v22 = _ISTraceLog(v21);
+      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
 
-      if (v18)
+      if (v23)
       {
-        v10 = _ISTraceLog();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v12 = _ISTraceLog(v24);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           [ISConcreteIcon assessValidationToken:];
         }
 
-        v8 = 0;
+        v9 = 0;
         goto LABEL_35;
       }
 
-      v8 = 0;
+      v9 = 0;
       goto LABEL_36;
     }
 
-    v35 = 0;
-    v36 = 0;
-    [MEMORY[0x1E6963688] _is_getSequenceNumber:&v36 andUUID:&v35];
-    v10 = v35;
+    v46 = 0;
+    v47 = 0;
+    [MEMORY[0x1E6963688] _is_getSequenceNumber:&v47 andUUID:&v46];
+    v12 = v46;
     *uu2 = 0;
-    v38 = 0;
-    [v10 getUUIDBytes:uu2];
-    if ([tokenCopy length] == 40)
+    v49 = 0;
+    [v12 getUUIDBytes:uu2];
+    v25 = [tokenCopy length];
+    if (v25 == 40)
     {
       bytes = [tokenCopy bytes];
       if (bytes)
       {
-        v20 = bytes;
-        if (*(bytes + 16) == v36 && !uuid_compare(bytes, uu2))
+        v27 = bytes;
+        if (*(bytes + 16) == v47)
         {
-          latestValidationToken = _ISDefaultLog();
-          if (os_log_type_enabled(latestValidationToken, OS_LOG_TYPE_DEBUG))
+          bytes = uuid_compare(bytes, uu2);
+          if (!bytes)
           {
-            [ISConcreteIcon assessValidationToken:];
-          }
+            latestValidationToken = _ISDefaultLog(bytes);
+            if (os_log_type_enabled(latestValidationToken, OS_LOG_TYPE_DEBUG))
+            {
+              [ISConcreteIcon assessValidationToken:];
+            }
 
-          v8 = 0;
-          goto LABEL_34;
+            v9 = 0;
+            goto LABEL_34;
+          }
         }
 
-        v21 = _ISDefaultLog();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+        v28 = _ISDefaultLog(bytes);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           [ISConcreteIcon assessValidationToken:];
         }
@@ -462,42 +469,44 @@ LABEL_16:
         imageCache = [(ISConcreteIcon *)self imageCache];
         latestValidationToken = [imageCache latestValidationToken];
 
-        if ([latestValidationToken length]== 40)
+        v31 = [latestValidationToken length];
+        if (v31 == 40)
         {
           bytes2 = [latestValidationToken bytes];
           if (bytes2)
           {
-            v25 = uuid_compare((bytes2 + 24), (v20 + 24));
-            v26 = _ISTraceLog();
-            v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG);
+            v33 = uuid_compare((bytes2 + 24), (v27 + 24));
+            v34 = v33;
+            v35 = _ISTraceLog(v33);
+            v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG);
 
-            if (!v25)
+            if (!v34)
             {
-              if (!v27)
+              if (!v36)
               {
-                v8 = 1;
+                v9 = 1;
                 goto LABEL_34;
               }
 
-              v28 = _ISTraceLog();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+              v38 = _ISTraceLog(v37);
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
               {
                 [ISConcreteIcon assessValidationToken:];
               }
 
-              v8 = 1;
+              v9 = 1;
               goto LABEL_51;
             }
 
-            if (v27)
+            if (v36)
             {
-              v28 = _ISTraceLog();
-              v8 = 2;
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+              v38 = _ISTraceLog(v37);
+              v9 = 2;
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
               {
                 [ISConcreteIcon assessValidationToken:];
 LABEL_46:
-                v8 = 2;
+                v9 = 2;
               }
 
 LABEL_51:
@@ -508,18 +517,18 @@ LABEL_51:
             goto LABEL_33;
           }
 
-          v33 = _ISTraceLog();
-          v8 = 2;
-          v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG);
+          v43 = _ISTraceLog(0);
+          v9 = 2;
+          v44 = os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG);
 
-          if (!v34)
+          if (!v44)
           {
             goto LABEL_34;
           }
 
-          v28 = _ISTraceLog();
-          v8 = 2;
-          if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+          v38 = _ISTraceLog(v45);
+          v9 = 2;
+          if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_51;
           }
@@ -527,18 +536,18 @@ LABEL_51:
 
         else
         {
-          v31 = _ISTraceLog();
-          v8 = 2;
-          v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG);
+          v40 = _ISTraceLog(v31);
+          v9 = 2;
+          v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG);
 
-          if (!v32)
+          if (!v41)
           {
             goto LABEL_34;
           }
 
-          v28 = _ISTraceLog();
-          v8 = 2;
-          if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+          v38 = _ISTraceLog(v42);
+          v9 = 2;
+          if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_51;
           }
@@ -548,7 +557,7 @@ LABEL_51:
         goto LABEL_46;
       }
 
-      latestValidationToken = _ISDefaultLog();
+      latestValidationToken = _ISDefaultLog(0);
       if (os_log_type_enabled(latestValidationToken, OS_LOG_TYPE_FAULT))
       {
         [(ISConcreteIcon *)tokenCopy assessValidationToken:latestValidationToken];
@@ -557,7 +566,7 @@ LABEL_51:
 
     else
     {
-      latestValidationToken = _ISDefaultLog();
+      latestValidationToken = _ISDefaultLog(v25);
       if (os_log_type_enabled(latestValidationToken, OS_LOG_TYPE_FAULT))
       {
         [(ISConcreteIcon *)tokenCopy assessValidationToken:latestValidationToken];
@@ -565,25 +574,25 @@ LABEL_51:
     }
 
 LABEL_33:
-    v8 = 2;
+    v9 = 2;
 LABEL_34:
 
 LABEL_35:
     goto LABEL_36;
   }
 
-  v7 = _ISTraceLog();
-  v8 = 2;
-  v9 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+  v8 = _ISTraceLog(v7);
+  v9 = 2;
+  v10 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
 
-  if (v9)
+  if (v10)
   {
-    v10 = _ISTraceLog();
-    v8 = 2;
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v12 = _ISTraceLog(v11);
+    v9 = 2;
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [ISConcreteIcon assessValidationToken:];
-      v8 = 2;
+      v9 = 2;
     }
 
     goto LABEL_35;
@@ -591,8 +600,7 @@ LABEL_35:
 
 LABEL_36:
 
-  v29 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v9;
 }
 
 - (id)_placeholderImageForError:(id)error descriptor:(id)descriptor
@@ -717,10 +725,10 @@ id __46__ISConcreteIcon_generateImageWithDescriptor___block_invoke(uint64_t a1)
 void __46__ISConcreteIcon_generateImageWithDescriptor___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _ISDefaultLog();
+  v4 = _ISDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __46__ISConcreteIcon_generateImageWithDescriptor___block_invoke_2_cold_1(a1);
+    __46__ISConcreteIcon_generateImageWithDescriptor___block_invoke_2_cold_1();
   }
 
   v5 = *(*(a1 + 48) + 8);
@@ -735,8 +743,8 @@ void __46__ISConcreteIcon_generateImageWithDescriptor___block_invoke_18(uint64_t
 
   if (v4)
   {
-    v5 = _ISDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _ISDefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __46__ISConcreteIcon_generateImageWithDescriptor___block_invoke_18_cold_1(a1, v3);
     }
@@ -744,206 +752,205 @@ void __46__ISConcreteIcon_generateImageWithDescriptor___block_invoke_18(uint64_t
 
   else
   {
-    v6 = objc_alloc(MEMORY[0x1E69A8988]);
-    v7 = [v3 data];
-    v8 = [v3 uuid];
-    v9 = [v3 validationToken];
-    v10 = [v6 initWithData:v7 uuid:v8 validationToken:v9];
-    v11 = *(*(a1 + 48) + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = v10;
+    v7 = objc_alloc(MEMORY[0x1E69A8988]);
+    v8 = [v3 data];
+    v9 = [v3 uuid];
+    v10 = [v3 validationToken];
+    v11 = [v7 initWithData:v8 uuid:v9 validationToken:v10];
+    v12 = *(*(a1 + 48) + 8);
+    v13 = *(v12 + 40);
+    *(v12 + 40) = v11;
   }
 
   if (!*(*(*(a1 + 48) + 8) + 40))
   {
-    v13 = [*(a1 + 32) _placeholderImageForError:*(*(*(a1 + 56) + 8) + 40) descriptor:*(a1 + 40)];
-    v14 = *(*(a1 + 48) + 8);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = v13;
+    v14 = [*(a1 + 32) _placeholderImageForError:*(*(*(a1 + 56) + 8) + 40) descriptor:*(a1 + 40)];
+    v15 = *(*(a1 + 48) + 8);
+    v16 = *(v15 + 40);
+    *(v15 + 40) = v14;
   }
 }
 
 - (void)_prepareImagesForImageDescriptors:(id)descriptors
 {
-  v88 = *MEMORY[0x1E69E9840];
-  v78 = 0u;
-  v79 = 0u;
-  v80 = 0u;
-  v81 = 0u;
+  v93 = *MEMORY[0x1E69E9840];
+  v83 = 0u;
+  v84 = 0u;
+  v85 = 0u;
+  v86 = 0u;
   obj = descriptors;
-  v4 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
+  v4 = [obj countByEnumeratingWithState:&v83 objects:v92 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v79;
-    v7 = 0x1E77C5000uLL;
-    v59 = *v79;
+    v6 = *v84;
+    v64 = *v84;
     selfCopy = self;
     do
     {
-      v8 = 0;
-      v61 = v5;
+      v7 = 0;
+      v66 = v5;
       do
       {
-        if (*v79 != v6)
+        if (*v84 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v78 + 1) + 8 * v8);
-        v10 = objc_autoreleasePoolPush();
-        v11 = *(v7 + 3952);
+        v8 = *(*(&v83 + 1) + 8 * v7);
+        v9 = objc_autoreleasePoolPush();
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v12 = +[ISDefaults sharedInstance];
-          [v12 prepareImageDelay];
-          v14 = v13;
+          v10 = +[ISDefaults sharedInstance];
+          [v10 prepareImageDelay];
+          v12 = v11;
 
-          if (v14 > 0.0)
+          if (v12 > 0.0)
           {
-            if (v9)
+            if (v8)
             {
-              v15 = _ISPrepareISIconSignpostLog();
-              v16 = os_signpost_enabled(v15);
+              v14 = _ISPrepareISIconSignpostLog(v13);
+              v15 = os_signpost_enabled(v14);
 
-              if (v16)
+              if (v15)
               {
-                v63 = v10;
-                v17 = [(ISIcon *)self _activeSignpostsForDescriptor:v9];
-                v74 = 0u;
-                v75 = 0u;
-                v76 = 0u;
-                v77 = 0u;
-                v18 = [v17 countByEnumeratingWithState:&v74 objects:v86 count:16];
-                if (v18)
+                v68 = v9;
+                v16 = [(ISIcon *)self _activeSignpostsForDescriptor:v8];
+                v79 = 0u;
+                v80 = 0u;
+                v81 = 0u;
+                v82 = 0u;
+                v17 = [v16 countByEnumeratingWithState:&v79 objects:v91 count:16];
+                if (v17)
                 {
-                  v19 = v18;
-                  v20 = *v75;
+                  v18 = v17;
+                  v19 = *v80;
                   do
                   {
-                    for (i = 0; i != v19; ++i)
+                    for (i = 0; i != v18; ++i)
                     {
-                      if (*v75 != v20)
+                      if (*v80 != v19)
                       {
-                        objc_enumerationMutation(v17);
+                        objc_enumerationMutation(v16);
                       }
 
-                      v22 = *(*(&v74 + 1) + 8 * i);
-                      if ([v22 unsignedLongLongValue])
+                      v21 = *(*(&v79 + 1) + 8 * i);
+                      unsignedLongLongValue = [v21 unsignedLongLongValue];
+                      if (unsignedLongLongValue)
                       {
-                        v23 = _ISPrepareISIconSignpostLog();
+                        v23 = _ISPrepareISIconSignpostLog(unsignedLongLongValue);
                         v24 = os_signpost_enabled(v23);
 
                         if (v24)
                         {
-                          v25 = _ISPrepareISIconSignpostLog();
-                          unsignedLongLongValue = [v22 unsignedLongLongValue];
-                          if ((unsignedLongLongValue - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+                          v26 = _ISPrepareISIconSignpostLog(v25);
+                          unsignedLongLongValue2 = [v21 unsignedLongLongValue];
+                          if ((unsignedLongLongValue2 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
                           {
-                            v27 = unsignedLongLongValue;
-                            if (os_signpost_enabled(v25))
+                            v28 = unsignedLongLongValue2;
+                            if (os_signpost_enabled(v26))
                             {
                               *buf = 134217984;
-                              v85 = v14 * 1000000.0;
-                              _os_signpost_emit_with_name_impl(&dword_1A77B8000, v25, OS_SIGNPOST_EVENT, v27, "PrepareISIcon", "DELAYING_PREPARE: - delay: %lf , ", buf, 0xCu);
+                              v90 = v12 * 1000000.0;
+                              _os_signpost_emit_with_name_impl(&dword_1A77B8000, v26, OS_SIGNPOST_EVENT, v28, "PrepareISIcon", "DELAYING_PREPARE: - delay: %lf , ", buf, 0xCu);
                             }
                           }
                         }
                       }
                     }
 
-                    v19 = [v17 countByEnumeratingWithState:&v74 objects:v86 count:16];
+                    v18 = [v16 countByEnumeratingWithState:&v79 objects:v91 count:16];
                   }
 
-                  while (v19);
+                  while (v18);
                 }
 
-                v6 = v59;
+                v6 = v64;
                 self = selfCopy;
-                v7 = 0x1E77C5000;
-                v5 = v61;
-                v10 = v63;
+                v5 = v66;
+                v9 = v68;
               }
             }
 
-            usleep((v14 * 1000000.0));
+            usleep((v12 * 1000000.0));
           }
 
-          if ([v9 ignoreCache] & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
+          isKindOfClass = [v8 ignoreCache];
+          if (isKindOfClass & 1) != 0 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
           {
-            if (!v9)
+            if (!v8)
             {
-              v41 = 0;
+              v46 = 0;
               goto LABEL_65;
             }
 
-            v28 = _ISPrepareISIconSignpostLog();
-            v29 = os_signpost_enabled(v28);
+            v30 = _ISPrepareISIconSignpostLog(isKindOfClass);
+            v31 = os_signpost_enabled(v30);
 
-            if (v29)
+            if (v31)
             {
-              v64 = v10;
-              v30 = [(ISIcon *)self _activeSignpostsForDescriptor:v9];
-              v70 = 0u;
-              v71 = 0u;
-              v72 = 0u;
-              v73 = 0u;
-              v31 = [v30 countByEnumeratingWithState:&v70 objects:v83 count:16];
-              if (v31)
+              v69 = v9;
+              v33 = [(ISIcon *)self _activeSignpostsForDescriptor:v8];
+              v75 = 0u;
+              v76 = 0u;
+              v77 = 0u;
+              v78 = 0u;
+              v34 = [v33 countByEnumeratingWithState:&v75 objects:v88 count:16];
+              if (v34)
               {
-                v32 = v31;
-                v33 = *v71;
+                v35 = v34;
+                v36 = *v76;
                 do
                 {
-                  for (j = 0; j != v32; ++j)
+                  for (j = 0; j != v35; ++j)
                   {
-                    if (*v71 != v33)
+                    if (*v76 != v36)
                     {
-                      objc_enumerationMutation(v30);
+                      objc_enumerationMutation(v33);
                     }
 
-                    v35 = *(*(&v70 + 1) + 8 * j);
-                    if ([v35 unsignedLongLongValue])
+                    v38 = *(*(&v75 + 1) + 8 * j);
+                    unsignedLongLongValue3 = [v38 unsignedLongLongValue];
+                    if (unsignedLongLongValue3)
                     {
-                      v36 = _ISPrepareISIconSignpostLog();
-                      v37 = os_signpost_enabled(v36);
+                      v40 = _ISPrepareISIconSignpostLog(unsignedLongLongValue3);
+                      v41 = os_signpost_enabled(v40);
 
-                      if (v37)
+                      if (v41)
                       {
-                        v38 = _ISPrepareISIconSignpostLog();
-                        unsignedLongLongValue2 = [v35 unsignedLongLongValue];
-                        if ((unsignedLongLongValue2 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+                        v43 = _ISPrepareISIconSignpostLog(v42);
+                        unsignedLongLongValue4 = [v38 unsignedLongLongValue];
+                        if ((unsignedLongLongValue4 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
                         {
-                          v40 = unsignedLongLongValue2;
-                          if (os_signpost_enabled(v38))
+                          v45 = unsignedLongLongValue4;
+                          if (os_signpost_enabled(v43))
                           {
                             *buf = 0;
-                            _os_signpost_emit_with_name_impl(&dword_1A77B8000, v38, OS_SIGNPOST_EVENT, v40, "PrepareISIcon", "PREPARE_IGNORING_CACHE", buf, 2u);
+                            _os_signpost_emit_with_name_impl(&dword_1A77B8000, v43, OS_SIGNPOST_EVENT, v45, "PrepareISIcon", "PREPARE_IGNORING_CACHE", buf, 2u);
                           }
                         }
                       }
                     }
                   }
 
-                  v32 = [v30 countByEnumeratingWithState:&v70 objects:v83 count:16];
+                  v35 = [v33 countByEnumeratingWithState:&v75 objects:v88 count:16];
                 }
 
-                while (v32);
+                while (v35);
               }
 
-              v41 = 0;
-              v6 = v59;
+              v46 = 0;
+              v6 = v64;
               self = selfCopy;
-              v7 = 0x1E77C5000;
-              v5 = v61;
-              v10 = v64;
+              v5 = v66;
+              v9 = v69;
 LABEL_46:
-              if (!v9)
+              if (!v8)
               {
 LABEL_65:
-                v56 = [(ISConcreteIcon *)self generateImageWithDescriptor:v9];
-                [(ISImageCache *)self->_imageCache setImage:v56 forDescriptor:v9];
+                v62 = [(ISConcreteIcon *)self generateImageWithDescriptor:v8];
+                [(ISImageCache *)self->_imageCache setImage:v62 forDescriptor:v8];
 
                 goto LABEL_66;
               }
@@ -951,83 +958,89 @@ LABEL_65:
 
             else
             {
-              v41 = 0;
+              v46 = 0;
             }
 
-            v65 = v10;
-            v43 = _ISPrepareISIconSignpostLog();
-            v44 = os_signpost_enabled(v43);
+            v70 = v9;
+            v47 = _ISPrepareISIconSignpostLog(placeholder);
+            v48 = os_signpost_enabled(v47);
 
-            if (v44)
+            if (v48)
             {
-              v58 = v41;
-              v45 = [(ISIcon *)self _activeSignpostsForDescriptor:v9];
-              v66 = 0u;
-              v67 = 0u;
-              v68 = 0u;
-              v69 = 0u;
-              v46 = [v45 countByEnumeratingWithState:&v66 objects:v82 count:16];
-              if (v46)
+              v63 = v46;
+              v49 = [(ISIcon *)self _activeSignpostsForDescriptor:v8];
+              v71 = 0u;
+              v72 = 0u;
+              v73 = 0u;
+              v74 = 0u;
+              v50 = [v49 countByEnumeratingWithState:&v71 objects:v87 count:16];
+              if (v50)
               {
-                v47 = v46;
-                v48 = *v67;
+                v51 = v50;
+                v52 = *v72;
                 do
                 {
-                  for (k = 0; k != v47; ++k)
+                  for (k = 0; k != v51; ++k)
                   {
-                    if (*v67 != v48)
+                    if (*v72 != v52)
                     {
-                      objc_enumerationMutation(v45);
+                      objc_enumerationMutation(v49);
                     }
 
-                    v50 = *(*(&v66 + 1) + 8 * k);
-                    if ([v50 unsignedLongLongValue])
+                    v54 = *(*(&v71 + 1) + 8 * k);
+                    unsignedLongLongValue5 = [v54 unsignedLongLongValue];
+                    if (unsignedLongLongValue5)
                     {
-                      v51 = _ISPrepareISIconSignpostLog();
-                      v52 = os_signpost_enabled(v51);
+                      v56 = _ISPrepareISIconSignpostLog(unsignedLongLongValue5);
+                      v57 = os_signpost_enabled(v56);
 
-                      if (v52)
+                      if (v57)
                       {
-                        v53 = _ISPrepareISIconSignpostLog();
-                        unsignedLongLongValue3 = [v50 unsignedLongLongValue];
-                        if ((unsignedLongLongValue3 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+                        v59 = _ISPrepareISIconSignpostLog(v58);
+                        unsignedLongLongValue6 = [v54 unsignedLongLongValue];
+                        if ((unsignedLongLongValue6 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
                         {
-                          v55 = unsignedLongLongValue3;
-                          if (os_signpost_enabled(v53))
+                          v61 = unsignedLongLongValue6;
+                          if (os_signpost_enabled(v59))
                           {
                             *buf = 0;
-                            _os_signpost_emit_with_name_impl(&dword_1A77B8000, v53, OS_SIGNPOST_EVENT, v55, "PrepareISIcon", "PREPARE_IMAGE", buf, 2u);
+                            _os_signpost_emit_with_name_impl(&dword_1A77B8000, v59, OS_SIGNPOST_EVENT, v61, "PrepareISIcon", "PREPARE_IMAGE", buf, 2u);
                           }
                         }
                       }
                     }
                   }
 
-                  v47 = [v45 countByEnumeratingWithState:&v66 objects:v82 count:16];
+                  v51 = [v49 countByEnumeratingWithState:&v71 objects:v87 count:16];
                 }
 
-                while (v47);
+                while (v51);
               }
 
-              v6 = v59;
+              v6 = v64;
               self = selfCopy;
-              v7 = 0x1E77C5000;
-              v5 = v61;
-              v10 = v65;
-              v41 = v58;
+              v5 = v66;
+              v9 = v70;
+              v46 = v63;
             }
 
             else
             {
-              v10 = v65;
+              v9 = v70;
             }
 
             goto LABEL_65;
           }
 
-          v42 = [(ISConcreteIcon *)self _cachedImageForDescriptor:v9];
-          v41 = v42;
-          if (!v42 || [v42 placeholder])
+          placeholder = [(ISConcreteIcon *)self _cachedImageForDescriptor:v8];
+          v46 = placeholder;
+          if (!placeholder)
+          {
+            goto LABEL_46;
+          }
+
+          placeholder = [placeholder placeholder];
+          if (placeholder)
           {
             goto LABEL_46;
           }
@@ -1035,18 +1048,16 @@ LABEL_65:
 LABEL_66:
         }
 
-        objc_autoreleasePoolPop(v10);
-        ++v8;
+        objc_autoreleasePoolPop(v9);
+        ++v7;
       }
 
-      while (v8 != v5);
-      v5 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
+      while (v7 != v5);
+      v5 = [obj countByEnumeratingWithState:&v83 objects:v92 count:16];
     }
 
     while (v5);
   }
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_imageForSymbolImageDescriptor:(id)descriptor
@@ -1061,28 +1072,26 @@ LABEL_66:
 
 - (id)symbol
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   makeSymbolResourceProvider = [(ISConcreteIcon *)self makeSymbolResourceProvider];
   symbol = [makeSymbolResourceProvider symbol];
   if (!symbol)
   {
-    v5 = _ISDefaultLog();
+    v5 = _ISDefaultLog(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
+      v7 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1A77B8000, v5, OS_LOG_TYPE_INFO, "Failed to get symbol for %@", &v8, 0xCu);
+      _os_log_impl(&dword_1A77B8000, v5, OS_LOG_TYPE_INFO, "Failed to get symbol for %@", &v7, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return symbol;
 }
 
 - (id)imageForDescriptor:(id)descriptor
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   v5 = [descriptorCopy copy];
   objc_opt_class();
@@ -1091,16 +1100,17 @@ LABEL_66:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v19 = [(ISConcreteIcon *)self _imageForSymbolImageDescriptor:v5];
+      v22 = [(ISConcreteIcon *)self _imageForSymbolImageDescriptor:v5];
       goto LABEL_60;
     }
 
     goto LABEL_23;
   }
 
-  if (![v5 ignoreCache])
+  ignoreCache = [v5 ignoreCache];
+  if (!ignoreCache)
   {
-    v19 = [(ISConcreteIcon *)self _cachedImageForDescriptor:v5];
+    v22 = [(ISConcreteIcon *)self _cachedImageForDescriptor:v5];
     goto LABEL_25;
   }
 
@@ -1109,148 +1119,151 @@ LABEL_66:
     if (([0 placeholder] & 1) == 0)
     {
 LABEL_59:
-      v46 = MEMORY[0x1E69A8988];
+      v54 = MEMORY[0x1E69A8988];
       _fallbackKey = [(ISConcreteIcon *)self _fallbackKey];
-      v19 = [v46 _placeholderImageWithImageDescriptor:descriptorCopy markAsPlaceholder:1 fallbackTypeID:_fallbackKey referenceIcon:self];
+      v22 = [v54 _placeholderImageWithImageDescriptor:descriptorCopy markAsPlaceholder:1 fallbackTypeID:_fallbackKey referenceIcon:self];
 
       goto LABEL_60;
     }
 
 LABEL_23:
-    v19 = 0;
+    v22 = 0;
     goto LABEL_60;
   }
 
-  v6 = _ISPrepareISIconSignpostLog();
-  v7 = os_signpost_enabled(v6);
+  v7 = _ISPrepareISIconSignpostLog(ignoreCache);
+  v8 = os_signpost_enabled(v7);
 
-  if (v7)
+  if (v8)
   {
-    v52 = descriptorCopy;
-    v8 = [(ISIcon *)self _activeSignpostsForDescriptor:v5];
-    v64 = 0u;
-    v65 = 0u;
-    v66 = 0u;
-    v67 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v64 objects:v70 count:16];
-    if (v9)
+    v59 = descriptorCopy;
+    v9 = [(ISIcon *)self _activeSignpostsForDescriptor:v5];
+    v71 = 0u;
+    v72 = 0u;
+    v73 = 0u;
+    v74 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v71 objects:v77 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v65;
+      v11 = v10;
+      v12 = *v72;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v65 != v11)
+          if (*v72 != v12)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v64 + 1) + 8 * i);
-          if ([v13 unsignedLongLongValue])
+          v14 = *(*(&v71 + 1) + 8 * i);
+          unsignedLongLongValue = [v14 unsignedLongLongValue];
+          if (unsignedLongLongValue)
           {
-            v14 = _ISPrepareISIconSignpostLog();
-            v15 = os_signpost_enabled(v14);
+            v16 = _ISPrepareISIconSignpostLog(unsignedLongLongValue);
+            v17 = os_signpost_enabled(v16);
 
-            if (v15)
+            if (v17)
             {
-              v16 = _ISPrepareISIconSignpostLog();
-              unsignedLongLongValue = [v13 unsignedLongLongValue];
-              if ((unsignedLongLongValue - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+              v19 = _ISPrepareISIconSignpostLog(v18);
+              unsignedLongLongValue2 = [v14 unsignedLongLongValue];
+              if ((unsignedLongLongValue2 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
               {
-                v18 = unsignedLongLongValue;
-                if (os_signpost_enabled(v16))
+                v21 = unsignedLongLongValue2;
+                if (os_signpost_enabled(v19))
                 {
                   *buf = 0;
-                  _os_signpost_emit_with_name_impl(&dword_1A77B8000, v16, OS_SIGNPOST_EVENT, v18, "PrepareISIcon", "IGNORING_CACHE", buf, 2u);
+                  _os_signpost_emit_with_name_impl(&dword_1A77B8000, v19, OS_SIGNPOST_EVENT, v21, "PrepareISIcon", "IGNORING_CACHE", buf, 2u);
                 }
               }
             }
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v64 objects:v70 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v71 objects:v77 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
 
-    v19 = 0;
-    descriptorCopy = v52;
+    v22 = 0;
+    descriptorCopy = v59;
   }
 
   else
   {
-    v19 = 0;
+    v22 = 0;
   }
 
 LABEL_25:
-  if (([v19 placeholder] & 1) == 0)
+  placeholder = [v22 placeholder];
+  if ((placeholder & 1) == 0)
   {
-    if (v19)
+    if (v22)
     {
       goto LABEL_60;
     }
 
     if (v5)
     {
-      v33 = _ISPrepareISIconSignpostLog();
-      v34 = os_signpost_enabled(v33);
+      v39 = _ISPrepareISIconSignpostLog(placeholder);
+      v40 = os_signpost_enabled(v39);
 
-      if (v34)
+      if (v40)
       {
-        v51 = v5;
-        v54 = descriptorCopy;
-        v35 = [(ISIcon *)self _activeSignpostsForDescriptor:v5];
-        v55 = 0u;
-        v56 = 0u;
-        v57 = 0u;
-        v58 = 0u;
-        v36 = [v35 countByEnumeratingWithState:&v55 objects:v68 count:16];
-        if (v36)
+        v58 = v5;
+        v61 = descriptorCopy;
+        v41 = [(ISIcon *)self _activeSignpostsForDescriptor:v5];
+        v62 = 0u;
+        v63 = 0u;
+        v64 = 0u;
+        v65 = 0u;
+        v42 = [v41 countByEnumeratingWithState:&v62 objects:v75 count:16];
+        if (v42)
         {
-          v37 = v36;
-          v38 = *v56;
+          v43 = v42;
+          v44 = *v63;
           do
           {
-            for (j = 0; j != v37; ++j)
+            for (j = 0; j != v43; ++j)
             {
-              if (*v56 != v38)
+              if (*v63 != v44)
               {
-                objc_enumerationMutation(v35);
+                objc_enumerationMutation(v41);
               }
 
-              v40 = *(*(&v55 + 1) + 8 * j);
-              if ([v40 unsignedLongLongValue])
+              v46 = *(*(&v62 + 1) + 8 * j);
+              unsignedLongLongValue3 = [v46 unsignedLongLongValue];
+              if (unsignedLongLongValue3)
               {
-                v41 = _ISPrepareISIconSignpostLog();
-                v42 = os_signpost_enabled(v41);
+                v48 = _ISPrepareISIconSignpostLog(unsignedLongLongValue3);
+                v49 = os_signpost_enabled(v48);
 
-                if (v42)
+                if (v49)
                 {
-                  v43 = _ISPrepareISIconSignpostLog();
-                  unsignedLongLongValue2 = [v40 unsignedLongLongValue];
-                  if ((unsignedLongLongValue2 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+                  v51 = _ISPrepareISIconSignpostLog(v50);
+                  unsignedLongLongValue4 = [v46 unsignedLongLongValue];
+                  if ((unsignedLongLongValue4 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
                   {
-                    v45 = unsignedLongLongValue2;
-                    if (os_signpost_enabled(v43))
+                    v53 = unsignedLongLongValue4;
+                    if (os_signpost_enabled(v51))
                     {
                       *buf = 0;
-                      _os_signpost_emit_with_name_impl(&dword_1A77B8000, v43, OS_SIGNPOST_EVENT, v45, "PrepareISIcon", "RETURNING_PLACEHOLDER", buf, 2u);
+                      _os_signpost_emit_with_name_impl(&dword_1A77B8000, v51, OS_SIGNPOST_EVENT, v53, "PrepareISIcon", "RETURNING_PLACEHOLDER", buf, 2u);
                     }
                   }
                 }
               }
             }
 
-            v37 = [v35 countByEnumeratingWithState:&v55 objects:v68 count:16];
+            v43 = [v41 countByEnumeratingWithState:&v62 objects:v75 count:16];
           }
 
-          while (v37);
+          while (v43);
         }
 
-        v5 = v51;
-        descriptorCopy = v54;
+        v5 = v58;
+        descriptorCopy = v61;
       }
     }
 
@@ -1259,71 +1272,70 @@ LABEL_25:
 
   if (v5)
   {
-    v20 = _ISPrepareISIconSignpostLog();
-    v21 = os_signpost_enabled(v20);
+    v24 = _ISPrepareISIconSignpostLog(placeholder);
+    v25 = os_signpost_enabled(v24);
 
-    if (v21)
+    if (v25)
     {
-      v50 = v19;
-      v53 = descriptorCopy;
-      v22 = [(ISIcon *)self _activeSignpostsForDescriptor:v5];
-      v59 = 0u;
-      v60 = 0u;
-      v61 = 0u;
-      v62 = 0u;
-      v23 = [v22 countByEnumeratingWithState:&v59 objects:v69 count:16];
-      if (v23)
+      v57 = v22;
+      v60 = descriptorCopy;
+      v26 = [(ISIcon *)self _activeSignpostsForDescriptor:v5];
+      v66 = 0u;
+      v67 = 0u;
+      v68 = 0u;
+      v69 = 0u;
+      v27 = [v26 countByEnumeratingWithState:&v66 objects:v76 count:16];
+      if (v27)
       {
-        v24 = v23;
-        v25 = *v60;
+        v28 = v27;
+        v29 = *v67;
         do
         {
-          for (k = 0; k != v24; ++k)
+          for (k = 0; k != v28; ++k)
           {
-            if (*v60 != v25)
+            if (*v67 != v29)
             {
-              objc_enumerationMutation(v22);
+              objc_enumerationMutation(v26);
             }
 
-            v27 = *(*(&v59 + 1) + 8 * k);
-            if ([v27 unsignedLongLongValue])
+            v31 = *(*(&v66 + 1) + 8 * k);
+            unsignedLongLongValue5 = [v31 unsignedLongLongValue];
+            if (unsignedLongLongValue5)
             {
-              v28 = _ISPrepareISIconSignpostLog();
-              v29 = os_signpost_enabled(v28);
+              v33 = _ISPrepareISIconSignpostLog(unsignedLongLongValue5);
+              v34 = os_signpost_enabled(v33);
 
-              if (v29)
+              if (v34)
               {
-                v30 = _ISPrepareISIconSignpostLog();
-                unsignedLongLongValue3 = [v27 unsignedLongLongValue];
-                if ((unsignedLongLongValue3 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+                v36 = _ISPrepareISIconSignpostLog(v35);
+                unsignedLongLongValue6 = [v31 unsignedLongLongValue];
+                if ((unsignedLongLongValue6 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
                 {
-                  v32 = unsignedLongLongValue3;
-                  if (os_signpost_enabled(v30))
+                  v38 = unsignedLongLongValue6;
+                  if (os_signpost_enabled(v36))
                   {
                     *buf = 0;
-                    _os_signpost_emit_with_name_impl(&dword_1A77B8000, v30, OS_SIGNPOST_EVENT, v32, "PrepareISIcon", "RETURNING_STALE_PLACEHOLDER", buf, 2u);
+                    _os_signpost_emit_with_name_impl(&dword_1A77B8000, v36, OS_SIGNPOST_EVENT, v38, "PrepareISIcon", "RETURNING_STALE_PLACEHOLDER", buf, 2u);
                   }
                 }
               }
             }
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v59 objects:v69 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v66 objects:v76 count:16];
         }
 
-        while (v24);
+        while (v28);
       }
 
-      descriptorCopy = v53;
-      v19 = v50;
+      descriptorCopy = v60;
+      v22 = v57;
     }
   }
 
 LABEL_60:
 
-  v48 = *MEMORY[0x1E69E9840];
-
-  return v19;
+  return v22;
 }
 
 - (void)generateImageWithDescriptor:(id)descriptor completion:(id)completion
@@ -1376,8 +1388,8 @@ void __57__ISConcreteIcon_generateImageWithDescriptor_completion___block_invoke(
 
   if (v4)
   {
-    v5 = _ISDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _ISDefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __46__ISConcreteIcon_generateImageWithDescriptor___block_invoke_18_cold_1(a1, v3);
     }
@@ -1385,19 +1397,19 @@ void __57__ISConcreteIcon_generateImageWithDescriptor_completion___block_invoke(
 
   else
   {
-    v7 = objc_alloc(MEMORY[0x1E69A8988]);
-    v8 = [v3 data];
-    v9 = [v3 uuid];
-    v10 = [v3 validationToken];
-    v6 = [v7 initWithData:v8 uuid:v9 validationToken:v10];
+    v8 = objc_alloc(MEMORY[0x1E69A8988]);
+    v9 = [v3 data];
+    v10 = [v3 uuid];
+    v11 = [v3 validationToken];
+    v7 = [v8 initWithData:v9 uuid:v10 validationToken:v11];
 
-    if (v6)
+    if (v7)
     {
       goto LABEL_7;
     }
   }
 
-  v6 = [*(a1 + 32) _placeholderImageForError:*(*(*(a1 + 56) + 8) + 40) descriptor:*(a1 + 40)];
+  v7 = [*(a1 + 32) _placeholderImageForError:*(*(*(a1 + 56) + 8) + 40) descriptor:*(a1 + 40)];
 LABEL_7:
   (*(*(a1 + 48) + 16))();
 }
@@ -1432,10 +1444,10 @@ void *__57__ISConcreteIcon_generateImageWithDescriptor_completion___block_invoke
 void __57__ISConcreteIcon_generateImageWithDescriptor_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _ISDefaultLog();
+  v4 = _ISDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __57__ISConcreteIcon_generateImageWithDescriptor_completion___block_invoke_2_cold_1(a1);
+    __57__ISConcreteIcon_generateImageWithDescriptor_completion___block_invoke_2_cold_1();
   }
 
   v5 = *(*(a1 + 56) + 8);
@@ -1484,52 +1496,25 @@ void __56__ISConcreteIcon_getImageForImageDescriptor_completion___block_invoke(v
 
 - (void)assessValidationToken:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_FAULT, "Invalid validation token data size: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_FAULT, "Invalid validation token data size: %@", &v2, 0xCu);
 }
 
 - (void)assessValidationToken:(uint64_t)a1 .cold.8(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_FAULT, "Invalid validation token data: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __46__ISConcreteIcon_generateImageWithDescriptor___block_invoke_2_cold_1(uint64_t a1)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_5_0(&dword_1A77B8000, v3, v4, "Failed to generate image for %@ - %@. Error: %@");
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_FAULT, "Invalid validation token data: %@", &v2, 0xCu);
 }
 
 void __46__ISConcreteIcon_generateImageWithDescriptor___block_invoke_18_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = [a2 error];
+  v2 = [a2 error];
   OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_4_0(&dword_1A77B8000, v5, v6, "Error returned from iconservicesagent image request: %@ - %@ error: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
-}
-
-void __57__ISConcreteIcon_generateImageWithDescriptor_completion___block_invoke_2_cold_1(uint64_t a1)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_5_0(&dword_1A77B8000, v3, v4, "Failed to generate image with handler for %@ - %@. Error: %@");
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_0(&dword_1A77B8000, v3, v4, "Error returned from iconservicesagent image request: %@ - %@ error: %@", v5, v6, v7, v8);
 }
 
 @end

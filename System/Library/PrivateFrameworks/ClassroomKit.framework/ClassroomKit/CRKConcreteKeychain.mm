@@ -125,7 +125,7 @@ CRKConcretePrivateKey *__50__CRKConcreteKeychain_privateKeyWithPersistentID___bl
   if (v8 != -25300 && v8)
   {
     v9 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v8 userInfo:0];
-    v10 = _CRKLogGeneral_1();
+    v10 = _CRKLogGeneral_1(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(CRKConcreteKeychain *)dCopy removeItemWithPersistentID:v9];
@@ -166,7 +166,7 @@ CRKConcretePrivateKey *__50__CRKConcreteKeychain_privateKeyWithPersistentID___bl
   if (v13)
   {
     v14 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v13 userInfo:0];
-    v15 = _CRKLogGeneral_1();
+    v15 = _CRKLogGeneral_1(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [CRKConcreteKeychain copyItemWithPersistentID:dCopy itemClass:v14];
@@ -245,7 +245,7 @@ CRKConcretePrivateKey *__50__CRKConcreteKeychain_privateKeyWithPersistentID___bl
     }
   }
 
-  v16 = _CRKLogGeneral_1();
+  v16 = _CRKLogGeneral_1(v12);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     v18 = [MEMORY[0x277CCABB0] numberWithInt:v14];
@@ -277,14 +277,14 @@ LABEL_8:
 {
   v2 = [a2 verboseDescription];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_2(&dword_243550000, v3, v4, "Could not remove keychain item with persistentID %@. Error (ignored): %{public}@.", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_2(&dword_243550000, v3, v4, "Could not remove keychain item with persistentID %@. Error (ignored): %{public}@.", v5, v6, v7, v8);
 }
 
 - (void)copyItemWithPersistentID:(uint64_t)a1 itemClass:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
   v2 = [a2 verboseDescription];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_2(&dword_243550000, v3, v4, "Cannot retrieve item with persistentID %@: Error: %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_2(&dword_243550000, v3, v4, "Cannot retrieve item with persistentID %@: Error: %{public}@", v5, v6, v7, v8);
 }
 
 @end

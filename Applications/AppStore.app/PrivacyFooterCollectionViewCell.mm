@@ -11,7 +11,7 @@
   v5 = type metadata accessor for ItemLayoutContext();
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v6 = OBJC_IVAR____TtC8AppStore31PrivacyFooterCollectionViewCell_bodyText;
-  v7 = sub_10002849C(&unk_100993030);
+  v7 = sub_10002849C(&unk_100993030, &unk_1007B46B0);
   (*(*(v7 - 8) + 56))(self + v6, 1, 1, v7);
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);

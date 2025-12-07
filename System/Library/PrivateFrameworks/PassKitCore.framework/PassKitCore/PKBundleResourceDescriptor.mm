@@ -88,12 +88,12 @@
     name = self->_name;
     descriptorCopy = descriptor;
     name = [descriptorCopy name];
-    LODWORD(name) = [(NSString *)name isEqualToString:name];
+    LODWORD(name) = objc_msgSend_isEqualToString_(name);
 
     extension = self->_extension;
     extension = [descriptorCopy extension];
 
-    v9 = name & [(NSString *)extension isEqualToString:extension];
+    v9 = name & objc_msgSend_isEqualToString_(extension);
   }
 
   return v9;

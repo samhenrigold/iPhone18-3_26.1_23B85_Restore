@@ -163,23 +163,47 @@ LABEL_14:
 
 - (void)resetTranscription
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_256022000, v0, v1, "MicTranscriber: Reset transcription failed error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  [self isTranscribing];
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_0();
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
 }
 
 - (void)setupAudioEngineTap
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_256022000, v0, v1, "MicTranscriber: error initializing audio engine: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  audioEngine = [(AXLTSpeechTranscriber *)self audioEngine];
+
+  if (!audioEngine)
+  {
+    v4 = objc_alloc_init(MEMORY[0x277CB8388]);
+    [(AXLTSpeechTranscriber *)self setAudioEngine:v4];
+  }
+
+  v5 = objc_opt_new();
+  audioEngine2 = [(AXLTSpeechTranscriber *)self audioEngine];
+  [audioEngine2 attachNode:v5];
+
+  audioEngine3 = [(AXLTSpeechTranscriber *)self audioEngine];
+  inputNode = [audioEngine3 inputNode];
+  v9 = [inputNode outputFormatForBus:0];
+
+  objc_storeStrong(&self->_audioFormat, v9);
+  audioEngine4 = [(AXLTSpeechTranscriber *)self audioEngine];
+  audioEngine5 = [(AXLTSpeechTranscriber *)self audioEngine];
+  inputNode2 = [audioEngine5 inputNode];
+  [audioEngine4 connect:inputNode2 to:v5 format:v9];
+
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __44__AXLTSpeechTranscriber_setupAudioEngineTap__block_invoke;
+  v13[3] = &unk_27981C930;
+  v13[4] = self;
+  [v5 installTapOnBus:0 bufferSize:4096 format:v9 block:v13];
 }
 
 void __44__AXLTSpeechTranscriber_setupAudioEngineTap__block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = AXLogLiveTranscription();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -207,34 +231,20 @@ void __44__AXLTSpeechTranscriber_setupAudioEngineTap__block_invoke(uint64_t a1, 
   [v8 saveAudioBuffer:v3 appName:@"Mic" sessionStartTime:v9];
 
   v10 = [*(a1 + 32) bufferLogTime];
-  if (!v10)
+  if (!v10 || (v11 = v10, [MEMORY[0x277CBEAA8] now], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "bufferLogTime"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "timeIntervalSinceDate:", v13), v15 = v14, v13, v12, v11, v15 > 5.0))
   {
-    goto LABEL_9;
-  }
-
-  v11 = v10;
-  v12 = [MEMORY[0x277CBEAA8] now];
-  v13 = [*(a1 + 32) bufferLogTime];
-  [v12 timeIntervalSinceDate:v13];
-  v15 = v14;
-
-  if (v15 > 5.0)
-  {
-LABEL_9:
     v16 = AXLogLiveTranscription();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v3, "frameCapacity")}];
-      v20 = 138412290;
-      v21 = v17;
-      _os_log_impl(&dword_256022000, v16, OS_LOG_TYPE_DEFAULT, "MicTranscriber: Sent audio buffer with size: %@ for Mic", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = v17;
+      _os_log_impl(&dword_256022000, v16, OS_LOG_TYPE_DEFAULT, "MicTranscriber: Sent audio buffer with size: %@ for Mic", &v19, 0xCu);
     }
 
     v18 = [MEMORY[0x277CBEAA8] now];
     [*(a1 + 32) setBufferLogTime:v18];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioEngineConfigurationDidChange:(id)change
@@ -248,10 +258,91 @@ LABEL_9:
 
 - (void)setupAudioSession
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_256022000, v0, v1, "Error setting kMXSessionProperty_PrefersNoInterruptionsDuringRemoteDeviceControl on audio session: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  if (_os_feature_enabled_impl() && ![(AXLTSpeechTranscriber *)self suppressUsingIndependentInputRoute])
+  {
+    if (self->_audioEngine && self->_audioSession)
+    {
+      return;
+    }
+
+    v3 = *MEMORY[0x277CB8038];
+    initSessionForIndependentInputRoute = [objc_alloc(MEMORY[0x277CB83F8]) initSessionForIndependentInputRoute];
+    audioSession = self->_audioSession;
+    self->_audioSession = initSessionForIndependentInputRoute;
+
+    audioEngine = self->_audioEngine;
+    if (!audioEngine)
+    {
+      v9 = objc_opt_new();
+      v10 = self->_audioEngine;
+      self->_audioEngine = v9;
+
+      audioEngine = self->_audioEngine;
+    }
+
+    [(AVAudioEngine *)audioEngine setAudioSession:self->_audioSession];
+  }
+
+  else
+  {
+    if (self->_audioSession)
+    {
+      return;
+    }
+
+    v3 = *MEMORY[0x277CB8028];
+    mEMORY[0x277CB83F8] = [MEMORY[0x277CB83F8] sharedInstance];
+    v5 = self->_audioSession;
+    self->_audioSession = mEMORY[0x277CB83F8];
+  }
+
+  v11 = self->_audioSession;
+  v23 = 0;
+  [(AVAudioSession *)v11 setCategory:v3 withOptions:12 error:&v23];
+  v12 = v23;
+  if (v12)
+  {
+    v13 = AXLogLiveTranscription();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      [AXLTSpeechTranscriber setupAudioSession];
+    }
+  }
+
+  v14 = self->_audioSession;
+  v22 = v12;
+  [(AVAudioSession *)v14 setActive:1 withOptions:1 error:&v22];
+  v15 = v22;
+
+  if (v15)
+  {
+    v16 = AXLogLiveTranscription();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      [AXLTSpeechTranscriber setupAudioSession];
+    }
+  }
+
+  v17 = self->_audioSession;
+  v18 = *MEMORY[0x277D27320];
+  v21 = v15;
+  [(AVAudioSession *)v17 setMXSessionProperty:v18 value:MEMORY[0x277CBEC38] error:&v21];
+  v19 = v21;
+
+  if (v19)
+  {
+    defaultCenter = AXLogLiveTranscription();
+    if (os_log_type_enabled(defaultCenter, OS_LOG_TYPE_ERROR))
+    {
+      [AXLTSpeechTranscriber setupAudioSession];
+    }
+  }
+
+  else
+  {
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    [defaultCenter addObserver:self selector:sel_mediaServicesWereReset_ name:*MEMORY[0x277CB80A0] object:self->_audioSession];
+  }
 }
 
 - (void)mediaServicesWereReset:(id)reset
@@ -298,7 +389,7 @@ LABEL_9:
 
 void __49__AXLTSpeechTranscriber_setupTranscriberIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = AXLogLiveTranscription();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -307,29 +398,17 @@ void __49__AXLTSpeechTranscriber_setupTranscriberIfNeeded__block_invoke(uint64_t
   }
 
   v5 = [*(a1 + 32) textLogTime];
-  if (!v5)
+  if (!v5 || (v6 = v5, [MEMORY[0x277CBEAA8] now], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "textLogTime"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "timeIntervalSinceDate:", v8), v10 = v9, v8, v7, v6, v10 > 5.0))
   {
-    goto LABEL_5;
-  }
-
-  v6 = v5;
-  v7 = [MEMORY[0x277CBEAA8] now];
-  v8 = [*(a1 + 32) textLogTime];
-  [v7 timeIntervalSinceDate:v8];
-  v10 = v9;
-
-  if (v10 > 5.0)
-  {
-LABEL_5:
     v11 = AXLogLiveTranscription();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = MEMORY[0x277CCABB0];
       v13 = [v3 text];
       v14 = [v12 numberWithUnsignedInteger:{objc_msgSend(v13, "length")}];
-      v18 = 138412290;
-      v19 = v14;
-      _os_log_impl(&dword_256022000, v11, OS_LOG_TYPE_DEFAULT, "MicTranscriber: caption %@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v14;
+      _os_log_impl(&dword_256022000, v11, OS_LOG_TYPE_DEFAULT, "MicTranscriber: caption %@", &v17, 0xCu);
     }
 
     v15 = [MEMORY[0x277CBEAA8] now];
@@ -338,8 +417,6 @@ LABEL_5:
 
   v16 = [*(a1 + 32) delegate];
   [v16 liveCaptionsResult:v3];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __49__AXLTSpeechTranscriber_setupTranscriberIfNeeded__block_invoke_307(uint64_t a1)
@@ -362,7 +439,7 @@ void __49__AXLTSpeechTranscriber_setupTranscriberIfNeeded__block_invoke_307(uint
 
 void __49__AXLTSpeechTranscriber_setupTranscriberIfNeeded__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = AXLogLiveTranscription();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -371,20 +448,8 @@ void __49__AXLTSpeechTranscriber_setupTranscriberIfNeeded__block_invoke_2(uint64
   }
 
   v7 = [*(a1 + 32) textLogTime];
-  if (!v7)
+  if (!v7 || (v8 = v7, [MEMORY[0x277CBEAA8] now], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "textLogTime"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "timeIntervalSinceDate:", v10), v12 = v11, v10, v9, v8, v12 > 5.0))
   {
-    goto LABEL_5;
-  }
-
-  v8 = v7;
-  v9 = [MEMORY[0x277CBEAA8] now];
-  v10 = [*(a1 + 32) textLogTime];
-  [v9 timeIntervalSinceDate:v10];
-  v12 = v11;
-
-  if (v12 > 5.0)
-  {
-LABEL_5:
     v13 = AXLogLiveTranscription();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
@@ -392,7 +457,7 @@ LABEL_5:
       v15 = [v5 formattedString];
       v16 = [v14 numberWithUnsignedInteger:{objc_msgSend(v15, "length")}];
       *buf = 138412290;
-      v30 = v16;
+      v29 = v16;
       _os_log_impl(&dword_256022000, v13, OS_LOG_TYPE_DEFAULT, "MicTranscriber: Transcribed text: %@ for Mic", buf, 0xCu);
     }
 
@@ -404,8 +469,8 @@ LABEL_5:
   v19 = [MEMORY[0x277CBEAA8] date];
   v20 = [*(a1 + 32) pid];
   v21 = [*(a1 + 32) appName];
-  LOBYTE(v28) = 0;
-  v22 = [(AXLTTranscribedData *)v18 initWithTranscription:v5 requestType:0 timestamp:v19 pid:v20 appID:@"Mic" appName:v21 assetState:a3 silence:v28];
+  LOBYTE(v27) = 0;
+  v22 = [(AXLTTranscribedData *)v18 initWithTranscription:v5 requestType:0 timestamp:v19 pid:v20 appID:@"Mic" appName:v21 assetState:a3 silence:v27];
 
   v23 = [*(a1 + 32) delegate];
   [v23 transcriberOutputData:v22];
@@ -414,8 +479,6 @@ LABEL_5:
   v25 = [v5 formattedString];
   v26 = [*(a1 + 32) sessionStartTime];
   [v24 saveTranscribedText:v25 appName:@"Mic" sessionStartTime:v26];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __49__AXLTSpeechTranscriber_setupTranscriberIfNeeded__block_invoke_310(uint64_t a1)
@@ -460,10 +523,61 @@ void __48__AXLTSpeechTranscriber_calcHistogramForBuffer___block_invoke(uint64_t 
 
 - (void)cleanUp
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_256022000, v0, v1, "MicTranscriber: AudioSession stop error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = AXLogLiveTranscription();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_256022000, v3, OS_LOG_TYPE_DEFAULT, "MicTranscriber: clean up", buf, 2u);
+  }
+
+  audioEngine = [(AXLTSpeechTranscriber *)self audioEngine];
+
+  if (audioEngine)
+  {
+    audioEngine2 = [(AXLTSpeechTranscriber *)self audioEngine];
+    inputNode = [audioEngine2 inputNode];
+    [inputNode removeTapOnBus:0];
+
+    audioEngine3 = [(AXLTSpeechTranscriber *)self audioEngine];
+    [audioEngine3 stop];
+
+    [(AXLTSpeechTranscriber *)self setAudioEngine:0];
+  }
+
+  audioSession = [(AXLTSpeechTranscriber *)self audioSession];
+  v18 = 0;
+  [audioSession setActive:0 withOptions:1 error:&v18];
+  v9 = v18;
+
+  if (v9)
+  {
+    v10 = AXLogLiveTranscription();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      [AXLTSpeechTranscriber cleanUp];
+    }
+  }
+
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  v12 = *MEMORY[0x277CB80A0];
+  audioSession2 = [(AXLTSpeechTranscriber *)self audioSession];
+  [defaultCenter removeObserver:self name:v12 object:audioSession2];
+
+  v14 = +[AXLTAudioTextDumper sharedInstance];
+  [v14 cleanUp];
+
+  if ([(AXLTSpeechTranscriber *)self transcriberVersion])
+  {
+    transcriberV2 = [(AXLTSpeechTranscriber *)self transcriberV2];
+    source = [(AXLTSpeechTranscriber *)self source];
+    [transcriberV2 stopTranscriptionFor:source];
+  }
+
+  if (![(AXLTSpeechTranscriber *)self transcriberVersion])
+  {
+    transcriber = [(AXLTSpeechTranscriber *)self transcriber];
+    [transcriber stopTranscriptionForPID:{-[AXLTSpeechTranscriber pid](self, "pid")}];
+  }
 }
 
 - (AXLTTranscriberDelegateProtocol)delegate
@@ -475,69 +589,49 @@ void __48__AXLTSpeechTranscriber_calcHistogramForBuffer___block_invoke(uint64_t 
 
 - (void)startTranscriptionWithLocale:(void *)a1 error:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 isTranscribing];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTranscriptionWithLocale:(void *)a1 error:(NSObject *)a2 .cold.2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_256022000, a2, OS_LOG_TYPE_ERROR, "MicTranscriber: Error starting audio engine: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_256022000, a2, OS_LOG_TYPE_ERROR, "MicTranscriber: Error starting audio engine: %@", v4, 0xCu);
 }
 
 - (void)stopTranscription:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 isTranscribing];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __44__AXLTSpeechTranscriber_setupAudioEngineTap__block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 frameLength];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)mediaServicesWereReset:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_256022000, v0, v1, "MicTranscriber: Media Services reset notification: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __49__AXLTSpeechTranscriber_setupTranscriberIfNeeded__block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 text];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __49__AXLTSpeechTranscriber_setupTranscriberIfNeeded__block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_256022000, v0, OS_LOG_TYPE_DEBUG, "MicTranscriber: Asset download state: %ld", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_256022000, v0, OS_LOG_TYPE_DEBUG, "MicTranscriber: Asset download state: %ld", v1, 0xCu);
 }
 
 @end

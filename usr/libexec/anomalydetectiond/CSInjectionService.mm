@@ -3,7 +3,9 @@
 + (void)becameFatallyBlocked:(id)blocked index:(unint64_t)index;
 - (CSInjectionService)init;
 - (id)syncgetClassForName:(id)name;
+- (void)amendClassReplacementMap:(id)map missBehavior:(int)behavior;
 - (void)beginService;
+- (void)setClassReplacementMap:(id)map missBehavior:(int)behavior;
 @end
 
 @implementation CSInjectionService
@@ -45,11 +47,32 @@
 
 - (void)beginService
 {
-  v3 = objc_opt_new();
-  classInjectionMap = self->_classInjectionMap;
-  self->_classInjectionMap = v3;
+  self->_classInjectionMap = objc_opt_new();
 
   _objc_release_x1();
+}
+
+- (void)amendClassReplacementMap:(id)map missBehavior:(int)behavior
+{
+  v4 = *&behavior;
+  mapCopy = map;
+  classInjectionMap = [(CSInjectionService *)self classInjectionMap];
+  [classInjectionMap addEntriesFromDictionary:mapCopy];
+
+  [(CSInjectionService *)self setMapMissBehavior:v4];
+}
+
+- (void)setClassReplacementMap:(id)map missBehavior:(int)behavior
+{
+  v4 = *&behavior;
+  mapCopy = map;
+  classInjectionMap = [(CSInjectionService *)self classInjectionMap];
+  [classInjectionMap removeAllObjects];
+
+  classInjectionMap2 = [(CSInjectionService *)self classInjectionMap];
+  [classInjectionMap2 addEntriesFromDictionary:mapCopy];
+
+  [(CSInjectionService *)self setMapMissBehavior:v4];
 }
 
 - (id)syncgetClassForName:(id)name
@@ -81,55 +104,55 @@ LABEL_8:
     return v9;
   }
 
-  v11 = sub_1000067CC();
+  v11 = sub_1000067CC(mapMissBehavior);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
     *buf = 68289795;
-    v15 = 0;
-    v16 = 2082;
-    v17 = "";
-    v18 = 2114;
-    v19 = nameCopy;
-    v20 = 2082;
-    v21 = "assert";
-    v22 = 2081;
-    v23 = "realClass";
+    v17 = 0;
+    v18 = 2082;
+    v19 = "";
+    v20 = 2114;
+    v21 = nameCopy;
+    v22 = 2082;
+    v23 = "assert";
+    v24 = 2081;
+    v25 = "realClass";
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Unable to find classForName, name:%{public, location:escape_only}@, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
   }
 
-  v12 = sub_1000067CC();
-  if (os_signpost_enabled(v12))
+  v13 = sub_1000067CC(v12);
+  if (os_signpost_enabled(v13))
   {
     *buf = 68289795;
-    v15 = 0;
-    v16 = 2082;
-    v17 = "";
-    v18 = 2114;
-    v19 = nameCopy;
-    v20 = 2082;
-    v21 = "assert";
-    v22 = 2081;
-    v23 = "realClass";
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Unable to find classForName", "{msg%{public}.0s:Unable to find classForName, name:%{public, location:escape_only}@, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
+    v17 = 0;
+    v18 = 2082;
+    v19 = "";
+    v20 = 2114;
+    v21 = nameCopy;
+    v22 = 2082;
+    v23 = "assert";
+    v24 = 2081;
+    v25 = "realClass";
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Unable to find classForName", "{msg%{public}.0s:Unable to find classForName, name:%{public, location:escape_only}@, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
   }
 
-  v13 = sub_1000067CC();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v15 = sub_1000067CC(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 68289795;
-    v15 = 0;
-    v16 = 2082;
-    v17 = "";
-    v18 = 2114;
-    v19 = nameCopy;
-    v20 = 2082;
-    v21 = "assert";
-    v22 = 2081;
-    v23 = "realClass";
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Unable to find classForName, name:%{public, location:escape_only}@, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
+    v17 = 0;
+    v18 = 2082;
+    v19 = "";
+    v20 = 2114;
+    v21 = nameCopy;
+    v22 = 2082;
+    v23 = "assert";
+    v24 = 2081;
+    v25 = "realClass";
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Unable to find classForName, name:%{public, location:escape_only}@, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
   }
 
-  result = abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyCore/CSInjectionService.mm", 61, "[CSInjectionService syncgetClassForName:]");
   __break(1u);
   return result;
 }

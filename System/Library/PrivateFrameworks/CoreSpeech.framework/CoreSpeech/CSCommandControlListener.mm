@@ -31,7 +31,7 @@
 
 void __54__CSCommandControlListener_CSXPCClient_didDisconnect___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D015D8];
   v3 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
@@ -39,11 +39,11 @@ void __54__CSCommandControlListener_CSXPCClient_didDisconnect___block_invoke(uin
     v4 = *(a1 + 32);
     v5 = v3;
     v6 = [v4 audioStream];
-    v14 = 136315394;
-    v15 = "[CSCommandControlListener CSXPCClient:didDisconnect:]_block_invoke";
-    v16 = 1026;
-    v17 = [v6 isStreaming];
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEFAULT, "%s Received xpc disconnection, audioStream is streaming = %{public}d", &v14, 0x12u);
+    v13 = 136315394;
+    v14 = "[CSCommandControlListener CSXPCClient:didDisconnect:]_block_invoke";
+    v15 = 1026;
+    v16 = [v6 isStreaming];
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEFAULT, "%s Received xpc disconnection, audioStream is streaming = %{public}d", &v13, 0x12u);
   }
 
   v7 = [*(a1 + 32) audioStream];
@@ -54,9 +54,9 @@ void __54__CSCommandControlListener_CSXPCClient_didDisconnect___block_invoke(uin
     v9 = *v2;
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315138;
-      v15 = "[CSCommandControlListener CSXPCClient:didDisconnect:]_block_invoke";
-      _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_DEFAULT, "%s Calling didStopUnexpectedly", &v14, 0xCu);
+      v13 = 136315138;
+      v14 = "[CSCommandControlListener CSXPCClient:didDisconnect:]_block_invoke";
+      _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_DEFAULT, "%s Calling didStopUnexpectedly", &v13, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
@@ -68,8 +68,6 @@ void __54__CSCommandControlListener_CSXPCClient_didDisconnect___block_invoke(uin
       [v12 commandControlListener:*(a1 + 32) didStopUnexpectedly:1];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioStreamProvider:(id)provider audioBufferAvailable:(id)available
@@ -128,13 +126,13 @@ void __69__CSCommandControlListener_audioStreamProvider_audioBufferAvailable___b
 
 void __74__CSCommandControlListener_audioStreamProvider_didStopStreamUnexpectedly___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[CSCommandControlListener audioStreamProvider:didStopStreamUnexpectedly:]_block_invoke";
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Calling didStopUnexpectedly", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[CSCommandControlListener audioStreamProvider:didStopStreamUnexpectedly:]_block_invoke";
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Calling didStopUnexpectedly", &v6, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
@@ -145,52 +143,48 @@ void __74__CSCommandControlListener_audioStreamProvider_didStopStreamUnexpectedl
     v5 = objc_loadWeakRetained((*(a1 + 32) + 8));
     [v5 commandControlListener:*(a1 + 32) didStopUnexpectedly:1];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopListenWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[CSCommandControlListener stopListenWithCompletion:]";
+    v15 = "[CSCommandControlListener stopListenWithCompletion:]";
     _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEFAULT, "%s Stopping stopListenWithCompletion", buf, 0xCu);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __53__CSCommandControlListener_stopListenWithCompletion___block_invoke;
-  v13[3] = &unk_2784C6E20;
-  v14 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __53__CSCommandControlListener_stopListenWithCompletion___block_invoke;
+  v12[3] = &unk_2784C6E20;
+  v13 = completionCopy;
   v6 = completionCopy;
-  v7 = MEMORY[0x223DD26C0](v13);
+  v7 = MEMORY[0x223DD26C0](v12);
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __53__CSCommandControlListener_stopListenWithCompletion___block_invoke_8;
   block[3] = &unk_2784C6E98;
   block[4] = self;
-  v12 = v7;
+  v11 = v7;
   v9 = v7;
   dispatch_async(queue, block);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __53__CSCommandControlListener_stopListenWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
-    v10 = "[CSCommandControlListener stopListenWithCompletion:]_block_invoke";
-    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_DEFAULT, "%s Calling didStop of CSCommandControlListener", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[CSCommandControlListener stopListenWithCompletion:]_block_invoke";
+    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_DEFAULT, "%s Calling didStop of CSCommandControlListener", &v8, 0xCu);
   }
 
   v7 = *(a1 + 32);
@@ -198,8 +192,6 @@ void __53__CSCommandControlListener_stopListenWithCompletion___block_invoke(uint
   {
     (*(v7 + 16))(v7, a2, v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __53__CSCommandControlListener_stopListenWithCompletion___block_invoke_8(uint64_t a1)
@@ -222,15 +214,15 @@ void __53__CSCommandControlListener_stopListenWithCompletion___block_invoke_8(ui
 
 - (void)_startRequestWithCompletion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __56__CSCommandControlListener__startRequestWithCompletion___block_invoke;
-  v23[3] = &unk_2784C6E20;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __56__CSCommandControlListener__startRequestWithCompletion___block_invoke;
+  v22[3] = &unk_2784C6E20;
   v5 = completionCopy;
-  v24 = v5;
-  v6 = MEMORY[0x223DD26C0](v23);
+  v23 = v5;
+  v6 = MEMORY[0x223DD26C0](v22);
   audioStreamProvider = self->_audioStreamProvider;
   if (audioStreamProvider)
   {
@@ -239,21 +231,21 @@ void __53__CSCommandControlListener_stopListenWithCompletion___block_invoke_8(ui
     v10 = [v8 defaultRequestWithContext:contextForBuiltInVoiceTrigger];
     v11 = objc_opt_class();
     v12 = NSStringFromClass(v11);
-    v22 = 0;
-    v13 = [(CSAudioStreamProviding *)audioStreamProvider audioStreamWithRequest:v10 streamName:v12 error:&v22];
-    v14 = v22;
+    v21 = 0;
+    v13 = [(CSAudioStreamProviding *)audioStreamProvider audioStreamWithRequest:v10 streamName:v12 error:&v21];
+    v14 = v21;
 
     if (v13)
     {
       [(CSCommandControlListener *)self setAudioStream:v13];
       [v13 setDelegate:self];
       noAlertOption = [MEMORY[0x277D01678] noAlertOption];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __56__CSCommandControlListener__startRequestWithCompletion___block_invoke_7;
-      v20[3] = &unk_2784C6E20;
-      v21 = v6;
-      [v13 startAudioStreamWithOption:noAlertOption completion:v20];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __56__CSCommandControlListener__startRequestWithCompletion___block_invoke_7;
+      v19[3] = &unk_2784C6E20;
+      v20 = v6;
+      [v13 startAudioStreamWithOption:noAlertOption completion:v19];
     }
 
     else
@@ -261,13 +253,13 @@ void __53__CSCommandControlListener_stopListenWithCompletion___block_invoke_8(ui
       v16 = *MEMORY[0x277D015D8];
       if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
       {
-        v18 = v16;
+        v17 = v16;
         localizedDescription = [v14 localizedDescription];
         *buf = 136315394;
-        v26 = "[CSCommandControlListener _startRequestWithCompletion:]";
-        v27 = 2114;
-        v28 = localizedDescription;
-        _os_log_error_impl(&dword_222E4D000, v18, OS_LOG_TYPE_ERROR, "%s AudioStreamRequest has failed : %{public}@", buf, 0x16u);
+        v25 = "[CSCommandControlListener _startRequestWithCompletion:]";
+        v26 = 2114;
+        v27 = localizedDescription;
+        _os_log_error_impl(&dword_222E4D000, v17, OS_LOG_TYPE_ERROR, "%s AudioStreamRequest has failed : %{public}@", buf, 0x16u);
       }
 
       (v6)[2](v6, 0, v14);
@@ -279,20 +271,18 @@ void __53__CSCommandControlListener_stopListenWithCompletion___block_invoke_8(ui
     v14 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D01590] code:1004 userInfo:0];
     (v6)[2](v6, 0, v14);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __56__CSCommandControlListener__startRequestWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
-    v10 = "[CSCommandControlListener _startRequestWithCompletion:]_block_invoke";
-    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_DEFAULT, "%s Calling didStart of CSCommandControlListener", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[CSCommandControlListener _startRequestWithCompletion:]_block_invoke";
+    _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_DEFAULT, "%s Calling didStart of CSCommandControlListener", &v8, 0xCu);
   }
 
   v7 = *(a1 + 32);
@@ -300,40 +290,36 @@ void __56__CSCommandControlListener__startRequestWithCompletion___block_invoke(u
   {
     (*(v7 + 16))(v7, a2, v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startListenWithOption:(id)option completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v6 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "[CSCommandControlListener startListenWithOption:completion:]";
+    v16 = "[CSCommandControlListener startListenWithOption:completion:]";
     _os_log_impl(&dword_222E4D000, v6, OS_LOG_TYPE_DEFAULT, "%s Start Listening for Command Control", buf, 0xCu);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __61__CSCommandControlListener_startListenWithOption_completion___block_invoke;
-  v14[3] = &unk_2784C6E20;
-  v15 = completionCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __61__CSCommandControlListener_startListenWithOption_completion___block_invoke;
+  v13[3] = &unk_2784C6E20;
+  v14 = completionCopy;
   v7 = completionCopy;
-  v8 = MEMORY[0x223DD26C0](v14);
+  v8 = MEMORY[0x223DD26C0](v13);
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __61__CSCommandControlListener_startListenWithOption_completion___block_invoke_2;
   block[3] = &unk_2784C6E98;
   block[4] = self;
-  v13 = v8;
+  v12 = v8;
   v10 = v8;
   dispatch_async(queue, block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__CSCommandControlListener_startListenWithOption_completion___block_invoke(uint64_t a1)

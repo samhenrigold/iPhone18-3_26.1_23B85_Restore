@@ -17,7 +17,7 @@
 
 - (BOOL)mainWithError:(id *)error
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   accessoryOperationStatus = [(HMDAccessoryBackgroundOperation *)self accessoryOperationStatus];
   v5 = objc_opt_class();
   accessoryUUID = [(HMDAccessoryBackgroundOperation *)self accessoryUUID];
@@ -68,9 +68,9 @@
       *&buf[12] = 2112;
       *&buf[14] = accessoryUUID2;
       *&buf[22] = 2112;
-      v53 = accessoryIdentifier;
-      LOWORD(v54) = 2112;
-      *(&v54 + 2) = homeUUID;
+      v52 = accessoryIdentifier;
+      LOWORD(v53) = 2112;
+      *(&v53 + 2) = homeUUID;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unable to run audit operation on accessory : %@/%@, for Home: %@ due to invalid status", buf, 0x2Au);
     }
 
@@ -99,9 +99,9 @@
       *&buf[12] = 2112;
       *&buf[14] = accessoryUUID3;
       *&buf[22] = 2112;
-      v53 = accessoryIdentifier2;
-      LOWORD(v54) = 2112;
-      *(&v54 + 2) = homeUUID2;
+      v52 = accessoryIdentifier2;
+      LOWORD(v53) = 2112;
+      *(&v53 + 2) = homeUUID2;
       _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Unable to run audit operation on nil accessory : %@/%@, for Home: %@", buf, 0x2Au);
     }
 
@@ -130,53 +130,52 @@ LABEL_19:
     v31 = [userData objectForKeyedSubscript:@"HMDBackgroundOpsUpdateAuditTimeForRestrictedGuestKey"];
     bOOLValue = [v31 BOOLValue];
 
-    v48 = 0;
-    v49 = &v48;
-    v50 = 0x2020000000;
-    v51 = 0;
+    v47 = 0;
+    v48 = &v47;
+    v49 = 0x2020000000;
+    v50 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v53 = __Block_byref_object_copy__53753;
-    *&v54 = __Block_byref_object_dispose__53754;
-    *(&v54 + 1) = 0;
+    v52 = __Block_byref_object_copy__53753;
+    *&v53 = __Block_byref_object_dispose__53754;
+    *(&v53 + 1) = 0;
     v33 = +[HMDCoreData sharedInstance];
     home = [v12 home];
     uuid = [home uuid];
     v36 = [v33 contextWithHomeUUID:uuid];
 
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __57__HMDPersistAuditAccessoryResultOperation_mainWithError___block_invoke;
-    v41[3] = &unk_2786741E8;
-    v42 = v12;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __57__HMDPersistAuditAccessoryResultOperation_mainWithError___block_invoke;
+    v40[3] = &unk_2786741E8;
+    v41 = v12;
     selfCopy3 = self;
-    v47 = bOOLValue;
-    v45 = buf;
-    v46 = &v48;
+    v46 = bOOLValue;
+    v44 = buf;
+    v45 = &v47;
     v37 = v36;
-    v44 = v37;
-    [v37 unsafeSynchronousBlock:v41];
+    v43 = v37;
+    [v37 unsafeSynchronousBlock:v40];
     if (error)
     {
       *error = *(*&buf[8] + 40);
     }
 
-    v15 = *(v49 + 24);
+    v15 = *(v48 + 24);
 
     _Block_object_dispose(buf, 8);
-    _Block_object_dispose(&v48, 8);
+    _Block_object_dispose(&v47, 8);
   }
 
 LABEL_23:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
 void __57__HMDPersistAuditAccessoryResultOperation_mainWithError___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) uuid];
   v3 = [HMCContext findAccessoryWithModelID:v2];
 
@@ -221,11 +220,11 @@ LABEL_13:
               v23 = HMFGetLogIdentifier();
               v24 = *(*(*(a1 + 56) + 8) + 40);
               *buf = 138543874;
-              v28 = v23;
-              v29 = 2112;
-              v30 = v4;
-              v31 = 2112;
-              v32 = v24;
+              v27 = v23;
+              v28 = 2112;
+              v29 = v4;
+              v30 = 2112;
+              v31 = v24;
               _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Unable to save needsAudit & lastAuditTime on the accessory : %@, %@", buf, 0x20u);
             }
 
@@ -254,9 +253,9 @@ LABEL_13:
     v11 = HMFGetLogIdentifier();
     v12 = [*(a1 + 32) uuid];
     *buf = 138543618;
-    v28 = v11;
-    v29 = 2112;
-    v30 = v12;
+    v27 = v11;
+    v28 = 2112;
+    v29 = v12;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unable to find the mkfHAPAccessory or mkfAirPlayAccessory with model id: %@", buf, 0x16u);
   }
 
@@ -267,22 +266,20 @@ LABEL_13:
   *(v14 + 40) = v13;
 
 LABEL_18:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initForRestrictedGuestWithAccessory:(id)accessory
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v11 = @"HMDBackgroundOpsUpdateAuditTimeForRestrictedGuestKey";
-  v12[0] = MEMORY[0x277CBEC38];
+  v11[1] = *MEMORY[0x277D85DE8];
+  v10 = @"HMDBackgroundOpsUpdateAuditTimeForRestrictedGuestKey";
+  v11[0] = MEMORY[0x277CBEC38];
   v4 = MEMORY[0x277CBEAC0];
   accessoryCopy = accessory;
-  v6 = [v4 dictionaryWithObjects:v12 forKeys:&v11 count:1];
-  v10.receiver = self;
-  v10.super_class = HMDPersistAuditAccessoryResultOperation;
-  v7 = [(HMDAccessoryBackgroundOperation *)&v10 initWithAccessory:accessoryCopy userData:v6];
+  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9.receiver = self;
+  v9.super_class = HMDPersistAuditAccessoryResultOperation;
+  v7 = [(HMDAccessoryBackgroundOperation *)&v9 initWithAccessory:accessoryCopy userData:v6];
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -300,10 +297,9 @@ LABEL_18:
 
 void __54__HMDPersistAuditAccessoryResultOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_53770;
-  logCategory__hmf_once_v9_53770 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_53770;
+  logCategory__hmf_once_v9_53770 = v0;
 }
 
 @end

@@ -16,12 +16,12 @@
 
 - (QLListViewController)initWithPreviewItemStore:(id)store currentPreviewItem:(id)item
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   storeCopy = store;
   itemCopy = item;
-  v29.receiver = self;
-  v29.super_class = QLListViewController;
-  v9 = [(QLListViewController *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = QLListViewController;
+  v9 = [(QLListViewController *)&v28 init];
   if (v9)
   {
     v10 = objc_opt_new();
@@ -67,8 +67,8 @@
     navigationItem = [(UITableViewController *)v9->_tableViewController navigationItem];
     [navigationItem setRightBarButtonItem:v22];
 
-    v30[0] = v9->_tableViewController;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+    v29[0] = v9->_tableViewController;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
     [(QLListViewController *)v9 setViewControllers:v25];
 
     [(QLListViewController *)v9 setModalPresentationStyle:0];
@@ -80,7 +80,6 @@
     v26 = v9;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -89,10 +88,12 @@
   obj = button;
   WeakRetained = objc_loadWeakRetained(&self->_barButton);
 
+  v6 = obj;
   if (WeakRetained != obj)
   {
-    v5 = objc_storeWeak(&self->_barButton, obj);
+    v7 = objc_storeWeak(&self->_barButton, obj);
 
+    v6 = obj;
     if (obj)
     {
       [(QLListViewController *)self setModalPresentationStyle:7];
@@ -107,15 +108,17 @@
       {
         [MEMORY[0x277D75348] systemBackgroundColor];
       }
-      v7 = ;
-      [popoverPresentationController setBackgroundColor:v7];
+      v9 = ;
+      [popoverPresentationController setBackgroundColor:v9];
 
       [popoverPresentationController setDelegate:self];
       [popoverPresentationController setPermittedArrowDirections:15];
+
+      v6 = obj;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v5, v6);
 }
 
 - (void)prepareForPopoverPresentation:(id)presentation

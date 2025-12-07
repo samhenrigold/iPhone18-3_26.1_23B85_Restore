@@ -134,7 +134,7 @@ LABEL_6:
 {
   if (equal == self)
   {
-    LOBYTE(v5) = 1;
+    LOBYTE(isEqualToString) = 1;
   }
 
   else
@@ -145,10 +145,10 @@ LABEL_6:
       goto LABEL_21;
     }
 
-    v5 = -[FigCaptureStillImageSettings isEqual:](self->_stillImageSettings, "isEqual:", [equal stillImageSettings]);
-    if (!v5)
+    isEqualToString = -[FigCaptureStillImageSettings isEqual:](self->_stillImageSettings, "isEqual:", [equal stillImageSettings]);
+    if (!isEqualToString)
     {
-      return v5;
+      return isEqualToString;
     }
 
     settingsID = self->_settingsID;
@@ -157,25 +157,27 @@ LABEL_6:
       goto LABEL_21;
     }
 
-    v5 = -[NSString isEqualToString:](self->_captureRequestIdentifier, "isEqualToString:", [equal captureRequestIdentifier]);
-    if (!v5)
+    captureRequestIdentifier = self->_captureRequestIdentifier;
+    [equal captureRequestIdentifier];
+    isEqualToString = objc_msgSend_isEqualToString_(captureRequestIdentifier);
+    if (!isEqualToString)
     {
-      return v5;
+      return isEqualToString;
     }
 
     userInitiatedCaptureTime = self->_userInitiatedCaptureTime;
     if (userInitiatedCaptureTime != [equal userInitiatedCaptureTime] || (torchMode = self->_torchMode, torchMode != objc_msgSend(equal, "torchMode")) || (flashMode = self->_flashMode, flashMode != objc_msgSend(equal, "flashMode")) || (autoRedEyeReductionEnabled = self->_autoRedEyeReductionEnabled, autoRedEyeReductionEnabled != objc_msgSend(equal, "autoRedEyeReductionEnabled")) || (digitalFlashMode = self->_digitalFlashMode, digitalFlashMode != objc_msgSend(equal, "digitalFlashMode")) || (qualityPrioritization = self->_qualityPrioritization, qualityPrioritization != objc_msgSend(equal, "qualityPrioritization")) || (clientQualityPrioritization = self->_clientQualityPrioritization, clientQualityPrioritization != objc_msgSend(equal, "clientQualityPrioritization")) || (HDRMode = self->_HDRMode, HDRMode != objc_msgSend(equal, "HDRMode")) || (autoOriginalPhotoDeliveryEnabled = self->_autoOriginalPhotoDeliveryEnabled, autoOriginalPhotoDeliveryEnabled != objc_msgSend(equal, "isAutoOriginalPhotoDeliveryEnabled")) || (autoSpatialOverCaptureEnabled = self->_autoSpatialOverCaptureEnabled, autoSpatialOverCaptureEnabled != objc_msgSend(equal, "isAutoSpatialOverCaptureEnabled")) || (autoDeferredProcessingEnabled = self->_autoDeferredProcessingEnabled, autoDeferredProcessingEnabled != objc_msgSend(equal, "isAutoDeferredProcessingEnabled")) || (rawOutputFormat = self->_rawOutputFormat, rawOutputFormat != objc_msgSend(equal, "rawOutputFormat")) || (outputWidth = self->_outputWidth, outputWidth != objc_msgSend(equal, "outputWidth")) || (outputHeight = self->_outputHeight, outputHeight != objc_msgSend(equal, "outputHeight")))
     {
 LABEL_21:
-      LOBYTE(v5) = 0;
-      return v5;
+      LOBYTE(isEqualToString) = 0;
+      return isEqualToString;
     }
 
     depthDataDeliveryEnabled = self->_depthDataDeliveryEnabled;
-    LOBYTE(v5) = depthDataDeliveryEnabled == [equal depthDataDeliveryEnabled];
+    LOBYTE(isEqualToString) = depthDataDeliveryEnabled == [equal depthDataDeliveryEnabled];
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (id)description

@@ -104,8 +104,8 @@ BWIOSurfacePoller *__34__BWIOSurfacePoller_defaultPoller__block_invoke()
   {
     v1 = result;
     os_unfair_lock_lock(result + 4);
-    v2 = *(v1 + 24);
-    v11 = OUTLINED_FUNCTION_0_12(v3, v4, v5, v6, v7, v8, v9, v10, v45, v48, v51, v54, v57, v60, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93, v96, v98, v100, v102, v104, v106, v108, v110);
+    v2 = *&v1[6]._os_unfair_lock_opaque;
+    v11 = OUTLINED_FUNCTION_0_12(v3, v4, v5, v6, v7, v8, v9, v10, v46, v49, v52, v55, v58, v61, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v94, v96, v98, v100, v102, v104, v106, v108);
     if (!v11)
     {
       goto LABEL_16;
@@ -138,15 +138,15 @@ BWIOSurfacePoller *__34__BWIOSurfacePoller_defaultPoller__block_invoke()
         ++v13;
       }
 
-      v12 = OUTLINED_FUNCTION_0_12(v17, v18, v19, v20, v21, v22, v23, v24, v46, v49, v52, v55, v58, v61, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v94, v97, v99, v101, v103, v105, v107, v109, v111);
+      v12 = OUTLINED_FUNCTION_0_12(v17, v18, v19, v20, v21, v22, v23, v24, v47, v50, v53, v56, v59, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95, v97, v99, v101, v103, v105, v107, v109);
     }
 
     while (v12);
     if (indexSet)
     {
-      v25 = [*(v1 + 24) objectsAtIndexes:indexSet];
-      [*(v1 + 24) removeObjectsAtIndexes:indexSet];
-      if (![*(v1 + 24) count])
+      v25 = [*&v1[6]._os_unfair_lock_opaque objectsAtIndexes:indexSet];
+      [*&v1[6]._os_unfair_lock_opaque removeObjectsAtIndexes:indexSet];
+      if (![*&v1[6]._os_unfair_lock_opaque count])
       {
         [(BWIOSurfacePoller *)v1 _stopPolling];
       }
@@ -158,30 +158,30 @@ LABEL_16:
       v25 = 0;
     }
 
-    os_unfair_lock_unlock((v1 + 16));
-    OUTLINED_FUNCTION_1_13();
-    result = OUTLINED_FUNCTION_1_3(v26, v27, v28, v29, v30, v31, v32, v33, v46, v49, v52, v55, v58, v61, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v94);
+    os_unfair_lock_unlock(v1 + 4);
+    v26 = OUTLINED_FUNCTION_1_13();
+    result = OUTLINED_FUNCTION_1_3(v27, v28, v29, v30, v31, v32, v33, v34, v47, v50, v53, v56, v59, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92, v26);
     if (result)
     {
-      v34 = result;
-      v35 = *v99;
+      v35 = result;
+      v36 = *v99;
       do
       {
-        v36 = 0;
+        v37 = 0;
         do
         {
-          if (*v99 != v35)
+          if (*v99 != v36)
           {
             objc_enumerationMutation(v25);
           }
 
-          v37 = (*([*(v97 + 8 * v36) handler] + 16))();
-          v36 = (v36 + 1);
+          v38 = (*([*(v97 + 8 * v37) handler] + 16))();
+          v37 = (v37 + 1);
         }
 
-        while (v34 != v36);
-        result = OUTLINED_FUNCTION_1_3(v37, v38, v39, v40, v41, v42, v43, v44, v47, v50, v53, v56, v59, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95);
-        v34 = result;
+        while (v35 != v37);
+        result = OUTLINED_FUNCTION_1_3(v38, v39, v40, v41, v42, v43, v44, v45, v48, v51, v54, v57, v60, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93);
+        v35 = result;
       }
 
       while (result);

@@ -143,11 +143,10 @@
 
 + (void)fetchOrCreateWithDictionaryRepresentation:(os_log_t)log inContext:error:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136446210;
-  v3 = "+[STAppException fetchOrCreateWithDictionaryRepresentation:inContext:error:]";
-  _os_log_error_impl(&dword_1B831F000, log, OS_LOG_TYPE_ERROR, "%{public}s: app exceptions empty", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136446210;
+  v2 = "+[STAppException fetchOrCreateWithDictionaryRepresentation:inContext:error:]";
+  _os_log_error_impl(&dword_1B831F000, log, OS_LOG_TYPE_ERROR, "%{public}s: app exceptions empty", &v1, 0xCu);
 }
 
 @end

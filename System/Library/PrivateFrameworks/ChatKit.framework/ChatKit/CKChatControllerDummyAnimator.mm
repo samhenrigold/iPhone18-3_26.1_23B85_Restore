@@ -1079,7 +1079,7 @@ LABEL_48:
       v211 = v210;
       if (v210)
       {
-        [v210 transform];
+        objc_msgSend_transform(v210);
       }
 
       else
@@ -1275,7 +1275,7 @@ void __97__CKChatControllerDummyAnimator__configureQuickReplySendAnimationGroup_
         [v58 ck_requestHighFrameRate];
         [v120 beginTime];
         v60 = v59;
-        [v120 duration];
+        objc_msgSend_duration(v120);
         [v58 setBeginTime:v60 + v61];
         [v58 setDuration:*(a1 + 64) * 0.5];
         [v58 setFromValue:&unk_1F04E8C58];
@@ -1368,7 +1368,7 @@ void __97__CKChatControllerDummyAnimator__configureQuickReplySendAnimationGroup_
         [v101 ck_requestHighFrameRate];
         [v89 beginTime];
         v104 = v103;
-        [v89 duration];
+        objc_msgSend_duration(v89);
         v106 = v104 + v105 + 0.2;
         v107 = v104 + v105 * 0.25;
         if (vabdd_f64(v102, v95) >= 2.0)
@@ -1756,19 +1756,19 @@ void __97__CKChatControllerDummyAnimator__configureQuickReplySendAnimationGroup_
   v124 = [MEMORY[0x1E695DEC8] arrayWithObjects:v165 count:2];
   [layer4 setEmitterBehaviors:v124];
 
-  [animation duration];
+  objc_msgSend_duration(animation);
   [layer4 setDuration:?];
   LODWORD(v125) = 2139095040;
   [layer4 setRepeatCount:v125];
-  [animation duration];
+  objc_msgSend_duration(animation);
   [layer4 setBeginTime:v99 + v126 * 0.21];
   v127 = [MEMORY[0x1E6979390] animationWithKeyPath:@"birthRate"];
   [v127 setValues:&unk_1F04E71B8];
   [v127 setKeyTimes:&unk_1F04E71D0];
-  [animation duration];
+  objc_msgSend_duration(animation);
   [v127 setDuration:?];
   [v127 setFillMode:*MEMORY[0x1E69797E0]];
-  [animation duration];
+  objc_msgSend_duration(animation);
   [v127 setBeginTime:v128 * -0.21];
   [v127 setBeginTimeMode:*MEMORY[0x1E6979588]];
   [v127 setRemovedOnCompletion:0];
@@ -1780,7 +1780,7 @@ void __97__CKChatControllerDummyAnimator__configureQuickReplySendAnimationGroup_
 
   if ((shouldRepeat & 1) == 0)
   {
-    [animation duration];
+    objc_msgSend_duration(animation);
     v133 = v132;
     [emitterCell lifetime];
     v135 = dispatch_time(0, ((v134 + v133 * 0.25) * 1000000000.0));
@@ -1951,11 +1951,11 @@ void __66__CKChatControllerDummyAnimator__beginImpactAnimationWithContext___bloc
         }
 
         v50 = *(*(&v59 + 1) + 8 * i);
-        [v42 duration];
+        objc_msgSend_duration(v42);
         v52 = v51;
         [v50 beginTime];
         v54 = v53;
-        [v50 duration];
+        objc_msgSend_duration(v50);
         v56 = v54 + v55;
         if (v52 >= v56)
         {
@@ -2685,7 +2685,7 @@ void __66__CKChatControllerDummyAnimator__beginGentleAnimationWithContext___bloc
   [v5 setValues:v8];
 
   [v5 setKeyTimes:&unk_1F04E7350];
-  [*(a1 + 32) duration];
+  objc_msgSend_duration(*(a1 + 32));
   [v5 setDuration:?];
   v9 = [*(a1 + 32) timingFunctions];
   [v5 setTimingFunctions:v9];

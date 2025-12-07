@@ -1,4 +1,5 @@
 @interface MORankingParamsMO
++ (id)managedObjectWithObject:(id)object inManagedObjectContext:(id)context forContext:(id)forContext forEvergreenScore:(BOOL)score;
 + (void)_updateRankingParamsMO:(id)o with:(id)with forEvergreenScore:(BOOL)score;
 - (id)rankingParams;
 @end
@@ -62,6 +63,82 @@
   [(MORankingParams *)v3 setCreativityEvergreenTypeEngagementWeight:?];
 
   return v3;
+}
+
++ (id)managedObjectWithObject:(id)object inManagedObjectContext:(id)context forContext:(id)forContext forEvergreenScore:(BOOL)score
+{
+  scoreCopy = score;
+  objectCopy = object;
+  contextCopy = context;
+  forContextCopy = forContext;
+  if (forContextCopy)
+  {
+    v14 = +[MORankingParamsMO fetchRequest];
+    [v14 setFetchLimit:1];
+    [v14 setReturnsObjectsAsFaults:0];
+    v26 = 0;
+    v15 = [contextCopy executeFetchRequest:v14 error:&v26];
+    v16 = v26;
+    if (v16)
+    {
+      v17 = _mo_log_facility_get_os_log(&MOLogFacilityEventBundleStore);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        [MORankingParamsMO managedObjectWithObject:v16 inManagedObjectContext:v17 forContext:? forEvergreenScore:?];
+      }
+
+      v18 = [[MORankingParamsMO alloc] initWithContext:contextCopy];
+      [self _updateRankingParamsMO:v18 with:objectCopy forEvergreenScore:1];
+      [(MORankingParamsMO *)v18 setIsEvergreenEngagementScoreParamsUpdateOnHold:1];
+      [self _updateRankingParamsMO:v18 with:objectCopy forEvergreenScore:0];
+      [(MORankingParamsMO *)v18 setIsParamsUpdateOnHold:1];
+    }
+
+    else
+    {
+      if (![v15 count])
+      {
+        v19 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        {
+          [MORankingParamsMO managedObjectWithObject:v19 inManagedObjectContext:? forContext:? forEvergreenScore:?];
+        }
+
+        v20 = +[NSAssertionHandler currentHandler];
+        [v20 handleFailureInMethod:a2 object:self file:@"MORankingParamsMO+CoreDataClass.m" lineNumber:37 description:{@"Ranking params array size is 0 (in %s:%d)", "+[MORankingParamsMO managedObjectWithObject:inManagedObjectContext:forContext:forEvergreenScore:]", 37}];
+      }
+
+      v21 = [v15 objectAtIndexedSubscript:0];
+      [self _updateRankingParamsMO:v21 with:objectCopy forEvergreenScore:scoreCopy];
+
+      if (scoreCopy)
+      {
+        isEvergreenEngagementScoreParamsUpdateOnHold = [forContextCopy isEvergreenEngagementScoreParamsUpdateOnHold];
+        v23 = [v15 objectAtIndexedSubscript:0];
+        [v23 setIsEvergreenEngagementScoreParamsUpdateOnHold:isEvergreenEngagementScoreParamsUpdateOnHold];
+      }
+
+      else
+      {
+        isParamsUpdateOnHold = [forContextCopy isParamsUpdateOnHold];
+        v23 = [v15 objectAtIndexedSubscript:0];
+        [v23 setIsParamsUpdateOnHold:isParamsUpdateOnHold];
+      }
+
+      v18 = [v15 objectAtIndexedSubscript:0];
+    }
+  }
+
+  else
+  {
+    v18 = [[MORankingParamsMO alloc] initWithContext:contextCopy];
+    [self _updateRankingParamsMO:v18 with:objectCopy forEvergreenScore:1];
+    [(MORankingParamsMO *)v18 setIsEvergreenEngagementScoreParamsUpdateOnHold:1];
+    [self _updateRankingParamsMO:v18 with:objectCopy forEvergreenScore:0];
+    [(MORankingParamsMO *)v18 setIsParamsUpdateOnHold:1];
+  }
+
+  return v18;
 }
 
 + (void)_updateRankingParamsMO:(id)o with:(id)with forEvergreenScore:(BOOL)score

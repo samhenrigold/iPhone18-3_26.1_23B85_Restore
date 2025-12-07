@@ -5,12 +5,12 @@ void sub_29C9D5CE8(uint64_t a1, void *a2)
   v3 = v4;
   if (v4)
   {
-    (*(v4 + 2))(v4);
+    v4[2](v4);
     v3 = v4;
   }
 }
 
-ControlsModuleRootViewController)contentViewController
+UMediaControlsModuleRootViewController)contentViewController
 {
   contentViewController = self->_contentViewController;
   if (!contentViewController)

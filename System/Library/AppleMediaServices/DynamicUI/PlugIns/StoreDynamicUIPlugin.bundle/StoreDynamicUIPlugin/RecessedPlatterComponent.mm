@@ -31,7 +31,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_E4FB0();
+  sub_E4FB0(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

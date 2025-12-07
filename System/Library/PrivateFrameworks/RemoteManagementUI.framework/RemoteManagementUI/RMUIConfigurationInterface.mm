@@ -1,6 +1,7 @@
 @interface RMUIConfigurationInterface
 - (NSString)scopeHeading;
 - (RMUIConfigurationInterface)initWithAccount:(id)account scope:(int64_t)scope initialLoad:(BOOL)load;
+- (RMUIConfigurationInterface)initWithDeclarationsPayloadIdentifier:(id)identifier scope:(int64_t)scope initialLoad:(BOOL)load;
 - (RMUIConfigurationInterface)initWithDeclarationsPayloadIdentifiers:(id)identifiers scope:(int64_t)scope initialLoad:(BOOL)load;
 - (RMUIConfigurationInterface)initWithMDMProfileIdentifier:(id)identifier scope:(int64_t)scope initialLoad:(BOOL)load;
 - (RMUIConfigurationInterface)initWithScope:(int64_t)scope;
@@ -15,6 +16,7 @@
 - (void)_reloadUIWithCompletion:(id)completion;
 - (void)_reloadViewModelsWithCompletion:(id)completion;
 - (void)refreshWithCompletion:(id)completion;
+- (void)setConfigurationActivated:(BOOL)activated forViewModel:(id)model completionHandler:(id)handler;
 @end
 
 @implementation RMUIConfigurationInterface
@@ -101,6 +103,19 @@
     }
   }
 
+  return v11;
+}
+
+- (RMUIConfigurationInterface)initWithDeclarationsPayloadIdentifier:(id)identifier scope:(int64_t)scope initialLoad:(BOOL)load
+{
+  loadCopy = load;
+  v14 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  v8 = MEMORY[0x277CBEA60];
+  identifierCopy2 = identifier;
+  v10 = [v8 arrayWithObjects:&identifierCopy count:1];
+
+  v11 = [(RMUIConfigurationInterface *)self initWithDeclarationsPayloadIdentifiers:v10 scope:scope initialLoad:loadCopy, identifierCopy, v14];
   return v11;
 }
 
@@ -386,7 +401,7 @@ LABEL_9:
 
 void __69__RMUIConfigurationInterface__loadObserverStoreForDDMWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -400,7 +415,7 @@ void __69__RMUIConfigurationInterface__loadObserverStoreForDDMWithCompletion___b
     v20 = +[RMUILog configurationInterface];
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      __69__RMUIConfigurationInterface__loadObserverStoreForDDMWithCompletion___block_invoke_cold_3(a1);
+      __69__RMUIConfigurationInterface__loadObserverStoreForDDMWithCompletion___block_invoke_cold_3();
     }
 
 LABEL_20:
@@ -409,40 +424,40 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v22 = v6;
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
+  v21 = v6;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (!v9)
   {
 LABEL_11:
 
 LABEL_16:
     v20 = +[RMUILog configurationInterface];
-    v6 = v22;
+    v6 = v21;
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      __69__RMUIConfigurationInterface__loadObserverStoreForDDMWithCompletion___block_invoke_cold_2(a1);
+      __69__RMUIConfigurationInterface__loadObserverStoreForDDMWithCompletion___block_invoke_cold_2();
     }
 
     goto LABEL_20;
   }
 
   v10 = v9;
-  v11 = *v24;
+  v11 = *v23;
 LABEL_5:
   v12 = 0;
   while (1)
   {
-    if (*v24 != v11)
+    if (*v23 != v11)
     {
       objc_enumerationMutation(v8);
     }
 
-    v13 = *(*(&v23 + 1) + 8 * v12);
+    v13 = *(*(&v22 + 1) + 8 * v12);
     v14 = [v13 enrollmentURL];
     v15 = [v14 isEqual:*(a1 + 40)];
 
@@ -453,7 +468,7 @@ LABEL_5:
 
     if (v10 == ++v12)
     {
-      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v10)
       {
         goto LABEL_5;
@@ -471,7 +486,7 @@ LABEL_5:
   }
 
   v17 = +[RMUILog configurationInterface];
-  v6 = v22;
+  v6 = v21;
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     __69__RMUIConfigurationInterface__loadObserverStoreForDDMWithCompletion___block_invoke_cold_1(v16);
@@ -486,8 +501,6 @@ LABEL_5:
 
   [WeakRetained _reloadViewModelsWithCompletion:*(a1 + 48)];
 LABEL_21:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadObserverStoreForDeclarationsPayloadWithCompletion:(id)completion
@@ -566,6 +579,77 @@ uint64_t __85__RMUIConfigurationInterface__loadObserverStoreForDeclarationsPaylo
   return [v11 _reloadViewModelsWithCompletion:v12];
 }
 
+- (void)setConfigurationActivated:(BOOL)activated forViewModel:(id)model completionHandler:(id)handler
+{
+  activatedCopy = activated;
+  modelCopy = model;
+  handlerCopy = handler;
+  toggleViewModel = [modelCopy toggleViewModel];
+  [toggleViewModel setToggleState:activatedCopy];
+
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __87__RMUIConfigurationInterface_setConfigurationActivated_forViewModel_completionHandler___block_invoke;
+  v23[3] = &unk_279B07C10;
+  v11 = modelCopy;
+  v24 = v11;
+  v26 = activatedCopy;
+  v12 = handlerCopy;
+  v25 = v12;
+  v13 = MEMORY[0x266720D10](v23);
+  declaration = [v11 declaration];
+  declarationIdentifier = [declaration declarationIdentifier];
+
+  if (!declarationIdentifier)
+  {
+    v21 = +[RMUILog configurationInterface];
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      [RMUIConfigurationInterface setConfigurationActivated:activatedCopy forViewModel:v21 completionHandler:?];
+    }
+
+    v22 = [RMUIError legacyProfilesNoDeclarationToSetActivated:activatedCopy];
+    goto LABEL_13;
+  }
+
+  observerStore = [(RMUIConfigurationInterface *)self observerStore];
+
+  v17 = +[RMUILog configurationInterface];
+  v18 = v17;
+  if (!observerStore)
+  {
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      [RMUIConfigurationInterface setConfigurationActivated:forViewModel:completionHandler:];
+    }
+
+    v22 = [RMUIError legacyProfilesNoObserverStoreForDeclarationID:declarationIdentifier];
+LABEL_13:
+    declaration2 = v22;
+    v13[2](v13, 0, v22);
+    goto LABEL_16;
+  }
+
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  {
+    [RMUIConfigurationInterface setConfigurationActivated:forViewModel:completionHandler:];
+  }
+
+  declaration2 = [v11 declaration];
+  observerStore2 = [(RMUIConfigurationInterface *)self observerStore];
+  if (activatedCopy)
+  {
+    [(RMUIConfigurationInterface *)self _activateConfiguration:declaration2 observerStore:observerStore2 completionHandler:v13];
+  }
+
+  else
+  {
+    [(RMUIConfigurationInterface *)self _deactivateConfiguration:declaration2 observerStore:observerStore2 completionHandler:v13];
+  }
+
+LABEL_16:
+}
+
 void __87__RMUIConfigurationInterface_setConfigurationActivated_forViewModel_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -605,8 +689,7 @@ void __87__RMUIConfigurationInterface_setConfigurationActivated_forViewModel_com
     v4 = 0;
   }
 
-  v6 = *(a1 + 48);
-  v7 = v4;
+  v6 = v4;
   (*(*(a1 + 56) + 16))();
 }
 
@@ -668,13 +751,13 @@ void __85__RMUIConfigurationInterface__activateConfiguration_observerStore_compl
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __85__RMUIConfigurationInterface__activateConfiguration_observerStore_completionHandler___block_invoke_cold_1(a1);
+      __85__RMUIConfigurationInterface__activateConfiguration_observerStore_completionHandler___block_invoke_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __85__RMUIConfigurationInterface__activateConfiguration_observerStore_completionHandler___block_invoke_cold_2(a1);
+    __85__RMUIConfigurationInterface__activateConfiguration_observerStore_completionHandler___block_invoke_cold_2();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -710,130 +793,116 @@ void __87__RMUIConfigurationInterface__deactivateConfiguration_observerStore_com
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __87__RMUIConfigurationInterface__deactivateConfiguration_observerStore_completionHandler___block_invoke_cold_1(a1);
+      __87__RMUIConfigurationInterface__deactivateConfiguration_observerStore_completionHandler___block_invoke_cold_1();
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __87__RMUIConfigurationInterface__deactivateConfiguration_observerStore_completionHandler___block_invoke_cold_2(a1);
+    __87__RMUIConfigurationInterface__deactivateConfiguration_observerStore_completionHandler___block_invoke_cold_2();
   }
 
-  v6 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
 void __69__RMUIConfigurationInterface__loadObserverStoreForDDMWithCompletion___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2(&dword_261E8A000, v2, v3, "Found RMObserverStore: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_261E8A000, v2, v3, "Found RMObserverStore: %{public}@", v4, v5, v6, v7);
 }
 
-void __69__RMUIConfigurationInterface__loadObserverStoreForDDMWithCompletion___block_invoke_cold_2(uint64_t a1)
+void __69__RMUIConfigurationInterface__loadObserverStoreForDDMWithCompletion___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_6(&dword_261E8A000, v1, v2, "No RMObserverStore for MDM profile: %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
+  LODWORD(v7) = 138543362;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_6(&dword_261E8A000, v1, v2, "No RMObserverStore for MDM profile: %{public}@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
-void __69__RMUIConfigurationInterface__loadObserverStoreForDDMWithCompletion___block_invoke_cold_3(uint64_t a1)
+void __69__RMUIConfigurationInterface__loadObserverStoreForDDMWithCompletion___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __85__RMUIConfigurationInterface__loadObserverStoreForDeclarationsPayloadWithCompletion___block_invoke_cold_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) declarationsPayloadIdentifiers];
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2(&dword_261E8A000, v2, v3, "No RMObserverStore for profile payloads: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_261E8A000, v2, v3, "No RMObserverStore for profile payloads: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)setConfigurationActivated:forViewModel:completionHandler:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_261E8A000, v0, OS_LOG_TYPE_DEBUG, "RMUIConfigurationInterface set activation %{public}d for declaration %{public}@", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_261E8A000, v0, OS_LOG_TYPE_DEBUG, "RMUIConfigurationInterface set activation %{public}d for declaration %{public}@", v1, 0x12u);
 }
 
 - (void)setConfigurationActivated:forViewModel:completionHandler:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setConfigurationActivated:(char)a1 forViewModel:(NSObject *)a2 completionHandler:.cold.3(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67240192;
-  v3[1] = a1 & 1;
-  _os_log_error_impl(&dword_261E8A000, a2, OS_LOG_TYPE_ERROR, "No declaration to set activation %{public}d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67240192;
+  v2[1] = a1 & 1;
+  _os_log_error_impl(&dword_261E8A000, a2, OS_LOG_TYPE_ERROR, "No declaration to set activation %{public}d", v2, 8u);
 }
 
 - (void)_activateConfiguration:observerStore:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activateConfiguration:observerStore:completionHandler:.cold.2()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
-  v3 = 2114;
-  v4 = 0;
-  _os_log_error_impl(&dword_261E8A000, v0, OS_LOG_TYPE_ERROR, "Missing profile URL for declaration %{public}@: %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 2114;
+  v3 = 0;
+  _os_log_error_impl(&dword_261E8A000, v0, OS_LOG_TYPE_ERROR, "Missing profile URL for declaration %{public}@: %{public}@", v1, 0x16u);
 }
 
-void __85__RMUIConfigurationInterface__activateConfiguration_observerStore_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __85__RMUIConfigurationInterface__activateConfiguration_observerStore_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __85__RMUIConfigurationInterface__activateConfiguration_observerStore_completionHandler___block_invoke_cold_2(uint64_t a1)
+void __85__RMUIConfigurationInterface__activateConfiguration_observerStore_completionHandler___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_6(&dword_261E8A000, v1, v2, "Installed configuration from %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
+  LODWORD(v7) = 138543362;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_6(&dword_261E8A000, v1, v2, "Installed configuration from %{public}@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
-void __87__RMUIConfigurationInterface__deactivateConfiguration_observerStore_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __87__RMUIConfigurationInterface__deactivateConfiguration_observerStore_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __87__RMUIConfigurationInterface__deactivateConfiguration_observerStore_completionHandler___block_invoke_cold_2(uint64_t a1)
+void __87__RMUIConfigurationInterface__deactivateConfiguration_observerStore_completionHandler___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_6(&dword_261E8A000, v1, v2, "Uninstalled profile with identifier %{public}@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(*MEMORY[0x277D85DE8]);
+  LODWORD(v7) = 138543362;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_6(&dword_261E8A000, v1, v2, "Uninstalled profile with identifier %{public}@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

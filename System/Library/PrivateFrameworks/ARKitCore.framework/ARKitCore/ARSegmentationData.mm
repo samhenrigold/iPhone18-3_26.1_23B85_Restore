@@ -171,13 +171,13 @@ LABEL_16:
   if (!v19)
   {
     v75 = result;
-    v81.columns[1] = a17;
-    v81.columns[2] = a18;
-    v81.columns[0] = a16;
-    v82 = __invert_f3(v81);
-    v64 = v82.columns[1];
-    v65 = v82.columns[0];
-    v63 = v82.columns[2];
+    v82.columns[1] = a18;
+    v82.columns[2] = v81;
+    v82.columns[0] = a17;
+    v83 = __invert_f3(v82);
+    v64 = v83.columns[1];
+    v65 = v83.columns[0];
+    v63 = v83.columns[2];
     Width = CVPixelBufferGetWidth(a10);
     Height = CVPixelBufferGetHeight(a10);
     v24 = CVPixelBufferGetWidth(self[3]);
@@ -430,7 +430,7 @@ LABEL_16:
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  [(ARSegmentationData *)self timestamp];
+  objc_msgSend_timestamp(self);
   v7 = [v3 stringWithFormat:@"%@(%p): %f", v5, self, v6];
 
   return v7;

@@ -10,11 +10,11 @@
 
 - (id)initFromURL:(id)l device:(__MTDevice *)device
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v24.receiver = self;
-  v24.super_class = MTBinaryFilterLegacy;
-  v11 = [(MTBinaryFilterLegacy *)&v24 init];
+  v26.receiver = self;
+  v26.super_class = MTBinaryFilterLegacy;
+  v11 = [(MTBinaryFilterLegacy *)&v26 init];
   v12 = v11;
   if (!v11)
   {
@@ -30,7 +30,7 @@
   {
     if (!device)
     {
-      [MTBinaryFilterLegacy initFromURL:device:];
+      [MTBinaryFilterLegacy initFromURL:lCopy device:v16];
       goto LABEL_19;
     }
 
@@ -39,20 +39,20 @@
       mt_CachePropertiesForDevice(device);
     }
 
-    v16 = MTLoggingFramework();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v19 = MTLoggingFramework(v15, v16);
+    if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_17;
     }
 
     var13 = device->var13;
     *buf = 138543618;
-    v26 = lCopy;
-    v27 = 2048;
-    v28 = var13;
-    v18 = "Could not create bundle %{public}@ (deviceID 0x%llX)";
-    v19 = v16;
-    v20 = 22;
+    v28 = lCopy;
+    v29 = 2048;
+    v30 = var13;
+    v21 = "Could not create bundle %{public}@ (deviceID 0x%llX)";
+    v22 = v19;
+    v23 = 22;
     goto LABEL_16;
   }
 
@@ -63,7 +63,7 @@
   {
     if (!device)
     {
-      [MTBinaryFilterLegacy initFromURL:device:];
+      [MTBinaryFilterLegacy initFromURL:lCopy device:v18];
       goto LABEL_19;
     }
 
@@ -72,24 +72,24 @@
       mt_CachePropertiesForDevice(device);
     }
 
-    v16 = MTLoggingFramework();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v19 = MTLoggingFramework(FunctionPointerForName, v18);
+    if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_17;
     }
 
-    v21 = device->var13;
+    v24 = device->var13;
     *buf = 136446722;
-    v26 = "MTCreateBinaryFilter";
-    v27 = 2114;
-    v28 = lCopy;
-    v29 = 2048;
-    v30 = v21;
-    v18 = "Did not find function pointer %{public}s in bundle %{public}@ (deviceID 0x%llX)";
-    v19 = v16;
-    v20 = 32;
+    v28 = "MTCreateBinaryFilter";
+    v29 = 2114;
+    v30 = lCopy;
+    v31 = 2048;
+    v32 = v24;
+    v21 = "Did not find function pointer %{public}s in bundle %{public}@ (deviceID 0x%llX)";
+    v22 = v19;
+    v23 = 32;
 LABEL_16:
-    _os_log_impl(&dword_25AD59000, v19, OS_LOG_TYPE_ERROR, v18, buf, v20);
+    _os_log_impl(&dword_25AD59000, v22, OS_LOG_TYPE_ERROR, v21, buf, v23);
 LABEL_17:
 
     goto LABEL_18;
@@ -106,7 +106,6 @@ LABEL_18:
   device = v12;
 LABEL_19:
 
-  v22 = *MEMORY[0x277D85DE8];
   return device;
 }
 
@@ -129,16 +128,12 @@ LABEL_19:
 
 - (void)reset
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = MTLoggingFramework();
+  v2 = MTLoggingFramework(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v9 = *(self + 24);
     OUTLINED_FUNCTION_0_0();
     _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -161,30 +156,24 @@ LABEL_19:
   return WeakRetained;
 }
 
-- (void)initFromURL:device:.cold.1()
+- (void)initFromURL:(uint64_t)a1 device:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = MTLoggingFramework();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = MTLoggingFramework(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
-    _os_log_impl(v1, v2, v3, v4, v5, 0x16u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-- (void)initFromURL:device:.cold.2()
+- (void)initFromURL:(uint64_t)a1 device:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = MTLoggingFramework();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = MTLoggingFramework(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
-    _os_log_impl(v1, v2, v3, v4, v5, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

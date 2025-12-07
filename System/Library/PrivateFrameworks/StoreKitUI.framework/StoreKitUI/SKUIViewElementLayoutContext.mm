@@ -229,7 +229,7 @@
   borderDrawingCache = self->_borderDrawingCache;
   if (!borderDrawingCache)
   {
-    v4 = SKUIMPUFoundationFramework();
+    v4 = SKUIMPUFoundationFramework(0, a2);
     v5 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Mpuborderdrawi.isa, v4));
     v6 = self->_borderDrawingCache;
     self->_borderDrawingCache = v5;
@@ -1527,7 +1527,7 @@ LABEL_10:
   v18 = style;
   if (transformCopy && style)
   {
-    [style transform];
+    objc_msgSend_transform(style);
     v19 = v9 * v24 + v22 * v8;
     v9 = fabs(floor(v9 * v25 + v23 * v8));
     v8 = fabs(floor(v19));

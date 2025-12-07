@@ -80,10 +80,11 @@ void ___ef_log_EDSyncableSettings_block_invoke()
 
   _registerDefaultsObservers = [(EDSyncableSettings *)self _registerDefaultsObservers];
   [(EFManualCancelationToken *)self->_cancelable addCancelable:_registerDefaultsObservers];
-  if (![(NSUbiquitousKeyValueStore *)self->_store synchronize])
+  synchronize = [(NSUbiquitousKeyValueStore *)self->_store synchronize];
+  if ((synchronize & 1) == 0)
   {
-    v5 = _ef_log_EDSyncableSettings();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _ef_log_EDSyncableSettings(synchronize);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [EDSyncableSettings beginSyncing];
     }
@@ -176,18 +177,19 @@ LABEL_6:
   [v13 addCancelable:v16];
 }
 
-void __48__EDSyncableSettings__registerDefaultsObservers__block_invoke_2(uint64_t a1, void *a2, void *a3, int a4, void *a5)
+void __48__EDSyncableSettings__registerDefaultsObservers__block_invoke_2(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
+  v5 = a4;
   v9 = a5;
   v10 = a3;
   v11 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [(EDSyncableSettings *)WeakRetained _mergeIntegerSetting:v11 cloudKey:v10 isLocalChange:a4 newValue:v9];
+  [(EDSyncableSettings *)WeakRetained _mergeIntegerSetting:v11 cloudKey:v10 isLocalChange:v5 newValue:v9];
 }
 
 - (void)_mergeIntegerSetting:(void *)setting cloudKey:(int)key isLocalChange:(void *)change newValue:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v9 = a2;
   settingCopy = setting;
   changeCopy = change;
@@ -200,34 +202,36 @@ void __48__EDSyncableSettings__registerDefaultsObservers__block_invoke_2(uint64_
     }
 
     v13 = v12;
+    v14 = v13;
     if (changeCopy || key)
     {
-      if (objc_opt_respondsToSelector())
+      v16 = objc_opt_respondsToSelector();
+      if (v16)
       {
         integerValue = [changeCopy integerValue];
-        v16 = _ef_log_EDSyncableSettings();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v18 = _ef_log_EDSyncableSettings(integerValue);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v26 = v9;
-          v27 = 2114;
-          v28 = v13;
-          _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "syncing setting %{public}@ from %{public}@", buf, 0x16u);
+          v27 = v9;
+          v28 = 2114;
+          v29 = v14;
+          _os_log_impl(&dword_1C61EF000, v18, OS_LOG_TYPE_DEFAULT, "syncing setting %{public}@ from %{public}@", buf, 0x16u);
         }
 
         if (key)
         {
-          v17 = *(self + 32);
-          v18 = [MEMORY[0x1E696AD98] numberWithInteger:integerValue];
-          [v17 setObject:v18 forKey:settingCopy];
+          v19 = *(self + 32);
+          v20 = [MEMORY[0x1E696AD98] numberWithInteger:integerValue];
+          [v19 setObject:v20 forKey:settingCopy];
 
-          v19 = *(self + 16);
-          v24[0] = MEMORY[0x1E69E9820];
-          v24[1] = 3221225472;
-          v24[2] = __75__EDSyncableSettings__mergeIntegerSetting_cloudKey_isLocalChange_newValue___block_invoke;
-          v24[3] = &unk_1E8250260;
-          v24[4] = self;
-          [v19 performBlock:v24];
+          v21 = *(self + 16);
+          v25[0] = MEMORY[0x1E69E9820];
+          v25[1] = 3221225472;
+          v25[2] = __75__EDSyncableSettings__mergeIntegerSetting_cloudKey_isLocalChange_newValue___block_invoke;
+          v25[3] = &unk_1E8250260;
+          v25[4] = self;
+          [v21 performBlock:v25];
         }
 
         else
@@ -238,8 +242,8 @@ void __48__EDSyncableSettings__registerDefaultsObservers__block_invoke_2(uint64_
 
       else if (changeCopy)
       {
-        v20 = _ef_log_EDSyncableSettings();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v22 = _ef_log_EDSyncableSettings(v16);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           [EDSyncableSettings _mergeIntegerSetting:cloudKey:isLocalChange:newValue:];
         }
@@ -248,71 +252,69 @@ void __48__EDSyncableSettings__registerDefaultsObservers__block_invoke_2(uint64_
       else
       {
         [*(self + 32) removeObjectForKey:settingCopy];
-        v21 = *(self + 16);
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __75__EDSyncableSettings__mergeIntegerSetting_cloudKey_isLocalChange_newValue___block_invoke_2;
-        v23[3] = &unk_1E8250260;
-        v23[4] = self;
-        [v21 performBlock:v23];
+        v23 = *(self + 16);
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = __75__EDSyncableSettings__mergeIntegerSetting_cloudKey_isLocalChange_newValue___block_invoke_2;
+        v24[3] = &unk_1E8250260;
+        v24[4] = self;
+        [v23 performBlock:v24];
       }
     }
 
     else
     {
-      v14 = _ef_log_EDSyncableSettings();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = _ef_log_EDSyncableSettings(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v26 = v9;
-        _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Setting %{public}@ was remove remotely", buf, 0xCu);
+        v27 = v9;
+        _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "Setting %{public}@ was remove remotely", buf, 0xCu);
       }
 
       [*(self + 24) removeObjectForKey:v9];
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __41__EDSyncableSettings_syncableSettingsMap__block_invoke(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  v13 = *MEMORY[0x1E699AB98];
-  v11[0] = @"cloudKey";
-  v11[1] = @"mergeType";
-  v12[0] = @"tp";
-  v12[1] = &unk_1F45E6BC8;
-  v11[2] = @"customMergeBlock";
-  v6 = MEMORY[0x1E69E9820];
-  v7 = 3221225472;
-  v8 = __41__EDSyncableSettings_syncableSettingsMap__block_invoke_45;
-  v9 = &unk_1E8257DB8;
-  objc_copyWeak(&v10, (a1 + 32));
-  v1 = _Block_copy(&v6);
-  v12[2] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:{3, v6, v7, v8, v9}];
-  v14[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[1] = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E699AB98];
+  v10[0] = @"cloudKey";
+  v10[1] = @"mergeType";
+  v11[0] = @"tp";
+  v11[1] = &unk_1F45E6BC8;
+  v10[2] = @"customMergeBlock";
+  v5 = MEMORY[0x1E69E9820];
+  v6 = 3221225472;
+  v7 = __41__EDSyncableSettings_syncableSettingsMap__block_invoke_45;
+  v8 = &unk_1E8257DB8;
+  objc_copyWeak(&v9, (a1 + 32));
+  v1 = _Block_copy(&v5);
+  v11[2] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:{3, v5, v6, v7, v8}];
+  v13[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v4 = _MergedGlobals;
   _MergedGlobals = v3;
 
-  objc_destroyWeak(&v10);
-  v5 = *MEMORY[0x1E69E9840];
+  objc_destroyWeak(&v9);
 }
 
-void __41__EDSyncableSettings_syncableSettingsMap__block_invoke_45(uint64_t a1, void *a2, void *a3, int a4, void *a5)
+void __41__EDSyncableSettings_syncableSettingsMap__block_invoke_45(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
+  v5 = a4;
   v9 = a5;
   v10 = a3;
   v11 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [(EDSyncableSettings *)WeakRetained _mergeTrackingSettings:v11 cloudKey:v10 isLocalChange:a4 newValue:v9];
+  [(EDSyncableSettings *)WeakRetained _mergeTrackingSettings:v11 cloudKey:v10 isLocalChange:v5 newValue:v9];
 }
 
 - (void)_mergeTrackingSettings:(void *)settings cloudKey:(int)key isLocalChange:(void *)change newValue:
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v9 = a2;
   settingsCopy = settings;
   changeCopy = change;
@@ -322,42 +324,44 @@ void __41__EDSyncableSettings_syncableSettingsMap__block_invoke_45(uint64_t a1, 
   }
 
   v12 = [*(self + 24) integerForKey:v9];
+  v13 = v12;
   if (changeCopy || key)
   {
-    v14 = @"cloud to device";
+    v15 = @"cloud to device";
     if (key)
     {
-      v14 = @"device to cloud";
+      v15 = @"device to cloud";
     }
 
-    v13 = v14;
-    if (objc_opt_respondsToSelector())
+    v14 = v15;
+    v16 = objc_opt_respondsToSelector();
+    if (v16)
     {
       integerValue = [changeCopy integerValue];
-      v16 = _ef_log_EDSyncableSettings();
-      v17 = v16;
+      v18 = _ef_log_EDSyncableSettings(integerValue);
+      v19 = v18;
       if (integerValue)
       {
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v27 = v13;
-          _os_log_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_DEFAULT, "syncing tracking protection setting from %{public}@", buf, 0xCu);
+          v28 = v14;
+          _os_log_impl(&dword_1C61EF000, v19, OS_LOG_TYPE_DEFAULT, "syncing tracking protection setting from %{public}@", buf, 0xCu);
         }
 
         if (key)
         {
-          v22 = *(self + 32);
-          v23 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:integerValue];
-          [v22 setObject:v23 forKey:settingsCopy];
+          v23 = *(self + 32);
+          v24 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:integerValue];
+          [v23 setObject:v24 forKey:settingsCopy];
 
-          v24 = *(self + 16);
-          v25[0] = MEMORY[0x1E69E9820];
-          v25[1] = 3221225472;
-          v25[2] = __77__EDSyncableSettings__mergeTrackingSettings_cloudKey_isLocalChange_newValue___block_invoke;
-          v25[3] = &unk_1E8250260;
-          v25[4] = self;
-          [v24 performBlock:v25];
+          v25 = *(self + 16);
+          v26[0] = MEMORY[0x1E69E9820];
+          v26[1] = 3221225472;
+          v26[2] = __77__EDSyncableSettings__mergeTrackingSettings_cloudKey_isLocalChange_newValue___block_invoke;
+          v26[3] = &unk_1E8250260;
+          v26[4] = self;
+          [v25 performBlock:v26];
         }
 
         else
@@ -368,7 +372,7 @@ void __41__EDSyncableSettings_syncableSettingsMap__block_invoke_45(uint64_t a1, 
         goto LABEL_17;
       }
 
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [EDSyncableSettings _mergeTrackingSettings:cloudKey:isLocalChange:newValue:];
       }
@@ -376,8 +380,8 @@ void __41__EDSyncableSettings_syncableSettingsMap__block_invoke_45(uint64_t a1, 
 
     else
     {
-      v18 = _ef_log_EDSyncableSettings();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = _ef_log_EDSyncableSettings(v16);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [EDSyncableSettings _mergeTrackingSettings:cloudKey:isLocalChange:newValue:];
       }
@@ -386,31 +390,30 @@ void __41__EDSyncableSettings_syncableSettingsMap__block_invoke_45(uint64_t a1, 
 
   else
   {
-    v13 = _ef_log_EDSyncableSettings();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = _ef_log_EDSyncableSettings(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "skipping syncing tracking protection setting from cloud to device with no new value", buf, 2u);
+      _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "skipping syncing tracking protection setting from cloud to device with no new value", buf, 2u);
     }
   }
 
-  LOBYTE(integerValue) = v12;
+  LOBYTE(integerValue) = v13;
 LABEL_17:
 
   proxyChangeHandler = [self proxyChangeHandler];
-  v20 = proxyChangeHandler;
+  v22 = proxyChangeHandler;
   if (proxyChangeHandler)
   {
     (*(proxyChangeHandler + 16))(proxyChangeHandler, (integerValue & 4) == 0);
   }
 
 LABEL_20:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_storeChangedExternally:(id)externally
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   externallyCopy = externally;
   userInfo = [externallyCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696A9D8]];
@@ -418,8 +421,8 @@ LABEL_20:
 
   if (integerValue == 2)
   {
-    v8 = _ef_log_EDSyncableSettings();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ef_log_EDSyncableSettings(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [EDSyncableSettings _storeChangedExternally:];
     }
@@ -427,21 +430,21 @@ LABEL_20:
 
   else
   {
-    v8 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696A9E0]];
-    v9 = _ef_log_EDSyncableSettings();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v9 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696A9E0]];
+    v10 = _ef_log_EDSyncableSettings(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v17 = integerValue;
-      v18 = 2114;
-      v19 = v8;
-      _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "received external KVS change event: %ld, changed keys=%{public}@", buf, 0x16u);
+      v18 = integerValue;
+      v19 = 2114;
+      v20 = v9;
+      _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "received external KVS change event: %ld, changed keys=%{public}@", buf, 0x16u);
     }
 
     if (integerValue > 3 || integerValue == 2)
     {
-      v12 = _ef_log_EDSyncableSettings();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = _ef_log_EDSyncableSettings(v11);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [EDSyncableSettings _storeChangedExternally:];
       }
@@ -450,23 +453,21 @@ LABEL_20:
     else
     {
       scheduler = self->_scheduler;
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __46__EDSyncableSettings__storeChangedExternally___block_invoke;
-      v14[3] = &unk_1E8250128;
-      v14[4] = self;
-      v8 = v8;
-      v15 = v8;
-      [(EFAssertableScheduler *)scheduler performSyncBlock:v14];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __46__EDSyncableSettings__storeChangedExternally___block_invoke;
+      v15[3] = &unk_1E8250128;
+      v15[4] = self;
+      v9 = v9;
+      v16 = v9;
+      [(EFAssertableScheduler *)scheduler performSyncBlock:v15];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_mergeExternalChangedKeys:(uint64_t)keys
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (keys)
   {
@@ -479,37 +480,37 @@ LABEL_20:
     v4 = _Block_copy(aBlock);
     if ([v3 count])
     {
-      v17 = 0;
+      v16 = 0;
+      v12 = 0u;
       v13 = 0u;
       v14 = 0u;
       v15 = 0u;
-      v16 = 0u;
       v5 = v3;
-      v6 = [v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v12 objects:v18 count:16];
       if (v6)
       {
-        v7 = *v14;
+        v7 = *v13;
 LABEL_5:
         v8 = 0;
         while (1)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * v8);
-          v10 = [*(keys + 32) objectForKey:{v9, v13}];
-          v4[2](v4, v9, v10, &v17);
+          v9 = *(*(&v12 + 1) + 8 * v8);
+          v10 = [*(keys + 32) objectForKey:{v9, v12}];
+          v4[2](v4, v9, v10, &v16);
 
-          if (v17)
+          if (v16)
           {
             break;
           }
 
           if (v6 == ++v8)
           {
-            v6 = [v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
+            v6 = [v5 countByEnumeratingWithState:&v12 objects:v18 count:16];
             if (v6)
             {
               goto LABEL_5;
@@ -527,8 +528,6 @@ LABEL_5:
       [dictionaryRepresentation enumerateKeysAndObjectsUsingBlock:v4];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __48__EDSyncableSettings__mergeExternalChangedKeys___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -669,31 +668,29 @@ void __46__EDSyncableSettings__setChangeAction_forKey___block_invoke(uint64_t a1
   return v17;
 }
 
-void __69__EDSyncableSettings_observeChangesForKey_cloudKey_conflictResolver___block_invoke(void *a1, void *a2)
+void __69__EDSyncableSettings_observeChangesForKey_cloudKey_conflictResolver___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = a2;
+  v10 = a2;
   v3 = [MEMORY[0x1E696AF00] currentThread];
   v4 = [v3 threadDictionary];
-  v5 = [v4 objectForKeyedSubscript:a1[4]];
+  v5 = [v4 objectForKeyedSubscript:*(a1 + 32)];
 
   if (!v5)
   {
     if ((*(*MEMORY[0x1E699B750] + 16))())
     {
 
-      v12 = 0;
+      v10 = 0;
     }
 
     v6 = [MEMORY[0x1E696AF00] currentThread];
     v7 = [v6 threadDictionary];
-    [v7 setObject:MEMORY[0x1E695E118] forKeyedSubscript:a1[4]];
+    [v7 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*(a1 + 32)];
 
-    v8 = a1[5];
-    v9 = a1[4];
-    (*(a1[6] + 16))();
-    v10 = [MEMORY[0x1E696AF00] currentThread];
-    v11 = [v10 threadDictionary];
-    [v11 setObject:0 forKeyedSubscript:a1[4]];
+    (*(*(a1 + 48) + 16))();
+    v8 = [MEMORY[0x1E696AF00] currentThread];
+    v9 = [v8 threadDictionary];
+    [v9 setObject:0 forKeyedSubscript:*(a1 + 32)];
   }
 }
 
@@ -712,15 +709,14 @@ void __69__EDSyncableSettings_observeChangesForKey_cloudKey_conflictResolver___b
   {
     v5 = [MEMORY[0x1E696AF00] currentThread];
     v6 = [v5 threadDictionary];
-    v7 = (a1 + 32);
-    v8 = [v6 objectForKeyedSubscript:*(a1 + 32)];
+    v7 = [v6 objectForKeyedSubscript:*(a1 + 32)];
 
-    if (v8)
+    if (v7)
     {
-      v9 = _ef_log_EDSyncableSettings();
+      v9 = _ef_log_EDSyncableSettings(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __69__EDSyncableSettings_observeChangesForKey_cloudKey_conflictResolver___block_invoke_3_cold_1(v7);
+        __69__EDSyncableSettings_observeChangesForKey_cloudKey_conflictResolver___block_invoke_3_cold_1();
       }
     }
 
@@ -732,7 +728,7 @@ void __69__EDSyncableSettings_observeChangesForKey_cloudKey_conflictResolver___b
       v11[2] = __69__EDSyncableSettings_observeChangesForKey_cloudKey_conflictResolver___block_invoke_51;
       v11[3] = &unk_1E8255188;
       objc_copyWeak(&v14, (a1 + 40));
-      v12 = *v7;
+      v12 = *(a1 + 32);
       v13 = v3;
       [v10 performSyncBlock:v11];
 
@@ -779,48 +775,32 @@ void __69__EDSyncableSettings_observeChangesForKey_cloudKey_conflictResolver___b
 
 - (void)_mergeIntegerSetting:cloudKey:isLocalChange:newValue:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_error_impl(&dword_1C61EF000, v1, OS_LOG_TYPE_ERROR, "Unexpected object set when syncing %{public}@ from %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_1C61EF000, v1, OS_LOG_TYPE_ERROR, "Unexpected object set when syncing %{public}@ from %{public}@", v2, 0x16u);
 }
 
 - (void)_mergeTrackingSettings:cloudKey:isLocalChange:newValue:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_mergeTrackingSettings:cloudKey:isLocalChange:newValue:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_storeChangedExternally:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_7_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __69__EDSyncableSettings_observeChangesForKey_cloudKey_conflictResolver___block_invoke_3_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_7_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

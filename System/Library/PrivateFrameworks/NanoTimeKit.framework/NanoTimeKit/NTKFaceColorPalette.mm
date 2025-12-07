@@ -809,21 +809,21 @@ LABEL_12:
   bundleCopy = bundle;
   inspectorCopy = inspector;
   selfCopy = self;
-  v20 = [(NTKFaceColorPalette *)self entryNameForKey:keyCopy];
-  v58 = namespaceCopy;
+  v21 = [(NTKFaceColorPalette *)self entryNameForKey:keyCopy];
+  v60 = namespaceCopy;
   if (namespaceCopy)
   {
     namespaceCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/", namespaceCopy];
     if (collectionCopy)
     {
-      v22 = nameCopy;
-      v23 = MEMORY[0x277CCACA8];
-      colorOption = colorEntryName(0, v20, [(NTKFaceColorPalette *)self isTritium]);
-      v25 = [v23 stringWithFormat:@"%@%@", namespaceCopy, colorOption];
-      v26 = colorWithName(v25, bundleCopy, inspectorCopy);
+      v23 = nameCopy;
+      v24 = MEMORY[0x277CCACA8];
+      colorOption = colorEntryName(0, v21, [(NTKFaceColorPalette *)self isTritium]);
+      v26 = [v24 stringWithFormat:@"%@%@", namespaceCopy, colorOption];
+      v27 = colorWithName(v26, bundleCopy, inspectorCopy);
 LABEL_19:
 
-      nameCopy = v22;
+      nameCopy = v23;
       goto LABEL_20;
     }
   }
@@ -833,7 +833,7 @@ LABEL_19:
     namespaceCopy = &stru_284110E98;
     if (collectionCopy)
     {
-      v26 = 0;
+      v27 = 0;
       goto LABEL_20;
     }
   }
@@ -841,78 +841,78 @@ LABEL_19:
   if (!nameCopy)
   {
 LABEL_18:
-    v22 = nameCopy;
-    v44 = MEMORY[0x277CCACA8];
+    v23 = nameCopy;
+    v45 = MEMORY[0x277CCACA8];
     colorOption = [(NTKFaceColorPaletteConfiguration *)selfCopy->_configuration colorOption];
-    v25 = colorEntryName(colorOption, v20, [(NTKFaceColorPalette *)selfCopy isTritium]);
-    v45 = [v44 stringWithFormat:@"%@%@", namespaceCopy, v25];
-    v26 = colorWithName(v45, bundleCopy, inspectorCopy);
+    v26 = colorEntryName(colorOption, v21, [(NTKFaceColorPalette *)selfCopy isTritium]);
+    v46 = [v45 stringWithFormat:@"%@%@", namespaceCopy, v26];
+    v27 = colorWithName(v46, bundleCopy, inspectorCopy);
 
     goto LABEL_19;
   }
 
-  v57 = keyCopy;
-  v27 = MEMORY[0x277CCACA8];
+  v59 = keyCopy;
+  v28 = MEMORY[0x277CCACA8];
   [(NTKFaceColorPaletteConfiguration *)self->_configuration colorOption];
-  v28 = v20;
-  v29 = namespaceCopy;
-  v30 = inspectorCopy;
-  v32 = v31 = nameCopy;
-  v33 = colorEntryName(v32, v28, [(NTKFaceColorPalette *)self isTritium]);
-  v55 = v31;
-  v56 = v31;
-  inspectorCopy = v30;
-  namespaceCopy = v29;
-  v34 = [v27 stringWithFormat:@"%@%@/%@", v29, v55, v33];
-  v26 = colorWithName(v34, bundleCopy, inspectorCopy);
+  v29 = v21;
+  v30 = namespaceCopy;
+  v31 = inspectorCopy;
+  v33 = v32 = nameCopy;
+  v34 = colorEntryName(v33, v29, [(NTKFaceColorPalette *)self isTritium]);
+  v57 = v32;
+  v58 = v32;
+  inspectorCopy = v31;
+  namespaceCopy = v30;
+  v35 = [v28 stringWithFormat:@"%@%@/%@", v30, v57, v34];
+  v27 = colorWithName(v35, bundleCopy, inspectorCopy);
 
-  v20 = v28;
-  if (!v26)
+  v21 = v29;
+  if (!v27)
   {
-    keyCopy = v57;
-    if (!v20)
+    keyCopy = v59;
+    if (!v21)
     {
       goto LABEL_17;
     }
 
-    v35 = MEMORY[0x277CCACA8];
-    nameCopy = v56;
-    v36 = colorEntryName(v56, v20, [(NTKFaceColorPalette *)selfCopy isTritium]);
-    v37 = [v35 stringWithFormat:@"%@%@", namespaceCopy, v36];
-    v26 = colorWithName(v37, bundleCopy, inspectorCopy);
+    v36 = MEMORY[0x277CCACA8];
+    nameCopy = v58;
+    v37 = colorEntryName(v58, v21, [(NTKFaceColorPalette *)selfCopy isTritium]);
+    v38 = [v36 stringWithFormat:@"%@%@", namespaceCopy, v37];
+    v27 = colorWithName(v38, bundleCopy, inspectorCopy);
 
-    if (v26)
+    if (v27)
     {
       goto LABEL_20;
     }
 
-    v38 = [v56 componentsSeparatedByString:@"/"];
-    v39 = [v38 mutableCopy];
+    v39 = [v58 componentsSeparatedByString:@"/"];
+    v40 = [v39 mutableCopy];
 
-    [v39 removeLastObject];
-    while ([v39 count])
+    [v40 removeLastObject];
+    while ([v40 count])
     {
-      v40 = [v39 componentsJoinedByString:@"/"];
-      v41 = MEMORY[0x277CCACA8];
-      v42 = colorEntryName(v40, v20, [(NTKFaceColorPalette *)selfCopy isTritium]);
-      v43 = [v41 stringWithFormat:@"%@%@", namespaceCopy, v42];
-      v26 = colorWithName(v43, bundleCopy, inspectorCopy);
+      v41 = [v40 componentsJoinedByString:@"/"];
+      v42 = MEMORY[0x277CCACA8];
+      v43 = colorEntryName(v41, v21, [(NTKFaceColorPalette *)selfCopy isTritium]);
+      v44 = [v42 stringWithFormat:@"%@%@", namespaceCopy, v43];
+      v27 = colorWithName(v44, bundleCopy, inspectorCopy);
 
-      [v39 removeLastObject];
-      if (v26)
+      [v40 removeLastObject];
+      if (v27)
       {
         goto LABEL_15;
       }
     }
 
-    v26 = 0;
+    v27 = 0;
 LABEL_15:
   }
 
-  keyCopy = v57;
+  keyCopy = v59;
 LABEL_17:
-  nameCopy = v56;
-  if (!v26)
+  nameCopy = v58;
+  if (!v27)
   {
     goto LABEL_18;
   }
@@ -920,34 +920,39 @@ LABEL_17:
 LABEL_20:
   if ([keyCopy isEqualToString:kPrimaryColorSelectorName] && (CLKFloatEqualsFloat() & 1) == 0)
   {
-    v47 = keyCopy;
-    v48 = [(NTKFaceColorPalette *)selfCopy _loadColorFromAssetCatalogForKey:@"from" namespace:v58 collectionName:nameCopy bundle:bundleCopy colorFraction:0 ignoringOptionAndCollection:0 inspector:0.5];
-    v49 = nameCopy;
-    v50 = v48;
+    v48 = keyCopy;
+    v49 = [(NTKFaceColorPalette *)selfCopy _loadColorFromAssetCatalogForKey:@"from" namespace:v60 collectionName:nameCopy bundle:bundleCopy colorFraction:0 ignoringOptionAndCollection:0 inspector:0.5];
+    v50 = nameCopy;
     v51 = v49;
-    v52 = [NTKFaceColorPalette _loadColorFromAssetCatalogForKey:selfCopy namespace:"_loadColorFromAssetCatalogForKey:namespace:collectionName:bundle:colorFraction:ignoringOptionAndCollection:inspector:" collectionName:@"to" bundle:v58 colorFraction:0.5 ignoringOptionAndCollection:? inspector:?];
-    v53 = v52;
-    v46 = 0;
-    if (v50 && v52)
+    v52 = v50;
+    v53 = [NTKFaceColorPalette _loadColorFromAssetCatalogForKey:selfCopy namespace:"_loadColorFromAssetCatalogForKey:namespace:collectionName:bundle:colorFraction:ignoringOptionAndCollection:inspector:" collectionName:@"to" bundle:v60 colorFraction:0.5 ignoringOptionAndCollection:? inspector:?];
+    v54 = v53;
+    v47 = 0;
+    if (v51 && v53)
     {
-      if (v26)
+      if (v27)
       {
         CLKCompressFraction();
       }
 
-      v46 = NTKInterpolateBetweenColors();
+      else
+      {
+        fractionCopy = fraction;
+      }
+
+      v47 = NTKInterpolateBetweenColors(fractionCopy);
     }
 
-    nameCopy = v51;
-    keyCopy = v47;
+    nameCopy = v52;
+    keyCopy = v48;
   }
 
   else
   {
-    v46 = v26;
+    v47 = v27;
   }
 
-  return v46;
+  return v47;
 }
 
 - (id)entryNameForKey:(id)key

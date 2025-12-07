@@ -1,485 +1,73 @@
-uint64_t _sSLsE1goiySbx_xtFZ25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO5StoreV_Tt1B5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t IncrementalIdentifier.Stream.Identifier.hash(into:)(uint64_t a1)
 {
-  if (a3 == a1 && a4 == a2)
-  {
-    return 0;
-  }
-
-  v5 = 1;
-  if ((_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-    _stringCompareWithSmolCheck(_:_:expecting:)();
-    return 0;
-  }
-
-  return v5;
-}
-
-uint64_t _sSLsE1goiySbx_xtFZ25IntelligencePlatformQuery21IncrementalIdentifierO10SourceTypeO_Tt1B5(char a1, char a2)
-{
-  v3 = 0x6D6165727473;
-  if (a2)
-  {
-    if (a2 == 1)
-    {
-      v4 = 7628147;
-    }
-
-    else
-    {
-      v4 = 2003134838;
-    }
-
-    if (a2 == 1)
-    {
-      v5 = 0xE300000000000000;
-    }
-
-    else
-    {
-      v5 = 0xE400000000000000;
-    }
-  }
-
-  else
-  {
-    v5 = 0xE600000000000000;
-    v4 = 0x6D6165727473;
-  }
-
-  if (a1)
-  {
-    if (a1 == 1)
-    {
-      v3 = 7628147;
-    }
-
-    else
-    {
-      v3 = 2003134838;
-    }
-
-    if (a1 == 1)
-    {
-      v6 = 0xE300000000000000;
-    }
-
-    else
-    {
-      v6 = 0xE400000000000000;
-    }
-  }
-
-  else
-  {
-    v6 = 0xE600000000000000;
-  }
-
-  if (v4 == v3 && v5 == v6)
-  {
-    v8 = 0;
-  }
-
-  else
-  {
-    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
-  }
-
-  return v8 & 1;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance IncrementalIdentifier.Stream.Storage.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Storage.CodingKeys and conformance IncrementalIdentifier.Stream.Storage.CodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance IncrementalIdentifier.Stream.Storage.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Storage.CodingKeys and conformance IncrementalIdentifier.Stream.Storage.CodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-unint64_t lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Storage.CodingKeys and conformance IncrementalIdentifier.Stream.Storage.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Storage.CodingKeys and conformance IncrementalIdentifier.Stream.Storage.CodingKeys;
-  if (!lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Storage.CodingKeys and conformance IncrementalIdentifier.Stream.Storage.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Storage.CodingKeys and conformance IncrementalIdentifier.Stream.Storage.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Storage.CodingKeys and conformance IncrementalIdentifier.Stream.Storage.CodingKeys;
-  if (!lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Storage.CodingKeys and conformance IncrementalIdentifier.Stream.Storage.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Storage.CodingKeys and conformance IncrementalIdentifier.Stream.Storage.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Storage.CodingKeys and conformance IncrementalIdentifier.Stream.Storage.CodingKeys;
-  if (!lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Storage.CodingKeys and conformance IncrementalIdentifier.Stream.Storage.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Storage.CodingKeys and conformance IncrementalIdentifier.Stream.Storage.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Storage.CodingKeys and conformance IncrementalIdentifier.Stream.Storage.CodingKeys;
-  if (!lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Storage.CodingKeys and conformance IncrementalIdentifier.Stream.Storage.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Storage.CodingKeys and conformance IncrementalIdentifier.Stream.Storage.CodingKeys);
-  }
-
-  return result;
-}
-
-uint64_t protocol witness for IncrementalIdentifier.Identifier.asString.getter in conformance IncrementalIdentifier.Stream.Storage()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  return specialized IncrementalIdentifier.Identifier.asString.getter();
-}
-
-uint64_t IncrementalIdentifier.Stream.Identifier.file.getter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-
-  return OUTLINED_FUNCTION_13_0();
-}
-
-uint64_t IncrementalIdentifier.Stream.Identifier.init(file:offset:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
-{
-  *a4 = result;
-  a4[1] = a2;
-  a4[2] = a3;
-  return result;
-}
-
-BOOL static IncrementalIdentifier.Stream.Identifier.< infix(_:_:)(void *a1, void *a2)
-{
-  v2 = a1[2];
-  v3 = a2[2];
-  if (*a1 == *a2 && a1[1] == a2[1])
-  {
-    return v3 < v2;
-  }
-
-  v5 = 1;
-  OUTLINED_FUNCTION_6_1();
-  if ((_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-    OUTLINED_FUNCTION_6_1();
-    v5 = 0;
-    if (_stringCompareWithSmolCheck(_:_:expecting:)())
-    {
-      return v3 < v2;
-    }
-  }
-
-  return v5;
-}
-
-BOOL static IncrementalIdentifier.Stream.Identifier.== infix(_:_:)(uint64_t a1)
-{
-  v1 = OUTLINED_FUNCTION_63(a1);
-  v4 = *(v3 + 16);
-  v5 = v2[2];
-  if (v1 == *v2 && *(v3 + 8) == v2[1])
-  {
-    return v4 == v5;
-  }
-
-  v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
-  result = 0;
-  if (v7)
-  {
-    return v4 == v5;
-  }
-
-  return result;
-}
-
-uint64_t IncrementalIdentifier.Stream.Identifier.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
-{
-  v3 = a1 == 1701603686 && a2 == 0xE400000000000000;
-  if (v3 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 0;
-  }
-
-  else if (a1 == 0x74657366666FLL && a2 == 0xE600000000000000)
-  {
-
-    return 1;
-  }
-
-  else
-  {
-    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v7)
-    {
-      return 1;
-    }
-
-    else
-    {
-      return 2;
-    }
-  }
-}
-
-uint64_t IncrementalIdentifier.Stream.Identifier.CodingKeys.stringValue.getter(char a1)
-{
-  if (a1)
-  {
-    return 0x74657366666FLL;
-  }
-
-  else
-  {
-    return 1701603686;
-  }
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance IncrementalIdentifier.Stream.Identifier.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  result = IncrementalIdentifier.Stream.Identifier.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
-  return result;
-}
-
-uint64_t protocol witness for CodingKey.init(intValue:) in conformance IncrementalIdentifier.Stream.Identifier.CodingKeys@<X0>(_BYTE *a1@<X8>)
-{
-  result = IncrementalIdentifier.Stream.Identifier.CodingKeys.init(intValue:)();
-  *a1 = result;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance IncrementalIdentifier.Stream.Identifier.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance IncrementalIdentifier.Stream.Identifier.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-void IncrementalIdentifier.Stream.Identifier.encode(to:)()
-{
-  OUTLINED_FUNCTION_23();
-  v3 = v2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO0H0V10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO0H0V10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
-  OUTLINED_FUNCTION_0_2(v4);
-  v6 = v5;
-  v8 = *(v7 + 64);
-  OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v9);
-  OUTLINED_FUNCTION_30();
-  v10 = *v0;
-  v11 = v0[1];
-  v16 = v0[2];
-  v12 = v3[4];
-  OUTLINED_FUNCTION_38(v3, v3[3]);
-  lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys();
-  OUTLINED_FUNCTION_68();
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  KeyedEncodingContainer.encode(_:forKey:)();
-  if (!v1)
-  {
-    OUTLINED_FUNCTION_73();
-    OUTLINED_FUNCTION_50();
-    KeyedEncodingContainer.encode(_:forKey:)();
-  }
-
-  v13 = *(v6 + 8);
-  v14 = OUTLINED_FUNCTION_28();
-  v15(v14);
-  OUTLINED_FUNCTION_48();
-  OUTLINED_FUNCTION_24();
-}
-
-unint64_t lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys;
-  if (!lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys;
-  if (!lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys;
-  if (!lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys;
-  if (!lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys);
-  }
-
-  return result;
-}
-
-uint64_t IncrementalIdentifier.Stream.Identifier.hash(into:)()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
+  v2 = *(v1 + 16);
   String.hash(into:)();
-  return MEMORY[0x259C330A0](v3);
+  return MEMORY[0x259C330A0](v2);
 }
 
-Swift::Int IncrementalIdentifier.Stream.Identifier.hashValue.getter()
+Swift::Int IncrementalIdentifier.Stream.Identifier.hashValue.getter(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = OUTLINED_FUNCTION_54();
-  OUTLINED_FUNCTION_59(v4, v5, v6, v7, v8, v9, v10, v11, v13, v14);
+  v2 = *(v1 + 16);
+  v3 = OUTLINED_FUNCTION_54(a1);
+  OUTLINED_FUNCTION_59(v3, v4, v5, v6, v7, v8, v9, v10, v12, v13);
   String.hash(into:)();
-  MEMORY[0x259C330A0](v3);
+  MEMORY[0x259C330A0](v2);
   return Hasher._finalize()();
 }
 
-void IncrementalIdentifier.Stream.Identifier.init(from:)()
+void IncrementalIdentifier.Stream.Identifier.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, __int16 a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   OUTLINED_FUNCTION_23();
   OUTLINED_FUNCTION_57();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO0H0V10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO0H0V10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
-  OUTLINED_FUNCTION_0_2(v3);
-  v5 = *(v4 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO0H0V10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO0H0V10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
+  OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v6);
+  MEMORY[0x28223BE20](v25);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_5_2();
-  lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys();
-  OUTLINED_FUNCTION_25();
-  if (v1)
+  v26 = lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Identifier.CodingKeys and conformance IncrementalIdentifier.Stream.Identifier.CodingKeys();
+  OUTLINED_FUNCTION_25(&unk_286735050, v27, v26);
+  if (v23)
   {
-    __swift_destroy_boxed_opaque_existential_0(v0);
+    __swift_destroy_boxed_opaque_existential_0(v22);
   }
 
   else
   {
     OUTLINED_FUNCTION_32();
-    v7 = KeyedDecodingContainer.decode(_:forKey:)();
-    v9 = v8;
+    v28 = KeyedDecodingContainer.decode(_:forKey:)();
+    v30 = v29;
     OUTLINED_FUNCTION_73();
     OUTLINED_FUNCTION_32();
-    v10 = KeyedDecodingContainer.decode(_:forKey:)();
-    v11 = OUTLINED_FUNCTION_14_0();
-    v12(v11);
-    *v2 = v7;
-    v2[1] = v9;
-    v2[2] = v10;
+    v31 = KeyedDecodingContainer.decode(_:forKey:)();
+    v32 = OUTLINED_FUNCTION_14_0();
+    v33(v32);
+    *v24 = v28;
+    v24[1] = v30;
+    v24[2] = v31;
 
-    __swift_destroy_boxed_opaque_existential_0(v0);
+    __swift_destroy_boxed_opaque_existential_0(v22);
   }
 
   OUTLINED_FUNCTION_24();
-}
-
-uint64_t protocol witness for IncrementalIdentifier.Identifier.asData.getter in conformance IncrementalIdentifier.Stream.Identifier()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  return specialized IncrementalIdentifier.Identifier.asData.getter();
 }
 
 uint64_t protocol witness for IncrementalIdentifier.Identifier.asDatabaseType.getter in conformance IncrementalIdentifier.Stream.Identifier@<X0>(uint64_t *a1@<X8>)
 {
-  v4 = *v1;
-  v5 = v1[1];
-  v6 = v1[2];
-  result = specialized IncrementalIdentifier.Identifier<>.asDatabaseType.getter();
+  result = specialized IncrementalIdentifier.Identifier<>.asDatabaseType.getter(*v1, v1[1], v1[2]);
   if (!v2)
   {
     *a1 = result;
-    a1[1] = v8;
+    a1[1] = v5;
   }
 
   return result;
-}
-
-uint64_t specialized IncrementalIdentifier.Identifier<>.asDatabaseType.getter()
-{
-  return specialized IncrementalIdentifier.Identifier.asData.getter();
-}
-
-{
-  return specialized IncrementalIdentifier.Identifier.asData.getter();
-}
-
-{
-  return specialized IncrementalIdentifier.Identifier.asData.getter();
-}
-
-{
-  return specialized IncrementalIdentifier.Identifier.asData.getter();
-}
-
-uint64_t IncrementalIdentifier.Identifier<>.asDatabaseType.getter(uint64_t a1, uint64_t a2)
-{
-  OUTLINED_FUNCTION_58(a1, a2);
-  return v2();
-}
-
-{
-  return (*(a2 + 56))();
 }
 
 double specialized IncrementalIdentifier.Identifier<>.init(dbType:)@<D0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v7 = MEMORY[0x259C331C0]();
-  v8 = type metadata accessor for JSONDecoder();
-  v9 = *(v8 + 48);
-  v10 = *(v8 + 52);
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
   lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Identifier and conformance IncrementalIdentifier.Stream.Identifier();
@@ -489,9 +77,9 @@ double specialized IncrementalIdentifier.Identifier<>.init(dbType:)@<D0>(uint64_
   outlined consume of Data._Representation(a1, a2);
   if (!v3)
   {
-    result = *&v12;
-    *a3 = v12;
-    *(a3 + 16) = v13;
+    result = *&v9;
+    *a3 = v9;
+    *(a3 + 16) = v10;
   }
 
   return result;
@@ -499,9 +87,7 @@ double specialized IncrementalIdentifier.Identifier<>.init(dbType:)@<D0>(uint64_
 
 {
   v7 = MEMORY[0x259C331C0]();
-  v8 = type metadata accessor for JSONDecoder();
-  v9 = *(v8 + 48);
-  v10 = *(v8 + 52);
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
   lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Store and conformance IncrementalIdentifier.Stream.Store();
@@ -511,10 +97,10 @@ double specialized IncrementalIdentifier.Identifier<>.init(dbType:)@<D0>(uint64_
   outlined consume of Data._Representation(a1, a2);
   if (!v3)
   {
-    result = *&v12;
-    *a3 = v12;
-    *(a3 + 16) = v13;
-    *(a3 + 24) = v14;
+    result = *&v9;
+    *a3 = v9;
+    *(a3 + 16) = v10;
+    *(a3 + 24) = v11;
   }
 
   return result;
@@ -523,9 +109,7 @@ double specialized IncrementalIdentifier.Identifier<>.init(dbType:)@<D0>(uint64_
 __n128 specialized IncrementalIdentifier.Identifier<>.init(dbType:)@<Q0>(uint64_t a1@<X0>, unint64_t a2@<X1>, __n128 *a3@<X8>)
 {
   v7 = MEMORY[0x259C331C0]();
-  v8 = type metadata accessor for JSONDecoder();
-  v9 = *(v8 + 48);
-  v10 = *(v8 + 52);
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
   lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Bookmark and conformance IncrementalIdentifier.Stream.Bookmark();
@@ -535,12 +119,12 @@ __n128 specialized IncrementalIdentifier.Identifier<>.init(dbType:)@<Q0>(uint64_
   outlined consume of Data._Representation(a1, a2);
   if (!v3)
   {
-    result = v14;
-    a3->n128_u64[0] = v12;
-    a3->n128_u64[1] = v13;
-    a3[1] = v14;
-    a3[2].n128_u64[0] = v15;
-    a3[2].n128_u64[1] = v16;
+    result = v11;
+    a3->n128_u64[0] = v9;
+    a3->n128_u64[1] = v10;
+    a3[1] = v11;
+    a3[2].n128_u64[0] = v12;
+    a3[2].n128_u64[1] = v13;
   }
 
   return result;
@@ -549,9 +133,7 @@ __n128 specialized IncrementalIdentifier.Identifier<>.init(dbType:)@<Q0>(uint64_
 uint64_t specialized IncrementalIdentifier.Identifier<>.init(dbType:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
 {
   v7 = MEMORY[0x259C331C0]();
-  v8 = type metadata accessor for JSONDecoder();
-  v9 = *(v8 + 48);
-  v10 = *(v8 + 52);
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
   lazy protocol witness table accessor for type IncrementalIdentifier.View.Store and conformance IncrementalIdentifier.View.Store();
@@ -561,8 +143,8 @@ uint64_t specialized IncrementalIdentifier.Identifier<>.init(dbType:)@<X0>(uint6
   result = outlined consume of Data._Representation(a1, a2);
   if (!v3)
   {
-    *a3 = v12;
-    a3[1] = v13;
+    *a3 = v9;
+    a3[1] = v10;
   }
 
   return result;
@@ -570,38 +152,20 @@ uint64_t specialized IncrementalIdentifier.Identifier<>.init(dbType:)@<X0>(uint6
 
 uint64_t IncrementalIdentifier.Identifier<>.init(dbType:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  return (*(a4 + 96))();
+  return (*(a4 + 96))(a1, a2, a3);
 }
 
 {
-  return (*(a4 + 80))();
+  return (*(a4 + 80))(a1, a2, a3);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IncrementalIdentifier.Stream.Identifier()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IncrementalIdentifier.Stream.Identifier(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
+  v2 = *(v1 + 16);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  MEMORY[0x259C330A0](v3);
+  MEMORY[0x259C330A0](v2);
   return Hasher._finalize()();
-}
-
-uint64_t IncrementalIdentifier.Stream.Bookmark.file.getter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-
-  return OUTLINED_FUNCTION_13_0();
-}
-
-uint64_t IncrementalIdentifier.Stream.Bookmark.tombstoneFile.getter()
-{
-  v1 = *(v0 + 24);
-  v2 = *(v0 + 32);
-
-  return OUTLINED_FUNCTION_13_0();
 }
 
 uint64_t IncrementalIdentifier.Stream.Bookmark.init(file:offset:tombstoneFile:tombstoneOffset:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, void *a7@<X8>)
@@ -617,28 +181,24 @@ uint64_t IncrementalIdentifier.Stream.Bookmark.init(file:offset:tombstoneFile:to
 
 BOOL static IncrementalIdentifier.Stream.Bookmark.< infix(_:_:)(void *a1, void *a2)
 {
-  v3 = a1[2];
-  v2 = a1[3];
-  v5 = a1[4];
-  v4 = a1[5];
-  v6 = a2[2];
-  v7 = a2[3];
-  v9 = a2[4];
-  v8 = a2[5];
-  v10 = *a1 == *a2 && a1[1] == a2[1];
-  v11 = v10;
-  if (v10)
+  v2 = a1[2];
+  v3 = a2[2];
+  v4 = a2[3];
+  v5 = a2[4];
+  v6 = *a1 == *a2 && a1[1] == a2[1];
+  v7 = v6;
+  if (v6)
   {
-    if (v6 < v3)
+    if (v3 < v2)
     {
       return 1;
     }
 
-    v17 = a2[5];
-    v18 = a1[5];
-    v19 = a1[4];
-    v20 = a1[3];
-    if (v3 != v6)
+    v13 = a2[5];
+    v14 = a1[5];
+    v15 = a1[4];
+    v16 = a1[3];
+    if (v2 != v3)
     {
       goto LABEL_24;
     }
@@ -646,44 +206,44 @@ BOOL static IncrementalIdentifier.Stream.Bookmark.< infix(_:_:)(void *a1, void *
 
   else
   {
-    v17 = a2[5];
-    v18 = a1[5];
-    v19 = a1[4];
-    v20 = a1[3];
-    v12 = 1;
+    v13 = a2[5];
+    v14 = a1[5];
+    v15 = a1[4];
+    v16 = a1[3];
+    v8 = 1;
     OUTLINED_FUNCTION_7_1();
-    v13 = _stringCompareWithSmolCheck(_:_:expecting:)();
-    if (v13)
+    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    if (v9)
     {
-      return v12;
+      return v8;
     }
 
     OUTLINED_FUNCTION_7_1();
-    if ((_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0 && v6 < v3)
+    if ((_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0 && v3 < v2)
     {
-      return v12;
+      return v8;
     }
 
     OUTLINED_FUNCTION_7_1();
-    if ((_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || v3 != v6)
+    if ((_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || v2 != v3)
     {
       goto LABEL_26;
     }
   }
 
-  if (v20 != v7 || v19 != v9)
+  if (v16 != v4 || v15 != v5)
   {
-    v12 = 1;
+    v8 = 1;
     if (_stringCompareWithSmolCheck(_:_:expecting:)())
     {
-      return v12;
+      return v8;
     }
   }
 
-  if (v11)
+  if (v7)
   {
 LABEL_24:
-    if (v3 != v6)
+    if (v2 != v3)
     {
       return 0;
     }
@@ -693,20 +253,20 @@ LABEL_24:
 
 LABEL_26:
   OUTLINED_FUNCTION_7_1();
-  v12 = 0;
-  if ((_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0 && v3 == v6)
+  v8 = 0;
+  if ((_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0 && v2 == v3)
   {
 LABEL_28:
-    v15 = v20 == v7 && v19 == v9;
-    if (v15 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    v11 = v16 == v4 && v15 == v5;
+    if (v11 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
     {
-      return v17 < v18;
+      return v13 < v14;
     }
 
     return 0;
   }
 
-  return v12;
+  return v8;
 }
 
 BOOL static IncrementalIdentifier.Stream.Bookmark.== infix(_:_:)(uint64_t a1)
@@ -803,10 +363,11 @@ uint64_t IncrementalIdentifier.Stream.Bookmark.CodingKeys.init(stringValue:)(uin
   }
 }
 
-Swift::Int IncrementalIdentifier.PersistableGlobalIdentifier.CodingKeys.hashValue.getter(unsigned __int8 a1)
+Swift::Int IncrementalIdentifier.PersistableGlobalIdentifier.CodingKeys.hashValue.getter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_54();
-  MEMORY[0x259C33090](a1);
+  v1 = a1;
+  OUTLINED_FUNCTION_54(a1);
+  MEMORY[0x259C33090](v1);
   return Hasher._finalize()();
 }
 
@@ -829,11 +390,11 @@ uint64_t IncrementalIdentifier.Stream.Bookmark.CodingKeys.stringValue.getter(cha
   return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IncrementalIdentifier.PersistableGlobalIdentifier.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IncrementalIdentifier.PersistableGlobalIdentifier.CodingKeys(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x259C33090](v1);
+  MEMORY[0x259C33090](v2);
   return Hasher._finalize()();
 }
 
@@ -858,32 +419,23 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-void IncrementalIdentifier.Stream.Bookmark.encode(to:)()
+void IncrementalIdentifier.Stream.Bookmark.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11, char a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   OUTLINED_FUNCTION_23();
-  v4 = v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO8BookmarkV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO8BookmarkV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
-  OUTLINED_FUNCTION_0_2(v5);
-  v7 = v6;
-  v9 = *(v8 + 64);
+  v27 = v26;
+  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO8BookmarkV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO8BookmarkV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
+  OUTLINED_FUNCTION_0_2();
+  v30 = v29;
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v10);
+  MEMORY[0x28223BE20](v31);
   OUTLINED_FUNCTION_30();
-  v11 = *v0;
-  v12 = v0[1];
-  v17 = v0[3];
-  v18 = v0[2];
-  v15 = v0[5];
-  v16 = v0[4];
-  v13 = v4[3];
-  v14 = v4[4];
-  OUTLINED_FUNCTION_9_0(v4);
+  OUTLINED_FUNCTION_9_0(v27);
   lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Bookmark.CodingKeys and conformance IncrementalIdentifier.Stream.Bookmark.CodingKeys();
   OUTLINED_FUNCTION_68();
   OUTLINED_FUNCTION_39();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   KeyedEncodingContainer.encode(_:forKey:)();
-  if (!v1)
+  if (!v24)
   {
     OUTLINED_FUNCTION_73();
     OUTLINED_FUNCTION_50();
@@ -895,7 +447,7 @@ void IncrementalIdentifier.Stream.Bookmark.encode(to:)()
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  (*(v7 + 8))(v2, v5);
+  (*(v30 + 8))(v25, v28);
   OUTLINED_FUNCTION_48();
   OUTLINED_FUNCTION_24();
 }
@@ -945,129 +497,96 @@ unint64_t lazy protocol witness table accessor for type IncrementalIdentifier.St
   return result;
 }
 
-uint64_t IncrementalIdentifier.Stream.Bookmark.hash(into:)()
+uint64_t IncrementalIdentifier.Stream.Bookmark.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v6 = v0[5];
+  v2 = *(v1 + 16);
+  v3 = *(v1 + 40);
   String.hash(into:)();
-  MEMORY[0x259C330A0](v3);
+  MEMORY[0x259C330A0](v2);
   String.hash(into:)();
-  return MEMORY[0x259C330A0](v6);
+  return MEMORY[0x259C330A0](v3);
 }
 
-Swift::Int IncrementalIdentifier.Stream.Bookmark.hashValue.getter()
+Swift::Int IncrementalIdentifier.Stream.Bookmark.hashValue.getter(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v6 = v0[5];
-  v7 = OUTLINED_FUNCTION_54();
-  OUTLINED_FUNCTION_59(v7, v8, v9, v10, v11, v12, v13, v14, v16, v17);
+  v2 = *(v1 + 16);
+  v3 = *(v1 + 40);
+  v4 = OUTLINED_FUNCTION_54(a1);
+  OUTLINED_FUNCTION_59(v4, v5, v6, v7, v8, v9, v10, v11, v13, v14);
+  String.hash(into:)();
+  MEMORY[0x259C330A0](v2);
   String.hash(into:)();
   MEMORY[0x259C330A0](v3);
-  String.hash(into:)();
-  MEMORY[0x259C330A0](v6);
   return Hasher._finalize()();
 }
 
-void IncrementalIdentifier.Stream.Bookmark.init(from:)()
+void IncrementalIdentifier.Stream.Bookmark.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11, char a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   OUTLINED_FUNCTION_23();
-  v2 = v1;
-  v4 = v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO8BookmarkV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO8BookmarkV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
-  OUTLINED_FUNCTION_0_2(v5);
-  v7 = *(v6 + 64);
+  v26 = v25;
+  v28 = v27;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO8BookmarkV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO8BookmarkV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
+  OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](v29);
   OUTLINED_FUNCTION_56();
-  v9 = v2[4];
-  OUTLINED_FUNCTION_38(v2, v2[3]);
+  OUTLINED_FUNCTION_38(v26, v26[3]);
   lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Bookmark.CodingKeys and conformance IncrementalIdentifier.Stream.Bookmark.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v24)
   {
-    __swift_destroy_boxed_opaque_existential_0(v2);
+    __swift_destroy_boxed_opaque_existential_0(v26);
   }
 
   else
   {
     OUTLINED_FUNCTION_31();
-    v10 = KeyedDecodingContainer.decode(_:forKey:)();
-    v12 = v11;
+    v30 = KeyedDecodingContainer.decode(_:forKey:)();
+    v32 = v31;
     OUTLINED_FUNCTION_73();
     OUTLINED_FUNCTION_31();
-    v18 = KeyedDecodingContainer.decode(_:forKey:)();
+    v38 = KeyedDecodingContainer.decode(_:forKey:)();
     OUTLINED_FUNCTION_31();
-    v17 = KeyedDecodingContainer.decode(_:forKey:)();
-    v19 = v13;
+    v37 = KeyedDecodingContainer.decode(_:forKey:)();
+    v39 = v33;
     OUTLINED_FUNCTION_31();
-    v14 = KeyedDecodingContainer.decode(_:forKey:)();
-    v15 = OUTLINED_FUNCTION_34();
-    v16(v15);
-    *v4 = v10;
-    v4[1] = v12;
-    v4[2] = v18;
-    v4[3] = v17;
-    v4[4] = v19;
-    v4[5] = v14;
+    v34 = KeyedDecodingContainer.decode(_:forKey:)();
+    v35 = OUTLINED_FUNCTION_34();
+    v36(v35);
+    *v28 = v30;
+    v28[1] = v32;
+    v28[2] = v38;
+    v28[3] = v37;
+    v28[4] = v39;
+    v28[5] = v34;
 
-    __swift_destroy_boxed_opaque_existential_0(v2);
+    __swift_destroy_boxed_opaque_existential_0(v26);
   }
 
   OUTLINED_FUNCTION_24();
 }
 
-_BYTE *protocol witness for IncrementalIdentifier.Identifier.asString.getter in conformance IncrementalIdentifier.Stream.Bookmark()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = v0[2];
-  return specialized IncrementalIdentifier.Identifier.asString.getter();
-}
-
-uint64_t protocol witness for IncrementalIdentifier.Identifier.asData.getter in conformance IncrementalIdentifier.Stream.Bookmark()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = v0[2];
-  return specialized IncrementalIdentifier.Identifier.asData.getter();
-}
-
 uint64_t protocol witness for IncrementalIdentifier.Identifier.asDatabaseType.getter in conformance IncrementalIdentifier.Stream.Bookmark@<X0>(uint64_t *a1@<X8>)
 {
-  v6 = *v1;
-  v7 = v1[1];
-  v8 = v1[2];
   result = specialized IncrementalIdentifier.Identifier<>.asDatabaseType.getter();
-  if (!v2)
+  if (!v1)
   {
     *a1 = result;
-    a1[1] = v5;
+    a1[1] = v4;
   }
 
   return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IncrementalIdentifier.Stream.Bookmark()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IncrementalIdentifier.Stream.Bookmark(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v6 = v0[5];
+  v2 = *(v1 + 16);
+  v3 = *(v1 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  MEMORY[0x259C330A0](v3);
+  MEMORY[0x259C330A0](v2);
   String.hash(into:)();
-  MEMORY[0x259C330A0](v6);
+  MEMORY[0x259C330A0](v3);
   return Hasher._finalize()();
 }
 
@@ -1170,23 +689,16 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-void IncrementalIdentifier.Stream.Store.encode(to:)()
+void IncrementalIdentifier.Stream.Store.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   OUTLINED_FUNCTION_23();
-  v3 = v2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO5StoreV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO5StoreV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
-  OUTLINED_FUNCTION_0_2(v4);
-  v6 = v5;
-  v8 = *(v7 + 64);
+  v16 = v15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO5StoreV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO5StoreV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
+  OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v9);
+  MEMORY[0x28223BE20](v17);
   OUTLINED_FUNCTION_30();
-  v10 = *v0;
-  v11 = v0[1];
-  v16 = v0[2];
-  v17 = v0[3];
-  v12 = v3[4];
-  OUTLINED_FUNCTION_38(v3, v3[3]);
+  OUTLINED_FUNCTION_38(v16, v16[3]);
   lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Store.CodingKeys and conformance IncrementalIdentifier.Stream.Store.CodingKeys();
 
   OUTLINED_FUNCTION_68();
@@ -1195,7 +707,7 @@ void IncrementalIdentifier.Stream.Store.encode(to:)()
   OUTLINED_FUNCTION_3_2();
   KeyedEncodingContainer.encode<A>(_:forKey:)();
 
-  if (!v1)
+  if (!v14)
   {
     OUTLINED_FUNCTION_72();
     lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Storage and conformance IncrementalIdentifier.Stream.Storage();
@@ -1205,9 +717,8 @@ void IncrementalIdentifier.Stream.Store.encode(to:)()
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  v13 = *(v6 + 8);
-  v14 = OUTLINED_FUNCTION_28();
-  v15(v14);
+  v18 = OUTLINED_FUNCTION_28();
+  v19(v18);
   OUTLINED_FUNCTION_48();
   OUTLINED_FUNCTION_24();
 }
@@ -1413,48 +924,39 @@ unint64_t lazy protocol witness table accessor for type IncrementalIdentifier.St
   return result;
 }
 
-uint64_t IncrementalIdentifier.Stream.Store.hash(into:)()
+uint64_t IncrementalIdentifier.Stream.Store.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
   String.hash(into:)();
 
   return String.hash(into:)();
 }
 
-Swift::Int IncrementalIdentifier.Stream.Store.hashValue.getter()
+Swift::Int IncrementalIdentifier.Stream.Store.hashValue.getter(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
-  v5 = OUTLINED_FUNCTION_54();
-  OUTLINED_FUNCTION_59(v5, v6, v7, v8, v9, v10, v11, v12, v14, v15);
+  v1 = OUTLINED_FUNCTION_54(a1);
+  OUTLINED_FUNCTION_59(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11);
   String.hash(into:)();
   String.hash(into:)();
   return Hasher._finalize()();
 }
 
-void IncrementalIdentifier.Stream.Store.init(from:)()
+void IncrementalIdentifier.Stream.Store.init(from:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_23();
-  v2 = v1;
-  v4 = v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO5StoreV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO5StoreV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
-  OUTLINED_FUNCTION_0_2(v5);
-  v7 = *(v6 + 64);
+  v3 = v2;
+  v5 = v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO5StoreV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO6StreamO5StoreV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
+  OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](v7);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_5_2();
   lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Store.CodingKeys and conformance IncrementalIdentifier.Stream.Store.CodingKeys();
   OUTLINED_FUNCTION_39();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v1)
   {
-    __swift_destroy_boxed_opaque_existential_0(v2);
+    __swift_destroy_boxed_opaque_existential_0(v3);
   }
 
   else
@@ -1466,51 +968,40 @@ void IncrementalIdentifier.Stream.Store.init(from:)()
     lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Storage and conformance IncrementalIdentifier.Stream.Storage();
     OUTLINED_FUNCTION_12_0();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v9 = OUTLINED_FUNCTION_33();
-    v10(v9, v5);
-    *v4 = v11;
-    v4[1] = v12;
-    v4[2] = v11;
-    v4[3] = v12;
+    v8 = OUTLINED_FUNCTION_33();
+    v9(v8, v6);
+    *v5 = v10;
+    v5[1] = v11;
+    v5[2] = v10;
+    v5[3] = v11;
 
-    __swift_destroy_boxed_opaque_existential_0(v2);
+    __swift_destroy_boxed_opaque_existential_0(v3);
   }
 
   OUTLINED_FUNCTION_24();
 }
 
-uint64_t protocol witness for IncrementalIdentifier.Identifier.asData.getter in conformance IncrementalIdentifier.Stream.Store()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  return specialized IncrementalIdentifier.Identifier.asData.getter();
-}
-
 uint64_t protocol witness for IncrementalIdentifier.Identifier.asDatabaseType.getter in conformance IncrementalIdentifier.Stream.Store@<X0>(uint64_t *a1@<X8>)
 {
-  v4 = *v1;
-  v5 = v1[1];
-  v6 = v1[2];
-  v7 = v1[3];
-  result = specialized IncrementalIdentifier.Identifier<>.asDatabaseType.getter();
+  result = specialized IncrementalIdentifier.Identifier<>.asDatabaseType.getter(*v1, v1[1], v1[2], v1[3]);
   if (!v2)
   {
     *a1 = result;
-    a1[1] = v9;
+    a1[1] = v5;
   }
 
   return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IncrementalIdentifier.Stream.Store()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IncrementalIdentifier.Stream.Store(uint64_t a1)
 {
-  v2 = *v0;
-  v3 = *(v0 + 2);
-  v4 = *(v0 + 3);
+  v2 = *(v1 + 2);
+  v3 = *(v1 + 3);
+  v6 = *v1;
+  v7 = v2;
+  v8 = v3;
   Hasher.init(_seed:)();
-  IncrementalIdentifier.Stream.Store.hash(into:)();
+  IncrementalIdentifier.Stream.Store.hash(into:)(v5);
   return Hasher._finalize()();
 }
 
@@ -1557,78 +1048,75 @@ uint64_t _s25IntelligencePlatformQuery21IncrementalIdentifierO05StoreE0PAAE1loiy
 
 uint64_t static IncrementalIdentifier.StoreIdentifier.< infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  swift_getAssociatedTypeWitness();
+  OUTLINED_FUNCTION_0_2();
+  v41 = v9;
+  v42 = v8;
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_11_0();
+  v40 = (v10 - v11);
+  MEMORY[0x28223BE20](v12);
+  v39 = &v38 - v13;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v9 = OUTLINED_FUNCTION_0_2(AssociatedTypeWitness);
-  v48 = v10;
-  v49 = v9;
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_0_2();
+  v16 = v15;
+  MEMORY[0x28223BE20](v17);
   OUTLINED_FUNCTION_11_0();
-  v47 = v13 - v14;
-  MEMORY[0x28223BE20](v15);
-  v46 = &v45 - v16;
-  v17 = swift_getAssociatedTypeWitness();
-  v18 = OUTLINED_FUNCTION_0_2(v17);
-  v20 = v19;
-  v22 = *(v21 + 64);
-  MEMORY[0x28223BE20](v18);
-  OUTLINED_FUNCTION_11_0();
-  v25 = v23 - v24;
-  MEMORY[0x28223BE20](v26);
-  v28 = &v45 - v27;
-  v29 = *(a4 + 48);
-  v50 = a1;
-  v29(a3, a4);
-  v51 = a2;
-  v29(a3, a4);
-  v52 = a3;
-  v30 = *(*(swift_getAssociatedConformanceWitness() + 8) + 8);
+  v20 = v18 - v19;
+  MEMORY[0x28223BE20](v21);
+  v23 = &v38 - v22;
+  v24 = *(a4 + 48);
+  v43 = a1;
+  v24(a3, a4);
+  v44 = a2;
+  v24(a3, a4);
+  v45 = a3;
+  v25 = *(*(swift_getAssociatedConformanceWitness() + 8) + 8);
   OUTLINED_FUNCTION_40();
   LOBYTE(a1) = dispatch thunk of static Comparable.< infix(_:_:)();
-  v31 = *(v20 + 8);
-  v31(v25, v17);
-  v31(v28, v17);
+  v26 = *(v16 + 8);
+  v26(v20, AssociatedTypeWitness);
+  v26(v23, AssociatedTypeWitness);
   if (a1)
   {
-    v32 = 1;
+    v27 = 1;
   }
 
   else
   {
-    v45 = v30;
-    v33 = v52;
-    v29(v52, a4);
-    v29(v33, a4);
-    v34 = *(v45 + 8);
+    v38 = v25;
+    v28 = v45;
+    v24(v45, a4);
+    v24(v28, a4);
     OUTLINED_FUNCTION_40();
-    v35 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v31(v25, v17);
-    v31(v28, v17);
-    if (v35)
+    v29 = dispatch thunk of static Equatable.== infix(_:_:)();
+    v26(v20, AssociatedTypeWitness);
+    v26(v23, AssociatedTypeWitness);
+    if (v29)
     {
-      v36 = *(a4 + 56);
-      v37 = v46;
-      v38 = OUTLINED_FUNCTION_70();
-      v36(v38);
-      v39 = v47;
-      v40 = OUTLINED_FUNCTION_70();
-      v36(v40);
-      v41 = v49;
-      v42 = *(*(swift_getAssociatedConformanceWitness() + 8) + 8);
+      v30 = *(a4 + 56);
+      v31 = v39;
+      v32 = OUTLINED_FUNCTION_70();
+      v30(v32);
+      v33 = v40;
+      v34 = OUTLINED_FUNCTION_70();
+      v30(v34);
+      v35 = v42;
+      swift_getAssociatedConformanceWitness();
       OUTLINED_FUNCTION_40();
-      v32 = dispatch thunk of static Comparable.< infix(_:_:)();
-      v43 = *(v48 + 8);
-      v43(v39, v41);
-      v43(v37, v41);
+      v27 = dispatch thunk of static Comparable.< infix(_:_:)();
+      v36 = *(v41 + 8);
+      v36(v33, v35);
+      v36(v31, v35);
     }
 
     else
     {
-      v32 = 0;
+      v27 = 0;
     }
   }
 
-  return v32 & 1;
+  return v27 & 1;
 }
 
 uint64_t protocol witness for CustomStringConvertible.description.getter in conformance IncrementalIdentifier.View.Source.CodingKeys(uint64_t a1)
@@ -1690,13 +1178,6 @@ unint64_t lazy protocol witness table accessor for type IncrementalIdentifier.Vi
   return result;
 }
 
-uint64_t protocol witness for IncrementalIdentifier.Identifier.asString.getter in conformance IncrementalIdentifier.View.Source()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  return specialized IncrementalIdentifier.Identifier.asString.getter();
-}
-
 uint64_t protocol witness for CodingKey.init(stringValue:) in conformance IncrementalIdentifier.View.Storage.CodingKeys@<X0>(_BYTE *a1@<X8>)
 {
   result = IncrementalIdentifier.View.Storage.CodingKeys.init(stringValue:)();
@@ -1720,19 +1201,15 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t IncrementalIdentifier.View.Storage.encode(to:)(void *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO7StorageV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO7StorageV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
-  OUTLINED_FUNCTION_0_2(v2);
-  v4 = v3;
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO7StorageV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO7StorageV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
+  OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v7);
-  v8 = a1[4];
+  MEMORY[0x28223BE20](v2);
   OUTLINED_FUNCTION_38(a1, a1[3]);
   lazy protocol witness table accessor for type IncrementalIdentifier.View.Storage.CodingKeys and conformance IncrementalIdentifier.View.Storage.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v9 = *(v4 + 8);
-  v10 = OUTLINED_FUNCTION_46();
-  return v11(v10);
+  v3 = OUTLINED_FUNCTION_46();
+  return v4(v3);
 }
 
 unint64_t lazy protocol witness table accessor for type IncrementalIdentifier.View.Storage.CodingKeys and conformance IncrementalIdentifier.View.Storage.CodingKeys()
@@ -1776,18 +1253,10 @@ uint64_t protocol witness for IncrementalIdentifier.Identifier.asDatabaseType.ge
   return result;
 }
 
-uint64_t IncrementalIdentifier.View.StringIdentifier.value.getter()
+uint64_t static IncrementalIdentifier.Stream.Source.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v1 = *v0;
-  v2 = v0[1];
-
-  return OUTLINED_FUNCTION_13_0();
-}
-
-uint64_t static IncrementalIdentifier.Stream.Source.== infix(_:_:)(uint64_t a1)
-{
-  v1 = OUTLINED_FUNCTION_63(a1);
-  if (v1 == *v2 && *(v3 + 8) == v2[1])
+  v2 = OUTLINED_FUNCTION_63(a1);
+  if (v2 == *v3 && *(v4 + 8) == v3[1])
   {
     return 1;
   }
@@ -1810,6 +1279,26 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   v2 = lazy protocol witness table accessor for type IncrementalIdentifier.View.StringIdentifier.CodingKeys and conformance IncrementalIdentifier.View.StringIdentifier.CodingKeys();
 
   return MEMORY[0x2821FE720](a1, v2);
+}
+
+void IncrementalIdentifier.Stream.Source.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+{
+  OUTLINED_FUNCTION_23();
+  v28 = v18;
+  OUTLINED_FUNCTION_76(v19, v20, v21);
+  OUTLINED_FUNCTION_0_2();
+  OUTLINED_FUNCTION_8_0();
+  MEMORY[0x28223BE20](v22);
+  OUTLINED_FUNCTION_56();
+  v23 = OUTLINED_FUNCTION_43();
+  v25 = OUTLINED_FUNCTION_38(v23, v24);
+  v28(v25);
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  KeyedEncodingContainer.encode(_:forKey:)();
+  v26 = OUTLINED_FUNCTION_47();
+  v27(v26);
+  OUTLINED_FUNCTION_44();
+  OUTLINED_FUNCTION_24();
 }
 
 unint64_t lazy protocol witness table accessor for type IncrementalIdentifier.View.StringIdentifier.CodingKeys and conformance IncrementalIdentifier.View.StringIdentifier.CodingKeys()
@@ -1857,18 +1346,32 @@ unint64_t lazy protocol witness table accessor for type IncrementalIdentifier.Vi
   return result;
 }
 
-uint64_t IncrementalIdentifier.View.StringIdentifier.hash(into:)()
+void IncrementalIdentifier.Stream.Source.init(from:)(uint64_t a1, uint64_t a2)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  return String.hash(into:)();
-}
+  OUTLINED_FUNCTION_23();
+  v4 = v3;
+  v6 = v5;
+  v17 = v7;
+  OUTLINED_FUNCTION_76(v5, v8, v9);
+  OUTLINED_FUNCTION_0_2();
+  OUTLINED_FUNCTION_8_0();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_55();
+  v11 = OUTLINED_FUNCTION_38(v6, v6[3]);
+  v4(v11);
+  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  if (!v2)
+  {
+    v12 = KeyedDecodingContainer.decode(_:forKey:)();
+    v14 = v13;
+    v15 = OUTLINED_FUNCTION_43();
+    v16(v15);
+    *v17 = v12;
+    v17[1] = v14;
+  }
 
-uint64_t protocol witness for IncrementalIdentifier.Identifier.asString.getter in conformance IncrementalIdentifier.View.StringIdentifier()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  return specialized IncrementalIdentifier.Identifier.asString.getter();
+  __swift_destroy_boxed_opaque_existential_0(v6);
+  OUTLINED_FUNCTION_24();
 }
 
 uint64_t protocol witness for CustomStringConvertible.description.getter in conformance IncrementalIdentifier.View.Int64Identifier.CodingKeys(uint64_t a1)
@@ -1885,29 +1388,23 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-void IncrementalIdentifier.View.Int64Identifier.encode(to:)()
+void IncrementalIdentifier.View.Int64Identifier.encode(to:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_23();
   v2 = v1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO05Int64H0V10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO05Int64H0V10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
-  OUTLINED_FUNCTION_0_2(v3);
-  v5 = v4;
-  v7 = *(v6 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO05Int64H0V10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO05Int64H0V10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
+  OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](v3);
   OUTLINED_FUNCTION_55();
-  v9 = *v0;
-  v10 = v2[3];
-  v11 = v2[4];
   OUTLINED_FUNCTION_9_0(v2);
   lazy protocol witness table accessor for type IncrementalIdentifier.View.Int64Identifier.CodingKeys and conformance IncrementalIdentifier.View.Int64Identifier.CodingKeys();
   OUTLINED_FUNCTION_39();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   OUTLINED_FUNCTION_64();
   KeyedEncodingContainer.encode(_:forKey:)();
-  v12 = *(v5 + 8);
-  v13 = OUTLINED_FUNCTION_43();
-  v14(v13);
+  v4 = OUTLINED_FUNCTION_43();
+  v5(v4);
   OUTLINED_FUNCTION_44();
   OUTLINED_FUNCTION_24();
 }
@@ -1957,37 +1454,36 @@ unint64_t lazy protocol witness table accessor for type IncrementalIdentifier.Vi
   return result;
 }
 
-Swift::Int IncrementalIdentifier.View.Int64Identifier.hashValue.getter()
+Swift::Int IncrementalIdentifier.View.Int64Identifier.hashValue.getter(uint64_t a1)
 {
-  v1 = *v0;
-  OUTLINED_FUNCTION_54();
-  MEMORY[0x259C330A0](v1);
+  v2 = *v1;
+  OUTLINED_FUNCTION_54(a1);
+  MEMORY[0x259C330A0](v2);
   return Hasher._finalize()();
 }
 
-void IncrementalIdentifier.View.Int64Identifier.init(from:)()
+void IncrementalIdentifier.View.Int64Identifier.init(from:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_23();
   OUTLINED_FUNCTION_57();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO05Int64H0V10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO05Int64H0V10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
-  OUTLINED_FUNCTION_0_2(v3);
-  v5 = *(v4 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO05Int64H0V10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO05Int64H0V10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
+  OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v6);
+  MEMORY[0x28223BE20](v4);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_5_2();
-  lazy protocol witness table accessor for type IncrementalIdentifier.View.Int64Identifier.CodingKeys and conformance IncrementalIdentifier.View.Int64Identifier.CodingKeys();
-  OUTLINED_FUNCTION_25();
-  if (!v1)
+  v5 = lazy protocol witness table accessor for type IncrementalIdentifier.View.Int64Identifier.CodingKeys and conformance IncrementalIdentifier.View.Int64Identifier.CodingKeys();
+  OUTLINED_FUNCTION_25(&unk_286734D60, v6, v5);
+  if (!v2)
   {
     OUTLINED_FUNCTION_32();
     v7 = KeyedDecodingContainer.decode(_:forKey:)();
     v8 = OUTLINED_FUNCTION_14_0();
     v9(v8);
-    *v2 = v7;
+    *v3 = v7;
   }
 
-  __swift_destroy_boxed_opaque_existential_0(v0);
+  __swift_destroy_boxed_opaque_existential_0(v1);
   OUTLINED_FUNCTION_24();
 }
 
@@ -1998,18 +1494,11 @@ uint64_t protocol witness for IncrementalIdentifier.SingleValueIdentifier.value.
   return result;
 }
 
-uint64_t protocol witness for IncrementalIdentifier.Identifier.asDatabaseType.getter in conformance IncrementalIdentifier.View.Int64Identifier@<X0>(uint64_t a1@<X1>, uint64_t *a2@<X8>)
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IncrementalIdentifier.View.Int64Identifier(uint64_t a1)
 {
-  result = ResultSetCursor.columns.modify(*v2, a1);
-  *a2 = result;
-  return result;
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IncrementalIdentifier.View.Int64Identifier()
-{
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x259C330A0](v1);
+  MEMORY[0x259C330A0](v2);
   return Hasher._finalize()();
 }
 
@@ -2031,14 +1520,14 @@ uint64_t IncrementalIdentifier.Stream.Source.CodingKeys.init(stringValue:)(uint6
   return v4 & 1;
 }
 
-Swift::Int IncrementalIdentifier.Stream.Source.CodingKeys.hashValue.getter()
+Swift::Int IncrementalIdentifier.Stream.Source.CodingKeys.hashValue.getter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_54();
+  OUTLINED_FUNCTION_54(a1);
   MEMORY[0x259C33090](0);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IncrementalIdentifier.Stream.Source.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IncrementalIdentifier.Stream.Source.CodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MEMORY[0x259C33090](0);
@@ -2061,23 +1550,18 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 void IncrementalIdentifier.View.Bookmark.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO8BookmarkV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO8BookmarkV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
-  OUTLINED_FUNCTION_0_2(v3);
-  v5 = v4;
-  v7 = *(v6 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO8BookmarkV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO8BookmarkV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
+  OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](v2);
   OUTLINED_FUNCTION_55();
-  v9 = *v1;
-  v10 = a1[4];
   OUTLINED_FUNCTION_38(a1, a1[3]);
   lazy protocol witness table accessor for type IncrementalIdentifier.View.Bookmark.CodingKeys and conformance IncrementalIdentifier.View.Bookmark.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   OUTLINED_FUNCTION_64();
   KeyedEncodingContainer.encode(_:forKey:)();
-  v11 = *(v5 + 8);
-  v12 = OUTLINED_FUNCTION_43();
-  v13(v12);
+  v3 = OUTLINED_FUNCTION_43();
+  v4(v3);
   OUTLINED_FUNCTION_44();
 }
 
@@ -2137,56 +1621,55 @@ uint64_t IncrementalIdentifier.View.Bookmark.hash(into:)()
   return MEMORY[0x259C330A0](*&v1);
 }
 
-Swift::Int IncrementalIdentifier.View.Bookmark.hashValue.getter()
+Swift::Int IncrementalIdentifier.View.Bookmark.hashValue.getter(uint64_t a1)
 {
-  v1 = *v0;
-  OUTLINED_FUNCTION_54();
-  v2 = 0.0;
-  if (v1 != 0.0)
+  v2 = *v1;
+  OUTLINED_FUNCTION_54(a1);
+  v3 = 0.0;
+  if (v2 != 0.0)
   {
-    v2 = v1;
+    v3 = v2;
   }
 
-  MEMORY[0x259C330A0](*&v2);
+  MEMORY[0x259C330A0](*&v3);
   return Hasher._finalize()();
 }
 
-uint64_t IncrementalIdentifier.View.Bookmark.init(from:)()
+uint64_t IncrementalIdentifier.View.Bookmark.init(from:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_57();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO8BookmarkV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO8BookmarkV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
-  OUTLINED_FUNCTION_0_2(v3);
-  v5 = *(v4 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO8BookmarkV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO8BookmarkV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
+  OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v6);
+  MEMORY[0x28223BE20](v4);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_5_2();
-  lazy protocol witness table accessor for type IncrementalIdentifier.View.Bookmark.CodingKeys and conformance IncrementalIdentifier.View.Bookmark.CodingKeys();
-  OUTLINED_FUNCTION_25();
-  if (!v1)
+  v5 = lazy protocol witness table accessor for type IncrementalIdentifier.View.Bookmark.CodingKeys and conformance IncrementalIdentifier.View.Bookmark.CodingKeys();
+  OUTLINED_FUNCTION_25(&unk_286734CD0, v6, v5);
+  if (!v2)
   {
     OUTLINED_FUNCTION_32();
     KeyedDecodingContainer.decode(_:forKey:)();
     v8 = v7;
     v9 = OUTLINED_FUNCTION_14_0();
     v10(v9);
-    *v2 = v8;
+    *v3 = v8;
   }
 
-  return __swift_destroy_boxed_opaque_existential_0(v0);
+  return __swift_destroy_boxed_opaque_existential_0(v1);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IncrementalIdentifier.View.Bookmark()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IncrementalIdentifier.View.Bookmark(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  v2 = 0.0;
-  if (v1 != 0.0)
+  v3 = 0.0;
+  if (v2 != 0.0)
   {
-    v2 = v1;
+    v3 = v2;
   }
 
-  MEMORY[0x259C330A0](*&v2);
+  MEMORY[0x259C330A0](*&v3);
   return Hasher._finalize()();
 }
 
@@ -2198,17 +1681,17 @@ void *IncrementalIdentifier.View.Store.init(source:storage:)@<X0>(void *result@<
   return result;
 }
 
-uint64_t static IncrementalIdentifier.View.Store.== infix(_:_:)(uint64_t a1)
+uint64_t static IncrementalIdentifier.View.Store.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v1 = OUTLINED_FUNCTION_63(a1);
-  if (v1 == *v2 && *(v3 + 8) == v2[1])
+  v2 = OUTLINED_FUNCTION_63(a1);
+  if (v2 == *v3 && *(v4 + 8) == v3[1])
   {
     return 1;
   }
 
-  v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
   result = 0;
-  if (v5)
+  if (v6)
   {
     return 1;
   }
@@ -2248,10 +1731,11 @@ uint64_t IncrementalIdentifier.Stream.Store.CodingKeys.init(stringValue:)(uint64
   }
 }
 
-Swift::Int IncrementalIdentifier.Stream.Identifier.CodingKeys.hashValue.getter(char a1)
+Swift::Int IncrementalIdentifier.Stream.Identifier.CodingKeys.hashValue.getter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_54();
-  MEMORY[0x259C33090](a1 & 1);
+  v1 = a1;
+  OUTLINED_FUNCTION_54(a1);
+  MEMORY[0x259C33090](v1 & 1);
   return Hasher._finalize()();
 }
 
@@ -2269,22 +1753,16 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-void IncrementalIdentifier.View.Store.encode(to:)()
+void IncrementalIdentifier.View.Store.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   OUTLINED_FUNCTION_23();
-  v3 = v2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO5StoreV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO5StoreV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
-  OUTLINED_FUNCTION_0_2(v4);
-  v6 = v5;
-  v8 = *(v7 + 64);
+  v18 = v17;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO5StoreV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedEncodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO5StoreV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
+  OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v9);
+  MEMORY[0x28223BE20](v19);
   OUTLINED_FUNCTION_30();
-  v10 = *v0;
-  v11 = v0[1];
-  v12 = v3[3];
-  v13 = v3[4];
-  OUTLINED_FUNCTION_9_0(v3);
+  OUTLINED_FUNCTION_9_0(v18);
   lazy protocol witness table accessor for type IncrementalIdentifier.View.Store.CodingKeys and conformance IncrementalIdentifier.View.Store.CodingKeys();
 
   OUTLINED_FUNCTION_68();
@@ -2294,16 +1772,15 @@ void IncrementalIdentifier.View.Store.encode(to:)()
   OUTLINED_FUNCTION_3_2();
   KeyedEncodingContainer.encode<A>(_:forKey:)();
 
-  if (!v1)
+  if (!v16)
   {
     lazy protocol witness table accessor for type IncrementalIdentifier.View.Storage and conformance IncrementalIdentifier.View.Storage();
     OUTLINED_FUNCTION_50();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  v14 = *(v6 + 8);
-  v15 = OUTLINED_FUNCTION_28();
-  v16(v15);
+  v20 = OUTLINED_FUNCTION_28();
+  v21(v20);
   OUTLINED_FUNCTION_48();
   OUTLINED_FUNCTION_24();
 }
@@ -2509,34 +1986,31 @@ unint64_t lazy protocol witness table accessor for type IncrementalIdentifier.Vi
   return result;
 }
 
-Swift::Int IncrementalIdentifier.Stream.Source.hashValue.getter()
+Swift::Int IncrementalIdentifier.Stream.Source.hashValue.getter(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = OUTLINED_FUNCTION_54();
-  OUTLINED_FUNCTION_59(v3, v4, v5, v6, v7, v8, v9, v10, v12, v13);
+  v1 = OUTLINED_FUNCTION_54(a1);
+  OUTLINED_FUNCTION_59(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11);
   String.hash(into:)();
   return Hasher._finalize()();
 }
 
-void IncrementalIdentifier.View.Store.init(from:)()
+void IncrementalIdentifier.View.Store.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   OUTLINED_FUNCTION_23();
-  v2 = v1;
-  v4 = v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO5StoreV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO5StoreV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
-  OUTLINED_FUNCTION_0_2(v5);
-  v7 = *(v6 + 64);
+  v20 = v19;
+  v22 = v21;
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO5StoreV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMd, &_ss22KeyedDecodingContainerVy25IntelligencePlatformQuery21IncrementalIdentifierO4ViewO5StoreV10CodingKeys33_28C5D20B109144296BB7A903D000DD20LLOGMR);
+  OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](v24);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_5_2();
   lazy protocol witness table accessor for type IncrementalIdentifier.View.Store.CodingKeys and conformance IncrementalIdentifier.View.Store.CodingKeys();
   OUTLINED_FUNCTION_39();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v18)
   {
-    __swift_destroy_boxed_opaque_existential_0(v2);
+    __swift_destroy_boxed_opaque_existential_0(v20);
   }
 
   else
@@ -2546,45 +2020,34 @@ void IncrementalIdentifier.View.Store.init(from:)()
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     lazy protocol witness table accessor for type IncrementalIdentifier.View.Storage and conformance IncrementalIdentifier.View.Storage();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v9 = OUTLINED_FUNCTION_33();
-    v10(v9, v5);
-    *v4 = v11;
-    v4[1] = v12;
+    v25 = OUTLINED_FUNCTION_33();
+    v26(v25, v23);
+    *v22 = v27;
+    v22[1] = v28;
 
-    __swift_destroy_boxed_opaque_existential_0(v2);
+    __swift_destroy_boxed_opaque_existential_0(v20);
   }
 
   OUTLINED_FUNCTION_48();
   OUTLINED_FUNCTION_24();
 }
 
-uint64_t protocol witness for IncrementalIdentifier.Identifier.asData.getter in conformance IncrementalIdentifier.View.Store()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  return specialized IncrementalIdentifier.Identifier.asData.getter();
-}
-
 uint64_t protocol witness for IncrementalIdentifier.Identifier.asDatabaseType.getter in conformance IncrementalIdentifier.View.Store@<X0>(uint64_t *a1@<X8>)
 {
-  v4 = *v1;
-  v5 = v1[1];
-  result = specialized IncrementalIdentifier.Identifier<>.asDatabaseType.getter();
+  result = specialized IncrementalIdentifier.Identifier<>.asDatabaseType.getter(*v1, v1[1]);
   if (!v2)
   {
     *a1 = result;
-    a1[1] = v7;
+    a1[1] = v5;
   }
 
   return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IncrementalIdentifier.Stream.Source()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IncrementalIdentifier.Stream.Source(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = Hasher.init(_seed:)();
-  OUTLINED_FUNCTION_59(v3, v4, v5, v6, v7, v8, v9, v10, v12, v13);
+  v1 = Hasher.init(_seed:)();
+  OUTLINED_FUNCTION_59(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11);
   String.hash(into:)();
   return Hasher._finalize()();
 }
@@ -2618,12 +2081,12 @@ IntelligencePlatformQuery::IncrementalIdentifier::SourceType __swiftcall __spoil
 
   if (v5 >= 3)
   {
-    OUTLINED_FUNCTION_20();
-    OUTLINED_FUNCTION_13();
-    v8 = v7;
-    v9 = OUTLINED_FUNCTION_26(v7, 27);
-    memcpy(v9, __src, 0x48uLL);
-    *(v8 + 88) = 0;
+    v7 = OUTLINED_FUNCTION_20();
+    OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v7);
+    v9 = v8;
+    v10 = OUTLINED_FUNCTION_26(v8, 27);
+    memcpy(v10, __src, 0x48uLL);
+    *(v9 + 88) = 0;
     return swift_willThrow();
   }
 
@@ -2799,7 +2262,7 @@ uint64_t specialized == infix<A>(_:_:)(unsigned __int8 a1, char a2)
   return v8 & 1;
 }
 
-uint64_t specialized RawRepresentable<>.hash(into:)()
+uint64_t specialized RawRepresentable<>.hash(into:)(uint64_t a1, unsigned __int8 a2)
 {
   String.hash(into:)();
 }
@@ -2808,14 +2271,7 @@ uint64_t specialized RawRepresentable<>.hash(into:)()
   String.hash(into:)();
 }
 
-Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)()
-{
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-
-  return Hasher._finalize()();
-}
-
+Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)(uint64_t a1, char a2)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -2842,140 +2298,130 @@ uint64_t protocol witness for IncrementalIdentifier.Identifier.asDatabaseType.ge
 _BYTE *specialized closure #1 in IncrementalIdentifier.Identifier.asString.getter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v7 = type metadata accessor for String.Encoding();
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &__src[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v23 = a1;
-  v24 = a2;
-  v25 = a3;
-  v11 = type metadata accessor for JSONEncoder();
-  v12 = *(v11 + 48);
-  v13 = *(v11 + 52);
+  v9 = &__src[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v19 = a1;
+  v20 = a2;
+  v21 = a3;
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
   lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Identifier and conformance IncrementalIdentifier.Stream.Identifier();
-  v14 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v10 = dispatch thunk of JSONEncoder.encode<A>(_:)();
   if (!v3)
   {
-    v16 = v14;
-    v17 = v15;
+    v12 = v10;
+    v13 = v11;
     static String.Encoding.utf8.getter();
-    v10 = String.init(data:encoding:)();
-    v19 = v18;
-    outlined consume of Data._Representation(v16, v17);
-    if (!v19)
+    v9 = String.init(data:encoding:)();
+    v15 = v14;
+    outlined consume of Data._Representation(v12, v13);
+    if (!v15)
     {
       lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
       swift_allocError();
-      v10 = v21;
-      *v21 = 0xD00000000000001BLL;
-      v21[1] = 0x80000002553A7DB0;
-      memcpy(v21 + 2, __src, 0x48uLL);
-      v10[88] = 0;
+      v9 = v17;
+      *v17 = 0xD00000000000001BLL;
+      v17[1] = 0x80000002553A7DB0;
+      memcpy(v17 + 2, __src, 0x48uLL);
+      v9[88] = 0;
       swift_willThrow();
     }
   }
 
-  return v10;
+  return v9;
 }
 
 _BYTE *specialized closure #1 in IncrementalIdentifier.Identifier.asString.getter(__int128 *a1)
 {
   v3 = type metadata accessor for String.Encoding();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &__src[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-  v7 = a1[1];
-  v21 = *a1;
-  v22 = v7;
-  v23 = a1[2];
-  v8 = type metadata accessor for JSONEncoder();
-  v9 = *(v8 + 48);
-  v10 = *(v8 + 52);
+  v5 = &__src[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v6 = a1[1];
+  v17 = *a1;
+  v18 = v6;
+  v19 = a1[2];
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
   lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Bookmark and conformance IncrementalIdentifier.Stream.Bookmark();
-  v11 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v7 = dispatch thunk of JSONEncoder.encode<A>(_:)();
   if (!v1)
   {
-    v13 = v11;
-    v14 = v12;
+    v9 = v7;
+    v10 = v8;
     static String.Encoding.utf8.getter();
-    v6 = String.init(data:encoding:)();
-    v16 = v15;
-    outlined consume of Data._Representation(v13, v14);
-    if (!v16)
+    v5 = String.init(data:encoding:)();
+    v12 = v11;
+    outlined consume of Data._Representation(v9, v10);
+    if (!v12)
     {
       lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
       swift_allocError();
-      v6 = v18;
-      *v18 = 0xD00000000000001BLL;
-      v18[1] = 0x80000002553A7DB0;
-      memcpy(v18 + 2, __src, 0x48uLL);
-      v6[88] = 0;
+      v5 = v14;
+      *v14 = 0xD00000000000001BLL;
+      v14[1] = 0x80000002553A7DB0;
+      memcpy(v14 + 2, __src, 0x48uLL);
+      v5[88] = 0;
       swift_willThrow();
     }
   }
 
-  return v6;
+  return v5;
 }
 
 _BYTE *specialized closure #1 in IncrementalIdentifier.Identifier.asString.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v9 = type metadata accessor for String.Encoding();
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = &__src[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-  v26 = a1;
-  v27 = a2;
-  v28 = a3;
-  v29 = a4;
-  v13 = type metadata accessor for JSONEncoder();
-  v14 = *(v13 + 48);
-  v15 = *(v13 + 52);
+  v11 = &__src[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v22 = a1;
+  v23 = a2;
+  v24 = a3;
+  v25 = a4;
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
   lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Store and conformance IncrementalIdentifier.Stream.Store();
-  v16 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v12 = dispatch thunk of JSONEncoder.encode<A>(_:)();
   if (!v4)
   {
-    v18 = v16;
-    v19 = v17;
+    v14 = v12;
+    v15 = v13;
     static String.Encoding.utf8.getter();
-    v12 = String.init(data:encoding:)();
-    v21 = v20;
-    outlined consume of Data._Representation(v18, v19);
-    if (!v21)
+    v11 = String.init(data:encoding:)();
+    v17 = v16;
+    outlined consume of Data._Representation(v14, v15);
+    if (!v17)
     {
       lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
       swift_allocError();
-      v12 = v23;
-      *v23 = 0xD00000000000001BLL;
-      v23[1] = 0x80000002553A7DB0;
-      memcpy(v23 + 2, __src, 0x48uLL);
-      v12[88] = 0;
+      v11 = v19;
+      *v19 = 0xD00000000000001BLL;
+      v19[1] = 0x80000002553A7DB0;
+      memcpy(v19 + 2, __src, 0x48uLL);
+      v11[88] = 0;
       swift_willThrow();
     }
   }
 
-  return v12;
+  return v11;
 }
 
-uint64_t specialized closure #1 in IncrementalIdentifier.Identifier.asString.getter(uint64_t a1, uint64_t a2, void (*a3)(void))
+uint64_t specialized closure #1 in IncrementalIdentifier.Identifier.asString.getter(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), uint64_t a4)
 {
-  v7 = type metadata accessor for String.Encoding();
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
+  v8 = type metadata accessor for String.Encoding();
+  MEMORY[0x28223BE20](v8 - 8);
   OUTLINED_FUNCTION_3();
   v11 = v10 - v9;
-  v22 = a1;
-  v23 = a2;
+  v23 = a1;
+  v24 = a2;
   v12 = type metadata accessor for JSONEncoder();
   OUTLINED_FUNCTION_53(v12);
   JSONEncoder.init()();
   a3();
   v13 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  if (!v3)
+  if (!v4)
   {
     v15 = v13;
     v16 = v14;
@@ -2989,12 +2435,12 @@ uint64_t specialized closure #1 in IncrementalIdentifier.Identifier.asString.get
       return v11;
     }
 
-    lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
-    OUTLINED_FUNCTION_13();
-    v11 = v20;
-    *v20 = 0xD00000000000001BLL;
-    v20[1] = 0x80000002553A7DB0;
-    memcpy(v20 + 2, __src, 0x48uLL);
+    v20 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+    OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v20);
+    v11 = v21;
+    *v21 = 0xD00000000000001BLL;
+    v21[1] = 0x80000002553A7DB0;
+    memcpy(v21 + 2, __src, 0x48uLL);
     *(v11 + 88) = 0;
     swift_willThrow();
   }
@@ -3005,445 +2451,411 @@ uint64_t specialized closure #1 in IncrementalIdentifier.Identifier.asString.get
 _BYTE *specialized closure #1 in IncrementalIdentifier.Identifier.asString.getter(uint64_t a1)
 {
   v3 = type metadata accessor for String.Encoding();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &__src[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v19 = a1;
-  v7 = type metadata accessor for JSONEncoder();
-  v8 = *(v7 + 48);
-  v9 = *(v7 + 52);
+  v5 = &__src[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v15 = a1;
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
   lazy protocol witness table accessor for type IncrementalIdentifier.View.Int64Identifier and conformance IncrementalIdentifier.View.Int64Identifier();
-  v10 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v6 = dispatch thunk of JSONEncoder.encode<A>(_:)();
   if (!v1)
   {
-    v12 = v10;
-    v13 = v11;
+    v8 = v6;
+    v9 = v7;
     static String.Encoding.utf8.getter();
-    v6 = String.init(data:encoding:)();
-    v15 = v14;
-    outlined consume of Data._Representation(v12, v13);
-    if (!v15)
+    v5 = String.init(data:encoding:)();
+    v11 = v10;
+    outlined consume of Data._Representation(v8, v9);
+    if (!v11)
     {
       lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
       swift_allocError();
-      v6 = v17;
-      *v17 = 0xD00000000000001BLL;
-      v17[1] = 0x80000002553A7DB0;
-      memcpy(v17 + 2, __src, 0x48uLL);
-      v6[88] = 0;
+      v5 = v13;
+      *v13 = 0xD00000000000001BLL;
+      v13[1] = 0x80000002553A7DB0;
+      memcpy(v13 + 2, __src, 0x48uLL);
+      v5[88] = 0;
       swift_willThrow();
     }
   }
 
-  return v6;
+  return v5;
 }
 
 _BYTE *specialized closure #1 in IncrementalIdentifier.Identifier.asString.getter(double a1)
 {
   v3 = type metadata accessor for String.Encoding();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &__src[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-  v20 = a1;
-  v7 = type metadata accessor for JSONEncoder();
-  v8 = *(v7 + 48);
-  v9 = *(v7 + 52);
+  v5 = &__src[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v16 = a1;
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
   lazy protocol witness table accessor for type IncrementalIdentifier.View.Bookmark and conformance IncrementalIdentifier.View.Bookmark();
-  v10 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v6 = dispatch thunk of JSONEncoder.encode<A>(_:)();
   if (!v1)
   {
-    v12 = v10;
-    v13 = v11;
+    v8 = v6;
+    v9 = v7;
     static String.Encoding.utf8.getter();
-    v6 = String.init(data:encoding:)();
-    v15 = v14;
-    outlined consume of Data._Representation(v12, v13);
-    if (!v15)
+    v5 = String.init(data:encoding:)();
+    v11 = v10;
+    outlined consume of Data._Representation(v8, v9);
+    if (!v11)
     {
       lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
       swift_allocError();
-      v6 = v17;
-      *v17 = 0xD00000000000001BLL;
-      v17[1] = 0x80000002553A7DB0;
-      memcpy(v17 + 2, __src, 0x48uLL);
-      v6[88] = 0;
+      v5 = v13;
+      *v13 = 0xD00000000000001BLL;
+      v13[1] = 0x80000002553A7DB0;
+      memcpy(v13 + 2, __src, 0x48uLL);
+      v5[88] = 0;
       swift_willThrow();
     }
   }
 
-  return v6;
+  return v5;
 }
 
 _BYTE *specialized closure #1 in IncrementalIdentifier.Identifier.asString.getter(uint64_t a1, uint64_t a2)
 {
   v5 = type metadata accessor for String.Encoding();
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &__src[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-  v22 = a1;
-  v23 = a2;
-  v9 = type metadata accessor for JSONEncoder();
-  v10 = *(v9 + 48);
-  v11 = *(v9 + 52);
+  v7 = &__src[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v18 = a1;
+  v19 = a2;
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
   lazy protocol witness table accessor for type IncrementalIdentifier.View.Store and conformance IncrementalIdentifier.View.Store();
-  v12 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v8 = dispatch thunk of JSONEncoder.encode<A>(_:)();
   if (!v2)
   {
-    v14 = v12;
-    v15 = v13;
+    v10 = v8;
+    v11 = v9;
     static String.Encoding.utf8.getter();
-    v8 = String.init(data:encoding:)();
-    v17 = v16;
-    outlined consume of Data._Representation(v14, v15);
-    if (!v17)
+    v7 = String.init(data:encoding:)();
+    v13 = v12;
+    outlined consume of Data._Representation(v10, v11);
+    if (!v13)
     {
       lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
       swift_allocError();
-      v8 = v19;
-      *v19 = 0xD00000000000001BLL;
-      v19[1] = 0x80000002553A7DB0;
-      memcpy(v19 + 2, __src, 0x48uLL);
-      v8[88] = 0;
+      v7 = v15;
+      *v15 = 0xD00000000000001BLL;
+      v15[1] = 0x80000002553A7DB0;
+      memcpy(v15 + 2, __src, 0x48uLL);
+      v7[88] = 0;
       swift_willThrow();
     }
   }
 
-  return v8;
+  return v7;
 }
 
 _BYTE *specialized closure #1 in IncrementalIdentifier.Identifier.asString.getter(char a1)
 {
   v3 = type metadata accessor for String.Encoding();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &__src[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v5 = &__src[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
   __src[79] = a1;
-  v7 = type metadata accessor for JSONEncoder();
-  v8 = *(v7 + 48);
-  v9 = *(v7 + 52);
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
   lazy protocol witness table accessor for type IncrementalIdentifier.SourceType and conformance IncrementalIdentifier.SourceType();
-  v10 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v6 = dispatch thunk of JSONEncoder.encode<A>(_:)();
   if (!v1)
   {
-    v12 = v10;
-    v13 = v11;
+    v8 = v6;
+    v9 = v7;
     static String.Encoding.utf8.getter();
-    v6 = String.init(data:encoding:)();
-    v15 = v14;
-    outlined consume of Data._Representation(v12, v13);
-    if (!v15)
+    v5 = String.init(data:encoding:)();
+    v11 = v10;
+    outlined consume of Data._Representation(v8, v9);
+    if (!v11)
     {
       lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
       swift_allocError();
-      v6 = v17;
-      *v17 = 0xD00000000000001BLL;
-      v17[1] = 0x80000002553A7DB0;
-      memcpy(v17 + 2, __src, 0x48uLL);
-      v6[88] = 0;
+      v5 = v13;
+      *v13 = 0xD00000000000001BLL;
+      v13[1] = 0x80000002553A7DB0;
+      memcpy(v13 + 2, __src, 0x48uLL);
+      v5[88] = 0;
       swift_willThrow();
     }
   }
 
-  return v6;
+  return v5;
 }
 
-uint64_t specialized closure #1 in IncrementalIdentifier.Identifier.init(string:)()
+uint64_t specialized closure #1 in IncrementalIdentifier.Identifier.init(string:)(uint64_t a1, uint64_t a2)
 {
-  v0 = type metadata accessor for String.Encoding();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x28223BE20](v0);
-  v4 = &__src[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v2 = type metadata accessor for String.Encoding();
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v5 = &__src[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
   static String.Encoding.utf8.getter();
-  v5 = String.data(using:allowLossyConversion:)();
-  v7 = v6;
-  (*(v1 + 8))(v4, v0);
-  if (v7 >> 60 == 15)
+  v6 = String.data(using:allowLossyConversion:)();
+  v8 = v7;
+  (*(v3 + 8))(v5, v2);
+  if (v8 >> 60 == 15)
   {
     lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
     swift_allocError();
-    v9 = v8;
-    *v8 = 0xD00000000000001FLL;
-    v8[1] = 0x80000002553A7DD0;
-    memcpy(v8 + 2, __src, 0x48uLL);
-    *(v9 + 88) = 0;
+    v10 = v9;
+    *v9 = 0xD00000000000001FLL;
+    v9[1] = 0x80000002553A7DD0;
+    memcpy(v9 + 2, __src, 0x48uLL);
+    *(v10 + 88) = 0;
     return swift_willThrow();
   }
 
   else
   {
-    v11 = type metadata accessor for JSONDecoder();
-    v12 = *(v11 + 48);
-    v13 = *(v11 + 52);
+    type metadata accessor for JSONDecoder();
     swift_allocObject();
     JSONDecoder.init()();
     lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Identifier and conformance IncrementalIdentifier.Stream.Identifier();
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    return outlined consume of Data?(v5, v7);
+    return outlined consume of Data?(v6, v8);
   }
 }
 
 {
-  v0 = type metadata accessor for String.Encoding();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x28223BE20](v0);
-  v4 = &__src[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v2 = type metadata accessor for String.Encoding();
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v5 = &__src[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
   static String.Encoding.utf8.getter();
-  v5 = String.data(using:allowLossyConversion:)();
-  v7 = v6;
-  (*(v1 + 8))(v4, v0);
-  if (v7 >> 60 == 15)
+  v6 = String.data(using:allowLossyConversion:)();
+  v8 = v7;
+  (*(v3 + 8))(v5, v2);
+  if (v8 >> 60 == 15)
   {
     lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
     swift_allocError();
-    v9 = v8;
-    *v8 = 0xD00000000000001FLL;
-    v8[1] = 0x80000002553A7DD0;
-    memcpy(v8 + 2, __src, 0x48uLL);
-    *(v9 + 88) = 0;
+    v10 = v9;
+    *v9 = 0xD00000000000001FLL;
+    v9[1] = 0x80000002553A7DD0;
+    memcpy(v9 + 2, __src, 0x48uLL);
+    *(v10 + 88) = 0;
     return swift_willThrow();
   }
 
   else
   {
-    v11 = type metadata accessor for JSONDecoder();
-    v12 = *(v11 + 48);
-    v13 = *(v11 + 52);
+    type metadata accessor for JSONDecoder();
     swift_allocObject();
     JSONDecoder.init()();
     lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Bookmark and conformance IncrementalIdentifier.Stream.Bookmark();
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    return outlined consume of Data?(v5, v7);
+    return outlined consume of Data?(v6, v8);
   }
 }
 
 {
-  v0 = type metadata accessor for String.Encoding();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x28223BE20](v0);
-  v4 = &__src[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v2 = type metadata accessor for String.Encoding();
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v5 = &__src[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
   static String.Encoding.utf8.getter();
-  v5 = String.data(using:allowLossyConversion:)();
-  v7 = v6;
-  (*(v1 + 8))(v4, v0);
-  if (v7 >> 60 == 15)
+  v6 = String.data(using:allowLossyConversion:)();
+  v8 = v7;
+  (*(v3 + 8))(v5, v2);
+  if (v8 >> 60 == 15)
   {
     lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
     swift_allocError();
-    v9 = v8;
-    *v8 = 0xD00000000000001FLL;
-    v8[1] = 0x80000002553A7DD0;
-    memcpy(v8 + 2, __src, 0x48uLL);
-    *(v9 + 88) = 0;
+    v10 = v9;
+    *v9 = 0xD00000000000001FLL;
+    v9[1] = 0x80000002553A7DD0;
+    memcpy(v9 + 2, __src, 0x48uLL);
+    *(v10 + 88) = 0;
     return swift_willThrow();
   }
 
   else
   {
-    v11 = type metadata accessor for JSONDecoder();
-    v12 = *(v11 + 48);
-    v13 = *(v11 + 52);
+    type metadata accessor for JSONDecoder();
     swift_allocObject();
     JSONDecoder.init()();
     lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Store and conformance IncrementalIdentifier.Stream.Store();
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    return outlined consume of Data?(v5, v7);
+    return outlined consume of Data?(v6, v8);
   }
 }
 
 {
-  v0 = type metadata accessor for String.Encoding();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x28223BE20](v0);
-  v4 = &__src[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v2 = type metadata accessor for String.Encoding();
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v5 = &__src[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
   static String.Encoding.utf8.getter();
-  v5 = String.data(using:allowLossyConversion:)();
-  v7 = v6;
-  (*(v1 + 8))(v4, v0);
-  if (v7 >> 60 == 15)
+  v6 = String.data(using:allowLossyConversion:)();
+  v8 = v7;
+  (*(v3 + 8))(v5, v2);
+  if (v8 >> 60 == 15)
   {
     lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
     swift_allocError();
-    v9 = v8;
-    *v8 = 0xD00000000000001FLL;
-    v8[1] = 0x80000002553A7DD0;
-    memcpy(v8 + 2, __src, 0x48uLL);
-    *(v9 + 88) = 0;
+    v10 = v9;
+    *v9 = 0xD00000000000001FLL;
+    v9[1] = 0x80000002553A7DD0;
+    memcpy(v9 + 2, __src, 0x48uLL);
+    *(v10 + 88) = 0;
     return swift_willThrow();
   }
 
   else
   {
-    v11 = type metadata accessor for JSONDecoder();
-    v12 = *(v11 + 48);
-    v13 = *(v11 + 52);
+    type metadata accessor for JSONDecoder();
     swift_allocObject();
     JSONDecoder.init()();
     lazy protocol witness table accessor for type IncrementalIdentifier.View.Int64Identifier and conformance IncrementalIdentifier.View.Int64Identifier();
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    return outlined consume of Data?(v5, v7);
+    return outlined consume of Data?(v6, v8);
   }
 }
 
 {
-  v0 = type metadata accessor for String.Encoding();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x28223BE20](v0);
-  v4 = &__src[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v2 = type metadata accessor for String.Encoding();
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v5 = &__src[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
   static String.Encoding.utf8.getter();
-  v5 = String.data(using:allowLossyConversion:)();
-  v7 = v6;
-  (*(v1 + 8))(v4, v0);
-  if (v7 >> 60 == 15)
+  v6 = String.data(using:allowLossyConversion:)();
+  v8 = v7;
+  (*(v3 + 8))(v5, v2);
+  if (v8 >> 60 == 15)
   {
     lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
     swift_allocError();
-    v9 = v8;
-    *v8 = 0xD00000000000001FLL;
-    v8[1] = 0x80000002553A7DD0;
-    memcpy(v8 + 2, __src, 0x48uLL);
-    *(v9 + 88) = 0;
+    v10 = v9;
+    *v9 = 0xD00000000000001FLL;
+    v9[1] = 0x80000002553A7DD0;
+    memcpy(v9 + 2, __src, 0x48uLL);
+    *(v10 + 88) = 0;
     return swift_willThrow();
   }
 
   else
   {
-    v11 = type metadata accessor for JSONDecoder();
-    v12 = *(v11 + 48);
-    v13 = *(v11 + 52);
+    type metadata accessor for JSONDecoder();
     swift_allocObject();
     JSONDecoder.init()();
     lazy protocol witness table accessor for type IncrementalIdentifier.View.Bookmark and conformance IncrementalIdentifier.View.Bookmark();
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    return outlined consume of Data?(v5, v7);
+    return outlined consume of Data?(v6, v8);
   }
 }
 
 {
-  v0 = type metadata accessor for String.Encoding();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x28223BE20](v0);
-  v4 = &__src[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v2 = type metadata accessor for String.Encoding();
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v5 = &__src[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
   static String.Encoding.utf8.getter();
-  v5 = String.data(using:allowLossyConversion:)();
-  v7 = v6;
-  (*(v1 + 8))(v4, v0);
-  if (v7 >> 60 == 15)
+  v6 = String.data(using:allowLossyConversion:)();
+  v8 = v7;
+  (*(v3 + 8))(v5, v2);
+  if (v8 >> 60 == 15)
   {
     lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
     swift_allocError();
-    v9 = v8;
-    *v8 = 0xD00000000000001FLL;
-    v8[1] = 0x80000002553A7DD0;
-    memcpy(v8 + 2, __src, 0x48uLL);
-    *(v9 + 88) = 0;
+    v10 = v9;
+    *v9 = 0xD00000000000001FLL;
+    v9[1] = 0x80000002553A7DD0;
+    memcpy(v9 + 2, __src, 0x48uLL);
+    *(v10 + 88) = 0;
     return swift_willThrow();
   }
 
   else
   {
-    v11 = type metadata accessor for JSONDecoder();
-    v12 = *(v11 + 48);
-    v13 = *(v11 + 52);
+    type metadata accessor for JSONDecoder();
     swift_allocObject();
     JSONDecoder.init()();
     lazy protocol witness table accessor for type IncrementalIdentifier.View.Store and conformance IncrementalIdentifier.View.Store();
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    return outlined consume of Data?(v5, v7);
+    return outlined consume of Data?(v6, v8);
   }
 }
 
 {
-  v0 = type metadata accessor for String.Encoding();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x28223BE20](v0);
-  v4 = &__src[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v2 = type metadata accessor for String.Encoding();
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v5 = &__src[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
   static String.Encoding.utf8.getter();
-  v5 = String.data(using:allowLossyConversion:)();
-  v7 = v6;
-  (*(v1 + 8))(v4, v0);
-  if (v7 >> 60 == 15)
+  v6 = String.data(using:allowLossyConversion:)();
+  v8 = v7;
+  (*(v3 + 8))(v5, v2);
+  if (v8 >> 60 == 15)
   {
     lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
     swift_allocError();
-    v9 = v8;
-    *v8 = 0xD00000000000001FLL;
-    v8[1] = 0x80000002553A7DD0;
-    memcpy(v8 + 2, __src, 0x48uLL);
-    *(v9 + 88) = 0;
+    v10 = v9;
+    *v9 = 0xD00000000000001FLL;
+    v9[1] = 0x80000002553A7DD0;
+    memcpy(v9 + 2, __src, 0x48uLL);
+    *(v10 + 88) = 0;
     return swift_willThrow();
   }
 
   else
   {
-    v11 = type metadata accessor for JSONDecoder();
-    v12 = *(v11 + 48);
-    v13 = *(v11 + 52);
+    type metadata accessor for JSONDecoder();
     swift_allocObject();
     JSONDecoder.init()();
     lazy protocol witness table accessor for type IncrementalIdentifier.SourceType and conformance IncrementalIdentifier.SourceType();
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    return outlined consume of Data?(v5, v7);
+    return outlined consume of Data?(v6, v8);
   }
 }
 
-void specialized closure #1 in IncrementalIdentifier.Identifier.init(string:)()
+void specialized closure #1 in IncrementalIdentifier.Identifier.init(string:)(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_23();
-  v1 = v0;
-  v2 = type metadata accessor for String.Encoding();
-  v3 = OUTLINED_FUNCTION_0_2(v2);
-  v5 = v4;
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v3);
+  v3 = v2;
+  v4 = type metadata accessor for String.Encoding();
+  OUTLINED_FUNCTION_0_2();
+  v6 = v5;
+  MEMORY[0x28223BE20](v7);
   OUTLINED_FUNCTION_3();
   v10 = v9 - v8;
   static String.Encoding.utf8.getter();
   String.data(using:allowLossyConversion:)();
   v12 = v11;
-  (*(v5 + 8))(v10, v2);
+  (*(v6 + 8))(v10, v4);
   if (v12 >> 60 == 15)
   {
-    OUTLINED_FUNCTION_20();
-    OUTLINED_FUNCTION_13();
-    v14 = v13;
-    v15 = OUTLINED_FUNCTION_26(v13, 31);
-    memcpy(v15, v19, 0x48uLL);
-    *(v14 + 88) = 0;
+    v13 = OUTLINED_FUNCTION_20();
+    OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v13);
+    v15 = v14;
+    v16 = OUTLINED_FUNCTION_26(v14, 31);
+    memcpy(v16, v20, 0x48uLL);
+    *(v15 + 88) = 0;
     swift_willThrow();
   }
 
   else
   {
-    v16 = type metadata accessor for JSONDecoder();
-    OUTLINED_FUNCTION_53(v16);
+    v17 = type metadata accessor for JSONDecoder();
+    OUTLINED_FUNCTION_53(v17);
     JSONDecoder.init()();
-    v1();
+    v3();
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    v17 = OUTLINED_FUNCTION_37();
-    outlined consume of Data?(v17, v18);
+    v18 = OUTLINED_FUNCTION_37();
+    outlined consume of Data?(v18, v19);
   }
 
   OUTLINED_FUNCTION_44();
@@ -3468,13 +2880,6 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   static SQLConnection.isOk(resultCode:statement:context:)(v6, v7, v8, v9);
 }
 
-double protocol witness for SQLConnection.DatabaseType.bindTo(_:index:) in conformance Double(Swift::OpaquePointer a1, Swift::Int32 a2)
-{
-  v3 = *v2;
-  Double.bindTo(_:index:)(a1, a2);
-  return result;
-}
-
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> String.bindTo(_:index:)(Swift::OpaquePointer _, Swift::Int32 index)
 {
   v4 = v3;
@@ -3491,7 +2896,7 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
     v16 = v4 & 0xFFFFFFFFFFFFFFLL;
     if (one-time initialization token for SQLITE_TRANSIENT != -1)
     {
-      OUTLINED_FUNCTION_29();
+      OUTLINED_FUNCTION_29(&one-time initialization token for SQLITE_TRANSIENT);
     }
 
     v9 = static SQLConnection.SQLITE_TRANSIENT;
@@ -3509,7 +2914,7 @@ LABEL_12:
   v8 = v4 & 0xFFFFFFFFFFFFFFFLL;
   if (one-time initialization token for SQLITE_TRANSIENT != -1)
   {
-    OUTLINED_FUNCTION_29();
+    OUTLINED_FUNCTION_29(&one-time initialization token for SQLITE_TRANSIENT);
   }
 
   v9 = static SQLConnection.SQLITE_TRANSIENT;
@@ -3552,13 +2957,6 @@ Swift::String __swiftcall String.init(value:)(Swift::OpaquePointer value)
   return result;
 }
 
-void protocol witness for SQLConnection.DatabaseType.bindTo(_:index:) in conformance String(Swift::OpaquePointer a1, Swift::Int32 a2)
-{
-  v3 = *v2;
-  v4 = v2[1];
-  String.bindTo(_:index:)(a1, a2);
-}
-
 uint64_t protocol witness for SQLConnection.DatabaseType.init(value:) in conformance String@<X0>(Swift::OpaquePointer a1@<X0>, Swift::String *a2@<X8>)
 {
   v4 = String.init(value:)(a1);
@@ -3580,15 +2978,17 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
 {
   v5 = v3;
   v6 = v2;
+  v7 = *&index;
   OUTLINED_FUNCTION_65();
   type metadata accessor for SQLConnection();
-  specialized Data.withUnsafeBytes<A>(_:)(v6, v5, v4, index);
+  specialized Data.withUnsafeBytes<A>(_:)(v6, v5, v4, v7);
   OUTLINED_FUNCTION_36();
   static SQLConnection.isOk(resultCode:statement:context:)(v8, v9, v10, v11);
 }
 
-uint64_t specialized Data.withUnsafeBytes<A>(_:)(uint64_t result, unint64_t a2, sqlite3_stmt *a3, int a4)
+uint64_t specialized Data.withUnsafeBytes<A>(_:)(uint64_t result, unint64_t a2, sqlite3_stmt *a3, uint64_t a4)
 {
+  v4 = a4;
   switch(a2 >> 62)
   {
     case 1uLL:
@@ -3609,7 +3009,7 @@ uint64_t specialized Data.withUnsafeBytes<A>(_:)(uint64_t result, unint64_t a2, 
       result = *(result + 16);
       v9 = v7;
 LABEL_9:
-      result = specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(result, v9, v8, a3, a4);
+      result = specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(result, v9, v8, a3, v4);
       break;
     case 3uLL:
       result = 0;
@@ -3618,7 +3018,7 @@ LABEL_9:
     default:
       v6 = a2 & 0xFFFFFFFFFFFFFFLL;
 LABEL_5:
-      result = specialized Data.InlineData.withUnsafeBytes<A>(_:)(result, v6, a3, a4);
+      result = specialized Data.InlineData.withUnsafeBytes<A>(_:)(result, v6, a3, v4);
       break;
   }
 
@@ -3640,13 +3040,6 @@ void Data.init(value:)(sqlite3_value *a1)
   JUMPOUT(0x259C323E0);
 }
 
-void protocol witness for SQLConnection.DatabaseType.bindTo(_:index:) in conformance Data(Swift::OpaquePointer a1, Swift::Int32 a2)
-{
-  v3 = *v2;
-  v4 = v2[1];
-  Data.bindTo(_:index:)(a1, a2);
-}
-
 void protocol witness for SQLConnection.DatabaseType.init(value:) in conformance Data(sqlite3_value *a1@<X0>, void *a2@<X8>)
 {
   Data.init(value:)(a1);
@@ -3654,201 +3047,189 @@ void protocol witness for SQLConnection.DatabaseType.init(value:) in conformance
   a2[1] = v4;
 }
 
-void IncrementalIdentifier.StoreIdentifier.init(persistentIdentifier:)()
+void IncrementalIdentifier.StoreIdentifier.init(persistentIdentifier:)(uint64_t a1, uint64_t a2)
 {
-  IncrementalIdentifier.StoreIdentifier.init(persistentIdentifier:)();
+  IncrementalIdentifier.StoreIdentifier.init(persistentIdentifier:)(a1, a2);
 }
 
 {
   OUTLINED_FUNCTION_23();
-  v70 = v1;
-  v62 = v0;
-  v3 = v2;
+  v64 = v3;
+  v56 = v2;
   v5 = v4;
   v7 = v6;
-  v60 = v8;
+  v9 = v8;
+  v54 = v10;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v9 = OUTLINED_FUNCTION_0_2(AssociatedTypeWitness);
-  v61 = v10;
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_0_2();
+  v55 = v11;
+  MEMORY[0x28223BE20](v12);
   OUTLINED_FUNCTION_11_0();
-  v59 = v13 - v14;
+  v53 = v13 - v14;
   MEMORY[0x28223BE20](v15);
-  v66 = &v56 - v16;
+  v60 = &v50 - v16;
   v17 = swift_getAssociatedTypeWitness();
-  v18 = OUTLINED_FUNCTION_0_2(v17);
-  v63 = v19;
-  v21 = *(v20 + 64);
-  MEMORY[0x28223BE20](v18);
+  OUTLINED_FUNCTION_0_2();
+  v57 = v18;
+  MEMORY[0x28223BE20](v19);
   OUTLINED_FUNCTION_11_0();
-  v24 = v22 - v23;
-  MEMORY[0x28223BE20](v25);
-  v27 = &v56 - v26;
-  v28 = v7[1];
-  v29 = v7[2];
-  v30 = v7[4];
-  v68 = v7[3];
-  v69 = v30;
-  v31 = v7[6];
-  v71 = v7[5];
-  v72 = v31;
-  v64 = v5;
-  v65 = v3;
-  v32 = *(*(swift_getAssociatedConformanceWitness() + 8) + 96);
-  v33 = OUTLINED_FUNCTION_69();
-  outlined copy of Data._Representation(v33, v34);
-  v35 = OUTLINED_FUNCTION_69();
-  v36 = v70;
-  v32(v35);
-  if (v36)
+  v22 = v20 - v21;
+  MEMORY[0x28223BE20](v23);
+  v25 = &v50 - v24;
+  v26 = v9[4];
+  v62 = v9[3];
+  v63 = v26;
+  v27 = v9[6];
+  v65 = v9[5];
+  v66 = v27;
+  v58 = v7;
+  v59 = v5;
+  v28 = *(*(swift_getAssociatedConformanceWitness() + 8) + 96);
+  v29 = OUTLINED_FUNCTION_69();
+  outlined copy of Data._Representation(v29, v30);
+  v31 = OUTLINED_FUNCTION_69();
+  v32 = v64;
+  v28(v31);
+  if (v32)
   {
-    v37 = OUTLINED_FUNCTION_69();
-    outlined consume of Data._Representation(v37, v38);
-    outlined consume of Data._Representation(v68, v69);
-    outlined consume of Data._Representation(v71, v72);
+    v33 = OUTLINED_FUNCTION_69();
+    outlined consume of Data._Representation(v33, v34);
+    outlined consume of Data._Representation(v62, v63);
+    outlined consume of Data._Representation(v65, v66);
   }
 
   else
   {
-    v57 = v24;
-    v58 = v17;
-    v70 = v27;
-    v39 = *(*(swift_getAssociatedConformanceWitness() + 8) + 96);
-    v40 = OUTLINED_FUNCTION_60();
-    outlined copy of Data._Representation(v40, v41);
-    v42 = OUTLINED_FUNCTION_60();
-    v39(v42);
-    v43 = OUTLINED_FUNCTION_69();
-    outlined consume of Data._Representation(v43, v44);
-    v45 = OUTLINED_FUNCTION_60();
-    outlined consume of Data._Representation(v45, v46);
-    outlined consume of Data._Representation(v71, v72);
-    v47 = v63;
-    v48 = v57;
-    v49 = v58;
-    v50 = v70;
-    (*(v63 + 16))(v57, v70, v58);
-    v51 = v61;
-    v52 = v59;
-    v53 = (*(v61 + 16))(v59, v66, AssociatedTypeWitness);
-    OUTLINED_FUNCTION_66(v53, v54, v64, v65);
-    v55(v48, v52);
-    (*(v51 + 8))(v66, AssociatedTypeWitness);
-    (*(v47 + 8))(v50, v49);
+    v51 = v22;
+    v52 = v17;
+    v64 = v25;
+    v35 = *(*(swift_getAssociatedConformanceWitness() + 8) + 96);
+    v36 = OUTLINED_FUNCTION_60();
+    outlined copy of Data._Representation(v36, v37);
+    v38 = OUTLINED_FUNCTION_60();
+    v35(v38);
+    v39 = OUTLINED_FUNCTION_69();
+    outlined consume of Data._Representation(v39, v40);
+    v41 = OUTLINED_FUNCTION_60();
+    outlined consume of Data._Representation(v41, v42);
+    outlined consume of Data._Representation(v65, v66);
+    v43 = v57;
+    v44 = v51;
+    v45 = v52;
+    v46 = v64;
+    (*(v57 + 16))(v51, v64, v52);
+    v47 = v55;
+    v48 = v53;
+    (*(v55 + 16))(v53, v60, AssociatedTypeWitness);
+    OUTLINED_FUNCTION_66();
+    v49(v44, v48);
+    (*(v47 + 8))(v60, AssociatedTypeWitness);
+    (*(v43 + 8))(v46, v45);
   }
 
   OUTLINED_FUNCTION_24();
 }
 
-uint64_t _s25IntelligencePlatformQuery21IncrementalIdentifierO05StoreE0PAAE010persistentE0xAC017PersistableGlobalE0V_tKcfCAC6StreamO0F0V_Tt1B5Tm(uint64_t a1, void (*a2)(uint64_t))
+uint64_t _s25IntelligencePlatformQuery21IncrementalIdentifierO05StoreE0PAAE010persistentE0xAC017PersistableGlobalE0V_tKcfCAC6StreamO0F0V_Tt1B5Tm(uint64_t a1, uint64_t (*a2)(uint64_t))
 {
   OUTLINED_FUNCTION_67();
-  v7 = *(v6 + 8);
-  v8 = *(v6 + 16);
-  v9 = OUTLINED_FUNCTION_37();
-  v11 = outlined copy of Data._Representation(v9, v10);
-  v12 = MEMORY[0x259C331C0](v11);
-  v13 = type metadata accessor for JSONDecoder();
-  OUTLINED_FUNCTION_53(v13);
+  v6 = OUTLINED_FUNCTION_37();
+  v8 = outlined copy of Data._Representation(v6, v7);
+  v9 = MEMORY[0x259C331C0](v8);
+  v10 = type metadata accessor for JSONDecoder();
+  OUTLINED_FUNCTION_53(v10);
   JSONDecoder.init()();
   lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Source and conformance IncrementalIdentifier.Stream.Source();
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-  objc_autoreleasePoolPop(v12);
+  objc_autoreleasePoolPop(v9);
   if (v2)
   {
     a2(v3);
-    v14 = OUTLINED_FUNCTION_37();
-    return outlined consume of Data._Representation(v14, v25);
+    v11 = OUTLINED_FUNCTION_37();
+    return outlined consume of Data._Representation(v11, v18);
   }
 
   else
   {
-    v15 = OUTLINED_FUNCTION_37();
-    outlined consume of Data._Representation(v15, v16);
-    v17 = *(v3 + 24);
-    v18 = *(v3 + 32);
-    v19 = OUTLINED_FUNCTION_74();
-    v21 = outlined copy of Data._Representation(v19, v20);
-    v22 = MEMORY[0x259C331C0](v21);
-    v23 = *(v13 + 48);
-    v24 = *(v13 + 52);
+    v12 = OUTLINED_FUNCTION_37();
+    outlined consume of Data._Representation(v12, v13);
+    v14 = OUTLINED_FUNCTION_74();
+    v16 = outlined copy of Data._Representation(v14, v15);
+    v17 = MEMORY[0x259C331C0](v16);
     swift_allocObject();
     JSONDecoder.init()();
     lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Storage and conformance IncrementalIdentifier.Stream.Storage();
     dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-    objc_autoreleasePoolPop(v22);
+    objc_autoreleasePoolPop(v17);
     a2(v3);
-    v27 = OUTLINED_FUNCTION_74();
-    result = outlined consume of Data._Representation(v27, v28);
-    *v4 = v29;
-    v4[1] = v30;
-    v4[2] = v29;
-    v4[3] = v30;
+    v20 = OUTLINED_FUNCTION_74();
+    result = outlined consume of Data._Representation(v20, v21);
+    *v4 = v22;
+    v4[1] = v23;
+    v4[2] = v22;
+    v4[3] = v23;
   }
 
   return result;
 }
 
-uint64_t _s25IntelligencePlatformQuery21IncrementalIdentifierO05StoreE0PAAE010persistentE0xAC017PersistableGlobalE0V_tKcfCAC4ViewO0F0V_Tt1B5Tm@<X0>(uint64_t a1@<X0>, void (*a2)(uint64_t)@<X1>, void *a3@<X8>)
+uint64_t _s25IntelligencePlatformQuery21IncrementalIdentifierO05StoreE0PAAE010persistentE0xAC017PersistableGlobalE0V_tKcfCAC4ViewO0F0V_Tt1B5Tm@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(uint64_t)@<X1>, void *a3@<X8>)
 {
-  v7 = *(a1 + 8);
-  v8 = *(a1 + 16);
-  v9 = OUTLINED_FUNCTION_35();
-  v11 = outlined copy of Data._Representation(v9, v10);
-  v12 = MEMORY[0x259C331C0](v11);
-  v13 = type metadata accessor for JSONDecoder();
-  OUTLINED_FUNCTION_53(v13);
+  v7 = OUTLINED_FUNCTION_35();
+  v9 = outlined copy of Data._Representation(v7, v8);
+  v10 = MEMORY[0x259C331C0](v9);
+  v11 = type metadata accessor for JSONDecoder();
+  OUTLINED_FUNCTION_53(v11);
   JSONDecoder.init()();
   lazy protocol witness table accessor for type IncrementalIdentifier.View.Source and conformance IncrementalIdentifier.View.Source();
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-  objc_autoreleasePoolPop(v12);
+  objc_autoreleasePoolPop(v10);
   if (v3)
   {
     a2(a1);
-    v14 = OUTLINED_FUNCTION_35();
-    return outlined consume of Data._Representation(v14, v15);
+    v12 = OUTLINED_FUNCTION_35();
+    return outlined consume of Data._Representation(v12, v13);
   }
 
   else
   {
-    v17 = OUTLINED_FUNCTION_35();
-    outlined consume of Data._Representation(v17, v18);
-    result = (a2)(a1);
-    *a3 = v19;
-    a3[1] = v20;
+    v15 = OUTLINED_FUNCTION_35();
+    outlined consume of Data._Representation(v15, v16);
+    result = a2(a1);
+    *a3 = v17;
+    a3[1] = v18;
   }
 
   return result;
 }
 
-uint64_t *IncrementalIdentifier.PersistableGlobalIdentifier.storeIdentifier()@<X0>(void (*a1)(_OWORD *, _BYTE *)@<X0>, void (*a2)(uint64_t)@<X1>, uint64_t *a3@<X8>)
+uint64_t IncrementalIdentifier.PersistableGlobalIdentifier.storeIdentifier()@<X0>(void (*a1)(_OWORD *, _BYTE *)@<X0>, uint64_t (*a2)(uint64_t)@<X1>, uint64_t *a3@<X8>)
 {
   v8 = *(v3 + 16);
-  v14[0] = *v3;
-  v14[1] = v8;
-  v14[2] = *(v3 + 32);
-  v15 = *(v3 + 48);
-  if (LOBYTE(v14[0]))
+  v15[0] = *v3;
+  v15[1] = v8;
+  v15[2] = *(v3 + 32);
+  v16 = *(v3 + 48);
+  if (LOBYTE(v15[0]))
   {
-    if (LOBYTE(v14[0]) == 1)
+    if (LOBYTE(v15[0]) == 1)
     {
-      OUTLINED_FUNCTION_20();
-      OUTLINED_FUNCTION_13();
-      v10 = v9;
-      v11 = OUTLINED_FUNCTION_26(v9, 27);
-      memcpy(v11, __src, 0x48uLL);
-      *(v10 + 88) = 0;
+      v9 = OUTLINED_FUNCTION_20();
+      OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v9);
+      v11 = v10;
+      v12 = OUTLINED_FUNCTION_26(v10, 27);
+      memcpy(v12, __src, 0x48uLL);
+      *(v11 + 88) = 0;
       return swift_willThrow();
     }
 
     a3[3] = &type metadata for IncrementalIdentifier.View.Store;
     a3[4] = lazy protocol witness table accessor for type IncrementalIdentifier.View.Store and conformance IncrementalIdentifier.View.Store();
-    a1(v14, __src);
-    result = _s25IntelligencePlatformQuery21IncrementalIdentifierO05StoreE0PAAE010persistentE0xAC017PersistableGlobalE0V_tKcfCAC4ViewO0F0V_Tt1B5Tm(v14, a2, a3);
+    a1(v15, __src);
+    result = _s25IntelligencePlatformQuery21IncrementalIdentifierO05StoreE0PAAE010persistentE0xAC017PersistableGlobalE0V_tKcfCAC4ViewO0F0V_Tt1B5Tm(v15, a2, a3);
   }
 
   else
@@ -3856,8 +3237,8 @@ uint64_t *IncrementalIdentifier.PersistableGlobalIdentifier.storeIdentifier()@<X
     a3[3] = &type metadata for IncrementalIdentifier.Stream.Store;
     a3[4] = lazy protocol witness table accessor for type IncrementalIdentifier.Stream.Store and conformance IncrementalIdentifier.Stream.Store();
     *a3 = swift_allocObject();
-    a1(v14, __src);
-    result = _s25IntelligencePlatformQuery21IncrementalIdentifierO05StoreE0PAAE010persistentE0xAC017PersistableGlobalE0V_tKcfCAC6StreamO0F0V_Tt1B5Tm(v14, a2);
+    a1(v15, __src);
+    result = _s25IntelligencePlatformQuery21IncrementalIdentifierO05StoreE0PAAE010persistentE0xAC017PersistableGlobalE0V_tKcfCAC6StreamO0F0V_Tt1B5Tm(v15, a2);
   }
 
   if (v4)
@@ -3868,75 +3249,67 @@ uint64_t *IncrementalIdentifier.PersistableGlobalIdentifier.storeIdentifier()@<X
   return result;
 }
 
-void IncrementalIdentifier.StoreIdentifier.persistableEntityIdentifier(entityIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
+void IncrementalIdentifier.StoreIdentifier.persistableEntityIdentifier(entityIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15)
 {
   OUTLINED_FUNCTION_23();
-  v16 = v15;
-  v66 = v18;
-  v67 = v17;
+  v52 = v18;
+  v53 = v17;
+  swift_getAssociatedTypeWitness();
+  OUTLINED_FUNCTION_0_2();
+  v56 = v20;
+  v57 = v19;
+  OUTLINED_FUNCTION_8_0();
+  MEMORY[0x28223BE20](v21);
+  v54 = &v51 - v22;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v20 = OUTLINED_FUNCTION_0_2(AssociatedTypeWitness);
-  v70 = v21;
-  v71 = v20;
-  v23 = *(v22 + 64);
+  OUTLINED_FUNCTION_0_2();
+  v25 = v24;
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v24);
-  v68 = &v65 - v25;
-  v26 = swift_getAssociatedTypeWitness();
-  OUTLINED_FUNCTION_0_2(v26);
-  v28 = v27;
-  v30 = *(v29 + 64);
-  OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v31);
-  v33 = &v65 - v32;
+  MEMORY[0x28223BE20](v26);
+  v28 = &v51 - v27;
   OUTLINED_FUNCTION_47();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v35 = *(AssociatedConformanceWitness + 16);
-  v36 = OUTLINED_FUNCTION_28();
-  v37(v36);
-  v38 = *(v16 + 48);
-  v69 = v13;
-  v39 = OUTLINED_FUNCTION_37();
-  v41 = v40(v39);
-  OUTLINED_FUNCTION_58(v41, *(AssociatedConformanceWitness + 8));
-  v43 = v42(v26);
-  if (v14)
+  swift_getAssociatedConformanceWitness();
+  v29 = OUTLINED_FUNCTION_28();
+  v30(v29);
+  v55 = v15;
+  v31 = OUTLINED_FUNCTION_37();
+  v32(v31);
+  OUTLINED_FUNCTION_58();
+  v34 = v33(AssociatedTypeWitness);
+  if (v16)
   {
-    (*(v28 + 8))(v33, v26);
+    (*(v25 + 8))(v28, AssociatedTypeWitness);
   }
 
   else
   {
-    v65 = v43;
-    v72 = v44;
-    (*(v28 + 8))(v33, v26);
-    v45 = *(v16 + 56);
-    v46 = OUTLINED_FUNCTION_37();
-    v47(v46);
+    v51 = v34;
+    v58 = v35;
+    (*(v25 + 8))(v28, AssociatedTypeWitness);
+    v36 = OUTLINED_FUNCTION_37();
+    v37(v36);
     OUTLINED_FUNCTION_47();
-    v48 = v71;
-    v49 = swift_getAssociatedConformanceWitness();
-    OUTLINED_FUNCTION_58(v49, *(v49 + 8));
+    v38 = v57;
+    swift_getAssociatedConformanceWitness();
+    OUTLINED_FUNCTION_58();
     OUTLINED_FUNCTION_64();
-    v51 = v50(v48);
-    v53 = v52;
-    v54 = *(v70 + 8);
-    v55 = OUTLINED_FUNCTION_43();
-    v56(v55);
-    v58 = v67[3];
-    v57 = v67[4];
-    v59 = __swift_project_boxed_opaque_existential_0(v67, v58);
-    OUTLINED_FUNCTION_58(v59, *(v57 + 8));
-    v61 = v60(v58);
-    v62 = v66;
-    *v66 = a13;
-    v63 = v72;
-    v62[1] = v65;
-    v62[2] = v63;
-    v62[3] = v51;
-    v62[4] = v53;
-    v62[5] = v61;
-    v62[6] = v64;
+    v40 = v39(v38);
+    v42 = v41;
+    v43 = OUTLINED_FUNCTION_43();
+    v44(v43);
+    v45 = v53[3];
+    __swift_project_boxed_opaque_existential_0(v53, v45);
+    OUTLINED_FUNCTION_58();
+    v47 = v46(v45);
+    v48 = v52;
+    *v52 = a13;
+    v49 = v58;
+    v48[1] = v51;
+    v48[2] = v49;
+    v48[3] = v40;
+    v48[4] = v42;
+    v48[5] = v47;
+    v48[6] = v50;
   }
 
   OUTLINED_FUNCTION_44();
@@ -4021,13 +3394,10 @@ unint64_t lazy protocol witness table accessor for type IncrementalIdentifier.Vi
   return result;
 }
 
-uint64_t *__swift_deallocate_boxed_opaque_existential_1(uint64_t *result)
+uint64_t __swift_deallocate_boxed_opaque_existential_1(uint64_t result)
 {
-  v1 = *(result[3] - 8);
-  if ((*(v1 + 80) & 0x20000) != 0)
+  if ((*(*(*(result + 24) - 8) + 80) & 0x20000) != 0)
   {
-    v2 = *result;
-    v3 = *(v1 + 64) + ((*(v1 + 80) + 16) & ~*(v1 + 80));
     JUMPOUT(0x259C33C60);
   }
 
@@ -4477,7 +3847,7 @@ unint64_t instantiation function for generic protocol witness table for Incremen
 
 uint64_t instantiation function for generic protocol witness table for IncrementalIdentifier.Stream.Source(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void), uint64_t (*a6)(void), uint64_t (*a7)(void))
 {
-  a1[1] = a4();
+  a1[1] = (a4)(a1, a2, a3);
   a1[2] = a5();
   a1[3] = a6();
   result = a7();
@@ -5483,18 +4853,16 @@ LABEL_18:
 uint64_t specialized Data.InlineData.withUnsafeBytes<A>(_:)(uint64_t a1, uint64_t a2, sqlite3_stmt *a3, int a4)
 {
   v6 = BYTE6(a2);
-  v12 = *MEMORY[0x277D85DE8];
-  v9 = a1;
-  v11 = WORD2(a2);
-  v10 = a2;
+  v11 = *MEMORY[0x277D85DE8];
+  v8 = a1;
+  v10 = WORD2(a2);
+  v9 = a2;
   if (one-time initialization token for SQLITE_TRANSIENT != -1)
   {
     swift_once();
   }
 
-  result = sqlite3_bind_blob(a3, a4, &v9, v6, static SQLConnection.SQLITE_TRANSIENT);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return sqlite3_bind_blob(a3, a4, &v8, v6, static SQLConnection.SQLITE_TRANSIENT);
 }
 
 uint64_t specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(uint64_t a1, uint64_t a2, int a3, sqlite3_stmt *a4, int a5)
@@ -5575,7 +4943,7 @@ uint64_t OUTLINED_FUNCTION_2_2@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   a2[1] = a1;
 }
 
-uint64_t OUTLINED_FUNCTION_25()
+uint64_t OUTLINED_FUNCTION_25(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -5588,19 +4956,19 @@ unint64_t *OUTLINED_FUNCTION_26@<X0>(unint64_t *a1@<X1>, uint64_t a2@<X8>)
   return a1 + 2;
 }
 
-uint64_t OUTLINED_FUNCTION_27(uint64_t a1, uint64_t a2)
+uint64_t OUTLINED_FUNCTION_27(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
 
-  return _s25IntelligencePlatformQuery21IncrementalIdentifierO0E0PAAE4datax10Foundation4DataV_tKcfCAC6StreamO6SourceV_Tt1g5Tm(a1, a2, lazy protocol witness table accessor for type IncrementalIdentifier.View.Source and conformance IncrementalIdentifier.View.Source);
+  return _s25IntelligencePlatformQuery21IncrementalIdentifierO0E0PAAE4datax10Foundation4DataV_tKcfCAC6StreamO6SourceV_Tt1g5Tm(a1, a2, lazy protocol witness table accessor for type IncrementalIdentifier.View.Source and conformance IncrementalIdentifier.View.Source, a4);
 }
 
-uint64_t OUTLINED_FUNCTION_29()
+uint64_t OUTLINED_FUNCTION_29(uint64_t a1)
 {
 
   return swift_once();
 }
 
-uint64_t OUTLINED_FUNCTION_49()
+uint64_t OUTLINED_FUNCTION_49(uint64_t a1)
 {
 
   return KeyedDecodingContainer.decode<A>(_:forKey:)();
@@ -5608,13 +4976,11 @@ uint64_t OUTLINED_FUNCTION_49()
 
 uint64_t OUTLINED_FUNCTION_53(uint64_t a1)
 {
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 52);
 
   return swift_allocObject();
 }
 
-uint64_t OUTLINED_FUNCTION_54()
+void *OUTLINED_FUNCTION_54(uint64_t a1, ...)
 {
 
   return Hasher.init(_seed:)();
@@ -5656,13 +5022,15 @@ uint64_t specialized Dictionary.subscript.getter(uint64_t a1, uint64_t a2, uint6
     return 0;
   }
 
-  v4 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
-  if ((v5 & 1) == 0)
+  specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
+  if (v3)
+  {
+  }
+
+  else
   {
     return 0;
   }
-
-  v6 = *(*(a3 + 56) + 8 * v4);
 }
 
 double specialized Dictionary.subscript.getter@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>)
@@ -5688,58 +5056,54 @@ Swift::Bool __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
 {
   if (_ == 101)
   {
-    v3 = 1;
+    v2 = 1;
   }
 
   else if (_ == 100)
   {
-    v3 = 0;
+    v2 = 0;
   }
 
   else
   {
     object = context.value._object;
     countAndFlagsBits = context.value._countAndFlagsBits;
-    v6 = *(v2 + 16);
-    lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
-    OUTLINED_FUNCTION_13();
-    v7 = OUTLINED_FUNCTION_21_1();
-    static SQLConnection.sqlError(db:resultCode:statement:message:)(v7, v8, v9, countAndFlagsBits, object, v10);
+    v5 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+    OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v5);
+    v6 = OUTLINED_FUNCTION_21_1();
+    static SQLConnection.sqlError(db:resultCode:statement:message:)(v6, v7, v8, countAndFlagsBits, object, v9);
     swift_willThrow();
   }
 
-  return v3 & 1;
+  return v2 & 1;
 }
 
 uint64_t specialized Dictionary.subscript.setter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v20 - v10;
-  v12 = type metadata accessor for URL();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v20 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (__swift_getEnumTagSinglePayload(a1, 1, v12) == 1)
+  v10 = &v17 - v9;
+  v11 = type metadata accessor for URL();
+  v12 = *(v11 - 8);
+  MEMORY[0x28223BE20](v11);
+  v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (__swift_getEnumTagSinglePayload(a1, 1, v11) == 1)
   {
     outlined destroy of URL?(a1, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    specialized Dictionary._Variant.removeValue(forKey:)(a2, a3, v11);
+    specialized Dictionary._Variant.removeValue(forKey:)(a2, a3, v10);
 
-    return outlined destroy of URL?(v11, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    return outlined destroy of URL?(v10, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   }
 
   else
   {
-    (*(v13 + 32))(v16, a1, v12);
-    v18 = *v4;
+    (*(v12 + 32))(v14, a1, v11);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v21 = *v4;
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v16, a2, a3, isUniquelyReferenced_nonNull_native);
+    v18 = *v4;
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v14, a2, a3, isUniquelyReferenced_nonNull_native);
 
-    *v4 = v21;
+    *v4 = v18;
   }
 
   return result;
@@ -5831,16 +5195,15 @@ void *SQLConnection.init(library:privileges:useCase:account:)(uint64_t a1, uint6
 {
   v7 = v5;
   ppDb[1] = *MEMORY[0x277D85DE8];
-  v12 = *v5;
   type metadata accessor for URL();
-  v7[9] = 0;
-  v7[10] = 0;
-  v7[8] = 0;
-  v7[11] = Dictionary.init(dictionaryLiteral:)();
-  v7[13] = 0;
+  *(v5 + 72) = 0;
+  *(v5 + 80) = 0;
+  *(v5 + 64) = 0;
+  *(v5 + 88) = Dictionary.init(dictionaryLiteral:)();
+  *(v5 + 104) = 0;
   ppDb[0] = 0;
-  v13 = sqlite3_open_v2(":memory:", ppDb, 65538, 0);
-  v14 = ppDb[0];
+  v12 = sqlite3_open_v2(":memory:", ppDb, 65538, 0);
+  v13 = ppDb[0];
   if (!ppDb[0])
   {
 
@@ -5849,11 +5212,11 @@ void *SQLConnection.init(library:privileges:useCase:account:)(uint64_t a1, uint6
     _StringGuts.grow(_:)(52);
     OUTLINED_FUNCTION_24_0();
     MEMORY[0x259C32B90](0xD000000000000032);
-    v15 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x259C32B90](v15);
+    v14 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x259C32B90](v14);
 
-    lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
-    OUTLINED_FUNCTION_13();
+    v15 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+    OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v15);
     v17 = v16;
     *v16 = 0;
     v16[1] = 0xE000000000000000;
@@ -5863,7 +5226,7 @@ void *SQLConnection.init(library:privileges:useCase:account:)(uint64_t a1, uint6
     goto LABEL_5;
   }
 
-  static SQLConnection.isOk(_:resultCode:context:)(ppDb[0], v13, 0, 0);
+  static SQLConnection.isOk(_:resultCode:context:)(ppDb[0], v12, 0, 0);
   if (v6)
   {
 
@@ -5873,30 +5236,27 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v7[2] = v14;
-  v7[3] = a1;
-  v7[4] = a2;
-  v7[5] = a3;
+  *(v5 + 16) = v13;
+  *(v5 + 24) = a1;
+  *(v5 + 32) = a2;
+  *(v5 + 40) = a3;
   v19 = a4;
-  v7[6] = a4;
-  v7[7] = a5;
-  v27 = v7[8];
-  v7[8] = 0;
-  v28 = a4;
-  v29 = a5;
+  *(v5 + 48) = a4;
+  *(v5 + 56) = a5;
+  *(v5 + 64) = 0;
+  v21 = a4;
+  v22 = a5;
 
-  v30 = v7[9];
-  v7[9] = 0;
+  *(v5 + 72) = 0;
 
-  v31 = v7[10];
-  v7[10] = 0;
+  *(v5 + 80) = 0;
 
-  *(v7 + 96) = 0;
+  *(v5 + 96) = 0;
   SQLConnection.setAuthorizor()();
-  if (!v32)
+  if (!v23)
   {
 
-    goto LABEL_11;
+    return v7;
   }
 
   v18 = 1;
@@ -5908,127 +5268,108 @@ LABEL_6:
 
   swift_willThrow();
 
-  if (v18)
+  if (!v18)
   {
-  }
-
-  else
-  {
-    v20 = v7[8];
-
-    v21 = v7[9];
-
-    v22 = v7[10];
-
-    v23 = v7[11];
-
-    v24 = v7[13];
 
     swift_deallocPartialClassInstance();
   }
 
-LABEL_11:
-  v25 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
-uint64_t static SQLConnection.isOk(_:resultCode:context:)(uint64_t result, int a2, uint64_t a3, uint64_t a4)
+sqlite3 *static SQLConnection.isOk(_:resultCode:context:)(sqlite3 *result, int a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
     v7 = result;
-    lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
-    OUTLINED_FUNCTION_13();
-    static SQLConnection.sqlError(db:resultCode:statement:message:)(v7, a2, 0, a3, a4, v8);
+    v8 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+    OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v8);
+    static SQLConnection.sqlError(db:resultCode:statement:message:)(v7, a2, 0, a3, a4, v9);
     return swift_willThrow();
   }
 
   return result;
 }
 
-uint64_t closure #1 in SQLConnection.init(streamIdentifiers:databaseIdentifiers:setIdentifiers:useCase:library:privileges:account:)(void *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+char *closure #1 in SQLConnection.init(streamIdentifiers:databaseIdentifiers:setIdentifiers:useCase:library:privileges:account:)(void *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v7 = v6;
-  v72 = a6;
-  v73 = a4;
-  v74 = a5;
-  v66 = a3;
-  v71 = type metadata accessor for URL();
-  v68 = *(v71 - 8);
-  v10 = *(v68 + 64);
-  MEMORY[0x28223BE20](v71);
-  v70 = &v65 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v69 = type metadata accessor for DatabaseResourceToken();
-  v67 = *(v69 - 8);
-  v12 = *(v67 + 64);
-  MEMORY[0x28223BE20](v69);
-  v75 = &v65 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = a1[3];
-  v15 = __swift_project_boxed_opaque_existential_0(a1, v14);
-  v16 = *(*(v14 - 8) + 64);
-  MEMORY[0x28223BE20](v15);
-  (*(v18 + 16))(&v65 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v61 = a6;
+  v62 = a4;
+  v63 = a5;
+  v55 = a3;
+  v60 = type metadata accessor for URL();
+  v57 = *(v60 - 8);
+  MEMORY[0x28223BE20](v60);
+  v59 = &v54 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v58 = type metadata accessor for DatabaseResourceToken();
+  v56 = *(v58 - 8);
+  MEMORY[0x28223BE20](v58);
+  v64 = &v54 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = __swift_project_boxed_opaque_existential_0(a1, a1[3]);
+  MEMORY[0x28223BE20](v12);
+  (*(v14 + 16))(&v54 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
   __src[3] = swift_getAssociatedTypeWitness();
   __src[4] = swift_getAssociatedConformanceWitness();
   __swift_allocate_boxed_opaque_existential_1(__src);
   dispatch thunk of Sequence.makeIterator()();
-  v81 = "No database for ";
+  v70 = "No database for ";
   while (1)
   {
     __swift_mutable_project_boxed_opaque_existential_1(__src, __src[3]);
     dispatch thunk of IteratorProtocol.next()();
-    v19 = v78;
-    if (!v78)
+    v15 = v67;
+    if (!v67)
     {
       break;
     }
 
-    v20 = v77;
-    v21 = SQLConnection.streamVtabModule()();
+    v16 = v66;
+    v17 = SQLConnection.streamVtabModule()();
     if (v7)
     {
 
       goto LABEL_29;
     }
 
-    v22 = *(v21 + 16);
-    v23 = *(v21 + 24);
+    v18 = *(v17 + 16);
+    v19 = *(v17 + 24);
 
     if (*(a2 + 96) == 1)
     {
-      v24 = *(a2 + 16);
+      v20 = *(a2 + 16);
 
-      v25 = sqlite3_set_authorizer(v24, 0, 0);
-      SQLConnection.isOk(_:context:)(v25, 0);
-      if (v26)
+      v21 = sqlite3_set_authorizer(v20, 0, 0);
+      SQLConnection.isOk(_:context:)(v21, 0);
+      if (v22)
       {
         goto LABEL_27;
       }
 
       *(a2 + 96) = 0;
-      closure #1 in SQLConnection.createVirtualTable(tableName:moduleName:)(v20, v19, v22, v23, a2);
+      closure #1 in SQLConnection.createVirtualTable(tableName:moduleName:)(v16, v15, v18, v19, a2);
       SQLConnection.setAuthorizor()();
     }
 
     else
     {
-      v77 = 0;
-      v78 = 0xE000000000000000;
+      v66 = 0;
+      v67 = 0xE000000000000000;
 
       _StringGuts.grow(_:)(54);
-      MEMORY[0x259C32B90](0xD000000000000028, v81 | 0x8000000000000000);
-      MEMORY[0x259C32B90](v20, v19);
+      MEMORY[0x259C32B90](0xD000000000000028, v70 | 0x8000000000000000);
+      MEMORY[0x259C32B90](v16, v15);
       MEMORY[0x259C32B90](0x20474E4953552022, 0xE900000000000022);
-      MEMORY[0x259C32B90](v22, v23);
+      MEMORY[0x259C32B90](v18, v19);
       MEMORY[0x259C32B90](34, 0xE100000000000000);
-      v24 = *(a2 + 16);
-      v28 = String.utf8CString.getter();
-      v29 = sqlite3_exec(v24, (v28 + 32), 0, 0, 0);
+      v20 = *(a2 + 16);
+      v24 = String.utf8CString.getter();
+      v25 = sqlite3_exec(v20, (v24 + 32), 0, 0, 0);
 
-      SQLConnection.isOk(_:context:)(v29, 0);
+      SQLConnection.isOk(_:context:)(v25, 0);
     }
 
-    if (v27)
+    if (v23)
     {
 LABEL_27:
 
@@ -6038,57 +5379,57 @@ LABEL_27:
     }
 
     swift_bridgeObjectRelease_n();
-    v77 = v20;
-    v78 = v19;
+    v66 = v16;
+    v67 = v15;
     MEMORY[0x259C32B90](0x4F5453424D4F542ELL, 0xEA0000000000454ELL);
-    v30 = v77;
-    v31 = v78;
-    v32 = SQLConnection.streamTombstoneVtabModule()();
-    v33 = *(v32 + 16);
-    v34 = *(v32 + 24);
+    v26 = v66;
+    v27 = v67;
+    v28 = SQLConnection.streamTombstoneVtabModule()();
+    v29 = *(v28 + 16);
+    v30 = *(v28 + 24);
 
     if (*(a2 + 96) == 1)
     {
 
-      v35 = sqlite3_set_authorizer(v24, 0, 0);
-      SQLConnection.isOk(_:context:)(v35, 0);
-      if (v36)
+      v31 = sqlite3_set_authorizer(v20, 0, 0);
+      SQLConnection.isOk(_:context:)(v31, 0);
+      if (v32)
       {
         goto LABEL_28;
       }
 
       *(a2 + 96) = 0;
-      closure #1 in SQLConnection.createVirtualTable(tableName:moduleName:)(v30, v31, v33, v34, a2);
+      closure #1 in SQLConnection.createVirtualTable(tableName:moduleName:)(v26, v27, v29, v30, a2);
       SQLConnection.setAuthorizor()();
     }
 
     else
     {
-      v77 = 0;
-      v78 = 0xE000000000000000;
+      v66 = 0;
+      v67 = 0xE000000000000000;
 
       _StringGuts.grow(_:)(54);
-      MEMORY[0x259C32B90](0xD000000000000028, v81 | 0x8000000000000000);
-      MEMORY[0x259C32B90](v30, v31);
+      MEMORY[0x259C32B90](0xD000000000000028, v70 | 0x8000000000000000);
+      MEMORY[0x259C32B90](v26, v27);
       MEMORY[0x259C32B90](0x20474E4953552022, 0xE900000000000022);
-      MEMORY[0x259C32B90](v33, v34);
+      MEMORY[0x259C32B90](v29, v30);
       MEMORY[0x259C32B90](34, 0xE100000000000000);
-      v38 = String.utf8CString.getter();
-      v39 = sqlite3_exec(v24, (v38 + 32), 0, 0, 0);
+      v34 = String.utf8CString.getter();
+      v35 = sqlite3_exec(v20, (v34 + 32), 0, 0, 0);
 
-      SQLConnection.isOk(_:context:)(v39, 0);
+      SQLConnection.isOk(_:context:)(v35, 0);
     }
 
-    v7 = v37;
-    if (v37)
+    v7 = v33;
+    if (v33)
     {
 LABEL_28:
       swift_bridgeObjectRelease_n();
       swift_bridgeObjectRelease_n();
 
 LABEL_29:
-      v60 = __src;
-      return __swift_destroy_boxed_opaque_existential_0(v60);
+      v49 = __src;
+      return __swift_destroy_boxed_opaque_existential_0(v49);
     }
 
     swift_bridgeObjectRelease_n();
@@ -6096,29 +5437,27 @@ LABEL_29:
   }
 
   __swift_destroy_boxed_opaque_existential_0(__src);
-  v40 = v66[3];
-  v41 = __swift_project_boxed_opaque_existential_0(v66, v40);
-  v42 = *(*(v40 - 8) + 64);
-  MEMORY[0x28223BE20](v41);
-  (*(v44 + 16))(&v65 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v36 = __swift_project_boxed_opaque_existential_0(v55, v55[3]);
+  MEMORY[0x28223BE20](v36);
+  (*(v38 + 16))(&v54 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0));
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  __swift_allocate_boxed_opaque_existential_1(&v77);
+  __swift_allocate_boxed_opaque_existential_1(&v66);
   dispatch thunk of Sequence.makeIterator()();
-  v45 = (v68 + 8);
-  v81 = (v67 + 8);
+  v39 = (v57 + 8);
+  v70 = (v56 + 8);
 LABEL_17:
-  __swift_mutable_project_boxed_opaque_existential_1(&v77, AssociatedTypeWitness);
+  __swift_mutable_project_boxed_opaque_existential_1(&v66, AssociatedTypeWitness);
   dispatch thunk of IteratorProtocol.next()();
-  v46 = __src[1];
+  v40 = __src[1];
   if (!__src[1])
   {
 LABEL_26:
-    v60 = &v77;
-    return __swift_destroy_boxed_opaque_existential_0(v60);
+    v49 = &v66;
+    return __swift_destroy_boxed_opaque_existential_0(v49);
   }
 
-  v47 = __src[0];
+  v41 = __src[0];
   if (!dispatch thunk of static LibraryBase.lookupDatabaseResource(identifier:)())
   {
     __src[0] = 0;
@@ -6127,22 +5466,20 @@ LABEL_26:
 
     __src[0] = 0xD000000000000010;
     __src[1] = 0x80000002553A8340;
-    MEMORY[0x259C32B90](v47, v46);
+    MEMORY[0x259C32B90](v41, v40);
 
-    v61 = __src[0];
-    v62 = __src[1];
+    v50 = __src[0];
+    v51 = __src[1];
     lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
     swift_allocError();
-    v64 = v63;
-    *v63 = v61;
-    v63[1] = v62;
-    memcpy(v63 + 2, __src, 0x48uLL);
-    *(v64 + 88) = 0;
+    v53 = v52;
+    *v52 = v50;
+    v52[1] = v51;
+    memcpy(v52 + 2, __src, 0x48uLL);
+    *(v53 + 88) = 0;
     swift_willThrow();
     goto LABEL_26;
   }
-
-  v49 = v48;
 
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   dispatch thunk of static DatabaseResource.databaseResourceToken(useCase:)();
@@ -6152,37 +5489,34 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v50 = v70;
+  v42 = v59;
   DatabaseResourceToken.url.getter();
-  v51 = *(v49 + 8);
   dispatch thunk of static DataResource.identifier.getter();
   SQLConnection.attachDatabase(url:as:readwrite:)();
-  (*v45)(v50, v71);
+  (*v39)(v42, v60);
 
-  v52 = dispatch thunk of static DatabaseResource.views.getter();
-  v53 = (v52 + 40);
-  v54 = -*(v52 + 16);
-  v55 = -1;
+  v43 = dispatch thunk of static DatabaseResource.views.getter();
+  v44 = v43 + 40;
+  v45 = -*(v43 + 16);
+  v46 = -1;
   while (1)
   {
-    result = v75;
-    if (v54 + v55 == -1)
+    result = v64;
+    if (v45 + v46 == -1)
     {
-      (*v81)(v75, v69);
+      (*v70)(v64, v58);
 
       goto LABEL_17;
     }
 
-    if (++v55 >= *(v52 + 16))
+    if (++v46 >= *(v43 + 16))
     {
       break;
     }
 
-    v57 = v53 + 2;
-    v58 = *(v53 - 1);
-    v59 = *v53;
+    v48 = v44 + 16;
     SQLConnection.createTempSQLView(for:)();
-    v53 = v57;
+    v44 = v48;
   }
 
   __break(1u);
@@ -6198,21 +5532,20 @@ uint64_t SQLConnection.streamVtabModule()()
 
   else
   {
-    type metadata accessor for VirtualTable.Stream.Module();
-    OUTLINED_FUNCTION_9_1();
-    v2 = OUTLINED_FUNCTION_15_1();
-    VirtualTable.Stream.Module.init(ipsqlDb:)(v2);
+    v2 = type metadata accessor for VirtualTable.Stream.Module();
+    OUTLINED_FUNCTION_9_1(v2);
+    v3 = OUTLINED_FUNCTION_15_1();
+    VirtualTable.Stream.Module.init(ipsqlDb:)(v3);
     OUTLINED_FUNCTION_15_1();
 
-    v3 = OUTLINED_FUNCTION_6_2();
-    specialized SQLConnection.withoutAuthorizer(block:)(v3, v4, v5);
+    v4 = OUTLINED_FUNCTION_6_2();
+    specialized SQLConnection.withoutAuthorizer(block:)(v4, v5, v6);
     if (v1)
     {
 
       return v0;
     }
 
-    v7 = *(v0 + 64);
     *(v0 + 64) = v0;
   }
 
@@ -6228,21 +5561,20 @@ uint64_t SQLConnection.streamTombstoneVtabModule()()
 
   else
   {
-    type metadata accessor for VirtualTable.StreamTombstone.Module();
-    OUTLINED_FUNCTION_9_1();
-    v2 = OUTLINED_FUNCTION_15_1();
-    VirtualTable.StreamTombstone.Module.init(ipsqlDb:)(v2);
+    v2 = type metadata accessor for VirtualTable.StreamTombstone.Module();
+    OUTLINED_FUNCTION_9_1(v2);
+    v3 = OUTLINED_FUNCTION_15_1();
+    VirtualTable.StreamTombstone.Module.init(ipsqlDb:)(v3);
     OUTLINED_FUNCTION_15_1();
 
-    v3 = OUTLINED_FUNCTION_6_2();
-    specialized SQLConnection.withoutAuthorizer(block:)(v3, v4, v5);
+    v4 = OUTLINED_FUNCTION_6_2();
+    specialized SQLConnection.withoutAuthorizer(block:)(v4, v5, v6);
     if (v1)
     {
 
       return v0;
     }
 
-    v7 = *(v0 + 72);
     *(v0 + 72) = v0;
   }
 
@@ -6258,63 +5590,61 @@ void SQLConnection.attachDatabase(url:as:readwrite:)()
   v8 = v7;
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   OUTLINED_FUNCTION_21(v9);
-  v11 = *(v10 + 64);
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v12);
-  v14 = &v31[-1] - v13;
-  v15 = type metadata accessor for URL();
-  v16 = OUTLINED_FUNCTION_0_2(v15);
-  v32 = v17;
-  v19 = *(v18 + 64);
-  MEMORY[0x28223BE20](v16);
+  MEMORY[0x28223BE20](v10);
+  v12 = &v28[-1] - v11;
+  v13 = type metadata accessor for URL();
+  OUTLINED_FUNCTION_0_2();
+  v29 = v14;
+  MEMORY[0x28223BE20](v15);
   OUTLINED_FUNCTION_3();
-  v22 = v21 - v20;
-  specialized Dictionary.subscript.getter(v6, v4, *(v0 + 88), v14);
-  if (__swift_getEnumTagSinglePayload(v14, 1, v15) == 1)
+  v18 = v17 - v16;
+  specialized Dictionary.subscript.getter(v6, v4, *(v0 + 88), v12);
+  if (__swift_getEnumTagSinglePayload(v12, 1, v13) == 1)
   {
-    v23 = outlined destroy of URL?(v14, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    MEMORY[0x28223BE20](v23);
-    *(&v30 - 48) = v2 & 1;
-    *(&v30 - 5) = v0;
-    *(&v30 - 4) = v8;
-    *(&v30 - 3) = v6;
-    *(&v30 - 2) = v4;
+    v19 = outlined destroy of URL?(v12, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    MEMORY[0x28223BE20](v19);
+    *(&v27 - 48) = v2 & 1;
+    *(&v27 - 5) = v0;
+    *(&v27 - 4) = v8;
+    *(&v27 - 3) = v6;
+    *(&v27 - 2) = v4;
     SQLConnection.withoutAuthorizer(block:)(partial apply for closure #1 in SQLConnection.attachDatabase(url:as:readwrite:));
   }
 
   else
   {
-    (*(v32 + 32))(v22, v14, v15);
-    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL);
+    (*(v29 + 32))(v18, v12, v13);
+    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9278]);
     if ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
     {
-      v31[0] = 0;
-      v31[1] = 0xE000000000000000;
+      v28[0] = 0;
+      v28[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(54);
       MEMORY[0x259C32B90](0xD000000000000010, 0x80000002553A7E80);
-      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL);
-      v24 = dispatch thunk of CustomStringConvertible.description.getter();
-      MEMORY[0x259C32B90](v24);
+      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9290]);
+      v20 = dispatch thunk of CustomStringConvertible.description.getter();
+      MEMORY[0x259C32B90](v20);
 
       MEMORY[0x259C32B90](0x616261746144203ALL, 0xEB00000000206573);
       MEMORY[0x259C32B90](v6, v4);
       MEMORY[0x259C32B90](0xD000000000000015, 0x80000002553A7EA0);
-      v25 = dispatch thunk of CustomStringConvertible.description.getter();
-      MEMORY[0x259C32B90](v25);
+      v21 = dispatch thunk of CustomStringConvertible.description.getter();
+      MEMORY[0x259C32B90](v21);
 
-      v26 = v31[0];
-      v27 = v31[1];
-      lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
-      OUTLINED_FUNCTION_13();
-      v29 = v28;
-      *v28 = v26;
-      v28[1] = v27;
-      memcpy(v28 + 2, v31, 0x48uLL);
-      *(v29 + 88) = 2;
+      v22 = v28[0];
+      v23 = v28[1];
+      v24 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+      OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v24);
+      v26 = v25;
+      *v25 = v22;
+      v25[1] = v23;
+      memcpy(v25 + 2, v28, 0x48uLL);
+      *(v26 + 88) = 2;
       swift_willThrow();
     }
 
-    (*(v32 + 8))(v22, v15);
+    (*(v29 + 8))(v18, v13);
   }
 
   OUTLINED_FUNCTION_24();
@@ -6323,63 +5653,58 @@ void SQLConnection.attachDatabase(url:as:readwrite:)()
 void SQLConnection.createTempSQLView(for:)()
 {
   OUTLINED_FUNCTION_23();
-  v2 = v1;
-  v3 = type metadata accessor for LibraryArtifact.Table();
-  v4 = OUTLINED_FUNCTION_0_2(v3);
-  v35 = v5;
-  v36 = v4;
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v4);
+  type metadata accessor for LibraryArtifact.Table();
+  OUTLINED_FUNCTION_0_2();
+  v25 = v1;
+  v26 = v0;
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_3();
-  v10 = v9 - v8;
-  v11 = *(v0 + 16);
+  v4 = v3 - v2;
   _StringGuts.grow(_:)(29);
 
-  v12 = *(v2 + 8);
   OUTLINED_FUNCTION_10_0();
-  v13 = dispatch thunk of static LibraryArtifact.DataArtifact.identifier.getter();
-  MEMORY[0x259C32B90](v13);
+  v5 = dispatch thunk of static LibraryArtifact.DataArtifact.identifier.getter();
+  MEMORY[0x259C32B90](v5);
 
   MEMORY[0x259C32B90](34, 0xE100000000000000);
   String.utf8CString.getter();
   OUTLINED_FUNCTION_20_1();
 
   OUTLINED_FUNCTION_5_3();
-  sqlite3_exec(v14, v15, v16, v17, v18);
+  sqlite3_exec(v6, v7, v8, v9, v10);
 
   OUTLINED_FUNCTION_0_0();
-  SQLConnection.isOk(_:context:)(v19, v20);
-  if (!v21)
+  SQLConnection.isOk(_:context:)(v11, v12);
+  if (!v13)
   {
     _StringGuts.grow(_:)(102);
     MEMORY[0x259C32B90](0xD00000000000002CLL, 0x80000002553A8280);
     OUTLINED_FUNCTION_10_0();
-    v22 = dispatch thunk of static LibraryArtifact.DataArtifact.identifier.getter();
-    MEMORY[0x259C32B90](v22);
+    v14 = dispatch thunk of static LibraryArtifact.DataArtifact.identifier.getter();
+    MEMORY[0x259C32B90](v14);
 
     MEMORY[0x259C32B90](0xD000000000000030, 0x80000002553A82B0);
     dispatch thunk of static IntelligencePlatformView.database.getter();
-    v24 = *(v23 + 8);
-    v25 = dispatch thunk of static DataResource.identifier.getter();
-    MEMORY[0x259C32B90](v25);
+    v15 = dispatch thunk of static DataResource.identifier.getter();
+    MEMORY[0x259C32B90](v15);
 
     MEMORY[0x259C32B90](2240034, 0xE300000000000000);
     OUTLINED_FUNCTION_10_0();
-    v26 = dispatch thunk of static LibraryArtifact.DataArtifact.metadata.getter();
-    MEMORY[0x259C32550](v26);
-    (*(v35 + 8))(v10, v36);
-    v27 = OUTLINED_FUNCTION_13_1();
-    MEMORY[0x259C32B90](v27);
+    v16 = dispatch thunk of static LibraryArtifact.DataArtifact.metadata.getter();
+    MEMORY[0x259C32550](v16);
+    (*(v25 + 8))(v4, v26);
+    v17 = OUTLINED_FUNCTION_13_1();
+    MEMORY[0x259C32B90](v17);
 
     MEMORY[0x259C32B90](34, 0xE100000000000000);
     String.utf8CString.getter();
     OUTLINED_FUNCTION_20_1();
 
     OUTLINED_FUNCTION_5_3();
-    sqlite3_exec(v28, v29, v30, v31, v32);
+    sqlite3_exec(v18, v19, v20, v21, v22);
 
     OUTLINED_FUNCTION_0_0();
-    SQLConnection.isOk(_:context:)(v33, v34);
+    SQLConnection.isOk(_:context:)(v23, v24);
   }
 
   OUTLINED_FUNCTION_24();
@@ -6388,17 +5713,6 @@ void SQLConnection.createTempSQLView(for:)()
 uint64_t SQLConnection.deinit()
 {
   sqlite3_close(*(v0 + 16));
-  v1 = *(v0 + 40);
-
-  v2 = *(v0 + 64);
-
-  v3 = *(v0 + 72);
-
-  v4 = *(v0 + 80);
-
-  v5 = *(v0 + 88);
-
-  v6 = *(v0 + 104);
 
   return v0;
 }
@@ -6411,7 +5725,7 @@ uint64_t SQLConnection.__deallocating_deinit()
   return MEMORY[0x2821FE8D8](v0, v1, v2);
 }
 
-uint64_t closure #1 in SQLConnection.streamVtabModule()(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t closure #1 in SQLConnection.streamVtabModule()(uint64_t a1, void *a2, uint64_t a3)
 {
   v10[4] = a3;
   v10[3] = *a2;
@@ -6437,56 +5751,72 @@ uint64_t SQLConnection.viewVtabModule()()
 
   else
   {
-    type metadata accessor for VirtualTable.View.Module();
-    OUTLINED_FUNCTION_9_1();
-    v2 = OUTLINED_FUNCTION_15_1();
-    VirtualTable.View.Module.init(ipsqlDb:)(v2);
+    v2 = type metadata accessor for VirtualTable.View.Module();
+    OUTLINED_FUNCTION_9_1(v2);
+    v3 = OUTLINED_FUNCTION_15_1();
+    VirtualTable.View.Module.init(ipsqlDb:)(v3);
     OUTLINED_FUNCTION_15_1();
 
-    v3 = OUTLINED_FUNCTION_6_2();
-    specialized SQLConnection.withoutAuthorizer(block:)(v3, v4, v5);
+    v4 = OUTLINED_FUNCTION_6_2();
+    specialized SQLConnection.withoutAuthorizer(block:)(v4, v5, v6);
     if (v1)
     {
 
       return v0;
     }
 
-    v7 = *(v0 + 80);
     *(v0 + 80) = v0;
   }
 
   return v0;
 }
 
+void SQLConnection.execute(query:bindings:block:)(uint64_t a1, uint64_t a2, Swift::OpaquePointer a3, void (*a4)(void))
+{
+  v6._rawValue = SQLConnection.prepareStatement(query:)(*&a1)._rawValue;
+  if (!v7)
+  {
+    rawValue = v6._rawValue;
+    SQLConnection.addBindings(stmt:bindings:)(v6, a3);
+    if (!v9)
+    {
+      v10 = type metadata accessor for ResultSetCursor();
+      OUTLINED_FUNCTION_9_1(v10);
+
+      ResultSetCursor.init(db:statement:)(v11, rawValue);
+      a4();
+
+      sqlite3_finalize(rawValue);
+    }
+  }
+}
+
 Swift::OpaquePointer __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> SQLConnection.prepareStatement(query:)(Swift::String query)
 {
   ppStmt[1] = *MEMORY[0x277D85DE8];
   ppStmt[0] = 0;
-  if ((query._object & 0x1000000000000000) != 0)
+  if ((query._object & 0x1000000000000000) == 0)
   {
-    goto LABEL_11;
-  }
+    if ((query._object & 0x2000000000000000) != 0)
+    {
+      *zSql = query._countAndFlagsBits;
+      *&zSql[8] = query._object & 0xFFFFFFFFFFFFFFLL;
+      query._countAndFlagsBits = *(v1 + 16);
+      query._object = zSql;
+      goto LABEL_6;
+    }
 
-  if ((query._object & 0x2000000000000000) != 0)
-  {
-    *zSql = query._countAndFlagsBits;
-    *&zSql[8] = query._object & 0xFFFFFFFFFFFFFFLL;
-    query._countAndFlagsBits = *(v1 + 16);
-    query._object = zSql;
-    goto LABEL_6;
-  }
-
-  if ((query._countAndFlagsBits & 0x1000000000000000) == 0)
-  {
-LABEL_11:
-    _StringGuts._slowWithCString<A>(_:)();
-    goto LABEL_7;
-  }
-
-  query._countAndFlagsBits = *(v1 + 16);
-  query._object = ((query._object & 0xFFFFFFFFFFFFFFFLL) + 32);
+    if ((query._countAndFlagsBits & 0x1000000000000000) != 0)
+    {
+      query._countAndFlagsBits = *(v1 + 16);
+      query._object = ((query._object & 0xFFFFFFFFFFFFFFFLL) + 32);
 LABEL_6:
-  sqlite3_prepare_v2(query._countAndFlagsBits, query._object, -1, ppStmt, 0);
+      sqlite3_prepare_v2(query._countAndFlagsBits, query._object, -1, ppStmt, 0);
+      goto LABEL_7;
+    }
+  }
+
+  _StringGuts._slowWithCString<A>(_:)();
 LABEL_7:
   OUTLINED_FUNCTION_0_0();
   SQLConnection.isOk(_:context:)(v3, v4);
@@ -6495,86 +5825,84 @@ LABEL_7:
     result._rawValue = ppStmt[0];
     if (!ppStmt[0])
     {
-      lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
-      OUTLINED_FUNCTION_13();
+      v7 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+      OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v7);
       v9 = v8;
       *v8 = 0xD000000000000020;
       v8[1] = 0x80000002553A82F0;
       memcpy(v8 + 2, zSql, 0x48uLL);
       *(v9 + 88) = 0;
-      result._rawValue = swift_willThrow();
+      return swift_willThrow();
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void SQLConnection.execute(query:against:block:)()
 {
   OUTLINED_FUNCTION_23();
-  v30 = v1;
-  v28 = v3;
-  v29 = v2;
+  v29 = v1;
+  v27 = v3;
+  v28 = v2;
   v5 = v4;
   v7 = v6;
   v9 = v8;
   v10 = type metadata accessor for SQLParseResult(0);
-  v11 = OUTLINED_FUNCTION_0_2(v10);
-  v26 = v12;
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_0_2();
+  v25 = v11;
+  MEMORY[0x28223BE20](v12);
   OUTLINED_FUNCTION_3();
-  v17 = v16 - v15;
-  v25 = *v5;
-  v18 = v5[2];
-  v27 = v5[1];
-  v19 = v5[3];
-  v20 = v5[4];
-  v22 = v5[5];
-  v21 = v5[6];
+  v15 = v14 - v13;
+  v24 = *v5;
+  v16 = v5[2];
+  v26 = v5[1];
+  v17 = v5[3];
+  v18 = v5[4];
+  v20 = v5[5];
+  v19 = v5[6];
 
-  SQLParseResult.init(sql:)(v9, v7, v17);
+  SQLParseResult.init(sql:)(v9, v7, v15);
   if (!v0)
   {
-    (*(v26 + 8))(v17, v10);
-    if (v25)
+    (*(v25 + 8))(v15, v10);
+    if (v24)
     {
-      if (v25 == 1)
+      if (v24 == 1)
       {
-        lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
-        OUTLINED_FUNCTION_13();
-        v24 = v23;
-        *v23 = 0xD000000000000014;
-        v23[1] = 0x80000002553A7EC0;
-        memcpy(v23 + 2, v31, 0x48uLL);
-        *(v24 + 88) = 0;
+        v21 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+        OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v21);
+        v23 = v22;
+        *v22 = 0xD000000000000014;
+        v22[1] = 0x80000002553A7EC0;
+        memcpy(v22 + 2, v30, 0x48uLL);
+        *(v23 + 88) = 0;
         swift_willThrow();
       }
 
       else
       {
-        LOBYTE(v31[0]) = 2;
-        v31[1] = v27;
-        v31[2] = v18;
-        v31[3] = v19;
-        v31[4] = v20;
-        v31[5] = v22;
-        v31[6] = v21;
-        SQLConnection.executeView(query:against:block:)(v9, v7, v31, v29, v30, v28);
+        LOBYTE(v30[0]) = 2;
+        v30[1] = v26;
+        v30[2] = v16;
+        v30[3] = v17;
+        v30[4] = v18;
+        v30[5] = v20;
+        v30[6] = v19;
+        SQLConnection.executeView(query:against:block:)(v9, v7, v30, v28, v29, v27);
       }
     }
 
     else
     {
-      LOBYTE(v31[0]) = 0;
-      v31[1] = v27;
-      v31[2] = v18;
-      v31[3] = v19;
-      v31[4] = v20;
-      v31[5] = v22;
-      v31[6] = v21;
-      SQLConnection.executeStream(query:against:block:)(v9, v7, v31, v29, v28);
+      LOBYTE(v30[0]) = 0;
+      v30[1] = v26;
+      v30[2] = v16;
+      v30[3] = v17;
+      v30[4] = v18;
+      v30[5] = v20;
+      v30[6] = v19;
+      SQLConnection.executeStream(query:against:block:)(v9, v7, v30, v28, v27);
     }
   }
 
@@ -6583,8 +5911,8 @@ void SQLConnection.execute(query:against:block:)()
 
 uint64_t SQLConnection.executeStream(query:against:block:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, char *a3@<X2>, void (*a4)(Swift::String *)@<X3>, uint64_t a5@<X8>)
 {
-  v54._countAndFlagsBits = a1;
-  v54._object = a2;
+  v52._countAndFlagsBits = a1;
+  v52._object = a2;
   v6 = *a3;
   v7 = *(a3 + 1);
   v8 = *(a3 + 2);
@@ -6593,131 +5921,128 @@ uint64_t SQLConnection.executeStream(query:against:block:)@<X0>(uint64_t a1@<X0>
   v11 = *(a3 + 5);
   v12 = *(a3 + 6);
   type metadata accessor for VirtualTable.Stream.QueryState();
-  LOBYTE(v57._countAndFlagsBits) = v6;
-  v57._object = v7;
-  v58 = v8;
-  v59 = v10;
-  v60 = v9;
-  v61 = v11;
-  v62 = v12;
+  LOBYTE(v55._countAndFlagsBits) = v6;
+  v55._object = v7;
+  v56 = v8;
+  v57 = v10;
+  v58 = v9;
+  v59 = v11;
+  v60 = v12;
   v13 = OUTLINED_FUNCTION_13_1();
   outlined copy of Data._Representation(v13, v14);
   v15 = OUTLINED_FUNCTION_22_1();
   outlined copy of Data._Representation(v15, v16);
   outlined copy of Data._Representation(v11, v12);
-  result = VirtualTable.Stream.QueryState.__allocating_init(globalBookmark:)(&v57);
+  result = VirtualTable.Stream.QueryState.__allocating_init(globalBookmark:)(&v55);
   if (!v5)
   {
     v18 = result;
-    v51 = v6;
+    v49 = v6;
     v19 = *(result + 16);
     v20 = *(result + 24);
 
     SQLConnection.streamVtabModule()();
-    v50 = v18;
-    v21 = VirtualTable.Stream.Module.vtabCreatingIfNeeded(for:)();
+    v48 = v18;
+    v21 = VirtualTable.Stream.Module.vtabCreatingIfNeeded(for:)(v19, v20);
 
-    v22 = *(v21 + OBJC_IVAR____TtCOO25IntelligencePlatformQuery12VirtualTable6Stream5Table_sourceState);
-    *(v21 + OBJC_IVAR____TtCOO25IntelligencePlatformQuery12VirtualTable6Stream5Table_sourceState) = v50;
+    *(v21 + OBJC_IVAR____TtCOO25IntelligencePlatformQuery12VirtualTable6Stream5Table_sourceState) = v48;
 
-    v23 = SQLConnection.streamTombstoneVtabModule()();
-    v49 = v19;
-    v57._countAndFlagsBits = v19;
-    v57._object = v20;
-    v25 = v23;
+    v22 = SQLConnection.streamTombstoneVtabModule()();
+    v47 = v19;
+    v55._countAndFlagsBits = v19;
+    v55._object = v20;
+    v24 = v22;
 
     MEMORY[0x259C32B90](0x4F5453424D4F542ELL, 0xEA0000000000454ELL);
-    VirtualTable.StreamTombstone.Module.vtabCreatingIfNeeded(for:)(v57._countAndFlagsBits, v57._object);
+    VirtualTable.StreamTombstone.Module.vtabCreatingIfNeeded(for:)(v55._countAndFlagsBits, v55._object);
     OUTLINED_FUNCTION_23_0();
 
-    v26 = *(v25 + 56);
-    *(v25 + 56) = v50;
+    *(v24 + 56) = v48;
 
-    v57._countAndFlagsBits = 0;
-    v57._object = 0xE000000000000000;
+    v55._countAndFlagsBits = 0;
+    v55._object = 0xE000000000000000;
     _StringGuts.grow(_:)(65);
     OUTLINED_FUNCTION_24_0();
     MEMORY[0x259C32B90](0xD000000000000034);
-    MEMORY[0x259C32B90](v49, v20);
+    MEMORY[0x259C32B90](v47, v20);
 
     MEMORY[0x259C32B90](0x4F5453424D4F542ELL, 0xEB0000000022454ELL);
-    v27._rawValue = SQLConnection.prepareStatement(query:)(v57)._rawValue;
-    if (v28)
+    v25._rawValue = SQLConnection.prepareStatement(query:)(v55)._rawValue;
+    if (v26)
     {
 
       VirtualTable.StreamTombstone.Table.resetIncrementalState()();
-      if (v29)
+      if (v27)
       {
       }
 
       VirtualTable.Stream.Table.resetIncrementalState()();
-      if (v30)
+      if (v28)
       {
       }
     }
 
     else
     {
-      rawValue = v27._rawValue;
+      rawValue = v25._rawValue;
 
-      v32._rawValue = SQLConnection.prepareStatement(query:)(v54)._rawValue;
-      if (v33)
+      v30._rawValue = SQLConnection.prepareStatement(query:)(v52)._rawValue;
+      if (v31)
       {
         sqlite3_finalize(rawValue);
         VirtualTable.StreamTombstone.Table.resetIncrementalState()();
-        if (v34)
+        if (v32)
         {
         }
 
         VirtualTable.Stream.Table.resetIncrementalState()();
-        if (v24)
+        if (v23)
         {
         }
       }
 
       else
       {
-        v35 = v32._rawValue;
-        type metadata accessor for ResultSetCursor();
-        pStmt = v35;
-        OUTLINED_FUNCTION_9_1();
+        pStmt = v30._rawValue;
+        v33 = type metadata accessor for ResultSetCursor();
+        OUTLINED_FUNCTION_9_1(v33);
         OUTLINED_FUNCTION_23_0();
 
-        v55 = ResultSetCursor.init(db:statement:)(v36, rawValue);
-        OUTLINED_FUNCTION_9_1();
+        v53 = ResultSetCursor.init(db:statement:)(v34, rawValue);
+        OUTLINED_FUNCTION_9_1(v33);
         OUTLINED_FUNCTION_23_0();
 
-        v38 = ResultSetCursor.init(db:statement:)(v37, v35);
-        v57._countAndFlagsBits = v55;
-        v57._object = v38;
-        a4(&v57);
+        v36 = ResultSetCursor.init(db:statement:)(v35, pStmt);
+        v55._countAndFlagsBits = v53;
+        v55._object = v36;
+        a4(&v55);
 
-        VirtualTable.Stream.QueryState.finalBookmark.getter(v63);
-        v39 = OUTLINED_FUNCTION_13_1();
-        outlined copy of Data._Representation(v39, v40);
-        v41 = v10;
-        v42 = v10;
-        v43 = v9;
-        outlined copy of Data._Representation(v42, v9);
-        v44 = specialized IncrementalIdentifier.Identifier.asData.getter();
-        v46 = v45;
-        outlined destroy of IncrementalIdentifier.Stream.Bookmark(v63);
-        *a5 = v51;
+        VirtualTable.Stream.QueryState.finalBookmark.getter(v61);
+        v37 = OUTLINED_FUNCTION_13_1();
+        outlined copy of Data._Representation(v37, v38);
+        v39 = v10;
+        v40 = v10;
+        v41 = v9;
+        outlined copy of Data._Representation(v40, v9);
+        v42 = specialized IncrementalIdentifier.Identifier.asData.getter();
+        v44 = v43;
+        outlined destroy of IncrementalIdentifier.Stream.Bookmark(v61);
+        *a5 = v49;
         *(a5 + 8) = v7;
         *(a5 + 16) = v8;
-        *(a5 + 24) = v41;
-        *(a5 + 32) = v43;
-        *(a5 + 40) = v44;
-        *(a5 + 48) = v46;
+        *(a5 + 24) = v39;
+        *(a5 + 32) = v41;
+        *(a5 + 40) = v42;
+        *(a5 + 48) = v44;
         sqlite3_finalize(pStmt);
         sqlite3_finalize(rawValue);
         VirtualTable.StreamTombstone.Table.resetIncrementalState()();
-        if (v47)
+        if (v45)
         {
         }
 
         VirtualTable.Stream.Table.resetIncrementalState()();
-        if (v48)
+        if (v46)
         {
         }
       }
@@ -6729,39 +6054,35 @@ uint64_t SQLConnection.executeStream(query:against:block:)@<X0>(uint64_t a1@<X0>
 
 void SQLConnection.executeView(query:against:block:)(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X2>, void (*a4)(Swift::String *)@<X3>, uint64_t a5@<X4>, _BYTE *a6@<X8>)
 {
-  v103 = a5;
-  v104 = a4;
-  v105 = a1;
-  v106 = a2;
-  v100 = a6;
+  v93 = a5;
+  v94 = a4;
+  v95 = a1;
+  v96 = a2;
+  v90 = a6;
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12BiomeStreams23UpdatedObjectDiffConfigVSgMd, &_s12BiomeStreams23UpdatedObjectDiffConfigVSgMR);
   OUTLINED_FUNCTION_21(v8);
-  v10 = *(v9 + 64);
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v11);
-  v13 = (&v95 - v12);
-  v14 = type metadata accessor for UpdatedObjectDiffConfig();
-  v15 = OUTLINED_FUNCTION_0_2(v14);
-  v107 = v16;
-  v18 = *(v17 + 64);
-  MEMORY[0x28223BE20](v15);
+  MEMORY[0x28223BE20](v9);
+  v11 = (&v85 - v10);
+  v12 = type metadata accessor for UpdatedObjectDiffConfig();
+  OUTLINED_FUNCTION_0_2();
+  v97 = v13;
+  MEMORY[0x28223BE20](v14);
   OUTLINED_FUNCTION_3();
-  v21 = v20 - v19;
-  v99 = *a3;
-  v23 = a3[1];
-  v22 = a3[2];
-  v24 = a3[4];
-  v101 = a3[3];
-  v102 = v24;
-  v25 = a3[5];
-  v109 = a3[6];
-  v110 = v25;
-  v26 = OUTLINED_FUNCTION_22_1();
-  v28 = outlined copy of Data._Representation(v26, v27);
-  v29 = MEMORY[0x259C331C0](v28);
-  v30 = type metadata accessor for JSONDecoder();
-  v31 = *(v30 + 48);
-  v32 = *(v30 + 52);
+  v17 = v16 - v15;
+  v89 = *a3;
+  v19 = a3[1];
+  v18 = a3[2];
+  v20 = a3[4];
+  v91 = a3[3];
+  v92 = v20;
+  v21 = a3[5];
+  v99 = a3[6];
+  v100 = v21;
+  v22 = OUTLINED_FUNCTION_22_1();
+  v24 = outlined copy of Data._Representation(v22, v23);
+  v25 = MEMORY[0x259C331C0](v24);
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
   lazy protocol witness table accessor for type IncrementalIdentifier.View.Source and conformance IncrementalIdentifier.View.Source();
@@ -6769,50 +6090,49 @@ void SQLConnection.executeView(query:against:block:)(uint64_t a1@<X0>, void *a2@
   if (v6)
   {
 
-    objc_autoreleasePoolPop(v29);
-    v33 = OUTLINED_FUNCTION_22_1();
-    outlined consume of Data._Representation(v33, v34);
+    objc_autoreleasePoolPop(v25);
+    v26 = OUTLINED_FUNCTION_22_1();
+    outlined consume of Data._Representation(v26, v27);
     return;
   }
 
-  v97 = v13;
-  v96 = v21;
-  v98 = v14;
+  v87 = v11;
+  v86 = v17;
+  v88 = v12;
 
-  objc_autoreleasePoolPop(v29);
-  v35 = OUTLINED_FUNCTION_22_1();
-  v37 = outlined consume of Data._Representation(v35, v36);
-  v38 = MEMORY[0x259C331C0](v37);
-  v39 = *(v30 + 48);
-  v40 = *(v30 + 52);
+  objc_autoreleasePoolPop(v25);
+  v28 = OUTLINED_FUNCTION_22_1();
+  v30 = outlined consume of Data._Representation(v28, v29);
+  object = __src[0]._object;
+  v32 = MEMORY[0x259C331C0](v30);
   swift_allocObject();
   JSONDecoder.init()();
   lazy protocol witness table accessor for type IncrementalIdentifier.View.Bookmark and conformance IncrementalIdentifier.View.Bookmark();
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();
 
-  objc_autoreleasePoolPop(v38);
-  v41 = *&__src[0]._countAndFlagsBits;
-  v42 = v108;
+  objc_autoreleasePoolPop(v32);
+  v33 = *&__src[0]._countAndFlagsBits;
+  v34 = v98;
   SQLConnection.viewVtabModule()();
-  OUTLINED_FUNCTION_23_0();
-  v43 = VirtualTable.View.Module.vtabCreatingIfNeeded(for:)();
+  v35 = OUTLINED_FUNCTION_23_0();
+  v36 = VirtualTable.View.Module.vtabCreatingIfNeeded(for:)(v35, object);
 
-  v44 = VirtualTable.View.Table.currentState()();
-  if (v45)
+  v37 = VirtualTable.View.Table.currentState()();
+  if (v38)
   {
     goto LABEL_4;
   }
 
-  v47 = v98;
-  v48 = v97;
-  if (v41 <= 0.0)
+  v40 = v88;
+  v41 = v87;
+  if (v33 <= 0.0)
   {
     goto LABEL_12;
   }
 
-  if (v41 >= v44.pruneByTimestamp)
+  if (v33 >= v37.pruneByTimestamp)
   {
-    if (v44.latestTimestamp < v41)
+    if (v37.latestTimestamp < v33)
     {
       OUTLINED_FUNCTION_12_1();
       _StringGuts.grow(_:)(89);
@@ -6823,33 +6143,31 @@ void SQLConnection.executeView(query:against:block:)(uint64_t a1@<X0>, void *a2@
     }
 
 LABEL_12:
-    *(v43 + 56) = v41;
-    *(v43 + 64) = 0;
-    v53 = *(v43 + 48);
-    v54 = *(v43 + 40);
+    *(v36 + 56) = v33;
+    *(v36 + 64) = 0;
     dispatch thunk of static IntelligencePlatformView.updatedObjectDiffConfig.getter();
-    if (__swift_getEnumTagSinglePayload(v48, 1, v47) == 1)
+    if (__swift_getEnumTagSinglePayload(v41, 1, v40) == 1)
     {
-      outlined destroy of URL?(v48, &_s12BiomeStreams23UpdatedObjectDiffConfigVSgMd, &_s12BiomeStreams23UpdatedObjectDiffConfigVSgMR);
-      lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
-      OUTLINED_FUNCTION_13();
-      v56 = v55;
-      *v55 = 0xD000000000000035;
-      v55[1] = 0x80000002553A8150;
-      memcpy(v55 + 2, __src, 0x48uLL);
-      *(v56 + 88) = 0;
+      outlined destroy of URL?(v41, &_s12BiomeStreams23UpdatedObjectDiffConfigVSgMd, &_s12BiomeStreams23UpdatedObjectDiffConfigVSgMR);
+      v47 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+      OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v47);
+      v49 = v48;
+      *v48 = 0xD000000000000035;
+      v48[1] = 0x80000002553A8150;
+      memcpy(v48 + 2, __src, 0x48uLL);
+      *(v49 + 88) = 0;
       swift_willThrow();
-      *(v43 + 56) = 0;
-      *(v43 + 64) = 1;
+      *(v36 + 56) = 0;
+      *(v36 + 64) = 1;
       goto LABEL_4;
     }
 
-    v109 = v23;
-    v110 = v22;
-    v57 = v107;
-    v58 = v47;
-    v59 = v96;
-    (*(v107 + 32))(v96, v48, v58);
+    v99 = v19;
+    v100 = v18;
+    v50 = v97;
+    v51 = v40;
+    v52 = v86;
+    (*(v97 + 32))(v86, v41, v51);
     OUTLINED_FUNCTION_12_1();
     _StringGuts.grow(_:)(110);
     OUTLINED_FUNCTION_24_0();
@@ -6859,10 +6177,7 @@ LABEL_12:
 
     OUTLINED_FUNCTION_24_0();
     MEMORY[0x259C32B90](0xD000000000000014);
-    v60 = *(v43 + 48);
-    v61 = *(v43 + 40);
     dispatch thunk of static IntelligencePlatformView.database.getter();
-    v63 = *(v62 + 8);
     dispatch thunk of static DataResource.identifier.getter();
     OUTLINED_FUNCTION_16_1();
 
@@ -6879,104 +6194,104 @@ LABEL_12:
     OUTLINED_FUNCTION_16_1();
 
     MEMORY[0x259C32B90](0x544F4E2053492022, 0xED00004C4C554E20);
-    v64._rawValue = SQLConnection.prepareStatement(query:)(__src[0])._rawValue;
-    if (v65)
+    v53._rawValue = SQLConnection.prepareStatement(query:)(__src[0])._rawValue;
+    if (v54)
     {
-      (*(v57 + 8))(v59, v58);
+      (*(v50 + 8))(v52, v51);
 
 LABEL_26:
-      *(v43 + 56) = 0;
-      *(v43 + 64) = 1;
+      *(v36 + 56) = 0;
+      *(v36 + 64) = 1;
       goto LABEL_4;
     }
 
-    rawValue = v64._rawValue;
+    rawValue = v53._rawValue;
 
-    if (v41 == 0.0)
+    if (v33 == 0.0)
     {
-      v67 = v44.latestTimestamp + 0.0;
-      v68 = v106;
-      v69 = v107;
-      v70 = v105;
-      if (v44.latestTimestamp != INFINITY)
+      v56 = v37.latestTimestamp + 0.0;
+      v57 = v96;
+      v58 = v97;
+      v59 = v95;
+      if (v37.latestTimestamp != INFINITY)
       {
-        *&v67 += (*&v67 >> 63) | 1;
+        *&v56 += (*&v56 >> 63) | 1;
       }
 
-      sqlite3_bind_double(rawValue, 1, v67);
+      sqlite3_bind_double(rawValue, 1, v56);
       OUTLINED_FUNCTION_0_0();
-      v71 = rawValue;
-      SQLConnection.isOk(_:context:)(v72, v73);
-      if (v74)
+      v60 = rawValue;
+      SQLConnection.isOk(_:context:)(v61, v62);
+      if (v63)
       {
-        v75 = rawValue;
+        v64 = rawValue;
 LABEL_25:
-        sqlite3_finalize(v75);
-        (*(v69 + 8))(v96, v58);
+        sqlite3_finalize(v64);
+        (*(v58 + 8))(v86, v51);
         goto LABEL_26;
       }
     }
 
     else
     {
-      sqlite3_bind_double(rawValue, 1, v41);
+      sqlite3_bind_double(rawValue, 1, v33);
       OUTLINED_FUNCTION_0_0();
-      v71 = rawValue;
-      SQLConnection.isOk(_:context:)(v76, v77);
-      v68 = v106;
-      v69 = v107;
-      v78 = v96;
-      v70 = v105;
-      if (v79)
+      v60 = rawValue;
+      SQLConnection.isOk(_:context:)(v65, v66);
+      v57 = v96;
+      v58 = v97;
+      v67 = v86;
+      v59 = v95;
+      if (v68)
       {
-        sqlite3_finalize(v71);
-        (*(v69 + 8))(v78, v58);
+        sqlite3_finalize(v60);
+        (*(v58 + 8))(v67, v51);
         goto LABEL_26;
       }
     }
 
-    v97 = v71;
-    v80._countAndFlagsBits = v70;
-    v80._object = v68;
-    v81._rawValue = SQLConnection.prepareStatement(query:)(v80)._rawValue;
-    if (!v82)
+    v87 = v60;
+    v69._countAndFlagsBits = v59;
+    v69._object = v57;
+    v70._rawValue = SQLConnection.prepareStatement(query:)(v69)._rawValue;
+    if (!v71)
     {
-      v83 = v81._rawValue;
-      type metadata accessor for ResultSetCursor();
-      OUTLINED_FUNCTION_9_1();
+      v72 = v70._rawValue;
+      v73 = type metadata accessor for ResultSetCursor();
+      OUTLINED_FUNCTION_9_1(v73);
 
-      v85 = ResultSetCursor.init(db:statement:)(v84, v97);
-      OUTLINED_FUNCTION_9_1();
+      v75 = ResultSetCursor.init(db:statement:)(v74, v87);
+      OUTLINED_FUNCTION_9_1(v73);
 
-      v87 = ResultSetCursor.init(db:statement:)(v86, v83);
-      __src[0]._countAndFlagsBits = v85;
-      __src[0]._object = v87;
-      v104(__src);
+      v77 = ResultSetCursor.init(db:statement:)(v76, v72);
+      __src[0]._countAndFlagsBits = v75;
+      __src[0]._object = v77;
+      v94(__src);
 
-      outlined copy of Data._Representation(v109, v110);
-      outlined copy of Data._Representation(v101, v102);
-      v88 = specialized IncrementalIdentifier.Identifier.asData.getter();
-      v89 = v100;
-      *v100 = v99;
-      v90 = v110;
-      v89[1] = v109;
-      v89[2] = v90;
-      v91 = v102;
-      v89[3] = v101;
-      v89[4] = v91;
-      v89[5] = v88;
-      v89[6] = v92;
-      sqlite3_finalize(v83);
-      sqlite3_finalize(v97);
-      v93 = OUTLINED_FUNCTION_19_1();
-      v94(v93, v98);
-      *(v43 + 56) = 0;
-      *(v43 + 64) = 1;
-      v46 = v108;
+      outlined copy of Data._Representation(v99, v100);
+      outlined copy of Data._Representation(v91, v92);
+      v78 = specialized IncrementalIdentifier.Identifier.asData.getter(v37.latestTimestamp);
+      v79 = v90;
+      *v90 = v89;
+      v80 = v100;
+      v79[1] = v99;
+      v79[2] = v80;
+      v81 = v92;
+      v79[3] = v91;
+      v79[4] = v81;
+      v79[5] = v78;
+      v79[6] = v82;
+      sqlite3_finalize(v72);
+      sqlite3_finalize(v87);
+      v83 = OUTLINED_FUNCTION_19_1();
+      v84(v83, v88);
+      *(v36 + 56) = 0;
+      *(v36 + 64) = 1;
+      v39 = v98;
       goto LABEL_5;
     }
 
-    v75 = v97;
+    v64 = v87;
     goto LABEL_25;
   }
 
@@ -6988,19 +6303,19 @@ LABEL_25:
 LABEL_11:
   Double.write<A>(to:)();
   countAndFlagsBits = __src[0]._countAndFlagsBits;
-  object = __src[0]._object;
-  lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
-  OUTLINED_FUNCTION_13();
-  v52 = v51;
-  *v51 = countAndFlagsBits;
-  v51[1] = object;
-  memcpy(v51 + 2, __src, 0x48uLL);
-  *(v52 + 88) = 0;
+  v43 = __src[0]._object;
+  v44 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+  OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v44);
+  v46 = v45;
+  *v45 = countAndFlagsBits;
+  v45[1] = v43;
+  memcpy(v45 + 2, __src, 0x48uLL);
+  *(v46 + 88) = 0;
   swift_willThrow();
 LABEL_4:
-  v46 = v42;
+  v39 = v34;
 LABEL_5:
-  $defer #1 () in SQLConnection.executeView(query:against:block:)(v46, v43);
+  $defer #1 () in SQLConnection.executeView(query:against:block:)(v39, v36);
 }
 
 uint64_t closure #1 in closure #1 in SQLConnection.prepareStatement(query:)@<X0>(char *zSql@<X0>, sqlite3_stmt **ppStmt@<X2>, uint64_t a3@<X1>, _DWORD *a4@<X8>)
@@ -7016,11 +6331,10 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   {
     object = context.value._object;
     countAndFlagsBits = context.value._countAndFlagsBits;
-    v5 = *(v2 + 16);
-    lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
-    OUTLINED_FUNCTION_13();
-    v6 = OUTLINED_FUNCTION_21_1();
-    static SQLConnection.sqlError(db:resultCode:statement:message:)(v6, v7, v8, countAndFlagsBits, object, v9);
+    v4 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+    OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v4);
+    v5 = OUTLINED_FUNCTION_21_1();
+    static SQLConnection.sqlError(db:resultCode:statement:message:)(v5, v6, v7, countAndFlagsBits, object, v8);
     swift_willThrow();
   }
 }
@@ -7086,9 +6400,9 @@ uint64_t static SQLConnection.isOk(resultCode:statement:context:)(uint64_t resul
   if (result)
   {
     v6 = result;
-    lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
-    OUTLINED_FUNCTION_13();
-    static SQLConnection.sqlErrorLite(resultCode:statement:message:)(v6, 0, a3, a4, v7);
+    v7 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+    OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v7);
+    static SQLConnection.sqlErrorLite(resultCode:statement:message:)(v6, 0, a3, a4, v8);
     return swift_willThrow();
   }
 
@@ -7135,10 +6449,9 @@ LABEL_6:
 
 uint64_t $defer #1 () in SQLConnection.executeView(query:against:block:)(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for Logger();
-  v5 = OUTLINED_FUNCTION_0_2(v4);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
+  type metadata accessor for Logger();
+  OUTLINED_FUNCTION_0_2();
+  MEMORY[0x28223BE20](v4);
   OUTLINED_FUNCTION_3();
 
   return specialized SQLConnection.withoutAuthorizer(block:)(a1, a1, a2);
@@ -7148,7 +6461,7 @@ uint64_t static SQLConnection.SQLITE_TRANSIENT.getter()
 {
   if (one-time initialization token for SQLITE_TRANSIENT != -1)
   {
-    OUTLINED_FUNCTION_29();
+    OUTLINED_FUNCTION_29(&one-time initialization token for SQLITE_TRANSIENT);
   }
 
   return static SQLConnection.SQLITE_TRANSIENT;
@@ -7159,18 +6472,18 @@ uint64_t static SQLConnection.SQLITE_TRANSIENT.setter(uint64_t result)
   v1 = result;
   if (one-time initialization token for SQLITE_TRANSIENT != -1)
   {
-    result = OUTLINED_FUNCTION_29();
+    result = OUTLINED_FUNCTION_29(&one-time initialization token for SQLITE_TRANSIENT);
   }
 
   static SQLConnection.SQLITE_TRANSIENT = v1;
   return result;
 }
 
-double (*static SQLConnection.SQLITE_TRANSIENT.modify())(void, void)
+void (*static SQLConnection.SQLITE_TRANSIENT.modify())()
 {
   if (one-time initialization token for SQLITE_TRANSIENT != -1)
   {
-    OUTLINED_FUNCTION_29();
+    OUTLINED_FUNCTION_29(&one-time initialization token for SQLITE_TRANSIENT);
   }
 
   return ResultSetCursor.columns.modify;
@@ -7190,7 +6503,7 @@ void static SQLConnection.sqlite_result_string(context:string:)(sqlite3_context 
       v4 = a3 & 0xFFFFFFFFFFFFFFFLL;
       if (one-time initialization token for SQLITE_TRANSIENT != -1)
       {
-        OUTLINED_FUNCTION_29();
+        OUTLINED_FUNCTION_29(&one-time initialization token for SQLITE_TRANSIENT);
       }
 
       v5 = static SQLConnection.SQLITE_TRANSIENT;
@@ -7208,7 +6521,7 @@ LABEL_12:
   v7 = a3 & 0xFFFFFFFFFFFFFFLL;
   if (one-time initialization token for SQLITE_TRANSIENT != -1)
   {
-    OUTLINED_FUNCTION_29();
+    OUTLINED_FUNCTION_29(&one-time initialization token for SQLITE_TRANSIENT);
   }
 
   sqlite3_result_text(a1, v6, -1, static SQLConnection.SQLITE_TRANSIENT);
@@ -7238,28 +6551,27 @@ uint64_t SQLConnection.Error.description.getter()
   switch(*(v0 + 88))
   {
     case 1:
-      v25[0] = 0;
-      v25[1] = 0xE000000000000000;
+      v24[0] = 0;
+      v24[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(26);
 
       OUTLINED_FUNCTION_14_1();
-      v14 = OUTLINED_FUNCTION_13_1();
-      MEMORY[0x259C32B90](v14);
+      v13 = OUTLINED_FUNCTION_13_1();
+      MEMORY[0x259C32B90](v13);
       MEMORY[0x259C32B90](544106784, 0xE400000000000000);
-      v15 = v3;
-      v16 = v2;
+      v14 = v3;
+      v15 = v2;
       goto LABEL_8;
     case 2:
-      strcpy(v25, "Usage Error: ");
-      HIWORD(v25[1]) = -4864;
+      strcpy(v24, "Usage Error: ");
+      HIWORD(v24[1]) = -4864;
       goto LABEL_7;
     case 3:
-      v22 = *(v0 + 72);
-      v23 = *(v0 + 80);
-      v10 = HIDWORD(*v0);
-      v25[0] = 0;
-      v25[1] = 0xE000000000000000;
-      v24 = v4;
+      v21 = *(v0 + 72);
+      v22 = *(v0 + 80);
+      v24[0] = 0;
+      v24[1] = 0xE000000000000000;
+      v23 = v4;
       _StringGuts.grow(_:)(43);
 
       OUTLINED_FUNCTION_3_3();
@@ -7277,45 +6589,45 @@ uint64_t SQLConnection.Error.description.getter()
       OUTLINED_FUNCTION_7_2();
       MEMORY[0x259C32B90](v3, v2);
       MEMORY[0x259C32B90](32, 0xE100000000000000);
-      MEMORY[0x259C32B90](v5, v24);
+      MEMORY[0x259C32B90](v5, v23);
       MEMORY[0x259C32B90](0x3A6C6F6320746120, 0xE900000000000020);
-      v11 = dispatch thunk of CustomStringConvertible.description.getter();
-      MEMORY[0x259C32B90](v11);
+      v10 = dispatch thunk of CustomStringConvertible.description.getter();
+      MEMORY[0x259C32B90](v10);
 
       if (v8)
       {
         MEMORY[0x259C32B90](v7, v8);
         MEMORY[0x259C32B90](2964604, 0xE300000000000000);
-        v12 = 0x7C3E2D3A4C5153;
-        v13 = 0xE700000000000000;
+        v11 = 0x7C3E2D3A4C5153;
+        v12 = 0xE700000000000000;
       }
 
       else
       {
-        v12 = 0;
-        v13 = 0xE000000000000000;
+        v11 = 0;
+        v12 = 0xE000000000000000;
       }
 
-      MEMORY[0x259C32B90](v12, v13);
+      MEMORY[0x259C32B90](v11, v12);
 
-      if (v23)
+      if (v22)
       {
-        MEMORY[0x259C32B90](v22);
-        v20 = 0x6567617373656D20;
-        v21 = 0xEA0000000000203ALL;
+        MEMORY[0x259C32B90](v21);
+        v19 = 0x6567617373656D20;
+        v20 = 0xEA0000000000203ALL;
       }
 
       else
       {
-        v20 = 0;
-        v21 = 0xE000000000000000;
+        v19 = 0;
+        v20 = 0xE000000000000000;
       }
 
       goto LABEL_25;
     case 4:
-      v25[0] = 0;
-      v25[1] = 0xE000000000000000;
-      v17 = v4;
+      v24[0] = 0;
+      v24[1] = 0xE000000000000000;
+      v16 = v4;
 
       _StringGuts.grow(_:)(29);
 
@@ -7328,64 +6640,64 @@ uint64_t SQLConnection.Error.description.getter()
       OUTLINED_FUNCTION_26_0();
       if (v5)
       {
-        v18 = v2;
+        v17 = v2;
       }
 
       else
       {
-        v18 = 0;
+        v17 = 0;
       }
 
       if (v5)
       {
-        v19 = v5;
+        v18 = v5;
       }
 
       else
       {
-        v19 = 0xE000000000000000;
+        v18 = 0xE000000000000000;
       }
 
-      MEMORY[0x259C32B90](v18, v19);
+      MEMORY[0x259C32B90](v17, v18);
 
       OUTLINED_FUNCTION_26_0();
       if (v6)
       {
-        v20 = v17;
+        v19 = v16;
       }
 
       else
       {
-        v20 = 0;
+        v19 = 0;
       }
 
       if (v6)
       {
-        v21 = v6;
+        v20 = v6;
       }
 
       else
       {
-        v21 = 0xE000000000000000;
+        v20 = 0xE000000000000000;
       }
 
 LABEL_25:
-      MEMORY[0x259C32B90](v20, v21);
+      MEMORY[0x259C32B90](v19, v20);
 
-      return v25[0];
+      return v24[0];
     case 5:
       return result;
     default:
-      v25[0] = 0;
-      v25[1] = 0xE000000000000000;
+      v24[0] = 0;
+      v24[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(20);
 
       OUTLINED_FUNCTION_14_1();
 LABEL_7:
-      v15 = OUTLINED_FUNCTION_13_1();
+      v14 = OUTLINED_FUNCTION_13_1();
 LABEL_8:
-      MEMORY[0x259C32B90](v15, v16);
-      return v25[0];
+      MEMORY[0x259C32B90](v14, v15);
+      return v24[0];
   }
 }
 
@@ -7396,109 +6708,105 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   countAndFlagsBits = a1._countAndFlagsBits;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   OUTLINED_FUNCTION_21(v5);
-  v7 = *(v6 + 64);
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v8);
-  v10 = &v18 - v9;
-  v11 = *(v1 + 88);
-  if (*(v11 + 16) && (v12 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, object), (v13 & 1) != 0))
+  MEMORY[0x28223BE20](v6);
+  v8 = &v16 - v7;
+  v9 = *(v1 + 88);
+  if (*(v9 + 16) && (v10 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, object), (v11 & 1) != 0))
   {
-    v14 = v12;
-    v15 = *(v11 + 56);
-    v16 = type metadata accessor for URL();
-    (*(*(v16 - 8) + 16))(v10, v15 + *(*(v16 - 8) + 72) * v14, v16);
-    __swift_storeEnumTagSinglePayload(v10, 0, 1, v16);
-    outlined destroy of URL?(v10, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    v12 = v10;
+    v13 = *(v9 + 56);
+    v14 = type metadata accessor for URL();
+    (*(*(v14 - 8) + 16))(v8, v13 + *(*(v14 - 8) + 72) * v12, v14);
+    __swift_storeEnumTagSinglePayload(v8, 0, 1, v14);
+    outlined destroy of URL?(v8, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
 
-    specialized SQLConnection.withoutAuthorizer(block:)(v2);
+    specialized SQLConnection.withoutAuthorizer(block:)(v2, v2, countAndFlagsBits, object);
   }
 
   else
   {
-    v17 = type metadata accessor for URL();
-    __swift_storeEnumTagSinglePayload(v10, 1, 1, v17);
-    outlined destroy of URL?(v10, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    v15 = type metadata accessor for URL();
+    __swift_storeEnumTagSinglePayload(v8, 1, 1, v15);
+    outlined destroy of URL?(v8, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   }
 }
 
 void closure #1 in SQLConnection.detachDatabase(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  OUTLINED_FUNCTION_21(v6);
-  v8 = *(v7 + 64);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  OUTLINED_FUNCTION_21(v5);
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v9);
-  v11 = &v22 - v10;
-  v12 = *(a1 + 16);
-  v22 = 0;
-  v23 = 0xE000000000000000;
+  MEMORY[0x28223BE20](v6);
+  v8 = &v18 - v7;
+  v18 = 0;
+  v19 = 0xE000000000000000;
   _StringGuts.grow(_:)(20);
 
-  v22 = 0xD000000000000011;
-  v23 = 0x80000002553A80F0;
+  v18 = 0xD000000000000011;
+  v19 = 0x80000002553A80F0;
   MEMORY[0x259C32B90](a2, a3);
   MEMORY[0x259C32B90](34, 0xE100000000000000);
   String.utf8CString.getter();
 
   OUTLINED_FUNCTION_5_3();
-  sqlite3_exec(v13, v14, v15, v16, v17);
+  sqlite3_exec(v9, v10, v11, v12, v13);
 
   OUTLINED_FUNCTION_0_0();
-  SQLConnection.isOk(_:context:)(v18, v19);
-  if (!v20)
+  SQLConnection.isOk(_:context:)(v14, v15);
+  if (!v16)
   {
-    v21 = type metadata accessor for URL();
-    __swift_storeEnumTagSinglePayload(v11, 1, 1, v21);
+    v17 = type metadata accessor for URL();
+    __swift_storeEnumTagSinglePayload(v8, 1, 1, v17);
 
-    specialized Dictionary.subscript.setter(v11, a2, a3);
+    specialized Dictionary.subscript.setter(v8, a2, a3);
   }
 }
 
 void closure #1 in SQLConnection.attachDatabase(url:as:readwrite:)(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v11 = *(*(v10 - 8) + 64);
   MEMORY[0x28223BE20](v10 - 8);
-  v13 = &v21 - v12;
-  v14 = *(a2 + 16);
-  v21 = 0;
-  v22 = 0xE000000000000000;
+  v12 = &v20 - v11;
+  v13 = *(a2 + 16);
+  v20 = 0;
+  v21 = 0xE000000000000000;
   _StringGuts.grow(_:)(36);
 
-  v21 = 0xD000000000000011;
-  v22 = 0x80000002553A8320;
-  v15 = URL.absoluteString.getter();
-  MEMORY[0x259C32B90](v15);
+  v20 = 0xD000000000000011;
+  v21 = 0x80000002553A8320;
+  v14 = URL.absoluteString.getter();
+  MEMORY[0x259C32B90](v14);
 
   if (a1)
   {
-    v16 = 0x77723D65646F6D3FLL;
+    v15 = 0x77723D65646F6D3FLL;
   }
 
   else
   {
-    v16 = 0x6F723D65646F6D3FLL;
+    v15 = 0x6F723D65646F6D3FLL;
   }
 
-  MEMORY[0x259C32B90](v16, 0xEE00222053412022);
+  MEMORY[0x259C32B90](v15, 0xEE00222053412022);
   MEMORY[0x259C32B90](a4, a5);
   MEMORY[0x259C32B90](34, 0xE100000000000000);
-  v17 = String.utf8CString.getter();
+  v16 = String.utf8CString.getter();
 
-  v18 = sqlite3_exec(v14, (v17 + 32), 0, 0, 0);
+  v17 = sqlite3_exec(v13, (v16 + 32), 0, 0, 0);
 
-  SQLConnection.isOk(_:context:)(v18, 0);
-  if (!v19)
+  SQLConnection.isOk(_:context:)(v17, 0);
+  if (!v18)
   {
-    v20 = type metadata accessor for URL();
-    (*(*(v20 - 8) + 16))(v13, a3, v20);
-    __swift_storeEnumTagSinglePayload(v13, 0, 1, v20);
+    v19 = type metadata accessor for URL();
+    (*(*(v19 - 8) + 16))(v12, a3, v19);
+    __swift_storeEnumTagSinglePayload(v12, 0, 1, v19);
 
-    specialized Dictionary.subscript.setter(v13, a4, a5);
+    specialized Dictionary.subscript.setter(v12, a4, a5);
   }
 }
 
-uint64_t lazy protocol witness table accessor for type URL and conformance URL(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type URL and conformance URL(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -7513,37 +6821,37 @@ uint64_t lazy protocol witness table accessor for type URL and conformance URL(u
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> SQLConnection.executeWithoutAuthorizer(_:)(Swift::String a1)
 {
+  object = a1._object;
   OUTLINED_FUNCTION_20_1();
 
-  specialized SQLConnection.withoutAuthorizer(block:)(v1);
+  specialized SQLConnection.withoutAuthorizer(block:)(v1, v1, v2, object);
 }
 
-uint64_t closure #1 in closure #1 in SQLConnection.executeWithoutAuthorizer(_:)(uint64_t a1)
+uint64_t closure #1 in closure #1 in SQLConnection.executeWithoutAuthorizer(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(a1 + 16);
   String.utf8CString.getter();
   OUTLINED_FUNCTION_5_3();
-  v7 = sqlite3_exec(v2, v3, v4, v5, v6);
+  v8 = sqlite3_exec(v3, v4, v5, v6, v7);
 
-  return v7;
+  return v8;
 }
 
-uint64_t SQLConnection.executeWithoutAuthorizer(_:block:)()
+uint64_t SQLConnection.executeWithoutAuthorizer(_:block:)(uint64_t a1, uint64_t a2)
 {
 
-  return specialized SQLConnection.withoutAuthorizer(block:)(v0);
+  return specialized SQLConnection.withoutAuthorizer(block:)(v2, v2, a1, a2);
 }
 
-sqlite3_stmt *closure #1 in SQLConnection.executeWithoutAuthorizer(_:block:)(int a1, Swift::String query, void (*a3)(void))
+sqlite3_stmt *closure #1 in SQLConnection.executeWithoutAuthorizer(_:block:)(uint64_t a1, Swift::String query, void (*a3)(void))
 {
   result = SQLConnection.prepareStatement(query:)(query)._rawValue;
   if (!v5)
   {
     v6 = result;
-    type metadata accessor for ResultSetCursor();
-    OUTLINED_FUNCTION_9_1();
+    v7 = type metadata accessor for ResultSetCursor();
+    OUTLINED_FUNCTION_9_1(v7);
 
-    ResultSetCursor.init(db:statement:)(v7, v6);
+    ResultSetCursor.init(db:statement:)(v8, v6);
     a3();
 
     return sqlite3_finalize(v6);
@@ -7563,28 +6871,27 @@ void closure #1 in SQLConnection.installEntityIdentifierFunction()(sqlite3_conte
 {
   v6 = type metadata accessor for Logger();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x28223BE20](v6);
-  v11 = &v58[-1] - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = MEMORY[0x28223BE20](v9);
-  v14 = &v58[-1] - v13;
-  MEMORY[0x28223BE20](v12);
-  v16 = &v58[-1] - v15;
+  v8 = MEMORY[0x28223BE20](v6);
+  v10 = &v57[-1] - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = MEMORY[0x28223BE20](v8);
+  v13 = &v57[-1] - v12;
+  MEMORY[0x28223BE20](v11);
+  v15 = &v57[-1] - v14;
   if (a2 == 1)
   {
     if (a3)
     {
-      v17 = *a3;
-      if (v17)
+      v16 = *a3;
+      if (v16)
       {
-        v18 = sqlite3_value_type(v17);
-        if (v18 != 3)
+        v17 = sqlite3_value_type(v16);
+        if (v17 != 3)
         {
-          if (v18 == 1)
+          if (v17 == 1)
           {
-            v19 = sqlite3_value_int64(v17);
+            v18 = sqlite3_value_int64(v16);
 
-            sqlite3_result_int64(a1, v19);
+            sqlite3_result_int64(a1, v18);
             return;
           }
 
@@ -7593,91 +6900,91 @@ LABEL_37:
           return;
         }
 
-        if (!sqlite3_value_text(v17))
+        if (!sqlite3_value_text(v16))
         {
           static Logging.SQL.getter();
-          v38 = Logger.logObject.getter();
-          v39 = static os_log_type_t.error.getter();
-          if (os_log_type_enabled(v38, v39))
+          v37 = Logger.logObject.getter();
+          v38 = static os_log_type_t.error.getter();
+          if (os_log_type_enabled(v37, v38))
           {
-            v40 = swift_slowAlloc();
-            *v40 = 0;
-            _os_log_impl(&dword_254FFD000, v38, v39, "SQLConnection: entityIdentifier: Could not convert value to string", v40, 2u);
-            MEMORY[0x259C33C60](v40, -1, -1);
+            v39 = swift_slowAlloc();
+            *v39 = 0;
+            _os_log_impl(&dword_254FFD000, v37, v38, "SQLConnection: entityIdentifier: Could not convert value to string", v39, 2u);
+            MEMORY[0x259C33C60](v39, -1, -1);
           }
 
-          (*(v7 + 8))(v16, v6);
+          (*(v7 + 8))(v15, v6);
           goto LABEL_37;
         }
 
-        v23 = String.init(cString:)();
-        v25 = v24;
+        v22 = String.init(cString:)();
+        v24 = v23;
+        v59 = v22;
         v60 = v23;
-        v61 = v24;
 
-        v26._countAndFlagsBits = 3826797;
-        v26._object = 0xE300000000000000;
-        v27 = String.hasPrefix(_:)(v26);
+        v25._countAndFlagsBits = 3826797;
+        v25._object = 0xE300000000000000;
+        v26 = String.hasPrefix(_:)(v25);
 
-        if (v27)
+        if (v26)
         {
-          v28 = String.count.getter();
-          specialized RangeReplaceableCollection.removeFirst(_:)(v28);
-          v23 = v60;
-          v25 = v61;
+          v27 = String.count.getter();
+          specialized RangeReplaceableCollection.removeFirst(_:)(v27);
+          v22 = v59;
+          v24 = v60;
         }
 
-        v29 = HIBYTE(v25) & 0xF;
-        v30 = v23 & 0xFFFFFFFFFFFFLL;
-        if ((v25 & 0x2000000000000000) != 0)
+        v28 = HIBYTE(v24) & 0xF;
+        v29 = v22 & 0xFFFFFFFFFFFFLL;
+        if ((v24 & 0x2000000000000000) != 0)
         {
-          v31 = HIBYTE(v25) & 0xF;
+          v30 = HIBYTE(v24) & 0xF;
         }
 
         else
         {
-          v31 = v23 & 0xFFFFFFFFFFFFLL;
+          v30 = v22 & 0xFFFFFFFFFFFFLL;
         }
 
-        if (!v31)
+        if (!v30)
         {
 LABEL_85:
           static Logging.SQL.getter();
 
-          v50 = Logger.logObject.getter();
-          v51 = static os_log_type_t.error.getter();
+          v49 = Logger.logObject.getter();
+          v50 = static os_log_type_t.error.getter();
 
-          if (os_log_type_enabled(v50, v51))
+          if (os_log_type_enabled(v49, v50))
           {
+            v51 = swift_slowAlloc();
             v52 = swift_slowAlloc();
-            v53 = swift_slowAlloc();
-            v58[0] = v53;
-            *v52 = 136315138;
-            v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v25, v58);
+            v57[0] = v52;
+            *v51 = 136315138;
+            v53 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v24, v57);
 
-            *(v52 + 4) = v54;
-            _os_log_impl(&dword_254FFD000, v50, v51, "SQLConnection: entityIdentifier: Could not convert string value %s to uint64_t", v52, 0xCu);
-            __swift_destroy_boxed_opaque_existential_0(v53);
-            MEMORY[0x259C33C60](v53, -1, -1);
+            *(v51 + 4) = v53;
+            _os_log_impl(&dword_254FFD000, v49, v50, "SQLConnection: entityIdentifier: Could not convert string value %s to uint64_t", v51, 0xCu);
+            __swift_destroy_boxed_opaque_existential_0(v52);
             MEMORY[0x259C33C60](v52, -1, -1);
+            MEMORY[0x259C33C60](v51, -1, -1);
           }
 
           else
           {
           }
 
-          (*(v7 + 8))(v14, v6);
+          (*(v7 + 8))(v13, v6);
           goto LABEL_37;
         }
 
-        if ((v25 & 0x1000000000000000) != 0)
+        if ((v24 & 0x1000000000000000) != 0)
         {
-          v59 = 0;
+          v58 = 0;
 
-          v34 = specialized _parseInteger<A, B>(ascii:radix:)(v23, v25, 10);
-          v56 = v55;
+          v33 = specialized _parseInteger<A, B>(ascii:radix:)(v22, v24, 10);
+          v55 = v54;
 
-          if (v56)
+          if (v55)
           {
             goto LABEL_85;
           }
@@ -7685,40 +6992,40 @@ LABEL_85:
           goto LABEL_90;
         }
 
-        if ((v25 & 0x2000000000000000) != 0)
+        if ((v24 & 0x2000000000000000) != 0)
         {
-          v58[0] = v23;
-          v58[1] = v25 & 0xFFFFFFFFFFFFFFLL;
-          if (v23 == 43)
+          v57[0] = v22;
+          v57[1] = v24 & 0xFFFFFFFFFFFFFFLL;
+          if (v22 == 43)
           {
-            if (v29)
+            if (v28)
             {
-              if (--v29)
+              if (--v28)
               {
-                v34 = 0;
-                v45 = v58 + 1;
+                v33 = 0;
+                v44 = v57 + 1;
                 while (1)
                 {
-                  v46 = *v45 - 48;
-                  if (v46 > 9)
+                  v45 = *v44 - 48;
+                  if (v45 > 9)
                   {
                     break;
                   }
 
-                  if (!is_mul_ok(v34, 0xAuLL))
+                  if (!is_mul_ok(v33, 0xAuLL))
                   {
                     break;
                   }
 
-                  v37 = __CFADD__(10 * v34, v46);
-                  v34 = 10 * v34 + v46;
-                  if (v37)
+                  v36 = __CFADD__(10 * v33, v45);
+                  v33 = 10 * v33 + v45;
+                  if (v36)
                   {
                     break;
                   }
 
-                  ++v45;
-                  if (!--v29)
+                  ++v44;
+                  if (!--v28)
                   {
                     goto LABEL_84;
                   }
@@ -7733,34 +7040,34 @@ LABEL_95:
             return;
           }
 
-          if (v23 != 45)
+          if (v22 != 45)
           {
-            if (v29)
+            if (v28)
             {
-              v34 = 0;
-              v48 = v58;
+              v33 = 0;
+              v47 = v57;
               while (1)
               {
-                v49 = *v48 - 48;
-                if (v49 > 9)
+                v48 = *v47 - 48;
+                if (v48 > 9)
                 {
                   break;
                 }
 
-                if (!is_mul_ok(v34, 0xAuLL))
+                if (!is_mul_ok(v33, 0xAuLL))
                 {
                   break;
                 }
 
-                v37 = __CFADD__(10 * v34, v49);
-                v34 = 10 * v34 + v49;
-                if (v37)
+                v36 = __CFADD__(10 * v33, v48);
+                v33 = 10 * v33 + v48;
+                if (v36)
                 {
                   break;
                 }
 
-                v48 = (v48 + 1);
-                if (!--v29)
+                v47 = (v47 + 1);
+                if (!--v28)
                 {
                   goto LABEL_84;
                 }
@@ -7770,34 +7077,34 @@ LABEL_95:
             goto LABEL_83;
           }
 
-          if (v29)
+          if (v28)
           {
-            if (--v29)
+            if (--v28)
             {
-              v34 = 0;
-              v41 = v58 + 1;
+              v33 = 0;
+              v40 = v57 + 1;
               while (1)
               {
-                v42 = *v41 - 48;
-                if (v42 > 9)
+                v41 = *v40 - 48;
+                if (v41 > 9)
                 {
                   break;
                 }
 
-                if (!is_mul_ok(v34, 0xAuLL))
+                if (!is_mul_ok(v33, 0xAuLL))
                 {
                   break;
                 }
 
-                v37 = 10 * v34 >= v42;
-                v34 = 10 * v34 - v42;
-                if (!v37)
+                v36 = 10 * v33 >= v41;
+                v33 = 10 * v33 - v41;
+                if (!v36)
                 {
                   break;
                 }
 
-                ++v41;
-                if (!--v29)
+                ++v40;
+                if (!--v28)
                 {
                   goto LABEL_84;
                 }
@@ -7810,50 +7117,50 @@ LABEL_95:
 
         else
         {
-          if ((v23 & 0x1000000000000000) != 0)
+          if ((v22 & 0x1000000000000000) != 0)
           {
-            v32 = ((v25 & 0xFFFFFFFFFFFFFFFLL) + 32);
+            v31 = ((v24 & 0xFFFFFFFFFFFFFFFLL) + 32);
           }
 
           else
           {
-            v32 = _StringObject.sharedUTF8.getter();
+            v31 = _StringObject.sharedUTF8.getter();
           }
 
-          v33 = *v32;
-          if (v33 == 43)
+          v32 = *v31;
+          if (v32 == 43)
           {
-            if (v30 >= 1)
+            if (v29 >= 1)
             {
-              v29 = v30 - 1;
-              if (v30 != 1)
+              v28 = v29 - 1;
+              if (v29 != 1)
               {
-                v34 = 0;
-                if (v32)
+                v33 = 0;
+                if (v31)
                 {
-                  v43 = v32 + 1;
+                  v42 = v31 + 1;
                   while (1)
                   {
-                    v44 = *v43 - 48;
-                    if (v44 > 9)
+                    v43 = *v42 - 48;
+                    if (v43 > 9)
                     {
                       goto LABEL_83;
                     }
 
-                    if (!is_mul_ok(v34, 0xAuLL))
+                    if (!is_mul_ok(v33, 0xAuLL))
                     {
                       goto LABEL_83;
                     }
 
-                    v37 = __CFADD__(10 * v34, v44);
-                    v34 = 10 * v34 + v44;
-                    if (v37)
+                    v36 = __CFADD__(10 * v33, v43);
+                    v33 = 10 * v33 + v43;
+                    if (v36)
                     {
                       goto LABEL_83;
                     }
 
-                    ++v43;
-                    if (!--v29)
+                    ++v42;
+                    if (!--v28)
                     {
                       goto LABEL_84;
                     }
@@ -7869,35 +7176,35 @@ LABEL_95:
             goto LABEL_94;
           }
 
-          if (v33 != 45)
+          if (v32 != 45)
           {
-            if (v30)
+            if (v29)
             {
-              v34 = 0;
-              if (v32)
+              v33 = 0;
+              if (v31)
               {
                 while (1)
                 {
-                  v47 = *v32 - 48;
-                  if (v47 > 9)
+                  v46 = *v31 - 48;
+                  if (v46 > 9)
                   {
                     goto LABEL_83;
                   }
 
-                  if (!is_mul_ok(v34, 0xAuLL))
+                  if (!is_mul_ok(v33, 0xAuLL))
                   {
                     goto LABEL_83;
                   }
 
-                  v37 = __CFADD__(10 * v34, v47);
-                  v34 = 10 * v34 + v47;
-                  if (v37)
+                  v36 = __CFADD__(10 * v33, v46);
+                  v33 = 10 * v33 + v46;
+                  if (v36)
                   {
                     goto LABEL_83;
                   }
 
-                  ++v32;
-                  if (!--v30)
+                  ++v31;
+                  if (!--v29)
                   {
                     goto LABEL_75;
                   }
@@ -7908,52 +7215,52 @@ LABEL_95:
             }
 
 LABEL_83:
-            v34 = 0;
-            LOBYTE(v29) = 1;
+            v33 = 0;
+            LOBYTE(v28) = 1;
 LABEL_84:
-            v59 = v29;
-            if (v29)
+            v58 = v28;
+            if (v28)
             {
               goto LABEL_85;
             }
 
 LABEL_90:
 
-            sqlite3_result_int64(a1, v34);
+            sqlite3_result_int64(a1, v33);
             return;
           }
 
-          if (v30 >= 1)
+          if (v29 >= 1)
           {
-            v29 = v30 - 1;
-            if (v30 != 1)
+            v28 = v29 - 1;
+            if (v29 != 1)
             {
-              v34 = 0;
-              if (v32)
+              v33 = 0;
+              if (v31)
               {
-                v35 = v32 + 1;
+                v34 = v31 + 1;
                 while (1)
                 {
-                  v36 = *v35 - 48;
-                  if (v36 > 9)
+                  v35 = *v34 - 48;
+                  if (v35 > 9)
                   {
                     goto LABEL_83;
                   }
 
-                  if (!is_mul_ok(v34, 0xAuLL))
+                  if (!is_mul_ok(v33, 0xAuLL))
                   {
                     goto LABEL_83;
                   }
 
-                  v37 = 10 * v34 >= v36;
-                  v34 = 10 * v34 - v36;
-                  if (!v37)
+                  v36 = 10 * v33 >= v35;
+                  v33 = 10 * v33 - v35;
+                  if (!v36)
                   {
                     goto LABEL_83;
                   }
 
-                  ++v35;
-                  if (!--v29)
+                  ++v34;
+                  if (!--v28)
                   {
                     goto LABEL_84;
                   }
@@ -7961,7 +7268,7 @@ LABEL_90:
               }
 
 LABEL_75:
-              LOBYTE(v29) = 0;
+              LOBYTE(v28) = 0;
               goto LABEL_84;
             }
 
@@ -7981,17 +7288,17 @@ LABEL_94:
 
   sqlite3_result_null(a1);
   static Logging.SQL.getter();
-  v20 = Logger.logObject.getter();
-  v21 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v20, v21))
+  v19 = Logger.logObject.getter();
+  v20 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v19, v20))
   {
-    v22 = swift_slowAlloc();
-    *v22 = 0;
-    _os_log_impl(&dword_254FFD000, v20, v21, "SQLConnection: entityIdentifier: Invalid arguments to function entityIdentifier", v22, 2u);
-    MEMORY[0x259C33C60](v22, -1, -1);
+    v21 = swift_slowAlloc();
+    *v21 = 0;
+    _os_log_impl(&dword_254FFD000, v19, v20, "SQLConnection: entityIdentifier: Invalid arguments to function entityIdentifier", v21, 2u);
+    MEMORY[0x259C33C60](v21, -1, -1);
   }
 
-  (*(v7 + 8))(v11, v6);
+  (*(v7 + 8))(v10, v6);
 }
 
 uint64_t specialized RangeReplaceableCollection.removeFirst(_:)(uint64_t result)
@@ -8004,21 +7311,15 @@ uint64_t specialized RangeReplaceableCollection.removeFirst(_:)(uint64_t result)
   if (result < 0)
   {
     __break(1u);
-LABEL_11:
-    __break(1u);
-    return result;
-  }
-
-  v2 = *v1;
-  if ((v1[1] & 0x2000000000000000) == 0)
-  {
-    v3 = *v1;
+    goto LABEL_9;
   }
 
   result = String.index(_:offsetBy:limitedBy:)();
-  if (v4)
+  if (v1)
   {
-    goto LABEL_11;
+LABEL_9:
+    __break(1u);
+    return result;
   }
 
   return String.removeSubrange(_:)();
@@ -8027,54 +7328,51 @@ LABEL_11:
 Swift::Void __swiftcall SQLConnection.addUnicodeWrapperTokenizer()()
 {
   v1 = type metadata accessor for Logger();
-  v2 = OUTLINED_FUNCTION_0_2(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v2);
+  OUTLINED_FUNCTION_0_2();
+  v3 = v2;
+  MEMORY[0x28223BE20](v4);
   OUTLINED_FUNCTION_3();
-  v9 = v8 - v7;
+  v7 = v6 - v5;
   if (*(v0 + 104))
   {
     static Logging.SQL.getter();
-    v10 = Logger.logObject.getter();
-    v11 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v10, v11))
+    v8 = Logger.logObject.getter();
+    v9 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v8, v9))
     {
-      v12 = swift_slowAlloc();
-      *v12 = 0;
-      _os_log_impl(&dword_254FFD000, v10, v11, "Unicode61TokenizerWrapper already added to database connection.", v12, 2u);
-      MEMORY[0x259C33C60](v12, -1, -1);
+      v10 = swift_slowAlloc();
+      *v10 = 0;
+      _os_log_impl(&dword_254FFD000, v8, v9, "Unicode61TokenizerWrapper already added to database connection.", v10, 2u);
+      MEMORY[0x259C33C60](v10, -1, -1);
     }
 
-    (*(v4 + 8))(v9, v1);
+    (*(v3 + 8))(v7, v1);
   }
 
   else
   {
-    v13 = specialized SQLConnection.addTokenizer<A>(apiHandler:)();
-    v14 = *(v0 + 104);
-    *(v0 + 104) = v13;
+    *(v0 + 104) = specialized SQLConnection.addTokenizer<A>(apiHandler:)();
   }
 }
 
 uint64_t specialized SQLConnection.addTokenizer<A>(apiHandler:)()
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v12[0] = 0;
+  v11[1] = *MEMORY[0x277D85DE8];
+  v11[0] = 0;
   v0._countAndFlagsBits = 0x66205443454C4553;
   v0._object = 0xEE00293F28357374;
   v1._rawValue = SQLConnection.prepareStatement(query:)(v0)._rawValue;
   if (v2)
   {
-    goto LABEL_7;
+    goto LABEL_8;
   }
 
   rawValue = v1._rawValue;
-  v4 = sqlite3_bind_pointer(v1._rawValue, 1, v12, "fts5_api_ptr", 0);
+  v4 = sqlite3_bind_pointer(v1._rawValue, 1, v11, "fts5_api_ptr", 0);
   SQLConnection.isOk(_:context:)(v4, 0);
   if (v5)
   {
-    goto LABEL_7;
+    goto LABEL_8;
   }
 
   v6 = sqlite3_step(rawValue);
@@ -8082,36 +7380,36 @@ uint64_t specialized SQLConnection.addTokenizer<A>(apiHandler:)()
   if (v7)
   {
     sqlite3_finalize(rawValue);
-LABEL_7:
+LABEL_8:
     _StringGuts.grow(_:)(45);
     MEMORY[0x259C32B90](0xD00000000000002ALL, 0x80000002553A7F80);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     _print_unlocked<A, B>(_:_:)();
     MEMORY[0x259C32B90](46, 0xE100000000000000);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "IntelligencePlatformQuery/SQLConnection.swift", 45, 2, 706, 0);
+    goto LABEL_9;
+  }
+
+  if (!v11[0])
+  {
     while (1)
     {
-LABEL_8:
-      _assertionFailure(_:_:file:line:flags:)();
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000015, 0x80000002553A7FC0, "IntelligencePlatformQuery/SQLConnection.swift", 45, 2, 702, 0);
+LABEL_9:
       __break(1u);
     }
   }
 
-  if (!v12[0])
-  {
-    goto LABEL_8;
-  }
-
-  static Unicode61Tokenizer.createTokenizer(fts5API:)(v12[0]);
+  static Unicode61Tokenizer.createTokenizer(fts5API:)(v11[0]);
   v9 = v8;
   sqlite3_finalize(rawValue);
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 uint64_t SQLConnection.addTokenizer<A>(apiHandler:)(void (*a1)(void))
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v14[0] = 0;
+  v13[1] = *MEMORY[0x277D85DE8];
+  v13[0] = 0;
   v2._countAndFlagsBits = 0x66205443454C4553;
   v2._object = 0xEE00293F28357374;
   v3._rawValue = SQLConnection.prepareStatement(query:)(v2)._rawValue;
@@ -8121,7 +7419,7 @@ uint64_t SQLConnection.addTokenizer<A>(apiHandler:)(void (*a1)(void))
   }
 
   rawValue = v3._rawValue;
-  sqlite3_bind_pointer(v3._rawValue, 1, v14, "fts5_api_ptr", 0);
+  sqlite3_bind_pointer(v3._rawValue, 1, v13, "fts5_api_ptr", 0);
   OUTLINED_FUNCTION_0_0();
   SQLConnection.isOk(_:context:)(v6, v7);
   if (v8)
@@ -8141,30 +7439,33 @@ LABEL_7:
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     _print_unlocked<A, B>(_:_:)();
     MEMORY[0x259C32B90](46, 0xE100000000000000);
+    _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "IntelligencePlatformQuery/SQLConnection.swift", 45, 2, 706, 0);
+    goto LABEL_8;
+  }
+
+  if (!v13[0])
+  {
     while (1)
     {
+      _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000015, 0x80000002553A7FC0, "IntelligencePlatformQuery/SQLConnection.swift", 45, 2, 702, 0);
 LABEL_8:
-      _assertionFailure(_:_:file:line:flags:)();
       __break(1u);
     }
   }
 
-  if (!v14[0])
-  {
-    goto LABEL_8;
-  }
-
   a1();
-  result = sqlite3_finalize(rawValue);
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return sqlite3_finalize(rawValue);
 }
 
-uint64_t implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:)(void (*a1)(void))
+uint64_t implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:)(uint64_t (*a1)(void))
 {
   a1();
 
   return _swift_stdlib_bridgeErrorToNSError();
+}
+
+{
+  return a1();
 }
 
 void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(uint64_t a1, uint64_t a2)
@@ -8194,7 +7495,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
 
 void closure #1 in OSLogArguments.append(_:)(void **a1, void **a2, uint64_t a3, uint64_t (*a4)(void))
 {
-  v6 = a4();
+  v6 = (a4)(a1, a2, a3);
   v7 = *a1;
   *v7 = v6;
   *a1 = v7 + 1;
@@ -8315,7 +7616,7 @@ unsigned __int8 *specialized _parseInteger<A, B>(ascii:radix:)(uint64_t a1, uint
   v7 = v5;
   if ((v5 & 0x1000000000000000) != 0)
   {
-    v6 = static String._copying(_:)();
+    v6 = static String._copying(_:)(result, v5);
     v40 = v39;
 
     v7 = v40;
@@ -8827,22 +8128,35 @@ LABEL_134:
   return result;
 }
 
-uint64_t static String._copying(_:)()
+uint64_t static String._copying(_:)(uint64_t a1, unint64_t a2)
 {
-  v0 = specialized Collection.subscript.getter();
-  v4 = static String._copying(_:)(v0, v1, v2, v3);
+  v2 = specialized Collection.subscript.getter(implicit closure #1 in static String._copying(_:), 0, a1, a2);
+  v6 = static String._copying(_:)(v2, v3, v4, v5);
 
-  return v4;
+  return v6;
 }
 
 uint64_t static String._copying(_:)(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
-  if ((a4 & 0x1000000000000000) == 0)
+  if ((a4 & 0x1000000000000000) != 0)
+  {
+    v9 = Substring.UTF8View.distance(from:to:)();
+    if (!v9 || (v10 = v9, v11 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v9, 0), v12 = specialized Sequence._copySequenceContents(initializing:)(v14, (v11 + 4), v10, a1, a2, a3, a4), , , v12 == v10))
+    {
+      v13 = static String._uncheckedFromUTF8(_:)();
+
+      return v13;
+    }
+
+    __break(1u);
+  }
+
+  else
   {
     if ((a4 & 0x2000000000000000) != 0)
     {
-      v15[0] = a3;
-      v15[1] = a4 & 0xFFFFFFFFFFFFFFLL;
+      v14[0] = a3;
+      v14[1] = a4 & 0xFFFFFFFFFFFFFFLL;
       return static String._uncheckedFromUTF8(_:)();
     }
 
@@ -8850,32 +8164,8 @@ uint64_t static String._copying(_:)(unint64_t a1, unint64_t a2, unint64_t a3, un
     {
       goto LABEL_4;
     }
-
-    goto LABEL_11;
   }
 
-  v9 = Substring.UTF8View.distance(from:to:)();
-  if (!v9)
-  {
-    v11 = MEMORY[0x277D84F90];
-    goto LABEL_13;
-  }
-
-  v10 = v9;
-  v11 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v9, 0);
-  v12 = specialized Sequence._copySequenceContents(initializing:)(v15, (v11 + 4), v10, a1, a2, a3, a4);
-
-  if (v12 == v10)
-  {
-LABEL_13:
-    v13 = v11[2];
-    v14 = static String._uncheckedFromUTF8(_:)();
-
-    return v14;
-  }
-
-  __break(1u);
-LABEL_11:
   _StringObject.sharedUTF8.getter();
 LABEL_4:
 
@@ -9032,7 +8322,7 @@ LABEL_40:
   return result;
 }
 
-uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   v4 = a1 >> 14;
@@ -9075,10 +8365,8 @@ uint64_t outlined destroy of URL?(uint64_t a1, uint64_t *a2, uint64_t *a3)
 uint64_t specialized closure #1 in SQLConnection.register(module:)(uint64_t a1, uint64_t a2, sqlite3_module *a3)
 {
   v4 = *(a1 + 16);
-  v5 = *(a2 + 16);
-  v6 = *(a2 + 24);
-  v7 = String.utf8CString.getter();
-  module_v2 = sqlite3_create_module_v2(v4, (v7 + 32), a3, a3, @objc closure #1 in closure #1 in SQLConnection.register(module:));
+  v5 = String.utf8CString.getter();
+  module_v2 = sqlite3_create_module_v2(v4, (v5 + 32), a3, a3, @objc closure #1 in closure #1 in SQLConnection.register(module:));
 
   return module_v2;
 }
@@ -9095,7 +8383,7 @@ uint64_t *__swift_allocate_boxed_opaque_existential_1(uint64_t *a1)
   return v1;
 }
 
-uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_t a2)
+uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t result, uint64_t a2)
 {
   if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
   {
@@ -9103,7 +8391,7 @@ uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_
     return v2;
   }
 
-  return result;
+  return v3;
 }
 
 void OUTLINED_FUNCTION_7_2()
@@ -9112,7 +8400,7 @@ void OUTLINED_FUNCTION_7_2()
   JUMPOUT(0x259C32B90);
 }
 
-uint64_t OUTLINED_FUNCTION_9_1()
+uint64_t OUTLINED_FUNCTION_9_1(uint64_t a1)
 {
 
   return swift_allocObject();
@@ -9150,41 +8438,40 @@ uint64_t VirtualTable.StreamTombstone.Module.vtabCreatingIfNeeded(for:)(uint64_t
 {
   v4 = v3;
   v5 = v2;
-  v8 = v2[6];
-  if (*(v8 + 16) && (v9 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2), (v10 & 1) != 0))
+  if (*(*(v2 + 48) + 16))
   {
-    v11 = *(*(v8 + 56) + 8 * v9);
+    specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
+    if (v8)
+    {
+    }
   }
 
-  else
+  v10 = *(v2 + 40);
+  swift_unownedRetainStrong();
+  v11 = *(v5 + 16);
+  v12 = *(v5 + 24);
+
+  specialized SQLConnection.withoutAuthorizer(block:)(v13, a1, a2, v11, v12, v10);
+
+  if (!v4)
   {
-    v13 = v5[5];
-    swift_unownedRetainStrong();
-    v14 = v5[2];
-    v15 = v5[3];
-
-    specialized SQLConnection.withoutAuthorizer(block:)(v16);
-
-    if (!v4)
+    result = specialized Dictionary.subscript.getter();
+    if (!result)
     {
-      result = specialized Dictionary.subscript.getter(a1, a2, v5[6]);
-      if (!result)
-      {
-        _StringGuts.grow(_:)(36);
+      _StringGuts.grow(_:)(36);
 
-        strcpy(__src, "No view named ");
-        HIBYTE(__src[1]) = -18;
-        MEMORY[0x259C32B90](a1, a2);
-        MEMORY[0x259C32B90](0xD000000000000014, 0x80000002553A85F0);
-        v17 = __src[1];
-        lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
-        OUTLINED_FUNCTION_13();
-        OUTLINED_FUNCTION_17_1();
-        *v18 = __src[0];
-        v18[1] = v17;
-        memcpy(v18 + 2, __src, 0x48uLL);
-        return OUTLINED_FUNCTION_18();
-      }
+      strcpy(__src, "No view named ");
+      HIBYTE(__src[1]) = -18;
+      MEMORY[0x259C32B90](a1, a2);
+      MEMORY[0x259C32B90](0xD000000000000014, 0x80000002553A85F0);
+      v14 = __src[1];
+      v15 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+      OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v15);
+      OUTLINED_FUNCTION_17_1();
+      *v16 = __src[0];
+      v16[1] = v14;
+      v17 = memcpy(v16 + 2, __src, 0x48uLL);
+      return OUTLINED_FUNCTION_18(v17);
     }
   }
 
@@ -9193,10 +8480,8 @@ uint64_t VirtualTable.StreamTombstone.Module.vtabCreatingIfNeeded(for:)(uint64_t
 
 void VirtualTable.StreamTombstone.Module.createTable(using:databaseName:tableName:args:)(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6)
 {
-  v9 = *(v6 + 48);
-  if (*(v9 + 16) && (a1 = specialized __RawDictionaryStorage.find<A>(_:)(a5, a6), (a2 & 1) != 0))
+  if (*(*(v6 + 48) + 16) && (a1 = specialized __RawDictionaryStorage.find<A>(_:)(a5, a6), (a2 & 1) != 0))
   {
-    v10 = *(*(v9 + 56) + 8 * a1);
   }
 
   else
@@ -9210,9 +8495,9 @@ void VirtualTable.StreamTombstone.Module.createTableInitial(using:databaseName:t
   v10 = v6;
   __src[0] = 46;
   __src[1] = 0xE100000000000000;
-  v33[2] = __src;
+  v28[2] = __src;
 
-  v13 = specialized Collection.split(maxSplits:omittingEmptySubsequences:whereSeparator:)(0x7FFFFFFFFFFFFFFFLL, 1, partial apply for specialized closure #1 in Collection<>.split(separator:maxSplits:omittingEmptySubsequences:), v33, a5, a6);
+  v13 = specialized Collection.split(maxSplits:omittingEmptySubsequences:whereSeparator:)(0x7FFFFFFFFFFFFFFFLL, 1, partial apply for specialized closure #1 in Collection<>.split(separator:maxSplits:omittingEmptySubsequences:), v28, a5, a6);
   if (*(v13 + 16))
   {
     v9 = v13;
@@ -9229,12 +8514,11 @@ void VirtualTable.StreamTombstone.Module.createTableInitial(using:databaseName:t
   }
 
   specialized _ArrayBuffer._consumeAndCreateNew()(v9);
-  v9 = v32;
+  v9 = v27;
 LABEL_3:
   v14 = *(v9 + 16);
   if (v14)
   {
-    v15 = *(v9 + 32 * v14 + 24);
     *(v9 + 16) = v14 - 1;
 
     __src[0] = v9;
@@ -9243,30 +8527,26 @@ LABEL_3:
     lazy protocol witness table accessor for type Substring and conformance Substring();
     Sequence<>.joined(separator:)();
 
-    v16 = *(v6 + 40);
-    v17 = swift_unownedRetainStrong();
-    v18 = *(v17 + 24);
-    v19 = *(v17 + 32);
+    swift_unownedRetainStrong();
 
     OUTLINED_FUNCTION_11_2();
-    v20 = dispatch thunk of static LibraryBase.streamBase(for:)();
-    if (v20)
+    v15 = dispatch thunk of static LibraryBase.streamBase(for:)();
+    if (v15)
     {
-      v21 = v20;
+      v16 = v15;
 
       type metadata accessor for VirtualTable.StreamTombstone.Table();
-      v22 = swift_allocObject();
+      v17 = swift_allocObject();
 
-      v23 = v21;
+      v18 = v16;
 
-      VirtualTable.StreamTombstone.Table.init(module:tableName:stream:)(v24, a5, a6, v23);
+      VirtualTable.StreamTombstone.Table.init(module:tableName:stream:)(v19, a5, a6, v18);
       if (!v8)
       {
 
-        v30 = *(v10 + 48);
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
         __src[0] = *(v10 + 48);
-        specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v22, a5, a6, isUniquelyReferenced_nonNull_native);
+        specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v17, a5, a6, isUniquelyReferenced_nonNull_native);
         *(v10 + 48) = __src[0];
       }
     }
@@ -9279,18 +8559,18 @@ LABEL_3:
 
       __src[0] = 0xD000000000000010;
       __src[1] = 0x80000002553A84E0;
-      v25 = OUTLINED_FUNCTION_11_2();
-      MEMORY[0x259C32B90](v25);
+      v20 = OUTLINED_FUNCTION_11_2();
+      MEMORY[0x259C32B90](v20);
 
-      v26 = __src[0];
-      v27 = __src[1];
-      lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
-      OUTLINED_FUNCTION_13();
-      v29 = v28;
-      *v28 = v26;
-      v28[1] = v27;
-      memcpy(v28 + 2, __src, 0x48uLL);
-      *(v29 + 88) = 0;
+      v21 = __src[0];
+      v22 = __src[1];
+      v23 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+      OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v23);
+      v25 = v24;
+      *v24 = v21;
+      v24[1] = v22;
+      memcpy(v24 + 2, __src, 0x48uLL);
+      *(v25 + 88) = 0;
       swift_willThrow();
     }
   }
@@ -9314,13 +8594,10 @@ uint64_t VirtualTable.StreamTombstone.Module.init(ipsqlDb:)(uint64_t a1)
   return v1;
 }
 
-void *VirtualTable.StreamTombstone.Module.deinit()
+uint64_t VirtualTable.StreamTombstone.Module.deinit()
 {
-  v1 = v0[3];
 
-  v2 = v0[5];
   swift_unownedRelease();
-  v3 = v0[6];
 
   return v0;
 }
@@ -9335,302 +8612,294 @@ uint64_t VirtualTable.StreamTombstone.Module.__deallocating_deinit()
 uint64_t protocol witness for VirtualTable.Module.moduleName.getter in conformance VirtualTable.StreamTombstone.Module()
 {
   v1 = *(*v0 + 16);
-  v2 = *(*v0 + 24);
 
   return v1;
 }
 
-void protocol witness for VirtualTable.Module.createTable(using:databaseName:tableName:args:) in conformance VirtualTable.StreamTombstone.Module(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X4>, void *a6@<X5>, void *a7@<X8>)
+void protocol witness for VirtualTable.Module.createTable(using:databaseName:tableName:args:) in conformance VirtualTable.StreamTombstone.Module(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X4>, void *a6@<X5>, uint64_t *a7@<X8>)
 {
-  v10 = *v7;
   VirtualTable.StreamTombstone.Module.createTable(using:databaseName:tableName:args:)(a1, a2, a3, a4, a5, a6);
-  if (!v8)
+  if (!v7)
   {
-    *a7 = v11;
+    *a7 = v9;
   }
 }
 
-void protocol witness for VirtualTable.Module.createTableInitial(using:databaseName:tableName:args:) in conformance VirtualTable.StreamTombstone.Module(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X4>, void *a6@<X5>, void *a7@<X8>)
+void protocol witness for VirtualTable.Module.createTableInitial(using:databaseName:tableName:args:) in conformance VirtualTable.StreamTombstone.Module(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X4>, void *a6@<X5>, uint64_t *a7@<X8>)
 {
-  v10 = *v7;
   VirtualTable.StreamTombstone.Module.createTableInitial(using:databaseName:tableName:args:)(a1, a2, a3, a4, a5, a6);
-  if (!v8)
+  if (!v7)
   {
-    *a7 = v11;
+    *a7 = v9;
   }
 }
 
 uint64_t VirtualTable.StreamTombstone.Table.schema.getter@<X0>(uint64_t a1@<X8>)
 {
-  v232 = a1;
+  v241 = a1;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12BiomeStreams15LibraryArtifactO11EnumerationVSgMd, &_s12BiomeStreams15LibraryArtifactO11EnumerationVSgMR);
   OUTLINED_FUNCTION_21(v2);
-  v4 = *(v3 + 64);
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v5);
-  v245 = &v223 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12BiomeStreams15LibraryArtifactO5TableVSgMd, &_s12BiomeStreams15LibraryArtifactO5TableVSgMR);
-  OUTLINED_FUNCTION_21(v7);
-  v9 = *(v8 + 64);
+  MEMORY[0x28223BE20](v3);
+  v254 = &v232 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12BiomeStreams15LibraryArtifactO5TableVSgMd, &_s12BiomeStreams15LibraryArtifactO5TableVSgMR);
+  OUTLINED_FUNCTION_21(v5);
+  OUTLINED_FUNCTION_8_0();
+  MEMORY[0x28223BE20](v6);
+  v8 = &v232 - v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12BiomeStreams15LibraryArtifactO18RepresentationTypeOSgMd, &_s12BiomeStreams15LibraryArtifactO18RepresentationTypeOSgMR);
+  OUTLINED_FUNCTION_21(v9);
   OUTLINED_FUNCTION_8_0();
   MEMORY[0x28223BE20](v10);
-  v12 = &v223 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12BiomeStreams15LibraryArtifactO18RepresentationTypeOSgMd, &_s12BiomeStreams15LibraryArtifactO18RepresentationTypeOSgMR);
-  OUTLINED_FUNCTION_21(v13);
-  v15 = *(v14 + 64);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12BiomeStreams15LibraryArtifactO9PredicateOSgMd, &_s12BiomeStreams15LibraryArtifactO9PredicateOSgMR);
+  OUTLINED_FUNCTION_21(v11);
   OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v16);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12BiomeStreams15LibraryArtifactO9PredicateOSgMd, &_s12BiomeStreams15LibraryArtifactO9PredicateOSgMR);
-  OUTLINED_FUNCTION_21(v17);
-  v19 = *(v18 + 64);
-  OUTLINED_FUNCTION_8_0();
-  MEMORY[0x28223BE20](v20);
-  v22 = &v223 - v21;
-  v23 = type metadata accessor for LibraryArtifact.SQLDataType();
-  v24 = OUTLINED_FUNCTION_0_2(v23);
-  v26 = v25;
-  v28 = *(v27 + 64);
-  MEMORY[0x28223BE20](v24);
-  v30 = &v223 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v242 = v30;
-  v31 = *(v1 + 32);
-  v231 = *(v1 + 24);
-  v229 = v31;
+  MEMORY[0x28223BE20](v12);
+  v14 = &v232 - v13;
+  v15 = type metadata accessor for LibraryArtifact.SQLDataType();
+  OUTLINED_FUNCTION_0_2();
+  v17 = v16;
+  MEMORY[0x28223BE20](v18);
+  v20 = &v232 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v251 = v20;
+  v21 = *(v1 + 32);
+  v240 = *(v1 + 24);
+  v238 = v21;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12BiomeStreams15LibraryArtifactO6ColumnVGMd, &_ss23_ContiguousArrayStorageCy12BiomeStreams15LibraryArtifactO6ColumnVGMR);
-  v32 = *(type metadata accessor for LibraryArtifact.Column() - 8);
-  v244 = *(v32 + 72);
-  v33 = (*(v32 + 80) + 32) & ~*(v32 + 80);
-  v34 = swift_allocObject();
-  v230 = v34;
-  *(v34 + 16) = xmmword_2552FD650;
-  v238 = v34 + v33;
-  v233 = *MEMORY[0x277CF1848];
-  v243 = *(v26 + 104);
-  v35 = v23;
-  v235 = v23;
-  v243(v30);
-  v237 = type metadata accessor for LibraryArtifact.Predicate();
-  v36 = v22;
+  v22 = *(type metadata accessor for LibraryArtifact.Column() - 8);
+  v253 = *(v22 + 72);
+  v23 = (*(v22 + 80) + 32) & ~*(v22 + 80);
+  v24 = swift_allocObject();
+  v239 = v24;
+  *(v24 + 16) = xmmword_2552FD650;
+  v247 = v24 + v23;
+  v242 = *MEMORY[0x277CF1848];
+  v252 = *(v17 + 104);
+  v25 = v15;
+  v244 = v15;
+  v252(v20);
+  v246 = type metadata accessor for LibraryArtifact.Predicate();
+  v26 = v14;
   OUTLINED_FUNCTION_4_3();
-  __swift_storeEnumTagSinglePayload(v37, v38, v39, v40);
-  v41 = type metadata accessor for LibraryArtifact.RepresentationType();
-  v42 = OUTLINED_FUNCTION_0_3();
-  v241 = v41;
-  __swift_storeEnumTagSinglePayload(v42, v43, v44, v41);
-  v45 = type metadata accessor for LibraryArtifact.Table();
-  v46 = OUTLINED_FUNCTION_2_3();
-  v240 = v45;
-  __swift_storeEnumTagSinglePayload(v46, v47, v48, v45);
-  v239 = type metadata accessor for LibraryArtifact.Enumeration();
-  v49 = v245;
-  v50 = OUTLINED_FUNCTION_3_4();
-  __swift_storeEnumTagSinglePayload(v50, v51, v52, v53);
+  __swift_storeEnumTagSinglePayload(v27, v28, v29, v30);
+  v31 = type metadata accessor for LibraryArtifact.RepresentationType();
+  v32 = OUTLINED_FUNCTION_0_3();
+  v250 = v31;
+  __swift_storeEnumTagSinglePayload(v32, v33, v34, v31);
+  v35 = type metadata accessor for LibraryArtifact.Table();
+  v36 = OUTLINED_FUNCTION_2_3();
+  v249 = v35;
+  __swift_storeEnumTagSinglePayload(v36, v37, v38, v35);
+  v248 = type metadata accessor for LibraryArtifact.Enumeration();
+  v39 = v254;
+  v40 = OUTLINED_FUNCTION_3_4();
+  __swift_storeEnumTagSinglePayload(v40, v41, v42, v43);
 
   OUTLINED_FUNCTION_13_2();
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_5_4();
-  v54 = v242;
-  v55 = v36;
+  v44 = v251;
+  v45 = v26;
   LibraryArtifact.Column.init(name:description:sqlType:predicate:representationType:searchable:repeated:nullable:objectType:enumerationType:)();
-  v56 = *MEMORY[0x277CF1850];
-  (v243)(v54, v56, v35);
-  v57 = v55;
+  v46 = *MEMORY[0x277CF1850];
+  (v252)(v44, v46, v25);
+  v47 = v45;
   OUTLINED_FUNCTION_4_3();
-  v58 = v237;
-  __swift_storeEnumTagSinglePayload(v59, v60, v61, v237);
-  v62 = OUTLINED_FUNCTION_0_3();
-  __swift_storeEnumTagSinglePayload(v62, v63, v64, v41);
-  v234 = v12;
-  v65 = OUTLINED_FUNCTION_2_3();
-  __swift_storeEnumTagSinglePayload(v65, v66, v67, v45);
-  v68 = v49;
-  v69 = OUTLINED_FUNCTION_3_4();
-  v70 = v239;
-  __swift_storeEnumTagSinglePayload(v69, v71, v72, v239);
-  v224 = v12;
-  v225 = v68;
+  v48 = v246;
+  __swift_storeEnumTagSinglePayload(v49, v50, v51, v246);
+  v52 = OUTLINED_FUNCTION_0_3();
+  __swift_storeEnumTagSinglePayload(v52, v53, v54, v31);
+  v243 = v8;
+  v55 = OUTLINED_FUNCTION_2_3();
+  __swift_storeEnumTagSinglePayload(v55, v56, v57, v35);
+  v58 = v39;
+  v59 = OUTLINED_FUNCTION_3_4();
+  v60 = v248;
+  __swift_storeEnumTagSinglePayload(v59, v61, v62, v248);
+  v233 = v8;
+  v234 = v58;
   OUTLINED_FUNCTION_8_1();
-  v73 = v244;
-  v74 = v238;
+  v63 = v253;
+  v64 = v247;
   OUTLINED_FUNCTION_5_4();
-  v75 = v242;
-  OUTLINED_FUNCTION_14_2();
-  v227 = v74 + 2 * v73;
-  v76 = v75;
-  v228 = v56;
-  v77 = v235;
-  (v243)(v76, v56, v235);
-  v236 = v26 + 104;
-  v78 = OUTLINED_FUNCTION_1_3();
-  v79 = v58;
-  __swift_storeEnumTagSinglePayload(v78, v80, v81, v58);
-  v82 = OUTLINED_FUNCTION_0_3();
-  v83 = v241;
-  __swift_storeEnumTagSinglePayload(v82, v84, v85, v241);
-  v86 = v234;
+  v65 = v251;
+  OUTLINED_FUNCTION_14_2(v66);
+  v236 = v64 + 2 * v63;
+  v67 = v65;
+  v237 = v46;
+  v68 = v244;
+  (v252)(v67, v46, v244);
+  v245 = v17 + 104;
+  v69 = OUTLINED_FUNCTION_1_3();
+  v70 = v48;
+  __swift_storeEnumTagSinglePayload(v69, v71, v72, v48);
+  v73 = OUTLINED_FUNCTION_0_3();
+  v74 = v250;
+  __swift_storeEnumTagSinglePayload(v73, v75, v76, v250);
+  v77 = v243;
   OUTLINED_FUNCTION_4_3();
-  __swift_storeEnumTagSinglePayload(v87, v88, v89, v240);
-  v90 = v245;
+  __swift_storeEnumTagSinglePayload(v78, v79, v80, v249);
+  v81 = v254;
   OUTLINED_FUNCTION_4_3();
-  __swift_storeEnumTagSinglePayload(v91, v92, v93, v70);
-  v224 = v86;
-  v225 = v90;
+  __swift_storeEnumTagSinglePayload(v82, v83, v84, v60);
+  v233 = v77;
+  v234 = v81;
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_5_4();
-  v94 = v242;
-  OUTLINED_FUNCTION_14_2();
+  v85 = v251;
+  OUTLINED_FUNCTION_14_2(v86);
+  v87 = v252;
+  v236 = 3 * v253;
+  v88 = v68;
+  (v252)(v85, v46, v68);
+  v89 = OUTLINED_FUNCTION_1_3();
+  __swift_storeEnumTagSinglePayload(v89, v90, v91, v70);
+  v92 = OUTLINED_FUNCTION_0_3();
+  __swift_storeEnumTagSinglePayload(v92, v93, v94, v74);
   v95 = v243;
-  v227 = 3 * v244;
-  v96 = v77;
-  (v243)(v94, v56, v77);
-  v97 = OUTLINED_FUNCTION_1_3();
-  __swift_storeEnumTagSinglePayload(v97, v98, v99, v79);
-  v100 = OUTLINED_FUNCTION_0_3();
-  __swift_storeEnumTagSinglePayload(v100, v101, v102, v83);
-  v103 = v234;
-  v104 = OUTLINED_FUNCTION_2_3();
-  v105 = v240;
-  __swift_storeEnumTagSinglePayload(v104, v106, v107, v240);
-  v108 = v245;
+  v96 = OUTLINED_FUNCTION_2_3();
+  v97 = v249;
+  __swift_storeEnumTagSinglePayload(v96, v98, v99, v249);
+  v100 = v254;
   OUTLINED_FUNCTION_4_3();
-  v109 = v239;
-  __swift_storeEnumTagSinglePayload(v110, v111, v112, v239);
-  v224 = v103;
-  v225 = v108;
+  v101 = v248;
+  __swift_storeEnumTagSinglePayload(v102, v103, v104, v248);
+  v233 = v95;
+  v234 = v100;
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_10_1();
   OUTLINED_FUNCTION_5_4();
-  OUTLINED_FUNCTION_14_2();
-  v113 = v244;
-  v227 = &v108[4 * v244];
-  v114 = v233;
-  (v95)(v94, v233, v96);
-  v115 = OUTLINED_FUNCTION_1_3();
-  v116 = v237;
-  __swift_storeEnumTagSinglePayload(v115, v117, v118, v237);
-  v119 = OUTLINED_FUNCTION_0_3();
-  __swift_storeEnumTagSinglePayload(v119, v120, v121, v83);
-  v122 = v234;
+  OUTLINED_FUNCTION_14_2(v105);
+  v106 = v253;
+  v236 = &v100[4 * v253];
+  v107 = v242;
+  (v87)(v85, v242, v88);
+  v108 = OUTLINED_FUNCTION_1_3();
+  v109 = v246;
+  __swift_storeEnumTagSinglePayload(v108, v110, v111, v246);
+  v112 = OUTLINED_FUNCTION_0_3();
+  __swift_storeEnumTagSinglePayload(v112, v113, v114, v74);
+  v115 = v243;
   OUTLINED_FUNCTION_4_3();
-  __swift_storeEnumTagSinglePayload(v123, v124, v125, v105);
-  v126 = v245;
-  v127 = OUTLINED_FUNCTION_3_4();
-  __swift_storeEnumTagSinglePayload(v127, v128, v129, v109);
-  v224 = v122;
-  v225 = v126;
-  v130 = v122;
+  __swift_storeEnumTagSinglePayload(v116, v117, v118, v97);
+  v119 = v254;
+  v120 = OUTLINED_FUNCTION_3_4();
+  __swift_storeEnumTagSinglePayload(v120, v121, v122, v101);
+  v233 = v115;
+  v234 = v119;
+  v123 = v115;
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_5_4();
-  v224 = v57;
+  v233 = v47;
   LibraryArtifact.Column.init(name:description:sqlType:predicate:representationType:searchable:repeated:nullable:objectType:enumerationType:)();
-  v227 = 5 * v113;
-  v131 = v243;
-  (v243)(v94, v114, v235);
+  v236 = 5 * v106;
+  v124 = v252;
+  (v252)(v85, v107, v244);
   OUTLINED_FUNCTION_4_3();
-  __swift_storeEnumTagSinglePayload(v132, v133, v134, v116);
+  __swift_storeEnumTagSinglePayload(v125, v126, v127, v109);
   OUTLINED_FUNCTION_4_3();
-  v135 = v241;
-  __swift_storeEnumTagSinglePayload(v136, v137, v138, v241);
-  v139 = OUTLINED_FUNCTION_3_4();
-  __swift_storeEnumTagSinglePayload(v139, v140, v141, v240);
-  v142 = v245;
+  v128 = v250;
+  __swift_storeEnumTagSinglePayload(v129, v130, v131, v250);
+  v132 = OUTLINED_FUNCTION_3_4();
+  __swift_storeEnumTagSinglePayload(v132, v133, v134, v249);
+  v135 = v254;
   OUTLINED_FUNCTION_4_3();
-  __swift_storeEnumTagSinglePayload(v143, v144, v145, v239);
-  v224 = v130;
-  v225 = v142;
-  v146 = v130;
+  __swift_storeEnumTagSinglePayload(v136, v137, v138, v248);
+  v233 = v123;
+  v234 = v135;
+  v139 = v123;
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_10_1();
   OUTLINED_FUNCTION_5_4();
   LibraryArtifact.Column.init(name:description:sqlType:predicate:representationType:searchable:repeated:nullable:objectType:enumerationType:)();
-  v147 = v244;
-  v226 = &v142[6 * v244];
-  LODWORD(v227) = *MEMORY[0x277CF1840];
-  v131(v94);
+  v140 = v253;
+  v235 = &v135[6 * v253];
+  LODWORD(v236) = *MEMORY[0x277CF1840];
+  v124(v85);
   OUTLINED_FUNCTION_4_3();
-  v148 = v237;
-  __swift_storeEnumTagSinglePayload(v149, v150, v151, v237);
+  v141 = v246;
+  __swift_storeEnumTagSinglePayload(v142, v143, v144, v246);
   OUTLINED_FUNCTION_4_3();
-  __swift_storeEnumTagSinglePayload(v152, v153, v154, v135);
-  v155 = OUTLINED_FUNCTION_2_3();
-  v156 = v240;
-  __swift_storeEnumTagSinglePayload(v155, v157, v158, v240);
-  v159 = v245;
-  v160 = OUTLINED_FUNCTION_1_3();
-  v161 = v239;
-  __swift_storeEnumTagSinglePayload(v160, v162, v163, v239);
-  v224 = v146;
-  v225 = v159;
+  __swift_storeEnumTagSinglePayload(v145, v146, v147, v128);
+  v148 = OUTLINED_FUNCTION_2_3();
+  v149 = v249;
+  __swift_storeEnumTagSinglePayload(v148, v150, v151, v249);
+  v152 = v254;
+  v153 = OUTLINED_FUNCTION_1_3();
+  v154 = v248;
+  __swift_storeEnumTagSinglePayload(v153, v155, v156, v248);
+  v233 = v139;
+  v234 = v152;
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_5_4();
   LibraryArtifact.Column.init(name:description:sqlType:predicate:representationType:searchable:repeated:nullable:objectType:enumerationType:)();
-  v226 = 7 * v147;
-  v225 = "not match the stream name: ";
-  v164 = v94;
-  v165 = v235;
-  (v131)(v164, *MEMORY[0x277CF1830], v235);
-  v166 = OUTLINED_FUNCTION_0_3();
-  __swift_storeEnumTagSinglePayload(v166, v167, v168, v148);
-  v169 = OUTLINED_FUNCTION_1_3();
-  __swift_storeEnumTagSinglePayload(v169, v170, v171, v241);
-  v172 = OUTLINED_FUNCTION_2_3();
-  __swift_storeEnumTagSinglePayload(v172, v173, v174, v156);
-  v175 = OUTLINED_FUNCTION_3_4();
-  __swift_storeEnumTagSinglePayload(v175, v176, v177, v161);
+  v235 = 7 * v140;
+  v234 = "not match the stream name: ";
+  v157 = v85;
+  v158 = v244;
+  (v124)(v157, *MEMORY[0x277CF1830], v244);
+  v159 = OUTLINED_FUNCTION_0_3();
+  __swift_storeEnumTagSinglePayload(v159, v160, v161, v141);
+  v162 = OUTLINED_FUNCTION_1_3();
+  __swift_storeEnumTagSinglePayload(v162, v163, v164, v250);
+  v165 = OUTLINED_FUNCTION_2_3();
+  __swift_storeEnumTagSinglePayload(v165, v166, v167, v149);
+  v168 = OUTLINED_FUNCTION_3_4();
+  __swift_storeEnumTagSinglePayload(v168, v169, v170, v154);
   OUTLINED_FUNCTION_13_2();
   OUTLINED_FUNCTION_12_2();
   OUTLINED_FUNCTION_5_4();
-  v178 = v242;
-  OUTLINED_FUNCTION_9_2();
-  (v131)(v178, v227, v165);
-  v179 = OUTLINED_FUNCTION_0_3();
-  v180 = v237;
-  __swift_storeEnumTagSinglePayload(v179, v181, v182, v237);
-  v183 = OUTLINED_FUNCTION_1_3();
-  v184 = v241;
-  __swift_storeEnumTagSinglePayload(v183, v185, v186, v241);
-  v187 = OUTLINED_FUNCTION_2_3();
-  v188 = v240;
-  __swift_storeEnumTagSinglePayload(v187, v189, v190, v240);
-  v191 = OUTLINED_FUNCTION_3_4();
-  v192 = v239;
-  __swift_storeEnumTagSinglePayload(v191, v193, v194, v239);
+  v171 = v251;
+  OUTLINED_FUNCTION_9_2(v172, v173, v174, v175, v251);
+  (v124)(v171, v236, v158);
+  v176 = OUTLINED_FUNCTION_0_3();
+  v177 = v246;
+  __swift_storeEnumTagSinglePayload(v176, v178, v179, v246);
+  v180 = OUTLINED_FUNCTION_1_3();
+  v181 = v250;
+  __swift_storeEnumTagSinglePayload(v180, v182, v183, v250);
+  v184 = OUTLINED_FUNCTION_2_3();
+  v185 = v249;
+  __swift_storeEnumTagSinglePayload(v184, v186, v187, v249);
+  v188 = OUTLINED_FUNCTION_3_4();
+  v189 = v248;
+  __swift_storeEnumTagSinglePayload(v188, v190, v191, v248);
   OUTLINED_FUNCTION_13_2();
-  BYTE2(v231) = 1;
+  BYTE2(v240) = 1;
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_5_4();
-  v195 = v242;
-  OUTLINED_FUNCTION_9_2();
-  v196 = v235;
-  (v243)(v195, v233, v235);
-  v197 = OUTLINED_FUNCTION_0_3();
-  __swift_storeEnumTagSinglePayload(v197, v198, v199, v180);
-  v200 = OUTLINED_FUNCTION_1_3();
-  __swift_storeEnumTagSinglePayload(v200, v201, v202, v184);
-  v203 = OUTLINED_FUNCTION_2_3();
-  __swift_storeEnumTagSinglePayload(v203, v204, v205, v188);
-  v206 = OUTLINED_FUNCTION_3_4();
-  __swift_storeEnumTagSinglePayload(v206, v207, v208, v192);
+  v192 = v251;
+  OUTLINED_FUNCTION_9_2(v193, v194, v195, v196, v251);
+  v197 = v244;
+  (v252)(v192, v242, v244);
+  v198 = OUTLINED_FUNCTION_0_3();
+  __swift_storeEnumTagSinglePayload(v198, v199, v200, v177);
+  v201 = OUTLINED_FUNCTION_1_3();
+  __swift_storeEnumTagSinglePayload(v201, v202, v203, v181);
+  v204 = OUTLINED_FUNCTION_2_3();
+  __swift_storeEnumTagSinglePayload(v204, v205, v206, v185);
+  v207 = OUTLINED_FUNCTION_3_4();
+  __swift_storeEnumTagSinglePayload(v207, v208, v209, v189);
   OUTLINED_FUNCTION_13_2();
   OUTLINED_FUNCTION_10_1();
   OUTLINED_FUNCTION_12_2();
   OUTLINED_FUNCTION_5_4();
-  v209 = v242;
-  OUTLINED_FUNCTION_9_2();
-  (v243)(v209, v228, v196);
-  v210 = OUTLINED_FUNCTION_0_3();
-  __swift_storeEnumTagSinglePayload(v210, v211, v212, v237);
-  v213 = OUTLINED_FUNCTION_1_3();
-  __swift_storeEnumTagSinglePayload(v213, v214, v215, v241);
-  v216 = OUTLINED_FUNCTION_2_3();
-  __swift_storeEnumTagSinglePayload(v216, v217, v218, v188);
-  v219 = OUTLINED_FUNCTION_3_4();
-  __swift_storeEnumTagSinglePayload(v219, v220, v221, v192);
+  v210 = v251;
+  OUTLINED_FUNCTION_9_2(v211, v212, v213, v214, v251);
+  (v252)(v210, v237, v197);
+  v215 = OUTLINED_FUNCTION_0_3();
+  __swift_storeEnumTagSinglePayload(v215, v216, v217, v246);
+  v218 = OUTLINED_FUNCTION_1_3();
+  __swift_storeEnumTagSinglePayload(v218, v219, v220, v250);
+  v221 = OUTLINED_FUNCTION_2_3();
+  __swift_storeEnumTagSinglePayload(v221, v222, v223, v185);
+  v224 = OUTLINED_FUNCTION_3_4();
+  __swift_storeEnumTagSinglePayload(v224, v225, v226, v189);
   OUTLINED_FUNCTION_13_2();
-  BYTE2(v239) = 1;
+  BYTE2(v248) = 1;
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_5_4();
-  OUTLINED_FUNCTION_9_2();
+  OUTLINED_FUNCTION_9_2(v227, v228, v229, v230, v210);
   OUTLINED_FUNCTION_5_4();
   return MEMORY[0x259C32540]();
 }
@@ -9638,22 +8907,20 @@ uint64_t VirtualTable.StreamTombstone.Table.schema.getter@<X0>(uint64_t a1@<X8>)
 uint64_t VirtualTable.StreamTombstone.Table.createSQL.getter()
 {
   v0 = type metadata accessor for LibraryArtifact.Table();
-  v1 = OUTLINED_FUNCTION_0_2(v0);
-  v3 = v2;
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v1);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  VirtualTable.StreamTombstone.Table.schema.getter(v7);
-  v8 = LibraryArtifact.Table.createTableSQL.getter();
-  (*(v3 + 8))(v7, v0);
-  return v8;
+  OUTLINED_FUNCTION_0_2();
+  v2 = v1;
+  MEMORY[0x28223BE20](v3);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  VirtualTable.StreamTombstone.Table.schema.getter(v5);
+  v6 = LibraryArtifact.Table.createTableSQL.getter();
+  (*(v2 + 8))(v5, v0);
+  return v6;
 }
 
 void *VirtualTable.StreamTombstone.Table.init(module:tableName:stream:)(uint64_t a1, void *a2, void *a3, id a4)
 {
   v5 = v4;
   v36 = a1;
-  v33 = *v4;
   v9 = [a4 identifier];
   v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v12 = v11;
@@ -9700,7 +8967,7 @@ LABEL_15:
     v5[3] = a2;
     v5[4] = a3;
     v5[5] = a4;
-    v30 = *MEMORY[0x277CF0DF0];
+    v31 = *MEMORY[0x277CF0DF0];
     v5[6] = *MEMORY[0x277CF0DF0];
     v34[0] = a2;
     v34[1] = a3;
@@ -9711,7 +8978,7 @@ LABEL_15:
     swift_allocObject();
     swift_unownedRetain();
 
-    v31 = v30;
+    v32 = v31;
     v5[7] = VirtualTable.Stream.QueryState.init(storeIdentifier:startingBookmark:)(v34, __src);
     goto LABEL_16;
   }
@@ -9738,12 +9005,12 @@ LABEL_13:
 
   MEMORY[0x259C32B90](v25, v27);
 
-  lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
-  OUTLINED_FUNCTION_13();
-  v29 = v28;
-  *v28 = __src[0];
-  memcpy(v28 + 1, __src, 0x48uLL);
-  *(v29 + 88) = 0;
+  v28 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+  OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v28);
+  v30 = v29;
+  *v29 = __src[0];
+  memcpy(v29 + 1, __src, 0x48uLL);
+  *(v30 + 88) = 0;
   swift_willThrow();
 
   swift_deallocPartialClassInstance();
@@ -9766,18 +9033,13 @@ void *VirtualTable.StreamTombstone.Table.createCursor()()
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> VirtualTable.StreamTombstone.Table.tearDown()()
 {
-  v1 = v0[2];
   swift_unownedRetainStrong();
-  specialized Dictionary._Variant.removeValue(forKey:)(v0[3], v0[4], &_ss17_NativeDictionaryVySS25IntelligencePlatformQuery12VirtualTableO15StreamTombstoneO0G0CGMd, &_ss17_NativeDictionaryVySS25IntelligencePlatformQuery12VirtualTableO15StreamTombstoneO0G0CGMR, v2, type metadata accessor for VirtualTable.StreamTombstone.Table);
+  specialized Dictionary._Variant.removeValue(forKey:)(*(v0 + 24), *(v0 + 32), &_ss17_NativeDictionaryVySS25IntelligencePlatformQuery12VirtualTableO15StreamTombstoneO0G0CGMd, &_ss17_NativeDictionaryVySS25IntelligencePlatformQuery12VirtualTableO15StreamTombstoneO0G0CGMR, v1, type metadata accessor for VirtualTable.StreamTombstone.Table);
 }
 
 uint64_t VirtualTable.StreamTombstone.Table.deinit()
 {
-  v1 = *(v0 + 16);
   swift_unownedRelease();
-  v2 = *(v0 + 32);
-
-  v3 = *(v0 + 56);
 
   return v0;
 }
@@ -9791,9 +9053,8 @@ uint64_t VirtualTable.StreamTombstone.Table.__deallocating_deinit()
 
 void *protocol witness for VirtualTable.Table.createCursor() in conformance VirtualTable.StreamTombstone.Table@<X0>(void *a1@<X8>)
 {
-  v4 = *v1;
   result = VirtualTable.StreamTombstone.Table.createCursor()();
-  if (!v2)
+  if (!v1)
   {
     *a1 = result;
   }
@@ -9803,15 +9064,13 @@ void *protocol witness for VirtualTable.Table.createCursor() in conformance Virt
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> VirtualTable.StreamTombstone.Cursor.filter(idxNum:idxStr:args:)(Swift::Int32 idxNum, Swift::String_optional idxStr, Swift::OpaquePointer args)
 {
-  v5 = v3;
-  v6 = *(v3 + 16);
-  v7 = [objc_allocWithZone(MEMORY[0x277CF1A50]) init];
-  v8 = VirtualTable.StreamTombstone.Table.iterator(options:queryObject:)(v7, *(v5 + 24));
+  v5 = [objc_allocWithZone(MEMORY[0x277CF1A50]) init];
+  v6 = VirtualTable.StreamTombstone.Table.iterator(options:queryObject:)(v5, *(v3 + 24));
 
   if (!v4)
   {
-    v9 = *(v5 + 32);
-    *(v5 + 32) = v8;
+    v7 = *(v3 + 32);
+    *(v3 + 32) = v6;
   }
 }
 
@@ -9839,13 +9098,13 @@ char *VirtualTable.StreamTombstone.Table.iterator(options:queryObject:)(char *a1
     }
 
 LABEL_16:
-    lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
-    OUTLINED_FUNCTION_13();
+    v32 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+    OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v32);
     OUTLINED_FUNCTION_17_1();
-    *v32 = 0xD000000000000017;
-    v32[1] = 0x80000002553A85D0;
-    memcpy(v32 + 2, __src, 0x48uLL);
-    OUTLINED_FUNCTION_18();
+    *v33 = 0xD000000000000017;
+    v33[1] = 0x80000002553A85D0;
+    v34 = memcpy(v33 + 2, __src, 0x48uLL);
+    OUTLINED_FUNCTION_18(v34);
     return a1;
   }
 
@@ -9920,4 +9179,660 @@ LABEL_18:
   v29 = v27;
 
   return a1;
+}
+
+Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> VirtualTable.StreamTombstone.Cursor.next()()
+{
+  v1 = v0;
+  v2 = *(v0 + 32);
+  if (v2)
+  {
+    v3 = v2;
+    VirtualTable.Stream.TypeErasedStreamIterator.next()();
+
+    v5 = *(v1 + 24);
+    v4 = *(v1 + 32);
+    if (v4)
+    {
+      v6 = *(v4 + OBJC_IVAR____TtCOO25IntelligencePlatformQuery12VirtualTable6Stream24TypeErasedStreamIterator_currentBookmark);
+      v7 = v6;
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+  }
+
+  else
+  {
+    v6 = 0;
+    v5 = *(v0 + 24);
+  }
+
+  v8 = *(v5 + 152);
+  *(v5 + 152) = v6;
+}
+
+Swift::Bool __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> VirtualTable.StreamTombstone.Cursor.eof()()
+{
+  v1 = *(v0 + 32);
+  if (!v1)
+  {
+    v4 = 0u;
+    v5 = 0u;
+    goto LABEL_5;
+  }
+
+  outlined init with copy of Any?(v1 + OBJC_IVAR____TtCOO25IntelligencePlatformQuery12VirtualTable6Stream24TypeErasedStreamIterator_currentEvent, &v4);
+  if (!*(&v5 + 1))
+  {
+LABEL_5:
+    v2 = 1;
+    goto LABEL_6;
+  }
+
+  v2 = 0;
+LABEL_6:
+  outlined destroy of Any?(&v4);
+  return v2;
+}
+
+Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> VirtualTable.StreamTombstone.Cursor.column(context:index:)(Swift::OpaquePointer context, Swift::Int index)
+{
+  v54 = *MEMORY[0x277D85DE8];
+  v4 = *(v2 + 32);
+  if (!v4)
+  {
+    memset(__src, 0, 32);
+    goto LABEL_9;
+  }
+
+  outlined init with copy of Any?(v4 + OBJC_IVAR____TtCOO25IntelligencePlatformQuery12VirtualTable6Stream24TypeErasedStreamIterator_currentEvent, __src);
+  if (!*&__src[24])
+  {
+LABEL_9:
+    outlined destroy of Any?(__src);
+    goto LABEL_10;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo12BMStoreEvent_pMd, &_sSo12BMStoreEvent_pMR);
+  if ((swift_dynamicCast() & 1) == 0)
+  {
+LABEL_10:
+    v13 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+    OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v13);
+    OUTLINED_FUNCTION_17_1();
+    *v14 = 0xD000000000000017;
+    v14[1] = 0x80000002553A8590;
+    v15 = memcpy(v14 + 2, __src, 0x48uLL);
+    OUTLINED_FUNCTION_18(v15);
+    return;
+  }
+
+  if (![v52 eventBody])
+  {
+    goto LABEL_13;
+  }
+
+  v7 = swift_dynamicCastObjCProtocolConditional();
+  if (!v7)
+  {
+    swift_unknownObjectRelease();
+LABEL_13:
+    swift_unknownObjectRelease();
+    goto LABEL_10;
+  }
+
+  v8 = v7;
+  switch(index)
+  {
+    case 0:
+      type metadata accessor for SQLConnection();
+      v9 = [v8 segmentName];
+      v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v12 = v11;
+
+      static SQLConnection.sqlite_result_string(context:string:)(context._rawValue, v10, v12);
+      goto LABEL_35;
+    case 1:
+      v23 = [v7 offset];
+      goto LABEL_23;
+    case 2:
+      v23 = [v7 length];
+      goto LABEL_23;
+    case 3:
+      v23 = [v7 deletionReason];
+      if ((v23 & 0x8000000000000000) == 0)
+      {
+LABEL_23:
+        v30 = v23;
+        rawValue = context._rawValue;
+LABEL_42:
+        sqlite3_result_int64(rawValue, v30);
+        goto LABEL_43;
+      }
+
+      __break(1u);
+LABEL_20:
+      v24 = [v8 segmentName];
+      v25 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v27 = v26;
+
+      v28 = specialized IncrementalIdentifier.Identifier.asData.getter(v25, v27, [v8 offset]);
+      if (!v3)
+      {
+        v45 = v28;
+        v46 = v29;
+
+        switch(v46 >> 62)
+        {
+          case 1uLL:
+            v51 = v45 >> 32;
+            if (v45 >> 32 >= v45)
+            {
+              v50 = v45;
+              goto LABEL_52;
+            }
+
+            __break(1u);
+            return;
+          case 2uLL:
+            v50 = *(v45 + 16);
+            v51 = *(v45 + 24);
+LABEL_52:
+            specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(v50, v51, v46 & 0x3FFFFFFFFFFFFFFFLL, context._rawValue);
+            goto LABEL_53;
+          case 3uLL:
+            *&__src[6] = 0;
+            *__src = 0;
+            if (one-time initialization token for SQLITE_TRANSIENT != -1)
+            {
+              OUTLINED_FUNCTION_29(&one-time initialization token for SQLITE_TRANSIENT);
+            }
+
+            v47 = static SQLConnection.SQLITE_TRANSIENT;
+            v48 = context._rawValue;
+            v49 = 0;
+            goto LABEL_49;
+          default:
+            *__src = v45;
+            *&__src[8] = v46;
+            __src[10] = BYTE2(v46);
+            __src[11] = BYTE3(v46);
+            __src[12] = BYTE4(v46);
+            __src[13] = BYTE5(v46);
+            if (one-time initialization token for SQLITE_TRANSIENT != -1)
+            {
+              OUTLINED_FUNCTION_29(&one-time initialization token for SQLITE_TRANSIENT);
+            }
+
+            v47 = static SQLConnection.SQLITE_TRANSIENT;
+            v48 = context._rawValue;
+            v49 = BYTE6(v46);
+LABEL_49:
+            sqlite3_result_blob(v48, __src, v49, v47);
+LABEL_53:
+            swift_unknownObjectRelease();
+            swift_unknownObjectRelease();
+            outlined consume of Data._Representation(v45, v46);
+            break;
+        }
+
+        return;
+      }
+
+      goto LABEL_35;
+    case 4:
+      v16 = [v7 policyID];
+      goto LABEL_25;
+    case 5:
+      v16 = [v7 processName];
+LABEL_25:
+      v32 = v16;
+      if (v32)
+      {
+        v33 = v32;
+        v34 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v36 = v35;
+
+        type metadata accessor for SQLConnection();
+        static SQLConnection.sqlite_result_string(context:string:)(context._rawValue, v34, v36);
+LABEL_35:
+      }
+
+      else
+      {
+        sqlite3_result_null(context._rawValue);
+      }
+
+LABEL_43:
+      swift_unknownObjectRelease();
+LABEL_44:
+      swift_unknownObjectRelease();
+      break;
+    case 6:
+      [v7 eventTimestamp];
+      sqlite3_result_double(context._rawValue, v37);
+      swift_unknownObjectRelease();
+      goto LABEL_44;
+    case 7:
+      goto LABEL_20;
+    case 8:
+      [v52 timestamp];
+      sqlite3_result_double(context._rawValue, v41);
+      goto LABEL_43;
+    case 9:
+      v17 = [v52 bookmark];
+      if (v17)
+      {
+        v18 = v17;
+        v19 = [v17 segmentName];
+
+        v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v22 = v21;
+      }
+
+      else
+      {
+        v20 = 0;
+        v22 = 0xE000000000000000;
+      }
+
+      type metadata accessor for SQLConnection();
+      static SQLConnection.sqlite_result_string(context:string:)(context._rawValue, v20, v22);
+      goto LABEL_35;
+    case 10:
+      v38 = [v52 bookmark];
+      if (v38)
+      {
+        v39 = v38;
+        v40 = [v38 offset];
+      }
+
+      else
+      {
+        v40 = 0;
+      }
+
+      rawValue = context._rawValue;
+      v30 = v40;
+      goto LABEL_42;
+    default:
+      v42 = lazy protocol witness table accessor for type SQLConnection.Error and conformance SQLConnection.Error();
+      OUTLINED_FUNCTION_13(&type metadata for SQLConnection.Error, v42);
+      OUTLINED_FUNCTION_17_1();
+      *v43 = 0xD000000000000016;
+      v43[1] = 0x80000002553A85B0;
+      v44 = memcpy(v43 + 2, __src, 0x48uLL);
+      OUTLINED_FUNCTION_18(v44);
+      goto LABEL_43;
+  }
+}
+
+void closure #1 in VirtualTable.StreamTombstone.Cursor.column(context:index:)(void *a1, uint64_t a2, sqlite3_context *a3)
+{
+  if (a1)
+  {
+    v5 = a2 - a1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (v5 < 0xFFFFFFFF80000000)
+  {
+    __break(1u);
+    goto LABEL_9;
+  }
+
+  if (v5 > 0x7FFFFFFF)
+  {
+LABEL_9:
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  v3 = a3;
+  v4 = a1;
+  if (one-time initialization token for SQLITE_TRANSIENT != -1)
+  {
+LABEL_10:
+    swift_once();
+  }
+
+  sqlite3_result_blob(v3, v4, v5, static SQLConnection.SQLITE_TRANSIENT);
+}
+
+void *VirtualTable.StreamTombstone.Cursor.init(table:queryState:)(uint64_t a1, uint64_t a2)
+{
+  v2[3] = a2;
+  v2[4] = 0;
+  v2[2] = a1;
+  return v2;
+}
+
+uint64_t VirtualTable.StreamTombstone.Cursor.deinit()
+{
+
+  return v0;
+}
+
+uint64_t VirtualTable.StreamTombstone.Cursor.__deallocating_deinit()
+{
+  VirtualTable.StreamTombstone.Cursor.deinit();
+
+  return MEMORY[0x2821FE8D8](v0, 40, 7);
+}
+
+Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> VirtualTable.StreamTombstone.Table.resetIncrementalState()()
+{
+  v1 = v0;
+  v2 = *(v0 + 24);
+  v3 = *(v0 + 32);
+  v5[0] = v2;
+  v5[1] = v3;
+  v5[2] = 0;
+  v5[3] = 0xE000000000000000;
+  type metadata accessor for VirtualTable.Stream.QueryState();
+  memset(v4, 0, sizeof(v4));
+  swift_allocObject();
+
+  *(v1 + 56) = VirtualTable.Stream.QueryState.init(storeIdentifier:startingBookmark:)(v5, v4);
+}
+
+uint64_t specialized closure #1 in Collection<>.split(separator:maxSplits:omittingEmptySubsequences:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (a1 == a3 && a2 == a4)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return _stringCompareWithSmolCheck(_:_:expecting:)() & 1;
+  }
+}
+
+uint64_t specialized Collection.split(maxSplits:omittingEmptySubsequences:whereSeparator:)(uint64_t a1, char a2, uint64_t (*a3)(void *), uint64_t a4, uint64_t a5, unint64_t a6)
+{
+  v50 = a3;
+  if (a1 < 0)
+  {
+    __break(1u);
+    goto LABEL_41;
+  }
+
+  v11 = a5;
+  v14 = HIBYTE(a6) & 0xF;
+  if (!a1 || ((a6 & 0x2000000000000000) != 0 ? (v15 = HIBYTE(a6) & 0xF) : (v15 = a5 & 0xFFFFFFFFFFFFLL), !v15))
+  {
+    if ((a6 & 0x2000000000000000) == 0)
+    {
+      v14 = a5 & 0xFFFFFFFFFFFFLL;
+    }
+
+    if (!v14 && (a2 & 1) != 0)
+    {
+
+      return MEMORY[0x277D84F90];
+    }
+
+    v7 = String.subscript.getter();
+    v11 = v30;
+    v12 = v31;
+    v13 = v32;
+
+    specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
+    v16 = v33;
+    v9 = *(v33 + 16);
+    v34 = *(v33 + 24);
+LABEL_37:
+    v10 = v9 + 1;
+    if (v9 < v34 >> 1)
+    {
+LABEL_38:
+      *(v16 + 16) = v10;
+      v38 = (v16 + 32 * v9);
+      v38[4] = v7;
+      v38[5] = v11;
+      v38[6] = v12;
+      v38[7] = v13;
+      return v16;
+    }
+
+LABEL_41:
+    specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
+    v16 = v39;
+    goto LABEL_38;
+  }
+
+  v7 = a4;
+  v16 = 4 * v15;
+  v48 = MEMORY[0x277D84F90];
+  v17 = 15;
+  while (1)
+  {
+    v46 = v17;
+    while (1)
+    {
+      v13 = v17 >> 14;
+      if (v17 >> 14 == v16)
+      {
+        v17 = v46;
+        goto LABEL_30;
+      }
+
+      v18 = String.subscript.getter();
+      v12 = v19;
+      v49[0] = v18;
+      v49[1] = v19;
+      v20 = v50(v49);
+      if (v8)
+      {
+
+        return v16;
+      }
+
+      v21 = v20;
+
+      if (v21)
+      {
+        break;
+      }
+
+      v17 = String.index(after:)();
+    }
+
+    v23 = (v46 >> 14 == v13) & a2;
+    if (v23)
+    {
+      goto LABEL_20;
+    }
+
+    if (v13 < v46 >> 14)
+    {
+      break;
+    }
+
+    v47 = String.subscript.getter();
+    v42 = v25;
+    v43 = v24;
+    v41 = v26;
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+      specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
+      v48 = v28;
+    }
+
+    v13 = *(v48 + 16);
+    v12 = v13 + 1;
+    if (v13 >= *(v48 + 24) >> 1)
+    {
+      specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
+      v48 = v29;
+    }
+
+    *(v48 + 16) = v12;
+    v27 = (v48 + 32 * v13);
+    v27[4] = v47;
+    v27[5] = v43;
+    v27[6] = v42;
+    v27[7] = v41;
+LABEL_20:
+    v17 = String.index(after:)();
+    if ((v23 & 1) == 0 && *(v48 + 16) == a1)
+    {
+LABEL_30:
+      if (v17 >> 14 == v16 && (a2 & 1) != 0)
+      {
+
+        return v48;
+      }
+
+      if (v16 < v17 >> 14)
+      {
+        __break(1u);
+      }
+
+      else
+      {
+        v7 = String.subscript.getter();
+        v11 = v35;
+        v12 = v36;
+        v13 = v37;
+
+        v16 = v48;
+        if (swift_isUniquelyReferenced_nonNull_native())
+        {
+LABEL_36:
+          v9 = *(v16 + 16);
+          v34 = *(v16 + 24);
+          goto LABEL_37;
+        }
+      }
+
+      specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
+      v16 = v40;
+      goto LABEL_36;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t specialized Dictionary._Variant.removeValue(forKey:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v5 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
+  if (v6)
+  {
+    v7 = v5;
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v17 = *v3;
+    v9 = *(*v3 + 24);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss17_NativeDictionaryVySS10Foundation3URLVGMd, &_ss17_NativeDictionaryVySS10Foundation3URLVGMR);
+    _NativeDictionary.ensureUnique(isUnique:capacity:)(isUniquelyReferenced_nonNull_native, v9);
+
+    v10 = *(v17 + 56);
+    v11 = type metadata accessor for URL();
+    (*(*(v11 - 8) + 32))(a3, v10 + *(*(v11 - 8) + 72) * v7, v11);
+    _NativeDictionary._delete(at:)();
+    *v3 = v17;
+    v12 = a3;
+    v13 = 0;
+    v14 = 1;
+    v15 = v11;
+  }
+
+  else
+  {
+    type metadata accessor for URL();
+    OUTLINED_FUNCTION_4_3();
+  }
+
+  return __swift_storeEnumTagSinglePayload(v12, v13, v14, v15);
+}
+
+uint64_t specialized Dictionary._Variant.removeValue(forKey:)(uint64_t a1, uint64_t a2)
+{
+  return OUTLINED_FUNCTION_6_3(a1, a2, &_ss17_NativeDictionaryVySS25IntelligencePlatformQuery12VirtualTableO6StreamO0G0CGMd, &_ss17_NativeDictionaryVySS25IntelligencePlatformQuery12VirtualTableO6StreamO0G0CGMR);
+}
+
+{
+  return OUTLINED_FUNCTION_6_3(a1, a2, &_ss17_NativeDictionaryVySS25IntelligencePlatformQuery12VirtualTableO4ViewO0G0CGMd, &_ss17_NativeDictionaryVySS25IntelligencePlatformQuery12VirtualTableO4ViewO0G0CGMR);
+}
+
+uint64_t specialized Dictionary._Variant.removeValue(forKey:)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t (*a6)(uint64_t))
+{
+  v11 = v6;
+  v12 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
+  if ((v13 & 1) == 0)
+  {
+    return 0;
+  }
+
+  v14 = v12;
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v19 = *v6;
+  v16 = *(*v6 + 24);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  _NativeDictionary.ensureUnique(isUnique:capacity:)(isUniquelyReferenced_nonNull_native, v16);
+
+  v17 = *(*(v19 + 56) + 8 * v14);
+  a6(a5);
+  _NativeDictionary._delete(at:)();
+  *v11 = v19;
+  return v17;
+}
+
+void specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(uint64_t a1, uint64_t a2, uint64_t a3, sqlite3_context *a4)
+{
+  v7 = __DataStorage._bytes.getter();
+  if (v7)
+  {
+    v8 = __DataStorage._offset.getter();
+    if (__OFSUB__(a1, v8))
+    {
+LABEL_13:
+      __break(1u);
+      return;
+    }
+
+    v7 += a1 - v8;
+  }
+
+  v9 = __OFSUB__(a2, a1);
+  v10 = a2 - a1;
+  if (v9)
+  {
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  v11 = MEMORY[0x259C322F0]();
+  if (v11 >= v10)
+  {
+    v12 = v10;
+  }
+
+  else
+  {
+    v12 = v11;
+  }
+
+  v13 = &v7[v12];
+  if (v7)
+  {
+    v14 = v13;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  closure #1 in VirtualTable.StreamTombstone.Cursor.column(context:index:)(v7, v14, a4);
 }

@@ -7,58 +7,58 @@
 
 + (id)decodeData:(id)data flags:(unsigned int)flags error:(id *)error
 {
-  v17 = -6700;
-  v6 = OPACKDecodeData(data, flags, &v17);
-  v12 = v6;
+  v11 = -6700;
+  v6 = OPACKDecodeData(data, flags, &v11);
+  v7 = v6;
   if (v6)
   {
-    v13 = v6;
+    v8 = v6;
   }
 
   else if (error)
   {
-    if (v17)
+    if (v11)
     {
-      v15 = v17;
+      v10 = v11;
     }
 
     else
     {
-      v15 = 4294960596;
+      v10 = 4294960596;
     }
 
-    *error = NSErrorF_safe(*MEMORY[0x1E696A768], v15, "OPACK decode failed", v7, v8, v9, v10, v11, v16);
+    *error = NSErrorF_safe(*MEMORY[0x1E696A768], v10, "OPACK decode failed");
   }
 
-  return v12;
+  return v7;
 }
 
 + (id)encodeObject:(id)object flags:(unsigned int)flags error:(id *)error
 {
-  v17 = -6700;
-  DataMutable = OPACKEncoderCreateDataMutable(object, flags, &v17);
-  v12 = DataMutable;
+  v11 = -6700;
+  DataMutable = OPACKEncoderCreateDataMutable(object, *&flags, &v11);
+  v7 = DataMutable;
   if (DataMutable)
   {
-    v13 = DataMutable;
+    v8 = DataMutable;
   }
 
   else if (error)
   {
-    if (v17)
+    if (v11)
     {
-      v15 = v17;
+      v10 = v11;
     }
 
     else
     {
-      v15 = 4294960596;
+      v10 = 4294960596;
     }
 
-    *error = NSErrorF_safe(*MEMORY[0x1E696A768], v15, "OPACK encode failed", v7, v8, v9, v10, v11, v16);
+    *error = NSErrorF_safe(*MEMORY[0x1E696A768], v10, "OPACK encode failed");
   }
 
-  return v12;
+  return v7;
 }
 
 @end

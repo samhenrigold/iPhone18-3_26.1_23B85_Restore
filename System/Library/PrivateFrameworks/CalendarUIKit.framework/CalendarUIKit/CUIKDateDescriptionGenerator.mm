@@ -1404,7 +1404,7 @@ LABEL_17:
   OUTLINED_FUNCTION_2_2();
   v0 = [MEMORY[0x1E696AD98] numberWithInteger:?];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1CAB19000, v1, v2, "Unknown day of week provided: [%@].  Will not generate a 'date after today (next week)' format string", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2(&dword_1CAB19000, v1, v2, "Unknown day of week provided: [%@].  Will not generate a 'date after today (next week)' format string", v3, v4, v5, v6);
 }
 
 + (void)_dateAfterTodayThisWeekFormatStringForDayOfWeek:generateLowercaseString:.cold.1()
@@ -1412,7 +1412,7 @@ LABEL_17:
   OUTLINED_FUNCTION_2_2();
   v0 = [MEMORY[0x1E696AD98] numberWithInteger:?];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1CAB19000, v1, v2, "Unknown day of week provided: [%@].  Will not generate a 'date after today (this week)' format string", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2(&dword_1CAB19000, v1, v2, "Unknown day of week provided: [%@].  Will not generate a 'date after today (this week)' format string", v3, v4, v5, v6);
 }
 
 + (void)_dateBeforeTodayThisWeekFormatStringForDayOfWeek:generateLowercaseString:.cold.1()
@@ -1420,7 +1420,7 @@ LABEL_17:
   OUTLINED_FUNCTION_2_2();
   v0 = [MEMORY[0x1E696AD98] numberWithInteger:?];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1CAB19000, v1, v2, "Unknown day of week provided: [%@].  Will not generate a 'date before today (this week)' format string", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2(&dword_1CAB19000, v1, v2, "Unknown day of week provided: [%@].  Will not generate a 'date before today (this week)' format string", v3, v4, v5, v6);
 }
 
 + (void)_dateBeforeTodayLastWeekFormatStringForDayOfWeek:generateLowercaseString:.cold.1()
@@ -1428,7 +1428,7 @@ LABEL_17:
   OUTLINED_FUNCTION_2_2();
   v0 = [MEMORY[0x1E696AD98] numberWithInteger:?];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1CAB19000, v1, v2, "Unknown day of week provided: [%@].  Will not generate a 'date before today (last week)' format string", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2(&dword_1CAB19000, v1, v2, "Unknown day of week provided: [%@].  Will not generate a 'date before today (last week)' format string", v3, v4, v5, v6);
 }
 
 @end

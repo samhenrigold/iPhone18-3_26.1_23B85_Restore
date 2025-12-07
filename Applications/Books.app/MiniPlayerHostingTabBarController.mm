@@ -69,7 +69,7 @@
 
   if (v4)
   {
-    sub_10000A7C4(0, &qword_100AD7CB0);
+    sub_10000A7C4(0, &qword_100AD7CB0, UIViewController_ptr);
     v5.super.isa = sub_1007A25D4().super.isa;
   }
 
@@ -113,7 +113,7 @@
   selfCopy = self;
   MiniPlayerHostingTabBarController._viewControllersInTabBar()();
 
-  sub_10000A7C4(0, &qword_100AD7CB0);
+  sub_10000A7C4(0, &qword_100AD7CB0, UIViewController_ptr);
   v3.super.isa = sub_1007A25D4().super.isa;
 
   return v3.super.isa;
@@ -187,7 +187,7 @@
   isa = controllers;
   if (controllers)
   {
-    sub_10000A7C4(0, &qword_100AD7CB0);
+    sub_10000A7C4(0, &qword_100AD7CB0, UIViewController_ptr);
     sub_1007A25E4();
     selfCopy = self;
     isa = sub_1007A25D4().super.isa;
@@ -212,9 +212,9 @@
 
 - (_TtC5Books33MiniPlayerHostingTabBarController)initWithTabs:(id)tabs
 {
-  sub_10000A7C4(0, &qword_100AEB148);
-  sub_1007A25E4();
-  return MiniPlayerHostingTabBarController.init(tabs:)();
+  sub_10000A7C4(0, &qword_100AEB148, UITab_ptr);
+  v3 = sub_1007A25E4();
+  return MiniPlayerHostingTabBarController.init(tabs:)(v3);
 }
 
 - (void)dockMiniPlayer:(id)player

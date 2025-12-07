@@ -1426,7 +1426,7 @@ LABEL_148:
 
 - (void)printWithLogFile:(void *)file prefix:(id)prefix
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   prefix = [MEMORY[0x1E696AD60] stringWithFormat:@"[%lu] %@", objc_msgSend(-[VCMediaNegotiationBlobV2VideoPayload data](self, "data"), "length"), prefix];
   videoPayload = [(VCMediaNegotiationBlobV2VideoPayload *)self videoPayload];
   if ((videoPayload - 1) >= 3)
@@ -1447,28 +1447,28 @@ LABEL_148:
 
   v8 = prefix;
   [prefix appendFormat:@" Encode=["];
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
-  v66 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   selfCopy = self;
   obj = [(VCMediaNegotiationBlobV2VideoPayload *)self encodeVideoRules];
-  v9 = [(NSArray *)obj countByEnumeratingWithState:&v65 objects:v64 count:16];
+  v9 = [(NSArray *)obj countByEnumeratingWithState:&v58 objects:v57 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = &stru_1F570E008;
-    v12 = *v66;
+    v12 = *v59;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v66 != v12)
+        if (*v59 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v65 + 1) + 8 * i);
+        v14 = *(*(&v58 + 1) + 8 * i);
         iWidth = [v14 iWidth];
         iHeight = [v14 iHeight];
         [v14 fRate];
@@ -1484,7 +1484,7 @@ LABEL_148:
         v11 = @", ";
       }
 
-      v10 = [(NSArray *)obj countByEnumeratingWithState:&v65 objects:v64 count:16];
+      v10 = [(NSArray *)obj countByEnumeratingWithState:&v58 objects:v57 count:16];
       v11 = @", ";
     }
 
@@ -1492,27 +1492,27 @@ LABEL_148:
   }
 
   [v8 appendFormat:@"] Decode=["];
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
-  v61 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   obja = [(VCMediaNegotiationBlobV2VideoPayload *)selfCopy decodeVideoRules];
-  v21 = [(NSArray *)obja countByEnumeratingWithState:&v60 objects:v59 count:16];
+  v21 = [(NSArray *)obja countByEnumeratingWithState:&v53 objects:v52 count:16];
   if (v21)
   {
     v22 = v21;
     v23 = &stru_1F570E008;
-    v24 = *v61;
+    v24 = *v54;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v61 != v24)
+        if (*v54 != v24)
         {
           objc_enumerationMutation(obja);
         }
 
-        v26 = *(*(&v60 + 1) + 8 * j);
+        v26 = *(*(&v53 + 1) + 8 * j);
         iWidth2 = [v26 iWidth];
         iHeight2 = [v26 iHeight];
         [v26 fRate];
@@ -1528,7 +1528,7 @@ LABEL_148:
         v23 = @", ";
       }
 
-      v22 = [(NSArray *)obja countByEnumeratingWithState:&v60 objects:v59 count:16];
+      v22 = [(NSArray *)obja countByEnumeratingWithState:&v53 objects:v52 count:16];
       v23 = @", ";
     }
 
@@ -1594,23 +1594,22 @@ LABEL_38:
 
 LABEL_40:
   [v33 appendString:@"]"];
-  uTF8String = [v33 UTF8String];
-  VRLogfilePrintWithTimestamp(file, "%s\n", v39, v40, v41, v42, v43, v44, uTF8String);
+  VRLogfilePrintWithTimestamp(file, "%s\n", [v33 UTF8String]);
   if (VRTraceGetErrorLogLevelForModule() > 5)
   {
-    v45 = VRTraceErrorLogLevelToCSTR();
-    v46 = *MEMORY[0x1E6986650];
+    v38 = VRTraceErrorLogLevelToCSTR();
+    v39 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v52 = v45;
-      v53 = 2080;
-      v54 = "[VCMediaNegotiationBlobV2VideoPayload(Utils) printWithLogFile:prefix:]";
-      v55 = 1024;
-      v56 = 187;
-      v57 = 2112;
-      v58 = v33;
-      _os_log_impl(&dword_1DB56E000, v46, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
+      v45 = v38;
+      v46 = 2080;
+      v47 = "[VCMediaNegotiationBlobV2VideoPayload(Utils) printWithLogFile:prefix:]";
+      v48 = 1024;
+      v49 = 187;
+      v50 = 2112;
+      v51 = v33;
+      _os_log_impl(&dword_1DB56E000, v39, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
     }
   }
 }

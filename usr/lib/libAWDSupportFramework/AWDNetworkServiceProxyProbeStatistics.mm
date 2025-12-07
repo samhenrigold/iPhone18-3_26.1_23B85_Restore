@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)interfaceTypeAsString:(int)string;
+- (id)protocolTypeAsString:(int)string;
 - (int)StringAsInterfaceType:(id)type;
 - (int)StringAsProtocolType:(id)type;
 - (int)interfaceType;
@@ -70,6 +72,19 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)interfaceTypeAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32AB8[string - 1];
+  }
 }
 
 - (int)StringAsInterfaceType:(id)type
@@ -153,6 +168,19 @@
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)protocolTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32AD8[string - 1];
+  }
 }
 
 - (int)StringAsProtocolType:(id)type
@@ -277,14 +305,12 @@ LABEL_18:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 0x10) != 0)
   {
-    interfaceType = self->_interfaceType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -293,22 +319,20 @@ LABEL_18:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if (v7)
+  v5 = self->_has;
+  if (v5)
   {
-    alternateProbeTimeMsecs = self->_alternateProbeTimeMsecs;
     PBDataWriterWriteUint64Field();
-    v7 = self->_has;
-    if ((v7 & 4) == 0)
+    v5 = self->_has;
+    if ((v5 & 4) == 0)
     {
 LABEL_9:
-      if ((v7 & 2) == 0)
+      if ((v5 & 2) == 0)
       {
         goto LABEL_10;
       }
 
 LABEL_14:
-      genericDNSProbeTimeMsecs = self->_genericDNSProbeTimeMsecs;
       PBDataWriterWriteUint64Field();
       if ((*&self->_has & 0x20) == 0)
       {
@@ -324,22 +348,20 @@ LABEL_14:
     goto LABEL_9;
   }
 
-  genericProbeTimeMsecs = self->_genericProbeTimeMsecs;
   PBDataWriterWriteUint64Field();
-  v7 = self->_has;
-  if ((v7 & 2) != 0)
+  v5 = self->_has;
+  if ((v5 & 2) != 0)
   {
     goto LABEL_14;
   }
 
 LABEL_10:
-  if ((v7 & 0x20) == 0)
+  if ((v5 & 0x20) == 0)
   {
     return;
   }
 
 LABEL_15:
-  protocolType = self->_protocolType;
 
   PBDataWriterWriteInt32Field();
 }
@@ -490,7 +512,6 @@ LABEL_9:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 60);
     if ((has & 8) != 0)
     {
       if ((*(equal + 60) & 8) == 0 || self->_timestamp != *(equal + 4))

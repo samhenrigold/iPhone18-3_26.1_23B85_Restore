@@ -17,14 +17,12 @@
 
 - (NSArray)completedSegments
 {
-  v3 = OBJC_IVAR___WOSegmentAccumulator_completedSegments;
   swift_beginAccess();
-  v4 = *(self + v3);
   _sSo8NSNumberCMaTm_0(0, &lazy cache variable for type metadata for NLSessionActivitySegmentMarker, off_277D86C68);
 
-  v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v5.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setCompletedSegments:(id)segments
@@ -33,7 +31,6 @@
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR___WOSegmentAccumulator_completedSegments;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 

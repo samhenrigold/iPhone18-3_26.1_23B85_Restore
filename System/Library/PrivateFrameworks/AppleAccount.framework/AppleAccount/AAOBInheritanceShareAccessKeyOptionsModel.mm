@@ -109,7 +109,7 @@
 {
   completionCopy = completion;
   recipientHandle = self->_recipientHandle;
-  if (recipientHandle && [(NSString *)recipientHandle length])
+  if (recipientHandle && (recipientHandle = [(NSString *)recipientHandle length]) != 0)
   {
     defaultSharingOptions = [[AAMessagingDestination alloc] initWithHandle:self->_recipientHandle];
     v9[0] = MEMORY[0x1E69E9820];
@@ -122,7 +122,7 @@
 
   else
   {
-    v7 = _AALogSystem();
+    v7 = _AALogSystem(recipientHandle);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -136,7 +136,7 @@
 
 uint64_t __83__AAOBInheritanceShareAccessKeyOptionsModel_availableSharingOptionsWithCompletion___block_invoke(uint64_t a1, int a2)
 {
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {

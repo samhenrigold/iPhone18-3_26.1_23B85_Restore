@@ -23,7 +23,7 @@ uint64_t __120___UIFullscreenPresentationController__adjustOrientationIfNecessar
   return result;
 }
 
-void __118___UIFullscreenPresentationController__placeCounterRotationViewWithView_inWindow_fromOrientation_toOrientation_force___block_invoke(uint64_t a1)
+double __118___UIFullscreenPresentationController__placeCounterRotationViewWithView_inWindow_fromOrientation_toOrientation_force___block_invoke(uint64_t a1)
 {
   [(UIWindow *)*(a1 + 32) _internal_setRotatableViewOrientation:0 updateStatusBar:1 duration:0.0 force:?];
   v2 = *(a1 + 32);
@@ -31,6 +31,7 @@ void __118___UIFullscreenPresentationController__placeCounterRotationViewWithVie
   v4 = *(a1 + 56);
 
   [(UIWindow *)v2 _internal_setRotatableViewOrientation:v3 updateStatusBar:1 duration:v4 force:0.0];
+  return result;
 }
 
 void __69___UIFullscreenPresentationController__transitionDidEnd_isDismissal___block_invoke(uint64_t a1)

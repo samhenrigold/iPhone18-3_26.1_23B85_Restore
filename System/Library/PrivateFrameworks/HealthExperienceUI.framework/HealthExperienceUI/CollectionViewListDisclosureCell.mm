@@ -54,7 +54,7 @@
   collectionCopy = collection;
   selfCopy = self;
   traitCollection = [(CollectionViewListDisclosureCell *)selfCopy traitCollection];
-  sub_1B9F0ADF8(0, &qword_1EDC6B598);
+  sub_1B9F0ADF8(0, &qword_1EDC6B598, 0x1E69DD1B8);
   LOBYTE(collection) = sub_1BA4A7798();
 
   if ((collection & 1) == 0)
@@ -69,7 +69,7 @@
 
     else
     {
-      sub_1BA27BA50();
+      sub_1BA27BA50(v10);
     }
   }
 
@@ -89,7 +89,7 @@
 - (void)didMoveToSuperview
 {
   selfCopy = self;
-  sub_1BA27E6A8();
+  sub_1BA27E6A8(selfCopy);
 }
 
 @end

@@ -19,7 +19,7 @@
     return v2;
   }
 
-  sub_100011294(&__p, 1);
+  sub_100011294(1u, &__p);
   if ((v44 & 0x80u) == 0)
   {
     v3 = v44;
@@ -203,7 +203,7 @@ LABEL_17:
   dataCopy = data;
   v7 = [NSJSONSerialization dataWithJSONObject:dataCopy options:1 error:0];
   v8 = [[NSString alloc] initWithData:v7 encoding:4];
-  XPCEventPublisher.Token.rawValue.getter(v9, v10);
+  XPCEventPublisher.Token.rawValue.getter();
   if (wrapperCopy)
   {
     CFRetain(wrapperCopy);
@@ -214,7 +214,7 @@ LABEL_17:
     CFRetain(v8);
   }
 
-  v14 = wrapperCopy;
+  v10 = wrapperCopy;
   if (wrapperCopy)
   {
     CFRetain(wrapperCopy);
@@ -226,15 +226,15 @@ LABEL_17:
     CFRetain(v8);
   }
 
-  sub_10015E52C(&v15, &v14, &cf);
+  sub_10015E52C(&v11, &v10, &cf);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  if (v14)
+  if (v10)
   {
-    CFRelease(v14);
+    CFRelease(v10);
   }
 
   if (v8)
@@ -247,7 +247,7 @@ LABEL_17:
     CFRelease(wrapperCopy);
   }
 
-  XPCEventPublisher.Token.rawValue.getter(v11, v12);
+  XPCEventPublisher.Token.rawValue.getter();
 }
 
 - (void)observer:(id)observer didEmitMessage:(id)message

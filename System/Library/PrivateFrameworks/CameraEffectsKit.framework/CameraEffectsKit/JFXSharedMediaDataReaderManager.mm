@@ -123,7 +123,7 @@
   v2 = [OUTLINED_FUNCTION_2_2(v0 v1)];
   uuid = [v2 uuid];
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_1_2(&dword_242A3B000, v4, v5, "created shared DepthReader reader %@ for playable element id %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1_2(&dword_242A3B000, v4, v5, "created shared DepthReader reader %@ for playable element id %@", v6, v7, v8, v9);
 }
 
 - (void)sharedDepthDataReader
@@ -132,7 +132,7 @@
   v2 = [OUTLINED_FUNCTION_2_2(v0 v1)];
   uuid = [v2 uuid];
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_1_2(&dword_242A3B000, v4, v5, "return existing shared DepthReader %@ for playable element id %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1_2(&dword_242A3B000, v4, v5, "return existing shared DepthReader %@ for playable element id %@", v6, v7, v8, v9);
 }
 
 @end

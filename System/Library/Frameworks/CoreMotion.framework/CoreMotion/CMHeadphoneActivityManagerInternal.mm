@@ -99,7 +99,7 @@
 
 - (void)startMslLoggingPrivateWithFilenamePrefix:(id)prefix filePath:(id)path
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   objc_msgSend_updatePreferences(self, v7, v8);
   if (self->_enableMSL)
@@ -125,25 +125,25 @@
         dispatch_once(&qword_1ED71C800, &unk_1F0E3B3A8);
       }
 
-      v12 = _os_log_send_and_compose_impl();
+      v15[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "[CMHeadphoneActivityManager] Starting MSL Logging", v15, 2);
+      v13 = v12;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHeadphoneActivityManagerInternal startMslLoggingPrivateWithFilenamePrefix:filePath:]", "CoreLocation: %s\n", v12);
-      if (v12 != buf)
+      if (v13 != buf)
       {
-        free(v12);
+        free(v13);
       }
     }
 
     objc_msgSend_cStringUsingEncoding_(prefix, v11, 1);
-    objc_msgSend_cStringUsingEncoding_(path, v13, 1);
+    objc_msgSend_cStringUsingEncoding_(path, v14, 1);
     operator new();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopMslLoggingPrivate
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (self->_enableMSL)
   {
@@ -168,18 +168,20 @@
         dispatch_once(&qword_1ED71C800, &unk_1F0E3B3A8);
       }
 
-      v5 = _os_log_send_and_compose_impl();
+      v17[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "[CMHeadphoneActivityManager] Stopping MSL Logging.", v17, 2);
+      v6 = v5;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHeadphoneActivityManagerInternal stopMslLoggingPrivate]", "CoreLocation: %s\n", v5);
-      if (v5 != buf)
+      if (v6 != buf)
       {
-        free(v5);
+        free(v6);
       }
     }
 
     if (self->_accessoryAccelerometerDispatcher.__ptr_)
     {
-      v6 = sub_19B7170A0();
-      sub_19B426A14(v6, 0, self->_accessoryAccelerometerDispatcher.__ptr_);
+      v7 = sub_19B7170A0();
+      sub_19B426A14(v7, 0, self->_accessoryAccelerometerDispatcher.__ptr_);
       ptr = self->_accessoryAccelerometerDispatcher.__ptr_;
       self->_accessoryAccelerometerDispatcher.__ptr_ = 0;
       if (ptr)
@@ -190,61 +192,59 @@
 
     if (self->_accessoryGyroDispatcher.__ptr_)
     {
-      v8 = sub_19B793B00();
-      sub_19B426A14(v8, 0, self->_accessoryGyroDispatcher.__ptr_);
-      v9 = self->_accessoryGyroDispatcher.__ptr_;
+      v9 = sub_19B793B00();
+      sub_19B426A14(v9, 0, self->_accessoryGyroDispatcher.__ptr_);
+      v10 = self->_accessoryGyroDispatcher.__ptr_;
       self->_accessoryGyroDispatcher.__ptr_ = 0;
-      if (v9)
+      if (v10)
       {
-        (*(v9->var0 + 1))(v9);
+        (*(v10->var0 + 1))(v10);
       }
     }
 
     if (self->_accessoryDeviceMotionDispatcher.__ptr_)
     {
-      v10 = sub_19B6D6344();
-      sub_19B426A14(v10, 0, self->_accessoryDeviceMotionDispatcher.__ptr_);
-      v11 = self->_accessoryDeviceMotionDispatcher.__ptr_;
+      v11 = sub_19B6D6344();
+      sub_19B426A14(v11, 0, self->_accessoryDeviceMotionDispatcher.__ptr_);
+      v12 = self->_accessoryDeviceMotionDispatcher.__ptr_;
       self->_accessoryDeviceMotionDispatcher.__ptr_ = 0;
-      if (v11)
+      if (v12)
       {
-        (*(v11->var0 + 1))(v11);
+        (*(v12->var0 + 1))(v12);
       }
     }
 
     if (self->_accessoryDeviceMotionConfigDispatcher.__ptr_)
     {
-      v12 = sub_19B6D6344();
-      sub_19B426A14(v12, 2, self->_accessoryDeviceMotionConfigDispatcher.__ptr_);
-      v13 = self->_accessoryDeviceMotionConfigDispatcher.__ptr_;
+      v13 = sub_19B6D6344();
+      sub_19B426A14(v13, 2, self->_accessoryDeviceMotionConfigDispatcher.__ptr_);
+      v14 = self->_accessoryDeviceMotionConfigDispatcher.__ptr_;
       self->_accessoryDeviceMotionConfigDispatcher.__ptr_ = 0;
-      if (v13)
+      if (v14)
       {
-        (*(v13->var0 + 1))(v13);
+        (*(v14->var0 + 1))(v14);
       }
     }
 
     if (self->_deviceMotionDispatcher.__ptr_)
     {
-      v14 = sub_19B424AE0();
-      sub_19B425248(v14, self->_deviceMotionDispatcher.__ptr_);
-      v15 = self->_deviceMotionDispatcher.__ptr_;
+      v15 = sub_19B424AE0();
+      sub_19B425248(v15, self->_deviceMotionDispatcher.__ptr_);
+      v16 = self->_deviceMotionDispatcher.__ptr_;
       self->_deviceMotionDispatcher.__ptr_ = 0;
-      if (v15)
+      if (v16)
       {
-        (*(v15->var0 + 1))(v15);
+        (*(v16->var0 + 1))(v16);
       }
     }
 
     sub_19B5C6594(&self->fLogger, 0);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onAudioAccessoryDeviceMotion:(const void *)motion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   ptr = self->fLogger.__ptr_;
   if (ptr)
   {
@@ -265,12 +265,12 @@
     v10 = *(motion + 34);
     *buf = 67240961;
     *&buf[4] = v7;
-    v21[0] = 2049;
-    *&v21[1] = v8;
-    v21[5] = 2049;
-    v22 = v9;
-    v23 = 2049;
-    v24 = v10;
+    v26[0] = 2049;
+    *&v26[1] = v8;
+    v26[5] = 2049;
+    v27 = v9;
+    v28 = 2049;
+    v29 = v10;
     _os_log_impl(&dword_19B41C000, v6, OS_LOG_TYPE_DEBUG, "[CMHeadphoneActivityManager] Received DM6 packet,activity,%{public}u,gyro bias,[%{private}.4f,%{private}.4f,%{private}.4f]", buf, 0x26u);
   }
 
@@ -283,26 +283,31 @@
       dispatch_once(&qword_1ED71C7B8, &unk_1F0E3B388);
     }
 
-    v16 = *(motion + 141);
-    v17 = *(motion + 32);
-    v18 = *(motion + 33);
-    v19 = *(motion + 34);
-    v12 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHeadphoneActivityManagerInternal onAudioAccessoryDeviceMotion:]", "CoreLocation: %s\n", v12);
-    if (v12 != buf)
+    v12 = *(motion + 141);
+    v13 = *(motion + 32);
+    v14 = *(motion + 33);
+    v15 = *(motion + 34);
+    v18[0] = 67240961;
+    v18[1] = v12;
+    v19 = 2049;
+    v20 = v13;
+    v21 = 2049;
+    v22 = v14;
+    v23 = 2049;
+    v24 = v15;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 2, "[CMHeadphoneActivityManager] Received DM6 packet,activity,%{public}u,gyro bias,[%{private}.4f,%{private}.4f,%{private}.4f]", v18, 38);
+    v17 = v16;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHeadphoneActivityManagerInternal onAudioAccessoryDeviceMotion:]", "CoreLocation: %s\n", v16);
+    if (v17 != buf)
     {
-      free(v12);
+      free(v17);
     }
   }
 
   if (!self->_isGyroBiasValid && *(motion + 140) == 1)
   {
-    v13 = *(motion + 34);
-    v14 = *(motion + 16);
     operator new();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id).cxx_construct

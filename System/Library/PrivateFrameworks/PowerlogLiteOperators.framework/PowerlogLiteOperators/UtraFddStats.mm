@@ -423,7 +423,6 @@ LABEL_15:
   has = self->_has;
   if ((has & 0x80) != 0)
   {
-    duration = self->_duration;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -443,7 +442,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  activeDuration = self->_activeDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -458,7 +456,6 @@ LABEL_4:
   }
 
 LABEL_20:
-  lightSleepDuration = self->_lightSleepDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -473,7 +470,6 @@ LABEL_5:
   }
 
 LABEL_21:
-  deepSleepDuration = self->_deepSleepDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -488,7 +484,6 @@ LABEL_6:
   }
 
 LABEL_22:
-  lightSleepCycleCount = self->_lightSleepCycleCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -503,7 +498,6 @@ LABEL_7:
   }
 
 LABEL_23:
-  deepSleepCycleCount = self->_deepSleepCycleCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -518,7 +512,6 @@ LABEL_8:
   }
 
 LABEL_24:
-  voltLowDuration = self->_voltLowDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -533,7 +526,6 @@ LABEL_9:
   }
 
 LABEL_25:
-  voltMedDuration = self->_voltMedDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -548,7 +540,6 @@ LABEL_10:
   }
 
 LABEL_26:
-  voltHighDuration = self->_voltHighDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -563,7 +554,6 @@ LABEL_11:
   }
 
 LABEL_27:
-  clkLowDuration = self->_clkLowDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -578,7 +568,6 @@ LABEL_12:
   }
 
 LABEL_28:
-  clkMedDuration = self->_clkMedDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -593,12 +582,10 @@ LABEL_13:
   }
 
 LABEL_29:
-  clkHighDuration = self->_clkHighDuration;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_14:
-    startTime = self->_startTime;
     PBDataWriterWriteUint64Field();
   }
 

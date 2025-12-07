@@ -231,7 +231,7 @@ void __65__PLPrimaryResourceDataStoreLocalVideoKeyFrameRecipe__runNextJob__block
 
   if (mediaAnalysisAttributes)
   {
-    if (assetCopy && ([assetCopy videoKeyFrameTime], value = buf.start.value, timescale = buf.start.timescale, (buf.start.flags & 1) != 0))
+    if (assetCopy && (objc_msgSend_videoKeyFrameTime(assetCopy), value = buf.start.value, timescale = buf.start.timescale, (buf.start.flags & 1) != 0))
     {
       epoch = buf.start.epoch;
       flags = buf.start.flags;
@@ -248,7 +248,7 @@ void __65__PLPrimaryResourceDataStoreLocalVideoKeyFrameRecipe__runNextJob__block
   pathForLocalVideoKeyFrame = [assetCopy pathForLocalVideoKeyFrame];
   v20 = [v18 fileURLWithPath:pathForLocalVideoKeyFrame];
 
-  if ([v12 count])
+  if (objc_msgSend_count(v12))
   {
     v21 = 0;
   }
@@ -564,7 +564,7 @@ LABEL_12:
   v14 = [PLResourceDataStoreManager storeExternalResources:v12 forAsset:v13 forLifecycleEvent:2 error:&v52];
   v15 = v52;
 
-  if ([v14 count])
+  if (objc_msgSend_count(v14))
   {
     v16 = [v14 anyObject];
     v17 = 1;
@@ -783,7 +783,7 @@ LABEL_9:
 
 LABEL_10:
 
-  if ([v6 count])
+  if (objc_msgSend_count(v6))
   {
     v20 = v6;
   }

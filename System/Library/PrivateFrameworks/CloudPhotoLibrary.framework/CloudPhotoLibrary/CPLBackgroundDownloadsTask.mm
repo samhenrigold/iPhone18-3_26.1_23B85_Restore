@@ -78,7 +78,7 @@
 
 void __36__CPLBackgroundDownloadsTask_cancel__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (!*(v2 + 120))
   {
@@ -90,38 +90,37 @@ void __36__CPLBackgroundDownloadsTask_cancel__block_invoke(uint64_t a1)
     v2 = *(a1 + 32);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = *(v2 + 96);
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) cancel];
+        [*(*(&v11 + 1) + 8 * v10++) cancel];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
 
   *(*(a1 + 32) + 104) = 1;
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)taskDidFinishWithError:(id)error
@@ -181,7 +180,7 @@ id __53__CPLBackgroundDownloadsTask_taskDidFinishWithError___block_invoke(uint64
 
 - (void)_transportTaskDidFinish:(id)finish
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   finishCopy = finish;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -195,24 +194,22 @@ id __53__CPLBackgroundDownloadsTask_taskDidFinishWithError___block_invoke(uint64
   }
 
   lock = self->_lock;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __54__CPLBackgroundDownloadsTask__transportTaskDidFinish___block_invoke;
-  v12[3] = &unk_1E861B290;
-  v12[4] = self;
-  v13 = finishCopy;
-  v7 = v12;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __54__CPLBackgroundDownloadsTask__transportTaskDidFinish___block_invoke;
+  v11[3] = &unk_1E861B290;
+  v11[4] = self;
+  v12 = finishCopy;
+  v7 = v11;
   *&buf = MEMORY[0x1E69E9820];
   *(&buf + 1) = 3221225472;
-  v15 = __cpl_dispatch_async_block_invoke_14534;
-  v16 = &unk_1E861B4E0;
-  v17 = v7;
+  v14 = __cpl_dispatch_async_block_invoke_14534;
+  v15 = &unk_1E861B4E0;
+  v16 = v7;
   v8 = lock;
   v9 = finishCopy;
   v10 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &buf);
   dispatch_async(v8, v10);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __54__CPLBackgroundDownloadsTask__transportTaskDidFinish___block_invoke(uint64_t a1)
@@ -285,7 +282,7 @@ unint64_t __54__CPLBackgroundDownloadsTask__transportTaskDidFinish___block_invok
 
 - (void)_downloadTask:(id)task didFinishWithErrorLocked:(id)locked
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   lockedCopy = locked;
   ++self->_countOfFinishedDownloadTasksSinceLastReport;
@@ -330,9 +327,9 @@ LABEL_17:
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             resource = [taskCopy resource];
-            v24 = 138412290;
-            v25 = resource;
-            _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "Downloading %@ in background failed because server is unavailable", &v24, 0xCu);
+            v23 = 138412290;
+            v24 = resource;
+            _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "Downloading %@ in background failed because server is unavailable", &v23, 0xCu);
           }
         }
 
@@ -349,15 +346,15 @@ LABEL_18:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v21 = __CPLTaskOSLogDomain_14541();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v20 = __CPLTaskOSLogDomain_14541();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           resource2 = [taskCopy resource];
-          v24 = 138412546;
-          v25 = resource2;
-          v26 = 2112;
-          v27 = lockedCopy;
-          _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_ERROR, "Downloading %@ in background failed with error: %@", &v24, 0x16u);
+          v23 = 138412546;
+          v24 = resource2;
+          v25 = 2112;
+          v26 = lockedCopy;
+          _os_log_impl(&dword_1DC05A000, v20, OS_LOG_TYPE_ERROR, "Downloading %@ in background failed with error: %@", &v23, 0x16u);
         }
       }
 
@@ -368,11 +365,11 @@ LABEL_18:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v23 = __CPLTaskOSLogDomain_14541();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v22 = __CPLTaskOSLogDomain_14541();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v24) = 0;
-          _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_DEFAULT, "Downloads have been throttled, prioritizing non-derivatives", &v24, 2u);
+          LOWORD(v23) = 0;
+          _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_DEFAULT, "Downloads have been throttled, prioritizing non-derivatives", &v23, 2u);
         }
       }
 
@@ -399,18 +396,16 @@ LABEL_19:
       {
         v18 = [(NSMutableArray *)self->_transportTasks count];
         _activeTransferTaskCount = [(CPLBackgroundDownloadsTask *)self _activeTransferTaskCount];
-        v24 = 134218240;
-        v25 = v18;
-        v26 = 2048;
-        v27 = _activeTransferTaskCount;
-        _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_DEFAULT, "Background downloads have been interrupted, waiting for %lu transport task groups to finish (%lu tasks total)", &v24, 0x16u);
+        v23 = 134218240;
+        v24 = v18;
+        v25 = 2048;
+        v26 = _activeTransferTaskCount;
+        _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_DEFAULT, "Background downloads have been interrupted, waiting for %lu transport task groups to finish (%lu tasks total)", &v23, 0x16u);
       }
     }
 
     [(NSMutableArray *)self->_transportTasks makeObjectsPerformSelector:sel_cancel];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reportDownloadedTasks
@@ -500,28 +495,28 @@ void __52__CPLBackgroundDownloadsTask__reportDownloadedTasks__block_invoke(uint6
 
 - (void)_updateActiveDownloadTaskCount
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v3 = self->_transportTasks;
   v4 = 0;
-  v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       v7 = 0;
       do
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        downloadTasks = [*(*(&v17 + 1) + 8 * v7) downloadTasks];
+        downloadTasks = [*(*(&v16 + 1) + 8 * v7) downloadTasks];
         v9 = [downloadTasks count];
 
         v4 += v9;
@@ -529,27 +524,25 @@ void __52__CPLBackgroundDownloadsTask__reportDownloadedTasks__block_invoke(uint6
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v5);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v13 = __60__CPLBackgroundDownloadsTask__updateActiveDownloadTaskCount__block_invoke;
-  v14 = &unk_1E861B100;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v12 = __60__CPLBackgroundDownloadsTask__updateActiveDownloadTaskCount__block_invoke;
+  v13 = &unk_1E861B100;
   selfCopy = self;
-  v16 = v4;
-  v10 = v12;
+  v15 = v4;
+  v10 = v11;
   os_unfair_lock_lock(&self->_taskCountLock);
-  v13(v10);
+  v12(v10);
   os_unfair_lock_unlock(&self->_taskCountLock);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __60__CPLBackgroundDownloadsTask__updateActiveDownloadTaskCount__block_invoke(uint64_t a1)
+void *__60__CPLBackgroundDownloadsTask__updateActiveDownloadTaskCount__block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 168) = *(a1 + 40);
   result = [*(*(a1 + 32) + 96) count];
@@ -559,7 +552,7 @@ uint64_t __60__CPLBackgroundDownloadsTask__updateActiveDownloadTaskCount__block_
 
 - (void)_enqueueTasksLocked
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_lock);
   if ([(CPLEngineSyncTask *)self diskPressureState])
   {
@@ -587,22 +580,20 @@ uint64_t __60__CPLBackgroundDownloadsTask__updateActiveDownloadTaskCount__block_
     engineLibrary = [(CPLEngineSyncTask *)self engineLibrary];
     store = [engineLibrary store];
 
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __49__CPLBackgroundDownloadsTask__enqueueTasksLocked__block_invoke;
-    v10[3] = &unk_1E86205B8;
-    v10[4] = self;
-    v11 = store;
     v9[0] = MEMORY[0x1E69E9820];
     v9[1] = 3221225472;
-    v9[2] = __49__CPLBackgroundDownloadsTask__enqueueTasksLocked__block_invoke_36;
-    v9[3] = &unk_1E86205E0;
+    v9[2] = __49__CPLBackgroundDownloadsTask__enqueueTasksLocked__block_invoke;
+    v9[3] = &unk_1E86205B8;
     v9[4] = self;
+    v10 = store;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __49__CPLBackgroundDownloadsTask__enqueueTasksLocked__block_invoke_36;
+    v8[3] = &unk_1E86205E0;
+    v8[4] = self;
     v6 = store;
-    v7 = [v6 performWriteTransactionWithBlock:v10 completionHandler:v9];
+    v7 = [v6 performWriteTransactionWithBlock:v9 completionHandler:v8];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __49__CPLBackgroundDownloadsTask__enqueueTasksLocked__block_invoke(uint64_t a1, void *a2)
@@ -728,9 +719,9 @@ uint64_t __49__CPLBackgroundDownloadsTask__enqueueTasksLocked__block_invoke_2(ui
 
 uint64_t __91__CPLBackgroundDownloadsTask__completeBackgroundDownloadForResource_error_withTransaction___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v3 = [*(a1 + 32) reenqueueBackgroundDownloadTaskForResource:*(a1 + 40) bumpRetryCount:*(a1 + 64) didDiscard:&v11 error:a2];
+  v17 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v3 = [*(a1 + 32) reenqueueBackgroundDownloadTaskForResource:*(a1 + 40) bumpRetryCount:*(a1 + 64) didDiscard:&v10 error:a2];
   if (v3)
   {
     if ((_CPLSilentLogging & 1) == 0)
@@ -738,7 +729,7 @@ uint64_t __91__CPLBackgroundDownloadsTask__completeBackgroundDownloadForResource
       v4 = __CPLTaskOSLogDomain_14541();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
-        if (v11)
+        if (v10)
         {
           v5 = @"Discarded";
         }
@@ -756,16 +747,16 @@ uint64_t __91__CPLBackgroundDownloadsTask__completeBackgroundDownloadForResource
         v6 = *(a1 + 40);
         v7 = *(a1 + 48);
         *buf = 138412802;
-        v13 = v5;
-        v14 = 2112;
-        v15 = v6;
-        v16 = 2112;
-        v17 = v7;
+        v12 = v5;
+        v13 = 2112;
+        v14 = v6;
+        v15 = 2112;
+        v16 = v7;
         _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEBUG, "%@ %@ for background download (error: %@)", buf, 0x20u);
       }
     }
 
-    if (v11 == 1)
+    if (v10 == 1)
     {
       v8 = [*(a1 + 40) identity];
       [v8 setFileURL:0];
@@ -774,7 +765,6 @@ uint64_t __91__CPLBackgroundDownloadsTask__completeBackgroundDownloadForResource
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -844,24 +834,24 @@ uint64_t __91__CPLBackgroundDownloadsTask__completeBackgroundDownloadForResource
 
 uint64_t __75__CPLBackgroundDownloadsTask__launchNecessaryDownloadTasksWithTransaction___block_invoke(uint64_t a1, uint64_t *a2)
 {
-  v102 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
-  v55 = [*(a1 + 32) engineLibrary];
-  v61 = [v55 store];
-  v69 = [v61 downloadQueue];
-  v53 = [v55 transport];
-  v65 = [v61 resourceStorage];
-  v59 = [v55 scheduler];
-  v58 = [MEMORY[0x1E696AC08] defaultManager];
-  v98 = 0;
-  [*v2 _getResourceTypesToDownload:&v98];
-  v96[0] = 0;
-  v96[1] = v96;
-  v96[2] = 0x2020000000;
+  v54 = [*(a1 + 32) engineLibrary];
+  v60 = [v54 store];
+  v68 = [v60 downloadQueue];
+  v52 = [v54 transport];
+  v64 = [v60 resourceStorage];
+  v58 = [v54 scheduler];
+  v57 = [MEMORY[0x1E696AC08] defaultManager];
   v97 = 0;
-  v71 = [v61 transactionTransportScopeMapping];
+  [*v2 _getResourceTypesToDownload:&v97];
+  v95[0] = 0;
+  v95[1] = v95;
+  v95[2] = 0x2020000000;
+  v96 = 0;
+  v70 = [v60 transactionTransportScopeMapping];
+  v50 = 0;
   v51 = 0;
-  v52 = 0;
   while (2)
   {
     if ([*(*(a1 + 32) + 96) count] > 2)
@@ -869,17 +859,17 @@ uint64_t __75__CPLBackgroundDownloadsTask__launchNecessaryDownloadTasksWithTrans
       goto LABEL_67;
     }
 
-    v54 = [CPLEngineResourceDownloadTask maximumResourceDownloadSizeForResourceType:*v98];
-    v57 = [objc_alloc(MEMORY[0x1E696AD50]) initWithIndexesInRange:{0, objc_msgSend(*(*(a1 + 32) + 192), "count")}];
+    v53 = [CPLEngineResourceDownloadTask maximumResourceDownloadSizeForResourceType:*v97];
+    v56 = [objc_alloc(MEMORY[0x1E696AD50]) initWithIndexesInRange:{0, objc_msgSend(*(*(a1 + 32) + 192), "count")}];
     v3 = *(*(a1 + 32) + 200);
 LABEL_4:
-    if (-[NSObject count](v57, "count") && [*(*(a1 + 32) + 96) count] <= 2)
+    if (-[NSObject count](v56, "count") && [*(*(a1 + 32) + 96) count] <= 2)
     {
       v4 = [*(*(a1 + 32) + 192) objectAtIndexedSubscript:v3];
-      v64 = [v4 unsignedIntegerValue];
+      v63 = [v4 unsignedIntegerValue];
 
-      v5 = [v69 dequeueNextBackgroundDownloadTasksForResourceType:*v98 andIntent:v64 maximumSize:v54 maximumCount:200 error:a2];
-      v60 = v5;
+      v5 = [v68 dequeueNextBackgroundDownloadTasksForResourceType:*v97 andIntent:v63 maximumSize:v53 maximumCount:200 error:a2];
+      v59 = v5;
       if (!v5)
       {
         if ((_CPLSilentLogging & 1) == 0)
@@ -887,7 +877,7 @@ LABEL_4:
           v43 = __CPLTaskOSLogDomain_14541();
           if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
           {
-            v44 = [CPLResource shortDescriptionForResourceType:*v98];
+            v44 = [CPLResource shortDescriptionForResourceType:*v97];
             v45 = *a2;
             *buf = 138412546;
             *&buf[4] = v44;
@@ -908,8 +898,8 @@ LABEL_60:
 
       if (![v5 count])
       {
-        v36 = [v57 indexGreaterThanIndex:v3];
-        [v57 removeIndex:v3];
+        v36 = [v56 indexGreaterThanIndex:v3];
+        [v56 removeIndex:v3];
         v3 = v36;
         goto LABEL_39;
       }
@@ -919,8 +909,8 @@ LABEL_60:
         v6 = __CPLTaskOSLogDomain_14541();
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
-          v7 = [v60 count];
-          v8 = [CPLResource shortDescriptionForResourceType:*v98];
+          v7 = [v59 count];
+          v8 = [CPLResource shortDescriptionForResourceType:*v97];
           *buf = 134218242;
           *&buf[4] = v7;
           *&buf[12] = 2112;
@@ -929,41 +919,41 @@ LABEL_60:
         }
       }
 
-      v95[0] = MEMORY[0x1E69E9820];
-      v95[1] = 3221225472;
-      v95[2] = __75__CPLBackgroundDownloadsTask__launchNecessaryDownloadTasksWithTransaction___block_invoke_8;
-      v95[3] = &unk_1E861DF00;
-      v95[4] = *(a1 + 32);
-      v56 = [v53 resourcesDownloadTaskWithCompletionHandler:v95];
-      v63 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v93 = 0u;
-      v94 = 0u;
-      v91 = 0u;
+      v94[0] = MEMORY[0x1E69E9820];
+      v94[1] = 3221225472;
+      v94[2] = __75__CPLBackgroundDownloadsTask__launchNecessaryDownloadTasksWithTransaction___block_invoke_8;
+      v94[3] = &unk_1E861DF00;
+      v94[4] = *(a1 + 32);
+      v55 = [v52 resourcesDownloadTaskWithCompletionHandler:v94];
+      v62 = objc_alloc_init(MEMORY[0x1E695DF70]);
       v92 = 0u;
-      obj = v60;
+      v93 = 0u;
+      v90 = 0u;
+      v91 = 0u;
+      obj = v59;
       v9 = 0;
-      v10 = [obj countByEnumeratingWithState:&v91 objects:v101 count:16];
+      v10 = [obj countByEnumeratingWithState:&v90 objects:v100 count:16];
       if (!v10)
       {
         goto LABEL_28;
       }
 
-      v67 = *v92;
+      v66 = *v91;
       while (1)
       {
         v11 = 0;
-        v66 = v10;
+        v65 = v10;
         do
         {
-          if (*v92 != v67)
+          if (*v91 != v66)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v91 + 1) + 8 * v11);
-          v90 = 0;
+          v12 = *(*(&v90 + 1) + 8 * v11);
+          v89 = 0;
           v13 = v12;
-          v14 = [v65 createTempDestinationURLForResource:v13 error:a2];
+          v14 = [v64 createTempDestinationURLForResource:v13 error:a2];
           if (!v14)
           {
             if ((_CPLSilentLogging & 1) == 0)
@@ -988,17 +978,17 @@ LABEL_37:
           v15 = [v13 identity];
           [v15 setFileURL:v14];
 
-          v89 = v13;
-          v88 = 0;
+          v88 = v13;
           v87 = 0;
           v86 = 0;
-          v74 = [v69 cloudResourceForLocalResource:&v89 cloudRecord:&v88 target:&v87 shouldNotTrustCaches:&v90 allowUnsafeClientCache:0 transportScopeMapping:v71 error:&v86];
-          v16 = v89;
+          v85 = 0;
+          v73 = [v68 cloudResourceForLocalResource:&v88 cloudRecord:&v87 target:&v86 shouldNotTrustCaches:&v89 allowUnsafeClientCache:0 transportScopeMapping:v70 error:&v85];
+          v16 = v88;
 
-          v72 = v88;
-          v73 = v87;
-          v17 = v86;
-          if (v74)
+          v71 = v87;
+          v72 = v86;
+          v17 = v85;
+          if (v73)
           {
             v18 = [v16 identity];
             v19 = [v18 fileSize];
@@ -1006,46 +996,46 @@ LABEL_37:
             *buf = 0;
             *&buf[8] = buf;
             *&buf[16] = 0x2020000000;
-            v100 = 0;
+            v99 = 0;
             v20 = [CPLEngineResourceDownloadTask alloc];
             v21 = [MEMORY[0x1E696AFB0] UUID];
             v22 = [v21 UUIDString];
-            v83[0] = MEMORY[0x1E69E9820];
-            v83[1] = 3221225472;
-            v83[2] = __75__CPLBackgroundDownloadsTask__launchNecessaryDownloadTasksWithTransaction___block_invoke_3;
-            v83[3] = &unk_1E861DF48;
-            v85 = v96;
-            v84 = v59;
             v82[0] = MEMORY[0x1E69E9820];
             v82[1] = 3221225472;
-            v82[2] = __75__CPLBackgroundDownloadsTask__launchNecessaryDownloadTasksWithTransaction___block_invoke_4;
-            v82[3] = &unk_1E861DF70;
+            v82[2] = __75__CPLBackgroundDownloadsTask__launchNecessaryDownloadTasksWithTransaction___block_invoke_3;
+            v82[3] = &unk_1E861DF48;
+            v84 = v95;
+            v83 = v58;
+            v81[0] = MEMORY[0x1E69E9820];
+            v81[1] = 3221225472;
+            v81[2] = __75__CPLBackgroundDownloadsTask__launchNecessaryDownloadTasksWithTransaction___block_invoke_4;
+            v81[3] = &unk_1E861DF70;
             v23 = *(a1 + 32);
-            v82[5] = buf;
-            v82[6] = v19;
-            v82[4] = v23;
-            v75[0] = MEMORY[0x1E69E9820];
-            v75[1] = 3221225472;
-            v75[2] = __75__CPLBackgroundDownloadsTask__launchNecessaryDownloadTasksWithTransaction___block_invoke_6;
-            v75[3] = &unk_1E861DFE8;
-            v80 = buf;
-            v81 = v19;
-            v75[4] = v23;
-            v76 = v61;
+            v81[5] = buf;
+            v81[6] = v19;
+            v81[4] = v23;
+            v74[0] = MEMORY[0x1E69E9820];
+            v74[1] = 3221225472;
+            v74[2] = __75__CPLBackgroundDownloadsTask__launchNecessaryDownloadTasksWithTransaction___block_invoke_6;
+            v74[3] = &unk_1E861DFE8;
+            v79 = buf;
+            v80 = v19;
+            v74[4] = v23;
+            v75 = v60;
             v24 = v16;
-            v77 = v24;
-            v78 = v58;
-            v79 = v14;
-            v25 = [(CPLEngineResourceDownloadTask *)v20 initWithResource:v24 taskIdentifier:v22 target:v73 launchHandler:&__block_literal_global_14578 cancelHandler:&__block_literal_global_14_14579 didStartHandler:v83 progressHandler:v82 completionHandler:v75];
+            v76 = v24;
+            v77 = v57;
+            v78 = v14;
+            v25 = [(CPLEngineResourceDownloadTask *)v20 initWithResource:v24 taskIdentifier:v22 target:v72 launchHandler:&__block_literal_global_14578 cancelHandler:&__block_literal_global_14_14579 didStartHandler:v82 progressHandler:v81 completionHandler:v74];
 
-            [(CPLEngineResourceDownloadTask *)v25 associateCloudResource:v74 ofRecord:v72];
-            [(CPLEngineResourceDownloadTask *)v25 setTransportScopeMapping:v71];
-            v26 = [[CPLResourceTransferTaskOptions alloc] initWithIntent:v64 priority:2];
+            [(CPLEngineResourceDownloadTask *)v25 associateCloudResource:v73 ofRecord:v71];
+            [(CPLEngineResourceDownloadTask *)v25 setTransportScopeMapping:v70];
+            v26 = [[CPLResourceTransferTaskOptions alloc] initWithIntent:v63 priority:2];
             [(CPLResourceTransferTask *)v25 setOptions:v26];
             v27 = [v24 identity];
             v28 = [v27 fileSize];
 
-            [v63 addObject:v25];
+            [v62 addObject:v25];
             v9 += v28;
             _Block_object_dispose(buf, 8);
 LABEL_22:
@@ -1056,9 +1046,9 @@ LABEL_22:
           v29 = [v16 identity];
           [v29 setFileURL:0];
 
-          if ([v69 removeBackgroundDownloadTaskForResource:v13 error:a2])
+          if ([v68 removeBackgroundDownloadTaskForResource:v13 error:a2])
           {
-            [v55 notifyAttachedObjectsResourceDidFailBackgroundDownloadOfResource:v13];
+            [v54 notifyAttachedObjectsResourceDidFailBackgroundDownloadOfResource:v13];
             goto LABEL_22;
           }
 
@@ -1073,29 +1063,29 @@ LABEL_23:
           ++v11;
         }
 
-        while (v66 != v11);
-        v31 = [obj countByEnumeratingWithState:&v91 objects:v101 count:16];
+        while (v65 != v11);
+        v31 = [obj countByEnumeratingWithState:&v90 objects:v100 count:16];
         v10 = v31;
         if (!v31)
         {
 LABEL_28:
 
-          if ([v63 count])
+          if ([v62 count])
           {
-            v32 = [v63 count];
-            [v56 setDownloadTasks:v63];
+            v32 = [v62 count];
+            [v55 setDownloadTasks:v62];
             v33 = v9;
-            v34 = [v69 createGroupForBackgroundDownloadsOfResourceType:*v98 transferIntent:v64 transport:v53];
-            [v34 setRoughCPLRecordCount:{objc_msgSend(v63, "count")}];
+            v34 = [v68 createGroupForBackgroundDownloadsOfResourceType:*v97 transferIntent:v63 transport:v52];
+            [v34 setRoughCPLRecordCount:{objc_msgSend(v62, "count")}];
             [v34 setRoughCPLDownloadEstimatedSize:v33];
-            [*(*(a1 + 32) + 96) addObject:v56];
-            [*(a1 + 32) launchTransportTask:v56 withTransportGroup:v34];
+            [*(*(a1 + 32) + 96) addObject:v55];
+            [*(a1 + 32) launchTransportTask:v55 withTransportGroup:v34];
 
-            v51 += v32;
-            ++v52;
+            v50 += v32;
+            ++v51;
           }
 
-          v3 = [v57 indexGreaterThanIndex:v3];
+          v3 = [v56 indexGreaterThanIndex:v3];
           v35 = 1;
 LABEL_38:
 
@@ -1107,7 +1097,7 @@ LABEL_38:
 LABEL_39:
           if (v3 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v3 = [v57 firstIndex];
+            v3 = [v56 firstIndex];
           }
 
           goto LABEL_4;
@@ -1115,7 +1105,7 @@ LABEL_39:
       }
     }
 
-    if ([v57 count])
+    if ([v56 count])
     {
       *(*(a1 + 32) + 200) = v3;
 LABEL_52:
@@ -1126,11 +1116,11 @@ LABEL_52:
     break;
   }
 
-  if (*v98 != -1)
+  if (*v97 != -1)
   {
     if (_CPLSilentLogging)
     {
-      ++v98;
+      ++v97;
     }
 
     else
@@ -1138,19 +1128,19 @@ LABEL_52:
       v39 = __CPLTaskOSLogDomain_14541();
       if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
       {
-        v40 = [CPLResource shortDescriptionForResourceType:*v98];
+        v40 = [CPLResource shortDescriptionForResourceType:*v97];
         *buf = 138412290;
         *&buf[4] = v40;
         _os_log_impl(&dword_1DC05A000, v39, OS_LOG_TYPE_DEBUG, "No resources of type '%@' to download in background", buf, 0xCu);
       }
 
-      ++v98;
+      ++v97;
       if ((_CPLSilentLogging & 1) == 0)
       {
         v41 = __CPLTaskOSLogDomain_14541();
         if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
         {
-          v42 = [CPLResource shortDescriptionForResourceType:*v98];
+          v42 = [CPLResource shortDescriptionForResourceType:*v97];
           *buf = 138412290;
           *&buf[4] = v42;
           _os_log_impl(&dword_1DC05A000, v41, OS_LOG_TYPE_DEBUG, "Will look for resources of type '%@'", buf, 0xCu);
@@ -1163,28 +1153,28 @@ LABEL_52:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v49 = __CPLTaskOSLogDomain_14541();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+    v48 = __CPLTaskOSLogDomain_14541();
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DC05A000, v49, OS_LOG_TYPE_DEBUG, "No more resources to download in background", buf, 2u);
+      _os_log_impl(&dword_1DC05A000, v48, OS_LOG_TYPE_DEBUG, "No more resources to download in background", buf, 2u);
     }
   }
 
   *(*(a1 + 32) + 200) = 0;
 
 LABEL_67:
-  if (v52 && (_CPLSilentLogging & 1) == 0)
+  if (v51 && (_CPLSilentLogging & 1) == 0)
   {
-    v50 = __CPLTaskOSLogDomain_14541();
-    v57 = v50;
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+    v49 = __CPLTaskOSLogDomain_14541();
+    v56 = v49;
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      *&buf[4] = v52;
+      *&buf[4] = v51;
       *&buf[12] = 2048;
-      *&buf[14] = v51;
-      _os_log_impl(&dword_1DC05A000, v50, OS_LOG_TYPE_DEFAULT, "Launched %lu background download tasks (%lu resources)", buf, 0x16u);
+      *&buf[14] = v50;
+      _os_log_impl(&dword_1DC05A000, v49, OS_LOG_TYPE_DEFAULT, "Launched %lu background download tasks (%lu resources)", buf, 0x16u);
     }
 
     v46 = 1;
@@ -1194,18 +1184,17 @@ LABEL_67:
   v46 = 1;
 LABEL_61:
 
-  _Block_object_dispose(v96, 8);
-  v47 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v95, 8);
   return v46;
 }
 
-uint64_t __75__CPLBackgroundDownloadsTask__launchNecessaryDownloadTasksWithTransaction___block_invoke_3(uint64_t result)
+void *__75__CPLBackgroundDownloadsTask__launchNecessaryDownloadTasksWithTransaction___block_invoke_3(void *result)
 {
-  v1 = *(*(result + 40) + 8);
+  v1 = *(*(result + 5) + 8);
   if ((*(v1 + 24) & 1) == 0)
   {
     *(v1 + 24) = 1;
-    return [*(result + 32) willRunEngineElement:CPLEngineElementDownloadResourcesInBackground];
+    return [*(result + 4) willRunEngineElement:CPLEngineElementDownloadResourcesInBackground];
   }
 
   return result;
@@ -1375,7 +1364,7 @@ void __75__CPLBackgroundDownloadsTask__launchNecessaryDownloadTasksWithTransacti
 
 - (void)_finishTaskLocked
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if ((self->_successfullyDownloadedResourcesCount || self->_failedDownloadedResourcesCount) && (_CPLSilentLogging & 1) == 0)
   {
     v3 = __CPLTaskOSLogDomain_14541();
@@ -1383,11 +1372,11 @@ void __75__CPLBackgroundDownloadsTask__launchNecessaryDownloadTasksWithTransacti
     {
       successfullyDownloadedResourcesCount = self->_successfullyDownloadedResourcesCount;
       failedDownloadedResourcesCount = self->_failedDownloadedResourcesCount;
-      v9 = 134218240;
-      v10 = successfullyDownloadedResourcesCount;
-      v11 = 2048;
-      v12 = failedDownloadedResourcesCount;
-      _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "Successfully downloaded %lu resources in background (%lu failed)", &v9, 0x16u);
+      v8 = 134218240;
+      v9 = successfullyDownloadedResourcesCount;
+      v10 = 2048;
+      v11 = failedDownloadedResourcesCount;
+      _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEFAULT, "Successfully downloaded %lu resources in background (%lu failed)", &v8, 0x16u);
     }
   }
 
@@ -1400,8 +1389,8 @@ void __75__CPLBackgroundDownloadsTask__launchNecessaryDownloadTasksWithTransacti
       v7 = __CPLTaskOSLogDomain_14541();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v9) = 0;
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "Some background downloads failed, we will need another pass on background downloads", &v9, 2u);
+        LOWORD(v8) = 0;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "Some background downloads failed, we will need another pass on background downloads", &v8, 2u);
       }
 
       badError = self->_badError;
@@ -1419,7 +1408,6 @@ void __75__CPLBackgroundDownloadsTask__launchNecessaryDownloadTasksWithTransacti
   }
 
   [(CPLBackgroundDownloadsTask *)self taskDidFinishWithError:badError];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (CPLBackgroundDownloadsTask)initWithEngineLibrary:(id)library session:(id)session

@@ -158,14 +158,14 @@ uint64_t __71___PASLPWriterV1__valueWordForObjectGraph_allocContext_recursionDep
 
 uint64_t __71___PASLPWriterV1__valueWordForObjectGraph_allocContext_recursionDepth___block_invoke_5(uint64_t a1, void **a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [v4 bytes];
   v6 = [v4 length] | 0x2000000000;
   v7 = *a2;
   *&value = v5;
   *(&value + 1) = v6;
-  v8 = CFSetGetValue(v7[2], &value);
+  v8 = CFSetGetValue(*(v7 + 16), &value);
   if (v8)
   {
     v9 = *v8 - **a2;
@@ -205,12 +205,11 @@ uint64_t __71___PASLPWriterV1__valueWordForObjectGraph_allocContext_recursionDep
   *((*a2)[4] + 72) += [v4 length];
   if ((*(a2 + 12) & 1) == 0)
   {
-    v15 = [MEMORY[0x1E696AAA8] currentHandler];
-    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[_PASLPWriterV1 _valueWordForObjectGraph:allocContext:recursionDepth:]_block_invoke"];
-    [v15 handleFailureInFunction:v16 file:@"_PASLPWriterV1.m" lineNumber:708 description:{@"Invalid parameter not satisfying: %@", @"valueWordContext->hasValueWord"}];
+    v14 = [MEMORY[0x1E696AAA8] currentHandler];
+    v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[_PASLPWriterV1 _valueWordForObjectGraph:allocContext:recursionDepth:]_block_invoke"];
+    [v14 handleFailureInFunction:v15 file:@"_PASLPWriterV1.m" lineNumber:708 description:{@"Invalid parameter not satisfying: %@", @"valueWordContext->hasValueWord"}];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

@@ -68,7 +68,7 @@
 
 - (id)buildAssetCollectionUsingMemoryController:(id)controller withMinimumNumberOfAssets:(unint64_t)assets
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   photoLibrary = [controllerCopy photoLibrary];
   if (!assets)
@@ -106,33 +106,33 @@
     if (v16)
     {
       assetsCopy = assets;
-      v41 = photoLibrary;
-      v39 = objc_autoreleasePoolPush();
+      v40 = photoLibrary;
+      v38 = objc_autoreleasePoolPush();
       v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
       curationManager = [controllerCopy curationManager];
       defaultAssetFetchOptionsForMemoriesWithoutPrefetch = [curationManager defaultAssetFetchOptionsForMemoriesWithoutPrefetch];
 
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
       v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
       selfCopy = self;
       obj = self->_momentNodes;
-      v46 = [(NSSet *)obj countByEnumeratingWithState:&v53 objects:v58 count:16];
-      if (v46)
+      v45 = [(NSSet *)obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+      if (v45)
       {
-        v44 = controllerCopy;
-        v45 = *v54;
+        v43 = controllerCopy;
+        v44 = *v53;
         while (2)
         {
-          for (i = 0; i != v46; ++i)
+          for (i = 0; i != v45; ++i)
           {
-            if (*v54 != v45)
+            if (*v53 != v44)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v53 + 1) + 8 * i);
+            v20 = *(*(&v52 + 1) + 8 * i);
             v21 = objc_autoreleasePoolPush();
             uuid = [v20 uuid];
             v23 = [controllerCopy momentForMomentID:uuid];
@@ -147,48 +147,48 @@
 
               objc_autoreleasePoolPop(v21);
               self = selfCopy;
-              photoLibrary = v41;
-              v31 = v39;
+              photoLibrary = v40;
+              v31 = v38;
 
               goto LABEL_37;
             }
 
             v24 = v23;
             v25 = [MEMORY[0x277CD97A8] fetchAssetsInAssetCollection:v23 options:defaultAssetFetchOptionsForMemoriesWithoutPrefetch];
+            v48 = 0u;
             v49 = 0u;
             v50 = 0u;
             v51 = 0u;
-            v52 = 0u;
-            v26 = [v25 countByEnumeratingWithState:&v49 objects:v57 count:16];
+            v26 = [v25 countByEnumeratingWithState:&v48 objects:v56 count:16];
             if (v26)
             {
               v27 = v26;
-              v28 = *v50;
+              v28 = *v49;
               do
               {
                 for (j = 0; j != v27; ++j)
                 {
-                  if (*v50 != v28)
+                  if (*v49 != v28)
                   {
                     objc_enumerationMutation(v25);
                   }
 
-                  localIdentifier = [*(*(&v49 + 1) + 8 * j) localIdentifier];
+                  localIdentifier = [*(*(&v48 + 1) + 8 * j) localIdentifier];
                   [v17 addObject:localIdentifier];
                 }
 
-                v27 = [v25 countByEnumeratingWithState:&v49 objects:v57 count:16];
+                v27 = [v25 countByEnumeratingWithState:&v48 objects:v56 count:16];
               }
 
               while (v27);
             }
 
             objc_autoreleasePoolPop(v21);
-            controllerCopy = v44;
+            controllerCopy = v43;
           }
 
-          v46 = [(NSSet *)obj countByEnumeratingWithState:&v53 objects:v58 count:16];
-          if (v46)
+          v45 = [(NSSet *)obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+          if (v45)
           {
             continue;
           }
@@ -197,9 +197,9 @@
         }
       }
 
-      v31 = v39;
+      v31 = v38;
       self = selfCopy;
-      photoLibrary = v41;
+      photoLibrary = v40;
       if ([v17 count] >= assetsCopy)
       {
         v32 = [controllerCopy assetCollectionWithAssetLocalIdentifiers:v17];
@@ -247,51 +247,50 @@ LABEL_3:
 LABEL_40:
 
 LABEL_41:
-  v36 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (double)computeContentScore
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   momentNode = self->_momentNode;
   if (momentNode)
   {
     [(PGGraphMomentNode *)momentNode contentScore];
 LABEL_16:
     self->_contentScore = result;
-    goto LABEL_17;
+    return result;
   }
 
   momentNodes = self->_momentNodes;
   if (momentNodes)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v6 = momentNodes;
-    v7 = [(NSSet *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [(NSSet *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       v10 = 0.0;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(&v16 + 1) + 8 * i) contentScore];
+          [*(*(&v15 + 1) + 8 * i) contentScore];
           v10 = v10 + v12;
         }
 
-        v8 = [(NSSet *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [(NSSet *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v8);
@@ -311,13 +310,11 @@ LABEL_16:
   result = 0.0;
   if (v13)
   {
-    *v15 = 0;
-    _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Memory Creation: computeContentScore called with no momentNode set.", v15, 2u);
-    result = self->_contentScore;
+    *v14 = 0;
+    _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Memory Creation: computeContentScore called with no momentNode set.", v14, 2u);
+    return self->_contentScore;
   }
 
-LABEL_17:
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -332,35 +329,35 @@ LABEL_17:
 
 - (void)_prepareForOverlapCheck
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   momentNode = self->_momentNode;
   if (!momentNode)
   {
     v12 = [(NSSet *)self->_momentNodes count];
     v13 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:v12];
     v14 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v12];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     selfCopy = self;
     v15 = self->_momentNodes;
-    v16 = [(NSSet *)v15 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v16 = [(NSSet *)v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v16)
     {
       v17 = v16;
       v18 = 0;
-      v19 = *v30;
+      v19 = *v29;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v30 != v19)
+          if (*v29 != v19)
           {
             objc_enumerationMutation(v15);
           }
 
-          v21 = *(*(&v29 + 1) + 8 * i);
+          v21 = *(*(&v28 + 1) + 8 * i);
           uuid = [v21 uuid];
           if (uuid)
           {
@@ -373,7 +370,7 @@ LABEL_17:
           }
         }
 
-        v17 = [(NSSet *)v15 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v17 = [(NSSet *)v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v17);
@@ -404,25 +401,23 @@ LABEL_17:
     self->_momentIDs = v5;
 
     numberOfAssets2 = [(PGGraphMomentNode *)self->_momentNode numberOfAssets];
-    v34[0] = uuid2;
+    v33[0] = uuid2;
     numberOfAssetsByMomentIDs = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:numberOfAssets2];
-    v34[1] = @"totalNumberOfAssets";
-    v35[0] = numberOfAssetsByMomentIDs;
+    v33[1] = @"totalNumberOfAssets";
+    v34[0] = numberOfAssetsByMomentIDs;
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:numberOfAssets2];
-    v35[1] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+    v34[1] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
     v11 = self->_numberOfAssetsByMomentIDs;
     self->_numberOfAssetsByMomentIDs = v10;
 
 LABEL_16:
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDate)universalEndDate
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   p_universalEndDate = &self->_universalEndDate;
   if (!self->_universalEndDate)
   {
@@ -435,27 +430,27 @@ LABEL_16:
 
     else
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       v5 = self->_momentNodes;
-      v6 = [(NSSet *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [(NSSet *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v17;
+        v8 = *v16;
         do
         {
           v9 = 0;
           do
           {
-            if (*v17 != v8)
+            if (*v16 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            universalEndDate2 = [*(*(&v16 + 1) + 8 * v9) universalEndDate];
+            universalEndDate2 = [*(*(&v15 + 1) + 8 * v9) universalEndDate];
             v11 = universalEndDate2;
             if (!*p_universalEndDate || ([universalEndDate2 timeIntervalSinceDate:?], v12 > 0.0))
             {
@@ -466,7 +461,7 @@ LABEL_16:
           }
 
           while (v7 != v9);
-          v7 = [(NSSet *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v7 = [(NSSet *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v7);
@@ -475,14 +470,13 @@ LABEL_16:
   }
 
   v13 = *p_universalEndDate;
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (NSDate)universalStartDate
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   p_universalStartDate = &self->_universalStartDate;
   if (!self->_universalStartDate)
   {
@@ -495,27 +489,27 @@ LABEL_16:
 
     else
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       v5 = self->_momentNodes;
-      v6 = [(NSSet *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [(NSSet *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v17;
+        v8 = *v16;
         do
         {
           v9 = 0;
           do
           {
-            if (*v17 != v8)
+            if (*v16 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            universalStartDate2 = [*(*(&v16 + 1) + 8 * v9) universalStartDate];
+            universalStartDate2 = [*(*(&v15 + 1) + 8 * v9) universalStartDate];
             v11 = universalStartDate2;
             if (!*p_universalStartDate || ([universalStartDate2 timeIntervalSinceDate:?], v12 < 0.0))
             {
@@ -526,7 +520,7 @@ LABEL_16:
           }
 
           while (v7 != v9);
-          v7 = [(NSSet *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v7 = [(NSSet *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v7);
@@ -535,14 +529,13 @@ LABEL_16:
   }
 
   v13 = *p_universalStartDate;
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (NSDate)localEndDate
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   p_localEndDate = &self->_localEndDate;
   if (!self->_localEndDate)
   {
@@ -555,33 +548,33 @@ LABEL_16:
 
     else
     {
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v5 = self->_momentNodes;
-      v6 = [(NSSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v15;
+        v8 = *v14;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v15 != v8)
+            if (*v14 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            localEndDate2 = [*(*(&v14 + 1) + 8 * i) localEndDate];
+            localEndDate2 = [*(*(&v13 + 1) + 8 * i) localEndDate];
             if (!*p_localEndDate || [MEMORY[0x277D27690] compareDate:localEndDate2 toDate:*p_localEndDate toUnitGranularity:16] == 1)
             {
               objc_storeStrong(p_localEndDate, localEndDate2);
             }
           }
 
-          v7 = [(NSSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v7 = [(NSSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v7);
@@ -590,14 +583,13 @@ LABEL_16:
   }
 
   v11 = *p_localEndDate;
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (NSDate)localStartDate
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   p_localStartDate = &self->_localStartDate;
   if (!self->_localStartDate)
   {
@@ -610,33 +602,33 @@ LABEL_16:
 
     else
     {
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v5 = self->_momentNodes;
-      v6 = [(NSSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v15;
+        v8 = *v14;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v15 != v8)
+            if (*v14 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            localStartDate2 = [*(*(&v14 + 1) + 8 * i) localStartDate];
+            localStartDate2 = [*(*(&v13 + 1) + 8 * i) localStartDate];
             if (!*p_localStartDate || [MEMORY[0x277D27690] compareDate:localStartDate2 toDate:*p_localStartDate toUnitGranularity:16] == -1)
             {
               objc_storeStrong(p_localStartDate, localStartDate2);
             }
           }
 
-          v7 = [(NSSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v7 = [(NSSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v7);
@@ -645,7 +637,6 @@ LABEL_16:
   }
 
   v11 = *p_localStartDate;
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

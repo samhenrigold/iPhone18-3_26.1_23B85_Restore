@@ -35,9 +35,11 @@
 
 uint64_t __43__CNContactsEnvironment_currentEnvironment__block_invoke()
 {
-  s_currentEnvironment = objc_alloc_init(CNContactsEnvironment);
+  v0 = objc_alloc_init(CNContactsEnvironment);
+  v1 = s_currentEnvironment;
+  s_currentEnvironment = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CNContactsEnvironment)init

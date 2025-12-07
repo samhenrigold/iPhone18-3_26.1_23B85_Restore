@@ -100,7 +100,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    LOBYTE(v10) = 1;
+    LOBYTE(isEqual) = 1;
   }
 
   else
@@ -119,15 +119,15 @@
 
       else
       {
-        LOBYTE(v10) = 0;
+        LOBYTE(isEqual) = 0;
         if (!v7 || !v8)
         {
           goto LABEL_34;
         }
 
-        v10 = [(NSAttributedString *)v7 isEqual:v8];
+        isEqual = objc_msgSend_isEqual_(v7);
 
-        if (!v10)
+        if (!isEqual)
         {
           goto LABEL_35;
         }
@@ -143,15 +143,15 @@
 
       else
       {
-        LOBYTE(v10) = 0;
+        LOBYTE(isEqual) = 0;
         if (!v7 || !v12)
         {
           goto LABEL_34;
         }
 
-        v10 = [(NSAttributedString *)v7 isEqual:v12];
+        isEqual = objc_msgSend_isEqual_(v7);
 
-        if (!v10)
+        if (!isEqual)
         {
           goto LABEL_35;
         }
@@ -167,15 +167,15 @@
 
       else
       {
-        LOBYTE(v10) = 0;
+        LOBYTE(isEqual) = 0;
         if (!v7 || !v14)
         {
           goto LABEL_34;
         }
 
-        v10 = [(NSAttributedString *)v7 isEqual:v14];
+        isEqual = objc_msgSend_isEqual_(v7);
 
-        if (!v10)
+        if (!isEqual)
         {
           goto LABEL_35;
         }
@@ -196,27 +196,27 @@ LABEL_29:
         v9 = v19;
         if (v7 == v19)
         {
-          LOBYTE(v10) = 1;
+          LOBYTE(isEqual) = 1;
         }
 
         else
         {
-          LOBYTE(v10) = 0;
+          LOBYTE(isEqual) = 0;
           if (v7 && v19)
           {
-            LOBYTE(v10) = [(NSAttributedString *)v7 isEqual:v19];
+            LOBYTE(isEqual) = objc_msgSend_isEqual_(v7);
           }
         }
 
         goto LABEL_34;
       }
 
-      LOBYTE(v10) = 0;
+      LOBYTE(isEqual) = 0;
       if (v7 && v16)
       {
-        v10 = [(NSAttributedString *)v7 isEqual:v16];
+        isEqual = objc_msgSend_isEqual_(v7);
 
-        if (!v10)
+        if (!isEqual)
         {
           goto LABEL_35;
         }
@@ -230,12 +230,12 @@ LABEL_35:
       goto LABEL_36;
     }
 
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqual) = 0;
   }
 
 LABEL_36:
 
-  return v10;
+  return isEqual;
 }
 
 - (NSString)debugDescription

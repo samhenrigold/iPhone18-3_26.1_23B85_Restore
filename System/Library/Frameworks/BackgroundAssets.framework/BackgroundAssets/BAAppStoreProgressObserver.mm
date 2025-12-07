@@ -17,8 +17,8 @@
   os_unfair_lock_lock(&self->_lock);
   if (!self->_valid)
   {
-    v12 = objc_opt_new();
-    configurationCopy[2](configurationCopy, v12);
+    v13 = objc_opt_new();
+    configurationCopy[2](configurationCopy, v13);
 
     goto LABEL_9;
   }
@@ -38,17 +38,17 @@ LABEL_9:
   self->_observing = 1;
   os_unfair_lock_unlock(&self->_lock);
   systemProxy = self->_systemProxy;
-  v13 = 0;
+  v14 = 0;
   v8 = systemProxy;
-  v9 = [(BAAgentSystemProxy *)v8 updateAppStoreProgressObservationWithConfiguration:v6 error:&v13];
-  v10 = v13;
+  v9 = [(BAAgentSystemProxy *)v8 updateAppStoreProgressObservationWithConfiguration:v6 error:&v14];
+  v10 = v14;
 
   if (!v9)
   {
-    v11 = BAClientConnectionLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = BAClientConnectionLogObject(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(BAAppStoreProgressObserver *)v6 updateConfiguration:v10, v11];
+      [(BAAppStoreProgressObserver *)v6 updateConfiguration:v10, v12];
     }
 
     os_unfair_lock_lock(&self->_lock);
@@ -185,34 +185,33 @@ LABEL_10:
 
 - (void)updateConfiguration:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_236E28000, log, OS_LOG_TYPE_ERROR, "BAAppStoreProgressObserver: Failed to start progress observer. Config: %{public}@ Error: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_236E28000, log, OS_LOG_TYPE_ERROR, "BAAppStoreProgressObserver: Failed to start progress observer. Config: %{public}@ Error: %{public}@", &v3, 0x16u);
 }
 
 - (void)setAppBundleIdentifiers:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Cannot invoke setAppBundleIdentifiers: outside of updateConfiguration:";
+  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setUpdateHandler:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Cannot invoke setUpdateHandler: outside of updateConfiguration:";
+  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setHandlerQueue:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Cannot invoke setHandlerQueue: outside of updateConfiguration:";
+  OUTLINED_FUNCTION_8(&dword_236E28000, MEMORY[0x277D86220], a3, "BUG IN CLIENT OF BackgroundAssets: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -103,9 +103,11 @@ uint64_t __63___NSOptimalLineBreaker__enumerateOrdinaryLineBreaksWithBlock___blo
 
 uint64_t __62___NSOptimalLineBreaker__enumerateNonBreakingSpacesWithBlock___block_invoke()
 {
-  qword_1ED4DF2B8 = [MEMORY[0x1E696AB08] characterSetWithRange:{160, 1}];
+  v0 = [MEMORY[0x1E696AB08] characterSetWithRange:{160, 1}];
+  v1 = qword_1ED4DF2B8;
+  qword_1ED4DF2B8 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __45___NSOptimalLineBreaker__calculateLineBreaks__block_invoke_3(uint64_t a1, unint64_t a2, int a3)
@@ -154,7 +156,7 @@ uint64_t __45___NSOptimalLineBreaker__calculateLineBreaks__block_invoke_4(uint64
   return result;
 }
 
-uint64_t __59___NSOptimalLineBreaker__bestNodeInNodeList_withLineCount___block_invoke(uint64_t *a1, uint64_t a2, uint64_t *a3)
+BOOL __59___NSOptimalLineBreaker__bestNodeInNodeList_withLineCount___block_invoke(void *a1, uint64_t a2, uint64_t *a3)
 {
   result = [(_NSOptimalLineBreaker *)a1[4] _node:a3 isBetterThanNode:*(*(a1[5] + 8) + 24)];
   if (result)

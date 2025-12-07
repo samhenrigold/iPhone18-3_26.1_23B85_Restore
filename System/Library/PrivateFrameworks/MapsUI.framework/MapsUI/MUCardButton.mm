@@ -145,7 +145,7 @@ LABEL_10:
 
 - (void)_setupConstraints
 {
-  v33[6] = *MEMORY[0x1E69E9840];
+  v32[6] = *MEMORY[0x1E69E9840];
   if (MUIdiomInTraitEnvironment(self) == 5)
   {
     v3 = 24.0;
@@ -160,43 +160,41 @@ LABEL_10:
   v5 = [heightAnchor constraintEqualToConstant:v3];
 
   v6 = v5;
-  v32 = v5;
+  v31 = v5;
   LODWORD(v7) = 1148846080;
   [v5 setPriority:v7];
   widthAnchor = [(UIButton *)self->_actionButton widthAnchor];
   heightAnchor2 = [(UIButton *)self->_actionButton heightAnchor];
   v10 = [widthAnchor constraintEqualToAnchor:heightAnchor2];
 
-  v31 = v10;
+  v30 = v10;
   LODWORD(v11) = 1148846080;
   [v10 setPriority:v11];
-  v23 = MEMORY[0x1E696ACD8];
-  v33[0] = v6;
-  v33[1] = v10;
+  v22 = MEMORY[0x1E696ACD8];
+  v32[0] = v6;
+  v32[1] = v10;
   topAnchor = [(UIButton *)self->_actionButton topAnchor];
   layoutMarginsGuide = [(MUCardButton *)self layoutMarginsGuide];
   topAnchor2 = [layoutMarginsGuide topAnchor];
-  v27 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v33[2] = v27;
+  v26 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v32[2] = v26;
   bottomAnchor = [(UIButton *)self->_actionButton bottomAnchor];
   layoutMarginsGuide2 = [(MUCardButton *)self layoutMarginsGuide];
   bottomAnchor2 = [layoutMarginsGuide2 bottomAnchor];
   v12 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v33[3] = v12;
+  v32[3] = v12;
   leadingAnchor = [(UIButton *)self->_actionButton leadingAnchor];
   layoutMarginsGuide3 = [(MUCardButton *)self layoutMarginsGuide];
   leadingAnchor2 = [layoutMarginsGuide3 leadingAnchor];
   v16 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v33[4] = v16;
+  v32[4] = v16;
   trailingAnchor = [(UIButton *)self->_actionButton trailingAnchor];
   layoutMarginsGuide4 = [(MUCardButton *)self layoutMarginsGuide];
   trailingAnchor2 = [layoutMarginsGuide4 trailingAnchor];
   v20 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v33[5] = v20;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:6];
-  [v23 activateConstraints:v21];
-
-  v22 = *MEMORY[0x1E69E9840];
+  v32[5] = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:6];
+  [v22 activateConstraints:v21];
 }
 
 - (void)_setupButton

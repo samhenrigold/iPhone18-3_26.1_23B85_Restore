@@ -107,16 +107,15 @@ void __30__IOKitHandler_sharedInstance__block_invoke(uint64_t a1)
       _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Enabling scheduling of IOPMAssertionExceptionNotifications", buf, 2u);
     }
 
-    queue = self->_queue;
-    v7 = IOPMScheduleAssertionExceptionNotification();
-    self->_ioHdl = v7;
-    if (!v7)
+    v6 = IOPMScheduleAssertionExceptionNotification();
+    self->_ioHdl = v6;
+    if (!v6)
     {
-      v8 = debuggabilityLogHandle;
+      v7 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "IOPMScheduleAssertionExceptionNotification failed", buf, 2u);
+        _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "IOPMScheduleAssertionExceptionNotification failed", buf, 2u);
       }
     }
   }
@@ -125,26 +124,23 @@ void __30__IOKitHandler_sharedInstance__block_invoke(uint64_t a1)
 void __49__IOKitHandler_enableIOKitAssertionNotifications__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a2;
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (a2 <= 4 && ((1 << a2) & 0x16) != 0)
   {
     v4 = *(a1 + 32);
-    v5 = *MEMORY[0x277D85DE8];
 
     [v4 reportIOPMAssertionException:a2 pid:a3];
   }
 
   else
   {
-    v6 = debuggabilityLogHandle;
+    v5 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
     {
-      v8[0] = 67109120;
-      v8[1] = v3;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "Received an IOPMAssertionException that we don't handle: %d.", v8, 8u);
+      v6[0] = 67109120;
+      v6[1] = v3;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "Received an IOPMAssertionException that we don't handle: %d.", v6, 8u);
     }
-
-    v7 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -160,7 +156,7 @@ void __49__IOKitHandler_enableIOKitAssertionNotifications__block_invoke(uint64_t
 - (void)reportIOPMAssertionException:(int)exception pid:(int)pid
 {
   exceptionCopy = exception;
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   valuePtr = pid;
   v6 = debuggabilityLogHandle;
   switch(exception)
@@ -257,11 +253,11 @@ LABEL_14:
         v15 = array;
         if (Count >= 1)
         {
-          v46 = array;
-          v45 = exceptionCopy;
+          v45 = array;
+          v44 = exceptionCopy;
           v21 = 0;
           v22 = *MEMORY[0x277CBECD0];
-          v47 = Value;
+          v46 = Value;
           do
           {
             ValueAtIndex = CFArrayGetValueAtIndex(Value, v21);
@@ -275,9 +271,9 @@ LABEL_14:
               v29 = CFDictionaryGetValue(v24, @"AssertType");
               v30 = CFDictionaryGetValue(v24, @"AssertionTrueType");
               v31 = CFDictionaryGetValue(v24, @"Details");
-              v48 = CFDictionaryGetValue(v24, @"Process Name");
-              v49 = CFDictionaryGetValue(v24, @"HumanReadableReason");
-              v50 = CFDictionaryGetValue(v24, @"AssertionOnBehalfOfBundleID");
+              v47 = CFDictionaryGetValue(v24, @"Process Name");
+              v48 = CFDictionaryGetValue(v24, @"HumanReadableReason");
+              v49 = CFDictionaryGetValue(v24, @"AssertionOnBehalfOfBundleID");
               dictionary = [MEMORY[0x277CBEB38] dictionary];
               v33 = dictionary;
               if (v25)
@@ -317,25 +313,25 @@ LABEL_14:
                 [v33 setObject:v31 forKeyedSubscript:@"Details"];
               }
 
-              Value = v47;
+              Value = v46;
+              if (v47)
+              {
+                [v33 setObject:v47 forKeyedSubscript:@"Process Name"];
+              }
+
               if (v48)
               {
-                [v33 setObject:v48 forKeyedSubscript:@"Process Name"];
+                [v33 setObject:v48 forKeyedSubscript:@"HumanReadableReason"];
               }
 
               if (v49)
               {
-                [v33 setObject:v49 forKeyedSubscript:@"HumanReadableReason"];
-              }
-
-              if (v50)
-              {
-                [v33 setObject:v50 forKeyedSubscript:@"AssertionOnBehalfOfBundleID"];
+                [v33 setObject:v49 forKeyedSubscript:@"AssertionOnBehalfOfBundleID"];
               }
 
               if ([v33 count])
               {
-                [v46 addObject:v33];
+                [v45 addObject:v33];
               }
             }
 
@@ -343,8 +339,8 @@ LABEL_14:
           }
 
           while (Count != v21);
-          exceptionCopy = v45;
-          v15 = v46;
+          exceptionCopy = v44;
+          v15 = v45;
         }
       }
 
@@ -393,11 +389,11 @@ LABEL_66:
         block[1] = 3221225472;
         block[2] = __49__IOKitHandler_reportIOPMAssertionException_pid___block_invoke;
         block[3] = &unk_27898A0C8;
-        v52 = v39;
+        v51 = v39;
         v43 = v39;
         dispatch_async(MEMORY[0x277D85CD0], block);
 
-        goto LABEL_67;
+        return;
     }
 
     [(EventDescription *)v39 setEventKey:v42];
@@ -410,9 +406,6 @@ LABEL_66:
     *buf = 0;
     _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_INFO, "Device is plugged in, ignoring assertion.", buf, 2u);
   }
-
-LABEL_67:
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableIOKitPowerNotifications

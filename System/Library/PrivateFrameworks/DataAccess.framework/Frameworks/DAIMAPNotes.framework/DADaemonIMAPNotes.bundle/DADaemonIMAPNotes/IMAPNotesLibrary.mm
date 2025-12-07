@@ -7,6 +7,7 @@
 - (id)getDetailsForMessages:(unint64_t)messages absoluteBottom:(unint64_t)bottom topOfDesiredRange:(unint64_t)range range:(_NSRange *)a6 fromMailbox:(id)mailbox;
 - (id)getDetailsForMessagesWithRemoteIDInRange:(_NSRange)range fromMailbox:(id)mailbox;
 - (id)mailboxUidForMessage:(id)message;
+- (id)messageWithLibraryID:(unsigned int)d options:(unsigned int)options inMailbox:(id)mailbox;
 - (id)messageWithMessageID:(id)d options:(unsigned int)options inMailbox:(id)mailbox;
 - (id)messageWithRemoteID:(id)d inRemoteMailbox:(id)mailbox;
 - (id)messagesForMailbox:(id)mailbox olderThanNumberOfDays:(int)days;
@@ -30,6 +31,48 @@
 @end
 
 @implementation IMAPNotesLibrary
+
+- (id)messageWithLibraryID:(unsigned int)d options:(unsigned int)options inMailbox:(id)mailbox
+{
+  v5 = *&d;
+  v7 = [(IMAPNotesLibrary *)self noteContext:*&d];
+
+  if (!v7)
+  {
+    sub_F374();
+  }
+
+  noteContext = [(IMAPNotesLibrary *)self noteContext];
+  v9 = [NSNumber numberWithUnsignedInt:v5];
+  v10 = [NSSet setWithObject:v9];
+  v11 = [noteContext notesForIntegerIds:v10];
+
+  if ([v11 count])
+  {
+    v12 = [v11 objectAtIndexedSubscript:0];
+    WeakRetained = objc_loadWeakRetained(&self->_account);
+    v14 = [DAIMAPNotesUtils messageFromLocalNoteObject:v12 inMailboxUid:0 inAccount:WeakRetained];
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  v15 = DALoggingwithCategory();
+  v16 = _CPLog_to_os_log_type[7];
+  if (os_log_type_enabled(v15, v16))
+  {
+    v17 = [NSNumber numberWithUnsignedInt:v5];
+    v19 = 138412546;
+    v20 = v17;
+    v21 = 2112;
+    v22 = v14;
+    _os_log_impl(&dword_0, v15, v16, "message with library id %@ returning %@", &v19, 0x16u);
+  }
+
+  return v14;
+}
 
 - (unsigned)maximumRemoteIDForMailbox:(id)mailbox
 {

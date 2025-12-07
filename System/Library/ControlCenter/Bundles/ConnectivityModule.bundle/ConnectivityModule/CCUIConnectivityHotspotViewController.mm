@@ -14,6 +14,7 @@
 - (void)_updateState;
 - (void)buttonTapped:(id)tapped;
 - (void)dealloc;
+- (void)setDiscoverable:(BOOL)discoverable;
 - (void)startObserving;
 - (void)stopObserving;
 - (void)viewDidLoad;
@@ -23,12 +24,12 @@
 
 - (CCUIConnectivityHotspotViewController)init
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   v3 = objc_msgSend__systemImageNamed_(MEMORY[0x29EDC7AC8], a2, @"personalhotspot");
   v6 = objc_msgSend_systemGreenColor(MEMORY[0x29EDC7A00], v4, v5);
-  v18.receiver = self;
-  v18.super_class = CCUIConnectivityHotspotViewController;
-  v7 = [(CCUIConnectivityButtonViewController *)&v18 initWithGlyphImage:v3 highlightColor:v6];
+  v17.receiver = self;
+  v17.super_class = CCUIConnectivityHotspotViewController;
+  v7 = [(CCUIConnectivityButtonViewController *)&v17 initWithGlyphImage:v3 highlightColor:v6];
 
   if (v7)
   {
@@ -36,7 +37,7 @@
     if (os_log_type_enabled(*MEMORY[0x29EDC0C90], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134349056;
-      v20 = v7;
+      v19 = v7;
       _os_log_impl(&dword_29C961000, v8, OS_LOG_TYPE_DEFAULT, "[Hotspot] (%{public}p) Initialization", buf, 0xCu);
     }
 
@@ -49,7 +50,6 @@
     objc_msgSend_registerObserver_(v14, v15, v7);
   }
 
-  v16 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
@@ -145,7 +145,7 @@ LABEL_13:
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v3 = *MEMORY[0x29EDC0C90];
   if (os_log_type_enabled(*MEMORY[0x29EDC0C90], OS_LOG_TYPE_DEFAULT))
   {
@@ -155,10 +155,9 @@ LABEL_13:
   }
 
   objc_msgSend_stopObserving(self, v4, v5);
-  v7.receiver = self;
-  v7.super_class = CCUIConnectivityHotspotViewController;
-  [(CCUIConnectivityHotspotViewController *)&v7 dealloc];
-  v6 = *MEMORY[0x29EDCA608];
+  v6.receiver = self;
+  v6.super_class = CCUIConnectivityHotspotViewController;
+  [(CCUIConnectivityHotspotViewController *)&v6 dealloc];
 }
 
 - (void)startObserving
@@ -312,6 +311,16 @@ LABEL_3:
   v9 = LABEL_8:;
 
   return v9;
+}
+
+- (void)setDiscoverable:(BOOL)discoverable
+{
+  if (self->_discoverable != discoverable)
+  {
+    self->_discoverable = discoverable;
+    v6 = objc_msgSend_view(self, a2, discoverable);
+    objc_msgSend_setNeedsLayout(v6, v4, v5);
+  }
 }
 
 - (BOOL)_isHotspotRestricted

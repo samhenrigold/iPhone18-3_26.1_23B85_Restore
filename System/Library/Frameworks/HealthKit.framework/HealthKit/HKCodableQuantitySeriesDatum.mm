@@ -102,12 +102,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    timeInterval = self->_timeInterval;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -126,15 +125,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  value = self->_value;
   PBDataWriterWriteDoubleField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    duration = self->_duration;
     PBDataWriterWriteFloatField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

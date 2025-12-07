@@ -151,9 +151,12 @@
 
 + (id)encodeSms:(id)sms
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   smsCopy = sms;
-  memset(v68, 0, sizeof(v68));
+  memset(v71, 0, sizeof(v71));
+  v70 = 0u;
+  v69 = 0u;
+  v68 = 0u;
   v67 = 0u;
   v66 = 0u;
   v65 = 0u;
@@ -165,10 +168,10 @@
   v59 = 0u;
   v58 = 0u;
   v57 = 0u;
-  v56 = 0u;
-  v55 = 0u;
+  memset(v55, 0, sizeof(v55));
   v54 = 0u;
-  memset(v52, 0, sizeof(v52));
+  v53 = 0u;
+  v52 = 0u;
   v51 = 0u;
   v50 = 0u;
   v49 = 0u;
@@ -180,66 +183,64 @@
   v43 = 0u;
   v42 = 0u;
   v41 = 0u;
-  v40 = 0u;
-  v39 = 0u;
-  v38 = 0u;
-  v53 = 0;
-  v37 = 0;
+  v56 = 0;
+  v40 = 0;
   recipients = [smsCopy recipients];
   v5 = [recipients objectAtIndex:0];
   canonicalFormat = [v5 canonicalFormat];
 
-  if ([canonicalFormat getCString:&v53 maxLength:255 encoding:4])
+  v7 = [canonicalFormat getCString:&v56 maxLength:255 encoding:4];
+  if (v7)
   {
     items = [smsCopy items];
-    v8 = [items objectAtIndex:0];
+    v10 = [items objectAtIndex:0];
 
     __dst = 0;
-    v35 = 0;
-    v36 = 0;
-    data = [v8 data];
-    v10 = data;
+    v38 = 0;
+    v39 = 0;
+    data = [v10 data];
+    v12 = data;
     bytes = [data bytes];
-    data2 = [v8 data];
-    v13 = [data2 length];
-    v14 = v13;
-    if (v13 >= 0x7FFFFFFFFFFFFFF8)
+    data2 = [v10 data];
+    v15 = [data2 length];
+    v16 = v15;
+    if (v15 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    if (v13 >= 0x17)
+    if (v15 >= 0x17)
     {
       operator new();
     }
 
-    HIBYTE(v36) = v13;
-    if (v13)
+    HIBYTE(v39) = v15;
+    if (v15)
     {
-      memmove(&__dst, bytes, v13);
+      memmove(&__dst, bytes, v15);
     }
 
-    *(&__dst + v14) = 0;
+    *(&__dst + v16) = 0;
 
     serviceCenter = [smsCopy serviceCenter];
-    v18 = serviceCenter == 0;
+    v20 = serviceCenter == 0;
 
-    if (v18 || ([smsCopy serviceCenter], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "formatForCallingCountry:", @"1"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "getCString:maxLength:encoding:", &v37, 255, 4), v20, v19, (v21 & 1) != 0))
+    if (v20 || ([smsCopy serviceCenter], v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "formatForCallingCountry:", @"1"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "getCString:maxLength:encoding:", &v40, 255, 4), v24, v23, (v25 & 1) != 0))
     {
-      v22 = HIBYTE(v36);
-      v23 = SHIBYTE(v36);
-      if (v36 < 0)
+      v26 = HIBYTE(v39);
+      v27 = SHIBYTE(v39);
+      if (v39 < 0)
       {
-        v22 = v35;
+        v26 = v38;
       }
 
-      if (v22)
+      if (v26)
       {
-        v33 = 0;
+        v36 = 0;
         *__p = 0u;
-        v32 = 0u;
+        v35 = 0u;
         MMSPduEncoder::MMSPduEncoder(__p);
-        if (v23 >= 0)
+        if (v27 >= 0)
         {
           p_dst = &__dst;
         }
@@ -249,29 +250,29 @@
           p_dst = __dst;
         }
 
-        MMSPduEncoder::encodeSms(__p, 0, &v53, p_dst, &v37, "");
-        if (v32 >= 0)
+        MMSPduEncoder::encodeSms(__p, 0, &v56, p_dst, &v40, "");
+        if (v35 >= 0)
         {
-          v25 = &__p[1];
+          v29 = &__p[1];
         }
 
         else
         {
-          v25 = __p[1];
+          v29 = __p[1];
         }
 
-        if (v32 >= 0)
+        if (v35 >= 0)
         {
-          v26 = HIBYTE(v32);
+          v30 = HIBYTE(v35);
         }
 
         else
         {
-          v26 = v32;
+          v30 = v35;
         }
 
-        v16 = [MEMORY[0x1E695DEF0] dataWithBytes:v25 length:v26];
-        if (SHIBYTE(v32) < 0)
+        v18 = [MEMORY[0x1E695DEF0] dataWithBytes:v29 length:v30];
+        if (SHIBYTE(v35) < 0)
         {
           operator delete(__p[1]);
         }
@@ -279,8 +280,8 @@
         goto LABEL_32;
       }
 
-      v28 = sMmsPduLog();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v32 = sMmsPduLog(v21, v22);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         +[CTMMSEncoder encodeSms:];
       }
@@ -288,16 +289,16 @@
 
     else
     {
-      v27 = sMmsPduLog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v31 = sMmsPduLog(v21, v22);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         +[CTMMSEncoder encodeSms:];
       }
     }
 
-    v16 = 0;
+    v18 = 0;
 LABEL_32:
-    if (SHIBYTE(v36) < 0)
+    if (SHIBYTE(v39) < 0)
     {
       operator delete(__dst);
     }
@@ -305,57 +306,58 @@ LABEL_32:
     goto LABEL_35;
   }
 
-  v15 = sMmsPduLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v17 = sMmsPduLog(v7, v8);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     +[CTMMSEncoder encodeSms:];
   }
 
-  v16 = 0;
+  v18 = 0;
 LABEL_35:
 
-  v29 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v18;
 }
 
 + (id)encodeMessage:(id)message
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   *buf = 0;
   MobileUser = _CFStringGetMobileUser();
-  *v19 = CFPreferencesCopyValue(@"MMS", @"com.apple.carrier_1", MobileUser, *MEMORY[0x1E695E898]);
-  ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef<void const,void>(buf, v19);
+  *v24 = CFPreferencesCopyValue(@"MMS", @"com.apple.carrier_1", MobileUser, *MEMORY[0x1E695E898]);
+  ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef<void const,void>(buf, v24);
+  v6 = *buf;
   if (*buf)
   {
-    *v19 = 0;
+    *v24 = 0;
     Value = CFDictionaryGetValue(*buf, @"MimeEncodingHint");
-    ctu::cf::CFSharedRef<__CFString const>::CFSharedRef<void const,void>(v19, &Value);
-    if (*v19)
+    ctu::cf::CFSharedRef<__CFString const>::CFSharedRef<void const,void>(v24, &Value);
+    v5 = *v24;
+    if (*v24)
     {
-      if (CFEqual(@"UTF8", *v19))
+      if (CFEqual(@"UTF8", *v24))
       {
-        v5 = 134217984;
+        v7 = 134217984;
       }
 
       else
       {
-        v5 = -1;
+        v7 = -1;
       }
 
-      v17 = v5;
-      if (*v19)
+      v22 = v7;
+      if (*v24)
       {
-        CFRelease(*v19);
+        CFRelease(*v24);
       }
     }
 
     else
     {
-      v17 = -1;
+      v22 = -1;
     }
 
+    v6 = *buf;
     if (*buf)
     {
       CFRelease(*buf);
@@ -364,35 +366,35 @@ LABEL_35:
 
   else
   {
-    v17 = -1;
+    v22 = -1;
   }
 
-  v6 = sMmsPduLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v8 = sMmsPduLog(v6, v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    *&buf[4] = v17;
-    _os_log_impl(&dword_182E9B000, v6, OS_LOG_TYPE_DEFAULT, "*****************Using mime encoding hint: %u***********************\n", buf, 8u);
+    *&buf[4] = v22;
+    _os_log_impl(&dword_182E9B000, v8, OS_LOG_TYPE_DEFAULT, "*****************Using mime encoding hint: %u***********************\n", buf, 8u);
   }
 
   if ([messageCopy messageType] == 1)
   {
-    v7 = [self encodeSms:messageCopy];
+    v9 = [self encodeSms:messageCopy];
   }
 
   else
   {
-    v22 = 0;
+    v27 = 0;
     *buf = 0u;
-    v21 = 0u;
+    v26 = 0u;
     MMSPduEncoder::MMSPduEncoder(buf);
     items = [messageCopy items];
-    v9 = [items count] == 0;
+    v11 = [items count] == 0;
 
-    if (v9)
+    if (v11)
     {
-      v12 = sMmsPduLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v18 = sMmsPduLog(v12, v13);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         +[CTMMSEncoder encodeMessage:];
       }
@@ -401,30 +403,28 @@ LABEL_35:
     else
     {
       recipients = [messageCopy recipients];
-      v11 = [recipients count] == 0;
+      v15 = [recipients count] == 0;
 
-      if (!v11)
+      if (!v15)
       {
         operator new();
       }
 
-      v13 = sMmsPduLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v19 = sMmsPduLog(v16, v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         +[CTMMSEncoder encodeMessage:];
       }
     }
 
-    v7 = 0;
-    if (SHIBYTE(v21) < 0)
+    v9 = 0;
+    if (SHIBYTE(v26) < 0)
     {
       operator delete(*&buf[8]);
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v9;
 }
 
 + (id)decodeMessageFromData:(id)data
@@ -444,7 +444,7 @@ LABEL_35:
   memset(v7, 0, sizeof(v7));
   v6 = a4;
   MMSPduDecoder::MMSPduDecoder(v7, [v6 bytes], objc_msgSend(v6, "length"), 1);
-  MMSPduDecoder::decodeMessage(v7);
+  MMSPduDecoder::decodeMessage(v7, 1, 1);
 }
 
 @end

@@ -12,7 +12,9 @@
 - (void)setAccessibilityValue:(id)value;
 - (void)setAlpha:(double)alpha;
 - (void)setHeight:(double)height;
+- (void)setHidden:(BOOL)hidden;
 - (void)setHorizontalAlignment:(int64_t)alignment;
+- (void)setIsAccessibilityElement:(BOOL)element;
 - (void)setRelativeHeight:(double)height withAdjustment:(double)adjustment;
 - (void)setRelativeWidth:(double)width withAdjustment:(double)adjustment;
 - (void)setRotation:(double)rotation;
@@ -43,7 +45,7 @@
 
 - (void)_setImage:(id)image forProperty:(id)property
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   v7 = [SPRemoteInterface SerializablePropertyValue:image];
   if (v7)
@@ -61,25 +63,23 @@
 
     else
     {
-      v15[0] = @"a";
-      v15[1] = @"d";
-      v16[0] = v9;
-      v16[1] = v7;
-      v15[2] = @"t";
-      v16[2] = &unk_284E0A190;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+      v14[0] = @"a";
+      v14[1] = @"d";
+      v15[0] = v9;
+      v15[1] = v7;
+      v14[2] = @"t";
+      v15[2] = &unk_284E0A190;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
       [(WKInterfaceObject *)self _sendValueChanged:v12 forProperty:propertyCopy];
       v13 = +[SPCompanionAssetCache sharedInstance];
       [v13 addImageReferenceToTransientCache:v7 withName:v9];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setImageData:(id)data forProperty:(id)property
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   propertyCopy = property;
   if (dataCopy)
@@ -97,25 +97,23 @@
 
     else
     {
-      v15[0] = @"a";
-      v15[1] = @"d";
-      v16[0] = v9;
-      v16[1] = dataCopy;
-      v15[2] = @"t";
-      v16[2] = &unk_284E0A190;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+      v14[0] = @"a";
+      v14[1] = @"d";
+      v15[0] = v9;
+      v15[1] = dataCopy;
+      v14[2] = @"t";
+      v15[2] = &unk_284E0A190;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
       [(WKInterfaceObject *)self _sendValueChanged:v12 forProperty:propertyCopy];
       v13 = +[SPCompanionAssetCache sharedInstance];
       [v13 addImageReferenceToTransientCache:dataCopy withName:v9];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setImageNamed:(id)named forProperty:(id)property
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   namedCopy = named;
   propertyCopy = property;
   v8 = +[SPCompanionAssetCache sharedInstance];
@@ -123,13 +121,13 @@
 
   if (v9)
   {
-    v12[0] = @"a";
-    v12[1] = @"d";
-    v13[0] = namedCopy;
-    v13[1] = v9;
-    v12[2] = @"t";
-    v13[2] = &unk_284E0A1A8;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+    v11[0] = @"a";
+    v11[1] = @"d";
+    v12[0] = namedCopy;
+    v12[1] = v9;
+    v11[2] = @"t";
+    v12[2] = &unk_284E0A1A8;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
     [(WKInterfaceObject *)self _sendValueChanged:v10 forProperty:propertyCopy];
   }
 
@@ -137,8 +135,6 @@
   {
     [(WKInterfaceObject *)self _sendValueChanged:namedCopy forProperty:propertyCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendValueChanged:(id)changed forProperty:(id)property
@@ -168,6 +164,12 @@
   [SPRemoteInterface setController:viewControllerID key:propertyIndex property:propertyCopy value:changedCopy];
 }
 
+- (void)setHidden:(BOOL)hidden
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:hidden];
+  [(WKInterfaceObject *)self _sendValueChanged:v4 forProperty:@"hn"];
+}
+
 - (void)setAlpha:(double)alpha
 {
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:alpha];
@@ -188,28 +190,24 @@
 
 - (void)setRelativeWidth:(double)width withAdjustment:(double)adjustment
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:width];
-  v10[0] = v6;
+  v9[0] = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:adjustment];
-  v10[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   [(WKInterfaceObject *)self _sendValueChanged:v8 forProperty:@"rw"];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setRelativeHeight:(double)height withAdjustment:(double)adjustment
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:height];
-  v10[0] = v6;
+  v9[0] = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:adjustment];
-  v10[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   [(WKInterfaceObject *)self _sendValueChanged:v8 forProperty:@"rh"];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setHorizontalAlignment:(int64_t)alignment
@@ -254,6 +252,12 @@
   [(WKInterfaceObject *)self _sendValueChanged:v4 forProperty:@"Av"];
 }
 
+- (void)setIsAccessibilityElement:(BOOL)element
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:element];
+  [(WKInterfaceObject *)self _sendValueChanged:v4 forProperty:@"Ae"];
+}
+
 - (void)setAccessibilityTraits:(unint64_t)traits
 {
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:traits];
@@ -262,29 +266,29 @@
 
 - (void)setAccessibilityImageRegions:(id)regions
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   regionsCopy = regions;
   v5 = objc_opt_new();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v6 = regionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
+    v9 = *v26;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
+        v11 = *(*(&v25 + 1) + 8 * i);
         label = [v11 label];
 
         if (label)
@@ -311,14 +315,13 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v8);
   }
 
   [(WKInterfaceObject *)self _sendValueChanged:v5 forProperty:@"Ar"];
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

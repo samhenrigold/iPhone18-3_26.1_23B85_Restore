@@ -9,6 +9,7 @@
 - (id)_availableFunctions:(int64_t)functions functionTypeFilter:(id)filter;
 - (id)_getDatabaseManager;
 - (id)_initWithJoinClauseExpression:(id)expression databaseManager:(id)manager entities:(id)entities;
+- (void)insertOrUpdate:(id)update upsert:(BOOL)upsert;
 - (void)insertOrUpdateWithEntity:(id)entity fieldValuePairsFromBuilder:(id)builder upsert:(BOOL)upsert;
 - (void)queryDataWithBlock:(id)block logicalOperator:(id)operator limit:(unint64_t)limit selectFields:(id)fields orderby:(id)orderby usingBlock:(id)usingBlock;
 - (void)queryDataWithBlock:(id)block logicalOperator:(id)operator selectFields:(id)fields usingBlock:(id)usingBlock;
@@ -34,28 +35,26 @@
 
 - (FHDatabaseEntity)initWithEntity:(id)entity
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   v4 = MEMORY[0x277CBEA60];
   entityCopy2 = entity;
   v6 = [v4 arrayWithObjects:&entityCopy count:1];
 
-  v7 = [(FHDatabaseEntity *)self _initWithJoinClauseExpression:0 databaseManager:0 entities:v6, entityCopy, v11];
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = [(FHDatabaseEntity *)self _initWithJoinClauseExpression:0 databaseManager:0 entities:v6, entityCopy, v10];
   return v7;
 }
 
 - (FHDatabaseEntity)initWithEntity:(id)entity databaseManager:(id)manager
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   v6 = MEMORY[0x277CBEA60];
   managerCopy = manager;
   entityCopy2 = entity;
   v9 = [v6 arrayWithObjects:&entityCopy count:1];
 
-  v10 = [(FHDatabaseEntity *)self _initWithJoinClauseExpression:0 databaseManager:managerCopy entities:v9, entityCopy, v14];
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = [(FHDatabaseEntity *)self _initWithJoinClauseExpression:0 databaseManager:managerCopy entities:v9, entityCopy, v13];
   return v10;
 }
 
@@ -183,7 +182,7 @@
 
 void __75__FHDatabaseEntity__initWithJoinClauseExpression_databaseManager_entities___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (!v3 || ![v3 count])
@@ -193,9 +192,9 @@ void __75__FHDatabaseEntity__initWithJoinClauseExpression_databaseManager_entiti
     {
       v6 = *(a1 + 32);
       *buf = 136315394;
-      v20 = "[FHDatabaseEntity _initWithJoinClauseExpression:databaseManager:entities:]_block_invoke";
-      v21 = 2112;
-      v22 = v6;
+      v19 = "[FHDatabaseEntity _initWithJoinClauseExpression:databaseManager:entities:]_block_invoke";
+      v20 = 2112;
+      v21 = v6;
       _os_log_impl(&dword_226DD4000, v5, OS_LOG_TYPE_ERROR, "%s No schema found for table: %@", buf, 0x16u);
     }
   }
@@ -226,8 +225,6 @@ void __75__FHDatabaseEntity__initWithJoinClauseExpression_databaseManager_entiti
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)streamDataWithEntity:(id)entity recordStreamHandler:(id)handler
@@ -285,7 +282,7 @@ void __61__FHDatabaseEntity_streamDataWithEntity_recordStreamHandler___block_inv
 
 - (void)queryDataWithBlock:(id)block logicalOperator:(id)operator limit:(unint64_t)limit selectFields:(id)fields orderby:(id)orderby usingBlock:(id)usingBlock
 {
-  v114[1] = *MEMORY[0x277D85DE8];
+  v113[1] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   operatorCopy = operator;
   fieldsCopy = fields;
@@ -295,20 +292,20 @@ void __61__FHDatabaseEntity_streamDataWithEntity_recordStreamHandler___block_inv
   if (fieldsCopy)
   {
     fieldsIndex = self->_fieldsIndex;
-    v101[0] = MEMORY[0x277D85DD0];
-    v101[1] = 3221225472;
-    v101[2] = __93__FHDatabaseEntity_queryDataWithBlock_logicalOperator_limit_selectFields_orderby_usingBlock___block_invoke;
-    v101[3] = &unk_2785CB830;
+    v100[0] = MEMORY[0x277D85DD0];
+    v100[1] = 3221225472;
+    v100[2] = __93__FHDatabaseEntity_queryDataWithBlock_logicalOperator_limit_selectFields_orderby_usingBlock___block_invoke;
+    v100[3] = &unk_2785CB830;
     v13 = fieldsCopy;
-    v102 = v13;
-    v79 = [(NSArray *)fieldsIndex indexesOfObjectsPassingTest:v101];
-    v14 = [v79 count];
+    v101 = v13;
+    v78 = [(NSArray *)fieldsIndex indexesOfObjectsPassingTest:v100];
+    v14 = [v78 count];
     if (v14 != [v13 count])
     {
       v15 = MEMORY[0x277CCA9B8];
-      v113 = @"One or more invalid selectFields";
-      v114[0] = v13;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v114 forKeys:&v113 count:1];
+      v112 = @"One or more invalid selectFields";
+      v113[0] = v13;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v113 forKeys:&v112 count:1];
       v17 = [v15 errorWithDomain:@"com.apple.FinHealth.Framework" code:10016 userInfo:v16];
       [array addObject:v17];
 
@@ -317,11 +314,11 @@ void __61__FHDatabaseEntity_streamDataWithEntity_recordStreamHandler___block_inv
       {
         v19 = self->_fieldsIndex;
         *buf = 138412802;
-        *&buf[4] = v79;
+        *&buf[4] = v78;
         *&buf[12] = 2112;
         *&buf[14] = v13;
         *&buf[22] = 2112;
-        v112 = v19;
+        v111 = v19;
         _os_log_impl(&dword_226DD4000, v18, OS_LOG_TYPE_ERROR, "Invalid select fields: available fields=%@, selectFields=%@, fieldsIndex=%@", buf, 0x20u);
       }
     }
@@ -329,37 +326,37 @@ void __61__FHDatabaseEntity_streamDataWithEntity_recordStreamHandler___block_inv
 
   else
   {
-    v79 = 0;
+    v78 = 0;
   }
 
   if (orderbyCopy)
   {
-    v99 = 0u;
-    v100 = 0u;
-    v97 = 0u;
     v98 = 0u;
+    v99 = 0u;
+    v96 = 0u;
+    v97 = 0u;
     v20 = orderbyCopy;
-    v21 = [v20 countByEnumeratingWithState:&v97 objects:v110 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v96 objects:v109 count:16];
     if (v21)
     {
-      v22 = *v98;
+      v22 = *v97;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v98 != v22)
+          if (*v97 != v22)
           {
             objc_enumerationMutation(v20);
           }
 
-          v24 = *(*(&v97 + 1) + 8 * i);
+          v24 = *(*(&v96 + 1) + 8 * i);
           featureLabel = [v24 featureLabel];
           if (![(NSArray *)self->_fieldsIndex containsObject:featureLabel])
           {
             v26 = MEMORY[0x277CCA9B8];
-            v108 = @"One or more invalid order by fields";
-            v109 = v20;
-            v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v109 forKeys:&v108 count:1];
+            v107 = @"One or more invalid order by fields";
+            v108 = v20;
+            v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
             v28 = [v26 errorWithDomain:@"com.apple.FinHealth.Framework" code:10016 userInfo:v27];
             [array addObject:v28];
           }
@@ -370,22 +367,22 @@ void __61__FHDatabaseEntity_streamDataWithEntity_recordStreamHandler___block_inv
           if (!integerValue)
           {
             v31 = MEMORY[0x277CCA9B8];
-            v106 = @"One or more invalid orderings (NSOrderedSame)";
-            v107 = v20;
-            v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
+            v105 = @"One or more invalid orderings (NSOrderedSame)";
+            v106 = v20;
+            v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
             v33 = [v31 errorWithDomain:@"com.apple.FinHealth.Framework" code:10016 userInfo:v32];
             [array addObject:v33];
           }
         }
 
-        v21 = [v20 countByEnumeratingWithState:&v97 objects:v110 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v96 objects:v109 count:16];
       }
 
       while (v21);
     }
   }
 
-  v82 = objc_alloc_init(MEMORY[0x277CCAB68]);
+  v81 = objc_alloc_init(MEMORY[0x277CCAB68]);
   if (blockCopy)
   {
     clausesAndOperatorsInOrder = [blockCopy clausesAndOperatorsInOrder];
@@ -428,7 +425,7 @@ LABEL_32:
               {
 LABEL_31:
                 fieldName2 = [v36 shortDescription];
-                [v82 appendFormat:@"clause: %@, ", fieldName2];
+                [v81 appendFormat:@"clause: %@, ", fieldName2];
                 goto LABEL_32;
               }
             }
@@ -443,19 +440,19 @@ LABEL_31:
           if ((v39 & 1) == 0)
           {
             shortDescription = [v36 shortDescription];
-            [v82 appendFormat:@"clause: %@, ", shortDescription];
+            [v81 appendFormat:@"clause: %@, ", shortDescription];
 LABEL_34:
           }
         }
       }
     }
 
-    if ([v82 length])
+    if ([v81 length])
     {
       v48 = MEMORY[0x277CCA9B8];
-      v104 = @"Invalid clauses";
-      v105 = v82;
-      v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
+      v103 = @"Invalid clauses";
+      v104 = v81;
+      v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
       v50 = [v48 errorWithDomain:@"com.apple.FinHealth.Framework" code:10016 userInfo:v49];
       [array addObject:v50];
 
@@ -463,7 +460,7 @@ LABEL_34:
       if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *&buf[4] = v82;
+        *&buf[4] = v81;
         _os_log_impl(&dword_226DD4000, v51, OS_LOG_TYPE_ERROR, "Invalid clauses: %@", buf, 0xCu);
       }
     }
@@ -481,29 +478,29 @@ LABEL_34:
     {
       v52 = objc_alloc_init(MEMORY[0x277CBEB18]);
       [v52 addObject:@" ORDER BY "];
-      v95 = 0u;
-      v96 = 0u;
-      v93 = 0u;
       v94 = 0u;
+      v95 = 0u;
+      v92 = 0u;
+      v93 = 0u;
       obj = orderbyCopy;
-      v53 = [obj countByEnumeratingWithState:&v93 objects:v103 count:16];
+      v53 = [obj countByEnumeratingWithState:&v92 objects:v102 count:16];
       if (v53)
       {
         v54 = 0;
-        v55 = *v94;
+        v55 = *v93;
         do
         {
           v56 = 0;
-          v83 = v54;
+          v82 = v54;
           v57 = -v54;
           do
           {
-            if (*v94 != v55)
+            if (*v93 != v55)
             {
               objc_enumerationMutation(obj);
             }
 
-            v58 = *(*(&v93 + 1) + 8 * v56);
+            v58 = *(*(&v92 + 1) + 8 * v56);
             featureLabel2 = [v58 featureLabel];
             featureRank2 = [v58 featureRank];
             integerValue2 = [featureRank2 integerValue];
@@ -530,8 +527,8 @@ LABEL_34:
           }
 
           while (v53 != v56);
-          v63 = [obj countByEnumeratingWithState:&v93 objects:v103 count:16];
-          v54 = v83 + v53;
+          v63 = [obj countByEnumeratingWithState:&v92 objects:v102 count:16];
+          v54 = v82 + v53;
           v53 = v63;
         }
 
@@ -580,25 +577,23 @@ LABEL_34:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v112 = 0;
+    v111 = 0;
     _getDatabaseManager = [(FHDatabaseEntity *)self _getDatabaseManager];
-    v87[0] = MEMORY[0x277D85DD0];
-    v87[1] = 3221225472;
-    v87[2] = __93__FHDatabaseEntity_queryDataWithBlock_logicalOperator_limit_selectFields_orderby_usingBlock___block_invoke_171;
-    v87[3] = &unk_2785CB858;
-    v90 = buf;
-    v91[1] = limit;
-    objc_copyWeak(v91, &location);
-    v88 = v79;
-    v89 = usingBlockCopy;
-    [_getDatabaseManager streamQueryResults:v70 usingFetchHandler:v87];
+    v86[0] = MEMORY[0x277D85DD0];
+    v86[1] = 3221225472;
+    v86[2] = __93__FHDatabaseEntity_queryDataWithBlock_logicalOperator_limit_selectFields_orderby_usingBlock___block_invoke_171;
+    v86[3] = &unk_2785CB858;
+    v89 = buf;
+    v90[1] = limit;
+    objc_copyWeak(v90, &location);
+    v87 = v78;
+    v88 = usingBlockCopy;
+    [_getDatabaseManager streamQueryResults:v70 usingFetchHandler:v86];
 
-    objc_destroyWeak(v91);
+    objc_destroyWeak(v90);
     _Block_object_dispose(buf, 8);
     objc_destroyWeak(&location);
   }
-
-  v73 = *MEMORY[0x277D85DE8];
 }
 
 void __93__FHDatabaseEntity_queryDataWithBlock_logicalOperator_limit_selectFields_orderby_usingBlock___block_invoke_171(uint64_t a1, void *a2)
@@ -633,7 +628,7 @@ void __93__FHDatabaseEntity_queryDataWithBlock_logicalOperator_limit_selectField
 
 - (BOOL)clearDataWithClauseBuilder:(id)builder
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   builderCopy = builder;
   v5 = objc_alloc_init(MEMORY[0x277CCAB68]);
   if (!builderCopy)
@@ -681,7 +676,7 @@ void __93__FHDatabaseEntity_queryDataWithBlock_logicalOperator_limit_selectField
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v22 = v12;
+        v21 = v12;
         _os_log_impl(&dword_226DD4000, v17, OS_LOG_TYPE_DEBUG, "clausesFromBuilder - sql: %@", buf, 0xCu);
       }
 
@@ -700,7 +695,7 @@ LABEL_18:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v22 = v5;
+    v21 = v5;
     _os_log_impl(&dword_226DD4000, v12, OS_LOG_TYPE_ERROR, "Invalid clauses: %@", buf, 0xCu);
   }
 
@@ -708,7 +703,6 @@ LABEL_18:
 LABEL_16:
 
 LABEL_19:
-  v19 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -736,30 +730,52 @@ LABEL_19:
   [(FHDatabaseEntity *)self queryDataWithBlock:block logicalOperator:operator limit:-1 selectFields:0 orderby:0 usingBlock:v10];
 }
 
+- (void)insertOrUpdate:(id)update upsert:(BOOL)upsert
+{
+  upsertCopy = upsert;
+  v12 = *MEMORY[0x277D85DE8];
+  updateCopy = update;
+  if ([(NSArray *)self->_entities count]== 1)
+  {
+    firstObject = [(NSArray *)self->_entities firstObject];
+    [(FHDatabaseEntity *)self insertOrUpdateWithEntity:firstObject fieldValuePairsFromBuilder:updateCopy upsert:upsertCopy];
+  }
+
+  else
+  {
+    v8 = FinHealthLogObject(@"FinHealthCore");
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v9 = [(NSArray *)self->_entities count];
+      v10 = 134217984;
+      v11 = v9;
+      _os_log_impl(&dword_226DD4000, v8, OS_LOG_TYPE_ERROR, "Operation insertOrUpdate not supported, [_entities count] = %lu", &v10, 0xCu);
+    }
+  }
+}
+
 - (BOOL)clearData
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([(NSArray *)self->_entities count]== 1)
   {
     firstObject = [(NSArray *)self->_entities firstObject];
     v4 = [(FHDatabaseEntity *)self clearDataWithEntity:firstObject];
 
-    v5 = *MEMORY[0x277D85DE8];
     return v4;
   }
 
   else
   {
-    v7 = FinHealthLogObject(@"FinHealthCore");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = FinHealthLogObject(@"FinHealthCore");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = [(NSArray *)self->_entities count];
-      v10 = 134217984;
-      v11 = v8;
-      _os_log_impl(&dword_226DD4000, v7, OS_LOG_TYPE_ERROR, "clearDataWithEntity insertOrUpdate not supported, [_entities count] = %lu", &v10, 0xCu);
+      v7 = [(NSArray *)self->_entities count];
+      v8 = 134217984;
+      v9 = v7;
+      _os_log_impl(&dword_226DD4000, v6, OS_LOG_TYPE_ERROR, "clearDataWithEntity insertOrUpdate not supported, [_entities count] = %lu", &v8, 0xCu);
     }
 
-    v9 = *MEMORY[0x277D85DE8];
     return 0;
   }
 }
@@ -767,7 +783,7 @@ LABEL_19:
 - (void)insertOrUpdateWithEntity:(id)entity fieldValuePairsFromBuilder:(id)builder upsert:(BOOL)upsert
 {
   upsertCopy = upsert;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   builderCopy = builder;
   v9 = objc_opt_new();
@@ -779,8 +795,8 @@ LABEL_19:
 
     if (fieldValuePairList)
     {
-      v37 = upsertCopy;
-      v38 = builderCopy;
+      v36 = upsertCopy;
+      v37 = builderCopy;
       fieldValuePairList2 = [builderCopy fieldValuePairList];
       if ([fieldValuePairList2 count] == 1)
       {
@@ -803,7 +819,7 @@ LABEL_7:
           [v11 addObject:fieldValue];
 
           v28 = MEMORY[0x277CCACA8];
-          if (v37)
+          if (v36)
           {
             v29 = @"insert or replace into";
           }
@@ -830,12 +846,12 @@ LABEL_7:
 LABEL_17:
 
 LABEL_18:
-          builderCopy = v38;
+          builderCopy = v37;
           goto LABEL_19;
         }
 
         *buf = 138412290;
-        v41 = lastObject;
+        v40 = lastObject;
       }
 
       else
@@ -878,7 +894,7 @@ LABEL_18:
         }
 
         *buf = 138412290;
-        v41 = lastObject;
+        v40 = lastObject;
       }
 
       _os_log_impl(&dword_226DD4000, v35, OS_LOG_TYPE_ERROR, "Invalid fieldValuePair: %@", buf, 0xCu);
@@ -887,8 +903,6 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)clearDataWithEntity:(id)entity
@@ -927,7 +941,7 @@ LABEL_19:
 
 void __59__FHDatabaseEntity__availableFunctions_functionTypeFilter___block_invoke(uint64_t a1, void *a2)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -953,15 +967,15 @@ void __59__FHDatabaseEntity__availableFunctions_functionTypeFilter___block_invok
           v14 = v13;
           if (v12)
           {
-            v19[0] = v13;
-            v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+            v18[0] = v13;
+            v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
             v16 = [v15 arrayByAddingObjectsFromArray:v12];
           }
 
           else
           {
-            v18 = v13;
-            v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+            v17 = v13;
+            v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
           }
 
           [*(a1 + 40) setObject:v16 forKey:v6];
@@ -969,8 +983,6 @@ void __59__FHDatabaseEntity__availableFunctions_functionTypeFilter___block_invok
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (FHDatabaseManager)databaseManagerWeak

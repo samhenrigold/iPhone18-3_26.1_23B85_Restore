@@ -148,7 +148,7 @@
     if (objc_opt_isKindOfClass())
     {
       v5 = controllerCopy;
-      [v5 centerCoordinateDistanceRange];
+      objc_msgSend_centerCoordinateDistanceRange(v5);
       v8 = v10;
       v9 = v11;
       [(VKScreenCameraController *)self setCenterCoordinateDistanceRange:&v8];
@@ -296,7 +296,7 @@
   v11 = cameraDelegate;
   if (cameraDelegate)
   {
-    [cameraDelegate willBeginRegionChangeAccess:1];
+    objc_msgSend_willBeginRegionChangeAccess_(cameraDelegate);
   }
 
   else
@@ -317,8 +317,8 @@
   if (![(VKCameraRegionRestriction *)self->_regionRestriction isEqual:?])
   {
     objc_storeStrong(&self->_regionRestriction, restriction);
-    vkCamera = [(VKCameraController *)self vkCamera];
-    [vkCamera setRegionRestriction:restrictionCopy];
+    v7 = objc_msgSend_vkCamera(self);
+    [v7 setRegionRestriction:restrictionCopy];
   }
 }
 
@@ -328,22 +328,22 @@
   *&self->_centerCoordinateDistanceRange.min = *&range->var0;
   *&self->_centerCoordinateDistanceRange.allowRubberband = v7;
   [(VKGestureCameraBehavior *)self->_gestureCameraControllerBehavior setAllowsZoomRubberbanding:range->var2, function];
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera groundPoint];
+  v18 = objc_msgSend_vkCamera(self);
+  [v18 groundPoint];
   v9 = exp(v8 * 6.28318531 + -3.14159265);
   v10 = atan(v9);
   v11 = geo::WGS84::unitsPerMeterAtLatitude<geo::Degrees,double>(v10 * 114.591559 + -90.0);
 
   var1 = range->var1;
-  vkCamera2 = [(VKCameraController *)self vkCamera];
+  v13 = objc_msgSend_vkCamera(self);
   v14 = fmin(var1 * v11, 1.0);
   if (var1 < 0.0)
   {
     v14 = 0.0;
   }
 
-  v19 = vkCamera2;
-  [vkCamera2 setMaxDistanceToGroundRestriction:{*&v14, var1 >= 0.0}];
+  v19 = v13;
+  [v13 setMaxDistanceToGroundRestriction:{*&v14, var1 >= 0.0}];
 
   var0 = range->var0;
   if (range->var0 >= 0.0)
@@ -359,8 +359,8 @@
     v17 = 0.0;
   }
 
-  vkCamera3 = [(VKCameraController *)self vkCamera];
-  [vkCamera3 setMinDistanceToGroundRestriction:{*&v17, v16}];
+  v20 = objc_msgSend_vkCamera(self, var0);
+  [v20 setMinDistanceToGroundRestriction:{*&v17, v16}];
 }
 
 - (BOOL)isAnimating

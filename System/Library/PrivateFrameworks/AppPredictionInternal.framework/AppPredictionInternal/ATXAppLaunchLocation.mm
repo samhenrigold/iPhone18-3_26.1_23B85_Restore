@@ -5,25 +5,24 @@
 
 void __51___ATXAppLaunchLocation_resetAppIntentLocationData__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = a2;
-  v3 = objc_opt_new();
-  v4 = v12[3];
-  v12[3] = v3;
+  v10 = a2;
+  v2 = objc_opt_new();
+  v3 = v10[3];
+  v10[3] = v2;
 
-  v5 = objc_opt_new();
-  v6 = v12[4];
-  v12[4] = v5;
+  v4 = objc_opt_new();
+  v5 = v10[4];
+  v10[4] = v4;
 
-  v7 = objc_opt_new();
-  v8 = v12[5];
-  v12[5] = v7;
+  v6 = objc_opt_new();
+  v7 = v10[5];
+  v10[5] = v6;
 
-  v9 = objc_opt_new();
-  v10 = v12[7];
-  v12[7] = v9;
+  v8 = objc_opt_new();
+  v9 = v10[7];
+  v10[7] = v8;
 
-  v11 = *(a1 + 32);
-  [objc_opt_class() writeModel:v12];
+  [objc_opt_class() writeModel:v10];
 }
 
 void __57___ATXAppLaunchLocation_launchProbabilityAtLOI_bundleId___block_invoke(uint64_t a1, void *a2)
@@ -88,41 +87,39 @@ void __43___ATXAppLaunchLocation_trainWithCallback___block_invoke(uint64_t a1, v
   v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-2419200.0];
-    [*(a1 + 32) _trainModelWithLOI:v5 startDate:v7];
+    v8 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-2419200.0];
+    [*(a1 + 32) _trainModelWithLOI:v5 startDate:v8];
   }
 
   else
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __43___ATXAppLaunchLocation_trainWithCallback___block_invoke_cold_1();
     }
   }
 
-  v8 = __atxlog_handle_default();
-  v9 = v8;
-  v10 = *(a1 + 56);
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v10 = __atxlog_handle_default(v9);
+  v11 = v10;
+  v12 = *(a1 + 56);
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     v15 = 136446210;
     v16 = "_ATXAppLaunchLocation";
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v9, OS_SIGNPOST_INTERVAL_END, v10, "Train", "Component=%{public,signpost.telemetry:string1}s  enableTelemetry=YES ", &v15, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v11, OS_SIGNPOST_INTERVAL_END, v12, "Train", "Component=%{public,signpost.telemetry:string1}s  enableTelemetry=YES ", &v15, 0xCu);
   }
 
-  v11 = *(a1 + 48);
-  if (v11)
+  v13 = *(a1 + 48);
+  if (v13)
   {
-    (*(v11 + 16))();
+    (*(v13 + 16))();
   }
 
-  v12 = *(a1 + 40);
-  v13 = objc_opt_self();
-
-  v14 = *MEMORY[0x277D85DE8];
+  v14 = objc_opt_self();
 }
 
 void __54___ATXAppLaunchLocation__trainModelWithLOI_startDate___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -230,17 +227,16 @@ void __54___ATXAppLaunchLocation__trainModelWithLOI_startDate___block_invoke_3(i
   [a1[8] setObject:v39 forKeyedSubscript:v6];
 }
 
-void __54___ATXAppLaunchLocation__trainModelWithLOI_startDate___block_invoke_4(uint64_t a1, id *a2)
+void __54___ATXAppLaunchLocation__trainModelWithLOI_startDate___block_invoke_4(id *a1, id *a2)
 {
-  objc_storeStrong(a2 + 2, *(a1 + 32));
-  v5 = a2;
-  objc_storeStrong(v5 + 3, *(a1 + 40));
-  objc_storeStrong(v5 + 4, *(a1 + 48));
-  objc_storeStrong(v5 + 5, *(a1 + 56));
-  objc_storeStrong(v5 + 6, *(a1 + 64));
-  objc_storeStrong(v5 + 7, *(a1 + 72));
-  v4 = *(a1 + 80);
-  [objc_opt_class() writeModel:v5];
+  objc_storeStrong(a2 + 2, a1[4]);
+  v4 = a2;
+  objc_storeStrong(v4 + 3, a1[5]);
+  objc_storeStrong(v4 + 4, a1[6]);
+  objc_storeStrong(v4 + 5, a1[7]);
+  objc_storeStrong(v4 + 6, a1[8]);
+  objc_storeStrong(v4 + 7, a1[9]);
+  [objc_opt_class() writeModel:v4];
 }
 
 uint64_t __43___ATXAppLaunchLocation_sortTimeIntervals___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -287,17 +283,18 @@ void __41___ATXAppLaunchLocation_loadModelAtPath___block_invoke_2(uint64_t a1, i
   if (a2 == 3 || !a2)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
+    v4 = WeakRetained;
     if (WeakRetained)
     {
-      v4 = __atxlog_handle_default();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v5 = __atxlog_handle_default(WeakRetained);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        *v5 = 0;
-        _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_INFO, "Model data unlocked! Loading...", v5, 2u);
+        *v6 = 0;
+        _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_INFO, "Model data unlocked! Loading...", v6, 2u);
       }
 
-      [WeakRetained[2] runWithLockAcquired:&__block_literal_global_91_0];
-      [WeakRetained loadModelAtPath:*(a1 + 32)];
+      [v4[2] runWithLockAcquired:&__block_literal_global_91_0];
+      [v4 loadModelAtPath:*(a1 + 32)];
     }
   }
 }
@@ -339,14 +336,6 @@ void __41___ATXAppLaunchLocation_loadModelAtPath___block_invoke_99(uint64_t a1, 
   v15 = [*(a1 + 32) objectForKeyedSubscript:@"totalIntentLaunchCountMapKey"];
   v16 = v4[7];
   v4[7] = v15;
-}
-
-void __43___ATXAppLaunchLocation_trainWithCallback___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Error fetching locations: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __54___ATXAppLaunchLocation__trainModelWithLOI_startDate___block_invoke_3_cold_1(uint64_t a1)

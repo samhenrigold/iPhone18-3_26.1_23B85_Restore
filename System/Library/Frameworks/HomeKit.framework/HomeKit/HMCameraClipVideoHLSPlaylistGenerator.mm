@@ -17,43 +17,41 @@
 
 - (void)addSegments:(id)segments
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   segmentsCopy = segments;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [segmentsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [segmentsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(segmentsCopy);
         }
 
-        [(HMCameraClipVideoHLSPlaylistGenerator *)self addSegment:*(*(&v10 + 1) + 8 * v8++)];
+        [(HMCameraClipVideoHLSPlaylistGenerator *)self addSegment:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [segmentsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [segmentsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addSegment:(id)segment
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   segmentCopy = segment;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -118,19 +116,17 @@
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v25 = v22;
-        v26 = 2112;
-        v27 = v11;
-        v28 = 2112;
-        v29 = objc_opt_class();
+        v24 = v22;
+        v25 = 2112;
+        v26 = v11;
+        v27 = 2112;
+        v28 = objc_opt_class();
         _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Unknown segment type: %@ (%@)", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v19);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (NSData)hlsPlaylist
@@ -143,12 +139,12 @@
 
 - (HMCameraClipVideoHLSPlaylistGenerator)initWithClip:(id)clip url:(id)url
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   clipCopy = clip;
   urlCopy = url;
-  v28.receiver = self;
-  v28.super_class = HMCameraClipVideoHLSPlaylistGenerator;
-  v8 = [(HMCameraClipVideoHLSPlaylistGenerator *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = HMCameraClipVideoHLSPlaylistGenerator;
+  v8 = [(HMCameraClipVideoHLSPlaylistGenerator *)&v27 init];
   if (!v8)
   {
     goto LABEL_6;
@@ -197,9 +193,9 @@ LABEL_6:
     encryptionContext2 = [clipCopy encryptionContext];
     scheme = [encryptionContext2 scheme];
     *buf = 138543618;
-    v30 = v23;
-    v31 = 2048;
-    v32 = scheme;
+    v29 = v23;
+    v30 = 2048;
+    v31 = scheme;
     _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@Could not determine HLS playlist encryption method name for scheme: %lu", buf, 0x16u);
   }
 
@@ -207,7 +203,6 @@ LABEL_6:
   v19 = 0;
 LABEL_10:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

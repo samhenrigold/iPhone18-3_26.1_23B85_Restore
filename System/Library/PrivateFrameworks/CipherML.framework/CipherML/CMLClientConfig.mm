@@ -13,7 +13,7 @@
 
 - (CMLClientConfig)initWithUseCase:(id)case sourceApplicationBundleIdentifier:(id)identifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   caseCopy = case;
   identifierCopy = identifier;
   v10 = +[CMLLog client];
@@ -21,17 +21,17 @@
   {
     v11 = NSStringFromSelector(a2);
     *buf = 138543874;
-    v20 = v11;
-    v21 = 2114;
-    v22 = identifierCopy;
-    v23 = 2114;
-    v24 = caseCopy;
+    v19 = v11;
+    v20 = 2114;
+    v21 = identifierCopy;
+    v22 = 2114;
+    v23 = caseCopy;
     _os_log_impl(&dword_224E26000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ using sourceApplicationBundleIdentifier '%{public}@' for useCase '%{public}@'", buf, 0x20u);
   }
 
-  v18.receiver = self;
-  v18.super_class = CMLClientConfig;
-  v12 = [(CMLClientConfig *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = CMLClientConfig;
+  v12 = [(CMLClientConfig *)&v17 init];
   v13 = v12;
   if (v12)
   {
@@ -41,7 +41,6 @@
     v13->_sourceApplicationBundleIdentifier = v14;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -58,27 +57,25 @@
 
 - (void)setSourceApplicationBundleIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v6 = +[CMLLog client];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
     useCase = self->_useCase;
-    v12 = 138543874;
-    v13 = v7;
-    v14 = 2114;
-    v15 = identifierCopy;
-    v16 = 2114;
-    v17 = useCase;
-    _os_log_impl(&dword_224E26000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Switching sourceApplicationBundleIdentifier to '%{public}@' for useCase '%{public}@'", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = v7;
+    v13 = 2114;
+    v14 = identifierCopy;
+    v15 = 2114;
+    v16 = useCase;
+    _os_log_impl(&dword_224E26000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Switching sourceApplicationBundleIdentifier to '%{public}@' for useCase '%{public}@'", &v11, 0x20u);
   }
 
   v9 = [identifierCopy copy];
   sourceApplicationBundleIdentifier = self->_sourceApplicationBundleIdentifier;
   self->_sourceApplicationBundleIdentifier = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal

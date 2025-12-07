@@ -103,12 +103,11 @@ LABEL_7:
 {
   toCopy = to;
   has = self->_has;
-  v11 = toCopy;
+  v6 = toCopy;
   if ((has & 8) != 0)
   {
-    pairingCompatibilityVersion = self->_pairingCompatibilityVersion;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -127,9 +126,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  maxPairingCompatibilityVersion = self->_maxPairingCompatibilityVersion;
   PBDataWriterWriteInt32Field();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -143,9 +141,8 @@ LABEL_4:
   }
 
 LABEL_14:
-  minPairingCompatibilityVersion = self->_minPairingCompatibilityVersion;
   PBDataWriterWriteInt32Field();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -159,22 +156,20 @@ LABEL_5:
   }
 
 LABEL_15:
-  minQuickSwitchCompatibilityVersion = self->_minQuickSwitchCompatibilityVersion;
   PBDataWriterWriteInt32Field();
-  toCopy = v11;
+  toCopy = v6;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_6:
-    isOverrideActive = self->_isOverrideActive;
     PBDataWriterWriteBOOLField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
 LABEL_7:
   if (self->_osVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 }
 
@@ -260,7 +255,6 @@ LABEL_7:
     goto LABEL_27;
   }
 
-  v5 = *(equalCopy + 40);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 40) & 8) == 0 || self->_pairingCompatibilityVersion != *(equalCopy + 8))
@@ -321,7 +315,7 @@ LABEL_7:
     }
 
 LABEL_27:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_28;
   }
 
@@ -330,7 +324,6 @@ LABEL_27:
     goto LABEL_27;
   }
 
-  v9 = *(equalCopy + 36);
   if (self->_isOverrideActive)
   {
     if ((*(equalCopy + 36) & 1) == 0)
@@ -348,17 +341,17 @@ LABEL_24:
   osVersion = self->_osVersion;
   if (osVersion | *(equalCopy + 3))
   {
-    v7 = [(NSString *)osVersion isEqual:?];
+    v6 = [(NSString *)osVersion isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_28:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

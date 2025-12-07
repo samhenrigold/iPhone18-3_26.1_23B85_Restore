@@ -1,6 +1,6 @@
 @interface BSDispatchSource
-- (uint64_t)initWithType:(uintptr_t)type handle:(uintptr_t)handle mask:(void *)mask queue:(void *)queue configureSourceBlock:;
 - (void)dealloc;
+- (void)initWithType:(uintptr_t)type handle:(uintptr_t)handle mask:(void *)mask queue:(void *)queue configureSourceBlock:;
 - (void)invalidate;
 - (void)resume;
 @end
@@ -86,7 +86,7 @@
   [(BSDispatchSource *)&v6 dealloc];
 }
 
-- (uint64_t)initWithType:(uintptr_t)type handle:(uintptr_t)handle mask:(void *)mask queue:(void *)queue configureSourceBlock:
+- (void)initWithType:(uintptr_t)type handle:(uintptr_t)handle mask:(void *)mask queue:(void *)queue configureSourceBlock:
 {
   maskCopy = mask;
   queueCopy = queue;

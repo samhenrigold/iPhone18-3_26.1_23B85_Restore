@@ -8,7 +8,7 @@
 
 + (id)monogramForContact:(id)contact diameter:(double)diameter scale:(double)scale
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   v8 = objc_alloc_init(MEMORY[0x1E695CF18]);
   [v8 setContactType:{objc_msgSend(contactCopy, "contactType")}];
@@ -35,32 +35,30 @@
   languageCode = [currentLocale languageCode];
   v18 = [v15 characterDirectionForLanguage:languageCode];
 
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2050000000;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2050000000;
   v19 = getCNAvatarImageRenderingScopeClass_softClass;
-  v32 = getCNAvatarImageRenderingScopeClass_softClass;
+  v31 = getCNAvatarImageRenderingScopeClass_softClass;
   if (!getCNAvatarImageRenderingScopeClass_softClass)
   {
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __getCNAvatarImageRenderingScopeClass_block_invoke;
-    v28[3] = &unk_1E7CA4F30;
-    v28[4] = &v29;
-    __getCNAvatarImageRenderingScopeClass_block_invoke(v28);
-    v19 = v30[3];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __getCNAvatarImageRenderingScopeClass_block_invoke;
+    v27[3] = &unk_1E7CA4F30;
+    v27[4] = &v28;
+    __getCNAvatarImageRenderingScopeClass_block_invoke(v27);
+    v19 = v29[3];
   }
 
   v20 = v19;
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v28, 8);
   v21 = [v19 scopeWithPointSize:v18 == 2 scale:0 rightToLeft:diameter style:{diameter, scale}];
   v22 = objc_alloc_init(getCNAvatarImageRendererClass());
-  v33[0] = v8;
-  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
+  v32[0] = v8;
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
   v24 = [v22 avatarImageForContacts:v23 scope:v21];
   v25 = _weakUIImagePNGRepresentation(v24);
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }

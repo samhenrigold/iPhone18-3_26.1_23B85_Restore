@@ -58,50 +58,47 @@
 - (void)dealloc
 {
   selfCopy = self;
-  v5 = a2;
+  v4 = a2;
   if (self->_apdsHandle)
   {
-    apdsHandle = selfCopy->_apdsHandle;
     ApplePhotonDetectorServicesClose();
   }
 
-  *&v3 = MEMORY[0x1E69E5920](selfCopy->_logHandle).n128_u64[0];
-  v4.receiver = selfCopy;
-  v4.super_class = GrimaldiAPDSEventSource;
-  [(GrimaldiAPDSEventSource *)&v4 dealloc];
+  *&v2 = MEMORY[0x1E69E5920](selfCopy->_logHandle).n128_u64[0];
+  v3.receiver = selfCopy;
+  v3.super_class = GrimaldiAPDSEventSource;
+  [(GrimaldiAPDSEventSource *)&v3 dealloc];
 }
 
 - (int)requestEventOn:(id)on withNsamples:(unsigned __int8)nsamples withCallback:(id)callback
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v45 = a2;
+  v44 = a2;
   onCopy = on;
   nsamplesCopy = nsamples;
   callbackCopy = callback;
-  v41 = 0;
+  v40 = 0;
   if (callback)
   {
-    v37 = malloc_type_calloc(1uLL, 8uLL, 0x80040B8603338uLL);
-    if (v37)
+    v36 = malloc_type_calloc(1uLL, 8uLL, 0x80040B8603338uLL);
+    if (v36)
     {
-      *v37 = _Block_copy(callbackCopy);
-      if (*v37)
+      *v36 = _Block_copy(callbackCopy);
+      if (*v36)
       {
-        v31 = malloc_type_calloc(1uLL, 0x28uLL, 0x1090040653BC2AFuLL);
-        if (v31)
+        v30 = malloc_type_calloc(1uLL, 0x28uLL, 0x1090040653BC2AFuLL);
+        if (v30)
         {
-          *v31 = malloc_type_calloc(nsamplesCopy, 4uLL, 0x100004052888210uLL);
-          *(v31 + 1) = malloc_type_calloc(nsamplesCopy, 4uLL, 0x100004052888210uLL);
-          *(v31 + 2) = malloc_type_calloc(nsamplesCopy, 8uLL, 0x100004000313F17uLL);
-          *(v31 + 3) = malloc_type_calloc(nsamplesCopy, 1uLL, 0x100004077774924uLL);
-          if (*v31 && *(v31 + 1) && *(v31 + 2) && *(v31 + 3))
+          *v30 = malloc_type_calloc(nsamplesCopy, 4uLL, 0x100004052888210uLL);
+          *(v30 + 1) = malloc_type_calloc(nsamplesCopy, 4uLL, 0x100004052888210uLL);
+          *(v30 + 2) = malloc_type_calloc(nsamplesCopy, 8uLL, 0x100004000313F17uLL);
+          *(v30 + 3) = malloc_type_calloc(nsamplesCopy, 1uLL, 0x100004077774924uLL);
+          if (*v30 && *(v30 + 1) && *(v30 + 2) && *(v30 + 3))
           {
-            *(v31 + 8) = 0;
-            *(v31 + 36) = nsamplesCopy;
-            apdsHandle = selfCopy->_apdsHandle;
-            LuxAsync = ApplePhotonDetectorServicesGetLuxAsync();
-            goto LABEL_57;
+            *(v30 + 8) = 0;
+            *(v30 + 36) = nsamplesCopy;
+            return ApplePhotonDetectorServicesGetLuxAsync();
           }
 
           if (selfCopy->_logHandle)
@@ -124,171 +121,166 @@
             logHandle = inited;
           }
 
-          v27 = logHandle;
-          v26 = 16;
+          v26 = logHandle;
+          v25 = 16;
           if (os_log_type_enabled(logHandle, OS_LOG_TYPE_ERROR))
           {
-            v7 = v27;
-            v8 = v26;
-            __os_log_helper_16_0_0(v25);
-            _os_log_error_impl(&dword_1DE8E5000, v7, v8, "Failed to allocate memory for luxInfo member", v25, 2u);
+            v6 = v26;
+            v7 = v25;
+            __os_log_helper_16_0_0(v24);
+            _os_log_error_impl(&dword_1DE8E5000, v6, v7, "Failed to allocate memory for luxInfo member", v24, 2u);
           }
 
-          v41 = -536870211;
-          free(*v31);
-          free(*(v31 + 1));
-          free(*(v31 + 2));
-          free(*(v31 + 3));
-          free(v31);
+          v40 = -536870211;
+          free(*v30);
+          free(*(v30 + 1));
+          free(*(v30 + 2));
+          free(*(v30 + 3));
+          free(v30);
         }
 
         else
         {
           if (selfCopy->_logHandle)
           {
-            v14 = selfCopy->_logHandle;
+            v13 = selfCopy->_logHandle;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v13 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v12 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v13 = init_default_corebrightness_log();
+              v12 = init_default_corebrightness_log();
             }
 
-            v14 = v13;
+            v13 = v12;
           }
 
-          v30 = v14;
-          v29 = 16;
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v29 = v13;
+          v28 = 16;
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            v11 = v30;
-            v12 = v29;
-            __os_log_helper_16_0_0(v28);
-            _os_log_error_impl(&dword_1DE8E5000, v11, v12, "Failed to allocate memory for luxInfo", v28, 2u);
+            v10 = v29;
+            v11 = v28;
+            __os_log_helper_16_0_0(v27);
+            _os_log_error_impl(&dword_1DE8E5000, v10, v11, "Failed to allocate memory for luxInfo", v27, 2u);
           }
 
-          v41 = -536870211;
+          v40 = -536870211;
         }
 
-        _Block_release(*v37);
+        _Block_release(*v36);
       }
 
       else
       {
         if (selfCopy->_logHandle)
         {
-          v16 = selfCopy->_logHandle;
+          v15 = selfCopy->_logHandle;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v15 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v14 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v15 = init_default_corebrightness_log();
+            v14 = init_default_corebrightness_log();
           }
 
-          v16 = v15;
+          v15 = v14;
         }
 
-        v33 = v16;
-        v32 = OS_LOG_TYPE_ERROR;
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v32 = v15;
+        v31 = OS_LOG_TYPE_ERROR;
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          __os_log_helper_16_0_1_8_0(v48, callbackCopy);
-          _os_log_error_impl(&dword_1DE8E5000, v33, v32, "Failed to copy block from %p", v48, 0xCu);
+          __os_log_helper_16_0_1_8_0(v47, callbackCopy);
+          _os_log_error_impl(&dword_1DE8E5000, v32, v31, "Failed to copy block from %p", v47, 0xCu);
         }
 
-        v41 = -536870211;
+        v40 = -536870211;
       }
 
-      free(v37);
-      LuxAsync = v41;
-      goto LABEL_57;
+      free(v36);
+      return v40;
     }
 
     if (selfCopy->_logHandle)
     {
-      v20 = selfCopy->_logHandle;
+      v19 = selfCopy->_logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v19 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v18 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v19 = init_default_corebrightness_log();
+        v18 = init_default_corebrightness_log();
       }
 
-      v20 = v19;
+      v19 = v18;
     }
 
-    v36 = v20;
-    v35 = 16;
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v35 = v19;
+    v34 = 16;
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v17 = v36;
-      v18 = v35;
-      __os_log_helper_16_0_0(v34);
-      _os_log_error_impl(&dword_1DE8E5000, v17, v18, "Failed to allocate memory for APDSCallbackWrapper", v34, 2u);
+      v16 = v35;
+      v17 = v34;
+      __os_log_helper_16_0_0(v33);
+      _os_log_error_impl(&dword_1DE8E5000, v16, v17, "Failed to allocate memory for APDSCallbackWrapper", v33, 2u);
     }
 
-    LuxAsync = -536870211;
+    return -536870211;
   }
 
   else
   {
     if (selfCopy->_logHandle)
     {
-      v24 = selfCopy->_logHandle;
+      v23 = selfCopy->_logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v23 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v22 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v23 = init_default_corebrightness_log();
+        v22 = init_default_corebrightness_log();
       }
 
-      v24 = v23;
+      v23 = v22;
     }
 
-    v40 = v24;
-    v39 = 16;
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v39 = v23;
+    v38 = 16;
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      log = v40;
-      type = v39;
-      __os_log_helper_16_0_0(v38);
-      _os_log_error_impl(&dword_1DE8E5000, log, type, "Callback is NULL", v38, 2u);
+      log = v39;
+      type = v38;
+      __os_log_helper_16_0_0(v37);
+      _os_log_error_impl(&dword_1DE8E5000, log, type, "Callback is NULL", v37, 2u);
     }
 
-    LuxAsync = -536870911;
+    return -536870911;
   }
-
-LABEL_57:
-  *MEMORY[0x1E69E9840];
-  return LuxAsync;
 }
 
 @end

@@ -83,10 +83,9 @@ LABEL_10:
 
 - (id)newArrayFromObjectIDs
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if ((*&self->_flags & 0x20) == 0)
   {
-    v3 = *MEMORY[0x1E69E9840];
 
     return [(_PFArray *)self copy];
   }
@@ -94,52 +93,51 @@ LABEL_10:
   count = self->_count;
   if (count)
   {
-    v6 = self->_count;
+    v5 = self->_count;
   }
 
   else
+  {
+    v5 = 1;
+  }
+
+  if (count >= 0x201)
   {
     v6 = 1;
   }
 
-  if (count >= 0x201)
-  {
-    v7 = 1;
-  }
-
   else
   {
-    v7 = v6;
+    v6 = v5;
   }
 
-  v8 = v12 - ((8 * v7 + 15) & 0xFFFFFFFF0);
+  v7 = v10 - ((8 * v6 + 15) & 0xFFFFFFFF0);
   if (count >= 0x201)
   {
-    v8 = NSAllocateScannedUncollectable();
+    v7 = NSAllocateScannedUncollectable();
 LABEL_15:
     for (i = 0; i != count; ++i)
     {
-      *&v8[8 * i] = [self->_array[i] objectID];
+      *&v7[8 * i] = [self->_array[i] objectID];
     }
 
     goto LABEL_17;
   }
 
-  bzero(v12 - ((8 * v7 + 15) & 0xFFFFFFFF0), 8 * v6);
+  bzero(v10 - ((8 * v6 + 15) & 0xFFFFFFFF0), 8 * v5);
   if (count)
   {
     goto LABEL_15;
   }
 
 LABEL_17:
-  v10 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:v8 count:count];
+  v9 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:v7 count:count];
   if (count >= 0x201)
   {
-    NSZoneFree(0, v8);
+    NSZoneFree(0, v7);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v9;
 }
 
 - (_PFArray)initWithObjects:(id *)objects count:(unsigned int)count andFlags:(unsigned int)flags andContext:(id)context

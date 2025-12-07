@@ -8,29 +8,29 @@
 
 - (BOOL)report
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   records = [(TIDPBiomeEmojiTokenRecorder *)self records];
-  v5 = [records countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v5 = [records countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(records);
         }
 
-        word = [*(*(&v23 + 1) + 8 * i) word];
+        word = [*(*(&v22 + 1) + 8 * i) word];
         lowercaseString = [word lowercaseString];
 
         v11 = [v3 objectForKey:lowercaseString];
@@ -48,7 +48,7 @@
         [v3 setObject:v13 forKey:lowercaseString];
       }
 
-      v6 = [records countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v6 = [records countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v6);
@@ -70,39 +70,38 @@
   }
 
   objc_autoreleasePoolPop(context);
-  v20 = *MEMORY[0x277D85DE8];
   return v14 != 0;
 }
 
 - (id)records
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   typingSessionAligned = [(TIDPRecorder *)self typingSessionAligned];
   alignedEntries = [typingSessionAligned alignedEntries];
 
-  v6 = [alignedEntries countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v6 = [alignedEntries countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v42;
-    v34 = *v42;
+    v8 = *v41;
+    v33 = *v41;
     do
     {
       v9 = 0;
-      v35 = v7;
+      v34 = v7;
       do
       {
-        if (*v42 != v8)
+        if (*v41 != v8)
         {
           objc_enumerationMutation(alignedEntries);
         }
 
-        v10 = *(*(&v41 + 1) + 8 * v9);
+        v10 = *(*(&v40 + 1) + 8 * v9);
         originalWord = [v10 originalWord];
         editedEntry = [originalWord editedEntry];
         v13 = editedEntry;
@@ -133,46 +132,46 @@
 
         else
         {
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
           v38 = 0u;
+          v39 = 0u;
+          v36 = 0u;
+          v37 = 0u;
           alignedKeyboardInputs = [v10 alignedKeyboardInputs];
-          v22 = [alignedKeyboardInputs countByEnumeratingWithState:&v37 objects:v45 count:16];
+          v22 = [alignedKeyboardInputs countByEnumeratingWithState:&v36 objects:v44 count:16];
           if (v22)
           {
             v23 = v22;
-            v36 = v15;
-            v24 = *v38;
+            v35 = v15;
+            v24 = *v37;
             do
             {
               for (i = 0; i != v23; ++i)
               {
-                if (*v38 != v24)
+                if (*v37 != v24)
                 {
                   objc_enumerationMutation(alignedKeyboardInputs);
                 }
 
-                v26 = *(*(&v37 + 1) + 8 * i);
-                string = [v26 string];
-                _containsEmoji2 = [string _containsEmoji];
+                v26 = *(*(&v36 + 1) + 8 * i);
+                v27 = objc_msgSend_string(v26);
+                _containsEmoji2 = [v27 _containsEmoji];
 
                 if (_containsEmoji2)
                 {
-                  string2 = [v26 string];
-                  v30 = [TIDPWordRecord word:string2];
+                  v29 = objc_msgSend_string(v26);
+                  v30 = [TIDPWordRecord word:v29];
 
                   [v3 addObject:v30];
                 }
               }
 
-              v23 = [alignedKeyboardInputs countByEnumeratingWithState:&v37 objects:v45 count:16];
+              v23 = [alignedKeyboardInputs countByEnumeratingWithState:&v36 objects:v44 count:16];
             }
 
             while (v23);
-            v8 = v34;
-            v7 = v35;
-            v15 = v36;
+            v8 = v33;
+            v7 = v34;
+            v15 = v35;
           }
         }
 
@@ -180,14 +179,13 @@
       }
 
       while (v9 != v7);
-      v7 = [alignedEntries countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v7 = [alignedEntries countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
     while (v7);
   }
 
   v31 = [v3 copy];
-  v32 = *MEMORY[0x277D85DE8];
 
   return v31;
 }

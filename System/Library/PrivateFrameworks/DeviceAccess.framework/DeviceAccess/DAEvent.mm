@@ -61,9 +61,7 @@
 
 - (void)encodeWithXPCObject:(id)object
 {
-  objectCopy = object;
-  error = self->_error;
-  xdict = objectCopy;
+  xdict = object;
   CUXPCEncodeNSError();
   eventType = self->_eventType;
   if (eventType)
@@ -104,46 +102,60 @@
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
+  }
+
+  v20 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v19 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v19, &v20, "%@", v5);
+    v6 = v19;
   }
 
   eventType = self->_eventType;
   if (eventType)
   {
-    v13 = DAEventTypeToString(eventType);
-    CUAppendF();
-    v6 = v4;
+    v18 = v6;
+    v8 = DAEventTypeToString(eventType);
+    CUAppendF(&v18, &v20, "type %@", v8);
+    v9 = v18;
 
-    v4 = v6;
+    v6 = v9;
   }
 
   error = self->_error;
   if (error)
   {
-    v8 = error;
-    v14 = CUPrintNSError();
-    CUAppendF();
-    v9 = v4;
+    v17 = v6;
+    v11 = error;
+    v12 = CUPrintNSError();
+    CUAppendF(&v17, &v20, "error %@", v12);
+    v13 = v17;
 
-    v4 = v9;
+    v6 = v13;
   }
 
-  v10 = &stru_285B4C350;
-  if (v4)
+  v14 = &stru_285B4C350;
+  if (v6)
   {
-    v10 = v4;
+    v14 = v6;
   }
 
-  v11 = v10;
+  v15 = v14;
 
-  return v11;
+  return v15;
 }
 
 + (id)allocInitWithXPCObject:(id)object error:(id *)error
@@ -158,7 +170,7 @@
   if (v6 != 5 && error)
   {
     v7 = OUTLINED_FUNCTION_8();
-    *error = DAErrorF(v7, v8, v9, v10, v11, v12, v13, v14, 0);
+    *error = DAErrorF(v7, v8, 0);
   }
 
   return 0;
@@ -167,16 +179,16 @@
 - (DAEvent)initWithXPCObject:(id)object error:(id *)error
 {
   v6 = OUTLINED_FUNCTION_4_0(self, a2, object);
-  v20.receiver = v4;
-  v20.super_class = DAEvent;
-  v7 = [(DAEvent *)&v20 init];
+  v14.receiver = v4;
+  v14.super_class = DAEvent;
+  v7 = [(DAEvent *)&v14 init];
   if (!v7)
   {
     if (v5)
     {
-      v19 = objc_opt_class();
+      v13 = objc_opt_class();
       v11 = OUTLINED_FUNCTION_8();
-      DAErrorF(v11, v12, v13, v14, v15, v16, v17, v18, v19);
+      DAErrorF(v11, v12, v13);
       *v5 = v9 = 0;
       goto LABEL_7;
     }
@@ -189,7 +201,7 @@
     goto LABEL_10;
   }
 
-  v21 = 0;
+  v15 = 0;
   v8 = CUXPCDecodeSInt64RangedEx();
   if (v8 != 6)
   {
@@ -203,7 +215,7 @@ LABEL_10:
     goto LABEL_7;
   }
 
-  v7->_eventType = v21;
+  v7->_eventType = v15;
 LABEL_6:
   v9 = v7;
 LABEL_7:
@@ -213,10 +225,10 @@ LABEL_7:
 
 - (void)initWithCoder:.cold.1()
 {
-  v10 = objc_opt_class();
+  v4 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_8();
-  v9 = DAErrorF(v1, v2, v3, v4, v5, v6, v7, v8, v10);
-  OUTLINED_FUNCTION_3_0(v9);
+  v3 = DAErrorF(v1, v2, v4);
+  OUTLINED_FUNCTION_3_0(v3);
 }
 
 @end

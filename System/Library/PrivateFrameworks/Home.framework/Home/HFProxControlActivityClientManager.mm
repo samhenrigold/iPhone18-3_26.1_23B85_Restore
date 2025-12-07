@@ -70,23 +70,21 @@ void __52__HFProxControlActivityClientManager_sharedInstance__block_invoke()
 
 void __50__HFProxControlActivityClientManager_addObserver___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = NSStringFromSelector(*(a1 + 48));
     v4 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "%@ Adding observer = %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "%@ Adding observer = %@", &v6, 0x16u);
   }
 
   v5 = [*(a1 + 40) observers];
   [v5 addObject:*(a1 + 32)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObserver:(id)observer
@@ -106,65 +104,61 @@ void __50__HFProxControlActivityClientManager_addObserver___block_invoke(uint64_
 
 void __53__HFProxControlActivityClientManager_removeObserver___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = NSStringFromSelector(*(a1 + 48));
     v4 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "%@ Removing observer = %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "%@ Removing observer = %@", &v6, 0x16u);
   }
 
   v5 = [*(a1 + 40) observers];
   [v5 removeObject:*(a1 + 32)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)startMonitoringUpdatesForMediaRemoteIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = HFLogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = identifierCopy;
+    v14 = identifierCopy;
     _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "startMonitoringUpdatesForMediaRemoteIdentifier Starting monitoring for mediaRemoteIdentifier: %{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   _setupProxControlClient = [(HFProxControlActivityClientManager *)self _setupProxControlClient];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __85__HFProxControlActivityClientManager_startMonitoringUpdatesForMediaRemoteIdentifier___block_invoke;
-  v11[3] = &unk_277DF6F48;
-  objc_copyWeak(&v13, buf);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __85__HFProxControlActivityClientManager_startMonitoringUpdatesForMediaRemoteIdentifier___block_invoke;
+  v10[3] = &unk_277DF6F48;
+  objc_copyWeak(&v12, buf);
   v7 = identifierCopy;
-  v12 = v7;
-  v8 = [_setupProxControlClient flatMap:v11];
+  v11 = v7;
+  v8 = [_setupProxControlClient flatMap:v10];
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 id __85__HFProxControlActivityClientManager_startMonitoringUpdatesForMediaRemoteIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = v3;
+    v17 = v3;
     _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "startMonitoringUpdatesForMediaRemoteIdentifier ProxControl client setup completed with result: %{public}@", buf, 0xCu);
   }
 
@@ -176,15 +170,14 @@ id __85__HFProxControlActivityClientManager_startMonitoringUpdatesForMediaRemote
   [v9 startObservingMediaRemoteIdentifier:v8];
 
   [WeakRetained setHasStartedMonitoringUpdates:1];
-  v14 = MEMORY[0x277D85DD0];
-  objc_copyWeak(&v16, (a1 + 40));
+  v13 = MEMORY[0x277D85DD0];
+  objc_copyWeak(&v15, (a1 + 40));
   v10 = v6;
-  v15 = v10;
+  v14 = v10;
   v11 = [WeakRetained proxControlActivityClient];
-  [v11 setMediaRemoteUpdateHandler:&v14];
+  [v11 setMediaRemoteUpdateHandler:&v13];
 
-  objc_destroyWeak(&v16);
-  v12 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v15);
 
   return v10;
 }
@@ -212,7 +205,7 @@ void __85__HFProxControlActivityClientManager_startMonitoringUpdatesForMediaRemo
 
 - (id)startMonitoringUpdatesForAccessoryID:(id)d homeID:(id)iD
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   objc_initWeak(&location, self);
@@ -220,41 +213,39 @@ void __85__HFProxControlActivityClientManager_startMonitoringUpdatesForMediaRemo
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v21 = dCopy;
-    v22 = 2114;
-    v23 = iDCopy;
+    v20 = dCopy;
+    v21 = 2114;
+    v22 = iDCopy;
     _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "startMonitoringUpdatesForAccessoryID Starting monitoring for accessoryID: %{public}@, homeID: %{public}@", buf, 0x16u);
   }
 
   _setupProxControlClient = [(HFProxControlActivityClientManager *)self _setupProxControlClient];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __82__HFProxControlActivityClientManager_startMonitoringUpdatesForAccessoryID_homeID___block_invoke;
-  v15[3] = &unk_277DF6330;
-  objc_copyWeak(&v18, &location);
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __82__HFProxControlActivityClientManager_startMonitoringUpdatesForAccessoryID_homeID___block_invoke;
+  v14[3] = &unk_277DF6330;
+  objc_copyWeak(&v17, &location);
   v10 = iDCopy;
-  v16 = v10;
+  v15 = v10;
   v11 = dCopy;
-  v17 = v11;
-  v12 = [_setupProxControlClient flatMap:v15];
+  v16 = v11;
+  v12 = [_setupProxControlClient flatMap:v14];
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 id __82__HFProxControlActivityClientManager_startMonitoringUpdatesForAccessoryID_homeID___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v24 = v3;
+    v23 = v3;
     _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "startMonitoringUpdatesForAccessoryID ProxControl client setup completed with result: %{public}@", buf, 0xCu);
   }
 
@@ -287,7 +278,7 @@ id __82__HFProxControlActivityClientManager_startMonitoringUpdatesForAccessoryID
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v24 = v10;
+      v23 = v10;
       _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "startMonitoringUpdatesForAccessoryID Starting to observe device with identifier: %{public}@", buf, 0xCu);
     }
 
@@ -295,25 +286,23 @@ id __82__HFProxControlActivityClientManager_startMonitoringUpdatesForAccessoryID
     [v12 startObservingDeviceWithIdentifier:v10];
 
     [WeakRetained setHasStartedMonitoringUpdates:1];
-    v20 = MEMORY[0x277D85DD0];
-    objc_copyWeak(&v22, (a1 + 48));
+    v19 = MEMORY[0x277D85DD0];
+    objc_copyWeak(&v21, (a1 + 48));
     v13 = v6;
-    v21 = v13;
+    v20 = v13;
     v14 = [WeakRetained proxControlActivityClient];
-    [v14 setUpdateHandler:&v20];
+    [v14 setUpdateHandler:&v19];
 
     v15 = v13;
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 void __82__HFProxControlActivityClientManager_startMonitoringUpdatesForAccessoryID_homeID___block_invoke_23(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -322,25 +311,23 @@ void __82__HFProxControlActivityClientManager_startMonitoringUpdatesForAccessory
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v25 = [v8 count];
+    v24 = [v8 count];
     _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "startMonitoringUpdatesForAccessoryID Update handler called with %lu activities", buf, 0xCu);
   }
 
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __82__HFProxControlActivityClientManager_startMonitoringUpdatesForAccessoryID_homeID___block_invoke_24;
-  v19 = &unk_277DF3398;
-  v20 = WeakRetained;
-  v21 = v8;
-  v22 = v7;
-  v23 = v9;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __82__HFProxControlActivityClientManager_startMonitoringUpdatesForAccessoryID_homeID___block_invoke_24;
+  v18 = &unk_277DF3398;
+  v19 = WeakRetained;
+  v20 = v8;
+  v21 = v7;
+  v22 = v9;
   v12 = v9;
   v13 = v7;
   v14 = v8;
-  dispatch_async(MEMORY[0x277D85CD0], &v16);
-  [*(a1 + 32) finishWithResult:{MEMORY[0x277CBEC38], v16, v17, v18, v19, v20}];
-
-  v15 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], &v15);
+  [*(a1 + 32) finishWithResult:{MEMORY[0x277CBEC38], v15, v16, v17, v18, v19}];
 }
 
 - (void)userTappedDisambiguationButtonForContext:(id)context
@@ -361,19 +348,17 @@ void __82__HFProxControlActivityClientManager_startMonitoringUpdatesForAccessory
 
 - (void)invalidateProxClient
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = HFLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "%@ Invalidating Prox client", &v6, 0xCu);
+    _os_log_impl(&dword_20D9BF000, v3, OS_LOG_TYPE_DEFAULT, "%@ Invalidating Prox client", &v5, 0xCu);
   }
 
   proxControlActivityClient = [(HFProxControlActivityClientManager *)self proxControlActivityClient];
   [proxControlActivityClient invalidate];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_setupProxControlClient
@@ -455,7 +440,7 @@ void __61__HFProxControlActivityClientManager__setupProxControlClient__block_inv
 
 void __61__HFProxControlActivityClientManager__setupProxControlClient__block_invoke_32(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0);
   v5 = v4;
@@ -463,9 +448,9 @@ void __61__HFProxControlActivityClientManager__setupProxControlClient__block_inv
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = v3;
-      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "_setupProxControlClient PCRemoteActivityClient wasn't activated [%{public}@]", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v3;
+      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "_setupProxControlClient PCRemoteActivityClient wasn't activated [%{public}@]", &v6, 0xCu);
     }
 
     [*(a1 + 32) finishWithError:v3];
@@ -475,14 +460,12 @@ void __61__HFProxControlActivityClientManager__setupProxControlClient__block_inv
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v7) = 0;
-      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "_setupProxControlClient PCRemoteActivityClient Activated Succesfully!", &v7, 2u);
+      LOWORD(v6) = 0;
+      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "_setupProxControlClient PCRemoteActivityClient Activated Succesfully!", &v6, 2u);
     }
 
     [*(a1 + 32) finishWithResult:MEMORY[0x277CBEC38]];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetProxClient
@@ -497,7 +480,7 @@ void __61__HFProxControlActivityClientManager__setupProxControlClient__block_inv
 
 - (void)_notifyObserversForUpdatedActivities:(id)activities forProxControlID:(id)d disambiguationContext:(id)context
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   activitiesCopy = activities;
   dCopy = d;
   contextCopy = context;
@@ -506,13 +489,13 @@ void __61__HFProxControlActivityClientManager__setupProxControlClient__block_inv
   {
     v13 = NSStringFromSelector(a2);
     *buf = 138413058;
-    v32 = v13;
-    v33 = 2112;
-    v34 = activitiesCopy;
-    v35 = 2112;
-    v36 = contextCopy;
-    v37 = 2112;
-    v38 = dCopy;
+    v31 = v13;
+    v32 = 2112;
+    v33 = activitiesCopy;
+    v34 = 2112;
+    v35 = contextCopy;
+    v36 = 2112;
+    v37 = dCopy;
     _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "%@ UpdateHandler called back with activities = %@ - disambiguationContext = %@, identifier = %@", buf, 0x2Au);
   }
 
@@ -524,52 +507,50 @@ void __61__HFProxControlActivityClientManager__setupProxControlClient__block_inv
     titleText = [contextCopy titleText];
     subtitleText = [contextCopy subtitleText];
     *buf = 138413058;
-    v32 = v15;
-    v33 = 2112;
-    v34 = leadingImage;
-    v35 = 2112;
-    v36 = titleText;
-    v37 = 2112;
-    v38 = subtitleText;
+    v31 = v15;
+    v32 = 2112;
+    v33 = leadingImage;
+    v34 = 2112;
+    v35 = titleText;
+    v36 = 2112;
+    v37 = subtitleText;
     _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "\n %@ leadingImage = [%@] titleText = [%@] subTitle = [%@]", buf, 0x2Au);
   }
 
   [(HFProxControlActivityClientManager *)self setLastIdentifier:dCopy];
   [(HFProxControlActivityClientManager *)self setLastActivities:activitiesCopy];
   [(HFProxControlActivityClientManager *)self setLastDisambiguationContext:contextCopy];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   observers = [(HFProxControlActivityClientManager *)self observers];
-  v20 = [observers countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v20 = [observers countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v27;
+    v22 = *v26;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v27 != v22)
+        if (*v26 != v22)
         {
           objc_enumerationMutation(observers);
         }
 
-        v24 = *(*(&v26 + 1) + 8 * i);
+        v24 = *(*(&v25 + 1) + 8 * i);
         if ([v24 conformsToProtocol:&unk_2825BB028] && (objc_opt_respondsToSelector() & 1) != 0)
         {
           [v24 didUpdateActivities:activitiesCopy forProxControlID:dCopy disambiguationContext:contextCopy];
         }
       }
 
-      v21 = [observers countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v21 = [observers countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v21);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

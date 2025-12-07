@@ -20,7 +20,7 @@
     rectsArray = v11->_rectsArray;
     if (rectsArray)
     {
-      [(PXNewMagazineRectArray *)rectsArray rectAtIndex:v11->_numOfRects - 1, 0];
+      objc_msgSend_rectAtIndex_(rectsArray, 0);
     }
 
     v11->_height = 0;

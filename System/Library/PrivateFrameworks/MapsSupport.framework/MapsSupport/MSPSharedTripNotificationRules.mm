@@ -71,7 +71,7 @@
 
 - (MSPSharedTripNotificationRules)initWithCoder:(id)coder
 {
-  v38[4] = *MEMORY[0x277D85DE8];
+  v37[4] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = NSStringFromSelector(sel_maxPostedNotifications);
   v6 = [coderCopy decodeObjectForKey:v5];
@@ -115,11 +115,11 @@
     v11->_hasMadeFinalPush = [coderCopy decodeBoolForKey:v29];
 
     v30 = MEMORY[0x277CBEB98];
-    v38[0] = objc_opt_class();
-    v38[1] = objc_opt_class();
-    v38[2] = objc_opt_class();
-    v38[3] = objc_opt_class();
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:4];
+    v37[0] = objc_opt_class();
+    v37[1] = objc_opt_class();
+    v37[2] = objc_opt_class();
+    v37[3] = objc_opt_class();
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:4];
     v32 = [v30 setWithArray:v31];
     v33 = NSStringFromSelector(sel_intermediateArrivalWaypointPostedNotifications);
     v34 = [coderCopy decodeObjectOfClasses:v32 forKey:v33];
@@ -127,7 +127,6 @@
     v11->_intermediateArrivalWaypointPostedNotifications = v34;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -249,7 +248,7 @@
 
 - (unint64_t)currentlyNecessaryNotificationTypeForState:(id)state
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if ([(MSPSharedTripNotificationRules *)self hasMadeFinalPush])
   {
@@ -313,18 +312,18 @@
 
           else
           {
-            v40 = MSPGetSharedTripLog();
+            v40 = MSPGetSharedTripLog(maxPostedNotifications);
             if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
             {
-              v43 = 134218752;
+              v42 = 134218752;
               postedNotifications3 = [(MSPSharedTripNotificationRules *)self postedNotifications];
-              v45 = 1024;
-              v46 = v18 <= v20;
-              v47 = 1024;
-              v48 = v33;
-              v49 = 1024;
-              v50 = postedNotifications2 < v36;
-              _os_log_impl(&dword_25813A000, v40, OS_LOG_TYPE_INFO, "[SR] currentlyNecessaryNotificationType postedNotifications: %lu, minimumTimeElapsedSinceLastPush: %d minimumETADifferenceMet: %d isUnderMaximumPushLimit: %d", &v43, 0x1Eu);
+              v44 = 1024;
+              v45 = v18 <= v20;
+              v46 = 1024;
+              v47 = v33;
+              v48 = 1024;
+              v49 = postedNotifications2 < v36;
+              _os_log_impl(&dword_25813A000, v40, OS_LOG_TYPE_INFO, "[SR] currentlyNecessaryNotificationType postedNotifications: %lu, minimumTimeElapsedSinceLastPush: %d minimumETADifferenceMet: %d isUnderMaximumPushLimit: %d", &v42, 0x1Eu);
             }
 
             v5 = 0;
@@ -369,7 +368,6 @@
     }
   }
 
-  v41 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

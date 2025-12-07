@@ -9,11 +9,11 @@
 
 - (CWFAssetCreatorFromRoot)initWithPaths:(id)paths
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
-  v34.receiver = self;
-  v34.super_class = CWFAssetCreatorFromRoot;
-  v5 = [(CWFAssetCreatorFromRoot *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = CWFAssetCreatorFromRoot;
+  v5 = [(CWFAssetCreatorFromRoot *)&v33 init];
   if (!v5)
   {
     v28 = CWFGetOTAOSLog();
@@ -23,11 +23,11 @@
     }
 
     *buf = 136446722;
-    v36 = "[CWFAssetCreatorFromRoot initWithPaths:]";
-    v37 = 1024;
-    v38 = 27;
-    v39 = 2080;
-    v40 = "[CWFAssetCreatorFromRoot initWithPaths:]";
+    v35 = "[CWFAssetCreatorFromRoot initWithPaths:]";
+    v36 = 1024;
+    v37 = 27;
+    v38 = 2080;
+    v39 = "[CWFAssetCreatorFromRoot initWithPaths:]";
     v29 = "%{public}s::%d:%s: Failed to init";
     v30 = v28;
     v31 = OS_LOG_TYPE_ERROR;
@@ -83,11 +83,11 @@
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v36 = "[CWFAssetCreatorFromRoot initWithPaths:]";
-    v37 = 1024;
-    v38 = 50;
-    v39 = 2080;
-    v40 = "[CWFAssetCreatorFromRoot initWithPaths:]";
+    v35 = "[CWFAssetCreatorFromRoot initWithPaths:]";
+    v36 = 1024;
+    v37 = 50;
+    v38 = 2080;
+    v39 = "[CWFAssetCreatorFromRoot initWithPaths:]";
     v29 = "%{public}s::%d:%s: Done";
     v30 = v28;
     v31 = OS_LOG_TYPE_DEFAULT;
@@ -97,35 +97,34 @@ LABEL_4:
 
 LABEL_5:
 
-  v32 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)loadTopLevelInfoPlistFromPaths:(id)paths
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   v5 = objc_opt_new();
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v6 = pathsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v29 objects:v41 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v28 objects:v40 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v30;
+    v9 = *v29;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
+        v11 = *(*(&v28 + 1) + 8 * i);
         lastPathComponent = [v11 lastPathComponent];
         v13 = [lastPathComponent isEqualToString:@"Info.plist"];
 
@@ -135,7 +134,7 @@ LABEL_5:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v29 objects:v41 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v28 objects:v40 count:16];
     }
 
     while (v8);
@@ -175,17 +174,15 @@ LABEL_5:
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136446978;
-    v34 = "[CWFAssetCreatorFromRoot loadTopLevelInfoPlistFromPaths:]";
-    v35 = 1024;
-    v36 = 89;
-    v37 = 2080;
-    v38 = "[CWFAssetCreatorFromRoot loadTopLevelInfoPlistFromPaths:]";
-    v39 = 2112;
-    v40 = v16;
+    v33 = "[CWFAssetCreatorFromRoot loadTopLevelInfoPlistFromPaths:]";
+    v34 = 1024;
+    v35 = 89;
+    v36 = 2080;
+    v37 = "[CWFAssetCreatorFromRoot loadTopLevelInfoPlistFromPaths:]";
+    v38 = 2112;
+    v39 = v16;
     _os_log_impl(&dword_1E0BBF000, v26, OS_LOG_TYPE_DEBUG, "%{public}s::%d:%s: Found Info.plist with data: %@", buf, 0x26u);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

@@ -160,7 +160,7 @@
       v83 = objc_msgSend_variableAtIndex_name_(v52, v79, v78, v80, v81, i, @"AmbientColor");
       if (v58)
       {
-        objc_msgSend_ambientColor(v58, v82, v84, v85, v86);
+        objc_msgSend_ambientColor(v58, v84, v85, v86);
         v87 = v120;
       }
 
@@ -176,7 +176,7 @@
       v93 = objc_msgSend_variableAtIndex_name_(v52, v88, v89, v90, v91, i, @"DiffuseColor");
       if (v58)
       {
-        objc_msgSend_diffuseColor(v58, v92, v94, v95, v96);
+        objc_msgSend_diffuseColor(v58, v94, v95, v96);
         v97 = v120;
       }
 
@@ -192,7 +192,7 @@
       v103 = objc_msgSend_variableAtIndex_name_(v52, v98, v99, v100, v101, i, @"SpecularColor");
       if (v58)
       {
-        objc_msgSend_specularColor(v58, v102, v104, v105, v106);
+        objc_msgSend_specularColor(v58, v104, v105, v106);
         v107 = v120;
       }
 
@@ -208,7 +208,7 @@
       v113 = objc_msgSend_variableAtIndex_name_(v52, v108, v109, v110, v111, i, @"Attenuation");
       if (v58)
       {
-        objc_msgSend_attenuation(v58, v112, v114, v115, v116);
+        objc_msgSend_attenuation(v58, v114, v115, v116);
       }
 
       else
@@ -272,7 +272,7 @@
       if (v82)
       {
         v12 = v61;
-        objc_msgSend_position(v82, v83, v84, v85, v86, &unk_28857A258);
+        objc_msgSend_position(v82, v84, v85, v86, &unk_28857A258);
       }
 
       else
@@ -352,7 +352,7 @@
       v88 = v83;
       if (v83)
       {
-        objc_msgSend_direction(v83, v84, v85, v86, v87, &unk_28857A2D0);
+        objc_msgSend_direction(v83, v85, v86, v87, &unk_28857A2D0);
       }
 
       else

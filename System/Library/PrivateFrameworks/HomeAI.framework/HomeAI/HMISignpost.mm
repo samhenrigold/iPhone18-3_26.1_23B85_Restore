@@ -11,7 +11,7 @@
 
 - (HMISignpost)initWithName:(id)name deferred:(BOOL)deferred
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v16.receiver = self;
   v16.super_class = HMISignpost;
@@ -28,11 +28,12 @@
 
     v12 = v7->_identifier;
     v17 = 0;
-    v18[0] = 0;
-    v18[1] = 0;
-    [(NSUUID *)v12 getUUIDBytes:v18];
-    v13 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v18 length:16 freeWhenDone:0];
-    [v13 getBytes:&v17 range:{objc_msgSend(v13, "length") - 8, 8}];
+    v18 = 0;
+    v19 = 0;
+    [(NSUUID *)v12 getUUIDBytes:?];
+    v13 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:? length:? freeWhenDone:?];
+    [v13 length];
+    [v13 getBytes:? range:?];
 
     v14 = v17;
     if (v17 + 1 < 2)
@@ -54,7 +55,7 @@
 {
   v3 = +[HMIPreference sharedInstance];
   v4 = 0;
-  if ([v3 BOOLPreferenceForKey:@"enableSignposts" defaultValue:0])
+  if ([v3 BOOLPreferenceForKey:? defaultValue:?])
   {
     signpostLog = [(HMISignpost *)self signpostLog];
     v4 = os_signpost_enabled(signpostLog);
@@ -133,7 +134,7 @@
   v2 = MEMORY[0x277CCACA8];
   name = self->_name;
   uUIDString = [(NSUUID *)self->_identifier UUIDString];
-  v5 = [v2 stringWithFormat:@"%@ (%@)", name, uUIDString];
+  v5 = [v2 stringWithFormat:name, uUIDString];
 
   return v5;
 }

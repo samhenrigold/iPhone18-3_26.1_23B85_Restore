@@ -863,7 +863,7 @@ void __43__NUIdentifier_identifierRegularExpression__block_invoke()
   identifierRegularExpression = [self identifierRegularExpression];
   v14 = [identifierRegularExpression firstMatchInString:v11 options:0 range:{0, v12}];
 
-  if (v14 && ([v14 range], v12 == v15) && objc_msgSend(v14, "numberOfRanges") == 4)
+  if (v14 && (objc_msgSend_range(v14), v12 == v15) && [v14 numberOfRanges] == 4)
   {
     v16 = [v14 rangeAtIndex:1];
     if (namespace && v16 != 0x7FFFFFFFFFFFFFFFLL)

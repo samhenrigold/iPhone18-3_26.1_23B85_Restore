@@ -349,7 +349,7 @@ LABEL_25:
         self = objc_opt_class();
         if (self)
         {
-          self = [(PVTransformAnimationInfo *)self transformAnimInfoForScale:LODWORD(selfCopy[4].translation.x) atNormalizedLocationInView:0 minScale:v16 currentScale:x currentTranslation:y mediaAspectRatio:selfCopy[3].translation.y viewAspectRatio:rotation fillMode:v20 outNeedsUpdate:v21, *&selfCopy[3].time.epoch, *&selfCopy[3].translation.x];
+          self = objc_msgSend_transformAnimInfoForScale_atNormalizedLocationInView_minScale_currentScale_currentTranslation_mediaAspectRatio_viewAspectRatio_fillMode_outNeedsUpdate_(self, v16, x, y, selfCopy[3].translation.y, rotation, v20, v21, *&selfCopy[3].time.epoch, *&selfCopy[3].translation.x);
         }
 
         else

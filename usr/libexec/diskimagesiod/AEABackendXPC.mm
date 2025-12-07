@@ -37,7 +37,7 @@
     baseBackendXPC = v9->_baseBackendXPC;
     if (baseBackendXPC)
     {
-      [baseBackendXPC backend];
+      objc_msgSend_backend(baseBackendXPC);
     }
 
     sub_1000E8A18();

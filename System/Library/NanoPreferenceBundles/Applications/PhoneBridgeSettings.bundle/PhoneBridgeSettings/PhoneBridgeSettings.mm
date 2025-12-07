@@ -5,16 +5,16 @@ os_log_t define_nph_log(char *category)
   return v1;
 }
 
-id nph_general_log()
+id nph_general_log(uint64_t a1)
 {
   if (qword_C610 != -1)
   {
     sub_3300();
   }
 
-  v1 = qword_C608;
+  v2 = qword_C608;
 
-  return v1;
+  return v2;
 }
 
 void sub_10E0(id a1)
@@ -24,16 +24,16 @@ void sub_10E0(id a1)
   _objc_release_x1();
 }
 
-id nph_sos_general_log()
+id nph_sos_general_log(uint64_t a1)
 {
   if (qword_C620 != -1)
   {
     sub_3314();
   }
 
-  v1 = qword_C618;
+  v2 = qword_C618;
 
-  return v1;
+  return v2;
 }
 
 void sub_1168(id a1)
@@ -43,16 +43,16 @@ void sub_1168(id a1)
   _objc_release_x1();
 }
 
-id nph_sos_newton_log()
+id nph_sos_newton_log(uint64_t a1)
 {
   if (qword_C630 != -1)
   {
     sub_3328();
   }
 
-  v1 = qword_C628;
+  v2 = qword_C628;
 
-  return v1;
+  return v2;
 }
 
 void sub_11F0(id a1)
@@ -62,7 +62,7 @@ void sub_11F0(id a1)
   _objc_release_x1();
 }
 
-uint64_t NPHDeviceOSIsInternalInstall()
+uint64_t NPHDeviceOSIsInternalInstall(uint64_t a1, uint64_t a2)
 {
   if (qword_C638 != -1)
   {
@@ -72,7 +72,7 @@ uint64_t NPHDeviceOSIsInternalInstall()
   return byte_C640;
 }
 
-uint64_t NPHDeviceHasBaseband()
+uint64_t NPHDeviceHasBaseband(uint64_t a1, uint64_t a2)
 {
   if (qword_C648 != -1)
   {
@@ -90,7 +90,7 @@ id NPHIsCerberusEnabled()
   return v1;
 }
 
-uint64_t NPHIsWalkaboutEnabled()
+uint64_t NPHIsWalkaboutEnabled(uint64_t a1, uint64_t a2)
 {
   if (qword_C658 != -1)
   {
@@ -169,10 +169,10 @@ void NPHSetTmpDirPrefix()
 
   if ((v2 & 1) == 0)
   {
-    v3 = nph_general_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = nph_general_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_3378(v3);
+      sub_3378(v4);
     }
   }
 }
@@ -247,16 +247,16 @@ void sub_1EDC(uint64_t a1)
   [v4 addObserver:*(a1 + 32) selector:"_NPHIdleTimeNotification:" name:@"NPHIdleNotification" object:0];
 }
 
-id NPHBSFrameworkBundle()
+id NPHBSFrameworkBundle(uint64_t a1)
 {
   if (qword_C698 != -1)
   {
     sub_3430();
   }
 
-  v1 = qword_C690;
+  v2 = qword_C690;
 
-  return v1;
+  return v2;
 }
 
 void sub_22CC(id a1)

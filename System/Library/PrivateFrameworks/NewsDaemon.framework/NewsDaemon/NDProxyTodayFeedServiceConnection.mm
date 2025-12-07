@@ -31,24 +31,21 @@
 
 - (void)pushInterest
 {
-  v3 = OBJC_IVAR___NDProxyTodayFeedServiceConnection_xpcConnectionLock;
-  v4 = *(&self->super.isa + OBJC_IVAR___NDProxyTodayFeedServiceConnection_xpcConnectionLock);
   selfCopy = self;
 
   sub_25BE4B7AC();
 
-  v5 = *(&selfCopy->super.isa + OBJC_IVAR___NDProxyTodayFeedServiceConnection_xpcConnectionInterest);
-  v6 = __OFADD__(v5, 1);
-  v7 = (v5 + 1);
-  if (v6)
+  v2 = *(&selfCopy->super.isa + OBJC_IVAR___NDProxyTodayFeedServiceConnection_xpcConnectionInterest);
+  v3 = __OFADD__(v2, 1);
+  v4 = (v2 + 1);
+  if (v3)
   {
     __break(1u);
   }
 
   else
   {
-    *(&selfCopy->super.isa + OBJC_IVAR___NDProxyTodayFeedServiceConnection_xpcConnectionInterest) = v7;
-    v8 = *(&self->super.isa + v3);
+    *(&selfCopy->super.isa + OBJC_IVAR___NDProxyTodayFeedServiceConnection_xpcConnectionInterest) = v4;
 
     sub_25BE4B7BC();
   }

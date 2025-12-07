@@ -82,28 +82,27 @@
 
     if (v4)
     {
-      osTransaction = self->_osTransaction;
-      v6 = os_transaction_copy_description();
-      v7 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v5 = os_transaction_copy_description();
+      v6 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136380931;
-        v10 = v6;
-        v11 = 2048;
+        v9 = v5;
+        v10 = 2048;
         selfCopy = self;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Ending transaction %{private}s(%p)", buf, 0x16u);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Ending transaction %{private}s(%p)", buf, 0x16u);
       }
 
-      if (v6)
+      if (v5)
       {
-        free(v6);
+        free(v5);
       }
     }
   }
 
-  v8.receiver = self;
-  v8.super_class = NavdOsTransaction;
-  [(NavdOsTransaction *)&v8 dealloc];
+  v7.receiver = self;
+  v7.super_class = NavdOsTransaction;
+  [(NavdOsTransaction *)&v7 dealloc];
 }
 
 @end

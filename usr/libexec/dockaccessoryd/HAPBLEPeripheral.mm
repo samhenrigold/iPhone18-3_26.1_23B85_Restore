@@ -149,7 +149,7 @@
       if (!cbPeripheral2)
       {
         selfCopy = self;
-        v16 = sub_10007FAA0();
+        v16 = sub_10007FAA0(selfCopy);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           v17 = sub_10007FAFC(selfCopy);

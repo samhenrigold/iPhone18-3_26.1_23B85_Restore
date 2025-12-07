@@ -13,7 +13,7 @@
   v18 = metadataCopy;
   if (!typeCopy)
   {
-    v27 = sub_10007FAA0();
+    v27 = sub_10007FAA0(0);
     if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_20;
@@ -34,7 +34,7 @@ LABEL_19:
 
   if (!dCopy)
   {
-    v27 = sub_10007FAA0();
+    v27 = sub_10007FAA0(0);
     if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_20;
@@ -52,7 +52,7 @@ LABEL_19:
 
   if (!serviceTypeCopy)
   {
-    v27 = sub_10007FAA0();
+    v27 = sub_10007FAA0(0);
     if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_20;
@@ -70,7 +70,7 @@ LABEL_19:
 
   if (!properties)
   {
-    v27 = sub_10007FAA0();
+    v27 = sub_10007FAA0(0);
     if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_20;
@@ -88,7 +88,7 @@ LABEL_19:
 
   if (!metadataCopy)
   {
-    v27 = sub_10007FAA0();
+    v27 = sub_10007FAA0(0);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       v28 = sub_10007FAFC(0);

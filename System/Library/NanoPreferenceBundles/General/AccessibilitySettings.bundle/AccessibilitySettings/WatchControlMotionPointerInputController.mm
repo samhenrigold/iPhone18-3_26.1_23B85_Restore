@@ -13,13 +13,40 @@
 - (void)setMotionPointerSensitivity:(id)sensitivity;
 - (void)specifier:(id)specifier setValue:(double)value;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WatchControlMotionPointerInputController
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v17[2] = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = WatchControlMotionPointerInputController;
+  [(AccessibilityBridgeBaseController *)&v16 viewWillAppear:appear];
+  v3 = [WatchControlStringLookup stringResourceForKey:@"input.source.motion.pointer"];
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v5 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v4 bundleURL];
+  v8 = [v5 initWithKey:@"WATCH_CONTROL_ROW_TITLE" table:@"AccessibilitySettings-watchcontrol" locale:currentLocale bundleURL:bundleURL];
+
+  v9 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v4 bundleURL];
+  v12 = [v9 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v13 = MEMORY[0x277CF3470];
+  v17[0] = v12;
+  v17[1] = v8;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v15 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=WATCH_CONTROL_ROW_ID/MOTION_POINTER_ID"];
+  [v13 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v3 localizedNavigationComponents:v14 deepLink:v15];
+}
+
 - (id)inputSourceCustomizationSpecifiers
 {
-  v74[4] = *MEMORY[0x277D85DE8];
+  v73[4] = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   v4 = MEMORY[0x277D3FAD8];
   v5 = settingsLocString(@"WATCH_CONTROL_MOTION_POINTER_SENSITIVITY", @"AccessibilitySettings-watchcontrol");
@@ -47,7 +74,7 @@
   v16 = AXHareImage();
   [v7 setProperty:v16 forKey:*MEMORY[0x277D400E0]];
 
-  v68 = v7;
+  v67 = v7;
   [array addObject:v7];
   v17 = MEMORY[0x277D3FAD8];
   v18 = settingsLocString(@"WATCH_CONTROL_MOTION_POINTER_ACTIVATION_DURATION", @"AccessibilitySettings-watchcontrol");
@@ -57,7 +84,7 @@
   selfCopy = self;
   v20 = [MEMORY[0x277D3FAD8] ax_stepperSpecifierWithDelegate:self];
   [v20 setIdentifier:@"ActivationDurationSpecifier"];
-  v67 = v20;
+  v66 = v20;
   [array addObject:v20];
   v21 = MEMORY[0x277D3FAD8];
   v22 = settingsLocString(@"WATCH_CONTROL_MOTION_POINTER_MOVEMENT_TOLERANCE", @"AccessibilitySettings-watchcontrol");
@@ -72,7 +99,7 @@
 
   v28 = 0;
   v29 = 0;
-  v71 = *MEMORY[0x277D401A8];
+  v70 = *MEMORY[0x277D401A8];
   do
   {
     v30 = MEMORY[0x277D3FAD8];
@@ -80,7 +107,7 @@
     v32 = [v30 preferenceSpecifierNamed:v31 target:0 set:0 get:0 detail:0 cell:3 edit:0];
 
     v33 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v29];
-    [v32 setProperty:v33 forKey:v71];
+    [v32 setProperty:v33 forKey:v70];
 
     [v25 addObject:v32];
     if (motionPointerMovementTolerance == v29)
@@ -94,8 +121,8 @@
   }
 
   while (v29 != 3);
-  v65 = v28;
-  v66 = v23;
+  v64 = v28;
+  v65 = v23;
   [v23 setProperty:v28 forKey:*MEMORY[0x277D40090]];
   v35 = MEMORY[0x277D3FAD8];
   v36 = settingsLocString(@"WATCH_CONTROL_MOTION_POINTER_EDGE_BEHAVIOR_TITLE", @"AccessibilitySettings-watchcontrol");
@@ -117,22 +144,22 @@
     v46 = [v44 preferenceSpecifierNamed:v45 target:selfCopy set:0 get:sel__actionValueForSpecifier_ detail:objc_opt_class() cell:2 edit:0];
 
     v47 = WCNameForAction();
-    [v46 setProperty:v47 forKey:v71];
+    [v46 setProperty:v47 forKey:v70];
 
-    v73[0] = @"MotionPointerEdge";
+    v72[0] = @"MotionPointerEdge";
     v48 = [MEMORY[0x277CCABB0] numberWithInteger:i];
-    v74[0] = v48;
-    v73[1] = @"Action";
+    v73[0] = v48;
+    v72[1] = @"Action";
     v49 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
-    v74[1] = v49;
-    v74[2] = selfCopy;
-    v73[2] = @"ActionDetailDelegate";
-    v73[3] = @"AdditionalActions";
+    v73[1] = v49;
+    v73[2] = selfCopy;
+    v72[2] = @"ActionDetailDelegate";
+    v72[3] = @"AdditionalActions";
     v50 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:WCDefaultActionForMotionPointerEdge()];
-    v72 = v50;
-    v51 = [MEMORY[0x277CBEA60] arrayWithObjects:&v72 count:1];
-    v74[3] = v51;
-    v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:4];
+    v71 = v50;
+    v51 = [MEMORY[0x277CBEA60] arrayWithObjects:&v71 count:1];
+    v73[3] = v51;
+    v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:4];
     [v46 setUserInfo:v52];
 
     v53 = [(WatchControlMotionPointerInputController *)selfCopy specifierIdentifierForPointerEdge:i];
@@ -165,7 +192,6 @@
   [v25 addObject:v61];
   v62 = v25;
 
-  v63 = *MEMORY[0x277D85DE8];
   return v25;
 }
 

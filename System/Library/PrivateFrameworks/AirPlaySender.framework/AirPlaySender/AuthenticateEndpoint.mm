@@ -8,174 +8,174 @@ void __mfiMutualAuth_AuthenticateEndpoint_block_invoke(uint64_t a1)
   v1 = a1;
   v2 = *(a1 + 40);
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v69 = 0;
-  v4 = 0x27CFEF000uLL;
+  v85[0] = 0;
+  v6 = 0x27CFEF000uLL;
   if (gLogCategory_APAuthenticationClientMFiMutualAuth <= 50 && (gLogCategory_APAuthenticationClientMFiMutualAuth != -1 || _LogCategory_Initialize()))
   {
-    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_1();
+    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_1(v2, v3, v4);
   }
 
-  v5 = CMBaseObjectGetDerivedStorage();
+  v7 = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APAuthenticationClientMFiMutualAuth <= 50 && (gLogCategory_APAuthenticationClientMFiMutualAuth != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APAuthenticationClientMFiMutualAuth, "OSStatus mfiMutualAuth_initMFi4(APAuthenticationClientRef)", 33554482, "[%{ptr}] Initializing MFi4 Authentication (accTransportClientEndpoint: [%{ptr}])\n", v2, *(v7 + 8));
   }
 
   FigSimpleMutexLock();
   mfiMutualAuth_setAndLogAuthState(v2, 1);
   FigSimpleMutexUnlock();
-  v6 = *(v5 + 8);
+  v8 = *(v7 + 8);
   dataPointerOut[0] = MEMORY[0x277D85DD0];
   dataPointerOut[1] = 0x40000000;
   dataPointerOut[2] = __mfiMutualAuth_initMFi4_block_invoke;
   dataPointerOut[3] = &__block_descriptor_tmp_21;
   dataPointerOut[4] = v2;
-  dataPointerOut[5] = v5;
-  v7 = APAccTransportClientEndpointActivate(v6, 14, 1, dataPointerOut);
-  v8 = MEMORY[0x277CBECE8];
-  v61 = v1;
-  if (v7)
+  dataPointerOut[5] = v7;
+  v9 = APAccTransportClientEndpointActivate(v8, 14, 1, dataPointerOut);
+  v10 = MEMORY[0x277CBECE8];
+  v77 = v1;
+  if (v9)
   {
-    v21 = v7;
-    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_2();
+    v25 = v9;
+    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_2(v9);
 LABEL_169:
     APSLogErrorAt();
-    v13 = 0;
+    v15 = 0;
     goto LABEL_72;
   }
 
-  v9 = *(v5 + 8);
+  v11 = *(v7 + 8);
   lengthAtOffsetOut[0] = MEMORY[0x277D85DD0];
   lengthAtOffsetOut[1] = 0x40000000;
   lengthAtOffsetOut[2] = __mfiMutualAuth_initMFi4_block_invoke_2;
   lengthAtOffsetOut[3] = &__block_descriptor_tmp_25;
-  lengthAtOffsetOut[4] = v5;
+  lengthAtOffsetOut[4] = v7;
   lengthAtOffsetOut[5] = v2;
-  v10 = APAccTransportClientEndpointSetAuthStatusHandler(v9, lengthAtOffsetOut);
-  if (v10)
+  v12 = APAccTransportClientEndpointSetAuthStatusHandler(v11, lengthAtOffsetOut);
+  if (v12)
   {
-    v21 = v10;
-    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_3();
+    v25 = v12;
+    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_3(v12);
     goto LABEL_169;
   }
 
-  v11 = *(v5 + 8);
+  v13 = *(v7 + 8);
   cf[0] = MEMORY[0x277D85DD0];
   cf[1] = 0x40000000;
   cf[2] = __mfiMutualAuth_initMFi4_block_invoke_3;
   cf[3] = &__block_descriptor_tmp_28;
   cf[4] = v2;
-  cf[5] = v5;
-  v12 = APAccTransportClientEndpointSetSecureTunnelDataReceiveHandler(v11, cf);
-  if (v12)
+  cf[5] = v7;
+  v14 = APAccTransportClientEndpointSetSecureTunnelDataReceiveHandler(v13, cf);
+  if (v14)
   {
-    v21 = v12;
-    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_4();
+    v25 = v14;
+    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_4(v14);
     goto LABEL_169;
   }
 
-  v59 = DerivedStorage;
-  v13 = 0;
-  v14 = *v8;
-  v15 = *MEMORY[0x277CBED00];
+  v75 = DerivedStorage;
+  v15 = 0;
+  v16 = *v10;
+  v17 = *MEMORY[0x277CBED00];
   while (1)
   {
-    if (v13)
+    if (v15)
     {
-      CFRelease(v13);
+      CFRelease(v15);
     }
 
-    v16 = v69;
-    v17 = CMBaseObjectGetDerivedStorage();
+    v18 = v85[0];
+    v21 = CMBaseObjectGetDerivedStorage();
     dataPointerOut[0] = 0;
     lengthAtOffsetOut[0] = 0;
     if (gLogCategory_APAuthenticationClientMFiMutualAuth <= 30 && (gLogCategory_APAuthenticationClientMFiMutualAuth != -1 || _LogCategory_Initialize()))
     {
-      __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_5();
-      if (!v16)
+      __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_5(v2);
+      if (!v18)
       {
 LABEL_29:
         if (gLogCategory_APAuthenticationClientMFiMutualAuth <= 50 && (gLogCategory_APAuthenticationClientMFiMutualAuth != -1 || _LogCategory_Initialize()))
         {
-          __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_9();
+          __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_9(v2, v19, v20);
         }
 
-        v19 = 0;
+        v23 = 0;
         goto LABEL_33;
       }
     }
 
-    else if (!v16)
+    else if (!v18)
     {
       goto LABEL_29;
     }
 
     FigSimpleMutexLock();
-    if (*(v17 + 120) != 2)
+    if (*(v21 + 120) != 2)
     {
       FigSimpleMutexUnlock();
       APSLogErrorAt();
-      v13 = 0;
-      v21 = -71803;
+      v15 = 0;
+      v25 = 4294895493;
       goto LABEL_65;
     }
 
     mfiMutualAuth_setAndLogAuthState(v2, 1);
     FigSimpleMutexUnlock();
-    CMBlockBufferGetDataPointer(v16, 0, lengthAtOffsetOut, 0, dataPointerOut);
+    CMBlockBufferGetDataPointer(v18, 0, lengthAtOffsetOut, 0, dataPointerOut);
     if (!dataPointerOut[0] || !lengthAtOffsetOut[0])
     {
       __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_8();
-      v13 = 0;
-      v21 = -71804;
+      v15 = 0;
+      v25 = 4294895492;
       goto LABEL_65;
     }
 
-    v18 = CFDataCreateWithBytesNoCopy(v14, dataPointerOut[0], lengthAtOffsetOut[0], v15);
-    if (!v18)
+    v22 = CFDataCreateWithBytesNoCopy(v16, dataPointerOut[0], lengthAtOffsetOut[0], v17);
+    if (!v22)
     {
       __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_7();
-      v13 = 0;
-      v21 = -71800;
+      v15 = 0;
+      v25 = 4294895496;
       goto LABEL_65;
     }
 
-    v19 = v18;
+    v23 = v22;
     if (gLogCategory_APAuthenticationClientMFiMutualAuth <= 30 && (gLogCategory_APAuthenticationClientMFiMutualAuth != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAuthenticationClientMFiMutualAuth, "OSStatus mfiMutualAuth_exchangeMFi4(APAuthenticationClientRef, CMBlockBufferRef, CFDataRef *, Boolean *)", 33554462, "[%{ptr}] Forwarding %zu bytes to accTransportClientEndpoint\n", v2, lengthAtOffsetOut[0]);
     }
 
-    v20 = APAccTransportClientEndpointForwardData(*(v17 + 8), v19);
-    if (v20)
+    v24 = APAccTransportClientEndpointForwardData(*(v21 + 8), v23);
+    if (v24)
     {
-      v21 = v20;
-      __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_6();
-      v22 = 0;
-      v13 = 0;
+      v25 = v24;
+      __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_6(v24);
+      v26 = 0;
+      v15 = 0;
 LABEL_46:
-      CFRelease(v19);
+      CFRelease(v23);
       goto LABEL_47;
     }
 
 LABEL_33:
-    dispatch_semaphore_wait(*(v17 + 88), 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_semaphore_wait(*(v21 + 88), 0xFFFFFFFFFFFFFFFFLL);
     if (gLogCategory_APAuthenticationClientMFiMutualAuth <= 50 && (gLogCategory_APAuthenticationClientMFiMutualAuth != -1 || _LogCategory_Initialize()))
     {
-      __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_10();
+      __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_10(v2, v27, v28);
     }
 
     FigSimpleMutexLock();
-    v13 = 0;
-    v23 = *(v17 + 120);
-    if ((v23 - 3) < 2)
+    v15 = 0;
+    v29 = *(v21 + 120);
+    if ((v29 - 3) < 2)
     {
-      v22 = 1;
+      v26 = 1;
 LABEL_44:
-      v21 = 0;
+      v25 = 0;
 LABEL_45:
       FigSimpleMutexUnlock();
-      if (!v19)
+      if (!v23)
       {
         goto LABEL_47;
       }
@@ -183,46 +183,46 @@ LABEL_45:
       goto LABEL_46;
     }
 
-    if (v23 != 2)
+    if (v29 != 2)
     {
-      v22 = 0;
-      v21 = -71803;
+      v26 = 0;
+      v25 = 4294895493;
       goto LABEL_45;
     }
 
-    v24 = *(v17 + 112);
-    if (v24)
+    v30 = *(v21 + 112);
+    if (v30)
     {
-      v13 = CFRetain(v24);
-      v25 = *(v17 + 112);
-      if (v25)
+      v15 = CFRetain(v30);
+      v31 = *(v21 + 112);
+      if (v31)
       {
-        CFRelease(v25);
-        v22 = 0;
-        *(v17 + 112) = 0;
+        CFRelease(v31);
+        v26 = 0;
+        *(v21 + 112) = 0;
       }
 
       else
       {
-        v22 = 0;
+        v26 = 0;
       }
 
       goto LABEL_44;
     }
 
     __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_11();
-    v22 = 0;
-    v13 = 0;
-    v21 = -71802;
-    if (v19)
+    v26 = 0;
+    v15 = 0;
+    v25 = 4294895494;
+    if (v23)
     {
       goto LABEL_46;
     }
 
 LABEL_47:
-    if (v21)
+    if (v25)
     {
-      v4 = 0x27CFEF000;
+      v6 = 0x27CFEF000;
 LABEL_65:
       FigSimpleMutexLock();
       mfiMutualAuth_setAndLogAuthState(v2, 4);
@@ -231,80 +231,80 @@ LABEL_65:
       goto LABEL_66;
     }
 
-    if (v22)
+    if (v26)
     {
       break;
     }
 
-    if (v69)
+    if (v85[0])
     {
-      CFRelease(v69);
-      v69 = 0;
+      CFRelease(v85[0]);
+      v85[0] = 0;
     }
 
-    v21 = mfiMutualAuth_sendMessageMFi4(v2, v13, 0);
-    v4 = 0x27CFEF000uLL;
+    v25 = mfiMutualAuth_sendMessageMFi4(v2, v15, 0, v85);
+    v6 = 0x27CFEF000uLL;
     if (gLogCategory_APAuthenticationClientMFiMutualAuth <= 20 && (gLogCategory_APAuthenticationClientMFiMutualAuth != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAuthenticationClientMFiMutualAuth, "OSStatus mfiMutualAuth_authenticateEndpointInternal(APAuthenticationClientRef)", 33554452, "[%{ptr}] Response from Accessory for 'MFi' message: %@, err: %#m\n", v2, v85[0], v25);
     }
 
-    if (v21)
+    if (v25)
     {
-      __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_13();
+      __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_13(v25);
 LABEL_66:
-      v8 = MEMORY[0x277CBECE8];
+      v10 = MEMORY[0x277CBECE8];
       goto LABEL_72;
     }
   }
 
   FigSimpleMutexLock();
-  v8 = MEMORY[0x277CBECE8];
-  if (*(v59 + 120) == 3)
+  v10 = MEMORY[0x277CBECE8];
+  if (*(v75 + 120) == 3)
   {
-    v21 = 0;
-    v4 = 0x27CFEF000;
+    v25 = 0;
+    v6 = 0x27CFEF000;
   }
 
   else
   {
-    v4 = 0x27CFEF000uLL;
+    v6 = 0x27CFEF000uLL;
     if (gLogCategory_APAuthenticationClientMFiMutualAuth <= 90 && (gLogCategory_APAuthenticationClientMFiMutualAuth != -1 || _LogCategory_Initialize()))
     {
-      __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_12();
+      __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_12(v2, v32, v33);
     }
 
-    v21 = -71802;
+    v25 = 4294895494;
   }
 
   FigSimpleMutexUnlock();
 LABEL_72:
-  if (v69)
+  if (v85[0])
   {
-    CFRelease(v69);
+    CFRelease(v85[0]);
   }
 
-  if (v13)
+  if (v15)
   {
-    CFRelease(v13);
+    CFRelease(v15);
   }
 
-  v26 = *(v4 + 2848);
-  if (v21)
+  v34 = *(v6 + 2848);
+  if (v25)
   {
-    if (v26 <= 90 && (v26 != -1 || _LogCategory_Initialize()))
+    if (v34 <= 90 && (v34 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAuthenticationClientMFiMutualAuth, "OSStatus mfiMutualAuth_authenticateEndpointInternal(APAuthenticationClientRef)", 33554522, "[%{ptr}] ### MFi failed: %#m\n", v2, v25);
     }
 
-    if (v21 == 200403)
+    if (v25 == 200403)
     {
-      v27 = -71145;
+      v35 = -71145;
     }
 
     else
     {
-      v27 = -71802;
+      v35 = -71802;
     }
 
     FigSimpleMutexLock();
@@ -314,187 +314,187 @@ LABEL_72:
 
   else
   {
-    if (v26 <= 50 && (v26 != -1 || _LogCategory_Initialize()))
+    if (v34 <= 50 && (v34 != -1 || _LogCategory_Initialize()))
     {
-      __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_14();
+      __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_14(v2, v72, v73);
     }
 
-    v27 = 0;
+    v35 = 0;
   }
 
-  *(*(*(v1 + 32) + 8) + 24) = v27;
+  *(*(*(v1 + 32) + 8) + 24) = v35;
   if (*(*(*(v1 + 32) + 8) + 24))
   {
     return;
   }
 
-  v28 = *(v1 + 40);
-  v29 = CMBaseObjectGetDerivedStorage();
+  v36 = *(v1 + 40);
+  v37 = CMBaseObjectGetDerivedStorage();
   cf[0] = 0;
-  v68 = 0;
-  v69 = 0;
-  v67 = 0;
-  v30 = *v8;
-  Mutable = CFDictionaryCreateMutable(*v8, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v65 = 0;
-  v66 = 0;
-  v32 = *(v4 + 2848);
-  if (v32 <= 50 && (v32 != -1 || _LogCategory_Initialize()))
+  v84 = 0;
+  v85[0] = 0;
+  v83 = 0;
+  v38 = *v10;
+  Mutable = CFDictionaryCreateMutable(*v10, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v81 = 0;
+  v82 = 0;
+  v42 = *(v6 + 2848);
+  if (v42 <= 50 && (v42 != -1 || _LogCategory_Initialize()))
   {
-    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_15();
+    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_15(v36, v39, v40);
   }
 
   CFDictionarySetValue(Mutable, @"X-Apple-PairingTranscript", @"1");
-  v60 = v29;
-  v33 = v29 + 24;
-  v34 = *MEMORY[0x277CBED00];
-  v58 = CFDataCreateWithBytesNoCopy(v30, (v29 + 24), 32, *MEMORY[0x277CBED00]);
-  TransformedMessage = mfiMutualAuth_createTransformedMessage(v28, 0, v58, cf);
+  v76 = v37;
+  v43 = v37 + 24;
+  v44 = *MEMORY[0x277CBED00];
+  v74 = CFDataCreateWithBytesNoCopy(v38, (v37 + 24), 32, *MEMORY[0x277CBED00]);
+  TransformedMessage = mfiMutualAuth_createTransformedMessage(v36, 0, v74, cf);
   if (TransformedMessage)
   {
-    v40 = TransformedMessage;
-    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_16();
+    LODWORD(v50) = TransformedMessage;
+    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_16(TransformedMessage);
 LABEL_172:
-    v37 = 0;
+    v47 = 0;
     goto LABEL_176;
   }
 
-  v36 = mfiMutualAuth_sendMessageMFi4(v28, cf[0], Mutable);
-  if (v36)
+  v46 = mfiMutualAuth_sendMessageMFi4(v36, cf[0], Mutable, &v83);
+  if (v46)
   {
-    v40 = v36;
-    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_17();
+    LODWORD(v50) = v46;
+    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_17(v46);
     goto LABEL_172;
   }
 
-  v37 = v67;
-  v38 = CMBaseObjectGetDerivedStorage();
+  v47 = v83;
+  v48 = CMBaseObjectGetDerivedStorage();
   dataPointerOut[0] = 0;
   lengthAtOffsetOut[0] = 0;
-  v39 = *(v4 + 2848);
-  if (v39 <= 30 && (v39 != -1 || _LogCategory_Initialize()))
+  v49 = *(v6 + 2848);
+  if (v49 <= 30 && (v49 != -1 || _LogCategory_Initialize()))
   {
-    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_18();
-    if (!v37)
+    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_18(v36);
+    if (!v47)
     {
       goto LABEL_160;
     }
 
 LABEL_99:
     FigSimpleMutexLock();
-    if (*(v38 + 124))
+    if (*(v48 + 124))
     {
       FigSimpleMutexUnlock();
       APSLogErrorAt();
-      v37 = 0;
-      v40 = -71803;
+      v47 = 0;
+      v50 = 4294895493;
       goto LABEL_122;
     }
 
-    mfiMutualAuth_setAndLogSecureTunnelState(v28, 5u);
+    mfiMutualAuth_setAndLogSecureTunnelState(v36, 5);
     FigSimpleMutexUnlock();
-    CMBlockBufferGetDataPointer(v37, 0, lengthAtOffsetOut, 0, dataPointerOut);
+    CMBlockBufferGetDataPointer(v47, 0, lengthAtOffsetOut, 0, dataPointerOut);
     if (!dataPointerOut[0] || !lengthAtOffsetOut[0])
     {
       __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_23();
-      v37 = 0;
-      v40 = -71804;
+      v47 = 0;
+      v50 = 4294895492;
       goto LABEL_122;
     }
 
-    v41 = CFDataCreateWithBytesNoCopy(v30, dataPointerOut[0], lengthAtOffsetOut[0], v34);
-    if (!v41)
+    v51 = CFDataCreateWithBytesNoCopy(v38, dataPointerOut[0], lengthAtOffsetOut[0], v44);
+    if (!v51)
     {
       __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_22();
-      v37 = 0;
-      v40 = -71800;
+      v47 = 0;
+      v50 = 4294895496;
       goto LABEL_122;
     }
 
-    v42 = v41;
-    v43 = *(v4 + 2848);
-    if (v43 <= 30 && (v43 != -1 || _LogCategory_Initialize()))
+    v52 = v51;
+    v53 = *(v6 + 2848);
+    if (v53 <= 30 && (v53 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APAuthenticationClientMFiMutualAuth, "OSStatus mfiMutualAuth_exchangeArea51Message(APAuthenticationClientRef, CMBlockBufferRef, CFDataRef *)", 33554462, "[%{ptr}] Area51 message: Forwarding %zu bytes to acc endpoint\n", v36, lengthAtOffsetOut[0]);
     }
 
-    v44 = APAccTransportClientEndpointForwardData(*(v38 + 8), v42);
-    if (v44)
+    v54 = APAccTransportClientEndpointForwardData(*(v48 + 8), v52);
+    if (v54)
     {
-      v40 = v44;
-      __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_19();
+      v50 = v54;
+      __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_19(v54);
     }
 
     else
     {
-      dispatch_semaphore_wait(*(v38 + 88), 0xFFFFFFFFFFFFFFFFLL);
-      v45 = *(v4 + 2848);
-      if (v45 <= 50 && (v45 != -1 || _LogCategory_Initialize()))
+      dispatch_semaphore_wait(*(v48 + 88), 0xFFFFFFFFFFFFFFFFLL);
+      v57 = *(v6 + 2848);
+      if (v57 <= 50 && (v57 != -1 || _LogCategory_Initialize()))
       {
-        __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_20();
+        __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_20(v36, v55, v56);
       }
 
       FigSimpleMutexLock();
-      v46 = *(v38 + 124);
-      if (v46 != 6)
+      v58 = *(v48 + 124);
+      if (v58 != 6)
       {
-        v37 = 0;
-        v40 = -71803;
+        v47 = 0;
+        v50 = 4294895493;
 LABEL_119:
         FigSimpleMutexUnlock();
-        CFRelease(v42);
-        if (v46 != 6)
+        CFRelease(v52);
+        if (v58 != 6)
         {
-          v4 = 0x27CFEF000uLL;
+          v6 = 0x27CFEF000uLL;
           goto LABEL_122;
         }
 
-        v1 = v61;
-        v4 = 0x27CFEF000;
+        v1 = v77;
+        v6 = 0x27CFEF000;
 LABEL_124:
-        v49 = mfiMutualAuth_sendMessageMFi4(v28, v37, Mutable);
-        if (v49)
+        v61 = mfiMutualAuth_sendMessageMFi4(v36, v47, Mutable, &v84);
+        if (v61)
         {
-          v40 = v49;
-          __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_26();
+          LODWORD(v50) = v61;
+          __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_26(v61);
         }
 
         else
         {
-          DataPointer = CMBlockBufferGetDataPointer(v68, 0, &v65, 0, &v66);
+          DataPointer = CMBlockBufferGetDataPointer(v84, 0, &v81, 0, &v82);
           if (!DataPointer)
           {
-            v51 = CFDataCreateWithBytesNoCopy(v30, v66, v65, v34);
-            v52 = mfiMutualAuth_createTransformedMessage(v28, 1, v51, &v69);
-            if (v52)
+            v63 = CFDataCreateWithBytesNoCopy(v38, v82, v81, v44);
+            v64 = mfiMutualAuth_createTransformedMessage(v36, 1, v63, v85);
+            if (v64)
             {
-              v40 = v52;
-              __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_28();
+              LODWORD(v50) = v64;
+              __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_28(v64);
               goto LABEL_177;
             }
 
-            if (CFDataGetLength(v69) == 32)
+            if (CFDataGetLength(v85[0]) == 32)
             {
-              BytePtr = CFDataGetBytePtr(v69);
-              Length = CFDataGetLength(v69);
-              if (!memcmp((v60 + 56), BytePtr, Length))
+              BytePtr = CFDataGetBytePtr(v85[0]);
+              Length = CFDataGetLength(v85[0]);
+              if (!memcmp((v76 + 56), BytePtr, Length))
               {
-                v55 = *(v4 + 2848);
-                if (v55 <= 50)
+                v69 = *(v6 + 2848);
+                if (v69 <= 50)
                 {
-                  v56 = v58;
-                  if (v55 != -1 || _LogCategory_Initialize())
+                  v70 = v74;
+                  if (v69 != -1 || _LogCategory_Initialize())
                   {
-                    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_31();
+                    __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_31(v36, v67, v68);
                   }
 
-                  v40 = 0;
+                  LODWORD(v50) = 0;
                   goto LABEL_135;
                 }
 
-                v40 = 0;
+                LODWORD(v50) = 0;
 LABEL_134:
-                v56 = v58;
+                v70 = v74;
                 goto LABEL_135;
               }
 
@@ -506,102 +506,102 @@ LABEL_134:
               __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_29();
             }
 
-            v40 = -71145;
+            LODWORD(v50) = -71145;
             goto LABEL_134;
           }
 
-          v40 = DataPointer;
-          __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_27();
+          LODWORD(v50) = DataPointer;
+          __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_27(DataPointer);
         }
 
 LABEL_176:
-        v51 = 0;
+        v63 = 0;
         goto LABEL_177;
       }
 
-      v47 = *(v38 + 112);
-      if (v47)
+      v59 = *(v48 + 112);
+      if (v59)
       {
-        v37 = CFRetain(v47);
-        v48 = *(v38 + 112);
-        if (v48)
+        v47 = CFRetain(v59);
+        v60 = *(v48 + 112);
+        if (v60)
         {
-          CFRelease(v48);
-          *(v38 + 112) = 0;
+          CFRelease(v60);
+          *(v48 + 112) = 0;
         }
 
-        mfiMutualAuth_setAndLogSecureTunnelState(v28, 0);
-        v40 = 0;
+        mfiMutualAuth_setAndLogSecureTunnelState(v36, 0);
+        v50 = 0;
         goto LABEL_119;
       }
 
       __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_21();
-      v40 = -71802;
-      v4 = 0x27CFEF000;
+      v50 = 4294895494;
+      v6 = 0x27CFEF000;
     }
 
-    CFRelease(v42);
-    v37 = 0;
+    CFRelease(v52);
+    v47 = 0;
     goto LABEL_122;
   }
 
-  if (v37)
+  if (v47)
   {
     goto LABEL_99;
   }
 
 LABEL_160:
   __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_24();
-  v40 = -71801;
+  v50 = 4294895495;
 LABEL_122:
   FigSimpleMutexLock();
-  mfiMutualAuth_setAndLogSecureTunnelState(v28, 7u);
+  mfiMutualAuth_setAndLogSecureTunnelState(v36, 7);
   FigSimpleMutexUnlock();
-  if (!v40)
+  if (!v50)
   {
-    v1 = v61;
+    v1 = v77;
     goto LABEL_124;
   }
 
-  __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_25();
-  v51 = 0;
-  v1 = v61;
+  __mfiMutualAuth_AuthenticateEndpoint_block_invoke_cold_25(v50);
+  v63 = 0;
+  v1 = v77;
 LABEL_177:
-  v56 = v58;
+  v70 = v74;
 LABEL_135:
   if (cf[0])
   {
     CFRelease(cf[0]);
   }
 
-  if (v56)
+  if (v70)
   {
-    CFRelease(v56);
+    CFRelease(v70);
   }
 
-  if (v68)
+  if (v84)
   {
-    CFRelease(v68);
+    CFRelease(v84);
   }
 
-  if (v69)
+  if (v85[0])
   {
-    CFRelease(v69);
+    CFRelease(v85[0]);
   }
 
-  if (v51)
+  if (v63)
   {
-    CFRelease(v51);
+    CFRelease(v63);
   }
 
-  if (v67)
+  if (v83)
   {
-    CFRelease(v67);
+    CFRelease(v83);
   }
 
-  if (v37)
+  if (v47)
   {
-    CFRelease(v37);
+    CFRelease(v47);
   }
 
   if (Mutable)
@@ -611,17 +611,17 @@ LABEL_135:
 
   for (i = 0; i != 64; ++i)
   {
-    *(v33 + i) = 0;
+    *(v43 + i) = 0;
   }
 
-  if (v40)
+  if (v50)
   {
     FigSimpleMutexLock();
-    mfiMutualAuth_setAndLogSecureTunnelState(v28, 7u);
+    mfiMutualAuth_setAndLogSecureTunnelState(v36, 7);
     FigSimpleMutexUnlock();
   }
 
-  *(*(*(v1 + 32) + 8) + 24) = v40;
+  *(*(*(v1 + 32) + 8) + 24) = v50;
 }
 
 @end

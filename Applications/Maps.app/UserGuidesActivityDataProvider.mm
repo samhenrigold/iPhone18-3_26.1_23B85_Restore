@@ -38,7 +38,7 @@
 
 - (NSURL)activityURL
 {
-  v3 = sub_1000CE6B8(&unk_101909B00);
+  v3 = sub_1000CE6B8(&unk_101909B00, &unk_1011E4C10);
   __chkstk_darwin(v3 - 8);
   v5 = &v20 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v6);

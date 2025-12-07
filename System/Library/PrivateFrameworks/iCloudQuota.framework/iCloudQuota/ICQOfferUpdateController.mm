@@ -20,7 +20,7 @@
 
 - (void)performOfferUpdateWithContext:(id)context completion:(id)completion
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v7 = _ICQGetLogSystem();
@@ -35,9 +35,9 @@
     *&buf[12] = 2112;
     *&buf[14] = buttonId;
     *&buf[22] = 1024;
-    *v50 = isZeroAction;
-    *&v50[4] = 2112;
-    *&v50[6] = account;
+    *v49 = isZeroAction;
+    *&v49[4] = 2112;
+    *&v49[6] = account;
     _os_log_impl(&dword_275572000, v7, OS_LOG_TYPE_DEFAULT, "performOfferUpdateWithContext:%@ - %@ zeroAction:%d account:%@", buf, 0x26u);
   }
 
@@ -148,26 +148,26 @@
         *&buf[12] = 2112;
         *&buf[14] = allHTTPHeaderFields;
         *&buf[22] = 2112;
-        *v50 = hTTPBody3;
-        *&v50[8] = 2112;
-        *&v50[10] = v37;
+        *v49 = hTTPBody3;
+        *&v49[8] = 2112;
+        *&v49[10] = v37;
         _os_log_impl(&dword_275572000, v39, OS_LOG_TYPE_DEFAULT, "update offer request: %@ headers: %@ body: %@ body (as string): %@", buf, 0x2Au);
       }
 
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      *v50 = __Block_byref_object_copy__4;
-      *&v50[8] = __Block_byref_object_dispose__4;
-      *&v50[16] = self;
-      v42 = *(*&v50[16] + 8);
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __69__ICQOfferUpdateController_performOfferUpdateWithContext_completion___block_invoke;
-      v46[3] = &unk_27A651E48;
-      v47 = completionCopy;
-      v48 = buf;
-      v43 = [v42 dataTaskWithRequest:v18 completionHandler:v46];
+      *v49 = __Block_byref_object_copy__4;
+      *&v49[8] = __Block_byref_object_dispose__4;
+      *&v49[16] = self;
+      v42 = *(*&v49[16] + 8);
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __69__ICQOfferUpdateController_performOfferUpdateWithContext_completion___block_invoke;
+      v45[3] = &unk_27A651E48;
+      v46 = completionCopy;
+      v47 = buf;
+      v43 = [v42 dataTaskWithRequest:v18 completionHandler:v45];
       [v43 resume];
 
       _Block_object_dispose(buf, 8);
@@ -188,8 +188,6 @@ LABEL_22:
       completionCopy[2](completionCopy, 0, v18);
     }
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __69__ICQOfferUpdateController_performOfferUpdateWithContext_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)

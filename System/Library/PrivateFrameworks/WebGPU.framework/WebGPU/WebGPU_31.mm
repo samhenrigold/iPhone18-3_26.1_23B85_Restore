@@ -130,8 +130,8 @@ LABEL_89:
       JUMPOUT(0x22584F9ECLL);
     }
 
-    v13 = (v43[0] + v8 * 4 - 16);
-    v12 = *(v43[0] + v8 * 4);
+    v13 = &v43[0][v8 - 4];
+    v12 = LOBYTE(v43[0][v8]);
     if (v36 == 255)
     {
       if (v12 == 255)
@@ -477,8 +477,8 @@ LABEL_88:
       JUMPOUT(0x22585004CLL);
     }
 
-    v14 = (v39[0] + v9 * 4 - 16);
-    v13 = *(v39[0] + v9 * 4);
+    v14 = &v39[0][v9 - 4];
+    v13 = LOBYTE(v39[0][v9]);
     if (v32 == 255)
     {
       if (v13 == 255)
@@ -825,7 +825,7 @@ LABEL_84:
 
   v7 = WTF::fastMalloc((24 * v6 + 8));
   *v7 = v6;
-  v8 = (v7 + 2);
+  v8 = v7 + 2;
   v9 = 6;
   bzero(v7 + 2, 24 * ((24 * v6 - 24) / 0x18uLL) + 24);
   v10 = 0;
@@ -877,8 +877,8 @@ LABEL_112:
       JUMPOUT(0x22585073CLL);
     }
 
-    v14 = (v49[0] + v9 * 4 - 16);
-    v13 = *(v49[0] + v9 * 4);
+    v14 = &v49[0][v9 - 4];
+    v13 = LOBYTE(v49[0][v9]);
     if (v42 == 255)
     {
       if (v13 == 255)
@@ -909,7 +909,7 @@ LABEL_22:
         v23 = 1.0;
       }
 
-      v43[0] = v23;
+      *v43 = v23;
       v44 = 0;
       *v46 = v23;
       v47 = 0;
@@ -951,7 +951,7 @@ LABEL_45:
         goto LABEL_53;
       }
 
-      *v43 = v8;
+      v43[0] = v8;
       _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE14generic_assignINS0_15move_assignmentISB_LNS0_5TraitE1EEEEEvOT_EUlRSH_OT0_E_JRSC_SG_EEEDcmSI_DpOT0_(v47, v43, v8, v46);
 LABEL_52:
       v24 = v48;
@@ -1010,7 +1010,7 @@ LABEL_52:
       v25 = 1.0;
     }
 
-    *v43 = v25;
+    v43[0] = *&v25;
     v44 = 2;
     v46[0] = *&v25;
     v47 = 2;
@@ -1077,7 +1077,7 @@ LABEL_59:
     }
 
     ++v10;
-    v8 += 3;
+    v8 += 24;
     v9 += 6;
   }
 
@@ -1317,7 +1317,7 @@ LABEL_139:
 
   v7 = WTF::fastMalloc((24 * v6 + 8));
   *v7 = v6;
-  v8 = (v7 + 2);
+  v8 = v7 + 2;
   v9 = 6;
   bzero(v7 + 2, 24 * ((24 * v6 - 24) / 0x18uLL) + 24);
   v10 = 0;
@@ -1366,8 +1366,8 @@ LABEL_144:
       JUMPOUT(0x225850F58);
     }
 
-    v14 = (v60[0] + v9 * 4 - 16);
-    v13 = *(v60[0] + v9 * 4);
+    v14 = &v60[0][v9 - 4];
+    v13 = LOBYTE(v60[0][v9]);
     if (v53 == 255)
     {
       if (v13 == 255)
@@ -1422,7 +1422,7 @@ LABEL_45:
             v29 = v52[0] >> 63;
           }
 
-          *v54 = v29;
+          v54[0] = v29;
           v25 = 5;
           v55 = 5;
           v57[0] = v29;
@@ -1501,7 +1501,7 @@ LABEL_141:
         v27 = 1.0;
       }
 
-      *v54 = v27;
+      v54[0] = *&v27;
       v55 = 2;
       v57[0] = *&v27;
       v58 = 2;
@@ -1543,7 +1543,7 @@ LABEL_53:
         goto LABEL_71;
       }
 
-      *v54 = v8;
+      v54[0] = v8;
       _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE14generic_assignINS0_15move_assignmentISB_LNS0_5TraitE1EEEEEvOT_EUlRSH_OT0_E_JRSC_SG_EEEDcmSI_DpOT0_(v58, v54, v8, v57);
 LABEL_70:
       v28 = v59;
@@ -1566,7 +1566,7 @@ LABEL_70:
       v26 = 1.0;
     }
 
-    v54[0] = v26;
+    *v54 = v26;
     v55 = 0;
     *v57 = v26;
     v58 = 0;
@@ -1633,7 +1633,7 @@ LABEL_77:
     }
 
     ++v10;
-    v8 += 3;
+    v8 += 24;
     v9 += 6;
   }
 
@@ -1847,7 +1847,7 @@ LABEL_111:
           }
 
           v56 = v55 * v55 * (v55 * -2.0 + 3.0);
-          *v63 = v56;
+          v63[0] = *&v56;
 LABEL_132:
           v64 = v54;
           *a2 = v56;
@@ -1895,7 +1895,7 @@ LABEL_127:
         }
 
         v56 = (v57 * -2.0 + 3.0) * (v57 * v57);
-        *v63 = v56;
+        v63[0] = *&v56;
         LOBYTE(v54) = 2;
         goto LABEL_132;
       }
@@ -1925,7 +1925,7 @@ LABEL_163:
   v12 = WTF::fastMalloc((24 * v11 + 8));
   *v12 = v11;
   v13 = v12 + 2;
-  v14 = 24;
+  v14 = 6;
   bzero(v12 + 2, 24 * ((24 * v11 - 24) / 0x18uLL) + 24);
   v15 = 0;
   v64 = 0;
@@ -1947,8 +1947,8 @@ LABEL_163:
         goto LABEL_156;
       }
 
-      v18 = (v75[0] + v14 - 16);
-      v17 = *(v75[0] + v14);
+      v18 = &v75[0][v14 - 4];
+      v17 = LOBYTE(v75[0][v14]);
       if (v64 == 255)
       {
         if (v17 == 255)
@@ -1997,8 +1997,8 @@ LABEL_38:
         goto LABEL_156;
       }
 
-      v20 = (v77[0] + v14 - 16);
-      v19 = *(v77[0] + v14);
+      v20 = &v77[0][v14 - 4];
+      v19 = LOBYTE(v77[0][v14]);
       if (v66 == 255)
       {
         if (v19 == 255)
@@ -2051,8 +2051,8 @@ LABEL_156:
         goto LABEL_163;
       }
 
-      v21 = (v79[0] + v14 - 16);
-      v10 = *(v79[0] + v14);
+      v21 = &v79[0][v14 - 4];
+      v10 = LOBYTE(v79[0][v14]);
       if (v68 == 255)
       {
         if (v10 == 255)
@@ -2203,7 +2203,7 @@ LABEL_85:
         JUMPOUT(0x2258519FCLL);
       }
 
-      if (LOBYTE(v12[v14 / 4]) == 255)
+      if (LOBYTE(v12[v14]) == 255)
       {
         if (v73 == 255)
         {
@@ -2214,7 +2214,7 @@ LABEL_85:
       else if (v73 == 255)
       {
         mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v69, v13);
-        LOBYTE(v12[v14 / 4]) = -1;
+        LOBYTE(v12[v14]) = -1;
         goto LABEL_96;
       }
 
@@ -2255,7 +2255,7 @@ LABEL_96:
 
     ++v15;
     v13 += 24;
-    v14 += 24;
+    v14 += 6;
   }
 
   while (v11 != v15);
@@ -2483,8 +2483,8 @@ LABEL_88:
       JUMPOUT(0x22585209CLL);
     }
 
-    v14 = (v49[0] + v9 * 4 - 16);
-    v13 = *(v49[0] + v9 * 4);
+    v14 = &v49[0][v9 - 4];
+    v13 = LOBYTE(v49[0][v9]);
     if (v42 == 255)
     {
       if (v13 == 255)
@@ -2832,7 +2832,7 @@ LABEL_83:
           v36 = 1.0;
         }
 
-        *v41 = v36;
+        v41[0] = *&v36;
 LABEL_97:
         v42 = v35;
         *a2 = v36;
@@ -2862,7 +2862,7 @@ LABEL_94:
           v36 = 1.0;
         }
 
-        *v41 = v36;
+        v41[0] = *&v36;
         LOBYTE(v35) = 2;
         goto LABEL_97;
       }
@@ -2890,7 +2890,7 @@ LABEL_123:
   v12 = WTF::fastMalloc((24 * v11 + 8));
   *v12 = v11;
   v13 = v12 + 2;
-  v14 = 24;
+  v14 = 6;
   bzero(v12 + 2, 24 * ((24 * v11 - 24) / 0x18uLL) + 24);
   v15 = 0;
   v42 = 0;
@@ -2909,8 +2909,8 @@ LABEL_123:
         goto LABEL_117;
       }
 
-      v18 = (v51[0] + v14 - 16);
-      v17 = *(v51[0] + v14);
+      v18 = &v51[0][v14 - 4];
+      v17 = LOBYTE(v51[0][v14]);
       if (v42 == 255)
       {
         if (v17 == 255)
@@ -2963,8 +2963,8 @@ LABEL_117:
         goto LABEL_123;
       }
 
-      v20 = (v53[0] + v14 - 16);
-      v19 = *(v53[0] + v14);
+      v20 = &v53[0][v14 - 4];
+      v19 = LOBYTE(v53[0][v14]);
       if (v44 == 255)
       {
         if (v19 == 255)
@@ -3092,7 +3092,7 @@ LABEL_115:
         JUMPOUT(0x2258528DCLL);
       }
 
-      if (LOBYTE(v12[v14 / 4]) == 255)
+      if (LOBYTE(v12[v14]) == 255)
       {
         if (v49 == 255)
         {
@@ -3103,7 +3103,7 @@ LABEL_115:
       else if (v49 == 255)
       {
         mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v45, v13);
-        LOBYTE(v12[v14 / 4]) = -1;
+        LOBYTE(v12[v14]) = -1;
         goto LABEL_68;
       }
 
@@ -3144,7 +3144,7 @@ LABEL_68:
 
     ++v15;
     v13 += 24;
-    v14 += 24;
+    v14 += 6;
   }
 
   while (v11 != v15);
@@ -3254,7 +3254,7 @@ LABEL_47:
     v8 = v4[2];
     v9 = WTF::fastMalloc((24 * v7 + 8));
     *v9 = v7;
-    bzero(v9 + 1, 24 * ((24 * v7 - 24) / 0x18) + 24);
+    bzero(v9 + 2, 24 * ((24 * v7 - 24) / 0x18) + 24);
     v5 = v8;
     v10 = (v6 | (v8 << 32));
     if (v6)
@@ -3278,7 +3278,7 @@ LABEL_15:
       while (1)
       {
         v17 = v15;
-        v18 = &v9[3 * v15 + 3];
+        v18 = &v9[6 * v15 + 6];
         v19 = v16;
         v36 = v15;
         v20 = v5;
@@ -3312,7 +3312,7 @@ LABEL_15:
             }
 
 LABEL_20:
-            v18 += 3;
+            v18 += 6;
             ++v17;
             v19 += v6;
             if (!--v20)
@@ -3324,14 +3324,14 @@ LABEL_20:
           if (v23 != 255)
           {
 LABEL_19:
-            v37[0] = v18 - 2;
+            v37[0] = v18 - 4;
             _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE14generic_assignIRKNS0_15copy_assignmentISB_LNS0_5TraitE1EEEEEvOT_EUlRSJ_OT0_E_JRSC_SI_EEEDcmSK_DpOT0_(v23, v37, v18 - 2, v22 + 1);
             goto LABEL_20;
           }
 
           mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(v37, v18 - 16);
           *v18 = -1;
-          v18 += 3;
+          v18 += 6;
           ++v17;
           v19 += v6;
           --v20;
@@ -3385,7 +3385,7 @@ LABEL_28:
     if (v24)
     {
       v26 = (v25 + 6);
-      v27 = v9 + 3;
+      v27 = (v9 + 6);
       do
       {
         *(v26 - 16) = 0;
@@ -3431,7 +3431,7 @@ LABEL_28:
     if (v30)
     {
       v31 = 24 * v30;
-      v32 = v9 + 3;
+      v32 = v9 + 6;
       do
       {
         v29 = v32 - 16;
@@ -3575,8 +3575,8 @@ LABEL_88:
       JUMPOUT(0x22585322CLL);
     }
 
-    v14 = (v39[0] + v9 * 4 - 16);
-    v13 = *(v39[0] + v9 * 4);
+    v14 = &v39[0][v9 - 4];
+    v13 = LOBYTE(v39[0][v9]);
     if (v32 == 255)
     {
       if (v13 == 255)
@@ -4381,18 +4381,18 @@ double WGSL::constantPack2x16float@<D0>(mpark *a1@<X0>, void *a2@<X1>, uint64_t 
 
   if (*(v4 + 24) != 8)
   {
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
   v5 = *(v4 + 1);
   if (!*v5)
   {
-    goto LABEL_31;
+    goto LABEL_32;
   }
 
   if (*(v5 + 24))
   {
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
   _S0 = *(v5 + 8);
@@ -4412,14 +4412,12 @@ double WGSL::constantPack2x16float@<D0>(mpark *a1@<X0>, void *a2@<X1>, uint64_t 
 
   if (*v5 == 1)
   {
-LABEL_31:
-    __break(0xC471u);
-    goto LABEL_34;
+    goto LABEL_32;
   }
 
   if (*(v5 + 48))
   {
-LABEL_28:
+LABEL_27:
     mpark::throw_bad_variant_access(a1);
   }
 
@@ -4450,9 +4448,9 @@ LABEL_15:
   if (v16 < 0 || __OFADD__(v16, 31) || (v17 = (v16 + 37), __OFADD__(v16 + 31, 6)))
   {
     __break(0xC471u);
-LABEL_30:
+LABEL_29:
     __break(1u);
-    goto LABEL_31;
+    goto LABEL_32;
   }
 
   v35 = v27;
@@ -4463,12 +4461,12 @@ LABEL_30:
   v32 = v24;
   v33 = v25;
   v34 = v26;
-  WTF::tryFastCompactMalloc((v17 + 20));
+  WTF::tryFastCompactMalloc(&__src, (v17 + 20));
   v18 = __src;
   if (!__src)
   {
+LABEL_32:
     __break(0xC471u);
-LABEL_34:
     JUMPOUT(0x225853ED4);
   }
 
@@ -4489,7 +4487,7 @@ LABEL_34:
   v19 = HIDWORD(v46);
   if (HIDWORD(v46) >= 0x7D)
   {
-    goto LABEL_30;
+    goto LABEL_29;
   }
 
   v20 = v17 - 6;
@@ -4509,7 +4507,7 @@ LABEL_34:
 
   if (v20 < v19)
   {
-    goto LABEL_30;
+    goto LABEL_29;
   }
 
   qmemcpy(&v21[v19], " cannot be represented as 'f16'", 31);
@@ -4550,7 +4548,7 @@ LABEL_46:
     v8 = -1.0;
   }
 
-  v30[0] = v8;
+  *v30 = v8;
   v31 = 0;
   *(v6 + 8) = v8;
   mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v32, v30);
@@ -4560,7 +4558,7 @@ LABEL_46:
     v9 = -1.0;
   }
 
-  v30[0] = v9;
+  *v30 = v9;
   v31 = 0;
   if (*v7 < 2)
   {
@@ -4582,7 +4580,7 @@ LABEL_44:
     {
       mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v32, v10);
       v11 = v31;
-      v7[8] = LODWORD(v30[0]);
+      v7[8] = v30[0];
       *(v7 + 48) = 0;
       if (v11 == 255)
       {
@@ -4604,7 +4602,7 @@ LABEL_14:
     v12 = -1.0;
   }
 
-  v30[0] = v12;
+  *v30 = v12;
   v31 = 0;
   if (*v7 < 3)
   {
@@ -4624,7 +4622,7 @@ LABEL_14:
     {
       mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v32, v13);
       v14 = v31;
-      v7[14] = LODWORD(v30[0]);
+      v7[14] = v30[0];
       *(v7 + 72) = 0;
       if (v14 == 255)
       {
@@ -4646,7 +4644,7 @@ LABEL_23:
     v15 = -1.0;
   }
 
-  v30[0] = v15;
+  *v30 = v15;
   v31 = 0;
   if (*v7 < 4)
   {
@@ -4666,7 +4664,7 @@ LABEL_23:
     {
       mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v32, v16);
       v17 = v31;
-      v7[20] = LODWORD(v30[0]);
+      v7[20] = v30[0];
       *(v7 + 96) = 0;
       if (v17 == 255)
       {
@@ -4711,7 +4709,7 @@ LABEL_32:
   }
 
   v31 = 8;
-  *v30 = 0;
+  v30[0] = 0;
   *a3 = v21;
   *(a3 + 16) = 8;
   *(a3 + 24) = 0;
@@ -4764,12 +4762,12 @@ LABEL_38:
   *(v6 + 15) = 0u;
   *(v6 + 19) = 0u;
   *(v6 + 22) = 0u;
-  v28[0] = v5 / 255.0;
+  *v28 = v5 / 255.0;
   v29 = 0;
-  v6[2] = LODWORD(v28[0]);
+  v6[2] = v28[0];
   mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v30, v28);
   v7 = BYTE1(v5) / 255.0;
-  v28[0] = v7;
+  *v28 = v7;
   v29 = 0;
   if (*v6 < 2)
   {
@@ -4791,7 +4789,7 @@ LABEL_36:
     {
       mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v30, v8);
       v9 = v29;
-      v6[8] = LODWORD(v28[0]);
+      v6[8] = v28[0];
       *(v6 + 48) = 0;
       if (v9 == 255)
       {
@@ -4808,7 +4806,7 @@ LABEL_36:
   mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v30, v28);
 LABEL_10:
   v10 = BYTE2(v5) / 255.0;
-  v28[0] = v10;
+  *v28 = v10;
   v29 = 0;
   if (*v6 < 3)
   {
@@ -4828,7 +4826,7 @@ LABEL_10:
     {
       mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v30, v11);
       v12 = v29;
-      v6[14] = LODWORD(v28[0]);
+      v6[14] = v28[0];
       *(v6 + 72) = 0;
       if (v12 == 255)
       {
@@ -4845,7 +4843,7 @@ LABEL_10:
   mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v30, v28);
 LABEL_17:
   v13 = HIBYTE(v5) / 255.0;
-  v28[0] = v13;
+  *v28 = v13;
   v29 = 0;
   if (*v6 < 4)
   {
@@ -4865,7 +4863,7 @@ LABEL_17:
     {
       mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v30, v14);
       v15 = v29;
-      v6[20] = LODWORD(v28[0]);
+      v6[20] = v28[0];
       *(v6 + 96) = 0;
       if (v15 == 255)
       {
@@ -4910,7 +4908,7 @@ LABEL_24:
   }
 
   v29 = 8;
-  *v28 = 0;
+  v28[0] = 0;
   *a3 = v19;
   *(a3 + 16) = 8;
   *(a3 + 24) = 0;
@@ -5350,7 +5348,7 @@ uint64_t WGSL::constantUnpack2x16snorm@<X0>(mpark *a1@<X0>, void *a2@<X1>, uint6
     v10 = -1.0;
   }
 
-  v26[0] = v10;
+  *v26 = v10;
   v27 = 0;
   *(v8 + 8) = v10;
   mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v28, v26);
@@ -5360,7 +5358,7 @@ uint64_t WGSL::constantUnpack2x16snorm@<X0>(mpark *a1@<X0>, void *a2@<X1>, uint6
     v11 = -1.0;
   }
 
-  v26[0] = v11;
+  *v26 = v11;
   v27 = 0;
   if (*v9 < 2)
   {
@@ -5382,7 +5380,7 @@ LABEL_28:
     {
       mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v28, v12);
       v13 = v27;
-      v9[8] = LODWORD(v26[0]);
+      v9[8] = v26[0];
       *(v9 + 48) = 0;
       if (v13 == 255)
       {
@@ -5427,7 +5425,7 @@ LABEL_14:
   }
 
   v27 = 8;
-  *v26 = 0;
+  v26[0] = 0;
   *a3 = v17;
   *(a3 + 16) = 8;
   *(a3 + 24) = 0;
@@ -5478,12 +5476,12 @@ uint64_t WGSL::constantUnpack2x16unorm@<X0>(mpark *a1@<X0>, void *a2@<X1>, uint6
   *(v8 + 3) = 0u;
   *(v8 + 7) = 0u;
   *(v8 + 10) = 0u;
-  v24[0] = v6 / 65535.0;
+  *v24 = v6 / 65535.0;
   v25 = 0;
-  v8[2] = LODWORD(v24[0]);
+  v8[2] = v24[0];
   mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v26, v24);
   v9 = v7 / 65535.0;
-  v24[0] = v9;
+  *v24 = v9;
   v25 = 0;
   if (*v8 < 2)
   {
@@ -5505,7 +5503,7 @@ LABEL_24:
     {
       mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v26, v10);
       v11 = v25;
-      v8[8] = LODWORD(v24[0]);
+      v8[8] = v24[0];
       *(v8 + 48) = 0;
       if (v11 == 255)
       {
@@ -5550,7 +5548,7 @@ LABEL_10:
   }
 
   v25 = 8;
-  *v24 = 0;
+  v24[0] = 0;
   *a3 = v15;
   *(a3 + 16) = 8;
   *(a3 + 24) = 0;
@@ -5704,7 +5702,7 @@ LABEL_10:
   return WTF::fastFree(v7, v23);
 }
 
-uint64_t WGSL::TypeChecker::check@<X0>(uint64_t a1@<X8>)
+uint64_t WGSL::TypeChecker::check@<X0>(uint64_t a2@<X8>)
 {
   v19 = *MEMORY[0x277D85DE8];
   WGSL::TypeChecker::declareBuiltins(v18);
@@ -5750,13 +5748,13 @@ LABEL_11:
   v15[1] = 0;
   *&v7 = 0;
   v8 = *&v18[8];
-  *a1 = *v18;
-  *(a1 + 8) = v8;
+  *a2 = *v18;
+  *(a2 + 8) = v8;
   *v18 = 0u;
   *&v18[16] = v7;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 32) = 1;
+  *(a2 + 16) = 0;
+  *(a2 + 24) = 0;
+  *(a2 + 32) = 1;
   WGSL::FailedCheck::~FailedCheck(v6, v9);
   v11 = v17[0];
   v17[0] = 0;
@@ -5782,9 +5780,9 @@ LABEL_11:
   return result;
 }
 
-void WGSL::TypeChecker::visit(WGSL::TypeChecker *this, WTF::StringImpl **a2, uint64_t a3, double a4)
+void WGSL::TypeChecker::visit(WGSL::TypeChecker *this, const WGSL::Type **a2, uint64_t a3, double a4)
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   v7 = *(a3 + 100);
   if (!v7)
   {
@@ -5813,26 +5811,26 @@ LABEL_5:
     v14 = *(a3 + 112);
     if (v14)
     {
-      WGSL::TypeChecker::resolve(&v71, a2, v14);
-      if (v73)
+      WGSL::TypeChecker::resolve(&v72, a2, v14);
+      if (v74)
       {
-        if (v73 == 1)
+        if (v74 == 1)
         {
-          v47 = v71;
-          if (!v71)
+          v48 = v72;
+          if (!v72)
           {
 LABEL_160:
-            *(this + 8) = v72;
+            *(this + 8) = v73;
             *this = 0;
             goto LABEL_145;
           }
 
 LABEL_156:
-          atomic_fetch_add_explicit(v47, 2u, memory_order_relaxed);
-          *(this + 8) = v72;
-          *this = v47;
+          atomic_fetch_add_explicit(v48, 2u, memory_order_relaxed);
+          *(this + 8) = v73;
+          *this = v48;
           *(this + 24) = 1;
-          if (atomic_fetch_add_explicit(v47, 0xFFFFFFFE, memory_order_relaxed) != 2)
+          if (atomic_fetch_add_explicit(v48, 0xFFFFFFFE, memory_order_relaxed) != 2)
           {
             return;
           }
@@ -5844,7 +5842,7 @@ LABEL_161:
         mpark::throw_bad_variant_access(v15);
       }
 
-      v17 = v71;
+      v17 = v72;
       v11 = *(a3 + 128);
       v18 = *(a3 + 120);
       if (v18)
@@ -5864,8 +5862,8 @@ LABEL_14:
           }
         }
 
-        *&a4 = WGSL::TypeChecker::infer(&v71, a2, v18, v19, 0).n128_u64[0];
-        if (!v73)
+        *&a4 = WGSL::TypeChecker::infer(&v72, a2, v18, v19, 0).n128_u64[0];
+        if (!v74)
         {
           v21 = *(a3 + 120);
           if (*(v21 + 56))
@@ -5878,10 +5876,10 @@ LABEL_14:
             v22 = 0;
           }
 
-          v23 = v71;
-          if (v71 && *(v71 + 48) == 10)
+          v23 = v72;
+          if (v72 && *(v72 + 48) == 10)
           {
-            v23 = *(v71 + 1);
+            v23 = *(v72 + 1);
             *(v21 + 24) = v23;
           }
 
@@ -5894,21 +5892,21 @@ LABEL_14:
 
             if (WGSL::conversionRank(v23, v17, v20) == -1)
             {
-              WGSL::Type::Type(v69, v17);
-              WGSL::Type::Type(v67, v23);
-              WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral,WGSL::Type,char>(&v57, "cannot initialize var of type '", 32, v69, "' with value of type '", 23, v67);
-              *this = v57;
+              WGSL::Type::Type(v70, v17);
+              WGSL::Type::Type(v68, v23);
+              WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral,WGSL::Type,char>(&v58, "cannot initialize var of type '", 32, v70, "' with value of type '", 23, v68);
+              *this = v58;
               *(this + 8) = *(a3 + 8);
               *(this + 24) = 1;
-              if (v68 != 255)
+              if (v69 != 255)
               {
-                mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v56, v67);
+                mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v57, v68);
               }
 
-              v68 = -1;
-              if (v69[48] != 255)
+              v69 = -1;
+              if (v70[48] != 255)
               {
-                mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v56, v69);
+                mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v57, v70);
               }
 
               return;
@@ -5920,8 +5918,8 @@ LABEL_14:
             v27 = a2[9];
             if (v23 == *(v27 + 5))
             {
-              WTF::makeString<WTF::ASCIILiteral>(&v57, "cannot initialize variable with expression of type 'void'", 0x3AuLL);
-              v44 = v57;
+              WTF::makeString<WTF::ASCIILiteral>(&v58, "cannot initialize variable with expression of type 'void'", 0x3AuLL);
+              v45 = v58;
               goto LABEL_143;
             }
 
@@ -5940,14 +5938,14 @@ LABEL_48:
                     {
                       if ((WGSL::Type::isConstructible(v17) & 1) == 0 && *(v17 + 48) != 11)
                       {
-                        WGSL::Type::Type(v66, v17);
-                        WTF::makeString<char,WGSL::Type,WTF::ASCIILiteral>(&v71, v66, "' cannot be used as the type of a 'let'", 40);
-                        *this = v71;
+                        WGSL::Type::Type(v67, v17);
+                        WTF::makeString<char,WGSL::Type,WTF::ASCIILiteral>(&v72, v67, "' cannot be used as the type of a 'let'", 40);
+                        *this = v72;
                         *(this + 8) = *(a3 + 8);
                         *(this + 24) = 1;
-                        if (v66[48] != 255)
+                        if (v67[48] != 255)
                         {
-                          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v57, v66);
+                          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v58, v67);
                         }
 
                         return;
@@ -5978,14 +5976,14 @@ LABEL_208:
 
                   if ((WGSL::Type::isConstructible(v17) & 1) == 0)
                   {
-                    WGSL::Type::Type(v65, v17);
-                    WTF::makeString<char,WGSL::Type,WTF::ASCIILiteral>(&v71, v65, "' cannot be used as the type of a 'const'", 42);
-                    *this = v71;
+                    WGSL::Type::Type(v66, v17);
+                    WTF::makeString<char,WGSL::Type,WTF::ASCIILiteral>(&v72, v66, "' cannot be used as the type of a 'const'", 42);
+                    *this = v72;
                     *(this + 8) = *(a3 + 8);
                     *(this + 24) = 1;
-                    if (v65[48] != 255)
+                    if (v66[48] != 255)
                     {
-                      mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v57, v65);
+                      mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v58, v66);
                     }
 
                     return;
@@ -6022,14 +6020,14 @@ LABEL_34:
                 if (*(v29 + 48) || ((v30 = *v29, v30 >= 6) ? (v31 = v30 == 7) : (v31 = 1), !v31))
                 {
 LABEL_72:
-                  WGSL::Type::Type(v64, v17);
-                  WTF::makeString<char,WGSL::Type,WTF::ASCIILiteral>(&v71, v64, "' cannot be used as the type of an 'override'", 46);
-                  *this = v71;
+                  WGSL::Type::Type(v65, v17);
+                  WTF::makeString<char,WGSL::Type,WTF::ASCIILiteral>(&v72, v65, "' cannot be used as the type of an 'override'", 46);
+                  *this = v72;
                   *(this + 8) = *(a3 + 8);
                   *(this + 24) = 1;
-                  if (v64[48] != 255)
+                  if (v65[48] != 255)
                   {
-                    mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v57, v64);
+                    mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v58, v65);
                   }
 
                   return;
@@ -6041,7 +6039,7 @@ LABEL_72:
               if (v11 != 3)
               {
 LABEL_117:
-                if (!v22 || (WGSL::TypeChecker::convertValue(&v71, (a3 + 8), v17, v22, a4), v73 != 1))
+                if (!v22 || (WGSL::TypeChecker::convertValue(&v72, (a3 + 8), v17, v22, a4), v74 != 1))
                 {
                   v39 = *(a3 + 128);
                   if (*(a3 + 128))
@@ -6060,17 +6058,18 @@ LABEL_117:
                         v41 = WGSL::TypeStore::referenceType(a2[9], *(a3 + 152), v17, v40, 0);
                         if (!*(a3 + 112))
                         {
-                          v57 = 0uLL;
-                          WTF::StringPrintStream::StringPrintStream(&v71);
-                          WGSL::Type::dump(v41, &v71);
-                          WTF::StringPrintStream::toString(&v56, &v71);
-                          WTF::StringPrintStream::~StringPrintStream(&v71);
-                          v72 = 0uLL;
-                          v71 = off_2838D37C0;
-                          v42 = v56;
-                          v56 = 0;
-                          v73 = v42;
-                          WGSL::AST::Builder::construct<WGSL::AST::IdentifierExpression,WGSL::SourceSpan,WGSL::AST::Identifier,void>();
+                          v42 = a2[5];
+                          v58 = 0uLL;
+                          WTF::StringPrintStream::StringPrintStream(&v72);
+                          WGSL::Type::dump(v41, &v72);
+                          WTF::StringPrintStream::toString(&v57, &v72);
+                          WTF::StringPrintStream::~StringPrintStream(&v72);
+                          v73 = 0uLL;
+                          v72 = off_2838D37C0;
+                          v43 = v57;
+                          v57 = 0;
+                          v74 = v43;
+                          WGSL::AST::Builder::construct<WGSL::AST::IdentifierExpression,WGSL::SourceSpan,WGSL::AST::Identifier,void>(v42 + 304, &v58, &v72);
                         }
 
                         operator new();
@@ -6083,33 +6082,33 @@ LABEL_206:
                     JUMPOUT(0x2258580A0);
                   }
 
-                  LOBYTE(v53[0]) = 0;
-                  v55 = 0;
+                  LOBYTE(v54[0]) = 0;
+                  v56 = 0;
                   if (v22 && *(v22 + 24) == 1)
                   {
-                    v54 = -1;
-                    v43 = *(v22 + 16);
-                    if (v43 != 255)
+                    v55 = -1;
+                    v44 = *(v22 + 16);
+                    if (v44 != 255)
                     {
-                      _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v43, &v57, v53, v22);
-                      v54 = *(v22 + 16);
+                      _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v44, &v58, v54, v22);
+                      v55 = *(v22 + 16);
                     }
 
-                    v55 = 1;
+                    v56 = 1;
                   }
 
-                  WGSL::TypeChecker::introduceValue(&v71, a2, a3 + 24, v17, v13, v53);
-                  if (v55 == 1)
+                  WGSL::TypeChecker::introduceValue(&v72, a2, a3 + 24, v17, v13, v54);
+                  if (v56 == 1)
                   {
-                    if (v54 != 255)
+                    if (v55 != 255)
                     {
-                      mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v57, v53);
+                      mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v58, v54);
                     }
 
-                    v54 = -1;
+                    v55 = -1;
                   }
 
-                  if (v73 != 1)
+                  if (v74 != 1)
                   {
                     *this = 0;
                     *(this + 24) = 0;
@@ -6117,25 +6116,25 @@ LABEL_206:
                   }
                 }
 
-                v47 = v71;
-                if (!v71)
+                v48 = v72;
+                if (!v72)
                 {
                   *this = 0;
-                  v45 = v72;
+                  v46 = v73;
                   goto LABEL_144;
                 }
 
-                atomic_fetch_add_explicit(v71, 2u, memory_order_relaxed);
-                *this = v47;
-                *(this + 8) = v72;
+                atomic_fetch_add_explicit(v72, 2u, memory_order_relaxed);
+                *this = v48;
+                *(this + 8) = v73;
                 *(this + 24) = 1;
-                if (atomic_fetch_add_explicit(v47, 0xFFFFFFFE, memory_order_relaxed) != 2)
+                if (atomic_fetch_add_explicit(v48, 0xFFFFFFFE, memory_order_relaxed) != 2)
                 {
                   return;
                 }
 
 LABEL_157:
-                WTF::StringImpl::destroy(v47, v16);
+                WTF::StringImpl::destroy(v48, v16);
                 return;
               }
 
@@ -6153,14 +6152,14 @@ LABEL_157:
                     case 5:
                       if ((WGSL::Type::hasFixedFootprint(v17) & 1) == 0)
                       {
-                        WGSL::Type::Type(v60, v17);
-                        WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral>(&v71, "type '", 7, v60, "' cannot be used in address space <workgroup> because it doesn't have fixed footprint", 86);
-                        *this = v71;
+                        WGSL::Type::Type(v61, v17);
+                        WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral>(&v72, "type '", 7, v61, "' cannot be used in address space <workgroup> because it doesn't have fixed footprint", 86);
+                        *this = v72;
                         *(this + 8) = *(a3 + 8);
                         *(this + 24) = 1;
-                        if (v60[48] != 255)
+                        if (v61[48] != 255)
                         {
-                          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v57, v60);
+                          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v58, v61);
                         }
 
                         return;
@@ -6171,14 +6170,14 @@ LABEL_157:
                     case 4:
                       if ((WGSL::Type::isHostShareable(v17) & 1) == 0)
                       {
-                        WGSL::Type::Type(v62, v17);
-                        WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral>(&v71, "type '", 7, v62, "' cannot be used in address space <uniform> because it's not host-shareable", 76);
-                        *this = v71;
+                        WGSL::Type::Type(v63, v17);
+                        WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral>(&v72, "type '", 7, v63, "' cannot be used in address space <uniform> because it's not host-shareable", 76);
+                        *this = v72;
                         *(this + 8) = *(a3 + 8);
                         *(this + 24) = 1;
-                        if (v62[48] != 255)
+                        if (v63[48] != 255)
                         {
-                          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v57, v62);
+                          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v58, v63);
                         }
 
                         return;
@@ -6186,14 +6185,14 @@ LABEL_157:
 
                       if ((WGSL::Type::isConstructible(v17) & 1) == 0)
                       {
-                        WGSL::Type::Type(v61, v17);
-                        WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral>(&v71, "type '", 7, v61, "' cannot be used in address space <uniform> because it's not constructible", 75);
-                        *this = v71;
+                        WGSL::Type::Type(v62, v17);
+                        WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral>(&v72, "type '", 7, v62, "' cannot be used in address space <uniform> because it's not constructible", 75);
+                        *this = v72;
                         *(this + 8) = *(a3 + 8);
                         *(this + 24) = 1;
-                        if (v61[48] != 255)
+                        if (v62[48] != 255)
                         {
-                          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v57, v61);
+                          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v58, v62);
                         }
 
                         return;
@@ -6211,14 +6210,14 @@ LABEL_157:
 
                       if ((WGSL::Type::isHostShareable(v17) & 1) == 0)
                       {
-                        WGSL::Type::Type(v63, v17);
-                        WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral>(&v71, "type '", 7, v63, "' cannot be used in address space <storage> because it's not host-shareable", 76);
-                        *this = v71;
+                        WGSL::Type::Type(v64, v17);
+                        WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral>(&v72, "type '", 7, v64, "' cannot be used in address space <storage> because it's not host-shareable", 76);
+                        *this = v72;
                         *(this + 8) = *(a3 + 8);
                         *(this + 24) = 1;
-                        if (v63[48] != 255)
+                        if (v64[48] != 255)
                         {
-                          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v57, v63);
+                          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v58, v64);
                         }
 
                         return;
@@ -6262,36 +6261,36 @@ LABEL_101:
                   {
                     if (v25 != 1)
                     {
-                      v50 = "private";
+                      v51 = "private";
                       goto LABEL_189;
                     }
 
-                    v50 = "handle";
-                    v51 = 7;
+                    v51 = "handle";
+                    v52 = 7;
                   }
 
                   else
                   {
                     if (v25 == 3)
                     {
-                      v50 = "storage";
+                      v51 = "storage";
                       goto LABEL_189;
                     }
 
                     if (v25 == 4)
                     {
-                      v50 = "uniform";
+                      v51 = "uniform";
 LABEL_189:
-                      v51 = 8;
+                      v52 = 8;
                       goto LABEL_190;
                     }
 
-                    v50 = "workgroup";
-                    v51 = 10;
+                    v51 = "workgroup";
+                    v52 = 10;
                   }
 
 LABEL_190:
-                  WTF::makeString<WTF::ASCIILiteral,WTF::ASCIILiteral,WTF::ASCIILiteral>(&v71, "variables in the address space '", 33, v50, v51, "' cannot have an initializer", 29);
+                  WTF::makeString<WTF::ASCIILiteral,WTF::ASCIILiteral,WTF::ASCIILiteral>(&v72, "variables in the address space '", 33, v51, v52, "' cannot have an initializer", 29);
                   goto LABEL_142;
                 }
 
@@ -6301,14 +6300,14 @@ LABEL_190:
                   {
                     if ((WGSL::Type::isConstructible(v17) & 1) == 0)
                     {
-                      WGSL::Type::Type(v58, v17);
-                      WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral>(&v71, "type '", 7, v58, "' cannot be used in address space <private> because it's not constructible", 75);
-                      *this = v71;
+                      WGSL::Type::Type(v59, v17);
+                      WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral>(&v72, "type '", 7, v59, "' cannot be used in address space <private> because it's not constructible", 75);
+                      *this = v72;
                       *(this + 8) = *(a3 + 8);
                       *(this + 24) = 1;
-                      if (v58[48] != 255)
+                      if (v59[48] != 255)
                       {
-                        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v57, v58);
+                        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v58, v59);
                       }
 
                       return;
@@ -6363,14 +6362,14 @@ LABEL_95:
 
               if ((WGSL::Type::isConstructible(v17) & 1) == 0)
               {
-                WGSL::Type::Type(v59, v17);
-                WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral>(&v71, "type '", 7, v59, "' cannot be used in address space <function> because it's not constructible", 76);
-                *this = v71;
+                WGSL::Type::Type(v60, v17);
+                WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral>(&v72, "type '", 7, v60, "' cannot be used in address space <function> because it's not constructible", 76);
+                *this = v72;
                 *(this + 8) = *(a3 + 8);
                 *(this + 24) = 1;
-                if (v59[48] != 255)
+                if (v60[48] != 255)
                 {
-                  mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v57, v59);
+                  mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v58, v60);
                 }
 
                 return;
@@ -6435,14 +6434,14 @@ LABEL_106:
               v32 = "array with an 'override' element count can only be used as the store type of a 'var<workgroup>'";
               v33 = 96;
 LABEL_141:
-              WTF::makeString<WTF::ASCIILiteral>(&v71, v32, v33);
+              WTF::makeString<WTF::ASCIILiteral>(&v72, v32, v33);
 LABEL_142:
-              v44 = v71;
+              v45 = v72;
 LABEL_143:
-              *this = v44;
-              v45 = *(a3 + 8);
+              *this = v45;
+              v46 = *(a3 + 8);
 LABEL_144:
-              *(this + 8) = v45;
+              *(this + 8) = v46;
 LABEL_145:
               *(this + 24) = 1;
               return;
@@ -6451,45 +6450,45 @@ LABEL_145:
             v28 = WGSL::concretize(v23, v27, v20);
             if (!v28)
             {
-              WGSL::Type::Type(v70, v23);
-              v48 = *(a3 + 128);
+              WGSL::Type::Type(v71, v23);
+              v49 = *(a3 + 128);
               if (*(a3 + 128))
               {
-                if (v48 == 2)
+                if (v49 == 2)
                 {
-                  v49 = "override";
-                  v52 = 9;
+                  v50 = "override";
+                  v53 = 9;
                 }
 
                 else
                 {
-                  if (v48 == 1)
+                  if (v49 == 1)
                   {
-                    v49 = "let";
+                    v50 = "let";
                   }
 
                   else
                   {
-                    v49 = "var";
+                    v50 = "var";
                   }
 
-                  v52 = 4;
+                  v53 = 4;
                 }
               }
 
               else
               {
-                v49 = "const";
-                v52 = 6;
+                v50 = "const";
+                v53 = 6;
               }
 
-              WTF::makeString<char,WGSL::Type,WTF::ASCIILiteral,WTF::ASCIILiteral,char>(&v57, v70, v49, v52);
-              *this = v57;
+              WTF::makeString<char,WGSL::Type,WTF::ASCIILiteral,WTF::ASCIILiteral,char>(&v58, v71, v50, v53);
+              *this = v58;
               *(this + 8) = *(a3 + 8);
               *(this + 24) = 1;
-              if (v70[48] != 255)
+              if (v71[48] != 255)
               {
-                mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v56, v70);
+                mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v57, v71);
               }
 
               return;
@@ -6510,10 +6509,10 @@ LABEL_47:
           goto LABEL_34;
         }
 
-        if (v73 == 1)
+        if (v74 == 1)
         {
-          v47 = v71;
-          if (!v71)
+          v48 = v72;
+          if (!v72)
           {
             goto LABEL_160;
           }
@@ -6548,8 +6547,8 @@ LABEL_47:
   v9 = 8 * v7;
   while (1)
   {
-    WGSL::TypeChecker::visit(&v71, a2, *v8);
-    if (v73 == 1)
+    WGSL::TypeChecker::visit(&v72, a2, *v8);
+    if (v74 == 1)
     {
       break;
     }
@@ -6562,29 +6561,29 @@ LABEL_47:
     }
   }
 
-  v46 = v71;
-  if (!v71)
+  v47 = v72;
+  if (!v72)
   {
-    v45 = v72;
-    v57 = v72;
+    v46 = v73;
+    v58 = v73;
     *this = 0;
     goto LABEL_144;
   }
 
-  atomic_fetch_add_explicit(v71, 2u, memory_order_relaxed);
-  v57 = v72;
-  if (atomic_fetch_add_explicit(v46, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  atomic_fetch_add_explicit(v72, 2u, memory_order_relaxed);
+  v58 = v73;
+  if (atomic_fetch_add_explicit(v47, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v46, v10);
+    WTF::StringImpl::destroy(v47, v10);
   }
 
-  atomic_fetch_add_explicit(v46, 2u, memory_order_relaxed);
-  *this = v46;
-  *(this + 8) = v57;
+  atomic_fetch_add_explicit(v47, 2u, memory_order_relaxed);
+  *this = v47;
+  *(this + 8) = v58;
   *(this + 24) = 1;
-  if (atomic_fetch_add_explicit(v46, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (atomic_fetch_add_explicit(v47, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v46, v10);
+    WTF::StringImpl::destroy(v47, v10);
   }
 }
 
@@ -6708,7 +6707,7 @@ void WGSL::TypeChecker::resolve(WGSL::TypeChecker *this, WTF::StringImpl **a2, u
   v17 = *MEMORY[0x277D85DE8];
   if ((*(*a3 + 16))(a3) == 21)
   {
-    WGSL::TypeChecker::lookupType(&v12, a2, a3 + 64);
+    WGSL::TypeChecker::lookupType(&v12, a2, (a3 + 64));
     if (!v14)
     {
       v8 = v12;
@@ -6801,7 +6800,7 @@ LABEL_6:
   }
 }
 
-WTF::StringImpl *WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral>(void *a1, int8x16_t *a2, uint64_t a3, unsigned __int8 *a4, int8x16_t *a5, uint64_t a6)
+WTF::StringImpl *WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral>(uint64_t *a1, int8x16_t *a2, uint64_t a3, mpark *a4, int8x16_t *a5, uint64_t a6)
 {
   v148[20] = *MEMORY[0x277D85DE8];
   if (a3)
@@ -6887,7 +6886,7 @@ LABEL_16:
       else
       {
         v23 = result;
-        WTF::tryFastCompactMalloc((v19 + 20));
+        WTF::tryFastCompactMalloc(v148, (v19 + 20));
         v22 = v148[0];
         if (v148[0])
         {
@@ -7142,7 +7141,7 @@ LABEL_199:
   }
 
   v146 = result;
-  WTF::tryFastCompactMalloc((2 * v19 + 20));
+  WTF::tryFastCompactMalloc(v148, (2 * v19 + 20));
   v22 = v148[0];
   if (!v148[0])
   {
@@ -7472,7 +7471,7 @@ LABEL_122:
   v80 = (v79 + 2 * v14);
   if (v14 >= 0x40)
   {
-    v81 = v79 + 2 * (v14 & 0x7FFFFFC0);
+    v81 = (v79 + 2 * (v14 & 0x7FFFFFC0));
     v82 = 0uLL;
     do
     {
@@ -7490,11 +7489,11 @@ LABEL_122:
       v86 += 32;
       v157.val[1] = 0uLL;
       vst2q_s8(v86, v157);
-      v87 = (v79 + 64);
-      vst2q_s8(v87, v154);
-      v88 = (v79 + 96);
+      i8 = v79[4].i8;
+      vst2q_s8(i8, v154);
+      v88 = v79[6].i8;
       vst2q_s8(v88, *(&v82 - 1));
-      v79 += 128;
+      v79 += 8;
     }
 
     while (v79 != v81);
@@ -7547,7 +7546,7 @@ LABEL_122:
     }
 
     v95 = v89 + v94 + v90 + 18;
-    if (v79 < a5->u64 + (v95 >> 1) + 1 && a5 < (v95 & 0xFFFFFFFFFFFFFFFELL) + v79 + 2)
+    if (v79 < &a5->i8[(v95 >> 1) + 1] && a5 < (&v79->i16[1] + (v95 & 0xFFFFFFFFFFFFFFFELL)))
     {
 LABEL_142:
       v96 = a5;
@@ -7559,7 +7558,7 @@ LABEL_142:
     if (v93 >= 0x3E)
     {
       v102 = v101 & 0xFFFFFFFFFFFFFFE0;
-      v126 = (v79 + 32);
+      v126 = v79 + 2;
       v127 = &a5[1];
       v128 = v101 & 0xFFFFFFFFFFFFFFE0;
       do
@@ -7591,7 +7590,8 @@ LABEL_142:
 LABEL_143:
           v98 = v96->u8[0];
           v96 = (v96 + 1);
-          *v97++ = v98;
+          v97->i16[0] = v98;
+          v97 = (v97 + 2);
         }
 
         while (v97 != v80);
@@ -7672,7 +7672,7 @@ LABEL_201:
   return result;
 }
 
-WGSL::Type *WGSL::Type::Type(WGSL::Type *this, const void **a2)
+WGSL::Type *WGSL::Type::Type(WGSL::Type *this, WTF::StringImpl ***a2)
 {
   *this = 0;
   *(this + 48) = -1;
@@ -7686,7 +7686,7 @@ WGSL::Type *WGSL::Type::Type(WGSL::Type *this, const void **a2)
   return this;
 }
 
-void *WTF::makeString<WTF::ASCIILiteral>(void *result, _BYTE *a2, unint64_t a3)
+uint64_t *WTF::makeString<WTF::ASCIILiteral>(uint64_t *result, _BYTE *a2, unint64_t a3)
 {
   if (a3)
   {
@@ -7713,8 +7713,9 @@ void *WTF::makeString<WTF::ASCIILiteral>(void *result, _BYTE *a2, unint64_t a3)
     return result;
   }
 
-  WTF::tryFastCompactMalloc((v3 + 20));
-  if (!v7)
+  WTF::tryFastCompactMalloc(&v8, (v3 + 20));
+  v7 = v8;
+  if (!v8)
   {
     *v4 = 0;
     __break(0xC471u);
@@ -7722,8 +7723,8 @@ LABEL_14:
     JUMPOUT(0x2258590E8);
   }
 
-  result = (v7 + 20);
-  *v7 = 2;
+  result = (v8 + 20);
+  *v8 = 2;
   *(v7 + 4) = v3;
   *(v7 + 8) = v7 + 20;
   *(v7 + 16) = 4;
@@ -7810,7 +7811,7 @@ __n128 WGSL::TypeChecker::infer(uint64_t a1, uint64_t a2, uint64_t a3, unsigned 
     v9 = *(a2 + 65);
     *(a2 + 65) = a5;
     *(a2 + 64) = a4;
-    WGSL::TypeChecker::visit(&v22, a2);
+    WGSL::TypeChecker::visit(&v22, a2, a3);
     if (v24 == 1)
     {
       v19 = v22;
@@ -7861,7 +7862,7 @@ __n128 WGSL::TypeChecker::infer(uint64_t a1, uint64_t a2, uint64_t a3, unsigned 
   return result;
 }
 
-unint64_t WTF::makeString<char,WGSL::Type,WTF::ASCIILiteral,WTF::ASCIILiteral,char>(void *a1, unsigned __int8 *a2, int8x16_t *a3, uint64_t a4)
+unint64_t WTF::makeString<char,WGSL::Type,WTF::ASCIILiteral,WTF::ASCIILiteral,char>(uint64_t *a1, mpark *a2, int8x16_t *a3, uint64_t a4)
 {
   v114[20] = *MEMORY[0x277D85DE8];
   WTF::StringPrintStream::StringPrintStream(v114);
@@ -7936,7 +7937,7 @@ LABEL_10:
 
   if (!v113 || (v19 = *(v113 + 4), atomic_fetch_add_explicit(v113, 2u, memory_order_relaxed), (v19 & 4) != 0))
   {
-    if ((v16 & 0x80000000) != 0 || (result = WTF::tryFastCompactMalloc((v16 + 20)), (v17 = v114[0]) == 0))
+    if ((v16 & 0x80000000) != 0 || (result = WTF::tryFastCompactMalloc(v114, (v16 + 20)), (v17 = v114[0]) == 0))
     {
       v17 = 0;
       *a1 = 0;
@@ -8134,7 +8135,7 @@ LABEL_59:
     goto LABEL_106;
   }
 
-  result = WTF::tryFastCompactMalloc((2 * v16 + 20));
+  result = WTF::tryFastCompactMalloc(v114, (2 * v16 + 20));
   v17 = v114[0];
   if (v114[0])
   {
@@ -8188,7 +8189,7 @@ LABEL_82:
       v62 = &v60[v9 + 35];
       if (v9 >= 0x40)
       {
-        v63 = v61 + 2 * (v9 & 0x7FFFFFC0);
+        v63 = (v61 + 2 * (v9 & 0x7FFFFFC0));
         v64 = 0uLL;
         do
         {
@@ -8206,11 +8207,11 @@ LABEL_82:
           v68 += 32;
           v120.val[1] = 0uLL;
           vst2q_s8(v68, v120);
-          v69 = (v61 + 64);
-          vst2q_s8(v69, v118);
-          v70 = (v61 + 96);
+          i8 = v61[4].i8;
+          vst2q_s8(i8, v118);
+          v70 = v61[6].i8;
           vst2q_s8(v70, *(&v64 - 1));
-          v61 += 128;
+          v61 += 8;
         }
 
         while (v61 != v63);
@@ -8247,7 +8248,7 @@ LABEL_82:
       }
 
       v76 = v72 + v73 + 90;
-      if (v61 < a3->u64 + (v76 >> 1) + 1 && a3 < (v76 & 0xFFFFFFFFFFFFFFFELL) + v61 + 2)
+      if (v61 < &a3->i8[(v76 >> 1) + 1] && a3 < (&v61->i16[1] + (v76 & 0xFFFFFFFFFFFFFFFELL)))
       {
 LABEL_97:
         v77 = a3;
@@ -8259,7 +8260,7 @@ LABEL_97:
       if (v75 >= 0x3E)
       {
         v81 = v80 & 0xFFFFFFFFFFFFFFE0;
-        v93 = (v61 + 32);
+        v93 = v61 + 2;
         v94 = &a3[1];
         v95 = v80 & 0xFFFFFFFFFFFFFFE0;
         do
@@ -8291,7 +8292,8 @@ LABEL_97:
 LABEL_98:
             v79 = v77->u8[0];
             v77 = (v77 + 1);
-            *v78++ = v79;
+            v78->i16[0] = v79;
+            v78 = (v78 + 2);
           }
 
           while (v78 != v62);
@@ -8325,7 +8327,7 @@ LABEL_98:
 LABEL_99:
       if (v71 > v9)
       {
-        *v62 = 39;
+        v62->i16[0] = 39;
 LABEL_101:
         if (atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
@@ -8490,7 +8492,7 @@ LABEL_16:
   return result;
 }
 
-WTF::StringImpl *WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral,WGSL::Type,char>(WTF::StringImpl **a1, int8x16_t *a2, uint64_t a3, unsigned __int8 *a4, uint64_t a5, uint64_t a6, unsigned __int8 *a7)
+WTF::StringImpl *WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral,WGSL::Type,char>(WTF::StringImpl **a1, int8x16_t *a2, uint64_t a3, mpark *a4, uint64_t a5, uint64_t a6, mpark *a7)
 {
   v10[0] = a5;
   v10[1] = a6;
@@ -8504,7 +8506,7 @@ WTF::StringImpl *WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral,
   return result;
 }
 
-uint64_t WTF::makeString<char,WGSL::Type,WTF::ASCIILiteral>(void *a1, unsigned __int8 *a2, int8x16_t *a3, uint64_t a4)
+uint64_t WTF::makeString<char,WGSL::Type,WTF::ASCIILiteral>(uint64_t *a1, mpark *a2, int8x16_t *a3, uint64_t a4)
 {
   v106[20] = *MEMORY[0x277D85DE8];
   WTF::StringPrintStream::StringPrintStream(v106);
@@ -8575,7 +8577,7 @@ LABEL_12:
       else
       {
         v18 = result;
-        WTF::tryFastCompactMalloc((v14 + 20));
+        WTF::tryFastCompactMalloc(v106, (v14 + 20));
         v17 = v106[0];
         if (v106[0])
         {
@@ -8792,7 +8794,7 @@ LABEL_66:
   }
 
   v18 = result;
-  WTF::tryFastCompactMalloc((2 * v14 + 20));
+  WTF::tryFastCompactMalloc(v106, (2 * v14 + 20));
   v17 = v106[0];
   if (!v106[0])
   {
@@ -8958,7 +8960,7 @@ LABEL_91:
   v55 = (v54 + 2 * v9);
   if (v9 >= 0x40)
   {
-    v56 = v54 + 2 * (v9 & 0x7FFFFFC0);
+    v56 = (v54 + 2 * (v9 & 0x7FFFFFC0));
     v57 = 0uLL;
     do
     {
@@ -8976,11 +8978,11 @@ LABEL_91:
       v61 += 32;
       v112.val[1] = 0uLL;
       vst2q_s8(v61, v112);
-      v62 = (v54 + 64);
-      vst2q_s8(v62, v110);
-      v63 = (v54 + 96);
+      i8 = v54[4].i8;
+      vst2q_s8(i8, v110);
+      v63 = v54[6].i8;
       vst2q_s8(v63, *(&v57 - 1));
-      v54 += 128;
+      v54 += 8;
     }
 
     while (v54 != v56);
@@ -9013,7 +9015,7 @@ LABEL_91:
     }
 
     v68 = v64 + v65 + 20;
-    if (v54 < a3->u64 + (v68 >> 1) + 1 && a3 < (v68 & 0xFFFFFFFFFFFFFFFELL) + v54 + 2)
+    if (v54 < &a3->i8[(v68 >> 1) + 1] && a3 < (&v54->i16[1] + (v68 & 0xFFFFFFFFFFFFFFFELL)))
     {
 LABEL_105:
       v69 = a3;
@@ -9025,7 +9027,7 @@ LABEL_105:
     if (v67 >= 0x3E)
     {
       v73 = v72 & 0xFFFFFFFFFFFFFFE0;
-      v85 = (v54 + 32);
+      v85 = v54 + 2;
       v86 = &a3[1];
       v87 = v72 & 0xFFFFFFFFFFFFFFE0;
       do
@@ -9057,7 +9059,8 @@ LABEL_105:
 LABEL_106:
           v71 = v69->u8[0];
           v69 = (v69 + 1);
-          *v70++ = v71;
+          v70->i16[0] = v71;
+          v70 = (v70 + 2);
         }
 
         while (v70 != v55);
@@ -9136,7 +9139,7 @@ LABEL_143:
   return result;
 }
 
-uint64_t WTF::makeString<WTF::ASCIILiteral,WTF::ASCIILiteral,WTF::ASCIILiteral>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t *WTF::makeString<WTF::ASCIILiteral,WTF::ASCIILiteral,WTF::ASCIILiteral>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v7 = a3 - 1;
   if (!a3)
@@ -9191,7 +9194,7 @@ LABEL_16:
   return result;
 }
 
-void WGSL::TypeChecker::convertValue(uint64_t a1, _OWORD *a2, const void **a3, mpark *a4, double a5)
+void WGSL::TypeChecker::convertValue(uint64_t a1, _OWORD *a2, WTF::StringImpl ***a3, mpark *a4, double a5)
 {
   v17 = *MEMORY[0x277D85DE8];
   if ((*(a4 + 24) & 1) != 0 && (WGSL::TypeChecker::convertValueImpl(a3, a4, a3, a5) & 1) == 0)
@@ -9238,7 +9241,7 @@ void WGSL::TypeChecker::convertValue(uint64_t a1, _OWORD *a2, const void **a3, m
   }
 }
 
-WTF::StringImpl *WTF::makeString<WTF::ASCIILiteral,WGSL::Type,char>(void *a1, _BYTE *a2, uint64_t a3, unsigned __int8 *a4)
+WTF::StringImpl *WTF::makeString<WTF::ASCIILiteral,WGSL::Type,char>(void *a1, unsigned __int8 *a2, uint64_t a3, mpark *a4)
 {
   v19[20] = *MEMORY[0x277D85DE8];
   if (a3)

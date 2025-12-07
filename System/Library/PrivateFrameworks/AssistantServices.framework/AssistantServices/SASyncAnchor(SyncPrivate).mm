@@ -8,7 +8,7 @@
 
 - (uint64_t)_af_isValid
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = [self key];
   if ([v2 length])
   {
@@ -16,7 +16,7 @@
     appIdentifyingInfo = [appMetaData appIdentifyingInfo];
     bundleId = [appIdentifyingInfo bundleId];
     clientIdentifier = [appIdentifyingInfo clientIdentifier];
-    if ([v2 isEqualToString:@"com.apple.siri.appIntentSupportPolicyAndVocab"])
+    if (objc_msgSend_isEqualToString_(v2))
     {
       if ([bundleId length])
       {
@@ -27,11 +27,11 @@
           v10 = AFSiriLogContextDaemon;
           if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
           {
-            v19 = 136315394;
-            v20 = "[SASyncAnchor(SyncPrivate) _af_isValid]";
-            v21 = 2112;
-            v22 = v8;
-            _os_log_debug_impl(&dword_1912FE000, v10, OS_LOG_TYPE_DEBUG, "%s ShortcutsActions received in %@ anchor key, marking as invalid and skipping", &v19, 0x16u);
+            v18 = 136315394;
+            v19 = "[SASyncAnchor(SyncPrivate) _af_isValid]";
+            v20 = 2112;
+            v21 = v8;
+            _os_log_debug_impl(&dword_1912FE000, v10, OS_LOG_TYPE_DEBUG, "%s ShortcutsActions received in %@ anchor key, marking as invalid and skipping", &v18, 0x16u);
           }
 
           goto LABEL_23;
@@ -47,17 +47,17 @@ LABEL_24:
       v15 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
       {
-        v19 = 136315138;
-        v20 = "[SASyncAnchor(SyncPrivate) _af_isValid]";
+        v18 = 136315138;
+        v19 = "[SASyncAnchor(SyncPrivate) _af_isValid]";
         v16 = "%s SASyncAppMetaData has no bundleID, but it is required for this key";
 LABEL_22:
-        _os_log_error_impl(&dword_1912FE000, v15, OS_LOG_TYPE_ERROR, v16, &v19, 0xCu);
+        _os_log_error_impl(&dword_1912FE000, v15, OS_LOG_TYPE_ERROR, v16, &v18, 0xCu);
       }
     }
 
     else
     {
-      if (![v2 isEqualToString:@"com.apple.siri.vocabularyupdates"])
+      if (!objc_msgSend_isEqualToString_(v2))
       {
         goto LABEL_15;
       }
@@ -75,8 +75,8 @@ LABEL_22:
         v15 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
         {
-          v19 = 136315138;
-          v20 = "[SASyncAnchor(SyncPrivate) _af_isValid]";
+          v18 = 136315138;
+          v19 = "[SASyncAnchor(SyncPrivate) _af_isValid]";
           v16 = "%s SASyncAppMetaData has no -applicationClientIdentifier, as required for this key";
           goto LABEL_22;
         }
@@ -87,8 +87,8 @@ LABEL_22:
         v15 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
         {
-          v19 = 136315138;
-          v20 = "[SASyncAnchor(SyncPrivate) _af_isValid]";
+          v18 = 136315138;
+          v19 = "[SASyncAnchor(SyncPrivate) _af_isValid]";
           v16 = "%s SASyncAppMetaData does not have exactly one -syncSlots, as required for this key";
           goto LABEL_22;
         }
@@ -103,15 +103,14 @@ LABEL_23:
   v11 = AFSiriLogContextDaemon;
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
   {
-    v19 = 136315138;
-    v20 = "[SASyncAnchor(SyncPrivate) _af_isValid]";
-    _os_log_error_impl(&dword_1912FE000, v11, OS_LOG_TYPE_ERROR, "%s Sync info is missing a key", &v19, 0xCu);
+    v18 = 136315138;
+    v19 = "[SASyncAnchor(SyncPrivate) _af_isValid]";
+    _os_log_error_impl(&dword_1912FE000, v11, OS_LOG_TYPE_ERROR, "%s Sync info is missing a key", &v18, 0xCu);
   }
 
   v12 = 0;
 LABEL_25:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

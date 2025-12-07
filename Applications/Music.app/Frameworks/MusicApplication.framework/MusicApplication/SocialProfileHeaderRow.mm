@@ -39,7 +39,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_4593A4();
+  sub_4593A4(selfCopy);
 }
 
 - (id)hitTest:(CGPoint)test withEvent:(id)event
@@ -142,7 +142,7 @@ LABEL_5:
 - (NSString)accessibilityValue
 {
   selfCopy = self;
-  sub_459CC4();
+  sub_459CC4(selfCopy);
   v4 = v3;
 
   if (v4)

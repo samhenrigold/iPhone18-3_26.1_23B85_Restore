@@ -906,7 +906,7 @@ void __93__ICModernSearchIndexerDataSource_allIndexableObjectIDsInReversedReinde
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_2_4(v0, v1);
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_1_5(&dword_214D51000, v2, v3, "allIndexableObjectIDsInReversedReindexingOrderWithContext: data source %@ retrieved %lu account IDs: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_5(&dword_214D51000, v2, v3, "allIndexableObjectIDsInReversedReindexingOrderWithContext: data source %@ retrieved %lu account IDs: %@", v4, v5, v6, v7);
 }
 
 void __93__ICModernSearchIndexerDataSource_allIndexableObjectIDsInReversedReindexingOrderWithContext___block_invoke_cold_3()
@@ -914,7 +914,7 @@ void __93__ICModernSearchIndexerDataSource_allIndexableObjectIDsInReversedReinde
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_2_4(v0, v1);
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_1_5(&dword_214D51000, v2, v3, "allIndexableObjectIDsInReversedReindexingOrderWithContext: data source %@ retrieved %lu folder IDs: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_5(&dword_214D51000, v2, v3, "allIndexableObjectIDsInReversedReindexingOrderWithContext: data source %@ retrieved %lu folder IDs: %@", v4, v5, v6, v7);
 }
 
 void __93__ICModernSearchIndexerDataSource_allIndexableObjectIDsInReversedReindexingOrderWithContext___block_invoke_cold_4()
@@ -922,7 +922,7 @@ void __93__ICModernSearchIndexerDataSource_allIndexableObjectIDsInReversedReinde
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_2_4(v0, v1);
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_1_5(&dword_214D51000, v2, v3, "allIndexableObjectIDsInReversedReindexingOrderWithContext: data source %@ retrieved %lu tag IDs: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_5(&dword_214D51000, v2, v3, "allIndexableObjectIDsInReversedReindexingOrderWithContext: data source %@ retrieved %lu tag IDs: %@", v4, v5, v6, v7);
 }
 
 void __93__ICModernSearchIndexerDataSource_allIndexableObjectIDsInReversedReindexingOrderWithContext___block_invoke_cold_5()
@@ -930,7 +930,7 @@ void __93__ICModernSearchIndexerDataSource_allIndexableObjectIDsInReversedReinde
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_2_4(v0, v1);
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_1_5(&dword_214D51000, v2, v3, "allIndexableObjectIDsInReversedReindexingOrderWithContext: data source %@ retrieved %lu note IDs: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_5(&dword_214D51000, v2, v3, "allIndexableObjectIDsInReversedReindexingOrderWithContext: data source %@ retrieved %lu note IDs: %@", v4, v5, v6, v7);
 }
 
 void __93__ICModernSearchIndexerDataSource_allIndexableObjectIDsInReversedReindexingOrderWithContext___block_invoke_cold_6()
@@ -938,14 +938,18 @@ void __93__ICModernSearchIndexerDataSource_allIndexableObjectIDsInReversedReinde
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_2_4(v0, v1);
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_1_5(&dword_214D51000, v2, v3, "allIndexableObjectIDsInReversedReindexingOrderWithContext: data source %@ retrieved %lu attachment IDs: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_5(&dword_214D51000, v2, v3, "allIndexableObjectIDsInReversedReindexingOrderWithContext: data source %@ retrieved %lu attachment IDs: %@", v4, v5, v6, v7);
 }
 
 void __93__ICModernSearchIndexerDataSource_allIndexableObjectIDsInReversedReindexingOrderWithContext___block_invoke_cold_7()
 {
   OUTLINED_FUNCTION_10();
-  [*(*(*v0 + 8) + 40) count];
-  OUTLINED_FUNCTION_1_5(&dword_214D51000, v1, v2, "allIndexableObjectIDsInReversedReindexingOrderWithContext: data source %@ retrieved %lu indexableObjectIDs: %@", v3, v4, v5, v6, 2u);
+  *v9 = 138412802;
+  *&v9[4] = *(v1 + 32);
+  *&v9[12] = 2048;
+  *&v9[14] = [*(*(*v2 + 8) + 40) count];
+  *&v9[22] = 2112;
+  OUTLINED_FUNCTION_1_5(&dword_214D51000, v3, v4, "allIndexableObjectIDsInReversedReindexingOrderWithContext: data source %@ retrieved %lu indexableObjectIDs: %@", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16], *(*(*v0 + 8) + 40));
 }
 
 - (void)synapseItemsForObject:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)

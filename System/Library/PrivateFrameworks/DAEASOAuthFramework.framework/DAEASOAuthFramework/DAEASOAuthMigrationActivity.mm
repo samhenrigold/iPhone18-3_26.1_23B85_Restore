@@ -120,15 +120,15 @@ void __91__DAEASOAuthMigrationActivity__retrieveMigrationStatusFromConfiguration
 
 void __91__DAEASOAuthMigrationActivity__retrieveMigrationStatusFromConfigurationURI_withCompletion___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   v8 = v7;
   if (v6 && !v7)
   {
-    v26 = 0;
-    v9 = [MEMORY[0x277CCAC58] propertyListWithData:v6 options:0 format:0 error:&v26];
-    v10 = v26;
+    v25 = 0;
+    v9 = [MEMORY[0x277CCAC58] propertyListWithData:v6 options:0 format:0 error:&v25];
+    v10 = v25;
     if (v9)
     {
       objc_opt_class();
@@ -144,11 +144,11 @@ void __91__DAEASOAuthMigrationActivity__retrieveMigrationStatusFromConfiguration
           [v13 isEqualToString:@"YES"];
         }
 
-        v21 = [v9 objectForKeyedSubscript:@"iOSExchangeAccountAuthMigrationDisallowedDomains"];
+        v20 = [v9 objectForKeyedSubscript:@"iOSExchangeAccountAuthMigrationDisallowedDomains"];
         objc_opt_class();
-        v22 = objc_opt_isKindOfClass();
+        v21 = objc_opt_isKindOfClass();
 
-        if (v22)
+        if (v21)
         {
           v16 = [v9 objectForKeyedSubscript:@"iOSExchangeAccountAuthMigrationDisallowedDomains"];
         }
@@ -158,11 +158,11 @@ void __91__DAEASOAuthMigrationActivity__retrieveMigrationStatusFromConfiguration
           v16 = 0;
         }
 
-        v23 = [v9 objectForKeyedSubscript:@"iOSExchangeAccountAuthMigrationDisallowedHosts"];
+        v22 = [v9 objectForKeyedSubscript:@"iOSExchangeAccountAuthMigrationDisallowedHosts"];
         objc_opt_class();
-        v24 = objc_opt_isKindOfClass();
+        v23 = objc_opt_isKindOfClass();
 
-        if (v24)
+        if (v23)
         {
           v15 = [v9 objectForKeyedSubscript:@"iOSExchangeAccountAuthMigrationDisallowedHosts"];
         }
@@ -173,12 +173,12 @@ void __91__DAEASOAuthMigrationActivity__retrieveMigrationStatusFromConfiguration
         }
 
         v17 = DALoggingwithCategory();
-        v25 = *(MEMORY[0x277D03988] + 6);
-        if (os_log_type_enabled(v17, v25))
+        v24 = *(MEMORY[0x277D03988] + 6);
+        if (os_log_type_enabled(v17, v24))
         {
           *buf = 138412290;
-          v28 = v9;
-          _os_log_impl(&dword_247E05000, v17, v25, "DAEASOAuthMigrationActivity: Configuration set to: %@", buf, 0xCu);
+          v27 = v9;
+          _os_log_impl(&dword_247E05000, v17, v24, "DAEASOAuthMigrationActivity: Configuration set to: %@", buf, 0xCu);
         }
 
         goto LABEL_16;
@@ -189,7 +189,7 @@ void __91__DAEASOAuthMigrationActivity__retrieveMigrationStatusFromConfiguration
       if (os_log_type_enabled(v17, v18))
       {
         *buf = 138412290;
-        v28 = v9;
+        v27 = v9;
         v19 = "DAEASOAuthMigrationActivity: Invalid configuration data: %@";
         goto LABEL_14;
       }
@@ -202,7 +202,7 @@ void __91__DAEASOAuthMigrationActivity__retrieveMigrationStatusFromConfiguration
       if (os_log_type_enabled(v17, v18))
       {
         *buf = 138412290;
-        v28 = v10;
+        v27 = v10;
         v19 = "DAEASOAuthMigrationActivity: Unable to decode configuration data. Error: %@";
 LABEL_14:
         _os_log_impl(&dword_247E05000, v17, v18, v19, buf, 0xCu);
@@ -221,9 +221,9 @@ LABEL_16:
   if (os_log_type_enabled(v10, v14))
   {
     *buf = 138412546;
-    v28 = v8;
-    v29 = 2112;
-    v30 = v6;
+    v27 = v8;
+    v28 = 2112;
+    v29 = v6;
     _os_log_impl(&dword_247E05000, v10, v14, "DAEASOAuthMigrationActivity: Could not retrieve configuration. Error: %@. Data: %@", buf, 0x16u);
   }
 
@@ -232,7 +232,6 @@ LABEL_16:
 LABEL_17:
 
   (*(*(a1 + 32) + 16))();
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_serverMigrationStatus
@@ -342,11 +341,11 @@ LABEL_6:
 
 - (BOOL)_isExchangeBasicAccount:(id)account
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   accountCopy = account;
-  v20 = 0;
-  v4 = [MEMORY[0x277CE8538] credentialForAccount:accountCopy clientID:0 error:&v20];
-  v5 = v20;
+  v19 = 0;
+  v4 = [MEMORY[0x277CE8538] credentialForAccount:accountCopy clientID:0 error:&v19];
+  v5 = v19;
   accountType = [accountCopy accountType];
   identifier = [accountType identifier];
   v8 = [identifier isEqualToString:*MEMORY[0x277CB8C00]];
@@ -372,13 +371,12 @@ LABEL_6:
     }
 
     *buf = 138412546;
-    v22 = accountCopy;
-    v23 = 2112;
-    v24 = v17;
+    v21 = accountCopy;
+    v22 = 2112;
+    v23 = v17;
     _os_log_impl(&dword_247E05000, v15, v16, "_isExchangeBasicAccount: Account %@ is a basic exchange account? %@", buf, 0x16u);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -428,7 +426,7 @@ id __76__DAEASOAuthMigrationActivity__sendAnalyticsForMigratingAccount_withStatu
 
 - (unint64_t)_migrateExchangeAccountToOAuthDecision:(id)decision disallowedDomains:(id)domains disallowedHosts:(id)hosts
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   decisionCopy = decision;
   domainsCopy = domains;
   hostsCopy = hosts;
@@ -440,29 +438,29 @@ id __76__DAEASOAuthMigrationActivity__sendAnalyticsForMigratingAccount_withStatu
 
   selfCopy = self;
   sel = a2;
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
-  v66 = domainsCopy;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v65 = domainsCopy;
   v12 = domainsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v71 objects:v80 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v70 objects:v79 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v72;
+    v15 = *v71;
     v16 = *MEMORY[0x277D03818];
-    v65 = hostsCopy;
+    v64 = hostsCopy;
     while (2)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v72 != v15)
+        if (*v71 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v71 + 1) + 8 * i);
+        v18 = *(*(&v70 + 1) + 8 * i);
         username = [decisionCopy username];
         if ([username hasSuffix:v18])
         {
@@ -474,15 +472,15 @@ LABEL_23:
           {
             Name = sel_getName(sel);
             *buf = 136315394;
-            v77 = Name;
-            v78 = 2114;
-            v79 = v18;
+            v76 = Name;
+            v77 = 2114;
+            v78 = v18;
             _os_log_impl(&dword_247E05000, v35, v36, "In %s: No because it ends with %{public}@ domain (consumer account).", buf, 0x16u);
           }
 
           v34 = 1;
-          hostsCopy = v65;
-          domainsCopy = v66;
+          hostsCopy = v64;
+          domainsCopy = v65;
           goto LABEL_34;
         }
 
@@ -495,8 +493,8 @@ LABEL_23:
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v71 objects:v80 count:16];
-      hostsCopy = v65;
+      v14 = [v12 countByEnumeratingWithState:&v70 objects:v79 count:16];
+      hostsCopy = v64;
       if (v14)
       {
         continue;
@@ -506,28 +504,28 @@ LABEL_23:
     }
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   v22 = hostsCopy;
   v23 = hostsCopy;
-  v24 = [v23 countByEnumeratingWithState:&v67 objects:v75 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v66 objects:v74 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v68;
+    v26 = *v67;
     v27 = *MEMORY[0x277D03820];
     while (2)
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v68 != v26)
+        if (*v67 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v29 = *(*(&v67 + 1) + 8 * j);
+        v29 = *(*(&v66 + 1) + 8 * j);
         v30 = [decisionCopy objectForKeyedSubscript:{v27, selfCopy}];
         v31 = [v30 isEqualToString:v29];
 
@@ -539,20 +537,20 @@ LABEL_23:
           {
             v40 = sel_getName(sel);
             *buf = 136315394;
-            v77 = v40;
-            v78 = 2114;
-            v79 = v29;
+            v76 = v40;
+            v77 = 2114;
+            v78 = v29;
             _os_log_impl(&dword_247E05000, v38, v39, "In %s: No because the host is %{public}@ (consumer account).", buf, 0x16u);
           }
 
           v34 = 2;
-          domainsCopy = v66;
+          domainsCopy = v65;
           hostsCopy = v22;
           goto LABEL_34;
         }
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v67 objects:v75 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v66 objects:v74 count:16];
       if (v25)
       {
         continue;
@@ -566,7 +564,7 @@ LABEL_23:
   if (managingOwnerIdentifier)
   {
     v33 = managingOwnerIdentifier;
-    domainsCopy = v66;
+    domainsCopy = v65;
     hostsCopy = v22;
 LABEL_31:
     v42 = DALoggingwithCategory();
@@ -575,7 +573,7 @@ LABEL_31:
     {
       v44 = sel_getName(sel);
       *buf = 136315138;
-      v77 = v44;
+      v76 = v44;
       _os_log_impl(&dword_247E05000, v42, v43, "In %s: No because it is being managed.", buf, 0xCu);
     }
 
@@ -588,37 +586,37 @@ LABEL_31:
   if (v41)
   {
     v33 = v41;
-    domainsCopy = v66;
+    domainsCopy = v65;
     goto LABEL_31;
   }
 
-  v47 = *MEMORY[0x277D07A58];
-  v48 = [decisionCopy objectForKeyedSubscript:*MEMORY[0x277D07A58]];
+  v46 = *MEMORY[0x277D07A58];
+  v47 = [decisionCopy objectForKeyedSubscript:*MEMORY[0x277D07A58]];
 
-  domainsCopy = v66;
-  if (!v48)
+  domainsCopy = v65;
+  if (!v47)
   {
     goto LABEL_41;
   }
 
-  v49 = MEMORY[0x277CBEAA8];
-  v50 = [decisionCopy objectForKeyedSubscript:v47];
-  [v50 doubleValue];
-  v51 = [v49 dateWithTimeIntervalSince1970:?];
+  v48 = MEMORY[0x277CBEAA8];
+  v49 = [decisionCopy objectForKeyedSubscript:v46];
+  [v49 doubleValue];
+  v50 = [v48 dateWithTimeIntervalSince1970:?];
 
-  LODWORD(v49) = [objc_opt_class() profileMigrationEnabled];
-  [v51 timeIntervalSinceNow];
-  if (v49)
+  LODWORD(v48) = [objc_opt_class() profileMigrationEnabled];
+  [v50 timeIntervalSinceNow];
+  if (v48)
   {
-    v53 = MEMORY[0x277D07A68];
+    v52 = MEMORY[0x277D07A68];
   }
 
   else
   {
-    v53 = MEMORY[0x277D07A60];
+    v52 = MEMORY[0x277D07A60];
   }
 
-  if (v52 < -*v53)
+  if (v51 < -*v52)
   {
 
 LABEL_41:
@@ -626,23 +624,23 @@ LABEL_41:
     v34 = 7;
     if (migrationStatus != 3)
     {
-      v55 = migrationStatus;
+      v54 = migrationStatus;
       if (migrationStatus != 5)
       {
-        v56 = DALoggingwithCategory();
-        v57 = *(MEMORY[0x277D03988] + 7);
-        if (os_log_type_enabled(v56, v57))
+        v55 = DALoggingwithCategory();
+        v56 = *(MEMORY[0x277D03988] + 7);
+        if (os_log_type_enabled(v55, v56))
         {
-          v58 = sel_getName(sel);
+          v57 = sel_getName(sel);
           migrationStatusString = [decisionCopy migrationStatusString];
           *buf = 136315394;
-          v77 = v58;
-          v78 = 2112;
-          v79 = migrationStatusString;
-          _os_log_impl(&dword_247E05000, v56, v57, "In %s: No because migration status is %@.", buf, 0x16u);
+          v76 = v57;
+          v77 = 2112;
+          v78 = migrationStatusString;
+          _os_log_impl(&dword_247E05000, v55, v56, "In %s: No because migration status is %@.", buf, 0x16u);
         }
 
-        if (v55 == 1)
+        if (v54 == 1)
         {
           v34 = 5;
         }
@@ -657,22 +655,21 @@ LABEL_41:
     goto LABEL_34;
   }
 
-  v60 = DALoggingwithCategory();
-  v61 = *(MEMORY[0x277D03988] + 7);
-  if (os_log_type_enabled(v60, v61))
+  v59 = DALoggingwithCategory();
+  v60 = *(MEMORY[0x277D03988] + 7);
+  if (os_log_type_enabled(v59, v60))
   {
-    v62 = sel_getName(sel);
+    v61 = sel_getName(sel);
     *buf = 136315394;
-    v77 = v62;
-    v78 = 2112;
-    v79 = v51;
-    _os_log_impl(&dword_247E05000, v60, v61, "In %s: No because last attempt was very recent: %@).", buf, 0x16u);
+    v76 = v61;
+    v77 = 2112;
+    v78 = v50;
+    _os_log_impl(&dword_247E05000, v59, v60, "In %s: No because last attempt was very recent: %@).", buf, 0x16u);
   }
 
   v34 = 4;
 LABEL_34:
 
-  v45 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
@@ -690,7 +687,7 @@ LABEL_34:
 
 void __55__DAEASOAuthMigrationActivity__triggerAccountMigration__block_invoke(uint64_t a1, void *a2)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = DALoggingwithCategory();
   v5 = *(MEMORY[0x277D03988] + 7);
@@ -700,111 +697,109 @@ void __55__DAEASOAuthMigrationActivity__triggerAccountMigration__block_invoke(ui
     _os_log_impl(&dword_247E05000, v4, v5, "DAEASOAuthMigrationActivity: Starting.", buf, 2u);
   }
 
-  v6 = *(a1 + 32);
   if (![objc_opt_class() profileMigrationDisabled])
   {
     type = v5;
-    v8 = [*(a1 + 32) _serverMigrationStatus];
-    v9 = [v8 objectForKeyedSubscript:@"migrationEnabled"];
-    v10 = [v9 BOOLValue];
+    v7 = [*(a1 + 32) _serverMigrationStatus];
+    v8 = [v7 objectForKeyedSubscript:@"migrationEnabled"];
+    v9 = [v8 BOOLValue];
 
-    v11 = [v8 objectForKeyedSubscript:@"disallowedDomains"];
-    v12 = [v8 objectForKeyedSubscript:@"disallowedHosts"];
-    v13 = [*(a1 + 32) scheduler];
-    if ([v13 shouldDefer])
+    v10 = [v7 objectForKeyedSubscript:@"disallowedDomains"];
+    v11 = [v7 objectForKeyedSubscript:@"disallowedHosts"];
+    v12 = [*(a1 + 32) scheduler];
+    if ([v12 shouldDefer])
     {
     }
 
     else
     {
-      v14 = *(a1 + 32);
-      v15 = [objc_opt_class() profileMigrationEnabled] | v10;
+      v13 = [objc_opt_class() profileMigrationEnabled] | v9;
 
-      if (v15)
+      if (v13)
       {
-        v16 = objc_opt_new();
-        v17 = [v16 accountTypeWithAccountTypeIdentifier:*MEMORY[0x277CB8C00]];
-        v18 = v17;
-        v19 = type;
-        if (v17)
+        v14 = objc_opt_new();
+        v15 = [v14 accountTypeWithAccountTypeIdentifier:*MEMORY[0x277CB8C00]];
+        v16 = v15;
+        v17 = type;
+        if (v15)
         {
-          v37 = v8;
-          v38 = v3;
-          v35 = v17;
-          v36 = v16;
-          [v16 accountsWithAccountType:v17];
-          v42 = 0u;
-          v43 = 0u;
-          v44 = 0u;
-          obj = v45 = 0u;
-          v20 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
-          if (v20)
+          v34 = v7;
+          v35 = v3;
+          v32 = v15;
+          v33 = v14;
+          [v14 accountsWithAccountType:v15];
+          v39 = 0u;
+          v40 = 0u;
+          v41 = 0u;
+          obj = v42 = 0u;
+          v18 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
+          if (v18)
           {
-            v21 = v20;
-            v22 = *v43;
+            v19 = v18;
+            v20 = *v40;
             do
             {
-              for (i = 0; i != v21; ++i)
+              for (i = 0; i != v19; ++i)
               {
-                if (*v43 != v22)
+                if (*v40 != v20)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v24 = *(*(&v42 + 1) + 8 * i);
-                v25 = [*(a1 + 32) _migrateExchangeAccountToOAuthDecision:v24 disallowedDomains:v11 disallowedHosts:v12];
-                if (v25 == 7)
+                v22 = *(*(&v39 + 1) + 8 * i);
+                v23 = [*(a1 + 32) _migrateExchangeAccountToOAuthDecision:v22 disallowedDomains:v10 disallowedHosts:v11];
+                if (v23 == 7)
                 {
-                  v48 = @"DAEASRenewCredentialsShouldTriggerMigrationKey";
-                  v49 = MEMORY[0x277CBEC38];
-                  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-                  v27 = DALoggingwithCategory();
-                  if (os_log_type_enabled(v27, v19))
+                  v45 = @"DAEASRenewCredentialsShouldTriggerMigrationKey";
+                  v46 = MEMORY[0x277CBEC38];
+                  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+                  v25 = DALoggingwithCategory();
+                  if (os_log_type_enabled(v25, v17))
                   {
                     *buf = 138412290;
-                    v47 = v24;
-                    _os_log_impl(&dword_247E05000, v27, v19, "DAEASOAuthMigrationActivity: Calling renewCredentialsForAccount for account: %@.", buf, 0xCu);
+                    v44 = v22;
+                    _os_log_impl(&dword_247E05000, v25, v17, "DAEASOAuthMigrationActivity: Calling renewCredentialsForAccount for account: %@.", buf, 0xCu);
                   }
 
-                  v28 = sharedDAAccountStore();
-                  v41[0] = MEMORY[0x277D85DD0];
-                  v41[1] = 3221225472;
-                  v41[2] = __55__DAEASOAuthMigrationActivity__triggerAccountMigration__block_invoke_95;
-                  v41[3] = &unk_278EE0770;
-                  v29 = *(a1 + 32);
-                  v41[4] = v24;
-                  v41[5] = v29;
-                  [v28 renewCredentialsForAccount:v24 options:v26 completion:v41];
+                  v26 = sharedDAAccountStore();
+                  v38[0] = MEMORY[0x277D85DD0];
+                  v38[1] = 3221225472;
+                  v38[2] = __55__DAEASOAuthMigrationActivity__triggerAccountMigration__block_invoke_95;
+                  v38[3] = &unk_278EE0770;
+                  v27 = *(a1 + 32);
+                  v38[4] = v22;
+                  v38[5] = v27;
+                  [v26 renewCredentialsForAccount:v22 options:v24 completion:v38];
                 }
 
                 else
                 {
-                  v26 = [*(a1 + 32) _migrationDecisionString:v25];
-                  v30 = *(a1 + 32);
-                  v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"Skipped: %@", v26];
-                  [v30 _sendAnalyticsForMigratingAccount:v24 withStatus:v31];
+                  v24 = [*(a1 + 32) _migrationDecisionString:v23];
+                  v28 = *(a1 + 32);
+                  v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"Skipped: %@", v24];
+                  [v28 _sendAnalyticsForMigratingAccount:v22 withStatus:v29];
 
-                  v19 = type;
+                  v17 = type;
                 }
               }
 
-              v21 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
+              v19 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
             }
 
-            while (v21);
+            while (v19);
           }
 
-          v8 = v37;
-          v3 = v38;
-          v18 = v35;
-          v16 = v36;
+          v7 = v34;
+          v3 = v35;
+          v16 = v32;
+          v14 = v33;
         }
 
-        v32 = DALoggingwithCategory();
-        if (os_log_type_enabled(v32, v19))
+        v30 = DALoggingwithCategory();
+        if (os_log_type_enabled(v30, v17))
         {
           *buf = 0;
-          _os_log_impl(&dword_247E05000, v32, v19, "DAEASOAuthMigrationActivity: Finished.", buf, 2u);
+          _os_log_impl(&dword_247E05000, v30, v17, "DAEASOAuthMigrationActivity: Finished.", buf, 2u);
         }
 
         v3[2](v3, 1);
@@ -812,11 +807,11 @@ void __55__DAEASOAuthMigrationActivity__triggerAccountMigration__block_invoke(ui
       }
     }
 
-    v33 = DALoggingwithCategory();
-    if (os_log_type_enabled(v33, type))
+    v31 = DALoggingwithCategory();
+    if (os_log_type_enabled(v31, type))
     {
       *buf = 0;
-      _os_log_impl(&dword_247E05000, v33, type, "DAEASOAuthMigrationActivity: Deferred.", buf, 2u);
+      _os_log_impl(&dword_247E05000, v31, type, "DAEASOAuthMigrationActivity: Deferred.", buf, 2u);
     }
 
     v3[2](v3, 2);
@@ -825,31 +820,29 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  v7 = DALoggingwithCategory();
-  if (os_log_type_enabled(v7, v5))
+  v6 = DALoggingwithCategory();
+  if (os_log_type_enabled(v6, v5))
   {
     *buf = 0;
-    _os_log_impl(&dword_247E05000, v7, v5, "DAEASOAuthMigrationActivity: Profile says we should not proceed, exiting.", buf, 2u);
+    _os_log_impl(&dword_247E05000, v6, v5, "DAEASOAuthMigrationActivity: Profile says we should not proceed, exiting.", buf, 2u);
   }
 
   v3[2](v3, 1);
 LABEL_31:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __55__DAEASOAuthMigrationActivity__triggerAccountMigration__block_invoke_95(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) reload];
   v2 = DALoggingwithCategory();
   v3 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v2, v3))
   {
     v4 = *(a1 + 32);
-    v10 = 138412290;
-    v11 = v4;
-    _os_log_impl(&dword_247E05000, v2, v3, "DAEASOAuthMigrationActivity: Finished calling renewCredentialsForAccount for account: %@.", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v4;
+    _os_log_impl(&dword_247E05000, v2, v3, "DAEASOAuthMigrationActivity: Finished calling renewCredentialsForAccount for account: %@.", &v9, 0xCu);
   }
 
   v7 = a1 + 32;
@@ -857,8 +850,6 @@ void __55__DAEASOAuthMigrationActivity__triggerAccountMigration__block_invoke_95
   v6 = *(v7 + 8);
   v8 = [v5 migrationStatusString];
   [v6 _sendAnalyticsForMigratingAccount:v5 withStatus:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

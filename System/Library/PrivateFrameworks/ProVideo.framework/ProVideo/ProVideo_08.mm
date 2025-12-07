@@ -558,7 +558,7 @@ uint64_t HgcGradientColorize::GetDOD(uint64_t a1, uint64_t a2, int a3, uint64_t 
   return *v5;
 }
 
-uint64_t HgcGradientColorize::GetROI(HGNode *this, HGRenderer *a2, unsigned int a3, HGRect a4)
+uint64_t HgcGradientColorize::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
 {
   if (a3 == 1)
   {
@@ -2354,7 +2354,7 @@ uint64_t HgcBadTVNoise::GetDOD(HgcBadTVNoise *this, HGRenderer *a2, unsigned int
   if ((*(*this + 312))(this, a2) > 0)
   {
 LABEL_4:
-    v6 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v6 = HGRectMake4i(-1, -1, 1, 1);
     HGRectGrow(v5, v4, v6);
   }
 
@@ -2375,7 +2375,7 @@ uint64_t HgcBadTVNoise::GetROI(HGNode *this, HGRenderer *a2, unsigned int a3, HG
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -3122,7 +3122,7 @@ uint64_t HgcPixellate::GetDOD(HgcPixellate *this, HGRenderer *a2, int a3, HGRect
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -3144,7 +3144,7 @@ uint64_t HgcPixellate::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -3582,7 +3582,7 @@ void HgcSoftGradient::~HgcSoftGradient(HGNode *this)
   HGObject::operator delete(v1);
 }
 
-uint64_t HgcSoftGradient::SetParameter(HgcSoftGradient *this, uint64_t a2, __n128 a3, float a4, float a5, float a6, char *a7, double a8)
+uint64_t HgcSoftGradient::SetParameter(HgcSoftGradient *this, uint64_t a2, __n128 a3, float a4, float a5, float a6, double a7, char *a8)
 {
   v8 = 0xFFFFFFFFLL;
   if (a2 <= 2)
@@ -3620,12 +3620,12 @@ uint64_t HgcSoftGradient::SetParameter(HgcSoftGradient *this, uint64_t a2, __n12
 
         return 0;
       case 2:
-        *&a8 = -a3.n128_f32[0];
+        *&a7 = -a3.n128_f32[0];
         v10 = *(this + 51);
-        if (*(v10 + 32) != -a3.n128_f32[0] || *(v10 + 36) != *&a8 || *(v10 + 40) != *&a8 || *(v10 + 44) != *&a8)
+        if (*(v10 + 32) != -a3.n128_f32[0] || *(v10 + 36) != *&a7 || *(v10 + 40) != *&a7 || *(v10 + 44) != *&a7)
         {
           a3.n128_f32[1] = a4;
-          *(v10 + 32) = vdupq_lane_s32(*&a8, 0);
+          *(v10 + 32) = vdupq_lane_s32(*&a7, 0);
           a3.n128_u64[1] = __PAIR64__(LODWORD(a6), LODWORD(a5));
           *(v10 + 288) = a3;
           goto LABEL_44;
@@ -3668,7 +3668,7 @@ uint64_t HgcSoftGradient::SetParameter(HgcSoftGradient *this, uint64_t a2, __n12
           a3.n128_u64[1] = __PAIR64__(LODWORD(a6), LODWORD(a5));
           v9[20] = a3;
 LABEL_44:
-          HGNode::ClearBits(this, a2, a7);
+          HGNode::ClearBits(this, a2, a8);
           return 1;
         }
       }
@@ -4660,7 +4660,7 @@ uint64_t HgcPolarToRect::GetDOD(HgcPolarToRect *this, HGRenderer *a2, int a3, HG
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -4682,7 +4682,7 @@ uint64_t HgcPolarToRect::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -6283,7 +6283,7 @@ uint64_t HgcRectToPolar::GetDOD(HgcRectToPolar *this, HGRenderer *a2, int a3, HG
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -6305,7 +6305,7 @@ uint64_t HgcRectToPolar::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -7510,7 +7510,7 @@ uint64_t HgcWideScreen::GetDOD(HgcWideScreen *this, HGRenderer *a2, int a3, HGRe
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -7532,7 +7532,7 @@ uint64_t HgcWideScreen::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 

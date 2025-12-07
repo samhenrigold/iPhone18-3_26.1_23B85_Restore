@@ -22,7 +22,12 @@
 - (void)centralManager:(id)manager didDiscoverPeripheral:(id)peripheral advertisementData:(id)data RSSI:(id)i;
 - (void)centralManager:(id)manager didFailToConnectPeripheral:(id)peripheral error:(id)error;
 - (void)centralManagerDidUpdateState:(id)state;
+- (void)changeMicrophoneGainSetting:(id)setting withGainSetting:(char)gainSetting forInputType:(unsigned __int8)type;
+- (void)changeMirophoneMute:(id)mute withMute:(unsigned __int8)withMute;
+- (void)changeVolume:(id)volume withVolume:(unsigned __int8)withVolume;
+- (void)changeVolumeAudioInputGainSetting:(id)setting withGainSetting:(char)gainSetting forInputType:(unsigned __int8)type;
 - (void)changeVolumeMute:(id)mute withMute:(unsigned __int8)withMute;
+- (void)changeVolumeOffset:(id)offset withOffset:(signed __int16)withOffset forAudioLocation:(unsigned int)location;
 - (void)cleanupPeripheral:(id)peripheral;
 - (void)connectCIS:(id)s withConnectionCompletion:(id)completion withDisconnectionCompletion:(id)disconnectionCompletion;
 - (void)connectLEAudioDevice:(id)device withServiceUUID:(id)d;
@@ -42,8 +47,10 @@
 - (void)peripheralManager:(id)manager didReceiveWriteRequests:(id)requests;
 - (void)peripheralManagerDidUpdateState:(id)state;
 - (void)peripheralManagerIsReadyToUpdateSubscribers:(id)subscribers;
+- (void)readPresets:(id)presets withStartIndex:(unsigned __int8)index withNumPresets:(unsigned __int8)numPresets;
 - (void)respondToRequest:(id)request withResult:(int64_t)result;
 - (void)scanPeripherals:(BOOL)peripherals;
+- (void)setActivePreset:(id)preset withType:(unsigned __int8)type withIndex:(unsigned __int8)index;
 - (void)setAudioConfiguration:(id)configuration forSession:(id)session;
 - (void)setupCIG:(id)g withCompletion:(id)completion;
 - (void)startLEAudioServer;
@@ -51,8 +58,13 @@
 - (void)stopStreamingForSession:(id)session;
 - (void)tearDownCIG:(id)g withCompletion:(id)completion;
 - (void)updateCodecConfigForSession:(id)session withCodecConfig:(id)config;
+- (void)updateMicrophoneForSession:(id)session withMute:(unsigned __int8)mute;
+- (void)updateMicrophoneGainForSession:(id)session withGainSetting:(char)setting forInputType:(unsigned __int8)type;
 - (void)updateValue:(id)value forCharacteristic:(id)characteristic onSubscribedCentrals:(id)centrals;
 - (void)updateVolumeForSession:(id)session withVolume:(float)volume;
+- (void)updateVolumeMuteForSession:(id)session withMute:(unsigned __int8)mute;
+- (void)updateVolumeOffsetForSession:(id)session withOffset:(signed __int16)offset forAudioLocation:(unsigned int)location;
+- (void)writePresetName:(id)name withName:(id)withName forIndex:(unsigned __int8)index;
 @end
 
 @implementation ConnectionManager
@@ -335,7 +347,7 @@ LABEL_19:
 
   if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEBUG))
   {
-    sub_10005D984(p_testMode);
+    sub_10005D984();
   }
 }
 
@@ -356,12 +368,12 @@ LABEL_19:
 
   if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEBUG))
   {
-    sub_10005DA14(p_useCSIPOrderedAccess);
+    sub_10005DA14();
   }
 
   if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEBUG))
   {
-    sub_10005DAA4(p_useCSIPOrderedAccess + 1);
+    sub_10005DAA4();
   }
 }
 
@@ -1828,6 +1840,196 @@ LABEL_22:
 
     [firstObject CAPCommanderChangeVolume:v12 withVolume:(volume * 255.0)];
   }
+}
+
+- (void)updateVolumeOffsetForSession:(id)session withOffset:(signed __int16)offset forAudioLocation:(unsigned int)location
+{
+  v5 = *&location;
+  offsetCopy = offset;
+  clientCAPSet = [(ConnectionManager *)self clientCAPSet];
+  allObjects = [clientCAPSet allObjects];
+  firstObject = [allObjects firstObject];
+
+  getConnectedPeripherals = [firstObject getConnectedPeripherals];
+  allKeys = [getConnectedPeripherals allKeys];
+
+  v12 = +[NSMutableArray array];
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v13 = allKeys;
+  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v14)
+  {
+    v15 = v14;
+    v16 = *v20;
+    do
+    {
+      v17 = 0;
+      do
+      {
+        if (*v20 != v16)
+        {
+          objc_enumerationMutation(v13);
+        }
+
+        identifier = [*(*(&v19 + 1) + 8 * v17) identifier];
+        [v12 addObject:identifier];
+
+        v17 = v17 + 1;
+      }
+
+      while (v15 != v17);
+      v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    }
+
+    while (v15);
+  }
+
+  [firstObject CAPCommanderChangeVolumeOffset:v12 withOffset:offsetCopy forAudioLocation:v5];
+}
+
+- (void)updateVolumeMuteForSession:(id)session withMute:(unsigned __int8)mute
+{
+  muteCopy = mute;
+  clientCAPSet = [(ConnectionManager *)self clientCAPSet];
+  allObjects = [clientCAPSet allObjects];
+  firstObject = [allObjects firstObject];
+
+  getConnectedPeripherals = [firstObject getConnectedPeripherals];
+  allKeys = [getConnectedPeripherals allKeys];
+
+  v10 = +[NSMutableArray array];
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v11 = allKeys;
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v18;
+    do
+    {
+      v15 = 0;
+      do
+      {
+        if (*v18 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        identifier = [*(*(&v17 + 1) + 8 * v15) identifier];
+        [v10 addObject:identifier];
+
+        v15 = v15 + 1;
+      }
+
+      while (v13 != v15);
+      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    }
+
+    while (v13);
+  }
+
+  [firstObject CAPCommanderChangeVolumeMuteState:v10 withMute:muteCopy];
+}
+
+- (void)updateMicrophoneForSession:(id)session withMute:(unsigned __int8)mute
+{
+  muteCopy = mute;
+  clientCAPSet = [(ConnectionManager *)self clientCAPSet];
+  allObjects = [clientCAPSet allObjects];
+  firstObject = [allObjects firstObject];
+
+  getConnectedPeripherals = [firstObject getConnectedPeripherals];
+  allKeys = [getConnectedPeripherals allKeys];
+
+  v10 = +[NSMutableArray array];
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v11 = allKeys;
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v18;
+    do
+    {
+      v15 = 0;
+      do
+      {
+        if (*v18 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        identifier = [*(*(&v17 + 1) + 8 * v15) identifier];
+        [v10 addObject:identifier];
+
+        v15 = v15 + 1;
+      }
+
+      while (v13 != v15);
+      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    }
+
+    while (v13);
+  }
+
+  [firstObject CAPCommanderMicrophoneMuteState:v10 withMute:muteCopy];
+}
+
+- (void)updateMicrophoneGainForSession:(id)session withGainSetting:(char)setting forInputType:(unsigned __int8)type
+{
+  typeCopy = type;
+  settingCopy = setting;
+  clientCAPSet = [(ConnectionManager *)self clientCAPSet];
+  allObjects = [clientCAPSet allObjects];
+  firstObject = [allObjects firstObject];
+
+  getConnectedPeripherals = [firstObject getConnectedPeripherals];
+  allKeys = [getConnectedPeripherals allKeys];
+
+  v12 = +[NSMutableArray array];
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v13 = allKeys;
+  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v14)
+  {
+    v15 = v14;
+    v16 = *v20;
+    do
+    {
+      v17 = 0;
+      do
+      {
+        if (*v20 != v16)
+        {
+          objc_enumerationMutation(v13);
+        }
+
+        identifier = [*(*(&v19 + 1) + 8 * v17) identifier];
+        [v12 addObject:identifier];
+
+        v17 = v17 + 1;
+      }
+
+      while (v15 != v17);
+      v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    }
+
+    while (v15);
+  }
+
+  [firstObject CAPCommanderChangeMicrophoneGainSetting:v12 withGainSetting:settingCopy forInputType:typeCopy];
 }
 
 - (void)setupCIG:(id)g withCompletion:(id)completion
@@ -4620,6 +4822,63 @@ LABEL_19:
   return v18;
 }
 
+- (void)changeVolume:(id)volume withVolume:(unsigned __int8)withVolume
+{
+  withVolumeCopy = withVolume;
+  volumeCopy = volume;
+  v7 = [(ConnectionManager *)self getCAPWithDevice:volumeCopy];
+  v8 = v7;
+  if (v7)
+  {
+    coordinatedSet = [v7 coordinatedSet];
+    v10 = [coordinatedSet objectForKey:volumeCopy];
+
+    if (v10)
+    {
+      [v10 setAbsoluteVolume:withVolumeCopy];
+    }
+
+    else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005E380();
+    }
+  }
+
+  else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+  {
+    sub_10005E3F0();
+  }
+}
+
+- (void)changeVolumeOffset:(id)offset withOffset:(signed __int16)withOffset forAudioLocation:(unsigned int)location
+{
+  v5 = *&location;
+  withOffsetCopy = withOffset;
+  offsetCopy = offset;
+  v9 = [(ConnectionManager *)self getCAPWithDevice:offsetCopy];
+  v10 = v9;
+  if (v9)
+  {
+    coordinatedSet = [v9 coordinatedSet];
+    v12 = [coordinatedSet objectForKey:offsetCopy];
+
+    if (v12)
+    {
+      [v12 setVolumeOffset:withOffsetCopy audioLocation:v5];
+    }
+
+    else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005E380();
+    }
+  }
+
+  else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+  {
+    sub_10005E3F0();
+  }
+}
+
 - (void)changeVolumeMute:(id)mute withMute:(unsigned __int8)withMute
 {
   withMuteCopy = withMute;
@@ -4640,6 +4899,167 @@ LABEL_19:
     {
       sub_10005E380();
     }
+  }
+
+  else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+  {
+    sub_10005E3F0();
+  }
+}
+
+- (void)changeVolumeAudioInputGainSetting:(id)setting withGainSetting:(char)gainSetting forInputType:(unsigned __int8)type
+{
+  typeCopy = type;
+  gainSettingCopy = gainSetting;
+  settingCopy = setting;
+  v9 = [(ConnectionManager *)self getCAPWithDevice:settingCopy];
+  v10 = v9;
+  if (v9)
+  {
+    coordinatedSet = [v9 coordinatedSet];
+    v12 = [coordinatedSet objectForKey:settingCopy];
+
+    if (v12)
+    {
+      [v12 setMicrophoneGainSetting:gainSettingCopy inputType:typeCopy];
+    }
+
+    else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005E380();
+    }
+  }
+
+  else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+  {
+    sub_10005E3F0();
+  }
+}
+
+- (void)changeMirophoneMute:(id)mute withMute:(unsigned __int8)withMute
+{
+  withMuteCopy = withMute;
+  muteCopy = mute;
+  v7 = [(ConnectionManager *)self getCAPWithDevice:muteCopy];
+  v8 = v7;
+  if (v7)
+  {
+    coordinatedSet = [v7 coordinatedSet];
+    v10 = [coordinatedSet objectForKey:muteCopy];
+
+    if (v10)
+    {
+      [v10 setMicrophoneMute:withMuteCopy];
+    }
+
+    else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005E380();
+    }
+  }
+
+  else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+  {
+    sub_10005E3F0();
+  }
+}
+
+- (void)changeMicrophoneGainSetting:(id)setting withGainSetting:(char)gainSetting forInputType:(unsigned __int8)type
+{
+  typeCopy = type;
+  gainSettingCopy = gainSetting;
+  settingCopy = setting;
+  v9 = [(ConnectionManager *)self getCAPWithDevice:settingCopy];
+  v10 = v9;
+  if (v9)
+  {
+    coordinatedSet = [v9 coordinatedSet];
+    v12 = [coordinatedSet objectForKey:settingCopy];
+
+    if (v12)
+    {
+      [v12 setMicrophoneGainSetting:gainSettingCopy inputType:typeCopy];
+    }
+
+    else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+    {
+      sub_10005E380();
+    }
+  }
+
+  else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+  {
+    sub_10005E3F0();
+  }
+}
+
+- (void)readPresets:(id)presets withStartIndex:(unsigned __int8)index withNumPresets:(unsigned __int8)numPresets
+{
+  numPresetsCopy = numPresets;
+  indexCopy = index;
+  presetsCopy = presets;
+  v9 = [(ConnectionManager *)self getCAPWithDevice:presetsCopy];
+  v10 = v9;
+  if (v9)
+  {
+    [v9 HAPReadPresetsRequest:presetsCopy withStartIndex:indexCopy withNumPresets:numPresetsCopy];
+  }
+
+  else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+  {
+    sub_10005E3F0();
+  }
+}
+
+- (void)setActivePreset:(id)preset withType:(unsigned __int8)type withIndex:(unsigned __int8)index
+{
+  indexCopy = index;
+  typeCopy = type;
+  presetCopy = preset;
+  v9 = [(ConnectionManager *)self getCAPWithDevice:presetCopy];
+  v10 = v9;
+  if (v9)
+  {
+    if (typeCopy == 2)
+    {
+      [v9 HAPSetPreviousPreset:presetCopy];
+    }
+
+    else if (typeCopy == 1)
+    {
+      [v9 HAPSetNextPreset:presetCopy];
+    }
+
+    else if (typeCopy)
+    {
+      if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+      {
+        sub_10005E634();
+      }
+    }
+
+    else
+    {
+      [v9 HAPSetActivePreset:presetCopy withIndex:indexCopy];
+    }
+  }
+
+  else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+  {
+    sub_10005E3F0();
+  }
+}
+
+- (void)writePresetName:(id)name withName:(id)withName forIndex:(unsigned __int8)index
+{
+  indexCopy = index;
+  nameCopy = name;
+  withNameCopy = withName;
+  v10 = [(ConnectionManager *)self getCAPWithDevice:nameCopy];
+  v11 = v10;
+  if (v10)
+  {
+    [v10 HAPWritePresetName:nameCopy withIndex:indexCopy withName:withNameCopy];
   }
 
   else if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))

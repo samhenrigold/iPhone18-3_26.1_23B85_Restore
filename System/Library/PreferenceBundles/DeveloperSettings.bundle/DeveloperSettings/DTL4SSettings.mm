@@ -2,6 +2,7 @@
 - (id)specifiers;
 - (void)setL4SSettingForSpecifier:(id)specifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -15,6 +16,28 @@
   v3 = [NSBundle bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"L4S" value:&stru_3E0D8 table:@"DTL4SSettings"];
   [(DTL4SSettings *)self setTitle:v4];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v14.receiver = self;
+  v14.super_class = DTL4SSettings;
+  [(DTL4SSettings *)&v14 viewDidAppear:appear];
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v4 bundleURL];
+
+  v6 = [_NSLocalizedStringResource alloc];
+  v7 = +[NSLocale currentLocale];
+  v8 = [v6 initWithKey:@"DEVELOPER" table:@"DTSettings" locale:v7 bundleURL:bundleURL];
+
+  v9 = [_NSLocalizedStringResource alloc];
+  v10 = +[NSLocale currentLocale];
+  v11 = [v9 initWithKey:@"L4S" table:@"DTL4SSettings" locale:v10 bundleURL:bundleURL];
+
+  v15 = v8;
+  v12 = [NSArray arrayWithObjects:&v15 count:1];
+  v13 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Developer/L4S_SETTINGS"];
+  [(DTL4SSettings *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.developer-tools" title:v11 localizedNavigationComponents:v12 deepLink:v13];
 }
 
 - (id)specifiers

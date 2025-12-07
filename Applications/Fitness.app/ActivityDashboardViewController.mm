@@ -211,7 +211,7 @@
 
 - (void)showWorkoutWithId:(id)id activityId:(id)activityId page:(id)page
 {
-  v8 = sub_100140278(&unk_1008DB8A0);
+  v8 = sub_100140278(&unk_1008DB8A0, qword_1006DBA20);
   __chkstk_darwin(v8 - 8);
   v10 = &v19 - v9;
   v11 = type metadata accessor for UUID();
@@ -245,7 +245,7 @@
   selfCopy = self;
   sub_100396C7C(v14, v10, v16, page);
 
-  sub_10000EA04(v10, &unk_1008DB8A0);
+  sub_10000EA04(v10, &unk_1008DB8A0, qword_1006DBA20);
   (*(v12 + 8))(v14, v11);
 }
 
@@ -373,7 +373,7 @@
 
 - (void)textSizeChanged:(id)changed
 {
-  v5 = sub_100140278(&qword_1008E5718);
+  v5 = sub_100140278(&qword_1008E5718, &unk_1006E3CB0);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   if (changed)
@@ -393,7 +393,7 @@
   selfCopy = self;
   sub_10046B334(v10);
 
-  sub_10000EA04(v7, &qword_1008E5718);
+  sub_10000EA04(v7, &qword_1008E5718, &unk_1006E3CB0);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -401,7 +401,7 @@
   height = size.height;
   width = size.width;
   v11.receiver = self;
-  v11.super_class = type metadata accessor for ActivityDashboardViewController();
+  v11.super_class = type metadata accessor for ActivityDashboardViewController(0);
   swift_unknownObjectRetain();
   v7 = v11.receiver;
   [(ActivityDashboardViewController *)&v11 viewWillTransitionToSize:coordinator withTransitionCoordinator:width, height];
@@ -448,18 +448,18 @@
 - (void)viewWillDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_10046CD2C(disappear);
+  sub_10046CD2C(disappear, selfCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for ActivityDashboardViewController();
+  v5.super_class = type metadata accessor for ActivityDashboardViewController(0);
   v4 = v5.receiver;
   [(ActivityDashboardViewController *)&v5 viewDidDisappear:disappearCopy];
-  sub_100026E98(&qword_1008EE860, type metadata accessor for ActivityDashboardViewController);
-  sub_100026E98(&qword_1008EE868, type metadata accessor for ActivityDashboardViewController);
+  sub_100026E98(&qword_1008EE860, type metadata accessor for ActivityDashboardViewController, &unk_1006F28B8);
+  sub_100026E98(&qword_1008EE868, type metadata accessor for ActivityDashboardViewController, &unk_1006F2848);
   MetricResignActiveObserving<>.removeResignActiveObserver()();
 }
 
@@ -592,7 +592,7 @@ LABEL_6:
   observerCopy = observer;
   progressCopy = progress;
   selfCopy = self;
-  sub_1004783C0();
+  sub_1004783C0(progressCopy);
 }
 
 - (void)cloudSyncObserver:(id)observer syncFailedWithError:(id)error

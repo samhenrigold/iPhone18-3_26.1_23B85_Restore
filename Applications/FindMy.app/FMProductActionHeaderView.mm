@@ -8,7 +8,7 @@
 - (void)traitCollectionDidChange:(id)change
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for FMProductActionHeaderView();
+  v6.super_class = type metadata accessor for FMProductActionHeaderView(0);
   changeCopy = change;
   v5 = v6.receiver;
   [(FMProductActionHeaderView *)&v6 traitCollectionDidChange:changeCopy];

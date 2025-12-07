@@ -24,7 +24,7 @@
   v9 = [(HDConceptResolutionConfiguration *)&v13 init];
   if (v9)
   {
-    v10 = [codeCopy copy];
+    v10 = objc_msgSend_copy(codeCopy);
     countryCode = v9->_countryCode;
     v9->_countryCode = v10;
 
@@ -40,11 +40,10 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   countryCode = self->_countryCode;
-  recordCategoryType = self->_recordCategoryType;
-  v7 = HKStringFromMedicalRecordCategoryType();
-  v8 = [v3 stringWithFormat:@"<%@:%p %@ /'%@/'>", v4, self, countryCode, v7];
+  v6 = HKStringFromMedicalRecordCategoryType();
+  v7 = [v3 stringWithFormat:@"<%@:%p %@ /'%@/'>", v4, self, countryCode, v6];
 
-  return v8;
+  return v7;
 }
 
 @end

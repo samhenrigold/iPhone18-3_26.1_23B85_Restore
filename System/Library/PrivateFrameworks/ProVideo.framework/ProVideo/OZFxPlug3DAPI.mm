@@ -24,10 +24,10 @@
     {
       for (j = 0; j != 4; ++j)
       {
-        v4->var0[0][j] = matrix->var0[0][j];
+        *&v4[j * 8] = matrix->var0[0][j];
       }
 
-      v4 = (v4 + 32);
+      v4 += 32;
       matrix = (matrix + 32);
     }
   }

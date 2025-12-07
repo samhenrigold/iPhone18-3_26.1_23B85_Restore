@@ -43,7 +43,7 @@
 - (void)containerViewWillLayoutSubviews
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for RoutePickerPhonePresentationController();
+  v7.super_class = type metadata accessor for RoutePickerPhonePresentationController(self, a2);
   v2 = v7.receiver;
   [(RoutePickerPhonePresentationController *)&v7 containerViewWillLayoutSubviews];
   containerView = [v2 containerView];
@@ -63,7 +63,7 @@
 - (_TtC13MediaControls38RoutePickerPhonePresentationController)initWithPresentedViewController:(id)controller presentingViewController:(id)viewController
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for RoutePickerPhonePresentationController();
+  v7.super_class = type metadata accessor for RoutePickerPhonePresentationController(self, a2);
   return [(RoutePickerPhonePresentationController *)&v7 initWithPresentedViewController:controller presentingViewController:viewController];
 }
 

@@ -330,30 +330,31 @@ uint64_t sub_1000011F4()
   return _abort_with_reason(7, 1, v0, 0);
 }
 
-uint64_t sub_100001214(FILE *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+uint64_t sub_100001214(FILE *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
 
-  return fprintf(a1, v9);
+  return fprintf(a1, v9, a3, a4, a5, a6, a7, a8);
 }
 
 char *sub_100001250(char *a1, ...)
 {
   va_start(va, a1);
-  v3 = 0;
+  v4 = 0;
   while (1)
   {
-    vasprintf(&v3, a1, va);
-    result = v3;
-    if (v3)
+    vasprintf(&v4, a1, va);
+    result = v4;
+    if (v4)
     {
       break;
     }
 
     if (*__error() != 12)
     {
-      if (*__error())
+      v3 = *__error();
+      if (v3)
       {
-        sub_100001DDC();
+        sub_100001DDC(v3);
       }
     }
 
@@ -442,7 +443,7 @@ LABEL_17:
   return size;
 }
 
-unint64_t sub_100001454(char *a1, const char *a2, uint64_t a3)
+uint64_t sub_100001454(char *a1, const char *a2, uint64_t a3)
 {
   v5 = strstr(a1, a2);
   if (v5)
@@ -481,9 +482,13 @@ void *sub_10000153C(size_t size, malloc_type_id_t type_id)
       break;
     }
 
-    if (*__error() != 12 && *__error())
+    if (*__error() != 12)
     {
-      sub_100001DDC();
+      v5 = *__error();
+      if (v5)
+      {
+        sub_100001DDC(v5);
+      }
     }
   }
 
@@ -498,11 +503,11 @@ void sub_1000015AC(int a1)
   if (qword_100008038 || (v2 = fopen("/var/log/com.apple.xpc.launchd/launchd_cache_loader.log", "w"), (qword_100008038 = v2) != 0))
   {
     fprintf(v2, "abort: %s\n", v1);
-    sub_100001214(__stderrp, v3, v4, v5, v6, v7, v8, v9, v11);
+    sub_100001214(__stderrp, v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = sub_1000011F4();
-  sub_100001624(v10);
+  sub_1000011F4();
+  sub_100001624();
 }
 
 void sub_100001624()
@@ -534,11 +539,11 @@ uint64_t sub_1000016B4(_OWORD *a1, uint64_t a2)
   if (qword_100008038 || (v5 = fopen("/var/log/com.apple.xpc.launchd/launchd_cache_loader.log", "w"), (qword_100008038 = v5) != 0))
   {
     fprintf(v5, "abort: %s\n", v4);
-    sub_100001214(__stderrp, v6, v7, v8, v9, v10, v11, v12, v15);
+    sub_100001214(__stderrp, v6, v7, v8, v9, v10, v11, v12, v16);
   }
 
   v13 = sub_1000011F4();
-  return sub_100001730(v13);
+  return sub_100001730(v13, v14);
 }
 
 uint64_t sub_100001730(_OWORD *a1, uint64_t a2)
@@ -549,11 +554,11 @@ uint64_t sub_100001730(_OWORD *a1, uint64_t a2)
   if (qword_100008038 || (v5 = fopen("/var/log/com.apple.xpc.launchd/launchd_cache_loader.log", "w"), (qword_100008038 = v5) != 0))
   {
     fprintf(v5, "abort: %s\n", v4);
-    sub_100001214(__stderrp, v6, v7, v8, v9, v10, v11, v12, v15);
+    sub_100001214(__stderrp, v6, v7, v8, v9, v10, v11, v12, v16);
   }
 
   v13 = sub_1000011F4();
-  return sub_1000017AC(v13);
+  return sub_1000017AC(v13, v14);
 }
 
 uint64_t sub_1000017AC(_OWORD *a1, uint64_t a2)
@@ -564,11 +569,11 @@ uint64_t sub_1000017AC(_OWORD *a1, uint64_t a2)
   if (qword_100008038 || (v5 = fopen("/var/log/com.apple.xpc.launchd/launchd_cache_loader.log", "w"), (qword_100008038 = v5) != 0))
   {
     fprintf(v5, "abort: %s\n", v4);
-    sub_100001214(__stderrp, v6, v7, v8, v9, v10, v11, v12, v15);
+    sub_100001214(__stderrp, v6, v7, v8, v9, v10, v11, v12, v14);
   }
 
-  v13 = sub_1000011F4();
-  return sub_100001828(v13);
+  sub_1000011F4();
+  return sub_100001828();
 }
 
 uint64_t sub_100001828()
@@ -594,11 +599,11 @@ uint64_t sub_10000189C(void *a1)
   if (qword_100008038 || (v3 = fopen("/var/log/com.apple.xpc.launchd/launchd_cache_loader.log", "w"), (qword_100008038 = v3) != 0))
   {
     fprintf(v3, "abort: %s\n", v2);
-    sub_100001214(__stderrp, v4, v5, v6, v7, v8, v9, v10, v13);
+    sub_100001214(__stderrp, v4, v5, v6, v7, v8, v9, v10, v14);
   }
 
   v11 = sub_1000011F4();
-  return sub_10000192C(v11);
+  return sub_10000192C(v11, v12);
 }
 
 uint64_t sub_10000192C(_OWORD *a1, uint64_t a2)
@@ -609,11 +614,11 @@ uint64_t sub_10000192C(_OWORD *a1, uint64_t a2)
   if (qword_100008038 || (v5 = fopen("/var/log/com.apple.xpc.launchd/launchd_cache_loader.log", "w"), (qword_100008038 = v5) != 0))
   {
     fprintf(v5, "abort: %s\n", v4);
-    sub_100001214(__stderrp, v6, v7, v8, v9, v10, v11, v12, v15);
+    sub_100001214(__stderrp, v6, v7, v8, v9, v10, v11, v12, v16);
   }
 
   v13 = sub_1000011F4();
-  return sub_1000019A8(v13);
+  return sub_1000019A8(v13, v14);
 }
 
 uint64_t sub_1000019A8(void *a1, int a2)
@@ -625,11 +630,11 @@ uint64_t sub_1000019A8(void *a1, int a2)
   if (qword_100008038 || (v5 = fopen("/var/log/com.apple.xpc.launchd/launchd_cache_loader.log", "w"), (qword_100008038 = v5) != 0))
   {
     fprintf(v5, "abort: %s\n", v4);
-    sub_100001214(__stderrp, v6, v7, v8, v9, v10, v11, v12, v15);
+    sub_100001214(__stderrp, v6, v7, v8, v9, v10, v11, v12, v14);
   }
 
-  v13 = sub_1000011F4();
-  return sub_100001A3C(v13);
+  sub_1000011F4();
+  return sub_100001A3C();
 }
 
 uint64_t sub_100001A3C()
@@ -639,11 +644,11 @@ uint64_t sub_100001A3C()
   if (qword_100008038 || (v1 = fopen("/var/log/com.apple.xpc.launchd/launchd_cache_loader.log", "w"), (qword_100008038 = v1) != 0))
   {
     fprintf(v1, "abort: %s\n", v0);
-    sub_100001214(__stderrp, v2, v3, v4, v5, v6, v7, v8, v11);
+    sub_100001214(__stderrp, v2, v3, v4, v5, v6, v7, v8, v12);
   }
 
   v9 = sub_1000011F4();
-  return sub_100001AB0(v9);
+  return sub_100001AB0(v9, v10);
 }
 
 uint64_t sub_100001AB0(_OWORD *a1, uint64_t a2)
@@ -671,11 +676,11 @@ uint64_t sub_100001B2C()
   if (qword_100008038 || (v4 = fopen("/var/log/com.apple.xpc.launchd/launchd_cache_loader.log", "w"), (qword_100008038 = v4) != 0))
   {
     fprintf(v4, "abort: %s\n", v3);
-    sub_100001214(__stderrp, v5, v6, v7, v8, v9, v10, v11, v14);
+    sub_100001214(__stderrp, v5, v6, v7, v8, v9, v10, v11, v13);
   }
 
-  v12 = sub_1000011F4();
-  return sub_100001BB8(v12);
+  sub_1000011F4();
+  return sub_100001BB8();
 }
 
 uint64_t sub_100001BB8()
@@ -699,11 +704,11 @@ uint64_t sub_100001C2C(int a1)
   if (qword_100008038 || (v2 = fopen("/var/log/com.apple.xpc.launchd/launchd_cache_loader.log", "w"), (qword_100008038 = v2) != 0))
   {
     fprintf(v2, "abort: %s\n", v1);
-    sub_100001214(__stderrp, v3, v4, v5, v6, v7, v8, v9, v12);
+    sub_100001214(__stderrp, v3, v4, v5, v6, v7, v8, v9, v11);
   }
 
-  v10 = sub_1000011F4();
-  return sub_100001CA4(v10);
+  sub_1000011F4();
+  return sub_100001CA4();
 }
 
 void sub_100001CC4()
@@ -716,11 +721,11 @@ void sub_100001CC4()
   if (qword_100008038 || (v4 = fopen("/var/log/com.apple.xpc.launchd/launchd_cache_loader.log", "w"), (qword_100008038 = v4) != 0))
   {
     fprintf(v4, "abort: %s\n", v3);
-    sub_100001214(__stderrp, v5, v6, v7, v8, v9, v10, v11, v13);
+    sub_100001214(__stderrp, v5, v6, v7, v8, v9, v10, v11, v12);
   }
 
-  v12 = sub_1000011F4();
-  sub_100001D50(v12);
+  sub_1000011F4();
+  sub_100001D50();
 }
 
 void sub_100001D50()
@@ -733,17 +738,17 @@ void sub_100001D50()
   if (qword_100008038 || (v4 = fopen("/var/log/com.apple.xpc.launchd/launchd_cache_loader.log", "w"), (qword_100008038 = v4) != 0))
   {
     fprintf(v4, "abort: %s\n", v3);
-    sub_100001214(__stderrp, v5, v6, v7, v8, v9, v10, v11, v12);
+    sub_100001214(__stderrp, v5, v6, v7, v8, v9, v10, v11, v13);
   }
 
-  sub_1000011F4();
-  sub_100001DDC();
+  v12 = sub_1000011F4();
+  sub_100001DDC(v12);
 }
 
-void sub_100001DDC()
+void sub_100001DDC(int a1)
 {
   _os_assert_log();
-  v0 = _os_crash();
+  v1 = _os_crash();
   __break(1u);
-  CFRelease(v0);
+  CFRelease(v1);
 }

@@ -14,8 +14,8 @@
 
 + (void)handleOrphanedInitalCapturesWithCompletionHandler:(id)handler
 {
-  v5 = (*(*(sub_100024720(&qword_10005CB50, &qword_10003F510) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v5 = sub_100024720(&qword_10005CB50, &qword_10003F510);
+  __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);
   v9 = swift_allocObject();

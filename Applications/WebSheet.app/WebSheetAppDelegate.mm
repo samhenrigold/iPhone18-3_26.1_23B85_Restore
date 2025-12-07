@@ -110,19 +110,14 @@
     }
 
     valuePtr = ltypeCopy;
-    if ((result - 1) <= 6)
-    {
-      v8 = dword_100003BA8[result - 1];
-    }
-
     keys = kCNWebSheetOptionsRedirectURLType;
     values = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &valuePtr);
     CFDictionaryCreate(kCFAllocatorDefault, &keys, &values, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     CNWebsheetNotifyCompleteWithOptions();
     if (result == 7)
     {
-      v9 = +[UIApplication sharedApplication];
-      [v9 setOpenWiFiPreferencesOnExit:1];
+      v8 = +[UIApplication sharedApplication];
+      [v8 setOpenWiFiPreferencesOnExit:1];
     }
 
     self->_isCompleteNotificationHandled = 1;
@@ -134,7 +129,6 @@
   lCopy = l;
   messageCopy = message;
   NSLog(@"scrapeCredentialsUsingPOSTMessage");
-  interfaceName = self->_interfaceName;
   CNScrapeCredentials();
 }
 

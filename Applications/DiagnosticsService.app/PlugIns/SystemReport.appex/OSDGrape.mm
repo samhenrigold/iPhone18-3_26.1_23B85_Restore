@@ -7,7 +7,6 @@
 - (BOOL)_setMTReport:(unsigned __int8)report payloadBuffer:(char *)buffer bufferSize:(unsigned int)size;
 - (BOOL)didDopplerErrorOccur;
 - (BOOL)isDoppler;
-- (BOOL)isGrapePowered;
 - (BOOL)proxErrorDetected;
 - (BOOL)scheduleSystemWake:(unsigned int)wake;
 - (OSDGrape)init;
@@ -22,7 +21,6 @@
 - (id)orbChipID;
 - (id)orbErrorDetected;
 - (unsigned)getDopplerReferenceSignalEvents;
-- (unsigned)multitouchFirmwareVersion;
 - (void)cleanupStreaming:(void *)streaming;
 - (void)dealloc;
 - (void)resetGrape;
@@ -109,42 +107,34 @@ LABEL_9:
 - (BOOL)_refreshGrapeProperties
 {
   properties = 0;
-  grapeDevice = self->_grapeDevice;
   Service = MTDeviceGetService();
-  v5 = IORegistryEntryCreateCFProperties(Service, &properties, 0, 0);
-  if (v5)
+  v4 = IORegistryEntryCreateCFProperties(Service, &properties, 0, 0);
+  if (v4)
   {
-    v6 = DiagnosticLogHandleForCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      *v13 = 0;
-      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "IORegistryEntryCreateCFProperties failure for AppleMultitouchSPI.", v13, 2u);
+      *v12 = 0;
+      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "IORegistryEntryCreateCFProperties failure for AppleMultitouchSPI.", v12, 2u);
     }
   }
 
   else
   {
-    v6 = properties;
-    v7 = [(__CFDictionary *)properties objectForKeyedSubscript:@"Constructed Firmware Version"];
+    v5 = properties;
+    v6 = [(__CFDictionary *)properties objectForKeyedSubscript:@"Constructed Firmware Version"];
     constructedFirmwareVersion = self->_constructedFirmwareVersion;
-    self->_constructedFirmwareVersion = v7;
+    self->_constructedFirmwareVersion = v6;
 
-    v9 = [v6 objectForKeyedSubscript:@"bcdVersion"];
+    v8 = [v5 objectForKeyedSubscript:@"bcdVersion"];
     bcdVersion = self->_bcdVersion;
-    self->_bcdVersion = v9;
+    self->_bcdVersion = v8;
 
-    v11 = [v6 objectForKeyedSubscript:@"ResetCount"];
-    self->_resetCount = [v11 integerValue];
+    v10 = [v5 objectForKeyedSubscript:@"ResetCount"];
+    self->_resetCount = [v10 integerValue];
   }
 
-  return v5 == 0;
-}
-
-- (unsigned)multitouchFirmwareVersion
-{
-  grapeDevice = self->_grapeDevice;
-  MTDeviceGetVersion();
-  return 0;
+  return v4 == 0;
 }
 
 - (id)constructedFirmwareVersion
@@ -247,20 +237,18 @@ LABEL_9:
     return 0;
   }
 
-  v5 = *size;
-  grapeDevice = self->_grapeDevice;
   Report = MTDeviceGetReport();
   if (Report)
   {
-    v8 = Report;
-    v9 = DiagnosticLogHandleForCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v6 = Report;
+    v7 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v11[0] = 67109376;
-      v11[1] = v8;
-      v12 = 1024;
-      v13 = v8;
-      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to get MT report with code: %d (0x%x)", v11, 0xEu);
+      v9[0] = 67109376;
+      v9[1] = v6;
+      v10 = 1024;
+      v11 = v6;
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to get MT report with code: %d (0x%x)", v9, 0xEu);
     }
 
     return 0;
@@ -271,22 +259,21 @@ LABEL_9:
 
 - (BOOL)_setMTReport:(unsigned __int8)report payloadBuffer:(char *)buffer bufferSize:(unsigned int)size
 {
-  grapeDevice = self->_grapeDevice;
-  v6 = MTDeviceSetReport();
-  if (v6)
+  v5 = MTDeviceSetReport();
+  if (v5)
   {
-    v7 = DiagnosticLogHandleForCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9[0] = 67109376;
-      v9[1] = v6;
-      v10 = 1024;
-      v11 = v6;
-      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to set MT report with code: %d (0x%x)", v9, 0xEu);
+      v8[0] = 67109376;
+      v8[1] = v5;
+      v9 = 1024;
+      v10 = v5;
+      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to set MT report with code: %d (0x%x)", v8, 0xEu);
     }
   }
 
-  return v6 == 0;
+  return v5 == 0;
 }
 
 - (id)criticalErrorSet:(unint64_t *)set
@@ -388,40 +375,31 @@ LABEL_12:
   return [(OSDGrape *)self _setMTReport:244 payloadBuffer:&v4 bufferSize:3];
 }
 
-- (BOOL)isGrapePowered
-{
-  grapeDevice = self->_grapeDevice;
-  MTDevicePowerGetEnabled();
-  return 0;
-}
-
 - (void)resetGrape
 {
-  grapeDevice = self->_grapeDevice;
-  v4 = MTDevicePowerSetEnabled();
-  if (v4)
+  v2 = MTDevicePowerSetEnabled();
+  if (v2)
   {
-    v5 = v4;
-    v6 = DiagnosticLogHandleForCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v3 = v2;
+    v4 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 67109120;
-      v12 = v5;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Power off : %u", &v11, 8u);
+      v8 = 67109120;
+      v9 = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Power off : %u", &v8, 8u);
     }
   }
 
-  v7 = self->_grapeDevice;
-  v8 = MTDevicePowerSetEnabled();
-  if (v8)
+  v5 = MTDevicePowerSetEnabled();
+  if (v5)
   {
-    v9 = v8;
-    v10 = DiagnosticLogHandleForCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v6 = v5;
+    v7 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 67109120;
-      v12 = v9;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Power on : %u", &v11, 8u);
+      v8 = 67109120;
+      v9 = v6;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Power on : %u", &v8, 8u);
     }
   }
 }
@@ -447,60 +425,54 @@ LABEL_12:
       v7 = DiagnosticLogHandleForCategory();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        *v10 = 0;
-        _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Registering for prox failed", v10, 2u);
+        *v8 = 0;
+        _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Registering for prox failed", v8, 2u);
       }
     }
 
-    grapeDevice = self->_grapeDevice;
     MTDeviceSetInputDetectionMode();
     sleep(1u);
-    v9 = self->_grapeDevice;
     MTDeviceSetZephyrParameter();
   }
 }
 
 - (void)cleanupStreaming:(void *)streaming
 {
-  grapeDevice = self->_grapeDevice;
   MTDeviceSetZephyrParameter();
   [(OSDGrape *)self _unregisterForProx:streaming];
   [(OSDGrape *)self _enableProx:0];
+  v5 = DiagnosticLogHandleForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = 67109120;
+    v9 = MTDevicePowerSetEnabled();
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Power off status: %u", &v8, 8u);
+  }
+
   v6 = DiagnosticLogHandleForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = self->_grapeDevice;
-    v11 = 67109120;
-    v12 = MTDevicePowerSetEnabled();
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Power off status: %u", &v11, 8u);
-  }
-
-  v8 = DiagnosticLogHandleForCategory();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-  {
-    v9 = self->_grapeDevice;
-    v10 = MTDevicePowerSetEnabled();
-    v11 = 67109120;
-    v12 = v10;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Power on status: %u", &v11, 8u);
+    v7 = MTDevicePowerSetEnabled();
+    v8 = 67109120;
+    v9 = v7;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Power on status: %u", &v8, 8u);
   }
 }
 
 - (BOOL)_isProxEnabled
 {
-  grapeDevice = self->_grapeDevice;
   MTDeviceGetReport();
-  v3 = DiagnosticLogHandleForCategory();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v2 = DiagnosticLogHandleForCategory();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v7 = 0;
-    v8 = 1024;
-    v9 = v5;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Reading Prox enabled status %u bytes value is %d", buf, 0xEu);
+    v6 = 0;
+    v7 = 1024;
+    v8 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Reading Prox enabled status %u bytes value is %d", buf, 0xEu);
   }
 
-  return v5 != 0;
+  return v4 != 0;
 }
 
 - (BOOL)_enableProx:(BOOL)prox
@@ -511,80 +483,77 @@ LABEL_12:
     return 1;
   }
 
-  v6 = DiagnosticLogHandleForCategory();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v5 = DiagnosticLogHandleForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v10 = proxCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Enabling prox: %d", buf, 8u);
+    v8 = proxCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Enabling prox: %d", buf, 8u);
   }
 
-  grapeDevice = self->_grapeDevice;
   if (MTDeviceSetReport())
   {
     return 0;
   }
 
-  v5 = 1;
+  v4 = 1;
   sleep(1u);
-  return v5;
+  return v4;
 }
 
 - (BOOL)isDoppler
 {
-  grapeDevice = self->_grapeDevice;
   MTDeviceGetVersion();
-  v3 = [NSString stringWithFormat:@"%x", 0];
-  v4 = DiagnosticLogHandleForCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v2 = [NSString stringWithFormat:@"%x", 0];
+  v3 = DiagnosticLogHandleForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, " FW version %@", buf, 0xCu);
+    v7 = v2;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, " FW version %@", buf, 0xCu);
   }
 
-  v5 = [v3 containsString:@"d"];
-  return v5;
+  v4 = [v2 containsString:@"d"];
+  return v4;
 }
 
 - (BOOL)didDopplerErrorOccur
 {
-  grapeDevice = self->_grapeDevice;
   Report = MTDeviceGetReport();
-  v4 = Report == 0;
+  v3 = Report == 0;
   if (Report)
   {
-    v5 = DiagnosticLogHandleForCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v11 = 127;
-      v6 = "Unable to get MTReport 0x%x";
-      v7 = v5;
-      v8 = 8;
+      v10 = 127;
+      v5 = "Unable to get MTReport 0x%x";
+      v6 = v4;
+      v7 = 8;
 LABEL_8:
-      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, v6, buf, v8);
+      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, v5, buf, v7);
       goto LABEL_9;
     }
 
     goto LABEL_9;
   }
 
-  if ((v12 & 8) != 0)
+  if ((v11 & 8) != 0)
   {
-    v5 = DiagnosticLogHandleForCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v6 = "Doppler error detected";
-      v7 = v5;
-      v8 = 2;
+      v5 = "Doppler error detected";
+      v6 = v4;
+      v7 = 2;
       goto LABEL_8;
     }
 
 LABEL_9:
 
-    return v4;
+    return v3;
   }
 
   return 0;
@@ -626,53 +595,49 @@ LABEL_9:
 
 - (id)getDopplerDataRegister
 {
-  grapeDevice = self->_grapeDevice;
   if (MTDeviceGetReport())
   {
-    v3 = 0;
+    v2 = 0;
   }
 
   else
   {
-    v3 = [NSData dataWithBytes:v5 length:0];
+    v2 = [NSData dataWithBytes:v4 length:0];
   }
 
-  return v3;
+  return v2;
 }
 
 - (id)_getMTReportErrorFromCommandBuffer:(char *)buffer length:(int)length
 {
-  grapeDevice = self->_grapeDevice;
-  v7 = *buffer;
   if (MTDeviceSetReport())
   {
-    v8 = DiagnosticLogHandleForCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v5 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = *buffer;
-      v18[0] = 67109120;
-      v18[1] = v9;
-      v10 = "Unable to set MTReport 0x%x";
-      v11 = v18;
+      v6 = *buffer;
+      v14[0] = 67109120;
+      v14[1] = v6;
+      v7 = "Unable to set MTReport 0x%x";
+      v8 = v14;
 LABEL_14:
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, v10, v11, 8u);
+      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, v7, v8, 8u);
       goto LABEL_6;
     }
 
     goto LABEL_6;
   }
 
-  v12 = self->_grapeDevice;
   if (MTDeviceGetReport())
   {
-    v8 = DiagnosticLogHandleForCategory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v5 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v15 = *buffer;
+      v11 = *buffer;
       *buf = 67109120;
-      v17 = v15;
-      v10 = "Unable to get MTReport 0x%x";
-      v11 = buf;
+      v13 = v11;
+      v7 = "Unable to get MTReport 0x%x";
+      v8 = buf;
       goto LABEL_14;
     }
 
@@ -681,11 +646,11 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v14 = DiagnosticLogHandleForCategory();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v10 = DiagnosticLogHandleForCategory();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "MTReportGet read 0 bytes", buf, 2u);
+    _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "MTReportGet read 0 bytes", buf, 2u);
   }
 
 LABEL_7:
@@ -695,52 +660,50 @@ LABEL_7:
 
 - (id)getDopplerSiliconVersion
 {
-  v13 = 0x1000001C1582CLL;
-  v14 = 0;
-  grapeDevice = self->_grapeDevice;
+  v10 = 0x1000001C1582CLL;
+  v11 = 0;
   if (MTDeviceSetReport())
   {
-    v4 = DiagnosticLogHandleForCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v2 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v15[0] = 67109120;
-      v15[1] = v13;
-      v5 = "Unable to set MTReport 0x%x";
-      v6 = v15;
+      v12[0] = 67109120;
+      v12[1] = v10;
+      v3 = "Unable to set MTReport 0x%x";
+      v4 = v12;
 LABEL_7:
-      v8 = v4;
-      v9 = 8;
+      v5 = v2;
+      v6 = 8;
 LABEL_8:
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, v5, v6, v9);
+      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, v3, v4, v6);
     }
   }
 
   else
   {
-    v7 = self->_grapeDevice;
     if (!MTDeviceGetReport())
     {
-      v4 = DiagnosticLogHandleForCategory();
-      if (!os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v2 = DiagnosticLogHandleForCategory();
+      if (!os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_11;
       }
 
       *buf = 0;
-      v5 = "MTReportGet read 0 bytes";
-      v6 = buf;
-      v8 = v4;
-      v9 = 2;
+      v3 = "MTReportGet read 0 bytes";
+      v4 = buf;
+      v5 = v2;
+      v6 = 2;
       goto LABEL_8;
     }
 
-    v4 = DiagnosticLogHandleForCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v2 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v12 = 45;
-      v5 = "Unable to get MTReport 0x%x";
-      v6 = buf;
+      v9 = 45;
+      v3 = "Unable to get MTReport 0x%x";
+      v4 = buf;
       goto LABEL_7;
     }
   }

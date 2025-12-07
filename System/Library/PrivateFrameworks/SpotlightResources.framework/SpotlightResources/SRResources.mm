@@ -76,7 +76,7 @@
 
 - (SRResources)initWithClient:(id)client locale:(id)locale options:(id)options
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   localeCopy = locale;
   optionsCopy = options;
@@ -85,17 +85,17 @@
   {
     localeIdentifier = [localeCopy localeIdentifier];
     *buf = 138412802;
-    v43 = clientCopy;
-    v44 = 2112;
-    v45 = localeIdentifier;
-    v46 = 2048;
+    v44 = clientCopy;
+    v45 = 2112;
+    v46 = localeIdentifier;
+    v47 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1AE58E000, v12, OS_LOG_TYPE_DEFAULT, "SRResources init (%@, %@): %p", buf, 0x20u);
   }
 
-  v41.receiver = self;
-  v41.super_class = SRResources;
-  v14 = [(SRResources *)&v41 init];
+  v42.receiver = self;
+  v42.super_class = SRResources;
+  v14 = [(SRResources *)&v42 init];
   v15 = v14;
   if (v14)
   {
@@ -138,29 +138,29 @@
     overrides = v15->_overrides;
     v15->_overrides = 0;
 
-    if (SRIsAppleInternalInstall() && sUsingOverrides == 1)
+    if (SRIsAppleInternalInstall(v28, v29) && sUsingOverrides == 1)
     {
-      v28 = [sOverrideList objectForKeyedSubscript:clientCopy];
-      v29 = v15->_overrides;
-      v15->_overrides = v28;
+      v30 = [sOverrideList objectForKeyedSubscript:clientCopy];
+      v31 = v15->_overrides;
+      v15->_overrides = v30;
     }
 
-    v30 = +[SRDefaultsManager sharedDefaultsManager];
-    [v30 registerDelegate:v15];
+    v32 = +[SRDefaultsManager sharedDefaultsManager];
+    [v32 registerDelegate:v15];
 
-    v31 = +[SRDefaultsManager sharedDefaultsManager];
-    v32 = [v31 assetBundleForLocale:v15->_locale client:v15->_client force:v15->_forceLoad];
+    v33 = +[SRDefaultsManager sharedDefaultsManager];
+    v34 = [v33 assetBundleForLocale:v15->_locale client:v15->_client force:v15->_forceLoad];
     liveAssetBundle = v15->_liveAssetBundle;
-    v15->_liveAssetBundle = v32;
+    v15->_liveAssetBundle = v34;
 
     if (optionsCopy)
     {
-      v34 = [optionsCopy objectForKeyedSubscript:@"autoUpdateLocale"];
-      if (v34)
+      v36 = [optionsCopy objectForKeyedSubscript:@"autoUpdateLocale"];
+      if (v36)
       {
-        v35 = v34;
-        v36 = [optionsCopy objectForKeyedSubscript:@"autoUpdateLocale"];
-        bOOLValue = [v36 BOOLValue];
+        v37 = v36;
+        v38 = [optionsCopy objectForKeyedSubscript:@"autoUpdateLocale"];
+        bOOLValue = [v38 BOOLValue];
 
         if (bOOLValue)
         {
@@ -171,7 +171,6 @@
     }
   }
 
-  v39 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -198,20 +197,18 @@
 
 - (void)updateLocale
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   currentLocale = [MEMORY[0x1E695DF58] currentLocale];
-  [(SRResources *)self setLocale:currentLocale];
-  v4 = SRLogCategoryAssets();
+  v4 = SRLogCategoryAssets([(SRResources *)self setLocale:currentLocale]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     localeIdentifier = [currentLocale localeIdentifier];
-    v7 = 138412290;
-    v8 = localeIdentifier;
-    _os_log_impl(&dword_1AE58E000, v4, OS_LOG_TYPE_DEFAULT, "updating locale to %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = localeIdentifier;
+    _os_log_impl(&dword_1AE58E000, v4, OS_LOG_TYPE_DEFAULT, "updating locale to %@", &v6, 0xCu);
   }
 
   [(SRResources *)self didUpdateDefaultsWithBundleVersions:0 trial:0];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasUpdates
@@ -231,11 +228,11 @@
   v39 = *MEMORY[0x1E69E9840];
   versionsCopy = versions;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v8 = objc_sync_enter(selfCopy);
   if (trialCopy)
   {
-    v8 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = SRLogCategoryTrial(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       liveAssetBundle = selfCopy->_liveAssetBundle;
       client = selfCopy->_client;
@@ -246,16 +243,16 @@
       v36 = client;
       v37 = 2112;
       v38 = v24;
-      _os_log_debug_impl(&dword_1AE58E000, v8, OS_LOG_TYPE_DEBUG, "Trial update for resource (%p, %@, %@)", buf, 0x20u);
+      _os_log_debug_impl(&dword_1AE58E000, v9, OS_LOG_TYPE_DEBUG, "Trial update for resource (%p, %@, %@)", buf, 0x20u);
     }
 
     selfCopy->_hasUpdates = 1;
   }
 
-  else if (!versionsCopy || [(SRAssetBundle *)selfCopy->_liveAssetBundle shouldUpdateForBundleVersions:versionsCopy])
+  else if (!versionsCopy || (v8 = [(SRAssetBundle *)selfCopy->_liveAssetBundle shouldUpdateForBundleVersions:versionsCopy], v8))
   {
-    v9 = SRLogCategoryAssets();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = SRLogCategoryAssets(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       v25 = selfCopy->_liveAssetBundle;
       v26 = selfCopy->_client;
@@ -266,14 +263,14 @@
       v36 = v26;
       v37 = 2112;
       v38 = v27;
-      _os_log_debug_impl(&dword_1AE58E000, v9, OS_LOG_TYPE_DEBUG, "Assets update for resource (%p, %@, %@)", buf, 0x20u);
+      _os_log_debug_impl(&dword_1AE58E000, v10, OS_LOG_TYPE_DEBUG, "Assets update for resource (%p, %@, %@)", buf, 0x20u);
     }
 
     selfCopy->_hasUpdates = 1;
-    v10 = +[SRDefaultsManager sharedDefaultsManager];
-    v11 = [v10 assetBundleForLocale:selfCopy->_locale client:selfCopy->_client force:0];
-    v12 = selfCopy->_liveAssetBundle;
-    selfCopy->_liveAssetBundle = v11;
+    v11 = +[SRDefaultsManager sharedDefaultsManager];
+    v12 = [v11 assetBundleForLocale:selfCopy->_locale client:selfCopy->_client force:0];
+    v13 = selfCopy->_liveAssetBundle;
+    selfCopy->_liveAssetBundle = v12;
   }
 
   if (selfCopy->_hasUpdates)
@@ -287,40 +284,38 @@
       v31 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v15 = contentTypes;
-      v16 = [v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
-      if (v16)
+      v16 = contentTypes;
+      v17 = [v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      if (v17)
       {
-        v17 = *v29;
+        v18 = *v29;
         do
         {
-          v18 = 0;
+          v19 = 0;
           do
           {
-            if (*v29 != v17)
+            if (*v29 != v18)
             {
-              objc_enumerationMutation(v15);
+              objc_enumerationMutation(v16);
             }
 
-            v19 = *(*(&v28 + 1) + 8 * v18);
+            v20 = *(*(&v28 + 1) + 8 * v19);
             parameterUpdates2 = [(SRResources *)selfCopy parameterUpdates];
-            parameterUpdates2[2](parameterUpdates2, v19);
+            parameterUpdates2[2](parameterUpdates2, v20);
 
-            ++v18;
+            ++v19;
           }
 
-          while (v16 != v18);
-          v16 = [v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          while (v17 != v19);
+          v17 = [v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
         }
 
-        while (v16);
+        while (v17);
       }
     }
   }
 
   objc_sync_exit(selfCopy);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)assetPathsForContentType:(id)type
@@ -337,31 +332,31 @@
 - (id)fetchParameter:(id)parameter checkForPositive:(BOOL)positive
 {
   positiveCopy = positive;
-  v65 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   parameterCopy = parameter;
-  v6 = trialFlagsForProcess();
+  v6 = trialFlagsForProcess(parameterCopy);
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v8 = +[SRDefaultsManager sharedDefaultsManager];
   client = [(SRResources *)self client];
   v10 = [v8 parametersOfNamespaceWithName:parameterCopy client:client];
-  v57[0] = MEMORY[0x1E69E9820];
-  v57[1] = 3221225472;
-  v57[2] = __47__SRResources_fetchParameter_checkForPositive___block_invoke;
-  v57[3] = &unk_1E7A2AFC8;
-  v59 = v6;
+  v61[0] = MEMORY[0x1E69E9820];
+  v61[1] = 3221225472;
+  v61[2] = __47__SRResources_fetchParameter_checkForPositive___block_invoke;
+  v61[3] = &unk_1E7A2AFC8;
+  v63 = v6;
   v11 = v7;
-  v58 = v11;
-  [v10 enumerateKeysAndObjectsUsingBlock:v57];
+  v62 = v11;
+  [v10 enumerateKeysAndObjectsUsingBlock:v61];
 
   if (![v11 count])
   {
-    v13 = SRLogCategoryTrial();
+    v13 = SRLogCategoryTrial(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [SRResources fetchParameter:checkForPositive:];
     }
 
-    v16 = 0;
+    v17 = 0;
     goto LABEL_61;
   }
 
@@ -370,79 +365,79 @@
 
   if (!v13)
   {
-    v17 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = SRLogCategoryTrial(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [SRResources fetchParameter:checkForPositive:];
     }
 
-    v16 = 0;
+    v17 = 0;
     goto LABEL_60;
   }
 
   flag = [v13 flag];
-  v15 = flag;
-  v48 = flag;
+  v16 = flag;
+  v52 = flag;
   if ((flag & 2) != 0)
   {
     if ((flag & 0x10) != 0)
     {
       os_unfair_lock_lock(&sUserDefaultsParameterListLock);
-      v18 = [sUserDefaultsParameterList objectForKeyedSubscript:parameterCopy];
+      v19 = [sUserDefaultsParameterList objectForKeyedSubscript:parameterCopy];
 
-      if (v18)
+      if (v19)
       {
-        v19 = [sUserDefaultsParameterList objectForKeyedSubscript:parameterCopy];
-        v16 = [v19 copy];
+        v20 = [sUserDefaultsParameterList objectForKeyedSubscript:parameterCopy];
+        v17 = [v20 copy];
 
-        v20 = SRLogCategoryTrial();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v22 = SRLogCategoryTrial(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           [SRResources fetchParameter:checkForPositive:];
         }
 
         os_unfair_lock_unlock(&sUserDefaultsParameterListLock);
-        if (v16 && ([v16 isNil] & 1) == 0 && (!objc_msgSend(v16, "isLong") || !positiveCopy || (objc_msgSend(v16, "isPositiveLong") & 1) != 0))
+        if (v17 && ([v17 isNil] & 1) == 0 && (!objc_msgSend(v17, "isLong") || !positiveCopy || (objc_msgSend(v17, "isPositiveLong") & 1) != 0))
         {
           goto LABEL_61;
         }
 
 LABEL_23:
-        if ((v15 & 4) == 0)
+        if ((v16 & 4) == 0)
         {
           goto LABEL_33;
         }
 
         client2 = [(SRResources *)self client];
-        v22 = [SSTrialManager currentTrialManagerForClient:client2];
+        v24 = [SSTrialManager currentTrialManagerForClient:client2];
 
-        if (v22)
+        if (v24)
         {
-          namespaceId = [v22 namespaceId];
+          namespaceId = [v24 namespaceId];
           os_unfair_lock_lock(&sTrialParameterListLock);
-          v24 = [sTrialParameterList objectForKeyedSubscript:namespaceId];
-          v25 = [v24 objectForKeyedSubscript:parameterCopy];
+          v26 = [sTrialParameterList objectForKeyedSubscript:namespaceId];
+          v27 = [v26 objectForKeyedSubscript:parameterCopy];
 
-          if ([v25 hasValueFromTrial])
+          if ([v27 hasValueFromTrial])
           {
-            parameter = [v25 parameter];
-            v27 = [parameter copy];
+            parameter = [v27 parameter];
+            v29 = [parameter copy];
 
-            v28 = SRLogCategoryTrial();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+            v31 = SRLogCategoryTrial(v30);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
             {
               [SRResources fetchParameter:checkForPositive:];
             }
 
-            v16 = v27;
+            v17 = v29;
           }
 
           os_unfair_lock_unlock(&sTrialParameterListLock);
-          if (v16 && ([v16 isNil] & 1) == 0 && (!objc_msgSend(v16, "isLong") || !positiveCopy || (objc_msgSend(v16, "isPositiveLong") & 1) != 0))
+          if (v17 && ([v17 isNil] & 1) == 0 && (!objc_msgSend(v17, "isLong") || !positiveCopy || (objc_msgSend(v17, "isPositiveLong") & 1) != 0))
           {
-            v17 = v16;
+            v18 = v17;
 
-            v16 = v17;
+            v17 = v18;
 LABEL_60:
 
             goto LABEL_61;
@@ -455,79 +450,79 @@ LABEL_60:
       os_unfair_lock_unlock(&sUserDefaultsParameterListLock);
     }
 
-    v16 = 0;
+    v17 = 0;
     goto LABEL_23;
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_33:
-  v49 = v13;
-  v50 = v11;
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
-  v54 = 0u;
-  v29 = v11;
-  v30 = [v29 countByEnumeratingWithState:&v53 objects:v64 count:16];
-  if (v30)
+  v53 = v13;
+  v54 = v11;
+  v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v32 = v11;
+  v33 = [v32 countByEnumeratingWithState:&v57 objects:v68 count:16];
+  if (v33)
   {
-    v31 = v30;
-    v52 = *v54;
+    v34 = v33;
+    v56 = *v58;
     while (2)
     {
-      for (i = 0; i != v31; ++i)
+      for (i = 0; i != v34; ++i)
       {
-        if (*v54 != v52)
+        if (*v58 != v56)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v32);
         }
 
-        v33 = *(*(&v53 + 1) + 8 * i);
-        v34 = [v29 objectForKeyedSubscript:v33];
+        v36 = *(*(&v57 + 1) + 8 * i);
+        v37 = [v32 objectForKeyedSubscript:v36];
 
         os_unfair_lock_lock(&sTrialParameterListLock);
-        v35 = [sTrialParameterList objectForKeyedSubscript:v33];
-        v36 = parameterCopy;
-        v37 = [v35 objectForKeyedSubscript:parameterCopy];
+        v38 = [sTrialParameterList objectForKeyedSubscript:v36];
+        v39 = parameterCopy;
+        v40 = [v38 objectForKeyedSubscript:parameterCopy];
 
-        if ([v37 hasValueFromTrial])
+        if ([v40 hasValueFromTrial])
         {
-          parameter2 = [v37 parameter];
-          v39 = [parameter2 copy];
+          parameter2 = [v40 parameter];
+          v42 = [parameter2 copy];
 
-          v40 = SRLogCategoryTrial();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+          v44 = SRLogCategoryTrial(v43);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v61 = v36;
-            v62 = 2112;
-            v63 = v33;
-            _os_log_debug_impl(&dword_1AE58E000, v40, OS_LOG_TYPE_DEBUG, "Parameter %@ has value from Trial namespace %@", buf, 0x16u);
+            v65 = v39;
+            v66 = 2112;
+            v67 = v36;
+            _os_log_debug_impl(&dword_1AE58E000, v44, OS_LOG_TYPE_DEBUG, "Parameter %@ has value from Trial namespace %@", buf, 0x16u);
           }
 
-          v34 = v39;
+          v37 = v42;
         }
 
         os_unfair_lock_unlock(&sTrialParameterListLock);
-        if (v34 && ([v34 isNil] & 1) == 0 && (!objc_msgSend(v34, "isLong") || !positiveCopy || (objc_msgSend(v34, "isPositiveLong") & 1) != 0))
+        if (v37 && ([v37 isNil] & 1) == 0 && (!objc_msgSend(v37, "isLong") || !positiveCopy || (objc_msgSend(v37, "isPositiveLong") & 1) != 0))
         {
-          v17 = v34;
+          v18 = v37;
 
-          v16 = v17;
-          parameterCopy = v36;
-          v13 = v49;
-          v11 = v50;
+          v17 = v18;
+          parameterCopy = v39;
+          v13 = v53;
+          v11 = v54;
           goto LABEL_60;
         }
 
-        v41 = [v29 objectForKeyedSubscript:v33];
-        v16 = [v41 copy];
+        v45 = [v32 objectForKeyedSubscript:v36];
+        v17 = [v45 copy];
 
-        parameterCopy = v36;
+        parameterCopy = v39;
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v53 objects:v64 count:16];
-      if (v31)
+      v34 = [v32 countByEnumeratingWithState:&v57 objects:v68 count:16];
+      if (v34)
       {
         continue;
       }
@@ -536,45 +531,43 @@ LABEL_33:
     }
   }
 
-  if ((~v48 & 0xA) != 0)
+  if ((~v52 & 0xA) != 0)
   {
-    v13 = v49;
-    v11 = v50;
+    v13 = v53;
+    v11 = v54;
   }
 
   else
   {
     os_unfair_lock_lock(&sUserDefaultsParameterListLock);
-    v42 = [sUserDefaultsParameterList objectForKeyedSubscript:parameterCopy];
+    v46 = [sUserDefaultsParameterList objectForKeyedSubscript:parameterCopy];
 
-    v11 = v50;
-    if (v42)
+    v11 = v54;
+    if (v46)
     {
-      v43 = [sUserDefaultsParameterList objectForKeyedSubscript:parameterCopy];
-      v44 = [v43 copy];
+      v47 = [sUserDefaultsParameterList objectForKeyedSubscript:parameterCopy];
+      v48 = [v47 copy];
 
-      v45 = SRLogCategoryTrial();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+      v50 = SRLogCategoryTrial(v49);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
       {
         [SRResources fetchParameter:checkForPositive:];
       }
 
-      v16 = v44;
+      v17 = v48;
     }
 
-    v13 = v49;
+    v13 = v53;
     os_unfair_lock_unlock(&sUserDefaultsParameterListLock);
-    if (v16 && ([v16 isNil] & 1) == 0 && objc_msgSend(v16, "isLong") && positiveCopy)
+    if (v17 && ([v17 isNil] & 1) == 0 && objc_msgSend(v17, "isLong") && positiveCopy)
     {
-      [v16 isPositiveLong];
+      [v17 isPositiveLong];
     }
   }
 
 LABEL_61:
 
-  v46 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v17;
 }
 
 void __47__SRResources_fetchParameter_checkForPositive___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -700,28 +693,28 @@ LABEL_4:
 
 - (BOOL)BOOLeanForKey:(id)key didFailWithError:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  if (SRIsAppleInternalInstall() && sUsingOverrides == 1)
+  if (SRIsAppleInternalInstall(keyCopy, v7) && sUsingOverrides == 1)
   {
-    v7 = [(NSDictionary *)self->_overrides objectForKeyedSubscript:keyCopy];
-    v8 = v7;
-    if (v7)
+    v8 = [(NSDictionary *)self->_overrides objectForKeyedSubscript:keyCopy];
+    v9 = v8;
+    if (v8)
     {
-      if ([v7 isBool])
+      if ([v8 isBool])
       {
-        getBooleanValue = [v8 getBooleanValue];
+        getBooleanValue = [v9 getBooleanValue];
         if (getBooleanValue)
         {
-          v10 = getBooleanValue;
-          v11 = SRLogCategoryTrial();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+          v11 = getBooleanValue;
+          v12 = SRLogCategoryTrial(getBooleanValue);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             [SRResources BOOLeanForKey:didFailWithError:];
           }
 
           *error = 0;
-          bOOLValue = [v10 BOOLValue];
+          bOOLValue = [v11 BOOLValue];
 
           goto LABEL_17;
         }
@@ -729,24 +722,25 @@ LABEL_4:
     }
   }
 
-  v13 = [(SRResources *)self fetchBooleanParameter:keyCopy];
-  v8 = v13;
-  if (v13 && [v13 isBool] && (objc_msgSend(v8, "getBooleanValue"), (v14 = objc_claimAutoreleasedReturnValue()) != 0))
+  v14 = [(SRResources *)self fetchBooleanParameter:keyCopy];
+  v9 = v14;
+  if (v14 && [v14 isBool] && (objc_msgSend(v9, "getBooleanValue"), (v15 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v15 = v14;
+    v16 = v15;
     *error = 0;
-    bOOLValue = [v14 BOOLValue];
+    bOOLValue = [v15 BOOLValue];
   }
 
   else
   {
-    *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"SpotlightResourcesErrorDomain" code:-1 userInfo:0];
-    v16 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = [MEMORY[0x1E696ABC0] errorWithDomain:@"SpotlightResourcesErrorDomain" code:-1 userInfo:0];
+    *error = v17;
+    v18 = SRLogCategoryTrial(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = keyCopy;
-      _os_log_impl(&dword_1AE58E000, v16, OS_LOG_TYPE_DEFAULT, "SpotlightResources could not find BOOLean parameter %@", &v19, 0xCu);
+      v20 = 138412290;
+      v21 = keyCopy;
+      _os_log_impl(&dword_1AE58E000, v18, OS_LOG_TYPE_DEFAULT, "SpotlightResources could not find BOOLean parameter %@", &v20, 0xCu);
     }
 
     bOOLValue = 0;
@@ -754,34 +748,33 @@ LABEL_4:
 
 LABEL_17:
 
-  v17 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
 - (int64_t)longForKey:(id)key didFailWithError:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  if (SRIsAppleInternalInstall() && sUsingOverrides == 1)
+  if (SRIsAppleInternalInstall(keyCopy, v7) && sUsingOverrides == 1)
   {
-    v7 = [(NSDictionary *)self->_overrides objectForKeyedSubscript:keyCopy];
-    v8 = v7;
-    if (v7)
+    v8 = [(NSDictionary *)self->_overrides objectForKeyedSubscript:keyCopy];
+    v9 = v8;
+    if (v8)
     {
-      if ([v7 isLong])
+      if ([v8 isLong])
       {
-        getLongValue = [v8 getLongValue];
+        getLongValue = [v9 getLongValue];
         if (getLongValue)
         {
-          v10 = getLongValue;
-          v11 = SRLogCategoryTrial();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+          v11 = getLongValue;
+          v12 = SRLogCategoryTrial(getLongValue);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             [SRResources BOOLeanForKey:didFailWithError:];
           }
 
           *error = 0;
-          longValue = [v10 longValue];
+          longValue = [v11 longValue];
 
           goto LABEL_17;
         }
@@ -789,24 +782,25 @@ LABEL_17:
     }
   }
 
-  v13 = [(SRResources *)self fetchLongParameter:keyCopy];
-  v8 = v13;
-  if (v13 && [v13 isLong] && (objc_msgSend(v8, "getLongValue"), (v14 = objc_claimAutoreleasedReturnValue()) != 0))
+  v14 = [(SRResources *)self fetchLongParameter:keyCopy];
+  v9 = v14;
+  if (v14 && [v14 isLong] && (objc_msgSend(v9, "getLongValue"), (v15 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v15 = v14;
+    v16 = v15;
     *error = 0;
-    longValue = [v14 longValue];
+    longValue = [v15 longValue];
   }
 
   else
   {
-    *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"SpotlightResourcesErrorDomain" code:-1 userInfo:0];
-    v16 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = [MEMORY[0x1E696ABC0] errorWithDomain:@"SpotlightResourcesErrorDomain" code:-1 userInfo:0];
+    *error = v17;
+    v18 = SRLogCategoryTrial(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = keyCopy;
-      _os_log_impl(&dword_1AE58E000, v16, OS_LOG_TYPE_DEFAULT, "SpotlightResources could not find long parameter %@", &v19, 0xCu);
+      v20 = 138412290;
+      v21 = keyCopy;
+      _os_log_impl(&dword_1AE58E000, v18, OS_LOG_TYPE_DEFAULT, "SpotlightResources could not find long parameter %@", &v20, 0xCu);
     }
 
     longValue = 0;
@@ -814,35 +808,34 @@ LABEL_17:
 
 LABEL_17:
 
-  v17 = *MEMORY[0x1E69E9840];
   return longValue;
 }
 
 - (double)doubleForKey:(id)key didFailWithError:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  if (SRIsAppleInternalInstall() && sUsingOverrides == 1)
+  if (SRIsAppleInternalInstall(keyCopy, v7) && sUsingOverrides == 1)
   {
-    v7 = [(NSDictionary *)self->_overrides objectForKeyedSubscript:keyCopy];
-    v8 = v7;
-    if (v7)
+    v8 = [(NSDictionary *)self->_overrides objectForKeyedSubscript:keyCopy];
+    v9 = v8;
+    if (v8)
     {
-      if ([v7 isDouble])
+      if ([v8 isDouble])
       {
-        getDoubleValue = [v8 getDoubleValue];
+        getDoubleValue = [v9 getDoubleValue];
         if (getDoubleValue)
         {
-          v10 = getDoubleValue;
-          v11 = SRLogCategoryTrial();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+          v11 = getDoubleValue;
+          v12 = SRLogCategoryTrial(getDoubleValue);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             [SRResources BOOLeanForKey:didFailWithError:];
           }
 
           *error = 0;
-          [v10 doubleValue];
-          v13 = v12;
+          [v11 doubleValue];
+          v14 = v13;
 
           goto LABEL_17;
         }
@@ -850,34 +843,34 @@ LABEL_17:
     }
   }
 
-  v14 = [(SRResources *)self fetchDoubleParameter:keyCopy];
-  v8 = v14;
-  if (v14 && [v14 isDouble] && (objc_msgSend(v8, "getDoubleValue"), (v15 = objc_claimAutoreleasedReturnValue()) != 0))
+  v15 = [(SRResources *)self fetchDoubleParameter:keyCopy];
+  v9 = v15;
+  if (v15 && [v15 isDouble] && (objc_msgSend(v9, "getDoubleValue"), (v16 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v16 = v15;
+    v17 = v16;
     *error = 0;
-    [v15 doubleValue];
-    v13 = v17;
+    [v16 doubleValue];
+    v14 = v18;
   }
 
   else
   {
-    *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"SpotlightResourcesErrorDomain" code:-1 userInfo:0];
-    v18 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = [MEMORY[0x1E696ABC0] errorWithDomain:@"SpotlightResourcesErrorDomain" code:-1 userInfo:0];
+    *error = v19;
+    v20 = SRLogCategoryTrial(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412290;
-      v22 = keyCopy;
-      _os_log_impl(&dword_1AE58E000, v18, OS_LOG_TYPE_DEFAULT, "SpotlightResources could not find double parameter %@", &v21, 0xCu);
+      v22 = 138412290;
+      v23 = keyCopy;
+      _os_log_impl(&dword_1AE58E000, v20, OS_LOG_TYPE_DEFAULT, "SpotlightResources could not find double parameter %@", &v22, 0xCu);
     }
 
-    v13 = 2.22507386e-308;
+    v14 = 2.22507386e-308;
   }
 
 LABEL_17:
 
-  v19 = *MEMORY[0x1E69E9840];
-  return v13;
+  return v14;
 }
 
 - (double)doubleForKey:(id)key
@@ -889,22 +882,22 @@ LABEL_17:
 
 - (id)stringForKey:(id)key didFailWithError:(id *)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  if (SRIsAppleInternalInstall() && sUsingOverrides == 1)
+  if (SRIsAppleInternalInstall(keyCopy, v7) && sUsingOverrides == 1)
   {
-    v7 = [(NSDictionary *)self->_overrides objectForKeyedSubscript:keyCopy];
-    v8 = v7;
-    if (v7)
+    v8 = [(NSDictionary *)self->_overrides objectForKeyedSubscript:keyCopy];
+    v9 = v8;
+    if (v8)
     {
-      if ([v7 isString])
+      if ([v8 isString])
       {
-        getStringValue = [v8 getStringValue];
+        getStringValue = [v9 getStringValue];
         if (getStringValue)
         {
-          v10 = getStringValue;
-          v11 = SRLogCategoryTrial();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+          v11 = getStringValue;
+          v12 = SRLogCategoryTrial(getStringValue);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             [SRResources BOOLeanForKey:didFailWithError:];
           }
@@ -915,16 +908,16 @@ LABEL_17:
     }
   }
 
-  v12 = [(SRResources *)self fetchStringParameter:keyCopy];
-  v8 = v12;
-  if (v12)
+  v13 = [(SRResources *)self fetchStringParameter:keyCopy];
+  v9 = v13;
+  if (v13)
   {
-    if ([v12 isString])
+    if ([v13 isString])
     {
-      getStringValue2 = [v8 getStringValue];
+      getStringValue2 = [v9 getStringValue];
       if (getStringValue2)
       {
-        v10 = getStringValue2;
+        v11 = getStringValue2;
 LABEL_14:
         *error = 0;
         goto LABEL_18;
@@ -932,21 +925,20 @@ LABEL_14:
     }
   }
 
-  *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"SpotlightResourcesErrorDomain" code:-1 userInfo:0];
-  v14 = SRLogCategoryTrial();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = [MEMORY[0x1E696ABC0] errorWithDomain:@"SpotlightResourcesErrorDomain" code:-1 userInfo:0];
+  *error = v15;
+  v16 = SRLogCategoryTrial(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = keyCopy;
-    _os_log_impl(&dword_1AE58E000, v14, OS_LOG_TYPE_DEFAULT, "SpotlightResources could not find string parameter %@", &v17, 0xCu);
+    v18 = 138412290;
+    v19 = keyCopy;
+    _os_log_impl(&dword_1AE58E000, v16, OS_LOG_TYPE_DEFAULT, "SpotlightResources could not find string parameter %@", &v18, 0xCu);
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_18:
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v11;
 }
 
 - (id)stringForKey:(id)key
@@ -960,20 +952,20 @@ LABEL_18:
 - (id)filePathForKey:(id)key didFailWithError:(id *)error
 {
   keyCopy = key;
-  if (SRIsAppleInternalInstall() && sUsingOverrides == 1)
+  if (SRIsAppleInternalInstall(keyCopy, v7) && sUsingOverrides == 1)
   {
-    v7 = [(NSDictionary *)self->_overrides objectForKeyedSubscript:keyCopy];
-    v8 = v7;
-    if (v7)
+    v8 = [(NSDictionary *)self->_overrides objectForKeyedSubscript:keyCopy];
+    v9 = v8;
+    if (v8)
     {
-      if ([v7 isFilePath])
+      if ([v8 isFilePath])
       {
-        getFilePathValue = [v8 getFilePathValue];
+        getFilePathValue = [v9 getFilePathValue];
         if (getFilePathValue)
         {
           firstObject = getFilePathValue;
-          v11 = SRLogCategoryTrial();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+          v12 = SRLogCategoryTrial(getFilePathValue);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             [SRResources BOOLeanForKey:didFailWithError:];
           }
@@ -984,13 +976,13 @@ LABEL_18:
     }
   }
 
-  v12 = [(SRResources *)self fetchFilePathParameter:keyCopy];
-  v8 = v12;
-  if (v12)
+  v13 = [(SRResources *)self fetchFilePathParameter:keyCopy];
+  v9 = v13;
+  if (v13)
   {
-    if ([v12 isFilePath])
+    if ([v13 isFilePath])
     {
-      getFilePathValue2 = [v8 getFilePathValue];
+      getFilePathValue2 = [v9 getFilePathValue];
       if (getFilePathValue2)
       {
         firstObject = getFilePathValue2;
@@ -1001,18 +993,19 @@ LABEL_14:
     }
   }
 
-  v14 = [(SRResources *)self assetPathsForContentType:keyCopy];
-  if ([v14 count])
+  v15 = [(SRResources *)self assetPathsForContentType:keyCopy];
+  if ([v15 count])
   {
     *error = 0;
-    firstObject = [v14 firstObject];
+    firstObject = [v15 firstObject];
   }
 
   else
   {
-    *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"SpotlightResourcesErrorDomain" code:-1 userInfo:0];
-    v15 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"SpotlightResourcesErrorDomain" code:-1 userInfo:0];
+    *error = v16;
+    v17 = SRLogCategoryTrial(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [SRResources filePathForKey:didFailWithError:];
     }
@@ -1037,45 +1030,45 @@ LABEL_21:
 {
   v23[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  if (SRIsAppleInternalInstall() && sUsingOverrides == 1)
+  if (SRIsAppleInternalInstall(keyCopy, v7) && sUsingOverrides == 1)
   {
-    v7 = [(NSDictionary *)self->_overrides objectForKeyedSubscript:keyCopy];
-    v8 = v7;
-    if (v7)
+    v8 = [(NSDictionary *)self->_overrides objectForKeyedSubscript:keyCopy];
+    v9 = v8;
+    if (v8)
     {
-      if ([v7 isFilePath])
+      if ([v8 isFilePath])
       {
-        getFilePathValue = [v8 getFilePathValue];
+        getFilePathValue = [v9 getFilePathValue];
         if (getFilePathValue)
         {
           getFilePathValue2 = getFilePathValue;
-          v11 = SRLogCategoryTrial();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+          v12 = SRLogCategoryTrial(getFilePathValue);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             [SRResources BOOLeanForKey:didFailWithError:];
           }
 
           *error = 0;
           v23[0] = getFilePathValue2;
-          v12 = MEMORY[0x1E695DEC8];
-          v13 = v23;
+          v13 = MEMORY[0x1E695DEC8];
+          v14 = v23;
           goto LABEL_19;
         }
       }
     }
   }
 
-  v14 = [(SRResources *)self fetchFilePathParameter:keyCopy];
-  v8 = v14;
-  if (v14 && [v14 isFilePath] && (objc_msgSend(v8, "isNil") & 1) == 0)
+  v15 = [(SRResources *)self fetchFilePathParameter:keyCopy];
+  v9 = v15;
+  if (v15 && [v15 isFilePath] && (objc_msgSend(v9, "isNil") & 1) == 0)
   {
     *error = 0;
-    getFilePathValue2 = [v8 getFilePathValue];
+    getFilePathValue2 = [v9 getFilePathValue];
     v22 = getFilePathValue2;
-    v12 = MEMORY[0x1E695DEC8];
-    v13 = &v22;
+    v13 = MEMORY[0x1E695DEC8];
+    v14 = &v22;
 LABEL_19:
-    v15 = [v12 arrayWithObjects:v13 count:1];
+    v16 = [v13 arrayWithObjects:v14 count:1];
     goto LABEL_20;
   }
 
@@ -1083,28 +1076,26 @@ LABEL_19:
   if ([getFilePathValue2 count])
   {
     *error = 0;
-    v15 = getFilePathValue2;
-    getFilePathValue2 = v15;
+    v16 = getFilePathValue2;
+    getFilePathValue2 = v16;
 LABEL_20:
-    v17 = v15;
+    v18 = v16;
     goto LABEL_21;
   }
 
   *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"SpotlightResourcesErrorDomain" code:-1 userInfo:0];
-  v16 = SRLogCategoryGeneral();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = SRLogCategoryGeneral();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     v20 = 138412290;
     v21 = keyCopy;
-    _os_log_impl(&dword_1AE58E000, v16, OS_LOG_TYPE_DEFAULT, "SpotlightResources could not find file paths parameter %@", &v20, 0xCu);
+    _os_log_impl(&dword_1AE58E000, v17, OS_LOG_TYPE_DEFAULT, "SpotlightResources could not find file paths parameter %@", &v20, 0xCu);
   }
 
-  v17 = 0;
+  v18 = 0;
 LABEL_21:
 
-  v18 = *MEMORY[0x1E69E9840];
-
-  return v17;
+  return v18;
 }
 
 - (id)filePathArrayForKey:(id)key
@@ -1118,46 +1109,46 @@ LABEL_21:
 - (id)objectForKey:(id)key withType:(int64_t *)type didFailWithError:(id *)error
 {
   keyCopy = key;
-  if (!SRIsAppleInternalInstall() || sUsingOverrides != 1)
+  if (!SRIsAppleInternalInstall(keyCopy, v9) || sUsingOverrides != 1)
   {
 LABEL_9:
-    v14 = [(SRResources *)self fetchBooleanParameter:keyCopy];
-    v10 = v14;
+    v15 = [(SRResources *)self fetchBooleanParameter:keyCopy];
+    v11 = v15;
     *error = 0;
-    if (v14 && [v14 isBool] && (objc_msgSend(v10, "isNil") & 1) == 0)
+    if (v15 && [v15 isBool] && (objc_msgSend(v11, "isNil") & 1) == 0)
     {
       *type = 0;
 LABEL_32:
-      value = [v10 value];
+      value = [v11 value];
       goto LABEL_33;
     }
 
-    v15 = [(SRResources *)self fetchLongParameter:keyCopy];
+    v16 = [(SRResources *)self fetchLongParameter:keyCopy];
 
-    if (v15 && [v15 isLong] && (objc_msgSend(v15, "isNil") & 1) == 0)
+    if (v16 && [v16 isLong] && (objc_msgSend(v16, "isNil") & 1) == 0)
     {
-      v16 = 1;
+      v17 = 1;
     }
 
     else
     {
-      v10 = [(SRResources *)self fetchDoubleParameter:keyCopy];
+      v11 = [(SRResources *)self fetchDoubleParameter:keyCopy];
 
-      if (v10 && [v10 isDouble] && (objc_msgSend(v10, "isNil") & 1) == 0)
+      if (v11 && [v11 isDouble] && (objc_msgSend(v11, "isNil") & 1) == 0)
       {
-        v17 = 2;
+        v18 = 2;
 LABEL_31:
-        *type = v17;
+        *type = v18;
         goto LABEL_32;
       }
 
-      v15 = [(SRResources *)self fetchStringParameter:keyCopy];
+      v16 = [(SRResources *)self fetchStringParameter:keyCopy];
 
-      if (!v15 || ![v15 isString] || (objc_msgSend(v15, "isNil") & 1) != 0)
+      if (!v16 || ![v16 isString] || (objc_msgSend(v16, "isNil") & 1) != 0)
       {
-        v10 = [(SRResources *)self fetchFilePathParameter:keyCopy];
+        v11 = [(SRResources *)self fetchFilePathParameter:keyCopy];
 
-        if (!v10 || ![v10 isFilePath] || (objc_msgSend(v10, "isNil") & 1) != 0)
+        if (!v11 || ![v11 isFilePath] || (objc_msgSend(v11, "isNil") & 1) != 0)
         {
           [MEMORY[0x1E696ABC0] errorWithDomain:@"SpotlightResourcesErrorDomain" code:-1 userInfo:0];
           *error = value = 0;
@@ -1165,30 +1156,30 @@ LABEL_31:
           goto LABEL_33;
         }
 
-        v17 = 4;
+        v18 = 4;
         goto LABEL_31;
       }
 
-      v16 = 3;
+      v17 = 3;
     }
 
-    *type = v16;
-    value = [v15 value];
-    v10 = v15;
+    *type = v17;
+    value = [v16 value];
+    v11 = v16;
     goto LABEL_33;
   }
 
-  v9 = [(NSDictionary *)self->_overrides objectForKeyedSubscript:keyCopy];
-  v10 = v9;
-  if (!v9 || ([v9 value], (v11 = objc_claimAutoreleasedReturnValue()) == 0))
+  v10 = [(NSDictionary *)self->_overrides objectForKeyedSubscript:keyCopy];
+  v11 = v10;
+  if (!v10 || ([v10 value], (v12 = objc_claimAutoreleasedReturnValue()) == 0))
   {
 
     goto LABEL_9;
   }
 
-  value = v11;
-  v13 = SRLogCategoryTrial();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  value = v12;
+  v14 = SRLogCategoryTrial(v12);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [SRResources BOOLeanForKey:didFailWithError:];
   }
@@ -1303,17 +1294,17 @@ LABEL_33:
 
 - (void)dealloc
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = SRLogCategoryGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     client = self->_client;
     localeIdentifier = [(NSLocale *)self->_locale localeIdentifier];
     *buf = 138412802;
-    v21 = client;
-    v22 = 2112;
-    v23 = localeIdentifier;
-    v24 = 2048;
+    v20 = client;
+    v21 = 2112;
+    v22 = localeIdentifier;
+    v23 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1AE58E000, v4, OS_LOG_TYPE_DEFAULT, "SRResources dealloc (%@, %@): %p", buf, 0x20u);
   }
@@ -1324,7 +1315,8 @@ LABEL_33:
   options = self->_options;
   if (options)
   {
-    v9 = [(NSMutableDictionary *)options objectForKeyedSubscript:@"SRResourcesOwner"];
+    options = [options objectForKeyedSubscript:@"SRResourcesOwner"];
+    v9 = options;
   }
 
   else
@@ -1332,7 +1324,7 @@ LABEL_33:
     v9 = 0;
   }
 
-  v10 = SRLogCategoryLifeCycle();
+  v10 = SRLogCategoryLifeCycle(options);
   v11 = v10;
   v12 = dealloc_index;
   v13 = ++dealloc_index;
@@ -1364,10 +1356,10 @@ LABEL_10:
     uTF8String3 = "unknown";
 LABEL_13:
     *buf = 136315650;
-    v21 = uTF8String;
-    v22 = 2080;
-    v23 = uTF8String2;
-    v24 = 2080;
+    v20 = uTF8String;
+    v21 = 2080;
+    v22 = uTF8String2;
+    v23 = 2080;
     selfCopy = uTF8String3;
     _os_signpost_emit_with_name_impl(&dword_1AE58E000, v11, OS_SIGNPOST_EVENT, v13, "SRResourcesDestroy", "client=%s, locale=%s, caller=%s", buf, 0x20u);
     if (locale)
@@ -1375,137 +1367,138 @@ LABEL_13:
     }
   }
 
-  v19.receiver = self;
-  v19.super_class = SRResources;
-  [(SRResources *)&v19 dealloc];
-  v18 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = SRResources;
+  [(SRResources *)&v18 dealloc];
 }
 
 - (void)logForTrigger:(id)trigger queryID:(int64_t)d
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   triggerCopy = trigger;
-  if (+[SRResourcesManager parsecEnabled]&& ([(NSString *)self->_client isEqualToString:@"Spotlight"]|| [(NSString *)self->_client isEqualToString:@"Mail"]|| [(NSString *)self->_client isEqualToString:@"Parser"]))
+  if (+[SRResourcesManager parsecEnabled])
   {
-    v7 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = [(NSString *)self->_client isEqualToString:@"Spotlight"];
+    if (v7 & 1) != 0 || (v7 = [(NSString *)self->_client isEqualToString:@"Mail"], (v7) || (v7 = [(NSString *)self->_client isEqualToString:@"Parser"], v7))
     {
-      uUIDString = [triggerCopy UUIDString];
-      client = self->_client;
-      *buf = 138412802;
-      v31 = uUIDString;
-      v32 = 2048;
-      dCopy3 = d;
-      v34 = 2112;
-      v35 = client;
-      _os_log_impl(&dword_1AE58E000, v7, OS_LOG_TYPE_DEFAULT, "logForTrigger:%@ queryID:%lld client:%@", buf, 0x20u);
-    }
-
-    v10 = [(SRResources *)self stringForKey:@"codepathIDs"];
-    v11 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-    {
-      [SRResources logForTrigger:queryID:];
-    }
-
-    if (triggerCopy)
-    {
-      if (v10)
+      v8 = SRLogCategoryTrial(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        uppercaseString = [v10 uppercaseString];
-        uUIDString2 = [triggerCopy UUIDString];
-        v14 = [uppercaseString containsString:uUIDString2];
+        uUIDString = [triggerCopy UUIDString];
+        client = self->_client;
+        *buf = 138412802;
+        v32 = uUIDString;
+        v33 = 2048;
+        dCopy3 = d;
+        v35 = 2112;
+        v36 = client;
+        _os_log_impl(&dword_1AE58E000, v8, OS_LOG_TYPE_DEFAULT, "logForTrigger:%@ queryID:%lld client:%@", buf, 0x20u);
+      }
 
-        if (v14)
+      v11 = [(SRResources *)self stringForKey:@"codepathIDs"];
+      v12 = SRLogCategoryTrial(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      {
+        [SRResources logForTrigger:queryID:];
+      }
+
+      if (triggerCopy)
+      {
+        if (v11)
         {
-          v15 = SRLogCategoryTrial();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-          {
-            uUIDString3 = [triggerCopy UUIDString];
-            *buf = 138412546;
-            v31 = uUIDString3;
-            v32 = 2048;
-            dCopy3 = d;
-            _os_log_impl(&dword_1AE58E000, v15, OS_LOG_TYPE_DEFAULT, "Emitting trigger for codepathID: %@, queryID:%lld", buf, 0x16u);
-          }
+          uppercaseString = [v11 uppercaseString];
+          uUIDString2 = [triggerCopy UUIDString];
+          v15 = [uppercaseString containsString:uUIDString2];
 
-          v17 = objc_alloc_init(MEMORY[0x1E69CA098]);
-          [v17 setQueryId:d];
-          [v17 setCodepathId:triggerCopy];
-          options = self->_options;
-          if (options)
+          if (v15)
           {
-            [(NSMutableDictionary *)options objectForKeyedSubscript:@"SRResourcesOwner"];
-          }
+            v17 = SRLogCategoryTrial(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+            {
+              uUIDString3 = [triggerCopy UUIDString];
+              *buf = 138412546;
+              v32 = uUIDString3;
+              v33 = 2048;
+              dCopy3 = d;
+              _os_log_impl(&dword_1AE58E000, v17, OS_LOG_TYPE_DEFAULT, "Emitting trigger for codepathID: %@, queryID:%lld", buf, 0x16u);
+            }
 
-          v19 = SRLogCategoryTrial();
-          v20 = v19;
-          v21 = logForTrigger_queryID__index;
-          v22 = ++logForTrigger_queryID__index;
-          if (v21 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
-          {
-            uUIDString4 = [triggerCopy UUIDString];
-            uTF8String = [uUIDString4 UTF8String];
-            *buf = 136315394;
-            v31 = uTF8String;
-            v32 = 2048;
-            dCopy3 = d;
-            _os_signpost_emit_with_name_impl(&dword_1AE58E000, v20, OS_SIGNPOST_EVENT, v22, "SRResourcesLogForTrigger", "uuid=%s, queryID=%lld", buf, 0x16u);
-          }
+            v19 = objc_alloc_init(MEMORY[0x1E69CA098]);
+            [v19 setQueryId:d];
+            [v19 setCodepathId:triggerCopy];
+            options = self->_options;
+            if (options)
+            {
+              [(NSMutableDictionary *)options objectForKeyedSubscript:@"SRResourcesOwner"];
+            }
 
-          v25 = dispatch_get_global_queue(25, 0);
-          v28[0] = MEMORY[0x1E69E9820];
-          v28[1] = 3221225472;
-          v28[2] = __37__SRResources_logForTrigger_queryID___block_invoke;
-          v28[3] = &unk_1E7A2AFF0;
-          v28[4] = self;
-          v29 = v17;
-          v26 = v17;
-          dispatch_async(v25, v28);
+            v21 = SRLogCategoryTrial(options);
+            v22 = v21;
+            v23 = logForTrigger_queryID__index;
+            v24 = ++logForTrigger_queryID__index;
+            if (v23 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+            {
+              uUIDString4 = [triggerCopy UUIDString];
+              uTF8String = [uUIDString4 UTF8String];
+              *buf = 136315394;
+              v32 = uTF8String;
+              v33 = 2048;
+              dCopy3 = d;
+              _os_signpost_emit_with_name_impl(&dword_1AE58E000, v22, OS_SIGNPOST_EVENT, v24, "SRResourcesLogForTrigger", "uuid=%s, queryID=%lld", buf, 0x16u);
+            }
+
+            v27 = dispatch_get_global_queue(25, 0);
+            v29[0] = MEMORY[0x1E69E9820];
+            v29[1] = 3221225472;
+            v29[2] = __37__SRResources_logForTrigger_queryID___block_invoke;
+            v29[3] = &unk_1E7A2AFF0;
+            v29[4] = self;
+            v30 = v19;
+            v28 = v19;
+            dispatch_async(v27, v29);
+          }
         }
       }
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __37__SRResources_logForTrigger_queryID___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) client];
-  v3 = [SRPARSession spotlightResourcesPARSessionForClient:v2 flags:trialFlagsForProcess()];
+  v3 = [SRPARSession spotlightResourcesPARSessionForClient:v2 flags:trialFlagsForProcess(v2)];
 
   if (v3)
   {
-    v4 = [*(a1 + 32) experimentNamespaceId];
-    v5 = [v3 configuration];
-    [v5 setExperimentNamespaceId:v4];
+    v5 = [*(a1 + 32) experimentNamespaceId];
+    v6 = [v3 configuration];
+    [v6 setExperimentNamespaceId:v5];
 
-    v6 = [*(a1 + 32) experimentId];
-    v7 = [v3 configuration];
-    [v7 setExperimentId:v6];
+    v7 = [*(a1 + 32) experimentId];
+    v8 = [v3 configuration];
+    [v8 setExperimentId:v7];
 
-    v8 = [*(a1 + 32) experimentTreatmentId];
-    v9 = [v3 configuration];
-    [v9 setExperimentTreatmentId:v8];
+    v9 = [*(a1 + 32) experimentTreatmentId];
+    v10 = [v3 configuration];
+    [v10 setExperimentTreatmentId:v9];
 
-    v10 = [*(a1 + 32) experimentDeploymentId];
-    v11 = [v3 configuration];
-    [v11 setExperimentDeploymentId:v10];
+    v11 = [*(a1 + 32) experimentDeploymentId];
+    v12 = [v3 configuration];
+    [v12 setExperimentDeploymentId:v11];
 
-    v12 = [*(a1 + 32) experimentVersion];
-    v13 = [v3 configuration];
-    [v13 setExperimentVersion:v12];
+    v13 = [*(a1 + 32) experimentVersion];
+    v14 = [v3 configuration];
+    [v14 setExperimentVersion:v13];
 
     [v3 reportEvent:*(a1 + 40)];
   }
 
   else
   {
-    v14 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = SRLogCategoryTrial(v4);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __37__SRResources_logForTrigger_queryID___block_invoke_cold_1(v14);
+      __37__SRResources_logForTrigger_queryID___block_invoke_cold_1(v15);
     }
   }
 }
@@ -1547,62 +1540,6 @@ void __37__SRResources_logForTrigger_queryID___block_invoke(uint64_t a1)
   v10 = [MEMORY[0x1E696AEC0] stringWithString:client];
 
   return v10;
-}
-
-- (void)fetchParameter:checkForPositive:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_1AE58E000, v0, v1, "Parameter %@ has value from user defaults", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)fetchParameter:checkForPositive:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_0(&dword_1AE58E000, v0, v1, "Parameter %@ has value from Trial namespace %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)fetchParameter:checkForPositive:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_1AE58E000, v0, v1, "Default parameter for %@ is nil", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)fetchParameter:checkForPositive:.cold.5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_1AE58E000, v0, v1, "Parameter %@ not found in defaults manager", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)BOOLeanForKey:didFailWithError:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_1AE58E000, v0, v1, "Overriding value of parameter %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)filePathForKey:didFailWithError:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "SpotlightResources could not find file path parameter %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)logForTrigger:queryID:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_1AE58E000, v0, v1, "logForTrigger got codepathIDs %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

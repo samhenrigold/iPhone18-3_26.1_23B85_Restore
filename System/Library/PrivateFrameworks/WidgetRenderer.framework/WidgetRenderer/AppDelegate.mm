@@ -1,7 +1,7 @@
 @interface AppDelegate
 - (BOOL)application:(id)application didFinishLaunchingWithOptions:(id)options;
+- (double)applicationDidReceiveMemoryWarning:;
 - (id)application:(id)application configurationForConnectingSceneSession:(id)session options:(id)options;
-- (uint64_t)applicationDidReceiveMemoryWarning:;
 @end
 
 @implementation AppDelegate
@@ -22,7 +22,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_1DAD66C2C(&qword_1ECC07EE8, type metadata accessor for LaunchOptionsKey);
+    sub_1DAD66C2C(&qword_1ECC07EE8, type metadata accessor for LaunchOptionsKey, &unk_1DAED61AC);
     sub_1DAED1C1C();
   }
 
@@ -33,13 +33,12 @@
   return v8 & 1;
 }
 
-- (uint64_t)applicationDidReceiveMemoryWarning:
+- (double)applicationDidReceiveMemoryWarning:
 {
   v0 = sub_1DAECED2C();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   MEMORY[0x1EEE9AC00](v0);
-  v4 = v23 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = v22 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1DAED21BC();
   if (qword_1EE00A848 == -1)
   {
@@ -52,76 +51,76 @@
 LABEL_2:
     sub_1DAECED1C();
     sub_1DAECECFC();
-    (*(v1 + 8))(v4, v0);
+    (*(v1 + 8))(v3, v0);
     sharedApplication = [objc_opt_self() sharedApplication];
     connectedScenes = [sharedApplication connectedScenes];
 
     v0 = sub_1DAD674D4(0, qword_1EE00A898, 0x1E69DCE70);
-    v4 = sub_1DAD8D6A4(&qword_1EE00A890, qword_1EE00A898, 0x1E69DCE70);
-    v7 = sub_1DAED1F6C();
+    v3 = sub_1DAD8D6A4(&qword_1EE00A890, qword_1EE00A898, 0x1E69DCE70, MEMORY[0x1E69E81B8]);
+    v6 = sub_1DAED1F6C();
 
-    v23[2] = v0;
-    if ((v7 & 0xC000000000000001) != 0)
+    v22[2] = v0;
+    if ((v6 & 0xC000000000000001) != 0)
     {
       sub_1DAED242C();
       sub_1DAED1F9C();
+      v6 = v24;
       v7 = v25;
       v8 = v26;
-      v9 = v27;
-      v1 = v28;
-      v10 = v29;
+      v1 = v27;
+      v9 = v28;
     }
 
     else
     {
       v1 = 0;
-      v11 = -1 << *(v7 + 32);
-      v8 = v7 + 56;
-      v9 = ~v11;
-      v12 = -v11;
-      if (v12 < 64)
+      v10 = -1 << *(v6 + 32);
+      v7 = v6 + 56;
+      v8 = ~v10;
+      v11 = -v10;
+      if (v11 < 64)
       {
-        v13 = ~(-1 << v12);
+        v12 = ~(-1 << v11);
       }
 
       else
       {
-        v13 = -1;
+        v12 = -1;
       }
 
-      v10 = v13 & *(v7 + 56);
+      v9 = v12 & *(v6 + 56);
     }
 
-    v23[1] = v9;
-    v14 = (v9 + 64) >> 6;
-    while (v7 < 0)
+    v22[1] = v8;
+    v13 = (v8 + 64) >> 6;
+    while (v6 < 0)
     {
-      v4 = (v7 & 0x7FFFFFFFFFFFFFFFLL);
-      v19 = sub_1DAED24BC();
-      if (!v19)
+      v3 = (v6 & 0x7FFFFFFFFFFFFFFFLL);
+      v18 = sub_1DAED24BC();
+      if (!v18)
       {
-        return sub_1DAD70B20();
+        return sub_1DAD70B20(v6);
       }
 
-      v23[3] = v19;
+      v22[3] = v18;
       swift_dynamicCast();
-      v18 = v24;
-      v17 = v1;
-      v0 = v10;
-      if (!v24)
+      v17 = v23;
+      v16 = v1;
+      v0 = v9;
+      if (!v23)
       {
-        return sub_1DAD70B20();
+        return sub_1DAD70B20(v6);
       }
 
 LABEL_17:
-      if ([v18 delegate])
+      if ([v17 delegate])
       {
         type metadata accessor for WidgetSceneDelegate();
-        v20 = swift_dynamicCastClass();
-        if (v20)
+        v19 = swift_dynamicCastClass();
+        if (v19)
         {
-          v4 = v20;
-          sub_1DADE1F7C();
+          v3 = v19;
+          sub_1DADE1F7C(v19);
 LABEL_24:
           swift_unknownObjectRelease();
           goto LABEL_25;
@@ -130,18 +129,18 @@ LABEL_24:
         swift_unknownObjectRelease();
       }
 
-      if ([v18 delegate])
+      if ([v17 delegate])
       {
-        type metadata accessor for ActivitySceneDelegateBase();
-        v21 = swift_dynamicCastClass();
-        if (!v21)
+        type metadata accessor for ActivitySceneDelegateBase(0);
+        v20 = swift_dynamicCastClass();
+        if (!v20)
         {
 
           swift_unknownObjectRelease();
           goto LABEL_26;
         }
 
-        v4 = v21;
+        v3 = v20;
         sub_1DAE76B2C();
         goto LABEL_24;
       }
@@ -149,34 +148,34 @@ LABEL_24:
 LABEL_25:
 
 LABEL_26:
-      v1 = v17;
-      v10 = v0;
+      v1 = v16;
+      v9 = v0;
     }
 
-    v15 = v1;
-    v16 = v10;
-    v17 = v1;
-    if (v10)
+    v14 = v1;
+    v15 = v9;
+    v16 = v1;
+    if (v9)
     {
       break;
     }
 
     while (1)
     {
-      v17 = v15 + 1;
-      if (__OFADD__(v15, 1))
+      v16 = v14 + 1;
+      if (__OFADD__(v14, 1))
       {
         break;
       }
 
-      if (v17 >= v14)
+      if (v16 >= v13)
       {
-        return sub_1DAD70B20();
+        return sub_1DAD70B20(v6);
       }
 
-      v16 = *(v8 + 8 * v17);
-      ++v15;
-      if (v16)
+      v15 = *(v7 + 8 * v16);
+      ++v14;
+      if (v15)
       {
         goto LABEL_13;
       }
@@ -186,14 +185,14 @@ LABEL_26:
   }
 
 LABEL_13:
-  v0 = (v16 - 1) & v16;
-  v18 = *(*(v7 + 48) + ((v17 << 9) | (8 * __clz(__rbit64(v16)))));
-  if (v18)
+  v0 = (v15 - 1) & v15;
+  v17 = *(*(v6 + 48) + ((v16 << 9) | (8 * __clz(__rbit64(v15)))));
+  if (v17)
   {
     goto LABEL_17;
   }
 
-  return sub_1DAD70B20();
+  return sub_1DAD70B20(v6);
 }
 
 @end

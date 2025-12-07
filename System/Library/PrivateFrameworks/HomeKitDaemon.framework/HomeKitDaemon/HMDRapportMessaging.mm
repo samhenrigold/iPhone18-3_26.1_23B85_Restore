@@ -52,7 +52,7 @@
 
 void __47__HMDRapportMessaging__updateDevice_reachable___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CCAD78]);
   v3 = [*(a1 + 32) idsDeviceIdentifier];
   v4 = [v2 initWithUUIDString:v3];
@@ -65,19 +65,17 @@ void __47__HMDRapportMessaging__updateDevice_reachable___block_invoke(uint64_t a
     if (*(a1 + 48) == 1)
     {
       v6 = *(a1 + 40);
-      v9 = @"HMDHomeDeviceIDSIdentifierKey";
-      v10[0] = v4;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+      v8 = @"HMDHomeDeviceIDSIdentifierKey";
+      v9[0] = v4;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
       logAndPostNotification(@"HMDHomeDeviceBecameReachableOverRapport", v6, v7);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidateDestinationDeviceWithIDSIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (self)
   {
@@ -112,11 +110,11 @@ void __47__HMDRapportMessaging__updateDevice_reachable___block_invoke(uint64_t a
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v12;
-      v18 = 2114;
-      v19 = identifierCopy;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Invalidating Rapport client for device: %{public}@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v12;
+      v17 = 2114;
+      v18 = identifierCopy;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Invalidating Rapport client for device: %{public}@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -136,13 +134,11 @@ void __47__HMDRapportMessaging__updateDevice_reachable___block_invoke(uint64_t a
 
   os_unfair_lock_unlock(&self->_lock);
   [v8 invalidate];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createRapportClientForDevice:(id)device
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -151,9 +147,9 @@ void __47__HMDRapportMessaging__updateDevice_reachable___block_invoke(uint64_t a
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v30 = v8;
-    v31 = 2112;
-    v32 = deviceCopy;
+    v29 = v8;
+    v30 = 2112;
+    v31 = deviceCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Creating Rapport client for device: %@", buf, 0x16u);
   }
 
@@ -185,47 +181,45 @@ void __47__HMDRapportMessaging__updateDevice_reachable___block_invoke(uint64_t a
   [newCompanionLinkClient setDispatchQueue:workQueue];
   idsDeviceIdentifier = [deviceCopy idsDeviceIdentifier];
   objc_initWeak(buf, selfCopy);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __53__HMDRapportMessaging__createRapportClientForDevice___block_invoke;
-  v25[3] = &unk_278685F38;
-  objc_copyWeak(&v28, buf);
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __53__HMDRapportMessaging__createRapportClientForDevice___block_invoke;
+  v24[3] = &unk_278685F38;
+  objc_copyWeak(&v27, buf);
   v13 = idsDeviceIdentifier;
-  v26 = v13;
+  v25 = v13;
   v14 = deviceCopy;
-  v27 = v14;
-  [newCompanionLinkClient setDisconnectHandler:v25];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __53__HMDRapportMessaging__createRapportClientForDevice___block_invoke_124;
-  v22[3] = &unk_278686B48;
-  objc_copyWeak(&v24, buf);
+  v26 = v14;
+  [newCompanionLinkClient setDisconnectHandler:v24];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __53__HMDRapportMessaging__createRapportClientForDevice___block_invoke_124;
+  v21[3] = &unk_278686B48;
+  objc_copyWeak(&v23, buf);
   v15 = v14;
-  v23 = v15;
-  [newCompanionLinkClient setInterruptionHandler:v22];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __53__HMDRapportMessaging__createRapportClientForDevice___block_invoke_2;
-  v19[3] = &unk_278686B48;
-  objc_copyWeak(&v21, buf);
+  v22 = v15;
+  [newCompanionLinkClient setInterruptionHandler:v21];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __53__HMDRapportMessaging__createRapportClientForDevice___block_invoke_2;
+  v18[3] = &unk_278686B48;
+  objc_copyWeak(&v20, buf);
   v16 = v15;
-  v20 = v16;
-  [newCompanionLinkClient setInvalidationHandler:v19];
+  v19 = v16;
+  [newCompanionLinkClient setInvalidationHandler:v18];
 
-  objc_destroyWeak(&v21);
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v23);
 
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(buf);
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return newCompanionLinkClient;
 }
 
 void __53__HMDRapportMessaging__createRapportClientForDevice___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = objc_autoreleasePoolPush();
   v4 = WeakRetained;
@@ -234,18 +228,16 @@ void __53__HMDRapportMessaging__createRapportClientForDevice___block_invoke(uint
   {
     v6 = HMFGetLogIdentifier();
     v7 = *(a1 + 32);
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2114;
-    v13 = v7;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Rapport client disconnected for device: %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v7;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Rapport client disconnected for device: %{public}@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
   v8 = [*(a1 + 40) idsDeviceIdentifier];
   [v4 _invalidateDestinationDeviceWithIDSIdentifier:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HMDRapportMessaging__createRapportClientForDevice___block_invoke_124(uint64_t a1)
@@ -257,7 +249,7 @@ void __53__HMDRapportMessaging__createRapportClientForDevice___block_invoke_124(
 
 void __53__HMDRapportMessaging__createRapportClientForDevice___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_autoreleasePoolPush();
   v4 = WeakRetained;
@@ -266,15 +258,14 @@ void __53__HMDRapportMessaging__createRapportClientForDevice___block_invoke_2(ui
   {
     v6 = HMFGetLogIdentifier();
     v7 = [*(a1 + 32) idsDeviceIdentifier];
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v7;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Rapport client invalidated for device: %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Rapport client invalidated for device: %{public}@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_clientForIDSIdentifier:(id)identifier withDevice:(id)device
@@ -380,7 +371,7 @@ void __53__HMDRapportMessaging__createRapportClientForDevice___block_invoke_2(ui
 
 void __58__HMDRapportMessaging__clientForIDSIdentifier_withDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -391,25 +382,23 @@ void __58__HMDRapportMessaging__clientForIDSIdentifier_withDevice___block_invoke
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v10 = 138543874;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to activate Rapport client for device: %@, error: %@", &v10, 0x20u);
+      v9 = 138543874;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to activate Rapport client for device: %@, error: %@", &v9, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 32) _invalidateDestinationDeviceWithIDSIdentifier:*(a1 + 48)];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_completeQuededRequestsOnWorkQueue:(id)queue
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   if (self)
   {
@@ -422,27 +411,27 @@ void __58__HMDRapportMessaging__clientForIDSIdentifier_withDevice___block_invoke
   }
 
   dispatch_assert_queue_V2(workQueue);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = queueCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
+        v11 = *(*(&v13 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
         (*(v11 + 16))(v11);
         objc_autoreleasePoolPop(v12);
@@ -450,14 +439,13 @@ void __58__HMDRapportMessaging__clientForIDSIdentifier_withDevice___block_invoke
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
   [v6 removeAllObjects];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queueRequest:(id)request forTopic:(id)topic options:(id)options responseHandler:(id)handler
@@ -531,7 +519,7 @@ void __58__HMDRapportMessaging__clientForIDSIdentifier_withDevice___block_invoke
 
 void __70__HMDRapportMessaging__queueRequest_forTopic_options_responseHandler___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = WeakRetained;
   if (!WeakRetained)
@@ -547,24 +535,24 @@ void __70__HMDRapportMessaging__queueRequest_forTopic_options_responseHandler___
 
   if (!v5)
   {
-    v14 = objc_autoreleasePoolPush();
-    v15 = v3;
-    v16 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v13 = objc_autoreleasePoolPush();
+    v14 = v3;
+    v15 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      v17 = HMFGetLogIdentifier();
-      v18 = *(a1 + 32);
+      v16 = HMFGetLogIdentifier();
+      v17 = *(a1 + 32);
       *buf = 138543618;
-      v22 = v17;
-      v23 = 2112;
-      v24 = v18;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: %@ Request handler is nil", buf, 0x16u);
+      v21 = v16;
+      v22 = 2112;
+      v23 = v17;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: %@ Request handler is nil", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v14);
-    v19 = [[HMDAssertionLogEvent alloc] initWithReason:@"%@ Request handler is nil", *(a1 + 32)];
-    v20 = +[HMDMetricsManager sharedLogEventSubmitter];
-    [v20 submitLogEvent:v19];
+    objc_autoreleasePoolPop(v13);
+    v18 = [[HMDAssertionLogEvent alloc] initWithReason:@"%@ Request handler is nil", *(a1 + 32)];
+    v19 = +[HMDMetricsManager sharedLogEventSubmitter];
+    [v19 submitLogEvent:v18];
   }
 
   v6 = [v3[6] objectForKeyedSubscript:*(a1 + 32)];
@@ -580,8 +568,6 @@ void __70__HMDRapportMessaging__queueRequest_forTopic_options_responseHandler___
 
 LABEL_6:
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRequest:(id)request forTopic:(id)topic options:(id)options responseHandler:(id)handler
@@ -618,7 +604,7 @@ LABEL_6:
 
 - (void)_configureDiscoveryClientWithCompletion:(id)completion forRequestIDs:(id)ds
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dsCopy = ds;
   if (self)
@@ -647,11 +633,11 @@ LABEL_6:
 
   selfCopy = self;
   objc_initWeak(&location, self);
-  v74[0] = MEMORY[0x277D85DD0];
-  v74[1] = 3221225472;
-  v74[2] = __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke;
-  v74[3] = &unk_278686B80;
-  objc_copyWeak(&v75, &location);
+  v73[0] = MEMORY[0x277D85DD0];
+  v73[1] = 3221225472;
+  v73[2] = __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke;
+  v73[3] = &unk_278686B80;
+  objc_copyWeak(&v74, &location);
   if (self)
   {
     selfCopy2 = self;
@@ -665,13 +651,13 @@ LABEL_6:
   }
 
   v19 = v18;
-  [v19 setInterruptionHandler:v74];
+  [v19 setInterruptionHandler:v73];
 
-  v72[0] = MEMORY[0x277D85DD0];
-  v72[1] = 3221225472;
-  v72[2] = __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_100;
-  v72[3] = &unk_278686B80;
-  objc_copyWeak(&v73, &location);
+  v71[0] = MEMORY[0x277D85DD0];
+  v71[1] = 3221225472;
+  v71[2] = __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_100;
+  v71[3] = &unk_278686B80;
+  objc_copyWeak(&v72, &location);
   if (selfCopy2)
   {
     selfCopy4 = self;
@@ -685,13 +671,13 @@ LABEL_6:
   }
 
   v23 = v22;
-  [v23 setInvalidationHandler:v72];
+  [v23 setInvalidationHandler:v71];
 
-  v70[0] = MEMORY[0x277D85DD0];
-  v70[1] = 3221225472;
-  v70[2] = __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_101;
-  v70[3] = &unk_27867CA08;
-  objc_copyWeak(&v71, &location);
+  v69[0] = MEMORY[0x277D85DD0];
+  v69[1] = 3221225472;
+  v69[2] = __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_101;
+  v69[3] = &unk_27867CA08;
+  objc_copyWeak(&v70, &location);
   if (selfCopy4)
   {
     selfCopy6 = self;
@@ -705,13 +691,13 @@ LABEL_6:
   }
 
   v27 = v26;
-  [v27 setDeviceLostHandler:v70];
+  [v27 setDeviceLostHandler:v69];
 
-  v68[0] = MEMORY[0x277D85DD0];
-  v68[1] = 3221225472;
-  v68[2] = __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_103;
-  v68[3] = &unk_27867CA08;
-  objc_copyWeak(&v69, &location);
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_103;
+  v67[3] = &unk_27867CA08;
+  objc_copyWeak(&v68, &location);
   if (selfCopy6)
   {
     selfCopy8 = self;
@@ -725,13 +711,13 @@ LABEL_6:
   }
 
   v31 = v30;
-  [v31 setDeviceFoundHandler:v68];
+  [v31 setDeviceFoundHandler:v67];
 
-  v66[0] = MEMORY[0x277D85DD0];
-  v66[1] = 3221225472;
-  v66[2] = __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_104;
-  v66[3] = &unk_27867CA30;
-  objc_copyWeak(&v67, &location);
+  v65[0] = MEMORY[0x277D85DD0];
+  v65[1] = 3221225472;
+  v65[2] = __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_104;
+  v65[3] = &unk_27867CA30;
+  objc_copyWeak(&v66, &location);
   if (selfCopy8)
   {
     selfCopy10 = self;
@@ -745,13 +731,13 @@ LABEL_6:
   }
 
   v35 = v34;
-  [v35 setDeviceChangedHandler:v66];
+  [v35 setDeviceChangedHandler:v65];
 
-  v64[0] = MEMORY[0x277D85DD0];
-  v64[1] = 3221225472;
-  v64[2] = __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_106;
-  v64[3] = &unk_278686B80;
-  objc_copyWeak(&v65, &location);
+  v63[0] = MEMORY[0x277D85DD0];
+  v63[1] = 3221225472;
+  v63[2] = __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_106;
+  v63[3] = &unk_278686B80;
+  objc_copyWeak(&v64, &location);
   if (selfCopy10)
   {
     v37 = objc_getProperty(self, v36, 40, 1);
@@ -763,33 +749,33 @@ LABEL_6:
   }
 
   v38 = v37;
-  [v38 setErrorFlagsChangedHandler:v64];
+  [v38 setErrorFlagsChangedHandler:v63];
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   obj = dsCopy;
-  v39 = [obj countByEnumeratingWithState:&v60 objects:v77 count:16];
+  v39 = [obj countByEnumeratingWithState:&v59 objects:v76 count:16];
   if (v39)
   {
-    v40 = *v61;
+    v40 = *v60;
     do
     {
       v41 = 0;
       do
       {
-        if (*v61 != v40)
+        if (*v60 != v40)
         {
           objc_enumerationMutation(obj);
         }
 
-        v42 = *(*(&v60 + 1) + 8 * v41);
+        v42 = *(*(&v59 + 1) + 8 * v41);
         aBlock[0] = MEMORY[0x277D85DD0];
         aBlock[1] = 3221225472;
         aBlock[2] = __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_107;
         aBlock[3] = &unk_278675738;
-        objc_copyWeak(&v59, &location);
+        objc_copyWeak(&v58, &location);
         aBlock[4] = v42;
         v44 = _Block_copy(aBlock);
         if (selfCopy)
@@ -805,12 +791,12 @@ LABEL_6:
         v46 = v45;
         [v46 registerRequestID:v42 options:0 handler:v44];
 
-        objc_destroyWeak(&v59);
+        objc_destroyWeak(&v58);
         ++v41;
       }
 
       while (v39 != v41);
-      v47 = [obj countByEnumeratingWithState:&v60 objects:v77 count:16];
+      v47 = [obj countByEnumeratingWithState:&v59 objects:v76 count:16];
       v39 = v47;
     }
 
@@ -828,30 +814,28 @@ LABEL_6:
   }
 
   v50 = v49;
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_2;
-  v55[3] = &unk_278686D60;
-  objc_copyWeak(&v57, &location);
-  v51 = v53;
-  v56 = v51;
-  [v50 activateWithCompletion:v55];
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_2;
+  v54[3] = &unk_278686D60;
+  objc_copyWeak(&v56, &location);
+  v51 = v52;
+  v55 = v51;
+  [v50 activateWithCompletion:v54];
 
-  objc_destroyWeak(&v57);
-  objc_destroyWeak(&v65);
-  objc_destroyWeak(&v67);
-  objc_destroyWeak(&v69);
-  objc_destroyWeak(&v71);
-  objc_destroyWeak(&v73);
-  objc_destroyWeak(&v75);
+  objc_destroyWeak(&v56);
+  objc_destroyWeak(&v64);
+  objc_destroyWeak(&v66);
+  objc_destroyWeak(&v68);
+  objc_destroyWeak(&v70);
+  objc_destroyWeak(&v72);
+  objc_destroyWeak(&v74);
   objc_destroyWeak(&location);
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = objc_autoreleasePoolPush();
   v3 = WeakRetained;
@@ -859,18 +843,17 @@ void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forReques
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Discovery client interrupted", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Discovery client interrupted", &v6, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_100(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = objc_autoreleasePoolPush();
   v3 = WeakRetained;
@@ -878,18 +861,17 @@ void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forReques
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Discovery client invalidated", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Discovery client invalidated", &v6, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_101(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_autoreleasePoolPush();
@@ -898,23 +880,21 @@ void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forReques
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Discovery client lost device: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Discovery client lost device: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   v9 = [v3 idsDeviceIdentifier];
   [v6 _invalidateDestinationDeviceWithIDSIdentifier:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_103(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_autoreleasePoolPush();
@@ -923,22 +903,20 @@ void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forReques
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Discovery client found device: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Discovery client found device: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   [v6 _updateDevice:v3 reachable:1];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_104(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_autoreleasePoolPush();
@@ -947,20 +925,19 @@ void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forReques
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Discovery client device changed: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Discovery client device changed: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_106(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = objc_autoreleasePoolPush();
   v3 = WeakRetained;
@@ -978,17 +955,15 @@ void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forReques
       Property = 0;
     }
 
-    [Property errorFlags];
-    v8 = NSPrintF();
+    v8 = NSPrintF("%#ll{flags}", [Property errorFlags], &unk_22A587280);
     *buf = 138543618;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v8;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v8;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Discovery client error flag changed: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_107(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1012,7 +987,7 @@ void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forReques
 
 void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forRequestIDs___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = objc_autoreleasePoolPush();
@@ -1021,11 +996,11 @@ void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forReques
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Activated Rapport client with error: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Activated Rapport client with error: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -1034,25 +1009,23 @@ void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forReques
   {
     (*(v9 + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isRapportDeviceDiscoveredWithIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (self && objc_getProperty(self, v4, 40, 1))
   {
     v7 = [objc_getProperty(self v6];
-    v8 = [v7 copy];
+    v8 = objc_msgSend_copy(v7);
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __63__HMDRapportMessaging_isRapportDeviceDiscoveredWithIdentifier___block_invoke;
-    v17[3] = &unk_27867C800;
-    v18 = identifierCopy;
-    v9 = [v8 na_firstObjectPassingTest:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __63__HMDRapportMessaging_isRapportDeviceDiscoveredWithIdentifier___block_invoke;
+    v16[3] = &unk_27867C800;
+    v17 = identifierCopy;
+    v9 = [v8 na_firstObjectPassingTest:v16];
     v10 = v9 != 0;
   }
 
@@ -1065,7 +1038,7 @@ void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forReques
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v20 = v14;
+      v19 = v14;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Discovery client is not configured", buf, 0xCu);
     }
 
@@ -1073,7 +1046,6 @@ void __77__HMDRapportMessaging__configureDiscoveryClientWithCompletion_forReques
     v10 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1268,7 +1240,7 @@ void __77__HMDRapportMessaging_registerRequestHandlerForRequestID_withRequestHan
   dispatch_async(workQueue, block);
 }
 
-uint64_t __76__HMDRapportMessaging_configureDiscoveryClientForRequestIDs_withCompletion___block_invoke(void *a1, const char *a2)
+void *__76__HMDRapportMessaging_configureDiscoveryClientForRequestIDs_withCompletion___block_invoke(void *a1, const char *a2)
 {
   v3 = a1[4];
   if (v3)
@@ -1278,7 +1250,7 @@ uint64_t __76__HMDRapportMessaging_configureDiscoveryClientForRequestIDs_withCom
       result = a1[6];
       if (result)
       {
-        v5 = *(result + 16);
+        v5 = result[2];
 
         return v5();
       }
@@ -1339,10 +1311,9 @@ uint64_t __76__HMDRapportMessaging_configureDiscoveryClientForRequestIDs_withCom
 
 void __34__HMDRapportMessaging_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v17;
-  logCategory__hmf_once_v17 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v17;
+  logCategory__hmf_once_v17 = v0;
 }
 
 + (id)sharedInstance

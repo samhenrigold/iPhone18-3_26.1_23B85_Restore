@@ -23,11 +23,11 @@
 
 - (void)prepareLayout
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for ShelfDisplayingFlowLayout();
-  v2 = v3.receiver;
-  [(ShelfDisplayingFlowLayout *)&v3 prepareLayout];
-  sub_10059C558();
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for ShelfDisplayingFlowLayout();
+  v2 = v5.receiver;
+  prepareLayout = [(ShelfDisplayingFlowLayout *)&v5 prepareLayout];
+  sub_10059C558(prepareLayout, v4);
 }
 
 - (id)layoutAttributesForElementsInRect:(CGRect)rect
@@ -37,21 +37,21 @@
   y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  sub_10059D03C(x, y, width, height);
-  v9 = v8;
+  sub_10059D03C(x, y, width, height, selfCopy, v8);
+  v10 = v9;
 
-  if (v9)
+  if (v10)
   {
-    sub_100016F40(0, &qword_100947EF0);
-    v10.super.isa = sub_1007701AC().super.isa;
+    sub_100016F40(0, &qword_100947EF0, UICollectionViewLayoutAttributes_ptr);
+    v11.super.isa = sub_1007701AC().super.isa;
   }
 
   else
   {
-    v10.super.isa = 0;
+    v11.super.isa = 0;
   }
 
-  return v10.super.isa;
+  return v11.super.isa;
 }
 
 - (id)layoutAttributesForItemAtIndexPath:(id)path
@@ -59,14 +59,14 @@
   v4 = sub_10075E11C();
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10075E06C();
   selfCopy = self;
-  v9 = sub_10059D558();
+  v10 = sub_10059D558(v7, v9);
 
   (*(v5 + 8))(v7, v4);
 
-  return v9;
+  return v10;
 }
 
 - (id)layoutAttributesForDecorationViewOfKind:(id)kind atIndexPath:(id)path
@@ -81,7 +81,7 @@
   if (v10 == 0xD00000000000001FLL && 0x80000001007EE8C0 == v12 || (sub_10077167C() & 1) != 0)
   {
     selfCopy = self;
-    v14 = sub_10059C164();
+    v14 = sub_10059C164(v10, v12);
   }
 
   else
@@ -152,9 +152,9 @@ LABEL_7:
   y = change.origin.y;
   x = change.origin.x;
   selfCopy = self;
-  v8 = sub_10059DAB0(x, y, width, height);
+  v9 = sub_10059DAB0(selfCopy, v8, x, y, width, height);
 
-  return v8;
+  return v9;
 }
 
 @end

@@ -16,7 +16,7 @@
   *v7 = 0;
   v7[1] = 0;
   sub_190D51C50();
-  v8 = type metadata accessor for DetailsViewPresentationState();
+  v8 = type metadata accessor for DetailsViewPresentationState(0);
   v10.receiver = self;
   v10.super_class = v8;
   return [(DetailsViewPresentationState *)&v10 init];

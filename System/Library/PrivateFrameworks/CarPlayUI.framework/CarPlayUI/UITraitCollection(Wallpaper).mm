@@ -1,10 +1,10 @@
 @interface UITraitCollection(Wallpaper)
-- (unint64_t)wallpaperAppearanceType;
+- (void)wallpaperAppearanceType;
 @end
 
 @implementation UITraitCollection(Wallpaper)
 
-- (unint64_t)wallpaperAppearanceType
+- (void)wallpaperAppearanceType
 {
   result = [self valueForNSIntegerTrait:objc_opt_class()];
   if (result >= 3)

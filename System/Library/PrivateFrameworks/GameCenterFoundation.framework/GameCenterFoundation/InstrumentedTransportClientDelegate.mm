@@ -1,10 +1,20 @@
 @interface InstrumentedTransportClientDelegate
+- (void)connectionDidChangeWithState:(int)state playerID:(id)d;
 - (void)relayDidReceivePushData:(id)data completionHandler:(id)handler;
 - (void)transportDidReceivePacket:(id)packet fromPlayerID:(id)d remoteRecipientID:(id)iD;
 - (void)transportDidUpdateWithInfo:(id)info;
 @end
 
 @implementation InstrumentedTransportClientDelegate
+
+- (void)connectionDidChangeWithState:(int)state playerID:(id)d
+{
+  v4 = *&state;
+  v5 = sub_227A724EC();
+  v7 = v6;
+
+  sub_2279FCD94(v4, v5, v7);
+}
 
 - (void)relayDidReceivePushData:(id)data completionHandler:(id)handler
 {
@@ -38,9 +48,9 @@
 
 - (void)transportDidUpdateWithInfo:(id)info
 {
-  sub_227A7241C();
+  v3 = sub_227A7241C();
 
-  sub_2279FD4E0();
+  sub_2279FD4E0(v3);
 }
 
 @end

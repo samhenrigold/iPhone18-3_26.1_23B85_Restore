@@ -79,7 +79,7 @@
 
 - (void)handleMessage:(id)message from:(id)from
 {
-  v106[3] = *MEMORY[0x277D85DE8];
+  v105[3] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   fromCopy = from;
   ++self->msg_count;
@@ -88,31 +88,31 @@
   {
     v9 = messageCopy;
     v10 = [(__CFString *)messageCopy objectForKeyedSubscript:@"jobId"];
-    v106[0] = @"updateProxiedDeviceMetadata";
-    v105[0] = @"messageType";
-    v105[1] = @"deviceMetadata";
+    v105[0] = @"updateProxiedDeviceMetadata";
+    v104[0] = @"messageType";
+    v104[1] = @"deviceMetadata";
     mEMORY[0x277D36B80] = [MEMORY[0x277D36B80] sharedInstance];
     metadata = [mEMORY[0x277D36B80] metadata];
     v13 = metadata;
-    v105[2] = @"jobId";
+    v104[2] = @"jobId";
     v14 = @"<unknown-job>";
     if (v10)
     {
       v14 = v10;
     }
 
-    v106[1] = metadata;
-    v106[2] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v106 forKeys:v105 count:3];
+    v105[1] = metadata;
+    v105[2] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v105 forKeys:v104 count:3];
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v96 = @"initiateMetadataUpdate";
-      v97 = 2112;
-      v98 = v10;
-      v99 = 2112;
-      v100 = @"updateProxiedDeviceMetadata";
+      v95 = @"initiateMetadataUpdate";
+      v96 = 2112;
+      v97 = v10;
+      v98 = 2112;
+      v99 = @"updateProxiedDeviceMetadata";
       _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "received request %@ (%@); posting %@", buf, 0x20u);
     }
 
@@ -130,16 +130,16 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413314;
-      v96 = @"acceptTasking";
-      v97 = 2112;
-      v98 = v17;
-      v99 = 2112;
-      v100 = v18;
-      v101 = 2112;
-      v102 = objc_opt_class();
-      v103 = 2048;
-      v104 = v19;
-      v20 = v102;
+      v95 = @"acceptTasking";
+      v96 = 2112;
+      v97 = v17;
+      v98 = 2112;
+      v99 = v18;
+      v100 = 2112;
+      v101 = objc_opt_class();
+      v102 = 2048;
+      v103 = v19;
+      v20 = v101;
       _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "received request %@-%@ '%@' payload %@ %p", buf, 0x34u);
     }
 
@@ -155,9 +155,9 @@ LABEL_23:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v96 = @"initiateLogTransfer";
-      v97 = 2112;
-      v98 = v17;
+      v95 = @"initiateLogTransfer";
+      v96 = 2112;
+      v97 = v17;
       _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "received request %@ (%@)", buf, 0x16u);
     }
 
@@ -179,15 +179,15 @@ LABEL_23:
   {
     v21 = [(__CFString *)messageCopy objectForKeyedSubscript:@"jobId"];
     v22 = objc_opt_new();
-    v70 = messageCopy;
+    v69 = messageCopy;
     v23 = [(__CFString *)messageCopy objectForKeyedSubscript:@"path"];
-    v72 = fromCopy;
-    v68 = v23;
+    v71 = fromCopy;
+    v67 = v23;
     if ([v23 length])
     {
-      v93 = *MEMORY[0x277D36C48];
-      v94 = v23;
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
+      v92 = *MEMORY[0x277D36C48];
+      v93 = v23;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
     }
 
     else
@@ -195,128 +195,128 @@ LABEL_23:
       v24 = 0;
     }
 
-    v37 = MEMORY[0x277D36B68];
-    v80[0] = MEMORY[0x277D85DD0];
-    v80[1] = 3221225472;
-    v80[2] = __39__PCCProxiedDevice_handleMessage_from___block_invoke;
-    v80[3] = &unk_2799C0150;
-    v38 = v22;
-    v81 = v38;
-    v67 = v24;
-    [v37 iterateLogsWithOptions:v24 usingBlock:v80];
-    v39 = v21;
+    v36 = MEMORY[0x277D36B68];
+    v79[0] = MEMORY[0x277D85DD0];
+    v79[1] = 3221225472;
+    v79[2] = __39__PCCProxiedDevice_handleMessage_from___block_invoke;
+    v79[3] = &unk_2799C0150;
+    v37 = v22;
+    v80 = v37;
+    v66 = v24;
+    [v36 iterateLogsWithOptions:v24 usingBlock:v79];
+    v38 = v21;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v40 = [v38 count];
+      v39 = [v37 count];
       *buf = 138413058;
-      v96 = @"initiateLogList";
-      v97 = 2112;
-      v98 = v21;
-      v99 = 2112;
-      v100 = @"jobStatus";
-      v101 = 2048;
-      v102 = v40;
+      v95 = @"initiateLogList";
+      v96 = 2112;
+      v97 = v21;
+      v98 = 2112;
+      v99 = @"jobStatus";
+      v100 = 2048;
+      v101 = v39;
       _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "received request %@ (%@); posting %@ %lu logs", buf, 0x2Au);
     }
 
-    v41 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v38, "count")}];
+    v40 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v37, "count")}];
+    v75 = 0u;
     v76 = 0u;
     v77 = 0u;
     v78 = 0u;
-    v79 = 0u;
-    v42 = v38;
-    v43 = [v42 countByEnumeratingWithState:&v76 objects:v92 count:16];
-    if (v43)
+    v41 = v37;
+    v42 = [v41 countByEnumeratingWithState:&v75 objects:v91 count:16];
+    if (v42)
     {
-      v44 = v43;
-      v45 = *v77;
+      v43 = v42;
+      v44 = *v76;
       do
       {
-        for (i = 0; i != v44; ++i)
+        for (i = 0; i != v43; ++i)
         {
-          if (*v77 != v45)
+          if (*v76 != v44)
           {
-            objc_enumerationMutation(v42);
+            objc_enumerationMutation(v41);
           }
 
-          path = [*(*(&v76 + 1) + 8 * i) path];
-          [v41 addObject:path];
+          path = [*(*(&v75 + 1) + 8 * i) path];
+          [v40 addObject:path];
         }
 
-        v44 = [v42 countByEnumeratingWithState:&v76 objects:v92 count:16];
+        v43 = [v41 countByEnumeratingWithState:&v75 objects:v91 count:16];
       }
 
-      while (v44);
+      while (v43);
     }
 
-    v90[0] = @"messageType";
-    v90[1] = @"jobType";
-    v91[0] = @"jobStatus";
-    v91[1] = @"initiateLogList";
-    v90[2] = @"jobId";
-    v90[3] = @"content";
-    v91[2] = v39;
-    v91[3] = v41;
-    v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v91 forKeys:v90 count:4];
-    fromCopy = v72;
-    v49 = [(PCCEndpoint *)self->_endpoint send:v72 message:v48 error:0];
+    v89[0] = @"messageType";
+    v89[1] = @"jobType";
+    v90[0] = @"jobStatus";
+    v90[1] = @"initiateLogList";
+    v89[2] = @"jobId";
+    v89[3] = @"content";
+    v90[2] = v38;
+    v90[3] = v40;
+    v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:v89 count:4];
+    fromCopy = v71;
+    v48 = [(PCCEndpoint *)self->_endpoint send:v71 message:v47 error:0];
 
-    messageCopy = v70;
+    messageCopy = v69;
     goto LABEL_24;
   }
 
   if ([v8 isEqualToString:@"synchronize"])
   {
     v25 = [(__CFString *)messageCopy objectForKeyedSubscript:@"jobId"];
-    v71 = [(__CFString *)messageCopy objectForKeyedSubscript:@"options"];
-    v26 = [v71 objectForKeyedSubscript:@"status"];
+    v70 = [(__CFString *)messageCopy objectForKeyedSubscript:@"options"];
+    v26 = [v70 objectForKeyedSubscript:@"status"];
     bOOLValue = [v26 BOOLValue];
 
     if (bOOLValue)
     {
-      v88[0] = @"messageType";
-      v88[1] = @"jobType";
-      v89[0] = @"jobStatus";
-      v89[1] = @"synchronize";
-      v89[2] = v25;
-      v88[2] = @"jobId";
-      v88[3] = @"content";
-      v86[0] = @"tracking";
+      v87[0] = @"messageType";
+      v87[1] = @"jobType";
+      v88[0] = @"jobStatus";
+      v88[1] = @"synchronize";
+      v88[2] = v25;
+      v87[2] = @"jobId";
+      v87[3] = @"content";
+      v85[0] = @"tracking";
       allValues = [(NSMutableDictionary *)self->_jobByTracker allValues];
-      v65 = [allValues valueForKey:@"description"];
-      v87[0] = v65;
-      v86[1] = @"timeout";
-      v64 = [MEMORY[0x277CCABB0] numberWithDouble:self->_jobTimeout];
-      v87[1] = v64;
-      v86[2] = @"timer";
-      v63 = [MEMORY[0x277CCABB0] numberWithInt:self->_expiryTimer != 0];
-      v87[2] = v63;
-      v86[3] = @"transaction";
-      v62 = [MEMORY[0x277CCABB0] numberWithInt:self->_txn != 0];
-      v87[3] = v62;
-      v86[4] = @"files";
-      v61 = [MEMORY[0x277CCABB0] numberWithInt:self->file_count];
-      v87[4] = v61;
-      v86[5] = @"msgs";
+      v64 = [allValues valueForKey:@"description"];
+      v86[0] = v64;
+      v85[1] = @"timeout";
+      v63 = [MEMORY[0x277CCABB0] numberWithDouble:self->_jobTimeout];
+      v86[1] = v63;
+      v85[2] = @"timer";
+      v62 = [MEMORY[0x277CCABB0] numberWithInt:self->_expiryTimer != 0];
+      v86[2] = v62;
+      v85[3] = @"transaction";
+      v61 = [MEMORY[0x277CCABB0] numberWithInt:self->_txn != 0];
+      v86[3] = v61;
+      v85[4] = @"files";
+      v60 = [MEMORY[0x277CCABB0] numberWithInt:self->file_count];
+      v86[4] = v60;
+      v85[5] = @"msgs";
       v28 = [MEMORY[0x277CCABB0] numberWithInt:self->msg_count];
-      v87[5] = v28;
-      v86[6] = @"connections";
+      v86[5] = v28;
+      v85[6] = @"connections";
       v29 = [MEMORY[0x277CCABB0] numberWithInt:self->up_count];
-      v87[6] = v29;
-      v86[7] = @"jobs";
+      v86[6] = v29;
+      v85[7] = @"jobs";
       [MEMORY[0x277CCABB0] numberWithInt:self->job_count];
-      v69 = v25;
+      v68 = v25;
       v31 = v30 = messageCopy;
-      v87[7] = v31;
-      v86[8] = @"expirations";
+      v86[7] = v31;
+      v85[8] = @"expirations";
       v32 = [MEMORY[0x277CCABB0] numberWithInt:self->expire_count];
-      v87[8] = v32;
-      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v87 forKeys:v86 count:9];
-      v89[3] = v33;
-      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:v88 count:4];
+      v86[8] = v32;
+      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v86 forKeys:v85 count:9];
+      v88[3] = v33;
+      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:4];
 
       messageCopy = v30;
-      v25 = v69;
+      v25 = v68;
 
       v35 = [(PCCEndpoint *)self->_endpoint send:fromCopy message:v34 error:0];
 LABEL_52:
@@ -324,53 +324,53 @@ LABEL_52:
       goto LABEL_24;
     }
 
-    v50 = [v71 objectForKey:@"set-expire"];
+    v49 = [v70 objectForKey:@"set-expire"];
 
-    if (v50)
+    if (v49)
     {
-      v51 = [v71 objectForKeyedSubscript:@"set-expire"];
-      intValue = [v51 intValue];
+      v50 = [v70 objectForKeyedSubscript:@"set-expire"];
+      intValue = [v50 intValue];
 
       if (intValue <= 5)
       {
-        v53 = 5;
+        v52 = 5;
       }
 
       else
       {
-        v53 = intValue;
+        v52 = intValue;
       }
 
-      if (v53 >= 3600)
+      if (v52 >= 3600)
       {
-        v53 = 3600;
+        v52 = 3600;
       }
 
-      self->_jobTimeout = v53;
-      v84[0] = @"messageType";
-      v84[1] = @"jobType";
-      v85[0] = @"jobStatus";
-      v85[1] = @"synchronize";
-      v85[2] = v25;
-      v84[2] = @"jobId";
-      v84[3] = @"content";
-      v54 = [MEMORY[0x277CCACA8] stringWithFormat:@"jobTimeout set to %.0f secs", v53];
-      v85[3] = v54;
-      v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:v84 count:4];
+      self->_jobTimeout = v52;
+      v83[0] = @"messageType";
+      v83[1] = @"jobType";
+      v84[0] = @"jobStatus";
+      v84[1] = @"synchronize";
+      v84[2] = v25;
+      v83[2] = @"jobId";
+      v83[3] = @"content";
+      v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"jobTimeout set to %.0f secs", v52];
+      v84[3] = v53;
+      v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v83 count:4];
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         jobTimeout = self->_jobTimeout;
         *buf = 134217984;
-        v96 = *&jobTimeout;
+        v95 = *&jobTimeout;
         _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "jobTimeout set to %.0f secs", buf, 0xCu);
       }
     }
 
     else
     {
-      v57 = [v71 objectForKeyedSubscript:@"test-expire"];
-      bOOLValue2 = [v57 BOOLValue];
+      v56 = [v70 objectForKeyedSubscript:@"test-expire"];
+      bOOLValue2 = [v56 BOOLValue];
 
       if (bOOLValue2)
       {
@@ -380,8 +380,8 @@ LABEL_52:
         block[2] = __39__PCCProxiedDevice_handleMessage_from___block_invoke_125;
         block[3] = &unk_2799C0178;
         block[4] = self;
-        v74 = v25;
-        v75 = fromCopy;
+        v73 = v25;
+        v74 = fromCopy;
         dispatch_async(job_queue, block);
 
         goto LABEL_52;
@@ -393,18 +393,18 @@ LABEL_52:
         _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "remote synchronization", buf, 2u);
       }
 
-      v82[0] = @"messageType";
-      v82[1] = @"jobType";
-      v83[0] = @"jobStatus";
-      v83[1] = @"synchronize";
-      v82[2] = @"jobId";
-      v82[3] = @"content";
-      v83[2] = v25;
-      v83[3] = @"remote-Ok";
-      v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:v82 count:4];
+      v81[0] = @"messageType";
+      v81[1] = @"jobType";
+      v82[0] = @"jobStatus";
+      v82[1] = @"synchronize";
+      v81[2] = @"jobId";
+      v81[3] = @"content";
+      v82[2] = v25;
+      v82[3] = @"remote-Ok";
+      v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:4];
     }
 
-    v60 = [(PCCEndpoint *)self->_endpoint send:fromCopy message:v55 error:0];
+    v59 = [(PCCEndpoint *)self->_endpoint send:fromCopy message:v54 error:0];
 
     goto LABEL_52;
   }
@@ -412,23 +412,21 @@ LABEL_52:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v96 = messageCopy;
+    v95 = messageCopy;
     _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unknown message %@", buf, 0xCu);
   }
 
 LABEL_24:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PCCProxiedDevice_handleMessage_from___block_invoke_125(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v2 = *(*(a1 + 32) + 80) / 60.0;
     *buf = 134217984;
-    v12 = v2;
+    v11 = v2;
     _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "starting bogus job; wait for expiration in %.1f mins", buf, 0xCu);
   }
 
@@ -437,11 +435,10 @@ void __39__PCCProxiedDevice_handleMessage_from___block_invoke_125(uint64_t a1)
   [*(a1 + 32) startTimer];
   v4 = [*(*(a1 + 32) + 32) allValues];
   v5 = [v4 valueForKey:@"description"];
-  v10[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:4];
+  v9[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:4];
 
   v7 = [*(*(a1 + 32) + 8) send:*(a1 + 48) message:v6 error:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFile:(id)file from:(id)from metadata:(id)metadata
@@ -454,31 +451,29 @@ void __39__PCCProxiedDevice_handleMessage_from___block_invoke_125(uint64_t a1)
 
 - (void)sendDeviceMetadata:(id)metadata
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
-  v12[0] = @"messageType";
-  v12[1] = @"deviceMetadata";
-  v13[0] = @"updateProxiedDeviceMetadata";
+  v11[0] = @"messageType";
+  v11[1] = @"deviceMetadata";
+  v12[0] = @"updateProxiedDeviceMetadata";
   mEMORY[0x277D36B80] = [MEMORY[0x277D36B80] sharedInstance];
   metadata = [mEMORY[0x277D36B80] metadata];
-  v13[1] = metadata;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = metadata;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = @"updateProxiedDeviceMetadata";
-    _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "posted %@ (unsolicited)", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = @"updateProxiedDeviceMetadata";
+    _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "posted %@ (unsolicited)", &v9, 0xCu);
   }
 
   v8 = [(PCCEndpoint *)self->_endpoint send:metadataCopy message:v7 error:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)acceptTaskingPayload:(id)payload forRouting:(id)routing withId:(id)id
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   routingCopy = routing;
   idCopy = id;
@@ -519,36 +514,34 @@ LABEL_4:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v19[0] = @"PayloadContent";
-    v19[1] = @"PayloadType";
-    v20[0] = payloadCopy;
-    v20[1] = @"Configuration";
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v18[0] = @"PayloadContent";
+    v18[1] = @"PayloadType";
+    v19[0] = payloadCopy;
+    v19[1] = @"Configuration";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
 
-    payloadCopy = v13;
+    payloadCopy = v12;
   }
 
-  v16 = 0;
-  v14 = [MEMORY[0x277CCAC58] dataWithPropertyList:payloadCopy format:200 options:0 error:&v16];
-  v15 = v16;
-  v10 = v15;
-  if (v14)
+  v15 = 0;
+  v13 = [MEMORY[0x277CCAC58] dataWithPropertyList:payloadCopy format:200 options:0 error:&v15];
+  v14 = v15;
+  v10 = v14;
+  if (v13)
   {
 
-    v10 = v14;
+    v10 = v13;
     goto LABEL_5;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v10;
+    v17 = v10;
     _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Serialization of settings to plist failed: %@", buf, 0xCu);
   }
 
 LABEL_6:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ack:(id)ack result:(BOOL)result error:(id)error
@@ -612,7 +605,7 @@ void __37__PCCProxiedDevice_ack_result_error___block_invoke(uint64_t a1)
 
 void __58__PCCProxiedDevice_initiate_transferGroupWithOptions_job___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) objectForKeyedSubscript:@"allFiles"];
   v4 = [v3 BOOLValue];
@@ -645,9 +638,9 @@ void __58__PCCProxiedDevice_initiate_transferGroupWithOptions_job___block_invoke
       v13 = *(a1 + 48);
       v14 = [*(*(a1 + 40) + 24) jid];
       *buf = 138543618;
-      v27 = v13;
-      v28 = 2114;
-      v29 = v14;
+      v26 = v13;
+      v27 = 2114;
+      v28 = v14;
       _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "declining job %{public}@; group transfer already in progress (%{public}@)", buf, 0x16u);
     }
 
@@ -665,9 +658,9 @@ void __58__PCCProxiedDevice_initiate_transferGroupWithOptions_job___block_invoke
     }
 
     v19 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
-    v25 = @"group transfer already in progress";
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x277CCA450];
+    v24 = @"group transfer already in progress";
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     v21 = [v19 errorWithDomain:@"ProxyGizmoLogTransferErrorDomain" code:5 userInfo:v20];
     [v15 finish:v16 target:v17 event:v7 type:v18 result:v21];
   }
@@ -684,9 +677,9 @@ void __58__PCCProxiedDevice_initiate_transferGroupWithOptions_job___block_invoke
       }
 
       *buf = 138543618;
-      v27 = v9;
-      v28 = 2112;
-      v29 = v8;
+      v26 = v9;
+      v27 = 2112;
+      v28 = v8;
       _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "starting job %{public}@, transfer group '%@'", buf, 0x16u);
     }
 
@@ -720,7 +713,6 @@ void __58__PCCProxiedDevice_initiate_transferGroupWithOptions_job___block_invoke
   }
 
   objc_autoreleasePoolPop(v2);
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initiate:(id)initiate transferLog:(id)log withOptions:(id)options job:(id)job
@@ -754,7 +746,7 @@ void __58__PCCProxiedDevice_initiate_transferGroupWithOptions_job___block_invoke
 
 void __57__PCCProxiedDevice_initiate_transferLog_withOptions_job___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   ++*(*(a1 + 32) + 68);
   v3 = *(a1 + 40);
@@ -783,13 +775,13 @@ void __57__PCCProxiedDevice_initiate_transferLog_withOptions_job___block_invoke(
     v8 = *(a1 + 48);
     v9 = [(PCCJob *)v7 type];
     v10 = *(a1 + 64);
-    v12 = 138543874;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v9;
-    v16 = 2114;
-    v17 = v10;
-    _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "starting job %{public}@, %{public}@ '%{public}@'", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = v8;
+    v13 = 2114;
+    v14 = v9;
+    v15 = 2114;
+    v16 = v10;
+    _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "starting job %{public}@, %{public}@ '%{public}@'", &v11, 0x20u);
   }
 
   if ([*(a1 + 32) doWork:v7])
@@ -798,12 +790,11 @@ void __57__PCCProxiedDevice_initiate_transferLog_withOptions_job___block_invoke(
   }
 
   objc_autoreleasePoolPop(v2);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)doWork:(id)work
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   workCopy = work;
   nextFilepath = [(PCCJob *)workCopy nextFilepath];
 
@@ -830,9 +821,9 @@ void __57__PCCProxiedDevice_initiate_transferLog_withOptions_job___block_invoke(
     nextFilepath2 = [(PCCJob *)workCopy nextFilepath];
     v13 = [v11 fileURLWithPath:nextFilepath2];
     metadata = [(PCCJob *)workCopy metadata];
-    v34 = 0;
-    v15 = [(PCCEndpoint *)endpoint send:target file:v13 metadata:metadata error:&v34];
-    v16 = v34;
+    v33 = 0;
+    v15 = [(PCCEndpoint *)endpoint send:target file:v13 metadata:metadata error:&v33];
+    v16 = v33;
 
     if (v15)
     {
@@ -845,9 +836,9 @@ void __57__PCCProxiedDevice_initiate_transferLog_withOptions_job___block_invoke(
       if (!v16)
       {
         v24 = MEMORY[0x277CCA9B8];
-        v39 = *MEMORY[0x277CCA450];
-        v40[0] = @"no send tracking id";
-        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+        v38 = *MEMORY[0x277CCA450];
+        v39[0] = @"no send tracking id";
+        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
         v16 = [v24 errorWithDomain:@"ProxyGizmoLogTransferErrorDomain" code:4 userInfo:v25];
       }
 
@@ -855,9 +846,9 @@ void __57__PCCProxiedDevice_initiate_transferLog_withOptions_job___block_invoke(
       {
         v26 = [(PCCJob *)workCopy jid];
         *buf = 138412546;
-        v36 = v26;
-        v37 = 2112;
-        v38 = v16;
+        v35 = v26;
+        v36 = 2112;
+        v37 = v16;
         _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "aborting job %@; file send failure: %@", buf, 0x16u);
       }
 
@@ -892,16 +883,15 @@ void __57__PCCProxiedDevice_initiate_transferLog_withOptions_job___block_invoke(
       self->_groupXferJob = 0;
     }
 
-    v17 = 0;
+    return 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (void)finish:(id)finish target:(id)target event:(id)event type:(id)type result:(id)result
 {
-  v36[4] = *MEMORY[0x277D85DE8];
+  v35[4] = *MEMORY[0x277D85DE8];
   finishCopy = finish;
   targetCopy = target;
   eventCopy = event;
@@ -909,15 +899,15 @@ void __57__PCCProxiedDevice_initiate_transferLog_withOptions_job___block_invoke(
   resultCopy = result;
   if (resultCopy)
   {
-    v35[0] = @"messageType";
-    v35[1] = @"jobId";
-    v36[0] = @"jobStatus";
-    v36[1] = finishCopy;
-    v35[2] = @"jobEvent";
-    v35[3] = @"jobType";
-    v36[2] = eventCopy;
-    v36[3] = typeCopy;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:4];
+    v34[0] = @"messageType";
+    v34[1] = @"jobId";
+    v35[0] = @"jobStatus";
+    v35[1] = finishCopy;
+    v34[2] = @"jobEvent";
+    v34[3] = @"jobType";
+    v35[2] = eventCopy;
+    v35[3] = typeCopy;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:4];
     v18 = [v17 mutableCopy];
 
     objc_opt_class();
@@ -953,11 +943,11 @@ void __57__PCCProxiedDevice_initiate_transferLog_withOptions_job___block_invoke(
       v25 = resultCopy;
     }
 
-    v31 = 138412546;
-    v32 = finishCopy;
-    v33 = 2112;
-    v34 = v25;
-    _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "completed job %@: %@", &v31, 0x16u);
+    v30 = 138412546;
+    v31 = finishCopy;
+    v32 = 2112;
+    v33 = v25;
+    _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "completed job %@: %@", &v30, 0x16u);
   }
 
   if (![(NSMutableDictionary *)self->_jobByTracker count])
@@ -968,8 +958,8 @@ void __57__PCCProxiedDevice_initiate_transferLog_withOptions_job___block_invoke(
     {
       if (v27)
       {
-        LOWORD(v31) = 0;
-        _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "no outstanding jobs; releasing transaction", &v31, 2u);
+        LOWORD(v30) = 0;
+        _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "no outstanding jobs; releasing transaction", &v30, 2u);
       }
 
       dispatch_source_cancel(self->_expiryTimer);
@@ -982,12 +972,10 @@ void __57__PCCProxiedDevice_initiate_transferLog_withOptions_job___block_invoke(
 
     else if (v27)
     {
-      LOWORD(v31) = 0;
-      _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "no outstanding jobs (and no transactions were in play)", &v31, 2u);
+      LOWORD(v30) = 0;
+      _os_log_impl(&dword_25D12D000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "no outstanding jobs (and no transactions were in play)", &v30, 2u);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTimer
@@ -1060,35 +1048,35 @@ LABEL_7:
 void __30__PCCProxiedDevice_startTimer__block_invoke_2(uint64_t a1)
 {
   v1 = a1;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dispatch_source_cancel(*(*(a1 + 32) + 40));
   v2 = *(v1 + 32);
   v3 = *(v2 + 40);
   *(v2 + 40) = 0;
 
-  v30 = objc_opt_new();
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
+  v29 = objc_opt_new();
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = *(*(v1 + 32) + 32);
-  v4 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v4 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v35;
-    v28 = v1;
-    v29 = *MEMORY[0x277CCA450];
+    v6 = *v34;
+    v27 = v1;
+    v28 = *MEMORY[0x277CCA450];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v35 != v6)
+        if (*v34 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v34 + 1) + 8 * i);
+        v8 = *(*(&v33 + 1) + 8 * i);
         v9 = [*(*(v1 + 32) + 32) objectForKeyedSubscript:v8];
         v10 = [v9 lastTouch];
         [v10 timeIntervalSinceNow];
@@ -1098,26 +1086,26 @@ void __30__PCCProxiedDevice_startTimer__block_invoke_2(uint64_t a1)
         if (v12 > v13)
         {
           ++*(*(v1 + 32) + 72);
-          [v30 addObject:v8];
-          v32 = *(v1 + 32);
+          [v29 addObject:v8];
+          v31 = *(v1 + 32);
           v14 = [v9 jid];
           v15 = [v9 target];
           v16 = [v9 event];
           v17 = [v9 type];
           v18 = v6;
           v19 = MEMORY[0x277CCA9B8];
-          v38 = v29;
-          v39 = @"job expired due to lack of progress";
-          [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+          v37 = v28;
+          v38 = @"job expired due to lack of progress";
+          [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
           v21 = v20 = v5;
           v22 = [v19 errorWithDomain:@"ProxyGizmoLogTransferErrorDomain" code:5 userInfo:v21];
-          [v32 finish:v14 target:v15 event:v16 type:v17 result:v22];
+          [v31 finish:v14 target:v15 event:v16 type:v17 result:v22];
 
           v6 = v18;
-          v1 = v28;
+          v1 = v27;
 
           v5 = v20;
-          v23 = *(v28 + 32);
+          v23 = *(v27 + 32);
           v24 = *(v23 + 24);
           if (v9 == v24)
           {
@@ -1126,13 +1114,13 @@ void __30__PCCProxiedDevice_startTimer__block_invoke_2(uint64_t a1)
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v5 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
     while (v5);
   }
 
-  [*(*(v1 + 32) + 32) removeObjectsForKeys:v30];
+  [*(*(v1 + 32) + 32) removeObjectsForKeys:v29];
   if ([*(*(v1 + 32) + 32) count])
   {
     [*(v1 + 32) startTimer];
@@ -1150,8 +1138,6 @@ void __30__PCCProxiedDevice_startTimer__block_invoke_2(uint64_t a1)
     v26 = *(v25 + 48);
     *(v25 + 48) = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 @end

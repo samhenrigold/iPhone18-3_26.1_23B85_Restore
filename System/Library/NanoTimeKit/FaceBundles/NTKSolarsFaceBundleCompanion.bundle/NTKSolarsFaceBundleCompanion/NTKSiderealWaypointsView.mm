@@ -96,29 +96,28 @@
   subviews = [(UIView *)self->_waypointContainerView subviews];
   [subviews makeObjectsPerformSelector:"removeFromSuperview"];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = self->_waypoints;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
+        v11 = *(*(&v14 + 1) + 8 * v10);
         _newWaypointView = [(NTKSiderealWaypointsView *)self _newWaypointView];
-        orbitDiameter = self->_orbitDiameter;
         [(NTKSiderealWaypointsView *)self bounds];
         CLKRectGetCenter();
         [v11 degree];
@@ -131,7 +130,7 @@
       }
 
       while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -205,7 +204,6 @@
   [(NTKSiderealWaypointsView *)self bounds];
   CLKRectGetCenter();
   [v5 moveToPoint:?];
-  dialDiameter = self->_dialDiameter;
   [(NTKSiderealWaypointsView *)self bounds];
   CLKRectGetCenter();
   [waypointCopy degree];
@@ -213,18 +211,18 @@
   CLKDegreesToRadians();
   NTKPointOnCircle();
   [v5 addLineToPoint:?];
-  v7 = +[CLKDevice currentDevice];
-  [v7 screenScale];
-  [v5 setLineWidth:1.0 / v8];
+  v6 = +[CLKDevice currentDevice];
+  [v6 screenScale];
+  [v5 setLineWidth:1.0 / v7];
 
-  v9 = [NTKBezierPathView alloc];
+  v8 = [NTKBezierPathView alloc];
   [(NTKSiderealWaypointsView *)self bounds];
-  v10 = [v9 initWithFrame:?];
-  [v10 setPath:v5];
-  v11 = [UIColor colorWithRed:0.8 green:0.941176471 blue:1.0 alpha:0.25];
-  [v10 setPathColor:v11];
+  v9 = [v8 initWithFrame:?];
+  [v9 setPath:v5];
+  v10 = [UIColor colorWithRed:0.8 green:0.941176471 blue:1.0 alpha:0.25];
+  [v9 setPathColor:v10];
 
-  return v10;
+  return v9;
 }
 
 @end

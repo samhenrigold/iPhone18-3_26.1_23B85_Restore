@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)valueTypeAsString:(int)string;
 - (int)StringAsValueType:(id)type;
 - (int)valueType;
 - (unint64_t)hash;
@@ -40,6 +41,21 @@
   {
     return 0;
   }
+}
+
+- (id)valueTypeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1002066D0 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsValueType:(id)type
@@ -124,20 +140,18 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    value = self->_value;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    valueType = self->_valueType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -194,7 +208,6 @@
       goto LABEL_9;
     }
 
-    v7 = *(equalCopy + 12);
     if (self->_value)
     {
       if ((*(equalCopy + 12) & 1) == 0)

@@ -14,7 +14,7 @@
 
 - (void)dealloc
 {
-  objc_msgSend_stop(self, a2, v2, v3);
+  objc_msgSend_stop(self, a2, v2);
   updater = self->_updater;
   if (updater)
   {
@@ -22,9 +22,9 @@
     self->_updater = 0;
   }
 
-  v6.receiver = self;
-  v6.super_class = VFXARKitHandTracker;
-  [(VFXARKitHandTracker *)&v6 dealloc];
+  v5.receiver = self;
+  v5.super_class = VFXARKitHandTracker;
+  [(VFXARKitHandTracker *)&v5 dealloc];
 }
 
 @end

@@ -20,50 +20,45 @@
   languageCode = self->_languageCode;
   graphName = self->_graphName;
   assetPaths = [(CDMNLAssetCollection *)self->_assetCollection assetPaths];
-  siriVocabularySandboxId = self->_siriVocabularySandboxId;
-  v8 = [v3 stringWithFormat:@"[CDMDynamicConfig] - Language Code: %@, Graph Name: %@, Asset Paths: %@, Asset Dir Path: %@, Siri Vocabulary Sandbox ID: %@, Service State Directory: %@", languageCode, graphName, assetPaths, self->_assetDirPath, siriVocabularySandboxId, self->_serviceStateDirectory];
+  v7 = [v3 stringWithFormat:@"[CDMDynamicConfig] - Language Code: %@, Graph Name: %@, Asset Paths: %@, Asset Dir Path: %@, Siri Vocabulary Sandbox ID: %@, Service State Directory: %@", languageCode, graphName, assetPaths, self->_assetDirPath, self->_siriVocabularySandboxId, self->_serviceStateDirectory];
 
-  return v8;
+  return v7;
 }
 
 - (void)setServiceStateDirectory:(id)directory
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 136315394;
-    v9 = "[CDMDynamicConfig setServiceStateDirectory:]";
-    v10 = 2112;
-    v11 = directoryCopy;
-    _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Set serviceStateDirectory to be: %@.", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CDMDynamicConfig setServiceStateDirectory:]";
+    v9 = 2112;
+    v10 = directoryCopy;
+    _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Set serviceStateDirectory to be: %@.", &v7, 0x16u);
   }
 
   serviceStateDirectory = self->_serviceStateDirectory;
   self->_serviceStateDirectory = directoryCopy;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setEmbeddingConfigs:(id)configs
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   configsCopy = configs;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 136315394;
-    v9 = "[CDMDynamicConfig setEmbeddingConfigs:]";
-    v10 = 2112;
-    v11 = configsCopy;
-    _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Set embedding configs to be: %@.", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CDMDynamicConfig setEmbeddingConfigs:]";
+    v9 = 2112;
+    v10 = configsCopy;
+    _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Set embedding configs to be: %@.", &v7, 0x16u);
   }
 
   embeddingConfigs = self->_embeddingConfigs;
   self->_embeddingConfigs = configsCopy;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqualWithoutSandboxId:(id)id
@@ -288,7 +283,7 @@ LABEL_44:
 
 - (BOOL)isEqual:(id)equal
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   if (![(CDMDynamicConfig *)self isEqualWithoutSandboxId:equalCopy])
   {
@@ -335,13 +330,13 @@ LABEL_14:
     }
 
 LABEL_16:
-    v15 = 136315650;
-    v16 = "[CDMDynamicConfig isEqual:]";
-    v17 = 2112;
+    v14 = 136315650;
+    v15 = "[CDMDynamicConfig isEqual:]";
+    v16 = 2112;
     selfCopy2 = self;
-    v19 = 2112;
-    v20 = equalCopy;
-    _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Dynamic config: %@ doesn't equal to dynamic config: %@.", &v15, 0x20u);
+    v18 = 2112;
+    v19 = equalCopy;
+    _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Dynamic config: %@ doesn't equal to dynamic config: %@.", &v14, 0x20u);
     goto LABEL_14;
   }
 
@@ -357,72 +352,69 @@ LABEL_7:
   v11 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 136315650;
-    v16 = "[CDMDynamicConfig isEqual:]";
-    v17 = 2112;
+    v14 = 136315650;
+    v15 = "[CDMDynamicConfig isEqual:]";
+    v16 = 2112;
     selfCopy2 = self;
-    v19 = 2112;
-    v20 = equalCopy;
-    _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Dynamic config: %@ equals to dynamic config: %@.", &v15, 0x20u);
+    v18 = 2112;
+    v19 = equalCopy;
+    _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Dynamic config: %@ equals to dynamic config: %@.", &v14, 0x20u);
   }
 
   v12 = 1;
 LABEL_15:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (unint64_t)hash
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = [(NSString *)self->_languageCode hash];
   v4 = [(NSString *)self->_embeddingVersion hash]+ 89 * v3;
   v5 = [(NSString *)self->_graphName hash]+ 89 * v4;
   v6 = [(NSString *)self->_siriVocabularySandboxId hash]+ 89 * v5 + 62742241;
+  v19 = 0u;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
   assetPaths = [(CDMNLAssetCollection *)self->_assetCollection assetPaths];
   allKeys = [assetPaths allKeys];
 
-  v9 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         v14 = [v13 hash] + 89 * v6;
         assetPaths2 = [(CDMNLAssetCollection *)self->_assetCollection assetPaths];
         v16 = [assetPaths2 objectForKeyedSubscript:v13];
         v6 = v14 + [v16 hash];
       }
 
-      v10 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
 
   v17 = [(NSString *)self->_assetDirPath hash];
-  v18 = [(NSString *)self->_serviceStateDirectory hash];
-  v19 = *MEMORY[0x1E69E9840];
-  return v18 + 89 * (v17 + 89 * v6);
+  return [(NSString *)self->_serviceStateDirectory hash]+ 89 * (v17 + 89 * v6);
 }
 
 - (void)setAssetDirPath:(id)path
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   assetDirPath = self->_assetDirPath;
   p_assetDirPath = &self->_assetDirPath;
@@ -433,13 +425,13 @@ LABEL_15:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = *p_assetDirPath;
-      v14 = 136315650;
-      v15 = "[CDMDynamicConfig setAssetDirPath:]";
-      v16 = 2112;
-      v17 = v10;
-      v18 = 2112;
-      v19 = pathCopy;
-      _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: Asset dir path: %@ is not nil. It will be overwritten by new asset dir path: %@.", &v14, 0x20u);
+      v13 = 136315650;
+      v14 = "[CDMDynamicConfig setAssetDirPath:]";
+      v15 = 2112;
+      v16 = v10;
+      v17 = 2112;
+      v18 = pathCopy;
+      _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: Asset dir path: %@ is not nil. It will be overwritten by new asset dir path: %@.", &v13, 0x20u);
     }
   }
 
@@ -447,20 +439,18 @@ LABEL_15:
   v11 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v13 = *p_assetDirPath;
-    v14 = 136315394;
-    v15 = "[CDMDynamicConfig setAssetDirPath:]";
-    v16 = 2112;
-    v17 = v13;
-    _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Set asset dir path to be: %@.", &v14, 0x16u);
+    v12 = *p_assetDirPath;
+    v13 = 136315394;
+    v14 = "[CDMDynamicConfig setAssetDirPath:]";
+    v15 = 2112;
+    v16 = v12;
+    _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s Set asset dir path to be: %@.", &v13, 0x16u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAssetPaths:(id)paths
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   assetPaths = [(CDMNLAssetCollection *)self->_assetCollection assetPaths];
   if (assetPaths)
@@ -475,13 +465,13 @@ LABEL_15:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         assetPaths3 = [(CDMNLAssetCollection *)self->_assetCollection assetPaths];
-        v14 = 136315650;
-        v15 = "[CDMDynamicConfig setAssetPaths:]";
-        v16 = 2112;
-        v17 = assetPaths3;
-        v18 = 2112;
-        v19 = pathsCopy;
-        _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: Asset paths: %@ are not nil. They will be overwritten by new asset paths: %@.", &v14, 0x20u);
+        v13 = 136315650;
+        v14 = "[CDMDynamicConfig setAssetPaths:]";
+        v15 = 2112;
+        v16 = assetPaths3;
+        v17 = 2112;
+        v18 = pathsCopy;
+        _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: Asset paths: %@ are not nil. They will be overwritten by new asset paths: %@.", &v13, 0x20u);
       }
     }
   }
@@ -489,8 +479,6 @@ LABEL_15:
   v11 = [CDMNLAssetCollection assetCollectionWithAssetPaths:pathsCopy withLanguageCode:self->_languageCode];
   assetCollection = self->_assetCollection;
   self->_assetCollection = v11;
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -528,7 +516,7 @@ LABEL_15:
 
 - (CDMDynamicConfig)initWithLanguageCode:(id)code embeddingVersion:(id)version graphName:(id)name sandboxId:(id)id assetPaths:(id)paths assetDirPath:(id)path overrideSiriVocabSpans:(id)spans overrideMentions:(id)self0 overrideContextualSpans:(id)self1 serviceStateDirectory:(id)self2
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   codeCopy = code;
   versionCopy = version;
   nameCopy = name;
@@ -537,7 +525,7 @@ LABEL_15:
   pathsCopy = paths;
   pathCopy = path;
   v21 = idCopy;
-  v39 = pathCopy;
+  v38 = pathCopy;
   spansCopy = spans;
   mentionsCopy = mentions;
   contextualSpansCopy = contextualSpans;
@@ -548,16 +536,16 @@ LABEL_15:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v43 = "[CDMDynamicConfig initWithLanguageCode:embeddingVersion:graphName:sandboxId:assetPaths:assetDirPath:overrideSiriVocabSpans:overrideMentions:overrideContextualSpans:serviceStateDirectory:]";
+      v42 = "[CDMDynamicConfig initWithLanguageCode:embeddingVersion:graphName:sandboxId:assetPaths:assetDirPath:overrideSiriVocabSpans:overrideMentions:overrideContextualSpans:serviceStateDirectory:]";
       _os_log_impl(&dword_1DC287000, v23, OS_LOG_TYPE_INFO, "%s [WARN]: Both sandboxId and overrideSiriVocabSpans are attempted to be set in the CDMDynamicConfig! Only one of these should be set. If both are set, sandboxId will be ignored and only overrideSiriVocabSpans will be used.", buf, 0xCu);
     }
 
     v21 = idCopy;
   }
 
-  v41.receiver = self;
-  v41.super_class = CDMDynamicConfig;
-  v24 = [(CDMDynamicConfig *)&v41 init];
+  v40.receiver = self;
+  v40.super_class = CDMDynamicConfig;
+  v24 = [(CDMDynamicConfig *)&v40 init];
   v25 = v24;
   if (v24)
   {
@@ -569,7 +557,7 @@ LABEL_15:
 
     objc_storeStrong(&v25->_siriVocabularySandboxId, obj);
     [(CDMDynamicConfig *)v25 setAssetPaths:pathsCopy];
-    [(CDMDynamicConfig *)v25 setAssetDirPath:v39];
+    [(CDMDynamicConfig *)v25 setAssetDirPath:v38];
     objc_storeStrong(&v25->_overrideSiriVocabSpans, spans);
     objc_storeStrong(&v25->_overrideMentions, mentions);
     objc_storeStrong(&v25->_overrideContextualSpans, contextualSpans);
@@ -581,19 +569,18 @@ LABEL_15:
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v43 = "[CDMDynamicConfig initWithLanguageCode:embeddingVersion:graphName:sandboxId:assetPaths:assetDirPath:overrideSiriVocabSpans:overrideMentions:overrideContextualSpans:serviceStateDirectory:]";
-    v44 = 2112;
-    v45 = v25;
+    v42 = "[CDMDynamicConfig initWithLanguageCode:embeddingVersion:graphName:sandboxId:assetPaths:assetDirPath:overrideSiriVocabSpans:overrideMentions:overrideContextualSpans:serviceStateDirectory:]";
+    v43 = 2112;
+    v44 = v25;
     _os_log_debug_impl(&dword_1DC287000, v29, OS_LOG_TYPE_DEBUG, "%s Dynamic config: %@.", buf, 0x16u);
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
 + (id)resolveActiveGraph:(id)graph
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   graphCopy = graph;
   v4 = graphCopy;
   if (!graphCopy || ![(__CFString *)graphCopy length])
@@ -602,17 +589,15 @@ LABEL_15:
     v5 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8 = 136315394;
-      v9 = "+[CDMDynamicConfig resolveActiveGraph:]";
-      v10 = 2112;
-      v11 = @"CDMNLUServiceGraph";
-      _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: No value for active graph provided to CDMDynamicConfig, using the active service graph default of %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "+[CDMDynamicConfig resolveActiveGraph:]";
+      v9 = 2112;
+      v10 = @"CDMNLUServiceGraph";
+      _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: No value for active graph provided to CDMDynamicConfig, using the active service graph default of %@", &v7, 0x16u);
     }
 
     v4 = @"CDMNLUServiceGraph";
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

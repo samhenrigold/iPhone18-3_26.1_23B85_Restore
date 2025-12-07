@@ -3,6 +3,7 @@
 - (BOOL)appHasInstalledFonts;
 - (BOOL)appIsRemovable;
 - (BOOL)needsShowFontsButton;
+- (IXSAppUninstallAlert)initWithAppRecord:(id)record bundleIdentifier:(id)identifier removability:(unint64_t)removability isManagedByManagedSettings:(BOOL)settings deletionIsRestricted:(BOOL)restricted;
 - (id)_customDeleteStringForMessagesApp;
 - (id)appInstalledFonts;
 - (id)customizedLocalizedStringForKey:(id)key;
@@ -18,6 +19,66 @@
 @end
 
 @implementation IXSAppUninstallAlert
+
+- (IXSAppUninstallAlert)initWithAppRecord:(id)record bundleIdentifier:(id)identifier removability:(unint64_t)removability isManagedByManagedSettings:(BOOL)settings deletionIsRestricted:(BOOL)restricted
+{
+  restrictedCopy = restricted;
+  recordCopy = record;
+  v31.receiver = self;
+  v31.super_class = IXSAppUninstallAlert;
+  v13 = [(IXSUninstallAlert *)&v31 initWithAppRecord:recordCopy bundleIdentifier:identifier removability:removability deletionIsRestricted:restrictedCopy];
+  v14 = v13;
+  if (v13)
+  {
+    [(IXSUninstallAlert *)v13 setTypeDescription:@"App"];
+    bundleIdentifier = [(IXSUninstallAlert *)v14 bundleIdentifier];
+    v16 = [FSUserFontManager registeredFamiliesForIdentifier:bundleIdentifier enabled:1];
+    fontFamilies = v14->_fontFamilies;
+    v14->_fontFamilies = v16;
+
+    v14->_appManagedByManagedSettings = settings;
+    v14->_appStringsBundle = 0;
+    appStringsTableName = v14->_appStringsTableName;
+    v14->_appStringsTableName = 0;
+
+    appRecord = [(IXSUninstallAlert *)v14 appRecord];
+    isDeletableSystemApplication = [appRecord isDeletableSystemApplication];
+
+    if (isDeletableSystemApplication)
+    {
+      infoDictionary = [recordCopy infoDictionary];
+      v22 = [infoDictionary objectForKey:@"SBUninstallIconOverrideStringsFile" ofClass:objc_opt_class()];
+
+      if (v22)
+      {
+        v23 = [recordCopy URL];
+        v14->_appStringsBundle = _CFBundleCreateUnique();
+
+        if (![(IXSAppUninstallAlert *)v14 appStringsBundle])
+        {
+          v24 = sub_1000031B0(off_100121958);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          {
+            v25 = [recordCopy URL];
+            path = [v25 path];
+            *buf = 136315394;
+            v33 = "[IXSAppUninstallAlert initWithAppRecord:bundleIdentifier:removability:isManagedByManagedSettings:deletionIsRestricted:]";
+            v34 = 2112;
+            v35 = path;
+            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%s: Failed to create app-specific strings bundle from path %@", buf, 0x16u);
+          }
+        }
+
+        lastPathComponent = [v22 lastPathComponent];
+        stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
+        v29 = v14->_appStringsTableName;
+        v14->_appStringsTableName = stringByDeletingPathExtension;
+      }
+    }
+  }
+
+  return v14;
+}
 
 - (BOOL)appIsRemovable
 {

@@ -11,7 +11,7 @@
 
 + (uint64_t)setUp
 {
-  v0 = sub_10015DA04(&qword_1006C2170);
+  v0 = sub_10015DA04(&qword_1006C2170, &unk_100538AA0);
   __chkstk_darwin(v0 - 8);
   v2 = &v26 - v1;
   v3 = type metadata accessor for Logger();
@@ -37,7 +37,7 @@
     v16[4] = v14;
     v17 = v14;
     v18 = sub_100386B84(0, 0, v2, &unk_100545F20, v16);
-    sub_1000073B4(v2, &qword_1006C2170);
+    sub_1000073B4(v2, &qword_1006C2170, &unk_100538AA0);
     qword_1006C5668 = v18;
   }
 

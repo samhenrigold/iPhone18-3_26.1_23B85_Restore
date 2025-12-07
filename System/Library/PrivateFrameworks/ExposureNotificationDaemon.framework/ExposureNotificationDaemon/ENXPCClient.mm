@@ -8,32 +8,39 @@
 
 - (id)description
 {
+  v14 = 0;
   if ([(NSString *)self->_signingIdentity length])
   {
     signingIdentity = self->_signingIdentity;
   }
 
-  NSAppendPrintF_safe();
-  v12 = 0;
-  pid = self->_pid;
-  NSAppendPrintF();
-  v4 = v12;
+  else
+  {
+    signingIdentity = @"<no signing identity>";
+  }
 
-  appAPIVersion = self->_appAPIVersion;
-  NSAppendPrintF_safe();
-  v5 = v4;
+  NSAppendPrintF_safe(&v14, "%@", signingIdentity);
+  v4 = v14;
+  v13 = v4;
+  NSAppendPrintF(&v13, " (%#{pid})", self->_pid);
+  v5 = v13;
+
+  v12 = v5;
+  NSAppendPrintF_safe(&v12, " v%d", self->_appAPIVersion);
+  v6 = v12;
 
   appRegion = self->_appRegion;
   if (appRegion)
   {
-    v11 = appRegion;
-    NSAppendPrintF_safe();
-    v7 = v5;
+    v11 = v6;
+    v8 = appRegion;
+    NSAppendPrintF_safe(&v11, " %@", v8);
+    v9 = v11;
 
-    v5 = v7;
+    v6 = v9;
   }
 
-  return v5;
+  return v6;
 }
 
 + (ENXPCClient)clientWithAuditToken:(id *)token pid:(int)pid

@@ -75,11 +75,10 @@
     [NGMPBInnerMessage writeTo:];
   }
 
-  v7 = toCopy;
+  v6 = toCopy;
   PBDataWriterWriteDataField();
   if (*&self->_has)
   {
-    counter = self->_counter;
     PBDataWriterWriteUint32Field();
   }
 
@@ -88,11 +87,11 @@
     PBDataWriterWriteDataField();
   }
 
-  v6 = v7;
+  v5 = v6;
   if (self->_debugInfo)
   {
     PBDataWriterWriteDataField();
-    v6 = v7;
+    v5 = v6;
   }
 }
 
@@ -161,7 +160,6 @@
     }
   }
 
-  v6 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_counter != *(equalCopy + 2))
@@ -173,7 +171,7 @@
   else if (*(equalCopy + 40))
   {
 LABEL_13:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
@@ -186,17 +184,17 @@ LABEL_13:
   debugInfo = self->_debugInfo;
   if (debugInfo | *(equalCopy + 2))
   {
-    v9 = [(NSData *)debugInfo isEqual:?];
+    v8 = [(NSData *)debugInfo isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_14:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

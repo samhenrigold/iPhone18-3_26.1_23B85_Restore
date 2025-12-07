@@ -8,7 +8,7 @@
 - (void)run
 {
   subscriptionEntitlementsBlock = [(SubscriptionEntitlementsOperation *)self subscriptionEntitlementsBlock];
-  v17 = 0;
+  v16 = 0;
   if ([(SubscriptionEntitlementsOperation *)self ignoreCaches])
   {
     v4 = 0;
@@ -16,11 +16,11 @@
 
   else
   {
-    v4 = [SSVSubscriptionEntitlementsCoordinator cachedSubscriptionEntitlementsExpired:&v17];
-    if (v4 && v17 != 1)
+    v4 = [SSVSubscriptionEntitlementsCoordinator cachedSubscriptionEntitlementsExpired:&v16];
+    if (v4 && v16 != 1)
     {
       v13 = 0;
-      goto LABEL_19;
+      goto LABEL_20;
     }
   }
 
@@ -33,43 +33,47 @@
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
   v9 = objc_opt_class();
-  v18 = 138412290;
-  v19 = v9;
+  v17 = 138412290;
+  v18 = v9;
   v10 = v9;
-  LODWORD(v15) = 12;
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Fetching subscription entitlements from the server.", &v17, 12);
 
   if (v11)
   {
-    oSLogObject = [NSString stringWithCString:v11 encoding:4, &v18, v15];
+    oSLogObject = [NSString stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog();
-LABEL_15:
+LABEL_16:
   }
 
-  v16 = 0;
-  v12 = [(SubscriptionEntitlementsOperation *)self _fetchSubscriptionEntitlements:&v16];
-  v13 = v16;
+  v15 = 0;
+  v12 = [(SubscriptionEntitlementsOperation *)self _fetchSubscriptionEntitlements:&v15];
+  v13 = v15;
   if (!v13)
   {
     v14 = v12;
@@ -77,7 +81,7 @@ LABEL_15:
     v4 = v14;
   }
 
-LABEL_19:
+LABEL_20:
   (subscriptionEntitlementsBlock)[2](subscriptionEntitlementsBlock, v4, v13);
   [(SubscriptionEntitlementsOperation *)self setError:v13];
   [(SubscriptionEntitlementsOperation *)self setSubscriptionEntitlementsBlock:0];

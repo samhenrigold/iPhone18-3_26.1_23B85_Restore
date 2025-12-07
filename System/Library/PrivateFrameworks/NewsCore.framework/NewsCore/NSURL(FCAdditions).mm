@@ -24,8 +24,6 @@
 - (uint64_t)fc_isGzippedWithMIMETypeHint:()FCAdditions;
 - (uint64_t)fc_isHTTPScheme;
 - (uint64_t)fc_isHardPaywallNewsArticleURL:()FCAdditions;
-- (uint64_t)fc_isNewsArticleURL;
-- (uint64_t)fc_isNewsArticleVideoURL;
 - (uint64_t)fc_isNewsIssueURL;
 - (uint64_t)fc_isNewsPuzzleTypeURL;
 - (uint64_t)fc_isNewsPuzzleURL;
@@ -35,11 +33,13 @@
 - (uint64_t)fc_isStocksURL;
 - (uint64_t)fc_isStoreURL;
 - (uint64_t)fc_isWebArchiveURL;
-- (uint64_t)fc_isWebOptInURL;
 - (uint64_t)fc_volumeAvailableCapacityForOpportunisticUsage;
 - (uint64_t)getUInt16XAttrWithName:()FCAdditions;
 - (uint64_t)setUInt16XAttr:()FCAdditions withName:;
 - (void)fc_URLByAddingQueryItem:()FCAdditions;
+- (void)fc_isNewsArticleURL;
+- (void)fc_isNewsArticleVideoURL;
+- (void)fc_isWebOptInURL;
 @end
 
 @implementation NSURL(FCAdditions)
@@ -59,7 +59,7 @@
   return v4;
 }
 
-- (uint64_t)fc_isWebOptInURL
+- (void)fc_isWebOptInURL
 {
   result = [self fc_isNewsURL];
   if (result)
@@ -107,7 +107,7 @@ LABEL_8:
   return v7;
 }
 
-- (uint64_t)fc_isNewsArticleURL
+- (void)fc_isNewsArticleURL
 {
   result = [self fc_isNewsURL];
   if (result)
@@ -119,7 +119,7 @@ LABEL_8:
   return result;
 }
 
-- (uint64_t)fc_isNewsArticleVideoURL
+- (void)fc_isNewsArticleVideoURL
 {
   result = [self fc_isNewsArticleURL];
   if (result)
@@ -234,28 +234,28 @@ LABEL_8:
 
 - (id)fc_NewsArticleIDs
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E696AF20] componentsWithURL:self resolvingAgainstBaseURL:0];
   [v1 queryItems];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v2 = v17 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v2 = v16 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * i);
+        v7 = *(*(&v13 + 1) + 8 * i);
         name = [v7 name];
         v9 = [name isEqualToString:@"articleList"];
 
@@ -268,7 +268,7 @@ LABEL_8:
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v4)
       {
         continue;
@@ -280,8 +280,6 @@ LABEL_8:
 
   v10 = 0;
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -558,7 +556,7 @@ LABEL_11:
 
 + (id)fc_NewsURLForArticleID:()FCAdditions routeURL:
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   if (!v7)
@@ -569,29 +567,29 @@ LABEL_11:
 
   if (!v6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID != nil"];
+    v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID != nil"];
     *buf = 136315906;
-    v52 = "+[NSURL(FCAdditions) fc_NewsURLForArticleID:routeURL:]";
-    v53 = 2080;
-    v54 = "NSURL+FCAdditions.m";
-    v55 = 1024;
-    v56 = 396;
-    v57 = 2114;
-    v58 = v39;
+    v51 = "+[NSURL(FCAdditions) fc_NewsURLForArticleID:routeURL:]";
+    v52 = 2080;
+    v53 = "NSURL+FCAdditions.m";
+    v54 = 1024;
+    v55 = 396;
+    v56 = 2114;
+    v57 = v38;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (![v6 length] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID.length != 0"];
+    v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID.length != 0"];
     *buf = 136315906;
-    v52 = "+[NSURL(FCAdditions) fc_NewsURLForArticleID:routeURL:]";
-    v53 = 2080;
-    v54 = "NSURL+FCAdditions.m";
-    v55 = 1024;
-    v56 = 397;
-    v57 = 2114;
-    v58 = v40;
+    v51 = "+[NSURL(FCAdditions) fc_NewsURLForArticleID:routeURL:]";
+    v52 = 2080;
+    v53 = "NSURL+FCAdditions.m";
+    v54 = 1024;
+    v55 = 397;
+    v56 = 2114;
+    v57 = v39;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -599,13 +597,13 @@ LABEL_11:
   {
     v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"article IDs with slashes won't be handled properly"];
     *buf = 136315906;
-    v52 = "+[NSURL(FCAdditions) fc_NewsURLForArticleID:routeURL:]";
-    v53 = 2080;
-    v54 = "NSURL+FCAdditions.m";
-    v55 = 1024;
-    v56 = 398;
-    v57 = 2114;
-    v58 = v36;
+    v51 = "+[NSURL(FCAdditions) fc_NewsURLForArticleID:routeURL:]";
+    v52 = 2080;
+    v53 = "NSURL+FCAdditions.m";
+    v54 = 1024;
+    v55 = 398;
+    v56 = 2114;
+    v57 = v36;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (v6)
@@ -624,15 +622,15 @@ LABEL_31:
   }
 
 LABEL_11:
-  v44 = v6;
-  v50 = v6;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v50 count:1];
-  v41 = [self fc_NewsURLWithPathComponents:v8];
+  v43 = v6;
+  v49 = v6;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
+  v40 = [self fc_NewsURLWithPathComponents:v8];
 
-  v43 = v7;
+  v42 = v7;
   v9 = [objc_alloc(MEMORY[0x1E696AF20]) initWithURL:v7 resolvingAgainstBaseURL:0];
   v10 = objc_alloc_init(MEMORY[0x1E696AF20]);
-  v42 = v9;
+  v41 = v9;
   fragment = [v9 fragment];
   [v10 setQuery:fragment];
 
@@ -647,26 +645,26 @@ LABEL_11:
   v15 = v14;
 
   v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   v17 = v15;
-  v18 = [v17 countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v44 objects:v48 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v46;
+    v20 = *v45;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v46 != v20)
+        if (*v45 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v45 + 1) + 8 * i);
+        v22 = *(*(&v44 + 1) + 8 * i);
         name = [v22 name];
         v24 = [name isEqualToString:@"nff_cid"];
 
@@ -676,7 +674,7 @@ LABEL_11:
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v44 objects:v48 count:16];
     }
 
     while (v19);
@@ -687,18 +685,18 @@ LABEL_11:
   if ([query length])
   {
     query2 = [v10 query];
-    v27 = v42;
-    [v42 setFragment:query2];
+    v27 = v41;
+    [v41 setFragment:query2];
   }
 
   else
   {
-    v27 = v42;
-    [v42 setFragment:0];
+    v27 = v41;
+    [v41 setFragment:0];
   }
 
-  v7 = v43;
-  v6 = v44;
+  v7 = v42;
+  v6 = v43;
 
   v29 = [v27 URL];
   v30 = v29;
@@ -709,7 +707,7 @@ LABEL_11:
 
   else
   {
-    v31 = v43;
+    v31 = v42;
   }
 
   v32 = v31;
@@ -719,43 +717,42 @@ LABEL_11:
   v34 = [dataRepresentation base64EncodedStringWithOptions:0];
 
   v35 = [MEMORY[0x1E696AF60] queryItemWithName:@"route" value:v34];
-  v28 = [v41 fc_URLByAddingQueryItem:v35];
+  v28 = [v40 fc_URLByAddingQueryItem:v35];
 
 LABEL_32:
-  v37 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
 
 + (id)fc_NewsURLForArticleID:()FCAdditions internal:targetIsVideo:hardPaywall:
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v10 = a3;
   if (!v10 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID != nil"];
+    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID != nil"];
     *buf = 136315906;
-    v24 = "+[NSURL(FCAdditions) fc_NewsURLForArticleID:internal:targetIsVideo:hardPaywall:]";
-    v25 = 2080;
-    v26 = "NSURL+FCAdditions.m";
-    v27 = 1024;
-    v28 = 435;
-    v29 = 2114;
-    v30 = v20;
+    v23 = "+[NSURL(FCAdditions) fc_NewsURLForArticleID:internal:targetIsVideo:hardPaywall:]";
+    v24 = 2080;
+    v25 = "NSURL+FCAdditions.m";
+    v26 = 1024;
+    v27 = 435;
+    v28 = 2114;
+    v29 = v19;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (![v10 length] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID.length != 0"];
+    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articleID.length != 0"];
     *buf = 136315906;
-    v24 = "+[NSURL(FCAdditions) fc_NewsURLForArticleID:internal:targetIsVideo:hardPaywall:]";
-    v25 = 2080;
-    v26 = "NSURL+FCAdditions.m";
-    v27 = 1024;
-    v28 = 436;
-    v29 = 2114;
-    v30 = v21;
+    v23 = "+[NSURL(FCAdditions) fc_NewsURLForArticleID:internal:targetIsVideo:hardPaywall:]";
+    v24 = 2080;
+    v25 = "NSURL+FCAdditions.m";
+    v26 = 1024;
+    v27 = 436;
+    v28 = 2114;
+    v29 = v20;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -763,13 +760,13 @@ LABEL_32:
   {
     v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"article IDs with slashes won't be handled properly"];
     *buf = 136315906;
-    v24 = "+[NSURL(FCAdditions) fc_NewsURLForArticleID:internal:targetIsVideo:hardPaywall:]";
-    v25 = 2080;
-    v26 = "NSURL+FCAdditions.m";
-    v27 = 1024;
-    v28 = 438;
-    v29 = 2114;
-    v30 = v17;
+    v23 = "+[NSURL(FCAdditions) fc_NewsURLForArticleID:internal:targetIsVideo:hardPaywall:]";
+    v24 = 2080;
+    v25 = "NSURL+FCAdditions.m";
+    v26 = 1024;
+    v27 = 438;
+    v28 = 2114;
+    v29 = v17;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (v10)
@@ -799,8 +796,8 @@ LABEL_10:
   }
 
   v12 = v11;
-  v22 = v11;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+  v21 = v11;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
   v14 = [self fc_NewsURLWithPathComponents:v13 internal:a4];
 
   if (a5)
@@ -812,48 +809,45 @@ LABEL_10:
   }
 
 LABEL_18:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 + (id)fc_NewsURLForTagID:()FCAdditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (!v4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tagID != nil"];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tagID != nil"];
     *buf = 136315906;
-    v13 = "+[NSURL(FCAdditions) fc_NewsURLForTagID:]";
-    v14 = 2080;
-    v15 = "NSURL+FCAdditions.m";
-    v16 = 1024;
-    v17 = 460;
-    v18 = 2114;
-    v19 = v9;
+    v12 = "+[NSURL(FCAdditions) fc_NewsURLForTagID:]";
+    v13 = 2080;
+    v14 = "NSURL+FCAdditions.m";
+    v15 = 1024;
+    v16 = 460;
+    v17 = 2114;
+    v18 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   if (![v4 length] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tagID.length != 0"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tagID.length != 0"];
     *buf = 136315906;
-    v13 = "+[NSURL(FCAdditions) fc_NewsURLForTagID:]";
-    v14 = 2080;
-    v15 = "NSURL+FCAdditions.m";
-    v16 = 1024;
-    v17 = 461;
-    v18 = 2114;
-    v19 = v10;
+    v12 = "+[NSURL(FCAdditions) fc_NewsURLForTagID:]";
+    v13 = 2080;
+    v14 = "NSURL+FCAdditions.m";
+    v15 = 1024;
+    v16 = 461;
+    v17 = 2114;
+    v18 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v11 = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
+  v10 = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v10 count:1];
   v6 = [self fc_NewsURLWithPathComponents:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1050,33 +1044,33 @@ LABEL_18:
 
 - (id)fc_valueForQueryItemWithName:()FCAdditions
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = a3;
   query = [self query];
   stringByRemovingPercentEncoding = [query stringByRemovingPercentEncoding];
   v7 = [stringByRemovingPercentEncoding componentsSeparatedByString:@"&"];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = v7;
-  v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = [*(*(&v20 + 1) + 8 * i) componentsSeparatedByString:@"="];
+        v13 = [*(*(&v19 + 1) + 8 * i) componentsSeparatedByString:@"="];
         firstObject = [v13 firstObject];
         lastObject = [v13 lastObject];
         if ([firstObject isEqualToString:v4])
@@ -1087,7 +1081,7 @@ LABEL_18:
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
@@ -1097,8 +1091,6 @@ LABEL_18:
   {
     v10 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

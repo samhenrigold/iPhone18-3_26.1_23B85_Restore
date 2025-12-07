@@ -105,8 +105,8 @@
   }
 
   v6 = sequenceURL;
-  v34 = 0;
-  if (!-[NSURL getResourceValue:forKey:error:](v6, "getResourceValue:forKey:error:", &v34, *MEMORY[0x277CBE868], 0) || ([v34 BOOLValue] & 1) == 0)
+  v35 = 0;
+  if (!-[NSURL getResourceValue:forKey:error:](v6, "getResourceValue:forKey:error:", &v35, *MEMORY[0x277CBE868], 0) || ([v35 BOOLValue] & 1) == 0)
   {
     *error = _ErrorForDataBufferNotFoundAtURL(v6);
 
@@ -114,10 +114,10 @@
     if (dataURL)
     {
 LABEL_12:
-      v23 = _ErrorForDataBufferNotFoundAtURL(dataURL);
-      v24 = v23;
+      v24 = _ErrorForDataBufferNotFoundAtURL(dataURL);
+      v25 = v24;
       result = 0;
-      *error = v23;
+      *error = v24;
       return result;
     }
 
@@ -133,64 +133,65 @@ LABEL_11:
   v10 = v9;
   v11 = [MEMORY[0x277CBEAE0] inputStreamWithURL:v10];
   [v11 open];
-  v34 = 0;
-  v12 = [MEMORY[0x277CCAAA0] JSONObjectWithStream:v11 options:0 error:&v34];
-  v13 = v34;
+  v35 = 0;
+  v12 = [MEMORY[0x277CCAAA0] JSONObjectWithStream:v11 options:0 error:&v35];
+  v13 = v35;
+  v14 = v13;
   if (v13)
   {
-    v14 = _PTLogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _PTLogSystem(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(PTAssetDataBufferReader *)v10 _startReadingSequenceWithError:v13, v14];
+      [(PTAssetDataBufferReader *)v10 _startReadingSequenceWithError:v14, v15];
     }
   }
 
-  v15 = [v12 objectForKeyedSubscript:@"filename-format"];
+  v16 = [v12 objectForKeyedSubscript:@"filename-format"];
   filenameFormat = self->_filenameFormat;
-  self->_filenameFormat = v15;
+  self->_filenameFormat = v16;
 
-  v17 = [v12 objectForKeyedSubscript:@"vector3-format"];
-  self->_isVector3Format = [v17 BOOLValue];
+  v18 = [v12 objectForKeyedSubscript:@"vector3-format"];
+  self->_isVector3Format = [v18 BOOLValue];
 
-  v18 = [v12 objectForKeyedSubscript:@"pixel-format"];
+  v19 = [v12 objectForKeyedSubscript:@"pixel-format"];
 
-  if (v18)
+  if (v19)
   {
-    v19 = [v12 objectForKeyedSubscript:@"pixel-format"];
-    v20 = [v19 dataUsingEncoding:4 allowLossyConversion:1];
-    LODWORD(v34) = 0;
-    [v20 getBytes:&v34 length:4];
-    v21 = bswap32(v34);
+    v20 = [v12 objectForKeyedSubscript:@"pixel-format"];
+    v21 = [v20 dataUsingEncoding:4 allowLossyConversion:1];
+    LODWORD(v35) = 0;
+    [v21 getBytes:&v35 length:4];
+    v22 = bswap32(v35);
 
-    self->_pixelFormat = v21;
+    self->_pixelFormat = v22;
   }
 
   else
   {
     pathExtension = [(NSString *)self->_filenameFormat pathExtension];
-    v27 = [&unk_2837F3A28 objectForKeyedSubscript:pathExtension];
-    unsignedIntegerValue = [v27 unsignedIntegerValue];
+    v28 = [&unk_2837F3A28 objectForKeyedSubscript:pathExtension];
+    unsignedIntegerValue = [v28 unsignedIntegerValue];
 
     self->_pixelFormat = unsignedIntegerValue;
   }
 
-  v29 = [v12 objectForKeyedSubscript:@"width"];
-  self->_width = [v29 unsignedIntegerValue];
+  v30 = [v12 objectForKeyedSubscript:@"width"];
+  self->_width = [v30 unsignedIntegerValue];
 
-  v30 = [v12 objectForKeyedSubscript:@"height"];
-  self->_height = [v30 unsignedIntegerValue];
+  v31 = [v12 objectForKeyedSubscript:@"height"];
+  self->_height = [v31 unsignedIntegerValue];
 
-  v31 = [v12 objectForKeyedSubscript:@"frames-per-second"];
-  [v31 floatValue];
-  if (v32 == 0.0)
+  v32 = [v12 objectForKeyedSubscript:@"frames-per-second"];
+  [v32 floatValue];
+  if (v33 == 0.0)
   {
-    v32 = 30.0;
+    v33 = 30.0;
   }
 
-  self->_framesPerSecond = v32;
+  self->_framesPerSecond = v33;
 
-  v33 = [v12 objectForKeyedSubscript:@"frame-start"];
-  self->_nextIndex = [v33 unsignedIntegerValue];
+  v34 = [v12 objectForKeyedSubscript:@"frame-start"];
+  self->_nextIndex = [v34 unsignedIntegerValue];
 
   return 1;
 }
@@ -426,23 +427,24 @@ LABEL_38:
 {
   v3 = objc_alloc_init([objc_opt_class() frameClass]);
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v5 = _PTLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _PTLogSystem(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(PTAssetDataBufferReader *)self _frameInstance];
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)_copyNextFrame_sequence
@@ -502,11 +504,12 @@ LABEL_38:
 - (id)copyNextFrame
 {
   v3 = objc_autoreleasePoolPush();
+  v4 = v3;
   if (self->_sequenceURL)
   {
     _copyNextFrame_sequence = [(PTAssetDataBufferReader *)self _copyNextFrame_sequence];
 LABEL_5:
-    v5 = _copyNextFrame_sequence;
+    v6 = _copyNextFrame_sequence;
     goto LABEL_6;
   }
 
@@ -516,16 +519,16 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v7 = _PTLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _PTLogSystem(v3);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    [(PTAssetDataBufferReader *)v7 copyNextFrame];
+    [(PTAssetDataBufferReader *)v8 copyNextFrame];
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_6:
-  objc_autoreleasePoolPop(v3);
-  return v5;
+  objc_autoreleasePoolPop(v4);
+  return v6;
 }
 
 - (void)_startReadingSequenceWithError:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)

@@ -532,9 +532,9 @@ LABEL_21:
             {
               v43 = [CCToolKitToolToolDefinitionVersion1ParameterRelationshipRelationDoesNotContain alloc];
               v44 = CCPBReaderReadDataNoCopy();
-              v97 = 0;
-              v45 = [(CCItemMessage *)v43 initWithData:v44 error:&v97];
-              v10 = v97;
+              v95 = 0;
+              v45 = [(CCItemMessage *)v43 initWithData:v44 error:&v95];
+              v10 = v95;
               doesNotContain = self->_doesNotContain;
               self->_doesNotContain = v45;
 
@@ -574,9 +574,9 @@ LABEL_74:
 
           v74 = [CCToolKitToolToolDefinitionVersion1ParameterRelationshipRelationContains alloc];
           v75 = CCPBReaderReadDataNoCopy();
-          v98 = 0;
-          v76 = [(CCItemMessage *)v74 initWithData:v75 error:&v98];
-          v10 = v98;
+          v96 = 0;
+          v76 = [(CCItemMessage *)v74 initWithData:v75 error:&v96];
+          v10 = v96;
           v77 = self->_contains;
           self->_contains = v76;
 
@@ -616,9 +616,9 @@ LABEL_59:
 
           v31 = [CCToolKitToolToolDefinitionVersion1ParameterRelationshipRelationLessThan alloc];
           v32 = CCPBReaderReadDataNoCopy();
-          v99 = 0;
-          v33 = [(CCItemMessage *)v31 initWithData:v32 error:&v99];
-          v10 = v99;
+          v97 = 0;
+          v33 = [(CCItemMessage *)v31 initWithData:v32 error:&v97];
+          v10 = v97;
           v34 = self->_lessThan;
           self->_lessThan = v33;
 
@@ -644,9 +644,9 @@ LABEL_59:
 
         v59 = [CCToolKitToolToolDefinitionVersion1ParameterRelationshipRelationGreaterThan alloc];
         v60 = CCPBReaderReadDataNoCopy();
-        v100 = 0;
-        v61 = [(CCItemMessage *)v59 initWithData:v60 error:&v100];
-        v10 = v100;
+        v98 = 0;
+        v61 = [(CCItemMessage *)v59 initWithData:v60 error:&v98];
+        v10 = v98;
         v62 = self->_greaterThan;
         self->_greaterThan = v61;
 
@@ -760,22 +760,22 @@ LABEL_71:
             self->_isSome = 0;
             self->_kindType = 2;
 LABEL_72:
-            v85 = self->_equals;
+            v84 = self->_equals;
             self->_equals = 0;
 
-            v86 = self->_notEquals;
+            v85 = self->_notEquals;
             self->_notEquals = 0;
 
-            v87 = self->_greaterThan;
+            v86 = self->_greaterThan;
             self->_greaterThan = 0;
 
-            v88 = self->_lessThan;
+            v87 = self->_lessThan;
             self->_lessThan = 0;
 
-            v89 = self->_contains;
+            v88 = self->_contains;
             self->_contains = 0;
 
-            v90 = self->_doesNotContain;
+            v89 = self->_doesNotContain;
             self->_doesNotContain = 0;
 
 LABEL_73:
@@ -788,7 +788,6 @@ LABEL_62:
           {
             v82 = objc_opt_class();
             v83 = NSStringFromClass(v82);
-            v84 = *&v6[*v9];
             v10 = CCSkipFieldErrorForMessage();
 
             goto LABEL_74;
@@ -801,9 +800,9 @@ LABEL_62:
         {
           v65 = [CCToolKitToolToolDefinitionVersion1ParameterRelationshipRelationEquals alloc];
           v66 = CCPBReaderReadDataNoCopy();
-          v102 = 0;
-          v67 = [(CCItemMessage *)v65 initWithData:v66 error:&v102];
-          v10 = v102;
+          v100 = 0;
+          v67 = [(CCItemMessage *)v65 initWithData:v66 error:&v100];
+          v10 = v100;
           v68 = self->_equals;
           self->_equals = v67;
 
@@ -828,9 +827,9 @@ LABEL_62:
 
           v38 = [CCToolKitToolToolDefinitionVersion1ParameterRelationshipRelationNotEquals alloc];
           v39 = CCPBReaderReadDataNoCopy();
-          v101 = 0;
-          v40 = [(CCItemMessage *)v38 initWithData:v39 error:&v101];
-          v10 = v101;
+          v99 = 0;
+          v40 = [(CCItemMessage *)v38 initWithData:v39 error:&v99];
+          v10 = v99;
           v41 = self->_notEquals;
           self->_notEquals = v40;
 
@@ -874,23 +873,22 @@ LABEL_77:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v95 = 1;
+    v93 = 1;
     goto LABEL_81;
   }
 
 LABEL_78:
-  v91 = objc_opt_class();
-  v92 = NSStringFromClass(v91);
-  v93 = *&v6[*v9];
-  v94 = CCInvalidBufferErrorForMessage();
+  v90 = objc_opt_class();
+  v91 = NSStringFromClass(v90);
+  v92 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_79:
-  v95 = 0;
+  v93 = 0;
 LABEL_81:
 
-  return v95;
+  return v93;
 }
 
 - (CCToolKitToolToolDefinitionVersion1ParameterRelationshipRelation)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

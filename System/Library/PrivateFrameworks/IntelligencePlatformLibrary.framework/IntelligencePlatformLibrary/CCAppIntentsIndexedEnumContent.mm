@@ -14,10 +14,10 @@
 
 - (CCAppIntentsIndexedEnumContent)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   objc_opt_class();
-  v40[1] = 0;
+  v39[1] = 0;
   IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
   v8 = 0;
   if (IsInstanceOfExpectedClass)
@@ -26,9 +26,9 @@
     v10 = [dictionaryCopy objectForKeyedSubscript:@"typeDisplayRepresentation"];
     if (v10)
     {
-      v40[0] = 0;
-      v11 = [[CCAppEnumTypeDisplayRepresentation alloc] initWithJSONDictionary:v10 error:v40];
-      v12 = v40[0];
+      v39[0] = 0;
+      v11 = [[CCAppEnumTypeDisplayRepresentation alloc] initWithJSONDictionary:v10 error:v39];
+      v12 = v39[0];
       v13 = v12;
       if (!v11 || v12)
       {
@@ -46,7 +46,7 @@
     {
       v13 = v14;
       objc_opt_class();
-      v39 = v8;
+      v38 = v8;
       v15 = CCValidateIsInstanceOfExpectedClass();
       v16 = v8;
 
@@ -58,34 +58,34 @@
         goto LABEL_26;
       }
 
-      v31 = v16;
+      v30 = v16;
       errorCopy = error;
-      v33 = v9;
+      v32 = v9;
       v17 = objc_opt_new();
+      v34 = 0u;
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
       v13 = v13;
-      v18 = [v13 countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v18 = [v13 countByEnumeratingWithState:&v34 objects:v40 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v36;
+        v20 = *v35;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v36 != v20)
+            if (*v35 != v20)
             {
               objc_enumerationMutation(v13);
             }
 
-            v22 = *(*(&v35 + 1) + 8 * i);
+            v22 = *(*(&v34 + 1) + 8 * i);
             v23 = [CCAppEnumCase alloc];
-            v34 = 0;
-            v24 = [(CCAppEnumCase *)v23 initWithJSONDictionary:v22 error:&v34];
-            v25 = v34;
+            v33 = 0;
+            v24 = [(CCAppEnumCase *)v23 initWithJSONDictionary:v22 error:&v33];
+            v25 = v33;
             if (v24)
             {
               v26 = v25 == 0;
@@ -102,23 +102,23 @@
               CCSetError();
 
               v28 = 0;
-              v8 = v31;
-              v9 = v33;
+              v8 = v30;
+              v9 = v32;
               goto LABEL_26;
             }
 
             [v17 addObject:v24];
           }
 
-          v19 = [v13 countByEnumeratingWithState:&v35 objects:v41 count:16];
+          v19 = [v13 countByEnumeratingWithState:&v34 objects:v40 count:16];
         }
 
         while (v19);
       }
 
-      v8 = v31;
+      v8 = v30;
       error = errorCopy;
-      v9 = v33;
+      v9 = v32;
     }
 
     else
@@ -137,13 +137,12 @@ LABEL_26:
   v28 = 0;
 LABEL_27:
 
-  v29 = *MEMORY[0x1E69E9840];
   return v28;
 }
 
 - (id)jsonDictionary
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   if (self->_typeIdentifier)
   {
@@ -161,30 +160,30 @@ LABEL_27:
   if (self->_cases)
   {
     v7 = objc_opt_new();
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     cases = [(CCAppIntentsIndexedEnumContent *)self cases];
-    v9 = [cases countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [cases countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(cases);
           }
 
-          jsonDictionary2 = [*(*(&v17 + 1) + 8 * i) jsonDictionary];
+          jsonDictionary2 = [*(*(&v16 + 1) + 8 * i) jsonDictionary];
           [v7 addObject:jsonDictionary2];
         }
 
-        v10 = [cases countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [cases countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -194,8 +193,6 @@ LABEL_27:
   }
 
   v14 = [v3 copy];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -337,9 +334,9 @@ LABEL_21:
         }
 
         v28 = [CCAppEnumCase alloc];
-        v44 = 0;
-        v29 = [(CCItemMessage *)v28 initWithData:typeIdentifier error:&v44];
-        v8 = v44;
+        v41 = 0;
+        v29 = [(CCItemMessage *)v28 initWithData:typeIdentifier error:&v41];
+        v8 = v41;
         if (!v8 && v29)
         {
           [v9 addObject:v29];
@@ -350,9 +347,9 @@ LABEL_21:
       {
         v25 = [CCAppEnumTypeDisplayRepresentation alloc];
         typeIdentifier = CCPBReaderReadDataNoCopy();
-        v45 = 0;
-        v26 = [(CCItemMessage *)v25 initWithData:typeIdentifier error:&v45];
-        v8 = v45;
+        v42 = 0;
+        v26 = [(CCItemMessage *)v25 initWithData:typeIdentifier error:&v42];
+        v8 = v42;
         typeDisplayRepresentation = self->_typeDisplayRepresentation;
         self->_typeDisplayRepresentation = v26;
       }
@@ -375,7 +372,6 @@ LABEL_21:
 
         v30 = objc_opt_class();
         typeIdentifier = NSStringFromClass(v30);
-        v31 = *&v5[*v10];
         v8 = CCSkipFieldErrorForMessage();
       }
 
@@ -393,44 +389,42 @@ LABEL_36:
 LABEL_39:
   v8 = 0;
 LABEL_40:
-  v32 = [v9 copy];
+  v31 = [v9 copy];
   cases = self->_cases;
-  self->_cases = v32;
+  self->_cases = v31;
 
   if (v8)
   {
     CCSetError();
-    v34 = 0;
-    v35 = dataCopy;
+    v33 = 0;
+    v34 = dataCopy;
   }
 
   else
   {
-    v36 = MEMORY[0x1E6993AA8];
-    v35 = dataCopy;
+    v34 = dataCopy;
     if (*&v5[*MEMORY[0x1E6993AA8]])
     {
-      v37 = objc_opt_class();
-      v38 = NSStringFromClass(v37);
-      v39 = *&v5[*v36];
-      v40 = CCInvalidBufferErrorForMessage();
+      v35 = objc_opt_class();
+      v36 = NSStringFromClass(v35);
+      v37 = CCInvalidBufferErrorForMessage();
       CCSetError();
 
-      v34 = 0;
+      v33 = 0;
     }
 
     else
     {
-      v34 = 1;
+      v33 = 1;
     }
   }
 
-  return v34;
+  return v33;
 }
 
 - (CCAppIntentsIndexedEnumContent)initWithTypeIdentifier:(id)identifier typeDisplayRepresentation:(id)representation cases:(id)cases error:(id *)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   representationCopy = representation;
   casesCopy = cases;
@@ -438,7 +432,7 @@ LABEL_40:
   if (identifierCopy)
   {
     objc_opt_class();
-    v38 = 0;
+    v37 = 0;
     IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
     v15 = 0;
     if (!IsInstanceOfExpectedClass)
@@ -477,7 +471,7 @@ LABEL_19:
   }
 
   objc_opt_class();
-  v37 = v15;
+  v36 = v15;
   v25 = CCValidateIsInstanceOfExpectedClass();
   v16 = v15;
 
@@ -499,7 +493,7 @@ LABEL_19:
 
 LABEL_5:
   objc_opt_class();
-  v36 = v16;
+  v35 = v16;
   v17 = CCValidateArrayValues();
   v15 = v16;
 
@@ -507,34 +501,34 @@ LABEL_5:
   {
     errorCopy = error;
     selfCopy2 = self;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v18 = casesCopy;
-    v19 = [v18 countByEnumeratingWithState:&v32 objects:v39 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v31 objects:v38 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v33;
+      v21 = *v32;
       do
       {
         v22 = 0;
         do
         {
-          if (*v33 != v21)
+          if (*v32 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          data2 = [*(*(&v32 + 1) + 8 * v22) data];
+          data2 = [*(*(&v31 + 1) + 8 * v22) data];
           CCPBDataWriterWriteDataField();
 
           ++v22;
         }
 
         while (v20 != v22);
-        v20 = [v18 countByEnumeratingWithState:&v32 objects:v39 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v31 objects:v38 count:16];
       }
 
       while (v20);
@@ -550,7 +544,6 @@ LABEL_14:
   selfCopy = 0;
 LABEL_21:
 
-  v28 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

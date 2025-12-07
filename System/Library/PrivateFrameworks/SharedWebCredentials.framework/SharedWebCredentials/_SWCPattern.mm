@@ -21,7 +21,7 @@
 
 - (_SWCPattern)initWithDictionary:(id)dictionary defaults:(id)defaults
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v7 = objc_autoreleasePoolPush();
   v8 = objc_alloc_init(MEMORY[0x277CBEB28]);
   if (!_NSIsNSDictionary())
@@ -50,15 +50,15 @@
 
   v10 = [_SWCPattern _normalizedURLPath:v9];
 
-  SWCGetFastUTF8String<1024ul>(&v48, v10, v51);
-  if (v50 != 1)
+  SWCGetFastUTF8String<1024ul>(&v47, v10, v50);
+  if (v49 != 1)
   {
 LABEL_10:
     v11 = 0;
     goto LABEL_11;
   }
 
-  [v8 appendBytes:v48 length:v49];
+  [v8 appendBytes:v47 length:v48];
   [v8 appendBytes:"" length:1];
   v11 = 2;
 LABEL_11:
@@ -81,10 +81,10 @@ LABEL_11:
   {
     if (_NSIsNSString())
     {
-      SWCGetFastUTF8String<1024ul>(&v48, v15, v51);
-      if (v50 == 1)
+      SWCGetFastUTF8String<1024ul>(&v47, v15, v50);
+      if (v49 == 1)
       {
-        [v8 appendBytes:v48 length:v49];
+        [v8 appendBytes:v47 length:v48];
         [v8 appendBytes:"" length:1];
         v11 |= 4u;
       }
@@ -109,10 +109,10 @@ LABEL_11:
   {
     if (_NSIsNSString())
     {
-      SWCGetFastUTF8String<1024ul>(&v48, v19, v51);
-      if (v50 == 1)
+      SWCGetFastUTF8String<1024ul>(&v47, v19, v50);
+      if (v49 == 1)
       {
-        [v8 appendBytes:v48 length:v49];
+        [v8 appendBytes:v47 length:v48];
         [v8 appendBytes:"" length:1];
         v11 |= 8u;
       }
@@ -156,10 +156,10 @@ LABEL_11:
   {
     if (_NSIsNSString())
     {
-      SWCGetFastUTF8String<1024ul>(&v48, v26, v51);
-      if (v50 == 1)
+      SWCGetFastUTF8String<1024ul>(&v47, v26, v50);
+      if (v49 == 1)
       {
-        [v8 appendBytes:v48 length:v49];
+        [v8 appendBytes:v47 length:v48];
         [v8 appendBytes:"" length:1];
         v11 |= 0x80u;
       }
@@ -280,18 +280,15 @@ LABEL_65:
     memcpy(v44 + 1, [v8 bytes], v42);
 
     objc_autoreleasePoolPop(v7);
-    result = [(_SWCPattern *)self _initWithPatternStorageNoCopy:v44 freeWhenDone:1];
+    return [(_SWCPattern *)self _initWithPatternStorageNoCopy:v44 freeWhenDone:1];
   }
 
   else
   {
 
     objc_autoreleasePoolPop(v7);
-    result = 0;
+    return 0;
   }
-
-  v47 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (_SWCPattern)initWithPathPattern:(id)pattern defaults:(id)defaults

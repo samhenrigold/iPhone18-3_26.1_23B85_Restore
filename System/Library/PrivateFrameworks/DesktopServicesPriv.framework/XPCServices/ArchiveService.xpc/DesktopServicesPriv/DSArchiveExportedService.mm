@@ -10,8 +10,12 @@
 - (BOOL)_getIsDirectoryProperty:(BOOL *)property forItemURL:(id)l error:(id *)error;
 - (BOOL)_isAppleArchive:(id)archive;
 - (BOOL)_isCancelled;
+- (BOOL)_listAppleArchiveWithFD:(int)d url:(id)url progress:(id)progress passphrases:(id)passphrases formats:(unint64_t)formats listItemHandler:(id)handler error:(id *)error;
 - (BOOL)_openArchiveWithFD:(int)d url:(id)url progress:(id)progress passphrases:(id)passphrases formats:(unint64_t)formats archive:(archive *)archive entry:(archive_entry *)entry readItemHandler:(id)self0 error:(id *)self1;
+- (BOOL)_openArchiveWithFD:(int)d url:(id)url progress:(id)progress passphrases:(id)passphrases formats:(unint64_t)formats readItemHandler:(id)handler error:(id *)error;
+- (BOOL)_unarchiveAppleArchiveWithFD:(int)d url:(id)url destinationURL:(id)l progress:(id)progress passphrases:(id)passphrases addToKeychain:(BOOL)keychain formats:(unint64_t)formats error:(id *)self0;
 - (BOOL)_unarchiveEntryAtPath:(const char *)path entry:(archive_entry *)entry fromArchive:(archive *)archive archiveURL:(id)l destinationURL:(id)rL progress:(id)progress error:(id *)error;
+- (BOOL)_unarchiveFromArchiveFD:(int)d url:(id)url passphrases:(id)passphrases addToKeychain:(BOOL)keychain destinationURL:(id)l formats:(unint64_t)formats progress:(id)progress readItemGroup:(id)self0 error:(id *)self1;
 - (BOOL)_writeOnArchiveEntryAtPath:(const char *)path entry:(archive_entry *)entry archive:(archive *)archive writeProgressHandler:(id)handler error:(id *)error;
 - (BOOL)_writeXattrEntryForURL:(id)l compressionFormat:(unint64_t)format archive:(archive *)archive entry:(archive_entry *)entry archiveURL:(id)rL commonParentPath:(id)path stat:(stat *)stat error:(id *)self0;
 - (DSArchiveExportedService)init;
@@ -23,10 +27,13 @@
 - (id)_errorForArchive:(archive *)archive itemURL:(id)l;
 - (id)_filepathForFd:(int)fd error:(id *)error;
 - (id)_passwordFromKeychainWithArchiveID:(char *)d archiveIDSize:(unint64_t)size;
+- (id)_quarantineDataFromArchiveFD:(int)d url:(id)url error:(id *)error;
 - (id)_replacePathComponent:(id)component withComponent:(id)withComponent inFilePath:(id)path;
 - (id)_sanitizedPathWithCString:(const char *)string length:(unint64_t)length;
+- (id)_temporaryURLAppropriateForURL:(id)l calledFromLegacyAPI:(BOOL)i error:(id *)error;
 - (id)archiveItemsWithURLWrappers:(id)wrappers passphrase:(id)passphrase addToKeychain:(BOOL)keychain compressionFormat:(unint64_t)format destinationFolderURLWrapper:(id)wrapper usePlaceholder:(BOOL)placeholder completionHandler:(id)handler;
 - (id)archiveItemsWithURLWrappers:(id)wrappers toURLWrapper:(id)wrapper options:(unint64_t)options compressionFormat:(unint64_t)format passphrase:(id)passphrase completionHandler:(id)handler;
+- (id)archivedItemDescriptorsForFD:(int)d url:(id)url passphrases:(id)passphrases progress:(id)progress formats:(unint64_t)formats destinationFolderURL:(id)l error:(id *)error;
 - (id)performActionOfKind:(unint64_t)kind onResourcesWithURLWrappers:(id)wrappers clientDestinationFolderURLWrapper:(id)wrapper calledFromLegacyAPI:(BOOL)i actionHandler:(id)handler completionHandler:(id)completionHandler;
 - (id)unarchiveItemWithURLWrapper:(id)wrapper passphrases:(id)passphrases addToKeychain:(BOOL)keychain destinationFolderURLWrapper:(id)lWrapper acceptedFormats:(unint64_t)formats exportsStreamingReceiver:(BOOL)receiver usePlaceholder:(BOOL)placeholder completionHandler:(id)self0;
 - (id)unarchiveItemWithURLWrapper:(id)wrapper toURLWrapper:(id)lWrapper options:(unint64_t)options passphrases:(id)passphrases acceptedFormats:(unint64_t)formats completionHandler:(id)handler;
@@ -467,7 +474,7 @@ LABEL_37:
   v58[0] = archiveCopy;
   v57[0] = NSURLErrorKey;
   v57[1] = NSLocalizedDescriptionKey;
-  TCFURLInfo::LocalizedStringWithFileName(@"ArchiveIsEmpty", archiveCopy, buf);
+  TCFURLInfo::LocalizedStringWithFileName(buf, @"ArchiveIsEmpty", archiveCopy);
   v30 = *buf;
   v58[1] = v30;
   v43 = [NSDictionary dictionaryWithObjects:v58 forKeys:v57 count:2];
@@ -699,6 +706,13 @@ LABEL_46:
   return cancelled;
 }
 
+- (id)_quarantineDataFromArchiveFD:(int)d url:(id)url error:(id *)error
+{
+  v5 = [NSData data:*&d];
+
+  return v5;
+}
+
 - (id)_errorForAppleArchive:(int)archive itemURL:(id)l
 {
   archiveCopy = archive;
@@ -765,6 +779,32 @@ LABEL_46:
   }
 
   return _archiveDecryptionError;
+}
+
+- (id)_temporaryURLAppropriateForURL:(id)l calledFromLegacyAPI:(BOOL)i error:(id *)error
+{
+  iCopy = i;
+  lCopy = l;
+  v9 = [(DSArchiveExportedService *)self __temporaryURLAppropriateForURL:lCopy calledFromLegacyAPI:iCopy error:error];
+  if (realpath_DARWIN_EXTSN([(NSURL *)v9 fileSystemRepresentation], v15))
+  {
+    [NSURL fileURLWithFileSystemRepresentation:v15 isDirectory:[(NSURL *)v9 hasDirectoryPath] relativeToURL:0];
+    v9 = p_super = &v9->super;
+  }
+
+  else
+  {
+    p_super = LogObj(0);
+    if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
+    {
+      v11 = SanitizedURL(v9);
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&_mh_execute_header, p_super, OS_LOG_TYPE_ERROR, "Couldn't fetch realpath for %{public}@", &v13, 0xCu);
+    }
+  }
+
+  return v9;
 }
 
 - (id)__temporaryURLAppropriateForURL:(id)l calledFromLegacyAPI:(BOOL)i error:(id *)error
@@ -936,7 +976,7 @@ LABEL_32:
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
   v13 = objc_opt_new();
-  v14 = sub_10001149C();
+  v14 = sub_10001149C(v13);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100014980;
@@ -1698,27 +1738,27 @@ LABEL_18:
   lsCopy = ls;
   passphraseCopy = passphrase;
   lCopy = l;
-  v58 = lsCopy;
+  v59 = lsCopy;
   progressCopy = progress;
   v14 = [NSString ds_commonParentPathForItemURLs:lsCopy];
   if (!v14)
   {
-    v32 = LogObj(0);
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v33 = LogObj(0);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       LOWORD(msg_data) = 0;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Couldn't fetch common parent", &msg_data, 2u);
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Couldn't fetch common parent", &msg_data, 2u);
     }
 
     if (error)
     {
       [NSError errorWithDomain:NSPOSIXErrorDomain code:22 userInfo:0];
-      *error = LOBYTE(v31) = 0;
+      *error = LOBYTE(v32) = 0;
       goto LABEL_59;
     }
 
 LABEL_22:
-    LOBYTE(v31) = 0;
+    LOBYTE(v32) = 0;
     goto LABEL_59;
   }
 
@@ -1731,25 +1771,25 @@ LABEL_22:
 
   path_list = AAPathListCreate();
   AAThreadErrorContextEnter();
-  v69 = 0u;
   v70 = 0u;
-  v67 = 0u;
+  v71 = 0u;
   v68 = 0u;
+  v69 = 0u;
   obj = lsCopy;
-  v15 = [obj countByEnumeratingWithState:&v67 objects:v88 count:16];
+  v15 = [obj countByEnumeratingWithState:&v68 objects:v89 count:16];
   if (v15)
   {
-    v16 = *v68;
+    v16 = *v69;
 LABEL_5:
     v17 = 0;
     while (1)
     {
-      if (*v68 != v16)
+      if (*v69 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v67 + 1) + 8 * v17);
+      v18 = *(*(&v68 + 1) + 8 * v17);
       if ([(DSArchiveExportedService *)self _isCancelled])
       {
         goto LABEL_16;
@@ -1758,11 +1798,11 @@ LABEL_5:
       path = [v18 path];
       v20 = [(DSArchiveExportedService *)self _replacePathComponent:v14 withComponent:&stru_10002D580 inFilePath:path];
 
-      v65 = 0;
       v66 = 0;
-      v21 = [v18 getResourceValue:&v66 forKey:NSURLIsDirectoryKey error:&v65];
-      v22 = v66;
-      v23 = v65;
+      v67 = 0;
+      v21 = [v18 getResourceValue:&v67 forKey:NSURLIsDirectoryKey error:&v66];
+      v22 = v67;
+      v23 = v66;
       if ((v21 & 1) == 0)
       {
         break;
@@ -1771,7 +1811,7 @@ LABEL_5:
       if ([v22 BOOLValue])
       {
         msg_data = 0u;
-        v73 = 0u;
+        v74 = 0u;
         *(&msg_data + 1) = v14;
         fileSystemRepresentation = [*(&msg_data + 1) fileSystemRepresentation];
         v25 = v20;
@@ -1792,25 +1832,25 @@ LABEL_5:
         if (!v26)
         {
 LABEL_31:
-          v38 = LogObj(0);
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          v39 = LogObj(0);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            v39 = v20;
+            v40 = v20;
             *buf = &stru_10002D580;
             CFRetain(&stru_10002D580);
-            TString::SetStringRefAsImmutable(buf, v39);
+            TString::SetStringRefAsImmutable(buf, v40);
 
-            v40 = SanitizedPath(buf);
+            v41 = SanitizedPath(buf);
             LODWORD(msg_data) = 138543362;
-            *(&msg_data + 4) = v40;
-            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Error building AAPathList for %{public}@", &msg_data, 0xCu);
+            *(&msg_data + 4) = v41;
+            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Error building AAPathList for %{public}@", &msg_data, 0xCu);
             sub_100004348(buf);
           }
 
 LABEL_33:
 
-          v30 = 0;
           v31 = 0;
+          v32 = 0;
           goto LABEL_38;
         }
       }
@@ -1820,7 +1860,7 @@ LABEL_33:
 
       if (v15 == ++v17)
       {
-        v15 = [obj countByEnumeratingWithState:&v67 objects:v88 count:16];
+        v15 = [obj countByEnumeratingWithState:&v68 objects:v89 count:16];
         if (v15)
         {
           goto LABEL_5;
@@ -1830,12 +1870,12 @@ LABEL_33:
       }
     }
 
-    v38 = LogObj(0);
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v39 = LogObj(0);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       LODWORD(msg_data) = 138412290;
       *(&msg_data + 4) = v23;
-      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Failed getting item type to generate AAPathList: %@", &msg_data, 0xCu);
+      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Failed getting item type to generate AAPathList: %@", &msg_data, 0xCu);
     }
 
     goto LABEL_33;
@@ -1843,71 +1883,72 @@ LABEL_33:
 
 LABEL_16:
 
-  if ([(DSArchiveExportedService *)self _isCancelled])
+  _isCancelled = [(DSArchiveExportedService *)self _isCancelled];
+  if (_isCancelled)
   {
-    v30 = 0;
-    v31 = 1;
+    v31 = 0;
+    v32 = 1;
   }
 
   else
   {
     *&msg_data = self;
-    v33 = v14;
-    *(&msg_data + 1) = v33;
-    v73 = progressCopy;
-    v30 = AAEncodeArchiveOutputStreamOpen(stream, &msg_data, sub_100017128, 1uLL, 0);
-    if (v30)
+    v34 = v14;
+    *(&msg_data + 1) = v34;
+    v74 = progressCopy;
+    v31 = AAEncodeArchiveOutputStreamOpen(stream, &msg_data, sub_100017128, 1uLL, 0);
+    if (v31)
     {
-      v34 = AAFieldKeySetCreateWithString("TYP,PAT,LNK,DEV,DAT,MOD,FLG,MTM,BTM,CTM,UID,GID,CLC,HLC,XAT");
-      v35 = v33;
-      v36 = AAArchiveStreamWritePathList(v30, path_list, v34, [v33 fileSystemRepresentation], 0, 0, 1uLL, 0);
-      if (v36 < 0)
+      v35 = AAFieldKeySetCreateWithString("TYP,PAT,LNK,DEV,DAT,MOD,FLG,MTM,BTM,CTM,UID,GID,CLC,HLC,XAT");
+      v36 = v34;
+      v37 = AAArchiveStreamWritePathList(v31, path_list, v35, [v34 fileSystemRepresentation], 0, 0, 1uLL, 0);
+      if (v37 < 0)
       {
-        v37 = LogObj(0);
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        v38 = LogObj(0);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Apple Archive encoding failed", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Apple Archive encoding failed", buf, 2u);
         }
       }
 
-      AAFieldKeySetDestroy(v34);
-      v31 = v36 >= 0;
+      AAFieldKeySetDestroy(v35);
+      v32 = v37 >= 0;
     }
 
     else
     {
-      v41 = LogObj(0);
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v42 = LogObj(0);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "AAEncodeArchiveOutputStreamOpen failed", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "AAEncodeArchiveOutputStreamOpen failed", buf, 2u);
       }
 
-      v31 = 0;
+      v32 = 0;
     }
   }
 
 LABEL_38:
-  v42 = sub_10001149C();
+  v43 = sub_10001149C(_isCancelled);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000173E4;
   block[3] = &unk_10002D268;
-  v63 = progressCopy;
-  dispatch_async(v42, block);
+  v64 = progressCopy;
+  dispatch_async(v43, block);
 
   AAPathListDestroy(path_list);
-  AAArchiveStreamClose(v30);
+  AAArchiveStreamClose(v31);
   AAByteStreamClose(stream);
-  if (!v31)
+  if (!v32)
   {
     goto LABEL_53;
   }
 
-  _isCancelled = [(DSArchiveExportedService *)self _isCancelled];
-  v44 = format == 5 ? _isCancelled : 1;
-  if (v44)
+  _isCancelled2 = [(DSArchiveExportedService *)self _isCancelled];
+  v45 = format == 5 ? _isCancelled2 : 1;
+  if (v45)
   {
     goto LABEL_53;
   }
@@ -1917,22 +1958,22 @@ LABEL_38:
     goto LABEL_53;
   }
 
-  v86 = 0u;
   v87 = 0u;
-  v84 = 0u;
+  v88 = 0u;
   v85 = 0u;
-  v82 = 0u;
+  v86 = 0u;
   v83 = 0u;
-  v80 = 0u;
+  v84 = 0u;
   v81 = 0u;
-  v78 = 0u;
+  v82 = 0u;
   v79 = 0u;
-  v76 = 0u;
+  v80 = 0u;
   v77 = 0u;
-  v74 = 0u;
+  v78 = 0u;
   v75 = 0u;
+  v76 = 0u;
   msg_data = 0u;
-  v73 = 0u;
+  v74 = 0u;
   *buf = 0;
   if (AEAContextGetFieldBlob(context, 0x12u, 0, 0x100uLL, &msg_data, buf))
   {
@@ -1941,11 +1982,11 @@ LABEL_38:
 
   if (!*buf)
   {
-    v47 = LogObj(0);
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v48 = LogObj(0);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
-      *v61 = 0;
-      v48 = "Not adding to keychain - invalid archive identifier size";
+      *v62 = 0;
+      v49 = "Not adding to keychain - invalid archive identifier size";
       goto LABEL_51;
     }
 
@@ -1954,19 +1995,19 @@ LABEL_52:
     goto LABEL_53;
   }
 
-  v45 = passphraseCopy;
-  [passphraseCopy UTF8String];
   v46 = passphraseCopy;
+  [passphraseCopy UTF8String];
+  v47 = passphraseCopy;
   strlen([passphraseCopy UTF8String]);
   if (AEAKeychainStoreItem())
   {
-    v47 = LogObj(0);
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v48 = LogObj(0);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
-      *v61 = 0;
-      v48 = "AEAKeychainStoreItem failed";
+      *v62 = 0;
+      v49 = "AEAKeychainStoreItem failed";
 LABEL_51:
-      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, v48, v61, 2u);
+      _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, v49, v62, 2u);
       goto LABEL_52;
     }
 
@@ -1975,24 +2016,24 @@ LABEL_51:
 
 LABEL_53:
   AEAContextDestroy(context);
-  v49 = AAThreadErrorContextLeave();
+  v50 = AAThreadErrorContextLeave();
   if (error)
   {
-    v50 = v31;
+    v51 = v32;
   }
 
   else
   {
-    v50 = 1;
+    v51 = 1;
   }
 
-  if ((v50 & 1) == 0)
+  if ((v51 & 1) == 0)
   {
-    *error = [(DSArchiveExportedService *)self _errorForAppleArchive:v49 itemURL:lCopy];
+    *error = [(DSArchiveExportedService *)self _errorForAppleArchive:v50 itemURL:lCopy];
   }
 
 LABEL_59:
-  return v31;
+  return v32;
 }
 
 - (BOOL)_createArchiveOfItemURLs:(id)ls compressionFormat:(unint64_t)format archive:(archive *)archive entry:(archive_entry *)entry archiveURL:(id)l fd:(int)fd progress:(id)progress error:(id *)self0
@@ -2192,10 +2233,10 @@ LABEL_40:
   passphraseCopy = passphrase;
   lCopy = l;
   progressCopy = progress;
-  v42[0] = 0;
-  v42[1] = v42;
-  v42[2] = 0x2020000000;
-  v42[3] = 0;
+  v43[0] = 0;
+  v43[1] = v43;
+  v43[2] = 0x2020000000;
+  v43[3] = 0;
   if (format == 5)
   {
     if (![passphraseCopy length])
@@ -2241,31 +2282,31 @@ LABEL_13:
 
   fdCopy = fd;
   formatCopy = format;
-  v39 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
+  v39 = 0u;
   v17 = lsCopy;
-  v20 = [v17 countByEnumeratingWithState:&v37 objects:v43 count:16];
+  v20 = [v17 countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v20)
   {
-    v21 = *v38;
+    v21 = *v39;
 LABEL_16:
     v22 = 0;
     while (1)
     {
-      if (*v38 != v21)
+      if (*v39 != v21)
       {
         objc_enumerationMutation(v17);
       }
 
-      v23 = *(*(&v37 + 1) + 8 * v22);
-      v36[0] = _NSConcreteStackBlock;
-      v36[1] = 3221225472;
-      v36[2] = sub_10001822C;
-      v36[3] = &unk_10002D308;
-      v36[4] = v42;
-      if (![(DSArchiveExportedService *)self _enumerateItemURL:v23 itemActionBlock:v36 error:error])
+      v23 = *(*(&v38 + 1) + 8 * v22);
+      v37[0] = _NSConcreteStackBlock;
+      v37[1] = 3221225472;
+      v37[2] = sub_10001822C;
+      v37[3] = &unk_10002D308;
+      v37[4] = v43;
+      if (![(DSArchiveExportedService *)self _enumerateItemURL:v23 itemActionBlock:v37 error:error])
       {
         goto LABEL_13;
       }
@@ -2277,7 +2318,7 @@ LABEL_16:
 
       if (v20 == ++v22)
       {
-        v20 = [v17 countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v20 = [v17 countByEnumeratingWithState:&v38 objects:v44 count:16];
         if (v20)
         {
           goto LABEL_16;
@@ -2288,31 +2329,31 @@ LABEL_16:
     }
   }
 
-  v24 = sub_10001149C();
+  v25 = sub_10001149C(v24);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000183CC;
   block[3] = &unk_10002D330;
-  v25 = progressCopy;
-  v34 = v25;
-  v35 = v42;
-  dispatch_async(v24, block);
+  v26 = progressCopy;
+  v35 = v26;
+  v36 = v43;
+  dispatch_async(v25, block);
 
   if ((formatCopy & 0xFFFFFFFFFFFFFFFELL) == 4)
   {
-    v19 = [(DSArchiveExportedService *)self _createAppleArchiveOfItemURLs:v17 passphrase:passphraseCopy addToKeychain:keychainCopy compressionFormat:formatCopy archiveURL:lCopy archiveFD:fdCopy progress:v25 error:error];
+    v19 = [(DSArchiveExportedService *)self _createAppleArchiveOfItemURLs:v17 passphrase:passphraseCopy addToKeychain:keychainCopy compressionFormat:formatCopy archiveURL:lCopy archiveFD:fdCopy progress:v26 error:error];
   }
 
   else
   {
-    v26 = archive_write_new();
-    v19 = [(DSArchiveExportedService *)self _createArchiveOfItemURLs:v17 compressionFormat:formatCopy archive:v26 entry:archive_entry_new() archiveURL:lCopy fd:fdCopy progress:v25 error:error];
+    v27 = archive_write_new();
+    v19 = [(DSArchiveExportedService *)self _createArchiveOfItemURLs:v17 compressionFormat:formatCopy archive:v27 entry:archive_entry_new() archiveURL:lCopy fd:fdCopy progress:v26 error:error];
     archive_entry_free();
     if (archive_write_close())
     {
       if (error)
       {
-        [(DSArchiveExportedService *)self _errorForArchive:v26 itemURL:lCopy];
+        [(DSArchiveExportedService *)self _errorForArchive:v27 itemURL:lCopy];
         *error = v19 = 0;
       }
 
@@ -2325,10 +2366,10 @@ LABEL_16:
     archive_write_free();
   }
 
-  v17 = v34;
+  v17 = v35;
 LABEL_31:
 
-  _Block_object_dispose(v42, 8);
+  _Block_object_dispose(v43, 8);
   return v19;
 }
 
@@ -2806,6 +2847,258 @@ LABEL_20:
   return v19;
 }
 
+- (BOOL)_listAppleArchiveWithFD:(int)d url:(id)url progress:(id)progress passphrases:(id)passphrases formats:(unint64_t)formats listItemHandler:(id)handler error:(id *)error
+{
+  v13 = *&d;
+  urlCopy = url;
+  progressCopy = progress;
+  passphrasesCopy = passphrases;
+  handlerCopy = handler;
+  context = 0;
+  v42 = urlCopy;
+  v19 = [(DSArchiveExportedService *)self _openAppleArchiveReadStreamWithFD:v13 url:urlCopy progress:progressCopy passphrases:passphrasesCopy addToKeychain:0 aeaContext:&context formats:formats error:error];
+  if (v19)
+  {
+    header = 0;
+    AAThreadErrorContextEnter();
+    v20 = AADecodeArchiveInputStreamOpen(v19, 0, 0, 0, 0);
+    if (v20)
+    {
+      while (1)
+      {
+        if ([(DSArchiveExportedService *)self _isCancelled])
+        {
+          v37 = 1;
+          goto LABEL_30;
+        }
+
+        value = 0;
+        length = 0;
+        bzero(buf, 0x400uLL);
+        v21 = AAArchiveStreamReadHeader(v20, &header);
+        if (v21 != 1)
+        {
+          break;
+        }
+
+        v22 = header;
+        v23.ikey = 5265748;
+        KeyIndex = AAHeaderGetKeyIndex(header, v23);
+        if ((KeyIndex & 0x80000000) == 0)
+        {
+          FieldUInt = AAHeaderGetFieldUInt(v22, KeyIndex, &value);
+          v26 = FieldUInt <= 1 ? 1 : FieldUInt;
+          if (v26 >= 1 && value - 68 <= 8 && ((1 << (value - 68)) & 0x105) != 0)
+          {
+            v27 = header;
+            v28.ikey = 5521744;
+            v29 = AAHeaderGetKeyIndex(header, v28);
+            if ((v29 & 0x80000000) == 0)
+            {
+              FieldString = AAHeaderGetFieldString(v27, v29, 0x400uLL, buf, &length);
+              v31 = FieldString <= 1 ? 1 : FieldString;
+              if (v31 >= 1)
+              {
+                if (value != 70 || (offset = 0, size = 0, v32 = header, v33.ikey = 5521732, v34 = AAHeaderGetKeyIndex(header, v33), (v34 & 0x80000000) != 0))
+                {
+                  v35 = 0;
+                }
+
+                else if (AAHeaderGetFieldBlob(v32, v34, &size, &offset) >= 2)
+                {
+                  v35 = 0;
+                }
+
+                else
+                {
+                  v35 = size;
+                }
+
+                v36 = [NSString stringWithUTF8String:buf];
+                if ([v36 length])
+                {
+                  handlerCopy[2](handlerCopy, v36, value, v35);
+                }
+              }
+            }
+          }
+        }
+      }
+
+      v37 = v21 >= 0;
+    }
+
+    else
+    {
+      v37 = 0;
+    }
+
+LABEL_30:
+    v38 = AAThreadErrorContextLeave();
+    if (!v37)
+    {
+      v39 = v38;
+      v40 = LogObj(0);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "Failed listing Apple Archive", buf, 2u);
+      }
+
+      if (error)
+      {
+        *error = [(DSArchiveExportedService *)self _errorForAppleArchive:v39 itemURL:v42];
+      }
+    }
+
+    AAArchiveStreamClose(v20);
+    AAByteStreamClose(v19);
+    AEAContextDestroy(context);
+  }
+
+  else
+  {
+    v37 = 0;
+  }
+
+  return v37;
+}
+
+- (BOOL)_unarchiveAppleArchiveWithFD:(int)d url:(id)url destinationURL:(id)l progress:(id)progress passphrases:(id)passphrases addToKeychain:(BOOL)keychain formats:(unint64_t)formats error:(id *)self0
+{
+  keychainCopy = keychain;
+  v14 = *&d;
+  urlCopy = url;
+  lCopy = l;
+  progressCopy = progress;
+  passphrasesCopy = passphrases;
+  v49[0] = 0;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x2020000000;
+  v48 = [(DSArchiveExportedService *)self _openAppleArchiveReadStreamWithFD:v14 url:urlCopy progress:progressCopy passphrases:passphrasesCopy addToKeychain:keychainCopy aeaContext:v49 formats:formats error:error];
+  if (!v46[3])
+  {
+    v24 = 0;
+    goto LABEL_20;
+  }
+
+  AAThreadErrorContextEnter();
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3042000000;
+  v42 = sub_100019D20;
+  v43 = sub_100019D2C;
+  v44 = 0;
+  v37[0] = 0;
+  v37[1] = v37;
+  v37[2] = 0x3042000000;
+  v37[3] = sub_100019D20;
+  v37[4] = sub_100019D2C;
+  objc_initWeak(&v38, self);
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100019D34;
+  block[3] = &unk_10002D358;
+  block[4] = &v39;
+  block[5] = v37;
+  block[6] = &v45;
+  v19 = dispatch_block_create(DISPATCH_BLOCK_INHERIT_QOS_CLASS, block);
+  objc_storeWeak(v40 + 5, v19);
+  v20 = dispatch_get_global_queue(0, 0);
+  dispatch_async(v20, v19);
+
+  v21 = AADecodeArchiveInputStreamOpen(v46[3], 0, 0, 1uLL, 0);
+  if (!v21)
+  {
+    v25 = LogObj(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      v26 = "AADecodeArchiveInputStreamOpen failed";
+LABEL_11:
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, v26, buf, 2u);
+    }
+
+LABEL_12:
+    v22 = 0;
+LABEL_13:
+    v23 = urlCopy;
+
+    v24 = 0;
+    goto LABEL_14;
+  }
+
+  v22 = AAExtractArchiveOutputStreamOpen([lCopy fileSystemRepresentation], 0, 0, 1uLL, 0);
+  if (!v22)
+  {
+    v25 = LogObj(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      v26 = "AAExtractArchiveOutputStreamOpen failed";
+      goto LABEL_11;
+    }
+
+    goto LABEL_12;
+  }
+
+  if (AAArchiveStreamProcess(v21, v22, 0, 0, 1uLL, 0) < 0)
+  {
+    v25 = LogObj(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "AAArchiveStreamProcess failed", buf, 2u);
+    }
+
+    goto LABEL_13;
+  }
+
+  v23 = urlCopy;
+  v24 = 1;
+LABEL_14:
+  dispatch_block_cancel(v19);
+  v28 = sub_10001149C(v27);
+  v33[0] = _NSConcreteStackBlock;
+  v33[1] = 3221225472;
+  v33[2] = sub_100019E28;
+  v33[3] = &unk_10002D268;
+  v34 = progressCopy;
+  dispatch_async(v28, v33);
+
+  AAArchiveStreamClose(v22);
+  AAArchiveStreamClose(v21);
+  AAByteStreamClose(v46[3]);
+  AEAContextDestroy(v49[0]);
+  urlCopy = v23;
+  v29 = AAThreadErrorContextLeave();
+  if (error)
+  {
+    v30 = v24;
+  }
+
+  else
+  {
+    v30 = 1;
+  }
+
+  if ((v30 & 1) == 0)
+  {
+    *error = [(DSArchiveExportedService *)self _errorForAppleArchive:v29 itemURL:v23];
+  }
+
+  _Block_object_dispose(v37, 8);
+  objc_destroyWeak(&v38);
+  _Block_object_dispose(&v39, 8);
+  objc_destroyWeak(&v44);
+
+LABEL_20:
+  _Block_object_dispose(&v45, 8);
+
+  return v24;
+}
+
 - (int)openArchiveFile:(id)file error:(id *)error
 {
   fileCopy = file;
@@ -2935,25 +3228,25 @@ LABEL_28:
 
   if (passphrasesCopy)
   {
-    v61 = 0u;
     v62 = 0u;
-    v59 = 0u;
+    v63 = 0u;
     v60 = 0u;
+    v61 = 0u;
     v30 = passphrasesCopy;
-    v31 = [v30 countByEnumeratingWithState:&v59 objects:v66 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v60 objects:v67 count:16];
     if (v31)
     {
-      v32 = *v60;
+      v32 = *v61;
       while (2)
       {
         for (i = 0; i != v31; i = i + 1)
         {
-          if (*v60 != v32)
+          if (*v61 != v32)
           {
             objc_enumerationMutation(v30);
           }
 
-          [*(*(&v59 + 1) + 8 * i) cStringUsingEncoding:4];
+          [*(*(&v60 + 1) + 8 * i) cStringUsingEncoding:4];
           if (archive_read_add_passphrase())
           {
             v38 = [(DSArchiveExportedService *)self _errorForArchive:archive itemURL:urlCopy];
@@ -2976,7 +3269,7 @@ LABEL_28:
           }
         }
 
-        v31 = [v30 countByEnumeratingWithState:&v59 objects:v66 count:16];
+        v31 = [v30 countByEnumeratingWithState:&v60 objects:v67 count:16];
         if (v31)
         {
           continue;
@@ -3010,15 +3303,15 @@ LABEL_28:
   }
 
   *&buf = archive;
-  v51 = progressCopy;
-  *(&buf + 1) = v51;
+  v52 = progressCopy;
+  *(&buf + 1) = v52;
   archive_read_extract_set_progress_callback();
   v42 = 0;
-  v58 = 0;
+  v59 = 0;
   v28 = 1;
   while ((v28 & 1) != 0)
   {
-    if ((v58 & 1) != 0 || [(DSArchiveExportedService *)self _isCancelled]|| (next_header2 = archive_read_next_header2(), next_header2 == 1))
+    if ((v59 & 1) != 0 || [(DSArchiveExportedService *)self _isCancelled]|| (next_header2 = archive_read_next_header2(), next_header2 == 1))
     {
       v28 = 1;
 LABEL_70:
@@ -3041,9 +3334,9 @@ LABEL_71:
       v48 = LogObj(0);
       if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
-        *v63 = 138412290;
-        v64 = v47;
-        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "Couldn't read the header of the entry: %@", v63, 0xCu);
+        *v64 = 138412290;
+        v65 = v47;
+        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "Couldn't read the header of the entry: %@", v64, 0xCu);
       }
 
       v28 = 0;
@@ -3055,9 +3348,9 @@ LABEL_71:
       v45 = archive_entry_pathname();
       if (v45 && (*v45 != 46 || v45[1] && (v45[1] != 46 || v45[2])))
       {
-        v57 = v42;
-        v28 = handlerCopy[2](handlerCopy, archive, entry, v45, &v57, &v58);
-        v46 = v57;
+        v58 = v42;
+        v28 = handlerCopy[2](handlerCopy, archive, entry, v45, &v58, &v59);
+        v46 = v58;
 
         v42 = v46;
         archive_entry_clear();
@@ -3083,17 +3376,161 @@ LABEL_71:
   }
 
 LABEL_72:
-  archive_read_extract_set_progress_callback();
-  v50 = sub_10001149C();
+  set_progress_callback = archive_read_extract_set_progress_callback();
+  v51 = sub_10001149C(set_progress_callback);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10001A888;
   block[3] = &unk_10002D268;
-  v56 = v51;
-  dispatch_async(v50, block);
+  v57 = v52;
+  dispatch_async(v51, block);
 
 LABEL_29:
   return v28;
+}
+
+- (BOOL)_openArchiveWithFD:(int)d url:(id)url progress:(id)progress passphrases:(id)passphrases formats:(unint64_t)formats readItemHandler:(id)handler error:(id *)error
+{
+  v13 = *&d;
+  urlCopy = url;
+  progressCopy = progress;
+  passphrasesCopy = passphrases;
+  handlerCopy = handler;
+  v19 = archive_read_new();
+  v20 = [(DSArchiveExportedService *)self _openArchiveWithFD:v13 url:urlCopy progress:progressCopy passphrases:passphrasesCopy formats:formats archive:v19 entry:archive_entry_new() readItemHandler:handlerCopy error:error];
+  archive_entry_free();
+  if (archive_read_close())
+  {
+    if (error)
+    {
+      [(DSArchiveExportedService *)self _errorForArchive:v19 itemURL:urlCopy];
+      *error = v20 = 0;
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+  }
+
+  archive_read_free();
+
+  return v20;
+}
+
+- (id)archivedItemDescriptorsForFD:(int)d url:(id)url passphrases:(id)passphrases progress:(id)progress formats:(unint64_t)formats destinationFolderURL:(id)l error:(id *)error
+{
+  v12 = *&d;
+  urlCopy = url;
+  passphrasesCopy = passphrases;
+  progressCopy = progress;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
+  v17 = objc_opt_new();
+  if (![(DSArchiveExportedService *)self _isAppleArchive:urlCopy])
+  {
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_10001B154;
+    v35[3] = &unk_10002D3A8;
+    v35[4] = self;
+    v18 = v17;
+    v36 = v18;
+    v38 = &v42;
+    v39 = &v46;
+    v20 = passphrasesCopy;
+    v37 = v20;
+    if ([(DSArchiveExportedService *)self _openArchiveWithFD:v12 url:urlCopy progress:progressCopy passphrases:v20 formats:formats readItemHandler:v35 error:error])
+    {
+      if (*(v43 + 24) != 1 || *(v47 + 24) != 1)
+      {
+        goto LABEL_9;
+      }
+
+      v33[0] = _NSConcreteStackBlock;
+      v33[1] = 3221225472;
+      v33[2] = sub_10001B47C;
+      v33[3] = &unk_10002D3D0;
+      v33[4] = self;
+      v34 = urlCopy;
+      v32 = 0;
+      v21 = [(DSArchiveExportedService *)self _openArchiveWithFD:v12 url:v34 progress:progressCopy passphrases:v20 formats:formats readItemHandler:v33 error:&v32];
+      v22 = v32;
+      v23 = v22;
+      if (v21)
+      {
+
+LABEL_9:
+        goto LABEL_10;
+      }
+
+      if (error)
+      {
+        v30 = v22;
+        *error = v23;
+      }
+    }
+
+LABEL_21:
+    v17 = 0;
+    goto LABEL_22;
+  }
+
+  v40[0] = _NSConcreteStackBlock;
+  v40[1] = 3221225472;
+  v40[2] = sub_10001AF2C;
+  v40[3] = &unk_10002D380;
+  v18 = v17;
+  v41 = v18;
+  v19 = [(DSArchiveExportedService *)self _listAppleArchiveWithFD:v12 url:urlCopy progress:progressCopy passphrases:passphrasesCopy formats:formats listItemHandler:v40 error:error];
+
+  if ((v19 & 1) == 0)
+  {
+    goto LABEL_21;
+  }
+
+LABEL_10:
+  if (![v17 count])
+  {
+    v52[0] = urlCopy;
+    v51[0] = NSURLErrorKey;
+    v51[1] = NSLocalizedDescriptionKey;
+    TCFURLInfo::LocalizedStringWithFileName(buf, @"ArchiveIsEmpty", urlCopy);
+    v24 = *buf;
+    v52[1] = v24;
+    v25 = [NSDictionary dictionaryWithObjects:v52 forKeys:v51 count:2];
+
+    sub_100004348(buf);
+    v26 = [NSError errorWithDomain:@"com.apple.desktopservices.ArchiveService" code:-1001 userInfo:v25];
+    v27 = LogObj(0);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      v28 = SanitizedURL(urlCopy);
+      *buf = 138543362;
+      *&buf[4] = v28;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "No items listed from %{public}@", buf, 0xCu);
+    }
+
+    if (error)
+    {
+      v29 = v26;
+      *error = v26;
+    }
+  }
+
+  v18 = 0;
+LABEL_22:
+
+  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v46, 8);
+
+  return v17;
 }
 
 - (BOOL)_unarchiveEntryAtPath:(const char *)path entry:(archive_entry *)entry fromArchive:(archive *)archive archiveURL:(id)l destinationURL:(id)rL progress:(id)progress error:(id *)error
@@ -3133,7 +3570,7 @@ LABEL_16:
       v34[0] = lCopy;
       v33[0] = NSURLErrorKey;
       v33[1] = NSLocalizedDescriptionKey;
-      TCFURLInfo::LocalizedStringWithFileName(@"InvalidBomZip", lCopy, v32);
+      TCFURLInfo::LocalizedStringWithFileName(v32, @"InvalidBomZip", lCopy);
       v30 = *v32;
       v34[1] = v30;
       v31 = [NSDictionary dictionaryWithObjects:v34 forKeys:v33 count:2];
@@ -3181,6 +3618,56 @@ LABEL_15:
 LABEL_17:
 
   return v25;
+}
+
+- (BOOL)_unarchiveFromArchiveFD:(int)d url:(id)url passphrases:(id)passphrases addToKeychain:(BOOL)keychain destinationURL:(id)l formats:(unint64_t)formats progress:(id)progress readItemGroup:(id)self0 error:(id *)self1
+{
+  keychainCopy = keychain;
+  v15 = *&d;
+  urlCopy = url;
+  passphrasesCopy = passphrases;
+  lCopy = l;
+  progressCopy = progress;
+  v38[0] = 0;
+  v37 = 0;
+  LODWORD(l) = [urlCopy getResourceValue:v38 forKey:NSURLFileSizeKey error:&v37];
+  v27 = v38[0];
+  v20 = v37;
+  v26 = v20;
+  if (l)
+  {
+    v21 = sub_10001149C(v20);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10001BBA0;
+    block[3] = &unk_10002CE80;
+    v35 = progressCopy;
+    v36 = v27;
+    dispatch_async(v21, block);
+  }
+
+  path = [lCopy path];
+  if ([(DSArchiveExportedService *)self _isAppleArchive:urlCopy])
+  {
+    v23 = [passphrasesCopy mutableCopy];
+    v24 = [(DSArchiveExportedService *)self _unarchiveAppleArchiveWithFD:v15 url:urlCopy destinationURL:lCopy progress:progressCopy passphrases:v23 addToKeychain:keychainCopy formats:formats error:error];
+  }
+
+  else
+  {
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_10001BBE0;
+    v29[3] = &unk_10002D3F8;
+    v29[4] = self;
+    v30 = path;
+    v31 = urlCopy;
+    v32 = lCopy;
+    v33 = progressCopy;
+    v24 = [(DSArchiveExportedService *)self _openArchiveWithFD:v15 url:v31 progress:v33 passphrases:passphrasesCopy formats:formats readItemHandler:v29 error:error];
+  }
+
+  return v24;
 }
 
 @end

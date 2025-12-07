@@ -5,6 +5,8 @@
 - (id)reconcileTransaction:(unint64_t)transaction withLocalCall:(id)call withRemoteCall:(id)remoteCall;
 - (id)unarchiveCallObject:(id)object;
 - (void)dealloc;
+- (void)handleRemoteTransactionsNotification:(id)notification withChangeToken:(id)token withMoreComing:(id)coming withSource:(unsigned __int8)source;
+- (void)handleRemoteTransactionsNotification:(id)notification withSource:(unsigned __int8)source;
 - (void)parseMergeDictionary:(id)dictionary withSyncSource:(unsigned __int8)source;
 - (void)registerForNotifications;
 @end
@@ -161,6 +163,43 @@ LABEL_21:
   }
 
 LABEL_22:
+}
+
+- (void)handleRemoteTransactionsNotification:(id)notification withSource:(unsigned __int8)source
+{
+  sourceCopy = source;
+  notificationCopy = notification;
+  v7 = objc_opt_new();
+  v11 = [(MergeTransactions *)self merge:v7 withRemoteTransactions:notificationCopy];
+
+  v8 = objc_opt_new();
+  [v8 setObject:v11 forKeyedSubscript:@"kCHMergeTransactionsResultKey"];
+  v9 = [[NSNumber alloc] initWithInt:sourceCopy];
+  [v8 setObject:v9 forKeyedSubscript:@"kCHSyncSourceKey"];
+
+  v10 = +[NSNotificationCenter defaultCenter];
+  [v10 postNotificationName:@"kCallHistoryRemoteTransactionsAppliedNotification" object:0 userInfo:v8];
+}
+
+- (void)handleRemoteTransactionsNotification:(id)notification withChangeToken:(id)token withMoreComing:(id)coming withSource:(unsigned __int8)source
+{
+  sourceCopy = source;
+  comingCopy = coming;
+  tokenCopy = token;
+  notificationCopy = notification;
+  v13 = objc_opt_new();
+  v17 = [(MergeTransactions *)self merge:v13 withRemoteTransactions:notificationCopy];
+
+  v14 = objc_opt_new();
+  [v14 setObject:tokenCopy forKeyedSubscript:@"kCHChangeTokenKey"];
+
+  [v14 setObject:comingCopy forKeyedSubscript:@"kCHMoreTransactionsComingKey"];
+  [v14 setObject:v17 forKeyedSubscript:@"kCHMergeTransactionsResultKey"];
+  v15 = [[NSNumber alloc] initWithInt:sourceCopy];
+  [v14 setObject:v15 forKeyedSubscript:@"kCHSyncSourceKey"];
+
+  v16 = +[NSNotificationCenter defaultCenter];
+  [v16 postNotificationName:@"kCallHistoryRemoteTransactionsAppliedNotification" object:0 userInfo:v14];
 }
 
 - (id)merge:(id)merge withRemoteTransactions:(id)transactions

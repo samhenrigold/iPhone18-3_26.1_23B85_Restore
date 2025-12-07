@@ -86,84 +86,84 @@
 
 - (__CFXProgram)programWithHashCode:(__CFXProgramHashCode *)code engineContext:(__CFXEngineContext *)context trackedResource:(id)resource introspectionDataPtr:(void *)ptr
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v11 = sub_1AF13E494(code);
   if (v11)
   {
-    v12 = v11;
+    v13 = v11;
     os_unfair_lock_lock(&self->_programMutex);
-    Value = CFDictionaryGetValue(self->_shaders, v12);
+    Value = CFDictionaryGetValue(self->_shaders, v13);
     if (Value)
     {
-      v14 = Value;
-      v15 = CFSetContainsValue(Value[2], resource);
-      v16 = v15 == 0;
-      if (!v15)
+      v15 = Value;
+      v16 = CFSetContainsValue(Value[2], resource);
+      v17 = v16 == 0;
+      if (!v16)
       {
-        CFSetAddValue(v14[2], resource);
+        CFSetAddValue(v15[2], resource);
       }
 
-      v17 = v14[1];
+      v18 = v15[1];
     }
 
     else
     {
-      v26 = objc_autoreleasePoolPush();
-      v27 = sub_1AF0D5194();
-      v28 = os_signpost_id_generate(v27);
-      v29 = sub_1AF0D5194();
-      if (v28 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+      v27 = objc_autoreleasePoolPush();
+      v29 = sub_1AF0D5194(v27, v28);
+      v30 = os_signpost_id_generate(v29);
+      v32 = sub_1AF0D5194(v30, v31);
+      if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v31 = v29;
-        if (os_signpost_enabled(v29))
-        {
-          LOWORD(v40) = 0;
-          _os_signpost_emit_with_name_impl(&dword_1AF0CE000, v31, OS_SIGNPOST_INTERVAL_BEGIN, v28, "GenerateShader", &unk_1AFF70A1D, &v40, 2u);
-        }
-      }
-
-      v17 = objc_msgSend__newProgramWithHashCode_engineContext_introspectionDataPtr_(self, v30, code, context, ptr);
-      v32 = sub_1AF0D5194();
-      if (v28 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-      {
-        v33 = v32;
+        v34 = v32;
         if (os_signpost_enabled(v32))
         {
-          LOWORD(v40) = 0;
-          _os_signpost_emit_with_name_impl(&dword_1AF0CE000, v33, OS_SIGNPOST_INTERVAL_END, v28, "GenerateShader", &unk_1AFF70A1D, &v40, 2u);
+          LOWORD(v45) = 0;
+          _os_signpost_emit_with_name_impl(&dword_1AF0CE000, v34, OS_SIGNPOST_INTERVAL_BEGIN, v30, "GenerateShader", &unk_1AFF70A1D, &v45, 2u);
         }
       }
 
-      objc_autoreleasePoolPop(v26);
-      if (!v17)
+      v18 = objc_msgSend__newProgramWithHashCode_engineContext_introspectionDataPtr_(self, v33, code, context, ptr);
+      v36 = sub_1AF0D5194(v18, v35);
+      if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v37 = CFCopyDescription(code);
-        v38 = sub_1AF0D5194();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v37 = v36;
+        if (os_signpost_enabled(v36))
         {
-          v40 = 138412546;
-          v41 = v12;
-          v42 = 2112;
-          v43 = v37;
-          _os_log_impl(&dword_1AF0CE000, v38, OS_LOG_TYPE_DEFAULT, "Warning: Failed to create program for hashcode %@: %@", &v40, 0x16u);
+          LOWORD(v45) = 0;
+          _os_signpost_emit_with_name_impl(&dword_1AF0CE000, v37, OS_SIGNPOST_INTERVAL_END, v30, "GenerateShader", &unk_1AFF70A1D, &v45, 2u);
+        }
+      }
+
+      objc_autoreleasePoolPop(v27);
+      if (!v18)
+      {
+        v41 = CFCopyDescription(code);
+        v43 = sub_1AF0D5194(v41, v42);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+        {
+          v45 = 138412546;
+          v46 = v13;
+          v47 = 2112;
+          v48 = v41;
+          _os_log_impl(&dword_1AF0CE000, v43, OS_LOG_TYPE_DEFAULT, "Warning: Failed to create program for hashcode %@: %@", &v45, 0x16u);
         }
 
-        CFRelease(v37);
-        v17 = 0;
+        CFRelease(v41);
+        v18 = 0;
         goto LABEL_27;
       }
 
-      sub_1AF16CC34(v17, v12);
-      v34 = objc_alloc_init(VFXCommonProfileProgramCache);
-      v34->_program = CFRetain(v17);
-      CFSetAddValue(v34->_owners, resource);
-      CFDictionarySetValue(self->_shaders, v12, v34);
+      sub_1AF16CC34(v18, v13);
+      v38 = objc_alloc_init(VFXCommonProfileProgramCache);
+      v38->_program = CFRetain(v18);
+      CFSetAddValue(v38->_owners, resource);
+      CFDictionarySetValue(self->_shaders, v13, v38);
 
-      CFRelease(v17);
-      v16 = 1;
+      CFRelease(v18);
+      v17 = 1;
     }
 
-    if (v16 && v17 != 0)
+    if (v17 && v18 != 0)
     {
       Mutable = CFDictionaryGetValue(self->_trackedResourcesToHashcode, resource);
       if (!Mutable)
@@ -173,18 +173,18 @@
         CFRelease(Mutable);
       }
 
-      CFArrayAppendValue(Mutable, v12);
+      CFArrayAppendValue(Mutable, v13);
     }
 
 LABEL_27:
     os_unfair_lock_unlock(&self->_programMutex);
-    return v17;
+    return v18;
   }
 
-  v18 = sub_1AF0D5194();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+  v19 = sub_1AF0D5194(0, v12);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
   {
-    sub_1AFDE45F0(v18, v19, v20, v21, v22, v23, v24, v25);
+    sub_1AFDE45F0(v19, v20, v21, v22, v23, v24, v25, v26);
   }
 
   return 0;
@@ -194,7 +194,7 @@ LABEL_27:
 {
   if (!resource)
   {
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       sub_1AFDE4668(v5, v6, v7, v8, v9, v10, v11, v12);
@@ -216,9 +216,9 @@ LABEL_27:
         v19 = CFDictionaryGetValue(self->_shaders, ValueAtIndex);
         if (v19)
         {
-          v20 = v19;
+          v21 = v19;
           CFSetRemoveValue(v19[2], resource);
-          if (!CFSetGetCount(v20[2]))
+          if (!CFSetGetCount(v21[2]))
           {
             CFDictionaryRemoveValue(self->_shaders, ValueAtIndex);
           }
@@ -227,10 +227,10 @@ LABEL_27:
         else if ((byte_1EB658680 & 1) == 0)
         {
           byte_1EB658680 = 1;
-          v21 = sub_1AF0D5194();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v22 = sub_1AF0D5194(0, v20);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            sub_1AFDE46E0(&v22, v23, v21);
+            sub_1AFDE46E0(&v23, v24, v22);
           }
         }
       }

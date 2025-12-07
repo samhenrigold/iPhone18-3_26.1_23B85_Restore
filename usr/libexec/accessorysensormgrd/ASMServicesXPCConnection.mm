@@ -40,7 +40,7 @@
   else if (error)
   {
 LABEL_9:
-    v9 = ASMErrorF();
+    v9 = ASMErrorF(4294896128, "Missing entitlement '%@'", @"com.apple.AccessorySensorManager");
     v10 = v9;
     result = 0;
     *error = v9;
@@ -80,7 +80,7 @@ LABEL_9:
   else if (error)
   {
 LABEL_9:
-    v9 = ASMErrorF();
+    v9 = ASMErrorF(4294896128, "Missing entitlement for private SPI '%@'", @"com.apple.private.AccessorySensorManager");
     v10 = v9;
     result = 0;
     *error = v9;
@@ -92,17 +92,23 @@ LABEL_9:
 
 - (void)xpcConnectionInvalidated
 {
-  if (dword_10001A478 <= 30 && (dword_10001A478 != -1 || _LogCategory_Initialize()))
+  if (dword_10001A478 <= 30)
   {
-    sub_100009898();
+    if (dword_10001A478 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100009898(self, a2, v2);
+    }
   }
 }
 
 - (void)xpcConnectionInterrupted
 {
-  if (dword_10001A478 <= 30 && (dword_10001A478 != -1 || _LogCategory_Initialize()))
+  if (dword_10001A478 <= 30)
   {
-    sub_1000098B4();
+    if (dword_10001A478 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1000098B4(self, a2, v2);
+    }
   }
 }
 
@@ -111,40 +117,38 @@ LABEL_9:
   modifyCopy = modify;
   configurationCopy = configuration;
   identifierCopy = identifier;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = sub_100007B64;
-  v27 = sub_100007B74;
-  v28 = 0;
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_100007B7C;
-  v20[3] = &unk_100014728;
-  v22 = &v23;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = sub_100007B64;
+  v25 = sub_100007B74;
+  v26 = 0;
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_100007B7C;
+  v18[3] = &unk_100014728;
+  v20 = &v21;
   completionCopy = completion;
-  v21 = completionCopy;
-  v14 = objc_retainBlock(v20);
-  v15 = (v24 + 5);
-  obj = v24[5];
+  v19 = completionCopy;
+  v14 = objc_retainBlock(v18);
+  v15 = (v22 + 5);
+  obj = v22[5];
   LOBYTE(self) = [(ASMServicesXPCConnection *)self _entitledAndReturnError:&obj];
   objc_storeStrong(v15, obj);
   if (self)
   {
     if (dword_10001A478 <= 30 && (dword_10001A478 != -1 || _LogCategory_Initialize()))
     {
-      v17 = modifyCopy;
-      v18 = identifierCopy;
-      LogPrintF();
+      LogPrintF(&dword_10001A478, "[ASMServicesXPCConnection modify:peripheralConfiguration:identifier:completion:]", 30, "modifyPeripheralConfiguration: %@, identifier: %@", modifyCopy, identifierCopy);
     }
 
-    v16 = [ASMPeripheralControl sharedInstance:v17];
+    v16 = +[ASMPeripheralControl sharedInstance];
     [v16 modifyPeripheralConfiguration:configurationCopy identifier:identifierCopy completion:completionCopy];
   }
 
   (v14[2])(v14);
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v21, 8);
 }
 
 - (void)write:(id)write withData:(id)data characteristic:(id)characteristic identifier:(id)identifier completion:(id)completion
@@ -153,40 +157,38 @@ LABEL_9:
   dataCopy = data;
   characteristicCopy = characteristic;
   identifierCopy = identifier;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = sub_100007B64;
-  v30 = sub_100007B74;
-  v31 = 0;
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_100007E88;
-  v23[3] = &unk_100014728;
-  v25 = &v26;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = sub_100007B64;
+  v28 = sub_100007B74;
+  v29 = 0;
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_100007E88;
+  v21[3] = &unk_100014728;
+  v23 = &v24;
   completionCopy = completion;
-  v24 = completionCopy;
-  v17 = objc_retainBlock(v23);
-  v18 = (v27 + 5);
-  obj = v27[5];
+  v22 = completionCopy;
+  v17 = objc_retainBlock(v21);
+  v18 = (v25 + 5);
+  obj = v25[5];
   LOBYTE(self) = [(ASMServicesXPCConnection *)self _entitledAndReturnError:&obj];
   objc_storeStrong(v18, obj);
   if (self)
   {
     if (dword_10001A478 <= 30 && (dword_10001A478 != -1 || _LogCategory_Initialize()))
     {
-      v20 = writeCopy;
-      v21 = identifierCopy;
-      LogPrintF();
+      LogPrintF(&dword_10001A478, "[ASMServicesXPCConnection write:withData:characteristic:identifier:completion:]", 30, "writeWithData: %@, identifier: %@", writeCopy, identifierCopy);
     }
 
-    v19 = [ASMPeripheralControl sharedInstance:v20];
+    v19 = +[ASMPeripheralControl sharedInstance];
     [v19 writeWithData:dataCopy characteristic:characteristicCopy identifier:identifierCopy completion:completionCopy];
   }
 
   (v17[2])(v17);
 
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v24, 8);
 }
 
 - (BOOL)_shouldSendXPCMessage

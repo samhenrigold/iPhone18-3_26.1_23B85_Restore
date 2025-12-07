@@ -30,7 +30,7 @@
     v4 = objc_opt_new();
     for (i = 4; i != 832; ++i)
     {
-      if ([(ATXMLInferenceFeatureProvider *)self predictionItem][4 * i] != -31337.0)
+      if (*(objc_msgSend_predictionItem(self) + 4 * i) != -31337.0)
       {
         v6 = [_ATXScoreTypes aggdStringForScoreInput:i - 4];
         [v4 addObject:v6];
@@ -51,36 +51,38 @@
 {
   nameCopy = name;
   v5 = [_ATXScoreTypes scoreInputForAggdString:nameCopy];
-  if (v5 == 0xFFFFFFFF || v5 == 828)
+  v6 = v5;
+  if (v5 == 0xFFFFFFFFLL || v5 == 828)
   {
-    v6 = __atxlog_handle_ml_inference();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_ml_inference(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(ATXMLInferenceFeatureProvider *)nameCopy featureValueForName:v6];
+      [(ATXMLInferenceFeatureProvider *)nameCopy featureValueForName:v7];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v8 = ([(ATXMLInferenceFeatureProvider *)self predictionItem]+ 4 * v5)[16];
-    v9 = -31337.0;
-    if (v8 == -31337.0)
+    v9 = objc_msgSend_predictionItem(self);
+    v10 = *(v9 + 4 * v6 + 16);
+    v11 = -31337.0;
+    if (v10 == -31337.0)
     {
-      v10 = __atxlog_handle_ml_inference();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v12 = __atxlog_handle_ml_inference(v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        [(ATXMLInferenceFeatureProvider *)nameCopy featureValueForName:v10];
+        [(ATXMLInferenceFeatureProvider *)nameCopy featureValueForName:v12];
       }
 
-      v8 = 0.0;
+      v10 = 0.0;
     }
 
-    v7 = [MEMORY[0x277CBFEF8] featureValueWithDouble:{v8, v9}];
+    v8 = [MEMORY[0x277CBFEF8] featureValueWithDouble:{v10, v11}];
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)setPredictionItem:(ATXPredictionItem *)item
@@ -109,20 +111,18 @@
 
 - (void)featureValueForName:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Score input for %@ do not exists", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Score input for %@ do not exists", &v2, 0xCu);
 }
 
 - (void)featureValueForName:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "No input present for feature %@; returning default;", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "No input present for feature %@; returning default;", &v2, 0xCu);
 }
 
 @end

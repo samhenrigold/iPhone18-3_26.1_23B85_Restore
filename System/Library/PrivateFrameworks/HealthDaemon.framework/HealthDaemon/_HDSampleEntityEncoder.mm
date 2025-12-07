@@ -9,16 +9,14 @@
 
 - (id)orderedProperties
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"data_type";
-  v9[1] = @"start_date";
-  v9[2] = @"end_date";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
+  v8[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"data_type";
+  v8[1] = @"start_date";
+  v8[2] = @"end_date";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

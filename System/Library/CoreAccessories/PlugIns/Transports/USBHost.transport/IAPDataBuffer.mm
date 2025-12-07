@@ -45,7 +45,7 @@
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [IAPDataBuffer initWithiAPInterface:?];
+      [IAPDataBuffer initWithiAPInterface:];
     }
 
     if (gLogObjects && gNumLogObjects >= 1)
@@ -100,20 +100,9 @@
 
 - (void)initWithiAPInterface:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithiAPInterface:(uint64_t *)a1 .cold.2(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

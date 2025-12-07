@@ -1,26 +1,26 @@
 @interface UIPencilInteractionSqueeze
 - (UIPencilInteractionSqueeze)init;
+- (id)_initWithTimestamp:(void *)timestamp eventPhase:(double)phase normalizedForceVelocity:(double)velocity hoverPose:;
 - (id)debugDescriptionWithMultilinePrefix:(id)prefix;
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)succinctDescription;
 - (id)succinctDescriptionBuilder;
-- (uint64_t)_initWithTimestamp:(void *)timestamp eventPhase:(double)phase normalizedForceVelocity:(double)velocity hoverPose:;
 @end
 
 @implementation UIPencilInteractionSqueeze
 
-- (uint64_t)_initWithTimestamp:(void *)timestamp eventPhase:(double)phase normalizedForceVelocity:(double)velocity hoverPose:
+- (id)_initWithTimestamp:(void *)timestamp eventPhase:(double)phase normalizedForceVelocity:(double)velocity hoverPose:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (!self)
   {
     return 0;
   }
 
-  v12.receiver = self;
-  v12.super_class = UIPencilInteractionSqueeze;
-  v9 = objc_msgSendSuper2(&v12, sel_init);
+  v14.receiver = self;
+  v14.super_class = UIPencilInteractionSqueeze;
+  v9 = objc_msgSendSuper2(&v14, sel_init);
   v10 = v9;
   if (!v9)
   {
@@ -36,16 +36,22 @@
     return v10;
   }
 
-  v13 = 0;
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v16 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v14 = 134217984;
-  v15 = a2;
-  _os_log_send_and_compose_impl();
+  v15 = 0;
+  memset(v18, 0, sizeof(v18));
+  v12 = MEMORY[0x1E69E9C10];
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v13 = 3;
+  }
+
+  else
+  {
+    v13 = 2;
+  }
+
+  v16 = 134217984;
+  v17 = a2;
+  _os_log_send_and_compose_impl(v13, &v15, v18, 80, &dword_188A29000, v12, 16, "Unexpected event phase: %llu", &v16);
   result = _os_crash_msg();
   __break(1u);
   return result;

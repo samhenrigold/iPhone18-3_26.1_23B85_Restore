@@ -68,7 +68,7 @@
   [(MTObserverStore *)self _withLock:v9];
 }
 
-uint64_t __40__MTObserverStore_addObserver_wasFirst___block_invoke(uint64_t a1)
+void *__40__MTObserverStore_addObserver_wasFirst___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) addObject:*(a1 + 40)];
   if (*(a1 + 48))
@@ -102,7 +102,7 @@ uint64_t __40__MTObserverStore_addObserver_wasFirst___block_invoke(uint64_t a1)
   [(MTObserverStore *)self _withLock:v9];
 }
 
-uint64_t __42__MTObserverStore_removeObserver_wasLast___block_invoke(uint64_t a1)
+void *__42__MTObserverStore_removeObserver_wasLast___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) removeObject:*(a1 + 40)];
   if (*(a1 + 48))
@@ -158,28 +158,28 @@ uint64_t __47__MTObserverStore_enumerateObserversWithBlock___block_invoke(uint64
 
 void __47__MTObserverStore_enumerateObserversWithBlock___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(*(*(a1 + 40) + 8) + 40);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        if (*(*(&v8 + 1) + 8 * v6))
+        if (*(*(&v7 + 1) + 8 * v6))
         {
           (*(*(a1 + 32) + 16))(*(a1 + 32));
         }
@@ -188,13 +188,11 @@ void __47__MTObserverStore_enumerateObserversWithBlock___block_invoke_2(uint64_t
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)containsObserver:(id)observer
@@ -224,7 +222,7 @@ void __47__MTObserverStore_enumerateObserversWithBlock___block_invoke_2(uint64_t
   return v7;
 }
 
-uint64_t __36__MTObserverStore_containsObserver___block_invoke(void *a1)
+void *__36__MTObserverStore_containsObserver___block_invoke(void *a1)
 {
   result = [*(a1[4] + 24) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -249,7 +247,7 @@ uint64_t __36__MTObserverStore_containsObserver___block_invoke(void *a1)
   return v2;
 }
 
-uint64_t __24__MTObserverStore_count__block_invoke(uint64_t a1)
+void *__24__MTObserverStore_count__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) count];
   *(*(*(a1 + 40) + 8) + 24) = result;

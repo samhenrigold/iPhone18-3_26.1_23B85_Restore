@@ -7,7 +7,7 @@
 
 - (OrgApacheLuceneSearchScorer)initWithOrgApacheLuceneSearchWeight:(id)weight
 {
-  OrgApacheLuceneSearchDocIdSetIterator_init(self, a2);
+  OrgApacheLuceneSearchDocIdSetIterator_init();
   JreStrongAssign(&self->weight_, weight);
   return self;
 }

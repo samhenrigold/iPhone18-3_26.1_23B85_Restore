@@ -86,7 +86,7 @@ uint64_t _SetupServerAuthenticationFailed(uint64_t a1, unsigned int a2, uint64_t
   {
     v13 = *(a1 + 16);
 LABEL_3:
-    LogPrintF_safe(v13, "OSStatus _SetupServerAuthenticationFailed(PairingSessionRef, uint8_t, TLV8Buffer *, uint8_t **, size_t *)", 0x1Eu, "### PairSetup server wrong setup code", a5, a6, a7, a8, v18[0]);
+    LogPrintF_safe(v13, "OSStatus _SetupServerAuthenticationFailed(PairingSessionRef, uint8_t, TLV8Buffer *, uint8_t **, size_t *)", 30, "### PairSetup server wrong setup code", a5, a6, a7, a8, v18[0]);
   }
 
 LABEL_5:
@@ -204,7 +204,7 @@ LABEL_10:
     if (*v17 != -1)
     {
 LABEL_12:
-      LogPrintF(v17, "OSStatus _ServerEncryptExtra(PairingSessionRef, const uint8_t *, TLV8Buffer *)", 0x5Au, "### ServerEncryptExtra failed: %#m\n", v10, v11, v12, v13, v14);
+      LogPrintF(v17, "OSStatus _ServerEncryptExtra(PairingSessionRef, const uint8_t *, TLV8Buffer *)", 90, "### ServerEncryptExtra failed: %#m\n", v10, v11, v12, v13, v14);
       return;
     }
 
@@ -319,174 +319,174 @@ uint64_t _PairingSessionVerifyAllowed(uint64_t a1)
   return result;
 }
 
-uint64_t PairingSessionSavePeer(uint64_t a1, char *__s, size_t a3, unsigned __int8 *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PairingSessionSavePeer(uint64_t a1, char *__s, size_t a3, unsigned __int8 *a4)
 {
-  v9 = a3;
-  v62 = *MEMORY[0x1E69E9840];
+  v5 = a3;
+  v58 = *MEMORY[0x1E69E9840];
   if (a3 == -1)
   {
-    v9 = strlen(__s);
+    v5 = strlen(__s);
   }
 
-  v12 = *(a1 + 72);
-  if (v12)
+  v8 = *(a1 + 72);
+  if (v8)
   {
-    v13 = *(a1 + 24);
+    v9 = *(a1 + 24);
 
-    return v12(__s, v9, a4, v13);
+    return v8(__s, v5, a4, v9);
   }
 
   if ((*(a1 + 100) & 4) != 0)
   {
-    v57 = 0;
-    v58 = &v57;
-    v59 = 0x2020000000;
-    v60 = 1;
-    v15 = StringToUUIDEx(__s, v9, 0, 0, &v61, a6, a7, a8);
-    *(v58 + 6) = v15;
-    if (v15)
+    v53 = 0;
+    v54 = &v53;
+    v55 = 0x2020000000;
+    v56 = 1;
+    v11 = StringToUUIDEx(__s, v5, 0, 0, &v57);
+    *(v54 + 6) = v11;
+    if (v11)
     {
-      v61 = 0uLL;
-      v16 = TextToHardwareAddress(__s, v9, 6, &v61 + 10);
-      *(v58 + 6) = v16;
-      if (v16)
+      v57 = 0uLL;
+      v12 = TextToHardwareAddress(__s, v5, 6, &v57 + 10);
+      *(v54 + 6) = v12;
+      if (v12)
       {
-        v45 = v16;
-        v17 = 0;
-        v18 = 0;
-        v44 = 0;
-        v46 = 0;
-        v47 = 0;
+        v41 = v12;
+        v13 = 0;
+        v14 = 0;
+        v40 = 0;
+        v42 = 0;
+        v43 = 0;
         goto LABEL_36;
       }
     }
 
-    v17 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v61];
-    if (v17)
+    v13 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v57];
+    if (v13)
     {
-      v18 = objc_alloc_init(CUPairedPeer);
-      [(CUPairedPeer *)v18 setIdentifier:v17];
-      v19 = *(a1 + 96) - 1;
-      if (v19 > 0xC)
+      v14 = objc_alloc_init(CUPairedPeer);
+      [(CUPairedPeer *)v14 setIdentifier:v13];
+      v15 = *(a1 + 96) - 1;
+      if (v15 > 0xC)
       {
-        v20 = 288;
+        v16 = 288;
       }
 
       else
       {
-        v20 = qword_191FFB118[v19];
+        v16 = qword_191FFB118[v15];
       }
 
-      [(CUPairedPeer *)v18 setAcl:*(a1 + v20)];
-      v21 = *(a1 + 328);
+      [(CUPairedPeer *)v14 setAcl:*(a1 + v16)];
+      v17 = *(a1 + 328);
       TypeID = CFDataGetTypeID();
-      [(CUPairedPeer *)v18 setAltIRK:CFDictionaryGetTypedValue(v21, @"altIRK", TypeID, 0)];
-      v23 = PairingSessionCopyPeerInfo(a1, 0);
-      [(CUPairedPeer *)v18 setInfo:v23];
+      [(CUPairedPeer *)v14 setAltIRK:CFDictionaryGetTypedValue(v17, @"altIRK", TypeID, 0)];
+      v19 = PairingSessionCopyPeerInfo(a1, 0);
+      [(CUPairedPeer *)v14 setInfo:v19];
 
-      v24 = [MEMORY[0x1E695DEF0] dataWithBytes:a4 length:32];
-      [(CUPairedPeer *)v18 setPublicKey:v24];
+      v20 = [MEMORY[0x1E695DEF0] dataWithBytes:a4 length:32];
+      [(CUPairedPeer *)v14 setPublicKey:v20];
 
-      v25 = *(a1 + 100);
-      v26 = _Block_copy(*(a1 + 1008));
-      v27 = v26;
-      v28 = v25 >> 1;
-      if (v26)
+      v21 = *(a1 + 100);
+      v22 = _Block_copy(*(a1 + 1008));
+      v23 = v22;
+      v24 = v21 >> 1;
+      if (v22)
       {
-        v54[0] = 0;
-        (*(v26 + 2))(v26, v18, (v25 >> 1) & 4, v54);
-        v29 = v54[0];
-        v37 = v29;
-        if (!v29)
+        v50[0] = 0;
+        (*(v22 + 2))(v22, v14, (v21 >> 1) & 4, v50);
+        v25 = v50[0];
+        v33 = v25;
+        if (!v25)
         {
 LABEL_32:
-          *(v58 + 6) = v29;
+          *(v54 + 6) = v25;
 
-          v44 = 0;
-          v46 = 0;
-          v47 = 0;
+          v40 = 0;
+          v42 = 0;
+          v43 = 0;
           goto LABEL_33;
         }
 
-        v38 = *(a1 + 16);
-        if (*v38 <= 90)
+        v34 = *(a1 + 16);
+        if (*v34 <= 90)
         {
-          if (*v38 == -1)
+          if (*v34 == -1)
           {
             if (!_LogCategory_Initialize(*(a1 + 16), 0x5Au))
             {
               goto LABEL_31;
             }
 
-            v38 = *(a1 + 16);
+            v34 = *(a1 + 16);
           }
 
-          v53 = NSPrintF("%{error}", v30, v31, v32, v33, v34, v35, v36, v37);
-          LogPrintF(v38, "OSStatus _PairingSessionSavePeerPairingManager(PairingSessionRef, const void *, size_t, const uint8_t *)", 0x5Au, "### SavePeerHandler failed: %@, %@", v39, v40, v41, v42, v18);
+          v49 = NSPrintF("%{error}", v26, v27, v28, v29, v30, v31, v32, v33);
+          LogPrintF(v34, "OSStatus _PairingSessionSavePeerPairingManager(PairingSessionRef, const void *, size_t, const uint8_t *)", 90, "### SavePeerHandler failed: %@, %@", v35, v36, v37, v38, v14);
         }
 
 LABEL_31:
-        LODWORD(v29) = NSErrorToOSStatusEx(v37, 0);
+        LODWORD(v25) = NSErrorToOSStatusEx(v33, 0);
         goto LABEL_32;
       }
 
-      v43 = +[CUPairingDaemon sharedPairingDaemon];
-      v44 = v43;
-      if (v43)
+      v39 = +[CUPairingDaemon sharedPairingDaemon];
+      v40 = v39;
+      if (v39)
       {
-        v45 = [v43 savePairedPeer:v18 options:v28 & 4];
-        v46 = 0;
-        *(v58 + 6) = v45;
-        v47 = 0;
-        if (v45)
+        v41 = [v39 savePairedPeer:v14 options:v24 & 4];
+        v42 = 0;
+        *(v54 + 6) = v41;
+        v43 = 0;
+        if (v41)
         {
-          v47 = 0;
+          v43 = 0;
 LABEL_36:
 
-          _Block_object_dispose(&v57, 8);
-          return v45;
+          _Block_object_dispose(&v53, 8);
+          return v41;
         }
 
 LABEL_33:
-        v52 = *(a1 + 272);
-        if (v52)
+        v48 = *(a1 + 272);
+        if (v48)
         {
-          CFRelease(v52);
+          CFRelease(v48);
         }
 
-        v18 = v18;
-        *(a1 + 272) = v18;
-        v45 = *(v58 + 6);
+        v14 = v14;
+        *(a1 + 272) = v14;
+        v41 = *(v54 + 6);
         goto LABEL_36;
       }
 
-      v46 = objc_alloc_init(CUPairingManager);
-      v48 = dispatch_queue_create("OSStatus _PairingSessionSavePeerPairingManager(PairingSessionRef, const void *, size_t, const uint8_t *)", 0);
-      [(CUPairingManager *)v46 setDispatchQueue:v48];
+      v42 = objc_alloc_init(CUPairingManager);
+      v44 = dispatch_queue_create("OSStatus _PairingSessionSavePeerPairingManager(PairingSessionRef, const void *, size_t, const uint8_t *)", 0);
+      [(CUPairingManager *)v42 setDispatchQueue:v44];
 
       if ((*(a1 + 100) & 0x40) != 0)
       {
-        [(CUPairingManager *)v46 setTargetUserSession:1];
+        [(CUPairingManager *)v42 setTargetUserSession:1];
       }
 
-      v49 = dispatch_semaphore_create(0);
-      v54[0] = MEMORY[0x1E69E9820];
-      v54[1] = 3221225472;
-      v54[2] = ___PairingSessionSavePeerPairingManager_block_invoke;
-      v54[3] = &unk_1E73A4C80;
-      v56 = &v57;
-      v47 = v49;
-      v55 = v47;
-      [(CUPairingManager *)v46 savePairedPeer:v18 options:v28 & 4 completion:v54];
+      v45 = dispatch_semaphore_create(0);
+      v50[0] = MEMORY[0x1E69E9820];
+      v50[1] = 3221225472;
+      v50[2] = ___PairingSessionSavePeerPairingManager_block_invoke;
+      v50[3] = &unk_1E73A4C80;
+      v52 = &v53;
+      v43 = v45;
+      v51 = v43;
+      [(CUPairingManager *)v42 savePairedPeer:v14 options:v24 & 4 completion:v50];
 
-      v50 = dispatch_time(0, 120000000000);
-      v44 = dispatch_semaphore_wait(v47, v50);
-      [(CUPairingManager *)v46 invalidate];
-      v51 = v58;
-      if (!v44)
+      v46 = dispatch_time(0, 120000000000);
+      v40 = dispatch_semaphore_wait(v43, v46);
+      [(CUPairingManager *)v42 invalidate];
+      v47 = v54;
+      if (!v40)
       {
-        v45 = *(v58 + 6);
-        if (v45)
+        v41 = *(v54 + 6);
+        if (v41)
         {
           goto LABEL_36;
         }
@@ -494,30 +494,30 @@ LABEL_33:
         goto LABEL_33;
       }
 
-      v44 = 0;
-      v45 = 4294960574;
+      v40 = 0;
+      v41 = 4294960574;
     }
 
     else
     {
-      v18 = 0;
-      v44 = 0;
-      v46 = 0;
-      v47 = 0;
-      v51 = v58;
-      v45 = 4294960588;
+      v14 = 0;
+      v40 = 0;
+      v42 = 0;
+      v43 = 0;
+      v47 = v54;
+      v41 = 4294960588;
     }
 
-    *(v51 + 6) = v45;
+    *(v47 + 6) = v41;
     goto LABEL_36;
   }
 
-  return _PairingSessionSavePeerKeychain(a1, __s, v9, a4, 0);
+  return _PairingSessionSavePeerKeychain(a1, __s, v5, a4, 0);
 }
 
-void sub_191FB3620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_191FB3620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -647,7 +647,7 @@ uint64_t _SetupClientAuthenticationFailed(uint64_t a1, unsigned __int8 *a2, unsi
     if (*v11 != -1)
     {
 LABEL_3:
-      LogPrintF_safe(v11, "OSStatus _SetupClientAuthenticationFailed(PairingSessionRef, const uint8_t *, const uint8_t *const)", 0x1Eu, "### PairSetup client wrong setup code", a5, a6, a7, a8, v18);
+      LogPrintF_safe(v11, "OSStatus _SetupClientAuthenticationFailed(PairingSessionRef, const uint8_t *, const uint8_t *const)", 30, "### PairSetup client wrong setup code", a5, a6, a7, a8, v18);
       goto LABEL_5;
     }
 
@@ -765,7 +765,7 @@ LABEL_9:
       if (*v13 != -1)
       {
 LABEL_12:
-        LogPrintF(v13, "OSStatus _ClientDecryptExtra(PairingSessionRef, const void *, size_t, const uint8_t *)", 0x5Au, "### ClientDecryptExtra failed: %#m\n", v8, v9, v10, v11, v12);
+        LogPrintF(v13, "OSStatus _ClientDecryptExtra(PairingSessionRef, const void *, size_t, const uint8_t *)", 90, "### ClientDecryptExtra failed: %#m\n", v8, v9, v10, v11, v12);
         return;
       }
 
@@ -782,12 +782,12 @@ LABEL_12:
 uint64_t PairingSessionDeleteIdentity(uint64_t a1)
 {
   pthread_mutex_lock(&gPairingGlobalLock);
-  _PairingSessionDeleteIdentity(a1, v2, v3, v4, v5, v6, v7, v8);
+  _PairingSessionDeleteIdentity(a1);
   pthread_mutex_unlock(&gPairingGlobalLock);
   return 0;
 }
 
-const __CFArray *PairingSessionCopyPeer(int a1, char *a2, uint64_t a3, _DWORD *a4)
+const __CFArray *PairingSessionCopyPeer(uint64_t a1, char *a2, size_t a3, _DWORD *a4)
 {
   v11 = 0;
   v5 = _PairingSessionCopyPeers(a1, a2, a3, &v11);
@@ -841,108 +841,116 @@ LABEL_8:
   return v9;
 }
 
-uint64_t PairingSessionDeletePeer(uint64_t a1, char *__s, size_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PairingSessionDeletePeer(uint64_t a1, char *__s, size_t a3)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if ((*(a1 + 100) & 4) != 0)
   {
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2020000000;
-    v38 = 1;
-    v17 = StringToUUIDEx(__s, a3, 0, 0, &v39, a6, a7, a8);
-    *(v36 + 6) = v17;
-    if (v17 && (v39 = 0uLL, v18 = TextToHardwareAddress(__s, a3, 6, &v39 + 10), (*(v36 + 6) = v18) != 0))
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2020000000;
+    v28 = 1;
+    v7 = StringToUUIDEx(__s, a3, 0, 0, &v29);
+    *(v26 + 6) = v7;
+    if (v7 && (v29 = 0uLL, v8 = TextToHardwareAddress(__s, a3, 6, &v29 + 10), (*(v26 + 6) = v8) != 0))
     {
-      v16 = v18;
+      v6 = v8;
     }
 
     else
     {
-      v19 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v39];
-      if (v19)
+      v9 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v29];
+      if (v9)
       {
-        v20 = objc_alloc_init(CUPairedPeer);
-        [(CUPairedPeer *)v20 setIdentifier:v19];
-        v21 = *(a1 + 100);
-        v22 = +[CUPairingDaemon sharedPairingDaemon];
-        v23 = v22;
-        v24 = v21 >> 1;
-        if (v22)
+        v10 = objc_alloc_init(CUPairedPeer);
+        [(CUPairedPeer *)v10 setIdentifier:v9];
+        v11 = *(a1 + 100);
+        v12 = +[CUPairingDaemon sharedPairingDaemon];
+        v13 = v12;
+        v14 = v11 >> 1;
+        if (v12)
         {
-          v16 = [v22 removePairedPeer:v20 options:(v21 >> 1) & 4];
-          *(v36 + 6) = v16;
+          v6 = [v12 removePairedPeer:v10 options:(v11 >> 1) & 4];
+          *(v26 + 6) = v6;
         }
 
         else
         {
-          v25 = objc_alloc_init(CUPairingManager);
-          v26 = dispatch_queue_create("OSStatus _PairingSessionDeletePeerPairingManager(PairingSessionRef, const void *, size_t)", 0);
-          [(CUPairingManager *)v25 setDispatchQueue:v26];
+          v15 = objc_alloc_init(CUPairingManager);
+          v16 = dispatch_queue_create("OSStatus _PairingSessionDeletePeerPairingManager(PairingSessionRef, const void *, size_t)", 0);
+          [(CUPairingManager *)v15 setDispatchQueue:v16];
 
           if ((*(a1 + 100) & 0x40) != 0)
           {
-            [(CUPairingManager *)v25 setTargetUserSession:1];
+            [(CUPairingManager *)v15 setTargetUserSession:1];
           }
 
-          v27 = dispatch_semaphore_create(0);
-          v32[0] = MEMORY[0x1E69E9820];
-          v32[1] = 3221225472;
-          v32[2] = ___PairingSessionDeletePeerPairingManager_block_invoke;
-          v32[3] = &unk_1E73A4C80;
-          v34 = &v35;
-          v28 = v27;
-          v33 = v28;
-          [(CUPairingManager *)v25 removePairedPeer:v20 options:v24 & 4 completion:v32];
+          v17 = dispatch_semaphore_create(0);
+          v22[0] = MEMORY[0x1E69E9820];
+          v22[1] = 3221225472;
+          v22[2] = ___PairingSessionDeletePeerPairingManager_block_invoke;
+          v22[3] = &unk_1E73A4C80;
+          v24 = &v25;
+          v18 = v17;
+          v23 = v18;
+          [(CUPairingManager *)v15 removePairedPeer:v10 options:v14 & 4 completion:v22];
 
-          v29 = dispatch_time(0, 120000000000);
-          v30 = dispatch_semaphore_wait(v28, v29);
-          [(CUPairingManager *)v25 invalidate];
-          if (v30)
+          v19 = dispatch_time(0, 120000000000);
+          v20 = dispatch_semaphore_wait(v18, v19);
+          [(CUPairingManager *)v15 invalidate];
+          if (v20)
           {
-            *(v36 + 6) = -6722;
+            *(v26 + 6) = -6722;
 
-            v16 = 4294960574;
+            v6 = 4294960574;
           }
 
           else
           {
-            v16 = *(v36 + 6);
+            v6 = *(v26 + 6);
           }
         }
       }
 
       else
       {
-        v16 = 4294960588;
-        *(v36 + 6) = -6708;
+        v6 = 4294960588;
+        *(v26 + 6) = -6708;
       }
     }
 
-    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v25, 8);
   }
 
   else
   {
     pthread_mutex_lock(&gPairingGlobalLock);
-    _PairingSessionDeletePeer(a1, __s, a3, v11, v12, v13, v14, v15);
+    _PairingSessionDeletePeer(a1, __s, a3);
     pthread_mutex_unlock(&gPairingGlobalLock);
     return 0;
   }
 
-  return v16;
+  return v6;
 }
 
-uint64_t PairingSessionUpdatePeerInfo(uint64_t a1, char *__s, uint64_t a3, const void *a4)
+uint64_t PairingSessionUpdatePeerInfo(uint64_t a1, char *__s, size_t a3, const void *a4)
 {
-  v23 = 0;
+  v5 = a3;
+  v30 = 0;
   if (a3 == -1)
   {
-    strlen(__s);
+    v5 = strlen(__s);
   }
 
   pthread_mutex_lock(&gPairingGlobalLock);
-  Formatted = CFPropertyListCreateFormatted(0, &v23, "{%kO=%O%kO=%O%kO=%i%kO=%.*s%kO=%O}", v6, v7, v8, v9, v10, *MEMORY[0x1E697AFF8]);
+  v28 = *MEMORY[0x1E697AEB0];
+  v29 = *MEMORY[0x1E697AEB8];
+  v26 = *(a1 + 824);
+  v27 = *MEMORY[0x1E697AC30];
+  v24 = *(a1 + 784);
+  v25 = *MEMORY[0x1E697AEF8];
+  v23 = *MEMORY[0x1E697ABD0];
+  Formatted = CFPropertyListCreateFormatted(0, &v30, "{%kO=%O%kO=%O%kO=%i%kO=%.*s%kO=%O}", v8, v9, v10, v11, v12, *MEMORY[0x1E697AFF8]);
   if (Formatted)
   {
     updated = Formatted;
@@ -954,7 +962,7 @@ uint64_t PairingSessionUpdatePeerInfo(uint64_t a1, char *__s, uint64_t a3, const
     if (Data)
     {
       v20 = Data;
-      updated = KeychainUpdateFormatted(v23, "{%kO=%O}", v18, v19, v12, v13, v14, v15, *MEMORY[0x1E697ACF0]);
+      updated = KeychainUpdateFormatted(v30, "{%kO=%O}", *MEMORY[0x1E697ACF0], Data, v23, v24, v25, v26, v27, v5, __s, v28, v29);
       CFRelease(v20);
       if (!updated)
       {
@@ -974,7 +982,7 @@ uint64_t PairingSessionUpdatePeerInfo(uint64_t a1, char *__s, uint64_t a3, const
     if (*v21 != -1)
     {
 LABEL_9:
-      LogPrintF(v21, "OSStatus PairingSessionUpdatePeerInfo(PairingSessionRef, const void *, size_t, CFDictionaryRef)", 0x3Cu, "### Update %@ %.*s info failed: %#m\n", v12, v13, v14, v15, *(a1 + 816));
+      LogPrintF(v21, "OSStatus PairingSessionUpdatePeerInfo(PairingSessionRef, const void *, size_t, CFDictionaryRef)", 60, "### Update %@ %.*s info failed: %#m\n", v14, v15, v16, v17, *(a1 + 816));
       goto LABEL_11;
     }
 
@@ -986,9 +994,9 @@ LABEL_9:
   }
 
 LABEL_11:
-  if (v23)
+  if (v30)
   {
-    CFRelease(v23);
+    CFRelease(v30);
   }
 
   pthread_mutex_unlock(&gPairingGlobalLock);
@@ -1240,7 +1248,7 @@ LABEL_6:
   return v4;
 }
 
-uint64_t CFAppendPrintV(CFMutableStringRef *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CFAppendPrintV(CFMutableStringRef *a1, char *a2, uint64_t a3)
 {
   if (!*a1)
   {
@@ -1253,43 +1261,44 @@ uint64_t CFAppendPrintV(CFMutableStringRef *a1, unsigned __int8 *a2, uint64_t a3
   }
 
   cStr = 0;
-  VASPrintF(&cStr, a2, a3, a4, a5, a6, a7, a8);
-  v12 = cStr;
+  VASPrintF(&cStr, a2, a3);
+  v7 = cStr;
   if (!cStr)
   {
     return 4294960568;
   }
 
   CFStringAppendCString(*a1, cStr, 0x8000100u);
-  free(v12);
+  free(v7);
   return 0;
 }
 
-uint64_t SNPrintF_Add(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t SNPrintF_Add(uint64_t *a1, uint64_t a2, char *a3, ...)
 {
-  v9 = *a1;
-  v10 = a2 - *a1;
+  va_start(va, a3);
+  v3 = *a1;
+  v4 = a2 - *a1;
   if (a2 == *a1)
   {
     return 4294960533;
   }
 
-  result = VSNPrintF(v9, v10, a3, &a9);
+  result = VSNPrintF(v3, v4, a3, va);
   if ((result & 0x80000000) == 0)
   {
-    v14 = v9 + result;
-    if (result < v10)
+    v8 = v3 + result;
+    if (result < v4)
     {
       result = 0;
     }
 
     else
     {
-      v14 = a2;
+      v8 = a2;
       result = 4294960545;
     }
 
-    *a1 = v14;
+    *a1 = v8;
   }
 
   return result;
@@ -1329,7 +1338,8 @@ void _PrintFObfuscateHardwareAddress(unsigned __int8 *a1, unint64_t a2, _WORD *a
   v9 = v8 - 2;
   do
   {
-    *v7++ = v6;
+    *v7 = v6;
+    v7 = (v7 + 1);
     v6 >>= 8;
     --v9;
   }
@@ -1450,189 +1460,206 @@ LABEL_22:
   return 0;
 }
 
-uint64_t PrintFWriteTLV8(uint64_t a1, uint64_t a2, const char *a3, unsigned __int8 *a4, uint64_t a5)
+uint64_t PrintFWriteTLV8(uint64_t (**a1)(void, void, void), uint64_t a2, const char *a3, unsigned __int8 *a4, uint64_t a5)
 {
   v5 = a4;
   v6 = &a4[a5];
   if (a5 < 2)
   {
     v8 = 0;
+    goto LABEL_21;
   }
 
-  else
+  v39 = a5;
+  v7 = 0;
+  v8 = 0;
+  v9 = a4;
+  do
   {
-    v47 = a5;
-    v7 = 0;
-    v8 = 0;
-    v9 = a4;
-    do
+    v10 = v9[1];
+    v11 = &v9[v10 + 2];
+    if (v11 > v6)
     {
-      v10 = v9[1];
-      v11 = &v9[v10 + 2];
-      if (v11 > v6)
+      break;
+    }
+
+    v12 = *v9;
+    v9 += v10 + 2;
+    for (i = a3; ; i += v14 + 2)
+    {
+      v14 = strlen(i + 1);
+      if (!v14)
       {
         break;
       }
 
-      v12 = *v9;
-      v9 += v10 + 2;
-      for (i = a3; ; i += v14 + 2)
+      if (v8 <= v14)
       {
-        v14 = strlen(i + 1);
-        if (!v14)
-        {
-          break;
-        }
-
-        if (v8 <= v14)
-        {
-          v15 = v14;
-        }
-
-        else
-        {
-          v15 = v8;
-        }
-
-        if (*i == v12)
-        {
-          v8 = v15;
-        }
-      }
-
-      if (v7 <= v10)
-      {
-        v7 = v10;
-      }
-    }
-
-    while ((v6 - v11) >= 2);
-    a5 = v47;
-  }
-
-  if (a5 >= 2)
-  {
-    v16 = 0;
-    while (1)
-    {
-      v17 = v5[1];
-      v18 = v5 + 2;
-      v19 = &v5[v17 + 2];
-      if (v19 > v6)
-      {
-        return v16;
-      }
-
-      v20 = *v5;
-      v5 += v17 + 2;
-      for (j = a3; ; j = &v22[v23 + 1])
-      {
-        v22 = j + 1;
-        v23 = strlen(j + 1);
-        if (!v23)
-        {
-          break;
-        }
-
-        if (*j == v20)
-        {
-          goto LABEL_25;
-        }
-      }
-
-      v22 = 0;
-LABEL_25:
-      if (v17)
-      {
-        v30 = v17 - 1;
-        v31 = v18;
-        do
-        {
-          v32 = *v31++;
-          v33 = (v32 - 32) < 0x5F;
-        }
-
-        while ((v32 - 32) <= 0x5E && v30-- != 0);
+        v15 = v14;
       }
 
       else
       {
-        v33 = 1;
+        v15 = v8;
       }
 
-      v35 = PrintFCore(a1, "%*s0x%02X", v24, v25, v26, v27, v28, v29, (4 * *(a2 + 8)));
-      if ((v35 & 0x80000000) != 0)
+      if (*i == v12)
       {
-        return v35;
+        v8 = v15;
+      }
+    }
+
+    if (v7 <= v10)
+    {
+      v7 = v10;
+    }
+  }
+
+  while (&v6[-v11] >= 2);
+  if (v7 < 0x64)
+  {
+    v16 = 2;
+  }
+
+  else
+  {
+    v16 = 3;
+  }
+
+  v40 = v16;
+  if (v7 <= 9)
+  {
+    a5 = v39;
+LABEL_21:
+    v40 = 1;
+    goto LABEL_23;
+  }
+
+  a5 = v39;
+LABEL_23:
+  if (a5 >= 2)
+  {
+    v17 = 0;
+    while (1)
+    {
+      v18 = v5[1];
+      v19 = v5 + 2;
+      v20 = &v5[v18 + 2];
+      if (v20 > v6)
+      {
+        return v17;
       }
 
-      v42 = v35 + v16;
-      if (v22)
+      v21 = *v5;
+      v5 += v18 + 2;
+      for (j = a3; ; j = &v23[v24 + 1])
       {
-        v43 = PrintFCore(a1, " (%s)", v36, v37, v38, v39, v40, v41, v22);
-        v16 = v43;
-        if ((v43 & 0x80000000) != 0)
+        v23 = j + 1;
+        v24 = strlen(j + 1);
+        if (!v24)
         {
-          return v16;
+          break;
         }
 
-        v42 += v43;
-        v44 = v8 - strlen(v22);
-        if (v17)
+        if (*j == v21)
         {
-LABEL_38:
-          if (v33)
+          goto LABEL_31;
+        }
+      }
+
+      v23 = 0;
+LABEL_31:
+      if (v18)
+      {
+        v25 = v18 - 1;
+        v26 = v19;
+        do
+        {
+          v27 = *v26++;
+          v28 = (v27 - 32) < 0x5F;
+        }
+
+        while ((v27 - 32) <= 0x5E && v25-- != 0);
+      }
+
+      else
+      {
+        v28 = 1;
+      }
+
+      v30 = PrintFCore(a1, "%*s0x%02X", 4 * *(a2 + 8), "", v21);
+      if ((v30 & 0x80000000) != 0)
+      {
+        return v30;
+      }
+
+      v31 = v30 + v17;
+      if (v23)
+      {
+        v32 = PrintFCore(a1, " (%s)", v23);
+        v17 = v32;
+        if ((v32 & 0x80000000) != 0)
+        {
+          return v17;
+        }
+
+        v31 += v32;
+        v33 = v8 - strlen(v23);
+        if (v18)
+        {
+LABEL_44:
+          if (v28)
           {
-            v45 = PrintFCore(a1, ", %*s%*u bytes, %.*s\n", v36, v37, v38, v39, v40, v41, v44);
+            v34 = PrintFCore(a1, ", %*s%*u bytes, %.*s\n");
           }
 
-          else if (v17 > 0x10)
+          else if (v18 > 0x10)
           {
-            v45 = PrintFCore(a1, "\n%*.1H", v36, v37, v38, v39, v40, v41, (*(a2 + 8) + 1));
+            v34 = PrintFCore(a1, "\n%*.1H", (*(a2 + 8) + 1), v19, v18, v18, v36, v37, v38);
           }
 
           else
           {
-            v45 = PrintFCore(a1, ", %*s%*u bytes, %#H\n", v36, v37, v38, v39, v40, v41, v44);
+            v34 = PrintFCore(a1, ", %*s%*u bytes, %#H\n", v33, "", v40, v18, v19, v18, v18);
           }
 
-          goto LABEL_45;
+          goto LABEL_51;
         }
       }
 
       else
       {
-        v44 = v8 + 3;
-        if (v17)
+        v33 = v8 + 3;
+        if (v18)
         {
-          goto LABEL_38;
+          goto LABEL_44;
         }
       }
 
-      v45 = PrintFCore(a1, ", %*s%*u bytes\n", v36, v37, v38, v39, v40, v41, v44);
-LABEL_45:
-      v16 = v45;
-      if ((v45 & 0x80000000) == 0)
+      v34 = PrintFCore(a1, ", %*s%*u bytes\n");
+LABEL_51:
+      v17 = v34;
+      if ((v34 & 0x80000000) == 0)
       {
-        v16 = (v45 + v42);
-        if ((v6 - v19) > 1)
+        v17 = (v34 + v31);
+        if (&v6[-v20] > 1)
         {
           continue;
         }
       }
 
-      return v16;
+      return v17;
     }
   }
 
   return 0;
 }
 
-uint64_t PrintFWriteTXTRecord(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PrintFWriteTXTRecord(uint64_t (**a1)(void, void, void), uint64_t a2, unsigned __int8 *a3, uint64_t a4)
 {
-  v9 = a3;
-  v33 = *MEMORY[0x1E69E9840];
-  v12 = &a3[a4];
+  v5 = a3;
+  v31 = *MEMORY[0x1E69E9840];
+  v8 = &a3[a4];
   if (*(a2 + 3))
   {
     if (a4 < 1)
@@ -1640,147 +1667,150 @@ uint64_t PrintFWriteTXTRecord(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uin
       return 0;
     }
 
-    v13 = 0;
-    v14 = "";
+    v9 = 0;
+    v10 = "";
     do
     {
-      v17 = *v9;
-      v15 = v9 + 1;
-      v16 = v17;
-      if (v12 - v15 < v17)
+      v13 = *v5;
+      v11 = (v5 + 1);
+      v12 = v13;
+      if (v8 - v11 < v13)
       {
         break;
       }
 
-      v18 = PrintFCore(a1, "%s%.*s", a3, a4, a5, a6, a7, a8, v14);
-      if ((v18 & 0x80000000) != 0)
+      v14 = PrintFCore(a1, "%s%.*s", v10, v12, v11);
+      if ((v14 & 0x80000000) != 0)
       {
-        return v18;
+        return v14;
       }
 
-      v13 = (v18 + v13);
-      v14 = *(a2 + 3) <= 1 ? " | " : ", ";
-      v9 = &v15[v16];
+      v9 = (v14 + v9);
+      v10 = *(a2 + 3) <= 1 ? " | " : ", ";
+      v5 = &v11[v12];
     }
 
-    while (v9 < v12);
-    return v13;
+    while (v5 < v8);
+    return v9;
   }
 
-  v19 = (4 * *(a2 + 8));
-  if (a4 < 6 || (*(a3 + 1) == 1095590263 ? (v20 = a3[5] == 61) : (v20 = 0), !v20))
+  v15 = 4 * *(a2 + 8);
+  if (a4 < 6 || (*(a3 + 1) == 1095590263 ? (v16 = a3[5] == 61) : (v16 = 0), !v16))
   {
     if (a4 >= 1)
     {
-      LODWORD(v13) = 0;
-      v21 = a3;
+      LODWORD(v9) = 0;
+      v17 = a3;
       while (1)
       {
-        v22 = &v21[*v21 + 1];
-        if (v22 > v12)
+        v20 = *v17;
+        v18 = (v17 + 1);
+        v19 = v20;
+        v21 = &v18[v20];
+        if (v21 > v8)
         {
           break;
         }
 
-        v18 = PrintFCore(a1, "%*s%.*s\n", a3, a4, a5, a6, a7, a8, v19);
-        if ((v18 & 0x80000000) != 0)
+        v14 = PrintFCore(a1, "%*s%.*s\n", v15, "", v19, v18);
+        if ((v14 & 0x80000000) != 0)
         {
-          return v18;
+          return v14;
         }
 
-        v13 = (v18 + v13);
-        v21 = v22;
-        if (v22 >= v12)
+        v9 = (v14 + v9);
+        v17 = v21;
+        if (v21 >= v8)
         {
           goto LABEL_40;
         }
       }
 
-      v23 = PrintFCore(a1, "%*s### TXT record length byte too big (%zu, %zu max)\n", a3, a4, a5, a6, a7, a8, v19);
+      v22 = PrintFCore(a1, "%*s### TXT record length byte too big (%zu, %zu max)\n");
 LABEL_43:
-      if (v23 >= 0)
+      if (v22 >= 0)
       {
-        v29 = v13;
+        v28 = v9;
       }
 
       else
       {
-        v29 = 0;
+        v28 = 0;
       }
 
-      return (v29 + v23);
+      return (v28 + v22);
     }
 
     goto LABEL_39;
   }
 
-  if (&a3[*a3 + 1] == v12)
+  if (&a3[*a3 + 1] == v8)
   {
     if (a4 >= 2)
     {
-      LODWORD(v13) = 0;
-      v24 = a3 + 1;
+      LODWORD(v9) = 0;
+      v23 = a3 + 1;
       do
       {
-        v25 = &v32;
-        v26 = v24;
+        v24 = v30;
+        v25 = v23;
         do
         {
-          v28 = *v24++;
-          v27 = v28;
-          if (v28 == 92)
+          v27 = *v23++;
+          v26 = v27;
+          if (v27 == 92)
           {
-            if (v24 >= v12)
+            if (v23 >= v8)
             {
-              v23 = PrintFCore(a1, "%*s### bad TXT escape: %.*s\n", a3, a4, a5, a6, a7, a8, v19);
+              v22 = PrintFCore(a1, "%*s### bad TXT escape: %.*s\n");
               goto LABEL_43;
             }
 
-            v24 = v26 + 2;
-            LOBYTE(v27) = v26[1];
+            v23 = v25 + 2;
+            LOBYTE(v26) = v25[1];
           }
 
-          else if (v27 == 44)
+          else if (v26 == 44)
           {
             break;
           }
 
-          *v25++ = v27;
-          v26 = v24;
+          *v24++ = v26;
+          v25 = v23;
         }
 
-        while (v24 < v12);
-        v18 = PrintFCore(a1, "%*s%.*s\n", a3, a4, a5, a6, a7, a8, v19);
-        if ((v18 & 0x80000000) != 0)
+        while (v23 < v8);
+        v14 = PrintFCore(a1, "%*s%.*s\n", v15, "", v24 - v30, v30);
+        if ((v14 & 0x80000000) != 0)
         {
-          return v18;
+          return v14;
         }
 
-        v13 = (v18 + v13);
+        v9 = (v14 + v9);
       }
 
-      while (v24 < v12);
+      while (v23 < v8);
       goto LABEL_40;
     }
 
 LABEL_39:
-    v13 = 0;
+    v9 = 0;
 LABEL_40:
-    if (a4 && *v9)
+    if (a4 && *v5)
     {
-      return v13;
+      return v9;
     }
 
-    v23 = PrintFCore(a1, "\n", a3, a4, a5, a6, a7, a8, v31);
+    v22 = PrintFCore(a1, "\n");
     goto LABEL_43;
   }
 
-  return PrintFCore(a1, "%*s### bad TXT record length byte (%zu, %zu expected)\n", a3, a4, a5, a6, a7, a8, v19);
+  return PrintFCore(a1, "%*s### bad TXT record length byte (%zu, %zu expected)\n", v15, "", *a3, a4 - 1);
 }
 
-uint64_t PrintFWriteXMLEscaped(uint64_t (**a1)(char *, int64_t, void), char *__s, int64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PrintFWriteXMLEscaped(uint64_t (**a1)(char *, int64_t, void), char *__s, int64_t a3)
 {
-  v8 = __s;
+  v3 = __s;
   if (a3 == -1)
   {
     a3 = strlen(__s);
@@ -1791,26 +1821,26 @@ uint64_t PrintFWriteXMLEscaped(uint64_t (**a1)(char *, int64_t, void), char *__s
     return 0;
   }
 
-  v10 = 0;
-  v11 = &v8[a3];
-  v12 = v8;
+  v5 = 0;
+  v6 = &v3[a3];
+  v7 = v3;
   do
   {
-    v13 = *v12;
-    if (v13 <= 0x26)
+    v8 = *v7;
+    if (v8 <= 0x26)
     {
-      if (v13 == 34)
+      if (v8 == 34)
       {
-        v14 = "&quot;";
+        v9 = "&quot;";
       }
 
       else
       {
-        v14 = "&amp;";
-        if (v13 != 38)
+        v9 = "&amp;";
+        if (v8 != 38)
         {
 LABEL_12:
-          ++v12;
+          ++v7;
           continue;
         }
       }
@@ -1818,67 +1848,67 @@ LABEL_12:
 
     else
     {
-      switch(v13)
+      switch(v8)
       {
         case '\'':
-          v14 = "&#39;";
+          v9 = "&#39;";
           break;
         case '<':
-          v14 = "&lt;";
+          v9 = "&lt;";
           break;
         case '>':
-          v14 = "&gt;";
+          v9 = "&gt;";
           break;
         default:
           goto LABEL_12;
       }
     }
 
-    if (v12 != v8)
+    if (v7 != v3)
     {
-      v15 = (*a1)(v8, v12 - v8, a1);
-      if ((v15 & 0x80000000) != 0)
+      v10 = (*a1)(v3, v7 - v3, a1);
+      if ((v10 & 0x80000000) != 0)
       {
-        return v15;
+        return v10;
       }
 
-      LODWORD(v10) = v15 + v10;
+      LODWORD(v5) = v10 + v5;
     }
 
-    v15 = PrintFCore(a1, "%s", a3, a4, a5, a6, a7, a8, v14);
-    if ((v15 & 0x80000000) != 0)
+    v10 = PrintFCore(a1, "%s", v9);
+    if ((v10 & 0x80000000) != 0)
     {
-      return v15;
+      return v10;
     }
 
-    ++v12;
-    v10 = (v15 + v10);
-    v8 = v12;
+    ++v7;
+    v5 = (v10 + v5);
+    v3 = v7;
   }
 
-  while (v12 < v11);
-  if (v12 != v8)
+  while (v7 < v6);
+  if (v7 != v3)
   {
-    v16 = (*a1)(v8, v12 - v8, a1);
-    if (v16 >= 0)
+    v11 = (*a1)(v3, v7 - v3, a1);
+    if (v11 >= 0)
     {
-      v17 = v10;
+      v12 = v5;
     }
 
     else
     {
-      v17 = 0;
+      v12 = 0;
     }
 
-    return (v17 + v16);
+    return (v12 + v11);
   }
 
-  return v10;
+  return v5;
 }
 
-id NSPrintF_safe(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+id NSPrintF_safe(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v9 = NSPrintV(a1, &a9, a3, a4, a5, a6, a7, a8);
+  v9 = NSPrintV(a1, &a9);
 
   return v9;
 }
@@ -2274,15 +2304,16 @@ size_t FPrintFCallBack(const void *a1, size_t __nitems, FILE *__stream)
   return __nitems;
 }
 
-uint64_t MemPrintF(uint64_t (*a1)(unsigned __int8 *, int64_t, void), uint64_t (*a2)(unsigned __int8 *, int64_t, void), unsigned __int8 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t MemPrintF(uint64_t (*a1)(unsigned __int8 *, int64_t, void), uint64_t (*a2)(unsigned __int8 *, int64_t, void), char *a3, ...)
 {
-  v10[4] = 0;
-  v10[5] = 0;
-  v10[0] = PrintFCallBackFixedString;
-  v10[1] = a1;
-  v10[2] = 0;
-  v10[3] = a2;
-  return PrintFCoreVAList(v10, a3, &a9, a4, a5, a6, a7, a8);
+  va_start(va, a3);
+  v4[4] = 0;
+  v4[5] = 0;
+  v4[0] = PrintFCallBackFixedString;
+  v4[1] = a1;
+  v4[2] = 0;
+  v4[3] = a2;
+  return PrintFCoreVAList(v4, a3, va);
 }
 
 __CFString *CUPrintFlags(unint64_t a1, _BYTE *a2, char a3)
@@ -2408,7 +2439,7 @@ id CUPrintTXTRecordNSData(void *a1, int a2)
   return v13;
 }
 
-uint64_t CryptoRandomKey(void *a1, size_t a2)
+uint64_t CryptoRandomKey(void *a1, size_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   RandomBytes(a1, a2);
   ccsha512_di();
@@ -2437,7 +2468,7 @@ _BYTE *RandomString(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, _BYTE *
   return a5;
 }
 
-uint64_t SDPFindAttribute(char *a1, unint64_t a2, unsigned __int8 *a3, void *a4, void *a5, char **a6)
+uint64_t SDPFindAttribute(char *a1, char *a2, unsigned __int8 *a3, void *a4, void *a5, void *a6)
 {
   v21 = a1;
   v20 = 0;
@@ -2509,14 +2540,14 @@ LABEL_15:
   return result;
 }
 
-uint64_t SDPGetNext(char *a1, unint64_t a2, _BYTE *a3, void *a4, unsigned __int8 **a5, void *a6)
+uint64_t SDPGetNext(char *a1, char *a2, _BYTE *a3, char **a4, unsigned __int8 **a5, char **a6)
 {
   if (a1 >= a2)
   {
     return 4294960569;
   }
 
-  if ((a2 - a1) < 2)
+  if (a2 - a1 < 2)
   {
     return 4294960553;
   }
@@ -2527,10 +2558,10 @@ uint64_t SDPGetNext(char *a1, unint64_t a2, _BYTE *a3, void *a4, unsigned __int8
   }
 
   v6 = a1 + 2;
-  v7 = (a1 + 2);
-  if ((a1 + 2) < a2)
+  v7 = a1 + 2;
+  if (a1 + 2 < a2)
   {
-    v7 = (a1 + 2);
+    v7 = a1 + 2;
     while (1)
     {
       v8 = *v7;
@@ -2577,7 +2608,7 @@ uint64_t SDPGetNext(char *a1, unint64_t a2, _BYTE *a3, void *a4, unsigned __int8
   return result;
 }
 
-uint64_t SDPFindMediaSection(char *a1, unint64_t a2, void *a3, void *a4, void *a5, unsigned __int8 **a6, void *a7)
+uint64_t SDPFindMediaSection(char *a1, char *a2, uint64_t *a3, void *a4, uint64_t *a5, unsigned __int8 **a6, void *a7)
 {
   v20 = a1;
   v19 = 0;
@@ -2633,7 +2664,7 @@ uint64_t SDPFindMediaSection(char *a1, unint64_t a2, void *a3, void *a4, void *a
   return result;
 }
 
-uint64_t SDPFindMediaSectionEx(char *a1, unint64_t a2, unsigned __int8 **a3, void *a4, unsigned __int8 **a5, void *a6, unsigned __int8 **a7, void *a8, unsigned __int8 **a9, void *a10, void *a11, void *a12, void *a13)
+uint64_t SDPFindMediaSectionEx(char *a1, char *a2, unsigned __int8 **a3, void *a4, unsigned __int8 **a5, void *a6, unsigned __int8 **a7, void *a8, unsigned __int8 **a9, void *a10, void *a11, void *a12, void *a13)
 {
   v17 = a10;
   v18 = a9;
@@ -3052,7 +3083,7 @@ LABEL_20:
 
     v24 = v16 - v14;
     a1 = &v21[v23];
-    v25 = (v14 - v16);
+    v25 = v14 - v16;
     v26 = a3;
     while (v25)
     {
@@ -3102,7 +3133,7 @@ LABEL_39:
   return result;
 }
 
-uint64_t SDPFindSessionSection(char *a1, unint64_t a2, char **a3, void *a4, void *a5)
+uint64_t SDPFindSessionSection(char *a1, char *a2, char **a3, void *a4, void *a5)
 {
   v14 = a1;
   v13 = 0;
@@ -3134,7 +3165,7 @@ uint64_t SDPFindSessionSection(char *a1, unint64_t a2, char **a3, void *a4, void
   return 0;
 }
 
-uint64_t SDPFindType(char *a1, unint64_t a2, unsigned __int8 a3, void *a4, void *a5, void *a6)
+uint64_t SDPFindType(char *a1, char *a2, unsigned __int8 a3, uint64_t *a4, void *a5, void *a6)
 {
   v15 = a1;
   v14 = 0;
@@ -3174,7 +3205,7 @@ uint64_t SDPFindType(char *a1, unint64_t a2, unsigned __int8 a3, void *a4, void 
   return result;
 }
 
-uint64_t SDPGetNextAttribute(char *a1, unint64_t a2, void *a3, void *a4, void *a5, void *a6, void *a7)
+uint64_t SDPGetNextAttribute(char *a1, char *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
 {
   v22 = a1;
   v21 = 0;
@@ -3249,7 +3280,7 @@ LABEL_18:
   return result;
 }
 
-uint64_t SDPScanFAttribute(char *a1, unint64_t a2, char **a3, unsigned __int8 *a4, unsigned __int8 *a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+uint64_t SDPScanFAttribute(char *a1, char *a2, void *a3, unsigned __int8 *a4, char *a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
 {
   v11 = 0;
   v12 = 0;
@@ -3603,7 +3634,7 @@ LABEL_20:
   return v20;
 }
 
-uint64_t srp6_client_genpub(uint64_t *a1, void ***a2)
+uint64_t srp6_client_genpub(void *a1, void ***a2)
 {
   CCBigNumBitCount();
   if (a2)
@@ -3704,10 +3735,10 @@ uint64_t srp6_client_passwd(uint64_t a1, uint64_t a2, int a3)
   return v6;
 }
 
-uint64_t srp6_client_auth(uint64_t a1)
+uint64_t srp6_client_auth(void *a1, uint64_t a2, int a3)
 {
-  *(a1 + 48) = CCBigNumFromData();
-  *(a1 + 40) = BigIntegerFromInt();
+  a1[6] = CCBigNumFromData();
+  a1[5] = BigIntegerFromInt();
   CCBigNumModExp();
   return 0;
 }
@@ -4446,7 +4477,7 @@ void _SRPCleanup_corecrypto(uint64_t a1)
   *(a1 + 48) = 0;
 }
 
-uint64_t SRPClientStart_corecrypto(void *a1, void *a2, const char *a3, size_t a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, size_t a10, void *a11, size_t *a12, void *a13, size_t *a14, void *a15, size_t *a16)
+uint64_t SRPClientStart_corecrypto(void *a1, void *a2, const char *a3, size_t a4, const char *a5, size_t a6, uint64_t a7, uint64_t a8, char *a9, size_t a10, void *a11, size_t *a12, void *a13, size_t *a14, void *a15, size_t *a16)
 {
   if (a2 != &_kSRPParameters_3072_SHA512)
   {
@@ -4650,14 +4681,14 @@ uint64_t SRPClientVerify_corecrypto(void *a1, uint64_t a2, uint64_t a3)
   return v4;
 }
 
-uint64_t SRPServerStart_corecrypto(uint64_t a1, void *a2, const char *a3, size_t a4, const char *a5, uint64_t a6, size_t a7, void *a8, void *a9, size_t *a10)
+uint64_t SRPServerStart_corecrypto(void *a1, void *a2, const char *a3, size_t a4, const char *a5, size_t a6, size_t a7, void *a8, void *a9, size_t *a10)
 {
   if (a2 == &_kSRPParameters_3072_SHA512)
   {
     v18 = ccsha512_di();
     ccsrp_gp_rfc5054_3072();
     v19 = 4 * (*v18 + ccdh_ccn_size()) + 48;
-    *(a1 + 8) = v19;
+    a1[1] = v19;
     v20 = malloc_type_calloc(1uLL, v19, 0x106004070A5FD05uLL);
     *a1 = v20;
     if (v20)
@@ -4666,7 +4697,7 @@ uint64_t SRPServerStart_corecrypto(uint64_t a1, void *a2, const char *a3, size_t
       ccsrp_ctx_init_option();
       v21 = 8 * MEMORY[0x193B06230](*(*a1 + 8));
       v22 = malloc_type_malloc(v21, 0x100004077774924uLL);
-      *(a1 + 40) = v22;
+      a1[5] = v22;
       if (v22)
       {
         if (a4 == -1)
@@ -4675,14 +4706,14 @@ uint64_t SRPServerStart_corecrypto(uint64_t a1, void *a2, const char *a3, size_t
         }
 
         v23 = strndup(a3, a4);
-        *(a1 + 16) = v23;
+        a1[2] = v23;
         if (v23)
         {
           v24 = malloc_type_malloc(a7, 0x100004077774924uLL);
-          *(a1 + 24) = v24;
+          a1[3] = v24;
           if (v24)
           {
-            *(a1 + 32) = a7;
+            a1[4] = a7;
             if (a6 == -1)
             {
               strlen(a5);
@@ -4695,7 +4726,7 @@ LABEL_15:
               goto LABEL_16;
             }
 
-            memcpy(a8, *(a1 + 24), a7);
+            memcpy(a8, a1[3], a7);
             v25 = malloc_type_malloc(v21, 0x100004077774924uLL);
             if (v25)
             {
@@ -5916,86 +5947,72 @@ _BYTE *DataToHexCStringEx(unsigned __int8 *a1, uint64_t a2, _BYTE *a3, uint64_t 
   return a3;
 }
 
-uint64_t NormalizeUUIDString(char *a1, size_t a2, __int128 *a3, char a4, char *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t NormalizeUUIDString(char *a1, size_t a2, __int128 *a3, char a4, char *a5)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  result = StringToUUIDEx(a1, a2, a4 & 1, a3, &v13, a6, a7, a8);
-  v12 = result;
+  v11 = *MEMORY[0x1E69E9840];
+  result = StringToUUIDEx(a1, a2, a4 & 1, a3, &v10);
+  v9 = result;
   if (!result)
   {
-    UUIDtoCStringFlags(&v13, 16, a3, a4, a5, &v12);
-    return v12;
+    UUIDtoCStringFlags(&v10, 16, a3, a4, a5, &v9);
+    return v9;
   }
 
   return result;
 }
 
-uint64_t StringToUUIDEx(char *__s, size_t a2, int a3, _OWORD *a4, _OWORD *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t StringToUUIDEx(char *__s, size_t a2, int a3, _OWORD *a4, _OWORD *a5)
 {
-  v11 = a2;
-  v26 = *MEMORY[0x1E69E9840];
+  v8 = a2;
+  v28 = *MEMORY[0x1E69E9840];
   if (a2 == -1)
   {
-    v11 = strlen(__s);
+    v8 = strlen(__s);
   }
 
-  v23 = 0;
-  v24 = 0;
+  v14 = 0;
+  v15 = 0;
   if (a3)
   {
-    v13 = SNScanF(__s, v11, "%2hhx%2hhx%2hhx%2hhx-%2hhx%2hhx-%2hhx%2hhx-%2hhx%2hhx-%2hhx%2hhx%2hhx%2hhx%2hhx%2hhx%n", &v25 + 4, &v25 + 7, &v25 + 6, &v24 + 4, a8, &v25 + 3);
+    v10 = SNScanF(__s, v8, "%2hhx%2hhx%2hhx%2hhx-%2hhx%2hhx-%2hhx%2hhx-%2hhx%2hhx-%2hhx%2hhx%2hhx%2hhx%2hhx%2hhx%n", &v19, &v18, &v17, &v16, &v21, &v20, &v23, &v22, &v24, &v25, &v26, &v27);
   }
 
   else
   {
-    v13 = SNScanF(__s, v11, "%2hhx%2hhx%2hhx%2hhx-%2hhx%2hhx-%2hhx%2hhx-%2hhx%2hhx-%2hhx%2hhx%2hhx%2hhx%2hhx%2hhx%n", &v25 + 5, &v25 + 6, &v25 + 7, &v24 + 4, a8, &v25);
+    v10 = SNScanF(__s, v8, "%2hhx%2hhx%2hhx%2hhx-%2hhx%2hhx-%2hhx%2hhx-%2hhx%2hhx-%2hhx%2hhx%2hhx%2hhx%2hhx%2hhx%n", &v16, &v17, &v18, &v19, &v20, &v21, &v22, &v23, &v24, &v25, &v26, &v27);
   }
 
-  v19 = v13;
-  if (!a4 || v13 == 16)
+  if (!a4 || v10 == 16)
   {
-    result = 4294960554;
-    if (v19 != 16 || HIDWORD(v24) != 36)
-    {
-      return result;
-    }
-
-    if (a5)
-    {
-      result = 0;
-      *a5 = v25;
-      return result;
-    }
-
-    return 0;
+    return 4294960554;
   }
 
-  v20 = SNScanF(__s, v11, "%llx%n", v14, v15, v16, v17, v18, &v23);
+  v11 = SNScanF(__s, v8, "%llx%n", &v14, &v15);
   result = 4294960554;
-  if (v20 != 1)
+  if (v11 == 1)
   {
-    return result;
+    v13 = v14;
+    if (!HIDWORD(v14) && v15 == v8)
+    {
+      if (a5)
+      {
+        *a5 = *a4;
+        result = 0;
+        if (!a3)
+        {
+          v13 = bswap32(v13);
+        }
+
+        *a5 = v13;
+      }
+
+      else
+      {
+        return 0;
+      }
+    }
   }
 
-  v22 = v23;
-  if (HIDWORD(v23) || v24 != v11)
-  {
-    return result;
-  }
-
-  if (!a5)
-  {
-    return 0;
-  }
-
-  *a5 = *a4;
-  result = 0;
-  if (!a3)
-  {
-    v22 = bswap32(v22);
-  }
-
-  *a5 = v22;
   return result;
 }
 
@@ -6143,31 +6160,32 @@ uint64_t memicmp(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3)
   return 0xFFFFFFFFLL;
 }
 
-uint64_t snprintf_add(char **a1, char *a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t snprintf_add(char **a1, char *a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v9 = *a1;
-  v10 = a2 - *a1;
+  va_start(va, a8);
+  v8 = *a1;
+  v9 = a2 - *a1;
   if (a2 == *a1)
   {
     return 4294960533;
   }
 
-  result = vsnprintf(*a1, v10, a3, &a9);
+  result = vsnprintf(*a1, v9, a3, va);
   if ((result & 0x80000000) == 0)
   {
-    v14 = &v9[result];
-    if (result < v10)
+    v13 = &v8[result];
+    if (result < v9)
     {
       result = 0;
     }
 
     else
     {
-      v14 = a2;
+      v13 = a2;
       result = 4294960545;
     }
 
-    *a1 = v14;
+    *a1 = v13;
   }
 
   return result;
@@ -6892,7 +6910,7 @@ uint64_t MapStringToValue(char *__s1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   while (1)
   {
     v11 = v16;
-    v17 = (v16 + 1);
+    v17 = v16 + 1;
     v12 = *v11;
     if (!*v11)
     {
@@ -6900,7 +6918,7 @@ uint64_t MapStringToValue(char *__s1, uint64_t a2, uint64_t a3, uint64_t a4, uin
     }
 
     v13 = v17;
-    v16 = (v17 + 2);
+    v16 = v17 + 1;
     v14 = *v13;
     if (!strcmp(__s1, v12))
     {
@@ -7215,20 +7233,22 @@ LABEL_75:
 LABEL_79:
   if (!strcasecmp((a1 + 4), "GPGGA"))
   {
-    v152 = 0;
-    HIDWORD(v151) = 0;
-    for (i = 1; ; ++i)
+    v89 = 0;
+    HIDWORD(v88) = 0;
+    v42 = 1;
+    v87 = 0.0;
+    while (1)
     {
-      v103 = v39;
+      v43 = v39;
       if (v39 >= v25)
       {
 LABEL_99:
-        v106 = v15;
-        v104 = v25;
+        v46 = v15;
+        v44 = v25;
         v39 = v25;
-        if (v103 == v25)
+        if (v43 == v25)
         {
-LABEL_239:
+LABEL_228:
           result = 0;
           *a1 |= 4u;
           return result;
@@ -7237,477 +7257,449 @@ LABEL_239:
 
       else
       {
-        v104 = v39;
+        v44 = v39;
         while (1)
         {
-          v105 = *v39++;
-          if (v105 == 44)
+          v45 = *v39++;
+          if (v45 == 44)
           {
             break;
           }
 
-          v104 = v39;
+          v44 = v39;
           if (v39 == v25)
           {
             goto LABEL_99;
           }
         }
 
-        v106 = v104;
+        v46 = v44;
       }
 
-      v107 = v106 - v103;
-      switch(i)
+      v47 = v46 - v43;
+      switch(v42)
       {
         case 1:
-          if (SNScanF(v103, v107, "%2u%2u%lf", v42, v43, v44, v45, v46, &v152 + 4) < 3)
+          v87 = 0.0;
+          if (SNScanF(v43, v47, "%2u%2u%lf", &v89 + 4, &v89, &v87) < 3)
           {
             return 4294960554;
           }
 
-          *(a1 + 16) = (3600 * HIDWORD(v152) + 60 * v152) + 0.0;
+          *(a1 + 16) = v87 + (3600 * HIDWORD(v89) + 60 * v89);
           break;
         case 2:
-          if (SNScanF(v103, v107, "%2u%lf", v42, v43, v44, v45, v46, &v151 + 4) != 2)
+          if (SNScanF(v43, v47, "%2u%lf", &v88 + 4, &v87) != 2)
           {
             return 4294960554;
           }
 
-          LODWORD(v114) = HIDWORD(v151);
-          *(a1 + 24) = 0.0 / 60.0 + v114;
+          LODWORD(v53) = HIDWORD(v88);
+          *(a1 + 24) = v87 / 60.0 + v53;
           break;
         case 3:
-          if (v104 == v103)
+          if (v44 == v43)
           {
-            v112 = 63;
+            v51 = 63;
           }
 
           else
           {
-            v112 = *v103;
+            v51 = *v43;
           }
 
-          *(a1 + 32) = v112;
+          *(a1 + 32) = v51;
           break;
         case 4:
-          if (SNScanF(v103, v107, "%3u%lf", v42, v43, v44, v45, v46, &v151 + 4) != 2)
+          if (SNScanF(v43, v47, "%3u%lf", &v88 + 4, &v87) != 2)
           {
             return 4294960554;
           }
 
-          LODWORD(v113) = HIDWORD(v151);
-          *(a1 + 40) = 0.0 / 60.0 + v113;
+          LODWORD(v52) = HIDWORD(v88);
+          *(a1 + 40) = v87 / 60.0 + v52;
           break;
         case 5:
-          if (v104 == v103)
+          if (v44 == v43)
           {
-            v109 = 63;
+            v49 = 63;
           }
 
           else
           {
-            v109 = *v103;
+            v49 = *v43;
           }
 
-          *(a1 + 48) = v109;
+          *(a1 + 48) = v49;
           break;
         case 6:
-          if (v104 == v103)
+          if (v44 == v43)
           {
-            v115 = 63;
+            v54 = 63;
           }
 
           else
           {
-            v115 = *v103;
+            v54 = *v43;
           }
 
-          *(a1 + 49) = v115;
+          *(a1 + 49) = v54;
           break;
         case 7:
-          SNScanF(v103, v107, "%u", v42, v43, v44, v45, v46, a1 + 52);
+          SNScanF(v43, v47, "%u");
           break;
         case 8:
-          SNScanF(v103, v107, "%lf", v42, v43, v44, v45, v46, a1 + 56);
-          break;
         case 9:
-          SNScanF(v103, v107, "%lf", v42, v43, v44, v45, v46, a1 + 64);
+        case 11:
+        case 13:
+          SNScanF(v43, v47, "%lf");
           break;
         case 10:
-          if (v104 == v103)
+          if (v44 == v43)
           {
-            v111 = 63;
+            v50 = 63;
           }
 
           else
           {
-            v111 = *v103;
+            v50 = *v43;
           }
 
-          *(a1 + 72) = v111;
+          *(a1 + 72) = v50;
           break;
-        case 11:
-          v110 = a1 + 80;
-          goto LABEL_124;
         case 12:
-          if (v104 == v103)
+          if (v44 == v43)
           {
-            v108 = 63;
+            v48 = 63;
           }
 
           else
           {
-            v108 = *v103;
+            v48 = *v43;
           }
 
-          *(a1 + 88) = v108;
-          break;
-        case 13:
-          v110 = a1 + 96;
-LABEL_124:
-          SNScanF(v103, v107, "%lf", v42, v43, v44, v45, v46, v110);
+          *(a1 + 88) = v48;
           break;
         case 14:
-          SNScanF(v103, v107, "%.s", v42, v43, v44, v45, v46, 8);
+          SNScanF(v43, v47, "%.s", 8, a1 + 104);
           break;
         default:
-          continue;
+          break;
       }
+
+      ++v42;
     }
   }
 
   if (!strcasecmp((a1 + 4), "GPGLL"))
   {
-    v116 = 1;
-    v151 = 0;
-    v152 = 0;
+    v55 = 1;
+    v88 = 0;
+    v89 = 0;
+    v87 = 0.0;
     while (1)
     {
-      v117 = v39;
+      v56 = v39;
       if (v39 >= v25)
       {
-LABEL_142:
-        v120 = v15;
-        v118 = v25;
+LABEL_138:
+        v59 = v15;
+        v57 = v25;
         v39 = v25;
-        if (v117 == v25)
+        if (v56 == v25)
         {
-          goto LABEL_239;
+          goto LABEL_228;
         }
       }
 
       else
       {
-        v118 = v39;
+        v57 = v39;
         while (1)
         {
-          v119 = *v39++;
-          if (v119 == 44)
+          v58 = *v39++;
+          if (v58 == 44)
           {
             break;
           }
 
-          v118 = v39;
+          v57 = v39;
           if (v39 == v25)
           {
-            goto LABEL_142;
+            goto LABEL_138;
           }
         }
 
-        v120 = v118;
+        v59 = v57;
       }
 
-      v121 = v120 - v117;
-      if (v116 <= 3)
+      v60 = v59 - v56;
+      if (v55 <= 3)
       {
-        switch(v116)
+        switch(v55)
         {
           case 1:
-            if (SNScanF(v117, v121, "%2u%lf", v47, v48, v49, v50, v51, &v151) != 2)
+            if (SNScanF(v56, v60, "%2u%lf", &v88, &v87) != 2)
             {
               return 4294960554;
             }
 
-            LODWORD(v124) = v151;
-            *(a1 + 16) = 0.0 / 60.0 + v124;
+            LODWORD(v63) = v88;
+            *(a1 + 16) = v87 / 60.0 + v63;
             break;
           case 2:
-            if (v118 == v117)
+            if (v57 == v56)
             {
-              v127 = 63;
+              v66 = 63;
             }
 
             else
             {
-              v127 = *v117;
+              v66 = *v56;
             }
 
-            *(a1 + 24) = v127;
+            *(a1 + 24) = v66;
             break;
           case 3:
-            if (SNScanF(v117, v121, "%3u%lf", v47, v48, v49, v50, v51, &v151) != 2)
+            if (SNScanF(v56, v60, "%3u%lf", &v88, &v87) != 2)
             {
               return 4294960554;
             }
 
-            LODWORD(v122) = v151;
-            *(a1 + 32) = 0.0 / 60.0 + v122;
+            LODWORD(v61) = v88;
+            *(a1 + 32) = v87 / 60.0 + v61;
             break;
         }
       }
 
-      else if (v116 > 5)
+      else if (v55 > 5)
       {
-        if (v116 == 6)
+        if (v55 == 6)
         {
-          if (v118 == v117)
+          if (v57 == v56)
           {
-            v126 = 63;
+            v65 = 63;
           }
 
           else
           {
-            v126 = *v117;
+            v65 = *v56;
           }
 
-          *(a1 + 56) = v126;
+          *(a1 + 56) = v65;
         }
 
-        else if (v116 == 7)
+        else if (v55 == 7)
         {
-          if (v118 == v117)
+          if (v57 == v56)
           {
-            v123 = 63;
+            v62 = 63;
           }
 
           else
           {
-            v123 = *v117;
+            v62 = *v56;
           }
 
-          *(a1 + 57) = v123;
+          *(a1 + 57) = v62;
         }
       }
 
-      else if (v116 == 4)
+      else if (v55 == 4)
       {
-        if (v118 == v117)
+        if (v57 == v56)
         {
-          v125 = 63;
+          v64 = 63;
         }
 
         else
         {
-          v125 = *v117;
+          v64 = *v56;
         }
 
-        *(a1 + 40) = v125;
+        *(a1 + 40) = v64;
       }
 
       else
       {
-        if (SNScanF(v117, v121, "%2u%2u%2u%lf", v47, v48, v49, v50, v51, &v152 + 4) < 3)
+        v87 = 0.0;
+        if (SNScanF(v56, v60, "%2u%2u%2u%lf", &v89 + 4, &v89, &v88 + 4, &v87) < 3)
         {
           return 4294960554;
         }
 
-        *(a1 + 48) = (3600 * HIDWORD(v152) + 60 * v152 + HIDWORD(v151)) + 0.0;
+        *(a1 + 48) = v87 + (3600 * HIDWORD(v89) + 60 * v89 + HIDWORD(v88));
       }
 
-      ++v116;
+      ++v55;
     }
   }
 
   if (!strcasecmp((a1 + 4), "GPGSA"))
   {
-    for (j = 1; ; ++j)
+    for (i = 1; ; ++i)
     {
-      v129 = v39;
+      v68 = v39;
       if (v39 >= v25)
       {
-LABEL_181:
-        v132 = v15;
-        v130 = v25;
+LABEL_177:
+        v71 = v15;
+        v69 = v25;
         v39 = v25;
-        if (v129 == v25)
+        if (v68 == v25)
         {
-          goto LABEL_239;
+          goto LABEL_228;
         }
       }
 
       else
       {
-        v130 = v39;
+        v69 = v39;
         while (1)
         {
-          v131 = *v39++;
-          if (v131 == 44)
+          v70 = *v39++;
+          if (v70 == 44)
           {
             break;
           }
 
-          v130 = v39;
+          v69 = v39;
           if (v39 == v25)
           {
-            goto LABEL_181;
+            goto LABEL_177;
           }
         }
 
-        v132 = v130;
+        v71 = v69;
       }
 
-      v133 = v132 - v129;
-      if ((j - 3) >= 0xC)
+      v72 = v71 - v68;
+      if ((i - 3) >= 0xC)
       {
-        if (j <= 14)
+        if (i <= 14)
         {
-          if (j == 1)
+          if (i == 1)
           {
-            if (v130 == v129)
+            if (v69 == v68)
             {
-              v135 = 63;
+              v74 = 63;
             }
 
             else
             {
-              v135 = *v129;
+              v74 = *v68;
             }
 
-            *(a1 + 16) = v135;
+            *(a1 + 16) = v74;
           }
 
-          else if (j == 2)
+          else if (i == 2)
           {
-            if (v130 == v129)
+            if (v69 == v68)
             {
-              v134 = 63;
+              v73 = 63;
             }
 
             else
             {
-              v134 = *v129;
+              v73 = *v68;
             }
 
-            *(a1 + 17) = v134;
+            *(a1 + 17) = v73;
           }
         }
 
-        else
+        else if (i == 15 || i == 16 || i == 17)
         {
-          switch(j)
-          {
-            case 15:
-              SNScanF(v129, v133, "%lf", v52, v53, v54, v55, v56, a1 + 72);
-              break;
-            case 16:
-              SNScanF(v129, v133, "%lf", v52, v53, v54, v55, v56, a1 + 80);
-              break;
-            case 17:
-              SNScanF(v129, v133, "%lf", v52, v53, v54, v55, v56, a1 + 88);
-              break;
-          }
+          SNScanF(v68, v72, "%lf");
         }
       }
 
       else
       {
-        SNScanF(v129, v133, "%u", v52, v53, v54, v55, v56, a1 + 20 + 4 * j - 12);
+        SNScanF(v68, v72, "%u");
       }
     }
   }
 
   if (!strcasecmp((a1 + 4), "GPGSV"))
   {
-    v136 = a1 + 32;
-    v137 = 1;
+    v75 = 1;
     while (1)
     {
-      v138 = v39;
+      v76 = v39;
       if (v39 >= v25)
       {
-LABEL_209:
-        v139 = v15;
+LABEL_204:
+        v77 = v15;
         v39 = v25;
-        if (v138 == v25)
+        if (v76 == v25)
         {
-          goto LABEL_239;
+          goto LABEL_228;
         }
       }
 
       else
       {
-        v139 = v39;
+        v77 = v39;
         while (1)
         {
-          v140 = *v39++;
-          if (v140 == 44)
+          v78 = *v39++;
+          if (v78 == 44)
           {
             break;
           }
 
-          v139 = v39;
+          v77 = v39;
           if (v39 == v25)
           {
-            goto LABEL_209;
+            goto LABEL_204;
           }
         }
       }
 
-      v141 = v139 - v138;
-      switch(v137)
+      v79 = v77 - v76;
+      switch(v75)
       {
         case 1:
-          v150 = a1 + 16;
-          goto LABEL_222;
         case 2:
-          v150 = a1 + 20;
-          goto LABEL_222;
         case 3:
-          v150 = a1 + 24;
-LABEL_222:
-          v143 = "%d";
-          goto LABEL_217;
+          v80 = SNScanF(v76, v79, "%d");
+          goto LABEL_209;
         case 4:
         case 8:
         case 12:
         case 16:
-          if (SNScanF(v138, v141, "%d", v57, v58, v59, v60, v61, v136 + 32 * ((v137 - 4) >> 2)) != 1)
+          if (SNScanF(v76, v79, "%d", a1 + 32 + 32 * ((v75 - 4) >> 2)) != 1)
           {
             return 4294960554;
           }
 
           ++*(a1 + 28);
-          goto LABEL_218;
+          goto LABEL_210;
         case 5:
-        case 9:
-        case 13:
-        case 17:
-          v142 = v136 + 32 * ((v137 - 4) >> 2) + 8;
-          goto LABEL_216;
         case 6:
-        case 10:
-        case 14:
-        case 18:
-          v142 = v136 + 32 * ((v137 - 4) >> 2) + 16;
-          goto LABEL_216;
         case 7:
+        case 9:
+        case 10:
         case 11:
+        case 13:
+        case 14:
         case 15:
+        case 17:
+        case 18:
         case 19:
-          v142 = v136 + 32 * ((v137 - 4) >> 2) + 24;
-LABEL_216:
-          v150 = v142;
-          v143 = "%lf";
-LABEL_217:
-          if (SNScanF(v138, v141, v143, v57, v58, v59, v60, v61, v150) == 1)
+          v80 = SNScanF(v76, v79, "%lf");
+LABEL_209:
+          if (v80 == 1)
           {
-            goto LABEL_218;
+            goto LABEL_210;
           }
 
           return 4294960554;
         default:
-LABEL_218:
-          ++v137;
+LABEL_210:
+          ++v75;
           break;
       }
     }
@@ -7715,97 +7707,97 @@ LABEL_218:
 
   if (!strcasecmp((a1 + 4), "GPHDT"))
   {
-    for (k = 1; ; ++k)
+    for (j = 1; ; ++j)
     {
       if (v39 >= v25)
       {
-LABEL_228:
-        v145 = v25;
-        v148 = v25;
+LABEL_217:
+        v82 = v25;
+        v85 = v25;
         if (v39 == v25)
         {
-          goto LABEL_239;
+          goto LABEL_228;
         }
       }
 
       else
       {
-        v145 = v39;
-        v146 = v39;
+        v82 = v39;
+        v83 = v39;
         while (1)
         {
-          v147 = *v146++;
-          if (v147 == 44)
+          v84 = *v83++;
+          if (v84 == 44)
           {
             break;
           }
 
-          v145 = v146;
-          if (v146 == v25)
+          v82 = v83;
+          if (v83 == v25)
           {
-            goto LABEL_228;
+            goto LABEL_217;
           }
         }
 
-        v148 = v145 + 1;
+        v85 = v82 + 1;
       }
 
-      if (k == 2)
+      if (j == 2)
       {
-        if (v145 == v39)
+        if (v82 == v39)
         {
-          v149 = 63;
+          v86 = 63;
         }
 
         else
         {
-          v149 = *v39;
+          v86 = *v39;
         }
 
-        *(a1 + 24) = v149;
+        *(a1 + 24) = v86;
       }
 
-      else if (k == 1)
+      else if (j == 1)
       {
-        SNScanF(v39, v145 - v39, "%lf", v62, v63, v64, v65, v66, a1 + 16);
+        SNScanF(v39, v82 - v39, "%lf", a1 + 16);
       }
 
-      v39 = v148;
+      v39 = v85;
     }
   }
 
   if (!strcasecmp((a1 + 4), "GPRMC"))
   {
 
-    return _NMEAParseGPRMC(a1, v39, v25, v67, v68, v69, v70, v71);
+    return _NMEAParseGPRMC(a1, v39, v25);
   }
 
   else
   {
     if (!strcasecmp((a1 + 4), "GPVTG"))
     {
-      _NMEAParseGPVTG(a1, v39, v25, v72, v73, v74, v75, v76);
+      _NMEAParseGPVTG(a1, v39, v25);
       return 0;
     }
 
     if (!strcasecmp((a1 + 4), "GPZDA"))
     {
 
-      return _NMEAParseGPZDA(a1, v39, v25, v77, v78, v79, v80, v81);
+      return _NMEAParseGPZDA(a1, v39, v25);
     }
 
     else
     {
       if (!strcasecmp((a1 + 4), "OHPR"))
       {
-        _NMEAParseOHPR(a1, v39, v25, v82, v83, v84, v85, v86);
+        _NMEAParseOHPR(a1, v39, v25);
         return 0;
       }
 
       if (!strcasecmp((a1 + 4), "PAACD"))
       {
 
-        return _NMEAParsePAACD(a1, v39, v25, v87, v88, v89, v90, v91);
+        return _NMEAParsePAACD(a1, v39, v25);
       }
 
       else
@@ -7815,30 +7807,32 @@ LABEL_228:
           if (!strcasecmp((a1 + 4), "PASCD"))
           {
 
-            return _NMEAParsePASCD(a1, v39, v25, v97, v98, v99, v100, v101);
+            return _NMEAParsePASCD(a1, v39, v25);
           }
 
           return 0;
         }
 
-        return _NMEAParsePAGCD(a1, v39, v25, v92, v93, v94, v95, v96);
+        return _NMEAParsePAGCD(a1, v39, v25);
       }
     }
   }
 }
 
-uint64_t _NMEAParseGPRMC(uint64_t a1, char *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _NMEAParseGPRMC(uint64_t a1, char *a2, char *a3)
 {
-  v29 = 0;
-  v30 = 0;
-  v11 = a1 + 88;
-  v12 = a1 + 72;
-  v13 = a1 + 64;
-  v14 = 1;
+  v27 = 0;
   v28 = 0;
+  v6 = a1 + 88;
+  v7 = a1 + 72;
+  v8 = a1 + 64;
+  v9 = 1;
+  v26 = 0;
+  v25 = 0;
+  v24 = 0.0;
   while (1)
   {
-    v15 = a2;
+    v10 = a2;
     if (a2 >= a3)
     {
 LABEL_6:
@@ -7849,186 +7843,197 @@ LABEL_6:
         return result;
       }
 
-      v30 = a2;
-      v16 = a3;
+      v28 = a2;
+      v11 = a3;
       a2 = a3;
     }
 
     else
     {
-      v16 = a2;
-      while (*v16 != 44)
+      v11 = a2;
+      while (*v11 != 44)
       {
-        if (++v16 == a3)
+        if (++v11 == a3)
         {
           goto LABEL_6;
         }
       }
 
-      v30 = a2;
-      a2 = v16 + 1;
+      v28 = a2;
+      a2 = v11 + 1;
     }
 
-    v17 = v16 - v15;
-    if (v14 <= 6)
+    v12 = v11 - v10;
+    if (v9 <= 6)
     {
       break;
     }
 
-    if (v14 > 9)
+    if (v9 > 9)
     {
-      switch(v14)
+      switch(v9)
       {
         case 10:
-          SNScanF(v15, v17, "%lf", a4, a5, a6, a7, a8, v11);
+          SNScanF(v10, v12, "%lf", v6);
           break;
         case 11:
-          if (v16 == v15)
-          {
-            v26 = 63;
-          }
-
-          else
-          {
-            v26 = *v15;
-          }
-
-          *(a1 + 96) = v26;
-          break;
-        case 12:
-          if (v16 == v15)
+          if (v11 == v10)
           {
             v22 = 63;
           }
 
           else
           {
-            v22 = *v15;
+            v22 = *v10;
           }
 
-          *(a1 + 97) = v22;
+          *(a1 + 96) = v22;
+          break;
+        case 12:
+          if (v11 == v10)
+          {
+            v18 = 63;
+          }
+
+          else
+          {
+            v18 = *v10;
+          }
+
+          *(a1 + 97) = v18;
           break;
       }
     }
 
     else
     {
-      if (v14 == 7)
+      if (v9 == 7)
       {
-        SNScanF(v15, v17, "%lf", a4, a5, a6, a7, a8, v13);
-        goto LABEL_54;
+        SNScanF(v10, v12, "%lf", v8);
+        goto LABEL_57;
       }
 
-      if (v14 != 8)
+      if (v9 != 8)
       {
-        if (SNScanF(v15, v17, "%2u%2u%2u", a4, a5, a6, a7, a8, &v28) != 3)
+        if (SNScanF(v10, v12, "%2u%2u%2u", &v26, &v27, &v25) != 3)
         {
           return 4294960554;
         }
 
-        v19 = YMD_HMStoSeconds(2000, v29, v28, 0, 0, 0, 0);
-        *(a1 + 80) = v19 / 86400;
-        v20 = (v19 - 0xEB1E31100);
-LABEL_32:
-        *(a1 + 104) = *(a1 + 104) + v20;
-        goto LABEL_54;
-      }
-
-      SNScanF(v15, v17, "%lf", a4, a5, a6, a7, a8, v12);
-    }
-
-LABEL_54:
-    ++v14;
-  }
-
-  if (v14 <= 3)
-  {
-    switch(v14)
-    {
-      case 1:
-        if (SNScanF(v15, v17, "%2u%2u%2u%lf", a4, a5, a6, a7, a8, &v29 + 4) < 3)
+        if (v25 >= 0x3C)
         {
-          return 4294960554;
-        }
-
-        v20 = (3600 * HIDWORD(v29) + 60 * v29 + HIDWORD(v28)) + 0.0;
-        *(a1 + 16) = v20;
-        goto LABEL_32;
-      case 2:
-        if (v16 == v15)
-        {
-          v24 = 63;
+          v14 = 1900;
         }
 
         else
         {
-          v24 = *v15;
+          v14 = 2000;
         }
 
-        *(a1 + 24) = v24;
-        break;
-      case 3:
-        if (SNScanF(v15, v17, "%2u%lf", a4, a5, a6, a7, a8, &v28) != 2)
+        v15 = YMD_HMStoSeconds(v14 + v25, v27, v26, 0, 0, 0, 0);
+        *(a1 + 80) = v15 / 86400;
+        v16 = (v15 - 0xEB1E31100);
+LABEL_35:
+        *(a1 + 104) = *(a1 + 104) + v16;
+        goto LABEL_57;
+      }
+
+      SNScanF(v10, v12, "%lf", v7);
+    }
+
+LABEL_57:
+    ++v9;
+  }
+
+  if (v9 <= 3)
+  {
+    switch(v9)
+    {
+      case 1:
+        v24 = 0.0;
+        if (SNScanF(v10, v12, "%2u%2u%2u%lf", &v27 + 4, &v27, &v26 + 4, &v24) < 3)
         {
           return 4294960554;
         }
 
-        LODWORD(v18) = v28;
-        *(a1 + 32) = 0.0 / 60.0 + v18;
+        v16 = v24 + (3600 * HIDWORD(v27) + 60 * v27 + HIDWORD(v26));
+        *(a1 + 16) = v16;
+        goto LABEL_35;
+      case 2:
+        if (v11 == v10)
+        {
+          v20 = 63;
+        }
+
+        else
+        {
+          v20 = *v10;
+        }
+
+        *(a1 + 24) = v20;
+        break;
+      case 3:
+        if (SNScanF(v10, v12, "%2u%lf", &v26, &v24) != 2)
+        {
+          return 4294960554;
+        }
+
+        LODWORD(v13) = v26;
+        *(a1 + 32) = v24 / 60.0 + v13;
         break;
     }
 
-    goto LABEL_54;
+    goto LABEL_57;
   }
 
-  if (v14 == 4)
+  if (v9 == 4)
   {
-    if (v16 == v15)
+    if (v11 == v10)
     {
-      v23 = 63;
+      v19 = 63;
     }
 
     else
     {
-      v23 = *v15;
+      v19 = *v10;
     }
 
-    *(a1 + 40) = v23;
-    goto LABEL_54;
+    *(a1 + 40) = v19;
+    goto LABEL_57;
   }
 
-  if (v14 != 5)
+  if (v9 != 5)
   {
-    if (v16 == v15)
+    if (v11 == v10)
     {
-      v21 = 63;
+      v17 = 63;
     }
 
     else
     {
-      v21 = *v15;
+      v17 = *v10;
     }
 
-    *(a1 + 56) = v21;
-    goto LABEL_54;
+    *(a1 + 56) = v17;
+    goto LABEL_57;
   }
 
-  if (SNScanF(v15, v17, "%3u%lf", a4, a5, a6, a7, a8, &v28) == 2)
+  if (SNScanF(v10, v12, "%3u%lf", &v26, &v24) == 2)
   {
-    LODWORD(v25) = v28;
-    *(a1 + 48) = 0.0 / 60.0 + v25;
-    goto LABEL_54;
+    LODWORD(v21) = v26;
+    *(a1 + 48) = v24 / 60.0 + v21;
+    goto LABEL_57;
   }
 
   return 4294960554;
 }
 
-char *_NMEAParseGPVTG(uint64_t a1, char *a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *_NMEAParseGPVTG(uint64_t a1, char *a2, char *a3)
 {
-  v11 = a1 + 64;
-  v12 = a1 + 48;
-  v13 = a1 + 32;
-  v14 = a1 + 16;
+  v6 = a1 + 64;
+  v7 = a1 + 48;
+  v8 = a1 + 32;
+  v9 = a1 + 16;
   for (i = 1; ; ++i)
   {
     result = a2;
@@ -8037,69 +8042,69 @@ char *_NMEAParseGPVTG(uint64_t a1, char *a2, unsigned __int8 *a3, uint64_t a4, u
       break;
     }
 
-    v17 = a2;
-    v18 = a2;
+    v12 = a2;
+    v13 = a2;
     while (1)
     {
-      v19 = *v18++;
-      if (v19 == 44)
+      v14 = *v13++;
+      if (v14 == 44)
       {
         break;
       }
 
-      v17 = v18;
-      if (v18 == a3)
+      v12 = v13;
+      if (v13 == a3)
       {
         goto LABEL_6;
       }
     }
 
-    a2 = v17 + 1;
+    a2 = v12 + 1;
 LABEL_9:
-    v20 = v17 - result;
+    v15 = v12 - result;
     if (i <= 4)
     {
       if (i > 2)
       {
         if (i == 3)
         {
-          SNScanF(result, v20, "%lf", a4, a5, a6, a7, a8, v13);
+          SNScanF(result, v15, "%lf", v8);
         }
 
         else
         {
-          if (v17 == result)
+          if (v12 == result)
           {
-            v23 = 63;
+            v18 = 63;
           }
 
           else
           {
-            v23 = *result;
+            v18 = *result;
           }
 
-          *(a1 + 40) = v23;
+          *(a1 + 40) = v18;
         }
       }
 
       else if (i == 1)
       {
-        SNScanF(result, v20, "%lf", a4, a5, a6, a7, a8, v14);
+        SNScanF(result, v15, "%lf", v9);
       }
 
       else if (i == 2)
       {
-        if (v17 == result)
+        if (v12 == result)
         {
-          v22 = 63;
+          v17 = 63;
         }
 
         else
         {
-          v22 = *result;
+          v17 = *result;
         }
 
-        *(a1 + 24) = v22;
+        *(a1 + 24) = v17;
       }
     }
 
@@ -8107,22 +8112,22 @@ LABEL_9:
     {
       if (i == 5)
       {
-        SNScanF(result, v20, "%lf", a4, a5, a6, a7, a8, v12);
+        SNScanF(result, v15, "%lf", v7);
       }
 
       else
       {
-        if (v17 == result)
+        if (v12 == result)
         {
-          v24 = 63;
+          v19 = 63;
         }
 
         else
         {
-          v24 = *result;
+          v19 = *result;
         }
 
-        *(a1 + 56) = v24;
+        *(a1 + 56) = v19;
       }
     }
 
@@ -8131,40 +8136,40 @@ LABEL_9:
       switch(i)
       {
         case 7:
-          SNScanF(result, v20, "%lf", a4, a5, a6, a7, a8, v11);
+          SNScanF(result, v15, "%lf", v6);
           break;
         case 8:
-          if (v17 == result)
+          if (v12 == result)
           {
-            v25 = 63;
+            v20 = 63;
           }
 
           else
           {
-            v25 = *result;
+            v20 = *result;
           }
 
-          *(a1 + 72) = v25;
+          *(a1 + 72) = v20;
           break;
         case 9:
-          if (v17 == result)
+          if (v12 == result)
           {
-            v21 = 63;
+            v16 = 63;
           }
 
           else
           {
-            v21 = *result;
+            v16 = *result;
           }
 
-          *(a1 + 73) = v21;
+          *(a1 + 73) = v16;
           break;
       }
     }
   }
 
 LABEL_6:
-  v17 = a3;
+  v12 = a3;
   a2 = a3;
   if (result != a3)
   {
@@ -8175,211 +8180,13 @@ LABEL_6:
   return result;
 }
 
-uint64_t _NMEAParseGPZDA(uint64_t a1, char *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _NMEAParseGPZDA(uint64_t a1, char *a2, char *a3)
 {
-  v24 = a1 + 44;
-  v25 = a1 + 48;
-  v23 = a1 + 40;
-  v11 = (a1 + 36);
-  v12 = (a1 + 32);
-  v13 = a1 + 16;
-  for (i = 1; ; ++i)
-  {
-    v15 = a2;
-    if (a2 >= a3)
-    {
-LABEL_6:
-      v16 = a3;
-      a2 = a3;
-      if (v15 == a3)
-      {
-        v21 = YMD_HMStoSeconds(*(a1 + 40), *(a1 + 36), *(a1 + 32), *(a1 + 16), *(a1 + 20), 0, 730486);
-        result = 0;
-        *(a1 + 56) = *(a1 + 24) + v21 + (3600 * *(a1 + 44)) + (60 * *(a1 + 48));
-        *a1 |= 4u;
-        return result;
-      }
-    }
-
-    else
-    {
-      v16 = a2;
-      v17 = a2;
-      while (1)
-      {
-        v18 = *v17++;
-        if (v18 == 44)
-        {
-          break;
-        }
-
-        v16 = v17;
-        if (v17 == a3)
-        {
-          goto LABEL_6;
-        }
-      }
-
-      a2 = (v16 + 1);
-    }
-
-    v19 = v16 - v15;
-    if (i <= 3)
-    {
-      break;
-    }
-
-    if (i == 4)
-    {
-      SNScanF(v15, v19, "%u", a4, a5, a6, a7, a8, v23);
-    }
-
-    else
-    {
-      if (i == 5)
-      {
-        v20 = v24;
-      }
-
-      else
-      {
-        if (i != 6)
-        {
-          continue;
-        }
-
-        v20 = v25;
-      }
-
-      SNScanF(v15, v19, "%d", a4, a5, a6, a7, a8, v20);
-    }
-
-LABEL_26:
-    ;
-  }
-
-  if (i == 1)
-  {
-    if (SNScanF(v15, v19, "%2u%2u%lf", a4, a5, a6, a7, a8, v13) != 3)
-    {
-      return 4294960554;
-    }
-
-    goto LABEL_26;
-  }
-
-  if (i == 2)
-  {
-    SNScanF(v15, v19, "%u", a4, a5, a6, a7, a8, v12);
-    if (*v12 > 0x1Fu)
-    {
-      return 4294960554;
-    }
-
-    goto LABEL_26;
-  }
-
-  if (i != 3)
-  {
-    goto LABEL_26;
-  }
-
-  SNScanF(v15, v19, "%u", a4, a5, a6, a7, a8, v11);
-  if (*v11 <= 0xCu)
-  {
-    goto LABEL_26;
-  }
-
-  return 4294960554;
-}
-
-uint64_t _NMEAParseOHPR(uint64_t result, char *a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v10 = result;
-  v11 = result + 48;
-  v12 = result + 40;
-  v13 = result + 32;
-  v14 = result + 24;
-  v15 = result + 16;
-  v16 = 1;
-  while (a2 < a3)
-  {
-    v17 = a2;
-    v18 = a2;
-    while (1)
-    {
-      v19 = *v18++;
-      if (v19 == 44)
-      {
-        break;
-      }
-
-      v17 = v18;
-      if (v18 == a3)
-      {
-        goto LABEL_6;
-      }
-    }
-
-    v20 = v17 + 1;
-LABEL_9:
-    if (v16 > 2)
-    {
-      v21 = v13;
-      if (v16 != 3)
-      {
-        v21 = v12;
-        if (v16 != 4)
-        {
-          if (v16 != 5)
-          {
-            goto LABEL_17;
-          }
-
-          v21 = v11;
-        }
-      }
-
-LABEL_16:
-      result = SNScanF(a2, v17 - a2, "%lf", a4, a5, a6, a7, a8, v21);
-      goto LABEL_17;
-    }
-
-    v21 = v15;
-    if (v16 == 1)
-    {
-      goto LABEL_16;
-    }
-
-    v21 = v14;
-    if (v16 == 2)
-    {
-      goto LABEL_16;
-    }
-
-LABEL_17:
-    ++v16;
-    a2 = v20;
-  }
-
-LABEL_6:
-  v17 = a3;
-  v20 = a3;
-  if (a2 != a3)
-  {
-    goto LABEL_9;
-  }
-
-  *v10 |= 4u;
-  return result;
-}
-
-uint64_t _NMEAParsePAACD(uint64_t a1, char *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v28 = a1 + 24;
-  v29 = a1 + 32;
-  __src = (a1 + 48);
-  v27 = a1 + 16;
+  v6 = (a1 + 36);
+  v7 = (a1 + 32);
+  v8 = a1 + 16;
+  v9 = a1 + 20;
+  v10 = a1 + 24;
   for (i = 1; ; ++i)
   {
     v12 = a2;
@@ -8390,7 +8197,9 @@ LABEL_6:
       a2 = a3;
       if (v12 == a3)
       {
+        v17 = YMD_HMStoSeconds(*(a1 + 40), *(a1 + 36), *(a1 + 32), *(a1 + 16), *(a1 + 20), 0, 730486);
         result = 0;
+        *(a1 + 56) = *(a1 + 24) + v17 + (3600 * *(a1 + 44)) + (60 * *(a1 + 48));
         *a1 |= 4u;
         return result;
       }
@@ -8415,115 +8224,286 @@ LABEL_6:
         }
       }
 
-      a2 = (v13 + 1);
+      a2 = v13 + 1;
     }
 
     v16 = v13 - v12;
+    if (i > 3)
+    {
+      if (i == 4)
+      {
+        SNScanF(v12, v16, "%u");
+      }
+
+      else if (i == 5 || i == 6)
+      {
+        SNScanF(v12, v16, "%d");
+      }
+
+      continue;
+    }
+
+    if (i == 1)
+    {
+      if (SNScanF(v12, v16, "%2u%2u%lf", v8, v9, v10) != 3)
+      {
+        return 4294960554;
+      }
+
+      continue;
+    }
+
+    if (i != 2)
+    {
+      break;
+    }
+
+    SNScanF(v12, v16, "%u", v7);
+    if (*v7 > 0x1Fu)
+    {
+      return 4294960554;
+    }
+
+LABEL_25:
+    ;
+  }
+
+  if (i != 3)
+  {
+    goto LABEL_25;
+  }
+
+  SNScanF(v12, v16, "%u", v6);
+  if (*v6 <= 0xCu)
+  {
+    goto LABEL_25;
+  }
+
+  return 4294960554;
+}
+
+_DWORD *_NMEAParseOHPR(_DWORD *result, char *a2, char *a3)
+{
+  v5 = result;
+  v6 = result + 12;
+  v7 = result + 10;
+  v8 = result + 8;
+  v9 = result + 6;
+  v10 = result + 4;
+  v11 = 1;
+  while (a2 < a3)
+  {
+    v12 = a2;
+    v13 = a2;
+    while (1)
+    {
+      v14 = *v13++;
+      if (v14 == 44)
+      {
+        break;
+      }
+
+      v12 = v13;
+      if (v13 == a3)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    v15 = v12 + 1;
+LABEL_9:
+    if (v11 > 2)
+    {
+      v16 = v8;
+      if (v11 != 3)
+      {
+        v16 = v7;
+        if (v11 != 4)
+        {
+          if (v11 != 5)
+          {
+            goto LABEL_17;
+          }
+
+          v16 = v6;
+        }
+      }
+
+LABEL_16:
+      result = SNScanF(a2, v12 - a2, "%lf", v16);
+      goto LABEL_17;
+    }
+
+    v16 = v10;
+    if (v11 == 1)
+    {
+      goto LABEL_16;
+    }
+
+    v16 = v9;
+    if (v11 == 2)
+    {
+      goto LABEL_16;
+    }
+
+LABEL_17:
+    ++v11;
+    a2 = v15;
+  }
+
+LABEL_6:
+  v12 = a3;
+  v15 = a3;
+  if (a2 != a3)
+  {
+    goto LABEL_9;
+  }
+
+  *v5 |= 4u;
+  return result;
+}
+
+uint64_t _NMEAParsePAACD(uint64_t a1, char *a2, char *a3)
+{
+  __src = (a1 + 48);
+  for (i = 1; ; ++i)
+  {
+    v7 = a2;
+    if (a2 >= a3)
+    {
+LABEL_6:
+      v8 = a3;
+      a2 = a3;
+      if (v7 == a3)
+      {
+        result = 0;
+        *a1 |= 4u;
+        return result;
+      }
+    }
+
+    else
+    {
+      v8 = a2;
+      v9 = a2;
+      while (1)
+      {
+        v10 = *v9++;
+        if (v10 == 44)
+        {
+          break;
+        }
+
+        v8 = v9;
+        if (v9 == a3)
+        {
+          goto LABEL_6;
+        }
+      }
+
+      a2 = v8 + 1;
+    }
+
+    v11 = v8 - v7;
     if (i == 3)
     {
-      SNScanF(v12, v16, "%u", a4, a5, a6, a7, a8, v29);
+      SNScanF(v7, v11, "%u");
       continue;
     }
 
     if (i == 2)
     {
-      v18 = v28;
-      goto LABEL_29;
+      goto LABEL_28;
     }
 
-    v17 = i - 1;
+    v12 = i - 1;
     if (i == 1)
     {
-      v18 = v27;
-LABEL_29:
-      SNScanF(v12, v16, "%lf", a4, a5, a6, a7, a8, v18);
-      continue;
+      goto LABEL_28;
     }
 
     if (i >= 4)
     {
-      v17 = i - 4;
+      v12 = i - 4;
     }
 
-    v19 = v17 >> 2;
-    if ((v17 >> 2) >= 8)
+    v13 = v12 >> 2;
+    if ((v12 >> 2) < 8)
+    {
+      v14 = __src;
+LABEL_22:
+      *(a1 + 40) = v14;
+      goto LABEL_23;
+    }
+
+    if ((*a1 & 0x10) == 0)
+    {
+      continue;
+    }
+
+    if (v13 >= *(a1 + 36))
     {
       break;
     }
 
-    v20 = __src;
-LABEL_22:
-    *(a1 + 40) = v20;
+    v14 = *(a1 + 40);
 LABEL_23:
-    v21 = v20 + 32 * v19;
-    v22 = i - 4 - 4 * v19;
-    if (v22 != 2)
+    v15 = &v14[32 * v13];
+    v16 = i - 4 - 4 * v13;
+    switch(v16)
     {
-      if (v22 == 1)
-      {
-        SNScanF(v12, v16, "%lf", a4, a5, a6, a7, a8, v21 + 8);
-      }
-
-      else if (!v22)
-      {
-        SNScanF(v12, v16, "%lf", a4, a5, a6, a7, a8, v21);
+      case 2:
+        v17 = v7;
+        v18 = v11;
+        goto LABEL_29;
+      case 1:
+        SNScanF(v7, v11, "%lf", v15 + 8);
+        break;
+      case 0:
+        SNScanF(v7, v11, "%lf", v15);
         ++*(a1 + 36);
-      }
-
-      v18 = v21 + 24;
-      goto LABEL_29;
+        break;
     }
 
-    SNScanF(v12, v16, "%lf", a4, a5, a6, a7, a8, v21 + 16);
-LABEL_30:
-    ;
+LABEL_28:
+    v17 = v7;
+    v18 = v11;
+LABEL_29:
+    SNScanF(v17, v18, "%lf");
   }
 
-  if ((*a1 & 0x10) == 0)
+  v11 = 32 * v13 + 32;
+  v19 = malloc_type_realloc(*(a1 + 304), v11, 0x1000040E0EAB150uLL);
+  if (v19)
   {
-    goto LABEL_30;
-  }
-
-  if (v19 < *(a1 + 36))
-  {
-    v20 = *(a1 + 40);
-    goto LABEL_23;
-  }
-
-  v16 = 32 * v19 + 32;
-  v23 = malloc_type_realloc(*(a1 + 304), v16, 0x1000040E0EAB150uLL);
-  if (v23)
-  {
-    v20 = v23;
+    v14 = v19;
     if (!*(a1 + 304))
     {
-      memcpy(v23, __src, 32 * v19);
+      memcpy(v19, __src, 32 * v13);
     }
 
-    v24 = &v20[32 * v19];
-    *v24 = 0u;
-    *(v24 + 1) = 0u;
-    *(a1 + 304) = v20;
+    v20 = &v14[32 * v13];
+    *v20 = 0u;
+    *(v20 + 1) = 0u;
+    *(a1 + 304) = v14;
     goto LABEL_22;
   }
 
   return 4294960568;
 }
 
-uint64_t _NMEAParsePAGCD(uint64_t a1, char *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _NMEAParsePAGCD(uint64_t a1, char *a2, char *a3)
 {
-  v27 = a1 + 16;
-  v28 = a1 + 24;
   __src = (a1 + 40);
   for (i = 1; ; ++i)
   {
-    v12 = a2;
+    v7 = a2;
     if (a2 >= a3)
     {
 LABEL_6:
-      v13 = a3;
+      v8 = a3;
       a2 = a3;
-      if (v12 == a3)
+      if (v7 == a3)
       {
         result = 0;
         *a1 |= 4u;
@@ -8533,122 +8513,125 @@ LABEL_6:
 
     else
     {
-      v13 = a2;
-      v14 = a2;
+      v8 = a2;
+      v9 = a2;
       while (1)
       {
-        v15 = *v14++;
-        if (v15 == 44)
+        v10 = *v9++;
+        if (v10 == 44)
         {
           break;
         }
 
-        v13 = v14;
-        if (v14 == a3)
+        v8 = v9;
+        if (v9 == a3)
         {
           goto LABEL_6;
         }
       }
 
-      a2 = (v13 + 1);
+      a2 = v8 + 1;
     }
 
-    v16 = v13 - v12;
+    v11 = v8 - v7;
     if (i == 2)
     {
-      SNScanF(v12, v16, "%u", a4, a5, a6, a7, a8, v28);
+      SNScanF(v7, v11, "%u");
       continue;
     }
 
     if (i == 1)
     {
-      v17 = v27;
-LABEL_28:
-      SNScanF(v12, v16, "%lf", a4, a5, a6, a7, a8, v17);
+      goto LABEL_27;
+    }
+
+    if (i >= 3)
+    {
+      v12 = i - 3;
+    }
+
+    else
+    {
+      v12 = i;
+    }
+
+    v13 = v12 >> 2;
+    if ((v12 >> 2) < 8)
+    {
+      v14 = __src;
+LABEL_21:
+      *(a1 + 32) = v14;
+      goto LABEL_22;
+    }
+
+    if ((*a1 & 0x10) == 0)
+    {
       continue;
     }
 
-    v18 = i >= 3 ? i - 3 : i;
-    v19 = v18 >> 2;
-    if ((v18 >> 2) >= 8)
+    if (v13 >= *(a1 + 28))
     {
       break;
     }
 
-    v20 = __src;
-LABEL_21:
-    *(a1 + 32) = v20;
+    v14 = *(a1 + 32);
 LABEL_22:
-    v21 = v20 + 32 * v19;
-    v22 = i - 3 - 4 * v19;
-    if (v22 != 2)
+    v15 = &v14[32 * v13];
+    v16 = i - 3 - 4 * v13;
+    switch(v16)
     {
-      if (v22 == 1)
-      {
-        SNScanF(v12, v16, "%lf", a4, a5, a6, a7, a8, v21 + 8);
-      }
-
-      else if (!v22)
-      {
-        SNScanF(v12, v16, "%lf", a4, a5, a6, a7, a8, v21);
+      case 2:
+        v17 = v7;
+        v18 = v11;
+        goto LABEL_28;
+      case 1:
+        SNScanF(v7, v11, "%lf", v15 + 8);
+        break;
+      case 0:
+        SNScanF(v7, v11, "%lf", v15);
         ++*(a1 + 28);
-      }
-
-      v17 = v21 + 24;
-      goto LABEL_28;
+        break;
     }
 
-    SNScanF(v12, v16, "%lf", a4, a5, a6, a7, a8, v21 + 16);
-LABEL_29:
-    ;
+LABEL_27:
+    v17 = v7;
+    v18 = v11;
+LABEL_28:
+    SNScanF(v17, v18, "%lf");
   }
 
-  if ((*a1 & 0x10) == 0)
+  v11 = 32 * v13 + 32;
+  v19 = malloc_type_realloc(*(a1 + 296), v11, 0x1000040E0EAB150uLL);
+  if (v19)
   {
-    goto LABEL_29;
-  }
-
-  if (v19 < *(a1 + 28))
-  {
-    v20 = *(a1 + 32);
-    goto LABEL_22;
-  }
-
-  v16 = 32 * v19 + 32;
-  v23 = malloc_type_realloc(*(a1 + 296), v16, 0x1000040E0EAB150uLL);
-  if (v23)
-  {
-    v20 = v23;
+    v14 = v19;
     if (!*(a1 + 296))
     {
-      memcpy(v23, __src, 32 * v19);
+      memcpy(v19, __src, 32 * v13);
     }
 
-    v24 = &v20[32 * v19];
-    *v24 = 0u;
-    *(v24 + 1) = 0u;
-    *(a1 + 296) = v20;
+    v20 = &v14[32 * v13];
+    *v20 = 0u;
+    *(v20 + 1) = 0u;
+    *(a1 + 296) = v14;
     goto LABEL_21;
   }
 
   return 4294960568;
 }
 
-uint64_t _NMEAParsePASCD(uint64_t a1, char *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _NMEAParsePASCD(uint64_t a1, char *a2, char *a3)
 {
-  v11 = a1 + 32;
-  v12 = a1 + 28;
   __src = (a1 + 48);
-  v31 = a1 + 16;
   for (i = 1; ; ++i)
   {
-    v14 = a2;
+    v7 = a2;
     if (a2 >= a3)
     {
 LABEL_6:
-      v15 = a3;
+      v8 = a3;
       a2 = a3;
-      if (v14 == a3)
+      if (v7 == a3)
       {
         result = 0;
         *a1 |= 4u;
@@ -8658,27 +8641,27 @@ LABEL_6:
 
     else
     {
-      v15 = a2;
-      v16 = a2;
+      v8 = a2;
+      v9 = a2;
       while (1)
       {
-        v17 = *v16++;
-        if (v17 == 44)
+        v10 = *v9++;
+        if (v10 == 44)
         {
           break;
         }
 
-        v15 = v16;
-        if (v16 == a3)
+        v8 = v9;
+        if (v9 == a3)
         {
           goto LABEL_6;
         }
       }
 
-      a2 = (v15 + 1);
+      a2 = v8 + 1;
     }
 
-    v18 = v15 - v14;
+    v11 = v8 - v7;
     if (i > 2)
     {
       break;
@@ -8686,110 +8669,101 @@ LABEL_6:
 
     if (i == 1)
     {
-      v29 = v31;
-      v21 = v14;
-      v22 = v15 - v14;
-      goto LABEL_35;
+      v14 = v7;
+      v15 = v8 - v7;
+LABEL_34:
+      SNScanF(v14, v15, "%lf");
+      continue;
     }
 
     if (i != 2)
     {
-      goto LABEL_23;
+      goto LABEL_22;
     }
 
-    if (v18)
+    if (v11)
     {
-      v19 = *v14;
+      v12 = *v7;
     }
 
     else
     {
-      v19 = 63;
+      v12 = 63;
     }
 
-    *(a1 + 24) = v19;
-LABEL_37:
+    *(a1 + 24) = v12;
+LABEL_35:
     ;
   }
 
-  switch(i)
+  if (i == 3)
   {
-    case 3:
-      if (v18)
-      {
-        v20 = *v14;
-      }
+    if (v11)
+    {
+      v13 = *v7;
+    }
 
-      else
-      {
-        v20 = 63;
-      }
+    else
+    {
+      v13 = 63;
+    }
 
-      *(a1 + 25) = v20;
-      goto LABEL_37;
-    case 4:
-      v29 = v12;
-LABEL_21:
-      v21 = v14;
-      v22 = v15 - v14;
-      v23 = "%u";
-      goto LABEL_36;
-    case 5:
-      v29 = v11;
-      goto LABEL_21;
+    *(a1 + 25) = v13;
+    goto LABEL_35;
   }
 
-LABEL_23:
-  v24 = (i - 6 + ((i - 6) >> 31)) >> 1;
+  if (i == 4 || i == 5)
+  {
+    SNScanF(v7, v8 - v7, "%u");
+    goto LABEL_35;
+  }
+
+LABEL_22:
+  v16 = (i - 6 + ((i - 6) >> 31)) >> 1;
   if (((i - 6) / 2) < 8)
   {
-    LODWORD(v25) = __src;
+    v17 = __src;
     *(a1 + 40) = __src;
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
   if ((*a1 & 0x10) == 0)
   {
-    goto LABEL_37;
+    goto LABEL_35;
   }
 
   if (((i - 6) / 2) < *(a1 + 36))
   {
-    v25 = *(a1 + 40);
-LABEL_28:
+    v17 = *(a1 + 40);
+LABEL_27:
     if ((i & 1) == 0)
     {
-      SNScanF(v14, v18, "%lf", a4, a5, a6, a7, a8, v25 + 16 * ((i - 6) / 2));
+      SNScanF(v7, v11, "%lf", &v17[16 * v16]);
       ++*(a1 + 36);
-      goto LABEL_37;
+      goto LABEL_35;
     }
 
-    v29 = v25 + 16 * ((i - 6) / 2) + 8;
-    v21 = v14;
-    v22 = v18;
-LABEL_35:
-    v23 = "%lf";
-LABEL_36:
-    SNScanF(v21, v22, v23, a4, a5, a6, a7, a8, v29);
-    goto LABEL_37;
+    v14 = v7;
+    v15 = v11;
+    goto LABEL_34;
   }
 
-  v18 = 16 * v24 + 16;
-  v26 = malloc_type_realloc(*(a1 + 176), v18, 0x1000040451B5BE8uLL);
-  if (v26)
+  v11 = 16 * v16 + 16;
+  v18 = malloc_type_realloc(*(a1 + 176), v11, 0x1000040451B5BE8uLL);
+  if (v18)
   {
-    v25 = v26;
+    v17 = v18;
     if (!*(a1 + 176))
     {
-      memcpy(v26, __src, 16 * v24);
+      memcpy(v18, __src, 16 * v16);
     }
 
-    v27 = &v25[16 * v24];
-    *v27 = 0;
-    *(v27 + 1) = 0;
-    *(a1 + 176) = v25;
-    *(a1 + 40) = v25;
-    goto LABEL_28;
+    v19 = &v17[16 * v16];
+    *v19 = 0;
+    *(v19 + 1) = 0;
+    *(a1 + 176) = v17;
+    *(a1 + 40) = v17;
+    goto LABEL_27;
   }
 
   return 4294960568;
@@ -9030,7 +9004,7 @@ LABEL_31:
 
       v18 = 0;
       v21 = v5 + 2;
-      LODWORD(v23) = v5[1];
+      LODWORD(v23) = *(v5 + 1);
       v19 = 0;
       if (v23 != 10)
       {
@@ -9122,7 +9096,7 @@ void FreeCommandLineArgV(int a1, void **a2)
   }
 }
 
-uint64_t ParseCommaSeparatedNameValuePair(unsigned __int8 *a1, unint64_t a2, _BYTE *a3, uint64_t a4, void *a5, _BYTE *a6, void *a7, void *a8)
+uint64_t ParseCommaSeparatedNameValuePair(unsigned __int8 *a1, unint64_t a2, _BYTE *a3, uint64_t a4, void *a5, _BYTE *a6, void *a7, unint64_t *a8)
 {
   v13 = a1;
   if (a1 >= a2)
@@ -9300,7 +9274,7 @@ LABEL_12:
   return 1;
 }
 
-uint64_t ReplaceDifferentString(void **a1, char *a2)
+uint64_t ReplaceDifferentString(char **a1, char *a2)
 {
   v2 = a2;
   v4 = *a1;

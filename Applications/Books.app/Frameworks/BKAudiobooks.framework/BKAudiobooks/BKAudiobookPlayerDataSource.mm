@@ -15,12 +15,12 @@
 
   if (WeakRetained != delegateCopy)
   {
-    v6 = BKAudiobooksStreamingLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = BKAudiobooksStreamingLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = delegateCopy;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Data source delegate changed to %@.", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = delegateCopy;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Data source delegate changed to %@.", &v8, 0xCu);
     }
 
     objc_storeWeak(&self->_delegate, delegateCopy);
@@ -30,12 +30,12 @@
 - (BOOL)resourceLoader:(id)loader shouldWaitForLoadingOfRequestedResource:(id)resource
 {
   resourceCopy = resource;
-  v6 = BKAudiobooksStreamingLog();
+  v6 = BKAudiobooksStreamingLog(resourceCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 138412290;
-    v24 = resourceCopy;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "AVAsset requested %@", &v23, 0xCu);
+    v24 = 138412290;
+    v25 = resourceCopy;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "AVAsset requested %@", &v24, 0xCu);
   }
 
   request = [resourceCopy request];
@@ -53,9 +53,9 @@
     if (v13)
     {
       delegate2 = [(BKAudiobookPlayerDataSource *)self delegate];
-      v15 = [delegate2 playerDataSource:self shouldWaitForLoadingOfRequestedPlaylist:resourceCopy fileName:lastPathComponent];
+      v16 = [delegate2 playerDataSource:self shouldWaitForLoadingOfRequestedPlaylist:resourceCopy fileName:lastPathComponent];
 LABEL_9:
-      v18 = v15;
+      v19 = v16;
 LABEL_14:
 
       goto LABEL_16;
@@ -65,52 +65,56 @@ LABEL_14:
   else if ([lowercaseString bk_isAudioFileExtension])
   {
     delegate3 = [(BKAudiobookPlayerDataSource *)self delegate];
-    v17 = objc_opt_respondsToSelector();
+    v18 = objc_opt_respondsToSelector();
 
-    if (v17)
+    if (v18)
     {
       delegate2 = [(BKAudiobookPlayerDataSource *)self delegate];
-      v15 = [delegate2 playerDataSource:self shouldWaitForLoadingOfRequestedAudioFile:resourceCopy fileName:lastPathComponent];
+      v16 = [delegate2 playerDataSource:self shouldWaitForLoadingOfRequestedAudioFile:resourceCopy fileName:lastPathComponent];
       goto LABEL_9;
     }
   }
 
-  else if (ICSecureKeyDeliveryRequestSupportsAssetResourceLoadingRequest())
+  else
   {
-    v19 = BKAudiobooksStreamingLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v14 = ICSecureKeyDeliveryRequestSupportsAssetResourceLoadingRequest();
+    if (v14)
     {
-      v23 = 138412290;
-      v24 = lastPathComponent;
-      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "AVAsset requested skd file '%@'.", &v23, 0xCu);
+      v20 = BKAudiobooksStreamingLog(v14);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        v24 = 138412290;
+        v25 = lastPathComponent;
+        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "AVAsset requested skd file '%@'.", &v24, 0xCu);
+      }
+
+      delegate2 = [(BKAudiobookPlayerDataSource *)self delegate];
+      mediaItem = [delegate2 mediaItem];
+      v19 = [(BKAudiobookPlayerDataSource *)self _fetchKeysForMediaItem:mediaItem loadingRequest:resourceCopy];
+
+      goto LABEL_14;
     }
-
-    delegate2 = [(BKAudiobookPlayerDataSource *)self delegate];
-    mediaItem = [delegate2 mediaItem];
-    v18 = [(BKAudiobookPlayerDataSource *)self _fetchKeysForMediaItem:mediaItem loadingRequest:resourceCopy];
-
-    goto LABEL_14;
   }
 
-  v18 = 0;
+  v19 = 0;
 LABEL_16:
-  v21 = BKAudiobooksStreamingLog();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v22 = BKAudiobooksStreamingLog(v14);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 138412546;
-    v24 = lastPathComponent;
-    v25 = 1024;
-    v26 = v18;
-    _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "AVAsset request of '%@' wait for loading? %d", &v23, 0x12u);
+    v24 = 138412546;
+    v25 = lastPathComponent;
+    v26 = 1024;
+    v27 = v19;
+    _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "AVAsset request of '%@' wait for loading? %d", &v24, 0x12u);
   }
 
-  return v18;
+  return v19;
 }
 
 - (void)resourceLoader:(id)loader didCancelLoadingRequest:(id)request
 {
   requestCopy = request;
-  v6 = BKAudiobooksStreamingLog();
+  v6 = BKAudiobooksStreamingLog(requestCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138412290;

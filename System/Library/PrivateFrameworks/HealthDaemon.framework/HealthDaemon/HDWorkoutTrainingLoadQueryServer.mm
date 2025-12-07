@@ -15,7 +15,7 @@
   v11 = [(HDQueryServer *)&v15 initWithUUID:d configuration:configurationCopy client:client delegate:delegate];
   if (v11)
   {
-    v12 = [configurationCopy copy];
+    v12 = objc_msgSend_copy(configurationCopy);
     trainingLoadQueryServerConfiguration = v11->_trainingLoadQueryServerConfiguration;
     v11->_trainingLoadQueryServerConfiguration = v12;
   }
@@ -25,34 +25,33 @@
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (void)_queue_start
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = HDWorkoutTrainingLoadQueryServer;
-  [(HDQueryServer *)&v17 _queue_start];
+  v21 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = HDWorkoutTrainingLoadQueryServer;
+  [(HDQueryServer *)&v16 _queue_start];
   queryUUID = [(HDQueryServer *)self queryUUID];
   clientProxy = [(HDQueryServer *)self clientProxy];
   workoutType = [MEMORY[0x277CCD720] workoutType];
-  v16 = 0;
-  v6 = [(HDQueryServer *)self authorizationStatusRecordForType:workoutType error:&v16];
-  v7 = v16;
+  v15 = 0;
+  v6 = [(HDQueryServer *)self authorizationStatusRecordForType:workoutType error:&v15];
+  v7 = v15;
 
   if (v6)
   {
     if ([v6 canRead])
     {
-      v15 = 0;
-      v8 = [(HDWorkoutTrainingLoadQueryServer *)self _queue_fetchTrainingLoadWithError:&v15];
-      v9 = v15;
+      v14 = 0;
+      v8 = [(HDWorkoutTrainingLoadQueryServer *)self _queue_fetchTrainingLoadWithError:&v14];
+      v9 = v14;
       v10 = v9;
       if (v8 || !v9)
       {
@@ -72,8 +71,8 @@
         uUIDString = [queryUUID UUIDString];
         *buf = 138543618;
         selfCopy = self;
-        v20 = 2112;
-        v21 = uUIDString;
+        v19 = 2112;
+        v20 = uUIDString;
         _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "Completed %{public}@ request for query: %@", buf, 0x16u);
       }
     }
@@ -88,8 +87,6 @@
   {
     [clientProxy client_deliverError:v7 forQuery:queryUUID];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queue_fetchTrainingLoadWithError:(id *)error
@@ -146,7 +143,7 @@
 
 void __70__HDWorkoutTrainingLoadQueryServer__queue_fetchTrainingLoadWithError___block_invoke(void *a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   if (v7)
@@ -157,11 +154,11 @@ void __70__HDWorkoutTrainingLoadQueryServer__queue_fetchTrainingLoadWithError___
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
       v9 = a1[4];
-      v11 = 138543618;
-      v12 = v9;
-      v13 = 2114;
-      v14 = v7;
-      _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch training load: %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v7;
+      _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch training load: %{public}@", &v10, 0x16u);
     }
   }
 
@@ -169,8 +166,6 @@ void __70__HDWorkoutTrainingLoadQueryServer__queue_fetchTrainingLoadWithError___
   {
     objc_storeStrong((*(a1[6] + 8) + 40), a2);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

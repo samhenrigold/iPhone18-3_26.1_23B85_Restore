@@ -24,13 +24,12 @@
 {
   v7 = sub_2146D8958();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x28223BE20](v7);
-  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2146D88E8();
   selfCopy = self;
-  sub_21407C088(v11, encoding);
-  (*(v8 + 8))(v11, v7);
+  sub_21407C088(v10, encoding);
+  (*(v8 + 8))(v10, v7);
 
   return 1;
 }

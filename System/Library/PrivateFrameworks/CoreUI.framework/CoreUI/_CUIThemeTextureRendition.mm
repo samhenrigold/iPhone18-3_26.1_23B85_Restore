@@ -97,7 +97,7 @@
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
-    _CUILog(4, "CoreUI: tried to find the TextureImageRendition but got back a '%@'", v6, v7, v8, v9, v10, v11, v5);
+    _CUILog(4, "CoreUI: tried to find the TextureImageRendition but got back a '%@'", v5);
     return 0;
   }
 

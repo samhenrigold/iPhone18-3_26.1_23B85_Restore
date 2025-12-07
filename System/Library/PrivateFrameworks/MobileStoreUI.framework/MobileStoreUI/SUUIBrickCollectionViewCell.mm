@@ -34,13 +34,13 @@
 
 - (void)setColoringWithColorScheme:(id)scheme
 {
-  primaryTextColor = [scheme primaryTextColor];
+  v4 = objc_msgSend_primaryTextColor(scheme, a2);
   titleColor = self->_titleColor;
-  if (primaryTextColor != titleColor)
+  if (v4 != titleColor)
   {
-    obj = primaryTextColor;
-    titleColor = [titleColor isEqual:primaryTextColor];
-    primaryTextColor = obj;
+    obj = v4;
+    titleColor = [titleColor isEqual:v4];
+    v4 = obj;
     if ((titleColor & 1) == 0)
     {
       objc_storeStrong(&self->_titleColor, obj);
@@ -56,11 +56,11 @@
         [(UILabel *)titleLabel setTextColor:blackColor];
       }
 
-      primaryTextColor = obj;
+      v4 = obj;
     }
   }
 
-  MEMORY[0x2821F96F8](titleColor, primaryTextColor);
+  MEMORY[0x2821F96F8](titleColor, v4);
 }
 
 - (void)setCountdown:(id)countdown
@@ -174,7 +174,7 @@
 {
   titleCopy = title;
   title = [(SUUIBrickCollectionViewCell *)self title];
-  if (title != titleCopy && ([titleCopy isEqualToString:title] & 1) == 0)
+  if (title != titleCopy && (objc_msgSend_isEqualToString_(titleCopy) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)

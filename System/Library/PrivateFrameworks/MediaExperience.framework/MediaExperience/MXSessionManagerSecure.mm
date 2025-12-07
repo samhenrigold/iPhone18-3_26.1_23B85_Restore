@@ -34,16 +34,17 @@ MXSessionManagerSecure *__40__MXSessionManagerSecure_sharedInstance__block_invok
 
 - (MXSessionManagerSecure)init
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6.receiver = self;
-  v6.super_class = MXSessionManagerSecure;
-  v2 = [(MXSessionManagerSecure *)&v6 init];
+  v8 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = MXSessionManagerSecure;
+  v2 = [(MXSessionManagerSecure *)&v7 init];
+  v4 = v2;
   if (v2)
   {
-    if (CMSMDeviceState_DeviceHasExclaveCapability())
+    if (CMSMDeviceState_DeviceHasExclaveCapability(v2, v3))
     {
-      v2->mMXCoreSessionSecureList = [objc_alloc(MEMORY[0x1E696AE08]) initWithOptions:5];
-      v2->mMXCoreSessionSecureListLock = objc_alloc_init(MEMORY[0x1E696AD10]);
+      v4->mMXCoreSessionSecureList = [objc_alloc(MEMORY[0x1E696AE08]) initWithOptions:5];
+      v4->mMXCoreSessionSecureListLock = objc_alloc_init(MEMORY[0x1E696AD10]);
     }
 
     else
@@ -52,12 +53,11 @@ MXSessionManagerSecure *__40__MXSessionManagerSecure_sharedInstance__block_invok
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
 
-      v2 = 0;
+      return 0;
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-  return v2;
+  return v4;
 }
 
 - (void)dealloc
@@ -114,7 +114,7 @@ MXSessionManagerSecure *__40__MXSessionManagerSecure_sharedInstance__block_invok
 
 - (int)_beginInterruption:(id)interruption withSecTask:(__SecTask *)task andFlags:(unint64_t)flags
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [interruption setIsActive:{1, task, flags}];
   if (dword_1EB75DE40)
   {
@@ -124,14 +124,12 @@ MXSessionManagerSecure *__40__MXSessionManagerSecure_sharedInstance__block_invok
   }
 
   CMSUtility_CreateReporterIDIfNeeded(interruption);
-  result = [interruption sendSessionConfigurationInfoToVA];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [interruption sendSessionConfigurationInfoToVA];
 }
 
 - (int)_endInterruption:(id)interruption withSecTask:(__SecTask *)task andStatus:(id)status
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [interruption setIsActive:{0, task, status}];
   if (dword_1EB75DE40)
   {
@@ -140,34 +138,32 @@ MXSessionManagerSecure *__40__MXSessionManagerSecure_sharedInstance__block_invok
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  result = [interruption sendSessionConfigurationInfoToVA];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [interruption sendSessionConfigurationInfoToVA];
 }
 
 - (id)copySessionWithAudioSessionID:(unsigned int)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionSecureList = [(MXSessionManagerSecure *)self copyMXCoreSessionSecureList];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [copyMXCoreSessionSecureList countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [copyMXCoreSessionSecureList countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(copyMXCoreSessionSecureList);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([v9 audioSessionID] == d)
         {
           v10 = v9;
@@ -175,7 +171,7 @@ MXSessionManagerSecure *__40__MXSessionManagerSecure_sharedInstance__block_invok
         }
       }
 
-      v6 = [copyMXCoreSessionSecureList countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [copyMXCoreSessionSecureList countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -188,92 +184,93 @@ MXSessionManagerSecure *__40__MXSessionManagerSecure_sharedInstance__block_invok
   v9 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (id)copyActiveSessionsInfoForAdditiveRouting
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v20 = *MEMORY[0x1E69E9840];
+  v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
   copyMXCoreSessionSecureList = [(MXSessionManagerSecure *)self copyMXCoreSessionSecureList];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v4 = [copyMXCoreSessionSecureList countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [copyMXCoreSessionSecureList countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
+    v7 = &qword_1EB75D000;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(copyMXCoreSessionSecureList);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
-        if ([v8 isActive])
+        v9 = *(*(&v15 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v9))
         {
-          additiveRoutingInfo = [v8 additiveRoutingInfo];
+          additiveRoutingInfo = [v9 additiveRoutingInfo];
           if (additiveRoutingInfo)
           {
-            [v15 addObject:additiveRoutingInfo];
+            [v14 addObject:additiveRoutingInfo];
           }
 
           else
           {
+            v11 = v7;
             os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
             os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+            v7 = v11;
             fig_log_call_emit_and_clean_up_after_send_and_compose();
           }
         }
       }
 
-      v5 = [copyMXCoreSessionSecureList countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [copyMXCoreSessionSecureList countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v14;
 }
 
 - (BOOL)isSessionWithAudioModeActive:(id)active
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   copyMXCoreSessionSecureList = [(MXSessionManagerSecure *)self copyMXCoreSessionSecureList];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [copyMXCoreSessionSecureList countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [copyMXCoreSessionSecureList countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(copyMXCoreSessionSecureList);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        if ([v9 isActive] && (objc_msgSend(v9, "hasAudioMode:", active) & 1) != 0)
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if (objc_msgSend_isActive(v9) && ([v9 hasAudioMode:active] & 1) != 0)
         {
           v10 = 1;
           goto LABEL_12;
         }
       }
 
-      v6 = [copyMXCoreSessionSecureList countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [copyMXCoreSessionSecureList countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -286,55 +283,54 @@ LABEL_11:
   v10 = 0;
 LABEL_12:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (void)dumpDebugInfo
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE40)
   {
-    v24 = 0;
+    v20 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v4 = [(MXSessionManagerSecure *)self copyMXCoreSessionSecureList:v15];
-  v5 = CMSMUtility_CopyPrioritizedListBasedOnPlayingAndActiveState(v4);
+  copyMXCoreSessionSecureList = [(MXSessionManagerSecure *)self copyMXCoreSessionSecureList];
+  v5 = CMSMUtility_CopyPrioritizedListBasedOnPlayingAndActiveState(copyMXCoreSessionSecureList);
   if (dword_1EB75DE40)
   {
-    v24 = 0;
+    v20 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v7 = [v5 countByEnumeratingWithState:&v19 objects:v25 count:{16, v16, v18}];
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v7 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v19 + 1) + 8 * i) dumpDebugInfo];
+        [*(*(&v15 + 1) + 8 * i) dumpDebugInfo];
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v8);
@@ -342,31 +338,30 @@ LABEL_12:
 
   if (dword_1EB75DE40)
   {
-    v24 = 0;
+    v20 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v12 = v24;
+    v12 = v20;
+    v13 = type;
     if (os_log_type_enabled(v11, type))
     {
-      v13 = v12;
+      v14 = v12;
     }
 
     else
     {
-      v13 = v12 & 0xFFFFFFFE;
+      v14 = v12 & 0xFFFFFFFE;
     }
 
-    if (v13)
+    if (v14)
     {
-      v26 = 136315138;
-      v27 = "[MXSessionManagerSecure dumpDebugInfo]";
-      _os_log_send_and_compose_impl();
+      v22 = 136315138;
+      v23 = "[MXSessionManagerSecure dumpDebugInfo]";
+      _os_log_send_and_compose_impl(v14, 0, v24, 128, &dword_1B17A2000, v11, v13, "-MXSessionManagerSecure- %s: \t =======================================================================================================================================", &v22);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -28,7 +28,7 @@
 {
   optionsCopy = options;
   HIDWORD(v24) = broadcast;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465450);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465450, &qword_1CAD5A1B0);
   MEMORY[0x1EEE9AC00](v14 - 8);
   v16 = &v24 - v15;
   if (l)
@@ -50,7 +50,7 @@
   locationCopy = location;
   v22 = static LocationDescriptionGenerator.locationString(for:locationWithoutPrediction:preferredLocation:conferenceURL:conferenceURLIsBroadcast:options:incomplete:leadingImageName:)(for, prediction, location, v16, SHIDWORD(v24), optionsCopy, incomplete, name);
 
-  sub_1CAB21B68(v16, &qword_1EC465450);
+  sub_1CAB21B68(v16, &qword_1EC465450, &qword_1CAD5A1B0);
 
   return v22;
 }
@@ -66,7 +66,7 @@
 + (id)conferenceStringFor:(id)for conferenceURLIsBroadcast:(BOOL)broadcast options:(unint64_t)options outImageName:(id *)name incomplete:(BOOL *)incomplete
 {
   broadcastCopy = broadcast;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465450);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC465450, &qword_1CAD5A1B0);
   MEMORY[0x1EEE9AC00](v12 - 8);
   v14 = &v19 - v13;
   if (for)
@@ -83,7 +83,7 @@
   }
 
   v17 = static LocationDescriptionGenerator.conferenceString(for:conferenceURLIsBroadcast:options:outImageName:incomplete:)(v14, broadcastCopy, options, name, incomplete);
-  sub_1CAB21B68(v14, &qword_1EC465450);
+  sub_1CAB21B68(v14, &qword_1EC465450, &qword_1CAD5A1B0);
 
   return v17;
 }

@@ -14,6 +14,7 @@
 + (id)extractPrevTurnsAsrConfidence:(id)confidence;
 + (id)extractReferenceResolutionUtterances:(id)utterances;
 + (id)extractStableEmbeddings:(id)embeddings;
++ (id)filterMatchingSpans:(id)spans withMatcherName:(int)name;
 + (id)getNonWhitespaceTokenChain:(id)chain;
 + (id)mergeDateTimeSpans:(id)spans regexSpans:(id)regexSpans siriVocabularySpans:(id)vocabularySpans vocSpans:(id)vocSpans;
 + (id)overrideInputsFromUtterance:(id)utterance matchingSpans:(id)spans tokenChain:(id)chain contextUpdateReformedTurnInputBundle:(id)bundle;
@@ -27,7 +28,7 @@
 
 + (id)embeddingsOutput:(id)output embeddingConfig:(id)config forFactor:(id)factor
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   outputCopy = output;
   configCopy = config;
   factorCopy = factor;
@@ -42,7 +43,7 @@ LABEL_23:
     }
 
     *buf = 136315138;
-    v36 = "+[CDMServiceGraphUtil embeddingsOutput:embeddingConfig:forFactor:]";
+    v35 = "+[CDMServiceGraphUtil embeddingsOutput:embeddingConfig:forFactor:]";
     v24 = "%s Got nil embeddingsOutput, return nil";
 LABEL_34:
     _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, v24, buf, 0xCu);
@@ -58,7 +59,7 @@ LABEL_34:
     }
 
     *buf = 136315138;
-    v36 = "+[CDMServiceGraphUtil embeddingsOutput:embeddingConfig:forFactor:]";
+    v35 = "+[CDMServiceGraphUtil embeddingsOutput:embeddingConfig:forFactor:]";
     v24 = "%s Got nil embeddingConfig, return nil";
     goto LABEL_34;
   }
@@ -67,30 +68,30 @@ LABEL_34:
   v11 = v10;
   if (v10)
   {
-    v27 = factorCopy;
-    v28 = configCopy;
+    v26 = factorCopy;
+    v27 = configCopy;
     embeddingModelVersion = [v10 embeddingModelVersion];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
-    v29 = outputCopy;
+    v28 = outputCopy;
     v13 = outputCopy;
-    v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v31;
+      v16 = *v30;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v31 != v16)
+          if (*v30 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v30 + 1) + 8 * i);
+          v18 = *(*(&v29 + 1) + 8 * i);
           if ([v18 hasEmbeddingVersion])
           {
             embeddingVersion = [v18 embeddingVersion];
@@ -109,13 +110,13 @@ LABEL_34:
               if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
               {
                 *buf = 136315138;
-                v36 = "+[CDMServiceGraphUtil embeddingsOutput:embeddingConfig:forFactor:]";
+                v35 = "+[CDMServiceGraphUtil embeddingsOutput:embeddingConfig:forFactor:]";
               }
             }
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v15)
         {
           continue;
@@ -129,17 +130,17 @@ LABEL_34:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v36 = "+[CDMServiceGraphUtil embeddingsOutput:embeddingConfig:forFactor:]";
-      v37 = 2112;
-      v38 = embeddingModelVersion;
+      v35 = "+[CDMServiceGraphUtil embeddingsOutput:embeddingConfig:forFactor:]";
+      v36 = 2112;
+      v37 = embeddingModelVersion;
       _os_log_impl(&dword_1DC287000, v22, OS_LOG_TYPE_INFO, "%s [WARN]: Did not find a EmbeddingTensorOutput that matches version=%@, returning nil.", buf, 0x16u);
     }
 
     embeddingTensor = 0;
 LABEL_28:
-    configCopy = v28;
-    outputCopy = v29;
-    factorCopy = v27;
+    configCopy = v27;
+    outputCopy = v28;
+    factorCopy = v26;
   }
 
   else
@@ -148,9 +149,9 @@ LABEL_28:
     if (os_log_type_enabled(embeddingModelVersion, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v36 = "+[CDMServiceGraphUtil embeddingsOutput:embeddingConfig:forFactor:]";
-      v37 = 2112;
-      v38 = factorCopy;
+      v35 = "+[CDMServiceGraphUtil embeddingsOutput:embeddingConfig:forFactor:]";
+      v36 = 2112;
+      v37 = factorCopy;
       _os_log_impl(&dword_1DC287000, embeddingModelVersion, OS_LOG_TYPE_INFO, "%s [WARN]: No EmbeddingConfigItem for factor=%@, return nil", buf, 0x16u);
     }
 
@@ -158,39 +159,38 @@ LABEL_28:
   }
 
 LABEL_30:
-  v25 = *MEMORY[0x1E69E9840];
 
   return embeddingTensor;
 }
 
 + (id)extractStableEmbeddings:(id)embeddings
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   embeddingsCopy = embeddings;
   v4 = embeddingsCopy;
   if (embeddingsCopy)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
-    v16 = embeddingsCopy;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v15 = embeddingsCopy;
     v5 = embeddingsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v16 objects:v24 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           if ([v10 isStableEmbeddingsVersion])
           {
             if ([v10 hasEmbeddingTensor])
@@ -204,15 +204,15 @@ LABEL_30:
             {
               embeddingVersion = [v10 embeddingVersion];
               *buf = 136315394;
-              v22 = "+[CDMServiceGraphUtil extractStableEmbeddings:]";
-              v23 = 2112;
-              v24 = embeddingVersion;
+              v21 = "+[CDMServiceGraphUtil extractStableEmbeddings:]";
+              v22 = 2112;
+              v23 = embeddingVersion;
               _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s [WARN]: Found a stable embedding version %@, but it doesn't have embeddingTensor? skip this one", buf, 0x16u);
             }
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (v7)
         {
           continue;
@@ -226,13 +226,13 @@ LABEL_30:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v22 = "+[CDMServiceGraphUtil extractStableEmbeddings:]";
+      v21 = "+[CDMServiceGraphUtil extractStableEmbeddings:]";
       _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: Did not find a stableEmbeddingVersion match, returning nil.", buf, 0xCu);
     }
 
     embeddingTensor = 0;
 LABEL_21:
-    v4 = v16;
+    v4 = v15;
   }
 
   else
@@ -241,21 +241,60 @@ LABEL_21:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v22 = "+[CDMServiceGraphUtil extractStableEmbeddings:]";
+      v21 = "+[CDMServiceGraphUtil extractStableEmbeddings:]";
       _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Got nil embeddingsOutput, return nil", buf, 0xCu);
     }
 
     embeddingTensor = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return embeddingTensor;
+}
+
++ (id)filterMatchingSpans:(id)spans withMatcherName:(int)name
+{
+  v4 = *&name;
+  v19 = *MEMORY[0x1E69E9840];
+  spansCopy = spans;
+  array = [MEMORY[0x1E695DF70] array];
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v7 = spansCopy;
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v15;
+    do
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v15 != v10)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        v12 = *(*(&v14 + 1) + 8 * i);
+        if (![CDMServiceGraphUtil spanHasMatcherName:v4 matchingSpan:v12, v14])
+        {
+          [array addObject:v12];
+        }
+      }
+
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v9);
+  }
+
+  return array;
 }
 
 + (id)appendMarrsSpans:(id)spans marrsMRSpans:(id)rSpans
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   rSpansCopy = rSpans;
   array = [MEMORY[0x1E695DF70] array];
@@ -270,22 +309,20 @@ LABEL_21:
     v9 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v12 = 136315138;
-      v13 = "+[CDMServiceGraphUtil appendMarrsSpans:marrsMRSpans:]";
-      _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s Feeding mention resolver spans to NLv4", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "+[CDMServiceGraphUtil appendMarrsSpans:marrsMRSpans:]";
+      _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s Feeding mention resolver spans to NLv4", &v11, 0xCu);
     }
 
     [v8 addObjectsFromArray:rSpansCopy];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)mergeDateTimeSpans:(id)spans regexSpans:(id)regexSpans siriVocabularySpans:(id)vocabularySpans vocSpans:(id)vocSpans
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   vocSpansCopy = vocSpans;
   vocabularySpansCopy = vocabularySpans;
   regexSpansCopy = regexSpans;
@@ -325,42 +362,40 @@ LABEL_21:
   v31 = CDMLogContext;
   if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEBUG))
   {
-    v35 = v31;
-    v39 = 136315650;
-    v40 = "+[CDMServiceGraphUtil mergeDateTimeSpans:regexSpans:siriVocabularySpans:vocSpans:]";
-    v41 = 2112;
-    v42 = @"spanmatch";
-    v43 = 1024;
-    LODWORD(v44) = [v21 count];
-    _os_log_debug_impl(&dword_1DC287000, v35, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nSpan Matcher Services generated number of spans: %d", &v39, 0x1Cu);
+    v34 = v31;
+    v38 = 136315650;
+    v39 = "+[CDMServiceGraphUtil mergeDateTimeSpans:regexSpans:siriVocabularySpans:vocSpans:]";
+    v40 = 2112;
+    v41 = @"spanmatch";
+    v42 = 1024;
+    LODWORD(v43) = [v21 count];
+    _os_log_debug_impl(&dword_1DC287000, v34, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nSpan Matcher Services generated number of spans: %d", &v38, 0x1Cu);
 
     v31 = CDMLogContext;
   }
 
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
   {
-    v36 = MEMORY[0x1E69D1438];
-    v37 = v31;
-    v38 = [v36 printableSpanMatchResponse:v30 withUSOGraph:{+[CDMUserDefaultsUtils isPrintUSOInSpanEnabled](CDMUserDefaultsUtils, "isPrintUSOInSpanEnabled")}];
-    v39 = 136315650;
-    v40 = "+[CDMServiceGraphUtil mergeDateTimeSpans:regexSpans:siriVocabularySpans:vocSpans:]";
-    v41 = 2112;
-    v42 = @"spanmatch";
-    v43 = 2112;
-    v44 = v38;
-    _os_log_debug_impl(&dword_1DC287000, v37, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nSpanMatchResponse: %@", &v39, 0x20u);
+    v35 = MEMORY[0x1E69D1438];
+    v36 = v31;
+    v37 = [v35 printableSpanMatchResponse:v30 withUSOGraph:{+[CDMUserDefaultsUtils isPrintUSOInSpanEnabled](CDMUserDefaultsUtils, "isPrintUSOInSpanEnabled")}];
+    v38 = 136315650;
+    v39 = "+[CDMServiceGraphUtil mergeDateTimeSpans:regexSpans:siriVocabularySpans:vocSpans:]";
+    v40 = 2112;
+    v41 = @"spanmatch";
+    v42 = 2112;
+    v43 = v37;
+    _os_log_debug_impl(&dword_1DC287000, v36, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nSpanMatchResponse: %@", &v38, 0x20u);
   }
 
   v32 = [[CDMSpanMatchProtoResponseCommand alloc] initWithResponse:v30];
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v32;
 }
 
 + (id)buildLVCRequestWithTokenChain:(id)chain matchingSpans:(id)spans utterance:(id)utterance embeddingTensor:(id)tensor rewriteMsg:(id)msg nluRequestId:(id)id reformedTurnInput:(id)input error:(id *)self0
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   chainCopy = chain;
   spansCopy = spans;
   utteranceCopy = utterance;
@@ -372,7 +407,7 @@ LABEL_21:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v61 = "+[CDMServiceGraphUtil buildLVCRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:rewriteMsg:nluRequestId:reformedTurnInput:error:]";
+    v60 = "+[CDMServiceGraphUtil buildLVCRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:rewriteMsg:nluRequestId:reformedTurnInput:error:]";
     _os_log_impl(&dword_1DC287000, v18, OS_LOG_TYPE_INFO, "%s Building SIRINLUINTERNALITFMITFMParserRequest for LVC...", buf, 0xCu);
   }
 
@@ -380,46 +415,46 @@ LABEL_21:
   v20 = [CDMServiceGraphUtil buildNormalizedUtterance:chainCopy];
   [v19 setNormalisedUtterance:v20];
 
-  v47 = utteranceCopy;
+  v46 = utteranceCopy;
   [v19 setOriginalUtterance:utteranceCopy];
-  v59 = 0;
-  v48 = spansCopy;
-  v50 = [objc_opt_class() adjustProtoMatchingSpans:spansCopy tokenChain:chainCopy outError:&v59];
-  v44 = v59;
+  v58 = 0;
+  v47 = spansCopy;
+  v49 = [objc_opt_class() adjustProtoMatchingSpans:spansCopy tokenChain:chainCopy outError:&v58];
+  v43 = v58;
   v21 = objc_alloc(MEMORY[0x1E695DF70]);
   tokens = [chainCopy tokens];
   v23 = [v21 initWithCapacity:{objc_msgSend(tokens, "count")}];
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
-  v49 = chainCopy;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v48 = chainCopy;
   tokens2 = [chainCopy tokens];
-  v25 = [tokens2 countByEnumeratingWithState:&v55 objects:v64 count:16];
+  v25 = [tokens2 countByEnumeratingWithState:&v54 objects:v63 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v56;
+    v27 = *v55;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v56 != v27)
+        if (*v55 != v27)
         {
           objc_enumerationMutation(tokens2);
         }
 
-        v29 = *(*(&v55 + 1) + 8 * i);
+        v29 = *(*(&v54 + 1) + 8 * i);
         if ([v29 isWhitespace])
         {
           v30 = CDMOSLoggerForCategory(0);
           if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v61 = "+[CDMServiceGraphUtil buildLVCRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:rewriteMsg:nluRequestId:reformedTurnInput:error:]";
-            v62 = 2112;
-            v63 = v29;
+            v60 = "+[CDMServiceGraphUtil buildLVCRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:rewriteMsg:nluRequestId:reformedTurnInput:error:]";
+            v61 = 2112;
+            v62 = v29;
             _os_log_impl(&dword_1DC287000, v30, OS_LOG_TYPE_INFO, "%s ignoring whitespace token: %@", buf, 0x16u);
           }
         }
@@ -430,20 +465,20 @@ LABEL_21:
         }
       }
 
-      v26 = [tokens2 countByEnumeratingWithState:&v55 objects:v64 count:16];
+      v26 = [tokens2 countByEnumeratingWithState:&v54 objects:v63 count:16];
     }
 
     while (v26);
   }
 
-  v31 = [v49 copy];
+  v31 = [v48 copy];
   [v31 setTokens:v23];
-  v54 = v31;
+  v53 = v31;
   [v19 setTokenChain:v31];
   v32 = objc_alloc_init(MEMORY[0x1E69D12D0]);
   [v32 setNluRequestId:idCopy];
   [v32 setTokenisedUtterance:v19];
-  v33 = [MEMORY[0x1E695DF70] arrayWithArray:v50];
+  v33 = [MEMORY[0x1E695DF70] arrayWithArray:v49];
   [v32 setMatchingSpans:v33];
 
   [v32 setEmbeddings:tensorCopy];
@@ -461,17 +496,15 @@ LABEL_21:
     [turnContext2 setLegacyNlContext:legacyNlContext];
   }
 
-  v40 = [CDMServiceGraphUtil overrideInputsFromUtterance:v47 matchingSpans:v48 tokenChain:v49 contextUpdateReformedTurnInputBundle:inputCopy, v44];
+  v40 = [CDMServiceGraphUtil overrideInputsFromUtterance:v46 matchingSpans:v47 tokenChain:v48 contextUpdateReformedTurnInputBundle:inputCopy, v43];
   v41 = [[CDMLVCRequestCommand alloc] initWithParserRequest:v32 rewriteMsg:msgCopy overridesInputs:v40];
-
-  v42 = *MEMORY[0x1E69E9840];
 
   return v41;
 }
 
 + (id)buildPSCRequestWithTokenChain:(id)chain matchingSpans:(id)spans utterance:(id)utterance embeddingTensor:(id)tensor rewriteMsg:(id)msg nluRequestId:(id)id currentTurn:(id)turn error:(id *)self0
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   chainCopy = chain;
   spansCopy = spans;
   utteranceCopy = utterance;
@@ -483,7 +516,7 @@ LABEL_21:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v67 = "+[CDMServiceGraphUtil buildPSCRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:rewriteMsg:nluRequestId:currentTurn:error:]";
+    v66 = "+[CDMServiceGraphUtil buildPSCRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:rewriteMsg:nluRequestId:currentTurn:error:]";
     _os_log_impl(&dword_1DC287000, v20, OS_LOG_TYPE_INFO, "%s Building SIRINLUINTERNALITFMITFMParserRequest...", buf, 0xCu);
   }
 
@@ -491,52 +524,52 @@ LABEL_21:
   v22 = [CDMServiceGraphUtil buildNormalizedUtterance:chainCopy];
   [v21 setNormalisedUtterance:v22];
 
-  v58 = v21;
+  v57 = v21;
   [v21 setOriginalUtterance:utteranceCopy];
   [objc_opt_class() filterMatchingSpans:spansCopy withMatcherName:7];
-  v55 = v64 = 0;
-  v23 = [objc_opt_class() adjustProtoMatchingSpans:v55 tokenChain:chainCopy outError:&v64];
-  v57 = v64;
+  v54 = v63 = 0;
+  v23 = [objc_opt_class() adjustProtoMatchingSpans:v54 tokenChain:chainCopy outError:&v63];
+  v56 = v63;
   if (v23)
   {
-    v53 = v23;
-    v54 = idCopy;
-    v50 = utteranceCopy;
-    v51 = spansCopy;
+    v52 = v23;
+    v53 = idCopy;
+    v49 = utteranceCopy;
+    v50 = spansCopy;
     v24 = objc_alloc(MEMORY[0x1E695DF70]);
     tokens = [chainCopy tokens];
     v26 = [v24 initWithCapacity:{objc_msgSend(tokens, "count")}];
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
-    v52 = chainCopy;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v51 = chainCopy;
     tokens2 = [chainCopy tokens];
-    v28 = [tokens2 countByEnumeratingWithState:&v60 objects:v65 count:16];
+    v28 = [tokens2 countByEnumeratingWithState:&v59 objects:v64 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v61;
+      v30 = *v60;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v61 != v30)
+          if (*v60 != v30)
           {
             objc_enumerationMutation(tokens2);
           }
 
-          v32 = *(*(&v60 + 1) + 8 * i);
+          v32 = *(*(&v59 + 1) + 8 * i);
           if ([v32 isWhitespace])
           {
             v33 = CDMOSLoggerForCategory(0);
             if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
             {
               *buf = 136315394;
-              v67 = "+[CDMServiceGraphUtil buildPSCRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:rewriteMsg:nluRequestId:currentTurn:error:]";
-              v68 = 2112;
-              v69 = v32;
+              v66 = "+[CDMServiceGraphUtil buildPSCRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:rewriteMsg:nluRequestId:currentTurn:error:]";
+              v67 = 2112;
+              v68 = v32;
               _os_log_impl(&dword_1DC287000, v33, OS_LOG_TYPE_INFO, "%s ignoring whitespace token: %@", buf, 0x16u);
             }
           }
@@ -547,23 +580,23 @@ LABEL_21:
           }
         }
 
-        v29 = [tokens2 countByEnumeratingWithState:&v60 objects:v65 count:16];
+        v29 = [tokens2 countByEnumeratingWithState:&v59 objects:v64 count:16];
       }
 
       while (v29);
     }
 
-    chainCopy = v52;
-    v34 = [v52 copy];
+    chainCopy = v51;
+    v34 = [v51 copy];
     [v34 setTokens:v26];
-    [v58 setTokenChain:v34];
+    [v57 setTokenChain:v34];
     v35 = objc_alloc_init(MEMORY[0x1E69D12D0]);
-    nluRequestId = [v54 nluRequestId];
+    nluRequestId = [v53 nluRequestId];
     [v35 setRequestId:nluRequestId];
 
-    [v35 setNluRequestId:v54];
-    [v35 setTokenisedUtterance:v58];
-    v37 = [MEMORY[0x1E695DF70] arrayWithArray:v53];
+    [v35 setNluRequestId:v53];
+    [v35 setTokenisedUtterance:v57];
+    v37 = [MEMORY[0x1E695DF70] arrayWithArray:v52];
     [v35 setMatchingSpans:v37];
 
     [v35 setEmbeddings:tensorCopy];
@@ -582,11 +615,11 @@ LABEL_21:
     v43 = msgCopy;
     v44 = [[CDMPSCRequestCommand alloc] initWithParserRequest:v35 rewriteMsg:msgCopy];
 
-    utteranceCopy = v50;
-    spansCopy = v51;
-    idCopy = v54;
-    v45 = v55;
-    v23 = v53;
+    utteranceCopy = v49;
+    spansCopy = v50;
+    idCopy = v53;
+    v45 = v54;
+    v23 = v52;
   }
 
   else
@@ -594,11 +627,11 @@ LABEL_21:
     v46 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      localizedDescription = [v57 localizedDescription];
+      localizedDescription = [v56 localizedDescription];
       *buf = 136315394;
-      v67 = "+[CDMServiceGraphUtil buildPSCRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:rewriteMsg:nluRequestId:currentTurn:error:]";
-      v68 = 2112;
-      v69 = localizedDescription;
+      v66 = "+[CDMServiceGraphUtil buildPSCRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:rewriteMsg:nluRequestId:currentTurn:error:]";
+      v67 = 2112;
+      v68 = localizedDescription;
       _os_log_error_impl(&dword_1DC287000, v46, OS_LOG_TYPE_ERROR, "%s [ERR]: Error converting matched spans: %@", buf, 0x16u);
     }
 
@@ -606,60 +639,58 @@ LABEL_21:
     v44 = 0;
     if (error)
     {
-      *error = v57;
+      *error = v56;
     }
 
-    v45 = v55;
+    v45 = v54;
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 
   return v44;
 }
 
 + (id)overrideInputsFromUtterance:(id)utterance matchingSpans:(id)spans tokenChain:(id)chain contextUpdateReformedTurnInputBundle:(id)bundle
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   utteranceCopy = utterance;
   spansCopy = spans;
   chainCopy = chain;
   bundleCopy = bundle;
   currentTurn = [bundleCopy currentTurn];
-  v32 = bundleCopy;
+  v31 = bundleCopy;
   previousTurns = [bundleCopy previousTurns];
   v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v16 = objc_alloc_init(MEMORY[0x1E69D1338]);
-  v35 = utteranceCopy;
+  v34 = utteranceCopy;
   [v16 setUtterance:utteranceCopy];
-  v33 = chainCopy;
+  v32 = chainCopy;
   [v16 setTokenChain:chainCopy];
-  v34 = spansCopy;
+  v33 = spansCopy;
   [v16 setMatchingSpans:spansCopy];
-  v31 = currentTurn;
+  v30 = currentTurn;
   [v16 setTurnInput:currentTurn];
-  v29 = v16;
+  v28 = v16;
   [v15 addObject:v16];
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
-  v30 = previousTurns;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v29 = previousTurns;
   reverseObjectEnumerator = [previousTurns reverseObjectEnumerator];
-  v18 = [reverseObjectEnumerator countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v18 = [reverseObjectEnumerator countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v37;
+    v20 = *v36;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v37 != v20)
+        if (*v36 != v20)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v22 = *(*(&v36 + 1) + 8 * i);
+        v22 = *(*(&v35 + 1) + 8 * i);
         v23 = objc_alloc_init(MEMORY[0x1E69D1338]);
         asrOutputs = [v22 asrOutputs];
         v25 = [asrOutputs objectAtIndex:0];
@@ -670,20 +701,18 @@ LABEL_21:
         [v15 addObject:v23];
       }
 
-      v19 = [reverseObjectEnumerator countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v19 = [reverseObjectEnumerator countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v19);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 + (id)buildSNLCProtoRequestWithTokenChain:(id)chain matchingSpans:(id)spans utterance:(id)utterance embeddingTensor:(id)tensor rewriteMsg:(id)msg requestId:(id)id currentTurn:(id)turn error:(id *)self0
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   chainCopy = chain;
   spansCopy = spans;
   utteranceCopy = utterance;
@@ -695,7 +724,7 @@ LABEL_21:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v64 = "+[CDMServiceGraphUtil buildSNLCProtoRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:rewriteMsg:requestId:currentTurn:error:]";
+    v63 = "+[CDMServiceGraphUtil buildSNLCProtoRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:rewriteMsg:requestId:currentTurn:error:]";
     _os_log_impl(&dword_1DC287000, v19, OS_LOG_TYPE_INFO, "%s Building SIRINLUINTERNALITFMITFMParserRequest...", buf, 0xCu);
   }
 
@@ -704,50 +733,50 @@ LABEL_21:
   [v20 setNormalisedUtterance:v21];
 
   [v20 setOriginalUtterance:utteranceCopy];
-  v61 = 0;
-  v22 = [objc_opt_class() adjustProtoMatchingSpans:spansCopy tokenChain:chainCopy outError:&v61];
-  v56 = v61;
-  v52 = v20;
+  v60 = 0;
+  v22 = [objc_opt_class() adjustProtoMatchingSpans:spansCopy tokenChain:chainCopy outError:&v60];
+  v55 = v60;
+  v51 = v20;
   if (v22)
   {
-    v47 = v22;
-    v48 = idCopy;
-    v49 = utteranceCopy;
-    v50 = spansCopy;
+    v46 = v22;
+    v47 = idCopy;
+    v48 = utteranceCopy;
+    v49 = spansCopy;
     v23 = objc_alloc(MEMORY[0x1E695DF70]);
     tokens = [chainCopy tokens];
     v25 = [v23 initWithCapacity:{objc_msgSend(tokens, "count")}];
 
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
-    v51 = chainCopy;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    v50 = chainCopy;
     tokens2 = [chainCopy tokens];
-    v27 = [tokens2 countByEnumeratingWithState:&v57 objects:v62 count:16];
+    v27 = [tokens2 countByEnumeratingWithState:&v56 objects:v61 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v58;
+      v29 = *v57;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v58 != v29)
+          if (*v57 != v29)
           {
             objc_enumerationMutation(tokens2);
           }
 
-          v31 = *(*(&v57 + 1) + 8 * i);
+          v31 = *(*(&v56 + 1) + 8 * i);
           if ([v31 isWhitespace])
           {
             v32 = CDMOSLoggerForCategory(0);
             if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
             {
               *buf = 136315394;
-              v64 = "+[CDMServiceGraphUtil buildSNLCProtoRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:rewriteMsg:requestId:currentTurn:error:]";
-              v65 = 2112;
-              v66 = v31;
+              v63 = "+[CDMServiceGraphUtil buildSNLCProtoRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:rewriteMsg:requestId:currentTurn:error:]";
+              v64 = 2112;
+              v65 = v31;
               _os_log_impl(&dword_1DC287000, v32, OS_LOG_TYPE_INFO, "%s ignoring whitespace token: %@", buf, 0x16u);
             }
           }
@@ -758,24 +787,24 @@ LABEL_21:
           }
         }
 
-        v28 = [tokens2 countByEnumeratingWithState:&v57 objects:v62 count:16];
+        v28 = [tokens2 countByEnumeratingWithState:&v56 objects:v61 count:16];
       }
 
       while (v28);
     }
 
-    v33 = [v51 copy];
+    v33 = [v50 copy];
     [v33 setTokens:v25];
-    v34 = v52;
-    [v52 setTokenChain:v33];
+    v34 = v51;
+    [v51 setTokenChain:v33];
     v35 = objc_alloc_init(MEMORY[0x1E69D12D0]);
-    nluRequestId = [v48 nluRequestId];
+    nluRequestId = [v47 nluRequestId];
     [v35 setRequestId:nluRequestId];
 
-    [v35 setNluRequestId:v48];
-    [v35 setTokenisedUtterance:v52];
-    v22 = v47;
-    v37 = [MEMORY[0x1E695DF70] arrayWithArray:v47];
+    [v35 setNluRequestId:v47];
+    [v35 setTokenisedUtterance:v51];
+    v22 = v46;
+    v37 = [MEMORY[0x1E695DF70] arrayWithArray:v46];
     [v35 setMatchingSpans:v37];
 
     v38 = tensorCopy;
@@ -784,12 +813,12 @@ LABEL_21:
     v39 = msgCopy;
     v40 = [[CDMSNLCProtoRequestCommand alloc] initWithParserRequest:v35 rewriteMsg:msgCopy];
 
-    idCopy = v48;
+    idCopy = v47;
     v41 = turnCopy;
 
-    spansCopy = v50;
-    v42 = v51;
-    utteranceCopy = v49;
+    spansCopy = v49;
+    v42 = v50;
+    utteranceCopy = v48;
   }
 
   else
@@ -797,11 +826,11 @@ LABEL_21:
     v43 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
-      localizedDescription = [v56 localizedDescription];
+      localizedDescription = [v55 localizedDescription];
       *buf = 136315394;
-      v64 = "+[CDMServiceGraphUtil buildSNLCProtoRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:rewriteMsg:requestId:currentTurn:error:]";
-      v65 = 2112;
-      v66 = localizedDescription;
+      v63 = "+[CDMServiceGraphUtil buildSNLCProtoRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:rewriteMsg:requestId:currentTurn:error:]";
+      v64 = 2112;
+      v65 = localizedDescription;
       _os_log_error_impl(&dword_1DC287000, v43, OS_LOG_TYPE_ERROR, "%s [ERR]: Error converting matched spans: %@", buf, 0x16u);
     }
 
@@ -811,22 +840,20 @@ LABEL_21:
     v40 = 0;
     if (error)
     {
-      *error = v56;
+      *error = v55;
     }
 
-    v34 = v52;
+    v34 = v51;
     v41 = turnCopy;
     v38 = tensorCopy;
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 
   return v40;
 }
 
 + (id)buildNLv4ProtoRequestWithTokenChain:(id)chain matchingSpans:(id)spans utterance:(id)utterance embeddingTensor:(id)tensor currentTurn:(id)turn requestId:(id)id outError:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   chainCopy = chain;
   tensorCopy = tensor;
   turnCopy = turn;
@@ -837,7 +864,7 @@ LABEL_21:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v34 = "+[CDMServiceGraphUtil buildNLv4ProtoRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:currentTurn:requestId:outError:]";
+    v33 = "+[CDMServiceGraphUtil buildNLv4ProtoRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:currentTurn:requestId:outError:]";
     _os_log_impl(&dword_1DC287000, v19, OS_LOG_TYPE_INFO, "%s Building SIRINLUINTERNALNLV4_PARSERNLv4ParserRequest...", buf, 0xCu);
   }
 
@@ -856,9 +883,9 @@ LABEL_21:
   {
     maxNumParses = [v20 maxNumParses];
     *buf = 136315394;
-    v34 = "+[CDMServiceGraphUtil buildNLv4ProtoRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:currentTurn:requestId:outError:]";
-    v35 = 2048;
-    v36 = maxNumParses;
+    v33 = "+[CDMServiceGraphUtil buildNLv4ProtoRequestWithTokenChain:matchingSpans:utterance:embeddingTensor:currentTurn:requestId:outError:]";
+    v34 = 2048;
+    v35 = maxNumParses;
     _os_log_debug_impl(&dword_1DC287000, v24, OS_LOG_TYPE_DEBUG, "%s Set nlv4ParserRequest.maxNumParses = %llu", buf, 0x16u);
   }
 
@@ -884,40 +911,38 @@ LABEL_21:
     v27 = [[CDMNLv4ProtoRequestCommand alloc] initWithParserRequest:v20 requestId:idCopy];
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v27;
 }
 
 + (id)adjustProtoMatchingSpans:(id)spans tokenChain:(id)chain outError:(id *)error
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   chainCopy = chain;
-  v43 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(spansCopy, "count")}];
+  v42 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(spansCopy, "count")}];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   v8 = spansCopy;
-  v9 = [v8 countByEnumeratingWithState:&v44 objects:v54 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v43 objects:v53 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v45;
+    v12 = *v44;
     *&v10 = 136315906;
-    v42 = v10;
+    v41 = v10;
     do
     {
       v13 = 0;
       do
       {
-        if (*v45 != v12)
+        if (*v44 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v44 + 1) + 8 * v13);
+        v14 = *(*(&v43 + 1) + 8 * v13);
         v15 = [v14 copy];
         startTokenIndex = [v14 startTokenIndex];
         tokens = [chainCopy tokens];
@@ -932,11 +957,11 @@ LABEL_21:
           }
 
           *buf = 136315650;
-          v49 = "+[CDMServiceGraphUtil adjustProtoMatchingSpans:tokenChain:outError:]";
-          v50 = 2112;
-          v51 = @"spanmatch";
-          v52 = 2112;
-          v53[0] = v14;
+          v48 = "+[CDMServiceGraphUtil adjustProtoMatchingSpans:tokenChain:outError:]";
+          v49 = 2112;
+          v50 = @"spanmatch";
+          v51 = 2112;
+          v52[0] = v14;
           v27 = v29;
           v28 = "%s [WARN]: [insights-cdm-%@]:\nInvalid rawTokenIndex on begin token. Span:\n %@";
           goto LABEL_16;
@@ -955,11 +980,11 @@ LABEL_21:
           }
 
           *buf = 136315650;
-          v49 = "+[CDMServiceGraphUtil adjustProtoMatchingSpans:tokenChain:outError:]";
-          v50 = 2112;
-          v51 = @"spanmatch";
-          v52 = 2112;
-          v53[0] = v14;
+          v48 = "+[CDMServiceGraphUtil adjustProtoMatchingSpans:tokenChain:outError:]";
+          v49 = 2112;
+          v50 = @"spanmatch";
+          v51 = 2112;
+          v52[0] = v14;
           v27 = v30;
           v28 = "%s [WARN]: [insights-cdm-%@]:\nInvalid nonWhitespaceTokenIndex on begin token, Span:\n %@";
           goto LABEL_16;
@@ -976,11 +1001,11 @@ LABEL_21:
           }
 
           *buf = 136315650;
-          v49 = "+[CDMServiceGraphUtil adjustProtoMatchingSpans:tokenChain:outError:]";
-          v50 = 2112;
-          v51 = @"spanmatch";
-          v52 = 2112;
-          v53[0] = v14;
+          v48 = "+[CDMServiceGraphUtil adjustProtoMatchingSpans:tokenChain:outError:]";
+          v49 = 2112;
+          v50 = @"spanmatch";
+          v51 = 2112;
+          v52[0] = v14;
           v27 = v26;
           v28 = "%s [WARN]: [insights-cdm-%@]:\nInvalid end token index, Span:\n %@";
           goto LABEL_16;
@@ -996,11 +1021,11 @@ LABEL_21:
           if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_INFO))
           {
             *buf = 136315650;
-            v49 = "+[CDMServiceGraphUtil adjustProtoMatchingSpans:tokenChain:outError:]";
-            v50 = 2112;
-            v51 = @"spanmatch";
-            v52 = 2112;
-            v53[0] = v14;
+            v48 = "+[CDMServiceGraphUtil adjustProtoMatchingSpans:tokenChain:outError:]";
+            v49 = 2112;
+            v50 = @"spanmatch";
+            v51 = 2112;
+            v52[0] = v14;
             v27 = v35;
             v28 = "%s [WARN]: [insights-cdm-%@]:\nInvalid nonWhitespaceTokenIndex on end inclusive token, Span:\n %@";
 LABEL_16:
@@ -1011,21 +1036,21 @@ LABEL_16:
         else
         {
           [v15 setEndTokenIndex:(nonWhitespaceTokenIndex2 + 1)];
-          [v43 addObject:v15];
+          [v42 addObject:v15];
           v34 = CDMOSLoggerForCategory(0);
           if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
           {
             label = [v15 label];
             startTokenIndex2 = [v15 startTokenIndex];
             endTokenIndex2 = [v15 endTokenIndex];
-            *buf = v42;
-            v49 = "+[CDMServiceGraphUtil adjustProtoMatchingSpans:tokenChain:outError:]";
-            v50 = 2112;
-            v51 = label;
-            v52 = 1024;
-            LODWORD(v53[0]) = startTokenIndex2;
-            WORD2(v53[0]) = 1024;
-            *(v53 + 6) = endTokenIndex2;
+            *buf = v41;
+            v48 = "+[CDMServiceGraphUtil adjustProtoMatchingSpans:tokenChain:outError:]";
+            v49 = 2112;
+            v50 = label;
+            v51 = 1024;
+            LODWORD(v52[0]) = startTokenIndex2;
+            WORD2(v52[0]) = 1024;
+            *(v52 + 6) = endTokenIndex2;
             _os_log_debug_impl(&dword_1DC287000, v34, OS_LOG_TYPE_DEBUG, "%s MatchedSpan for NLv4: label %@, startTokenIndex %u, endTokenIndex %u", buf, 0x22u);
           }
         }
@@ -1036,16 +1061,14 @@ LABEL_17:
       }
 
       while (v11 != v13);
-      v39 = [v8 countByEnumeratingWithState:&v44 objects:v54 count:16];
+      v39 = [v8 countByEnumeratingWithState:&v43 objects:v53 count:16];
       v11 = v39;
     }
 
     while (v39);
   }
 
-  v40 = *MEMORY[0x1E69E9840];
-
-  return v43;
+  return v42;
 }
 
 + (BOOL)spanHasMatcherName:(int)name matchingSpan:(id)span
@@ -1150,7 +1173,7 @@ LABEL_5:
 
 + (void)addDebugInfo:(id)info nluRequest:(id)request responseObject:(id)object
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   objectCopy = object;
   if ([CDMServiceGraphUtil debugInfoEnabled:request])
@@ -1166,14 +1189,12 @@ LABEL_5:
     if (os_log_type_enabled(commandName, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v13 = "+[CDMServiceGraphUtil addDebugInfo:nluRequest:responseObject:]";
-      v14 = 2112;
-      v15 = @"debug-mode-id";
+      v12 = "+[CDMServiceGraphUtil addDebugInfo:nluRequest:responseObject:]";
+      v13 = 2112;
+      v14 = @"debug-mode-id";
       _os_log_debug_impl(&dword_1DC287000, commandName, OS_LOG_TYPE_DEBUG, "%s Early return and skip adding debugText as idAsString is not the special %@", buf, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)debugInfoEnabled:(id)enabled
@@ -1196,39 +1217,39 @@ LABEL_5:
 
 + (id)extractReferenceResolutionUtterances:(id)utterances
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   utterancesCopy = utterances;
   array = [MEMORY[0x1E695DF70] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v18 = utterancesCopy;
+  v17 = utterancesCopy;
   rewriteHypotheses = [utterancesCopy rewriteHypotheses];
-  v6 = [rewriteHypotheses countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v6 = [rewriteHypotheses countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(rewriteHypotheses);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = objc_alloc_init(MEMORY[0x1E69D1380]);
         v12 = CDMOSLoggerForCategory(0);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
           utterance = [v10 utterance];
           *buf = 136315394;
-          v24 = "+[CDMServiceGraphUtil extractReferenceResolutionUtterances:]";
-          v25 = 2112;
-          v26 = utterance;
+          v23 = "+[CDMServiceGraphUtil extractReferenceResolutionUtterances:]";
+          v24 = 2112;
+          v25 = utterance;
           _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s Rewritten Utterance (reference resolution): %@", buf, 0x16u);
         }
 
@@ -1241,21 +1262,20 @@ LABEL_5:
         [array addObject:v11];
       }
 
-      v7 = [rewriteHypotheses countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v7 = [rewriteHypotheses countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v7);
   }
 
   v15 = [array copy];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 + (id)prepareCcqrServiceRequest:(id)request currentTurnAsrConf:(double)conf tokenResponse:(id)response previousTurnsAsrConf:(id)asrConf previousTurnTokenizationResponseCommand:(id)command nluRequestId:(id)id resultCandidateId:(id)candidateId cdmRequestId:(id)self0
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v109 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   responseCopy = response;
   asrConfCopy = asrConf;
@@ -1267,7 +1287,7 @@ LABEL_5:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v109 = "+[CDMServiceGraphUtil prepareCcqrServiceRequest:currentTurnAsrConf:tokenResponse:previousTurnsAsrConf:previousTurnTokenizationResponseCommand:nluRequestId:resultCandidateId:cdmRequestId:]";
+    v108 = "+[CDMServiceGraphUtil prepareCcqrServiceRequest:currentTurnAsrConf:tokenResponse:previousTurnsAsrConf:previousTurnTokenizationResponseCommand:nluRequestId:resultCandidateId:cdmRequestId:]";
     _os_log_debug_impl(&dword_1DC287000, v17, OS_LOG_TYPE_DEBUG, "%s Creating CDMQRRequestCommand for use in CCQR Service", buf, 0xCu);
   }
 
@@ -1276,33 +1296,33 @@ LABEL_5:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v109 = "+[CDMServiceGraphUtil prepareCcqrServiceRequest:currentTurnAsrConf:tokenResponse:previousTurnsAsrConf:previousTurnTokenizationResponseCommand:nluRequestId:resultCandidateId:cdmRequestId:]";
+    v108 = "+[CDMServiceGraphUtil prepareCcqrServiceRequest:currentTurnAsrConf:tokenResponse:previousTurnsAsrConf:previousTurnTokenizationResponseCommand:nluRequestId:resultCandidateId:cdmRequestId:]";
     _os_log_debug_impl(&dword_1DC287000, v18, OS_LOG_TYPE_DEBUG, "%s 1. Constructing previous interactions", buf, 0xCu);
   }
 
-  v101 = 0u;
-  v102 = 0u;
-  v99 = 0u;
   v100 = 0u;
+  v101 = 0u;
+  v98 = 0u;
+  v99 = 0u;
   obj = [commandCopy responses];
-  v85 = [obj countByEnumeratingWithState:&v99 objects:v107 count:16];
-  if (v85)
+  v84 = [obj countByEnumeratingWithState:&v98 objects:v106 count:16];
+  if (v84)
   {
     LODWORD(v19) = 0;
-    v84 = *v100;
-    v83 = commandCopy;
+    v83 = *v99;
+    v82 = commandCopy;
     while (2)
     {
       v20 = 0;
       v19 = v19;
       do
       {
-        if (*v100 != v84)
+        if (*v99 != v83)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v99 + 1) + 8 * v20);
+        v21 = *(*(&v98 + 1) + 8 * v20);
         v22 = objc_alloc_init(MEMORY[0x1E69D1380]);
         text = [v21 text];
         [v22 setUtterance:text];
@@ -1329,7 +1349,7 @@ LABEL_5:
           if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
           {
             *buf = 136315138;
-            v109 = "+[CDMServiceGraphUtil prepareCcqrServiceRequest:currentTurnAsrConf:tokenResponse:previousTurnsAsrConf:previousTurnTokenizationResponseCommand:nluRequestId:resultCandidateId:cdmRequestId:]";
+            v108 = "+[CDMServiceGraphUtil prepareCcqrServiceRequest:currentTurnAsrConf:tokenResponse:previousTurnsAsrConf:previousTurnTokenizationResponseCommand:nluRequestId:resultCandidateId:cdmRequestId:]";
             _os_log_impl(&dword_1DC287000, v44, OS_LOG_TYPE_INFO, "%s [WARN]: Missing previous Siri response! Attempted to access index exceeding number of previous Siri responses.", buf, 0xCu);
           }
 
@@ -1337,9 +1357,9 @@ LABEL_5:
         }
 
         v29 = objc_alloc_init(MEMORY[0x1E69D1370]);
-        v89 = v22;
-        v106 = v22;
-        v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v106 count:1];
+        v88 = v22;
+        v105 = v22;
+        v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v105 count:1];
         v31 = [v30 copy];
         [v29 setOriginalUtterances:v31];
 
@@ -1349,33 +1369,33 @@ LABEL_5:
         v34 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v33, "count")}];
         [v29 setSiriResponses:v34];
 
-        v97 = 0u;
-        v98 = 0u;
-        v95 = 0u;
         v96 = 0u;
+        v97 = 0u;
+        v94 = 0u;
+        v95 = 0u;
         v35 = v33;
-        v36 = [v35 countByEnumeratingWithState:&v95 objects:v105 count:16];
+        v36 = [v35 countByEnumeratingWithState:&v94 objects:v104 count:16];
         if (v36)
         {
           v37 = v36;
-          v38 = *v96;
+          v38 = *v95;
           do
           {
             for (i = 0; i != v37; ++i)
             {
-              if (*v96 != v38)
+              if (*v95 != v38)
               {
                 objc_enumerationMutation(v35);
               }
 
-              v40 = *(*(&v95 + 1) + 8 * i);
+              v40 = *(*(&v94 + 1) + 8 * i);
               siriResponses = [v29 siriResponses];
               tokenChain2 = [v40 tokenChain];
               tokens2 = [tokenChain2 tokens];
               [siriResponses addObjectsFromArray:tokens2];
             }
 
-            v37 = [v35 countByEnumeratingWithState:&v95 objects:v105 count:16];
+            v37 = [v35 countByEnumeratingWithState:&v94 objects:v104 count:16];
           }
 
           while (v37);
@@ -1386,12 +1406,12 @@ LABEL_5:
         ++v19;
 
         ++v20;
-        commandCopy = v83;
+        commandCopy = v82;
       }
 
-      while (v20 != v85);
-      v85 = [obj countByEnumeratingWithState:&v99 objects:v107 count:16];
-      if (v85)
+      while (v20 != v84);
+      v84 = [obj countByEnumeratingWithState:&v98 objects:v106 count:16];
+      if (v84)
       {
         continue;
       }
@@ -1406,7 +1426,7 @@ LABEL_26:
   if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v109 = "+[CDMServiceGraphUtil prepareCcqrServiceRequest:currentTurnAsrConf:tokenResponse:previousTurnsAsrConf:previousTurnTokenizationResponseCommand:nluRequestId:resultCandidateId:cdmRequestId:]";
+    v108 = "+[CDMServiceGraphUtil prepareCcqrServiceRequest:currentTurnAsrConf:tokenResponse:previousTurnsAsrConf:previousTurnTokenizationResponseCommand:nluRequestId:resultCandidateId:cdmRequestId:]";
     _os_log_debug_impl(&dword_1DC287000, v45, OS_LOG_TYPE_DEBUG, "%s 2. Constructing current interactions", buf, 0xCu);
   }
 
@@ -1422,8 +1442,8 @@ LABEL_26:
   [v46 setAsrId:0];
   [v46 setConfidence:conf];
   v51 = objc_alloc_init(MEMORY[0x1E69D1370]);
-  v104 = v46;
-  v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v104 count:1];
+  v103 = v46;
+  v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v103 count:1];
   v53 = [v52 copy];
   [v51 setOriginalUtterances:v53];
 
@@ -1433,14 +1453,14 @@ LABEL_26:
   previousSiriResponseTokenResponses3 = [commandCopy previousSiriResponseTokenResponses];
   v57 = [previousSiriResponseTokenResponses3 count];
 
-  v90 = v46;
+  v89 = v46;
   if (v57 <= v55)
   {
     v73 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v109 = "+[CDMServiceGraphUtil prepareCcqrServiceRequest:currentTurnAsrConf:tokenResponse:previousTurnsAsrConf:previousTurnTokenizationResponseCommand:nluRequestId:resultCandidateId:cdmRequestId:]";
+      v108 = "+[CDMServiceGraphUtil prepareCcqrServiceRequest:currentTurnAsrConf:tokenResponse:previousTurnsAsrConf:previousTurnTokenizationResponseCommand:nluRequestId:resultCandidateId:cdmRequestId:]";
       _os_log_impl(&dword_1DC287000, v73, OS_LOG_TYPE_INFO, "%s [WARN]: Missing previous Siri response! Attempted to access index exceeding number of previous Siri responses.", buf, 0xCu);
     }
 
@@ -1459,7 +1479,7 @@ LABEL_26:
       if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v109 = "+[CDMServiceGraphUtil prepareCcqrServiceRequest:currentTurnAsrConf:tokenResponse:previousTurnsAsrConf:previousTurnTokenizationResponseCommand:nluRequestId:resultCandidateId:cdmRequestId:]";
+        v108 = "+[CDMServiceGraphUtil prepareCcqrServiceRequest:currentTurnAsrConf:tokenResponse:previousTurnsAsrConf:previousTurnTokenizationResponseCommand:nluRequestId:resultCandidateId:cdmRequestId:]";
         _os_log_impl(&dword_1DC287000, v60, OS_LOG_TYPE_INFO, "%s [WARN]: Missing previous user utterance!", buf, 0xCu);
       }
     }
@@ -1470,33 +1490,33 @@ LABEL_26:
     v63 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v62, "count")}];
     [v51 setSiriResponses:v63];
 
-    v93 = 0u;
-    v94 = 0u;
-    v91 = 0u;
     v92 = 0u;
+    v93 = 0u;
+    v90 = 0u;
+    v91 = 0u;
     array2 = v62;
-    v65 = [array2 countByEnumeratingWithState:&v91 objects:v103 count:16];
+    v65 = [array2 countByEnumeratingWithState:&v90 objects:v102 count:16];
     if (v65)
     {
       v66 = v65;
-      v67 = *v92;
+      v67 = *v91;
       do
       {
         for (j = 0; j != v66; ++j)
         {
-          if (*v92 != v67)
+          if (*v91 != v67)
           {
             objc_enumerationMutation(array2);
           }
 
-          v69 = *(*(&v91 + 1) + 8 * j);
+          v69 = *(*(&v90 + 1) + 8 * j);
           siriResponses2 = [v51 siriResponses];
           tokenChain4 = [v69 tokenChain];
           tokens4 = [tokenChain4 tokens];
           [siriResponses2 addObjectsFromArray:tokens4];
         }
 
-        v66 = [array2 countByEnumeratingWithState:&v91 objects:v103 count:16];
+        v66 = [array2 countByEnumeratingWithState:&v90 objects:v102 count:16];
       }
 
       while (v66);
@@ -1514,14 +1534,12 @@ LABEL_26:
   [v74 setCdmRequestId:requestIdCopy];
   v75 = [[CDMQRRequestCommand alloc] initWithQRRequest:v74];
 
-  v76 = *MEMORY[0x1E69E9840];
-
   return v75;
 }
 
 + (BOOL)runUaaPNLProtoService:(id)service requestId:(id)id utterance:(id)utterance locale:(id)locale tokenChain:(id)chain matchingSpans:(id)spans embeddingTensor:(id)tensor currentTurn:(id)self0 outUaapProtoRequest:(id *)self1 outUaapProtoResponse:(id *)self2 outError:(id *)self3
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   idCopy = id;
   chainCopy = chain;
@@ -1532,45 +1550,45 @@ LABEL_26:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v54 = "+[CDMServiceGraphUtil runUaaPNLProtoService:requestId:utterance:locale:tokenChain:matchingSpans:embeddingTensor:currentTurn:outUaapProtoRequest:outUaapProtoResponse:outError:]";
+    v53 = "+[CDMServiceGraphUtil runUaaPNLProtoService:requestId:utterance:locale:tokenChain:matchingSpans:embeddingTensor:currentTurn:outUaapProtoRequest:outUaapProtoResponse:outError:]";
     _os_log_debug_impl(&dword_1DC287000, v19, OS_LOG_TYPE_DEBUG, "%s Creating SIRINLUINTERNALUAAP_PARSERUaaPParserRequest for use in CDMUaaPNLProtoService", buf, 0xCu);
   }
 
   v20 = objc_alloc_init(MEMORY[0x1E69D13E0]);
-  v45 = chainCopy;
+  v44 = chainCopy;
   [v20 setTokenChain:chainCopy];
-  v44 = tensorCopy;
+  v43 = tensorCopy;
   [v20 setEmbeddings:tensorCopy];
   v21 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(spansCopy, "count")}];
   [v20 setMatchingSpans:v21];
 
   [v20 setMaxNumParses:{+[CDMUserDefaultsUtils readUaaPNLMaxNumParses](CDMUserDefaultsUtils, "readUaaPNLMaxNumParses")}];
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v22 = spansCopy;
-  v23 = [v22 countByEnumeratingWithState:&v49 objects:v59 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v48 objects:v58 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v50;
+    v25 = *v49;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v50 != v25)
+        if (*v49 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = *(*(&v49 + 1) + 8 * i);
+        v27 = *(*(&v48 + 1) + 8 * i);
         matchingSpans = [v20 matchingSpans];
         v29 = [v27 copy];
         [matchingSpans addObject:v29];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v49 objects:v59 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v48 objects:v58 count:16];
     }
 
     while (v24);
@@ -1592,18 +1610,18 @@ LABEL_26:
     v38 = [v34 stringWithFormat:@"Hit error running uaap protobuf inference: no response populated. Internal error: %@", v37];
 
     v39 = MEMORY[0x1E696ABC0];
-    v57 = v36;
-    v58 = v38;
-    v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+    v56 = v36;
+    v57 = v38;
+    v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
     *error = [v39 errorWithDomain:@"uaapProtoService" code:1 userInfo:v40];
 
     v41 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v54 = "+[CDMServiceGraphUtil runUaaPNLProtoService:requestId:utterance:locale:tokenChain:matchingSpans:embeddingTensor:currentTurn:outUaapProtoRequest:outUaapProtoResponse:outError:]";
-      v55 = 2112;
-      v56 = v38;
+      v53 = "+[CDMServiceGraphUtil runUaaPNLProtoService:requestId:utterance:locale:tokenChain:matchingSpans:embeddingTensor:currentTurn:outUaapProtoRequest:outUaapProtoResponse:outError:]";
+      v54 = 2112;
+      v55 = v38;
       _os_log_error_impl(&dword_1DC287000, v41, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", buf, 0x16u);
     }
 
@@ -1611,47 +1629,46 @@ LABEL_26:
     v32 = serviceCopy;
   }
 
-  v42 = *MEMORY[0x1E69E9840];
   return v33 != 0;
 }
 
 + (id)getNonWhitespaceTokenChain:(id)chain
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   chainCopy = chain;
   v4 = objc_alloc(MEMORY[0x1E695DF70]);
   tokens = [chainCopy tokens];
   v6 = [v4 initWithCapacity:{objc_msgSend(tokens, "count")}];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   tokens2 = [chainCopy tokens];
-  v8 = [tokens2 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v8 = [tokens2 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(tokens2);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         if ([v12 isWhitespace])
         {
           v13 = CDMOSLoggerForCategory(0);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v22 = "+[CDMServiceGraphUtil getNonWhitespaceTokenChain:]";
-            v23 = 2112;
-            v24 = v12;
+            v21 = "+[CDMServiceGraphUtil getNonWhitespaceTokenChain:]";
+            v22 = 2112;
+            v23 = v12;
             _os_log_impl(&dword_1DC287000, v13, OS_LOG_TYPE_INFO, "%s ignoring whitespace token: %@", buf, 0x16u);
           }
         }
@@ -1662,7 +1679,7 @@ LABEL_26:
         }
       }
 
-      v9 = [tokens2 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v9 = [tokens2 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v9);
@@ -1671,14 +1688,12 @@ LABEL_26:
   v14 = [chainCopy copy];
   [v14 setTokens:v6];
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (id)prepareCcqrTokens:(id)tokens currentTurn:(id)turn previousTurns:(id)turns utterance:(id)utterance locale:(id)locale
 {
-  v169 = *MEMORY[0x1E69E9840];
+  v168 = *MEMORY[0x1E69E9840];
   tokensCopy = tokens;
   turnCopy = turn;
   turnsCopy = turns;
@@ -1687,34 +1702,34 @@ LABEL_26:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v165 = "+[CDMServiceGraphUtil prepareCcqrTokens:currentTurn:previousTurns:utterance:locale:]";
+    v164 = "+[CDMServiceGraphUtil prepareCcqrTokens:currentTurn:previousTurns:utterance:locale:]";
     _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s Creating CDMTokenizationProtoRequestCommand for use of PreviousTurn SiriResponse", buf, 0xCu);
   }
 
-  v118 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(turnsCopy, "count")}];
-  v121 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(turnsCopy, "count")}];
+  v117 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(turnsCopy, "count")}];
+  v120 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(turnsCopy, "count")}];
+  v153 = 0u;
   v154 = 0u;
   v155 = 0u;
   v156 = 0u;
-  v157 = 0u;
   obj = turnsCopy;
-  v122 = tokensCopy;
-  v123 = [obj countByEnumeratingWithState:&v154 objects:v168 count:16];
-  v129 = localeCopy;
-  if (v123)
+  v121 = tokensCopy;
+  v122 = [obj countByEnumeratingWithState:&v153 objects:v167 count:16];
+  v128 = localeCopy;
+  if (v122)
   {
-    v120 = *v155;
+    v119 = *v154;
     do
     {
       v14 = 0;
       do
       {
-        if (*v155 != v120)
+        if (*v154 != v119)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v154 + 1) + 8 * v14);
+        v15 = *(*(&v153 + 1) + 8 * v14);
         asrOutputs = [v15 asrOutputs];
         if (asrOutputs)
         {
@@ -1732,20 +1747,20 @@ LABEL_26:
             if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315394;
-              v165 = "+[CDMServiceGraphUtil prepareCcqrTokens:currentTurn:previousTurns:utterance:locale:]";
-              v166 = 2112;
-              v167 = utterance;
+              v164 = "+[CDMServiceGraphUtil prepareCcqrTokens:currentTurn:previousTurns:utterance:locale:]";
+              v165 = 2112;
+              v166 = utterance;
               _os_log_debug_impl(&dword_1DC287000, v23, OS_LOG_TYPE_DEBUG, "%s Extracted from NluRequest.previousTurnInputs, previous asr hypo: %@", buf, 0x16u);
             }
 
             v24 = [CDMTokenizerProtoService createProtoTokenRequestWithText:utterance locale:localeCopy];
             v25 = [tokensCopy handle:v24];
             response = [v25 response];
-            [v118 addObject:response];
+            [v117 addObject:response];
           }
         }
 
-        v124 = v14;
+        v123 = v14;
         v27 = objc_alloc_init(MEMORY[0x1E695DF70]);
         turnContext = [v15 turnContext];
         nlContext = [turnContext nlContext];
@@ -1758,9 +1773,9 @@ LABEL_26:
         renderedTexts = [legacyNlContext renderedTexts];
         v35 = [v33 initWithCapacity:{objc_msgSend(renderedTexts, "count")}];
 
-        v127 = legacyNlContext;
+        v126 = legacyNlContext;
         renderedTexts2 = [legacyNlContext renderedTexts];
-        v125 = systemDialogActs;
+        v124 = systemDialogActs;
         if (renderedTexts2)
         {
           v37 = renderedTexts2;
@@ -1769,26 +1784,26 @@ LABEL_26:
 
           if (v39)
           {
-            v152 = 0u;
-            v153 = 0u;
-            v150 = 0u;
             v151 = 0u;
-            renderedTexts4 = [v127 renderedTexts];
-            v41 = [renderedTexts4 countByEnumeratingWithState:&v150 objects:v163 count:16];
+            v152 = 0u;
+            v149 = 0u;
+            v150 = 0u;
+            renderedTexts4 = [v126 renderedTexts];
+            v41 = [renderedTexts4 countByEnumeratingWithState:&v149 objects:v162 count:16];
             if (v41)
             {
               v42 = v41;
-              v43 = *v151;
+              v43 = *v150;
               do
               {
                 for (i = 0; i != v42; ++i)
                 {
-                  if (*v151 != v43)
+                  if (*v150 != v43)
                   {
                     objc_enumerationMutation(renderedTexts4);
                   }
 
-                  v45 = *(*(&v150 + 1) + 8 * i);
+                  v45 = *(*(&v149 + 1) + 8 * i);
                   value = [v45 value];
                   if (value)
                   {
@@ -1806,53 +1821,53 @@ LABEL_26:
                   {
                     lastObject = [v27 lastObject];
                     *buf = 136315394;
-                    v165 = "+[CDMServiceGraphUtil prepareCcqrTokens:currentTurn:previousTurns:utterance:locale:]";
-                    v166 = 2112;
-                    v167 = lastObject;
+                    v164 = "+[CDMServiceGraphUtil prepareCcqrTokens:currentTurn:previousTurns:utterance:locale:]";
+                    v165 = 2112;
+                    v166 = lastObject;
                     _os_log_debug_impl(&dword_1DC287000, v48, OS_LOG_TYPE_DEBUG, "%s Extracted from NluRequest.previousTurnInputs.turnContext.legacyNlContext, previous rendered text: %@", buf, 0x16u);
                   }
                 }
 
-                v42 = [renderedTexts4 countByEnumeratingWithState:&v150 objects:v163 count:16];
+                v42 = [renderedTexts4 countByEnumeratingWithState:&v149 objects:v162 count:16];
               }
 
               while (v42);
             }
 
-            tokensCopy = v122;
-            systemDialogActs = v125;
+            tokensCopy = v121;
+            systemDialogActs = v124;
           }
         }
 
         if (systemDialogActs && [systemDialogActs count])
         {
-          v148 = 0u;
-          v149 = 0u;
-          v146 = 0u;
           v147 = 0u;
+          v148 = 0u;
+          v145 = 0u;
+          v146 = 0u;
           v50 = systemDialogActs;
-          v51 = [v50 countByEnumeratingWithState:&v146 objects:v162 count:16];
+          v51 = [v50 countByEnumeratingWithState:&v145 objects:v161 count:16];
           if (v51)
           {
             v52 = v51;
-            v53 = *v147;
+            v53 = *v146;
             do
             {
               for (j = 0; j != v52; ++j)
               {
-                if (*v147 != v53)
+                if (*v146 != v53)
                 {
                   objc_enumerationMutation(v50);
                 }
 
-                v55 = *(*(&v146 + 1) + 8 * j);
+                v55 = *(*(&v145 + 1) + 8 * j);
                 if ([v27 count])
                 {
                   v56 = CDMOSLoggerForCategory(0);
                   if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
                   {
                     *buf = 136315138;
-                    v165 = "+[CDMServiceGraphUtil prepareCcqrTokens:currentTurn:previousTurns:utterance:locale:]";
+                    v164 = "+[CDMServiceGraphUtil prepareCcqrTokens:currentTurn:previousTurns:utterance:locale:]";
                     _os_log_impl(&dword_1DC287000, v56, OS_LOG_TYPE_INFO, "%s [WARN]: NLConetext and legcyNLContext both exists", buf, 0xCu);
                   }
                 }
@@ -1876,64 +1891,64 @@ LABEL_26:
                 {
                   lastObject2 = [v27 lastObject];
                   *buf = 136315394;
-                  v165 = "+[CDMServiceGraphUtil prepareCcqrTokens:currentTurn:previousTurns:utterance:locale:]";
-                  v166 = 2112;
-                  v167 = lastObject2;
+                  v164 = "+[CDMServiceGraphUtil prepareCcqrTokens:currentTurn:previousTurns:utterance:locale:]";
+                  v165 = 2112;
+                  v166 = lastObject2;
                   _os_log_debug_impl(&dword_1DC287000, v61, OS_LOG_TYPE_DEBUG, "%s Extracted from NluRequest.previousTurnInputs.turnContext.nlContext, previous rendered text: %@", buf, 0x16u);
                 }
 
-                localeCopy = v129;
+                localeCopy = v128;
               }
 
-              v52 = [v50 countByEnumeratingWithState:&v146 objects:v162 count:16];
+              v52 = [v50 countByEnumeratingWithState:&v145 objects:v161 count:16];
             }
 
             while (v52);
           }
 
-          tokensCopy = v122;
+          tokensCopy = v121;
         }
 
-        v144 = 0u;
-        v145 = 0u;
-        v142 = 0u;
         v143 = 0u;
+        v144 = 0u;
+        v141 = 0u;
+        v142 = 0u;
         v63 = v27;
-        v64 = [v63 countByEnumeratingWithState:&v142 objects:v161 count:16];
+        v64 = [v63 countByEnumeratingWithState:&v141 objects:v160 count:16];
         if (v64)
         {
           v65 = v64;
-          v66 = *v143;
+          v66 = *v142;
           do
           {
             for (k = 0; k != v65; ++k)
             {
-              if (*v143 != v66)
+              if (*v142 != v66)
               {
                 objc_enumerationMutation(v63);
               }
 
-              v68 = [CDMTokenizerProtoService createProtoTokenRequestWithText:*(*(&v142 + 1) + 8 * k) locale:localeCopy];
+              v68 = [CDMTokenizerProtoService createProtoTokenRequestWithText:*(*(&v141 + 1) + 8 * k) locale:localeCopy];
               v69 = [tokensCopy handle:v68];
               response2 = [v69 response];
               [v35 addObject:response2];
             }
 
-            v65 = [v63 countByEnumeratingWithState:&v142 objects:v161 count:16];
+            v65 = [v63 countByEnumeratingWithState:&v141 objects:v160 count:16];
           }
 
           while (v65);
         }
 
-        [v121 addObject:v35];
-        v14 = v124 + 1;
+        [v120 addObject:v35];
+        v14 = v123 + 1;
       }
 
-      while (v124 + 1 != v123);
-      v123 = [obj countByEnumeratingWithState:&v154 objects:v168 count:16];
+      while (v123 + 1 != v122);
+      v122 = [obj countByEnumeratingWithState:&v153 objects:v167 count:16];
     }
 
-    while (v123);
+    while (v122);
   }
 
   v71 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -1949,7 +1964,7 @@ LABEL_26:
   v78 = [v76 initWithCapacity:{objc_msgSend(renderedTexts5, "count")}];
 
   renderedTexts6 = [legacyNlContext2 renderedTexts];
-  v126 = legacyNlContext2;
+  v125 = legacyNlContext2;
   if (renderedTexts6)
   {
     v80 = renderedTexts6;
@@ -1958,26 +1973,26 @@ LABEL_26:
 
     if (v82)
     {
-      v140 = 0u;
-      v141 = 0u;
-      v138 = 0u;
       v139 = 0u;
+      v140 = 0u;
+      v137 = 0u;
+      v138 = 0u;
       renderedTexts8 = [legacyNlContext2 renderedTexts];
-      v84 = [renderedTexts8 countByEnumeratingWithState:&v138 objects:v160 count:16];
+      v84 = [renderedTexts8 countByEnumeratingWithState:&v137 objects:v159 count:16];
       if (v84)
       {
         v85 = v84;
-        v86 = *v139;
+        v86 = *v138;
         do
         {
           for (m = 0; m != v85; ++m)
           {
-            if (*v139 != v86)
+            if (*v138 != v86)
             {
               objc_enumerationMutation(renderedTexts8);
             }
 
-            v88 = *(*(&v138 + 1) + 8 * m);
+            v88 = *(*(&v137 + 1) + 8 * m);
             value5 = [v88 value];
             if (value5)
             {
@@ -1995,53 +2010,53 @@ LABEL_26:
             {
               lastObject3 = [v78 lastObject];
               *buf = 136315394;
-              v165 = "+[CDMServiceGraphUtil prepareCcqrTokens:currentTurn:previousTurns:utterance:locale:]";
-              v166 = 2112;
-              v167 = lastObject3;
+              v164 = "+[CDMServiceGraphUtil prepareCcqrTokens:currentTurn:previousTurns:utterance:locale:]";
+              v165 = 2112;
+              v166 = lastObject3;
               _os_log_debug_impl(&dword_1DC287000, v91, OS_LOG_TYPE_DEBUG, "%s Extracted from NluRequest.currentTurnInput.turnContext.legacyNlContext, current rendered text: %@", buf, 0x16u);
             }
           }
 
-          v85 = [renderedTexts8 countByEnumeratingWithState:&v138 objects:v160 count:16];
+          v85 = [renderedTexts8 countByEnumeratingWithState:&v137 objects:v159 count:16];
         }
 
         while (v85);
       }
 
-      tokensCopy = v122;
-      localeCopy = v129;
+      tokensCopy = v121;
+      localeCopy = v128;
     }
   }
 
   if (systemDialogActs2 && [systemDialogActs2 count])
   {
-    v136 = 0u;
-    v137 = 0u;
-    v134 = 0u;
     v135 = 0u;
+    v136 = 0u;
+    v133 = 0u;
+    v134 = 0u;
     v93 = systemDialogActs2;
-    v94 = [v93 countByEnumeratingWithState:&v134 objects:v159 count:16];
+    v94 = [v93 countByEnumeratingWithState:&v133 objects:v158 count:16];
     if (v94)
     {
       v95 = v94;
-      v96 = *v135;
+      v96 = *v134;
       do
       {
         for (n = 0; n != v95; ++n)
         {
-          if (*v135 != v96)
+          if (*v134 != v96)
           {
             objc_enumerationMutation(v93);
           }
 
-          v98 = *(*(&v134 + 1) + 8 * n);
+          v98 = *(*(&v133 + 1) + 8 * n);
           if ([v78 count])
           {
             v99 = CDMOSLoggerForCategory(0);
             if (os_log_type_enabled(v99, OS_LOG_TYPE_INFO))
             {
               *buf = 136315138;
-              v165 = "+[CDMServiceGraphUtil prepareCcqrTokens:currentTurn:previousTurns:utterance:locale:]";
+              v164 = "+[CDMServiceGraphUtil prepareCcqrTokens:currentTurn:previousTurns:utterance:locale:]";
               _os_log_impl(&dword_1DC287000, v99, OS_LOG_TYPE_INFO, "%s [WARN]: NLConetext and legcyNLContext both exists", buf, 0xCu);
             }
           }
@@ -2054,7 +2069,7 @@ LABEL_26:
             value8 = [renderedText4 value];
             [v78 addObject:value8];
 
-            tokensCopy = v122;
+            tokensCopy = v121;
           }
 
           else
@@ -2067,64 +2082,62 @@ LABEL_26:
           {
             lastObject4 = [v78 lastObject];
             *buf = 136315394;
-            v165 = "+[CDMServiceGraphUtil prepareCcqrTokens:currentTurn:previousTurns:utterance:locale:]";
-            v166 = 2112;
-            v167 = lastObject4;
+            v164 = "+[CDMServiceGraphUtil prepareCcqrTokens:currentTurn:previousTurns:utterance:locale:]";
+            v165 = 2112;
+            v166 = lastObject4;
             _os_log_debug_impl(&dword_1DC287000, v104, OS_LOG_TYPE_DEBUG, "%s Extracted from NluRequest.currentTurnInput.turnContext.nlContext, current rendered text: %@", buf, 0x16u);
           }
         }
 
-        v95 = [v93 countByEnumeratingWithState:&v134 objects:v159 count:16];
+        v95 = [v93 countByEnumeratingWithState:&v133 objects:v158 count:16];
       }
 
       while (v95);
     }
 
-    localeCopy = v129;
+    localeCopy = v128;
   }
 
-  v132 = 0u;
-  v133 = 0u;
-  v130 = 0u;
   v131 = 0u;
+  v132 = 0u;
+  v129 = 0u;
+  v130 = 0u;
   v106 = v78;
-  v107 = [v106 countByEnumeratingWithState:&v130 objects:v158 count:16];
+  v107 = [v106 countByEnumeratingWithState:&v129 objects:v157 count:16];
   if (v107)
   {
     v108 = v107;
-    v109 = *v131;
+    v109 = *v130;
     do
     {
       for (ii = 0; ii != v108; ++ii)
       {
-        if (*v131 != v109)
+        if (*v130 != v109)
         {
           objc_enumerationMutation(v106);
         }
 
-        turnCopy = [CDMTokenizerProtoService createProtoTokenRequestWithText:*(*(&v130 + 1) + 8 * ii) locale:localeCopy, turnCopy];
+        turnCopy = [CDMTokenizerProtoService createProtoTokenRequestWithText:*(*(&v129 + 1) + 8 * ii) locale:localeCopy, turnCopy];
         v112 = [tokensCopy handle:turnCopy];
         response3 = [v112 response];
         [v71 addObject:response3];
       }
 
-      v108 = [v106 countByEnumeratingWithState:&v130 objects:v158 count:16];
+      v108 = [v106 countByEnumeratingWithState:&v129 objects:v157 count:16];
     }
 
     while (v108);
   }
 
-  [v121 addObject:v71];
-  v114 = [[CDMTokenizationProtoResponseCommand alloc] initWithPreviousResponses:v118 withPreviousSiriResponse:v121];
-
-  v115 = *MEMORY[0x1E69E9840];
+  [v120 addObject:v71];
+  v114 = [[CDMTokenizationProtoResponseCommand alloc] initWithPreviousResponses:v117 withPreviousSiriResponse:v120];
 
   return v114;
 }
 
 + (id)runCcqrService:(id)service nluRequest:(id)request tokenResponse:(id)response previousTurnTokenizationResponseCommand:(id)command rdResponse:(id)rdResponse requestLink:(id)link locale:(id)locale
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   requestCopy = request;
   responseCopy = response;
@@ -2141,7 +2154,7 @@ LABEL_4:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v64 = "+[CDMServiceGraphUtil runCcqrService:nluRequest:tokenResponse:previousTurnTokenizationResponseCommand:rdResponse:requestLink:locale:]";
+      v63 = "+[CDMServiceGraphUtil runCcqrService:nluRequest:tokenResponse:previousTurnTokenizationResponseCommand:rdResponse:requestLink:locale:]";
       _os_log_debug_impl(&dword_1DC287000, v24, OS_LOG_TYPE_DEBUG, "%s Current Turn is Tap2Edit or Current Context isn't expected, skipping CCQR", buf, 0xCu);
     }
 
@@ -2161,12 +2174,12 @@ LABEL_7:
   }
 
   previousTurnInputs = [requestCopy previousTurnInputs];
-  v30 = [previousTurnInputs count];
+  v29 = [previousTurnInputs count];
 
-  v60 = responseCopy;
-  v61 = localeCopy;
-  v59 = commandCopy;
-  if (v30)
+  v59 = responseCopy;
+  v60 = localeCopy;
+  v58 = commandCopy;
+  if (v29)
   {
     v24 = objc_opt_new();
     currentTurnInput3 = [requestCopy currentTurnInput];
@@ -2180,71 +2193,71 @@ LABEL_7:
     asrOutputs = [currentTurnInput4 asrOutputs];
     firstObject = [asrOutputs firstObject];
     [firstObject utterance];
-    v37 = v36 = serviceCopy;
+    v36 = v35 = serviceCopy;
     tokenChain = [responseCopy tokenChain];
-    v39 = [CDMServiceGraphUtil overrideInputsFromUtterance:v37 matchingSpans:0 tokenChain:tokenChain contextUpdateReformedTurnInputBundle:v24];
+    v38 = [CDMServiceGraphUtil overrideInputsFromUtterance:v36 matchingSpans:0 tokenChain:tokenChain contextUpdateReformedTurnInputBundle:v24];
 
-    v40 = v39;
-    serviceCopy = v36;
+    v39 = v38;
+    serviceCopy = v35;
 
-    v41 = [v36 match:v39];
-    if (v41)
+    v40 = [v35 match:v38];
+    if (v40)
     {
-      v25 = v41;
-      v42 = CDMOSLoggerForCategory(0);
-      commandCopy = v59;
-      localeCopy = v61;
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+      v25 = v40;
+      v41 = CDMOSLoggerForCategory(0);
+      commandCopy = v58;
+      localeCopy = v60;
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
       {
         qrResponse = [v25 qrResponse];
         *buf = 136315394;
-        v64 = "+[CDMServiceGraphUtil runCcqrService:nluRequest:tokenResponse:previousTurnTokenizationResponseCommand:rdResponse:requestLink:locale:]";
-        v65 = 2112;
-        v66 = qrResponse;
-        _os_log_debug_impl(&dword_1DC287000, v42, OS_LOG_TYPE_DEBUG, "%s Found override match. Return pre-defined match result %@", buf, 0x16u);
+        v63 = "+[CDMServiceGraphUtil runCcqrService:nluRequest:tokenResponse:previousTurnTokenizationResponseCommand:rdResponse:requestLink:locale:]";
+        v64 = 2112;
+        v65 = qrResponse;
+        _os_log_debug_impl(&dword_1DC287000, v41, OS_LOG_TYPE_DEBUG, "%s Found override match. Return pre-defined match result %@", buf, 0x16u);
 
-        localeCopy = v61;
+        localeCopy = v60;
       }
 
-      responseCopy = v60;
+      responseCopy = v59;
       goto LABEL_7;
     }
   }
 
-  v58 = serviceCopy;
-  v43 = CDMOSLoggerForCategory(0);
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+  v57 = serviceCopy;
+  v42 = CDMOSLoggerForCategory(0);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v64 = "+[CDMServiceGraphUtil runCcqrService:nluRequest:tokenResponse:previousTurnTokenizationResponseCommand:rdResponse:requestLink:locale:]";
-    _os_log_debug_impl(&dword_1DC287000, v43, OS_LOG_TYPE_DEBUG, "%s The current turn is NOT Tap2Edit Request, nor override matching, Running CCQR inference", buf, 0xCu);
+    v63 = "+[CDMServiceGraphUtil runCcqrService:nluRequest:tokenResponse:previousTurnTokenizationResponseCommand:rdResponse:requestLink:locale:]";
+    _os_log_debug_impl(&dword_1DC287000, v42, OS_LOG_TYPE_DEBUG, "%s The current turn is NOT Tap2Edit Request, nor override matching, Running CCQR inference", buf, 0xCu);
   }
 
   currentTurnInput5 = [requestCopy currentTurnInput];
   asrOutputs2 = [currentTurnInput5 asrOutputs];
   firstObject2 = [asrOutputs2 firstObject];
   [firstObject2 probability];
-  v47 = v46;
+  v46 = v45;
   previousTurnInputs3 = [requestCopy previousTurnInputs];
-  v49 = [CDMServiceGraphUtil extractPrevTurnsAsrConfidence:previousTurnInputs3];
+  v48 = [CDMServiceGraphUtil extractPrevTurnsAsrConfidence:previousTurnInputs3];
   nlId = [linkCopy nlId];
   resultCandidateId = [linkCopy resultCandidateId];
   requestId = [requestCopy requestId];
-  v24 = [CDMServiceGraphUtil prepareCcqrServiceRequest:v61 currentTurnAsrConf:v60 tokenResponse:v49 previousTurnsAsrConf:v59 previousTurnTokenizationResponseCommand:nlId nluRequestId:resultCandidateId resultCandidateId:v47 cdmRequestId:requestId];
+  v24 = [CDMServiceGraphUtil prepareCcqrServiceRequest:v60 currentTurnAsrConf:v59 tokenResponse:v48 previousTurnsAsrConf:v58 previousTurnTokenizationResponseCommand:nlId nluRequestId:resultCandidateId resultCandidateId:v46 cdmRequestId:requestId];
 
-  serviceCopy = v58;
-  v25 = [v58 handle:v24];
+  serviceCopy = v57;
+  v25 = [v57 handle:v24];
   if (+[CDMFeatureFlags isCbrUnrestrictedByRDEnabled])
   {
-    commandCopy = v59;
-    responseCopy = v60;
+    commandCopy = v58;
+    responseCopy = v59;
     v26 = rdResponseCopy;
   }
 
   else
   {
     rewriteMsg = [v25 rewriteMsg];
-    commandCopy = v59;
+    commandCopy = v58;
     v26 = rdResponseCopy;
     if ([rewriteMsg rewriteType] == 2)
     {
@@ -2261,44 +2274,42 @@ LABEL_7:
     {
     }
 
-    responseCopy = v60;
+    responseCopy = v59;
   }
 
-  localeCopy = v61;
+  localeCopy = v60;
 LABEL_8:
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
 
 + (id)extractPrevTurnsAsrConfidence:(id)confidence
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   confidenceCopy = confidence;
   v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(confidenceCopy, "count")}];
   if (confidenceCopy)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v5 = confidenceCopy;
-    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          asrOutputs = [*(*(&v17 + 1) + 8 * i) asrOutputs];
+          asrOutputs = [*(*(&v16 + 1) + 8 * i) asrOutputs];
           firstObject = [asrOutputs firstObject];
           [firstObject probability];
           v13 = v12;
@@ -2307,14 +2318,12 @@ LABEL_8:
           [v4 addObject:v14];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

@@ -27,7 +27,7 @@
   os_unfair_lock_lock(&self->_lock);
   [(PLBackgroundJobLibraryCoordinator *)self _handleBundleComplete:self->_currentPhotoLibraryBundle];
   [(NSMutableArray *)self->_pendingPhotoLibraryBundles removeObject:self->_currentPhotoLibraryBundle];
-  v4 = [(NSMutableArray *)self->_pendingPhotoLibraryBundles count];
+  v4 = objc_msgSend_count(self->_pendingPhotoLibraryBundles);
   v5 = PLBackgroundJobServiceGetLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
@@ -62,13 +62,13 @@
   v3 = PLBackgroundJobServiceGetLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v4 = [(NSMutableArray *)self->_pendingPhotoLibraryBundles count];
+    v4 = objc_msgSend_count(self->_pendingPhotoLibraryBundles);
     *buf = 134217984;
     v19 = v4;
     _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_INFO, "Clearing %tu bundles from _pendingPhotoLibraryBundles queue", buf, 0xCu);
   }
 
-  v5 = [(NSMutableArray *)self->_pendingPhotoLibraryBundles count];
+  v5 = objc_msgSend_count(self->_pendingPhotoLibraryBundles);
   v6 = [(NSMutableArray *)self->_pendingPhotoLibraryBundles copy];
   [(NSMutableArray *)self->_pendingPhotoLibraryBundles removeAllObjects];
   os_unfair_lock_unlock(&self->_lock);
@@ -196,18 +196,18 @@
   v22 = v13;
   [bundlesCopy enumerateObjectsUsingBlock:v19];
   v14 = self->_currentPhotoLibraryBundle;
-  v15 = [(NSMutableArray *)self->_pendingPhotoLibraryBundles count];
+  v15 = objc_msgSend_count(self->_pendingPhotoLibraryBundles);
   os_unfair_lock_unlock(&self->_lock);
   v16 = PLBackgroundJobServiceGetLog();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v17 = [bundlesCopy count];
+    v17 = objc_msgSend_count(bundlesCopy);
     *buf = 134217984;
     v24 = v17;
     _os_log_impl(&dword_19BF1F000, v16, OS_LOG_TYPE_INFO, "Added %tu bundles to the pending bundles queue", buf, 0xCu);
   }
 
-  if (![bundlesCopy count])
+  if (!objc_msgSend_count(bundlesCopy))
   {
     v18 = PLBackgroundJobServiceGetLog();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
@@ -290,7 +290,7 @@ void __104__PLBackgroundJobLibraryCoordinator_startBackgroundJobsOnBundles_withC
         v11 = [bufferCopy workerTypesForBundle:v6];
         v12 = [(PLBackgroundJobWorkerCoordinator *)workerCoordinator pendingJobsForBundle:v6 workerTypes:v11];
 
-        if (![v12 count])
+        if (!objc_msgSend_count(v12))
         {
           v13 = PLBackgroundJobServiceGetLog();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
@@ -363,7 +363,7 @@ void __104__PLBackgroundJobLibraryCoordinator_startBackgroundJobsOnBundles_withC
   v25 = PLBackgroundJobServiceGetLog();
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = [v4 count];
+    v26 = objc_msgSend_count(v4);
     v27 = @"YES";
     if (!v26)
     {
@@ -375,7 +375,7 @@ void __104__PLBackgroundJobLibraryCoordinator_startBackgroundJobsOnBundles_withC
     _os_log_impl(&dword_19BF1F000, v25, OS_LOG_TYPE_DEFAULT, "Checked all submitted library bundles. Result: %@", buf, 0xCu);
   }
 
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     v28 = [v4 copy];
   }

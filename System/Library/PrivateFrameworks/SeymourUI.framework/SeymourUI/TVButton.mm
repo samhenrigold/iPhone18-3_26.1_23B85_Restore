@@ -45,7 +45,7 @@
 
 - (id)contextMenuInteraction:(id)interaction configurationForMenuAtLocation:(CGPoint)location
 {
-  sub_20B51C88C(0, &qword_27C768D70);
+  sub_20B51C88C(0, &qword_27C768D70, 0x277D753B0);
   v4 = swift_allocObject();
   swift_unknownObjectWeakInit();
   v5 = sub_20B9DE930(0, 0, 0, sub_20B9E1078, v4);
@@ -58,18 +58,19 @@
   v5 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC9SeymourUI8TVButton_onWillDisplayMenu);
   if (v5)
   {
+    v6 = *(&self->super.super.super._responderFlags + OBJC_IVAR____TtC9SeymourUI8TVButton_onWillDisplayMenu);
     selfCopy = self;
-    v7 = sub_20B584050(v5);
-    v5(v7);
+    v8 = sub_20B584050(v5, v6);
+    v5(v8);
 
-    sub_20B583ECC(v5);
+    sub_20B583ECC(v5, v6);
   }
 }
 
 - (void)pressesBegan:(id)began withEvent:(id)event
 {
   ObjectType = swift_getObjectType();
-  sub_20B51C88C(0, &qword_27C764588);
+  sub_20B51C88C(0, &qword_27C764588, 0x277D758B8);
   sub_20B9E0F28();
   v7 = sub_20C13CF74();
   eventCopy = event;
@@ -93,7 +94,7 @@
 - (void)pressesCancelled:(id)cancelled withEvent:(id)event
 {
   ObjectType = swift_getObjectType();
-  sub_20B51C88C(0, &qword_27C764588);
+  sub_20B51C88C(0, &qword_27C764588, 0x277D758B8);
   sub_20B9E0F28();
   v7 = sub_20C13CF74();
   eventCopy = event;
@@ -117,7 +118,7 @@
 - (void)pressesEnded:(id)ended withEvent:(id)event
 {
   ObjectType = swift_getObjectType();
-  sub_20B51C88C(0, &qword_27C764588);
+  sub_20B51C88C(0, &qword_27C764588, 0x277D758B8);
   sub_20B9E0F28();
   v7 = sub_20C13CF74();
   eventCopy = event;

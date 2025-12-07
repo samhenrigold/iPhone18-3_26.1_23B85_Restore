@@ -28,19 +28,19 @@
 {
   v3 = sub_264CC2FCC();
   v4 = *(v3 - 8);
-  MEMORY[0x28223BE20](v3);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v6, self + OBJC_IVAR____TtC20ScreenTimeSettingsUI12UsageDetails_lastUpdatedDate, v3);
-  v7 = sub_264CC2F7C();
-  (*(v4 + 8))(v6, v3);
+  v5 = MEMORY[0x28223BE20](v3);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v7, self + OBJC_IVAR____TtC20ScreenTimeSettingsUI12UsageDetails_lastUpdatedDate, v3, v5);
+  v8 = sub_264CC2F7C();
+  (*(v4 + 8))(v7, v3);
 
-  return v7;
+  return v8;
 }
 
 - (NSDictionary)firstPickupByWeekdayByWeek
 {
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FFA92D8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FFA92D8, &qword_264CD2338);
   v2 = sub_264CC453C();
 
   return v2;
@@ -125,7 +125,7 @@ LABEL_3:
   v13 = 0;
 LABEL_6:
   v17[3] = sub_264CC32DC();
-  v17[4] = sub_264C6A9DC(&qword_27FFA92A8, MEMORY[0x277CC57C0]);
+  v17[4] = sub_264C6A9DC(&qword_27FFA92A8, MEMORY[0x277CC57C0], &unk_264CD2220);
   __swift_allocate_boxed_opaque_existential_1(v17);
   sub_264CC32CC();
   sub_264C6510C(d, v12, v13, v17, v10);
@@ -177,7 +177,7 @@ LABEL_6:
   sub_264CC2E5C();
   sub_264CC2FAC();
   v27[3] = sub_264CC32DC();
-  v27[4] = sub_264C6A9DC(&qword_27FFA92A8, MEMORY[0x277CC57C0]);
+  v27[4] = sub_264C6A9DC(&qword_27FFA92A8, MEMORY[0x277CC57C0], &unk_264CD2220);
   __swift_allocate_boxed_opaque_existential_1(v27);
   sub_264CC32CC();
   v21 = sub_264C68A70(v16, v18, v19, identifier, v15, v12, contextCopy, v27);

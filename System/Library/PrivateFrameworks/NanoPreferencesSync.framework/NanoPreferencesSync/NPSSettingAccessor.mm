@@ -564,7 +564,6 @@ LABEL_16:
 
 - (unint64_t)domainPlistSize
 {
-  p_type = &self->_type;
   type = self->_type;
   if (type == 1)
   {
@@ -577,7 +576,7 @@ LABEL_16:
   {
     if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_FAULT))
     {
-      sub_100026EDC(p_type);
+      sub_100026EDC();
     }
 
     return 0;
@@ -585,8 +584,6 @@ LABEL_16:
 
   else
   {
-    domain = self->_domain;
-    containerPath = self->_containerPath;
 
     return [NPSPrefPlistSizeUtil prefSizeFor:"prefSizeFor:inContainer:" inContainer:?];
   }
@@ -596,18 +593,16 @@ LABEL_16:
 {
   domainPlistSize = [(NPSSettingAccessor *)self domainPlistSize];
   type = self->_type;
-  p_type = &self->_type;
-  v4 = type;
   if (type != 1)
   {
-    if (!v4)
+    if (!type)
     {
       return domainPlistSize <= 0x300000;
     }
 
     if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_FAULT))
     {
-      sub_100026EDC(p_type);
+      sub_100026EDC();
     }
   }
 
@@ -620,22 +615,19 @@ LABEL_16:
   v4 = nps_daemon_log;
   if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
-    v10 = domainPlistSize;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "domain size: %llu", &v9, 0xCu);
+    v6 = 134217984;
+    v7 = domainPlistSize;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "domain size: %llu", &v6, 0xCu);
   }
 
-  type = self->_type;
-  p_type = &self->_type;
-  v5 = type;
-  if (type == 1 || !v5)
+  if (self->_type <= 1uLL)
   {
     return domainPlistSize <= 0x80000;
   }
 
   if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_FAULT))
   {
-    sub_100026EDC(p_type);
+    sub_100026EDC();
   }
 
   return 1;
@@ -643,7 +635,6 @@ LABEL_16:
 
 - (id)typeString
 {
-  p_type = &self->_type;
   type = self->_type;
   if (!type)
   {
@@ -657,7 +648,7 @@ LABEL_16:
 
   if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_FAULT))
   {
-    sub_100026EDC(p_type);
+    sub_100026EDC();
   }
 
   return @"undefined";
@@ -678,43 +669,41 @@ LABEL_16:
 
   else
   {
-    domain = self->_domain;
-    containerPath = self->_containerPath;
     FileProtectionClass = _CFPreferencesGetFileProtectionClass();
-    v7 = nps_daemon_log;
+    v5 = nps_daemon_log;
     if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = self->_domain;
-      v9 = self->_containerPath;
-      v16 = 136315906;
-      v17 = "[NPSSettingAccessor requiresDeviceUnlockedSinceBoot]";
+      domain = self->_domain;
+      containerPath = self->_containerPath;
+      v14 = 136315906;
+      v15 = "[NPSSettingAccessor requiresDeviceUnlockedSinceBoot]";
+      v16 = 2112;
+      v17 = domain;
       v18 = 2112;
-      v19 = v8;
-      v20 = 2112;
-      v21 = v9;
-      v22 = 1024;
-      v23 = FileProtectionClass;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: Protection Class for %@ at path %@ is %d", &v16, 0x26u);
+      v19 = containerPath;
+      v20 = 1024;
+      v21 = FileProtectionClass;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s: Protection Class for %@ at path %@ is %d", &v14, 0x26u);
     }
 
     requiresDeviceUnlockedSinceBoot = FileProtectionClass != -1 && FileProtectionClass < 4;
   }
 
-  v12 = nps_daemon_log;
+  v10 = nps_daemon_log;
   if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = @"NO";
-    v14 = self->_domain;
+    v11 = @"NO";
+    v12 = self->_domain;
     if (requiresDeviceUnlockedSinceBoot)
     {
-      v13 = @"YES";
+      v11 = @"YES";
     }
 
-    v16 = 138412546;
-    v17 = v14;
-    v18 = 2112;
-    v19 = v13;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Is user defaults domain %@ protected: %@", &v16, 0x16u);
+    v14 = 138412546;
+    v15 = v12;
+    v16 = 2112;
+    v17 = v11;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Is user defaults domain %@ protected: %@", &v14, 0x16u);
   }
 
   return requiresDeviceUnlockedSinceBoot;

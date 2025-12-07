@@ -3,6 +3,7 @@
 - (PKPassGroupStackViewAccessibility)initWithFrame:(CGRect)frame;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)setModalGroupIndex:(unint64_t)index;
+- (void)setPresentationState:(int)state animated:(BOOL)animated;
 @end
 
 @implementation PKPassGroupStackViewAccessibility
@@ -50,48 +51,54 @@
   [v8 setAccessibilityIdentifier:@"PassContainerView"];
 }
 
+- (void)setPresentationState:(int)state animated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = PKPassGroupStackViewAccessibility;
+  [(PKPassGroupStackViewAccessibility *)&v4 setPresentationState:*&state animated:animated];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7F10], 0);
+}
+
 - (void)setModalGroupIndex:(unint64_t)index
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v5 = [(PKPassGroupStackViewAccessibility *)self safeValueForKey:@"_modallyPresentedGroupView"];
   [v5 setAccessibilityViewIsModal:0];
 
-  v17.receiver = self;
-  v17.super_class = PKPassGroupStackViewAccessibility;
-  [(PKPassGroupStackViewAccessibility *)&v17 setModalGroupIndex:index];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
+  v16.receiver = self;
+  v16.super_class = PKPassGroupStackViewAccessibility;
+  [(PKPassGroupStackViewAccessibility *)&v16 setModalGroupIndex:index];
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = [(PKPassGroupStackViewAccessibility *)self safeValueForKey:@"_groupViewsByGroupID", 0];
   allObjects = [v6 allObjects];
 
-  v8 = [allObjects countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v8 = [allObjects countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) setAccessibilityViewIsModal:0];
+        [*(*(&v12 + 1) + 8 * v11++) setAccessibilityViewIsModal:0];
       }
 
       while (v9 != v11);
-      v9 = [allObjects countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v9 = [allObjects countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 @end

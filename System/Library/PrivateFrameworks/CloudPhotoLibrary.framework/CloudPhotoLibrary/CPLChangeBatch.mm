@@ -30,33 +30,33 @@
 
 - (id)cplFullDescription
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@: [\n", objc_opt_class()];
   v4 = objc_autoreleasePoolPush();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   selfCopy = self;
-  v6 = [(CPLChangeBatch *)selfCopy countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v6 = [(CPLChangeBatch *)selfCopy countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        cplFullDescription = [*(*(&v24 + 1) + 8 * i) cplFullDescription];
+        cplFullDescription = [*(*(&v23 + 1) + 8 * i) cplFullDescription];
         [v3 appendFormat:@"  %@\n", cplFullDescription];
       }
 
-      v7 = [(CPLChangeBatch *)selfCopy countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v7 = [(CPLChangeBatch *)selfCopy countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v7);
@@ -68,30 +68,30 @@
     [v3 appendString:@"Additional records:\n"];
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v12 = _additionalRecords;
-  v13 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        cplFullDescription2 = [*(*(&v20 + 1) + 8 * j) cplFullDescription];
+        cplFullDescription2 = [*(*(&v19 + 1) + 8 * j) cplFullDescription];
         [v3 appendFormat:@"  %@\n", cplFullDescription2];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v14);
@@ -99,14 +99,13 @@
 
   [v3 appendString:@"]"];
   objc_autoreleasePoolPop(v4);
-  v18 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (CPLChangeBatch)initWithCoder:(id)coder
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(CPLChangeBatch *)self init];
   if (v5)
@@ -122,28 +121,28 @@
       goto LABEL_28;
     }
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v9 = v9;
-    v10 = [v9 countByEnumeratingWithState:&v22 objects:v28 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
     if (v10)
     {
       v11 = v10;
-      v21 = coderCopy;
+      v20 = coderCopy;
       v12 = 0;
-      v13 = *v23;
+      v13 = *v22;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v23 != v13)
+          if (*v22 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v22 + 1) + 8 * i);
+          v15 = *(*(&v21 + 1) + 8 * i);
           if (objc_opt_isKindOfClass())
           {
             [(CPLChangeBatch *)v5 addRecord:v15];
@@ -160,18 +159,18 @@
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v22 objects:v28 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
       }
 
       while (v11);
 
       if (!v12)
       {
-        coderCopy = v21;
+        coderCopy = v20;
         goto LABEL_23;
       }
 
-      coderCopy = v21;
+      coderCopy = v20;
       if (_CPLSilentLogging)
       {
 LABEL_23:
@@ -200,7 +199,7 @@ LABEL_28:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v27 = v12;
+        v26 = v12;
         _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_ERROR, "Bad records in a batch during deserialization: %@", buf, 0xCu);
       }
     }
@@ -216,7 +215,6 @@ LABEL_28:
 
 LABEL_29:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -234,34 +232,34 @@ LABEL_29:
 
 - (void)extractInitialDownloadBatch:(id *)batch shouldConsiderRecordFilter:(id)filter
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   filterCopy = filter;
   batchCopy = batch;
   *batch = 0;
   v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v29 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v28 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   selfCopy = self;
-  v9 = [(CPLChangeBatch *)selfCopy countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v9 = [(CPLChangeBatch *)selfCopy countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v38;
+    v11 = *v37;
     do
     {
       v12 = 0;
       do
       {
-        if (*v38 != v11)
+        if (*v37 != v11)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v13 = *(*(&v37 + 1) + 8 * v12);
+        v13 = *(*(&v36 + 1) + 8 * v12);
         isFullRecord = [v13 isFullRecord];
         if ([v13 supportsSharingScopedIdentifier])
         {
@@ -287,7 +285,7 @@ LABEL_29:
             goto LABEL_19;
           }
 
-          v18 = v29;
+          v18 = v28;
         }
 
         else
@@ -310,7 +308,7 @@ LABEL_29:
             goto LABEL_19;
           }
 
-          v18 = v28;
+          v18 = v27;
         }
 
         v20 = [v18 objectForKey:scopedIdentifier];
@@ -331,26 +329,26 @@ LABEL_21:
       }
 
       while (v10 != v12);
-      v21 = [(CPLChangeBatch *)selfCopy countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v21 = [(CPLChangeBatch *)selfCopy countByEnumeratingWithState:&v36 objects:v40 count:16];
       v10 = v21;
     }
 
     while (v21);
   }
 
-  if ([v28 count])
+  if ([v27 count])
   {
     v22 = objc_alloc_init(CPLChangeBatch);
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __103__CPLChangeBatch_CPLEngineTransientRepository__extractInitialDownloadBatch_shouldConsiderRecordFilter___block_invoke;
-    v32[3] = &unk_1E861CC78;
-    v33 = v29;
-    v36 = filterCopy;
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __103__CPLChangeBatch_CPLEngineTransientRepository__extractInitialDownloadBatch_shouldConsiderRecordFilter___block_invoke;
+    v31[3] = &unk_1E861CC78;
+    v32 = v28;
+    v35 = filterCopy;
     v23 = v22;
-    v34 = v23;
-    v35 = v7;
-    [v28 enumerateKeysAndObjectsUsingBlock:v32];
+    v33 = v23;
+    v34 = v7;
+    [v27 enumerateKeysAndObjectsUsingBlock:v31];
     if ([(CPLChangeBatch *)v23 count])
     {
       v24 = v23;
@@ -358,16 +356,14 @@ LABEL_21:
     }
   }
 
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __103__CPLChangeBatch_CPLEngineTransientRepository__extractInitialDownloadBatch_shouldConsiderRecordFilter___block_invoke_2;
-  v30[3] = &unk_1E861CCA0;
-  v31 = v7;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __103__CPLChangeBatch_CPLEngineTransientRepository__extractInitialDownloadBatch_shouldConsiderRecordFilter___block_invoke_2;
+  v29[3] = &unk_1E861CCA0;
+  v30 = v7;
   v25 = v7;
-  [v29 enumerateKeysAndObjectsUsingBlock:v30];
+  [v28 enumerateKeysAndObjectsUsingBlock:v29];
   [(CPLChangeBatch *)selfCopy _setRecords:v25];
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __103__CPLChangeBatch_CPLEngineTransientRepository__extractInitialDownloadBatch_shouldConsiderRecordFilter___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -390,29 +386,29 @@ void __103__CPLChangeBatch_CPLEngineTransientRepository__extractInitialDownloadB
 
 - (BOOL)sortBatchWithError:(id *)error
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   if ([(CPLChangeBatch *)self count]<= 1)
   {
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
     v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
     selfCopy = self;
-    v6 = [(CPLChangeBatch *)selfCopy countByEnumeratingWithState:&v79 objects:v86 count:16];
+    v6 = [(CPLChangeBatch *)selfCopy countByEnumeratingWithState:&v78 objects:v85 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v80;
+      v8 = *v79;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v80 != v8)
+          if (*v79 != v8)
           {
             objc_enumerationMutation(selfCopy);
           }
 
-          scopedIdentifier = [*(*(&v79 + 1) + 8 * i) scopedIdentifier];
+          scopedIdentifier = [*(*(&v78 + 1) + 8 * i) scopedIdentifier];
 
           if (!scopedIdentifier)
           {
@@ -428,7 +424,7 @@ void __103__CPLChangeBatch_CPLEngineTransientRepository__extractInitialDownloadB
           }
         }
 
-        v7 = [(CPLChangeBatch *)selfCopy countByEnumeratingWithState:&v79 objects:v86 count:16];
+        v7 = [(CPLChangeBatch *)selfCopy countByEnumeratingWithState:&v78 objects:v85 count:16];
         v11 = 1;
         if (v7)
         {
@@ -455,35 +451,35 @@ void __103__CPLChangeBatch_CPLEngineTransientRepository__extractInitialDownloadB
 
   v12 = objc_autoreleasePoolPush();
   v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v66 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v65 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
   selfCopy2 = self;
-  v17 = [(CPLChangeBatch *)selfCopy2 countByEnumeratingWithState:&v75 objects:v85 count:16];
-  v59 = v13;
-  v57 = v12;
+  v17 = [(CPLChangeBatch *)selfCopy2 countByEnumeratingWithState:&v74 objects:v84 count:16];
+  v58 = v13;
+  v56 = v12;
   if (v17)
   {
     v18 = v17;
+    v59 = 0;
     v60 = 0;
-    v61 = 0;
-    v19 = *v76;
+    v19 = *v75;
     while (1)
     {
       v20 = 0;
-      v64 = v18;
+      v63 = v18;
       do
       {
-        if (*v76 != v19)
+        if (*v75 != v19)
         {
           objc_enumerationMutation(selfCopy2);
         }
 
-        v21 = *(*(&v75 + 1) + 8 * v20);
+        v21 = *(*(&v74 + 1) + 8 * v20);
         scopedIdentifier2 = [v21 scopedIdentifier];
         if (!scopedIdentifier2)
         {
@@ -509,26 +505,26 @@ LABEL_21:
         {
           if (changeType == 1024)
           {
-            v25 = v61;
-            v18 = v64;
-            if (!v61)
-            {
-              v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
-            }
-
-            v61 = v25;
-          }
-
-          else
-          {
             v25 = v60;
-            v18 = v64;
+            v18 = v63;
             if (!v60)
             {
               v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
             }
 
             v60 = v25;
+          }
+
+          else
+          {
+            v25 = v59;
+            v18 = v63;
+            if (!v59)
+            {
+              v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
+            }
+
+            v59 = v25;
           }
 
           goto LABEL_21;
@@ -553,17 +549,17 @@ LABEL_21:
           }
 
           [v30 setObject:v31 forKey:v32];
-          v33 = v66;
+          v33 = v65;
           v34 = v21;
           v35 = v23;
           goto LABEL_41;
         }
 
-        v28 = [v59 objectForKey:v26];
+        v28 = [v58 objectForKey:v26];
         if (!v28)
         {
           v29 = [MEMORY[0x1E695DF70] arrayWithObject:v21];
-          v33 = v59;
+          v33 = v58;
           v34 = v29;
           v35 = v26;
 LABEL_41:
@@ -575,64 +571,64 @@ LABEL_41:
         [v28 addObject:v21];
 LABEL_42:
 
-        v18 = v64;
+        v18 = v63;
 LABEL_22:
 
         ++v20;
       }
 
       while (v18 != v20);
-      v36 = [(CPLChangeBatch *)selfCopy2 countByEnumeratingWithState:&v75 objects:v85 count:16];
+      v36 = [(CPLChangeBatch *)selfCopy2 countByEnumeratingWithState:&v74 objects:v84 count:16];
       v18 = v36;
       if (!v36)
       {
 
-        if (v60)
+        if (v59)
         {
           [v15 addObjectsFromArray:?];
         }
 
         else
         {
-          v60 = 0;
+          v59 = 0;
         }
 
-        v13 = v59;
+        v13 = v58;
         goto LABEL_52;
       }
     }
   }
 
+  v59 = 0;
   v60 = 0;
-  v61 = 0;
 LABEL_52:
   v39 = +[CPLEngineTransientRepository orderedClassesForDelete];
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
-  v40 = [v39 countByEnumeratingWithState:&v71 objects:v84 count:16];
+  v40 = [v39 countByEnumeratingWithState:&v70 objects:v83 count:16];
   if (v40)
   {
     v41 = v40;
-    v42 = *v72;
+    v42 = *v71;
     do
     {
       for (j = 0; j != v41; ++j)
       {
-        if (*v72 != v42)
+        if (*v71 != v42)
         {
           objc_enumerationMutation(v39);
         }
 
-        v44 = [v13 objectForKey:*(*(&v71 + 1) + 8 * j)];
+        v44 = [v13 objectForKey:*(*(&v70 + 1) + 8 * j)];
         if (v44)
         {
           [v15 addObjectsFromArray:v44];
         }
       }
 
-      v41 = [v39 countByEnumeratingWithState:&v71 objects:v84 count:16];
+      v41 = [v39 countByEnumeratingWithState:&v70 objects:v83 count:16];
     }
 
     while (v41);
@@ -643,26 +639,26 @@ LABEL_52:
   records = [(CPLChangeBatch *)selfCopy2 records];
   v47 = [records mutableCopy];
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   v38 = v45;
-  v65 = [(CPLChangeBatch *)v38 countByEnumeratingWithState:&v67 objects:v83 count:16];
-  if (v65)
+  v64 = [(CPLChangeBatch *)v38 countByEnumeratingWithState:&v66 objects:v82 count:16];
+  if (v64)
   {
     obj = v38;
-    v63 = *v68;
+    v62 = *v67;
     do
     {
-      for (k = 0; k != v65; ++k)
+      for (k = 0; k != v64; ++k)
       {
-        if (*v68 != v63)
+        if (*v67 != v62)
         {
           objc_enumerationMutation(obj);
         }
 
-        v49 = [v14 objectForKey:*(*(&v67 + 1) + 8 * k)];
+        v49 = [v14 objectForKey:*(*(&v66 + 1) + 8 * k)];
         if ([v49 count])
         {
           v50 = 0;
@@ -680,7 +676,7 @@ LABEL_52:
             if (v53)
             {
               [v47 removeObjectAtIndex:v50];
-              [(CPLChangeBatch *)selfCopy2 _addChange:v51 resultBatch:v15 changesPerScopedIdentifier:v66 changesPerClass:v14];
+              [(CPLChangeBatch *)selfCopy2 _addChange:v51 resultBatch:v15 changesPerScopedIdentifier:v65 changesPerClass:v14];
             }
 
             else
@@ -694,15 +690,15 @@ LABEL_52:
       }
 
       v38 = obj;
-      v65 = [(CPLChangeBatch *)obj countByEnumeratingWithState:&v67 objects:v83 count:16];
+      v64 = [(CPLChangeBatch *)obj countByEnumeratingWithState:&v66 objects:v82 count:16];
     }
 
-    while (v65);
+    while (v64);
   }
 
-  if (v61)
+  if (v60)
   {
-    [v15 addObjectsFromArray:v61];
+    [v15 addObjectsFromArray:v60];
   }
 
   [(CPLChangeBatch *)selfCopy2 _setRecords:v15];
@@ -711,7 +707,7 @@ LABEL_52:
   v11 = 1;
 LABEL_78:
 
-  objc_autoreleasePoolPop(v57);
+  objc_autoreleasePoolPop(v56);
   if (errorCopy && !v11)
   {
     v54 = selfCopy;
@@ -721,11 +717,10 @@ LABEL_78:
 
 LABEL_81:
 
-  v55 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
-uint64_t __67__CPLChangeBatch_CPLEngineTransientRepository__sortBatchWithError___block_invoke()
+uint64_t __67__CPLChangeBatch_CPLEngineTransientRepository__sortBatchWithError___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = objc_opt_class();
   sortBatchWithError__scopeChangeClass = result;
@@ -757,7 +752,7 @@ uint64_t __67__CPLChangeBatch_CPLEngineTransientRepository__sortBatchWithError__
 
 - (unint64_t)estimatedBatchSize
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   calculateEstimatedBatchSize = self->_calculateEstimatedBatchSize;
   result = self->_estimatedBatchSize;
   if (!calculateEstimatedBatchSize)
@@ -766,61 +761,60 @@ uint64_t __67__CPLChangeBatch_CPLEngineTransientRepository__sortBatchWithError__
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v13 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v12 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "Estimated batch size should not have been calculated yet", buf, 2u);
+          _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "Estimated batch size should not have been calculated yet", buf, 2u);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLChangeBatch.m"];
-      [currentHandler handleFailureInMethod:a2 object:self file:v15 lineNumber:343 description:@"Estimated batch size should not have been calculated yet"];
+      v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLChangeBatch.m"];
+      [currentHandler handleFailureInMethod:a2 object:self file:v14 lineNumber:343 description:@"Estimated batch size should not have been calculated yet"];
 
       abort();
     }
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v5 = self->_records;
-    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          self->_estimatedBatchSize += [*(*(&v17 + 1) + 8 * i) estimatedRecordSize];
+          self->_estimatedBatchSize += [*(*(&v16 + 1) + 8 * i) estimatedRecordSize];
         }
 
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v7);
     }
 
     additionalRecords = self->_additionalRecords;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __36__CPLChangeBatch_estimatedBatchSize__block_invoke;
-    v16[3] = &unk_1E8620358;
-    v16[4] = self;
-    [(NSMutableDictionary *)additionalRecords enumerateKeysAndObjectsUsingBlock:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __36__CPLChangeBatch_estimatedBatchSize__block_invoke;
+    v15[3] = &unk_1E8620358;
+    v15[4] = self;
+    [(NSMutableDictionary *)additionalRecords enumerateKeysAndObjectsUsingBlock:v15];
     self->_calculateEstimatedBatchSize = 1;
-    result = self->_estimatedBatchSize;
+    return self->_estimatedBatchSize;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -833,30 +827,30 @@ uint64_t __36__CPLChangeBatch_estimatedBatchSize__block_invoke(uint64_t a1, uint
 
 - (id)_descriptionRedacted:(BOOL)redacted
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if ([(CPLChangeBatch *)self count])
   {
     v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_records, "count")}];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v6 = self->_records;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v24;
+      v9 = *v23;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v23 + 1) + 8 * i);
+          v11 = *(*(&v22 + 1) + 8 * i);
           if (redacted)
           {
             [v11 redactedDescription];
@@ -870,7 +864,7 @@ uint64_t __36__CPLChangeBatch_estimatedBatchSize__block_invoke(uint64_t a1, uint
           [v5 addObject:v12];
         }
 
-        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v8);
@@ -891,43 +885,41 @@ uint64_t __36__CPLChangeBatch_estimatedBatchSize__block_invoke(uint64_t a1, uint
     v17 = [v18 stringWithFormat:@"<%@ %@>", v19, summaryDescription2];
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_records, "count")}];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v5 = self->_records;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
+    v8 = *v28;
     do
     {
       v9 = 0;
       do
       {
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v28 + 1) + 8 * v9) copy];
+        v10 = [*(*(&v27 + 1) + 8 * v9) copy];
         [v4 addObject:v10];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v7);
@@ -938,13 +930,13 @@ uint64_t __36__CPLChangeBatch_estimatedBatchSize__block_invoke(uint64_t a1, uint
   {
     v12 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{-[NSMutableDictionary count](self->_additionalRecords, "count")}];
     additionalRecords = self->_additionalRecords;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __31__CPLChangeBatch_copyWithZone___block_invoke;
-    v26[3] = &unk_1E8620358;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __31__CPLChangeBatch_copyWithZone___block_invoke;
+    v25[3] = &unk_1E8620358;
     v14 = v12;
-    v27 = v14;
-    [(NSMutableDictionary *)additionalRecords enumerateKeysAndObjectsUsingBlock:v26];
+    v26 = v14;
+    [(NSMutableDictionary *)additionalRecords enumerateKeysAndObjectsUsingBlock:v25];
     v15 = v11[2];
     v11[2] = v14;
     v16 = v14;
@@ -954,19 +946,18 @@ uint64_t __36__CPLChangeBatch_estimatedBatchSize__block_invoke(uint64_t a1, uint
   {
     v17 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{-[NSMutableDictionary count](self->_localResources, "count")}];
     localResources = self->_localResources;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __31__CPLChangeBatch_copyWithZone___block_invoke_2;
-    v24[3] = &unk_1E86203A8;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __31__CPLChangeBatch_copyWithZone___block_invoke_2;
+    v23[3] = &unk_1E86203A8;
     v19 = v17;
-    v25 = v19;
-    [(NSMutableDictionary *)localResources enumerateKeysAndObjectsUsingBlock:v24];
+    v24 = v19;
+    [(NSMutableDictionary *)localResources enumerateKeysAndObjectsUsingBlock:v23];
     v20 = v11[3];
     v11[3] = v19;
     v21 = v19;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -1003,13 +994,13 @@ void __31__CPLChangeBatch_copyWithZone___block_invoke_3(uint64_t a1, void *a2, v
 
 - (void)appendLocalResources:(id)resources forItemWithCloudScopedIdentifier:(id)identifier
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   resourcesCopy = resources;
   identifierCopy = identifier;
   v8 = identifierCopy;
   if (resourcesCopy)
   {
-    v20 = identifierCopy;
+    v19 = identifierCopy;
     if (!self->_localResources)
     {
       v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -1018,41 +1009,39 @@ void __31__CPLChangeBatch_copyWithZone___block_invoke_3(uint64_t a1, void *a2, v
     }
 
     v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v12 = resourcesCopy;
-    v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v22;
+      v15 = *v21;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v22 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v21 + 1) + 8 * i);
+          v17 = *(*(&v20 + 1) + 8 * i);
           v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v17, "resourceType")}];
           [v11 setObject:v17 forKey:v18];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v14);
     }
 
-    v8 = v20;
-    [(NSMutableDictionary *)self->_localResources setObject:v11 forKey:v20];
+    v8 = v19;
+    [(NSMutableDictionary *)self->_localResources setObject:v11 forKey:v19];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)localResourceOfType:(unint64_t)type forItemWithCloudScopedIdentifier:(id)identifier
@@ -1066,34 +1055,34 @@ void __31__CPLChangeBatch_copyWithZone___block_invoke_3(uint64_t a1, void *a2, v
 
 - (id)summaryDescription
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if ([(CPLChangeBatch *)self count])
   {
-    v24 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:@"["];
+    v23 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:@"["];
     v3 = objc_alloc_init(MEMORY[0x1E696AB50]);
     v4 = objc_alloc_init(MEMORY[0x1E696AB50]);
     v5 = objc_alloc_init(MEMORY[0x1E696AB50]);
     v6 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     selfCopy = self;
-    v8 = [(CPLChangeBatch *)selfCopy countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v8 = [(CPLChangeBatch *)selfCopy countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v30;
+      v10 = *v29;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v30 != v10)
+          if (*v29 != v10)
           {
             objc_enumerationMutation(selfCopy);
           }
 
-          v12 = *(*(&v29 + 1) + 8 * i);
+          v12 = *(*(&v28 + 1) + 8 * i);
           v13 = objc_opt_class();
           [v6 addObject:v13];
           changeType = [v12 changeType];
@@ -1114,53 +1103,51 @@ void __31__CPLChangeBatch_copyWithZone___block_invoke_3(uint64_t a1, void *a2, v
           [v15 addObject:v13];
         }
 
-        v9 = [(CPLChangeBatch *)selfCopy countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v9 = [(CPLChangeBatch *)selfCopy countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v9);
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     obj = v6;
-    v16 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v16 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v26;
+      v18 = *v25;
       v19 = @"%@: +%lu/%lu/-%lu";
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v26 != v18)
+          if (*v25 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          -[__CFString appendFormat:](v24, "appendFormat:", v19, *(*(&v25 + 1) + 8 * j), [v3 countForObject:*(*(&v25 + 1) + 8 * j)], objc_msgSend(v4, "countForObject:", *(*(&v25 + 1) + 8 * j)), objc_msgSend(v5, "countForObject:", *(*(&v25 + 1) + 8 * j)));
+          -[__CFString appendFormat:](v23, "appendFormat:", v19, *(*(&v24 + 1) + 8 * j), [v3 countForObject:*(*(&v24 + 1) + 8 * j)], objc_msgSend(v4, "countForObject:", *(*(&v24 + 1) + 8 * j)), objc_msgSend(v5, "countForObject:", *(*(&v24 + 1) + 8 * j)));
           v19 = @", %@: +%lu/%lu/-%lu";
         }
 
-        v17 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v17 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
       }
 
       while (v17);
     }
 
-    [(__CFString *)v24 appendFormat:@"]"];
+    [(__CFString *)v23 appendFormat:@"]"];
   }
 
   else
   {
-    v24 = @"[empty batch]";
+    v23 = @"[empty batch]";
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v24;
+  return v23;
 }
 
 - (void)_setRecords:(id)records
@@ -1215,33 +1202,33 @@ void __31__CPLChangeBatch_copyWithZone___block_invoke_3(uint64_t a1, void *a2, v
 
 - (void)_setAdditionalRecords:(id)records
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(recordsCopy, "count")}];
   additionalRecords = self->_additionalRecords;
   self->_additionalRecords = v5;
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = recordsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       v11 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * v11);
+        v12 = *(*(&v15 + 1) + 8 * v11);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1254,7 +1241,7 @@ void __31__CPLChangeBatch_copyWithZone___block_invoke_3(uint64_t a1, void *a2, v
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
@@ -1262,8 +1249,6 @@ void __31__CPLChangeBatch_copyWithZone___block_invoke_3(uint64_t a1, void *a2, v
 
   self->_estimatedBatchSize = 0;
   self->_calculateEstimatedBatchSize = 0;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)filterScopeChangeFromBatch
@@ -1321,90 +1306,39 @@ void __31__CPLChangeBatch_copyWithZone___block_invoke_3(uint64_t a1, void *a2, v
 void __44__CPLChangeBatch_filterScopeChangeFromBatch__block_invoke(void *a1, void *a2, uint64_t a3)
 {
   v6 = a2;
-  v7 = a1[7];
   if (objc_opt_isKindOfClass())
   {
-    v8 = *(a1[4] + 8);
-    v11 = *(v8 + 40);
-    v10 = (v8 + 40);
-    v9 = v11;
-    if (v11)
+    v7 = *(a1[4] + 8);
+    v10 = *(v7 + 40);
+    v9 = (v7 + 40);
+    v8 = v10;
+    if (v10)
     {
-      v16 = 0;
-      [v9 updateScopeFromScopeChange:v6 direction:2 didHaveChanges:&v16];
-      v12 = *(*(a1[6] + 8) + 40);
-      if (!v12)
+      v15 = 0;
+      [v8 updateScopeFromScopeChange:v6 direction:2 didHaveChanges:&v15];
+      v11 = *(*(a1[6] + 8) + 40);
+      if (!v11)
       {
-        v13 = [objc_alloc(MEMORY[0x1E696AD50]) initWithIndex:*(*(a1[5] + 8) + 24)];
-        v14 = *(a1[6] + 8);
-        v15 = *(v14 + 40);
-        *(v14 + 40) = v13;
+        v12 = [objc_alloc(MEMORY[0x1E696AD50]) initWithIndex:*(*(a1[5] + 8) + 24)];
+        v13 = *(a1[6] + 8);
+        v14 = *(v13 + 40);
+        *(v13 + 40) = v12;
 
-        v12 = *(*(a1[6] + 8) + 40);
+        v11 = *(*(a1[6] + 8) + 40);
       }
 
-      [v12 addIndex:a3];
+      [v11 addIndex:a3];
     }
 
     else
     {
-      objc_storeStrong(v10, a2);
+      objc_storeStrong(v9, a2);
       *(*(a1[5] + 8) + 24) = a3;
     }
   }
 }
 
 - (id)recordWithScopedIdentifier:(id)identifier
-{
-  v19 = *MEMORY[0x1E69E9840];
-  identifierCopy = identifier;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v5 = self->_records;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v6)
-  {
-    v7 = *v15;
-    while (2)
-    {
-      for (i = 0; i != v6; i = i + 1)
-      {
-        if (*v15 != v7)
-        {
-          objc_enumerationMutation(v5);
-        }
-
-        v9 = *(*(&v14 + 1) + 8 * i);
-        scopedIdentifier = [v9 scopedIdentifier];
-        v11 = [scopedIdentifier isEqual:identifierCopy];
-
-        if (v11)
-        {
-          v6 = v9;
-          goto LABEL_11;
-        }
-      }
-
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
-      if (v6)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v6;
-}
-
-- (BOOL)hasChangeWithScopedIdentifier:(id)identifier
 {
   v18 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
@@ -1419,19 +1353,20 @@ LABEL_11:
     v7 = *v14;
     while (2)
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v6; i = i + 1)
       {
         if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        scopedIdentifier = [*(*(&v13 + 1) + 8 * i) scopedIdentifier];
-        v10 = [scopedIdentifier isEqual:identifierCopy];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        scopedIdentifier = [v9 scopedIdentifier];
+        v11 = [scopedIdentifier isEqual:identifierCopy];
 
-        if (v10)
+        if (v11)
         {
-          LOBYTE(v6) = 1;
+          v6 = v9;
           goto LABEL_11;
         }
       }
@@ -1448,7 +1383,53 @@ LABEL_11:
 
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
+  return v6;
+}
+
+- (BOOL)hasChangeWithScopedIdentifier:(id)identifier
+{
+  v17 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v5 = self->_records;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
+  {
+    v7 = *v13;
+    while (2)
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v13 != v7)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        scopedIdentifier = [*(*(&v12 + 1) + 8 * i) scopedIdentifier];
+        v10 = [scopedIdentifier isEqual:identifierCopy];
+
+        if (v10)
+        {
+          LOBYTE(v6) = 1;
+          goto LABEL_11;
+        }
+      }
+
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_11:
+
   return v6;
 }
 
@@ -1487,70 +1468,67 @@ LABEL_7:
 
 - (void)addRecordsFromBatch:(id)batch
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   if (!batchCopy)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         selfCopy = self;
-        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Trying to add a nil list of records to %@", buf, 0xCu);
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "Trying to add a nil list of records to %@", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLChangeBatch.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v11 lineNumber:100 description:{@"Trying to add a nil list of records to %@", self}];
+    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLChangeBatch.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v10 lineNumber:100 description:{@"Trying to add a nil list of records to %@", self}];
 
     abort();
   }
 
   records = self->_records;
-  v12 = batchCopy;
+  v11 = batchCopy;
   records = [batchCopy records];
   [(NSMutableArray *)records addObjectsFromArray:records];
 
   self->_estimatedBatchSize = 0;
   self->_calculateEstimatedBatchSize = 0;
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addRecord:(id)record
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   if (!recordCopy)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v7 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v6 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         selfCopy = self;
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "Trying to add a nil record to %@", buf, 0xCu);
+        _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "Trying to add a nil record to %@", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLChangeBatch.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v9 lineNumber:92 description:{@"Trying to add a nil record to %@", self}];
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLChangeBatch.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v8 lineNumber:92 description:{@"Trying to add a nil record to %@", self}];
 
     abort();
   }
 
-  v10 = recordCopy;
+  v9 = recordCopy;
   [(NSMutableArray *)self->_records addObject:recordCopy];
   if (self->_calculateEstimatedBatchSize)
   {
-    self->_estimatedBatchSize += [v10 estimatedRecordSize];
+    self->_estimatedBatchSize += [v9 estimatedRecordSize];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_initWithRecords:(id)records

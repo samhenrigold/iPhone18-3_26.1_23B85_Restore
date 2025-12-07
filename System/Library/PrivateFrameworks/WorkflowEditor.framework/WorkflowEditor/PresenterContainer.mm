@@ -50,18 +50,25 @@
   actionCopy = action;
   selfCopy = self;
   sub_27456B0F4(actionCopy, sub_27445B624, v13, sub_27445B860, v14, v12, v15);
-  sub_274406A94(v12);
+  sub_274406A94(v12, v15);
 }
 
 - (void)showParameterEditingHint:(id)hint
 {
   if (hint)
   {
-    sub_27463B6AC();
+    v4 = sub_27463B6AC();
+    v6 = v5;
+  }
+
+  else
+  {
+    v4 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
-  sub_27456B3A8();
+  sub_27456B3A8(v4, v6);
 }
 
 @end

@@ -28,36 +28,36 @@
   if (temporarySessionURL)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v14 = 0;
-    v9 = [defaultManager createDirectoryAtURL:temporarySessionURL withIntermediateDirectories:1 attributes:0 error:&v14];
-    v10 = v14;
+    v15 = 0;
+    v9 = [defaultManager createDirectoryAtURL:temporarySessionURL withIntermediateDirectories:1 attributes:0 error:&v15];
+    v10 = v15;
 
     if (v9)
     {
-      v11 = [[LCSSessionPath alloc] _initWithURL:temporarySessionURL type:type isTemporaryPath:1];
+      v12 = [[LCSSessionPath alloc] _initWithURL:temporarySessionURL type:type isTemporaryPath:1];
       goto LABEL_12;
     }
 
-    v12 = LCSLogSessionContents();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = LCSLogSessionContents(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(LCSSessionPath *)temporarySessionURL temporarySessionPathWithType:v12];
+      [(LCSSessionPath *)temporarySessionURL temporarySessionPathWithType:v13];
     }
   }
 
   else
   {
-    v10 = LCSLogSessionContents();
+    v10 = LCSLogSessionContents(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [LCSSessionPath temporarySessionPathWithType:v10];
     }
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_12:
 
-  return v11;
+  return v12;
 }
 
 + (id)finalizedSessionPathsWithType:(unint64_t)type
@@ -186,7 +186,7 @@ LABEL_8:
     if (v7)
     {
 LABEL_3:
-      v9 = 1;
+      v10 = 1;
       goto LABEL_20;
     }
   }
@@ -200,54 +200,54 @@ LABEL_3:
     v40 = __Block_byref_object_dispose__0;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v11 = self->_url;
+    v12 = self->_url;
     v35[0] = MEMORY[0x277D85DD0];
     v35[1] = 3221225472;
     v35[2] = __56__LCSSessionPath__lock_purgeContentsIncludingDirectory___block_invoke;
     v35[3] = &unk_279824FF8;
     v35[4] = &v36;
-    v12 = [defaultManager2 enumeratorAtURL:v11 includingPropertiesForKeys:0 options:3 errorHandler:v35];
+    v13 = [defaultManager2 enumeratorAtURL:v12 includingPropertiesForKeys:0 options:3 errorHandler:v35];
 
     v33 = 0u;
     v34 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v13 = v12;
+    v14 = v13;
     v8 = 0;
-    v14 = [v13 countByEnumeratingWithState:&v31 objects:v45 count:16];
-    if (v14)
+    v15 = [v14 countByEnumeratingWithState:&v31 objects:v45 count:16];
+    if (v15)
     {
-      v15 = *v32;
+      v16 = *v32;
       while (2)
       {
-        v16 = 0;
-        v17 = v8;
+        v17 = 0;
+        v18 = v8;
         do
         {
-          if (*v32 != v15)
+          if (*v32 != v16)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v14);
           }
 
-          v18 = *(*(&v31 + 1) + 8 * v16);
+          v19 = *(*(&v31 + 1) + 8 * v17);
           defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
-          v30 = v17;
-          v20 = [defaultManager3 removeItemAtURL:v18 error:&v30];
+          v30 = v18;
+          v21 = [defaultManager3 removeItemAtURL:v19 error:&v30];
           v8 = v30;
 
-          if ((v20 & 1) == 0)
+          if ((v21 & 1) == 0)
           {
-            LOBYTE(v14) = 0;
+            LOBYTE(v15) = 0;
             goto LABEL_14;
           }
 
-          ++v16;
-          v17 = v8;
+          ++v17;
+          v18 = v8;
         }
 
-        while (v14 != v16);
-        v14 = [v13 countByEnumeratingWithState:&v31 objects:v45 count:16];
-        if (v14)
+        while (v15 != v17);
+        v15 = [v14 countByEnumeratingWithState:&v31 objects:v45 count:16];
+        if (v15)
         {
           continue;
         }
@@ -255,47 +255,46 @@ LABEL_3:
         break;
       }
 
-      LOBYTE(v14) = 1;
+      LOBYTE(v15) = 1;
     }
 
 LABEL_14:
 
     if ([v37[5] count])
     {
-      v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to purge one or more contents of %@", self->_url];
-      v21 = MEMORY[0x277CCA9B8];
-      v22 = *MEMORY[0x277CCA578];
+      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to purge one or more contents of %@", self->_url];
+      v22 = MEMORY[0x277CCA9B8];
+      v23 = *MEMORY[0x277CCA578];
       v43[0] = *MEMORY[0x277CCA450];
-      v43[1] = v22;
-      v44[0] = v14;
+      v43[1] = v23;
+      v44[0] = v15;
       allValues = [v37[5] allValues];
-      v24 = [allValues copy];
-      v44[1] = v24;
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
-      v26 = [v21 errorWithDomain:@"com.apple.LCSSessionPath" code:-1 userInfo:v25];
+      v25 = [allValues copy];
+      v44[1] = v25;
+      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
+      v27 = [v22 errorWithDomain:@"com.apple.LCSSessionPath" code:-1 userInfo:v26];
 
-      LOBYTE(v14) = 0;
-      v8 = v26;
+      LOBYTE(v15) = 0;
+      v8 = v27;
     }
 
     _Block_object_dispose(&v36, 8);
-    if (v14)
+    if (v15)
     {
       goto LABEL_3;
     }
   }
 
-  v27 = LCSLogSessionContents();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  v28 = LCSLogSessionContents(v9);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
-    [(LCSSessionPath *)self _lock_purgeContentsIncludingDirectory:v8, v27];
+    [(LCSSessionPath *)self _lock_purgeContentsIncludingDirectory:v8, v28];
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_20:
 
-  v28 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
 - (LCSSessionPath)initWithCoder:(id)coder
@@ -376,22 +375,20 @@ LABEL_20:
 
 + (void)temporarySessionPathWithType:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_256175000, a2, OS_LOG_TYPE_ERROR, "Unable to create directory for session path: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_256175000, a2, OS_LOG_TYPE_ERROR, "Unable to create directory for session path: %@", &v2, 0xCu);
 }
 
 - (void)_lock_purgeContentsIncludingDirectory:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_256175000, log, OS_LOG_TYPE_ERROR, "Unable to purge contents of path %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_256175000, log, OS_LOG_TYPE_ERROR, "Unable to purge contents of path %@: %@", &v3, 0x16u);
 }
 
 @end

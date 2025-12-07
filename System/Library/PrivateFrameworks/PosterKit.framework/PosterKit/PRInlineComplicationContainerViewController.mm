@@ -83,7 +83,7 @@
       v13 = [objc_alloc(MEMORY[0x1E6994428]) initWithPrimaryTintColor:0 secondaryTintColor:0 filterStyle:1 fallbackFilterStyle:1 fraction:1.0];
       [v7 setTintParameters:v13];
       widget = [(PRComplicationDescriptor *)descriptorCopy widget];
-      v15 = PRSharedWidgetExtensionProvider();
+      v15 = PRSharedWidgetExtensionProvider(widget);
       v16 = [v15 widgetDescriptorForWidget:widget];
 
       intentType = [v16 intentType];
@@ -132,7 +132,7 @@ void __73__PRInlineComplicationContainerViewController_setComplicationDescriptor
 
   else
   {
-    v7 = PRLogCommon();
+    v7 = PRLogCommon(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __91__PRInlineComplicationSnapshotViewController__hostViewControllerForComplicationDescriptor___block_invoke_cold_1(a1, v7);

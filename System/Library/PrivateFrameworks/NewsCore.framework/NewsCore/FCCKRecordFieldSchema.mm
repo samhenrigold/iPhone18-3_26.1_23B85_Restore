@@ -59,7 +59,7 @@
 
 - (id)sanitizeValue:(uint64_t)value
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (!value)
   {
@@ -75,71 +75,71 @@ LABEL_3:
     goto LABEL_4;
   }
 
-  v7 = *(value + 12);
-  if (v7 > 2)
+  v6 = *(value + 12);
+  if (v6 > 2)
   {
-    if (v7 == 3)
+    if (v6 == 3)
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v24 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v25 = objc_opt_class();
-        v26 = NSStringFromClass(v25);
-        v27 = *(value + 16);
-        v28 = [v24 initWithFormat:@"unexpected type %@ for field %@", v26, v27];
+        v23 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v24 = objc_opt_class();
+        v25 = NSStringFromClass(v24);
+        v26 = *(value + 16);
+        v27 = [v23 initWithFormat:@"unexpected type %@ for field %@", v25, v26];
         *buf = 136315906;
-        v45 = "[FCCKRecordFieldSchema sanitizeValue:]";
-        v46 = 2080;
-        v47 = "FCCKRecordSchema.m";
-        v48 = 1024;
-        v49 = 66;
-        v50 = 2114;
-        v51 = v28;
+        v44 = "[FCCKRecordFieldSchema sanitizeValue:]";
+        v45 = 2080;
+        v46 = "FCCKRecordSchema.m";
+        v47 = 1024;
+        v48 = 66;
+        v49 = 2114;
+        v50 = v27;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
       objc_opt_class();
       if (v4 && (objc_opt_isKindOfClass() & 1) != 0)
       {
-        v17 = v4;
-        if (CFNumberIsFloatType(v17))
+        v16 = v4;
+        if (CFNumberIsFloatType(v16))
         {
-          v18 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v17, "longLongValue")}];
+          v17 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v16, "longLongValue")}];
 LABEL_47:
-          v2 = v18;
+          v2 = v17;
 
           goto LABEL_4;
         }
 
 LABEL_46:
-        v18 = v4;
+        v17 = v4;
         goto LABEL_47;
       }
     }
 
     else
     {
-      if (v7 != 4)
+      if (v6 != 4)
       {
-        if (v7 == 5)
+        if (v6 == 5)
         {
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v29 = objc_alloc(MEMORY[0x1E696AEC0]);
-            v30 = objc_opt_class();
-            v31 = NSStringFromClass(v30);
-            v32 = *(value + 16);
-            v33 = [v29 initWithFormat:@"unexpected type %@ for field %@", v31, v32];
+            v28 = objc_alloc(MEMORY[0x1E696AEC0]);
+            v29 = objc_opt_class();
+            v30 = NSStringFromClass(v29);
+            v31 = *(value + 16);
+            v32 = [v28 initWithFormat:@"unexpected type %@ for field %@", v30, v31];
             *buf = 136315906;
-            v45 = "[FCCKRecordFieldSchema sanitizeValue:]";
-            v46 = 2080;
-            v47 = "FCCKRecordSchema.m";
-            v48 = 1024;
-            v49 = 86;
-            v50 = 2114;
-            v51 = v33;
+            v44 = "[FCCKRecordFieldSchema sanitizeValue:]";
+            v45 = 2080;
+            v46 = "FCCKRecordSchema.m";
+            v47 = 1024;
+            v48 = 86;
+            v49 = 2114;
+            v50 = v32;
             _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
           }
 
@@ -148,41 +148,41 @@ LABEL_46:
           {
             if (objc_opt_isKindOfClass())
             {
-              v14 = v4;
+              v13 = v4;
             }
 
             else
             {
-              v14 = 0;
+              v13 = 0;
             }
           }
 
           else
           {
-            v14 = 0;
+            v13 = 0;
           }
 
-          v22 = v14;
-          firstObject = [v22 firstObject];
+          v21 = v13;
+          firstObject = [v21 firstObject];
 
           if (firstObject)
           {
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              v39 = objc_alloc(MEMORY[0x1E696AEC0]);
-              v40 = objc_opt_class();
-              v41 = NSStringFromClass(v40);
-              v42 = *(value + 16);
-              v43 = [v39 initWithFormat:@"unexpected type within array %@ for field %@", v41, v42];
+              v38 = objc_alloc(MEMORY[0x1E696AEC0]);
+              v39 = objc_opt_class();
+              v40 = NSStringFromClass(v39);
+              v41 = *(value + 16);
+              v42 = [v38 initWithFormat:@"unexpected type within array %@ for field %@", v40, v41];
               *buf = 136315906;
-              v45 = "[FCCKRecordFieldSchema sanitizeValue:]";
-              v46 = 2080;
-              v47 = "FCCKRecordSchema.m";
-              v48 = 1024;
-              v49 = 88;
-              v50 = 2114;
-              v51 = v43;
+              v44 = "[FCCKRecordFieldSchema sanitizeValue:]";
+              v45 = 2080;
+              v46 = "FCCKRecordSchema.m";
+              v47 = 1024;
+              v48 = 88;
+              v49 = 2114;
+              v50 = v42;
               _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
             }
           }
@@ -196,31 +196,31 @@ LABEL_46:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v34 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v35 = objc_opt_class();
-        v36 = NSStringFromClass(v35);
-        v37 = *(value + 16);
-        v38 = [v34 initWithFormat:@"unexpected type %@ for field %@", v36, v37];
+        v33 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v34 = objc_opt_class();
+        v35 = NSStringFromClass(v34);
+        v36 = *(value + 16);
+        v37 = [v33 initWithFormat:@"unexpected type %@ for field %@", v35, v36];
         *buf = 136315906;
-        v45 = "[FCCKRecordFieldSchema sanitizeValue:]";
-        v46 = 2080;
-        v47 = "FCCKRecordSchema.m";
-        v48 = 1024;
-        v49 = 76;
-        v50 = 2114;
-        v51 = v38;
+        v44 = "[FCCKRecordFieldSchema sanitizeValue:]";
+        v45 = 2080;
+        v46 = "FCCKRecordSchema.m";
+        v47 = 1024;
+        v48 = 76;
+        v49 = 2114;
+        v50 = v37;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
       objc_opt_class();
       if (v4 && (objc_opt_isKindOfClass() & 1) != 0)
       {
-        v17 = v4;
-        if (!CFNumberIsFloatType(v17))
+        v16 = v4;
+        if (!CFNumberIsFloatType(v16))
         {
-          v21 = MEMORY[0x1E696AD98];
-          [v17 doubleValue];
-          v18 = [v21 numberWithDouble:?];
+          v20 = MEMORY[0x1E696AD98];
+          [v16 doubleValue];
+          v17 = [v20 numberWithDouble:?];
           goto LABEL_47;
         }
 
@@ -228,11 +228,11 @@ LABEL_46:
       }
     }
 
-    v17 = 0;
+    v16 = 0;
     goto LABEL_46;
   }
 
-  switch(v7)
+  switch(v6)
   {
     case 0:
       objc_opt_class();
@@ -241,22 +241,22 @@ LABEL_46:
         goto LABEL_3;
       }
 
-      v15 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v16 = objc_opt_class();
-      v10 = NSStringFromClass(v16);
-      v11 = *(value + 16);
-      v12 = [v15 initWithFormat:@"unexpected type %@ for field %@", v10, v11];
+      v14 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v15 = objc_opt_class();
+      v9 = NSStringFromClass(v15);
+      v10 = *(value + 16);
+      v11 = [v14 initWithFormat:@"unexpected type %@ for field %@", v9, v10];
       *buf = 136315906;
-      v45 = "[FCCKRecordFieldSchema sanitizeValue:]";
-      v46 = 2080;
-      v47 = "FCCKRecordSchema.m";
-      v48 = 1024;
-      v49 = 51;
-      v50 = 2114;
-      v51 = v12;
-      v13 = MEMORY[0x1E69E9C10];
+      v44 = "[FCCKRecordFieldSchema sanitizeValue:]";
+      v45 = 2080;
+      v46 = "FCCKRecordSchema.m";
+      v47 = 1024;
+      v48 = 51;
+      v49 = 2114;
+      v50 = v11;
+      v12 = MEMORY[0x1E69E9C10];
 LABEL_37:
-      _os_log_error_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+      _os_log_error_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       goto LABEL_3;
     case 1:
@@ -266,20 +266,20 @@ LABEL_37:
         goto LABEL_3;
       }
 
-      v19 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v20 = objc_opt_class();
-      v10 = NSStringFromClass(v20);
-      v11 = *(value + 16);
-      v12 = [v19 initWithFormat:@"unexpected type %@ for field %@", v10, v11];
+      v18 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v19 = objc_opt_class();
+      v9 = NSStringFromClass(v19);
+      v10 = *(value + 16);
+      v11 = [v18 initWithFormat:@"unexpected type %@ for field %@", v9, v10];
       *buf = 136315906;
-      v45 = "[FCCKRecordFieldSchema sanitizeValue:]";
-      v46 = 2080;
-      v47 = "FCCKRecordSchema.m";
-      v48 = 1024;
-      v49 = 56;
-      v50 = 2114;
-      v51 = v12;
-      v13 = MEMORY[0x1E69E9C10];
+      v44 = "[FCCKRecordFieldSchema sanitizeValue:]";
+      v45 = 2080;
+      v46 = "FCCKRecordSchema.m";
+      v47 = 1024;
+      v48 = 56;
+      v49 = 2114;
+      v50 = v11;
+      v12 = MEMORY[0x1E69E9C10];
       goto LABEL_37;
     case 2:
       objc_opt_class();
@@ -288,26 +288,24 @@ LABEL_37:
         goto LABEL_3;
       }
 
-      v8 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = *(value + 16);
-      v12 = [v8 initWithFormat:@"unexpected type %@ for field %@", v10, v11];
+      v7 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v10 = *(value + 16);
+      v11 = [v7 initWithFormat:@"unexpected type %@ for field %@", v9, v10];
       *buf = 136315906;
-      v45 = "[FCCKRecordFieldSchema sanitizeValue:]";
-      v46 = 2080;
-      v47 = "FCCKRecordSchema.m";
-      v48 = 1024;
-      v49 = 61;
-      v50 = 2114;
-      v51 = v12;
-      v13 = MEMORY[0x1E69E9C10];
+      v44 = "[FCCKRecordFieldSchema sanitizeValue:]";
+      v45 = 2080;
+      v46 = "FCCKRecordSchema.m";
+      v47 = 1024;
+      v48 = 61;
+      v49 = 2114;
+      v50 = v11;
+      v12 = MEMORY[0x1E69E9C10];
       goto LABEL_37;
   }
 
 LABEL_4:
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

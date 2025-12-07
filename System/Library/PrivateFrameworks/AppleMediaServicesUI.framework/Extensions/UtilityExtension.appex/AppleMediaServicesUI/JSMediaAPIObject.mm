@@ -8,7 +8,7 @@
 {
   lookupCopy = lookup;
   selfCopy = self;
-  v6 = sub_10002136C();
+  v6 = sub_10002136C(lookupCopy);
 
   return v6;
 }

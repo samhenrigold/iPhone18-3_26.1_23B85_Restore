@@ -53,9 +53,9 @@ void sub_242550830(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_242551480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_242551480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -80,18 +80,18 @@ void sub_242552F7C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2425539FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2425539FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2425545C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_2425545C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v12 - 120), 8);
+  _Block_object_dispose((v19 - 120), 8);
   _Unwind_Resume(a1);
 }
 
@@ -138,9 +138,9 @@ void sub_2425585B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_24255BE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_24255BE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -152,19 +152,19 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_24255C15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_24255C15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_24255C370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_24255C370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -197,15 +197,16 @@ CFDictionaryRef OUTLINED_FUNCTION_9_0()
   return CMTimeCopyAsDictionary((v2 - 144), 0);
 }
 
-void OUTLINED_FUNCTION_11(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void OUTLINED_FUNCTION_11(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_error_impl(a1, v13, OS_LOG_TYPE_ERROR, a4, &buf, 0xCu);
+  _os_log_error_impl(a1, v12, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_242560204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_242560204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -217,42 +218,43 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_24256055C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_24256055C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_242560DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_242560DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 144), 8);
+  _Block_object_dispose((v18 - 144), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_242561178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_242561178(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_11_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -283,18 +285,18 @@ uint64_t CMContinuityCaptureSMValidSameStateEventName(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  v5 = [MEMORY[0x277CBEB98] setWithObjects:{@"kCMContinuityCaptureEventStopStream", @"kCMContinuityCaptureEventStartStream", @"kCMContinuityCaptureEventImageCapture", @"kCMContinuityCaptureEventEnqueueReactionEffect", @"kCMContinuityCaptureEventUserDisconnect", @"kCMContinuityCaptureEventForceRestartStream", 0}];
-  v6 = [MEMORY[0x277CBEB98] setWithObjects:{@"kCMContinuityCaptureEventSystemWake", @"kCMContinuityCaptureEventSystemSleep", @"kCMContinuityCaptureEventAssociatedDevicePause", @"kCMContinuityCaptureEventAssociatedDeviceResume", @"kCMContinuityCaptureEventStreamEnableForMultipleStreamExit", @"kCMContinuityCaptureEventStreamDisableForMultipleStream", @"kCMContinuityCaptureEventRemoteClientDisconnect", @"kCMContinuityCaptureEventRemoteClientReconnect", @"kCMContinuityCaptureEventUserDisconnect", @"kCMContinuityCaptureEventStreamDisableForWifiContention", @"kCMContinuityCaptureEventStreamEnableForWifiContentionExit", @"kCMContinuityCaptureEventScreenLocked", @"kCMContinuityCaptureEventScreenUnlocked", 0}];
-  v7 = [MEMORY[0x277CBEB98] setWithObjects:{@"kCMContinuityCaptureEventUserResume", @"kCMContinuityCaptureEventUserPause", @"kCMContinuityCaptureEventActiveCallStart", @"kCMContinuityCaptureEventActiveCallEnd", @"kCMContinuityCaptureEventCaptureSessionStarted", @"kCMContinuityCaptureEventCaptureSessionEnded", @"kCMContinuityCaptureEventStreamDisableForDeviceInUse", @"kCMContinuityCaptureEventStreamDisableForDeviceInUseExit", 0}];
-  v8 = [MEMORY[0x277CBEB98] setWithObjects:{@"kCMContinuityCaptureStreamActionEventSendData", @"kCMContinuityCaptureStreamActionEventReceivedData", @"kCMContinuityCaptureStreamActionEventTimeout", @"kCMContinuityCaptureStreamActionEventCaptureStarting", @"kCMContinuityCaptureStreamActionEventCaptureStarted", 0}];
-  if ([v5 containsObject:v3] && (objc_msgSend(v5, "containsObject:", v4) & 1) != 0 || objc_msgSend(v6, "containsObject:", v3) && (objc_msgSend(v6, "containsObject:", v4) & 1) != 0 || objc_msgSend(v8, "containsObject:", v3) && (objc_msgSend(v8, "containsObject:", v4) & 1) != 0)
+  v5 = [MEMORY[0x277CBEB98] setWithObjects:{@"kCMContinuityCaptureEventStartStream", @"kCMContinuityCaptureEventImageCapture", @"kCMContinuityCaptureEventEnqueueReactionEffect", @"kCMContinuityCaptureEventUserDisconnect", @"kCMContinuityCaptureEventForceRestartStream", 0}];
+  v6 = [MEMORY[0x277CBEB98] setWithObjects:{@"kCMContinuityCaptureEventSystemSleep", @"kCMContinuityCaptureEventAssociatedDevicePause", @"kCMContinuityCaptureEventAssociatedDeviceResume", @"kCMContinuityCaptureEventStreamEnableForMultipleStreamExit", @"kCMContinuityCaptureEventStreamDisableForMultipleStream", @"kCMContinuityCaptureEventRemoteClientDisconnect", @"kCMContinuityCaptureEventRemoteClientReconnect", @"kCMContinuityCaptureEventUserDisconnect", @"kCMContinuityCaptureEventStreamDisableForWifiContention", @"kCMContinuityCaptureEventStreamEnableForWifiContentionExit", @"kCMContinuityCaptureEventScreenLocked", @"kCMContinuityCaptureEventScreenUnlocked", 0}];
+  v7 = [MEMORY[0x277CBEB98] setWithObjects:{@"kCMContinuityCaptureEventUserPause", @"kCMContinuityCaptureEventActiveCallStart", @"kCMContinuityCaptureEventActiveCallEnd", @"kCMContinuityCaptureEventCaptureSessionStarted", @"kCMContinuityCaptureEventCaptureSessionEnded", @"kCMContinuityCaptureEventStreamDisableForDeviceInUse", @"kCMContinuityCaptureEventStreamDisableForDeviceInUseExit", 0}];
+  v8 = [MEMORY[0x277CBEB98] setWithObjects:{@"kCMContinuityCaptureStreamActionEventReceivedData", @"kCMContinuityCaptureStreamActionEventTimeout", @"kCMContinuityCaptureStreamActionEventCaptureStarting", @"kCMContinuityCaptureStreamActionEventCaptureStarted", 0}];
+  if ([v5 containsObject:?] && (objc_msgSend(v5, "containsObject:") & 1) != 0 || objc_msgSend(v6, "containsObject:") && (objc_msgSend(v6, "containsObject:") & 1) != 0 || objc_msgSend(v8, "containsObject:") && (objc_msgSend(v8, "containsObject:") & 1) != 0)
   {
     v9 = 1;
   }
 
-  else if ([v7 containsObject:v3])
+  else if ([v7 containsObject:?])
   {
-    v9 = [v7 containsObject:v4];
+    v9 = [v7 containsObject:?];
   }
 
   else
@@ -309,62 +311,60 @@ uint64_t CMContinuityCaptureSMIsValidExitEventForState(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  if (![v4 isEqualToString:@"kCMContinuityCaptureStateDisabled"])
+  if ([v4 isEqualToString:?])
   {
-    if ([v4 isEqualToString:@"kCMContinuityCaptureStateStreaming"])
+    if (([v3 isEqualToString:?] & 1) == 0 && (objc_msgSend(v3, "isEqualToString:") & 1) == 0 && (objc_msgSend(v3, "isEqualToString:") & 1) == 0 && (objc_msgSend(v3, "isEqualToString:") & 1) == 0 && (objc_msgSend(v3, "isEqualToString:") & 1) == 0)
     {
-      if (([v3 isEqualToString:@"kCMContinuityCaptureEventStopStream"] & 1) == 0)
-      {
-        v5 = @"kCMContinuityCaptureEventUserDisconnect";
-        goto LABEL_11;
-      }
+      goto LABEL_10;
     }
 
-    else if ([v4 isEqualToString:@"kCMContinuityCaptureStatePaused"])
+LABEL_19:
+    v5 = 1;
+    goto LABEL_20;
+  }
+
+  if (![v4 isEqualToString:?])
+  {
+    if ([v4 isEqualToString:?])
     {
-      if (([v3 isEqualToString:@"kCMContinuityCaptureEventActiveCallEnd"] & 1) == 0 && (objc_msgSend(v3, "isEqualToString:", @"kCMContinuityCaptureEventCaptureSessionEnded") & 1) == 0 && (objc_msgSend(v3, "isEqualToString:", @"kCMContinuityCaptureEventStreamDisableForDeviceInUseExit") & 1) == 0)
+      if (([v3 isEqualToString:?] & 1) == 0 && (objc_msgSend(v3, "isEqualToString:") & 1) == 0 && (objc_msgSend(v3, "isEqualToString:") & 1) == 0)
       {
-        v5 = @"kCMContinuityCaptureEventUserResume";
-        goto LABEL_11;
+        goto LABEL_10;
       }
     }
 
     else
     {
-      if (![v4 isEqualToString:@"kCMContinuityCaptureStreamStateWait"])
+      if (![v4 isEqualToString:?])
       {
-        v6 = 0;
-        goto LABEL_21;
+        v5 = 0;
+        goto LABEL_20;
       }
 
-      if (([v3 isEqualToString:@"kCMContinuityCaptureStreamActionEventReceivedData"] & 1) == 0 && (objc_msgSend(v3, "isEqualToString:", @"kCMContinuityCaptureStreamActionEventTimeout") & 1) == 0)
+      if (([v3 isEqualToString:?] & 1) == 0 && (objc_msgSend(v3, "isEqualToString:") & 1) == 0)
       {
-        v5 = @"kCMContinuityCaptureStreamActionEventCaptureStarted";
-        goto LABEL_11;
+        goto LABEL_10;
       }
     }
 
-LABEL_20:
-    v6 = 1;
-    goto LABEL_21;
+    goto LABEL_19;
   }
 
-  if ([v3 isEqualToString:@"kCMContinuityCaptureEventSystemWake"] & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", @"kCMContinuityCaptureEventStreamEnableForMultipleStreamExit") & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", @"kCMContinuityCaptureEventRemoteClientReconnect") & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", @"kCMContinuityCaptureEventStreamEnableForWifiContentionExit") & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", @"kCMContinuityCaptureEventScreenUnlocked"))
+  if ([v3 isEqualToString:?])
   {
-    goto LABEL_20;
+    goto LABEL_19;
   }
 
-  v5 = @"kCMContinuityCaptureEventAssociatedDeviceResume";
-LABEL_11:
-  v6 = [v3 isEqualToString:v5];
-LABEL_21:
+LABEL_10:
+  v5 = [v3 isEqualToString:?];
+LABEL_20:
 
-  return v6;
+  return v5;
 }
 
-void sub_24256C244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_24256C244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -376,36 +376,27 @@ id CMContinuityCaptureSMCreateTransitionsFromStatesToDestination(void *a1, void 
   v11 = a3;
   v12 = a4;
   v13 = a5;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__4;
-  v30 = __Block_byref_object_dispose__4;
-  v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __CMContinuityCaptureSMCreateTransitionsFromStatesToDestination_block_invoke;
-  v20[3] = &unk_278D5C9F0;
-  v14 = v10;
-  v21 = v14;
-  v15 = v11;
-  v22 = v15;
-  v16 = v13;
-  v23 = v16;
-  v17 = v12;
-  v24 = v17;
-  v25 = &v26;
-  [v9 enumerateObjectsUsingBlock:v20];
-  v18 = v27[5];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__4;
+  v24 = __Block_byref_object_dispose__4;
+  v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v16 = v10;
+  v17 = v11;
+  v18 = v13;
+  v19 = v12;
+  [v9 enumerateObjectsUsingBlock:?];
+  v14 = v21[5];
 
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v20, 8);
 
-  return v18;
+  return v14;
 }
 
-void sub_24256C66C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_24256C66C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -420,12 +411,12 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
 void __CMContinuityCaptureSMCreateTransitionsFromStatesToDestination_block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v5 = [[CMContinuityCaptureStateTransition alloc] initWithAttributes:v3 dstState:a1[4] event:a1[5] guard:a1[6] action:a1[7]];
+  v5 = [CMContinuityCaptureStateTransition initWithAttributes:"initWithAttributes:dstState:event:guard:action:" dstState:? event:? guard:? action:?];
 
   v4 = v5;
   if (v5)
   {
-    [*(*(a1[8] + 8) + 40) addObject:v5];
+    [*(*(a1[8] + 8) + 40) addObject:?];
     v4 = v5;
   }
 }
@@ -437,36 +428,27 @@ id CMContinuityCaptureSMCreateTransitionsFromStateToDestinations(void *a1, void 
   v11 = a3;
   v12 = a4;
   v13 = a5;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__4;
-  v30 = __Block_byref_object_dispose__4;
-  v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __CMContinuityCaptureSMCreateTransitionsFromStateToDestinations_block_invoke;
-  v20[3] = &unk_278D5C9F0;
-  v14 = v9;
-  v21 = v14;
-  v15 = v11;
-  v22 = v15;
-  v16 = v13;
-  v23 = v16;
-  v17 = v12;
-  v24 = v17;
-  v25 = &v26;
-  [v10 enumerateObjectsUsingBlock:v20];
-  v18 = v27[5];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__4;
+  v24 = __Block_byref_object_dispose__4;
+  v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v16 = v9;
+  v17 = v11;
+  v18 = v13;
+  v19 = v12;
+  [v10 enumerateObjectsUsingBlock:?];
+  v14 = v21[5];
 
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v20, 8);
 
-  return v18;
+  return v14;
 }
 
-void sub_24256C8D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_24256C8D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -474,12 +456,12 @@ void sub_24256C8D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void __CMContinuityCaptureSMCreateTransitionsFromStateToDestinations_block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v5 = [[CMContinuityCaptureStateTransition alloc] initWithAttributes:a1[4] dstState:v3 event:a1[5] guard:a1[6] action:a1[7]];
+  v5 = [CMContinuityCaptureStateTransition initWithAttributes:"initWithAttributes:dstState:event:guard:action:" dstState:? event:? guard:? action:?];
 
   v4 = v5;
   if (v5)
   {
-    [*(*(a1[8] + 8) + 40) addObject:v5];
+    [*(*(a1[8] + 8) + 40) addObject:?];
     v4 = v5;
   }
 }
@@ -491,36 +473,27 @@ id CMContinuityCaptureSMCreateTransitionsFromStateToDestinationOnEvents(void *a1
   v11 = a3;
   v12 = a4;
   v13 = a5;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__4;
-  v30 = __Block_byref_object_dispose__4;
-  v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __CMContinuityCaptureSMCreateTransitionsFromStateToDestinationOnEvents_block_invoke;
-  v20[3] = &unk_278D5CA18;
-  v14 = v9;
-  v21 = v14;
-  v15 = v10;
-  v22 = v15;
-  v16 = v13;
-  v23 = v16;
-  v17 = v12;
-  v24 = v17;
-  v25 = &v26;
-  [v11 enumerateObjectsUsingBlock:v20];
-  v18 = v27[5];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__4;
+  v24 = __Block_byref_object_dispose__4;
+  v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v16 = v9;
+  v17 = v10;
+  v18 = v13;
+  v19 = v12;
+  [v11 enumerateObjectsUsingBlock:?];
+  v14 = v21[5];
 
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v20, 8);
 
-  return v18;
+  return v14;
 }
 
-void sub_24256CB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_24256CB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -528,12 +501,12 @@ void sub_24256CB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void __CMContinuityCaptureSMCreateTransitionsFromStateToDestinationOnEvents_block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v5 = [[CMContinuityCaptureStateTransition alloc] initWithAttributes:a1[4] dstState:a1[5] event:v3 guard:a1[6] action:a1[7]];
+  v5 = [CMContinuityCaptureStateTransition initWithAttributes:"initWithAttributes:dstState:event:guard:action:" dstState:? event:? guard:? action:?];
 
   v4 = v5;
   if (v5)
   {
-    [*(*(a1[8] + 8) + 40) addObject:v5];
+    [*(*(a1[8] + 8) + 40) addObject:?];
     v4 = v5;
   }
 }
@@ -572,18 +545,17 @@ void sub_24256CD14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void __CMContinuityCaptureSMDeferEventsInState_block_invoke(uint64_t a1, void *a2)
 {
-  v8 = a2;
+  v7 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v4 = WeakRetained;
   if (WeakRetained)
   {
     v5 = [WeakRetained deferredEvents];
-    [v5 addObject:v8];
+    [v5 addObject:?];
 
-    v6 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
-    v7 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ContinuityCapture" code:1 userInfo:0];
-    [v4 notifyCompletion:v7];
+    v6 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:? code:? userInfo:?];
+    [v4 notifyCompletion:?];
   }
 }
 
@@ -591,91 +563,87 @@ __CFString *CMContinuityCaptureSMGetMatchingStateEntryEventForExitEvent(void *a1
 {
   v3 = a1;
   v4 = a2;
-  if ([v4 isEqualToString:@"kCMContinuityCaptureStateDisabled"])
+  if ([v4 isEqualToString:?])
   {
-    if ([v3 isEqual:@"kCMContinuityCaptureEventSystemWake"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureEventSystemSleep";
       goto LABEL_24;
     }
 
-    if ([v3 isEqual:@"kCMContinuityCaptureEventAssociatedDeviceResume"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureEventAssociatedDevicePause";
       goto LABEL_24;
     }
 
-    if ([v3 isEqual:@"kCMContinuityCaptureEventStreamEnableForMultipleStreamExit"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureEventStreamDisableForMultipleStream";
       goto LABEL_24;
     }
 
-    if ([v3 isEqual:@"kCMContinuityCaptureEventRemoteClientReconnect"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureEventRemoteClientDisconnect";
       goto LABEL_24;
     }
 
-    if ([v3 isEqual:@"kCMContinuityCaptureEventStreamEnableForWifiContentionExit"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureEventStreamDisableForWifiContention";
       goto LABEL_24;
     }
 
     v5 = @"kCMContinuityCaptureEventScreenLocked";
-    v6 = @"kCMContinuityCaptureEventScreenUnlocked";
   }
 
-  else if ([v4 isEqualToString:@"kCMContinuityCaptureStateStreaming"])
+  else if ([v4 isEqualToString:?])
   {
     v5 = @"kCMContinuityCaptureEventStartStream";
-    v6 = @"kCMContinuityCaptureEventStopStream";
   }
 
-  else if ([v4 isEqualToString:@"kCMContinuityCaptureStatePaused"])
+  else if ([v4 isEqualToString:?])
   {
-    if ([v3 isEqual:@"kCMContinuityCaptureEventUserResume"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureEventUserPause";
       goto LABEL_24;
     }
 
-    if ([v3 isEqual:@"kCMContinuityCaptureEventActiveCallEnd"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureEventActiveCallStart";
       goto LABEL_24;
     }
 
-    if ([v3 isEqual:@"kCMContinuityCaptureEventCaptureSessionEnded"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureEventCaptureSessionStarted";
       goto LABEL_24;
     }
 
     v5 = @"kCMContinuityCaptureEventStreamDisableForDeviceInUse";
-    v6 = @"kCMContinuityCaptureEventStreamDisableForDeviceInUseExit";
   }
 
   else
   {
-    if (![v4 isEqualToString:@"kCMContinuityCaptureStreamStateWait"])
+    if (![v4 isEqualToString:?])
     {
       v5 = 0;
       goto LABEL_24;
     }
 
-    if ([v3 isEqual:@"kCMContinuityCaptureStreamActionEventCaptureStarted"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureStreamActionEventCaptureStarting";
       goto LABEL_24;
     }
 
     v5 = @"kCMContinuityCaptureStreamActionEventSendData";
-    v6 = @"kCMContinuityCaptureStreamActionEventReceivedData";
   }
 
-  if (![v3 isEqual:v6])
+  if (![v3 isEqual:?])
   {
     v5 = 0;
   }
@@ -689,91 +657,87 @@ __CFString *CMContinuityCaptureSMGetMatchingStateExitEventForEntryEvent(void *a1
 {
   v3 = a1;
   v4 = a2;
-  if ([v4 isEqualToString:@"kCMContinuityCaptureStateDisabled"])
+  if ([v4 isEqualToString:?])
   {
-    if ([v3 isEqual:@"kCMContinuityCaptureEventSystemSleep"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureEventSystemWake";
       goto LABEL_24;
     }
 
-    if ([v3 isEqual:@"kCMContinuityCaptureEventAssociatedDevicePause"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureEventAssociatedDeviceResume";
       goto LABEL_24;
     }
 
-    if ([v3 isEqual:@"kCMContinuityCaptureEventStreamDisableForMultipleStream"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureEventStreamEnableForMultipleStreamExit";
       goto LABEL_24;
     }
 
-    if ([v3 isEqual:@"kCMContinuityCaptureEventRemoteClientDisconnect"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureEventRemoteClientReconnect";
       goto LABEL_24;
     }
 
-    if ([v3 isEqual:@"kCMContinuityCaptureEventStreamDisableForWifiContention"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureEventStreamEnableForWifiContentionExit";
       goto LABEL_24;
     }
 
     v5 = @"kCMContinuityCaptureEventScreenUnlocked";
-    v6 = @"kCMContinuityCaptureEventScreenLocked";
   }
 
-  else if ([v4 isEqualToString:@"kCMContinuityCaptureStateStreaming"])
+  else if ([v4 isEqualToString:?])
   {
     v5 = @"kCMContinuityCaptureEventStopStream";
-    v6 = @"kCMContinuityCaptureEventStartStream";
   }
 
-  else if ([v4 isEqualToString:@"kCMContinuityCaptureStatePaused"])
+  else if ([v4 isEqualToString:?])
   {
-    if ([v3 isEqual:@"kCMContinuityCaptureEventUserPause"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureEventUserResume";
       goto LABEL_24;
     }
 
-    if ([v3 isEqual:@"kCMContinuityCaptureEventActiveCallStart"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureEventActiveCallEnd";
       goto LABEL_24;
     }
 
-    if ([v3 isEqual:@"kCMContinuityCaptureEventCaptureSessionStarted"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureEventCaptureSessionEnded";
       goto LABEL_24;
     }
 
     v5 = @"kCMContinuityCaptureEventStreamDisableForDeviceInUseExit";
-    v6 = @"kCMContinuityCaptureEventStreamDisableForDeviceInUse";
   }
 
   else
   {
-    if (![v4 isEqualToString:@"kCMContinuityCaptureStreamStateWait"])
+    if (![v4 isEqualToString:?])
     {
       v5 = 0;
       goto LABEL_24;
     }
 
-    if ([v3 isEqual:@"kCMContinuityCaptureStreamActionEventCaptureStarting"])
+    if ([v3 isEqual:?])
     {
       v5 = @"kCMContinuityCaptureStreamActionEventCaptureStarted";
       goto LABEL_24;
     }
 
     v5 = @"kCMContinuityCaptureStreamActionEventReceivedData";
-    v6 = @"kCMContinuityCaptureStreamActionEventSendData";
   }
 
-  if (![v3 isEqual:v6])
+  if (![v3 isEqual:?])
   {
     v5 = 0;
   }
@@ -787,65 +751,59 @@ uint64_t CMContinuityCaptureSMIsValidEntryEventForState(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  if (![v4 isEqualToString:@"kCMContinuityCaptureStateDisabled"])
+  if ([v4 isEqualToString:?])
   {
-    if ([v4 isEqualToString:@"kCMContinuityCaptureStateStreaming"])
+    if (([v3 isEqualToString:?] & 1) == 0 && (objc_msgSend(v3, "isEqualToString:") & 1) == 0 && (objc_msgSend(v3, "isEqualToString:") & 1) == 0 && (objc_msgSend(v3, "isEqualToString:") & 1) == 0 && (objc_msgSend(v3, "isEqualToString:") & 1) == 0 && (objc_msgSend(v3, "isEqualToString:") & 1) == 0)
     {
-      v5 = @"kCMContinuityCaptureEventStartStream";
-      goto LABEL_11;
+      goto LABEL_10;
     }
 
-    if ([v4 isEqualToString:@"kCMContinuityCaptureStatePaused"])
+LABEL_18:
+    v5 = 1;
+    goto LABEL_19;
+  }
+
+  if (([v4 isEqualToString:?] & 1) == 0)
+  {
+    if ([v4 isEqualToString:?])
     {
-      if (([v3 isEqualToString:@"kCMContinuityCaptureEventActiveCallStart"] & 1) == 0 && (objc_msgSend(v3, "isEqualToString:", @"kCMContinuityCaptureEventCaptureSessionStarted") & 1) == 0 && (objc_msgSend(v3, "isEqualToString:", @"kCMContinuityCaptureEventStreamDisableForDeviceInUse") & 1) == 0)
+      if (([v3 isEqualToString:?] & 1) == 0 && (objc_msgSend(v3, "isEqualToString:") & 1) == 0 && (objc_msgSend(v3, "isEqualToString:") & 1) == 0)
       {
-        v5 = @"kCMContinuityCaptureEventUserPause";
-        goto LABEL_11;
+        goto LABEL_10;
       }
     }
 
     else
     {
-      if (![v4 isEqualToString:@"kCMContinuityCaptureStreamStateWait"])
+      if (![v4 isEqualToString:?])
       {
-        v6 = 0;
-        goto LABEL_20;
+        v5 = 0;
+        goto LABEL_19;
       }
 
-      if (([v3 isEqualToString:@"kCMContinuityCaptureStreamActionEventSendData"] & 1) == 0)
+      if (([v3 isEqualToString:?] & 1) == 0)
       {
-        v5 = @"kCMContinuityCaptureStreamActionEventCaptureStarting";
-        goto LABEL_11;
+        goto LABEL_10;
       }
     }
 
+    goto LABEL_18;
+  }
+
+LABEL_10:
+  v5 = [v3 isEqualToString:?];
 LABEL_19:
-    v6 = 1;
-    goto LABEL_20;
-  }
 
-  if ([v3 isEqualToString:@"kCMContinuityCaptureEventSystemSleep"] & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", @"kCMContinuityCaptureEventAssociatedDevicePause") & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", @"kCMContinuityCaptureEventRemoteClientDisconnect") & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", @"kCMContinuityCaptureEventUserDisconnect") & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", @"kCMContinuityCaptureEventStreamDisableForWifiContention") & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", @"kCMContinuityCaptureEventScreenLocked"))
-  {
-    goto LABEL_19;
-  }
-
-  v5 = @"kCMContinuityCaptureEventStreamDisableForMultipleStream";
-LABEL_11:
-  v6 = [v3 isEqualToString:v5];
-LABEL_20:
-
-  return v6;
+  return v5;
 }
 
-id CMContinuityCaptureGetDeviceUUID(void *a1, char a2)
+void *CMContinuityCaptureGetDeviceUUID(void *a1, char a2)
 {
-  v5 = 0xAAAAAAAAAAAAAAAALL;
-  v6 = 0xAAAAAAAAAAAAAAAALL;
-  [a1 getUUIDBytes:&v5];
-  WORD2(v6) = 0;
-  BYTE6(v6) = 0;
-  HIBYTE(v6) = a2;
-  v3 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v5];
+  [a1 getUUIDBytes:{0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL}];
+  v5 = 0;
+  v6 = 0;
+  v7 = a2;
+  v3 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:?];
 
   return v3;
 }
@@ -864,11 +822,11 @@ void sub_24256F644(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_24256FE80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_24256FE80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v12 - 40));
+  objc_destroyWeak((v19 - 40));
   _Unwind_Resume(a1);
 }
 
@@ -909,16 +867,16 @@ void sub_2425722FC(_Unwind_Exception *a1)
 
 void sub_242573A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, id a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, id a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, id a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, id a62, uint64_t a63)
 {
-  objc_destroyWeak((v69 + 32));
+  objc_destroyWeak((v65 + 32));
   objc_destroyWeak(&a36);
   objc_destroyWeak(&a41);
   objc_destroyWeak(&a48);
   objc_destroyWeak(&a55);
   objc_destroyWeak(&a62);
-  objc_destroyWeak(&a69);
-  objc_destroyWeak((v70 - 200));
-  objc_destroyWeak((v70 - 160));
-  objc_destroyWeak((v70 - 112));
+  objc_destroyWeak(&a65);
+  objc_destroyWeak((v66 - 200));
+  objc_destroyWeak((v66 - 160));
+  objc_destroyWeak((v66 - 112));
   _Unwind_Resume(a1);
 }
 
@@ -966,6 +924,35 @@ void sub_2425766D0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
+void sub_242580BF8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, int a12, __int16 a13, __int16 a14, uint64_t a15, __int128 a16)
+{
+  v23 = v18;
+  if (a2 == 1)
+  {
+    v19 = objc_begin_catch(a1);
+    v20 = CMContinuityCaptureLog(2);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      v21 = *(v16 + v23);
+      v22 = *(v17 + 32);
+      LODWORD(buf) = 138544130;
+      *(&buf + 4) = v16;
+      WORD6(buf) = 2112;
+      *(&buf + 14) = v21;
+      a14 = 2112;
+      a15 = v22;
+      LOWORD(a16) = 2112;
+      *(&a16 + 2) = v19;
+      _os_log_error_impl(&dword_242545000, v20, OS_LOG_TYPE_ERROR, "%{public}@ Device %@ performEffectForReaction does not support %@: %@", &buf, 0x2Au);
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x242580BE0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 void sub_242585BDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
 {
   objc_destroyWeak((v14 + 32));
@@ -973,30 +960,30 @@ void sub_242585BDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id getDKNotificationAgentClass()
+id getDKNotificationAgentClass(uint64_t a1, uint64_t a2)
 {
-  v3 = 0;
-  v4 = &v3;
-  v5 = 0x2050000000;
-  v0 = getDKNotificationAgentClass_softClass;
-  v6 = getDKNotificationAgentClass_softClass;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2050000000;
+  v2 = getDKNotificationAgentClass_softClass;
+  v8 = getDKNotificationAgentClass_softClass;
   if (!getDKNotificationAgentClass_softClass)
   {
     DockKitCoreLibraryCore();
-    v4[3] = objc_getClass("DKNotificationAgent");
-    getDKNotificationAgentClass_softClass = v4[3];
-    v0 = v4[3];
+    v6[3] = objc_getClass("DKNotificationAgent");
+    getDKNotificationAgentClass_softClass = v6[3];
+    v2 = v6[3];
   }
 
-  v1 = v0;
-  _Block_object_dispose(&v3, 8);
+  v3 = v2;
+  _Block_object_dispose(&v5, 8);
 
-  return v1;
+  return v3;
 }
 
-void sub_242585CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_242585CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1013,7 +1000,6 @@ uint64_t DockKitCoreLibraryCore()
 
 uint64_t __DockKitCoreLibraryCore_block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   DockKitCoreLibraryCore_frameworkLibrary = result;
   return result;
@@ -1043,16 +1029,18 @@ void OUTLINED_FUNCTION_6_2(float a1)
   *(v2 + 14) = v1;
 }
 
-void OUTLINED_FUNCTION_12_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_12_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_23(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_23(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x16u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x16u);
 }
 
 BOOL OUTLINED_FUNCTION_24(NSObject *a1)
@@ -1067,10 +1055,10 @@ BOOL OUTLINED_FUNCTION_28(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT);
 }
 
-uint64_t OUTLINED_FUNCTION_33(uint64_t a1)
+void *OUTLINED_FUNCTION_33(uint64_t a1)
 {
 
-  return [v1 removeConnections:a1];
+  return [v1 removeConnections:?];
 }
 
 BOOL OUTLINED_FUNCTION_41(NSObject *a1)
@@ -1098,14 +1086,14 @@ void sub_2425873C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2425895F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2425895F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-unint64_t CMContinuityCaptureGetHostTimeInNanoSec()
+uint64_t CMContinuityCaptureGetHostTimeInNanoSec()
 {
   if (CMContinuityCaptureGetHostTimeInNanoSec_onceToken != -1)
   {
@@ -1141,7 +1129,7 @@ id CMContinuityCaptureStringFromOSType(unsigned int a1)
   v8 = v1;
   __strncpy_chk();
   *(&v6 + v3) = 0;
-  v4 = [MEMORY[0x277CCACA8] stringWithCString:&v6 encoding:30];
+  v4 = [MEMORY[0x277CCACA8] stringWithCString:? encoding:?];
 
   return v4;
 }
@@ -1150,9 +1138,9 @@ uint64_t CMContinuityCapture4CCIDFromControlName(void *a1)
 {
   v1 = 1651797110;
   v2 = a1;
-  if (([v2 isEqualToString:@"kCMContinuityCaptureControlBatteryLevel"] & 1) == 0)
+  if (([v2 isEqualToString:?] & 1) == 0)
   {
-    if ([v2 isEqualToString:@"kCMContinuityCaptureControlBatteryState"])
+    if ([v2 isEqualToString:?])
     {
       v1 = 1651798900;
     }
@@ -1169,17 +1157,17 @@ uint64_t CMContinuityCapture4CCIDFromControlName(void *a1)
 __CFString *CMContinuityCaptureDevicePropertyFromControlName(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"kCMContinuityCaptureControlCameraHidden"])
+  if ([v1 isEqualToString:?])
   {
     v2 = @"CMIOExtensionPropertyDeviceHidden";
   }
 
-  else if ([v1 isEqualToString:@"kCMContinuityCaptureControlCameraReadyToUnhide"])
+  else if ([v1 isEqualToString:?])
   {
     v2 = @"CMIOExtensionPropertyDeviceReadyToUnhide";
   }
 
-  else if ([v1 isEqualToString:@"kCMContinuityCaptureControlDockedTrackingActive"])
+  else if ([v1 isEqualToString:?])
   {
     v2 = @"DockedTrackingActive";
   }
@@ -1279,9 +1267,9 @@ id CMContinuityCaptureGetCurrentTimeString()
   return v1;
 }
 
-uint64_t CMContinuityCaptureXPCConnectionHasEntitlement(void *a1, uint64_t a2)
+void *CMContinuityCaptureXPCConnectionHasEntitlement(void *a1, uint64_t a2)
 {
-  v2 = [a1 valueForEntitlement:a2];
+  v2 = [a1 valueForEntitlement:?];
   if (v2 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v3 = [v2 BOOLValue];
@@ -1295,27 +1283,27 @@ uint64_t CMContinuityCaptureXPCConnectionHasEntitlement(void *a1, uint64_t a2)
   return v3;
 }
 
-id CMContinuityCaptureCreateLocalizedString(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void *CMContinuityCaptureCreateLocalizedString(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v10 = MEMORY[0x277CCA8D8];
   v11 = a2;
   v12 = a1;
-  v13 = [v10 bundleWithIdentifier:@"com.apple.CMContinuityCaptureCore"];
+  v13 = [v10 bundleWithIdentifier:?];
   v14 = [MEMORY[0x277CBEAF8] autoupdatingCurrentLocale];
   v15 = MEMORY[0x277CCA8D8];
   v16 = [v13 localizations];
   v17 = [MEMORY[0x277CBEAF8] preferredLanguages];
-  v18 = [v15 preferredLocalizationsFromArray:v16 forPreferences:v17];
-  v19 = [v18 objectAtIndexedSubscript:0];
+  v18 = [v15 preferredLocalizationsFromArray:? forPreferences:?];
+  v19 = [v18 objectAtIndexedSubscript:?];
 
-  v20 = [v13 localizedStringForKey:v12 value:v11 table:0 localization:v19];
+  v20 = [v13 localizedStringForKey:? value:? table:? localization:?];
 
-  v21 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v20 locale:v14 arguments:&a9];
+  v21 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:? locale:? arguments:?];
 
   return v21;
 }
 
-uint64_t CMContinuityCaptureLagunaEnabled()
+uint64_t CMContinuityCaptureLagunaEnabled(uint64_t a1, uint64_t a2)
 {
   if (CMContinuityCaptureLagunaEnabled_sOnceToken != -1)
   {
@@ -1332,14 +1320,14 @@ uint64_t __CMContinuityCaptureLagunaEnabled_block_invoke()
   return result;
 }
 
-uint64_t CMContinuityCaptureDeviceModelFromModelString()
+uint64_t CMContinuityCaptureDeviceModelFromModelString(uint64_t a1)
 {
-  v0 = GestaltProductTypeStringToDeviceClass();
-  if (v0 > 3)
+  v1 = GestaltProductTypeStringToDeviceClass();
+  if (v1 > 3)
   {
-    if (v0 != 4)
+    if (v1 != 4)
     {
-      return v0 == 100;
+      return v1 == 100;
     }
 
     return 2;
@@ -1347,9 +1335,9 @@ uint64_t CMContinuityCaptureDeviceModelFromModelString()
 
   else
   {
-    if (v0 != 1)
+    if (v1 != 1)
     {
-      if (v0 == 3)
+      if (v1 == 3)
       {
         return 3;
       }
@@ -1387,7 +1375,7 @@ __CFString *CMContinuityCaptureStringForEntity(unint64_t a1)
   }
 }
 
-uint64_t CMContinuityCaptureDevicePosition()
+uint64_t CMContinuityCaptureDevicePosition(uint64_t a1, uint64_t a2)
 {
   if (CMContinuityCaptureDevicePosition_once != -1)
   {
@@ -1421,23 +1409,17 @@ uint64_t __CMContinuityCaptureDevicePosition_block_invoke()
 
 id CMContinuityCaptureRemoteEventToBeRelayedList()
 {
-  v2[0] = @"kCMContinuityCaptureEventUserPause";
-  v2[1] = @"kCMContinuityCaptureEventUserResume";
-  v2[2] = @"kCMContinuityCaptureEventActiveCallStart";
-  v2[3] = @"kCMContinuityCaptureEventActiveCallEnd";
-  v2[4] = @"kCMContinuityCaptureEventUserDisconnect";
-  v2[5] = @"kCMContinuityCaptureEventStreamInterrupted";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:6];
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:@"kCMContinuityCaptureEventUserPause" count:{@"kCMContinuityCaptureEventUserResume", @"kCMContinuityCaptureEventActiveCallStart", @"kCMContinuityCaptureEventActiveCallEnd", @"kCMContinuityCaptureEventUserDisconnect", @"kCMContinuityCaptureEventStreamInterrupted"}];
 
   return v0;
 }
 
 id CMContinuityCaptureRemoteEventToBeRelayedListEvenWhenDropped()
 {
-  v2[0] = @"kCMContinuityCaptureEventUserResume";
-  v2[1] = @"kCMContinuityCaptureEventActiveCallEnd";
-  v2[2] = @"kCMContinuityCaptureEventUserDisconnect";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:3];
+  v2 = @"kCMContinuityCaptureEventUserResume";
+  v3 = @"kCMContinuityCaptureEventActiveCallEnd";
+  v4 = @"kCMContinuityCaptureEventUserDisconnect";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
   return v0;
 }
@@ -1450,14 +1432,14 @@ void CMContinuityCapturePromptOpenTapToRadar(void *a1, void *a2, void *a3)
   if (os_variant_has_internal_ui())
   {
     v8 = *MEMORY[0x277CBF1E8];
-    v20[0] = *MEMORY[0x277CBF188];
-    v20[1] = v8;
+    v20 = *MEMORY[0x277CBF188];
+    v21 = v8;
     error = 0;
-    v21[0] = v5;
-    v21[1] = @"File radar";
-    v20[2] = *MEMORY[0x277CBF1C0];
-    v21[2] = @"Ignore";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
+    v23 = v5;
+    v24 = @"File radar";
+    v22 = *MEMORY[0x277CBF1C0];
+    v25 = @"Ignore";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
     v10 = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, &error, v9);
     v11 = CMContinuityCaptureLog(0);
     v12 = v11;
@@ -1519,38 +1501,38 @@ void __CMContinuityCapturePromptOpenTapToRadar_block_invoke(uint64_t a1)
     v6 = MobileGestalt_get_current_device();
     v7 = MobileGestalt_copy_hwModelDescriptionForCamera_obj();
     v8 = MGCopyAnswer();
-    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/%@: %@", v7, v8, *(a1 + 32)];
+    v9 = [MEMORY[0x277CCACA8] stringWithFormat:v7, v8, *(a1 + 32)];
     v10 = objc_alloc_init(MEMORY[0x277CCACE0]);
-    [v10 setScheme:@"tap-to-radar"];
-    [v10 setHost:@"new"];
+    [v10 setScheme:?];
+    [v10 setHost:?];
     v11 = [MEMORY[0x277CBEB18] array];
-    v12 = [MEMORY[0x277CCAD18] queryItemWithName:@"Title" value:v9];
-    [v11 addObject:v12];
+    v12 = [MEMORY[0x277CCAD18] queryItemWithName:? value:?];
+    [v11 addObject:?];
 
-    v13 = [MEMORY[0x277CCAD18] queryItemWithName:@"Description" value:*(a1 + 40)];
-    [v11 addObject:v13];
+    v13 = [MEMORY[0x277CCAD18] queryItemWithName:? value:?];
+    [v11 addObject:?];
 
-    v14 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentName" value:@"Continuity Camera (New Bugs)"];
-    [v11 addObject:v14];
+    v14 = [MEMORY[0x277CCAD18] queryItemWithName:? value:?];
+    [v11 addObject:?];
 
-    v15 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentVersion" value:@"all"];
-    [v11 addObject:v15];
+    v15 = [MEMORY[0x277CCAD18] queryItemWithName:? value:?];
+    [v11 addObject:?];
 
-    v16 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentID" value:@"1576972"];
-    [v11 addObject:v16];
+    v16 = [MEMORY[0x277CCAD18] queryItemWithName:? value:?];
+    [v11 addObject:?];
 
-    v17 = [MEMORY[0x277CCAD18] queryItemWithName:@"Classification" value:@"Serious Bug"];
-    [v11 addObject:v17];
+    v17 = [MEMORY[0x277CCAD18] queryItemWithName:? value:?];
+    [v11 addObject:?];
 
-    v18 = [MEMORY[0x277CCAD18] queryItemWithName:@"Reproducibility" value:@"I Didn't Try"];
-    [v11 addObject:v18];
+    v18 = [MEMORY[0x277CCAD18] queryItemWithName:? value:?];
+    [v11 addObject:?];
 
-    [v10 setQueryItems:v11];
+    [v10 setQueryItems:?];
     v19 = [v10 URL];
     if (v19)
     {
       v20 = [MEMORY[0x277CC1E80] defaultWorkspace];
-      [v20 openURL:v19 configuration:0 completionHandler:&__block_literal_global_278];
+      [v20 openURL:? configuration:? completionHandler:?];
     }
   }
 
@@ -1583,22 +1565,22 @@ BOOL continuityCaptureNotificationCenter_isiPhone(void *a1)
 {
   v1 = a1;
   v2 = GestaltProductTypeStringToDeviceClass();
-  v3 = v2 == 1;
+  v4 = v2 == 1;
   if ((v2 | 2) != 3)
   {
-    if (CMContinityCaptureDebugLogEnabled())
+    if (CMContinityCaptureDebugLogEnabled(v2, v3))
     {
-      v4 = CMContinuityCaptureLog(2);
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      v5 = CMContinuityCaptureLog(2);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
-        continuityCaptureNotificationCenter_isiPhone_cold_1(v1, v4);
+        continuityCaptureNotificationCenter_isiPhone_cold_1(v1, v5);
       }
     }
 
-    v3 = 1;
+    v4 = 1;
   }
 
-  return v3;
+  return v4;
 }
 
 void sub_24258DCCC(_Unwind_Exception *a1)
@@ -1651,10 +1633,11 @@ void sub_242593550(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_2_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 BOOL OUTLINED_FUNCTION_4_1(NSObject *a1)
@@ -1686,17 +1669,17 @@ __CFString *CMContinuityCaptureMediaIdentifierFromEntityType(uint64_t a1)
 uint64_t CMContinuityCaptureEntityTypeFromMediaIdentifer(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"ContinuityCaptureMediaIdentifierDefaultVideo"])
+  if ([v1 isEqualToString:?])
   {
     v2 = 1;
   }
 
-  else if ([v1 isEqualToString:@"ContinuityCaptureMediaIdentifierDeskcamVideo"])
+  else if ([v1 isEqualToString:?])
   {
     v2 = 2;
   }
 
-  else if ([v1 isEqualToString:@"ContinuityCaptureMediaMicrophone"])
+  else if ([v1 isEqualToString:?])
   {
     v2 = 3;
   }
@@ -1712,7 +1695,7 @@ uint64_t CMContinuityCaptureEntityTypeFromMediaIdentifer(void *a1)
 const char *CMContinuityCaptureStringFromSelector(int a1, void *a2)
 {
   v3 = a2;
-  if ([v3 isEqualToString:@"ContinuityCaptureCommand"])
+  if ([v3 isEqualToString:?])
   {
     if ((a1 - 1) >= 9)
     {
@@ -1725,7 +1708,7 @@ const char *CMContinuityCaptureStringFromSelector(int a1, void *a2)
     }
   }
 
-  else if ([v3 isEqualToString:@"ContinuityCaptureControl"])
+  else if ([v3 isEqualToString:?])
   {
     v5 = "Invalid";
     if (a1 == 2)
@@ -1746,7 +1729,7 @@ const char *CMContinuityCaptureStringFromSelector(int a1, void *a2)
 
   else
   {
-    v6 = [v3 isEqualToString:@"ContinuityCaptureData"];
+    v6 = [v3 isEqualToString:?];
     v7 = "Invalid";
     if (!a1)
     {
@@ -1767,7 +1750,7 @@ const char *CMContinuityCaptureStringFromSelector(int a1, void *a2)
   return v4;
 }
 
-id CMContinuityCaptureCreateCipherKey(void *a1, void *a2)
+void *CMContinuityCaptureCreateCipherKey(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
@@ -1775,10 +1758,12 @@ id CMContinuityCaptureCreateCipherKey(void *a1, void *a2)
   {
     if (v4)
     {
-      v5 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:16];
-      v6 = [objc_alloc(MEMORY[0x277CBEB28]) initWithData:v3];
-      [v4 getUUIDBytes:{objc_msgSend(v5, "mutableBytes")}];
-      [v6 appendBytes:objc_msgSend(v5 length:{"bytes"), 14}];
+      v5 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:?];
+      v6 = [objc_alloc(MEMORY[0x277CBEB28]) initWithData:?];
+      [v5 mutableBytes];
+      [v4 getUUIDBytes:?];
+      [v5 bytes];
+      [v6 appendBytes:? length:?];
 
       goto LABEL_13;
     }
@@ -1904,33 +1889,28 @@ id CMContinuityCaptureMediaIdentifiersForCapabilities(void *a1)
 {
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
   v3 = [v1 devicesCapabilities];
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v10 count:16];
+  v4 = [v3 countByEnumeratingWithState:? objects:? count:?];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = MEMORY[0];
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v5; i = (i + 1))
       {
-        if (*v12 != v6)
+        if (MEMORY[0] != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v11 + 1) + 8 * i) entityType] - 1;
-        if (v8 <= 2)
+        if ([*(8 * i) entityType] - 1 <= 2)
         {
-          [v2 addObject:off_278D5D3F8[v8]];
+          [v2 addObject:?];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v10 count:16];
+      v5 = [v3 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v5);
@@ -1941,22 +1921,18 @@ id CMContinuityCaptureMediaIdentifiersForCapabilities(void *a1)
 
 id CMContinuityCaptureGetListOfSupportedSidebandIdentifiers()
 {
-  v2[0] = @"ContinuityCaptureControl";
-  v2[1] = @"ContinuityCaptureCommand";
-  v2[2] = @"ContinuityCaptureData";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:3];
+  v2 = @"ContinuityCaptureControl";
+  v3 = @"ContinuityCaptureCommand";
+  v4 = @"ContinuityCaptureData";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
   return v0;
 }
 
 uint64_t CMContinuityCaptureDeviceSupportsAllFeatures(void *a1)
 {
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
   obj = a1;
-  v1 = [obj countByEnumeratingWithState:&v37 objects:v36 count:16];
+  v1 = [obj countByEnumeratingWithState:? objects:? count:?];
   if (v1)
   {
     v2 = v1;
@@ -1964,46 +1940,42 @@ uint64_t CMContinuityCaptureDeviceSupportsAllFeatures(void *a1)
     v30 = 0;
     v29 = 0;
     v4 = 0;
-    v5 = *v38;
-    v24 = *v38;
+    v5 = MEMORY[0];
+    v24 = MEMORY[0];
     do
     {
       v6 = 0;
       v25 = v2;
       do
       {
-        if (*v38 != v5)
+        if (MEMORY[0] != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v37 + 1) + 8 * v6);
+        v7 = *(8 * v6);
         if ([v7 entityType] == 1)
         {
           v27 = v6;
           v28 = v3;
           v8 = [v7 controls];
-          v32 = 0u;
-          v33 = 0u;
-          v34 = 0u;
-          v35 = 0u;
-          v9 = [v8 countByEnumeratingWithState:&v32 objects:v31 count:16];
+          v9 = [v8 countByEnumeratingWithState:? objects:? count:?];
           if (v9)
           {
             v10 = v9;
-            v11 = *v33;
+            v11 = MEMORY[0];
             do
             {
-              for (i = 0; i != v10; ++i)
+              for (i = 0; i != v10; i = (i + 1))
               {
-                if (*v33 != v11)
+                if (MEMORY[0] != v11)
                 {
                   objc_enumerationMutation(v8);
                 }
 
-                v13 = *(*(&v32 + 1) + 8 * i);
+                v13 = *(8 * i);
                 v14 = [v13 name];
-                v15 = [v14 isEqualToString:@"4cc_cfen_glob_0000"];
+                v15 = [v14 isEqualToString:?];
 
                 if (v15)
                 {
@@ -2013,7 +1985,7 @@ uint64_t CMContinuityCaptureDeviceSupportsAllFeatures(void *a1)
                 else
                 {
                   v16 = [v13 name];
-                  v17 = [v16 isEqualToString:@"StudioLightingEnabled"];
+                  v17 = [v16 isEqualToString:?];
 
                   if (v17)
                   {
@@ -2023,7 +1995,7 @@ uint64_t CMContinuityCaptureDeviceSupportsAllFeatures(void *a1)
                   else
                   {
                     v18 = [v13 name];
-                    v19 = [v18 isEqualToString:@"ReactionEffectsEnabled"];
+                    v19 = [v18 isEqualToString:?];
 
                     if (v19)
                     {
@@ -2033,7 +2005,7 @@ uint64_t CMContinuityCaptureDeviceSupportsAllFeatures(void *a1)
                     else
                     {
                       v20 = [v13 name];
-                      v21 = [v20 isEqualToString:@"BackgroundReplacementEnabled"];
+                      v21 = [v20 isEqualToString:?];
 
                       BYTE4(v30) |= v21;
                     }
@@ -2041,7 +2013,7 @@ uint64_t CMContinuityCaptureDeviceSupportsAllFeatures(void *a1)
                 }
               }
 
-              v10 = [v8 countByEnumeratingWithState:&v32 objects:v31 count:16];
+              v10 = [v8 countByEnumeratingWithState:? objects:? count:?];
             }
 
             while (v10);
@@ -2058,11 +2030,11 @@ uint64_t CMContinuityCaptureDeviceSupportsAllFeatures(void *a1)
           v3 |= [v7 entityType] == 2;
         }
 
-        ++v6;
+        v6 = (v6 + 1);
       }
 
       while (v6 != v2);
-      v2 = [obj countByEnumeratingWithState:&v37 objects:v36 count:16];
+      v2 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v2);
@@ -2132,7 +2104,7 @@ uint64_t __CMContinuityCaptureLog_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t CMContinityCaptureDebugLogEnabled()
+uint64_t CMContinityCaptureDebugLogEnabled(uint64_t a1, uint64_t a2)
 {
   if (CMContinityCaptureDebugLogEnabled_onceToken != -1)
   {
@@ -2149,9 +2121,9 @@ void sub_24259D224(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_24259DF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_24259DF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2186,10 +2158,11 @@ void handleBatteryInfoChanged(void *a1, uint64_t a2, int a3)
   }
 }
 
-void OUTLINED_FUNCTION_1_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_2425A3E50(_Unwind_Exception *a1)
@@ -2199,14 +2172,6 @@ void sub_2425A3E50(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-__n128 OUTLINED_FUNCTION_8_2@<Q0>(uint64_t a1@<X8>)
-{
-  result = *a1;
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 32);
-  return result;
-}
-
 void sub_2425A91D8(_Unwind_Exception *a1)
 {
   objc_destroyWeak((v1 + 40));
@@ -2214,11 +2179,10 @@ void sub_2425A91D8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t OUTLINED_FUNCTION_2_4(void *a1, const char *a2)
+void *OUTLINED_FUNCTION_2_4(void *a1)
 {
-  v5 = *v3;
 
-  return [a1 addObserver:v2 forKeyPath:v5 options:3 context:0];
+  return [a1 addObserver:? forKeyPath:? options:? context:?];
 }
 
 void sub_2425AE868(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -2290,10 +2254,11 @@ void sub_2425B6AA0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_9(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_9(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_2425B7AE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -2303,17 +2268,17 @@ void sub_2425B7AE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t OUTLINED_FUNCTION_1_6(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *OUTLINED_FUNCTION_1_6(void *a1)
 {
-  v8 = *(v5 + 8);
 
-  return [a1 addObserver:v5 selector:v6 name:a5 object:v8];
+  return [a1 addObserver:? selector:? name:? object:?];
 }
 
-void OUTLINED_FUNCTION_2_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 void CMContinuityCaptureReceiveDataFromNWConnection(void *a1, void *a2, void *a3, void *a4)
@@ -2329,7 +2294,7 @@ void CMContinuityCaptureReceiveDataFromNWConnection(void *a1, void *a2, void *a3
   v23[4] = __Block_byref_object_dispose__7;
   if (v8)
   {
-    v11 = [objc_alloc(MEMORY[0x277CBEB28]) initWithData:v8];
+    v11 = [objc_alloc(MEMORY[0x277CBEB28]) initWithData:?];
   }
 
   else
@@ -2362,9 +2327,9 @@ void CMContinuityCaptureReceiveDataFromNWConnection(void *a1, void *a2, void *a3
   _Block_object_dispose(v23, 8);
 }
 
-void sub_2425BAB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2425BAB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2376,7 +2341,7 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
   return result;
 }
 
-void __CMContinuityCaptureReceiveDataFromNWConnection_block_invoke(void *a1, void *a2, void *a3, int a4, void *a5)
+void __CMContinuityCaptureReceiveDataFromNWConnection_block_invoke(uint64_t a1, void *a2, void *a3, int a4, void *a5)
 {
   v9 = a2;
   v10 = a3;
@@ -2395,17 +2360,17 @@ void __CMContinuityCaptureReceiveDataFromNWConnection_block_invoke(void *a1, voi
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = "No";
-    v15 = a1[4];
+    v15 = *(a1 + 32);
     if (v12)
     {
       v14 = "Yes";
     }
 
-    v25 = 138412546;
-    v26 = v15;
-    v27 = 2080;
-    v28 = v14;
-    _os_log_impl(&dword_242545000, v13, OS_LOG_TYPE_DEFAULT, "%@ receiveData isFinal %s", &v25, 0x16u);
+    v24 = 138412546;
+    v25 = v15;
+    v26 = 2080;
+    v27 = v14;
+    _os_log_impl(&dword_242545000, v13, OS_LOG_TYPE_DEFAULT, "%@ receiveData isFinal %s", &v24, 0x16u);
   }
 
   if (v9 && !v11)
@@ -2417,48 +2382,47 @@ void __CMContinuityCaptureReceiveDataFromNWConnection_block_invoke(void *a1, voi
     {
       if (v18)
       {
-        v19 = a1[4];
+        v19 = *(a1 + 32);
         v20 = [v16 length];
-        v25 = 138412546;
-        v26 = v19;
-        v27 = 2048;
-        v28 = v20;
-        _os_log_impl(&dword_242545000, v17, OS_LOG_TYPE_DEFAULT, "%@ Current data length %lu", &v25, 0x16u);
+        v24 = 138412546;
+        v25 = v19;
+        v26 = 2048;
+        v27 = v20;
+        _os_log_impl(&dword_242545000, v17, OS_LOG_TYPE_DEFAULT, "%@ Current data length %lu", &v24, 0x16u);
       }
 
-      [*(*(a1[7] + 8) + 40) appendData:v16];
+      [*(*(*(a1 + 56) + 8) + 40) appendData:?];
     }
 
     else
     {
       if (v18)
       {
-        v21 = a1[4];
-        v25 = 138412546;
-        v26 = v21;
-        v27 = 2112;
-        v28 = v9;
-        _os_log_impl(&dword_242545000, v17, OS_LOG_TYPE_DEFAULT, "%@ receiveData NWCreateNSDataFromDispatchData for %@", &v25, 0x16u);
+        v21 = *(a1 + 32);
+        v24 = 138412546;
+        v25 = v21;
+        v26 = 2112;
+        v27 = v9;
+        _os_log_impl(&dword_242545000, v17, OS_LOG_TYPE_DEFAULT, "%@ receiveData NWCreateNSDataFromDispatchData for %@", &v24, 0x16u);
       }
     }
   }
 
-  v22 = *(*(a1[7] + 8) + 40);
+  v22 = *(*(*(a1 + 56) + 8) + 40);
   if (v22 && [v22 length] >= 8)
   {
-    v23 = [*(*(a1[7] + 8) + 40) length];
-    LOBYTE(v12) = v23 >= *[*(*(a1[7] + 8) + 40) bytes];
+    v23 = [*(*(*(a1 + 56) + 8) + 40) length];
+    LOBYTE(v12) = v23 >= *[*(*(*(a1 + 56) + 8) + 40) bytes];
   }
 
   if (v11 || (v12 & 1) != 0 || a4)
   {
-    v24 = *(*(a1[7] + 8) + 40);
-    (*(a1[6] + 16))();
+    (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    CMContinuityCaptureReceiveDataFromNWConnection(a1[5], *(*(a1[7] + 8) + 40), a1[4], a1[6]);
+    CMContinuityCaptureReceiveDataFromNWConnection(*(a1 + 40), *(*(*(a1 + 56) + 8) + 40), *(a1 + 32), *(a1 + 48));
   }
 }
 
@@ -2483,14 +2447,14 @@ void sub_2425BD820(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2425BF534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2425BF534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -2503,14 +2467,14 @@ uint64_t __Block_byref_object_copy__8(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t CMContinuityCaptureValidSMEvent(void *a1)
+void *CMContinuityCaptureValidSMEvent(void *a1)
 {
   v1 = a1;
-  v2 = [MEMORY[0x277CBEB98] setWithObjects:{@"kCMContinuityCaptureEventCaptureSessionStarted", @"kCMContinuityCaptureEventCaptureSessionEnded", @"kCMContinuityCaptureEventSystemSleep", @"kCMContinuityCaptureEventSystemWake", @"kCMContinuityCaptureEventTerminate", @"kCMContinuityCaptureEventUserPause", @"kCMContinuityCaptureEventUserResume", @"kCMContinuityCaptureEventStartStream", @"kCMContinuityCaptureEventStopStream", @"kCMContinuityCaptureEventAssociatedDevicePause", @"kCMContinuityCaptureEventAssociatedDeviceResume", @"kCMContinuityCaptureEventStreamEnableForMultipleStreamExit", @"kCMContinuityCaptureEventStreamDisableForMultipleStream", @"kCMContinuityCaptureEventImageCapture", @"kCMContinuityCaptureEventEnqueueReactionEffect", @"kCMContinuityCaptureEventActiveCallStart", @"kCMContinuityCaptureEventActiveCallEnd", @"kCMContinuityCaptureEventRemoteClientDisconnect", @"kCMContinuityCaptureEventRemoteClientReconnect", @"kCMContinuityCaptureEventStreamDisableForDeviceInUse", @"kCMContinuityCaptureEventStreamDisableForDeviceInUseExit", @"kCMContinuityCaptureEventStreamInterrupted", @"kCMContinuityCaptureEventUserDisconnect", @"kCMContinuityCaptureEventForceRestartStream", @"kCMContinuityCaptureEventStreamDisableForWifiContention", @"kCMContinuityCaptureEventStreamEnableForWifiContentionExit", @"kCMContinuityCaptureEventScreenLocked", @"kCMContinuityCaptureEventScreenUnlocked", @"kCMContinuityCaptureStreamActionEventSendData", @"kCMContinuityCaptureStreamActionEventReceivedData", @"kCMContinuityCaptureStreamActionEventTimeout", @"kCMContinuityCaptureStreamActionEventCaptureStarted", @"kCMContinuityCaptureStreamActionEventCaptureStarting", 0}];
+  v2 = [MEMORY[0x277CBEB98] setWithObjects:{@"kCMContinuityCaptureEventCaptureSessionEnded", @"kCMContinuityCaptureEventSystemSleep", @"kCMContinuityCaptureEventSystemWake", @"kCMContinuityCaptureEventTerminate", @"kCMContinuityCaptureEventUserPause", @"kCMContinuityCaptureEventUserResume", @"kCMContinuityCaptureEventStartStream", @"kCMContinuityCaptureEventStopStream", @"kCMContinuityCaptureEventAssociatedDevicePause", @"kCMContinuityCaptureEventAssociatedDeviceResume", @"kCMContinuityCaptureEventStreamEnableForMultipleStreamExit", @"kCMContinuityCaptureEventStreamDisableForMultipleStream", @"kCMContinuityCaptureEventImageCapture", @"kCMContinuityCaptureEventEnqueueReactionEffect", @"kCMContinuityCaptureEventActiveCallStart", @"kCMContinuityCaptureEventActiveCallEnd", @"kCMContinuityCaptureEventRemoteClientDisconnect", @"kCMContinuityCaptureEventRemoteClientReconnect", @"kCMContinuityCaptureEventStreamDisableForDeviceInUse", @"kCMContinuityCaptureEventStreamDisableForDeviceInUseExit", @"kCMContinuityCaptureEventStreamInterrupted", @"kCMContinuityCaptureEventUserDisconnect", @"kCMContinuityCaptureEventForceRestartStream", @"kCMContinuityCaptureEventStreamDisableForWifiContention", @"kCMContinuityCaptureEventStreamEnableForWifiContentionExit", @"kCMContinuityCaptureEventScreenLocked", @"kCMContinuityCaptureEventScreenUnlocked", @"kCMContinuityCaptureStreamActionEventSendData", @"kCMContinuityCaptureStreamActionEventReceivedData", @"kCMContinuityCaptureStreamActionEventTimeout", @"kCMContinuityCaptureStreamActionEventCaptureStarted", @"kCMContinuityCaptureStreamActionEventCaptureStarting", 0}];
   v3 = v2;
   if (v1)
   {
-    v4 = [v2 containsObject:v1];
+    v4 = [v2 containsObject:?];
   }
 
   else
@@ -2528,8 +2492,8 @@ __CFString *CMContinuityCaptureGetTimeStringFromDate(void *a1)
   v3 = v2;
   if (v2)
   {
-    [v2 setDateFormat:@"yyyy-MM-dd hh:mm:ss.SSS"];
-    v4 = [v3 stringFromDate:v1];
+    [v2 setDateFormat:?];
+    v4 = [v3 stringFromDate:?];
   }
 
   else
@@ -2548,8 +2512,8 @@ id CMContinuityCaptureGetDateFromTimeString(void *a1)
   v4 = 0;
   if (v1 && v2)
   {
-    [v2 setDateFormat:@"yyyy-MM-dd hh:mm:ss.SSS"];
-    v4 = [v3 dateFromString:v1];
+    [v2 setDateFormat:?];
+    v4 = [v3 dateFromString:?];
   }
 
   return v4;
@@ -2577,34 +2541,33 @@ void continuityCaptureNotificationCenter_isiPhone_cold_1(uint64_t a1, NSObject *
   _os_log_debug_impl(&dword_242545000, a2, OS_LOG_TYPE_DEBUG, "Unsupported device model %@", &v2, 0xCu);
 }
 
-void CMContinuityCaptureGetMediaProcessUniqueID_cold_1(uint64_t *a1)
+void CMContinuityCaptureGetMediaProcessUniqueID_cold_1(void *a1)
 {
   v2 = [MEMORY[0x277CE5700] getDaemonProcessInfo];
   if (v2)
   {
-    v3 = *MEMORY[0x277CE55D8];
-    v10 = v2;
-    v4 = [v2 objectForKeyedSubscript:*MEMORY[0x277CE55D8]];
-    if (v4 && (v5 = v4, [v10 objectForKeyedSubscript:v3], v6 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v6, v5, (isKindOfClass & 1) != 0))
+    v9 = v2;
+    v3 = [v2 objectForKeyedSubscript:?];
+    if (v3 && (v4 = v3, [v9 objectForKeyedSubscript:?], v5 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v5, v4, (isKindOfClass & 1) != 0))
     {
-      v8 = [v10 objectForKeyedSubscript:v3];
-      v9 = [v8 unsignedLongLongValue];
+      v7 = [v9 objectForKeyedSubscript:?];
+      v8 = [v7 unsignedLongLongValue];
     }
 
     else
     {
-      v9 = 0;
+      v8 = 0;
     }
 
-    v2 = v10;
+    v2 = v9;
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  *a1 = v9;
+  *a1 = v8;
 }
 
 uint64_t CMContinuityCaptureGetBootArgsForKey(void *a1)
@@ -2612,7 +2575,7 @@ uint64_t CMContinuityCaptureGetBootArgsForKey(void *a1)
   v1 = a1;
   bzero(__s1, 0xFFuLL);
   v11 = 255;
-  if (v1 && ([MEMORY[0x277CCACA8] stringWithFormat:@"%@=", v1], (v2 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (v1 && ([MEMORY[0x277CCACA8] stringWithFormat:v1], (v2 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v3 = v2;
     if (sysctlbyname("kern.bootargs", __s1, &v11, 0, 0))

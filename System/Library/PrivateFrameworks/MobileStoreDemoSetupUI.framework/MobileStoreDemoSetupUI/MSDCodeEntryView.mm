@@ -201,10 +201,10 @@ void __31__MSDCodeEntryView_insertText___block_invoke(uint64_t a1)
 
 - (void)updateConstraints
 {
-  v34[1] = *MEMORY[0x277D85DE8];
-  v32.receiver = self;
-  v32.super_class = MSDCodeEntryView;
-  [(MSDCodeEntryView *)&v32 updateConstraints];
+  v33[1] = *MEMORY[0x277D85DE8];
+  v31.receiver = self;
+  v31.super_class = MSDCodeEntryView;
+  [(MSDCodeEntryView *)&v31 updateConstraints];
   activeConstraints = [(MSDCodeEntryView *)self activeConstraints];
 
   v4 = 0x277CCA000uLL;
@@ -216,7 +216,7 @@ void __31__MSDCodeEntryView_insertText___block_invoke(uint64_t a1)
   }
 
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v31 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v30 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v8 = 0;
   v9 = *MEMORY[0x277D76A08];
   do
@@ -235,11 +235,11 @@ void __31__MSDCodeEntryView_insertText___block_invoke(uint64_t a1)
 
     else
     {
-      v33 = @"generatorLabel";
+      v32 = @"generatorLabel";
       generatorFields = [(MSDCodeEntryView *)self generatorFields];
       v13 = [generatorFields objectAtIndexedSubscript:0];
-      v34[0] = v13;
-      generatorFields2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+      v33[0] = v13;
+      generatorFields2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
       firstObject = [v11 constraintsWithVisualFormat:@"V:|[generatorLabel]|" options:0 metrics:0 views:generatorFields2];
       [v7 addObjectsFromArray:firstObject];
     }
@@ -256,13 +256,13 @@ void __31__MSDCodeEntryView_insertText___block_invoke(uint64_t a1)
     generatorFields4 = [(MSDCodeEntryView *)self generatorFields];
     v24 = [generatorFields4 objectAtIndexedSubscript:v8];
     v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"codeGeneratorLabel%d", v8];
-    [v31 setObject:v24 forKey:v25];
+    [v30 setObject:v24 forKey:v25];
 
     ++v8;
   }
 
   while (v8 != 6);
-  v26 = [*(v10 + 2768) constraintsWithVisualFormat:@"|[codeGeneratorLabel0]-(DIGIT_SPACING)-[codeGeneratorLabel1]-(DIGIT_SPACING)-[codeGeneratorLabel2]-(GROUP_SEPARATOR_SPACING)-[codeGeneratorLabel3]-(DIGIT_SPACING)-[codeGeneratorLabel4]-(DIGIT_SPACING)-[codeGeneratorLabel5]|" options:0x10000 metrics:&unk_286AEA368 views:v31];
+  v26 = [*(v10 + 2768) constraintsWithVisualFormat:@"|[codeGeneratorLabel0]-(DIGIT_SPACING)-[codeGeneratorLabel1]-(DIGIT_SPACING)-[codeGeneratorLabel2]-(GROUP_SEPARATOR_SPACING)-[codeGeneratorLabel3]-(DIGIT_SPACING)-[codeGeneratorLabel4]-(DIGIT_SPACING)-[codeGeneratorLabel5]|" options:0x10000 metrics:&unk_286AEA368 views:v30];
   [v7 addObjectsFromArray:v26];
   v27 = [v7 copy];
   [(MSDCodeEntryView *)self setActiveConstraints:v27];
@@ -270,8 +270,6 @@ void __31__MSDCodeEntryView_insertText___block_invoke(uint64_t a1)
   v28 = *(v10 + 2768);
   activeConstraints3 = [(MSDCodeEntryView *)self activeConstraints];
   [v28 activateConstraints:activeConstraints3];
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_syncStringValueToLabels

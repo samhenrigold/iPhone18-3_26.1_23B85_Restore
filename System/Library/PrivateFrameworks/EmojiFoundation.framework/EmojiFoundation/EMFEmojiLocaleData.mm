@@ -225,7 +225,7 @@ void __87__EMFEmojiLocaleData_enumerateSearchResultsInText_range_options_searchT
 
 - (EMFEmojiSearchEngine)searchEngine
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   searchEngine = self->_searchEngine;
   if (!searchEngine)
   {
@@ -236,68 +236,69 @@ void __87__EMFEmojiLocaleData_enumerateSearchResultsInText_range_options_searchT
 
     else
     {
-      v4 = emf_signpost_get_log();
+      v4 = emf_signpost_get_log(0);
       v5 = os_signpost_id_generate(v4);
 
-      v6 = emf_signpost_get_log();
-      v7 = v6;
-      if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+      v7 = emf_signpost_get_log(v6);
+      v8 = v7;
+      if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
       {
-        LOWORD(v22) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1AF04E000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "LoadSearchEngine", &unk_1AF0BC4C3, &v22, 2u);
+        LOWORD(v26) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1AF04E000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "LoadSearchEngine", &unk_1AF0BC4C3, &v26, 2u);
       }
 
       p_localeIdentifier = &self->_localeIdentifier;
       localeIdentifier = self->_localeIdentifier;
       self->_didTryLoadingSearchEngine = 1;
-      v10 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:localeIdentifier];
-      if ([EMFEmojiSearchEngine isLocaleSupported:v10])
+      v11 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:localeIdentifier];
+      v12 = [EMFEmojiSearchEngine isLocaleSupported:v11];
+      if (v12)
       {
-        v11 = [[EMFEmojiSearchEngine alloc] initWithLocale:v10];
+        v13 = [[EMFEmojiSearchEngine alloc] initWithLocale:v11];
       }
 
       else
       {
-        v12 = emf_logging_get_default_log();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v14 = emf_logging_get_default_log(v12);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
-          v13 = *p_localeIdentifier;
-          v22 = 138412290;
-          v23 = v13;
-          _os_log_impl(&dword_1AF04E000, v12, OS_LOG_TYPE_INFO, "CoreEmoji disabled search engine for locale '%@'; not loading search engine resources", &v22, 0xCu);
+          v15 = *p_localeIdentifier;
+          v26 = 138412290;
+          v27 = v15;
+          _os_log_impl(&dword_1AF04E000, v14, OS_LOG_TYPE_INFO, "CoreEmoji disabled search engine for locale '%@'; not loading search engine resources", &v26, 0xCu);
         }
 
-        v11 = 0;
+        v13 = 0;
       }
 
-      v14 = self->_searchEngine;
-      self->_searchEngine = v11;
+      v16 = self->_searchEngine;
+      self->_searchEngine = v13;
 
-      v15 = self->_searchEngine;
-      v16 = emf_logging_get_default_log();
-      v17 = v16;
-      if (v15)
+      v17 = self->_searchEngine;
+      v19 = emf_logging_get_default_log(v18);
+      v20 = v19;
+      if (v17)
       {
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           [(EMFEmojiLocaleData *)&self->_localeIdentifier searchEngine];
         }
       }
 
-      else if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        v18 = *p_localeIdentifier;
-        v22 = 138412290;
-        v23 = v18;
-        _os_log_impl(&dword_1AF04E000, v17, OS_LOG_TYPE_INFO, "Emoji search engine could not be loaded for locale '%@'", &v22, 0xCu);
+        v21 = *p_localeIdentifier;
+        v26 = 138412290;
+        v27 = v21;
+        _os_log_impl(&dword_1AF04E000, v20, OS_LOG_TYPE_INFO, "Emoji search engine could not be loaded for locale '%@'", &v26, 0xCu);
       }
 
-      v19 = emf_signpost_get_log();
-      v20 = v19;
-      if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+      v23 = emf_signpost_get_log(v22);
+      v24 = v23;
+      if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
       {
-        LOWORD(v22) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1AF04E000, v20, OS_SIGNPOST_INTERVAL_END, v5, "LoadSearchEngine", &unk_1AF0BC4C3, &v22, 2u);
+        LOWORD(v26) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1AF04E000, v24, OS_SIGNPOST_INTERVAL_END, v5, "LoadSearchEngine", &unk_1AF0BC4C3, &v26, 2u);
       }
 
       searchEngine = self->_searchEngine;

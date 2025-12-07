@@ -70,24 +70,20 @@
 
 - (void)devicePicker:(id)picker didDismissWithResult:(int64_t)result deviceAddress:(id)address
 {
-  if (self->_picker == picker)
+  if (self->_picker == picker && (objc_opt_respondsToSelector() & 1) != 0)
   {
     delegate = self->_delegate;
-    if (objc_opt_respondsToSelector())
+    if ((result - 1) >= 3)
     {
-      v9 = self->_delegate;
-      if ((result - 1) >= 3)
-      {
-        resultCopy = 0;
-      }
-
-      else
-      {
-        resultCopy = result;
-      }
-
-      [(EABluetoothAccessoryPickerDelegate *)v9 devicePicker:self didSelectAddress:address errorCode:resultCopy];
+      resultCopy = 0;
     }
+
+    else
+    {
+      resultCopy = result;
+    }
+
+    [(EABluetoothAccessoryPickerDelegate *)delegate devicePicker:self didSelectAddress:address errorCode:resultCopy];
   }
 }
 

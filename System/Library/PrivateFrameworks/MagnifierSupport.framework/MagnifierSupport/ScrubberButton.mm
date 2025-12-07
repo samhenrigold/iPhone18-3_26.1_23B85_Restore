@@ -12,7 +12,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_257D31E88();
+  sub_257D31E88(selfCopy);
 }
 
 - (void)didTap:(id)tap
@@ -32,7 +32,7 @@
 - (void)removeFromSuperview
 {
   selfCopy = self;
-  sub_257D32134();
+  sub_257D32134(v2);
 }
 
 - (_TtC16MagnifierSupport14ScrubberButton)initWithFrame:(CGRect)frame

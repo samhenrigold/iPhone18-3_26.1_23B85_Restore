@@ -25,23 +25,22 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = objc_opt_class();
-  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
-  objc_msgSend_width(self, v9, v10, v11);
-  v13 = v12;
-  objc_msgSend_height(self, v14, v15, v16);
-  v18 = v17;
-  objc_msgSend_depth(self, v19, v20, v21);
+  v4 = [objc_opt_class() allocWithZone:zone];
+  [(EQKitHVSpace *)self width];
+  v6 = v5;
+  [(EQKitHVSpace *)self height];
+  v8 = v7;
+  [(EQKitHVSpace *)self depth];
 
-  return objc_msgSend_initWithWidth_height_depth_(v8, v22, v23, v24, v13, v18, v25);
+  return [v4 initWithWidth:v6 height:v8 depth:v9];
 }
 
 - (BOOL)isEqual:(id)equal
 {
   if (self == equal)
   {
-    LOBYTE(isMemberOfClass) = 1;
-    return isMemberOfClass;
+    LOBYTE(v5) = 1;
+    return v5;
   }
 
   if (!equal)
@@ -49,33 +48,32 @@
     goto LABEL_8;
   }
 
-  v5 = objc_opt_class();
-  isMemberOfClass = objc_msgSend_isMemberOfClass_(equal, v6, v5, v7);
-  if (isMemberOfClass)
+  v5 = [equal isMemberOfClass:objc_opt_class()];
+  if (v5)
   {
-    objc_msgSend_width(self, v9, v10, v11);
-    v13 = v12;
-    objc_msgSend_width(equal, v14, v15, v16);
-    if (v13 == v20)
+    [(EQKitHVSpace *)self width];
+    v7 = v6;
+    [equal width];
+    if (v7 == v8)
     {
-      objc_msgSend_height(self, v17, v18, v19);
-      v22 = v21;
-      objc_msgSend_height(equal, v23, v24, v25);
-      if (v22 == v29)
+      [(EQKitHVSpace *)self height];
+      v10 = v9;
+      [equal height];
+      if (v10 == v11)
       {
-        objc_msgSend_depth(self, v26, v27, v28);
-        v31 = v30;
-        objc_msgSend_depth(equal, v32, v33, v34);
-        LOBYTE(isMemberOfClass) = v31 == v35;
-        return isMemberOfClass;
+        [(EQKitHVSpace *)self depth];
+        v13 = v12;
+        [equal depth];
+        LOBYTE(v5) = v13 == v14;
+        return v5;
       }
     }
 
 LABEL_8:
-    LOBYTE(isMemberOfClass) = 0;
+    LOBYTE(v5) = 0;
   }
 
-  return isMemberOfClass;
+  return v5;
 }
 
 - (unint64_t)hash
@@ -89,12 +87,12 @@ LABEL_8:
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  objc_msgSend_height(self, v5, v6, v7);
-  v9 = v8;
-  objc_msgSend_depth(self, v10, v11, v12);
-  v14 = v13;
-  objc_msgSend_width(self, v15, v16, v17);
-  return objc_msgSend_stringWithFormat_(v3, v18, @"<%@ %p>: height=%f depth=%f width=%f", v19, v4, self, v9, v14, v20);
+  [(EQKitHVSpace *)self height];
+  v6 = v5;
+  [(EQKitHVSpace *)self depth];
+  v8 = v7;
+  [(EQKitHVSpace *)self width];
+  return [v3 stringWithFormat:@"<%@ %p>: height=%f depth=%f width=%f", v4, self, v6, v8, v9];
 }
 
 @end

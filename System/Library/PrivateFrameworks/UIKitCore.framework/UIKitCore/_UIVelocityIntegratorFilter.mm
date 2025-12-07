@@ -1,6 +1,6 @@
 @interface _UIVelocityIntegratorFilter
-- (id)initWithFilter:(id)result;
 - (void)dealloc;
+- (void)initWithFilter:(void *)result;
 @end
 
 @implementation _UIVelocityIntegratorFilter
@@ -18,7 +18,7 @@
   [(_UIVelocityIntegratorFilter *)&v4 dealloc];
 }
 
-- (id)initWithFilter:(id)result
+- (void)initWithFilter:(void *)result
 {
   if (result)
   {
@@ -34,7 +34,7 @@
     result = objc_msgSendSuper2(&v5, sel_init);
     if (result)
     {
-      *(result + 1) = a2;
+      result[1] = a2;
     }
   }
 

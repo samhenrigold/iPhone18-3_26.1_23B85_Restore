@@ -47,7 +47,7 @@
 
         if ((v15 & 1) == 0 && gLogCategory_ENTextMessageManager <= 90 && (gLogCategory_ENTextMessageManager != -1 || _LogCategory_Initialize()))
         {
-          [ENTextMessageManager initWithDirectoryURL:];
+          [ENTextMessageManager initWithDirectoryURL:path];
         }
 
         v17 = [[ENSecureArchiveFileWrapper alloc] initWithPath:path2];
@@ -59,7 +59,7 @@
 
       else if (gLogCategory_ENTextMessageManager <= 90 && (gLogCategory_ENTextMessageManager != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_ENTextMessageManager, "[ENTextMessageManager initWithDirectoryURL:]", 90, "Failed to create %@: %@", path, v13);
       }
 
       if (v11)
@@ -85,12 +85,13 @@ LABEL_20:
 
 - (void)activateIfNeeded
 {
-  v4 = 0;
-  v2 = [(ENTextMessageManager *)self _readIfNecessaryWithError:&v4];
-  v3 = v4;
+  v5 = 0;
+  v2 = [(ENTextMessageManager *)self _readIfNecessaryWithError:&v5];
+  v3 = v5;
+  v4 = v3;
   if (!v2)
   {
-    [ENTextMessageManager activateIfNeeded];
+    [(ENTextMessageManager *)v3 activateIfNeeded];
   }
 }
 
@@ -111,7 +112,7 @@ LABEL_20:
 
   if ((v5 & 1) == 0 && gLogCategory__ENTextMessageManager <= 90 && (gLogCategory__ENTextMessageManager != -1 || _LogCategory_Initialize()))
   {
-    [ENTextMessageManager purgeAllHashes];
+    [(ENTextMessageManager *)v6 purgeAllHashes];
   }
 }
 
@@ -119,34 +120,34 @@ LABEL_20:
 {
   if (gLogCategory__ENTextMessageManager <= 90 && (gLogCategory__ENTextMessageManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory__ENTextMessageManager, "[ENTextMessageManager purgeOldHashes]", 90, "Error purging hashes: %@", self);
   }
 }
 
 - (void)_purgeOldHashes
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = self->_textMessageHashes;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   allKeys = [(NSMutableDictionary *)v3 allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         v10 = [(NSMutableDictionary *)v3 objectForKey:v9];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -162,7 +163,7 @@ LABEL_20:
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
@@ -172,12 +173,12 @@ LABEL_20:
   if (textMessageHashes)
   {
     textMessageHistoryFileWrapper = self->_textMessageHistoryFileWrapper;
-    v19 = 0;
-    v16 = [(ENSecureArchiveFileWrapper *)textMessageHistoryFileWrapper saveObject:textMessageHashes error:&v19];
-    v17 = v19;
+    v18 = 0;
+    v16 = [(ENSecureArchiveFileWrapper *)textMessageHistoryFileWrapper saveObject:textMessageHashes error:&v18];
+    v17 = v18;
     if (!v16 && gLogCategory__ENTextMessageManager <= 90 && (gLogCategory__ENTextMessageManager != -1 || _LogCategory_Initialize()))
     {
-      [ENTextMessageManager _purgeOldHashes];
+      [(ENTextMessageManager *)v17 _purgeOldHashes];
     }
   }
 
@@ -185,8 +186,6 @@ LABEL_20:
   {
     v17 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_verifyTextMessage:(id)message phoneNumber:(id)number verificationDate:(id)date publicKey:(id)key publicKeyVersion:(id)version reportType:(id)type outError:(id *)error
@@ -215,7 +214,7 @@ LABEL_20:
 
   if (numberCopy && gLogCategory_ENTextMessageManager <= 30 && (gLogCategory_ENTextMessageManager != -1 || _LogCategory_Initialize()))
   {
-    [ENTextMessageManager _verifyTextMessage:phoneNumber:verificationDate:publicKey:publicKeyVersion:reportType:outError:];
+    [ENTextMessageManager _verifyTextMessage:v69 phoneNumber:? verificationDate:? publicKey:? publicKeyVersion:? reportType:? outError:?];
   }
 
   v27 = +[ENLoggingPrefs sharedENLoggingPrefs];
@@ -223,7 +222,7 @@ LABEL_20:
 
   if (isSensitiveLoggingAllowed && gLogCategory_ENTextMessageManager <= 10 && (gLogCategory_ENTextMessageManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_ENTextMessageManager, "[ENTextMessageManager _verifyTextMessage:phoneNumber:verificationDate:publicKey:publicKeyVersion:reportType:outError:]", 10, "Public Key: %@, Version: %@", keyCopy, versionCopy);
   }
 
   v67 = keyCopy;
@@ -236,7 +235,7 @@ LABEL_20:
       v55 = v23;
       if (error)
       {
-        ENErrorF();
+        ENErrorF(15, "No signature verification was found");
         *error = v57 = 0;
       }
 
@@ -259,7 +258,7 @@ LABEL_20:
 
     if (verificationString2 && gLogCategory_ENTextMessageManager <= 30 && (gLogCategory_ENTextMessageManager != -1 || _LogCategory_Initialize()))
     {
-      [ENTextMessageManager _verifyTextMessage:phoneNumber:verificationDate:publicKey:publicKeyVersion:reportType:outError:];
+      [ENTextMessageManager _verifyTextMessage:v33 phoneNumber:? verificationDate:? publicKey:? publicKeyVersion:? reportType:? outError:?];
     }
 
     signature = [messageCopy signature];
@@ -268,7 +267,7 @@ LABEL_20:
 
     if (isSensitiveLoggingAllowed2 && gLogCategory_ENTextMessageManager <= 30 && (gLogCategory_ENTextMessageManager != -1 || _LogCategory_Initialize()))
     {
-      [ENTextMessageManager _verifyTextMessage:phoneNumber:verificationDate:publicKey:publicKeyVersion:reportType:outError:];
+      [ENTextMessageManager _verifyTextMessage:signature phoneNumber:? verificationDate:? publicKey:? publicKeyVersion:? reportType:? outError:?];
     }
 
     if (!signature)
@@ -277,7 +276,7 @@ LABEL_20:
       v56 = v25;
       if (error)
       {
-        ENErrorF();
+        ENErrorF(15, "No valid signature was found");
         *error = v57 = 0;
       }
 
@@ -296,7 +295,7 @@ LABEL_20:
       v55 = v23;
       if (error)
       {
-        ENErrorF();
+        ENErrorF(15, "No key version was found");
         *error = v50 = 0;
       }
 
@@ -387,7 +386,7 @@ LABEL_31:
 
     if (gLogCategory__ENTextMessageManager <= 90 && (gLogCategory__ENTextMessageManager != -1 || _LogCategory_Initialize()))
     {
-      [ENTextMessageManager _verifyTextMessage:phoneNumber:verificationDate:publicKey:publicKeyVersion:reportType:outError:];
+      [ENTextMessageManager _verifyTextMessage:errorCopy phoneNumber:? verificationDate:? publicKey:? publicKeyVersion:? reportType:? outError:?];
     }
 
     goto LABEL_31;
@@ -397,7 +396,7 @@ LABEL_31:
   v56 = v25;
   if (error)
   {
-    ENErrorF();
+    ENErrorF(2, "No valid public key found to verify");
     *error = v57 = 0;
   }
 
@@ -420,23 +419,23 @@ LABEL_42:
 
 - (BOOL)_readIfNecessaryWithError:(id *)error
 {
-  v24[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   v5 = [(ENSecureArchiveFileWrapper *)self->_textMessageHistoryFileWrapper openWithError:?];
   if (v5)
   {
     if (!self->_textMessageHashes)
     {
       v6 = MEMORY[0x277CBEB90];
-      v24[0] = objc_opt_class();
-      v24[1] = objc_opt_class();
-      v24[2] = objc_opt_class();
-      v7 = [MEMORY[0x277CBEA68] arrayWithObjects:v24 count:3];
+      v21[0] = objc_opt_class();
+      v21[1] = objc_opt_class();
+      v21[2] = objc_opt_class();
+      v7 = [MEMORY[0x277CBEA68] arrayWithObjects:v21 count:3];
       v8 = [v6 setWithArray:v7];
 
       textMessageHistoryFileWrapper = self->_textMessageHistoryFileWrapper;
-      v23 = 0;
-      v10 = [(ENSecureArchiveFileWrapper *)textMessageHistoryFileWrapper readObject:&v23 ofClasses:v8 error:error];
-      v11 = v23;
+      v20 = 0;
+      v10 = [(ENSecureArchiveFileWrapper *)textMessageHistoryFileWrapper readObject:&v20 ofClasses:v8 error:error];
+      v11 = v20;
       if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
         v12 = [MEMORY[0x277CBEB30] dictionaryWithDictionary:v11];
@@ -454,7 +453,7 @@ LABEL_42:
           {
 
             LOBYTE(v5) = 0;
-            goto LABEL_18;
+            return v5;
           }
         }
 
@@ -474,22 +473,18 @@ LABEL_42:
 
     if (isSensitiveLoggingAllowed && gLogCategory_ENTextMessageManager <= 10 && (gLogCategory_ENTextMessageManager != -1 || _LogCategory_Initialize()))
     {
-      v21 = self->_textMessageHashes;
-      v22 = *error;
-      LogPrintF();
+      LogPrintF(&gLogCategory_ENTextMessageManager, "[ENTextMessageManager _readIfNecessaryWithError:]", 10, "### Boot: Text message codes: %@, error: %@", self->_textMessageHashes, *error);
     }
 
     LOBYTE(v5) = 1;
   }
 
-LABEL_18:
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)verifyTextMessage:(id)message phoneNumber:(id)number verificationDate:(id)date publicKey:(id)key publicKeyVersion:(id)version userReport:(BOOL *)report outError:(id *)error
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   numberCopy = number;
   dateCopy = date;
@@ -506,8 +501,7 @@ LABEL_18:
 
   if (isSensitiveLoggingAllowed && gLogCategory_ENTextMessageManager <= 10 && (gLogCategory_ENTextMessageManager != -1 || _LogCategory_Initialize()))
   {
-    textMessageHashes = self->_textMessageHashes;
-    LogPrintF();
+    LogPrintF(&gLogCategory_ENTextMessageManager, "[ENTextMessageManager verifyTextMessage:phoneNumber:verificationDate:publicKey:publicKeyVersion:userReport:outError:]", 10, "### Text message codes: %@", self->_textMessageHashes);
   }
 
   testVerificationCode = [messageCopy testVerificationCode];
@@ -517,42 +511,36 @@ LABEL_18:
 
     if (!v21)
     {
-      v60 = testVerificationCode;
+      v50 = testVerificationCode;
       v22 = dateCopy;
-      v67 = 0u;
-      v68 = 0u;
-      v65 = 0u;
-      v66 = 0u;
-      v23 = [&unk_285D6E108 countByEnumeratingWithState:&v65 objects:v69 count:16];
-      v62 = messageCopy;
+      v57 = 0u;
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
+      v23 = [&unk_285D6E108 countByEnumeratingWithState:&v55 objects:v59 count:16];
+      v52 = messageCopy;
       if (v23)
       {
         v24 = v23;
         reportCopy = report;
         v25 = 0;
-        v61 = *v66;
+        v51 = *v56;
         while (2)
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v66 != v61)
+            if (*v56 != v51)
             {
               objc_enumerationMutation(&unk_285D6E108);
             }
 
-            v27 = *(*(&v65 + 1) + 8 * i);
+            v27 = *(*(&v55 + 1) + 8 * i);
             v28 = +[ENLoggingPrefs sharedENLoggingPrefs];
             isSensitiveLoggingAllowed2 = [v28 isSensitiveLoggingAllowed];
 
             if (isSensitiveLoggingAllowed2 && gLogCategory_ENTextMessageManager <= 30 && (gLogCategory_ENTextMessageManager != -1 || _LogCategory_Initialize()))
             {
-              v57 = keyCopy;
-              v58 = versionCopy;
-              v55 = numberCopy;
-              v56 = v22;
-              v52 = v27;
-              v54 = messageCopy;
-              LogPrintF();
+              LogPrintF(&gLogCategory_ENTextMessageManager, "[ENTextMessageManager verifyTextMessage:phoneNumber:verificationDate:publicKey:publicKeyVersion:userReport:outError:]", 30, "### VerifyMessage: %@, %@, %@, %@, %@, %@", v27, messageCopy, numberCopy, v22, keyCopy, versionCopy);
             }
 
             v30 = [OUTLINED_FUNCTION_0() _verifyTextMessage:? phoneNumber:? verificationDate:? publicKey:? publicKeyVersion:? reportType:? outError:?];
@@ -569,8 +557,7 @@ LABEL_18:
 
             if (isSensitiveLoggingAllowed3 && gLogCategory_ENTextMessageManager <= 30 && (gLogCategory_ENTextMessageManager != -1 || _LogCategory_Initialize()))
             {
-              v52 = v32;
-              LogPrintF();
+              LogPrintF(&gLogCategory_ENTextMessageManager, "[ENTextMessageManager verifyTextMessage:phoneNumber:verificationDate:publicKey:publicKeyVersion:userReport:outError:]", 30, "### VerifyMessage for 24 hours before: %@", v32);
             }
 
             v35 = [OUTLINED_FUNCTION_0() _verifyTextMessage:? phoneNumber:? verificationDate:? publicKey:? publicKeyVersion:? reportType:? outError:?];
@@ -591,15 +578,14 @@ LABEL_27:
 
               if (isSensitiveLoggingAllowed4 && gLogCategory_ENTextMessageManager <= 30 && (gLogCategory_ENTextMessageManager != -1 || _LogCategory_Initialize()))
               {
-                v52 = v37;
-                LogPrintF();
+                LogPrintF(&gLogCategory_ENTextMessageManager, "[ENTextMessageManager verifyTextMessage:phoneNumber:verificationDate:publicKey:publicKeyVersion:userReport:outError:]", 30, "### VerifyMessage for 24 hours ahead: %@", v37);
               }
 
               v36 = [OUTLINED_FUNCTION_0() _verifyTextMessage:? phoneNumber:? verificationDate:? publicKey:? publicKeyVersion:? reportType:? outError:?];
               v25 = 0;
             }
 
-            v40 = [ENLoggingPrefs sharedENLoggingPrefs:v52];
+            v40 = +[ENLoggingPrefs sharedENLoggingPrefs];
             isSensitiveLoggingAllowed5 = [v40 isSensitiveLoggingAllowed];
 
             if (isSensitiveLoggingAllowed5 && gLogCategory_ENTextMessageManager <= 40 && (gLogCategory_ENTextMessageManager != -1 || _LogCategory_Initialize()))
@@ -610,9 +596,7 @@ LABEL_27:
                 v42 = "yes";
               }
 
-              v51 = v42;
-              v54 = v27;
-              LogPrintF();
+              LogPrintF(&gLogCategory_ENTextMessageManager, "[ENTextMessageManager verifyTextMessage:phoneNumber:verificationDate:publicKey:publicKeyVersion:userReport:outError:]", 40, "### Verified Message: %s for %@", v42, v27);
             }
 
             if (v36)
@@ -627,10 +611,10 @@ LABEL_27:
               goto LABEL_51;
             }
 
-            messageCopy = v62;
+            messageCopy = v52;
           }
 
-          v24 = [&unk_285D6E108 countByEnumeratingWithState:&v65 objects:v69 count:16];
+          v24 = [&unk_285D6E108 countByEnumeratingWithState:&v55 objects:v59 count:16];
           if (v24)
           {
             continue;
@@ -659,42 +643,41 @@ LABEL_27:
 
 LABEL_51:
       dateCopy = v22;
-      testVerificationCode = v60;
+      testVerificationCode = v50;
       v46 = +[ENLoggingPrefs sharedENLoggingPrefs];
       isSensitiveLoggingAllowed6 = [v46 isSensitiveLoggingAllowed];
 
       if (isSensitiveLoggingAllowed6 && gLogCategory_ENTextMessageManager <= 10 && (gLogCategory_ENTextMessageManager != -1 || _LogCategory_Initialize()))
       {
-        v53 = self->_textMessageHashes;
-        LogPrintF();
+        LogPrintF(&gLogCategory_ENTextMessageManager, "[ENTextMessageManager verifyTextMessage:phoneNumber:verificationDate:publicKey:publicKeyVersion:userReport:outError:]", 10, "### Text message codes: %@", self->_textMessageHashes);
       }
 
-      messageCopy = v62;
+      messageCopy = v52;
       goto LABEL_57;
     }
 
     if (error)
     {
-      goto LABEL_62;
+      ENErrorF(13, "Code already consumed.");
+      goto LABEL_63;
     }
 
-LABEL_63:
+LABEL_64:
     v44 = 0;
     goto LABEL_57;
   }
 
   if (!error)
   {
-    goto LABEL_63;
+    goto LABEL_64;
   }
 
-LABEL_62:
-  ENErrorF();
+  ENErrorF(2, "No verification code found.");
+LABEL_63:
   *error = v44 = 0;
 LABEL_57:
 
 LABEL_58:
-  v48 = *MEMORY[0x277D85DE8];
   return v44;
 }
 
@@ -708,15 +691,16 @@ LABEL_58:
 {
   if (gLogCategory__ENTextMessageManager <= 90)
   {
+    v1 = result;
     if (gLogCategory__ENTextMessageManager != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory__ENTextMessageManager, "[ENTextMessageManager activateIfNeeded]", 90, "Unable to read verification code hashes: %@", v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory__ENTextMessageManager, "[ENTextMessageManager activateIfNeeded]", 90, "Unable to read verification code hashes: %@", v1);
     }
   }
 

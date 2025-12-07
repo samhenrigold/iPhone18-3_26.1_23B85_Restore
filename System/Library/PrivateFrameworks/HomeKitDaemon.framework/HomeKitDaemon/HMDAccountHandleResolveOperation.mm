@@ -16,7 +16,7 @@
 
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   messageCopy = message;
@@ -32,16 +32,16 @@
       v20 = [userInfo hmf_UUIDForKey:@"transactionID"];
 
       v21 = [messageCopy hmf_UUIDForKey:@"kIDSMessageRequestTransactionIDKey"];
-      v53 = v20;
+      v52 = v20;
       if ([v21 hmf_isEqualToUUID:v20])
       {
-        v51 = [HMDDeviceHandle deviceHandleForDestination:dCopy];
+        v50 = [HMDDeviceHandle deviceHandleForDestination:dCopy];
         v22 = [HMDAccountHandle accountHandleForDestination:dCopy];
-        v50 = v22;
+        v49 = v22;
         if (v22)
         {
           v23 = v22;
-          v48 = v21;
+          v47 = v21;
           handle = [(HMDAccountHandleResolveOperation *)self handle];
           v25 = [v23 isEqual:handle];
 
@@ -56,17 +56,17 @@
               HMFGetLogIdentifier();
               v31 = v30 = v26;
               *buf = 138543618;
-              v55 = v31;
-              v56 = 2112;
-              v57 = v51;
+              v54 = v31;
+              v55 = 2112;
+              v56 = v50;
               _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Received response from: %@", buf, 0x16u);
 
               v26 = v30;
             }
 
             objc_autoreleasePoolPop(v26);
-            v47 = [HMDAccountIdentifier accountIdentifierForMessageContext:contextCopy];
-            v32 = [[HMDRemoteMessageSenderContext alloc] initWithDeviceHandle:v51 accountHandle:v50 accountIdentifier:v47 deviceVersion:0 pairingIdentityIdentifier:0];
+            v46 = [HMDAccountIdentifier accountIdentifierForMessageContext:contextCopy];
+            v32 = [[HMDRemoteMessageSenderContext alloc] initWithDeviceHandle:v50 accountHandle:v49 accountIdentifier:v46 deviceVersion:0 pairingIdentityIdentifier:0];
             v33 = +[HMDRemoteAccountManager sharedManager];
             v34 = [v33 accountForSenderContext:v32];
 
@@ -81,9 +81,9 @@
               HMFGetLogIdentifier();
               v45 = v44 = v26;
               *buf = 138543618;
-              v55 = v45;
-              v56 = 2112;
-              v57 = v51;
+              v54 = v45;
+              v55 = 2112;
+              v56 = v50;
               _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Ignoring response from unsupported device: %@", buf, 0x16u);
 
               v26 = v44;
@@ -92,7 +92,7 @@
             objc_autoreleasePoolPop(v26);
           }
 
-          v21 = v48;
+          v21 = v47;
         }
 
         else
@@ -103,12 +103,12 @@
           if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
           {
             HMFGetLogIdentifier();
-            v43 = v49 = v21;
+            v43 = v48 = v21;
             *buf = 138543362;
-            v55 = v43;
+            v54 = v43;
             _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_INFO, "%{public}@Failed to parse sender account handle", buf, 0xCu);
 
-            v21 = v49;
+            v21 = v48;
           }
 
           objc_autoreleasePoolPop(v40);
@@ -123,32 +123,30 @@
         if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
         {
           HMFGetLogIdentifier();
-          v52 = v35;
+          v51 = v35;
           v39 = v38 = v21;
           *buf = 138543874;
-          v55 = v39;
-          v56 = 2112;
-          v57 = v38;
-          v58 = 2112;
-          v59 = v53;
+          v54 = v39;
+          v55 = 2112;
+          v56 = v38;
+          v57 = 2112;
+          v58 = v52;
           _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring message with transaction ID: %@, expected %@", buf, 0x20u);
 
           v21 = v38;
-          v35 = v52;
+          v35 = v51;
         }
 
         objc_autoreleasePoolPop(v35);
       }
     }
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error context:(id)context
 {
   successCopy = success;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   identifierCopy = identifier;
@@ -171,9 +169,9 @@
         if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           v26 = HMFGetLogIdentifier();
-          v30 = 138543362;
-          v31 = v26;
-          _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Confirmed resolve sent successfully", &v30, 0xCu);
+          v29 = 138543362;
+          v30 = v26;
+          _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Confirmed resolve sent successfully", &v29, 0xCu);
         }
 
         objc_autoreleasePoolPop(v22);
@@ -184,11 +182,11 @@
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           v27 = HMFGetLogIdentifier();
-          v30 = 138543618;
-          v31 = v27;
-          v32 = 2112;
-          v33 = errorCopy;
-          _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to send message to server with error: %@", &v30, 0x16u);
+          v29 = 138543618;
+          v30 = v27;
+          v31 = 2112;
+          v32 = errorCopy;
+          _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to send message to server with error: %@", &v29, 0x16u);
         }
 
         objc_autoreleasePoolPop(v22);
@@ -198,8 +196,6 @@
       }
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -232,7 +228,7 @@ void __52__HMDAccountHandleResolveOperation_addResolveBlock___block_invoke(uint6
   if (([*(a1 + 32) isFinished] & 1) == 0)
   {
     v4 = [*(a1 + 32) resolveBlocks];
-    v2 = [*(a1 + 40) copy];
+    v2 = objc_msgSend_copy(*(a1 + 40));
     v3 = _Block_copy(v2);
     [v4 addObject:v3];
   }
@@ -240,7 +236,7 @@ void __52__HMDAccountHandleResolveOperation_addResolveBlock___block_invoke(uint6
 
 - (void)main
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -248,7 +244,7 @@ void __52__HMDAccountHandleResolveOperation_addResolveBlock___block_invoke(uint6
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v55 = v6;
+    v54 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting", buf, 0xCu);
   }
 
@@ -260,33 +256,33 @@ void __52__HMDAccountHandleResolveOperation_addResolveBlock___block_invoke(uint6
 
   v11 = [[HMDRemoteMessage alloc] initWithName:@"kPingInternalRequestKey" qualityOfService:-1 destination:v10 payload:0 type:0 timeout:0 secure:0.0];
   [(HMDRemoteMessage *)v11 setResponseRestriction:1];
-  v49 = 0;
-  v12 = [HMDRemoteMessageSerialization dictionaryForMessage:v11 isHH2Payload:1 error:&v49];
-  v13 = v49;
+  v48 = 0;
+  v12 = [HMDRemoteMessageSerialization dictionaryForMessage:v11 isHH2Payload:1 error:&v48];
+  v13 = v48;
   v14 = v13;
   if (v12)
   {
-    v45 = v13;
-    v46 = v10;
-    v52[0] = *MEMORY[0x277D18650];
+    v44 = v13;
+    v45 = v10;
+    v51[0] = *MEMORY[0x277D18650];
     v15 = MEMORY[0x277CCABB0];
     +[HMDAccountHandleResolveOperation timeout];
     v16 = [v15 numberWithDouble:?];
-    v52[1] = *MEMORY[0x277D185C0];
-    v53[0] = v16;
-    v53[1] = MEMORY[0x277CBEC38];
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
+    v51[1] = *MEMORY[0x277D185C0];
+    v52[0] = v16;
+    v52[1] = MEMORY[0x277CBEC38];
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:2];
 
     service = [(HMDAccountHandleResolveOperation *)selfCopy service];
     v19 = MEMORY[0x277CBEB98];
     handle2 = [(HMDAccountHandleResolveOperation *)selfCopy handle];
     remoteDestinationString = [handle2 remoteDestinationString];
     v22 = [v19 setWithObject:remoteDestinationString];
+    v46 = 0;
     v47 = 0;
-    v48 = 0;
-    v23 = [service sendMessage:v12 toDestinations:v22 priority:300 options:v17 identifier:&v48 error:&v47];
-    v24 = v48;
-    v44 = v47;
+    v23 = [service sendMessage:v12 toDestinations:v22 priority:300 options:v17 identifier:&v47 error:&v46];
+    v24 = v47;
+    v43 = v46;
 
     v25 = objc_autoreleasePoolPush();
     v26 = selfCopy;
@@ -298,9 +294,9 @@ void __52__HMDAccountHandleResolveOperation_addResolveBlock___block_invoke(uint6
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v55 = v29;
-        v56 = 2112;
-        v57 = v24;
+        v54 = v29;
+        v55 = 2112;
+        v56 = v24;
         _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Started resolve with identifier: %@", buf, 0x16u);
       }
 
@@ -309,41 +305,41 @@ void __52__HMDAccountHandleResolveOperation_addResolveBlock___block_invoke(uint6
       v31 = [HMDRemoteMessageLogEvent sentRemoteMessage:v11 transportType:2];
       [v30 submitLogEvent:v31];
 
-      v50 = @"transactionID";
+      v49 = @"transactionID";
       transactionIdentifier = [(HMDRemoteMessage *)v11 transactionIdentifier];
-      v51 = transactionIdentifier;
-      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+      v50 = transactionIdentifier;
+      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
 
       v34 = [HMDIDSMessageContext alloc];
       v35 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v24];
-      v10 = v46;
-      v36 = [(HMDIDSMessageContext *)v34 initWithIdentifier:v35 destination:v46 userInfo:v33];
+      v10 = v45;
+      v36 = [(HMDIDSMessageContext *)v34 initWithIdentifier:v35 destination:v45 userInfo:v33];
       [(HMDAccountHandleResolveOperation *)v26 setMessageContext:v36];
 
-      v37 = v44;
+      v37 = v43;
     }
 
     else
     {
-      v37 = v44;
+      v37 = v43;
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         v42 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v55 = v42;
-        v56 = 2112;
-        v57 = v44;
+        v54 = v42;
+        v55 = 2112;
+        v56 = v43;
         _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to send message with error: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v25);
-      v33 = [MEMORY[0x277CCA9B8] hmErrorWithCode:54 description:0 reason:0 suggestion:0 underlyingError:v44];
+      v33 = [MEMORY[0x277CCA9B8] hmErrorWithCode:54 description:0 reason:0 suggestion:0 underlyingError:v43];
       __callResolveBlocks(v26, 0, v33);
       [(HMFOperation *)v26 cancelWithError:v33];
-      v10 = v46;
+      v10 = v45;
     }
 
-    v14 = v45;
+    v14 = v44;
   }
 
   else
@@ -355,9 +351,9 @@ void __52__HMDAccountHandleResolveOperation_addResolveBlock___block_invoke(uint6
     {
       v41 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v55 = v41;
-      v56 = 2112;
-      v57 = v14;
+      v54 = v41;
+      v55 = 2112;
+      v56 = v14;
       _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_ERROR, "%{public}@Failed to serialize message with error: %@", buf, 0x16u);
     }
 
@@ -366,8 +362,6 @@ void __52__HMDAccountHandleResolveOperation_addResolveBlock___block_invoke(uint6
     __callResolveBlocks(v39, 0, v17);
     [(HMFOperation *)v39 cancelWithError:v17];
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAccountHandleResolveOperation)initWithHandle:(id)handle
@@ -386,7 +380,7 @@ void __52__HMDAccountHandleResolveOperation_addResolveBlock___block_invoke(uint6
   v6 = [(HMFOperation *)&v21 initWithTimeout:?];
   if (v6)
   {
-    v7 = [v5 copy];
+    v7 = objc_msgSend_copy(v5);
     handle = v6->_handle;
     v6->_handle = v7;
 
@@ -460,10 +454,9 @@ void __52__HMDAccountHandleResolveOperation_addResolveBlock___block_invoke(uint6
 
 void __47__HMDAccountHandleResolveOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_84324;
-  logCategory__hmf_once_v5_84324 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_84324;
+  logCategory__hmf_once_v5_84324 = v0;
 }
 
 + (double)timeout

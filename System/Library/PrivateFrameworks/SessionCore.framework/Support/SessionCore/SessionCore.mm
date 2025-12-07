@@ -40,35 +40,34 @@ int main(int argc, const char **argv, const char **envp)
 {
   v3 = type metadata accessor for Logger();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin();
-  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100001664();
   static OS_os_log.default.getter();
   Logger.init(_:)();
-  v8 = Logger.logObject.getter();
-  v9 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v8, v9))
+  v7 = Logger.logObject.getter();
+  v8 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v7, v8))
   {
-    v10 = swift_slowAlloc();
-    *v10 = 0;
-    _os_log_impl(&_mh_execute_header, v8, v9, "Good morning! 🍎", v10, 2u);
+    v9 = swift_slowAlloc();
+    *v9 = 0;
+    _os_log_impl(&_mh_execute_header, v7, v8, "Good morning! 🍎", v9, 2u);
   }
 
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 8))(v6, v3);
   sub_100001110();
   nullsub_1();
   type metadata accessor for Daemon();
-  v11 = [objc_opt_self() sharedDaemonWorkloop];
+  v10 = [objc_opt_self() sharedDaemonWorkloop];
   qword_100008158 = Daemon.__allocating_init(workloop:)();
   dispatch thunk of Daemon.start()();
   static NotificationName.daemonStartup.getter();
-  v12 = String.utf8CString.getter();
+  v11 = String.utf8CString.getter();
 
-  notify_post((v12 + 32));
+  notify_post((v11 + 32));
 
-  v13 = [objc_opt_self() mainRunLoop];
-  [v13 run];
+  v12 = [objc_opt_self() mainRunLoop];
+  [v12 run];
 
   return 0;
 }

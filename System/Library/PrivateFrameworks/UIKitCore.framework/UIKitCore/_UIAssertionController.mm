@@ -77,9 +77,9 @@
         }
 
         reason = [*(*(&v13 + 1) + 8 * i) reason];
-        v11 = [reason isEqualToString:reasonCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(reason);
 
-        if (v11)
+        if (isEqualToString)
         {
           LOBYTE(v7) = 1;
           goto LABEL_11;

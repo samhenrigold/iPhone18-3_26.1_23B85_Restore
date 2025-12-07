@@ -58,35 +58,36 @@
 
 - (id)libraryForDevice:(id)device
 {
-  v6 = objc_msgSend_device(self->_library, a2, device, v3);
-  v10 = objc_msgSend_registryID(v6, v7, v8, v9);
-  if (v10 == objc_msgSend_registryID(device, v11, v12, v13))
+  v5 = objc_msgSend_device(self->_library, a2, device);
+  v8 = objc_msgSend_registryID(v5, v6, v7);
+  if (v8 == objc_msgSend_registryID(device, v9, v10))
   {
     return self->_library;
   }
 
-  block = self->_block;
-  if (!block || (result = block[2](block, device)) == 0)
+  result = self->_block;
+  if (!result || (result = (*(result + 2))(result, device)) == 0)
   {
     libraryURL = self->_libraryURL;
     if (libraryURL)
     {
-      v21 = 0;
-      v18 = objc_msgSend_newLibraryWithURL_error_(device, v14, libraryURL, &v21);
-      if (v18)
+      v18 = 0;
+      v14 = objc_msgSend_newLibraryWithURL_error_(device, v11, libraryURL, &v18);
+      if (v14)
       {
-        return v18;
+        return v14;
       }
 
-      v19 = sub_1AF0D5194();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v16 = sub_1AF0D5194(0, v15);
+      result = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+      if (result)
       {
         sub_1AFDF860C();
       }
     }
 
-    v20 = sub_1AF0D5194();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v17 = sub_1AF0D5194(result, v11);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF8684();
     }
@@ -108,7 +109,7 @@
 
   else
   {
-    v5 = sub_1AF0D5194();
+    v5 = sub_1AF0D5194(0, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF86F8();

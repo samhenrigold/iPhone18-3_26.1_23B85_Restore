@@ -23,46 +23,46 @@
 
 - (void)actionMain
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = dispatch_group_create();
-  v21[0] = 0;
-  v21[1] = v21;
-  v21[2] = 0x3032000000;
-  v21[3] = __Block_byref_object_copy__26;
-  v21[4] = __Block_byref_object_dispose__26;
-  v22 = 0;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x3032000000;
+  v20[3] = __Block_byref_object_copy__26;
+  v20[4] = __Block_byref_object_dispose__26;
+  v21 = 0;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = self->_items;
-  v4 = [(NSArray *)obj countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v4 = [(NSArray *)obj countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v4)
   {
-    v5 = *v18;
+    v5 = *v17;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         dispatch_group_enter(v3);
         v8 = +[FPDaemonConnection sharedConnection];
         itemID = [v7 itemID];
-        v14[0] = MEMORY[0x1E69E9820];
-        v14[1] = 3221225472;
-        v14[2] = __30__FPEvictOperation_actionMain__block_invoke;
-        v14[3] = &unk_1E793CA60;
-        v16 = v21;
-        v15 = v3;
-        [v8 evictItemWithID:itemID evictionReason:2 completionHandler:v14];
+        v13[0] = MEMORY[0x1E69E9820];
+        v13[1] = 3221225472;
+        v13[2] = __30__FPEvictOperation_actionMain__block_invoke;
+        v13[3] = &unk_1E793CA60;
+        v15 = v20;
+        v14 = v3;
+        [v8 evictItemWithID:itemID evictionReason:2 completionHandler:v13];
       }
 
-      v4 = [(NSArray *)obj countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v4 = [(NSArray *)obj countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v4);
@@ -74,11 +74,10 @@
   block[2] = __30__FPEvictOperation_actionMain__block_invoke_2;
   block[3] = &unk_1E793AD20;
   block[4] = self;
-  block[5] = v21;
+  block[5] = v20;
   dispatch_group_notify(v3, callbackQueue, block);
 
-  _Block_object_dispose(v21, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v20, 8);
 }
 
 void __30__FPEvictOperation_actionMain__block_invoke(uint64_t a1, void *a2)

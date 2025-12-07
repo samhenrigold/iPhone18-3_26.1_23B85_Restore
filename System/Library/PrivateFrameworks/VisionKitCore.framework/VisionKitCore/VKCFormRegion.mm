@@ -103,128 +103,128 @@
   switch(type)
   {
     case 2uLL:
-      v3 = getAFTextContentTypeName();
+      v3 = getAFTextContentTypeName(self, a2);
       break;
     case 3uLL:
-      v3 = getAFTextContentTypeNamePrefix();
+      v3 = getAFTextContentTypeNamePrefix(self, a2);
       break;
     case 4uLL:
-      v3 = getAFTextContentTypeGivenName();
+      v3 = getAFTextContentTypeGivenName(self, a2);
       break;
     case 5uLL:
-      v3 = getAFTextContentTypeMiddleName();
+      v3 = getAFTextContentTypeMiddleName(self, a2);
       break;
     case 6uLL:
-      v3 = getAFTextContentTypeFamilyName();
+      v3 = getAFTextContentTypeFamilyName(self, a2);
       break;
     case 7uLL:
-      v3 = getAFTextContentTypeNameSuffix();
+      v3 = getAFTextContentTypeNameSuffix(self, a2);
       break;
     case 8uLL:
-      v3 = getAFTextContentTypeNickname();
+      v3 = getAFTextContentTypeNickname(self, a2);
       break;
     case 9uLL:
-      v3 = getAFTextContentTypeJobTitle();
+      v3 = getAFTextContentTypeJobTitle(self, a2);
       break;
     case 0xAuLL:
-      v3 = getAFTextContentTypeOrganizationName();
+      v3 = getAFTextContentTypeOrganizationName(self, a2);
       break;
     case 0xBuLL:
-      v3 = getAFTextContentTypeLocation();
+      v3 = getAFTextContentTypeLocation(self, a2);
       break;
     case 0xCuLL:
-      v3 = getAFTextContentTypeFullStreetAddress();
+      v3 = getAFTextContentTypeFullStreetAddress(self, a2);
       break;
     case 0xDuLL:
-      v3 = getAFTextContentTypeStreetAddressLine1();
+      v3 = getAFTextContentTypeStreetAddressLine1(self, a2);
       break;
     case 0xEuLL:
-      v3 = getAFTextContentTypeStreetAddressLine2();
+      v3 = getAFTextContentTypeStreetAddressLine2(self, a2);
       break;
     case 0xFuLL:
-      v3 = getAFTextContentTypeAddressCity();
+      v3 = getAFTextContentTypeAddressCity(self, a2);
       break;
     case 0x10uLL:
-      v3 = getAFTextContentTypeAddressState();
+      v3 = getAFTextContentTypeAddressState(self, a2);
       break;
     case 0x11uLL:
-      v3 = getAFTextContentTypeAddressCityAndState();
+      v3 = getAFTextContentTypeAddressCityAndState(self, a2);
       break;
     case 0x13uLL:
-      v3 = getAFTextContentTypeCountryName();
+      v3 = getAFTextContentTypeCountryName(self, a2);
       break;
     case 0x14uLL:
-      v3 = getAFTextContentTypePostalCode();
+      v3 = getAFTextContentTypePostalCode(self, a2);
       break;
     case 0x15uLL:
-      v3 = getAFTextContentTypeEmailAddress();
+      v3 = getAFTextContentTypeEmailAddress(self, a2);
       break;
     case 0x16uLL:
-      v3 = getAFTextContentTypeURL();
+      v3 = getAFTextContentTypeURL(self, a2);
       break;
     case 0x17uLL:
-      v3 = getAFTextContentTypePassword();
+      v3 = getAFTextContentTypePassword(self, a2);
       break;
     case 0x18uLL:
-      v3 = getAFTextContentTypeCreditCardName();
+      v3 = getAFTextContentTypeCreditCardName(self, a2);
       break;
     case 0x19uLL:
-      v3 = getAFTextContentTypeCreditCardGivenName();
+      v3 = getAFTextContentTypeCreditCardGivenName(self, a2);
       break;
     case 0x1AuLL:
-      v3 = getAFTextContentTypeCreditCardMiddleName();
+      v3 = getAFTextContentTypeCreditCardMiddleName(self, a2);
       break;
     case 0x1BuLL:
-      v3 = getAFTextContentTypeCreditCardFamilyName();
+      v3 = getAFTextContentTypeCreditCardFamilyName(self, a2);
       break;
     case 0x1CuLL:
-      v3 = getAFTextContentTypeCreditCardNumber();
+      v3 = getAFTextContentTypeCreditCardNumber(self, a2);
       break;
     case 0x1DuLL:
-      v3 = getAFTextContentTypeCreditCardExpiration();
+      v3 = getAFTextContentTypeCreditCardExpiration(self, a2);
       break;
     case 0x1EuLL:
-      v3 = getAFTextContentTypeCreditCardExpirationMonth();
+      v3 = getAFTextContentTypeCreditCardExpirationMonth(self, a2);
       break;
     case 0x1FuLL:
-      v3 = getAFTextContentTypeCreditCardExpirationYear();
+      v3 = getAFTextContentTypeCreditCardExpirationYear(self, a2);
       break;
     case 0x20uLL:
-      v3 = getAFTextContentTypeCreditCardSecurityCode();
+      v3 = getAFTextContentTypeCreditCardSecurityCode(self, a2);
       break;
     case 0x21uLL:
-      v3 = getAFTextContentTypeCreditCardType();
+      v3 = getAFTextContentTypeCreditCardType(self, a2);
       break;
     case 0x25uLL:
-      v3 = getAFTextContentTypeBirthdate();
+      v3 = getAFTextContentTypeBirthdate(self, a2);
       break;
     case 0x26uLL:
-      v3 = getAFTextContentTypeBirthdateDay();
+      v3 = getAFTextContentTypeBirthdateDay(self, a2);
       break;
     case 0x27uLL:
-      v3 = getAFTextContentTypeBirthdateMonth();
+      v3 = getAFTextContentTypeBirthdateMonth(self, a2);
       break;
     case 0x28uLL:
-      v3 = getAFTextContentTypeBirthdateYear();
+      v3 = getAFTextContentTypeBirthdateYear(self, a2);
       break;
     case 0x2AuLL:
-      v3 = getAFTextContentTypeTelephoneNumber();
+      v3 = getAFTextContentTypeTelephoneNumber(self, a2);
       break;
     case 0x2BuLL:
-      v3 = getAFTextContentTypeTelephoneCountryCode();
+      v3 = getAFTextContentTypeTelephoneCountryCode(self, a2);
       break;
     case 0x2CuLL:
-      v3 = getAFTextContentTypeTelephoneNationalNumber();
+      v3 = getAFTextContentTypeTelephoneNationalNumber(self, a2);
       break;
     case 0x2DuLL:
-      v3 = getAFTextContentTypeTelephoneAreaCode();
+      v3 = getAFTextContentTypeTelephoneAreaCode(self, a2);
       break;
     case 0x2EuLL:
     case 0x2FuLL:
     case 0x30uLL:
       goto LABEL_7;
     case 0x31uLL:
-      v3 = getAFTextContentTypeTelephoneExtension();
+      v3 = getAFTextContentTypeTelephoneExtension(self, a2);
       break;
     case 0x34uLL:
     case 0x35uLL:
@@ -234,50 +234,51 @@
     case 0x39uLL:
     case 0x3AuLL:
     case 0x3BuLL:
-      v9 = 0;
-      v10 = &v9;
-      v11 = 0x2020000000;
+      v10 = 0;
+      v11 = &v10;
+      v12 = 0x2020000000;
       v4 = getAFTextContentTypeDateTimeSymbolLoc_ptr;
-      v12 = getAFTextContentTypeDateTimeSymbolLoc_ptr;
+      v13 = getAFTextContentTypeDateTimeSymbolLoc_ptr;
       if (!getAFTextContentTypeDateTimeSymbolLoc_ptr)
       {
         v5 = AutoFillCoreLibrary();
-        v10[3] = dlsym(v5, "AFTextContentTypeDateTime");
-        getAFTextContentTypeDateTimeSymbolLoc_ptr = v10[3];
-        v4 = v10[3];
+        v11[3] = dlsym(v5, "AFTextContentTypeDateTime");
+        getAFTextContentTypeDateTimeSymbolLoc_ptr = v11[3];
+        v4 = v11[3];
       }
 
-      _Block_object_dispose(&v9, 8);
+      _Block_object_dispose(&v10, 8);
       if (!v4)
       {
         getkDDRVInteractionDidFinishNotification_cold_1();
 LABEL_7:
-        v9 = 0;
-        v10 = &v9;
-        v11 = 0x2020000000;
+        v10 = 0;
+        v11 = &v10;
+        v12 = 0x2020000000;
         v4 = getAFTextContentTypeTelephoneLocalNumberSymbolLoc_ptr;
-        v12 = getAFTextContentTypeTelephoneLocalNumberSymbolLoc_ptr;
+        v13 = getAFTextContentTypeTelephoneLocalNumberSymbolLoc_ptr;
         if (!getAFTextContentTypeTelephoneLocalNumberSymbolLoc_ptr)
         {
           v6 = AutoFillCoreLibrary();
-          v10[3] = dlsym(v6, "AFTextContentTypeTelephoneLocalNumber");
-          getAFTextContentTypeTelephoneLocalNumberSymbolLoc_ptr = v10[3];
-          v4 = v10[3];
+          v11[3] = dlsym(v6, "AFTextContentTypeTelephoneLocalNumber");
+          getAFTextContentTypeTelephoneLocalNumberSymbolLoc_ptr = v11[3];
+          v4 = v11[3];
         }
 
-        _Block_object_dispose(&v9, 8);
+        _Block_object_dispose(&v10, 8);
         if (!v4)
         {
-          v8 = getkDDRVInteractionDidFinishNotification_cold_1();
-          _Block_object_dispose(&v9, 8);
-          _Unwind_Resume(v8);
+          getkDDRVInteractionDidFinishNotification_cold_1();
+          v9 = v8;
+          _Block_object_dispose(&v10, 8);
+          _Unwind_Resume(v9);
         }
       }
 
       v3 = *v4;
       break;
     default:
-      v3 = getAFTextContentTypeNone();
+      v3 = getAFTextContentTypeNone(self, a2);
       break;
   }
 

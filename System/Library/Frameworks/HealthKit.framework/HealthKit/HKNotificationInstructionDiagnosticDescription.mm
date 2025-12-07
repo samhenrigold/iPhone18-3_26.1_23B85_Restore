@@ -222,7 +222,7 @@ LABEL_43:
 
 - (NSArray)propertyValues
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   messageIdentifier = self->_messageIdentifier;
   modificationDate = self->_modificationDate;
   sendingDeviceName = self->_sendingDeviceName;
@@ -231,19 +231,18 @@ LABEL_43:
     sendingDeviceName = @"<null>";
   }
 
-  v10 = *&self->_creationDate;
-  v11 = modificationDate;
-  v12 = sendingDeviceName;
+  v9 = *&self->_creationDate;
+  v10 = modificationDate;
+  v11 = sendingDeviceName;
   sendingDeviceInfo = self->_sendingDeviceInfo;
-  v14 = *&self->_action;
+  v13 = *&self->_action;
   expirationDate = self->_expirationDate;
   categoryIdentifier = self->_categoryIdentifier;
-  v16 = expirationDate;
+  v15 = expirationDate;
   isInvalid = self->_isInvalid;
   criteria = self->_criteria;
-  v18 = isInvalid;
+  v17 = isInvalid;
   v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&messageIdentifier count:12];
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

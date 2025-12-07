@@ -14,9 +14,9 @@
     JreThrowNullPointerException();
   }
 
-  v6 = [v5 addAttributeWithIOSClass:OrgApacheLuceneSearchBoostAttribute_class_()];
+  v7 = [v5 addAttributeWithIOSClass:{OrgApacheLuceneSearchBoostAttribute_class_(v5, v6)}];
 
-  JreStrongAssign(&self->boostAtt_, v6);
+  JreStrongAssign(&self->boostAtt_, v7);
 }
 
 - (BOOL)collectWithOrgApacheLuceneUtilBytesRef:(id)ref

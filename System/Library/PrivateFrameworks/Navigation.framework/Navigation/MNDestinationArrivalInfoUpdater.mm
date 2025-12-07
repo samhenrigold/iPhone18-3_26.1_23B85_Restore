@@ -24,13 +24,12 @@
 
 - (void)dealloc
 {
-  v3 = *(&self->super.isa + OBJC_IVAR___MNDestinationArrivalInfoUpdater__remainingTimeUpdater);
   swift_beginAccess();
   swift_unknownObjectWeakAssign();
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for DestinationArrivalInfoUpdater();
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for DestinationArrivalInfoUpdater();
   selfCopy = self;
-  [(MNDestinationArrivalInfoUpdater *)&v5 dealloc];
+  [(MNDestinationArrivalInfoUpdater *)&v4 dealloc];
 }
 
 - (MNDestinationArrivalInfoUpdater)init

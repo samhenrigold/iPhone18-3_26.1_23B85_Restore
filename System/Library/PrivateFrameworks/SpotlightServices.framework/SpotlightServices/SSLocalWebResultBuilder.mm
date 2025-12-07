@@ -114,7 +114,7 @@
 
 - (id)buildDescriptions
 {
-  v41[2] = *MEMORY[0x1E69E9840];
+  v40[2] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = objc_opt_new();
   v5 = objc_opt_class();
@@ -185,9 +185,9 @@
       v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@" %@", v26];
       v35 = [v33 textWithString:v34];
 
-      v41[0] = v32;
-      v41[1] = v35;
-      v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
+      v40[0] = v32;
+      v40[1] = v35;
+      v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
       [v3 setFormattedTextPieces:v36];
     }
 
@@ -197,16 +197,14 @@
     }
 
     [v3 setMaxLines:1];
-    v40 = v3;
-    v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
+    v39 = v3;
+    v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
   }
 
   else
   {
     v37 = 0;
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return v37;
 }

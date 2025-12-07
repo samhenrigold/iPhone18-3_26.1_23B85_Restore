@@ -142,38 +142,38 @@
 
 - (GDLocationAddress)initWithRelationshipIdTriplesIterator:(id)iterator
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   iteratorCopy = iterator;
-  v29.receiver = self;
-  v29.super_class = GDLocationAddress;
-  v5 = [(GDLocationAddress *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = GDLocationAddress;
+  v5 = [(GDLocationAddress *)&v28 init];
   if (!v5)
   {
     goto LABEL_23;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
-  v23 = iteratorCopy;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v22 = iteratorCopy;
   obj = iteratorCopy;
-  v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v6 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v6)
   {
     v7 = v6;
     p_ISOCountryCode = &v5->_ISOCountryCode;
-    v8 = *v26;
+    v8 = *v25;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
+        v10 = *(*(&v24 + 1) + 8 * i);
         if (!v5->_relationshipIdentifier)
         {
           v11 = [GDRelationshipIdentifier alloc];
@@ -185,34 +185,21 @@
 
         relationshipPredicate = [v10 relationshipPredicate];
         p_subPremises = &v5->_subPremises;
-        if ([relationshipPredicate isEqual:@"PS730"])
+        if ([relationshipPredicate isEqual:@"PS730"] & 1) != 0 || (p_subPremises = &v5->_subThoroughfare, (objc_msgSend(relationshipPredicate, "isEqual:", @"PS570")) || (p_subPremises = &v5->_thoroughfare, (objc_msgSend(relationshipPredicate, "isEqual:", @"PS316")) || (p_subPremises = &v5->_subLocality, (objc_msgSend(relationshipPredicate, "isEqual:", @"PS569")) || (p_subPremises = &v5->_locality, (objc_msgSend(relationshipPredicate, "isEqual:", @"PS453")) || (p_subPremises = &v5->_subAdministrativeArea, (objc_msgSend(relationshipPredicate, "isEqual:", @"PS568")) || (p_subPremises = &v5->_administrativeArea, (objc_msgSend(relationshipPredicate, "isEqual:", @"PS455")) || (p_subPremises = &v5->_postalCode, (objc_msgSend(relationshipPredicate, "isEqual:", @"PS315")) || (p_subPremises = &v5->_country, (objc_msgSend(relationshipPredicate, "isEqual:", @"PS450")) || (p_subPremises = p_ISOCountryCode, objc_msgSend(relationshipPredicate, "isEqual:", @"PS454")))
         {
-          goto LABEL_19;
-        }
-
-        p_subPremises = &v5->_subThoroughfare;
-        if ([relationshipPredicate isEqual:@"PS570"])
-        {
-          goto LABEL_19;
-        }
-
-        p_subPremises = &v5->_thoroughfare;
-        if ([relationshipPredicate isEqual:@"PS316"] & 1) != 0 || (p_subPremises = &v5->_subLocality, (objc_msgSend(relationshipPredicate, "isEqual:", @"PS569")) || (p_subPremises = &v5->_locality, (objc_msgSend(relationshipPredicate, "isEqual:", @"PS453")) || (p_subPremises = &v5->_subAdministrativeArea, (objc_msgSend(relationshipPredicate, "isEqual:", @"PS568")) || (p_subPremises = &v5->_administrativeArea, (objc_msgSend(relationshipPredicate, "isEqual:", @"PS455")) || (p_subPremises = &v5->_postalCode, (objc_msgSend(relationshipPredicate, "isEqual:", @"PS315")) || (p_subPremises = &v5->_country, (objc_msgSend(relationshipPredicate, "isEqual:", @"PS450")) || (p_subPremises = p_ISOCountryCode, objc_msgSend(relationshipPredicate, "isEqual:", @"PS454")))
-        {
-LABEL_19:
           object = [v10 object];
           v18 = *p_subPremises;
           *p_subPremises = object;
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v7 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v7);
   }
 
-  iteratorCopy = v23;
+  iteratorCopy = v22;
   if (!v5->_relationshipIdentifier)
   {
     v19 = 0;
@@ -224,7 +211,6 @@ LABEL_23:
     v19 = v5;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

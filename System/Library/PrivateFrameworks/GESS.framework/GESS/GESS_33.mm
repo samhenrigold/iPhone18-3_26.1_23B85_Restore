@@ -1,575 +1,3 @@
-uint64_t MTL::Private::Selector::s_knewTextureViewWithPixelFormat_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BC20, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BC20))
-  {
-    qword_27F07BC18 = sel_registerName("newTextureViewWithPixelFormat:");
-    __cxa_guard_release(&qword_27F07BC20);
-  }
-
-  return qword_27F07BC18;
-}
-
-uint64_t MTL::Private::Selector::s_knewTextureViewWithPixelFormat_textureType_levels_slices_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BC30, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BC30))
-  {
-    qword_27F07BC28 = sel_registerName("newTextureViewWithPixelFormat:textureType:levels:slices:");
-    __cxa_guard_release(&qword_27F07BC30);
-  }
-
-  return qword_27F07BC28;
-}
-
-uint64_t MTL::Private::Selector::s_knewTextureViewWithPixelFormat_textureType_levels_slices_swizzle_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BC40, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BC40))
-  {
-    qword_27F07BC38 = sel_registerName("newTextureViewWithPixelFormat:textureType:levels:slices:swizzle:");
-    __cxa_guard_release(&qword_27F07BC40);
-  }
-
-  return qword_27F07BC38;
-}
-
-uint64_t MTL::Private::Selector::s_knewTextureWithDescriptor_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BC50, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BC50))
-  {
-    qword_27F07BC48 = sel_registerName("newTextureWithDescriptor:");
-    __cxa_guard_release(&qword_27F07BC50);
-  }
-
-  return qword_27F07BC48;
-}
-
-uint64_t MTL::Private::Selector::s_knewTextureWithDescriptor_iosurface_plane_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BC60, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BC60))
-  {
-    qword_27F07BC58 = sel_registerName("newTextureWithDescriptor:iosurface:plane:");
-    __cxa_guard_release(&qword_27F07BC60);
-  }
-
-  return qword_27F07BC58;
-}
-
-uint64_t MTL::Private::Selector::s_knewTextureWithDescriptor_offset_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BC70, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BC70))
-  {
-    qword_27F07BC68 = sel_registerName("newTextureWithDescriptor:offset:");
-    __cxa_guard_release(&qword_27F07BC70);
-  }
-
-  return qword_27F07BC68;
-}
-
-uint64_t MTL::Private::Selector::s_knewTextureWithDescriptor_offset_bytesPerRow_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BC80, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BC80))
-  {
-    qword_27F07BC78 = sel_registerName("newTextureWithDescriptor:offset:bytesPerRow:");
-    __cxa_guard_release(&qword_27F07BC80);
-  }
-
-  return qword_27F07BC78;
-}
-
-uint64_t MTL::Private::Selector::s_knewVisibleFunctionTableWithDescriptor_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BC90, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BC90))
-  {
-    qword_27F07BC88 = sel_registerName("newVisibleFunctionTableWithDescriptor:");
-    __cxa_guard_release(&qword_27F07BC90);
-  }
-
-  return qword_27F07BC88;
-}
-
-uint64_t MTL::Private::Selector::s_knewVisibleFunctionTableWithDescriptor_stage_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BCA0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BCA0))
-  {
-    qword_27F07BC98 = sel_registerName("newVisibleFunctionTableWithDescriptor:stage:");
-    __cxa_guard_release(&qword_27F07BCA0);
-  }
-
-  return qword_27F07BC98;
-}
-
-uint64_t MTL::Private::Selector::s_knodes(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BCB0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BCB0))
-  {
-    qword_27F07BCA8 = sel_registerName("nodes");
-    __cxa_guard_release(&qword_27F07BCB0);
-  }
-
-  return qword_27F07BCA8;
-}
-
-uint64_t MTL::Private::Selector::s_knormalizedCoordinates(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BCC0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BCC0))
-  {
-    qword_27F07BCB8 = sel_registerName("normalizedCoordinates");
-    __cxa_guard_release(&qword_27F07BCC0);
-  }
-
-  return qword_27F07BCB8;
-}
-
-uint64_t MTL::Private::Selector::s_knotifyListener_atValue_block_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BCD0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BCD0))
-  {
-    qword_27F07BCC8 = sel_registerName("notifyListener:atValue:block:");
-    __cxa_guard_release(&qword_27F07BCD0);
-  }
-
-  return qword_27F07BCC8;
-}
-
-uint64_t MTL::Private::Selector::s_kobjectAtIndexedSubscript_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BCE0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BCE0))
-  {
-    qword_27F07BCD8 = sel_registerName("objectAtIndexedSubscript:");
-    __cxa_guard_release(&qword_27F07BCE0);
-  }
-
-  return qword_27F07BCD8;
-}
-
-uint64_t MTL::Private::Selector::s_kobjectBindings(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BCF0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BCF0))
-  {
-    qword_27F07BCE8 = sel_registerName("objectBindings");
-    __cxa_guard_release(&qword_27F07BCF0);
-  }
-
-  return qword_27F07BCE8;
-}
-
-uint64_t MTL::Private::Selector::s_kobjectBuffers(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BD00, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BD00))
-  {
-    qword_27F07BCF8 = sel_registerName("objectBuffers");
-    __cxa_guard_release(&qword_27F07BD00);
-  }
-
-  return qword_27F07BCF8;
-}
-
-uint64_t MTL::Private::Selector::s_kobjectFunction(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BD10, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BD10))
-  {
-    qword_27F07BD08 = sel_registerName("objectFunction");
-    __cxa_guard_release(&qword_27F07BD10);
-  }
-
-  return qword_27F07BD08;
-}
-
-uint64_t MTL::Private::Selector::s_kobjectLinkedFunctions(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BD20, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BD20))
-  {
-    qword_27F07BD18 = sel_registerName("objectLinkedFunctions");
-    __cxa_guard_release(&qword_27F07BD20);
-  }
-
-  return qword_27F07BD18;
-}
-
-uint64_t MTL::Private::Selector::s_kobjectPayloadAlignment(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BD30, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BD30))
-  {
-    qword_27F07BD28 = sel_registerName("objectPayloadAlignment");
-    __cxa_guard_release(&qword_27F07BD30);
-  }
-
-  return qword_27F07BD28;
-}
-
-uint64_t MTL::Private::Selector::s_kobjectPayloadDataSize(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BD40, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BD40))
-  {
-    qword_27F07BD38 = sel_registerName("objectPayloadDataSize");
-    __cxa_guard_release(&qword_27F07BD40);
-  }
-
-  return qword_27F07BD38;
-}
-
-uint64_t MTL::Private::Selector::s_kobjectThreadExecutionWidth(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BD50, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BD50))
-  {
-    qword_27F07BD48 = sel_registerName("objectThreadExecutionWidth");
-    __cxa_guard_release(&qword_27F07BD50);
-  }
-
-  return qword_27F07BD48;
-}
-
-uint64_t MTL::Private::Selector::s_kobjectThreadgroupSizeIsMultipleOfThreadExecutionWidth(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BD60, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BD60))
-  {
-    qword_27F07BD58 = sel_registerName("objectThreadgroupSizeIsMultipleOfThreadExecutionWidth");
-    __cxa_guard_release(&qword_27F07BD60);
-  }
-
-  return qword_27F07BD58;
-}
-
-uint64_t MTL::Private::Selector::s_koffset(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BD70, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BD70))
-  {
-    qword_27F07BD68 = sel_registerName("offset");
-    __cxa_guard_release(&qword_27F07BD70);
-  }
-
-  return qword_27F07BD68;
-}
-
-uint64_t MTL::Private::Selector::s_kopaque(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BD80, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BD80))
-  {
-    qword_27F07BD78 = sel_registerName("opaque");
-    __cxa_guard_release(&qword_27F07BD80);
-  }
-
-  return qword_27F07BD78;
-}
-
-uint64_t MTL::Private::Selector::s_koptimizationLevel(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BD90, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BD90))
-  {
-    qword_27F07BD88 = sel_registerName("optimizationLevel");
-    __cxa_guard_release(&qword_27F07BD90);
-  }
-
-  return qword_27F07BD88;
-}
-
-uint64_t MTL::Private::Selector::s_koptimizeContentsForCPUAccess_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BDA0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BDA0))
-  {
-    qword_27F07BD98 = sel_registerName("optimizeContentsForCPUAccess:");
-    __cxa_guard_release(&qword_27F07BDA0);
-  }
-
-  return qword_27F07BD98;
-}
-
-uint64_t MTL::Private::Selector::s_koptimizeContentsForCPUAccess_slice_level_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BDB0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BDB0))
-  {
-    qword_27F07BDA8 = sel_registerName("optimizeContentsForCPUAccess:slice:level:");
-    __cxa_guard_release(&qword_27F07BDB0);
-  }
-
-  return qword_27F07BDA8;
-}
-
-uint64_t MTL::Private::Selector::s_koptimizeContentsForGPUAccess_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BDC0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BDC0))
-  {
-    qword_27F07BDB8 = sel_registerName("optimizeContentsForGPUAccess:");
-    __cxa_guard_release(&qword_27F07BDC0);
-  }
-
-  return qword_27F07BDB8;
-}
-
-uint64_t MTL::Private::Selector::s_koptimizeContentsForGPUAccess_slice_level_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BDD0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BDD0))
-  {
-    qword_27F07BDC8 = sel_registerName("optimizeContentsForGPUAccess:slice:level:");
-    __cxa_guard_release(&qword_27F07BDD0);
-  }
-
-  return qword_27F07BDC8;
-}
-
-uint64_t MTL::Private::Selector::s_koptimizeIndirectCommandBuffer_withRange_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BDE0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BDE0))
-  {
-    qword_27F07BDD8 = sel_registerName("optimizeIndirectCommandBuffer:withRange:");
-    __cxa_guard_release(&qword_27F07BDE0);
-  }
-
-  return qword_27F07BDD8;
-}
-
-uint64_t MTL::Private::Selector::s_koptions(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BDF0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BDF0))
-  {
-    qword_27F07BDE8 = sel_registerName("options");
-    __cxa_guard_release(&qword_27F07BDF0);
-  }
-
-  return qword_27F07BDE8;
-}
-
-uint64_t MTL::Private::Selector::s_koutputNode(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BE00, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BE00))
-  {
-    qword_27F07BDF8 = sel_registerName("outputNode");
-    __cxa_guard_release(&qword_27F07BE00);
-  }
-
-  return qword_27F07BDF8;
-}
-
-uint64_t MTL::Private::Selector::s_koutputURL(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BE10, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BE10))
-  {
-    qword_27F07BE08 = sel_registerName("outputURL");
-    __cxa_guard_release(&qword_27F07BE10);
-  }
-
-  return qword_27F07BE08;
-}
-
-uint64_t MTL::Private::Selector::s_kparallelRenderCommandEncoderWithDescriptor_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BE20, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BE20))
-  {
-    qword_27F07BE18 = sel_registerName("parallelRenderCommandEncoderWithDescriptor:");
-    __cxa_guard_release(&qword_27F07BE20);
-  }
-
-  return qword_27F07BE18;
-}
-
-uint64_t MTL::Private::Selector::s_kparameterBufferSizeAndAlign(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BE30, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BE30))
-  {
-    qword_27F07BE28 = sel_registerName("parameterBufferSizeAndAlign");
-    __cxa_guard_release(&qword_27F07BE30);
-  }
-
-  return qword_27F07BE28;
-}
-
-uint64_t MTL::Private::Selector::s_kparentRelativeLevel(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BE40, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BE40))
-  {
-    qword_27F07BE38 = sel_registerName("parentRelativeLevel");
-    __cxa_guard_release(&qword_27F07BE40);
-  }
-
-  return qword_27F07BE38;
-}
-
-uint64_t MTL::Private::Selector::s_kparentRelativeSlice(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BE50, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BE50))
-  {
-    qword_27F07BE48 = sel_registerName("parentRelativeSlice");
-    __cxa_guard_release(&qword_27F07BE50);
-  }
-
-  return qword_27F07BE48;
-}
-
-uint64_t MTL::Private::Selector::s_kparentTexture(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BE60, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BE60))
-  {
-    qword_27F07BE58 = sel_registerName("parentTexture");
-    __cxa_guard_release(&qword_27F07BE60);
-  }
-
-  return qword_27F07BE58;
-}
-
-uint64_t MTL::Private::Selector::s_kpatchControlPointCount(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BE70, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BE70))
-  {
-    qword_27F07BE68 = sel_registerName("patchControlPointCount");
-    __cxa_guard_release(&qword_27F07BE70);
-  }
-
-  return qword_27F07BE68;
-}
-
-uint64_t MTL::Private::Selector::s_kpatchType(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BE80, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BE80))
-  {
-    qword_27F07BE78 = sel_registerName("patchType");
-    __cxa_guard_release(&qword_27F07BE80);
-  }
-
-  return qword_27F07BE78;
-}
-
-uint64_t MTL::Private::Selector::s_kpayloadMemoryLength(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BE90, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BE90))
-  {
-    qword_27F07BE88 = sel_registerName("payloadMemoryLength");
-    __cxa_guard_release(&qword_27F07BE90);
-  }
-
-  return qword_27F07BE88;
-}
-
-uint64_t MTL::Private::Selector::s_kpeerCount(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BEA0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BEA0))
-  {
-    qword_27F07BE98 = sel_registerName("peerCount");
-    __cxa_guard_release(&qword_27F07BEA0);
-  }
-
-  return qword_27F07BE98;
-}
-
-uint64_t MTL::Private::Selector::s_kpeerGroupID(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BEB0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BEB0))
-  {
-    qword_27F07BEA8 = sel_registerName("peerGroupID");
-    __cxa_guard_release(&qword_27F07BEB0);
-  }
-
-  return qword_27F07BEA8;
-}
-
-uint64_t MTL::Private::Selector::s_kpeerIndex(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BEC0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BEC0))
-  {
-    qword_27F07BEB8 = sel_registerName("peerIndex");
-    __cxa_guard_release(&qword_27F07BEC0);
-  }
-
-  return qword_27F07BEB8;
-}
-
-uint64_t MTL::Private::Selector::s_kphysicalGranularity(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BED0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BED0))
-  {
-    qword_27F07BEC8 = sel_registerName("physicalGranularity");
-    __cxa_guard_release(&qword_27F07BED0);
-  }
-
-  return qword_27F07BEC8;
-}
-
-uint64_t MTL::Private::Selector::s_kphysicalSizeForLayer_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BEE0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BEE0))
-  {
-    qword_27F07BED8 = sel_registerName("physicalSizeForLayer:");
-    __cxa_guard_release(&qword_27F07BEE0);
-  }
-
-  return qword_27F07BED8;
-}
-
-uint64_t MTL::Private::Selector::s_kpixelFormat(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BEF0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BEF0))
-  {
-    qword_27F07BEE8 = sel_registerName("pixelFormat");
-    __cxa_guard_release(&qword_27F07BEF0);
-  }
-
-  return qword_27F07BEE8;
-}
-
-uint64_t MTL::Private::Selector::s_kpointerType(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BF00, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BF00))
-  {
-    qword_27F07BEF8 = sel_registerName("pointerType");
-    __cxa_guard_release(&qword_27F07BF00);
-  }
-
-  return qword_27F07BEF8;
-}
-
-uint64_t MTL::Private::Selector::s_kpopDebugGroup(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BF10, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BF10))
-  {
-    qword_27F07BF08 = sel_registerName("popDebugGroup");
-    __cxa_guard_release(&qword_27F07BF10);
-  }
-
-  return qword_27F07BF08;
-}
-
-uint64_t MTL::Private::Selector::s_kpreloadedLibraries(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BF20, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BF20))
-  {
-    qword_27F07BF18 = sel_registerName("preloadedLibraries");
-    __cxa_guard_release(&qword_27F07BF20);
-  }
-
-  return qword_27F07BF18;
-}
-
-uint64_t MTL::Private::Selector::s_kpreprocessorMacros(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BF30, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BF30))
-  {
-    qword_27F07BF28 = sel_registerName("preprocessorMacros");
-    __cxa_guard_release(&qword_27F07BF30);
-  }
-
-  return qword_27F07BF28;
-}
-
-uint64_t MTL::Private::Selector::s_kpresent(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BF40, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BF40))
-  {
-    qword_27F07BF38 = sel_registerName("present");
-    __cxa_guard_release(&qword_27F07BF40);
-  }
-
-  return qword_27F07BF38;
-}
-
-uint64_t MTL::Private::Selector::s_kpresentAfterMinimumDuration_(MTL::Private::Selector *this)
-{
-  if ((atomic_load_explicit(&qword_27F07BF50, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BF50))
-  {
-    qword_27F07BF48 = sel_registerName("presentAfterMinimumDuration:");
-    __cxa_guard_release(&qword_27F07BF50);
-  }
-
-  return qword_27F07BF48;
-}
-
 uint64_t MTL::Private::Selector::s_kpresentAtTime_(MTL::Private::Selector *this)
 {
   if ((atomic_load_explicit(&qword_27F07BF60, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07BF60))
@@ -10006,4 +9434,572 @@ uint64_t NS::Private::Selector::s_kvalueWithPointer_(NS::Private::Selector *this
   }
 
   return qword_27F07F4E8;
+}
+
+uint64_t NS::Private::Selector::s_kwait(NS::Private::Selector *this)
+{
+  if ((atomic_load_explicit(&qword_27F07F500, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07F500))
+  {
+    qword_27F07F4F8 = sel_registerName("wait");
+    __cxa_guard_release(&qword_27F07F500);
+  }
+
+  return qword_27F07F4F8;
+}
+
+uint64_t NS::Private::Selector::s_kwaitUntilDate_(NS::Private::Selector *this)
+{
+  if ((atomic_load_explicit(&qword_27F07F510, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27F07F510))
+  {
+    qword_27F07F508 = sel_registerName("waitUntilDate:");
+    __cxa_guard_release(&qword_27F07F510);
+  }
+
+  return qword_27F07F508;
+}
+
+uint64_t MTL::CopyAllDevicesWithObserver(uint64_t a1, uint64_t a2)
+{
+  v4[4] = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
+  v3[1] = v3;
+  v3[2] = 0x4802000000;
+  v3[3] = sub_24BF52FD4;
+  v3[4] = sub_24BF52FE0;
+  sub_24BF56890(v4, a2);
+  _Block_object_dispose(v3, 8);
+  sub_24BF56928(v4);
+  return 0;
+}
+
+uint64_t sub_24BF52FF8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = a3;
+  v6 = a2;
+  v3 = *(a1 + 24);
+  if (!v3)
+  {
+    sub_24BCA1F3C();
+  }
+
+  return (*(*v3 + 48))(v3, &v6, &v5);
+}
+
+void sub_24BF53054(const std::__fs::filesystem::path *a1@<X0>, std::string *a2@<X1>, void *a3@<X8>)
+{
+  sub_24BD25314(a1, v18);
+  sub_24BCCA6F0(&v14.__pn_, a2);
+  sub_24BCBBCB8(v15, &v14, v18);
+  sub_24BCCEE48(&v12, "Resources");
+  sub_24BCBBCB8(&v13, &v12, v18);
+  sub_24BCCA6F0(&v11.__pn_, a2);
+  sub_24BCBBCB8(v16, &v11, &v13);
+  sub_24BCCEE48(&v9, "resources");
+  sub_24BCBBCB8(&v10, &v9, v18);
+  sub_24BCCA6F0(&__p, a2);
+  sub_24BCBBCB8(&v17, &__p, &v10);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v10.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v10.__pn_.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v9.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v11.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v11.__pn_.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v13.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v13.__pn_.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v12.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v14.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v14.__pn_.__r_.__value_.__l.__data_);
+  }
+
+  v5 = 0;
+  while (1)
+  {
+    std::__fs::filesystem::__status(&v15[v5], 0);
+    if (v14.__pn_.__r_.__value_.__s.__data_[0])
+    {
+      if (v14.__pn_.__r_.__value_.__s.__data_[0] != 255)
+      {
+        break;
+      }
+    }
+
+    v5 += 3;
+    if (v5 == 9)
+    {
+      sub_24BC836D4(a3, &unk_24C0435AF);
+      goto LABEL_23;
+    }
+  }
+
+  v6 = &v15[v5];
+  if (SHIBYTE(v15[v5 + 2]) < 0)
+  {
+    v6 = *v6;
+  }
+
+  sub_24BC836D4(a3, v6);
+LABEL_23:
+  for (i = 0; i != -9; i -= 3)
+  {
+    if (SHIBYTE(v17.__pn_.__r_.__value_.__r.__words[i + 2]) < 0)
+    {
+      operator delete(*(&v17.__pn_.__r_.__value_.__l.__data_ + i * 8));
+    }
+  }
+
+  if (v19 < 0)
+  {
+    operator delete(v18[0]);
+  }
+}
+
+void sub_24BF53254(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51)
+{
+  v53 = (v51 - 57);
+  v54 = -72;
+  v55 = (v51 - 57);
+  while (1)
+  {
+    v56 = *v55;
+    v55 -= 24;
+    if (v56 < 0)
+    {
+      operator delete(*(v53 - 23));
+    }
+
+    v53 = v55;
+    v54 += 24;
+    if (!v54)
+    {
+      if (*(v51 - 33) < 0)
+      {
+        operator delete(*(v51 - 56));
+      }
+
+      _Unwind_Resume(exception_object);
+    }
+  }
+}
+
+uint64_t sub_24BF5338C(uint64_t a1, void *a2)
+{
+  *(a1 + 16) = 0u;
+  *(a1 + 8) = 0;
+  *(a1 + 32) = 0u;
+  *(a1 + 56) = 0u;
+  *(a1 + 48) = 1065353216;
+  *(a1 + 72) = 0u;
+  *(a1 + 88) = 1065353216;
+  *(a1 + 96) = 0u;
+  *(a1 + 112) = 0u;
+  *(a1 + 128) = 1065353216;
+  *(a1 + 136) = 0u;
+  *(a1 + 152) = 0u;
+  *(a1 + 168) = 1065353216;
+  *(a1 + 176) = 0u;
+  *(a1 + 192) = 0u;
+  *(a1 + 208) = 1065353216;
+  v3 = [a2 MTL:1 :? Private:? :? Selector:? :?s_kcomputeCommandEncoderWithDispatchType_(a1)];
+  *a1 = v3;
+  [v3 NS:? :? Private:? :? Selector:? :?s_kretain(v3)];
+  return a1;
+}
+
+void sub_24BF53454(_Unwind_Exception *a1)
+{
+  sub_24BCA3B84(v5);
+  sub_24BCA3B84(v4);
+  sub_24BCA3B84(v3);
+  sub_24BCA3B84(v2);
+  sub_24BCA3B84(v1);
+  _Unwind_Resume(a1);
+}
+
+id *sub_24BF5348C(id *a1)
+{
+  v2 = [*a1 MTL:? :? Private:? :? Selector:? :?s_kendEncoding(a1)];
+  [*a1 NS:? :? Private:? :? Selector:? :?s_krelease(v2)];
+  sub_24BCA3B84((a1 + 22));
+  sub_24BCA3B84((a1 + 17));
+  sub_24BCA3B84((a1 + 12));
+  sub_24BCA3B84((a1 + 7));
+  sub_24BCA3B84((a1 + 2));
+  return a1;
+}
+
+id sub_24BF53508(uint64_t a1, uint64_t *a2, int a3, uint64_t a4)
+{
+  v15 = **(*a2 + 136);
+  sub_24BF56CD8((a1 + 136), &v15, &v15);
+  v15 = **(*a2 + 136);
+  v8 = *(a1 + 8);
+  v9 = sub_24BF56F3C((a1 + 16), &v15);
+  *(a1 + 8) = v8 | (v9 != 0);
+  v10 = *a2;
+  v11 = **(*a2 + 136);
+  v12 = *(v10 + 152);
+  v13 = [v11 MTL:? :? Private:? :? Selector:? :?s_kcontents(v9)];
+  return [*a1 MTL:v11 :v12 + a4 - v13 Private:a3 :? Selector:? :?s_ksetBuffer_offset_atIndex_(v13)];
+}
+
+void *sub_24BF535E8(uint64_t a1, uint64_t *a2, int a3, uint64_t a4)
+{
+  sub_24BF53508(a1, a2, a3, a4);
+  v8 = **(*a2 + 136);
+  sub_24BF56CD8((a1 + 176), &v8, &v8);
+  v8 = **(*a2 + 136);
+  v6 = 56;
+  if (*(a1 + 9))
+  {
+    v6 = 96;
+  }
+
+  return sub_24BF56A28((a1 + v6), &v8, &v8);
+}
+
+void *sub_24BF5366C(uint64_t a1)
+{
+  if (*(a1 + 8) == 1)
+  {
+    [*a1 MTL:1 :? Private:? :? Selector:? :?s_kmemoryBarrierWithScope_(a1)];
+    *(a1 + 8) = 0;
+    sub_24BF57028(a1 + 16, (a1 + 56));
+  }
+
+  else
+  {
+    for (i = *(a1 + 72); i; i = *i)
+    {
+      sub_24BF56A28((a1 + 16), i + 2, i + 2);
+    }
+  }
+
+  return sub_24BD9A318((a1 + 56));
+}
+
+id sub_24BF536F8(void **a1, __int128 *a2, __int128 *a3)
+{
+  v6 = sub_24BF5366C(a1);
+  v7 = *a1;
+  v11 = *a2;
+  v12 = *(a2 + 2);
+  v9 = *a3;
+  v10 = *(a3 + 2);
+  return [v7 MTL:&v11 :&v9 Private:? :? Selector:? :?s_kdispatchThreadgroups_threadsPerThreadgroup_(v6)];
+}
+
+id sub_24BF53770(void **a1, __int128 *a2, __int128 *a3)
+{
+  v6 = sub_24BF5366C(a1);
+  v7 = *a1;
+  v11 = *a2;
+  v12 = *(a2 + 2);
+  v9 = *a3;
+  v10 = *(a3 + 2);
+  return [v7 MTL:&v11 :&v9 Private:? :? Selector:? :?s_kdispatchThreads_threadsPerThreadgroup_(v6)];
+}
+
+uint64_t sub_24BF537E8(uint64_t a1)
+{
+  v19 = *MEMORY[0x277D85DE8];
+  *(a1 + 8) = 0u;
+  *(a1 + 24) = 0u;
+  *(a1 + 40) = 1065353216;
+  std::__shared_mutex_base::__shared_mutex_base((a1 + 48));
+  *(a1 + 216) = 0u;
+  *(a1 + 232) = 0u;
+  *(a1 + 248) = 1065353216;
+  v2 = std::__shared_mutex_base::__shared_mutex_base((a1 + 256));
+  *(a1 + 424) = 0u;
+  *(a1 + 440) = 0u;
+  *(a1 + 456) = 1065353216;
+  v3 = (a1 + 472);
+  *(a1 + 464) = 0u;
+  *(a1 + 480) = 0u;
+  sub_24BF53AE4(v2, &v18);
+  v4 = MTLCopyAllDevices();
+  v5 = [v4 NS:0 :? Private:? :? Selector:? :?s_kobjectAtIndex_(v4)];
+  v6 = v5;
+  if (!v5)
+  {
+    v5 = MTLCreateSystemDefaultDevice();
+    v6 = v5;
+  }
+
+  [v4 NS:? :? Private:? :? Selector:? :?s_kautorelease(v5)];
+  if (!v6)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Failed to load device");
+    __cxa_throw(exception, &unk_285F93280, MEMORY[0x277D82600]);
+  }
+
+  *a1 = v6;
+  sub_24BC836D4(v14, "mlx");
+  v7 = sub_24BF53BA0(v6, v14, "mlx.metallib");
+  sub_24BC836D4(&__p, "mlx");
+  v17 = v7;
+  sub_24BF57264((a1 + 424), &__p, &v18);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  if (v15 < 0)
+  {
+    operator delete(v14[0]);
+  }
+
+  v9 = [*a1 MTL:? :? Private:? :? Selector:? :?s_karchitecture(v8)];
+  v10 = [v9 MTL:? :? Private:? :? Selector:? :?s_kname(v9)];
+  v11 = [v10 NS:? :? Private:? :? Selector:? :?s_kUTF8String(v10)];
+  sub_24BC836D4(&__p, v11);
+  if (*(a1 + 495) < 0)
+  {
+    operator delete(*v3);
+  }
+
+  *v3 = *&__p.__r_.__value_.__l.__data_;
+  *(a1 + 488) = *(&__p.__r_.__value_.__l + 2);
+  sub_24BF192EC(&v18, 0);
+  sub_24BF19370(&v18.__r_.__value_.__l.__size_);
+  return a1;
+}
+
+void sub_24BF53A28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24)
+{
+  __cxa_free_exception(v28);
+  sub_24BF192EC(&a23, 0);
+  sub_24BF19370(&a24);
+  if (*(v25 + 495) < 0)
+  {
+    operator delete(*v29);
+  }
+
+  sub_24BE4A5A4(v27);
+  sub_24BF53DC8((v26 + 5));
+  sub_24BE4A5A4(v26);
+  sub_24BF53DC8(v24 + 40);
+  sub_24BF570CC(v24);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_24BF53AE4@<X0>(NS::Private::Class *a1@<X0>, void *a2@<X8>)
+{
+  v6[4] = *MEMORY[0x277D85DE8];
+  v3 = NS::Private::Class::s_kNSAutoreleasePool(a1);
+  v4 = [v3 NS:? :? Private:? :? Selector:? :?s_kalloc(v3)];
+  v6[0] = &unk_285F9EE00;
+  v6[3] = v6;
+  *a2 = [v4 NS:? :? Private:? :? Selector:? :?s_kinit(v4)];
+  sub_24BF58FE0((a2 + 1), v6);
+  return sub_24BF19370(v6);
+}
+
+id sub_24BF53BA0(NS::Private::Class *a1, const void **a2, const char *a3)
+{
+  sub_24BF5615C(a2, &v27);
+  if (v29 < 0)
+  {
+    if (v28)
+    {
+      v5 = v27;
+LABEL_6:
+      v6 = sub_24BF562B8(a1, v5);
+      if (v6)
+      {
+        goto LABEL_8;
+      }
+    }
+  }
+
+  else if (v29)
+  {
+    v5 = &v27;
+    goto LABEL_6;
+  }
+
+  v6 = sub_24BF562B8(a1, a3);
+  if (!v6)
+  {
+    v9 = v7;
+    v10 = sub_24BCE1268(v26);
+    v11 = [v9 NS:? :? Private:? :? Selector:? :?s_klocalizedDescription(v10)];
+    v12 = [v11 NS:? :? Private:? :? Selector:? :?s_kUTF8String(v11)];
+    v13 = strlen(v12);
+    v14 = sub_24BC95264(v26, v12, v13);
+    v15 = sub_24BC95264(v14, "\n", 1);
+    v16 = sub_24BC95264(v15, "Failed to load device library from <", 36);
+    v17 = strlen(a3);
+    v18 = sub_24BC95264(v16, a3, v17);
+    v19 = sub_24BC95264(v18, ">", 1);
+    v20 = sub_24BC95264(v19, " or <", 5);
+    if ((v29 & 0x80u) == 0)
+    {
+      v21 = &v27;
+    }
+
+    else
+    {
+      v21 = v27;
+    }
+
+    if ((v29 & 0x80u) == 0)
+    {
+      v22 = v29;
+    }
+
+    else
+    {
+      v22 = v28;
+    }
+
+    v23 = sub_24BC95264(v20, v21, v22);
+    sub_24BC95264(v23, ">.", 2);
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::stringbuf::str();
+    MEMORY[0x24C254100](exception, v25);
+    __cxa_throw(exception, &unk_285F93280, MEMORY[0x277D82600]);
+  }
+
+LABEL_8:
+  if (v29 < 0)
+  {
+    operator delete(v27);
+  }
+
+  return v6;
+}
+
+void sub_24BF53D60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+    if ((v17 & 1) == 0)
+    {
+LABEL_6:
+      sub_24BCE1400(&a16);
+      if (*(v18 - 33) < 0)
+      {
+        operator delete(*(v18 - 56));
+      }
+
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v17)
+  {
+    goto LABEL_6;
+  }
+
+  __cxa_free_exception(v16);
+  goto LABEL_6;
+}
+
+void sub_24BF53DC8(uint64_t a1)
+{
+  std::condition_variable::~condition_variable((a1 + 112));
+  std::condition_variable::~condition_variable((a1 + 64));
+
+  std::mutex::~mutex(a1);
+}
+
+uint64_t sub_24BF53E10(uint64_t a1)
+{
+  v7[4] = *MEMORY[0x277D85DE8];
+  v2 = sub_24BF53AE4(a1, &v6);
+  for (i = (a1 + 232); ; v2 = [i[5] NS:? :? Private:? :? Selector:? :?s_krelease(v2)])
+  {
+    i = *i;
+    if (!i)
+    {
+      break;
+    }
+  }
+
+  for (j = (a1 + 440); ; v2 = [j[5] NS:? :? Private:? :? Selector:? :?s_krelease(v2)])
+  {
+    j = *j;
+    if (!j)
+    {
+      break;
+    }
+  }
+
+  [*a1 NS:? :? Private:? :? Selector:? :?s_krelease(v2)];
+  sub_24BF192EC(&v6, 0);
+  sub_24BF19370(v7);
+  if (*(a1 + 495) < 0)
+  {
+    operator delete(*(a1 + 472));
+  }
+
+  sub_24BE4A5A4((a1 + 424));
+  std::condition_variable::~condition_variable((a1 + 368));
+  std::condition_variable::~condition_variable((a1 + 320));
+  std::mutex::~mutex((a1 + 256));
+  sub_24BE4A5A4((a1 + 216));
+  std::condition_variable::~condition_variable((a1 + 160));
+  std::condition_variable::~condition_variable((a1 + 112));
+  std::mutex::~mutex((a1 + 48));
+  sub_24BF570CC(a1 + 8);
+  return a1;
+}
+
+void sub_24BF53F44(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    sub_24BC8DCE8(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_24BF53F60(NS::Private::Class *a1, int a2)
+{
+  v11[4] = *MEMORY[0x277D85DE8];
+  v9 = a2;
+  v3 = sub_24BF53AE4(a1, &v10);
+  v8 = [*a1 MTL:12 :? Private:? :? Selector:? :?s_knewCommandQueueWithMaxCommandBufferCount_(v3)];
+  if (!v8)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "[metal::Device] Failed to make new command queue.");
+    __cxa_throw(exception, &unk_285F93280, MEMORY[0x277D82600]);
+  }
+
+  v4 = sub_24BF5768C(a1 + 1, &v9, &v9, &v8);
+  v5 = *(a1 + 58);
+  if (v5)
+  {
+    [v8 MTL:v5 :? Private:? :? Selector:? :?s_kaddResidencySet_(v4)];
+  }
+
+  sub_24BF192EC(&v10, 0);
+  return sub_24BF19370(v11);
 }

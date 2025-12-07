@@ -51,44 +51,42 @@
 
 - (AVOutputContextCommunicationChannel)outgoingCommunicationChannel
 {
-  v27[1] = *MEMORY[0x1E69E9840];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3052000000;
-  v23 = __Block_byref_object_copy__1;
-  v24 = __Block_byref_object_dispose__1;
-  v25 = 0;
+  v24[1] = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3052000000;
+  v20 = __Block_byref_object_copy__1;
+  v21 = __Block_byref_object_dispose__1;
+  v22 = 0;
   cf = 0;
-  v26 = *MEMORY[0x1E6961770];
-  v27[0] = *MEMORY[0x1E6961760];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+  v23 = *MEMORY[0x1E6961770];
+  v24[0] = *MEMORY[0x1E6961760];
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
   routingContext = self->_routingContext;
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 16) + 112);
-  if (!v6)
+  v5 = *(*(CMBaseObjectGetVTable() + 16) + 112);
+  if (!v5)
   {
-    v13 = 0;
-    v12 = 0;
+    v11 = 0;
+    v10 = 0;
     goto LABEL_9;
   }
 
-  v7 = *(VTable + 16) + 112;
-  v8 = v6(routingContext, v3, &cf);
-  v9 = cf;
-  if (v8)
+  v6 = v5(routingContext, v3, &cf);
+  v7 = cf;
+  if (v6)
   {
-    v10 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v10 = cf == 0;
+    v8 = cf == 0;
   }
 
-  if (v10)
+  if (v8)
   {
-    v12 = 0;
-    v13 = 0;
+    v10 = 0;
+    v11 = 0;
     if (!cf)
     {
       goto LABEL_9;
@@ -97,32 +95,31 @@
     goto LABEL_7;
   }
 
-  v11 = [AVFigCommChannelUUIDOutputContextCommunicationChannelImpl alloc];
-  v12 = [(AVFigCommChannelUUIDOutputContextCommunicationChannelImpl *)v11 initWithRoutingContext:self->_routingContext commChannelUUID:cf];
-  v13 = [[AVOutputContextCommunicationChannel alloc] initWithOutputContextCommunicationChannelImpl:v12];
+  v9 = [AVFigCommChannelUUIDOutputContextCommunicationChannelImpl alloc];
+  v10 = [(AVFigCommChannelUUIDOutputContextCommunicationChannelImpl *)v9 initWithRoutingContext:self->_routingContext commChannelUUID:cf];
+  v11 = [[AVOutputContextCommunicationChannel alloc] initWithOutputContextCommunicationChannelImpl:v10];
   ivarAccessQueue = self->_ivarAccessQueue;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __79__AVFigCommChannelUUIDCommunicationChannelManager_outgoingCommunicationChannel__block_invoke;
-  v18[3] = &unk_1E794EA18;
-  v18[6] = &v20;
-  v18[7] = cf;
-  v18[4] = self;
-  v18[5] = v13;
-  av_readwrite_dispatch_queue_write(ivarAccessQueue, v18);
-  v9 = cf;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __79__AVFigCommChannelUUIDCommunicationChannelManager_outgoingCommunicationChannel__block_invoke;
+  v15[3] = &unk_1E794EA18;
+  v15[6] = &v17;
+  v15[7] = cf;
+  v15[4] = self;
+  v15[5] = v11;
+  av_readwrite_dispatch_queue_write(ivarAccessQueue, v15);
+  v7 = cf;
   if (cf)
   {
 LABEL_7:
-    CFRelease(v9);
+    CFRelease(v7);
   }
 
 LABEL_9:
 
-  v15 = v21[5];
-  _Block_object_dispose(&v20, 8);
-  v16 = *MEMORY[0x1E69E9840];
-  return v15;
+  v13 = v18[5];
+  _Block_object_dispose(&v17, 8);
+  return v13;
 }
 
 void __79__AVFigCommChannelUUIDCommunicationChannelManager_outgoingCommunicationChannel__block_invoke(uint64_t a1)
@@ -199,7 +196,7 @@ LABEL_7:
   CFDictionarySetValue(Mutable, *MEMORY[0x1E6961770], v8);
   if (dword_1ED6F6B88)
   {
-    v25 = 0;
+    v24 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -210,7 +207,7 @@ LABEL_7:
   v14 = *(*(CMBaseObjectGetVTable() + 16) + 112);
   if (!v14)
   {
-    v15 = -12782;
+    v15 = 4294954514;
     goto LABEL_15;
   }
 
@@ -271,9 +268,7 @@ LABEL_19:
     CFRelease(Mutable);
   }
 
-  result = v18;
-  v22 = *MEMORY[0x1E69E9840];
-  return result;
+  return v18;
 }
 
 void __93__AVFigCommChannelUUIDCommunicationChannelManager_openCommunicationChannelWithOptions_error___block_invoke(uint64_t a1)

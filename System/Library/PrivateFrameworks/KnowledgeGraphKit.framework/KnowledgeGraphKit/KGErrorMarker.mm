@@ -17,7 +17,7 @@
 
 - (void)createWithComment:(id)comment
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   commentCopy = comment;
   v5 = open([(NSURL *)self->_fileURL fileSystemRepresentation], 514, 384);
   if ((v5 & 0x80000000) == 0)
@@ -28,13 +28,11 @@
     write(v6, __s, v7 + 1);
     close(v6);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)readComment
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = open([(NSURL *)self->_fileURL fileSystemRepresentation], 0);
   if (v2 < 0)
   {
@@ -44,7 +42,7 @@
   else
   {
     v3 = v2;
-    v4 = read(v2, v10, 0x80uLL);
+    v4 = read(v2, v9, 0x80uLL);
     if (v4 < 1)
     {
       v5 = 0;
@@ -52,8 +50,8 @@
 
     else
     {
-      v10[v4] = 0;
-      v5 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v10 length:v4 encoding:4];
+      v9[v4] = 0;
+      v5 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v9 length:v4 encoding:4];
     }
 
     close(v3);
@@ -71,7 +69,6 @@
 
   v7 = v6;
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

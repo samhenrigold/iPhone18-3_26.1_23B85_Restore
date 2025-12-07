@@ -19,24 +19,23 @@
 
 - (HMDSessionControl)initWithCoder:(id)coder
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = HMDSessionControl;
-  v5 = [(HMDSessionControl *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = HMDSessionControl;
+  v5 = [(HMDSessionControl *)&v12 init];
   if (v5)
   {
     v5->_controlCommand = [coderCopy decodeInt32ForKey:@"kSessionControl__Command"];
     v6 = MEMORY[0x277CBEB98];
-    v14[0] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v13[0] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"kSessionControl__SessionIdentifier"];
     sessionID = v5->_sessionID;
     v5->_sessionID = v9;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -81,12 +80,12 @@
 
 - (BOOL)_parseFromTLVData
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CFEC08] wrappertlv:2 name:@"kSessionControl__Command"];
   v4 = [MEMORY[0x277CFECA8] wrappertlv:1 name:@"kSessionControl__SessionIdentifier"];
-  v12[0] = v3;
-  v12[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[0] = v3;
+  v11[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v6 = [(HAPTLVBase *)self _parse:v5];
   if (v6)
   {
@@ -98,7 +97,6 @@
     self->_sessionID = field2;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

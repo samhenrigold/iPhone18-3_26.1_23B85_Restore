@@ -94,7 +94,7 @@
 - (void)setText:(id)text
 {
   textCopy = text;
-  if (![(NSString *)self->_text isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_text) & 1) == 0)
   {
     v5 = MEMORY[0x1E69977A0];
     extraConstraints = [(_UICarTitleView *)self extraConstraints];

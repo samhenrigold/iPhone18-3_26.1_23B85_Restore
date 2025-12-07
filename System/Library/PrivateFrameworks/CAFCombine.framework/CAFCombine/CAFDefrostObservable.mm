@@ -24,14 +24,14 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFDefrostObservable.defrostService(_:didUpdateTypes:)();
+  CAFDefrostObservable.defrostService(_:didUpdateTypes:)(selfCopy, types);
 }
 
 - (void)defrostService:(id)service didUpdateLevel:(unsigned __int8)level
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFDefrostObservable.defrostService(_:didUpdateLevel:)();
+  CAFDefrostObservable.defrostService(_:didUpdateLevel:)(selfCopy, level);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

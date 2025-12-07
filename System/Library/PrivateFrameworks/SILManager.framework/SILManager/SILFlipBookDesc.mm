@@ -20,9 +20,10 @@
 {
   type metadata accessor for FrameDesc();
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSSDySSSaySiGGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSSDySSSaySiGGGMd, &_sSDySSSDySSSaySiGGGMR);
   v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  return SILFlipBookDesc.init(_:_:)(v5, v6);
+  SILFlipBookDesc.init(_:_:)(v5, v6);
+  return result;
 }
 
 - (BOOL)transitionSupportedFromState:(id)state toState:(id)toState

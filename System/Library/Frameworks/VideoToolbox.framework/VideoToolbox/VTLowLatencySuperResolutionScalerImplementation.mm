@@ -9,12 +9,13 @@
 
 - (VTLowLatencySuperResolutionScalerImplementation)init
 {
-  if (loadVCPFrameworkOnce())
+  selfCopy = self;
+  if (loadVCPFrameworkOnce(self, a2))
   {
-    v4.receiver = self;
+    v4.receiver = selfCopy;
     v4.super_class = VTLowLatencySuperResolutionScalerImplementation;
-    self = [(VTLowLatencySuperResolutionScalerImplementation *)&v4 init];
-    self->_vcpSuperResolutionProcessor = objc_alloc_init(NSClassFromString(&cfstr_Vcpframesuperr_0.isa));
+    selfCopy = [(VTLowLatencySuperResolutionScalerImplementation *)&v4 init];
+    selfCopy->_vcpSuperResolutionProcessor = objc_alloc_init(NSClassFromString(&cfstr_Vcpframesuperr_0.isa));
   }
 
   else
@@ -22,7 +23,7 @@
     NSLog(&cfstr_ProcessorNotSu.isa);
   }
 
-  return self;
+  return selfCopy;
 }
 
 - (BOOL)startSessionWithConfiguration:(id)configuration error:(id *)error

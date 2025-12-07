@@ -312,7 +312,7 @@ LABEL_37:
     return v2;
   }
 
-  v3 = applesauce::gestalt::query_as<int,0>();
+  v3 = applesauce::gestalt::query_as<int,0>(@"AcousticID");
   *(v2 + 39) = v3;
   v2[160] = BYTE4(v3);
   if (v3 <= 0 && (v3 & 0x100000000) != 0)
@@ -370,11 +370,11 @@ LABEL_17:
     CFRelease(v12);
   }
 
-  v13 = applesauce::gestalt::query_as<BOOL,0>();
+  v13 = applesauce::gestalt::query_as<BOOL,0>(@"InternalBuild");
   v2[24] = (v13 > 0xFFu) & v13;
-  v14 = applesauce::gestalt::query_as<BOOL,0>();
+  v14 = applesauce::gestalt::query_as<BOOL,0>(@"IsUIBuild");
   v2[25] = (v14 > 0xFFu) & v14;
-  v15 = applesauce::gestalt::query_as<int,0>();
+  v15 = applesauce::gestalt::query_as<int,0>(@"DeviceClassNumber");
   if ((v15 & 0x100000000) != 0)
   {
     v16 = v15;

@@ -22,39 +22,43 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  v12 = [objc_opt_class() description];
-  NSAppendPrintF_safe();
-  v5 = 0;
+  v18 = 0;
+  v5 = [objc_opt_class() description];
+  NSAppendPrintF_safe(&v18, "%@", v5);
+  v6 = v18;
 
   bluetoothAddress = self->_bluetoothAddress;
   if (bluetoothAddress)
   {
-    v13 = bluetoothAddress;
-    NSAppendPrintF_safe();
-    v7 = v5;
+    v17 = v6;
+    v8 = bluetoothAddress;
+    NSAppendPrintF_safe(&v17, ", Bt Addr %@", v8);
+    v9 = v17;
 
-    v5 = v7;
+    v6 = v9;
   }
 
   bluetoothUUID = self->_bluetoothUUID;
   if (bluetoothUUID)
   {
-    v14 = bluetoothUUID;
-    NSAppendPrintF_safe();
-    v9 = v5;
+    v16 = v6;
+    v11 = bluetoothUUID;
+    NSAppendPrintF_safe(&v16, ", Bt UUID %@", v11);
+    v12 = v16;
 
-    v5 = v9;
+    v6 = v12;
   }
 
   if (level < 21)
   {
-    NSAppendPrintF_safe();
-    v10 = v5;
+    v15 = v6;
+    NSAppendPrintF_safe(&v15, "\n");
+    v13 = v15;
 
-    v5 = v10;
+    v6 = v13;
   }
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)updateWithAADevice:(id)device

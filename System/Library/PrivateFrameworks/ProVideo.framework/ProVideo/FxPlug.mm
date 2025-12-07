@@ -34,7 +34,7 @@
 
 - (void)dealloc
 {
-  FxDebugAssert(self->_priv != 0, &cfstr_PrivNull.isa, v2, v3, v4, v5, v6, v7, v13.receiver);
+  FxDebugAssert(self->_priv != 0, &cfstr_PrivNull.isa, v2, v3, v4, v5, v6, v7);
   priv = self->_priv;
   if (priv)
   {

@@ -136,7 +136,7 @@ void __43__SYBacklinkMonitorService_initForTesting___block_invoke(uint64_t a1, u
 
 - (void)_createAndScheduleOperationForHandle:(id)handle withUserActivity:(id)activity context:(id)context
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   activityCopy = activity;
   contextCopy = context;
@@ -150,11 +150,11 @@ void __43__SYBacklinkMonitorService_initForTesting___block_invoke(uint64_t a1, u
     {
       _pendingOperations2 = [(SYBacklinkMonitorService *)self _pendingOperations];
       firstObject = [_pendingOperations2 firstObject];
-      v26 = 134218240;
-      v27 = firstObject;
-      v28 = 2048;
-      v29 = activityCopy;
-      _os_log_impl(&dword_225901000, v13, OS_LOG_TYPE_INFO, "BacklinkService: cancelling pending operation %p for user activity info %p.", &v26, 0x16u);
+      v25 = 134218240;
+      v26 = firstObject;
+      v27 = 2048;
+      v28 = activityCopy;
+      _os_log_impl(&dword_225901000, v13, OS_LOG_TYPE_INFO, "BacklinkService: cancelling pending operation %p for user activity info %p.", &v25, 0x16u);
     }
 
     _pendingOperations3 = [(SYBacklinkMonitorService *)self _pendingOperations];
@@ -179,8 +179,6 @@ void __43__SYBacklinkMonitorService_initForTesting___block_invoke(uint64_t a1, u
 
   [(SYBacklinkMonitorService *)self _updateKeepAliveTransaction];
   [(SYBacklinkMonitorService *)self _evaluateAndBeginPendingOperations];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_evaluateAndBeginPendingOperations
@@ -233,7 +231,7 @@ void __43__SYBacklinkMonitorService_initForTesting___block_invoke(uint64_t a1, u
 
 - (void)backlinkMonitorOperationDidFinish:(id)finish
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   finishCopy = finish;
   _activeOperation = [(SYBacklinkMonitorService *)self _activeOperation];
 
@@ -243,11 +241,11 @@ void __43__SYBacklinkMonitorService_initForTesting___block_invoke(uint64_t a1, u
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       inputUserActivityInfo = [finishCopy inputUserActivityInfo];
-      v12 = 134218240;
-      v13 = finishCopy;
-      v14 = 2048;
-      v15 = inputUserActivityInfo;
-      _os_log_impl(&dword_225901000, v6, OS_LOG_TYPE_DEFAULT, "BacklinkService: operation finished %p for activity info %p.", &v12, 0x16u);
+      v11 = 134218240;
+      v12 = finishCopy;
+      v13 = 2048;
+      v14 = inputUserActivityInfo;
+      _os_log_impl(&dword_225901000, v6, OS_LOG_TYPE_DEFAULT, "BacklinkService: operation finished %p for activity info %p.", &v11, 0x16u);
     }
 
     type = [finishCopy type];
@@ -274,8 +272,6 @@ LABEL_8:
   }
 
 LABEL_9:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)backlinkMonitorOperation:(id)operation shouldUpdateFilterCache:(id)cache
@@ -291,47 +287,43 @@ LABEL_9:
 
 - (void)scheduleOperationForHandle:(id)handle withUserActivity:(id)activity context:(id)context
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   contextCopy = context;
   handleCopy = handle;
   v11 = os_log_create("com.apple.synapse", "BacklinkMonitor");
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v14 = 134217984;
-    v15 = activityCopy;
-    _os_log_impl(&dword_225901000, v11, OS_LOG_TYPE_INFO, "BacklinkService: Received request to process activity change. Activity info: %p.", &v14, 0xCu);
+    v13 = 134217984;
+    v14 = activityCopy;
+    _os_log_impl(&dword_225901000, v11, OS_LOG_TYPE_INFO, "BacklinkService: Received request to process activity change. Activity info: %p.", &v13, 0xCu);
   }
 
   [(SYBacklinkMonitorService *)self _createAndScheduleOperationForHandle:handleCopy withUserActivity:activityCopy context:contextCopy];
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"SYRemoteCurrentActivityDidChange", 0, 0, 1u);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDidDisconnect:(id)disconnect
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   disconnectCopy = disconnect;
   v5 = os_log_create("com.apple.synapse", "BacklinkMonitor");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v9 = 134217984;
-    v10 = disconnectCopy;
-    _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_INFO, "BacklinkService: Received handle disconnect: %p.", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = disconnectCopy;
+    _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_INFO, "BacklinkService: Received handle disconnect: %p.", &v8, 0xCu);
   }
 
   _handles = [(SYBacklinkMonitorService *)self _handles];
   v7 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(disconnectCopy, "processIdentifier")}];
   [_handles removeObjectForKey:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   if (!connectionCopy)
@@ -364,14 +356,13 @@ LABEL_9:
       v16 = @"Yes";
     }
 
-    v19 = 134218242;
-    v20 = processIdentifier;
-    v21 = 2112;
-    v22 = v16;
-    _os_log_impl(&dword_225901000, v14, OS_LOG_TYPE_INFO, "BacklinkService: Listener should accept connection from pid %ld: %@", &v19, 0x16u);
+    v18 = 134218242;
+    v19 = processIdentifier;
+    v20 = 2112;
+    v21 = v16;
+    _os_log_impl(&dword_225901000, v14, OS_LOG_TYPE_INFO, "BacklinkService: Listener should accept connection from pid %ld: %@", &v18, 0x16u);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return _listener == listenerCopy;
 }
 

@@ -43,7 +43,7 @@
       v8 = 0u;
       v9 = 0u;
       v6 = [(PXSectionedDataSource *)self objectReferenceNearestToObjectReference:referenceCopy];
-      [(PXSectionedDataSource *)self indexPathForObjectReference:v6];
+      objc_msgSend_indexPathForObjectReference_(self);
     }
 
     v5 = 0;
@@ -58,7 +58,7 @@
   v6 = v5;
   if (v5)
   {
-    [v5 indexPath];
+    objc_msgSend_indexPath(v5);
     v7 = v11;
   }
 
@@ -124,12 +124,12 @@
   v7 = 0u;
   if ([(PXAssetsDataSource *)self startsAtEnd])
   {
-    [(PXSectionedDataSource *)self firstItemIndexPath];
+    objc_msgSend_firstItemIndexPath(self);
   }
 
   else
   {
-    [(PXSectionedDataSource *)self lastItemIndexPath];
+    objc_msgSend_lastItemIndexPath(self);
   }
 
   if (v6)
@@ -153,12 +153,12 @@
   v7 = 0u;
   if ([(PXAssetsDataSource *)self startsAtEnd])
   {
-    [(PXSectionedDataSource *)self lastItemIndexPath];
+    objc_msgSend_lastItemIndexPath(self);
   }
 
   else
   {
-    [(PXSectionedDataSource *)self firstItemIndexPath];
+    objc_msgSend_firstItemIndexPath(self);
   }
 
   if (v6)
@@ -178,7 +178,7 @@
 
 - (PXAssetReference)firstAssetReference
 {
-  [(PXSectionedDataSource *)self firstItemIndexPath];
+  objc_msgSend_firstItemIndexPath(self, a2);
 
   return 0;
 }
@@ -276,7 +276,7 @@ LABEL_13:
 {
   *&retstr->dataSourceIdentifier = 0u;
   *&retstr->item = 0u;
-  return [(PXSectionedDataSource *)self indexPathForObjectReference:a4];
+  return objc_msgSend_indexPathForObjectReference_(self, reference, a4);
 }
 
 - (id)assetReferenceAtItemIndexPath:(PXSimpleIndexPath *)path
@@ -456,7 +456,7 @@ LABEL_3:
   PXSimpleIndexPathFromIndexPath(COERCE_FLOAT64_T([(PXSectionedDataSource *)self identifier]), pathCopy, v12);
 
   v9 = [(PXSectionedObjectReference *)v8 initWithSectionObject:0 itemObject:assetCopy subitemObject:0 indexPath:v12];
-  [(PXSectionedDataSource *)self indexPathForObjectReference:v9];
+  objc_msgSend_indexPathForObjectReference_(self);
   v10 = PXIndexPathFromSimpleIndexPath(v12);
 
   return v10;

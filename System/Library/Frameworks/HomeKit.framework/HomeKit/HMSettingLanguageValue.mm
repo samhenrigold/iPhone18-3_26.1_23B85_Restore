@@ -14,7 +14,7 @@
 
 - (HMSettingLanguageValue)initWithInputLanguageCode:(id)code outputVoiceLanguageCode:(id)languageCode outputVoiceGenderCode:(id)genderCode
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   codeCopy = code;
   languageCodeCopy = languageCode;
   genderCodeCopy = genderCode;
@@ -24,21 +24,20 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     v14 = HMFGetLogIdentifier();
-    v18 = 138544130;
-    v19 = v14;
-    v20 = 2112;
-    v21 = codeCopy;
-    v22 = 2112;
-    v23 = languageCodeCopy;
-    v24 = 2112;
-    v25 = genderCodeCopy;
-    _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Deprecated API: Initializing with inputLanguageCode: %@ outputVoiceLanguageCode: %@ outputVoiceGenderCode: %@", &v18, 0x2Au);
+    v17 = 138544130;
+    v18 = v14;
+    v19 = 2112;
+    v20 = codeCopy;
+    v21 = 2112;
+    v22 = languageCodeCopy;
+    v23 = 2112;
+    v24 = genderCodeCopy;
+    _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Deprecated API: Initializing with inputLanguageCode: %@ outputVoiceLanguageCode: %@ outputVoiceGenderCode: %@", &v17, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v11);
   initSettingValue = [(HMImmutableSettingValue *)selfCopy initSettingValue];
 
-  v16 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -144,37 +143,35 @@
 
 - (id)attributeDescriptions
 {
-  v21[4] = *MEMORY[0x1E69E9840];
-  v20.receiver = self;
-  v20.super_class = HMSettingLanguageValue;
-  attributeDescriptions = [(HMImmutableSettingValue *)&v20 attributeDescriptions];
+  v20[4] = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = HMSettingLanguageValue;
+  attributeDescriptions = [(HMImmutableSettingValue *)&v19 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
   inputLanguageCode = [(HMSettingLanguageValue *)self inputLanguageCode];
   v5 = [v4 initWithName:@"inputLanguageCode" value:inputLanguageCode];
-  v21[0] = v5;
+  v20[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   outputVoiceLanguageCode = [(HMSettingLanguageValue *)self outputVoiceLanguageCode];
   v8 = [v6 initWithName:@"outputVoiceLanguageCode" value:outputVoiceLanguageCode];
-  v21[1] = v8;
+  v20[1] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   outputVoiceGenderCode = [(HMSettingLanguageValue *)self outputVoiceGenderCode];
   v11 = [v9 initWithName:@"outputVoiceGenderCode" value:outputVoiceGenderCode];
-  v21[2] = v11;
+  v20[2] = v11;
   v12 = objc_alloc(MEMORY[0x1E69A29C8]);
   voiceName = [(HMSettingLanguageValue *)self voiceName];
   v14 = [v12 initWithName:@"voiceName" value:voiceName];
-  v21[3] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:4];
+  v20[3] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
   v16 = [attributeDescriptions arrayByAddingObjectsFromArray:v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (HMSettingLanguageValue)initWithProtoPayload:(id)payload
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   if ([payloadCopy hasLanguageValueEvent])
   {
@@ -203,10 +200,10 @@ LABEL_17:
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           v17 = HMFGetLogIdentifier();
-          v21 = 138543618;
-          v22 = v17;
-          v23 = 2112;
-          v24 = payloadCopy;
+          v20 = 138543618;
+          v21 = v17;
+          v22 = 2112;
+          v23 = payloadCopy;
           v18 = "%{public}@Failed to decode setting value due to no output voice language value in language value event in proto payload: %@";
           goto LABEL_15;
         }
@@ -227,10 +224,10 @@ LABEL_16:
       }
 
       v17 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v17;
-      v23 = 2112;
-      v24 = payloadCopy;
+      v20 = 138543618;
+      v21 = v17;
+      v22 = 2112;
+      v23 = payloadCopy;
       v18 = "%{public}@Failed to decode setting value due to no output voice gender value in language value event in proto payload: %@";
     }
 
@@ -245,15 +242,15 @@ LABEL_16:
       }
 
       v17 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v17;
-      v23 = 2112;
-      v24 = payloadCopy;
+      v20 = 138543618;
+      v21 = v17;
+      v22 = 2112;
+      v23 = payloadCopy;
       v18 = "%{public}@Failed to decode setting value due to no input language value in language value event in proto payload: %@";
     }
 
 LABEL_15:
-    _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, v18, &v21, 0x16u);
+    _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, v18, &v20, 0x16u);
 
     goto LABEL_16;
   }
@@ -264,18 +261,17 @@ LABEL_15:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     v14 = HMFGetLogIdentifier();
-    v21 = 138543618;
-    v22 = v14;
-    v23 = 2112;
-    v24 = payloadCopy;
-    _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting value due to no language value event type in proto payload: %@", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = v14;
+    v22 = 2112;
+    v23 = payloadCopy;
+    _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting value due to no language value event type in proto payload: %@", &v20, 0x16u);
   }
 
   objc_autoreleasePoolPop(v12);
   v11 = 0;
 LABEL_18:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -302,7 +298,7 @@ LABEL_18:
 
 - (HMSettingLanguageValue)initWithPayload:(id)payload
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   if (!payloadCopy)
   {
@@ -328,41 +324,40 @@ LABEL_18:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v14;
-      v19 = 2112;
-      v20 = v5;
-      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting language value due to invalid payload: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v14;
+      v18 = 2112;
+      v19 = v5;
+      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode setting language value due to invalid payload: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
     v11 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (id)payloadCopy
 {
-  v16[4] = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = HMSettingLanguageValue;
-  payloadCopy = [(HMImmutableSettingValue *)&v14 payloadCopy];
+  v15[4] = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = HMSettingLanguageValue;
+  payloadCopy = [(HMImmutableSettingValue *)&v13 payloadCopy];
   v4 = [payloadCopy mutableCopy];
 
-  v16[0] = &unk_1F0EFD310;
-  v15[0] = @"HMImmutableSettingValueTypePayloadKey";
-  v15[1] = @"HMSettingLanguageValueInputLanaguageCodePayloadKey";
+  v15[0] = &unk_1F0EFD310;
+  v14[0] = @"HMImmutableSettingValueTypePayloadKey";
+  v14[1] = @"HMSettingLanguageValueInputLanaguageCodePayloadKey";
   inputLanguageCode = [(HMSettingLanguageValue *)self inputLanguageCode];
-  v16[1] = inputLanguageCode;
-  v15[2] = @"HMSettingLanguageValueOutputVoiceLanaguageCodePayloadKey";
+  v15[1] = inputLanguageCode;
+  v14[2] = @"HMSettingLanguageValueOutputVoiceLanaguageCodePayloadKey";
   outputVoiceLanguageCode = [(HMSettingLanguageValue *)self outputVoiceLanguageCode];
-  v16[2] = outputVoiceLanguageCode;
-  v15[3] = @"HMSettingLanguageValueOutputVoiceGenderCodePayloadKey";
+  v15[2] = outputVoiceLanguageCode;
+  v14[3] = @"HMSettingLanguageValueOutputVoiceGenderCodePayloadKey";
   outputVoiceGenderCode = [(HMSettingLanguageValue *)self outputVoiceGenderCode];
-  v16[3] = outputVoiceGenderCode;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v15[3] = outputVoiceGenderCode;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
   [v4 addEntriesFromDictionary:v8];
 
   voiceName = [(HMSettingLanguageValue *)self voiceName];
@@ -374,8 +369,6 @@ LABEL_18:
   }
 
   v11 = [v4 copy];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

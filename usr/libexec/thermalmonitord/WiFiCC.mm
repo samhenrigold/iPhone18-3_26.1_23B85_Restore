@@ -42,17 +42,16 @@
 {
   if (self->super.currentLoadingIndex != self->super.maxLoadingIndex)
   {
-    v3 = *(&self->super.currentPower + 1);
     WiFiManagerClientSetThermalIndex();
     if (byte_1000AB2F8 == 1)
     {
-      v4 = qword_1000AB718;
+      v3 = qword_1000AB718;
       if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
       {
         currentLoadingIndex = self->super.currentLoadingIndex;
-        v6[0] = 67109120;
-        v6[1] = currentLoadingIndex;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "<Notice> Set the WiFi maxLI to %d", v6, 8u);
+        v5[0] = 67109120;
+        v5[1] = currentLoadingIndex;
+        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "<Notice> Set the WiFi maxLI to %d", v5, 8u);
       }
     }
 
@@ -62,16 +61,15 @@
 
 - (void)refreshTGraphTelemetry
 {
-  v3 = *(&self->super.currentPower + 1);
   ThermalIndex = WiFiManagerClientGetThermalIndex();
   *&self->super.allowLIOverride = ThermalIndex;
   if (ThermalIndex >= 0x66)
   {
-    v5 = ThermalIndex;
-    v6 = qword_1000AB718;
+    v4 = ThermalIndex;
+    v5 = qword_1000AB718;
     if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
     {
-      sub_100052624(v5, v6);
+      sub_100052624(v4, v5);
     }
   }
 }

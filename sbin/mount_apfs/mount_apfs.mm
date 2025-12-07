@@ -60,46 +60,46 @@ uint64_t start()
   v0 = __chkstk_darwin();
   v2 = v1;
   v3 = v0;
-  memset(v75, 170, sizeof(v75));
-  *v74 = 0xAAAAAAAAAAAAAAAALL;
+  memset(v71, 170, sizeof(v71));
+  *v70 = 0xAAAAAAAAAAAAAAAALL;
   v4.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v4.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v73.st_blksize = v4;
-  *v73.st_qspare = v4;
-  v73.st_birthtimespec = v4;
-  *&v73.st_size = v4;
-  v73.st_mtimespec = v4;
-  v73.st_ctimespec = v4;
-  *&v73.st_uid = v4;
-  v73.st_atimespec = v4;
-  *&v73.st_dev = v4;
+  *&v69.st_blksize = v4;
+  *v69.st_qspare = v4;
+  v69.st_birthtimespec = v4;
+  *&v69.st_size = v4;
+  v69.st_mtimespec = v4;
+  v69.st_ctimespec = v4;
+  *&v69.st_uid = v4;
+  v69.st_atimespec = v4;
+  *&v69.st_dev = v4;
   memset(&__b, 170, sizeof(__b));
-  memset(v79, 170, sizeof(v79));
-  memset(v78, 170, sizeof(v78));
+  memset(v75, 170, sizeof(v75));
+  memset(v74, 170, sizeof(v74));
   __strlcpy_chk();
   __strlcpy_chk();
-  sub_100001CD8(0, v75);
-  sub_100001F7C(0, v74);
-  v81 = 0u;
-  memset(v82, 0, sizeof(v82));
-  v83 = 0u;
-  v84 = 0u;
-  v85 = 0;
-  v88 = 0;
-  memset(v87, 0, sizeof(v87));
+  sub_100001CD8(0, v71);
+  sub_100001F7C(0, v70);
+  v77 = 0u;
+  memset(v78, 0, sizeof(v78));
+  v79 = 0u;
+  v80 = 0u;
+  v81 = 0;
+  v84 = 0;
+  memset(v83, 0, sizeof(v83));
   *__s1 = 0u;
-  v89 = -1;
-  v71 = 0;
-  v72 = 0;
+  v85 = -1;
+  v67 = 0;
+  v68 = 0;
   err_set_exit(sub_1000016B8);
   v5 = 0;
-  v66 = 0;
+  v62 = 0;
   v6 = 0;
   v7 = 0;
-  v65 = 0;
+  v61 = 0;
   v8 = 0;
   v9 = 0;
-  v67 = 0;
+  v63 = 0;
   while (1)
   {
     while (1)
@@ -130,14 +130,14 @@ uint64_t start()
                   v17 = getgrnam(v15);
                   if (!v17)
                   {
-                    HIDWORD(v89) = -1;
+                    HIDWORD(v85) = -1;
                     sub_10000219C();
                   }
 
                   gr_gid = v17->gr_gid;
                 }
 
-                HIDWORD(v89) = gr_gid;
+                HIDWORD(v85) = gr_gid;
                 if (gr_gid == -1)
                 {
                   sub_10000219C();
@@ -145,7 +145,7 @@ uint64_t start()
 
                 break;
               case 'n':
-                v74[1] |= 4u;
+                v70[1] |= 4u;
                 break;
             }
           }
@@ -154,7 +154,7 @@ uint64_t start()
           {
             if (v10 == 115)
             {
-              v67 = optarg;
+              v63 = optarg;
             }
 
             else if (v10 == 117)
@@ -167,14 +167,14 @@ uint64_t start()
                 v14 = getpwnam(v12);
                 if (!v14)
                 {
-                  LODWORD(v89) = -1;
+                  LODWORD(v85) = -1;
                   sub_10000216C();
                 }
 
                 pw_uid = v14->pw_uid;
               }
 
-              LODWORD(v89) = pw_uid;
+              LODWORD(v85) = pw_uid;
               if (pw_uid == -1)
               {
                 sub_10000216C();
@@ -184,7 +184,7 @@ uint64_t start()
 
           else if (v10 == 111)
           {
-            if (sub_100002018(optarg, sub_100001CD8, v75, sub_100001F7C, v74))
+            if (sub_100002018(optarg, sub_100001CD8, v71, sub_100001F7C, v70))
             {
               errx(64, "unrecognized option '%s'");
             }
@@ -205,7 +205,7 @@ uint64_t start()
         {
           if (v10 == 83)
           {
-            v74[1] |= 8u;
+            v70[1] |= 8u;
           }
 
           else if (v10 == 84)
@@ -225,12 +225,12 @@ uint64_t start()
 
         else if (v10 == 80)
         {
-          v8 = sub_1000016D0(optarg, &v72);
+          v8 = sub_1000016D0(optarg, &v68);
         }
 
         else if (v10 == 82)
         {
-          v74[1] |= 2u;
+          v70[1] |= 2u;
         }
       }
 
@@ -242,7 +242,7 @@ uint64_t start()
       switch(v10)
       {
         case 'C':
-          v66 = 1;
+          v62 = 1;
           break;
         case 'E':
           v18 = optarg;
@@ -270,7 +270,7 @@ uint64_t start()
 
           break;
         case 'M':
-          v65 = sub_1000016D0(optarg, &v71);
+          v61 = sub_1000016D0(optarg, &v67);
           break;
       }
     }
@@ -296,18 +296,18 @@ uint64_t start()
     sub_1000021CC(v3 - optind);
   }
 
-  v19 = v74[0];
-  if (v66 && v6 | v74[0] & 0x10000)
+  v19 = v70[0];
+  if (v62 && v6 | v70[0] & 0x10000)
   {
     sub_10000235C();
   }
 
-  if ((v65 != 0) != (v8 != 0))
+  if ((v61 != 0) != (v8 != 0))
   {
     sub_100002340();
   }
 
-  if (v8 && !v72 || v65 && !v71)
+  if (v8 && !v68 || v61 && !v67)
   {
     sub_100002324();
   }
@@ -323,24 +323,24 @@ uint64_t start()
   }
 
   v20 = &v2[optind];
-  if ((v74[0] & 0x10000) == 0)
+  if ((v70[0] & 0x10000) == 0)
   {
     if (v8)
     {
-      *(&v87[16] + 12) = v8;
-      *(&v87[17] + 4) = v72;
-      *(&v87[17] + 12) = v65;
-      *(&v87[18] + 4) = v71;
-      HIDWORD(v87[18]) = v9;
-      v88 = v5;
+      *(&v83[16] + 12) = v8;
+      *(&v83[17] + 4) = v68;
+      *(&v83[17] + 12) = v61;
+      *(&v83[18] + 4) = v67;
+      HIDWORD(v83[18]) = v9;
+      v84 = v5;
     }
 
-    if (v66)
+    if (v62)
     {
       v21 = 4;
 LABEL_78:
-      LOWORD(v87[0]) = v21;
-      sub_10000181C(*v20, v87 + 12, 0x80uLL);
+      LOWORD(v83[0]) = v21;
+      sub_10000181C(*v20, v83 + 12, 0x80uLL);
       goto LABEL_79;
     }
 
@@ -359,35 +359,35 @@ LABEL_78:
       goto LABEL_78;
     }
 
-    if (v67)
+    if (v63)
     {
       if (v8)
       {
-        v41 = 3;
+        v39 = 3;
       }
 
       else
       {
-        v41 = 2;
+        v39 = 2;
       }
 
-      LOWORD(v87[0]) = v41;
-      if (fstatat(-2, *v20, &v73, 512))
+      LOWORD(v83[0]) = v39;
+      if (fstatat(-2, *v20, &v69, 512))
       {
         sub_1000021F8(v20);
       }
 
-      if ((v73.st_mode & 0xF000) == 0x6000)
+      if ((v69.st_mode & 0xF000) == 0x6000)
       {
-        if (!sub_100001BB8(*v20, v78, v87 + 2))
+        if (!sub_100001BB8(*v20, v74, v83 + 2))
         {
-          __s1[0] = v78;
+          __s1[0] = v74;
         }
       }
 
       else
       {
-        DWORD2(v87[0]) = v73.st_dev;
+        DWORD2(v83[0]) = v69.st_dev;
       }
 
       __strlcpy_chk();
@@ -397,34 +397,32 @@ LABEL_78:
     {
       if (v8)
       {
-        v47 = 8;
+        v45 = 8;
       }
 
       else
       {
-        v47 = 1;
+        v45 = 1;
       }
 
-      LOWORD(v87[0]) = v47;
-      if (!sub_100001BB8(*v20, v78, v87 + 2))
+      LOWORD(v83[0]) = v45;
+      if (!sub_100001BB8(*v20, v74, v83 + 2))
       {
-        __s1[0] = v78;
+        __s1[0] = v74;
       }
     }
   }
 
 LABEL_79:
-  v22 = v20[1];
-  if ((v74[0] & 0x8000000) != 0)
+  if ((v70[0] & 0x8000000) != 0)
   {
-    v23 = v20[1];
     if (__strlcpy_chk() >= 0x400)
     {
-      err(1, "realpath [2] %s", v79);
+      err(1, "realpath [2] %s", v75);
     }
   }
 
-  else if (!realpath_DARWIN_EXTSN(v20[1], v79))
+  else if (!realpath_DARWIN_EXTSN(v20[1], v75))
   {
     err(66, "%s");
   }
@@ -433,42 +431,42 @@ LABEL_79:
   {
     if (v6)
     {
-      sub_10000181C(*v20, v78, 0x400uLL);
-      DWORD2(v83) = 2;
-      v24 = 5;
-      if (v78[0] ^ 0x7665642F | LOBYTE(v78[1]) ^ 0x2F)
+      sub_10000181C(*v20, v74, 0x400uLL);
+      DWORD2(v79) = 2;
+      v22 = 5;
+      if (v74[0] ^ 0x7665642F | LOBYTE(v74[1]) ^ 0x2F)
       {
-        v24 = 0;
+        v22 = 0;
       }
 
-      v25 = IOBSDNameMatching(kIOMainPortDefault, 0, v78 + v24);
-      MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v25);
+      v23 = IOBSDNameMatching(kIOMainPortDefault, 0, v74 + v22);
+      MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v23);
       if (!MatchingService)
       {
-        v31 = 2;
+        v29 = 2;
         goto LABEL_187;
       }
 
-      v27 = MatchingService;
-      *(v77 + 13) = 0xAAAAAAAAAAAAAAAALL;
-      *&v28 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v28 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *__endptr = v28;
-      v77[0] = v28;
+      v25 = MatchingService;
+      *(v73 + 13) = 0xAAAAAAAAAAAAAAAALL;
+      *&v26 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v26 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      *__endptr = v26;
+      v73[0] = v26;
       if (IOObjectConformsTo(MatchingService, "AppleAPFSVolume"))
       {
-        CFProperty = IORegistryEntryCreateCFProperty(v27, @"UUID", kCFAllocatorDefault, 0);
+        CFProperty = IORegistryEntryCreateCFProperty(v25, @"UUID", kCFAllocatorDefault, 0);
         if (CFProperty)
         {
-          v30 = CFProperty;
+          v28 = CFProperty;
           if (CFStringGetCString(CFProperty, __endptr, 37, 0x8000100u))
           {
-            v31 = uuid_parse(__endptr, v82);
-            CFRelease(v30);
-            IOObjectRelease(v27);
-            if (!v31)
+            v29 = uuid_parse(__endptr, v78);
+            CFRelease(v28);
+            IOObjectRelease(v25);
+            if (!v29)
             {
-              if (fsctl(v79, 0x81384A06uLL, &v81, 0))
+              if (fsctl(v75, 0x81384A06uLL, &v77, 0))
               {
                 sub_100002288();
               }
@@ -477,72 +475,72 @@ LABEL_79:
             }
 
 LABEL_187:
-            errc(66, v31, "switch crypto context");
+            errc(66, v29, "switch crypto context");
           }
         }
 
-        v31 = 2;
+        v29 = 2;
       }
 
       else
       {
-        v31 = 22;
+        v29 = 22;
       }
 
-      IOObjectRelease(v27);
+      IOObjectRelease(v25);
       goto LABEL_187;
     }
   }
 
   else
   {
-    if (*v79 == 47 || stat(v79, &v73))
+    if (*v75 == 47 || stat(v75, &v69))
     {
-      memset(&v73, 0, sizeof(v73));
+      memset(&v69, 0, sizeof(v69));
     }
 
-    if (v89 == -1)
+    if (v85 == -1)
     {
-      if ((v74[0] & 0x200000) != 0)
+      if ((v70[0] & 0x200000) != 0)
       {
         st_uid = 99;
       }
 
       else
       {
-        st_uid = v73.st_uid;
+        st_uid = v69.st_uid;
       }
 
-      LODWORD(v89) = st_uid;
+      LODWORD(v85) = st_uid;
     }
 
-    if (HIDWORD(v89) == -1)
+    if (HIDWORD(v85) == -1)
     {
-      if ((v74[0] & 0x200000) != 0)
+      if ((v70[0] & 0x200000) != 0)
       {
         st_gid = 99;
       }
 
       else
       {
-        st_gid = v73.st_gid;
+        st_gid = v69.st_gid;
       }
 
-      HIDWORD(v89) = st_gid;
+      HIDWORD(v85) = st_gid;
     }
   }
 
-  *v70 = xmmword_100002F40;
-  __s1[1] = *v74;
-  v34 = __s1[0];
-  if (__s1[0] && (strncmp(__s1[0], "/dev/", 5uLL) ? (v35 = 0) : (v35 = 5), v36 = IOBSDNameMatching(kIOMainPortDefault, 0, &v34[v35]), (v37 = IOServiceGetMatchingService(kIOMainPortDefault, v36)) != 0))
+  *v66 = xmmword_100002F40;
+  __s1[1] = *v70;
+  v32 = __s1[0];
+  if (__s1[0] && (strncmp(__s1[0], "/dev/", 5uLL) ? (v33 = 0) : (v33 = 5), v34 = IOBSDNameMatching(kIOMainPortDefault, 0, &v32[v33]), (v35 = IOServiceGetMatchingService(kIOMainPortDefault, v34)) != 0))
   {
-    v38 = v37;
+    v36 = v35;
     while (1)
     {
       parent = -1431655766;
-      ParentEntry = IORegistryEntryGetParentEntry(v38, "IOService", &parent);
-      IOObjectRelease(v38);
+      ParentEntry = IORegistryEntryGetParentEntry(v36, "IOService", &parent);
+      IOObjectRelease(v36);
       if (ParentEntry)
       {
         goto LABEL_117;
@@ -559,7 +557,7 @@ LABEL_187:
         if (IORegistryEntryCreateCFProperties(parent, &properties, kCFAllocatorDefault, 0))
         {
 LABEL_136:
-          v45 = -1;
+          v43 = -1;
           goto LABEL_152;
         }
 
@@ -574,38 +572,37 @@ LABEL_136:
           sub_100002220(v20);
         }
 
-        v49 = Value;
+        v47 = Value;
         bzero(__endptr, 0x400uLL);
-        v50 = CFURLCreateWithString(kCFAllocatorDefault, v49, 0);
-        if (!v50)
+        v48 = CFURLCreateWithString(kCFAllocatorDefault, v47, 0);
+        if (!v48)
         {
 LABEL_143:
-          v45 = -1;
+          v43 = -1;
           goto LABEL_150;
         }
 
-        v51 = v50;
-        if (!CFURLGetFileSystemRepresentation(v50, 0, __endptr, 1024))
+        v49 = v48;
+        if (!CFURLGetFileSystemRepresentation(v48, 0, __endptr, 1024))
         {
           sub_100002248();
         }
 
-        CFRelease(v51);
-        v45 = open(__endptr, 0, 0);
-        v70[2] = v45;
-        if ((v45 & 0x80000000) == 0)
+        CFRelease(v49);
+        v43 = open(__endptr, 0, 0);
+        v66[2] = v43;
+        if ((v43 & 0x80000000) == 0)
         {
 LABEL_150:
-          v46 = properties;
+          v44 = properties;
           goto LABEL_151;
         }
 
-        v63 = *v20;
-LABEL_194:
+LABEL_192:
         err(66, "cannot open backing store '%s' for '%s'");
       }
 
-      v38 = parent;
+      v36 = parent;
       if (!parent)
       {
         goto LABEL_117;
@@ -618,48 +615,47 @@ LABEL_194:
       goto LABEL_136;
     }
 
-    v42 = CFDictionaryGetValue(__endptr[0], @"image-type");
-    if (v42 && (v43 = v42, v44 = CFGetTypeID(v42), v44 == CFStringGetTypeID()) && (CFStringCompare(v43, @"sparse disk image", 0) == kCFCompareEqualTo || CFStringCompare(v43, @"sparse bundle disk image", 0) == kCFCompareEqualTo))
+    v40 = CFDictionaryGetValue(__endptr[0], @"image-type");
+    if (v40 && (v41 = v40, v42 = CFGetTypeID(v40), v42 == CFStringGetTypeID()) && (CFStringCompare(v41, @"sparse disk image", 0) == kCFCompareEqualTo || CFStringCompare(v41, @"sparse bundle disk image", 0) == kCFCompareEqualTo))
     {
-      v53 = CFDictionaryGetValue(__endptr[0], @"image-path");
-      if (!v53 || (v54 = v53, v55 = CFGetTypeID(v53), v55 != CFDataGetTypeID()) || (SystemEncoding = CFStringGetSystemEncoding(), (v57 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, v54, SystemEncoding)) == 0))
+      v51 = CFDictionaryGetValue(__endptr[0], @"image-path");
+      if (!v51 || (v52 = v51, v53 = CFGetTypeID(v51), v53 != CFDataGetTypeID()) || (SystemEncoding = CFStringGetSystemEncoding(), (v55 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, v52, SystemEncoding)) == 0))
       {
         sub_100002220(v20);
       }
 
-      v58 = v57;
-      v59 = CFStringGetSystemEncoding();
-      CStringPtr = CFStringGetCStringPtr(v58, v59);
+      v56 = v55;
+      v57 = CFStringGetSystemEncoding();
+      CStringPtr = CFStringGetCStringPtr(v56, v57);
       if (!CStringPtr)
       {
-        v61 = CFStringGetSystemEncoding();
+        v59 = CFStringGetSystemEncoding();
         CStringPtr = byte_100008210;
-        CFStringGetCString(v58, byte_100008210, 4096, v61);
+        CFStringGetCString(v56, byte_100008210, 4096, v59);
       }
 
-      v62 = open(CStringPtr, 0, 0);
-      v70[2] = v62;
-      if (v62 < 0)
+      v60 = open(CStringPtr, 0, 0);
+      v66[2] = v60;
+      if (v60 < 0)
       {
-        v64 = *v20;
-        goto LABEL_194;
+        goto LABEL_192;
       }
 
-      v45 = v62;
-      CFRelease(v58);
+      v43 = v60;
+      CFRelease(v56);
     }
 
     else
     {
-      v45 = -1;
+      v43 = -1;
     }
 
-    v46 = __endptr[0];
+    v44 = __endptr[0];
 LABEL_151:
-    CFRelease(v46);
+    CFRelease(v44);
 LABEL_152:
     IOObjectRelease(parent);
-    v40 = v45 >= 0;
+    v38 = v43 >= 0;
     if ((v19 & 0x10000) != 0)
     {
       goto LABEL_153;
@@ -669,7 +665,7 @@ LABEL_152:
   else
   {
 LABEL_117:
-    v40 = 0;
+    v38 = 0;
     if ((v19 & 0x10000) != 0)
     {
 LABEL_153:
@@ -678,29 +674,29 @@ LABEL_153:
     }
   }
 
-  if (*v79 == 47)
+  if (*v75 == 47)
   {
     goto LABEL_153;
   }
 
 LABEL_154:
-  if (mount("apfs", v79, v74[0], __s1))
+  if (mount("apfs", v75, v70[0], __s1))
   {
     sub_100002264();
   }
 
-  if (v40)
+  if (v38)
   {
-    if (fsctl(v79, 0x80106807uLL, v70, 0) && *__error() != 37)
+    if (fsctl(v75, 0x80106807uLL, v66, 0) && *__error() != 37)
     {
-      warn("cannot propagate backing store information to %s", v79);
+      warn("cannot propagate backing store information to %s", v75);
     }
 
-    close(v70[2]);
+    close(v66[2]);
   }
 
 LABEL_160:
-  if (v74[0] & 0x10001) == 0 && !statfs(v79, &__b) && (__b.f_flags)
+  if (v70[0] & 0x10001) == 0 && !statfs(v75, &__b) && (__b.f_flags)
   {
     sub_1000022A4(__s1);
   }
@@ -1167,9 +1163,9 @@ void sub_1000021CC(int a1)
 
 void sub_100002264()
 {
-  v0 = *__error();
-  v1 = sysexit_np();
-  err(v1, "volume could not be mounted");
+  __error();
+  v0 = sysexit_np();
+  err(v0, "volume could not be mounted");
 }
 
 void sub_1000022A4(uint64_t a1)

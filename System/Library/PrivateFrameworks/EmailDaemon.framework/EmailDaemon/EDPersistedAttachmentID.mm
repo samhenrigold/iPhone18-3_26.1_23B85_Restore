@@ -12,12 +12,10 @@
 
 - (NSString)stringValue
 {
-  v2 = *(self + OBJC_IVAR___EDPersistedAttachmentID_stringValue);
-  v3 = *(self + OBJC_IVAR___EDPersistedAttachmentID_stringValue + 8);
 
-  v4 = sub_1C645C844();
+  v2 = sub_1C645C844();
 
-  return v4;
+  return v2;
 }
 
 - (EDPersistedAttachmentID)initWithDatabaseID:(int64_t)d

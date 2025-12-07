@@ -8,11 +8,15 @@
 - (BOOL)isStale;
 - (BOOL)isStaleForVolume:(id)volume;
 - (BOOL)updateRecentState:(int64_t)state forVolume:(id)volume;
+- (BOOL)updateServiceInfoAmount:(id)amount forService:(id)service onVolume:(id)volume atUrgency:(int)urgency withTimestamp:(double)timestamp nonPurgeableAmount:(id)purgeableAmount deductFromCurrentAmount:(BOOL)currentAmount info:(id)self0;
+- (BOOL)validateForVolume:(id)volume andService:(id)service atUrgency:(int)urgency;
 - (CDRecentInfo)initWithCoder:(id)coder;
 - (CDRecentInfo)initWithRecentInfo:(id)info;
 - (CDRecentInfo)initWithVolumes:(id)volumes;
 - (id)_createNewRecentVolumeInfo;
+- (id)_recentInfoForVolume:(id)volume atUrgency:(int)urgency validateResults:(BOOL)results;
 - (id)bsdDiskForVolume:(id)volume;
+- (id)copyInvalidsForVolume:(id)volume atUrgency:(int)urgency;
 - (id)copyPushingServices;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
@@ -54,28 +58,28 @@
 
 - (id)description
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = [(CDRecentInfo *)self volumes];
-  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * i);
+        v8 = *(*(&v17 + 1) + 8 * i);
         v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Volume: %@", v8];
         [array addObject:v9];
 
@@ -86,15 +90,13 @@
         [array addObject:v13];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
 
   v14 = [array componentsJoinedByString:@"\n"];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -145,11 +147,11 @@
 
 - (CDRecentInfo)initWithRecentInfo:(id)info
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   infoCopy = info;
-  v31.receiver = self;
-  v31.super_class = CDRecentInfo;
-  v5 = [(CDRecentInfo *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = CDRecentInfo;
+  v5 = [(CDRecentInfo *)&v30 init];
   if (v5)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -160,27 +162,27 @@
 
     if (volumes)
     {
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       volumes2 = [infoCopy volumes];
-      v10 = [volumes2 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v10 = [volumes2 countByEnumeratingWithState:&v26 objects:v31 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v28;
+        v12 = *v27;
         do
         {
           v13 = 0;
           do
           {
-            if (*v28 != v12)
+            if (*v27 != v12)
             {
               objc_enumerationMutation(volumes2);
             }
 
-            v14 = *(*(&v27 + 1) + 8 * v13);
+            v14 = *(*(&v26 + 1) + 8 * v13);
             _createNewRecentVolumeInfo = [(CDRecentInfo *)v5 _createNewRecentVolumeInfo];
             volumes3 = [infoCopy volumes];
             v17 = [volumes3 objectForKeyedSubscript:v14];
@@ -191,7 +193,7 @@
           }
 
           while (v11 != v13);
-          v11 = [volumes2 countByEnumeratingWithState:&v27 objects:v32 count:16];
+          v11 = [volumes2 countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
         while (v11);
@@ -211,8 +213,32 @@
     v5->_invalidVolumes = v23;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v5;
+}
+
+- (BOOL)validateForVolume:(id)volume andService:(id)service atUrgency:(int)urgency
+{
+  v5 = *&urgency;
+  serviceCopy = service;
+  volumeCopy = volume;
+  volumes = [(CDRecentInfo *)self volumes];
+  v11 = [volumes objectForKeyedSubscript:volumeCopy];
+
+  LOBYTE(v5) = [v11 validateServiceInfo:serviceCopy atUrgency:v5];
+  return v5;
+}
+
+- (id)copyInvalidsForVolume:(id)volume atUrgency:(int)urgency
+{
+  v4 = *&urgency;
+  volumeCopy = volume;
+  volumes = [(CDRecentInfo *)self volumes];
+  v8 = [volumes objectForKeyedSubscript:volumeCopy];
+
+  pushingServices = [(CDRecentInfo *)self pushingServices];
+  v10 = [v8 copyInvalidsAtUrgency:v4 currentlyPushing:pushingServices];
+
+  return v10;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -227,11 +253,11 @@
 
 - (CDRecentInfo)initWithCoder:(id)coder
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v35.receiver = self;
-  v35.super_class = CDRecentInfo;
-  v5 = [(CDRecentInfo *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = CDRecentInfo;
+  v5 = [(CDRecentInfo *)&v34 init];
   if (v5)
   {
     objc_opt_class();
@@ -273,7 +299,7 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v37 = v7;
+        v36 = v7;
         _os_log_error_impl(&dword_1BA7F1000, v10, OS_LOG_TYPE_ERROR, "incompatible version: %@", buf, 0xCu);
       }
     }
@@ -324,7 +350,6 @@
     v5->_version = v7;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -342,6 +367,53 @@
 
   invalidVolumes = [(CDRecentInfo *)self invalidVolumes];
   [coderCopy encodeObject:invalidVolumes forKey:@"CACHE_DELETE_CACHED_INVALID_VOLUMES"];
+}
+
+- (id)_recentInfoForVolume:(id)volume atUrgency:(int)urgency validateResults:(BOOL)results
+{
+  resultsCopy = results;
+  v6 = *&urgency;
+  v20 = *MEMORY[0x1E69E9840];
+  volumeCopy = volume;
+  if ([volumeCopy validate])
+  {
+    volumes = [(CDRecentInfo *)self volumes];
+    mountPoint = [volumeCopy mountPoint];
+    v11 = [volumes objectForKeyedSubscript:mountPoint];
+
+    volumes2 = [v11 _recentInfoAtUrgency:v6 validateResults:resultsCopy];
+
+    mountPoint2 = volumes2;
+  }
+
+  else
+  {
+    mountPoint2 = [volumeCopy mountPoint];
+
+    if (!mountPoint2)
+    {
+      goto LABEL_8;
+    }
+
+    v14 = CDGetLogHandle("client");
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      mountPoint3 = [volumeCopy mountPoint];
+      v18 = 138412290;
+      v19 = mountPoint3;
+      _os_log_error_impl(&dword_1BA7F1000, v14, OS_LOG_TYPE_ERROR, "Unable to validate volume: %@. Discarding its purgeable cache", &v18, 0xCu);
+    }
+
+    volumes2 = [(CDRecentInfo *)self volumes];
+    mountPoint4 = [volumeCopy mountPoint];
+    [volumes2 removeObjectForKey:mountPoint4];
+
+    mountPoint2 = 0;
+  }
+
+LABEL_8:
+
+  return mountPoint2;
 }
 
 - (int64_t)recentStateForVolume:(id)volume
@@ -362,7 +434,7 @@
 
 - (BOOL)updateRecentState:(int64_t)state forVolume:(id)volume
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   volumeCopy = volume;
   volumes = [(CDRecentInfo *)self volumes];
   v8 = [volumes objectForKeyedSubscript:volumeCopy];
@@ -379,12 +451,12 @@
     goto LABEL_9;
   }
 
-  v13 = CDGetLogHandle("client");
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v12 = CDGetLogHandle("client");
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    v16[0] = 67109120;
-    v16[1] = 197;
-    _os_log_error_impl(&dword_1BA7F1000, v13, OS_LOG_TYPE_ERROR, "%d Deleted cache's volume dictionary is nulled. Initializing a new, empty one.", v16, 8u);
+    v15[0] = 67109120;
+    v15[1] = 197;
+    _os_log_error_impl(&dword_1BA7F1000, v12, OS_LOG_TYPE_ERROR, "%d Deleted cache's volume dictionary is nulled. Initializing a new, empty one.", v15, 8u);
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -405,7 +477,6 @@ LABEL_3:
     [v8 setVolumeState:state];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return volumeState != state;
 }
 
@@ -421,39 +492,89 @@ LABEL_3:
 
 - (void)removeServiceInfo:(id)info
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   infoCopy = info;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   volumes = [(CDRecentInfo *)self volumes];
-  v6 = [volumes countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [volumes countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(volumes);
         }
 
-        [(CDRecentInfo *)self removeServiceInfo:infoCopy forVolume:*(*(&v11 + 1) + 8 * v9++)];
+        [(CDRecentInfo *)self removeServiceInfo:infoCopy forVolume:*(*(&v10 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [volumes countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [volumes countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (BOOL)updateServiceInfoAmount:(id)amount forService:(id)service onVolume:(id)volume atUrgency:(int)urgency withTimestamp:(double)timestamp nonPurgeableAmount:(id)purgeableAmount deductFromCurrentAmount:(BOOL)currentAmount info:(id)self0
+{
+  currentAmountCopy = currentAmount;
+  v13 = *&urgency;
+  v31 = *MEMORY[0x1E69E9840];
+  amountCopy = amount;
+  serviceCopy = service;
+  volumeCopy = volume;
+  purgeableAmountCopy = purgeableAmount;
+  infoCopy = info;
+  volumes = [(CDRecentInfo *)self volumes];
+  v23 = [volumes objectForKeyedSubscript:volumeCopy];
+
+  volumes2 = [(CDRecentInfo *)self volumes];
+
+  if (volumes2)
+  {
+    if (v23)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_7:
+    v23 = [(CDRecentInfo *)self _createNewRecentVolumeInfoWithName:volumeCopy];
+    volumes3 = [(CDRecentInfo *)self volumes];
+    [volumes3 setObject:v23 forKeyedSubscript:volumeCopy];
+
+    goto LABEL_3;
+  }
+
+  v27 = CDGetLogHandle("client");
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  {
+    v30[0] = 67109120;
+    v30[1] = 238;
+    _os_log_error_impl(&dword_1BA7F1000, v27, OS_LOG_TYPE_ERROR, "%d Deleted cache's volume dictionary is nulled. Initializing a new, empty one.", v30, 8u);
+  }
+
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  [(CDRecentInfo *)self setVolumes:dictionary];
+
+  if (!v23)
+  {
+    goto LABEL_7;
+  }
+
+LABEL_3:
+  v25 = [v23 updateServiceInfoAmount:amountCopy forService:serviceCopy atUrgency:v13 withTimestamp:purgeableAmountCopy nonPurgeableAmount:currentAmountCopy deductFromCurrentAmount:infoCopy info:timestamp];
+
+  return v25;
 }
 
 - (id)bsdDiskForVolume:(id)volume
@@ -530,60 +651,56 @@ LABEL_3:
 
 - (BOOL)isStale
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ([(CDRecentInfo *)self isEmpty])
   {
-    v3 = 1;
+    return 1;
   }
 
-  else
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  volumes = [(CDRecentInfo *)self volumes];
+  v5 = [volumes countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v5)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    volumes = [(CDRecentInfo *)self volumes];
-    v5 = [volumes countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v5)
+    v6 = v5;
+    v7 = *v15;
+    while (2)
     {
-      v6 = v5;
-      v7 = *v16;
-      while (2)
+      for (i = 0; i != v6; ++i)
       {
-        for (i = 0; i != v6; ++i)
+        if (*v15 != v7)
         {
-          if (*v16 != v7)
-          {
-            objc_enumerationMutation(volumes);
-          }
-
-          v9 = *(*(&v15 + 1) + 8 * i);
-          volumes2 = [(CDRecentInfo *)self volumes];
-          v11 = [volumes2 objectForKeyedSubscript:v9];
-          isStale = [v11 isStale];
-
-          if (isStale)
-          {
-            v3 = 1;
-            goto LABEL_13;
-          }
+          objc_enumerationMutation(volumes);
         }
 
-        v6 = [volumes countByEnumeratingWithState:&v15 objects:v19 count:16];
-        if (v6)
-        {
-          continue;
-        }
+        v9 = *(*(&v14 + 1) + 8 * i);
+        volumes2 = [(CDRecentInfo *)self volumes];
+        v11 = [volumes2 objectForKeyedSubscript:v9];
+        isStale = [v11 isStale];
 
-        break;
+        if (isStale)
+        {
+          v3 = 1;
+          goto LABEL_13;
+        }
       }
-    }
 
-    v3 = 0;
-LABEL_13:
+      v6 = [volumes countByEnumeratingWithState:&v14 objects:v18 count:16];
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
+    }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
+  v3 = 0;
+LABEL_13:
+
   return v3;
 }
 
@@ -606,7 +723,7 @@ LABEL_13:
   return volumes;
 }
 
-uint64_t __23__CDRecentInfo_isEmpty__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__23__CDRecentInfo_isEmpty__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 isEmpty];
   if ((result & 1) == 0)
@@ -668,38 +785,38 @@ LABEL_6:
 
 - (void)log
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   volumes = [(CDRecentInfo *)self volumes];
-  v4 = [volumes countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v4 = [volumes countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v16;
+    v7 = *v15;
     *&v5 = 138412290;
-    v14 = v5;
+    v13 = v5;
     do
     {
       v8 = 0;
       do
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(volumes);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * v8);
+        v9 = *(*(&v14 + 1) + 8 * v8);
         volumes2 = [(CDRecentInfo *)self volumes];
         v11 = [volumes2 objectForKeyedSubscript:v9];
 
         v12 = CDGetLogHandle("client");
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v14;
-          v20 = v9;
+          *buf = v13;
+          v19 = v9;
           _os_log_impl(&dword_1BA7F1000, v12, OS_LOG_TYPE_DEFAULT, " Volume: %@", buf, 0xCu);
         }
 
@@ -708,13 +825,11 @@ LABEL_6:
       }
 
       while (v6 != v8);
-      v6 = [volumes countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v6 = [volumes countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidateForVolume:(id)volume

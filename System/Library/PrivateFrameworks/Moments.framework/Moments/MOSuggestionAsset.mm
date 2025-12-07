@@ -98,28 +98,28 @@
 
 - (id)debugDescription
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
   obj = [(NSDictionary *)self->_metadata allKeys];
-  v4 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         v9 = [(NSDictionary *)self->_metadata objectForKeyedSubscript:v8];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -134,18 +134,15 @@
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
 
-  content = self->_content;
-  v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ content: %p, contentType: %@, identifier: %@, metadata: \n%@", self, content, self->_assetType, self->_identifier, v3];
+  v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ content: %p, contentType: %@, identifier: %@, metadata: \n%@", self, self->_content, self->_assetType, self->_identifier, v3];
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v11;
 }
 
 - (void)addMetadata:(id)metadata

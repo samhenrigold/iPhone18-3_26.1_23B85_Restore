@@ -19,32 +19,32 @@
 - (BMAppLaunchEvent)initWithStarting:(BOOL)starting bundleID:(id)d absoluteTimeStamp:(double)stamp duration:(double)duration launchReason:(id)reason launchType:(unint64_t)type parentBundleID:(id)iD extensionHostID:(id)self0 shortVersionString:(id)self1 exactBundleVersion:(id)self2
 {
   startingCopy = starting;
-  v42[3] = *MEMORY[0x1E69E9840];
+  v41[3] = *MEMORY[0x1E69E9840];
   dCopy = d;
   reasonCopy = reason;
   iDCopy = iD;
   hostIDCopy = hostID;
   stringCopy = string;
   versionCopy = version;
-  v41.receiver = self;
-  v41.super_class = BMAppLaunchEvent;
-  v26 = [(BMEventBase *)&v41 init];
+  v40.receiver = self;
+  v40.super_class = BMAppLaunchEvent;
+  v26 = [(BMEventBase *)&v40 init];
   if (v26)
   {
     v27 = objc_alloc_init(BMEventTimeElapsingImplementor);
-    v42[0] = v27;
-    v40 = stringCopy;
+    v41[0] = v27;
+    v39 = stringCopy;
     v28 = objc_alloc_init(BMEventBinarySteppingImplementor);
-    v42[1] = v28;
+    v41[1] = v28;
     typeCopy = type;
     v29 = hostIDCopy;
     v30 = iDCopy;
     v31 = reasonCopy;
     v32 = dCopy;
     v33 = objc_alloc_init(BMEventAppAssociatingImplementor);
-    v42[2] = v33;
-    [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:3];
-    v38 = startingCopy;
+    v41[2] = v33;
+    [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:3];
+    v37 = startingCopy;
     v35 = v34 = versionCopy;
     [(BMEventBase *)v26 set_validators:v35];
 
@@ -54,20 +54,19 @@
     iDCopy = v30;
     hostIDCopy = v29;
 
-    stringCopy = v40;
+    stringCopy = v39;
     [(BMAppLaunchEvent *)v26 setAbsoluteTimestamp:stamp];
-    [(BMAppLaunchEvent *)v26 setStarting:v38];
+    [(BMAppLaunchEvent *)v26 setStarting:v37];
     [(BMAppLaunchEvent *)v26 setBundleID:dCopy];
     [(BMAppLaunchEvent *)v26 setDuration:duration];
     [(BMAppLaunchEvent *)v26 setLaunchReason:reasonCopy];
     [(BMAppLaunchEvent *)v26 setLaunchType:typeCopy];
     [(BMAppLaunchEvent *)v26 setParentBundleID:iDCopy];
     [(BMAppLaunchEvent *)v26 setExtensionHostID:v29];
-    [(BMAppLaunchEvent *)v26 setShortVersionString:v40];
+    [(BMAppLaunchEvent *)v26 setShortVersionString:v39];
     [(BMAppLaunchEvent *)v26 setExactVersionString:v34];
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
@@ -105,26 +104,26 @@ LABEL_11:
 
 - (id)jsonDict
 {
-  v25[9] = *MEMORY[0x1E69E9840];
-  v24[0] = @"bundleId";
+  v24[9] = *MEMORY[0x1E69E9840];
+  v23[0] = @"bundleId";
   bundleID = [(BMAppLaunchEvent *)self bundleID];
-  v23 = bundleID;
+  v22 = bundleID;
   if (!bundleID)
   {
     bundleID = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = bundleID;
-  v25[0] = bundleID;
-  v24[1] = @"isStart";
-  v22 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMAppLaunchEvent isStarting](self, "isStarting")}];
-  v25[1] = v22;
-  v24[2] = @"time";
+  v18 = bundleID;
+  v24[0] = bundleID;
+  v23[1] = @"isStart";
+  v21 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMAppLaunchEvent isStarting](self, "isStarting")}];
+  v24[1] = v21;
+  v23[2] = @"time";
   v4 = MEMORY[0x1E696AD98];
   [(BMAppLaunchEvent *)self absoluteTimestamp];
-  v21 = [v4 numberWithDouble:?];
-  v25[2] = v21;
-  v24[3] = @"launchReason";
+  v20 = [v4 numberWithDouble:?];
+  v24[2] = v20;
+  v23[3] = @"launchReason";
   launchReason = [(BMAppLaunchEvent *)self launchReason];
   v6 = launchReason;
   if (!launchReason)
@@ -132,11 +131,11 @@ LABEL_11:
     launchReason = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[3] = launchReason;
-  v24[4] = @"launchType";
-  v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[BMAppLaunchEvent launchType](self, "launchType", launchReason)}];
-  v25[4] = v20;
-  v24[5] = @"parentBundleID";
+  v24[3] = launchReason;
+  v23[4] = @"launchType";
+  v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[BMAppLaunchEvent launchType](self, "launchType", launchReason)}];
+  v24[4] = v19;
+  v23[5] = @"parentBundleID";
   parentBundleID = [(BMAppLaunchEvent *)self parentBundleID];
   null = parentBundleID;
   if (!parentBundleID)
@@ -144,8 +143,8 @@ LABEL_11:
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[5] = null;
-  v24[6] = @"extensionHostID";
+  v24[5] = null;
+  v23[6] = @"extensionHostID";
   extensionHostID = [(BMAppLaunchEvent *)self extensionHostID];
   null2 = extensionHostID;
   if (!extensionHostID)
@@ -153,8 +152,8 @@ LABEL_11:
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[6] = null2;
-  v24[7] = @"shortVersionString";
+  v24[6] = null2;
+  v23[7] = @"shortVersionString";
   shortVersionString = [(BMAppLaunchEvent *)self shortVersionString];
   null3 = shortVersionString;
   if (!shortVersionString)
@@ -162,8 +161,8 @@ LABEL_11:
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[7] = null3;
-  v24[8] = @"exactVersionString";
+  v24[7] = null3;
+  v23[8] = @"exactVersionString";
   exactVersionString = [(BMAppLaunchEvent *)self exactVersionString];
   null4 = exactVersionString;
   if (!exactVersionString)
@@ -171,8 +170,8 @@ LABEL_11:
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[8] = null4;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:9];
+  v24[8] = null4;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:9];
   if (!exactVersionString)
   {
   }
@@ -193,11 +192,9 @@ LABEL_11:
   {
   }
 
-  if (!v23)
+  if (!v22)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -555,7 +552,7 @@ LABEL_46:
       bundleID = __biome_log_for_category();
       if (os_log_type_enabled(bundleID, OS_LOG_TYPE_FAULT))
       {
-        [BMAppLaunchEvent initWithProto:];
+        [BMAppLaunchEvent initWithProto:?];
       }
 
       selfCopy = 0;

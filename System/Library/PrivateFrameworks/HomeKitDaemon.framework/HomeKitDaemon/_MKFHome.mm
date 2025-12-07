@@ -278,16 +278,16 @@ LABEL_9:
 
 - (id)accessoryWithModelID:(id)d context:(id)context
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contextCopy = context;
   v8 = +[_MKFAccessory fetchRequest];
   dCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) AND (%K == %@)", @"home", self, @"modelID", dCopy];
   [v8 setPredicate:dCopy];
 
-  v19 = 0;
-  v10 = [contextCopy executeFetchRequest:v8 error:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [contextCopy executeFetchRequest:v8 error:&v18];
+  v11 = v18;
   if (v10)
   {
     firstObject = [v10 firstObject];
@@ -302,19 +302,17 @@ LABEL_9:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v21 = v16;
-      v22 = 2112;
-      v23 = dCopy;
-      v24 = 2112;
-      v25 = v11;
+      v20 = v16;
+      v21 = 2112;
+      v22 = dCopy;
+      v23 = 2112;
+      v24 = v11;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch accessories for modelID %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
     firstObject = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -328,7 +326,7 @@ LABEL_9:
   guests = [(_MKFHome *)self guests];
   [array addObjectsFromArray:guests];
 
-  v6 = [array copy];
+  v6 = objc_msgSend_copy(array);
 
   return v6;
 }
@@ -345,13 +343,13 @@ LABEL_9:
 
 - (void)setDidOnboardEventLog:(id)log
 {
-  v4 = [log copy];
+  v4 = objc_msgSend_copy(log, a2);
   [(_MKFHome *)self setDidOnboardMemory:v4];
 }
 
 - (id)guestAccessCode:(id)code withLabel:(id)label context:(id)context
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   labelCopy = label;
   contextCopy = context;
@@ -359,9 +357,9 @@ LABEL_9:
   v12 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) AND (%K == %@) AND (%K == %@)", @"accessCode", codeCopy, @"label", labelCopy, @"home", self];
   [v11 setPredicate:v12];
 
-  v24 = 0;
-  v13 = [contextCopy executeFetchRequest:v11 error:&v24];
-  v14 = v24;
+  v23 = 0;
+  v13 = [contextCopy executeFetchRequest:v11 error:&v23];
+  v14 = v23;
   if (v13)
   {
     firstObject = [v13 firstObject];
@@ -376,25 +374,23 @@ LABEL_9:
     {
       v19 = HMFGetLogIdentifier();
       [(_MKFHome *)selfCopy modelID];
-      v20 = v23 = v16;
+      v20 = v22 = v16;
       *buf = 138544130;
-      v26 = v19;
-      v27 = 2112;
-      v28 = codeCopy;
-      v29 = 2112;
-      v30 = v20;
-      v31 = 2112;
-      v32 = v14;
+      v25 = v19;
+      v26 = 2112;
+      v27 = codeCopy;
+      v28 = 2112;
+      v29 = v20;
+      v30 = 2112;
+      v31 = v14;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch guestAccessCodes with access code %@ and  %@: %@", buf, 0x2Au);
 
-      v16 = v23;
+      v16 = v22;
     }
 
     objc_autoreleasePoolPop(v16);
     firstObject = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -477,10 +473,10 @@ LABEL_9:
 
 - (void)willSave
 {
-  v40[2] = *MEMORY[0x277D85DE8];
-  v38.receiver = self;
-  v38.super_class = _MKFHome;
-  [(_MKFModel *)&v38 willSave];
+  v39[2] = *MEMORY[0x277D85DE8];
+  v37.receiver = self;
+  v37.super_class = _MKFHome;
+  [(_MKFModel *)&v37 willSave];
   if (([(_MKFHome *)self isUpdated]& 1) != 0 || [(_MKFHome *)self isInserted])
   {
     owned = [(_MKFHome *)self owned];
@@ -507,39 +503,39 @@ LABEL_9:
             v12 = numberOfCameras;
             if (v10)
             {
-              v33 = changedValues;
+              v32 = changedValues;
               unsignedIntValue = [numberOfCameras unsignedIntValue];
 
               v13 = +[HMDHAPMetadata getSharedInstance];
               v14 = MEMORY[0x277CBEB98];
               v15 = *MEMORY[0x277CCE8B8];
-              v40[0] = *MEMORY[0x277CCE948];
-              v40[1] = v15;
-              v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
+              v39[0] = *MEMORY[0x277CCE948];
+              v39[1] = v15;
+              v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
               v17 = [v14 setWithArray:v16];
 
-              v36 = 0u;
-              v37 = 0u;
-              v34 = 0u;
               v35 = 0u;
+              v36 = 0u;
+              v33 = 0u;
+              v34 = 0u;
               selfCopy = self;
               accessories2 = [(_MKFHome *)self accessories];
-              v19 = [accessories2 countByEnumeratingWithState:&v34 objects:v39 count:16];
+              v19 = [accessories2 countByEnumeratingWithState:&v33 objects:v38 count:16];
               if (v19)
               {
                 v20 = v19;
                 v21 = 0;
-                v22 = *v35;
+                v22 = *v34;
                 do
                 {
                   for (i = 0; i != v20; ++i)
                   {
-                    if (*v35 != v22)
+                    if (*v34 != v22)
                     {
                       objc_enumerationMutation(accessories2);
                     }
 
-                    accessoryCategory = [*(*(&v34 + 1) + 8 * i) accessoryCategory];
+                    accessoryCategory = [*(*(&v33 + 1) + 8 * i) accessoryCategory];
                     v25 = [v13 categoryForIdentifier:accessoryCategory];
 
                     uuidStr = [v25 uuidStr];
@@ -548,7 +544,7 @@ LABEL_9:
                     v21 += v27;
                   }
 
-                  v20 = [accessories2 countByEnumeratingWithState:&v34 objects:v39 count:16];
+                  v20 = [accessories2 countByEnumeratingWithState:&v33 objects:v38 count:16];
                 }
 
                 while (v20);
@@ -565,7 +561,7 @@ LABEL_9:
                 [(_MKFHome *)selfCopy setNumberOfCameras:v29];
               }
 
-              changedValues = v33;
+              changedValues = v32;
             }
 
             else
@@ -582,8 +578,6 @@ LABEL_9:
       }
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

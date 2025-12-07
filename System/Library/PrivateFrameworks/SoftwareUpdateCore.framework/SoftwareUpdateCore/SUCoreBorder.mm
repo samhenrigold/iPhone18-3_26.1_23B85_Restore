@@ -13,25 +13,24 @@ void __SUCoreBorder_MAPurgeAll_block_invoke(uint64_t a1, void *a2)
   if (v5)
   {
     v6 = *(*(a1 + 40) + 8);
-    v11 = *(v6 + 40);
-    _SUCoreBorder_MASimulate(v5, &v11);
-    objc_storeStrong((v6 + 40), v11);
+    v10 = *(v6 + 40);
+    _SUCoreBorder_MASimulate(v5, &v10);
+    objc_storeStrong((v6 + 40), v10);
     v7 = *(a1 + 32);
     if (v7)
     {
-      v8 = *(*(*(a1 + 40) + 8) + 40);
-      v9 = *(v7 + 16);
+      v8 = *(v7 + 16);
 LABEL_6:
-      v9();
+      v8();
     }
   }
 
   else
   {
-    v10 = *(a1 + 32);
-    if (v10)
+    v9 = *(a1 + 32);
+    if (v9)
     {
-      v9 = *(v10 + 16);
+      v8 = *(v9 + 16);
       goto LABEL_6;
     }
   }

@@ -1,5 +1,6 @@
 @interface TSUFileIOChannel
 - (BOOL)isValid;
+- (TSUFileIOChannel)initWithType:(unint64_t)type URL:(id)l oflag:(int)oflag mode:(unsigned __int16)mode error:(id *)error cleanupHandler:(id)handler;
 - (TSUFileIOChannel)initWithType:(unint64_t)type descriptor:(int)descriptor cleanupHandler:(id)handler;
 - (void)addBarrier:(id)barrier;
 - (void)close;
@@ -12,6 +13,143 @@
 @end
 
 @implementation TSUFileIOChannel
+
+- (TSUFileIOChannel)initWithType:(unint64_t)type URL:(id)l oflag:(int)oflag mode:(unsigned __int16)mode error:(id *)error cleanupHandler:(id)handler
+{
+  modeCopy = mode;
+  lCopy = l;
+  handlerCopy = handler;
+  if (!lCopy || ([lCopy isFileURL] & 1) == 0)
+  {
+    if (error)
+    {
+      *error = [NSError tsu_fileReadPOSIXErrorWithNumber:2 userInfo:0];
+    }
+
+    if (handlerCopy)
+    {
+      handlerCopy[2](handlerCopy, 2);
+    }
+
+    goto LABEL_19;
+  }
+
+  v46.receiver = self;
+  v46.super_class = TSUFileIOChannel;
+  v16 = [(TSUFileIOChannel *)&v46 init];
+  if (!v16)
+  {
+    if (error)
+    {
+      *error = [NSError tsu_fileReadPOSIXErrorWithNumber:12 userInfo:0];
+    }
+
+    if (handlerCopy)
+    {
+      handlerCopy[2](handlerCopy, 12);
+    }
+
+    self = 0;
+LABEL_19:
+    selfCopy = 0;
+    goto LABEL_20;
+  }
+
+  v44[0] = 0;
+  v44[1] = v44;
+  v44[2] = 0x2020000000;
+  v45 = 0;
+  v41[0] = _NSConcreteStackBlock;
+  v41[1] = 3221225472;
+  v41[2] = sub_1000A128C;
+  v41[3] = &unk_1001CE030;
+  v43 = v44;
+  v17 = handlerCopy;
+  v42 = v17;
+  v37 = objc_retainBlock(v41);
+  v16->_oflag = oflag;
+  path = [lCopy path];
+  v19 = path;
+  fileSystemRepresentation = [path fileSystemRepresentation];
+
+  if (fileSystemRepresentation)
+  {
+    if ((oflag & 0x400) != 0)
+    {
+      unlink(fileSystemRepresentation);
+    }
+
+    v21 = open(fileSystemRepresentation, oflag, modeCopy);
+    if (v21 < 0)
+    {
+      v28 = [NSError tsu_fileReadPOSIXErrorWithNumber:*__error() userInfo:0];
+      if (TSUDefaultCat_init_token != -1)
+      {
+        sub_10015F680();
+      }
+
+      v31 = TSUDefaultCat_log_t;
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      {
+        v32 = __error();
+        v33 = strerror(*v32);
+        sub_10015F6A8(v33, buf, fileSystemRepresentation, v31);
+      }
+
+      v34 = __error();
+      (v37[2])(v37, *v34);
+      goto LABEL_26;
+    }
+
+    v22 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v23 = dispatch_queue_create("TSUFileIOChannel.IO", v22);
+    ioQueue = v16->_ioQueue;
+    v16->_ioQueue = v23;
+
+    v25 = v16->_ioQueue;
+    cleanup_handler[0] = _NSConcreteStackBlock;
+    cleanup_handler[1] = 3221225472;
+    cleanup_handler[2] = sub_1000A12E4;
+    cleanup_handler[3] = &unk_1001CE078;
+    v40 = v21;
+    v39 = v17;
+    v26 = dispatch_io_create(type, v21, v25, cleanup_handler);
+    channel = v16->_channel;
+    v16->_channel = v26;
+  }
+
+  v28 = 0;
+LABEL_26:
+  if (!v16->_channel)
+  {
+    if (error)
+    {
+      if (v28)
+      {
+        v35 = v28;
+        *error = v28;
+      }
+
+      else
+      {
+        v36 = [NSError tsu_fileReadPOSIXErrorWithNumber:2 userInfo:0];
+        *error = v36;
+      }
+    }
+
+    (v37[2])(v37, 2);
+
+    v16 = 0;
+  }
+
+  self = v16;
+
+  _Block_object_dispose(v44, 8);
+  selfCopy = self;
+LABEL_20:
+
+  return selfCopy;
+}
 
 - (TSUFileIOChannel)initWithType:(unint64_t)type descriptor:(int)descriptor cleanupHandler:(id)handler
 {

@@ -33,8 +33,8 @@
   v9.receiver = self;
   v9.super_class = HFActionNaturalLanguageOptions;
   v4 = [(HFSubstringNaturalLanguageOptions *)&v9 copyWithZone:zone];
-  home = [(HFActionNaturalLanguageOptions *)self home];
-  [v4 setHome:home];
+  v5 = objc_msgSend_home(self);
+  [v4 setHome:v5];
 
   [v4 setFormattingStyle:{-[HFSubstringNaturalLanguageOptions formattingStyle](self, "formattingStyle")}];
   objectsInContext = [(HFActionNaturalLanguageOptions *)self objectsInContext];

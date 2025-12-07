@@ -103,42 +103,42 @@
 
 - (id)feedbackDictionaryForBundleId:(id)id
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v5 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22[0] = @"marquee_engagement";
-  v22[1] = @"marquee_appearance";
-  v22[2] = @"nonmarquee_engagement";
-  v22[3] = @"nonmarquee_appearance";
-  v22[4] = @"basic_notifications_sent";
-  v22[5] = @"urgent_notifications_sent";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:{6, 0}];
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v21[0] = @"marquee_engagement";
+  v21[1] = @"marquee_appearance";
+  v21[2] = @"nonmarquee_engagement";
+  v21[3] = @"nonmarquee_appearance";
+  v21[4] = @"basic_notifications_sent";
+  v21[5] = @"urgent_notifications_sent";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:{6, 0}];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = MEMORY[0x277CCABB0];
         [(_ATXAppLaunchCategoricalHistogram *)self->_digestFeedbackHistogram totalLaunchesForBundleId:idCopy category:v11];
         v13 = [v12 numberWithDouble:?];
         [v5 setObject:v13 forKeyedSubscript:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v8);
@@ -148,8 +148,6 @@
   [(_ATXAppLaunchCategoricalHistogram *)self->_alltimeMarqueeAppearanceHistogram totalLaunchesForBundleId:idCopy category:@"marquee_alltimeAppearance"];
   v15 = [v14 numberWithDouble:?];
   [v5 setObject:v15 forKeyedSubscript:@"marquee_alltimeAppearance"];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

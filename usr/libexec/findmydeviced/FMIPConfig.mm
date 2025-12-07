@@ -9,7 +9,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1002258DC(self, v3);
@@ -33,7 +33,7 @@
   v2 = qword_1003145D0;
   if (!qword_1003145D0)
   {
-    v3 = sub_100002880();
+    v3 = sub_100002880(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -48,21 +48,22 @@
 
 - (id)initSingleton
 {
-  v5.receiver = self;
-  v5.super_class = FMIPConfig;
-  v2 = [(FMIPConfig *)&v5 init];
+  v6.receiver = self;
+  v6.super_class = FMIPConfig;
+  v2 = [(FMIPConfig *)&v6 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_100002880();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sub_100002880(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      sub_100227350(v3);
+      sub_100227350(v4);
     }
 
-    objc_storeStrong(&qword_1003145D0, v2);
+    objc_storeStrong(&qword_1003145D0, v3);
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)enableFMIPLocationServices

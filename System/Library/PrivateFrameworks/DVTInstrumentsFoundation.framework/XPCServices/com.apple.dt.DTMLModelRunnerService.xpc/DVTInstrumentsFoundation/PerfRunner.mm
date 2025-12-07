@@ -26,8 +26,8 @@
 
 - (void)runWithModelLocation:(_TtC35com_apple_dt_DTMLModelRunnerService13ModelLocation *)location computeUnits:(int64_t)units perfRunConfig:(_TtC35com_apple_dt_DTMLModelRunnerService13PerfRunConfig *)config completionHandler:(id)handler
 {
-  v11 = (*(*(sub_100006DB4(&qword_100038B08, &qword_100027E80) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v11 = sub_100006DB4(&qword_100038B08, &qword_100027E80);
+  __chkstk_darwin(v11 - 8);
   v13 = &v22 - v12;
   v14 = _Block_copy(handler);
   v15 = swift_allocObject();

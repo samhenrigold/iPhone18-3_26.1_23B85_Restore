@@ -7,7 +7,7 @@
 - (_TtC10PodcastsUI24ExtendedLaunchController)init
 {
   v3 = OBJC_IVAR____TtC10PodcastsUI24ExtendedLaunchController_lock;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD88208);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD88208, &qword_21B4D8EF0);
   v4 = swift_allocObject();
   *(v4 + 28) = 0;
   *(v4 + 16) = 0;

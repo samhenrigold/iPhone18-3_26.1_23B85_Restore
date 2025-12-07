@@ -16,7 +16,7 @@
   if (v7)
   {
     v7->_action = action;
-    v9 = [instructionsCopy copy];
+    v9 = objc_msgSend_copy(instructionsCopy);
     instructions = v8->_instructions;
     v8->_instructions = v9;
   }
@@ -28,13 +28,12 @@
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  action = self->_action;
-  v6 = NSStringFromHKNotificationInstructionAction();
+  v5 = NSStringFromHKNotificationInstructionAction();
   messageIdentifiers = [(HDPendingNotificationInstructions *)self messageIdentifiers];
   categoryIdentifiers = [(HDPendingNotificationInstructions *)self categoryIdentifiers];
-  v9 = [v3 stringWithFormat:@"<%@:%@ mIDs:%@, cIDs:%@>", v4, v6, messageIdentifiers, categoryIdentifiers];
+  v8 = [v3 stringWithFormat:@"<%@:%@ mIDs:%@, cIDs:%@>", v4, v5, messageIdentifiers, categoryIdentifiers];
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)isEqual:(id)equal

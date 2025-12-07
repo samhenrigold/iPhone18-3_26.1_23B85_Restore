@@ -73,36 +73,36 @@ uint64_t __117__WFInterchangeDocumentActionDefinition_performActionWithInput_par
 
 - (id)fileTypeForOpeningItem:(id)item
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   preferredFileType = [itemCopy preferredFileType];
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   fileTypes = [(WFInterchangeDocumentActionDefinition *)self fileTypes];
-  v7 = [fileTypes countByEnumeratingWithState:&v52 objects:v60 count:16];
+  v7 = [fileTypes countByEnumeratingWithState:&v51 objects:v59 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v53;
+    v9 = *v52;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v53 != v9)
+        if (*v52 != v9)
         {
           objc_enumerationMutation(fileTypes);
         }
 
-        if ([preferredFileType conformsToType:*(*(&v52 + 1) + 8 * i)])
+        if ([preferredFileType conformsToType:*(*(&v51 + 1) + 8 * i)])
         {
           v20 = preferredFileType;
           goto LABEL_44;
         }
       }
 
-      v8 = [fileTypes countByEnumeratingWithState:&v52 objects:v60 count:16];
+      v8 = [fileTypes countByEnumeratingWithState:&v51 objects:v59 count:16];
       if (v8)
       {
         continue;
@@ -112,58 +112,58 @@ uint64_t __117__WFInterchangeDocumentActionDefinition_performActionWithInput_par
     }
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   fileTypes = [(WFInterchangeDocumentActionDefinition *)self fileTypes];
-  v33 = [fileTypes countByEnumeratingWithState:&v48 objects:v59 count:16];
-  if (v33)
+  v32 = [fileTypes countByEnumeratingWithState:&v47 objects:v58 count:16];
+  if (v32)
   {
-    v11 = *v49;
-    v35 = itemCopy;
-    v32 = *v49;
+    v11 = *v48;
+    v34 = itemCopy;
+    v31 = *v48;
     do
     {
-      for (j = 0; j != v33; ++j)
+      for (j = 0; j != v32; ++j)
       {
-        if (*v49 != v11)
+        if (*v48 != v11)
         {
           objc_enumerationMutation(fileTypes);
         }
 
-        v13 = *(*(&v48 + 1) + 8 * j);
+        v13 = *(*(&v47 + 1) + 8 * j);
+        v43 = 0u;
         v44 = 0u;
         v45 = 0u;
         v46 = 0u;
-        v47 = 0u;
         supportedTypes = [itemCopy supportedTypes];
-        v15 = [supportedTypes countByEnumeratingWithState:&v44 objects:v58 count:16];
+        v15 = [supportedTypes countByEnumeratingWithState:&v43 objects:v57 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v45;
+          v17 = *v44;
           while (2)
           {
             for (k = 0; k != v16; ++k)
             {
-              if (*v45 != v17)
+              if (*v44 != v17)
               {
                 objc_enumerationMutation(supportedTypes);
               }
 
-              v19 = *(*(&v44 + 1) + 8 * k);
+              v19 = *(*(&v43 + 1) + 8 * k);
               if ([v19 conformsToType:v13])
               {
                 v20 = v19;
 
 LABEL_43:
-                itemCopy = v35;
+                itemCopy = v34;
                 goto LABEL_44;
               }
             }
 
-            v16 = [supportedTypes countByEnumeratingWithState:&v44 objects:v58 count:16];
+            v16 = [supportedTypes countByEnumeratingWithState:&v43 objects:v57 count:16];
             if (v16)
             {
               continue;
@@ -173,57 +173,57 @@ LABEL_43:
           }
         }
 
-        itemCopy = v35;
-        v11 = v32;
+        itemCopy = v34;
+        v11 = v31;
       }
 
-      v33 = [fileTypes countByEnumeratingWithState:&v48 objects:v59 count:16];
+      v32 = [fileTypes countByEnumeratingWithState:&v47 objects:v58 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   fileTypes = [(WFInterchangeDocumentActionDefinition *)self fileTypes];
-  v20 = [fileTypes countByEnumeratingWithState:&v40 objects:v57 count:16];
+  v20 = [fileTypes countByEnumeratingWithState:&v39 objects:v56 count:16];
   if (v20)
   {
-    v21 = *v41;
-    v34 = *v41;
-    v35 = itemCopy;
+    v21 = *v40;
+    v33 = *v40;
+    v34 = itemCopy;
     do
     {
       for (m = 0; m != v20; m = m + 1)
       {
-        if (*v41 != v21)
+        if (*v40 != v21)
         {
           objc_enumerationMutation(fileTypes);
         }
 
-        v23 = *(*(&v40 + 1) + 8 * m);
+        v23 = *(*(&v39 + 1) + 8 * m);
+        v35 = 0u;
         v36 = 0u;
         v37 = 0u;
         v38 = 0u;
-        v39 = 0u;
         allSupportedTypes = [itemCopy allSupportedTypes];
-        v25 = [allSupportedTypes countByEnumeratingWithState:&v36 objects:v56 count:16];
+        v25 = [allSupportedTypes countByEnumeratingWithState:&v35 objects:v55 count:16];
         if (v25)
         {
           v26 = v25;
-          v27 = *v37;
+          v27 = *v36;
           while (2)
           {
             for (n = 0; n != v26; ++n)
             {
-              if (*v37 != v27)
+              if (*v36 != v27)
               {
                 objc_enumerationMutation(allSupportedTypes);
               }
 
-              v29 = *(*(&v36 + 1) + 8 * n);
+              v29 = *(*(&v35 + 1) + 8 * n);
               if ([v29 conformsToType:v23])
               {
                 v20 = v29;
@@ -232,7 +232,7 @@ LABEL_43:
               }
             }
 
-            v26 = [allSupportedTypes countByEnumeratingWithState:&v36 objects:v56 count:16];
+            v26 = [allSupportedTypes countByEnumeratingWithState:&v35 objects:v55 count:16];
             if (v26)
             {
               continue;
@@ -242,11 +242,11 @@ LABEL_43:
           }
         }
 
-        v21 = v34;
-        itemCopy = v35;
+        v21 = v33;
+        itemCopy = v34;
       }
 
-      v20 = [fileTypes countByEnumeratingWithState:&v40 objects:v57 count:16];
+      v20 = [fileTypes countByEnumeratingWithState:&v39 objects:v56 count:16];
     }
 
     while (v20);
@@ -254,40 +254,38 @@ LABEL_43:
 
 LABEL_44:
 
-  v30 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
 - (id)inputContentClasses
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   inputContentClasses = self->_inputContentClasses;
   if (!inputContentClasses)
   {
     mEMORY[0x1E6996D68] = [MEMORY[0x1E6996D68] sharedRegistry];
     v5 = objc_opt_new();
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     fileTypes = [(WFInterchangeDocumentActionDefinition *)self fileTypes];
-    v7 = [fileTypes countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [fileTypes countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         v10 = 0;
         do
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(fileTypes);
           }
 
-          v11 = [mEMORY[0x1E6996D68] contentItemClassForType:*(*(&v17 + 1) + 8 * v10)];
+          v11 = [mEMORY[0x1E6996D68] contentItemClassForType:*(*(&v16 + 1) + 8 * v10)];
           if (v11)
           {
             [v5 addObject:v11];
@@ -297,7 +295,7 @@ LABEL_44:
         }
 
         while (v8 != v10);
-        v8 = [fileTypes countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [fileTypes countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
@@ -310,8 +308,6 @@ LABEL_44:
 
     inputContentClasses = self->_inputContentClasses;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return inputContentClasses;
 }

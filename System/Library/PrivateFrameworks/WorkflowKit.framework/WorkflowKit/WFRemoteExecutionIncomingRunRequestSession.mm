@@ -84,15 +84,15 @@
 
 - (void)sendResponse:(id)response toDestinations:(id)destinations options:(id)options
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   destinationsCopy = destinations;
   optionsCopy = options;
   [(WFRemoteExecutionSession *)self setState:201];
   v11 = objc_alloc_init(MEMORY[0x1E69C65C0]);
-  v30 = 0;
-  v12 = [responseCopy writeTo:v11 error:&v30];
-  v13 = v30;
+  v29 = 0;
+  v12 = [responseCopy writeTo:v11 error:&v29];
+  v13 = v29;
   if (v12)
   {
     v14 = objc_alloc(MEMORY[0x1E69A5388]);
@@ -101,13 +101,13 @@
 
     [(WFRemoteExecutionSession *)self restartTimeout];
     service = [(WFRemoteExecutionSession *)self service];
+    v27 = 0;
     v28 = 0;
-    v29 = 0;
     v18 = destinationsCopy;
-    v27 = optionsCopy;
-    v19 = [service sendProtobuf:v16 toDestinations:destinationsCopy priority:300 options:optionsCopy identifier:&v29 error:&v28];
-    v20 = v29;
-    v21 = v28;
+    v26 = optionsCopy;
+    v19 = [service sendProtobuf:v16 toDestinations:destinationsCopy priority:300 options:optionsCopy identifier:&v28 error:&v27];
+    v20 = v28;
+    v21 = v27;
 
     if (v19)
     {
@@ -121,11 +121,11 @@
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v32 = "[WFRemoteExecutionIncomingRunRequestSession sendResponse:toDestinations:options:]";
-        v33 = 2114;
+        v31 = "[WFRemoteExecutionIncomingRunRequestSession sendResponse:toDestinations:options:]";
+        v32 = 2114;
         selfCopy = self;
-        v35 = 2114;
-        v36 = v21;
+        v34 = 2114;
+        v35 = v21;
         _os_log_impl(&dword_1CA256000, v25, OS_LOG_TYPE_ERROR, "%s %{public}@ failed to send with error: %{public}@", buf, 0x20u);
       }
 
@@ -136,7 +136,7 @@
     [(WFRemoteExecutionSession *)self setState:v22];
     [(WFRemoteExecutionIncomingRunRequestSession *)self finish];
 
-    optionsCopy = v27;
+    optionsCopy = v26;
   }
 
   else
@@ -146,32 +146,30 @@
     {
       identifier = [responseCopy identifier];
       *buf = 136315650;
-      v32 = "[WFRemoteExecutionIncomingRunRequestSession sendResponse:toDestinations:options:]";
-      v33 = 2114;
+      v31 = "[WFRemoteExecutionIncomingRunRequestSession sendResponse:toDestinations:options:]";
+      v32 = 2114;
       selfCopy = identifier;
-      v35 = 2114;
-      v36 = v13;
+      v34 = 2114;
+      v35 = v13;
       _os_log_impl(&dword_1CA256000, v23, OS_LOG_TYPE_FAULT, "%s <%{public}@> failed to write protobuf with error: %{public}@", buf, 0x20u);
     }
 
     [(WFRemoteExecutionSession *)self setState:1];
     [(WFRemoteExecutionIncomingRunRequestSession *)self finish];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleUnsupportedVersionForRequestData:(id)data error:(id)error destinations:(id)destinations options:(id)options
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   destinationsCopy = destinations;
   optionsCopy = options;
   if (data)
   {
-    v18 = 0;
-    v13 = [WFRemoteExecutionRequest identifierFromData:data error:&v18];
-    v14 = v18;
+    v17 = 0;
+    v13 = [WFRemoteExecutionRequest identifierFromData:data error:&v17];
+    v14 = v17;
     v15 = getWFRemoteExecutionLogObject();
     v16 = v15;
     if (v13)
@@ -179,9 +177,9 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v20 = "[WFRemoteExecutionIncomingRunRequestSession handleUnsupportedVersionForRequestData:error:destinations:options:]";
-        v21 = 2114;
-        v22 = v13;
+        v19 = "[WFRemoteExecutionIncomingRunRequestSession handleUnsupportedVersionForRequestData:error:destinations:options:]";
+        v20 = 2114;
+        v21 = v13;
         _os_log_impl(&dword_1CA256000, &v16->super.super, OS_LOG_TYPE_DEFAULT, "%s Sending unsupported version error back for request with identifier %{public}@", buf, 0x16u);
       }
 
@@ -192,19 +190,17 @@
     else if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v20 = "[WFRemoteExecutionIncomingRunRequestSession handleUnsupportedVersionForRequestData:error:destinations:options:]";
-      v21 = 2112;
-      v22 = v14;
+      v19 = "[WFRemoteExecutionIncomingRunRequestSession handleUnsupportedVersionForRequestData:error:destinations:options:]";
+      v20 = 2112;
+      v21 = v14;
       _os_log_impl(&dword_1CA256000, &v16->super.super, OS_LOG_TYPE_FAULT, "%s Unable to read identifier from base request: %@, so unable to send unsupported version error back", buf, 0x16u);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleIncomingProtobuf:(id)protobuf destinations:(id)destinations options:(id)options
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
   destinationsCopy = destinations;
   optionsCopy = options;
@@ -214,9 +210,9 @@
   [(WFRemoteExecutionSession *)self setState:200];
   v11 = [WFRemoteExecutionRunRequest alloc];
   data = [protobufCopy data];
-  v25 = 0;
-  v13 = [(WFRemoteExecutionRunRequest *)v11 initWithData:data error:&v25];
-  v14 = v25;
+  v24 = 0;
+  v13 = [(WFRemoteExecutionRunRequest *)v11 initWithData:data error:&v24];
+  v14 = v24;
 
   if (v13)
   {
@@ -224,9 +220,9 @@
     v15 = [objc_alloc(MEMORY[0x1E69E0C20]) initWithEnvironment:4 runningContext:0 presentationMode:0];
     [v15 setDelegate:self];
     data2 = [protobufCopy data];
-    v24 = 0;
-    [v15 runActionWithRunRequestData:data2 error:&v24];
-    v17 = v24;
+    v23 = 0;
+    [v15 runActionWithRunRequestData:data2 error:&v23];
+    v17 = v23;
 
     objc_storeStrong(&self->_controller, v15);
     if (v17)
@@ -235,9 +231,9 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v27 = "[WFRemoteExecutionIncomingRunRequestSession handleIncomingProtobuf:destinations:options:]";
-        v28 = 2114;
-        v29 = v17;
+        v26 = "[WFRemoteExecutionIncomingRunRequestSession handleIncomingProtobuf:destinations:options:]";
+        v27 = 2114;
+        v28 = v17;
         _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_FAULT, "%s failed to start running in the out of process controller: %{public}@", buf, 0x16u);
       }
 
@@ -256,7 +252,7 @@
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v27 = "[WFRemoteExecutionIncomingRunRequestSession handleIncomingProtobuf:destinations:options:]";
+        v26 = "[WFRemoteExecutionIncomingRunRequestSession handleIncomingProtobuf:destinations:options:]";
         _os_log_impl(&dword_1CA256000, v21, OS_LOG_TYPE_ERROR, "%s Encountered unsupported version of run request", buf, 0xCu);
       }
 
@@ -270,17 +266,15 @@
       if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v27 = "[WFRemoteExecutionIncomingRunRequestSession handleIncomingProtobuf:destinations:options:]";
-        v28 = 2114;
-        v29 = v14;
+        v26 = "[WFRemoteExecutionIncomingRunRequestSession handleIncomingProtobuf:destinations:options:]";
+        v27 = 2114;
+        v28 = v14;
         _os_log_impl(&dword_1CA256000, v21, OS_LOG_TYPE_FAULT, "%s failed to read run request from data, error: %{public}@", buf, 0x16u);
       }
 
       [(WFRemoteExecutionSession *)self setState:1];
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 @end

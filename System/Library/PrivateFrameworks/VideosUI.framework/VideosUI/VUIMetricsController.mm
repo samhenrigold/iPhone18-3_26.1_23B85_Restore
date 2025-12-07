@@ -81,7 +81,7 @@
 
 - (void)setupMetricsController
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   self->_isAppJustLaunched = 1;
   *&self->_shouldRecordEnter = 1;
   self->_shouldRecordCachedAccount = 0;
@@ -103,14 +103,15 @@
   self->_localMetricsRecorder = v11;
 
   activeOrLocalAccount = [MEMORY[0x1E69D5920] activeOrLocalAccount];
-  self->_isGDPRConsented = [MEMORY[0x1E698C790] acknowledgementNeededForPrivacyIdentifier:@"com.apple.onboarding.tvapp" account:activeOrLocalAccount] ^ 1;
-  v14 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v14 = [MEMORY[0x1E698C790] acknowledgementNeededForPrivacyIdentifier:@"com.apple.onboarding.tvapp" account:activeOrLocalAccount];
+  self->_isGDPRConsented = v14 ^ 1;
+  v15 = VUIDefaultLogObject(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     isGDPRConsented = self->_isGDPRConsented;
     *buf = 67109120;
-    v23 = isGDPRConsented;
-    _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_INFO, "VUIMetricsController: setupMetricsController; GDPR Consented=%d", buf, 8u);
+    v24 = isGDPRConsented;
+    _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_INFO, "VUIMetricsController: setupMetricsController; GDPR Consented=%d", buf, 8u);
   }
 
   dispatch_async(self->_metricsDataDispatchSQ, &__block_literal_global_127);
@@ -118,23 +119,23 @@
   cachedGroupEvents = self->_cachedGroupEvents;
   self->_cachedGroupEvents = array;
 
-  v18 = objc_opt_new();
+  v19 = objc_opt_new();
   cachedUnifiedMessagingImpressions = self->_cachedUnifiedMessagingImpressions;
-  self->_cachedUnifiedMessagingImpressions = v18;
+  self->_cachedUnifiedMessagingImpressions = v19;
 
-  v20 = self->_metricsDataDispatchSQ;
+  v21 = self->_metricsDataDispatchSQ;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __46__VUIMetricsController_setupMetricsController__block_invoke_2;
   block[3] = &unk_1E872D768;
   block[4] = self;
-  dispatch_async(v20, block);
+  dispatch_async(v21, block);
   [(VUIMetricsController *)self registerForBaseFieldChanges];
 }
 
 void __38__VUIMetricsController_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = VUISignpostLogObject();
+  v2 = VUISignpostLogObject(a1);
   if (os_signpost_enabled(v2))
   {
     *buf = 0;
@@ -145,11 +146,11 @@ void __38__VUIMetricsController_sharedInstance__block_invoke(uint64_t a1)
   v4 = sharedInstance_sharedInstance_501;
   sharedInstance_sharedInstance_501 = v3;
 
-  v5 = VUISignpostLogObject();
-  if (os_signpost_enabled(v5))
+  v6 = VUISignpostLogObject(v5);
+  if (os_signpost_enabled(v6))
   {
-    *v6 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "MetricsController.Init", "", v6, 2u);
+    *v7 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v6, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "MetricsController.Init", "", v7, 2u);
   }
 }
 
@@ -333,7 +334,7 @@ void __38__VUIMetricsController_sharedInstance__block_invoke(uint64_t a1)
 - (void)recordAppBecameActive
 {
   v13 = *MEMORY[0x1E69E9840];
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     isAppJustLaunched = self->_isAppJustLaunched;
@@ -428,7 +429,7 @@ LABEL_12:
 - (void)recordAppLaunched
 {
   v7[1] = *MEMORY[0x1E69E9840];
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -595,29 +596,29 @@ LABEL_12:
 
 - (void)recordPage:(id)page
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   pageCopy = page;
-  if (self->_isGDPRConsented || [(VUIMetricsController *)self _isSiri])
+  if (self->_isGDPRConsented || (v5 = [(VUIMetricsController *)self _isSiri], (v5 & 1) != 0))
   {
     lastEventType = [(VUIMetricsController *)self lastEventType];
-    v6 = [lastEventType isEqualToString:@"page"];
+    v7 = [lastEventType isEqualToString:@"page"];
 
-    if (v6 && ([pageCopy generateMetricsDataDictionary], v7 = objc_claimAutoreleasedReturnValue(), -[VUIMetricsController lastEventData](self, "lastEventData"), v8 = objc_claimAutoreleasedReturnValue(), v9 = -[VUIMetricsController arePageEventsIdentical:previousPage:](self, "arePageEventsIdentical:previousPage:", v7, v8), v8, v7, v9))
+    if (v7 && ([pageCopy generateMetricsDataDictionary], v8 = objc_claimAutoreleasedReturnValue(), -[VUIMetricsController lastEventData](self, "lastEventData"), v9 = objc_claimAutoreleasedReturnValue(), v10 = -[VUIMetricsController arePageEventsIdentical:previousPage:](self, "arePageEventsIdentical:previousPage:", v8, v9), v9, v8, v10))
     {
       lastEventData = [(VUIMetricsController *)self lastEventData];
       generateMetricsDataDictionary = [lastEventData objectForKey:@"pageId"];
 
       lastEventData2 = [(VUIMetricsController *)self lastEventData];
-      v13 = [lastEventData2 objectForKey:@"pageType"];
+      v14 = [lastEventData2 objectForKey:@"pageType"];
 
-      v14 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v16 = VUIDefaultLogObject(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v17 = 138412546;
-        v18 = generateMetricsDataDictionary;
-        v19 = 2112;
-        v20 = v13;
-        _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_INFO, "VUIMetricsController: Discarding duplicate page event pageId=%@ pageType=%@", &v17, 0x16u);
+        v19 = 138412546;
+        v20 = generateMetricsDataDictionary;
+        v21 = 2112;
+        v22 = v14;
+        _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_INFO, "VUIMetricsController: Discarding duplicate page event pageId=%@ pageType=%@", &v19, 0x16u);
       }
     }
 
@@ -630,13 +631,13 @@ LABEL_12:
 
   else
   {
-    v15 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v17 = VUIDefaultLogObject(v5);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       pageId = [pageCopy pageId];
-      v17 = 138412290;
-      v18 = pageId;
-      _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_INFO, "VUIMetricsController: caching page event until GDPR acceptance pageType:%@", &v17, 0xCu);
+      v19 = 138412290;
+      v20 = pageId;
+      _os_log_impl(&dword_1E323F000, v17, OS_LOG_TYPE_INFO, "VUIMetricsController: caching page event until GDPR acceptance pageType:%@", &v19, 0xCu);
     }
 
     [(VUIMetricsController *)self setGdprCachedPageEvent:pageCopy];
@@ -651,7 +652,7 @@ LABEL_12:
 
 - (void)recordDialog:(id)dialog
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dialogCopy = dialog;
   lastEventType = [(VUIMetricsController *)self lastEventType];
   v6 = [lastEventType isEqualToString:@"dialog"];
@@ -669,7 +670,7 @@ LABEL_12:
   lastEventData2 = [(VUIMetricsController *)self lastEventData];
   v12 = [lastEventData2 objectForKey:@"dialogType"];
 
-  if (![v7 isEqualToString:v10] || !objc_msgSend(v8, "isEqualToString:", v12))
+  if (![v7 isEqualToString:v10] || (v13 = objc_msgSend(v8, "isEqualToString:", v12), !v13))
   {
 
 LABEL_8:
@@ -677,14 +678,14 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v13 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = VUIDefaultLogObject(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    v14 = 138412546;
-    v15 = v10;
-    v16 = 2112;
-    v17 = v12;
-    _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_INFO, "VUIMetricsController: Discarding duplicate dialog event dialogId=%@ dialogType=%@", &v14, 0x16u);
+    v15 = 138412546;
+    v16 = v10;
+    v17 = 2112;
+    v18 = v12;
+    _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_INFO, "VUIMetricsController: Discarding duplicate dialog event dialogId=%@ dialogType=%@", &v15, 0x16u);
   }
 
 LABEL_9:
@@ -699,7 +700,7 @@ LABEL_9:
     [(VUIMetricsController *)self setShouldFlushMetrics:0];
     v8 = [impressionsCopy vui_arrayForKey:@"impressions"];
     v9 = v8;
-    if (v8 && [v8 count])
+    if (v8 && (v8 = [v8 count]) != 0)
     {
       cachedUnifiedMessagingImpressions = [(VUIMetricsController *)self cachedUnifiedMessagingImpressions];
       v11 = [cachedUnifiedMessagingImpressions copy];
@@ -709,8 +710,7 @@ LABEL_9:
         v12 = objc_opt_new();
         [v12 addObjectsFromArray:v9];
         [v12 addObjectsFromArray:v11];
-        [(NSMutableArray *)self->_cachedUnifiedMessagingImpressions removeAllObjects];
-        v13 = VUIDefaultLogObject();
+        v13 = VUIDefaultLogObject([(NSMutableArray *)self->_cachedUnifiedMessagingImpressions removeAllObjects]);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
           *v17 = 0;
@@ -733,7 +733,7 @@ LABEL_9:
 
     else
     {
-      v11 = VUIDefaultLogObject();
+      v11 = VUIDefaultLogObject(v8);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -792,7 +792,7 @@ LABEL_5:
   v9 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = [eventCopy objectForKeyedSubscript:@"eventType"];
-  v6 = VUIDefaultLogObject();
+  v6 = VUIDefaultLogObject(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = 138412290;
@@ -832,8 +832,7 @@ LABEL_5:
     {
       v17 = [dataCopy mutableCopy];
       createEventTime = [(VUIMetricsController *)self createEventTime];
-      [(VUIScopedBackgroundTask *)v17 setValue:createEventTime forKey:@"eventTime"];
-      v19 = VUIDefaultLogObject();
+      v19 = VUIDefaultLogObject([(VUIScopedBackgroundTask *)v17 setValue:createEventTime forKey:@"eventTime"]);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
@@ -945,20 +944,21 @@ LABEL_11:
   pageDataCopy = pageData;
   if (!self->_isGDPRConsented)
   {
-    v12 = @"xp_amp_tv_unidentified";
+    v13 = @"xp_amp_tv_unidentified";
     goto LABEL_9;
   }
 
-  if (![jetCopy isEqualToString:@"pageRender"])
+  v11 = [jetCopy isEqualToString:@"pageRender"];
+  if (!v11)
   {
     if ([jetCopy isEqualToString:@"log"])
     {
-      v12 = @"xp_amp_tv_log";
+      v13 = @"xp_amp_tv_log";
     }
 
     else
     {
-      v12 = @"xp_amp_tv_main";
+      v13 = @"xp_amp_tv_main";
     }
 
 LABEL_9:
@@ -969,53 +969,53 @@ LABEL_9:
       goto LABEL_15;
     }
 
-    v14 = [dataCopy vui_stringForKey:@"pageType"];
-    if ([v14 isEqualToString:@"PreRoll"])
+    v15 = [dataCopy vui_stringForKey:@"pageType"];
+    if ([v15 isEqualToString:@"PreRoll"])
     {
     }
 
     else
     {
-      v15 = [dataCopy vui_stringForKey:@"pageType"];
-      v16 = [v15 isEqualToString:@"MediaPlayer"];
+      v16 = [dataCopy vui_stringForKey:@"pageType"];
+      v17 = [v16 isEqualToString:@"MediaPlayer"];
 
-      if (!v16)
+      if (!v17)
       {
-        v20 = [dataCopy vui_stringForKey:@"pageType"];
-        v21 = [v20 isEqualToString:@"Tab"];
+        v21 = [dataCopy vui_stringForKey:@"pageType"];
+        v22 = [v21 isEqualToString:@"Tab"];
 
-        if (v21)
+        if (v22)
         {
           sidebarPageMetrics = [(VUIMetricsController *)self sidebarPageMetrics];
         }
 
         else
         {
-          v22 = [dataCopy vui_stringForKey:@"pageType"];
-          v23 = [v22 isEqualToString:@"TabBar"];
+          v23 = [dataCopy vui_stringForKey:@"pageType"];
+          v24 = [v23 isEqualToString:@"TabBar"];
 
-          if (v23)
+          if (v24)
           {
             sidebarPageMetrics = [(VUIMetricsController *)self tabBarPageMetrics];
           }
 
           else
           {
-            v24 = [dataCopy vui_stringForKey:@"pageType"];
-            v25 = [v24 isEqualToString:@"ProfileSelector"];
+            v25 = [dataCopy vui_stringForKey:@"pageType"];
+            v26 = [v25 isEqualToString:@"ProfileSelector"];
 
-            if (!v25)
+            if (!v26)
             {
               if (lastRecordedPageEventData)
               {
-                v26 = [dataCopy vui_stringForKey:@"pageId"];
-                if (v26 && (-[NSObject pageId](lastRecordedPageEventData, "pageId"), v27 = objc_claimAutoreleasedReturnValue(), v28 = [v26 isEqualToString:v27], v27, (v28 & 1) == 0))
+                v27 = [dataCopy vui_stringForKey:@"pageId"];
+                if (v27 && (-[NSObject pageId](lastRecordedPageEventData, "pageId"), v28 = objc_claimAutoreleasedReturnValue(), v29 = [v27 isEqualToString:v28], v28, (v29 & 1) == 0))
                 {
-                  v30 = VUIDefaultLogObject();
-                  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+                  v32 = VUIDefaultLogObject(v30);
+                  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 0;
-                    _os_log_impl(&dword_1E323F000, v30, OS_LOG_TYPE_DEFAULT, "VUIMetricsController: mismatch of lastPageEvent data and page data embedded in event. extracting embedded data ", buf, 2u);
+                    _os_log_impl(&dword_1E323F000, v32, OS_LOG_TYPE_DEFAULT, "VUIMetricsController: mismatch of lastPageEvent data and page data embedded in event. extracting embedded data ", buf, 2u);
                   }
 
                   generateMetricsDataDictionary = [(VUIMetricsController *)self extractPageMetricsFromEventData:dataCopy];
@@ -1026,13 +1026,13 @@ LABEL_9:
                   generateMetricsDataDictionary = [lastRecordedPageEventData generateMetricsDataDictionary];
                 }
 
-                v31 = generateMetricsDataDictionary;
-                v17 = [(VUIMetricsController *)self _processPageFields:generateMetricsDataDictionary forEventType:jetCopy];
+                v33 = generateMetricsDataDictionary;
+                v18 = [(VUIMetricsController *)self _processPageFields:generateMetricsDataDictionary forEventType:jetCopy];
               }
 
               else
               {
-                v17 = MEMORY[0x1E695E0F8];
+                v18 = MEMORY[0x1E695E0F8];
               }
 
               goto LABEL_16;
@@ -1043,17 +1043,17 @@ LABEL_9:
         }
 
 LABEL_15:
-        v17 = sidebarPageMetrics;
+        v18 = sidebarPageMetrics;
 LABEL_16:
-        v18 = +[VUIMetricsJetEngine sharedInstance];
-        v19 = [v18 recordEventWithTopic:v12 eventType:jetCopy eventData:dataCopy pageData:v17];
+        v19 = +[VUIMetricsJetEngine sharedInstance];
+        v20 = [v19 recordEventWithTopic:v13 eventType:jetCopy eventData:dataCopy pageData:v18];
 
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __67__VUIMetricsController__recordEventWithJet_withEventData_pageData___block_invoke;
-        v32[3] = &unk_1E87321A0;
-        v32[4] = self;
-        [v19 addFinishBlock:v32];
+        v34[0] = MEMORY[0x1E69E9820];
+        v34[1] = 3221225472;
+        v34[2] = __67__VUIMetricsController__recordEventWithJet_withEventData_pageData___block_invoke;
+        v34[3] = &unk_1E87321A0;
+        v34[4] = self;
+        [v20 addFinishBlock:v34];
 
         goto LABEL_17;
       }
@@ -1063,7 +1063,7 @@ LABEL_16:
     goto LABEL_15;
   }
 
-  lastRecordedPageEventData = VUIDefaultLogObject();
+  lastRecordedPageEventData = VUIDefaultLogObject(v11);
   if (os_log_type_enabled(lastRecordedPageEventData, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -1077,28 +1077,29 @@ void __67__VUIMetricsController__recordEventWithJet_withEventData_pageData___blo
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = VUIDefaultLogObject(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __67__VUIMetricsController__recordEventWithJet_withEventData_pageData___block_invoke_cold_1(v6, v7);
+      __67__VUIMetricsController__recordEventWithJet_withEventData_pageData___block_invoke_cold_1(v7, v8);
     }
   }
 
   else
   {
-    v8 = *(*(a1 + 32) + 72);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __67__VUIMetricsController__recordEventWithJet_withEventData_pageData___block_invoke_529;
-    v11[3] = &unk_1E872D990;
-    v9 = v5;
-    v10 = *(a1 + 32);
-    v12 = v9;
+    v9 = *(*(a1 + 32) + 72);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __67__VUIMetricsController__recordEventWithJet_withEventData_pageData___block_invoke_529;
+    v12[3] = &unk_1E872D990;
+    v10 = v5;
+    v11 = *(a1 + 32);
     v13 = v10;
-    dispatch_async(v8, v11);
-    v7 = v12;
+    v14 = v11;
+    dispatch_async(v9, v12);
+    v8 = v13;
   }
 }
 
@@ -1187,7 +1188,7 @@ void __40__VUIMetricsController_recordPerfEvent___block_invoke(uint64_t a1)
 
   else
   {
-    v6 = VUIDefaultLogObject();
+    v6 = VUIDefaultLogObject(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -1251,7 +1252,7 @@ void __34__VUIMetricsController_recordLog___block_invoke(uint64_t a1)
 
   else
   {
-    v5 = VUIDefaultLogObject();
+    v5 = VUIDefaultLogObject(v2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -1262,35 +1263,36 @@ void __34__VUIMetricsController_recordLog___block_invoke(uint64_t a1)
 
 void __45__VUIMetricsController__initializeBaseFields__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = VUIDefaultLogObject(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v13 = 138412290;
-      v14 = v5;
-      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "TVAS fetch error %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = v6;
+      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_INFO, "TVAS fetch error %@", &v14, 0xCu);
     }
   }
 
   else
   {
-    v6 = [a2 data];
+    v7 = [a2 data];
     if (a2)
     {
-      a2 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v6 options:0 error:0];
+      a2 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:0];
     }
 
-    v7 = objc_alloc(MEMORY[0x1E69E15C0]);
-    v8 = [a2 vui_dictionaryForKey:@"data"];
-    v9 = [v7 initWithServerResponseDictionary:v8 expirationDate:0 environmentHash:0];
+    v8 = objc_alloc(MEMORY[0x1E69E15C0]);
+    v9 = [a2 vui_dictionaryForKey:@"data"];
+    v10 = [v8 initWithServerResponseDictionary:v9 expirationDate:0 environmentHash:0];
 
-    v10 = [v9 vppaStatusString];
-    v11 = *(*(a1 + 40) + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = v10;
+    v11 = [v10 vppaStatusString];
+    v12 = *(*(a1 + 40) + 8);
+    v13 = *(v12 + 40);
+    *(v12 + 40) = v11;
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
@@ -1298,25 +1300,26 @@ void __45__VUIMetricsController__initializeBaseFields__block_invoke(uint64_t a1,
 
 void __45__VUIMetricsController__initializeBaseFields__block_invoke_545(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = VUIDefaultLogObject(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "WLK fetch error %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_INFO, "WLK fetch error %@", &v11, 0xCu);
     }
   }
 
   else
   {
-    v7 = [a2 vppaStatusString];
-    v8 = *(*(a1 + 40) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    v8 = [a2 vppaStatusString];
+    v9 = *(*(a1 + 40) + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
@@ -1534,7 +1537,7 @@ void __45__VUIMetricsController__initializeBaseFields__block_invoke_545(uint64_t
 {
   statusCopy = status;
   v7 = *MEMORY[0x1E69E9840];
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6[0] = 67109120;
@@ -1547,18 +1550,19 @@ void __45__VUIMetricsController__initializeBaseFields__block_invoke_545(uint64_t
 
 - (void)updateGDPRConsentStatus
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   activeOrLocalAccount = [MEMORY[0x1E69D5920] activeOrLocalAccount];
-  v4 = [MEMORY[0x1E698C790] acknowledgementNeededForPrivacyIdentifier:@"com.apple.onboarding.tvapp" account:activeOrLocalAccount] ^ 1;
-  v5 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v4 = [MEMORY[0x1E698C790] acknowledgementNeededForPrivacyIdentifier:@"com.apple.onboarding.tvapp" account:activeOrLocalAccount];
+  v5 = v4 ^ 1;
+  v6 = VUIDefaultLogObject(v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6[0] = 67109120;
-    v6[1] = v4;
-    _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_INFO, "GDPR update: consented %d", v6, 8u);
+    v7[0] = 67109120;
+    v7[1] = v5;
+    _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "GDPR update: consented %d", v7, 8u);
   }
 
-  [(VUIMetricsController *)self _setGDPRConsentStatus:v4];
+  [(VUIMetricsController *)self _setGDPRConsentStatus:v5];
 }
 
 - (void)_setGDPRConsentStatus:(BOOL)status
@@ -1584,28 +1588,29 @@ void __46__VUIMetricsController__setGDPRConsentStatus___block_invoke(uint64_t a1
   {
     [v5 _recordAccount];
     v6 = [*(a1 + 32) gdprCachedPageEvent];
+    v7 = v6;
     if (v6)
     {
-      v7 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = VUIDefaultLogObject(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIMetricsController: recording cachedPageEvent after GDPR consent", v12, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIMetricsController: recording cachedPageEvent after GDPR consent", v13, 2u);
       }
 
-      [*(a1 + 32) recordPage:v6];
+      [*(a1 + 32) recordPage:v7];
       [*(a1 + 32) setGdprCachedPageEvent:0];
     }
 
     v5 = *(a1 + 32);
   }
 
-  v8 = [v5 baseFields];
-  v9 = [v8 mutableCopy];
+  v9 = [v5 baseFields];
+  v10 = [v9 mutableCopy];
 
-  v10 = *(a1 + 32);
-  v11 = [v9 copy];
-  [v10 setBaseFields:v11];
+  v11 = *(a1 + 32);
+  v12 = [v10 copy];
+  [v11 setBaseFields:v12];
 
   [*(a1 + 32) _updateBaseFieldsWithData:0];
 }
@@ -1829,15 +1834,16 @@ void __65__VUIMetricsController__handleGroupActivitiesSessionStateChange___block
     v11 = *v21;
     do
     {
-      for (i = 0; i != v10; ++i)
+      v12 = 0;
+      do
       {
         if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
-        v14 = VUIDefaultLogObject();
+        v13 = *(*(&v20 + 1) + 8 * v12);
+        v14 = VUIDefaultLogObject(v9);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           v15 = [v13 eventType];
@@ -1850,12 +1856,16 @@ void __65__VUIMetricsController__handleGroupActivitiesSessionStateChange___block
         v17 = [v13 eventType];
         v18 = [v13 eventData];
         [v16 _recordEvent:v17 withEventData:v18];
+
+        ++v12;
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      while (v10 != v12);
+      v9 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v10 = v9;
     }
 
-    while (v10);
+    while (v9);
   }
 }
 
@@ -1882,7 +1892,7 @@ void __65__VUIMetricsController__handleGroupActivitiesSessionStateChange___block
 
 - (void)_saveRecentEvents:(id)events
 {
-  v105[55] = *MEMORY[0x1E69E9840];
+  v106[55] = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   v5 = eventsCopy;
   if (self && eventsCopy && self->_isInternalBuild)
@@ -1914,202 +1924,203 @@ void __65__VUIMetricsController__handleGroupActivitiesSessionStateChange___block
 
       if (metricsExpandedLoggingEnabled)
       {
-        v90 = 0;
-        v13 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v5 options:1 error:&v90];
-        v14 = v90;
+        v91 = 0;
+        v13 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v5 options:1 error:&v91];
+        v14 = v91;
+        v15 = v14;
         if (v13)
         {
-          v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v13 encoding:4];
-          v16 = VUIDefaultLogObject();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+          v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v13 encoding:4];
+          v17 = VUIDefaultLogObject(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
-            v17 = [v5 objectForKeyedSubscript:@"eventType"];
-            uppercaseString = [v17 uppercaseString];
+            v18 = [v5 objectForKeyedSubscript:@"eventType"];
+            uppercaseString = [v18 uppercaseString];
             *buf = 138412546;
-            v92 = uppercaseString;
-            v93 = 2112;
-            v94 = v15;
-            _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_INFO, "========== %@ Metrics Event ========== (all fields):%@", buf, 0x16u);
+            v93 = uppercaseString;
+            v94 = 2112;
+            v95 = v16;
+            _os_log_impl(&dword_1E323F000, v17, OS_LOG_TYPE_INFO, "========== %@ Metrics Event ========== (all fields):%@", buf, 0x16u);
           }
         }
 
         else
         {
-          v15 = VUIDefaultLogObject();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+          v16 = VUIDefaultLogObject(v14);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v92 = v5;
-            v93 = 2112;
-            v94 = v14;
-            _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_INFO, "VUIMetricsController: Unserializable event data: [%@] error:[%@]", buf, 0x16u);
+            v93 = v5;
+            v94 = 2112;
+            v95 = v15;
+            _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_INFO, "VUIMetricsController: Unserializable event data: [%@] error:[%@]", buf, 0x16u);
           }
         }
       }
 
       else
       {
-        v14 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v5];
-        v13 = [v14 objectForKeyedSubscript:@"eventType"];
-        v105[0] = @"eventType";
-        v105[1] = @"dbids";
-        v105[2] = @"storeFront";
-        v105[3] = @"capacityDataAvailable";
-        v105[4] = @"osVersion";
-        v105[5] = @"clientCorrelationKey";
-        v105[6] = @"connection";
-        v105[7] = @"capacityDisk";
-        v105[8] = @"clientId";
-        v105[9] = @"eventTime";
-        v105[10] = @"capacitySystem";
-        v105[11] = @"baseVersion";
-        v105[12] = @"platformName";
-        v105[13] = @"xpPostFrequency";
-        v105[14] = @"ibids";
-        v105[15] = @"hardwareFamily";
-        v105[16] = @"hardwareModel";
-        v105[17] = @"os";
-        v105[18] = @"app";
-        v105[19] = @"pixelRatio";
-        v105[20] = @"windowOuterHeight";
-        v105[21] = @"timezoneOffset";
-        v105[22] = @"environment";
-        v105[23] = @"isSignedIn";
-        v105[24] = @"screenWidth";
-        v105[25] = @"resourceRevNum";
-        v105[26] = @"capacityData";
-        v105[27] = @"screenHeight";
-        v105[28] = @"environmentBuild";
-        v105[29] = @"xpSendMethod";
-        v105[30] = @"eventVersion";
-        v105[31] = @"appVersion";
-        v105[32] = @"sbids";
-        v105[33] = @"capacitySystemAvailable";
-        v105[34] = @"windowOuterWidth";
-        v105[35] = @"utsc";
-        v105[36] = @"clientEventId";
-        v105[37] = @"osBuildNumber";
-        v105[38] = @"environmentDataCenter";
-        v105[39] = @"storeFrontHeader";
-        v105[40] = @"userType";
-        v105[41] = @"xpDelegatesInfo";
-        v105[42] = @"userAgent";
-        v105[43] = @"platformId";
-        v105[44] = @"language";
-        v105[45] = @"cbids";
-        v105[46] = @"osLanguages";
-        v105[47] = @"xpViewableThreshold";
-        v105[48] = @"xpViewablePercentage";
-        v105[49] = @"dsId";
-        v105[50] = @"locationAuthorization";
-        v105[51] = @"vppaState";
-        v105[52] = @"page";
-        v105[53] = @"pageHistory";
-        v105[54] = @"topic";
-        v75 = [MEMORY[0x1E695DEC8] arrayWithObjects:v105 count:55];
-        if (([v13 isEqualToString:@"click"] & 1) != 0 || objc_msgSend(v13, "isEqualToString:", @"impressions") && (objc_msgSend(MEMORY[0x1E69DF6E0], "sharedInstance"), v37 = objc_claimAutoreleasedReturnValue(), v38 = objc_msgSend(v37, "metricsLogLocationAndImpressions"), v37, (v38 & 1) == 0))
+        v15 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v5];
+        v13 = [v15 objectForKeyedSubscript:@"eventType"];
+        v106[0] = @"eventType";
+        v106[1] = @"dbids";
+        v106[2] = @"storeFront";
+        v106[3] = @"capacityDataAvailable";
+        v106[4] = @"osVersion";
+        v106[5] = @"clientCorrelationKey";
+        v106[6] = @"connection";
+        v106[7] = @"capacityDisk";
+        v106[8] = @"clientId";
+        v106[9] = @"eventTime";
+        v106[10] = @"capacitySystem";
+        v106[11] = @"baseVersion";
+        v106[12] = @"platformName";
+        v106[13] = @"xpPostFrequency";
+        v106[14] = @"ibids";
+        v106[15] = @"hardwareFamily";
+        v106[16] = @"hardwareModel";
+        v106[17] = @"os";
+        v106[18] = @"app";
+        v106[19] = @"pixelRatio";
+        v106[20] = @"windowOuterHeight";
+        v106[21] = @"timezoneOffset";
+        v106[22] = @"environment";
+        v106[23] = @"isSignedIn";
+        v106[24] = @"screenWidth";
+        v106[25] = @"resourceRevNum";
+        v106[26] = @"capacityData";
+        v106[27] = @"screenHeight";
+        v106[28] = @"environmentBuild";
+        v106[29] = @"xpSendMethod";
+        v106[30] = @"eventVersion";
+        v106[31] = @"appVersion";
+        v106[32] = @"sbids";
+        v106[33] = @"capacitySystemAvailable";
+        v106[34] = @"windowOuterWidth";
+        v106[35] = @"utsc";
+        v106[36] = @"clientEventId";
+        v106[37] = @"osBuildNumber";
+        v106[38] = @"environmentDataCenter";
+        v106[39] = @"storeFrontHeader";
+        v106[40] = @"userType";
+        v106[41] = @"xpDelegatesInfo";
+        v106[42] = @"userAgent";
+        v106[43] = @"platformId";
+        v106[44] = @"language";
+        v106[45] = @"cbids";
+        v106[46] = @"osLanguages";
+        v106[47] = @"xpViewableThreshold";
+        v106[48] = @"xpViewablePercentage";
+        v106[49] = @"dsId";
+        v106[50] = @"locationAuthorization";
+        v106[51] = @"vppaState";
+        v106[52] = @"page";
+        v106[53] = @"pageHistory";
+        v106[54] = @"topic";
+        v76 = [MEMORY[0x1E695DEC8] arrayWithObjects:v106 count:55];
+        if (([v13 isEqualToString:@"click"] & 1) != 0 || objc_msgSend(v13, "isEqualToString:", @"impressions") && (objc_msgSend(MEMORY[0x1E69DF6E0], "sharedInstance"), v38 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(v38, "metricsLogLocationAndImpressions"), v38, (v39 & 1) == 0))
         {
-          v71 = v5;
-          v19 = [v14 objectForKeyedSubscript:@"impressions"];
-          v73 = v13;
-          v74 = v14;
-          v72 = v19;
-          if ([v19 count])
+          v72 = v5;
+          v20 = [v15 objectForKeyedSubscript:@"impressions"];
+          v74 = v13;
+          v75 = v15;
+          v73 = v20;
+          if ([v20 count])
           {
-            v80 = objc_opt_new();
-            v86 = 0u;
+            v81 = objc_opt_new();
             v87 = 0u;
             v88 = 0u;
             v89 = 0u;
-            obj = v19;
-            v20 = [obj countByEnumeratingWithState:&v86 objects:v104 count:16];
-            if (v20)
+            v90 = 0u;
+            obj = v20;
+            v21 = [obj countByEnumeratingWithState:&v87 objects:v105 count:16];
+            if (v21)
             {
-              v21 = v20;
-              v78 = *v87;
+              v22 = v21;
+              v79 = *v88;
               do
               {
-                for (i = 0; i != v21; ++i)
+                for (i = 0; i != v22; ++i)
                 {
-                  if (*v87 != v78)
+                  if (*v88 != v79)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v23 = *(*(&v86 + 1) + 8 * i);
-                  v102[0] = @"id";
-                  v24 = [v23 objectForKey:?];
-                  v25 = v24;
-                  if (v24)
+                  v24 = *(*(&v87 + 1) + 8 * i);
+                  v103[0] = @"id";
+                  v25 = [v24 objectForKey:?];
+                  v26 = v25;
+                  if (v25)
                   {
-                    v26 = v24;
+                    v27 = v25;
                   }
 
                   else
                   {
-                    v26 = &stru_1F5DB25C0;
+                    v27 = &stru_1F5DB25C0;
                   }
 
-                  v103[0] = v26;
-                  v102[1] = @"name";
-                  v27 = [v23 objectForKey:?];
-                  v28 = v27;
-                  if (v27)
+                  v104[0] = v27;
+                  v103[1] = @"name";
+                  v28 = [v24 objectForKey:?];
+                  v29 = v28;
+                  if (v28)
                   {
-                    v29 = v27;
+                    v30 = v28;
                   }
 
                   else
                   {
-                    v29 = &stru_1F5DB25C0;
+                    v30 = &stru_1F5DB25C0;
                   }
 
-                  v103[1] = v29;
-                  v102[2] = @"impressionType";
-                  v30 = [v23 objectForKey:@"impressionType"];
-                  v31 = v30;
-                  if (v30)
+                  v104[1] = v30;
+                  v103[2] = @"impressionType";
+                  v31 = [v24 objectForKey:@"impressionType"];
+                  v32 = v31;
+                  if (v31)
                   {
-                    v32 = v30;
+                    v33 = v31;
                   }
 
                   else
                   {
-                    v32 = &stru_1F5DB25C0;
+                    v33 = &stru_1F5DB25C0;
                   }
 
-                  v103[2] = v32;
-                  v102[3] = @"impressionIndex";
-                  v33 = [v23 objectForKey:@"impressionIndex"];
-                  v34 = v33;
-                  if (v33)
+                  v104[2] = v33;
+                  v103[3] = @"impressionIndex";
+                  v34 = [v24 objectForKey:@"impressionIndex"];
+                  v35 = v34;
+                  if (v34)
                   {
-                    v35 = v33;
+                    v36 = v34;
                   }
 
                   else
                   {
-                    v35 = &stru_1F5DB25C0;
+                    v36 = &stru_1F5DB25C0;
                   }
 
-                  v103[3] = v35;
-                  v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v103 forKeys:v102 count:4];
+                  v104[3] = v36;
+                  v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v104 forKeys:v103 count:4];
 
-                  [v80 addObject:v36];
+                  [v81 addObject:v37];
                 }
 
-                v21 = [obj countByEnumeratingWithState:&v86 objects:v104 count:16];
+                v22 = [obj countByEnumeratingWithState:&v87 objects:v105 count:16];
               }
 
-              while (v21);
+              while (v22);
             }
 
-            [v14 removeObjectsForKeys:&unk_1F5E5EAA8];
-            [v14 setObject:v80 forKey:@"impressions (ABRIDGED)"];
+            [v15 removeObjectsForKeys:&unk_1F5E5EAA8];
+            [v15 setObject:v81 forKey:@"impressions (ABRIDGED)"];
             obja = [MEMORY[0x1E696AEC0] stringWithFormat:@"<<Impressions count: %lu>>", objc_msgSend(obj, "count")];
 
-            v19 = v72;
-            v13 = v73;
+            v20 = v73;
+            v13 = v74;
           }
 
           else
@@ -2117,109 +2128,109 @@ void __65__VUIMetricsController__handleGroupActivitiesSessionStateChange___block
             obja = &stru_1F5DB25C0;
           }
 
-          v39 = [v14 objectForKeyedSubscript:@"location"];
-          [v14 removeObjectsForKeys:&unk_1F5E5EAC0];
-          if ([v39 count])
+          v40 = [v15 objectForKeyedSubscript:@"location"];
+          [v15 removeObjectsForKeys:&unk_1F5E5EAC0];
+          if ([v40 count])
           {
-            v40 = objc_opt_new();
-            v82 = 0u;
+            v41 = objc_opt_new();
             v83 = 0u;
             v84 = 0u;
             v85 = 0u;
-            v79 = v39;
-            v41 = [v79 countByEnumeratingWithState:&v82 objects:v101 count:16];
-            if (v41)
+            v86 = 0u;
+            v80 = v40;
+            v42 = [v80 countByEnumeratingWithState:&v83 objects:v102 count:16];
+            if (v42)
             {
-              v42 = v41;
-              v81 = *v83;
+              v43 = v42;
+              v82 = *v84;
               do
               {
-                for (j = 0; j != v42; ++j)
+                for (j = 0; j != v43; ++j)
                 {
-                  if (*v83 != v81)
+                  if (*v84 != v82)
                   {
-                    objc_enumerationMutation(v79);
+                    objc_enumerationMutation(v80);
                   }
 
-                  v44 = *(*(&v82 + 1) + 8 * j);
-                  v99[0] = @"id";
-                  v45 = [v44 objectForKey:?];
-                  v46 = v45;
-                  if (v45)
+                  v45 = *(*(&v83 + 1) + 8 * j);
+                  v100[0] = @"id";
+                  v46 = [v45 objectForKey:?];
+                  v47 = v46;
+                  if (v46)
                   {
-                    v47 = v45;
-                  }
-
-                  else
-                  {
-                    v47 = &stru_1F5DB25C0;
-                  }
-
-                  v100[0] = v47;
-                  v99[1] = @"name";
-                  v48 = [v44 objectForKey:?];
-                  v49 = v48;
-                  if (v48)
-                  {
-                    v50 = v48;
+                    v48 = v46;
                   }
 
                   else
                   {
-                    v50 = &stru_1F5DB25C0;
+                    v48 = &stru_1F5DB25C0;
                   }
 
-                  v100[1] = v50;
-                  v99[2] = @"locationType";
-                  v51 = [v44 objectForKey:?];
-                  v52 = v51;
-                  if (v51)
+                  v101[0] = v48;
+                  v100[1] = @"name";
+                  v49 = [v45 objectForKey:?];
+                  v50 = v49;
+                  if (v49)
                   {
-                    v53 = v51;
+                    v51 = v49;
                   }
 
                   else
                   {
-                    v53 = &stru_1F5DB25C0;
+                    v51 = &stru_1F5DB25C0;
                   }
 
-                  v100[2] = v53;
-                  v99[3] = @"locationPosition";
-                  v54 = [v44 objectForKey:@"locationPosition"];
-                  v55 = v54;
-                  if (v54)
+                  v101[1] = v51;
+                  v100[2] = @"locationType";
+                  v52 = [v45 objectForKey:?];
+                  v53 = v52;
+                  if (v52)
                   {
-                    v56 = v54;
+                    v54 = v52;
                   }
 
                   else
                   {
-                    v56 = &stru_1F5DB25C0;
+                    v54 = &stru_1F5DB25C0;
                   }
 
-                  v100[3] = v56;
-                  v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v100 forKeys:v99 count:4];
+                  v101[2] = v54;
+                  v100[3] = @"locationPosition";
+                  v55 = [v45 objectForKey:@"locationPosition"];
+                  v56 = v55;
+                  if (v55)
+                  {
+                    v57 = v55;
+                  }
 
-                  [v40 addObject:v57];
+                  else
+                  {
+                    v57 = &stru_1F5DB25C0;
+                  }
+
+                  v101[3] = v57;
+                  v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v101 forKeys:v100 count:4];
+
+                  [v41 addObject:v58];
                 }
 
-                v42 = [v79 countByEnumeratingWithState:&v82 objects:v101 count:16];
+                v43 = [v80 countByEnumeratingWithState:&v83 objects:v102 count:16];
               }
 
-              while (v42);
+              while (v43);
             }
 
-            v13 = v73;
-            v14 = v74;
-            if ([v73 isEqualToString:@"click"] && objc_msgSend(v40, "count"))
+            v13 = v74;
+            v15 = v75;
+            if ([v74 isEqualToString:@"click"] && objc_msgSend(v41, "count"))
             {
-              [v74 setObject:v40 forKey:@"location (ABRIDGED)"];
+              [v75 setObject:v41 forKey:@"location (ABRIDGED)"];
             }
 
-            v19 = v72;
+            v20 = v73;
           }
 
-          v5 = v71;
+          v5 = v72;
         }
 
         else
@@ -2227,44 +2238,43 @@ void __65__VUIMetricsController__handleGroupActivitiesSessionStateChange___block
           obja = &stru_1F5DB25C0;
         }
 
-        v58 = [v14 objectForKey:@"sharedActivity"];
-        bOOLValue = [v58 BOOLValue];
+        v59 = [v15 objectForKey:@"sharedActivity"];
+        bOOLValue = [v59 BOOLValue];
 
         if ((bOOLValue & 1) == 0)
         {
-          [v14 removeObjectsForKeys:&unk_1F5E5EAD8];
+          [v15 removeObjectsForKeys:&unk_1F5E5EAD8];
         }
 
         allKeys = [v5 allKeys];
         allKeys2 = [v5 allKeys];
-        v62 = [allKeys2 indexesOfObjectsPassingTest:&__block_literal_global_735];
-        v63 = [allKeys objectsAtIndexes:v62];
+        v63 = [allKeys2 indexesOfObjectsPassingTest:&__block_literal_global_735];
+        v64 = [allKeys objectsAtIndexes:v63];
 
         allKeys3 = [v5 allKeys];
         allKeys4 = [v5 allKeys];
-        v66 = [allKeys4 indexesOfObjectsPassingTest:&__block_literal_global_746];
-        v67 = [allKeys3 objectsAtIndexes:v66];
+        v67 = [allKeys4 indexesOfObjectsPassingTest:&__block_literal_global_746];
+        v68 = [allKeys3 objectsAtIndexes:v67];
 
-        v15 = v75;
-        [v14 removeObjectsForKeys:v75];
-        [v14 removeObjectsForKeys:v67];
-        v68 = [v5 dictionaryWithValuesForKeys:v67];
-        [v14 removeObjectsForKeys:v63];
-        v69 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
+        v16 = v76;
+        [v15 removeObjectsForKeys:v76];
+        [v15 removeObjectsForKeys:v68];
+        v69 = [v5 dictionaryWithValuesForKeys:v68];
+        v70 = VUIDefaultLogObject([v15 removeObjectsForKeys:v64]);
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
         {
           uppercaseString2 = [v13 uppercaseString];
           *buf = 138413058;
-          v92 = uppercaseString2;
-          v93 = 2112;
-          v94 = v14;
-          v95 = 2112;
-          v96 = v68;
-          v97 = 2112;
-          v98 = obja;
-          _os_log_impl(&dword_1E323F000, v69, OS_LOG_TYPE_INFO, "========== %@ Metrics Event ========== (limited fields):%@ %@ %@", buf, 0x2Au);
+          v93 = uppercaseString2;
+          v94 = 2112;
+          v95 = v15;
+          v96 = 2112;
+          v97 = v69;
+          v98 = 2112;
+          v99 = obja;
+          _os_log_impl(&dword_1E323F000, v70, OS_LOG_TYPE_INFO, "========== %@ Metrics Event ========== (limited fields):%@ %@ %@", buf, 0x2Au);
 
-          v15 = v75;
+          v16 = v76;
         }
       }
     }

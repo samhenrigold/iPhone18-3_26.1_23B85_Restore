@@ -201,7 +201,7 @@
       }
 
 LABEL_7:
-      [(AFHeadphonesAnnouncementRequestCapabilityProvider *)self fetchEligibleAnnouncementRequestTypesAndNotifyObserversAndShouldRelyOnCachedStateIfIneligble:0, *v9];
+      [(AFHeadphonesAnnouncementRequestCapabilityProvider *)self fetchEligibleAnnouncementRequestTypesAndNotifyObserversAndShouldRelyOnCachedStateIfIneligble:0, *v9, *&v9[8]];
     }
   }
 

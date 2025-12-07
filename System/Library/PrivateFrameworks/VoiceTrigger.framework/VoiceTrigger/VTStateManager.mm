@@ -485,96 +485,104 @@ void __94__VTStateManager_initWithProperty_phraseSpotter_enablePolicy_callbackWi
 
 void __94__VTStateManager_initWithProperty_phraseSpotter_enablePolicy_callbackWithMessageAndTimestamp___block_invoke_2()
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2050000000;
+  v19 = *MEMORY[0x277D85DE8];
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2050000000;
   v0 = getCSActivationEventNotifierClass_softClass;
-  v9 = getCSActivationEventNotifierClass_softClass;
+  v10 = getCSActivationEventNotifierClass_softClass;
   if (!getCSActivationEventNotifierClass_softClass)
   {
-    v10 = 0;
+    v11 = 0;
     if (!CoreSpeechLibraryCore_frameworkLibrary)
     {
-      v11 = MEMORY[0x277D85DD0];
-      v12 = 3221225472;
-      v13 = __CoreSpeechLibraryCore_block_invoke;
-      v14 = &__block_descriptor_40_e5_v8__0l;
-      v15 = &v10;
-      v16 = xmmword_2784EC960;
-      v17 = 0;
+      v12 = MEMORY[0x277D85DD0];
+      v13 = 3221225472;
+      v14 = __CoreSpeechLibraryCore_block_invoke;
+      v15 = &__block_descriptor_40_e5_v8__0l;
+      v16 = &v11;
+      v17 = xmmword_2784EC960;
+      v18 = 0;
       CoreSpeechLibraryCore_frameworkLibrary = _sl_dlopen();
+      v1 = v11;
       if (!CoreSpeechLibraryCore_frameworkLibrary)
       {
         goto LABEL_16;
       }
 
-      if (v10)
+      if (v11)
       {
-        free(v10);
+        free(v11);
       }
     }
 
-    v7[3] = objc_getClass("CSActivationEventNotifier");
-    if (!v7[3])
+    v8[3] = objc_getClass("CSActivationEventNotifier");
+    if (!v8[3])
     {
-      goto LABEL_16;
+      abort_report_np("Unable to find class %s", "CSActivationEventNotifier");
+      goto LABEL_20;
     }
 
-    getCSActivationEventNotifierClass_softClass = v7[3];
-    v0 = v7[3];
+    getCSActivationEventNotifierClass_softClass = v8[3];
+    v0 = v8[3];
   }
 
-  v1 = v0;
-  _Block_object_dispose(&v6, 8);
-  v2 = [v0 sharedNotifier];
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2050000000;
-  v3 = getCSActivationEventClass_softClass;
-  v9 = getCSActivationEventClass_softClass;
+  v2 = v0;
+  _Block_object_dispose(&v7, 8);
+  v3 = [v0 sharedNotifier];
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2050000000;
+  v4 = getCSActivationEventClass_softClass;
+  v10 = getCSActivationEventClass_softClass;
   if (!getCSActivationEventClass_softClass)
   {
-    v10 = 0;
-    if (!CoreSpeechLibraryCore_frameworkLibrary)
+    v11 = 0;
+    if (CoreSpeechLibraryCore_frameworkLibrary)
     {
-      v11 = MEMORY[0x277D85DD0];
-      v12 = 3221225472;
-      v13 = __CoreSpeechLibraryCore_block_invoke;
-      v14 = &__block_descriptor_40_e5_v8__0l;
-      v15 = &v10;
-      v16 = xmmword_2784EC960;
-      v17 = 0;
-      CoreSpeechLibraryCore_frameworkLibrary = _sl_dlopen();
-      if (!CoreSpeechLibraryCore_frameworkLibrary)
+LABEL_13:
+      v8[3] = objc_getClass("CSActivationEvent");
+      if (v8[3])
       {
-        goto LABEL_16;
+        getCSActivationEventClass_softClass = v8[3];
+        v4 = v8[3];
+        goto LABEL_15;
       }
 
-      if (v10)
-      {
-        free(v10);
-      }
+      abort_report_np("Unable to find class %s", "CSActivationEvent");
+LABEL_20:
+      __break(1u);
     }
 
-    v7[3] = objc_getClass("CSActivationEvent");
-    if (v7[3])
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __CoreSpeechLibraryCore_block_invoke;
+    v15 = &__block_descriptor_40_e5_v8__0l;
+    v16 = &v11;
+    v17 = xmmword_2784EC960;
+    v18 = 0;
+    CoreSpeechLibraryCore_frameworkLibrary = _sl_dlopen();
+    v1 = v11;
+    if (CoreSpeechLibraryCore_frameworkLibrary)
     {
-      getCSActivationEventClass_softClass = v7[3];
-      v3 = v7[3];
-      goto LABEL_15;
+      if (v11)
+      {
+        free(v11);
+      }
+
+      goto LABEL_13;
     }
 
 LABEL_16:
-    abort_report_np();
-    __break(1u);
+    abort_report_np("%s", v1);
+    goto LABEL_20;
   }
 
 LABEL_15:
-  v4 = v3;
-  _Block_object_dispose(&v6, 8);
-  v5 = [v3 mediaserverdLaunchedEvent:mach_absolute_time()];
-  [v2 notifyActivationEvent:v5 completion:&__block_literal_global_12];
+  v5 = v4;
+  _Block_object_dispose(&v7, 8);
+  v6 = [v4 mediaserverdLaunchedEvent:mach_absolute_time()];
+  [v3 notifyActivationEvent:v6 completion:&__block_literal_global_12];
 }
 
 void __94__VTStateManager_initWithProperty_phraseSpotter_enablePolicy_callbackWithMessageAndTimestamp___block_invoke_3()

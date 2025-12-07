@@ -279,7 +279,7 @@ void __71__HUQuickControlSegmentedControl__updateSegmentSelectionStateAnimated__
   }
 }
 
-void __73__HUQuickControlSegmentedControl__updateSegmentViewsForUILayoutDirection__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __73__HUQuickControlSegmentedControl__updateSegmentViewsForUILayoutDirection__block_invoke(uint64_t a1, void *a2, unint64_t a3)
 {
   v5 = a2;
   if (*(a1 + 40) == 1)

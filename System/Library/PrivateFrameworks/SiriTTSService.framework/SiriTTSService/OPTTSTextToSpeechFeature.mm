@@ -57,7 +57,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__40__OPTTSTextToSpeechFeature_flatbu
 
 - (Offset<siri::speech::schema_fb::TextToSpeechFeature>)addObjectToBuffer:(void *)buffer
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   normalized_text = [(OPTTSTextToSpeechFeature *)self normalized_text];
   v5 = [normalized_text count];
   if (v5)
@@ -70,16 +70,11 @@ apple::aiml::flatbuffers2::DetachedBuffer *__40__OPTTSTextToSpeechFeature_flatbu
     std::vector<short>::__throw_length_error[abi:ne200100]();
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
-  v54 = 0u;
+  memset(v39, 0, sizeof(v39));
   normalized_text2 = [(OPTTSTextToSpeechFeature *)self normalized_text];
-  if ([normalized_text2 countByEnumeratingWithState:&v53 objects:v61 count:16])
+  if ([normalized_text2 countByEnumeratingWithState:v39 objects:v44 count:16])
   {
-    *v54;
-    *v54;
-    [**(&v53 + 1) addObjectToBuffer:buffer];
+    [**(&v39[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>>(1uLL);
   }
 
@@ -87,7 +82,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__40__OPTTSTextToSpeechFeature_flatbu
   v7 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(buffer, 0);
   phoneme_sequence = [(OPTTSTextToSpeechFeature *)self phoneme_sequence];
   v9 = [phoneme_sequence count];
-  v31 = v7;
+  v29 = v7;
   if (v9)
   {
     if (!(v9 >> 62))
@@ -98,21 +93,16 @@ apple::aiml::flatbuffers2::DetachedBuffer *__40__OPTTSTextToSpeechFeature_flatbu
     std::vector<short>::__throw_length_error[abi:ne200100]();
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
+  memset(v38, 0, sizeof(v38));
   phoneme_sequence2 = [(OPTTSTextToSpeechFeature *)self phoneme_sequence];
-  if ([phoneme_sequence2 countByEnumeratingWithState:&v49 objects:v60 count:16])
+  if ([phoneme_sequence2 countByEnumeratingWithState:v38 objects:v43 count:16])
   {
-    *v50;
-    *v50;
-    [**(&v49 + 1) addObjectToBuffer:buffer];
+    [**(&v38[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>>(1uLL);
   }
 
   apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(buffer, 0, 4uLL);
-  v34 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(buffer, 0);
+  v32 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(buffer, 0);
   prompts = [(OPTTSTextToSpeechFeature *)self prompts];
   v12 = [prompts count];
   if (v12)
@@ -125,21 +115,16 @@ apple::aiml::flatbuffers2::DetachedBuffer *__40__OPTTSTextToSpeechFeature_flatbu
     std::vector<short>::__throw_length_error[abi:ne200100]();
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
+  memset(v37, 0, sizeof(v37));
   prompts2 = [(OPTTSTextToSpeechFeature *)self prompts];
-  if ([prompts2 countByEnumeratingWithState:&v45 objects:v59 count:16])
+  if ([prompts2 countByEnumeratingWithState:v37 objects:v42 count:16])
   {
-    *v46;
-    *v46;
-    [**(&v45 + 1) addObjectToBuffer:buffer];
+    [**(&v37[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>>(1uLL);
   }
 
   apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(buffer, 0, 4uLL);
-  v33 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(buffer, 0);
+  v31 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(buffer, 0);
   replacement = [(OPTTSTextToSpeechFeature *)self replacement];
   v15 = [replacement count];
   if (v15)
@@ -152,21 +137,16 @@ apple::aiml::flatbuffers2::DetachedBuffer *__40__OPTTSTextToSpeechFeature_flatbu
     std::vector<short>::__throw_length_error[abi:ne200100]();
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
+  memset(v36, 0, sizeof(v36));
   replacement2 = [(OPTTSTextToSpeechFeature *)self replacement];
-  if ([replacement2 countByEnumeratingWithState:&v41 objects:v58 count:16])
+  if ([replacement2 countByEnumeratingWithState:v36 objects:v41 count:16])
   {
-    *v42;
-    *v42;
-    [**(&v41 + 1) addObjectToBuffer:buffer];
+    [**(&v36[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>>(1uLL);
   }
 
   apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(buffer, 0, 4uLL);
-  v32 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(buffer, 0);
+  v30 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(buffer, 0);
   neural_phoneme_sequence = [(OPTTSTextToSpeechFeature *)self neural_phoneme_sequence];
   v18 = [neural_phoneme_sequence count];
   if (v18)
@@ -179,16 +159,11 @@ apple::aiml::flatbuffers2::DetachedBuffer *__40__OPTTSTextToSpeechFeature_flatbu
     std::vector<short>::__throw_length_error[abi:ne200100]();
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
+  memset(v35, 0, sizeof(v35));
   obja = [(OPTTSTextToSpeechFeature *)self neural_phoneme_sequence];
-  if ([obja countByEnumeratingWithState:&v37 objects:v57 count:16])
+  if ([obja countByEnumeratingWithState:v35 objects:v40 count:16])
   {
-    *v38;
-    *v38;
-    [**(&v37 + 1) addObjectToBuffer:buffer];
+    [**(&v35[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>>(1uLL);
   }
 
@@ -199,27 +174,27 @@ apple::aiml::flatbuffers2::DetachedBuffer *__40__OPTTSTextToSpeechFeature_flatbu
   v20 = *(buffer + 8);
   v21 = *(buffer + 12);
   v22 = *(buffer + 10);
-  if (v31)
+  if (v29)
   {
-    v23 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(buffer, v31);
+    v23 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(buffer, v29);
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(buffer, 4, v23);
-  }
-
-  if (v34)
-  {
-    v24 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(buffer, v34);
-    apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(buffer, 6, v24);
-  }
-
-  if (v33)
-  {
-    v25 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(buffer, v33);
-    apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(buffer, 8, v25);
   }
 
   if (v32)
   {
-    v26 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(buffer, v32);
+    v24 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(buffer, v32);
+    apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(buffer, 6, v24);
+  }
+
+  if (v31)
+  {
+    v25 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(buffer, v31);
+    apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(buffer, 8, v25);
+  }
+
+  if (v30)
+  {
+    v26 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(buffer, v30);
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(buffer, 10, v26);
   }
 
@@ -229,9 +204,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__40__OPTTSTextToSpeechFeature_flatbu
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(buffer, 12, v27);
   }
 
-  v28.var0 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v20 - v21 + v22);
-  v29 = *MEMORY[0x1E69E9840];
-  return v28;
+  return apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v20 - v21 + v22);
 }
 
 - (void)neural_phoneme_sequence_enumerateObjectsUsingBlock:(id)block

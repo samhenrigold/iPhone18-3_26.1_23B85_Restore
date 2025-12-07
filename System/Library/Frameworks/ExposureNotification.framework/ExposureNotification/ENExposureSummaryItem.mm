@@ -1,6 +1,5 @@
 @interface ENExposureSummaryItem
 - (ENExposureSummaryItem)initWithXPCObject:(id)object error:(id *)error;
-- (id)description;
 - (void)encodeWithXPCObject:(id)object;
 - (void)roundDurations;
 @end
@@ -33,13 +32,6 @@
   }
 }
 
-- (id)description
-{
-  weightedDurationSum = self->_weightedDurationSum;
-  v3 = *&self->_maximumScore;
-  return NSPrintF();
-}
-
 - (void)roundDurations
 {
   v2 = vdupq_n_s64(0x404E000000000000uLL);
@@ -55,36 +47,45 @@
   {
     if (error)
     {
-      goto LABEL_11;
-    }
-
-    goto LABEL_12;
-  }
-
-  if (MEMORY[0x2383EE9C0](objectCopy) != MEMORY[0x277D86468])
-  {
-    if (error)
-    {
-LABEL_11:
-      ENErrorF(2);
-      *error = v8 = 0;
+      ENErrorF(2, "super init failed");
+LABEL_12:
+      *error = v11 = 0;
       goto LABEL_7;
     }
 
-LABEL_12:
-    v8 = 0;
+LABEL_13:
+    v11 = 0;
     goto LABEL_7;
   }
 
-  if (!OUTLINED_FUNCTION_2() || !OUTLINED_FUNCTION_2() || !OUTLINED_FUNCTION_2())
+  v8 = MEMORY[0x2383EE9C0](objectCopy);
+  if (v8 != MEMORY[0x277D86468])
   {
-    goto LABEL_12;
+    if (error)
+    {
+      ENErrorF(2, "XPC non-dict");
+      goto LABEL_12;
+    }
+
+    goto LABEL_13;
   }
 
-  v8 = v7;
+  v9 = OUTLINED_FUNCTION_2(v8, "mxSc", &v7->_maximumScore);
+  if (!v9)
+  {
+    goto LABEL_13;
+  }
+
+  v10 = OUTLINED_FUNCTION_2(v9, "scoreSum", &v7->_scoreSum);
+  if (!v10 || !OUTLINED_FUNCTION_2(v10, "wds", &v7->_weightedDurationSum))
+  {
+    goto LABEL_13;
+  }
+
+  v11 = v7;
 LABEL_7:
 
-  return v8;
+  return v11;
 }
 
 @end

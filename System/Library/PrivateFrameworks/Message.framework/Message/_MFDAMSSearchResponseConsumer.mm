@@ -1,6 +1,7 @@
 @interface _MFDAMSSearchResponseConsumer
 - (BOOL)handleItems:(id)items;
 - (BOOL)waitUntilDoneBeforeDate:(id)date;
+- (_MFDAMSSearchResponseConsumer)initWithMaximumSize:(unsigned int)size latency:(double)latency;
 - (void)resetDoneCondition;
 - (void)searchQuery:(id)query finishedWithError:(id)error;
 - (void)searchQuery:(id)query returnedResults:(id)results;
@@ -8,6 +9,30 @@
 @end
 
 @implementation _MFDAMSSearchResponseConsumer
+
+- (_MFDAMSSearchResponseConsumer)initWithMaximumSize:(unsigned int)size latency:(double)latency
+{
+  v12.receiver = self;
+  v12.super_class = _MFDAMSSearchResponseConsumer;
+  v4 = [(_MFDAMSBasicConsumer *)&v12 initWithMaximumSize:*&size latency:latency];
+  if (v4)
+  {
+    v4->timeReceivedLastResponse = CFAbsoluteTimeGetCurrent();
+    v5 = [objc_alloc(MEMORY[0x1E69AD6A0]) initWithName:@"done" condition:0 andDelegate:v4];
+    doneCondition = v4->doneCondition;
+    v4->doneCondition = v5;
+
+    v7 = objc_alloc_init(MFRemoteSearchResults);
+    searchResult = v4->searchResult;
+    v4->searchResult = v7;
+
+    distantFuture = [MEMORY[0x1E695DF00] distantFuture];
+    earliestDateAdded = v4->earliestDateAdded;
+    v4->earliestDateAdded = distantFuture;
+  }
+
+  return v4;
+}
 
 - (BOOL)waitUntilDoneBeforeDate:(id)date
 {
@@ -71,34 +96,34 @@
 
 - (void)searchQuery:(id)query returnedResults:(id)results
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   self->timeReceivedLastResponse = CFAbsoluteTimeGetCurrent();
   if (![(MFActivityMonitor *)self->super.monitor shouldCancel])
   {
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     obj = resultsCopy;
-    v5 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+    v5 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
     selfCopy = self;
     if (v5)
     {
-      v36 = *v40;
+      v35 = *v39;
       *&v6 = 138412290;
-      v33 = v6;
+      v32 = v6;
       do
       {
-        v37 = v5;
-        for (i = 0; i != v37; ++i)
+        v36 = v5;
+        for (i = 0; i != v36; ++i)
         {
-          if (*v40 != v36)
+          if (*v39 != v35)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v39 + 1) + 8 * i);
+          v8 = *(*(&v38 + 1) + 8 * i);
           date = [v8 date];
           v10 = date;
           if (!self->latestDateToAdd || ([date earlierDate:?], v11 = objc_claimAutoreleasedReturnValue(), v12 = v10 == v11, v11, self = selfCopy, v12))
@@ -122,8 +147,8 @@
                 v18 = MFLogGeneral();
                 if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
                 {
-                  *buf = v33;
-                  v44 = folderID;
+                  *buf = v32;
+                  v43 = folderID;
                   _os_log_error_impl(&dword_1B0389000, v18, OS_LOG_TYPE_ERROR, "DAMessageStore - allMailboxes searchQuery returned result with invalid folderID: %@", buf, 0xCu);
                 }
 
@@ -162,7 +187,7 @@
           self = selfCopy;
         }
 
-        v5 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+        v5 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
       }
 
       while (v5);
@@ -186,8 +211,6 @@
 
     [(MFRemoteSearchResults *)v31->searchResult setContinueOffset:v30];
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)searchQuery:(id)query finishedWithError:(id)error

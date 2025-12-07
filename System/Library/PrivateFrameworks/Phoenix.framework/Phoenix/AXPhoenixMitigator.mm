@@ -177,7 +177,6 @@ void __42__AXPhoenixMitigator_startWithCompletion___block_invoke(uint64_t a1)
   }
 
   objc_storeStrong(v7, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -219,7 +218,6 @@ void __26__AXPhoenixMitigator_stop__block_invoke(id *a1)
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isRunning
@@ -369,40 +367,35 @@ void __26__AXPhoenixMitigator_stop__block_invoke(id *a1)
     objc_storeStrong(&oslog, 0);
     selfCopy->_isHandHeld = heldCopy;
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)setDisplayOn:(BOOL)on
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v10 = a2;
+  v9 = a2;
   onCopy = on;
   oslog = AXLogBackTap();
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [MEMORY[0x277CCABB0] numberWithBool:selfCopy->_displayOn];
-    v6 = [MEMORY[0x277CCABB0] numberWithBool:onCopy];
-    v5 = [MEMORY[0x277CCABB0] numberWithDouble:selfCopy->_lastDisplayOnTimestamp];
-    v4 = [MEMORY[0x277CCABB0] numberWithDouble:selfCopy->_lastDisplayOffTimestamp];
-    __os_log_helper_16_2_5_8_32_8_64_8_64_8_64_8_64(v12, "[AXPhoenixMitigator setDisplayOn:]", v7, v6, v5, v4);
-    _os_log_impl(&dword_25E4AC000, oslog, OS_LOG_TYPE_DEFAULT, "[PHOENIX] %s DisplayOn: %@ -> %@ (lastDisplayOn %@, lastDisplayOff %@)", v12, 0x34u);
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:selfCopy->_displayOn];
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:onCopy];
+    v4 = [MEMORY[0x277CCABB0] numberWithDouble:selfCopy->_lastDisplayOnTimestamp];
+    v3 = [MEMORY[0x277CCABB0] numberWithDouble:selfCopy->_lastDisplayOffTimestamp];
+    __os_log_helper_16_2_5_8_32_8_64_8_64_8_64_8_64(v11, "[AXPhoenixMitigator setDisplayOn:]", v6, v5, v4, v3);
+    _os_log_impl(&dword_25E4AC000, oslog, OS_LOG_TYPE_DEFAULT, "[PHOENIX] %s DisplayOn: %@ -> %@ (lastDisplayOn %@, lastDisplayOff %@)", v11, 0x34u);
+    MEMORY[0x277D82BD8](v3);
     MEMORY[0x277D82BD8](v4);
     MEMORY[0x277D82BD8](v5);
     MEMORY[0x277D82BD8](v6);
-    MEMORY[0x277D82BD8](v7);
   }
 
   objc_storeStrong(&oslog, 0);
   selfCopy->_displayOn = onCopy;
-  delegate = selfCopy->_delegate;
   if (objc_opt_respondsToSelector())
   {
     [(AXPhoenixMitigatorDelegate *)selfCopy->_delegate phoenixMitigator:selfCopy displayOnDidChange:onCopy];
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)setDeviceLocked:(BOOL)locked
@@ -431,8 +424,6 @@ void __26__AXPhoenixMitigator_stop__block_invoke(id *a1)
     objc_storeStrong(&oslog, 0);
     selfCopy->_deviceLocked = lockedCopy;
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)setTouchOn:(BOOL)on
@@ -462,8 +453,6 @@ void __26__AXPhoenixMitigator_stop__block_invoke(id *a1)
     objc_storeStrong(&oslog, 0);
     selfCopy->_touchOn = onCopy;
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_contextInfo:(BOOL)info
@@ -484,7 +473,6 @@ void __26__AXPhoenixMitigator_stop__block_invoke(id *a1)
   v3 = objc_alloc(MEMORY[0x277CBEB38]);
   v7 = [v3 initWithDictionary:v8];
   objc_storeStrong(&v8, 0);
-  *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -558,7 +546,6 @@ void __26__AXPhoenixMitigator_stop__block_invoke(id *a1)
 
   MEMORY[0x277D82BD8](obj);
   [(NSMutableArray *)selfCopy->_monitors removeAllObjects];
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)phoenixEventMonitorDidReceiveEvent:(id)event

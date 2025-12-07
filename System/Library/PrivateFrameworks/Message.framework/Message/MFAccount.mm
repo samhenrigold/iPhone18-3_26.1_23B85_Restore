@@ -27,6 +27,7 @@
 - (BOOL)isEnabledForDataclass:(id)dataclass;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)primaryiCloudAccount;
+- (BOOL)promptUserForWebLoginWithURL:(id)l shouldConfirm:(BOOL)confirm completionHandler:(id)handler;
 - (BOOL)renewCredentialsWithOptions:(id)options completion:(id)completion;
 - (BOOL)shouldFetchACEDBInfoForError:(id)error;
 - (BOOL)supportsMailDrop;
@@ -82,6 +83,7 @@
 - (void)reportAuthenticationError:(id)error authScheme:(id)scheme;
 - (void)savePersistentAccount;
 - (void)setAccountProperty:(id)property forKey:(id)key;
+- (void)setActive:(BOOL)active;
 - (void)setClientCertificates:(id)certificates;
 - (void)setDisplayName:(id)name;
 - (void)setDomain:(id)domain;
@@ -93,6 +95,7 @@
 - (void)setPersistentAccount:(id)account;
 - (void)setPortNumber:(unsigned int)number;
 - (void)setPreferredAuthScheme:(id)scheme;
+- (void)setTryDirectSSL:(BOOL)l;
 - (void)setUsername:(id)username;
 - (void)setUsesSSL:(BOOL)l;
 - (void)setValueInAccountProperties:(id)properties forKey:(id)key;
@@ -196,42 +199,41 @@ LABEL_11:
 
 + (id)_newPersistentAccount
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   accountTypeIdentifier = [self accountTypeIdentifier];
   v3 = +[MFAccountStore sharedAccountStore];
   v4 = [v3 newPersistentAccountWithAccountTypeIdentifier:accountTypeIdentifier];
   [v3 supportedDataclassesWithAccountTypeIdentifier:accountTypeIdentifier];
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v5 = v14 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v12 = 0u;
+  v5 = v13 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     v8 = *MEMORY[0x1E6959B40];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
-        [v4 setProvisioned:1 forDataclass:{v10, v13}];
+        v10 = *(*(&v12 + 1) + 8 * i);
+        [v4 setProvisioned:1 forDataclass:{v10, v12}];
         [v4 setEnabled:objc_msgSend(v10 forDataclass:{"isEqualToString:", v8) ^ 1, v10}];
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   [v4 setAuthenticated:1];
-  v11 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -785,24 +787,24 @@ LABEL_11:
 
 - (void)_setAccountProperties:(id)properties
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
-  v17 = [propertiesCopy mutableCopy];
-  v4 = [v17 objectForKey:@"Password"];
+  v16 = [propertiesCopy mutableCopy];
+  v4 = [v16 objectForKey:@"Password"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v5 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v6 = [v17 objectForKey:@"Password"];
-    v19 = [v5 initWithData:v6 encoding:1];
+    v6 = [v16 objectForKey:@"Password"];
+    v18 = [v5 initWithData:v6 encoding:1];
   }
 
   else
   {
-    v19 = v4;
+    v18 = v4;
   }
 
-  [v17 removeObjectForKey:@"Password"];
+  [v16 removeObjectForKey:@"Password"];
   v7 = [propertiesCopy objectForKey:@"OAuth2Token"];
   v8 = [propertiesCopy objectForKey:@"OAuth2RefreshToken"];
   [(MFAccount *)self mf_lock];
@@ -814,25 +816,25 @@ LABEL_11:
   [(MFAccount *)self uniqueID];
 
   excludedAccountPropertyKeys = [objc_opt_class() excludedAccountPropertyKeys];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
-  v10 = v17;
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v10 = v16;
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v11)
   {
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         if (([excludedAccountPropertyKeys containsObject:v14] & 1) == 0)
         {
           v15 = [v10 objectForKey:v14];
@@ -840,20 +842,18 @@ LABEL_11:
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
   }
 
-  if (v19)
+  if (v18)
   {
-    [(MFAccount *)self setPassword:v19];
+    [(MFAccount *)self setPassword:v18];
   }
 
   [(MFAccount *)self mf_unlock];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (id)accountPropertiesValueForKey:(id)key value:(id)value
@@ -980,6 +980,17 @@ LABEL_10:
   }
 
   return isActive;
+}
+
+- (void)setActive:(BOOL)active
+{
+  activeCopy = active;
+  persistentAccount = [(MFAccount *)self persistentAccount];
+  if (persistentAccount)
+  {
+    persistentAccount2 = [(MFAccount *)self persistentAccount];
+    [persistentAccount2 setActive:activeCopy];
+  }
 }
 
 - (void)setDisplayName:(id)name
@@ -1138,11 +1149,11 @@ LABEL_10:
 - (id)_credentialCreateIfNecessary:(BOOL)necessary error:(id *)error
 {
   necessaryCopy = necessary;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   persistentAccount = [(MFAccount *)self persistentAccount];
-  v20 = 0;
-  v8 = [persistentAccount credentialWithError:&v20];
-  v9 = v20;
+  v19 = 0;
+  v8 = [persistentAccount credentialWithError:&v19];
+  v9 = v19;
 
   if (v9)
   {
@@ -1150,19 +1161,19 @@ LABEL_10:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       ef_publicDescription = [v9 ef_publicDescription];
-      v18 = ef_publicDescription;
-      v19 = "NOT ";
+      v17 = ef_publicDescription;
+      v18 = "NOT ";
       *buf = 138412802;
       selfCopy = self;
       if (necessaryCopy)
       {
-        v19 = "";
+        v18 = "";
       }
 
-      v23 = 2080;
-      v24 = v19;
-      v25 = 2114;
-      v26 = ef_publicDescription;
+      v22 = 2080;
+      v23 = v18;
+      v24 = 2114;
+      v25 = ef_publicDescription;
       _os_log_error_impl(&dword_1B0389000, v10, OS_LOG_TYPE_ERROR, "Encountered error while fetching credential for %@ (will %screate new credential): %{public}@", buf, 0x20u);
     }
   }
@@ -1191,8 +1202,6 @@ LABEL_10:
     v14 = v9;
     *error = v9;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1335,7 +1344,7 @@ LABEL_10:
 
 void __53__MFAccount__renewCredentialsWithOptions_completion___block_invoke(uint64_t a1, __CFString *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = MFAccountsLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1343,21 +1352,21 @@ void __53__MFAccount__renewCredentialsWithOptions_completion___block_invoke(uint
     v7 = @", error:";
     v8 = &stru_1F273A5E0;
     *buf = 134218498;
-    v17 = a2;
+    v16 = a2;
     if (!v5)
     {
       v7 = &stru_1F273A5E0;
     }
 
-    v18 = 2112;
+    v17 = 2112;
     if (v5)
     {
       v8 = v5;
     }
 
-    v19 = v7;
-    v20 = 2112;
-    v21 = v8;
+    v18 = v7;
+    v19 = 2112;
+    v20 = v8;
     _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "Credential renewal result: %ld%@%@", buf, 0x20u);
   }
 
@@ -1373,9 +1382,9 @@ void __53__MFAccount__renewCredentialsWithOptions_completion___block_invoke(uint
 
       else
       {
-        v14 = *MEMORY[0x1E696AA08];
-        v15 = v5;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+        v13 = *MEMORY[0x1E696AA08];
+        v14 = v5;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
         a2 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1032 localizedDescription:0 title:0 userInfo:v11];
       }
     }
@@ -1400,13 +1409,11 @@ void __53__MFAccount__renewCredentialsWithOptions_completion___block_invoke(uint
   {
     (*(v12 + 16))(v12, v9, a2);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)renewCredentialsWithOptions:(id)options completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   completionCopy = completion;
   if (optionsCopy)
@@ -1444,23 +1451,44 @@ void __53__MFAccount__renewCredentialsWithOptions_completion___block_invoke(uint
     uniqueID = [(MFAccount *)self uniqueID];
     v15 = [v8 objectForKeyedSubscript:*MEMORY[0x1E6959AA8]];
     v16 = [v8 objectForKeyedSubscript:*MEMORY[0x1E6959AA0]];
-    v20 = 138543874;
-    v21 = uniqueID;
-    v22 = 2114;
-    v23 = v15;
-    v24 = 2114;
-    v25 = v16;
-    _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_DEFAULT, "Renewing credential for account: %{public}@ with force:%{public}@ avoidUI:%{public}@", &v20, 0x20u);
+    v19 = 138543874;
+    v20 = uniqueID;
+    v21 = 2114;
+    v22 = v15;
+    v23 = 2114;
+    v24 = v16;
+    _os_log_impl(&dword_1B0389000, v13, OS_LOG_TYPE_DEFAULT, "Renewing credential for account: %{public}@ with force:%{public}@ avoidUI:%{public}@", &v19, 0x20u);
   }
 
   v17 = [(MFAccount *)self _renewCredentialsWithOptions:v8 completion:completionCopy];
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
+}
+
+- (BOOL)promptUserForWebLoginWithURL:(id)l shouldConfirm:(BOOL)confirm completionHandler:(id)handler
+{
+  confirmCopy = confirm;
+  lCopy = l;
+  handlerCopy = handler;
+  accountForRenewingCredentials = [(MFAccount *)self accountForRenewingCredentials];
+  if (accountForRenewingCredentials)
+  {
+    v11 = +[MFAccountStore sharedAccountStore];
+    persistentStore = [v11 persistentStore];
+    persistentAccount = self->_persistentAccount;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __74__MFAccount_promptUserForWebLoginWithURL_shouldConfirm_completionHandler___block_invoke;
+    v15[3] = &unk_1E7AA2130;
+    v16 = handlerCopy;
+    [persistentStore openAuthenticationURL:lCopy forAccount:persistentAccount shouldConfirm:confirmCopy completion:v15];
+  }
+
+  return accountForRenewingCredentials != 0;
 }
 
 void __74__MFAccount_promptUserForWebLoginWithURL_shouldConfirm_completionHandler___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = MFAccountsLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1472,7 +1500,7 @@ void __74__MFAccount_promptUserForWebLoginWithURL_shouldConfirm_completionHandle
     }
 
     *buf = 138412802;
-    v16 = v7;
+    v15 = v7;
     if (v5)
     {
       v8 = @", error:";
@@ -1483,8 +1511,8 @@ void __74__MFAccount_promptUserForWebLoginWithURL_shouldConfirm_completionHandle
       v8 = &stru_1F273A5E0;
     }
 
-    v17 = 2112;
-    v18 = v8;
+    v16 = 2112;
+    v17 = v8;
     if (v5)
     {
       v9 = v5;
@@ -1495,8 +1523,8 @@ void __74__MFAccount_promptUserForWebLoginWithURL_shouldConfirm_completionHandle
       v9 = &stru_1F273A5E0;
     }
 
-    v19 = 2112;
-    v20 = v9;
+    v18 = 2112;
+    v19 = v9;
     _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "Web login result: %@%@%@", buf, 0x20u);
   }
 
@@ -1507,9 +1535,9 @@ void __74__MFAccount_promptUserForWebLoginWithURL_shouldConfirm_completionHandle
 
   else if (v5)
   {
-    v13 = *MEMORY[0x1E696AA08];
-    v14 = v5;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x1E696AA08];
+    v13 = v5;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
     v10 = [MFError errorWithDomain:@"MFMessageErrorDomain" code:1032 localizedDescription:0 title:0 userInfo:v11];
   }
 
@@ -1519,8 +1547,6 @@ void __74__MFAccount_promptUserForWebLoginWithURL_shouldConfirm_completionHandle
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (ACAccount)systemAccount
@@ -1686,6 +1712,22 @@ LABEL_10:
   return bOOLValue;
 }
 
+- (void)setTryDirectSSL:(BOOL)l
+{
+  lCopy = l;
+  if ([(MFAccount *)self _shouldTryDirectSSLConnectionOnPort:[(MFAccount *)self portNumber]]!= l)
+  {
+    [(MFAccount *)self mf_lock];
+    v5 = [MEMORY[0x1E696AD98] numberWithBool:lCopy];
+    [(MFAccount *)self setAccountProperty:v5 forKey:@"SSLIsDirect"];
+
+    [(MFAccount *)self mf_unlock];
+    [(MFAccount *)self releaseAllConnections];
+
+    [(MFAccount *)self _queueAccountInfoDidChange];
+  }
+}
+
 - (void)setDomain:(id)domain
 {
   domainCopy = domain;
@@ -1715,7 +1757,7 @@ LABEL_10:
 
 - (id)clientCertificates
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = [(MFAccount *)self _objectForAccountInfoKey:@"SSLClientIdentity"];
   if (v3)
   {
@@ -1723,8 +1765,8 @@ LABEL_10:
     if (v4)
     {
 LABEL_3:
-      v9[0] = v4;
-      v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+      v8[0] = v4;
+      v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
       CFRelease(v4);
       goto LABEL_6;
     }
@@ -1743,8 +1785,6 @@ LABEL_3:
 
   v5 = 0;
 LABEL_6:
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1855,22 +1895,22 @@ LABEL_6:
 
 - (BOOL)connectionsAreConstrained
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy_;
-  v18 = __Block_byref_object_dispose_;
-  v19 = 0;
+  v23 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy_;
+  v17 = __Block_byref_object_dispose_;
+  v18 = 0;
   currentConnections = [(MFAccount *)self currentConnections];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __38__MFAccount_connectionsAreConstrained__block_invoke;
-  v13[3] = &unk_1E7AA2180;
-  v13[4] = &v14;
-  [currentConnections performWhileLocked:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __38__MFAccount_connectionsAreConstrained__block_invoke;
+  v12[3] = &unk_1E7AA2180;
+  v12[4] = &v13;
+  [currentConnections performWhileLocked:v12];
 
-  v4 = v15[5];
+  v4 = v14[5];
   if (!v4)
   {
     external = [MEMORY[0x1E699B828] external];
@@ -1896,44 +1936,43 @@ LABEL_3:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     ef_publicDescription = [(MFAccount *)self ef_publicDescription];
-    v7 = v15[5];
+    v7 = v14[5];
     *buf = 138543618;
-    v21 = ef_publicDescription;
-    v22 = 2112;
-    v23 = v7;
+    v20 = ef_publicDescription;
+    v21 = 2112;
+    v22 = v7;
     _os_log_impl(&dword_1B0389000, v5, OS_LOG_TYPE_DEFAULT, "Connections constrained for account %{public}@ with connection %@", buf, 0x16u);
   }
 
   v8 = 1;
 LABEL_8:
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v13, 8);
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 void __38__MFAccount_connectionsAreConstrained__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * i);
+        v7 = *(*(&v8 + 1) + 8 * i);
         if ([v7 isValid])
         {
           objc_storeStrong((*(*(a1 + 32) + 8) + 40), v7);
@@ -1941,7 +1980,7 @@ void __38__MFAccount_connectionsAreConstrained__block_invoke(uint64_t a1, void *
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -1952,8 +1991,6 @@ void __38__MFAccount_connectionsAreConstrained__block_invoke(uint64_t a1, void *
   }
 
 LABEL_11:
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)defaultConnectionSettings
@@ -2025,29 +2062,25 @@ LABEL_11:
 
 - (id)insecureConnectionSettings
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   defaultConnectionSettings = [(MFAccount *)self defaultConnectionSettings];
   [defaultConnectionSettings setUsesSSL:0];
   [defaultConnectionSettings setTryDirectSSL:0];
-  v6[0] = defaultConnectionSettings;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = defaultConnectionSettings;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 - (id)secureConnectionSettings
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   defaultConnectionSettings = [(MFAccount *)self defaultConnectionSettings];
   [defaultConnectionSettings setUsesSSL:1];
   [defaultConnectionSettings setTryDirectSSL:1];
   [defaultConnectionSettings setPortNumber:{-[MFAccount defaultSecurePortNumber](self, "defaultSecurePortNumber")}];
-  v7[0] = defaultConnectionSettings;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = defaultConnectionSettings;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
 
   return v4;
 }

@@ -13,6 +13,7 @@
 - (void)launchAppWithCompletionHandler:(id)handler;
 - (void)openURL:(id)l completionHandler:(id)handler;
 - (void)runWithInput:(id)input;
+- (void)showConfirmInteraction:(id)interaction requireAuthentication:(BOOL)authentication requireConfirmation:(BOOL)confirmation completionHandler:(id)handler;
 - (void)showHandleInteraction:(id)interaction prompt:(id)prompt completionHandler:(id)handler;
 - (void)stop;
 - (void)workflowController:(id)controller didFinishRunningWithError:(id)error cancelled:(BOOL)cancelled;
@@ -32,18 +33,17 @@
 
 - (void)action:(id)action provideInputForParameters:(id)parameters withDefaultStates:(id)states prompts:(id)prompts completionHandler:(id)handler
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v8 = getWFWorkflowExecutionLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
-    v10 = 136315138;
-    v11 = "[WFLWorkflowController action:provideInputForParameters:withDefaultStates:prompts:completionHandler:]";
-    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s provideInputForParameters should not be called", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[WFLWorkflowController action:provideInputForParameters:withDefaultStates:prompts:completionHandler:]";
+    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s provideInputForParameters should not be called", &v9, 0xCu);
   }
 
   (*(handlerCopy + 2))(handlerCopy, 0, 0, 0);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)configureIntent:(id)intent
@@ -112,24 +112,23 @@
   return 1;
 }
 
-void __64__WFLWorkflowController_openInteractionInApp_completionHandler___block_invoke(uint64_t a1, char a2)
+void __64__WFLWorkflowController_openInteractionInApp_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
     v3 = *(a1 + 32);
     v4 = objc_opt_class();
-    v9 = WFEnforceClass_6231(v3, v4);
-    v5 = [v9 connection];
+    v8 = WFEnforceClass_6231(v3, v4);
+    v5 = [v8 connection];
     v6 = [v5 appProxy];
     [v6 launchAppInBackground:0 completionHandler:*(a1 + 40)];
   }
 
   else
   {
-    v7 = *(a1 + 40);
-    v8 = *(*(a1 + 40) + 16);
+    v7 = *(*(a1 + 40) + 16);
 
-    v8();
+    v7();
   }
 }
 
@@ -149,6 +148,54 @@ void __64__WFLWorkflowController_openInteractionInApp_completionHandler___block_
   LOBYTE(self) = WFRemoteExecuteActionIfApplicable(actionCopy, stateCopy, self, self, runSource, handlerCopy);
 
   return self;
+}
+
+- (void)showConfirmInteraction:(id)interaction requireAuthentication:(BOOL)authentication requireConfirmation:(BOOL)confirmation completionHandler:(id)handler
+{
+  confirmationCopy = confirmation;
+  authenticationCopy = authentication;
+  interactionCopy = interaction;
+  handlerCopy = handler;
+  [(WFLWorkflowController *)self setLastInteraction:interactionCopy];
+  delegate = [(WFLWorkflowController *)self delegate];
+  controller = [(WFLWorkflowController *)self controller];
+  currentAction = [controller currentAction];
+
+  if (objc_opt_respondsToSelector())
+  {
+    v15 = [delegate workflowController:self userInterfaceForRunningAction:currentAction];
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  if (objc_opt_respondsToSelector())
+  {
+    v16 = objc_opt_class();
+    v17 = WFEnforceClass_6231(currentAction, v16);
+    if (v17)
+    {
+      intentResponse = [interactionCopy intentResponse];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __108__WFLWorkflowController_showConfirmInteraction_requireAuthentication_requireConfirmation_completionHandler___block_invoke;
+      v19[3] = &unk_1E837F4E8;
+      v20 = handlerCopy;
+      [v15 handleIntentAction:v17 requiresUserConfirmation:confirmationCopy requiresUserAuthentication:authenticationCopy withIntentResponse:intentResponse proceedHandler:v19];
+    }
+
+    else
+    {
+      (*(handlerCopy + 2))(handlerCopy, 0);
+    }
+  }
+
+  else
+  {
+    (*(handlerCopy + 2))(handlerCopy, 1);
+  }
 }
 
 - (void)workflowController:(id)controller didRunAction:(id)action error:(id)error
@@ -180,7 +227,7 @@ void __64__WFLWorkflowController_openInteractionInApp_completionHandler___block_
 - (void)workflowController:(id)controller didFinishRunningWithError:(id)error cancelled:(BOOL)cancelled
 {
   cancelledCopy = cancelled;
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   delegate = [(WFLWorkflowController *)self delegate];
   if (errorCopy)
@@ -239,8 +286,8 @@ void __64__WFLWorkflowController_openInteractionInApp_completionHandler___block_
     {
       lastInteraction2 = [(WFLWorkflowController *)self lastInteraction];
       intentResponse2 = [lastInteraction2 intentResponse];
-      v26[0] = intentResponse2;
-      errorCopy = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+      v25[0] = intentResponse2;
+      errorCopy = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
     }
 
     else
@@ -253,8 +300,6 @@ void __64__WFLWorkflowController_openInteractionInApp_completionHandler___block_
       [delegate workflowControllerDidFinishRunning:self withOutput:errorCopy];
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)workflowControllerWillRun:(id)run

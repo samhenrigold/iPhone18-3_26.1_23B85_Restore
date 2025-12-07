@@ -202,7 +202,7 @@ void __49__CLMicroLocationLoiBridge_setupRegionMonitoring__block_invoke_2(uint64
 
 - (void)requestBootstrapWithLastGeofenceStates
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     [CLMicroLocationLoiBridge setupRegionMonitoring];
@@ -236,27 +236,27 @@ void __49__CLMicroLocationLoiBridge_setupRegionMonitoring__block_invoke_2(uint64
   else
   {
     objc_initWeak(buf, self);
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     regionMonitor2 = [(CLMicroLocationLoiBridge *)self regionMonitor];
     monitoredIdentifiers = [regionMonitor2 monitoredIdentifiers];
 
-    v8 = [monitoredIdentifiers countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v8 = [monitoredIdentifiers countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v8)
     {
-      v9 = *v27;
+      v9 = *v26;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v27 != v9)
+          if (*v26 != v9)
           {
             objc_enumerationMutation(monitoredIdentifiers);
           }
 
-          v11 = *(*(&v26 + 1) + 8 * i);
+          v11 = *(*(&v25 + 1) + 8 * i);
           regionMonitor3 = [(CLMicroLocationLoiBridge *)self regionMonitor];
           v13 = [regionMonitor3 monitoringRecordForIdentifier:v11];
 
@@ -270,15 +270,15 @@ void __49__CLMicroLocationLoiBridge_setupRegionMonitoring__block_invoke_2(uint64
             block[1] = 3221225472;
             block[2] = __66__CLMicroLocationLoiBridge_requestBootstrapWithLastGeofenceStates__block_invoke;
             block[3] = &unk_2798D4E30;
-            objc_copyWeak(&v25, buf);
-            v24 = v13;
+            objc_copyWeak(&v24, buf);
+            v23 = v13;
             dispatch_async(queue, block);
 
-            objc_destroyWeak(&v25);
+            objc_destroyWeak(&v24);
           }
         }
 
-        v8 = [monitoredIdentifiers countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v8 = [monitoredIdentifiers countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v8);
@@ -298,20 +298,18 @@ void __49__CLMicroLocationLoiBridge_setupRegionMonitoring__block_invoke_2(uint64
       v19 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
-        *v22 = 0;
-        _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_DEFAULT, "#LOI Bridge, No Geofences to bootstrap", v22, 2u);
+        *v21 = 0;
+        _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_DEFAULT, "#LOI Bridge, No Geofences to bootstrap", v21, 2u);
       }
     }
 
     objc_destroyWeak(buf);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __66__CLMicroLocationLoiBridge_requestBootstrapWithLastGeofenceStates__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -327,22 +325,20 @@ void __66__CLMicroLocationLoiBridge_requestBootstrapWithLastGeofenceStates__bloc
       v5 = [v4 identifier];
       v6 = [v5 UTF8String];
       v7 = [*(a1 + 32) lastEvent];
-      v10[0] = 68289539;
-      v10[1] = 0;
-      v11 = 2082;
-      v12 = "";
-      v13 = 2081;
-      v14 = v6;
-      v15 = 1025;
-      v16 = [v7 state];
-      _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_INFO, "{msg%{public}.0s:LOI Bridge, generating bootstrap geofence update, Geofence Id:%{private, location:escape_only}s, state:%{private}d}", v10, 0x22u);
+      v9[0] = 68289539;
+      v9[1] = 0;
+      v10 = 2082;
+      v11 = "";
+      v12 = 2081;
+      v13 = v6;
+      v14 = 1025;
+      v15 = [v7 state];
+      _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_INFO, "{msg%{public}.0s:LOI Bridge, generating bootstrap geofence update, Geofence Id:%{private, location:escape_only}s, state:%{private}d}", v9, 0x22u);
     }
 
     v8 = [*(a1 + 32) lastEvent];
     [WeakRetained generateGeofenceUpdateToClient:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)generateLocationManagerNotAvailableError
@@ -429,7 +425,7 @@ void __59__CLMicroLocationLoiBridge_generateGeofenceUpdateToClient___block_invok
 
 - (void)regionMonitor:(id)monitor didGenerateEvent:(id)event
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   queue = [(CLMicroLocationLoiBridge *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -443,19 +439,18 @@ void __59__CLMicroLocationLoiBridge_generateGeofenceUpdateToClient___block_invok
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     identifier = [eventCopy identifier];
-    v10[0] = 68289539;
-    v10[1] = 0;
-    v11 = 2082;
-    v12 = "";
-    v13 = 2081;
+    v9[0] = 68289539;
+    v9[1] = 0;
+    v10 = 2082;
+    v11 = "";
+    v12 = 2081;
     uTF8String = [identifier UTF8String];
-    v15 = 1025;
+    v14 = 1025;
     state = [eventCopy state];
-    _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_INFO, "{msg%{public}.0s:LOI Bridge, got geofence update, Geofence Id:%{private, location:escape_only}s, state:%{private}d}", v10, 0x22u);
+    _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_INFO, "{msg%{public}.0s:LOI Bridge, got geofence update, Geofence Id:%{private, location:escape_only}s, state:%{private}d}", v9, 0x22u);
   }
 
   [(CLMicroLocationLoiBridge *)self generateGeofenceUpdateToClient:eventCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startVisitMonitoring
@@ -484,7 +479,7 @@ void __59__CLMicroLocationLoiBridge_generateGeofenceUpdateToClient___block_invok
 
 void __57__CLMicroLocationLoiBridge_setupFetchPlaceInferenceTimer__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -496,11 +491,11 @@ void __57__CLMicroLocationLoiBridge_setupFetchPlaceInferenceTimer__block_invoke(
     v2 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
-      v6 = 68289026;
-      v7 = 0;
-      v8 = 2082;
-      v9 = "";
-      _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:fetchPlaceInferenceAtCurrentLocation, timed out waiting for fetching place inference, this shouldn't happen}", &v6, 0x12u);
+      v5 = 68289026;
+      v6 = 0;
+      v7 = 2082;
+      v8 = "";
+      _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:fetchPlaceInferenceAtCurrentLocation, timed out waiting for fetching place inference, this shouldn't happen}", &v5, 0x12u);
     }
 
     if (onceToken_MicroLocation_Default != -1)
@@ -511,19 +506,17 @@ void __57__CLMicroLocationLoiBridge_setupFetchPlaceInferenceTimer__block_invoke(
     v3 = logObject_MicroLocation_Default;
     if (os_signpost_enabled(logObject_MicroLocation_Default))
     {
-      v6 = 68289026;
-      v7 = 0;
-      v8 = 2082;
-      v9 = "";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "fetchPlaceInferenceAtCurrentLocation, timed out waiting for fetching place inference, this shouldn't happen", "{msg%{public}.0s:fetchPlaceInferenceAtCurrentLocation, timed out waiting for fetching place inference, this shouldn't happen}", &v6, 0x12u);
+      v5 = 68289026;
+      v6 = 0;
+      v7 = 2082;
+      v8 = "";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "fetchPlaceInferenceAtCurrentLocation, timed out waiting for fetching place inference, this shouldn't happen", "{msg%{public}.0s:fetchPlaceInferenceAtCurrentLocation, timed out waiting for fetching place inference, this shouldn't happen}", &v5, 0x12u);
     }
 
     [WeakRetained invalidateFetchPlaceInferenceTimer];
     v4 = [WeakRetained microLocationLoiDelegate];
     (*(*v4 + 8))(v4, 0, 1);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateFetchPlaceInferenceTimer
@@ -577,9 +570,9 @@ void __75__CLMicroLocationLoiBridge_fetchPlaceInferenceAtCurrentLocationWithPoli
 
 void __75__CLMicroLocationLoiBridge_fetchPlaceInferenceAtCurrentLocationWithPolicy___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v21 = a2;
-  v22 = a3;
+  v36 = *MEMORY[0x277D85DE8];
+  v20 = a2;
+  v21 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v6 = WeakRetained;
   if (WeakRetained)
@@ -589,7 +582,7 @@ void __75__CLMicroLocationLoiBridge_fetchPlaceInferenceAtCurrentLocationWithPoli
     dispatch_assert_queue_V2(v8);
 
     [v6 invalidateFetchPlaceInferenceTimer];
-    if (v22)
+    if (v21)
     {
       if (onceToken_MicroLocation_Default != -1)
       {
@@ -600,11 +593,11 @@ void __75__CLMicroLocationLoiBridge_fetchPlaceInferenceAtCurrentLocationWithPoli
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68289283;
-        v29 = 0;
-        v30 = 2082;
-        v31 = "";
-        v32 = 2113;
-        v33 = v22;
+        v28 = 0;
+        v29 = 2082;
+        v30 = "";
+        v31 = 2113;
+        v32 = v21;
         _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:fetchPlaceInferenceAtCurrentLocation, failed to request place inference, we will start leeching and wait for next location update, Error Reason:%{private, location:escape_only}@}", buf, 0x1Cu);
       }
 
@@ -616,18 +609,18 @@ void __75__CLMicroLocationLoiBridge_fetchPlaceInferenceAtCurrentLocationWithPoli
       log = logObject_MicroLocation_Default;
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = [v22 domain];
+        v10 = [v21 domain];
         v11 = v10;
         v12 = [v10 UTF8String];
-        v13 = [v22 code];
+        v13 = [v21 code];
         *buf = 68289539;
-        v29 = 0;
-        v30 = 2082;
-        v31 = "";
-        v32 = 2081;
-        v33 = v12;
-        v34 = 1025;
-        v35 = v13;
+        v28 = 0;
+        v29 = 2082;
+        v30 = "";
+        v31 = 2081;
+        v32 = v12;
+        v33 = 1025;
+        v34 = v13;
         _os_log_impl(&dword_258FE9000, log, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:fetchPlaceInferenceAtCurrentLocation, failed to request place inference with error, error_domain:%{private, location:escape_only}s, error_code:%{private}d}", buf, 0x22u);
       }
 
@@ -636,26 +629,26 @@ void __75__CLMicroLocationLoiBridge_fetchPlaceInferenceAtCurrentLocationWithPoli
 
     else
     {
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
-      log = v21;
-      v14 = [log countByEnumeratingWithState:&v24 objects:v36 count:16];
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
+      log = v20;
+      v14 = [log countByEnumeratingWithState:&v23 objects:v35 count:16];
       if (v14)
       {
-        v15 = *v25;
+        v15 = *v24;
         do
         {
           v16 = 0;
           do
           {
-            if (*v25 != v15)
+            if (*v24 != v15)
             {
               objc_enumerationMutation(log);
             }
 
-            v17 = *(*(&v24 + 1) + 8 * v16);
+            v17 = *(*(&v23 + 1) + 8 * v16);
             if (onceToken_MicroLocation_Default != -1)
             {
               [CLMicroLocationLoiBridge initWithQueue:];
@@ -665,11 +658,11 @@ void __75__CLMicroLocationLoiBridge_fetchPlaceInferenceAtCurrentLocationWithPoli
             if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 68289283;
-              v29 = 0;
-              v30 = 2082;
-              v31 = "";
-              v32 = 2117;
-              v33 = v17;
+              v28 = 0;
+              v29 = 2082;
+              v30 = "";
+              v31 = 2117;
+              v32 = v17;
               _os_log_impl(&dword_258FE9000, v18, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:fetchPlaceInferenceAtCurrentLocation, received Place Inference, PI:%{sensitive, location:escape_only}@}", buf, 0x1Cu);
             }
 
@@ -678,7 +671,7 @@ void __75__CLMicroLocationLoiBridge_fetchPlaceInferenceAtCurrentLocationWithPoli
 
           while (v14 != v16);
           v6 = v7;
-          v14 = [log countByEnumeratingWithState:&v24 objects:v36 count:16];
+          v14 = [log countByEnumeratingWithState:&v23 objects:v35 count:16];
         }
 
         while (v14);
@@ -686,10 +679,8 @@ void __75__CLMicroLocationLoiBridge_fetchPlaceInferenceAtCurrentLocationWithPoli
     }
 
     v19 = [v6 microLocationLoiDelegate];
-    (*(*v19 + 8))(v19, v21, v14);
+    (*(*v19 + 8))(v19, v20, v14);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchLocationOfInterestAtLocation:(id)location
@@ -763,7 +754,7 @@ void __62__CLMicroLocationLoiBridge_fetchLocationOfInterestAtLocation___block_in
 
 void __62__CLMicroLocationLoiBridge_fetchLocationOfInterestAtLocation___block_invoke_3(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
@@ -780,15 +771,15 @@ void __62__CLMicroLocationLoiBridge_fetchLocationOfInterestAtLocation___block_in
         v4 = [*(a1 + 32) domain];
         v5 = [v4 UTF8String];
         v6 = [*(a1 + 32) code];
-        v10[0] = 68289539;
-        v10[1] = 0;
-        v11 = 2082;
-        v12 = "";
-        v13 = 2081;
-        v14 = v5;
-        v15 = 1025;
-        v16 = v6;
-        _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:fetchLocationOfInterestAtLocation, failed with error, error_domain:%{private, location:escape_only}s, error_code:%{private}d}", v10, 0x22u);
+        v9[0] = 68289539;
+        v9[1] = 0;
+        v10 = 2082;
+        v11 = "";
+        v12 = 2081;
+        v13 = v5;
+        v14 = 1025;
+        v15 = v6;
+        _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:fetchLocationOfInterestAtLocation, failed with error, error_domain:%{private, location:escape_only}s, error_code:%{private}d}", v9, 0x22u);
       }
 
       v7 = 5;
@@ -802,8 +793,6 @@ void __62__CLMicroLocationLoiBridge_fetchLocationOfInterestAtLocation___block_in
     v8 = [WeakRetained microLocationLoiDelegate];
     (*(*v8 + 16))(v8, *(a1 + 40), *(a1 + 48), v7);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchRelatedLoisForLoi:(id)loi
@@ -871,7 +860,7 @@ void __51__CLMicroLocationLoiBridge_fetchRelatedLoisForLoi___block_invoke_2(uint
 
 void __51__CLMicroLocationLoiBridge_fetchRelatedLoisForLoi___block_invoke_3(id *a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   if (WeakRetained)
   {
@@ -895,15 +884,15 @@ void __51__CLMicroLocationLoiBridge_fetchRelatedLoisForLoi___block_invoke_3(id *
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [a1[4] count];
-      v15 = 68289538;
-      v16 = 0;
-      v17 = 2082;
-      v18 = "";
-      v19 = 2050;
-      v20 = v6;
-      v21 = 2082;
-      v22 = [(__CFString *)v4 UTF8String];
-      _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:LOI Bridge, received LOI Ids from CLRoutineMonitor, LOI ID Count:%{public}ld, LOI List:%{public, location:escape_only}s}", &v15, 0x26u);
+      v14 = 68289538;
+      v15 = 0;
+      v16 = 2082;
+      v17 = "";
+      v18 = 2050;
+      v19 = v6;
+      v20 = 2082;
+      v21 = [(__CFString *)v4 UTF8String];
+      _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:LOI Bridge, received LOI Ids from CLRoutineMonitor, LOI ID Count:%{public}ld, LOI List:%{public, location:escape_only}s}", &v14, 0x26u);
     }
 
     if (a1[5])
@@ -920,15 +909,15 @@ void __51__CLMicroLocationLoiBridge_fetchRelatedLoisForLoi___block_invoke_3(id *
         v9 = v8;
         v10 = [v8 UTF8String];
         v11 = [a1[5] code];
-        v15 = 68289539;
-        v16 = 0;
-        v17 = 2082;
-        v18 = "";
-        v19 = 2081;
-        v20 = v10;
-        v21 = 1025;
-        LODWORD(v22) = v11;
-        _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:fetchRelatedLoisForLoi, failed with error, error_domain:%{private, location:escape_only}s, error_code:%{private}d}", &v15, 0x22u);
+        v14 = 68289539;
+        v15 = 0;
+        v16 = 2082;
+        v17 = "";
+        v18 = 2081;
+        v19 = v10;
+        v20 = 1025;
+        LODWORD(v21) = v11;
+        _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:fetchRelatedLoisForLoi, failed with error, error_domain:%{private, location:escape_only}s, error_code:%{private}d}", &v14, 0x22u);
       }
 
       v12 = 5;
@@ -942,38 +931,36 @@ void __51__CLMicroLocationLoiBridge_fetchRelatedLoisForLoi___block_invoke_3(id *
     v13 = [WeakRetained microLocationLoiDelegate];
     (*(*v13 + 24))(v13, a1[4], v12);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)retrieveAllActiveGeofences
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   monitoredIdentifiers = [(CLMonitor *)self->_regionMonitor monitoredIdentifiers];
   v5 = monitoredIdentifiers;
-  v6 = [monitoredIdentifiers countByEnumeratingWithState:&v28 objects:v37 count:16];
+  v6 = [monitoredIdentifiers countByEnumeratingWithState:&v27 objects:v36 count:16];
   if (v6)
   {
-    v8 = *v29;
+    v8 = *v28;
     *&v7 = 68289282;
-    v27 = v7;
+    v26 = v7;
     do
     {
       v9 = 0;
       do
       {
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * v9);
-        v11 = [(CLMonitor *)self->_regionMonitor monitoringRecordForIdentifier:v10, v27];
+        v10 = *(*(&v27 + 1) + 8 * v9);
+        v11 = [(CLMonitor *)self->_regionMonitor monitoringRecordForIdentifier:v10, v26];
         v12 = v11;
         if (v11)
         {
@@ -1003,10 +990,10 @@ void __51__CLMicroLocationLoiBridge_fetchRelatedLoisForLoi___block_invoke_3(id *
             v20 = v10;
             uTF8String = [v10 UTF8String];
             *buf = 68289282;
-            v33 = 2082;
-            v34 = "";
-            v35 = 2082;
-            v36 = uTF8String;
+            v32 = 2082;
+            v33 = "";
+            v34 = 2082;
+            v35 = uTF8String;
             _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#LoiBridge, was unable to retrieve monitor record for valid region identifier, identifier:%{public, location:escape_only}s}", buf, 0x1Cu);
           }
 
@@ -1020,12 +1007,12 @@ void __51__CLMicroLocationLoiBridge_fetchRelatedLoisForLoi___block_invoke_3(id *
           {
             v22 = v10;
             uTF8String2 = [v10 UTF8String];
-            *buf = v27;
+            *buf = v26;
             *&buf[4] = 0;
-            v33 = 2082;
-            v34 = "";
-            v35 = 2082;
-            v36 = uTF8String2;
+            v32 = 2082;
+            v33 = "";
+            v34 = 2082;
+            v35 = uTF8String2;
             _os_signpost_emit_with_name_impl(&dword_258FE9000, condition, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#LoiBridge, was unable to retrieve monitor record for valid region identifier", "{msg%{public}.0s:#LoiBridge, was unable to retrieve monitor record for valid region identifier, identifier:%{public, location:escape_only}s}", buf, 0x1Cu);
           }
         }
@@ -1035,15 +1022,13 @@ void __51__CLMicroLocationLoiBridge_fetchRelatedLoisForLoi___block_invoke_3(id *
 
       while (v6 != v9);
       monitoredIdentifiers = v5;
-      v6 = [v5 countByEnumeratingWithState:&v28 objects:v37 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v27 objects:v36 count:16];
     }
 
     while (v6);
   }
 
   v24 = [MEMORY[0x277CBEA60] arrayWithArray:array];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -1091,30 +1076,30 @@ void __49__CLMicroLocationLoiBridge_getAllActiveGeofences__block_invoke(uint64_t
 
 - (void)removeGeofencesNearLocationWithLatitude:(double)latitude andLongitude:(double)longitude
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = [objc_alloc(MEMORY[0x277CE41F8]) initWithLatitude:latitude longitude:longitude];
   if (self->_regionMonitor)
   {
     [(CLMicroLocationLoiBridge *)self retrieveAllActiveGeofences];
+    v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    obj = v31 = 0u;
-    v6 = [obj countByEnumeratingWithState:&v30 objects:v42 count:16];
+    v29 = 0u;
+    obj = v30 = 0u;
+    v6 = [obj countByEnumeratingWithState:&v29 objects:v41 count:16];
     if (v6)
     {
-      v7 = *v31;
+      v7 = *v30;
       do
       {
         v8 = 0;
         do
         {
-          if (*v31 != v7)
+          if (*v30 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v30 + 1) + 8 * v8);
+          v9 = *(*(&v29 + 1) + 8 * v8);
           v10 = objc_alloc(MEMORY[0x277CE41F8]);
           regionCenterLocation = [v9 regionCenterLocation];
           [regionCenterLocation coordinate];
@@ -1140,13 +1125,13 @@ void __49__CLMicroLocationLoiBridge_getAllActiveGeofences__block_invoke(uint64_t
               v25 = regionId;
               uTF8String = [regionId UTF8String];
               *buf = 68289539;
-              v35 = 0;
-              v36 = 2082;
-              v37 = "";
-              v38 = 2081;
-              v39 = uTF8String;
-              v40 = 2049;
-              v41 = v17;
+              v34 = 0;
+              v35 = 2082;
+              v36 = "";
+              v37 = 2081;
+              v38 = uTF8String;
+              v39 = 2049;
+              v40 = v17;
               _os_log_impl(&dword_258FE9000, v23, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LOI Bridge, removing geofence because it overlap the geofence at the requested location, Geofence ID:%{private, location:escape_only}s, Distance Between Geofences:%{private}7f}", buf, 0x26u);
             }
 
@@ -1169,13 +1154,13 @@ void __49__CLMicroLocationLoiBridge_getAllActiveGeofences__block_invoke(uint64_t
               v21 = regionId3;
               uTF8String2 = [regionId3 UTF8String];
               *buf = 68289539;
-              v35 = 0;
-              v36 = 2082;
-              v37 = "";
-              v38 = 2081;
-              v39 = uTF8String2;
-              v40 = 2049;
-              v41 = v17;
+              v34 = 0;
+              v35 = 2082;
+              v36 = "";
+              v37 = 2081;
+              v38 = uTF8String2;
+              v39 = 2049;
+              v40 = v17;
               _os_log_impl(&dword_258FE9000, regionId2, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#LOI Bridge, geofence does not overlap the geofence at the requested location, Geofence ID:%{private, location:escape_only}s, Distance Between Geofences:%{private}7f}", buf, 0x26u);
             }
           }
@@ -1184,14 +1169,12 @@ void __49__CLMicroLocationLoiBridge_getAllActiveGeofences__block_invoke(uint64_t
         }
 
         while (v6 != v8);
-        v6 = [obj countByEnumeratingWithState:&v30 objects:v42 count:16];
+        v6 = [obj countByEnumeratingWithState:&v29 objects:v41 count:16];
       }
 
       while (v6);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getCurrentLocation
@@ -1255,7 +1238,7 @@ void __46__CLMicroLocationLoiBridge_getCurrentLocation__block_invoke(uint64_t a1
 
 - (void)setGeofenceAtLocation:(id)location
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
@@ -1271,12 +1254,12 @@ void __46__CLMicroLocationLoiBridge_getCurrentLocation__block_invoke(uint64_t a1
     v9 = v8;
     [locationCopy coordinate];
     buf = 68289539;
-    v32 = 2082;
-    v33 = "";
-    v34 = 2053;
-    v35 = v9;
-    v36 = 2053;
-    v37 = v10;
+    v31 = 2082;
+    v32 = "";
+    v33 = 2053;
+    v34 = v9;
+    v35 = 2053;
+    v36 = v10;
     _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_INFO, "{msg%{public}.0s:LOI Bridge, requested geofence at location, latitude:%{sensitive}7f, longitude:%{sensitive}7f}", &buf, 0x26u);
   }
 
@@ -1302,10 +1285,10 @@ void __46__CLMicroLocationLoiBridge_getCurrentLocation__block_invoke(uint64_t a1
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
       buf = 68289283;
-      v32 = 2082;
-      v33 = "";
-      v34 = 2049;
-      v35 = v13;
+      v31 = 2082;
+      v32 = "";
+      v33 = 2049;
+      v34 = v13;
       _os_log_impl(&dword_258FE9000, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LOI Bridge, setting geofence for custom LOI, Custom LOI Geofence radius:%{private}7f}", &buf, 0x1Cu);
     }
 
@@ -1330,18 +1313,16 @@ void __46__CLMicroLocationLoiBridge_getCurrentLocation__block_invoke(uint64_t a1
   block[1] = 3221225472;
   block[2] = __50__CLMicroLocationLoiBridge_setGeofenceAtLocation___block_invoke;
   block[3] = &unk_2798D53F8;
-  objc_copyWeak(v30, &buf);
-  v30[2] = v21;
-  v30[3] = v23;
-  v29 = locationCopy;
-  v30[1] = generateRegionMonitorNotAvailableError;
+  objc_copyWeak(v29, &buf);
+  v29[2] = v21;
+  v29[3] = v23;
+  v28 = locationCopy;
+  v29[1] = generateRegionMonitorNotAvailableError;
   v26 = locationCopy;
   dispatch_async(queue, block);
 
-  objc_destroyWeak(v30);
+  objc_destroyWeak(v29);
   objc_destroyWeak(&buf);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __50__CLMicroLocationLoiBridge_setGeofenceAtLocation___block_invoke(uint64_t a1)
@@ -1400,7 +1381,7 @@ void __55__CLMicroLocationLoiBridge_removeGeofenceWithRegionId___block_invoke(ui
 
 - (void)startLeechingLocationUpdates
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   clLocationManager = [(CLMicroLocationLoiBridge *)self clLocationManager];
   [clLocationManager desiredAccuracy];
   v5 = v4;
@@ -1416,11 +1397,11 @@ void __55__CLMicroLocationLoiBridge_removeGeofenceWithRegionId___block_invoke(ui
     v7 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v11[0] = 68289026;
-      v11[1] = 0;
-      v12 = 2082;
-      v13 = "";
-      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LOI Bridge, Starting to leech location updates}", v11, 0x12u);
+      v10[0] = 68289026;
+      v10[1] = 0;
+      v11 = 2082;
+      v12 = "";
+      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LOI Bridge, Starting to leech location updates}", v10, 0x12u);
     }
 
     clLocationManager2 = [(CLMicroLocationLoiBridge *)self clLocationManager];
@@ -1429,13 +1410,11 @@ void __55__CLMicroLocationLoiBridge_removeGeofenceWithRegionId___block_invoke(ui
     clLocationManager3 = [(CLMicroLocationLoiBridge *)self clLocationManager];
     [clLocationManager3 startUpdatingLocation];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopLeechingLocationUpdates
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   clLocationManager = [(CLMicroLocationLoiBridge *)self clLocationManager];
   [clLocationManager desiredAccuracy];
   v5 = v4;
@@ -1451,23 +1430,21 @@ void __55__CLMicroLocationLoiBridge_removeGeofenceWithRegionId___block_invoke(ui
     v7 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v10[0] = 68289026;
-      v10[1] = 0;
-      v11 = 2082;
-      v12 = "";
-      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LOI Bridge, Stopping leech location updates}", v10, 0x12u);
+      v9[0] = 68289026;
+      v9[1] = 0;
+      v10 = 2082;
+      v11 = "";
+      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LOI Bridge, Stopping leech location updates}", v9, 0x12u);
     }
 
     clLocationManager2 = [(CLMicroLocationLoiBridge *)self clLocationManager];
     [clLocationManager2 stopUpdatingLocation];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didVisit:(id)visit
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   visitCopy = visit;
   queue = [(CLMicroLocationLoiBridge *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -1485,29 +1462,29 @@ void __55__CLMicroLocationLoiBridge_removeGeofenceWithRegionId___block_invoke(ui
       hasDepartureDate = [visitCopy hasDepartureDate];
       v9 = "Entry";
       buf = 68289282;
-      v17 = 2082;
-      v18 = "";
+      v16 = 2082;
+      v17 = "";
       if (hasDepartureDate)
       {
         v9 = "Exit";
       }
 
-      v19 = 2082;
-      v20 = v9;
+      v18 = 2082;
+      v19 = v9;
       _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LOI Bridge, Got Visit Notification, Visit::%{public, location:escape_only}s}", &buf, 0x1Cu);
     }
 
     objc_initWeak(&buf, self);
     queue2 = [(CLMicroLocationLoiBridge *)self queue];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __53__CLMicroLocationLoiBridge_locationManager_didVisit___block_invoke;
-    v13[3] = &unk_2798D4E30;
-    objc_copyWeak(&v15, &buf);
-    v14 = visitCopy;
-    dispatch_async(queue2, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __53__CLMicroLocationLoiBridge_locationManager_didVisit___block_invoke;
+    v12[3] = &unk_2798D4E30;
+    objc_copyWeak(&v14, &buf);
+    v13 = visitCopy;
+    dispatch_async(queue2, v12);
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(&buf);
   }
 
@@ -1525,8 +1502,6 @@ void __55__CLMicroLocationLoiBridge_removeGeofenceWithRegionId___block_invoke(ui
       _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_DEFAULT, "LOI Bridge, Received nil visit notification", &buf, 2u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __53__CLMicroLocationLoiBridge_locationManager_didVisit___block_invoke(uint64_t a1)
@@ -1541,7 +1516,7 @@ void __53__CLMicroLocationLoiBridge_locationManager_didVisit___block_invoke(uint
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   locationsCopy = locations;
   queue = [(CLMicroLocationLoiBridge *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -1581,12 +1556,12 @@ void __53__CLMicroLocationLoiBridge_locationManager_didVisit___block_invoke(uint
     }
 
     buf = 68289538;
-    v29 = 2082;
-    v30 = "";
-    v31 = 2082;
-    v32 = v12;
-    v33 = 2082;
-    v34 = v15;
+    v28 = 2082;
+    v29 = "";
+    v30 = 2082;
+    v31 = v12;
+    v32 = 2082;
+    v33 = v15;
     _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LOI Bridge, Got Location Update, Waiting on location: :%{public, location:escape_only}s, Leeching location: :%{public, location:escape_only}s}", &buf, 0x26u);
   }
 
@@ -1626,16 +1601,14 @@ LABEL_18:
   block[1] = 3221225472;
   block[2] = __63__CLMicroLocationLoiBridge_locationManager_didUpdateLocations___block_invoke;
   block[3] = &unk_2798D5358;
-  objc_copyWeak(v27, &buf);
-  v26 = v17;
-  v27[1] = v16;
+  objc_copyWeak(v26, &buf);
+  v25 = v17;
+  v26[1] = v16;
   v23 = v17;
   dispatch_async(queue2, block);
 
-  objc_destroyWeak(v27);
+  objc_destroyWeak(v26);
   objc_destroyWeak(&buf);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __63__CLMicroLocationLoiBridge_locationManager_didUpdateLocations___block_invoke(uint64_t a1)
@@ -1650,7 +1623,7 @@ void __63__CLMicroLocationLoiBridge_locationManager_didUpdateLocations___block_i
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   errorCopy = error;
   if (onceToken_MicroLocation_Default != -1)
@@ -1661,16 +1634,14 @@ void __63__CLMicroLocationLoiBridge_locationManager_didUpdateLocations___block_i
   v7 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 68289282;
-    v9[1] = 0;
-    v10 = 2082;
-    v11 = "";
-    v12 = 2114;
-    v13 = errorCopy;
-    _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LOI Bridge, didFailWithError, error::%{public, location:escape_only}@}", v9, 0x1Cu);
+    v8[0] = 68289282;
+    v8[1] = 0;
+    v9 = 2082;
+    v10 = "";
+    v11 = 2114;
+    v12 = errorCopy;
+    _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#LOI Bridge, didFailWithError, error::%{public, location:escape_only}@}", v8, 0x1Cu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -82,9 +82,9 @@
   v9.super_class = _UIDocumentUnavailableBrowserPresentationController;
   [(UISheetPresentationController *)&v9 setSelectedDetentIdentifier:identifier];
   selectedDetentIdentifier2 = [(UISheetPresentationController *)self selectedDetentIdentifier];
-  v7 = [selectedDetentIdentifier isEqualToString:selectedDetentIdentifier2];
+  isEqualToString = objc_msgSend_isEqualToString_(selectedDetentIdentifier);
 
-  if ((v7 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter postNotificationName:@"_UIDocumentViewControllerLandingBrowserPresentationControllerDidChangeSelectedDetentIdentifierNotification" object:self];

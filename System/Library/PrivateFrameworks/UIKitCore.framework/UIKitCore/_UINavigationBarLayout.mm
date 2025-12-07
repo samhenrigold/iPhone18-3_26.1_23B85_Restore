@@ -12,12 +12,11 @@
 - (double)searchBarLayoutFrame;
 - (double)topPaletteLayoutFrame;
 - (id)_insertLayoutDataForNavigationBarPart:(int64_t)part;
+- (id)contentViewLayoutFrame;
 - (id)copyWithZone:(_NSZone *)zone;
-- (id)layoutForMeasuringWidth:(void *)width;
+- (id)removeAllViews;
+- (id)setHidesSearchBarWhenScrolling:(id *)result;
 - (int64_t)_topPaletteOrder;
-- (uint64_t)contentViewLayoutFrame;
-- (uint64_t)removeAllViews;
-- (uint64_t)setHidesSearchBarWhenScrolling:(uint64_t)result;
 - (void)_addLayoutItem:(id)item;
 - (void)_includeContentLayoutDataInLayout:(BOOL)layout;
 - (void)_removeLayoutItem:(id)item;
@@ -32,6 +31,7 @@
 - (void)installViewsInNavigationBar:(uint64_t)bar;
 - (void)interleaveViewsWithLayout:(void *)layout inNavigationBar:;
 - (void)iterateLayoutViews:(uint64_t)views;
+- (void)layoutForMeasuringWidth:(void *)width;
 - (void)layoutViews;
 - (void)prepareToRecordToState:(id)state;
 - (void)recordFromStateForTransition:(id)transition;
@@ -70,26 +70,26 @@
   return result;
 }
 
-- (uint64_t)removeAllViews
+- (id)removeAllViews
 {
   if (result)
   {
     v1 = result;
-    [*(result + 120) removeFromSuperview];
-    [*(v1 + 224) stopAnimations];
-    hostContainerView = [*(v1 + 224) hostContainerView];
+    [result[15] removeFromSuperview];
+    [v1[28] stopAnimations];
+    hostContainerView = [v1[28] hostContainerView];
     [hostContainerView removeFromSuperview];
 
-    [*(v1 + 128) removeFromSuperview];
-    [*(v1 + 136) removeFromSuperview];
-    [*(v1 + 144) removeFromSuperview];
-    [*(v1 + 176) removeFromSuperview];
-    [*(v1 + 232) removeFromSuperview];
-    _viewStackedInNavigationBar = [*(v1 + 240) _viewStackedInNavigationBar];
+    [v1[16] removeFromSuperview];
+    [v1[17] removeFromSuperview];
+    [v1[18] removeFromSuperview];
+    [v1[22] removeFromSuperview];
+    [v1[29] removeFromSuperview];
+    _viewStackedInNavigationBar = [v1[30] _viewStackedInNavigationBar];
     [_viewStackedInNavigationBar removeFromSuperview];
 
-    [*(v1 + 256) removeFromSuperview];
-    v4 = *(v1 + 264);
+    [v1[32] removeFromSuperview];
+    v4 = v1[33];
 
     return [v4 removeFromSuperview];
   }
@@ -1157,7 +1157,7 @@ LABEL_8:
   }
 }
 
-- (uint64_t)setHidesSearchBarWhenScrolling:(uint64_t)result
+- (id)setHidesSearchBarWhenScrolling:(id *)result
 {
   if (result)
   {
@@ -1165,10 +1165,10 @@ LABEL_8:
     if (*(result + 116) != a2)
     {
       *(result + 116) = a2;
-      if (*(result + 240))
+      if (result[30])
       {
-        [*(result + 48) setCollapsible:a2];
-        v3 = *(v2 + 48);
+        [result[6] setCollapsible:a2];
+        v3 = v2[6];
         if (*(v2 + 116))
         {
           v4 = 1700;
@@ -1387,20 +1387,20 @@ LABEL_8:
   return result;
 }
 
-- (uint64_t)contentViewLayoutFrame
+- (id)contentViewLayoutFrame
 {
   if (result)
   {
     v1 = result;
     if (*(result + 108) == 1)
     {
-      [*(result + 32) verticalOrigin];
-      return [*(v1 + 24) collapsingHeight];
+      [result[4] verticalOrigin];
+      return [v1[3] collapsingHeight];
     }
 
     else
     {
-      return [result _layoutFrameFor:*(result + 24) withOrder:80];
+      return [result _layoutFrameFor:result[3] withOrder:80];
     }
   }
 
@@ -1903,7 +1903,7 @@ LABEL_8:
   }
 }
 
-- (id)layoutForMeasuringWidth:(void *)width
+- (void)layoutForMeasuringWidth:(void *)width
 {
   widthCopy = width;
   if (width)

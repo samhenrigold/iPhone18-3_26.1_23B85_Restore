@@ -218,7 +218,7 @@ LABEL_13:
 
   [v6 setRetainsSiri:{-[SBGridSwitcherModifier isSystemAssistantExperiencePersistentSiriEnabled](self, "isSystemAssistantExperiencePersistentSiriEnabled")}];
   v7 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v6 gestureInitiated:0];
-  v8 = SBAppendSwitcherModifierResponse(v7, v5);
+  v8 = SBAppendSwitcherModifierResponse();
 
   return v8;
 }

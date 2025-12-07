@@ -8,10 +8,10 @@
 
 - (id)_axLatestResultForKey:()AXPriv
 {
-  v10[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   v4 = a3;
-  v10[0] = v4;
-  v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:1];
+  v9[0] = v4;
+  v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
   if ([self resultsContainRequiredProperties:v5])
   {
     latestResults = [self latestResults];
@@ -22,8 +22,6 @@
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 
   return v7;
 }

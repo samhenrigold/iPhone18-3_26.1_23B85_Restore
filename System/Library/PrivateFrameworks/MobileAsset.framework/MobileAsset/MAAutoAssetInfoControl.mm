@@ -34,19 +34,19 @@
 
 - (MAAutoAssetInfoControl)initWithCoder:(id)coder
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = MAAutoAssetInfoControl;
-  v5 = [(MAAutoAssetInfoControl *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = MAAutoAssetInfoControl;
+  v5 = [(MAAutoAssetInfoControl *)&v14 init];
   if (v5)
   {
     v5->_clearingAfter = [coderCopy decodeBoolForKey:@"clearingAfter"];
     v5->_forceUnlock = [coderCopy decodeBoolForKey:@"forceUnlock"];
     v6 = objc_alloc(MEMORY[0x1E695DFD8]);
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+    v15[0] = objc_opt_class();
+    v15[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
     v8 = [v6 initWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"limitedToAssetTypes"];
     limitedToAssetTypes = v5->_limitedToAssetTypes;
@@ -62,7 +62,6 @@
     v5->_simulateEnd = [coderCopy decodeIntegerForKey:@"simulateEnd"];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -85,7 +84,7 @@
 
 - (id)summary
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   limitedToAssetTypes = [(MAAutoAssetInfoControl *)self limitedToAssetTypes];
 
   volumeToReclaim2 = @"N";
@@ -93,31 +92,31 @@
   {
     v5 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
     [(__CFString *)v5 appendString:@"["];
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     limitedToAssetTypes2 = [(MAAutoAssetInfoControl *)self limitedToAssetTypes];
-    v7 = [limitedToAssetTypes2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v7 = [limitedToAssetTypes2 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v24;
+      v9 = *v23;
       v10 = &stru_1F0C1B388;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(limitedToAssetTypes2);
           }
 
-          [(__CFString *)v5 appendFormat:@"%@%@", v10, *(*(&v23 + 1) + 8 * i)];
+          [(__CFString *)v5 appendFormat:@"%@%@", v10, *(*(&v22 + 1) + 8 * i)];
           v10 = @",";
         }
 
-        v8 = [limitedToAssetTypes2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v8 = [limitedToAssetTypes2 countByEnumeratingWithState:&v22 objects:v26 count:16];
         v10 = @",";
       }
 
@@ -132,7 +131,7 @@
     v5 = @"N";
   }
 
-  v22 = MEMORY[0x1E696AEC0];
+  v21 = MEMORY[0x1E696AEC0];
   if ([(MAAutoAssetInfoControl *)self clearingAfter])
   {
     v12 = @"Y";
@@ -163,13 +162,11 @@
   targetingPurgeAmount = [(MAAutoAssetInfoControl *)self targetingPurgeAmount];
   v17 = [MAAutoAssetInfoControl nameOfSimulateOperation:[(MAAutoAssetInfoControl *)self simulateOperation]];
   v18 = [MAAutoAssetInfoControl nameOfSimulateEnd:[(MAAutoAssetInfoControl *)self simulateEnd]];
-  v19 = [v22 stringWithFormat:@"clearingAfter:%@, forceUnlock:%@, limitedToAssetTypes:%@, volumeToReclaim:%@, cacheDeleteUrgency:%d, targetingPurgeAmount:%lld, simulateOperation:%@, simulateEnd:%@", v12, v13, v5, volumeToReclaim2, cacheDeleteUrgency, targetingPurgeAmount, v17, v18];
+  v19 = [v21 stringWithFormat:@"clearingAfter:%@, forceUnlock:%@, limitedToAssetTypes:%@, volumeToReclaim:%@, cacheDeleteUrgency:%d, targetingPurgeAmount:%lld, simulateOperation:%@, simulateEnd:%@", v12, v13, v5, volumeToReclaim2, cacheDeleteUrgency, targetingPurgeAmount, v17, v18];
 
   if (volumeToReclaim)
   {
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

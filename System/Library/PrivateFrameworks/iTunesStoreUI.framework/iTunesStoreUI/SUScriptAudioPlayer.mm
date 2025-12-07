@@ -145,7 +145,7 @@ uint64_t __27__SUScriptAudioPlayer_stop__block_invoke(uint64_t a1)
   playerStatus = self->_playerStatus;
   if (playerStatus)
   {
-    [(SUPlayerStatus *)playerStatus duration];
+    objc_msgSend_duration(playerStatus);
     v5 = v4;
   }
 

@@ -47,7 +47,7 @@
 {
   stateCopy = state;
   encryptedCopy = encrypted;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v12 = &v22 - v11;
   v13 = type metadata accessor for URL();
@@ -72,7 +72,7 @@
   selfCopy = self;
   ExtensionViewController.loadPaper(_:paperURL:coherenceContextURL:encrypted:userInterfaceState:)(v17, v19, v16, v12, encryptedCopy, stateCopy);
 
-  outlined destroy of StocksKitCurrencyCache.Provider?(v12, &_s10Foundation3URLVSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v12, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   (*(v14 + 8))(v16, v13);
 }
 
@@ -118,7 +118,7 @@
 
 - (void)setupWithData:(id)data transparentBackground:(BOOL)background
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v20 - v8;
   dataCopy = data;
@@ -154,7 +154,7 @@
 
 - (void)setLinedPaperWithHorizontalLineSpacing:(double)spacing verticalLineSpacing:(double)lineSpacing horizontalInset:(double)inset
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v18 - v10;
   v12 = type metadata accessor for TaskPriority();
@@ -179,7 +179,7 @@
 
 - (void)setHasLiveStreamMessenger:(BOOL)messenger
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v13 - v6;
   v8 = type metadata accessor for TaskPriority();
@@ -198,7 +198,7 @@
 
 - (void)setUserInterfaceStyle:(int64_t)style
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = type metadata accessor for TaskPriority();
@@ -221,7 +221,7 @@
 
 - (void)setScreenPotentialHeadroom:(double)headroom
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = type metadata accessor for TaskPriority();
@@ -244,7 +244,7 @@
 
 - (void)setPaperDocumentInlineThumbnailsVisible:(BOOL)visible
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = type metadata accessor for TaskPriority();
@@ -267,7 +267,7 @@
 
 - (void)reportSafeAreaInsetsWithTop:(double)top left:(double)left bottom:(double)bottom right:(double)right
 {
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v11 - 8);
   v13 = &v20 - v12;
   v14 = type metadata accessor for TaskPriority();
@@ -293,7 +293,7 @@
 
 - (void)revertAllChanges
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v12 - v4;
   v6 = type metadata accessor for TaskPriority();
@@ -320,7 +320,7 @@
   v5 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v7 = v6;
 
-  ExtensionViewController.setMathDocument(_:)();
+  ExtensionViewController.setMathDocument(_:)(v5, v7);
   outlined consume of Data._Representation(v5, v7);
 }
 

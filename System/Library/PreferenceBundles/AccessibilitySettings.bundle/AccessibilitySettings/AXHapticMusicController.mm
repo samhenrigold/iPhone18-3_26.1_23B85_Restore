@@ -988,7 +988,7 @@ void __41__AXHapticMusicController__toggleSample___block_invoke_2(uint64_t a1)
     v3 = *(*(a1 + 32) + 168);
     if (v3)
     {
-      [v3 currentTime];
+      objc_msgSend_currentTime(v3);
     }
 
     else
@@ -1171,7 +1171,7 @@ void __39__AXHapticMusicController__startSample__block_invoke(uint64_t a1, uint6
   v10 = currentItem;
   if (currentItem)
   {
-    [currentItem duration];
+    objc_msgSend_duration(currentItem);
   }
 
   else

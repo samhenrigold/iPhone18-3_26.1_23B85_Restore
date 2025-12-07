@@ -34,33 +34,33 @@
 
 + (id)CP_variant:()CarPlay fittingMaxLength:
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = a3;
   if ([v6 count])
   {
     if (a4 && ![self CP_ignoreMaxLength])
     {
       firstObject = [v6 firstObject];
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v9 = v6;
-      v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v20;
+        v12 = *v19;
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v20 != v12)
+            if (*v19 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v19 + 1) + 8 * i);
+            v14 = *(*(&v18 + 1) + 8 * i);
             if ([v14 length] <= a4)
             {
               firstObject2 = v14;
@@ -77,7 +77,7 @@
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (v11)
           {
             continue;
@@ -102,8 +102,6 @@ LABEL_18:
   {
     firstObject2 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return firstObject2;
 }

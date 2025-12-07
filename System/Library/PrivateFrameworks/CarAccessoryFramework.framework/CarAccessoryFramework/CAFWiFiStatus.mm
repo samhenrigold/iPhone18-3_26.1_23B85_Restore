@@ -11,6 +11,7 @@
 - (NSString)contentURLAction;
 - (unsigned)moduleStatus;
 - (unsigned)signalBars;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -176,6 +177,78 @@
   v3 = contentURLActionCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000036100001"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    moduleStatusCharacteristic = [(CAFWiFiStatus *)self moduleStatusCharacteristic];
+    uniqueIdentifier2 = [moduleStatusCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers wiFiStatusService:self didUpdateModuleStatus:{-[CAFWiFiStatus moduleStatus](self, "moduleStatus")}];
+LABEL_12:
+
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000036100002"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    signalBarsCharacteristic = [(CAFWiFiStatus *)self signalBarsCharacteristic];
+    uniqueIdentifier4 = [signalBarsCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      [observers wiFiStatusService:self didUpdateSignalBars:{-[CAFWiFiStatus signalBars](self, "signalBars")}];
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000066"])
+  {
+    goto LABEL_12;
+  }
+
+  uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+  contentURLActionCharacteristic = [(CAFWiFiStatus *)self contentURLActionCharacteristic];
+  uniqueIdentifier6 = [contentURLActionCharacteristic uniqueIdentifier];
+  v21 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+  if (v21)
+  {
+    observers = [(CAFService *)self observers];
+    contentURLAction = [(CAFWiFiStatus *)self contentURLAction];
+    [observers wiFiStatusService:self didUpdateContentURLAction:contentURLAction];
+
+    goto LABEL_12;
+  }
+
+LABEL_13:
+  v23.receiver = self;
+  v23.super_class = CAFWiFiStatus;
+  [(CAFService *)&v23 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForModuleStatus

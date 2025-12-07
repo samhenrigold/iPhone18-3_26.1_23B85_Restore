@@ -9,8 +9,8 @@
 
 - (void)startServerWithCompletionHandler:(id)handler
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB826F0, &qword_230F3DD10) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB826F0, &qword_230F3DD10);
+  MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
   v9 = swift_allocObject();
@@ -34,8 +34,8 @@
 
 - (void)startNearFieldServerWithLocalIdentity:(OS_sec_identity *)identity listenerUUID:(NSUUID *)d remotePublicKey:(NSData *)key contactID:(NSString *)iD deviceModel:(NSString *)model deviceName:(NSString *)name completionHandler:(id)handler
 {
-  v16 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB826F0, &qword_230F3DD10) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB826F0, &qword_230F3DD10);
+  MEMORY[0x28223BE20](v16 - 8);
   v18 = &v30 - v17;
   v19 = _Block_copy(handler);
   v20 = swift_allocObject();

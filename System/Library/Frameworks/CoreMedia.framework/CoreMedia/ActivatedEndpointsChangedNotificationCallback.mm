@@ -5,11 +5,12 @@
 
 void __endpointCentricPlugin_ActivatedEndpointsChangedNotificationCallback_block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v8[0] = 0;
+  v12 = *MEMORY[0x1E69E9840];
+  v8 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, v8, &type);
-  v3 = v8[0];
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v8, &type);
+  v3 = v8;
+  v4 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v5 = v3;
@@ -22,10 +23,10 @@ void __endpointCentricPlugin_ActivatedEndpointsChangedNotificationCallback_block
 
   if (v5)
   {
-    v8[1] = 136315138;
-    v9 = "endpointCentricPlugin_ActivatedEndpointsChangedNotificationCallback_block_invoke";
-    v6 = _os_log_send_and_compose_impl();
-    LOBYTE(v3) = v8[0];
+    v9 = 136315138;
+    v10 = "endpointCentricPlugin_ActivatedEndpointsChangedNotificationCallback_block_invoke";
+    v6 = _os_log_send_and_compose_impl(v5, 0, v11, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v4, "<<< EndpointCentricHALPlugin >>> %s: endpointCentricPlugin_PeruseActivatedEndpoints is called\n", &v9);
+    LOBYTE(v3) = v8;
   }
 
   else
@@ -33,7 +34,7 @@ void __endpointCentricPlugin_ActivatedEndpointsChangedNotificationCallback_block
     v6 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v6, v6 != &v10, v3, 0, v4);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v6, v6 != v11, v3);
   endpointCentricPlugin_PeruseActivatedEndpoints(*(a1 + 32));
   CFRelease(*(a1 + 32));
 }

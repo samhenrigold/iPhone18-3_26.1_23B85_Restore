@@ -9,20 +9,21 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10059ADB4();
+  sub_10059ADB4(selfCopy);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
   width = fits.width;
   selfCopy = self;
-  v5 = sub_10059B140(width);
-  v7 = v6;
+  v6 = sub_10059B140(width, height);
+  v8 = v7;
 
-  v8 = v5;
-  v9 = v7;
-  result.height = v9;
-  result.width = v8;
+  v9 = v6;
+  v10 = v8;
+  result.height = v10;
+  result.width = v9;
   return result;
 }
 

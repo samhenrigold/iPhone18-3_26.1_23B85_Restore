@@ -61,67 +61,68 @@
   lCopy = l;
   regionCopy = region;
   replyCopy = reply;
-  if ((+[CPSLocationProvider locationServiceEnabled]& 1) != 0)
+  v11 = +[CPSLocationProvider locationServiceEnabled];
+  if (v11)
   {
     connection = [(RemoteClientNotEntitled *)self connection];
-    v12 = connection;
+    v14 = connection;
     if (connection)
     {
-      [connection auditToken];
+      objc_msgSend_auditToken(connection);
     }
 
     else
     {
       *buf = 0u;
-      v28 = 0u;
+      v31 = 0u;
     }
 
-    v26 = 0;
-    v15 = [LSBundleProxy bundleProxyWithAuditToken:buf error:&v26];
-    v14 = v26;
+    v29 = 0;
+    v17 = [LSBundleProxy bundleProxyWithAuditToken:buf error:&v29];
+    v16 = v29;
 
-    bundleIdentifier = [v15 bundleIdentifier];
+    bundleIdentifier = [v17 bundleIdentifier];
     if (bundleIdentifier)
     {
-      v17 = +[CPSWebClipStore sharedStore];
-      v20[0] = _NSConcreteStackBlock;
-      v20[1] = 3221225472;
-      v20[2] = sub_10000A1DC;
-      v20[3] = &unk_100014CB0;
-      v21 = bundleIdentifier;
-      v25 = replyCopy;
+      v20 = +[CPSWebClipStore sharedStore];
+      v23[0] = _NSConcreteStackBlock;
+      v23[1] = 3221225472;
+      v23[2] = sub_10000A1DC;
+      v23[3] = &unk_100014CB0;
+      v24 = bundleIdentifier;
+      v28 = replyCopy;
       selfCopy = self;
-      v23 = regionCopy;
-      v24 = v15;
-      [v17 getWebClipWithURL:lCopy completionHandler:v20];
+      v26 = regionCopy;
+      v27 = v17;
+      [v20 getWebClipWithURL:lCopy completionHandler:v23];
 
-      v18 = v21;
+      v21 = v24;
     }
 
     else
     {
-      v19 = sub_100004064();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v22 = sub_100004064(0, v18);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        sub_10000B43C(v14, v19);
+        sub_10000B43C(v16, v22);
       }
 
-      v18 = [NSError cps_errorWithCode:10];
-      (*(replyCopy + 2))(replyCopy, 0, v18);
+      v21 = [NSError cps_errorWithCode:10];
+      (*(replyCopy + 2))(replyCopy, 0, v21);
     }
   }
 
   else
   {
-    v13 = sub_100004064();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100004064(v11, v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "User has denied location confirmation for all app clips.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "User has denied location confirmation for all app clips.", buf, 2u);
     }
 
-    v14 = [NSError cps_errorWithCode:15];
-    (*(replyCopy + 2))(replyCopy, 0, v14);
+    v16 = [NSError cps_errorWithCode:15];
+    (*(replyCopy + 2))(replyCopy, 0, v16);
   }
 }
 
@@ -236,7 +237,7 @@
     v7 = connection;
     if (connection)
     {
-      [connection auditToken];
+      objc_msgSend_auditToken(connection);
     }
 
     else

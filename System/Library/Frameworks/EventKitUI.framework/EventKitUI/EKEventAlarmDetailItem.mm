@@ -528,13 +528,13 @@ void __65__EKEventAlarmDetailItem__createRealPopupMenuForIndex_popupCell___block
   }
 }
 
-uint64_t __65__EKEventAlarmDetailItem__createRealPopupMenuForIndex_popupCell___block_invoke_3(uint64_t result, int a2)
+id *__65__EKEventAlarmDetailItem__createRealPopupMenuForIndex_popupCell___block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) _updateAlarms];
-    v3 = *(v2 + 32);
+    [result[4] _updateAlarms];
+    v3 = v2[4];
 
     return [v3 notifySubitemDidSave:0];
   }

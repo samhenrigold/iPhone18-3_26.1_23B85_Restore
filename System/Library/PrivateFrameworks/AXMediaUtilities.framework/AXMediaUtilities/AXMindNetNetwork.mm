@@ -96,7 +96,7 @@
       v61 = 0uLL;
       p_model_labels = &v10->_model_labels;
       v62 = 0;
-      std::vector<NSString * {__strong}>::__vdeallocate(&v10->_model_labels.__begin_);
+      std::vector<NSString * {__strong}>::__vdeallocate(&v10->_model_labels);
       *&v10->_model_labels.__begin_ = v61;
       v10->_model_labels.var1 = v62;
       v62 = 0;
@@ -726,25 +726,25 @@ LABEL_34:
     v9 = v8;
   }
 
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
   v10 = getUIGraphicsBeginImageContextSymbolLoc(void)::ptr;
-  v44 = getUIGraphicsBeginImageContextSymbolLoc(void)::ptr;
+  v46 = getUIGraphicsBeginImageContextSymbolLoc(void)::ptr;
   if (!getUIGraphicsBeginImageContextSymbolLoc(void)::ptr)
   {
-    *&v38 = MEMORY[0x1E69E9820];
-    *(&v38 + 1) = 3221225472;
-    *&v39 = ___ZL39getUIGraphicsBeginImageContextSymbolLocv_block_invoke;
-    *(&v39 + 1) = &unk_1E7A1D0A0;
-    v40 = &v41;
+    *&v40 = MEMORY[0x1E69E9820];
+    *(&v40 + 1) = 3221225472;
+    *&v41 = ___ZL39getUIGraphicsBeginImageContextSymbolLocv_block_invoke;
+    *(&v41 + 1) = &unk_1E7A1D0A0;
+    v42 = &v43;
     v11 = UIKitLibrary();
-    v42[3] = dlsym(v11, "UIGraphicsBeginImageContext");
-    getUIGraphicsBeginImageContextSymbolLoc(void)::ptr = *(v40[1] + 24);
-    v10 = v42[3];
+    v44[3] = dlsym(v11, "UIGraphicsBeginImageContext");
+    getUIGraphicsBeginImageContextSymbolLoc(void)::ptr = *(v42[1] + 24);
+    v10 = v44[3];
   }
 
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v43, 8);
   if (!v10)
   {
     goto LABEL_28;
@@ -752,30 +752,30 @@ LABEL_34:
 
   v12 = v9;
   v10(v12, v12);
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
   v13 = getUIGraphicsGetCurrentContextSymbolLoc(void)::ptr;
-  v44 = getUIGraphicsGetCurrentContextSymbolLoc(void)::ptr;
+  v46 = getUIGraphicsGetCurrentContextSymbolLoc(void)::ptr;
   if (!getUIGraphicsGetCurrentContextSymbolLoc(void)::ptr)
   {
-    *&v38 = MEMORY[0x1E69E9820];
-    *(&v38 + 1) = 3221225472;
-    *&v39 = ___ZL39getUIGraphicsGetCurrentContextSymbolLocv_block_invoke;
-    *(&v39 + 1) = &unk_1E7A1D0A0;
-    v40 = &v41;
+    *&v40 = MEMORY[0x1E69E9820];
+    *(&v40 + 1) = 3221225472;
+    *&v41 = ___ZL39getUIGraphicsGetCurrentContextSymbolLocv_block_invoke;
+    *(&v41 + 1) = &unk_1E7A1D0A0;
+    v42 = &v43;
     v14 = UIKitLibrary();
-    v42[3] = dlsym(v14, "UIGraphicsGetCurrentContext");
-    getUIGraphicsGetCurrentContextSymbolLoc(void)::ptr = *(v40[1] + 24);
-    v13 = v42[3];
+    v44[3] = dlsym(v14, "UIGraphicsGetCurrentContext");
+    getUIGraphicsGetCurrentContextSymbolLoc(void)::ptr = *(v42[1] + 24);
+    v13 = v44[3];
   }
 
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v43, 8);
   if (!v13)
   {
 LABEL_28:
-    dlerror();
-    result = abort_report_np();
+    v37 = dlerror();
+    result = abort_report_np("%s", v37);
 LABEL_33:
     __break(1u);
     return result;
@@ -784,63 +784,63 @@ LABEL_33:
   v15 = v13();
   GenericRGB = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0);
   CGContextSetFillColorWithColor(v15, GenericRGB);
-  v46.origin.x = 0.0;
-  v46.origin.y = 0.0;
-  v46.size.width = v12;
-  v46.size.height = v12;
-  CGContextFillRect(v15, v46);
+  v48.origin.x = 0.0;
+  v48.origin.y = 0.0;
+  v48.size.width = v12;
+  v48.size.height = v12;
+  CGContextFillRect(v15, v48);
   CGColorRelease(GenericRGB);
-  v47.origin.x = 0.0;
-  v47.origin.y = 0.0;
-  v47.size.width = v12;
-  v47.size.height = v12;
-  v48 = CGRectInset(v47, (v12 - v7) * 0.5, (v12 - v8) * 0.5);
-  x = v48.origin.x;
-  y = v48.origin.y;
-  width = v48.size.width;
-  height = v48.size.height;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2050000000;
+  v49.origin.x = 0.0;
+  v49.origin.y = 0.0;
+  v49.size.width = v12;
+  v49.size.height = v12;
+  v50 = CGRectInset(v49, (v12 - v7) * 0.5, (v12 - v8) * 0.5);
+  x = v50.origin.x;
+  y = v50.origin.y;
+  width = v50.size.width;
+  height = v50.size.height;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2050000000;
   v21 = getUIImageClass(void)::softClass;
-  v44 = getUIImageClass(void)::softClass;
+  v46 = getUIImageClass(void)::softClass;
   if (!getUIImageClass(void)::softClass)
   {
-    *&v38 = MEMORY[0x1E69E9820];
-    *(&v38 + 1) = 3221225472;
-    *&v39 = ___ZL15getUIImageClassv_block_invoke;
-    *(&v39 + 1) = &unk_1E7A1D0A0;
-    v40 = &v41;
-    ___ZL15getUIImageClassv_block_invoke(&v38);
-    v21 = v42[3];
+    *&v40 = MEMORY[0x1E69E9820];
+    *(&v40 + 1) = 3221225472;
+    *&v41 = ___ZL15getUIImageClassv_block_invoke;
+    *(&v41 + 1) = &unk_1E7A1D0A0;
+    v42 = &v43;
+    ___ZL15getUIImageClassv_block_invoke(&v40);
+    v21 = v44[3];
   }
 
   v22 = v21;
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v43, 8);
   v23 = [v21 imageWithCIImage:imageCopy];
   [v23 drawInRect:0 blendMode:x alpha:{y, width, height, 1.0}];
 
   v24 = MEMORY[0x1E695F658];
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
   v25 = getUIGraphicsGetImageFromCurrentImageContextSymbolLoc(void)::ptr;
-  v44 = getUIGraphicsGetImageFromCurrentImageContextSymbolLoc(void)::ptr;
+  v46 = getUIGraphicsGetImageFromCurrentImageContextSymbolLoc(void)::ptr;
   if (!getUIGraphicsGetImageFromCurrentImageContextSymbolLoc(void)::ptr)
   {
-    *&v38 = MEMORY[0x1E69E9820];
-    *(&v38 + 1) = 3221225472;
-    *&v39 = ___ZL53getUIGraphicsGetImageFromCurrentImageContextSymbolLocv_block_invoke;
-    *(&v39 + 1) = &unk_1E7A1D0A0;
-    v40 = &v41;
+    *&v40 = MEMORY[0x1E69E9820];
+    *(&v40 + 1) = 3221225472;
+    *&v41 = ___ZL53getUIGraphicsGetImageFromCurrentImageContextSymbolLocv_block_invoke;
+    *(&v41 + 1) = &unk_1E7A1D0A0;
+    v42 = &v43;
     v26 = UIKitLibrary();
     v27 = dlsym(v26, "UIGraphicsGetImageFromCurrentImageContext");
-    *(v40[1] + 24) = v27;
-    getUIGraphicsGetImageFromCurrentImageContextSymbolLoc(void)::ptr = *(v40[1] + 24);
-    v25 = v42[3];
+    *(v42[1] + 24) = v27;
+    getUIGraphicsGetImageFromCurrentImageContextSymbolLoc(void)::ptr = *(v42[1] + 24);
+    v25 = v44[3];
   }
 
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v43, 8);
   if (!v25)
   {
     goto LABEL_30;
@@ -849,31 +849,31 @@ LABEL_33:
   v28 = v25();
   v29 = [v24 imageWithCGImage:{objc_msgSend(v28, "CGImage")}];
 
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
   v30 = getUIGraphicsEndImageContextSymbolLoc(void)::ptr;
-  v44 = getUIGraphicsEndImageContextSymbolLoc(void)::ptr;
+  v46 = getUIGraphicsEndImageContextSymbolLoc(void)::ptr;
   if (!getUIGraphicsEndImageContextSymbolLoc(void)::ptr)
   {
-    *&v38 = MEMORY[0x1E69E9820];
-    *(&v38 + 1) = 3221225472;
-    *&v39 = ___ZL37getUIGraphicsEndImageContextSymbolLocv_block_invoke;
-    *(&v39 + 1) = &unk_1E7A1D0A0;
-    v40 = &v41;
+    *&v40 = MEMORY[0x1E69E9820];
+    *(&v40 + 1) = 3221225472;
+    *&v41 = ___ZL37getUIGraphicsEndImageContextSymbolLocv_block_invoke;
+    *(&v41 + 1) = &unk_1E7A1D0A0;
+    v42 = &v43;
     v31 = UIKitLibrary();
     v32 = dlsym(v31, "UIGraphicsEndImageContext");
-    *(v40[1] + 24) = v32;
-    getUIGraphicsEndImageContextSymbolLoc(void)::ptr = *(v40[1] + 24);
-    v30 = v42[3];
+    *(v42[1] + 24) = v32;
+    getUIGraphicsEndImageContextSymbolLoc(void)::ptr = *(v42[1] + 24);
+    v30 = v44[3];
   }
 
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v43, 8);
   if (!v30)
   {
 LABEL_30:
-    dlerror();
-    result = abort_report_np();
+    v38 = dlerror();
+    result = abort_report_np("%s", v38);
     goto LABEL_33;
   }
 
@@ -881,9 +881,9 @@ LABEL_30:
 LABEL_23:
   v33 = [AXMindNetHelpers createVImageBuffer:v29];
   v34 = *&v33->width;
-  v38 = *&v33->data;
-  v39 = v34;
-  v35 = [(AXMindNetNetwork *)self resizeAndProcessVImage:&v38 inputIsBGR:0];
+  v40 = *&v33->data;
+  v41 = v34;
+  v35 = [(AXMindNetNetwork *)self resizeAndProcessVImage:&v40 inputIsBGR:0];
   if (v33->data)
   {
     free(v33->data);

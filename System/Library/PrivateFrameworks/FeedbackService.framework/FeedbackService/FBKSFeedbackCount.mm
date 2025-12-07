@@ -38,7 +38,7 @@
 
 - (FBKSFeedbackCount)initWithSwiftObject:(id)object
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   v4 = [FBKSCampaign alloc];
   currentCampaign = [objectCopy currentCampaign];
@@ -48,27 +48,27 @@
   feedbackFiled = [objectCopy feedbackFiled];
   v9 = [v7 initWithCapacity:{objc_msgSend(feedbackFiled, "count")}];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   feedbackFiled2 = [objectCopy feedbackFiled];
-  v11 = [feedbackFiled2 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v11 = [feedbackFiled2 countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v35;
+    v13 = *v34;
     do
     {
       v14 = 0;
       do
       {
-        if (*v35 != v13)
+        if (*v34 != v13)
         {
           objc_enumerationMutation(feedbackFiled2);
         }
 
-        v15 = [[FBKSFeedback alloc] initWithSwiftObject:*(*(&v34 + 1) + 8 * v14)];
+        v15 = [[FBKSFeedback alloc] initWithSwiftObject:*(*(&v33 + 1) + 8 * v14)];
         if (v15)
         {
           [v9 addObject:v15];
@@ -78,7 +78,7 @@
       }
 
       while (v12 != v14);
-      v12 = [feedbackFiled2 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v12 = [feedbackFiled2 countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v12);
@@ -88,27 +88,27 @@
   errors = [objectCopy errors];
   v18 = [v16 initWithCapacity:{objc_msgSend(errors, "count")}];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   errors2 = [objectCopy errors];
-  v20 = [errors2 countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v20 = [errors2 countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v31;
+    v22 = *v30;
     do
     {
       v23 = 0;
       do
       {
-        if (*v31 != v22)
+        if (*v30 != v22)
         {
           objc_enumerationMutation(errors2);
         }
 
-        v24 = [[FBKSCampaignError alloc] initWithSwiftObject:*(*(&v30 + 1) + 8 * v23)];
+        v24 = [[FBKSCampaignError alloc] initWithSwiftObject:*(*(&v29 + 1) + 8 * v23)];
         if (v24)
         {
           [v18 addObject:v24];
@@ -118,7 +118,7 @@
       }
 
       while (v21 != v23);
-      v21 = [errors2 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v21 = [errors2 countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
     while (v21);
@@ -131,7 +131,6 @@
     [(FBKSFeedbackCount *)v25 setSwiftObject:objectCopy];
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v26;
 }
 

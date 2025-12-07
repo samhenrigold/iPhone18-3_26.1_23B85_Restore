@@ -7,13 +7,13 @@
 
 - (void)co_setOriginalInterruptionHandler:()CoordinationClient
 {
-  v4 = MEMORY[0x245D5F6A0](a3);
+  v4 = MEMORY[0x245D5F6A0](a3, a2);
   objc_setAssociatedObject(self, sel_co_originalInterruptionHandler, v4, 1);
 }
 
 - (void)co_setOriginalInvalidationHandler:()CoordinationClient
 {
-  v4 = MEMORY[0x245D5F6A0](a3);
+  v4 = MEMORY[0x245D5F6A0](a3, a2);
   objc_setAssociatedObject(self, sel_co_originalInvalidationHandler, v4, 1);
 }
 

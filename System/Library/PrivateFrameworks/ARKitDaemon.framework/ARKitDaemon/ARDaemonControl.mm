@@ -2,6 +2,8 @@
 - (ARDaemonControl)initWithConnection:(id)connection;
 - (ARServer)server;
 - (ARServerStatusLogging)statusLogger;
+- (void)getStatusDictionaryWithWaitEndOfTransition:(BOOL)transition reply:(id)reply;
+- (void)getStatusWithVerboseOutput:(BOOL)output waitForEndOfTransaction:(BOOL)transaction reply:(id)reply;
 - (void)interruptionHandler;
 - (void)invalidationHandler;
 @end
@@ -68,10 +70,77 @@ void __38__ARDaemonControl_initWithConnection___block_invoke_2(uint64_t a1)
   [WeakRetained invalidationHandler];
 }
 
+- (void)getStatusDictionaryWithWaitEndOfTransition:(BOOL)transition reply:(id)reply
+{
+  transitionCopy = transition;
+  replyCopy = reply;
+  statusLogger = [(ARDaemonControl *)self statusLogger];
+
+  if (statusLogger)
+  {
+    statusLogger2 = [(ARDaemonControl *)self statusLogger];
+    v8 = [statusLogger2 statusDictionaryWithWaitEndOfTransition:transitionCopy];
+  }
+
+  else
+  {
+    v8 = &unk_284F6A600;
+  }
+
+  replyCopy[2](replyCopy, v8);
+}
+
+- (void)getStatusWithVerboseOutput:(BOOL)output waitForEndOfTransaction:(BOOL)transaction reply:(id)reply
+{
+  transactionCopy = transaction;
+  outputCopy = output;
+  replyCopy = reply;
+  statusLogger = [(ARDaemonControl *)self statusLogger];
+
+  if (statusLogger)
+  {
+    statusLogger2 = [(ARDaemonControl *)self statusLogger];
+    v10 = statusLogger2;
+    if (outputCopy)
+    {
+      [statusLogger2 fullDescriptionWithWaitEndOfTransition:transactionCopy];
+    }
+
+    else
+    {
+      [statusLogger2 statusStringWithWaitEndOfTransition:transactionCopy];
+    }
+    v11 = ;
+  }
+
+  else
+  {
+    v11 = @"server initializing";
+  }
+
+  replyCopy[2](replyCopy, v11);
+}
+
 - (void)interruptionHandler
 {
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = _ARLogGeneral(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  {
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2048;
+    selfCopy = self;
+    _os_log_impl(&dword_23D391000, v3, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Control interrupted", &v6, 0x16u);
+  }
+}
+
+- (void)invalidationHandler
+{
   v11 = *MEMORY[0x277D85DE8];
-  v3 = _ARLogGeneral();
+  v3 = _ARLogGeneral(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
@@ -80,31 +149,11 @@ void __38__ARDaemonControl_initWithConnection___block_invoke_2(uint64_t a1)
     v8 = v5;
     v9 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_23D391000, v3, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Control interrupted", &v7, 0x16u);
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)invalidationHandler
-{
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = _ARLogGeneral();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
-  {
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2048;
-    selfCopy = self;
-    _os_log_impl(&dword_23D391000, v3, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Control invalidated", &v8, 0x16u);
+    _os_log_impl(&dword_23D391000, v3, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Control invalidated", &v7, 0x16u);
   }
 
   connection = self->_connection;
   self->_connection = 0;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (ARServerStatusLogging)statusLogger

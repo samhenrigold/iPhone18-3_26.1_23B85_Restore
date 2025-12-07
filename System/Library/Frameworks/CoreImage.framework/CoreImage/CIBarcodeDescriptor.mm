@@ -8,16 +8,17 @@
 
 - (CIBarcodeDescriptor)init
 {
-  v6.receiver = self;
-  v6.super_class = CIBarcodeDescriptor;
-  v2 = [(CIBarcodeDescriptor *)&v6 init];
+  v8.receiver = self;
+  v8.super_class = CIBarcodeDescriptor;
+  v2 = [(CIBarcodeDescriptor *)&v8 init];
   v3 = objc_opt_class();
-  if (v3 == objc_opt_class())
+  v4 = objc_opt_class();
+  if (v3 == v4)
   {
-    v4 = ci_logger_api();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v6 = ci_logger_api(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [CIBarcodeDescriptor init];
+      [(CIBarcodeDescriptor *)v2 init];
     }
 
     return 0;
@@ -28,12 +29,13 @@
 
 - (CIBarcodeDescriptor)initWithCoder:(id)coder
 {
-  if (([coder allowsKeyedCoding] & 1) == 0)
+  allowsKeyedCoding = [coder allowsKeyedCoding];
+  if ((allowsKeyedCoding & 1) == 0)
   {
-    v4 = ci_logger_api();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v6 = ci_logger_api(allowsKeyedCoding, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [CIBarcodeDescriptor initWithCoder:];
+      [(CIBarcodeDescriptor *)self initWithCoder:v6];
     }
   }
 
@@ -43,15 +45,17 @@
 - (void)init
 {
   objc_opt_class();
+  v8 = 136446466;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_19CC36000, v0, v1, "%{public}s %{public}@: instantiating abstract barcode descriptor objects is prohibited", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2(&dword_19CC36000, v2, v3, "%{public}s %{public}@: instantiating abstract barcode descriptor objects is prohibited", v4, v5, v6, v7, v8);
 }
 
-- (void)initWithCoder:.cold.1()
+- (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
+  v8 = 136446466;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_19CC36000, v0, v1, "%{public}s %{public}@: requires coder that supports keyed coding of objects", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2(&dword_19CC36000, v2, v3, "%{public}s %{public}@: requires coder that supports keyed coding of objects", v4, v5, v6, v7, v8);
 }
 
 @end

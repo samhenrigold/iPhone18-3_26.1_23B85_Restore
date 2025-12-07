@@ -2,35 +2,35 @@
 - (BOOL)enqueueViewForReuse:(uint64_t)reuse;
 - (_UICollectionViewSubviewCollection)allVisibleViewsSubviewCollection;
 - (id)allVisibleViews;
-- (id)allVisibleViewsHashTable;
 - (id)dequeueReusableViewWithReuseIdentifier:(void *)identifier elementKind:(uint64_t)kind elementCategory:;
+- (id)removeAllVisibleViews;
+- (id)replaceVisibleViewsWithoutCopyingWithContentsOfSubviewCollection:(id *)result;
+- (id)setVisibleCell:(uint64_t)cell atIndexPath:;
 - (id)visibleCellAtIndexPath:(id *)path;
 - (id)visibleViewOfKind:(uint64_t)kind inCategory:(uint64_t)category atIndexPath:;
 - (id)visibleViewWithLayoutAttributes:(id *)attributes;
-- (uint64_t)enumerateAllViewsInReuseQueueWithEnumerator:(uint64_t)result;
 - (uint64_t)hasVisibleCells;
-- (uint64_t)indexPathsForVisibleCells;
 - (uint64_t)indexPathsForVisibleDecorationsOfKind:(uint64_t *)kind;
 - (uint64_t)indexPathsForVisibleSupplementariesOfKind:(uint64_t *)kind;
 - (uint64_t)isViewInReuseQueue:(uint64_t)queue;
-- (uint64_t)removeAllVisibleViews;
-- (uint64_t)replaceVisibleViewsWithoutCopyingWithContentsOfSubviewCollection:(uint64_t)result;
-- (uint64_t)setVisibleCell:(uint64_t)cell atIndexPath:;
-- (uint64_t)updateVisibleCellsUsingFilter:(uint64_t)result;
 - (uint64_t)visibleCells;
 - (uint64_t)visibleDecorationOfKind:(uint64_t)kind atIndexPath:;
 - (uint64_t)visibleDecorationsOfKind:(uint64_t *)kind;
 - (uint64_t)visibleSupplementariesOfKind:(uint64_t *)kind;
 - (uint64_t)visibleSupplementaryOfKind:(uint64_t)kind atIndexPath:;
 - (void)_getElementKindReuseQueues:(void *)queues reuseQueue:(uint64_t)queue forReuseIdentifier:(void *)identifier elementKind:(int)kind creatingIfNecessary:;
+- (void)allVisibleViewsHashTable;
 - (void)ensureViewIsRemovedFromReuseQueue:(uint64_t)queue;
+- (void)enumerateAllViewsInReuseQueueWithEnumerator:(void *)result;
+- (void)indexPathsForVisibleCells;
 - (void)initWithCollectionView:(void *)view;
 - (void)removeAllDequeuedViewsWithEnumerator:(uint64_t)enumerator;
+- (void)updateVisibleCellsUsingFilter:(void *)result;
 @end
 
 @implementation _UICollectionViewSubviewManager
 
-- (uint64_t)indexPathsForVisibleCells
+- (void)indexPathsForVisibleCells
 {
   if (self)
   {
@@ -112,7 +112,7 @@
   return v2 & 1;
 }
 
-- (id)allVisibleViewsHashTable
+- (void)allVisibleViewsHashTable
 {
   if (self)
   {
@@ -123,12 +123,12 @@
   return self;
 }
 
-- (uint64_t)removeAllVisibleViews
+- (id)removeAllVisibleViews
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 8);
+    v2 = result[1];
     if (v2)
     {
       [v2[1] removeAllObjects];
@@ -136,7 +136,7 @@
       [v2[3] removeAllObjects];
     }
 
-    v3 = *(v1 + 40);
+    v3 = v1[5];
 
     return [v3 _subviewManagerDidUpdateVisibleCells];
   }
@@ -178,13 +178,13 @@
   return v4;
 }
 
-- (uint64_t)setVisibleCell:(uint64_t)cell atIndexPath:
+- (id)setVisibleCell:(uint64_t)cell atIndexPath:
 {
   if (result)
   {
     v3 = result;
-    [(_UICollectionViewSubviewCollection *)*(result + 8) setCell:a2 atIndexPath:cell];
-    v4 = *(v3 + 40);
+    [(_UICollectionViewSubviewCollection *)result[1] setCell:a2 atIndexPath:cell];
+    v4 = v3[5];
 
     return [v4 _subviewManagerDidUpdateVisibleCells];
   }
@@ -192,13 +192,13 @@
   return result;
 }
 
-- (uint64_t)replaceVisibleViewsWithoutCopyingWithContentsOfSubviewCollection:(uint64_t)result
+- (id)replaceVisibleViewsWithoutCopyingWithContentsOfSubviewCollection:(id *)result
 {
   if (result)
   {
     v2 = result;
     [(_UICollectionViewSubviewCollection *)a2 transferAllViewsWithoutCopyingToSubviewCollection:?];
-    v3 = *(v2 + 40);
+    v3 = v2[5];
 
     return [v3 _subviewManagerDidUpdateVisibleCells];
   }
@@ -308,13 +308,13 @@
   return kind;
 }
 
-- (uint64_t)updateVisibleCellsUsingFilter:(uint64_t)result
+- (void)updateVisibleCellsUsingFilter:(void *)result
 {
   if (result)
   {
     v2 = result;
-    [(_UICollectionViewSubviewCollection *)*(result + 8) updateCellsUsingFilter:a2];
-    v3 = *(v2 + 40);
+    [(_UICollectionViewSubviewCollection *)result[1] updateCellsUsingFilter:a2];
+    v3 = v2[5];
 
     return [v3 _subviewManagerDidUpdateVisibleCells];
   }
@@ -615,7 +615,7 @@ LABEL_19:
   return v7;
 }
 
-- (uint64_t)enumerateAllViewsInReuseQueueWithEnumerator:(uint64_t)result
+- (void)enumerateAllViewsInReuseQueueWithEnumerator:(void *)result
 {
   if (result)
   {
@@ -626,7 +626,7 @@ LABEL_19:
       [currentHandler handleFailureInMethod:sel_enumerateAllViewsInReuseQueueWithEnumerator_ object:v3 file:@"_UICollectionViewSubviewManager.m" lineNumber:296 description:{@"Invalid parameter not satisfying: %@", @"enumerator != nil"}];
     }
 
-    v4 = *(v3 + 16);
+    v4 = v3[2];
     v6[0] = MEMORY[0x1E69E9820];
     v6[1] = 3221225472;
     v6[2] = __79___UICollectionViewSubviewManager_enumerateAllViewsInReuseQueueWithEnumerator___block_invoke;

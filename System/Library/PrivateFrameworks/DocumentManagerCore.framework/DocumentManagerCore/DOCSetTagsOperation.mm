@@ -144,97 +144,93 @@
 
 - (id)itemIDsFromItems:(id)items
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = itemsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        itemID = [*(*(&v13 + 1) + 8 * i) itemID];
+        itemID = [*(*(&v12 + 1) + 8 * i) itemID];
         [v4 addObject:itemID];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)itemsFromItemIDs:(id)ds
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__2;
-  v28 = __Block_byref_object_dispose__2;
-  v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__2;
+  v27 = __Block_byref_object_dispose__2;
+  v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v5 = dispatch_semaphore_create(0);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = dsCopy;
-  v6 = [obj countByEnumeratingWithState:&v20 objects:v30 count:16];
+  v6 = [obj countByEnumeratingWithState:&v19 objects:v29 count:16];
   if (v6)
   {
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         itemManager = [(FPActionOperation *)self itemManager];
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __40__DOCSetTagsOperation_itemsFromItemIDs___block_invoke;
-        v17[3] = &unk_278F9BA90;
-        v19 = &v24;
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __40__DOCSetTagsOperation_itemsFromItemIDs___block_invoke;
+        v16[3] = &unk_278F9BA90;
+        v18 = &v23;
         v11 = v5;
-        v18 = v11;
-        [itemManager fetchItemForItemID:v9 completionHandler:v17];
+        v17 = v11;
+        [itemManager fetchItemForItemID:v9 completionHandler:v16];
 
         v12 = dispatch_time(0, 1000000000);
         dispatch_semaphore_wait(v11, v12);
       }
 
-      v6 = [obj countByEnumeratingWithState:&v20 objects:v30 count:16];
+      v6 = [obj countByEnumeratingWithState:&v19 objects:v29 count:16];
     }
 
     while (v6);
   }
 
-  v13 = v25[5];
-  _Block_object_dispose(&v24, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = v24[5];
+  _Block_object_dispose(&v23, 8);
 
   return v13;
 }
@@ -261,30 +257,30 @@ intptr_t __40__DOCSetTagsOperation_itemsFromItemIDs___block_invoke(uint64_t a1, 
 
 - (id)tagsListsFromItems:(id)items
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = itemsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     v9 = MEMORY[0x277CBEBF8];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         tags = [v11 tags];
 
         if (tags)
@@ -299,13 +295,11 @@ intptr_t __40__DOCSetTagsOperation_itemsFromItemIDs___block_invoke(uint64_t a1, 
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

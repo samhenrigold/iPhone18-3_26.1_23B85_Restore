@@ -10,35 +10,13 @@
 - (BOOL)shouldAddWorkflowToLibrary:(id)library
 {
   libraryCopy = library;
-  if ([libraryCopy hiddenFromLibraryAndSync])
+  if (([libraryCopy hiddenFromLibraryAndSync] & 1) != 0 || (objc_msgSend(libraryCopy, "tombstoned") & 1) != 0 || (objc_msgSend(libraryCopy, "conflictOf"), (v4 = objc_claimAutoreleasedReturnValue()) != 0) && (v5 = v4, objc_msgSend(libraryCopy, "conflictOf"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "tombstoned"), v6, v5, !v7))
   {
-    goto LABEL_6;
-  }
-
-  if ([libraryCopy tombstoned])
-  {
-    goto LABEL_6;
-  }
-
-  conflictOf = [libraryCopy conflictOf];
-  if (!conflictOf)
-  {
-    goto LABEL_5;
-  }
-
-  v5 = conflictOf;
-  conflictOf2 = [libraryCopy conflictOf];
-  tombstoned = [conflictOf2 tombstoned];
-
-  if (!tombstoned)
-  {
-LABEL_6:
     v9 = 0;
   }
 
   else
   {
-LABEL_5:
     name = [libraryCopy name];
     v9 = name != 0;
   }
@@ -48,13 +26,13 @@ LABEL_5:
 
 - (id)createLibraryFromCurrentDatabaseSnapshot:(id)snapshot
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   snapshotCopy = snapshot;
   v4 = getWFCoherenceLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v37 = "[WFShortcutsV12CustomModificationStep createLibraryFromCurrentDatabaseSnapshot:]";
+    v36 = "[WFShortcutsV12CustomModificationStep createLibraryFromCurrentDatabaseSnapshot:]";
     _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_DEFAULT, "%s Creating Library from Core Data snapshot.", buf, 0xCu);
   }
 
@@ -69,43 +47,43 @@ LABEL_5:
 
   if (firstObject)
   {
-    v28 = v5;
+    v27 = v5;
     array = [MEMORY[0x1E695DF70] array];
     array2 = [MEMORY[0x1E695DF70] array];
     v12 = [firstObject valueForKey:@"shortcuts"];
     v13 = [firstObject valueForKey:@"collections"];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __81__WFShortcutsV12CustomModificationStep_createLibraryFromCurrentDatabaseSnapshot___block_invoke;
-    v34[3] = &unk_1E8375CF8;
-    v34[4] = self;
-    v35 = array;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __81__WFShortcutsV12CustomModificationStep_createLibraryFromCurrentDatabaseSnapshot___block_invoke;
+    v33[3] = &unk_1E8375CF8;
+    v33[4] = self;
+    v34 = array;
     v14 = array;
-    [v12 enumerateObjectsUsingBlock:v34];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __81__WFShortcutsV12CustomModificationStep_createLibraryFromCurrentDatabaseSnapshot___block_invoke_2;
-    v32[3] = &unk_1E8375D20;
-    v32[4] = self;
+    [v12 enumerateObjectsUsingBlock:v33];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __81__WFShortcutsV12CustomModificationStep_createLibraryFromCurrentDatabaseSnapshot___block_invoke_2;
+    v31[3] = &unk_1E8375D20;
+    v31[4] = self;
     v15 = array2;
-    v33 = v15;
-    [v13 enumerateObjectsUsingBlock:v32];
+    v32 = v15;
+    [v13 enumerateObjectsUsingBlock:v31];
     v16 = getWFCoherenceLogObject();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = [v12 count];
       v18 = [v15 count];
       *buf = 136315650;
-      v37 = "[WFShortcutsV12CustomModificationStep createLibraryFromCurrentDatabaseSnapshot:]";
-      v38 = 2050;
-      v39 = v17;
-      v40 = 2050;
-      v41 = v18;
+      v36 = "[WFShortcutsV12CustomModificationStep createLibraryFromCurrentDatabaseSnapshot:]";
+      v37 = 2050;
+      v38 = v17;
+      v39 = 2050;
+      v40 = v18;
       _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_DEFAULT, "%s Overwriting library with %{public}lu shortcuts and %{public}lu folders.", buf, 0x20u);
     }
 
-    v5 = v28;
-    [(WFLibrary *)v28 overwriteShortcutsAndFolders:v14 folders:v15];
+    v5 = v27;
+    [(WFLibrary *)v27 overwriteShortcutsAndFolders:v14 folders:v15];
   }
 
   v19 = [MEMORY[0x1E695D5E0] fetchRequestWithEntityName:@"Collection"];
@@ -114,18 +92,17 @@ LABEL_5:
   [v19 setPredicate:v21];
 
   v22 = [snapshotCopy executeFetchRequest:v19 error:0];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __81__WFShortcutsV12CustomModificationStep_createLibraryFromCurrentDatabaseSnapshot___block_invoke_209;
-  v30[3] = &unk_1E8375D20;
-  v30[4] = self;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __81__WFShortcutsV12CustomModificationStep_createLibraryFromCurrentDatabaseSnapshot___block_invoke_209;
+  v29[3] = &unk_1E8375D20;
+  v29[4] = self;
   v23 = v5;
-  v31 = v23;
-  [v22 enumerateObjectsUsingBlock:v30];
-  v24 = v31;
+  v30 = v23;
+  [v22 enumerateObjectsUsingBlock:v29];
+  v24 = v30;
   v25 = v23;
 
-  v26 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -193,16 +170,16 @@ void __81__WFShortcutsV12CustomModificationStep_createLibraryFromCurrentDatabase
 
 void __81__WFShortcutsV12CustomModificationStep_createLibraryFromCurrentDatabaseSnapshot___block_invoke_2_210(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([*(a1 + 32) shouldAddWorkflowToLibrary:v3])
   {
     v4 = *(a1 + 40);
     v5 = [v3 workflowID];
     v6 = *(a1 + 48);
-    v11 = 0;
-    [v4 appendShortcutWithIdentifier:v5 toCollectionWithIdentifier:v6 error:&v11];
-    v7 = v11;
+    v10 = 0;
+    [v4 appendShortcutWithIdentifier:v5 toCollectionWithIdentifier:v6 error:&v10];
+    v7 = v10;
 
     if (v7)
     {
@@ -211,17 +188,15 @@ void __81__WFShortcutsV12CustomModificationStep_createLibraryFromCurrentDatabase
       {
         v9 = *(a1 + 48);
         *buf = 136315650;
-        v13 = "[WFShortcutsV12CustomModificationStep createLibraryFromCurrentDatabaseSnapshot:]_block_invoke_2";
-        v14 = 2114;
-        v15 = v9;
-        v16 = 2114;
-        v17 = v7;
+        v12 = "[WFShortcutsV12CustomModificationStep createLibraryFromCurrentDatabaseSnapshot:]_block_invoke_2";
+        v13 = 2114;
+        v14 = v9;
+        v15 = 2114;
+        v16 = v7;
         _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Failed to add shortcut to collection with identifier: %{public}@, error: %{public}@", buf, 0x20u);
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __81__WFShortcutsV12CustomModificationStep_createLibraryFromCurrentDatabaseSnapshot___block_invoke_3(uint64_t a1, void *a2)
@@ -293,7 +268,7 @@ LABEL_6:
   }
 
   v10 = identifier;
-  if (!identifier || (v11 = [(__CFString *)identifier isEqualToString:@"Library-2"], v10, v10, (v11 & 1) == 0))
+  if (!identifier || (v11 = objc_msgSend_isEqualToString_(identifier), v10, v10, (v11 & 1) == 0))
   {
     identifier2 = [firstObject identifier];
     if (identifier2 == @"Library")
@@ -303,7 +278,7 @@ LABEL_6:
     else
     {
       v14 = identifier2;
-      if (!identifier2 || (v15 = [(__CFString *)identifier2 isEqualToString:@"Library"], v14, v14, !v15))
+      if (!identifier2 || (isEqualToString = objc_msgSend_isEqualToString_(identifier2), v14, v14, !isEqualToString))
       {
         v12 = [(WFShortcutsV12CustomModificationStep *)self createLibraryFromCurrentDatabaseSnapshot:contextCopy];
         [(WFShortcutsV12CustomModificationStep *)self setLibraryToWrite:v12];

@@ -19,32 +19,32 @@
 
 - (IDSKeyTransparencyManager)initWithDelegate:(id)delegate
 {
-  v25[3] = *MEMORY[0x1E69E9840];
+  v24[3] = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
-  v23.receiver = self;
-  v23.super_class = IDSKeyTransparencyManager;
-  v5 = [(IDSKeyTransparencyManager *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = IDSKeyTransparencyManager;
+  v5 = [(IDSKeyTransparencyManager *)&v22 init];
   if (v5)
   {
-    v22 = sub_195A92CA8();
-    v24[0] = v22;
+    v21 = sub_195A92CA8();
+    v23[0] = v21;
     v6 = [IDSKTVerificationInfoProvider alloc];
     v7 = sub_195A92CA8();
     v8 = [(IDSKTVerificationInfoProvider *)v6 initWithApplicationIdentifier:v7];
-    v25[0] = v8;
+    v24[0] = v8;
     v9 = sub_195A92DAC();
-    v24[1] = v9;
+    v23[1] = v9;
     v10 = [IDSKTVerificationInfoProvider alloc];
     v11 = sub_195A92DAC();
     v12 = [(IDSKTVerificationInfoProvider *)v10 initWithApplicationIdentifier:v11];
-    v25[1] = v12;
+    v24[1] = v12;
     v13 = sub_195A92EB0();
-    v24[2] = v13;
+    v23[2] = v13;
     v14 = [IDSKTVerificationInfoProvider alloc];
     v15 = sub_195A92EB0();
     v16 = [(IDSKTVerificationInfoProvider *)v14 initWithApplicationIdentifier:v15];
-    v25[2] = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
+    v24[2] = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:3];
     applicationToVerificationInfoProviders = v5->_applicationToVerificationInfoProviders;
     v5->_applicationToVerificationInfoProviders = v17;
 
@@ -57,7 +57,6 @@
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -91,7 +90,7 @@
 
 - (void)getKeyTransparencyOptInEligiblityForApplication:(id)application withCompletion:(id)completion
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   applicationCopy = application;
   completionCopy = completion;
   if (completionCopy)
@@ -107,24 +106,24 @@
         _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Fetching KT eligibility with completion {application: %@}", &buf, 0xCu);
       }
 
-      v29 = MEMORY[0x1E69E9820];
-      v30 = 3221225472;
-      v31 = sub_195A934B0;
-      v32 = &unk_1E74414A8;
-      v33 = applicationCopy;
+      v28 = MEMORY[0x1E69E9820];
+      v29 = 3221225472;
+      v30 = sub_195A934B0;
+      v31 = &unk_1E74414A8;
+      v32 = applicationCopy;
       v9 = completionCopy;
-      v34 = v9;
-      v10 = &v29;
+      v33 = v9;
+      v10 = &v28;
       v11 = v9;
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v36 = sub_195A94CEC;
-      v37 = &unk_1E743FC78;
-      v38 = v11;
-      v39 = v10;
-      [IDSXPCDaemonController performDaemonControllerTask:&buf, v29, v30, v31, v32];
+      v35 = sub_195A94CEC;
+      v36 = &unk_1E743FC78;
+      v37 = v11;
+      v38 = v10;
+      [IDSXPCDaemonController performDaemonControllerTask:&buf, v28, v29, v30, v31];
 
-      v12 = v33;
+      v12 = v32;
     }
 
     else
@@ -150,13 +149,11 @@
     v12 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IDSKeyTransparencyManagerErrorDomain" code:200 userInfo:0];
     MEMORY[0x10](0, 0, 0, v12);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendOptInUpdateForApplications:(id)applications withCompletion:(id)completion
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   applicationsCopy = applications;
   completionCopy = completion;
   if (completionCopy)
@@ -168,19 +165,19 @@
       if (os_log_type_enabled(keyTransparency, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = applicationsCopy;
+        v30 = applicationsCopy;
         _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Updating IDS Server with KT Opt in Info {optInInfo: %@}", buf, 0xCu);
       }
 
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = sub_195A936D4;
-      v27[3] = &unk_1E7440330;
-      v29 = completionCopy;
-      v28 = applicationsCopy;
-      [IDSXPCDaemonController performDaemonControllerTask:v27];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = sub_195A936D4;
+      v26[3] = &unk_1E7440330;
+      v28 = completionCopy;
+      v27 = applicationsCopy;
+      [IDSXPCDaemonController performDaemonControllerTask:v26];
 
-      v9 = v29;
+      v9 = v28;
     }
 
     else
@@ -206,13 +203,11 @@
     v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"IDSKeyTransparencyManagerErrorDomain" code:200 userInfo:0];
     MEMORY[0x10](0, 0, v9, v18);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendOptInUpdateForApplicationsOptInState:(id)state withCompletion:(id)completion
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   completionCopy = completion;
   if (completionCopy)
@@ -224,19 +219,19 @@
       if (os_log_type_enabled(keyTransparency, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = stateCopy;
+        v30 = stateCopy;
         _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Updating IDS Server with KT Opt in Info {optInInfo: %@}", buf, 0xCu);
       }
 
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = sub_195A93AD8;
-      v27[3] = &unk_1E7440330;
-      v29 = completionCopy;
-      v28 = stateCopy;
-      [IDSXPCDaemonController performDaemonControllerTask:v27];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = sub_195A93AD8;
+      v26[3] = &unk_1E7440330;
+      v28 = completionCopy;
+      v27 = stateCopy;
+      [IDSXPCDaemonController performDaemonControllerTask:v26];
 
-      keyTransparency2 = v29;
+      keyTransparency2 = v28;
     }
 
     else
@@ -261,13 +256,11 @@
       sub_195B33560(keyTransparency2, v10, v11, v12, v13, v14, v15, v16);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendOptInUpdateRequest:(id)request withCompletion:(id)completion
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
   if (completionCopy)
@@ -279,19 +272,19 @@
       if (os_log_type_enabled(keyTransparency, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v31 = requestCopy;
+        v30 = requestCopy;
         _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Updating IDS Server with KT Opt In/Out Request {optInOutRequest: %@}", buf, 0xCu);
       }
 
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = sub_195A93E1C;
-      v27[3] = &unk_1E7440330;
-      v29 = completionCopy;
-      v28 = requestCopy;
-      [IDSXPCDaemonController performDaemonControllerTask:v27];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = sub_195A93E1C;
+      v26[3] = &unk_1E7440330;
+      v28 = completionCopy;
+      v27 = requestCopy;
+      [IDSXPCDaemonController performDaemonControllerTask:v26];
 
-      keyTransparency2 = v29;
+      keyTransparency2 = v28;
     }
 
     else
@@ -316,8 +309,6 @@
       sub_195B33650(keyTransparency2, v10, v11, v12, v13, v14, v15, v16);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchKTRegistrationStatusWithCompletion:(id)completion
@@ -365,25 +356,23 @@
 
 - (void)cacheClearRequest:(id)request
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   keyTransparency = [MEMORY[0x1E69A5270] KeyTransparency];
   if (os_log_type_enabled(keyTransparency, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v10 = requestCopy;
+    v9 = requestCopy;
     _os_log_impl(&dword_1959FF000, keyTransparency, OS_LOG_TYPE_DEFAULT, "Transparency requested to clear IDS query cache. { Request: %@ }", buf, 0xCu);
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_195A94630;
-  v7[3] = &unk_1E743F918;
-  v8 = requestCopy;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = sub_195A94630;
+  v6[3] = &unk_1E743F918;
+  v7 = requestCopy;
   v5 = requestCopy;
-  [IDSXPCDaemonController performDaemonControllerTask:v7];
-
-  v6 = *MEMORY[0x1E69E9840];
+  [IDSXPCDaemonController performDaemonControllerTask:v6];
 }
 
 - (void)getCurrentRegistrationState:(id)state withCompletion:(id)completion

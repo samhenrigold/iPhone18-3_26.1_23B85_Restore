@@ -11,7 +11,7 @@
 {
   indexCopy = index;
   handlerCopy = handler;
-  v7 = sub_100001864();
+  v7 = sub_100001864(handlerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_100001C10(indexCopy, v7);
@@ -25,7 +25,7 @@
   indexCopy = index;
   identifiersCopy = identifiers;
   handlerCopy = handler;
-  v10 = sub_100001864();
+  v10 = sub_100001864(handlerCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     sub_100001C88();
@@ -39,7 +39,7 @@
   indexCopy = index;
   identifierCopy = identifier;
   typeCopy = type;
-  v11 = sub_100001864();
+  v11 = sub_100001864(typeCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     sub_100001CF0();
@@ -155,7 +155,8 @@ LABEL_20:
 
   v16 = v13;
   v17 = [v16 si_stringAttributeForKey:@"com_apple_iBooks_storeURL"];
-  if ([v17 length] && (+[NSURL URLWithString:](NSURL, "URLWithString:", v17), (v18 = objc_claimAutoreleasedReturnValue()) != 0))
+  v18 = [v17 length];
+  if (v18 && ([NSURL URLWithString:v17], (v18 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v19 = v18;
     v48 = v12;
@@ -187,7 +188,7 @@ LABEL_20:
 
   else
   {
-    v22 = sub_100001864();
+    v22 = sub_100001864(v18);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_100001D58(v22);
@@ -210,7 +211,7 @@ LABEL_29:
   indexCopy = index;
   identifierCopy = identifier;
   typeCopy = type;
-  v11 = sub_100001864();
+  v11 = sub_100001864(typeCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     sub_100001D9C();

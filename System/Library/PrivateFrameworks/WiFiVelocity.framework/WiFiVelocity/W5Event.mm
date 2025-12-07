@@ -71,8 +71,8 @@
           v42 = 36;
           v43 = 2114;
           v44 = v36;
-LABEL_9:
-          _os_log_send_and_compose_impl();
+          LODWORD(v18) = 38;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] %s (%s:%u) [NSKeyedUnarchiver unarchivedObjectOfClasses:fromData:error:] failed with error (%{public}@)", &v37, v18);
         }
       }
     }
@@ -90,12 +90,10 @@ LABEL_9:
         v42 = 41;
         v43 = 2114;
         v44 = v36;
-        goto LABEL_9;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v17, 0, "[wifivelocity] %s (%s:%u) [NSKeyedArchiver archivedDataWithRootObject:requiringSecureCoding:error:] failed with error (%{public}@)", &v37, 38);
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

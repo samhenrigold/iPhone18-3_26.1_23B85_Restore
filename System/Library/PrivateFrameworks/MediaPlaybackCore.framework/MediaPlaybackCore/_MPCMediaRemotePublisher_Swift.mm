@@ -18,7 +18,7 @@
 - (_MPCMediaRemotePublisher_Swift)initWithPublisher:(id)publisher
 {
   swift_unknownObjectRetain();
-  _MediaRemotePublisher.init(_:)();
+  _MediaRemotePublisher.init(_:)(publisher);
   return result;
 }
 

@@ -197,7 +197,7 @@
 {
   v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v5 = _CRKLogASM_16();
+  v5 = _CRKLogASM_16(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -230,7 +230,7 @@ void __61__CRKASMPreemptiveIDSMessagingRosterProvider_messageAppleID___block_inv
 {
   v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _CRKLogASM_16();
+  v4 = _CRKLogASM_16(v3);
   v5 = v4;
   if (v3)
   {

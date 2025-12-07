@@ -270,25 +270,25 @@ uint64_t __82__SFAddToHomeScreenViewController_initWithAddToHomeScreenActivityIt
 
   if (v2)
   {
-    v3 = objc_alloc(MEMORY[0x1E69853C0]);
-    v4 = [*(a1 + 32) manifest];
-    v5 = [v4 jsonData];
+    v5 = objc_alloc(MEMORY[0x1E69853C0]);
     v6 = [*(a1 + 32) manifest];
-    v7 = [v6 manifestURL];
-    v8 = [*(a1 + 40) URL];
-    v9 = [v3 initWithJSONData:v5 manifestURL:v7 documentURL:v8];
+    v7 = [v6 jsonData];
+    v8 = [*(a1 + 32) manifest];
+    v9 = [v8 manifestURL];
+    v10 = [*(a1 + 40) URL];
+    v11 = [v5 initWithJSONData:v7 manifestURL:v9 documentURL:v10];
 
-    if (v9)
+    if (v11)
     {
-      [*(a1 + 48) setObject:v9 forKeyedSubscript:@"Manifest"];
-      v10 = [*(a1 + 32) websiteCookies];
+      [*(a1 + 48) setObject:v11 forKeyedSubscript:@"Manifest"];
+      v14 = [*(a1 + 32) websiteCookies];
 
-      if (v10)
+      if (v14)
       {
-        v11 = [*(a1 + 32) websiteCookies];
-        v12 = *(a1 + 56);
-        v13 = *(v12 + 1072);
-        *(v12 + 1072) = v11;
+        v17 = [*(a1 + 32) websiteCookies];
+        v18 = *(a1 + 56);
+        v19 = *(v18 + 1072);
+        *(v18 + 1072) = v17;
 
         [*(a1 + 56) _copyCurrentCookiesToStagingDirectory];
 LABEL_12:
@@ -296,39 +296,39 @@ LABEL_12:
         return (*(*(a1 + 64) + 16))();
       }
 
-      v15 = WBS_LOG_CHANNEL_PREFIXWebApp();
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v21 = WBS_LOG_CHANNEL_PREFIXWebApp(v15, v16);
+      if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_12;
       }
 
       *buf = 0;
-      v16 = "Website cookies not provided.";
-      v17 = buf;
+      v22 = "Website cookies not provided.";
+      v23 = buf;
     }
 
     else
     {
-      v15 = WBS_LOG_CHANNEL_PREFIXWebApp();
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v21 = WBS_LOG_CHANNEL_PREFIXWebApp(v12, v13);
+      if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_12;
       }
 
-      v20 = 0;
-      v16 = "Could not create _WKApplicationManifest.";
-      v17 = &v20;
+      v26 = 0;
+      v22 = "Could not create _WKApplicationManifest.";
+      v23 = &v26;
     }
 
-    _os_log_impl(&dword_1D4644000, v15, OS_LOG_TYPE_DEFAULT, v16, v17, 2u);
+    _os_log_impl(&dword_1D4644000, v21, OS_LOG_TYPE_DEFAULT, v22, v23, 2u);
     goto LABEL_12;
   }
 
-  v14 = WBS_LOG_CHANNEL_PREFIXWebApp();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v20 = WBS_LOG_CHANNEL_PREFIXWebApp(v3, v4);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    *v19 = 0;
-    _os_log_impl(&dword_1D4644000, v14, OS_LOG_TYPE_DEFAULT, "SFAddToHomeScreenInfo or BEWebAppManifest was nil. Cannot apply to web clip.", v19, 2u);
+    *v25 = 0;
+    _os_log_impl(&dword_1D4644000, v20, OS_LOG_TYPE_DEFAULT, "SFAddToHomeScreenInfo or BEWebAppManifest was nil. Cannot apply to web clip.", v25, 2u);
   }
 
   return (*(*(a1 + 64) + 16))();
@@ -349,39 +349,39 @@ void __82__SFAddToHomeScreenViewController_initWithAddToHomeScreenActivityItem_c
   dispatch_async(MEMORY[0x1E69E96A0], v5);
 }
 
-uint64_t __82__SFAddToHomeScreenViewController_initWithAddToHomeScreenActivityItem_completion___block_invoke_2_11(uint64_t a1)
+uint64_t __82__SFAddToHomeScreenViewController_initWithAddToHomeScreenActivityItem_completion___block_invoke_2_11(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32))
   {
-    v2 = objc_alloc(MEMORY[0x1E69853C0]);
-    v3 = [*(a1 + 32) jsonData];
-    v4 = [*(a1 + 32) manifestURL];
-    v5 = [*(a1 + 40) URL];
-    v6 = [v2 initWithJSONData:v3 manifestURL:v4 documentURL:v5];
+    v3 = objc_alloc(MEMORY[0x1E69853C0]);
+    v4 = [*(a1 + 32) jsonData];
+    v5 = [*(a1 + 32) manifestURL];
+    v6 = [*(a1 + 40) URL];
+    v7 = [v3 initWithJSONData:v4 manifestURL:v5 documentURL:v6];
 
-    if (v6)
+    if (v7)
     {
-      [*(a1 + 48) setObject:v6 forKeyedSubscript:@"Manifest"];
+      [*(a1 + 48) setObject:v7 forKeyedSubscript:@"Manifest"];
     }
 
     else
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXWebApp();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v11 = WBS_LOG_CHANNEL_PREFIXWebApp(v8, v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_DEFAULT, "Could not create _WKApplicationManifest.", buf, 2u);
+        _os_log_impl(&dword_1D4644000, v11, OS_LOG_TYPE_DEFAULT, "Could not create _WKApplicationManifest.", buf, 2u);
       }
     }
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXWebApp();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v10 = WBS_LOG_CHANNEL_PREFIXWebApp(a1, a2);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEFAULT, "BEWebAppManifest was nil. Cannot apply to web clip.", v10, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_1D4644000, v10, OS_LOG_TYPE_DEFAULT, "BEWebAppManifest was nil. Cannot apply to web clip.", v13, 2u);
     }
   }
 
@@ -392,7 +392,7 @@ void __82__SFAddToHomeScreenViewController_initWithAddToHomeScreenActivityItem_c
 {
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (v5)
   {
     [*(*(a1 + 40) + 1008) didReceiveWebClipIcon:v5];
@@ -400,10 +400,10 @@ void __82__SFAddToHomeScreenViewController_initWithAddToHomeScreenActivityItem_c
 
   else if (v6)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXWebApp();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXWebApp(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __82__SFAddToHomeScreenViewController_initWithAddToHomeScreenActivityItem_completion___block_invoke_16_cold_1(a1, v8, v7);
+      __82__SFAddToHomeScreenViewController_initWithAddToHomeScreenActivityItem_completion___block_invoke_16_cold_1(a1, v9, v8);
     }
   }
 }
@@ -422,7 +422,7 @@ void __82__SFAddToHomeScreenViewController_initWithAddToHomeScreenActivityItem_c
   v4 = a2;
   safari_privacyPreservingDescription = [a3 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_4(&dword_1D4644000, v6, v7, "Failed to clean up staged cookies, URL: %@, error: %{public}@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_1_4(&dword_1D4644000, v6, v7, "Failed to clean up staged cookies, URL: %@, error: %{public}@", v8, v9, v10, v11);
 }
 
 - (id)_issueReadOnlySandboxExtensionForURL:(id)l
@@ -431,23 +431,23 @@ void __82__SFAddToHomeScreenViewController_initWithAddToHomeScreenActivityItem_c
   v3 = sandbox_extension_issue_file();
   if (v3)
   {
-    v4 = v3;
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v3];
-    free(v4);
+    v5 = v3;
+    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v3];
+    free(v5);
   }
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXWebApp();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXWebApp(0, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [SFAddToHomeScreenViewController _issueReadOnlySandboxExtensionForURL:v6];
+      [SFAddToHomeScreenViewController _issueReadOnlySandboxExtensionForURL:v7];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)_copyCurrentCookiesToStagingDirectory
@@ -480,7 +480,7 @@ void __82__SFAddToHomeScreenViewController_initWithAddToHomeScreenActivityItem_c
   }
 }
 
-void __72__SFAddToHomeScreenViewController__copyCurrentCookiesToStagingDirectory__block_invoke(uint64_t a1, char a2)
+void __72__SFAddToHomeScreenViewController__copyCurrentCookiesToStagingDirectory__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -507,7 +507,7 @@ void __72__SFAddToHomeScreenViewController__copyCurrentCookiesToStagingDirectory
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXWebApp();
+    v7 = WBS_LOG_CHANNEL_PREFIXWebApp(a1, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __72__SFAddToHomeScreenViewController__copyCurrentCookiesToStagingDirectory__block_invoke_cold_1(v7);
@@ -534,48 +534,49 @@ void __69__SFAddToHomeScreenViewController__fetchWebClipMetadataViaJavaScript__b
 {
   v6 = a2;
   v7 = a3;
+  v9 = v7;
   if (v7)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXViewService();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXViewService(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __69__SFAddToHomeScreenViewController__fetchWebClipMetadataViaJavaScript__block_invoke_cold_1(v7, v8);
+      __69__SFAddToHomeScreenViewController__fetchWebClipMetadataViaJavaScript__block_invoke_cold_1(v9, v10);
     }
 
-    v9 = [MEMORY[0x1E696AAE8] safari_isSafariViewServiceBundle];
-    v10 = *(a1 + 32);
-    if (v9)
+    v11 = [MEMORY[0x1E696AAE8] safari_isSafariViewServiceBundle];
+    v12 = *(a1 + 32);
+    if (v11)
     {
-      [*(v10 + 1056) updateWithWebClipMetadata:MEMORY[0x1E695E0F8]];
+      [*(v12 + 1056) updateWithWebClipMetadata:MEMORY[0x1E695E0F8]];
     }
 
     else
     {
-      [*(v10 + 1008) didFetchWebClipMetadata:0];
+      [*(v12 + 1008) didFetchWebClipMetadata:0];
     }
   }
 
   else
   {
     objc_storeStrong((*(a1 + 32) + 1040), a2);
-    v11 = objc_opt_new();
-    v12 = v11;
-    v13 = *(*(a1 + 32) + 1040);
-    if (v13)
+    v13 = objc_opt_new();
+    v14 = v13;
+    v15 = *(*(a1 + 32) + 1040);
+    if (v15)
     {
-      [v11 setObject:v13 forKeyedSubscript:@"MetaAndLinkTags"];
+      [v13 setObject:v15 forKeyedSubscript:@"MetaAndLinkTags"];
     }
 
-    v14 = [MEMORY[0x1E696AAE8] safari_isSafariViewServiceBundle];
-    v15 = *(a1 + 32);
-    if (v14)
+    v16 = [MEMORY[0x1E696AAE8] safari_isSafariViewServiceBundle];
+    v17 = *(a1 + 32);
+    if (v16)
     {
-      [*(v15 + 1056) updateWithWebClipMetadata:v12];
+      [*(v17 + 1056) updateWithWebClipMetadata:v14];
     }
 
     else
     {
-      [*(v15 + 1008) didFetchWebClipMetadata:v12];
+      [*(v17 + 1008) didFetchWebClipMetadata:v14];
     }
 
     [*(a1 + 32) _copyCurrentCookiesToStagingDirectory];
@@ -642,10 +643,10 @@ void __52__SFAddToHomeScreenViewController__connectToService__block_invoke(uint6
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXViewService();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXViewService(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __52__SFAddToHomeScreenViewController__connectToService__block_invoke_cold_1(v6, v9);
+      __52__SFAddToHomeScreenViewController__connectToService__block_invoke_cold_1(v6, v11);
     }
   }
 }
@@ -790,7 +791,7 @@ void __82__SFAddToHomeScreenViewController_initWithAddToHomeScreenActivityItem_c
   v6 = [v4 URL];
   v7 = [a3 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_4(&dword_1D4644000, v8, v9, "Failed to receive icon, URL: %{sensitive}@, error: %{public}@", v10, v11, v12, v13, v14);
+  OUTLINED_FUNCTION_1_4(&dword_1D4644000, v8, v9, "Failed to receive icon, URL: %{sensitive}@, error: %{public}@", v10, v11, v12, v13);
 }
 
 - (void)_issueReadOnlySandboxExtensionForURL:(void *)a1 .cold.1(void *a1)

@@ -107,7 +107,7 @@ void __40__PUITextLayoutSet_initWithTextLayouts___block_invoke(uint64_t a1, void
 {
   if (!PUITextLayoutIsValid(layout))
   {
-    [(PUITextLayoutSet *)layout initWithTextLayout:a2];
+    [(PUITextLayoutSet *)layout initWithTextLayout:a2, self];
   }
 
   v9.receiver = self;
@@ -220,14 +220,14 @@ LABEL_7:
 
 void __48__PUITextLayoutSet_initWithTextLayoutsIndexSet___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PUITextLayout '%lu' is not valid"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PUITextLayout '%lu' is not valid", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v4 = NSStringFromSelector(*(a2 + 40));
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, a1, v13, v14);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v3 UTF8String];
@@ -237,14 +237,14 @@ void __48__PUITextLayoutSet_initWithTextLayoutsIndexSet___block_invoke_cold_1(ui
 
 void __40__PUITextLayoutSet_initWithTextLayouts___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PUITextLayout '%lu' is not valid"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PUITextLayout '%lu' is not valid", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v4 = NSStringFromSelector(*(a2 + 40));
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, a1, v13, v14);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v3 UTF8String];
@@ -252,18 +252,18 @@ void __40__PUITextLayoutSet_initWithTextLayouts___block_invoke_cold_1(uint64_t a
   __break(0);
 }
 
-- (void)initWithTextLayout:(uint64_t)a1 .cold.1(uint64_t a1, const char *a2)
+- (void)initWithTextLayout:(uint64_t)a3 .cold.1(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PUITextLayout '%lu' is not valid"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PUITextLayout '%lu' is not valid", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v4 = NSStringFromSelector(a2);
-    v5 = objc_opt_class();
-    v13 = NSStringFromClass(v5);
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, 2u);
+    v5 = NSStringFromSelector(a2);
+    v6 = objc_opt_class();
+    v14 = NSStringFromClass(v6);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v3 UTF8String];
+  [v4 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

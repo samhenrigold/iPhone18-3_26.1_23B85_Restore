@@ -12,13 +12,13 @@
 
 - (CTStewieIMessageLiteSummaryMessage)initWithPendingIMessageLiteTotalCount:(int64_t)count pendingCounts:(id)counts error:(id *)p_isa
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   countsCopy = counts;
   if (countsCopy)
   {
-    v15.receiver = self;
-    v15.super_class = CTStewieIMessageLiteSummaryMessage;
-    v10 = [(CTStewieIMessageLiteSummaryMessage *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = CTStewieIMessageLiteSummaryMessage;
+    v10 = [(CTStewieIMessageLiteSummaryMessage *)&v14 init];
     p_isa = &v10->super.isa;
     if (v10)
     {
@@ -37,15 +37,14 @@
   else if (p_isa)
   {
     v11 = MEMORY[0x1E696ABC0];
-    v16 = *MEMORY[0x1E696A578];
-    v17[0] = @"Pending counts are missing";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A578];
+    v16[0] = @"Pending counts are missing";
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     *p_isa = [v11 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v12];
 
     p_isa = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 

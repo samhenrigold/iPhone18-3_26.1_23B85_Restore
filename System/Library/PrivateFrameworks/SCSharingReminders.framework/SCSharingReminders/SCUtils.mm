@@ -40,12 +40,13 @@ void __67__SCUtils_registerNeededNotificationsForManager_completionHandler___blo
   v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = SCLogger();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = SCLogger(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __67__SCUtils_registerNeededNotificationsForManager_completionHandler___block_invoke_cold_1(v6, v7);
+      __67__SCUtils_registerNeededNotificationsForManager_completionHandler___block_invoke_cold_1(v7, v8);
     }
   }
 
@@ -55,16 +56,16 @@ void __67__SCUtils_registerNeededNotificationsForManager_completionHandler___blo
     v16 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v8 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v8)
+    v9 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v14;
+      v10 = v9;
+      v11 = *v14;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v14 != v10)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v5);
           }
@@ -72,21 +73,19 @@ void __67__SCUtils_registerNeededNotificationsForManager_completionHandler___blo
           [*(a1 + 40) registerDarwinNotification:*(*(&v13 + 1) + 8 * i)];
         }
 
-        v9 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v10 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)submitTaskRequest:(id)request completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   completionCopy = completion;
   mEMORY[0x277CF0810] = [MEMORY[0x277CF0810] sharedScheduler];
@@ -95,12 +94,12 @@ void __67__SCUtils_registerNeededNotificationsForManager_completionHandler___blo
 
   if (v9)
   {
-    v10 = SCLogger();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = SCLogger(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v18 = requestCopy;
-      _os_log_impl(&dword_262556000, v10, OS_LOG_TYPE_DEFAULT, "Not submitting task request %@ because one already exists", buf, 0xCu);
+      v19 = requestCopy;
+      _os_log_impl(&dword_262556000, v11, OS_LOG_TYPE_DEFAULT, "Not submitting task request %@ because one already exists", buf, 0xCu);
     }
 
     (*(completionCopy + 2))(completionCopy, 0, 0);
@@ -109,47 +108,43 @@ void __67__SCUtils_registerNeededNotificationsForManager_completionHandler___blo
   else
   {
     mEMORY[0x277CF0810]2 = [MEMORY[0x277CF0810] sharedScheduler];
-    v16 = 0;
-    v12 = [mEMORY[0x277CF0810]2 submitTaskRequest:requestCopy error:&v16];
-    v13 = v16;
+    v17 = 0;
+    v13 = [mEMORY[0x277CF0810]2 submitTaskRequest:requestCopy error:&v17];
+    v14 = v17;
 
-    if ((v12 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
-      v14 = SCLogger();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = SCLogger(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [SCUtils submitTaskRequest:v13 completion:v14];
+        [SCUtils submitTaskRequest:v14 completion:v16];
       }
     }
 
-    (*(completionCopy + 2))(completionCopy, v12, v13);
+    (*(completionCopy + 2))(completionCopy, v13, v14);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SCUtils_registerNeededNotificationsForManager_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_262556000, a2, OS_LOG_TYPE_ERROR, "Failed to get needed notifications for registering. Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_262556000, a2, OS_LOG_TYPE_ERROR, "Failed to get needed notifications for registering. Error: %@", &v2, 0xCu);
 }
 
 + (void)submitTaskRequest:(__CFString *)a1 completion:(NSObject *)a2 .cold.1(__CFString *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = @"Unknown";
   if (a1)
   {
     v2 = a1;
   }
 
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_262556000, a2, OS_LOG_TYPE_ERROR, "@SCUtils Failed to submit task. Error: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_262556000, a2, OS_LOG_TYPE_ERROR, "@SCUtils Failed to submit task. Error: %@", &v3, 0xCu);
 }
 
 @end

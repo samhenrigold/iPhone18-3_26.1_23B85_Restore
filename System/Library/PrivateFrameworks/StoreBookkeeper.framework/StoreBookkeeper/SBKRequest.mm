@@ -82,15 +82,15 @@
 
 - (void)setBodyDataWithPropertyList:(id)list
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   listCopy = list;
   bodyContentType = [objc_opt_class() bodyContentType];
   if (bodyContentType == 2)
   {
     v7 = MEMORY[0x277CCAC58];
-    v18 = 0;
-    v8 = &v18;
-    v9 = &v18;
+    v17 = 0;
+    v8 = &v17;
+    v9 = &v17;
     v10 = listCopy;
     v11 = 100;
   }
@@ -107,14 +107,14 @@
     }
 
     v7 = MEMORY[0x277CCAC58];
-    v19 = 0;
-    v8 = &v19;
-    v9 = &v19;
+    v18 = 0;
+    v8 = &v18;
+    v9 = &v18;
     v10 = listCopy;
     v11 = 200;
   }
 
-  v12 = [v7 dataWithPropertyList:v10 format:v11 options:0 error:{v9, v18, v19}];
+  v12 = [v7 dataWithPropertyList:v10 format:v11 options:0 error:{v9, v17, v18}];
   v13 = *v8;
   if (!v13)
   {
@@ -128,12 +128,11 @@ LABEL_10:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = v14;
+    v20 = v14;
     _os_log_impl(&dword_26BC19000, v15, OS_LOG_TYPE_DEFAULT, "ERROR: failed to serialize property list with error = %@", buf, 0xCu);
   }
 
 LABEL_11:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setBodyData:(id)data
@@ -180,15 +179,14 @@ LABEL_11:
 
 - (id)description
 {
-  v9.receiver = self;
-  v9.super_class = SBKRequest;
-  v3 = [(SBKRequest *)&v9 description];
+  v8.receiver = self;
+  v8.super_class = SBKRequest;
+  v3 = [(SBKRequest *)&v8 description];
   requestURL = self->_requestURL;
   v5 = [objc_opt_class() _methodStringForMethod:self->_method];
-  headers = self->_headers;
-  v7 = [v3 stringByAppendingFormat:@" %@ [%@] URL = %@, shouldAuthenticate = %d, arguments = %@, headers = %@, bodyData = %@ ", requestURL, v5, self->_action, self->_shouldAuthenticate, self->_arguments, headers, self->_bodyData];
+  v6 = [v3 stringByAppendingFormat:@" %@ [%@] URL = %@, shouldAuthenticate = %d, arguments = %@, headers = %@, bodyData = %@ ", requestURL, v5, self->_action, self->_shouldAuthenticate, self->_arguments, self->_headers, self->_bodyData];
 
-  return v7;
+  return v6;
 }
 
 - (SBKRequest)initWithRequestURL:(id)l

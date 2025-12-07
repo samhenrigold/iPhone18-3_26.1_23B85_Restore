@@ -18,7 +18,7 @@
 
 - (BOOL)validateSigningCertificateChainWithICloudIdentifier:(id *)identifier error:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v7 = getWFSecurityLogObject();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
@@ -41,12 +41,12 @@
   v12 = SecTrustCreateWithCertificates(v9, Revocation, &trust);
   if (!v12 || !trust)
   {
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __86__WFShortcutSigningContext_validateSigningCertificateChainWithICloudIdentifier_error___block_invoke_240;
-    v26[3] = &__block_descriptor_40_e5_v8__0l;
-    v26[4] = trust;
-    v14 = _Block_copy(v26);
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __86__WFShortcutSigningContext_validateSigningCertificateChainWithICloudIdentifier_error___block_invoke_240;
+    v25[3] = &__block_descriptor_40_e5_v8__0l;
+    v25[4] = trust;
+    v14 = _Block_copy(v25);
     v18 = [v9 objectAtIndexedSubscript:0];
 
     if (identifier)
@@ -56,8 +56,8 @@
       *identifier = *buf;
     }
 
-    v25 = 0;
-    if (SecTrustEvaluateWithError(trust, &v25))
+    v24 = 0;
+    if (SecTrustEvaluateWithError(trust, &v24))
     {
       if (SecCertificateCopyExtensionValue())
       {
@@ -79,8 +79,8 @@
       {
         *buf = 136315394;
         *&buf[4] = "[WFShortcutSigningContext validateSigningCertificateChainWithICloudIdentifier:error:]";
-        v30 = 2112;
-        v31 = v19;
+        v29 = 2112;
+        v30 = v19;
         _os_log_impl(&dword_1CA256000, v21, OS_LOG_TYPE_ERROR, "%s Unrecognized Shortcut Signing Certificate: %@", buf, 0x16u);
       }
 
@@ -92,14 +92,14 @@
 
     else
     {
-      v19 = WFShortcutSigningContextSigningCertificateChainFailureError(v25);
+      v19 = WFShortcutSigningContextSigningCertificateChainFailureError(v24);
       v20 = getWFSecurityLogObject();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
         *&buf[4] = "[WFShortcutSigningContext validateSigningCertificateChainWithICloudIdentifier:error:]";
-        v30 = 2112;
-        v31 = v19;
+        v29 = 2112;
+        v30 = v19;
         _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_ERROR, "%s Failed to Evaluate Shortcut Signing Certificate Chain: %@", buf, 0x16u);
       }
 
@@ -134,8 +134,8 @@ LABEL_26:
   {
     *buf = 136315394;
     *&buf[4] = "[WFShortcutSigningContext validateSigningCertificateChainWithICloudIdentifier:error:]";
-    v30 = 2112;
-    v31 = v14;
+    v29 = 2112;
+    v30 = v14;
     _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_ERROR, "%s Validating Shortcut Signing Certificate Chain Failed: %@", buf, 0x16u);
   }
 
@@ -143,19 +143,18 @@ LABEL_26:
 LABEL_27:
 
   v11[2](v11);
-  v23 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (void)validateAppleIDValidationRecordWithCompletion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = getWFSecurityLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[WFShortcutSigningContext validateAppleIDValidationRecordWithCompletion:]";
+    v25 = "[WFShortcutSigningContext validateAppleIDValidationRecordWithCompletion:]";
     _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s Validating AppleID Validation Record", buf, 0xCu);
   }
 
@@ -164,15 +163,15 @@ LABEL_27:
   altDSID = [v7 altDSID];
   appleIDValidationRecord = [(WFShortcutSigningContext *)self appleIDValidationRecord];
   altDSID2 = [appleIDValidationRecord altDSID];
-  v11 = [altDSID isEqualToString:altDSID2];
+  isEqualToString = objc_msgSend_isEqualToString_(altDSID);
 
-  if (v11)
+  if (isEqualToString)
   {
     v12 = getWFSecurityLogObject();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v26 = "[WFShortcutSigningContext validateAppleIDValidationRecordWithCompletion:]";
+      v25 = "[WFShortcutSigningContext validateAppleIDValidationRecordWithCompletion:]";
       _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_DEFAULT, "%s Found the current user's AppleID Validation Record", buf, 0xCu);
     }
 
@@ -190,12 +189,12 @@ LABEL_27:
     v18 = WFCombinedHashStringFromArray(validatedPhoneHashes);
 
     v19 = objc_alloc_init(MEMORY[0x1E69CDE40]);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __74__WFShortcutSigningContext_validateAppleIDValidationRecordWithCompletion___block_invoke;
-    v23[3] = &unk_1E837FBD8;
-    v24 = completionCopy;
-    [v19 contactIDForEmailHash:v15 phoneHash:v18 completion:v23];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __74__WFShortcutSigningContext_validateAppleIDValidationRecordWithCompletion___block_invoke;
+    v22[3] = &unk_1E837FBD8;
+    v23 = completionCopy;
+    [v19 contactIDForEmailHash:v15 phoneHash:v18 completion:v22];
   }
 
   else
@@ -204,29 +203,27 @@ LABEL_27:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v26 = "[WFShortcutSigningContext validateAppleIDValidationRecordWithCompletion:]";
+      v25 = "[WFShortcutSigningContext validateAppleIDValidationRecordWithCompletion:]";
       _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_DEFAULT, "%s Skipping AppleID Validation Record due to Private Sharing Disabled", buf, 0xCu);
     }
 
     v21 = [WFSharingSettings privateSharingDisabledErrorWithShortcutName:0];
     (*(completionCopy + 2))(completionCopy, 0, 2, 0, v21);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __74__WFShortcutSigningContext_validateAppleIDValidationRecordWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
     v6 = getWFSecurityLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315138;
-      v13 = "[WFShortcutSigningContext validateAppleIDValidationRecordWithCompletion:]_block_invoke";
-      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEFAULT, "%s Found contact matching with AppleID Validation Record", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[WFShortcutSigningContext validateAppleIDValidationRecordWithCompletion:]_block_invoke";
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEFAULT, "%s Found contact matching with AppleID Validation Record", &v11, 0xCu);
     }
 
     v7 = 0;
@@ -235,35 +232,34 @@ void __74__WFShortcutSigningContext_validateAppleIDValidationRecordWithCompletio
   else
   {
     v8 = MEMORY[0x1E696ABC0];
-    v14[0] = *MEMORY[0x1E696A578];
+    v13[0] = *MEMORY[0x1E696A578];
     v9 = WFLocalizedString(@"This shortcut cannot be opened because it was shared by someone who is not in your contacts.");
-    v14[1] = *MEMORY[0x1E696AA08];
-    v15[0] = v9;
-    v15[1] = v5;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v13[1] = *MEMORY[0x1E696AA08];
+    v14[0] = v9;
+    v14[1] = v5;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
     v7 = [v8 errorWithDomain:@"WFWorkflowErrorDomain" code:5 userInfo:v10];
 
     v6 = getWFSecurityLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315138;
-      v13 = "[WFShortcutSigningContext validateAppleIDValidationRecordWithCompletion:]_block_invoke";
-      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEFAULT, "%s Contact with matching AppleID Validation Record Couldn't be found", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[WFShortcutSigningContext validateAppleIDValidationRecordWithCompletion:]_block_invoke";
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEFAULT, "%s Contact with matching AppleID Validation Record Couldn't be found", &v11, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)validateAppleIDCertificatesWithError:(id *)error
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v5 = getWFSecurityLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v36 = "[WFShortcutSigningContext validateAppleIDCertificatesWithError:]";
+    v35 = "[WFShortcutSigningContext validateAppleIDCertificatesWithError:]";
     _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s Validating AppleID Certificate Chain", buf, 0xCu);
   }
 
@@ -287,19 +283,19 @@ void __74__WFShortcutSigningContext_validateAppleIDValidationRecordWithCompletio
     v10 = SecTrustCreateWithCertificates(v8, AppleIDAuthorityPolicy, &trust);
     if (v10)
     {
-      v28 = v10;
-      v26 = getWFSecurityLogObject();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v27 = v10;
+      v25 = getWFSecurityLogObject();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v36 = "WFAppleIDVerifyCertificateChain";
-        v37 = 1024;
-        LODWORD(v38) = v28;
-        v27 = "%s Signed Shortcut File Apple Account Certificate Chain Verification: SecTrustCreateWithCertificates failed with error %d";
-        v29 = v26;
-        v30 = 18;
+        v35 = "WFAppleIDVerifyCertificateChain";
+        v36 = 1024;
+        LODWORD(v37) = v27;
+        v26 = "%s Signed Shortcut File Apple Account Certificate Chain Verification: SecTrustCreateWithCertificates failed with error %d";
+        v28 = v25;
+        v29 = 18;
 LABEL_40:
-        _os_log_impl(&dword_1CA256000, v29, OS_LOG_TYPE_ERROR, v27, buf, v30);
+        _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_ERROR, v26, buf, v29);
       }
     }
 
@@ -321,9 +317,9 @@ LABEL_40:
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v36 = "WFAppleIDVerifyCertificateChain";
-            v37 = 2112;
-            v38 = errorCopy;
+            v35 = "WFAppleIDVerifyCertificateChain";
+            v36 = 2112;
+            v37 = errorCopy;
             _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s Signed Shortcut File Apple Account Certificate Chain Verification: SecTrustEvaluateWithError failed with error %@", buf, 0x16u);
           }
 
@@ -334,12 +330,12 @@ LABEL_40:
         goto LABEL_11;
       }
 
-      v26 = getWFSecurityLogObject();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v25 = getWFSecurityLogObject();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v36 = "WFAppleIDVerifyCertificateChain";
-        v27 = "%s Signed Shortcut File Apple Account Certificate Chain Verification: SecTrustCreateWithCertificates returned NULL trust";
+        v35 = "WFAppleIDVerifyCertificateChain";
+        v26 = "%s Signed Shortcut File Apple Account Certificate Chain Verification: SecTrustCreateWithCertificates returned NULL trust";
         goto LABEL_39;
       }
     }
@@ -347,15 +343,15 @@ LABEL_40:
 
   else
   {
-    v26 = getWFSecurityLogObject();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v25 = getWFSecurityLogObject();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v36 = "WFAppleIDVerifyCertificateChain";
-      v27 = "%s Signed Shortcut File Apple Account Certificate Chain Verification: SecPolicyCreateAppleIDAuthorityPolicy failed";
+      v35 = "WFAppleIDVerifyCertificateChain";
+      v26 = "%s Signed Shortcut File Apple Account Certificate Chain Verification: SecPolicyCreateAppleIDAuthorityPolicy failed";
 LABEL_39:
-      v29 = v26;
-      v30 = 12;
+      v28 = v25;
+      v29 = 12;
       goto LABEL_40;
     }
   }
@@ -411,7 +407,7 @@ LABEL_15:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v36 = "[WFShortcutSigningContext validateAppleIDCertificatesWithError:]";
+      v35 = "[WFShortcutSigningContext validateAppleIDCertificatesWithError:]";
       _os_log_impl(&dword_1CA256000, v17, OS_LOG_TYPE_DEFAULT, "%s Shortcut AppleID Certificate Chain Validated Successfully", buf, 0xCu);
     }
   }
@@ -419,22 +415,22 @@ LABEL_15:
   else
   {
     v18 = MEMORY[0x1E696ABC0];
-    v33[0] = *MEMORY[0x1E696A578];
+    v32[0] = *MEMORY[0x1E696A578];
     v19 = WFLocalizedString(@"Failed to verify Apple Account information of this shortcut");
-    v34[0] = v19;
-    v33[1] = *MEMORY[0x1E696AA08];
+    v33[0] = v19;
+    v32[1] = *MEMORY[0x1E696AA08];
     v20 = WFErrorFromSecurityOSStatus(v13);
-    v34[1] = v20;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
+    v33[1] = v20;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
     v17 = [v18 errorWithDomain:@"WFWorkflowErrorDomain" code:5 userInfo:v21];
 
     v22 = getWFSecurityLogObject();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v36 = "[WFShortcutSigningContext validateAppleIDCertificatesWithError:]";
-      v37 = 2112;
-      v38 = v17;
+      v35 = "[WFShortcutSigningContext validateAppleIDCertificatesWithError:]";
+      v36 = 2112;
+      v37 = v17;
       _os_log_impl(&dword_1CA256000, v22, OS_LOG_TYPE_ERROR, "%s Failed to Evaluate AppleID Certificate Chain: %@", buf, 0x16u);
     }
 
@@ -445,27 +441,26 @@ LABEL_15:
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (BOOL)validateWithSigningMethod:(int64_t *)method iCloudIdentifier:(id *)identifier error:(id *)error
 {
-  v61 = *MEMORY[0x1E69E9840];
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2020000000;
-  v51 = 0;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x2020000000;
+  v60 = *MEMORY[0x1E69E9840];
   v47 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__74659;
-  v42 = __Block_byref_object_dispose__74660;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 0;
   v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__74659;
+  v41 = __Block_byref_object_dispose__74660;
+  v42 = 0;
   v9 = getWFSecurityLogObject();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
@@ -478,9 +473,9 @@ LABEL_15:
 
   if (appleIDValidationRecord)
   {
-    v45[3] = 2;
+    v44[3] = 2;
     v11 = [(WFShortcutSigningContext *)self validateAppleIDCertificatesWithError:error];
-    *(v49 + 24) = v11;
+    *(v48 + 24) = v11;
     if (v11)
     {
       appleIDValidationRecord2 = [(WFShortcutSigningContext *)self appleIDValidationRecord];
@@ -490,30 +485,30 @@ LABEL_15:
         v13 = dispatch_semaphore_create(0);
         *&buf = 0;
         *(&buf + 1) = &buf;
-        v57 = 0x3032000000;
-        v58 = __Block_byref_object_copy__74659;
-        v59 = __Block_byref_object_dispose__74660;
-        v60 = 0;
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __77__WFShortcutSigningContext_validateWithSigningMethod_iCloudIdentifier_error___block_invoke;
-        v32[3] = &unk_1E837FB90;
-        v34 = &v48;
+        v56 = 0x3032000000;
+        v57 = __Block_byref_object_copy__74659;
+        v58 = __Block_byref_object_dispose__74660;
+        v59 = 0;
+        v31[0] = MEMORY[0x1E69E9820];
+        v31[1] = 3221225472;
+        v31[2] = __77__WFShortcutSigningContext_validateWithSigningMethod_iCloudIdentifier_error___block_invoke;
+        v31[3] = &unk_1E837FB90;
+        v33 = &v47;
         p_buf = &buf;
-        v36 = &v44;
-        v37 = &v38;
+        v35 = &v43;
+        v36 = &v37;
         v14 = v13;
-        v33 = v14;
-        [(WFShortcutSigningContext *)self validateAppleIDValidationRecordWithCompletion:v32];
+        v32 = v14;
+        [(WFShortcutSigningContext *)self validateAppleIDValidationRecordWithCompletion:v31];
         v15 = dispatch_time(0, 30000000000);
         v16 = dispatch_semaphore_wait(v14, v15);
-        v17 = *(v49 + 24);
+        v17 = *(v48 + 24);
         if (v16)
         {
           v17 = 0;
         }
 
-        *(v49 + 24) = v17;
+        *(v48 + 24) = v17;
         if (error && (v17 & 1) == 0)
         {
           v18 = *(*(&buf + 1) + 40);
@@ -525,10 +520,10 @@ LABEL_15:
           else
           {
             v24 = MEMORY[0x1E696ABC0];
-            v54 = *MEMORY[0x1E696A578];
+            v53 = *MEMORY[0x1E696A578];
             v25 = WFLocalizedString(@"Failed to verify Apple Account information of this shortcut");
-            v55 = v25;
-            v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+            v54 = v25;
+            v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
             v27 = [v24 errorWithDomain:@"WFWorkflowErrorDomain" code:5 userInfo:v26];
             *error = v27;
           }
@@ -539,14 +534,14 @@ LABEL_15:
 
       else
       {
-        *(v49 + 24) = 0;
+        *(v48 + 24) = 0;
         if (error)
         {
           v21 = MEMORY[0x1E696ABC0];
-          v52 = *MEMORY[0x1E696A578];
+          v51 = *MEMORY[0x1E696A578];
           v22 = WFLocalizedString(@"This shortcut file data is corrupted");
-          v53 = v22;
-          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+          v52 = v22;
+          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
           *error = [v21 errorWithDomain:@"WFWorkflowErrorDomain" code:5 userInfo:v23];
         }
       }
@@ -555,30 +550,29 @@ LABEL_15:
 
   else
   {
-    v45[3] = 1;
-    v19 = (v39 + 5);
-    obj = v39[5];
+    v44[3] = 1;
+    v19 = (v38 + 5);
+    obj = v38[5];
     v20 = [(WFShortcutSigningContext *)self validateSigningCertificateChainWithICloudIdentifier:&obj error:error];
     objc_storeStrong(v19, obj);
-    *(v49 + 24) = v20;
+    *(v48 + 24) = v20;
   }
 
   if (method)
   {
-    *method = v45[3];
+    *method = v44[3];
   }
 
   if (identifier)
   {
-    *identifier = v39[5];
+    *identifier = v38[5];
   }
 
-  v28 = *(v49 + 24);
-  _Block_object_dispose(&v38, 8);
+  v28 = *(v48 + 24);
+  _Block_object_dispose(&v37, 8);
 
-  _Block_object_dispose(&v44, 8);
-  _Block_object_dispose(&v48, 8);
-  v29 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v47, 8);
   return v28 & 1;
 }
 
@@ -603,13 +597,13 @@ void __77__WFShortcutSigningContext_validateWithSigningMethod_iCloudIdentifier_e
 
 - (void)validateWithCompletion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = getWFSecurityLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v23 = "[WFShortcutSigningContext validateWithCompletion:]";
+    v22 = "[WFShortcutSigningContext validateWithCompletion:]";
     _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s Start validating Shortcut Signing Context", buf, 0xCu);
   }
 
@@ -617,11 +611,11 @@ void __77__WFShortcutSigningContext_validateWithSigningMethod_iCloudIdentifier_e
 
   if (!appleIDCertificateChain)
   {
+    v16 = 0;
     v17 = 0;
-    v18 = 0;
-    v7 = [(WFShortcutSigningContext *)self validateSigningCertificateChainWithICloudIdentifier:&v18 error:&v17];
-    v10 = v18;
-    v8 = v17;
+    v7 = [(WFShortcutSigningContext *)self validateSigningCertificateChainWithICloudIdentifier:&v17 error:&v16];
+    v10 = v17;
+    v8 = v16;
     v11 = 1;
 LABEL_10:
     completionCopy[2](completionCopy, v7, v11, v10, v8);
@@ -629,9 +623,9 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v19 = 0;
-  v7 = [(WFShortcutSigningContext *)self validateAppleIDCertificatesWithError:&v19];
-  v8 = v19;
+  v18 = 0;
+  v7 = [(WFShortcutSigningContext *)self validateAppleIDCertificatesWithError:&v18];
+  v8 = v18;
   if (!v7)
   {
     v10 = 0;
@@ -644,10 +638,10 @@ LABEL_10:
   if (!appleIDValidationRecord)
   {
     v12 = MEMORY[0x1E696ABC0];
-    v20 = *MEMORY[0x1E696A578];
+    v19 = *MEMORY[0x1E696A578];
     v13 = WFLocalizedString(@"This shortcut file data is corrupted");
-    v21 = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v20 = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     v15 = [v12 errorWithDomain:@"WFWorkflowErrorDomain" code:5 userInfo:v14];
 
     v10 = 0;
@@ -659,8 +653,6 @@ LABEL_10:
 
   [(WFShortcutSigningContext *)self validateAppleIDValidationRecordWithCompletion:completionCopy];
 LABEL_11:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (__SecKey)copyPublicKey
@@ -750,7 +742,7 @@ LABEL_11:
 
 - (id)generateAuthData
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   signingCertificateChain = [(WFShortcutSigningContext *)self signingCertificateChain];
   v4 = [signingCertificateChain count];
 
@@ -775,18 +767,18 @@ LABEL_11:
     {
       v11 = SecKeyCopyExternalRepresentation([(WFShortcutSigningContext *)self signingPublicKey], 0);
       v18 = MEMORY[0x1E695DF90];
-      v26[0] = @"AppleIDCertificateChain";
-      v26[1] = @"SigningPublicKey";
-      v27[0] = v6;
-      v27[1] = v11;
-      v26[2] = @"SigningPublicKeySignature";
+      v25[0] = @"AppleIDCertificateChain";
+      v25[1] = @"SigningPublicKey";
+      v26[0] = v6;
+      v26[1] = v11;
+      v25[2] = @"SigningPublicKeySignature";
       signingPublicKeySignature = [(WFShortcutSigningContext *)self signingPublicKeySignature];
-      v27[2] = signingPublicKeySignature;
-      v26[3] = @"AppleIDValidationRecord";
+      v26[2] = signingPublicKeySignature;
+      v25[3] = @"AppleIDValidationRecord";
       appleIDValidationRecord2 = [(WFShortcutSigningContext *)self appleIDValidationRecord];
       data = [appleIDValidationRecord2 data];
-      v27[3] = data;
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:4];
+      v26[3] = data;
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:4];
       v12 = [v18 dictionaryWithDictionary:v22];
 
       goto LABEL_7;
@@ -811,9 +803,9 @@ LABEL_8:
   }
 
   v10 = MEMORY[0x1E695DF90];
-  v28 = @"SigningCertificateChain";
-  v29[0] = v6;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+  v27 = @"SigningCertificateChain";
+  v28[0] = v6;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
   v12 = [v10 dictionaryWithDictionary:v11];
 LABEL_7:
 
@@ -821,7 +813,6 @@ LABEL_10:
   v23 = [MEMORY[0x1E696AE40] dataWithPropertyList:v12 format:200 options:0 error:0];
 
 LABEL_11:
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -836,7 +827,7 @@ LABEL_11:
 
 + (id)contextWithAppleIDAccount:(id)account signingKey:(__SecKey *)key
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   accountCopy = account;
   identity = [accountCopy identity];
   if (identity)
@@ -850,7 +841,7 @@ LABEL_11:
     v12 = 0;
     if (copyCertificate && copyIntermediateCertificate)
     {
-      v26 = [[WFShortcutSigningCertificate alloc] initWithCertificate:copyCertificate];
+      v25 = [[WFShortcutSigningCertificate alloc] initWithCertificate:copyCertificate];
       v13 = [[WFShortcutSigningCertificate alloc] initWithCertificate:copyIntermediateCertificate];
       copyPrivateKey = [identity copyPrivateKey];
       if (copyPrivateKey)
@@ -864,16 +855,16 @@ LABEL_11:
         aBlock[4] = v16;
         v17 = _Block_copy(aBlock);
         v18 = SecKeyCopyExternalRepresentation(v16, 0);
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __65__WFShortcutSigningContext_contextWithAppleIDAccount_signingKey___block_invoke_2;
-        v27[3] = &__block_descriptor_40_e5_v8__0l;
-        v27[4] = v18;
-        v19 = _Block_copy(v27);
+        v26[0] = MEMORY[0x1E69E9820];
+        v26[1] = 3221225472;
+        v26[2] = __65__WFShortcutSigningContext_contextWithAppleIDAccount_signingKey___block_invoke_2;
+        v26[3] = &__block_descriptor_40_e5_v8__0l;
+        v26[4] = v18;
+        v19 = _Block_copy(v26);
         Signature = SecKeyCreateSignature(v15, *MEMORY[0x1E697B1E0], v18, 0);
-        v29[0] = v26;
-        v29[1] = v13;
-        v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+        v28[0] = v25;
+        v28[1] = v13;
+        v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
         v22 = [self alloc];
         validationRecord = [accountCopy validationRecord];
         v12 = [v22 initWithAppleIDValidationRecord:validationRecord appleIDCertificateChain:v21 signingPublicKey:v16 signingPublicKeyData:Signature];
@@ -894,14 +885,12 @@ LABEL_11:
     v12 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 + (id)contextWithAuthData:(id)data
 {
-  v74[2] = *MEMORY[0x1E69E9840];
+  v73[2] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = [MEMORY[0x1E696AE40] propertyListWithData:dataCopy options:0 format:0 error:0];
   if (!v5 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -967,143 +956,156 @@ LABEL_11:
             v14 = 0;
           }
 
-          v17 = v14;
+          v16 = v14;
 
-          v18 = [v5 objectForKeyedSubscript:@"SigningPublicKeySignature"];
-          if (v18)
+          v17 = [v5 objectForKeyedSubscript:@"SigningPublicKeySignature"];
+          if (v17)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v19 = v18;
+              v18 = v17;
             }
 
             else
             {
-              v19 = 0;
+              v18 = 0;
             }
           }
 
           else
           {
-            v19 = 0;
+            v18 = 0;
           }
 
-          signature = v19;
+          signature = v18;
 
           firstObject = [v11 firstObject];
           copyPublicKey = [firstObject copyPublicKey];
 
-          v22 = *MEMORY[0x1E697AD78];
-          v23 = *MEMORY[0x1E697AD30];
-          v73[0] = *MEMORY[0x1E697AD68];
+          v21 = *MEMORY[0x1E697AD78];
+          v22 = *MEMORY[0x1E697AD30];
+          v72[0] = *MEMORY[0x1E697AD68];
+          v72[1] = v22;
+          v23 = *MEMORY[0x1E697AD40];
+          v73[0] = v21;
           v73[1] = v23;
-          v24 = *MEMORY[0x1E697AD40];
-          v74[0] = v22;
-          v74[1] = v24;
-          v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v74 forKeys:v73 count:2];
-          v56 = SecKeyCreateWithData(v17, v25, 0);
+          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:v72 count:2];
+          v55 = SecKeyCreateWithData(v16, v24, 0);
           aBlock[0] = MEMORY[0x1E69E9820];
           aBlock[1] = 3221225472;
           aBlock[2] = __48__WFShortcutSigningContext_contextWithAuthData___block_invoke_3;
           aBlock[3] = &__block_descriptor_40_e5_v8__0l;
-          aBlock[4] = v56;
-          v26 = _Block_copy(aBlock);
-          if (!SecKeyVerifySignature(copyPublicKey, *MEMORY[0x1E697B1E0], v17, signature, 0))
+          aBlock[4] = v55;
+          v25 = _Block_copy(aBlock);
+          if (!SecKeyVerifySignature(copyPublicKey, *MEMORY[0x1E697B1E0], v16, signature, 0))
           {
-            v37 = 0;
+            v36 = 0;
             self = 0;
             goto LABEL_58;
           }
 
-          v27 = [v5 objectForKeyedSubscript:@"AppleIDValidationRecord"];
+          v26 = [v5 objectForKeyedSubscript:@"AppleIDValidationRecord"];
 
-          if (!v27)
+          if (!v26)
           {
-            v37 = 1;
+            v36 = 1;
             goto LABEL_58;
           }
 
-          v28 = [v5 objectForKeyedSubscript:@"AppleIDValidationRecord"];
-          v29 = v28;
-          if (v28)
+          v27 = [v5 objectForKeyedSubscript:@"AppleIDValidationRecord"];
+          v28 = v27;
+          if (v27)
           {
-            v53 = v17;
-            v54 = v25;
-            v30 = v28;
-            v66 = 0;
-            v67 = &v66;
-            v68 = 0x3032000000;
-            v69 = __Block_byref_object_copy__74659;
-            v70 = __Block_byref_object_dispose__74660;
-            v71 = 0;
-            v62 = 0;
-            v63 = &v62;
-            v64 = 0x2020000000;
-            v65 = 1;
-            v50 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
-            v31 = dispatch_queue_create("SFAppleIDQueue", v50);
-            v32 = dispatch_semaphore_create(0);
-            v58[0] = MEMORY[0x1E69E9820];
-            v58[1] = 3221225472;
-            v58[2] = __48__WFShortcutSigningContext_contextWithAuthData___block_invoke_190;
-            v58[3] = &unk_1E837FB60;
-            v60 = &v66;
-            v61 = &v62;
-            v33 = v32;
-            v59 = v33;
-            v49 = v30;
-            v51 = v31;
-            WFAppleIDParseValidationRecordData(v30, v31, v58);
-            v34 = dispatch_time(0, 30000000000);
-            v52 = v33;
-            v35 = dispatch_semaphore_wait(v33, v34);
-            v36 = 0;
-            v55 = 0;
-            v17 = v53;
-            v25 = v54;
-            if (v67[5] && !v35)
+            v52 = v16;
+            v53 = v24;
+            v29 = v27;
+            v65 = 0;
+            v66 = &v65;
+            v67 = 0x3032000000;
+            v68 = __Block_byref_object_copy__74659;
+            v69 = __Block_byref_object_dispose__74660;
+            v70 = 0;
+            v61 = 0;
+            v62 = &v61;
+            v63 = 0x2020000000;
+            v64 = 1;
+            v49 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
+            v30 = dispatch_queue_create("SFAppleIDQueue", v49);
+            v31 = dispatch_semaphore_create(0);
+            v57[0] = MEMORY[0x1E69E9820];
+            v57[1] = 3221225472;
+            v57[2] = __48__WFShortcutSigningContext_contextWithAuthData___block_invoke_190;
+            v57[3] = &unk_1E837FB60;
+            v59 = &v65;
+            v60 = &v61;
+            v32 = v31;
+            v58 = v32;
+            v48 = v29;
+            v50 = v30;
+            WFAppleIDParseValidationRecordData(v29, v30, v57);
+            v33 = dispatch_time(0, 30000000000);
+            v51 = v32;
+            v34 = dispatch_semaphore_wait(v32, v33);
+            v35 = 0;
+            v54 = 0;
+            v16 = v52;
+            v24 = v53;
+            if (v66[5] && !v34)
             {
-              if (*(v63 + 6))
+              if (*(v62 + 6))
               {
-                v55 = 0;
-                v36 = 0;
+                v54 = 0;
+                v35 = 0;
               }
 
               else
               {
-                v38 = objc_alloc(MEMORY[0x1E69CDE18]);
-                v55 = [v38 initWithDictionary:v67[5]];
-                v39 = [v67[5] objectForKeyedSubscript:@"altDsID"];
-                [v55 setAltDSID:v39];
+                v37 = objc_alloc(MEMORY[0x1E69CDE18]);
+                v54 = [v37 initWithDictionary:v66[5]];
+                v38 = [v66[5] objectForKeyedSubscript:@"altDsID"];
+                [v54 setAltDSID:v38];
 
-                v40 = [v67[5] objectForKeyedSubscript:@"SuggestValidDuration"];
-                if (v40)
+                v39 = [v66[5] objectForKeyedSubscript:@"SuggestValidDuration"];
+                if (v39)
                 {
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v41 = v40;
+                    v40 = v39;
                   }
 
                   else
                   {
-                    v41 = 0;
+                    v40 = 0;
                   }
                 }
 
                 else
                 {
-                  v41 = 0;
+                  v40 = 0;
                 }
 
-                v42 = v41;
+                v41 = v40;
 
-                [v55 setSuggestedValidDuration:{objc_msgSend(v42, "unsignedIntValue")}];
-                v43 = [v67[5] objectForKeyedSubscript:@"ValidatedEmailHashes"];
-                if ([v43 count])
+                [v54 setSuggestedValidDuration:{objc_msgSend(v41, "unsignedIntValue")}];
+                v42 = [v66[5] objectForKeyedSubscript:@"ValidatedEmailHashes"];
+                if ([v42 count])
                 {
-                  v44 = v43;
+                  v43 = v42;
+                }
+
+                else
+                {
+                  v43 = 0;
+                }
+
+                [v54 setValidatedEmailHashes:v43];
+                v46 = [v66[5] objectForKeyedSubscript:@"ValidatedPhoneHashes"];
+
+                if ([v46 count])
+                {
+                  v44 = v46;
                 }
 
                 else
@@ -1111,53 +1113,40 @@ LABEL_11:
                   v44 = 0;
                 }
 
-                [v55 setValidatedEmailHashes:v44];
-                v47 = [v67[5] objectForKeyedSubscript:@"ValidatedPhoneHashes"];
+                [v54 setValidatedPhoneHashes:{v44, v46}];
+                v45 = [v66[5] objectForKeyedSubscript:@"ValidAsOf"];
+                [v54 setValidStartDate:v45];
 
-                if ([v47 count])
-                {
-                  v45 = v47;
-                }
-
-                else
-                {
-                  v45 = 0;
-                }
-
-                [v55 setValidatedPhoneHashes:{v45, v47}];
-                v46 = [v67[5] objectForKeyedSubscript:@"ValidAsOf"];
-                [v55 setValidStartDate:v46];
-
-                v36 = 1;
+                v35 = 1;
               }
             }
 
-            _Block_object_dispose(&v62, 8);
-            _Block_object_dispose(&v66, 8);
+            _Block_object_dispose(&v61, 8);
+            _Block_object_dispose(&v65, 8);
 
-            if ((v36 & 1) == 0)
+            if ((v35 & 1) == 0)
             {
               self = 0;
-              v29 = v49;
+              v28 = v48;
               goto LABEL_57;
             }
 
-            v29 = v49;
+            v28 = v48;
           }
 
           else
           {
-            v55 = 0;
+            v54 = 0;
           }
 
-          self = [[self alloc] initWithAppleIDValidationRecord:v55 appleIDCertificateChain:v11 signingPublicKey:v56 signingPublicKeyData:signature];
+          self = [[self alloc] initWithAppleIDValidationRecord:v54 appleIDCertificateChain:v11 signingPublicKey:v55 signingPublicKeyData:signature];
 LABEL_57:
 
-          v37 = 0;
+          v36 = 0;
 LABEL_58:
-          v26[2](v26);
+          v25[2](v25);
 
-          if ((v37 & 1) == 0)
+          if ((v36 & 1) == 0)
           {
             goto LABEL_21;
           }
@@ -1173,7 +1162,6 @@ LABEL_20:
 LABEL_21:
 
 LABEL_22:
-  v15 = *MEMORY[0x1E69E9840];
 
   return self;
 }

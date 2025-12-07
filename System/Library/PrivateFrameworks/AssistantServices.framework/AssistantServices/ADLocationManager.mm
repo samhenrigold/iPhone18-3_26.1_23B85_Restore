@@ -109,11 +109,11 @@
 
 - (id)createCurrentLocationSnapshot
 {
-  currentState = [(ADLocationManager *)self currentState];
+  v3 = objc_msgSend_currentState(self, a2);
   v5 = v4;
   v6 = AFSiriLogContextLocation;
   v7 = os_log_type_enabled(AFSiriLogContextLocation, OS_LOG_TYPE_INFO);
-  if ((currentState & 1) == 0)
+  if ((v3 & 1) == 0)
   {
     if (v7)
     {
@@ -131,13 +131,13 @@
     v14 = 136315650;
     v15 = "[ADLocationManager createCurrentLocationSnapshot]";
     v16 = 1024;
-    v17 = HIDWORD(currentState);
+    v17 = HIDWORD(v3);
     v18 = 2048;
     v19 = v5;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%s Generating location snapshot for authorization status: %d, accuracy authorization: %ld", &v14, 0x1Cu);
   }
 
-  if (HIDWORD(currentState) < 3)
+  if (HIDWORD(v3) < 3)
   {
     v8 = &stru_100514B18;
 LABEL_9:
@@ -145,7 +145,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if ((HIDWORD(currentState) - 3) >= 2)
+  if ((HIDWORD(v3) - 3) >= 2)
   {
     goto LABEL_20;
   }
@@ -174,7 +174,7 @@ LABEL_20:
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%s Creating location snapshot from cached location", &v14, 0xCu);
   }
 
-  v9 = [[AFLocationSnapshot alloc] initWithLocation:locationForSnapshot locationManagerState:{currentState, v5}];
+  v9 = [[AFLocationSnapshot alloc] initWithLocation:locationForSnapshot locationManagerState:{v3, v5}];
 
 LABEL_10:
 
@@ -621,14 +621,14 @@ LABEL_10:
 - (id)createSetRequestOrigin
 {
   v3 = objc_opt_new();
-  currentState = [(ADLocationManager *)self currentState];
-  if ((currentState & 1) == 0)
+  v4 = objc_msgSend_currentState(self);
+  if ((v4 & 1) == 0)
   {
     v5 = &SASetRequestOriginStatusDisabledValue;
     goto LABEL_5;
   }
 
-  if (HIDWORD(currentState) < 3)
+  if (HIDWORD(v4) < 3)
   {
     v5 = &SASetRequestOriginStatusDeniedValue;
 LABEL_5:
@@ -636,7 +636,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  if ((HIDWORD(currentState) - 3) < 2)
+  if ((HIDWORD(v4) - 3) < 2)
   {
     locationForSnapshot = [(ADLocationManager *)self locationForSnapshot];
     [locationForSnapshot coordinate];
@@ -1213,7 +1213,7 @@ LABEL_6:
 
   else
   {
-    [(ADLocationManager *)self currentState];
+    objc_msgSend_currentState(self);
     v17 = 0u;
     v18 = 0u;
     v15 = 0u;
@@ -1579,7 +1579,7 @@ LABEL_19:
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
   authorizationCopy = authorization;
-  currentState = [(ADLocationManager *)self currentState];
+  v5 = objc_msgSend_currentState(self);
   v7 = v6;
   v8 = authorizationCopy;
   v9 = +[CLLocationManager locationServicesEnabled];
@@ -1608,13 +1608,13 @@ LABEL_19:
   v26[2] = sub_1001A9810;
   v26[3] = &unk_100514AB8;
   v26[6] = accuracyAuthorization;
-  v26[7] = currentState;
+  v26[7] = v5;
   v26[8] = v7;
   v26[4] = self;
   v26[5] = v9 | (authorizationStatus << 32);
   [v13 logEventWithType:1929 contextProvider:v26 contextProvidingQueue:self->_internalQueue];
 
-  if ((currentState & 0xFFFFFFFF00000001) != (v9 | (authorizationStatus << 32)) || accuracyAuthorization != v7)
+  if ((v5 & 0xFFFFFFFF00000001) != (v9 | (authorizationStatus << 32)) || accuracyAuthorization != v7)
   {
     v14 = AFSiriLogContextLocation;
     if (os_log_type_enabled(AFSiriLogContextLocation, OS_LOG_TYPE_INFO))
@@ -1633,7 +1633,7 @@ LABEL_19:
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "%s Authorization status changed to %d, isEnabled: %@, preciseLocationEnabled: %@", buf, 0x26u);
     }
 
-    v18 = HIDWORD(currentState);
+    v18 = HIDWORD(v5);
     if (authorizationStatus == 1 || v18 == 1)
     {
       v19 = +[NSNotificationCenter defaultCenter];
@@ -2192,7 +2192,7 @@ LABEL_21:
     v15 = objc_opt_new();
     [v15 setStatus:statusCopy];
 
-    [(ADLocationManager *)self currentState];
+    objc_msgSend_currentState(self);
     v12 = [NSNumber numberWithInt:v11 == 0];
     [v15 setPreciseLocationEnabled:v12];
 

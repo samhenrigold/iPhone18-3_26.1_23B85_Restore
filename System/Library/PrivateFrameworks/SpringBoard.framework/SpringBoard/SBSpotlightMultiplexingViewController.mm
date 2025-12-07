@@ -336,7 +336,7 @@ LABEL_26:
   if (result)
   {
 
-    return [(SBSpotlightHostedContentMetrics *)result _class_spotlightHostedContentMetrics];
+    return objc_msgSend__class_spotlightHostedContentMetrics(result);
   }
 
   else
@@ -560,7 +560,7 @@ LABEL_26:
   result = 0.0;
   if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) != 1)
   {
-    [self _class_spotlightHostedContentMetrics];
+    objc_msgSend__class_spotlightHostedContentMetrics(self, 0);
     return 0.0;
   }
 
@@ -1153,7 +1153,7 @@ void __86__SBSpotlightMultiplexingViewController_spotlightSceneIdentityTokenIfAc
       if (externalKeyboardView)
       {
         settings = [sceneCopy settings];
-        [settings frame];
+        objc_msgSend_frame(settings);
         [externalKeyboardView setFrame:?];
       }
     }
@@ -1509,7 +1509,7 @@ LABEL_9:
   {
     v11 = objc_alloc(MEMORY[0x277D75D18]);
     settings = [sceneIfExists settings];
-    [settings frame];
+    objc_msgSend_frame(settings);
     externalKeyboardView = [v11 initWithFrame:?];
 
     [(SBSpotlightMultiplexingViewController *)self setExternalKeyboardView:externalKeyboardView];

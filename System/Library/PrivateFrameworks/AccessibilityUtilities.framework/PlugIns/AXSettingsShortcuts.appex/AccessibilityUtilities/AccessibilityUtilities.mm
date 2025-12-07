@@ -13,19 +13,20 @@ id sub_10000451C()
   return v1;
 }
 
-uint64_t _AXSAssistiveTouchSetEnabledShortcuts(int a1)
+uint64_t _AXSAssistiveTouchSetEnabledShortcuts(uint64_t a1)
 {
+  v1 = a1;
   v2 = AXLogSiriShortcuts();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4[0] = 67109120;
-    v4[1] = a1;
+    v4[1] = v1;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "_AXSAssistiveTouchSetEnabledShortcuts: %d", v4, 8u);
   }
 
   _AXSAssistiveTouchSetEnabled();
   result = _AXSAssistiveTouchSetUIEnabled();
-  if (a1)
+  if (v1)
   {
     return _AXSHomeButtonSetRestingUnlock();
   }
@@ -41,10 +42,11 @@ id sub_100004B80()
   return v1;
 }
 
-void sub_100004CD0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100004CD0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id sub_1000066D8()

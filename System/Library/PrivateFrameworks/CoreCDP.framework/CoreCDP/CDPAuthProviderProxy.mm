@@ -20,24 +20,23 @@
 {
   contextCopy = context;
   renewalCopy = renewal;
-  v8 = _CDPLogSystem();
+  v8 = _CDPLogSystem(renewalCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "Starting token renewal", buf, 2u);
   }
 
-  authProvider = self->_authProvider;
   if (objc_opt_respondsToSelector())
   {
-    v10 = self->_authProvider;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __69__CDPAuthProviderProxy_cdpContext_performSilentRecoveryTokenRenewal___block_invoke;
-    v12[3] = &unk_1E869D600;
-    v13 = renewalCopy;
-    [(CDPAuthProvider *)v10 cdpContext:contextCopy performSilentRecoveryTokenRenewal:v12];
-    v11 = v13;
+    authProvider = self->_authProvider;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __69__CDPAuthProviderProxy_cdpContext_performSilentRecoveryTokenRenewal___block_invoke;
+    v11[3] = &unk_1E869D600;
+    v12 = renewalCopy;
+    [(CDPAuthProvider *)authProvider cdpContext:contextCopy performSilentRecoveryTokenRenewal:v11];
+    v10 = v12;
 LABEL_7:
 
     goto LABEL_8;
@@ -45,8 +44,8 @@ LABEL_7:
 
   if (renewalCopy)
   {
-    v11 = _CDPStateError(-5200, 0);
-    (*(renewalCopy + 2))(renewalCopy, 0, v11);
+    v10 = _CDPStateError(-5200, 0);
+    (*(renewalCopy + 2))(renewalCopy, 0, v10);
     goto LABEL_7;
   }
 
@@ -60,10 +59,10 @@ void __69__CDPAuthProviderProxy_cdpContext_performSilentRecoveryTokenRenewal___b
   v7 = *(a1 + 32);
   if (v7)
   {
-    (*(v7 + 16))(v7, v5, v6);
+    v7 = (*(v7 + 16))(v7, v5, v6);
   }
 
-  v8 = _CDPLogSystem();
+  v8 = _CDPLogSystem(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     __69__CDPAuthProviderProxy_cdpContext_performSilentRecoveryTokenRenewal___block_invoke_cold_1(v8);
@@ -72,30 +71,29 @@ void __69__CDPAuthProviderProxy_cdpContext_performSilentRecoveryTokenRenewal___b
 
 - (void)cdpContext:(id)context verifyMasterKey:(id)key completion:(id)completion
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   keyCopy = key;
   completionCopy = completion;
-  v11 = _CDPLogSystem();
+  v11 = _CDPLogSystem(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     altDSID = [contextCopy altDSID];
     *buf = 138739971;
-    v20 = altDSID;
+    v18 = altDSID;
     _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "Starting MRK verification for %{sensitive}@", buf, 0xCu);
   }
 
-  authProvider = self->_authProvider;
   if (objc_opt_respondsToSelector())
   {
-    v14 = self->_authProvider;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __62__CDPAuthProviderProxy_cdpContext_verifyMasterKey_completion___block_invoke;
-    v17[3] = &unk_1E869D628;
-    v18 = completionCopy;
-    [(CDPAuthProvider *)v14 cdpContext:contextCopy verifyMasterKey:keyCopy completion:v17];
-    v15 = v18;
+    authProvider = self->_authProvider;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __62__CDPAuthProviderProxy_cdpContext_verifyMasterKey_completion___block_invoke;
+    v15[3] = &unk_1E869D628;
+    v16 = completionCopy;
+    [(CDPAuthProvider *)authProvider cdpContext:contextCopy verifyMasterKey:keyCopy completion:v15];
+    v14 = v16;
 LABEL_7:
 
     goto LABEL_8;
@@ -103,14 +101,12 @@ LABEL_7:
 
   if (completionCopy)
   {
-    v15 = _CDPStateError(-5200, 0);
-    (*(completionCopy + 2))(completionCopy, 0, v15);
+    v14 = _CDPStateError(-5200, 0);
+    (*(completionCopy + 2))(completionCopy, 0, v14);
     goto LABEL_7;
   }
 
 LABEL_8:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __62__CDPAuthProviderProxy_cdpContext_verifyMasterKey_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -120,10 +116,10 @@ void __62__CDPAuthProviderProxy_cdpContext_verifyMasterKey_completion___block_in
   v7 = *(a1 + 32);
   if (v7)
   {
-    (*(v7 + 16))(v7, v5, v6);
+    v7 = (*(v7 + 16))(v7, v5, v6);
   }
 
-  v8 = _CDPLogSystem();
+  v8 = _CDPLogSystem(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     __62__CDPAuthProviderProxy_cdpContext_verifyMasterKey_completion___block_invoke_cold_1(v8);

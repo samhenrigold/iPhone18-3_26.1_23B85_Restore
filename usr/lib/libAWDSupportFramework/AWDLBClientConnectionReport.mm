@@ -330,7 +330,6 @@ LABEL_12:
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x80) == 0)
@@ -350,7 +349,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  connectionJoiningFailure = self->_connectionJoiningFailure;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -365,7 +363,6 @@ LABEL_4:
   }
 
 LABEL_15:
-  connectionJoiningLbConnectionState = self->_connectionJoiningLbConnectionState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -380,7 +377,6 @@ LABEL_5:
   }
 
 LABEL_16:
-  connectionJoiningLbConnectionMigration = self->_connectionJoiningLbConnectionMigration;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -395,7 +391,6 @@ LABEL_6:
   }
 
 LABEL_17:
-  connectionServiceId = self->_connectionServiceId;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -410,7 +405,6 @@ LABEL_7:
   }
 
 LABEL_18:
-  connectionDuration = self->_connectionDuration;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -425,7 +419,6 @@ LABEL_8:
   }
 
 LABEL_19:
-  dataPathResult = self->_dataPathResult;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -440,7 +433,6 @@ LABEL_9:
   }
 
 LABEL_20:
-  bytesSent = self->_bytesSent;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -452,7 +444,6 @@ LABEL_10:
     }
 
 LABEL_22:
-    timeToFirstResponse = self->_timeToFirstResponse;
     PBDataWriterWriteInt64Field();
     if ((*&self->_has & 0x10) == 0)
     {
@@ -463,7 +454,6 @@ LABEL_22:
   }
 
 LABEL_21:
-  bytesReceived = self->_bytesReceived;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 0x20) != 0)
@@ -478,7 +468,6 @@ LABEL_11:
   }
 
 LABEL_23:
-  timeToConnectionFailure = self->_timeToConnectionFailure;
 
   PBDataWriterWriteInt64Field();
 }

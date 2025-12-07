@@ -30,7 +30,7 @@ void __47__CUUserAlert__responseCallback_responseFlags___block_invoke(uint64_t a
   {
     if (gLogCategory_CUUserAlert <= 30 && (gLogCategory_CUUserAlert != -1 || _LogCategory_Initialize(&gLogCategory_CUUserAlert, 0x1Eu)))
     {
-      LogPrintF_safe(&gLogCategory_CUUserAlert, "[CUUserAlert _responseCallback:responseFlags:]_block_invoke", 0x1Eu, "User alert response: Flags 0x%lX", a5, a6, a7, a8, *(a1 + 48));
+      LogPrintF_safe(&gLogCategory_CUUserAlert, "[CUUserAlert _responseCallback:responseFlags:]_block_invoke", 30, "User alert response: Flags 0x%lX", a5, a6, a7, a8, *(a1 + 48));
     }
 
     *(*(a1 + 32) + 11) = 1;
@@ -74,7 +74,7 @@ void __47__CUUserAlert__responseCallback_responseFlags___block_invoke(uint64_t a
     self->_invalidateDone = 1;
     if (gLogCategory_CUUserAlert <= 30 && (gLogCategory_CUUserAlert != -1 || _LogCategory_Initialize(&gLogCategory_CUUserAlert, 0x1Eu)))
     {
-      LogPrintF_safe(&gLogCategory_CUUserAlert, "[CUUserAlert _invalidated]", 0x1Eu, "Invalidated", v6, v7, v8, v9, v10);
+      LogPrintF_safe(&gLogCategory_CUUserAlert, "[CUUserAlert _invalidated]", 30, "Invalidated", v6, v7, v8, v9, v10);
     }
   }
 }
@@ -83,7 +83,7 @@ void __47__CUUserAlert__responseCallback_responseFlags___block_invoke(uint64_t a
 {
   if (!self->_invalidateCalled && gLogCategory_CUUserAlert <= 30 && (gLogCategory_CUUserAlert != -1 || _LogCategory_Initialize(&gLogCategory_CUUserAlert, 0x1Eu)))
   {
-    LogPrintF_safe(&gLogCategory_CUUserAlert, "[CUUserAlert _autoInvalidate]", 0x1Eu, "Auto-invalidate", v2, v3, v4, v5, v13);
+    LogPrintF_safe(&gLogCategory_CUUserAlert, "[CUUserAlert _autoInvalidate]", 30, "Auto-invalidate", v2, v3, v4, v5, v13);
   }
 
   self->_invalidateCalled = 1;
@@ -136,7 +136,7 @@ uint64_t __25__CUUserAlert_invalidate__block_invoke(uint64_t result, uint64_t a2
   {
     if (gLogCategory_CUUserAlert != -1 || (result = _LogCategory_Initialize(&gLogCategory_CUUserAlert, 0x1Eu), result))
     {
-      result = LogPrintF_safe(&gLogCategory_CUUserAlert, "[CUUserAlert invalidate]_block_invoke", 0x1Eu, "Invalidate", a5, a6, a7, a8, v11);
+      result = LogPrintF_safe(&gLogCategory_CUUserAlert, "[CUUserAlert invalidate]_block_invoke", 30, "Invalidate", a5, a6, a7, a8, v11);
     }
   }
 
@@ -155,20 +155,20 @@ uint64_t __25__CUUserAlert_invalidate__block_invoke(uint64_t result, uint64_t a2
 - (void)_activateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x3032000000;
-  v61 = __Block_byref_object_copy__9014;
-  v62 = __Block_byref_object_dispose__9015;
-  v63 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__9014;
+  v51 = __Block_byref_object_dispose__9015;
+  v52 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __39__CUUserAlert__activateWithCompletion___block_invoke;
   aBlock[3] = &unk_1E73A3FA0;
-  v57 = &v58;
+  v46 = &v47;
   v5 = completionCopy;
   aBlock[4] = self;
-  v56 = v5;
+  v45 = v5;
   v6 = _Block_copy(aBlock);
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v8 = self->_titleKey;
@@ -189,8 +189,7 @@ uint64_t __25__CUUserAlert_invalidate__block_invoke(uint64_t result, uint64_t a2
     v12 = self->_titleParameter;
     if (v12)
     {
-      v53 = v12;
-      v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:v11];
+      v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:v11, v12];
 
       v11 = v13;
     }
@@ -218,8 +217,7 @@ uint64_t __25__CUUserAlert_invalidate__block_invoke(uint64_t result, uint64_t a2
     v19 = self->_subtitleParameter;
     if (v19)
     {
-      v53 = v19;
-      v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:v18];
+      v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:v18, v19];
 
       v18 = v20;
     }
@@ -269,54 +267,54 @@ uint64_t __25__CUUserAlert_invalidate__block_invoke(uint64_t result, uint64_t a2
 
   error = 0;
   v32 = CFUserNotificationCreate(0, self->_timeoutSeconds, 2uLL, &error, v7);
-  v38 = v32;
+  v33 = v32;
   if (!v32)
   {
-    v51 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "Create alert failed (%d)", v33, v34, v35, v36, v37, error);
+    v41 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "Create alert failed (%d)", error);
 LABEL_37:
-    v52 = v59[5];
-    v59[5] = v51;
+    v42 = v48[5];
+    v48[5] = v41;
 
     goto LABEL_34;
   }
 
   self->_userNotification = v32;
   pthread_mutex_lock(&gCUUserAlertMutex);
-  v39 = gCUUserAlertMap;
+  v34 = gCUUserAlertMap;
   if (!gCUUserAlertMap)
   {
-    v40 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v41 = gCUUserAlertMap;
-    gCUUserAlertMap = v40;
+    v35 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v36 = gCUUserAlertMap;
+    gCUUserAlertMap = v35;
 
-    v39 = gCUUserAlertMap;
+    v34 = gCUUserAlertMap;
   }
 
-  v42 = [MEMORY[0x1E696AD98] numberWithLong:v38];
-  [v39 setObject:self forKeyedSubscript:v42];
+  v37 = [MEMORY[0x1E696AD98] numberWithLong:v33];
+  [v34 setObject:self forKeyedSubscript:v37];
 
   pthread_mutex_unlock(&gCUUserAlertMutex);
-  RunLoopSource = CFUserNotificationCreateRunLoopSource(0, v38, _responseCallback, 0);
-  v49 = RunLoopSource;
+  RunLoopSource = CFUserNotificationCreateRunLoopSource(0, v33, _responseCallback, 0);
+  v39 = RunLoopSource;
   if (!RunLoopSource)
   {
-    v51 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "Create alert RLS failed", v44, v45, v46, v47, v48, v53);
+    v41 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "Create alert RLS failed");
     goto LABEL_37;
   }
 
   self->_userRLS = RunLoopSource;
   Main = CFRunLoopGetMain();
-  CFRunLoopAddSource(Main, v49, *MEMORY[0x1E695E8E0]);
+  CFRunLoopAddSource(Main, v39, *MEMORY[0x1E695E8E0]);
   (*(v5 + 2))(v5, 0);
 LABEL_34:
 
   v6[2](v6);
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v47, 8);
 }
 
-uint64_t __39__CUUserAlert__activateWithCompletion___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__39__CUUserAlert__activateWithCompletion___block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = *(*(*(result + 48) + 8) + 40);
+  v8 = *(*(result[6] + 8) + 40);
   if (!v8)
   {
     return result;
@@ -336,7 +334,7 @@ uint64_t __39__CUUserAlert__activateWithCompletion___block_invoke(uint64_t resul
     }
 
     v10 = NSPrintF("%{error}", a2, a3, a4, a5, a6, a7, a8, v8);
-    LogPrintF_safe(&gLogCategory_CUUserAlert, "[CUUserAlert _activateWithCompletion:]_block_invoke", 0x5Au, "### Activate failed: %@", v11, v12, v13, v14, v10);
+    LogPrintF_safe(&gLogCategory_CUUserAlert, "[CUUserAlert _activateWithCompletion:]_block_invoke", 90, "### Activate failed: %@", v11, v12, v13, v14, v10);
   }
 
 LABEL_7:
@@ -365,14 +363,14 @@ void __38__CUUserAlert_activateWithCompletion___block_invoke(uint64_t a1, uint64
   v9 = *(a1 + 32);
   if (*(v9 + 8) == 1)
   {
-    v10 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960575, "activate already called", a4, a5, a6, a7, a8, v39);
-    v40 = v10;
+    v10 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960575, "activate already called", a4, a5, a6, a7, a8);
+    v39 = v10;
     if (gLogCategory_CUUserAlert <= 90)
     {
-      if (gLogCategory_CUUserAlert != -1 || (v34 = _LogCategory_Initialize(&gLogCategory_CUUserAlert, 0x5Au), v10 = v40, v34))
+      if (gLogCategory_CUUserAlert != -1 || (v34 = _LogCategory_Initialize(&gLogCategory_CUUserAlert, 0x5Au), v10 = v39, v34))
       {
         v17 = NSPrintF("%{error}", v10, v11, v12, v13, v14, v15, v16, v10);
-        LogPrintF_safe(&gLogCategory_CUUserAlert, "[CUUserAlert activateWithCompletion:]_block_invoke", 0x5Au, "### Activate failed: %@", v18, v19, v20, v21, v17);
+        LogPrintF_safe(&gLogCategory_CUUserAlert, "[CUUserAlert activateWithCompletion:]_block_invoke", 90, "### Activate failed: %@", v18, v19, v20, v21, v17);
       }
     }
 
@@ -385,14 +383,14 @@ LABEL_16:
 
   if (*(v9 + 9) == 1)
   {
-    v22 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294896148, "activate after invalidate", a4, a5, a6, a7, a8, v39);
-    v40 = v22;
+    v22 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294896148, "activate after invalidate", a4, a5, a6, a7, a8);
+    v39 = v22;
     if (gLogCategory_CUUserAlert <= 90)
     {
-      if (gLogCategory_CUUserAlert != -1 || (v35 = _LogCategory_Initialize(&gLogCategory_CUUserAlert, 0x5Au), v22 = v40, v35))
+      if (gLogCategory_CUUserAlert != -1 || (v35 = _LogCategory_Initialize(&gLogCategory_CUUserAlert, 0x5Au), v22 = v39, v35))
       {
         v29 = NSPrintF("%{error}", v22, v23, v24, v25, v26, v27, v28, v22);
-        LogPrintF_safe(&gLogCategory_CUUserAlert, "[CUUserAlert activateWithCompletion:]_block_invoke", 0x5Au, "### Activate failed: %@", v30, v31, v32, v33, v29);
+        LogPrintF_safe(&gLogCategory_CUUserAlert, "[CUUserAlert activateWithCompletion:]_block_invoke", 90, "### Activate failed: %@", v30, v31, v32, v33, v29);
       }
     }
 
@@ -404,7 +402,7 @@ LABEL_16:
   {
     if (gLogCategory_CUUserAlert != -1 || (v36 = _LogCategory_Initialize(&gLogCategory_CUUserAlert, 0x1Eu), v9 = *(a1 + 32), v36))
     {
-      LogPrintF_safe(&gLogCategory_CUUserAlert, "[CUUserAlert activateWithCompletion:]_block_invoke", 0x1Eu, "Activate: Timeout %.3f", a5, a6, a7, a8, *(v9 + 112));
+      LogPrintF_safe(&gLogCategory_CUUserAlert, "[CUUserAlert activateWithCompletion:]_block_invoke", 30, "Activate: Timeout %.3f", a5, a6, a7, a8, *(v9 + 112));
       v9 = *(a1 + 32);
     }
   }
@@ -420,12 +418,12 @@ LABEL_16:
 {
   if (self->_activateCalled && !self->_invalidateDone)
   {
-    FatalErrorF("Activate without invalidate", a2, v2, v3, v4, v5, v6, v7, v8.receiver);
+    FatalErrorF("Activate without invalidate", a2);
   }
 
-  v8.receiver = self;
-  v8.super_class = CUUserAlert;
-  [(CUUserAlert *)&v8 dealloc];
+  v2.receiver = self;
+  v2.super_class = CUUserAlert;
+  [(CUUserAlert *)&v2 dealloc];
 }
 
 - (CUUserAlert)init

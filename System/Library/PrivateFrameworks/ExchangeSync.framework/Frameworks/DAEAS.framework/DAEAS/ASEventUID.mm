@@ -4,6 +4,7 @@
 + (BOOL)notifyOfUnknownTokens;
 + (BOOL)parsingLeafNode;
 + (BOOL)parsingWithSubItems;
+- (ASEventUID)initWithASParseContext:(id)context root:(id)root parent:(id)parent callbackDict:(id)dict streamCallbackDict:(id)callbackDict lengthUntilEndOfTerminator:(int)terminator;
 - (ASEventUID)initWithCalFrameworkString:(id)string;
 - (ASEventUID)initWithGlobalObjectIdString:(id)string;
 - (ASEventUID)initWithUidString:(id)string;
@@ -107,7 +108,7 @@
 
 - (id)uidFromGlobalObjId:(id)id outIsOutlookCreatedUid:(BOOL *)uid
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if (uid)
   {
@@ -147,22 +148,22 @@ LABEL_12:
   }
 
   bytes = [v6 bytes];
-  v19 = *(bytes + 17);
-  v20 = (*(bytes + 16) << 8);
-  v21 = *(bytes + 18);
-  v22 = v20 | v19;
-  if (v20 | v19)
+  v18 = *(bytes + 17);
+  v19 = (*(bytes + 16) << 8);
+  v20 = *(bytes + 18);
+  v21 = v19 | v18;
+  if (v19 | v18)
   {
-    v23 = *(bytes + 19);
-    v24 = [MEMORY[0x277CBEBB0] gmt];
-    v25 = DALoggingwithCategory();
-    v26 = *(v8 + 6);
-    if (os_log_type_enabled(v25, v26))
+    v22 = *(bytes + 19);
+    v23 = [MEMORY[0x277CBEBB0] gmt];
+    v24 = DALoggingwithCategory();
+    v25 = *(v8 + 6);
+    if (os_log_type_enabled(v24, v25))
     {
-      v27 = [MEMORY[0x277CCA8F8] dateWithYear:v22 month:v21 day:v23 hour:0 minute:0 second:0 timeZone:v24];
+      v26 = [MEMORY[0x277CCA8F8] dateWithYear:v21 month:v20 day:v22 hour:0 minute:0 second:0 timeZone:v23];
       *buf = 138412290;
-      *&buf[4] = v27;
-      _os_log_impl(&dword_24A0AC000, v25, v26, "Interesting, but will be ignored: there's an Outlook-created exception date here: %@", buf, 0xCu);
+      *&buf[4] = v26;
+      _os_log_impl(&dword_24A0AC000, v24, v25, "Interesting, but will be ignored: there's an Outlook-created exception date here: %@", buf, 0xCu);
     }
   }
 
@@ -181,39 +182,39 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v28 = [v6 length];
+  v27 = [v6 length];
   bytes2 = [v6 bytes];
-  if (v28 - 40 >= 13)
+  if (v27 - 40 >= 13)
   {
-    v30 = bytes2;
+    v29 = bytes2;
     if (*(bytes2 + 40) == 0x6469552D6C614376 && *(bytes2 + 48) == 1)
     {
-      v33 = v28 - 52;
+      v32 = v27 - 52;
       do
       {
-        v34 = v33;
-        v35 = v33-- != 0;
+        v33 = v32;
+        v34 = v32-- != 0;
       }
 
-      while (v35 && !*(bytes2 + 51 + v34));
-      v36 = v34;
-      if (v34 && *(bytes2 + 53))
+      while (v34 && !*(bytes2 + 51 + v33));
+      v35 = v33;
+      if (v33 && *(bytes2 + 53))
       {
-        v37 = objc_alloc(MEMORY[0x277CCACA8]);
-        v38 = v30 + 52;
-        v39 = v36;
-        v40 = 4;
+        v36 = objc_alloc(MEMORY[0x277CCACA8]);
+        v37 = v29 + 52;
+        v38 = v35;
+        v39 = 4;
       }
 
       else
       {
-        v37 = objc_alloc(MEMORY[0x277CCACA8]);
-        v38 = v30 + 52;
-        v39 = v36;
-        v40 = 10;
+        v36 = objc_alloc(MEMORY[0x277CCACA8]);
+        v37 = v29 + 52;
+        v38 = v35;
+        v39 = 10;
       }
 
-      da_uppercaseHexStringWithoutSpaces = [v37 initWithBytes:v38 length:v39 encoding:v40];
+      da_uppercaseHexStringWithoutSpaces = [v36 initWithBytes:v37 length:v38 encoding:v39];
       goto LABEL_15;
     }
   }
@@ -228,13 +229,12 @@ LABEL_12:
     *uid = 1;
   }
 
-  v32 = [v6 mutableCopy];
+  v31 = [v6 mutableCopy];
   *buf = 0uLL;
-  [v32 replaceBytesInRange:16 withBytes:4 length:{buf, 4}];
-  da_uppercaseHexStringWithoutSpaces = [v32 da_uppercaseHexStringWithoutSpaces];
+  [v31 replaceBytesInRange:16 withBytes:4 length:{buf, 4}];
+  da_uppercaseHexStringWithoutSpaces = [v31 da_uppercaseHexStringWithoutSpaces];
 
 LABEL_15:
-  v16 = *MEMORY[0x277D85DE8];
 
   return da_uppercaseHexStringWithoutSpaces;
 }
@@ -290,11 +290,11 @@ LABEL_15:
 
 - (ASEventUID)initWithCalFrameworkString:(id)string
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   stringCopy = string;
-  v23.receiver = self;
-  v23.super_class = ASEventUID;
-  v5 = [(ASEventUID *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = ASEventUID;
+  v5 = [(ASEventUID *)&v22 init];
   if (v5)
   {
     v8 = 0;
@@ -346,13 +346,12 @@ LABEL_15:
   if (os_log_type_enabled(v19, v20))
   {
     *buf = 138412546;
-    v25 = stringCopy;
-    v26 = 2112;
-    v27 = v5;
+    v24 = stringCopy;
+    v25 = 2112;
+    v26 = v5;
     _os_log_impl(&dword_24A0AC000, v19, v20, "in initWithCalFrameworkString: calFrameworkString is %@, self is %@", buf, 0x16u);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -398,6 +397,68 @@ LABEL_15:
   }
 
   return v5;
+}
+
+- (ASEventUID)initWithASParseContext:(id)context root:(id)root parent:(id)parent callbackDict:(id)dict streamCallbackDict:(id)callbackDict lengthUntilEndOfTerminator:(int)terminator
+{
+  v8 = *&terminator;
+  v32 = *MEMORY[0x277D85DE8];
+  callbackDictCopy = callbackDict;
+  dictCopy = dict;
+  parentCopy = parent;
+  rootCopy = root;
+  contextCopy = context;
+  currentByte = [contextCopy currentByte];
+  v20 = [objc_alloc(MEMORY[0x277CCACA8]) initWithASParseContext:contextCopy root:rootCopy parent:parentCopy callbackDict:dictCopy streamCallbackDict:callbackDictCopy lengthUntilEndOfTerminator:v8];
+
+  if (v20)
+  {
+    v29.receiver = self;
+    v29.super_class = ASEventUID;
+    v21 = [(ASEventUID *)&v29 init];
+    v22 = v21;
+    if (v21)
+    {
+      if ((currentByte & 0x3F) == 0x34)
+      {
+        v23 = [(ASEventUID *)v21 uidFromGlobalObjId:v20 outIsOutlookCreatedUid:&v21->_isOutlookCreatedUid];
+      }
+
+      else if ([v20 hasPrefix:@"040000008200E00074C5B7101A82E008"])
+      {
+        v22->_isOutlookCreatedUid = 1;
+        v23 = [(ASEventUID *)v22 _uidStringBySettingExceptionDateInOutlookUUIDString:v20 withTimeZone:0];
+      }
+
+      else
+      {
+        v22->_isOutlookCreatedUid = 0;
+        v23 = v20;
+      }
+
+      uidWithoutExceptionDate = v22->_uidWithoutExceptionDate;
+      v22->_uidWithoutExceptionDate = v23;
+    }
+
+    v26 = DALoggingwithCategory();
+    v27 = *(MEMORY[0x277D03988] + 7);
+    if (os_log_type_enabled(v26, v27))
+    {
+      *buf = 138412290;
+      v31 = v22;
+      _os_log_impl(&dword_24A0AC000, v26, v27, "in initWithASParseContext:, self is %@", buf, 0xCu);
+    }
+
+    self = v22;
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
 }
 
 - (id)uidForCalFramework
@@ -484,10 +545,12 @@ LABEL_15:
   p_exceptionDate = &self->_exceptionDate;
   if (exceptionDate != v8)
   {
+    v12 = v8;
     objc_storeStrong(p_exceptionDate, v8);
+    v8 = v12;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](dateCopy, v8);
 }
 
 @end

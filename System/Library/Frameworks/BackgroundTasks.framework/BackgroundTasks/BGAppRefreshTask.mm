@@ -1,6 +1,7 @@
 @interface BGAppRefreshTask
 - (id)_initWithIdentifier:(id)identifier activity:(id)activity;
 - (id)description;
+- (void)setTaskCompletedWithSuccess:(BOOL)success;
 @end
 
 @implementation BGAppRefreshTask
@@ -19,6 +20,32 @@
   v4 = [v2 stringWithFormat:@"<BGAppRefreshTask: %@>", identifier];
 
   return v4;
+}
+
+- (void)setTaskCompletedWithSuccess:(BOOL)success
+{
+  successCopy = success;
+  if (success)
+  {
+    _activity = [(BGTask *)self _activity];
+
+    if (_activity)
+    {
+      v6 = &__block_literal_global;
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  [(BGTask *)self _setTaskCompletedWithSuccess:successCopy actionsIfNotAlreadyCompleted:v6];
 }
 
 double __48__BGAppRefreshTask_setTaskCompletedWithSuccess___block_invoke()

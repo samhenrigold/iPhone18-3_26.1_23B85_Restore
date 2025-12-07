@@ -44,37 +44,37 @@
 
 - (void)requestDidParsePlistObject:(id)object
 {
-  v67[2] = *MEMORY[0x277D85DE8];
+  v66[2] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v5 = objc_opt_class();
   if (objc_msgSend_serverResponseIsComplete_(v5, v6, objectCopy))
   {
     v8 = objc_opt_class();
     v10 = objc_msgSend_certificateListServerPlist_(v8, v9, objectCopy);
-    v60 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v59 = objc_alloc_init(MEMORY[0x277CBEB18]);
     if (objc_msgSend_count(v10, v11, v12))
     {
       v16 = 1;
       *&v15 = 138412546;
-      v59 = v15;
-      v61 = objectCopy;
+      v58 = v15;
+      v60 = objectCopy;
       do
       {
-        v17 = objc_msgSend_count(v10, v13, v14, v59) - 1;
+        v17 = objc_msgSend_count(v10, v13, v14, v58) - 1;
         v19 = objc_msgSend_objectAtIndexedSubscript_(v10, v18, v16 - 1);
         v21 = v19;
         if (v16 - 1 >= v17)
         {
-          v66 = v19;
-          v24 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v20, &v66, 1);
+          v65 = v19;
+          v24 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v20, &v65, 1);
         }
 
         else
         {
-          v67[0] = v19;
+          v66[0] = v19;
           v22 = objc_msgSend_objectAtIndexedSubscript_(v10, v20, v16);
-          v67[1] = v22;
-          v24 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v23, v67, 2);
+          v66[1] = v22;
+          v24 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v23, v66, 2);
         }
 
         v25 = objc_opt_class();
@@ -104,22 +104,22 @@
             v52 = *MEMORY[0x277CBC830];
             if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
             {
-              *buf = v59;
-              v63 = v40;
-              v64 = 2112;
-              v65 = v43;
+              *buf = v58;
+              v62 = v40;
+              v63 = 2112;
+              v64 = v43;
               _os_log_error_impl(&dword_22506F000, v52, OS_LOG_TYPE_ERROR, "Server signing certificate has expired. Plist cert expiration: %@ Certificate expiration: %@", buf, 0x16u);
             }
           }
 
           else
           {
-            objc_msgSend_addObject_(v60, v51, v32);
+            objc_msgSend_addObject_(v59, v51, v32);
           }
 
           CFRelease(v32);
 
-          objectCopy = v61;
+          objectCopy = v60;
         }
 
         v55 = objc_msgSend_count(v10, v53, v54);
@@ -130,7 +130,7 @@
       while (v56 < v55);
     }
 
-    objc_msgSend_setValidatedTrusts_(self, v13, v60);
+    objc_msgSend_setValidatedTrusts_(self, v13, v59);
   }
 
   else
@@ -138,46 +138,43 @@
     v10 = objc_msgSend_errorWithDomain_code_format_(MEMORY[0x277CBC560], v7, *MEMORY[0x277CBC120], 1005, @"Invalid server certificates payload");
     objc_msgSend_finishWithError_(self, v57, v10);
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)serverResponseIsComplete:(id)complete
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_objectForKeyedSubscript_(complete, a2, @"certs");
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
+    v15 = 0u;
+    v16 = 0u;
+    v6 = objc_msgSend_count(v3, v4, v5) != 0;
     v17 = 0u;
     v18 = 0u;
-    v6 = objc_msgSend_count(v3, v4, v5) != 0;
-    v19 = 0u;
-    v20 = 0u;
     v7 = v3;
-    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v17, v21, 16);
+    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v15, v19, 16);
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v16;
       do
       {
         v12 = 0;
         do
         {
-          if (*v18 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * v12);
           objc_opt_class();
           v6 &= objc_opt_isKindOfClass();
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v14, &v17, v21, 16);
+        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v13, &v15, v19, 16);
       }
 
       while (v10);
@@ -189,7 +186,6 @@
     LOBYTE(v6) = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v6 & 1;
 }
 
@@ -203,54 +199,51 @@
 
 + (id)nearestExpirationInCertificateList:(id)list
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   listCopy = list;
   v6 = objc_msgSend_distantFuture(MEMORY[0x277CBEAA8], v4, v5);
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
   v7 = listCopy;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v22, v26, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v20, v24, 16);
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v21;
     do
     {
       v12 = 0;
       v13 = v6;
       do
       {
-        if (*v23 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * v12);
         SecCertificateNotValidAfter();
-        v17 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x277CBEAA8], v15, v16, v22);
-        v6 = objc_msgSend_earlierDate_(v13, v18, v17);
+        v16 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x277CBEAA8], v14, v15, v20);
+        v6 = objc_msgSend_earlierDate_(v13, v17, v16);
 
         ++v12;
         v13 = v6;
       }
 
       while (v10 != v12);
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v19, &v22, v26, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v18, &v20, v24, 16);
     }
 
     while (v10);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (__SecTrust)createTrustEvalFromCertificateList:(id)list verifiedWithPolicy:(__SecPolicy *)policy
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   trust = 0;
   v4 = SecTrustCreateWithCertificates(list, policy, &trust);
   if (trust)
@@ -274,20 +267,19 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v18) = v4;
+      LODWORD(v17) = v4;
       _os_log_error_impl(&dword_22506F000, v6, OS_LOG_TYPE_ERROR, "Failed to create trust from certificates with status code: %i", buf, 8u);
     }
 
     result = trust;
     if (!trust)
     {
-      goto LABEL_30;
+      return result;
     }
 
 LABEL_22:
     CFRelease(result);
-    result = 0;
-    goto LABEL_30;
+    return 0;
   }
 
   cf = 0;
@@ -305,7 +297,7 @@ LABEL_22:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v18 = trust;
+      v17 = trust;
       _os_log_debug_impl(&dword_22506F000, v13, OS_LOG_TYPE_DEBUG, "Successfully evaluated trust policy %{public}@", buf, 0xCu);
     }
 
@@ -314,7 +306,7 @@ LABEL_22:
       CFRelease(cf);
     }
 
-    result = trust;
+    return trust;
   }
 
   else
@@ -328,7 +320,7 @@ LABEL_22:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = cf;
+      v17 = cf;
       _os_log_error_impl(&dword_22506F000, v12, OS_LOG_TYPE_ERROR, "Failed to evaluate trust policy with error: %@", buf, 0xCu);
     }
 
@@ -345,8 +337,6 @@ LABEL_22:
     }
   }
 
-LABEL_30:
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 

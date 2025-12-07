@@ -6,42 +6,42 @@
 
 - (id)deviceCompatibilityCapabilitiesWithHeapDescriptors:(id)descriptors
 {
-  v51[1] = *MEMORY[0x277D85DE8];
+  v50[1] = *MEMORY[0x277D85DE8];
   descriptorsCopy = descriptors;
   apr_initialize();
   newpool = 0;
   apr_pool_create_ex(&newpool, 0, 0, 0);
+  v44 = 0;
   v45 = 0;
-  v46 = 0;
   v4 = [descriptorsCopy objectForKeyedSubscript:@"heap-texture-info"];
   v5 = v4;
-  v44 = 0;
+  v43 = 0;
   if (v4)
   {
-    v45 = GTCapabilitiesHeapTextureInfo_deserialize(v4, newpool, &v44);
-    v46 = v6;
+    v44 = GTCapabilitiesHeapTextureInfo_deserialize(v4, newpool, &v43);
+    v45 = v6;
   }
 
+  v41 = 0;
   v42 = 0;
-  v43 = 0;
   v7 = [descriptorsCopy objectForKeyedSubscript:@"heap-acceleration-structure-info"];
   v8 = v7;
-  v41 = 0;
+  v40 = 0;
   if (v7)
   {
-    v42 = GTCapabilitiesHeapAccelerationStructureInfo_deserialize(v7, newpool, &v41);
-    v43 = v9;
+    v41 = GTCapabilitiesHeapAccelerationStructureInfo_deserialize(v7, newpool, &v40);
+    v42 = v9;
   }
 
-  v32 = descriptorsCopy;
+  v31 = descriptorsCopy;
   v10 = MTLCreateSystemDefaultDevice();
-  v30 = v8;
-  v31 = v5;
-  v29 = v10;
+  v29 = v8;
+  v30 = v5;
+  v28 = v10;
   if (v10)
   {
-    v51[0] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:1];
+    v50[0] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:1];
   }
 
   else
@@ -49,66 +49,64 @@
     v11 = 0;
   }
 
-  v35 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = v11;
-  v12 = [obj countByEnumeratingWithState:&v37 objects:v50 count:16];
+  v12 = [obj countByEnumeratingWithState:&v36 objects:v49 count:16];
   if (v12)
   {
     v13 = v12;
-    v34 = *v38;
+    v33 = *v37;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v38 != v34)
+        if (*v37 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v37 + 1) + 8 * i);
+        v15 = *(*(&v36 + 1) + 8 * i);
         p = 0;
         apr_pool_create_ex(&p, 0, 0, 0);
         v16 = GTCapabilitiesRuntime_fromDeviceSafe(v15, p);
         v17 = GTCapabilitiesRuntime_serialize(v16, 2049, p);
-        v18 = GTCapabilitiesRuntime_heapTextureInfoCompatible(&v45, v16, v15);
-        v19 = GTCapabilitiesRuntime_heapAccelerationStructureInfoCompatible(&v42, v16, v15);
-        v48[0] = @"device-name";
+        v18 = GTCapabilitiesRuntime_heapTextureInfoCompatible(&v44, v16, v15);
+        v19 = GTCapabilitiesRuntime_heapAccelerationStructureInfoCompatible(&v41, v16, v15);
+        v47[0] = @"device-name";
         name = [v15 name];
-        v49[0] = name;
-        v49[1] = v17;
-        v48[1] = @"capabilities-runtime";
-        v48[2] = @"heap-texture-compatibility";
+        v48[0] = name;
+        v48[1] = v17;
+        v47[1] = @"capabilities-runtime";
+        v47[2] = @"heap-texture-compatibility";
         v21 = [MEMORY[0x277CCABB0] numberWithBool:v18];
-        v49[2] = v21;
-        v48[3] = @"heap-acceleration-structure-compatibility";
+        v48[2] = v21;
+        v47[3] = @"heap-acceleration-structure-compatibility";
         v22 = [MEMORY[0x277CCABB0] numberWithBool:v19];
-        v49[3] = v22;
-        v48[4] = @"heap-texture-info-decoded";
-        v23 = [MEMORY[0x277CCABB0] numberWithInt:v44 ^ 1u];
-        v49[4] = v23;
-        v48[5] = @"heap-acceleration-structure-info-decoded";
-        v24 = [MEMORY[0x277CCABB0] numberWithInt:v41 ^ 1u];
-        v49[5] = v24;
-        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:6];
-        [v35 addObject:v25];
+        v48[3] = v22;
+        v47[4] = @"heap-texture-info-decoded";
+        v23 = [MEMORY[0x277CCABB0] numberWithInt:v43 ^ 1u];
+        v48[4] = v23;
+        v47[5] = @"heap-acceleration-structure-info-decoded";
+        v24 = [MEMORY[0x277CCABB0] numberWithInt:v40 ^ 1u];
+        v48[5] = v24;
+        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:6];
+        [v34 addObject:v25];
 
         apr_pool_destroy(p);
       }
 
-      v13 = [obj countByEnumeratingWithState:&v37 objects:v50 count:16];
+      v13 = [obj countByEnumeratingWithState:&v36 objects:v49 count:16];
     }
 
     while (v13);
   }
 
   apr_pool_destroy(newpool);
-  v26 = [v35 copy];
-
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = [v34 copy];
 
   return v26;
 }

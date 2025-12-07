@@ -187,7 +187,7 @@
     {
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(WDClinicalOnboardingOAuthNavigationViewController *)self _mainQueue_completionNotificationHandler:v13];
+        [(WDClinicalOnboardingOAuthNavigationViewController *)self _mainQueue_completionNotificationHandler:v13, v12];
       }
 
       v15 = +[HRViewControllerFactory shared];
@@ -618,16 +618,16 @@ LABEL_6:
   return WeakRetained;
 }
 
-- (void)_mainQueue_completionNotificationHandler:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
+- (void)_mainQueue_completionNotificationHandler:(uint64_t)a3 .cold.1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = HKSensitiveLogItem();
-  v5 = 138543618;
-  v6 = a1;
-  v7 = 2114;
-  v8 = v4;
-  _os_log_error_impl(&dword_1D101F000, v3, OS_LOG_TYPE_ERROR, "%{public}@: login failed with error: %{public}@", &v5, 0x16u);
+  v10 = *MEMORY[0x1E69E9840];
+  v4 = a2;
+  v5 = HKSensitiveLogItem();
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_1D101F000, v4, OS_LOG_TYPE_ERROR, "%{public}@: login failed with error: %{public}@", &v6, 0x16u);
 }
 
 - (void)didLoginToAccount:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)

@@ -4,6 +4,7 @@
 - (void)cancelSysdiagnose:(id)sysdiagnose;
 - (void)createSysdiagnose:(id)sysdiagnose;
 - (void)dealloc;
+- (void)sysdiagnoseHasStarted:(BOOL)started;
 @end
 
 @implementation SBSSysdiagnoseInterface
@@ -55,22 +56,33 @@
   [(SBSImplementer *)sbProxy createSysdiagnose:v7];
 }
 
+- (void)sysdiagnoseHasStarted:(BOOL)started
+{
+  startedCopy = started;
+  sbConnection = [(SBSSysdiagnoseInterface *)self sbConnection];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __49__SBSSysdiagnoseInterface_sysdiagnoseHasStarted___block_invoke;
+  v6[3] = &__block_descriptor_33_e17_v16__0__NSError_8l;
+  v7 = startedCopy;
+  v5 = [sbConnection synchronousRemoteObjectProxyWithErrorHandler:v6];
+  [v5 sysdiagnoseHasStarted:startedCopy];
+}
+
 void __49__SBSSysdiagnoseInterface_sysdiagnoseHasStarted___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _SBSLoggingFacility();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7[0] = 67109378;
-    v7[1] = v6;
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_26B246000, v4, OS_LOG_TYPE_ERROR, "Failed to set sysdiagnose started to %d, %@", v7, 0x12u);
+    v5 = *(a1 + 32);
+    v6[0] = 67109378;
+    v6[1] = v5;
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_26B246000, v4, OS_LOG_TYPE_ERROR, "Failed to set sysdiagnose started to %d, %@", v6, 0x12u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (SBSSysdiagnoseInterface)initWithTarget:(id)target

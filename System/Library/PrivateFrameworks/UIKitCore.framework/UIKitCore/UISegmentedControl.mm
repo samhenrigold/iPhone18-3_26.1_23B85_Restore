@@ -495,9 +495,9 @@ LABEL_7:
     {
       if (v22 && v21)
       {
-        v24 = [(UIVisualEffect *)v21 isEqual:v22];
+        isEqual = objc_msgSend_isEqual_(v21);
 
-        if (v24)
+        if (isEqual)
         {
           goto LABEL_54;
         }
@@ -1187,7 +1187,7 @@ LABEL_14:
       {
         label = [v54 label];
         v61 = label;
-        if (label && ([label setAssociatedLabel:0], objc_msgSend(v54, "_positionInfo"), objc_msgSend(v61, "_actualScaleFactor"), v63 = v62, objc_msgSend(v61, "transform"), v64 = v63 * v140, v63 * v140 < v52))
+        if (label && ([label setAssociatedLabel:0], objc_msgSend(v54, "_positionInfo"), objc_msgSend(v61, "_actualScaleFactor"), v63 = v62, objc_msgSend_transform(v61), v64 = v63 * v140[0], v63 * v140[0] < v52))
         {
           v65 = v61;
 
@@ -1878,7 +1878,7 @@ LABEL_35:
 + (BOOL)automaticallyNotifiesObserversForKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"selectedSegmentIndex"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v5 = 0;
   }
@@ -3002,9 +3002,9 @@ void __52__UISegmentedControl_removeSegmentAtIndex_animated___block_invoke(uint6
 
   if (v9 && objectValue)
   {
-    v10 = [(NSString *)objectValue isEqual:v9];
+    isEqual = objc_msgSend_isEqual_(objectValue, v9, v9);
 
-    if (v10)
+    if (isEqual)
     {
       goto LABEL_11;
     }
@@ -3085,9 +3085,9 @@ LABEL_11:
 
   if (v11 && objectValue)
   {
-    v13 = [objectValue isEqual:v11];
+    isEqual = objc_msgSend_isEqual_(objectValue);
 
-    if (v13)
+    if (isEqual)
     {
       goto LABEL_17;
     }
@@ -3171,9 +3171,9 @@ LABEL_6:
       if (action)
       {
         identifier = [action identifier];
-        v11 = [identifier isEqualToString:v4];
+        isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-        if (v11)
+        if (isEqualToString)
         {
           break;
         }
@@ -3204,9 +3204,9 @@ LABEL_6:
 
   if (v9 && objectValue)
   {
-    v10 = [objectValue isEqual:v9];
+    isEqual = objc_msgSend_isEqual_(objectValue, v9, v9);
 
-    if (v10)
+    if (isEqual)
     {
       goto LABEL_11;
     }
@@ -3262,9 +3262,9 @@ LABEL_11:
 
   if (v9 && objectValue)
   {
-    v10 = [(UIImage *)objectValue isEqual:v9];
+    isEqual = objc_msgSend_isEqual_(objectValue, v9, v9);
 
-    if (v10)
+    if (isEqual)
     {
       goto LABEL_11;
     }
@@ -4682,7 +4682,7 @@ LABEL_26:
     v18 = presentationLayer2;
     if (presentationLayer2)
     {
-      [presentationLayer2 transform];
+      objc_msgSend_transform(presentationLayer2);
     }
 
     else
@@ -4700,7 +4700,7 @@ LABEL_26:
 
   else if (layer2)
   {
-    [layer2 transform];
+    objc_msgSend_transform(layer2);
   }
 
   else
@@ -4913,7 +4913,7 @@ LABEL_26:
         v102 = presentationLayer7;
         if (presentationLayer7)
         {
-          [presentationLayer7 transform];
+          objc_msgSend_transform(presentationLayer7);
         }
 
         else
@@ -5172,7 +5172,7 @@ LABEL_99:
     traitCollection4 = [(UIView *)selfCopy traitCollection];
     if (v119)
     {
-      [v119 _highlightSelectionTransformForTraitCollection:traitCollection4];
+      objc_msgSend__highlightSelectionTransformForTraitCollection_(v119);
     }
 
     else
@@ -5199,7 +5199,7 @@ LABEL_98:
   traitCollection5 = [(UIView *)selfCopy traitCollection];
   if (v130)
   {
-    [v130 _hiddenSelectionTransformForTraitCollection:traitCollection5];
+    objc_msgSend__hiddenSelectionTransformForTraitCollection_(v130);
   }
 
   else
@@ -5223,7 +5223,7 @@ LABEL_100:
   v149 = layer12;
   if (layer12)
   {
-    [layer12 transform];
+    objc_msgSend_transform(layer12);
   }
 
   else
@@ -5388,7 +5388,7 @@ LABEL_118:
 LABEL_120:
 }
 
-uint64_t __84__UISegmentedControl__updateSelectionToSegment_highlight_shouldAnimate_sameSegment___block_invoke_6(uint64_t a1)
+void *__84__UISegmentedControl__updateSelectionToSegment_highlight_shouldAnimate_sameSegment___block_invoke_6(uint64_t a1)
 {
   result = [*(a1 + 32) setCenter:{*(a1 + 40), *(a1 + 48)}];
   if ((*(a1 + 88) & 1) == 0)
@@ -5457,7 +5457,7 @@ uint64_t __84__UISegmentedControl__updateSelectionToSegment_highlight_shouldAnim
       v23 = layer;
       if (layer)
       {
-        [layer transform];
+        objc_msgSend_transform(layer);
       }
 
       else
@@ -5551,9 +5551,9 @@ uint64_t __84__UISegmentedControl__updateSelectionToSegment_highlight_shouldAnim
 
   if (v8)
   {
-    v10 = [(UIVisualEffect *)v7 isEqual:v8];
+    isEqual = objc_msgSend_isEqual_(v7);
 
-    if ((v10 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       goto LABEL_18;
     }
@@ -6704,10 +6704,10 @@ LABEL_11:
     goto LABEL_8;
   }
 
-  v8 = [(UIColor *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
   v9 = v10;
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_selectedSegmentTintColor, selectedSegmentTintColor);
@@ -6739,9 +6739,9 @@ LABEL_12:
   {
     if (v7 && v6)
     {
-      v9 = [(UIVisualEffect *)v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
 
-      if (v9)
+      if (isEqual)
       {
         goto LABEL_26;
       }
@@ -6805,16 +6805,18 @@ LABEL_12:
       v21 = *v24;
       do
       {
-        for (i = 0; i != v20; ++i)
+        v22 = 0;
+        do
         {
           if (*v24 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          [*(*(&v23 + 1) + 8 * i) _removeSelectionIndicator];
+          [*(*(&v23 + 1) + 8 * v22++) _removeSelectionIndicator];
         }
 
+        while (v20 != v22);
         v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
@@ -6860,9 +6862,9 @@ LABEL_26:
     goto LABEL_8;
   }
 
-  v8 = [(UIColor *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_backgroundTintColor, color);
@@ -6937,9 +6939,9 @@ LABEL_17:
   if (IsAccessibilityCategory)
   {
     axLongPressGestureRecognizer = [(UISegmentedControl *)self axLongPressGestureRecognizer];
-    v7 = [handlerCopy isEqual:axLongPressGestureRecognizer];
+    isEqual = objc_msgSend_isEqual_(handlerCopy);
 
-    if (v7)
+    if (isEqual)
     {
       axLongPressGestureRecognizer2 = [(UISegmentedControl *)self axLongPressGestureRecognizer];
       state = [axLongPressGestureRecognizer2 state];
@@ -7982,7 +7984,7 @@ LABEL_11:
 
     [self _lineWidthForTraitCollection:collectionCopy size:a10];
     v52 = v51;
-    v53 = +[UIColor blackColor];
+    v53 = objc_msgSend_blackColor(UIColor);
     [v53 set];
 
     v54 = 0.0;
@@ -8166,7 +8168,7 @@ void __122__UISegmentedControl__modernBackgroundSelected_shadow_maximumSize_high
       else
       {
         _UIGraphicsBeginImageContextWithOptions(0, 0, v17, 1.0, 0.0);
-        v25 = +[UIColor blackColor];
+        v25 = objc_msgSend_blackColor(UIColor);
         [v25 set];
 
         UIRectFillUsingOperation(1, 0.0, 0.0, v17, 1.0);

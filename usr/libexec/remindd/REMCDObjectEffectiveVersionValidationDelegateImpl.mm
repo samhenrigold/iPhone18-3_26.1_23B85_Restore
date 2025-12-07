@@ -97,7 +97,7 @@ LABEL_20:
   managedObjectID = +[REMLogStore write];
   if (os_log_type_enabled(managedObjectID, OS_LOG_TYPE_FAULT))
   {
-    sub_10076AD14();
+    sub_10076AD14(nodeCopy);
   }
 
   v9 = 0;

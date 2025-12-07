@@ -294,7 +294,7 @@ LABEL_8:
     self->_carrierFrequencyOffset = v10;
     if (v5)
     {
-      [v5 decodeDoubleVector3ForKey:@"AnchorCoordinates"];
+      objc_msgSend_decodeDoubleVector3ForKey_(v5);
       v11 = v14;
       v12 = vextq_s8(v11, v11, 8uLL).u64[0];
       *&v9 = v15;
@@ -351,7 +351,7 @@ LABEL_8:
       v34 = *self->_coordinates;
       if (v5)
       {
-        [(NIDLTDOAMeasurement *)v5 coordinates];
+        objc_msgSend_coordinates(v5);
         v24 = v35;
         v25 = vextq_s8(v24, v24, 8uLL).u64[0];
         v26.f64[0] = v36;

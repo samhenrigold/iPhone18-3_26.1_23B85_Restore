@@ -84,77 +84,75 @@
 
 - (id)un_safeArrayContainingClass:()UserNotifications
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   selfCopy = self;
-  v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        [array un_safeAddObject:*(*(&v14 + 1) + 8 * i) class:{a3, v14}];
+        [array un_safeAddObject:*(*(&v13 + 1) + 8 * i) class:{a3, v13}];
       }
 
-      v8 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
   v11 = [array copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (id)un_safeArrayContainingClasses:()UserNotifications
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   array = [MEMORY[0x1E695DF70] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   selfCopy = self;
-  v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        [array un_safeAddObject:*(*(&v14 + 1) + 8 * i) classes:{v4, v14}];
+        [array un_safeAddObject:*(*(&v13 + 1) + 8 * i) classes:{v4, v13}];
       }
 
-      v8 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
   v11 = [array copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

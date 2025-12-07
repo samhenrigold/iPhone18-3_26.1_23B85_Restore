@@ -5,7 +5,7 @@
 
 void __MXCoreSessionEndInterruption_WithSecTaskAndStatus_block_invoke(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = CMSMUtility_CopyActiveSessionWithPhoneCallBehaviorOrRingtone();
   v3 = [+[MXSessionManager sharedInstance](MXSessionManager copyActiveSessionWithAudioCategory:"copyActiveSessionWithAudioCategory:andAudioMode:" andAudioMode:0, @"VoicePrompt"];
   v4 = CMSMUtility_CopyActiveSiriSession();
@@ -41,7 +41,7 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  if ([*(*(a1[5] + 8) + 40) isActive])
+  if (objc_msgSend_isActive(*(*(a1[5] + 8) + 40)))
   {
     if (dword_1EB75DE40)
     {
@@ -50,7 +50,7 @@ LABEL_15:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [*(*(a1[5] + 8) + 40) setNeedToEndInterruption:{1, v15, v16}];
+    [*(*(a1[5] + 8) + 40) setNeedToEndInterruption:1];
     [*(*(a1[4] + 8) + 40) setWaitingToResume:1];
     v8 = *(*(a1[4] + 8) + 40);
     v9 = *(*(a1[5] + 8) + 40);
@@ -80,8 +80,6 @@ LABEL_16:
   {
     CFRelease(v13);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

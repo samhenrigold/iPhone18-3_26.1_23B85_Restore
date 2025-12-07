@@ -122,9 +122,9 @@
 - (SWKWindowControlsViewController)initWithElements:(unint64_t)elements delegate:(id)delegate
 {
   swift_unknownObjectRetain();
-  v5 = sub_21ED2B8B8(elements);
+  v6 = sub_21ED2B8B8(elements, delegate);
   swift_unknownObjectRelease();
-  return v5;
+  return v6;
 }
 
 - (SWKWindowControlsViewController)initWithCoder:(id)coder

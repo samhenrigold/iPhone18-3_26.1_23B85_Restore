@@ -3,7 +3,7 @@
 
 @implementation UITextKit1LayoutController
 
-uint64_t __49___UITextKit1LayoutController__textStorageLength__block_invoke(uint64_t a1, void *a2)
+void *__49___UITextKit1LayoutController__textStorageLength__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 length];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -618,7 +618,7 @@ void __45___UITextKit1LayoutController_textContainers__block_invoke(uint64_t a1,
   *(v4 + 40) = v3;
 }
 
-uint64_t __67___UITextKit1LayoutController_rangeOfCharacterClusterAtIndex_type___block_invoke(void *a1, void *a2)
+void *__67___UITextKit1LayoutController_rangeOfCharacterClusterAtIndex_type___block_invoke(void *a1, void *a2)
 {
   result = [a2 rangeOfCharacterClusterAtIndex:a1[5] type:a1[6]];
   v4 = *(a1[4] + 8);

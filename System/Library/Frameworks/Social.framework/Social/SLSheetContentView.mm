@@ -124,26 +124,26 @@
 
   v9 = MEMORY[0x1E696AD98];
   traitCollection2 = [(SLSheetContentView *)self traitCollection];
-  v17 = [v9 numberWithInteger:{objc_msgSend(traitCollection2, "verticalSizeClass")}];
-  _SLLog(v2, 7, @"SLSheetContentView intrinsicContentSize for self.traitCollection.verticalSizeClass %@ using sizeValue %@");
+  v11 = [v9 numberWithInteger:{objc_msgSend(traitCollection2, "verticalSizeClass")}];
+  _SLLog(v2, 7, @"SLSheetContentView intrinsicContentSize for self.traitCollection.verticalSizeClass %@ using sizeValue %@", v12, v13, v14, v15, v16, v11);
 
   if (v8)
   {
     [v8 CGSizeValue];
-    v12 = v11;
-    v14 = v13;
+    v18 = v17;
+    v20 = v19;
   }
 
   else
   {
-    v12 = *MEMORY[0x1E69DE788];
-    v14 = *MEMORY[0x1E69DE788];
+    v18 = *MEMORY[0x1E69DE788];
+    v20 = *MEMORY[0x1E69DE788];
   }
 
-  v15 = v12;
-  v16 = v14;
-  result.height = v16;
-  result.width = v15;
+  v21 = v18;
+  v22 = v20;
+  result.height = v22;
+  result.width = v21;
   return result;
 }
 
@@ -335,13 +335,13 @@
   height = size.height;
   width = size.width;
   v9 = [MEMORY[0x1E696B098] valueWithCGSize:?];
-  v15 = [MEMORY[0x1E696AD98] numberWithInteger:class];
-  _SLLog(v4, 7, @"SLSheetContentView setIntrinsicSize: %@ forVerticalSizeClass: %@");
+  v20 = [MEMORY[0x1E696AD98] numberWithInteger:class];
+  _SLLog(v4, 7, @"SLSheetContentView setIntrinsicSize: %@ forVerticalSizeClass: %@", v10, v11, v12, v13, v14, v9);
 
-  v10 = [MEMORY[0x1E696B098] valueWithCGSize:{width, height, v9, v15}];
+  v15 = [MEMORY[0x1E696B098] valueWithCGSize:{width, height}];
   intrinsicSizes = self->_intrinsicSizes;
-  v12 = [MEMORY[0x1E696AD98] numberWithInteger:class];
-  [(NSMutableDictionary *)intrinsicSizes setObject:v10 forKeyedSubscript:v12];
+  v17 = [MEMORY[0x1E696AD98] numberWithInteger:class];
+  [(NSMutableDictionary *)intrinsicSizes setObject:v15 forKeyedSubscript:v17];
 
   traitCollection = [(SLSheetContentView *)self traitCollection];
   verticalSizeClass = [traitCollection verticalSizeClass];
@@ -356,9 +356,9 @@
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
-  v11.receiver = self;
-  v11.super_class = SLSheetContentView;
-  [(SLSheetContentView *)&v11 traitCollectionDidChange:changeCopy];
+  v16.receiver = self;
+  v16.super_class = SLSheetContentView;
+  [(SLSheetContentView *)&v16 traitCollectionDidChange:changeCopy];
   traitCollection = [(SLSheetContentView *)self traitCollection];
   verticalSizeClass = [traitCollection verticalSizeClass];
   if (verticalSizeClass == [changeCopy verticalSizeClass])
@@ -377,7 +377,7 @@
   {
   }
 
-  _SLLog(v3, 7, @"SLSheetContentView traitCollectionDidChange: invalidating intrinsicContentSize");
+  _SLLog(v3, 7, @"SLSheetContentView traitCollectionDidChange: invalidating intrinsicContentSize", v11, v12, v13, v14, v15, v16.receiver);
   [(SLSheetContentView *)self invalidateIntrinsicContentSize];
 LABEL_6:
 }

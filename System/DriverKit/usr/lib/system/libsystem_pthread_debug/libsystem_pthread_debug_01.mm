@@ -1,100 +1,99 @@
-uint64_t _pthread_rwlock_lock_wait(uint64_t a1, char a2)
+uint64_t _pthread_rwlock_lock_wait(uint64_t a1, char a2, uint64_t a3, unsigned int a4)
 {
   do
   {
-    v2 = *(a1 + 16);
     if (a2)
     {
-      v6 = __psynch_rw_rdlock();
+      v7 = __psynch_rw_rdlock();
     }
 
     else
     {
-      v6 = __psynch_rw_wrlock();
+      v7 = __psynch_rw_wrlock();
     }
 
-    if (v6 == -1)
+    if (v7 == -1)
     {
-      v7 = **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
+      v8 = **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
   }
 
-  while (v7 == 4);
-  if (v7)
+  while (v8 == 4);
+  if (v8)
   {
     qword_28028 = "BUG IN LIBPTHREAD: kernel rwlock returned unknown error";
-    qword_28058 = v7;
+    qword_28058 = v8;
     __break(0xB001u);
   }
 
   else
   {
-    v15 = a1;
-    v14 = v6;
-    v13 = (v6 & 0x40) != 0;
-    v17 = a1;
-    v16 = &v12;
-    v12 = ((a1 + 47) & 0xFFFFFFFFFFFFFFF0);
+    v16 = a1;
+    v15 = v7;
+    v14 = (v7 & 0x40) != 0;
+    v18 = a1;
+    v17 = &v13;
+    v13 = ((a1 + 47) & 0xFFFFFFFFFFFFFFF0);
+    v12 = 0uLL;
     v11 = 0uLL;
-    v10 = 0uLL;
-    v20 = v12;
-    v19 = &v11;
-    v18 = 1;
-    *&v11 = *v12;
+    v21 = v13;
+    v20 = &v12;
+    v19 = 1;
+    *&v12 = *v13;
     do
     {
-      v10 = v11;
-      if (v13 || (BYTE4(v11) & 2) != 0)
+      v11 = v12;
+      if (v14 || (BYTE4(v12) & 2) != 0)
       {
-        LODWORD(v10) = _pthread_rwlock_modbits(v11, v14, BYTE4(v11) & 4);
-        DWORD1(v10) += v14 & 0xFFFFFF00;
-        if (!v13)
+        LODWORD(v11) = _pthread_rwlock_modbits(v12, v15, BYTE4(v12) & 4);
+        DWORD1(v11) += v15 & 0xFFFFFF00;
+        if (!v14)
         {
-          DWORD1(v10) &= 0xFFFFFF00;
+          DWORD1(v11) &= 0xFFFFFF00;
         }
 
-        DWORD1(v10) &= ~4u;
+        DWORD1(v11) &= ~4u;
       }
 
-      v33 = v12;
+      v34 = v13;
+      v33 = &v12;
       v32 = &v11;
-      v31 = &v10;
-      v30 = 1;
+      v31 = 1;
+      v30 = 0;
       v29 = 0;
-      v28 = 0;
-      v27 = v11;
-      v26 = 0;
-      v24 = v10;
-      v23 = v10;
-      v25 = v10;
-      v3 = v11;
-      v4 = v11;
-      atomic_compare_exchange_strong_explicit(v12, &v4, v10, memory_order_relaxed, memory_order_relaxed);
-      if (v4 != v3)
+      v28 = v12;
+      v27 = 0;
+      v25 = v11;
+      v24 = v11;
+      v26 = v11;
+      v4 = v12;
+      v5 = v12;
+      atomic_compare_exchange_strong_explicit(v13, &v5, v11, memory_order_relaxed, memory_order_relaxed);
+      if (v5 != v4)
       {
-        v27 = v4;
+        v28 = v5;
       }
 
-      v22 = v4 == v3;
-      v26 = v4 == v3;
-      *v32 = v27;
-      v21 = v26;
-      v29 = v26;
-      if (v26)
+      v23 = v5 == v4;
+      v27 = v5 == v4;
+      *v33 = v28;
+      v22 = v27;
+      v30 = v27;
+      if (v27)
       {
-        v28 = 1;
+        v29 = 1;
       }
     }
 
-    while (!v28);
+    while (!v29);
   }
 
-  return v7;
+  return v8;
 }
 
 int pthread_rwlock_rdlock(pthread_rwlock_t *a1)
@@ -734,7 +733,7 @@ uint64_t _pthread_rwlock_unlock_slow(void *a1, int a2)
             v55 = v56;
             v57 = v56;
             _X1 = *(&v59 + 1);
-            _KR00_16 = v56;
+            _X2 = v56;
             __asm { CASPL           X0, X1, X2, X3, [X8] }
 
             *&v9 = _X0;
@@ -767,7 +766,7 @@ uint64_t _pthread_rwlock_unlock_slow(void *a1, int a2)
       while (v16 != v60);
       if (v18)
       {
-        return _pthread_rwlock_unlock_drop(v26);
+        return _pthread_rwlock_unlock_drop(v26, v21, *(&v21 + 1), v20, DWORD2(v20));
       }
 
       return v24;
@@ -775,31 +774,30 @@ uint64_t _pthread_rwlock_unlock_slow(void *a1, int a2)
   }
 }
 
-uint64_t _pthread_rwlock_unlock_drop(uint64_t a1)
+uint64_t _pthread_rwlock_unlock_drop(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
   do
   {
-    v1 = *(a1 + 16);
     if (__psynch_rw_unlock() == -1)
     {
-      v3 = **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
+      v6 = **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
     }
 
     else
     {
-      v3 = 0;
+      v6 = 0;
     }
   }
 
-  while (v3 == 4);
-  if (v3)
+  while (v6 == 4);
+  if (v6)
   {
     qword_28028 = "BUG IN LIBPTHREAD: kernel rwunlock returned unknown error";
-    qword_28058 = v3;
+    qword_28058 = v6;
     __break(0xB001u);
   }
 
-  return v3;
+  return v6;
 }
 
 int pthread_rwlock_unlock(pthread_rwlock_t *a1)
@@ -1123,7 +1121,7 @@ int pthread_key_create(pthread_key_t *a1, void (__cdecl *a2)(void *))
 
 uint64_t _pthread_key_set_destructor(uint64_t a1, uint64_t a2)
 {
-  v4 = (&_pthread_keys + 8 * a1);
+  v4 = &_pthread_keys[a1];
   v3 = 0;
   if (a2)
   {
@@ -1370,79 +1368,78 @@ int sigwait(const sigset_t *a1, int *a2)
 
 int pthread_atfork(void (*a1)(void), void (*a2)(void), void (*a3)(void))
 {
-  v13 = a1;
-  v12 = a2;
-  v11 = a3;
-  v10 = 0;
-  v20 = 16;
-  v19 = 320;
-  v18 = _pthread_globals_init;
-  v17 = &_os_alloc_once_table[32];
+  v12 = a1;
+  v11 = a2;
+  v10 = a3;
+  v9 = 0;
+  v19 = 16;
+  v18 = 320;
+  v17 = _pthread_globals_init;
+  v16 = &_os_alloc_once_table[32];
   if (_os_alloc_once_table[32] == -1)
   {
-    v21 = v17[1];
+    v20 = v16[1];
   }
 
   else
   {
-    v16 = _os_alloc_once();
-    v21 = v16;
+    v15 = _os_alloc_once();
+    v20 = v15;
   }
 
-  v9 = v21;
-  v14 = v21 + 12;
+  v8 = v20;
+  v13 = v20 + 12;
   os_unfair_lock_lock_with_options();
-  if (!*(v21 + 16))
+  if (!*(v20 + 16))
   {
-    *(v9 + 264) = v9 + 24;
+    *(v8 + 264) = v8 + 24;
 LABEL_14:
-    v5 = (*(v9 + 264) + 24 * *(v9 + 16));
-    *v5 = v13;
-    v5[1] = v12;
-    v5[2] = v11;
-    ++*(v9 + 16);
+    v4 = (*(v8 + 264) + 24 * *(v8 + 16));
+    *v4 = v12;
+    v4[1] = v11;
+    v4[2] = v10;
+    ++*(v8 + 16);
     goto LABEL_15;
   }
 
-  if (*(v9 + 16) == 10)
+  if (*(v8 + 16) == 10)
   {
-    if (*(v9 + 264) != v9 + 24)
+    if (*(v8 + 264) != v8 + 24)
     {
-      v8 = *(v9 + 264);
+      v7 = *(v8 + 264);
       qword_28028 = "BUG IN LIBPTHREAD: expected atfork to be inline";
-      qword_28058 = v8;
+      qword_28058 = v7;
       __break(0xB001u);
     }
 
-    v7 = 0;
+    v6 = 0;
     address = 0;
-    v7 = mach_vm_map(mach_task_self_, &address, 24 * (vm_page_size / 0x18), vm_page_size - 1, 1224736769, 0, 0, 0, 3, 7, 1u);
-    if (!v7)
+    v6 = mach_vm_map(mach_task_self_, &address, 24 * (vm_page_size / 0x18), vm_page_size - 1, 1224736769, 0, 0, 0, 3, 7, 1u);
+    if (!v6)
     {
-      *(v9 + 264) = address;
-      v3 = *(v9 + 264);
+      *(v8 + 264) = address;
       _platform_memmove();
       _platform_bzero();
       goto LABEL_14;
     }
 
-    v10 = 12;
+    v9 = 12;
   }
 
   else
   {
-    if (*(v9 + 16) < vm_page_size / 0x18)
+    if (*(v8 + 16) < vm_page_size / 0x18)
     {
       goto LABEL_14;
     }
 
-    v10 = 12;
+    v9 = 12;
   }
 
 LABEL_15:
-  v15 = v9 + 12;
-  os_unfair_lock_unlock((v9 + 12));
-  return v10;
+  v14 = v8 + 12;
+  os_unfair_lock_unlock((v8 + 12));
+  return v9;
 }
 
 uint64_t _pthread_atfork_prepare_handlers()
@@ -1474,17 +1471,16 @@ uint64_t _pthread_atfork_prepare()
 {
   if (_os_alloc_once_table[32] == -1)
   {
-    v2 = _os_alloc_once_table[33];
+    v1 = _os_alloc_once_table[33];
   }
 
   else
   {
-    v2 = _os_alloc_once();
+    v1 = _os_alloc_once();
   }
 
   os_unfair_lock_lock_with_options();
-  *v2 = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) - 224;
-  v1 = *v2 + 72;
+  *v1 = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) - 224;
   return os_unfair_lock_lock_with_options();
 }
 
@@ -1579,13 +1575,8 @@ void _pthread_atfork_child_handlers()
   *(v2 + 12) = 0;
 }
 
-float pthread_dependency_init_np(_OWORD *a1, _opaque_pthread_t *a2, unsigned __int8 *a3)
+float pthread_dependency_init_np(_OWORD *a1, _opaque_pthread_t *a2)
 {
-  if (a3)
-  {
-    v3 = *a3;
-  }
-
   result = COERCE_FLOAT(pthread_mach_thread_np(a2));
   *a1 = LODWORD(result);
   return result;
@@ -1629,37 +1620,36 @@ uint64_t pthread_dependency_fulfill_np(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t pthread_dependency_wait_np(uint64_t result)
+unsigned int *pthread_dependency_wait_np(unsigned int *result)
 {
-  v6 = result;
+  v5 = result;
   v1 = 0;
-  atomic_compare_exchange_strong_explicit((result + 4), &v1, *result, memory_order_relaxed, memory_order_relaxed);
+  atomic_compare_exchange_strong_explicit((result + 1), &v1, *result, memory_order_relaxed, memory_order_relaxed);
   if (!v1)
   {
     while (1)
     {
-      v2 = *v6;
       result = __ulock_wait();
-      v4 = -result;
+      v3 = -result;
       if (result)
       {
-        if (v4 != 4 && v4 != 14)
+        if (v3 != 4 && v3 != 14)
         {
           break;
         }
       }
 
-      if (v6[1] != *v6)
+      if (v5[1] != *v5)
       {
         goto LABEL_11;
       }
     }
 
-    if (v4 == 105)
+    if (v3 == 105)
     {
-      v3 = *v6;
+      v2 = *v5;
       qword_28028 = "BUG IN CLIENT OF LIBPTHREAD: Waiting on orphaned dependency";
-      qword_28058 = v3;
+      qword_28058 = v2;
       __break(0xB001u);
     }
 
@@ -1669,10 +1659,10 @@ uint64_t pthread_dependency_wait_np(uint64_t result)
   }
 
 LABEL_11:
-  explicit = atomic_load_explicit((v6 + 1), memory_order_acquire);
+  explicit = atomic_load_explicit((v5 + 1), memory_order_acquire);
   if (explicit == -1)
   {
-    return *(v6 + 1);
+    return *(v5 + 1);
   }
 
   qword_28028 = "BUG IN CLIENT OF LIBPTHREAD: Corrupted pthread_dependency_t";
@@ -1683,40 +1673,24 @@ LABEL_11:
 
 void thread_chkstk_darwin(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v18 = v10;
-  v19 = v11;
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-  if (&a9 < *(StatusReg - 48))
+  if (&a9 >= *(StatusReg - 48) || (v11 = *(StatusReg - 40), &a9 <= v11) || &a9 < v9 || &a9 - v9 < v11)
   {
-    v13 = *(StatusReg - 40);
-    if (&a9 > v13)
+    v12 = &a9;
+    if (v9 >= 0x1000)
     {
-      if (&a9 >= v9 && &a9 - v9 >= v13)
+      do
       {
-        return;
+        v12 -= 512;
+        v9 -= 4096;
       }
 
-      v14 = *(v13 - 8);
+      while (v9 > 0x1000);
     }
   }
-
-  v15 = &a9;
-  if (v9 >= 0x1000)
-  {
-    do
-    {
-      v15 -= 512;
-      v16 = *v15;
-      v9 -= 4096;
-    }
-
-    while (v9 > 0x1000);
-  }
-
-  v17 = *(v15 - v9);
 }
 
-void _pthread_mutex_corruption_abort()
+void _pthread_mutex_corruption_abort(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   qword_28028 = "BUG IN CLIENT OF LIBPTHREAD: pthread_mutex corruption: mutex owner changed in the middle of lock/unlock";
   __break(0xB001u);

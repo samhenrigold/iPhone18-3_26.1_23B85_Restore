@@ -25,7 +25,7 @@
 
 - (void)transformResolutionResultForIntent:(id)intent intentSlotDescription:(id)description withOptionsProvider:(id)provider completion:(id)completion
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   descriptionCopy = description;
   completionCopy = completion;
@@ -75,9 +75,9 @@
   {
     codableAttribute = [descriptionCopy codableAttribute];
     selfCopy = self;
-    v40 = completionCopy;
-    v35 = facadePropertyName;
-    v37 = _metadata;
+    v39 = completionCopy;
+    v34 = facadePropertyName;
+    v36 = _metadata;
     if (codableAttribute)
     {
       objc_opt_class();
@@ -100,28 +100,28 @@
     v24 = v23;
 
     array = [MEMORY[0x1E695DF70] array];
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
     codableEnum = [v24 codableEnum];
     values = [codableEnum values];
 
-    v28 = [values countByEnumeratingWithState:&v41 objects:v45 count:16];
+    v28 = [values countByEnumeratingWithState:&v40 objects:v44 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v42;
+      v30 = *v41;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v42 != v30)
+          if (*v41 != v30)
           {
             objc_enumerationMutation(values);
           }
 
-          v32 = *(*(&v41 + 1) + 8 * i);
+          v32 = *(*(&v40 + 1) + 8 * i);
           if ([v32 index])
           {
             v33 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v32, "index")}];
@@ -129,7 +129,7 @@
           }
         }
 
-        v29 = [values countByEnumeratingWithState:&v41 objects:v45 count:16];
+        v29 = [values countByEnumeratingWithState:&v40 objects:v44 count:16];
       }
 
       while (v29);
@@ -140,20 +140,18 @@
       [(INIntentResolutionResult *)selfCopy setResolutionResultCode:2];
     }
 
-    [(INIntentResolutionResult *)selfCopy setDisambiguationItems:array, v35, v37];
-    completionCopy = v40;
-    v40[2](v40, selfCopy);
+    [(INIntentResolutionResult *)selfCopy setDisambiguationItems:array, v34, v36];
+    completionCopy = v39;
+    v39[2](v39, selfCopy);
 
-    facadePropertyName = v36;
-    _metadata = v38;
+    facadePropertyName = v35;
+    _metadata = v37;
   }
 
   else
   {
     completionCopy[2](completionCopy, self);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_intentSlotValueForObject:(id)object slotDescription:(id)description

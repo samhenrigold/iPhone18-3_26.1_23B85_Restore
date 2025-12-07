@@ -45,10 +45,10 @@
 
 - (void)prepareForCollectionViewUpdates:(id)updates
 {
-  sub_100016F40(0, &qword_10095EBE0);
+  sub_100016F40(0, &qword_10095EBE0, UICollectionViewUpdateItem_ptr);
   v4 = sub_1007701BC();
   selfCopy = self;
-  sub_1005BB1D0(v4);
+  sub_1005BB1D0(v4, v6);
 }
 
 - (void)finalizeCollectionViewUpdates
@@ -69,20 +69,20 @@
   y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  v8 = sub_1005BBB1C(x, y, width, height);
+  v9 = sub_1005BBB1C(x, y, width, height, selfCopy, v8);
 
-  if (v8)
+  if (v9)
   {
-    sub_100016F40(0, &qword_100947EF0);
-    v9.super.isa = sub_1007701AC().super.isa;
+    sub_100016F40(0, &qword_100947EF0, UICollectionViewLayoutAttributes_ptr);
+    v10.super.isa = sub_1007701AC().super.isa;
   }
 
   else
   {
-    v9.super.isa = 0;
+    v10.super.isa = 0;
   }
 
-  return v9.super.isa;
+  return v10.super.isa;
 }
 
 - (id)layoutAttributesForItemAtIndexPath:(id)path
@@ -90,30 +90,30 @@
   v4 = sub_10075E11C();
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10075E06C();
   selfCopy = self;
   isa = sub_10075E02C().super.isa;
   v10 = type metadata accessor for GuidedSearchTokenPaletteCollectionViewLayout();
-  v14.receiver = selfCopy;
-  v14.super_class = v10;
-  v11 = [(GuidedSearchTokenPaletteCollectionViewLayout *)&v14 layoutAttributesForItemAtIndexPath:isa];
+  v15.receiver = selfCopy;
+  v15.super_class = v10;
+  v11 = [(GuidedSearchTokenPaletteCollectionViewLayout *)&v15 layoutAttributesForItemAtIndexPath:isa];
 
   if (v11)
   {
-    v12 = sub_1005BC3E0(v11);
+    v13 = sub_1005BC3E0(v11, v12);
 
     selfCopy = v11;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
   (*(v5 + 8))(v7, v4);
 
-  return v12;
+  return v13;
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)change

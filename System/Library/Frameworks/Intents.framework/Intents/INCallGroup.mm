@@ -13,8 +13,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v10[0] = @"groupName";
+  v10[2] = *MEMORY[0x1E69E9840];
+  v9[0] = @"groupName";
   groupName = self->_groupName;
   null = groupName;
   if (!groupName)
@@ -22,8 +22,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = @"groupId";
-  v11[0] = null;
+  v9[1] = @"groupId";
+  v10[0] = null;
   groupId = self->_groupId;
   null2 = groupId;
   if (!groupId)
@@ -31,8 +31,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (groupId)
   {
     if (groupName)
@@ -51,7 +51,6 @@
   }
 
 LABEL_7:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

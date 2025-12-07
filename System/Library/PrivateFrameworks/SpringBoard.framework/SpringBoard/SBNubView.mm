@@ -182,7 +182,7 @@ void __49__SBNubView_sceneHandle_didUpdateClientSettings___block_invoke(uint64_t
   }
 }
 
-uint64_t __19__SBNubView_height__block_invoke()
+void *__19__SBNubView_height__block_invoke()
 {
   result = [MEMORY[0x277D75A78] heightForStyle:0 orientation:1];
   height___height = v1;

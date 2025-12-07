@@ -1,3 +1,41 @@
+void *sub_29A1A1D10(uint64_t a1, unint64_t a2)
+{
+  sub_29A0ECEEC(&v6, "VtArray::_AllocateNew", "value_type *pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfRange3d>::_AllocateNew(size_t) [T = pxrInternal__aapl__pxrReserved__::GfRange3d]");
+  if (a2 > 0x2AAAAAAAAAAAAAALL)
+  {
+    v3 = -1;
+  }
+
+  else
+  {
+    v3 = 48 * a2 + 16;
+  }
+
+  v4 = operator new(v3);
+  *v4 = 1;
+  v4[1] = a2;
+  if (v6)
+  {
+    pxrInternal__aapl__pxrReserved__::TfMallocTag::_End(v7, v6);
+  }
+
+  return v4 + 2;
+}
+
+uint64_t sub_29A1A1DA8(uint64_t result)
+{
+  v1 = *(result + 32);
+  if (v1)
+  {
+    if (*(result + 24) || (v2 = atomic_load((v1 - 16)), v2 != 1))
+    {
+      sub_29B292BE4();
+    }
+  }
+
+  return result;
+}
+
 __n128 sub_29A1A1DEC(pxrInternal__aapl__pxrReserved__::VtValue *a1, __n128 *a2)
 {
   if ((sub_29A1A1EA4(a1) & 1) == 0)
@@ -85,11 +123,11 @@ uint64_t *sub_29A1A1FAC(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_29A1A1FCC(uint64_t result, void *a2)
+void sub_29A1A1FCC(atomic_uint **a1, atomic_uint **a2)
 {
-  *a2 = *result;
-  *result = 0;
-  return sub_29A1A2144(result);
+  *a2 = *a1;
+  *a1 = 0;
+  sub_29A1A2144(a1);
 }
 
 void *sub_29A1A2030(uint64_t **a1, void *a2)
@@ -107,18 +145,16 @@ void *sub_29A1A212C@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return sub_29A18ECC8(a2, v2);
 }
 
-uint64_t sub_29A1A2144(uint64_t result)
+void sub_29A1A2144(atomic_uint **a1)
 {
-  if (*result)
+  if (*a1)
   {
-    if (atomic_fetch_add_explicit((*result + 40), 0xFFFFFFFF, memory_order_release) == 1)
+    if (atomic_fetch_add_explicit(*a1 + 10, 0xFFFFFFFF, memory_order_release) == 1)
     {
       __dmb(9u);
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfRange3d>::_DecRef();
     }
   }
-
-  return result;
 }
 
 unint64_t sub_29A1A21AC(uint64_t a1, uint64_t *a2)
@@ -246,16 +282,16 @@ void **sub_29A1A24A8(pxrInternal__aapl__pxrReserved__::VtValue *a1)
   }
 }
 
-uint64_t sub_29A1A253C(uint64_t a1, unint64_t a2)
+uint64_t sub_29A1A253C(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   *(a1 + 32) = 0;
   *a1 = 0u;
   *(a1 + 16) = 0u;
-  v5 = xmmword_29B480F60;
-  v6 = 0x80000000800000;
+  v6 = xmmword_29B480F60;
+  v7 = 0x80000000800000;
   sub_29A1A26A0(a1);
-  v7 = &v5;
-  sub_29A1A26F0(a1, a2, &v7);
+  v8 = &v6;
+  sub_29A1A26F0(a1, a2, &v8);
   return a1;
 }
 
@@ -279,14 +315,12 @@ double sub_29A1A2604@<D0>(void *a1@<X8>)
   return result;
 }
 
-uint64_t sub_29A1A2654(uint64_t result)
+void sub_29A1A2654(void *a1)
 {
-  if (result)
+  if (a1)
   {
     pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfRange3d>::_DecRef();
   }
-
-  return result;
 }
 
 void *sub_29A1A26A0(void *result)
@@ -547,11 +581,11 @@ uint64_t *sub_29A1A2B80(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_29A1A2BA0(uint64_t result, void *a2)
+void sub_29A1A2BA0(atomic_uint **a1, atomic_uint **a2)
 {
-  *a2 = *result;
-  *result = 0;
-  return sub_29A1A2D18(result);
+  *a2 = *a1;
+  *a1 = 0;
+  sub_29A1A2D18(a1);
 }
 
 void *sub_29A1A2C04(uint64_t **a1, void *a2)
@@ -569,18 +603,16 @@ void *sub_29A1A2D00@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return sub_29A18ECC8(a2, v2);
 }
 
-uint64_t sub_29A1A2D18(uint64_t result)
+void sub_29A1A2D18(atomic_uint **a1)
 {
-  if (*result)
+  if (*a1)
   {
-    if (atomic_fetch_add_explicit((*result + 40), 0xFFFFFFFF, memory_order_release) == 1)
+    if (atomic_fetch_add_explicit(*a1 + 10, 0xFFFFFFFF, memory_order_release) == 1)
     {
       __dmb(9u);
       pxrInternal__aapl__pxrReserved__::VtArray<pxrInternal__aapl__pxrReserved__::GfRange3f>::_DecRef();
     }
   }
-
-  return result;
 }
 
 unint64_t sub_29A1A2D80(uint64_t a1, uint64_t *a2)
@@ -690,11 +722,11 @@ double sub_29A1A30B8()
   return result;
 }
 
-void *sub_29A1A30D8(uint64_t a1, ...)
+void *sub_29A1A30D8(uint64_t a1, uint64_t a2, ...)
 {
-  va_start(va, a1);
+  va_start(va, a2);
 
-  return sub_29A18606C(v1, va);
+  return sub_29A18606C(v2, va);
 }
 
 __n128 sub_29A1A30F0()
@@ -727,7 +759,7 @@ unint64_t pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrRe
 
 unint64_t pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance(unint64_t *a1)
 {
-  pxrInternal__aapl__pxrReserved__::ArchGetDemangled((0x800000029B48126CLL & 0x7FFFFFFFFFFFFFFFLL), &v11);
+  pxrInternal__aapl__pxrReserved__::ArchGetDemangled(&v11.__r_.__value_.__l.__data_, (0x800000029B48126CLL & 0x7FFFFFFFFFFFFFFFLL));
   v2 = std::string::insert(&v11, 0, "Create Singleton ");
   v3 = *&v2->__r_.__value_.__l.__data_;
   v15 = v2->__r_.__value_.__r.__words[2];
@@ -801,7 +833,7 @@ unint64_t pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrRe
   return v6;
 }
 
-void sub_29A1A3338(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_29A1A3338(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   pxrInternal__aapl__pxrReserved__::Tf_SingletonPyGILDropper::~Tf_SingletonPyGILDropper(&a10);
   sub_29A0E9CEC(&a16);
@@ -937,7 +969,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::VtValue::GetType(pxrInternal__aapl__p
   v4 = v2 & 0xFFFFFFFFFFFFFFF8;
   if ((v2 & 4) != 0)
   {
-    v5 = (*(v4 + 152))(this);
+    v5 = (*(v4 + 152))(this, a2);
   }
 
   else
@@ -964,7 +996,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::VtValue::GetType(pxrInternal__aapl__p
       v7 = MEMORY[0x29EDC9500];
     }
 
-    pxrInternal__aapl__pxrReserved__::ArchGetDemangled((*(v7 + 8) & 0x7FFFFFFFFFFFFFFFLL), __p);
+    pxrInternal__aapl__pxrReserved__::ArchGetDemangled(__p, (*(v7 + 8) & 0x7FFFFFFFFFFFFFFFLL));
     if (v12 >= 0)
     {
       v9 = __p;
@@ -1017,7 +1049,7 @@ void pxrInternal__aapl__pxrReserved__::VtValue::GetTypeName(pxrInternal__aapl__p
 
     v5 = (*(v4 + 8) & 0x7FFFFFFFFFFFFFFFLL);
 
-    pxrInternal__aapl__pxrReserved__::ArchGetDemangled(v5, a2);
+    pxrInternal__aapl__pxrReserved__::ArchGetDemangled(&a2->__vftable, v5);
   }
 }
 
@@ -1054,33 +1086,33 @@ uint64_t pxrInternal__aapl__pxrReserved__::VtValue::GetHash(pxrInternal__aapl__p
   }
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::VtValue::CastToTypeOf@<X0>(pxrInternal__aapl__pxrReserved__::VtValue *this@<X0>, const pxrInternal__aapl__pxrReserved__::VtValue *a2@<X1>, void *a3@<X8>)
+uint64_t *pxrInternal__aapl__pxrReserved__::VtValue::CastToTypeOf@<X0>(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::VtValue *this@<X0>, const pxrInternal__aapl__pxrReserved__::VtValue *a3@<X1>)
 {
-  v10[2] = *MEMORY[0x29EDCA608];
-  sub_29A186EF4(v10, this);
-  v6 = *(a2 + 1);
-  if (v6)
+  v9[2] = *MEMORY[0x29EDCA608];
+  sub_29A186EF4(v9, this);
+  v5 = *(a3 + 1);
+  if (v5)
   {
-    v7 = (*((v6 & 0xFFFFFFFFFFFFFFF8) + 160))(a2);
+    v6 = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 160))(a3);
   }
 
   else
   {
-    v7 = MEMORY[0x29EDC9500];
+    v6 = MEMORY[0x29EDC9500];
   }
 
-  v8 = sub_29A186B64(v10, v7);
-  sub_29A186EF4(a3, v8);
-  return sub_29A186B14(v10);
+  v7 = sub_29A186B64(v9, v6);
+  sub_29A186EF4(a1, v7);
+  return sub_29A186B14(v9);
 }
 
 uint64_t pxrInternal__aapl__pxrReserved__::VtValue::CastToTypeid@<X0>(pxrInternal__aapl__pxrReserved__::VtValue *this@<X0>, const pxrInternal__aapl__pxrReserved__::VtValue *a2@<X1>, void *a3@<X8>)
 {
-  v8[2] = *MEMORY[0x29EDCA608];
-  sub_29A186EF4(v8, this);
-  v6 = sub_29A186B64(v8, a2);
-  sub_29A186EF4(a3, v6);
-  return sub_29A186B14(v8);
+  v7[2] = *MEMORY[0x29EDCA608];
+  sub_29A186EF4(v7, this);
+  v5 = sub_29A186B64(v7, a2);
+  sub_29A186EF4(a3, v5);
+  return sub_29A186B14(v7);
 }
 
 void pxrInternal__aapl__pxrReserved__::VtValue::_RegisterCast(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1096,9 +1128,9 @@ void pxrInternal__aapl__pxrReserved__::VtValue::_RegisterCast(uint64_t a1, uint6
 
 void sub_29A1A3960(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v31 = a3;
-  v32 = a2;
-  sub_29A1B0C08(v16, &v32, &v31);
+  v32 = a3;
+  v33 = a2;
+  sub_29A1B0C08(v16, &v33, &v32);
   v8 = *v16;
   v9 = v17;
   v16[0] = 0;
@@ -1120,8 +1152,8 @@ void sub_29A1A3960(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v23 = 0;
   v28 = v10;
   v29 = a4;
-  sub_29A1B049C(a1 + 8, v25, 0, v30);
-  v11 = v30[16];
+  sub_29A1B049C(a1 + 8, v25, 0, &v30);
+  v11 = v31;
   if (SHIBYTE(v28) < 0)
   {
     operator delete(__p[0]);
@@ -1156,10 +1188,10 @@ void sub_29A1A3960(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v26 = 90;
   __p[0] = "void pxrInternal__aapl__pxrReserved__::Vt_CastRegistry::Register(const type_info &, const type_info &, VtValue (*)(const VtValue &))";
   LOBYTE(__p[1]) = 0;
-  pxrInternal__aapl__pxrReserved__::ArchGetDemangled((*(a2 + 8) & 0x7FFFFFFFFFFFFFFFLL), v20);
+  pxrInternal__aapl__pxrReserved__::ArchGetDemangled(v20, (*(a2 + 8) & 0x7FFFFFFFFFFFFFFFLL));
   v12 = SHIBYTE(v21);
   v13 = v20[0];
-  pxrInternal__aapl__pxrReserved__::ArchGetDemangled((*(a3 + 8) & 0x7FFFFFFFFFFFFFFFLL), v16);
+  pxrInternal__aapl__pxrReserved__::ArchGetDemangled(v16, (*(a3 + 8) & 0x7FFFFFFFFFFFFFFFLL));
   if (v12 >= 0)
   {
     v14 = v20;
@@ -1209,13 +1241,13 @@ void sub_29A1A3B14(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void pxrInternal__aapl__pxrReserved__::VtValue::_PerformCast(pxrInternal__aapl__pxrReserved__::VtValue *this@<X0>, std::type_info *a2@<X1>, void *a3@<X8>)
 {
-  v5 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
-  if (!v5)
+  v4 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
+  if (!v4)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3BD0(v5, this, a2, a3);
+  sub_29A1A3BD0(v4, this, a2, a3);
 }
 
 void sub_29A1A3BD0(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
@@ -1303,12 +1335,12 @@ BOOL sub_29A1A3D5C(uint64_t a1, uint64_t a2, uint64_t a3)
   return !v6;
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_EqualityImpl(pxrInternal__aapl__pxrReserved__::VtValue *this, std::type_info *a2)
+uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_EqualityImpl(std::type_info *this, std::type_info *a2)
 {
   v20[2] = *MEMORY[0x29EDCA608];
-  v4 = *(this + 1);
-  type_name = a2->__type_name;
-  if (((v4 >> 2) & 1) != ((type_name >> 2) & 1))
+  type_name = this->__type_name;
+  v5 = a2->__type_name;
+  if (((type_name >> 2) & 1) != ((v5 >> 2) & 1))
   {
     Type = pxrInternal__aapl__pxrReserved__::VtValue::GetType(this, a2);
     if (Type != pxrInternal__aapl__pxrReserved__::VtValue::GetType(a2, v13))
@@ -1316,8 +1348,8 @@ uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_EqualityImpl(pxrInternal__a
       return 0;
     }
 
-    v14 = *(this + 1);
-    v15 = (v14 & 4) != 0 ? this : a2;
+    v14 = this->__type_name;
+    v15 = ((v14 & 4) != 0 ? this : a2);
     v16 = (*((*(v15 + 1) & 0xFFFFFFFFFFFFFFF8) + 168))();
     if (!v16)
     {
@@ -1335,16 +1367,16 @@ uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_EqualityImpl(pxrInternal__a
       v10 = this;
     }
 
-    v9 = *((*(v10 + 1) & 0xFFFFFFFFFFFFFFF8) + 72);
+    v9 = *((v10->__type_name & 0xFFFFFFFFFFFFFFF8) + 72);
     goto LABEL_11;
   }
 
-  if ((v4 & 4 & type_name) != 0)
+  if ((type_name & 4 & v5) != 0)
   {
     v17 = pxrInternal__aapl__pxrReserved__::VtValue::GetType(this, a2);
     if (v17 == pxrInternal__aapl__pxrReserved__::VtValue::GetType(a2, v18))
     {
-      (*((*(this + 1) & 0xFFFFFFFFFFFFFFF8) + 176))(v20, this);
+      (*((this->__type_name & 0xFFFFFFFFFFFFFFF8) + 176))(v20, this);
       (*((a2->__type_name & 0xFFFFFFFFFFFFFFF8) + 176))(&v19, a2);
       pxrInternal__aapl__pxrReserved__::VtValue::operator==();
     }
@@ -1352,10 +1384,10 @@ uint64_t pxrInternal__aapl__pxrReserved__::VtValue::_EqualityImpl(pxrInternal__a
     return 0;
   }
 
-  if (!v4)
+  if (!type_name)
   {
     v6 = MEMORY[0x29EDC9500];
-    if (type_name)
+    if (v5)
     {
       goto LABEL_5;
     }
@@ -1365,22 +1397,22 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v6 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 160))(this);
-  type_name = a2->__type_name;
-  if (!type_name)
+  v6 = (*((type_name & 0xFFFFFFFFFFFFFFF8) + 160))(this);
+  v5 = a2->__type_name;
+  if (!v5)
   {
     goto LABEL_7;
   }
 
 LABEL_5:
-  v7 = (*((type_name & 0xFFFFFFFFFFFFFFF8) + 160))(a2);
+  v7 = (*((v5 & 0xFFFFFFFFFFFFFFF8) + 160))(a2);
 LABEL_8:
   if (strcmp((*(v6 + 8) & 0x7FFFFFFFFFFFFFFFLL), (*(v7 + 8) & 0x7FFFFFFFFFFFFFFFLL)))
   {
     return 0;
   }
 
-  v9 = *((*(this + 1) & 0xFFFFFFFFFFFFFFF8) + 64);
+  v9 = *((this->__type_name & 0xFFFFFFFFFFFFFFF8) + 64);
   v10 = this;
   v11 = a2;
 LABEL_11:
@@ -1388,12 +1420,12 @@ LABEL_11:
   return v9(v10, v11);
 }
 
-void sub_29A1A4010(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A1A4010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   sub_29A186B14(va);
   sub_29A186B14(va1);
   _Unwind_Resume(a1);
@@ -1448,7 +1480,7 @@ void **pxrInternal__aapl__pxrReserved__::VtValue::_FailGet(uint64_t a1, void (*a
     v26 = "const void *pxrInternal__aapl__pxrReserved__::VtValue::_FailGet(Vt_DefaultValueHolder (*)(), const std::type_info &) const";
     v27 = 0;
     v6 = v19;
-    pxrInternal__aapl__pxrReserved__::ArchGetDemangled((*(a3 + 8) & 0x7FFFFFFFFFFFFFFFLL), v19);
+    pxrInternal__aapl__pxrReserved__::ArchGetDemangled(v19, (*(a3 + 8) & 0x7FFFFFFFFFFFFFFFLL));
     if (v20 < 0)
     {
       v6 = v19[0];
@@ -1466,7 +1498,7 @@ void **pxrInternal__aapl__pxrReserved__::VtValue::_FailGet(uint64_t a1, void (*a
     }
 
     v9 = __p;
-    pxrInternal__aapl__pxrReserved__::ArchGetDemangled((*(v8 + 8) & 0x7FFFFFFFFFFFFFFFLL), __p);
+    pxrInternal__aapl__pxrReserved__::ArchGetDemangled(__p, (*(v8 + 8) & 0x7FFFFFFFFFFFFFFFLL));
     if (v18 >= 0)
     {
       v11 = __p;
@@ -1492,7 +1524,7 @@ void **pxrInternal__aapl__pxrReserved__::VtValue::_FailGet(uint64_t a1, void (*a
     v26 = "const void *pxrInternal__aapl__pxrReserved__::VtValue::_FailGet(Vt_DefaultValueHolder (*)(), const std::type_info &) const";
     v27 = 0;
     v9 = v19;
-    pxrInternal__aapl__pxrReserved__::ArchGetDemangled((*(a3 + 8) & 0x7FFFFFFFFFFFFFFFLL), v19);
+    pxrInternal__aapl__pxrReserved__::ArchGetDemangled(v19, (*(a3 + 8) & 0x7FFFFFFFFFFFFFFFLL));
     if (v20 >= 0)
     {
       v10 = v19;
@@ -1512,12 +1544,12 @@ void **pxrInternal__aapl__pxrReserved__::VtValue::_FailGet(uint64_t a1, void (*a
   }
 
   sub_29A0ECEEC(&v21, "Vt", "VtValue _FindOrCreateDefaultValue");
-  if ((atomic_load_explicit(&qword_2A173F418, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_2A173F418, memory_order_acquire) & 1) == 0)
   {
     sub_29B292E08();
   }
 
-  pxrInternal__aapl__pxrReserved__::ArchGetDemangled((*(a3 + 8) & 0x7FFFFFFFFFFFFFFFLL), v19);
+  pxrInternal__aapl__pxrReserved__::ArchGetDemangled(v19, (*(a3 + 8) & 0x7FFFFFFFFFFFFFFFLL));
   sub_29A0EB5BC(&v23, &unk_2A173F410);
   v12 = sub_29A01BCCC(&qword_2A173F420, v19);
   if (v12 != &qword_2A173F428)
@@ -1859,7 +1891,7 @@ float *pxrInternal__aapl__pxrReserved__::Vt_DefaultValueFactory<pxrInternal__aap
   *(result + 3) = v8;
   *a1 = result;
   a1[1] = sub_29A1B0F88;
-  a1[2] = &unk_2A20407D8;
+  a1[2] = &stru_2A20407D8;
   return result;
 }
 
@@ -1979,7 +2011,7 @@ double *pxrInternal__aapl__pxrReserved__::Vt_DefaultValueFactory<pxrInternal__aa
   *(result + 3) = v8;
   *a1 = result;
   a1[1] = sub_29A1B0FDC;
-  a1[2] = &unk_2A2040878;
+  a1[2] = &stru_2A2040878;
   return result;
 }
 
@@ -1992,7 +2024,7 @@ void *pxrInternal__aapl__pxrReserved__::Vt_DefaultValueFactory<pxrInternal__aapl
   result[1] = v4;
   *a1 = result;
   a1[1] = sub_29A1B0FE8;
-  a1[2] = &unk_2A2040738;
+  a1[2] = &stru_2A2040738;
   return result;
 }
 
@@ -2006,7 +2038,7 @@ double pxrInternal__aapl__pxrReserved__::Vt_DefaultValueFactory<pxrInternal__aap
   v2[1] = v4;
   *a1 = v2;
   a1[1] = sub_29A1B0FF4;
-  a1[2] = &unk_2A2040728;
+  a1[2] = &stru_2A2040728;
   return result;
 }
 
@@ -2023,7 +2055,7 @@ double pxrInternal__aapl__pxrReserved__::Vt_DefaultValueFactory<pxrInternal__aap
   v2[3] = v5;
   *a1 = v2;
   a1[1] = sub_29A1B1000;
-  a1[2] = &unk_2A2040718;
+  a1[2] = &stru_2A2040718;
   return result;
 }
 
@@ -2210,14 +2242,14 @@ void sub_29A1A5090()
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v22, MEMORY[0x29EDC94A8], &unk_2A2040768, sub_29A1A9A6C);
+  sub_29A1A3960(v22, MEMORY[0x29EDC94A8], &stru_2A2040768, sub_29A1A9A6C);
   v23 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v23)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v23, &unk_2A2040768, MEMORY[0x29EDC94A8], sub_29A1A9ACC);
+  sub_29A1A3960(v23, &stru_2A2040768, MEMORY[0x29EDC94A8], sub_29A1A9ACC);
   v24 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v24)
   {
@@ -2392,14 +2424,14 @@ void sub_29A1A5090()
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v48, MEMORY[0x29EDC94B0], &unk_2A2040768, sub_29A1AAA60);
+  sub_29A1A3960(v48, MEMORY[0x29EDC94B0], &stru_2A2040768, sub_29A1AAA60);
   v49 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v49)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v49, &unk_2A2040768, MEMORY[0x29EDC94B0], sub_29A1AAAC0);
+  sub_29A1A3960(v49, &stru_2A2040768, MEMORY[0x29EDC94B0], sub_29A1AAAC0);
   v50 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v50)
   {
@@ -2560,14 +2592,14 @@ void sub_29A1A5090()
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v72, MEMORY[0x29EDC94A0], &unk_2A2040768, sub_29A1AB6E4);
+  sub_29A1A3960(v72, MEMORY[0x29EDC94A0], &stru_2A2040768, sub_29A1AB6E4);
   v73 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v73)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v73, &unk_2A2040768, MEMORY[0x29EDC94A0], sub_29A1AB744);
+  sub_29A1A3960(v73, &stru_2A2040768, MEMORY[0x29EDC94A0], sub_29A1AB744);
   v74 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v74)
   {
@@ -2714,14 +2746,14 @@ void sub_29A1A5090()
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v94, MEMORY[0x29EDC94C8], &unk_2A2040768, sub_29A1ABE7C);
+  sub_29A1A3960(v94, MEMORY[0x29EDC94C8], &stru_2A2040768, sub_29A1ABE7C);
   v95 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v95)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v95, &unk_2A2040768, MEMORY[0x29EDC94C8], sub_29A1ABEDC);
+  sub_29A1A3960(v95, &stru_2A2040768, MEMORY[0x29EDC94C8], sub_29A1ABEDC);
   v96 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v96)
   {
@@ -2854,14 +2886,14 @@ void sub_29A1A5090()
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v114, MEMORY[0x29EDC94F0], &unk_2A2040768, sub_29A1AC99C);
+  sub_29A1A3960(v114, MEMORY[0x29EDC94F0], &stru_2A2040768, sub_29A1AC99C);
   v115 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v115)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v115, &unk_2A2040768, MEMORY[0x29EDC94F0], sub_29A1AC9FC);
+  sub_29A1A3960(v115, &stru_2A2040768, MEMORY[0x29EDC94F0], sub_29A1AC9FC);
   v116 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v116)
   {
@@ -2980,14 +3012,14 @@ void sub_29A1A5090()
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v132, MEMORY[0x29EDC94F8], &unk_2A2040768, sub_29A1AD3D8);
+  sub_29A1A3960(v132, MEMORY[0x29EDC94F8], &stru_2A2040768, sub_29A1AD3D8);
   v133 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v133)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v133, &unk_2A2040768, MEMORY[0x29EDC94F8], sub_29A1AD438);
+  sub_29A1A3960(v133, &stru_2A2040768, MEMORY[0x29EDC94F8], sub_29A1AD438);
   v134 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v134)
   {
@@ -3092,14 +3124,14 @@ void sub_29A1A5090()
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v148, MEMORY[0x29EDC94D0], &unk_2A2040768, sub_29A1ADD34);
+  sub_29A1A3960(v148, MEMORY[0x29EDC94D0], &stru_2A2040768, sub_29A1ADD34);
   v149 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v149)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v149, &unk_2A2040768, MEMORY[0x29EDC94D0], sub_29A1ADD94);
+  sub_29A1A3960(v149, &stru_2A2040768, MEMORY[0x29EDC94D0], sub_29A1ADD94);
   v150 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v150)
   {
@@ -3190,14 +3222,14 @@ void sub_29A1A5090()
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v162, MEMORY[0x29EDC94D8], &unk_2A2040768, sub_29A1AE478);
+  sub_29A1A3960(v162, MEMORY[0x29EDC94D8], &stru_2A2040768, sub_29A1AE478);
   v163 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v163)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v163, &unk_2A2040768, MEMORY[0x29EDC94D8], sub_29A1AE4D8);
+  sub_29A1A3960(v163, &stru_2A2040768, MEMORY[0x29EDC94D8], sub_29A1AE4D8);
   v164 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v164)
   {
@@ -3274,14 +3306,14 @@ void sub_29A1A5090()
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v174, MEMORY[0x29EDC94E0], &unk_2A2040768, sub_29A1AEB00);
+  sub_29A1A3960(v174, MEMORY[0x29EDC94E0], &stru_2A2040768, sub_29A1AEB00);
   v175 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v175)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v175, &unk_2A2040768, MEMORY[0x29EDC94E0], sub_29A1AEB60);
+  sub_29A1A3960(v175, &stru_2A2040768, MEMORY[0x29EDC94E0], sub_29A1AEB60);
   v176 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v176)
   {
@@ -3344,14 +3376,14 @@ void sub_29A1A5090()
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v184, MEMORY[0x29EDC94E8], &unk_2A2040768, sub_29A1AF140);
+  sub_29A1A3960(v184, MEMORY[0x29EDC94E8], &stru_2A2040768, sub_29A1AF140);
   v185 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v185)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v185, &unk_2A2040768, MEMORY[0x29EDC94E8], sub_29A1AF1A0);
+  sub_29A1A3960(v185, &stru_2A2040768, MEMORY[0x29EDC94E8], sub_29A1AF1A0);
   v186 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v186)
   {
@@ -3400,14 +3432,14 @@ void sub_29A1A5090()
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v192, MEMORY[0x29EDC9508], &unk_2A2040768, sub_29A1AF6D4);
+  sub_29A1A3960(v192, MEMORY[0x29EDC9508], &stru_2A2040768, sub_29A1AF6D4);
   v193 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v193)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v193, &unk_2A2040768, MEMORY[0x29EDC9508], sub_29A1AF734);
+  sub_29A1A3960(v193, &stru_2A2040768, MEMORY[0x29EDC9508], sub_29A1AF734);
   v194 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v194)
   {
@@ -3442,14 +3474,14 @@ void sub_29A1A5090()
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v198, MEMORY[0x29EDC9510], &unk_2A2040768, sub_29A1AF954);
+  sub_29A1A3960(v198, MEMORY[0x29EDC9510], &stru_2A2040768, sub_29A1AF954);
   v199 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v199)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v199, &unk_2A2040768, MEMORY[0x29EDC9510], sub_29A1AF9B4);
+  sub_29A1A3960(v199, &stru_2A2040768, MEMORY[0x29EDC9510], sub_29A1AF9B4);
   v200 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v200)
   {
@@ -3484,28 +3516,28 @@ void sub_29A1A5090()
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v204, &unk_2A2040768, MEMORY[0x29EDC94C0], sub_29A1AFBD4);
+  sub_29A1A3960(v204, &stru_2A2040768, MEMORY[0x29EDC94C0], sub_29A1AFBD4);
   v205 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v205)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v205, MEMORY[0x29EDC94C0], &unk_2A2040768, sub_29A1AFC30);
+  sub_29A1A3960(v205, MEMORY[0x29EDC94C0], &stru_2A2040768, sub_29A1AFC30);
   v206 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v206)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v206, &unk_2A2040768, MEMORY[0x29EDC94B8], sub_29A1AFCF8);
+  sub_29A1A3960(v206, &stru_2A2040768, MEMORY[0x29EDC94B8], sub_29A1AFCF8);
   v207 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v207)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v207, MEMORY[0x29EDC94B8], &unk_2A2040768, sub_29A1AFD58);
+  sub_29A1A3960(v207, MEMORY[0x29EDC94B8], &stru_2A2040768, sub_29A1AFD58);
   v208 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v208)
   {
@@ -3526,14 +3558,14 @@ void sub_29A1A5090()
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v210, &unk_2A2040480, &unk_2A203B0F8, sub_29A1A82F0);
+  sub_29A1A3960(v210, &stru_2A2040480, &stru_2A203B0F8, sub_29A1A82F0);
   v211 = atomic_load(&pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_instance);
   if (!v211)
   {
     pxrInternal__aapl__pxrReserved__::TfSingleton<pxrInternal__aapl__pxrReserved__::Vt_CastRegistry>::_CreateInstance();
   }
 
-  sub_29A1A3960(v211, &unk_2A203B0F8, &unk_2A2040480, sub_29A1A8364);
+  sub_29A1A3960(v211, &stru_2A203B0F8, &stru_2A2040480, sub_29A1A8364);
 }
 
 void *sub_29A1A7F20(void *a1, void *a2)
@@ -3772,38 +3804,43 @@ unsigned int *sub_29A1A82F0@<X0>(pxrInternal__aapl__pxrReserved__::TfToken *a1@<
   return sub_29A1B01B8(a2, EmptyString);
 }
 
-uint64_t sub_29A1A8364@<X0>(uint64_t a1@<X0>, atomic_uint **a2@<X8>)
+void *sub_29A1A8364@<X0>(uint64_t *a1@<X0>, atomic_uint **a2@<X8>)
 {
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   if ((v3 & 4) != 0)
   {
-    (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
+    v4 = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
   }
 
-  result = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v7);
-  v5 = v7;
-  *a2 = v7;
-  a2[1] = (&off_2A2044E88 + 1);
-  if ((v5 & 7) != 0)
+  else
   {
-    v6 = (v5 & 0xFFFFFFFFFFFFFFF8);
-    if ((atomic_fetch_add_explicit(v6, 2u, memory_order_relaxed) & 1) == 0)
+    v4 = *a1;
+  }
+
+  result = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v8, v4);
+  v6 = v8;
+  *a2 = v8;
+  a2[1] = (&off_2A2044E88 + 1);
+  if ((v6 & 7) != 0)
+  {
+    v7 = (v6 & 0xFFFFFFFFFFFFFFF8);
+    if ((atomic_fetch_add_explicit(v7, 2u, memory_order_relaxed) & 1) == 0)
     {
-      *a2 = v6;
+      *a2 = v7;
     }
   }
 
-  if ((v7 & 7) != 0)
+  if ((v8 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v7 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v8 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
   return result;
 }
 
-uint64_t sub_29A1A83FC@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+char *sub_29A1A83FC@<X0>(char *result@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(result + 8);
+  v3 = *(result + 1);
   if ((v3 & 4) != 0)
   {
     result = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -3853,9 +3890,9 @@ _BYTE *sub_29A1A8700@<X0>(_BYTE *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_29A1A871C@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+char *sub_29A1A871C@<X0>(char *result@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(result + 8);
+  v3 = *(result + 1);
   if ((v3 & 4) != 0)
   {
     result = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -3898,9 +3935,9 @@ _BYTE *sub_29A1A88E8@<X0>(_BYTE *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_29A1A8904@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+char *sub_29A1A8904@<X0>(char *result@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(result + 8);
+  v3 = *(result + 1);
   if ((v3 & 4) != 0)
   {
     result = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -4313,9 +4350,9 @@ uint64_t sub_29A1A9A6C@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_29A1A9ACC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_29A1A9ACC@<X0>(unsigned __int16 *a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(a1 + 8);
+  v3 = *(a1 + 1);
   if ((v3 & 4) != 0)
   {
     a1 = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -4451,19 +4488,19 @@ LABEL_22:
   return v5 | (v6 << 8);
 }
 
-float sub_29A1A9EDC@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>, unsigned int a3@<S0>)
+float sub_29A1A9EDC@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>, __n128 a3@<Q0>)
 {
   v4 = *(a1 + 8);
   if ((v4 & 4) != 0)
   {
-    a1 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))();
+    a1 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a3);
   }
 
-  LOBYTE(a3) = *a1;
-  result = a3;
+  a3.n128_u8[0] = *a1;
+  a3.n128_f32[0] = a3.n128_u32[0];
   *(a2 + 8) = &unk_2A2044C63;
-  *a2 = result;
-  return result;
+  *a2 = a3.n128_u32[0];
+  return a3.n128_f32[0];
 }
 
 uint64_t sub_29A1A9F30@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
@@ -4523,19 +4560,19 @@ float sub_29A1AA0E8@<S0>(float *a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-double sub_29A1AA104@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>, unint64_t a3@<D0>)
+double sub_29A1AA104@<D0>(uint64_t a1@<X0>, void *a2@<X8>, __n128 a3@<Q0>)
 {
   v4 = *(a1 + 8);
   if ((v4 & 4) != 0)
   {
-    a1 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))();
+    a1 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a3);
   }
 
-  LOBYTE(a3) = *a1;
-  result = a3;
-  *(a2 + 8) = &unk_2A2044D1B;
-  *a2 = result;
-  return result;
+  a3.n128_u8[0] = *a1;
+  a3.n128_f64[0] = a3.n128_u64[0];
+  a2[1] = &unk_2A2044D1B;
+  *a2 = a3.n128_u64[0];
+  return a3.n128_f64[0];
 }
 
 uint64_t sub_29A1AA158@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
@@ -4595,9 +4632,9 @@ double sub_29A1AA310@<D0>(double *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_29A1AA32C@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+char *sub_29A1AA32C@<X0>(char *result@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(result + 8);
+  v3 = *(result + 1);
   if ((v3 & 4) != 0)
   {
     result = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -4609,9 +4646,9 @@ uint64_t sub_29A1AA32C@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_29A1AA37C@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+char *sub_29A1AA37C@<X0>(char *result@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(result + 8);
+  v3 = *(result + 1);
   if ((v3 & 4) != 0)
   {
     result = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -4771,9 +4808,9 @@ char *sub_29A1AA604@<X0>(char *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_29A1AA654@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+int *sub_29A1AA654@<X0>(int *result@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(result + 8);
+  v3 = *(result + 1);
   if ((v3 & 4) != 0)
   {
     result = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -5040,9 +5077,9 @@ uint64_t sub_29A1AAA60@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_29A1AAAC0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_29A1AAAC0@<X0>(unsigned __int16 *a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(a1 + 8);
+  v3 = *(a1 + 1);
   if ((v3 & 4) != 0)
   {
     a1 = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -5487,9 +5524,9 @@ char *sub_29A1AB288@<X0>(char *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_29A1AB2D8@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+int *sub_29A1AB2D8@<X0>(int *result@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(result + 8);
+  v3 = *(result + 1);
   if ((v3 & 4) != 0)
   {
     result = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -6158,9 +6195,9 @@ uint64_t sub_29A1ABE7C@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_29A1ABEDC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_29A1ABEDC@<X0>(unsigned __int16 *a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(a1 + 8);
+  v3 = *(a1 + 1);
   if ((v3 & 4) != 0)
   {
     a1 = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -6288,19 +6325,19 @@ LABEL_22:
   return v5 | (v6 << 8);
 }
 
-float sub_29A1AC184@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>, unsigned int a3@<S0>)
+float sub_29A1AC184@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>, __n128 a3@<Q0>)
 {
   v4 = *(a1 + 8);
   if ((v4 & 4) != 0)
   {
-    a1 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))();
+    a1 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a3);
   }
 
-  LOBYTE(a3) = *a1;
-  result = a3;
+  a3.n128_u8[0] = *a1;
+  a3.n128_f32[0] = a3.n128_u32[0];
   *(a2 + 8) = &unk_2A2044C63;
-  *a2 = result;
-  return result;
+  *a2 = a3.n128_u32[0];
+  return a3.n128_f32[0];
 }
 
 uint64_t sub_29A1AC1D8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -6374,19 +6411,19 @@ LABEL_12:
   return v2 | (v3 << 8);
 }
 
-double sub_29A1AC2E4@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>, unint64_t a3@<D0>)
+double sub_29A1AC2E4@<D0>(uint64_t a1@<X0>, void *a2@<X8>, __n128 a3@<Q0>)
 {
   v4 = *(a1 + 8);
   if ((v4 & 4) != 0)
   {
-    a1 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))();
+    a1 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a3);
   }
 
-  LOBYTE(a3) = *a1;
-  result = a3;
-  *(a2 + 8) = &unk_2A2044D1B;
-  *a2 = result;
-  return result;
+  a3.n128_u8[0] = *a1;
+  a3.n128_f64[0] = a3.n128_u64[0];
+  a2[1] = &unk_2A2044D1B;
+  *a2 = a3.n128_u64[0];
+  return a3.n128_f64[0];
 }
 
 uint64_t sub_29A1AC338@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -6521,9 +6558,9 @@ __int16 *sub_29A1AC500@<X0>(__int16 *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_29A1AC558@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+int *sub_29A1AC558@<X0>(int *result@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(result + 8);
+  v3 = *(result + 1);
   if ((v3 & 4) != 0)
   {
     result = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -6818,9 +6855,9 @@ uint64_t sub_29A1AC99C@<X0>(__int16 *a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_29A1AC9FC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_29A1AC9FC@<X0>(unsigned __int16 *a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(a1 + 8);
+  v3 = *(a1 + 1);
   if ((v3 & 4) != 0)
   {
     a1 = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -7386,9 +7423,9 @@ uint64_t sub_29A1AD3D8@<X0>(unsigned __int16 *a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_29A1AD438@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_29A1AD438@<X0>(unsigned __int16 *a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(a1 + 8);
+  v3 = *(a1 + 1);
   if ((v3 & 4) != 0)
   {
     a1 = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -7497,19 +7534,19 @@ LABEL_22:
   return v6 | v5 | v7;
 }
 
-float sub_29A1AD698@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>, unsigned int a3@<S0>)
+float sub_29A1AD698@<S0>(uint64_t a1@<X0>, uint64_t a2@<X8>, __n128 a3@<Q0>)
 {
   v4 = *(a1 + 8);
   if ((v4 & 4) != 0)
   {
-    a1 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))();
+    a1 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a3);
   }
 
-  LOWORD(a3) = *a1;
-  result = a3;
+  a3.n128_u16[0] = *a1;
+  a3.n128_f32[0] = a3.n128_u32[0];
   *(a2 + 8) = &unk_2A2044C63;
-  *a2 = result;
-  return result;
+  *a2 = a3.n128_u32[0];
+  return a3.n128_f32[0];
 }
 
 uint64_t sub_29A1AD6EC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -7588,19 +7625,19 @@ LABEL_12:
   return v3 | v2 | v4;
 }
 
-double sub_29A1AD818@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>, unint64_t a3@<D0>)
+double sub_29A1AD818@<D0>(uint64_t a1@<X0>, void *a2@<X8>, __n128 a3@<Q0>)
 {
   v4 = *(a1 + 8);
   if ((v4 & 4) != 0)
   {
-    a1 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))();
+    a1 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a3);
   }
 
-  LOWORD(a3) = *a1;
-  result = a3;
-  *(a2 + 8) = &unk_2A2044D1B;
-  *a2 = result;
-  return result;
+  a3.n128_u16[0] = *a1;
+  a3.n128_f64[0] = a3.n128_u64[0];
+  a2[1] = &unk_2A2044D1B;
+  *a2 = a3.n128_u64[0];
+  return a3.n128_f64[0];
 }
 
 uint64_t sub_29A1AD86C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -7910,9 +7947,9 @@ uint64_t sub_29A1ADD34@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_29A1ADD94@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_29A1ADD94@<X0>(unsigned __int16 *a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(a1 + 8);
+  v3 = *(a1 + 1);
   if ((v3 & 4) != 0)
   {
     a1 = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -8268,9 +8305,9 @@ uint64_t sub_29A1AE478@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_29A1AE4D8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_29A1AE4D8@<X0>(unsigned __int16 *a1@<X0>, uint64_t a2@<X8>)
 {
-  v3 = *(a1 + 8);
+  v3 = *(a1 + 1);
   if ((v3 & 4) != 0)
   {
     a1 = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -8421,19 +8458,19 @@ uint64_t sub_29A1AE780@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-double sub_29A1AE818@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>, unint64_t a3@<D0>)
+double sub_29A1AE818@<D0>(uint64_t a1@<X0>, void *a2@<X8>, __n128 a3@<Q0>)
 {
   v4 = *(a1 + 8);
   if ((v4 & 4) != 0)
   {
-    a1 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))();
+    a1 = (*((v4 & 0xFFFFFFFFFFFFFFF8) + 168))(a3);
   }
 
-  LODWORD(a3) = *a1;
-  result = a3;
-  *(a2 + 8) = &unk_2A2044D1B;
-  *a2 = result;
-  return result;
+  a3.n128_u32[0] = *a1;
+  a3.n128_f64[0] = a3.n128_u64[0];
+  a2[1] = &unk_2A2044D1B;
+  *a2 = a3.n128_u64[0];
+  return a3.n128_f64[0];
 }
 
 uint64_t sub_29A1AE86C@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
@@ -8601,9 +8638,9 @@ uint64_t sub_29A1AEB00@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-unint64_t sub_29A1AEB60@<X0>(uint64_t a1@<X0>, unint64_t *a2@<X8>)
+unint64_t sub_29A1AEB60@<X0>(unsigned __int16 *a1@<X0>, unint64_t *a2@<X8>)
 {
-  v3 = *(a1 + 8);
+  v3 = *(a1 + 1);
   if ((v3 & 4) != 0)
   {
     a1 = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -8899,9 +8936,9 @@ uint64_t sub_29A1AF140@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-unint64_t sub_29A1AF1A0@<X0>(uint64_t a1@<X0>, unint64_t *a2@<X8>)
+unint64_t sub_29A1AF1A0@<X0>(unsigned __int16 *a1@<X0>, unint64_t *a2@<X8>)
 {
-  v3 = *(a1 + 8);
+  v3 = *(a1 + 1);
   if ((v3 & 4) != 0)
   {
     a1 = (*((v3 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -9569,7 +9606,7 @@ unint64_t sub_29A1AFF04(uint64_t *a1)
   return bswap64(0x9E3779B97F4A7C55 * v6);
 }
 
-void *sub_29A1AFF8C(uint64_t **a1, void *a2)
+void *sub_29A1AFF8C(void **a1, void *a2)
 {
   v3 = *(*a1 + 23);
   if (v3 >= 0)
@@ -9781,7 +9818,7 @@ uint64_t sub_29A1B0420(uint64_t result, void *a2)
   return result;
 }
 
-void sub_29A1B049C(uint64_t a1@<X0>, uint64_t a2@<X1>, tbb::internal *a3@<X2>, uint64_t a4@<X8>)
+void sub_29A1B049C(uint64_t a1@<X0>, uint64_t *a2@<X1>, tbb::internal *a3@<X2>, uint64_t a4@<X8>)
 {
   v8 = sub_29A1B0794(a1, a2);
   v24 = 0;
@@ -9810,7 +9847,7 @@ void sub_29A1B049C(uint64_t a1@<X0>, uint64_t a2@<X1>, tbb::internal *a3@<X2>, u
     v16 = *v25;
     if (*v25)
     {
-      v17 = v16[8];
+      v17 = *(v16 + 8);
       while (1)
       {
         v18 = v16;
@@ -9819,7 +9856,7 @@ void sub_29A1B049C(uint64_t a1@<X0>, uint64_t a2@<X1>, tbb::internal *a3@<X2>, u
           break;
         }
 
-        if (v17 == v12 && sub_29A1B0B38(a1 + 1, (v16 + 1), v14))
+        if (v17 == v12 && sub_29A1B0B38(a1 + 1, v16 + 8, v14))
         {
           if (a3)
           {
@@ -9840,7 +9877,7 @@ void sub_29A1B049C(uint64_t a1@<X0>, uint64_t a2@<X1>, tbb::internal *a3@<X2>, u
           break;
         }
 
-        v17 = v16[8];
+        v17 = *(v16 + 8);
         v15 = v18;
       }
     }
@@ -9848,7 +9885,7 @@ void sub_29A1B049C(uint64_t a1@<X0>, uint64_t a2@<X1>, tbb::internal *a3@<X2>, u
     if (!a3)
     {
       a3 = sub_29A1B0718(a1 + 16, v12, a2);
-      v14 = a3 + 8;
+      v14 = (a3 + 8);
       v15 = v25;
     }
 
@@ -9918,55 +9955,4 @@ void sub_29A1B067C(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
   v13 = *(v10 + 8 * v8);
   __dmb(0xBu);
   *a3 = *(v13 + 8 * v9);
-}
-
-uint64_t sub_29A1B0718(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = tbb::internal::allocate_via_handler_v3(0x48);
-  sub_29A1B0AA4((v5 + 8), a3);
-  *(v5 + 56) = *(a3 + 48);
-  *(v5 + 64) = a2;
-  *v5 = 0;
-  return v5;
-}
-
-void sub_29A1B076C(void *a1)
-{
-  __cxa_begin_catch(a1);
-  tbb::internal::deallocate_via_handler_v3(v1, v2);
-  __cxa_rethrow();
-}
-
-unint64_t sub_29A1B0794(uint64_t a1, uint64_t a2)
-{
-  v3 = sub_29A12A708(&v7, a2);
-  v4 = sub_29A12A708(&v6, a2 + 24);
-  return bswap64(0x9E3779B97F4A7C55 * (v4 + ((v4 + v3 + (v4 + v3) * (v4 + v3)) >> 1)));
-}
-
-void sub_29A1B07F8(uint64_t a1, atomic_ullong *a2)
-{
-  v4 = sub_29A1B08DC(a1, a2);
-  if (!sub_29A1B0968(a1, v4))
-  {
-    sub_29A1B07F8(a1, v4);
-  }
-
-  v5 = sub_29A0EC0EC(v4);
-  v6 = *(a1 + 8 * v5 + 48);
-  __dmb(0xBu);
-  v10 = *(v6 + 8 * (v4 - ((1 << v5) & 0x1FFFFFFFFFFFFFFELL)));
-  v11 = 0;
-  v12 = a2;
-  v7 = &v12;
-  for (i = 7; i != -1; --i)
-  {
-    v9 = *v7;
-    v7 = (v7 + 1);
-    *(&v11 + i) = byte_29B734F74[v9];
-  }
-
-  sub_29A1B09D0(a1 + 16, &v10, v11 & 0xFFFFFFFFFFFFFFFELL, &v12);
-  v11 = v12;
-  sub_29A1A8110(a1, a2, &v11);
 }

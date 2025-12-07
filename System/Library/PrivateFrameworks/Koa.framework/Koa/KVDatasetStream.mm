@@ -69,11 +69,11 @@
 
 - (KVDatasetStream)initWithDonation:(id)donation
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   donationCopy = donation;
-  v26.receiver = self;
-  v26.super_class = KVDatasetStream;
-  v6 = [(KVDatasetStream *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = KVDatasetStream;
+  v6 = [(KVDatasetStream *)&v25 init];
   if (!v6)
   {
     goto LABEL_7;
@@ -91,24 +91,23 @@ LABEL_7:
   v18 = qword_28106B3C0;
   if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
   {
-    v21 = v18;
-    v22 = objc_opt_class();
-    v23 = NSStringFromClass(v22);
-    v24 = objc_opt_class();
-    v25 = NSStringFromClass(v24);
+    v20 = v18;
+    v21 = objc_opt_class();
+    v22 = NSStringFromClass(v21);
+    v23 = objc_opt_class();
+    v24 = NSStringFromClass(v23);
     *buf = 136315650;
-    v28 = "[KVDatasetStream initWithDonation:]";
-    v29 = 2112;
-    v30 = v23;
-    v31 = 2112;
-    v32 = v25;
-    _os_log_error_impl(&dword_2559A5000, v21, OS_LOG_TYPE_ERROR, "%s Unexpected donation: %@ for class: %@", buf, 0x20u);
+    v27 = "[KVDatasetStream initWithDonation:]";
+    v28 = 2112;
+    v29 = v22;
+    v30 = 2112;
+    v31 = v24;
+    _os_log_error_impl(&dword_2559A5000, v20, OS_LOG_TYPE_ERROR, "%s Unexpected donation: %@ for class: %@", buf, 0x20u);
   }
 
   v17 = 0;
 LABEL_11:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

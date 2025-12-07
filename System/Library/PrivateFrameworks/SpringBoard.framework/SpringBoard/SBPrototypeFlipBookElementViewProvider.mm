@@ -161,7 +161,7 @@
 
 - (void)transitionToNextState
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   currentState = self->_currentState;
   self->_currentState = currentState + 1;
   if ([(NSArray *)self->_leadingStates count]== currentState + 1)
@@ -179,7 +179,7 @@
   intValue = [v5 intValue];
 
   v7 = [(NSArray *)self->_leadingStates objectAtIndexedSubscript:self->_currentState];
-  [(UIView *)self->_leadingView setState:v7];
+  v8 = [(UIView *)self->_leadingView setState:v7];
   if (self->_internalLayoutMode != intValue)
   {
     self->_internalLayoutMode = intValue;
@@ -190,16 +190,16 @@
     }
   }
 
-  v9 = SBLogSystemApertureSecureFlipBookElements();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = SBLogSystemApertureSecureFlipBookElements(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     elementIdentifier = [(SBPrototypeFlipBookElementViewProvider *)self elementIdentifier];
     preferredComponentStates = [(SBPrototypeFlipBookElementViewProvider *)self preferredComponentStates];
-    v13 = 138412546;
-    v14 = elementIdentifier;
-    v15 = 2112;
-    v16 = preferredComponentStates;
-    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "[Prototype FBE] (%@) preferredComponentStates: %@", &v13, 0x16u);
+    v14 = 138412546;
+    v15 = elementIdentifier;
+    v16 = 2112;
+    v17 = preferredComponentStates;
+    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "[Prototype FBE] (%@) preferredComponentStates: %@", &v14, 0x16u);
   }
 
   secureElementHost = [(SBPrototypeFlipBookElementViewProvider *)self secureElementHost];
@@ -271,22 +271,22 @@
 
 - (void)setActiveConfiguration:(id)configuration
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   objc_storeStrong(&self->_activeConfiguration, configuration);
   leadingView = [(SBPrototypeFlipBookElementViewProvider *)self leadingView];
   [leadingView setHidden:self->_activeConfiguration != 0];
 
-  v7 = SBLogSystemApertureSecureFlipBookElements();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = SBLogSystemApertureSecureFlipBookElements(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     elementIdentifier = [(SBPrototypeFlipBookElementViewProvider *)self elementIdentifier];
     activeConfiguration = self->_activeConfiguration;
-    v10 = 138412546;
-    v11 = elementIdentifier;
-    v12 = 2112;
-    v13 = activeConfiguration;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "[Prototype FBE] (%@) activeConfiguration: %@", &v10, 0x16u);
+    v11 = 138412546;
+    v12 = elementIdentifier;
+    v13 = 2112;
+    v14 = activeConfiguration;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "[Prototype FBE] (%@) activeConfiguration: %@", &v11, 0x16u);
   }
 }
 
@@ -303,19 +303,19 @@
 
 - (void)setActiveComponentStates:(id)states
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   statesCopy = states;
   objc_storeStrong(&self->_activeComponentStates, states);
-  v6 = SBLogSystemApertureSecureFlipBookElements();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = SBLogSystemApertureSecureFlipBookElements(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     elementIdentifier = [(SBPrototypeFlipBookElementViewProvider *)self elementIdentifier];
     activeComponentStates = self->_activeComponentStates;
-    v9 = 138412546;
-    v10 = elementIdentifier;
-    v11 = 2112;
-    v12 = activeComponentStates;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_INFO, "[Prototype FBE] (%@) activeComponentStates: %@", &v9, 0x16u);
+    v10 = 138412546;
+    v11 = elementIdentifier;
+    v12 = 2112;
+    v13 = activeComponentStates;
+    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "[Prototype FBE] (%@) activeComponentStates: %@", &v10, 0x16u);
   }
 }
 

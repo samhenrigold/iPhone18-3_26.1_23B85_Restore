@@ -824,7 +824,7 @@ LABEL_10:
   }
 
 LABEL_9:
-  if ([(NSArray *)self->_appLayouts containsObject:v13])
+  if (objc_msgSend_containsObject_(self->_appLayouts))
   {
     goto LABEL_10;
   }
@@ -1346,7 +1346,7 @@ void __77__SBSwitcherShelfViewController__performNewWindowRequestForBundleIdenti
   }
 }
 
-void __77__SBSwitcherShelfViewController__performNewWindowRequestForBundleIdentifier___block_invoke_3(void *a1, uint64_t a2)
+void __77__SBSwitcherShelfViewController__performNewWindowRequestForBundleIdentifier___block_invoke_3(void *a1, void *a2)
 {
   v4 = [*(a1[4] + 1072) layoutRole];
   v5 = a1[5];
@@ -1486,7 +1486,7 @@ void __67__SBSwitcherShelfViewController__performSwitcherTransitionRequest___blo
   [v5 setActivatingEntity:0];
 }
 
-void __67__SBSwitcherShelfViewController__performSwitcherTransitionRequest___block_invoke_3(void *a1, uint64_t a2)
+void __67__SBSwitcherShelfViewController__performSwitcherTransitionRequest___block_invoke_3(void *a1, void *a2)
 {
   v4 = [*(a1[4] + 1072) layoutRole];
   v5 = a1[5];

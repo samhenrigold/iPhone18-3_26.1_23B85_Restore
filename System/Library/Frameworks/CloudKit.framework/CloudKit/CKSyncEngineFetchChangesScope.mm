@@ -96,7 +96,7 @@ LABEL_6:
 
 + (CKSyncEngineFetchChangesScope)scopeWithZoneIDs:(id)ds recordIDs:(id)iDs excludedZoneIDs:(id)zoneIDs containsScopeWithZoneIDs:(id)withZoneIDs recordIDs:(id)recordIDs excludedZoneIDs:(id)excludedZoneIDs
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   iDsCopy = iDs;
   zoneIDsCopy = zoneIDs;
@@ -138,28 +138,28 @@ LABEL_44:
         goto LABEL_22;
       }
 
-      v58 = excludedZoneIDsCopy;
-      v59 = iDsCopy;
-      v66 = 0u;
-      v67 = 0u;
-      v64 = 0u;
+      v57 = excludedZoneIDsCopy;
+      v58 = iDsCopy;
       v65 = 0u;
+      v66 = 0u;
+      v63 = 0u;
+      v64 = 0u;
       v22 = recordIDsCopy;
-      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v23, &v64, v69, 16);
+      v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v23, &v63, v68, 16);
       if (v24)
       {
         v27 = v24;
-        v28 = *v65;
+        v28 = *v64;
 LABEL_8:
         v29 = 0;
         while (1)
         {
-          if (*v65 != v28)
+          if (*v64 != v28)
           {
             objc_enumerationMutation(v22);
           }
 
-          v30 = objc_msgSend_zoneID(*(*(&v64 + 1) + 8 * v29), v25, v26, v58, v59);
+          v30 = objc_msgSend_zoneID(*(*(&v63 + 1) + 8 * v29), v25, v26, v57, v58);
           v32 = objc_msgSend_containsObject_(dsCopy, v31, v30);
 
           if (!v32)
@@ -169,7 +169,7 @@ LABEL_8:
 
           if (v27 == ++v29)
           {
-            v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v25, &v64, v69, 16);
+            v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v25, &v63, v68, 16);
             if (v27)
             {
               goto LABEL_8;
@@ -180,12 +180,12 @@ LABEL_8:
         }
       }
 
-      v21 = v58;
-      iDsCopy = v59;
+      v21 = v57;
+      iDsCopy = v58;
     }
   }
 
-  if (objc_msgSend_count(zoneIDsCopy, v19, v20, v58, v59))
+  if (objc_msgSend_count(zoneIDsCopy, v19, v20, v57, v58))
   {
     if (withZoneIDsCopy)
     {
@@ -219,28 +219,28 @@ LABEL_23:
       goto LABEL_44;
     }
 
-    v58 = v21;
-    v59 = iDsCopy;
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
+    v57 = v21;
+    v58 = iDsCopy;
     v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     v22 = recordIDsCopy;
-    v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v46, &v60, v68, 16);
+    v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v46, &v59, v67, 16);
     if (v47)
     {
       v50 = v47;
-      v51 = *v61;
+      v51 = *v60;
 LABEL_31:
       v52 = 0;
       while (1)
       {
-        if (*v61 != v51)
+        if (*v60 != v51)
         {
           objc_enumerationMutation(v22);
         }
 
-        v53 = objc_msgSend_zoneID(*(*(&v60 + 1) + 8 * v52), v48, v49, v58, v59, v60);
+        v53 = objc_msgSend_zoneID(*(*(&v59 + 1) + 8 * v52), v48, v49, v57, v58, v59);
         v55 = objc_msgSend_containsObject_(zoneIDsCopy, v54, v53);
 
         if (v55)
@@ -250,7 +250,7 @@ LABEL_31:
 
         if (v50 == ++v52)
         {
-          v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v48, &v60, v68, 16);
+          v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v48, &v59, v67, 16);
           if (v50)
           {
             goto LABEL_31;
@@ -263,15 +263,15 @@ LABEL_31:
 LABEL_42:
 
       v36 = 0;
-      v21 = v58;
-      iDsCopy = v59;
+      v21 = v57;
+      iDsCopy = v58;
       goto LABEL_45;
     }
 
 LABEL_37:
 
-    v21 = v58;
-    iDsCopy = v59;
+    v21 = v57;
+    iDsCopy = v58;
   }
 
   if (iDsCopy && (!recordIDsCopy || !objc_msgSend_isSubsetOfSet_(recordIDsCopy, v33, iDsCopy)))
@@ -283,7 +283,6 @@ LABEL_41:
   v36 = 1;
 LABEL_45:
 
-  v56 = *MEMORY[0x1E69E9840];
   return v36;
 }
 

@@ -39,15 +39,15 @@ void sub_100027F08(uint64_t a1, void *a2)
     v16 = sel_getName(*(a1 + 56));
     v17 = [*(a1 + 40) NF_clientName];
     *buf = 67110146;
-    v40 = v14;
-    v41 = 2082;
-    v42 = v15;
-    v43 = 2082;
-    v44 = v16;
-    v45 = 1024;
-    v46 = 1792;
-    v47 = 2114;
-    v48 = v17;
+    v39 = v14;
+    v40 = 2082;
+    v41 = v15;
+    v42 = 2082;
+    v43 = v16;
+    v44 = 1024;
+    v45 = 1792;
+    v46 = 2114;
+    v47 = v17;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Processing %{public}@", buf, 0x2Cu);
   }
 
@@ -64,7 +64,6 @@ void sub_100027F08(uint64_t a1, void *a2)
     {
       v20 = v18;
       objc_sync_enter(v20);
-      v21 = v20[12];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -77,40 +76,40 @@ LABEL_25:
 
       else
       {
-        v35 = 0u;
-        v36 = 0u;
-        v33 = 0u;
         v34 = 0u;
-        v22 = sub_100033310();
-        v23 = sub_100038884(v22);
+        v35 = 0u;
+        v32 = 0u;
+        v33 = 0u;
+        v21 = sub_100033310();
+        v22 = sub_100038884(v21);
 
-        v24 = [v23 countByEnumeratingWithState:&v33 objects:buf count:16];
-        if (v24)
+        v23 = [v22 countByEnumeratingWithState:&v32 objects:buf count:16];
+        if (v23)
         {
-          v25 = v24;
-          v26 = *v34;
+          v24 = v23;
+          v25 = *v33;
           while (2)
           {
-            for (i = 0; i != v25; i = i + 1)
+            for (i = 0; i != v24; i = i + 1)
             {
-              if (*v34 != v26)
+              if (*v33 != v25)
               {
-                objc_enumerationMutation(v23);
+                objc_enumerationMutation(v22);
               }
 
-              v28 = *(*(&v33 + 1) + 8 * i);
+              v27 = *(*(&v32 + 1) + 8 * i);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                [v28 setStep:4];
-                [v28 save];
+                [v27 setStep:4];
+                [v27 save];
 
                 goto LABEL_25;
               }
             }
 
-            v25 = [v23 countByEnumeratingWithState:&v33 objects:buf count:16];
-            if (v25)
+            v24 = [v22 countByEnumeratingWithState:&v32 objects:buf count:16];
+            if (v24)
             {
               continue;
             }
@@ -120,13 +119,13 @@ LABEL_25:
         }
 
         objc_sync_exit(v20);
-        v29 = [NSError alloc];
-        v30 = [NSString stringWithUTF8String:"seld"];
-        v37 = NSLocalizedDescriptionKey;
-        v38 = @"No pending ReaderSession";
-        v31 = [NSDictionary dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-        v32 = [v29 initWithDomain:v30 code:12 userInfo:v31];
-        (v19)[2](v19, v32);
+        v28 = [NSError alloc];
+        v29 = [NSString stringWithUTF8String:"seld"];
+        v36 = NSLocalizedDescriptionKey;
+        v37 = @"No pending ReaderSession";
+        v30 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+        v31 = [v28 initWithDomain:v29 code:12 userInfo:v30];
+        (v19)[2](v19, v31);
       }
     }
   }
@@ -987,13 +986,13 @@ void sub_10002BE98(uint64_t a1)
             }
 
             *buf = 67109890;
-            v172 = v17;
-            v173 = 2082;
-            v174 = object_getClassName(v1);
-            v175 = 2082;
-            v176 = sel_getName("_startNextSession");
-            v177 = 1024;
-            v178 = 2360;
+            v171 = v17;
+            v172 = 2082;
+            v173 = object_getClassName(v1);
+            v174 = 2082;
+            v175 = sel_getName("_startNextSession");
+            v176 = 1024;
+            v177 = 2360;
             _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Network is not available.  A session will not be started.", buf, 0x22u);
           }
 
@@ -1018,14 +1017,14 @@ void sub_10002BE98(uint64_t a1)
           v20 = object_getClass(v1);
           v21 = class_isMetaClass(v20);
           v22 = object_getClassName(v1);
-          v156 = sel_getName("_startNextSession");
+          v155 = sel_getName("_startNextSession");
           v23 = 45;
           if (v21)
           {
             v23 = 43;
           }
 
-          v19(6, "%c[%{public}s %{public}s]:%i Perform OS update system check", v23, v22, v156, 2376);
+          v19(6, "%c[%{public}s %{public}s]:%i Perform OS update system check", v23, v22, v155, 2376);
         }
 
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -1044,13 +1043,13 @@ void sub_10002BE98(uint64_t a1)
           }
 
           *buf = 67109890;
-          v172 = v26;
-          v173 = 2082;
-          v174 = object_getClassName(v1);
-          v175 = 2082;
-          v176 = sel_getName("_startNextSession");
-          v177 = 1024;
-          v178 = 2376;
+          v171 = v26;
+          v172 = 2082;
+          v173 = object_getClassName(v1);
+          v174 = 2082;
+          v175 = sel_getName("_startNextSession");
+          v176 = 1024;
+          v177 = 2376;
           _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Perform OS update system check", buf, 0x22u);
         }
 
@@ -1067,75 +1066,61 @@ void sub_10002BE98(uint64_t a1)
 LABEL_125:
 
 LABEL_126:
-          v110 = *(v6 + 2736);
           if (v4)
           {
             if (*(v6 + 2736))
             {
               dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-              v111 = NFLogGetLogger();
-              if (v111)
+              v110 = NFLogGetLogger();
+              if (v110)
               {
-                v112 = v111;
-                v113 = object_getClass(v1);
-                v114 = class_isMetaClass(v113);
-                v154 = object_getClassName(v1);
-                v163 = sel_getName("_startNextSession");
-                v115 = 45;
-                if (v114)
+                v111 = v110;
+                v112 = object_getClass(v1);
+                v113 = class_isMetaClass(v112);
+                v153 = object_getClassName(v1);
+                v162 = sel_getName("_startNextSession");
+                v114 = 45;
+                if (v113)
                 {
-                  v115 = 43;
+                  v114 = 43;
                 }
 
-                v112(6, "%c[%{public}s %{public}s]:%i [TSM] NextState=%@", v115, v154, v163, 2432, v4);
+                v111(6, "%c[%{public}s %{public}s]:%i [TSM] NextState=%@", v114, v153, v162, 2432, v4);
               }
 
               dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-              v116 = NFSharedLogGetLogger();
-              if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
+              v115 = NFSharedLogGetLogger();
+              if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
               {
-                v117 = object_getClass(v1);
-                if (class_isMetaClass(v117))
+                v116 = object_getClass(v1);
+                if (class_isMetaClass(v116))
                 {
-                  v118 = 43;
+                  v117 = 43;
                 }
 
                 else
                 {
-                  v118 = 45;
+                  v117 = 45;
                 }
 
-                v119 = object_getClassName(v1);
-                v120 = sel_getName("_startNextSession");
+                v118 = object_getClassName(v1);
+                v119 = sel_getName("_startNextSession");
                 *buf = 67110146;
-                v172 = v118;
-                v173 = 2082;
-                v174 = v119;
-                v175 = 2082;
-                v176 = v120;
-                v177 = 1024;
-                v178 = 2432;
-                v179 = 2112;
-                v180 = *&v4;
-                _os_log_impl(&_mh_execute_header, v116, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] NextState=%@", buf, 0x2Cu);
+                v171 = v117;
+                v172 = 2082;
+                v173 = v118;
+                v174 = 2082;
+                v175 = v119;
+                v176 = 1024;
+                v177 = 2432;
+                v178 = 2112;
+                v179 = *&v4;
+                _os_log_impl(&_mh_execute_header, v115, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] NextState=%@", buf, 0x2Cu);
               }
             }
 
-            if ([v4 pendingImmediateRetry])
+            if (([v4 pendingImmediateRetry] & 1) != 0 || ((objc_msgSend(v4, "retryInterval"), v120 = objc_claimAutoreleasedReturnValue(), (v121 = v120) == 0) ? (v122 = 0) : (v122 = *(v120 + 16)), v123 = v122, objc_msgSend(v123, "timeIntervalSinceNow"), v125 = v124, v123, v121, v125 <= 0.0))
             {
-              goto LABEL_152;
-            }
-
-            v121 = [v4 retryInterval];
-            v122 = v121;
-            v123 = v121 ? *(v121 + 16) : 0;
-            v124 = v123;
-            [v124 timeIntervalSinceNow];
-            v126 = v125;
-
-            if (v126 <= 0.0)
-            {
-LABEL_152:
               [v4 refreshRetryInterval];
               sub_10001AB8C(v1, "com.apple.seld.processing", 120.0);
               v15 = sub_10001E43C(v1, v4, v7, 0, 0);
@@ -1152,13 +1137,13 @@ LABEL_152:
                 {
                   sub_100018DA4(v1, "com.apple.seld.osupdate");
                   *(v5 + 2680) = 0;
-                  v138 = 86400.0;
+                  v137 = 86400.0;
                   if (v8 != 0.0)
                   {
-                    v138 = v8;
+                    v137 = v8;
                   }
 
-                  sub_10001AB8C(v1, "com.apple.seld.osupdate", v138);
+                  sub_10001AB8C(v1, "com.apple.seld.osupdate", v137);
                   *(v5 + 2680) = 1;
                 }
 
@@ -1182,51 +1167,51 @@ LABEL_179:
             }
 
             dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-            v127 = NFLogGetLogger();
-            if (v127)
+            v126 = NFLogGetLogger();
+            if (v126)
             {
-              v128 = v127;
-              v129 = object_getClass(v1);
-              v130 = class_isMetaClass(v129);
-              v131 = object_getClassName(v1);
-              v164 = sel_getName("_startNextSession");
-              v132 = 45;
-              if (v130)
+              v127 = v126;
+              v128 = object_getClass(v1);
+              v129 = class_isMetaClass(v128);
+              v130 = object_getClassName(v1);
+              v163 = sel_getName("_startNextSession");
+              v131 = 45;
+              if (v129)
               {
-                v132 = 43;
+                v131 = 43;
               }
 
-              v128(6, "%c[%{public}s %{public}s]:%i Handling internal retry delay of %f seconds", v132, v131, v164, 2439, *&v126);
+              v127(6, "%c[%{public}s %{public}s]:%i Handling internal retry delay of %f seconds", v131, v130, v163, 2439, *&v125);
             }
 
             dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-            v133 = NFSharedLogGetLogger();
-            if (os_log_type_enabled(v133, OS_LOG_TYPE_DEFAULT))
+            v132 = NFSharedLogGetLogger();
+            if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
             {
-              v134 = object_getClass(v1);
-              if (class_isMetaClass(v134))
+              v133 = object_getClass(v1);
+              if (class_isMetaClass(v133))
               {
-                v135 = 43;
+                v134 = 43;
               }
 
               else
               {
-                v135 = 45;
+                v134 = 45;
               }
 
-              v136 = object_getClassName(v1);
-              v137 = sel_getName("_startNextSession");
+              v135 = object_getClassName(v1);
+              v136 = sel_getName("_startNextSession");
               *buf = 67110146;
-              v172 = v135;
-              v173 = 2082;
-              v174 = v136;
-              v175 = 2082;
-              v176 = v137;
-              v177 = 1024;
-              v178 = 2439;
-              v179 = 2048;
-              v180 = v126;
-              _os_log_impl(&_mh_execute_header, v133, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Handling internal retry delay of %f seconds", buf, 0x2Cu);
+              v171 = v134;
+              v172 = 2082;
+              v173 = v135;
+              v174 = 2082;
+              v175 = v136;
+              v176 = 1024;
+              v177 = 2439;
+              v178 = 2048;
+              v179 = v125;
+              _os_log_impl(&_mh_execute_header, v132, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Handling internal retry delay of %f seconds", buf, 0x2Cu);
             }
 
             sub_10001B070(v1, v4);
@@ -1235,49 +1220,49 @@ LABEL_179:
           else if (*(v6 + 2736))
           {
             dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-            v139 = NFLogGetLogger();
-            if (v139)
+            v138 = NFLogGetLogger();
+            if (v138)
             {
-              v140 = v139;
-              v141 = object_getClass(v1);
-              v142 = class_isMetaClass(v141);
-              v143 = object_getClassName(v1);
-              v165 = sel_getName("_startNextSession");
-              v144 = 45;
-              if (v142)
+              v139 = v138;
+              v140 = object_getClass(v1);
+              v141 = class_isMetaClass(v140);
+              v142 = object_getClassName(v1);
+              v164 = sel_getName("_startNextSession");
+              v143 = 45;
+              if (v141)
               {
-                v144 = 43;
+                v143 = 43;
               }
 
-              v140(6, "%c[%{public}s %{public}s]:%i [TSM] No remaining sessions.", v144, v143, v165, 2428);
+              v139(6, "%c[%{public}s %{public}s]:%i [TSM] No remaining sessions.", v143, v142, v164, 2428);
             }
 
             dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-            v145 = NFSharedLogGetLogger();
-            if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
+            v144 = NFSharedLogGetLogger();
+            if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
             {
-              v146 = object_getClass(v1);
-              if (class_isMetaClass(v146))
+              v145 = object_getClass(v1);
+              if (class_isMetaClass(v145))
               {
-                v147 = 43;
+                v146 = 43;
               }
 
               else
               {
-                v147 = 45;
+                v146 = 45;
               }
 
-              v148 = object_getClassName(v1);
-              v149 = sel_getName("_startNextSession");
+              v147 = object_getClassName(v1);
+              v148 = sel_getName("_startNextSession");
               *buf = 67109890;
-              v172 = v147;
-              v173 = 2082;
-              v174 = v148;
-              v175 = 2082;
-              v176 = v149;
-              v177 = 1024;
-              v178 = 2428;
-              _os_log_impl(&_mh_execute_header, v145, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] No remaining sessions.", buf, 0x22u);
+              v171 = v146;
+              v172 = 2082;
+              v173 = v147;
+              v174 = 2082;
+              v175 = v148;
+              v176 = 1024;
+              v177 = 2428;
+              _os_log_impl(&_mh_execute_header, v144, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] No remaining sessions.", buf, 0x22u);
             }
           }
 
@@ -1290,11 +1275,11 @@ LABEL_179:
 
         if (v31)
         {
-          v170 = 0;
-          v32 = [NFSecureElement embeddedSecureElementWithError:&v170];
-          v33 = v170;
+          v169 = 0;
+          v32 = [NFSecureElement embeddedSecureElementWithError:&v169];
+          v33 = v169;
 
-          v168 = v33;
+          v167 = v33;
           if (v32)
           {
             v34 = 1;
@@ -1308,15 +1293,15 @@ LABEL_179:
             v36 = v35;
             v37 = object_getClass(v1);
             v38 = class_isMetaClass(v37);
-            v150 = object_getClassName(v1);
-            v157 = sel_getName("_startNextSession");
+            v149 = object_getClassName(v1);
+            v156 = sel_getName("_startNextSession");
             v39 = 45;
             if (v38)
             {
               v39 = 43;
             }
 
-            v36(4, "%c[%{public}s %{public}s]:%i SE not present but JCOP update info available - %{public}@", v39, v150, v157, 2384, v33);
+            v36(4, "%c[%{public}s %{public}s]:%i SE not present but JCOP update info available - %{public}@", v39, v149, v156, 2384, v33);
           }
 
           dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -1337,22 +1322,22 @@ LABEL_179:
             v43 = object_getClassName(v1);
             v44 = sel_getName("_startNextSession");
             *buf = 67110146;
-            v172 = v42;
-            v173 = 2082;
-            v174 = v43;
-            v175 = 2082;
-            v176 = v44;
-            v177 = 1024;
-            v178 = 2384;
-            v179 = 2114;
-            v180 = *&v33;
+            v171 = v42;
+            v172 = 2082;
+            v173 = v43;
+            v174 = 2082;
+            v175 = v44;
+            v176 = 1024;
+            v177 = 2384;
+            v178 = 2114;
+            v179 = *&v33;
             _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i SE not present but JCOP update info available - %{public}@", buf, 0x2Cu);
           }
         }
 
         else
         {
-          v168 = 0;
+          v167 = 0;
         }
 
         v34 = 0;
@@ -1361,7 +1346,7 @@ LABEL_44:
         v46 = sub_10003701C(v45);
 
         v47 = *(v1 + 9);
-        v169 = *(v1 + 10);
+        v168 = *(v1 + 10);
         v48 = [NFSecureElement embeddedSecureElementWithError:0];
         v49 = [v48 info];
 
@@ -1378,7 +1363,7 @@ LABEL_44:
           }
 
           v6 = &selRef_didChangeRadioState_;
-          if (v50 & 1) != 0 || (v47 & 1) != 0 || (v169)
+          if (v50 & 1) != 0 || (v47 & 1) != 0 || (v168)
           {
 LABEL_72:
             if (v34 && *(v6 + 2736) == 1)
@@ -1391,7 +1376,7 @@ LABEL_72:
                 v66 = object_getClass(v1);
                 v67 = class_isMetaClass(v66);
                 v68 = object_getClassName(v1);
-                v159 = sel_getName("_startNextSession");
+                v158 = sel_getName("_startNextSession");
                 v57 = !v67;
                 v6 = &selRef_didChangeRadioState_;
                 v69 = 45;
@@ -1400,7 +1385,7 @@ LABEL_72:
                   v69 = 43;
                 }
 
-                v65(6, "%c[%{public}s %{public}s]:%i [TSM] Reporting SE version change to TSM", v69, v68, v159, 2405);
+                v65(6, "%c[%{public}s %{public}s]:%i [TSM] Reporting SE version change to TSM", v69, v68, v158, 2405);
               }
 
               dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -1421,14 +1406,14 @@ LABEL_72:
                 v73 = object_getClassName(v1);
                 v74 = sel_getName("_startNextSession");
                 *buf = 67109890;
-                v172 = v72;
-                v173 = 2082;
-                v174 = v73;
+                v171 = v72;
+                v172 = 2082;
+                v173 = v73;
                 v6 = &selRef_didChangeRadioState_;
-                v175 = 2082;
-                v176 = v74;
-                v177 = 1024;
-                v178 = 2405;
+                v174 = 2082;
+                v175 = v74;
+                v176 = 1024;
+                v177 = 2405;
                 _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] Reporting SE version change to TSM", buf, 0x22u);
               }
             }
@@ -1447,16 +1432,16 @@ LABEL_72:
                   v77 = object_getClass(v1);
                   v78 = class_isMetaClass(v77);
                   v79 = object_getClassName(v1);
-                  v160 = sel_getName("_startNextSession");
+                  v159 = sel_getName("_startNextSession");
                   v80 = 45;
                   if (v78)
                   {
                     v80 = 43;
                   }
 
-                  v151 = v79;
+                  v150 = v79;
                   v6 = &selRef_didChangeRadioState_;
-                  v76(6, "%c[%{public}s %{public}s]:%i [TSM] Reporting APN token change to TSM", v80, v151, v160, 2408);
+                  v76(6, "%c[%{public}s %{public}s]:%i [TSM] Reporting APN token change to TSM", v80, v150, v159, 2408);
                 }
 
                 dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -1477,14 +1462,14 @@ LABEL_72:
                   v84 = object_getClassName(v1);
                   v85 = sel_getName("_startNextSession");
                   *buf = 67109890;
-                  v172 = v83;
+                  v171 = v83;
                   v6 = &selRef_didChangeRadioState_;
-                  v173 = 2082;
-                  v174 = v84;
-                  v175 = 2082;
-                  v176 = v85;
-                  v177 = 1024;
-                  v178 = 2408;
+                  v172 = 2082;
+                  v173 = v84;
+                  v174 = 2082;
+                  v175 = v85;
+                  v176 = 1024;
+                  v177 = 2408;
                   _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] Reporting APN token change to TSM", buf, 0x22u);
                 }
               }
@@ -1508,16 +1493,16 @@ LABEL_72:
                   v88 = object_getClass(v1);
                   v89 = class_isMetaClass(v88);
                   v90 = object_getClassName(v1);
-                  v161 = sel_getName("_startNextSession");
+                  v160 = sel_getName("_startNextSession");
                   v91 = 45;
                   if (v89)
                   {
                     v91 = 43;
                   }
 
-                  v152 = v90;
+                  v151 = v90;
                   v6 = &selRef_didChangeRadioState_;
-                  v87(6, "%c[%{public}s %{public}s]:%i [TSM] Reporting restricted mode to TSM", v91, v152, v161, 2412);
+                  v87(6, "%c[%{public}s %{public}s]:%i [TSM] Reporting restricted mode to TSM", v91, v151, v160, 2412);
                 }
 
                 dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -1538,13 +1523,13 @@ LABEL_72:
                   v95 = object_getClassName(v1);
                   v96 = sel_getName("_startNextSession");
                   *buf = 67109890;
-                  v172 = v94;
-                  v173 = 2082;
-                  v174 = v95;
-                  v175 = 2082;
-                  v176 = v96;
-                  v177 = 1024;
-                  v178 = 2412;
+                  v171 = v94;
+                  v172 = 2082;
+                  v173 = v95;
+                  v174 = 2082;
+                  v175 = v96;
+                  v176 = 1024;
+                  v177 = 2412;
                   _os_log_impl(&_mh_execute_header, v92, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] Reporting restricted mode to TSM", buf, 0x22u);
                 }
               }
@@ -1552,7 +1537,7 @@ LABEL_72:
               *(v1 + 9) = 0;
             }
 
-            if (v169)
+            if (v168)
             {
               if (*(v6 + 2736) == 1)
               {
@@ -1564,16 +1549,16 @@ LABEL_72:
                   v99 = object_getClass(v1);
                   v100 = class_isMetaClass(v99);
                   v101 = object_getClassName(v1);
-                  v162 = sel_getName("_startNextSession");
+                  v161 = sel_getName("_startNextSession");
                   v102 = 45;
                   if (v100)
                   {
                     v102 = 43;
                   }
 
-                  v153 = v101;
+                  v152 = v101;
                   v6 = &selRef_didChangeRadioState_;
-                  v98(6, "%c[%{public}s %{public}s]:%i [TSM] Reporting performance mode to TSM", v102, v153, v162, 2416);
+                  v98(6, "%c[%{public}s %{public}s]:%i [TSM] Reporting performance mode to TSM", v102, v152, v161, 2416);
                 }
 
                 dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -1594,13 +1579,13 @@ LABEL_72:
                   v106 = object_getClassName(v1);
                   v107 = sel_getName("_startNextSession");
                   *buf = 67109890;
-                  v172 = v105;
-                  v173 = 2082;
-                  v174 = v106;
-                  v175 = 2082;
-                  v176 = v107;
-                  v177 = 1024;
-                  v178 = 2416;
+                  v171 = v105;
+                  v172 = 2082;
+                  v173 = v106;
+                  v174 = 2082;
+                  v175 = v107;
+                  v176 = 1024;
+                  v177 = 2416;
                   _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] Reporting performance mode to TSM", buf, 0x22u);
                 }
               }
@@ -1632,7 +1617,7 @@ LABEL_72:
           }
 
           v6 = &selRef_didChangeRadioState_;
-          if (v52 & 1) != 0 || (v47 & 1) != 0 || v51 || (v169)
+          if (v52 & 1) != 0 || (v47 & 1) != 0 || v51 || (v168)
           {
             if (v51 && byte_10005BAB0 == 1)
             {
@@ -1643,8 +1628,8 @@ LABEL_72:
                 v54 = v53;
                 v55 = object_getClass(v1);
                 v56 = class_isMetaClass(v55);
-                v166 = object_getClassName(v1);
-                v158 = sel_getName("_startNextSession");
+                v165 = object_getClassName(v1);
+                v157 = sel_getName("_startNextSession");
                 v57 = !v56;
                 v6 = &selRef_didChangeRadioState_;
                 v58 = 45;
@@ -1653,7 +1638,7 @@ LABEL_72:
                   v58 = 43;
                 }
 
-                v54(6, "%c[%{public}s %{public}s]:%i [TSM] Reaching out to TSM when eSE migation state is not IDLE", v58, v166, v158, 2402);
+                v54(6, "%c[%{public}s %{public}s]:%i [TSM] Reaching out to TSM when eSE migation state is not IDLE", v58, v165, v157, 2402);
               }
 
               dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -1671,18 +1656,18 @@ LABEL_72:
                   v61 = 45;
                 }
 
-                v167 = v61;
+                v166 = v61;
                 v62 = object_getClassName(v1);
                 v63 = sel_getName("_startNextSession");
                 *buf = 67109890;
-                v172 = v167;
-                v173 = 2082;
-                v174 = v62;
+                v171 = v166;
+                v172 = 2082;
+                v173 = v62;
                 v6 = &selRef_didChangeRadioState_;
-                v175 = 2082;
-                v176 = v63;
-                v177 = 1024;
-                v178 = 2402;
+                v174 = 2082;
+                v175 = v63;
+                v176 = 1024;
+                v177 = 2402;
                 _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i [TSM] Reaching out to TSM when eSE migation state is not IDLE", buf, 0x22u);
               }
             }
@@ -3824,11 +3809,11 @@ id sub_100037BB8(void *a1)
   return v2;
 }
 
-id sub_100037C1C(id *a1, void *a2, void *a3)
+NSMutableDictionary *sub_100037C1C(id *a1, void *a2, void *a3)
 {
   v5 = a2;
-  v121 = a3;
-  v126 = a1;
+  v119 = a3;
+  v124 = a1;
   if (a1)
   {
     v6 = &GetElapsedTimeInMillisecondsFromMachTime_ptr;
@@ -3845,436 +3830,433 @@ id sub_100037C1C(id *a1, void *a2, void *a3)
 
     v9 = [v8 unsentScriptResponse];
 
-    v10 = &GetElapsedTimeInMillisecondsFromMachTime_ptr;
     if (v9)
     {
-      v11 = [v8 unsentScriptResponse];
-      [v7 addEntriesFromDictionary:v11];
+      v10 = [v8 unsentScriptResponse];
+      [v7 addEntriesFromDictionary:v10];
     }
 
-    else if (v121)
+    else if (v119)
     {
-      obj = [v121 stateInformation];
+      obj = [v119 stateInformation];
       if (![obj count])
       {
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
         Logger = NFLogGetLogger();
         if (Logger)
         {
-          v46 = Logger;
-          Class = object_getClass(v126);
-          v48 = v8;
+          v44 = Logger;
+          Class = object_getClass(v124);
+          v46 = v8;
           isMetaClass = class_isMetaClass(Class);
-          ClassName = object_getClassName(v126);
+          ClassName = object_getClassName(v124);
           Name = sel_getName("nextRequestForServer:session:");
-          v51 = !isMetaClass;
-          v8 = v48;
-          v52 = 45;
-          if (!v51)
+          v49 = !isMetaClass;
+          v8 = v46;
+          v50 = 45;
+          if (!v49)
           {
-            v52 = 43;
+            v50 = 43;
           }
 
-          v46(3, "%c[%{public}s %{public}s]:%i Failed to get state info", v52, ClassName, Name, 582);
+          v44(3, "%c[%{public}s %{public}s]:%i Failed to get state info", v50, ClassName, Name, 582);
         }
 
         dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-        v53 = NFSharedLogGetLogger();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+        v51 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
         {
-          v54 = object_getClass(v126);
-          if (class_isMetaClass(v54))
+          v52 = object_getClass(v124);
+          if (class_isMetaClass(v52))
           {
-            v55 = 43;
+            v53 = 43;
           }
 
           else
           {
-            v55 = 45;
+            v53 = 45;
           }
 
           *buf = 67109890;
-          *&buf[4] = v55;
-          *v140 = 2082;
-          *&v140[2] = object_getClassName(v126);
-          v141 = 2082;
-          v142 = sel_getName("nextRequestForServer:session:");
-          v143 = 1024;
-          v144 = 582;
-          _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to get state info", buf, 0x22u);
+          *&buf[4] = v53;
+          *v138 = 2082;
+          *&v138[2] = object_getClassName(v124);
+          v139 = 2082;
+          v140 = sel_getName("nextRequestForServer:session:");
+          v141 = 1024;
+          v142 = 582;
+          _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to get state info", buf, 0x22u);
         }
 
-        v38 = 0;
+        v36 = 0;
 LABEL_34:
 
         goto LABEL_35;
       }
 
-      v118 = v8;
-      v40 = [NFSecureElement embeddedSecureElementWithError:0];
-      v41 = [v40 info];
+      v116 = v8;
+      v38 = [NFSecureElement embeddedSecureElementWithError:0];
+      v39 = [v38 info];
 
-      v115 = v7;
-      v116 = v5;
-      if (v41 && ([v41 sequenceCounter], v42 = objc_claimAutoreleasedReturnValue(), v43 = objc_msgSend(v42, "unsignedIntegerValue"), v44 = v126[6], v42, v43 != v44))
+      v113 = v7;
+      v114 = v5;
+      if (v39 && ([v39 sequenceCounter], v40 = objc_claimAutoreleasedReturnValue(), v41 = objc_msgSend(v40, "unsignedIntegerValue"), v42 = v124[6], v40, v41 != v42))
       {
-        v148[0] = @"osUpdateInfo";
-        v56 = [NSString alloc];
-        v57 = [v41 sequenceCounter];
-        v58 = [v56 initWithFormat:@"%04X", objc_msgSend(v57, "unsignedIntValue")];
-        *buf = v58;
-        v148[1] = @"seAppletStateMap";
-        v59 = [NSString alloc];
-        v107 = [v41 appletMap];
-        v60 = v59;
+        v146[0] = @"osUpdateInfo";
+        v54 = [NSString alloc];
+        v55 = [v39 sequenceCounter];
+        v56 = [v54 initWithFormat:@"%04X", objc_msgSend(v55, "unsignedIntValue")];
+        *buf = v56;
+        v146[1] = @"seAppletStateMap";
+        v57 = [NSString alloc];
+        v105 = [v39 appletMap];
+        v58 = v57;
         v6 = &GetElapsedTimeInMillisecondsFromMachTime_ptr;
-        v61 = [v60 initWithFormat:@"%04X", v107];
-        *v140 = v61;
-        v123 = [NSDictionary dictionaryWithObjects:buf forKeys:v148 count:2];
+        v59 = [v58 initWithFormat:@"%04X", v105];
+        *v138 = v59;
+        v121 = [NSDictionary dictionaryWithObjects:buf forKeys:v146 count:2];
       }
 
       else
       {
-        v123 = 0;
+        v121 = 0;
       }
 
-      v62 = [NSNumber numberWithInteger:2];
-      v113 = [NSMutableDictionary dictionaryWithObject:v62 forKey:@"kVersion"];
+      v60 = [NSNumber numberWithInteger:2];
+      v111 = [NSMutableDictionary dictionaryWithObject:v60 forKey:@"kVersion"];
 
-      v120 = objc_opt_new();
+      v118 = objc_opt_new();
+      v130 = 0u;
+      v131 = 0u;
       v132 = 0u;
       v133 = 0u;
-      v134 = 0u;
-      v135 = 0u;
       obja = obj;
-      v63 = [obja countByEnumeratingWithState:&v132 objects:v147 count:16];
-      v64 = v126;
-      if (v63)
+      v61 = [obja countByEnumeratingWithState:&v130 objects:v145 count:16];
+      v62 = v124;
+      if (v61)
       {
-        v65 = v63;
-        v66 = @"secureElementType";
-        v67 = *v133;
-        v119 = *v133;
+        v63 = v61;
+        v64 = @"secureElementType";
+        v65 = *v131;
+        v117 = *v131;
         do
         {
-          v68 = 0;
-          v122 = v65;
+          v66 = 0;
+          v120 = v63;
           do
           {
-            if (*v133 != v67)
+            if (*v131 != v65)
             {
               objc_enumerationMutation(obja);
             }
 
-            v69 = *(*(&v132 + 1) + 8 * v68);
-            v70 = [v69 NF_stringForKey:v66];
-            if ([v70 isEqualToString:@"JCOP"])
+            v67 = *(*(&v130 + 1) + 8 * v66);
+            v68 = [v67 NF_stringForKey:v64];
+            if ([v68 isEqualToString:@"JCOP"])
             {
-              v71 = [objc_alloc(v6[198]) initWithDictionary:v69];
-              v72 = v71;
-              if (v123)
+              v69 = [objc_alloc(v6[198]) initWithDictionary:v67];
+              v70 = v69;
+              if (v121)
               {
-                [v71 addEntriesFromDictionary:v123];
-                v73 = [v72 NF_stringForKey:@"osUpdateInfo"];
-                v74 = v73;
-                if (v73)
+                [v69 addEntriesFromDictionary:v121];
+                v71 = [v70 NF_stringForKey:@"osUpdateInfo"];
+                v72 = v71;
+                if (v71)
                 {
-                  v75 = [v73 uppercaseString];
-                  [v72 setObject:v75 forKeyedSubscript:@"osUpdateInfo"];
+                  v73 = [v71 uppercaseString];
+                  [v70 setObject:v73 forKeyedSubscript:@"osUpdateInfo"];
                 }
               }
 
-              v76 = v66;
+              v74 = v64;
               dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-              v77 = NFLogGetLogger();
-              if (v77)
+              v75 = NFLogGetLogger();
+              if (v75)
               {
-                v78 = v77;
-                v79 = object_getClass(v64);
-                v80 = class_isMetaClass(v79);
-                v81 = object_getClassName(v64);
-                v110 = sel_getName("nextRequestForServer:session:");
-                v82 = 45;
-                if (v80)
+                v76 = v75;
+                v77 = object_getClass(v62);
+                v78 = class_isMetaClass(v77);
+                v79 = object_getClassName(v62);
+                v108 = sel_getName("nextRequestForServer:session:");
+                v80 = 45;
+                if (v78)
                 {
-                  v82 = 43;
+                  v80 = 43;
                 }
 
-                v78(6, "%c[%{public}s %{public}s]:%i Calling into SES to get PT key information", v82, v81, v110, 611);
+                v76(6, "%c[%{public}s %{public}s]:%i Calling into SES to get PT key information", v80, v79, v108, 611);
               }
 
               dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-              v83 = NFSharedLogGetLogger();
-              if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+              v81 = NFSharedLogGetLogger();
+              if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
               {
-                v84 = object_getClass(v64);
-                if (class_isMetaClass(v84))
+                v82 = object_getClass(v62);
+                if (class_isMetaClass(v82))
                 {
-                  v85 = 43;
+                  v83 = 43;
                 }
 
                 else
                 {
-                  v85 = 45;
+                  v83 = 45;
                 }
 
-                v86 = object_getClassName(v126);
-                v87 = sel_getName("nextRequestForServer:session:");
+                v84 = object_getClassName(v124);
+                v85 = sel_getName("nextRequestForServer:session:");
                 *buf = 67109890;
-                *&buf[4] = v85;
-                v64 = v126;
-                *v140 = 2082;
-                *&v140[2] = v86;
-                v141 = 2082;
-                v142 = v87;
-                v143 = 1024;
-                v144 = 611;
-                _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Calling into SES to get PT key information", buf, 0x22u);
+                *&buf[4] = v83;
+                v62 = v124;
+                *v138 = 2082;
+                *&v138[2] = v84;
+                v139 = 2082;
+                v140 = v85;
+                v141 = 1024;
+                v142 = 611;
+                _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Calling into SES to get PT key information", buf, 0x22u);
               }
 
-              v88 = [v69 objectForKeyedSubscript:@"SEID"];
-              v131 = 0;
-              v89 = SESEndPointTSMDictionary();
-              v90 = 0;
+              v86 = [v67 objectForKeyedSubscript:@"SEID"];
+              v129 = 0;
+              v87 = SESEndPointTSMDictionary();
+              v88 = 0;
 
-              if (v90 || !v89)
+              if (v88 || !v87)
               {
                 dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-                v91 = NFLogGetLogger();
-                if (v91)
+                v89 = NFLogGetLogger();
+                if (v89)
                 {
-                  v92 = v91;
-                  v93 = object_getClass(v64);
-                  v94 = class_isMetaClass(v93);
-                  v108 = object_getClassName(v64);
-                  v111 = sel_getName("nextRequestForServer:session:");
-                  v95 = 45;
-                  if (v94)
+                  v90 = v89;
+                  v91 = object_getClass(v62);
+                  v92 = class_isMetaClass(v91);
+                  v106 = object_getClassName(v62);
+                  v109 = sel_getName("nextRequestForServer:session:");
+                  v93 = 45;
+                  if (v92)
                   {
-                    v95 = 43;
+                    v93 = 43;
                   }
 
                   v6 = &GetElapsedTimeInMillisecondsFromMachTime_ptr;
-                  v92(3, "%c[%{public}s %{public}s]:%i Failed to get PT Key Info from SESD? %{public}@", v95, v108, v111, 615, v90);
+                  v90(3, "%c[%{public}s %{public}s]:%i Failed to get PT Key Info from SESD? %{public}@", v93, v106, v109, 615, v88);
                 }
 
                 dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-                v96 = NFSharedLogGetLogger();
-                if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+                v94 = NFSharedLogGetLogger();
+                if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
                 {
-                  v97 = object_getClass(v64);
-                  if (class_isMetaClass(v97))
+                  v95 = object_getClass(v62);
+                  if (class_isMetaClass(v95))
                   {
-                    v98 = 43;
+                    v96 = 43;
                   }
 
                   else
                   {
-                    v98 = 45;
+                    v96 = 45;
                   }
 
-                  v99 = object_getClassName(v126);
-                  v100 = sel_getName("nextRequestForServer:session:");
+                  v97 = object_getClassName(v124);
+                  v98 = sel_getName("nextRequestForServer:session:");
                   *buf = 67110146;
-                  *&buf[4] = v98;
-                  v64 = v126;
-                  *v140 = 2082;
-                  *&v140[2] = v99;
-                  v141 = 2082;
-                  v142 = v100;
-                  v143 = 1024;
-                  v144 = 615;
-                  v145 = 2114;
-                  v146 = v90;
-                  _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to get PT Key Info from SESD? %{public}@", buf, 0x2Cu);
+                  *&buf[4] = v96;
+                  v62 = v124;
+                  *v138 = 2082;
+                  *&v138[2] = v97;
+                  v139 = 2082;
+                  v140 = v98;
+                  v141 = 1024;
+                  v142 = 615;
+                  v143 = 2114;
+                  v144 = v88;
+                  _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to get PT Key Info from SESD? %{public}@", buf, 0x2Cu);
                 }
 
-                v66 = v76;
+                v64 = v74;
               }
 
               else
               {
-                [v72 addEntriesFromDictionary:v89];
-                v66 = v76;
+                [v70 addEntriesFromDictionary:v87];
+                v64 = v74;
               }
 
-              [v120 addObject:v72];
+              [v118 addObject:v70];
 
-              v65 = v122;
-              v67 = v119;
+              v63 = v120;
+              v65 = v117;
             }
 
-            v68 = v68 + 1;
+            v66 = v66 + 1;
           }
 
-          while (v65 != v68);
-          v65 = [obja countByEnumeratingWithState:&v132 objects:v147 count:16];
+          while (v63 != v66);
+          v63 = [obja countByEnumeratingWithState:&v130 objects:v145 count:16];
         }
 
-        while (v65);
+        while (v63);
       }
 
-      [v113 setObject:v120 forKey:@"SEStateInformation"];
-      v101 = sub_10003701C(v64);
-      v102 = v101;
-      if (v101)
+      [v111 setObject:v118 forKey:@"SEStateInformation"];
+      v99 = sub_10003701C(v62);
+      v100 = v99;
+      if (v99)
       {
-        v103 = [v101 NF_asHexString];
-        [v113 setObject:v103 forKey:@"APNTokenUpdateInfo"];
+        v101 = [v99 NF_asHexString];
+        [v111 setObject:v101 forKey:@"APNTokenUpdateInfo"];
       }
 
-      v104 = [v118 initialClientRequestInfo];
-      v105 = [v104 count];
+      v102 = [v116 initialClientRequestInfo];
+      v103 = [v102 count];
 
-      v8 = v118;
-      v7 = v115;
-      v5 = v116;
-      v10 = &GetElapsedTimeInMillisecondsFromMachTime_ptr;
-      if (v105)
+      v8 = v116;
+      v7 = v113;
+      v5 = v114;
+      if (v103)
       {
-        v106 = [v118 initialClientRequestInfo];
-        [v113 setObject:v106 forKey:@"ClientRequestInfo"];
+        v104 = [v116 initialClientRequestInfo];
+        [v111 setObject:v104 forKey:@"ClientRequestInfo"];
 
-        v8 = v118;
-        [v118 setInitialClientRequestInfo:0];
+        v8 = v116;
+        [v116 setInitialClientRequestInfo:0];
       }
 
-      [v115 addEntriesFromDictionary:v113];
+      [v113 addEntriesFromDictionary:v111];
     }
 
-    v12 = v10[197];
     obj = objc_opt_new();
     if (obj)
     {
-      v117 = v8;
-      v114 = v7;
-      v13 = sub_100037100(v126);
+      v115 = v8;
+      v112 = v7;
+      v11 = sub_100037100(v124);
 
-      if (v13)
+      if (v11)
       {
-        v14 = sub_100037100(v126);
-        [obj addObject:v14];
+        v12 = sub_100037100(v124);
+        [obj addObject:v12];
       }
 
-      v129 = 0u;
-      v130 = 0u;
       v127 = 0u;
       v128 = 0u;
-      v15 = [v126[3] allValues];
-      v16 = [v15 countByEnumeratingWithState:&v127 objects:v138 count:16];
-      if (v16)
+      v125 = 0u;
+      v126 = 0u;
+      v13 = [v124[3] allValues];
+      v14 = [v13 countByEnumeratingWithState:&v125 objects:v136 count:16];
+      if (v14)
       {
-        v17 = v16;
-        v18 = *v128;
+        v15 = v14;
+        v16 = *v126;
         do
         {
-          for (i = 0; i != v17; i = i + 1)
+          for (i = 0; i != v15; i = i + 1)
           {
-            if (*v128 != v18)
+            if (*v126 != v16)
             {
-              objc_enumerationMutation(v15);
+              objc_enumerationMutation(v13);
             }
 
-            v20 = *(*(&v127 + 1) + 8 * i);
+            v18 = *(*(&v125 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
               dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-              v25 = NFLogGetLogger();
-              if (v25)
+              v23 = NFLogGetLogger();
+              if (v23)
               {
-                v26 = v25;
-                v27 = object_getClass(v126);
-                v28 = class_isMetaClass(v27);
-                v29 = object_getClassName(v126);
-                v30 = sel_getName("nextRequestForServer:session:");
-                v112 = objc_opt_class();
-                v31 = 45;
-                if (v28)
+                v24 = v23;
+                v25 = object_getClass(v124);
+                v26 = class_isMetaClass(v25);
+                v27 = object_getClassName(v124);
+                v28 = sel_getName("nextRequestForServer:session:");
+                v110 = objc_opt_class();
+                v29 = 45;
+                if (v26)
+                {
+                  v29 = 43;
+                }
+
+                v24(4, "%c[%{public}s %{public}s]:%i Unexected state object, %{public}@", v29, v27, v28, 647, v110);
+              }
+
+              dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+              v22 = NFSharedLogGetLogger();
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+              {
+                v30 = object_getClass(v124);
+                if (class_isMetaClass(v30))
                 {
                   v31 = 43;
                 }
 
-                v26(4, "%c[%{public}s %{public}s]:%i Unexected state object, %{public}@", v31, v29, v30, 647, v112);
-              }
-
-              dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-              v24 = NFSharedLogGetLogger();
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-              {
-                v32 = object_getClass(v126);
-                if (class_isMetaClass(v32))
-                {
-                  v33 = 43;
-                }
-
                 else
                 {
-                  v33 = 45;
+                  v31 = 45;
                 }
 
-                v34 = object_getClassName(v126);
-                v35 = sel_getName("nextRequestForServer:session:");
-                v36 = objc_opt_class();
+                v32 = object_getClassName(v124);
+                v33 = sel_getName("nextRequestForServer:session:");
+                v34 = objc_opt_class();
                 *buf = 67110146;
-                *&buf[4] = v33;
-                *v140 = 2082;
-                *&v140[2] = v34;
-                v141 = 2082;
-                v142 = v35;
-                v143 = 1024;
-                v144 = 647;
-                v145 = 2114;
-                v146 = v36;
-                _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unexected state object, %{public}@", buf, 0x2Cu);
+                *&buf[4] = v31;
+                *v138 = 2082;
+                *&v138[2] = v32;
+                v139 = 2082;
+                v140 = v33;
+                v141 = 1024;
+                v142 = 647;
+                v143 = 2114;
+                v144 = v34;
+                _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unexected state object, %{public}@", buf, 0x2Cu);
               }
 
               goto LABEL_29;
             }
 
-            v21 = [v20 APNConnectionRequesterFirst];
+            v19 = [v18 APNConnectionRequesterFirst];
+
+            if (v19)
+            {
+              v20 = [v18 APNConnectionRequesterFirst];
+              [obj addObject:v20];
+            }
+
+            v21 = [v18 APNConnectionRequesterLatest];
 
             if (v21)
             {
-              v22 = [v20 APNConnectionRequesterFirst];
+              v22 = [v18 APNConnectionRequesterLatest];
               [obj addObject:v22];
-            }
-
-            v23 = [v20 APNConnectionRequesterLatest];
-
-            if (v23)
-            {
-              v24 = [v20 APNConnectionRequesterLatest];
-              [obj addObject:v24];
 LABEL_29:
 
               continue;
             }
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v127 objects:v138 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v125 objects:v136 count:16];
         }
 
-        while (v17);
+        while (v15);
       }
 
-      v136 = @"APNState";
-      v137 = obj;
-      v37 = [NSDictionary dictionaryWithObjects:&v137 forKeys:&v136 count:1];
-      v7 = v114;
-      [v114 addEntriesFromDictionary:v37];
+      v134 = @"APNState";
+      v135 = obj;
+      v35 = [NSDictionary dictionaryWithObjects:&v135 forKeys:&v134 count:1];
+      v7 = v112;
+      [v112 addEntriesFromDictionary:v35];
 
-      v8 = v117;
+      v8 = v115;
     }
 
-    v38 = v7;
+    v36 = v7;
     goto LABEL_34;
   }
 
-  v38 = 0;
+  v36 = 0;
 LABEL_35:
 
-  return v38;
+  return v36;
 }
 
 id sub_100038884(void *a1)

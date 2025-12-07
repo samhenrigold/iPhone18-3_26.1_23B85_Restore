@@ -284,14 +284,14 @@ LABEL_9:
 
 - (void)layoutSubviews
 {
-  v46 = *MEMORY[0x277D85DE8];
-  v44.receiver = self;
-  v44.super_class = SKUIStarHistogramCollectionViewCell;
-  [(SKUICollectionViewCell *)&v44 layoutSubviews];
+  v47 = *MEMORY[0x277D85DE8];
+  v45.receiver = self;
+  v45.super_class = SKUIStarHistogramCollectionViewCell;
+  [(SKUICollectionViewCell *)&v45 layoutSubviews];
   contentView = [(SKUIStarHistogramCollectionViewCell *)self contentView];
   [contentView bounds];
-  v37 = v5;
-  v38 = v4;
+  v38 = v5;
+  v39 = v4;
   rect = v6;
   v8 = v7;
 
@@ -300,66 +300,66 @@ LABEL_9:
   v12 = v11;
   v14 = v13;
   allExistingViews = [(SKUIViewReuseCollectionViewCell *)self allExistingViews];
-  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection();
-  v40 = 0u;
+  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection(allExistingViews, v16);
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v17 = allExistingViews;
-  v18 = [v17 countByEnumeratingWithState:&v40 objects:v45 count:16];
-  if (v18)
+  v44 = 0u;
+  v18 = allExistingViews;
+  v19 = [v18 countByEnumeratingWithState:&v41 objects:v46 count:16];
+  if (v19)
   {
-    v19 = v18;
-    v20 = *v41;
-    v21 = rect - v12 - v14;
+    v20 = v19;
+    v21 = *v42;
+    v22 = rect - v12 - v14;
     do
     {
-      for (i = 0; i != v19; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v41 != v20)
+        if (*v42 != v21)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v40 + 1) + 8 * i);
-        [v23 sizeThatFits:{v21, 1.79769313e308}];
-        v25 = v24;
-        v27 = v26;
-        v28 = v12;
+        v24 = *(*(&v41 + 1) + 8 * i);
+        [v24 sizeThatFits:{v22, 1.79769313e308}];
+        v26 = v25;
+        v28 = v27;
+        v29 = v12;
         if (ShouldReverseLayoutDirection)
         {
-          v47.origin.y = v37;
-          v47.origin.x = v38;
-          v47.size.width = rect;
-          v47.size.height = v8;
-          Width = CGRectGetWidth(v47);
-          v48.origin.x = 0.0;
-          v48.origin.y = MaxY;
-          v48.size.width = v25;
-          v48.size.height = v27;
-          v28 = Width - CGRectGetWidth(v48) - v12;
+          v48.origin.y = v38;
+          v48.origin.x = v39;
+          v48.size.width = rect;
+          v48.size.height = v8;
+          Width = CGRectGetWidth(v48);
+          v49.origin.x = 0.0;
+          v49.origin.y = MaxY;
+          v49.size.width = v26;
+          v49.size.height = v28;
+          v29 = Width - CGRectGetWidth(v49) - v12;
         }
 
-        v30 = MaxY;
-        v31 = v25;
-        v32 = v27;
-        v49 = CGRectIntegral(*&v28);
-        x = v49.origin.x;
-        y = v49.origin.y;
-        v35 = v49.size.width;
-        height = v49.size.height;
-        [v23 setFrame:?];
-        v50.origin.x = x;
-        v50.origin.y = y;
-        v50.size.width = v35;
-        v50.size.height = height;
-        MaxY = CGRectGetMaxY(v50);
+        v31 = MaxY;
+        v32 = v26;
+        v33 = v28;
+        v50 = CGRectIntegral(*&v29);
+        x = v50.origin.x;
+        y = v50.origin.y;
+        v36 = v50.size.width;
+        height = v50.size.height;
+        [v24 setFrame:?];
+        v51.origin.x = x;
+        v51.origin.y = y;
+        v51.size.width = v36;
+        v51.size.height = height;
+        MaxY = CGRectGetMaxY(v51);
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
-    while (v19);
+    while (v20);
   }
 }
 
@@ -371,6 +371,36 @@ LABEL_9:
   v6 = [text attributedStringWithDefaultFont:v4 foregroundColor:blackColor];
 
   return v6;
+}
+
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStarHistogramCollectionViewCell initWithFrame:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStarHistogramCollectionViewCell prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStarHistogramCollectionViewCell preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStarHistogramCollectionViewCell requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIStarHistogramCollectionViewCell sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

@@ -27,7 +27,7 @@ double SKCLightNode::getBatchInfo@<D0>(uint64_t a1@<X8>)
   return result;
 }
 
-ShadowInfo *SKCLightNode::addRenderOps(ShadowInfo *result, uint64_t *a2, uint64_t *a3)
+ShadowInfo *SKCLightNode::addRenderOps(ShadowInfo *result, uint64_t a2, jet_command_buffer **a3)
 {
   v3 = *(result + 72);
   if (v3)
@@ -40,18 +40,18 @@ ShadowInfo *SKCLightNode::addRenderOps(ShadowInfo *result, uint64_t *a2, uint64_
       v9 = (v4 - v5) >> 3;
       v10 = 4 * v9;
       v11 = 3 * v9;
-      if (*(a2[50] + 48) < (2 * v11))
+      if (*(*(a2 + 400) + 48) < (2 * v11))
       {
-        SKCRendererEnsureBufferCapacity(a2 + 50, 0, 2 * v11);
-        SKCRendererGenerateQuadIndexBufferData<unsigned short>(a2 + 50);
-        (*(*a2[50] + 24))(a2[50], 0, 0);
+        SKCRendererEnsureBufferCapacity((a2 + 400), 0, 2 * v11);
+        SKCRendererGenerateQuadIndexBufferData<unsigned short>((a2 + 400));
+        (*(**(a2 + 400) + 24))(*(a2 + 400), 0, 0);
       }
 
       v12 = (v10 + 4);
       v13 = *(v8 + 70);
       if (!v13 || *(v13 + 4) < v12 && ((v14 = *(v8 + 71), *(v8 + 35) = 0u, !v14) || (std::__shared_weak_count::__release_shared[abi:ne200100](v14), (v13 = *(v8 + 70)) == 0)))
       {
-        SKCRenderer::getBackingContext(a2[13], &v50);
+        SKCRenderer::getBackingContext(&v50, *(a2 + 104));
         v15 = (*(*v50 + 16))(v50, 0, 4, v12);
         std::shared_ptr<jet_buffer_pool>::shared_ptr[abi:ne200100]<jet_buffer_pool,0>(&__p, v15);
       }
@@ -98,13 +98,13 @@ ShadowInfo *SKCLightNode::addRenderOps(ShadowInfo *result, uint64_t *a2, uint64_
       jet_buffer_pool::commit_data(*(v8 + 70));
       v28 = *(v8 + 39);
       v29 = *a3;
-      v30 = a2[17];
+      v30 = *(a2 + 136);
       LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-      v31 = *(v29 + 16);
+      v31 = *(v29 + 2);
       v47 = v28;
-      if (v31 >= *(v29 + 24))
+      if (v31 >= *(v29 + 3))
       {
-        v32 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v29 + 8, &__p);
+        v32 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v29 + 1, &__p);
       }
 
       else
@@ -119,7 +119,7 @@ ShadowInfo *SKCLightNode::addRenderOps(ShadowInfo *result, uint64_t *a2, uint64_
         *(v31 + 96) = 0;
       }
 
-      *(v29 + 16) = v32;
+      *(v29 + 2) = v32;
       *(v32 - 80) = v30;
       *(v32 - 64) = xmmword_21C4B8520;
       *(v32 - 48) = 0x2300000000;
@@ -132,25 +132,25 @@ ShadowInfo *SKCLightNode::addRenderOps(ShadowInfo *result, uint64_t *a2, uint64_
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      jet_command_buffer::use_depth_stencil_mode(*a3, a2[68]);
+      jet_command_buffer::use_depth_stencil_mode(*a3, *(a2 + 544));
       jet_command_buffer::set_stencil_reference_value(*a3, 0);
-      jet_command_buffer::draw_indexed(*a3, 3, a2[50], 0, 6);
-      v35 = a2[83];
+      jet_command_buffer::draw_indexed(*a3, 3, *(a2 + 400), 0, 6);
+      v35 = *(a2 + 664);
       ++*(v35 + 164);
       ++*(v35 + 148);
       v36 = (*(*(v8 + 72) + 40) - *(*(v8 + 72) + 32)) >> 3;
       jet_command_buffer::set_stencil_reference_value(*a3, 1);
-      jet_command_buffer::draw_indexed(*a3, 3, a2[50], 6, 6 * v36);
-      v37 = a2[83];
+      jet_command_buffer::draw_indexed(*a3, 3, *(a2 + 400), 6, 6 * v36);
+      v37 = *(a2 + 664);
       ++*(v37 + 164);
       *(v37 + 148) += v36;
       v38 = *a3;
-      v39 = a2[19];
+      v39 = *(a2 + 152);
       LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-      v40 = *(v38 + 16);
-      if (v40 >= *(v38 + 24))
+      v40 = *(v38 + 2);
+      if (v40 >= *(v38 + 3))
       {
-        v41 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v38 + 8, &__p);
+        v41 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v38 + 1, &__p);
       }
 
       else
@@ -165,7 +165,7 @@ ShadowInfo *SKCLightNode::addRenderOps(ShadowInfo *result, uint64_t *a2, uint64_
         *(v40 + 96) = 0;
       }
 
-      *(v38 + 16) = v41;
+      *(v38 + 2) = v41;
       *(v41 - 80) = v39;
       *(v41 - 64) = xmmword_21C4B8530;
       *(v41 - 48) = 0x230000000FLL;
@@ -189,10 +189,10 @@ ShadowInfo *SKCLightNode::addRenderOps(ShadowInfo *result, uint64_t *a2, uint64_
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      jet_command_buffer::use_depth_stencil_mode(*a3, a2[70]);
+      jet_command_buffer::use_depth_stencil_mode(*a3, *(a2 + 560));
       jet_command_buffer::set_stencil_reference_value(*a3, 0);
-      jet_command_buffer::draw_indexed(*a3, 3, a2[50], 0, 6);
-      v46 = a2[83];
+      jet_command_buffer::draw_indexed(*a3, 3, *(a2 + 400), 0, 6);
+      v46 = *(a2 + 664);
       ++*(v46 + 164);
       ++*(v46 + 148);
       jet_command_buffer::use_depth_stencil_mode(*a3, 0);
@@ -237,13 +237,13 @@ uint64_t SKCRendererGenerateQuadIndexBufferData<unsigned short>(jet_buffer **a1)
   return result;
 }
 
-std::string *jet_command_buffer::set_vertex_buffer(uint64_t a1, std::string *__str, uint64_t a3)
+std::string *jet_command_buffer::set_vertex_buffer(unint64_t *a1, std::string *__str, uint64_t a3)
 {
   v9 = 5;
-  v6 = *(a1 + 16);
-  if (v6 >= *(a1 + 24))
+  v6 = a1[2];
+  if (v6 >= a1[3])
   {
-    v7 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v9);
+    v7 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v9);
   }
 
   else
@@ -258,12 +258,12 @@ std::string *jet_command_buffer::set_vertex_buffer(uint64_t a1, std::string *__s
     *(v6 + 96) = 0;
   }
 
-  *(a1 + 16) = v7;
+  a1[2] = v7;
   *(v7 - 80) = a3;
   return std::string::operator=((v7 - 176), __str);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -277,23 +277,23 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-uint64_t jet_command_buffer::use_depth_stencil_mode(uint64_t a1, uint64_t a2)
+uint64_t jet_command_buffer::use_depth_stencil_mode(unint64_t *a1, uint64_t a2)
 {
   v6 = 2;
-  v4 = *(a1 + 16);
-  if (v4 >= *(a1 + 24))
+  v4 = a1[2];
+  if (v4 >= a1[3])
   {
-    result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v6);
+    result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v6);
   }
 
   else
@@ -308,7 +308,7 @@ uint64_t jet_command_buffer::use_depth_stencil_mode(uint64_t a1, uint64_t a2)
     *(v4 + 96) = 0;
   }
 
-  *(a1 + 16) = result;
+  a1[2] = result;
   *(result - 80) = a2;
   return result;
 }
@@ -319,7 +319,7 @@ uint64_t jet_command_buffer::set_stencil_reference_value(jet_command_buffer *thi
   v4 = *(this + 2);
   if (v4 >= *(this + 3))
   {
-    result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(this + 8, &v6);
+    result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(this + 1, &v6);
   }
 
   else
@@ -339,13 +339,13 @@ uint64_t jet_command_buffer::set_stencil_reference_value(jet_command_buffer *thi
   return result;
 }
 
-uint64_t jet_command_buffer::draw_indexed(uint64_t a1, int a2, uint64_t a3, int a4, int a5)
+uint64_t jet_command_buffer::draw_indexed(unint64_t *a1, int a2, uint64_t a3, int a4, int a5)
 {
   v12 = 4;
-  v10 = *(a1 + 16);
-  if (v10 >= *(a1 + 24))
+  v10 = a1[2];
+  if (v10 >= a1[3])
   {
-    result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v12);
+    result = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v12);
   }
 
   else
@@ -360,7 +360,7 @@ uint64_t jet_command_buffer::draw_indexed(uint64_t a1, int a2, uint64_t a3, int 
     *(v10 + 96) = 0;
   }
 
-  *(a1 + 16) = result;
+  a1[2] = result;
   *(result - 80) = a3;
   *(result - 64) = a2;
   *(result - 60) = a4;
@@ -368,13 +368,13 @@ uint64_t jet_command_buffer::draw_indexed(uint64_t a1, int a2, uint64_t a3, int 
   return result;
 }
 
-__n128 jet_command_buffer::set_fragment_constant_value(uint64_t a1, std::string *__str, __n128 a3)
+__n128 jet_command_buffer::set_fragment_constant_value(unint64_t *a1, std::string *__str, __n128 a3)
 {
   v9 = 25;
-  v5 = *(a1 + 16);
-  if (v5 >= *(a1 + 24))
+  v5 = a1[2];
+  if (v5 >= a1[3])
   {
-    v6 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v9);
+    v6 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v9);
   }
 
   else
@@ -389,19 +389,19 @@ __n128 jet_command_buffer::set_fragment_constant_value(uint64_t a1, std::string 
     *(v5 + 96) = 0;
   }
 
-  *(a1 + 16) = v6;
+  a1[2] = v6;
   std::string::operator=((v6 - 176), __str);
   result = a3;
   *(v6 - 64) = a3;
   return result;
 }
 
-void SKCLightNode::generateShadowGeometry(uint64_t a1)
+void SKCLightNode::generateShadowGeometry(uint64_t a1, float32x4_t ***a2, float32x4_t a3)
 {
-  v2 = *(a1 + 576);
-  if (v2)
+  v4 = *(a1 + 576);
+  if (v4)
   {
-    ShadowInfo::~ShadowInfo(v2);
+    ShadowInfo::~ShadowInfo(v4);
     MEMORY[0x21CF0A160]();
   }
 
@@ -409,11 +409,11 @@ void SKCLightNode::generateShadowGeometry(uint64_t a1)
   operator new();
 }
 
-void sub_21C3E4878(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, std::__shared_weak_count *a36)
+void sub_21C3E4878(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __n128 a9, __n128 a10, __n128 a11, __n128 a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, std::__shared_weak_count *a40)
 {
-  if (a36)
+  if (a40)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a36);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a40);
   }
 
   _Unwind_Resume(exception_object);
@@ -478,47 +478,47 @@ void std::vector<PKCLineSeg *>::push_back[abi:ne200100](uint64_t a1, void *a2)
   *(a1 + 8) = v6;
 }
 
-void SKCLightNode::~SKCLightNode(SKCLightNode *this)
+void SKCLightNode::~SKCLightNode(SKCLightNode *this, __n128 a2, __n128 a3, __n128 a4, __n128 a5)
 {
   *this = &unk_282E15728;
-  v2 = *(this + 72);
-  if (v2)
+  v6 = *(this + 72);
+  if (v6)
   {
-    ShadowInfo::~ShadowInfo(v2);
+    ShadowInfo::~ShadowInfo(v6);
     MEMORY[0x21CF0A160]();
   }
 
   *(this + 72) = 0;
-  v3 = *(this + 71);
-  if (v3)
+  v7 = *(this + 71);
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
   SKCNode::~SKCNode(this);
 }
 
 {
-  SKCLightNode::~SKCLightNode(this);
+  SKCLightNode::~SKCLightNode(this, a2, a3, a4, a5);
 
   JUMPOUT(0x21CF0A160);
 }
 
-uint64_t std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(uint64_t a1, int *a2)
+uint64_t std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(unint64_t *a1, int *a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 6);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 6);
   v3 = v2 + 1;
   if (v2 + 1 > 0x155555555555555)
   {
     std::vector<jet_render_op>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 6) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 6) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 6);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 6);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 6) >= 0xAAAAAAAAAAAAAALL)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 6) >= 0xAAAAAAAAAAAAAALL)
   {
     v6 = 0x155555555555555;
   }
@@ -547,14 +547,14 @@ uint64_t std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>
   *(v7 + 64) = 0;
   *(v7 + 96) = 0;
   *&v17 = 192 * v2 + 192;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = 192 * v2 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<jet_render_op>,jet_render_op*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -563,9 +563,9 @@ uint64_t std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>
   return v14;
 }
 
-void sub_21C3E4B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_21C3E4B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<jet_render_op>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1176,7 +1176,7 @@ void sub_21C3E7500(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_21C3E839C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, void *a23, void *a24, void *a25, uint64_t a26, char a27, void *a28, uint64_t a29, char a30, void *a31, uint64_t a32, char a33, void *a34)
+void sub_21C3E839C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, void *a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, void *a23, void *a24, void *a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, void *a34)
 {
   std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::destroy(&a27, a28);
   std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::destroy(&a30, a31);
@@ -1214,48 +1214,48 @@ void std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compa
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2)
+uint64_t *std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1297,12 +1297,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -1316,22 +1316,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -1365,13 +1365,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -1413,97 +1413,97 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2)
+uint64_t *std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(uint64_t a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t **std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__tree_node<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+void *std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__tree_node<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,void *> *,long>>(void *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -1578,23 +1578,23 @@ uint64_t **std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>>>::__emplace_multi<std::pair<unsigned short const,SKSpriteNode * {__strong}> const&>();
+    std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>>>::__emplace_multi<std::pair<unsigned short const,SKSpriteNode * {__strong}> const&>(v5, (a2 + 4));
   }
 
   return result;
 }
 
-void sub_21C3E921C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21C3E921C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>>>::__node_insert_multi(uint64_t **a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>>>::__node_insert_multi(uint64_t a1, uint64_t a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     do
@@ -1624,7 +1624,7 @@ uint64_t std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>
 
   else
   {
-    v5 = a1 + 1;
+    v5 = (a1 + 8);
   }
 
 LABEL_8:
@@ -1702,15 +1702,15 @@ uint64_t std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>
   return a1;
 }
 
-uint64_t **std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned short,double>,std::__tree_node<std::__value_type<unsigned short,double>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+void *std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned short,double>,std::__tree_node<std::__value_type<unsigned short,double>,void *> *,long>>(void *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -1785,15 +1785,15 @@ uint64_t **std::__tree<std::__value_type<unsigned short,double>,std::__map_value
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::__emplace_multi<std::pair<unsigned short const,double> const&>();
+    std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::__emplace_multi<std::pair<unsigned short const,double> const&>(v5, a2 + 2);
   }
 
   return result;
 }
 
-void sub_21C3E9570(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21C3E9570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1823,15 +1823,15 @@ uint64_t std::__tree<std::__value_type<unsigned short,double>,std::__map_value_c
   return a1;
 }
 
-uint64_t **std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned int,double>,std::__tree_node<std::__value_type<unsigned int,double>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+void *std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned int,double>,std::__tree_node<std::__value_type<unsigned int,double>,void *> *,long>>(void *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -1906,23 +1906,23 @@ uint64_t **std::__tree<std::__value_type<unsigned int,double>,std::__map_value_c
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_multi<std::pair<unsigned int const,double> const&>();
+    std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_multi<std::pair<unsigned int const,double> const&>(v5, a2 + 2);
   }
 
   return result;
 }
 
-void sub_21C3E97D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21C3E97D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__node_insert_multi(uint64_t **a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__node_insert_multi(uint64_t a1, uint64_t a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     do
@@ -1952,7 +1952,7 @@ uint64_t std::__tree<std::__value_type<unsigned int,double>,std::__map_value_com
 
   else
   {
-    v5 = a1 + 1;
+    v5 = (a1 + 8);
   }
 
 LABEL_8:
@@ -1975,12 +1975,12 @@ void SKCLabelNode::setFontName(id *this, NSString *a2)
   SKCNode::setDirty(this);
 }
 
-void sub_21C3EDF18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_21C3EDF18(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = SKTileMapNode;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2033,9 +2033,8 @@ void *setCorrectAdjacencyDataForTileSetType(void *result, const uint64_t **a2, c
   return result;
 }
 
-void *std::deque<unsigned int>::push_back(void *result, _DWORD *a2)
+void std::deque<unsigned int>::push_back(unint64_t *result, _DWORD *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -2052,15 +2051,14 @@ void *std::deque<unsigned int>::push_back(void *result, _DWORD *a2)
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<unsigned int>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<unsigned int>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v8 & 0x3FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
 void *getHexIndexFromPoint(void *result, int *a2, int *a3, float a4, float a5)
@@ -2173,19 +2171,19 @@ uint64_t std::__split_buffer<unsigned int *>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-void *std::deque<unsigned int>::__add_back_capacity(void *a1)
+void std::deque<unsigned int>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x400;
   v3 = v1 - 1024;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -2193,25 +2191,25 @@ void *std::deque<unsigned int>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<unsigned int *>::emplace_back<unsigned int *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<unsigned int *>::emplace_back<unsigned int *&>(a1, &v9);
 }
 
 void sub_21C3F363C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -2225,27 +2223,26 @@ void sub_21C3F363C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<unsigned int *>::emplace_back<unsigned int *&>(void *result, void *a2)
+void std::__split_buffer<unsigned int *>::emplace_back<unsigned int *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int *>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int *>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -2254,28 +2251,26 @@ void *std::__split_buffer<unsigned int *>::emplace_back<unsigned int *&>(void *r
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<unsigned int *>::emplace_front<unsigned int *>(const void **result, void *a2)
+void std::__split_buffer<unsigned int *>::emplace_front<unsigned int *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -2288,52 +2283,50 @@ const void **std::__split_buffer<unsigned int *>::emplace_front<unsigned int *>(
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int *>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int *>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<unsigned int *>::emplace_back<unsigned int *>(void *result, void *a2)
+void std::__split_buffer<unsigned int *>::emplace_back<unsigned int *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int *>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -2342,28 +2335,26 @@ void *std::__split_buffer<unsigned int *>::emplace_back<unsigned int *>(void *re
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<unsigned int *>::emplace_front<unsigned int *&>(const void **result, void *a2)
+void std::__split_buffer<unsigned int *>::emplace_front<unsigned int *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -2376,29 +2367,28 @@ const void **std::__split_buffer<unsigned int *>::emplace_front<unsigned int *&>
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int *>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int *>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int *>>(uint64_t a1, unint64_t a2)
@@ -2444,7 +2434,7 @@ LABEL_3:
     return result;
   }
 
-  v6 = *result + 4096;
+  v6 = (*result + 4096);
   v7 = HIDWORD(v5);
   if (HIDWORD(v5))
   {
@@ -2534,52 +2524,52 @@ LABEL_24:
   return result;
 }
 
-id PointLight_fsh()
+id PointLight_fsh(uint64_t a1)
 {
   if (PointLight_fsh::once != -1)
   {
     PointLight_fsh_cold_1();
   }
 
-  v1 = PointLight_fsh::shader;
+  v2 = PointLight_fsh::shader;
 
-  return v1;
+  return v2;
 }
 
-id PointLightRectTexture_fsh()
+id PointLightRectTexture_fsh(uint64_t a1)
 {
   if (PointLightRectTexture_fsh::once != -1)
   {
     PointLightRectTexture_fsh_cold_1();
   }
 
-  v1 = PointLightRectTexture_fsh::shader;
+  v2 = PointLightRectTexture_fsh::shader;
 
-  return v1;
+  return v2;
 }
 
-id PointLightRectTexture2_fsh()
+id PointLightRectTexture2_fsh(uint64_t a1)
 {
   if (PointLightRectTexture2_fsh::once != -1)
   {
     PointLightRectTexture2_fsh_cold_1();
   }
 
-  v1 = PointLightRectTexture2_fsh::shader;
+  v2 = PointLightRectTexture2_fsh::shader;
 
-  return v1;
+  return v2;
 }
 
-id PointLightAllRectTextures_fsh()
+id PointLightAllRectTextures_fsh(uint64_t a1)
 {
   if (PointLightAllRectTextures_fsh::once != -1)
   {
     PointLightAllRectTextures_fsh_cold_1();
   }
 
-  v1 = PointLightAllRectTextures_fsh::shader;
+  v2 = PointLightAllRectTextures_fsh::shader;
 
-  return v1;
+  return v2;
 }
 
 void sub_21C3F4A20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -2604,51 +2594,51 @@ void sub_21C3F5364(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_21C3F5484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21C3F5484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21C3F596C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21C3F596C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21C3F5E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21C3F5E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21C3F6340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21C3F6340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21C3F6828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21C3F6828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21C3F6D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21C3F6D10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2771,9 +2761,9 @@ void sub_21C3F8A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_21C3F8B3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21C3F8B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   glContextUse::~glContextUse(va);
   _Unwind_Resume(a1);
 }
@@ -2785,7 +2775,7 @@ void sub_21C3F8D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   }
 
-  MEMORY[0x21CF0A160](v13, 0x10A0C40B78ACC54);
+  MEMORY[0x21CF0A160](v13, 0x10A0C40B78ACC54, a3, a4, a5, a6, a7, a8);
   if (a12)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](a12);
@@ -2986,13 +2976,13 @@ uint64_t std::__shared_ptr_pointer<jet_context_OpenGL *,std::shared_ptr<jet_cont
   }
 }
 
-void sub_21C3FB8B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21C3FB8B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   glContextUse::~glContextUse(va);
-  if (v9)
+  if (v16)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
   }
 
   _Unwind_Resume(a1);
@@ -3202,7 +3192,7 @@ void sub_21C3FE6F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_21C3FEBD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, char *a25)
+void sub_21C3FEBD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char *a25)
 {
   std::__tree<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::__map_value_compare<SKNode * {__strong},std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::less<SKNode * {__strong}>,true>,std::allocator<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>>>::destroy(&a24, a25);
 
@@ -3266,28 +3256,28 @@ id std::vector<UITouch * {__strong}>::push_back[abi:ne200100](void *a1, id *a2)
   return result;
 }
 
-void sub_21C3FED3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21C3FED3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<UITouch * {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_21C3FF00C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, char *a25)
+void sub_21C3FF00C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char *a25)
 {
   std::__tree<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::__map_value_compare<SKNode * {__strong},std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::less<SKNode * {__strong}>,true>,std::allocator<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>>>::destroy(&a24, a25);
 
   _Unwind_Resume(a1);
 }
 
-void sub_21C3FF424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, char *a35)
+void sub_21C3FF424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char *a35)
 {
   std::__tree<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::__map_value_compare<SKNode * {__strong},std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::less<SKNode * {__strong}>,true>,std::allocator<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>>>::destroy(&a34, a35);
 
   _Unwind_Resume(a1);
 }
 
-void sub_21C3FF86C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, char *a35)
+void sub_21C3FF86C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char *a35)
 {
   std::__tree<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::__map_value_compare<SKNode * {__strong},std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::less<SKNode * {__strong}>,true>,std::allocator<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>>>::destroy(&a34, a35);
 
@@ -3387,41 +3377,41 @@ void std::vector<UITouch * {__strong}>::__destroy_vector::operator()[abi:ne20010
   }
 }
 
-void *std::__tree<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::__map_value_compare<SKNode * {__strong},std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::less<SKNode * {__strong}>,true>,std::allocator<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>>>::__emplace_unique_key_args<SKNode * {__strong},std::piecewise_construct_t const&,std::tuple<SKNode * const {__strong}&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::__map_value_compare<SKNode * {__strong},std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>,std::less<SKNode * {__strong}>,true>,std::allocator<std::__value_type<SKNode * {__strong},std::vector<UITouch * {__strong}>>>>::__emplace_unique_key_args<SKNode * {__strong},std::piecewise_construct_t const&,std::tuple<SKNode * const {__strong}&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, id **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -3657,22 +3647,22 @@ void SKCTransitionNode::SKCTransitionNode(SKCTransitionNode *this)
   *(v1 + 720) = 0;
 }
 
-double SKCTransitionNode::getBatchInfo@<D0>(uint64_t a1@<X8>, uint64_t a2@<X0>)
+double SKCTransitionNode::getBatchInfo@<D0>(uint64_t result@<X0>, uint64_t a3@<X8>)
 {
-  if (!*(a2 + 600) && (*(a2 + 726) & 1) == 0)
+  if (!*(result + 600) && (*(result + 726) & 1) == 0)
   {
-    return SKCNode::getBatchInfo(a1);
+    return SKCNode::getBatchInfo(a3);
   }
 
-  *(a1 + 12) = 1;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 0u;
-  *(a1 + 48) = 0u;
-  *(a1 + 60) = 0u;
-  *&result = 0x300000010;
-  *(a1 + 4) = 0x300000010;
-  *a1 = 1;
-  return result;
+  *(a3 + 12) = 1;
+  *(a3 + 16) = 0u;
+  *(a3 + 32) = 0u;
+  *(a3 + 48) = 0u;
+  *(a3 + 60) = 0u;
+  *&v3 = 0x300000010;
+  *(a3 + 4) = 0x300000010;
+  *a3 = 1;
+  return v3;
 }
 
 uint64_t SKCTransitionNode::getMaxBatchRenderElementCount(uint64_t a1)
@@ -3688,9 +3678,9 @@ uint64_t SKCTransitionNode::getMaxBatchRenderElementCount(uint64_t a1)
   }
 }
 
-uint64_t SKCTransitionNode::addBatchRenderElements(uint64_t a1)
+uint64_t SKCTransitionNode::addBatchRenderElements(SKCNode *a1, SKCRenderInfo *a2)
 {
-  if (*(a1 + 600))
+  if (*(a1 + 75))
   {
     return 0;
   }
@@ -3701,7 +3691,7 @@ uint64_t SKCTransitionNode::addBatchRenderElements(uint64_t a1)
   }
 }
 
-void SKCTransitionNode::addRenderOps(uint64_t a1, int *a2, uint64_t *a3)
+void SKCTransitionNode::addRenderOps(uint64_t a1, int *a2, unint64_t **a3)
 {
   v229 = *MEMORY[0x277D85DE8];
   if (*(a1 + 600) || (*(a1 + 726) & 1) != 0)
@@ -3711,7 +3701,7 @@ void SKCTransitionNode::addRenderOps(uint64_t a1, int *a2, uint64_t *a3)
     v187 = *MEMORY[0x277D860B8];
     v188 = *(MEMORY[0x277D860B8] + 32);
     v186 = *(MEMORY[0x277D860B8] + 48);
-    SKCRenderer::getBackingContext(*(a2 + 13), &v212);
+    SKCRenderer::getBackingContext(&v212, *(a2 + 13));
     v7 = (*(*v212 + 136))(v212);
     _Q0.i64[1] = 0xBEAAAAAB3BDA740ELL;
     if (*(&v212 + 1))
@@ -4805,10 +4795,10 @@ LABEL_76:
         v78 = *a3;
         v79 = *(a2 + 21);
         LODWORD(__p[0]) = 31;
-        v80 = *(v78 + 16);
-        if (v80 >= *(v78 + 24))
+        v80 = v78[2];
+        if (v80 >= v78[3])
         {
-          v81 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v78 + 8, __p);
+          v81 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v78 + 1, __p);
         }
 
         else
@@ -4823,7 +4813,7 @@ LABEL_76:
           *(v80 + 96) = 0;
         }
 
-        *(v78 + 16) = v81;
+        v78[2] = v81;
         *(v81 - 80) = v79;
         *(v81 - 64) = xmmword_21C4B8530;
         *(v81 - 48) = 0x230000000FLL;
@@ -5001,13 +4991,13 @@ void ___ZN17SKCTransitionNode12addRenderOpsEP13SKCRenderInfoRKNSt3__110shared_pt
   }
 }
 
-std::string *jet_command_buffer::set_fragment_texture(uint64_t a1, std::string *__str, uint64_t a3)
+std::string *jet_command_buffer::set_fragment_texture(unint64_t *a1, std::string *__str, uint64_t a3)
 {
   v9 = 8;
-  v6 = *(a1 + 16);
-  if (v6 >= *(a1 + 24))
+  v6 = a1[2];
+  if (v6 >= a1[3])
   {
-    v7 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v9);
+    v7 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v9);
   }
 
   else
@@ -5022,18 +5012,18 @@ std::string *jet_command_buffer::set_fragment_texture(uint64_t a1, std::string *
     *(v6 + 96) = 0;
   }
 
-  *(a1 + 16) = v7;
+  a1[2] = v7;
   *(v7 - 80) = a3;
   return std::string::operator=((v7 - 176), __str);
 }
 
-std::string *jet_command_buffer::set_fragment_sampler(uint64_t a1, std::string *__str, uint64_t a3)
+std::string *jet_command_buffer::set_fragment_sampler(unint64_t *a1, std::string *__str, uint64_t a3)
 {
   v9 = 30;
-  v6 = *(a1 + 16);
-  if (v6 >= *(a1 + 24))
+  v6 = a1[2];
+  if (v6 >= a1[3])
   {
-    v7 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 8, &v9);
+    v7 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(a1 + 1, &v9);
   }
 
   else
@@ -5048,7 +5038,7 @@ std::string *jet_command_buffer::set_fragment_sampler(uint64_t a1, std::string *
     *(v6 + 96) = 0;
   }
 
-  *(a1 + 16) = v7;
+  a1[2] = v7;
   *(v7 - 80) = a3;
   return std::string::operator=((v7 - 176), __str);
 }
@@ -5097,7 +5087,7 @@ void SKCTransitionNode::ensure_framebuffers(uint64_t a1, uint64_t a2, __n128 a3)
     if (!*(a1 + 608))
     {
 LABEL_11:
-      SKCRenderer::getBackingContext(*(a2 + 104), &v23);
+      SKCRenderer::getBackingContext(&v23, *(a2 + 104));
       texture_2d = jet_context::create_texture_2d();
       std::shared_ptr<jet_texture>::shared_ptr[abi:ne200100]<jet_texture,0>(&v24, texture_2d);
     }
@@ -5133,7 +5123,7 @@ LABEL_11:
     if (!*(a1 + 624))
     {
 LABEL_22:
-      SKCRenderer::getBackingContext(*(a2 + 104), &v23);
+      SKCRenderer::getBackingContext(&v23, *(a2 + 104));
       v15 = jet_context::create_texture_2d();
       std::shared_ptr<jet_texture>::shared_ptr[abi:ne200100]<jet_texture,0>(&v24, v15);
     }
@@ -5141,7 +5131,7 @@ LABEL_22:
 
   if (!*(a1 + 688))
   {
-    SKCRenderer::getBackingContext(*(a2 + 104), &v23);
+    SKCRenderer::getBackingContext(&v23, *(a2 + 104));
     v16 = (*(*v23 + 112))(v23);
     std::shared_ptr<jet_framebuffer>::shared_ptr[abi:ne200100]<jet_framebuffer,0>(&v24, v16);
   }
@@ -5149,7 +5139,7 @@ LABEL_22:
   v17 = *(a1 + 704);
   if (!v17)
   {
-    SKCRenderer::getBackingContext(*(a2 + 104), &v23);
+    SKCRenderer::getBackingContext(&v23, *(a2 + 104));
     v18 = (*(*v23 + 112))(v23);
     std::shared_ptr<jet_framebuffer>::shared_ptr[abi:ne200100]<jet_framebuffer,0>(&v24, v18);
   }
@@ -5175,7 +5165,7 @@ void sub_21C406A64(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t SKCTransitionNode::addRequistePasses(uint64_t a1, uint64_t a2, uint64_t a3)
+void SKCTransitionNode::addRequistePasses(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 600) && *(a1 + 726) != 1)
   {
@@ -5183,7 +5173,7 @@ uint64_t SKCTransitionNode::addRequistePasses(uint64_t a1, uint64_t a2, uint64_t
     operator new();
   }
 
-  return SKCNode::addRequistePasses();
+  SKCNode::addRequistePasses();
 }
 
 void sub_21C406DD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, std::__shared_weak_count *a16)
@@ -5394,9 +5384,9 @@ void std::shared_ptr<SKCRenderPass>::shared_ptr[abi:ne200100]<SKCRenderPass,0>(v
   operator new();
 }
 
-void sub_21C407248(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21C407248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<SKCRenderPass>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5638,15 +5628,15 @@ SKCEffectNode *___ZN11SKCCropNode27checkShouldUseStencilMethodEP13SKCRenderInfo_
   return result;
 }
 
-void SKCCropNode::setMaskNode(SKCNode *this, SKCNode *a2)
+void SKCCropNode::setMaskNode(void *this, SKCNode *a2)
 {
-  v2 = *(this + 71);
+  v2 = this[71];
   if (v2)
   {
     *(v2 + 80) = 0;
   }
 
-  *(this + 71) = a2;
+  this[71] = a2;
   if (a2)
   {
     *(a2 + 10) = this;
@@ -5668,32 +5658,32 @@ uint64_t SKCCropNode::update(SKCCropNode *this, double a2, float a3)
   return result;
 }
 
-double SKCCropNode::getBatchInfo@<D0>(uint64_t a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
+double SKCCropNode::getBatchInfo@<D0>(uint64_t a1@<X0>, SKCRenderInfo *a2@<X1>, uint64_t a3@<X8>)
 {
-  if (!*(a2 + 568) || (*(a3 + 580) & 0x80) != 0 || *(a2 + 560) == 1)
+  if (!*(a1 + 568) || (*(a2 + 580) & 0x80) != 0 || *(a1 + 560) == 1)
   {
-    return SKCNode::getBatchInfo(a1);
+    return SKCNode::getBatchInfo(a3);
   }
 
-  v4 = *(a2 + 656);
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 0u;
+  v4 = *(a1 + 656);
+  *(a3 + 16) = 0u;
+  *(a3 + 32) = 0u;
   v5 = 296;
-  if (*(a2 + 689))
+  if (*(a1 + 689))
   {
     v5 = 312;
   }
 
-  *a1 = 0;
-  *(a1 + 48) = 0uLL;
-  *(a1 + 60) = 0uLL;
-  v6 = *(a3 + v5);
-  *(a1 + 32) = *(a2 + 608);
-  *(a1 + 40) = v4;
-  *(a1 + 24) = v6;
-  *(a1 + 12) = 0;
+  *a3 = 0;
+  *(a3 + 48) = 0uLL;
+  *(a3 + 60) = 0uLL;
+  v6 = *(a2 + v5);
+  *(a3 + 32) = *(a1 + 608);
+  *(a3 + 40) = v4;
+  *(a3 + 24) = v6;
+  *(a3 + 12) = 0;
   *&result = 0x300000004;
-  *(a1 + 4) = 0x300000004;
+  *(a3 + 4) = 0x300000004;
   return result;
 }
 
@@ -5789,10 +5779,10 @@ void SKCCropNode::ensure_framebuffers(uint64_t a1, uint64_t a2)
   v43 = __Block_byref_object_copy_;
   v44 = __Block_byref_object_dispose_;
   v45 = "";
-  v46 = SKCBoundingBoxEmpty;
-  v47 = *algn_21C4B92D0;
-  v48 = xmmword_21C4B92E0;
-  v49 = unk_21C4B92F0;
+  v46 = *SKCBoundingBoxEmpty;
+  v47 = *&SKCBoundingBoxEmpty[16];
+  v48 = *&SKCBoundingBoxEmpty[32];
+  v49 = *&SKCBoundingBoxEmpty[48];
   v39[0] = MEMORY[0x277D85DD0];
   v39[1] = 3221225472;
   v39[2] = ___ZN11SKCCropNode19ensure_framebuffersEP13SKCRenderInfoDv4_j_block_invoke;
@@ -5827,7 +5817,7 @@ void SKCCropNode::ensure_framebuffers(uint64_t a1, uint64_t a2)
   v34 = vmaxnm_f32(*&vextq_s8(AABB, AABB, 8uLL), vdup_n_s32(0x3DCCCCCDu));
   *&AABB.u32[2] = v34;
   *(a1 + 672) = AABB;
-  SKCRenderer::getBackingContext(*(a2 + 104), &v38);
+  SKCRenderer::getBackingContext(&v38, *(a2 + 104));
   v17 = (*(*v38.columns[0].i64[0] + 152))(v38.columns[0].i64[0], 0);
   v18 = vrndp_f32(v34);
   v19.n128_u64[0] = vmaxnm_f32(vadd_f32(v18, v18), 0x4000000040000000);
@@ -5883,7 +5873,7 @@ void SKCCropNode::ensure_framebuffers(uint64_t a1, uint64_t a2)
   if (!*(a1 + 608))
   {
 LABEL_18:
-    SKCRenderer::getBackingContext(*(a2 + 104), &v36);
+    SKCRenderer::getBackingContext(&v36, *(a2 + 104));
     texture_2d = jet_context::create_texture_2d();
     std::shared_ptr<jet_texture>::shared_ptr[abi:ne200100]<jet_texture,0>(&v37, texture_2d);
   }
@@ -5891,7 +5881,7 @@ LABEL_18:
   v30 = *(a1 + 592);
   if (!v30)
   {
-    SKCRenderer::getBackingContext(*(a2 + 104), &v36);
+    SKCRenderer::getBackingContext(&v36, *(a2 + 104));
     v31 = (*(*v36 + 112))(v36);
     std::shared_ptr<jet_framebuffer>::shared_ptr[abi:ne200100]<jet_framebuffer,0>(&v37, v31);
   }
@@ -5912,14 +5902,15 @@ LABEL_18:
   _Block_object_dispose(&v40, 8);
 }
 
-void sub_21C40826C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_21C40826C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   if (a16)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](a16);
   }
 
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -5950,7 +5941,7 @@ void ___ZN11SKCCropNode19ensure_framebuffersEP13SKCRenderInfoDv4_j_block_invoke(
   *(v8 + 96) = v11;
 }
 
-uint64_t SKCCropNode::addRequistePasses(uint64_t a1, uint64_t a2)
+void SKCCropNode::addRequistePasses(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   if (*(a1 + 568) && (*(a2 + 580) & 0x80) == 0 && *(a1 + 560) != 1)
   {
@@ -5960,7 +5951,7 @@ uint64_t SKCCropNode::addRequistePasses(uint64_t a1, uint64_t a2)
     operator new();
   }
 
-  return SKCNode::addRequistePasses();
+  SKCNode::addRequistePasses();
 }
 
 void sub_21C4086C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
@@ -5973,99 +5964,97 @@ void sub_21C4086C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t SKCCropNode::addSubGroups(uint64_t result, float32x4_t *a2)
+void SKCCropNode::addSubGroups(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v3 = result;
-  if (!*(result + 568) || a2[36].i8[4] < 0)
+  if (!*(a1 + 568) || (*(a2 + 580) & 0x80) != 0)
   {
 
-    return SKCNode::addSubGroups();
+    SKCNode::addSubGroups();
   }
 
-  else if (*(result + 560) == 1)
+  else if (*(a1 + 560) == 1)
   {
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x7012000000;
-    v34 = __Block_byref_object_copy_;
-    v37 = SKCBoundingBoxEmpty;
-    v38 = *algn_21C4B92D0;
-    v39 = xmmword_21C4B92E0;
-    v35 = __Block_byref_object_dispose_;
-    v36 = "";
-    v40 = unk_21C4B92F0;
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = ___ZN11SKCCropNode12addSubGroupsEP13SKCRenderInfoPNSt3__14listINS2_10shared_ptrI18SKCRenderSortGroupEENS2_9allocatorIS6_EEEE_block_invoke;
-    v30[3] = &unk_27830FDA8;
-    v30[4] = &v31;
-    SKCNode::walkChildren(result, v30, 0, 1);
-    v4 = v32;
-    v42.columns[0] = SKCNode::getAccumulatedBoundingBox(*(v3 + 568));
-    v42.columns[1] = v5;
-    v42.columns[2] = v6;
-    v42.columns[3] = v7;
-    v8 = SKCBoundingBoxUnion(&v4[3], &v42);
-    v9 = v32;
-    v32[3] = v8;
-    v9[4] = v10;
-    v9 += 3;
-    v9[2] = v11;
-    v9[3] = v12;
-    *&v13 = SKCBoundingBoxGetVerts(v9);
-    v14 = 0;
-    v15 = a2[2];
-    v16 = a2[3];
-    v17 = a2[4];
-    v18 = a2[5];
-    v41[0] = v13;
-    v41[1] = v19;
-    v41[2] = v20;
-    v41[3] = v21;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x7012000000;
+    v35 = __Block_byref_object_copy_;
+    v38 = *SKCBoundingBoxEmpty;
+    v39 = *&SKCBoundingBoxEmpty[16];
+    v40 = *&SKCBoundingBoxEmpty[32];
+    v36 = __Block_byref_object_dispose_;
+    v37 = "";
+    v41 = *&SKCBoundingBoxEmpty[48];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = ___ZN11SKCCropNode12addSubGroupsEP13SKCRenderInfoPNSt3__14listINS2_10shared_ptrI18SKCRenderSortGroupEENS2_9allocatorIS6_EEEE_block_invoke;
+    v31[3] = &unk_27830FDA8;
+    v31[4] = &v32;
+    SKCNode::walkChildren(a1, v31, 0, 1);
+    v5 = v33;
+    v43.columns[0] = SKCNode::getAccumulatedBoundingBox(*(a1 + 568));
+    v43.columns[1] = v6;
+    v43.columns[2] = v7;
+    v43.columns[3] = v8;
+    v9 = SKCBoundingBoxUnion(&v5[3], &v43);
+    v10 = v33;
+    v33[3] = v9;
+    v10[4] = v11;
+    v10 += 3;
+    v10[2] = v12;
+    v10[3] = v13;
+    *&v14 = SKCBoundingBoxGetVerts(v10);
+    v15 = 0;
+    v16 = *(a2 + 32);
+    v17 = *(a2 + 48);
+    v18 = *(a2 + 64);
+    v19 = *(a2 + 80);
+    v42[0] = v14;
+    v42[1] = v20;
+    v42[2] = v21;
+    v42[3] = v22;
     do
     {
-      v42.columns[v14] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v15, COERCE_FLOAT(v41[v14])), v16, *&v41[v14], 1), v17, v41[v14], 2), v18, v41[v14], 3);
-      ++v14;
+      v43.columns[v15] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v16, COERCE_FLOAT(v42[v15])), v17, *&v42[v15], 1), v18, v42[v15], 2), v19, v42[v15], 3);
+      ++v15;
     }
 
-    while (v14 != 4);
-    v28 = v42.columns[2];
-    v29 = v42.columns[0];
-    v26 = v42.columns[1];
-    v27 = v42.columns[3];
-    SKCRenderer::getBackingContext(a2[6].i64[1], v41);
-    v22 = *(v3 + 576);
-    if (!v22)
+    while (v15 != 4);
+    v29 = v43.columns[2];
+    v30 = v43.columns[0];
+    v27 = v43.columns[1];
+    v28 = v43.columns[3];
+    SKCRenderer::getBackingContext(v42, *(a2 + 104));
+    v23 = *(a1 + 576);
+    if (!v23)
     {
-      v23 = (*(**&v41[0] + 16))(*&v41[0], 0, 4, 6);
-      std::shared_ptr<jet_buffer_pool>::shared_ptr[abi:ne200100]<jet_buffer_pool,0>(&v42, v23);
+      v24 = (*(**&v42[0] + 16))(*&v42[0], 0, 4, 6);
+      std::shared_ptr<jet_buffer_pool>::shared_ptr[abi:ne200100]<jet_buffer_pool,0>(&v43, v24);
     }
 
-    jet_buffer_pool::next_buffer(v22);
-    v24 = *(v3 + 576);
-    data = jet_buffer_pool::get_data(v24);
-    jet_buffer_pool::get_element_size(v24);
-    *data = v29;
-    data[1] = v26;
-    data[2] = v28;
-    data[3] = v28;
-    data[4] = v27;
-    data[5] = v29;
+    jet_buffer_pool::next_buffer(v23);
+    v25 = *(a1 + 576);
+    data = jet_buffer_pool::get_data(v25);
+    jet_buffer_pool::get_element_size(v25);
+    *data = v30;
+    data[1] = v27;
+    data[2] = v29;
+    data[3] = v29;
+    data[4] = v28;
+    data[5] = v30;
     operator new();
   }
-
-  return result;
 }
 
-void sub_21C408ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_21C408ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  v29 = *(v27 - 200);
-  if (v29)
+  va_start(va, a26);
+  v28 = *(v26 - 200);
+  if (v28)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
   }
 
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6147,9 +6136,9 @@ void jet_command_buffer::jet_command_buffer(jet_command_buffer *this, unint64_t 
   std::vector<jet_render_op>::reserve(this + 1, a2);
 }
 
-void sub_21C4091B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21C4091B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<jet_render_op>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6169,9 +6158,9 @@ void *std::vector<jet_render_op>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_21C409290(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21C409290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<jet_render_op>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6200,15 +6189,15 @@ void std::vector<jet_render_op>::__destroy_vector::operator()[abi:ne200100](void
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 192;
-      v7 = v4 - 192;
-      v8 = v4 - 192;
+      v6 = v4 - 24;
+      v7 = v4 - 24;
+      v8 = v4 - 24;
       do
       {
         v9 = *v8;
-        v8 -= 192;
+        v8 -= 24;
         (*v9)(v7);
-        v6 -= 192;
+        v6 -= 24;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -6377,7 +6366,7 @@ LABEL_16:
   return std::__split_buffer<unsigned int *>::~__split_buffer(a1);
 }
 
-id std::deque<SKAction * {__strong}>::push_back(void *a1, id *a2)
+id std::deque<SKAction * {__strong}>::push_back(unint64_t *a1, id *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -6411,19 +6400,19 @@ id std::deque<SKAction * {__strong}>::push_back(void *a1, id *a2)
   return result;
 }
 
-void *std::deque<SKAction * {__strong}>::__add_back_capacity(void *a1)
+void std::deque<SKAction * {__strong}>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -6431,25 +6420,25 @@ void *std::deque<SKAction * {__strong}>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<UITouch * {__strong}>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<UITouch * {__strong}>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<SKAction * {__strong}*>::emplace_back<SKAction * {__strong}*&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<SKAction * {__strong}*>::emplace_back<SKAction * {__strong}*&>(a1, &v9);
 }
 
 void sub_21C40C4FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -6463,27 +6452,26 @@ void sub_21C40C4FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<SKAction * {__strong}*>::emplace_back<SKAction * {__strong}*&>(void *result, void *a2)
+void std::__split_buffer<SKAction * {__strong}*>::emplace_back<SKAction * {__strong}*&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<UITouch * {__strong}>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<UITouch * {__strong}>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -6492,28 +6480,26 @@ void *std::__split_buffer<SKAction * {__strong}*>::emplace_back<SKAction * {__st
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<SKAction * {__strong}*>::emplace_front<SKAction * {__strong}*>(const void **result, void *a2)
+void std::__split_buffer<SKAction * {__strong}*>::emplace_front<SKAction * {__strong}*>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -6526,52 +6512,50 @@ const void **std::__split_buffer<SKAction * {__strong}*>::emplace_front<SKAction
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<UITouch * {__strong}>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<UITouch * {__strong}>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<SKAction * {__strong}*>::emplace_back<SKAction * {__strong}*>(void *result, void *a2)
+void std::__split_buffer<SKAction * {__strong}*>::emplace_back<SKAction * {__strong}*>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<UITouch * {__strong}>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<UITouch * {__strong}>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -6580,28 +6564,26 @@ void *std::__split_buffer<SKAction * {__strong}*>::emplace_back<SKAction * {__st
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<SKAction * {__strong}*>::emplace_front<SKAction * {__strong}*&>(const void **result, void *a2)
+void std::__split_buffer<SKAction * {__strong}*>::emplace_front<SKAction * {__strong}*&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -6614,29 +6596,28 @@ const void **std::__split_buffer<SKAction * {__strong}*>::emplace_front<SKAction
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<UITouch * {__strong}>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<UITouch * {__strong}>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 uint64_t std::deque<SKAction * {__strong}>::pop_back(void *a1)
@@ -6751,9 +6732,9 @@ id std::vector<SKTexture * {__strong}>::push_back[abi:ne200100](void *a1, id *a2
   return result;
 }
 
-void sub_21C40D00C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21C40D00C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<UITouch * {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6992,12 +6973,12 @@ void SKCAnimateMesh::cpp_updateWithTargetForTime(SKCAnimateMesh *this, id *a2, _
   v9 = a2[1];
   if (v9 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v7 = SKCAnimateMesh::meshForRatio(this, v6);
-    [v9 setWarpGeometry:v7];
+    v8 = SKCAnimateMesh::meshForRatio(this, v6);
+    [v9 setWarpGeometry:v8];
   }
 
-  SKCAction::ratioForTime(this, v3);
-  if ((COERCE_UNSIGNED_INT(v8 + -1.0) & 0x60000000) == 0)
+  v7.n128_f64[0] = v3;
+  if ((COERCE_UNSIGNED_INT(SKCAction::ratioForTime(this, v7) + -1.0) & 0x60000000) == 0)
   {
     (*(this->var0 + 13))(this, a2, v3);
   }
@@ -7041,7 +7022,7 @@ void SKCAnimateMesh::cpp_didFinishWithTargetAtTime(SKCAnimateMesh *this, id *a2,
   }
 }
 
-id SKCAnimateMesh::meshForRatio(SKCAnimateMesh *this, float a2)
+SKWarpGeometryGrid *SKCAnimateMesh::meshForRatio(SKCAnimateMesh *this, float a2)
 {
   v4 = objc_autoreleasePoolPush();
   v31 = 0.0;
@@ -7226,17 +7207,17 @@ LABEL_9:
   *a4 = v39;
 }
 
-void *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEEC2B8ne200100Em(void *result, unint64_t a2)
+uint64_t *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEEC2B8ne200100Em(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(result, a2);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_21C40F28C(_Unwind_Exception *exception_object)
@@ -7251,7 +7232,7 @@ void sub_21C40F28C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t a1, unint64_t a2)
+void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -7781,7 +7762,7 @@ void sub_21C412148(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void SKCGroup::addCAction(SKCGroup *this, SKCAction *a2)
+void SKCGroup::addCAction(void *this, SKCAction *a2)
 {
   if (a2)
   {
@@ -7800,12 +7781,12 @@ void SKCGroup::~SKCGroup(SKCAction *this)
 {
   this->var0 = &unk_282E16490;
   v2 = this + 1;
-  for (i = *&this[1].var1; i != v2; i = *&i->var1)
+  for (i = *&this[1].var1; i != v2; i = *(i + 8))
   {
-    var3 = i->var3;
-    v5 = var3[2] - 1;
-    var3[2] = v5;
-    if (var3)
+    v4 = *(i + 16);
+    v5 = v4[2] - 1;
+    v4[2] = v5;
+    if (v4)
     {
       v6 = v5 == 0;
     }
@@ -7817,7 +7798,7 @@ void SKCGroup::~SKCGroup(SKCAction *this)
 
     if (v6)
     {
-      (*(*var3 + 8))(var3);
+      (*(*v4 + 8))(v4);
     }
   }
 
@@ -7861,7 +7842,7 @@ void SKCGroup::setSpeed(SKCAction *this, float a2)
   }
 }
 
-uint64_t SKCGroup::cpp_updateWithTargetForTime(SKCAction *this, SKCNode *a2, __n128 a3)
+SKCAction *SKCGroup::cpp_updateWithTargetForTime(SKCAction *this, SKCNode *a2, __n128 a3)
 {
   SKCAction::cpp_adjustedTime(this, a3);
   v6 = v5.n128_f64[0];
@@ -7874,37 +7855,37 @@ uint64_t SKCGroup::cpp_updateWithTargetForTime(SKCAction *this, SKCNode *a2, __n
   v8 = 1;
   do
   {
-    var3 = v7->var3;
-    if (var3->var5)
+    v9 = *(v7 + 16);
+    if (v9->var5)
     {
-      if (var3->var11)
+      if (v9->var11)
       {
         goto LABEL_6;
       }
 
 LABEL_5:
-      SKCAction::updateWithTargetForTime(var3, a2, v6);
+      SKCAction::updateWithTargetForTime(v9, a2, v6);
       goto LABEL_6;
     }
 
-    if (([var3->var4 finished] & 1) == 0)
+    if (([v9->var4 finished] & 1) == 0)
     {
       goto LABEL_5;
     }
 
 LABEL_6:
-    if (var3->var5)
+    if (v9->var5)
     {
-      result = var3->var11;
+      result = v9->var11;
     }
 
     else
     {
-      result = [var3->var4 finished];
+      result = [v9->var4 finished];
     }
 
     v8 &= result;
-    v7 = *&v7->var1;
+    v7 = *(v7 + 8);
   }
 
   while (v7 != &this[1]);
@@ -7919,10 +7900,10 @@ LABEL_13:
   return result;
 }
 
-SKCAction *SKCGroup::cpp_wasAddedToTargetAtTime(SKCAction *this, SKCNode *a2, double a3)
+void *SKCGroup::cpp_wasAddedToTargetAtTime(SKCAction *this, SKCNode *a2, double a3)
 {
   result = SKCAction::cpp_wasAddedToTargetAtTime(this, a2, a3);
-  v7 = &this[1];
+  v7 = this + 1;
   for (i = *&this[1].var1; i != v7; i = *(i + 8))
   {
     result = SKCAction::wasAddedToTargetAtTime(*(i + 16), a2, a3);
@@ -7936,7 +7917,7 @@ void SKCGroup::cpp_wasRemovedFromTargetAtTime(SKCAction *this, SKCNode *a2, doub
   SKCAction::cpp_wasRemovedFromTargetAtTime(this, a2, a3);
   v6.n128_f64[0] = a3;
   SKCAction::cpp_adjustedTime(this, v6);
-  v8 = &this[1];
+  v8 = this + 1;
   v9 = *&this[1].var1;
   if (v9 != v8)
   {
@@ -7956,7 +7937,7 @@ void SKCGroup::cpp_willStartWithTargetAtTime(SKCAction *this, SKCNode *a2, doubl
   SKCAction::cpp_willStartWithTargetAtTime(this, a2, a3);
   v6.n128_f64[0] = a3;
   SKCAction::cpp_adjustedTime(this, v6);
-  v8 = &this[1];
+  v8 = this + 1;
   v9 = *&this[1].var1;
   if (v9 != v8)
   {
@@ -7976,7 +7957,7 @@ void SKCGroup::cpp_wasPausedWithTargetAtTime(SKCAction *this, SKCNode *a2, doubl
   SKCAction::cpp_wasPausedWithTargetAtTime(this, a2, a3);
   v6.n128_f64[0] = a3;
   SKCAction::cpp_adjustedTime(this, v6);
-  v8 = &this[1];
+  v8 = this + 1;
   v9 = *&this[1].var1;
   if (v9 != v8)
   {
@@ -7996,7 +7977,7 @@ void SKCGroup::cpp_willResumeWithTargetAtTime(SKCAction *this, SKCNode *a2, doub
   SKCAction::cpp_willResumeWithTargetAtTime(this, a2, a3);
   v6.n128_f64[0] = a3;
   SKCAction::cpp_adjustedTime(this, v6);
-  v8 = &this[1];
+  v8 = this + 1;
   v9 = *&this[1].var1;
   if (v9 != v8)
   {
@@ -8303,7 +8284,7 @@ void SKCAudioNode::~SKCAudioNode(id *this)
   JUMPOUT(0x21CF0A160);
 }
 
-void sub_21C417EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_21C417EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -8409,16 +8390,16 @@ double SKCTileMapNode::getBoundingBox(float32x4_t *this)
   v7.i64[1] = 0x3F0000003F000000;
   v8 = this[21];
   v7.i64[0] = vmulq_f32(vsubq_f32(v7, this[22]), v8).u64[0];
-  v9 = *algn_21C4B92D0;
-  v7.i64[1] = *(&SKCBoundingBoxEmpty + 1);
+  v9 = *&SKCBoundingBoxEmpty[16];
+  v7.i64[1] = *&SKCBoundingBoxEmpty[8];
   *&v9 = 0.5 * v8.f32[0];
   v10 = vmuls_lane_f32(0.5, *v8.f32, 1);
-  v11 = xmmword_21C4B92E0;
+  v11 = *&SKCBoundingBoxEmpty[32];
   *(&v11 + 1) = v10;
   v13[0] = v7;
   v13[1] = v9;
   v13[2] = v11;
-  v13[3] = unk_21C4B92F0;
+  v13[3] = *&SKCBoundingBoxEmpty[48];
   do
   {
     *(&v14 + v6 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v2, COERCE_FLOAT(v13[v6])), v3, *&v13[v6], 1), v4, v13[v6], 2), v5, v13[v6], 3);
@@ -8448,20 +8429,20 @@ void SKCTileMapNode::update(id *this, double a2, float a3)
       }
 
       v11 = this[80];
-      if (v11 != (this + 81))
+      if (v11 != this + 81)
       {
         v12 = v6 * a3;
         while (1)
         {
-          v13 = *(v11 + 5);
-          if ((*(v13 + 4) & 4) != 0 && *(v13 + 8))
+          v13 = v11[5];
+          if ((v13[4] & 4) != 0 && *(v13 + 2))
           {
             if (v9 != v10)
             {
-              *(v13 + 4) |= 1u;
+              v13[4] |= 1u;
             }
 
-            v14 = *(v13 + 168);
+            v14 = *(v13 + 21);
             if (v14)
             {
               break;
@@ -8469,7 +8450,7 @@ void SKCTileMapNode::update(id *this, double a2, float a3)
           }
 
 LABEL_31:
-          v38 = *(v11 + 1);
+          v38 = v11[1];
           if (v38)
           {
             do
@@ -8485,7 +8466,7 @@ LABEL_31:
           {
             do
             {
-              v39 = *(v11 + 2);
+              v39 = v11[2];
               v40 = *v39 == v11;
               v11 = v39;
             }
@@ -8494,7 +8475,7 @@ LABEL_31:
           }
 
           v11 = v39;
-          if (v39 == (this + 81))
+          if (v39 == this + 81)
           {
             goto LABEL_37;
           }
@@ -8530,10 +8511,10 @@ LABEL_30:
           if ([v21 frameDidChange])
           {
             SKCNode::setDirty(this);
-            *(v13 + 4) |= 2u;
+            v13[4] |= 2u;
             if ([v21 nextFrameAffectsVertexBuffer])
             {
-              *(v13 + 4) |= 1u;
+              v13[4] |= 1u;
             }
           }
 
@@ -8566,7 +8547,7 @@ LABEL_29:
         [v21 setCurrentFrameIndex:{(objc_msgSend(v21, "currentFrameIndex") + 1) % v24}];
         [v21 setFrameDidChange:1];
         SKCNode::setDirty(this);
-        *(v13 + 4) |= 2u;
+        v13[4] |= 2u;
         [v21 setNextFrameAffectsVertexBuffer:0];
         v33 = [v21 textures];
         v34 = [v33 objectAtIndexedSubscript:v32];
@@ -8576,7 +8557,7 @@ LABEL_29:
 
         if (v34)
         {
-          [v34 _backingTexture];
+          objc_msgSend__backingTexture(v34);
           if (v36)
           {
             goto LABEL_20;
@@ -8590,7 +8571,7 @@ LABEL_29:
           if (v36)
           {
 LABEL_20:
-            [v36 _backingTexture];
+            objc_msgSend__backingTexture(v36);
             v37 = v43 == v41;
             if (v42)
             {
@@ -8611,7 +8592,7 @@ LABEL_24:
         if (!v37)
         {
           [v21 setNextFrameAffectsVertexBuffer:1];
-          *(v13 + 4) |= 1u;
+          v13[4] |= 1u;
         }
 
         goto LABEL_29;
@@ -8622,7 +8603,7 @@ LABEL_37:
   }
 }
 
-void SKCTileMapNode::addRenderOps(uint64_t a1, SKCRenderInfo *a2, uint64_t *a3)
+void SKCTileMapNode::addRenderOps(uint64_t a1, SKCRenderer **a2, unint64_t **a3)
 {
   v3 = a2;
   RenderData = SKCTileMapNode::_generateRenderData(a1, a2);
@@ -8632,10 +8613,10 @@ void SKCTileMapNode::addRenderOps(uint64_t a1, SKCRenderInfo *a2, uint64_t *a3)
   }
 
   v6 = v3[52];
-  if (!v6 || *(v6 + 48) <= (6 * RenderData))
+  if (!v6 || *(v6 + 12) <= (6 * RenderData))
   {
     v7 = (6 * RenderData) | 1u;
-    SKCRenderer::getBackingContext(v3[13], &__p);
+    SKCRenderer::getBackingContext(&__p, v3[13]);
     v8 = (*(*__p.__r_.__value_.__l.__data_ + 8))(__p.__r_.__value_.__r.__words[0], 4, 1, v7, 0);
     std::shared_ptr<jet_buffer>::shared_ptr[abi:ne200100]<jet_buffer,0>(&v81, v8);
   }
@@ -8655,7 +8636,7 @@ void SKCTileMapNode::addRenderOps(uint64_t a1, SKCRenderInfo *a2, uint64_t *a3)
     v12 = *(a1 + 568);
     if (v12)
     {
-      [v12 _backingProgramWithTransform];
+      objc_msgSend__backingProgramWithTransform(v12);
       if (__p.__r_.__value_.__l.__size_)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__size_);
@@ -8666,7 +8647,7 @@ void SKCTileMapNode::addRenderOps(uint64_t a1, SKCRenderInfo *a2, uint64_t *a3)
         v13 = *(a1 + 568);
         if (v13)
         {
-          [v13 _backingProgramWithTransform];
+          objc_msgSend__backingProgramWithTransform(v13);
           size = __p.__r_.__value_.__l.__size_;
           v14 = __p.__r_.__value_.__r.__words[0];
         }
@@ -8716,10 +8697,10 @@ LABEL_22:
   v18 = *a3;
   BackingBlendMode = SKBlendModeGetBackingBlendMode(*(a1 + 288));
   LODWORD(__p.__r_.__value_.__l.__data_) = 31;
-  v20 = *(v18 + 16);
-  if (v20 >= *(v18 + 24))
+  v20 = v18[2];
+  if (v20 >= v18[3])
   {
-    v21 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v18 + 8, &__p);
+    v21 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v18 + 1, &__p);
   }
 
   else
@@ -8734,7 +8715,7 @@ LABEL_22:
     *(v20 + 96) = 0;
   }
 
-  *(v18 + 16) = v21;
+  v18[2] = v21;
   *(v21 - 80) = v14;
   *(v21 - 64) = BackingBlendMode;
   *(v21 - 60) = xmmword_21C4B9130;
@@ -8864,7 +8845,7 @@ LABEL_75:
 
     if (v34)
     {
-      [v34 _backingTexture];
+      objc_msgSend__backingTexture(v34);
       v73 = __p.__r_.__value_.__l.__size_;
       v37 = __p.__r_.__value_.__r.__words[0];
       v38 = [v34 filteringMode];
@@ -8906,7 +8887,7 @@ LABEL_46:
     v69 = v33;
     if (v35)
     {
-      [v35 _backingTexture];
+      objc_msgSend__backingTexture(v35);
       v71 = __p.__r_.__value_.__l.__size_;
       v43 = __p.__r_.__value_.__r.__words[0];
       v44 = [v35 filteringMode];
@@ -9000,10 +8981,10 @@ LABEL_52:
     v56 = *a3;
     v57 = v76[52];
     LODWORD(__p.__r_.__value_.__l.__data_) = 4;
-    v58 = *(v56 + 16);
-    if (v58 >= *(v56 + 24))
+    v58 = v56[2];
+    if (v58 >= v56[3])
     {
-      v59 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v56 + 8, &__p);
+      v59 = std::vector<jet_render_op>::__emplace_back_slow_path<jet_render_opcode>(v56 + 1, &__p);
     }
 
     else
@@ -9018,14 +8999,14 @@ LABEL_52:
       *(v58 + 96) = 0;
     }
 
-    *(v56 + 16) = v59;
+    v56[2] = v59;
     *(v59 - 80) = v57;
     *(v59 - 64) = 3;
     *(v59 - 60) = 6 * v69;
     *(v59 - 56) = 6 * v36;
     v60 = v76[83];
-    ++*(v60 + 164);
-    *(v60 + 148) += 6 * v36 / 6u;
+    ++*(v60 + 41);
+    *(v60 + 37) += 6 * v36 / 6u;
     if (v47)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v47);
@@ -9057,13 +9038,13 @@ LABEL_91:
   }
 }
 
-uint64_t SKCTileMapNode::_generateRenderData(id *this, SKCRenderInfo *a2)
+uint64_t SKCTileMapNode::_generateRenderData(id *this, SKCRenderer **a2)
 {
   v3 = this;
   v461 = *MEMORY[0x277D85DE8];
   v4 = this[1];
   v373 = a2;
-  SKCRenderer::getBackingContext(*(a2 + 13), &v454);
+  SKCRenderer::getBackingContext(&v454, a2[13]);
   v3[38].i32[2] = 0;
   v5 = v3[40].i64[0];
   v371 = &v3[40].i64[1];
@@ -9086,16 +9067,16 @@ uint64_t SKCTileMapNode::_generateRenderData(id *this, SKCRenderInfo *a2)
       v12 = 0;
       v375 = v5;
       v13 = v5[2].i64[1];
-      v391 = v13->i32[0];
+      v391 = *v13;
       v14 = v3[38].u8[4];
       v15 = v3[38].u8[5];
-      v447 = v13[12].i64[0];
-      v16 = v13[2];
-      v453.columns[0] = v13[1];
+      v447 = *(v13 + 192);
+      v16 = *(v13 + 32);
+      v453.columns[0] = *(v13 + 16);
       v453.columns[1] = v16;
-      v17 = v13[4];
+      v17 = *(v13 + 64);
       v451 = v13;
-      v453.columns[2] = v13[3];
+      v453.columns[2] = *(v13 + 48);
       v453.columns[3] = v17;
       *&v18 = vmlsq_f32(v453.columns[0], v3[21], v3[22]).u64[0];
       *(&v18 + 1) = v453.columns[0].i64[1];
@@ -9125,38 +9106,38 @@ uint64_t SKCTileMapNode::_generateRenderData(id *this, SKCRenderInfo *a2)
       v453.columns[3] = v26;
       IsVisible = quadIsVisible(&v453);
       v28 = v3[35].u8[4];
-      v29 = v451->i8[4];
+      v29 = *(v451 + 4);
       if (IsVisible & 1 | ((v28 & 1) == 0))
       {
         break;
       }
 
-      v451->i8[4] = v29 & 0xFB;
+      *(v451 + 4) = v29 & 0xFB;
       if (v28 && (v29 & 8) == 0)
       {
         v52 = v451;
-        v53 = v451[5].i64[1];
-        v451[5].i64[0] = 0;
-        v451[5].i64[1] = 0;
+        v53 = *(v451 + 88);
+        *(v451 + 80) = 0;
+        *(v451 + 88) = 0;
         if (v53)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v53);
           v52 = v451;
         }
 
-        v54 = v52[6].i64[1];
-        v52[6].i64[0] = 0;
-        v52[6].i64[1] = 0;
+        v54 = *(v52 + 104);
+        *(v52 + 96) = 0;
+        *(v52 + 104) = 0;
         if (v54)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v54);
           v52 = v451;
         }
 
-        std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::clear(&v52[7]);
-        v55 = v52->i8[4] | 8;
+        std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::clear(v52 + 112);
+        v55 = *(v52 + 4) | 8;
 LABEL_296:
-        v52->i8[4] = v55;
+        *(v52 + 4) = v55;
       }
 
 LABEL_297:
@@ -9206,14 +9187,14 @@ LABEL_297:
     if (IsVisible)
     {
       v29 |= 4u;
-      v451->i8[4] = v29;
+      *(v451 + 4) = v29;
       ++v3[38].i32[2];
     }
 
     if ((v29 & 8) != 0)
     {
       v29 = v29 & 0xF4 | 3;
-      v451->i8[4] = v29;
+      *(v451 + 4) = v29;
     }
 
     if ((v29 & 3) == 0)
@@ -9221,14 +9202,14 @@ LABEL_297:
       goto LABEL_297;
     }
 
-    std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::clear(&v451[7]);
+    std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::clear(v451 + 112);
     v439 = (v15 * v14);
     if (v439)
     {
       v30 = 0;
       while (1)
       {
-        v31 = *(v451[12].i64[0] + v30);
+        v31 = *(*(v451 + 192) + v30);
         if (v31 != 0x7FFFFFFF)
         {
           break;
@@ -9242,7 +9223,7 @@ LABEL_23:
         }
       }
 
-      if (*(v451[12].i64[0] + v30) != 0xFFFF)
+      if (*(*(v451 + 192) + v30) != 0xFFFF)
       {
         v32 = [v403 tileSet];
         if (!v32)
@@ -9291,7 +9272,7 @@ LABEL_23:
 
             if (v43)
             {
-              [(SKTexture *)v43 _backingTexture];
+              objc_msgSend__backingTexture(v43);
               x = v457.x;
               if (*&v457.y)
               {
@@ -9301,10 +9282,10 @@ LABEL_23:
               if (x != 0.0)
               {
                 *&v456[0] = generateBatchID(v43, v44);
-                if (std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::find<unsigned long long>(v451[7].i64, v456))
+                if (std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::find<unsigned long long>((v451 + 112), v456))
                 {
                   *&v457.x = v456;
-                  v48 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v451[7].i64, v456);
+                  v48 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v451 + 112), v456, &std::piecewise_construct, &v457);
                   ++*(v48 + 11);
                 }
 
@@ -9313,7 +9294,7 @@ LABEL_23:
                   v49 = v43;
                   v50 = v44;
                   *&v457.x = v456;
-                  v51 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v451[7].i64, v456);
+                  v51 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v451 + 112), v456, &std::piecewise_construct, &v457);
                   objc_storeStrong(v51 + 3, v43);
                   objc_storeStrong(v51 + 4, v44);
                   v51[5] = 0x100000000;
@@ -9321,7 +9302,7 @@ LABEL_23:
 
                 if ([v32 frameDidChange])
                 {
-                  *(v451[12].i64[0] + v30) = v31 | 0x80000000;
+                  *(*(v451 + 192) + v30) = v31 | 0x80000000;
                 }
               }
             }
@@ -9346,34 +9327,34 @@ LABEL_22:
     }
 
 LABEL_46:
-    v56 = v451->i32[2];
+    v56 = *(v451 + 8);
     if (!v56)
     {
       goto LABEL_297;
     }
 
     v57 = (4 * v56);
-    v58 = v451[5].i64[0];
+    v58 = *(v451 + 80);
     if (!v58 || *(v58 + 16) < v57)
     {
       v59 = (*(*v454 + 16))(v454, 0, 4, v57);
       std::shared_ptr<jet_buffer_pool>::shared_ptr[abi:ne200100]<jet_buffer_pool,0>(&v457, v59);
     }
 
-    v60 = v451[6].i64[0];
+    v60 = *(v451 + 96);
     if (!v60 || *(v60 + 16) < v57)
     {
       v61 = (*(*v454 + 16))(v454, 0, 2, v57);
       std::shared_ptr<jet_buffer_pool>::shared_ptr[abi:ne200100]<jet_buffer_pool,0>(&v457, v61);
     }
 
-    v62 = v451[5].i64[0];
+    v62 = *(v451 + 80);
     data = jet_buffer_pool::get_data(v62);
     jet_buffer_pool::get_element_size(v62);
-    v63 = v451[6].i64[0];
+    v63 = *(v451 + 96);
     v398 = jet_buffer_pool::get_data(v63);
     jet_buffer_pool::get_element_size(v63);
-    v64 = v451[8].i64[0];
+    v64 = *(v451 + 128);
     if (v64)
     {
       v65 = 0;
@@ -9391,7 +9372,7 @@ LABEL_46:
         v71 = *&v457.y;
         v72 = v68;
         *&v456[0] = &v457;
-        v73 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v451[7].i64, &v457);
+        v73 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v451 + 112), &v457, &std::piecewise_construct, v456);
         objc_storeStrong(v73 + 3, *&y);
         objc_storeStrong(v73 + 4, v67);
         v73[5] = v65;
@@ -9472,7 +9453,7 @@ LABEL_129:
           while (1)
           {
             v95 = v84 + v93 * v94;
-            v96 = *(v451[12].i64[0] + 4 * v95);
+            v96 = *(*(v451 + 192) + 4 * v95);
             if (v96 == 0xFFFF || ([v403 tileSet], (v97 = objc_claimAutoreleasedReturnValue()) == 0))
             {
 LABEL_69:
@@ -9533,11 +9514,11 @@ LABEL_69:
 LABEL_76:
 LABEL_77:
             BatchID = generateBatchID(v99, v109);
-            if (std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::find<unsigned long long>(v451[7].i64, &BatchID))
+            if (std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::find<unsigned long long>((v451 + 112), &BatchID))
             {
               v425 = v95;
               *&v457.x = &BatchID;
-              v110 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v451[7].i64, &BatchID);
+              v110 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v451 + 112), &BatchID, &std::piecewise_construct, &v457);
               v111 = v110[3];
               v429 = v110[4];
               v112 = v110[5];
@@ -9572,7 +9553,7 @@ LABEL_77:
               v419 = sk_vector_make(&v457);
               if (v99)
               {
-                [(SKTexture *)v99 _backingTexture];
+                objc_msgSend__backingTexture(v99);
                 v125 = v109;
                 v126 = v94;
                 v127 = v457.x;
@@ -9673,7 +9654,7 @@ LABEL_77:
               v109 = v125;
               [v105 size];
               v144 = HIDWORD(v112) + v112;
-              v145 = v451->i8[4];
+              v145 = *(v451 + 4);
               if (v145)
               {
                 v146 = 0;
@@ -9708,7 +9689,7 @@ LABEL_77:
                 }
 
                 while (v146 != 4);
-                v145 = v451->i8[4];
+                v145 = *(v451 + 4);
               }
 
               if ((v145 & 2) != 0)
@@ -9800,11 +9781,11 @@ LABEL_77:
                 *(v398 + 8 * ((4 * v144) | 1u)) = v172;
                 *(v398 + 8 * ((4 * v144) | 2u)) = v166;
                 *(v398 + 8 * ((4 * v144) | 3u)) = v173;
-                *(v451[12].i64[0] + 4 * v425) &= ~0x80000000;
+                *(*(v451 + 192) + 4 * v425) &= ~0x80000000;
               }
 
               *&v456[0] = &BatchID;
-              v174 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v451[7].i64, &BatchID);
+              v174 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v451 + 112), &BatchID, &std::piecewise_construct, v456);
               ++*(v174 + 11);
               if (*&v457.y)
               {
@@ -9841,19 +9822,19 @@ LABEL_132:
           if (v84 >= v93)
           {
 LABEL_292:
-            v362 = v451->i8[4];
+            v362 = *(v451 + 4);
             if (v362)
             {
-              jet_buffer_pool::commit_data(v451[5].i64[0]);
-              v362 = v451->i8[4] & 0xFE;
-              v451->i8[4] = v362;
+              jet_buffer_pool::commit_data(*(v451 + 80));
+              v362 = *(v451 + 4) & 0xFE;
+              *(v451 + 4) = v362;
             }
 
             if ((v362 & 2) != 0)
             {
               v52 = v451;
-              jet_buffer_pool::commit_data(v451[6].i64[0]);
-              v55 = v451->i8[4] & 0xFD;
+              jet_buffer_pool::commit_data(*(v451 + 96));
+              v55 = *(v451 + 4) & 0xFD;
               goto LABEL_296;
             }
 
@@ -9952,7 +9933,7 @@ LABEL_154:
 LABEL_155:
             v206 = [v201 rotation];
             BatchID = generateBatchID(v195, v205);
-            if (!std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::find<unsigned long long>(v451[7].i64, &BatchID))
+            if (!std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::find<unsigned long long>((v451 + 112), &BatchID))
             {
 LABEL_211:
 
@@ -9963,7 +9944,7 @@ LABEL_211:
 
             v207 = v191;
             *&v457.x = &BatchID;
-            v208 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v451[7].i64, &BatchID);
+            v208 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v451 + 112), &BatchID, &std::piecewise_construct, &v457);
             v408 = v208[3];
             v411 = v208[4];
             v209 = v208[5];
@@ -9999,7 +9980,7 @@ LABEL_211:
             v421 = sk_vector_make(&v457);
             if (v195)
             {
-              [(SKTexture *)v195 _backingTexture];
+              objc_msgSend__backingTexture(v195);
               v223 = *&v456[0];
             }
 
@@ -10126,7 +10107,7 @@ LABEL_185:
                 v241 = HIDWORD(v209) + v209;
                 v191 = v207;
                 v242.i64[0] = v422.i64[0];
-                if (v451->i8[4])
+                if (*(v451 + 4))
                 {
                   v243 = 0;
                   v244.i64[1] = v396.i64[1];
@@ -10154,7 +10135,7 @@ LABEL_185:
                   while (v243 != 4);
                 }
 
-                if (v192 < 0 || (v451->i8[4] & 1) != 0)
+                if (v192 < 0 || (*(v451 + 4) & 1) != 0)
                 {
                   if ([(SKTexture *)v195 _needsExtrusionWorkaround])
                   {
@@ -10234,11 +10215,11 @@ LABEL_185:
                   }
 
                   *(v398 + 8 * (v265 | 3u)) = *(&v457.x + *v266);
-                  *(v451[12].i64[0] + 4 * v207) &= ~0x80000000;
+                  *(*(v451 + 192) + 4 * v207) &= ~0x80000000;
                 }
 
                 *&v457.x = &BatchID;
-                v268 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v451[7].i64, &BatchID);
+                v268 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v451 + 112), &BatchID, &std::piecewise_construct, &v457);
                 ++*(v268 + 11);
                 if (*(&v456[0] + 1))
                 {
@@ -10335,7 +10316,7 @@ LABEL_290:
     while (1)
     {
       v279 = v275 + v273 * v274;
-      v280 = *(v451[12].i64[0] + 4 * v279);
+      v280 = *(*(v451 + 192) + 4 * v279);
       if (v280 != 0xFFFF)
       {
         v281 = [v403 tileSet];
@@ -10399,10 +10380,10 @@ LABEL_235:
 LABEL_238:
       v294 = v292;
       BatchID = generateBatchID(v283, v292);
-      if (std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::find<unsigned long long>(v451[7].i64, &BatchID))
+      if (std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::find<unsigned long long>((v451 + 112), &BatchID))
       {
         *&v457.x = &BatchID;
-        v295 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v451[7].i64, &BatchID);
+        v295 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v451 + 112), &BatchID, &std::piecewise_construct, &v457);
         v296 = v279;
         v297 = v295[3];
         v428 = v295[4];
@@ -10439,7 +10420,7 @@ LABEL_238:
         v423 = sk_vector_make(&v457);
         if (v283)
         {
-          [(SKTexture *)v283 _backingTexture];
+          objc_msgSend__backingTexture(v283);
           v312 = v457.x;
         }
 
@@ -10535,7 +10516,7 @@ LABEL_238:
         v409 = v325;
         [v450 size];
         v329 = HIDWORD(v298) + v298;
-        v330 = v451->i8[4];
+        v330 = *(v451 + 4);
         if (v330)
         {
           v331 = 0;
@@ -10572,7 +10553,7 @@ LABEL_238:
           }
 
           while (v331 != 4);
-          v330 = v451->i8[4];
+          v330 = *(v451 + 4);
         }
 
         if ((v330 & 2) != 0)
@@ -10664,11 +10645,11 @@ LABEL_238:
           *(v398 + 8 * ((4 * v329) | 1u)) = v359;
           *(v398 + 8 * ((4 * v329) | 2u)) = v353;
           *(v398 + 8 * ((4 * v329) | 3u)) = v360;
-          *(v451[12].i64[0] + 4 * v296) &= ~0x80000000;
+          *(*(v451 + 192) + 4 * v296) &= ~0x80000000;
         }
 
         *&v456[0] = &BatchID;
-        v361 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v451[7].i64, &BatchID);
+        v361 = std::__hash_table<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SKCTileMapNodeRenderBatch>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((v451 + 112), &BatchID, &std::piecewise_construct, v456);
         ++*(v361 + 11);
         if (*&v457.y)
         {

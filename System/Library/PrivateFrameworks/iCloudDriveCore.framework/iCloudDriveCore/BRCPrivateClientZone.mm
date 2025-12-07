@@ -1,4 +1,6 @@
 @interface BRCPrivateClientZone
+- (BOOL)dumpActivityToContext:(id)context includeExpensiveActivity:(BOOL)activity error:(id *)error;
+- (BOOL)dumpTablesToContext:(id)context includeAllItems:(BOOL)items error:(id *)error;
 - (BOOL)isDocumentScopePublic;
 - (BOOL)parentIDHasLiveUnchainedChildren:(id)children;
 - (BOOL)recomputeAppSyncBlockState;
@@ -6,6 +8,7 @@
 - (BOOL)validateItemsLoggingToFile:(__sFILE *)file db:(id)db;
 - (BOOL)validateStructureLoggingToFile:(__sFILE *)file db:(id)db;
 - (BRCAppLibrary)defaultAppLibrary;
+- (BRCPrivateClientZone)initWithMangledID:(id)d dbRowID:(id)iD plist:(id)plist session:(id)session initialCreation:(BOOL)creation;
 - (BRCPrivateServerZone)privateServerZone;
 - (NSSet)appLibraryIDs;
 - (id)fetchZoneRootItemWithFacade:(id)facade;
@@ -27,6 +30,7 @@
 - (void)privateServerZone;
 - (void)registerPCSChainingOperation:(id)operation;
 - (void)removeAppLibrary:(id)library;
+- (void)reportProblemWithType:(int)type recordName:(id)name;
 - (void)resume;
 - (void)setServerZone:(id)zone;
 - (void)syncedDownZoneHealthRequestID:(int64_t)d;
@@ -138,38 +142,36 @@
 
 - (NSSet)appLibraryIDs
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   appLibraries = [(BRCPrivateClientZone *)self appLibraries];
-  v5 = [appLibraries countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [appLibraries countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(appLibraries);
         }
 
-        appLibraryID = [*(*(&v12 + 1) + 8 * i) appLibraryID];
+        appLibraryID = [*(*(&v11 + 1) + 8 * i) appLibraryID];
         [v3 addObject:appLibraryID];
       }
 
-      v6 = [appLibraries countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [appLibraries countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -201,6 +203,32 @@
   [(NSMutableSet *)self->_appLibraries removeObject:libraryCopy];
 }
 
+- (BRCPrivateClientZone)initWithMangledID:(id)d dbRowID:(id)iD plist:(id)plist session:(id)session initialCreation:(BOOL)creation
+{
+  v17.receiver = self;
+  v17.super_class = BRCPrivateClientZone;
+  v7 = [(BRCClientZone *)&v17 initWithMangledID:d dbRowID:iD plist:plist session:session initialCreation:creation];
+  if (v7)
+  {
+    v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    appLibraries = v7->_appLibraries;
+    v7->_appLibraries = v8;
+
+    v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    zoneCreationCompletionBlocks = v7->_zoneCreationCompletionBlocks;
+    v7->_zoneCreationCompletionBlocks = v10;
+
+    v12 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UNSPECIFIED, 0);
+    v13 = dispatch_queue_attr_make_with_autorelease_frequency(v12, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v14 = dispatch_queue_create("client-zone/zone-creation", v13);
+
+    createZoneQueue = v7->_createZoneQueue;
+    v7->_createZoneQueue = v14;
+  }
+
+  return v7;
+}
+
 - (void)createCloudKitZoneWithGroup:(id)group completion:(id)completion
 {
   groupCopy = group;
@@ -220,134 +248,128 @@
 
 - (void)_createCloudKitZoneWithGroup:(id)group completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_createZoneQueue);
   if (!self->_createZoneOperation)
   {
     objc_initWeak(&location, self);
-    v21 = 0uLL;
-    v22 = 0;
-    __brc_create_section(0, "[BRCPrivateClientZone _createCloudKitZoneWithGroup:completion:]", 172, 0, &v21);
+    v20 = 0uLL;
+    v21 = 0;
+    __brc_create_section(0, "[BRCPrivateClientZone _createCloudKitZoneWithGroup:completion:]", 172, 0, &v20);
     v8 = brc_bread_crumbs();
     v9 = brc_default_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v15 = v21;
+      v14 = v20;
       zoneName = [(BRCClientZone *)self zoneName];
       *buf = 134218498;
-      v27 = v15;
-      v28 = 2112;
-      v29 = zoneName;
-      v30 = 2112;
-      v31 = v8;
+      v26 = v14;
+      v27 = 2112;
+      v28 = zoneName;
+      v29 = 2112;
+      v30 = v8;
       _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┣%llx scheduling zone creation operation for %@%@", buf, 0x20u);
     }
 
+    v22 = v20;
     v23 = v21;
-    v24 = v22;
     v10 = [[BRCCreateZoneAndSubscribeOperation alloc] initWithServerZone:self->super._serverZone sessionContext:self->super._session];
     createZoneOperation = self->_createZoneOperation;
     self->_createZoneOperation = v10;
 
     [(_BRCOperation *)self->_createZoneOperation setGroup:groupCopy];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __64__BRCPrivateClientZone__createCloudKitZoneWithGroup_completion___block_invoke;
-    v17[3] = &unk_278504460;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __64__BRCPrivateClientZone__createCloudKitZoneWithGroup_completion___block_invoke;
+    v16[3] = &unk_278504460;
+    v18 = v22;
     v19 = v23;
-    v20 = v24;
-    objc_copyWeak(&v18, &location);
-    [(BRCCreateZoneAndSubscribeOperation *)self->_createZoneOperation setCreateZoneAndSubscribeCompletionBlock:v17];
+    objc_copyWeak(&v17, &location);
+    [(BRCCreateZoneAndSubscribeOperation *)self->_createZoneOperation setCreateZoneAndSubscribeCompletionBlock:v16];
     [(_BRCOperation *)self->_createZoneOperation schedule];
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(&location);
   }
 
   zoneCreationCompletionBlocks = self->_zoneCreationCompletionBlocks;
   v13 = MEMORY[0x22AA4A310](completionCopy);
   [(NSMutableArray *)zoneCreationCompletionBlocks addObject:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __64__BRCPrivateClientZone__createCloudKitZoneWithGroup_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v12 = *(a1 + 40);
-  v13 = *(a1 + 56);
+  v11 = *(a1 + 40);
+  v12 = *(a1 + 56);
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v15 = v12;
-    v16 = 2112;
-    v17 = v3;
-    v18 = 2112;
-    v19 = v4;
+    v14 = v11;
+    v15 = 2112;
+    v16 = v3;
+    v17 = 2112;
+    v18 = v4;
     _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx finished zone creation with error: %@%@", buf, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = WeakRetained[67];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __64__BRCPrivateClientZone__createCloudKitZoneWithGroup_completion___block_invoke_5;
-  v10[3] = &unk_2784FF478;
-  v10[4] = WeakRetained;
-  v11 = v3;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __64__BRCPrivateClientZone__createCloudKitZoneWithGroup_completion___block_invoke_5;
+  v9[3] = &unk_2784FF478;
+  v9[4] = WeakRetained;
+  v10 = v3;
   v8 = v3;
-  dispatch_sync(v7, v10);
+  dispatch_sync(v7, v9);
 
-  __brc_leave_section(&v12);
-  v9 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(&v11);
 }
 
 void __64__BRCPrivateClientZone__createCloudKitZoneWithGroup_completion___block_invoke_5(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 544) copy];
   [*(*(a1 + 32) + 544) removeAllObjects];
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(a1 + 40);
-        (*(*(*(&v12 + 1) + 8 * v7) + 16))(*(*(&v12 + 1) + 8 * v7));
+        (*(*(*(&v10 + 1) + 8 * v7) + 16))(*(*(&v10 + 1) + 8 * v7));
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 528);
-  *(v9 + 528) = 0;
-
-  v11 = *MEMORY[0x277D85DE8];
+  v8 = *(a1 + 32);
+  v9 = *(v8 + 528);
+  *(v8 + 528) = 0;
 }
 
 - (id)getCreateCloudKitZoneOperation
@@ -372,6 +394,28 @@ void __64__BRCPrivateClientZone__createCloudKitZoneWithGroup_completion___block_
   return v3;
 }
 
+- (BOOL)dumpTablesToContext:(id)context includeAllItems:(BOOL)items error:(id *)error
+{
+  itemsCopy = items;
+  contextCopy = context;
+  v11.receiver = self;
+  v11.super_class = BRCPrivateClientZone;
+  v9 = [(BRCClientZone *)&v11 dumpTablesToContext:contextCopy includeAllItems:itemsCopy error:error];
+  if (self->_zoneHealthState)
+  {
+    [contextCopy writeLineWithFormat:@"%@", self->_zoneHealthState];
+    [contextCopy writeLineWithFormat:&stru_2837504F0];
+  }
+
+  if (self->_problemReport)
+  {
+    [contextCopy writeLineWithFormat:@"%@", self->_problemReport];
+    [contextCopy writeLineWithFormat:&stru_2837504F0];
+  }
+
+  return v9;
+}
+
 - (void)setServerZone:(id)zone
 {
   zoneCopy = zone;
@@ -387,20 +431,18 @@ void __64__BRCPrivateClientZone__createCloudKitZoneWithGroup_completion___block_
 
 - (void)resume
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Activation done%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Activation done%@", &v2, 0xCu);
 }
 
 - (void)close
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] zoneCreationOp finished%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_223E7A000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] zoneCreationOp finished%@", &v2, 0xCu);
 }
 
 uint64_t __29__BRCPrivateClientZone_close__block_invoke(uint64_t a1)
@@ -434,6 +476,24 @@ uint64_t __29__BRCPrivateClientZone_close__block_invoke(uint64_t a1)
   self->_problemReport = 0;
 
   [(BRCClientZone *)self setNeedsSave:1];
+}
+
+- (void)reportProblemWithType:(int)type recordName:(id)name
+{
+  v4 = *&type;
+  nameCopy = name;
+  if (shouldReportProblemToHealthZone(v4))
+  {
+    serialQueue = [(BRCPQLConnection *)self->super._db serialQueue];
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __57__BRCPrivateClientZone_reportProblemWithType_recordName___block_invoke;
+    block[3] = &unk_278504488;
+    block[4] = self;
+    v10 = v4;
+    v9 = nameCopy;
+    dispatch_async(serialQueue, block);
+  }
 }
 
 uint64_t __57__BRCPrivateClientZone_reportProblemWithType_recordName___block_invoke(uint64_t a1)
@@ -485,7 +545,7 @@ uint64_t __57__BRCPrivateClientZone_reportProblemWithType_recordName___block_inv
 
 - (void)syncedDownZoneHealthRequestID:(int64_t)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(BRCPQLConnection *)self->super._db assertOnQueue];
   pendingRequestID = [(BRCProblemReport *)self->_problemReport pendingRequestID];
 
@@ -512,11 +572,11 @@ uint64_t __57__BRCPrivateClientZone_reportProblemWithType_recordName___block_inv
       v9 = brc_default_log();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138412546;
+        v12 = 138412546;
         selfCopy = self;
-        v15 = 2112;
-        v16 = v8;
-        _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] problem report for %@ wasn't acked%@", &v13, 0x16u);
+        v14 = 2112;
+        v15 = v8;
+        _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] problem report for %@ wasn't acked%@", &v12, 0x16u);
       }
 
       [(BRCProblemReport *)self->_problemReport setPendingRequestID:0];
@@ -525,12 +585,11 @@ uint64_t __57__BRCPrivateClientZone_reportProblemWithType_recordName___block_inv
   }
 
   [(BRCClientZone *)self setNeedsSave:1];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)resetFrequencyIsTooHigh
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEAA8] now];
   lastResets = self->_lastResets;
   if (!lastResets)
@@ -575,26 +634,25 @@ LABEL_9:
     healthZoneMaxNumberOfResets2 = [v16 healthZoneMaxNumberOfResets];
     v18 = [BRCUserDefaults defaultsForMangledID:0];
     [v18 healthZoneTimeIntervalForMaxNumberOfResets];
-    v25 = 134218498;
-    v26 = healthZoneMaxNumberOfResets2;
-    v27 = 2048;
-    v28 = v19;
-    v29 = 2112;
-    v30 = v14;
-    _os_log_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEFAULT, "[WARNING] Zone has resetted more than %lu times during the last %f seconds%@", &v25, 0x20u);
+    v24 = 134218498;
+    v25 = healthZoneMaxNumberOfResets2;
+    v26 = 2048;
+    v27 = v19;
+    v28 = 2112;
+    v29 = v14;
+    _os_log_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEFAULT, "[WARNING] Zone has resetted more than %lu times during the last %f seconds%@", &v24, 0x20u);
   }
 
   [(NSMutableArray *)self->_lastResets removeObjectAtIndex:0];
   v20 = 1;
 LABEL_10:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (void)syncedDownZoneHealthState:(id)state
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   [(BRCPQLConnection *)self->super._db assertOnQueue];
   v6 = self->_zoneHealthState;
@@ -605,15 +663,15 @@ LABEL_10:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     zoneHealthState = self->_zoneHealthState;
-    v18 = 138413058;
+    v17 = 138413058;
     selfCopy = self;
-    v20 = 2112;
-    v21 = v6;
-    v22 = 2112;
-    v23 = zoneHealthState;
-    v24 = 2112;
-    v25 = v7;
-    _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] zone-health changed for %@ previous %@ new %@%@", &v18, 0x2Au);
+    v19 = 2112;
+    v20 = v6;
+    v21 = 2112;
+    v22 = zoneHealthState;
+    v23 = 2112;
+    v24 = v7;
+    _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] zone-health changed for %@ previous %@ new %@%@", &v17, 0x2Au);
   }
 
   if (-[BRCServerZoneHealthState state](v6, "state") >= 1 && ![stateCopy state])
@@ -628,13 +686,13 @@ LABEL_10:
 
       else
       {
-        v15 = brc_bread_crumbs();
-        v16 = brc_default_log();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v14 = brc_bread_crumbs();
+        v15 = brc_default_log();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = 138412290;
-          selfCopy = v15;
-          _os_log_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEFAULT, "[WARNING] We had a problem and the zone is healthy again, resetting the zone%@", &v18, 0xCu);
+          v17 = 138412290;
+          selfCopy = v14;
+          _os_log_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEFAULT, "[WARNING] We had a problem and the zone is healthy again, resetting the zone%@", &v17, 0xCu);
         }
 
         [(BRCClientZone *)self scheduleResetServerAndClientTruthsForReason:@"zone became healthy"];
@@ -643,38 +701,36 @@ LABEL_10:
       goto LABEL_5;
     }
 
-    v11 = self->_problemReport;
-    if (v11 && ![(BRCProblemReport *)v11 shouldResetAfterFixingState])
+    v10 = self->_problemReport;
+    if (v10 && ![(BRCProblemReport *)v10 shouldResetAfterFixingState])
     {
-      v12 = brc_bread_crumbs();
-      v13 = brc_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v11 = brc_bread_crumbs();
+      v12 = brc_default_log();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138412290;
-        selfCopy = v12;
-        v14 = "[WARNING] We had a problem and the zone is healthy again, no need to reset the zone%@";
+        v17 = 138412290;
+        selfCopy = v11;
+        v13 = "[WARNING] We had a problem and the zone is healthy again, no need to reset the zone%@";
         goto LABEL_20;
       }
     }
 
     else
     {
-      v12 = brc_bread_crumbs();
-      v13 = brc_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v11 = brc_bread_crumbs();
+      v12 = brc_default_log();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138412290;
-        selfCopy = v12;
-        v14 = "[WARNING] Server told us the zone is healthy again, but we didn't have a problem%@";
+        v17 = 138412290;
+        selfCopy = v11;
+        v13 = "[WARNING] Server told us the zone is healthy again, but we didn't have a problem%@";
 LABEL_20:
-        _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, v14, &v18, 0xCu);
+        _os_log_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEFAULT, v13, &v17, 0xCu);
       }
     }
   }
 
 LABEL_5:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)zoneHealthWasReset
@@ -690,7 +746,7 @@ LABEL_5:
 
 - (BOOL)recomputeAppSyncBlockState
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = +[BRCCloudDocsAppsMonitor cloudDocsAppsMonitor];
   hasFetchedInitialApps = [v3 hasFetchedInitialApps];
 
@@ -707,45 +763,45 @@ LABEL_5:
     v8 = !isSyncBlockedBecauseAppNotInstalled;
   }
 
-  memset(v28, 0, sizeof(v28));
-  __brc_create_section(0, "[BRCPrivateClientZone recomputeAppSyncBlockState]", 404, 0, v28);
+  memset(v27, 0, sizeof(v27));
+  __brc_create_section(0, "[BRCPrivateClientZone recomputeAppSyncBlockState]", 404, 0, v27);
   v9 = brc_bread_crumbs();
   v10 = brc_default_log();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v31 = v28[0];
-    v32 = 2112;
+    v30 = v27[0];
+    v31 = 2112;
     selfCopy3 = self;
-    v34 = 2112;
-    v35 = v9;
+    v33 = 2112;
+    v34 = v9;
     _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx recomputing app sync block state for %@%@", buf, 0x20u);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v11 = self->_appLibraries;
-  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v12)
   {
-    v13 = *v25;
+    v13 = *v24;
     do
     {
       v14 = 0;
       do
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        [*(*(&v24 + 1) + 8 * v14++) recomputeShouldEvictState];
+        [*(*(&v23 + 1) + 8 * v14++) recomputeShouldEvictState];
       }
 
       while (v12 != v14);
-      v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v12);
@@ -758,18 +814,18 @@ LABEL_5:
     v17 = brc_default_log();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v22 = "enabled";
+      v21 = "enabled";
       *buf = 136315650;
       if (v6)
       {
-        v22 = "disabled";
+        v21 = "disabled";
       }
 
-      v31 = v22;
-      v32 = 2112;
+      v30 = v21;
+      v31 = 2112;
       selfCopy3 = self;
-      v34 = 2112;
-      v35 = v16;
+      v33 = 2112;
+      v34 = v16;
       _os_log_debug_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] sync remaining %s for %@%@", buf, 0x20u);
     }
   }
@@ -780,18 +836,18 @@ LABEL_5:
     v19 = brc_default_log();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      v23 = "disabled";
+      v22 = "disabled";
       *buf = 136315650;
       if (v8)
       {
-        v23 = "enabled";
+        v22 = "enabled";
       }
 
-      v31 = v23;
-      v32 = 2112;
+      v30 = v22;
+      v31 = 2112;
       selfCopy3 = self;
-      v34 = 2112;
-      v35 = v18;
+      v33 = 2112;
+      v34 = v18;
       _os_log_debug_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEBUG, "[DEBUG] updating sync state to be %s for %@%@", buf, 0x20u);
     }
 
@@ -805,11 +861,10 @@ LABEL_5:
       [(BRCClientZone *)self setStateBits:4096];
     }
 
-    [(BRCClientZone *)self setNeedsSave:1, v24];
+    [(BRCClientZone *)self setNeedsSave:1, v23];
   }
 
-  __brc_leave_section(v28);
-  v20 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v27);
   return v15 ^ 1;
 }
 
@@ -851,36 +906,105 @@ id __58__BRCPrivateClientZone_serverAliasByUnsaltedBookmarkData___block_invoke(u
   return isDocumentScopePublic;
 }
 
+- (BOOL)dumpActivityToContext:(id)context includeExpensiveActivity:(BOOL)activity error:(id *)error
+{
+  activityCopy = activity;
+  v26 = *MEMORY[0x277D85DE8];
+  contextCopy = context;
+  privateServerZone = [(BRCPrivateClientZone *)self privateServerZone];
+  v24.receiver = self;
+  v24.super_class = BRCPrivateClientZone;
+  v10 = [(BRCClientZone *)&v24 dumpActivityToContext:contextCopy includeExpensiveActivity:activityCopy error:error];
+  if (v10)
+  {
+    deleteAllContentsOperation = [privateServerZone deleteAllContentsOperation];
+    deleteAllContentsOperationLastError = [privateServerZone deleteAllContentsOperationLastError];
+    if (deleteAllContentsOperation | deleteAllContentsOperationLastError)
+    {
+      v13 = @"idle";
+      if (deleteAllContentsOperation)
+      {
+        v13 = deleteAllContentsOperation;
+      }
+
+      [contextCopy writeLineWithFormat:@"+ delete-content: %@", v13];
+      if (deleteAllContentsOperationLastError)
+      {
+        [contextCopy writeLineWithFormat:@"     (last-error: %@)", deleteAllContentsOperationLastError];
+      }
+    }
+
+    if ([(NSMapTable *)self->_pcsChainFolderOperations count])
+    {
+      [contextCopy writeLineWithFormat:@"+ pcs chain operation:"];
+      [contextCopy pushIndentation];
+      v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
+      objectEnumerator = [(NSMapTable *)self->_pcsChainFolderOperations objectEnumerator];
+      v15 = [objectEnumerator countByEnumeratingWithState:&v20 objects:v25 count:16];
+      if (v15)
+      {
+        v16 = v15;
+        v17 = *v21;
+        do
+        {
+          v18 = 0;
+          do
+          {
+            if (*v21 != v17)
+            {
+              objc_enumerationMutation(objectEnumerator);
+            }
+
+            [contextCopy writeLineWithFormat:@"%@", *(*(&v20 + 1) + 8 * v18++)];
+          }
+
+          while (v16 != v18);
+          v16 = [objectEnumerator countByEnumeratingWithState:&v20 objects:v25 count:16];
+        }
+
+        while (v16);
+      }
+
+      [contextCopy popIndentation];
+    }
+  }
+
+  return v10;
+}
+
 - (void)_checkResultSetIsEmpty:(id)empty logToFile:(__sFILE *)file reason:(id)reason result:(BOOL *)result
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   emptyCopy = empty;
   reasonCopy = reason;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v11 = [emptyCopy enumerateObjectsOfClass:objc_opt_class()];
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
+        v16 = *(*(&v20 + 1) + 8 * i);
         *result = 0;
         fprintf(file, "itemID %s %s\n", [v16 UTF8String], objc_msgSend(reasonCopy, "UTF8String"));
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v13);
@@ -895,8 +1019,6 @@ id __58__BRCPrivateClientZone_serverAliasByUnsaltedBookmarkData___block_invoke(u
     v19 = [error2 description];
     fprintf(file, "SQL error: %s\n", [v19 UTF8String]);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)validateStructureLoggingToFile:(__sFILE *)file db:(id)db
@@ -955,15 +1077,15 @@ LABEL_8:
 
 - (BOOL)validateItemsLoggingToFile:(__sFILE *)file db:(id)db
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dbCopy = db;
   fprintf(file, "local items checks (%s)\n===================\n", [(NSString *)self->super._zoneName UTF8String]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = [(BRCClientZone *)self itemsEnumeratorWithDB:dbCopy];
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (!v8)
   {
 
@@ -974,21 +1096,21 @@ LABEL_11:
   }
 
   v9 = v8;
-  v10 = *v17;
+  v10 = *v16;
   v11 = 1;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v17 != v10)
+      if (*v16 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v11 &= [*(*(&v16 + 1) + 8 * i) validateLoggingToFile:file];
+      v11 &= [*(*(&v15 + 1) + 8 * i) validateLoggingToFile:file];
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   }
 
   while (v9);
@@ -1002,7 +1124,6 @@ LABEL_11:
 LABEL_12:
   fputc(10, file);
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1082,21 +1203,21 @@ LABEL_12:
 
 BRCPCSChainInfo *__97__BRCPrivateClientZone_BRCPCSChainAdditions__unchainedItemInfoInServerTruthEnumeratorParentedTo___block_invoke(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectOfClass:objc_opt_class() atIndex:0];
   v5 = 1;
   v6 = [v3 intAtIndex:1];
-  v27 = [v3 objectOfClass:objc_opt_class() atIndex:2];
-  v26 = [v3 objectOfClass:objc_opt_class() atIndex:3];
-  v25 = [v3 intAtIndex:4];
+  v26 = [v3 objectOfClass:objc_opt_class() atIndex:2];
+  v25 = [v3 objectOfClass:objc_opt_class() atIndex:3];
+  v24 = [v3 intAtIndex:4];
   if (v6 == 3)
   {
     v7 = [v3 stringAtIndex:5];
+    v27 = 0;
     v28 = 0;
-    v29 = 0;
-    v8 = [v7 parseUnsaltedBookmarkDataWithItemID:0 mangledID:&v29 error:&v28];
-    v9 = v28;
+    v8 = [v7 parseUnsaltedBookmarkDataWithItemID:0 mangledID:&v28 error:&v27];
+    v9 = v27;
     if ((v8 & 1) == 0)
     {
       v10 = brc_bread_crumbs();
@@ -1104,18 +1225,18 @@ BRCPCSChainInfo *__97__BRCPrivateClientZone_BRCPCSChainAdditions__unchainedItemI
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v31 = v7;
-        v32 = 2112;
-        v33 = v9;
-        v34 = 2112;
-        v35 = v10;
+        v30 = v7;
+        v31 = 2112;
+        v32 = v9;
+        v33 = 2112;
+        v34 = v10;
         _os_log_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEFAULT, "[WARNING] Couldn't parse unsalted bookmark data %@ - %@%@", buf, 0x20u);
       }
     }
 
-    if (v29)
+    if (v28)
     {
-      v5 = [v29 isShared];
+      v5 = [v28 isShared];
     }
 
     else
@@ -1142,109 +1263,102 @@ BRCPCSChainInfo *__97__BRCPrivateClientZone_BRCPCSChainAdditions__unchainedItemI
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138413314;
-      v31 = v27;
-      v32 = 2112;
-      v33 = v26;
-      v34 = 2112;
-      v35 = v17;
-      v36 = 2112;
-      v37 = v18;
-      v38 = 2112;
-      v39 = v19;
+      v30 = v26;
+      v31 = 2112;
+      v32 = v25;
+      v33 = 2112;
+      v34 = v17;
+      v35 = 2112;
+      v36 = v18;
+      v37 = 2112;
+      v38 = v19;
       _os_log_debug_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEBUG, "[DEBUG] Overriding structural and content info from (%@, %@) -> (%@, %@) because the item is OOB sync%@", buf, 0x34u);
     }
   }
 
   else
   {
-    v18 = v26;
-    v17 = v27;
+    v18 = v25;
+    v17 = v26;
   }
 
-  LODWORD(v24) = v25;
-  v21 = [[BRCPCSChainInfo alloc] initWithItemID:v4 parentID:*(a1 + 40) structuralCKInfo:v17 contentCKInfo:v18 itemType:v6 aliasTargetZoneIsShared:v5 chainState:v24];
-
-  v22 = *MEMORY[0x277D85DE8];
+  LODWORD(v23) = v24;
+  v21 = [[BRCPCSChainInfo alloc] initWithItemID:v4 parentID:*(a1 + 40) structuralCKInfo:v17 contentCKInfo:v18 itemType:v6 aliasTargetZoneIsShared:v5 chainState:v23];
 
   return v21;
 }
 
 - (void)privateServerZone
 {
-  v13 = *MEMORY[0x277D85DE8];
   v4 = brc_bread_crumbs();
   OUTLINED_FUNCTION_1_2();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v6, v7, "[CRIT] Assertion failed: _serverZone%@", v8, v9, v10, v11, 2u);
+    LODWORD(v12) = 138412290;
+    *(&v12 + 4) = v4;
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v6, v7, "[CRIT] Assertion failed: _serverZone%@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   *a2 = *self;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)defaultAppLibrary
 {
-  v13 = *MEMORY[0x277D85DE8];
   v4 = brc_bread_crumbs();
   OUTLINED_FUNCTION_1_2();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v6, v7, "[CRIT] Assertion failed: _defaultAppLibrary%@", v8, v9, v10, v11, 2u);
+    LODWORD(v12) = 138412290;
+    *(&v12 + 4) = v4;
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v6, v7, "[CRIT] Assertion failed: _defaultAppLibrary%@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   *a2 = *self;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setServerZone:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   OUTLINED_FUNCTION_1_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: [serverZone isKindOfClass:[BRCPrivateServerZone class]]%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: [serverZone isKindOfClass:[BRCPrivateServerZone class]]%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncedDownZoneHealthRequestID:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] problem report for %@ completed%@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] problem report for %@ completed%@", &v3, 0x16u);
 }
 
 - (void)serverAliasByUnsaltedBookmarkData:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   OUTLINED_FUNCTION_1_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: unsaltedBookmarkData%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: unsaltedBookmarkData%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __97__BRCPrivateClientZone_BRCPCSChainAdditions__unchainedItemInfoInServerTruthEnumeratorParentedTo___block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

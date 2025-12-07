@@ -6,6 +6,10 @@
 - (void)didReceiveNotification:(id)notification;
 - (void)didReceiveNotificationResponse:(id)response completionHandler:(id)handler;
 - (void)loadView;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation PhotosNotificationsUpdatesViewController
@@ -158,6 +162,43 @@
   v13 = [[PXPhotosDataSource alloc] initWithPhotosDataSourceConfiguration:v12];
 
   return v13;
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5.receiver = self;
+  v5.super_class = PhotosNotificationsUpdatesViewController;
+  [(PhotosNotificationsUpdatesViewController *)&v5 viewDidDisappear:?];
+  [(PUOneUpPresentationHelper *)self->_oneUpPresentationHelper presentingViewControllerViewDidDisappear:disappearCopy];
+  [(PhotosNotificationsUpdatesViewController *)self _dismissOneUpViewController];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5.receiver = self;
+  v5.super_class = PhotosNotificationsUpdatesViewController;
+  [(PhotosNotificationsUpdatesViewController *)&v5 viewWillDisappear:?];
+  [(PUOneUpPresentationHelper *)self->_oneUpPresentationHelper presentingViewControllerViewWillDisappear:disappearCopy];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = PhotosNotificationsUpdatesViewController;
+  [(PhotosNotificationsUpdatesViewController *)&v5 viewDidAppear:?];
+  [(PUOneUpPresentationHelper *)self->_oneUpPresentationHelper presentingViewControllerViewDidAppear:appearCopy];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = PhotosNotificationsUpdatesViewController;
+  [(PhotosNotificationsUpdatesViewController *)&v5 viewWillAppear:?];
+  [(PUOneUpPresentationHelper *)self->_oneUpPresentationHelper presentingViewControllerViewWillAppear:appearCopy];
 }
 
 - (void)loadView

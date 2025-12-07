@@ -45,22 +45,21 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   v7 = RELogForDomain(5);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = [listenerCopy description];
-    v12 = 136315138;
+    v11 = 136315138;
     uTF8String = [v8 UTF8String];
-    _os_log_impl(&dword_22859F000, v7, OS_LOG_TYPE_INFO, "New piped location connection: %s", &v12, 0xCu);
+    _os_log_impl(&dword_22859F000, v7, OS_LOG_TYPE_INFO, "New piped location connection: %s", &v11, 0xCu);
   }
 
   v9 = +[(RESingleton *)REPipedLocationDonor];
   [v9 setConnection:connectionCopy];
 
-  v10 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

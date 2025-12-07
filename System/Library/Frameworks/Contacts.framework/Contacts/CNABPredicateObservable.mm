@@ -30,7 +30,7 @@ uint64_t __60___CNABPredicateObservable_schedulerForIdentifier_provider___block_
   return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
-uint64_t __38___CNABPredicateObservable_subscribe___block_invoke_cold_1(uint64_t a1, void *a2)
+void *__38___CNABPredicateObservable_subscribe___block_invoke_cold_1(uint64_t a1, void *a2)
 {
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);

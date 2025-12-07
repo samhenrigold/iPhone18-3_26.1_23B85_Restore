@@ -35,6 +35,8 @@
   historyCopy = history;
   selfCopy = self;
   TUITextComposerClientWrapper.requestSmartRepliesWithContext(_:inputContextHistory:conversationType:smartReplyType:candidateString:options:completion:)(contextCopy, historyCopy, type, replyType, v15, v17, v18, sub_18FFEB604, v19);
+
+  v19, v23, v24, v25, v26, v27, v28, v29;
 }
 
 - (void)cancelRequestWithToken:(unint64_t)token forClient:(id)client

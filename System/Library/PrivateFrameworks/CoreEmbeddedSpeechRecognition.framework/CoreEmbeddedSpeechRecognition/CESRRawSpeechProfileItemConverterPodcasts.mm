@@ -7,7 +7,7 @@
 
 - (id)vocabularyItemFromSpeechWords:(id)words speechNamespace:(id)namespace error:(id *)error
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   wordsCopy = words;
   namespaceCopy = namespace;
   if (wordsCopy && [wordsCopy count])
@@ -18,38 +18,26 @@
       {
         namespaceCopy = [CESRRawSpeechProfileTools placeholderItemIdWithCategoryName:namespaceCopy];
         builder = self->_builder;
-        v38 = 0;
-        v12 = [(KVItemBuilder *)builder setItemType:16 itemId:namespaceCopy error:&v38];
-        v13 = v38;
+        v37 = 0;
+        v12 = [(KVItemBuilder *)builder setItemType:16 itemId:namespaceCopy error:&v37];
+        v13 = v37;
         firstObject = [wordsCopy firstObject];
         orthography = [firstObject orthography];
 
         v16 = self->_builder;
-        v37 = v13;
-        v17 = [(KVItemBuilder *)v16 addFieldWithType:700 value:orthography error:&v37];
-        v18 = v37;
+        v36 = v13;
+        v17 = [(KVItemBuilder *)v16 addFieldWithType:700 value:orthography error:&v36];
+        v18 = v36;
 
-        if (!v17)
+        if (!v17 || (v19 = self->_builder, v35 = v18, [(KVItemBuilder *)v19 buildItemWithError:&v35], v20 = objc_claimAutoreleasedReturnValue(), v21 = v35, v18, v17, v18 = v21, !v20))
         {
-          goto LABEL_7;
-        }
-
-        v19 = self->_builder;
-        v36 = v18;
-        v20 = [(KVItemBuilder *)v19 buildItemWithError:&v36];
-        v21 = v36;
-
-        v18 = v21;
-        if (!v20)
-        {
-LABEL_7:
           v22 = MEMORY[0x277CCA9B8];
-          v39[0] = *MEMORY[0x277CCA068];
+          v38[0] = *MEMORY[0x277CCA068];
           v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"failed to process word: %@ due to builder error.", orthography];
-          v39[1] = *MEMORY[0x277CCA7E8];
-          v40[0] = v23;
-          v40[1] = v18;
-          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
+          v38[1] = *MEMORY[0x277CCA7E8];
+          v39[0] = v23;
+          v39[1] = v18;
+          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
           v25 = [v22 errorWithDomain:@"com.apple.siri.speech-profile.tools" code:6 userInfo:v24];
           if (error && v25)
           {
@@ -64,10 +52,10 @@ LABEL_7:
       }
 
       v32 = MEMORY[0x277CCA9B8];
-      v41 = *MEMORY[0x277CCA068];
+      v40 = *MEMORY[0x277CCA068];
       namespaceCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Unexpected namespace: %@ for category: %@", namespaceCopy, @"com.apple.media.podcasts"];
-      v42 = namespaceCopy;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      v41 = namespaceCopy;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
       v30 = v32;
       v31 = 3;
     }
@@ -75,10 +63,10 @@ LABEL_7:
     else
     {
       v29 = MEMORY[0x277CCA9B8];
-      v43 = *MEMORY[0x277CCA068];
+      v42 = *MEMORY[0x277CCA068];
       namespaceCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"rawSpeechProfile contains a Podcasts item with an unexpected number of speech words (expected only 1): %@ namespace: %@", wordsCopy, namespaceCopy];
-      v44 = namespaceCopy;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+      v43 = namespaceCopy;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
       v30 = v29;
       v31 = 1;
     }
@@ -96,9 +84,9 @@ LABEL_7:
   else
   {
     v26 = MEMORY[0x277CCA9B8];
-    v45 = *MEMORY[0x277CCA068];
-    v46[0] = @"rawSpeechProfile contains a Podcasts item missing speech words.";
-    namespaceCopy = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+    v44 = *MEMORY[0x277CCA068];
+    v45[0] = @"rawSpeechProfile contains a Podcasts item missing speech words.";
+    namespaceCopy = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
     v27 = [v26 errorWithDomain:@"com.apple.siri.speech-profile.tools" code:1 userInfo:namespaceCopy];
     v18 = v27;
     v20 = 0;
@@ -111,8 +99,6 @@ LABEL_7:
   }
 
 LABEL_21:
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

@@ -1,3 +1,4138 @@
+uint64_t H16ISP::H16ISPGeneralProcessFrameReceiver::GeneralProcessGeneric(uint64_t a1, uint64_t a2, char a3)
+{
+  pthread_mutex_lock((a1 + 48));
+  if ((*(a1 + 344) & 1) != 0 || *a1 != 1)
+  {
+    pthread_mutex_unlock((a1 + 48));
+    return 3758097122;
+  }
+
+  else
+  {
+    if (*(a2 + 216))
+    {
+      v6 = *(a2 + 208);
+      if (v6)
+      {
+        v7 = *(a2 + 944);
+        if ((v7 - 21) >= 0xFFFFFFEC)
+        {
+          v10 = 48;
+          while (*(a2 + v10))
+          {
+            v10 += 8;
+            if (!--v7)
+            {
+              if ((a3 & 1) == 0)
+              {
+                CVPixelBufferRetain(v6);
+                CVPixelBufferRetain(*(a2 + 216));
+                v11 = *(a2 + 40);
+                if (v11)
+                {
+                  CVPixelBufferRetain(v11);
+                }
+
+                if (*(a2 + 944))
+                {
+                  v12 = 0;
+                  do
+                  {
+                    CVPixelBufferRetain(*(a2 + 48 + 8 * v12++));
+                  }
+
+                  while (v12 < *(a2 + 944));
+                }
+              }
+
+              bzero(inputStruct, 0x478uLL);
+              IOSurface = CVPixelBufferGetIOSurface(*(a2 + 216));
+              ID = IOSurfaceGetID(IOSurface);
+              DataSize = CVPixelBufferGetDataSize(*(a2 + 216));
+              v14 = CVPixelBufferGetIOSurface(*(a2 + 208));
+              v39 = IOSurfaceGetID(v14);
+              v40 = CVPixelBufferGetDataSize(*(a2 + 208));
+              v15 = *(a2 + 40);
+              if (v15)
+              {
+                v16 = CVPixelBufferGetIOSurface(v15);
+                v41 = IOSurfaceGetID(v16);
+                v42 = CVPixelBufferGetDataSize(*(a2 + 40));
+              }
+
+              LODWORD(v17) = *(a2 + 944);
+              if (v17)
+              {
+                v18 = v44;
+                v19 = 48;
+                v20 = 216;
+                v21 = 224;
+                do
+                {
+                  v22 = CVPixelBufferGetIOSurface(*(a2 + v19));
+                  *(v18 - 46) = IOSurfaceGetID(v22);
+                  PixelFormatType = CVPixelBufferGetPixelFormatType(*(a2 + v19));
+                  FrameFormat = H16ISP::getFrameFormat(PixelFormatType);
+                  *(v18 - 26) = FrameFormat;
+                  *(v18 - 34) = CVPixelBufferGetBytesPerRowOfPlane(*(a2 + v19), 0);
+                  *(v18 - 22) = vuzp1q_s32(vcvtq_u64_f64(*(a2 + v21)), vcvtq_u64_f64(*(a2 + v21 + 16)));
+                  *(v18 - 3) = CVPixelBufferGetWidth(*(a2 + v19));
+                  *(v18 - 2) = CVPixelBufferGetHeight(*(a2 + v19));
+                  v25 = CVPixelBufferGetPixelFormatType(*(a2 + v19));
+                  *(v18 - 1) = *(a2 + 4 * v20);
+                  v26 = *(a2 + v19);
+                  if (FrameFormat)
+                  {
+                    BytesPerRow = CVPixelBufferGetBytesPerRow(v26);
+                    Height = CVPixelBufferGetHeight(*(a2 + v19));
+                    v29 = 0;
+                    *(v18 - 42) = Height * BytesPerRow;
+                  }
+
+                  else
+                  {
+                    BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(v26, 0);
+                    *(v18 - 42) = CVPixelBufferGetHeight(*(a2 + v19)) * BytesPerRowOfPlane;
+                    v31 = CVPixelBufferGetBytesPerRowOfPlane(*(a2 + v19), 1uLL);
+                    v29 = (CVPixelBufferGetHeight(*(a2 + v19)) * v31) >> 1;
+                  }
+
+                  *(v18 - 38) = v29;
+                  v33 = v25 != 2037741171 && v25 != 875704438;
+                  *v18 = v33;
+                  v18 += 48;
+                  v17 = *(a2 + 944);
+                  v19 += 8;
+                  v34 = v20 - 215;
+                  ++v20;
+                  v21 += 32;
+                }
+
+                while (v34 < v17);
+              }
+
+              v43 = v17;
+              v36 = *a2;
+              *&v44[918] = H16ISP::H16ISPGeneralProcessFrameReceiver::FrameDone;
+              if ((a3 & 1) == 0)
+              {
+                operator new();
+              }
+
+              v8 = H16ISP::H16ISPDevice::ISP_GeneralProcessGeneric(*(a1 + 288), inputStruct, 0);
+              goto LABEL_7;
+            }
+          }
+        }
+      }
+    }
+
+    v8 = 3758097090;
+LABEL_7:
+    pthread_mutex_unlock((a1 + 48));
+  }
+
+  return v8;
+}
+
+uint64_t H16ISP::H16ISPGeneralProcessFrameReceiver::tickleNoDataTimer(pthread_mutex_t *this)
+{
+  pthread_mutex_lock(this + 3);
+  sig = this[4].__sig;
+  if (sig)
+  {
+    Current = CFAbsoluteTimeGetCurrent();
+    CFRunLoopTimerSetNextFireDate(sig, Current + *&this[5].__opaque[24]);
+  }
+
+  return pthread_mutex_unlock(this + 3);
+}
+
+uint64_t H16ISP::H16ISPGeneralProcessFrameReceiver::NoDataTimeout(H16ISP::H16ISPGeneralProcessFrameReceiver *this, __CFRunLoopTimer *a2, void *a3)
+{
+  result = puts("H16ISPGeneralProcessFrameReceiver::NoDataTimeout!");
+  v5 = *(a2 + 38);
+  v6 = *(a2 + 39);
+  v7 = (v5 + 8 * (*(a2 + 41) >> 9));
+  if (v6 == v5)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = (*v7 + 8 * (*(a2 + 41) & 0x1FFLL));
+  }
+
+  while (1)
+  {
+    if (v6 == v5)
+    {
+      v10 = 0;
+    }
+
+    else
+    {
+      v9 = *(a2 + 42) + *(a2 + 41);
+      v10 = *(v5 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF);
+    }
+
+    if (v8 == v10)
+    {
+      break;
+    }
+
+    v11 = *v8++;
+    result = printf("H16ISPGeneralProcessFrameReceiver: Request not returned 0x%p\n", v11);
+    if ((v8 - *v7) == 4096)
+    {
+      v12 = v7[1];
+      ++v7;
+      v8 = v12;
+    }
+
+    v5 = *(a2 + 38);
+    v6 = *(a2 + 39);
+  }
+
+  v13 = *(a2 + 4);
+  if (v13)
+  {
+    v14 = *(a2 + 5);
+
+    return v13(0, 0, 0, 0, 0, v14);
+  }
+
+  return result;
+}
+
+uint64_t H16ISP::CreateH16ISPGeneralProcessFrameReceiver(uint64_t a1)
+{
+  v14 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  H16ISP::H16ISPThreadReadySyncer::H16ISPThreadReadySyncer(&v12);
+  v7 = 0;
+  v2 = *(a1 + 32);
+  v8 = *(a1 + 16);
+  v9 = v2;
+  v10 = *(a1 + 8);
+  v11 = &v12;
+  pthread_attr_init(&v13);
+  pthread_attr_setdetachstate(&v13, 2);
+  pthread_create(&v6, &v13, H16ISP::H16ISPGeneralProcessFrameReceiverRTThreadStart, &v7);
+  pthread_attr_destroy(&v13);
+  H16ISP::H16ISPThreadReadySyncer::wait(&v12);
+  v3 = v7;
+  **a1 = v7;
+  if (v3)
+  {
+    v4 = 0;
+  }
+
+  else
+  {
+    v4 = 3758097084;
+  }
+
+  H16ISP::H16ISPThreadReadySyncer::~H16ISPThreadReadySyncer(&v12);
+  return v4;
+}
+
+void H16ISP::H16ISPGeneralProcessFrameReceiverRTThreadStart(uint64_t a1)
+{
+  pthread_setname_np("H16ISPGeneralProcessFrameReceiverRealTimeThread");
+  v2 = pthread_self();
+  v3 = pthread_mach_thread_np(v2);
+  H16ISP::H16ISPSetMachThreadPriority(v3, 47);
+  H16ISP::H16ISPThreadReadySyncer::lock(*(a1 + 48));
+  operator new();
+}
+
+uint64_t H16ISP::DestroyH16ISPGeneralProcessFrameReceiver(H16ISP *this, H16ISP::H16ISPGeneralProcessFrameReceiver *a2)
+{
+  v3 = *(this + 1);
+  CFRetain(v3);
+  H16ISP::H16ISPGeneralProcessFrameReceiver::~H16ISPGeneralProcessFrameReceiver(this);
+  MEMORY[0x22AA55B60]();
+  CFRunLoopStop(v3);
+  CFRelease(v3);
+  return 0;
+}
+
+void std::deque<H16ISP::H16ISPGeneralProcessFrameReceiverRequest *>::__add_back_capacity(unint64_t *a1)
+{
+  v1 = a1[4];
+  v2 = v1 >= 0x200;
+  v3 = v1 - 512;
+  if (!v2)
+  {
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
+    {
+      if (v6 != v5)
+      {
+        operator new();
+      }
+
+      operator new();
+    }
+
+    if (v6 == *a1)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = v7 >> 2;
+    }
+
+    v10 = a1;
+    std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](a1, v8);
+  }
+
+  a1[4] = v3;
+  v4 = a1[1];
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **&>(a1, &v9);
+}
+
+void sub_224965D7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
+{
+  operator delete(v13);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+BOOL GMC_FaceCoverageTest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a5, double *a6)
+{
+  bzero(*(a4 + 8), (*(a4 + 20) * *(a4 + 16)));
+  *a5 = 0;
+  v12 = *(a3 + 16);
+  v13 = *(a3 + 20);
+  v14 = v13 * v12;
+  if (!(v13 * v12))
+  {
+    GMC_ExtractTestSamples();
+  }
+
+  if (v14 <= 2)
+  {
+    GMC_ExtractTestSamples();
+  }
+
+  if (v14 == 3)
+  {
+    GMC_ExtractTestSamples();
+  }
+
+  v15 = *(a1 + 20);
+  if (v15)
+  {
+    v16 = 0;
+    v17 = 0;
+    v18 = *(a3 + 8);
+    v19 = *v18 + v18[2];
+    v20 = v18[1] + v18[3];
+    v21 = 0.0;
+    v22 = 1.0e10;
+    v23 = 1.0e10;
+    v24 = 0.0;
+    do
+    {
+      v25 = *(a1 + 16);
+      if (!v25)
+      {
+        MatrixNxPts<3u,double>::CloneColumn();
+      }
+
+      v26 = *(a3 + 20) * *(a3 + 16);
+      if (!v26)
+      {
+        GMC_ExtractTestSamples();
+      }
+
+      v27 = *(a1 + 8);
+      v28 = *(v27 + 8 * v17);
+      v29 = *(a3 + 8);
+      if (v28 > *v29 && v28 < v19)
+      {
+        if (v25 == 1)
+        {
+          MatrixNxPts<3u,double>::CloneColumn();
+        }
+
+        if (v26 == 1)
+        {
+          GMC_ExtractTestSamples();
+        }
+
+        v31 = *(v27 + 8 * v15 + 8 * v17);
+        if (v31 > v29[1] && v31 < v20)
+        {
+          if (v17 >= (*(a4 + 20) * *(a4 + 16)))
+          {
+            GMC_ExtractTestSamples();
+          }
+
+          *(*(a4 + 8) + v17) = 1;
+          v33 = (*(a1 + 8) + 8 * v17);
+          if (*v33 < v22)
+          {
+            v22 = *v33;
+          }
+
+          if (*v33 > v24)
+          {
+            v24 = *v33;
+          }
+
+          v34 = v33[v15];
+          if (v34 < v23)
+          {
+            v23 = v33[v15];
+          }
+
+          if (v34 > v21)
+          {
+            v21 = v33[v15];
+          }
+
+          *a5 = ++v16;
+          v15 = *(a1 + 20);
+        }
+      }
+
+      ++v17;
+    }
+
+    while (v17 < v15);
+    v12 = *(a3 + 16);
+    v13 = *(a3 + 20);
+    v35 = (v21 - v23) * (v24 - v22);
+  }
+
+  else
+  {
+    v16 = 0;
+    v35 = 1.0e20;
+  }
+
+  v36 = v13 * v12;
+  if (v36 <= 2)
+  {
+    GMC_ExtractTestSamples();
+  }
+
+  if (v36 == 3)
+  {
+    GMC_ExtractTestSamples();
+  }
+
+  v37 = v35 / (*(*(a3 + 8) + 16) * *(*(a3 + 8) + 24));
+  *a6 = v37;
+  return v37 > *(a2 + 712) && v16 > *(a2 + 720);
+}
+
+void sub_2249676CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+{
+  Matrix<double>::~Matrix(&a53);
+  Matrix<double>::~Matrix(&a57);
+  Matrix<double>::~Matrix(&a61);
+  Matrix<double>::~Matrix(&a65);
+  _GMC_Params::~_GMC_Params(&a66);
+  _Unwind_Resume(a1);
+}
+
+void _GMC_Params::~_GMC_Params(_GMC_Params *this)
+{
+  Matrix<double>::~Matrix(this + 872);
+  Matrix<double>::~Matrix(this + 840);
+  Matrix<double>::~Matrix(this + 808);
+  Matrix<double>::~Matrix(this + 776);
+  Matrix<double>::~Matrix(this + 744);
+  Matrix<double>::~Matrix(this + 256);
+  Matrix<double>::~Matrix(this + 224);
+  Matrix<double>::~Matrix(this + 192);
+  Matrix<double>::~Matrix(this + 160);
+  Matrix<double>::~Matrix(this + 128);
+}
+
+uint64_t H16ISP::H16ISPGraphVIOCameraControlNode::onActivate(H16ISP::H16ISPGraphVIOCameraControlNode *this)
+{
+  v2 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+  {
+    v2 = os_log_create("com.apple.isp", "general");
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v2;
+  }
+
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    *v4 = 0;
+    _os_log_impl(&dword_2247DB000, v2, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::onActivate\n", v4, 2u);
+  }
+
+  return H16ISP::H16ISPGraphVIOCameraControlNode::InitVIO(this);
+}
+
+uint64_t H16ISP::H16ISPGraphVIOCameraControlNode::InitVIO(H16ISP::H16ISPGraphVIOCameraControlNode *this)
+{
+  v107 = *MEMORY[0x277D85DE8];
+  v2 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  v3 = MEMORY[0x277D86220];
+  if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+  {
+    v2 = os_log_create("com.apple.isp", "general");
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v2;
+  }
+
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_2247DB000, v2, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO\n\n", buf, 2u);
+  }
+
+  v4 = CVHWAFeatureExtractionCreate();
+  if (v4)
+  {
+    v5 = v4;
+    v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+    {
+      v6 = os_log_create("com.apple.isp", "general");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v6;
+    }
+
+    v7 = 3758097084;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      v102 = v5;
+      v8 = "H16ISPGraphVIOCameraControlNode::InitVIO - CVHWAFeatureExtractionCreate failed: %d\n\n";
+LABEL_20:
+      v11 = buf;
+LABEL_21:
+      v12 = v6;
+LABEL_22:
+      v13 = 8;
+LABEL_23:
+      _os_log_impl(&dword_2247DB000, v12, OS_LOG_TYPE_DEFAULT, v8, v11, v13);
+    }
+  }
+
+  else
+  {
+    bzero(v95, 0x10uLL);
+    v96 = 12551;
+    v97 = *(this + 24);
+    v98 = *(this + 120) << 10;
+    v99 = *(this + 262);
+    v9 = H16ISP::H16ISPDevice::ISP_SendCommand(*(this + 10), v95, 0x10u, 0, 0xFFFFFFFF);
+    if (v9)
+    {
+      v7 = v9;
+      v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+      {
+        v6 = os_log_create("com.apple.isp", "general");
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v6;
+      }
+
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 67109120;
+        v102 = v7;
+        v8 = "H16ISPGraphVIOCameraControlNode::InitVIO - sCIspCmdChVIODownScaleFactorSet failed: 0x%08X\n\n";
+        goto LABEL_20;
+      }
+    }
+
+    else
+    {
+      bzero(v90, 0x14uLL);
+      v91 = 12549;
+      v92 = *(this + 24);
+      v93 = 1;
+      v94 = *(this + 64);
+      v10 = H16ISP::H16ISPDevice::ISP_SendCommand(*(this + 10), v90, 0x14u, 0, 0xFFFFFFFF);
+      if (v10)
+      {
+        v7 = v10;
+        v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+        if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+        {
+          v6 = os_log_create("com.apple.isp", "general");
+          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v6;
+        }
+
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67109120;
+          v102 = v7;
+          v8 = "H16ISPGraphVIOCameraControlNode::InitVIO - sCIspCmdChVioEnable failed: 0x%08X\n\n";
+          goto LABEL_20;
+        }
+      }
+
+      else
+      {
+        bzero(buf, 0x2CuLL);
+        LOWORD(v102) = 12550;
+        v103 = *(this + 24);
+        v7 = H16ISP::H16ISPDevice::ISP_SendCommand(*(this + 10), buf, 0x2Cu, 0, 0xFFFFFFFF);
+        v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+        if (!v7)
+        {
+          if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+          {
+            v15 = os_log_create("com.apple.isp", "general");
+            GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v15;
+          }
+
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          {
+            *v100 = 67109120;
+            *&v100[4] = v104;
+            _os_log_impl(&dword_2247DB000, v15, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - cmdChVioInputConfigGet.width: %d\n\n", v100, 8u);
+            v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+          }
+
+          if (v15 == v3)
+          {
+            v15 = os_log_create("com.apple.isp", "general");
+            GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v15;
+          }
+
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          {
+            *v100 = 67109120;
+            *&v100[4] = v106;
+            _os_log_impl(&dword_2247DB000, v15, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - cmdChVioInputConfigGet.height: %d\n\n", v100, 8u);
+            v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+          }
+
+          if (v15 == v3)
+          {
+            v15 = os_log_create("com.apple.isp", "general");
+            GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v15;
+          }
+
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          {
+            *v100 = 67109120;
+            *&v100[4] = v105;
+            _os_log_impl(&dword_2247DB000, v15, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - cmdChVioInputConfigGet.bufferStride: %d\n\n", v100, 8u);
+            v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+          }
+
+          if (v15 == v3)
+          {
+            v15 = os_log_create("com.apple.isp", "general");
+            GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v15;
+          }
+
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          {
+            v16 = *(this + 67);
+            *v100 = 67109120;
+            *&v100[4] = v16;
+            _os_log_impl(&dword_2247DB000, v15, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - vioParams.keypointDetectionFlow: %d\n\n", v100, 8u);
+          }
+
+          if (H16ISP::H16ISPGetCFPreferenceNumber(@"EnableVIODebug", @"com.apple.coremedia", 0))
+          {
+            v17 = v105 * v106;
+          }
+
+          else
+          {
+            v17 = 0;
+          }
+
+          v18 = CVHWAFeatureExtractionConfigCreate();
+          if (v18)
+          {
+            v19 = v18;
+            v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+            if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+            {
+              v6 = os_log_create("com.apple.isp", "general");
+              GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v6;
+            }
+
+            if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+            {
+              return v7;
+            }
+
+            *v100 = 67109120;
+            *&v100[4] = v19;
+            v8 = "H16ISPGraphVIOCameraControlNode::InitVIO - CVHWAFeatureExtractionConfigCreate failed: %d\n\n";
+          }
+
+          else
+          {
+            CVHWAFeatureExtractionConfigSetImageSize();
+            CVHWAFeatureExtractionConfigSetMaxImageSize();
+            CVHWAFeatureExtractionConfigSetNumberOfOctaves();
+            CVHWAFeatureExtractionConfigSetTargetNumberOfKeypoints();
+            CVHWAFeatureExtractionConfigSetMaxNumberOfKeypoints();
+            CVHWAFeatureExtractionConfigSetResponseThreshold();
+            CVHWAFeatureExtractionConfigSetEnableParedGrid();
+            CVHWAFeatureExtractionConfigSetEnableOrientationAssignment();
+            CVHWAFeatureExtractionConfigSetEnableDynamicThresholding();
+            CVHWAFeatureExtractionConfigSetDetectionFlow();
+            CVHWAFeatureExtractionConfigSetDisablePostProcessing();
+            CVHWAFeatureExtractionConfigSetSigmaDistanceThreshold();
+            CVHWAFeatureExtractionConfigSetSquareDistanceDisparityFraction();
+            CVHWAFeatureExtractionConfigSetHammingDistanceThreshold();
+            CVHWAFeatureExtractionConfigSetOrientationDistanceThreshold();
+            CVHWAFeatureExtractionConfigSetFeatureMatchingDescriptorSize();
+            CVHWAFeatureExtractionConfigSetEnableFeatureMatching();
+            CVHWAFeatureExtractionConfigSetExtraTestThreshold();
+            inited = CVHWAFeatureExtractionInitDirectWithLacc();
+            if (inited)
+            {
+              v21 = inited;
+              v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+              if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+              {
+                v6 = os_log_create("com.apple.isp", "general");
+                GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v6;
+              }
+
+              if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+              {
+                return v7;
+              }
+
+              *v100 = 67109120;
+              *&v100[4] = v21;
+              v8 = "H16ISPGraphVIOCameraControlNode::InitVIO - CVHWAFeatureExtractionInitDirect failed: %d\n\n";
+            }
+
+            else
+            {
+              *(this + 16) = CVHWAFeatureExtractionGetActionBuffer();
+              *(this + 17) = CVHWAFeatureExtractionGetOperationBuffer();
+              *(this + 38) = CVHWAFeatureExtractionGetActionSizeInBytes();
+              *(this + 39) = CVHWAFeatureExtractionGetOperationSizeInBytes();
+              *(this + 40) = CVHWAFeatureExtractionGetOutputSizeInBytes();
+              *(this + 41) = CVHWAFeatureExtractionGetOutputReserveSizeInBytes();
+              *(this + 172) = CVHWAFeatureExtractionGetDynamicThresholdingEnable();
+              *(this + 44) = CVHWAFeatureExtractionGetDynamicThresholdingTargetKeypointsConfigCount();
+              *(this + 18) = CVHWAFeatureExtractionGetLaccBuffer();
+              v22 = 0;
+              *(this + 42) = CVHWAFeatureExtractionGetLaccSizeInBytes();
+              do
+              {
+                *(this + v22++ + 45) = CVHWAFeatureExtractionGetDynamicThresholdingTargetKeypointsAtIndex();
+              }
+
+              while (v22 != 9);
+              v23 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+              if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+              {
+                v23 = os_log_create("com.apple.isp", "general");
+                GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v23;
+              }
+
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+              {
+                if (*(this + 16))
+                {
+                  v24 = "Yes";
+                }
+
+                else
+                {
+                  v24 = "No";
+                }
+
+                v25 = *(this + 38);
+                *v100 = 136315394;
+                *&v100[4] = v24;
+                *&v100[12] = 1024;
+                *&v100[14] = v25;
+                _os_log_impl(&dword_2247DB000, v23, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - action buffer: %s, actionSizeInBytes: %d\n\n", v100, 0x12u);
+                v23 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+              }
+
+              if (v23 == v3)
+              {
+                v23 = os_log_create("com.apple.isp", "general");
+                GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v23;
+              }
+
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+              {
+                if (*(this + 17))
+                {
+                  v26 = "Yes";
+                }
+
+                else
+                {
+                  v26 = "No";
+                }
+
+                v27 = *(this + 39);
+                *v100 = 136315394;
+                *&v100[4] = v26;
+                *&v100[12] = 1024;
+                *&v100[14] = v27;
+                _os_log_impl(&dword_2247DB000, v23, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - operation buffer: %s, operationSizeInBytes: %d\n\n", v100, 0x12u);
+                v23 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+              }
+
+              if (v23 == v3)
+              {
+                v23 = os_log_create("com.apple.isp", "general");
+                GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v23;
+              }
+
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+              {
+                v28 = *(this + 40);
+                *v100 = 67109120;
+                *&v100[4] = v28;
+                _os_log_impl(&dword_2247DB000, v23, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - outputSizeInBytes: %d\n\n", v100, 8u);
+                v23 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+              }
+
+              if (v23 == v3)
+              {
+                v23 = os_log_create("com.apple.isp", "general");
+                GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v23;
+              }
+
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+              {
+                v29 = *(this + 41);
+                *v100 = 67109120;
+                *&v100[4] = v29;
+                _os_log_impl(&dword_2247DB000, v23, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - keypointAndDescriptorSizeInBytes: %d\n\n", v100, 8u);
+                v23 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+              }
+
+              if (v23 == v3)
+              {
+                v23 = os_log_create("com.apple.isp", "general");
+                GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v23;
+              }
+
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+              {
+                if (*(this + 18))
+                {
+                  v30 = "Yes";
+                }
+
+                else
+                {
+                  v30 = "No";
+                }
+
+                v31 = *(this + 42);
+                *v100 = 136315394;
+                *&v100[4] = v30;
+                *&v100[12] = 1024;
+                *&v100[14] = v31;
+                _os_log_impl(&dword_2247DB000, v23, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - lacc buffer: %s, laccSizeInBytes: %d\n\n", v100, 0x12u);
+              }
+
+              bzero(v86, 0x10uLL);
+              v87 = 12545;
+              v32 = *(this + 40);
+              v88 = *(this + 24);
+              v89 = v32;
+              v33 = H16ISP::H16ISPDevice::ISP_SendCommand(*(this + 10), v86, 0x10u, 0, 0xFFFFFFFF);
+              if (v33)
+              {
+                v7 = v33;
+                v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+                {
+                  v6 = os_log_create("com.apple.isp", "general");
+                  GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v6;
+                }
+
+                if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+                {
+                  return v7;
+                }
+
+                *v100 = 67109120;
+                *&v100[4] = v7;
+                v8 = "H16ISPGraphVIOCameraControlNode::InitVIO - sCIspCmdChVioBlobSize failed: 0x%08X\n\n";
+              }
+
+              else
+              {
+                bzero(v81, 0x14uLL);
+                v82 = 12546;
+                v34 = *(this + 41);
+                v83 = *(this + 24);
+                v84 = v34;
+                v85 = v17;
+                v35 = H16ISP::H16ISPDevice::ISP_SendCommand(*(this + 10), v81, 0x14u, 0, 0xFFFFFFFF);
+                if (v35)
+                {
+                  v7 = v35;
+                  v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                  if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+                  {
+                    v6 = os_log_create("com.apple.isp", "general");
+                    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v6;
+                  }
+
+                  if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+                  {
+                    return v7;
+                  }
+
+                  *v100 = 67109120;
+                  *&v100[4] = v7;
+                  v8 = "H16ISPGraphVIOCameraControlNode::InitVIO - sCIspCmdChVioMetaReserve failed: 0x%08X\n\n";
+                }
+
+                else
+                {
+                  v36 = *(this + 16);
+                  if (v36 && *(this + 38))
+                  {
+                    CVPixelBufferLockBaseAddress(v36, 0);
+                    if (CVPixelBufferGetBaseAddress(*(this + 16)))
+                    {
+                      operator new[]();
+                    }
+
+                    v37 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+                    {
+                      v37 = os_log_create("com.apple.isp", "general");
+                      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v37;
+                    }
+
+                    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+                    {
+                      *v100 = 0;
+                      _os_log_impl(&dword_2247DB000, v37, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - CVPixelBufferGetBaseAddress for action buffer returned NULL\n\n", v100, 2u);
+                    }
+
+                    CVPixelBufferUnlockBaseAddress(*(this + 16), 0);
+                  }
+
+                  v38 = *(this + 17);
+                  if (v38 && *(this + 39))
+                  {
+                    CVPixelBufferLockBaseAddress(v38, 0);
+                    if (CVPixelBufferGetBaseAddress(*(this + 17)))
+                    {
+                      operator new[]();
+                    }
+
+                    v39 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+                    {
+                      v39 = os_log_create("com.apple.isp", "general");
+                      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v39;
+                    }
+
+                    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+                    {
+                      *v100 = 0;
+                      _os_log_impl(&dword_2247DB000, v39, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - CVPixelBufferGetBaseAddress for operation buffer returned NULL\n\n", v100, 2u);
+                    }
+
+                    CVPixelBufferUnlockBaseAddress(*(this + 17), 0);
+                  }
+
+                  v40 = *(this + 18);
+                  if (v40)
+                  {
+                    CVPixelBufferLockBaseAddress(v40, 0);
+                    if (CVPixelBufferGetBaseAddress(*(this + 18)))
+                    {
+                      operator new[]();
+                    }
+
+                    v41 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+                    {
+                      v41 = os_log_create("com.apple.isp", "general");
+                      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v41;
+                    }
+
+                    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+                    {
+                      *v100 = 0;
+                      _os_log_impl(&dword_2247DB000, v41, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - CVPixelBufferGetBaseAddress for lacc buffer returned NULL\n\n", v100, 2u);
+                    }
+
+                    CVPixelBufferUnlockBaseAddress(*(this + 18), 0);
+                  }
+
+                  v42 = *(this + 16);
+                  if (v42)
+                  {
+                    CVPixelBufferRelease(v42);
+                    *(this + 16) = 0;
+                  }
+
+                  v43 = *(this + 17);
+                  if (v43)
+                  {
+                    CVPixelBufferRelease(v43);
+                    *(this + 17) = 0;
+                  }
+
+                  v44 = *(this + 37);
+                  if (v44)
+                  {
+                    CVPixelBufferRelease(v44);
+                    *(this + 37) = 0;
+                  }
+
+                  v45 = *(this + 18);
+                  if (v45)
+                  {
+                    CVPixelBufferRelease(v45);
+                    *(this + 18) = 0;
+                  }
+
+                  bzero(v77, 0x10uLL);
+                  v78 = 12547;
+                  v79 = *(this + 24);
+                  v46 = H16ISP::H16ISPDevice::ISP_SendCommand(*(this + 10), v77, 0x10u, 0, 0xFFFFFFFF);
+                  if (v46)
+                  {
+                    v7 = v46;
+                    v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+                    {
+                      v6 = os_log_create("com.apple.isp", "general");
+                      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v6;
+                    }
+
+                    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+                    {
+                      return v7;
+                    }
+
+                    *v100 = 67109120;
+                    *&v100[4] = v7;
+                    v8 = "H16ISPGraphVIOCameraControlNode::InitVIO - sCIspCmdChVioOutputBufferSize failed: 0x%08X\n\n";
+                  }
+
+                  else
+                  {
+                    v48 = *(this + 55);
+                    if (v48 <= 0.0)
+                    {
+                      *(this + 55) = 1114636288;
+                      v48 = 60.0;
+                    }
+
+                    v49.i32[0] = *(this + 56);
+                    if (v49.f32[0] <= 0.0)
+                    {
+                      *(this + 56) = v48;
+                      v49.f32[0] = v48;
+                    }
+
+                    v50 = *(this + 57);
+                    if (v50 <= 0.0)
+                    {
+                      *(this + 57) = v48;
+                      v50 = v48;
+                    }
+
+                    *v47.i32 = v48;
+                    v49.f32[1] = v50;
+                    *(this + 40) = vmax_u32(vcvt_u32_f32(vdiv_f32(vdup_lane_s32(v47, 0), v49)), 0x100000001);
+                    HIDWORD(v51) = 1083129856;
+                    v52 = 1.0 / v48 * 1000.0;
+                    LODWORD(v51) = *(this + 58);
+                    v53 = (v51 / v52);
+                    *(this + 82) = v53;
+                    *(this + 83) = v53;
+                    v54 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+                    {
+                      v54 = os_log_create("com.apple.isp", "general");
+                      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v54;
+                    }
+
+                    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+                    {
+                      v55 = *(this + 55);
+                      *v100 = 134217984;
+                      *&v100[4] = v55;
+                      _os_log_impl(&dword_2247DB000, v54, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - vioParams.streamFrameRate=%.3f\n\n", v100, 0xCu);
+                      v54 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                    }
+
+                    if (v54 == v3)
+                    {
+                      v54 = os_log_create("com.apple.isp", "general");
+                      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v54;
+                    }
+
+                    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+                    {
+                      v56 = *(this + 56);
+                      *v100 = 134217984;
+                      *&v100[4] = v56;
+                      _os_log_impl(&dword_2247DB000, v54, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - vioParams.vioFrameRate=%.3f\n\n", v100, 0xCu);
+                      v54 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                    }
+
+                    if (v54 == v3)
+                    {
+                      v54 = os_log_create("com.apple.isp", "general");
+                      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v54;
+                    }
+
+                    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+                    {
+                      v57 = *(this + 57);
+                      *v100 = 134217984;
+                      *&v100[4] = v57;
+                      _os_log_impl(&dword_2247DB000, v54, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - vioParams.vioBurstFrameRate=%.3f\n\n", v100, 0xCu);
+                      v54 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                    }
+
+                    if (v54 == v3)
+                    {
+                      v54 = os_log_create("com.apple.isp", "general");
+                      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v54;
+                    }
+
+                    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+                    {
+                      v58 = *(this + 80);
+                      *v100 = 67109120;
+                      *&v100[4] = v58;
+                      _os_log_impl(&dword_2247DB000, v54, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - decimationFactorForVIOFrameRate=%d\n\n", v100, 8u);
+                      v54 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                    }
+
+                    if (v54 == v3)
+                    {
+                      v54 = os_log_create("com.apple.isp", "general");
+                      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v54;
+                    }
+
+                    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+                    {
+                      v59 = *(this + 81);
+                      *v100 = 67109120;
+                      *&v100[4] = v59;
+                      _os_log_impl(&dword_2247DB000, v54, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - decimationFactorForBurstFrameRate=%d\n\n", v100, 8u);
+                      v54 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                    }
+
+                    if (v54 == v3)
+                    {
+                      v54 = os_log_create("com.apple.isp", "general");
+                      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v54;
+                    }
+
+                    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+                    {
+                      v60 = *(this + 82);
+                      *v100 = 67109120;
+                      *&v100[4] = v60;
+                      _os_log_impl(&dword_2247DB000, v54, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - numFramesForBurstMode=%d\n\n", v100, 8u);
+                      v54 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                    }
+
+                    if (v54 == v3)
+                    {
+                      v54 = os_log_create("com.apple.isp", "general");
+                      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v54;
+                    }
+
+                    v61 = os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT);
+                    v62 = *(this + 83);
+                    if (v61)
+                    {
+                      *v100 = 67109120;
+                      *&v100[4] = v62;
+                      _os_log_impl(&dword_2247DB000, v54, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::InitVIO - remainingBurstModeFrames=%d\n\n", v100, 8u);
+                      v62 = *(this + 83);
+                    }
+
+                    v63 = v62 == 0;
+                    v64 = 324;
+                    if (v63)
+                    {
+                      v64 = 320;
+                    }
+
+                    v65 = H16ISP::H16ISPGraphVIOCameraControlNode::SetVIORunTimeParameters(this, *(this + v64), *(this + 62), *(this + 172), this + 45);
+                    if (v65)
+                    {
+                      v7 = v65;
+                      v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+                      {
+                        v6 = os_log_create("com.apple.isp", "general");
+                        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v6;
+                      }
+
+                      if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+                      {
+                        return v7;
+                      }
+
+                      *v100 = 67109120;
+                      *&v100[4] = v7;
+                      v8 = "H16ISPGraphVIOCameraControlNode::InitVIO - SetVIORunTimeParameters failed: 0x%08X\n\n";
+                    }
+
+                    else
+                    {
+                      v66 = H16ISP::H16ISPDevice::SuspendVio(*(this + 10), *(this + 24), *(this + 217));
+                      if (v66)
+                      {
+                        v7 = v66;
+                        v67 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                        if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+                        {
+                          v67 = os_log_create("com.apple.isp", "general");
+                          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v67;
+                        }
+
+                        if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+                        {
+                          v68 = *(this + 217);
+                          *v100 = 67109376;
+                          *&v100[4] = v68;
+                          *&v100[8] = 1024;
+                          *&v100[10] = v7;
+                          v8 = "H16ISPGraphVIOCameraControlNode::InitVIO - SuspendVio(%d) failed: 0x%08X\n\n";
+                          v11 = v100;
+                          v12 = v67;
+                          v13 = 14;
+                          goto LABEL_23;
+                        }
+
+                        return v7;
+                      }
+
+                      H16ISP::H16ISPDevice::GetPoolInfo(*(this + 10), *(this + 24), 24, this + 25, 0);
+                      if (v69)
+                      {
+                        v7 = v69;
+                        v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                        if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+                        {
+                          v6 = os_log_create("com.apple.isp", "general");
+                          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v6;
+                        }
+
+                        if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+                        {
+                          return v7;
+                        }
+
+                        *v100 = 67109120;
+                        *&v100[4] = v7;
+                        v8 = "H16ISPGraphVIOCameraControlNode::InitVIO - GetPoolInfo failed: 0x%08X\n\n";
+                      }
+
+                      else
+                      {
+                        *v76 = 0;
+                        H16ISP::H16ISPGetYUVSBufferParamsForDataBufferSize(v80, &v76[1], v76, v70);
+                        v71 = *(this + 63);
+                        if (!v71)
+                        {
+                          v71 = 1;
+                          *(this + 63) = 1;
+                        }
+
+                        v72 = *(this + 11);
+                        v73 = *(this + 25);
+                        memset(v100, 0, sizeof(v100));
+                        LOBYTE(v75) = 1;
+                        HIDWORD(v74) = v71 + 5;
+                        LODWORD(v74) = 128;
+                        v7 = H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(v72, 24, v73, v76[1], v76[0], 0, 0, 7, 0.0, v100, 0, v74, 0, 4, 0, @"VIO", 0, 0, 0, v75);
+                        if (!v7)
+                        {
+                          return v7;
+                        }
+
+                        v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+                        if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+                        {
+                          v6 = os_log_create("com.apple.isp", "general");
+                          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v6;
+                        }
+
+                        if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+                        {
+                          return v7;
+                        }
+
+                        *v100 = 67109120;
+                        *&v100[4] = v7;
+                        v8 = "H16ISPGraphVIOCameraControlNode::InitVIO - addBufferPoolToFrameReceiver failed: 0x%08X\n\n";
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          v11 = v100;
+          goto LABEL_21;
+        }
+
+        if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+        {
+          v15 = os_log_create("com.apple.isp", "general");
+          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v15;
+        }
+
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        {
+          *v100 = 67109120;
+          *&v100[4] = v7;
+          v8 = "H16ISPGraphVIOCameraControlNode::InitVIO - sCIspCmdChVioInputConfigGet failed: 0x%08X\n\n";
+          v11 = v100;
+          v12 = v15;
+          goto LABEL_22;
+        }
+      }
+    }
+  }
+
+  return v7;
+}
+
+uint64_t H16ISP::H16ISPGraphVIOCameraControlNode::onDeactivate(H16ISP::H16ISPGraphVIOCameraControlNode *this)
+{
+  v2 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+  {
+    v2 = os_log_create("com.apple.isp", "general");
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v2;
+  }
+
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    *v4 = 0;
+    _os_log_impl(&dword_2247DB000, v2, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::onDeactivate\n\n", v4, 2u);
+  }
+
+  H16ISP::H16ISPGraphVIOCameraControlNode::DeInitVIO(this);
+  return 0;
+}
+
+uint64_t H16ISP::H16ISPGraphVIOCameraControlNode::DeInitVIO(H16ISP::H16ISPGraphVIOCameraControlNode *this)
+{
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  v3 = MEMORY[0x277D86220];
+  if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+  {
+    v2 = os_log_create("com.apple.isp", "general");
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v2;
+  }
+
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 0;
+    _os_log_impl(&dword_2247DB000, v2, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::DeInitVIO\n\n", v8, 2u);
+  }
+
+  bzero(v8, 0x14uLL);
+  v8[2] = 12549;
+  v9 = *(this + 24);
+  v10 = 0;
+  v4 = H16ISP::H16ISPDevice::ISP_SendCommand(*(this + 10), v8, 0x14u, 0, 0xFFFFFFFF);
+  if (v4)
+  {
+    v5 = v4;
+    v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v3)
+    {
+      v6 = os_log_create("com.apple.isp", "general");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v6;
+    }
+
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      v12 = v5;
+      _os_log_impl(&dword_2247DB000, v6, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::DeInitVIO - sCIspCmdChVioEnable (false) failed: 0x%08X\n\n", buf, 8u);
+    }
+  }
+
+  if (*(this + 14))
+  {
+    CVHWAFeatureExtractionRelease();
+  }
+
+  if (*(this + 15))
+  {
+    CVHWAFeatureExtractionConfigRelease();
+  }
+
+  return 0;
+}
+
+uint64_t H16ISP::H16ISPGraphVIOCameraControlNode::onMessageProcessing(H16ISP::H16ISPGraphVIOCameraControlNode *this, H16ISP::H16ISPFilterGraphMessage *a2)
+{
+  v20 = *MEMORY[0x277D85DE8];
+  pthread_mutex_lock((a2 + 8));
+  v4 = *(a2 + 25);
+  if (v4)
+  {
+    v5 = (a2 + 112);
+    while (*v5 != 24)
+    {
+      v5 += 4;
+      if (!--v4)
+      {
+        goto LABEL_5;
+      }
+    }
+
+    v6 = *(v5 - 1);
+    CVPixelBufferRetain(v6);
+  }
+
+  else
+  {
+LABEL_5:
+    v6 = 0;
+  }
+
+  pthread_mutex_unlock((a2 + 8));
+  v7 = *(this + 83);
+  if (v7 && (v8 = v7 - 1, (*(this + 83) = v8) == 0) && (v13 = H16ISP::H16ISPGraphVIOCameraControlNode::SetVIORunTimeParameters(this, *(this + 80), -1, *(this + 172), this + 45)) != 0)
+  {
+    v14 = v13;
+    v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+    {
+      v15 = os_log_create("com.apple.isp", "general");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v15;
+    }
+
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = 136315394;
+      v17 = "onMessageProcessing";
+      v18 = 1024;
+      v19 = v14;
+      _os_log_impl(&dword_2247DB000, v15, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::%s - SetVIORunTimeParameters failed: 0x%08X\n\n", &v16, 0x12u);
+    }
+  }
+
+  else if (v6)
+  {
+    v9 = CVHWAFeatureExtractionProcessHwOutputs();
+    if (v9)
+    {
+      v10 = v9;
+      v11 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+      {
+        v11 = os_log_create("com.apple.isp", "general");
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v11;
+      }
+
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        v16 = 67109120;
+        LODWORD(v17) = v10;
+        _os_log_impl(&dword_2247DB000, v11, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::onMessageProcessing - CVHWAFeatureExtractionProcessHwOutputs failed: %d\n\n", &v16, 8u);
+      }
+    }
+
+    CVPixelBufferRelease(v6);
+  }
+
+  return 0;
+}
+
+uint64_t H16ISP::H16ISPGraphVIOCameraControlNode::SetVIORunTimeParameters(H16ISP::H16ISPGraphVIOCameraControlNode *this, int a2, int a3, int a4, unsigned int *a5)
+{
+  *(this + 62) = a3;
+  bzero(v12, 0x3CuLL);
+  v13 = 12548;
+  v14 = *(this + 24);
+  v15 = a2;
+  v16 = a3;
+  v17 = a4;
+  if (a5)
+  {
+    v10 = *(a5 + 1);
+    v18 = *a5;
+    v19 = v10;
+    v20 = a5[8];
+  }
+
+  return H16ISP::H16ISPDevice::ISP_SendCommand(*(this + 10), v12, 0x3Cu, 0, 0xFFFFFFFF);
+}
+
+uint64_t H16ISP::H16ISPGraphVIOCameraControlNode::TriggerBurstMode(H16ISP::H16ISPGraphVIOCameraControlNode *this)
+{
+  v1 = *(this + 82);
+  *(this + 83) = v1;
+  if (v1)
+  {
+    return H16ISP::H16ISPGraphVIOCameraControlNode::SetVIORunTimeParameters(this, *(this + 81), -1, *(this + 172), this + 45);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t H16ISP::H16ISPGraphVIOCameraControlNode::Suspend(uint64_t this)
+{
+  *(this + 217) = 1;
+  if (*(this + 16) == 1)
+  {
+    return H16ISP::H16ISPDevice::SuspendVio(*(this + 80), *(this + 96), 1);
+  }
+
+  return this;
+}
+
+uint64_t H16ISP::H16ISPGraphVIOCameraControlNode::Resume(uint64_t this)
+{
+  *(this + 217) = 0;
+  if (*(this + 16) == 1)
+  {
+    return H16ISP::H16ISPDevice::SuspendVio(*(this + 80), *(this + 96), 0);
+  }
+
+  return this;
+}
+
+uint64_t H16ISP::H16ISPGraphVIOCameraControlNode::AdjustStreamFrameRate(H16ISP::H16ISPGraphVIOCameraControlNode *this, float a2, double a3)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  *(this + 55) = a2;
+  if (*(this + 16) != 1)
+  {
+    goto LABEL_9;
+  }
+
+  *&a3 = a2;
+  if (a2 <= 0.0)
+  {
+    *(this + 55) = 1114636288;
+    LODWORD(a3) = 1114636288;
+  }
+
+  v5.i32[0] = *(this + 56);
+  if (v5.f32[0] <= 0.0)
+  {
+    *(this + 56) = LODWORD(a3);
+    v5.i32[0] = LODWORD(a3);
+  }
+
+  v6 = *(this + 57);
+  if (v6 <= 0.0)
+  {
+    *(this + 57) = LODWORD(a3);
+    v6 = *&a3;
+  }
+
+  *&a3 = *&a3;
+  v5.f32[1] = v6;
+  v7 = vmax_u32(vcvt_u32_f32(vdiv_f32(vdup_lane_s32(*&a3, 0), v5)), 0x100000001);
+  *(this + 40) = v7;
+  if (!*(this + 83))
+  {
+    v8 = H16ISP::H16ISPGraphVIOCameraControlNode::SetVIORunTimeParameters(this, v7.i32[0], -1, *(this + 172), this + 45);
+  }
+
+  else
+  {
+LABEL_9:
+    v8 = 0;
+  }
+
+  v9 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+  {
+    v9 = os_log_create("com.apple.isp", "general");
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v9;
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = *(this + 80);
+    v12 = 134218496;
+    v13 = a2;
+    v14 = 1024;
+    v15 = v10;
+    v16 = 1024;
+    v17 = v8;
+    _os_log_impl(&dword_2247DB000, v9, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode::AdjustStreamFrameRate - newStreamFrameRate=%.3f, decimationFactorForVIOFrameRate=%d, res=0x%08X\n\n", &v12, 0x18u);
+  }
+
+  return v8;
+}
+
+uint64_t H16ISP::H16ISPGraphVIOCameraControlNode::H16ISPGraphVIOCameraControlNode(uint64_t a1, uint64_t a2, int a3, const void *a4)
+{
+  H16ISP::H16ISPFilterGraphNode::H16ISPFilterGraphNode(a1, 9);
+  *v8 = &unk_2838149B8;
+  v9 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+  {
+    v9 = os_log_create("com.apple.isp", "general");
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v9;
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    *v11 = 0;
+    _os_log_impl(&dword_2247DB000, v9, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode Constructor\n\n", v11, 2u);
+  }
+
+  mach_timebase_info((a1 + 104));
+  *(a1 + 80) = a2;
+  *(a1 + 96) = a3;
+  memmove((a1 + 216), a4, 0x68uLL);
+  *(a1 + 112) = 0;
+  *(a1 + 120) = 0;
+  return a1;
+}
+
+void H16ISP::H16ISPGraphVIOCameraControlNode::~H16ISPGraphVIOCameraControlNode(NSObject **this)
+{
+  *this = &unk_2838149B8;
+  v2 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+  {
+    v2 = os_log_create("com.apple.isp", "general");
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v2;
+  }
+
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    *v3 = 0;
+    _os_log_impl(&dword_2247DB000, v2, OS_LOG_TYPE_DEFAULT, "H16ISPGraphVIOCameraControlNode Destructor\n\n", v3, 2u);
+  }
+
+  H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
+}
+
+{
+  H16ISP::H16ISPGraphVIOCameraControlNode::~H16ISPGraphVIOCameraControlNode(this);
+
+  JUMPOUT(0x22AA55B60);
+}
+
+BOOL H16ISP::savePeridotCalib(H16ISP *this, H16ISP::H16ISPDevice *a2, H16ISP::H16ISPServicesRemote *a3, void *a4, const void *a5)
+{
+  v31 = *MEMORY[0x277D85DE8];
+  v9 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  v10 = MEMORY[0x277D86220];
+  if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+  {
+    v11 = os_log_create("com.apple.isp", "general");
+    v12 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v11;
+
+    v9 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v29 = 136315138;
+    v30 = "savePeridotCalib";
+    _os_log_impl(&dword_2247DB000, v9, OS_LOG_TYPE_DEFAULT, "%s - saving calibration\n", &v29, 0xCu);
+  }
+
+  if (!a4)
+  {
+    return 0;
+  }
+
+  v13 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v10)
+  {
+    v14 = os_log_create("com.apple.isp", "general");
+    v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v14;
+
+    v13 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  }
+
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v29 = 136315138;
+    v30 = "savePeridotCalib";
+    _os_log_impl(&dword_2247DB000, v13, OS_LOG_TYPE_DEFAULT, "%s - updating firmware\n", &v29, 0xCu);
+  }
+
+  if (H16ISP::savePeridotCalibToFW(this, a3, a4, v16))
+  {
+    v17 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    if (a2)
+    {
+      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v10)
+      {
+        v18 = os_log_create("com.apple.isp", "general");
+        v19 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v18;
+
+        v17 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      }
+
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        v29 = 136315138;
+        v30 = "savePeridotCalib";
+        _os_log_impl(&dword_2247DB000, v17, OS_LOG_TYPE_DEFAULT, "%s - sending to daemon to store\n", &v29, 0xCu);
+      }
+
+      v20 = CFRetain(a4);
+      if (v20)
+      {
+        v21 = v20;
+        H16ISP::H16ISPServicesRemote::SaveJasperCalibData(a2, v20);
+        CFRelease(v21);
+      }
+    }
+
+    else
+    {
+      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v10)
+      {
+        v26 = os_log_create("com.apple.isp", "general");
+        v27 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v26;
+
+        v17 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      }
+
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        v29 = 136315138;
+        v30 = "savePeridotCalib";
+        _os_log_impl(&dword_2247DB000, v17, OS_LOG_TYPE_DEFAULT, "%s - storing locally\n", &v29, 0xCu);
+      }
+
+      JasperCalibration::save(a4, v28);
+    }
+
+    return 1;
+  }
+
+  v22 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v10)
+  {
+    v23 = os_log_create("com.apple.isp", "general");
+    v24 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v23;
+
+    v22 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  }
+
+  result = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+  if (result)
+  {
+    v29 = 136315138;
+    v30 = "savePeridotCalib";
+    _os_log_impl(&dword_2247DB000, v22, OS_LOG_TYPE_DEFAULT, "%s - failed to update calibration in firmware\n", &v29, 0xCu);
+    return 0;
+  }
+
+  return result;
+}
+
+BOOL H16ISP::setPeridotCalib(H16ISP *this, xpc_connection_t *a2, H16ISP::H16ISPServicesRemote *a3)
+{
+  v19 = *MEMORY[0x277D85DE8];
+  PeridotCalib = H16ISP::createPeridotCalib(this, a2, 0);
+  if (!PeridotCalib)
+  {
+    return 0;
+  }
+
+  v6 = PeridotCalib;
+  v7 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  v8 = MEMORY[0x277D86220];
+  if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+  {
+    v9 = os_log_create("com.apple.isp", "general");
+    v10 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v9;
+
+    v7 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  }
+
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = 136315138;
+    v18 = "setPeridotCalib";
+    _os_log_impl(&dword_2247DB000, v7, OS_LOG_TYPE_DEFAULT, "%s - updating firmware\n", &v17, 0xCu);
+  }
+
+  v12 = H16ISP::savePeridotCalibToFW(this, a3, v6, v11);
+  if (!v12)
+  {
+    v13 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == v8)
+    {
+      v14 = os_log_create("com.apple.isp", "general");
+      v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v14;
+
+      v13 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    }
+
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = 136315138;
+      v18 = "setPeridotCalib";
+      _os_log_impl(&dword_2247DB000, v13, OS_LOG_TYPE_DEFAULT, "%s - failed to update firmware\n", &v17, 0xCu);
+    }
+  }
+
+  CFRelease(v6);
+  return v12;
+}
+
+BOOL H16ISP::savePeridotCalibToFW(H16ISP *this, H16ISP::H16ISPDevice *a2, uint64_t a3, const void *a4)
+{
+  v4 = a2;
+  v31 = *MEMORY[0x277D85DE8];
+  H16ISP::JasperConfigManager::getJasperOptionsDict(this);
+  IspFirmwareCalibWithOptions = PDPeridotCalibCreateIspFirmwareCalibWithOptions();
+  if (IspFirmwareCalibWithOptions)
+  {
+    v7 = IspFirmwareCalibWithOptions;
+    if (CFDataGetLength(IspFirmwareCalibWithOptions) == 536)
+    {
+      bzero(buf, 0x228uLL);
+      LOWORD(v26) = 14087;
+      HIDWORD(v26) = v4;
+      v32.location = 0;
+      v32.length = 536;
+      CFDataGetBytes(v7, v32, &Length + 2);
+      v8 = H16ISP::H16ISPDevice::ISP_SendCommand(this, buf, 0x228u, 0, 0xFFFFFFFF);
+      v9 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+      {
+        v10 = os_log_create("com.apple.isp", "general");
+        v11 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v10;
+
+        v9 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      }
+
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        v21 = 136315394;
+        v22 = "savePeridotCalibToFW";
+        v23 = 1024;
+        v24 = v8;
+        _os_log_impl(&dword_2247DB000, v9, OS_LOG_TYPE_DEFAULT, "%s - updating firmware: %d\n", &v21, 0x12u);
+      }
+
+      CFRelease(v7);
+      return v8 == 0;
+    }
+
+    v17 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+    {
+      v18 = os_log_create("com.apple.isp", "general");
+      v19 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v18;
+
+      v17 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    }
+
+    v20 = v17;
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315650;
+      v26 = "savePeridotCalibToFW";
+      v27 = 2048;
+      Length = CFDataGetLength(v7);
+      v29 = 2048;
+      v30 = 536;
+      _os_log_impl(&dword_2247DB000, v20, OS_LOG_TYPE_DEFAULT, "%s - updating firmware: unexpected size: %ld != %lu\n", buf, 0x20u);
+    }
+
+    CFRelease(v7);
+    return 0;
+  }
+
+  v13 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+  {
+    v14 = os_log_create("com.apple.isp", "general");
+    v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v14;
+
+    v13 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  }
+
+  v16 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+  result = 0;
+  if (v16)
+  {
+    *buf = 136315138;
+    v26 = "savePeridotCalibToFW";
+    _os_log_impl(&dword_2247DB000, v13, OS_LOG_TYPE_DEFAULT, "%s - updating firmware: bad input\n", buf, 0xCu);
+    return 0;
+  }
+
+  return result;
+}
+
+void H16ISP::H16ISPJasperDepthNode::H16ISPJasperDepthNode(H16ISP::H16ISPJasperDepthNode *this, H16ISP::H16ISPDevice *a2, int a3, int a4, int a5, H16ISP::H16ISPServicesRemote *a6)
+{
+  H16ISP::H16ISPFilterGraphNode::H16ISPFilterGraphNode(this, 11);
+  *v12 = &unk_283814A30;
+  *(v12 + 80) = a2;
+  *(v12 + 88) = a6;
+  *(v12 + 96) = 0;
+  *(v12 + 104) = 0;
+  *(v12 + 112) = vdup_n_s32(0x42F00000u);
+  *(v12 + 120) = a3;
+  *(v12 + 128) = a4;
+  *(v12 + 132) = a5;
+  *(v12 + 136) = 0;
+  *(v12 + 144) = 0;
+  *(v12 + 152) = 0;
+  *(v12 + 160) = 1;
+  mach_timebase_info((v12 + 168));
+  *(this + 213) = 0u;
+  *(this + 200) = 0u;
+  *(this + 184) = 0u;
+  *(this + 31) = H16ISP::H16ISPDevice::getSensorChannel(a2, 1785950322, 1852793709);
+  *(this + 56) = H16ISP::H16ISPGetCFPreferenceNumber(@"JasperCongestionLimit", @"com.apple.coremedia", 2);
+  operator new();
+}
+
+void H16ISP::H16ISPJasperDepthNode::~H16ISPJasperDepthNode(H16ISP::H16ISPJasperDepthNode *this)
+{
+  *this = &unk_283814A30;
+  *(this + 228) = 1;
+  v2 = objc_autoreleasePoolPush();
+  v3 = *(this + 26);
+  if (v3)
+  {
+    os_workgroup_cancel(v3);
+    v4 = *(this + 26);
+    *(this + 26) = 0;
+  }
+
+  objc_autoreleasePoolPop(v2);
+  v5 = *(this + 27);
+  if (v5)
+  {
+    dispatch_async_and_wait(v5, &__block_literal_global_11);
+    v6 = *(this + 27);
+    *(this + 27) = 0;
+  }
+
+  v7 = *(this + 13);
+  if (v7)
+  {
+    H16ISP::JasperDepthNodeInternal::~JasperDepthNodeInternal(v7);
+    MEMORY[0x22AA55B60]();
+  }
+
+  *(this + 13) = 0;
+  v8 = *(this + 18);
+  if (v8)
+  {
+    CFRelease(v8);
+  }
+
+  H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
+}
+
+{
+  H16ISP::H16ISPJasperDepthNode::~H16ISPJasperDepthNode(this);
+
+  JUMPOUT(0x22AA55B60);
+}
+
+H16ISP::H16ISPTimeOfFlightColorSynchronizer *H16ISP::H16ISPJasperDepthNode::setJasperMode(id **this)
+{
+  v2 = [*this[13] expectedBanksPerFrame];
+  if (v2 < 1)
+  {
+    v3 = 2;
+  }
+
+  else
+  {
+    v3 = 8u / v2;
+  }
+
+  result = this[12];
+  if (result)
+  {
+
+    return H16ISP::H16ISPTimeOfFlightColorSynchronizer::setCloudsPerImage(result, v3);
+  }
+
+  return result;
+}
+
+uint64_t H16ISP::H16ISPJasperDepthNode::setGmoShouldDropBeforeWakeup(H16ISP::H16ISPJasperDepthNode *this, char a2)
+{
+  v2 = *(this + 152);
+  if ((v2 & 1) == 0)
+  {
+    *(this + 154) = a2;
+  }
+
+  return v2 ^ 1u;
+}
+
+uint64_t H16ISP::H16ISPJasperDepthNode::setGmoDebugMode(H16ISP::H16ISPJasperDepthNode *this, char a2)
+{
+  v2 = *(this + 152);
+  if ((v2 & 1) == 0)
+  {
+    *(this + 155) = a2;
+  }
+
+  return v2 ^ 1u;
+}
+
+void H16ISP::H16ISPJasperDepthNode::setBufferPool(uint64_t a1, CFTypeRef cf)
+{
+  v3 = *(a1 + 144);
+  if (v3 != cf)
+  {
+    if (v3)
+    {
+      CFRelease(v3);
+    }
+
+    *(a1 + 144) = cf;
+    if (cf)
+    {
+      CFRetain(cf);
+    }
+  }
+
+  v5 = *(a1 + 104);
+  if (v5)
+  {
+    if (*v5)
+    {
+      v6 = *(a1 + 216);
+      if (v6)
+      {
+        v7 = *(a1 + 144);
+        if (v7)
+        {
+          CFRetain(*(a1 + 144));
+          v6 = *(a1 + 216);
+        }
+
+        v8[0] = MEMORY[0x277D85DD0];
+        v8[1] = 3221225472;
+        v8[2] = ___ZN6H16ISP21H16ISPJasperDepthNode13setBufferPoolEP18__CVDataBufferPool_block_invoke;
+        v8[3] = &__block_descriptor_48_e5_v8__0l;
+        v8[4] = a1;
+        v8[5] = v7;
+        dispatch_async(v6, v8);
+      }
+    }
+  }
+}
+
+void ___ZN6H16ISP21H16ISPJasperDepthNode13setBufferPoolEP18__CVDataBufferPool_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  if ((*(v2 + 228) & 1) == 0)
+  {
+    v3 = *(v2 + 104);
+    if (v3)
+    {
+      if (*v3)
+      {
+        [*v3 setDataBufferPool:*(a1 + 40)];
+      }
+    }
+  }
+
+  v4 = *(a1 + 40);
+  if (v4)
+  {
+
+    CFRelease(v4);
+  }
+}
+
+uint64_t H16ISP::H16ISPJasperDepthNode::onActivate(H16ISP::H16ISPJasperDepthNode *this)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  *(this + 152) = 0;
+  *(this + 23) = 0;
+  if (*(this + 26))
+  {
+    goto LABEL_4;
+  }
+
+  memset(v15, 0, sizeof(v15));
+  v14 = 0u;
+  v13 = 0u;
+  v12 = 799564724;
+  if (os_workgroup_attr_set_flags())
+  {
+    H16ISP::H16ISPJasperDepthNode::onActivate();
+  }
+
+  v2 = os_workgroup_create();
+  v3 = *(this + 26);
+  *(this + 26) = v2;
+
+  if (*(this + 26))
+  {
+LABEL_4:
+    v4 = *(this + 27);
+    if (v4 || (inactive = dispatch_workloop_create_inactive("com.apple.h16jaspernode.workloop"), v6 = *(this + 27), *(this + 27) = inactive, v6, dispatch_workloop_set_os_workgroup(*(this + 27), *(this + 26)), dispatch_activate(*(this + 27)), (v4 = *(this + 27)) != 0))
+    {
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = ___ZN6H16ISP21H16ISPJasperDepthNode10onActivateEv_block_invoke;
+      v11[3] = &__block_descriptor_40_e5_v8__0l;
+      v11[4] = this;
+      dispatch_async(v4, v11);
+      *(this + 153) = 0;
+    }
+  }
+
+  else
+  {
+    v8 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+    {
+      v9 = os_log_create("com.apple.isp", "general");
+      v10 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v9;
+
+      v8 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    }
+
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      H16ISP::H16ISPJasperDepthNode::onActivate(v8);
+    }
+  }
+
+  return 0;
+}
+
+void ___ZN6H16ISP21H16ISPJasperDepthNode10onActivateEv_block_invoke(uint64_t a1)
+{
+  v37 = *MEMORY[0x277D85DE8];
+  v1 = *(a1 + 32);
+  PeridotCalib = H16ISP::createPeridotCalib(*(v1 + 80), *(v1 + 88), 0);
+  if (PeridotCalib)
+  {
+    v3 = PeridotCalib;
+    v4 = CFRetain(PeridotCalib);
+    if (H16ISP::H16ISPDevice::GetCameraConfig(*(v1 + 80), *(v1 + 124), 0, v34, v35))
+    {
+      CFRelease(v3);
+    }
+
+    else
+    {
+      v5 = [MEMORY[0x277D3A158] calibrationDataWithPeridotCalib:v4 platformId:*(v1 + 120) sensorVersion:v36];
+      if (v5)
+      {
+        H16ISP::JasperDepthNodeInternal::validate(*(v1 + 104), *(v1 + 80), *(v1 + 124), *(v1 + 88), v5, *(v1 + 112), *(v1 + 116));
+        v6 = **(v1 + 104);
+        v7 = *(v1 + 88);
+        if (v7)
+        {
+          theDict.columns[0].i64[0] = 0;
+          H16ISP::H16ISPServicesRemote::ReadDictionary(v7, @"/var/mobile/Library/ISP/JasperL/session_persistency.plist", &theDict);
+          if (theDict.columns[0].i64[0])
+          {
+            MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x277CBECE8], 0, theDict.columns[0].i64[0]);
+            CFRelease(theDict.columns[0].i64[0]);
+          }
+
+          else
+          {
+            MutableCopy = 0;
+          }
+        }
+
+        else
+        {
+          v9 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:@"/var/mobile/Library/ISP/JasperL/session_persistency.plist"];
+          MutableCopy = [v9 mutableCopy];
+
+          if (MutableCopy)
+          {
+            v10 = MutableCopy;
+          }
+        }
+
+        *(v1 + 192) = MutableCopy;
+        v11 = [(__CFDictionary *)MutableCopy objectForKeyedSubscript:@"DepthProcessor"];
+        if (v11)
+        {
+          [v6 setInternalState:v11];
+        }
+
+        v12 = *(v1 + 144);
+        if (v12)
+        {
+          v13 = CFRetain(v12);
+          v14 = *(v1 + 216);
+          block[0] = MEMORY[0x277D85DD0];
+          block[1] = 3221225472;
+          block[2] = ___ZN6H16ISP21H16ISPJasperDepthNode10onActivateEv_block_invoke_2;
+          block[3] = &unk_27853B7D8;
+          v32 = v6;
+          v33 = v13;
+          dispatch_async(v14, block);
+        }
+
+        if (*(v1 + 155) == 1)
+        {
+          v12 = [v6 setGmoDebugMode];
+        }
+
+        isValidSequenceApplied = H16ISP::JasperConfigManager::isValidSequenceApplied(v12);
+        if (!isValidSequenceApplied)
+        {
+          NSLog(&cfstr_Jasperdepthnod_1.isa);
+        }
+
+        FrameMode = H16ISP::JasperConfigManager::getFrameMode(isValidSequenceApplied);
+        if (FrameMode == 108)
+        {
+          v17 = 2;
+        }
+
+        else
+        {
+          v17 = FrameMode == 104;
+        }
+
+        [*(*(v1 + 104) + 8) setGmoFlowBitmask:0];
+        [**(v1 + 104) setGmoFlowBitmap:0];
+        LODWORD(v18) = *(v1 + 128);
+        LODWORD(v19) = *(v1 + 132);
+        [v6 prepareForPeridotPreset:v17 rawSensorDimensions:{v18, v19}];
+        v20 = *(v1 + 96);
+        if (v20 && (*(v1 + 136) || H16ISP::H16ISPTimeOfFlightColorSynchronizer::isAutoFocusAssistanceActive(v20)))
+        {
+          PDPeridotCalibGetOperationalWideToPeridotTransform();
+          theDict.columns[0] = v21;
+          theDict.columns[1] = v22;
+          theDict.columns[2] = v23;
+          theDict.columns[3] = v24;
+          H16ISP::H16ISPTimeOfFlightColorSynchronizer::setWideToTofExtrinsics(*(v1 + 96), &theDict);
+          H16ISP::H16ISPTimeOfFlightColorSynchronizer::setFWProjectorMode(*(v1 + 96), 1);
+          v25 = *(v1 + 120);
+          v26 = v36;
+          v27 = *(v1 + 96);
+          v28 = **(v1 + 104);
+          v29 = v28;
+          H16ISP::H16ISPTimeOfFlightColorSynchronizer::activate(v27, v4, v25, v26, v28);
+        }
+
+        [v6 startNewStatisticsSession];
+        H16ISP::H16ISPJasperDepthNode::setJasperMode(v1);
+        *(v1 + 152) = 1;
+        CFRelease(v3);
+      }
+
+      else
+      {
+        CFRelease(v3);
+      }
+    }
+  }
+
+  else
+  {
+    NSLog(&cfstr_Jasperdepthnod_0.isa);
+  }
+}
+
+uint64_t H16ISP::JasperDepthNodeInternal::validate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, float a6, float a7)
+{
+  v13 = a5;
+  v14 = *(a1 + 8);
+  if (!v14 || ![v14 isSameDevice:a2])
+  {
+    v17 = [[JasperDepthProvider alloc] initWithDevice:a2 andChannel:a3 andRemote:a4];
+    v18 = *(a1 + 8);
+    *(a1 + 8) = v17;
+
+    v20 = *(a1 + 8);
+    if (v20)
+    {
+      *&v19 = a6;
+      [v20 setJasperFrameRateMin:v19];
+      *&v21 = a7;
+      [*(a1 + 8) setJasperFrameRateMax:v21];
+      v22 = [objc_alloc(MEMORY[0x277D3A148]) initWithSystemCalibrationData:v13];
+      v23 = *a1;
+      *a1 = v22;
+
+      v24 = *(a1 + 8);
+      if (*a1)
+      {
+        [*a1 setDelegate:v24];
+        v25 = H16ISP::H16ISPGetCFPreferenceNumber(@"JasperDumpRawBuffers", @"com.apple.coremedia", 0);
+        *(a1 + 16) = v25 != 0;
+        if (v25)
+        {
+          v26 = NSTemporaryDirectory();
+          v27 = [v26 stringByAppendingPathComponent:@"JasperRawBuffers"];
+          v28 = *(a1 + 32);
+          *(a1 + 32) = v27;
+
+          NSLog(&cfstr_DumpingTofRawB.isa, *(a1 + 32));
+          v29 = [MEMORY[0x277CCAA00] defaultManager];
+          v30 = *(a1 + 32);
+          v36 = 0;
+          [v29 createDirectoryAtPath:v30 withIntermediateDirectories:1 attributes:0 error:&v36];
+          v31 = v36;
+
+          v32 = objc_opt_new();
+          v33 = *(a1 + 24);
+          *(a1 + 24) = v32;
+
+          [*(a1 + 24) setDateFormat:@"yyyyMMdd-HHmmss-SSS"];
+        }
+
+        goto LABEL_8;
+      }
+
+      *(a1 + 8) = 0;
+    }
+
+    v34 = 0;
+    goto LABEL_11;
+  }
+
+  *&v15 = a6;
+  [*(a1 + 8) setJasperFrameRateMin:v15];
+  *&v16 = a7;
+  [*(a1 + 8) setJasperFrameRateMax:v16];
+LABEL_8:
+  v34 = 1;
+LABEL_11:
+
+  return v34;
+}
+
+void ___ZN6H16ISP21H16ISPJasperDepthNode10onActivateEv_block_invoke_2(uint64_t a1)
+{
+  [*(a1 + 32) setDataBufferPool:*(a1 + 40)];
+  v2 = *(a1 + 40);
+
+  CFRelease(v2);
+}
+
+uint64_t H16ISP::H16ISPJasperDepthNode::onDeactivate(H16ISP::H16ISPJasperDepthNode *this)
+{
+  *(this + 76) = 0;
+  v2 = *(this + 27);
+  if (v2)
+  {
+    dispatch_async_and_wait(v2, &__block_literal_global_99);
+    v3 = *(this + 27);
+    *(this + 27) = 0;
+  }
+
+  v4 = *(this + 12);
+  if (v4)
+  {
+    H16ISP::H16ISPTimeOfFlightColorSynchronizer::deactivate(v4);
+  }
+
+  v5 = *(this + 24);
+  if (!v5)
+  {
+    v5 = objc_opt_new();
+  }
+
+  v6 = **(this + 13);
+  if (v6)
+  {
+    [v6 reportSessionStatistics];
+    v7 = [**(this + 13) getInternalState];
+    if (v7)
+    {
+      [v5 setObject:v7 forKey:@"DepthProcessor"];
+    }
+  }
+
+  v8 = *(this + 10);
+  v9 = *(this + 23);
+  v10 = v5;
+  v11 = [v10 objectForKeyedSubscript:@"JasperTotalFrameCount"];
+  v12 = [v11 longLongValue];
+
+  v13 = [v10 objectForKeyedSubscript:@"JasperFramesSinceLastTransition"];
+  v14 = [v13 longLongValue];
+
+  v15 = [v10 objectForKeyedSubscript:@"JasperCurrentState"];
+  v16 = v15;
+  if (v15)
+  {
+    v17 = [v15 intValue];
+  }
+
+  else
+  {
+    v17 = 1;
+  }
+
+  v18 = [v10 objectForKeyedSubscript:@"JasperStateTransitionCount"];
+  v19 = [v18 intValue];
+
+  JasperStatistics = H16ISP::H16ISPDevice::ISP_GetJasperStatistics(v8, outputStruct);
+  v21 = v14 + v9;
+  if (!JasperStatistics)
+  {
+    if (v17 != outputStruct[0])
+    {
+      v19 = (v19 + 1);
+      reportJasperStateAnalytics(v17, outputStruct[0], v12 + v9, v14 + v9, v19, outputStruct[3], outputStruct[1]);
+      v21 = 0;
+    }
+
+    if (v33)
+    {
+      v22 = 0;
+      v23 = &v32;
+      do
+      {
+        reportPeridotCoexRetries(*(v23 - 1), *v23);
+        v23 += 2;
+        ++v22;
+      }
+
+      while (v22 < v33);
+    }
+  }
+
+  v24 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v21];
+  [v10 setObject:v24 forKeyedSubscript:@"JasperFramesSinceLastTransition"];
+
+  v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:outputStruct[0]];
+  [v10 setObject:v25 forKeyedSubscript:@"JasperCurrentState"];
+
+  v26 = [MEMORY[0x277CCABB0] numberWithInt:v19];
+  [v10 setObject:v26 forKeyedSubscript:@"JasperStateTransitionCount"];
+
+  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v12 + v9];
+  [v10 setObject:v27 forKeyedSubscript:@"JasperTotalFrameCount"];
+
+  v28 = *(this + 11);
+  if (v28)
+  {
+    H16ISP::H16ISPServicesRemote::WriteDictionary(v28, @"/var/mobile/Library/ISP/JasperL/session_persistency.plist", v10);
+  }
+
+  else
+  {
+    [v10 writeToFile:@"/var/mobile/Library/ISP/JasperL/session_persistency.plist" atomically:1];
+  }
+
+  v29 = *(this + 25);
+  if (v29)
+  {
+    CFRelease(v29);
+  }
+
+  return 0;
+}
+
+uint64_t H16ISP::H16ISPJasperDepthNode::onMessageProcessing(H16ISP::H16ISPJasperDepthNode *this, H16ISP::H16ISPFilterGraphMessage *a2)
+{
+  pthread_mutex_lock((a2 + 8));
+  v4 = 0;
+  v5 = 0;
+  v6 = 0;
+  v7 = a2 + 112;
+  do
+  {
+    v8 = a2 + 344 * v4 + 80;
+    if (*(v8 + 4) == *(this + 31))
+    {
+      v9 = *(v8 + 5);
+      if (v9)
+      {
+        v10 = v7;
+        v11 = v7;
+        do
+        {
+          v12 = *v11;
+          v11 += 4;
+          if (v12 == 1)
+          {
+            v5 = *(v10 - 1);
+            v6 = *(v8 + 1);
+          }
+
+          v10 = v11;
+          --v9;
+        }
+
+        while (v9);
+      }
+    }
+
+    ++v4;
+    v7 += 344;
+  }
+
+  while (v4 != 3);
+  pthread_mutex_unlock((a2 + 8));
+  if (!v5)
+  {
+    return 0;
+  }
+
+  v13 = 3758097130;
+  H16ISP::JasperDepthNodeInternal::saveBuffer(*(this + 13), v5);
+  ++*(this + 23);
+  Attachment = CVBufferGetAttachment(v5, *MEMORY[0x277CF3F70], 0);
+  if (H16ISP::H16ISPJasperDepthNode::updateJasperMetadata(this, v5, Attachment))
+  {
+    v15 = *(*(this + 13) + 8);
+    v16 = ([v15 isValid] & 1) == 0 && objc_msgSend(*(*(this + 13) + 8), "gmoFlowBitmask") != 0;
+
+    CVPixelBufferLockBaseAddress(v5, 1uLL);
+    CVPixelBufferGetBaseAddress(v5);
+    if (*(this + 12))
+    {
+      shouldProcessForAutoFocus = H16ISP::H16ISPTimeOfFlightColorSynchronizer::shouldProcessForAutoFocus(*(this + 12));
+      CVPixelBufferUnlockBaseAddress(v5, 1uLL);
+      if (shouldProcessForAutoFocus)
+      {
+        goto LABEL_23;
+      }
+    }
+
+    else
+    {
+      CVPixelBufferUnlockBaseAddress(v5, 1uLL);
+    }
+
+    v18 = *(this + 12);
+    if (v18 && H16ISP::H16ISPTimeOfFlightColorSynchronizer::isFWAFOwner(v18))
+    {
+      if (!v16)
+      {
+        return v13;
+      }
+    }
+
+    else if (!*(this + 34))
+    {
+      return 0;
+    }
+
+LABEL_23:
+    if (*(this + 152) == 1)
+    {
+      v22 = 0;
+      v23 = &v22;
+      v24 = 0x2020000000;
+      v25 = 0;
+      v19 = *(this + 27);
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = ___ZN6H16ISP21H16ISPJasperDepthNode19onMessageProcessingEPNS_24H16ISPFilterGraphMessageE_block_invoke;
+      block[3] = &unk_27853B800;
+      block[4] = &v22;
+      block[5] = this;
+      block[6] = v6;
+      block[7] = v5;
+      block[8] = Attachment;
+      dispatch_async_and_wait(v19, block);
+      v13 = *(v23 + 6);
+      _Block_object_dispose(&v22, 8);
+      return v13;
+    }
+
+    return 0;
+  }
+
+  return v13;
+}
+
+void H16ISP::JasperDepthNodeInternal::saveBuffer(H16ISP::JasperDepthNodeInternal *this, CVPixelBufferRef pixelBuffer)
+{
+  if (pixelBuffer && (*(this + 16) & 1) != 0)
+  {
+    CVPixelBufferLockBaseAddress(pixelBuffer, 0);
+    v4 = MEMORY[0x277CBEA90];
+    BaseAddress = CVPixelBufferGetBaseAddress(pixelBuffer);
+    v12 = [v4 dataWithBytesNoCopy:BaseAddress length:CVPixelBufferGetDataSize(pixelBuffer) freeWhenDone:0];
+    v6 = MEMORY[0x277CCACA8];
+    v7 = *(this + 3);
+    v8 = *(this + 4);
+    v9 = [MEMORY[0x277CBEAA8] now];
+    v10 = [v7 stringFromDate:v9];
+    v11 = [v6 stringWithFormat:@"%@/buffer-%@.raw", v8, v10];
+
+    [v12 writeToFile:v11 atomically:1];
+    CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
+  }
+}
+
+uint64_t H16ISP::H16ISPJasperDepthNode::updateJasperMetadata(H16ISP::H16ISPDevice **this, CVPixelBufferRef pixelBuffer, __CFDictionary *a3)
+{
+  CVPixelBufferLockBaseAddress(pixelBuffer, 1uLL);
+  BaseAddress = CVPixelBufferGetBaseAddress(pixelBuffer);
+  DataSize = CVPixelBufferGetDataSize(pixelBuffer);
+  ChannelSensorID = H16ISP::H16ISPDevice::GetChannelSensorID(this[10], *(this + 31));
+  if (ChannelSensorID == 1425)
+  {
+    if (DataSize <= 0x13F)
+    {
+      NSLog(&cfstr_UnexpectedPeri.isa, DataSize);
+      goto LABEL_14;
+    }
+
+    if (BaseAddress[63] != 4)
+    {
+      NSLog(&cfstr_UnexpectedPeri_0.isa, BaseAddress[63], 4);
+    }
+
+    v19 = &BaseAddress[9280 * BaseAddress[51]];
+    if (v19 + 384 > &BaseAddress[DataSize])
+    {
+      NSLog(&cfstr_BadPeridotFram.isa, BaseAddress[51]);
+      goto LABEL_14;
+    }
+
+    v29 = v19[132] - 1;
+    FrameMode = H16ISP::JasperConfigManager::getFrameMode(ChannelSensorID);
+    if (FrameMode == 108)
+    {
+      v22 = 6;
+    }
+
+    else if (FrameMode == 104)
+    {
+      v22 = 5;
+    }
+
+    else
+    {
+      v22 = 1;
+    }
+
+    v28 = v22;
+    v23 = *MEMORY[0x277CBECE8];
+    v24 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt16Type, &v28);
+    CFDictionarySetValue(a3, *MEMORY[0x277CF52E0], v24);
+    CFRelease(v24);
+    v17 = CFNumberCreate(v23, kCFNumberSInt8Type, &v29);
+    CFDictionarySetValue(a3, @"JasperBankId", v17);
+    v18 = *MEMORY[0x277CF52D0];
+    goto LABEL_23;
+  }
+
+  v9 = 126208;
+  if (BaseAddress[7] >= 0)
+  {
+    v9 = 63088;
+  }
+
+  v10 = &BaseAddress[v9];
+  v11 = *&BaseAddress[v9];
+  if ((v11 - 9) < 2)
+  {
+    if (!a3)
+    {
+LABEL_24:
+      v20 = 1;
+      CVPixelBufferUnlockBaseAddress(pixelBuffer, 1uLL);
+      return v20;
+    }
+
+    v12 = [MEMORY[0x277D3A160] getPresetFromOperationModeNumber:*(v10 + 3)] == 0;
+    valuePtr = 4 * v12;
+    v13 = *MEMORY[0x277CBECE8];
+    v14 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt16Type, &valuePtr);
+    CFDictionarySetValue(a3, @"JasperPresetIndex", v14);
+    CFRelease(v14);
+    v26 = v12;
+    v15 = CFNumberCreate(v13, kCFNumberSInt16Type, &v26);
+    CFDictionarySetValue(a3, *MEMORY[0x277CF52E0], v15);
+    CFRelease(v15);
+    v16 = CFNumberCreate(v13, kCFNumberSInt8Type, v10 + 2053);
+    CFDictionarySetValue(a3, @"JasperBankId", v16);
+    CFDictionarySetValue(a3, *MEMORY[0x277CF52D0], v16);
+    CFRelease(v16);
+    v17 = CFNumberCreate(v13, kCFNumberSInt16Type, v10 + 2);
+    v18 = @"JasperConfigId";
+LABEL_23:
+    CFDictionarySetValue(a3, v18, v17);
+    CFRelease(v17);
+    goto LABEL_24;
+  }
+
+  if (v11 != -1)
+  {
+    CVPixelBufferUnlockBaseAddress(pixelBuffer, 1uLL);
+    NSLog(&cfstr_JasperFrameVDE.isa, *v10, 9);
+    return 0;
+  }
+
+LABEL_14:
+  CVPixelBufferUnlockBaseAddress(pixelBuffer, 1uLL);
+  return 0;
+}
+
+H16ISP::H16ISPJasperDepthNode *___ZN6H16ISP21H16ISPJasperDepthNode19onMessageProcessingEPNS_24H16ISPFilterGraphMessageE_block_invoke(uint64_t a1)
+{
+  result = *(a1 + 40);
+  if ((*(result + 228) & 1) == 0)
+  {
+    result = H16ISP::H16ISPJasperDepthNode::processJasper(result, *(a1 + 48), *(a1 + 56), *(a1 + 64));
+    *(*(*(a1 + 32) + 8) + 24) = result;
+  }
+
+  return result;
+}
+
+uint64_t H16ISP::H16ISPJasperDepthNode::processJasper(H16ISP::H16ISPJasperDepthNode *this, uint64_t a2, __CVBuffer *a3, __CFDictionary *a4)
+{
+  v7 = objc_autoreleasePoolPush();
+  if (*(this + 152) != 1)
+  {
+    goto LABEL_26;
+  }
+
+  CVPixelBufferLockBaseAddress(a3, 1uLL);
+  kdebug_trace();
+  v8 = *(this + 25);
+  if (!v8)
+  {
+    goto LABEL_6;
+  }
+
+  Length = CFDataGetLength(v8);
+  if (Length < CVPixelBufferGetDataSize(a3))
+  {
+    CFRelease(*(this + 25));
+  }
+
+  v10 = *(this + 25);
+  if (!v10)
+  {
+LABEL_6:
+    v11 = *MEMORY[0x277CBECE8];
+    DataSize = CVPixelBufferGetDataSize(a3);
+    Mutable = CFDataCreateMutable(v11, DataSize);
+    *(this + 25) = Mutable;
+    v14 = CVPixelBufferGetDataSize(a3);
+    CFDataSetLength(Mutable, v14);
+    v10 = *(this + 25);
+  }
+
+  MutableBytePtr = CFDataGetMutableBytePtr(v10);
+  BaseAddress = CVPixelBufferGetBaseAddress(a3);
+  v17 = CVPixelBufferGetDataSize(a3);
+  memcpy(MutableBytePtr, BaseAddress, v17);
+  kdebug_trace();
+  kdebug_trace();
+  v18 = **(this + 13);
+  memset(&v37, 0, sizeof(v37));
+  v19 = FigHostTimeToNanoseconds();
+  CMTimeMake(&v37, v19, 1000000000);
+  v20 = *(this + 25);
+  v36 = v37;
+  v21 = [v18 generatePointCloudFromRawFrame:v20 timestamp:&v36];
+  v22 = CVPixelBufferGetBaseAddress(a3);
+  v23 = 126208;
+  if (v22[7] >= 0)
+  {
+    v23 = 63088;
+  }
+
+  v24 = v22[v23 + 2053];
+  CVPixelBufferUnlockBaseAddress(a3, 1uLL);
+  [v21 length];
+  v25 = kdebug_trace();
+  if (v21)
+  {
+    v26 = [v21 dataBuffer];
+    v27 = v26;
+    if (v26)
+    {
+      Attachment = CVBufferGetAttachment(v26, @"Metadata", 0);
+      v29 = CVBufferGetAttachment(a3, *MEMORY[0x277CF3F70], 0);
+      if (Attachment && v29)
+      {
+        CFDictionaryApplyFunction(Attachment, H16ISP::AppendDictionary, v29);
+        CVBufferRemoveAttachment(v27, @"Metadata");
+      }
+
+      CVBufferSetAttachment(a3, @"PointCloudRidingOnRaw", v27, kCVAttachmentMode_ShouldPropagate);
+    }
+
+    v30 = *(*(this + 13) + 8);
+    if ([v30 isValid])
+    {
+    }
+
+    else
+    {
+      v35 = [*(*(this + 13) + 8) gmoFlowBitmask];
+
+      if (*(this + 154) == 1 && v35)
+      {
+        NSLog(&cfstr_Jasperdepthnod_2.isa);
+        v33 = 3758097130;
+
+        goto LABEL_27;
+      }
+    }
+
+    *(this + 153) = 1;
+    v25 = *(this + 12);
+    if (v25 && v27 && (*(v25 + 8) & 1) != 0)
+    {
+      H16ISP::H16ISPTimeOfFlightColorSynchronizer::pushJasperCloud(v25, v27, a4);
+    }
+  }
+
+  isBurstAllowed = H16ISP::JasperConfigManager::isBurstAllowed(v25);
+  v32 = v24 == 3 ? 0 : isBurstAllowed;
+
+  if (v32)
+  {
+    v33 = 3758097130;
+  }
+
+  else
+  {
+LABEL_26:
+    v33 = 0;
+  }
+
+LABEL_27:
+  objc_autoreleasePoolPop(v7);
+  return v33;
+}
+
+void H16ISP::JasperDepthNodeInternal::~JasperDepthNodeInternal(H16ISP::JasperDepthNodeInternal *this)
+{
+  v2 = *this;
+  *this = 0;
+
+  v3 = *(this + 1);
+  *(this + 1) = 0;
+
+  *(this + 16) = 0;
+}
+
+void H16ISP::H16ISPJasperColorNode::~H16ISPJasperColorNode(NSObject **this)
+{
+  H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
+
+  JUMPOUT(0x22AA55B60);
+}
+
+void H16ISP::H16ISPTimeOfFlightColorSynchronizer::~H16ISPTimeOfFlightColorSynchronizer(H16ISP::H16ISPTimeOfFlightColorSynchronizer *this)
+{
+  v2 = *(this + 2);
+  if (v2)
+  {
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = ___ZN6H16ISP35H16ISPTimeOfFlightColorSynchronizerD2Ev_block_invoke;
+    block[3] = &__block_descriptor_40_e5_v8__0l;
+    block[4] = this;
+    dispatch_sync(v2, block);
+    v3 = *(this + 2);
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  *(this + 2) = 0;
+
+  v4 = *(this + 3);
+  if (v4)
+  {
+    H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::~TimeOfFlightColorSynchronizerInternal(v4);
+    MEMORY[0x22AA55B60]();
+  }
+}
+
+void H16ISP::H16ISPTimeOfFlightColorSynchronizer::activate(H16ISP::H16ISPTimeOfFlightColorSynchronizer *this, const __CFData *a2, uint64_t a3, uint64_t a4, void *a5)
+{
+  v10 = *(this + 2);
+  if (!v10)
+  {
+    v11 = H16ISP::CreateFixedPrioritySerialDispatchQueue_arc("com.apple.H16ispjaspercolorcalibration", 0x3A);
+    v12 = *(this + 2);
+    *(this + 2) = v11;
+
+    v10 = *(this + 2);
+  }
+
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = ___ZN6H16ISP35H16ISPTimeOfFlightColorSynchronizer8activateEPK8__CFDatajjPv_block_invoke;
+  block[3] = &__block_descriptor_40_e5_v8__0l;
+  block[4] = this;
+  dispatch_async(v10, block);
+  H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::enableClouds(*(this + 3), 2);
+  H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::activate(*(this + 3), a2, a3, a4, a5);
+}
+
+NSObject *H16ISP::CreateFixedPrioritySerialDispatchQueue_arc(H16ISP *this, const char *a2)
+{
+  v2 = a2;
+  v19 = *MEMORY[0x277D85DE8];
+  v4 = dispatch_queue_create(this, 0);
+  if (v4)
+  {
+    snprintf(__str, 0x100uLL, "%s.root", this);
+    v5 = strlen(this);
+    if (v5 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+
+    v6 = v5;
+    if (v5 >= 0x17)
+    {
+      operator new();
+    }
+
+    *(&__dst.__r_.__value_.__s + 23) = v5;
+    if (v5)
+    {
+      memcpy(&__dst, this, v5);
+    }
+
+    __dst.__r_.__value_.__s.__data_[v6] = 0;
+    v7 = std::string::append(&__dst, ".thread", 7uLL);
+    v8 = v7->__r_.__value_.__r.__words[0];
+    size = v7->__r_.__value_.__l.__size_;
+    v17[0] = v7->__r_.__value_.__r.__words[2];
+    *(v17 + 3) = *(&v7->__r_.__value_.__r.__words[2] + 3);
+    v10 = SHIBYTE(v7->__r_.__value_.__r.__words[2]);
+    v7->__r_.__value_.__l.__size_ = 0;
+    v7->__r_.__value_.__r.__words[2] = 0;
+    v7->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__dst.__r_.__value_.__l.__data_);
+    }
+
+    if (v10 < 0)
+    {
+      std::string::__init_copy_ctor_external(&__p, v8, size);
+    }
+
+    else
+    {
+      __p.__r_.__value_.__r.__words[0] = v8;
+      __p.__r_.__value_.__l.__size_ = size;
+      LODWORD(__p.__r_.__value_.__r.__words[2]) = v17[0];
+      *(&__p.__r_.__value_.__r.__words[2] + 3) = *(v17 + 3);
+      *(&__p.__r_.__value_.__s + 23) = v10;
+    }
+
+    v15 = v2;
+    v11 = dispatch_pthread_root_queue_create();
+    if (v11)
+    {
+      v12 = v11;
+      dispatch_set_target_queue(v4, v11);
+    }
+
+    else
+    {
+      v12 = v4;
+      v4 = 0;
+    }
+
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+      if ((v10 & 0x80000000) == 0)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    else if ((v10 & 0x80000000) == 0)
+    {
+      goto LABEL_18;
+    }
+
+    operator delete(v8);
+  }
+
+LABEL_18:
+
+  return v4;
+}
+
+void sub_22496C1D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+{
+  operator delete(v24);
+
+  _Unwind_Resume(a1);
+}
+
+int *H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::enableClouds(int *this, int a2)
+{
+  v2 = this;
+  if (*(this + 217) != 1 || this[55] != a2)
+  {
+    *(this + 217) = 1;
+    this[55] = a2;
+    v3 = objc_alloc(MEMORY[0x277CED118]);
+    LODWORD(v4) = v2[67];
+    v5 = [v3 initWithStreamCount:1 allowedMatchTimeInterval:v4 / 1000.0];
+    v6 = *(v2 + 30);
+    *(v2 + 30) = v5;
+
+    LODWORD(v7) = v2[67];
+    [*(v2 + 30) setStream:0 queueSize:2 * v2[55] aggregationCount:v7 / 1000.0 allowedAggregationInterval:?];
+    v8 = objc_alloc(MEMORY[0x277CED118]);
+    LODWORD(v9) = v2[66];
+    v10 = [v8 initWithStreamCount:2 allowedMatchTimeInterval:v9 / 1000.0];
+    v11 = *(v2 + 31);
+    *(v2 + 31) = v10;
+
+    LODWORD(v12) = v2[68];
+    [*(v2 + 31) setStream:0 queueSize:2 * v2[55] aggregationCount:v12 / 1000.0 allowedAggregationInterval:?];
+    v13 = *(v2 + 31);
+
+    return [v13 setStream:1 queueSize:2];
+  }
+
+  return this;
+}
+
+void H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::activate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
+{
+  v24 = a5;
+  pthread_mutex_lock((a1 + 128));
+  v10 = [MEMORY[0x277D3A158] calibrationDataWithPeridotCalib:a2 platformId:a3 sensorVersion:a4];
+  v11 = *(a1 + 200);
+  *(a1 + 200) = v10;
+
+  *(a1 + 208) = a3;
+  *(a1 + 212) = a4;
+  v12 = *(a1 + 8);
+  v13 = *(v12 + 96);
+  v14 = *(v12 + 112);
+  v15 = *(v12 + 128);
+  v16 = vzip1q_s32(v13, v15);
+  v17 = vzip2q_s32(v13, v15);
+  v18 = vdupq_laneq_s32(v14, 2);
+  v19 = vtrn2q_s32(v13, v14);
+  v19.i32[2] = HIDWORD(*(v12 + 128));
+  v20 = vzip1q_s32(v16, v14);
+  v21 = vzip1q_s32(v17, v18);
+  v22 = vnegq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v20, COERCE_FLOAT(*(v12 + 144))), v19, *(v12 + 144), 1), v21, *(v12 + 144), 2));
+  *(a1 + 56) = v15.i32[0];
+  *(a1 + 48) = v20.i64[0];
+  *(a1 + 60) = 0;
+  *(a1 + 72) = v15.i32[1];
+  *(a1 + 64) = v19.i64[0];
+  *(a1 + 76) = 0;
+  *(a1 + 88) = v15.i32[2];
+  *(a1 + 80) = v21.i64[0];
+  *(a1 + 92) = 0;
+  *(a1 + 104) = v22.i32[2];
+  *(a1 + 96) = v22.i64[0];
+  *(a1 + 108) = 0;
+  objc_storeStrong((a1 + 224), a5);
+  if (*(a1 + 112) != 0.0)
+  {
+    H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::activateColor(a1);
+  }
+
+  v23 = *(a1 + 16);
+  *(v23 + 32) = mach_absolute_time();
+  pthread_mutex_unlock((a1 + 128));
+}
+
+void H16ISP::H16ISPTimeOfFlightColorSynchronizer::deactivate(H16ISP::H16ISPTimeOfFlightColorSynchronizer *this)
+{
+  if (*(this + 8) == 1)
+  {
+    block[5] = v1;
+    block[6] = v2;
+    v3 = *(this + 2);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = ___ZN6H16ISP35H16ISPTimeOfFlightColorSynchronizer10deactivateEv_block_invoke;
+    block[3] = &__block_descriptor_40_e5_v8__0l;
+    block[4] = this;
+    dispatch_async(v3, block);
+  }
+}
+
+void ___ZN6H16ISP35H16ISPTimeOfFlightColorSynchronizer10deactivateEv_block_invoke(uint64_t result)
+{
+  v1 = *(result + 32);
+  if (*(v1 + 8) == 1)
+  {
+    H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::deactivate(*(v1 + 24));
+  }
+
+  *(v1 + 8) = 0;
+}
+
+void H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::deactivate(H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal *this)
+{
+  v2 = *(this + 1);
+  if (v2)
+  {
+    H16ISP::TimeOfFlightAutoFocusAssistant::deactivate(v2);
+  }
+
+  if (*this)
+  {
+    H16ISP::TimeOfFlightColorInfieldCalibrationManager::deactivate(*this);
+  }
+
+  v3 = *(this + 28);
+  *(this + 28) = 0;
+
+  v4 = *(this + 35);
+  if (v4)
+  {
+    CVPixelBufferRelease(v4);
+  }
+
+  v5 = *(this + 36);
+  if (v5)
+  {
+    CFRelease(v5);
+  }
+
+  *(this + 35) = 0;
+  *(this + 36) = 0;
+  v6 = *(this + 25);
+  *(this + 25) = 0;
+
+  v7 = *(this + 24);
+  *(this + 24) = 0;
+}
+
+uint64_t H16ISP::H16ISPTimeOfFlightColorSynchronizer::setDilutionRate(uint64_t this, int a2)
+{
+  v2 = **(this + 24);
+  *(v2 + 64) = a2;
+  *(v2 + 84) = a2;
+  *(v2 + 88) = a2;
+  *(v2 + 80) = 0;
+  return this;
+}
+
+uint64_t H16ISP::H16ISPTimeOfFlightColorSynchronizer::setLowFrameInterval(uint64_t this, int a2)
+{
+  v2 = **(this + 24);
+  *(v2 + 84) = a2;
+  *(v2 + 80) = *(v2 + 88) != a2;
+  *(v2 + 64) = a2;
+  return this;
+}
+
+uint64_t H16ISP::H16ISPTimeOfFlightColorSynchronizer::setHighFrameInterval(uint64_t this, int a2)
+{
+  v2 = **(this + 24);
+  *(v2 + 88) = a2;
+  v3 = *(v2 + 84);
+  *(v2 + 80) = v3 != a2;
+  *(v2 + 64) = v3;
+  return this;
+}
+
+__n128 H16ISP::H16ISPTimeOfFlightColorSynchronizer::setWideToTofExtrinsics(H16ISP::H16ISPTimeOfFlightColorSynchronizer *this, const simd_float4x3 *a2)
+{
+  v2 = *(*(this + 3) + 8);
+  v3 = a2->columns[1];
+  v4 = a2->columns[2];
+  v5 = vzip1q_s32(vzip1q_s32(a2->columns[0], v4), v3);
+  v6 = vtrn2q_s32(a2->columns[0], v3);
+  v6.i32[2] = HIDWORD(a2->columns[2].i64[0]);
+  v7 = vzip1q_s32(vzip2q_s32(a2->columns[0], v4), vdupq_laneq_s32(v3, 2));
+  v8 = vnegq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v5, COERCE_FLOAT(*&a2->columns[3])), v6, *a2->columns[3].f32, 1), v7, a2->columns[3], 2));
+  *(v2 + 104) = v4.i32[0];
+  *(v2 + 120) = v4.i32[1];
+  *(v2 + 96) = v5.i64[0];
+  *(v2 + 112) = v6.i64[0];
+  *(v2 + 136) = v4.i32[2];
+  *(v2 + 128) = v7.i64[0];
+  *(v2 + 152) = v8.i32[2];
+  *(v2 + 144) = v8.i64[0];
+  v9 = *(v2 + 112);
+  *(v2 + 160) = *(v2 + 96);
+  *(v2 + 176) = v9;
+  result = *(v2 + 128);
+  v11 = *(v2 + 144);
+  *(v2 + 192) = result;
+  *(v2 + 208) = v11;
+  return result;
+}
+
+void H16ISP::H16ISPTimeOfFlightColorSynchronizer::pushJasperCloud(H16ISP::H16ISPTimeOfFlightColorSynchronizer *this, CVBufferRef buffer, const __CFDictionary *a3)
+{
+  CVBufferRetain(buffer);
+  if (a3)
+  {
+    CFRetain(a3);
+  }
+
+  v6 = *(this + 2);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = ___ZN6H16ISP35H16ISPTimeOfFlightColorSynchronizer15pushJasperCloudEP10__CVBufferPK14__CFDictionary_block_invoke;
+  block[3] = &__block_descriptor_56_e5_v8__0l;
+  block[4] = this;
+  block[5] = buffer;
+  block[6] = a3;
+  dispatch_async(v6, block);
+}
+
+void ___ZN6H16ISP35H16ISPTimeOfFlightColorSynchronizer15pushJasperCloudEP10__CVBufferPK14__CFDictionary_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  if (*(v2 + 8) == 1)
+  {
+    H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::processCloud(*(v2 + 24), *(a1 + 40), *(a1 + 48));
+  }
+
+  CVBufferRelease(*(a1 + 40));
+  v3 = *(a1 + 48);
+  if (v3)
+  {
+
+    CFRelease(v3);
+  }
+}
+
+void H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::processCloud(H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal *this, __CVBuffer *a2, const __CFDictionary *a3)
+{
+  if (*(this + 344) == 1)
+  {
+    v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+    {
+      v7 = os_log_create("com.apple.isp", "general");
+      v8 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v7;
+
+      v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    }
+
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(buf.value) = 0;
+      _os_log_impl(&dword_2247DB000, v6, OS_LOG_TYPE_DEFAULT, "RGBJ-TofSync-Verbose: processCloud\n", &buf, 2u);
+    }
+  }
+
+  v9 = [MEMORY[0x277CED0A8] makeWithDataBuffer:a2];
+  if (v9)
+  {
+    Value = CFDictionaryGetValue(a3, *MEMORY[0x277CF3F80]);
+    memset(&buf, 0, sizeof(buf));
+    CMTimeMakeFromDictionary(&buf, Value);
+    v11 = 0;
+    while (v11 < [v9 length])
+    {
+      if (!*([v9 bankIds] + v11++))
+      {
+        [*(this + 30) reset];
+        break;
+      }
+    }
+
+    v13 = *(this + 30);
+    v22 = buf;
+    Seconds = CMTimeGetSeconds(&v22);
+    v15 = MEMORY[0x277D860B8];
+    v16 = [v13 pushData:v9 streamIndex:0 timestamp:a3 pose:Seconds meta:{*MEMORY[0x277D860B8], *(MEMORY[0x277D860B8] + 16), *(MEMORY[0x277D860B8] + 32), *(MEMORY[0x277D860B8] + 48)}];
+    if (v16)
+    {
+      if (*(this + 344) == 1)
+      {
+        v17 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+        if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+        {
+          v18 = os_log_create("com.apple.isp", "general");
+          v19 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v18;
+
+          v17 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+        }
+
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v22.value) = 0;
+          _os_log_impl(&dword_2247DB000, v17, OS_LOG_TYPE_DEFAULT, "RGBJ-TofSync-Verbose: processCloud found match\n", &v22, 2u);
+        }
+      }
+
+      H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::handleAggregation(this, v16);
+    }
+
+    v20 = *(this + 31);
+    v22 = buf;
+    v21 = [v20 pushData:v9 streamIndex:0 timestamp:a3 pose:CMTimeGetSeconds(&v22) meta:{*v15, v15[2], v15[4], v15[6]}];
+
+    if (v21)
+    {
+      H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::handleInfieldMatch(this, v21);
+    }
+  }
+}
+
+uint64_t H16ISP::H16ISPTimeOfFlightColorSynchronizer::pushColorMessage(uint64_t this, H16ISP::H16ISPFilterGraphMessage *a2)
+{
+  v42 = this;
+  if (*(this + 8) == 1)
+  {
+    pthread_mutex_lock((a2 + 8));
+    v3 = 0;
+    v41 = a2 + 80;
+    v4 = *MEMORY[0x277CF3F70];
+    v40 = *MEMORY[0x277CF5278];
+    v38 = *MEMORY[0x277CF5288];
+    v37 = *MEMORY[0x277CF3CD8];
+    v39 = *MEMORY[0x277CF51C8];
+    v35 = *MEMORY[0x277CF5138];
+    v34 = *MEMORY[0x277CF5338];
+    v33 = *MEMORY[0x277CF5128];
+    v36 = a2;
+    v32 = *MEMORY[0x277CF5300];
+    v5 = (a2 + 112);
+    v31 = *MEMORY[0x277CF5110];
+    v30 = *MEMORY[0x277CF4D60];
+    while (1)
+    {
+      v6 = &v41[344 * v3];
+      if (*(v6 + 5))
+      {
+        break;
+      }
+
+LABEL_35:
+      ++v3;
+      v5 += 86;
+      if (v3 == 3)
+      {
+        return pthread_mutex_unlock((v36 + 8));
+      }
+    }
+
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
+    v10 = 0;
+    v11 = 0;
+    v43 = v5;
+    do
+    {
+      v12 = *v5;
+      if (*v5 == 7 || v12 == 1)
+      {
+        v8 = 1;
+      }
+
+      else if (!v12)
+      {
+        v9 = *(v5 - 1);
+        v14 = CVBufferGetAttachment(v9, v4, 0);
+
+        v12 = *v5;
+        v11 = v14;
+      }
+
+      if (v12 == 10)
+      {
+        v10 = *(v5 - 1);
+        if (!v11)
+        {
+          v11 = CVBufferGetAttachment(*(v5 - 1), v4, 0);
+        }
+      }
+
+      ++v7;
+      v5 += 4;
+    }
+
+    while (v7 < *(v6 + 5));
+    v15 = [v11 objectForKeyedSubscript:v40];
+    v16 = [v15 isEqual:&unk_283820080];
+
+    if (!(v8 & 1 | ((*(*(*(v42 + 24) + 8) + 225) & v16 & 1) == 0)))
+    {
+      v17 = [v11 objectForKeyedSubscript:v38];
+      v18 = [v17 objectForKeyedSubscript:v37];
+      v19 = [v18 objectForKeyedSubscript:v39];
+      v20 = [v19 isEqual:&unk_283820080];
+
+      if (v20)
+      {
+        [v18 setObject:&unk_283820098 forKeyedSubscript:v39];
+      }
+    }
+
+    if (!(v9 | v10) || *(v6 + 4) != *(v42 + 32))
+    {
+LABEL_34:
+
+      v5 = v43;
+      goto LABEL_35;
+    }
+
+    if (v9)
+    {
+      Attachment = CVBufferGetAttachment(v9, v4, 0);
+      if (Attachment)
+      {
+        DeepCopy = H16ISP::dictionaryCreateDeepCopy(Attachment, v22);
+LABEL_33:
+        CVPixelBufferRetain(v9);
+        v29 = *(v42 + 16);
+        block[0] = MEMORY[0x277D85DD0];
+        block[1] = 3221225472;
+        block[2] = ___ZN6H16ISP35H16ISPTimeOfFlightColorSynchronizer16pushColorMessageEPNS_24H16ISPFilterGraphMessageE_block_invoke;
+        block[3] = &__block_descriptor_64_e5_v8__0l;
+        block[4] = v42;
+        block[5] = v10;
+        block[6] = v9;
+        block[7] = DeepCopy;
+        dispatch_async(v29, block);
+        goto LABEL_34;
+      }
+    }
+
+    else
+    {
+      if (v10)
+      {
+        v24 = CVBufferGetAttachment(v10, v4, 0);
+        if (v24)
+        {
+          DeepCopy = H16ISP::dictionaryCreateDeepCopy(v24, v25);
+          H16ISP::updateMetadataReplaceField(DeepCopy, v35, v34, v26);
+          H16ISP::updateMetadataReplaceField(DeepCopy, v33, v32, v27);
+          H16ISP::updateMetadataReplaceField(DeepCopy, v31, v30, v28);
+        }
+
+        else
+        {
+          DeepCopy = 0;
+        }
+
+        v9 = v10;
+        goto LABEL_33;
+      }
+
+      v9 = 0;
+    }
+
+    DeepCopy = 0;
+    goto LABEL_33;
+  }
+
+  return this;
+}
+
+void ___ZN6H16ISP35H16ISPTimeOfFlightColorSynchronizer16pushColorMessageEPNS_24H16ISPFilterGraphMessageE_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  if (*(v2 + 8) == 1)
+  {
+    H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::logColorBuffer(*(v2 + 24), *(a1 + 40) != 0, *(a1 + 48), *(a1 + 56));
+    H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::processBuffer(*(v2 + 24), *(a1 + 48), *(a1 + 56));
+  }
+
+  v3 = *(a1 + 56);
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  v4 = *(a1 + 48);
+
+  CVPixelBufferRelease(v4);
+}
+
+void H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::logColorBuffer(H16ISP::TimeOfFlightAutoFocusAssistant **this, int a2, __CVBuffer *a3, NSDictionary *a4)
+{
+  v66 = *MEMORY[0x277D85DE8];
+  v7 = a4;
+  if (*(this + 344) == 1)
+  {
+    PreviewMasterType = H16ISP::TimeOfFlightAutoFocusAssistant::getPreviewMasterType(this[1]);
+    v9 = "SuperWide";
+    if (PreviewMasterType == 1919251564)
+    {
+      v10 = "Tele";
+    }
+
+    else
+    {
+      v10 = "Unknown";
+    }
+
+    if (PreviewMasterType != 1919251319)
+    {
+      v9 = v10;
+    }
+
+    if (PreviewMasterType == 1919246706)
+    {
+      v11 = "Wide";
+    }
+
+    else
+    {
+      v11 = v9;
+    }
+
+    v12 = [(NSDictionary *)v7 objectForKeyedSubscript:*MEMORY[0x277CF5338]];
+    [v12 floatValue];
+    v14 = v13;
+
+    [MEMORY[0x277CED068] getFrameTransformsFromMetadataDictionary:v7 sensorCropRect:v35 rawSensorSize:v33 postReadCropRect:v34];
+    v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+    {
+      v16 = os_log_create("com.apple.isp", "general");
+      v17 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v16;
+
+      v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    }
+
+    v18 = v15;
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      v32 = v11;
+      v20 = v35[0];
+      v19 = v35[1];
+      if (a2)
+      {
+        v21 = "secondary";
+      }
+
+      else
+      {
+        v21 = "primary";
+      }
+
+      v23 = v35[2];
+      v22 = v35[3];
+      v24 = v33[0];
+      v27 = v33[1];
+      v28 = v34[0];
+      v29 = v34[1];
+      v30 = v34[2];
+      v31 = v34[3];
+      Width = CVPixelBufferGetWidth(a3);
+      Height = CVPixelBufferGetHeight(a3);
+      *buf = 136318722;
+      v37 = v21;
+      v38 = 2048;
+      v39 = v14;
+      v40 = 2048;
+      v41 = v20;
+      v42 = 2048;
+      v43 = v19;
+      v44 = 2048;
+      v45 = v23;
+      v46 = 2048;
+      v47 = v22;
+      v48 = 2048;
+      v49 = v24;
+      v50 = 2048;
+      v51 = v27;
+      v52 = 2048;
+      v53 = v28;
+      v54 = 2048;
+      v55 = v29;
+      v56 = 2048;
+      v57 = v30;
+      v58 = 2048;
+      v59 = v31;
+      v60 = 2048;
+      v61 = Width;
+      v62 = 2048;
+      v63 = Height;
+      v64 = 2080;
+      v65 = v32;
+      _os_log_impl(&dword_2247DB000, v18, OS_LOG_TYPE_DEFAULT, "Got Wide buffer from %s scaler. Zoom factor: %f. Sensor crop: (%.1f, %.1f, %.1f, %.1f), readout size: (%.1f, %.1f), ISP crop: (%.1f, %.1f, %.1f, %.1f), image size: (%zu, %zu). Preview master: %s\n", buf, 0x98u);
+    }
+  }
+}
+
+void H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::processBuffer(H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal *this, __CVBuffer *a2, const __CFDictionary *a3)
+{
+  if (a2)
+  {
+    if (a3)
+    {
+      if (H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::doesNeedColor(this))
+      {
+        Value = CFDictionaryGetValue(a3, *MEMORY[0x277CF3F80]);
+        if (Value)
+        {
+          v7 = Value;
+          if (*(this + 344) == 1)
+          {
+            v8 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+            if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+            {
+              v9 = os_log_create("com.apple.isp", "general");
+              v10 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+              GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v9;
+
+              v8 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+            }
+
+            if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+            {
+              LOWORD(buf.value) = 0;
+              _os_log_impl(&dword_2247DB000, v8, OS_LOG_TYPE_DEFAULT, "RGBJ-TofSync-Verbose: process buffer\n", &buf, 2u);
+            }
+          }
+
+          memset(&buf, 0, sizeof(buf));
+          CMTimeMakeFromDictionary(&buf, v7);
+          v11 = *(this + 35);
+          if (v11)
+          {
+            CVPixelBufferRelease(v11);
+          }
+
+          v12 = *(this + 36);
+          if (v12)
+          {
+            CFRelease(v12);
+          }
+
+          *(this + 35) = CVPixelBufferRetain(a2);
+          *(this + 36) = CFRetain(a3);
+          *(this + 304) = 0;
+          v18 = buf;
+          Seconds = CMTimeGetSeconds(&v18);
+          v14 = *(this + 37);
+          if (v14 != 0.0)
+          {
+            v15 = (vabdd_f64(Seconds, v14) * 1000.0 * 0.5 + 1.0);
+            if (*(this + 64) != v15)
+            {
+              *(this + 64) = v15;
+            }
+
+            if (*(this + 66) != v15)
+            {
+              if (*(this + 65) < v15)
+              {
+                v15 = *(this + 65);
+              }
+
+              *(this + 66) = v15;
+            }
+          }
+
+          *(this + 37) = Seconds;
+          if (*(this + 39))
+          {
+            H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::handleTofMatch(this);
+          }
+
+          v16 = *(this + 31);
+          v18 = buf;
+          v17 = [v16 pushData:a2 streamIndex:1 timestamp:a3 pose:CMTimeGetSeconds(&v18) meta:{*MEMORY[0x277D860B8], *(MEMORY[0x277D860B8] + 16), *(MEMORY[0x277D860B8] + 32), *(MEMORY[0x277D860B8] + 48)}];
+          if (v17)
+          {
+            H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::handleInfieldMatch(this, v17);
+          }
+        }
+      }
+    }
+  }
+}
+
+uint64_t H16ISP::H16ISPTimeOfFlightColorSynchronizer::setPreviewMasterCallback(uint64_t this, unsigned __int16 (*a2)(void *), void *a3)
+{
+  v3 = *(*(this + 24) + 8);
+  *(v3 + 232) = a2;
+  *(v3 + 240) = a3;
+  return this;
+}
+
+double H16ISP::H16ISPTimeOfFlightColorSynchronizer::getTeleDensificationZoomLimit(H16ISP::H16ISPTimeOfFlightColorSynchronizer *this)
+{
+  result = 2.65;
+  if ((*(*(this + 3) + 208) - 97) >= 2)
+  {
+    return 0.0;
+  }
+
+  return result;
+}
+
+uint64_t ___ZN6H16ISP42CreateFixedPrioritySerialDispatchQueue_arcEPKcj_block_invoke(uint64_t a1)
+{
+  v2 = (a1 + 32);
+  if (*(a1 + 55) < 0)
+  {
+    v2 = *v2;
+  }
+
+  pthread_setname_np(v2);
+  v3 = pthread_self();
+  v4 = pthread_mach_thread_np(v3);
+  v5 = H16ISP::H16ISPSetMachThreadPriority(v4, *(a1 + 56));
+
+  return MEMORY[0x282204EA8](v5);
+}
+
+void __copy_helper_block_ea8_32c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE(uint64_t a1, uint64_t a2)
+{
+  if (*(a2 + 55) < 0)
+  {
+    std::string::__init_copy_ctor_external((a1 + 32), *(a2 + 32), *(a2 + 40));
+  }
+
+  else
+  {
+    v2 = *(a2 + 32);
+    *(a1 + 48) = *(a2 + 48);
+    *(a1 + 32) = v2;
+  }
+}
+
+void __destroy_helper_block_ea8_32c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE(uint64_t a1)
+{
+  if (*(a1 + 55) < 0)
+  {
+    operator delete(*(a1 + 32));
+  }
+}
+
+void H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::~TimeOfFlightColorSynchronizerInternal(H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal *this)
+{
+  v2 = *(this + 1);
+  if (v2)
+  {
+    H16ISP::TimeOfFlightAutoFocusAssistant::~TimeOfFlightAutoFocusAssistant(v2);
+    MEMORY[0x22AA55B60]();
+  }
+
+  if (*this)
+  {
+    H16ISP::TimeOfFlightColorInfieldCalibrationManager::~TimeOfFlightColorInfieldCalibrationManager(*this);
+    MEMORY[0x22AA55B60]();
+  }
+
+  v3 = *(this + 2);
+  if (v3)
+  {
+    MEMORY[0x22AA55B60](v3, 0x1020C405CE9ABE8);
+  }
+
+  v4 = *(this + 4);
+  if (v4)
+  {
+    CFRelease(v4);
+  }
+
+  v5 = *(this + 35);
+  if (v5)
+  {
+    CVPixelBufferRelease(v5);
+  }
+
+  v6 = *(this + 36);
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+
+  v7 = *(this + 25);
+  *(this + 25) = 0;
+
+  v8 = *(this + 24);
+  *(this + 24) = 0;
+
+  pthread_mutex_destroy(this + 2);
+}
+
+void H16ISP::TimeOfFlightAutoFocusAssistant::~TimeOfFlightAutoFocusAssistant(id *this)
+{
+  H16ISP::TimeOfFlightAutoFocusAssistant::deactivate(this);
+}
+
+unint64_t H16ISP::TimeOfFlightAutoFocusAssistant::deactivate(H16ISP::TimeOfFlightAutoFocusAssistant *this)
+{
+  result = H16ISP::H16ISPDevice::getSensorChannel(*this, 1785950322, 1852793709);
+  *(this + 2) = result;
+  *(this + 33) = 0;
+  if (result != -1)
+  {
+    LOWORD(v3) = result;
+    if (*(this + 88) == 1)
+    {
+      NSLog(&cfstr_Timeofflightau_2.isa, result, *(this + 32), 0, *(this + 9), 0);
+      v3 = *(this + 2);
+      v4 = *(this + 33);
+    }
+
+    else
+    {
+      v4 = 0;
+    }
+
+    H16ISP::H16ISPDevice::SetTOFControlMode(*this, v3, *(this + 32), v4 & 1, *(this + 9), 0);
+    result = H16ISP::H16ISPServicesRemote::UpdateFlickerIRSignalRateHint(*(this + 2), 0.0);
+  }
+
+  *(this + 5) = 0;
+  return result;
+}
+
+void H16ISP::TimeOfFlightColorInfieldCalibrationManager::~TimeOfFlightColorInfieldCalibrationManager(H16ISP::TimeOfFlightColorInfieldCalibrationManager *this)
+{
+  v2 = *(this + 1);
+  *(this + 1) = 0;
+}
+
+void H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::activateColor(H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal *this)
+{
+  v26 = *(this + 3);
+  v29 = *(this + 4);
+  v32 = *(this + 5);
+  v35 = *(this + 6);
+  v2 = [*(this + 25) peridotCamera];
+  [v2 cameraToPlatformTransform];
+  v24 = v4;
+  v25 = v3;
+  v22 = v6;
+  v23 = v5;
+  v7 = v35;
+  HIDWORD(v7) = 1.0;
+  v8 = v32;
+  HIDWORD(v8) = 0;
+  v33 = v8;
+  v36 = v7;
+  v9 = v29;
+  HIDWORD(v9) = 0;
+  v30 = v9;
+  v10 = v26;
+  HIDWORD(v10) = 0;
+  v27 = v10;
+
+  v11 = 0;
+  v38[0] = v27;
+  v38[1] = v30;
+  v38[2] = v33;
+  v38[3] = v36;
+  do
+  {
+    *(&v39 + v11 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v25, COERCE_FLOAT(v38[v11])), v24, *&v38[v11], 1), v23, v38[v11], 2), v22, v38[v11], 3);
+    ++v11;
+  }
+
+  while (v11 != 4);
+  v34 = *&v41;
+  v37 = *&v42;
+  v28 = *&v39;
+  v31 = *&v40;
+  v12 = objc_alloc(MEMORY[0x277D3A150]);
+  LODWORD(v13) = *(this + 28);
+  v14 = [v12 initWithPixelSize:*(this + 4) gdcModel:v13 cameraToPlatformTransform:{v28, v31, v34, v37}];
+  v15 = *(this + 24);
+  *(this + 24) = v14;
+
+  v16 = *(this + 24);
+  if (v16)
+  {
+    v17 = *(this + 58);
+    if (v17 == 2 || v17 == 1 && (v18 = *(this + 52) - 66, v18 <= 0x20) && ((1 << v18) & 0x180000001) != 0)
+    {
+      H16ISP::TimeOfFlightAutoFocusAssistant::enableTeleDensification(*(this + 1), 1, v16);
+      v16 = *(this + 24);
+    }
+
+    v19 = *this;
+    v20 = *(this + 53);
+    v21 = *(this + 25);
+
+    H16ISP::TimeOfFlightColorInfieldCalibrationManager::activate(v19, v20, v16, v21);
+  }
+}
+
+void H16ISP::TimeOfFlightAutoFocusAssistant::enableTeleDensification(uint64_t a1, int a2, void *a3)
+{
+  v11 = a3;
+  *(a1 + 224) = a2;
+  if (a2)
+  {
+    objc_storeStrong((a1 + 256), a3);
+    v6 = objc_alloc_init(MEMORY[0x277CECFC8]);
+    v7 = *(a1 + 248);
+    *(a1 + 248) = v6;
+
+    v8 = [*(a1 + 248) executorParameters];
+    [v8 setAutoSetColorROI:1];
+
+    [*(a1 + 248) prepare];
+  }
+
+  else
+  {
+    v9 = *(a1 + 256);
+    *(a1 + 256) = 0;
+
+    v10 = *(a1 + 248);
+    *(a1 + 248) = 0;
+  }
+}
+
+void H16ISP::TimeOfFlightColorInfieldCalibrationManager::activate(uint64_t a1, int a2, void *a3, void *a4)
+{
+  v15 = *MEMORY[0x277D85DE8];
+  v8 = a3;
+  v9 = a4;
+  *(a1 + 20) = *(a1 + 16) != 0;
+  *(a1 + 24) = a2;
+  objc_storeStrong((a1 + 40), a3);
+  objc_storeStrong((a1 + 32), a4);
+  if (*(a1 + 108) == 1)
+  {
+    v10 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+    {
+      v11 = os_log_create("com.apple.isp", "general");
+      v12 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v11;
+
+      v10 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    }
+
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = *(a1 + 20);
+      v14[0] = 67109120;
+      v14[1] = v13;
+      _os_log_impl(&dword_2247DB000, v10, OS_LOG_TYPE_DEFAULT, "RGBJ-TofManager-Verbose: active mode: %d\n", v14, 8u);
+    }
+  }
+}
+
+id GetCameraUserspaceLogStream()
+{
+  v0 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+  {
+    v1 = os_log_create("com.apple.isp", "general");
+    v2 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v1;
+
+    v0 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+  }
+
+  return v0;
+}
+
+void H16ISP::TimeOfFlightColorInfieldCalibrationManager::deactivate(H16ISP::TimeOfFlightColorInfieldCalibrationManager *this)
+{
+  if (*(this + 108) == 1)
+  {
+    v2 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+    {
+      v3 = os_log_create("com.apple.isp", "general");
+      v4 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v3;
+
+      v2 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    }
+
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    {
+      *v5 = 0;
+      _os_log_impl(&dword_2247DB000, v2, OS_LOG_TYPE_DEFAULT, "RGBJ-TofManager-Verbose: deactivate\n", v5, 2u);
+    }
+  }
+
+  *(this + 20) = 0;
+}
+
+void H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::handleAggregation(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  if (*(a1 + 344) == 1)
+  {
+    v4 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+    {
+      v5 = os_log_create("com.apple.isp", "general");
+      v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v5;
+
+      v4 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    }
+
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_2247DB000, v4, OS_LOG_TYPE_DEFAULT, "RGBJ-TofSync-Verbose: reached  handleAggregation\n", buf, 2u);
+    }
+  }
+
+  v7 = [v3 matchedObjectsForStream:0];
+  v8 = [v7 count];
+  v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:v8];
+  *buf = 0;
+  v32 = buf;
+  v33 = 0x2020000000;
+  v34 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = ___ZN6H16ISP35H16ISPTimeOfFlightColorSynchronizer37TimeOfFlightColorSynchronizerInternal17handleAggregationEP17ADStreamSyncMatch_block_invoke;
+  v18 = &unk_27853B848;
+  v10 = v9;
+  v19 = v10;
+  v20 = buf;
+  v21 = &v27;
+  v22 = &v23;
+  [v7 enumerateObjectsUsingBlock:&v15];
+  v11 = *(v28 + 6);
+  if (v11 >= 1)
+  {
+    *(v32 + 3) = *(v32 + 3) / v11;
+  }
+
+  v12 = *(a1 + 8);
+  if (v12)
+  {
+    v13 = *(v24 + 6);
+    if (v13 >= 1)
+    {
+      H16ISP::TimeOfFlightAutoFocusAssistant::updateDecimationRate(v12, v13, *(a1 + 220));
+    }
+  }
+
+  v14 = [*(a1 + 224) postProcessAllBanks:{v10, v15, v16, v17, v18}];
+  objc_storeStrong((a1 + 312), v14);
+  *(a1 + 328) = *(v32 + 3);
+  *(a1 + 336) = 0;
+  objc_storeStrong((a1 + 320), v7);
+  H16ISP::NearEventComplianceHandler::handleEvent(*(a1 + 16), v14, *(v24 + 6), *(a1 + 220));
+  H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::handleTofMatch(a1);
+
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(buf, 8);
+}
+
+void sub_22496DF84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va1, a16);
+  va_start(va, a16);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Block_object_dispose((v19 - 96), 8);
+
+  _Unwind_Resume(a1);
+}
+
+void H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::handleInfieldMatch(_BYTE *a1, void *a2)
+{
+  v3 = a2;
+  if (a1[344] == 1)
+  {
+    v4 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+    {
+      v5 = os_log_create("com.apple.isp", "general");
+      v6 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v5;
+
+      v4 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    }
+
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      *v13 = 0;
+      _os_log_impl(&dword_2247DB000, v4, OS_LOG_TYPE_DEFAULT, "RGBJ-TofSync-Verbose: Got infield match\n", v13, 2u);
+    }
+  }
+
+  if (*a1 && *(*a1 + 20) == 1)
+  {
+    v7 = [v3 matchedObjectsForStream:0];
+    v8 = [v3 matchedObjectsForStream:1];
+    v9 = [v8 objectAtIndexedSubscript:0];
+
+    v10 = *a1;
+    v11 = [v9 data];
+    v12 = [v9 metadata];
+    H16ISP::TimeOfFlightColorInfieldCalibrationManager::handleMatch(v10, v11, v12, v7);
+  }
+}
+
 void ___ZN6H16ISP35H16ISPTimeOfFlightColorSynchronizer37TimeOfFlightColorSynchronizerInternal17handleAggregationEP17ADStreamSyncMatch_block_invoke(uint64_t a1, void *a2)
 {
   v13 = a2;
@@ -27,7 +4162,7 @@ void ___ZN6H16ISP35H16ISPTimeOfFlightColorSynchronizer37TimeOfFlightColorSynchro
   }
 }
 
-uint64_t H16ISP::TimeOfFlightAutoFocusAssistant::updateDecimationRate(uint64_t this, uint64_t a2, int a3)
+int64_t H16ISP::TimeOfFlightAutoFocusAssistant::updateDecimationRate(int64_t this, int a2, int a3)
 {
   if (*(this + 76) != a2)
   {
@@ -45,7 +4180,7 @@ uint64_t H16ISP::TimeOfFlightAutoFocusAssistant::updateDecimationRate(uint64_t t
     *(this + 76) = a2;
     *(this + 80) = vcvtpd_s64_f64(v3 / v4);
     v5 = v3;
-    return H16ISP::H16ISPServicesRemote::UpdateFlickerIRSignalRateHint(*(this + 16), v5, a2);
+    return H16ISP::H16ISPServicesRemote::UpdateFlickerIRSignalRateHint(*(this + 16), v5);
   }
 
   return this;
@@ -82,98 +4217,133 @@ void H16ISP::NearEventComplianceHandler::handleEvent(uint64_t a1, void *a2, int 
 
 void H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::handleTofMatch(H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal *this)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  if (*(this + 39))
+  v27 = *MEMORY[0x277D85DE8];
+  if (!*(this + 39))
   {
-    if (*(this + 344) == 1)
+    return;
+  }
+
+  if (*(this + 344) == 1)
+  {
+    v2 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
     {
+      v3 = os_log_create("com.apple.isp", "general");
+      v4 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v3;
+
       v2 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
-      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
-      {
-        v3 = os_log_create("com.apple.isp", "general");
-        v4 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
-        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v3;
-
-        v2 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
-      }
-
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-      {
-        LOWORD(v23[0]) = 0;
-        _os_log_impl(&dword_2247DB000, v2, OS_LOG_TYPE_DEFAULT, "RGBJ-TofSync-Verbose: reached main handleTofMatch with valid cloud\n", v23, 2u);
-      }
     }
 
-    if (*(this + 304) & 1) != 0 || (v5 = *(this + 35)) == 0 || (*(this + 304) = 1, (H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::updateColorCalibration(this, v5, *(this + 36))))
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(this + 1);
-      if (v6)
-      {
-        if (*(v6 + 33) == 1 && (*(this + 336) & 1) == 0)
-        {
-          if (*(this + 216) != 1 || *(v6 + 224) != 1 || (v7 = *(this + 41), v8 = *(this + 37), H16ISP::TimeOfFlightAutoFocusAssistant::getPreviewMasterType(v6) != 1919251564) || !*(this + 35) || (v10 = vabdd_f64(v7, v8), LODWORD(v9) = *(this + 64), v11 = v9 / 1000.0, v10 < v11) || (LODWORD(v11) = *(this + 69), v10 > *&v11 / 1000.0))
-          {
-            H16ISP::TimeOfFlightAutoFocusAssistant::handleMatch(*(this + 1), *(this + 39), *(this + 40));
-            *(this + 336) = 1;
-          }
-        }
-      }
-
-      if (*(this + 344) == 1)
-      {
-        v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
-        if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
-        {
-          v16 = os_log_create("com.apple.isp", "general");
-          v17 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
-          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v16;
-
-          v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
-        }
-
-        v18 = v15;
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-        {
-          v19 = [*(this + 36) objectForKeyedSubscript:*MEMORY[0x277CF4B88]];
-          v20 = [v19 intValue];
-          v21 = [*(this + 36) objectForKeyedSubscript:*MEMORY[0x277CF5190]];
-          [v21 floatValue];
-          v23[0] = 67109376;
-          v23[1] = v20;
-          v24 = 2048;
-          v25 = v22;
-          _os_log_impl(&dword_2247DB000, v18, OS_LOG_TYPE_DEFAULT, "RGBJ-TofSync-Verbose: main handleTofMatch fps = %d temperature = %f\n", v23, 0x12u);
-        }
-      }
-    }
-
-    else
-    {
-      if (*(this + 344) == 1)
-      {
-        v12 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
-        if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
-        {
-          v13 = os_log_create("com.apple.isp", "general");
-          v14 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
-          GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v13;
-
-          v12 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
-        }
-
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-        {
-          LOWORD(v23[0]) = 0;
-          _os_log_impl(&dword_2247DB000, v12, OS_LOG_TYPE_DEFAULT, "RGBJ-TofSync-Verbose: main handleTofMatch updateColorCalibration failed\n", v23, 2u);
-        }
-      }
-
-      CVPixelBufferRelease(*(this + 35));
-      CFRelease(*(this + 36));
-      *(this + 35) = 0;
-      *(this + 36) = 0;
+      LOWORD(v24[0]) = 0;
+      _os_log_impl(&dword_2247DB000, v2, OS_LOG_TYPE_DEFAULT, "RGBJ-TofSync-Verbose: reached main handleTofMatch with valid cloud\n", v24, 2u);
     }
   }
+
+  if (*(this + 304) & 1) != 0 || (v5 = *(this + 35)) == 0 || (*(this + 304) = 1, (H16ISP::H16ISPTimeOfFlightColorSynchronizer::TimeOfFlightColorSynchronizerInternal::updateColorCalibration(this, v5, *(this + 36))))
+  {
+    v6 = *(this + 1);
+    if (v6 && *(v6 + 33) == 1 && (*(this + 336) & 1) == 0)
+    {
+      if (*(this + 216) != 1)
+      {
+        goto LABEL_25;
+      }
+
+      if (*(v6 + 224) != 1)
+      {
+        goto LABEL_25;
+      }
+
+      v7 = *(this + 41);
+      v8 = *(this + 37);
+      if (H16ISP::TimeOfFlightAutoFocusAssistant::getPreviewMasterType(v6) != 1919251564)
+      {
+        goto LABEL_25;
+      }
+
+      v10 = *(this + 35);
+      if (!v10)
+      {
+        goto LABEL_25;
+      }
+
+      v11 = vabdd_f64(v7, v8);
+      LODWORD(v9) = *(this + 64);
+      v12 = v9 / 1000.0;
+      if (v11 < v12)
+      {
+        H16ISP::TimeOfFlightAutoFocusAssistant::handleMatch(*(this + 1), *(this + 39), *(this + 40), v10, *(this + 36));
+LABEL_26:
+        *(this + 336) = 1;
+        goto LABEL_27;
+      }
+
+      LODWORD(v12) = *(this + 69);
+      if (v11 > *&v12 / 1000.0)
+      {
+LABEL_25:
+        H16ISP::TimeOfFlightAutoFocusAssistant::handleMatch(*(this + 1), *(this + 39), *(this + 40), 0, 0);
+        goto LABEL_26;
+      }
+    }
+
+LABEL_27:
+    if (*(this + 344) == 1)
+    {
+      v16 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+      {
+        v17 = os_log_create("com.apple.isp", "general");
+        v18 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v17;
+
+        v16 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      }
+
+      v19 = v16;
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        v20 = [*(this + 36) objectForKeyedSubscript:*MEMORY[0x277CF4B88]];
+        v21 = [v20 intValue];
+        v22 = [*(this + 36) objectForKeyedSubscript:*MEMORY[0x277CF5190]];
+        [v22 floatValue];
+        v24[0] = 67109376;
+        v24[1] = v21;
+        v25 = 2048;
+        v26 = v23;
+        _os_log_impl(&dword_2247DB000, v19, OS_LOG_TYPE_DEFAULT, "RGBJ-TofSync-Verbose: main handleTofMatch fps = %d temperature = %f\n", v24, 0x12u);
+      }
+    }
+
+    return;
+  }
+
+  if (*(this + 344) == 1)
+  {
+    v13 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
+    {
+      v14 = os_log_create("com.apple.isp", "general");
+      v15 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v14;
+
+      v13 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    }
+
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v24[0]) = 0;
+      _os_log_impl(&dword_2247DB000, v13, OS_LOG_TYPE_DEFAULT, "RGBJ-TofSync-Verbose: main handleTofMatch updateColorCalibration failed\n", v24, 2u);
+    }
+  }
+
+  CVPixelBufferRelease(*(this + 35));
+  CFRelease(*(this + 36));
+  *(this + 35) = 0;
+  *(this + 36) = 0;
 }
 
 uint64_t H16ISP::NearEventComplianceHandler::isDepthDetectedInPointCloud(double *a1, void *a2)
@@ -241,16 +4411,16 @@ LABEL_11:
   return v3;
 }
 
-void H16ISP::TimeOfFlightAutoFocusAssistant::handleMatch(uint64_t a1, void *a2, void *a3)
+void H16ISP::TimeOfFlightAutoFocusAssistant::handleMatch(uint64_t a1, void *a2, void *a3, __CVBuffer *a4, const __CFDictionary *a5)
 {
-  v8 = a2;
-  v5 = a3;
-  v6 = *(a1 + 80);
-  if (v6 && (v7 = *(a1 + 72) + 1, *(a1 + 72) = v7, v7 >= v6))
+  v12 = a2;
+  v9 = a3;
+  v10 = *(a1 + 80);
+  if (v10 && (v11 = *(a1 + 72) + 1, *(a1 + 72) = v11, v11 >= v10))
   {
     *(a1 + 84) = 1;
     *(a1 + 72) = 0;
-    H16ISP::TimeOfFlightAutoFocusAssistant::sendCloud(a1, v8, v5);
+    H16ISP::TimeOfFlightAutoFocusAssistant::sendCloud(a1, v12, v9, a4, a5);
   }
 
   else
@@ -279,12 +4449,12 @@ uint64_t H16ISP::TimeOfFlightAutoFocusAssistant::getPreviewMasterType(H16ISP::Ti
   return H16ISP::H16ISPDevice::getSensorType(v5, v4);
 }
 
-uint64_t H16ISP::TimeOfFlightAutoFocusAssistant::sendCloud(uint64_t a1, void *a2, void *a3)
+uint64_t H16ISP::TimeOfFlightAutoFocusAssistant::sendCloud(uint64_t a1, void *a2, void *a3, __CVBuffer *a4, const __CFDictionary *a5)
 {
-  v4 = a2;
-  v5 = a3;
-  [v5 count];
-  if ([v4 length])
+  v6 = a2;
+  v7 = a3;
+  [v7 count];
+  if ([v6 length])
   {
     operator new[]();
   }
@@ -475,7 +4645,7 @@ void H16ISP::TimeOfFlightColorInfieldCalibrationManager::handleMatch(H16ISP::Tim
           FrameMode = H16ISP::JasperConfigManager::getFrameMode(v25);
           *&v43[4] = *(this + 92);
           v43[0] = *(this + 80);
-          v29 = H16ISP::H16ISPServicesRemote::RunRgbj(v44, a2, v7, v22, v45, v46, 0, v30 & 1, v34, v35, v17, FrameMode, *v43, *&v43[4] >> 32, *&v43[16], *(this + 18));
+          v29 = H16ISP::H16ISPServicesRemote::RunRgbj(v44, a2, v7, v22, v45, v46, 0, v30 & 1, v34, v35, v17, FrameMode, *v43, *&v43[16], *(this + 18));
           if (v29 == 3)
           {
             if (*(this + 108) == 1)
@@ -637,8 +4807,8 @@ void H16ISP::TimeOfFlightAutoFocusAssistant::activate(H16ISP::TimeOfFlightAutoFo
     *(this + 5) = a2;
     *(this + 19) = 0;
     *(this + 20) = 0;
-    v20 = 0;
-    H16ISP::H16ISPDevice::GetPoolInfo(*this, SensorChannel, 29, &v20, 0);
+    v19 = 0;
+    H16ISP::H16ISPDevice::GetPoolInfo(*this, SensorChannel, 29, &v19, 0);
     if (v5)
     {
       NSLog(&cfstr_Jasperdepthnod_3.isa);
@@ -653,15 +4823,11 @@ void H16ISP::TimeOfFlightAutoFocusAssistant::activate(H16ISP::TimeOfFlightAutoFo
     else
     {
       v6 = *(this + 5);
-      memset(v19, 0, sizeof(v19));
-      LODWORD(v17) = 0;
-      *&v16[20] = 1;
-      *&v16[12] = 0;
-      *&v16[4] = 10;
-      *v16 = 128;
-      if (H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(v6, 27, v20))
+      memset(v18, 0, sizeof(v18));
+      LOBYTE(v16) = 1;
+      if (H16ISP::H16ISPFrameReceiver::addBufferPoolToFrameReceiver(v6, 27, v19, 11521, 8, 0, 0, 8, 0.0, v18, 1u, 0xA00000080, 0, 0x100000000, 0, @"AF-Assist", 0, 0, 0, v16))
       {
-        NSLog(&cfstr_Jasperdepthnod_4.isa, v19, 1, *v16, *&v16[8], *&v16[16], 0, @"AF-Assist", 0, 0, 0, 1, v17);
+        NSLog(&cfstr_Jasperdepthnod_4.isa);
       }
 
       else
@@ -683,9 +4849,9 @@ void H16ISP::TimeOfFlightAutoFocusAssistant::activate(H16ISP::TimeOfFlightAutoFo
       NSLog(&cfstr_DumpingTofAfBu.isa, *(this + 8));
       v11 = [MEMORY[0x277CCAA00] defaultManager];
       v12 = *(this + 8);
-      v18 = 0;
-      [v11 createDirectoryAtPath:v12 withIntermediateDirectories:1 attributes:0 error:&v18];
-      v13 = v18;
+      v17 = 0;
+      [v11 createDirectoryAtPath:v12 withIntermediateDirectories:1 attributes:0 error:&v17];
+      v13 = v17;
 
       v14 = objc_opt_new();
       v15 = *(this + 7);
@@ -710,7 +4876,7 @@ LABEL_13:
   }
 }
 
-void GridArea::PrepareGrid(_DWORD *a1, float *a2, uint64_t a3, float *a4, int a5)
+void GridArea::PrepareGrid(_DWORD *a1, float *a2, float *a3, float *a4, unsigned int a5)
 {
   v5 = ((a4[1] - *a4) / a4[2]);
   v6 = ((((a2[1] - *a2) / a2[2]) + 1.0) + (2 * a5));
@@ -721,25 +4887,26 @@ void GridArea::PrepareGrid(_DWORD *a1, float *a2, uint64_t a3, float *a4, int a5
   operator new[]();
 }
 
+void GridArea::GridArea(GridArea *this, const GridArea *a2, int a3, int a4)
+{
+  v4 = *(a2 + 2);
+  v5 = *a2;
+  *(this + 1) = *(a2 + 1);
+  *(this + 2) = v4;
+  *this = v5;
+  operator new[]();
+}
+
+{
+  v4 = *(a2 + 2);
+  v5 = *a2;
+  *(this + 1) = *(a2 + 1);
+  *(this + 2) = v4;
+  *this = v5;
+  operator new[]();
+}
+
 void GridArea::GridArea(GridArea *this, const GridArea *a2)
-{
-  v2 = *(a2 + 2);
-  v3 = *a2;
-  *(this + 1) = *(a2 + 1);
-  *(this + 2) = v2;
-  *this = v3;
-  operator new[]();
-}
-
-{
-  v2 = *(a2 + 2);
-  v3 = *a2;
-  *(this + 1) = *(a2 + 1);
-  *(this + 2) = v2;
-  *this = v3;
-  operator new[]();
-}
-
 {
   v2 = *a2;
   v3 = *(a2 + 2);
@@ -1105,15 +5272,16 @@ void GridArea::FitParabolaModel(GridArea *this, double *a2, double *a3)
   Matrix<double>::Transpose(v15);
 }
 
-void sub_2249711C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
+void sub_2249711C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  Matrix<double>::~Matrix(&a25);
+  va_start(va, a24);
+  Matrix<double>::~Matrix(va);
   Matrix<double>::~Matrix(&a9);
   Matrix<double>::~Matrix(&a21);
   Matrix<double>::~Matrix(&a17);
   Matrix<double>::~Matrix(&a13);
-  Matrix<double>::~Matrix(v25 - 112);
-  Matrix<double>::~Matrix(v25 - 80);
+  Matrix<double>::~Matrix(v24 - 112);
+  Matrix<double>::~Matrix(v24 - 80);
   _Unwind_Resume(a1);
 }
 
@@ -1138,8 +5306,8 @@ LABEL_8:
 
 LABEL_4:
   Matrix<double>::Matrix(a3, v6, v6);
-  v7 = Matrix<double>::Det(a1);
-  if (v7 == 0.0)
+  v8 = Matrix<double>::Det(a1, v7);
+  if (v8 == 0.0)
   {
     if (a2)
     {
@@ -1156,71 +5324,71 @@ LABEL_4:
 
     if (*(a1 + 16) == 2)
     {
-      **(a3 + 8) = *(*(a1 + 8) + 24) / v7;
-      *(*(a3 + 8) + 8) = -*(*(a1 + 8) + 8) / v7;
-      *(*(a3 + 8) + 16) = -*(*(a1 + 8) + 16) / v7;
-      *(*(a3 + 8) + 24) = **(a1 + 8) / v7;
+      **(a3 + 8) = *(*(a1 + 8) + 24) / v8;
+      *(*(a3 + 8) + 8) = -*(*(a1 + 8) + 8) / v8;
+      *(*(a3 + 8) + 16) = -*(*(a1 + 8) + 16) / v8;
+      *(*(a3 + 8) + 24) = **(a1 + 8) / v8;
     }
 
     else
     {
-      v8 = *(a1 + 20);
-      if (v8)
+      v9 = *(a1 + 20);
+      if (v9)
       {
-        v9 = 0;
-        v10 = *(a3 + 16);
-        v11 = 5;
-        v12 = 1;
-        v13 = 8;
-        v14 = 2;
-        v15 = 7;
-        v16 = 4;
+        v10 = 0;
+        v11 = *(a3 + 16);
+        v12 = 5;
+        v13 = 1;
+        v14 = 8;
+        v15 = 2;
+        v16 = 7;
+        v17 = 4;
         do
         {
-          v17 = 0;
           v18 = 0;
-          v19 = 9 * (v12 / 3);
-          v20 = 9 * (v14 / 3);
-          v21 = v9 + 1;
-          v22 = *(a3 + 20);
-          v23 = v11 - v19;
-          v24 = v13 - v20;
-          v25 = v15 - v20;
-          v26 = v16 - v19;
-          v27 = 2;
-          v28 = 1;
+          v19 = 0;
+          v20 = 9 * (v13 / 3);
+          v21 = 9 * (v15 / 3);
+          v22 = v10 + 1;
+          v23 = *(a3 + 20);
+          v24 = v12 - v20;
+          v25 = v14 - v21;
+          v26 = v16 - v21;
+          v27 = v17 - v20;
+          v28 = 2;
+          v29 = 1;
           do
           {
-            if (v18 >= v10 || v9 >= v22)
+            if (v19 >= v11 || v10 >= v23)
             {
               __assert_rtn("operator()", "Matrix.hpp", 119, "row < m_rows && col < m_cols");
             }
 
-            v29 = *(a1 + 8);
-            *(*(a3 + 8) + 8 * v9 + 8 * v17) = (*(v29 + 8 * (v18 + v26 - 3 * (v28 / 3))) * *(v29 + 8 * (v18 + v24 - 3 * (v27 / 3))) - *(v29 + 8 * (v18 + v23 - 3 * (v27 / 3))) * *(v29 + 8 * (v18 + v25 - 3 * (v28 / 3)))) / v7;
-            v17 += v22;
-            ++v27;
+            v30 = *(a1 + 8);
+            *(*(a3 + 8) + 8 * v10 + 8 * v18) = (*(v30 + 8 * (v19 + v27 - 3 * (v29 / 3))) * *(v30 + 8 * (v19 + v25 - 3 * (v28 / 3))) - *(v30 + 8 * (v19 + v24 - 3 * (v28 / 3))) * *(v30 + 8 * (v19 + v26 - 3 * (v29 / 3)))) / v8;
+            v18 += v23;
             ++v28;
-            ++v18;
+            ++v29;
+            ++v19;
           }
 
-          while (v8 != v18);
-          v11 += 3;
-          ++v12;
-          v13 += 3;
-          ++v14;
-          v15 += 3;
+          while (v9 != v19);
+          v12 += 3;
+          ++v13;
+          v14 += 3;
+          ++v15;
           v16 += 3;
-          ++v9;
+          v17 += 3;
+          ++v10;
         }
 
-        while (v21 != v8);
+        while (v22 != v9);
       }
     }
   }
 }
 
-void GridArea::SaveToDictionary()
+void GridArea::SaveToDictionary(uint64_t result, __CFDictionary *a2, int a3, char *a4)
 {
   if (gDbgLvl)
   {
@@ -1248,7 +5416,7 @@ void sub_224971724(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:nn200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -1262,13 +5430,13 @@ _BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -1336,15 +5504,15 @@ BOOL GridArea::isMinimumOnBorder(float *a1, int a2, void *a3)
   return result;
 }
 
-double Matrix<double>::Det(uint64_t a1)
+double Matrix<double>::Det(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 16);
-  if (v1 != 2)
+  v2 = *(a1 + 16);
+  if (v2 != 2)
   {
-    if (v1 == 3 && *(a1 + 20) == 3)
+    if (v2 == 3 && *(a1 + 20) == 3)
     {
-      v2 = *(a1 + 8);
-      return *v2 * (v2[4] * v2[8] - v2[5] * v2[7]) - v2[1] * (v2[3] * v2[8] - v2[5] * v2[6]) + v2[2] * (v2[3] * v2[7] - v2[4] * v2[6]);
+      v3 = *(a1 + 8);
+      return *v3 * (v3[4] * v3[8] - v3[5] * v3[7]) - v3[1] * (v3[3] * v3[8] - v3[5] * v3[6]) + v3[2] * (v3[3] * v3[7] - v3[4] * v3[6]);
     }
 
 LABEL_7:
@@ -1401,7 +5569,7 @@ void PearlInternalIRIsf::~PearlInternalIRIsf(PearlInternalIRIsf *this)
   JUMPOUT(0x22AA55B60);
 }
 
-uint64_t PearlInternalIRIsf::updatePCECalib(uint64_t a1, unsigned int *a2, uint64_t a3)
+uint64_t PearlInternalIRIsf::updatePCECalib(uint64_t a1, char *a2, uint64_t a3)
 {
   v5 = IsfInternal::CalcNewRotation(a1, a2);
   if (!v5)
@@ -1478,7 +5646,7 @@ void PearlInternalIsf::~PearlInternalIsf(PearlInternalIsf *this)
   JUMPOUT(0x22AA55B60);
 }
 
-uint64_t PearlInternalIsf::updatePCECalib(uint64_t a1, unsigned int *a2, uint64_t a3)
+uint64_t PearlInternalIsf::updatePCECalib(uint64_t a1, char *a2, uint64_t a3)
 {
   v5 = IsfInternal::CalcNewRotation(a1, a2);
   if (!v5)
@@ -1609,30 +5777,32 @@ void MetalObjects::createTexture(void *a1, void *a2, int a3, int a4)
   *a2 = [v8 newTextureWithDescriptor:*a1 offset:0 bytesPerRow:4 * a4];
 }
 
-void MetalObjects::createTextureMedian(void *a1, void *a2, int *a3, int a4, int a5, int a6, int a7)
+void MetalObjects::createTextureMedian(void *a1, void *a2, int *a3, uint64_t a4, int a5, uint64_t a6, int a7)
 {
+  v8 = a6;
+  v10 = a4;
   [*a1 setTextureType:2];
-  [*a1 setHeight:a4];
+  [*a1 setHeight:v10];
   [*a1 setWidth:a5];
   if (a7)
   {
     v17 = 0;
-    MetalObjects::createBuffer(a1, &v17, a4, a6);
+    MetalObjects::createBuffer(a1, &v17, v10, v8);
     v15 = v17;
     [*a1 setPixelFormat:10];
     [*a1 setUsage:3];
-    v14 = [v15 newTextureWithDescriptor:*a1 offset:0 bytesPerRow:a6];
+    v14 = [v15 newTextureWithDescriptor:*a1 offset:0 bytesPerRow:v8];
   }
 
   else
   {
     v16 = 0;
-    MetalObjects::createBuffer(a1, &v16, a3, a6 * a4);
+    MetalObjects::createBuffer(a1, &v16, a3, v8 * v10);
     v15 = v16;
     [*a1 setPixelFormat:10];
     [*a1 setUsage:1];
     [*a1 setResourceOptions:*(a1[2] + 96)];
-    v14 = [v15 newTextureWithDescriptor:*a1 offset:0 bytesPerRow:a6];
+    v14 = [v15 newTextureWithDescriptor:*a1 offset:0 bytesPerRow:v8];
   }
 
   *a2 = v14;
@@ -1828,7 +5998,7 @@ void IsfInternal::~IsfInternal(IsfInternal *this)
   }
 }
 
-uint64_t IsfInternal::ConvertSavedToInternalHistory(uint64_t a1, unsigned int *a2)
+uint64_t IsfInternal::ConvertSavedToInternalHistory(uint64_t a1, char *a2)
 {
   v3 = (a1 + 8);
   *(a1 + 16) = *(a1 + 8);
@@ -1839,12 +6009,12 @@ uint64_t IsfInternal::ConvertSavedToInternalHistory(uint64_t a1, unsigned int *a
     goto LABEL_41;
   }
 
-  if (a2[1])
+  if (a2[4])
   {
     goto LABEL_41;
   }
 
-  v6 = a2[2];
+  v6 = *(a2 + 2);
   if (v6 == -1)
   {
     goto LABEL_41;
@@ -1852,14 +6022,14 @@ uint64_t IsfInternal::ConvertSavedToInternalHistory(uint64_t a1, unsigned int *a
 
   if ((v6 & 0x80000000) != 0 || (v7 = *(a1 + 124), v6 >= v7))
   {
-    NSLog(&cfstr_IsfHistoryOlde.isa, a2[2]);
+    NSLog(&cfstr_IsfHistoryOlde.isa, *(a2 + 2));
     goto LABEL_41;
   }
 
-  v8 = a2[3];
+  v8 = *(a2 + 3);
   if ((v8 & 0x80000000) != 0 || v8 >= v7)
   {
-    NSLog(&cfstr_IsfHistoryNext.isa, a2[3]);
+    NSLog(&cfstr_IsfHistoryNext.isa, *(a2 + 3));
     goto LABEL_41;
   }
 
@@ -1873,7 +6043,7 @@ uint64_t IsfInternal::ConvertSavedToInternalHistory(uint64_t a1, unsigned int *a
   v11 = v10 + v7;
   *(a1 + 64) = v11;
   std::vector<Isf::ReferenceRecord>::reserve((a1 + 8), (v11 + 1));
-  std::vector<Isf::ReferenceRecord>::__insert_with_size[abi:nn200100]<Isf::ReferenceRecord const*,Isf::ReferenceRecord const*>(v3, *(a1 + 16), a2 + 40, &a2[18 * *(a1 + 64) + 10], *(a1 + 64));
+  std::vector<Isf::ReferenceRecord>::__insert_with_size[abi:nn200100]<Isf::ReferenceRecord const*,Isf::ReferenceRecord const*>(v3, *(a1 + 16), a2 + 40, &a2[72 * *(a1 + 64) + 40], *(a1 + 64));
   v12 = *(a1 + 8);
   if (v12 == *(a1 + 16))
   {
@@ -1947,7 +6117,7 @@ LABEL_26:
 LABEL_28:
   v18 = 0;
   *(a1 + 32) = *(a2 + 1);
-  v19 = a2 + 7;
+  v19 = (a2 + 28);
   v20 = (a1 + 40);
   while (2)
   {
@@ -2010,19 +6180,17 @@ LABEL_41:
   return 0;
 }
 
-void *std::vector<Isf::ReferenceRecord>::reserve(void *result, unint64_t a2)
+void std::vector<Isf::ReferenceRecord>::reserve(void *a1, unint64_t a2)
 {
-  if (0x8E38E38E38E38E39 * ((result[2] - *result) >> 3) < a2)
+  if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0x38E38E38E38E38FLL)
     {
-      std::allocator<Isf::ReferenceRecord>::allocate_at_least[abi:nn200100](result, a2);
+      std::allocator<Isf::ReferenceRecord>::allocate_at_least[abi:nn200100](a1, a2);
     }
 
     std::string::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
 double IsfInternal::GetInitialWeightForRecord(uint64_t a1, uint64_t a2)
@@ -2759,7 +6927,7 @@ uint64_t IsfInternal::Run(uint64_t a1, uint64_t a2, uint64_t a3, double a4, doub
   *(a1 + 160) = 0;
   if (a3 == 2)
   {
-    NSLog(&cfstr_IsfS.isa, "Error: Calibration result cannot be originated from GMC-RGB-IR.");
+    NSLog(&cfstr_IsfS.isa, a2, a4, a5, a6, a7, "Error: Calibration result cannot be originated from GMC-RGB-IR.");
     return 258;
   }
 
@@ -2781,21 +6949,21 @@ uint64_t IsfInternal::Run(uint64_t a1, uint64_t a2, uint64_t a3, double a4, doub
     if (a3 != 1)
     {
 LABEL_7:
-      NSLog(&cfstr_IsfErrorCalibr.isa, a3);
+      NSLog(&cfstr_IsfErrorCalibr.isa, v15, v16, v17, v18, v19, a3);
       return 258;
     }
   }
 
   else
   {
-    LODWORD(v15) = *(a1 + 144);
-    v9 = v15;
+    LODWORD(v16) = *(a1 + 144);
+    v9 = *&v16;
   }
 
-  v16 = *(a1 + 136);
-  if (v9 < *(a1 + 132) || v9 > v16)
+  v20 = *(a1 + 136);
+  if (v9 < *(a1 + 132) || v9 > v20)
   {
-    NSLog(&cfstr_IsfConfidenceI.isa, *&v9, *(a1 + 132), v16);
+    NSLog(&cfstr_IsfConfidenceI.isa, *&v9, *(a1 + 132), v20);
     return 260;
   }
 
@@ -2811,11 +6979,11 @@ LABEL_7:
     return 256;
   }
 
-  v18 = *(a1 + 128);
-  if (*(a1 + 64) >= v18)
+  v22 = *(a1 + 128);
+  if (*(a1 + 64) >= v22)
   {
     IsfInternal::ConvertInternalHistoryToBufferToSave(a1, a2);
-    if (v20)
+    if (v24)
     {
       return 256;
     }
@@ -2826,9 +6994,9 @@ LABEL_7:
 
   else
   {
-    NSLog(&cfstr_IsfHistoryDoes.isa, *(a1 + 64), v18);
+    NSLog(&cfstr_IsfHistoryDoes.isa, *(a1 + 64), v22);
     IsfInternal::ConvertInternalHistoryToBufferToSave(a1, a2);
-    if (v19)
+    if (v23)
     {
       return 256;
     }
@@ -2840,7 +7008,7 @@ LABEL_7:
   }
 }
 
-uint64_t IsfInternal::CalcNewRotation(uint64_t a1, unsigned int *a2)
+uint64_t IsfInternal::CalcNewRotation(uint64_t a1, char *a2)
 {
   if (*(a1 + 160))
   {
@@ -3177,7 +7345,7 @@ void RgbIrCalibration::~RgbIrCalibration(RgbIrCalibration *this)
   }
 }
 
-uint64_t RgbIrCalibration::Calibrate(uint64_t a1, int a2, const __CFDictionary *a3, int a4, int a5, int a6, unsigned int a7, const __CFBoolean *a8, double *a9, const __CFArray *a10, __int16 a11, uint64_t a12, unsigned int *a13, uint64_t a14, uint64_t a15, uint64_t a16)
+uint64_t RgbIrCalibration::Calibrate(uint64_t a1, __CVBuffer *a2, const __CFDictionary *a3, __CVBuffer *a4, void *a5, __CVBuffer *a6, unsigned int a7, const __CFBoolean *a8, double *a9, const __CFArray *a10, __int16 a11, uint64_t a12, unsigned int *a13, double *a14, _DWORD *a15, uint64_t a16)
 {
   context = objc_autoreleasePoolPush();
   *a1 = 1;
@@ -3322,7 +7490,7 @@ void _GLOBAL__sub_I_RgbIrCalibration_mm()
   v0 = objc_autoreleasePoolPush();
   v1 = MEMORY[0x277D82640];
   __cxa_atexit(MEMORY[0x277D82640], &gOutputDirName, &dword_2247DB000);
-  __cxa_atexit(v1, &gCurrFrameId, &dword_2247DB000);
+  __cxa_atexit(v1, gCurrFrameId, &dword_2247DB000);
 
   objc_autoreleasePoolPop(v0);
 }
@@ -3669,7 +7837,7 @@ LABEL_8:
   return std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v7, " (see CVPixelBufferPrivate.h). Please contact PortableBuffer support.\n", 70);
 }
 
-uint64_t std::string::basic_string[abi:nn200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:nn200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -3681,11 +7849,11 @@ uint64_t std::string::basic_string[abi:nn200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void *std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(void *a1, uint64_t a2, uint64_t a3)
@@ -3694,16 +7862,16 @@ void *std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -3902,14 +8070,14 @@ uint64_t CalibrateRgbIr::Init(CalibrateRgbIr *this)
   return result;
 }
 
-void sub_22497608C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_22497608C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
   v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   Matrix<float>::~Matrix(va);
   Matrix<float>::~Matrix(va1);
   _Unwind_Resume(a1);
@@ -4030,7 +8198,7 @@ LABEL_18:
   }
 }
 
-void OneDimensionVerticalFilterWithPadding(uint64_t a1, uint64_t a2)
+void OneDimensionVerticalFilterWithPadding(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a2 + 16) == 1)
   {
@@ -4060,70 +8228,70 @@ uint64_t CalibrateRgbIr::SampleWorldPointsOnCam(uint64_t a1, int *a2, void *a3, 
   return 0;
 }
 
-void CalibrateRgbIr::CostFmi(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void CalibrateRgbIr::CostFmi(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, _DWORD *a5)
 {
-  v7 = objc_autoreleasePoolPush();
-  v8 = *(a1 + 16);
-  v33 = *a1;
-  v34 = v8;
-  v35 = *(a1 + 32);
-  v9 = *(a1 + 48);
-  *&v36[8] = *(a1 + 56);
-  v10 = *(a1 + 72);
-  *v36 = v9;
-  *&v36[24] = v10;
-  v37 = *(a1 + 80);
-  v11 = *(a1 + 96);
-  *&v38[8] = *(a1 + 104);
-  v12 = *(a1 + 120);
-  v13 = *(a1 + 136);
-  v14 = *(a1 + 152);
-  v15 = *(a1 + 168);
-  *v38 = v11;
-  *&v38[72] = v15;
-  *&v38[56] = v14;
-  *&v38[40] = v13;
-  *&v38[24] = v12;
-  v16 = *(a1 + 192);
-  v39[0] = *(a1 + 176);
-  v39[1] = v16;
-  v39[2] = *(a1 + 208);
-  v40 = *(a1 + 224);
-  v37 = vaddq_f64(v37, vcvtq_f64_f32(*(a2 + 4)));
-  *v38 = v11 + *(a2 + 12);
-  GeomUtils::CalcRotationMatrix<double>(v37.f64, &v38[8]);
-  v22 = vcvt_f32_f64(v33);
-  v17 = *&v34;
-  v23 = v17;
-  v24 = DWORD2(v34);
-  v25 = vcvt_hight_f32_f64(vcvt_f32_f64(*v36), *&v36[16]);
-  v26 = vcvt_hight_f32_f64(vcvt_f32_f64(v37), *v38);
-  v27 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v38[16]), *&v38[32]);
-  v28 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v38[48]), *&v38[64]);
-  v18 = *v39;
-  v29 = v18;
-  v30 = *(v39 + 8);
-  v31 = 0;
+  v8 = objc_autoreleasePoolPush();
+  v9 = *(a1 + 16);
+  v34 = *a1;
+  v35 = v9;
+  v36 = *(a1 + 32);
+  v10 = *(a1 + 48);
+  *&v37[8] = *(a1 + 56);
+  v11 = *(a1 + 72);
+  *v37 = v10;
+  *&v37[24] = v11;
+  v38 = *(a1 + 80);
+  v12 = *(a1 + 96);
+  *&v39[8] = *(a1 + 104);
+  v13 = *(a1 + 120);
+  v14 = *(a1 + 136);
+  v15 = *(a1 + 152);
+  v16 = *(a1 + 168);
+  *v39 = v12;
+  *&v39[72] = v16;
+  *&v39[56] = v15;
+  *&v39[40] = v14;
+  *&v39[24] = v13;
+  v17 = *(a1 + 192);
+  v40[0] = *(a1 + 176);
+  v40[1] = v17;
+  v40[2] = *(a1 + 208);
+  v41 = *(a1 + 224);
+  v38 = vaddq_f64(v38, vcvtq_f64_f32(*(a2 + 4)));
+  *v39 = v12 + *(a2 + 3);
+  GeomUtils::CalcRotationMatrix<double>(v38.f64, &v39[8]);
+  v23 = vcvt_f32_f64(v34);
+  v18 = *&v35;
+  v24 = v18;
+  v25 = DWORD2(v35);
+  v26 = vcvt_hight_f32_f64(vcvt_f32_f64(*v37), *&v37[16]);
+  v27 = vcvt_hight_f32_f64(vcvt_f32_f64(v38), *v39);
+  v28 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v39[16]), *&v39[32]);
+  v29 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v39[48]), *&v39[64]);
+  v19 = *v40;
+  v30 = v19;
+  v31 = *(v40 + 8);
   v32 = 0;
-  v21 = 0;
-  CalibrateRgbIr::SampleWorldPointsOnCam(a1, &v22, &v21, a4);
-  v19 = v21;
-  [v19 width];
-  [v19 height];
-  v20 = [v19 buffer];
-  [v20 contents];
+  v33 = 0;
+  v22 = 0;
+  CalibrateRgbIr::SampleWorldPointsOnCam(a1, &v23, &v22, a4);
+  v20 = v22;
+  [v20 width];
+  [v20 height];
+  v21 = [v20 buffer];
+  [v21 contents];
 
   operator new[]();
 }
 
-void sub_22497695C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22497695C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   Matrix<float>::~Matrix(va);
   Matrix<float>::~Matrix(va1);
 
@@ -4220,8 +8388,10 @@ void CalibrateRgbIr::CalculateGrid(uint64_t a1, uint64_t a2, int a3, int a4)
   }
 }
 
-uint64_t CalibrateRgbIr::PrepareGridCalculation(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5)
+uint64_t CalibrateRgbIr::PrepareGridCalculation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
+  v6 = a4;
   if (a4 && a5)
   {
     v105[0] = 0;
@@ -4230,12 +8400,12 @@ uint64_t CalibrateRgbIr::PrepareGridCalculation(uint64_t a1, uint64_t a2, uint64
     v11 = v105[0];
     objc_storeStrong((a1 + 752), v10);
     v104 = 0;
-    MetalObjects::createTexture((a1 + 608), &v104, (*(a2 + 8) + 4 * *(a2 + 20)), a5, a4);
+    MetalObjects::createTexture((a1 + 608), &v104, (*(a2 + 8) + 4 * *(a2 + 20)), v5, v6);
     v12 = v104;
     v13 = v104;
     objc_storeStrong((a1 + 760), v12);
     v103 = 0;
-    MetalObjects::createTexture((a1 + 608), &v103, (*(a2 + 8) + 4 * (2 * *(a2 + 20))), a5, a4);
+    MetalObjects::createTexture((a1 + 608), &v103, (*(a2 + 8) + 4 * (2 * *(a2 + 20))), v5, v6);
     v14 = v103;
     v15 = v103;
     objc_storeStrong((a1 + 768), v14);
@@ -4255,8 +8425,8 @@ uint64_t CalibrateRgbIr::PrepareGridCalculation(uint64_t a1, uint64_t a2, uint64
       v20 = *(a1 + 408);
       *(a1 + 864) = v20;
       *(a1 + 868) = *(a1 + 416);
-      *(a1 + 884) = a4;
-      *(a1 + 888) = a5;
+      *(a1 + 884) = v6;
+      *(a1 + 888) = v5;
       v102 = 0;
       v78 = v11;
       MetalObjects::createBuffer(a1 + 608, &v102, *(a1 + 272), 4 * *(a1 + 256));
@@ -4378,7 +8548,7 @@ uint64_t CalibrateRgbIr::PrepareGridCalculation(uint64_t a1, uint64_t a2, uint64
       do
       {
         obj = 0;
-        MetalObjects::createTextureSharedBuffer(v45 - 1, &obj, a5, a4);
+        MetalObjects::createTextureSharedBuffer(v45 - 1, &obj, v5, v6);
         objc_storeStrong(v45, obj);
         v45 += 3;
         --v46;
@@ -4495,10 +8665,12 @@ uint64_t CalibrateRgbIr::PrepareGridCalculation(uint64_t a1, uint64_t a2, uint64
   return v67;
 }
 
-void sub_224977458(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_224977458(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  Matrix<float>::~Matrix(&a29);
-  Matrix<float>::~Matrix(v35 - 160);
+  va_start(va, a28);
+
+  Matrix<float>::~Matrix(va);
+  Matrix<float>::~Matrix(v34 - 160);
 
   _Unwind_Resume(a1);
 }
@@ -4559,37 +8731,37 @@ void addValueToDictionary(__CFDictionary *a1, const __CFString *a2, double a3)
   CFRelease(v5);
 }
 
-uint64_t CalibrateRgbIr::ScanCostGrid(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t CalibrateRgbIr::ScanCostGrid(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7)
 {
-  v10 = objc_autoreleasePoolPush();
-  v11 = sqrtf(*(a2 + 20));
-  if (CalibrateRgbIr::PrepareGridCalculation(a1, a2, a3, v11 & 0xFFFFFFF0, v11 * v11 / (v11 & 0xFFFFFFF0)))
+  v11 = objc_autoreleasePoolPush();
+  v12 = sqrtf(*(a2 + 20));
+  if (CalibrateRgbIr::PrepareGridCalculation(a1, a2, a3, v12 & 0xFFFFFFF0, v12 * v12 / (v12 & 0xFFFFFFF0)))
   {
-    v12 = *(a6 + 4);
-    v24[1] = v12 + 6.0;
+    v13 = *(a6 + 4);
+    v25[1] = v13 + 6.0;
+    v25[2] = 3.0;
+    v24[0] = v13 + -6.0;
+    v24[1] = v13 + 6.0;
     v24[2] = 3.0;
-    v23[0] = v12 + -6.0;
-    v23[1] = v12 + 6.0;
-    v23[2] = 3.0;
-    v24[0] = -6.0;
-    v22 = 1065353216;
-    v21 = 0;
-    v19[6] = -1061158912;
-    *&v19[7] = v12 + 6.0;
-    *&v19[8] = v12 + -6.0;
-    *&v19[9] = v12 + 6.0;
+    v25[0] = -6.0;
+    v23 = 1065353216;
+    v22 = 0;
+    v20[6] = -1061158912;
+    *&v20[7] = v13 + 6.0;
+    *&v20[8] = v13 + -6.0;
+    *&v20[9] = v13 + 6.0;
     __asm { FMOV            V0.2S, #3.0 }
 
-    v20 = _D0;
-    GridArea::PrepareGrid(v19, v24, v23, &v21, 0);
+    v21 = _D0;
+    GridArea::PrepareGrid(v20, v25, v24, &v22, 0);
   }
 
   NSLog(&cfstr_RgbIrCalibS.isa, "PrepareGridCalculation failed.");
-  objc_autoreleasePoolPop(v10);
+  objc_autoreleasePoolPop(v11);
   return 4097;
 }
 
-void sub_22497877C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, int a50, __int16 a51, char a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, int a57, __int16 a58, char a59, char a60, char a61)
+void sub_22497877C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, int a50, __int16 a51, char a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, int a57, __int16 a58, char a59, char a60, char a61)
 {
   if (a20 < 0)
   {
@@ -4688,14 +8860,14 @@ void CalibrateRgbIr::GetTargetCam(uint64_t a1, unsigned int a2, unsigned int a3,
   operator new[]();
 }
 
-void CalibrateRgbIr::PrepareColorImage(int a1, __CVBuffer *a2)
+void CalibrateRgbIr::PrepareColorImage(int a1, __CVBuffer *a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   memset(&src, 0, sizeof(src));
   PrepareVImgBuffersFromCVPixBuffer(a2, &src);
   operator new[]();
 }
 
-void sub_22497941C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, int a44, __int16 a45, char a46, char a47)
+void sub_22497941C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, int a44, __int16 a45, char a46, char a47)
 {
   Matrix<float>::~Matrix(&a14);
   Matrix<float>::~Matrix(&a27);
@@ -4703,16 +8875,18 @@ void sub_22497941C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void SaveToFileWithPrefix<float,float>(_DWORD *a1, unint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5, int a6, int a7, unint64_t a8)
+void SaveToFileWithPrefix<float,float>(_DWORD *a1, unint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8)
 {
-  if (byte_27D6F2867 >= 0)
+  v8 = a7;
+  v9 = a6;
+  if (gCurrFrameId[23] >= 0)
   {
-    v15 = byte_27D6F2867;
+    v15 = gCurrFrameId[23];
   }
 
   else
   {
-    v15 = *(&gCurrFrameId + 1);
+    v15 = *&gCurrFrameId[8];
   }
 
   v16 = &v24;
@@ -4724,14 +8898,14 @@ void SaveToFileWithPrefix<float,float>(_DWORD *a1, unint64_t a2, unint64_t a3, u
 
   if (v15)
   {
-    if (byte_27D6F2867 >= 0)
+    if (gCurrFrameId[23] >= 0)
     {
-      v17 = &gCurrFrameId;
+      v17 = gCurrFrameId;
     }
 
     else
     {
-      v17 = gCurrFrameId;
+      v17 = *gCurrFrameId;
     }
 
     memmove(v16, v17, v15);
@@ -4766,7 +8940,7 @@ void SaveToFileWithPrefix<float,float>(_DWORD *a1, unint64_t a2, unint64_t a3, u
   v21->__r_.__value_.__l.__size_ = 0;
   v21->__r_.__value_.__r.__words[2] = 0;
   v21->__r_.__value_.__r.__words[0] = 0;
-  SaveToFile<float,float>(a1, a2, a3, a4, __p, a6, a7, a8);
+  SaveToFile<float,float>(a1, a2, a3, a4, __p, v9, v8, a8);
   if (SHIBYTE(v26) < 0)
   {
     operator delete(__p[0]);
@@ -4797,7 +8971,7 @@ void HistogramEqualize<float,float>(float *a1, uint64_t a2, uint64_t a3, unsigne
 {
   v7 = a1;
   v20[1] = *MEMORY[0x277D85DE8];
-  v8 = MEMORY[0x28223BE20](a1, a2);
+  v8 = MEMORY[0x28223BE20](a1);
   v10 = v20 - v9;
   v13 = (v12 * v11);
   BuildHistogram<float,float>(v8, (v20 - v9), v14, v13);
@@ -4847,7 +9021,7 @@ uint64_t CalibrateRgbIr::ApplyGaussian2DFilter(uint64_t a1, uint64_t a2, uint64_
     v8 = *(a2 + 20);
   }
 
-  Matrix<float>::Matrix(v26, v7 + 4, v8 + 4);
+  Matrix<float>::Matrix(v26, v7 + 4, v8 + 4, 0.0);
   v9 = v7 + 2;
   if ((v7 + 2) >= 3)
   {
@@ -4916,11 +9090,12 @@ uint64_t CalibrateRgbIr::ApplyGaussian2DFilter(uint64_t a1, uint64_t a2, uint64_
   return 0;
 }
 
-void sub_224979A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_224979A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   Matrix<float>::~Matrix(&a9);
   Matrix<float>::~Matrix(&a13);
-  Matrix<float>::~Matrix(&a17);
+  Matrix<float>::~Matrix(va);
   _Unwind_Resume(a1);
 }
 
@@ -4935,7 +9110,7 @@ uint64_t CalibrateRgbIr::InitDebugDictionary(CFMutableDictionaryRef *this)
   return 0;
 }
 
-void CalibrateRgbIr::ScaleImage(uint64_t a1, void *a2, vImagePixelCount a3, vImagePixelCount a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t *a8)
+void CalibrateRgbIr::ScaleImage(uint64_t a1, void *a2, vImagePixelCount a3, vImagePixelCount a4, vImagePixelCount a5, vImagePixelCount a6, void **a7, unint64_t *a8)
 {
   src.data = a2;
   src.height = a4;
@@ -5062,7 +9237,7 @@ void sub_224979EEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CalibrateRgbIr::PrepareIrImage(uint64_t a1, CVPixelBufferRef pixelBuffer, uint64_t a3, size_t *a4, size_t *a5)
+uint64_t CalibrateRgbIr::PrepareIrImage(uint64_t a1, CVPixelBufferRef pixelBuffer, uint64_t a3, vImagePixelCount *a4, vImagePixelCount *a5)
 {
   *a4 = CVPixelBufferGetWidth(pixelBuffer);
   Height = CVPixelBufferGetHeight(pixelBuffer);
@@ -5161,21 +9336,21 @@ double CalibrateRgbIr::SetParamsForShiftMaps(uint64_t a1, double *a2)
   return result;
 }
 
-uint64_t CalibrateRgbIr::PrepareDepthImage(uint64_t a1, CVPixelBufferRef pixelBuffer)
+uint64_t CalibrateRgbIr::PrepareDepthImage(uint64_t a1, CVPixelBufferRef pixelBuffer, unint64_t a3, unint64_t a4, float **a5)
 {
   PixelFormatType = CVPixelBufferGetPixelFormatType(pixelBuffer);
-  v5 = *(a1 + 464);
-  if (v5 == 1 && PixelFormatType != 825306677)
+  v8 = *(a1 + 464);
+  if (v8 == 1 && PixelFormatType != 825306677)
   {
-    v7 = "Depth pixel buffer format should be kCVPixelFormatType_FixedPointUnsigned11_5 if it is normalized dx";
+    v10 = "Depth pixel buffer format should be kCVPixelFormatType_FixedPointUnsigned11_5 if it is normalized dx";
 LABEL_9:
-    NSLog(&cfstr_RgbIrCalibS.isa, v7);
+    NSLog(&cfstr_RgbIrCalibS.isa, v10);
     return 12291;
   }
 
-  if ((v5 & 1) == 0 && PixelFormatType != 825437747)
+  if ((v8 & 1) == 0 && PixelFormatType != 825437747)
   {
-    v7 = "Depth pixel buffer format should be kCVPixelFormatType_FixedPointUnsigned13_3 if they are absolute values (not normalized dx)";
+    v10 = "Depth pixel buffer format should be kCVPixelFormatType_FixedPointUnsigned13_3 if they are absolute values (not normalized dx)";
     goto LABEL_9;
   }
 
@@ -5183,15 +9358,15 @@ LABEL_9:
   {
     if (*(a1 + 464))
     {
-      v9 = MEMORY[0x277CBED28];
+      v12 = MEMORY[0x277CBED28];
     }
 
     else
     {
-      v9 = MEMORY[0x277CBED10];
+      v12 = MEMORY[0x277CBED10];
     }
 
-    CFDictionarySetValue(*(a1 + 1008), @"isNormalizedDx", *v9);
+    CFDictionarySetValue(*(a1 + 1008), @"isNormalizedDx", *v12);
   }
 
   CVPixelBufferGetBytesPerRow(pixelBuffer);
@@ -5485,14 +9660,14 @@ uint64_t CalibrateRgbIr::CalculateFinalResult(float64x2_t *a1, uint64_t a2, floa
   return 0;
 }
 
-uint64_t CalibrateRgbIr::Calibrate(uint64_t a1, int a2, const __CFDictionary *a3, int a4, int a5, int a6, uint64_t a7, const __CFBoolean *a8, double *a9, CFArrayRef theArray, __int16 a11, uint64_t a12, uint64_t a13, uint64_t a14)
+uint64_t CalibrateRgbIr::Calibrate(uint64_t a1, __CVBuffer *a2, const __CFDictionary *a3, __CVBuffer *a4, void *a5, __CVBuffer *a6, uint64_t a7, const __CFBoolean *a8, double *a9, CFArrayRef theArray, __int16 a11, uint64_t a12, double *a13, _DWORD *a14)
 {
   v15 = a7;
   v52 = *MEMORY[0x277D85DE8];
   *(a1 + 976) = 0;
   NSLog(&cfstr_RgbIrCalibStar.isa, 1, 12, 0, a7, a8, a11);
   v16 = std::string::basic_string[abi:nn200100]<0>(&valuePtr, "PCECalib.bin");
-  SaveToFileWithPrefix(v16);
+  SaveToFileWithPrefix(v16, a9, 13312);
   if (v42 < 0)
   {
     operator delete(valuePtr);
@@ -5573,4118 +9748,5 @@ uint64_t CalibrateRgbIr::Calibrate(uint64_t a1, int a2, const __CFDictionary *a3
 
     CalibrateRgbIr::SaveDebugPlist(a1);
     return 12289;
-  }
-}
-
-void sub_22497BABC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
-{
-  Matrix<float>::~Matrix(&a51);
-  v55 = *(v53 - 256);
-  if (v55)
-  {
-    MEMORY[0x22AA55B40](v55, 0x1000C8052888210);
-  }
-
-  Matrix<float>::~Matrix(v53 - 248);
-  _Unwind_Resume(a1);
-}
-
-void CalibrateRgbIr::SaveDebugPlist(id *this)
-{
-  if ((~gDbgLvl & 0x11) == 0)
-  {
-    v1 = this[126];
-    if (byte_27D6F284F >= 0)
-    {
-      v2 = byte_27D6F284F;
-    }
-
-    else
-    {
-      v2 = qword_27D6F2840;
-    }
-
-    v3 = &v17;
-    std::string::basic_string[abi:nn200100](&v17, v2 + 1);
-    if ((v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v3 = v17.__r_.__value_.__r.__words[0];
-    }
-
-    if (v2)
-    {
-      if (byte_27D6F284F >= 0)
-      {
-        v4 = &gOutputDirName;
-      }
-
-      else
-      {
-        v4 = gOutputDirName;
-      }
-
-      memmove(v3, v4, v2);
-    }
-
-    *(&v3->__r_.__value_.__l.__data_ + v2) = 47;
-    if (byte_27D6F2867 >= 0)
-    {
-      v5 = &gCurrFrameId;
-    }
-
-    else
-    {
-      v5 = gCurrFrameId;
-    }
-
-    if (byte_27D6F2867 >= 0)
-    {
-      v6 = byte_27D6F2867;
-    }
-
-    else
-    {
-      v6 = *(&gCurrFrameId + 1);
-    }
-
-    v7 = std::string::append(&v17, v5, v6);
-    v8 = *&v7->__r_.__value_.__l.__data_;
-    v18.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
-    *&v18.__r_.__value_.__l.__data_ = v8;
-    v7->__r_.__value_.__l.__size_ = 0;
-    v7->__r_.__value_.__r.__words[2] = 0;
-    v7->__r_.__value_.__r.__words[0] = 0;
-    v9 = std::string::append(&v18, "_Debug.plist", 0xCuLL);
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    v20 = v9->__r_.__value_.__r.__words[2];
-    *__p = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v18.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v17.__r_.__value_.__l.__data_);
-    }
-
-    CreateDirForFile(__p);
-    v11 = MEMORY[0x277CCACA8];
-    v12 = SHIBYTE(v20);
-    v13 = __p[0];
-    v14 = [MEMORY[0x277CCACA8] defaultCStringEncoding];
-    if (v12 >= 0)
-    {
-      v15 = __p;
-    }
-
-    else
-    {
-      v15 = v13;
-    }
-
-    v16 = [v11 stringWithCString:v15 encoding:v14];
-    [v1 writeToFile:v16 atomically:1];
-
-    if (SHIBYTE(v20) < 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-}
-
-void sub_22497BE34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
-{
-  v30 = v29;
-
-  if (a28 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t CalibrateRgbIr::ReleaseLocalResources(CalibrateRgbIr *this)
-{
-  v2 = *(this + 248);
-  v17 = *(this + 232);
-  v18 = v2;
-  v20 = *(this + 35);
-  v19 = *(this + 264);
-  v21 = *(this + 18);
-  v22 = *(this + 38);
-  v24 = *(this + 41);
-  v23 = *(this + 312);
-  v3 = *(this + 22);
-  v25 = *(this + 21);
-  v4 = *(this + 23);
-  v5 = *(this + 24);
-  v29 = *(this + 50);
-  v28 = v5;
-  v27 = v4;
-  v26 = v3;
-  v6 = *(this + 408);
-  v7 = *(this + 424);
-  v8 = *(this + 440);
-  v33 = *(this + 57);
-  v31 = v7;
-  v32 = v8;
-  v30 = v6;
-  ReleaseCamParams(&v17);
-  v9 = *(this + 1);
-  v17 = *this;
-  v18 = v9;
-  v19 = *(this + 2);
-  v20 = *(this + 6);
-  v21 = *(this + 56);
-  v22 = *(this + 9);
-  v23 = *(this + 5);
-  v24 = *(this + 12);
-  v25 = *(this + 104);
-  v10 = *(this + 120);
-  v11 = *(this + 136);
-  v12 = *(this + 152);
-  v29 = *(this + 21);
-  v28 = v12;
-  v27 = v11;
-  v26 = v10;
-  v13 = *(this + 11);
-  v14 = *(this + 12);
-  v15 = *(this + 13);
-  v33 = *(this + 28);
-  v31 = v14;
-  v32 = v15;
-  v30 = v13;
-  return ReleaseCamParams(&v17);
-}
-
-void addValueToDictionary(__CFDictionary *a1, const __CFString *a2, int a3)
-{
-  valuePtr = a3;
-  v5 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &valuePtr);
-  CFDictionarySetValue(a1, a2, v5);
-  CFRelease(v5);
-}
-
-void CalibrateRgbIr::PrepareXyzWorld(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  if (a6)
-  {
-    if (a7)
-    {
-      v8 = *(a2 + 188) * *(a2 + 184);
-      Matrix<float>::Matrix(v44, 2, v8);
-      if (v46 && v47)
-      {
-        if (v46 != 1)
-        {
-          v9 = *(a2 + 184);
-          if (v9)
-          {
-            v10 = 0;
-            v11 = __src;
-            v12 = (__src + 4 * v47);
-            v13 = *(a2 + 48);
-            v14 = *(a2 + 8) / v13;
-            v15 = *(a2 + 188);
-            v16 = *(a2 + 16) / v13;
-            do
-            {
-              if (v15)
-              {
-                v17 = 0;
-                do
-                {
-                  v18 = v13 * (v10 + 0.5 - v14);
-                  *v11++ = v18;
-                  v19 = v13 * (v17 + 0.5 - v16);
-                  *v12++ = v19;
-                  ++v17;
-                }
-
-                while (v15 != v17);
-              }
-
-              ++v10;
-            }
-
-            while (v10 != v9);
-          }
-
-          Matrix<float>::Matrix(&v40, 2, v8);
-          v40 = &unk_283814CF8;
-          memcpy(__dst, __src, 4 * v47 * v46);
-          Matrix<float>::Matrix(v36, *(a2 + 188), *(a2 + 184));
-          Matrix<float>::Matrix(v32, *(a2 + 188), *(a2 + 184));
-          if (v42 && v43)
-          {
-            if (v42 != 1)
-            {
-              v20 = v39;
-              if (v39)
-              {
-                v21 = 0;
-                v22 = v38;
-                v23 = __dst;
-                v24 = __dst + 4 * v43;
-                v25 = *(a2 + 48);
-                v26 = v34;
-                do
-                {
-                  if (v22)
-                  {
-                    v27 = 0;
-                    v28 = 0;
-                    v29 = 0;
-                    v30 = 0;
-                    v31 = v35;
-                    do
-                    {
-                      *(v37 + 4 * v21 + 4 * v28) = v23[v30] / v25;
-                      if (v30 >= v26 || v21 >= v31)
-                      {
-                        __assert_rtn("operator()", "Matrix.hpp", 119, "row < m_rows && col < m_cols");
-                      }
-
-                      *(v33 + 4 * v21 + 4 * v29) = *&v24[4 * v30++] / v25;
-                      v29 += v31;
-                      v28 += v20;
-                      v27 -= 4;
-                    }
-
-                    while (v22 != v30);
-                    v24 -= v27;
-                    v23 = (v23 - v27);
-                  }
-
-                  ++v21;
-                }
-
-                while (v21 != v20);
-              }
-
-              operator new[]();
-            }
-
-            __assert_rtn("operator()", "Matrix.hpp", 119, "row < m_rows && col < m_cols");
-          }
-
-          __assert_rtn("operator()", "Matrix.hpp", 119, "row < m_rows && col < m_cols");
-        }
-
-        __assert_rtn("operator()", "Matrix.hpp", 119, "row < m_rows && col < m_cols");
-      }
-
-      __assert_rtn("operator()", "Matrix.hpp", 119, "row < m_rows && col < m_cols");
-    }
-
-    CalibrateRgbIr::PrepareXyzWorld();
-  }
-
-  CalibrateRgbIr::PrepareXyzWorld();
-}
-
-void sub_22497C6DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va2, a8);
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  va_copy(va2, va1);
-  v14 = va_arg(va2, void);
-  v16 = va_arg(va2, void);
-  v17 = va_arg(va2, void);
-  v18 = va_arg(va2, void);
-  Matrix<float>::~Matrix(va);
-  Matrix<float>::~Matrix(va1);
-  Matrix<float>::~Matrix(va2);
-  _Unwind_Resume(a1);
-}
-
-BOOL isPixelInRoi(_DWORD *a1, double *a2, double a3)
-{
-  LODWORD(a3) = *a1;
-  v3 = *&a3;
-  result = 0;
-  if (*a2 <= v3 && *a2 + a2[2] > v3)
-  {
-    LODWORD(v3) = a1[1];
-    v4 = *&v3;
-    v5 = a2[1];
-    if (v5 <= v4 && v5 + a2[3] > v4)
-    {
-      return 1;
-    }
-  }
-
-  return result;
-}
-
-BOOL CalibrateRgbIr::ValidateResults(CalibrateRgbIr *this, float a2, float a3)
-{
-  v3 = vceqq_f32(vdupq_lane_s64(__SPAIR64__(LODWORD(a3), LODWORD(a2)), 0), xmmword_2249D2BB0);
-  v4 = vaddvq_s32(vandq_s8(v3, xmmword_2249D2BA0));
-  if (vmaxv_u16(vmovn_s32(v3)))
-  {
-    NSLog(&cfstr_RgbIrCalibErro.isa, a2, a3);
-  }
-
-  return (v4 & 0xF) == 0;
-}
-
-void GridArea::GridArea(uint64_t a1, uint64_t a2, uint64_t a3, float *a4, int a5)
-{
-  *(a1 + 24) = *a2;
-  v5 = *(a3 + 8);
-  *(a1 + 40) = *(a2 + 8);
-  *(a1 + 44) = v5;
-  GridArea::PrepareGrid(a1, a2, a3, a4, a5);
-}
-
-void SaveToFile<float,float>(_DWORD *a1, unint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5, int a6, int a7, unint64_t a8)
-{
-  v57[19] = *MEMORY[0x277D85DE8];
-  if ((gDbgLvl & 4) != 0)
-  {
-    if (a8)
-    {
-      v14 = a8;
-    }
-
-    else
-    {
-      v14 = a3 * a2;
-    }
-
-    if (byte_27D6F284F >= 0)
-    {
-      v15 = byte_27D6F284F;
-    }
-
-    else
-    {
-      v15 = qword_27D6F2840;
-    }
-
-    v16 = &v55;
-    std::string::basic_string[abi:nn200100](&v55, v15 + 1);
-    if ((v55.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v16 = v55.__r_.__value_.__r.__words[0];
-    }
-
-    if (v15)
-    {
-      if (byte_27D6F284F >= 0)
-      {
-        v17 = &gOutputDirName;
-      }
-
-      else
-      {
-        v17 = gOutputDirName;
-      }
-
-      memmove(v16, v17, v15);
-    }
-
-    *(&v16->__r_.__value_.__l.__data_ + v15) = 47;
-    v18 = *(a5 + 23);
-    if (v18 >= 0)
-    {
-      v19 = a5;
-    }
-
-    else
-    {
-      v19 = *a5;
-    }
-
-    if (v18 >= 0)
-    {
-      v20 = *(a5 + 23);
-    }
-
-    else
-    {
-      v20 = *(a5 + 8);
-    }
-
-    v21 = std::string::append(&v55, v19, v20);
-    v22 = *&v21->__r_.__value_.__l.__data_;
-    v53 = v21->__r_.__value_.__r.__words[2];
-    *__p = v22;
-    v21->__r_.__value_.__l.__size_ = 0;
-    v21->__r_.__value_.__r.__words[2] = 0;
-    v21->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v55.__r_.__value_.__l.__data_);
-    }
-
-    if (CreateDirForFile(__p))
-    {
-      goto LABEL_59;
-    }
-
-    v57[6] = 0;
-    v23 = MEMORY[0x277D82860] + 64;
-    v57[0] = MEMORY[0x277D82860] + 64;
-    v24 = MEMORY[0x277D82810];
-    v25 = *(MEMORY[0x277D82810] + 16);
-    v55.__r_.__value_.__r.__words[0] = *(MEMORY[0x277D82810] + 8);
-    *(v55.__r_.__value_.__r.__words + *(v55.__r_.__value_.__r.__words[0] - 24)) = v25;
-    v26 = (&v55 + *(v55.__r_.__value_.__r.__words[0] - 24));
-    std::ios_base::init(v26, &v55.__r_.__value_.__r.__words[1]);
-    v27 = MEMORY[0x277D82860] + 24;
-    v26[1].__vftable = 0;
-    v26[1].__fmtflags_ = -1;
-    v55.__r_.__value_.__r.__words[0] = v27;
-    v57[0] = v23;
-    MEMORY[0x22AA55890](&v55.__r_.__value_.__r.__words[1]);
-    if (a6)
-    {
-      std::ofstream::open();
-      if (!v56)
-      {
-        goto LABEL_58;
-      }
-
-      if (a2 && v14)
-      {
-        LODWORD(v28) = 0;
-        v29 = 0;
-        v30 = (a4 >> 2) - a3;
-        do
-        {
-          if (a3)
-          {
-            v31 = 1;
-            do
-            {
-              LODWORD(v54.__locale_) = *a1;
-              std::ostream::write();
-              ++a1;
-              v32 = v31 + 1;
-              if (v31 >= a3)
-              {
-                break;
-              }
-
-              v33 = v29 + v31++;
-            }
-
-            while (v33 < v14);
-            v29 = v29 + v32 - 1;
-          }
-
-          v28 = (v28 + 1);
-          a1 += v30;
-        }
-
-        while (v28 < a2 && v29 < v14);
-      }
-    }
-
-    else
-    {
-      std::ofstream::open();
-      if (!v56)
-      {
-        goto LABEL_58;
-      }
-
-      *(MEMORY[0x277D82678] + *(*MEMORY[0x277D82678] - 24) + 16) = 10;
-      if (a2)
-      {
-        v35 = 0;
-        LODWORD(v36) = 0;
-        v37 = 0;
-        v50 = a4 >> 2;
-        v38 = a3 - 1;
-        while (1)
-        {
-          v48 = v36;
-          v49 = v35;
-          if (v38)
-          {
-            break;
-          }
-
-LABEL_53:
-          v44 = std::ostream::operator<<();
-          std::ios_base::getloc((v44 + *(*v44 - 24)));
-          v45 = std::locale::use_facet(&v54, MEMORY[0x277D82680]);
-          (v45->__vftable[2].~facet_0)(v45, 10);
-          std::locale::~locale(&v54);
-          std::ostream::put();
-          std::ostream::flush();
-          ++v37;
-          v36 = (v48 + 1);
-          v35 = v49 + v50;
-          if (v36 >= a2)
-          {
-            goto LABEL_54;
-          }
-        }
-
-        if (v14 <= v37)
-        {
-          v39 = v37;
-        }
-
-        else
-        {
-          v39 = v14;
-        }
-
-        v40 = 1;
-        while (v39 != v37)
-        {
-          v41 = std::ostream::operator<<();
-          if (a7)
-          {
-            std::ios_base::getloc((v41 + *(*v41 - 24)));
-            v42 = std::locale::use_facet(&v54, MEMORY[0x277D82680]);
-            (v42->__vftable[2].~facet_0)(v42, 10);
-            std::locale::~locale(&v54);
-            std::ostream::put();
-            std::ostream::flush();
-          }
-
-          else
-          {
-            std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v41, ",", 1);
-          }
-
-          ++v37;
-          ++v35;
-          if (v38 <= v40++)
-          {
-            goto LABEL_53;
-          }
-        }
-
-        v47 = std::filebuf::close();
-        v24 = MEMORY[0x277D82810];
-        if (v47)
-        {
-          goto LABEL_58;
-        }
-
-        goto LABEL_57;
-      }
-    }
-
-LABEL_54:
-    v46 = std::filebuf::close();
-    v24 = MEMORY[0x277D82810];
-    if (!v46)
-    {
-LABEL_57:
-      std::ios_base::clear((&v55 + *(v55.__r_.__value_.__r.__words[0] - 24)), *(&v55 + *(v55.__r_.__value_.__r.__words[0] - 24) + 32) | 4);
-    }
-
-LABEL_58:
-    v55.__r_.__value_.__r.__words[0] = *v24;
-    *(v55.__r_.__value_.__r.__words + *(v55.__r_.__value_.__r.__words[0] - 24)) = v24[3];
-    MEMORY[0x22AA558A0](&v55.__r_.__value_.__r.__words[1]);
-    std::ostream::~ostream();
-    MEMORY[0x22AA55B20](v57);
-LABEL_59:
-    if (SHIBYTE(v53) < 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-}
-
-void sub_22497CEAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, std::locale a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
-{
-  std::ofstream::~ofstream(&a23, MEMORY[0x277D82810]);
-  MEMORY[0x22AA55B20](a13);
-  if (a20 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::ofstream::~ofstream(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a2;
-  *a1 = *a2;
-  *(a1 + *(v2 - 24)) = a2[3];
-  MEMORY[0x22AA558A0](a1 + 1);
-
-  return std::ostream::~ostream();
-}
-
-void BuildHistogram<float,float>(float *a1, _DWORD *a2, unsigned int a3, unsigned int a4)
-{
-  v6 = a2;
-  if (a3)
-  {
-    bzero(a2, 4 * a3);
-  }
-
-  if (a4)
-  {
-    v8 = a4;
-    do
-    {
-      v9 = *a1++;
-      v10 = vcvtmd_u64_f64(v9 / (1.0 / (a3 - 1)));
-      if (v10 >= a3)
-      {
-        v10 = a3 - 1;
-      }
-
-      ++v6[v10];
-      --v8;
-    }
-
-    while (v8);
-  }
-
-  if (a3)
-  {
-    v11 = 0;
-    v12 = a3;
-    do
-    {
-      v11 += *v6;
-      *v6++ = v11;
-      --v12;
-    }
-
-    while (v12);
-  }
-}
-
-uint64_t Matrix<unsigned char>::Matrix(uint64_t result, int a2, int a3)
-{
-  *result = &unk_283814CC8;
-  if (a3 * a2)
-  {
-    operator new[]();
-  }
-
-  *(result + 8) = 0;
-  *(result + 16) = a2;
-  *(result + 20) = a3;
-  *(result + 24) = 0;
-  return result;
-}
-
-void Matrix<unsigned char>::~Matrix(uint64_t a1)
-{
-  Matrix<unsigned char>::~Matrix(a1);
-
-  JUMPOUT(0x22AA55B60);
-}
-
-uint64_t Matrix<unsigned char>::~Matrix(uint64_t a1)
-{
-  *a1 = &unk_283814CC8;
-  if (*(a1 + 8) && *(a1 + 24) == 1)
-  {
-    MEMORY[0x22AA55B40]();
-    *(a1 + 8) = 0;
-  }
-
-  *(a1 + 16) = 0;
-  return a1;
-}
-
-void OneDimensionHorizontalFilterWithPadding()
-{
-  __assert_rtn("OneDimensionHorizontalFilterWithPadding", "CalibrateRgbIr.mm", 2468, "filter.Rows() == 1");
-}
-
-{
-  __assert_rtn("OneDimensionHorizontalFilterWithPadding", "CalibrateRgbIr.mm", 2470, "(filterSize % 2) == 1");
-}
-
-void OneDimensionVerticalFilterWithPadding()
-{
-  __assert_rtn("OneDimensionVerticalFilterWithPadding", "CalibrateRgbIr.mm", 2493, "filter.Rows() == 1");
-}
-
-{
-  __assert_rtn("OneDimensionVerticalFilterWithPadding", "CalibrateRgbIr.mm", 2495, "(filterSize % 2) == 1");
-}
-
-void CalibrateRgbIr::PrepareGridCalculation(os_log_t log)
-{
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = 136315138;
-  v2 = "PrepareGridCalculation";
-  _os_log_error_impl(&dword_2247DB000, log, OS_LOG_TYPE_ERROR, "RGB-IR: %s: rdar://112006283 Error creating textures => Aborting Rgb-Ir run\n", &v1, 0xCu);
-}
-
-void CalibrateRgbIr::PrepareGridCalculation()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v3[0] = 136315650;
-  OUTLINED_FUNCTION_0();
-  v4 = v0;
-  v5 = v1;
-  _os_log_error_impl(&dword_2247DB000, v2, OS_LOG_TYPE_ERROR, "RGB-IR: %s: Invalid input: rows: %u, cols: %u.\n", v3, 0x18u);
-}
-
-void CalibrateRgbIr::ApplyGaussian2DFilter()
-{
-  __assert_rtn("ApplyGaussian2DFilter", "CalibrateRgbIr.mm", 1206, "input.Cols() == output.Cols() && input.Rows() == output.Rows()");
-}
-
-{
-  __assert_rtn("ApplyGaussian2DFilter", "CalibrateRgbIr.mm", 1208, "input.Cols() >= relevantWidth");
-}
-
-void CalibrateRgbIr::PrepareXyzWorld()
-{
-  v2 = *MEMORY[0x277D85DE8];
-  v1[0] = 136315394;
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_2247DB000, v0, OS_LOG_TYPE_ERROR, "RGB-IR: %s: rdar://112006283 numOfGoodPts is %d < 256 => Aborting Rgb-Ir run\n", v1, 0x12u);
-}
-
-{
-  __assert_rtn("PrepareXyzWorld", "CalibrateRgbIr.mm", 2162, "goodIdxRoiMask");
-}
-
-{
-  __assert_rtn("PrepareXyzWorld", "CalibrateRgbIr.mm", 2161, "goodIdx");
-}
-
-void vDSPImgfir<float>()
-{
-  __assert_rtn("vDSPImgfir", "VdspSpecialization.hpp", 543, "nRows2%2 == 1");
-}
-
-{
-  __assert_rtn("vDSPImgfir", "VdspSpecialization.hpp", 542, "nCols2%2 == 1");
-}
-
-uint64_t SaveToFile(uint64_t result)
-{
-  v24[19] = *MEMORY[0x277D85DE8];
-  if ((gDbgLvl & 4) != 0)
-  {
-    v1 = result;
-    v24[6] = 0;
-    v2 = MEMORY[0x277D82860] + 64;
-    v24[0] = MEMORY[0x277D82860] + 64;
-    v3 = MEMORY[0x277D82810];
-    v4 = *(MEMORY[0x277D82810] + 16);
-    v22 = *(MEMORY[0x277D82810] + 8);
-    *(&v23[-1] + *(v22 - 24)) = v4;
-    v5 = (&v23[-1] + *(v22 - 24));
-    std::ios_base::init(v5, v23);
-    v6 = MEMORY[0x277D82860] + 24;
-    v5[1].__vftable = 0;
-    v5[1].__fmtflags_ = -1;
-    v22 = v6;
-    v24[0] = v2;
-    MEMORY[0x22AA55890](v23);
-    if (byte_27D6F284F >= 0)
-    {
-      v7 = byte_27D6F284F;
-    }
-
-    else
-    {
-      v7 = qword_27D6F2840;
-    }
-
-    v8 = &v19;
-    std::string::basic_string[abi:nn200100](&v19, v7 + 1);
-    if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v8 = v19.__r_.__value_.__r.__words[0];
-    }
-
-    if (v7)
-    {
-      if (byte_27D6F284F >= 0)
-      {
-        v9 = &gOutputDirName;
-      }
-
-      else
-      {
-        v9 = gOutputDirName;
-      }
-
-      memmove(v8, v9, v7);
-    }
-
-    *(&v8->__r_.__value_.__l.__data_ + v7) = 47;
-    v10 = *(v1 + 23);
-    if (v10 >= 0)
-    {
-      v11 = v1;
-    }
-
-    else
-    {
-      v11 = *v1;
-    }
-
-    if (v10 >= 0)
-    {
-      v12 = *(v1 + 23);
-    }
-
-    else
-    {
-      v12 = *(v1 + 8);
-    }
-
-    v13 = std::string::append(&v19, v11, v12);
-    v14 = *&v13->__r_.__value_.__l.__data_;
-    v21 = v13->__r_.__value_.__r.__words[2];
-    *__p = v14;
-    v13->__r_.__value_.__l.__size_ = 0;
-    v13->__r_.__value_.__r.__words[2] = 0;
-    v13->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v19.__r_.__value_.__l.__data_);
-    }
-
-    if (!CreateDirForFile(__p))
-    {
-      std::ofstream::open();
-      if (v23[15])
-      {
-        std::ostream::write();
-        if (!std::filebuf::close())
-        {
-          std::ios_base::clear((&v23[-1] + *(v22 - 24)), *(&v23[3] + *(v22 - 24)) | 4);
-        }
-      }
-
-      else
-      {
-        v15 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(MEMORY[0x277D82678], "Could not open file [", 21);
-        if (v21 >= 0)
-        {
-          v16 = __p;
-        }
-
-        else
-        {
-          v16 = __p[0];
-        }
-
-        if (v21 >= 0)
-        {
-          v17 = HIBYTE(v21);
-        }
-
-        else
-        {
-          v17 = __p[1];
-        }
-
-        v18 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, v16, v17);
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v18, "] for writing.\n", 15);
-      }
-    }
-
-    if (SHIBYTE(v21) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    v22 = *v3;
-    *(&v23[-1] + *(v22 - 24)) = v3[3];
-    MEMORY[0x22AA558A0](v23);
-    std::ostream::~ostream();
-    return MEMORY[0x22AA55B20](v24);
-  }
-
-  return result;
-}
-
-void sub_22497DA38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::ofstream::~ofstream(&a23);
-  _Unwind_Resume(a1);
-}
-
-uint64_t CreateDirForFile(uint64_t *a1)
-{
-  if (*(a1 + 23) >= 0)
-  {
-    v1 = a1;
-  }
-
-  else
-  {
-    v1 = *a1;
-  }
-
-  v2 = [MEMORY[0x277CCACA8] stringWithCString:v1 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
-  v3 = [MEMORY[0x277CCAA00] defaultManager];
-  v9 = 0;
-  if ([v3 fileExistsAtPath:v2 isDirectory:&v9])
-  {
-    goto LABEL_11;
-  }
-
-  v4 = [v2 pathExtension];
-  v5 = [v4 isEqualToString:&stru_28381ECE0];
-
-  if (v5)
-  {
-LABEL_10:
-    if (![v3 createDirectoryAtPath:v2 withIntermediateDirectories:1 attributes:0 error:0])
-    {
-      v7 = 0xFFFFFFFFLL;
-      goto LABEL_13;
-    }
-
-LABEL_11:
-    v7 = 0;
-LABEL_13:
-    v6 = v2;
-    goto LABEL_14;
-  }
-
-  v6 = [v2 stringByDeletingLastPathComponent];
-
-  if (![v3 fileExistsAtPath:v6 isDirectory:&v9] || (v9 & 1) == 0)
-  {
-    v2 = v6;
-    goto LABEL_10;
-  }
-
-  v7 = 0;
-LABEL_14:
-
-  return v7;
-}
-
-void sub_22497DBC8(_Unwind_Exception *a1)
-{
-  v4 = v3;
-
-  _Unwind_Resume(a1);
-}
-
-void *std::ofstream::~ofstream(void *a1)
-{
-  v2 = MEMORY[0x277D82810];
-  v3 = *MEMORY[0x277D82810];
-  *a1 = *MEMORY[0x277D82810];
-  *(a1 + *(v3 - 24)) = *(v2 + 24);
-  MEMORY[0x22AA558A0](a1 + 1);
-  std::ostream::~ostream();
-  MEMORY[0x22AA55B20](a1 + 52);
-  return a1;
-}
-
-void SaveToFileWithPrefix(uint64_t a1)
-{
-  if (byte_27D6F2867 >= 0)
-  {
-    v2 = byte_27D6F2867;
-  }
-
-  else
-  {
-    v2 = *(&gCurrFrameId + 1);
-  }
-
-  v3 = &v10;
-  std::string::basic_string[abi:nn200100](&v10, v2 + 1);
-  if ((v10.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    v3 = v10.__r_.__value_.__r.__words[0];
-  }
-
-  if (v2)
-  {
-    if (byte_27D6F2867 >= 0)
-    {
-      v4 = &gCurrFrameId;
-    }
-
-    else
-    {
-      v4 = gCurrFrameId;
-    }
-
-    memmove(v3, v4, v2);
-  }
-
-  *(&v3->__r_.__value_.__l.__data_ + v2) = 95;
-  v5 = *(a1 + 23);
-  if (v5 >= 0)
-  {
-    v6 = a1;
-  }
-
-  else
-  {
-    v6 = *a1;
-  }
-
-  if (v5 >= 0)
-  {
-    v7 = *(a1 + 23);
-  }
-
-  else
-  {
-    v7 = *(a1 + 8);
-  }
-
-  v8 = std::string::append(&v10, v6, v7);
-  v9 = *&v8->__r_.__value_.__l.__data_;
-  v12 = v8->__r_.__value_.__r.__words[2];
-  *__p = v9;
-  v8->__r_.__value_.__l.__size_ = 0;
-  v8->__r_.__value_.__r.__words[2] = 0;
-  v8->__r_.__value_.__r.__words[0] = 0;
-  SaveToFile(__p);
-  if (SHIBYTE(v12) < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v10.__r_.__value_.__l.__data_);
-  }
-}
-
-void sub_22497DDD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
-{
-  if (a21 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a15 < 0)
-  {
-    operator delete(a10);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t CreateDir(uint64_t *a1)
-{
-  if (*(a1 + 23) >= 0)
-  {
-    v1 = a1;
-  }
-
-  else
-  {
-    v1 = *a1;
-  }
-
-  v2 = [MEMORY[0x277CCACA8] stringWithCString:v1 encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
-  v3 = [MEMORY[0x277CCAA00] defaultManager];
-  v6 = 0;
-  if ([v3 fileExistsAtPath:v2 isDirectory:&v6] && (v6 & 1) != 0 || (objc_msgSend(v3, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", v2, 1, 0, 0) & 1) != 0)
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = 0xFFFFFFFFLL;
-  }
-
-  return v4;
-}
-
-uint64_t InitCamParams(uint64_t result)
-{
-  *(result + 32) = 0;
-  *(result + 40) = 0;
-  return result;
-}
-
-uint64_t ReleaseCamParams(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  if (v2)
-  {
-    MEMORY[0x22AA55B60](v2, 0x1000C4052888210);
-    *(a1 + 40) = 0;
-  }
-
-  result = *(a1 + 32);
-  if (result)
-  {
-    result = MEMORY[0x22AA55B60](result, 0x1000C4052888210);
-    *(a1 + 32) = 0;
-  }
-
-  return result;
-}
-
-uint64_t GetFileSize(uint64_t a1)
-{
-  v12[19] = *MEMORY[0x277D85DE8];
-  std::ifstream::basic_ifstream(v10);
-  if (v11[15])
-  {
-    std::istream::tellg();
-    v2 = v9;
-  }
-
-  else
-  {
-    v3 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(MEMORY[0x277D82678], "Unable to open file ", 20);
-    v4 = *(a1 + 23);
-    if (v4 >= 0)
-    {
-      v5 = a1;
-    }
-
-    else
-    {
-      v5 = *a1;
-    }
-
-    if (v4 >= 0)
-    {
-      v6 = *(a1 + 23);
-    }
-
-    else
-    {
-      v6 = *(a1 + 8);
-    }
-
-    v7 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v3, v5, v6);
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v7, ".\n", 2);
-    v2 = 0;
-  }
-
-  v10[0] = *MEMORY[0x277D82808];
-  *(v10 + *(v10[0] - 24)) = *(MEMORY[0x277D82808] + 24);
-  MEMORY[0x22AA558A0](v11);
-  std::istream::~istream();
-  MEMORY[0x22AA55B20](v12);
-  return v2;
-}
-
-void sub_22497E0C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
-{
-  std::ifstream::~ifstream(&a26, MEMORY[0x277D82808]);
-  MEMORY[0x22AA55B20](&STACK[0x230]);
-  _Unwind_Resume(a1);
-}
-
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1)
-{
-  a1[59] = 0;
-  v2 = MEMORY[0x277D82858] + 64;
-  a1[53] = MEMORY[0x277D82858] + 64;
-  v3 = *(MEMORY[0x277D82808] + 16);
-  v4 = *(MEMORY[0x277D82808] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  a1[1] = 0;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 2);
-  v6 = MEMORY[0x277D82858] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
-  *a1 = v6;
-  a1[53] = v2;
-  MEMORY[0x22AA55890](a1 + 2);
-  if (!std::filebuf::open())
-  {
-    std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
-  }
-
-  return a1;
-}
-
-void sub_22497E294(_Unwind_Exception *a1)
-{
-  std::istream::~istream();
-  MEMORY[0x22AA55B20](v1);
-  _Unwind_Resume(a1);
-}
-
-uint64_t SavePixelBufferWithMetadataToFile(__CVBuffer *a1, const void **a2)
-{
-  v36[19] = *MEMORY[0x277D85DE8];
-  if (*(a2 + 23) >= 0)
-  {
-    v4 = *(a2 + 23);
-  }
-
-  else
-  {
-    v4 = a2[1];
-  }
-
-  v5 = v32;
-  std::string::basic_string[abi:nn200100](v32, v4 + 4);
-  if (v33 < 0)
-  {
-    v5 = v32[0];
-  }
-
-  if (v4)
-  {
-    if (*(a2 + 23) >= 0)
-    {
-      v6 = a2;
-    }
-
-    else
-    {
-      v6 = *a2;
-    }
-
-    memmove(v5, v6, v4);
-  }
-
-  strcpy(v5 + v4, ".raw");
-  PlaneCount = CVPixelBufferGetPlaneCount(a1);
-  std::ofstream::basic_ofstream(&v34);
-  if (v35[15])
-  {
-    if (CVPixelBufferLockBaseAddress(a1, 1uLL))
-    {
-      NSLog(&cfstr_RgbIrCalibS.isa, "Could not lock pixel buffer.");
-      v8 = 4294967294;
-    }
-
-    else
-    {
-      if (PlaneCount)
-      {
-        for (i = 0; i != PlaneCount; ++i)
-        {
-          HeightOfPlane = CVPixelBufferGetHeightOfPlane(a1, i);
-          CVPixelBufferGetWidthOfPlane(a1, i);
-          BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(a1, i);
-          BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(a1, i);
-          if (HeightOfPlane)
-          {
-            v14 = BaseAddressOfPlane;
-            do
-            {
-              std::ostream::write();
-              v14 += BytesPerRowOfPlane;
-              --HeightOfPlane;
-            }
-
-            while (HeightOfPlane);
-          }
-        }
-      }
-
-      else
-      {
-        Height = CVPixelBufferGetHeight(a1);
-        CVPixelBufferGetWidth(a1);
-        BytesPerRow = CVPixelBufferGetBytesPerRow(a1);
-        BaseAddress = CVPixelBufferGetBaseAddress(a1);
-        if (Height)
-        {
-          v18 = BaseAddress;
-          do
-          {
-            std::ostream::write();
-            v18 += BytesPerRow;
-            --Height;
-          }
-
-          while (Height);
-        }
-      }
-
-      if (!std::filebuf::close())
-      {
-        std::ios_base::clear((&v35[-1] + *(v34 - 24)), *(&v35[3] + *(v34 - 24)) | 4);
-      }
-
-      CVPixelBufferUnlockBaseAddress(a1, 1uLL);
-      v19 = CVBufferGetAttachments(a1, kCVAttachmentMode_ShouldPropagate);
-      v20 = MEMORY[0x277CCACA8];
-      if (*(a2 + 23) >= 0)
-      {
-        v21 = *(a2 + 23);
-      }
-
-      else
-      {
-        v21 = a2[1];
-      }
-
-      v22 = __p;
-      std::string::basic_string[abi:nn200100](__p, v21 + 6);
-      if (v31 < 0)
-      {
-        v22 = __p[0];
-      }
-
-      if (v21)
-      {
-        if (*(a2 + 23) >= 0)
-        {
-          v23 = a2;
-        }
-
-        else
-        {
-          v23 = *a2;
-        }
-
-        memmove(v22, v23, v21);
-      }
-
-      strcpy(v22 + v21, ".plist");
-      v24 = v31;
-      v25 = __p[0];
-      v26 = [MEMORY[0x277CCACA8] defaultCStringEncoding];
-      if (v24 >= 0)
-      {
-        v27 = __p;
-      }
-
-      else
-      {
-        v27 = v25;
-      }
-
-      v28 = [v20 stringWithCString:v27 encoding:v26];
-      if (v31 < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      [v19 writeToFile:v28 atomically:1];
-
-      v8 = 0;
-    }
-  }
-
-  else
-  {
-    v9 = v32;
-    if (v33 < 0)
-    {
-      v9 = v32[0];
-    }
-
-    NSLog(&cfstr_RgbIrCalibCoul.isa, v9);
-    v8 = 0xFFFFFFFFLL;
-  }
-
-  v34 = *MEMORY[0x277D82810];
-  *(&v35[-1] + *(v34 - 24)) = *(MEMORY[0x277D82810] + 24);
-  MEMORY[0x22AA558A0](v35);
-  std::ostream::~ostream();
-  MEMORY[0x22AA55B20](v36);
-  if (v33 < 0)
-  {
-    operator delete(v32[0]);
-  }
-
-  return v8;
-}
-
-void sub_22497E6F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23)
-{
-  std::ofstream::~ofstream(&a23);
-  if (a21 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t *std::ofstream::basic_ofstream(uint64_t *a1)
-{
-  a1[58] = 0;
-  v2 = MEMORY[0x277D82860] + 64;
-  a1[52] = MEMORY[0x277D82860] + 64;
-  v3 = *(MEMORY[0x277D82810] + 16);
-  v4 = *(MEMORY[0x277D82810] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 1);
-  v6 = MEMORY[0x277D82860] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
-  *a1 = v6;
-  a1[52] = v2;
-  MEMORY[0x22AA55890](a1 + 1);
-  if (!std::filebuf::open())
-  {
-    std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
-  }
-
-  return a1;
-}
-
-void sub_22497E920(_Unwind_Exception *a1)
-{
-  std::ostream::~ostream();
-  MEMORY[0x22AA55B20](v1);
-  _Unwind_Resume(a1);
-}
-
-uint64_t PrepareVImgBuffersFromCVPixBuffer(__CVBuffer *a1, vImage_Buffer *a2)
-{
-  Width = CVPixelBufferGetWidth(a1);
-  Height = CVPixelBufferGetHeight(a1);
-  if (CVPixelBufferLockBaseAddress(a1, 1uLL))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  a2->data = CVPixelBufferGetBaseAddressOfPlane(a1, 0);
-  a2->height = Height;
-  a2->width = Width;
-  BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(a1, 0);
-  result = 0;
-  a2->rowBytes = BytesPerRowOfPlane;
-  return result;
-}
-
-uint64_t std::ifstream::~ifstream(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a2;
-  *a1 = *a2;
-  *(a1 + *(v2 - 24)) = a2[3];
-  MEMORY[0x22AA558A0](a1 + 2);
-
-  return std::istream::~istream();
-}
-
-void PearlIRIsf::~PearlIRIsf(PearlIRIsf *this)
-{
-  *this = &unk_283814D30;
-  v1 = *(this + 1);
-  if (v1)
-  {
-    (*(*v1 + 8))(v1);
-  }
-}
-
-{
-  *this = &unk_283814D30;
-  v1 = *(this + 1);
-  if (v1)
-  {
-    (*(*v1 + 8))(v1);
-  }
-}
-
-{
-  *this = &unk_283814D30;
-  v1 = *(this + 1);
-  if (v1)
-  {
-    (*(*v1 + 8))(v1);
-  }
-
-  JUMPOUT(0x22AA55B60);
-}
-
-double DERImg4DecodeFindInSequence(unint64_t *a1, uint64_t a2, _OWORD *a3)
-{
-  v7 = 0;
-  v8 = 0uLL;
-  while (!DERDecodeSeqNext(a1, &v7))
-  {
-    if (v7 == a2)
-    {
-      result = *&v8;
-      *a3 = v8;
-      return result;
-    }
-  }
-
-  return result;
-}
-
-uint64_t DERImg4DecodeTagCompare(uint64_t a1, unsigned int a2)
-{
-  v4 = *(a1 + 8);
-  if (v4 < 4)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (v4 != 4)
-  {
-    return 1;
-  }
-
-  v8 = v2;
-  v9 = v3;
-  v7 = 0;
-  if (DERParseInteger(a1, &v7))
-  {
-    return 4294967294;
-  }
-
-  if (v7 >= a2)
-  {
-    return v7 > a2;
-  }
-
-  return 0xFFFFFFFFLL;
-}
-
-uint64_t DERImg4DecodeManifestCommon(void *a1, unint64_t a2, uint64_t a3, unint64_t a4, unsigned int a5)
-{
-  result = 6;
-  if (a1 && a4)
-  {
-    if (!*a1 || !a1[1])
-    {
-      return 0;
-    }
-
-    if (a2 >= 0x10000)
-    {
-      __break(0x5507u);
-      return result;
-    }
-
-    result = DERParseSequenceToObject(a1, a2, a3, a4, 0xC0uLL, 0);
-    if (!result)
-    {
-      if (DERImg4DecodeTagCompare(a4, a5))
-      {
-        return 2;
-      }
-
-      v9 = 0;
-      result = DERParseInteger(a4 + 16, &v9);
-      if (result)
-      {
-        return result;
-      }
-
-      if (v9 > 2)
-      {
-        return 2;
-      }
-
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t DERImg4DecodeProperty(void *a1, uint64_t a2, uint64_t a3)
-{
-  result = 6;
-  if (a1)
-  {
-    if (a3)
-    {
-      v14 = 0;
-      v15 = 0uLL;
-      v13 = 0uLL;
-      v11 = 0;
-      v12 = 0;
-      v9 = 0;
-      v10 = 0;
-      v8 = 0;
-      result = DERDecodeSeqInit(a1, &v9, &v10);
-      if (!result)
-      {
-        if (v9 != 0x2000000000000010)
-        {
-          return 2;
-        }
-
-        result = DERDecodeSeqNext(&v10, &v14);
-        if (result)
-        {
-          return result;
-        }
-
-        if (v14 != 22)
-        {
-          return 2;
-        }
-
-        result = DERParseInteger(&v15, &v8);
-        if (result)
-        {
-          return result;
-        }
-
-        if ((v8 | 0xE000000000000000) != a2)
-        {
-          return 2;
-        }
-
-        *a3 = v15;
-        *(a3 + 16) = 0;
-        result = DERDecodeSeqNext(&v10, &v12);
-        if (result)
-        {
-          return result;
-        }
-
-        *(a3 + 40) = v12;
-        *(a3 + 24) = v13;
-        result = DERDecodeSeqNext(&v10, &v12);
-        if (result != 1)
-        {
-          return 2;
-        }
-
-        v7 = a1[1];
-        if (__CFADD__(*a1, v7))
-        {
-          __break(0x5513u);
-        }
-
-        else if (v11 == *a1 + v7)
-        {
-          return 0;
-        }
-
-        else
-        {
-          return 7;
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t DERImg4DecodeFindPropertyInSequence(unint64_t *a1, uint64_t a2, unint64_t a3, unint64_t a4)
-{
-  v10 = 0;
-  v11 = 0uLL;
-  while (1)
-  {
-    result = DERDecodeSeqNext(a1, &v10);
-    if (result)
-    {
-      break;
-    }
-
-    if (v10 == a2)
-    {
-      v9 = v11;
-      return DERImg4DecodePropertyWithItem(&v9, a2, a3, a4);
-    }
-  }
-
-  return result;
-}
-
-uint64_t DERImg4DecodeParseManifestPropertiesInternal(uint64_t a1, unint64_t a2, unint64_t a3, unsigned int a4)
-{
-  v11 = 0;
-  if (!a1 || !(a2 | a3))
-  {
-    return 6;
-  }
-
-  v14 = 0;
-  v15[0] = 0;
-  v15[1] = 0;
-  memset(v13, 0, sizeof(v13));
-  memset(v12, 0, sizeof(v12));
-  result = DERDecodeItem(a1 + 264, &v14);
-  if (!result)
-  {
-    if (v14 == 0x2000000000000011)
-    {
-      result = DERParseInteger(a1 + 248, &v11);
-      if (!result)
-      {
-        if (v11 == 2)
-        {
-          v9 = 0x2000000000000010;
-          v10 = a4 | 0xE000000000000000;
-        }
-
-        else
-        {
-          v10 = a4 | 0xE000000000000000;
-          v9 = 0x2000000000000011;
-        }
-
-        result = DERImg4DecodeFindProperty(v15, v10, v9, v13);
-        if (!result)
-        {
-          if (a2)
-          {
-            *a2 = *(&v13[1] + 8);
-          }
-
-          result = DERImg4DecodeFindProperty(&v13[1] + 1, 0xE00000004D414E50, 0x2000000000000011uLL, v12);
-          if (a3)
-          {
-            if (!result)
-            {
-              *a3 = *(&v12[1] + 8);
-            }
-          }
-        }
-      }
-    }
-
-    else
-    {
-      return 0xFFFFFFFFLL;
-    }
-  }
-
-  return result;
-}
-
-uint64_t Img4DecodeParseLengthFromBufferWithTag(uint64_t a1, uint64_t a2, unsigned int a3, void *a4)
-{
-  v11 = 0;
-  v12 = 0;
-  v16[0] = 0;
-  v16[1] = 0;
-  v14[1] = 0;
-  v15 = 0;
-  result = 0xFFFFFFFFLL;
-  v13 = 0;
-  v14[0] = 0;
-  if (a1)
-  {
-    if (a4)
-    {
-      v17[0] = a1;
-      v17[1] = a2;
-      result = DERDecodeItemPartialBufferGetLength(v17, &v15, &v12);
-      if (!result)
-      {
-        if (v12)
-        {
-          if (v15 != 0x2000000000000010)
-          {
-            return 2;
-          }
-
-          result = DERDecodeItemPartialBufferGetLength(v16, &v13, &v11);
-          if (result)
-          {
-            return result;
-          }
-
-          if (v11)
-          {
-            result = DERImg4DecodeTagCompare(v14, a3);
-            if (!result)
-            {
-              v8 = v16[0] - a1;
-              if (v12 >= ~(v16[0] - a1))
-              {
-                return 7;
-              }
-
-              v9 = __CFADD__(v12, v8);
-              v10 = v12 + v8;
-              if (v9)
-              {
-                __break(0x5500u);
-              }
-
-              else
-              {
-                result = 0;
-                *a4 = v10;
-              }
-
-              return result;
-            }
-
-            return 2;
-          }
-        }
-
-        return 3;
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t Img4DecodePayloadExists(uint64_t a1, BOOL *a2)
-{
-  result = 6;
-  if (a1 && a2)
-  {
-    if (*(a1 + 136))
-    {
-      v4 = *(a1 + 144) != 0;
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-
-    result = 0;
-    *a2 = v4;
-  }
-
-  return result;
-}
-
-uint64_t Img4DecodeGetPayload(uint64_t a1, uint64_t a2)
-{
-  if (a1 && a2)
-  {
-    v2 = (a1 + 136);
-    if (*(a1 + 136) && *(a1 + 144))
-    {
-      result = 0;
-      *a2 = *v2;
-      return result;
-    }
-
-    result = 1;
-    goto LABEL_9;
-  }
-
-  result = 6;
-  if (a2)
-  {
-LABEL_9:
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  return result;
-}
-
-uint64_t Img4DecodeGetPayloadType(uint64_t a1, _DWORD *a2)
-{
-  result = 6;
-  if (a1 && a2)
-  {
-    if (*(a1 + 136) && *(a1 + 144))
-    {
-      result = DERParseInteger(a1 + 104, a2);
-    }
-
-    else
-    {
-      result = 1;
-    }
-  }
-
-  if (a2)
-  {
-    if (result)
-    {
-      *a2 = 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t Img4DecodeGetPayloadVersion(uint64_t a1, uint64_t a2)
-{
-  if (a1 && a2)
-  {
-    if (*(a1 + 136) && *(a1 + 144))
-    {
-      result = 0;
-      *a2 = *(a1 + 120);
-      return result;
-    }
-
-    result = 1;
-    goto LABEL_9;
-  }
-
-  result = 6;
-  if (a2)
-  {
-LABEL_9:
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  return result;
-}
-
-uint64_t Img4DecodePayloadKeybagExists(uint64_t a1, BOOL *a2)
-{
-  result = 6;
-  if (a1 && a2)
-  {
-    if (*(a1 + 152))
-    {
-      v4 = *(a1 + 160) != 0;
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-
-    result = 0;
-    *a2 = v4;
-  }
-
-  return result;
-}
-
-uint64_t Img4DecodeGetPayloadKeybag(uint64_t a1, uint64_t a2)
-{
-  if (a1 && a2)
-  {
-    if (*(a1 + 136) && *(a1 + 144))
-    {
-      result = 0;
-      *a2 = *(a1 + 152);
-      return result;
-    }
-
-    result = 1;
-    goto LABEL_9;
-  }
-
-  result = 6;
-  if (a2)
-  {
-LABEL_9:
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  return result;
-}
-
-uint64_t Img4DecodePayloadCompressionInfoExists(uint64_t a1, BOOL *a2)
-{
-  result = 6;
-  if (a1 && a2)
-  {
-    if (*(a1 + 168))
-    {
-      v4 = *(a1 + 176) != 0;
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-
-    result = 0;
-    *a2 = v4;
-  }
-
-  return result;
-}
-
-uint64_t Img4DecodeGetPayloadCompressionInfo(void *a1, _DWORD *a2, _DWORD *a3)
-{
-  result = 6;
-  if (a1 && a2 && a3)
-  {
-    if (a1[17] && a1[18] && a1[21] && a1[22])
-    {
-      v7 = 0u;
-      v8 = 0u;
-      result = DERParseSequenceContentToObject(a1 + 21, 2u, &DERImg4CompressionItemSpecs, &v7, 0x20uLL, 0);
-      if (!result)
-      {
-        result = DERParseInteger(&v7, a2);
-        if (!result)
-        {
-          result = DERParseInteger(&v8, a3);
-          if (!result)
-          {
-            return result;
-          }
-        }
-      }
-    }
-
-    else
-    {
-      result = 1;
-    }
-  }
-
-  if (a2)
-  {
-    if (a3)
-    {
-      *a2 = -1;
-      *a3 = -1;
-    }
-  }
-
-  return result;
-}
-
-double Img4DecodeCopyPayloadHashWithCallback(uint64_t a1, void (*a2)(void, void, __int128 *), uint64_t a3, int a4)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  if (!a1 || a4 != 20 || !a3)
-  {
-    if (!a3)
-    {
-      return *&v5;
-    }
-
-LABEL_9:
-    *a3 = 0;
-    *(a3 + 8) = 0;
-    return *&v5;
-  }
-
-  if (!*(a1 + 136) || !*(a1 + 144))
-  {
-    goto LABEL_9;
-  }
-
-  if (*a1 == 1)
-  {
-    v5 = *(a1 + 184);
-    *(a3 + 16) = *(a1 + 200);
-    *a3 = v5;
-  }
-
-  else
-  {
-    v7 = 0uLL;
-    v8 = 0;
-    a2(*(a1 + 8), *(a1 + 16), &v7);
-    *&v5 = v7;
-    *a3 = v7;
-    *(a3 + 16) = v8;
-  }
-
-  return *&v5;
-}
-
-uint64_t Img4DecodeManifestExists(uint64_t a1, BOOL *a2)
-{
-  result = 6;
-  if (a1)
-  {
-    if (a2)
-    {
-      result = 0;
-      *a2 = *(a1 + 24) != 0;
-    }
-  }
-
-  return result;
-}
-
-double Img4DecodeCopyManifestHashWithCallback(uint64_t a1, void (*a2)(void), uint64_t a3, int a4)
-{
-  if (!a1 || a4 != 20 || !a3)
-  {
-    if (!a3)
-    {
-      return *&v5;
-    }
-
-LABEL_8:
-    *a3 = 0;
-    *(a3 + 8) = 0;
-    return *&v5;
-  }
-
-  if (!*(a1 + 24))
-  {
-    goto LABEL_8;
-  }
-
-  if (*(a1 + 1) == 1)
-  {
-    v5 = *(a1 + 328);
-    *(a3 + 16) = *(a1 + 344);
-    *a3 = v5;
-  }
-
-  else
-  {
-    a2();
-    *&v5 = 0;
-    *a3 = 0uLL;
-    *(a3 + 16) = 0;
-  }
-
-  return *&v5;
-}
-
-uint64_t Img4DecodeSectionExists(void *a1, unsigned int a2, _BYTE *a3)
-{
-  result = 6;
-  if (a2 <= 1 && a1 && a3)
-  {
-    if (a2)
-    {
-      if (a1[55])
-      {
-        v5 = a1[56];
-        if (!v5)
-        {
-          goto LABEL_12;
-        }
-
-        goto LABEL_10;
-      }
-    }
-
-    else if (a1[33])
-    {
-      v5 = a1[34];
-      if (!v5)
-      {
-LABEL_12:
-        result = 0;
-        *a3 = v5;
-        return result;
-      }
-
-LABEL_10:
-      LOBYTE(v5) = 1;
-      goto LABEL_12;
-    }
-
-    LOBYTE(v5) = 0;
-    goto LABEL_12;
-  }
-
-  return result;
-}
-
-uint64_t Img4DecodeRestoreInfoExists(uint64_t a1, BOOL *a2)
-{
-  result = 6;
-  if (a1 && a2)
-  {
-    if (*(a1 + 440))
-    {
-      v4 = *(a1 + 448) != 0;
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-
-    result = 0;
-    *a2 = v4;
-  }
-
-  return result;
-}
-
-uint64_t Img4DecodeGetBooleanFromSection(uint64_t a1, unsigned int a2, uint64_t a3, BOOL *a4)
-{
-  memset(v8, 0, sizeof(v8));
-  v4 = 6;
-  if (a1)
-  {
-    if (a4)
-    {
-      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 1uLL, v8);
-      v4 = v6;
-      if (!v6)
-      {
-        return DERParseBoolean(&v8[1] + 1, a4);
-      }
-    }
-  }
-
-  return v4;
-}
-
-void Img4DecodeGetIntegerFromSection(uint64_t a1, unsigned int a2, uint64_t a3, _DWORD *a4)
-{
-  memset(v6, 0, sizeof(v6));
-  if (a1)
-  {
-    if (a4)
-    {
-      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 2uLL, v6);
-      if (!v5)
-      {
-        if (DERParseInteger(&v6[1] + 8, a4))
-        {
-          *a4 = 0;
-        }
-      }
-    }
-  }
-}
-
-void Img4DecodeGetInteger64FromSection(uint64_t a1, unsigned int a2, uint64_t a3, unint64_t *a4)
-{
-  memset(v6, 0, sizeof(v6));
-  if (a1)
-  {
-    if (a4)
-    {
-      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 2uLL, v6);
-      if (!v5)
-      {
-        if (DERParseInteger64(&v6[1] + 8, a4))
-        {
-          *a4 = 0;
-        }
-      }
-    }
-  }
-}
-
-void Img4DecodeGetDataFromSection(uint64_t a1, unsigned int a2, uint64_t a3, void *a4, void *a5)
-{
-  v10 = 0u;
-  v11 = 0u;
-  v9 = 0u;
-  if (a1 && a4 && a5)
-  {
-    Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 4uLL, &v9);
-    if (v7)
-    {
-      *a5 = 0;
-      *a4 = 0;
-    }
-
-    else
-    {
-      v8 = v11;
-      *a4 = *(&v10 + 1);
-      *a5 = v8;
-    }
-  }
-}
-
-double Img4DecodeGetObjectProperty(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, _OWORD *a5)
-{
-  v11[0] = 0;
-  v11[1] = 0;
-  result = 0.0;
-  memset(v10, 0, sizeof(v10));
-  if (a1 && a5 && (DERImg4DecodeParseManifestProperties(a1, v11, 0) || DERImg4DecodeFindProperty(v11, a2 | 0xE000000000000000, 0x2000000000000011uLL, v10) || DERImg4DecodeFindProperty(&v10[1] + 1, a3, a4, a5)))
-  {
-    result = 0.0;
-    a5[1] = 0u;
-    a5[2] = 0u;
-    *a5 = 0u;
-  }
-
-  return result;
-}
-
-void Img4DecodeGetObjectPropertyInteger(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
-{
-  memset(v6, 0, sizeof(v6));
-  if (a1)
-  {
-    if (a4)
-    {
-      Img4DecodeGetObjectProperty(a1, a2, a3 | 0xE000000000000000, 2uLL, v6);
-      if (v5 || DERParseInteger(&v6[1] + 8, a4))
-      {
-        *a4 = 0;
-      }
-    }
-  }
-}
-
-void Img4DecodeGetObjectPropertyInteger64(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4)
-{
-  memset(v6, 0, sizeof(v6));
-  if (a1)
-  {
-    if (a4)
-    {
-      Img4DecodeGetObjectProperty(a1, a2, a3 | 0xE000000000000000, 2uLL, v6);
-      if (v5 || DERParseInteger64(&v6[1] + 8, a4))
-      {
-        *a4 = 0;
-      }
-    }
-  }
-}
-
-void Img4DecodeGetObjectPropertyData(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
-{
-  v10 = 0u;
-  v11 = 0u;
-  v9 = 0u;
-  if (a1 && a4 && a5)
-  {
-    Img4DecodeGetObjectProperty(a1, a2, a3 | 0xE000000000000000, 4uLL, &v9);
-    if (v7)
-    {
-      v8 = 0;
-      *a4 = 0;
-    }
-
-    else
-    {
-      v8 = v11;
-      *a4 = *(&v10 + 1);
-    }
-
-    *a5 = v8;
-  }
-}
-
-void Img4DecodeGetObjectPropertyString(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
-{
-  v10 = 0u;
-  v11 = 0u;
-  v9 = 0u;
-  if (a1 && a4 && a5)
-  {
-    Img4DecodeGetObjectProperty(a1, a2, a3 | 0xE000000000000000, 0x16uLL, &v9);
-    if (v7)
-    {
-      v8 = 0;
-      *a4 = 0;
-    }
-
-    else
-    {
-      v8 = v11;
-      *a4 = *(&v10 + 1);
-    }
-
-    *a5 = v8;
-  }
-}
-
-double Img4DecodeGetPropertyFromSection(uint64_t a1, unsigned int a2, uint64_t a3, unint64_t a4, _OWORD *a5)
-{
-  *v11 = 0uLL;
-  if (a2 <= 1 && a1 && a5)
-  {
-    v12 = 0;
-    if (!Img4DecodeSectionExists(a1, a2, &v12) && v12 == 1)
-    {
-      if (a2)
-      {
-        *v11 = *(a1 + 440);
-        goto LABEL_9;
-      }
-
-      if (!DERImg4DecodeParseManifestProperties(a1, 0, v11))
-      {
-LABEL_9:
-        if (!DERImg4DecodeFindProperty(v11, a3, a4, a5))
-        {
-          return result;
-        }
-      }
-    }
-
-    result = 0.0;
-    a5[1] = 0u;
-    a5[2] = 0u;
-    *a5 = 0u;
-  }
-
-  return result;
-}
-
-uint64_t Img4DecodeGetPropertyData(uint64_t *a1, uint64_t a2, void *a3, _DWORD *a4)
-{
-  v13 = 0u;
-  v14 = 0u;
-  v12 = 0u;
-  result = 6;
-  if (a3 && a4)
-  {
-    v8 = *a1;
-    v9 = *(a1 + 2);
-    v11[0] = v8;
-    v11[1] = v9;
-    result = DERImg4DecodeProperty(v11, a2 | 0xE000000000000000, &v12);
-    if (!result)
-    {
-      if (*(&v14 + 1) == 4)
-      {
-        v10 = v14;
-        if (!DWORD1(v14))
-        {
-          result = 0;
-          *a3 = *(&v13 + 1);
-LABEL_7:
-          *a4 = v10;
-          return result;
-        }
-
-        result = 7;
-      }
-
-      else
-      {
-        result = 2;
-      }
-    }
-
-    v10 = 0;
-    *a3 = 0;
-    goto LABEL_7;
-  }
-
-  return result;
-}
-
-double Img4DecodeInit(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (a1)
-  {
-    if (a3)
-    {
-      v9[0] = a1;
-      v9[1] = a2;
-      v7 = 0u;
-      v8 = 0u;
-      v5 = 0u;
-      v6 = 0u;
-      *a3 = 0u;
-      *(a3 + 16) = 0u;
-      *(a3 + 32) = 0u;
-      *(a3 + 48) = 0u;
-      *(a3 + 64) = 0u;
-      *(a3 + 80) = 0u;
-      *(a3 + 96) = 0u;
-      *(a3 + 112) = 0u;
-      *(a3 + 128) = 0u;
-      *(a3 + 144) = 0u;
-      *(a3 + 160) = 0u;
-      *(a3 + 176) = 0u;
-      *(a3 + 192) = 0u;
-      *(a3 + 208) = 0u;
-      *(a3 + 224) = 0u;
-      *(a3 + 240) = 0u;
-      *(a3 + 256) = 0u;
-      *(a3 + 272) = 0u;
-      *(a3 + 288) = 0u;
-      *(a3 + 304) = 0u;
-      *(a3 + 320) = 0u;
-      *(a3 + 336) = 0u;
-      *(a3 + 352) = 0u;
-      *(a3 + 368) = 0u;
-      *(a3 + 384) = 0u;
-      *(a3 + 400) = 0u;
-      *(a3 + 416) = 0u;
-      *(a3 + 432) = 0u;
-      *(a3 + 448) = 0;
-      if (!DERImg4Decode(v9, &v5) && !DERImg4DecodePayload(&v6, a3 + 88) && !DERImg4DecodeManifest(&v7, a3 + 232) && !DERImg4DecodeRestoreInfo(&v8, (a3 + 424)))
-      {
-        *(a3 + 8) = v6;
-        result = *&v7;
-        *(a3 + 24) = v7;
-      }
-    }
-  }
-
-  return result;
-}
-
-double Img4DecodeInitPayload(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (a1 && a3)
-  {
-    *&v5 = a1;
-    *(&v5 + 1) = a2;
-    *a3 = 0u;
-    *(a3 + 16) = 0u;
-    *(a3 + 32) = 0u;
-    *(a3 + 48) = 0u;
-    *(a3 + 64) = 0u;
-    *(a3 + 80) = 0u;
-    *(a3 + 96) = 0u;
-    *(a3 + 112) = 0u;
-    *(a3 + 128) = 0u;
-    *(a3 + 144) = 0u;
-    *(a3 + 160) = 0u;
-    *(a3 + 176) = 0u;
-    *(a3 + 192) = 0u;
-    *(a3 + 208) = 0u;
-    *(a3 + 224) = 0u;
-    *(a3 + 240) = 0u;
-    *(a3 + 256) = 0u;
-    *(a3 + 272) = 0u;
-    *(a3 + 288) = 0u;
-    *(a3 + 304) = 0u;
-    *(a3 + 320) = 0u;
-    *(a3 + 336) = 0u;
-    *(a3 + 352) = 0u;
-    *(a3 + 368) = 0u;
-    *(a3 + 384) = 0u;
-    *(a3 + 400) = 0u;
-    *(a3 + 416) = 0u;
-    *(a3 + 432) = 0u;
-    *(a3 + 448) = 0;
-    if (!DERImg4DecodePayload(&v5, a3 + 88))
-    {
-      result = *&v5;
-      *(a3 + 8) = v5;
-    }
-  }
-
-  return result;
-}
-
-uint64_t Img4DecodeInitManifestCommon(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
-{
-  result = 6;
-  if (a1 && a4)
-  {
-    v15 = a1;
-    v16 = a2;
-    *a4 = 0u;
-    *(a4 + 16) = 0u;
-    *(a4 + 32) = 0u;
-    *(a4 + 48) = 0u;
-    *(a4 + 64) = 0u;
-    *(a4 + 80) = 0u;
-    *(a4 + 96) = 0u;
-    *(a4 + 112) = 0u;
-    *(a4 + 128) = 0u;
-    *(a4 + 144) = 0u;
-    *(a4 + 160) = 0u;
-    *(a4 + 176) = 0u;
-    *(a4 + 192) = 0u;
-    *(a4 + 208) = 0u;
-    *(a4 + 224) = 0u;
-    *(a4 + 240) = 0u;
-    *(a4 + 256) = 0u;
-    *(a4 + 272) = 0u;
-    *(a4 + 288) = 0u;
-    *(a4 + 304) = 0u;
-    *(a4 + 320) = 0u;
-    *(a4 + 336) = 0u;
-    *(a4 + 352) = 0u;
-    *(a4 + 368) = 0u;
-    *(a4 + 384) = 0u;
-    *(a4 + 400) = 0u;
-    *(a4 + 416) = 0u;
-    *(a4 + 432) = 0u;
-    *(a4 + 448) = 0;
-    if (a5 == 1229796419)
-    {
-      v10 = a4 + 232;
-      if (a3)
-      {
-        result = DERImg4DecodeCertificate(&v15, v10);
-      }
-
-      else
-      {
-        result = DERImg4DecodeUnsignedCertificate(&v15, v10);
-      }
-    }
-
-    else
-    {
-      if (a5 != 1229796429)
-      {
-        return 2;
-      }
-
-      v9 = a4 + 232;
-      if (a3)
-      {
-        result = DERImg4DecodeManifest(&v15, v9);
-      }
-
-      else
-      {
-        result = DERImg4DecodeUnsignedManifest(&v15, v9);
-      }
-    }
-
-    if (!result)
-    {
-      if (*(a4 + 264))
-      {
-        v12 = 0;
-        v13 = 0;
-        v14 = 0;
-        v15 = a1;
-        v16 = a2;
-        result = DERDecodeItemPartialBufferGetLength(&v15, &v12, 0);
-        if (!result)
-        {
-          *(a4 + 24) = a1;
-          v11 = v14 + v13 - a1;
-          if (__CFADD__(v14, v13 - a1))
-          {
-            __break(0x5500u);
-          }
-
-          else
-          {
-            *(a4 + 32) = v11;
-            if (v11 == a2)
-            {
-              return 0;
-            }
-
-            else
-            {
-              return 7;
-            }
-          }
-        }
-      }
-
-      else
-      {
-        return 3;
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t Img4DecodePerformTrustEvaluation(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v6[1] = 0;
-  v6[2] = 0;
-  v6[0] = a3;
-  return _Img4DecodePerformTrustEvaluationWithCallbacksInternal(a1, a2, v6, a4, 0, a5);
-}
-
-uint64_t Img4DecodePerformTrustEvaluatation(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v6[1] = 0;
-  v6[2] = 0;
-  v6[0] = a3;
-  return _Img4DecodePerformTrustEvaluationWithCallbacksInternal(a1, a2, v6, a4, 0, a5);
-}
-
-uint64_t _Img4DecodeValidateManifestPropertyInterposer(unsigned int a1, uint64_t a2, int a3, uint64_t a4)
-{
-  v10 = a1;
-  if (a3)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  v8 = *a4;
-  v14 = 0u;
-  v15 = 0u;
-  v13 = 0u;
-  v12[0] = 0;
-  v12[1] = 0;
-  memset(v11, 0, sizeof(v11));
-  if (v8 && !DERImg4DecodeProperty(v8, 0xE00000006D616E78, &v13) && *(&v15 + 1) == 0x2000000000000011 && !DERDecodeSeqContentInit(&v14 + 1, v12))
-  {
-    v9 = a1 | 0xE000000000000000;
-    while (!DERDecodeSeqNext(v12, v11))
-    {
-      if (v11[0] == v9)
-      {
-        (*(*(*a4 + 24) + 8))(*(*(*a4 + 16) + 32), a4 + 24, 4, &v10);
-        return 0;
-      }
-    }
-  }
-
-  (*(*(*a4 + 24) + 8))(*(*(*a4 + 16) + 32), a4 + 24, *(a2 + 8), *a2);
-  return 0;
-}
-
-uint64_t OUTLINED_FUNCTION_1_12(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 a11, __int128 a12, __int128 a13)
-{
-  a12 = 0u;
-  a13 = 0u;
-  a11 = 0u;
-  v14 = *(a1 + 2);
-  a9 = *a1;
-  a10 = v14;
-  v15 = a2 | 0xE000000000000000;
-
-  return DERImg4DecodeProperty(&a9, v15, &a11);
-}
-
-void OUTLINED_FUNCTION_5_4(uint64_t a1, ...)
-{
-  va_start(va, a1);
-
-  bzero(va, 0xA0uLL);
-}
-
-void *OUTLINED_FUNCTION_6_2(uint64_t a1, const void *a2)
-{
-
-  return memcpy(v3, a2, v2);
-}
-
-void _Img4DecodePayloadPropertyExistsWithValue(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, BOOL *a5)
-{
-  v19[8] = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    bzero(v18, 0xA0uLL);
-    v17 = 0uLL;
-    v16 = 0uLL;
-    v15 = 0uLL;
-    v11 = *(a1 + 8);
-    v10 = a1 + 8;
-    if (v11)
-    {
-      bzero(v18, 0xA0uLL);
-      if (!DERImg4DecodePayloadWithProperties(v10, v18))
-      {
-        if (v19[0])
-        {
-          DERImg4DecodeContentFindItemWithTag(v19, 0x2000000000000010, &v17);
-          if (!v12)
-          {
-            DERImg4DecodeContentFindItemWithTag(&v17, 0x2000000000000011, &v16);
-            if (!v13)
-            {
-              if (a5)
-              {
-                DERImg4DecodeContentFindItemWithTag(&v16, a2, &v15);
-                if (v14)
-                {
-                  return;
-                }
-
-                *a5 = v15 != 0;
-              }
-
-              if (a4)
-              {
-                DERImg4DecodeFindProperty(&v16, a2, a3, a4);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-void Img4DecodeEvaluateCertificatePropertiesInternal(void *a1, _OWORD *a2)
-{
-  v21[0] = 0;
-  v21[1] = 0;
-  v20[0] = 0;
-  v20[1] = 0;
-  v19 = 0;
-  v18 = 0uLL;
-  __n = 0;
-  v17 = 0;
-  v14 = 0;
-  __s1 = 0;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
-  memset(v9, 0, sizeof(v9));
-  __s2 = 0uLL;
-  v7 = 0uLL;
-  if (a1 && a1[40] && !DERDecodeSeqInit((a1 + 39), &v19, v21) && v19 == 0x2000000000000011)
-  {
-    while (1)
-    {
-      if (DERDecodeSeqNext(v21, &v17))
-      {
-        return;
-      }
-
-      v4 = (a1 + 7);
-      switch(v17)
-      {
-        case 0xE00000004D414E50:
-LABEL_11:
-          v7 = *v4;
-          if (DERImg4DecodeProperty(&v18, v17, &v11) || *(&v13 + 1) != 0x2000000000000011 || DERDecodeSeqContentInit(&v12 + 1, v20))
-          {
-            return;
-          }
-
-          while (1)
-          {
-            v5 = DERDecodeSeqNext(v20, &v14);
-            if (v5)
-            {
-              break;
-            }
-
-            if (DERImg4DecodeProperty(&__s1, v14, v9))
-            {
-              return;
-            }
-
-            DERImg4DecodeContentFindItemWithTag(&v7, v14, &__s2);
-            if (*(&v10 + 1) <= 4uLL && ((1 << SBYTE8(v10)) & 0x16) != 0)
-            {
-              if (v6)
-              {
-                return;
-              }
-
-              if (__n != *(&__s2 + 1))
-              {
-                return;
-              }
-
-              v6 = memcmp(__s1, __s2, __n);
-              if (v6)
-              {
-                return;
-              }
-            }
-
-            else if (*(&v10 + 1) != 0xA000000000000000)
-            {
-              if (*(&v10 + 1) != 0xA000000000000001 || v6 != 1)
-              {
-                return;
-              }
-
-              v6 = 0;
-            }
-
-            if (v6)
-            {
-              return;
-            }
-          }
-
-          if (v5 != 1)
-          {
-            return;
-          }
-
-          break;
-        case 0xE00000006D616E78:
-          if (a2)
-          {
-            *a2 = v18;
-          }
-
-          break;
-        case 0xE00000004F424A50:
-          v4 = (a1 + 9);
-          if (a1[9])
-          {
-            goto LABEL_11;
-          }
-
-          v4 = (a1 + 9);
-          if (a1[10])
-          {
-            goto LABEL_11;
-          }
-
-          break;
-        default:
-          return;
-      }
-    }
-  }
-}
-
-uint64_t _Img4DecodePerformTrustEvaluationWithCallbacksInternal(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6)
-{
-  v20 = 0;
-  v21 = 0;
-  memset(v22, 0, sizeof(v22));
-  result = 6;
-  if (!a2)
-  {
-    return result;
-  }
-
-  if (!a3)
-  {
-    return result;
-  }
-
-  if (!a4)
-  {
-    return result;
-  }
-
-  if (!*a3)
-  {
-    return result;
-  }
-
-  if (!*a4)
-  {
-    return result;
-  }
-
-  if (!*(a4 + 24))
-  {
-    return result;
-  }
-
-  if (!*(a4 + 8))
-  {
-    return result;
-  }
-
-  if (!*(a4 + 16))
-  {
-    return result;
-  }
-
-  v10 = *(a4 + 32);
-  if (!v10)
-  {
-    return result;
-  }
-
-  if (!*(a2 + 24))
-  {
-    return 6;
-  }
-
-  if (*v10 > 0x30uLL)
-  {
-    return 7;
-  }
-
-  result = (*a4)();
-  if (result)
-  {
-    return result;
-  }
-
-  *(a2 + 1) = 1;
-  v14 = *(a3 + 8);
-  if (v14 && (v15 = v14(a2, a6)) != 0 && !memcmp((a2 + 328), v15, **(a4 + 32)))
-  {
-    v16 = 0;
-  }
-
-  else
-  {
-    result = (*(a4 + 8))(*(a2 + 296), *(a2 + 304), &v20, &v21, a2 + 312, a2 + 320, a4, a6);
-    if (result)
-    {
-      return result;
-    }
-
-    if (**(a4 + 32) > 0x30uLL)
-    {
-      return 7;
-    }
-
-    result = (*a4)(*(a2 + 264), *(a2 + 272), a2 + 376);
-    if (result)
-    {
-      return result;
-    }
-
-    result = (*(a4 + 16))(v20, v21, *(a2 + 280), *(a2 + 288), a2 + 376, **(a4 + 32), a4, a6);
-    if (result)
-    {
-      return result;
-    }
-
-    v16 = 1;
-  }
-
-  result = DERImg4DecodeParseManifestProperties(a2, a2 + 40, a2 + 56);
-  if (result)
-  {
-    return result;
-  }
-
-  if ((a5 & 1) == 0)
-  {
-    v17 = *(a3 + 16);
-    v18 = (a2 + 40);
-    v19 = a1 | 0xE000000000000000;
-    if (v17)
-    {
-      result = v17(v18, v19, 0x2000000000000011, v22, a6);
-      if (result)
-      {
-        return result;
-      }
-    }
-
-    else
-    {
-      result = DERImg4DecodeFindProperty(v18, v19, 0x2000000000000011uLL, v22);
-      if (result)
-      {
-        return result;
-      }
-    }
-
-    *(a2 + 72) = *(&v22[1] + 8);
-  }
-
-  if (v16)
-  {
-    result = (*(a4 + 24))(a2, a6);
-    if (result)
-    {
-      return result;
-    }
-  }
-
-  if (**(a4 + 32) > 0x30uLL)
-  {
-    return 7;
-  }
-
-  if (*(a2 + 136) && *(a2 + 144))
-  {
-    result = (*a4)(*(a2 + 8), *(a2 + 16), a2 + 184);
-    if (result)
-    {
-      return result;
-    }
-
-    *a2 = 1;
-  }
-
-  result = Img4DecodeEvaluateDictionaryProperties((a2 + 56), 0, *a3, a6);
-  if (!result)
-  {
-    if (a5)
-    {
-      return 0;
-    }
-
-    result = Img4DecodeEvaluateDictionaryProperties((a2 + 72), 1, *a3, a6);
-    if (!result)
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t verify_signature_rsa3k(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v13[0] = a1;
-  v13[1] = a2;
-  v12[0] = a3;
-  v12[1] = a4;
-  v11[0] = a5;
-  v11[1] = a6;
-  if (!a1)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (!a2)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (!a3)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (!a4)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (!a5)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (!a6)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (!a7)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  v7 = *(a7 + 32);
-  if (!v7)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  v8 = *(v7 + 16);
-  if (!v8)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  v9 = *v8;
-  if (!v9)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (*v9 != a6)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  result = verify_pkcs1_sig(v13, v9[4], v11, v12, 3072);
-  if (result)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  return result;
-}
-
-uint64_t verify_pkcs1_sig(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v13[4] = *MEMORY[0x277D85DE8];
-  if (a5 != 4096 && a5 != 3072)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  v13[2] = 0;
-  v13[3] = 0;
-  v6 = (a5 + 63) >> 6;
-  MEMORY[0x28223BE20](a1, (24 * v6 + 71) & 0x7FFFFFFFFFFFFFE0);
-  v8 = (v12 - v7);
-  bzero(v12 - v7, v7);
-  *v8 = v6;
-  v9 = *(a1 + 8);
-  v13[0] = *a1;
-  v13[1] = v9;
-  memset(v12, 0, sizeof(v12));
-  if (DERParseSequenceToObject(v13, DERNumRSAPubKeyPKCS1ItemSpecs, &DERRSAPubKeyPKCS1ItemSpecs, v12, 0x20uLL, 0x20uLL) || ccrsa_pub_init(v8, *(&v12[0] + 1), *&v12[0]))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (MEMORY[0x277D85C38] && MEMORY[0x28223BE48])
-  {
-    if (ccrsa_verify_pkcs1v15_digest() || cc_cmp_safe())
-    {
-      return 0xFFFFFFFFLL;
-    }
-
-    return 0;
-  }
-
-  LOBYTE(v12[0]) = 0;
-  v11 = ccrsa_verify_pkcs1v15();
-  result = 0xFFFFFFFFLL;
-  if (!v11 && (v12[0] & 1) != 0)
-  {
-    return 0;
-  }
-
-  return result;
-}
-
-uint64_t verify_signature_rsa(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v13[0] = a1;
-  v13[1] = a2;
-  v12[0] = a3;
-  v12[1] = a4;
-  v11[0] = a5;
-  v11[1] = a6;
-  if (!a1)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (!a2)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (!a3)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (!a4)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (!a5)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (!a6)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (!a7)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  v7 = *(a7 + 32);
-  if (!v7)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  v8 = *(v7 + 16);
-  if (!v8)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  v9 = *v8;
-  if (!v9)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (*v9 != a6)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  result = verify_pkcs1_sig(v13, v9[4], v11, v12, 4096);
-  if (result)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  return result;
-}
-
-uint64_t verify_signature_rsa4096_fixed(_BYTE *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v16 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v15 = 0;
-  result = 6;
-  if (a1)
-  {
-    if (a2)
-    {
-      if (a3)
-      {
-        if (a4)
-        {
-          if (a5)
-          {
-            if (a6)
-            {
-              if (a7)
-              {
-                v9 = *(a7 + 32);
-                if (v9)
-                {
-                  v10 = *(v9 + 16);
-                  if (v10)
-                  {
-                    if (*v10)
-                    {
-                      result = 0xFFFFFFFFLL;
-                      if (a2 == 516 && **v10 == a6)
-                      {
-                        if (a1 >= 0xFFFFFFFFFFFFFE00)
-                        {
-                          __break(0x5513u);
-                        }
-
-                        else
-                        {
-                          MEMORY[0x28223BE20](0xFFFFFFFFLL, 516);
-                          bzero(&v12, 0x638uLL);
-                          v11 = 64;
-                          result = ccrsa_pub_init(&v11, 0x200uLL, a1);
-                          if (!result)
-                          {
-                            if (MEMORY[0x277D85C38] && MEMORY[0x28223BE48])
-                            {
-                              result = ccrsa_verify_pkcs1v15_digest();
-                              if (!result)
-                              {
-                                if (cc_cmp_safe())
-                                {
-                                  return 0xFFFFFFFFLL;
-                                }
-
-                                return 0;
-                              }
-                            }
-
-                            else
-                            {
-                              v13 = 0;
-                              LODWORD(result) = ccrsa_verify_pkcs1v15();
-                              if (!result && (v13 & 1) != 0)
-                              {
-                                return 0;
-                              }
-
-                              if (result)
-                              {
-                                return result;
-                              }
-
-                              else
-                              {
-                                return 0xFFFFFFFFLL;
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-
-                    else
-                    {
-                      return 0xFFFFFFFFLL;
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t ccrsa_pub_init(unint64_t *a1, unint64_t a2, _BYTE *a3)
-{
-  v4 = a2;
-  if (a2)
-  {
-    while (!*a3)
-    {
-      if (a3 == -1)
-      {
-        __break(0x5513u);
-        goto LABEL_10;
-      }
-
-      ++a3;
-      if (!--v4)
-      {
-        break;
-      }
-    }
-  }
-
-  if (v4 >= 0xFFFFFFFFFFFFFFF8)
-  {
-LABEL_10:
-    __break(0x5500u);
-  }
-
-  else
-  {
-    v5 = (v4 + 7) >> 3;
-    if (v5 > *a1)
-    {
-      return 0xFFFFFFFFLL;
-    }
-
-    *a1 = v5;
-  }
-
-  return MEMORY[0x282201880]();
-}
-
-void verify_signature_ecdsa(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  if (a1)
-  {
-    if (a2)
-    {
-      if (a3)
-      {
-        if (a4)
-        {
-          if (a5)
-          {
-            if (a6)
-            {
-              if (a7)
-              {
-                v9 = *(a7 + 32);
-                if (v9)
-                {
-                  if (v9[2] && *(a7 + 48) && *v9 == a6)
-                  {
-                    v10[2] = v7;
-                    v10[3] = v8;
-                    v10[0] = a1;
-                    v10[1] = a2;
-                    verify_ecdsa_sig(v10);
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-void verify_ecdsa_sig(void *a1)
-{
-  v13 = *MEMORY[0x277D85DE8];
-  v12[7] = 0;
-  ccec_x963_import_pub_size();
-  if (ccec_keysize_is_supported())
-  {
-    cp = ccec_get_cp();
-    v3 = *cp;
-    if (*cp >> 61 || !is_mul_ok(8 * v3, 3uLL))
-    {
-      __break(0x550Cu);
-    }
-
-    else
-    {
-      v4 = 24 * v3;
-      v5 = __CFADD__(v4, 16);
-      v6 = v4 + 16;
-      if (!v5)
-      {
-        v5 = __CFADD__(v6, 16);
-        v7 = v6 + 16;
-        if (!v5)
-        {
-          v8 = cp;
-          v9 = v7 - 1;
-          MEMORY[0x28223BE20](cp, (v7 - 1) & 0xFFFFFFFFFFFFFFF0);
-          v11 = &v12[-v10];
-          bzero(&v12[-v10], v10);
-          if (v9 < 0x10)
-          {
-            __break(1u);
-          }
-
-          else
-          {
-            *v11 = v8;
-            if (!MEMORY[0x22AA55DB0](v8, a1[1], *a1, v11))
-            {
-              ccec_verify();
-            }
-          }
-
-          return;
-        }
-      }
-    }
-
-    __break(0x5500u);
-  }
-}
-
-uint64_t verify_chain_img4_v1(unint64_t a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, uint64_t a7)
-{
-  result = 0xFFFFFFFFLL;
-  if (a1)
-  {
-    v9 = a2;
-    if (a2)
-    {
-      if (a3 && a4)
-      {
-        bzero(&v31, 0x2F0uLL);
-        v29[0] = a1;
-        v29[1] = v9;
-        v30[0] = &ROOT_CA_CERTIFICATE;
-        v30[1] = 1215;
-        if (!_crack_chain_with_anchor(v29, v30, 3u) && !parse_chain(v30, 3u, &v32, v34, v37, v40))
-        {
-          v27 = a3;
-          v25 = a6;
-          v26 = a5;
-          v15 = v35;
-          v16 = &v33;
-          v17 = 0;
-          v18 = 2;
-          v19 = v35;
-          while (1)
-          {
-            v20 = &v34[10 * v17];
-            v21 = *(v20 + 11);
-            v22 = *v19;
-            v19 += 20;
-            if (v21 != v22)
-            {
-              break;
-            }
-
-            if (memcmp(*(v20 + 10), *(v15 - 1), v21))
-            {
-              break;
-            }
-
-            result = verify_chain_signatures(&v37[v17], v16, a7);
-            if (result)
-            {
-              break;
-            }
-
-            v16 += 6;
-            ++v17;
-            v15 = v19;
-            if (!--v18)
-            {
-              v28 = 0uLL;
-              if (v34 > 0xFFFFFFFFFFFFFF5FLL)
-              {
-LABEL_34:
-                __break(0x5513u);
-                return result;
-              }
-
-              v45[0] = 0;
-              v45[1] = 0;
-              v43 = 0;
-              v44[0] = 0;
-              v44[1] = 0;
-              if (DERDecodeSeqContentInit(v36, v45))
-              {
-                return 0xFFFFFFFFLL;
-              }
-
-LABEL_14:
-              if (!DERDecodeSeqNext(v45, &v43) && v43 == 0x2000000000000011)
-              {
-                v50[0] = 0;
-                v50[1] = 0;
-                v48 = 0;
-                v49[0] = 0;
-                v49[1] = 0;
-                v46 = 0u;
-                v47 = 0u;
-                if (!DERDecodeSeqContentInit(v44, v50))
-                {
-                  do
-                  {
-                    v23 = DERDecodeSeqNext(v50, &v48);
-                    if (v23)
-                    {
-                      if (v23 == 1)
-                      {
-                        goto LABEL_14;
-                      }
-
-                      return 0xFFFFFFFFLL;
-                    }
-
-                    if (v48 != 0x2000000000000010 || DERParseSequenceContentToObject(v49, DERNumAttributeTypeAndValueItemSpecs, &DERAttributeTypeAndValueItemSpecs, &v46, 0x20uLL, 0x20uLL))
-                    {
-                      return 0xFFFFFFFFLL;
-                    }
-                  }
-
-                  while (!DEROidCompare(&oidCommonName, &v46));
-                  v28 = v47;
-                  result = DEROidCompare(&verify_chain_img4_v1_sboot_item, &v28);
-                  if (!result)
-                  {
-                    return 0xFFFFFFFFLL;
-                  }
-
-                  if (v37 > 0xFFFFFFFFFFFFFFDFLL)
-                  {
-                    goto LABEL_34;
-                  }
-
-                  *v27 = v38;
-                  *a4 = v39;
-                  if (v40 > 0xFFFFFFFFFFFFFFDFLL)
-                  {
-                    goto LABEL_34;
-                  }
-
-                  if (!v41)
-                  {
-                    return 0;
-                  }
-
-                  v24 = v42;
-                  if (!v42)
-                  {
-                    return 0;
-                  }
-
-                  result = 0;
-                  if (v26)
-                  {
-                    if (v25)
-                    {
-                      result = 0;
-                      *v26 = v41;
-                      *v25 = v24;
-                    }
-                  }
-
-                  return result;
-                }
-              }
-
-              return 0xFFFFFFFFLL;
-            }
-          }
-        }
-
-        return 0xFFFFFFFFLL;
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t parse_chain(uint64_t result, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  v7 = result;
-  v8 = 0;
-  v19 = ~result;
-  v18 = ~a3;
-  v16 = ~a4;
-  v14 = ~a5;
-  v9 = ~a6;
-  v10 = a2;
-  while (1)
-  {
-    v11 = 16 * v8;
-    if (16 * v8 > v19 || 48 * v8 > v18)
-    {
-      break;
-    }
-
-    result = DERParseSequenceToObject(v7 + 16 * v8, DERNumSignedCertCrlItemSpecs, &DERSignedCertCrlItemSpecs, a3 + 48 * v8, 0x30uLL, 0x30uLL);
-    if (result)
-    {
-      return 0xFFFFFFFFLL;
-    }
-
-    if (160 * v8 > v16)
-    {
-      break;
-    }
-
-    v12 = a4 + 160 * v8;
-    result = DERParseSequenceToObject(a3 + 48 * v8, DERNumTBSCertItemSpecs, &DERTBSCertItemSpecs, v12, 0xA0uLL, 0xA0uLL);
-    if (result)
-    {
-      return 0xFFFFFFFFLL;
-    }
-
-    if (v11 > v14)
-    {
-      break;
-    }
-
-    v23 = 0u;
-    v24 = 0u;
-    v22 = 0;
-    v20 = 0u;
-    v21 = 0u;
-    if (DERParseSequenceContentToObject((v12 + 96), DERNumSubjPubKeyInfoItemSpecs, &DERSubjPubKeyInfoItemSpecs, &v23, 0x20uLL, 0x20uLL))
-    {
-      return 0xFFFFFFFFLL;
-    }
-
-    if (DERParseSequenceContentToObject(&v23, DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, &v20, 0x20uLL, 0x20uLL))
-    {
-      return 0xFFFFFFFFLL;
-    }
-
-    result = DEROidCompare(&v20, &oidRsa);
-    if (!result)
-    {
-      return 0xFFFFFFFFLL;
-    }
-
-    if (*(&v21 + 1))
-    {
-      if (*(&v21 + 1) != 2 || *v21 != 5)
-      {
-        return 0xFFFFFFFFLL;
-      }
-
-      if (v21 == -1)
-      {
-        break;
-      }
-
-      if (*(v21 + 1))
-      {
-        return 0xFFFFFFFFLL;
-      }
-    }
-
-    result = DERParseBitString(&v24, (a5 + 16 * v8), &v22);
-    if (result || v22)
-    {
-      return 0xFFFFFFFFLL;
-    }
-
-    if (v11 > v9)
-    {
-      break;
-    }
-
-    result = parse_extensions(v12, (a6 + 16 * v8));
-    if (result)
-    {
-      return 0xFFFFFFFFLL;
-    }
-
-    if (++v8 == v10)
-    {
-      return 0;
-    }
-  }
-
-  __break(0x5513u);
-  return result;
-}
-
-uint64_t verify_chain_signatures(void *a1, void *a2, uint64_t a3)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  if (!a1)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (!a2)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (!a3)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  v11 = 0u;
-  v12 = 0u;
-  v10 = 0;
-  memset(v13, 0, sizeof(v13));
-  v8 = 0;
-  v9 = 0;
-  v5 = *(a3 + 32);
-  if (!v5 || !v5[2] || !*a3 || !*(a3 + 40) || *v5 > 0x30uLL || DERParseSequenceContentToObject(a2 + 2, DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, &v11, 0x20uLL, 0x20uLL))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (*(&v12 + 1))
-  {
-    result = DEROidCompare(&v11, &oidEcPubKey);
-    if ((result & 1) == 0)
-    {
-      if (*(&v12 + 1) != 2 || *v12 != 5)
-      {
-        return 0xFFFFFFFFLL;
-      }
-
-      if (v12 == -1)
-      {
-        __break(0x5513u);
-        return result;
-      }
-
-      if (*(v12 + 1))
-      {
-        return 0xFFFFFFFFLL;
-      }
-    }
-  }
-
-  if (!DEROidCompare(&v11, *(a3 + 40)))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if ((*a3)(*a2, a2[1], v13, **(a3 + 32), a3))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (DERParseBitString((a2 + 4), &v8, &v10))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (v10)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  result = (*(a3 + 16))(*a1, a1[1], v8, v9, v13, **(a3 + 32), a3, 0);
-  if (result)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  return result;
-}
-
-uint64_t verify_chain_img4_v2_with_crack_callback(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, uint64_t a7, unsigned int (*a8)(void *, _BYTE *, uint64_t))
-{
-  result = 0xFFFFFFFFLL;
-  if (a1)
-  {
-    v10 = a2;
-    if (a2)
-    {
-      if (a3 && a4)
-      {
-        bzero(v22, 0x300uLL);
-        v21[0] = a1;
-        v21[1] = v10;
-        if (a8(v21, v22, 2))
-        {
-          return 0xFFFFFFFFLL;
-        }
-
-        result = parse_chain(v22, 2u, v23, v24, v27, v28);
-        if (result)
-        {
-          return 0xFFFFFFFFLL;
-        }
-
-        else
-        {
-          v15 = 1;
-          v16 = 1;
-          while ((v15 & 1) != 0)
-          {
-            v17 = &v24[10 * v16];
-            if (__n == *(v17 + 7) && !memcmp(__s1, *(v17 + 6), __n))
-            {
-              result = verify_chain_signatures(v27, &v23[3 * v16], a7);
-              v15 = 0;
-              v16 = 2;
-              if (!result)
-              {
-                continue;
-              }
-            }
-
-            return 0xFFFFFFFFLL;
-          }
-
-          if (v27 > 0xFFFFFFFFFFFFFFEFLL || (*a3 = v27[2], *a4 = v27[3], v28 > 0xFFFFFFFFFFFFFFEFLL))
-          {
-            __break(0x5513u);
-          }
-
-          else if (v29 && (v18 = v30) != 0)
-          {
-            result = 0;
-            if (a5 && a6)
-            {
-              result = 0;
-              *a5 = v29;
-              *a6 = v18;
-            }
-          }
-
-          else
-          {
-            return 0;
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t crack_chain_rsa4k_sha384_x86(unint64_t *a1, void *a2, unsigned int a3)
-{
-  *a2 = &RSA4K_SHA384_X86_ROOT_CA_CERTIFICATE;
-  a2[1] = 1382;
-  if (_crack_chain_with_anchor(a1, a2, a3))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t crack_chain_rsa4k_sha384_ddi(unint64_t *a1, void *a2, unsigned int a3)
-{
-  *a2 = &RSA4K_SHA384_DDI_ROOT_CA_CERTIFICATE;
-  a2[1] = 1394;
-  if (_crack_chain_with_anchor(a1, a2, a3))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t crack_chain_rsa4k_sha384_ddi_global(unint64_t *a1, void *a2, unsigned int a3)
-{
-  *a2 = &RSA4K_SHA384_DDI_GLOBAL_ROOT_CA_CERTIFICATE;
-  a2[1] = 1404;
-  if (_crack_chain_with_anchor(a1, a2, a3))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t crack_chain_rsa4k_sha384_ddi_fake(unint64_t *a1, void *a2, unsigned int a3)
-{
-  *a2 = &RSA4K_SHA384_DDI_FAKE_ROOT_CA_CERTIFICATE;
-  a2[1] = 1425;
-  if (_crack_chain_with_anchor(a1, a2, a3))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t crack_chain_rsa4k_sha384_ddi_fake_global(unint64_t *a1, void *a2, unsigned int a3)
-{
-  *a2 = &RSA4K_SHA384_DDI_FAKE_GLOBAL_ROOT_CA_CERTIFICATE;
-  a2[1] = 1435;
-  if (_crack_chain_with_anchor(a1, a2, a3))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t crack_chain_rsa4k_sha384_avp(unint64_t *a1, void *a2, unsigned int a3)
-{
-  *a2 = &RSA4K_SHA384_AVP_ROOT_CA_CERTIFICATE;
-  a2[1] = 1431;
-  if (_crack_chain_with_anchor(a1, a2, a3))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t crack_chain_rsa4k_sha384_tatsu_local_policy(unint64_t *a1, void *a2, unsigned int a3)
-{
-  *a2 = &RSA4K_SHA384_LP_ROOT_CA_CERTIFICATE;
-  a2[1] = 1382;
-  if (_crack_chain_with_anchor(a1, a2, a3))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t crack_chain_rsa4k_sha384_tatsu_local_policy_hacktivate(unint64_t *a1, void *a2, unsigned int a3)
-{
-  *a2 = &LOCAL_RSA4K_SHA384_LP_ROOT_CA_CERTIFICATE;
-  a2[1] = 1442;
-  if (_crack_chain_with_anchor(a1, a2, a3))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t crack_chain_rsa3k_sha384(unint64_t *a1, void *a2, unsigned int a3)
-{
-  *a2 = &RSA3K_SHA384_ROOT_CA_CERTIFICATE;
-  a2[1] = 1118;
-  if (_crack_chain_with_anchor(a1, a2, a3))
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  else
-  {
-    return 0;
   }
 }

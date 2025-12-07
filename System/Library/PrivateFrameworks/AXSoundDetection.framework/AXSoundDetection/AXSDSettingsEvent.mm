@@ -75,28 +75,26 @@
 
 - (id)dictionaryRepresentation
 {
-  v13[6] = *MEMORY[0x277D85DE8];
-  v12[0] = @"timestamp";
+  v12[6] = *MEMORY[0x277D85DE8];
+  v11[0] = @"timestamp";
   timestamp = [(AXSDSettingsEvent *)self timestamp];
-  v13[0] = timestamp;
-  v12[1] = @"state";
+  v12[0] = timestamp;
+  v11[1] = @"state";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:{-[AXSDSettingsEvent state](self, "state")}];
-  v13[1] = v4;
-  v12[2] = @"source";
+  v12[1] = v4;
+  v11[2] = @"source";
   source = [(AXSDSettingsEvent *)self source];
-  v13[2] = source;
-  v12[3] = @"systemSounds";
+  v12[2] = source;
+  v11[3] = @"systemSounds";
   enabledSystemSounds = [(AXSDSettingsEvent *)self enabledSystemSounds];
-  v13[3] = enabledSystemSounds;
-  v12[4] = @"customSounds";
+  v12[3] = enabledSystemSounds;
+  v11[4] = @"customSounds";
   enabledCustomSounds = [(AXSDSettingsEvent *)self enabledCustomSounds];
-  v13[4] = enabledCustomSounds;
-  v12[5] = @"processName";
+  v12[4] = enabledCustomSounds;
+  v11[5] = @"processName";
   processName = [(AXSDSettingsEvent *)self processName];
-  v13[5] = processName;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:6];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[5] = processName;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
 
   return v9;
 }

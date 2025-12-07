@@ -177,7 +177,7 @@ void __48__WFDictateTextActionStopButton_setHighlighted___block_invoke(uint64_t 
 
 - (WFDictateTextActionStopButton)init
 {
-  v23[4] = *MEMORY[0x277D85DE8];
+  v22[4] = *MEMORY[0x277D85DE8];
   v3 = [WFDictateTextActionStopButton buttonWithType:0];
 
   if (v3)
@@ -194,30 +194,29 @@ void __48__WFDictateTextActionStopButton_setHighlighted___block_invoke(uint64_t 
     [(WFDictateTextActionStopButton *)v3 addSubview:v4];
     [(WFDictateTextActionStopButton *)v3 setRedSquare:v4];
     widthAnchor = [v4 widthAnchor];
-    v20 = [widthAnchor constraintEqualToConstant:0.0];
+    v19 = [widthAnchor constraintEqualToConstant:0.0];
 
-    v19 = MEMORY[0x277CCAAD0];
+    v18 = MEMORY[0x277CCAAD0];
     centerXAnchor = [v4 centerXAnchor];
     centerXAnchor2 = [(WFDictateTextActionStopButton *)v3 centerXAnchor];
     v8 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v23[0] = v8;
+    v22[0] = v8;
     centerYAnchor = [v4 centerYAnchor];
     centerYAnchor2 = [(WFDictateTextActionStopButton *)v3 centerYAnchor];
     v11 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v23[1] = v11;
-    v23[2] = v20;
+    v22[1] = v11;
+    v22[2] = v19;
     heightAnchor = [v4 heightAnchor];
     widthAnchor2 = [v4 widthAnchor];
     v14 = [heightAnchor constraintEqualToAnchor:widthAnchor2];
-    v23[3] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
-    [v19 activateConstraints:v15];
+    v22[3] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
+    [v18 activateConstraints:v15];
 
-    [(WFDictateTextActionStopButton *)v3 setRedSquareWidthConstraint:v20];
+    [(WFDictateTextActionStopButton *)v3 setRedSquareWidthConstraint:v19];
     v16 = v3;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

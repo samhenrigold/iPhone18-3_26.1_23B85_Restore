@@ -6,6 +6,7 @@
 - (void)presentationControllerDidAttemptToDismiss:(id)dismiss;
 - (void)searchBar:(id)bar textDidChange:(id)change;
 - (void)searchBarCancelButtonClicked:(id)clicked;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -33,6 +34,29 @@
   sub_18094();
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  ObjectType = swift_getObjectType();
+  v6 = sub_7F84(&qword_3AC38, &qword_27250);
+  __chkstk_darwin(v6 - 8);
+  v8 = &v14 - v7;
+  v14.receiver = self;
+  v14.super_class = ObjectType;
+  selfCopy = self;
+  [(REMTimeZonePickerViewController *)&v14 viewDidAppear:appearCopy];
+  v10 = sub_23DA0();
+  (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+  sub_23D80();
+  v11 = selfCopy;
+  v12 = sub_23D70();
+  v13 = swift_allocObject();
+  v13[2] = v12;
+  v13[3] = &protocol witness table for MainActor;
+  v13[4] = v11;
+  sub_1B8BC(0, 0, v8, &unk_27628, v13);
+}
+
 - (_TtC17RemindersSettings31REMTimeZonePickerViewController)initWithCollectionViewLayout:(id)layout
 {
   result = _swift_stdlib_reportUnimplementedInitializer();
@@ -51,22 +75,20 @@
 {
   v6 = sub_23730();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23720();
   viewCopy = view;
   selfCopy = self;
-  sub_19970(viewCopy);
+  sub_19970(viewCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)searchBar:(id)bar textDidChange:(id)change
 {
   v5 = sub_23C90();
   v7 = v6;
-  v8 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC17RemindersSettings31REMTimeZonePickerViewController_presenter);
   selfCopy = self;
   sub_1203C(v5, v7);
 }

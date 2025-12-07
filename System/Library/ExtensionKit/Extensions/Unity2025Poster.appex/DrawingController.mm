@@ -15,7 +15,7 @@
   [defaultCenter removeObserver:selfCopy];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for DrawingController();
+  v6.super_class = type metadata accessor for DrawingController(0);
   [(DrawingController *)&v6 dealloc];
 }
 

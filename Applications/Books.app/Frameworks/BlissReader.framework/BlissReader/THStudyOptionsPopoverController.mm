@@ -24,37 +24,39 @@
 
 - (THStudyOptionsPopoverController)initWithOptions:(id)options
 {
+  selfCopy = self;
   if (!options)
   {
-    [+[TSUAssertionHandler currentHandler](TSUAssertionHandler "currentHandler")];
+    self = [+[TSUAssertionHandler currentHandler](TSUAssertionHandler "currentHandler")];
   }
 
-  v5 = THBundle();
-  v13.receiver = self;
-  v13.super_class = THStudyOptionsPopoverController;
-  v6 = [(THStudyOptionsPopoverController *)&v13 initWithNibName:@"THiOSStudyOptions" bundle:v5];
+  v5 = THBundle(self, a2);
+  v15.receiver = selfCopy;
+  v15.super_class = THStudyOptionsPopoverController;
+  v6 = [(THStudyOptionsPopoverController *)&v15 initWithNibName:@"THiOSStudyOptions" bundle:v5];
   if (v6)
   {
-    v6->_options = options;
-    -[THStudyOptionsPopoverController setTitle:](v6, "setTitle:", [THBundle() localizedStringForKey:@"Study Options" value:&stru_471858 table:0]);
+    optionsCopy = options;
+    v6->_options = optionsCopy;
+    -[THStudyOptionsPopoverController setTitle:](v6, "setTitle:", [THBundle(optionsCopy v8)]);
     if (+[UIFont bc_accessibilityFontSizesEnabled])
     {
-      v7 = 360.0;
+      v9 = 360.0;
     }
 
     else
     {
-      v7 = 320.0;
+      v9 = 320.0;
     }
 
-    v8 = +[UIFont bc_accessibilityFontSizesEnabled];
-    v9 = 400.0;
-    if (!v8)
+    v10 = +[UIFont bc_accessibilityFontSizesEnabled];
+    v11 = 400.0;
+    if (!v10)
     {
-      v9 = 146.0;
+      v11 = 146.0;
     }
 
-    [(THStudyOptionsPopoverController *)v6 setPreferredContentSize:v7, v9];
+    [(THStudyOptionsPopoverController *)v6 setPreferredContentSize:v9, v11];
     [-[THStudyOptionsPopoverController navigationItem](v6 "navigationItem")];
     [(THStudyOptionsPopoverController *)v6 preferredContentSize];
     [objc_msgSend(-[THStudyOptionsPopoverController presentingViewController](v6 "presentingViewController")];
@@ -188,11 +190,11 @@
   if (![path section])
   {
     [v6 setSelectionStyle:3];
-    v10 = [path row];
-    v11 = THBundle();
-    if (v10)
+    v11 = [path row];
+    v13 = THBundle(v11, v12);
+    if (v11)
     {
-      -[UIListContentConfiguration setText:](v7, "setText:", [v11 localizedStringForKey:@"Glossary Terms" value:&stru_471858 table:0]);
+      -[UIListContentConfiguration setText:](v7, "setText:", [v13 localizedStringForKey:@"Glossary Terms" value:&stru_471858 table:0]);
       [v6 setAccessoryType:0];
       if (![(THStudyOptions *)self->_options showVocabulary])
       {
@@ -202,7 +204,7 @@
 
     else
     {
-      -[UIListContentConfiguration setText:](v7, "setText:", [v11 localizedStringForKey:@"Highlights and Notes" value:&stru_471858 table:0]);
+      -[UIListContentConfiguration setText:](v7, "setText:", [v13 localizedStringForKey:@"Highlights and Notes" value:&stru_471858 table:0]);
       [v6 setAccessoryType:4];
       if (![(THStudyOptions *)self->_options showAnnotations])
       {
@@ -216,12 +218,12 @@
 
   if ([path section] == &dword_0 + 1)
   {
-    -[UIListContentConfiguration setText:](v7, "setText:", [THBundle() localizedStringForKey:@"Shuffle" value:&stru_471858 table:0]);
+    -[UIListContentConfiguration setText:](v7, "setText:", [THBundle(1 v9)]);
     [v6 setSelectionStyle:0];
-    v9 = [[UISwitch alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
-    [v9 setOn:{-[THStudyOptions shuffle](self->_options, "shuffle")}];
-    [v9 addTarget:self action:"shuffleSwitchChanged:" forControlEvents:4096];
-    [v6 setAccessoryView:v9];
+    v10 = [[UISwitch alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
+    [v10 setOn:{-[THStudyOptions shuffle](self->_options, "shuffle")}];
+    [v10 addTarget:self action:"shuffleSwitchChanged:" forControlEvents:4096];
+    [v6 setAccessoryView:v10];
   }
 
 LABEL_9:

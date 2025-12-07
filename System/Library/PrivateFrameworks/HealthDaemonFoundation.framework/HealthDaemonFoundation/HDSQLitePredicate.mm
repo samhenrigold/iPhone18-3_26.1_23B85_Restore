@@ -59,15 +59,15 @@
 
 + (id)compoundPredicateWithPredicate:(id)predicate otherPredicate:(id)otherPredicate
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   otherPredicateCopy = otherPredicate;
   v7 = otherPredicateCopy;
   if (predicateCopy && otherPredicateCopy)
   {
-    v13[0] = predicateCopy;
-    v13[1] = otherPredicateCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+    v12[0] = predicateCopy;
+    v12[1] = otherPredicateCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
     v9 = [HDSQLiteCompoundPredicate predicateMatchingAllPredicates:v8];
   }
 
@@ -86,14 +86,12 @@
     v9 = v10;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (id)compoundPredicateWithPredicate:(id)predicate otherPredicate:(id)otherPredicate otherPredicate:(id)a5
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   otherPredicateCopy = otherPredicate;
   v10 = a5;
@@ -116,10 +114,10 @@ LABEL_7:
 
   if (v10)
   {
-    v19[0] = predicateCopy;
-    v19[1] = otherPredicateCopy;
-    v19[2] = v10;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+    v18[0] = predicateCopy;
+    v18[1] = otherPredicateCopy;
+    v18[2] = v10;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
     v13 = [HDSQLiteCompoundPredicate predicateMatchingAllPredicates:v12];
 
     goto LABEL_9;
@@ -132,22 +130,20 @@ LABEL_8:
   v13 = [selfCopy3 compoundPredicateWithPredicate:v15 otherPredicate:v16];
 LABEL_9:
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 + (id)disjunctionWithPredicate:(id)predicate otherPredicate:(id)otherPredicate
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   otherPredicateCopy = otherPredicate;
   v7 = otherPredicateCopy;
   if (predicateCopy && otherPredicateCopy)
   {
-    v13[0] = predicateCopy;
-    v13[1] = otherPredicateCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+    v12[0] = predicateCopy;
+    v12[1] = otherPredicateCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
     v9 = [HDSQLiteCompoundPredicate predicateMatchingAnyPredicates:v8];
   }
 
@@ -165,8 +161,6 @@ LABEL_9:
 
     v9 = v10;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

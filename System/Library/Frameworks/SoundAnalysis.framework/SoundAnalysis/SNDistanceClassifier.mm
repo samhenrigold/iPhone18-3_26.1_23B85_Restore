@@ -8,7 +8,7 @@
 
 + (id)modelURLForCurrentProduct
 {
-  v2 = sub_1C97A2CEC(&qword_1EC3C7FE0);
+  v2 = sub_1C97A2CEC(&qword_1EC3C7FE0, &unk_1C9AA1890);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v8 - v3;
   swift_getObjCClassMetadata();
@@ -28,7 +28,7 @@
 {
   checkCopy = check;
   v7 = *&type;
-  v8 = sub_1C97A2CEC(&qword_1EC3C7FE0);
+  v8 = sub_1C97A2CEC(&qword_1EC3C7FE0, &unk_1C9AA1890);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v16 - v9;
   if (d)

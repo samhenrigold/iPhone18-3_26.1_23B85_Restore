@@ -317,7 +317,7 @@
 
   if (completionCopy)
   {
-    v9 = [(NSDictionary *)self->_dataProvidersByType objectForKey:typeCopy];
+    v9 = objc_msgSend_objectForKey_(self->_dataProvidersByType);
     if (v9)
     {
       v10 = self->_queue;
@@ -371,7 +371,7 @@
 
   if (completionCopy)
   {
-    v13 = [(NSDictionary *)self->_dataProvidersByType objectForKey:typeCopy];
+    v13 = objc_msgSend_objectForKey_(self->_dataProvidersByType);
     if (v13)
     {
       v14 = self->_queue;
@@ -455,7 +455,7 @@
           }
 
           v17 = *(*(&v32 + 1) + 8 * i);
-          v18 = [(NSDictionary *)self->_dataProvidersByType objectForKey:v17];
+          v18 = objc_msgSend_objectForKey_(self->_dataProvidersByType);
           if (v18)
           {
             dispatch_group_enter(v9);
@@ -711,33 +711,33 @@ LABEL_20:
 - (BOOL)_handlePulledSnapshot:(id)snapshot forDataType:(id)type
 {
   snapshotCopy = snapshot;
-  v7 = [(NSDictionary *)self->_dataConsumersByType objectForKey:type];
-  v8 = v7;
-  if (v7)
+  v6 = objc_msgSend_objectForKey_(self->_dataConsumersByType);
+  v7 = v6;
+  if (v6)
   {
-    [v7 applySnapshot:snapshotCopy fromDeviceWithIdentifier:self->_deviceIdentifier];
+    [v6 applySnapshot:snapshotCopy fromDeviceWithIdentifier:self->_deviceIdentifier];
   }
 
-  return v8 != 0;
+  return v7 != 0;
 }
 
 - (BOOL)_handlePulledDeltaWithIncrementalChanges:(id)changes forDataType:(id)type
 {
   changesCopy = changes;
-  v7 = [(NSDictionary *)self->_dataConsumersByType objectForKey:type];
-  v8 = v7;
-  if (v7)
+  v6 = objc_msgSend_objectForKey_(self->_dataConsumersByType);
+  v7 = v6;
+  if (v6)
   {
-    [v7 applyIncrementalChanges:changesCopy fromDeviceWithIdentifier:self->_deviceIdentifier];
+    [v6 applyIncrementalChanges:changesCopy fromDeviceWithIdentifier:self->_deviceIdentifier];
   }
 
-  return v8 != 0;
+  return v7 != 0;
 }
 
 - (BOOL)_handlePushedOrPulledGeneration:(unint64_t)generation forDataType:(id)type
 {
   typeCopy = type;
-  v7 = [(NSDictionary *)self->_dataConsumersByType objectForKey:typeCopy];
+  v7 = objc_msgSend_objectForKey_(self->_dataConsumersByType);
   if (v7)
   {
     v8 = self->_queue;

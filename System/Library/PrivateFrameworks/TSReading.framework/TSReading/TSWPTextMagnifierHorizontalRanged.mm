@@ -230,7 +230,7 @@ uint64_t __54__TSWPTextMagnifierHorizontalRanged_zoomDownAnimation__block_invoke
 
 - (void)drawMagnifierClippedCanvasLayer:(id)layer inContext:(CGContext *)context
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   interactiveCanvasController = [(TSDRep *)[(TSWPTextMagnifierRanged *)self target] interactiveCanvasController];
   objc_opt_class();
   [(TSDInteractiveCanvasController *)interactiveCanvasController layerHost];
@@ -247,93 +247,95 @@ uint64_t __54__TSWPTextMagnifierHorizontalRanged_zoomDownAnimation__block_invoke
   v22 = v21;
   [(TSWPTextMagnifierHorizontalRanged *)self frame];
   v24 = v23;
-  v25 = [objc_msgSend(MEMORY[0x277D755B8] imageNamed:-[TSWPTextMagnifierHorizontalRanged maskImageName](self inBundle:"maskImageName") compatibleWithTraitCollection:{TSWPBundle(), 0), "CGImage"}];
-  v50.origin.x = 0.0;
-  v50.origin.y = 0.0;
-  v50.size.width = v22;
-  v50.size.height = v24;
-  CGContextClipToMask(context, v50, v25);
+  v25 = MEMORY[0x277D755B8];
+  maskImageName = [(TSWPTextMagnifierHorizontalRanged *)self maskImageName];
+  v28 = [objc_msgSend(v25 imageNamed:maskImageName inBundle:TSWPBundle(maskImageName compatibleWithTraitCollection:{v27), 0), "CGImage"}];
+  v53.origin.x = 0.0;
+  v53.origin.y = 0.0;
+  v53.size.width = v22;
+  v53.size.height = v24;
+  CGContextClipToMask(context, v53, v28);
   if (interactiveCanvasController)
   {
     backgroundColorForMagnifier = [v7 backgroundColorForMagnifier];
     if (backgroundColorForMagnifier)
     {
       CGContextSetFillColorWithColor(context, [backgroundColorForMagnifier CGColor]);
-      v51.origin.x = 0.0;
-      v51.origin.y = 0.0;
-      v51.size.width = v22;
-      v51.size.height = v24;
-      CGContextFillRect(context, v51);
+      v54.origin.x = 0.0;
+      v54.origin.y = 0.0;
+      v54.size.width = v22;
+      v54.size.height = v24;
+      CGContextFillRect(context, v54);
     }
   }
 
   CGContextScaleCTM(context, 1.2, 1.2);
   [(TSWPTextMagnifierHorizontalRanged *)self currentOffset];
-  v28 = -v16 - v27;
+  v31 = -v16 - v30;
   objc_opt_class();
   [(TSDEditorController *)[(TSDInteractiveCanvasController *)interactiveCanvasController editorController] textInputEditor];
-  v29 = TSUDynamicCast();
-  if (v29 && !*(&self->super._inPlace + 1))
+  v32 = TSUDynamicCast();
+  if (v32 && !*(&self->super._inPlace + 1))
   {
-    v30 = v29;
+    v33 = v32;
     objc_opt_class();
-    [v30 selection];
-    v31 = TSUDynamicCast();
-    v32 = [[(TSDKnobTracker *)[(TSDRep *)[(TSWPTextMagnifierRanged *)self target] currentKnobTracker] knob] tag];
-    if ([v31 isVisual])
+    [v33 selection];
+    v34 = TSUDynamicCast();
+    v35 = [[(TSDKnobTracker *)[(TSDRep *)[(TSWPTextMagnifierRanged *)self target] currentKnobTracker] knob] tag];
+    if ([v34 isVisual])
     {
-      start = v32 == 11 ? [v31 headChar] : objc_msgSend(v31, "tailChar");
+      start = v35 == 11 ? [v34 headChar] : objc_msgSend(v34, "tailChar");
     }
 
-    else if (v32 == 11)
+    else if (v35 == 11)
     {
-      start = [v31 start];
+      start = [v34 start];
     }
 
     else
     {
-      start = v32 ? [v31 end] : -[TSWPRep charIndexForPointWithPinning:](-[TSWPTextMagnifierRanged target](self, "target"), "charIndexForPointWithPinning:", v14, v16);
+      start = v35 ? [v34 end] : -[TSWPRep charIndexForPointWithPinning:](-[TSWPTextMagnifierRanged target](self, "target"), "charIndexForPointWithPinning:", v14, v16);
     }
 
-    v34 = start;
-    v46 = 0u;
+    v37 = start;
+    v49 = 0u;
+    v50 = 0u;
     v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
+    v48 = 0u;
     columns = [(TSWPRep *)[(TSWPTextMagnifierRanged *)self target] columns];
-    v36 = [(NSArray *)columns countByEnumeratingWithState:&v44 objects:v48 count:16];
-    if (v36)
+    v39 = [(NSArray *)columns countByEnumeratingWithState:&v47 objects:v51 count:16];
+    if (v39)
     {
-      v37 = v36;
-      v43 = interactiveCanvasController;
-      v38 = *v45;
+      v40 = v39;
+      v46 = interactiveCanvasController;
+      v41 = *v48;
       while (2)
       {
-        for (i = 0; i != v37; ++i)
+        for (i = 0; i != v40; ++i)
         {
-          if (*v45 != v38)
+          if (*v48 != v41)
           {
             objc_enumerationMutation(columns);
           }
 
-          v40 = [*(*(&v44 + 1) + 8 * i) lineFragmentForCharIndex:v34 knobTag:v32 selectionType:{objc_msgSend(v31, "type")}];
-          if (v40)
+          v43 = [*(*(&v47 + 1) + 8 * i) lineFragmentForCharIndex:v37 knobTag:v35 selectionType:{objc_msgSend(v34, "type")}];
+          if (v43)
           {
-            [(TSDRep *)[(TSWPTextMagnifierRanged *)self target] convertNaturalPointToUnscaledCanvas:0.0, *(v40 + 32) + *(v40 + 40)];
-            interactiveCanvasController = v43;
-            [(TSDInteractiveCanvasController *)v43 convertUnscaledToBoundsPoint:?];
-            v42 = v41;
-            v52.origin.x = v14;
-            v52.origin.y = v16;
-            v52.size.width = v18;
-            v52.size.height = v20;
-            v28 = CGRectGetHeight(v52) - v42 + -7.0;
+            [(TSDRep *)[(TSWPTextMagnifierRanged *)self target] convertNaturalPointToUnscaledCanvas:0.0, *(v43 + 32) + *(v43 + 40)];
+            interactiveCanvasController = v46;
+            [(TSDInteractiveCanvasController *)v46 convertUnscaledToBoundsPoint:?];
+            v45 = v44;
+            v55.origin.x = v14;
+            v55.origin.y = v16;
+            v55.size.width = v18;
+            v55.size.height = v20;
+            v31 = CGRectGetHeight(v55) - v45 + -7.0;
             goto LABEL_25;
           }
         }
 
-        v37 = [(NSArray *)columns countByEnumeratingWithState:&v44 objects:v48 count:16];
-        if (v37)
+        v40 = [(NSArray *)columns countByEnumeratingWithState:&v47 objects:v51 count:16];
+        if (v40)
         {
           continue;
         }
@@ -341,12 +343,12 @@ uint64_t __54__TSWPTextMagnifierHorizontalRanged_zoomDownAnimation__block_invoke
         break;
       }
 
-      interactiveCanvasController = v43;
+      interactiveCanvasController = v46;
     }
   }
 
 LABEL_25:
-  CGContextTranslateCTM(context, -v14, v28);
+  CGContextTranslateCTM(context, -v14, v31);
   CGContextTranslateCTM(context, v18 * -0.100000001, v20 * -0.100000001);
   [-[TSDCanvasLayerHosting canvasLayer](-[TSDInteractiveCanvasController layerHost](interactiveCanvasController "layerHost")];
   CGContextRestoreGState(context);

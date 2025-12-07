@@ -38,18 +38,19 @@
 + (char)_currentTraitCollectionIfExists;
 + (char)_currentTraitCollectionWithFallback:(int)fallback markFallback:;
 + (char)_currentTraitCollectionWithUnmarkedFallback;
++ (char)_traitCollectionWithTintColor:(uint64_t)color;
 + (const)_traitTokenForCGFloatTrait:(uint64_t)trait;
 + (const)_traitTokenForNSIntegerTrait:(uint64_t)trait;
 + (const)_traitTokenForNSUIntegerTrait:(uint64_t)trait;
 + (const)_traitTokenForObjectTrait:(uint64_t)trait;
 + (const)_traitTokenOrPlaceholderForTrait:(uint64_t)trait;
++ (double)_fallbackTraitCollection;
 + (id)_backgroundThreadFallbackTraitCollection;
 + (id)_defineCGFloatTraitWithName:(id)name identifier:(id)identifier defaultValue:(double)value affectsColorAppearance:(BOOL)appearance defaultValueRepresentsUnspecified:(BOOL)unspecified isPrivate:(BOOL)private placeholderToken:(id)token;
 + (id)_defineNSIntegerTraitWithName:(id)name identifier:(id)identifier defaultValue:(int64_t)value affectsColorAppearance:(BOOL)appearance defaultValueRepresentsUnspecified:(BOOL)unspecified isPrivate:(BOOL)private placeholderToken:(id)token;
 + (id)_defineObjectTraitWithName:(id)name identifier:(id)identifier defaultValue:(id)value affectsColorAppearance:(BOOL)appearance defaultValueRepresentsUnspecified:(BOOL)unspecified isPrivate:(BOOL)private placeholderToken:(id)token;
 + (id)_descriptionForChangeFromTraitCollection:(id)collection toTraitCollection:(id)traitCollection;
 + (id)_existingTraitTokenReservingPlaceholderIfNecessaryWithName:(id)name identifier:(id)identifier;
-+ (id)_fallbackTraitCollection;
 + (id)_identifierForTrait:(Class)trait;
 + (id)_nameForTrait:(Class)trait;
 + (id)_traitCollectionForSidebarAppearance;
@@ -76,10 +77,9 @@
 + (uint64_t)_defaultTraitCollection;
 + (uint64_t)_emptyTraitCollection;
 + (uint64_t)_nameForTraitToken:(uint64_t)token;
-+ (uint64_t)_performWithCurrentTraitCollection:(uint64_t)collection usingBlock:;
 + (uint64_t)_performWithFallbackEnvironment:(uint64_t)environment block:;
-+ (uint64_t)_traitCollectionWithTintColor:(uint64_t)color;
-+ (void)_applyOverrides:(uint64_t)overrides defaultValueOverrides:(uint64_t)valueOverrides usingTraitCollectionProvider:(uint64_t)provider mutableTraitCollectionProvider:;
++ (void)_applyOverrides:(uint64_t *)overrides defaultValueOverrides:(uint64_t)valueOverrides usingTraitCollectionProvider:(uint64_t)provider mutableTraitCollectionProvider:;
++ (void)_performWithCurrentTraitCollection:(uint64_t)collection usingBlock:;
 + (void)_setBackgroundThreadFallbackTraitCollection:(uint64_t)collection;
 + (void)_systemTraitTokensAffectingImageLookupSet;
 + (void)initialize;
@@ -117,15 +117,13 @@
 - (UITraitCollection)traitCollectionByReplacingCGFloatValue:(CGFloat)value forTrait:(UICGFloatTrait)trait;
 - (UITraitCollection)traitCollectionByReplacingNSIntegerValue:(NSInteger)value forTrait:(UINSIntegerTrait)trait;
 - (UITraitCollection)traitCollectionByReplacingObject:(id)object forTrait:(UIObjectTrait)trait;
+- (_BYTE)_traitCollectionRelevantForImageConfiguration;
 - (__CFString)_appearanceName;
 - (__CFString)_styleEffectAppearanceName;
 - (__CFString)_valueForBuiltInTraitWithMetadata:(void *)metadata;
 - (__CFString)_valueForTraitWithMetadata:(unint64_t)metadata;
 - (char)_initWithBuiltinTraitStorage:(void *)storage tintColor:(void *)color clientDefinedTraits:(void *)traits environmentWrapper:;
-- (char)_initWithTraitMutations:(char *)mutations;
-- (char)_traitCollectionByFilteringTraitTokenSet:(char *)result;
 - (char)_traitCollectionByReplacingTintColor:(char *)result;
-- (char)_traitCollectionRelevantForImageConfiguration;
 - (double)_headroomSuppressionLimit;
 - (double)_typesettingLanguageAwareLineHeightRatio;
 - (double)_valueForCGFloatTraitToken:(id)token;
@@ -134,6 +132,7 @@
 - (id)_objectForTraitToken:(id)token;
 - (id)_systemIconAppearance;
 - (id)_traitCollectionByApplyingOverrides:(uint64_t)overrides defaultValueOverrides:;
+- (id)_traitCollectionByFilteringTraitTokenSet:(id)result;
 - (id)_traitCollectionByFilteringTraitTokens:(id)tokens;
 - (id)_traitCollectionByModifyingTraitsCopyOnWrite:(void *)write;
 - (id)_traitCollectionByPopulatingUnspecifiedTraitsWithValuesFromTraitCollection:(id)result;
@@ -164,18 +163,18 @@
 - (int64_t)tabAccessoryEnvironment;
 - (uint64_t)_containsTraitsInCollectionConsideringTraitsThatCanRepresentUnspecifiedOnly:(uint64_t)only;
 - (uint64_t)_createTraitTokenSetForChangesFromTraitCollection:(uint64_t)collection@<X8>;
-- (uint64_t)_descriptionWithPrivateTraits:(uint64_t)result;
+- (uint64_t)_initWithTraitMutations:(uint64_t)mutations;
 - (uint64_t)_matchesIntersectionWithTraitCollectionConsideringTraitsThatCanRepresentUnspecifiedOnly:(uint64_t)only;
 - (uint64_t)_resolvesNaturalAlignmentWithBaseWritingDirectionWithDefaultValue:(void *)value;
 - (uint64_t)_specifiedTraitTokens;
 - (uint64_t)_specifiedTraitTokensLocked;
-- (uint64_t)_traitsDescriptionMatching:(_BOOL4)matching includePrivateTraits:;
 - (unint64_t)_selectionIsKey;
 - (unint64_t)_semanticContext;
 - (unint64_t)_valueForNSUIntegerTraitToken:(id)token;
 - (unint64_t)hash;
 - (unint64_t)valueForNSUIntegerTrait:(Class)trait;
 - (void)_computeSpecifiedTraitTokensAcquireLock:(uint64_t)lock@<X8>;
+- (void)_descriptionWithPrivateTraits:(void *)result;
 - (void)_enumerateThemeAppearanceNamesForLookup:(void *)result;
 - (void)_enumerateThemeKeysForLookup:(void *)result;
 - (void)_fallbackTraitCollection;
@@ -187,10 +186,11 @@
 - (void)_setObject:(id)object forTraitToken:(id)token;
 - (void)_setTintColor:(id)color;
 - (void)_setTypesettingLanguageAwareLineHeightRatio:(double)ratio;
-- (void)_setValue:(uint64_t)value forTraitWithMetadata:(__n128)metadata;
+- (void)_setValue:(uint64_t)value forTraitWithMetadata:(int8x16_t)metadata;
 - (void)_themeKey;
 - (void)_traitCollectionWithIncrementedBackgroundLevel;
 - (void)_traitCollectionWithNonDefaultValuesForTraitsThatCannotRepresentUnspecified;
+- (void)_traitsDescriptionMatching:(_BOOL4)matching includePrivateTraits:;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
 - (void)setAccessibilityContrast:(int64_t)contrast;
@@ -221,7 +221,7 @@
 
 @implementation UITraitCollection
 
-+ (id)_fallbackTraitCollection
++ (double)_fallbackTraitCollection
 {
   objc_opt_self();
   if (pthread_main_np() == 1)
@@ -279,7 +279,7 @@
   return v2;
 }
 
-- (char)_traitCollectionRelevantForImageConfiguration
+- (_BYTE)_traitCollectionRelevantForImageConfiguration
 {
   if (!object)
   {
@@ -462,18 +462,18 @@ char *__42__UITraitCollection__emptyTraitCollection__block_invoke()
 
 void __62__UITraitCollection__systemTraitTokensAffectingImageLookupSet__block_invoke(int8x16_t a1)
 {
-  _UITraitTokenSetInsert(&unk_1ED49EC18, 3uLL, a1);
-  _UITraitTokenSetInsert(&unk_1ED49EC18, 0, v1);
-  _UITraitTokenSetInsert(&unk_1ED49EC18, 1uLL, v2);
-  _UITraitTokenSetInsert(&unk_1ED49EC18, 8uLL, v3);
-  _UITraitTokenSetInsert(&unk_1ED49EC18, 4uLL, v4);
-  _UITraitTokenSetInsert(&unk_1ED49EC18, 5uLL, v5);
-  _UITraitTokenSetInsert(&unk_1ED49EC18, 2uLL, v6);
-  _UITraitTokenSetInsert(&unk_1ED49EC18, 0xBuLL, v7);
-  _UITraitTokenSetInsert(&unk_1ED49EC18, 0x11uLL, v8);
-  _UITraitTokenSetInsert(&unk_1ED49EC18, 7uLL, v9);
+  _UITraitTokenSetInsert(qword_1ED49EC18, 3uLL, a1);
+  _UITraitTokenSetInsert(qword_1ED49EC18, 0, v1);
+  _UITraitTokenSetInsert(qword_1ED49EC18, 1uLL, v2);
+  _UITraitTokenSetInsert(qword_1ED49EC18, 8uLL, v3);
+  _UITraitTokenSetInsert(qword_1ED49EC18, 4uLL, v4);
+  _UITraitTokenSetInsert(qword_1ED49EC18, 5uLL, v5);
+  _UITraitTokenSetInsert(qword_1ED49EC18, 2uLL, v6);
+  _UITraitTokenSetInsert(qword_1ED49EC18, 0xBuLL, v7);
+  _UITraitTokenSetInsert(qword_1ED49EC18, 0x11uLL, v8);
+  _UITraitTokenSetInsert(qword_1ED49EC18, 7uLL, v9);
 
-  _UITraitTokenSetInsert(&unk_1ED49EC18, 9uLL, v10);
+  _UITraitTokenSetInsert(qword_1ED49EC18, 9uLL, v10);
 }
 
 - (UITraitCollection)init
@@ -734,12 +734,12 @@ uint64_t __44__UITraitCollection__defaultTraitCollection__block_invoke_2(uint64_
 {
   objc_opt_self();
   os_unfair_lock_lock(&_backgroundThreadFallbackTraitCollectionLock);
-  v0 = _backgroundThreadFallbackTraitCollection;
+  v1 = _backgroundThreadFallbackTraitCollection;
   os_unfair_lock_unlock(&_backgroundThreadFallbackTraitCollectionLock);
-  if (v0)
+  if (v1)
   {
 
-    return v0;
+    return v1;
   }
 
   else
@@ -910,13 +910,13 @@ uint64_t __59__UITraitCollection__systemTraitTokensAffectingImageLookup__block_i
 
 - (BOOL)_hasGlassBackgroundStyle
 {
-  v3 = type metadata accessor for _GlassBackgroundStyle();
+  v3 = type metadata accessor for _GlassBackgroundStyle(0);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   sub_188E1B6FC(v5);
 
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937E70);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937E70, &unk_18A64FD50);
   LOBYTE(self) = (*(*(v7 - 8) + 48))(v5, 2, v7) == 0;
   sub_188A828FC(v5, type metadata accessor for _GlassBackgroundStyle);
   return self;
@@ -952,7 +952,7 @@ uint64_t __59__UITraitCollection__systemTraitTokensAffectingImageLookup__block_i
 
 - (BOOL)_barPlattersHidden
 {
-  v3 = type metadata accessor for _GlassBackgroundStyle();
+  v3 = type metadata accessor for _GlassBackgroundStyle(0);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
@@ -960,7 +960,7 @@ uint64_t __59__UITraitCollection__systemTraitTokensAffectingImageLookup__block_i
   {
     sub_188E1B6FC(v5);
 
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937E70);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937E70, &unk_18A64FD50);
     v8 = (*(*(v7 - 8) + 48))(v5, 2, v7) == 0;
     sub_188AD77B4(v5);
   }
@@ -1050,7 +1050,7 @@ uint64_t __59__UITraitCollection__systemTraitTokensAffectingImageLookup__block_i
   return v3;
 }
 
-uint64_t __64__UITraitCollection__traitTokensIncludingPlaceholdersForTraits___block_invoke(uint64_t a1)
+void *__64__UITraitCollection__traitTokensIncludingPlaceholdersForTraits___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v7 = 0u;
@@ -1073,7 +1073,8 @@ uint64_t __64__UITraitCollection__traitTokensIncludingPlaceholdersForTraits___bl
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 40) addObject:{_UITraitTokenForTraitLocked(0, *(*(&v7 + 1) + 8 * v6++))}];
+        [*(a1 + 40) addObject:{_UITraitTokenForTraitLocked(0, *(*(&v7 + 1) + 8 * v6))}];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -1096,7 +1097,7 @@ uint64_t __64__UITraitCollection__traitTokensIncludingPlaceholdersForTraits___bl
   v7 = 0u;
   v8 = 0u;
   v6 = 0u;
-  _UIGetTraitMetadata(v4, 0, &v6);
+  _UIGetTraitMetadata(0, v4, &v6);
   return v7;
 }
 
@@ -1106,7 +1107,7 @@ uint64_t __64__UITraitCollection__traitTokensIncludingPlaceholdersForTraits___bl
   v5 = 0u;
   v6 = 0u;
   v4 = 0u;
-  _UIGetTraitMetadata(a2, 0, &v4);
+  _UIGetTraitMetadata(0, a2, &v4);
   return v5;
 }
 
@@ -1119,7 +1120,7 @@ uint64_t __64__UITraitCollection__traitTokensIncludingPlaceholdersForTraits___bl
   v7 = 0u;
   v8 = 0u;
   v6 = 0u;
-  _UIGetTraitMetadata(v4, 0, &v6);
+  _UIGetTraitMetadata(0, v4, &v6);
   return *(&v7 + 1);
 }
 
@@ -1135,7 +1136,7 @@ uint64_t __64__UITraitCollection__traitTokensIncludingPlaceholdersForTraits___bl
   return v4;
 }
 
-- (char)_initWithTraitMutations:(char *)mutations
+- (uint64_t)_initWithTraitMutations:(uint64_t)mutations
 {
   mutationsCopy = mutations;
   if (mutations)
@@ -1155,12 +1156,12 @@ uint64_t __64__UITraitCollection__traitTokensIncludingPlaceholdersForTraits___bl
       {
       }
 
-      *(mutationsCopy + 35) = 0;
+      *(mutationsCopy + 280) = 0;
       *v6 = 0u;
       *(mutationsCopy + 264) = 0u;
-      mutationsCopy[288] |= 3u;
+      *(mutationsCopy + 288) |= 3u;
       (*(a2 + 16))(a2, mutationsCopy);
-      mutationsCopy[288] &= ~2u;
+      *(mutationsCopy + 288) &= ~2u;
     }
   }
 
@@ -1184,7 +1185,7 @@ uint64_t __64__UITraitCollection__traitTokensIncludingPlaceholdersForTraits___bl
 
 uint64_t __54__UITraitCollection_traitCollectionByModifyingTraits___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  (*(a3 + 16))(a3);
+  (*(a3 + 16))(a3, a2);
   v4 = *(*(a1 + 32) + 16);
 
   return v4();
@@ -1252,7 +1253,7 @@ uint64_t __54__UITraitCollection_traitCollectionByModifyingTraits___block_invoke
 + (BOOL)_isPlaceholderTraitToken:(id)token
 {
   memset(v4, 0, sizeof(v4));
-  _UIGetTraitMetadata(token, 0, v4);
+  _UIGetTraitMetadata(0, token, v4);
   return *(&v4[0] + 1) == 0;
 }
 
@@ -1285,7 +1286,7 @@ uint64_t __54__UITraitCollection_traitCollectionByModifyingTraits___block_invoke
   v8 = 0u;
   v9 = 0u;
   v7 = 0u;
-  _UIGetTraitMetadata(token, 2uLL, &v7);
+  _UIGetTraitMetadata(2uLL, token, &v7);
   v6[0] = v7;
   v6[1] = v8;
   v6[2] = v9;
@@ -1317,7 +1318,7 @@ uint64_t __54__UITraitCollection_traitCollectionByModifyingTraits___block_invoke
   v9 = 0u;
   v10 = 0u;
   v8 = 0u;
-  _UIGetTraitMetadata(token, 2uLL, &v8);
+  _UIGetTraitMetadata(2uLL, token, &v8);
   v7[0] = v8;
   v7[1] = v9;
   v7[2] = v10;
@@ -1359,7 +1360,7 @@ uint64_t __54__UITraitCollection_traitCollectionByModifyingTraits___block_invoke
   v7 = 0u;
   v8 = 0u;
   v6 = 0u;
-  _UIGetTraitMetadata(token, 2uLL, &v6);
+  _UIGetTraitMetadata(2uLL, token, &v6);
   v5[0] = v6;
   v5[1] = v7;
   v5[2] = v8;
@@ -1491,14 +1492,14 @@ LABEL_17:
   v8 = 0u;
   v9 = 0u;
   v7 = 0u;
-  _UIGetTraitMetadata(token, 2uLL, &v7);
+  _UIGetTraitMetadata(2uLL, token, &v7);
   v6[0] = v7;
   v6[1] = v8;
   v6[2] = v9;
   [(UITraitCollection *)self _setValue:v6 forTraitWithMetadata:v9];
 }
 
-- (void)_setValue:(uint64_t)value forTraitWithMetadata:(__n128)metadata
+- (void)_setValue:(uint64_t)value forTraitWithMetadata:(int8x16_t)metadata
 {
   v26 = *MEMORY[0x1E69E9840];
   if (!self)
@@ -1644,7 +1645,7 @@ LABEL_18:
 LABEL_27:
             if (a2 && v10)
             {
-              if ([a2 isEqual:v10])
+              if (objc_msgSend_isEqual_(a2, a2, v10))
               {
                 goto LABEL_18;
               }
@@ -1712,10 +1713,10 @@ LABEL_74:
 LABEL_78:
                 if (a2 && v17)
                 {
-                  v22 = [a2 isEqual:?];
+                  isEqual = objc_msgSend_isEqual_(a2);
                   v20 = *value;
                   v21 = (self + 248);
-                  if (v22)
+                  if (isEqual)
                   {
                     goto LABEL_74;
                   }
@@ -1835,7 +1836,7 @@ LABEL_16:
   v8 = 0u;
   v9 = 0u;
   v7 = 0u;
-  _UIGetTraitMetadata(token, 3uLL, &v7);
+  _UIGetTraitMetadata(3uLL, token, &v7);
   v6[0] = v7;
   v6[1] = v8;
   v6[2] = v9;
@@ -1856,7 +1857,7 @@ LABEL_16:
   v9 = 0u;
   v10 = 0u;
   v8 = 0u;
-  _UIGetTraitMetadata(token, 3uLL, &v8);
+  _UIGetTraitMetadata(3uLL, token, &v8);
   v7[0] = v8;
   v7[1] = v9;
   v7[2] = v10;
@@ -1877,7 +1878,7 @@ LABEL_16:
   v7 = 0u;
   v8 = 0u;
   v6 = 0u;
-  _UIGetTraitMetadata(token, 3uLL, &v6);
+  _UIGetTraitMetadata(3uLL, token, &v6);
   v5[0] = v6;
   v5[1] = v7;
   v5[2] = v8;
@@ -1918,7 +1919,7 @@ LABEL_16:
   v8 = 0u;
   v9 = 0u;
   v7 = 0u;
-  _UIGetTraitMetadata(token, 3uLL, &v7);
+  _UIGetTraitMetadata(3uLL, token, &v7);
   v6[0] = v7;
   v6[1] = v8;
   v6[2] = v9;
@@ -1939,7 +1940,7 @@ LABEL_16:
   v8 = 0u;
   v9 = 0u;
   v7 = 0u;
-  _UIGetTraitMetadata(token, 4uLL, &v7);
+  _UIGetTraitMetadata(4uLL, token, &v7);
   v6[0] = v7;
   v6[1] = v8;
   v6[2] = v9;
@@ -1960,7 +1961,7 @@ LABEL_16:
   v9 = 0u;
   v10 = 0u;
   v8 = 0u;
-  _UIGetTraitMetadata(token, 4uLL, &v8);
+  _UIGetTraitMetadata(4uLL, token, &v8);
   v7[0] = v8;
   v7[1] = v9;
   v7[2] = v10;
@@ -1981,7 +1982,7 @@ LABEL_16:
   v7 = 0u;
   v8 = 0u;
   v6 = 0u;
-  _UIGetTraitMetadata(token, 4uLL, &v6);
+  _UIGetTraitMetadata(4uLL, token, &v6);
   v5[0] = v6;
   v5[1] = v7;
   v5[2] = v8;
@@ -2022,7 +2023,7 @@ LABEL_16:
   v8 = 0u;
   v9 = 0u;
   v7 = 0u;
-  _UIGetTraitMetadata(token, 4uLL, &v7);
+  _UIGetTraitMetadata(4uLL, token, &v7);
   v6[0] = v7;
   v6[1] = v8;
   v6[2] = v9;
@@ -2058,7 +2059,7 @@ LABEL_16:
   v8 = 0u;
   v9 = 0u;
   v7 = 0u;
-  _UIGetTraitMetadata(token, 1uLL, &v7);
+  _UIGetTraitMetadata(1uLL, token, &v7);
   v6[0] = v7;
   v6[1] = v8;
   v6[2] = v9;
@@ -2079,7 +2080,7 @@ LABEL_16:
   v9 = 0u;
   v10 = 0u;
   v8 = 0u;
-  _UIGetTraitMetadata(token, 1uLL, &v8);
+  _UIGetTraitMetadata(1uLL, token, &v8);
   v7[0] = v8;
   v7[1] = v9;
   v7[2] = v10;
@@ -2100,7 +2101,7 @@ LABEL_16:
   v7 = 0u;
   v8 = 0u;
   v6 = 0u;
-  _UIGetTraitMetadata(token, 1uLL, &v6);
+  _UIGetTraitMetadata(1uLL, token, &v6);
   v5[0] = v6;
   v5[1] = v7;
   v5[2] = v8;
@@ -2141,7 +2142,7 @@ LABEL_16:
   v8 = 0u;
   v9 = 0u;
   v7 = 0u;
-  _UIGetTraitMetadata(token, 1uLL, &v7);
+  _UIGetTraitMetadata(1uLL, token, &v7);
   v6[0] = v7;
   v6[1] = v8;
   v6[2] = v9;
@@ -2163,7 +2164,7 @@ LABEL_16:
   v13 = 0u;
   v14 = 0u;
   v12 = 0u;
-  _UIGetTraitMetadata(token, 0, &v12);
+  _UIGetTraitMetadata(0, token, &v12);
   if (*(&v12 + 1))
   {
     v4 = v14;
@@ -2275,7 +2276,7 @@ LABEL_13:
   return v13;
 }
 
-- (char)_traitCollectionByFilteringTraitTokenSet:(char *)result
+- (id)_traitCollectionByFilteringTraitTokenSet:(id)result
 {
   if (result)
   {
@@ -2605,7 +2606,7 @@ LABEL_17:
     }
 
 LABEL_14:
-    if (!v14 || !v10 || ([(__CFString *)v14 isEqual:v10]& 1) == 0)
+    if (!v14 || !v10 || (objc_msgSend_isEqual_(v14) & 1) == 0)
     {
       goto LABEL_17;
     }
@@ -2676,7 +2677,7 @@ uint64_t __47__UITraitCollection__specifiedTraitTokensArray__block_invoke(uint64
     v14 = 0u;
     v15 = 0u;
     v13 = 0u;
-    _UIGetTraitMetadata(specified, 0, &v13);
+    _UIGetTraitMetadata(0, specified, &v13);
     if (!*(&v13 + 1))
     {
       return [(NSDictionary *)self->_clientDefinedTraits objectForKey:*(&v14 + 1)]!= 0;
@@ -2734,7 +2735,7 @@ LABEL_19:
         {
           if (v7)
           {
-            return [(__CFString *)v5 isEqual:?]^ 1;
+            return objc_msgSend_isEqual_(v5) ^ 1;
           }
         }
 
@@ -2756,7 +2757,7 @@ LABEL_19:
   return _UITraitTokenSetContains(&self->_specifiedTraitTokens, v9);
 }
 
-uint64_t __61__UITraitCollection__computeSpecifiedTraitTokensAcquireLock___block_invoke(uint64_t a1)
+void *__61__UITraitCollection__computeSpecifiedTraitTokensAcquireLock___block_invoke(uint64_t a1)
 {
   v25 = *MEMORY[0x1E69E9840];
   v20 = 0u;
@@ -2788,7 +2789,7 @@ uint64_t __61__UITraitCollection__computeSpecifiedTraitTokensAcquireLock___block
         v18 = 0u;
         v19 = 0u;
         v17 = 0u;
-        _UIGetTraitMetadataLocked(v7, 0, &v17);
+        _UIGetTraitMetadataLocked(0, v7, &v17);
         if (!*(&v17 + 1))
         {
           goto LABEL_22;
@@ -2854,13 +2855,13 @@ LABEL_22:
         }
 
 LABEL_19:
-        if (!v11 || !v13 || ([(__CFString *)v11 isEqual:?]& 1) == 0)
+        if (!v11 || !v13 || (objc_msgSend_isEqual_(v11) & 1) == 0)
         {
           goto LABEL_22;
         }
 
 LABEL_23:
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -2993,20 +2994,20 @@ void __71__UITraitCollection__createTraitTokenSetForChangesFromTraitCollection__
 {
   if (_UITraitTokenSetContains(*(a1 + 48), a2))
   {
-    v19 = 0u;
-    v20 = 0u;
     v18 = 0u;
-    _UIGetTraitMetadataWithTraitTokenValueAcquireLock(0, a2, 0, &v18);
-    v5 = *(&v18 + 1);
+    v19 = 0u;
+    v17 = 0u;
+    _UIGetTraitMetadataWithTraitTokenValueAcquireLock(0, a2, 0, &v17);
+    v5 = *(&v17 + 1);
     v6 = *(a1 + 32);
-    if (!*(&v18 + 1))
+    if (!*(&v17 + 1))
     {
-      v12 = *(&v19 + 1);
-      v13 = [*(v6 + 224) objectForKey:*(&v19 + 1)];
-      v10 = [*(*(a1 + 40) + 224) objectForKey:v12];
-      v11 = v13;
+      v11 = *(&v18 + 1);
+      v12 = [*(v6 + 224) objectForKey:*(&v18 + 1)];
+      [*(*(a1 + 40) + 224) objectForKey:v11];
+      isEqual = objc_msgSend_isEqual_(v12);
 LABEL_9:
-      if ([v11 isEqual:v10])
+      if (isEqual)
       {
         return;
       }
@@ -3014,38 +3015,31 @@ LABEL_9:
       goto LABEL_11;
     }
 
+    v14 = v17;
     v15 = v18;
     v16 = v19;
-    v17 = v20;
     v7 = [(UITraitCollection *)v6 _valueForTraitWithMetadata:?];
     v8 = *(a1 + 40);
+    v14 = v17;
     v15 = v18;
     v16 = v19;
-    v17 = v20;
     v9 = [(UITraitCollection *)v8 _valueForTraitWithMetadata:?];
     if (v7 == v9)
     {
       return;
     }
 
-    if (v5 == 1)
+    if (v5 == 1 && v7 && v9)
     {
-      if (v7)
-      {
-        v10 = v9;
-        if (v9)
-        {
-          v11 = v7;
-          goto LABEL_9;
-        }
-      }
+      isEqual = objc_msgSend_isEqual_(v7);
+      goto LABEL_9;
     }
   }
 
 LABEL_11:
-  v14 = *(a1 + 56);
+  v13 = *(a1 + 56);
 
-  _UITraitTokenSetInsert(v14, a2, v4);
+  _UITraitTokenSetInsert(v13, a2, v4);
 }
 
 void __71__UITraitCollection__createTraitTokenSetForChangesFromTraitCollection___block_invoke_3(uint64_t a1, unint64_t a2)
@@ -3291,26 +3285,26 @@ LABEL_6:
     v11 = *(equal + 29);
     if (environmentWrapper == v11)
     {
-      v12 = 1;
+      isEqual = 1;
     }
 
     else
     {
-      v12 = 0;
+      isEqual = 0;
       if (environmentWrapper && v11)
       {
-        v12 = [environmentWrapper isEqual:?];
+        isEqual = objc_msgSend_isEqual_(environmentWrapper);
       }
     }
   }
 
   else
   {
-    v12 = 0;
+    isEqual = 0;
   }
 
   _Block_object_dispose(&v16, 8);
-  return v12;
+  return isEqual;
 }
 
 uint64_t __29__UITraitCollection_isEqual___block_invoke(uint64_t a1)
@@ -3326,59 +3320,53 @@ uint64_t __29__UITraitCollection_isEqual___block_invoke(uint64_t a1)
   return [v1 enumerateKeysAndObjectsUsingBlock:v4];
 }
 
-uint64_t __29__UITraitCollection_isEqual___block_invoke_2(uint64_t a1, uint64_t a2, __CFString *a3, _BYTE *a4)
+__CFString *__29__UITraitCollection_isEqual___block_invoke_2(uint64_t a1, uint64_t a2, __CFString *a3, _BYTE *a4)
 {
   result = [*(a1 + 32) objectForKeyedSubscript:a2];
-  if (result)
+  if (!result)
   {
-    v9 = result;
-    v10 = [_traitTokensByIdentifier objectForKey:a2];
-    if (!v10 || (v20 = 0u, v21 = 0u, v19 = 0u, _UIGetTraitMetadataLocked(v10, 0, &v19), !*(&v19 + 1)))
+    goto LABEL_9;
+  }
+
+  v9 = [_traitTokensByIdentifier objectForKey:a2];
+  if (v9)
+  {
+    v16 = 0u;
+    v17 = 0u;
+    v15 = 0u;
+    _UIGetTraitMetadataLocked(0, v9, &v15);
+    if (*(&v15 + 1))
     {
-      v15 = a3;
-      v14 = v9;
-LABEL_10:
-      result = [(__CFString *)v15 isEqual:v14];
-      if (result)
+      v10 = *(a1 + 40);
+      v12 = v15;
+      v13 = v16;
+      v14 = v17;
+      a3 = [(UITraitCollection *)v10 _valueForTraitWithMetadata:?];
+      v11 = *(a1 + 48);
+      v12 = v15;
+      v13 = v16;
+      v14 = v17;
+      result = [(UITraitCollection *)v11 _valueForTraitWithMetadata:?];
+      if (a3 == result)
       {
-        goto LABEL_12;
+        goto LABEL_10;
       }
 
-      goto LABEL_11;
-    }
-
-    v11 = *(a1 + 40);
-    v16 = v19;
-    v17 = v20;
-    v18 = v21;
-    v12 = [(UITraitCollection *)v11 _valueForTraitWithMetadata:?];
-    v13 = *(a1 + 48);
-    v16 = v19;
-    v17 = v20;
-    v18 = v21;
-    result = [(UITraitCollection *)v13 _valueForTraitWithMetadata:?];
-    if (v12 == result)
-    {
-      goto LABEL_12;
-    }
-
-    if (*(&v19 + 1) == 1)
-    {
-      if (v12)
+      if (*(&v15 + 1) != 1 || !a3 || !result)
       {
-        v14 = result;
-        if (result)
-        {
-          v15 = v12;
-          goto LABEL_10;
-        }
+        goto LABEL_9;
       }
     }
   }
 
-LABEL_11:
-  *(*(*(a1 + 56) + 8) + 24) = 0;
-LABEL_12:
+  result = objc_msgSend_isEqual_(a3);
+  if ((result & 1) == 0)
+  {
+LABEL_9:
+    *(*(*(a1 + 56) + 8) + 24) = 0;
+  }
+
+LABEL_10:
   if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
   {
     *a4 = 1;
@@ -3534,7 +3522,7 @@ void __80__UITraitCollection__appendClientDefinedTraitsDescription_includePrivat
     v10 = 0u;
     v11 = 0u;
     v9 = 0u;
-    _UIGetTraitMetadataLocked(v6, 0, &v9);
+    _UIGetTraitMetadataLocked(0, v6, &v9);
     if ((*(a1 + 40) & 1) != 0 || (BYTE8(v11) & 4) == 0)
     {
       [*(a1 + 32) addObject:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@ = %@", v10, a3)}];
@@ -3557,7 +3545,7 @@ void __80__UITraitCollection__appendClientDefinedTraitsDescription_includePrivat
   return [(UITraitCollection *)self _traitsDescriptionMatching:matching includePrivateTraits:has_internal_diagnostics];
 }
 
-- (uint64_t)_traitsDescriptionMatching:(_BOOL4)matching includePrivateTraits:
+- (void)_traitsDescriptionMatching:(_BOOL4)matching includePrivateTraits:
 {
   if (result)
   {
@@ -3670,7 +3658,7 @@ uint64_t __69__UITraitCollection__traitsDescriptionMatching_includePrivateTraits
   return [v3 containsString:v4];
 }
 
-- (uint64_t)_descriptionWithPrivateTraits:(uint64_t)result
+- (void)_descriptionWithPrivateTraits:(void *)result
 {
   if (result)
   {
@@ -3731,7 +3719,7 @@ LABEL_3:
     {
       if (v8 && v9)
       {
-        if ([v8 isEqual:?])
+        if (objc_msgSend_isEqual_(v8))
         {
           goto LABEL_17;
         }
@@ -3785,7 +3773,7 @@ LABEL_17:
     {
       if (v13 && v14)
       {
-        if ([v13 isEqual:?])
+        if (objc_msgSend_isEqual_(v13))
         {
           goto LABEL_26;
         }
@@ -3810,7 +3798,7 @@ LABEL_26:
   }
 }
 
-uint64_t __80__UITraitCollection__descriptionForChangeFromTraitCollection_toTraitCollection___block_invoke(uint64_t result, unint64_t *a2, unint64_t *a3, void *a4)
+void *__80__UITraitCollection__descriptionForChangeFromTraitCollection_toTraitCollection___block_invoke(void *result, unint64_t *a2, unint64_t *a3, void *a4)
 {
   if (*a2 != *a3)
   {
@@ -3839,7 +3827,7 @@ uint64_t __80__UITraitCollection__descriptionForChangeFromTraitCollection_toTrai
       [v9 appendFormat:@"%ld", *a3];
     }
 
-    v12 = *(v8 + 32);
+    v12 = v8[4];
 
     return [v12 addObject:v9];
   }
@@ -3847,11 +3835,11 @@ uint64_t __80__UITraitCollection__descriptionForChangeFromTraitCollection_toTrai
   return result;
 }
 
-uint64_t __80__UITraitCollection__descriptionForChangeFromTraitCollection_toTraitCollection___block_invoke_2(uint64_t result, void *a2, void *a3, void *a4)
+void *__80__UITraitCollection__descriptionForChangeFromTraitCollection_toTraitCollection___block_invoke_2(void *result, void *a2, void *a3, void *a4)
 {
   if (*a2 != *a3)
   {
-    v5 = *(result + 32);
+    v5 = result[4];
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %ld → %ld", _UIDescriptionForTraitName(a4), *a2, *a3];
 
     return [v5 addObject:v6];
@@ -3860,11 +3848,11 @@ uint64_t __80__UITraitCollection__descriptionForChangeFromTraitCollection_toTrai
   return result;
 }
 
-uint64_t __80__UITraitCollection__descriptionForChangeFromTraitCollection_toTraitCollection___block_invoke_3(uint64_t result, void *a2, void *a3, void *a4)
+void *__80__UITraitCollection__descriptionForChangeFromTraitCollection_toTraitCollection___block_invoke_3(void *result, void *a2, void *a3, void *a4)
 {
   if (*a2 != *a3)
   {
-    v5 = *(result + 32);
+    v5 = result[4];
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %g → %g", _UIDescriptionForTraitName(a4), *a2, *a3];
 
     return [v5 addObject:v6];
@@ -3919,7 +3907,7 @@ uint64_t __80__UITraitCollection__descriptionForChangeFromTraitCollection_toTrai
 
   v7 = 0u;
   memset(v6, 0, sizeof(v6));
-  _UIGetTraitMetadataLocked(v5, 0, v6);
+  _UIGetTraitMetadataLocked(0, v5, v6);
   return (BYTE8(v7) >> 2) & 1;
 }
 
@@ -3933,7 +3921,7 @@ __CFString *__80__UITraitCollection__descriptionForChangeFromTraitCollection_toT
 
   v5 = 0u;
   memset(v4, 0, sizeof(v4));
-  _UIGetTraitMetadataLocked(v2, 0, v4);
+  _UIGetTraitMetadataLocked(0, v2, v4);
   if ((BYTE8(v5) & 2) != 0)
   {
     return @"(unspecified)";
@@ -3961,7 +3949,7 @@ uint64_t __80__UITraitCollection__descriptionForChangeFromTraitCollection_toTrai
 
       if (a3)
       {
-        result = [a3 isEqual:result];
+        result = objc_msgSend_isEqual_(a3);
         if (result)
         {
           return result;
@@ -4093,12 +4081,12 @@ uint64_t __80__UITraitCollection__descriptionForChangeFromTraitCollection_toTrai
   }
 }
 
-uint64_t __37__UITraitCollection_encodeWithCoder___block_invoke(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t a4)
+void *__37__UITraitCollection_encodeWithCoder___block_invoke(void *result, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   v4 = *a2;
   if (*a2 != a4)
   {
-    v5 = *(result + 32);
+    v5 = result[4];
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"UITraitCollectionBuiltinTrait-%@", a3];
 
     return [v5 encodeInteger:v4 forKey:v6];
@@ -4107,12 +4095,12 @@ uint64_t __37__UITraitCollection_encodeWithCoder___block_invoke(uint64_t result,
   return result;
 }
 
-uint64_t __37__UITraitCollection_encodeWithCoder___block_invoke_2(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t a4)
+void *__37__UITraitCollection_encodeWithCoder___block_invoke_2(void *result, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   v4 = *a2;
   if (*a2 != a4)
   {
-    v5 = *(result + 32);
+    v5 = result[4];
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"UITraitCollectionBuiltinTrait-%@", a3];
 
     return [v5 encodeInteger:v4 forKey:v6];
@@ -4121,12 +4109,12 @@ uint64_t __37__UITraitCollection_encodeWithCoder___block_invoke_2(uint64_t resul
   return result;
 }
 
-uint64_t __37__UITraitCollection_encodeWithCoder___block_invoke_3(uint64_t result, double *a2, uint64_t a3, double a4)
+void *__37__UITraitCollection_encodeWithCoder___block_invoke_3(void *result, double *a2, uint64_t a3, double a4)
 {
   v4 = *a2;
   if (*a2 != a4)
   {
-    v5 = *(result + 32);
+    v5 = result[4];
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"UITraitCollectionBuiltinTrait-%@", a3];
 
     return [v5 encodeDouble:v6 forKey:v4];
@@ -4235,7 +4223,7 @@ LABEL_6:
     *(v4 + 88) = unk_18A681170;
     *(v4 + 8) = _UIBuiltinTraitStorageUnspecified;
     *(v4 + 27) = -1;
-    *(v4 + 24) = unk_18A681130;
+    *(v4 + 24) = *&qword_18A681130;
     v30[4] = coder;
     v31[0] = MEMORY[0x1E69E9820];
     v31[1] = 3221225472;
@@ -4357,7 +4345,7 @@ LABEL_25:
   return v5;
 }
 
-uint64_t __35__UITraitCollection_initWithCoder___block_invoke(uint64_t a1, uint64_t *a2, uint64_t a3)
+void *__35__UITraitCollection_initWithCoder___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"UITraitCollectionBuiltinTrait-%@", a3];
   result = [*(a1 + 32) containsValueForKey:v5];
@@ -4370,7 +4358,7 @@ uint64_t __35__UITraitCollection_initWithCoder___block_invoke(uint64_t a1, uint6
   return result;
 }
 
-uint64_t __35__UITraitCollection_initWithCoder___block_invoke_2(uint64_t a1, uint64_t *a2, uint64_t a3)
+void *__35__UITraitCollection_initWithCoder___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"UITraitCollectionBuiltinTrait-%@", a3];
   result = [*(a1 + 32) containsValueForKey:v5];
@@ -4383,7 +4371,7 @@ uint64_t __35__UITraitCollection_initWithCoder___block_invoke_2(uint64_t a1, uin
   return result;
 }
 
-uint64_t __35__UITraitCollection_initWithCoder___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
+void *__35__UITraitCollection_initWithCoder___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"UITraitCollectionBuiltinTrait-%@", a3];
   result = [*(a1 + 32) containsValueForKey:v5];
@@ -4424,7 +4412,7 @@ uint64_t __35__UITraitCollection_initWithCoder___block_invoke_3(uint64_t a1, voi
           v7 = *(only + 232);
           if (v7 != v6)
           {
-            if (v7 && (v8 = [v7 isEqual:?], v5 = v12, v8))
+            if (v7 && (isEqual = objc_msgSend_isEqual_(v7), v5 = v12, isEqual))
             {
               v3 = *(v12 + 24);
             }
@@ -4530,20 +4518,20 @@ LABEL_12:
     v15 = v18;
     v16 = v19;
     v13 = [(UITraitCollection *)v12 _valueForTraitWithMetadata:?];
-    if (v11 != v13 && (v6 != 1 || !v11 || !v13 || ([(__CFString *)v11 isEqual:v13]& 1) == 0))
+    if (v11 != v13 && (v6 != 1 || !v11 || !v13 || (objc_msgSend_isEqual_(v11) & 1) == 0))
     {
       goto LABEL_12;
     }
   }
 }
 
-uint64_t __97__UITraitCollection__containsTraitsInCollectionConsideringTraitsThatCanRepresentUnspecifiedOnly___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__97__UITraitCollection__containsTraitsInCollectionConsideringTraitsThatCanRepresentUnspecifiedOnly___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [_traitTokensByIdentifier objectForKey:a2];
   if (!result)
   {
     result = [*(*(a1 + 32) + 224) objectForKeyedSubscript:a2];
-    if (!result || (result = [result isEqual:a3], (result & 1) == 0))
+    if (!result || (result = objc_msgSend_isEqual_(result), (result & 1) == 0))
     {
       *(*(*(a1 + 40) + 8) + 24) = 0;
       *a4 = 1;
@@ -4560,7 +4548,7 @@ uint64_t __97__UITraitCollection__containsTraitsInCollectionConsideringTraitsTha
     return 0;
   }
 
-  v3 = 1;
+  isEqual = 1;
   if (a2)
   {
     v10 = 0;
@@ -4586,24 +4574,24 @@ uint64_t __97__UITraitCollection__containsTraitsInCollectionConsideringTraitsTha
         {
           if (v6 != v7)
           {
-            v3 = [v6 isEqual:?];
+            isEqual = objc_msgSend_isEqual_(v6);
             v5 = v11;
           }
 
-          *(v5 + 24) = v3;
+          *(v5 + 24) = isEqual;
         }
       }
     }
 
     else
     {
-      v3 = 0;
+      isEqual = 0;
     }
 
     _Block_object_dispose(&v10, 8);
   }
 
-  return v3;
+  return isEqual;
 }
 
 void __109__UITraitCollection__matchesIntersectionWithTraitCollectionConsideringTraitsThatCanRepresentUnspecifiedOnly___block_invoke(uint64_t *a1)
@@ -4679,7 +4667,7 @@ LABEL_5:
       v15 = v18;
       v16 = v19;
       v13 = [(UITraitCollection *)v12 _valueForTraitWithMetadata:?];
-      if (v11 != v13 && (v6 != 1 || !v11 || !v13 || ([(__CFString *)v11 isEqual:v13]& 1) == 0))
+      if (v11 != v13 && (v6 != 1 || !v11 || !v13 || (objc_msgSend_isEqual_(v11) & 1) == 0))
       {
         goto LABEL_5;
       }
@@ -4687,7 +4675,7 @@ LABEL_5:
   }
 }
 
-uint64_t __109__UITraitCollection__matchesIntersectionWithTraitCollectionConsideringTraitsThatCanRepresentUnspecifiedOnly___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__109__UITraitCollection__matchesIntersectionWithTraitCollectionConsideringTraitsThatCanRepresentUnspecifiedOnly___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [_traitTokensByIdentifier objectForKey:a2];
   if (!result)
@@ -4695,7 +4683,7 @@ uint64_t __109__UITraitCollection__matchesIntersectionWithTraitCollectionConside
     result = [*(*(a1 + 32) + 224) objectForKeyedSubscript:a2];
     if (result)
     {
-      result = [a3 isEqual:result];
+      result = objc_msgSend_isEqual_(a3);
       if ((result & 1) == 0)
       {
         *(*(*(a1 + 40) + 8) + 24) = 0;
@@ -4738,7 +4726,7 @@ void __96__UITraitCollection__traitCollectionWithNonDefaultValuesForTraitsThatCa
   v8 = 0u;
   v9 = 0u;
   v7 = 0u;
-  _UIGetTraitMetadata([MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2], 0, &v7);
+  _UIGetTraitMetadata(0, [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2], &v7);
   if (*(&v7 + 1) && (BYTE8(v9) & 2) == 0)
   {
     v3 = *(a1 + 32);
@@ -4924,7 +4912,7 @@ uint64_t __62__UITraitCollection_traitCollectionWithTraitsFromCollections___bloc
   return [v1 enumerateObjectsWithOptions:2 usingBlock:v4];
 }
 
-uint64_t __62__UITraitCollection_traitCollectionWithTraitsFromCollections___block_invoke_3(uint64_t a1, uint64_t a2, void (*a3)(void, void, void))
+void *__62__UITraitCollection_traitCollectionWithTraitsFromCollections___block_invoke_3(uint64_t a1, void *a2, void (*a3)(void, void, void))
 {
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -4945,7 +4933,7 @@ uint64_t __62__UITraitCollection_traitCollectionWithTraitsFromCollections___bloc
   v16[5] = v7;
   v16[6] = a3;
   _UITraitTokenSetEnumerate(v6, v16);
-  v8 = *(a2 + 224);
+  v8 = a2[28];
   v15[0] = MEMORY[0x1E69E9820];
   v15[1] = 3221225472;
   v15[2] = __62__UITraitCollection_traitCollectionWithTraitsFromCollections___block_invoke_5;
@@ -4955,13 +4943,13 @@ uint64_t __62__UITraitCollection_traitCollectionWithTraitsFromCollections___bloc
   v10 = *(*(a1 + 56) + 8);
   if (!*(v10 + 40))
   {
-    *(v10 + 40) = *(a2 + 240);
+    *(v10 + 40) = a2[30];
   }
 
   v11 = *(*(a1 + 64) + 8);
   if (!*(v11 + 40))
   {
-    *(v11 + 40) = *(a2 + 232);
+    *(v11 + 40) = a2[29];
   }
 
   return result;
@@ -4975,7 +4963,7 @@ void __62__UITraitCollection_traitCollectionWithTraitsFromCollections___block_in
   _UIGetTraitMetadataWithTraitTokenValueAcquireLock(0, a2, 0, &v16);
   if (*(&v16 + 1))
   {
-    if ((v18.n128_u8[8] & 2) != 0)
+    if ((v18.i8[8] & 2) != 0)
     {
       v4 = a1[5];
       if (v16 == 15)
@@ -5026,7 +5014,7 @@ LABEL_9:
   }
 }
 
-uint64_t __62__UITraitCollection_traitCollectionWithTraitsFromCollections___block_invoke_5(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__62__UITraitCollection_traitCollectionWithTraitsFromCollections___block_invoke_5(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [_traitTokensByIdentifier objectForKey:a2];
   if (!result)
@@ -5088,8 +5076,8 @@ void __96__UITraitCollection__traitCollectionByPopulatingUnspecifiedTraitsWithVa
   v11 = 0u;
   v12 = 0u;
   v10 = 0u;
-  _UIGetTraitMetadata([MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2], 0, &v10);
-  if (*(&v10 + 1) && (v12.n128_u8[8] & 2) != 0 && (_UITraitTokenSetContains(*(a1 + 48), a2) & 1) == 0)
+  _UIGetTraitMetadata(0, [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2], &v10);
+  if (*(&v10 + 1) && (v12.i8[8] & 2) != 0 && (_UITraitTokenSetContains(*(a1 + 48), a2) & 1) == 0)
   {
     v4 = *(a1 + 32);
     v7 = v10;
@@ -5104,7 +5092,7 @@ void __96__UITraitCollection__traitCollectionByPopulatingUnspecifiedTraitsWithVa
   }
 }
 
-+ (void)_applyOverrides:(uint64_t)overrides defaultValueOverrides:(uint64_t)valueOverrides usingTraitCollectionProvider:(uint64_t)provider mutableTraitCollectionProvider:
++ (void)_applyOverrides:(uint64_t *)overrides defaultValueOverrides:(uint64_t)valueOverrides usingTraitCollectionProvider:(uint64_t)provider mutableTraitCollectionProvider:
 {
   v36 = *MEMORY[0x1E69E9840];
   v9 = objc_opt_self();
@@ -5161,7 +5149,7 @@ LABEL_3:
   v27[5] = valueOverrides;
   v27[6] = provider;
   _UITraitTokenSetEnumerate(_specifiedTraitTokens, v27);
-  if (overrides && _UITraitTokenSetCount(overrides + 16))
+  if (overrides && _UITraitTokenSetCount((overrides + 2)))
   {
     v13 = (*(valueOverrides + 16))(valueOverrides);
     _specifiedTraitTokens2 = [(UITraitCollection *)v13 _specifiedTraitTokens];
@@ -5229,7 +5217,7 @@ LABEL_3:
   _Block_object_dispose(&v29, 8);
 }
 
-uint64_t __119__UITraitCollection__applyOverrides_defaultValueOverrides_usingTraitCollectionProvider_mutableTraitCollectionProvider___block_invoke(uint64_t a1)
+void *__119__UITraitCollection__applyOverrides_defaultValueOverrides_usingTraitCollectionProvider_mutableTraitCollectionProvider___block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x1E69E9840];
   v9 = 0u;
@@ -5267,7 +5255,7 @@ uint64_t __119__UITraitCollection__applyOverrides_defaultValueOverrides_usingTra
           }
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -5286,7 +5274,7 @@ void __119__UITraitCollection__applyOverrides_defaultValueOverrides_usingTraitCo
   v11 = 0u;
   v12 = 0u;
   v10 = 0u;
-  _UIGetTraitMetadata([MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2], 0, &v10);
+  _UIGetTraitMetadata(0, [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2], &v10);
   v3 = a1[4];
   v7 = v10;
   v8 = v11;
@@ -5313,9 +5301,9 @@ void __119__UITraitCollection__applyOverrides_defaultValueOverrides_usingTraitCo
     v10 = 0u;
     v11 = 0u;
     v9 = 0u;
-    _UIGetTraitMetadata([MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2], 0, &v9);
-    v4 = v11.n128_u64[0];
-    if (v11.n128_u8[8])
+    _UIGetTraitMetadata(0, [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2], &v9);
+    v4 = v11.i64[0];
+    if (v11.i8[8])
     {
       v5 = v10;
       if (*(&v9 + 1) > 2)
@@ -5335,7 +5323,7 @@ LABEL_12:
         goto LABEL_10;
       }
 
-      v4 = *v11.n128_u64[0];
+      v4 = *v11.i64[0];
     }
 
 LABEL_10:
@@ -5407,7 +5395,7 @@ LABEL_50:
           v11 = xmmword_18A681160;
           v12 = unk_18A681170;
           v7[1] = *(&_UIBuiltinTraitStorageUnspecified + 1);
-          v8 = unk_18A681130;
+          v8 = *&qword_18A681130;
           v7[0] = idiom;
           v4 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v7 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
           v6 = (v4 + 248);
@@ -5536,7 +5524,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceIdiom___block_invok
   v7 = xmmword_18A681160;
   v8 = unk_18A681170;
   v3[1] = *(&_UIBuiltinTraitStorageUnspecified + 1);
-  v4 = unk_18A681130;
+  v4 = *&qword_18A681130;
   v3[0] = 0;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49E8E0 = v0;
@@ -5570,7 +5558,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceIdiom___block_invok
   v7 = xmmword_18A681160;
   v8 = unk_18A681170;
   v3[1] = *(&_UIBuiltinTraitStorageUnspecified + 1);
-  v4 = unk_18A681130;
+  v4 = *&qword_18A681130;
   v3[0] = 1;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49E8F0 = v0;
@@ -5604,7 +5592,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceIdiom___block_invok
   v7 = xmmword_18A681160;
   v8 = unk_18A681170;
   v3[1] = *(&_UIBuiltinTraitStorageUnspecified + 1);
-  v4 = unk_18A681130;
+  v4 = *&qword_18A681130;
   v3[0] = 2;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49E900 = v0;
@@ -5638,7 +5626,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceIdiom___block_invok
   v7 = xmmword_18A681160;
   v8 = unk_18A681170;
   v3[1] = *(&_UIBuiltinTraitStorageUnspecified + 1);
-  v4 = unk_18A681130;
+  v4 = *&qword_18A681130;
   v3[0] = 3;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49E910 = v0;
@@ -5672,7 +5660,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceIdiom___block_invok
   v7 = xmmword_18A681160;
   v8 = unk_18A681170;
   v3[1] = *(&_UIBuiltinTraitStorageUnspecified + 1);
-  v4 = unk_18A681130;
+  v4 = *&qword_18A681130;
   v3[0] = 4;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49E920 = v0;
@@ -5706,7 +5694,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceIdiom___block_invok
   v7 = xmmword_18A681160;
   v8 = unk_18A681170;
   v3[1] = *(&_UIBuiltinTraitStorageUnspecified + 1);
-  v4 = unk_18A681130;
+  v4 = *&qword_18A681130;
   v3[0] = 5;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49E930 = v0;
@@ -5740,7 +5728,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceIdiom___block_invok
   v7 = xmmword_18A681160;
   v8 = unk_18A681170;
   v3[1] = *(&_UIBuiltinTraitStorageUnspecified + 1);
-  v4 = unk_18A681130;
+  v4 = *&qword_18A681130;
   v3[0] = 6;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49E940 = v0;
@@ -5774,7 +5762,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceIdiom___block_invok
   v7 = xmmword_18A681160;
   v8 = unk_18A681170;
   v3[1] = *(&_UIBuiltinTraitStorageUnspecified + 1);
-  v4 = unk_18A681130;
+  v4 = *&qword_18A681130;
   v3[0] = 7;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49E950 = v0;
@@ -5808,7 +5796,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceIdiom___block_invok
   v7 = xmmword_18A681160;
   v8 = unk_18A681170;
   v3[1] = *(&_UIBuiltinTraitStorageUnspecified + 1);
-  v4 = unk_18A681130;
+  v4 = *&qword_18A681130;
   v3[0] = 8;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49E960 = v0;
@@ -5842,7 +5830,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceIdiom___block_invok
   v7 = xmmword_18A681160;
   v8 = unk_18A681170;
   v3[1] = *(&_UIBuiltinTraitStorageUnspecified + 1);
-  v4 = unk_18A681130;
+  v4 = *&qword_18A681130;
   v3[0] = 9;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49E970 = v0;
@@ -5876,7 +5864,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceIdiom___block_invok
   v7 = xmmword_18A681160;
   v8 = unk_18A681170;
   v3[1] = *(&_UIBuiltinTraitStorageUnspecified + 1);
-  v4 = unk_18A681130;
+  v4 = *&qword_18A681130;
   v3[0] = 10;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49E980 = v0;
@@ -5986,7 +5974,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceIdiom___block_invok
     v11 = xmmword_18A681160;
     v12 = unk_18A681170;
     v7[0] = _UIBuiltinTraitStorageUnspecified;
-    v8 = unk_18A681130;
+    v8 = *&qword_18A681130;
     *&v7[1] = scale;
     v4 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v7 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
     v6 = (v4 + 248);
@@ -6019,7 +6007,7 @@ void __53__UITraitCollection_traitCollectionWithDisplayScale___block_invoke()
   v7 = xmmword_18A681160;
   v8 = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v4 = unk_18A681130;
+  v4 = *&qword_18A681130;
   v3[1] = 0x3FF0000000000000;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49E990 = v0;
@@ -6053,7 +6041,7 @@ void __53__UITraitCollection_traitCollectionWithDisplayScale___block_invoke_2()
   v7 = xmmword_18A681160;
   v8 = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v4 = unk_18A681130;
+  v4 = *&qword_18A681130;
   v3[1] = 0x4000000000000000;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49E9A0 = v0;
@@ -6087,7 +6075,7 @@ void __53__UITraitCollection_traitCollectionWithDisplayScale___block_invoke_3()
   v7 = xmmword_18A681160;
   v8 = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v4 = unk_18A681130;
+  v4 = *&qword_18A681130;
   v3[1] = 0x4008000000000000;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49E9B0 = v0;
@@ -6116,7 +6104,7 @@ void __53__UITraitCollection_traitCollectionWithDisplayScale___block_invoke_3()
     {
       p_specifiedTraitTokens = &self->_specifiedTraitTokens;
 
-      _UITraitTokenSetRemove(p_specifiedTraitTokens, 3uLL, *&scale);
+      _UITraitTokenSetRemove(p_specifiedTraitTokens, 3, *&scale);
     }
 
     else
@@ -6288,7 +6276,7 @@ void __53__UITraitCollection_traitCollectionWithDisplayGamut___block_invoke_2()
     {
       p_specifiedTraitTokens = &self->_specifiedTraitTokens;
 
-      _UITraitTokenSetRemove(p_specifiedTraitTokens, 8uLL, v3);
+      _UITraitTokenSetRemove(p_specifiedTraitTokens, 8, v3);
     }
 
     else
@@ -6355,7 +6343,7 @@ void __53__UITraitCollection_traitCollectionWithDisplayGamut___block_invoke_2()
       v11 = xmmword_18A681160;
       v12 = unk_18A681170;
       v8[0] = _UIBuiltinTraitStorageUnspecified;
-      v8[1] = unk_18A681130;
+      v8[1] = *&qword_18A681130;
       v10 = horizontalSizeClass;
       v5 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v8 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
       v7 = (v5 + 248);
@@ -6395,7 +6383,7 @@ void __60__UITraitCollection_traitCollectionWithHorizontalSizeClass___block_invo
   v6 = xmmword_18A681160;
   v7 = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v5 = 1;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49E9E0 = v0;
@@ -6429,7 +6417,7 @@ void __60__UITraitCollection_traitCollectionWithHorizontalSizeClass___block_invo
   v6 = xmmword_18A681160;
   v7 = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v5 = 2;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49E9F0 = v0;
@@ -6465,7 +6453,7 @@ void __60__UITraitCollection_traitCollectionWithHorizontalSizeClass___block_invo
     {
       v6 = &self->_specifiedTraitTokens;
 
-      _UITraitTokenSetRemove(v6, 4uLL, v3);
+      _UITraitTokenSetRemove(v6, 4, v3);
     }
   }
 
@@ -6522,7 +6510,7 @@ void __60__UITraitCollection_traitCollectionWithHorizontalSizeClass___block_invo
       memset(&v8[2], 0, 32);
       v8[5] = unk_18A681170;
       v8[0] = _UIBuiltinTraitStorageUnspecified;
-      v8[1] = unk_18A681130;
+      v8[1] = *&qword_18A681130;
       v8[4] = verticalSizeClass;
       v5 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v8 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
       v7 = (v5 + 248);
@@ -6559,7 +6547,7 @@ void __58__UITraitCollection_traitCollectionWithVerticalSizeClass___block_invoke
   memset(&v3[2], 0, 32);
   v3[5] = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v3[4] = 1uLL;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49EA00 = v0;
@@ -6590,7 +6578,7 @@ void __58__UITraitCollection_traitCollectionWithVerticalSizeClass___block_invoke
   memset(&v3[2], 0, 32);
   v3[5] = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v3[4] = 2uLL;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49EA10 = v0;
@@ -6626,7 +6614,7 @@ void __58__UITraitCollection_traitCollectionWithVerticalSizeClass___block_invoke
     {
       v6 = &self->_specifiedTraitTokens;
 
-      _UITraitTokenSetRemove(v6, 5uLL, v3);
+      _UITraitTokenSetRemove(v6, 5, v3);
     }
   }
 
@@ -6685,7 +6673,7 @@ void __58__UITraitCollection_traitCollectionWithVerticalSizeClass___block_invoke
       v9 = 0;
       v11 = unk_18A681170;
       v8[0] = _UIBuiltinTraitStorageUnspecified;
-      v8[1] = unk_18A681130;
+      v8[1] = *&qword_18A681130;
       v10 = userInterfaceStyle;
       v5 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v8 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
       v7 = (v5 + 248);
@@ -6724,7 +6712,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceStyle___block_invok
   v4 = 0;
   v6 = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v5 = 1;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49EA20 = v0;
@@ -6757,7 +6745,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceStyle___block_invok
   v4 = 0;
   v6 = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v5 = 2;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49EA30 = v0;
@@ -6793,7 +6781,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceStyle___block_invok
     {
       v6 = &self->_specifiedTraitTokens;
 
-      _UITraitTokenSetRemove(v6, 1uLL, v3);
+      _UITraitTokenSetRemove(v6, 1, v3);
     }
   }
 
@@ -6849,7 +6837,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceStyle___block_invok
       memset(&v9[2], 0, 48);
       v11 = unk_18A681178;
       v9[0] = _UIBuiltinTraitStorageUnspecified;
-      v9[1] = unk_18A681130;
+      v9[1] = *&qword_18A681130;
       v10 = layoutDirection;
       v6 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v9 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
       v8 = (v6 + 248);
@@ -6891,7 +6879,7 @@ void __56__UITraitCollection_traitCollectionWithLayoutDirection___block_invoke()
   memset(&v3[2], 0, 48);
   v5 = unk_18A681178;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v4 = 0;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49EA40 = v0;
@@ -6923,7 +6911,7 @@ void __56__UITraitCollection_traitCollectionWithLayoutDirection___block_invoke_2
   memset(&v3[2], 0, 48);
   v5 = unk_18A681178;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v4 = 1;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49EA50 = v0;
@@ -6952,7 +6940,7 @@ void __56__UITraitCollection_traitCollectionWithLayoutDirection___block_invoke_2
     {
       p_specifiedTraitTokens = &self->_specifiedTraitTokens;
 
-      _UITraitTokenSetRemove(p_specifiedTraitTokens, 2uLL, v3);
+      _UITraitTokenSetRemove(p_specifiedTraitTokens, 2, v3);
     }
 
     else
@@ -7017,7 +7005,7 @@ void __56__UITraitCollection_traitCollectionWithLayoutDirection___block_invoke_2
       memset(&v8[2], 0, 48);
       v9 = unk_18A681170;
       v8[0] = _UIBuiltinTraitStorageUnspecified;
-      v8[1] = unk_18A681130;
+      v8[1] = *&qword_18A681130;
       v10 = capability;
       v5 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v8 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
       v7 = (v5 + 248);
@@ -7055,7 +7043,7 @@ void __61__UITraitCollection_traitCollectionWithForceTouchCapability___block_inv
   memset(&v3[2], 0, 48);
   v4 = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v5 = 1;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49EA60 = v0;
@@ -7087,7 +7075,7 @@ void __61__UITraitCollection_traitCollectionWithForceTouchCapability___block_inv
   memset(&v3[2], 0, 48);
   v4 = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v5 = 2;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49EA70 = v0;
@@ -7123,7 +7111,7 @@ void __61__UITraitCollection_traitCollectionWithForceTouchCapability___block_inv
     {
       v6 = &self->_specifiedTraitTokens;
 
-      _UITraitTokenSetRemove(v6, 6uLL, v3);
+      _UITraitTokenSetRemove(v6, 6, v3);
     }
   }
 
@@ -7167,7 +7155,7 @@ void __61__UITraitCollection_traitCollectionWithForceTouchCapability___block_inv
     memset(&v9[2], 0, 48);
     v9[5] = unk_18A681170;
     v9[0] = _UIBuiltinTraitStorageUnspecified;
-    v9[1] = unk_18A681130;
+    v9[1] = *&qword_18A681130;
     radiusCopy = radius;
     v6 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v9 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
     v8 = (v6 + 248);
@@ -7220,7 +7208,7 @@ void __61__UITraitCollection_traitCollectionWithForceTouchCapability___block_inv
       memset(&v9[2], 0, 48);
       v9[5] = unk_18A681170;
       v9[0] = _UIBuiltinTraitStorageUnspecified;
-      v9[1] = unk_18A681130;
+      v9[1] = *&qword_18A681130;
       v10 = legibilityWeight;
       v6 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v9 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
       v8 = (v6 + 248);
@@ -7262,7 +7250,7 @@ void __57__UITraitCollection_traitCollectionWithLegibilityWeight___block_invoke(
   memset(&v3[2], 0, 48);
   v3[5] = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v4 = 0;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49EA80 = v0;
@@ -7294,7 +7282,7 @@ void __57__UITraitCollection_traitCollectionWithLegibilityWeight___block_invoke_
   memset(&v3[2], 0, 48);
   v3[5] = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v4 = 1;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49EA90 = v0;
@@ -7323,7 +7311,7 @@ void __57__UITraitCollection_traitCollectionWithLegibilityWeight___block_invoke_
     {
       p_specifiedTraitTokens = &self->_specifiedTraitTokens;
 
-      _UITraitTokenSetRemove(p_specifiedTraitTokens, 0xBuLL, v3);
+      _UITraitTokenSetRemove(p_specifiedTraitTokens, 0xB, v3);
     }
 
     else
@@ -7386,7 +7374,7 @@ void __57__UITraitCollection_traitCollectionWithLegibilityWeight___block_invoke_
       memset(&v9[2], 0, 48);
       v9[5] = unk_18A681170;
       v9[0] = _UIBuiltinTraitStorageUnspecified;
-      v9[1] = unk_18A681130;
+      v9[1] = *&qword_18A681130;
       v10 = userInterfaceActiveAppearance;
       v6 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v9 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
       v8 = (v6 + 248);
@@ -7418,7 +7406,7 @@ void __57__UITraitCollection_traitCollectionWithActiveAppearance___block_invoke(
   memset(&v3[2], 0, 48);
   v3[5] = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v4 = 1;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49EAA0 = v0;
@@ -7447,7 +7435,7 @@ void __57__UITraitCollection_traitCollectionWithActiveAppearance___block_invoke(
     {
       p_specifiedTraitTokens = &self->_specifiedTraitTokens;
 
-      _UITraitTokenSetRemove(p_specifiedTraitTokens, 0xCuLL, v3);
+      _UITraitTokenSetRemove(p_specifiedTraitTokens, 0xC, v3);
     }
 
     else
@@ -7510,7 +7498,7 @@ void __57__UITraitCollection_traitCollectionWithActiveAppearance___block_invoke(
       memset(&v9[2], 0, 48);
       v9[5] = unk_18A681170;
       v9[0] = _UIBuiltinTraitStorageUnspecified;
-      v9[1] = unk_18A681130;
+      v9[1] = *&qword_18A681130;
       v10 = accessibilityContrast;
       v6 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v9 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
       v8 = (v6 + 248);
@@ -7552,7 +7540,7 @@ void __62__UITraitCollection_traitCollectionWithAccessibilityContrast___block_in
   memset(&v3[2], 0, 48);
   v3[5] = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v4 = 0;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49EAB0 = v0;
@@ -7584,7 +7572,7 @@ void __62__UITraitCollection_traitCollectionWithAccessibilityContrast___block_in
   memset(&v3[2], 0, 48);
   v3[5] = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v4 = 1;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49EAC0 = v0;
@@ -7613,7 +7601,7 @@ void __62__UITraitCollection_traitCollectionWithAccessibilityContrast___block_in
     {
       p_specifiedTraitTokens = &self->_specifiedTraitTokens;
 
-      _UITraitTokenSetRemove(p_specifiedTraitTokens, 9uLL, v3);
+      _UITraitTokenSetRemove(p_specifiedTraitTokens, 9, v3);
     }
 
     else
@@ -7676,7 +7664,7 @@ void __62__UITraitCollection_traitCollectionWithAccessibilityContrast___block_in
       memset(&v9[2], 0, 48);
       v9[5] = unk_18A681170;
       v9[0] = _UIBuiltinTraitStorageUnspecified;
-      v9[1] = unk_18A681130;
+      v9[1] = *&qword_18A681130;
       v11 = userInterfaceLevel;
       v6 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v9 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
       v8 = (v6 + 248);
@@ -7717,7 +7705,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceLevel___block_invok
   memset(&v3[2], 0, 48);
   v3[5] = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49EAD0 = v0;
   v1 = *(v0 + 31);
@@ -7748,7 +7736,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceLevel___block_invok
   memset(&v3[2], 0, 48);
   v3[5] = unk_18A681170;
   v3[0] = _UIBuiltinTraitStorageUnspecified;
-  v3[1] = unk_18A681130;
+  v3[1] = *&qword_18A681130;
   v5 = 1;
   v0 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:v3 tintColor:0 clientDefinedTraits:0 environmentWrapper:0];
   qword_1ED49EAE0 = v0;
@@ -7777,7 +7765,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceLevel___block_invok
     {
       p_specifiedTraitTokens = &self->_specifiedTraitTokens;
 
-      _UITraitTokenSetRemove(p_specifiedTraitTokens, 0xAuLL, v3);
+      _UITraitTokenSetRemove(p_specifiedTraitTokens, 0xA, v3);
     }
 
     else
@@ -8230,7 +8218,7 @@ void __59__UITraitCollection_traitCollectionWithUserInterfaceLevel___block_invok
     {
       p_specifiedTraitTokens = &self->_specifiedTraitTokens;
 
-      _UITraitTokenSetRemove(p_specifiedTraitTokens, 0xDuLL, v3);
+      _UITraitTokenSetRemove(p_specifiedTraitTokens, 0xD, v3);
     }
 
     else
@@ -8905,7 +8893,7 @@ void __69__UITraitCollection_traitCollectionWithPreferredContentSizeCategory___b
   [(UITraitCollection *)self setCGFloatValue:v5 forTrait:ratio];
 }
 
-+ (uint64_t)_traitCollectionWithTintColor:(uint64_t)color
++ (char)_traitCollectionWithTintColor:(uint64_t)color
 {
   objc_opt_self();
   if (a2)
@@ -8941,39 +8929,39 @@ void __69__UITraitCollection_traitCollectionWithPreferredContentSizeCategory___b
 {
   if (result)
   {
-    v3 = result;
-    v4 = *(result + 30);
-    if (v4 == a2 || a2 && v4 && [v4 isEqual:a2])
+    v4 = result;
+    v5 = *(result + 30);
+    if (v5 == a2 || a2 && v5 && objc_msgSend_isEqual_(v5))
     {
-      v5 = v3;
+      v6 = v4;
     }
 
     else
     {
-      v5 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:a2 tintColor:*(v3 + 224) clientDefinedTraits:*(v3 + 232) environmentWrapper:?];
-      _UITraitCollectionWasCopied(v3, v5);
-      v6 = *(v5 + 31);
-      if (v6)
+      v6 = [[UITraitCollection alloc] _initWithBuiltinTraitStorage:a2 tintColor:*(v4 + 28) clientDefinedTraits:*(v4 + 29) environmentWrapper:?];
+      _UITraitCollectionWasCopied(v4, v6);
+      v7 = *(v6 + 31);
+      if (v7)
       {
       }
 
-      v9 = *(v3 + 248);
-      v8 = v3 + 248;
-      v7 = v9;
-      if (v9)
+      v10 = *(v4 + 31);
+      v9 = v4 + 248;
+      v8 = v10;
+      if (v10)
       {
-        v10 = v7;
+        v11 = v8;
       }
 
-      v11 = *v8;
-      v12 = *(v8 + 16);
-      *(v5 + 35) = *(v8 + 32);
-      *(v5 + 248) = v11;
-      *(v5 + 264) = v12;
-      v5[288] |= 1u;
+      v12 = *v9;
+      v13 = *(v9 + 1);
+      *(v6 + 35) = *(v9 + 4);
+      *(v6 + 248) = v12;
+      *(v6 + 264) = v13;
+      v6[288] |= 1u;
     }
 
-    return v5;
+    return v6;
   }
 
   return result;
@@ -9500,7 +9488,7 @@ LABEL_20:
   }
 }
 
-+ (uint64_t)_performWithCurrentTraitCollection:(uint64_t)collection usingBlock:
++ (void)_performWithCurrentTraitCollection:(uint64_t)collection usingBlock:
 {
   v5 = objc_opt_self();
   objc_opt_self();
@@ -9551,7 +9539,7 @@ LABEL_20:
         return _tintColor2;
       }
 
-      if (![(UIColor *)_tintColor isEqual:?])
+      if (!objc_msgSend_isEqual_(_tintColor))
       {
 LABEL_13:
         LOBYTE(_tintColor2) = 1;

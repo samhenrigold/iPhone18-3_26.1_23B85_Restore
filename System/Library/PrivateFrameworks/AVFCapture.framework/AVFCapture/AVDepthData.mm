@@ -14,7 +14,6 @@
 - (id)debugDescription;
 - (id)depthBlurEffectRenderingParameters;
 - (id)description;
-- (uint64_t)copyAuxiliaryMetadata;
 - (void)dealloc;
 @end
 
@@ -113,9 +112,9 @@ LABEL_6:
 + (AVDepthData)depthDataFromDictionaryRepresentation:(NSDictionary *)imageSourceAuxDataInfoDictionary error:(NSError *)outError
 {
   pixelBufferOut = 0;
-  v7 = [(NSDictionary *)imageSourceAuxDataInfoDictionary objectForKeyedSubscript:*MEMORY[0x1E696D218]];
-  v8 = [(NSDictionary *)imageSourceAuxDataInfoDictionary objectForKeyedSubscript:*MEMORY[0x1E696D220]];
-  v9 = [(NSDictionary *)imageSourceAuxDataInfoDictionary objectForKeyedSubscript:*MEMORY[0x1E696D228]];
+  v7 = objc_msgSend_objectForKeyedSubscript_(imageSourceAuxDataInfoDictionary, a2, *MEMORY[0x1E696D218]);
+  v8 = objc_msgSend_objectForKeyedSubscript_(imageSourceAuxDataInfoDictionary);
+  v9 = objc_msgSend_objectForKeyedSubscript_(imageSourceAuxDataInfoDictionary);
   if (v7)
   {
     v10 = v8 == 0;
@@ -129,7 +128,7 @@ LABEL_6:
   v11 = v10;
   if (v11 == 1 && v9 == 0)
   {
-    +[AVDepthData depthDataFromDictionaryRepresentation:error:];
+    [AVDepthData depthDataFromDictionaryRepresentation:v9 error:?];
 LABEL_43:
     v38 = 0;
     v26 = -11865;
@@ -142,13 +141,13 @@ LABEL_43:
     goto LABEL_32;
   }
 
-  v14 = [objc_msgSend(v8 objectForKeyedSubscript:{*MEMORY[0x1E696DEC0]), "intValue"}];
-  v15 = [objc_msgSend(v8 objectForKeyedSubscript:{*MEMORY[0x1E696DFB8]), "intValue"}];
-  v16 = [objc_msgSend(v8 objectForKeyedSubscript:{*MEMORY[0x1E696DD58]), "intValue"}];
-  v17 = [objc_msgSend(v8 objectForKeyedSubscript:{*MEMORY[0x1E696D430]), "intValue"}];
-  if (v14)
+  intValue = [objc_msgSend_objectForKeyedSubscript_(v8) intValue];
+  intValue2 = [objc_msgSend_objectForKeyedSubscript_(v8) intValue];
+  intValue3 = [objc_msgSend_objectForKeyedSubscript_(v8) intValue];
+  intValue4 = [objc_msgSend_objectForKeyedSubscript_(v8) intValue];
+  if (intValue)
   {
-    v18 = v15 == 0;
+    v18 = intValue2 == 0;
   }
 
   else
@@ -156,15 +155,15 @@ LABEL_43:
     v18 = 1;
   }
 
-  if (v18 || v16 == 0 || v17 == 0)
+  if (v18 || intValue3 == 0 || intValue4 == 0)
   {
-    +[AVDepthData depthDataFromDictionaryRepresentation:error:];
+    [AVDepthData depthDataFromDictionaryRepresentation:intValue4 error:?];
     goto LABEL_43;
   }
 
-  v21 = v17;
+  v21 = intValue4;
   _allSupportedDepthDataPixelFormatTypes = [self _allSupportedDepthDataPixelFormatTypes];
-  if (([_allSupportedDepthDataPixelFormatTypes containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v14)}] & 1) == 0)
+  if (([_allSupportedDepthDataPixelFormatTypes containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", intValue)}] & 1) == 0)
   {
     +[AVDepthData depthDataFromDictionaryRepresentation:error:];
     v38 = 0;
@@ -172,10 +171,10 @@ LABEL_43:
     goto LABEL_34;
   }
 
-  v23 = v16;
+  v23 = intValue3;
   v24 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v21];
   v25 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{MEMORY[0x1E695E0F8], *MEMORY[0x1E69660D8], v24, *MEMORY[0x1E6966020], 0}];
-  v26 = CVPixelBufferCreate(*MEMORY[0x1E695E480], v15, v16, v14, v25, &pixelBufferOut);
+  v26 = CVPixelBufferCreate(*MEMORY[0x1E695E480], intValue2, intValue3, intValue, v25, &pixelBufferOut);
   v27 = pixelBufferOut;
   if (v26)
   {
@@ -279,9 +278,9 @@ LABEL_34:
       Width = Height;
     }
 
-    v18 = *MEMORY[0x1E69660D8];
-    v19 = MEMORY[0x1E695E0F8];
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v19 = *MEMORY[0x1E69660D8];
+    v20 = MEMORY[0x1E695E0F8];
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     if (CVPixelBufferCreate(*MEMORY[0x1E695E480], v10, Width, PixelFormatType, v11, &pixelBufferOut))
     {
 LABEL_13:
@@ -296,19 +295,19 @@ LABEL_13:
       {
         v14 = 0;
 LABEL_15:
-        v17 = [(AVDepthData *)v13 initWithPixelBuffer:v14 depthMetadataDictionary:0];
-        v17->_internal->calibrationData = v5;
-        v17->_internal->version = self->_internal->version;
-        v17->_internal->quality = self->_internal->quality;
-        v17->_internal->filtered = self->_internal->filtered;
-        v17->_internal->accuracy = self->_internal->accuracy;
-        v17->_internal->depthBlurEffectSimulatedAperture = self->_internal->depthBlurEffectSimulatedAperture;
-        v17->_internal->depthBlurEffectRenderingParameters = [(NSData *)self->_internal->depthBlurEffectRenderingParameters copy];
-        v17->_internal->portraitScoreIsHigh = self->_internal->portraitScoreIsHigh;
-        v17->_internal->portraitScore = self->_internal->portraitScore;
-        v17->_internal->portraitLightingEffectStrength = self->_internal->portraitLightingEffectStrength;
+        v18 = [(AVDepthData *)v13 initWithPixelBuffer:v14 depthMetadataDictionary:0];
+        v18->_internal->calibrationData = v5;
+        v18->_internal->version = self->_internal->version;
+        v18->_internal->quality = self->_internal->quality;
+        v18->_internal->filtered = self->_internal->filtered;
+        v18->_internal->accuracy = self->_internal->accuracy;
+        v18->_internal->depthBlurEffectSimulatedAperture = self->_internal->depthBlurEffectSimulatedAperture;
+        v18->_internal->depthBlurEffectRenderingParameters = [(NSData *)self->_internal->depthBlurEffectRenderingParameters copy];
+        v18->_internal->portraitScoreIsHigh = self->_internal->portraitScoreIsHigh;
+        v18->_internal->portraitScore = self->_internal->portraitScore;
+        v18->_internal->portraitLightingEffectStrength = self->_internal->portraitLightingEffectStrength;
         CVPixelBufferRelease(pixelBufferOut);
-        return v17;
+        return v18;
       }
     }
 
@@ -317,7 +316,7 @@ LABEL_15:
   }
 
   v15 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v15, v16))
   {
     objc_exception_throw(v15);
   }
@@ -356,7 +355,7 @@ LABEL_15:
   else
   {
     v12 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v12, v13))
     {
       objc_exception_throw(v12);
     }
@@ -492,21 +491,21 @@ LABEL_15:
       internal->pixelBuffer = v8;
       if (dictionary)
       {
-        v6->_internal->version = [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E6991428]), "intValue"}];
-        v6->_internal->quality = [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E6991420]), "intValue"}];
-        v6->_internal->filtered = [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E69913E8]), "BOOLValue"}];
-        v6->_internal->accuracy = [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E69913D8]), "intValue"}];
+        v6->_internal->version = [objc_msgSend_objectForKeyedSubscript_(dictionary) intValue];
+        v6->_internal->quality = [objc_msgSend_objectForKeyedSubscript_(dictionary) intValue];
+        v6->_internal->filtered = [objc_msgSend_objectForKeyedSubscript_(dictionary) BOOLValue];
+        v6->_internal->accuracy = [objc_msgSend_objectForKeyedSubscript_(dictionary) intValue];
         v6->_internal->calibrationData = [[AVCameraCalibrationData alloc] initWithDepthMetadataDictionary:dictionary];
-        [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E6991310]), "floatValue"}];
+        [objc_msgSend_objectForKeyedSubscript_(dictionary) floatValue];
         v6->_internal->depthBlurEffectSimulatedAperture = v9;
-        v10 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6991308]];
+        v10 = objc_msgSend_objectForKeyedSubscript_(dictionary);
         if (v10)
         {
           v6->_internal->depthBlurEffectRenderingParameters = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v10 options:0];
         }
 
-        v11 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6991438]];
-        v12 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6991430]];
+        v11 = objc_msgSend_objectForKeyedSubscript_(dictionary);
+        v12 = objc_msgSend_objectForKeyedSubscript_(dictionary);
         LODWORD(v13) = 2143289344;
         if (v11)
         {
@@ -519,7 +518,7 @@ LABEL_15:
         }
 
         v6->_internal->portraitScore = *&v13;
-        v15 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E69914E8]];
+        v15 = objc_msgSend_objectForKeyedSubscript_(dictionary);
         if (v15)
         {
           [v15 floatValue];
@@ -779,7 +778,7 @@ LABEL_39:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_1();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     return 0;
   }
 
@@ -821,32 +820,11 @@ LABEL_39:
   return dictionary;
 }
 
-+ (uint64_t)depthDataFromDictionaryRepresentation:error:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)depthDataFromDictionaryRepresentation:error:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)depthDataFromDictionaryRepresentation:error:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
 - (uint64_t)depthDataByReplacingDepthDataMapWithPixelBuffer:(uint64_t *)a1 error:(void *)a2 .cold.1(uint64_t *a1, void *a2)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1_1();
-  result = FigDebugAssert3();
+  result = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, vars0, vars8);
   if (a1)
   {
     if (ErrorIsAVFoundationError())
@@ -866,25 +844,12 @@ LABEL_39:
   return result;
 }
 
-- (uint64_t)copyAuxiliaryMetadata
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_copyPixelBufferRepresentationWithPixelFormatType:.cold.1()
+- (uint64_t)_copyPixelBufferRepresentationWithPixelFormatType:(int)a1 .cold.2(int a1, __CVBuffer *a2)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_copyPixelBufferRepresentationWithPixelFormatType:(uint64_t)a1 .cold.2(uint64_t a1, __CVBuffer *a2)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
+  v5 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, vars0, vars8);
   return CVPixelBufferUnlockBaseAddress(a2, 1uLL);
 }
 

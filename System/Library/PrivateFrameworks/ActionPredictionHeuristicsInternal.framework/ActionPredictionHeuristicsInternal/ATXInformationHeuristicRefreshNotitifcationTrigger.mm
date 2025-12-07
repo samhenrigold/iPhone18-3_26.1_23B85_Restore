@@ -22,49 +22,49 @@
 
 void __60__ATXInformationHeuristicRefreshNotitifcationTrigger__start__block_invoke_103(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = __atxlog_handle_gi(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = WeakRetained[4];
+      v4 = v2[4];
       *buf = 134218242;
-      v11 = WeakRetained;
-      v12 = 2114;
-      v13 = v3;
-      _os_log_impl(&dword_23E3EA000, v2, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshNotitifcationTrigger (%p): Received Darwin notification: %{public}@. Triggering heuristics refresh.", buf, 0x16u);
+      v12 = v2;
+      v13 = 2114;
+      v14 = v4;
+      _os_log_impl(&dword_23E3EA000, v3, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshNotitifcationTrigger (%p): Received Darwin notification: %{public}@. Triggering heuristics refresh.", buf, 0x16u);
     }
 
-    if ([WeakRetained[4] isEqualToString:@"SignificantTimeChangeNotification"])
+    if ([v2[4] isEqualToString:@"SignificantTimeChangeNotification"])
     {
-      v4 = arc4random_uniform(0xB4u);
-      v5 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v5 = arc4random_uniform(0xB4u);
+      v6 = v5;
+      v7 = __atxlog_handle_gi(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v11) = v4;
-        _os_log_impl(&dword_23E3EA000, v5, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshNotitifcationTrigger: Triggering heuristics refresh after %d seconds", buf, 8u);
+        LODWORD(v12) = v6;
+        _os_log_impl(&dword_23E3EA000, v7, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshNotitifcationTrigger: Triggering heuristics refresh after %d seconds", buf, 8u);
       }
 
-      v6 = dispatch_time(0, (1000000000 * v4) | 1);
-      v7 = dispatch_get_global_queue(9, 0);
+      v8 = dispatch_time(0, (1000000000 * v6) | 1);
+      v9 = dispatch_get_global_queue(9, 0);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __60__ATXInformationHeuristicRefreshNotitifcationTrigger__start__block_invoke_107;
       block[3] = &unk_278C3CF40;
-      block[4] = WeakRetained;
-      dispatch_after(v6, v7, block);
+      block[4] = v2;
+      dispatch_after(v8, v9, block);
     }
 
     else
     {
-      [WeakRetained _scheduleTriggerRefresh];
+      [v2 _scheduleTriggerRefresh];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __76__ATXInformationHeuristicRefreshNotitifcationTrigger__createCoalescingTimer__block_invoke(uint64_t a1)
@@ -111,15 +111,15 @@ void __76__ATXInformationHeuristicRefreshNotitifcationTrigger__createCoalescingT
 
 - (void)_start
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (!self->_observerToken)
   {
-    v3 = __atxlog_handle_gi();
+    v3 = __atxlog_handle_gi(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       notificationName = self->_notificationName;
       *buf = 138412290;
-      v21 = notificationName;
+      v20 = notificationName;
       _os_log_impl(&dword_23E3EA000, v3, OS_LOG_TYPE_DEFAULT, "Starting ATXInformationHeuristicRefreshNotitifcationTrigger for %@. We will now refresh heuristics when seeing this notification.", buf, 0xCu);
     }
 
@@ -134,59 +134,56 @@ void __76__ATXInformationHeuristicRefreshNotitifcationTrigger__createCoalescingT
       handler[1] = 3221225472;
       handler[2] = __60__ATXInformationHeuristicRefreshNotitifcationTrigger__start__block_invoke_103;
       handler[3] = &unk_278C3CF68;
-      objc_copyWeak(&v16, buf);
+      objc_copyWeak(&v15, buf);
       notify_register_dispatch(uTF8String, &out_token, v11, handler);
 
       v12 = [MEMORY[0x277CCABB0] numberWithInt:out_token];
       observerToken = self->_observerToken;
       self->_observerToken = v12;
 
-      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v15);
     }
 
     else if (!notificationType)
     {
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
       v7 = self->_notificationName;
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __60__ATXInformationHeuristicRefreshNotitifcationTrigger__start__block_invoke;
-      v18[3] = &unk_278C3CF18;
-      objc_copyWeak(&v19, buf);
-      v8 = [defaultCenter addObserverForName:v7 object:0 queue:0 usingBlock:v18];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __60__ATXInformationHeuristicRefreshNotitifcationTrigger__start__block_invoke;
+      v17[3] = &unk_278C3CF18;
+      objc_copyWeak(&v18, buf);
+      v8 = [defaultCenter addObserverForName:v7 object:0 queue:0 usingBlock:v17];
       v9 = self->_observerToken;
       self->_observerToken = v8;
 
-      objc_destroyWeak(&v19);
+      objc_destroyWeak(&v18);
     }
 
     objc_destroyWeak(buf);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __60__ATXInformationHeuristicRefreshNotitifcationTrigger__start__block_invoke(uint64_t a1)
 {
   v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = __atxlog_handle_gi(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = WeakRetained[4];
+      v4 = v2[4];
       v5 = 134218242;
-      v6 = WeakRetained;
+      v6 = v2;
       v7 = 2114;
-      v8 = v3;
-      _os_log_impl(&dword_23E3EA000, v2, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshNotitifcationTrigger (%p): Received local notification: %{public}@. Triggering heuristics refresh.", &v5, 0x16u);
+      v8 = v4;
+      _os_log_impl(&dword_23E3EA000, v3, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristicRefreshNotitifcationTrigger (%p): Received local notification: %{public}@. Triggering heuristics refresh.", &v5, 0x16u);
     }
 
-    [WeakRetained _scheduleTriggerRefresh];
+    [v2 _scheduleTriggerRefresh];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stop
@@ -269,9 +266,9 @@ void __60__ATXInformationHeuristicRefreshNotitifcationTrigger__start__block_invo
 - (ATXInformationHeuristicRefreshNotitifcationTrigger)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v16.receiver = self;
-  v16.super_class = ATXInformationHeuristicRefreshNotitifcationTrigger;
-  v5 = [(ATXInformationHeuristicRefreshTrigger *)&v16 initWithCoder:coderCopy];
+  v17.receiver = self;
+  v17.super_class = ATXInformationHeuristicRefreshNotitifcationTrigger;
+  v5 = [(ATXInformationHeuristicRefreshTrigger *)&v17 initWithCoder:coderCopy];
   if (v5)
   {
     error = [coderCopy error];
@@ -303,8 +300,8 @@ void __60__ATXInformationHeuristicRefreshNotitifcationTrigger__start__block_invo
 
       else
       {
-        v15 = __atxlog_handle_gi();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = __atxlog_handle_gi(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           [ATXInformationHeuristicRefreshNotitifcationTrigger initWithCoder:coderCopy];
         }
@@ -320,11 +317,12 @@ LABEL_4:
 
 - (void)initWithCoder:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [a1 error];
-  OUTLINED_FUNCTION_1_2(&dword_23E3EA000, v1, v2, "ATXInformationHeuristicRefreshNotitifcationTrigger: error decoding %@ - %@", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v1 = [a1 error];
+  *v8 = 138412546;
+  *&v8[4] = @"notificationType";
+  *&v8[12] = 2112;
+  *&v8[14] = v1;
+  OUTLINED_FUNCTION_1_2(&dword_23E3EA000, v2, v3, "ATXInformationHeuristicRefreshNotitifcationTrigger: error decoding %@ - %@", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16]);
 }
 
 @end

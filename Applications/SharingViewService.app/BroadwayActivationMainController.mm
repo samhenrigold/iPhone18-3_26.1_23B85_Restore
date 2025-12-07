@@ -16,7 +16,7 @@
 {
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationMainController retryActivation]", 30, "Show retry UI");
   }
 
   [(BroadwayActivationStartViewController *)self->_vcStart prepareForRetry];
@@ -93,8 +93,7 @@
         case 999:
           v5 = "Uninitialized";
 LABEL_25:
-          v16 = v5;
-          LogPrintF();
+          LogPrintF(&dword_1001BEFE8, "[BroadwayActivationMainController showCompletedUI:]", 30, "Show completed UI: %s", v5);
           goto LABEL_26;
       }
     }
@@ -129,7 +128,7 @@ LABEL_33:
       storyboard = self->_storyboard;
       v9 = @"Done";
 LABEL_32:
-      v10 = [(UIStoryboard *)storyboard instantiateViewControllerWithIdentifier:v9, v16];
+      v10 = [(UIStoryboard *)storyboard instantiateViewControllerWithIdentifier:v9];
       v11 = *&self->super.SBUIRemoteAlertServiceViewController_opaque[v6];
       *&self->super.SBUIRemoteAlertServiceViewController_opaque[v6] = v10;
 
@@ -152,7 +151,7 @@ LABEL_32:
     vcFailed = self->_vcFailed;
   }
 
-  [(BroadwayActivationFailedViewController *)vcFailed setFailureResult:i, v16];
+  [(BroadwayActivationFailedViewController *)vcFailed setFailureResult:i];
   vcNav = self->_vcNav;
   vcFailedNoConnectivity = self->_vcFailed;
 LABEL_37:
@@ -185,7 +184,7 @@ LABEL_37:
         {
           if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1001BEFE8, "[BroadwayActivationMainController handleButtonActions:]", 30, "Home button");
           }
 
           [(BroadwayActivationMainController *)self dismiss:4];
@@ -236,14 +235,14 @@ LABEL_37:
   disappearCopy = disappear;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationMainController viewDidDisappear:]", 30, "Main ViewDidDisappear");
   }
 
   if (!self->_dismissed)
   {
     if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BEFE8, "[BroadwayActivationMainController viewDidDisappear:]", 30, "Main disappeared without dismiss (device locked?)...dismissing UI");
     }
 
     [(BroadwayActivationMainController *)self dismiss:21];
@@ -362,7 +361,7 @@ LABEL_15:
 
   if (dword_1001BEFE8 <= 60 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationMainController presentAppropriateViewControllerIfReady]", 60, "Failed to load initial view controller");
   }
 
   [(BroadwayActivationMainController *)self dismissAnimated:0 completion:0];
@@ -374,7 +373,7 @@ LABEL_15:
   self->_appeared = 1;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationMainController viewDidAppear:]", 30, "Proxy ViewDidAppear");
   }
 
   v5.receiver = self;
@@ -410,7 +409,7 @@ LABEL_15:
 
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationMainController configureWithContext:completion:]", 30, "Proxy configuration: %@", self->super._userInfo);
   }
 
   CFStringGetTypeID();

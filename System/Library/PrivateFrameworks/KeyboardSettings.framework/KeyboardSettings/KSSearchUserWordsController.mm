@@ -5,6 +5,7 @@
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section;
 - (void)dealloc;
 - (void)filterContentForSearchText:(id)text;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateSearchResultsForSearchController:(id)controller;
@@ -14,21 +15,20 @@
 
 - (KSSearchUserWordsController)initWithNavigationController:(id)controller
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = KSSearchUserWordsController;
-  v4 = [(KSSearchUserWordsController *)&v7 init];
+  v7[3] = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = KSSearchUserWordsController;
+  v4 = [(KSSearchUserWordsController *)&v6 init];
   if (v4)
   {
-    v8[0] = &stru_28679E3A8;
-    v8[1] = &stru_28679E3A8;
-    v8[2] = [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"NO_RESULTS", &stru_28679E3A8, @"Keyboard"}];
-    v4->_noResults = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+    v7[0] = &stru_28679E3A8;
+    v7[1] = &stru_28679E3A8;
+    v7[2] = [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"NO_RESULTS", &stru_28679E3A8, @"Keyboard"}];
+    v4->_noResults = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
     [(KSSearchUserWordsController *)v4 setEdgesForExtendedLayout:4];
     [(KSSearchUserWordsController *)v4 setParentNavigationController:controller];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -39,19 +39,28 @@
   [(KSSearchUserWordsController *)&v3 dealloc];
 }
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  v7.receiver = self;
+  v7.super_class = KSSearchUserWordsController;
+  [KSSearchUserWordsController setEditing:sel_setEditing_animated_ animated:?];
+  [-[KSSearchUserWordsController navigationItem](self "navigationItem")];
+  [-[KSSearchUserWordsController tableView](self "tableView")];
+}
+
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (style == 1)
   {
     [view deselectRowAtIndexPath:path animated:?];
     v7 = -[NSArray objectAtIndex:](-[KSSearchUserWordsController filteredListContent](self, "filteredListContent"), "objectAtIndex:", [path row]);
     dictionaryController = [(KSSearchUserWordsController *)self dictionaryController];
-    v10[0] = v7;
-    -[KSUserWordsManager addEntries:removeEntries:withCompletionHandler:](dictionaryController, "addEntries:removeEntries:withCompletionHandler:", 0, [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1], 0);
+    v9[0] = v7;
+    -[KSUserWordsManager addEntries:removeEntries:withCompletionHandler:](dictionaryController, "addEntries:removeEntries:withCompletionHandler:", 0, [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1], 0);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)tableView:(id)view willSelectRowAtIndexPath:(id)path

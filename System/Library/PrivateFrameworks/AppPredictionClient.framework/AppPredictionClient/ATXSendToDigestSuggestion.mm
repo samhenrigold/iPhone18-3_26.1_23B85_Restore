@@ -81,12 +81,13 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v6 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = __atxlog_handle_notification_management(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [(ATXUrgencyTuningSuggestion *)self initWithProto:v6];
+      [(ATXUrgencyTuningSuggestion *)self initWithProto:v7];
     }
 
     goto LABEL_7;

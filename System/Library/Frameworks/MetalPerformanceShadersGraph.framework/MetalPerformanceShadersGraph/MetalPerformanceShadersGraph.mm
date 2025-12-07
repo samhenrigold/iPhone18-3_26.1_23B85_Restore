@@ -11,7 +11,7 @@ uint64_t sub_1DF9C0BE8()
 {
   if (MEMORY[0x1E69E7D58])
   {
-    return __swift_instantiateConcreteTypeFromMangledNameV2(&_s15Synchronization5MutexVy28MetalPerformanceShadersGraph16MPSGraphDelegateC11ExecutablesVGMd);
+    return __swift_instantiateConcreteTypeFromMangledNameV2(&_s15Synchronization5MutexVy28MetalPerformanceShadersGraph16MPSGraphDelegateC11ExecutablesVGMd, &_s15Synchronization5MutexVy28MetalPerformanceShadersGraph16MPSGraphDelegateC11ExecutablesVGMR);
   }
 
   else
@@ -22,30 +22,30 @@ uint64_t sub_1DF9C0BE8()
 
 uint64_t MPSGraphSegmenter.segment(moduleBytecode:)()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
-  MEMORY[0x1EEE9AC00]();
-  v1 = &v12 - v0;
-  v2 = type metadata accessor for URL();
-  v3 = *(v2 - 8);
-  (*(v3 + 56))(v1, 1, 1, v2);
-  v4.super.isa = Data._bridgeToObjectiveC()().super.isa;
-  v6 = 0;
-  if ((*(v3 + 48))(v1, 1, v2) != 1)
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x1EEE9AC00](v0 - 8);
+  v2 = &v13 - v1;
+  v3 = type metadata accessor for URL();
+  v4 = *(v3 - 8);
+  (*(v4 + 56))(v2, 1, 1, v3);
+  v5.super.isa = Data._bridgeToObjectiveC()().super.isa;
+  v7 = 0;
+  if ((*(v4 + 48))(v2, 1, v3) != 1)
   {
-    URL._bridgeToObjectiveC()(v5);
-    v6 = v7;
-    (*(v3 + 8))(v1, v2);
+    URL._bridgeToObjectiveC()(v6);
+    v7 = v8;
+    (*(v4 + 8))(v2, v3);
   }
 
-  v8 = [objc_allocWithZone(MPSGraphCoreMLCompilerDelegate) initWithCoreMLBytecode:v4.super.isa coreMLDirectory:v6];
+  v9 = [objc_allocWithZone(MPSGraphCoreMLCompilerDelegate) initWithCoreMLBytecode:v5.super.isa coreMLDirectory:v7];
 
-  v9 = [v8 getSegmentedCoreMLBytecode];
-  v10 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = [v9 getSegmentedCoreMLBytecode];
+  v11 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
 
-  return v10;
+  return v11;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -75,29 +75,29 @@ id MPSGraphDelegateCompiler.precompilationDescriptor.getter()
 
 uint64_t MPSGraphDelegateCompiler.compile(moduleBytecode:to:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
-  MEMORY[0x1EEE9AC00]();
-  v6 = &v18 - v5;
-  v7 = *v3;
-  v8 = type metadata accessor for URL();
-  v9 = *(v8 - 8);
-  (*(v9 + 16))(v6, a3, v8);
-  (*(v9 + 56))(v6, 0, 1, v8);
-  v10.super.isa = Data._bridgeToObjectiveC()().super.isa;
-  v12 = 0;
-  if ((*(v9 + 48))(v6, 1, v8) != 1)
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v19 - v6;
+  v8 = *v3;
+  v9 = type metadata accessor for URL();
+  v10 = *(v9 - 8);
+  (*(v10 + 16))(v7, a3, v9);
+  (*(v10 + 56))(v7, 0, 1, v9);
+  v11.super.isa = Data._bridgeToObjectiveC()().super.isa;
+  v13 = 0;
+  if ((*(v10 + 48))(v7, 1, v9) != 1)
   {
-    URL._bridgeToObjectiveC()(v11);
-    v12 = v13;
-    (*(v9 + 8))(v6, v8);
+    URL._bridgeToObjectiveC()(v12);
+    v13 = v14;
+    (*(v10 + 8))(v7, v9);
   }
 
-  v14 = [objc_allocWithZone(MPSGraphCoreMLCompilerDelegate) initWithCoreMLBytecode:v10.super.isa coreMLDirectory:v12 precompilationDescriptor:v7];
+  v15 = [objc_allocWithZone(MPSGraphCoreMLCompilerDelegate) initWithCoreMLBytecode:v11.super.isa coreMLDirectory:v13 precompilationDescriptor:v8];
 
-  v15 = [v14 getInitializedCoreMLBytecode];
-  v16 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v16 = [v15 getInitializedCoreMLBytecode];
+  v17 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
 
-  return v16;
+  return v17;
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance MPSGraphDelegateError.CodingKeys()
@@ -108,11 +108,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance MPSGrap
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MPSGraphDelegateError.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MPSGraphDelegateError.CodingKeys(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x1E12E41C0](v1);
+  MEMORY[0x1E12E41C0](v2);
   return Hasher._finalize()();
 }
 
@@ -135,10 +135,10 @@ unint64_t protocol witness for CodingKey.stringValue.getter in conformance MPSGr
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance MPSGraphDelegateError.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance MPSGraphDelegateError.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized MPSGraphDelegateError.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized MPSGraphDelegateError.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -184,10 +184,10 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance MPSGraphDelegateError.MissingMetalDeviceCodingKeys@<X0>(_BYTE *a1@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance MPSGraphDelegateError.MissingMetalDeviceCodingKeys@<X0>(_BYTE *a2@<X8>)
 {
 
-  *a1 = 1;
+  *a2 = 1;
   return result;
 }
 
@@ -208,23 +208,23 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 uint64_t MPSGraphDelegateError.encode(to:)(void *a1, int a2)
 {
   v25 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO27MissingExecutableCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO27MissingExecutableCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd, &_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO27MissingExecutableCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMR);
   v23 = *(v3 - 8);
   v24 = v3;
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](v3);
   v22 = &v18 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO33CommandQueueUnavailableCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO33CommandQueueUnavailableCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd, &_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO33CommandQueueUnavailableCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMR);
   v20 = *(v5 - 8);
   v21 = v5;
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](v5);
   v7 = &v18 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO07MissingD16DeviceCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO07MissingD16DeviceCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd, &_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO07MissingD16DeviceCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMR);
   v19 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](v8);
   v10 = &v18 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO10CodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO10CodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd, &_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO10CodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMR);
   v12 = *(v11 - 8);
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](v11);
   v14 = &v18 - v13;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type MPSGraphDelegateError.CodingKeys and conformance MPSGraphDelegateError.CodingKeys();
@@ -425,12 +425,12 @@ Swift::Int MPSGraphDelegateError.hashValue.getter(unsigned __int8 a1)
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Decodable.init(from:) in conformance MPSGraphDelegateError@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t protocol witness for Decodable.init(from:) in conformance MPSGraphDelegateError@<X0>(_BYTE *a1@<X8>, void *a2@<X0>)
 {
-  result = specialized MPSGraphDelegateError.init(from:)(a1);
+  result = specialized MPSGraphDelegateError.init(from:)(a2);
   if (!v2)
   {
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
@@ -523,11 +523,11 @@ uint64_t MPSGraphDelegate.registerKernels(for:with:into:)(uint64_t a1, uint64_t 
   v93 = a3;
   v7 = type metadata accessor for URL.DirectoryHint();
   v99 = *(v7 - 8);
-  (MEMORY[0x1EEE9AC00])();
+  MEMORY[0x1EEE9AC00](v7);
   v9 = v88 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = type metadata accessor for URL();
   v100 = *(v10 - 8);
-  v11 = (MEMORY[0x1EEE9AC00])();
+  v11 = MEMORY[0x1EEE9AC00](v10);
   v13 = v88 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v11);
   v15 = v88 - v14;
@@ -568,7 +568,7 @@ uint64_t MPSGraphDelegate.registerKernels(for:with:into:)(uint64_t a1, uint64_t 
   }
 
   v96 = v3;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s4ODIE24DelegateProgramArgumentsVSgMd);
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s4ODIE24DelegateProgramArgumentsVSgMd, &_s4ODIE24DelegateProgramArgumentsVSgMR);
   v95 = v88;
   v23 = *(*(v22 - 8) + 64);
   MEMORY[0x1EEE9AC00](v22 - 8);
@@ -579,7 +579,7 @@ uint64_t MPSGraphDelegate.registerKernels(for:with:into:)(uint64_t a1, uint64_t 
   MEMORY[0x1EEE9AC00](v25);
   v26 = v88 - v97;
   v97 = v24;
-  outlined init with copy of DelegateProgramArguments?(v24, v26, &_s4ODIE24DelegateProgramArgumentsVSgMd);
+  outlined init with copy of DelegateProgramArguments?(v24, v26, &_s4ODIE24DelegateProgramArgumentsVSgMd, &_s4ODIE24DelegateProgramArgumentsVSgMR);
   v27 = type metadata accessor for DelegateProgramArguments();
   v28 = *(v27 - 8);
   if ((*(v28 + 48))(v26, 1, v27) != 1)
@@ -622,7 +622,7 @@ uint64_t MPSGraphDelegate.registerKernels(for:with:into:)(uint64_t a1, uint64_t 
     v46 = v98;
     v44(v45, v98);
     v44(v15, v46);
-    outlined destroy of DelegateProgramArguments?(v97, &_s4ODIE24DelegateProgramArgumentsVSgMd);
+    outlined destroy of DelegateProgramArguments?(v97, &_s4ODIE24DelegateProgramArgumentsVSgMd, &_s4ODIE24DelegateProgramArgumentsVSgMR);
     v47 = *&v20[2]._os_unfair_lock_opaque;
     *&v20[2]._os_unfair_lock_opaque = v43;
 
@@ -694,7 +694,7 @@ LABEL_18:
 
       if (v84)
       {
-        type metadata accessor for NSNumber(0, &lazy cache variable for type metadata for NSNumber);
+        type metadata accessor for NSNumber(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
         v95 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
       }
 
@@ -852,7 +852,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance MPSGrap
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MPSGraphDelegateKernelError.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MPSGraphDelegateKernelError.CodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MEMORY[0x1E12E41C0](0);
@@ -908,11 +908,11 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t MPSGraphDelegateKernelError.encode(to:)(void *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO33FailedToCreateMTLBufferCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO33FailedToCreateMTLBufferCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd, &_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO33FailedToCreateMTLBufferCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMR);
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = &v11 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO10CodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO10CodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd, &_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO10CodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMR);
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v11 - v8;
@@ -934,11 +934,11 @@ Swift::Int MPSGraphDelegateKernelError.hashValue.getter()
 
 uint64_t protocol witness for Encodable.encode(to:) in conformance MPSGraphDelegateKernelError(void *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO33FailedToCreateMTLBufferCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO33FailedToCreateMTLBufferCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd, &_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO33FailedToCreateMTLBufferCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMR);
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = &v11 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO10CodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO10CodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd, &_ss22KeyedEncodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO10CodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMR);
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v11 - v8;
@@ -982,15 +982,15 @@ uint64_t MPSGraphDelegateKernel.functionName.getter()
 
 id MPSGraphDelegateKernel.convertOperand(operand:)(uint64_t a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s4ODIE7OperandOSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = (&v44 - v5);
-  outlined init with copy of DelegateProgramArguments?(a1, &v44 - v5, &_s4ODIE7OperandOSgMd);
+  outlined init with copy of DelegateProgramArguments?(a1, &v44 - v5, &_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
   v7 = type metadata accessor for Operand();
   v8 = *(v7 - 1);
   if ((v8[6])(v6, 1, v7) == 1)
   {
-    outlined destroy of DelegateProgramArguments?(v6, &_s4ODIE7OperandOSgMd);
+    outlined destroy of DelegateProgramArguments?(v6, &_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
     goto LABEL_49;
   }
 
@@ -1179,7 +1179,7 @@ LABEL_31:
   specialized _arrayForceCast<A, B>(_:)(v38);
 
   v39 = objc_allocWithZone(MPSGraphTensorData);
-  type metadata accessor for NSNumber(0, &lazy cache variable for type metadata for NSNumber);
+  type metadata accessor for NSNumber(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   v41 = Array._bridgeToObjectiveC()().super.isa;
@@ -1220,7 +1220,7 @@ uint64_t specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
   return result;
 }
 
-uint64_t MPSGraphDelegateKernel.inferValue(inputs:outputs:symbol:kernelContext:)(void *a1, void *a2, uint64_t a3)
+uint64_t MPSGraphDelegateKernel.inferValue(inputs:outputs:symbol:kernelContext:)(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v105 = a3;
   v4 = *(v3 + 64);
@@ -1235,7 +1235,7 @@ uint64_t MPSGraphDelegateKernel.inferValue(inputs:outputs:symbol:kernelContext:)
   }
 
   v6 = v4;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_4ODIE7OperandOSg7elementtSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_4ODIE7OperandOSg7elementtSgMd, &_sSi6offset_4ODIE7OperandOSg7elementtSgMR);
   v103 = &v103;
   v108 = *(*(v7 - 8) + 64);
   v8 = MEMORY[0x1EEE9AC00](v7 - 8);
@@ -1259,7 +1259,7 @@ uint64_t MPSGraphDelegateKernel.inferValue(inputs:outputs:symbol:kernelContext:)
     v14 = &v103 - v107;
     if (v11 == v12)
     {
-      v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_4ODIE7OperandOSg7elementtMd);
+      v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_4ODIE7OperandOSg7elementtMd, &_sSi6offset_4ODIE7OperandOSg7elementtMR);
       (*(*(v15 - 8) + 56))(v14, 1, 1, v15);
     }
 
@@ -1275,28 +1275,28 @@ uint64_t MPSGraphDelegateKernel.inferValue(inputs:outputs:symbol:kernelContext:)
         goto LABEL_82;
       }
 
-      v16 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s4ODIE7OperandOSgMd) - 8);
+      v16 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR) - 8);
       v127 = (v11 + 1);
       v17 = v5 + ((*(v16 + 80) + 32) & ~*(v16 + 80)) + *(v16 + 72) * v11;
-      v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_4ODIE7OperandOSg7elementtMd);
+      v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_4ODIE7OperandOSg7elementtMd, &_sSi6offset_4ODIE7OperandOSg7elementtMR);
       v19 = *(v18 - 8);
       v20 = MEMORY[0x1EEE9AC00](v18);
       v22 = (&v103 - v21);
       v23 = *(v20 + 48);
       *v22 = v24;
-      outlined init with copy of DelegateProgramArguments?(v17, v22 + v23, &_s4ODIE7OperandOSgMd);
-      outlined init with take of (offset: Int, element: Operand?)(v22, v14, &_sSi6offset_4ODIE7OperandOSg7elementtMd);
+      outlined init with copy of DelegateProgramArguments?(v17, v22 + v23, &_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
+      outlined init with take of (offset: Int, element: Operand?)(v22, v14, &_sSi6offset_4ODIE7OperandOSg7elementtMd, &_sSi6offset_4ODIE7OperandOSg7elementtMR);
       (*(v19 + 56))(v14, 0, 1, v18);
       v12 = v127;
     }
 
     v25 = v14;
     v26 = v106;
-    outlined init with take of (offset: Int, element: Operand?)(v25, v106, &_sSi6offset_4ODIE7OperandOSg7elementtSgMd);
-    v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_4ODIE7OperandOSg7elementtMd);
+    outlined init with take of (offset: Int, element: Operand?)(v25, v106, &_sSi6offset_4ODIE7OperandOSg7elementtSgMd, &_sSi6offset_4ODIE7OperandOSg7elementtSgMR);
+    v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_4ODIE7OperandOSg7elementtMd, &_sSi6offset_4ODIE7OperandOSg7elementtMR);
     if ((*(*(v27 - 8) + 48))(v26, 1, v27) == 1)
     {
-      v14 = v111[2];
+      v14 = *(v111 + 16);
       if (v10 < v14)
       {
         if (swift_isUniquelyReferenced_nonNull_native())
@@ -1313,7 +1313,7 @@ uint64_t MPSGraphDelegateKernel.inferValue(inputs:outputs:symbol:kernelContext:)
     }
 
     v113 = v12;
-    v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s4ODIE7OperandOSgMd);
+    v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
     v112 = &v103;
     v124 = *(v28 - 8);
     v114 = *(v124 + 64);
@@ -1321,7 +1321,7 @@ uint64_t MPSGraphDelegateKernel.inferValue(inputs:outputs:symbol:kernelContext:)
     v29 = *v26;
     v30 = v26 + *(v27 + 48);
     v115 = &v103 - v31;
-    outlined init with take of (offset: Int, element: Operand?)(v30, &v103 - v31, &_s4ODIE7OperandOSgMd);
+    outlined init with take of (offset: Int, element: Operand?)(v30, &v103 - v31, &_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
     v32 = type metadata accessor for Intent();
     v127 = &v103;
     v14 = *(v32 - 8);
@@ -1353,7 +1353,7 @@ uint64_t MPSGraphDelegateKernel.inferValue(inputs:outputs:symbol:kernelContext:)
       MEMORY[0x1EEE9AC00](v38);
       v53 = &v103 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0);
       v54 = v115;
-      outlined init with copy of DelegateProgramArguments?(v115, v53, &_s4ODIE7OperandOSgMd);
+      outlined init with copy of DelegateProgramArguments?(v115, v53, &_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
         v110 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v110[2] + 1, 1, v110);
@@ -1364,13 +1364,13 @@ uint64_t MPSGraphDelegateKernel.inferValue(inputs:outputs:symbol:kernelContext:)
       v55 = v110[3];
       if (v56 >= v55 >> 1)
       {
-        v110 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v55 > 1, v56 + 1, 1, v110);
+        v110 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v55 > 1), v56 + 1, 1, v110);
       }
 
-      outlined destroy of DelegateProgramArguments?(v54, &_s4ODIE7OperandOSgMd);
+      outlined destroy of DelegateProgramArguments?(v54, &_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
       v13 = v110;
       v110[2] = v56 + 1;
-      v8 = outlined init with take of (offset: Int, element: Operand?)(v53, v13 + ((*(v124 + 80) + 32) & ~*(v124 + 80)) + *(v124 + 72) * v56, &_s4ODIE7OperandOSgMd);
+      v8 = outlined init with take of (offset: Int, element: Operand?)(v53, v13 + ((*(v124 + 80) + 32) & ~*(v124 + 80)) + *(v124 + 72) * v56, &_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
       goto LABEL_4;
     }
 
@@ -1406,7 +1406,7 @@ uint64_t MPSGraphDelegateKernel.inferValue(inputs:outputs:symbol:kernelContext:)
       v44 = v43;
       v123 = (*(v44 + 80) + 32) & ~*(v44 + 80);
       v122 = v111 + v123;
-      v124 = v111[2];
+      v124 = *(v111 + 16);
       v45 = *(v43 + 64);
       v121 = v43 + 16;
       do
@@ -1425,7 +1425,7 @@ LABEL_76:
         }
 
         v48 = *(v44 + 72);
-        (*(v44 + 16))(&v103 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0), &v122[v48 * v10], v127);
+        (*(v44 + 16))(&v103 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0), v122 + v48 * v10, v127);
         v14 = v10;
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
@@ -1436,7 +1436,7 @@ LABEL_76:
         v49 = v129[3];
         if (v10 >= v49 >> 1)
         {
-          v129 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v49 > 1, v10 + 1, 1, v129);
+          v129 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v49 > 1), v10 + 1, 1, v129);
         }
 
         v50 = v129;
@@ -1484,7 +1484,7 @@ LABEL_76:
 
     MEMORY[0x1EEE9AC00](v42);
     v14 = &v103 - ((v57 + 15) & 0xFFFFFFFFFFFFFFF0);
-    outlined init with copy of DelegateProgramArguments?(v39, v14, &_s4ODIE7OperandOSgMd);
+    outlined init with copy of DelegateProgramArguments?(v39, v14, &_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
     v58 = type metadata accessor for Operand();
     v59 = *(v58 - 8);
     if ((*(v59 + 48))(v14, 1, v58) == 1)
@@ -1501,10 +1501,10 @@ LABEL_76:
     v60 = v129[3];
     if (v61 >= v60 >> 1)
     {
-      v129 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v60 > 1, v61 + 1, 1, v129);
+      v129 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v60 > 1), v61 + 1, 1, v129);
     }
 
-    outlined destroy of DelegateProgramArguments?(v39, &_s4ODIE7OperandOSgMd);
+    outlined destroy of DelegateProgramArguments?(v39, &_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
     v62 = v129;
     v129[2] = v61 + 1;
     v8 = (*(v59 + 32))(v62 + ((*(v59 + 80) + 32) & ~*(v59 + 80)) + *(v59 + 72) * v61, v14, v58);
@@ -1548,10 +1548,10 @@ LABEL_48:
           v73 = v69[3];
           if (v10 >= v73 >> 1)
           {
-            v72 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v73 > 1, v10 + 1, 1, v69);
+            v72 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v73 > 1), v10 + 1, 1, v69);
           }
 
-          *(v72 + 16) = v10 + 1;
+          v72[2] = v10 + 1;
           v69 = v72;
           v64 = (*v68)(v72 + v126 + v10 * v70, &v103 - ((v67 + 15) & 0xFFFFFFFFFFFFFFF0), v128);
           if (__OFADD__(v71, 1))
@@ -1586,7 +1586,7 @@ LABEL_58:
           while (v10 < v74[2])
           {
             v78 = v129 + *(v77 + 72) * v10;
-            v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s4ODIE7OperandOSgMd);
+            v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
             v14 = &v103;
             MEMORY[0x1EEE9AC00](v79 - 8);
             v41 = &v103 - v80;
@@ -1603,7 +1603,7 @@ LABEL_58:
             }
 
             ++v10;
-            outlined destroy of DelegateProgramArguments?(v41, &_s4ODIE7OperandOSgMd);
+            outlined destroy of DelegateProgramArguments?(v41, &_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
             specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
             specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
             specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
@@ -1646,7 +1646,7 @@ LABEL_72:
             v97 = objc_autoreleasePoolPush();
             v98 = [objc_opt_self() commandBufferFromCommandQueue_];
             v99 = v96[2];
-            type metadata accessor for NSNumber(0, &lazy cache variable for type metadata for MPSGraphTensorData);
+            type metadata accessor for NSNumber(0, &lazy cache variable for type metadata for MPSGraphTensorData, off_1E86D15B0);
             isa = Array._bridgeToObjectiveC()().super.isa;
 
             v101 = Array._bridgeToObjectiveC()().super.isa;
@@ -1662,7 +1662,7 @@ LABEL_72:
           v131 = v14;
           outlined init with copy of MPSGraphDelegateKernel(v3, v130);
           specialized ContiguousArray.reserveCapacity(_:)();
-          v90 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s4ODIE7OperandOSgMd);
+          v90 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
           v91 = 0;
           v93 = *(v90 - 8);
           v92 = v90 - 8;
@@ -1678,7 +1678,7 @@ LABEL_72:
               break;
             }
 
-            outlined init with copy of DelegateProgramArguments?(v127 + *(v128 + 9) * v91, &v103 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), &_s4ODIE7OperandOSgMd);
+            outlined init with copy of DelegateProgramArguments?(v127 + *(v128 + 9) * v91, &v103 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), &_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
             v94 = v119;
             v95 = partial apply for implicit closure #4 in implicit closure #3 in MPSGraphDelegateKernel.inferValue(inputs:outputs:symbol:kernelContext:)(&v103 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
             v119 = v94;
@@ -1689,7 +1689,7 @@ LABEL_72:
 
             v14 = v95;
             ++v91;
-            outlined destroy of DelegateProgramArguments?(&v103 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), &_s4ODIE7OperandOSgMd);
+            outlined destroy of DelegateProgramArguments?(&v103 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), &_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
             specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
             specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
             specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
@@ -1734,13 +1734,13 @@ LABEL_4:
 
   __break(1u);
 LABEL_91:
-  outlined destroy of DelegateProgramArguments?(v41, &_s4ODIE7OperandOSgMd);
+  outlined destroy of DelegateProgramArguments?(v41, &_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
   outlined destroy of MPSGraphDelegateKernel(v109);
 
   swift_unexpectedError();
   __break(1u);
 LABEL_92:
-  outlined destroy of DelegateProgramArguments?(v41, &_s4ODIE7OperandOSgMd);
+  outlined destroy of DelegateProgramArguments?(v41, &_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR);
 
   result = swift_unexpectedError();
   __break(1u);
@@ -1754,7 +1754,7 @@ uint64_t protocol witness for Kernel.name.getter in conformance MPSGraphDelegate
   return v1;
 }
 
-size_t specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t result, int64_t a2, char a3, void *a4)
+void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -1800,8 +1800,8 @@ LABEL_30:
     goto LABEL_19;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy4ODIE7OperandOSgGMd);
-  v10 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s4ODIE7OperandOSgMd) - 8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy4ODIE7OperandOSgGMd, &_ss23_ContiguousArrayStorageCy4ODIE7OperandOSgGMR);
+  v10 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR) - 8);
   v11 = *(v10 + 72);
   v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
   v13 = swift_allocObject();
@@ -1814,7 +1814,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -1822,7 +1822,7 @@ LABEL_29:
   v13[2] = v8;
   v13[3] = 2 * ((result - v12) / v11);
 LABEL_19:
-  v15 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s4ODIE7OperandOSgMd) - 8);
+  v15 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s4ODIE7OperandOSgMd, &_s4ODIE7OperandOSgMR) - 8);
   if (v5)
   {
     if (v13 < a4 || (v16 = (*(v15 + 80) + 32) & ~*(v15 + 80), v13 + v16 >= a4 + v16 + *(v15 + 72) * v8))
@@ -1891,7 +1891,7 @@ LABEL_30:
     goto LABEL_19;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy4ODIE7OperandOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy4ODIE7OperandOGMd, &_ss23_ContiguousArrayStorageCy4ODIE7OperandOGMR);
   v10 = *(type metadata accessor for Operand() - 8);
   v11 = *(v10 + 72);
   v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
@@ -1905,7 +1905,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -1976,22 +1976,22 @@ uint64_t specialized MPSGraphDelegateError.CodingKeys.init(stringValue:)(uint64_
 
 uint64_t specialized MPSGraphDelegateError.init(from:)(void *a1)
 {
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO27MissingExecutableCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd);
+  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO27MissingExecutableCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd, &_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO27MissingExecutableCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMR);
   v32 = *(v29 - 8);
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](v29);
   v33 = &v26 - v2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO33CommandQueueUnavailableCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO33CommandQueueUnavailableCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd, &_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO33CommandQueueUnavailableCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMR);
   v30 = *(v3 - 8);
   v31 = v3;
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](v3);
   v5 = &v26 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO07MissingD16DeviceCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO07MissingD16DeviceCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd, &_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO07MissingD16DeviceCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMR);
   v28 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](v6);
   v8 = &v26 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO10CodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO10CodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd, &_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph21MPSGraphDelegateErrorO10CodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMR);
   v34 = *(v9 - 8);
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](v9);
   v11 = &v26 - v10;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type MPSGraphDelegateError.CodingKeys and conformance MPSGraphDelegateError.CodingKeys();
@@ -2013,7 +2013,7 @@ uint64_t specialized MPSGraphDelegateError.init(from:)(void *a1)
     v19 = type metadata accessor for DecodingError();
     swift_allocError();
     v21 = v20;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
     *v21 = &type metadata for MPSGraphDelegateError;
     KeyedDecodingContainer.codingPath.getter();
     DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
@@ -2099,13 +2099,13 @@ unint64_t lazy protocol witness table accessor for type MPSGraphDelegateError an
   return result;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -2203,11 +2203,11 @@ unint64_t lazy protocol witness table accessor for type MPSGraphDelegateKernelEr
 
 uint64_t specialized MPSGraphDelegateKernelError.init(from:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO33FailedToCreateMTLBufferCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO33FailedToCreateMTLBufferCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd, &_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO33FailedToCreateMTLBufferCodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMR);
   v16 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v5 = &v15 - v4;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO10CodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO10CodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMd, &_ss22KeyedDecodingContainerVy28MetalPerformanceShadersGraph27MPSGraphDelegateKernelErrorO10CodingKeys33_6D50CC86E2CCE881D418F1204106A462LLOGMR);
   v6 = *(v17 - 8);
   MEMORY[0x1EEE9AC00](v17);
   v8 = &v15 - v7;
@@ -2231,7 +2231,7 @@ uint64_t specialized MPSGraphDelegateKernelError.init(from:)(void *a1)
       v11 = type metadata accessor for DecodingError();
       swift_allocError();
       v13 = v12;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       *v13 = &type metadata for MPSGraphDelegateKernelError;
       KeyedDecodingContainer.codingPath.getter();
       DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
@@ -2247,21 +2247,21 @@ uint64_t specialized MPSGraphDelegateKernelError.init(from:)(void *a1)
   return __swift_destroy_boxed_opaque_existential_1(a1);
 }
 
-uint64_t outlined destroy of DelegateProgramArguments?(uint64_t a1, uint64_t *a2)
+uint64_t outlined destroy of DelegateProgramArguments?(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
-uint64_t outlined init with copy of DelegateProgramArguments?(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with copy of DelegateProgramArguments?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
-uint64_t type metadata accessor for NSNumber(uint64_t a1, unint64_t *a2)
+uint64_t type metadata accessor for NSNumber(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -2274,14 +2274,14 @@ uint64_t type metadata accessor for NSNumber(uint64_t a1, unint64_t *a2)
   return result;
 }
 
-uint64_t outlined init with take of (offset: Int, element: Operand?)(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with take of (offset: Int, element: Operand?)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 32))(a2, a1, v6);
   return a2;
 }
 
-uint64_t type metadata accessor for MPSGraphDelegate()
+uint64_t type metadata accessor for MPSGraphDelegate(uint64_t a1)
 {
   result = type metadata singleton initialization cache for MPSGraphDelegate;
   if (!type metadata singleton initialization cache for MPSGraphDelegate)
@@ -2369,10 +2369,10 @@ uint64_t storeEnumTagSinglePayload for MPSGraphDelegateCompiler(uint64_t result,
   return result;
 }
 
-uint64_t type metadata completion function for MPSGraphDelegate()
+uint64_t type metadata completion function for MPSGraphDelegate(uint64_t a1)
 {
   result = type metadata accessor for URL();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -2810,12 +2810,12 @@ LABEL_20:
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type MPSGraphDelegate and conformance MPSGraphDelegate(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type MPSGraphDelegate and conformance MPSGraphDelegate(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
-    type metadata accessor for MPSGraphDelegate();
+    type metadata accessor for MPSGraphDelegate(255);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -2823,9 +2823,9 @@ uint64_t lazy protocol witness table accessor for type MPSGraphDelegate and conf
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -3079,6 +3079,29 @@ LABEL_10:
   return a1;
 }
 
+{
+  v4 = strlen(__s);
+  if (v4 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v5 = v4;
+  if (v4 >= 0x17)
+  {
+    operator new();
+  }
+
+  *(a1 + 23) = v4;
+  if (v4)
+  {
+    memmove(a1, __s, v4);
+  }
+
+  *(a1 + v5) = 0;
+  return a1;
+}
+
 void std::__throw_length_error[abi:ne200100](const char *a1)
 {
   exception = __cxa_allocate_exception(0x10uLL);
@@ -3232,12 +3255,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -3251,22 +3274,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v10 = v2[1];
+            v10 = *(v2 + 8);
             v11 = *v10;
-            v2[1] = *v10;
+            *(v2 + 8) = *v10;
             v12 = v2;
             if (v11)
             {
-              v11[2] = v2;
-              v3 = v2[2];
+              *(v11 + 16) = v2;
+              v3 = *(v2 + 16);
               v12 = *v3;
             }
 
-            v10[2] = v3;
+            *(v10 + 16) = v3;
             v3[v12 != v2] = v10;
             *v10 = v2;
-            v2[2] = v10;
-            v3 = v10[2];
+            *(v2 + 16) = v10;
+            v3 = *(v10 + 16);
             v4 = *v3;
           }
 
@@ -3300,13 +3323,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v13[2] = v3;
             v3[*v3 != v2] = v13;
             v13[1] = v2;
-            v2[2] = v13;
+            *(v2 + 16) = v13;
             v3 = v13[2];
           }
 
@@ -3720,7 +3743,7 @@ uint64_t ToCharDimension(int a1, _BYTE *a2)
   v13 = &v14;
   do
   {
-    v6 = std::__tree<std::__value_type<ZinIrDimension,char>,std::__map_value_compare<ZinIrDimension,std::__value_type<ZinIrDimension,char>,std::less<ZinIrDimension>,true>,std::allocator<std::__value_type<ZinIrDimension,char>>>::__find_equal<ZinIrDimension>(&v13, &v14, &v17, &v16, (v18 + v4));
+    v6 = std::__tree<std::__value_type<ZinIrDimension,char>,std::__map_value_compare<ZinIrDimension,std::__value_type<ZinIrDimension,char>,std::less<ZinIrDimension>,true>,std::allocator<std::__value_type<ZinIrDimension,char>>>::__find_equal<ZinIrDimension>(&v13, &v14, &v17, v16, (v18 + v4));
     if (!*v6)
     {
       v7 = operator new(0x28uLL);
@@ -3778,9 +3801,19 @@ LABEL_14:
   return v11;
 }
 
-uint64_t *std::__tree<std::__value_type<ZinIrDimension,char>,std::__map_value_compare<ZinIrDimension,std::__value_type<ZinIrDimension,char>,std::less<ZinIrDimension>,true>,std::allocator<std::__value_type<ZinIrDimension,char>>>::__find_equal<ZinIrDimension>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t **a4, int *a5)
+void sub_1DF9CA520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  v5 = a1 + 1;
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void **);
+  std::__tree<unsigned long long>::destroy(va, v6);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *std::__tree<std::__value_type<ZinIrDimension,char>,std::__map_value_compare<ZinIrDimension,std::__value_type<ZinIrDimension,char>,std::less<ZinIrDimension>,true>,std::allocator<std::__value_type<ZinIrDimension,char>>>::__find_equal<ZinIrDimension>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t **a4, int *a5)
+{
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 7), *a5 < v7))
   {
     v8 = *a2;
@@ -3807,7 +3840,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -3868,7 +3901,7 @@ LABEL_17:
 
     else
     {
-      v19 = a1 + 1;
+      v19 = (a1 + 1);
     }
 
 LABEL_25:
@@ -3964,7 +3997,7 @@ LABEL_25:
 
       else
       {
-        v23 = a1 + 1;
+        v23 = (a1 + 1);
       }
 
 LABEL_41:
@@ -6272,9 +6305,9 @@ void mlir::CallGraph::CallGraph(mlir::CallGraph *this, mlir::Operation *a2)
   llvm::deallocate_buffer(v4, v8);
 }
 
-void computeCallGraph(uint64_t a1, uint64_t *a2, mlir::SymbolTableCollection *a3, uint64_t a4, _BOOL4 a5)
+void computeCallGraph(uint64_t a1, mlir::CallGraph *a2, mlir::SymbolTableCollection *a3, mlir::Region *a4, _BOOL4 a5)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (mlir::OpInterface<mlir::CallOpInterface,mlir::detail::CallOpInterfaceInterfaceTraits>::getInterfaceFor(a1))
   {
     if (a1)
@@ -6306,20 +6339,20 @@ void computeCallGraph(uint64_t a1, uint64_t *a2, mlir::SymbolTableCollection *a3
 
   if (a5 && v11)
   {
-    *&v27 = mlir::CallGraph::resolveCallable(a2, v11, InterfaceFor, a3) & 0xFFFFFFFFFFFFFFF9 | 2;
-    llvm::DenseMapBase<llvm::SmallDenseMap<mlir::CallGraphNode::Edge,llvm::detail::DenseSetEmpty,4u,mlir::CallGraphNode::EdgeKeyInfo,llvm::detail::DenseSetPair<mlir::CallGraphNode::Edge>>,mlir::CallGraphNode::Edge,llvm::detail::DenseSetEmpty,mlir::CallGraphNode::EdgeKeyInfo,llvm::detail::DenseSetPair<mlir::CallGraphNode::Edge>>::try_emplace<llvm::detail::DenseSetEmpty&>(a4 + 8, &v27, &v23);
-    if (v24 == 1)
+    *&v25 = mlir::CallGraph::resolveCallable(a2, v11, InterfaceFor, a3) & 0xFFFFFFFFFFFFFFF9 | 2;
+    llvm::DenseMapBase<llvm::SmallDenseMap<mlir::CallGraphNode::Edge,llvm::detail::DenseSetEmpty,4u,mlir::CallGraphNode::EdgeKeyInfo,llvm::detail::DenseSetPair<mlir::CallGraphNode::Edge>>,mlir::CallGraphNode::Edge,llvm::detail::DenseSetEmpty,mlir::CallGraphNode::EdgeKeyInfo,llvm::detail::DenseSetPair<mlir::CallGraphNode::Edge>>::try_emplace<llvm::detail::DenseSetEmpty&>(a4 + 2, &v25, &v21);
+    if (v22 == 1)
     {
-      v12 = v27;
-      v13 = *(a4 + 56);
-      if (v13 >= *(a4 + 60))
+      v12 = v25;
+      v13 = *(a4 + 14);
+      if (v13 >= *(a4 + 15))
       {
         llvm::SmallVectorBase<unsigned int>::grow_pod(a4 + 48, a4 + 64, v13 + 1, 8);
-        LODWORD(v13) = *(a4 + 56);
+        LODWORD(v13) = *(a4 + 14);
       }
 
-      *(*(a4 + 48) + 8 * v13) = v12;
-      ++*(a4 + 56);
+      *(*(a4 + 6) + 8 * v13) = v12;
+      ++*(a4 + 14);
     }
 
     return;
@@ -6343,11 +6376,11 @@ LABEL_14:
       v14 = 0;
     }
 
-    *&v23 = a1;
-    *(&v23 + 1) = v14;
+    *&v21 = a1;
+    *(&v21 + 1) = v14;
     if (a1)
     {
-      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v23);
+      CallableForCallee = mlir::CallOpInterface::getCallableForCallee(&v21);
       if (!CallableForCallee)
       {
         return;
@@ -6359,7 +6392,7 @@ LABEL_14:
 
   else
   {
-    v23 = 0uLL;
+    v21 = 0uLL;
   }
 
   v16 = *(a1 + 44);
@@ -6369,16 +6402,16 @@ LABEL_14:
     v18 = (v17 + 24 * (v16 & 0x7FFFFF));
     do
     {
-      mlir::Region::OpIterator::OpIterator(&v27, v17, 0);
-      mlir::Region::OpIterator::OpIterator(&v25, v17, 1);
-      v20 = v28;
-      v24 = v28;
-      v23 = v27;
-      for (i = v26; v28 != i; v20 = v28)
+      mlir::Region::OpIterator::OpIterator(&v25, v17, 0);
+      mlir::Region::OpIterator::OpIterator(&v23, v17, 1);
+      v22 = v26;
+      v21 = v25;
+      v19 = v24;
+      while (v26 != v19)
       {
-        v22 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v20, v19);
-        computeCallGraph(v22, a2, a3, a4, a5);
-        mlir::Region::OpIterator::operator++(&v27);
+        MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+        computeCallGraph(v20, a2, a3, a4, a5);
+        mlir::Region::OpIterator::operator++(&v25);
       }
 
       v17 = (v17 + 24);
@@ -6405,7 +6438,7 @@ uint64_t mlir::CallGraph::getOrAddNode(mlir::CallGraph *this, mlir::Region *a2, 
     if (a3)
     {
       v15[0] = v7 & 0xFFFFFFFFFFFFFFF9 | 4;
-      llvm::DenseMapBase<llvm::SmallDenseMap<mlir::CallGraphNode::Edge,llvm::detail::DenseSetEmpty,4u,mlir::CallGraphNode::EdgeKeyInfo,llvm::detail::DenseSetPair<mlir::CallGraphNode::Edge>>,mlir::CallGraphNode::Edge,llvm::detail::DenseSetEmpty,mlir::CallGraphNode::EdgeKeyInfo,llvm::detail::DenseSetPair<mlir::CallGraphNode::Edge>>::try_emplace<llvm::detail::DenseSetEmpty&>(a3 + 8, v15, v13);
+      llvm::DenseMapBase<llvm::SmallDenseMap<mlir::CallGraphNode::Edge,llvm::detail::DenseSetEmpty,4u,mlir::CallGraphNode::EdgeKeyInfo,llvm::detail::DenseSetPair<mlir::CallGraphNode::Edge>>,mlir::CallGraphNode::Edge,llvm::detail::DenseSetEmpty,mlir::CallGraphNode::EdgeKeyInfo,llvm::detail::DenseSetPair<mlir::CallGraphNode::Edge>>::try_emplace<llvm::detail::DenseSetEmpty&>(a3 + 2, v15, v13);
       if (v14 == 1)
       {
         v8 = v15[0];
@@ -6424,7 +6457,7 @@ uint64_t mlir::CallGraph::getOrAddNode(mlir::CallGraph *this, mlir::Region *a2, 
     else
     {
       v15[0] = v7 & 0xFFFFFFFFFFFFFFF9;
-      llvm::DenseMapBase<llvm::SmallDenseMap<mlir::CallGraphNode::Edge,llvm::detail::DenseSetEmpty,4u,mlir::CallGraphNode::EdgeKeyInfo,llvm::detail::DenseSetPair<mlir::CallGraphNode::Edge>>,mlir::CallGraphNode::Edge,llvm::detail::DenseSetEmpty,mlir::CallGraphNode::EdgeKeyInfo,llvm::detail::DenseSetPair<mlir::CallGraphNode::Edge>>::try_emplace<llvm::detail::DenseSetEmpty&>(this + 48, v15, v13);
+      llvm::DenseMapBase<llvm::SmallDenseMap<mlir::CallGraphNode::Edge,llvm::detail::DenseSetEmpty,4u,mlir::CallGraphNode::EdgeKeyInfo,llvm::detail::DenseSetPair<mlir::CallGraphNode::Edge>>,mlir::CallGraphNode::Edge,llvm::detail::DenseSetEmpty,mlir::CallGraphNode::EdgeKeyInfo,llvm::detail::DenseSetPair<mlir::CallGraphNode::Edge>>::try_emplace<llvm::detail::DenseSetEmpty&>(this + 12, v15, v13);
       if (v14 == 1)
       {
         v10 = v15[0];
@@ -6462,14 +6495,14 @@ uint64_t llvm::MapVector<mlir::Region *,std::unique_ptr<mlir::CallGraphNode>,llv
       if (v5 <= &v14 && v5 + 16 * v6 > &v14)
       {
         v13 = &v14 - v5;
-        llvm::SmallVectorTemplateBase<std::pair<mlir::Region *,std::unique_ptr<mlir::CallGraphNode>>,false>::grow(a1 + 24, v6 + 1);
+        llvm::SmallVectorTemplateBase<std::pair<mlir::Region *,std::unique_ptr<mlir::CallGraphNode>>,false>::grow((a1 + 24), v6 + 1);
         v5 = *(a1 + 24);
         v7 = &v13[v5];
       }
 
       else
       {
-        llvm::SmallVectorTemplateBase<std::pair<mlir::Region *,std::unique_ptr<mlir::CallGraphNode>>,false>::grow(a1 + 24, v6 + 1);
+        llvm::SmallVectorTemplateBase<std::pair<mlir::Region *,std::unique_ptr<mlir::CallGraphNode>>,false>::grow((a1 + 24), v6 + 1);
         v5 = *(a1 + 24);
         v7 = &v14;
       }
@@ -6553,7 +6586,7 @@ LABEL_3:
   return *(a1[3] + 16 * v7 + 8);
 }
 
-uint64_t *mlir::CallGraph::resolveCallable(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *mlir::CallGraph::resolveCallable(uint64_t *a1, uint64_t a2, uint64_t a3, mlir::SymbolTableCollection *a4)
 {
   v18[0] = a2;
   v18[1] = a3;
@@ -6896,20 +6929,20 @@ const char *llvm::getTypeName<mlir::CallableOpInterface>()
   return &v2[v3];
 }
 
-uint64_t llvm::DenseMapBase<llvm::SmallDenseMap<mlir::CallGraphNode::Edge,llvm::detail::DenseSetEmpty,4u,mlir::CallGraphNode::EdgeKeyInfo,llvm::detail::DenseSetPair<mlir::CallGraphNode::Edge>>,mlir::CallGraphNode::Edge,llvm::detail::DenseSetEmpty,mlir::CallGraphNode::EdgeKeyInfo,llvm::detail::DenseSetPair<mlir::CallGraphNode::Edge>>::try_emplace<llvm::detail::DenseSetEmpty&>@<X0>(uint64_t result@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+unsigned int *llvm::DenseMapBase<llvm::SmallDenseMap<mlir::CallGraphNode::Edge,llvm::detail::DenseSetEmpty,4u,mlir::CallGraphNode::EdgeKeyInfo,llvm::detail::DenseSetPair<mlir::CallGraphNode::Edge>>,mlir::CallGraphNode::Edge,llvm::detail::DenseSetEmpty,mlir::CallGraphNode::EdgeKeyInfo,llvm::detail::DenseSetPair<mlir::CallGraphNode::Edge>>::try_emplace<llvm::detail::DenseSetEmpty&>@<X0>(unsigned int *result@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
-  v4 = result + 8;
+  v4 = result + 2;
   v3 = *result;
   v5 = *result & 1;
   if (v5)
   {
     v6 = 4;
-    v7 = result + 8;
+    v7 = result + 2;
   }
 
   else
   {
-    v6 = *(result + 16);
+    v6 = result[4];
     if (!v6)
     {
       v10 = 0;
@@ -6918,12 +6951,12 @@ uint64_t llvm::DenseMapBase<llvm::SmallDenseMap<mlir::CallGraphNode::Edge,llvm::
       goto LABEL_11;
     }
 
-    v7 = *(result + 8);
+    v7 = *(result + 1);
   }
 
   v8 = v6 - 1;
   v9 = (v6 - 1) & ((*a2 >> 9) ^ *a2);
-  v10 = (v7 + 8 * v9);
+  v10 = &v7[2 * v9];
   v11 = *v10;
   if (*a2 == *v10)
   {
@@ -6935,12 +6968,12 @@ LABEL_6:
 
     else
     {
-      v4 = *(result + 8);
-      v12 = *(result + 16);
+      v4 = *(result + 1);
+      v12 = result[4];
     }
 
     *a3 = v10;
-    *(a3 + 8) = v4 + 8 * v12;
+    *(a3 + 8) = &v4[2 * v12];
     *(a3 + 16) = 0;
     return result;
   }
@@ -6966,7 +6999,7 @@ LABEL_6:
 
     v18 = v9 + v16++;
     v9 = v18 & v8;
-    v10 = (v7 + 8 * (v18 & v8));
+    v10 = &v7[2 * (v18 & v8)];
     v11 = *v10;
     if (*a2 == *v10)
     {
@@ -6987,7 +7020,7 @@ LABEL_6:
 
   else
   {
-    v13 = *(result + 16);
+    v13 = result[4];
   }
 
 LABEL_11:
@@ -6997,7 +7030,7 @@ LABEL_11:
     goto LABEL_34;
   }
 
-  if (v13 + ~(v3 >> 1) - *(result + 4) <= v13 >> 3)
+  if (v13 + ~(v3 >> 1) - result[1] <= v13 >> 3)
   {
 LABEL_34:
     v20 = a2;
@@ -7016,7 +7049,7 @@ LABEL_34:
   *result = (v3 & 0xFFFFFFFE | v5) + 2;
   if (*v10 != -2)
   {
-    --*(result + 4);
+    --result[1];
   }
 
   *v10 = *a2;
@@ -7027,12 +7060,12 @@ LABEL_34:
 
   else
   {
-    v4 = *(result + 8);
-    v14 = *(result + 16);
+    v4 = *(result + 1);
+    v14 = result[4];
   }
 
   *a3 = v10;
-  *(a3 + 8) = v4 + 8 * v14;
+  *(a3 + 8) = &v4[2 * v14];
   *(a3 + 16) = 1;
   return result;
 }
@@ -7309,9 +7342,9 @@ LABEL_8:
   }
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<mlir::Region *,unsigned int,llvm::DenseMapInfo<mlir::Region *,void>,llvm::detail::DenseMapPair<mlir::Region *,unsigned int>>,mlir::Region *,unsigned int,llvm::DenseMapInfo<mlir::Region *,void>,llvm::detail::DenseMapPair<mlir::Region *,unsigned int>>::try_emplace<unsigned int const&>@<X0>(uint64_t result@<X0>, void *a2@<X1>, _DWORD *a3@<X2>, uint64_t a4@<X8>)
+uint64_t *llvm::DenseMapBase<llvm::DenseMap<mlir::Region *,unsigned int,llvm::DenseMapInfo<mlir::Region *,void>,llvm::detail::DenseMapPair<mlir::Region *,unsigned int>>,mlir::Region *,unsigned int,llvm::DenseMapInfo<mlir::Region *,void>,llvm::detail::DenseMapPair<mlir::Region *,unsigned int>>::try_emplace<unsigned int const&>@<X0>(uint64_t *result@<X0>, void *a2@<X1>, _DWORD *a3@<X2>, uint64_t a4@<X8>)
 {
-  v5 = *(result + 16);
+  v5 = *(result + 4);
   if (!v5)
   {
     v9 = 0;
@@ -7361,28 +7394,28 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<mlir::Region *,unsigned int,llvm::Den
 
 LABEL_5:
     v20 = v9;
-    v12 = *(result + 8);
+    v12 = *(result + 2);
     if (4 * v12 + 4 >= 3 * v5)
     {
       v5 *= 2;
     }
 
-    else if (v5 + ~v12 - *(result + 12) > v5 >> 3)
+    else if (v5 + ~v12 - *(result + 3) > v5 >> 3)
     {
-      *(result + 8) = v12 + 1;
+      *(result + 2) = v12 + 1;
       if (*v9 == -4096)
       {
 LABEL_9:
         *v9 = *a2;
         *(v9 + 8) = *a3;
         v6 = *result;
-        v5 = *(result + 16);
+        v5 = *(result + 4);
         v11 = 1;
         goto LABEL_10;
       }
 
 LABEL_8:
-      --*(result + 12);
+      --*(result + 3);
       goto LABEL_9;
     }
 
@@ -7395,7 +7428,7 @@ LABEL_8:
     result = v17;
     a4 = v18;
     v9 = v20;
-    ++*(v17 + 8);
+    ++*(v17 + 2);
     if (*v9 == -4096)
     {
       goto LABEL_9;
@@ -7576,101 +7609,101 @@ LABEL_19:
   return result;
 }
 
-void llvm::SmallVectorTemplateBase<std::pair<mlir::Region *,std::unique_ptr<mlir::CallGraphNode>>,false>::grow(uint64_t a1, unint64_t a2)
+void llvm::SmallVectorTemplateBase<std::pair<mlir::Region *,std::unique_ptr<mlir::CallGraphNode>>,false>::grow(char **a1, unint64_t a2)
 {
-  v28 = 0;
-  v3 = (a1 + 16);
-  llvm::SmallVectorBase<unsigned int>::mallocForGrow(a1, (a1 + 16), a2, 16, &v28);
-  v5 = v4;
-  v6 = *a1;
-  v7 = *(a1 + 8);
-  if (!v7)
+  v27 = 0;
+  v3 = (a1 + 2);
+  v4 = llvm::SmallVectorBase<unsigned int>::mallocForGrow(a1, a1 + 2, a2, 16, &v27);
+  v5 = *a1;
+  v6 = *(a1 + 2);
+  if (!v6)
   {
     goto LABEL_15;
   }
 
-  v8 = (v7 - 1) & 0xFFFFFFFFFFFFFFFLL;
-  v9 = 16 * v7;
-  if (v8 < 0xB || ((v6 + 8) < v5 + v9 ? (v18 = v5 + 8 >= &v6[v9]) : (v18 = 1), v18 ? (v19 = 0) : (v19 = 1), v6 < v5 + v9 - 8 ? (v20 = v5 >= &v6[v9 - 8]) : (v20 = 1), !v20 || (v19 & 1) != 0))
+  v7 = (v6 - 1) & 0xFFFFFFFFFFFFFFFLL;
+  v8 = 2 * v6;
+  if (v7 < 0xB || (v5 + 1 < &v4[v8 * 8] ? (v17 = v4 + 8 >= &v5[v8]) : (v17 = 1), v17 ? (v18 = 0) : (v18 = 1), v5 < &v4[v8 * 8 - 8] ? (v19 = v4 >= &v5[v8 - 1]) : (v19 = 1), !v19 || (v18 & 1) != 0))
   {
-    v10 = v5;
-    v11 = *a1;
+    v9 = v4;
+    v10 = *a1;
 LABEL_4:
-    v12 = &v6[16 * v7];
+    v11 = &v5[2 * v6];
     do
     {
-      v13 = *v11;
-      *(v11 + 1) = 0;
-      *v10++ = v13;
-      v11 += 16;
+      v12 = *v10;
+      v10[1] = 0;
+      *v9 = v12;
+      v9 += 16;
+      v10 += 2;
     }
 
-    while (v11 != v12);
+    while (v10 != v11);
     goto LABEL_6;
   }
 
-  v21 = v8 + 1;
-  v22 = (v8 + 1) & 0x1FFFFFFFFFFFFFFELL;
-  v10 = (v5 + 16 * v22);
-  v11 = &v6[16 * v22];
-  v23 = v22;
-  v24 = v5;
-  v25 = *a1;
+  v20 = v7 + 1;
+  v21 = (v7 + 1) & 0x1FFFFFFFFFFFFFFELL;
+  v9 = &v4[16 * v21];
+  v10 = &v5[2 * v21];
+  v22 = v21;
+  v23 = v4;
+  v24 = *a1;
   do
   {
-    v26 = *v25;
-    v27 = *(v25 + 1);
-    *(v25 + 1) = 0;
-    *(v25 + 3) = 0;
-    *v24 = v26;
-    v24[1] = v27;
-    v24 += 2;
-    v25 += 32;
-    v23 -= 2;
+    v25 = *v24;
+    v26 = *(v24 + 1);
+    v24[1] = 0;
+    v24[3] = 0;
+    *v23 = v25;
+    *(v23 + 1) = v26;
+    v23 += 32;
+    v24 += 4;
+    v22 -= 2;
   }
 
-  while (v23);
-  if (v21 != v22)
+  while (v22);
+  if (v20 != v21)
   {
     goto LABEL_4;
   }
 
 LABEL_6:
-  v14 = v6 - 8;
+  v13 = v5 - 1;
   do
   {
-    v15 = *&v14[v9];
-    *&v14[v9] = 0;
-    if (v15)
+    v14 = v13[v8];
+    v13[v8] = 0;
+    if (v14)
     {
-      v16 = *(v15 + 48);
-      if (v16 != (v15 + 64))
+      v15 = *(v14 + 48);
+      if (v15 != (v14 + 64))
       {
-        free(v16);
+        free(v15);
       }
 
-      if ((*(v15 + 8) & 1) == 0)
+      if ((*(v14 + 8) & 1) == 0)
       {
-        llvm::deallocate_buffer(*(v15 + 16), (8 * *(v15 + 24)));
+        llvm::deallocate_buffer(*(v14 + 16), (8 * *(v14 + 24)));
       }
 
-      operator delete(v15);
+      operator delete(v14);
     }
 
-    v9 -= 16;
+    v8 -= 2;
   }
 
-  while (v9);
-  v6 = *a1;
+  while (v8 * 8);
+  v5 = *a1;
 LABEL_15:
-  v17 = v28;
-  if (v6 != v3)
+  v16 = v27;
+  if (v5 != v3)
   {
-    free(v6);
+    free(v5);
   }
 
-  *a1 = v5;
-  *(a1 + 12) = v17;
+  *a1 = v4;
+  *(a1 + 3) = v16;
 }
 
 void llvm::scc_iterator<mlir::CallGraph const*,llvm::GraphTraits<mlir::CallGraph const*>>::DFSVisitOne(int *a1, uint64_t a2)
@@ -7726,7 +7759,7 @@ void llvm::scc_iterator<mlir::CallGraph const*,llvm::GraphTraits<mlir::CallGraph
     v15 = &v14[8 * v10];
     v6 = v29;
     *v15 = v29;
-    v7 = v15 + 8;
+    v7 = v15 + 1;
     memcpy(v14, v8, v9);
     *(a1 + 4) = v14;
     *(a1 + 5) = v7;
@@ -7742,7 +7775,7 @@ void llvm::scc_iterator<mlir::CallGraph const*,llvm::GraphTraits<mlir::CallGraph
   {
     v6 = v29;
     *v5 = v29;
-    v7 = v5 + 8;
+    v7 = v5 + 1;
   }
 
   *(a1 + 5) = v7;
@@ -8881,21 +8914,20 @@ uint64_t mlir::LivenessBlockInfo::getStartOperation(uint64_t a1, void *a2)
 {
   v16 = a2;
   DefiningOp = mlir::Value::getDefiningOp(&v16);
-  v4 = v16;
-  v5 = *(a1 + 8);
-  v6 = *(a1 + 16);
-  v7 = a1 + 8;
-  if (v6 == v5)
+  v4 = *(a1 + 8);
+  v5 = *(a1 + 16);
+  v6 = a1 + 8;
+  if (v5 == v4)
   {
-    v11 = *(a1 + 28);
-    if (v11)
+    v10 = *(a1 + 28);
+    if (v10)
     {
-      v12 = 8 * v11;
-      while (*v5 != v16)
+      v11 = 8 * v10;
+      while (*v4 != v16)
       {
-        ++v5;
-        v12 -= 8;
-        if (!v12)
+        ++v4;
+        v11 -= 8;
+        if (!v11)
         {
           goto LABEL_11;
         }
@@ -8905,49 +8937,50 @@ uint64_t mlir::LivenessBlockInfo::getStartOperation(uint64_t a1, void *a2)
     else
     {
 LABEL_11:
-      v5 = &v6[v11];
+      v4 = &v5[v10];
     }
 
-    v9 = *(a1 + 16);
+    v8 = *(a1 + 16);
   }
 
   else
   {
-    v8 = DefiningOp;
-    v5 = llvm::SmallPtrSetImplBase::doFind((a1 + 8), v16);
-    v6 = *(a1 + 8);
-    v9 = *(a1 + 16);
-    if (!v5)
+    v7 = DefiningOp;
+    v4 = llvm::SmallPtrSetImplBase::doFind((a1 + 8), v16);
+    v5 = *(a1 + 8);
+    v8 = *(a1 + 16);
+    if (!v4)
     {
-      v10 = 16;
-      if (v9 == v6)
+      v9 = 16;
+      if (v8 == v5)
       {
-        v10 = 20;
+        v9 = 20;
       }
 
-      v5 = &v9[*(v7 + v10)];
+      v4 = &v8[*(v6 + v9)];
     }
 
-    DefiningOp = v8;
+    DefiningOp = v7;
   }
 
-  v14 = v9 == v6;
-  v13 = 16;
-  if (v14)
+  v13 = v8 == v5;
+  v12 = 16;
+  if (v13)
   {
-    v13 = 20;
+    v12 = 20;
   }
 
-  v14 = v5 != &v9[*(v7 + v13)] || DefiningOp == 0;
-  if (v14)
+  v13 = v4 != &v8[*(v6 + v12)] || DefiningOp == 0;
+  if (v13)
   {
-    return MPSGraphDelegateCompiler.precompilationDescriptor.modify(*(*a1 + 40), v4);
+    MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+    return v14;
   }
 
   return DefiningOp;
 }
 
-uint64_t mlir::LivenessBlockInfo::getEndOperation(uint64_t a1, uint64_t **a2, mlir::Operation *a3)
+void mlir::LivenessBlockInfo::getEndOperation(uint64_t a1, uint64_t **a2, mlir::Block **a3)
 {
   v7 = *(a1 + 168);
   v8 = *(a1 + 176);
@@ -9004,35 +9037,32 @@ LABEL_10:
 
   if (v7 == &v10[*(v9 + v15)])
   {
-    v18 = *a2;
+    v16 = *a2;
     if (*a2)
     {
       do
       {
-        AncestorOpInBlock = mlir::Block::findAncestorOpInBlock(*a1, v18[2]);
+        AncestorOpInBlock = mlir::Block::findAncestorOpInBlock(*a1, v16[2]);
         if (AncestorOpInBlock)
         {
-          v20 = AncestorOpInBlock;
+          v18 = AncestorOpInBlock;
           if (mlir::Operation::isBeforeInBlock(a3, AncestorOpInBlock))
           {
-            a3 = v20;
+            a3 = v18;
           }
         }
 
-        v18 = *v18;
+        v16 = *v16;
       }
 
-      while (v18);
+      while (v16);
     }
-
-    return a3;
   }
 
   else
   {
-    v16 = *(*a1 + 32);
 
-    return MPSGraphDelegateCompiler.precompilationDescriptor.modify(v16, a2);
+    MPSGraphDelegateCompiler.precompilationDescriptor.modify();
   }
 }
 
@@ -9170,7 +9200,7 @@ uint64_t mlir::detail::walk<mlir::ForwardIterator>(mlir::ForwardIterator *a1, ml
               v12 = *(v11 + 8);
               for (i = *(v11 + 32); i != v11 + 24; i = *(i + 8))
               {
-                v14 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(i, v8);
+                MPSGraphDelegateCompiler.precompilationDescriptor.modify();
                 mlir::detail::walk<mlir::ForwardIterator>(v14, a2, a3, 1);
               }
 
@@ -9191,30 +9221,30 @@ uint64_t mlir::detail::walk<mlir::ForwardIterator>(mlir::ForwardIterator *a1, ml
       {
         do
         {
-          v21 = *(v9 + 8);
-          if (v21 != v9)
+          v20 = *(v9 + 8);
+          if (v20 != v9)
           {
             do
             {
-              v22 = *(v21 + 8);
-              v23 = v21 + 24;
-              v24 = *(v21 + 32);
-              if (v24 != v21 + 24)
+              v21 = *(v20 + 8);
+              v22 = v20 + 24;
+              v23 = *(v20 + 32);
+              if (v23 != v20 + 24)
               {
                 do
                 {
-                  v25 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v24, v8);
-                  result = mlir::detail::walk<mlir::ForwardIterator>(v25, a2, a3, a4);
-                  v24 = *(v24 + 8);
+                  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+                  result = mlir::detail::walk<mlir::ForwardIterator>(v24, a2, a3, a4);
+                  v23 = *(v23 + 8);
                 }
 
-                while (v24 != v23);
+                while (v23 != v22);
               }
 
-              v21 = v22;
+              v20 = v21;
             }
 
-            while (v22 != v9);
+            while (v21 != v9);
           }
 
           v9 += 24;
@@ -9235,11 +9265,11 @@ uint64_t mlir::detail::walk<mlir::ForwardIterator>(mlir::ForwardIterator *a1, ml
           {
             v16 = *(v15 + 8);
             result = (a2)(a3, v15 - 8);
-            v18 = v15 + 24;
-            for (j = *(v15 + 32); j != v18; j = *(j + 8))
+            v17 = v15 + 24;
+            for (j = *(v15 + 32); j != v17; j = *(j + 8))
             {
-              v20 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(j, v17);
-              result = mlir::detail::walk<mlir::ForwardIterator>(v20, a2, a3, 0);
+              MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+              result = mlir::detail::walk<mlir::ForwardIterator>(v19, a2, a3, 0);
             }
 
             v15 = v16;
@@ -9271,8 +9301,8 @@ uint64_t mlir::detail::walk<mlir::ForwardIterator>(mlir::ForwardIterator *a1, ml
   {
     while (1)
     {
-      v23 = *(v9 + 8);
-      if (v23 != v9)
+      v22 = *(v9 + 8);
+      if (v22 != v9)
       {
         break;
       }
@@ -9288,22 +9318,22 @@ LABEL_24:
 
     while (1)
     {
-      v24 = *(v23 + 8);
-      v25 = *(v23 + 32);
-      if (v25 != v23 + 24)
+      v23 = *(v22 + 8);
+      v24 = *(v22 + 32);
+      if (v24 != v22 + 24)
       {
         break;
       }
 
 LABEL_29:
-      result = (a2)(a3, v23 - 8);
+      result = (a2)(a3, v22 - 8);
       if (!result)
       {
         return result;
       }
 
-      v23 = v24;
-      if (v24 == v9)
+      v22 = v23;
+      if (v23 == v9)
       {
         goto LABEL_24;
       }
@@ -9311,15 +9341,15 @@ LABEL_29:
 
     while (1)
     {
-      v26 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v25, v8);
-      result = mlir::detail::walk<mlir::ForwardIterator>(v26, a2, a3, 1);
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+      result = mlir::detail::walk<mlir::ForwardIterator>(v25, a2, a3, 1);
       if (!result)
       {
         break;
       }
 
-      v25 = *(v25 + 8);
-      if (v25 == v23 + 24)
+      v24 = *(v24 + 8);
+      if (v24 == v22 + 24)
       {
         goto LABEL_29;
       }
@@ -9330,8 +9360,8 @@ LABEL_29:
   {
     while (1)
     {
-      v18 = *(v9 + 8);
-      if (v18 != v9)
+      v17 = *(v9 + 8);
+      if (v17 != v9)
       {
         break;
       }
@@ -9347,17 +9377,17 @@ LABEL_16:
 
     while (1)
     {
-      v19 = *(v18 + 8);
-      v20 = v18 + 24;
-      v21 = *(v18 + 32);
-      if (v21 != v18 + 24)
+      v18 = *(v17 + 8);
+      v19 = v17 + 24;
+      v20 = *(v17 + 32);
+      if (v20 != v17 + 24)
       {
         break;
       }
 
 LABEL_19:
-      v18 = v19;
-      if (v19 == v9)
+      v17 = v18;
+      if (v18 == v9)
       {
         goto LABEL_16;
       }
@@ -9365,15 +9395,15 @@ LABEL_19:
 
     while (1)
     {
-      v22 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v21, v8);
-      result = mlir::detail::walk<mlir::ForwardIterator>(v22, a2, a3, a4);
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+      result = mlir::detail::walk<mlir::ForwardIterator>(v21, a2, a3, a4);
       if (!result)
       {
         break;
       }
 
-      v21 = *(v21 + 8);
-      if (v21 == v20)
+      v20 = *(v20 + 8);
+      if (v20 == v19)
       {
         goto LABEL_19;
       }
@@ -9410,9 +9440,9 @@ LABEL_5:
           return result;
         }
 
-        v15 = v11 + 24;
-        v16 = *(v11 + 32);
-        if (v16 != v15)
+        v14 = v11 + 24;
+        v15 = *(v11 + 32);
+        if (v15 != v14)
         {
           break;
         }
@@ -9428,15 +9458,15 @@ LABEL_7:
 
     while (1)
     {
-      v17 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v16, v14);
-      result = mlir::detail::walk<mlir::ForwardIterator>(v17, a2, a3, 0);
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+      result = mlir::detail::walk<mlir::ForwardIterator>(v16, a2, a3, 0);
       if (!result)
       {
         break;
       }
 
-      v16 = *(v16 + 8);
-      if (v16 == v15)
+      v15 = *(v15 + 8);
+      if (v15 == v14)
       {
         goto LABEL_7;
       }
@@ -9481,7 +9511,7 @@ LABEL_7:
         while (v13 != v14)
         {
           v15 = *(v13 + 8);
-          v16 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v13, v8);
+          MPSGraphDelegateCompiler.precompilationDescriptor.modify();
           v17 = mlir::detail::walk<mlir::ForwardIterator>(v16, a2, a3, a4);
           v13 = v15;
           if (!v17)
@@ -9533,7 +9563,7 @@ LABEL_7:
           do
           {
             v14 = *(result + 8);
-            v15 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(result, v8);
+            MPSGraphDelegateCompiler.precompilationDescriptor.modify();
             mlir::detail::walk<mlir::ForwardIterator>(v15, a2, a3, a4);
             result = v14;
           }
@@ -9614,9 +9644,9 @@ void llvm::function_ref<void ()(mlir::Block *)>::callback_fn<buildBlockMapping(m
 
   v51[0] = v7;
   v13 = *(v4 + 8);
-  if (4 * v13 + 4 >= (3 * v5))
+  if (4 * v13 + 4 >= 3 * v5)
   {
-    LODWORD(v5) = 2 * v5;
+    v5 *= 2;
   }
 
   else if (v5 + ~v13 - *(v4 + 12) > v5 >> 3)
@@ -9764,14 +9794,14 @@ LABEL_41:
   }
 
 LABEL_18:
-  v17 = (a2 + 32);
+  v17 = a2 + 32;
   v18 = *(a2 + 5);
-  if (v18 != (a2 + 32))
+  if (v18 != a2 + 32)
   {
     v49 = v3;
     do
     {
-      v19 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v18, v5);
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
       v20 = *(v19 + 36);
       if (v20)
       {
@@ -9849,11 +9879,11 @@ LABEL_27:
       }
 
 LABEL_20:
-      v18 = v18[1];
-      v17 = (a2 + 32);
+      v18 = *(v18 + 1);
+      v17 = a2 + 32;
     }
 
-    while (v18 != (a2 + 32));
+    while (v18 != a2 + 32);
     v18 = *(a2 + 5);
     v14 = v7 + 8;
     v3 = v49;
@@ -9864,8 +9894,8 @@ LABEL_20:
   {
     do
     {
-      v43 = v18[1];
-      v44 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v18, v5);
+      v43 = *(v18 + 1);
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
       v18 = v43;
     }
 
@@ -9889,7 +9919,7 @@ LABEL_63:
           v48 = *(v46 + 32);
           if (v48 >= *(v46 + 36))
           {
-            llvm::SmallVectorBase<unsigned int>::grow_pod(v46 + 24, v46 + 40, v48 + 1, 8);
+            llvm::SmallVectorBase<unsigned int>::grow_pod(v46 + 24, (v46 + 40), v48 + 1, 8);
             v48 = *(v46 + 32);
           }
 

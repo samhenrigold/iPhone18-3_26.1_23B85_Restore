@@ -7,10 +7,10 @@
 - (void)dealloc
 {
   sub_100010960(self);
-  sub_10001BB44(self);
-  v3.receiver = self;
-  v3.super_class = OS_launch_array;
-  [(OS_launch_array *)&v3 dealloc];
+  sub_10001BB44(self, v3);
+  v4.receiver = self;
+  v4.super_class = OS_launch_array;
+  [(OS_launch_array *)&v4 dealloc];
 }
 
 @end

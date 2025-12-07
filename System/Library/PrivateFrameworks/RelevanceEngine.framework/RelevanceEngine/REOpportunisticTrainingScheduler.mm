@@ -109,7 +109,7 @@ void __48__REOpportunisticTrainingScheduler_performTask___block_invoke(uint64_t 
 
 void __48__REOpportunisticTrainingScheduler_performTask___block_invoke_15(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -119,7 +119,7 @@ void __48__REOpportunisticTrainingScheduler_performTask___block_invoke_15(uint64
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v14 = state;
+      v13 = state;
       _os_log_impl(&dword_22859F000, v6, OS_LOG_TYPE_INFO, "Training scheduler fired with state %ld", buf, 0xCu);
     }
 
@@ -134,16 +134,14 @@ void __48__REOpportunisticTrainingScheduler_performTask___block_invoke_15(uint64
     }
 
     v8 = WeakRetained[2];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __48__REOpportunisticTrainingScheduler_performTask___block_invoke_16;
-    v10[3] = &unk_2785F9AE0;
-    v11 = v3;
-    v12 = WeakRetained;
-    dispatch_async(v8, v10);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __48__REOpportunisticTrainingScheduler_performTask___block_invoke_16;
+    v9[3] = &unk_2785F9AE0;
+    v10 = v3;
+    v11 = WeakRetained;
+    dispatch_async(v8, v9);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__REOpportunisticTrainingScheduler_performTask___block_invoke_16(uint64_t a1)
@@ -164,40 +162,39 @@ uint64_t __48__REOpportunisticTrainingScheduler_performTask___block_invoke_16(ui
 
 - (void)_performAllTasks
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_blocks;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        (*(*(*(&v9 + 1) + 8 * v7) + 16))(*(*(&v9 + 1) + 8 * v7));
+        (*(*(*(&v8 + 1) + 8 * v7) + 16))(*(*(&v8 + 1) + 8 * v7));
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   [(NSMutableArray *)self->_blocks removeAllObjects];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_unschedule

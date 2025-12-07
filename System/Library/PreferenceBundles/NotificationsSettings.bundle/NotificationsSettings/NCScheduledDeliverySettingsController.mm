@@ -838,39 +838,43 @@ LABEL_33:
 {
   pathCopy = path;
   section = [pathCopy section];
-  if (section == [(NCScheduledDeliverySettingsController *)self _sectionForScheduleTimes])
+  _sectionForScheduleTimes = [(NCScheduledDeliverySettingsController *)self _sectionForScheduleTimes];
+  v6 = pathCopy;
+  if (section == _sectionForScheduleTimes)
   {
-    v5 = [(NCScheduledDeliverySettingsController *)self specifierAtIndexPath:pathCopy];
-    v6 = [(NSMutableArray *)self->_orderedDigestTimeSpecifiers count];
-    [(NSMutableArray *)self->_orderedDigestTimeSpecifiers removeObject:v5];
+    v7 = [(NCScheduledDeliverySettingsController *)self specifierAtIndexPath:pathCopy];
+    v8 = [(NSMutableArray *)self->_orderedDigestTimeSpecifiers count];
+    [(NSMutableArray *)self->_orderedDigestTimeSpecifiers removeObject:v7];
     -[NSMutableArray removeObjectAtIndex:](self->_orderedScheduledDeliveryTimes, "removeObjectAtIndex:", [pathCopy row]);
-    [(NCScheduledDeliverySettingsController *)self removeSpecifier:v5 animated:1];
-    if (v6 == &dword_C)
+    [(NCScheduledDeliverySettingsController *)self removeSpecifier:v7 animated:1];
+    if (v8 == &dword_C)
     {
       _specifierForAddNewScheduledTime = [(NCScheduledDeliverySettingsController *)self _specifierForAddNewScheduledTime];
       [(NCScheduledDeliverySettingsController *)self insertSpecifier:_specifierForAddNewScheduledTime atEndOfGroup:[(NCScheduledDeliverySettingsController *)self _sectionForScheduleTimes] animated:1];
     }
 
-    v8 = [pathCopy row];
-    while (v8 < [(NSMutableArray *)self->_orderedScheduledDeliveryTimes count])
+    v10 = [pathCopy row];
+    while (v10 < [(NSMutableArray *)self->_orderedScheduledDeliveryTimes count])
     {
-      v9 = +[NSIndexPath indexPathForRow:inSection:](NSIndexPath, "indexPathForRow:inSection:", v8, [pathCopy section]);
-      v10 = [(NCScheduledDeliverySettingsController *)self specifierAtIndexPath:v9];
-      ++v8;
-      if (v9)
+      v11 = +[NSIndexPath indexPathForRow:inSection:](NSIndexPath, "indexPathForRow:inSection:", v10, [pathCopy section]);
+      v12 = [(NCScheduledDeliverySettingsController *)self specifierAtIndexPath:v11];
+      ++v10;
+      if (v11)
       {
-        v11 = [(NCScheduledDeliverySettingsController *)self _scheduleTimeLabelForIndex:v8];
-        [v10 setName:v11];
+        v13 = [(NCScheduledDeliverySettingsController *)self _scheduleTimeLabelForIndex:v10];
+        [v12 setName:v13];
 
-        [(NCScheduledDeliverySettingsController *)self reloadSpecifier:v10 animated:1];
+        [(NCScheduledDeliverySettingsController *)self reloadSpecifier:v12 animated:1];
       }
     }
 
-    v12 = [(NSMutableArray *)self->_orderedScheduledDeliveryTimes copy];
-    [(NCScheduledDeliverySettingsController *)self _setGlobalScheduledDeliveryTimes:v12];
+    v14 = [(NSMutableArray *)self->_orderedScheduledDeliveryTimes copy];
+    [(NCScheduledDeliverySettingsController *)self _setGlobalScheduledDeliveryTimes:v14];
+
+    v6 = pathCopy;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(_sectionForScheduleTimes, v6);
 }
 
 - (unint64_t)_sectionForScheduleTimes

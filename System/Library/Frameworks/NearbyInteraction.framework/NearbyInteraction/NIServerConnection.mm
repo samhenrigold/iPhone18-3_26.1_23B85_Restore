@@ -26,7 +26,7 @@
 
 - (NIServerConnection)initWithSessionID:(id)d queue:(id)queue exportedObject:(id)object options:(unint64_t)options
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   dCopy = d;
   queueCopy = queue;
   objectCopy = object;
@@ -35,9 +35,9 @@
     [NIServerConnection initWithSessionID:a2 queue:self exportedObject:? options:?];
   }
 
-  v34.receiver = self;
-  v34.super_class = NIServerConnection;
-  v15 = [(NIServerConnection *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = NIServerConnection;
+  v15 = [(NIServerConnection *)&v33 init];
   v16 = v15;
   if (v15)
   {
@@ -60,7 +60,7 @@
           processInfo = [v20 processInfo];
           processName = [processInfo processName];
           *buf = 138412290;
-          v36 = processName;
+          v35 = processName;
           _os_log_impl(&dword_1BAC42000, v21, OS_LOG_TYPE_DEFAULT, "Deny connection: %@", buf, 0xCu);
         }
       }
@@ -100,7 +100,6 @@
     }
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -231,20 +230,18 @@ LABEL_11:
 
 void __39__NIServerConnection_remoteObjectProxy__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1BAC42000, a2, OS_LOG_TYPE_ERROR, "Remote object error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1BAC42000, a2, OS_LOG_TYPE_ERROR, "Remote object error: %@", &v2, 0xCu);
 }
 
 void __50__NIServerConnection_synchronousRemoteObjectProxy__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1BAC42000, a2, OS_LOG_TYPE_ERROR, "Synchronous remote object error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1BAC42000, a2, OS_LOG_TYPE_ERROR, "Synchronous remote object error: %@", &v2, 0xCu);
 }
 
 @end

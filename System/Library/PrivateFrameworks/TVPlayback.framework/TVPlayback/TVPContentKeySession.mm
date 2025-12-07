@@ -2,6 +2,8 @@
 + (void)initialize;
 - (TVPContentKeySession)initWithContentKeyLoader:(id)loader avAsset:(id)asset;
 - (void)_finishOfflineKeyGeneration;
+- (void)_generateOfflineKeyRequestsForIdentifiers:(id)identifiers isRenewal:(BOOL)renewal completion:(id)completion;
+- (void)_loadAVContentKeyRequests:(id)requests type:(int64_t)type isRenewal:(BOOL)renewal;
 - (void)_timeoutOfflineKeyRequestGeneration;
 - (void)contentKeySession:(id)session didProvideContentKeyRequest:(id)request;
 - (void)contentKeySession:(id)session didProvidePersistableContentKeyRequest:(id)request;
@@ -64,15 +66,15 @@ uint64_t __34__TVPContentKeySession_initialize__block_invoke()
 
 - (void)makeSecureInvalidationDataForOfflineKeyData:(id)data nonceData:(id)nonceData completion:(id)completion
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   nonceDataCopy = nonceData;
   completionCopy = completion;
   if (nonceDataCopy)
   {
-    v17 = *MEMORY[0x277CE5D18];
-    v18[0] = nonceDataCopy;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x277CE5D18];
+    v17[0] = nonceDataCopy;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   }
 
   else
@@ -81,15 +83,13 @@ uint64_t __34__TVPContentKeySession_initialize__block_invoke()
   }
 
   contentKeySession = [(TVPContentKeySession *)self contentKeySession];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __89__TVPContentKeySession_makeSecureInvalidationDataForOfflineKeyData_nonceData_completion___block_invoke;
-  v15[3] = &unk_279D7D320;
-  v16 = completionCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __89__TVPContentKeySession_makeSecureInvalidationDataForOfflineKeyData_nonceData_completion___block_invoke;
+  v14[3] = &unk_279D7D320;
+  v15 = completionCopy;
   v13 = completionCopy;
-  [contentKeySession invalidatePersistableContentKey:dataCopy options:v11 completionHandler:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [contentKeySession invalidatePersistableContentKey:dataCopy options:v11 completionHandler:v14];
 }
 
 void __89__TVPContentKeySession_makeSecureInvalidationDataForOfflineKeyData_nonceData_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -122,30 +122,30 @@ uint64_t __89__TVPContentKeySession_makeSecureInvalidationDataForOfflineKeyData_
 
 - (void)fetchOfflineKeysForParams:(id)params completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   completionCopy = completion;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v9 = paramsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v24 + 1) + 8 * i);
+        v14 = *(*(&v23 + 1) + 8 * i);
         keyIdentifier = [v14 keyIdentifier];
 
         if (keyIdentifier)
@@ -155,29 +155,27 @@ uint64_t __89__TVPContentKeySession_makeSecureInvalidationDataForOfflineKeyData_
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v11);
   }
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __61__TVPContentKeySession_fetchOfflineKeysForParams_completion___block_invoke;
-  v20[3] = &unk_279D7DD00;
-  v21 = v9;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __61__TVPContentKeySession_fetchOfflineKeysForParams_completion___block_invoke;
+  v19[3] = &unk_279D7DD00;
+  v20 = v9;
   selfCopy = self;
-  v23 = completionCopy;
+  v22 = completionCopy;
   v17 = completionCopy;
   v18 = v9;
-  [(TVPContentKeySession *)self _generateOfflineKeyRequestsForIdentifiers:v8 isRenewal:0 completion:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [(TVPContentKeySession *)self _generateOfflineKeyRequestsForIdentifiers:v8 isRenewal:0 completion:v19];
 }
 
 void __61__TVPContentKeySession_fetchOfflineKeysForParams_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (![v3 count])
   {
@@ -197,33 +195,33 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
-  v26 = v3;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v25 = v3;
   v4 = v3;
-  v31 = [v4 countByEnumeratingWithState:&v36 objects:v43 count:16];
-  if (v31)
+  v30 = [v4 countByEnumeratingWithState:&v35 objects:v42 count:16];
+  if (v30)
   {
-    v30 = *v37;
+    v29 = *v36;
     obj = v4;
-    v28 = a1;
+    v27 = a1;
     do
     {
-      for (i = 0; i != v31; ++i)
+      for (i = 0; i != v30; ++i)
       {
-        if (*v37 != v30)
+        if (*v36 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v36 + 1) + 8 * i);
+        v6 = *(*(&v35 + 1) + 8 * i);
         v7 = sLogObject_7;
         if (os_log_type_enabled(sLogObject_7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v42 = v6;
+          v41 = v6;
           _os_log_impl(&dword_26CEDD000, v7, OS_LOG_TYPE_DEFAULT, "Loading key request %@", buf, 0xCu);
         }
 
@@ -232,27 +230,27 @@ LABEL_29:
 
         if (v9)
         {
-          v29 = v6;
-          v34 = 0u;
-          v35 = 0u;
-          v32 = 0u;
+          v28 = v6;
           v33 = 0u;
+          v34 = 0u;
+          v31 = 0u;
+          v32 = 0u;
           v10 = *(a1 + 32);
-          v11 = [v10 countByEnumeratingWithState:&v32 objects:v40 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v31 objects:v39 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v33;
+            v13 = *v32;
             while (2)
             {
               for (j = 0; j != v12; ++j)
               {
-                if (*v33 != v13)
+                if (*v32 != v13)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v15 = *(*(&v32 + 1) + 8 * j);
+                v15 = *(*(&v31 + 1) + 8 * j);
                 v16 = [v15 keyIdentifier];
                 if (v16)
                 {
@@ -263,14 +261,14 @@ LABEL_29:
                   if (v19)
                   {
                     v20 = [v15 keyFormatVersions];
-                    [v29 setKeyFormatVersions:v20];
+                    [v28 setKeyFormatVersions:v20];
 
                     goto LABEL_21;
                   }
                 }
               }
 
-              v12 = [v10 countByEnumeratingWithState:&v32 objects:v40 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v31 objects:v39 count:16];
               if (v12)
               {
                 continue;
@@ -282,15 +280,15 @@ LABEL_29:
 
 LABEL_21:
 
-          a1 = v28;
+          a1 = v27;
         }
       }
 
       v4 = obj;
-      v31 = [obj countByEnumeratingWithState:&v36 objects:v43 count:16];
+      v30 = [obj countByEnumeratingWithState:&v35 objects:v42 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
 
   v21 = [*(a1 + 40) contentKeyLoader];
@@ -301,7 +299,7 @@ LABEL_21:
     v23 = [*(a1 + 40) contentKeyLoader];
     [v23 loadFairPlayStreamingKeyRequests:v4 completion:*(a1 + 48)];
 
-    v3 = v26;
+    v3 = v25;
     goto LABEL_30;
   }
 
@@ -311,20 +309,18 @@ LABEL_21:
   }
 
   v24 = *(a1 + 48);
-  v3 = v26;
+  v3 = v25;
   if (v24)
   {
     goto LABEL_29;
   }
 
 LABEL_30:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishKeyRequest:(id)request
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if ([requestCopy isCancelled])
   {
@@ -358,9 +354,9 @@ LABEL_4:
             v16 = v14;
             renewalDate = [requestCopy renewalDate];
             *buf = 138412546;
-            v35 = requestCopy;
-            v36 = 2112;
-            v37 = renewalDate;
+            v34 = requestCopy;
+            v35 = 2112;
+            v36 = renewalDate;
             _os_log_impl(&dword_26CEDD000, v16, OS_LOG_TYPE_DEFAULT, "Received key response data.  Will call processContentKeyResponse on separate queue for key request %@, renewal date: %@", buf, 0x16u);
           }
 
@@ -370,19 +366,19 @@ LABEL_4:
           block[1] = 3221225472;
           block[2] = __41__TVPContentKeySession_finishKeyRequest___block_invoke_11;
           block[3] = &unk_279D7C4C0;
-          objc_copyWeak(&v30, buf);
-          v28 = requestCopy;
-          v29 = keyResponseData;
+          objc_copyWeak(&v29, buf);
+          v27 = requestCopy;
+          v28 = keyResponseData;
           dispatch_async(contentKeyProcessingQueue, block);
 
-          objc_destroyWeak(&v30);
+          objc_destroyWeak(&v29);
           objc_destroyWeak(buf);
         }
 
         else if (v15)
         {
           *buf = 138412290;
-          v35 = requestCopy;
+          v34 = requestCopy;
           _os_log_impl(&dword_26CEDD000, v14, OS_LOG_TYPE_DEFAULT, "Key request was successful, but not processing because no content key recipient exists.  %@", buf, 0xCu);
         }
       }
@@ -447,38 +443,34 @@ LABEL_4:
 
     [requestCopy setType:1];
     objc_initWeak(buf, self);
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __41__TVPContentKeySession_finishKeyRequest___block_invoke;
-    v31[3] = &unk_279D7BA58;
-    objc_copyWeak(&v33, buf);
-    v32 = requestCopy;
-    dispatch_async(MEMORY[0x277D85CD0], v31);
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __41__TVPContentKeySession_finishKeyRequest___block_invoke;
+    v30[3] = &unk_279D7BA58;
+    objc_copyWeak(&v32, buf);
+    v31 = requestCopy;
+    dispatch_async(MEMORY[0x277D85CD0], v30);
 
-    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v32);
     objc_destroyWeak(buf);
   }
 
 LABEL_31:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __41__TVPContentKeySession_finishKeyRequest___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained contentKeyLoader];
-  v6[0] = *(a1 + 32);
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[0] = *(a1 + 32);
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   [v3 loadFairPlayStreamingKeyRequests:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __41__TVPContentKeySession_finishKeyRequest___block_invoke_11(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v4 = sLogObject_7;
@@ -488,9 +480,9 @@ void __41__TVPContentKeySession_finishKeyRequest___block_invoke_11(uint64_t a1)
     if (v5)
     {
       v6 = *(a1 + 32);
-      v16 = 138412290;
-      v17 = v6;
-      _os_log_impl(&dword_26CEDD000, v4, OS_LOG_TYPE_DEFAULT, "Calling processContentKeyResponse for %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v6;
+      _os_log_impl(&dword_26CEDD000, v4, OS_LOG_TYPE_DEFAULT, "Calling processContentKeyResponse for %@", &v15, 0xCu);
     }
 
     v7 = [*(a1 + 32) avContentKeyRequest];
@@ -504,30 +496,29 @@ void __41__TVPContentKeySession_finishKeyRequest___block_invoke_11(uint64_t a1)
     if (os_log_type_enabled(sLogObject_7, OS_LOG_TYPE_DEFAULT))
     {
       v12 = *(a1 + 32);
-      v16 = 138412290;
-      v17 = v12;
+      v15 = 138412290;
+      v16 = v12;
       v13 = "processContentKeyResponse complete for %@";
 LABEL_8:
-      _os_log_impl(&dword_26CEDD000, v4, OS_LOG_TYPE_DEFAULT, v13, &v16, 0xCu);
+      _os_log_impl(&dword_26CEDD000, v4, OS_LOG_TYPE_DEFAULT, v13, &v15, 0xCu);
     }
   }
 
   else if (v5)
   {
     v14 = *(a1 + 32);
-    v16 = 138412290;
-    v17 = v14;
+    v15 = 138412290;
+    v16 = v14;
     v13 = "Not calling processContentKeyResponse since content key session no longer exists for %@";
     goto LABEL_8;
   }
 
   objc_autoreleasePoolPop(v2);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contentKeySession:(id)session didProvideContentKeyRequest:(id)request
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   requestCopy = request;
   if (requestCopy)
@@ -544,9 +535,9 @@ LABEL_8:
         _os_log_impl(&dword_26CEDD000, v10, OS_LOG_TYPE_DEFAULT, "Offline key generation: received initial key request, now waiting for new offline key request.", buf, 2u);
       }
 
-      v15 = 0;
-      v11 = [requestCopy respondByRequestingPersistableContentKeyRequestAndReturnError:&v15];
-      v12 = v15;
+      v14 = 0;
+      v11 = [requestCopy respondByRequestingPersistableContentKeyRequestAndReturnError:&v14];
+      v12 = v14;
       if ((v11 & 1) == 0)
       {
         v13 = sLogObject_7;
@@ -559,18 +550,16 @@ LABEL_8:
 
     else
     {
-      v17[0] = requestCopy;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+      v16[0] = requestCopy;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
       [(TVPContentKeySession *)self _loadAVContentKeyRequests:v12 type:0 isRenewal:0];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contentKeySession:(id)session didProvideRenewingContentKeyRequest:(id)request
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (request)
   {
     requestCopy = request;
@@ -578,15 +567,13 @@ LABEL_8:
     requestCopy2 = request;
     v7 = [v5 arrayWithObjects:&requestCopy count:1];
 
-    [(TVPContentKeySession *)self _loadAVContentKeyRequests:v7 type:0 isRenewal:1, requestCopy, v10];
+    [(TVPContentKeySession *)self _loadAVContentKeyRequests:v7 type:0 isRenewal:1, requestCopy, v9];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contentKeySession:(id)session didProvidePersistableContentKeyRequest:(id)request
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   requestCopy = request;
   if (requestCopy)
@@ -604,7 +591,7 @@ LABEL_8:
       if (os_log_type_enabled(sLogObject_7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v27 = v10;
+        v26 = v10;
         _os_log_impl(&dword_26CEDD000, v11, OS_LOG_TYPE_DEFAULT, "Offline key generation: received offline content key request: %@", buf, 0xCu);
       }
 
@@ -638,34 +625,32 @@ LABEL_8:
         keyRequestsInProgress3 = [(TVPContentKeySession *)self keyRequestsInProgress];
         v23 = [keyRequestsInProgress3 count];
         *buf = 134217984;
-        v27 = (v21 - v23);
+        v26 = (v21 - v23);
         _os_log_impl(&dword_26CEDD000, v19, OS_LOG_TYPE_DEFAULT, "Offline key generation: still waiting for %lu offline content key requests", buf, 0xCu);
       }
     }
 
     else
     {
-      v25 = requestCopy;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+      v24 = requestCopy;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
       [(TVPContentKeySession *)self _loadAVContentKeyRequests:v10 type:2 isRenewal:0];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contentKeySession:(id)session didUpdatePersistableContentKey:(id)key forContentKeyIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   keyCopy = key;
   identifierCopy = identifier;
   v11 = sLogObject_7;
   if (os_log_type_enabled(sLogObject_7, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = identifierCopy;
-    _os_log_impl(&dword_26CEDD000, v11, OS_LOG_TYPE_DEFAULT, "Received updated persistable content key for identifier %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = identifierCopy;
+    _os_log_impl(&dword_26CEDD000, v11, OS_LOG_TYPE_DEFAULT, "Received updated persistable content key for identifier %@", &v16, 0xCu);
   }
 
   if (!identifierCopy)
@@ -714,8 +699,6 @@ LABEL_14:
   }
 
 LABEL_15:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_timeoutOfflineKeyRequestGeneration
@@ -746,37 +729,158 @@ LABEL_15:
   }
 }
 
+- (void)_generateOfflineKeyRequestsForIdentifiers:(id)identifiers isRenewal:(BOOL)renewal completion:(id)completion
+{
+  renewalCopy = renewal;
+  v27 = *MEMORY[0x277D85DE8];
+  identifiersCopy = identifiers;
+  completionCopy = completion;
+  offlineKeyGenerationCompletionHandler = [(TVPContentKeySession *)self offlineKeyGenerationCompletionHandler];
+
+  if (offlineKeyGenerationCompletionHandler)
+  {
+    if (os_log_type_enabled(sLogObject_7, OS_LOG_TYPE_ERROR))
+    {
+      [TVPContentKeySession _generateOfflineKeyRequestsForIdentifiers:isRenewal:completion:];
+    }
+
+    goto LABEL_4;
+  }
+
+  if (![identifiersCopy count])
+  {
+LABEL_4:
+    if (completionCopy)
+    {
+      completionCopy[2](completionCopy, 0);
+    }
+
+    goto LABEL_17;
+  }
+
+  [(TVPContentKeySession *)self setOfflineKeyGenerationCompletionHandler:completionCopy];
+  [(TVPContentKeySession *)self setOfflineKeyIdentifiersInProgress:identifiersCopy];
+  [(TVPContentKeySession *)self setOfflineKeyGenerationIsForRenewal:renewalCopy];
+  [(TVPContentKeySession *)self performSelector:sel__timeoutOfflineKeyRequestGeneration withObject:0 afterDelay:10.0];
+  v11 = sLogObject_7;
+  if (os_log_type_enabled(sLogObject_7, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = v11;
+    *buf = 134217984;
+    v26 = [identifiersCopy count];
+    _os_log_impl(&dword_26CEDD000, v12, OS_LOG_TYPE_DEFAULT, "Offline key generation: manually generating %lu key request(s)", buf, 0xCu);
+  }
+
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v13 = identifiersCopy;
+  v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v14)
+  {
+    v15 = v14;
+    v16 = *v21;
+    do
+    {
+      v17 = 0;
+      do
+      {
+        if (*v21 != v16)
+        {
+          objc_enumerationMutation(v13);
+        }
+
+        v18 = *(*(&v20 + 1) + 8 * v17);
+        contentKeySession = [(TVPContentKeySession *)self contentKeySession];
+        [contentKeySession processContentKeyRequestWithIdentifier:v18 initializationData:0 options:0];
+
+        ++v17;
+      }
+
+      while (v15 != v17);
+      v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    }
+
+    while (v15);
+  }
+
+LABEL_17:
+}
+
+- (void)_loadAVContentKeyRequests:(id)requests type:(int64_t)type isRenewal:(BOOL)renewal
+{
+  renewalCopy = renewal;
+  v25 = *MEMORY[0x277D85DE8];
+  requestsCopy = requests;
+  v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  obj = requestsCopy;
+  v10 = [obj countByEnumeratingWithState:&v18 objects:v24 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v19;
+    do
+    {
+      for (i = 0; i != v11; ++i)
+      {
+        if (*v19 != v12)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v14 = [[TVPContentKeyRequest alloc] initWithAVContentKeyRequest:*(*(&v18 + 1) + 8 * i)];
+        [(TVPContentKeyRequest *)v14 setContentKeySession:self];
+        [(TVPContentKeyRequest *)v14 setIsRenewal:renewalCopy];
+        [(TVPContentKeyRequest *)v14 setType:type];
+        [v9 addObject:v14];
+        v15 = sLogObject_7;
+        if (os_log_type_enabled(sLogObject_7, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v23 = v14;
+          _os_log_impl(&dword_26CEDD000, v15, OS_LOG_TYPE_DEFAULT, "Loading key request %@", buf, 0xCu);
+        }
+      }
+
+      v11 = [obj countByEnumeratingWithState:&v18 objects:v24 count:16];
+    }
+
+    while (v11);
+  }
+
+  contentKeyLoader = [(TVPContentKeySession *)self contentKeyLoader];
+  [contentKeyLoader loadFairPlayStreamingKeyRequests:v9];
+}
+
 - (void)finishKeyRequest:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 requestID];
   v4 = [a2 keyIdentifier];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_26CEDD000, v5, v6, "Processing error for key request [%lu: %{public}@] : %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_26CEDD000, v5, v6, "Processing error for key request [%lu: %{public}@] : %{public}@", v7, v8, v9, v10);
 }
 
 - (void)finishKeyRequest:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 requestID];
   v4 = [a2 keyIdentifier];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_26CEDD000, v5, v6, "Received error for key request, but not processing because no content key recipient exists.  [%lu: %{public}@] : %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_26CEDD000, v5, v6, "Received error for key request, but not processing because no content key recipient exists.  [%lu: %{public}@] : %{public}@", v7, v8, v9, v10);
 }
 
 - (void)contentKeySession:(uint64_t)a1 didProvideContentKeyRequest:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26CEDD000, a2, OS_LOG_TYPE_ERROR, "Offline key generation: Request for persistable key request failed: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26CEDD000, a2, OS_LOG_TYPE_ERROR, "Offline key generation: Request for persistable key request failed: %@", &v2, 0xCu);
 }
 
 @end

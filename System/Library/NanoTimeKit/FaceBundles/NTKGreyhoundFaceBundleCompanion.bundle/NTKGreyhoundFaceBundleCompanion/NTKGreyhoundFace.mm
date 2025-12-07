@@ -186,19 +186,17 @@ LABEL_14:
 
 - (Class)_optionClassForCustomEditMode:(int64_t)mode
 {
-  v4 = mode - 10;
-  if (mode - 10) <= 5 && ((0x2Bu >> v4))
+  if (mode - 10) <= 5 && ((0x2Bu >> (mode - 10)))
   {
-    v5 = *(&off_14438)[v4];
-    v6 = objc_opt_class();
+    v4 = objc_opt_class();
   }
 
   else
   {
-    v6 = 0;
+    v4 = 0;
   }
 
-  return v6;
+  return v4;
 }
 
 - (unint64_t)_numberOfOptionsForCustomEditMode:(int64_t)mode slot:(id)slot

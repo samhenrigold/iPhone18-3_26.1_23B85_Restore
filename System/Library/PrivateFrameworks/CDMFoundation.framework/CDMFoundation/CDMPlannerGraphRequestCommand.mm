@@ -40,11 +40,11 @@
 
 - (CDMPlannerGraphRequestCommand)initWithPlannerRequest:(id)request
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   requestCopy = request;
-  v18.receiver = self;
-  v18.super_class = CDMPlannerGraphRequestCommand;
-  v6 = [(CDMBaseCommand *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = CDMPlannerGraphRequestCommand;
+  v6 = [(CDMBaseCommand *)&v17 init];
   v7 = v6;
   if (v6)
   {
@@ -77,16 +77,15 @@
 
       clientRequestId2 = [(SIRINLUEXTERNALRequestID *)v7->_requestId idA];
       *buf = 136315394;
-      v20 = "[CDMPlannerGraphRequestCommand initWithPlannerRequest:]";
-      v21 = 2112;
-      v22 = clientRequestId2;
+      v19 = "[CDMPlannerGraphRequestCommand initWithPlannerRequest:]";
+      v20 = 2112;
+      v21 = clientRequestId2;
       _os_log_debug_impl(&dword_1DC287000, cdmPlannerRequestIdentifier2, OS_LOG_TYPE_DEBUG, "%s The (orchestrator) client request Id was not provided. Generated clientRequestId with UUID string: %@", buf, 0x16u);
     }
 
 LABEL_6:
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

@@ -284,13 +284,13 @@ id *__52__CMCaptureUserNotificationManager_showNotification__block_invoke(id *re
   return result;
 }
 
-id __52__CMCaptureUserNotificationManager_showNotification__block_invoke_2(uint64_t a1, uint64_t a2)
+id *__52__CMCaptureUserNotificationManager_showNotification__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = objc_loadWeak((a1 + 32));
   if (result)
   {
     v5 = result;
-    if (*(a1 + 40) == *(result + 7))
+    if (*(a1 + 40) == result[7])
     {
 
       v5[3] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:a2];

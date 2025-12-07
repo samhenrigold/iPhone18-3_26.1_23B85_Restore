@@ -1,8 +1,10 @@
 @interface CDMToken
++ (id)getTokenWith:(id)with cleanValue:(id)value normalizedValues:(id)values isSignificant:(BOOL)significant isWhitespace:(BOOL)whitespace;
 - (BOOL)getHasCleanValues;
 - (BOOL)hasValue:(id)value from:(int64_t)from to:(int64_t)to;
 - (CDMToken)initWithProtoToken:(id)token;
 - (CDMToken)initWithValue:(id)value;
+- (CDMToken)initWithValue:(id)value begin:(int64_t)begin end:(int64_t)end significant:(BOOL)significant;
 - (CDMToken)initWithValue:(id)value begin:(int64_t)begin end:(int64_t)end significant:(BOOL)significant whitespace:(BOOL)whitespace cleanValue:(id)cleanValue tokenIndex:(int64_t)index nonWhitespaceTokenIndex:(int64_t)self0;
 - (CDMToken)initWithValue:(id)value begin:(int64_t)begin end:(int64_t)end significant:(BOOL)significant whitespace:(BOOL)whitespace cleanValue:(id)cleanValue tokenIndex:(int64_t)index nonWhitespaceTokenIndex:(int64_t)self0 normalizedValues:(id)self1;
 - (NSArray)cleanValues;
@@ -27,11 +29,11 @@
 
 - (NSArray)cleanValues
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
   if (self->_cleanValue)
   {
-    v5[0] = self->_cleanValue;
-    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+    v4[0] = self->_cleanValue;
+    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
   }
 
   else
@@ -39,21 +41,19 @@
     v2 = 0;
   }
 
-  v3 = *MEMORY[0x1E69E9840];
-
   return v2;
 }
 
 - (id)dictionaryRepresentation
 {
-  v14[6] = *MEMORY[0x1E69E9840];
+  v13[6] = *MEMORY[0x1E69E9840];
   begin = self->_begin;
-  v14[0] = self->_value;
-  v13[0] = @"value";
-  v13[1] = @"begin";
+  v13[0] = self->_value;
+  v12[0] = @"value";
+  v12[1] = @"begin";
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:begin];
-  v14[1] = v4;
-  v13[2] = @"end";
+  v13[1] = v4;
+  v12[2] = @"end";
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:self->_end];
   v6 = v5;
   v7 = @"YES";
@@ -62,18 +62,16 @@
     v7 = @"NO";
   }
 
-  v14[2] = v5;
-  v14[3] = v7;
-  v13[3] = @"significant";
-  v13[4] = @"cleanValue";
+  v13[2] = v5;
+  v13[3] = v7;
+  v12[3] = @"significant";
+  v12[4] = @"cleanValue";
   cleanValue = self->_cleanValue;
-  v13[5] = @"normalizedValues";
+  v12[5] = @"normalizedValues";
   normalizedValues = self->_normalizedValues;
-  v14[4] = cleanValue;
-  v14[5] = normalizedValues;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:6];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v13[4] = cleanValue;
+  v13[5] = normalizedValues;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:6];
 
   return v10;
 }
@@ -96,8 +94,7 @@
     v2 = @"YES";
   }
 
-  cleanValue = self->_cleanValue;
-  return [MEMORY[0x1E696AEC0] stringWithFormat:@"{ value: %@, begin: %td, end: %td, significant: %@, whitespace: %@, cleanValue: %@, normalizedValues: %@}", *&self->_value, self->_end, v3, v2, cleanValue, self->_normalizedValues];
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"{ value: %@, begin: %td, end: %td, significant: %@, whitespace: %@, cleanValue: %@, normalizedValues: %@}", *&self->_value, self->_end, v3, v2, self->_cleanValue, self->_normalizedValues];
 }
 
 - (BOOL)hasValue:(id)value from:(int64_t)from to:(int64_t)to
@@ -199,12 +196,45 @@
   return v20;
 }
 
+- (CDMToken)initWithValue:(id)value begin:(int64_t)begin end:(int64_t)end significant:(BOOL)significant
+{
+  significantCopy = significant;
+  v10 = MEMORY[0x1E696AB08];
+  valueCopy = value;
+  whitespaceCharacterSet = [v10 whitespaceCharacterSet];
+  v13 = [valueCopy stringByTrimmingCharactersInSet:whitespaceCharacterSet];
+  v14 = [v13 length] == 0;
+
+  v15 = [(CDMToken *)self initWithValue:valueCopy begin:begin end:end significant:significantCopy whitespace:v14];
+  return v15;
+}
+
 - (CDMToken)initWithValue:(id)value
 {
   valueCopy = value;
   v5 = -[CDMToken initWithValue:begin:end:significant:](self, "initWithValue:begin:end:significant:", valueCopy, 0, [valueCopy length], 1);
 
   return v5;
+}
+
++ (id)getTokenWith:(id)with cleanValue:(id)value normalizedValues:(id)values isSignificant:(BOOL)significant isWhitespace:(BOOL)whitespace
+{
+  whitespaceCopy = whitespace;
+  significantCopy = significant;
+  v11 = MEMORY[0x1E69D13D0];
+  valuesCopy = values;
+  valueCopy = value;
+  withCopy = with;
+  v15 = objc_alloc_init(v11);
+  [v15 setValue:withCopy];
+
+  [v15 setCleanValue:valueCopy];
+  [v15 setNormalizedValues:valuesCopy];
+
+  [v15 setIsSignificant:significantCopy];
+  [v15 setIsWhitespace:whitespaceCopy];
+
+  return v15;
 }
 
 @end

@@ -304,7 +304,7 @@
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
-  if ((isKindOfClass & 1) != 0 && [pathCopy isEqualToString:@"fractionCompleted"])
+  if ((isKindOfClass & 1) != 0 && objc_msgSend_isEqualToString_(pathCopy))
   {
     v11 = _transferQueue();
     block[0] = MEMORY[0x1E69E9820];

@@ -5,8 +5,14 @@
 - (void)mutateTypeFieldsRecursivelyWithBlock:(id)block;
 - (void)mutateTypeFieldsWithBlock:(id)block;
 - (void)setBinaryPath:(id)path;
+- (void)setDefaultScanType:(unsigned int)type;
 - (void)setDisplayName:(id)name;
+- (void)setInfoType:(unsigned int)type;
+- (void)setInstanceSize:(unsigned int)size;
+- (void)setIsCoreMediaFigObject:(BOOL)object;
+- (void)setIsRootClass:(BOOL)class;
 - (void)setSuperclassInfo:(id)info;
+- (void)setSuperclassOffset:(unsigned int)offset;
 - (void)setVariantScanType:(unsigned int)type withEvaluator:(id)evaluator;
 @end
 
@@ -31,6 +37,48 @@
   v3.receiver = self;
   v3.super_class = VMUMutableClassInfo;
   [(VMUClassInfo *)&v3 _setSuperclassInfo:info];
+}
+
+- (void)setIsCoreMediaFigObject:(BOOL)object
+{
+  v3.receiver = self;
+  v3.super_class = VMUMutableClassInfo;
+  [(VMUClassInfo *)&v3 _setIsCoreMediaFigObject:object];
+}
+
+- (void)setDefaultScanType:(unsigned int)type
+{
+  v3.receiver = self;
+  v3.super_class = VMUMutableClassInfo;
+  [(VMUClassInfo *)&v3 _setDefaultScanType:*&type];
+}
+
+- (void)setInstanceSize:(unsigned int)size
+{
+  v3.receiver = self;
+  v3.super_class = VMUMutableClassInfo;
+  [(VMUClassInfo *)&v3 _setInstanceSize:*&size];
+}
+
+- (void)setSuperclassOffset:(unsigned int)offset
+{
+  v3.receiver = self;
+  v3.super_class = VMUMutableClassInfo;
+  [(VMUClassInfo *)&v3 _setSuperclassOffset:*&offset];
+}
+
+- (void)setIsRootClass:(BOOL)class
+{
+  v3.receiver = self;
+  v3.super_class = VMUMutableClassInfo;
+  [(VMUClassInfo *)&v3 _setIsRootClass:class];
+}
+
+- (void)setInfoType:(unsigned int)type
+{
+  v3.receiver = self;
+  v3.super_class = VMUMutableClassInfo;
+  [(VMUClassInfo *)&v3 _setInfoType:*&type];
 }
 
 - (void)mutateTypeFieldsWithBlock:(id)block
@@ -85,25 +133,22 @@ void __60__VMUMutableClassInfo_mutateTypeFieldsRecursivelyWithBlock___block_invo
 
 void __57__VMUMutableClassInfo_addVariant_forField_withEvaluator___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  if (v5)
+  v4 = *(a1 + 32);
+  if (v4)
   {
-    v9[0] = *(a1 + 40);
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-    [v3 replaceField:v5 withFields:v6];
+    v7[0] = *(a1 + 40);
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    [v3 replaceField:v4 withFields:v5];
   }
 
   else
   {
-    v8 = *(a1 + 40);
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v8 count:1];
-    [v3 addFields:v6];
+    v6 = *(a1 + 40);
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:1];
+    [v3 addFields:v5];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addVariantRecursively:(id)recursively forField:(id)field atOffset:(unsigned int)offset withEvaluator:(id)evaluator
@@ -128,7 +173,7 @@ void __57__VMUMutableClassInfo_addVariant_forField_withEvaluator___block_invoke(
 
 void __77__VMUMutableClassInfo_addVariantRecursively_forField_atOffset_withEvaluator___block_invoke(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   v5 = *(a1 + 32);
@@ -139,12 +184,10 @@ void __77__VMUMutableClassInfo_addVariantRecursively_forField_atOffset_withEvalu
 
   else
   {
-    v8[0] = *(a1 + 40);
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+    v7[0] = *(a1 + 40);
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
     [v4 addFields:v6];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addComplexAction:(id)action withEvaluator:(id)evaluator

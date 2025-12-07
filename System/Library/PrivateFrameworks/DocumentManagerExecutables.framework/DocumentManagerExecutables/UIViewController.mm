@@ -40,7 +40,7 @@
 - (BOOL)enclosedInUIPDocumentLanding
 {
   selfCopy = self;
-  v3 = specialized DOCUIPTraitEnvironment<>._enclosedInUIPDocumentLanding.getter(lazy cache variable for type metadata for UIViewController);
+  v3 = specialized DOCUIPTraitEnvironment<>._enclosedInUIPDocumentLanding.getter(lazy cache variable for type metadata for UIViewController, 0x277D75D28);
 
   return v3 & 1;
 }
@@ -213,8 +213,14 @@ void __70__UIViewController_DOCAppearanceInheritance___notifyAppearanceChange___
   v4 = _Block_copy(block);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
+    v5 = swift_allocObject();
+    *(v5 + 16) = v4;
     v4 = thunk for @escaping @callee_unowned @convention(block) (@unowned UIView) -> ()partial apply;
+  }
+
+  else
+  {
+    v5 = 0;
   }
 
   selfCopy = self;
@@ -223,16 +229,16 @@ void __70__UIViewController_DOCAppearanceInheritance___notifyAppearanceChange___
   {
 
     [(UIViewController *)selfCopy willMoveToParentViewController:0];
-    removeFromSuperview #1 () in UIViewController._doc_removeFromParentViewController(removeSubview:)(selfCopy, v4);
+    removeFromSuperview #1 () in UIViewController._doc_removeFromParentViewController(removeSubview:)(selfCopy, v4, v5);
     [(UIViewController *)selfCopy removeFromParentViewController];
   }
 
   else
   {
-    removeFromSuperview #1 () in UIViewController._doc_removeFromParentViewController(removeSubview:)(selfCopy, v4);
+    removeFromSuperview #1 () in UIViewController._doc_removeFromParentViewController(removeSubview:)(selfCopy, v4, v5);
   }
 
-  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v4);
+  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v4, v5);
 }
 
 - (void)doc_addChildViewController:(id)controller addSubviewBlock:(id)block
@@ -240,15 +246,21 @@ void __70__UIViewController_DOCAppearanceInheritance___notifyAppearanceChange___
   v6 = _Block_copy(block);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned DOCSourceByType) -> ();
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   controllerCopy = controller;
   selfCopy = self;
-  UIViewController.doc_addChildViewController(_:addSubview:)(controllerCopy, v6);
+  UIViewController.doc_addChildViewController(_:addSubview:)(controllerCopy, v6, v7);
 
-  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v6);
+  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v6, v7);
 }
 
 - (void)doc_addChildWithEqualAutoresizingFrame:(id)frame

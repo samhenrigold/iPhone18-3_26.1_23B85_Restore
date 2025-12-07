@@ -117,7 +117,7 @@ id __68__CNContactPickerViewController__emitPickerAnalyticsDidSelectItems___bloc
 
 - (void)pickerDidGoBack
 {
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 449, 7, @"picker did go back", v2, v3, v4, v5, v9);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 449, 7u, @"picker did go back", v2, v3, v4, v5, v9);
   delegate = [(CNContactPickerViewController *)self delegate];
   if ([delegate conformsToProtocol:&unk_1F0DC22E8])
   {
@@ -141,7 +141,7 @@ id __68__CNContactPickerViewController__emitPickerAnalyticsDidSelectItems___bloc
 
 - (void)pickerDidCancel
 {
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 440, 7, @"picker did cancel", v2, v3, v4, v5, v7);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 440, 7u, @"picker did cancel", v2, v3, v4, v5, v7);
   [(CNContactPickerViewController *)self _emitPickerAnalyticsDidSelectItems:0];
   [(CNContactPickerViewController *)self notifyDelegateForCancellation];
 
@@ -152,7 +152,7 @@ id __68__CNContactPickerViewController__emitPickerAnalyticsDidSelectItems___bloc
 {
   v18[1] = *MEMORY[0x1E69E9840];
   contactCopy = contact;
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 422, 7, @"picker did finish with new contact: %@", v5, v6, v7, v8, contactCopy);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 422, 7u, @"picker did finish with new contact: %@", v5, v6, v7, v8, contactCopy);
   [(CNContactPickerViewController *)self _emitPickerAnalyticsDidSelectItems:1];
   delegate = [(CNContactPickerViewController *)self delegate];
   if ([delegate conformsToProtocol:&unk_1F0DC22E8])
@@ -215,7 +215,7 @@ LABEL_14:
 {
   contactsCopy = contacts;
   propertiesCopy = properties;
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 400, 7, @"picker did select contacts: %@, properties: %@", v7, v8, v9, v10, contactsCopy);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 400, 7u, @"picker did select contacts: %@, properties: %@", v7, v8, v9, v10, contactsCopy);
   [(CNContactPickerViewController *)self _emitPickerAnalyticsDidSelectItems:1];
   if (propertiesCopy || ([(CNContactPickerViewController *)self delegate], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_opt_respondsToSelector(), v11, (v12 & 1) == 0))
   {
@@ -251,7 +251,7 @@ LABEL_7:
 {
   contactCopy = contact;
   propertyCopy = property;
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 380, 7, @"picker did select contact %@, property %@", v7, v8, v9, v10, contactCopy);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 380, 7u, @"picker did select contact %@, property %@", v7, v8, v9, v10, contactCopy);
   [(CNContactPickerViewController *)self _emitPickerAnalyticsDidSelectItems:1];
   delegate = [(CNContactPickerViewController *)self delegate];
   if (propertyCopy)
@@ -316,7 +316,7 @@ LABEL_7:
 
 - (void)presentationControllerDidDismiss:(id)dismiss
 {
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 361, 7, @"picker did cancel by dismiss", v3, v4, v5, v6, v8);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 361, 7u, @"picker did cancel by dismiss", v3, v4, v5, v6, v8);
   [(CNContactPickerViewController *)self _emitPickerAnalyticsDidSelectItems:0];
 
   [(CNContactPickerViewController *)self notifyDelegateForCancellation];
@@ -441,7 +441,7 @@ uint64_t __55__CNContactPickerViewController__prepareViewController__block_invok
     v8 = @"YES";
   }
 
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 293, 3, @"Contact picker delayed appearance timed out - %@", a5, a6, a7, a8, v8);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 293, 3u, @"Contact picker delayed appearance timed out - %@", a5, a6, a7, a8, v8);
   return 1;
 }
 
@@ -646,7 +646,7 @@ void __53__CNContactPickerViewController__setupViewController__block_invoke_2(ui
 
   if (*(a1 + 40))
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 278, 3, @"Error when showing picker: %@", v4, v5, v6, v7, *(a1 + 40));
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 278, 3u, @"Error when showing picker: %@", v4, v5, v6, v7, *(a1 + 40));
   }
 }
 
@@ -799,7 +799,7 @@ void __47__CNContactPickerViewController_viewDidAppear___block_invoke()
   v19 = NSStringFromSelector(sel_contactPicker_didSelectContactProperty_);
   if ((bOOLValue | bOOLValue2) & 1) != 0 && ((bOOLValue3 | bOOLValue4))
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 93, 4, @"Both single contact and multiple contacts delegate methods are implemented, the single variants will be ignored", v15, v16, v17, v18, v20);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 93, 4u, @"Both single contact and multiple contacts delegate methods are implemented, the single variants will be ignored", v15, v16, v17, v18, v20);
     [optionsCopy removeObjectForKey:@"ClientWantsSingleContact"];
     [optionsCopy removeObjectForKey:@"ClientWantsSingleProperty"];
   }
@@ -811,7 +811,7 @@ void __47__CNContactPickerViewController_viewDidAppear___block_invoke()
       goto LABEL_14;
     }
 
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 101, 3, @"Selection predicates are set but the delegate does not implement %@ and %@. Those predicates will be ignored.", v15, v16, v17, v18, v14);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 101, 3u, @"Selection predicates are set but the delegate does not implement %@ and %@. Those predicates will be ignored.", v15, v16, v17, v18, v14);
     [(CNContactPickerViewController *)self setPredicateForSelectionOfContact:0];
     goto LABEL_11;
   }
@@ -820,7 +820,7 @@ void __47__CNContactPickerViewController_viewDidAppear___block_invoke()
   {
     if (((bOOLValue2 | bOOLValue4) & 1) == 0 && predicateForSelectionOfProperty)
     {
-      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 114, 3, @"Property selection predicate is set but the delegate does not implement %@. The predicate will be ignored.", v15, v16, v17, v18, v19);
+      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 114, 3u, @"Property selection predicate is set but the delegate does not implement %@. The predicate will be ignored.", v15, v16, v17, v18, v19);
 LABEL_11:
       [(CNContactPickerViewController *)self setPredicateForSelectionOfProperty:0];
     }
@@ -828,7 +828,7 @@ LABEL_11:
 
   else if (predicateForSelectionOfContact)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 108, 3, @"Person selection predicate is set but the delegate does not implement %@. The predicate will be ignored.", v15, v16, v17, v18, v14);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerViewController.m", 108, 3u, @"Person selection predicate is set but the delegate does not implement %@. The predicate will be ignored.", v15, v16, v17, v18, v14);
     [(CNContactPickerViewController *)self setPredicateForSelectionOfContact:0];
   }
 

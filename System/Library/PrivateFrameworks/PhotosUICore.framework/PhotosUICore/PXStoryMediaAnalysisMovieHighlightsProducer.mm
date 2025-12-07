@@ -97,7 +97,7 @@ LABEL_12:
             v54 = 0u;
             v55 = 0u;
             *buf = 0u;
-            [v29 CMTimeRangeValue];
+            objc_msgSend_CMTimeRangeValue(v29);
             v52[0] = *buf;
             v52[1] = v54;
             v52[2] = v55;

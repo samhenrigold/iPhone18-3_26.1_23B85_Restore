@@ -452,7 +452,7 @@ LABEL_12:
     v84.super_class = PDEndpointRequestOperation;
     [(PDURLRequestOperation *)&v84 setAuthHeadersForRequest:requestCopy];
     v5 = &unk_100246000;
-    v6 = sub_10003E1B4();
+    v6 = sub_10003E1B4(PDAccountInfo);
     if (!v6)
     {
       goto LABEL_64;

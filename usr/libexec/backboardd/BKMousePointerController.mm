@@ -7,6 +7,7 @@
 - (CGPoint)globalPointerPosition;
 - (CGPoint)normalizedGlobalPointerPosition;
 - (NSArray)availableDevices;
+- (id)acquireButtonDownPointerRepositionAssertionForReason:(id)reason contextRelativePointerPosition:(id)position onDisplay:(id)display restrictingToPID:(int)d;
 - (id)suppressPointerModelUpdatesAssertionForDisplay:(id)display reason:(id)reason;
 - (int64_t)processEvent:(__IOHIDEvent *)event sender:(id)sender dispatcher:(id)dispatcher;
 - (void)_displayLinkFired:(id)fired;
@@ -24,10 +25,14 @@
 - (void)removeGlobalDevicePreferencesObserver:(id)observer;
 - (void)removeLifecycleObserver:(id)observer;
 - (void)serviceDidDisappear:(id)disappear;
+- (void)setContextRelativePointerPosition:(id)position onDisplay:(id)display withAnimationParameters:(id)parameters restrictingToPID:(int)d auditPID:(int)iD;
+- (void)setContextRelativePointerPosition:(id)position withInitialVelocity:(id)velocity onDisplay:(id)display withDecelerationRate:(double)rate restrictingToPID:(int)d auditPID:(int)iD;
 - (void)setDisplayArrangement:(id)arrangement;
+- (void)setEventsDisabled:(BOOL)disabled pid:(int)pid;
 - (void)setGlobalDevicePreferences:(id)preferences;
 - (void)setGlobalPointerEventRoutes:(id)routes forPID:(int)d displayUUID:(id)iD;
 - (void)setGlobalPointerPosition:(CGPoint)position synthesizeEvents:(BOOL)events process:(id)process;
+- (void)setPointerPosition:(CGPoint)position onDisplay:(id)display withAnimationParameters:(id)parameters auditPID:(int)d;
 - (void)smartCoverStateDidChange:(int)change;
 - (void)stopRoutingGlobalEventsForPID:(int)d;
 @end
@@ -595,9 +600,9 @@
         displayUUID3 = [sender displayUUID];
         displayUUID4 = [(BKMousePointerRegion *)self->_pointerRegion displayUUID];
         *buf = 138543618;
-        v53 = displayUUID3;
-        v54 = 2114;
-        v55 = displayUUID4;
+        v52 = displayUUID3;
+        v53 = 2114;
+        v54 = displayUUID4;
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "processEvent senderDisplayUUID %{public}@ pointerdisplayUUID %{public}@", buf, 0x16u);
       }
 
@@ -646,28 +651,28 @@
         {
           if (IOHIDEventGetType() != 17)
           {
-            v41 = [NSString stringWithFormat:@"must be a pointer event"];
+            v40 = [NSString stringWithFormat:@"must be a pointer event"];
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
-              v42 = NSStringFromSelector("_processTopLevelTrackpadEvent:sender:dispatcher:");
-              v43 = objc_opt_class();
-              v44 = NSStringFromClass(v43);
+              v41 = NSStringFromSelector("_processTopLevelTrackpadEvent:sender:dispatcher:");
+              v42 = objc_opt_class();
+              v43 = NSStringFromClass(v42);
               *buf = 138544642;
-              v53 = v42;
-              v54 = 2114;
-              v55 = v44;
-              v56 = 2048;
+              v52 = v41;
+              v53 = 2114;
+              v54 = v43;
+              v55 = 2048;
               selfCopy = self;
-              v58 = 2114;
-              v59 = @"BKMousePointerController.m";
-              v60 = 1024;
-              v61 = 3399;
-              v62 = 2114;
-              v63 = v41;
+              v57 = 2114;
+              v58 = @"BKMousePointerController.m";
+              v59 = 1024;
+              v60 = 3399;
+              v61 = 2114;
+              v62 = v40;
               _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
             }
 
-            [v41 UTF8String];
+            [v40 UTF8String];
             _bs_set_crash_log_message();
             __break(0);
             JUMPOUT(0x100062990);
@@ -679,7 +684,6 @@
           if ([digitizerEvents count])
           {
             displayUUID5 = [(BKMousePointerRegion *)self->_pointerRegion displayUUID];
-            mainDisplayUUID = self->_mainDisplayUUID;
             if (BSEqualObjects())
             {
               +[BKSHIDEventDisplay builtinDisplay];
@@ -689,46 +693,46 @@
             {
               [BKSHIDEventDisplay displayWithHardwareIdentifier:displayUUID5];
             }
-            v30 = ;
+            v29 = ;
             if (self->_touchPadManager)
             {
-              v45 = displayUUID5;
-              v46 = digitizerEvents;
-              v50 = 0u;
-              v51 = 0u;
-              v48 = 0u;
+              v44 = displayUUID5;
+              v45 = digitizerEvents;
               v49 = 0u;
-              v31 = digitizerEvents;
-              v32 = [v31 countByEnumeratingWithState:&v48 objects:buf count:16];
-              if (v32)
+              v50 = 0u;
+              v47 = 0u;
+              v48 = 0u;
+              v30 = digitizerEvents;
+              v31 = [v30 countByEnumeratingWithState:&v47 objects:buf count:16];
+              if (v31)
               {
-                v33 = v32;
-                v34 = *v49;
+                v32 = v31;
+                v33 = *v48;
                 do
                 {
-                  for (i = 0; i != v33; i = i + 1)
+                  for (i = 0; i != v32; i = i + 1)
                   {
-                    if (*v49 != v34)
+                    if (*v48 != v33)
                     {
-                      objc_enumerationMutation(v31);
+                      objc_enumerationMutation(v30);
                     }
 
-                    *v47 = *(*(&v48 + 1) + 8 * i);
-                    [(BKTouchPadManager *)self->_touchPadManager processEvent:v47 sender:sender display:v30 dispatcher:dispatcher, v45, v46];
+                    *v46 = *(*(&v47 + 1) + 8 * i);
+                    [(BKTouchPadManager *)self->_touchPadManager processEvent:v46 sender:sender display:v29 dispatcher:dispatcher, v44, v45];
                   }
 
-                  v33 = [v31 countByEnumeratingWithState:&v48 objects:buf count:16];
+                  v32 = [v30 countByEnumeratingWithState:&v47 objects:buf count:16];
                 }
 
-                while (v33);
+                while (v32);
               }
 
-              displayUUID5 = v45;
-              digitizerEvents = v46;
+              displayUUID5 = v44;
+              digitizerEvents = v45;
             }
           }
 
-          if ([(BKMouseEventAccumulator *)self->_eventAccumulator eventTypeMask:v45])
+          if ([(BKMouseEventAccumulator *)self->_eventAccumulator eventTypeMask:v44])
           {
             if ([(BKMouseEventAccumulator *)self->_eventAccumulator positionType]== 1)
             {
@@ -738,9 +742,9 @@
             if ([(BKMouseEventAccumulator *)self->_eventAccumulator touchingPathIndexesDidChange])
             {
               touchingPathIndexes = [(BKMouseEventAccumulator *)self->_eventAccumulator touchingPathIndexes];
-              v37 = [touchingPathIndexes count];
+              v36 = [touchingPathIndexes count];
 
-              if (v37)
+              if (v36)
               {
                 ++self->_pointerAnimationRevisionID;
               }
@@ -753,11 +757,11 @@
 
           else
           {
-            v39 = BKLogMousePointer();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+            v38 = BKLogMousePointer();
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
             {
-              *v47 = 0;
-              _os_log_debug_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEBUG, "no relevant subevents in trackpad collection; ignoring event", v47, 2u);
+              *v46 = 0;
+              _os_log_debug_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEBUG, "no relevant subevents in trackpad collection; ignoring event", v46, 2u);
             }
           }
 
@@ -810,9 +814,9 @@ LABEL_58:
         return v23;
     }
 
-    v29 = IOHIDEventGetTimeStamp();
+    v28 = IOHIDEventGetTimeStamp();
     v23 = 1;
-    sub_10005F5B4(self, v29, 1);
+    sub_10005F5B4(self, v28, 1);
     os_unfair_lock_unlock(&self->_lock);
     goto LABEL_58;
   }
@@ -864,6 +868,73 @@ LABEL_11:
 
   os_unfair_lock_unlock(&self->_lock);
   return v10;
+}
+
+- (void)setEventsDisabled:(BOOL)disabled pid:(int)pid
+{
+  v4 = *&pid;
+  disabledCopy = disabled;
+  v7 = BKLogMousePointer();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = 67109376;
+    LODWORD(v20[0]) = disabledCopy;
+    WORD2(v20[0]) = 1024;
+    *(v20 + 6) = v4;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "setEventsDisabled:%{BOOL}u pid:%d", &v19, 0xEu);
+  }
+
+  os_unfair_lock_lock(&self->_lock);
+  v8 = [NSNumber numberWithInt:v4];
+  v9 = [(NSMutableSet *)self->_disableEventsPIDs containsObject:v8];
+  if (disabledCopy)
+  {
+    if ((v9 & 1) == 0)
+    {
+      v10 = [(NSMutableSet *)self->_disableEventsPIDs count];
+      disableEventsPIDs = self->_disableEventsPIDs;
+      if (!disableEventsPIDs)
+      {
+        v12 = objc_alloc_init(NSMutableSet);
+        v13 = self->_disableEventsPIDs;
+        self->_disableEventsPIDs = v12;
+
+        disableEventsPIDs = self->_disableEventsPIDs;
+      }
+
+      [(NSMutableSet *)disableEventsPIDs addObject:v8];
+      if (!v10)
+      {
+        sub_100063244(self);
+        sub_100063358(self);
+        v14 = [(NSMutableSet *)self->_disableEventsPIDs bs_map:&stru_1000FBC88];
+        v15 = [BSDescriptionStream descriptionForRootObject:v14];
+        v16 = [@"disabled by policy: " stringByAppendingString:v15];
+        sub_10005E670(self, v16);
+      }
+    }
+  }
+
+  else if (v9)
+  {
+    [(NSMutableSet *)self->_disableEventsPIDs removeObject:v8];
+    if (![(NSMutableSet *)self->_disableEventsPIDs count])
+    {
+      sub_10005E670(self, @"enabled by policy");
+    }
+  }
+
+  v17 = BKLogMousePointer();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    v18 = self->_disableEventsPIDs;
+    v19 = 138543362;
+    v20[0] = v18;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "pids currently disabling events: %{public}@", &v19, 0xCu);
+  }
+
+  sub_100060198(&self->super.isa);
+  os_unfair_lock_unlock(&self->_lock);
 }
 
 - (void)setDisplayArrangement:(id)arrangement
@@ -1162,9 +1233,10 @@ LABEL_11:
     JUMPOUT(0x100064B88);
   }
 
+  v8 = *&d;
   os_unfair_lock_assert_not_owner(&self->_lock);
   os_unfair_lock_lock(&self->_lock);
-  sub_100063FF4(self, routes, d, iD);
+  sub_100063FF4(self, routes, v8, iD);
 
   os_unfair_lock_unlock(&self->_lock);
 }
@@ -1189,7 +1261,7 @@ LABEL_11:
       v16 = v15;
       v18 = v17;
       v36 = v13;
-      sub_10001AE04(v15, v17, BKMouseDestination, 0, v13, 0, self->_configuration, self->_lastEventContexts);
+      sub_10001AE04(BKMouseDestination, 0, v13, 0, self->_configuration, self->_lastEventContexts, v15, v17);
       v43 = 0u;
       v44 = 0u;
       v45 = 0u;
@@ -1270,6 +1342,221 @@ LABEL_11:
   }
 }
 
+- (id)acquireButtonDownPointerRepositionAssertionForReason:(id)reason contextRelativePointerPosition:(id)position onDisplay:(id)display restrictingToPID:(int)d
+{
+  if (!position)
+  {
+    v18 = [NSString stringWithFormat:@"Invalid condition not satisfying: %@", 0, display, *&d, @"point != ((void *)0)"];
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v19 = NSStringFromSelector(a2);
+      v20 = objc_opt_class();
+      v21 = NSStringFromClass(v20);
+      *location = 138544642;
+      *&location[4] = v19;
+      v36 = 2114;
+      v37 = v21;
+      v38 = 2048;
+      selfCopy3 = self;
+      v40 = 2114;
+      v41 = @"BKMousePointerController.m";
+      v42 = 1024;
+      v43 = 736;
+      v44 = 2114;
+      v45 = v18;
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", location, 0x3Au);
+    }
+
+    v22 = v18;
+    [v18 UTF8String];
+    _bs_set_crash_log_message();
+    __break(0);
+    JUMPOUT(0x100065180);
+  }
+
+  if (!reason)
+  {
+    v23 = [NSString stringWithFormat:@"Invalid condition not satisfying: %@", @"reason != ((void *)0)"];
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v24 = NSStringFromSelector(a2);
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
+      *location = 138544642;
+      *&location[4] = v24;
+      v36 = 2114;
+      v37 = v26;
+      v38 = 2048;
+      selfCopy3 = self;
+      v40 = 2114;
+      v41 = @"BKMousePointerController.m";
+      v42 = 1024;
+      v43 = 737;
+      v44 = 2114;
+      v45 = v23;
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", location, 0x3Au);
+    }
+
+    v27 = v23;
+    [v23 UTF8String];
+    _bs_set_crash_log_message();
+    __break(0);
+    JUMPOUT(0x10006527CLL);
+  }
+
+  if (!display)
+  {
+    v28 = [NSString stringWithFormat:@"Invalid condition not satisfying: %@", @"displayUUID != ((void *)0)"];
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v29 = NSStringFromSelector(a2);
+      v30 = objc_opt_class();
+      v31 = NSStringFromClass(v30);
+      *location = 138544642;
+      *&location[4] = v29;
+      v36 = 2114;
+      v37 = v31;
+      v38 = 2048;
+      selfCopy3 = self;
+      v40 = 2114;
+      v41 = @"BKMousePointerController.m";
+      v42 = 1024;
+      v43 = 738;
+      v44 = 2114;
+      v45 = v28;
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", location, 0x3Au);
+    }
+
+    v32 = v28;
+    [v28 UTF8String];
+    _bs_set_crash_log_message();
+    __break(0);
+    JUMPOUT(0x100065378);
+  }
+
+  v10 = *&d;
+  os_unfair_lock_assert_not_owner(&self->_lock);
+  os_unfair_lock_lock(&self->_lock);
+  objc_initWeak(location, self);
+  v12 = [BKMousePointerButtonDownRepositionAssertion alloc];
+  v33[0] = _NSConcreteStackBlock;
+  v33[1] = 3221225472;
+  v33[2] = sub_1000653BC;
+  v33[3] = &unk_1000FBC20;
+  objc_copyWeak(&v34, location);
+  v13 = [(BKMousePointerButtonDownRepositionAssertion *)v12 initWithIdentifier:@"com.apple.backboardd.BKMousePointerController" forReason:reason contextRelativePointerPosition:position displayUUID:display restrictingToPID:v10 invalidationBlock:v33];
+  buttonDownRepositionAssertions = self->_buttonDownRepositionAssertions;
+  if (!buttonDownRepositionAssertions)
+  {
+    v15 = [[NSMutableOrderedSet alloc] initWithCapacity:1];
+    v16 = self->_buttonDownRepositionAssertions;
+    self->_buttonDownRepositionAssertions = v15;
+
+    buttonDownRepositionAssertions = self->_buttonDownRepositionAssertions;
+  }
+
+  [(NSMutableOrderedSet *)buttonDownRepositionAssertions addObject:v13];
+  os_unfair_lock_unlock(&self->_lock);
+  objc_destroyWeak(&v34);
+  objc_destroyWeak(location);
+
+  return v13;
+}
+
+- (void)setContextRelativePointerPosition:(id)position withInitialVelocity:(id)velocity onDisplay:(id)display withDecelerationRate:(double)rate restrictingToPID:(int)d auditPID:(int)iD
+{
+  v8 = *&iD;
+  v9 = *&d;
+  os_unfair_lock_lock(&self->_lock);
+  v15 = sub_10005DD24(self, display);
+  v16 = sub_10005F144(self, position, v15);
+  v18 = v17;
+  x = CGPointZero.x;
+  y = CGPointZero.y;
+  if (velocity)
+  {
+    v21 = [[BKSContextRelativePoint alloc] initWithPoint:objc_msgSend(velocity contextID:{"contextID"), CGPointZero.x, y}];
+    v22 = sub_10005F144(self, v21, v15);
+    v24 = v23;
+    x = sub_10005F144(self, velocity, v15) - v22;
+    y = v25 - v24;
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_1000655EC;
+  v26[3] = &unk_1000FBBA8;
+  v26[4] = *&x;
+  v26[5] = *&y;
+  v26[6] = *&rate;
+  sub_10006564C(self, display, v9, v8, v26, v16, v18);
+}
+
+- (void)setContextRelativePointerPosition:(id)position onDisplay:(id)display withAnimationParameters:(id)parameters restrictingToPID:(int)d auditPID:(int)iD
+{
+  v7 = *&iD;
+  v8 = *&d;
+  os_unfair_lock_lock(&self->_lock);
+  v13 = sub_10005DD24(self, display);
+  v14 = sub_10005F144(self, position, v13);
+  v16 = v15;
+  os_unfair_lock_unlock(&self->_lock);
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_100066164;
+  v17[3] = &unk_1000FBB88;
+  v17[4] = parameters;
+  sub_10006564C(self, display, v8, v7, v17, v14, v16);
+}
+
+- (void)setPointerPosition:(CGPoint)position onDisplay:(id)display withAnimationParameters:(id)parameters auditPID:(int)d
+{
+  v6 = *&d;
+  y = position.y;
+  x = position.x;
+  os_unfair_lock_assert_not_owner(&self->_lock);
+  os_unfair_lock_lock(&self->_lock);
+  if (self->_pointerRegion)
+  {
+    [(BKMousePointerRegionArrangement *)self->_regionArrangement convertToGlobalPoint:self->_pointerRegionPoint.x fromRegion:self->_pointerRegionPoint.y];
+    v13 = v12;
+    v15 = v14;
+  }
+
+  else
+  {
+    v13 = CGPointZero.x;
+    v15 = CGPointZero.y;
+  }
+
+  if ([(NSMutableArray *)self->_activePointerAnimations count])
+  {
+    lastObject = [(NSMutableArray *)self->_activePointerAnimations lastObject];
+    [lastObject destinationPoint];
+    v13 = v17;
+    v15 = v18;
+  }
+
+  v19 = sub_10005F268(self, v13, v15);
+  os_unfair_lock_unlock(&self->_lock);
+  if ([v19 count])
+  {
+    anyObject = [v19 anyObject];
+    integerValue = [anyObject integerValue];
+
+    if (integerValue >= 1)
+    {
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = 3221225472;
+      v22[2] = sub_100066364;
+      v22[3] = &unk_1000FBB88;
+      v22[4] = parameters;
+      sub_10006564C(self, display, integerValue, v6, v22, x, y);
+    }
+  }
+}
+
 - (void)setGlobalPointerPosition:(CGPoint)position synthesizeEvents:(BOOL)events process:(id)process
 {
   eventsCopy = events;
@@ -1301,21 +1588,16 @@ LABEL_11:
     [(BKMousePointerRegionArrangement *)self->_regionArrangement convertToGlobalPoint:self->_pointerRegionPoint.x fromRegion:self->_pointerRegionPoint.y];
   }
 
-  else
-  {
-    y = CGPointZero.y;
-  }
-
-  v4 = +[CADisplay mainDisplay];
-  sub_10005DE60(v4, self->_mainDisplayInterfaceOrientation, self->_displayController);
-  v6 = v5;
-  v8 = v7;
+  v3 = +[CADisplay mainDisplay];
+  sub_10005DE60(v3, self->_mainDisplayInterfaceOrientation, self->_displayController);
+  v5 = v4;
+  v7 = v6;
 
   os_unfair_lock_unlock(&self->_lock);
-  v9 = v6;
-  v10 = v8;
-  result.y = v10;
-  result.x = v9;
+  v8 = v5;
+  v9 = v7;
+  result.y = v9;
+  result.x = v8;
   return result;
 }
 

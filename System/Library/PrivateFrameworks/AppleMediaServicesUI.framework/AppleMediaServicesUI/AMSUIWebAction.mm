@@ -92,7 +92,7 @@
 
 - (NSString)presentingSceneBundleIdentifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   context = [(AMSUIWebAction *)self context];
   clientInfo = [context clientInfo];
@@ -124,9 +124,9 @@
     selfCopy = ;
     v13 = AMSHashIfNeeded();
     *buf = 138543618;
-    v17 = selfCopy;
-    v18 = 2114;
-    v19 = v13;
+    v16 = selfCopy;
+    v17 = 2114;
+    v18 = v13;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@Using scene bundle identifier: %{public}@", buf, 0x16u);
     if (v8)
     {
@@ -134,8 +134,6 @@
       selfCopy = self;
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return bundleIdentifier;
 }
@@ -187,7 +185,7 @@ void __56__AMSUIWebAction_presentingSceneBundleIdentifierPromise__block_invoke(u
 
 - (NSString)presentingSceneIdentifier
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   context = [(AMSUIWebAction *)self context];
   flowController = [context flowController];
@@ -212,12 +210,12 @@ void __56__AMSUIWebAction_presentingSceneBundleIdentifierPromise__block_invoke(u
       v14 = AMSLogKey();
       v15 = MEMORY[0x1E696AEC0];
       v16 = objc_opt_class();
-      v31 = a2;
+      v30 = a2;
       if (v14)
       {
         v17 = AMSLogKey();
-        v30 = NSStringFromSelector(a2);
-        [v15 stringWithFormat:@"%@: [%@] %@ ", v16, v17, v30];
+        v29 = NSStringFromSelector(a2);
+        [v15 stringWithFormat:@"%@: [%@] %@ ", v16, v17, v29];
       }
 
       else
@@ -229,19 +227,19 @@ void __56__AMSUIWebAction_presentingSceneBundleIdentifierPromise__block_invoke(u
       v19 = AMSHashIfNeeded();
       flowController = AMSHashIfNeeded();
       *buf = 138543874;
-      v33 = v18;
-      v34 = 2114;
-      v35 = v19;
-      v36 = 2114;
-      v37 = flowController;
+      v32 = v18;
+      v33 = 2114;
+      v34 = v19;
+      v35 = 2114;
+      v36 = flowController;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEBUG, "%{public}@Found scene identifier %{public}@ in %{public}@", buf, 0x20u);
       if (v14)
       {
 
-        v18 = v30;
+        v18 = v29;
       }
 
-      a2 = v31;
+      a2 = v30;
     }
   }
 
@@ -272,9 +270,9 @@ void __56__AMSUIWebAction_presentingSceneBundleIdentifierPromise__block_invoke(u
     v26 = ;
     v27 = AMSHashIfNeeded();
     *buf = 138543618;
-    v33 = v26;
-    v34 = 2114;
-    v35 = v27;
+    v32 = v26;
+    v33 = 2114;
+    v34 = v27;
     _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@Using scene identifier: %{public}@", buf, 0x16u);
     if (v22)
     {
@@ -282,8 +280,6 @@ void __56__AMSUIWebAction_presentingSceneBundleIdentifierPromise__block_invoke(u
       v26 = flowController;
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return persistentIdentifier;
 }

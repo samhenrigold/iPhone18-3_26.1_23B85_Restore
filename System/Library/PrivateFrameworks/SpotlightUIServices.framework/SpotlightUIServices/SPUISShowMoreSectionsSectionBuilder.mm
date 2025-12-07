@@ -56,7 +56,7 @@
   v8 = MEMORY[0x277D4C690];
   v9 = [SPUISUtilities localizedStringForKey:@"SHOW_MORE_RESULTS"];
   v10 = [v8 textWithString:v9];
-  [v7 setTitle:v10];
+  objc_msgSend_setTitle_(v7);
 
   [v7 setInlineCard:v5];
   [v7 setQueryId:queryIdent];
@@ -66,17 +66,15 @@
 
 - (id)buildCardSections
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = MEMORY[0x277D4C598];
   v4 = [SPUISUtilities localizedStringForKey:@"SHOW_MORE_RESULTS"];
   v5 = [v3 textWithString:v4];
-  [v2 setTitle:v5];
+  objc_msgSend_setTitle_(v2);
 
-  v9[0] = v2;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v2;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }

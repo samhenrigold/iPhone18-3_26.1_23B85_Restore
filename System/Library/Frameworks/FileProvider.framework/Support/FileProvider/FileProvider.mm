@@ -160,10 +160,11 @@ LABEL_43:
   return 0;
 }
 
-void sub_100001750(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001750(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 id Blah.__allocating_init()()
@@ -189,9 +190,9 @@ id Blah.__deallocating_deinit()
 
 void sub_1000018C0()
 {
-  v0 = *__error();
+  __error();
   sub_100001770();
-  sub_100001750(&_mh_execute_header, v1, v2, "[ERROR] Could not setup dirhelper suffix: %{errno}d", v3, v4, v5, v6, v7);
+  sub_100001750(&_mh_execute_header, v0, v1, "[ERROR] Could not setup dirhelper suffix: %{errno}d", v2, v3, v4, v5);
 }
 
 void sub_10000193C(void *a1, NSObject *a2)
@@ -206,21 +207,21 @@ void sub_10000193C(void *a1, NSObject *a2)
 
 void sub_100001A1C()
 {
-  v0 = *__error();
+  __error();
   sub_100001770();
-  sub_100001750(&_mh_execute_header, v1, v2, "[ERROR] failed to enable support for long paths in VFS: %{errno}d\n", v3, v4, v5, v6, v7);
+  sub_100001750(&_mh_execute_header, v0, v1, "[ERROR] failed to enable support for long paths in VFS: %{errno}d\n", v2, v3, v4, v5);
 }
 
 void sub_100001A98()
 {
-  v0 = *__error();
+  __error();
   sub_100001770();
-  sub_100001750(&_mh_execute_header, v1, v2, "[ERROR] failed to set parent mTime iopolicy %d\n", v3, v4, v5, v6, v7);
+  sub_100001750(&_mh_execute_header, v0, v1, "[ERROR] failed to set parent mTime iopolicy %d\n", v2, v3, v4, v5);
 }
 
 void sub_100001B14()
 {
-  v0 = *__error();
+  __error();
   sub_100001770();
-  sub_100001750(&_mh_execute_header, v1, v2, "[ERROR] failed to set ignore permissions iopolicy %d\n", v3, v4, v5, v6, v7);
+  sub_100001750(&_mh_execute_header, v0, v1, "[ERROR] failed to set ignore permissions iopolicy %d\n", v2, v3, v4, v5);
 }

@@ -173,7 +173,7 @@
 
     if (v6)
     {
-      [v6 duration];
+      objc_msgSend_duration(v6);
     }
 
     else
@@ -267,7 +267,7 @@
   streamingVideoIntent = [behaviorSpec streamingVideoIntent];
   if (behaviorSpec)
   {
-    [behaviorSpec timeRange];
+    objc_msgSend_timeRange(behaviorSpec);
   }
 
   else
@@ -396,7 +396,7 @@ LABEL_18:
         v45 = v15;
         if (v32)
         {
-          [v32 timeRange];
+          objc_msgSend_timeRange(v32);
         }
 
         else
@@ -523,9 +523,12 @@ void __152__PHServerResourceRequestRunner_startWalrusTimeRangeDownloadForRequest
 
 uint64_t __152__PHServerResourceRequestRunner_startWalrusTimeRangeDownloadForRequest_backingResource_clientBundleID_shouldReturnAdjustmentInfo_partialVideoURL_reply___block_invoke_157(uint64_t a1)
 {
-  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _avAssetProxyForOutOfBandHintsAboutAssetForResource:*(a1 + 40)];
+  v2 = [*(a1 + 32) _avAssetProxyForOutOfBandHintsAboutAssetForResource:*(a1 + 40)];
+  v3 = *(*(a1 + 48) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)startDownloadForRequest:(id)request backingResource:(id)resource clientBundleID:(id)d shouldReturnAdjustmentInfo:(BOOL)info needsDownload:(BOOL)download shouldApplyTimeRange:(BOOL)range reply:(id)reply
@@ -593,7 +596,7 @@ uint64_t __152__PHServerResourceRequestRunner_startWalrusTimeRangeDownloadForReq
   {
     if (behaviorSpec)
     {
-      [behaviorSpec timeRange];
+      objc_msgSend_timeRange(behaviorSpec);
     }
 
     else
@@ -770,9 +773,12 @@ void __156__PHServerResourceRequestRunner_startDownloadForRequest_backingResourc
 
 uint64_t __156__PHServerResourceRequestRunner_startDownloadForRequest_backingResource_clientBundleID_shouldReturnAdjustmentInfo_needsDownload_shouldApplyTimeRange_reply___block_invoke_152(uint64_t a1)
 {
-  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _avAssetProxyForOutOfBandHintsAboutAssetForResource:*(a1 + 40)];
+  v2 = [*(a1 + 32) _avAssetProxyForOutOfBandHintsAboutAssetForResource:*(a1 + 40)];
+  v3 = *(*(a1 + 48) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (BOOL)currentSystemSupportsProMotionDisplay
@@ -1286,7 +1292,7 @@ LABEL_33:
     v51 = *(a1 + 56);
     if (v51)
     {
-      [v51 timeRange];
+      objc_msgSend_timeRange(v51);
     }
 
     else
@@ -1361,7 +1367,7 @@ LABEL_33:
       v79 = *(a1 + 56);
       if (v79)
       {
-        [v79 timeRange];
+        objc_msgSend_timeRange(v79);
       }
 
       else

@@ -289,7 +289,7 @@ void __44__SCKDatabase_readContentsOfZone_withBlock___block_invoke_5(uint64_t a1
 
 void __48__SCKDatabase_modifyContentsOfZone_withCommand___block_invoke(uint64_t a1)
 {
-  v2 = SCKDatabaseLog();
+  v2 = SCKDatabaseLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __48__SCKDatabase_modifyContentsOfZone_withCommand___block_invoke_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
@@ -1061,7 +1061,7 @@ void __51__SCKDatabase__enqueueStartupSequenceWithFeatures___block_invoke_2(uint
 void __51__SCKDatabase__enqueueStartupSequenceWithFeatures___block_invoke_3(uint64_t a1, int a2)
 {
   v11 = *MEMORY[0x277D85DE8];
-  v4 = SCKDatabaseLog();
+  v4 = SCKDatabaseLog(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = @"disabled";
@@ -1093,7 +1093,7 @@ void __51__SCKDatabase__enqueueStartupSequenceWithFeatures___block_invoke_3(uint
 
 uint64_t __51__SCKDatabase__enqueueStartupSequenceWithFeatures___block_invoke_50(uint64_t a1)
 {
-  v2 = SCKDatabaseLog();
+  v2 = SCKDatabaseLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1108,10 +1108,11 @@ void __51__SCKDatabase__enqueueStartupSequenceWithFeatures___block_invoke_51(uin
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = SCKDatabaseLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = SCKDatabaseLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __51__SCKDatabase__enqueueStartupSequenceWithFeatures___block_invoke_51_cold_1();
     }
@@ -1121,30 +1122,30 @@ void __51__SCKDatabase__enqueueStartupSequenceWithFeatures___block_invoke_51(uin
 
   else
   {
-    v8 = [*(a1 + 32) schema];
-    v9 = [v8 requiresDeviceToDeviceEncryption];
+    v9 = [*(a1 + 32) schema];
+    v10 = [v9 requiresDeviceToDeviceEncryption];
 
-    v10 = *(a1 + 40);
-    v11 = [v5 accountStatus];
-    if (v9)
+    v11 = *(a1 + 40);
+    v12 = [v5 accountStatus];
+    if (v10)
     {
-      if (v11 == 1)
+      if (v12 == 1)
       {
-        v12 = [v5 supportsDeviceToDeviceEncryption];
+        v13 = [v5 supportsDeviceToDeviceEncryption];
       }
 
       else
       {
-        v12 = 0;
+        v13 = 0;
       }
     }
 
     else
     {
-      v12 = v11 == 1;
+      v13 = v12 == 1;
     }
 
-    (*(v10 + 16))(v10, v12);
+    (*(v11 + 16))(v11, v13);
   }
 
   (*(*(a1 + 48) + 16))();
@@ -1166,39 +1167,39 @@ void __51__SCKDatabase__enqueueStartupSequenceWithFeatures___block_invoke_53(uin
 
 void __51__SCKDatabase__enqueueStartupSequenceWithFeatures___block_invoke_2_54(uint64_t a1, void *a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
   v4 = [*(a1 + 32) schema];
   v5 = [v4 zoneSchemas];
 
   obj = v5;
-  v6 = [v5 countByEnumeratingWithState:&v32 objects:v46 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v33 objects:v47 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v33;
+    v9 = *v34;
     *&v7 = 138544386;
-    v25 = v7;
-    v26 = a1;
-    v27 = v3;
+    v26 = v7;
+    v27 = a1;
+    v28 = v3;
     do
     {
       v10 = 0;
-      v28 = v8;
+      v29 = v8;
       do
       {
-        if (*v33 != v9)
+        if (*v34 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * v10);
+        v11 = *(*(&v33 + 1) + 8 * v10);
         v12 = *(a1 + 32);
-        v13 = [v3 zoneStoreForSchema:{v11, v25}];
+        v13 = [v3 zoneStoreForSchema:{v11, v26}];
         [v12 _reloadSnapshotOfZone:v11 fromStore:v13];
 
         v14 = [v3 zoneStoreForSchema:v11];
@@ -1206,40 +1207,40 @@ void __51__SCKDatabase__enqueueStartupSequenceWithFeatures___block_invoke_2_54(u
         v16 = [v11 zoneName];
         v17 = [v15 objectForKeyedSubscript:v16];
 
-        v18 = SCKDatabaseLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = SCKDatabaseLog(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = [v11 zoneName];
-          v31 = [v14 serverRecords];
-          v20 = [v31 count];
-          v30 = [v17 allRecords];
-          v21 = v9;
-          v22 = [v30 count];
-          v23 = [v14 pendingCommands];
-          v24 = [v17 descriptionOfContents];
-          *buf = v25;
-          v37 = v19;
-          v38 = 2048;
-          v39 = v20;
-          v8 = v28;
-          v40 = 2048;
-          v41 = v22;
-          v9 = v21;
-          v42 = 2114;
-          v43 = v23;
-          v44 = 2114;
-          v45 = v24;
-          _os_log_impl(&dword_26BAAD000, v18, OS_LOG_TYPE_DEFAULT, "loaded zone %{public}@ from disk with %lu server records, %lu client records, pending commands: %{public}@, and client contents: %{public}@", buf, 0x34u);
+          v20 = [v11 zoneName];
+          v32 = [v14 serverRecords];
+          v21 = [v32 count];
+          v31 = [v17 allRecords];
+          v22 = v9;
+          v23 = [v31 count];
+          v24 = [v14 pendingCommands];
+          v25 = [v17 descriptionOfContents];
+          *buf = v26;
+          v38 = v20;
+          v39 = 2048;
+          v40 = v21;
+          v8 = v29;
+          v41 = 2048;
+          v42 = v23;
+          v9 = v22;
+          v43 = 2114;
+          v44 = v24;
+          v45 = 2114;
+          v46 = v25;
+          _os_log_impl(&dword_26BAAD000, v19, OS_LOG_TYPE_DEFAULT, "loaded zone %{public}@ from disk with %lu server records, %lu client records, pending commands: %{public}@, and client contents: %{public}@", buf, 0x34u);
 
-          a1 = v26;
-          v3 = v27;
+          a1 = v27;
+          v3 = v28;
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v32 objects:v46 count:16];
+      v8 = [obj countByEnumeratingWithState:&v33 objects:v47 count:16];
     }
 
     while (v8);
@@ -1515,10 +1516,11 @@ void __51__SCKDatabase__enqueueStartupSequenceWithFeatures___block_invoke_19(uin
 void __51__SCKDatabase__enqueueStartupSequenceWithFeatures___block_invoke_21(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v4 = a4;
+  v5 = v4;
   if (v4)
   {
-    v5 = SCKDatabaseLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = SCKDatabaseLog(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __51__SCKDatabase__enqueueStartupSequenceWithFeatures___block_invoke_21_cold_1();
     }
@@ -1571,7 +1573,7 @@ void __58__SCKDatabase__fetchDatabaseAndZoneChangesWithCompletion___block_invoke
 - (void)_fetchDatabaseChangesWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = SCKDatabaseLog();
+  v5 = SCKDatabaseLog(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1635,7 +1637,7 @@ void __51__SCKDatabase__fetchDatabaseChangesWithCompletion___block_invoke_2(uint
 {
   v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = SCKDatabaseLog();
+  v4 = SCKDatabaseLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 zoneName];
@@ -1667,7 +1669,7 @@ void __51__SCKDatabase__fetchDatabaseChangesWithCompletion___block_invoke_2(uint
 void __51__SCKDatabase__fetchDatabaseChangesWithCompletion___block_invoke_70(uint64_t a1)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v2 = SCKDatabaseLog();
+  v2 = SCKDatabaseLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) zoneName];
@@ -1682,34 +1684,35 @@ void __51__SCKDatabase__fetchDatabaseChangesWithCompletion___block_invoke_2_75(u
   v6 = a2;
   v7 = a4;
   v8 = v7;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
   if (v7)
   {
     v9 = [v7 sck_hasUnderlyingErrorCode:21];
-    v10 = SCKDatabaseLog();
-    v11 = v10;
-    if (v9)
+    v10 = v9;
+    v11 = SCKDatabaseLog(v9);
+    v12 = v11;
+    if (v10)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_26BAAD000, v11, OS_LOG_TYPE_DEFAULT, "encountered expired change token for database", buf, 2u);
+        _os_log_impl(&dword_26BAAD000, v12, OS_LOG_TYPE_DEFAULT, "encountered expired change token for database", buf, 2u);
       }
 
-      v11 = [*(a1 + 32) storeCoordinator];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __51__SCKDatabase__fetchDatabaseChangesWithCompletion___block_invoke_78;
-      v14[3] = &unk_279D16D50;
-      v14[4] = *(a1 + 56);
-      v14[5] = &v21;
-      [v11 writeWithAccessor:v14];
+      v12 = [*(a1 + 32) storeCoordinator];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __51__SCKDatabase__fetchDatabaseChangesWithCompletion___block_invoke_78;
+      v15[3] = &unk_279D16D50;
+      v15[4] = *(a1 + 56);
+      v15[5] = &v22;
+      [v12 writeWithAccessor:v15];
     }
 
-    else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __51__SCKDatabase__fetchDatabaseChangesWithCompletion___block_invoke_2_75_cold_1();
     }
@@ -1717,28 +1720,28 @@ void __51__SCKDatabase__fetchDatabaseChangesWithCompletion___block_invoke_2_75(u
 
   else
   {
-    v12 = SCKDatabaseLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = SCKDatabaseLog(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_26BAAD000, v12, OS_LOG_TYPE_DEFAULT, "successfully fetched database changes", buf, 2u);
+      _os_log_impl(&dword_26BAAD000, v13, OS_LOG_TYPE_DEFAULT, "successfully fetched database changes", buf, 2u);
     }
 
-    v13 = [*(a1 + 32) storeCoordinator];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __51__SCKDatabase__fetchDatabaseChangesWithCompletion___block_invoke_76;
-    v15[3] = &unk_279D16D28;
-    v18 = *(a1 + 56);
-    v16 = v6;
-    v17 = *(a1 + 40);
-    v19 = &v21;
-    [v13 writeWithAccessor:v15];
+    v14 = [*(a1 + 32) storeCoordinator];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __51__SCKDatabase__fetchDatabaseChangesWithCompletion___block_invoke_76;
+    v16[3] = &unk_279D16D28;
+    v19 = *(a1 + 56);
+    v17 = v6;
+    v18 = *(a1 + 40);
+    v20 = &v22;
+    [v14 writeWithAccessor:v16];
 
-    v11 = v16;
+    v12 = v17;
   }
 
-  if (*(v22 + 24) == 1)
+  if (*(v23 + 24) == 1)
   {
     [*(a1 + 32) _fetchDatabaseChangesWithCompletion:*(a1 + 48)];
   }
@@ -1748,7 +1751,7 @@ void __51__SCKDatabase__fetchDatabaseChangesWithCompletion___block_invoke_2_75(u
     (*(*(a1 + 48) + 16))();
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v22, 8);
 }
 
 void __51__SCKDatabase__fetchDatabaseChangesWithCompletion___block_invoke_76(uint64_t a1, void *a2)
@@ -1823,7 +1826,7 @@ void __51__SCKDatabase__fetchDatabaseChangesWithCompletion___block_invoke_78(uin
 
 - (void)_fetchZoneChangesForZones:(id)zones completion:(id)completion
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
   completionCopy = completion;
   if ([zonesCopy count])
@@ -1832,89 +1835,89 @@ void __51__SCKDatabase__fetchDatabaseChangesWithCompletion___block_invoke_78(uin
     array2 = [MEMORY[0x277CBEB18] array];
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     storeCoordinator = [(SCKDatabase *)self storeCoordinator];
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_2;
-    v46[3] = &unk_279D16DA0;
-    v29 = zonesCopy;
-    v47 = zonesCopy;
-    v48 = array;
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_2;
+    v47[3] = &unk_279D16DA0;
+    v30 = zonesCopy;
+    v48 = zonesCopy;
+    v49 = array;
     v12 = array2;
-    v49 = v12;
+    v50 = v12;
     v13 = dictionary;
-    v50 = v13;
+    v51 = v13;
     v14 = array;
-    [storeCoordinator readWithAccessor:v46];
+    [storeCoordinator readWithAccessor:v47];
 
-    v15 = SCKDatabaseLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = SCKDatabaseLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v57 = v12;
-      _os_log_impl(&dword_26BAAD000, v15, OS_LOG_TYPE_DEFAULT, "will fetch changes for zones: %{public}@", buf, 0xCu);
+      v58 = v12;
+      _os_log_impl(&dword_26BAAD000, v16, OS_LOG_TYPE_DEFAULT, "will fetch changes for zones: %{public}@", buf, 0xCu);
     }
 
-    v16 = objc_alloc_init(MEMORY[0x277CBC3B8]);
-    [v16 setRecordZoneIDs:v14];
-    [v16 setConfigurationsByRecordZoneID:v13];
-    [v16 setFetchAllChanges:1];
+    v17 = objc_alloc_init(MEMORY[0x277CBC3B8]);
+    [v17 setRecordZoneIDs:v14];
+    [v17 setConfigurationsByRecordZoneID:v13];
+    [v17 setFetchAllChanges:1];
     dictionary2 = [MEMORY[0x277CBEB38] dictionary];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_82;
-    v44[3] = &unk_279D16DC8;
-    v18 = dictionary2;
-    v45 = v18;
-    [v16 setRecordChangedBlock:v44];
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_82;
+    v45[3] = &unk_279D16DC8;
+    v19 = dictionary2;
+    v46 = v19;
+    [v17 setRecordChangedBlock:v45];
     dictionary3 = [MEMORY[0x277CBEB38] dictionary];
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_2_84;
-    v42[3] = &unk_279D16DF0;
-    v20 = dictionary3;
-    v43 = v20;
-    [v16 setRecordWithIDWasDeletedBlock:v42];
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_2_84;
+    v43[3] = &unk_279D16DF0;
+    v21 = dictionary3;
+    v44 = v21;
+    [v17 setRecordWithIDWasDeletedBlock:v43];
     array3 = [MEMORY[0x277CBEB18] array];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_3;
-    v35[3] = &unk_279D16E68;
-    v36 = v18;
-    v37 = v20;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_3;
+    v36[3] = &unk_279D16E68;
+    v37 = v19;
+    v38 = v21;
     selfCopy = self;
-    v39 = v13;
-    v22 = array3;
-    v40 = v22;
-    v23 = completionCopy;
+    v40 = v13;
+    v23 = array3;
     v41 = v23;
+    v24 = completionCopy;
+    v42 = v24;
     completionCopy = v13;
-    v24 = v18;
-    v25 = v20;
-    [v16 setRecordZoneFetchCompletionBlock:v35];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_92;
-    v30[3] = &unk_279D16E90;
-    v31 = v22;
+    v25 = v19;
+    v26 = v21;
+    [v17 setRecordZoneFetchCompletionBlock:v36];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_92;
+    v31[3] = &unk_279D16E90;
+    v32 = v23;
     selfCopy2 = self;
-    v33 = v12;
-    v34 = v23;
-    v26 = v22;
+    v34 = v12;
+    v35 = v24;
     v27 = v23;
-    v28 = v12;
-    [v16 setFetchRecordZoneChangesCompletionBlock:v30];
-    [(SCKDatabase *)self _runCKOperation:v16];
+    v28 = v24;
+    v29 = v12;
+    [v17 setFetchRecordZoneChangesCompletionBlock:v31];
+    [(SCKDatabase *)self _runCKOperation:v17];
 
-    zonesCopy = v29;
+    zonesCopy = v30;
   }
 
   else
   {
-    v51 = MEMORY[0x277D85DD0];
-    v52 = 3221225472;
-    v53 = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke;
-    v54 = &unk_279D15FA0;
-    v55 = completionCopy;
+    v52 = MEMORY[0x277D85DD0];
+    v53 = 3221225472;
+    v54 = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke;
+    v55 = &unk_279D15FA0;
+    v56 = completionCopy;
     v14 = completionCopy;
     v14[2](v14, 0);
   }
@@ -2031,7 +2034,7 @@ void __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_2_84(
 
 void __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, void *a6)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v10 = a2;
   v11 = a3;
   v12 = a4;
@@ -2039,82 +2042,87 @@ void __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_3(uin
   v14 = v13;
   if (v13 && ![v13 sck_hasUnderlyingErrorCode:26])
   {
-    if ([v14 sck_hasUnderlyingErrorCode:21])
+    v30 = [v14 sck_hasUnderlyingErrorCode:21];
+    if (v30)
     {
-      v30 = SCKDatabaseLog();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v31 = SCKDatabaseLog(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = [v10 zoneName];
+        v32 = [v10 zoneName];
         *buf = 138543362;
-        v59 = v31;
-        _os_log_impl(&dword_26BAAD000, v30, OS_LOG_TYPE_DEFAULT, "encountered expired change token for zone %{public}@", buf, 0xCu);
+        v61 = v32;
+        _os_log_impl(&dword_26BAAD000, v31, OS_LOG_TYPE_DEFAULT, "encountered expired change token for zone %{public}@", buf, 0xCu);
       }
 
-      v32 = [*(a1 + 48) schema];
-      v33 = [v10 zoneName];
-      v34 = [v32 schemaForZoneName:v33];
+      v33 = [*(a1 + 48) schema];
+      v34 = [v10 zoneName];
+      v35 = [v33 schemaForZoneName:v34];
 
-      if (v34)
+      if (v35)
       {
-        v35 = [*(a1 + 48) storeCoordinator];
-        v41[0] = MEMORY[0x277D85DD0];
-        v41[1] = 3221225472;
-        v41[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_90;
-        v41[3] = &unk_279D16E40;
-        v36 = &v42;
-        v42 = *(a1 + 56);
-        v43 = v10;
-        v44 = *(a1 + 64);
-        v45 = v34;
-        [v35 writeZone:v45 withAccessor:v41];
+        v36 = [*(a1 + 48) storeCoordinator];
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_90;
+        v43[3] = &unk_279D16E40;
+        v37 = &v44;
+        v44 = *(a1 + 56);
+        v45 = v10;
+        v46 = *(a1 + 64);
+        v47 = v35;
+        [v36 writeZone:v47 withAccessor:v43];
       }
 
       else
       {
-        v46[0] = MEMORY[0x277D85DD0];
-        v46[1] = 3221225472;
-        v46[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_89;
-        v46[3] = &unk_279D15BF0;
-        v36 = &v47;
-        v47 = v10;
-        __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_89(v46);
+        v48[0] = MEMORY[0x277D85DD0];
+        v48[1] = 3221225472;
+        v48[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_89;
+        v48[3] = &unk_279D15BF0;
+        v37 = &v49;
+        v49 = v10;
+        __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_89(v48);
       }
     }
 
-    else if ([v14 sck_hasUnderlyingErrorCode:112])
+    else
     {
-      v37 = SCKDatabaseLog();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v38 = [v14 sck_hasUnderlyingErrorCode:112];
+      if (v38)
       {
-        v38 = [v10 zoneName];
-        *buf = 138543362;
-        v59 = v38;
-        _os_log_impl(&dword_26BAAD000, v37, OS_LOG_TYPE_DEFAULT, "encountered missing identity error fetching changes for zone %{public}@, so attempting to recover", buf, 0xCu);
-      }
+        v39 = SCKDatabaseLog(v38);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        {
+          v40 = [v10 zoneName];
+          *buf = 138543362;
+          v61 = v40;
+          _os_log_impl(&dword_26BAAD000, v39, OS_LOG_TYPE_DEFAULT, "encountered missing identity error fetching changes for zone %{public}@, so attempting to recover", buf, 0xCu);
+        }
 
-      [*(a1 + 48) _recoverFromIdentityLossWithCompletion:*(a1 + 72)];
+        [*(a1 + 48) _recoverFromIdentityLossWithCompletion:*(a1 + 72)];
+      }
     }
   }
 
   else
   {
-    v39 = v12;
-    v40 = v11;
+    v41 = v12;
+    v42 = v11;
     v15 = [*(a1 + 32) objectForKeyedSubscript:v10];
     v16 = [*(a1 + 40) objectForKeyedSubscript:v10];
     v17 = [[SCKZoneDiff alloc] initWithModifiedRecords:v15 deletedRecordIDs:v16];
-    v18 = SCKDatabaseLog();
+    v18 = SCKDatabaseLog(v17);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v19 = [v15 count];
       v20 = [v16 count];
       v21 = [v10 zoneName];
       *buf = 134218498;
-      v59 = v19;
-      v60 = 2048;
-      v61 = v20;
-      v62 = 2114;
-      v63 = v21;
+      v61 = v19;
+      v62 = 2048;
+      v63 = v20;
+      v64 = 2114;
+      v65 = v21;
       _os_log_impl(&dword_26BAAD000, v18, OS_LOG_TYPE_DEFAULT, "fetched %lu changed records and %lu deleted records for zone %{public}@", buf, 0x20u);
     }
 
@@ -2125,44 +2133,44 @@ void __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_3(uin
     if (v24)
     {
       v25 = [*(a1 + 48) storeCoordinator];
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_88;
-      v48[3] = &unk_279D16E18;
-      v26 = &v49;
-      v49 = *(a1 + 56);
-      v50 = v10;
-      v51 = v40;
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_88;
+      v50[3] = &unk_279D16E18;
+      v26 = &v51;
+      v51 = *(a1 + 56);
+      v52 = v10;
+      v53 = v42;
       v27 = v17;
       v28 = *(a1 + 48);
-      v52 = v27;
-      v53 = v28;
+      v54 = v27;
+      v55 = v28;
       v29 = v24;
-      v54 = v29;
-      v55 = *(a1 + 64);
-      [v25 writeZone:v29 withAccessor:v48];
+      v56 = v29;
+      v57 = *(a1 + 64);
+      [v25 writeZone:v29 withAccessor:v50];
     }
 
     else
     {
-      v56[0] = MEMORY[0x277D85DD0];
-      v56[1] = 3221225472;
-      v56[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_87;
-      v56[3] = &unk_279D15BF0;
-      v26 = &v57;
-      v57 = v10;
-      __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_87(v56);
+      v58[0] = MEMORY[0x277D85DD0];
+      v58[1] = 3221225472;
+      v58[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_87;
+      v58[3] = &unk_279D15BF0;
+      v26 = &v59;
+      v59 = v10;
+      __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_87(v58);
     }
 
-    v12 = v39;
-    v11 = v40;
+    v12 = v41;
+    v11 = v42;
   }
 }
 
 void __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_87(uint64_t a1)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v2 = SCKDatabaseLog();
+  v2 = SCKDatabaseLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) zoneName];
@@ -2174,7 +2182,7 @@ void __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_87(ui
 
 void __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_88(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) objectForKeyedSubscript:*(a1 + 40)];
   v5 = [v4 previousServerChangeToken];
@@ -2189,15 +2197,16 @@ void __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_88(ui
     [v3 setLastSyncDate:v8];
 
     [v3 setServerChangeToken:*(a1 + 48)];
-    if ([*(a1 + 56) isEmpty])
+    v9 = [*(a1 + 56) isEmpty];
+    if (v9)
     {
-      v9 = SCKDatabaseLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = SCKDatabaseLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = [*(a1 + 40) zoneName];
+        v11 = [*(a1 + 40) zoneName];
         *buf = 138543362;
-        v22 = v10;
-        _os_log_impl(&dword_26BAAD000, v9, OS_LOG_TYPE_DEFAULT, "no changes to process for zone %{public}@", buf, 0xCu);
+        v24 = v11;
+        _os_log_impl(&dword_26BAAD000, v10, OS_LOG_TYPE_DEFAULT, "no changes to process for zone %{public}@", buf, 0xCu);
       }
     }
 
@@ -2205,31 +2214,31 @@ void __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_88(ui
     {
       [v3 applyServerRecordsDiff:*(a1 + 56)];
       [*(a1 + 64) _reloadSnapshotOfZone:*(a1 + 72) fromStore:v3];
-      v11 = [*(a1 + 64) zoneSnapshotsByZoneName];
-      v12 = [*(a1 + 72) zoneName];
-      v9 = [v11 objectForKeyedSubscript:v12];
+      v12 = [*(a1 + 64) zoneSnapshotsByZoneName];
+      v13 = [*(a1 + 72) zoneName];
+      v10 = [v12 objectForKeyedSubscript:v13];
 
-      v13 = SCKDatabaseLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = SCKDatabaseLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = [*(a1 + 72) zoneName];
-        v20 = [v3 serverRecords];
-        v15 = [v20 count];
-        v16 = [v9 allRecords];
-        v17 = [v16 count];
-        v18 = [v3 pendingCommands];
-        v19 = [v9 descriptionOfContents];
+        v16 = [*(a1 + 72) zoneName];
+        v22 = [v3 serverRecords];
+        v17 = [v22 count];
+        v18 = [v10 allRecords];
+        v19 = [v18 count];
+        v20 = [v3 pendingCommands];
+        v21 = [v10 descriptionOfContents];
         *buf = 138544386;
-        v22 = v14;
-        v23 = 2048;
-        v24 = v15;
+        v24 = v16;
         v25 = 2048;
         v26 = v17;
-        v27 = 2114;
-        v28 = v18;
+        v27 = 2048;
+        v28 = v19;
         v29 = 2114;
-        v30 = v19;
-        _os_log_impl(&dword_26BAAD000, v13, OS_LOG_TYPE_DEFAULT, "fetched changes for zone %{public}@ from server resulting in %lu server records, %lu client records, pending commands: %{public}@, and client contents: %{public}@", buf, 0x34u);
+        v30 = v20;
+        v31 = 2114;
+        v32 = v21;
+        _os_log_impl(&dword_26BAAD000, v15, OS_LOG_TYPE_DEFAULT, "fetched changes for zone %{public}@ from server resulting in %lu server records, %lu client records, pending commands: %{public}@, and client contents: %{public}@", buf, 0x34u);
       }
     }
   }
@@ -2243,7 +2252,7 @@ void __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_88(ui
 void __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_89(uint64_t a1)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v2 = SCKDatabaseLog();
+  v2 = SCKDatabaseLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) zoneName];
@@ -2272,17 +2281,18 @@ void __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_90(ui
 
 void __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_92(id *a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  if ([a1[4] count])
+  v4 = [a1[4] count];
+  if (v4)
   {
-    v4 = SCKDatabaseLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SCKDatabaseLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = a1[4];
+      v6 = a1[4];
       *buf = 138543362;
-      v13 = v5;
-      _os_log_impl(&dword_26BAAD000, v4, OS_LOG_TYPE_DEFAULT, "retrying fetch changes for zones: %{public}@", buf, 0xCu);
+      v14 = v6;
+      _os_log_impl(&dword_26BAAD000, v5, OS_LOG_TYPE_DEFAULT, "retrying fetch changes for zones: %{public}@", buf, 0xCu);
     }
 
     [a1[5] _fetchZoneChangesForZones:a1[4] completion:a1[7]];
@@ -2290,25 +2300,25 @@ void __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_92(id
 
   else if (v3)
   {
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_93;
-    v8[3] = &unk_279D164A8;
-    v9 = a1[6];
-    v10 = v3;
-    v11 = a1[7];
-    __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_93(v8);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_93;
+    v9[3] = &unk_279D164A8;
+    v10 = a1[6];
+    v11 = v3;
+    v12 = a1[7];
+    __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_93(v9);
   }
 
   else
   {
-    v6 = SCKDatabaseLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SCKDatabaseLog(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = a1[6];
+      v8 = a1[6];
       *buf = 138543362;
-      v13 = v7;
-      _os_log_impl(&dword_26BAAD000, v6, OS_LOG_TYPE_DEFAULT, "successfully fetched changes for zones: %{public}@", buf, 0xCu);
+      v14 = v8;
+      _os_log_impl(&dword_26BAAD000, v7, OS_LOG_TYPE_DEFAULT, "successfully fetched changes for zones: %{public}@", buf, 0xCu);
     }
 
     (*(a1[7] + 2))();
@@ -2317,7 +2327,7 @@ void __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_92(id
 
 uint64_t __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_93(uint64_t a1)
 {
-  v2 = SCKDatabaseLog();
+  v2 = SCKDatabaseLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_93_cold_1(a1, v2);
@@ -2328,86 +2338,86 @@ uint64_t __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_9
 
 - (void)_saveZoneToContainer:(id)container allowRecoveryAttempt:(BOOL)attempt completion:(id)completion
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   completionCopy = completion;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy__1;
-  v44 = __Block_byref_object_dispose__1;
-  v45 = 0;
-  v39[0] = 0;
-  v39[1] = v39;
-  v39[2] = 0x2020000000;
-  v39[3] = 0;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
-  v38 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__1;
+  v45 = __Block_byref_object_dispose__1;
+  v46 = 0;
+  v40[0] = 0;
+  v40[1] = v40;
+  v40[2] = 0x2020000000;
+  v40[3] = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
   storeCoordinator = [(SCKDatabase *)self storeCoordinator];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke;
-  v30[3] = &unk_279D16ED8;
-  v30[4] = self;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke;
+  v31[3] = &unk_279D16ED8;
+  v31[4] = self;
   v11 = containerCopy;
-  v31 = v11;
-  v32 = &v40;
-  v33 = v39;
-  v34 = &v35;
-  [storeCoordinator readZone:v11 withAccessor:v30];
+  v32 = v11;
+  v33 = &v41;
+  v34 = v40;
+  v35 = &v36;
+  [storeCoordinator readZone:v11 withAccessor:v31];
 
-  if (*(v36 + 24) == 1 && ![v41[5] isEmpty])
+  if (*(v37 + 24) == 1 && (v12 = [v42[5] isEmpty], !v12))
   {
-    v13 = SCKDatabaseLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = SCKDatabaseLog(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       zoneName = [v11 zoneName];
       *buf = 138543362;
-      v47 = zoneName;
-      _os_log_impl(&dword_26BAAD000, v13, OS_LOG_TYPE_DEFAULT, "will save zone %{public}@", buf, 0xCu);
+      v48 = zoneName;
+      _os_log_impl(&dword_26BAAD000, v14, OS_LOG_TYPE_DEFAULT, "will save zone %{public}@", buf, 0xCu);
     }
 
-    v12 = objc_alloc_init(MEMORY[0x277CBC4A0]);
-    [v12 setSavePolicy:0];
-    [v12 setAtomic:{objc_msgSend(v11, "isAtomic")}];
-    [v41[5] applyToModifyRecordsOperation:v12];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_100;
-    v18[3] = &unk_279D16FE8;
+    v13 = objc_alloc_init(MEMORY[0x277CBC4A0]);
+    [v13 setSavePolicy:0];
+    [v13 setAtomic:{objc_msgSend(v11, "isAtomic")}];
+    [v42[5] applyToModifyRecordsOperation:v13];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_100;
+    v19[3] = &unk_279D16FE8;
     attemptCopy = attempt;
-    v21 = completionCopy;
-    v15 = v11;
-    v19 = v15;
+    v22 = completionCopy;
+    v16 = v11;
+    v20 = v16;
     selfCopy = self;
-    v22 = &v40;
-    v23 = v39;
-    [v12 setModifyRecordsCompletionBlock:v18];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_113;
-    v16[3] = &unk_279D17010;
-    v17 = v15;
-    [v12 setRequestCompletedBlock:v16];
-    [(SCKDatabase *)self _runCKOperation:v12];
+    v23 = &v41;
+    v24 = v40;
+    [v13 setModifyRecordsCompletionBlock:v19];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_113;
+    v17[3] = &unk_279D17010;
+    v18 = v16;
+    [v13 setRequestCompletedBlock:v17];
+    [(SCKDatabase *)self _runCKOperation:v13];
   }
 
   else
   {
-    v25 = MEMORY[0x277D85DD0];
-    v26 = 3221225472;
-    v27 = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_3;
-    v28 = &unk_279D15FA0;
-    v29 = completionCopy;
-    v29[2](v29, 0);
-    v12 = v29;
+    v26 = MEMORY[0x277D85DD0];
+    v27 = 3221225472;
+    v28 = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_3;
+    v29 = &unk_279D15FA0;
+    v30 = completionCopy;
+    v30[2](v30, 0);
+    v13 = v30;
   }
 
-  _Block_object_dispose(&v35, 8);
-  _Block_object_dispose(v39, 8);
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(v40, 8);
+  _Block_object_dispose(&v41, 8);
 }
 
 void __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke(void *a1, void *a2)
@@ -2447,7 +2457,7 @@ uint64_t __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion_
 
 void __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_100(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -2456,154 +2466,167 @@ void __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___bl
   {
     if (*(a1 + 72))
     {
-      if ([v9 sck_hasUnderlyingErrorCode:26])
+      v11 = [v9 sck_hasUnderlyingErrorCode:26];
+      if (v11)
       {
-        v11 = SCKDatabaseLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = SCKDatabaseLog(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = [*(a1 + 32) zoneName];
+          v13 = [*(a1 + 32) zoneName];
           LODWORD(buf) = 138543362;
-          *(&buf + 4) = v12;
-          _os_log_impl(&dword_26BAAD000, v11, OS_LOG_TYPE_DEFAULT, "failed to save zone %{public}@ because the zone does not exist, so creating it before trying again", &buf, 0xCu);
+          *(&buf + 4) = v13;
+          _os_log_impl(&dword_26BAAD000, v12, OS_LOG_TYPE_DEFAULT, "failed to save zone %{public}@ because the zone does not exist, so creating it before trying again", &buf, 0xCu);
         }
 
-        v13 = *(a1 + 32);
-        v14 = *(a1 + 40);
-        v44[0] = MEMORY[0x277D85DD0];
-        v44[1] = 3221225472;
-        v44[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_103;
-        v44[3] = &unk_279D16F28;
-        v45 = v13;
-        v15 = *(a1 + 48);
-        v46 = *(a1 + 40);
-        v47 = v15;
-        [v14 _createZoneInContainerWithSchema:v45 completion:v44];
-      }
-
-      else if ([v10 sck_hasUnderlyingErrorCode:14])
-      {
-        v22 = SCKDatabaseLog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-        {
-          v23 = [*(a1 + 32) zoneName];
-          LODWORD(buf) = 138543362;
-          *(&buf + 4) = v23;
-          _os_log_impl(&dword_26BAAD000, v22, OS_LOG_TYPE_DEFAULT, "encountered merge conflicts saving zone %{public}@, so fetching server changes before trying again", &buf, 0xCu);
-        }
-
-        *&buf = 0;
-        *(&buf + 1) = &buf;
-        v59 = 0x3032000000;
-        v60 = __Block_byref_object_copy__1;
-        v61 = __Block_byref_object_dispose__1;
-        v62 = 0;
-        v24 = [*(a1 + 40) storeCoordinator];
-        v25 = *(a1 + 32);
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 3221225472;
-        v43[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_105;
-        v43[3] = &unk_279D16F50;
-        v43[4] = &buf;
-        [v24 readZone:v25 withAccessor:v43];
-
-        v26 = *(a1 + 40);
-        v57 = *(a1 + 32);
-        v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_2_106;
-        v38[3] = &unk_279D16F98;
-        v39 = *(a1 + 32);
-        v28 = *(a1 + 48);
-        v40 = *(a1 + 40);
-        v41 = v28;
-        p_buf = &buf;
-        [v26 _fetchZoneChangesForZones:v27 completion:v38];
-
-        _Block_object_dispose(&buf, 8);
-      }
-
-      else if ([v10 sck_hasUnderlyingErrorCode:11])
-      {
-        v29 = SCKDatabaseLog();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
-        {
-          v30 = [*(a1 + 32) zoneName];
-          LODWORD(buf) = 138543362;
-          *(&buf + 4) = v30;
-          _os_log_impl(&dword_26BAAD000, v29, OS_LOG_TYPE_DEFAULT, "encountered unknown item saving zone %{public}@, so staging the zone for merge before trying again", &buf, 0xCu);
-        }
-
-        v31 = [*(a1 + 40) storeCoordinator];
-        v35 = *(a1 + 32);
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_112;
-        v36[3] = &unk_279D16FC0;
-        v37 = vextq_s8(v35, v35, 8uLL);
-        [v31 writeZone:v35.i64[0] withAccessor:v36];
-
-        [*(a1 + 40) _saveZoneToContainer:*(a1 + 32) allowRecoveryAttempt:1 completion:*(a1 + 48)];
-      }
-
-      else if ([v10 sck_hasUnderlyingErrorCode:112])
-      {
-        v32 = SCKDatabaseLog();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
-        {
-          v33 = [*(a1 + 32) zoneName];
-          LODWORD(buf) = 138543362;
-          *(&buf + 4) = v33;
-          _os_log_impl(&dword_26BAAD000, v32, OS_LOG_TYPE_DEFAULT, "encountered missing identity error saving zone %{public}@, so attempting to recover", &buf, 0xCu);
-        }
-
-        [*(a1 + 40) _recoverFromIdentityLossWithCompletion:*(a1 + 48)];
+        v14 = *(a1 + 32);
+        v15 = *(a1 + 40);
+        v48[0] = MEMORY[0x277D85DD0];
+        v48[1] = 3221225472;
+        v48[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_103;
+        v48[3] = &unk_279D16F28;
+        v49 = v14;
+        v16 = *(a1 + 48);
+        v50 = *(a1 + 40);
+        v51 = v16;
+        [v15 _createZoneInContainerWithSchema:v49 completion:v48];
       }
 
       else
       {
-        (*(*(a1 + 48) + 16))();
+        v23 = [v10 sck_hasUnderlyingErrorCode:14];
+        if (v23)
+        {
+          v24 = SCKDatabaseLog(v23);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          {
+            v25 = [*(a1 + 32) zoneName];
+            LODWORD(buf) = 138543362;
+            *(&buf + 4) = v25;
+            _os_log_impl(&dword_26BAAD000, v24, OS_LOG_TYPE_DEFAULT, "encountered merge conflicts saving zone %{public}@, so fetching server changes before trying again", &buf, 0xCu);
+          }
+
+          *&buf = 0;
+          *(&buf + 1) = &buf;
+          v63 = 0x3032000000;
+          v64 = __Block_byref_object_copy__1;
+          v65 = __Block_byref_object_dispose__1;
+          v66 = 0;
+          v26 = [*(a1 + 40) storeCoordinator];
+          v27 = *(a1 + 32);
+          v47[0] = MEMORY[0x277D85DD0];
+          v47[1] = 3221225472;
+          v47[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_105;
+          v47[3] = &unk_279D16F50;
+          v47[4] = &buf;
+          [v26 readZone:v27 withAccessor:v47];
+
+          v28 = *(a1 + 40);
+          v61 = *(a1 + 32);
+          v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+          v42[0] = MEMORY[0x277D85DD0];
+          v42[1] = 3221225472;
+          v42[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_2_106;
+          v42[3] = &unk_279D16F98;
+          v43 = *(a1 + 32);
+          v30 = *(a1 + 48);
+          v44 = *(a1 + 40);
+          v45 = v30;
+          p_buf = &buf;
+          [v28 _fetchZoneChangesForZones:v29 completion:v42];
+
+          _Block_object_dispose(&buf, 8);
+        }
+
+        else
+        {
+          v31 = [v10 sck_hasUnderlyingErrorCode:11];
+          if (v31)
+          {
+            v32 = SCKDatabaseLog(v31);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+            {
+              v33 = [*(a1 + 32) zoneName];
+              LODWORD(buf) = 138543362;
+              *(&buf + 4) = v33;
+              _os_log_impl(&dword_26BAAD000, v32, OS_LOG_TYPE_DEFAULT, "encountered unknown item saving zone %{public}@, so staging the zone for merge before trying again", &buf, 0xCu);
+            }
+
+            v34 = [*(a1 + 40) storeCoordinator];
+            v39 = *(a1 + 32);
+            v40[0] = MEMORY[0x277D85DD0];
+            v40[1] = 3221225472;
+            v40[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_112;
+            v40[3] = &unk_279D16FC0;
+            v41 = vextq_s8(v39, v39, 8uLL);
+            [v34 writeZone:v39.i64[0] withAccessor:v40];
+
+            [*(a1 + 40) _saveZoneToContainer:*(a1 + 32) allowRecoveryAttempt:1 completion:*(a1 + 48)];
+          }
+
+          else
+          {
+            v35 = [v10 sck_hasUnderlyingErrorCode:112];
+            if (v35)
+            {
+              v36 = SCKDatabaseLog(v35);
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+              {
+                v37 = [*(a1 + 32) zoneName];
+                LODWORD(buf) = 138543362;
+                *(&buf + 4) = v37;
+                _os_log_impl(&dword_26BAAD000, v36, OS_LOG_TYPE_DEFAULT, "encountered missing identity error saving zone %{public}@, so attempting to recover", &buf, 0xCu);
+              }
+
+              [*(a1 + 40) _recoverFromIdentityLossWithCompletion:*(a1 + 48)];
+            }
+
+            else
+            {
+              (*(*(a1 + 48) + 16))();
+            }
+          }
+        }
       }
     }
 
     else
     {
-      v54[0] = MEMORY[0x277D85DD0];
-      v54[1] = 3221225472;
-      v54[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_2_101;
-      v54[3] = &unk_279D15ED8;
-      v56 = *(a1 + 48);
-      v55 = v10;
-      __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_2_101(v54);
+      v58[0] = MEMORY[0x277D85DD0];
+      v58[1] = 3221225472;
+      v58[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_2_101;
+      v58[3] = &unk_279D15ED8;
+      v60 = *(a1 + 48);
+      v59 = v10;
+      __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_2_101(v58);
     }
   }
 
   else
   {
-    v16 = SCKDatabaseLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = SCKDatabaseLog(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = [*(a1 + 32) zoneName];
+      v18 = [*(a1 + 32) zoneName];
       LODWORD(buf) = 138543362;
-      *(&buf + 4) = v17;
-      _os_log_impl(&dword_26BAAD000, v16, OS_LOG_TYPE_DEFAULT, "successfully saved zone %{public}@", &buf, 0xCu);
+      *(&buf + 4) = v18;
+      _os_log_impl(&dword_26BAAD000, v17, OS_LOG_TYPE_DEFAULT, "successfully saved zone %{public}@", &buf, 0xCu);
     }
 
-    v18 = [*(a1 + 40) storeCoordinator];
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_102;
-    v48[3] = &unk_279D16F00;
-    v34 = *(a1 + 32);
-    v19 = v34.i64[0];
-    v49 = vextq_s8(v34, v34, 8uLL);
-    v52 = *(a1 + 56);
-    v50 = v7;
-    v20 = v8;
-    v21 = *(a1 + 64);
-    v51 = v20;
-    v53 = v21;
-    [v18 writeZone:v19 withAccessor:v48];
+    v19 = [*(a1 + 40) storeCoordinator];
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_102;
+    v52[3] = &unk_279D16F00;
+    v38 = *(a1 + 32);
+    v20 = v38.i64[0];
+    v53 = vextq_s8(v38, v38, 8uLL);
+    v56 = *(a1 + 56);
+    v54 = v7;
+    v21 = v8;
+    v22 = *(a1 + 64);
+    v55 = v21;
+    v57 = v22;
+    [v19 writeZone:v20 withAccessor:v52];
 
     (*(*(a1 + 48) + 16))();
   }
@@ -2611,26 +2634,27 @@ void __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___bl
 
 void __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_102(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) _zoneWithSchema:*(a1 + 40) zoneStore:v3];
   v5 = [v4 clientDiff];
-  if ([v5 hasSameBaseAsDiff:*(*(*(a1 + 64) + 8) + 40)])
+  v6 = [v5 hasSameBaseAsDiff:*(*(*(a1 + 64) + 8) + 40)];
+  if (v6)
   {
-    v6 = [[SCKZoneDiff alloc] initWithModifiedRecords:*(a1 + 48) deletedRecordIDs:*(a1 + 56)];
-    [v3 applyServerRecordsDiff:v6];
+    v7 = [[SCKZoneDiff alloc] initWithModifiedRecords:*(a1 + 48) deletedRecordIDs:*(a1 + 56)];
+    [v3 applyServerRecordsDiff:v7];
     [v3 clearPendingCommandsUpToCount:*(*(*(a1 + 72) + 8) + 24)];
   }
 
   else
   {
-    v6 = SCKDatabaseLog();
-    if (os_log_type_enabled(&v6->super, OS_LOG_TYPE_DEFAULT))
+    v7 = SCKDatabaseLog(v6);
+    if (os_log_type_enabled(&v7->super, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [*(a1 + 40) zoneName];
-      v8 = 138543362;
-      v9 = v7;
-      _os_log_impl(&dword_26BAAD000, &v6->super, OS_LOG_TYPE_DEFAULT, "not committing save for zone %{public}@ because it was saved by another process", &v8, 0xCu);
+      v8 = [*(a1 + 40) zoneName];
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_26BAAD000, &v7->super, OS_LOG_TYPE_DEFAULT, "not committing save for zone %{public}@ because it was saved by another process", &v9, 0xCu);
     }
   }
 }
@@ -2658,7 +2682,7 @@ void __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___bl
 
 uint64_t __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_2_104(uint64_t a1)
 {
-  v2 = SCKDatabaseLog();
+  v2 = SCKDatabaseLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_2_104_cold_1(a1);
@@ -2679,60 +2703,61 @@ uint64_t __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion_
 
 void __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_2_106(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_3_107;
-    v16[3] = &unk_279D164A8;
-    v17 = *(a1 + 32);
-    v18 = v3;
-    v19 = *(a1 + 48);
-    __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_3_107(v16);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_3_107;
+    v17[3] = &unk_279D164A8;
+    v18 = *(a1 + 32);
+    v19 = v3;
+    v20 = *(a1 + 48);
+    __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_3_107(v17);
   }
 
   else
   {
-    v10 = 0;
-    v11 = &v10;
-    v12 = 0x3032000000;
-    v13 = __Block_byref_object_copy__1;
-    v14 = __Block_byref_object_dispose__1;
-    v15 = 0;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x3032000000;
+    v14 = __Block_byref_object_copy__1;
+    v15 = __Block_byref_object_dispose__1;
+    v16 = 0;
     v4 = [*(a1 + 40) storeCoordinator];
     v5 = *(a1 + 32);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_108;
-    v9[3] = &unk_279D16F50;
-    v9[4] = &v10;
-    [v4 readZone:v5 withAccessor:v9];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_108;
+    v10[3] = &unk_279D16F50;
+    v10[4] = &v11;
+    [v4 readZone:v5 withAccessor:v10];
 
-    if ([v11[5] isEqual:*(*(*(a1 + 56) + 8) + 40)])
+    v6 = [v12[5] isEqual:*(*(*(a1 + 56) + 8) + 40)];
+    if (v6)
     {
-      v6 = SCKDatabaseLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = SCKDatabaseLog(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = [*(a1 + 32) zoneName];
+        v8 = [*(a1 + 32) zoneName];
         *buf = 138543362;
-        v21 = v7;
-        _os_log_impl(&dword_26BAAD000, v6, OS_LOG_TYPE_DEFAULT, "resetting change token for zone %{public}@ because it's missing server changes but didn't get any when fetching", buf, 0xCu);
+        v22 = v8;
+        _os_log_impl(&dword_26BAAD000, v7, OS_LOG_TYPE_DEFAULT, "resetting change token for zone %{public}@ because it's missing server changes but didn't get any when fetching", buf, 0xCu);
       }
 
-      v8 = [*(a1 + 40) storeCoordinator];
-      [v8 writeZone:*(a1 + 32) withAccessor:&__block_literal_global_111];
+      v9 = [*(a1 + 40) storeCoordinator];
+      [v9 writeZone:*(a1 + 32) withAccessor:&__block_literal_global_111];
     }
 
     [*(a1 + 40) _saveZoneToContainer:*(a1 + 32) allowRecoveryAttempt:1 completion:*(a1 + 48)];
-    _Block_object_dispose(&v10, 8);
+    _Block_object_dispose(&v11, 8);
   }
 }
 
 uint64_t __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_3_107(uint64_t a1)
 {
-  v2 = SCKDatabaseLog();
+  v2 = SCKDatabaseLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_3_107_cold_1(a1);
@@ -2755,7 +2780,7 @@ void __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___bl
 {
   v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = SCKDatabaseLog();
+  v4 = SCKDatabaseLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) zoneName];
@@ -2825,69 +2850,69 @@ void __69__SCKDatabase__saveZonesToContainer_allowRecoveryAttempt_completion___b
 
 - (void)_squashZoneForMerge:(id)merge zoneStore:(id)store
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   mergeCopy = merge;
   storeCopy = store;
   [(SCKDatabase *)self _reloadSnapshotOfZone:mergeCopy fromStore:?];
   array = [MEMORY[0x277CBEB18] array];
   selfCopy = self;
   zoneSnapshotsByZoneName = [(SCKDatabase *)self zoneSnapshotsByZoneName];
-  v36 = mergeCopy;
+  v37 = mergeCopy;
   zoneName = [mergeCopy zoneName];
   v10 = [zoneSnapshotsByZoneName objectForKeyedSubscript:zoneName];
 
-  v46 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v34 = v10;
+  v46 = 0u;
+  v35 = v10;
   obj = [v10 allRecords];
-  v11 = [obj countByEnumeratingWithState:&v44 objects:v59 count:16];
+  v11 = [obj countByEnumeratingWithState:&v45 objects:v60 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v45;
+    v13 = *v46;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v45 != v13)
+        if (*v46 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v44 + 1) + 8 * i);
-        v40 = 0u;
+        v15 = *(*(&v45 + 1) + 8 * i);
         v41 = 0u;
         v42 = 0u;
         v43 = 0u;
+        v44 = 0u;
         mergeHandlers = [(SCKDatabase *)selfCopy mergeHandlers];
-        v17 = [mergeHandlers countByEnumeratingWithState:&v40 objects:v58 count:16];
+        v17 = [mergeHandlers countByEnumeratingWithState:&v41 objects:v59 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v41;
+          v19 = *v42;
           do
           {
             for (j = 0; j != v18; ++j)
             {
-              if (*v41 != v19)
+              if (*v42 != v19)
               {
                 objc_enumerationMutation(mergeHandlers);
               }
 
-              v21 = [*(*(&v40 + 1) + 8 * j) commandsToMergeRecordWithServer:v15];
+              v21 = [*(*(&v41 + 1) + 8 * j) commandsToMergeRecordWithServer:v15];
               [array addObjectsFromArray:v21];
             }
 
-            v18 = [mergeHandlers countByEnumeratingWithState:&v40 objects:v58 count:16];
+            v18 = [mergeHandlers countByEnumeratingWithState:&v41 objects:v59 count:16];
           }
 
           while (v18);
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v44 objects:v59 count:16];
+      v12 = [obj countByEnumeratingWithState:&v45 objects:v60 count:16];
     }
 
     while (v12);
@@ -2899,35 +2924,35 @@ void __69__SCKDatabase__saveZonesToContainer_allowRecoveryAttempt_completion___b
   [storeCopy setLastSyncDate:0];
   [storeCopy setLastDirtyDate:0];
   [storeCopy setPendingCommands:array];
-  v23 = v36;
-  [(SCKDatabase *)selfCopy _reloadSnapshotOfZone:v36 fromStore:storeCopy];
+  v23 = v37;
+  [(SCKDatabase *)selfCopy _reloadSnapshotOfZone:v37 fromStore:storeCopy];
   zoneSnapshotsByZoneName2 = [(SCKDatabase *)selfCopy zoneSnapshotsByZoneName];
-  zoneName2 = [v36 zoneName];
+  zoneName2 = [v37 zoneName];
   v26 = [zoneSnapshotsByZoneName2 objectForKeyedSubscript:zoneName2];
 
-  v27 = SCKDatabaseLog();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v28 = SCKDatabaseLog(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    zoneName3 = [v36 zoneName];
+    zoneName3 = [v37 zoneName];
     serverRecords = [storeCopy serverRecords];
-    v29 = [serverRecords count];
+    v30 = [serverRecords count];
     allRecords = [v26 allRecords];
-    v31 = [allRecords count];
+    v32 = [allRecords count];
     pendingCommands = [storeCopy pendingCommands];
     descriptionOfContents = [v26 descriptionOfContents];
     *buf = 138544386;
-    v49 = zoneName3;
-    v50 = 2048;
-    v51 = v29;
-    v52 = 2048;
-    v53 = v31;
-    v54 = 2114;
-    v55 = pendingCommands;
-    v56 = 2114;
-    v57 = descriptionOfContents;
-    _os_log_impl(&dword_26BAAD000, v27, OS_LOG_TYPE_DEFAULT, "finished staging zone %{public}@ for merge resulting in %lu server records, %lu client records, pending commands: %{public}@, and client contents: %{public}@", buf, 0x34u);
+    v50 = zoneName3;
+    v51 = 2048;
+    v52 = v30;
+    v53 = 2048;
+    v54 = v32;
+    v55 = 2114;
+    v56 = pendingCommands;
+    v57 = 2114;
+    v58 = descriptionOfContents;
+    _os_log_impl(&dword_26BAAD000, v28, OS_LOG_TYPE_DEFAULT, "finished staging zone %{public}@ for merge resulting in %lu server records, %lu client records, pending commands: %{public}@, and client contents: %{public}@", buf, 0x34u);
 
-    v23 = v36;
+    v23 = v37;
     v22 = storeCopy;
   }
 }
@@ -3454,6 +3479,13 @@ void __54__SCKDatabase__recoverFromIdentityLossWithCompletion___block_invoke_2(u
   return v7;
 }
 
+void __48__SCKDatabase_modifyContentsOfZone_withCommand___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_3(&dword_26BAAD000, a2, a3, "rejecting attempt to modify an unknown zone: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __52__SCKDatabase__fetchZoneChangesForZones_completion___block_invoke_93_cold_1(uint64_t a1, NSObject *a2)
 {
   v8 = *MEMORY[0x277D85DE8];
@@ -3470,14 +3502,14 @@ void __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___bl
 {
   v1 = [*(a1 + 32) zoneName];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26BAAD000, v2, v3, "failed to create zone %{public}@ with error: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2(&dword_26BAAD000, v2, v3, "failed to create zone %{public}@ with error: %{public}@", v4, v5, v6, v7);
 }
 
 void __68__SCKDatabase__saveZoneToContainer_allowRecoveryAttempt_completion___block_invoke_3_107_cold_1(uint64_t a1)
 {
   v1 = [*(a1 + 32) zoneName];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_26BAAD000, v2, v3, "failed to save zone %{public}@ because we couldn't fetch changes due to error: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2(&dword_26BAAD000, v2, v3, "failed to save zone %{public}@ because we couldn't fetch changes due to error: %{public}@", v4, v5, v6, v7);
 }
 
 @end

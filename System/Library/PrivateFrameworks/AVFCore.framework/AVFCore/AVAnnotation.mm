@@ -252,7 +252,7 @@ LABEL_28:
 
   if (self)
   {
-    [(AVAnnotation *)self timeRange];
+    objc_msgSend_timeRange(self);
   }
 
   else
@@ -357,7 +357,7 @@ LABEL_28:
     [v6 setIdentifier:{-[AVAnnotation identifier](self, "identifier")}];
     [v6 setAuthor:{-[AVAnnotation author](self, "author")}];
     [v6 setLastModifiedDate:{-[AVAnnotation lastModifiedDate](self, "lastModifiedDate")}];
-    [(AVAnnotation *)self timeRange];
+    objc_msgSend_timeRange(self);
     [v6 setTimeRange:v18];
     [v6 setZOrder:{-[AVAnnotation zOrder](self, "zOrder")}];
     array = [MEMORY[0x1E695DF70] array];
@@ -457,7 +457,7 @@ LABEL_28:
 
     if (self)
     {
-      [(AVAnnotation *)self timeRange];
+      objc_msgSend_timeRange(self);
     }
 
     else
@@ -465,7 +465,7 @@ LABEL_28:
       memset(&range1, 0, sizeof(range1));
     }
 
-    [equal timeRange];
+    objc_msgSend_timeRange(equal);
     v12 = CMTimeRangeEqual(&range1, &v32);
     if (v12)
     {
@@ -514,7 +514,7 @@ LABEL_23:
   v23 = 0u;
   if (self)
   {
-    [(AVAnnotation *)self timeRange];
+    objc_msgSend_timeRange(self);
   }
 
   *&v22.value = v23;
@@ -604,7 +604,7 @@ LABEL_23:
 
 + (id)annotationPropertyListToNonDataBindingsArray:(id)array
 {
-  v19[17] = *MEMORY[0x1E69E9840];
+  v23[17] = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   v5 = [array objectForKey:@"AVAnnotationArchiveKeyRepresentations"];
   objc_opt_class();
@@ -612,35 +612,35 @@ LABEL_23:
   isKindOfClass = objc_opt_isKindOfClass();
   if (isKindOfClass)
   {
-    v8 = OUTLINED_FUNCTION_3_0(isKindOfClass, v7);
-    if (v8)
+    v10 = OUTLINED_FUNCTION_3_0(isKindOfClass, v7, v8, v9);
+    if (v10)
     {
-      v9 = v8;
-      v10 = MEMORY[0];
+      v11 = v10;
+      v12 = MEMORY[0];
 LABEL_4:
-      v11 = 0;
+      v13 = 0;
       while (1)
       {
-        if (MEMORY[0] != v10)
+        if (MEMORY[0] != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = [*(8 * v11) objectForKey:@"AVAnnotationArchiveKeyIdentifier"];
+        v14 = [*(8 * v13) objectForKey:@"AVAnnotationArchiveKeyIdentifier"];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           break;
         }
 
-        v13 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v12];
-        v18 = @"identifier";
-        v19[0] = v13;
-        v14 = [array addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v19, &v18, 1)}];
-        if (v9 == ++v11)
+        v15 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v14];
+        v22 = @"identifier";
+        v23[0] = v15;
+        v16 = [array addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v23, &v22, 1)}];
+        if (v11 == ++v13)
         {
-          v9 = OUTLINED_FUNCTION_3_0(v14, v15);
-          if (v9)
+          v11 = OUTLINED_FUNCTION_3_0(v16, v17, v18, v19);
+          if (v11)
           {
             goto LABEL_4;
           }
@@ -654,7 +654,7 @@ LABEL_4:
   return array;
 }
 
-- (uint64_t)initWithJSONData:representationBinaryDataBindings:error:.cold.1()
+- (void)initWithJSONData:representationBinaryDataBindings:error:.cold.1()
 {
   OUTLINED_FUNCTION_0_6();
   *v2 = *MEMORY[0x1E696A278];

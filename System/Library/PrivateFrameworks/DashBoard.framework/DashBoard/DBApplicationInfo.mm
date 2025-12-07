@@ -128,36 +128,36 @@
   self->_supportsInstrumentClusterNavigation = v31;
 }
 
-void __37__DBApplicationInfo__loadFromRecord___block_invoke()
+void __37__DBApplicationInfo__loadFromRecord___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8[7] = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_new();
-  [v0 addObject:@"SBLaunchSuspendedAlways"];
-  [v0 addObject:@"UIApplicationSceneManifest"];
-  [v0 addObject:@"UIUserInterfaceStyle"];
-  v1 = [MEMORY[0x277CF8A10] requiredInfoKeys];
-  [v0 unionSet:v1];
+  v10[7] = *MEMORY[0x277D85DE8];
+  v2 = objc_opt_new();
+  [v2 addObject:@"SBLaunchSuspendedAlways"];
+  [v2 addObject:@"UIApplicationSceneManifest"];
+  [v2 addObject:@"UIUserInterfaceStyle"];
+  v3 = [MEMORY[0x277CF8A10] requiredInfoKeys];
+  [v2 unionSet:v3];
 
-  v2 = [v0 copy];
-  v3 = _loadFromRecord____infoKeys;
-  _loadFromRecord____infoKeys = v2;
+  v4 = [v2 copy];
+  v5 = _loadFromRecord____infoKeys;
+  _loadFromRecord____infoKeys = v4;
 
-  v4 = objc_opt_new();
-  v8[0] = @"CARAppFullScreen";
-  v8[1] = @"CARAppCertification";
-  v8[2] = @"CARAppInternal";
-  v8[3] = @"CARAppHidden";
-  v8[4] = @"CARAppPrototype";
-  v8[5] = @"com.apple.private.RequiredVehicleAccessories";
-  v8[6] = @"com.apple.springboard.deliveropenurlusingworkspace";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:7];
-  [v4 addObjectsFromArray:v5];
+  v6 = objc_opt_new();
+  v10[0] = @"CARAppFullScreen";
+  v10[1] = @"CARAppCertification";
+  v10[2] = @"CARAppInternal";
+  v10[3] = @"CARAppHidden";
+  v10[4] = @"CARAppPrototype";
+  v10[5] = @"com.apple.private.RequiredVehicleAccessories";
+  v10[6] = @"com.apple.springboard.deliveropenurlusingworkspace";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:7];
+  [v6 addObjectsFromArray:v7];
 
-  v6 = [MEMORY[0x277CF8A10] requiredEntitlementKeys];
-  [v4 unionSet:v6];
+  v8 = [MEMORY[0x277CF8A10] requiredEntitlementKeys];
+  [v6 unionSet:v8];
 
-  v7 = _loadFromRecord____entitlementKeys;
-  _loadFromRecord____entitlementKeys = v4;
+  v9 = _loadFromRecord____entitlementKeys;
+  _loadFromRecord____entitlementKeys = v6;
 }
 
 - (unint64_t)hash

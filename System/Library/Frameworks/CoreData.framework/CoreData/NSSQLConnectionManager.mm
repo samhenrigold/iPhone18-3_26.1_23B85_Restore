@@ -36,37 +36,37 @@
 
 - (void)disconnectAllConnections
 {
-  objc_opt_class();
+  v4 = objc_opt_class();
 
-  NSRequestConcreteImplementation();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
 }
 
 - (void)setExclusiveLockingMode:(BOOL)mode
 {
-  objc_opt_class();
+  v5 = objc_opt_class();
 
-  NSRequestConcreteImplementation();
+  NSRequestConcreteImplementation(self, a2, v5, v6, v7, v8, v9, v10);
 }
 
 - (BOOL)handleStoreRequest:(id)request
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v5 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v5, v6, v7, v8, v9, v10);
   return 0;
 }
 
 - (void)scheduleBarrierBlock:(id)block
 {
-  objc_opt_class();
+  v5 = objc_opt_class();
 
-  NSRequestConcreteImplementation();
+  NSRequestConcreteImplementation(self, a2, v5, v6, v7, v8, v9, v10);
 }
 
 - (void)scheduleConnectionsBarrier:(id)barrier
 {
-  objc_opt_class();
+  v5 = objc_opt_class();
 
-  NSRequestConcreteImplementation();
+  NSRequestConcreteImplementation(self, a2, v5, v6, v7, v8, v9, v10);
 }
 
 @end

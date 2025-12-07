@@ -2662,7 +2662,7 @@ BOOL __68__CKMessageEntryContentView__platformNeedsConservativeLayoutUpdates__bl
             v15 = v36;
           }
 
-          v37 = CKFrameworkBundle();
+          v37 = CKFrameworkBundle(v36);
           v38 = [v37 localizedStringForKey:@"TEXT_EFFECTS" value:&stru_1F04268F8 table:@"ChatKit"];
           [mEMORY[0x1E69A8070]2 setTitle:v38];
 
@@ -4121,7 +4121,7 @@ id __60__CKMessageEntryContentView_textDraggableView_itemsForDrag___block_invoke
 {
   if (self->_pluginEntryViewController)
   {
-    v3 = CKFrameworkBundle();
+    v3 = CKFrameworkBundle(self);
     v4 = [v3 localizedStringForKey:@"ADD_COMMENT_OR_SEND" value:&stru_1F04268F8 table:@"ChatKit"];
     [(CKMessageEntryContentView *)self setOverridePlaceholderText:v4];
   }
@@ -4273,8 +4273,7 @@ id __60__CKMessageEntryContentView_textDraggableView_itemsForDrag___block_invoke
   handwritingKeyboardCopy = handwritingKeyboard;
   keyboardCopy = keyboard;
   viewCopy = view;
-  [viewCopy setShowsHorizontalScrollIndicator:1];
-  v7 = CKFrameworkBundle();
+  v7 = CKFrameworkBundle([viewCopy setShowsHorizontalScrollIndicator:1]);
   v8 = [v7 localizedStringForKey:@"MADRID" value:&stru_1F04268F8 table:@"ChatKit"];
   [viewCopy setPlaceholderText:v8];
 
@@ -4293,25 +4292,25 @@ id __60__CKMessageEntryContentView_textDraggableView_itemsForDrag___block_invoke
   theme2 = [v14 theme];
   [viewCopy setKeyboardAppearance:{objc_msgSend(theme2, "keyboardAppearance")}];
 
-  if (!CKIsRunningInMessagesNotificationExtension())
+  if (!CKIsRunningInMessagesNotificationExtension(v16))
   {
-    v16 = 126;
+    v17 = 126;
     if (handwritingKeyboardCopy)
     {
-      v16 = 0;
+      v17 = 0;
     }
 
     if (keyboardCopy)
     {
-      v17 = 13;
+      v18 = 13;
     }
 
     else
     {
-      v17 = v16;
+      v18 = v17;
     }
 
-    [viewCopy setKeyboardType:v17];
+    [viewCopy setKeyboardType:v18];
   }
 
   [viewCopy setOpaque:0];
@@ -4321,8 +4320,7 @@ id __60__CKMessageEntryContentView_textDraggableView_itemsForDrag___block_invoke
 {
   v2 = [CKMessageEntryTextView alloc];
   v3 = [(CKMessageEntryTextView *)v2 initUsingTextLayoutManagerWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
-  [v3 setShowsHorizontalScrollIndicator:1];
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle([v3 setShowsHorizontalScrollIndicator:1]);
   v5 = [v4 localizedStringForKey:@"SUBJECT" value:&stru_1F04268F8 table:@"ChatKit"];
   [v3 setPlaceholderText:v5];
 
@@ -4754,86 +4752,89 @@ void __70__CKMessageEntryContentView_balloonPluginDataSource_shouldSendAsCopy___
 
       if ([v10 count])
       {
-        if ([v10 count] < 2)
+        v11 = [v10 count];
+        if (v11 < 2)
         {
-          v11 = CKFrameworkBundle();
-          [v11 localizedStringForKey:@"SHOW_LINK_PREVIEW" value:&stru_1F04268F8 table:@"ChatKit"];
+          v12 = CKFrameworkBundle(v11);
+          [v12 localizedStringForKey:@"SHOW_LINK_PREVIEW" value:&stru_1F04268F8 table:@"ChatKit"];
         }
 
         else
         {
-          v11 = CKFrameworkBundle();
-          [v11 localizedStringForKey:@"SHOW_LINK_PREVIEW_PLURAL" value:&stru_1F04268F8 table:@"ChatKit"];
+          v12 = CKFrameworkBundle(v11);
+          [v12 localizedStringForKey:@"SHOW_LINK_PREVIEW_PLURAL" value:&stru_1F04268F8 table:@"ChatKit"];
         }
-        v12 = ;
+        v13 = ;
 
-        v13 = MEMORY[0x1E69DC628];
-        v37[0] = MEMORY[0x1E69E9820];
-        v37[1] = 3221225472;
-        v37[2] = __83__CKMessageEntryContentView_RichLinks__richLinksEditMenuForAttributedText_inRange___block_invoke;
-        v37[3] = &unk_1E72F4F58;
-        v38 = v10;
-        objc_copyWeak(&v39, location);
-        v14 = [v13 actionWithTitle:v12 image:0 identifier:0 handler:v37];
-        [array addObject:v14];
+        v14 = MEMORY[0x1E69DC628];
+        v40[0] = MEMORY[0x1E69E9820];
+        v40[1] = 3221225472;
+        v40[2] = __83__CKMessageEntryContentView_RichLinks__richLinksEditMenuForAttributedText_inRange___block_invoke;
+        v40[3] = &unk_1E72F4F58;
+        v41 = v10;
+        objc_copyWeak(&v42, location);
+        v15 = [v14 actionWithTitle:v13 image:0 identifier:0 handler:v40];
+        [array addObject:v15];
 
-        objc_destroyWeak(&v39);
+        objc_destroyWeak(&v42);
       }
 
-      v15 = [textCopy ck_linkPreviewTextAttachmentsInRange:{v5, length}];
-      if ([v15 count])
+      v16 = [textCopy ck_linkPreviewTextAttachmentsInRange:{v5, length}];
+      if ([v16 count])
       {
-        if ([v15 count] >= 2)
+        v17 = [v16 count];
+        if (v17 >= 2)
         {
-          v16 = CKFrameworkBundle();
-          [v16 localizedStringForKey:@"CONVERT_TO_TEXT_LINK_PLURAL" value:&stru_1F04268F8 table:@"ChatKit"];
+          v18 = CKFrameworkBundle(v17);
+          [v18 localizedStringForKey:@"CONVERT_TO_TEXT_LINK_PLURAL" value:&stru_1F04268F8 table:@"ChatKit"];
         }
 
         else
         {
-          v16 = CKFrameworkBundle();
-          [v16 localizedStringForKey:@"CONVERT_TO_TEXT_LINK" value:&stru_1F04268F8 table:@"ChatKit"];
+          v18 = CKFrameworkBundle(v17);
+          [v18 localizedStringForKey:@"CONVERT_TO_TEXT_LINK" value:&stru_1F04268F8 table:@"ChatKit"];
         }
-        v17 = ;
+        v19 = ;
 
-        v18 = MEMORY[0x1E69DC628];
-        v33[0] = MEMORY[0x1E69E9820];
-        v33[1] = 3221225472;
-        v33[2] = __83__CKMessageEntryContentView_RichLinks__richLinksEditMenuForAttributedText_inRange___block_invoke_222;
-        v33[3] = &unk_1E72F8280;
-        v34 = v15;
-        v36[1] = v5;
-        v36[2] = length;
-        objc_copyWeak(v36, location);
-        v35 = textCopy;
-        v19 = [v18 actionWithTitle:v17 image:0 identifier:0 handler:v33];
-        [array addObject:v19];
+        v20 = MEMORY[0x1E69DC628];
+        v36[0] = MEMORY[0x1E69E9820];
+        v36[1] = 3221225472;
+        v36[2] = __83__CKMessageEntryContentView_RichLinks__richLinksEditMenuForAttributedText_inRange___block_invoke_222;
+        v36[3] = &unk_1E72F8280;
+        v37 = v16;
+        v39[1] = v5;
+        v39[2] = length;
+        objc_copyWeak(v39, location);
+        v38 = textCopy;
+        v21 = [v20 actionWithTitle:v19 image:0 identifier:0 handler:v36];
+        [array addObject:v21];
 
-        objc_destroyWeak(v36);
+        objc_destroyWeak(v39);
       }
 
-      if ([v15 count] == 1)
+      if ([v16 count] == 1)
       {
-        firstObject = [v15 firstObject];
-        if ([firstObject canPresentCustomizationPicker])
+        firstObject = [v16 firstObject];
+        canPresentCustomizationPicker = [firstObject canPresentCustomizationPicker];
+        if (canPresentCustomizationPicker)
         {
-          v21 = CKFrameworkBundle();
-          v22 = [v21 localizedStringForKey:@"CUSTOMIZE_LINK" value:&stru_1F04268F8 table:@"ChatKit"];
+          v24 = CKFrameworkBundle(canPresentCustomizationPicker);
+          v25 = [v24 localizedStringForKey:@"CUSTOMIZE_LINK" value:&stru_1F04268F8 table:@"ChatKit"];
 
-          v23 = MEMORY[0x1E69DC628];
-          v28 = MEMORY[0x1E69E9820];
-          v29 = 3221225472;
-          v30 = __83__CKMessageEntryContentView_RichLinks__richLinksEditMenuForAttributedText_inRange___block_invoke_226;
-          v31 = &unk_1E72EC060;
-          v32 = firstObject;
-          v24 = [v23 actionWithTitle:v22 image:0 identifier:0 handler:&v28];
-          [array addObject:{v24, v28, v29, v30, v31}];
+          v26 = MEMORY[0x1E69DC628];
+          v31 = MEMORY[0x1E69E9820];
+          v32 = 3221225472;
+          v33 = __83__CKMessageEntryContentView_RichLinks__richLinksEditMenuForAttributedText_inRange___block_invoke_226;
+          v34 = &unk_1E72EC060;
+          v35 = firstObject;
+          v27 = [v26 actionWithTitle:v25 image:0 identifier:0 handler:&v31];
+          [array addObject:{v27, v31, v32, v33, v34}];
         }
       }
 
-      v25 = MEMORY[0x1E69DCC60];
-      v26 = [array copy];
-      length = [v25 menuWithTitle:&stru_1F04268F8 image:0 identifier:0 options:1 children:v26];
+      v28 = MEMORY[0x1E69DCC60];
+      v29 = [array copy];
+      length = [v28 menuWithTitle:&stru_1F04268F8 image:0 identifier:0 options:1 children:v29];
 
       objc_destroyWeak(location);
     }

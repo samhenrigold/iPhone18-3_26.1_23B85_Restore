@@ -128,59 +128,58 @@
   location[0] = 0;
   objc_storeStrong(location, configuration);
   emptyConfiguration = [MEMORY[0x277D75390] emptyConfiguration];
-  v9 = [MEMORY[0x277D755B8] systemImageNamed:@"person.crop.circle.dashed"];
+  v8 = [MEMORY[0x277D755B8] systemImageNamed:@"person.crop.circle.dashed"];
   [emptyConfiguration setImage:?];
-  MEMORY[0x277D82BD8](v9);
-  v10 = MEMORY[0x277D755D0];
+  MEMORY[0x277D82BD8](v8);
+  v9 = MEMORY[0x277D755D0];
   defaultMetrics = [MEMORY[0x277D75520] defaultMetrics];
   [defaultMetrics scaledValueForValue:28.0];
-  v12 = [v10 configurationWithPointSize:?];
+  v11 = [v9 configurationWithPointSize:?];
   imageProperties = [emptyConfiguration imageProperties];
-  [imageProperties setPreferredSymbolConfiguration:v12];
+  [imageProperties setPreferredSymbolConfiguration:v11];
   MEMORY[0x277D82BD8](imageProperties);
-  MEMORY[0x277D82BD8](v12);
+  MEMORY[0x277D82BD8](v11);
   MEMORY[0x277D82BD8](defaultMetrics);
   defaultMetrics2 = [MEMORY[0x277D75520] defaultMetrics];
   [defaultMetrics2 scaledValueForValue:12.0];
   [emptyConfiguration setImageToTextPadding:?];
   MEMORY[0x277D82BD8](defaultMetrics2);
-  v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v15 = [v16 localizedStringForKey:@"CONTENT_UNAVAILABLE_SHARING_MODE_TEXT" value:? table:?];
+  v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v14 = [v15 localizedStringForKey:@"CONTENT_UNAVAILABLE_SHARING_MODE_TEXT" value:? table:?];
   [emptyConfiguration setText:?];
+  MEMORY[0x277D82BD8](v14);
   MEMORY[0x277D82BD8](v15);
-  MEMORY[0x277D82BD8](v16);
-  v17 = MEMORY[0x277D74300];
+  v16 = MEMORY[0x277D74300];
   defaultMetrics3 = [MEMORY[0x277D75520] defaultMetrics];
   [defaultMetrics3 scaledValueForValue:22.0];
-  v3 = *MEMORY[0x277D743F8];
-  v19 = [v17 systemFontOfSize:? weight:?];
+  v18 = [v16 systemFontOfSize:? weight:?];
   textProperties = [emptyConfiguration textProperties];
-  [textProperties setFont:v19];
+  [textProperties setFont:v18];
   MEMORY[0x277D82BD8](textProperties);
-  MEMORY[0x277D82BD8](v19);
+  MEMORY[0x277D82BD8](v18);
   MEMORY[0x277D82BD8](defaultMetrics3);
   labelColor = [MEMORY[0x277D75348] labelColor];
   textProperties2 = [emptyConfiguration textProperties];
   [textProperties2 setColor:labelColor];
   MEMORY[0x277D82BD8](textProperties2);
   MEMORY[0x277D82BD8](labelColor);
-  v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v23 = [v24 localizedStringForKey:@"CONTENT_UNAVAILABLE_SHARING_MODE_SECONDARY_TEXT" value:&stru_2850054A0 table:@"Localizable"];
+  v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v22 = [v23 localizedStringForKey:@"CONTENT_UNAVAILABLE_SHARING_MODE_SECONDARY_TEXT" value:&stru_2850054A0 table:@"Localizable"];
   [emptyConfiguration setSecondaryText:?];
+  MEMORY[0x277D82BD8](v22);
   MEMORY[0x277D82BD8](v23);
-  MEMORY[0x277D82BD8](v24);
   [emptyConfiguration directionalLayoutMargins];
   [location[0] safeAreaInsets];
   [location[0] safeAreaInsets];
   [location[0] safeAreaInsets];
   [location[0] safeAreaInsets];
   NSDirectionalEdgeInsetsMake();
-  [emptyConfiguration setDirectionalLayoutMargins:{v4, v5, v6, v7}];
-  v25 = MEMORY[0x277D82BE0](emptyConfiguration);
+  [emptyConfiguration setDirectionalLayoutMargins:{v3, v4, v5, v6}];
+  v24 = MEMORY[0x277D82BE0](emptyConfiguration);
   objc_storeStrong(&emptyConfiguration, 0);
   objc_storeStrong(location, 0);
 
-  return v25;
+  return v24;
 }
 
 - (BOOL)isPresentedAsModalSheet
@@ -246,7 +245,6 @@
 
   objc_storeStrong(&oslog, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)doneButtonTapped:(id)tapped
@@ -273,7 +271,6 @@
 
   objc_storeStrong(&oslog, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)showConfirmationWithButtons:(id)buttons title:(id)title message:(id)message destructive:(BOOL)destructive completion:(id)completion
@@ -339,15 +336,14 @@
   objc_storeStrong(location, 0);
 }
 
-void __87__ACUIViewController_showConfirmationWithButtons_title_message_destructive_completion___block_invoke(uint64_t a1, void *a2)
+void __87__ACUIViewController_showConfirmationWithButtons_title_message_destructive_completion___block_invoke(void *a1, void *a2)
 {
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  if (*(a1 + 32))
+  if (a1[4])
   {
-    v2 = *(a1 + 40);
-    (*(*(a1 + 32) + 16))();
+    (*(a1[4] + 16))();
   }
 
   objc_storeStrong(location, 0);
@@ -416,7 +412,6 @@ void __87__ACUIViewController_showConfirmationWithButtons_title_message_destruct
   objc_storeStrong(&v22, 0);
   objc_storeStrong(&v23, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)showConfirmationForDeletingAccount:(id)account completion:(id)completion
@@ -462,7 +457,6 @@ void __87__ACUIViewController_showConfirmationWithButtons_title_message_destruct
   objc_storeStrong(&allObjects, 0);
   objc_storeStrong(&v21, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)showConfirmationViewWithButtons:(id)buttons title:(id)title message:(id)message destructive:(BOOL)destructive cancelButtonIndex:(int64_t)index context:(id)context forceAlert:(BOOL)alert completion:(id)self0
@@ -555,7 +549,6 @@ void __87__ACUIViewController_showConfirmationWithButtons_title_message_destruct
   objc_storeStrong(&v38, 0);
   objc_storeStrong(&v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v16 = v42;
 
   return v16;
@@ -784,7 +777,6 @@ void __99__ACUIViewController_showConfirmationViewWithButtons_title_message_dest
   objc_storeStrong(&v24, 0);
   objc_storeStrong(&v25, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -855,7 +847,6 @@ void __99__ACUIViewController_showConfirmationViewWithButtons_title_message_dest
   objc_storeStrong(&v23, 0);
   objc_storeStrong(&v26, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -888,7 +879,6 @@ void __99__ACUIViewController_showConfirmationViewWithButtons_title_message_dest
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)alertView:(id)view didDismissWithButtonIndex:(int64_t)index
@@ -1007,7 +997,6 @@ void __99__ACUIViewController_showConfirmationViewWithButtons_title_message_dest
   objc_storeStrong(&v36, 0);
   objc_storeStrong(&v37, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1138,7 +1127,6 @@ void __99__ACUIViewController_showConfirmationViewWithButtons_title_message_dest
 
   objc_storeStrong(&navigationItem, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)setCellsChecked:(BOOL)checked
@@ -1242,7 +1230,6 @@ void __99__ACUIViewController_showConfirmationViewWithButtons_title_message_dest
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)removeParentSpecifier
@@ -1347,8 +1334,6 @@ void __99__ACUIViewController_showConfirmationViewWithButtons_title_message_dest
     MEMORY[0x277D82BD8](v4);
     selfCopy->_addedToTaskList = 0;
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (ACUIAccountOperationsHelper)accountOperationsHelper
@@ -1418,7 +1403,6 @@ void __38__ACUIViewController_acuiAccountStore__block_invoke(void *a1)
   }
 
   objc_storeStrong(v9, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)operationsHelper:(id)helper desiredDataclassActionFromPicker:(id)picker

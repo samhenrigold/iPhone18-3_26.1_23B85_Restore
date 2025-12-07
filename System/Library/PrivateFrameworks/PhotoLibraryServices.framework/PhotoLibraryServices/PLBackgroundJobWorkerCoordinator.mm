@@ -171,7 +171,7 @@ void __62__PLBackgroundJobWorkerCoordinator__handleAllWorkersCompleted__block_in
 
   worker = [(PLBackgroundJobWorkerCriteriaTuple *)self->_currentWorker worker];
   criteria = [(PLBackgroundJobWorkerCriteriaTuple *)self->_currentWorker criteria];
-  v12 = [(NSMutableArray *)self->_pendingWorkers count];
+  v12 = objc_msgSend_count(self->_pendingWorkers);
   WeakRetained = objc_loadWeakRetained(&self->_statusCenter);
   [worker setStatusCenter:WeakRetained];
 
@@ -275,7 +275,7 @@ void __62__PLBackgroundJobWorkerCoordinator__handleAllWorkersCompleted__block_in
 
     else
     {
-      if ([workItemsNeedingProcessing count])
+      if (objc_msgSend_count(workItemsNeedingProcessing))
       {
         if (!v20 || ([*(*&buf[8] + 40) criteria], v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v20, "isEqual:", v29), v29, (v30 & 1) != 0))
         {
@@ -437,7 +437,7 @@ void __95__PLBackgroundJobWorkerCoordinator__processNextWorkerInLibraryBundle_re
   v3 = PLBackgroundJobServiceGetLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v4 = [(NSMutableArray *)self->_pendingWorkers count];
+    v4 = objc_msgSend_count(self->_pendingWorkers);
     workerMode = self->_workerMode;
     v8 = 134218240;
     v9 = v4;
@@ -446,7 +446,7 @@ void __95__PLBackgroundJobWorkerCoordinator__processNextWorkerInLibraryBundle_re
     _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_INFO, "Clearing %tu workers from _pendingWorkers queue. workerCoordinatorMode: %d", &v8, 0x12u);
   }
 
-  v6 = [(NSMutableArray *)self->_pendingWorkers count];
+  v6 = objc_msgSend_count(self->_pendingWorkers);
   [(NSMutableArray *)self->_pendingWorkers removeAllObjects];
   [(NSMutableDictionary *)self->_cachedCriteriaForPendingWorkers removeAllObjects];
   worker = [(PLBackgroundJobWorkerCriteriaTuple *)self->_currentWorker worker];
@@ -476,7 +476,7 @@ void __95__PLBackgroundJobWorkerCoordinator__processNextWorkerInLibraryBundle_re
   v12 = [(PLBackgroundJobWorkerCoordinator *)self _workersForBundle:processingCopy];
   os_unfair_lock_lock(&self->_lock);
   atomic_store(0, &self->_shouldDeferTask);
-  v23 = [(NSMutableArray *)self->_pendingWorkers count];
+  v23 = objc_msgSend_count(self->_pendingWorkers);
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
@@ -511,7 +511,7 @@ void __95__PLBackgroundJobWorkerCoordinator__processNextWorkerInLibraryBundle_re
   }
 
   v19 = self->_currentWorker;
-  v20 = [(NSMutableArray *)self->_pendingWorkers count];
+  v20 = objc_msgSend_count(self->_pendingWorkers);
   v21 = PLBackgroundJobServiceGetLog();
   if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
@@ -704,7 +704,7 @@ LABEL_47:
             if (v37)
             {
               workItemsNeedingProcessing = [v37 workItemsNeedingProcessing];
-              v44 = [workItemsNeedingProcessing count];
+              v44 = objc_msgSend_count(workItemsNeedingProcessing);
 
               if (v44)
               {
@@ -797,7 +797,7 @@ LABEL_51:
   v62 = PLBackgroundJobServiceGetLog();
   if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
   {
-    v63 = [v25 count];
+    v63 = objc_msgSend_count(v25);
     v64 = @"YES";
     if (!v63)
     {
@@ -811,7 +811,7 @@ LABEL_51:
     _os_log_impl(&dword_19BF1F000, v62, OS_LOG_TYPE_DEBUG, "Checked workers of library %@ for pending jobs. Result: %@", buf, 0x16u);
   }
 
-  if ([v25 count])
+  if (objc_msgSend_count(v25))
   {
     v65 = PLBackgroundJobServiceGetLog();
     if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
@@ -1060,7 +1060,7 @@ LABEL_61:
 LABEL_8:
   v52 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.mobileslideshow"];
   v53 = [v52 objectForKey:@"PLBackgroundJobServiceBlockedWorkersUserDefaultsKey"];
-  if ([v53 count])
+  if (objc_msgSend_count(v53))
   {
     [v8 removeObjectsInArray:v53];
     v54 = PLBackgroundJobServiceGetLog();

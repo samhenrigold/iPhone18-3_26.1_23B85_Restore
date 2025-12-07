@@ -1,18 +1,37 @@
 @interface VMULeakDetector
 + (id)_consolidatedRootLeakDescriptionsForTree:(id)tree;
 + (id)referenceDescription:(id *)description dstDescription:(id)dstDescription is64bit:(BOOL)is64bit;
+- (VMULeakDetector)initWithTask:(unsigned int)task graph:(id)graph scanner:(id)scanner stackLogReader:(id)reader;
 - (VMULeakDetector)initWithVMUTask:(id)task graph:(id)graph scanner:(id)scanner stackLogReader:(id)reader;
+- (id)labelForNode:(unsigned int)node details:(id)details shortLabel:(id)label;
+- (id)nodeDescription:(unsigned int)description;
+- (id)nodeDescription:(unsigned int)description usingDetails:(id *)details;
+- (id)nodeTypeDescription:(unsigned int)description details:(id *)details mallocBySize:(id)size;
+- (id)referenceDescription:(id *)description dstDescription:(id)dstDescription is64bit:(BOOL)is64bit;
 - (id)scannerOrGraph;
 - (unsigned)detectLeaksWithError:(id *)error;
 - (unsigned)doNormalLeakDetectionWithError:(id *)error;
 - (void)buildLeakTree;
 - (void)dealloc;
 - (void)printContents:(void *)contents size:(unint64_t)size;
+- (void)printLeak:(const char *)leak node:(unsigned int)node details:(id)details region:(id)region stop:;
 - (void)printLeakTree;
 - (void)printout:(const char *)printout;
 @end
 
 @implementation VMULeakDetector
+
+- (VMULeakDetector)initWithTask:(unsigned int)task graph:(id)graph scanner:(id)scanner stackLogReader:(id)reader
+{
+  v8 = *&task;
+  readerCopy = reader;
+  scannerCopy = scanner;
+  graphCopy = graph;
+  v13 = [[VMUTask alloc] initWithTask:v8];
+  v14 = [(VMULeakDetector *)self initWithVMUTask:v13 graph:graphCopy scanner:scannerCopy stackLogReader:readerCopy];
+
+  return v14;
+}
 
 - (VMULeakDetector)initWithVMUTask:(id)task graph:(id)graph scanner:(id)scanner stackLogReader:(id)reader
 {
@@ -96,6 +115,34 @@
   }
 
   return scanner;
+}
+
+- (id)labelForNode:(unsigned int)node details:(id)details shortLabel:(id)label
+{
+  labelCopy = label;
+  v7 = *&node;
+  if (VMUGraphNodeType_IsVMRegion(*(details.var0 + 8) >> 60) && (-[VMUTask isCore](self->_task, "isCore") || -[VMUTask taskPort](self->_task, "taskPort") && -[VMUTask taskPort](self->_task, "taskPort") != -1) && ((v9 = *details.var0, v10 = *MEMORY[0x1E69E9AA0], v19 = 0, -[VMUTask memoryCache](self->_task, "memoryCache", 1), v11 = objc_claimAutoreleasedReturnValue(), LODWORD(v9) = [v11 machVMPageRangeQueryWithAddress:v9 & ~v10 size:*MEMORY[0x1E69E9AC8] dispositions:&v19 dispositionsCount:&v18], v12 = v19 & 0x11, v11, !v9) ? (v13 = v12 == 0) : (v13 = 1), v13))
+  {
+    v14 = 0;
+  }
+
+  else
+  {
+    scannerOrGraph = [(VMULeakDetector *)self scannerOrGraph];
+    v16 = scannerOrGraph;
+    if (labelCopy)
+    {
+      [scannerOrGraph shortLabelForNode:v7];
+    }
+
+    else
+    {
+      [scannerOrGraph labelForNode:v7];
+    }
+    v14 = ;
+  }
+
+  return v14;
 }
 
 - (void)printContents:(void *)contents size:(unint64_t)size
@@ -191,6 +238,282 @@ LABEL_24:
   }
 }
 
+- (void)printLeak:(const char *)leak node:(unsigned int)node details:(id)details region:(id)region stop:
+{
+  v7 = *&node;
+  regionCopy = region;
+  IsVMRegion = VMUGraphNodeType_IsVMRegion(*(details.var0 + 8) >> 60);
+  if ((self->_showLeakedVMregions || !IsVMRegion) && (IsVMRegion || !self->_showOnlyVMregions))
+  {
+    stackLogReader = self->_stackLogReader;
+    if (stackLogReader)
+    {
+      if ([(VMUStackLogReader *)stackLogReader usesLiteMode])
+      {
+        v13 = [(VMUProcessObjectGraph *)self->_graph zoneNameForIndex:regionCopy[37]];
+      }
+
+      else
+      {
+        v13 = 0;
+      }
+
+      v15 = v13;
+      if ([v15 hasPrefix:@"MallocStackLoggingLiteZone"])
+      {
+        v16 = [v15 hasPrefix:@"MallocStackLoggingLiteZone_Wrapper"] ^ 1;
+      }
+
+      else
+      {
+        v16 = 0;
+      }
+
+      if (self->_fullStacks)
+      {
+        v17 = 4;
+      }
+
+      else
+      {
+        v17 = 0;
+      }
+
+      v18 = self->_stackLogReader;
+      v34 = *details.var0;
+      v35 = *(details.var0 + 16);
+      v14 = [(VMUStackLogReader *)v18 symbolicatedBacktraceForNode:v7 nodeDetails:&v34 isLiteZone:v16 options:v17];
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    if (v14 == VMUBacktraceIsExcludedMarker)
+    {
+      ++self->_numExcluded;
+      goto LABEL_38;
+    }
+
+    [(VMULeakDetector *)self printout:"%s: %#llx  size=%llu  ", leak, *details.var0, *(details.var0 + 8) & 0xFFFFFFFFFFFFFFFLL];
+    if (VMUGraphNodeType_IsVMRegion(*(details.var0 + 8) >> 60))
+    {
+      type = [regionCopy type];
+      v20 = [type length];
+
+      if (v20)
+      {
+        v21 = MEMORY[0x1E696AEC0];
+        v22 = [regionCopy descriptionWithOptions:513 maximumLength:0];
+        v23 = [v21 stringWithFormat:@"VM: %@", v22];
+      }
+
+      else
+      {
+        v23 = @"VM: unknown region type";
+      }
+
+      [(VMULeakDetector *)self printout:"%s", [(__CFString *)v23 UTF8String]];
+    }
+
+    else
+    {
+      v24 = [(VMUProcessObjectGraph *)self->_graph zoneNameForIndex:regionCopy[37]];
+      -[VMULeakDetector printout:](self, "printout:", "zone: %s", [v24 UTF8String]);
+
+      v25 = *(details.var0 + 16);
+      if (!v25)
+      {
+LABEL_29:
+        if ((self->_objectContentLevel & 0xFFFFFFFE) == 2)
+        {
+          v34 = *details.var0;
+          v35 = *(details.var0 + 16);
+          v30 = [(VMULeakDetector *)self labelForNode:v7 details:&v34 shortLabel:0];
+          v31 = v30;
+          if (v30)
+          {
+            -[VMULeakDetector printout:](self, "printout:", "   %s\n", [v30 UTF8String]);
+          }
+
+          else
+          {
+            showBinaryContents = self->_showBinaryContents;
+            [(VMULeakDetector *)self printout:"\n"];
+            if (showBinaryContents)
+            {
+              scannerOrGraph = [(VMULeakDetector *)self scannerOrGraph];
+              -[VMULeakDetector printContents:size:](self, "printContents:size:", [scannerOrGraph contentForNode:v7], *(details.var0 + 8) & 0xFFFFFFFFFFFFFFFLL);
+            }
+          }
+
+          if (!v14)
+          {
+            goto LABEL_38;
+          }
+        }
+
+        else
+        {
+          [(VMULeakDetector *)self printout:"\n"];
+          if (!v14)
+          {
+            goto LABEL_38;
+          }
+        }
+
+        [(VMULeakDetector *)self printout:"\tCall stack: %s\n", [(__CFString *)v14 UTF8String]];
+        [(VMULeakDetector *)self printout:"\n"];
+LABEL_38:
+
+        goto LABEL_39;
+      }
+
+      if (self->_showRawClassNames)
+      {
+        [v25 className];
+      }
+
+      else
+      {
+        [v25 displayName];
+      }
+      v23 = ;
+      uTF8String = [(__CFString *)v23 UTF8String];
+      typeName = [*(details.var0 + 16) typeName];
+      uTF8String2 = [typeName UTF8String];
+      binaryName = [*(details.var0 + 16) binaryName];
+      -[VMULeakDetector printout:](self, "printout:", "   %s  %s  %s", uTF8String, uTF8String2, [binaryName UTF8String]);
+    }
+
+    goto LABEL_29;
+  }
+
+LABEL_39:
+}
+
+- (id)nodeTypeDescription:(unsigned int)description details:(id *)details mallocBySize:(id)size
+{
+  if (details)
+  {
+    v7 = details[1].var0 >> 60;
+    if (v7 == 1)
+    {
+      sizeCopy = size;
+      var0 = details[2].var0;
+      if (self->_showRawClassNames)
+      {
+        [var0 className];
+      }
+
+      else
+      {
+        [var0 displayName];
+      }
+      v10 = ;
+      if (v10)
+      {
+        v11 = v10;
+      }
+
+      else
+      {
+        v11 = @"malloc-block";
+      }
+
+      if (!v10 && sizeCopy)
+      {
+        v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"malloc<%s>", VMUMemorySizeString(details[1].var0 & 0xFFFFFFFFFFFFFFFLL)];
+      }
+    }
+
+    else
+    {
+      v12 = *&description;
+      if (VMUGraphNodeType_IsVMRegion(v7))
+      {
+        v13 = [(VMUProcessObjectGraph *)self->_graph vmuVMRegionForNode:v12];
+        v14 = MEMORY[0x1E696AEC0];
+        type = [v13 type];
+        v11 = [v14 stringWithFormat:@"VM: %@", type];
+      }
+
+      else
+      {
+        v16 = details[1].var0 >> 60;
+        v17 = @"thread";
+        if (v16 != 4)
+        {
+          v17 = 0;
+        }
+
+        if (v16 == 3)
+        {
+          v11 = @"kernel";
+        }
+
+        else
+        {
+          v11 = v17;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  return v11;
+}
+
+- (id)nodeDescription:(unsigned int)description usingDetails:(id *)details
+{
+  if (self->_groupByType)
+  {
+    [(VMULeakDetector *)self nodeTypeDescription:*&description details:details mallocBySize:1];
+  }
+
+  else
+  {
+    [(VMUProcessObjectGraph *)self->_graph nodeDescription:*&description withOffset:0 showLabel:(self->_objectContentLevel & 0xFFFFFFFE) == 2];
+  }
+  v5 = ;
+
+  return v5;
+}
+
+- (id)nodeDescription:(unsigned int)description
+{
+  v3 = *&description;
+  memset(v8, 0, sizeof(v8));
+  graph = self->_graph;
+  if (graph)
+  {
+    objc_msgSend_nodeDetails_(graph, a2, *&description);
+  }
+
+  v6 = [(VMULeakDetector *)self nodeDescription:v3 usingDetails:v8];
+
+  return v6;
+}
+
+- (id)referenceDescription:(id *)description dstDescription:(id)dstDescription is64bit:(BOOL)is64bit
+{
+  is64bitCopy = is64bit;
+  dstDescriptionCopy = dstDescription;
+  v8 = objc_opt_class();
+  v9 = *&description->var1.var1;
+  v12[0] = *&description->var0;
+  v12[1] = v9;
+  var2 = description->var2;
+  v10 = [v8 referenceDescription:v12 dstDescription:dstDescriptionCopy is64bit:is64bitCopy];
+
+  return v10;
+}
+
 + (id)referenceDescription:(id *)description dstDescription:(id)dstDescription is64bit:(BOOL)is64bit
 {
   is64bitCopy = is64bit;
@@ -248,20 +571,20 @@ LABEL_24:
 
 - (void)buildLeakTree
 {
-  v165 = *MEMORY[0x1E69E9840];
+  v164 = *MEMORY[0x1E69E9840];
   v2 = [(VMUDirectedGraph *)self->_graph subgraphWithMarkedNodes:self->_leakedNodes];
   [(VMULeakDetector *)self setLeakedGraph:v2];
 
-  v121 = malloc_type_calloc([(VMUDirectedGraph *)self->_leakedGraph nodeNamespaceSize], 8uLL, 0x80040B8603338uLL);
-  v113 = [[VMUCallTreeRootWithBacktrace alloc] initWithSymbolicator:0 sampler:0 options:0, 0];
-  v160 = 0;
-  v161 = &v160;
-  v162 = 0x2020000000;
-  v163 = 0;
+  v120 = malloc_type_calloc([(VMUDirectedGraph *)self->_leakedGraph nodeNamespaceSize], 8uLL, 0x80040B8603338uLL);
+  v112 = [[VMUCallTreeRootWithBacktrace alloc] initWithSymbolicator:0 sampler:0 options:0, 0];
+  v159 = 0;
+  v160 = &v159;
+  v161 = 0x2020000000;
+  v162 = 0;
   v3 = 4 * [(VMUDirectedGraph *)self->_leakedGraph nodeNamespaceSize];
   LODWORD(__pattern4._pi) = -1;
-  v112 = malloc_type_malloc(v3, 0x100004052888210uLL);
-  memset_pattern4(v112, &__pattern4, v3);
+  v111 = malloc_type_malloc(v3, 0x100004052888210uLL);
+  memset_pattern4(v111, &__pattern4, v3);
   LODWORD(v3) = [(VMUDirectedGraph *)self->_leakedGraph nodeNamespaceSize];
   v4 = malloc_type_calloc(1uLL, ((v3 + 7) >> 3) + 4, 0xB2EC2458uLL);
   *v4 = v3;
@@ -269,9 +592,9 @@ LABEL_24:
   aBlock[1] = 3221225472;
   aBlock[2] = __32__VMULeakDetector_buildLeakTree__block_invoke;
   aBlock[3] = &unk_1E8277FE8;
-  aBlock[5] = v112;
-  aBlock[4] = &v160;
-  v111 = v4;
+  aBlock[5] = v111;
+  aBlock[4] = &v159;
+  v110 = v4;
   aBlock[6] = v4;
   v5 = _Block_copy(aBlock);
   selfCopy5 = self;
@@ -313,12 +636,12 @@ LABEL_24:
   }
 
   leakedGraph = selfCopy5->_leakedGraph;
-  v158[0] = MEMORY[0x1E69E9820];
-  v158[1] = 3221225472;
-  v158[2] = __32__VMULeakDetector_buildLeakTree__block_invoke_63;
-  v158[3] = &unk_1E8278010;
-  v158[4] = selfCopy5;
-  [(VMUObjectGraph *)leakedGraph stronglyConnectedComponentSearch:0xFFFFFFFFLL withRecorder:v158];
+  v157[0] = MEMORY[0x1E69E9820];
+  v157[1] = 3221225472;
+  v157[2] = __32__VMULeakDetector_buildLeakTree__block_invoke_63;
+  v157[3] = &unk_1E8278010;
+  v157[4] = selfCopy5;
+  [(VMUObjectGraph *)leakedGraph stronglyConnectedComponentSearch:0xFFFFFFFFLL withRecorder:v157];
   v16 = selfCopy5->_debugTimer;
   if (v16)
   {
@@ -355,11 +678,11 @@ LABEL_24:
     selfCopy5 = self;
   }
 
-  v114 = selfCopy5->_stackLogReader;
-  if (v114)
+  v113 = selfCopy5->_stackLogReader;
+  if (v113)
   {
     v23 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:258 valueOptions:256];
-    if ([(VMUStackLogReader *)v114 inspectingLiveProcess]&& [(VMUStackLogReader *)v114 usesLiteMode])
+    if ([(VMUStackLogReader *)v113 inspectingLiveProcess]&& [(VMUStackLogReader *)v113 usesLiteMode])
     {
       for (i = 0; i < [v7 zoneCount]; i = (i + 1))
       {
@@ -390,32 +713,32 @@ LABEL_24:
   LODWORD(i) = -1;
 LABEL_35:
   nodeNamespaceSize = [(VMUDirectedGraph *)self->_leakedGraph nodeNamespaceSize];
-  v120 = malloc_type_calloc(1uLL, ((nodeNamespaceSize + 7) >> 3) + 4, 0xB2EC2458uLL);
-  *v120 = nodeNamespaceSize;
+  v119 = malloc_type_calloc(1uLL, ((nodeNamespaceSize + 7) >> 3) + 4, 0xB2EC2458uLL);
+  *v119 = nodeNamespaceSize;
   invertedGraph = [(VMUDirectedGraph *)self->_leakedGraph invertedGraph];
   v29 = objc_opt_new();
-  v148[0] = MEMORY[0x1E69E9820];
-  v148[1] = 3221225472;
-  v148[2] = __32__VMULeakDetector_buildLeakTree__block_invoke_68;
-  v148[3] = &unk_1E8278060;
+  v147[0] = MEMORY[0x1E69E9820];
+  v147[1] = 3221225472;
+  v147[2] = __32__VMULeakDetector_buildLeakTree__block_invoke_68;
+  v147[3] = &unk_1E8278060;
   v30 = invertedGraph;
-  v149 = v30;
+  v148 = v30;
   selfCopy6 = self;
-  v106 = v29;
-  v151 = v106;
-  v156 = v120;
-  v110 = v5;
-  v155 = v110;
-  v117 = v114;
-  v152 = v117;
-  v116 = v7;
-  v153 = v116;
-  v157 = i;
+  v105 = v29;
+  v150 = v105;
+  v155 = v119;
+  v109 = v5;
+  v154 = v109;
+  v116 = v113;
+  v151 = v116;
+  v115 = v7;
+  v152 = v115;
+  v156 = i;
   table = v23;
-  v154 = table;
-  [v30 enumerateObjectsWithBlock:v148];
+  v153 = table;
+  [v30 enumerateObjectsWithBlock:v147];
 
-  if (v114 && (![(VMUStackLogReader *)v117 usesLiteMode]|| ([(VMUStackLogReader *)v117 inspectingLiveProcess]& 1) == 0))
+  if (v113 && (![(VMUStackLogReader *)v116 usesLiteMode]|| ([(VMUStackLogReader *)v116 inspectingLiveProcess]& 1) == 0))
   {
     v31 = self->_debugTimer;
     if (v31)
@@ -450,18 +773,18 @@ LABEL_35:
       }
     }
 
-    v146[0] = MEMORY[0x1E69E9820];
-    v146[1] = 3221225472;
-    v146[2] = __32__VMULeakDetector_buildLeakTree__block_invoke_79;
-    v146[3] = &unk_1E8278088;
-    v147 = table;
-    [(VMUStackLogReader *)v117 enumerateMSLRecordsAndPayloads:v146];
+    v145[0] = MEMORY[0x1E69E9820];
+    v145[1] = 3221225472;
+    v145[2] = __32__VMULeakDetector_buildLeakTree__block_invoke_79;
+    v145[3] = &unk_1E8278088;
+    v146 = table;
+    [(VMUStackLogReader *)v116 enumerateMSLRecordsAndPayloads:v145];
   }
 
   v38 = objc_opt_new();
   [(VMULeakDetector *)self setLeakTreeRootsArray:v38];
 
-  if (v114)
+  if (v113)
   {
     selfCopy8 = self;
     v40 = self->_debugTimer;
@@ -484,7 +807,7 @@ LABEL_35:
       }
     }
 
-    [(VMUDebugTimer *)v40 endEvent:"buildLeakTree", v106];
+    [(VMUDebugTimer *)v40 endEvent:"buildLeakTree", v105];
     [(VMUDebugTimer *)selfCopy8->_debugTimer startWithCategory:"buildLeakTree" message:"invert rootLeakAddressToStackIDMap to produce stackID --> {size, count, root-leak-call-tree-root} map"];
     v44 = selfCopy8->_debugTimer;
     if (v44)
@@ -498,15 +821,15 @@ LABEL_35:
       }
     }
 
-    v119 = malloc_type_calloc([v116 nodeNamespaceSize], 8uLL, 0x80040B8603338uLL);
-    v118 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:258 valueOptions:0];
+    v118 = malloc_type_calloc([v115 nodeNamespaceSize], 8uLL, 0x80040B8603338uLL);
+    v117 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:258 valueOptions:0];
     memset(&__pattern4, 0, sizeof(__pattern4));
     NSEnumerateMapTable(&__pattern4, table);
     value = 0;
     key = 0;
     while (NSNextMapEnumeratorPair(&__pattern4, &key, &value))
     {
-      v47 = NSMapGet(v118, value);
+      v47 = NSMapGet(v117, value);
       if (!v47)
       {
         v48 = objc_autoreleasePoolPush();
@@ -521,11 +844,11 @@ LABEL_35:
           v49 = 64;
         }
 
-        v50 = [(VMUStackLogReader *)v117 symbolicatedBacktraceForStackID:value options:v49];
+        v50 = [(VMUStackLogReader *)v116 symbolicatedBacktraceForStackID:value options:v49];
         [(VMUCallTreeRootWithBacktrace *)v47 setBacktraceString:v50];
 
         [(NSMutableArray *)self->_leakTreeRootsArray addObject:v47];
-        NSMapInsert(v118, value, v47);
+        NSMapInsert(v117, value, v47);
         objc_autoreleasePoolPop(v48);
       }
     }
@@ -535,13 +858,13 @@ LABEL_35:
 
   else
   {
+    v117 = 0;
     v118 = 0;
-    v119 = 0;
   }
 
   selfCopy10 = self;
-  v115 = kVMURootRetainCycle[0];
-  v109 = [(__CFString *)v115 length];
+  v114 = kVMURootRetainCycle[0];
+  v108 = [(__CFString *)v114 length];
   v52 = self->_debugTimer;
   if (v52)
   {
@@ -562,7 +885,7 @@ LABEL_35:
     }
   }
 
-  [(VMUDebugTimer *)v52 endEvent:"buildLeakTree", v106];
+  [(VMUDebugTimer *)v52 endEvent:"buildLeakTree", v105];
   [(VMUDebugTimer *)selfCopy10->_debugTimer startWithCategory:"buildLeakTree" message:"building call tree from references"];
   v56 = selfCopy10->_debugTimer;
   if (v56)
@@ -576,21 +899,21 @@ LABEL_35:
     }
   }
 
-  if (*(v161 + 6))
+  if (*(v160 + 6))
   {
     v59 = 0;
     do
     {
       v60 = objc_autoreleasePoolPush();
-      v61 = v112[v59];
-      v62 = v113;
-      v63 = v121[v61];
+      v61 = v111[v59];
+      v62 = v112;
+      v63 = v120[v61];
       if (v63)
       {
         v64 = v63;
-        if (v114)
+        if (v113)
         {
-          v65 = v119[v61];
+          v65 = v118[v61];
 
           v62 = v65;
         }
@@ -600,9 +923,9 @@ LABEL_35:
       {
         memset(&__pattern4, 0, sizeof(__pattern4));
         selfCopy12 = self;
-        if (v116)
+        if (v115)
         {
-          [v116 nodeDetails:v61];
+          objc_msgSend_nodeDetails_(v115);
         }
 
         if ([(VMUDirectedGraph *)self->_leakedGraph parentGroupForNode:v61]== -1)
@@ -612,17 +935,17 @@ LABEL_35:
 
         else
         {
-          v67 = v115;
+          v67 = v114;
         }
 
-        if (v114)
+        if (v113)
         {
           v68 = NSMapGet(table, __pattern4._pi);
           if (v68)
           {
-            v69 = NSMapGet(v118, v68);
+            v69 = NSMapGet(v117, v68);
 
-            v119[v61] = v69;
+            v118[v61] = v69;
             v62 = v69;
             selfCopy12 = self;
           }
@@ -641,10 +964,10 @@ LABEL_35:
           [(VMUCallTreeRoot *)v62 addUniqueChildWithName:v71 address:__pattern4._pi count:1 numBytes:__pattern4._si & 0xFFFFFFFFFFFFFFFLL toNode:v62 isLeafNode:0];
         }
         v64 = ;
-        v121[v61] = v64;
+        v120[v61] = v64;
       }
 
-      if (*v120 > v61 && ((*(v120 + (v61 >> 3) + 4) >> (v61 & 7)) & 1) != 0 && (v72 = v64) != 0)
+      if (*v119 > v61 && ((*(v119 + (v61 >> 3) + 4) >> (v61 & 7)) & 1) != 0 && (v72 = v64) != 0)
       {
         v73 = v72;
         v74 = 0;
@@ -681,37 +1004,37 @@ LABEL_35:
       __pattern4._pi = 0;
       __pattern4._si = &__pattern4;
       __pattern4._bs = 0x2020000000;
-      v143 = 0;
-      v127[0] = MEMORY[0x1E69E9820];
-      v127[1] = 3221225472;
-      v127[2] = __32__VMULeakDetector_buildLeakTree__block_invoke_87;
-      v127[3] = &unk_1E82780B0;
-      v137 = v121;
+      v142 = 0;
+      v126[0] = MEMORY[0x1E69E9820];
+      v126[1] = 3221225472;
+      v126[2] = __32__VMULeakDetector_buildLeakTree__block_invoke_87;
+      v126[3] = &unk_1E82780B0;
+      v136 = v120;
       v81 = v74;
-      v128 = v81;
+      v127 = v81;
       p_pattern4 = &__pattern4;
-      v138 = v109;
-      v82 = v116;
-      v129 = v82;
+      v137 = v108;
+      v82 = v115;
+      v128 = v82;
       v83 = v62;
-      v130 = v83;
+      v129 = v83;
       v84 = v64;
-      v131 = v84;
-      v139 = v111;
-      v135 = v110;
+      v130 = v84;
+      v138 = v110;
+      v134 = v109;
       selfCopy13 = self;
-      v140 = v120;
-      v133 = v115;
-      v134 = v117;
-      v141 = v119;
-      [v82 enumerateReferencesOfNode:v61 withBlock:v127];
+      v139 = v119;
+      v132 = v114;
+      v133 = v116;
+      v140 = v118;
+      [v82 enumerateReferencesOfNode:v61 withBlock:v126];
 
       _Block_object_dispose(&__pattern4, 8);
       objc_autoreleasePoolPop(v60);
       ++v59;
     }
 
-    while (v59 != *(v161 + 6));
+    while (v59 != *(v160 + 6));
   }
 
   v85 = self->_debugTimer;
@@ -734,16 +1057,16 @@ LABEL_35:
   }
 
   [(VMUDebugTimer *)v85 endEvent:"buildLeakTree"];
-  free(v112);
   free(v111);
-  free(v120);
-  free(v121);
+  free(v110);
   free(v119);
+  free(v120);
+  free(v118);
 
   selfCopy16 = self;
-  if ([(VMUCallTreeNode *)v113 numChildren])
+  if ([(VMUCallTreeNode *)v112 numChildren])
   {
-    [(NSMutableArray *)self->_leakTreeRootsArray addObject:v113];
+    [(NSMutableArray *)self->_leakTreeRootsArray addObject:v112];
   }
 
   v90 = self->_debugTimer;
@@ -782,28 +1105,28 @@ LABEL_35:
     selfCopy16 = self;
   }
 
-  v125 = 0u;
-  v126 = 0u;
-  v123 = 0u;
   v124 = 0u;
+  v125 = 0u;
+  v122 = 0u;
+  v123 = 0u;
   v97 = selfCopy16->_leakTreeRootsArray;
-  v98 = [(NSMutableArray *)v97 countByEnumeratingWithState:&v123 objects:v164 count:16];
+  v98 = [(NSMutableArray *)v97 countByEnumeratingWithState:&v122 objects:v163 count:16];
   if (v98)
   {
-    v99 = *v124;
+    v99 = *v123;
     do
     {
       for (j = 0; j != v98; ++j)
       {
-        if (*v124 != v99)
+        if (*v123 != v99)
         {
           objc_enumerationMutation(v97);
         }
 
-        [*(*(&v123 + 1) + 8 * j) addChildCountsIntoNode];
+        [*(*(&v122 + 1) + 8 * j) addChildCountsIntoNode];
       }
 
-      v98 = [(NSMutableArray *)v97 countByEnumeratingWithState:&v123 objects:v164 count:16];
+      v98 = [(NSMutableArray *)v97 countByEnumeratingWithState:&v122 objects:v163 count:16];
     }
 
     while (v98);
@@ -831,8 +1154,7 @@ LABEL_35:
 
   [(VMUDebugTimer *)v101 endEvent:"buildLeakTree"];
 
-  _Block_object_dispose(&v160, 8);
-  v105 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v159, 8);
 }
 
 void *__32__VMULeakDetector_buildLeakTree__block_invoke(void *result, unsigned int a2)
@@ -851,11 +1173,11 @@ void *__32__VMULeakDetector_buildLeakTree__block_invoke(void *result, unsigned i
   return result;
 }
 
-uint64_t __32__VMULeakDetector_buildLeakTree__block_invoke_63(uint64_t result, uint64_t a2, uint64_t a3)
+void *__32__VMULeakDetector_buildLeakTree__block_invoke_63(void *result, uint64_t a2, uint64_t a3)
 {
   if (a3 >= 2)
   {
-    return [*(*(result + 32) + 128) addGroupNodeForNodes:a2 count:a3];
+    return [*(result[4] + 128) addGroupNodeForNodes:a2 count:a3];
   }
 
   return result;
@@ -929,7 +1251,7 @@ void __32__VMULeakDetector_buildLeakTree__block_invoke_68(uint64_t a1, uint64_t 
       v26 = 0;
       if (*(a1 + 64))
       {
-        [*(a1 + 64) nodeDetails:v2];
+        objc_msgSend_nodeDetails_(*(a1 + 64));
         v8 = *(a1 + 56);
       }
 
@@ -959,13 +1281,13 @@ void __32__VMULeakDetector_buildLeakTree__block_invoke_68(uint64_t a1, uint64_t 
   }
 }
 
-void __32__VMULeakDetector_buildLeakTree__block_invoke_69(void *a1, uint64_t a2)
+void __32__VMULeakDetector_buildLeakTree__block_invoke_69(void *a1, const char *a2)
 {
   v2 = a2;
   v4 = *(a1[4] + 128);
   if (v4)
   {
-    [v4 nodeDetails:a2];
+    objc_msgSend_nodeDetails_(v4, a2, a2);
   }
 
   v5 = *(a1[7] + 8);
@@ -989,7 +1311,7 @@ void __32__VMULeakDetector_buildLeakTree__block_invoke_69(void *a1, uint64_t a2)
   ++*(*(a1[10] + 8) + 24);
 }
 
-void __32__VMULeakDetector_buildLeakTree__block_invoke_79(uint64_t a1, char a2, void *key)
+void __32__VMULeakDetector_buildLeakTree__block_invoke_79(uint64_t a1, char a2, void *key, uint64_t a4, uint64_t a5)
 {
   if ((a2 & 0x12) != 0)
   {
@@ -999,8 +1321,8 @@ void __32__VMULeakDetector_buildLeakTree__block_invoke_79(uint64_t a1, char a2, 
     }
 
     uniquing_table_index = msl_payload_get_uniquing_table_index();
-    v6 = *(a1 + 32);
-    v7 = key;
+    v8 = *(a1 + 32);
+    v9 = key;
   }
 
   else
@@ -1010,12 +1332,12 @@ void __32__VMULeakDetector_buildLeakTree__block_invoke_79(uint64_t a1, char a2, 
       return;
     }
 
-    v6 = *(a1 + 32);
-    v7 = key;
+    v8 = *(a1 + 32);
+    v9 = key;
     uniquing_table_index = -1;
   }
 
-  NSMapInsert(v6, v7, uniquing_table_index);
+  NSMapInsert(v8, v9, uniquing_table_index);
 }
 
 void __32__VMULeakDetector_buildLeakTree__block_invoke_87(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __int128 *a5)
@@ -1130,7 +1452,7 @@ LABEL_26:
 
 + (id)_consolidatedRootLeakDescriptionsForTree:(id)tree
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   treeCopy = tree;
   if (_consolidatedRootLeakDescriptionsForTree__onceToken != -1)
   {
@@ -1138,27 +1460,27 @@ LABEL_26:
   }
 
   v4 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v26 = treeCopy;
+  v25 = treeCopy;
   obj = [treeCopy sortedChildren];
-  v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v29;
+    v7 = *v28;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * i);
+        v9 = *(*(&v27 + 1) + 8 * i);
         name = [v9 name];
         v11 = [name containsString:@": 0x"];
 
@@ -1204,13 +1526,11 @@ LABEL_26:
         [v4 setObject:v23 forKeyedSubscript:v19];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v6);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1232,7 +1552,7 @@ void __60__VMULeakDetector__consolidatedRootLeakDescriptionsForTree___block_invo
 
 - (void)printLeakTree
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   debugTimer = self->_debugTimer;
   if (debugTimer)
   {
@@ -1284,33 +1604,33 @@ void __60__VMULeakDetector__consolidatedRootLeakDescriptionsForTree___block_invo
     v12 = 76;
   }
 
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   obj = self->_leakTreeRootsArray;
-  v13 = [(NSMutableArray *)obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+  v13 = [(NSMutableArray *)obj countByEnumeratingWithState:&v51 objects:v57 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v53;
-    v42 = *v53;
-    v43 = v12;
+    v15 = *v52;
+    v41 = *v52;
+    v42 = v12;
     do
     {
       v16 = 0;
-      v44 = v14;
+      v43 = v14;
       do
       {
-        if (*v53 != v15)
+        if (*v52 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v52 + 1) + 8 * v16);
+        v17 = *(*(&v51 + 1) + 8 * v16);
         if (self->_stackLogReader)
         {
-          backtraceString = [*(*(&v52 + 1) + 8 * v16) backtraceString];
+          backtraceString = [*(*(&v51 + 1) + 8 * v16) backtraceString];
           v19 = VMUBacktraceIsExcludedMarker;
 
           if (backtraceString == v19)
@@ -1319,37 +1639,37 @@ void __60__VMULeakDetector__consolidatedRootLeakDescriptionsForTree___block_invo
             goto LABEL_41;
           }
 
-          v47 = v16;
+          v46 = v16;
           backtraceString2 = [v17 backtraceString];
           v21 = [backtraceString2 length];
 
           if (v21)
           {
-            v45 = v17;
+            v44 = v17;
             v22 = [VMULeakDetector _consolidatedRootLeakDescriptionsForTree:v17];
             v23 = [v22 keysSortedByValueUsingComparator:&__block_literal_global_134];
             lastObject = [v23 lastObject];
             [(VMULeakDetector *)self printout:"STACK OF "];
-            v50 = 0u;
-            v51 = 0u;
-            v48 = 0u;
             v49 = 0u;
+            v50 = 0u;
+            v47 = 0u;
+            v48 = 0u;
             v25 = v23;
-            v26 = [v25 countByEnumeratingWithState:&v48 objects:v57 count:16];
+            v26 = [v25 countByEnumeratingWithState:&v47 objects:v56 count:16];
             if (v26)
             {
               v27 = v26;
-              v28 = *v49;
+              v28 = *v48;
               do
               {
                 for (i = 0; i != v27; ++i)
                 {
-                  if (*v49 != v28)
+                  if (*v48 != v28)
                   {
                     objc_enumerationMutation(v25);
                   }
 
-                  v30 = *(*(&v48 + 1) + 8 * i);
+                  v30 = *(*(&v47 + 1) + 8 * i);
                   v31 = [v22 objectForKeyedSubscript:v30];
                   unsignedIntValue = [v31 unsignedIntValue];
 
@@ -1377,19 +1697,19 @@ void __60__VMULeakDetector__consolidatedRootLeakDescriptionsForTree___block_invo
                   [(VMULeakDetector *)self printout:v34];
                 }
 
-                v27 = [v25 countByEnumeratingWithState:&v48 objects:v57 count:16];
+                v27 = [v25 countByEnumeratingWithState:&v47 objects:v56 count:16];
               }
 
               while (v27);
             }
 
-            v17 = v45;
-            backtraceString3 = [v45 backtraceString];
+            v17 = v44;
+            backtraceString3 = [v44 backtraceString];
             -[VMULeakDetector printout:](self, "printout:", "%s\n", [backtraceString3 UTF8String]);
 
-            v12 = v43;
-            v14 = v44;
-            v15 = v42;
+            v12 = v42;
+            v14 = v43;
+            v15 = v41;
           }
 
           else
@@ -1398,7 +1718,7 @@ void __60__VMULeakDetector__consolidatedRootLeakDescriptionsForTree___block_invo
           }
 
           [(VMULeakDetector *)self printout:"====\n"];
-          v16 = v47;
+          v16 = v46;
         }
 
         [v17 printCallTreeToFile:self->_outputFile cumulativeOutput:self->_outputString options:v12];
@@ -1408,7 +1728,7 @@ LABEL_41:
       }
 
       while (v16 != v14);
-      v14 = [(NSMutableArray *)obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+      v14 = [(NSMutableArray *)obj countByEnumeratingWithState:&v51 objects:v57 count:16];
     }
 
     while (v14);
@@ -1438,31 +1758,30 @@ LABEL_41:
   }
 
   [(VMUDebugTimer *)v36 endEvent:"printLeakTree"];
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (unsigned)detectLeaksWithError:(id *)error
 {
-  v46[1] = *MEMORY[0x1E69E9840];
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
-  v44 = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
+  v45[1] = *MEMORY[0x1E69E9840];
   v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __40__VMULeakDetector_detectLeaksWithError___block_invoke;
   aBlock[3] = &unk_1E82780F8;
   aBlock[4] = self;
-  aBlock[5] = &v41;
-  aBlock[6] = &v37;
+  aBlock[5] = &v40;
+  aBlock[6] = &v36;
   v5 = _Block_copy(aBlock);
   [(VMUObjectGraph *)self->_graph enumerateObjectsWithBlock:v5];
-  self->_allocationsCount = *(v38 + 6);
-  self->_allocationsSize = v42[3];
+  self->_allocationsCount = *(v37 + 6);
+  self->_allocationsSize = v41[3];
   if (![(VMULeakDetector *)self checkTaskExistence])
   {
 LABEL_25:
@@ -1475,9 +1794,9 @@ LABEL_25:
     if (error)
     {
       v23 = MEMORY[0x1E696ABC0];
-      v45 = @"message";
-      v46[0] = @"unable to inspect heap ranges of target process; it may be using a malloc replacement library without the required support";
-      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+      v44 = @"message";
+      v45[0] = @"unable to inspect heap ranges of target process; it may be using a malloc replacement library without the required support";
+      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
       *error = [v23 errorWithDomain:@"VMULeakDetectorDomain" code:1 userInfo:v24];
     }
 
@@ -1527,19 +1846,19 @@ LABEL_25:
   }
 
   graph = self->_graph;
-  v27 = MEMORY[0x1E69E9820];
-  v28 = 3221225472;
-  v29 = __40__VMULeakDetector_detectLeaksWithError___block_invoke_157;
-  v30 = &unk_1E8278120;
+  v26 = MEMORY[0x1E69E9820];
+  v27 = 3221225472;
+  v28 = __40__VMULeakDetector_detectLeaksWithError___block_invoke_157;
+  v29 = &unk_1E8278120;
   selfCopy = self;
-  v33 = &v41;
-  v34 = &v37;
-  v32 = v5;
-  VMUWithRootNodeMarkingMap(graph, &v27);
+  v32 = &v40;
+  v33 = &v36;
+  v31 = v5;
+  VMUWithRootNodeMarkingMap(graph, &v26);
   v16 = self->_debugTimer;
   if (v16)
   {
-    v17 = [(VMUDebugTimer *)v16 signpostID:v27];
+    v17 = [(VMUDebugTimer *)v16 signpostID:v26];
     v16 = self->_debugTimer;
     if (v17)
     {
@@ -1555,16 +1874,15 @@ LABEL_25:
     }
   }
 
-  [(VMUDebugTimer *)v16 endEvent:"VMULeakDetector", v27, v28, v29, v30, selfCopy];
+  [(VMUDebugTimer *)v16 endEvent:"VMULeakDetector", v26, v27, v28, v29, selfCopy];
   leakedAllocationsCount = self->_leakedAllocationsCount;
   numExcluded = self->_numExcluded;
 
   v22 = leakedAllocationsCount - numExcluded;
 LABEL_26:
 
-  _Block_object_dispose(&v37, 8);
-  _Block_object_dispose(&v41, 8);
-  v25 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v40, 8);
   return v22;
 }
 
@@ -1583,7 +1901,7 @@ BOOL __40__VMULeakDetector_detectLeaksWithError___block_invoke(void *a1, uint64_
   return result;
 }
 
-uint64_t __40__VMULeakDetector_detectLeaksWithError___block_invoke_157(void *a1, uint64_t a2)
+void *__40__VMULeakDetector_detectLeaksWithError___block_invoke_157(void *a1, uint64_t a2)
 {
   [*(a1[4] + 48) markReachableNodesFromRoots:a2 inMap:*(a1[4] + 112) options:*(a1[4] + 8)];
   v3 = *(a1[4] + 112);

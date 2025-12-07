@@ -184,14 +184,12 @@ LABEL_26:
   toCopy = to;
   if ([(_CPValue *)self null_value])
   {
-    null_value = self->_null_value;
     PBDataWriterWriteInt32Field();
   }
 
   [(_CPValue *)self number_value];
-  if (v5 != 0.0)
+  if (v4 != 0.0)
   {
-    number_value = self->_number_value;
     PBDataWriterWriteDoubleField();
   }
 
@@ -199,13 +197,11 @@ LABEL_26:
 
   if (string_value)
   {
-    string_value = self->_string_value;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPValue *)self BOOL_value])
   {
-    BOOL_value = self->_BOOL_value;
     PBDataWriterWriteBOOLField();
   }
 
@@ -227,12 +223,11 @@ LABEL_26:
 
   bytes_value = [(_CPValue *)self bytes_value];
 
-  v15 = toCopy;
+  v11 = toCopy;
   if (bytes_value)
   {
-    bytes_value = self->_bytes_value;
     PBDataWriterWriteDataField();
-    v15 = toCopy;
+    v11 = toCopy;
   }
 }
 
@@ -424,7 +419,7 @@ LABEL_26:
 
 - (_CPValue)initWithFacade:(id)facade
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_CPValue *)self init];
   if (v5)
@@ -489,10 +484,10 @@ LABEL_26:
             v9 = PARLogHandleForCategory_1454();
             if (os_log_type_enabled(&v9->super.super, OS_LOG_TYPE_DEBUG))
             {
-              v16 = 138412290;
-              v17 = objc_opt_class();
-              v15 = v17;
-              _os_log_debug_impl(&dword_1B1064000, &v9->super.super, OS_LOG_TYPE_DEBUG, "Don't know how to encode %@ as a _CPValue", &v16, 0xCu);
+              v15 = 138412290;
+              v16 = objc_opt_class();
+              v14 = v16;
+              _os_log_debug_impl(&dword_1B1064000, &v9->super.super, OS_LOG_TYPE_DEBUG, "Don't know how to encode %@ as a _CPValue", &v15, 0xCu);
             }
           }
         }
@@ -508,7 +503,6 @@ LABEL_10:
     v11 = v5;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

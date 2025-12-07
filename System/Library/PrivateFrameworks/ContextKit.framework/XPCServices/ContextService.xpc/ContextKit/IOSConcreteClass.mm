@@ -32,16 +32,15 @@
 
 - (id)newInstance
 {
-  v3 = self->class_;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 || [(objc_class *)self->class_ isMemberOfClass:objc_opt_class()])
   {
     objc_exception_throw(objc_alloc_init(JavaLangInstantiationException));
   }
 
-  v4 = objc_alloc_init(self->class_);
+  v3 = objc_alloc_init(self->class_);
 
-  return v4;
+  return v3;
 }
 
 - (id)getSuperclass
@@ -224,7 +223,7 @@
     {
       outCount = 0;
       v4 = class_copyProtocolList(self->class_, &outCount);
-      explicit = IOSClass_NewInterfacesFromProtocolList(v4);
+      explicit = IOSClass_NewInterfacesFromProtocolList(v4, outCount);
       atomic_store(explicit, &self->interfaces_);
       free(v4);
     }

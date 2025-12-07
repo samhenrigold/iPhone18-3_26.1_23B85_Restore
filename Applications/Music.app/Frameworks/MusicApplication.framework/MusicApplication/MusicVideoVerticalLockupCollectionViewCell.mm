@@ -27,7 +27,7 @@
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC16MusicApplication42MusicVideoVerticalLockupCollectionViewCell_gradientView) = 0;
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC16MusicApplication42MusicVideoVerticalLockupCollectionViewCell_isGradientViewHidden) = 1;
   v11.receiver = self;
-  v11.super_class = type metadata accessor for MusicVideoVerticalLockupCollectionViewCell();
+  v11.super_class = type metadata accessor for MusicVideoVerticalLockupCollectionViewCell(0);
   return [(VerticalLockupCollectionViewCell *)&v11 initWithFrame:x, y, width, height];
 }
 

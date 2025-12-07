@@ -90,7 +90,6 @@ void __52__AKBiometricRatchetController_stateWithCompletion___block_invoke(NSObj
 
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)armWithContext:(id)context completion:(id)completion
@@ -99,46 +98,45 @@ void __52__AKBiometricRatchetController_stateWithCompletion___block_invoke(NSObj
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, context);
-  v18 = 0;
-  objc_storeStrong(&v18, completion);
+  v17 = 0;
+  objc_storeStrong(&v17, completion);
   objc_storeStrong(&selfCopy->_context, location[0]);
-  context = selfCopy->_context;
   if (objc_opt_respondsToSelector())
   {
-    v14 = _AKLogSystem();
-    v13 = 2;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v13 = _AKLogSystem();
+    v12 = 2;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v5 = v14;
-      type = v13;
-      __os_log_helper_16_0_0(v12);
-      _os_log_debug_impl(&dword_193225000, v5, type, "Presenting Ratchet UI", v12, 2u);
+      v4 = v13;
+      type = v12;
+      __os_log_helper_16_0_0(v11);
+      _os_log_debug_impl(&dword_193225000, v4, type, "Presenting Ratchet UI", v11, 2u);
     }
 
-    objc_storeStrong(&v14, 0);
-    [(AKBiometricRatchetContext *)selfCopy->_context presentRatchetUIWithCompletion:v18];
+    objc_storeStrong(&v13, 0);
+    [(AKBiometricRatchetContext *)selfCopy->_context presentRatchetUIWithCompletion:v17];
   }
 
   else
   {
-    v17 = _AKLogSystem();
-    v16 = 16;
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = _AKLogSystem();
+    v15 = 16;
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      log = v17;
-      v10 = v16;
-      __os_log_helper_16_0_0(v15);
-      _os_log_error_impl(&dword_193225000, log, v10, "Ratchet UI context doesn't respond to presentBiometricRatchetArmingUIWithCompletion", v15, 2u);
+      log = v16;
+      v9 = v15;
+      __os_log_helper_16_0_0(v14);
+      _os_log_error_impl(&dword_193225000, log, v9, "Ratchet UI context doesn't respond to presentBiometricRatchetArmingUIWithCompletion", v14, 2u);
     }
 
-    objc_storeStrong(&v17, 0);
-    v7 = v18;
-    v8 = [MEMORY[0x1E696ABC0] ak_errorWithCode:-7027];
-    v7[2](v7, 0);
-    MEMORY[0x1E69E5920](v8);
+    objc_storeStrong(&v16, 0);
+    v6 = v17;
+    v7 = [MEMORY[0x1E696ABC0] ak_errorWithCode:-7027];
+    v6[2](v6, 0);
+    MEMORY[0x1E69E5920](v7);
   }
 
-  objc_storeStrong(&v18, 0);
+  objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -236,7 +234,6 @@ void __60__AKBiometricRatchetController_cancelWithReason_completion___block_invo
   }
 
   objc_storeStrong(&oslog, 0);
-  *MEMORY[0x1E69E9840];
   return v11 & 1;
 }
 
@@ -319,7 +316,6 @@ void __75__AKBiometricRatchetController_isCriticalEditAllowedForAltDSID_completi
 
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)currentRachetState
@@ -402,7 +398,6 @@ void __75__AKBiometricRatchetController_isCriticalEditAllowedForAltDSID_completi
   v4 = MEMORY[0x1E69E5928](v14);
   objc_storeStrong(&v14, 0);
   objc_storeStrong(&ratchetState, 0);
-  *MEMORY[0x1E69E9840];
 
   return v4;
 }

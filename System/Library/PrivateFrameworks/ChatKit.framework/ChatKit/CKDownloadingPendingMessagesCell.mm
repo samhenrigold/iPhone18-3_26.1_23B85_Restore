@@ -56,9 +56,9 @@
 {
   animatedCopy = animated;
   itemCopy = item;
-  v26.receiver = self;
-  v26.super_class = CKDownloadingPendingMessagesCell;
-  [(CKTranscriptCell *)&v26 configureForChatItem:itemCopy context:context animated:animatedCopy animationDuration:curve animationCurve:duration];
+  v27.receiver = self;
+  v27.super_class = CKDownloadingPendingMessagesCell;
+  [(CKTranscriptCell *)&v27 configureForChatItem:itemCopy context:context animated:animatedCopy animationDuration:curve animationCurve:duration];
   iMChatItem = [itemCopy IMChatItem];
   objc_opt_class();
   LOBYTE(animatedCopy) = objc_opt_isKindOfClass();
@@ -68,29 +68,30 @@
     iMChatItem2 = [itemCopy IMChatItem];
     pendingIncomingSatelliteMessageCount = [iMChatItem2 pendingIncomingSatelliteMessageCount];
     -[CKDownloadingPendingMessagesCell setTotalSatelliteMessageCount:](self, "setTotalSatelliteMessageCount:", [iMChatItem2 totalSatelliteMessageCount]);
-    v16 = [(CKDownloadingPendingMessagesCell *)self totalSatelliteMessageCount]- pendingIncomingSatelliteMessageCount + 1;
-    v17 = MEMORY[0x1E696AEC0];
-    v18 = CKFrameworkBundle();
-    v19 = [v18 localizedStringForKey:@"NUMBER_OF_REMAINING_PENDING_MESSAGES" value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
-    v20 = [v17 localizedStringWithFormat:v19, v16, -[CKDownloadingPendingMessagesCell totalSatelliteMessageCount](self, "totalSatelliteMessageCount")];
+    totalSatelliteMessageCount = [(CKDownloadingPendingMessagesCell *)self totalSatelliteMessageCount];
+    v17 = totalSatelliteMessageCount - pendingIncomingSatelliteMessageCount + 1;
+    v18 = MEMORY[0x1E696AEC0];
+    v19 = CKFrameworkBundle(totalSatelliteMessageCount);
+    v20 = [v19 localizedStringForKey:@"NUMBER_OF_REMAINING_PENDING_MESSAGES" value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
+    v21 = [v18 localizedStringWithFormat:v20, v17, -[CKDownloadingPendingMessagesCell totalSatelliteMessageCount](self, "totalSatelliteMessageCount")];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v23 = @"\u200F";
+      v24 = @"\u200F";
     }
 
     else
     {
-      v23 = @"\u200E";
+      v24 = @"\u200E";
     }
 
-    v24 = [(__CFString *)v23 stringByAppendingString:v20];
+    v25 = [(__CFString *)v24 stringByAppendingString:v21];
 
-    v25 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v24];
-    [(CKDownloadingPendingMessagesCell *)self setPendingMessageCountAttributedText:v25];
+    v26 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v25];
+    [(CKDownloadingPendingMessagesCell *)self setPendingMessageCountAttributedText:v26];
   }
 }
 

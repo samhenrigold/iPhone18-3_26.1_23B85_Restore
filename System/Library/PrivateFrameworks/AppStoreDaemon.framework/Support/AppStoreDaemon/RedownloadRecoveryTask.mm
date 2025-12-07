@@ -23,7 +23,7 @@
     [v6 setStoreIDs:v7];
 
     v24 = 0;
-    v8 = sub_10021CA38();
+    v8 = sub_10021CA38(PurchaseHistoryManager);
     v9 = sub_10021CDA0(v8, v6, &v24);
     firstObject = [v9 firstObject];
 

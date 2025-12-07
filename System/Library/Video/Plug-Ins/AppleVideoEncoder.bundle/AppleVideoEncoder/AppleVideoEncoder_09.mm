@@ -1,757 +1,3 @@
-uint64_t sub_CFEC0(uint64_t a1, uint64_t a2, const char *a3)
-{
-  v6 = (*(a1 + 12) - *(a1 + 16) / 8);
-  v7 = *(a2 + 12);
-  if (sub_160EF0(0xD3u, 8))
-  {
-    v8 = sub_160F34(0xD3u);
-    v9 = sub_175AE4();
-    v10 = sub_160F68(8);
-    v11 = *(a2 + 12);
-    v12 = *(a2 + 32) + v11;
-    if (v8)
-    {
-      printf("%lld %d AVE %s: %s:%d %s start payload size %d %p (%d)\n", v9, 211, v10, "AVE_SEI_FinishNALU", 171, a3, v6, (*(a2 + 32) + v11), v11);
-      v9 = sub_175AE4();
-      v10 = sub_160F68(8);
-      v13 = *(a2 + 32) + *(a2 + 12);
-    }
-
-    else
-    {
-      v48 = *(a2 + 32) + v11;
-    }
-
-    syslog(3, "%lld %d AVE %s: %s:%d %s start payload size %d %p (%d)", v9, 211, v10);
-  }
-
-  v14 = sub_CECE8(v6, a2);
-  if (!v14)
-  {
-    if (sub_160EF0(0xD3u, 8))
-    {
-      v22 = sub_160F34(0xD3u);
-      v23 = sub_175AE4();
-      v24 = sub_160F68(8);
-      v25 = *(a2 + 12);
-      v26 = *(a2 + 32) + v25;
-      if (v22)
-      {
-        printf("%lld %d AVE %s: %s:%d %s end payload size %d %p (%d)\n", v23, 211, v24, "AVE_SEI_FinishNALU", 179, a3, v25 - v7, (*(a2 + 32) + v25), v25);
-        v23 = sub_175AE4();
-        v24 = sub_160F68(8);
-        v49 = *(a2 + 32) + *(a2 + 12);
-      }
-
-      else
-      {
-        v50 = *(a2 + 32) + v25;
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s end payload size %d %p (%d)", v23, 211, v24);
-    }
-
-    v27 = sub_1728F4(a2, a1);
-    if (v27)
-    {
-      v15 = v27;
-      if (!sub_160EF0(0xD3u, 4))
-      {
-        return v15;
-      }
-
-      v28 = sub_160F34(0xD3u);
-      v17 = sub_175AE4();
-      v29 = sub_160F68(4);
-      v30 = *(a2 + 32);
-      if (!v28)
-      {
-        v45 = *(a2 + 32);
-        goto LABEL_31;
-      }
-
-      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v17, 211, v29, "AVE_SEI_FinishNALU", 183, "(ret) == 0", *(a2 + 32), v15);
-    }
-
-    else
-    {
-      v31 = sub_172978(a2);
-      if (!v31)
-      {
-        if (sub_160EF0(0xD3u, 8))
-        {
-          v37 = sub_160F34(0xD3u);
-          v38 = sub_175AE4();
-          v39 = sub_160F68(8);
-          v40 = *(a2 + 12);
-          v41 = *(a2 + 32) + v40;
-          if (v37)
-          {
-            printf("%lld %d AVE %s: %s:%d %s rbsp_trailing_bits %p (%d)\n", v38, 211, v39, "AVE_SEI_FinishNALU", 191, a3, (*(a2 + 32) + v40), v40);
-            v38 = sub_175AE4();
-            sub_160F68(8);
-            v42 = *(a2 + 32) + *(a2 + 12);
-          }
-
-          else
-          {
-            v47 = *(a2 + 32) + v40;
-          }
-
-          syslog(3, "%lld %d AVE %s: %s:%d %s rbsp_trailing_bits %p (%d)", v38, 211);
-        }
-
-        return 0;
-      }
-
-      v15 = v31;
-      if (!sub_160EF0(0xD3u, 4))
-      {
-        return v15;
-      }
-
-      v32 = sub_160F34(0xD3u);
-      v17 = sub_175AE4();
-      v33 = sub_160F68(4);
-      v34 = *(a2 + 32);
-      if (!v32)
-      {
-        v46 = *(a2 + 32);
-        goto LABEL_31;
-      }
-
-      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v17, 211, v33, "AVE_SEI_FinishNALU", 187, "(ret) == 0", *(a2 + 32), v15);
-    }
-
-    v35 = sub_175AE4();
-    sub_160F68(4);
-    v36 = *(a2 + 32);
-    syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v35, 211);
-    return v15;
-  }
-
-  v15 = v14;
-  if (sub_160EF0(0xD3u, 4))
-  {
-    v16 = sub_160F34(0xD3u);
-    v17 = sub_175AE4();
-    v18 = sub_160F68(4);
-    v19 = *(a2 + 32);
-    if (v16)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v17, 211, v18, "AVE_SEI_FinishNALU", 174, "(ret) == 0", *(a2 + 32), v15);
-      v20 = sub_175AE4();
-      sub_160F68(4);
-      v21 = *(a2 + 32);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v20, 211);
-      return v15;
-    }
-
-    v44 = *(a2 + 32);
-LABEL_31:
-    syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v17, 211);
-  }
-
-  return v15;
-}
-
-uint64_t sub_D03F0(const void *a1, int a2, int a3, int *a4)
-{
-  memset(v120, 0, sizeof(v120));
-  v119[0] = xmmword_183560;
-  v119[1] = xmmword_183570;
-  v119[2] = xmmword_183580;
-  if (sub_160EF0(0xD3u, 7))
-  {
-    v4 = sub_160F34(0xD3u);
-    v5 = sub_175AE4();
-    v6 = sub_160F68(7);
-    if (v4)
-    {
-      printf("%lld %d AVE %s: %s Enter %p %d %d %p\n", v5, 211, v6, "AVE_SEI_WriteContentColorVolume", a1, a2, a3, a4);
-      v5 = sub_175AE4();
-      v6 = sub_160F68(7);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Enter %p %d %d %p", v5, 211, v6, "AVE_SEI_WriteContentColorVolume", a1, a2, a3, a4);
-  }
-
-  if (!a1 || !a4)
-  {
-    v10 = 4;
-    if (sub_160EF0(0xD3u, 4))
-    {
-      v11 = sub_160F34(0xD3u);
-      v12 = sub_175AE4();
-      v13 = sub_160F68(4);
-      if (v11)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | invalid args %p %p\n", v12, 211, v13, "AVE_SEI_WriteContentColorVolume", 319, "pBuf != __null && pBytesWritten != __null", a1, a4);
-        v12 = sub_175AE4();
-        v13 = sub_160F68(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | invalid args %p %p", v12, 211, v13, "AVE_SEI_WriteContentColorVolume", 319, "pBuf != __null && pBytesWritten != __null", a1, a4);
-      goto LABEL_41;
-    }
-
-LABEL_42:
-    v26 = 4294966295;
-    goto LABEL_43;
-  }
-
-  if (a3 != 2)
-  {
-    v10 = 4;
-    if (sub_160EF0(0xD3u, 4))
-    {
-      v14 = sub_160F34(0xD3u);
-      v15 = sub_175AE4();
-      v16 = sub_160F68(4);
-      if (v14)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | encType %d not supported %p\n", v15, 211, v16, "AVE_SEI_WriteContentColorVolume", 323, "encType == AVE_EncType_HEVC", a3, a1);
-        v15 = sub_175AE4();
-        v16 = sub_160F68(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | encType %d not supported %p", v15, 211, v16, "AVE_SEI_WriteContentColorVolume", 323, "encType == AVE_EncType_HEVC", a3, a1);
-LABEL_41:
-      v10 = 4;
-      goto LABEL_42;
-    }
-
-    goto LABEL_42;
-  }
-
-  if (sub_160EF0(0xD3u, 8))
-  {
-    v7 = sub_160F34(0xD3u);
-    v8 = sub_175AE4();
-    v9 = sub_160F68(8);
-    if (v7)
-    {
-      printf("%lld %d AVE %s: %s:%d ccv primaries\n", v8, 211, v9, "AVE_SEI_WriteContentColorVolume", 328);
-      v8 = sub_175AE4();
-      v9 = sub_160F68(8);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s:%d ccv primaries", v8, 211, v9, "AVE_SEI_WriteContentColorVolume", 328);
-  }
-
-  v17 = 0;
-  v117 = vdupq_n_s64(0x40E86A0000000000uLL);
-  do
-  {
-    v118 = vmovn_s64(vcvtq_s64_f64(vmulq_f64(v119[v17], v117)));
-    v120[v17] = v118;
-    if (sub_160EF0(0xD3u, 7))
-    {
-      v18 = sub_160F34(0xD3u);
-      v19 = sub_175AE4();
-      v20 = sub_160F68(7);
-      if (v18)
-      {
-        printf("%lld %d AVE %s: ccv_primaries %d (x, y) (%d, %d)\n", v19, 211, v20, v17, v118.i32[0], v118.i32[1]);
-        v19 = sub_175AE4();
-        v20 = sub_160F68(7);
-      }
-
-      syslog(3, "%lld %d AVE %s: ccv_primaries %d (x, y) (%d, %d)", v19, 211, v20, v17, v118.i32[0], v118.i32[1]);
-    }
-
-    ++v17;
-  }
-
-  while (v17 != 3);
-  v21 = operator new(0x1030uLL, &std::nothrow);
-  if (v21)
-  {
-    v22 = v21;
-    sub_172598(v21);
-    v23 = operator new(0x1030uLL, &std::nothrow);
-    v24 = v23;
-    if (v23)
-    {
-      sub_1725DC(v23, a1, a2, 0);
-      v25 = sub_CED64(v24, 2, 149, "AVE_SEI_WriteContentColorVolume");
-      if (v25)
-      {
-        v26 = v25;
-        if (sub_160EF0(0xD3u, 4))
-        {
-          v27 = sub_160F34(0xD3u);
-          v28 = sub_175AE4();
-          v29 = sub_160F68(4);
-          if (v27)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v28, 211, v29, "AVE_SEI_WriteContentColorVolume", 352, "(ret) == 0", a1, v26);
-            v28 = sub_175AE4();
-            v29 = sub_160F68(4);
-          }
-
-          syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v28, 211, v29, "AVE_SEI_WriteContentColorVolume", 352, "(ret) == 0", a1, v26);
-        }
-      }
-
-      else
-      {
-        v42 = sub_17262C(v22, 0);
-        if (v42)
-        {
-          v26 = v42;
-          if (sub_160EF0(0xD3u, 4))
-          {
-            v43 = sub_160F34(0xD3u);
-            v44 = sub_175AE4();
-            v45 = sub_160F68(4);
-            if (v43)
-            {
-              printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v44, 211, v45, "AVE_SEI_WriteContentColorVolume", 356, "(ret) == 0", a1, v26);
-              v44 = sub_175AE4();
-              v45 = sub_160F68(4);
-            }
-
-            syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v44, 211, v45, "AVE_SEI_WriteContentColorVolume", 356, "(ret) == 0", a1, v26);
-          }
-        }
-
-        else
-        {
-          v46 = sub_17262C(v22, 1);
-          if (v46)
-          {
-            v26 = v46;
-            if (sub_160EF0(0xD3u, 4))
-            {
-              v47 = sub_160F34(0xD3u);
-              v48 = sub_175AE4();
-              v49 = sub_160F68(4);
-              if (v47)
-              {
-                printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v48, 211, v49, "AVE_SEI_WriteContentColorVolume", 361, "(ret) == 0", a1, v26);
-                v48 = sub_175AE4();
-                v49 = sub_160F68(4);
-              }
-
-              syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v48, 211, v49, "AVE_SEI_WriteContentColorVolume", 361, "(ret) == 0", a1, v26);
-            }
-          }
-
-          else
-          {
-            v50 = sub_17262C(v22, 1);
-            if (v50)
-            {
-              v26 = v50;
-              if (sub_160EF0(0xD3u, 4))
-              {
-                v51 = sub_160F34(0xD3u);
-                v52 = sub_175AE4();
-                v53 = sub_160F68(4);
-                if (v51)
-                {
-                  printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v52, 211, v53, "AVE_SEI_WriteContentColorVolume", 363, "(ret) == 0", a1, v26);
-                  v52 = sub_175AE4();
-                  v53 = sub_160F68(4);
-                }
-
-                syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v52, 211, v53, "AVE_SEI_WriteContentColorVolume", 363, "(ret) == 0", a1, v26);
-              }
-            }
-
-            else
-            {
-              v54 = sub_17262C(v22, 1);
-              if (v54)
-              {
-                v26 = v54;
-                if (sub_160EF0(0xD3u, 4))
-                {
-                  v55 = sub_160F34(0xD3u);
-                  v56 = sub_175AE4();
-                  v57 = sub_160F68(4);
-                  if (v55)
-                  {
-                    printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v56, 211, v57, "AVE_SEI_WriteContentColorVolume", 365, "(ret) == 0", a1, v26);
-                    v56 = sub_175AE4();
-                    v57 = sub_160F68(4);
-                  }
-
-                  syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v56, 211, v57, "AVE_SEI_WriteContentColorVolume", 365, "(ret) == 0", a1, v26);
-                }
-              }
-
-              else
-              {
-                v58 = sub_17262C(v22, 1);
-                if (v58)
-                {
-                  v26 = v58;
-                  if (sub_160EF0(0xD3u, 4))
-                  {
-                    v59 = sub_160F34(0xD3u);
-                    v60 = sub_175AE4();
-                    v61 = sub_160F68(4);
-                    if (v59)
-                    {
-                      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v60, 211, v61, "AVE_SEI_WriteContentColorVolume", 367, "(ret) == 0", a1, v26);
-                      v60 = sub_175AE4();
-                      v61 = sub_160F68(4);
-                    }
-
-                    syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v60, 211, v61, "AVE_SEI_WriteContentColorVolume", 367, "(ret) == 0", a1, v26);
-                  }
-                }
-
-                else
-                {
-                  v62 = sub_17262C(v22, 1);
-                  if (v62)
-                  {
-                    v26 = v62;
-                    if (sub_160EF0(0xD3u, 4))
-                    {
-                      v63 = sub_160F34(0xD3u);
-                      v64 = sub_175AE4();
-                      v65 = sub_160F68(4);
-                      if (v63)
-                      {
-                        printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v64, 211, v65, "AVE_SEI_WriteContentColorVolume", 369, "(ret) == 0", a1, v26);
-                        v64 = sub_175AE4();
-                        v65 = sub_160F68(4);
-                      }
-
-                      syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v64, 211, v65, "AVE_SEI_WriteContentColorVolume", 369, "(ret) == 0", a1, v26);
-                    }
-                  }
-
-                  else
-                  {
-                    v66 = sub_1727D0(v22, 0, 2);
-                    if (v66)
-                    {
-                      v26 = v66;
-                      if (sub_160EF0(0xD3u, 4))
-                      {
-                        v67 = sub_160F34(0xD3u);
-                        v68 = sub_175AE4();
-                        v69 = sub_160F68(4);
-                        if (v67)
-                        {
-                          printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v68, 211, v69, "AVE_SEI_WriteContentColorVolume", 371, "(ret) == 0", a1, v26);
-                          v68 = sub_175AE4();
-                          v69 = sub_160F68(4);
-                        }
-
-                        syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v68, 211, v69, "AVE_SEI_WriteContentColorVolume", 371, "(ret) == 0", a1, v26);
-                      }
-                    }
-
-                    else
-                    {
-                      v70 = v120 + 1;
-                      v71 = 3;
-                      while (1)
-                      {
-                        v72 = sub_1727BC(v22, *(v70 - 1), 32);
-                        if (v72)
-                        {
-                          break;
-                        }
-
-                        v73 = sub_1727BC(v22, *v70, 32);
-                        if (v73)
-                        {
-                          v26 = v73;
-                          if (sub_160EF0(0xD3u, 4))
-                          {
-                            v81 = sub_160F34(0xD3u);
-                            v82 = sub_175AE4();
-                            v83 = sub_160F68(4);
-                            if (v81)
-                            {
-                              printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v82, 211, v83, "AVE_SEI_WriteContentColorVolume", 381, "(ret) == 0", a1, v26);
-                              v82 = sub_175AE4();
-                              v83 = sub_160F68(4);
-                            }
-
-                            syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v82, 211, v83, "AVE_SEI_WriteContentColorVolume", 381, "(ret) == 0", a1, v26);
-                          }
-
-                          goto LABEL_62;
-                        }
-
-                        v70 += 2;
-                        if (!--v71)
-                        {
-                          v74 = sub_1727D0(v22, 0, 32);
-                          if (v74)
-                          {
-                            v26 = v74;
-                            if (sub_160EF0(0xD3u, 4))
-                            {
-                              v75 = sub_160F34(0xD3u);
-                              v76 = sub_175AE4();
-                              v77 = sub_160F68(4);
-                              if (v75)
-                              {
-                                printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v76, 211, v77, "AVE_SEI_WriteContentColorVolume", 388, "(ret) == 0", a1, v26);
-                                v76 = sub_175AE4();
-                                v77 = sub_160F68(4);
-                              }
-
-                              syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v76, 211, v77, "AVE_SEI_WriteContentColorVolume", 388, "(ret) == 0", a1, v26);
-                            }
-                          }
-
-                          else
-                          {
-                            v84 = sub_1727D0(v22, 1000000, 32);
-                            if (v84)
-                            {
-                              v26 = v84;
-                              if (sub_160EF0(0xD3u, 4))
-                              {
-                                v85 = sub_160F34(0xD3u);
-                                v86 = sub_175AE4();
-                                v87 = sub_160F68(4);
-                                if (v85)
-                                {
-                                  printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v86, 211, v87, "AVE_SEI_WriteContentColorVolume", 393, "(ret) == 0", a1, v26);
-                                  v86 = sub_175AE4();
-                                  v87 = sub_160F68(4);
-                                }
-
-                                syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v86, 211, v87, "AVE_SEI_WriteContentColorVolume", 393, "(ret) == 0", a1, v26);
-                              }
-                            }
-
-                            else
-                            {
-                              v88 = sub_1727D0(v22, 100000, 32);
-                              if (v88)
-                              {
-                                v26 = v88;
-                                if (sub_160EF0(0xD3u, 4))
-                                {
-                                  v89 = sub_160F34(0xD3u);
-                                  v90 = sub_175AE4();
-                                  v91 = sub_160F68(4);
-                                  if (v89)
-                                  {
-                                    printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v90, 211, v91, "AVE_SEI_WriteContentColorVolume", 398, "(ret) == 0", a1, v26);
-                                    v90 = sub_175AE4();
-                                    v91 = sub_160F68(4);
-                                  }
-
-                                  syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v90, 211, v91, "AVE_SEI_WriteContentColorVolume", 398, "(ret) == 0", a1, v26);
-                                }
-                              }
-
-                              else if (v22[2] && (v92 = sub_172978(v22), v92))
-                              {
-                                v26 = v92;
-                                if (sub_160EF0(0xD3u, 4))
-                                {
-                                  v93 = sub_160F34(0xD3u);
-                                  v94 = sub_175AE4();
-                                  v95 = sub_160F68(4);
-                                  if (v93)
-                                  {
-                                    printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v94, 211, v95, "AVE_SEI_WriteContentColorVolume", 406, "(ret) == 0", a1, v26);
-                                    v94 = sub_175AE4();
-                                    v95 = sub_160F68(4);
-                                  }
-
-                                  syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v94, 211, v95, "AVE_SEI_WriteContentColorVolume", 406, "(ret) == 0", a1, v26);
-                                }
-                              }
-
-                              else
-                              {
-                                if (sub_160EF0(0xD3u, 8))
-                                {
-                                  v96 = sub_160F34(0xD3u);
-                                  v97 = sub_175AE4();
-                                  v98 = sub_160F68(8);
-                                  v99 = v22[3];
-                                  v100 = (v22[2] + 8 * v99);
-                                  if (v96)
-                                  {
-                                    printf("%lld %d AVE %s: %s:%d New bits %d (%d bytes)\n", v97, 211, v98, "AVE_SEI_WriteContentColorVolume", 410, v22[2] + 8 * v99, v99);
-                                    v101 = sub_175AE4();
-                                    v102 = sub_160F68(8);
-                                    syslog(3, "%lld %d AVE %s: %s:%d New bits %d (%d bytes)", v101, 211, v102, "AVE_SEI_WriteContentColorVolume", 410, v22[2] + 8 * v22[3], v22[3]);
-                                  }
-
-                                  else
-                                  {
-                                    syslog(3, "%lld %d AVE %s: %s:%d New bits %d (%d bytes)", v97, 211, v98, "AVE_SEI_WriteContentColorVolume", 410, v22[2] + 8 * v99, v99);
-                                  }
-                                }
-
-                                v103 = sub_CFEC0(v22, v24, "AVE_SEI_WriteContentColorVolume");
-                                if (v103)
-                                {
-                                  v26 = v103;
-                                  if (sub_160EF0(0xD3u, 4))
-                                  {
-                                    v104 = sub_160F34(0xD3u);
-                                    v105 = sub_175AE4();
-                                    v106 = sub_160F68(4);
-                                    if (v104)
-                                    {
-                                      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v105, 211, v106, "AVE_SEI_WriteContentColorVolume", 413, "(ret) == 0", a1, v26);
-                                      v105 = sub_175AE4();
-                                      v106 = sub_160F68(4);
-                                    }
-
-                                    syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v105, 211, v106, "AVE_SEI_WriteContentColorVolume", 413, "(ret) == 0", a1, v26);
-                                  }
-                                }
-
-                                else
-                                {
-                                  *a4 = v24[3];
-                                  if (sub_160EF0(0xD3u, 7))
-                                  {
-                                    v107 = sub_160F34(0xD3u);
-                                    v108 = sub_175AE4();
-                                    v109 = sub_160F68(7);
-                                    v110 = *a4;
-                                    if (v107)
-                                    {
-                                      printf("%lld %d AVE %s: %s:%d final SEISize %d\n", v108, 211, v109, "AVE_SEI_WriteContentColorVolume", 416, v110);
-                                      v111 = sub_175AE4();
-                                      v112 = sub_160F68(7);
-                                      syslog(3, "%lld %d AVE %s: %s:%d final SEISize %d", v111, 211, v112, "AVE_SEI_WriteContentColorVolume", 416, *a4);
-                                    }
-
-                                    else
-                                    {
-                                      syslog(3, "%lld %d AVE %s: %s:%d final SEISize %d", v108, 211, v109, "AVE_SEI_WriteContentColorVolume", 416, v110);
-                                    }
-                                  }
-
-                                  v26 = 0;
-                                }
-                              }
-                            }
-                          }
-
-                          goto LABEL_62;
-                        }
-                      }
-
-                      v26 = v72;
-                      if (sub_160EF0(0xD3u, 4))
-                      {
-                        v78 = sub_160F34(0xD3u);
-                        v79 = sub_175AE4();
-                        v80 = sub_160F68(4);
-                        if (v78)
-                        {
-                          printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v79, 211, v80, "AVE_SEI_WriteContentColorVolume", 378, "(ret) == 0", a1, v26);
-                          v79 = sub_175AE4();
-                          v80 = sub_160F68(4);
-                        }
-
-                        syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v79, 211, v80, "AVE_SEI_WriteContentColorVolume", 378, "(ret) == 0", a1, v26);
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    else
-    {
-      if (sub_160EF0(0xD3u, 4))
-      {
-        v39 = sub_160F34(0xD3u);
-        v40 = sub_175AE4();
-        v41 = sub_160F68(4);
-        if (v39)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | Failed to create SyntaxWriter %p\n", v40, 211, v41, "AVE_SEI_WriteContentColorVolume", 348, "pcSyntaxWriter_NALU != __null", a1);
-          v40 = sub_175AE4();
-          v41 = sub_160F68(4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | Failed to create SyntaxWriter %p", v40, 211, v41, "AVE_SEI_WriteContentColorVolume", 348, "pcSyntaxWriter_NALU != __null", a1);
-      }
-
-      v26 = 4294966293;
-    }
-
-LABEL_62:
-    (*(*v22 + 8))(v22);
-    if (v24)
-    {
-      (*(*v24 + 8))(v24);
-    }
-
-    if (v26)
-    {
-      v10 = 4;
-    }
-
-    else
-    {
-      v10 = 7;
-    }
-  }
-
-  else
-  {
-    v10 = 4;
-    if (sub_160EF0(0xD3u, 4))
-    {
-      v30 = sub_160F34(0xD3u);
-      v31 = sub_175AE4();
-      v32 = sub_160F68(4);
-      if (v30)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | Failed to create SyntaxWriter %p\n", v31, 211, v32, "AVE_SEI_WriteContentColorVolume", 342, "pcSyntaxWriter != __null", a1);
-        v31 = sub_175AE4();
-        v32 = sub_160F68(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | Failed to create SyntaxWriter %p", v31, 211, v32, "AVE_SEI_WriteContentColorVolume", 342, "pcSyntaxWriter != __null", a1);
-      v10 = 4;
-    }
-
-    v26 = 4294966293;
-  }
-
-LABEL_43:
-  if (sub_160EF0(0xD3u, v10))
-  {
-    v33 = sub_160F34(0xD3u);
-    v34 = sub_175AE4();
-    v35 = sub_160F68(v10);
-    if (v33)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %d %d %p %d\n", v34, 211, v35, "AVE_SEI_WriteContentColorVolume", a1, a2, a3, a4, v26);
-      v36 = sub_175AE4();
-      v37 = sub_160F68(v10);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %d", v36, 211, v37, "AVE_SEI_WriteContentColorVolume", a1, a2, a3, a4, v26);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %d", v34, 211, v35, "AVE_SEI_WriteContentColorVolume", a1, a2, a3, a4, v26);
-    }
-  }
-
-  return v26;
-}
-
 uint64_t sub_D1C38(uint64_t a1, double a2)
 {
   v3 = sub_CB26C(a2);
@@ -851,8 +97,11 @@ uint64_t sub_D1DF0(uint64_t a1, unsigned int a2, char a3, char a4)
   return 5;
 }
 
-uint64_t sub_D1E10(const void *a1, int a2, unsigned __int8 *a3, int a4, uint64_t a5, int a6, int a7, int *a8)
+uint64_t sub_D1E10(const void *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, int *a8)
 {
+  v9 = a7;
+  v87 = a4;
+  v86 = a2;
   v92 = xmmword_183590;
   v91 = 1635018093;
   if (sub_160EF0(0xD3u, 7))
@@ -862,15 +111,15 @@ uint64_t sub_D1E10(const void *a1, int a2, unsigned __int8 *a3, int a4, uint64_t
     v12 = sub_160F68(7);
     if (v10)
     {
-      printf("%lld %d AVE %s: %s Enter %p %d %p %d %lld %d %d %p\n", v11, 211, v12, "AVE_SEI_WriteSEIISPMetadata", a1, a2, a3, a4, a5, a6, a7, a8);
+      printf("%lld %d AVE %s: %s Enter %p %d %p %d %lld %d %d %p\n", v11, 211, v12, "AVE_SEI_WriteSEIISPMetadata", a1, v86, a3, v87, a5, a6, v9, a8);
       v13 = sub_175AE4();
       v14 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %d %p %d %lld %d %d %p", v13, 211, v14, "AVE_SEI_WriteSEIISPMetadata", a1, a2, a3, a4, a5, a6, a7, a8);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %d %p %d %lld %d %d %p", v13, 211, v14, "AVE_SEI_WriteSEIISPMetadata", a1, v86, a3, v87, a5, a6, v9, a8);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Enter %p %d %p %d %lld %d %d %p", v11, 211, v12, "AVE_SEI_WriteSEIISPMetadata", a1, a2, a3, a4, a5, a6, a7, a8);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %d %p %d %lld %d %d %p", v11, 211, v12, "AVE_SEI_WriteSEIISPMetadata", a1, v86, a3, v87, a5, a6, v9, a8);
     }
   }
 
@@ -903,7 +152,7 @@ LABEL_42:
 
   if ((a6 - 1) < 2)
   {
-    v15 = a4 + a4 / 2 + 1;
+    v15 = v87 + v87 / 2 + 1;
     v16 = malloc_type_malloc(v15, 0x100004077774924uLL);
     if (v16)
     {
@@ -912,12 +161,12 @@ LABEL_42:
       if (v18)
       {
         v19 = v18;
-        sub_1725DC(v18, v17, v15, a7);
+        sub_1725DC(v18, v17, v15, v9);
         v20 = operator new(0x1030uLL, &std::nothrow);
         v21 = v20;
         if (v20)
         {
-          sub_1725DC(v20, a1, a2, 0);
+          sub_1725DC(v20, a1, v86, 0);
           v22 = sub_CED64(v21, a6, 5, "AVE_SEI_WriteSEIISPMetadata");
           if (v22)
           {
@@ -944,7 +193,7 @@ LABEL_42:
 
           else
           {
-            v23 = sub_172890(v19, &v92, 16);
+            v23 = sub_172890(v19, &v92, 0x10u);
             if (v23)
             {
               if (sub_160EF0(0xD3u, 4))
@@ -969,7 +218,7 @@ LABEL_42:
 
             else
             {
-              v23 = sub_172890(v19, &v91, 4);
+              v23 = sub_172890(v19, &v91, 4u);
               if (v23)
               {
                 if (sub_160EF0(0xD3u, 4))
@@ -994,7 +243,7 @@ LABEL_42:
 
               else
               {
-                v23 = sub_172890(v19, a3, a4);
+                v23 = sub_172890(v19, a3, v87);
                 if (v23)
                 {
                   if (sub_160EF0(0xD3u, 4))
@@ -1191,19 +440,21 @@ LABEL_43:
     v62 = sub_160F68(v29);
     if (v60)
     {
-      printf("%lld %d AVE %s: %s Exit %p %d %p %d %lld %d %d %p %d\n", v61, 211, v62, "AVE_SEI_WriteSEIISPMetadata", a1, a2, a3, a4, a5, a6, a7, a8, v23);
+      printf("%lld %d AVE %s: %s Exit %p %d %p %d %lld %d %d %p %d\n", v61, 211, v62, "AVE_SEI_WriteSEIISPMetadata", a1, v86, a3, v87, a5, a6, v9, a8, v23);
       v61 = sub_175AE4();
       v62 = sub_160F68(v29);
     }
 
-    syslog(3, "%lld %d AVE %s: %s Exit %p %d %p %d %lld %d %d %p %d", v61, 211, v62, "AVE_SEI_WriteSEIISPMetadata", a1, a2, a3, a4, a5, a6, a7, a8, v23);
+    syslog(3, "%lld %d AVE %s: %s Exit %p %d %p %d %lld %d %d %p %d", v61, 211, v62, "AVE_SEI_WriteSEIISPMetadata", a1, v86, a3, v87, a5, a6, v9, a8, v23);
   }
 
   return v23;
 }
 
-uint64_t sub_D2D18(const void *a1, int a2, uint64_t a3, uint64_t a4, int a5, int a6, int *a7)
+uint64_t sub_D2D18(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int *a7)
 {
+  v9 = a4;
+  v10 = a2;
   if (sub_160EF0(0xD3u, 7))
   {
     v12 = sub_160F34(0xD3u);
@@ -1211,7 +462,7 @@ uint64_t sub_D2D18(const void *a1, int a2, uint64_t a3, uint64_t a4, int a5, int
     v14 = sub_160F68(7);
     if (v12)
     {
-      printf("%lld %d AVE %s: %s Enter %p %d %lld %d %d %d %p\n", v13, 211, v14, "AVE_SEI_WriteLuxLevel", a1, a2, a3, a4, a5, a6, a7);
+      printf("%lld %d AVE %s: %s Enter %p %d %lld %d %d %d %p\n", v13, 211, v14, "AVE_SEI_WriteLuxLevel", a1, v10, a3, v9, a5, a6, a7);
       v15 = sub_175AE4();
       v67 = sub_160F68(7);
       syslog(3, "%lld %d AVE %s: %s Enter %p %d %lld %d %d %d %p", v15, 211, v67, "AVE_SEI_WriteLuxLevel");
@@ -1316,7 +567,7 @@ LABEL_25:
       goto LABEL_56;
     }
 
-    sub_1725DC(v18, a1, a2, 0);
+    sub_1725DC(v18, a1, v10, 0);
     v20 = sub_CED64(v19, a5, 4, "AVE_SEI_WriteLuxLevel");
     if (v20)
     {
@@ -1345,10 +596,10 @@ LABEL_50:
 
     else
     {
-      sub_1727D0(v17, 181, 8);
-      sub_1727D0(v17, 48879, 16);
-      sub_1727D0(v17, 21930, 16);
-      sub_1727D0(v17, a4, 32);
+      sub_1727D0(v17, 0xB5u, 8);
+      sub_1727D0(v17, 0xBEEFu, 16);
+      sub_1727D0(v17, 0x55AAu, 16);
+      sub_1727D0(v17, v9, 32);
       if (sub_160EF0(0xD3u, 8))
       {
         v50 = a6;
@@ -1481,7 +732,7 @@ LABEL_27:
     v41 = sub_160F68(v25);
     if (v39)
     {
-      printf("%lld %d AVE %s: %s Exit %p %d %lld %d %d %d %p %d\n", v40, 211, v41, "AVE_SEI_WriteLuxLevel", a1, a2, a3, a4, a5, a6, a7, v21);
+      printf("%lld %d AVE %s: %s Exit %p %d %lld %d %d %d %p %d\n", v40, 211, v41, "AVE_SEI_WriteLuxLevel", a1, v10, a3, v9, a5, a6, a7, v21);
       v42 = sub_175AE4();
       v43 = sub_160F68(v25);
       syslog(3, "%lld %d AVE %s: %s Exit %p %d %lld %d %d %d %p %d", v42, 211, v43, "AVE_SEI_WriteLuxLevel", a1);
@@ -1496,8 +747,9 @@ LABEL_27:
   return v21;
 }
 
-uint64_t sub_D3824(const void *a1, int a2, uint64_t a3, int a4, int a5, unsigned int *a6)
+uint64_t sub_D3824(const void *a1, uint64_t a2, uint64_t a3, int a4, int a5, _DWORD *a6)
 {
+  v88 = a2;
   if (sub_160EF0(0xD3u, 7))
   {
     v8 = sub_160F34(0xD3u);
@@ -1505,10 +757,10 @@ uint64_t sub_D3824(const void *a1, int a2, uint64_t a3, int a4, int a5, unsigned
     v10 = sub_160F68(7);
     if (v8)
     {
-      printf("%lld %d AVE %s: %s Enter %p %d %lld %d %d %p\n", v9, 211, v10, "AVE_SEI_WriteAccessUnitDelimiter", a1, a2, a3, a4, a5, a6);
+      printf("%lld %d AVE %s: %s Enter %p %d %lld %d %d %p\n", v9, 211, v10, "AVE_SEI_WriteAccessUnitDelimiter", a1, v88, a3, a4, a5, a6);
       v11 = sub_175AE4();
-      v94 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %d %lld %d %d %p", v11, 211, v94);
+      v85 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %d %lld %d %d %p", v11, 211, v85);
     }
 
     else
@@ -1528,7 +780,7 @@ uint64_t sub_D3824(const void *a1, int a2, uint64_t a3, int a4, int a5, unsigned
       v15 = v14;
       if (v14)
       {
-        sub_1725DC(v14, a1, a2, 0);
+        sub_1725DC(v14, a1, v88, 0);
         v16 = sub_1727F8(v15);
         if (!v16)
         {
@@ -1537,42 +789,38 @@ uint64_t sub_D3824(const void *a1, int a2, uint64_t a3, int a4, int a5, unsigned
             v37 = sub_160F34(0xD3u);
             v38 = sub_175AE4();
             v39 = sub_160F68(8);
-            v40 = *(v15 + 12);
-            v41 = *(v15 + 32) + v40;
             if (v37)
             {
-              printf("%lld %d AVE %s: %s:%d nal_unit_type %p (%d)\n", v38, 211, v39, "AVE_SEI_WriteAccessUnitDelimiter", 1050, (*(v15 + 32) + v40), v40);
-              v42 = sub_175AE4();
+              printf("%lld %d AVE %s: %s:%d nal_unit_type %p (%d)\n", v38, 211, v39, "AVE_SEI_WriteAccessUnitDelimiter", 1050, (*(v15 + 32) + *(v15 + 12)), *(v15 + 12));
+              v40 = sub_175AE4();
               sub_160F68(8);
-              v43 = *(v15 + 32) + *(v15 + 12);
-              syslog(3, "%lld %d AVE %s: %s:%d nal_unit_type %p (%d)", v42);
+              syslog(3, "%lld %d AVE %s: %s:%d nal_unit_type %p (%d)", v40);
             }
 
             else
             {
-              v96 = *(v15 + 32) + v40;
               syslog(3, "%lld %d AVE %s: %s:%d nal_unit_type %p (%d)", v38);
             }
           }
 
           if (a4 == 2)
           {
-            v44 = sub_1727D0(v15, 17921, 16);
-            if (v44)
+            v41 = sub_1727D0(v15, 0x4601u, 16);
+            if (v41)
             {
-              v17 = v44;
+              v17 = v41;
               if (!sub_160EF0(0xD3u, 4))
               {
                 goto LABEL_48;
               }
 
               v18 = a5;
-              v45 = sub_160F34(0xD3u);
+              v42 = sub_160F34(0xD3u);
               v20 = sub_175AE4();
-              v46 = sub_160F68(4);
-              if (v45)
+              v43 = sub_160F68(4);
+              if (v42)
               {
-                printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v20, 211, v46, "AVE_SEI_WriteAccessUnitDelimiter", 1055, "(ret) == 0", a1, v17);
+                printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v20, 211, v43, "AVE_SEI_WriteAccessUnitDelimiter", 1055, "(ret) == 0", a1, v17);
                 v22 = sub_175AE4();
                 sub_160F68(4);
                 goto LABEL_13;
@@ -1585,69 +833,65 @@ LABEL_31:
 
             if (sub_160EF0(0xD3u, 8))
             {
-              v51 = sub_160F34(0xD3u);
-              v52 = sub_175AE4();
-              v53 = sub_160F68(8);
-              v54 = *(v15 + 32) + *(v15 + 12);
-              v55 = *(v54 - 2);
-              v56 = *(v54 - 1);
-              if (v51)
+              v48 = sub_160F34(0xD3u);
+              v49 = sub_175AE4();
+              v50 = sub_160F68(8);
+              v51 = *(v15 + 32) + *(v15 + 12);
+              v52 = *(v51 - 2);
+              v53 = *(v51 - 1);
+              if (v48)
               {
-                printf("%lld %d AVE %s: %s:%d NUT %0x %0x\n", v52, 211, v53, "AVE_SEI_WriteAccessUnitDelimiter", 1059, v55, v56);
-                v57 = sub_175AE4();
+                printf("%lld %d AVE %s: %s:%d NUT %0x %0x\n", v49, 211, v50, "AVE_SEI_WriteAccessUnitDelimiter", 1059, v52, v53);
+                v54 = sub_175AE4();
                 sub_160F68(8);
-                v58 = *(v15 + 32) + *(v15 + 12);
-                v97 = *(v58 - 2);
-                v101 = *(v58 - 1);
-                syslog(3, "%lld %d AVE %s: %s:%d NUT %0x %0x", v57);
+                syslog(3, "%lld %d AVE %s: %s:%d NUT %0x %0x", v54);
               }
 
               else
               {
-                syslog(3, "%lld %d AVE %s: %s:%d NUT %0x %0x", v52);
+                syslog(3, "%lld %d AVE %s: %s:%d NUT %0x %0x", v49);
               }
             }
 
-            v64 = (a5 - 1);
-            if (v64 < 3)
+            if ((a5 - 1) < 3)
             {
-              v65 = sub_1727D0(v13, v64, 3);
-              if (v65)
+              v60 = sub_1727D0(v13, a5 - 1, 3);
+              if (v60)
               {
-                v17 = v65;
+                v17 = v60;
                 if (!sub_160EF0(0xD3u, 4))
                 {
                   goto LABEL_48;
                 }
 
                 v18 = a5;
-                v66 = sub_160F34(0xD3u);
+                v61 = sub_160F34(0xD3u);
                 v20 = sub_175AE4();
-                v67 = sub_160F68(4);
-                if (v66)
+                v62 = sub_160F68(4);
+                if (v61)
                 {
-                  printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v20, 211, v67, "AVE_SEI_WriteAccessUnitDelimiter", 1089, "(ret) == 0", a1, v17);
+                  printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v20, 211, v62, "AVE_SEI_WriteAccessUnitDelimiter", 1089, "(ret) == 0", a1, v17);
                   v22 = sub_175AE4();
                   sub_160F68(4);
                   goto LABEL_13;
                 }
               }
 
-              else if (v13[2] && (v72 = sub_172978(v13), v72))
+              else if (v13[2] && (v67 = sub_172978(v13), v67))
               {
-                v17 = v72;
+                v17 = v67;
                 if (!sub_160EF0(0xD3u, 4))
                 {
                   goto LABEL_48;
                 }
 
                 v18 = a5;
-                v73 = sub_160F34(0xD3u);
+                v68 = sub_160F34(0xD3u);
                 v20 = sub_175AE4();
-                v74 = sub_160F68(4);
-                if (v73)
+                v69 = sub_160F68(4);
+                if (v68)
                 {
-                  printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v20, 211, v74, "AVE_SEI_WriteAccessUnitDelimiter", 1095, "(ret) == 0", a1, v17);
+                  printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v20, 211, v69, "AVE_SEI_WriteAccessUnitDelimiter", 1095, "(ret) == 0", a1, v17);
                   v22 = sub_175AE4();
                   sub_160F68(4);
                   goto LABEL_13;
@@ -1658,53 +902,47 @@ LABEL_31:
               {
                 if (sub_160EF0(0xD3u, 8))
                 {
-                  v75 = sub_160F34(0xD3u);
-                  v76 = sub_175AE4();
-                  v77 = sub_160F68(8);
-                  if (v75)
+                  v70 = sub_160F34(0xD3u);
+                  v71 = sub_175AE4();
+                  v72 = sub_160F68(8);
+                  if (v70)
                   {
-                    printf("%lld %d AVE %s: %s:%d New bits %d (bytes %d)\n", v76, 211, v77, "AVE_SEI_WriteAccessUnitDelimiter", 1099, v13[2] + 8 * v13[3], (v13[2] + 8 * v13[3]) >> 3);
-                    v78 = sub_175AE4();
+                    printf("%lld %d AVE %s: %s:%d New bits %d (bytes %d)\n", v71, 211, v72, "AVE_SEI_WriteAccessUnitDelimiter", 1099, v13[2] + 8 * v13[3], (v13[2] + 8 * v13[3]) >> 3);
+                    v73 = sub_175AE4();
                     sub_160F68(8);
-                    v98 = (v13[2] + 8 * v13[3]);
-                    syslog(3, "%lld %d AVE %s: %s:%d New bits %d (bytes %d)", v78);
+                    syslog(3, "%lld %d AVE %s: %s:%d New bits %d (bytes %d)", v73);
                   }
 
                   else
                   {
-                    v99 = (v13[2] + 8 * v13[3]);
-                    syslog(3, "%lld %d AVE %s: %s:%d New bits %d (bytes %d)", v76);
+                    syslog(3, "%lld %d AVE %s: %s:%d New bits %d (bytes %d)", v71);
                   }
                 }
 
-                v79 = sub_1728F4(v15, v13);
-                if (!v79)
+                v74 = sub_1728F4(v15, v13);
+                if (!v74)
                 {
                   v17 = sub_172978(v15);
                   if (sub_160EF0(0xD3u, 8))
                   {
-                    v82 = a5;
-                    v83 = sub_160F34(0xD3u);
-                    v84 = sub_175AE4();
-                    v85 = sub_160F68(8);
-                    v86 = *(v15 + 12);
-                    v87 = *(v15 + 32) + v86;
-                    if (v83)
+                    v77 = a5;
+                    v78 = sub_160F34(0xD3u);
+                    v79 = sub_175AE4();
+                    v80 = sub_160F68(8);
+                    if (v78)
                     {
-                      printf("%lld %d AVE %s: %s:%d rbsp_trailing_bits %p (%d)\n", v84, 211, v85, "AVE_SEI_WriteAccessUnitDelimiter", 1109, (*(v15 + 32) + v86), v86);
-                      v88 = sub_175AE4();
+                      printf("%lld %d AVE %s: %s:%d rbsp_trailing_bits %p (%d)\n", v79, 211, v80, "AVE_SEI_WriteAccessUnitDelimiter", 1109, (*(v15 + 32) + *(v15 + 12)), *(v15 + 12));
+                      v81 = sub_175AE4();
                       sub_160F68(8);
-                      v89 = *(v15 + 32) + *(v15 + 12);
-                      syslog(3, "%lld %d AVE %s: %s:%d rbsp_trailing_bits %p (%d)", v88);
+                      syslog(3, "%lld %d AVE %s: %s:%d rbsp_trailing_bits %p (%d)", v81);
                     }
 
                     else
                     {
-                      v100 = *(v15 + 32) + v86;
-                      syslog(3, "%lld %d AVE %s: %s:%d rbsp_trailing_bits %p (%d)", v84);
+                      syslog(3, "%lld %d AVE %s: %s:%d rbsp_trailing_bits %p (%d)", v79);
                     }
 
-                    a5 = v82;
+                    a5 = v77;
                   }
 
                   *a6 = *(v15 + 12);
@@ -1714,34 +952,33 @@ LABEL_31:
                   }
 
                   v18 = a5;
-                  v90 = sub_160F34(0xD3u);
-                  v91 = sub_175AE4();
-                  v92 = sub_160F68(7);
-                  if (v90)
+                  v82 = sub_160F34(0xD3u);
+                  v83 = sub_175AE4();
+                  v84 = sub_160F68(7);
+                  if (v82)
                   {
-                    printf("%lld %d AVE %s: %s:%d final SEISize %d\n", v91, 211, v92, "AVE_SEI_WriteAccessUnitDelimiter", 1112, *a6);
+                    printf("%lld %d AVE %s: %s:%d final SEISize %d\n", v83, 211, v84, "AVE_SEI_WriteAccessUnitDelimiter", 1112, *a6);
                     sub_175AE4();
                     sub_160F68(7);
-                    v93 = *a6;
                   }
 
                   syslog(3, "%lld %d AVE %s: %s:%d final SEISize %d");
                   goto LABEL_33;
                 }
 
-                v17 = v79;
+                v17 = v74;
                 if (!sub_160EF0(0xD3u, 4))
                 {
                   goto LABEL_48;
                 }
 
                 v18 = a5;
-                v80 = sub_160F34(0xD3u);
+                v75 = sub_160F34(0xD3u);
                 v20 = sub_175AE4();
-                v81 = sub_160F68(4);
-                if (v80)
+                v76 = sub_160F68(4);
+                if (v75)
                 {
-                  printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v20, 211, v81, "AVE_SEI_WriteAccessUnitDelimiter", 1103, "(ret) == 0", a1, v17);
+                  printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v20, 211, v76, "AVE_SEI_WriteAccessUnitDelimiter", 1103, "(ret) == 0", a1, v17);
                   v22 = sub_175AE4();
                   sub_160F68(4);
                   goto LABEL_13;
@@ -1753,20 +990,20 @@ LABEL_31:
 
             if (sub_160EF0(0xD3u, 4))
             {
-              v68 = sub_160F34(0xD3u);
-              v69 = sub_175AE4();
-              v70 = sub_160F68(4);
-              if (v68)
+              v63 = sub_160F34(0xD3u);
+              v64 = sub_175AE4();
+              v65 = sub_160F68(4);
+              if (v63)
               {
-                printf("%lld %d AVE %s: %s:%d %s | ERROR: FrameType NOT RECOGNIZED = %d. FAIL %p\n", v69, 211, v70, "AVE_SEI_WriteAccessUnitDelimiter", 1084, "false", a5, a1);
-                v71 = sub_175AE4();
+                printf("%lld %d AVE %s: %s:%d %s | ERROR: FrameType NOT RECOGNIZED = %d. FAIL %p\n", v64, 211, v65, "AVE_SEI_WriteAccessUnitDelimiter", 1084, "false", a5, a1);
+                v66 = sub_175AE4();
                 sub_160F68(4);
-                syslog(3, "%lld %d AVE %s: %s:%d %s | ERROR: FrameType NOT RECOGNIZED = %d. FAIL %p", v71, 211);
+                syslog(3, "%lld %d AVE %s: %s:%d %s | ERROR: FrameType NOT RECOGNIZED = %d. FAIL %p", v66, 211);
               }
 
               else
               {
-                syslog(3, "%lld %d AVE %s: %s:%d %s | ERROR: FrameType NOT RECOGNIZED = %d. FAIL %p", v69, 211);
+                syslog(3, "%lld %d AVE %s: %s:%d %s | ERROR: FrameType NOT RECOGNIZED = %d. FAIL %p", v64, 211);
               }
 
               v17 = 4294966295;
@@ -1776,20 +1013,20 @@ LABEL_31:
 
           else if (sub_160EF0(0xD3u, 4))
           {
-            v47 = sub_160F34(0xD3u);
-            v48 = sub_175AE4();
-            v49 = sub_160F68(4);
-            if (v47)
+            v44 = sub_160F34(0xD3u);
+            v45 = sub_175AE4();
+            v46 = sub_160F68(4);
+            if (v44)
             {
-              printf("%lld %d AVE %s: %s:%d %s | encType %d not recognized. FAIL %p\n", v48, 211, v49, "AVE_SEI_WriteAccessUnitDelimiter", 1064, "false", a4, a1);
-              v50 = sub_175AE4();
+              printf("%lld %d AVE %s: %s:%d %s | encType %d not recognized. FAIL %p\n", v45, 211, v46, "AVE_SEI_WriteAccessUnitDelimiter", 1064, "false", a4, a1);
+              v47 = sub_175AE4();
               sub_160F68(4);
-              syslog(3, "%lld %d AVE %s: %s:%d %s | encType %d not recognized. FAIL %p", v50, 211);
+              syslog(3, "%lld %d AVE %s: %s:%d %s | encType %d not recognized. FAIL %p", v47, 211);
             }
 
             else
             {
-              syslog(3, "%lld %d AVE %s: %s:%d %s | encType %d not recognized. FAIL %p", v48, 211);
+              syslog(3, "%lld %d AVE %s: %s:%d %s | encType %d not recognized. FAIL %p", v45, 211);
             }
           }
 
@@ -1918,28 +1155,30 @@ LABEL_48:
 LABEL_53:
   if (sub_160EF0(0xD3u, v23))
   {
-    v59 = sub_160F34(0xD3u);
-    v60 = sub_175AE4();
-    v61 = sub_160F68(v23);
-    if (v59)
+    v55 = sub_160F34(0xD3u);
+    v56 = sub_175AE4();
+    v57 = sub_160F68(v23);
+    if (v55)
     {
-      printf("%lld %d AVE %s: %s Exit %p %d %lld %d %d %p %d\n", v60, 211, v61, "AVE_SEI_WriteAccessUnitDelimiter", a1, a2, a3, a4, a5, a6, v17);
-      v62 = sub_175AE4();
-      v95 = sub_160F68(v23);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d %lld %d %d %p %d", v62, 211, v95, "AVE_SEI_WriteAccessUnitDelimiter");
+      printf("%lld %d AVE %s: %s Exit %p %d %lld %d %d %p %d\n", v56, 211, v57, "AVE_SEI_WriteAccessUnitDelimiter", a1, v88, a3, a4, a5, a6, v17);
+      v58 = sub_175AE4();
+      v86 = sub_160F68(v23);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d %lld %d %d %p %d", v58, 211, v86, "AVE_SEI_WriteAccessUnitDelimiter");
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d %lld %d %d %p %d", v60, 211, v61, "AVE_SEI_WriteAccessUnitDelimiter");
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d %lld %d %d %p %d", v56, 211, v57, "AVE_SEI_WriteAccessUnitDelimiter");
     }
   }
 
   return v17;
 }
 
-uint64_t sub_D4884(const void *a1, int a2, int a3, uint64_t a4, int a5, int *a6)
+uint64_t sub_D4884(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int *a6)
 {
+  v8 = a3;
+  v9 = a2;
   if (sub_160EF0(0xD3u, 7))
   {
     v10 = sub_160F34(0xD3u);
@@ -1947,7 +1186,7 @@ uint64_t sub_D4884(const void *a1, int a2, int a3, uint64_t a4, int a5, int *a6)
     v12 = sub_160F68(7);
     if (v10)
     {
-      printf("%lld %d AVE %s: %s Enter %p %d %d %lld %d %p\n", v11, 211, v12, "AVE_SEI_WriteActiveParameterSets", a1, a2, a3, a4, a5, a6);
+      printf("%lld %d AVE %s: %s Enter %p %d %d %lld %d %p\n", v11, 211, v12, "AVE_SEI_WriteActiveParameterSets", a1, v9, v8, a4, a5, a6);
       v13 = sub_175AE4();
       v72 = sub_160F68(7);
       syslog(3, "%lld %d AVE %s: %s Enter %p %d %d %lld %d %p", v13, 211, v72, "AVE_SEI_WriteActiveParameterSets");
@@ -2036,13 +1275,13 @@ LABEL_25:
         syslog(3, "%lld %d AVE %s: %s:%d %s | Failed to create SyntaxWriter %p", v44);
       }
 
-      v83 = 4294966293;
+      v81 = 4294966293;
       goto LABEL_76;
     }
 
-    sub_1725DC(v16, a1, a2, 0);
-    v83 = sub_CED64(v17, 2, 129, "AVE_SEI_WriteActiveParameterSets");
-    if (v83)
+    sub_1725DC(v16, a1, v9, 0);
+    v81 = sub_CED64(v17, 2, 129, "AVE_SEI_WriteActiveParameterSets");
+    if (v81)
     {
       if (sub_160EF0(0xD3u, 4))
       {
@@ -2051,14 +1290,14 @@ LABEL_25:
         v20 = sub_160F68(4);
         if (v18)
         {
-          printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v19, 211, v20, "AVE_SEI_WriteActiveParameterSets", 1181, "(ret) == 0", a1, v83);
+          printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v19, 211, v20, "AVE_SEI_WriteActiveParameterSets", 1181, "(ret) == 0", a1, v81);
           v21 = sub_175AE4();
-          v77 = a1;
-          v79 = v83;
+          v75 = a1;
+          v77 = v81;
           v74 = 1181;
           v73 = sub_160F68(4);
 LABEL_65:
-          syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v21, 211, v73, "AVE_SEI_WriteActiveParameterSets", v74, "(ret) == 0", v77, v79);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v21, 211, v73, "AVE_SEI_WriteActiveParameterSets", v74, "(ret) == 0", v75, v77);
           goto LABEL_76;
         }
 
@@ -2070,8 +1309,8 @@ LABEL_75:
       goto LABEL_76;
     }
 
-    v83 = sub_1727D0(v15, 0, 4);
-    if (v83)
+    v81 = sub_1727D0(v15, 0, 4);
+    if (v81)
     {
       if (!sub_160EF0(0xD3u, 4))
       {
@@ -2086,20 +1325,20 @@ LABEL_75:
         goto LABEL_75;
       }
 
-      v81 = v17;
-      v48 = v83;
-      v80 = v83;
+      v79 = v17;
+      v48 = v81;
+      v78 = v81;
       v49 = a1;
-      v78 = a1;
-      v82 = a5;
-      v50 = a3;
+      v76 = a1;
+      v80 = a5;
+      v50 = v8;
       v51 = 1185;
     }
 
     else
     {
-      v83 = sub_17262C(v15, 1);
-      if (v83)
+      v81 = sub_17262C(v15, 1);
+      if (v81)
       {
         if (!sub_160EF0(0xD3u, 4))
         {
@@ -2114,20 +1353,20 @@ LABEL_75:
           goto LABEL_75;
         }
 
-        v81 = v17;
-        v48 = v83;
-        v80 = v83;
+        v79 = v17;
+        v48 = v81;
+        v78 = v81;
         v49 = a1;
-        v78 = a1;
-        v82 = a5;
-        v50 = a3;
+        v76 = a1;
+        v80 = a5;
+        v50 = v8;
         v51 = 1187;
       }
 
       else
       {
-        v83 = sub_17262C(v15, 1);
-        if (v83)
+        v81 = sub_17262C(v15, 1);
+        if (v81)
         {
           if (!sub_160EF0(0xD3u, 4))
           {
@@ -2142,20 +1381,20 @@ LABEL_75:
             goto LABEL_75;
           }
 
-          v81 = v17;
-          v48 = v83;
-          v80 = v83;
+          v79 = v17;
+          v48 = v81;
+          v78 = v81;
           v49 = a1;
-          v78 = a1;
-          v82 = a5;
-          v50 = a3;
+          v76 = a1;
+          v80 = a5;
+          v50 = v8;
           v51 = 1189;
         }
 
         else
         {
-          v83 = sub_1727D4(v15, 0);
-          if (v83)
+          v81 = sub_1727D4(v15, 0);
+          if (v81)
           {
             if (!sub_160EF0(0xD3u, 4))
             {
@@ -2170,25 +1409,25 @@ LABEL_75:
               goto LABEL_75;
             }
 
-            v81 = v17;
-            v48 = v83;
-            v80 = v83;
+            v79 = v17;
+            v48 = v81;
+            v78 = v81;
             v49 = a1;
-            v78 = a1;
-            v82 = a5;
-            v50 = a3;
+            v76 = a1;
+            v80 = a5;
+            v50 = v8;
             v51 = 1191;
           }
 
           else
           {
-            v83 = sub_1727D4(v15, a3);
-            if (!v83)
+            v81 = sub_1727D4(v15, v8);
+            if (!v81)
             {
               if (v15[2])
               {
-                v83 = sub_172978(v15);
-                if (v83)
+                v81 = sub_172978(v15);
+                if (v81)
                 {
                   if (!sub_160EF0(0xD3u, 4))
                   {
@@ -2200,7 +1439,7 @@ LABEL_75:
                   v57 = sub_160F68(4);
                   if (v56)
                   {
-                    printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v19, 211, v57, "AVE_SEI_WriteActiveParameterSets", 1199, "(ret) == 0", a1, v83);
+                    printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v19, 211, v57, "AVE_SEI_WriteActiveParameterSets", 1199, "(ret) == 0", a1, v81);
                     v58 = sub_175AE4();
                     sub_160F68(4);
                     syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v58, 211);
@@ -2221,19 +1460,17 @@ LABEL_75:
                   printf("%lld %d AVE %s: %s:%d New bits %d (bytes %d)\n", v60, 211, v61, "AVE_SEI_WriteActiveParameterSets", 1203, v15[2] + 8 * v15[3], (v15[2] + 8 * v15[3]) >> 3);
                   v62 = sub_175AE4();
                   sub_160F68(8);
-                  v75 = (v15[2] + 8 * v15[3]);
                   syslog(3, "%lld %d AVE %s: %s:%d New bits %d (bytes %d)", v62);
                 }
 
                 else
                 {
-                  v76 = (v15[2] + 8 * v15[3]);
                   syslog(3, "%lld %d AVE %s: %s:%d New bits %d (bytes %d)", v60);
                 }
               }
 
-              v83 = sub_CFEC0(v15, v17, "AVE_SEI_WriteActiveParameterSets");
-              if (!v83)
+              v81 = sub_CFEC0(v15, v17, "AVE_SEI_WriteActiveParameterSets");
+              if (!v81)
               {
                 *a6 = v17[3];
                 if (sub_160EF0(0xD3u, 7))
@@ -2256,7 +1493,7 @@ LABEL_75:
                   }
                 }
 
-                v83 = 0;
+                v81 = 0;
                 goto LABEL_76;
               }
 
@@ -2267,7 +1504,7 @@ LABEL_75:
                 v64 = sub_160F68(4);
                 if (v63)
                 {
-                  printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v19, 211, v64, "AVE_SEI_WriteActiveParameterSets", 1206, "(ret) == 0", a1, v83);
+                  printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v19, 211, v64, "AVE_SEI_WriteActiveParameterSets", 1206, "(ret) == 0", a1, v81);
                   v65 = sub_175AE4();
                   sub_160F68(4);
                   syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v65, 211);
@@ -2284,8 +1521,8 @@ LABEL_76:
                 (*(*v17 + 8))(v17);
               }
 
-              v36 = v83;
-              if (v83)
+              v36 = v81;
+              if (v81)
               {
                 v22 = 4;
               }
@@ -2311,27 +1548,27 @@ LABEL_76:
               goto LABEL_75;
             }
 
-            v81 = v17;
-            v48 = v83;
-            v80 = v83;
+            v79 = v17;
+            v48 = v81;
+            v78 = v81;
             v49 = a1;
-            v78 = a1;
-            v82 = a5;
-            v50 = a3;
+            v76 = a1;
+            v80 = a5;
+            v50 = v8;
             v51 = 1193;
           }
         }
       }
     }
 
-    printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v19, 211, v47, "AVE_SEI_WriteActiveParameterSets", v51, "(ret) == 0", v78, v80);
+    printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v19, 211, v47, "AVE_SEI_WriteActiveParameterSets", v51, "(ret) == 0", v76, v78);
     v21 = sub_175AE4();
-    v77 = v49;
-    v79 = v48;
+    v75 = v49;
+    v77 = v48;
     v74 = v51;
-    a3 = v50;
-    v17 = v81;
-    a5 = v82;
+    v8 = v50;
+    v17 = v79;
+    a5 = v80;
     v73 = sub_160F68(4);
     goto LABEL_65;
   }
@@ -2367,7 +1604,7 @@ LABEL_27:
     v39 = sub_160F68(v22);
     if (v37)
     {
-      printf("%lld %d AVE %s: %s Exit %p %d %d %lld %d %p %d\n", v38, 211, v39, "AVE_SEI_WriteActiveParameterSets", a1, a2, a3, a4, a5, a6, v36);
+      printf("%lld %d AVE %s: %s Exit %p %d %d %lld %d %p %d\n", v38, 211, v39, "AVE_SEI_WriteActiveParameterSets", a1, v9, v8, a4, a5, a6, v36);
       v40 = sub_175AE4();
       v41 = sub_160F68(v22);
       syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %lld %d %p %d", v40, 211, v41, "AVE_SEI_WriteActiveParameterSets", a1);
@@ -2382,8 +1619,9 @@ LABEL_27:
   return v36;
 }
 
-uint64_t sub_D5818(const void *a1, int a2, uint64_t a3, int a4, int a5, int a6, int a7, int a8, int *a9)
+uint64_t sub_D5818(const void *a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, int a8, int *a9)
 {
+  v12 = a2;
   if (sub_160EF0(0xD3u, 7))
   {
     v13 = sub_160F34(0xD3u);
@@ -2391,10 +1629,10 @@ uint64_t sub_D5818(const void *a1, int a2, uint64_t a3, int a4, int a5, int a6, 
     v15 = sub_160F68(7);
     if (v13)
     {
-      printf("%lld %d AVE %s: %s Enter %p %d %lld %d %d %u %d %d %p\n", v14, 211, v15, "AVE_SEI_WritePictureTiming", a1, a2, a3, a4, a5, a6, a7, a8, a9);
+      printf("%lld %d AVE %s: %s Enter %p %d %lld %d %d %u %d %d %p\n", v14, 211, v15, "AVE_SEI_WritePictureTiming", a1, v12, a3, a4, a5, a6, a7, a8, a9);
       v16 = sub_175AE4();
-      v91 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %d %lld %d %d %u %d %d %p", v16, 211, v91, "AVE_SEI_WritePictureTiming", a1);
+      v89 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %d %lld %d %d %u %d %d %p", v16, 211, v89, "AVE_SEI_WritePictureTiming", a1);
     }
 
     else
@@ -2488,7 +1726,7 @@ LABEL_34:
       goto LABEL_74;
     }
 
-    sub_1725DC(v19, a1, a2, 0);
+    sub_1725DC(v19, a1, v12, 0);
     if (dword_20C9A8 == dword_20C9AC)
     {
       v21 = 0;
@@ -2496,12 +1734,12 @@ LABEL_34:
 
     else
     {
-      v21 = (dword_20C9A8 + ~dword_20C9AC);
+      v21 = dword_20C9A8 + ~dword_20C9AC;
     }
 
     if (a5)
     {
-      v22 = (a6 - dword_20C9A8 + 2);
+      v22 = a6 - dword_20C9A8 + 2;
     }
 
     else
@@ -2528,12 +1766,12 @@ LABEL_34:
         {
           printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v26, 211, v27, "AVE_SEI_WritePictureTiming", 1304, "(ret) == 0", a1, v24);
           v28 = sub_175AE4();
-          v99 = a1;
-          v100 = v24;
-          v94 = 1304;
-          v92 = sub_160F68(4);
+          v93 = a1;
+          v94 = v24;
+          v92 = 1304;
+          v90 = sub_160F68(4);
 LABEL_63:
-          syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v28, 211, v92, "AVE_SEI_WritePictureTiming", v94, "(ret) == 0", v99, v100);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v28, 211, v90, "AVE_SEI_WritePictureTiming", v92, "(ret) == 0", v93, v94);
           goto LABEL_74;
         }
 
@@ -2567,152 +1805,146 @@ LABEL_74:
       v53 = sub_160F34(0xD3u);
       v54 = sub_175AE4();
       v55 = sub_160F68(8);
-      v56 = *(v20 + 12);
-      v57 = *(v20 + 32) + v56;
       if (v53)
       {
-        printf("%lld %d AVE %s: %s:%d payloadType %p (%d)\n", v54, 211, v55, "AVE_SEI_WritePictureTiming", 1308, (*(v20 + 32) + v56), v56);
-        v58 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d payloadType %p (%d)\n", v54, 211, v55, "AVE_SEI_WritePictureTiming", 1308, (*(v20 + 32) + *(v20 + 12)), *(v20 + 12));
+        v56 = sub_175AE4();
         sub_160F68(8);
-        v95 = *(v20 + 32) + *(v20 + 12);
-        syslog(3, "%lld %d AVE %s: %s:%d payloadType %p (%d)", v58);
+        syslog(3, "%lld %d AVE %s: %s:%d payloadType %p (%d)", v56);
       }
 
       else
       {
-        v96 = *(v20 + 32) + v56;
         syslog(3, "%lld %d AVE %s: %s:%d payloadType %p (%d)", v54);
       }
 
       v21 = v52;
     }
 
-    v59 = sub_1727D0(v18, v21, 24);
-    if (v59)
+    v57 = sub_1727D0(v18, v21, 24);
+    if (v57)
     {
-      v24 = v59;
+      v24 = v57;
       if (!sub_160EF0(0xD3u, 4))
       {
         goto LABEL_74;
       }
 
-      v60 = sub_160F34(0xD3u);
+      v58 = sub_160F34(0xD3u);
       v26 = sub_175AE4();
-      v61 = sub_160F68(4);
-      if (!v60)
+      v59 = sub_160F68(4);
+      if (!v58)
       {
         goto LABEL_73;
       }
 
-      v62 = v26;
-      v63 = v24;
-      v64 = a1;
-      v65 = a8;
-      v66 = a4;
-      v67 = a7;
-      v68 = 1312;
-      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v62, 211, v61, "AVE_SEI_WritePictureTiming", 1312, "(ret) == 0", a1, v24);
+      v60 = v26;
+      v61 = v24;
+      v62 = a1;
+      v63 = a8;
+      v64 = a4;
+      v65 = a7;
+      v66 = 1312;
+      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v60, 211, v59, "AVE_SEI_WritePictureTiming", 1312, "(ret) == 0", a1, v24);
     }
 
     else
     {
-      v69 = sub_1727D0(v18, v22, 24);
-      if (v69)
+      v67 = sub_1727D0(v18, v22, 24);
+      if (v67)
       {
-        v24 = v69;
+        v24 = v67;
         if (!sub_160EF0(0xD3u, 4))
         {
           goto LABEL_74;
         }
 
-        v70 = sub_160F34(0xD3u);
+        v68 = sub_160F34(0xD3u);
         v26 = sub_175AE4();
-        v71 = sub_160F68(4);
-        if (!v70)
+        v69 = sub_160F68(4);
+        if (!v68)
         {
           goto LABEL_73;
         }
 
-        v72 = v26;
-        v63 = v24;
-        v64 = a1;
-        v65 = a8;
-        v66 = a4;
-        v67 = a7;
-        v68 = 1314;
-        printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v72, 211, v71, "AVE_SEI_WritePictureTiming", 1314, "(ret) == 0", a1, v24);
+        v70 = v26;
+        v61 = v24;
+        v62 = a1;
+        v63 = a8;
+        v64 = a4;
+        v65 = a7;
+        v66 = 1314;
+        printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v70, 211, v69, "AVE_SEI_WritePictureTiming", 1314, "(ret) == 0", a1, v24);
       }
 
-      else if (v18[2] && (v73 = sub_172978(v18), v73))
+      else if (v18[2] && (v71 = sub_172978(v18), v71))
       {
-        v24 = v73;
+        v24 = v71;
         if (!sub_160EF0(0xD3u, 4))
         {
           goto LABEL_74;
         }
 
-        v74 = sub_160F34(0xD3u);
+        v72 = sub_160F34(0xD3u);
         v26 = sub_175AE4();
-        v75 = sub_160F68(4);
-        if (!v74)
+        v73 = sub_160F68(4);
+        if (!v72)
         {
           goto LABEL_73;
         }
 
-        v76 = v26;
-        v63 = v24;
-        v64 = a1;
-        v65 = a8;
-        v66 = a4;
-        v67 = a7;
-        v68 = 1320;
-        printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v76, 211, v75, "AVE_SEI_WritePictureTiming", 1320, "(ret) == 0", a1, v24);
+        v74 = v26;
+        v61 = v24;
+        v62 = a1;
+        v63 = a8;
+        v64 = a4;
+        v65 = a7;
+        v66 = 1320;
+        printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v74, 211, v73, "AVE_SEI_WritePictureTiming", 1320, "(ret) == 0", a1, v24);
       }
 
       else
       {
         if (sub_160EF0(0xD3u, 8))
         {
-          v77 = sub_160F34(0xD3u);
-          v78 = sub_175AE4();
-          v79 = sub_160F68(8);
-          if (v77)
+          v75 = sub_160F34(0xD3u);
+          v76 = sub_175AE4();
+          v77 = sub_160F68(8);
+          if (v75)
           {
-            printf("%lld %d AVE %s: %s:%d New bits %d (bytes %d)\n", v78, 211, v79, "AVE_SEI_WritePictureTiming", 1324, v18[2] + 8 * v18[3], (v18[2] + 8 * v18[3]) >> 3);
-            v80 = sub_175AE4();
+            printf("%lld %d AVE %s: %s:%d New bits %d (bytes %d)\n", v76, 211, v77, "AVE_SEI_WritePictureTiming", 1324, v18[2] + 8 * v18[3], (v18[2] + 8 * v18[3]) >> 3);
+            v78 = sub_175AE4();
             sub_160F68(8);
-            v97 = (v18[2] + 8 * v18[3]);
-            syslog(3, "%lld %d AVE %s: %s:%d New bits %d (bytes %d)", v80);
+            syslog(3, "%lld %d AVE %s: %s:%d New bits %d (bytes %d)", v78);
           }
 
           else
           {
-            v98 = (v18[2] + 8 * v18[3]);
-            syslog(3, "%lld %d AVE %s: %s:%d New bits %d (bytes %d)", v78);
+            syslog(3, "%lld %d AVE %s: %s:%d New bits %d (bytes %d)", v76);
           }
         }
 
-        v81 = sub_CFEC0(v18, v20, "AVE_SEI_WritePictureTiming");
-        if (!v81)
+        v79 = sub_CFEC0(v18, v20, "AVE_SEI_WritePictureTiming");
+        if (!v79)
         {
           *a9 = *(v20 + 12);
           if (sub_160EF0(0xD3u, 7))
           {
-            v85 = sub_160F34(0xD3u);
-            v86 = sub_175AE4();
-            v87 = sub_160F68(7);
-            v88 = *a9;
-            if (v85)
+            v83 = sub_160F34(0xD3u);
+            v84 = sub_175AE4();
+            v85 = sub_160F68(7);
+            v86 = *a9;
+            if (v83)
             {
-              printf("%lld %d AVE %s: %s:%d final SEISize %d\n", v86, 211, v87, "AVE_SEI_WritePictureTiming", 1330, v88);
-              v89 = sub_175AE4();
-              v90 = sub_160F68(7);
-              syslog(3, "%lld %d AVE %s: %s:%d final SEISize %d", v89, 211, v90, "AVE_SEI_WritePictureTiming", 1330, *a9);
+              printf("%lld %d AVE %s: %s:%d final SEISize %d\n", v84, 211, v85, "AVE_SEI_WritePictureTiming", 1330, v86);
+              v87 = sub_175AE4();
+              v88 = sub_160F68(7);
+              syslog(3, "%lld %d AVE %s: %s:%d final SEISize %d", v87, 211, v88, "AVE_SEI_WritePictureTiming", 1330, *a9);
             }
 
             else
             {
-              syslog(3, "%lld %d AVE %s: %s:%d final SEISize %d", v86, 211, v87, "AVE_SEI_WritePictureTiming", 1330, v88);
+              syslog(3, "%lld %d AVE %s: %s:%d final SEISize %d", v84, 211, v85, "AVE_SEI_WritePictureTiming", 1330, v86);
             }
           }
 
@@ -2720,39 +1952,39 @@ LABEL_74:
           goto LABEL_74;
         }
 
-        v24 = v81;
+        v24 = v79;
         if (!sub_160EF0(0xD3u, 4))
         {
           goto LABEL_74;
         }
 
-        v82 = sub_160F34(0xD3u);
+        v80 = sub_160F34(0xD3u);
         v26 = sub_175AE4();
-        v83 = sub_160F68(4);
-        if (!v82)
+        v81 = sub_160F68(4);
+        if (!v80)
         {
           goto LABEL_73;
         }
 
-        v84 = v26;
-        v63 = v24;
-        v64 = a1;
-        v65 = a8;
-        v66 = a4;
-        v67 = a7;
-        v68 = 1327;
-        printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v84, 211, v83, "AVE_SEI_WritePictureTiming", 1327, "(ret) == 0", a1, v24);
+        v82 = v26;
+        v61 = v24;
+        v62 = a1;
+        v63 = a8;
+        v64 = a4;
+        v65 = a7;
+        v66 = 1327;
+        printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v82, 211, v81, "AVE_SEI_WritePictureTiming", 1327, "(ret) == 0", a1, v24);
       }
     }
 
     v28 = sub_175AE4();
-    v99 = v64;
-    v100 = v63;
-    v94 = v68;
-    a7 = v67;
-    a4 = v66;
-    a8 = v65;
-    v92 = sub_160F68(4);
+    v93 = v62;
+    v94 = v61;
+    v92 = v66;
+    a7 = v65;
+    a4 = v64;
+    a8 = v63;
+    v90 = sub_160F68(4);
     goto LABEL_63;
   }
 
@@ -2789,8 +2021,8 @@ LABEL_36:
     {
       printf("%lld %d AVE %s: %s Exit %p %lld %d %d %u %d %d %p %d\n", v44, 211, v45, "AVE_SEI_WritePictureTiming", a1, a3, a4, a5, a6, a7, a8, a9, v24);
       v46 = sub_175AE4();
-      v93 = sub_160F68(v29);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %lld %d %d %u %d %d %p %d", v46, 211, v93, "AVE_SEI_WritePictureTiming", a1);
+      v91 = sub_160F68(v29);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %lld %d %d %u %d %d %p %d", v46, 211, v91, "AVE_SEI_WritePictureTiming", a1);
     }
 
     else
@@ -2802,8 +2034,10 @@ LABEL_36:
   return v24;
 }
 
-uint64_t sub_D6670(void *a1, int a2, uint64_t a3, int a4, const void *a5, int *a6)
+uint64_t sub_D6670(void *a1, int *a2, uint64_t a3, uint64_t a4, void *a5, int *a6)
 {
+  v8 = a4;
+  v10 = a2;
   if (sub_160EF0(0xD3u, 7))
   {
     v12 = sub_160F34(0xD3u);
@@ -2811,7 +2045,7 @@ uint64_t sub_D6670(void *a1, int a2, uint64_t a3, int a4, const void *a5, int *a
     v14 = sub_160F68(7);
     if (v12)
     {
-      printf("%lld %d AVE %s: %s Enter %p %d %lld %d %d %p\n", v13, 211, v14, "AVE_SEI_WriteBufferingPeriod", a1, a2, a3, a4, a5, a6);
+      printf("%lld %d AVE %s: %s Enter %p %d %lld %d %d %p\n", v13, 211, v14, "AVE_SEI_WriteBufferingPeriod", a1, v10, a3, v8, a5, a6);
       v15 = sub_175AE4();
       v99 = sub_160F68(7);
       syslog(3, "%lld %d AVE %s: %s Enter %p %d %lld %d %d %p", v15, 211, v99);
@@ -2837,15 +2071,15 @@ uint64_t sub_D6670(void *a1, int a2, uint64_t a3, int a4, const void *a5, int *a
         printf("%lld %d AVE %s: %s:%d %s | invalid args %p %p\n", v27, 211, v28, "AVE_SEI_WriteBufferingPeriod", 1383, "pBuf != __null && pSEISize != __null", a1, a6);
         v30 = sub_175AE4();
         v25 = 4;
-        v105 = a1;
-        v106 = a6;
+        v103 = a1;
+        v104 = a6;
         v101 = 1383;
         v102 = "pBuf != __null && pSEISize != __null";
         v100 = sub_160F68(4);
         v31 = "%lld %d AVE %s: %s:%d %s | invalid args %p %p";
 LABEL_20:
         a3 = v29;
-        syslog(3, v31, v30, 211, v100, "AVE_SEI_WriteBufferingPeriod", v101, v102, v105, v106);
+        syslog(3, v31, v30, 211, v100, "AVE_SEI_WriteBufferingPeriod", v101, v102, v103, v104);
         goto LABEL_27;
       }
 
@@ -2873,8 +2107,8 @@ LABEL_27:
         printf("%lld %d AVE %s: %s:%d %s | encType %d not supported %p\n", v33, 211, v34, "AVE_SEI_WriteBufferingPeriod", 1386, "encType == AVE_EncType_HEVC", a5, a1);
         v30 = sub_175AE4();
         v25 = 4;
-        v105 = a5;
-        v106 = a1;
+        v103 = a5;
+        v104 = a1;
         v101 = 1386;
         v102 = "encType == AVE_EncType_HEVC";
         v100 = sub_160F68(4);
@@ -2907,7 +2141,7 @@ LABEL_27:
         if (!v49)
         {
           syslog(3, "%lld %d AVE %s: %s:%d %s | Failed to create SyntaxWriter %p", v50, 211, v51, "AVE_SEI_WriteBufferingPeriod", 1394, "pcSyntaxWriter_NALU != __null", a1);
-          v114 = 4294966293;
+          v112 = 4294966293;
           a6 = v48;
           goto LABEL_72;
         }
@@ -2919,13 +2153,13 @@ LABEL_27:
         syslog(3, "%lld %d AVE %s: %s:%d %s | Failed to create SyntaxWriter %p", v52, 211, v53, "AVE_SEI_WriteBufferingPeriod", 1394, "pcSyntaxWriter_NALU != __null", a1);
       }
 
-      v114 = 4294966293;
+      v112 = 4294966293;
       goto LABEL_72;
     }
 
-    sub_1725DC(v18, a1, a2, 0);
-    v114 = sub_CED64(v19, 2, 0, "AVE_SEI_WriteBufferingPeriod");
-    if (v114)
+    sub_1725DC(v18, a1, v10, 0);
+    v112 = sub_CED64(v19, 2, 0, "AVE_SEI_WriteBufferingPeriod");
+    if (v112)
     {
       if (sub_160EF0(0xD3u, 4))
       {
@@ -2935,7 +2169,7 @@ LABEL_27:
         v23 = sub_160F68(4);
         if (v21)
         {
-          printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v22, 211, v23, "AVE_SEI_WriteBufferingPeriod", 1398, "(ret) == 0", a1, v114);
+          printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v22, 211, v23, "AVE_SEI_WriteBufferingPeriod", 1398, "(ret) == 0", a1, v112);
           v24 = sub_175AE4();
           sub_160F68(4);
           a6 = v20;
@@ -2943,7 +2177,7 @@ LABEL_27:
           goto LABEL_72;
         }
 
-        syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v22, 211, v23, "AVE_SEI_WriteBufferingPeriod", 1398, "(ret) == 0", a1, v114);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v22, 211, v23, "AVE_SEI_WriteBufferingPeriod", 1398, "(ret) == 0", a1, v112);
 LABEL_71:
         a6 = v20;
       }
@@ -2955,8 +2189,8 @@ LABEL_72:
         (*(*v19 + 8))(v19);
       }
 
-      v40 = v114;
-      if (v114)
+      v40 = v112;
+      if (v112)
       {
         v25 = 4;
       }
@@ -2969,8 +2203,8 @@ LABEL_72:
       goto LABEL_28;
     }
 
-    v114 = sub_1727D4(v17, a4);
-    if (v114)
+    v112 = sub_1727D4(v17, v8);
+    if (v112)
     {
       if (!sub_160EF0(0xD3u, 4))
       {
@@ -2983,30 +2217,30 @@ LABEL_72:
       v56 = sub_160F68(4);
       if (!v54)
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v55, 211, v56, "AVE_SEI_WriteBufferingPeriod", 1402, "(ret) == 0", a1, v114);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v55, 211, v56, "AVE_SEI_WriteBufferingPeriod", 1402, "(ret) == 0", a1, v112);
         goto LABEL_71;
       }
 
-      v108 = v20;
+      v106 = v20;
       v57 = v19;
       v58 = a5;
-      v59 = a4;
-      v60 = a2;
-      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v55, 211, v56, "AVE_SEI_WriteBufferingPeriod", 1402, "(ret) == 0", a1, v114);
+      v59 = v8;
+      v60 = v10;
+      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v55, 211, v56, "AVE_SEI_WriteBufferingPeriod", 1402, "(ret) == 0", a1, v112);
       v61 = sub_175AE4();
       sub_160F68(4);
-      a6 = v108;
+      a6 = v106;
 LABEL_64:
-      a2 = v60;
-      a4 = v59;
+      v10 = v60;
+      v8 = v59;
       LODWORD(a5) = v58;
       v19 = v57;
       syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v61, 211);
       goto LABEL_72;
     }
 
-    v114 = sub_17262C(v17, 0);
-    if (v114)
+    v112 = sub_17262C(v17, 0);
+    if (v112)
     {
       if (!sub_160EF0(0xD3u, 4))
       {
@@ -3019,24 +2253,24 @@ LABEL_64:
       v64 = sub_160F68(4);
       if (!v62)
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v63, 211, v64, "AVE_SEI_WriteBufferingPeriod", 1404, "(ret) == 0", a1, v114);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v63, 211, v64, "AVE_SEI_WriteBufferingPeriod", 1404, "(ret) == 0", a1, v112);
         goto LABEL_71;
       }
 
-      v109 = v20;
+      v107 = v20;
       v57 = v19;
       v58 = a5;
-      v59 = a4;
-      v60 = a2;
-      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v63, 211, v64, "AVE_SEI_WriteBufferingPeriod", 1404, "(ret) == 0", a1, v114);
+      v59 = v8;
+      v60 = v10;
+      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v63, 211, v64, "AVE_SEI_WriteBufferingPeriod", 1404, "(ret) == 0", a1, v112);
       v61 = sub_175AE4();
       sub_160F68(4);
-      a6 = v109;
+      a6 = v107;
       goto LABEL_64;
     }
 
-    v114 = sub_17262C(v17, 0);
-    if (v114)
+    v112 = sub_17262C(v17, 0);
+    if (v112)
     {
       if (!sub_160EF0(0xD3u, 4))
       {
@@ -3049,24 +2283,24 @@ LABEL_64:
       v67 = sub_160F68(4);
       if (!v65)
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v66, 211, v67, "AVE_SEI_WriteBufferingPeriod", 1406, "(ret) == 0", a1, v114);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v66, 211, v67, "AVE_SEI_WriteBufferingPeriod", 1406, "(ret) == 0", a1, v112);
         goto LABEL_71;
       }
 
-      v110 = v20;
+      v108 = v20;
       v57 = v19;
       v58 = a5;
-      v59 = a4;
-      v60 = a2;
-      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v66, 211, v67, "AVE_SEI_WriteBufferingPeriod", 1406, "(ret) == 0", a1, v114);
+      v59 = v8;
+      v60 = v10;
+      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v66, 211, v67, "AVE_SEI_WriteBufferingPeriod", 1406, "(ret) == 0", a1, v112);
       v61 = sub_175AE4();
       sub_160F68(4);
-      a6 = v110;
+      a6 = v108;
       goto LABEL_64;
     }
 
-    v114 = sub_1727D0(v17, 0, 24);
-    if (v114)
+    v112 = sub_1727D0(v17, 0, 24);
+    if (v112)
     {
       if (!sub_160EF0(0xD3u, 4))
       {
@@ -3079,24 +2313,24 @@ LABEL_64:
       v70 = sub_160F68(4);
       if (!v68)
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v69, 211, v70, "AVE_SEI_WriteBufferingPeriod", 1408, "(ret) == 0", a1, v114);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v69, 211, v70, "AVE_SEI_WriteBufferingPeriod", 1408, "(ret) == 0", a1, v112);
         goto LABEL_71;
       }
 
-      v111 = v20;
+      v109 = v20;
       v57 = v19;
       v58 = a5;
-      v59 = a4;
-      v60 = a2;
-      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v69, 211, v70, "AVE_SEI_WriteBufferingPeriod", 1408, "(ret) == 0", a1, v114);
+      v59 = v8;
+      v60 = v10;
+      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v69, 211, v70, "AVE_SEI_WriteBufferingPeriod", 1408, "(ret) == 0", a1, v112);
       v61 = sub_175AE4();
       sub_160F68(4);
-      a6 = v111;
+      a6 = v109;
       goto LABEL_64;
     }
 
-    v114 = sub_1727D0(v17, 90000, 24);
-    if (v114)
+    v112 = sub_1727D0(v17, 0x15F90u, 24);
+    if (v112)
     {
       if (!sub_160EF0(0xD3u, 4))
       {
@@ -3109,37 +2343,37 @@ LABEL_64:
       v73 = sub_160F68(4);
       if (!v71)
       {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v72, 211, v73, "AVE_SEI_WriteBufferingPeriod", 1410, "(ret) == 0", a1, v114);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v72, 211, v73, "AVE_SEI_WriteBufferingPeriod", 1410, "(ret) == 0", a1, v112);
         goto LABEL_71;
       }
 
-      v112 = v20;
+      v110 = v20;
       v57 = v19;
       v58 = a5;
-      v59 = a4;
-      v60 = a2;
-      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v72, 211, v73, "AVE_SEI_WriteBufferingPeriod", 1410, "(ret) == 0", a1, v114);
+      v59 = v8;
+      v60 = v10;
+      printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v72, 211, v73, "AVE_SEI_WriteBufferingPeriod", 1410, "(ret) == 0", a1, v112);
       v61 = sub_175AE4();
       sub_160F68(4);
-      a6 = v112;
+      a6 = v110;
       goto LABEL_64;
     }
 
-    v114 = sub_1727D0(v17, 0, 24);
-    if (v114)
+    v112 = sub_1727D0(v17, 0, 24);
+    if (v112)
     {
       if (sub_160EF0(0xD3u, 4))
       {
-        v107 = v19;
+        v105 = v19;
         v74 = a5;
-        v75 = a2;
+        v75 = v10;
         v76 = a6;
         v77 = sub_160F34(0xD3u);
         v78 = sub_175AE4();
         v79 = sub_160F68(4);
         if (v77)
         {
-          printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v78, 211, v79, "AVE_SEI_WriteBufferingPeriod", 1412, "(ret) == 0", a1, v114);
+          printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v78, 211, v79, "AVE_SEI_WriteBufferingPeriod", 1412, "(ret) == 0", a1, v112);
           v80 = sub_175AE4();
           sub_160F68(4);
           syslog(3, "%lld %d AVE %s: %s:%d %s | %p %d", v80, 211);
@@ -3151,18 +2385,18 @@ LABEL_64:
         }
 
         a6 = v76;
-        a2 = v75;
+        v10 = v75;
         LODWORD(a5) = v74;
-        v19 = v107;
+        v19 = v105;
       }
 
       goto LABEL_72;
     }
 
-    v113 = a4;
+    v111 = v8;
     v81 = a3;
     v82 = a6;
-    if (v17[2] && (v114 = sub_172978(v17), v114))
+    if (v17[2] && (v112 = sub_172978(v17), v112))
     {
       if (sub_160EF0(0xD3u, 4))
       {
@@ -3171,7 +2405,7 @@ LABEL_64:
         v85 = sub_160F68(4);
         if (v83)
         {
-          printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v84, 211, v85, "AVE_SEI_WriteBufferingPeriod", 1418, "(ret) == 0", a1, v114);
+          printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v84, 211, v85, "AVE_SEI_WriteBufferingPeriod", 1418, "(ret) == 0", a1, v112);
           v86 = sub_175AE4();
           sub_160F68(4);
 LABEL_92:
@@ -3195,19 +2429,17 @@ LABEL_92:
           printf("%lld %d AVE %s: %s:%d New bits %d (bytes %d)\n", v88, 211, v89, "AVE_SEI_WriteBufferingPeriod", 1422, v17[2] + 8 * v17[3], (v17[2] + 8 * v17[3]) >> 3);
           v90 = sub_175AE4();
           sub_160F68(8);
-          v103 = (v17[2] + 8 * v17[3]);
           syslog(3, "%lld %d AVE %s: %s:%d New bits %d (bytes %d)", v90);
         }
 
         else
         {
-          v104 = (v17[2] + 8 * v17[3]);
           syslog(3, "%lld %d AVE %s: %s:%d New bits %d (bytes %d)", v88);
         }
       }
 
-      v114 = sub_CFEC0(v17, v19, "AVE_SEI_WriteBufferingPeriod");
-      if (v114)
+      v112 = sub_CFEC0(v17, v19, "AVE_SEI_WriteBufferingPeriod");
+      if (v112)
       {
         if (sub_160EF0(0xD3u, 4))
         {
@@ -3216,7 +2448,7 @@ LABEL_92:
           v92 = sub_160F68(4);
           if (v91)
           {
-            printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v84, 211, v92, "AVE_SEI_WriteBufferingPeriod", 1425, "(ret) == 0", a1, v114);
+            printf("%lld %d AVE %s: %s:%d %s | %p %d\n", v84, 211, v92, "AVE_SEI_WriteBufferingPeriod", 1425, "(ret) == 0", a1, v112);
             v86 = sub_175AE4();
             sub_160F68(4);
             goto LABEL_92;
@@ -3243,17 +2475,17 @@ LABEL_96:
             v98 = sub_160F68(7);
             a6 = v82;
             syslog(3, "%lld %d AVE %s: %s:%d final SEISize %d", v97, 211, v98, "AVE_SEI_WriteBufferingPeriod", 1428, *v82);
-            v114 = 0;
+            v112 = 0;
 LABEL_100:
             a3 = v81;
-            a4 = v113;
+            v8 = v111;
             goto LABEL_72;
           }
 
           syslog(3, "%lld %d AVE %s: %s:%d final SEISize %d", v94, 211, v95, "AVE_SEI_WriteBufferingPeriod", 1428, v96);
         }
 
-        v114 = 0;
+        v112 = 0;
       }
     }
 
@@ -3294,7 +2526,7 @@ LABEL_28:
     v44 = sub_160F68(v25);
     if (v42)
     {
-      printf("%lld %d AVE %s: %s Exit %p %d %lld %d %d %p %d\n", v43, 211, v44, "AVE_SEI_WriteBufferingPeriod", a1, a2, a3, a4, a5, v41, v40);
+      printf("%lld %d AVE %s: %s Exit %p %d %lld %d %d %p %d\n", v43, 211, v44, "AVE_SEI_WriteBufferingPeriod", a1, v10, a3, v8, a5, v41, v40);
       v45 = sub_175AE4();
       v46 = sub_160F68(v25);
       syslog(3, "%lld %d AVE %s: %s Exit %p %d %lld %d %d %p %d", v45, 211, v46, "AVE_SEI_WriteBufferingPeriod");
@@ -3362,7 +2594,6 @@ uint64_t sub_D784C(uint64_t *a1)
           printf("%lld %d AVE %s: %s::%s:%d Unable to find VCP function %p %lld | %s\n", v9, 19, v10, "AVE_VCP", "Uninit", 160, a1, v11, v12);
           v9 = sub_175AE4();
           v10 = sub_160F68(5);
-          v13 = *a1;
           dlerror();
         }
 
@@ -3381,17 +2612,17 @@ uint64_t sub_D784C(uint64_t *a1)
   kdebug_trace();
   if (sub_160EF0(0x13u, 6))
   {
-    v14 = sub_160F34(0x13u);
-    v15 = sub_175AE4();
-    v16 = sub_160F68(6);
-    if (v14)
+    v13 = sub_160F34(0x13u);
+    v14 = sub_175AE4();
+    v15 = sub_160F68(6);
+    if (v13)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v15, 19, v16, "AVE_VCP", "Uninit", a1, v2, 0);
-      v15 = sub_175AE4();
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v14, 19, v15, "AVE_VCP", "Uninit", a1, v2, 0);
+      v14 = sub_175AE4();
       sub_160F68(6);
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v15, 19);
+    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v14, 19);
   }
 
   return 0;
@@ -3611,87 +2842,81 @@ uint64_t sub_D86F8(void *a1, const void *a2, uint64_t a3, uint64_t *a4)
     if (v8)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p 0x%x %p\n", v9, 19, v10, "AVE_VCP", "AllocDPB", a1, *a1, a2, a3, a4);
-      v9 = sub_175AE4();
-      v10 = sub_160F68(8);
-      v11 = *a1;
+      v11 = sub_175AE4();
+      v25 = sub_160F68(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p 0x%x %p", v11, 19, v25, "AVE_VCP");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p 0x%x %p", v9, 19, v10, "AVE_VCP");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p 0x%x %p", v9, 19, v10, "AVE_VCP");
+    }
   }
 
-  v12 = *a1;
   kdebug_trace();
-  v13 = a1[5];
-  if (v13)
+  v12 = a1[5];
+  if (v12)
   {
-    v14 = v13(a2, *(a1 + 5), *(a1 + 3), *(a1 + 4), a3);
-    if (v14)
+    v13 = v12(a2, *(a1 + 5), *(a1 + 3), *(a1 + 4), a3);
+    if (v13)
     {
-      v15 = 0;
+      v14 = 0;
     }
 
     else
     {
       if (sub_160EF0(0x13u, 5))
       {
-        v16 = sub_160F34(0x13u);
-        v17 = sub_175AE4();
-        v18 = sub_160F68(5);
-        v19 = *(a1 + 4);
-        if (v16)
+        v15 = sub_160F34(0x13u);
+        v16 = sub_175AE4();
+        v17 = sub_160F68(5);
+        if (v15)
         {
-          printf("%lld %d AVE %s: %s::%s:%d fail to allocate DPB %p %lld %p %d %d %d 0x%x\n", v17, 19, v18, "AVE_VCP", "AllocDPB", 204, a1, *a1, a2, *(a1 + 5), *(a1 + 3), *(a1 + 4), a3);
-          v17 = sub_175AE4();
-          v18 = sub_160F68(5);
-          v31 = *(a1 + 4);
-          v29 = *(a1 + 5);
-          v30 = *(a1 + 3);
-          v28 = *a1;
+          printf("%lld %d AVE %s: %s::%s:%d fail to allocate DPB %p %lld %p %d %d %d 0x%x\n", v16, 19, v17, "AVE_VCP", "AllocDPB", 204, a1, *a1, a2, *(a1 + 5), *(a1 + 3), *(a1 + 4), a3);
+          v18 = sub_175AE4();
+          v26 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d fail to allocate DPB %p %lld %p %d %d %d 0x%x", v18, 19, v26, "AVE_VCP", "AllocDPB");
         }
 
         else
         {
-          v32 = *(a1 + 4);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d fail to allocate DPB %p %lld %p %d %d %d 0x%x", v16, 19, v17, "AVE_VCP", "AllocDPB");
         }
-
-        syslog(3, "%lld %d AVE %s: %s::%s:%d fail to allocate DPB %p %lld %p %d %d %d 0x%x", v17, 19, v18, "AVE_VCP", "AllocDPB");
       }
 
-      v14 = 0;
-      v15 = 4294966293;
+      v13 = 0;
+      v14 = 4294966293;
     }
   }
 
   else
   {
-    v14 = 0;
-    v15 = 4294966294;
+    v13 = 0;
+    v14 = 4294966294;
   }
 
-  *a4 = v14;
-  v20 = *a1;
+  *a4 = v13;
   kdebug_trace();
   if (sub_160EF0(0x13u, 8))
   {
-    v21 = sub_160F34(0x13u);
-    v22 = sub_175AE4();
-    v23 = sub_160F68(8);
-    if (v21)
+    v19 = sub_160F34(0x13u);
+    v20 = sub_175AE4();
+    v21 = sub_160F68(8);
+    if (v19)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p 0x%x %p %d\n", v22, 19, v23, "AVE_VCP", "AllocDPB", a1, *a1, a2, a3, a4, v15);
-      v24 = sub_175AE4();
-      v25 = sub_160F68(8);
-      v27 = *a1;
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p 0x%x %p %d", v24, 19, v25, "AVE_VCP", "AllocDPB");
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p 0x%x %p %d\n", v20, 19, v21, "AVE_VCP", "AllocDPB", a1, *a1, a2, a3, a4, v14);
+      v22 = sub_175AE4();
+      v23 = sub_160F68(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p 0x%x %p %d", v22, 19, v23, "AVE_VCP", "AllocDPB");
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p 0x%x %p %d", v22, 19, v23, "AVE_VCP", "AllocDPB");
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p 0x%x %p %d", v20, 19, v21, "AVE_VCP", "AllocDPB");
     }
   }
 
-  return v15;
+  return v14;
 }
 
 uint64_t sub_D8AA4(void *a1, const void *a2, const void *a3)
@@ -3704,88 +2929,92 @@ uint64_t sub_D8AA4(void *a1, const void *a2, const void *a3)
     if (v6)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p %p\n", v7, 19, v8, "AVE_VCP", "ScaleRefFrames", a1, *a1, a2, a3);
-      v7 = sub_175AE4();
-      v8 = sub_160F68(8);
-      v9 = *a1;
+      v9 = sub_175AE4();
+      v26 = sub_160F68(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p", v9, 19, v26);
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p", v7, 19, v8);
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p", v7, 19, v8);
+    }
   }
 
-  v10 = *a1;
   kdebug_trace();
-  v11 = a1[6];
-  if (v11 && (v12 = a1[4]) != 0)
+  v10 = a1[6];
+  if (v10 && (v11 = a1[4]) != 0)
   {
-    v13 = v11(v12, a2, a3);
+    v12 = v10(v11, a2, a3);
     if (sub_160EF0(0x13u, 8))
     {
-      v14 = sub_160F34(0x13u);
-      v15 = sub_175AE4();
-      v16 = sub_160F68(8);
-      if (v14)
+      v13 = sub_160F34(0x13u);
+      v14 = sub_175AE4();
+      v15 = sub_160F68(8);
+      if (v13)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %p %lld %p %p %p %d\n", v15, 19, v16, "AVE_VCP", "ScaleRefFrames", 243, a1, *a1, a1[4], a2, a3, v13);
-        v15 = sub_175AE4();
-        v16 = sub_160F68(8);
-        v17 = *a1;
-        v30 = a1[4];
+        printf("%lld %d AVE %s: %s::%s:%d %p %lld %p %p %p %d\n", v14, 19, v15, "AVE_VCP", "ScaleRefFrames", 243, a1, *a1, a1[4], a2, a3, v12);
+        v16 = sub_175AE4();
+        v27 = sub_160F68(8);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %p %d", v16, 19, v27, "AVE_VCP", "ScaleRefFrames", 243);
       }
 
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %p %d", v15, 19, v16, "AVE_VCP", "ScaleRefFrames", 243);
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %p %d", v14, 19, v15, "AVE_VCP", "ScaleRefFrames", 243);
+      }
     }
 
-    if (v13)
+    if (v12)
     {
       if (sub_160EF0(0x13u, 5))
       {
-        v18 = sub_160F34(0x13u);
-        v19 = sub_175AE4();
-        v20 = sub_160F68(5);
-        if (v18)
+        v17 = sub_160F34(0x13u);
+        v18 = sub_175AE4();
+        v19 = sub_160F68(5);
+        if (v17)
         {
-          printf("%lld %d AVE %s: %s::%s:%d fail to scale ref frame %p %lld %p %p %p %d\n", v19, 19, v20, "AVE_VCP", "ScaleRefFrames", 249, a1, *a1, a1[4], a2, a3, v13);
-          v21 = sub_175AE4();
-          v22 = sub_160F68(5);
-          v31 = a1[4];
-          v29 = *a1;
-          syslog(3, "%lld %d AVE %s: %s::%s:%d fail to scale ref frame %p %lld %p %p %p %d", v21, 19, v22, "AVE_VCP", "ScaleRefFrames", 249);
+          printf("%lld %d AVE %s: %s::%s:%d fail to scale ref frame %p %lld %p %p %p %d\n", v18, 19, v19, "AVE_VCP", "ScaleRefFrames", 249, a1, *a1, a1[4], a2, a3, v12);
+          v20 = sub_175AE4();
+          v28 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d fail to scale ref frame %p %lld %p %p %p %d", v20, 19, v28, "AVE_VCP", "ScaleRefFrames", 249);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: %s::%s:%d fail to scale ref frame %p %lld %p %p %p %d", v19, 19, v20, "AVE_VCP", "ScaleRefFrames", 249);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d fail to scale ref frame %p %lld %p %p %p %d", v18, 19, v19, "AVE_VCP", "ScaleRefFrames", 249);
         }
       }
 
-      v13 = 4294966296;
+      v12 = 4294966296;
     }
   }
 
   else
   {
-    v13 = 4294966294;
+    v12 = 4294966294;
   }
 
-  v23 = *a1;
   kdebug_trace();
   if (sub_160EF0(0x13u, 8))
   {
-    v24 = sub_160F34(0x13u);
-    v25 = sub_175AE4();
-    v26 = sub_160F68(8);
-    if (v24)
+    v21 = sub_160F34(0x13u);
+    v22 = sub_175AE4();
+    v23 = sub_160F68(8);
+    if (v21)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %p %d\n", v25, 19, v26, "AVE_VCP", "ScaleRefFrames", a1, *a1, a2, a3, v13);
-      v25 = sub_175AE4();
-      v26 = sub_160F68(8);
-      v27 = *a1;
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %p %d\n", v22, 19, v23, "AVE_VCP", "ScaleRefFrames", a1, *a1, a2, a3, v12);
+      v24 = sub_175AE4();
+      v29 = sub_160F68(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %d", v24, 19, v29, "AVE_VCP");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %d", v25, 19, v26, "AVE_VCP");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %d", v22, 19, v23, "AVE_VCP");
+    }
   }
 
-  return v13;
+  return v12;
 }
 
 uint64_t sub_D8F04(void *a1, const void *a2, uint64_t a3, uint64_t a4)
@@ -3798,38 +3027,42 @@ uint64_t sub_D8F04(void *a1, const void *a2, uint64_t a3, uint64_t a4)
     if (v8)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p %lld %d\n", v9, 19, v10, "AVE_VCP", "ChromaFilter", a1, *a1, a2, a3, a4);
-      v9 = sub_175AE4();
-      v10 = sub_160F68(8);
-      v11 = *a1;
+      v11 = sub_175AE4();
+      v29 = sub_160F68(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %lld %d", v11, 19, v29, "AVE_VCP");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %lld %d", v9, 19, v10, "AVE_VCP");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %lld %d", v9, 19, v10, "AVE_VCP");
+    }
   }
 
-  v12 = *a1;
   kdebug_trace();
-  v13 = a1[7];
-  if (v13 && (v14 = a1[4]) != 0)
+  v12 = a1[7];
+  if (v12 && (v13 = a1[4]) != 0)
   {
-    v15 = v13(v14, a2, a3, a4);
+    v14 = v12(v13, a2, a3, a4);
     if (sub_160EF0(0x13u, 8))
     {
-      v16 = sub_160F34(0x13u);
-      v17 = sub_175AE4();
-      v18 = sub_160F68(8);
-      if (v16)
+      v15 = sub_160F34(0x13u);
+      v16 = sub_175AE4();
+      v17 = sub_160F68(8);
+      if (v15)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %d %d\n", v17, 19, v18, "AVE_VCP", "ChromaFilter", 287, a1, *a1, a1[4], a2, a3, a4, v15);
-        v17 = sub_175AE4();
-        v18 = sub_160F68(8);
-        v32 = *a1;
-        v34 = a1[4];
+        printf("%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %d %d\n", v16, 19, v17, "AVE_VCP", "ChromaFilter", 287, a1, *a1, a1[4], a2, a3, a4, v14);
+        v18 = sub_175AE4();
+        v30 = sub_160F68(8);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %d %d", v18, 19, v30, "AVE_VCP", "ChromaFilter", 287);
       }
 
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %d %d", v17, 19, v18, "AVE_VCP", "ChromaFilter", 287);
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %d %d", v16, 19, v17, "AVE_VCP", "ChromaFilter", 287);
+      }
     }
 
-    if (v15)
+    if (v14)
     {
       if (sub_160EF0(0x13u, 5))
       {
@@ -3838,11 +3071,9 @@ uint64_t sub_D8F04(void *a1, const void *a2, uint64_t a3, uint64_t a4)
         v21 = sub_160F68(5);
         if (v19)
         {
-          printf("%lld %d AVE %s: %s::%s:%d fail to filter chroma %p %lld %p %p %lld %d %d\n", v20, 19, v21, "AVE_VCP", "ChromaFilter", 293, a1, *a1, a1[4], a2, a3, a4, v15);
+          printf("%lld %d AVE %s: %s::%s:%d fail to filter chroma %p %lld %p %p %lld %d %d\n", v20, 19, v21, "AVE_VCP", "ChromaFilter", 293, a1, *a1, a1[4], a2, a3, a4, v14);
           v22 = sub_175AE4();
           v23 = sub_160F68(5);
-          v33 = *a1;
-          v35 = a1[4];
           syslog(3, "%lld %d AVE %s: %s::%s:%d fail to filter chroma %p %lld %p %p %lld %d %d", v22, 19, v23, "AVE_VCP", "ChromaFilter", 293);
         }
 
@@ -3852,38 +3083,36 @@ uint64_t sub_D8F04(void *a1, const void *a2, uint64_t a3, uint64_t a4)
         }
       }
 
-      v15 = 4294966296;
+      v14 = 4294966296;
     }
   }
 
   else
   {
-    v15 = 4294966294;
+    v14 = 4294966294;
   }
 
-  v24 = *a1;
   kdebug_trace();
   if (sub_160EF0(0x13u, 8))
   {
-    v25 = sub_160F34(0x13u);
-    v26 = sub_175AE4();
-    v27 = sub_160F68(8);
-    if (v25)
+    v24 = sub_160F34(0x13u);
+    v25 = sub_175AE4();
+    v26 = sub_160F68(8);
+    if (v24)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %d\n", v26, 19, v27, "AVE_VCP", "ChromaFilter", a1, *a1, a2, a3, a4);
-      v28 = sub_175AE4();
-      v29 = sub_160F68(8);
-      v30 = *a1;
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %d", v28, 19, v29, "AVE_VCP");
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %d\n", v25, 19, v26, "AVE_VCP", "ChromaFilter", a1, *a1, a2, a3, a4);
+      v27 = sub_175AE4();
+      v31 = sub_160F68(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %d", v27, 19, v31, "AVE_VCP");
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %d", v26, 19, v27, "AVE_VCP");
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %d", v25, 19, v26, "AVE_VCP");
     }
   }
 
-  return v15;
+  return v14;
 }
 
 uint64_t sub_D93A4(void *a1, const void *a2, uint64_t a3, void *a4)
@@ -3896,41 +3125,45 @@ uint64_t sub_D93A4(void *a1, const void *a2, uint64_t a3, void *a4)
     if (v8)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p %lld %p\n", v9, 19, v10, "AVE_VCP", "CalcChecksum", a1, *a1, a2, a3, a4);
-      v9 = sub_175AE4();
-      v10 = sub_160F68(8);
-      v11 = *a1;
+      v11 = sub_175AE4();
+      v32 = sub_160F68(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %lld %p", v11, 19, v32, "AVE_VCP");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %lld %p", v9, 19, v10, "AVE_VCP");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %lld %p", v9, 19, v10, "AVE_VCP");
+    }
   }
 
-  v12 = *a1;
   kdebug_trace();
   if (a1[8] && a1[4])
   {
     Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     if (Mutable)
     {
-      v14 = Mutable;
-      v15 = (a1[8])(a1[4], a2, a3, 1, Mutable);
+      v13 = Mutable;
+      v14 = (a1[8])(a1[4], a2, a3, 1, Mutable);
       if (sub_160EF0(0x13u, 8))
       {
-        v16 = sub_160F34(0x13u);
-        v17 = sub_175AE4();
-        v18 = sub_160F68(8);
-        if (v16)
+        v15 = sub_160F34(0x13u);
+        v16 = sub_175AE4();
+        v17 = sub_160F68(8);
+        if (v15)
         {
-          printf("%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %p %d\n", v17, 19, v18, "AVE_VCP", "CalcChecksum", 338, a1, *a1, a1[4], a2, a3, v14, v15);
-          v17 = sub_175AE4();
-          v18 = sub_160F68(8);
-          v33 = *a1;
-          v35 = a1[4];
+          printf("%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %p %d\n", v16, 19, v17, "AVE_VCP", "CalcChecksum", 338, a1, *a1, a1[4], a2, a3, v13, v14);
+          v18 = sub_175AE4();
+          v33 = sub_160F68(8);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %p %d", v18, 19, v33, "AVE_VCP", "CalcChecksum", 338, a1);
         }
 
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %p %d", v17, 19, v18, "AVE_VCP", "CalcChecksum", 338, a1);
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %p %lld %p %d", v16, 19, v17, "AVE_VCP", "CalcChecksum", 338, a1);
+        }
       }
 
-      if (v15)
+      if (v14)
       {
         if (sub_160EF0(0x13u, 5))
         {
@@ -3939,11 +3172,9 @@ uint64_t sub_D93A4(void *a1, const void *a2, uint64_t a3, void *a4)
           v24 = sub_160F68(5);
           if (v22)
           {
-            printf("%lld %d AVE %s: %s::%s:%d fail to calculate checksum %p %lld %p %p %lld %p %d\n", v23, 19, v24, "AVE_VCP", "CalcChecksum", 345, a1, *a1, a1[4], a2, a3, v14, v15);
+            printf("%lld %d AVE %s: %s::%s:%d fail to calculate checksum %p %lld %p %p %lld %p %d\n", v23, 19, v24, "AVE_VCP", "CalcChecksum", 345, a1, *a1, a1[4], a2, a3, v13, v14);
             v25 = sub_175AE4();
             v26 = sub_160F68(5);
-            v34 = *a1;
-            v36 = a1[4];
             syslog(3, "%lld %d AVE %s: %s::%s:%d fail to calculate checksum %p %lld %p %p %lld %p %d", v25, 19, v26, "AVE_VCP", "CalcChecksum", 345, a1);
           }
 
@@ -3953,15 +3184,15 @@ uint64_t sub_D93A4(void *a1, const void *a2, uint64_t a3, void *a4)
           }
         }
 
-        v15 = 4294966296;
+        v14 = 4294966296;
       }
 
       else
       {
-        CFDictionaryApplyFunction(v14, sub_D9974, a4);
+        CFDictionaryApplyFunction(v13, sub_D9974, a4);
       }
 
-      CFRelease(v14);
+      CFRelease(v13);
     }
 
     else
@@ -3981,34 +3212,36 @@ uint64_t sub_D93A4(void *a1, const void *a2, uint64_t a3, void *a4)
         syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create dictionary", v20);
       }
 
-      v15 = 4294966293;
+      v14 = 4294966293;
     }
   }
 
   else
   {
-    v15 = 4294966294;
+    v14 = 4294966294;
   }
 
-  v27 = *a1;
   kdebug_trace();
   if (sub_160EF0(0x13u, 8))
   {
-    v28 = sub_160F34(0x13u);
-    v29 = sub_175AE4();
-    v30 = sub_160F68(8);
-    if (v28)
+    v27 = sub_160F34(0x13u);
+    v28 = sub_175AE4();
+    v29 = sub_160F68(8);
+    if (v27)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %p %d\n", v29, 19, v30, "AVE_VCP", "CalcChecksum", a1, *a1, a2, a3, a4, v15);
-      v29 = sub_175AE4();
-      v30 = sub_160F68(8);
-      v31 = *a1;
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %p %d\n", v28, 19, v29, "AVE_VCP", "CalcChecksum", a1, *a1, a2, a3, a4, v14);
+      v30 = sub_175AE4();
+      v34 = sub_160F68(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %p %d", v30, 19, v34, "AVE_VCP", "CalcChecksum");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %p %d", v29, 19, v30, "AVE_VCP", "CalcChecksum");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %lld %p %d", v28, 19, v29, "AVE_VCP", "CalcChecksum");
+    }
   }
 
-  return v15;
+  return v14;
 }
 
 uint64_t sub_D9988(int a1, int a2, unsigned int a3)
@@ -4122,7 +3355,7 @@ LABEL_30:
   return v18;
 }
 
-uint64_t sub_D9E84(int *a1, int a2, unsigned int a3, unsigned int *a4, _DWORD *a5)
+uint64_t sub_D9E84(int *a1, int a2, unsigned int a3, int *a4, _DWORD *a5)
 {
   if (sub_160EF0(0x10u, 6))
   {
@@ -4133,8 +3366,8 @@ uint64_t sub_D9E84(int *a1, int a2, unsigned int a3, unsigned int *a4, _DWORD *a
     {
       printf("%lld %d AVE %s: %s Enter %p %d %d %p %p\n", v11, 16, v12, "AVE_MCTF_AdjustStrength", a1, a2, a3, a4, a5);
       v13 = sub_175AE4();
-      v59 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %d %d %p %p", v13, 16, v59);
+      v54 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %d %d %p %p", v13, 16, v54);
     }
 
     else
@@ -4160,58 +3393,58 @@ uint64_t sub_D9E84(int *a1, int a2, unsigned int a3, unsigned int *a4, _DWORD *a
         *(v14 + 8 * a3) = v16;
       }
 
-      v26 = sub_F18(v16, a1[16]);
-      if (v26)
+      v25 = sub_F18(v16, a1[16]);
+      if (v25)
       {
-        v27 = v26;
-        v68 = a5;
-        sub_1354(v26, 16, 6, "MCTF_SMap");
-        v28 = qword_203738[v27[1]](a1);
-        v29 = *a4;
+        v26 = v25;
+        v58 = a5;
+        sub_1354(v25, 16, 6, "MCTF_SMap");
+        v27 = qword_203738[v26[1]](a1);
+        v28 = *a4;
         if (sub_160EF0(0x10u, 6))
         {
-          v30 = sub_160F34(0x10u);
-          v31 = sub_175AE4();
-          v32 = sub_160F68(6);
-          if (v30)
+          v29 = sub_160F34(0x10u);
+          v30 = sub_175AE4();
+          v31 = sub_160F68(6);
+          if (v29)
           {
-            printf("%lld %d AVE %s: %s Enter %p %d %d %p\n", v31, 16, v32, "AVE_MCTF_FindRangeIdx", v27, v29, v28, a4);
-            v31 = sub_175AE4();
+            printf("%lld %d AVE %s: %s Enter %p %d %d %p\n", v30, 16, v31, "AVE_MCTF_FindRangeIdx", v26, v28, v27, a4);
+            v30 = sub_175AE4();
             sub_160F68(6);
           }
 
-          syslog(3, "%lld %d AVE %s: %s Enter %p %d %d %p", v31, 16);
+          syslog(3, "%lld %d AVE %s: %s Enter %p %d %d %p", v30, 16);
         }
 
-        if (v29 >= 1)
+        if (v28 >= 1)
         {
-          v37 = v29 + 1;
+          v35 = v28 + 1;
           do
           {
-            v38 = sub_F48(v27, v37 - 2);
-            if (!v38)
+            v36 = sub_F48(v26, v35 - 2);
+            if (!v36)
             {
               break;
             }
 
-            if (*(v38 + 4) < v28)
+            if (*(v36 + 4) < v27)
             {
               break;
             }
 
-            *a4 = v37 - 2;
-            --v37;
+            *a4 = v35 - 2;
+            --v35;
           }
 
-          while (v37 > 1);
+          while (v35 > 1);
         }
 
-        if (*a4 == v29)
+        if (*a4 == v28)
         {
-          for (i = v29 + 1; i < v27[2]; ++i)
+          for (i = v28 + 1; i < v26[2]; ++i)
           {
-            v40 = sub_F48(v27, i);
-            if (!v40 || *v40 > v28)
+            v38 = sub_F48(v26, i);
+            if (!v38 || *v38 > v27)
             {
               break;
             }
@@ -4222,73 +3455,63 @@ uint64_t sub_D9E84(int *a1, int a2, unsigned int a3, unsigned int *a4, _DWORD *a
 
         if (sub_160EF0(0x10u, 6))
         {
-          v41 = sub_160F34(0x10u);
-          v42 = sub_175AE4();
-          v43 = sub_160F68(6);
-          if (v41)
+          v39 = sub_160F34(0x10u);
+          v40 = sub_175AE4();
+          v41 = sub_160F68(6);
+          if (v39)
           {
-            printf("%lld %d AVE %s: %s Exit %p %d %d %p %d\n", v42, 16, v43, "AVE_MCTF_FindRangeIdx", v27, v29, v28, a4, 0);
-            v44 = sub_175AE4();
-            v61 = sub_160F68(6);
-            syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %d", v44, 16, v61);
+            printf("%lld %d AVE %s: %s Exit %p %d %d %p %d\n", v40, 16, v41, "AVE_MCTF_FindRangeIdx", v26, v28, v27, a4, 0);
+            v42 = sub_175AE4();
+            v56 = sub_160F68(6);
+            syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %d", v42, 16, v56);
           }
 
           else
           {
-            syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %d", v42, 16, v43);
+            syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %d", v40, 16, v41);
           }
         }
 
-        a5 = v68;
-        if (sub_F68(v27, *a4, v68))
+        a5 = v58;
+        if (sub_F68(v26, *a4, v58))
         {
           if (sub_160EF0(0x10u, 4))
           {
-            v45 = sub_160F34(0x10u);
-            v46 = sub_175AE4();
-            v47 = sub_160F68(4);
-            if (v45)
+            v43 = sub_160F34(0x10u);
+            v44 = sub_175AE4();
+            v45 = sub_160F68(4);
+            if (v43)
             {
-              printf("%lld %d AVE %s: %s:%d %s | fail to get strength level for rangeIdx %p %d\n", v46, 16, v47, "AVE_MCTF_AdjustStrength", 799, "ret == 0", v27, *a4);
-              v46 = sub_175AE4();
+              printf("%lld %d AVE %s: %s:%d %s | fail to get strength level for rangeIdx %p %d\n", v44, 16, v45, "AVE_MCTF_AdjustStrength", 799, "ret == 0", v26, *a4);
+              v44 = sub_175AE4();
               sub_160F68(4);
-              v48 = *a4;
-              a5 = v68;
+              a5 = v58;
             }
 
-            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get strength level for rangeIdx %p %d", v46, 16);
+            syslog(3, "%lld %d AVE %s: %s:%d %s | fail to get strength level for rangeIdx %p %d", v44, 16);
           }
 
-          v25 = 4294966296;
+          v24 = 4294966296;
         }
 
         else
         {
           if (sub_160EF0(0x10u, 8))
           {
-            v49 = sub_160F34(0x10u);
-            v50 = sub_175AE4();
-            v51 = sub_160F68(8);
-            v52 = *a4;
-            if (v49)
+            v46 = sub_160F34(0x10u);
+            v47 = sub_175AE4();
+            v48 = sub_160F68(8);
+            if (v46)
             {
-              printf("%lld %d AVE %s: %s:%d %p sID 0x%x noise level %d rIdx %d s %d\n", v50, 16, v51, "AVE_MCTF_AdjustStrength", 802, a1, a1[16], v28, *a4, *v68);
-              v50 = sub_175AE4();
+              printf("%lld %d AVE %s: %s:%d %p sID 0x%x noise level %d rIdx %d s %d\n", v47, 16, v48, "AVE_MCTF_AdjustStrength", 802, a1, a1[16], v27, *a4, *v58);
+              v47 = sub_175AE4();
               sub_160F68(8);
-              v53 = a1[16];
-              v65 = *a4;
-              v67 = *v68;
             }
 
-            else
-            {
-              v66 = *a4;
-            }
-
-            syslog(3, "%lld %d AVE %s: %s:%d %p sID 0x%x noise level %d rIdx %d s %d", v50, 16);
+            syslog(3, "%lld %d AVE %s: %s:%d %p sID 0x%x noise level %d rIdx %d s %d", v47, 16);
           }
 
-          v25 = 0;
+          v24 = 0;
         }
 
         goto LABEL_62;
@@ -4296,19 +3519,17 @@ uint64_t sub_D9E84(int *a1, int a2, unsigned int a3, unsigned int *a4, _DWORD *a
 
       if (sub_160EF0(0x10u, 5))
       {
-        v33 = sub_160F34(0x10u);
-        v34 = sub_175AE4();
-        v35 = sub_160F68(5);
-        v36 = a1[16];
-        if (v33)
+        v32 = sub_160F34(0x10u);
+        v33 = sub_175AE4();
+        v34 = sub_160F68(5);
+        if (v32)
         {
-          printf("%lld %d AVE %s: %s:%d %s | SensorID not supported for MCTF strength adjustment: devType=%d, sensorID=0x%x, workMode=%d\n", v34, 16, v35, "AVE_MCTF_AdjustStrength", 783, "pMap != NULL", a2, a1[16], a3);
-          v34 = sub_175AE4();
+          printf("%lld %d AVE %s: %s:%d %s | SensorID not supported for MCTF strength adjustment: devType=%d, sensorID=0x%x, workMode=%d\n", v33, 16, v34, "AVE_MCTF_AdjustStrength", 783, "pMap != NULL", a2, a1[16], a3);
+          v33 = sub_175AE4();
           sub_160F68(5);
         }
 
-        v64 = a1[16];
-        syslog(3, "%lld %d AVE %s: %s:%d %s | SensorID not supported for MCTF strength adjustment: devType=%d, sensorID=0x%x, workMode=%d", v34, 16);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | SensorID not supported for MCTF strength adjustment: devType=%d, sensorID=0x%x, workMode=%d", v33, 16);
       }
     }
 
@@ -4317,7 +3538,6 @@ uint64_t sub_D9E84(int *a1, int a2, unsigned int a3, unsigned int *a4, _DWORD *a
       v21 = sub_160F34(0x10u);
       v22 = sub_175AE4();
       v23 = sub_160F68(5);
-      v24 = a1[16];
       if (v21)
       {
         printf("%lld %d AVE %s: %s:%d %s | Device not supported for MCTF strength adjustment: devType=%d, sensorID=0x%x, workMode=%d\n", v22, 16, v23, "AVE_MCTF_AdjustStrength", 771, "paMCTF_StrengthMapSet != NULL", a2, a1[16], a3);
@@ -4325,11 +3545,10 @@ uint64_t sub_D9E84(int *a1, int a2, unsigned int a3, unsigned int *a4, _DWORD *a
         sub_160F68(5);
       }
 
-      v63 = a1[16];
       syslog(3, "%lld %d AVE %s: %s:%d %s | Device not supported for MCTF strength adjustment: devType=%d, sensorID=0x%x, workMode=%d", v22, 16);
     }
 
-    v25 = 4294966294;
+    v24 = 4294966294;
     goto LABEL_62;
   }
 
@@ -4342,8 +3561,8 @@ uint64_t sub_D9E84(int *a1, int a2, unsigned int a3, unsigned int *a4, _DWORD *a
     {
       printf("%lld %d AVE %s: %s:%d %s | wrong params, %p %d %d %p %p\n", v18, 16, v19, "AVE_MCTF_AdjustStrength", 764, "(psData != __null) && (piRangeIdx != __null) && (piStrength != __null) && eDevType > AVE_DevType_None && eDevType < AVE_DevType_Max && eMCTFWorkMode > AVE_MCTF_WorkMode_None && eMCTFWorkMode < AVE_MCTF_WorkMode_Max", a1, a2, a3, a4, a5);
       v20 = sub_175AE4();
-      v60 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong params, %p %d %d %p %p", v20, 16, v60, "AVE_MCTF_AdjustStrength");
+      v55 = sub_160F68(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong params, %p %d %d %p %p", v20, 16, v55, "AVE_MCTF_AdjustStrength");
     }
 
     else
@@ -4352,28 +3571,28 @@ uint64_t sub_D9E84(int *a1, int a2, unsigned int a3, unsigned int *a4, _DWORD *a
     }
   }
 
-  v25 = 4294966295;
+  v24 = 4294966295;
 LABEL_62:
   if (sub_160EF0(0x10u, 6))
   {
-    v54 = sub_160F34(0x10u);
-    v55 = sub_175AE4();
-    v56 = sub_160F68(6);
-    if (v54)
+    v49 = sub_160F34(0x10u);
+    v50 = sub_175AE4();
+    v51 = sub_160F68(6);
+    if (v49)
     {
-      printf("%lld %d AVE %s: %s Exit %p %d %d %p %p %d\n", v55, 16, v56, "AVE_MCTF_AdjustStrength", a1, a2, a3, a4, a5, v25);
-      v57 = sub_175AE4();
-      v62 = sub_160F68(6);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %p %d", v57, 16, v62, "AVE_MCTF_AdjustStrength");
+      printf("%lld %d AVE %s: %s Exit %p %d %d %p %p %d\n", v50, 16, v51, "AVE_MCTF_AdjustStrength", a1, a2, a3, a4, a5, v24);
+      v52 = sub_175AE4();
+      v57 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %p %d", v52, 16, v57, "AVE_MCTF_AdjustStrength");
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %p %d", v55, 16, v56, "AVE_MCTF_AdjustStrength");
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d %d %p %p %d", v50, 16, v51, "AVE_MCTF_AdjustStrength");
     }
   }
 
-  return v25;
+  return v24;
 }
 
 uint64_t sub_DA7E0(uint64_t a1)
@@ -4426,7 +3645,6 @@ uint64_t sub_DA814(_DWORD *a1)
       printf("%lld %d AVE %s: %s:%d %p sID 0x%x gain %d snr %d noise level %d\n", v9, 16, v10, "AVE_MCTF_CalculateNoiseLevel_TotalGainSNR", 607, a1, a1[16], v4, v6, v7);
       v9 = sub_175AE4();
       sub_160F68(8);
-      v11 = a1[16];
     }
 
     syslog(3, "%lld %d AVE %s: %s:%d %p sID 0x%x gain %d snr %d noise level %d", v9, 16);
@@ -4435,7 +3653,7 @@ uint64_t sub_DA814(_DWORD *a1)
   return v7;
 }
 
-uint64_t sub_DA98C(const void *a1, const void *a2, const void *a3)
+uint64_t sub_DA98C(_DWORD *a1, const void *a2, FILE *a3)
 {
   v19 = 0;
   if (sub_160EF0(0x2Eu, 7))
@@ -5282,21 +4500,20 @@ uint64_t sub_DCDC0(unsigned int *a1, const void **a2, CVPixelBufferPoolRef *a3)
   {
     if (sub_160EF0(3u, 4))
     {
-      v15 = sub_160F34(3u);
-      v16 = sub_175AE4();
-      v17 = sub_160F68(4);
-      v18 = *a2;
-      if (v15)
+      v14 = sub_160F34(3u);
+      v15 = sub_175AE4();
+      v16 = sub_160F68(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %p\n", v16, 3, v17, "AVE_VerifyImageBuffer", 476, "pImgBuf != __null && ppImgBufPool != __null", *a2, a3);
-        v16 = sub_175AE4();
-        v17 = sub_160F68(4);
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %p %p\n", v15, 3, v16, "AVE_VerifyImageBuffer", 476, "pImgBuf != __null && ppImgBufPool != __null", *a2, a3);
+        v15 = sub_175AE4();
+        v16 = sub_160F68(4);
       }
 
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %p", v16, 3, v17, "AVE_VerifyImageBuffer", 476, "pImgBuf != __null && ppImgBufPool != __null", *a2, a3);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %p %p", v15, 3, v16, "AVE_VerifyImageBuffer", 476, "pImgBuf != __null && ppImgBufPool != __null", *a2, a3);
     }
 
-    goto LABEL_43;
+    goto LABEL_42;
   }
 
   CVPixelBufferRetain(*a2);
@@ -5306,20 +4523,20 @@ uint64_t sub_DCDC0(unsigned int *a1, const void **a2, CVPixelBufferPoolRef *a3)
   {
     if (sub_160EF0(3u, 4))
     {
-      v19 = sub_160F34(3u);
-      v20 = sub_175AE4();
-      v21 = sub_160F68(4);
-      if (v19)
+      v17 = sub_160F34(3u);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(4);
+      if (v17)
       {
-        printf("%lld %d AVE %s: %s:%d %s | pixel format is not supported %d\n", v20, 3, v21, "AVE_VerifyImageBuffer", 483, "pPixelFmt != __null", PixelFormatType);
-        v20 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d %s | pixel format is not supported %d\n", v18, 3, v19, "AVE_VerifyImageBuffer", 483, "pPixelFmt != __null", PixelFormatType);
+        v18 = sub_175AE4();
         sub_160F68(4);
       }
 
-      syslog(3, "%lld %d AVE %s: %s:%d %s | pixel format is not supported %d", v20);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | pixel format is not supported %d", v18);
     }
 
-    goto LABEL_43;
+    goto LABEL_42;
   }
 
   v8 = v7;
@@ -5329,95 +4546,78 @@ uint64_t sub_DCDC0(unsigned int *a1, const void **a2, CVPixelBufferPoolRef *a3)
     v10 = sub_160F34(0x12u);
     v11 = sub_175AE4();
     v12 = sub_160F68(7);
-    v13 = *(v8 + 24);
     if (v10)
     {
       printf("%lld %d AVE %s: PixelFormat %x | %d %d (%d %d %d) %d %d\n", v11, 18, v12, PixelFormatType, *(v8 + 4), *(v8 + 8), *(v8 + 12), *(v8 + 16), *(v8 + 20), *(v8 + 24), *(v8 + 28));
-      v11 = sub_175AE4();
-      v12 = sub_160F68(7);
-      v14 = *(v8 + 4);
-      v120 = *(v8 + 24);
-      v122 = *(v8 + 28);
-      v117 = *(v8 + 16);
-      v119 = *(v8 + 20);
-      v113 = *(v8 + 8);
-      v114 = *(v8 + 12);
+      v13 = sub_175AE4();
+      v84 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: PixelFormat %x | %d %d (%d %d %d) %d %d", v13, 18, v84);
     }
 
     else
     {
-      v121 = *(v8 + 24);
+      syslog(3, "%lld %d AVE %s: PixelFormat %x | %d %d (%d %d %d) %d %d", v11, 18, v12);
     }
-
-    syslog(3, "%lld %d AVE %s: PixelFormat %x | %d %d (%d %d %d) %d %d", v11, 18, v12);
   }
 
   if (sub_160EF0(0x12u, 7))
   {
-    v22 = sub_160F34(0x12u);
-    v23 = sub_175AE4();
-    v24 = sub_160F68(7);
+    v20 = sub_160F34(0x12u);
+    v21 = sub_175AE4();
+    v22 = sub_160F68(7);
     WidthOfPlane = CVPixelBufferGetWidthOfPlane(*a2, 0);
     HeightOfPlane = CVPixelBufferGetHeightOfPlane(*a2, 0);
-    if (v22)
+    if (v20)
     {
-      printf("%lld %d AVE %s: Pixel Buffer Width %d Height %d\n", v23, 18, v24, WidthOfPlane, HeightOfPlane);
-      v27 = sub_175AE4();
-      v28 = sub_160F68(7);
-      v29 = CVPixelBufferGetWidthOfPlane(*a2, 0);
-      v111 = CVPixelBufferGetHeightOfPlane(*a2, 0);
-      syslog(3, "%lld %d AVE %s: Pixel Buffer Width %d Height %d", v27, 18, v28, v29, v111);
+      printf("%lld %d AVE %s: Pixel Buffer Width %d Height %d\n", v21, 18, v22, WidthOfPlane, HeightOfPlane);
+      v25 = sub_175AE4();
+      v26 = sub_160F68(7);
+      v27 = CVPixelBufferGetWidthOfPlane(*a2, 0);
+      v87 = CVPixelBufferGetHeightOfPlane(*a2, 0);
+      syslog(3, "%lld %d AVE %s: Pixel Buffer Width %d Height %d", v25, 18, v26, v27, v87);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: Pixel Buffer Width %d Height %d", v23, 18, v24, WidthOfPlane, HeightOfPlane);
+      syslog(3, "%lld %d AVE %s: Pixel Buffer Width %d Height %d", v21, 18, v22, WidthOfPlane, HeightOfPlane);
     }
   }
 
   if ((v9 & 2) == 0)
   {
-    v30 = *a2;
-    v31 = a1[2];
-    v32 = a1[3];
-    v33 = a1[4];
-    v34 = a1[5];
-    v35 = *a1;
-    v36 = a1[1];
-    v37 = *(a1 + 147);
-    sub_DC93C();
+    sub_DC93C(*a2, a1[2], a1[3], a1[4], a1[5], *a1, a1[1], *(a1 + 147));
   }
 
-  v38 = *a3;
+  v28 = *a3;
   if (!*a3)
   {
-    v45 = CVPixelBufferGetWidthOfPlane(*a2, 0);
-    v46 = CVPixelBufferGetHeightOfPlane(*a2, 0);
-    v47 = sub_159334(a1[2], a1[3], a1[4], a1[5], v45, v46, *a1, a1[1], PixelFormatType, &poolOut);
-    if (v47)
+    v35 = CVPixelBufferGetWidthOfPlane(*a2, 0);
+    v36 = CVPixelBufferGetHeightOfPlane(*a2, 0);
+    v37 = sub_159334(a1[2], a1[3], a1[4], a1[5], v35, v36, *a1, a1[1], PixelFormatType, &poolOut);
+    if (v37)
     {
-      v48 = v47;
+      v38 = v37;
       if (sub_160EF0(3u, 4))
       {
-        v49 = sub_160F34(3u);
-        v50 = sub_175AE4();
-        v51 = sub_160F68(4);
-        if (!v49)
+        v39 = sub_160F34(3u);
+        v40 = sub_175AE4();
+        v41 = sub_160F68(4);
+        if (!v39)
         {
-          v115 = v48;
-          v112 = 511;
-          v110 = v51;
-          v109 = "%lld %d AVE %s: %s:%d %s | fail to create a buffer pool %d";
-          goto LABEL_75;
+          v89 = v38;
+          v88 = 511;
+          v86 = v41;
+          v83 = "%lld %d AVE %s: %s:%d %s | fail to create a buffer pool %d";
+          goto LABEL_74;
         }
 
-        printf("%lld %d AVE %s: %s:%d %s | fail to create a buffer pool %d\n", v50, 3, v51, "AVE_VerifyImageBuffer", 511, "rc == noErr", v48);
-        v52 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d %s | fail to create a buffer pool %d\n", v40, 3, v41, "AVE_VerifyImageBuffer", 511, "rc == noErr", v38);
+        v42 = sub_175AE4();
         sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create a buffer pool %d", v52);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create a buffer pool %d", v42);
       }
 
-LABEL_44:
+LABEL_43:
       if (pixelBufferOut)
       {
         CVPixelBufferRelease(pixelBufferOut);
@@ -5430,131 +4630,110 @@ LABEL_44:
         poolOut = 0;
       }
 
-      goto LABEL_48;
+      goto LABEL_47;
     }
 
-    v38 = *a3;
+    v28 = *a3;
   }
 
-  if (v38)
+  if (v28)
   {
-    v39 = v38;
+    v29 = v28;
   }
 
   else
   {
-    v39 = poolOut;
+    v29 = poolOut;
   }
 
-  v40 = CVPixelBufferPoolCreatePixelBuffer(0, v39, &pixelBufferOut);
-  if (v40)
+  v30 = CVPixelBufferPoolCreatePixelBuffer(0, v29, &pixelBufferOut);
+  if (v30)
   {
-    v41 = v40;
+    v31 = v30;
     if (sub_160EF0(3u, 4))
     {
-      v42 = sub_160F34(3u);
-      v43 = sub_175AE4();
-      v44 = sub_160F68(4);
-      if (v42)
+      v32 = sub_160F34(3u);
+      v33 = sub_175AE4();
+      v34 = sub_160F68(4);
+      if (v32)
       {
-        printf("%lld %d AVE %s: %s:%d %s | fail to crete pixel buffer from a pool %d\n", v43, 3, v44, "AVE_VerifyImageBuffer", 517, "cvrc == kCVReturnSuccess", v41);
-        v43 = sub_175AE4();
+        printf("%lld %d AVE %s: %s:%d %s | fail to crete pixel buffer from a pool %d\n", v33, 3, v34, "AVE_VerifyImageBuffer", 517, "cvrc == kCVReturnSuccess", v31);
+        v33 = sub_175AE4();
         sub_160F68(4);
       }
 
-      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to crete pixel buffer from a pool %d", v43);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to crete pixel buffer from a pool %d", v33);
     }
 
-LABEL_43:
-    v48 = 4294954394;
-    goto LABEL_44;
+LABEL_42:
+    v38 = 4294954394;
+    goto LABEL_43;
   }
 
-  v53 = sub_15A3B0(*a2, pixelBufferOut);
-  if (v53)
+  v43 = sub_15A3B0(*a2, pixelBufferOut);
+  if (v43)
   {
-    v48 = v53;
+    v38 = v43;
     if (sub_160EF0(3u, 4))
     {
-      v54 = sub_160F34(3u);
-      v50 = sub_175AE4();
-      v55 = sub_160F68(4);
-      if (v54)
+      v44 = sub_160F34(3u);
+      v40 = sub_175AE4();
+      v45 = sub_160F68(4);
+      if (v44)
       {
-        printf("%lld %d AVE %s: %s:%d %s | fail to copy a pixel buffer to another %p %p %d\n", v50, 3, v55, "AVE_VerifyImageBuffer", 521, "rc == noErr", *a2, pixelBufferOut, v48);
-        v56 = sub_175AE4();
-        v57 = sub_160F68(4);
-        v58 = *a2;
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to copy a pixel buffer to another %p %p %d", v56, 3, v57);
-        goto LABEL_44;
+        printf("%lld %d AVE %s: %s:%d %s | fail to copy a pixel buffer to another %p %p %d\n", v40, 3, v45, "AVE_VerifyImageBuffer", 521, "rc == noErr", *a2, pixelBufferOut, v38);
+        v46 = sub_175AE4();
+        v85 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to copy a pixel buffer to another %p %p %d", v46, 3, v85);
+        goto LABEL_43;
       }
 
-      v116 = pixelBufferOut;
-      v118 = v48;
-      v115 = *a2;
-      v112 = 521;
-      v110 = v55;
-      v109 = "%lld %d AVE %s: %s:%d %s | fail to copy a pixel buffer to another %p %p %d";
-LABEL_75:
-      syslog(3, v109, v50, 3, v110, "AVE_VerifyImageBuffer", v112, "rc == noErr", v115, v116, v118);
-      goto LABEL_44;
+      v90 = pixelBufferOut;
+      v91 = v38;
+      v89 = *a2;
+      v88 = 521;
+      v86 = v45;
+      v83 = "%lld %d AVE %s: %s:%d %s | fail to copy a pixel buffer to another %p %p %d";
+LABEL_74:
+      syslog(3, v83, v40, 3, v86, "AVE_VerifyImageBuffer", v88, "rc == noErr", v89, v90, v91);
+      goto LABEL_43;
     }
 
-    goto LABEL_44;
+    goto LABEL_43;
   }
 
   CVPixelBufferRelease(*a2);
-  v60 = pixelBufferOut;
+  v48 = pixelBufferOut;
   *a2 = pixelBufferOut;
   pixelBufferOut = 0;
-  v61 = v9 & 2;
-  sub_152320(v60, v9, v8);
+  v49 = v9 & 2;
+  sub_152320(v48, v9, v8);
   if (sub_160EF0(0x12u, 7))
   {
-    v62 = sub_160F34(0x12u);
-    v150 = sub_175AE4();
-    v63 = sub_160F68(7);
-    v64 = a1[1];
-    v147 = *a1;
-    v148 = v63;
-    v65 = a1[2];
-    v66 = a1[3];
-    v67 = a1[4];
-    v68 = a1[5];
-    v69 = a1[6];
-    v70 = *(a1 + 145);
-    if (v62)
+    v50 = sub_160F34(0x12u);
+    v94 = sub_175AE4();
+    v51 = sub_160F68(7);
+    v52 = a1[1];
+    v92 = *a1;
+    v53 = a1[2];
+    v54 = a1[3];
+    v55 = a1[4];
+    v56 = a1[5];
+    v57 = a1[6];
+    if (v50)
     {
-      printf("%lld %d AVE %s: VIB IN %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x\n", v150, 18, v148, "AVE_VerifyImageBuffer", 541, v147, v64, v65, v66, v67, v68, v69, a1[7], a1[12], *(a1 + 52), a1[14], a1[26], a1[27], a1[32], a1[33], a1[34], a1[35], a1[30], a1[31], a1[28], a1[29], *(a1 + 146), *(a1 + 144), *(a1 + 145), v9);
-      v151 = sub_175AE4();
-      v149 = sub_160F68(7);
-      v71 = a1[7];
-      v72 = a1[12];
-      v73 = a1[14];
-      v74 = a1[26];
-      v75 = a1[27];
-      v76 = a1[32];
-      v143 = *(a1 + 145);
-      v139 = *(a1 + 146);
-      v141 = *(a1 + 144);
-      v135 = a1[28];
-      v137 = a1[29];
-      v131 = a1[30];
-      v133 = a1[31];
-      v127 = a1[34];
-      v129 = a1[35];
-      v125 = a1[33];
-      v123 = *(a1 + 52);
-      syslog(3, "%lld %d AVE %s: VIB IN %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x", v151, 18, v149, "AVE_VerifyImageBuffer", 541, *a1, a1[1], a1[2], a1[3], a1[4], a1[5], a1[6]);
+      printf("%lld %d AVE %s: VIB IN %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x\n", v94, 18, v51, "AVE_VerifyImageBuffer", 541, v92, v52, v53, v54, v55, v56, v57, a1[7], a1[12], *(a1 + 52), a1[14], a1[26], a1[27], a1[32], a1[33], a1[34], a1[35], a1[30], a1[31], a1[28], a1[29], *(a1 + 146), *(a1 + 144), *(a1 + 145), v9);
+      v95 = sub_175AE4();
+      v93 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: VIB IN %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x", v95, 18, v93, "AVE_VerifyImageBuffer", 541, *a1, a1[1], a1[2], a1[3], a1[4], a1[5], a1[6]);
     }
 
     else
     {
-      v144 = *(a1 + 145);
-      syslog(3, "%lld %d AVE %s: VIB IN %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x", v150, 18, v148, "AVE_VerifyImageBuffer", 541, v147, v64, v65, v66, v67, v68, v69);
+      syslog(3, "%lld %d AVE %s: VIB IN %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x", v94, 18, v51, "AVE_VerifyImageBuffer", 541, v92, v52, v53, v54, v55, v56, v57);
     }
 
-    v61 = v9 & 2;
+    v49 = v9 & 2;
   }
 
   extraColumnsOnRight = 0;
@@ -5562,64 +4741,64 @@ LABEL_75:
   extraRowsOnBottom = 0;
   extraRowsOnTop = 0;
   CVPixelBufferGetExtendedPixels(*a2, &extraColumnsOnLeft, &extraColumnsOnRight, &extraRowsOnTop, &extraRowsOnBottom);
-  v77 = CVPixelBufferGetWidthOfPlane(*a2, 0);
-  v78 = CVPixelBufferGetHeightOfPlane(*a2, 0);
-  v79 = extraColumnsOnLeft;
-  v80 = extraColumnsOnRight;
-  v81 = extraColumnsOnLeft + extraColumnsOnRight + v77;
-  v82 = extraRowsOnTop;
-  v83 = extraRowsOnBottom;
-  v84 = extraRowsOnTop + extraRowsOnBottom + v78;
-  v85 = *(v8 + 28);
-  v86 = *(v8 + 16);
+  v58 = CVPixelBufferGetWidthOfPlane(*a2, 0);
+  v59 = CVPixelBufferGetHeightOfPlane(*a2, 0);
+  v60 = extraColumnsOnLeft;
+  v61 = extraColumnsOnRight;
+  v62 = extraColumnsOnLeft + extraColumnsOnRight + v58;
+  v63 = extraRowsOnTop;
+  v64 = extraRowsOnBottom;
+  v65 = extraRowsOnTop + extraRowsOnBottom + v59;
+  v66 = *(v8 + 28);
+  v67 = *(v8 + 16);
   *(a1 + 15) = *v8;
-  *(a1 + 19) = v86;
-  *(a1 + 22) = v85;
-  a1[26] = v81;
-  a1[27] = v84;
-  a1[32] = v79;
-  a1[33] = v80;
-  a1[34] = v82;
-  a1[35] = v83;
+  *(a1 + 19) = v67;
+  *(a1 + 22) = v66;
+  a1[26] = v62;
+  a1[27] = v65;
+  a1[32] = v60;
+  a1[33] = v61;
+  a1[34] = v63;
+  a1[35] = v64;
   a1[30] = CVPixelBufferGetBytesPerRowOfPlane(*a2, 0);
   BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(*a2, 1uLL);
   a1[31] = BytesPerRowOfPlane;
   if (*(v8 + 12))
   {
-    v88 = BytesPerRowOfPlane;
+    v69 = BytesPerRowOfPlane;
   }
 
   else
   {
-    v88 = 0;
+    v69 = 0;
   }
 
   a1[28] = a1[30];
-  a1[29] = v88;
-  v89 = v9 & 1;
+  a1[29] = v69;
+  v70 = v9 & 1;
   if ((v9 & 0x10) != 0)
   {
-    v89 = 1;
+    v70 = 1;
   }
 
-  *(a1 + 146) = v89;
-  *(a1 + 144) = v61 >> 1;
+  *(a1 + 146) = v70;
+  *(a1 + 144) = v49 >> 1;
   if ((~v9 & 0x500) != 0)
   {
-    v90 = 0;
+    v71 = 0;
   }
 
   else
   {
-    v90 = 5;
+    v71 = 5;
   }
 
   if ((~v9 & 0x50000) == 0)
   {
-    v90 |= 0xAu;
+    v71 |= 0xAu;
   }
 
-  *(a1 + 145) = v90;
+  *(a1 + 145) = v71;
   if (poolOut)
   {
     *a3 = poolOut;
@@ -5627,60 +4806,41 @@ LABEL_75:
 
   if (sub_160EF0(0x12u, 7))
   {
-    v91 = sub_160F34(0x12u);
-    v152 = sub_175AE4();
-    v92 = sub_160F68(7);
-    v93 = *a1;
-    v94 = a1[1];
-    v95 = a1[2];
-    v96 = a1[3];
-    v97 = a1[4];
-    v98 = a1[5];
-    v99 = a1[6];
-    v100 = *(a1 + 145);
-    if (v91)
+    v72 = sub_160F34(0x12u);
+    v96 = sub_175AE4();
+    v73 = sub_160F68(7);
+    v74 = *a1;
+    v75 = a1[1];
+    v76 = a1[2];
+    v77 = a1[3];
+    v78 = a1[4];
+    v79 = a1[5];
+    v80 = a1[6];
+    if (v72)
     {
-      printf("%lld %d AVE %s: VIB OUT %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x\n", v152, 18, v92, "AVE_VerifyImageBuffer", 616, v93, v94, v95, v96, v97, v98, v99, a1[7], a1[12], *(a1 + 52), a1[14], a1[26], a1[27], a1[32], a1[33], a1[34], a1[35], a1[30], a1[31], a1[28], a1[29], *(a1 + 146), *(a1 + 144), *(a1 + 145), v9);
-      v101 = sub_175AE4();
-      v102 = sub_160F68(7);
-      v103 = a1[7];
-      v104 = a1[12];
-      v105 = a1[14];
-      v106 = a1[26];
-      v107 = a1[27];
-      v108 = a1[32];
-      v145 = *(a1 + 145);
-      v140 = *(a1 + 146);
-      v142 = *(a1 + 144);
-      v136 = a1[28];
-      v138 = a1[29];
-      v132 = a1[30];
-      v134 = a1[31];
-      v128 = a1[34];
-      v130 = a1[35];
-      v126 = a1[33];
-      v124 = *(a1 + 52);
-      syslog(3, "%lld %d AVE %s: VIB OUT %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x", v101, 18, v102, "AVE_VerifyImageBuffer", 616, *a1, a1[1], a1[2], a1[3], a1[4], a1[5], a1[6]);
+      printf("%lld %d AVE %s: VIB OUT %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x\n", v96, 18, v73, "AVE_VerifyImageBuffer", 616, v74, v75, v76, v77, v78, v79, v80, a1[7], a1[12], *(a1 + 52), a1[14], a1[26], a1[27], a1[32], a1[33], a1[34], a1[35], a1[30], a1[31], a1[28], a1[29], *(a1 + 146), *(a1 + 144), *(a1 + 145), v9);
+      v81 = sub_175AE4();
+      v82 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: VIB OUT %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x", v81, 18, v82, "AVE_VerifyImageBuffer", 616, *a1, a1[1], a1[2], a1[3], a1[4], a1[5], a1[6]);
     }
 
     else
     {
-      v146 = *(a1 + 145);
-      syslog(3, "%lld %d AVE %s: VIB OUT %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x", v152, 18, v92, "AVE_VerifyImageBuffer", 616, v93, v94, v95, v96, v97, v98, v99);
+      syslog(3, "%lld %d AVE %s: VIB OUT %s:%d | %d %d | %d %d 0x%x %d | %d %d %d %d %d || %d %d | %d %d %d %d | %d %d | %d %d | %d %d %d | %x", v96, 18, v73, "AVE_VerifyImageBuffer", 616, v74, v75, v76, v77, v78, v79, v80);
     }
   }
 
-  v48 = 0;
-LABEL_48:
+  v38 = 0;
+LABEL_47:
   if ((a1[36] & 1) == 0)
   {
     CVPixelBufferRelease(*a2);
   }
 
-  return v48;
+  return v38;
 }
 
-uint64_t sub_DDADC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9, int a10, unsigned int a11, uint64_t a12)
+uint64_t sub_DDADC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9, unsigned int a10, uint64_t a11, uint64_t a12)
 {
   v12 = a6;
   v13 = a5;
@@ -5688,38 +4848,67 @@ uint64_t sub_DDADC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v15 = a3;
   v16 = a2;
   v17 = a1;
-  if (a10 > 0)
+  memset(v32, 0, sizeof(v32));
+  cf = 0;
+  if (a10 <= 0)
   {
-    v18 = sub_157F5C(a1, a2, a3, a4, a10, a5, a6, a7, a8, a9);
+    v23 = sub_158978(a1, a2, a3, a4, a5, a6, a7, a8, a11, SHIDWORD(a11), v32, &cf);
+    if (v23)
+    {
+      v19 = v23;
+      if (!sub_160EF0(3u, 4))
+      {
+        goto LABEL_20;
+      }
+
+      v24 = sub_160F34(3u);
+      v21 = sub_175AE4();
+      v22 = sub_160F68(4);
+      if (v24)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | fail to create pixel buffer attribute %d %d 0x%x %d %d %dx%d 0x%x\n", v21, 3, v22, "AVE_UpdatePixelBufferDict", 690, "ret == 0", v17, v16, v15, v14, v13, v12, a11, v19);
+        v21 = sub_175AE4();
+        v22 = sub_160F68(4);
+      }
+
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    v18 = sub_157F5C(a1, a2, a3, a4, a10, a5, a6, a7, a8, a9, a11, SHIDWORD(a11), v32, &cf);
     if (v18)
     {
       v19 = v18;
-      if (sub_160EF0(3u, 4))
+      if (!sub_160EF0(3u, 4))
       {
-        v20 = sub_160F34(3u);
-        v21 = sub_175AE4();
-        v22 = sub_160F68(4);
-        if (v20)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | fail to create pixel buffer attribute %d %d 0x%x %d %d %dx%d 0x%x\n", v21, 3, v22, "AVE_UpdatePixelBufferDict", 701, "ret == 0", v17, v16, v15, v14, v13, v12, a11, v19);
-          v21 = sub_175AE4();
-          v22 = sub_160F68(4);
-        }
-
-LABEL_10:
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create pixel buffer attribute %d %d 0x%x %d %d %dx%d 0x%x", v21, 3, v22, "AVE_UpdatePixelBufferDict");
-        return v19;
+        goto LABEL_20;
       }
 
-      return v19;
-    }
+      v20 = sub_160F34(3u);
+      v21 = sub_175AE4();
+      v22 = sub_160F68(4);
+      if (v20)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | fail to create pixel buffer attribute %d %d 0x%x %d %d %dx%d 0x%x\n", v21, 3, v22, "AVE_UpdatePixelBufferDict", 701, "ret == 0", v17, v16, v15, v14, v13, v12, a11, v19);
+        v21 = sub_175AE4();
+        v22 = sub_160F68(4);
+      }
 
-LABEL_11:
-    if (a12 == 1)
-    {
-      return 0;
+LABEL_10:
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create pixel buffer attribute %d %d 0x%x %d %d %dx%d 0x%x", v21, 3, v22, "AVE_UpdatePixelBufferDict");
+      goto LABEL_20;
     }
+  }
 
+  if (a12 == 1)
+  {
+    v19 = 0;
+  }
+
+  else
+  {
     v19 = VTEncoderSessionSetPixelBufferAttributes();
     if (v19)
     {
@@ -5742,38 +4931,20 @@ LABEL_11:
         }
       }
 
-      return 4294966296;
+      v19 = 4294966296;
     }
-
-    return v19;
   }
 
-  v23 = sub_158978(a1, a2, a3, a4, a5, a6, a7, a8, a11);
-  if (!v23)
+LABEL_20:
+  if (cf)
   {
-    goto LABEL_11;
-  }
-
-  v19 = v23;
-  if (sub_160EF0(3u, 4))
-  {
-    v24 = sub_160F34(3u);
-    v21 = sub_175AE4();
-    v22 = sub_160F68(4);
-    if (v24)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | fail to create pixel buffer attribute %d %d 0x%x %d %d %dx%d 0x%x\n", v21, 3, v22, "AVE_UpdatePixelBufferDict", 690, "ret == 0", v17, v16, v15, v14, v13, v12, a11, v19);
-      v21 = sub_175AE4();
-      v22 = sub_160F68(4);
-    }
-
-    goto LABEL_10;
+    CFRelease(cf);
   }
 
   return v19;
 }
 
-uint64_t sub_DDF24(unsigned int *a1, CVPixelBufferRef *a2, CVPixelBufferPoolRef *a3, uint64_t a4)
+uint64_t sub_DDF24(int *a1, CVPixelBufferRef *a2, CVPixelBufferPoolRef *a3, uint64_t a4)
 {
   pixelBufferOut = 0;
   CVPixelBufferRetain(*a2);
@@ -6080,60 +5251,52 @@ uint64_t sub_DE76C(pthread_t *a1)
       printf("%lld %d AVE %s: %s::%s Enter %p %lld\n", v3, 36, v4, "AVE_DAL", "Uninit", a1, *a1);
       v3 = sub_175AE4();
       sub_160F68(6);
-      v5 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld", v3);
   }
 
-  v6 = sub_DED78(a1);
-  v7 = a1[6];
-  if (v7)
+  v5 = sub_DED78(a1);
+  v6 = a1[6];
+  if (v6)
   {
-    v6 = sub_13DBD0(v7);
+    v5 = sub_13DBD0(v6);
     a1[6] = 0;
   }
 
-  v8 = a1[1];
-  if (v8)
+  v7 = a1[1];
+  if (v7)
   {
-    v6 = sub_13DBD0(v8);
+    v5 = sub_13DBD0(v7);
     a1[1] = 0;
   }
 
-  if (v6)
+  if (v5)
   {
-    v9 = 4;
+    v8 = 4;
   }
 
   else
   {
-    v9 = 6;
+    v8 = 6;
   }
 
-  if (sub_160EF0(0x24u, v9))
+  if (sub_160EF0(0x24u, v8))
   {
-    v10 = sub_160F34(0x24u);
-    v11 = sub_175AE4();
-    v12 = sub_160F68(v9);
-    v13 = *a1;
-    if (v10)
+    v9 = sub_160F34(0x24u);
+    v10 = sub_175AE4();
+    v11 = sub_160F68(v8);
+    if (v9)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v11, 36, v12, "AVE_DAL", "Uninit", a1, *a1, v6);
-      v11 = sub_175AE4();
-      sub_160F68(v9);
-      v14 = *a1;
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v10, 36, v11, "AVE_DAL", "Uninit", a1, *a1, v5);
+      v10 = sub_175AE4();
+      sub_160F68(v8);
     }
 
-    else
-    {
-      v16 = *a1;
-    }
-
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v11, 36);
+    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v10, 36);
   }
 
-  return v6;
+  return v5;
 }
 
 uint64_t sub_DE9B4(void *a1)
@@ -6148,54 +5311,55 @@ uint64_t sub_DE9B4(void *a1)
       printf("%lld %d AVE %s: %s::%s Enter %p %lld\n", v3, 36, v4, "AVE_DAL", "Init", a1, *a1);
       v3 = sub_175AE4();
       sub_160F68(6);
-      v5 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld", v3);
   }
 
-  v6 = sub_13DB68();
-  if (v6)
+  v5 = sub_13DB68();
+  if (v5)
   {
-    v7 = v6;
-    v8 = sub_13DB68();
-    if (v8)
+    v6 = v5;
+    v7 = sub_13DB68();
+    if (v7)
     {
-      a1[1] = v7;
-      a1[6] = v8;
+      a1[1] = v6;
+      a1[6] = v7;
     }
 
     else if (sub_160EF0(0x24u, 4))
     {
-      v12 = sub_160F34(0x24u);
-      v13 = sub_175AE4();
-      v14 = sub_160F68(4);
-      if (v12)
+      v11 = sub_160F34(0x24u);
+      v12 = sub_175AE4();
+      v13 = sub_160F68(4);
+      if (v11)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | fail to create thread mutex %p %lld\n", v13, 36, v14, "AVE_DAL", "Init", 102, "pThreadMutex != __null", a1, *a1);
-        v13 = sub_175AE4();
-        v14 = sub_160F68(4);
+        printf("%lld %d AVE %s: %s::%s:%d %s | fail to create thread mutex %p %lld\n", v12, 36, v13, "AVE_DAL", "Init", 102, "pThreadMutex != __null", a1, *a1);
+        v14 = sub_175AE4();
+        v19 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create thread mutex %p %lld", v14, 36, v19);
       }
 
-      v23 = *a1;
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create thread mutex %p %lld", v13, 36, v14);
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create thread mutex %p %lld", v12, 36, v13);
+      }
     }
   }
 
   else if (sub_160EF0(0x24u, 4))
   {
-    v9 = sub_160F34(0x24u);
-    v10 = sub_175AE4();
-    v11 = sub_160F68(4);
-    if (v9)
+    v8 = sub_160F34(0x24u);
+    v9 = sub_175AE4();
+    v10 = sub_160F68(4);
+    if (v8)
     {
-      printf("%lld %d AVE %s: %s::%s:%d %s | fail to create mutex %p %lld\n", v10, 36, v11, "AVE_DAL", "Init", 98, "pMutex != __null", a1, *a1);
-      v10 = sub_175AE4();
-      v11 = sub_160F68(4);
+      printf("%lld %d AVE %s: %s::%s:%d %s | fail to create mutex %p %lld\n", v9, 36, v10, "AVE_DAL", "Init", 98, "pMutex != __null", a1, *a1);
+      v9 = sub_175AE4();
+      v10 = sub_160F68(4);
     }
 
-    v22 = *a1;
-    syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create mutex %p %lld", v10, 36, v11);
+    syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create mutex %p %lld", v9, 36, v10);
   }
 
   if (sub_160EF0(0x24u, 6))
@@ -6203,18 +5367,11 @@ uint64_t sub_DE9B4(void *a1)
     v15 = sub_160F34(0x24u);
     v16 = sub_175AE4();
     v17 = sub_160F68(6);
-    v18 = *a1;
     if (v15)
     {
       printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v16, 36, v17, "AVE_DAL", "Init", a1, *a1, 0);
       v16 = sub_175AE4();
       sub_160F68(6);
-      v19 = *a1;
-    }
-
-    else
-    {
-      v21 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v16, 36);
@@ -6235,52 +5392,46 @@ uint64_t sub_DED78(pthread_t *a1)
       printf("%lld %d AVE %s: %s::%s Enter %p %lld\n", v3, 36, v4, "AVE_DAL", "TearDownIPC", a1, *a1);
       v3 = sub_175AE4();
       sub_160F68(6);
-      v5 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld", v3);
   }
 
   sub_E04CC(a1);
-  v6 = sub_DF46C(a1);
-  if (v6)
+  v5 = sub_DF46C(a1);
+  if (v5)
   {
-    v7 = 4;
+    v6 = 4;
   }
 
   else
   {
-    v7 = 6;
+    v6 = 6;
   }
 
-  if (sub_160EF0(0x24u, v7))
+  if (sub_160EF0(0x24u, v6))
   {
-    v8 = sub_160F34(0x24u);
-    v9 = sub_175AE4();
-    v10 = sub_160F68(v7);
-    v11 = *a1;
-    if (v8)
+    v7 = sub_160F34(0x24u);
+    v8 = sub_175AE4();
+    v9 = sub_160F68(v6);
+    if (v7)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v9, 36, v10, "AVE_DAL", "TearDownIPC", a1, *a1, v6);
-      v9 = sub_175AE4();
-      sub_160F68(v7);
-      v12 = *a1;
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v8, 36, v9, "AVE_DAL", "TearDownIPC", a1, *a1, v5);
+      v8 = sub_175AE4();
+      sub_160F68(v6);
     }
 
-    else
-    {
-      v14 = *a1;
-    }
-
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v9, 36);
+    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v8, 36);
   }
 
-  return v6;
+  return v5;
 }
 
-uint64_t sub_DEF74(uint64_t *a1, int a2, int a3)
+uint64_t sub_DEF74(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v22 = 0;
+  v3 = a3;
+  v4 = a2;
+  v20 = 0;
   if (a2 < 1 || a3 <= 0)
   {
     if (sub_160EF0(0x24u, 4))
@@ -6290,13 +5441,16 @@ uint64_t sub_DEF74(uint64_t *a1, int a2, int a3)
       v9 = sub_160F68(4);
       if (v7)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d\n", v8, 36, v9, "AVE_DAL", "CreatePool", 178, "num > 0 && size > 0", a1, *a1, a2, a3);
-        v8 = sub_175AE4();
-        v9 = sub_160F68(4);
-        v10 = *a1;
+        printf("%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d\n", v8, 36, v9, "AVE_DAL", "CreatePool", 178, "num > 0 && size > 0", a1, *a1, v4, v3);
+        v10 = sub_175AE4();
+        v18 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d", v10, 36, v18, "AVE_DAL");
       }
 
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d", v8, 36, v9, "AVE_DAL");
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d", v8, 36, v9, "AVE_DAL");
+      }
     }
 
     v6 = 4294966295;
@@ -6310,7 +5464,7 @@ uint64_t sub_DEF74(uint64_t *a1, int a2, int a3)
     }
 
     v11 = sub_14E230(3);
-    v12 = sub_13E130(*a1, 0, a3 * a2, v11[1], &v22);
+    v12 = sub_13E130(*a1, 0, v3 * v4, v11[1], &v20);
     if (!v12)
     {
       operator new();
@@ -6324,13 +5478,10 @@ uint64_t sub_DEF74(uint64_t *a1, int a2, int a3)
       v15 = sub_160F68(4);
       if (v13)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | fail to create surface %p %lld %s %llx %d %d %d\n", v14, 36, v15, "AVE_DAL", "CreatePool", 190, "ret == 0", a1, *a1, *v11, v11[1], a2, a3, v6);
+        printf("%lld %d AVE %s: %s::%s:%d %s | fail to create surface %p %lld %s %llx %d %d %d\n", v14, 36, v15, "AVE_DAL", "CreatePool", 190, "ret == 0", a1, *a1, *v11, v11[1], v4, v3, v6);
         v16 = sub_175AE4();
-        v17 = sub_160F68(4);
-        v21 = v11[1];
-        v19 = *a1;
-        v20 = *v11;
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create surface %p %lld %s %llx %d %d %d", v16, 36, v17, "AVE_DAL", "CreatePool", 190, "ret == 0");
+        v19 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create surface %p %lld %s %llx %d %d %d", v16, 36, v19, "AVE_DAL", "CreatePool", 190, "ret == 0");
       }
 
       else
@@ -6340,9 +5491,9 @@ uint64_t sub_DEF74(uint64_t *a1, int a2, int a3)
     }
   }
 
-  if (v22)
+  if (v20)
   {
-    sub_13E518(v22);
+    sub_13E518(v20);
   }
 
   return v6;
@@ -6359,23 +5510,24 @@ uint64_t sub_DF46C(void *a1)
       v4 = sub_160F34(0x24u);
       v5 = sub_175AE4();
       v6 = sub_160F68(4);
-      v7 = a1[4];
       if (v4)
       {
         printf("%lld %d AVE %s: %s::%s:%d %p %lld %p %d\n", v5, 36, v6, "AVE_DAL", "DestroyPool", 243, a1, *a1, a1[4], v3);
-        v5 = sub_175AE4();
-        v6 = sub_160F68(4);
-        v8 = *a1;
+        v7 = sub_175AE4();
+        v11 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %d", v7, 36, v11, "AVE_DAL");
       }
 
-      v12 = a1[4];
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %d", v5, 36, v6, "AVE_DAL");
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld %p %d", v5, 36, v6, "AVE_DAL");
+      }
     }
 
-    v9 = a1[4];
-    if (v9)
+    v8 = a1[4];
+    if (v8)
     {
-      sub_1344B4(v9);
+      sub_1344B4(v8);
       operator delete();
     }
 
@@ -6387,10 +5539,10 @@ uint64_t sub_DF46C(void *a1)
     v3 = 0;
   }
 
-  v10 = a1[3];
-  if (v10)
+  v9 = a1[3];
+  if (v9)
   {
-    v3 = sub_13E518(v10);
+    v3 = sub_13E518(v9);
     a1[3] = 0;
   }
 
@@ -6410,7 +5562,6 @@ uint64_t sub_DF5F4(uint64_t *a1, uint64_t a2, uint64_t a3)
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %d %d\n", v7, 36, v8, "AVE_DAL", "SetUpIPC", a1, *a1, a2, a3);
       v7 = sub_175AE4();
       sub_160F68(6);
-      v9 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %d %d", v7, 36);
@@ -6420,124 +5571,125 @@ uint64_t sub_DF5F4(uint64_t *a1, uint64_t a2, uint64_t a3)
   {
     if (sub_160EF0(0x24u, 4))
     {
-      v17 = sub_160F34(0x24u);
-      v18 = sub_175AE4();
-      v19 = sub_160F68(4);
-      if (v17)
+      v15 = sub_160F34(0x24u);
+      v16 = sub_175AE4();
+      v17 = sub_160F68(4);
+      if (v15)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d\n", v18, 36, v19, "AVE_DAL", "SetUpIPC", 277, "num > 0 && size > 0", a1, *a1, a2, a3);
+        printf("%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d\n", v16, 36, v17, "AVE_DAL", "SetUpIPC", 277, "num > 0 && size > 0", a1, *a1, a2, a3);
         v18 = sub_175AE4();
-        v19 = sub_160F68(4);
-        v35 = *a1;
+        v29 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d", v18, 36, v29, "AVE_DAL");
       }
 
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d", v18, 36, v19, "AVE_DAL");
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d", v16, 36, v17, "AVE_DAL");
+      }
     }
 
-    v11 = 4294966295;
-    goto LABEL_27;
+    v10 = 4294966295;
+    goto LABEL_26;
   }
 
-  v10 = sub_DEF74(a1, a2, a3);
-  if (v10)
+  v9 = sub_DEF74(a1, a2, a3);
+  if (v9)
   {
-    v11 = v10;
+    v10 = v9;
     if (sub_160EF0(0x24u, 4))
     {
-      v12 = sub_160F34(0x24u);
-      v13 = sub_175AE4();
-      v14 = sub_160F68(4);
-      if (v12)
+      v11 = sub_160F34(0x24u);
+      v12 = sub_175AE4();
+      v13 = sub_160F68(4);
+      if (v11)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | fail to create pool %p %lld %d %d %d\n", v13, 36, v14, "AVE_DAL", "SetUpIPC", 282, "ret == 0", a1, *a1, a2, a3, v11);
-        v15 = sub_175AE4();
-        v16 = sub_160F68(4);
-        v34 = *a1;
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create pool %p %lld %d %d %d", v15, 36, v16, "AVE_DAL", "SetUpIPC");
-        goto LABEL_27;
+        printf("%lld %d AVE %s: %s::%s:%d %s | fail to create pool %p %lld %d %d %d\n", v12, 36, v13, "AVE_DAL", "SetUpIPC", 282, "ret == 0", a1, *a1, a2, a3, v10);
+        v14 = sub_175AE4();
+        v28 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create pool %p %lld %d %d %d", v14, 36, v28, "AVE_DAL", "SetUpIPC");
+        goto LABEL_26;
       }
 
-      v38 = a3;
-      v39 = v11;
-      v36 = *a1;
-      v37 = a2;
+      v36 = a3;
+      v37 = v10;
+      v34 = *a1;
+      v35 = a2;
       v33 = a1;
-      v31 = 282;
-      v30 = v14;
-      v22 = "%lld %d AVE %s: %s::%s:%d %s | fail to create pool %p %lld %d %d %d";
-LABEL_26:
-      syslog(3, v22, v13, 36, v30, "AVE_DAL", "SetUpIPC", v31, "ret == 0", v33, v36, v37, v38, v39);
+      v32 = 282;
+      v30 = v13;
+      v21 = "%lld %d AVE %s: %s::%s:%d %s | fail to create pool %p %lld %d %d %d";
+LABEL_25:
+      syslog(3, v21, v12, 36, v30, "AVE_DAL", "SetUpIPC", v32, "ret == 0", v33, v34, v35, v36, v37);
     }
   }
 
   else
   {
-    v11 = sub_DFBA4(a1);
-    if (!v11)
+    v10 = sub_DFBA4(a1);
+    if (!v10)
     {
-      v23 = 6;
-      goto LABEL_28;
+      v22 = 6;
+      goto LABEL_27;
     }
 
     if (sub_160EF0(0x24u, 4))
     {
-      v20 = sub_160F34(0x24u);
-      v13 = sub_175AE4();
-      v21 = sub_160F68(4);
-      if (v20)
+      v19 = sub_160F34(0x24u);
+      v12 = sub_175AE4();
+      v20 = sub_160F68(4);
+      if (v19)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | fail to create thread %p %lld %d %d %d\n", v13, 36, v21, "AVE_DAL", "SetUpIPC", 286, "ret == 0", a1, *a1, a2, a3, v11);
-        v13 = sub_175AE4();
-        v21 = sub_160F68(4);
+        printf("%lld %d AVE %s: %s::%s:%d %s | fail to create thread %p %lld %d %d %d\n", v12, 36, v20, "AVE_DAL", "SetUpIPC", 286, "ret == 0", a1, *a1, a2, a3, v10);
+        v12 = sub_175AE4();
+        v20 = sub_160F68(4);
       }
 
-      v38 = a3;
-      v39 = v11;
-      v36 = *a1;
-      v37 = a2;
+      v36 = a3;
+      v37 = v10;
+      v34 = *a1;
+      v35 = a2;
       v33 = a1;
-      v31 = 286;
-      v30 = v21;
-      v22 = "%lld %d AVE %s: %s::%s:%d %s | fail to create thread %p %lld %d %d %d";
-      goto LABEL_26;
+      v32 = 286;
+      v30 = v20;
+      v21 = "%lld %d AVE %s: %s::%s:%d %s | fail to create thread %p %lld %d %d %d";
+      goto LABEL_25;
     }
   }
 
-LABEL_27:
+LABEL_26:
   sub_E04CC(a1);
   sub_DF46C(a1);
-  v23 = 4;
-LABEL_28:
-  if (sub_160EF0(0x24u, v23))
+  v22 = 4;
+LABEL_27:
+  if (sub_160EF0(0x24u, v22))
   {
-    v24 = sub_160F34(0x24u);
-    v25 = sub_175AE4();
-    v26 = sub_160F68(v23);
-    if (v24)
+    v23 = sub_160F34(0x24u);
+    v24 = sub_175AE4();
+    v25 = sub_160F68(v22);
+    if (v23)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d\n", v25, 36, v26, "AVE_DAL", "SetUpIPC", a1, *a1, a2, a3, v11);
-      v27 = sub_175AE4();
-      v28 = sub_160F68(v23);
-      v32 = *a1;
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d", v27, 36, v28);
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d\n", v24, 36, v25, "AVE_DAL", "SetUpIPC", a1, *a1, a2, a3, v10);
+      v26 = sub_175AE4();
+      v31 = sub_160F68(v22);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d", v26, 36, v31);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d", v25, 36, v26);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d", v24, 36, v25);
     }
   }
 
-  return v11;
+  return v10;
 }
 
 uint64_t sub_DFBA4(pthread_t *a1)
 {
-  memset(&v64, 0, sizeof(v64));
+  memset(&v56, 0, sizeof(v56));
   object = 0;
-  v63 = 0;
-  v60 = 0;
-  v61 = 0;
+  v55 = 0;
+  v52 = 0;
+  v53 = 0;
   if (sub_160EF0(0x24u, 6))
   {
     v2 = sub_160F34(0x24u);
@@ -6548,7 +5700,6 @@ uint64_t sub_DFBA4(pthread_t *a1)
       printf("%lld %d AVE %s: %s::%s Enter %p %lld\n", v3, 36, v4, "AVE_DAL", "CreateRecvThread", a1, *a1);
       v3 = sub_175AE4();
       sub_160F68(6);
-      v5 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld", v3);
@@ -6559,230 +5710,219 @@ uint64_t sub_DFBA4(pthread_t *a1)
     goto LABEL_7;
   }
 
-  v60 = a1;
-  LODWORD(v61) = 0;
+  v52 = a1;
+  LODWORD(v53) = 0;
   object = voucher_copy();
-  v8 = pthread_attr_init(&v64);
-  if (v8)
+  v7 = pthread_attr_init(&v56);
+  if (v7)
   {
-    v9 = v8;
-    v7 = 4;
+    v8 = v7;
+    v6 = 4;
     if (!sub_160EF0(0x24u, 4))
     {
 LABEL_21:
-      v6 = 4294966296;
+      v5 = 4294966296;
       goto LABEL_31;
     }
 
-    v10 = sub_160F34(0x24u);
-    v11 = sub_175AE4();
-    v12 = sub_160F68(4);
-    if (v10)
+    v9 = sub_160F34(0x24u);
+    v10 = sub_175AE4();
+    v11 = sub_160F68(4);
+    if (v9)
     {
-      printf("%lld %d AVE %s: %s::%s:%d %s | fail to initialize thread attribute %p %lld %d %d\n", v11, 36, v12, "AVE_DAL", "CreateRecvThread", 1635, "res == 0", a1, *a1, v9, 0);
-      v13 = sub_175AE4();
-      v7 = 4;
-      v14 = sub_160F68(4);
-      v15 = *a1;
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to initialize thread attribute %p %lld %d %d", v13, 36, v14, "AVE_DAL");
+      printf("%lld %d AVE %s: %s::%s:%d %s | fail to initialize thread attribute %p %lld %d %d\n", v10, 36, v11, "AVE_DAL", "CreateRecvThread", 1635, "res == 0", a1, *a1, v8, 0);
+      v12 = sub_175AE4();
+      v6 = 4;
+      v49 = sub_160F68(4);
+      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to initialize thread attribute %p %lld %d %d", v12, 36, v49, "AVE_DAL");
       goto LABEL_21;
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to initialize thread attribute %p %lld %d %d", v11, 36, v12, "AVE_DAL");
+    syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to initialize thread attribute %p %lld %d %d", v10, 36, v11, "AVE_DAL");
     goto LABEL_29;
   }
 
-  v16 = pthread_attr_getschedparam(&v64, &v63);
-  if (v16)
+  v13 = pthread_attr_getschedparam(&v56, &v55);
+  if (v13)
   {
-    v17 = v16;
-    v7 = 4;
+    v14 = v13;
+    v6 = 4;
     if (!sub_160EF0(0x24u, 4))
     {
       goto LABEL_21;
     }
 
-    v18 = sub_160F34(0x24u);
-    v19 = sub_175AE4();
-    v20 = sub_160F68(4);
-    if (v18)
+    v15 = sub_160F34(0x24u);
+    v16 = sub_175AE4();
+    v17 = sub_160F68(4);
+    if (v15)
     {
-      printf("%lld %d AVE %s: %s::%s:%d %s | fail to get scheduling parameter %p %lld %d %d\n", v19, 36, v20, "AVE_DAL", "CreateRecvThread", 1639, "res == 0", a1, *a1, v17, 0);
-      v21 = sub_175AE4();
-      v7 = 4;
-      v22 = sub_160F68(4);
-      v23 = *a1;
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to get scheduling parameter %p %lld %d %d", v21, 36, v22, "AVE_DAL");
+      printf("%lld %d AVE %s: %s::%s:%d %s | fail to get scheduling parameter %p %lld %d %d\n", v16, 36, v17, "AVE_DAL", "CreateRecvThread", 1639, "res == 0", a1, *a1, v14, 0);
+      v18 = sub_175AE4();
+      v6 = 4;
+      v50 = sub_160F68(4);
+      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to get scheduling parameter %p %lld %d %d", v18, 36, v50, "AVE_DAL");
       goto LABEL_21;
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to get scheduling parameter %p %lld %d %d", v19, 36, v20, "AVE_DAL");
+    syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to get scheduling parameter %p %lld %d %d", v16, 36, v17, "AVE_DAL");
     goto LABEL_29;
   }
 
-  v63.sched_priority = 47;
-  v24 = pthread_attr_setschedparam(&v64, &v63);
-  if (v24)
+  v55.sched_priority = 47;
+  v19 = pthread_attr_setschedparam(&v56, &v55);
+  if (v19)
   {
-    v25 = v24;
-    v7 = 4;
+    v20 = v19;
+    v6 = 4;
     if (!sub_160EF0(0x24u, 4))
     {
       goto LABEL_21;
     }
 
-    v26 = sub_160F34(0x24u);
-    v27 = sub_175AE4();
-    v28 = sub_160F68(4);
-    if (v26)
+    v21 = sub_160F34(0x24u);
+    v22 = sub_175AE4();
+    v23 = sub_160F68(4);
+    if (v21)
     {
-      printf("%lld %d AVE %s: %s::%s:%d %s | fail to set scheduling parameter %p %lld %d %d\n", v27, 36, v28, "AVE_DAL", "CreateRecvThread", 1645, "res == 0", a1, *a1, v25, 0);
-      v29 = sub_175AE4();
-      v7 = 4;
-      v30 = sub_160F68(4);
-      v31 = *a1;
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to set scheduling parameter %p %lld %d %d", v29, 36, v30, "AVE_DAL");
+      printf("%lld %d AVE %s: %s::%s:%d %s | fail to set scheduling parameter %p %lld %d %d\n", v22, 36, v23, "AVE_DAL", "CreateRecvThread", 1645, "res == 0", a1, *a1, v20, 0);
+      v24 = sub_175AE4();
+      v6 = 4;
+      v51 = sub_160F68(4);
+      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to set scheduling parameter %p %lld %d %d", v24, 36, v51, "AVE_DAL");
       goto LABEL_21;
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to set scheduling parameter %p %lld %d %d", v27, 36, v28, "AVE_DAL");
+    syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to set scheduling parameter %p %lld %d %d", v22, 36, v23, "AVE_DAL");
 LABEL_29:
-    v6 = 4294966296;
+    v5 = 4294966296;
 LABEL_30:
-    v7 = 4;
+    v6 = 4;
     goto LABEL_31;
   }
 
-  v32 = pthread_create(a1 + 9, &v64, sub_E6BF8, &v60);
-  if (v32)
+  v25 = pthread_create(a1 + 9, &v56, sub_E6BF8, &v52);
+  if (v25)
   {
-    v33 = v32;
-    v7 = 4;
+    v26 = v25;
+    v6 = 4;
     if (sub_160EF0(0x24u, 4))
     {
-      v34 = sub_160F34(0x24u);
-      v35 = sub_175AE4();
-      v36 = sub_160F68(4);
-      v37 = *a1;
-      if (!v34)
+      v27 = sub_160F34(0x24u);
+      v28 = sub_175AE4();
+      v29 = sub_160F68(4);
+      v30 = *a1;
+      if (!v27)
       {
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create thread %p %lld %d %d", v35, 36, v36, "AVE_DAL", "CreateRecvThread", 1649, "res == 0", a1, v37, v33, 0);
-        v6 = 4294966292;
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create thread %p %lld %d %d", v28, 36, v29, "AVE_DAL", "CreateRecvThread", 1649, "res == 0", a1, v30, v26, 0);
+        v5 = 4294966292;
         goto LABEL_30;
       }
 
-      printf("%lld %d AVE %s: %s::%s:%d %s | fail to create thread %p %lld %d %d\n", v35, 36, v36, "AVE_DAL", "CreateRecvThread", 1649, "res == 0", a1, v37, v33, 0);
-      v38 = sub_175AE4();
-      v7 = 4;
-      v39 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create thread %p %lld %d %d", v38, 36, v39, "AVE_DAL", "CreateRecvThread", 1649, "res == 0", a1, *a1, v33, 0);
+      printf("%lld %d AVE %s: %s::%s:%d %s | fail to create thread %p %lld %d %d\n", v28, 36, v29, "AVE_DAL", "CreateRecvThread", 1649, "res == 0", a1, v30, v26, 0);
+      v31 = sub_175AE4();
+      v6 = 4;
+      v32 = sub_160F68(4);
+      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create thread %p %lld %d %d", v31, 36, v32, "AVE_DAL", "CreateRecvThread", 1649, "res == 0", a1, *a1, v26, 0);
     }
 
-    v6 = 4294966292;
+    v5 = 4294966292;
     goto LABEL_31;
   }
 
-  if (v61)
+  if (v53)
   {
-    v46 = 0;
+    v37 = 0;
   }
 
   else
   {
-    v47 = 0;
+    v38 = 0;
     do
     {
-      v46 = v47 + 1;
-      HIDWORD(v48) = 652835029 * (v47 + 1);
-      LODWORD(v48) = HIDWORD(v48);
-      if ((v48 >> 2) <= 0x83126E && sub_160EF0(0x24u, 5))
+      v37 = v38 + 1;
+      HIDWORD(v39) = 652835029 * (v38 + 1);
+      LODWORD(v39) = HIDWORD(v39);
+      if ((v39 >> 2) <= 0x83126E && sub_160EF0(0x24u, 5))
       {
-        v49 = sub_160F34(0x24u);
-        v50 = sub_175AE4();
-        v51 = sub_160F68(5);
-        v52 = *a1;
-        if (v49)
+        v40 = sub_160F34(0x24u);
+        v41 = sub_175AE4();
+        v42 = sub_160F68(5);
+        if (v40)
         {
-          printf("%lld %d AVE %s: %s::%s:%d long thread creation time %p %lld %d\n", v50, 36, v51, "AVE_DAL", "CreateRecvThread", 1658, a1, *a1, v47 + 1);
-          v50 = sub_175AE4();
-          v51 = sub_160F68(5);
+          printf("%lld %d AVE %s: %s::%s:%d long thread creation time %p %lld %d\n", v41, 36, v42, "AVE_DAL", "CreateRecvThread", 1658, a1, *a1, v38 + 1);
+          v41 = sub_175AE4();
+          v42 = sub_160F68(5);
         }
 
-        syslog(3, "%lld %d AVE %s: %s::%s:%d long thread creation time %p %lld %d", v50, 36, v51, "AVE_DAL", "CreateRecvThread", 1658, a1, *a1, v47 + 1);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d long thread creation time %p %lld %d", v41, 36, v42, "AVE_DAL", "CreateRecvThread", 1658, a1, *a1, v38 + 1);
       }
 
       usleep(0x3E8u);
-      if (v47 > 0xBB6)
+      if (v38 > 0xBB6)
       {
         break;
       }
 
-      ++v47;
+      ++v38;
     }
 
-    while (!v61);
+    while (!v53);
   }
 
-  if (v61)
+  if (v53)
   {
 LABEL_7:
-    v6 = 0;
-    v7 = 6;
+    v5 = 0;
+    v6 = 6;
     goto LABEL_31;
   }
 
-  v7 = 4;
+  v6 = 4;
   if (sub_160EF0(0x24u, 4))
   {
-    v53 = sub_160F34(0x24u);
-    v54 = sub_175AE4();
-    v55 = sub_160F68(4);
-    v56 = *a1;
-    if (!v53)
+    v43 = sub_160F34(0x24u);
+    v44 = sub_175AE4();
+    v45 = sub_160F68(4);
+    v46 = *a1;
+    if (!v43)
     {
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | creating thread time out %p %lld %d %d", v54, 36, v55, "AVE_DAL", "CreateRecvThread", 1664, "cfg.iReady != 0", a1, v56, v46, 0);
-      v6 = 4294966279;
+      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | creating thread time out %p %lld %d %d", v44, 36, v45, "AVE_DAL", "CreateRecvThread", 1664, "cfg.iReady != 0", a1, v46, v37, 0);
+      v5 = 4294966279;
       goto LABEL_30;
     }
 
-    printf("%lld %d AVE %s: %s::%s:%d %s | creating thread time out %p %lld %d %d\n", v54, 36, v55, "AVE_DAL", "CreateRecvThread", 1664, "cfg.iReady != 0", a1, v56, v46, 0);
-    v57 = sub_175AE4();
-    v7 = 4;
-    v58 = sub_160F68(4);
-    syslog(3, "%lld %d AVE %s: %s::%s:%d %s | creating thread time out %p %lld %d %d", v57, 36, v58, "AVE_DAL", "CreateRecvThread", 1664, "cfg.iReady != 0", a1, *a1, v46, 0);
+    printf("%lld %d AVE %s: %s::%s:%d %s | creating thread time out %p %lld %d %d\n", v44, 36, v45, "AVE_DAL", "CreateRecvThread", 1664, "cfg.iReady != 0", a1, v46, v37, 0);
+    v47 = sub_175AE4();
+    v6 = 4;
+    v48 = sub_160F68(4);
+    syslog(3, "%lld %d AVE %s: %s::%s:%d %s | creating thread time out %p %lld %d %d", v47, 36, v48, "AVE_DAL", "CreateRecvThread", 1664, "cfg.iReady != 0", a1, *a1, v37, 0);
   }
 
-  v6 = 4294966279;
+  v5 = 4294966279;
 LABEL_31:
   if (object != -1)
   {
     os_release(object);
   }
 
-  pthread_attr_destroy(&v64);
-  if (sub_160EF0(0x24u, v7))
+  pthread_attr_destroy(&v56);
+  if (sub_160EF0(0x24u, v6))
   {
-    v40 = sub_160F34(0x24u);
-    v41 = sub_175AE4();
-    v42 = sub_160F68(v7);
-    v43 = *a1;
-    if (v40)
+    v33 = sub_160F34(0x24u);
+    v34 = sub_175AE4();
+    v35 = sub_160F68(v6);
+    if (v33)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v41, 36, v42, "AVE_DAL", "CreateRecvThread", a1, *a1, v6);
-      v41 = sub_175AE4();
-      sub_160F68(v7);
-      v44 = *a1;
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v34, 36, v35, "AVE_DAL", "CreateRecvThread", a1, *a1, v5);
+      v34 = sub_175AE4();
+      sub_160F68(v6);
     }
 
-    else
-    {
-      v59 = *a1;
-    }
-
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v41, 36);
+    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v34, 36);
   }
 
-  return v6;
+  return v5;
 }
 
 uint64_t sub_E04CC(pthread_t *a1)
@@ -6797,7 +5937,6 @@ uint64_t sub_E04CC(pthread_t *a1)
       printf("%lld %d AVE %s: %s::%s Enter %p %lld\n", v3, 36, v4, "AVE_DAL", "DestroyRecvThread", a1, *a1);
       v3 = sub_175AE4();
       sub_160F68(6);
-      v5 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld", v3);
@@ -6812,24 +5951,17 @@ uint64_t sub_E04CC(pthread_t *a1)
 
   if (sub_160EF0(0x24u, 6))
   {
-    v6 = sub_160F34(0x24u);
-    v7 = sub_175AE4();
-    v8 = sub_160F68(6);
-    v9 = *a1;
-    if (v6)
+    v5 = sub_160F34(0x24u);
+    v6 = sub_175AE4();
+    v7 = sub_160F68(6);
+    if (v5)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v7, 36, v8, "AVE_DAL", "DestroyRecvThread", a1, *a1, 0);
-      v7 = sub_175AE4();
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v6, 36, v7, "AVE_DAL", "DestroyRecvThread", a1, *a1, 0);
+      v6 = sub_175AE4();
       sub_160F68(6);
-      v10 = *a1;
     }
 
-    else
-    {
-      v12 = *a1;
-    }
-
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v7, 36);
+    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v6, 36);
   }
 
   return 0;
@@ -6837,7 +5969,7 @@ uint64_t sub_E04CC(pthread_t *a1)
 
 uint64_t sub_E06B8(void *a1, int a2, void *a3)
 {
-  v37 = a2;
+  v40 = a2;
   if (sub_160EF0(0x24u, 8))
   {
     v6 = sub_160F34(0x24u);
@@ -6846,12 +5978,15 @@ uint64_t sub_E06B8(void *a1, int a2, void *a3)
     if (v6)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %d %p\n", v7, 36, v8, "AVE_DAL", "Alloc", a1, *a1, a2, a3);
-      v7 = sub_175AE4();
-      v8 = sub_160F68(8);
-      v9 = *a1;
+      v9 = sub_175AE4();
+      v37 = sub_160F68(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %d %p", v9, 36, v37);
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %d %p", v7, 36, v8);
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %d %p", v7, 36, v8);
+    }
   }
 
   if (a2 >= 1 && a3 && *(a1 + 5) >= a2)
@@ -6861,7 +5996,7 @@ uint64_t sub_E06B8(void *a1, int a2, void *a3)
     v10 = a1[4];
     if (v10)
     {
-      v11 = sub_135428(v10, a3, &v37);
+      v11 = sub_135428(v10, a3, &v40);
       if (v11)
       {
         if (sub_160EF0(0x24u, 4))
@@ -6871,13 +6006,16 @@ uint64_t sub_E06B8(void *a1, int a2, void *a3)
           v14 = sub_160F68(4);
           if (v12)
           {
-            printf("%lld %d AVE %s: %s::%s:%d %s | fail to allocate memory from UC info pool %p %lld %p %d %d\n", v13, 36, v14, "AVE_DAL", "Alloc", 357, "ret == 0", a1, *a1, a3, v37, v11);
-            v13 = sub_175AE4();
-            v14 = sub_160F68(4);
-            v15 = *a1;
+            printf("%lld %d AVE %s: %s::%s:%d %s | fail to allocate memory from UC info pool %p %lld %p %d %d\n", v13, 36, v14, "AVE_DAL", "Alloc", 357, "ret == 0", a1, *a1, a3, v40, v11);
+            v15 = sub_175AE4();
+            v38 = sub_160F68(4);
+            syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to allocate memory from UC info pool %p %lld %p %d %d", v15, 36, v38, "AVE_DAL", "Alloc");
           }
 
-          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to allocate memory from UC info pool %p %lld %p %d %d", v13, 36, v14, "AVE_DAL", "Alloc");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to allocate memory from UC info pool %p %lld %p %d %d", v13, 36, v14, "AVE_DAL", "Alloc");
+          }
         }
 
         sub_13DC4C(a1[1]);
@@ -6958,13 +6096,16 @@ uint64_t sub_E06B8(void *a1, int a2, void *a3)
     v27 = sub_160F68(v16);
     if (v25)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d\n", v26, 36, v27, "AVE_DAL", "Alloc", a1, *a1, v37, a3, v11);
-      v26 = sub_175AE4();
-      v27 = sub_160F68(v16);
-      v28 = *a1;
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d\n", v26, 36, v27, "AVE_DAL", "Alloc", a1, *a1, v40, a3, v11);
+      v28 = sub_175AE4();
+      v39 = sub_160F68(v16);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d", v28, 36, v39, "AVE_DAL");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d", v26, 36, v27, "AVE_DAL");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d", v26, 36, v27, "AVE_DAL");
+    }
   }
 
   return v11;
@@ -6977,18 +6118,11 @@ uint64_t sub_E0C68(void *a1, uint64_t *a2)
     v4 = sub_160F34(0x24u);
     v5 = sub_175AE4();
     v6 = sub_160F68(8);
-    v7 = *a1;
     if (v4)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p\n", v5, 36, v6, "AVE_DAL", "Free", a1, *a1, a2);
       v5 = sub_175AE4();
       sub_160F68(8);
-      v8 = *a1;
-    }
-
-    else
-    {
-      v33 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p", v5, 36);
@@ -6997,117 +6131,122 @@ uint64_t sub_E0C68(void *a1, uint64_t *a2)
   if (a2)
   {
     sub_13DC18(a1[1]);
-    v9 = a1[4];
-    if (v9)
+    v7 = a1[4];
+    if (v7)
     {
-      v10 = sub_135770(v9, a2);
-      if (v10)
+      v8 = sub_135770(v7, a2);
+      if (v8)
       {
         if (sub_160EF0(0x24u, 4))
         {
-          v11 = sub_160F34(0x24u);
-          v12 = sub_175AE4();
-          v13 = sub_160F68(4);
-          if (v11)
+          v9 = sub_160F34(0x24u);
+          v10 = sub_175AE4();
+          v11 = sub_160F68(4);
+          if (v9)
           {
-            printf("%lld %d AVE %s: %s::%s:%d %s | fail to free memory to UC info pool %p %lld %p %d\n", v12, 36, v13, "AVE_DAL", "Free", 398, "ret == 0", a1, *a1, a2, v10);
+            printf("%lld %d AVE %s: %s::%s:%d %s | fail to free memory to UC info pool %p %lld %p %d\n", v10, 36, v11, "AVE_DAL", "Free", 398, "ret == 0", a1, *a1, a2, v8);
             v12 = sub_175AE4();
-            v13 = sub_160F68(4);
-            v14 = *a1;
+            v29 = sub_160F68(4);
+            syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to free memory to UC info pool %p %lld %p %d", v12, 36, v29, "AVE_DAL", "Free");
           }
 
-          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to free memory to UC info pool %p %lld %p %d", v12, 36, v13, "AVE_DAL", "Free");
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to free memory to UC info pool %p %lld %p %d", v10, 36, v11, "AVE_DAL", "Free");
+          }
         }
 
         sub_13DC4C(a1[1]);
-        v15 = 4;
+        v13 = 4;
       }
 
       else
       {
         sub_13DC4C(a1[1]);
-        v15 = 8;
+        v13 = 8;
       }
     }
 
     else
     {
-      v15 = 4;
+      v13 = 4;
       if (sub_160EF0(0x24u, 4))
       {
-        v22 = sub_160F34(0x24u);
-        v23 = sub_175AE4();
-        v24 = sub_160F68(4);
-        v25 = *a1;
-        if (v22)
+        v19 = sub_160F34(0x24u);
+        v20 = sub_175AE4();
+        v21 = sub_160F68(4);
+        if (v19)
         {
-          printf("%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %p\n", v23, 36, v24, "AVE_DAL", "Free", 393, "m_pcUCInfoPool != __null", a1, *a1, a2);
-          v26 = sub_175AE4();
-          v15 = 4;
-          v27 = sub_160F68(4);
-          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %p", v26, 36, v27, "AVE_DAL", "Free", 393, "m_pcUCInfoPool != __null", a1, *a1, a2);
+          printf("%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %p\n", v20, 36, v21, "AVE_DAL", "Free", 393, "m_pcUCInfoPool != __null", a1, *a1, a2);
+          v22 = sub_175AE4();
+          v13 = 4;
+          v23 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %p", v22, 36, v23, "AVE_DAL", "Free", 393, "m_pcUCInfoPool != __null", a1, *a1, a2);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %p", v23, 36, v24, "AVE_DAL", "Free", 393, "m_pcUCInfoPool != __null", a1, *a1, a2);
-          v15 = 4;
+          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %p", v20, 36, v21, "AVE_DAL", "Free", 393, "m_pcUCInfoPool != __null", a1, *a1, a2);
+          v13 = 4;
         }
       }
 
-      v10 = 4294966285;
+      v8 = 4294966285;
     }
   }
 
   else
   {
-    v15 = 4;
+    v13 = 4;
     if (sub_160EF0(0x24u, 4))
     {
-      v16 = sub_160F34(0x24u);
-      v17 = sub_175AE4();
-      v18 = sub_160F68(4);
-      v19 = *a1;
-      if (v16)
+      v14 = sub_160F34(0x24u);
+      v15 = sub_175AE4();
+      v16 = sub_160F68(4);
+      if (v14)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %p\n", v17, 36, v18, "AVE_DAL", "Free", 387, "addr != 0", a1, *a1, 0);
-        v20 = sub_175AE4();
-        v15 = 4;
-        v21 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %p", v20, 36, v21, "AVE_DAL", "Free", 387, "addr != 0", a1, *a1, 0);
+        printf("%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %p\n", v15, 36, v16, "AVE_DAL", "Free", 387, "addr != 0", a1, *a1, 0);
+        v17 = sub_175AE4();
+        v13 = 4;
+        v18 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %p", v17, 36, v18, "AVE_DAL", "Free", 387, "addr != 0", a1, *a1, 0);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %p", v17, 36, v18, "AVE_DAL", "Free", 387, "addr != 0", a1, *a1, 0);
-        v15 = 4;
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %p", v15, 36, v16, "AVE_DAL", "Free", 387, "addr != 0", a1, *a1, 0);
+        v13 = 4;
       }
     }
 
-    v10 = 4294966295;
+    v8 = 4294966295;
   }
 
-  if (sub_160EF0(0x24u, v15))
+  if (sub_160EF0(0x24u, v13))
   {
-    v28 = sub_160F34(0x24u);
-    v29 = sub_175AE4();
-    v30 = sub_160F68(v15);
-    if (v28)
+    v24 = sub_160F34(0x24u);
+    v25 = sub_175AE4();
+    v26 = sub_160F68(v13);
+    if (v24)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %d\n", v29, 36, v30, "AVE_DAL", "Free", a1, *a1, a2, v10);
-      v29 = sub_175AE4();
-      v30 = sub_160F68(v15);
-      v31 = *a1;
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %d\n", v25, 36, v26, "AVE_DAL", "Free", a1, *a1, a2, v8);
+      v27 = sub_175AE4();
+      v30 = sub_160F68(v13);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %d", v27, 36, v30);
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %d", v29, 36, v30);
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %d", v25, 36, v26);
+    }
   }
 
-  return v10;
+  return v8;
 }
 
-uint64_t sub_E11A4(uint64_t *a1, int a2, void *a3)
+uint64_t sub_E11A4(uint64_t *a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   if (sub_160EF0(0x24u, 8))
   {
     v6 = sub_160F34(0x24u);
@@ -7115,37 +6254,40 @@ uint64_t sub_E11A4(uint64_t *a1, int a2, void *a3)
     v8 = sub_160F68(8);
     if (v6)
     {
-      printf("%lld %d AVE %s: %s::%s Enter %p %lld %d %p\n", v7, 36, v8, "AVE_DAL", "Idx2Addr", a1, *a1, a2, a3);
-      v7 = sub_175AE4();
-      v8 = sub_160F68(8);
-      v9 = *a1;
+      printf("%lld %d AVE %s: %s::%s Enter %p %lld %d %p\n", v7, 36, v8, "AVE_DAL", "Idx2Addr", a1, *a1, v4, a3);
+      v9 = sub_175AE4();
+      v34 = sub_160F68(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %d %p", v9, 36, v34);
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %d %p", v7, 36, v8);
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %d %p", v7, 36, v8);
+    }
   }
 
-  if (a2 < 0 || !a3)
+  if (v4 < 0 || !a3)
   {
-    v15 = 4;
+    v16 = 4;
     if (sub_160EF0(0x24u, 4))
     {
-      v16 = sub_160F34(0x24u);
-      v17 = sub_175AE4();
-      v18 = sub_160F68(4);
-      v19 = *a1;
-      if (v16)
+      v17 = sub_160F34(0x24u);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(4);
+      v20 = *a1;
+      if (v17)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %p\n", v17, 36, v18, "AVE_DAL", "Idx2Addr", 432, "idx >= 0 && pAddr != __null", a1, v19, a2, a3);
-        v20 = sub_175AE4();
-        v15 = 4;
-        v21 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %p", v20, 36, v21, "AVE_DAL", "Idx2Addr", 432, "idx >= 0 && pAddr != __null", a1, *a1, a2, a3);
+        printf("%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %p\n", v18, 36, v19, "AVE_DAL", "Idx2Addr", 432, "idx >= 0 && pAddr != __null", a1, v20, v4, a3);
+        v21 = sub_175AE4();
+        v16 = 4;
+        v22 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %p", v21, 36, v22, "AVE_DAL", "Idx2Addr", 432, "idx >= 0 && pAddr != __null", a1, *a1, v4, a3);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %p", v17, 36, v18, "AVE_DAL", "Idx2Addr", 432, "idx >= 0 && pAddr != __null", a1, v19, a2, a3);
-        v15 = 4;
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %p", v18, 36, v19, "AVE_DAL", "Idx2Addr", 432, "idx >= 0 && pAddr != __null", a1, v20, v4, a3);
+        v16 = 4;
       }
     }
 
@@ -7158,7 +6300,7 @@ uint64_t sub_E11A4(uint64_t *a1, int a2, void *a3)
     v10 = a1[4];
     if (v10)
     {
-      v11 = sub_135B60(v10, a2, a3);
+      v11 = sub_135B60(v10, v4, a3);
       if (v11)
       {
         if (sub_160EF0(0x24u, 4))
@@ -7168,48 +6310,51 @@ uint64_t sub_E11A4(uint64_t *a1, int a2, void *a3)
           v14 = sub_160F68(4);
           if (v12)
           {
-            printf("%lld %d AVE %s: %s::%s:%d %s | fail to convert index in UC info pool %p %lld %d %p %d\n", v13, 36, v14, "AVE_DAL", "Idx2Addr", 443, "ret == 0", a1, *a1, a2, a3, v11);
-            v13 = sub_175AE4();
-            v14 = sub_160F68(4);
-            v35 = *a1;
+            printf("%lld %d AVE %s: %s::%s:%d %s | fail to convert index in UC info pool %p %lld %d %p %d\n", v13, 36, v14, "AVE_DAL", "Idx2Addr", 443, "ret == 0", a1, *a1, v4, a3, v11);
+            v15 = sub_175AE4();
+            v35 = sub_160F68(4);
+            syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to convert index in UC info pool %p %lld %d %p %d", v15, 36, v35, "AVE_DAL", "Idx2Addr", 443);
           }
 
-          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to convert index in UC info pool %p %lld %d %p %d", v13, 36, v14, "AVE_DAL", "Idx2Addr", 443);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to convert index in UC info pool %p %lld %d %p %d", v13, 36, v14, "AVE_DAL", "Idx2Addr", 443);
+          }
         }
 
         sub_13DC4C(a1[1]);
-        v15 = 4;
+        v16 = 4;
       }
 
       else
       {
         sub_13DC4C(a1[1]);
-        v15 = 8;
+        v16 = 8;
       }
     }
 
     else
     {
-      v15 = 4;
+      v16 = 4;
       if (sub_160EF0(0x24u, 4))
       {
-        v22 = sub_160F34(0x24u);
-        v23 = sub_175AE4();
-        v24 = sub_160F68(4);
-        v25 = *a1;
-        if (v22)
+        v23 = sub_160F34(0x24u);
+        v24 = sub_175AE4();
+        v25 = sub_160F68(4);
+        v26 = *a1;
+        if (v23)
         {
-          printf("%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %d %p\n", v23, 36, v24, "AVE_DAL", "Idx2Addr", 438, "m_pcUCInfoPool != __null", a1, v25, a2, a3);
-          v26 = sub_175AE4();
-          v15 = 4;
-          v27 = sub_160F68(4);
-          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %d %p", v26, 36, v27, "AVE_DAL", "Idx2Addr", 438, "m_pcUCInfoPool != __null", a1, *a1, a2, a3);
+          printf("%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %d %p\n", v24, 36, v25, "AVE_DAL", "Idx2Addr", 438, "m_pcUCInfoPool != __null", a1, v26, v4, a3);
+          v27 = sub_175AE4();
+          v16 = 4;
+          v28 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %d %p", v27, 36, v28, "AVE_DAL", "Idx2Addr", 438, "m_pcUCInfoPool != __null", a1, *a1, v4, a3);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %d %p", v23, 36, v24, "AVE_DAL", "Idx2Addr", 438, "m_pcUCInfoPool != __null", a1, v25, a2, a3);
-          v15 = 4;
+          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p %lld %d %p", v24, 36, v25, "AVE_DAL", "Idx2Addr", 438, "m_pcUCInfoPool != __null", a1, v26, v4, a3);
+          v16 = 4;
         }
       }
 
@@ -7217,23 +6362,22 @@ uint64_t sub_E11A4(uint64_t *a1, int a2, void *a3)
     }
   }
 
-  if (sub_160EF0(0x24u, v15))
+  if (sub_160EF0(0x24u, v16))
   {
-    v28 = sub_160F34(0x24u);
-    v29 = sub_175AE4();
-    v30 = sub_160F68(v15);
-    if (v28)
+    v29 = sub_160F34(0x24u);
+    v30 = sub_175AE4();
+    v31 = sub_160F68(v16);
+    if (v29)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d\n", v29, 36, v30, "AVE_DAL", "Idx2Addr", a1, *a1, a2, a3, v11);
-      v31 = sub_175AE4();
-      v32 = sub_160F68(v15);
-      v34 = *a1;
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d", v31, 36, v32, "AVE_DAL");
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d\n", v30, 36, v31, "AVE_DAL", "Idx2Addr", a1, *a1, v4, a3, v11);
+      v32 = sub_175AE4();
+      v36 = sub_160F68(v16);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d", v32, 36, v36, "AVE_DAL");
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d", v29, 36, v30, "AVE_DAL");
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d", v30, 36, v31, "AVE_DAL");
     }
   }
 
@@ -7250,12 +6394,15 @@ uint64_t sub_E1750(uint64_t *a1, const void *a2, _DWORD *a3)
     if (v6)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p %p\n", v7, 36, v8, "AVE_DAL", "Addr2Idx", a1, *a1, a2, a3);
-      v7 = sub_175AE4();
-      v8 = sub_160F68(8);
-      v9 = *a1;
+      v9 = sub_175AE4();
+      v34 = sub_160F68(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p", v9, 36, v34);
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p", v7, 36, v8);
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p", v7, 36, v8);
+    }
   }
 
   if (a3)
@@ -7275,12 +6422,15 @@ uint64_t sub_E1750(uint64_t *a1, const void *a2, _DWORD *a3)
           if (v12)
           {
             printf("%lld %d AVE %s: %s::%s:%d %s | fail to convert address in UC info pool %p %lld %p %p %d\n", v13, 36, v14, "AVE_DAL", "Addr2Idx", 488, "ret == 0", a1, *a1, a2, a3, v11);
-            v13 = sub_175AE4();
-            v14 = sub_160F68(4);
-            v15 = *a1;
+            v15 = sub_175AE4();
+            v35 = sub_160F68(4);
+            syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to convert address in UC info pool %p %lld %p %p %d", v15, 36, v35, "AVE_DAL", "Addr2Idx", 488);
           }
 
-          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to convert address in UC info pool %p %lld %p %p %d", v13, 36, v14, "AVE_DAL", "Addr2Idx", 488);
+          else
+          {
+            syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to convert address in UC info pool %p %lld %p %p %d", v13, 36, v14, "AVE_DAL", "Addr2Idx", 488);
+          }
         }
 
         sub_13DC4C(a1[1]);
@@ -7359,12 +6509,15 @@ uint64_t sub_E1750(uint64_t *a1, const void *a2, _DWORD *a3)
     if (v29)
     {
       printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %p %d\n", v30, 36, v31, "AVE_DAL", "Addr2Idx", a1, *a1, a2, a3, v11);
-      v30 = sub_175AE4();
-      v31 = sub_160F68(v16);
-      v32 = *a1;
+      v32 = sub_175AE4();
+      v36 = sub_160F68(v16);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %d", v32, 36, v36, "AVE_DAL");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %d", v30, 36, v31, "AVE_DAL");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %d", v30, 36, v31, "AVE_DAL");
+    }
   }
 
   return v11;
@@ -7380,14 +6533,15 @@ uint64_t sub_E1CC0(uint64_t *a1, const void *a2, const void *a3)
     if (v6)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p\n", v7, 36, v8, "AVE_DAL", "SetCallback", a1, *a1, a1[5], a2, a3);
-      v7 = sub_175AE4();
-      v8 = sub_160F68(6);
-      v9 = *a1;
-      v23 = *a1;
-      v24 = a1[5];
+      v9 = sub_175AE4();
+      v23 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v9, 36, v23, "AVE_DAL");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    }
   }
 
   if (a2 && a3)
@@ -7396,13 +6550,13 @@ uint64_t sub_E1CC0(uint64_t *a1, const void *a2, const void *a3)
     a1[15] = a2;
     a1[16] = a3;
     v11 = 6;
-    goto LABEL_14;
+    goto LABEL_13;
   }
 
   v11 = 4;
   if (!sub_160EF0(0x24u, 4))
   {
-    goto LABEL_12;
+    goto LABEL_11;
   }
 
   v12 = sub_160F34(0x24u);
@@ -7416,15 +6570,15 @@ uint64_t sub_E1CC0(uint64_t *a1, const void *a2, const void *a3)
     v11 = 4;
     v17 = sub_160F68(4);
     syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameter %p %lld %p %p", v16, 36, v17, "AVE_DAL", "SetCallback", 521, "pCB != __null && pParam != __null", a1, *a1, a2, a3);
-LABEL_12:
+LABEL_11:
     v10 = 4294966295;
-    goto LABEL_14;
+    goto LABEL_13;
   }
 
   syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameter %p %lld %p %p", v13, 36, v14, "AVE_DAL", "SetCallback", 521, "pCB != __null && pParam != __null", a1, v15, a2, a3);
   v10 = 4294966295;
   v11 = 4;
-LABEL_14:
+LABEL_13:
   if (sub_160EF0(0x24u, v11))
   {
     v18 = sub_160F34(0x24u);
@@ -7433,13 +6587,15 @@ LABEL_14:
     if (v18)
     {
       printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d\n", v19, 36, v20, "AVE_DAL", "SetCallback", a1, *a1, a1[5], a2, a3, v10);
-      v19 = sub_175AE4();
-      v20 = sub_160F68(v11);
-      v21 = *a1;
-      v25 = a1[5];
+      v21 = sub_175AE4();
+      v24 = sub_160F68(v11);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v21, 36, v24, "AVE_DAL", "SetCallback");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v19, 36, v20, "AVE_DAL", "SetCallback");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v19, 36, v20, "AVE_DAL", "SetCallback");
+    }
   }
 
   return v10;
@@ -7457,7 +6613,6 @@ uint64_t sub_E2008(uint64_t *a1, int a2, int a3)
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %d %d\n", v7, 36, v8, "AVE_DAL", "UpdatePriorityPolicy", a1, *a1, a2, a3);
       v7 = sub_175AE4();
       sub_160F68(6);
-      v9 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %d %d", v7, 36);
@@ -7465,210 +6620,198 @@ uint64_t sub_E2008(uint64_t *a1, int a2, int a3)
 
   if ((a3 | a2) < 0)
   {
-    v14 = 4;
+    v13 = 4;
     if (sub_160EF0(0x24u, 4))
     {
-      v15 = sub_160F34(0x24u);
-      v16 = sub_175AE4();
-      v17 = sub_160F68(4);
-      v18 = *a1;
-      if (!v15)
+      v14 = sub_160F34(0x24u);
+      v15 = sub_175AE4();
+      v16 = sub_160F68(4);
+      v17 = *a1;
+      if (!v14)
       {
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d", v16, 36, v17, "AVE_DAL", "UpdatePriorityPolicy", 555, "policy >= 0 && frameRate >= 0", a1, v18, a2, a3);
-        v13 = 4294966295;
-        v14 = 4;
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d", v15, 36, v16, "AVE_DAL", "UpdatePriorityPolicy", 555, "policy >= 0 && frameRate >= 0", a1, v17, a2, a3);
+        v12 = 4294966295;
+        v13 = 4;
         goto LABEL_25;
       }
 
-      printf("%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d\n", v16, 36, v17, "AVE_DAL", "UpdatePriorityPolicy", 555, "policy >= 0 && frameRate >= 0", a1, v18, a2, a3);
-      v19 = sub_175AE4();
-      v14 = 4;
-      v20 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d", v19, 36, v20, "AVE_DAL", "UpdatePriorityPolicy", 555, "policy >= 0 && frameRate >= 0", a1, *a1, a2, a3);
+      printf("%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d\n", v15, 36, v16, "AVE_DAL", "UpdatePriorityPolicy", 555, "policy >= 0 && frameRate >= 0", a1, v17, a2, a3);
+      v18 = sub_175AE4();
+      v13 = 4;
+      v19 = sub_160F68(4);
+      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p %lld %d %d", v18, 36, v19, "AVE_DAL", "UpdatePriorityPolicy", 555, "policy >= 0 && frameRate >= 0", a1, *a1, a2, a3);
     }
 
-    v13 = 4294966295;
+    v12 = 4294966295;
     goto LABEL_25;
   }
 
   sub_13DC18(a1[6]);
   if (a3 <= 59)
   {
-    v10 = 33;
+    v9 = 33;
   }
 
   else
   {
-    v10 = 15;
+    v9 = 15;
   }
 
   if (a3 <= 119)
+  {
+    v10 = v9;
+  }
+
+  else
+  {
+    v10 = 8;
+  }
+
+  if (a3 <= 239)
   {
     v11 = v10;
   }
 
   else
   {
-    v11 = 8;
+    v11 = 4;
   }
 
-  if (a3 <= 239)
-  {
-    v12 = v11;
-  }
-
-  else
-  {
-    v12 = 4;
-  }
-
-  if (v12 != *(a1 + 15) || *(a1 + 14) != a2)
+  if (v11 != *(a1 + 15) || *(a1 + 14) != a2)
   {
     *(a1 + 14) = a2;
-    *(a1 + 15) = v12;
+    *(a1 + 15) = v11;
     ++*(a1 + 16);
   }
 
   sub_13DC4C(a1[6]);
-  v13 = 0;
-  v14 = 6;
+  v12 = 0;
+  v13 = 6;
 LABEL_25:
-  if (sub_160EF0(0x24u, v14))
+  if (sub_160EF0(0x24u, v13))
   {
-    v21 = sub_160F34(0x24u);
-    v22 = sub_175AE4();
-    v23 = sub_160F68(v14);
-    if (v21)
+    v20 = sub_160F34(0x24u);
+    v21 = sub_175AE4();
+    v22 = sub_160F68(v13);
+    if (v20)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d\n", v22, 36, v23, "AVE_DAL", "UpdatePriorityPolicy", a1, *a1, a2, a3, v13);
-      v24 = sub_175AE4();
-      v25 = sub_160F68(v14);
-      v26 = *a1;
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d", v24, 36, v25);
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d\n", v21, 36, v22, "AVE_DAL", "UpdatePriorityPolicy", a1, *a1, a2, a3, v12);
+      v23 = sub_175AE4();
+      v25 = sub_160F68(v13);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d", v23, 36, v25);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d", v22, 36, v23);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %d %d", v21, 36, v22);
     }
   }
 
-  return v13;
+  return v12;
 }
 
-uint64_t sub_E23B8(uint64_t *a1, uint32_t a2)
+uint64_t sub_E23B8(uint64_t *a1, uint64_t a2)
 {
-  v34 = 0;
+  v2 = a2;
+  v26 = 0;
   if (sub_160EF0(0x24u, 6))
   {
     v4 = sub_160F34(0x24u);
     v5 = sub_175AE4();
     v6 = sub_160F68(6);
-    v7 = *a1;
     if (v4)
     {
-      printf("%lld %d AVE %s: %s::%s Enter %p %lld %d\n", v5, 36, v6, "AVE_DAL", "UCCreate", a1, *a1, a2);
+      printf("%lld %d AVE %s: %s::%s Enter %p %lld %d\n", v5, 36, v6, "AVE_DAL", "UCCreate", a1, *a1, v2);
       v5 = sub_175AE4();
       sub_160F68(6);
-      v8 = *a1;
-    }
-
-    else
-    {
-      v31 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %d", v5, 36);
   }
 
-  if (a2 - 1 >= 5)
+  if (v2 - 1 >= 5)
   {
-    v10 = 4;
+    v8 = 4;
     if (sub_160EF0(0x24u, 4))
     {
-      v17 = sub_160F34(0x24u);
-      v18 = sub_175AE4();
-      v19 = sub_160F68(4);
-      v20 = *a1;
-      if (v17)
+      v15 = sub_160F34(0x24u);
+      v16 = sub_175AE4();
+      v17 = sub_160F68(4);
+      if (v15)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | wrong parameter %p %lld %d\n", v18, 36, v19, "AVE_DAL", "UCCreate", 653, "AVE_ClientType_None < type && type < AVE_ClientType_Max", a1, *a1, a2);
-        v21 = sub_175AE4();
-        v10 = 4;
-        v22 = sub_160F68(4);
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameter %p %lld %d", v21, 36, v22, "AVE_DAL", "UCCreate", 653, "AVE_ClientType_None < type && type < AVE_ClientType_Max", a1, *a1, a2);
+        printf("%lld %d AVE %s: %s::%s:%d %s | wrong parameter %p %lld %d\n", v16, 36, v17, "AVE_DAL", "UCCreate", 653, "AVE_ClientType_None < type && type < AVE_ClientType_Max", a1, *a1, v2);
+        v18 = sub_175AE4();
+        v8 = 4;
+        v19 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameter %p %lld %d", v18, 36, v19, "AVE_DAL", "UCCreate", 653, "AVE_ClientType_None < type && type < AVE_ClientType_Max", a1, *a1, v2);
       }
 
       else
       {
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameter %p %lld %d", v18, 36, v19, "AVE_DAL", "UCCreate", 653, "AVE_ClientType_None < type && type < AVE_ClientType_Max", a1, *a1, a2);
-        v10 = 4;
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameter %p %lld %d", v16, 36, v17, "AVE_DAL", "UCCreate", 653, "AVE_ClientType_None < type && type < AVE_ClientType_Max", a1, *a1, v2);
+        v8 = 4;
       }
     }
 
-    v9 = 4294966295;
+    v7 = 4294966295;
   }
 
   else
   {
-    v9 = sub_15B8C4(a2, &v34);
-    if (v9)
+    v7 = sub_15B8C4(v2, &v26);
+    if (v7)
     {
-      v10 = 4;
+      v8 = 4;
       if (sub_160EF0(0x24u, 4))
       {
-        v11 = sub_160F34(0x24u);
-        v12 = sub_175AE4();
-        v13 = sub_160F68(4);
-        v14 = *a1;
-        if (v11)
+        v9 = sub_160F34(0x24u);
+        v10 = sub_175AE4();
+        v11 = sub_160F68(4);
+        v12 = *a1;
+        if (v9)
         {
-          printf("%lld %d AVE %s: %s::%s:%d %s | fail to create UC %p %lld %d %d\n", v12, 36, v13, "AVE_DAL", "UCCreate", 657, "ret == 0", a1, v14, a2, v9);
-          v15 = sub_175AE4();
-          v10 = 4;
-          v16 = sub_160F68(4);
-          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create UC %p %lld %d %d", v15, 36, v16, "AVE_DAL", "UCCreate", 657, "ret == 0", a1, *a1, a2, v9);
+          printf("%lld %d AVE %s: %s::%s:%d %s | fail to create UC %p %lld %d %d\n", v10, 36, v11, "AVE_DAL", "UCCreate", 657, "ret == 0", a1, v12, v2, v7);
+          v13 = sub_175AE4();
+          v8 = 4;
+          v14 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create UC %p %lld %d %d", v13, 36, v14, "AVE_DAL", "UCCreate", 657, "ret == 0", a1, *a1, v2, v7);
         }
 
         else
         {
-          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create UC %p %lld %d %d", v12, 36, v13, "AVE_DAL", "UCCreate", 657, "ret == 0", a1, v14, a2, v9);
-          v10 = 4;
+          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create UC %p %lld %d %d", v10, 36, v11, "AVE_DAL", "UCCreate", 657, "ret == 0", a1, v12, v2, v7);
+          v8 = 4;
         }
       }
     }
 
     else
     {
-      a1[5] = v34;
-      v10 = 6;
+      a1[5] = v26;
+      v8 = 6;
     }
   }
 
-  if (sub_160EF0(0x24u, v10))
+  if (sub_160EF0(0x24u, v8))
   {
-    v23 = sub_160F34(0x24u);
-    v24 = sub_175AE4();
-    v25 = sub_160F68(v10);
-    v26 = a1[5];
-    if (v23)
+    v20 = sub_160F34(0x24u);
+    v21 = sub_175AE4();
+    v22 = sub_160F68(v8);
+    if (v20)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d\n", v24, 36, v25, "AVE_DAL", "UCCreate", a1, *a1, a2, a1[5], v9);
-      v27 = sub_175AE4();
-      v28 = sub_160F68(v10);
-      v29 = *a1;
-      v32 = a1[5];
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d", v27, 36, v28, "AVE_DAL");
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d\n", v21, 36, v22, "AVE_DAL", "UCCreate", a1, *a1, v2, a1[5], v7);
+      v23 = sub_175AE4();
+      v25 = sub_160F68(v8);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d", v23, 36, v25, "AVE_DAL");
     }
 
     else
     {
-      v33 = a1[5];
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d", v24, 36, v25, "AVE_DAL");
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d %p %d", v21, 36, v22, "AVE_DAL");
     }
   }
 
-  return v9;
+  return v7;
 }
 
 uint64_t sub_E2824(const void **a1)
@@ -7678,60 +6821,52 @@ uint64_t sub_E2824(const void **a1)
     v2 = sub_160F34(0x24u);
     v3 = sub_175AE4();
     v4 = sub_160F68(6);
-    v5 = *a1;
     if (v2)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p\n", v3, 36, v4, "AVE_DAL", "UCDestroy", a1, *a1, a1[5]);
       v3 = sub_175AE4();
       sub_160F68(6);
-      v6 = *a1;
-      v17 = *a1;
-      v19 = a1[5];
-    }
-
-    else
-    {
-      v18 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p", v3, 36);
   }
 
-  v7 = a1[5];
-  if (v7 && (v8 = sub_15BE1C(v7), a1[5] = 0, v8))
+  v5 = a1[5];
+  if (v5 && (v6 = sub_15BE1C(v5), a1[5] = 0, v6))
   {
-    v9 = v8;
-    v10 = 4;
+    v7 = v6;
+    v8 = 4;
   }
 
   else
   {
-    v9 = 0;
-    v10 = 6;
+    v7 = 0;
+    v8 = 6;
   }
 
-  if (sub_160EF0(0x24u, v10))
+  if (sub_160EF0(0x24u, v8))
   {
-    v11 = sub_160F34(0x24u);
-    v12 = sub_175AE4();
-    v13 = sub_160F68(v10);
-    v14 = a1[5];
-    if (v11)
+    v9 = sub_160F34(0x24u);
+    v10 = sub_175AE4();
+    v11 = sub_160F68(v8);
+    if (v9)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %d\n", v12, 36, v13, "AVE_DAL", "UCDestroy", a1, *a1, a1[5], v9);
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %d\n", v10, 36, v11, "AVE_DAL", "UCDestroy", a1, *a1, a1[5], v7);
       v12 = sub_175AE4();
-      v13 = sub_160F68(v10);
-      v15 = *a1;
+      v14 = sub_160F68(v8);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %d", v12, 36, v14);
     }
 
-    v20 = a1[5];
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %d", v12, 36, v13);
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %d", v10, 36, v11);
+    }
   }
 
-  return v9;
+  return v7;
 }
 
-uint64_t sub_E2A40(const void **a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_E2A40(const void **a1, char *a2, const void **a3)
 {
   if (sub_160EF0(0x24u, 6))
   {
@@ -7741,23 +6876,24 @@ uint64_t sub_E2A40(const void **a1, uint64_t a2, uint64_t *a3)
     if (v6)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p\n", v7, 36, v8, "AVE_DAL", "UCOpen", a1, *a1, a1[5], a2, a3);
-      v7 = sub_175AE4();
-      v8 = sub_160F68(6);
-      v9 = *a1;
-      v30 = *a1;
-      v31 = a1[5];
+      v9 = sub_175AE4();
+      v30 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v9, 36, v30, "AVE_DAL");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    }
   }
 
   if (a2 && a3)
   {
-    sub_17212C((a2 + 40), "905.5.3", 16);
+    sub_17212C(a2 + 40, "905.5.3", 16);
     v10 = sub_1502C8();
-    memcpy((a2 + 56), v10, 0x650uLL);
-    *(a2 + 1672) = 0;
-    sub_161394((a2 + 1672), a2 + 1680);
+    memcpy(a2 + 56, v10, 0x650uLL);
+    *(a2 + 209) = 0;
+    sub_161394(a2 + 209, (a2 + 1680));
     v11 = sub_15C1CC(a1[5], a2, a3);
     if (v11)
     {
@@ -7828,19 +6964,21 @@ uint64_t sub_E2A40(const void **a1, uint64_t a2, uint64_t *a3)
     if (v25)
     {
       printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d\n", v26, 36, v27, "AVE_DAL", "UCOpen", a1, *a1, a1[5], a2, a3, v11);
-      v26 = sub_175AE4();
-      v27 = sub_160F68(v12);
-      v28 = *a1;
-      v32 = a1[5];
+      v28 = sub_175AE4();
+      v31 = sub_160F68(v12);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v28, 36, v31, "AVE_DAL", "UCOpen");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v26, 36, v27, "AVE_DAL", "UCOpen");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v26, 36, v27, "AVE_DAL", "UCOpen");
+    }
   }
 
   return v11;
 }
 
-uint64_t sub_E2EF4(const void **a1, uint64_t *a2, void *a3)
+uint64_t sub_E2EF4(const void **a1, void *a2, void *a3)
 {
   if (sub_160EF0(0x24u, 6))
   {
@@ -7850,14 +6988,15 @@ uint64_t sub_E2EF4(const void **a1, uint64_t *a2, void *a3)
     if (v6)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p\n", v7, 36, v8, "AVE_DAL", "UCClose", a1, *a1, a1[5], a2, a3);
-      v7 = sub_175AE4();
-      v8 = sub_160F68(6);
-      v9 = *a1;
-      v29 = *a1;
-      v30 = a1[5];
+      v9 = sub_175AE4();
+      v29 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v9, 36, v29, "AVE_DAL");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    }
   }
 
   if (a2 && a3)
@@ -7931,19 +7070,21 @@ uint64_t sub_E2EF4(const void **a1, uint64_t *a2, void *a3)
     if (v24)
     {
       printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d\n", v25, 36, v26, "AVE_DAL", "UCClose", a1, *a1, a1[5], a2, a3, v10);
-      v25 = sub_175AE4();
-      v26 = sub_160F68(v11);
-      v27 = *a1;
-      v31 = a1[5];
+      v27 = sub_175AE4();
+      v30 = sub_160F68(v11);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v27, 36, v30, "AVE_DAL", "UCClose");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v25, 36, v26, "AVE_DAL", "UCClose");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v25, 36, v26, "AVE_DAL", "UCClose");
+    }
   }
 
   return v10;
 }
 
-uint64_t sub_E3368(const void **a1, uint64_t *a2, void *a3)
+uint64_t sub_E3368(const void **a1, void *a2, void *a3)
 {
   if (sub_160EF0(0x24u, 6))
   {
@@ -7953,14 +7094,15 @@ uint64_t sub_E3368(const void **a1, uint64_t *a2, void *a3)
     if (v6)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p\n", v7, 36, v8, "AVE_DAL", "UCPrepare", a1, *a1, a1[5], a2, a3);
-      v7 = sub_175AE4();
-      v8 = sub_160F68(6);
-      v9 = *a1;
-      v29 = *a1;
-      v30 = a1[5];
+      v9 = sub_175AE4();
+      v29 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v9, 36, v29, "AVE_DAL");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    }
   }
 
   if (a2 && a3)
@@ -8034,19 +7176,21 @@ uint64_t sub_E3368(const void **a1, uint64_t *a2, void *a3)
     if (v24)
     {
       printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d\n", v25, 36, v26, "AVE_DAL", "UCPrepare", a1, *a1, a1[5], a2, a3, v10);
-      v25 = sub_175AE4();
-      v26 = sub_160F68(v11);
-      v27 = *a1;
-      v31 = a1[5];
+      v27 = sub_175AE4();
+      v30 = sub_160F68(v11);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v27, 36, v30, "AVE_DAL", "UCPrepare");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v25, 36, v26, "AVE_DAL", "UCPrepare");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v25, 36, v26, "AVE_DAL", "UCPrepare");
+    }
   }
 
   return v10;
 }
 
-uint64_t sub_E37DC(uint64_t *a1, uint64_t *a2, void *a3)
+uint64_t sub_E37DC(uint64_t *a1, _DWORD *a2, void *a3)
 {
   if (sub_160EF0(0x24u, 6))
   {
@@ -8056,19 +7200,20 @@ uint64_t sub_E37DC(uint64_t *a1, uint64_t *a2, void *a3)
     if (v6)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p\n", v7, 36, v8, "AVE_DAL", "UCStart", a1, *a1, a1[5], a2, a3);
-      v7 = sub_175AE4();
-      v8 = sub_160F68(6);
-      v9 = *a1;
-      v29 = *a1;
-      v30 = a1[5];
+      v9 = sub_175AE4();
+      v29 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v9, 36, v29, "AVE_DAL");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    }
   }
 
   if (a2 && a3)
   {
-    *(a2 + 10) = sub_132370(a1[3]);
+    a2[10] = sub_132370(a1[3]);
     v10 = sub_15D758(a1[5], a2, a3);
     if (v10)
     {
@@ -8098,7 +7243,7 @@ uint64_t sub_E37DC(uint64_t *a1, uint64_t *a2, void *a3)
 
     else
     {
-      *(a2 + 10) = 0;
+      a2[10] = 0;
       v11 = 6;
     }
   }
@@ -8139,19 +7284,21 @@ uint64_t sub_E37DC(uint64_t *a1, uint64_t *a2, void *a3)
     if (v24)
     {
       printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d\n", v25, 36, v26, "AVE_DAL", "UCStart", a1, *a1, a1[5], a2, a3, v10);
-      v25 = sub_175AE4();
-      v26 = sub_160F68(v11);
-      v27 = *a1;
-      v31 = a1[5];
+      v27 = sub_175AE4();
+      v30 = sub_160F68(v11);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v27, 36, v30, "AVE_DAL", "UCStart");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v25, 36, v26, "AVE_DAL", "UCStart");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v25, 36, v26, "AVE_DAL", "UCStart");
+    }
   }
 
   return v10;
 }
 
-uint64_t sub_E3C60(const void **a1, uint64_t *a2, void *a3)
+uint64_t sub_E3C60(const void **a1, void *a2, void *a3)
 {
   if (sub_160EF0(0x24u, 6))
   {
@@ -8161,14 +7308,15 @@ uint64_t sub_E3C60(const void **a1, uint64_t *a2, void *a3)
     if (v6)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p\n", v7, 36, v8, "AVE_DAL", "UCStop", a1, *a1, a1[5], a2, a3);
-      v7 = sub_175AE4();
-      v8 = sub_160F68(6);
-      v9 = *a1;
-      v29 = *a1;
-      v30 = a1[5];
+      v9 = sub_175AE4();
+      v29 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v9, 36, v29, "AVE_DAL");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    }
   }
 
   if (a2 && a3)
@@ -8242,19 +7390,21 @@ uint64_t sub_E3C60(const void **a1, uint64_t *a2, void *a3)
     if (v24)
     {
       printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d\n", v25, 36, v26, "AVE_DAL", "UCStop", a1, *a1, a1[5], a2, a3, v10);
-      v25 = sub_175AE4();
-      v26 = sub_160F68(v11);
-      v27 = *a1;
-      v31 = a1[5];
+      v27 = sub_175AE4();
+      v30 = sub_160F68(v11);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v27, 36, v30, "AVE_DAL", "UCStop");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v25, 36, v26, "AVE_DAL", "UCStop");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v25, 36, v26, "AVE_DAL", "UCStop");
+    }
   }
 
   return v10;
 }
 
-uint64_t sub_E40D4(const void **a1, uint64_t *a2, void *a3)
+uint64_t sub_E40D4(const void **a1, void *a2, void *a3)
 {
   if (sub_160EF0(0x24u, 8))
   {
@@ -8264,14 +7414,15 @@ uint64_t sub_E40D4(const void **a1, uint64_t *a2, void *a3)
     if (v6)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p\n", v7, 36, v8, "AVE_DAL", "UCProcess", a1, *a1, a1[5], a2, a3);
-      v7 = sub_175AE4();
-      v8 = sub_160F68(8);
-      v9 = *a1;
-      v29 = *a1;
-      v30 = a1[5];
+      v9 = sub_175AE4();
+      v29 = sub_160F68(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v9, 36, v29, "AVE_DAL");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    }
   }
 
   if (a2 && a3)
@@ -8345,19 +7496,21 @@ uint64_t sub_E40D4(const void **a1, uint64_t *a2, void *a3)
     if (v24)
     {
       printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d\n", v25, 36, v26, "AVE_DAL", "UCProcess", a1, *a1, a1[5], a2, a3, v10);
-      v25 = sub_175AE4();
-      v26 = sub_160F68(v11);
-      v27 = *a1;
-      v31 = a1[5];
+      v27 = sub_175AE4();
+      v30 = sub_160F68(v11);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v27, 36, v30, "AVE_DAL", "UCProcess");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v25, 36, v26, "AVE_DAL", "UCProcess");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v25, 36, v26, "AVE_DAL", "UCProcess");
+    }
   }
 
   return v10;
 }
 
-uint64_t sub_E4548(const void **a1, uint64_t *a2, void *a3)
+uint64_t sub_E4548(const void **a1, void *a2, void *a3)
 {
   if (sub_160EF0(0x24u, 7))
   {
@@ -8367,14 +7520,15 @@ uint64_t sub_E4548(const void **a1, uint64_t *a2, void *a3)
     if (v6)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p\n", v7, 36, v8, "AVE_DAL", "UCComplete", a1, *a1, a1[5], a2, a3);
-      v7 = sub_175AE4();
-      v8 = sub_160F68(7);
-      v9 = *a1;
-      v29 = *a1;
-      v30 = a1[5];
+      v9 = sub_175AE4();
+      v29 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v9, 36, v29, "AVE_DAL");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    }
   }
 
   if (a2 && a3)
@@ -8448,19 +7602,21 @@ uint64_t sub_E4548(const void **a1, uint64_t *a2, void *a3)
     if (v24)
     {
       printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d\n", v25, 36, v26, "AVE_DAL", "UCComplete", a1, *a1, a1[5], a2, a3, v10);
-      v25 = sub_175AE4();
-      v26 = sub_160F68(v11);
-      v27 = *a1;
-      v31 = a1[5];
+      v27 = sub_175AE4();
+      v30 = sub_160F68(v11);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v27, 36, v30, "AVE_DAL", "UCComplete");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v25, 36, v26, "AVE_DAL", "UCComplete");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v25, 36, v26, "AVE_DAL", "UCComplete");
+    }
   }
 
   return v10;
 }
 
-uint64_t sub_E49BC(const void **a1, uint64_t *a2, void *a3)
+uint64_t sub_E49BC(const void **a1, void *a2, void *a3)
 {
   if (sub_160EF0(0x24u, 6))
   {
@@ -8470,14 +7626,15 @@ uint64_t sub_E49BC(const void **a1, uint64_t *a2, void *a3)
     if (v6)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p\n", v7, 36, v8, "AVE_DAL", "UCReset", a1, *a1, a1[5], a2, a3);
-      v7 = sub_175AE4();
-      v8 = sub_160F68(6);
-      v9 = *a1;
-      v29 = *a1;
-      v30 = a1[5];
+      v9 = sub_175AE4();
+      v29 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v9, 36, v29, "AVE_DAL");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld %p %p %p", v7, 36, v8, "AVE_DAL");
+    }
   }
 
   if (a2 && a3)
@@ -8551,20 +7708,23 @@ uint64_t sub_E49BC(const void **a1, uint64_t *a2, void *a3)
     if (v24)
     {
       printf("%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d\n", v25, 36, v26, "AVE_DAL", "UCReset", a1, *a1, a1[5], a2, a3, v10);
-      v25 = sub_175AE4();
-      v26 = sub_160F68(v11);
-      v27 = *a1;
-      v31 = a1[5];
+      v27 = sub_175AE4();
+      v30 = sub_160F68(v11);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v27, 36, v30, "AVE_DAL", "UCReset");
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v25, 36, v26, "AVE_DAL", "UCReset");
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %p %p %p %d", v25, 36, v26, "AVE_DAL", "UCReset");
+    }
   }
 
   return v10;
 }
 
-void sub_E4E30(void *a1, int a2, unsigned int *a3, int a4)
+void sub_E4E30(void *a1, uint64_t a2, unsigned int *a3, int a4)
 {
+  v6 = a2;
   if (sub_160EF0(0x24u, 8))
   {
     v8 = sub_160F34(0x24u);
@@ -8572,10 +7732,10 @@ void sub_E4E30(void *a1, int a2, unsigned int *a3, int a4)
     v10 = sub_160F68(8);
     if (v8)
     {
-      printf("%lld %d AVE %s: %s::%s Enter %p 0x%x %p %d\n", v9, 36, v10, "AVE_DAL", "UCRecv", a1, a2, a3, a4);
+      printf("%lld %d AVE %s: %s::%s Enter %p 0x%x %p %d\n", v9, 36, v10, "AVE_DAL", "UCRecv", a1, v6, a3, a4);
       v11 = sub_175AE4();
-      v42 = sub_160F68(8);
-      syslog(3, "%lld %d AVE %s: %s::%s Enter %p 0x%x %p %d", v11, 36, v42);
+      v43 = sub_160F68(8);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p 0x%x %p %d", v11, 36, v43);
     }
 
     else
@@ -8599,16 +7759,18 @@ void sub_E4E30(void *a1, int a2, unsigned int *a3, int a4)
             v14 = sub_160F34(0x24u);
             v15 = sub_175AE4();
             v16 = sub_160F68(4);
-            v17 = *a1;
             if (v14)
             {
               printf("%lld %d AVE %s: %s::%s:%d %s | fail to set thread policy %p %lld %d\n", v15, 36, v16, "AVE_DAL", "UCRecv", 1184, "ret == 0", a1, *a1, v13);
-              v15 = sub_175AE4();
-              v16 = sub_160F68(4);
+              v17 = sub_175AE4();
+              v44 = sub_160F68(4);
+              syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to set thread policy %p %lld %d", v17, 36, v44, "AVE_DAL");
             }
 
-            v46 = *a1;
-            syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to set thread policy %p %lld %d", v15, 36, v16, "AVE_DAL");
+            else
+            {
+              syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to set thread policy %p %lld %d", v15, 36, v16, "AVE_DAL");
+            }
           }
 
           v25 = 5;
@@ -8616,26 +7778,30 @@ void sub_E4E30(void *a1, int a2, unsigned int *a3, int a4)
 
         else
         {
-          v30 = sub_175B74(a2);
+          v30 = sub_175B74(v6);
           v31 = *a3;
           v32 = a3[2];
           v33 = a3[4];
           if (sub_160EF0(0x24u, 8))
           {
-            v34 = a2;
+            v34 = v6;
             v35 = sub_160F34(0x24u);
             v36 = sub_175AE4();
             v37 = sub_160F68(8);
             if (v35)
             {
               printf("%lld %d AVE %s: %s::%s:%d %p %lld | %d %d %d %d\n", v36, 36, v37, "AVE_DAL", "UCRecv", 1192, a1, *a1, v30, v31, v32, v33);
-              v36 = sub_175AE4();
-              v37 = sub_160F68(8);
-              v45 = *a1;
+              v38 = sub_175AE4();
+              v47 = sub_160F68(8);
+              syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld | %d %d %d %d", v38, 36, v47, "AVE_DAL");
             }
 
-            syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld | %d %d %d %d", v36, 36, v37, "AVE_DAL");
-            a2 = v34;
+            else
+            {
+              syslog(3, "%lld %d AVE %s: %s::%s:%d %p %lld | %d %d %d %d", v36, 36, v37, "AVE_DAL");
+            }
+
+            v6 = v34;
           }
 
           v13 = (a1[15])(a1[16], v30, v31, v32, v33);
@@ -8650,7 +7816,7 @@ void sub_E4E30(void *a1, int a2, unsigned int *a3, int a4)
           }
         }
 
-        goto LABEL_36;
+        goto LABEL_34;
       }
 
       if (sub_160EF0(0x24u, 4))
@@ -8658,17 +7824,18 @@ void sub_E4E30(void *a1, int a2, unsigned int *a3, int a4)
         v26 = sub_160F34(0x24u);
         v27 = sub_175AE4();
         v28 = sub_160F68(4);
-        v29 = a1[15];
         if (v26)
         {
-          printf("%lld %d AVE %s: %s::%s:%d %s | invalid configuration %p 0x%x %p %d %p %p\n", v27, 36, v28, "AVE_DAL", "UCRecv", 1179, "pDAL->m_pCB != __null", a1, a2, a3, a4, a1[15], a1[16]);
-          v27 = sub_175AE4();
-          v28 = sub_160F68(4);
+          printf("%lld %d AVE %s: %s::%s:%d %s | invalid configuration %p 0x%x %p %d %p %p\n", v27, 36, v28, "AVE_DAL", "UCRecv", 1179, "pDAL->m_pCB != __null", a1, v6, a3, a4, a1[15], a1[16]);
+          v29 = sub_175AE4();
+          v46 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | invalid configuration %p 0x%x %p %d %p %p", v29, 36, v46, "AVE_DAL", "UCRecv", 1179, "pDAL->m_pCB != __null");
         }
 
-        v48 = a1[15];
-        v49 = a1[16];
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | invalid configuration %p 0x%x %p %d %p %p", v27, 36, v28, "AVE_DAL", "UCRecv", 1179, "pDAL->m_pCB != __null");
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | invalid configuration %p 0x%x %p %d %p %p", v27, 36, v28, "AVE_DAL", "UCRecv", 1179, "pDAL->m_pCB != __null");
+        }
       }
     }
 
@@ -8679,18 +7846,17 @@ void sub_E4E30(void *a1, int a2, unsigned int *a3, int a4)
       v24 = sub_160F68(4);
       if (v22)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | wrong state %p 0x%x %p %d %d\n", v23, 36, v24, "AVE_DAL", "UCRecv", 1175, "pDAL->m_iThreadState != 0", a1, a2, a3, a4, *(a1 + 28));
+        printf("%lld %d AVE %s: %s::%s:%d %s | wrong state %p 0x%x %p %d %d\n", v23, 36, v24, "AVE_DAL", "UCRecv", 1175, "pDAL->m_iThreadState != 0", a1, v6, a3, a4, *(a1 + 28));
         v23 = sub_175AE4();
         v24 = sub_160F68(4);
       }
 
-      v47 = *(a1 + 28);
       syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong state %p 0x%x %p %d %d", v23, 36, v24, "AVE_DAL", "UCRecv");
     }
 
     v25 = 5;
     v13 = -1011;
-    goto LABEL_36;
+    goto LABEL_34;
   }
 
   if (sub_160EF0(0x24u, 4))
@@ -8700,10 +7866,10 @@ void sub_E4E30(void *a1, int a2, unsigned int *a3, int a4)
     v20 = sub_160F68(4);
     if (v18)
     {
-      printf("%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p 0x%x %p %d\n", v19, 36, v20, "AVE_DAL", "UCRecv", 1169, "pCtx != __null && pArgs != __null && num > 0", a1, a2, a3, a4);
+      printf("%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p 0x%x %p %d\n", v19, 36, v20, "AVE_DAL", "UCRecv", 1169, "pCtx != __null && pArgs != __null && num > 0", a1, v6, a3, a4);
       v21 = sub_175AE4();
-      v43 = sub_160F68(4);
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p 0x%x %p %d", v21, 36, v43, "AVE_DAL", "UCRecv");
+      v45 = sub_160F68(4);
+      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | wrong parameters %p 0x%x %p %d", v21, 36, v45, "AVE_DAL", "UCRecv");
     }
 
     else
@@ -8714,23 +7880,23 @@ void sub_E4E30(void *a1, int a2, unsigned int *a3, int a4)
 
   v25 = 5;
   v13 = -1001;
-LABEL_36:
+LABEL_34:
   if (sub_160EF0(0x24u, v25))
   {
-    v38 = sub_160F34(0x24u);
-    v39 = sub_175AE4();
-    v40 = sub_160F68(v25);
-    if (v38)
+    v39 = sub_160F34(0x24u);
+    v40 = sub_175AE4();
+    v41 = sub_160F68(v25);
+    if (v39)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p 0x%x %p %d %d\n", v39, 36, v40, "AVE_DAL", "UCRecv", a1, a2, a3, a4, v13);
-      v41 = sub_175AE4();
-      v44 = sub_160F68(v25);
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p 0x%x %p %d %d", v41, 36, v44);
+      printf("%lld %d AVE %s: %s::%s Exit %p 0x%x %p %d %d\n", v40, 36, v41, "AVE_DAL", "UCRecv", a1, v6, a3, a4, v13);
+      v42 = sub_175AE4();
+      v48 = sub_160F68(v25);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p 0x%x %p %d %d", v42, 36, v48);
     }
 
     else
     {
-      syslog(3, "%lld %d AVE %s: %s::%s Exit %p 0x%x %p %d %d", v39, 36, v40);
+      syslog(3, "%lld %d AVE %s: %s::%s Exit %p 0x%x %p %d %d", v40, 36, v41);
     }
   }
 }
@@ -8747,7 +7913,6 @@ uint64_t sub_E55F8(void *a1)
       printf("%lld %d AVE %s: %s::%s Enter %p %lld\n", v3, 36, v4, "AVE_DAL", "SetThreadPolicy", a1, *a1);
       v3 = sub_175AE4();
       sub_160F68(8);
-      v5 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld", v3);
@@ -8761,42 +7926,35 @@ uint64_t sub_E55F8(void *a1)
 
   else
   {
-    v6 = sub_E581C(a1, *(a1 + 14), *(a1 + 15));
+    v5 = sub_E581C(a1, *(a1 + 14), *(a1 + 15));
     *(a1 + 16) = 0;
     sub_13DC4C(a1[6]);
-    if (v6)
+    if (v5)
     {
-      v7 = 4;
+      v6 = 4;
       goto LABEL_11;
     }
   }
 
-  v6 = 0;
-  v7 = 8;
+  v5 = 0;
+  v6 = 8;
 LABEL_11:
-  if (sub_160EF0(0x24u, v7))
+  if (sub_160EF0(0x24u, v6))
   {
-    v8 = sub_160F34(0x24u);
-    v9 = sub_175AE4();
-    v10 = sub_160F68(v7);
-    v11 = *a1;
-    if (v8)
+    v7 = sub_160F34(0x24u);
+    v8 = sub_175AE4();
+    v9 = sub_160F68(v6);
+    if (v7)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v9, 36, v10, "AVE_DAL", "SetThreadPolicy", a1, *a1, v6);
-      v9 = sub_175AE4();
-      sub_160F68(v7);
-      v12 = *a1;
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v8, 36, v9, "AVE_DAL", "SetThreadPolicy", a1, *a1, v5);
+      v8 = sub_175AE4();
+      sub_160F68(v6);
     }
 
-    else
-    {
-      v14 = *a1;
-    }
-
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v9, 36);
+    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v8, 36);
   }
 
-  return v6;
+  return v5;
 }
 
 uint64_t sub_E581C(void *a1, int a2, int a3)
@@ -8816,12 +7974,16 @@ uint64_t sub_E581C(void *a1, int a2, int a3)
         if (v8)
         {
           printf("%lld %d AVE %s: %s::%s:%d fail to set thread priority %p %lld %d %d %d %d\n", v9, 36, v10, "AVE_DAL", "AdjustThreadPolicy", 1254, a1, *a1, a2, a3, v7, 0);
-          v9 = sub_175AE4();
-          v10 = sub_160F68(5);
-          v11 = *a1;
+          v11 = sub_175AE4();
+          v33 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d fail to set thread priority %p %lld %d %d %d %d", v11, 36, v33, "AVE_DAL");
         }
 
-        syslog(3, "%lld %d AVE %s: %s::%s:%d fail to set thread priority %p %lld %d %d %d %d", v9, 36, v10, "AVE_DAL");
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s::%s:%d fail to set thread priority %p %lld %d %d %d %d", v9, 36, v10, "AVE_DAL");
+        }
+
         return 0;
       }
     }
@@ -8847,8 +8009,8 @@ uint64_t sub_E581C(void *a1, int a2, int a3)
 
     _Q2.f64[0] = v14;
     *policy_info = vmovn_s64(vcvtq_u64_f64(vmulq_n_f64(_Q2, v12 / v13 * 1000000.0)));
-    v34 = policy_info[0];
-    v35 = 1;
+    v37 = policy_info[0];
+    v38 = 1;
     v20 = setpriority(3, 0, 0);
     if (v20)
     {
@@ -8861,12 +8023,15 @@ uint64_t sub_E581C(void *a1, int a2, int a3)
         if (v22)
         {
           printf("%lld %d AVE %s: %s::%s:%d fail to set thread priority %p %lld %d %d %d %d\n", v23, 36, v24, "AVE_DAL", "AdjustThreadPolicy", 1238, a1, *a1, 0, v14, v21, 0);
-          v23 = sub_175AE4();
-          v24 = sub_160F68(5);
-          v25 = *a1;
+          v25 = sub_175AE4();
+          v34 = sub_160F68(5);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d fail to set thread priority %p %lld %d %d %d %d", v25, 36, v34, "AVE_DAL");
         }
 
-        syslog(3, "%lld %d AVE %s: %s::%s:%d fail to set thread priority %p %lld %d %d %d %d", v23, 36, v24, "AVE_DAL");
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s::%s:%d fail to set thread priority %p %lld %d %d %d %d", v23, 36, v24, "AVE_DAL");
+        }
       }
     }
 
@@ -8884,12 +8049,15 @@ uint64_t sub_E581C(void *a1, int a2, int a3)
         if (v29)
         {
           printf("%lld %d AVE %s: %s::%s:%d %s | fail to set thread policy %p %lld %d %d 0x%x %d\n", v30, 36, v31, "AVE_DAL", "AdjustThreadPolicy", 1246, "res == 0", a1, *a1, 0, v14, v28, 0);
-          v30 = sub_175AE4();
-          v31 = sub_160F68(4);
-          v32 = *a1;
+          v32 = sub_175AE4();
+          v35 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to set thread policy %p %lld %d %d 0x%x %d", v32, 36, v35, "AVE_DAL", "AdjustThreadPolicy");
         }
 
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to set thread policy %p %lld %d %d 0x%x %d", v30, 36, v31, "AVE_DAL", "AdjustThreadPolicy");
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to set thread policy %p %lld %d %d 0x%x %d", v30, 36, v31, "AVE_DAL", "AdjustThreadPolicy");
+        }
       }
 
       return 4294966296;
@@ -8913,33 +8081,35 @@ uint64_t sub_E5C00(void *a1)
       printf("%lld %d AVE %s: %s::%s Enter %p %lld\n", v3, 36, v4, "AVE_DAL", "AddRunLoopSource", a1, *a1);
       v3 = sub_175AE4();
       sub_160F68(7);
-      v5 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld", v3);
   }
 
-  v6 = IOCreateReceivePort(0x39u, &recvPort);
-  if (v6)
+  v5 = IOCreateReceivePort(0x39u, &recvPort);
+  if (v5)
   {
-    v7 = v6;
+    v6 = v5;
     if (sub_160EF0(0x24u, 4))
     {
-      v8 = sub_160F34(0x24u);
-      v9 = sub_175AE4();
-      v10 = sub_160F68(4);
-      if (v8)
+      v7 = sub_160F34(0x24u);
+      v8 = sub_175AE4();
+      v9 = sub_160F68(4);
+      if (v7)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | fail to create port %p %lld 0x%x %d\n", v9, 36, v10, "AVE_DAL", "AddRunLoopSource", 1318, "res == 0", a1, *a1, v7, 0);
-        v9 = sub_175AE4();
-        v10 = sub_160F68(4);
-        v11 = *a1;
+        printf("%lld %d AVE %s: %s::%s:%d %s | fail to create port %p %lld 0x%x %d\n", v8, 36, v9, "AVE_DAL", "AddRunLoopSource", 1318, "res == 0", a1, *a1, v6, 0);
+        v10 = sub_175AE4();
+        v24 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create port %p %lld 0x%x %d", v10, 36, v24, "AVE_DAL");
       }
 
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create port %p %lld 0x%x %d", v9, 36, v10, "AVE_DAL");
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create port %p %lld 0x%x %d", v8, 36, v9, "AVE_DAL");
+      }
     }
 
-    v15 = 4294966292;
+    v14 = 4294966292;
   }
 
   else
@@ -8947,37 +8117,40 @@ uint64_t sub_E5C00(void *a1)
     context.version = 1;
     context.info = a1;
     memset(&context.retain, 0, 24);
-    v12 = CFMachPortCreateWithPort(0, recvPort, &IODispatchCalloutFromMessage, &context, 0);
-    if (v12)
+    v11 = CFMachPortCreateWithPort(0, recvPort, &IODispatchCalloutFromMessage, &context, 0);
+    if (v11)
     {
-      v13 = v12;
-      RunLoopSource = CFMachPortCreateRunLoopSource(0, v12, 0);
+      v12 = v11;
+      RunLoopSource = CFMachPortCreateRunLoopSource(0, v11, 0);
       CFRunLoopAddSource(a1[10], RunLoopSource, kCFRunLoopDefaultMode);
-      v15 = 0;
+      v14 = 0;
       *(a1 + 22) = recvPort;
-      a1[12] = v13;
+      a1[12] = v12;
       a1[13] = RunLoopSource;
-      v16 = 7;
-      goto LABEL_18;
+      v15 = 7;
+      goto LABEL_17;
     }
 
     if (sub_160EF0(0x24u, 4))
     {
-      v23 = sub_160F34(0x24u);
-      v24 = sub_175AE4();
-      v25 = sub_160F68(4);
-      if (v23)
+      v20 = sub_160F34(0x24u);
+      v21 = sub_175AE4();
+      v22 = sub_160F68(4);
+      if (v20)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | fail to create mach port %p %lld 0x%x %d\n", v24, 36, v25, "AVE_DAL", "AddRunLoopSource", 1332, "pAsyncPort != __null", a1, *a1, recvPort, 0);
-        v24 = sub_175AE4();
+        printf("%lld %d AVE %s: %s::%s:%d %s | fail to create mach port %p %lld 0x%x %d\n", v21, 36, v22, "AVE_DAL", "AddRunLoopSource", 1332, "pAsyncPort != __null", a1, *a1, recvPort, 0);
+        v23 = sub_175AE4();
         v25 = sub_160F68(4);
-        v26 = *a1;
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create mach port %p %lld 0x%x %d", v23, 36, v25, "AVE_DAL");
       }
 
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create mach port %p %lld 0x%x %d", v24, 36, v25, "AVE_DAL");
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to create mach port %p %lld 0x%x %d", v21, 36, v22, "AVE_DAL");
+      }
     }
 
-    v15 = 4294966293;
+    v14 = 4294966293;
   }
 
   if (recvPort)
@@ -8986,31 +8159,24 @@ uint64_t sub_E5C00(void *a1)
     recvPort = 0;
   }
 
-  v16 = 4;
-LABEL_18:
-  if (sub_160EF0(0x24u, v16))
+  v15 = 4;
+LABEL_17:
+  if (sub_160EF0(0x24u, v15))
   {
-    v17 = sub_160F34(0x24u);
-    v18 = sub_175AE4();
-    v19 = sub_160F68(v16);
-    v20 = *a1;
-    if (v17)
+    v16 = sub_160F34(0x24u);
+    v17 = sub_175AE4();
+    v18 = sub_160F68(v15);
+    if (v16)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v18, 36, v19, "AVE_DAL", "AddRunLoopSource", a1, *a1, v15);
-      v18 = sub_175AE4();
-      sub_160F68(v16);
-      v21 = *a1;
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v17, 36, v18, "AVE_DAL", "AddRunLoopSource", a1, *a1, v14);
+      v17 = sub_175AE4();
+      sub_160F68(v15);
     }
 
-    else
-    {
-      v27 = *a1;
-    }
-
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v18, 36);
+    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v17, 36);
   }
 
-  return v15;
+  return v14;
 }
 
 uint64_t sub_E60A0(void *a1)
@@ -9025,55 +8191,47 @@ uint64_t sub_E60A0(void *a1)
       printf("%lld %d AVE %s: %s::%s Enter %p %lld\n", v3, 36, v4, "AVE_DAL", "DelRunLoopSource", a1, *a1);
       v3 = sub_175AE4();
       sub_160F68(7);
-      v5 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld", v3);
   }
 
-  v6 = a1[13];
-  if (v6)
+  v5 = a1[13];
+  if (v5)
   {
-    CFRunLoopRemoveSource(a1[10], v6, kCFRunLoopDefaultMode);
+    CFRunLoopRemoveSource(a1[10], v5, kCFRunLoopDefaultMode);
     CFRelease(a1[13]);
     a1[13] = 0;
   }
 
-  v7 = a1[12];
-  if (v7)
+  v6 = a1[12];
+  if (v6)
   {
-    CFMachPortInvalidate(v7);
+    CFMachPortInvalidate(v6);
     CFRelease(a1[12]);
     a1[12] = 0;
   }
 
-  v8 = *(a1 + 22);
-  if (v8)
+  v7 = *(a1 + 22);
+  if (v7)
   {
-    mach_port_mod_refs(mach_task_self_, v8, 1u, -1);
+    mach_port_mod_refs(mach_task_self_, v7, 1u, -1);
     *(a1 + 22) = 0;
   }
 
   if (sub_160EF0(0x24u, 7))
   {
-    v9 = sub_160F34(0x24u);
-    v10 = sub_175AE4();
-    v11 = sub_160F68(7);
-    v12 = *a1;
-    if (v9)
+    v8 = sub_160F34(0x24u);
+    v9 = sub_175AE4();
+    v10 = sub_160F68(7);
+    if (v8)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v10, 36, v11, "AVE_DAL", "DelRunLoopSource", a1, *a1, 0);
-      v10 = sub_175AE4();
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v9, 36, v10, "AVE_DAL", "DelRunLoopSource", a1, *a1, 0);
+      v9 = sub_175AE4();
       sub_160F68(7);
-      v13 = *a1;
     }
 
-    else
-    {
-      v15 = *a1;
-    }
-
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v10, 36);
+    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v9, 36);
   }
 
   return 0;
@@ -9081,12 +8239,12 @@ uint64_t sub_E60A0(void *a1)
 
 uint64_t sub_E62D0(uint64_t *a1)
 {
-  v47 = 0;
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v42 = 0u;
+  v38 = 0;
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v33 = 0u;
   if (sub_160EF0(0x24u, 6))
   {
     v2 = sub_160F34(0x24u);
@@ -9097,7 +8255,6 @@ uint64_t sub_E62D0(uint64_t *a1)
       printf("%lld %d AVE %s: %s::%s Enter %p %lld\n", v3, 36, v4, "AVE_DAL", "SetUpRunLoop", a1, *a1);
       v3 = sub_175AE4();
       sub_160F68(6);
-      v5 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld", v3);
@@ -9105,10 +8262,10 @@ uint64_t sub_E62D0(uint64_t *a1)
 
   if (a1[10])
   {
-    v6 = 0;
+    v5 = 0;
 LABEL_8:
-    v7 = 6;
-    goto LABEL_31;
+    v6 = 6;
+    goto LABEL_30;
   }
 
   Current = CFRunLoopGetCurrent();
@@ -9117,69 +8274,64 @@ LABEL_8:
   {
     if (sub_160EF0(0x24u, 4))
     {
-      v17 = sub_160F34(0x24u);
-      v18 = sub_175AE4();
-      v19 = sub_160F68(4);
-      v20 = *a1;
-      if (v17)
+      v13 = sub_160F34(0x24u);
+      v14 = sub_175AE4();
+      v15 = sub_160F68(4);
+      if (v13)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | fail to get run loop %p %lld %d\n", v18, 36, v19, "AVE_DAL", "SetUpRunLoop", 1439, "m_pcRunLoop != __null", a1, *a1, 0);
-        v18 = sub_175AE4();
-        v19 = sub_160F68(4);
-        v21 = *a1;
+        printf("%lld %d AVE %s: %s::%s:%d %s | fail to get run loop %p %lld %d\n", v14, 36, v15, "AVE_DAL", "SetUpRunLoop", 1439, "m_pcRunLoop != __null", a1, *a1, 0);
+        v16 = sub_175AE4();
+        v26 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to get run loop %p %lld %d", v16, 36, v26, "AVE_DAL");
       }
 
       else
       {
-        v40 = *a1;
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to get run loop %p %lld %d", v14, 36, v15, "AVE_DAL");
       }
-
-      syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to get run loop %p %lld %d", v18, 36, v19, "AVE_DAL");
     }
 
-    v6 = 4294966296;
-    goto LABEL_28;
+    v5 = 4294966296;
+    goto LABEL_27;
   }
 
   CFRetain(Current);
-  v9 = sub_E5C00(a1);
-  if (v9)
+  v8 = sub_E5C00(a1);
+  if (v8)
   {
-    v6 = v9;
+    v5 = v8;
     if (sub_160EF0(0x24u, 4))
     {
-      v10 = sub_160F34(0x24u);
-      v11 = sub_175AE4();
-      v12 = sub_160F68(4);
-      v13 = *a1;
-      if (v10)
+      v9 = sub_160F34(0x24u);
+      v10 = sub_175AE4();
+      v11 = sub_160F68(4);
+      if (v9)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | fail to add run loop source %p %lld %d\n", v11, 36, v12, "AVE_DAL", "SetUpRunLoop", 1445, "ret == 0", a1, *a1, v6);
-        v14 = sub_175AE4();
-        v15 = sub_160F68(4);
-        v16 = *a1;
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to add run loop source %p %lld %d", v14, 36, v15, "AVE_DAL");
-        goto LABEL_28;
+        printf("%lld %d AVE %s: %s::%s:%d %s | fail to add run loop source %p %lld %d\n", v10, 36, v11, "AVE_DAL", "SetUpRunLoop", 1445, "ret == 0", a1, *a1, v5);
+        v12 = sub_175AE4();
+        v25 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to add run loop source %p %lld %d", v12, 36, v25, "AVE_DAL");
+        goto LABEL_27;
       }
 
-      v39 = *a1;
-      v41 = v6;
-      v38 = a1;
-      v36 = 1445;
-      v35 = v12;
-      v28 = "%lld %d AVE %s: %s::%s:%d %s | fail to add run loop source %p %lld %d";
-LABEL_27:
-      syslog(3, v28, v11, 36, v35, "AVE_DAL", "SetUpRunLoop", v36, "ret == 0", v38, v39, v41, v42, v43, v44, v45, v46, v47);
+      v31 = *a1;
+      v32 = v5;
+      v30 = a1;
+      v29 = 1445;
+      v28 = v11;
+      v20 = "%lld %d AVE %s: %s::%s:%d %s | fail to add run loop source %p %lld %d";
+LABEL_26:
+      syslog(3, v20, v10, 36, v28, "AVE_DAL", "SetUpRunLoop", v29, "ret == 0", v30, v31, v32, v33, v34, v35, v36, v37, v38);
     }
   }
 
   else
   {
-    *&v44 = *a1;
-    *(&v46 + 1) = sub_E4E30;
-    v47 = a1;
-    v6 = sub_15CC50(a1[5], *(a1 + 22), &v44, &v42);
-    if (!v6)
+    *&v35 = *a1;
+    *(&v37 + 1) = sub_E4E30;
+    v38 = a1;
+    v5 = sub_15CC50(a1[5], *(a1 + 22), &v35, &v33);
+    if (!v5)
     {
       *(a1 + 28) = 1;
       goto LABEL_8;
@@ -9187,31 +8339,29 @@ LABEL_27:
 
     if (sub_160EF0(0x24u, 4))
     {
-      v22 = sub_160F34(0x24u);
-      v11 = sub_175AE4();
-      v23 = sub_160F68(4);
-      v24 = *a1;
-      if (v22)
+      v17 = sub_160F34(0x24u);
+      v10 = sub_175AE4();
+      v18 = sub_160F68(4);
+      if (v17)
       {
-        printf("%lld %d AVE %s: %s::%s:%d %s | fail to config driver %p %lld %d\n", v11, 36, v23, "AVE_DAL", "SetUpRunLoop", 1453, "ret == 0", a1, *a1, v6);
-        v25 = sub_175AE4();
-        v26 = sub_160F68(4);
-        v27 = *a1;
-        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to config driver %p %lld %d", v25, 36, v26, "AVE_DAL");
-        goto LABEL_28;
+        printf("%lld %d AVE %s: %s::%s:%d %s | fail to config driver %p %lld %d\n", v10, 36, v18, "AVE_DAL", "SetUpRunLoop", 1453, "ret == 0", a1, *a1, v5);
+        v19 = sub_175AE4();
+        v27 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to config driver %p %lld %d", v19, 36, v27, "AVE_DAL");
+        goto LABEL_27;
       }
 
-      v39 = *a1;
-      v41 = v6;
-      v38 = a1;
-      v36 = 1453;
-      v35 = v23;
-      v28 = "%lld %d AVE %s: %s::%s:%d %s | fail to config driver %p %lld %d";
-      goto LABEL_27;
+      v31 = *a1;
+      v32 = v5;
+      v30 = a1;
+      v29 = 1453;
+      v28 = v18;
+      v20 = "%lld %d AVE %s: %s::%s:%d %s | fail to config driver %p %lld %d";
+      goto LABEL_26;
     }
   }
 
-LABEL_28:
+LABEL_27:
   if (a1[10])
   {
     sub_E60A0(a1);
@@ -9219,31 +8369,24 @@ LABEL_28:
     a1[10] = 0;
   }
 
-  v7 = 4;
-LABEL_31:
-  if (sub_160EF0(0x24u, v7))
+  v6 = 4;
+LABEL_30:
+  if (sub_160EF0(0x24u, v6))
   {
-    v29 = sub_160F34(0x24u);
-    v30 = sub_175AE4();
-    v31 = sub_160F68(v7);
-    v32 = *a1;
-    if (v29)
+    v21 = sub_160F34(0x24u);
+    v22 = sub_175AE4();
+    v23 = sub_160F68(v6);
+    if (v21)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v30, 36, v31, "AVE_DAL", "SetUpRunLoop", a1, *a1, v6);
-      v30 = sub_175AE4();
-      sub_160F68(v7);
-      v33 = *a1;
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v22, 36, v23, "AVE_DAL", "SetUpRunLoop", a1, *a1, v5);
+      v22 = sub_175AE4();
+      sub_160F68(v6);
     }
 
-    else
-    {
-      v37 = *a1;
-    }
-
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v30, 36);
+    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v22, 36);
   }
 
-  return v6;
+  return v5;
 }
 
 uint64_t sub_E6834(void *a1)
@@ -9258,7 +8401,6 @@ uint64_t sub_E6834(void *a1)
       printf("%lld %d AVE %s: %s::%s Enter %p %lld\n", v3, 36, v4, "AVE_DAL", "TearDownRunLoop", a1, *a1);
       v3 = sub_175AE4();
       sub_160F68(6);
-      v5 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld", v3);
@@ -9274,24 +8416,17 @@ uint64_t sub_E6834(void *a1)
 
   if (sub_160EF0(0x24u, 6))
   {
-    v6 = sub_160F34(0x24u);
-    v7 = sub_175AE4();
-    v8 = sub_160F68(6);
-    v9 = *a1;
-    if (v6)
+    v5 = sub_160F34(0x24u);
+    v6 = sub_175AE4();
+    v7 = sub_160F68(6);
+    if (v5)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v7, 36, v8, "AVE_DAL", "TearDownRunLoop", a1, *a1, 0);
-      v7 = sub_175AE4();
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v6, 36, v7, "AVE_DAL", "TearDownRunLoop", a1, *a1, 0);
+      v6 = sub_175AE4();
       sub_160F68(6);
-      v10 = *a1;
     }
 
-    else
-    {
-      v12 = *a1;
-    }
-
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v7, 36);
+    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v6, 36);
   }
 
   return 0;
@@ -9309,38 +8444,30 @@ uint64_t sub_E6A20(void *a1)
       printf("%lld %d AVE %s: %s::%s Enter %p %lld\n", v3, 36, v4, "AVE_DAL", "TerminateRunLoop", a1, *a1);
       v3 = sub_175AE4();
       sub_160F68(6);
-      v5 = *a1;
     }
 
     syslog(3, "%lld %d AVE %s: %s::%s Enter %p %lld", v3);
   }
 
-  v6 = a1[10];
-  if (v6)
+  v5 = a1[10];
+  if (v5)
   {
-    CFRunLoopStop(v6);
+    CFRunLoopStop(v5);
   }
 
   if (sub_160EF0(0x24u, 6))
   {
-    v7 = sub_160F34(0x24u);
-    v8 = sub_175AE4();
-    v9 = sub_160F68(6);
-    v10 = *a1;
-    if (v7)
+    v6 = sub_160F34(0x24u);
+    v7 = sub_175AE4();
+    v8 = sub_160F68(6);
+    if (v6)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v8, 36, v9, "AVE_DAL", "TerminateRunLoop", a1, *a1, 0);
-      v8 = sub_175AE4();
+      printf("%lld %d AVE %s: %s::%s Exit %p %lld %d\n", v7, 36, v8, "AVE_DAL", "TerminateRunLoop", a1, *a1, 0);
+      v7 = sub_175AE4();
       sub_160F68(6);
-      v11 = *a1;
     }
 
-    else
-    {
-      v13 = *a1;
-    }
-
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v8, 36);
+    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %lld %d", v7, 36);
   }
 
   return 0;
@@ -9357,8 +8484,8 @@ void sub_E6BF8(uint64_t **a1)
     {
       printf("%lld %d AVE %s: %s::%s Enter %p\n", v3, 36, v4, "AVE_DAL", "RecvThread", a1);
       v5 = sub_175AE4();
-      v33 = sub_160F68(7);
-      syslog(3, "%lld %d AVE %s: %s::%s Enter %p", v5, 36, v33, "AVE_DAL", "RecvThread", a1);
+      v32 = sub_160F68(7);
+      syslog(3, "%lld %d AVE %s: %s::%s Enter %p", v5, 36, v32, "AVE_DAL", "RecvThread", a1);
     }
 
     else
@@ -9384,7 +8511,6 @@ void sub_E6BF8(uint64_t **a1)
           v21 = sub_160F34(0x24u);
           v22 = sub_175AE4();
           v23 = sub_160F68(4);
-          v24 = *v12;
           if (v21)
           {
             printf("%lld %d AVE %s: %s::%s:%d %s | fail to set thread policy %p %lld %d\n", v22, 36, v23, "AVE_DAL", "RecvThread", 1572, "ret == 0", v12, *v12, v20);
@@ -9392,7 +8518,6 @@ void sub_E6BF8(uint64_t **a1)
             v23 = sub_160F68(4);
           }
 
-          v34 = *v12;
           syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to set thread policy %p %lld %d", v22, 36, v23, "AVE_DAL");
         }
       }
@@ -9404,19 +8529,21 @@ void sub_E6BF8(uint64_t **a1)
         {
           if (sub_160EF0(0x24u, 4))
           {
-            v25 = sub_160F34(0x24u);
-            v26 = sub_175AE4();
-            v27 = sub_160F68(4);
-            v28 = *v12;
-            if (v25)
+            v24 = sub_160F34(0x24u);
+            v25 = sub_175AE4();
+            v26 = sub_160F68(4);
+            if (v24)
             {
-              printf("%lld %d AVE %s: %s::%s:%d %s | fail to set up run loop %p %lld %d\n", v26, 36, v27, "AVE_DAL", "RecvThread", 1576, "ret == 0", v12, *v12, v20);
-              v26 = sub_175AE4();
-              v27 = sub_160F68(4);
+              printf("%lld %d AVE %s: %s::%s:%d %s | fail to set up run loop %p %lld %d\n", v25, 36, v26, "AVE_DAL", "RecvThread", 1576, "ret == 0", v12, *v12, v20);
+              v27 = sub_175AE4();
+              v33 = sub_160F68(4);
+              syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to set up run loop %p %lld %d", v27, 36, v33, "AVE_DAL");
             }
 
-            v35 = *v12;
-            syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to set up run loop %p %lld %d", v26, 36, v27, "AVE_DAL");
+            else
+            {
+              syslog(3, "%lld %d AVE %s: %s::%s:%d %s | fail to set up run loop %p %lld %d", v25, 36, v26, "AVE_DAL");
+            }
           }
         }
 
@@ -9430,8 +8557,8 @@ void sub_E6BF8(uint64_t **a1)
 
       if (v18 != -1)
       {
-        v29 = voucher_adopt();
-        os_release(v29);
+        v28 = voucher_adopt();
+        os_release(v28);
       }
 
       if (v20)
@@ -9502,23 +8629,23 @@ void sub_E6BF8(uint64_t **a1)
 
   if (sub_160EF0(0x24u, v6))
   {
-    v30 = sub_160F34(0x24u);
-    v31 = sub_175AE4();
-    v32 = sub_160F68(v6);
-    if (v30)
+    v29 = sub_160F34(0x24u);
+    v30 = sub_175AE4();
+    v31 = sub_160F68(v6);
+    if (v29)
     {
-      printf("%lld %d AVE %s: %s::%s Exit %p %d\n", v31, 36, v32, "AVE_DAL", "RecvThread", a1, v20);
-      v31 = sub_175AE4();
-      v32 = sub_160F68(v6);
+      printf("%lld %d AVE %s: %s::%s Exit %p %d\n", v30, 36, v31, "AVE_DAL", "RecvThread", a1, v20);
+      v30 = sub_175AE4();
+      v31 = sub_160F68(v6);
     }
 
-    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %d", v31, 36, v32, "AVE_DAL", "RecvThread", a1, v20);
+    syslog(3, "%lld %d AVE %s: %s::%s Exit %p %d", v30, 36, v31, "AVE_DAL", "RecvThread", a1, v20);
   }
 
   pthread_exit(0);
 }
 
-unsigned int *sub_E71EC(int a1, int a2, int a3, int a4)
+unsigned int *sub_E71EC(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   result = sub_16FEFC(a1, a2, a3);
   if (result)
@@ -9530,12 +8657,15 @@ unsigned int *sub_E71EC(int a1, int a2, int a3, int a4)
   return result;
 }
 
-uint64_t sub_E7234(int a1, int a2, int a3, int a4, int a5, int a6)
+uint64_t sub_E7234(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v6 = a6;
+  v7 = a5;
+  v8 = a4;
   result = sub_16FFA4(a1, a2, a3);
   if (result)
   {
-    result = sub_14E6F8(result, a4, a5, a6);
+    result = sub_14E6F8(result, v8, v7, v6);
     if (result)
     {
       return *(result + 16);
@@ -9545,8 +8675,9 @@ uint64_t sub_E7234(int a1, int a2, int a3, int a4, int a5, int a6)
   return result;
 }
 
-uint64_t sub_E7284(int a1, int a2, int a3, int a4, uint64_t a5, _DWORD *a6)
+uint64_t sub_E7284(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6)
 {
+  v7 = a1;
   result = 4294966295;
   if (!a5 || !a6)
   {
@@ -9559,10 +8690,11 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v11 = sub_16FE54(a1, a2, a4);
+  v10 = a3;
+  v11 = sub_16FE54(v7, a2, a4);
   if (v11)
   {
-    result = sub_175BA8(v11, a3, a5, a6);
+    result = sub_175BA8(v11, v10, a5, a6);
     goto LABEL_5;
   }
 
@@ -9769,7 +8901,7 @@ LABEL_19:
   return v10;
 }
 
-uint64_t sub_E7834(int a1, int a2, int a3, int a4, int a5)
+uint64_t sub_E7834(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
   v10 = sub_167D08();
   v11 = malloc_type_malloc(4 * v10, 0x100004052888210uLL);
@@ -9813,4 +8945,990 @@ LABEL_7:
 
   free(v12);
   return v13;
+}
+
+uint64_t sub_E7918(int *a1, unsigned int a2, int a3)
+{
+  if (a2 < 1)
+  {
+    return 4294966295;
+  }
+
+  v3 = a2;
+  while (1)
+  {
+    v4 = *a1++;
+    if (v4 == a3)
+    {
+      break;
+    }
+
+    if (!--v3)
+    {
+      return 4294966295;
+    }
+  }
+
+  return 0;
+}
+
+uint64_t sub_E7948(uint64_t a1, double a2)
+{
+  v4 = (a2 * 100.0 + 0.5);
+  if (sub_160EF0(0x1Eu, 6))
+  {
+    v5 = sub_160F34(0x1Eu);
+    v6 = sub_175AE4();
+    v7 = sub_160F68(6);
+    if (v5)
+    {
+      printf("%lld %d AVE %s: %s Enter %f %p\n", v6, 30, v7, "AVE_AVC_SetQuality", a2, a1);
+      v8 = sub_175AE4();
+      v15 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %f %p", v8, 30, v15, "AVE_AVC_SetQuality", a2, a1);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter %f %p", v6, 30, v7, "AVE_AVC_SetQuality", a2, a1);
+    }
+  }
+
+  if (v4 > 0x63)
+  {
+    if (v4 == 100)
+    {
+      v10 = 0;
+      *(a1 + 1144) = 0;
+      *(a1 + 1152) = 0;
+      *(a1 + 10858) = 1;
+      *(a1 + 12060) = 1;
+      *(a1 + 10604) = 0;
+      *(a1 + 1448) |= 0x200uLL;
+    }
+
+    else
+    {
+      v10 = 4294966295;
+    }
+  }
+
+  else
+  {
+    v9 = a33222111000[v4];
+    *(a1 + 1144) = v9;
+    *(a1 + 1148) = v9;
+    *(a1 + 1152) = v9;
+    *(a1 + 10857) = 1;
+    if (*(a1 + 10784) == 1 && *(a1 + 1132) != 3)
+    {
+      v10 = 0;
+    }
+
+    else
+    {
+      v10 = 0;
+      *(a1 + 10784) = 1;
+      *(a1 + 1132) = 3;
+    }
+  }
+
+  if (sub_160EF0(0x1Eu, 6))
+  {
+    v11 = sub_160F34(0x1Eu);
+    v12 = sub_175AE4();
+    v13 = sub_160F68(6);
+    if (v11)
+    {
+      printf("%lld %d AVE %s: %s Exit %f %p %d\n", v12, 30, v13, "AVE_AVC_SetQuality", a2, a1, v10);
+      sub_175AE4();
+      sub_160F68(6);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Exit %f %p %d");
+  }
+
+  return v10;
+}
+
+uint64_t sub_E7BA4(uint64_t a1, double a2)
+{
+  if (sub_160EF0(0xCu, 6))
+  {
+    v4 = sub_160F34(0xCu);
+    v5 = sub_175AE4();
+    v6 = sub_160F68(6);
+    if (v4)
+    {
+      printf("%lld %d AVE %s: %s Enter %f %p\n", v5, 12, v6, "AVE_AVC_SetCQFactor", a2, a1);
+      v7 = sub_175AE4();
+      v18 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %f %p", v7, 12, v18, "AVE_AVC_SetCQFactor", a2, a1);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter %f %p", v5, 12, v6, "AVE_AVC_SetCQFactor", a2, a1);
+    }
+  }
+
+  if ((*(a1 + 1123) & 0x80) != 0 && (*(a1 + 10784) != 1 || (v9 = *(a1 + 1132), v9 == 8) || v9 == 6))
+  {
+    if (a2 < 0.0 || a2 > 1.0)
+    {
+      if (sub_160EF0(0xCu, 4))
+      {
+        v11 = sub_160F34(0xCu);
+        v12 = sub_175AE4();
+        v13 = sub_160F68(4);
+        if (v11)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | out of range %p %lld %f [0.0, 1.0]\n", v12, 12, v13, "AVE_AVC_SetCQFactor", 306, "fCQFactor >= 0.0 && fCQFactor <= 1.0", a1, *(a1 + 56), a2);
+          v12 = sub_175AE4();
+          sub_160F68(4);
+        }
+
+        syslog(3, "%lld %d AVE %s: %s:%d %s | out of range %p %lld %f [0.0, 1.0]", v12, 12);
+      }
+
+      v8 = 4294966295;
+    }
+
+    else
+    {
+      v8 = 0;
+      *(a1 + 1200) = a2;
+      *(a1 + 10784) = 1;
+      if (*(a1 + 1208) <= 0)
+      {
+        v10 = 8;
+      }
+
+      else
+      {
+        v10 = 6;
+      }
+
+      *(a1 + 1132) = v10;
+    }
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  if (sub_160EF0(0xCu, 6))
+  {
+    v14 = sub_160F34(0xCu);
+    v15 = sub_175AE4();
+    v16 = sub_160F68(6);
+    if (v14)
+    {
+      printf("%lld %d AVE %s: %s Exit %f %p %d\n", v15, 12, v16, "AVE_AVC_SetCQFactor", a2, a1, v8);
+      sub_175AE4();
+      sub_160F68(6);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Exit %f %p %d");
+  }
+
+  return v8;
+}
+
+uint64_t sub_E7EA8(const void *a1, const __CFString *a2, const void *a3)
+{
+  if (sub_160EF0(0xCu, 8))
+  {
+    v6 = sub_160F34(0xCu);
+    v7 = sub_175AE4();
+    v8 = sub_160F68(8);
+    if (v6)
+    {
+      printf("%lld %d AVE %s: %s Enter %p %p %p\n", v7, 12, v8, "AVE_Session_AVC_SetProperty", a1, a2, a3);
+      v7 = sub_175AE4();
+      sub_160F68(8);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Enter %p %p %p", v7);
+  }
+
+  if (a1 && a2)
+  {
+    v9 = sub_CA644(a1, a2, a3);
+  }
+
+  else
+  {
+    if (sub_160EF0(0xCu, 4))
+    {
+      v10 = sub_160F34(0xCu);
+      v11 = sub_175AE4();
+      v12 = sub_160F68(4);
+      if (v10)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p\n", v11, 12, v12, "AVE_Session_AVC_SetProperty", 335, "pINS != __null && pKey != __null", a1, a2, a3);
+        v13 = sub_175AE4();
+        v18 = sub_160F68(4);
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v13, 12, v18);
+      }
+
+      else
+      {
+        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %p", v11, 12, v12);
+      }
+    }
+
+    v9 = 4294966295;
+  }
+
+  if (sub_160EF0(0xCu, 8))
+  {
+    v14 = sub_160F34(0xCu);
+    v15 = sub_175AE4();
+    v16 = sub_160F68(8);
+    if (v14)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %p %p %d\n", v15, 12, v16, "AVE_Session_AVC_SetProperty", a1, a2, a3, v9);
+      v15 = sub_175AE4();
+      sub_160F68(8);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Exit %p %p %p %d", v15, 12);
+  }
+
+  return v9;
+}
+
+uint64_t sub_E814C(uint64_t a1)
+{
+  v36 = 0uLL;
+  v37 = 0;
+  v2 = sub_1502C8();
+  if (sub_160EF0(0xCu, 6))
+  {
+    v3 = sub_160F34(0xCu);
+    v4 = sub_175AE4();
+    v5 = sub_160F68(6);
+    if (v3)
+    {
+      printf("%lld %d AVE %s: %s Enter %p\n", v4, 12, v5, "AVE_Session_AVC_CreatePropertyDict", a1);
+      v6 = sub_175AE4();
+      v32 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v6, 12, v32, "AVE_Session_AVC_CreatePropertyDict", a1);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v4, 12, v5, "AVE_Session_AVC_CreatePropertyDict", a1);
+    }
+  }
+
+  if (!a1)
+  {
+    if (sub_160EF0(0xCu, 4))
+    {
+      v14 = sub_160F34(0xCu);
+      v15 = sub_175AE4();
+      v16 = sub_160F68(4);
+      if (v14)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p\n", v15, 12, v16, "AVE_Session_AVC_CreatePropertyDict", 357, "pINS != __null", 0);
+        v15 = sub_175AE4();
+        sub_160F68(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p", v15);
+    }
+
+    v13 = 4294966295;
+    goto LABEL_37;
+  }
+
+  v7 = 0;
+  while (1)
+  {
+    if (v7 == 1)
+    {
+      v8 = 256;
+    }
+
+    else
+    {
+      if (v7 != 2)
+      {
+        goto LABEL_16;
+      }
+
+      v8 = 512;
+    }
+
+    v9 = v2[396] ? 1 : 2;
+    v10 = v9 | v8;
+    Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    *(&v36 + v7) = Mutable;
+    if (!Mutable)
+    {
+      break;
+    }
+
+    v12 = sub_CA3E4(*(a1 + 68), v10, *(a1 + 56), Mutable);
+    if (v12)
+    {
+      v13 = v12;
+      if (sub_160EF0(0xCu, 4))
+      {
+        v21 = sub_160F34(0xCu);
+        v22 = sub_175AE4();
+        v23 = sub_160F68(4);
+        if (v21)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to make property dictionary %p %lld 0x%x %d %d\n", v22, 12, v23, "AVE_Session_AVC_CreatePropertyDict", 392, "ret == 0", a1, *(a1 + 56), v10, *(a1 + 68), v13);
+          v24 = sub_175AE4();
+          v34 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to make property dictionary %p %lld 0x%x %d %d", v24, 12, v34, "AVE_Session_AVC_CreatePropertyDict");
+        }
+
+        else
+        {
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to make property dictionary %p %lld 0x%x %d %d", v22, 12, v23, "AVE_Session_AVC_CreatePropertyDict");
+        }
+      }
+
+      goto LABEL_33;
+    }
+
+LABEL_16:
+    if (++v7 == 3)
+    {
+      v13 = 0;
+      *(a1 + 80) = v36;
+      *(a1 + 96) = v37;
+      goto LABEL_37;
+    }
+  }
+
+  if (sub_160EF0(0xCu, 4))
+  {
+    v17 = sub_160F34(0xCu);
+    v18 = sub_175AE4();
+    v19 = sub_160F68(4);
+    if (v17)
+    {
+      printf("%lld %d AVE %s: %s:%d %s | fail to create CFDict %p %lld 0x%x %d %d\n", v18, 12, v19, "AVE_Session_AVC_CreatePropertyDict", 387, "paDict[i] != __null", a1, *(a1 + 56), v10, *(a1 + 68), 0);
+      v20 = sub_175AE4();
+      v33 = sub_160F68(4);
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDict %p %lld 0x%x %d %d", v20, 12, v33, "AVE_Session_AVC_CreatePropertyDict");
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDict %p %lld 0x%x %d %d", v18, 12, v19, "AVE_Session_AVC_CreatePropertyDict");
+    }
+  }
+
+  v13 = 4294966293;
+LABEL_33:
+  for (i = 0; i != 24; i += 8)
+  {
+    v26 = *(&v36 + i);
+    if (v26)
+    {
+      CFRelease(v26);
+      *(&v36 + i) = 0;
+    }
+  }
+
+LABEL_37:
+  if (sub_160EF0(0xCu, 6))
+  {
+    v27 = sub_160F34(0xCu);
+    v28 = sub_175AE4();
+    v29 = sub_160F68(6);
+    if (v27)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %d\n", v28, 12, v29, "AVE_Session_AVC_CreatePropertyDict", a1, v13);
+      v30 = sub_175AE4();
+      v35 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v30, 12, v35, "AVE_Session_AVC_CreatePropertyDict", a1, v13);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v28, 12, v29, "AVE_Session_AVC_CreatePropertyDict", a1, v13);
+    }
+  }
+
+  return v13;
+}
+
+uint64_t sub_E8690(uint64_t a1)
+{
+  if (sub_160EF0(0xCu, 6))
+  {
+    v2 = sub_160F34(0xCu);
+    v3 = sub_175AE4();
+    v4 = sub_160F68(6);
+    if (v2)
+    {
+      printf("%lld %d AVE %s: %s Enter %p\n", v3, 12, v4, "AVE_Session_AVC_Stop", a1);
+      v5 = sub_175AE4();
+      v19 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v5, 12, v19, "AVE_Session_AVC_Stop", a1);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v3, 12, v4, "AVE_Session_AVC_Stop", a1);
+    }
+  }
+
+  if (a1)
+  {
+    v6 = *(a1 + 12000);
+    v7 = sub_175AE4();
+    sub_140028(v6, 4u, v7);
+    if (*(a1 + 16464) == 30568)
+    {
+      v21 = sub_175AE4();
+      v8 = sub_12D170(*(a1 + 120), &v21);
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    v12 = *(a1 + 12000);
+    v13 = sub_175AE4();
+    sub_1403FC(v12, 4u, v13);
+  }
+
+  else
+  {
+    if (sub_160EF0(0xCu, 4))
+    {
+      v9 = sub_160F34(0xCu);
+      v10 = sub_175AE4();
+      v11 = sub_160F68(4);
+      if (v9)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p\n", v10, 12, v11, "AVE_Session_AVC_Stop", 429, "pINS != __null", 0);
+        v10 = sub_175AE4();
+        sub_160F68(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p", v10);
+    }
+
+    v8 = 4294966295;
+  }
+
+  if (sub_160EF0(0xCu, 6))
+  {
+    v14 = sub_160F34(0xCu);
+    v15 = sub_175AE4();
+    v16 = sub_160F68(6);
+    if (v14)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %d\n", v15, 12, v16, "AVE_Session_AVC_Stop", a1, v8);
+      v17 = sub_175AE4();
+      v20 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v17, 12, v20, "AVE_Session_AVC_Stop", a1, v8);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v15, 12, v16, "AVE_Session_AVC_Stop", a1, v8);
+    }
+  }
+
+  return v8;
+}
+
+uint64_t sub_E893C(uint64_t a1)
+{
+  if (sub_160EF0(0xCu, 6))
+  {
+    v2 = sub_160F34(0xCu);
+    v3 = sub_175AE4();
+    v4 = sub_160F68(6);
+    if (v2)
+    {
+      printf("%lld %d AVE %s: %s Enter %p\n", v3, 12, v4, "AVE_Session_AVC_Destroy", a1);
+      v5 = sub_175AE4();
+      v41 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v5, 12, v41, "AVE_Session_AVC_Destroy", a1);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter %p", v3, 12, v4, "AVE_Session_AVC_Destroy", a1);
+    }
+  }
+
+  if (a1)
+  {
+    v6 = *(a1 + 12000);
+    v7 = sub_175AE4();
+    sub_140028(v6, 1u, v7);
+    if (*(a1 + 16464) == 30568)
+    {
+      v43 = sub_175AE4();
+      sub_12C9EC(*(a1 + 120), &v43, 0);
+    }
+
+    if (sub_160EF0(2u, 0))
+    {
+      v8 = sub_160F34(2u);
+      v9 = sub_175AE4();
+      v10 = sub_160F68(0);
+      v11 = *(a1 + 56);
+      v12 = *(a1 + 64);
+      v13 = *(a1 + 10772);
+      v14 = *(a1 + 16468);
+      v15 = sub_129124(*(a1 + 120));
+      v16 = sub_129148(*(a1 + 120));
+      if (v8)
+      {
+        printf("%lld %d AVE %s: ID: %lld Type: %d Enc: %d | Input: %d Proc: %lld Drop: %lld\n", v9, 2, v10, v11, v12, v13, v14, v15, v16);
+        v9 = sub_175AE4();
+        v10 = sub_160F68(0);
+        sub_129124(*(a1 + 120));
+        sub_129148(*(a1 + 120));
+      }
+
+      syslog(3, "%lld %d AVE %s: ID: %lld Type: %d Enc: %d | Input: %d Proc: %lld Drop: %lld", v9, 2, v10);
+    }
+
+    v20 = sub_12916C(*(a1 + 120));
+    *(a1 + 120) = 0;
+    v21 = *(a1 + 12000);
+    v22 = sub_175AE4();
+    sub_1403FC(v21, 1u, v22);
+    sub_1407CC(*(a1 + 12000));
+    sub_140BA4(*(a1 + 12000), 16, 6, 0, 0);
+    sub_151B10();
+    v23 = *(a1 + 12000);
+    if (v23)
+    {
+      sub_13FB64(v23);
+      *(a1 + 12000) = 0;
+    }
+
+    v24 = *(a1 + 18064);
+    if (v24)
+    {
+      sub_CCDA4(v24);
+      sub_CC04C(*(a1 + 18064));
+      *(a1 + 18064) = 0;
+    }
+
+    v25 = *(a1 + 16480);
+    if (v25)
+    {
+      sub_D7B88(v25);
+      operator delete();
+    }
+
+    v26 = *(a1 + 16488);
+    if (v26)
+    {
+      sub_16934(v26);
+      operator delete();
+    }
+
+    v27 = *(a1 + 16496);
+    if (v27)
+    {
+      CFRelease(v27);
+      *(a1 + 16496) = 0;
+    }
+
+    v28 = 0;
+    v29 = a1 + 80;
+    do
+    {
+      v30 = *(v29 + v28);
+      if (v30)
+      {
+        CFRelease(v30);
+        *(v29 + v28) = 0;
+      }
+
+      v28 += 8;
+    }
+
+    while (v28 != 24);
+    v31 = *(a1 + 104);
+    if (v31)
+    {
+      CFRelease(v31);
+      *(a1 + 104) = 0;
+    }
+
+    v32 = *(a1 + 18072);
+    if (v32)
+    {
+      CFRelease(v32);
+      *(a1 + 18072) = 0;
+    }
+
+    v33 = *(a1 + 112);
+    if (v33)
+    {
+      CFRelease(v33);
+      *(a1 + 112) = 0;
+    }
+
+    v34 = *(a1 + 16560);
+    if (v34)
+    {
+      CFRelease(v34);
+      *(a1 + 16560) = 0;
+    }
+
+    v35 = *(a1 + 16568);
+    if (v35)
+    {
+      CFRelease(v35);
+      *(a1 + 16568) = 0;
+    }
+
+    sub_14E0A4((a1 + 16592));
+  }
+
+  else
+  {
+    if (sub_160EF0(0xCu, 4))
+    {
+      v17 = sub_160F34(0xCu);
+      v18 = sub_175AE4();
+      v19 = sub_160F68(4);
+      if (v17)
+      {
+        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p\n", v18, 12, v19, "AVE_Session_AVC_Destroy", 462, "pINS != __null", 0);
+        v18 = sub_175AE4();
+        sub_160F68(4);
+      }
+
+      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p", v18);
+    }
+
+    sub_151B10();
+    v20 = 4294966295;
+  }
+
+  if (sub_160EF0(0xCu, 6))
+  {
+    v36 = sub_160F34(0xCu);
+    v37 = sub_175AE4();
+    v38 = sub_160F68(6);
+    if (v36)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %d\n", v37, 12, v38, "AVE_Session_AVC_Destroy", a1, v20);
+      v39 = sub_175AE4();
+      v42 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v39, 12, v42, "AVE_Session_AVC_Destroy", a1, v20);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Exit %p %d", v37, 12, v38, "AVE_Session_AVC_Destroy", a1, v20);
+    }
+  }
+
+  return v20;
+}
+
+uint64_t sub_E8E20(uint64_t a1, _DWORD *a2)
+{
+  v4 = sub_1502C8();
+  if (sub_160EF0(0xCu, 6))
+  {
+    v5 = sub_160F34(0xCu);
+    v6 = sub_175AE4();
+    v7 = sub_160F68(6);
+    if (v5)
+    {
+      printf("%lld %d AVE %s: %s Enter %p %p\n", v6, 12, v7, "AVE_Session_AVC_StartSession", a1, a2);
+      v8 = sub_175AE4();
+      v53 = sub_160F68(6);
+      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v8, 12, v53, "AVE_Session_AVC_StartSession", a1, a2);
+    }
+
+    else
+    {
+      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v6, 12, v7, "AVE_Session_AVC_StartSession", a1, a2);
+    }
+  }
+
+  if (a1 && a2)
+  {
+    if (*a2 < 1 || a2[1] <= 0)
+    {
+      if (sub_160EF0(0xCu, 4))
+      {
+        v19 = sub_160F34(0xCu);
+        v14 = sub_175AE4();
+        v15 = sub_160F68(4);
+        if (v19)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | resolution is out of range %p %lld %dx%d\n", v14, 12, v15, "AVE_Session_AVC_StartSession", 4740, "pDim->iWidth > 0 && pDim->iHeight > 0", a1, *(a1 + 56), *a2, a2[1]);
+          v14 = sub_175AE4();
+          v15 = sub_160F68(4);
+        }
+
+        goto LABEL_29;
+      }
+
+LABEL_30:
+      v20 = 4294965295;
+      goto LABEL_31;
+    }
+
+    v9 = *(a1 + 12000);
+    v10 = sub_175AE4();
+    sub_140028(v9, 3u, v10);
+    v11 = *a2;
+    v12 = a2[1];
+    *(a1 + 1440) = *a2;
+    *(a1 + 1444) = v12;
+    *(a1 + 11452) = v11;
+    *(a1 + 11456) = v12;
+    *(a1 + 764) = 1;
+    sub_E97CC(a1);
+    if (sub_14E248(*(a1 + 68), 1, 1, *(a1 + 1440), *(a1 + 1444), 0))
+    {
+      if (sub_160EF0(0xCu, 4))
+      {
+        v13 = sub_160F34(0xCu);
+        v14 = sub_175AE4();
+        v15 = sub_160F68(4);
+        if (v13)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | resolution is out of range %p %lld %dx%d\n", v14, 12, v15, "AVE_Session_AVC_StartSession", 4759, "ret == 0", a1, *(a1 + 56), *(a1 + 1440), *(a1 + 1444));
+          v14 = sub_175AE4();
+          v15 = sub_160F68(4);
+        }
+
+LABEL_29:
+        syslog(3, "%lld %d AVE %s: %s:%d %s | resolution is out of range %p %lld %dx%d", v14, 12, v15);
+        goto LABEL_30;
+      }
+
+      goto LABEL_30;
+    }
+
+    sub_E9B08(a1);
+    v21 = *(a1 + 12052) + 8;
+    if (v21 <= *(a1 + 12056) + 8)
+    {
+      v21 = *(a1 + 12056) + 8;
+    }
+
+    v22 = sub_DDADC(*(a1 + 68), *(a1 + 64), 62, 1, *(a1 + 11452), *(a1 + 11456), *(a1 + 1440), *(a1 + 1444), v21, 0, 0x1414C4C20, *(a1 + 16));
+    if (v22)
+    {
+      v20 = v22;
+      if (sub_160EF0(0x1Eu, 4))
+      {
+        v23 = sub_160F34(0x1Eu);
+        v24 = sub_175AE4();
+        v25 = sub_160F68(4);
+        if (v23)
+        {
+          v26 = 30;
+          printf("%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed %d\n", v24, 30, v25, "AVE_Session_AVC_StartSession", 4778, "ret == 0", v20);
+          v27 = sub_175AE4();
+          v59 = v20;
+          v57 = 4778;
+          v54 = sub_160F68(4);
+          v28 = "%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed %d";
+LABEL_49:
+          syslog(3, v28, v27, v26, v54, "AVE_Session_AVC_StartSession", v57, "ret == 0", v59, v61);
+          goto LABEL_31;
+        }
+
+        v60 = v20;
+        v58 = 4778;
+        v55 = v25;
+        v41 = 30;
+        v42 = "%lld %d AVE %s: %s:%d %s | update pixel buffer dictionary failed %d";
+        goto LABEL_65;
+      }
+    }
+
+    else
+    {
+      *(a1 + 16464) = 30566;
+      *(a1 + 712) = v4[103];
+      if (*(a1 + 10892) == 1)
+      {
+        operator new();
+      }
+
+      if (*(a1 + 16) == 1)
+      {
+        v36 = 1;
+      }
+
+      else
+      {
+        v36 = 3;
+      }
+
+      v37 = sub_16960(*(a1 + 16488), *(a1 + 56), 0, 0, 1, v36);
+      if (v37)
+      {
+        v20 = v37;
+        if (!sub_160EF0(0xCu, 4))
+        {
+          goto LABEL_31;
+        }
+
+        v38 = sub_160F34(0xCu);
+        v24 = sub_175AE4();
+        v39 = sub_160F68(4);
+        if (v38)
+        {
+          v26 = 12;
+          printf("%lld %d AVE %s: %s:%d %s | failed to initialize SEI instance %p %llu\n", v24, 12, v39, "AVE_Session_AVC_StartSession", 4811, "ret == 0", a1, *(a1 + 56));
+          v27 = sub_175AE4();
+          v40 = sub_160F68(4);
+          v59 = a1;
+          v61 = *(a1 + 56);
+          v57 = 4811;
+          v54 = v40;
+          v28 = "%lld %d AVE %s: %s:%d %s | failed to initialize SEI instance %p %llu";
+          goto LABEL_49;
+        }
+
+        v60 = a1;
+        v61 = *(a1 + 56);
+        v58 = 4811;
+        v55 = v39;
+        v41 = 12;
+        v42 = "%lld %d AVE %s: %s:%d %s | failed to initialize SEI instance %p %llu";
+LABEL_65:
+        syslog(3, v42, v24, v41, v55, "AVE_Session_AVC_StartSession", v58, "ret == 0", v60, v61, v62);
+        goto LABEL_31;
+      }
+
+      v43 = sub_CA984(a1);
+      if (!v43)
+      {
+        v47 = v4[30];
+        if (v47)
+        {
+          *(a1 + 11468) = v47;
+        }
+
+        v48 = v4[29];
+        if (v48 < 1)
+        {
+          v20 = 0;
+        }
+
+        else
+        {
+          v49 = (v4 + 32);
+          v50 = (a1 + 11476);
+          do
+          {
+            v52 = *v49;
+            v49 += 12;
+            v51 = v52;
+            if ((v52 & 0x80000000) == 0)
+            {
+              *v50 = v51;
+            }
+
+            v20 = 0;
+            v50 += 12;
+            --v48;
+          }
+
+          while (v48);
+        }
+
+        goto LABEL_31;
+      }
+
+      v20 = v43;
+      if (sub_160EF0(0xCu, 4))
+      {
+        v44 = sub_160F34(0xCu);
+        v24 = sub_175AE4();
+        v45 = sub_160F68(4);
+        if (v44)
+        {
+          printf("%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld %d\n", v24, 12, v45, "AVE_Session_AVC_StartSession", 4818, "ret == 0", a1, *(a1 + 56), v20);
+          v46 = sub_175AE4();
+          v56 = sub_160F68(4);
+          syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld %d", v46, 12, v56);
+          goto LABEL_31;
+        }
+
+        v61 = *(a1 + 56);
+        v62 = v20;
+        v60 = a1;
+        v58 = 4818;
+        v55 = v45;
+        v41 = 12;
+        v42 = "%lld %d AVE %s: %s:%d %s | fail to create preset dictionary %p %lld %d";
+        goto LABEL_65;
+      }
+    }
+
+LABEL_31:
+    v29 = *(a1 + 12000);
+    v30 = sub_175AE4();
+    sub_1403FC(v29, 3u, v30);
+    if (v20)
+    {
+      v31 = *(a1 + 16480);
+      if (v31)
+      {
+        sub_D7B88(v31);
+        operator delete();
+      }
+    }
+
+    goto LABEL_34;
+  }
+
+  if (sub_160EF0(0xCu, 4))
+  {
+    v16 = sub_160F34(0xCu);
+    v17 = sub_175AE4();
+    v18 = sub_160F68(4);
+    if (v16)
+    {
+      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v17, 12, v18, "AVE_Session_AVC_StartSession", 4736, "pINS != __null && pDim != __null", a1, a2);
+      v17 = sub_175AE4();
+      sub_160F68(4);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v17, 12);
+  }
+
+  v20 = 4294966295;
+LABEL_34:
+  if (sub_160EF0(0xCu, 6))
+  {
+    v32 = sub_160F34(0xCu);
+    v33 = sub_175AE4();
+    v34 = sub_160F68(6);
+    if (v32)
+    {
+      printf("%lld %d AVE %s: %s Exit %p %p %d\n", v33, 12, v34, "AVE_Session_AVC_StartSession", a1, a2, v20);
+      v33 = sub_175AE4();
+      sub_160F68(6);
+    }
+
+    syslog(3, "%lld %d AVE %s: %s Exit %p %p %d", v33);
+  }
+
+  return v20;
 }

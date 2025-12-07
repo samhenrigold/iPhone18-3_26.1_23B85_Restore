@@ -9,7 +9,7 @@ void sub_1000015A4(uint64_t a1)
 
   else
   {
-    v3 = sub_1000118BC();
+    v3 = sub_1000118BC(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_100017DB8(v3, v4, v5, v6, v7, v8, v9, v10);
@@ -19,7 +19,7 @@ void sub_1000015A4(uint64_t a1)
 
 id sub_100001AEC(uint64_t a1)
 {
-  v2 = sub_1000118BC();
+  v2 = sub_1000118BC(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -35,10 +35,11 @@ id sub_100001AEC(uint64_t a1)
   return v4;
 }
 
-void sub_100001DC4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001DC4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id sub_100001DE0(void *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, uint64_t a7, uint64_t a8, unsigned int a9)
@@ -49,7 +50,7 @@ id sub_100001DE0(void *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, 
   v18 = a6;
   v19 = a4;
   v20 = [NSString stringWithFormat:@"[%s:%d][%s] %@", a8, a9, a7, v16];
-  v21 = sub_1000118BC();
+  v21 = sub_1000118BC(v20);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     v26 = &stru_100035AE0;
@@ -104,70 +105,73 @@ id sub_100001DE0(void *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, 
 BOOL sub_100002068()
 {
   size = 0;
-  if (sysctlbyname("hw.osenvironment", 0, &size, 0, 0) == -1)
+  v0 = sysctlbyname("hw.osenvironment", 0, &size, 0, 0);
+  if (v0 == -1)
   {
-    v7 = sub_1000118BC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v10 = sub_1000118BC(v0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_100018254(v7);
+      sub_100018254(v10);
     }
   }
 
   else
   {
-    v0 = malloc_type_malloc(size, 0x5C398F0AuLL);
-    if (v0)
+    v1 = malloc_type_malloc(size, 0x5C398F0AuLL);
+    if (v1)
     {
-      v1 = v0;
-      bzero(v0, size);
-      v2 = sysctlbyname("hw.osenvironment", v1, &size, 0, 0);
-      v3 = sub_1000118BC();
+      v2 = v1;
+      bzero(v1, size);
+      v3 = sysctlbyname("hw.osenvironment", v2, &size, 0, 0);
       v4 = v3;
-      v5 = v2 == -1;
-      v6 = v2 != -1;
-      if (v5)
+      v5 = sub_1000118BC(v3);
+      v6 = v5;
+      v7 = v4 == -1;
+      v8 = v4 != -1;
+      if (v7)
       {
-        if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
-          sub_100018114(v4);
+          sub_100018114(v6);
         }
       }
 
       else
       {
-        if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446466;
-          v11 = "DREIsRunningInDeviceRecoveryEnvironment";
-          v12 = 2082;
-          v13 = v1;
-          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Running in OS environment: %{public}s", buf, 0x16u);
+          v14 = "DREIsRunningInDeviceRecoveryEnvironment";
+          v15 = 2082;
+          v16 = v2;
+          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: Running in OS environment: %{public}s", buf, 0x16u);
         }
 
-        if (strncmp(v1, "device-recovery", 0xFuLL))
+        v9 = strncmp(v2, "device-recovery", 0xFuLL);
+        if (v9)
         {
-          v6 = 0;
+          v8 = 0;
 LABEL_18:
-          free(v1);
-          return v6;
+          free(v2);
+          return v8;
         }
 
-        v4 = sub_1000118BC();
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+        v6 = sub_1000118BC(v9);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446210;
-          v11 = "DREIsRunningInDeviceRecoveryEnvironment";
-          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Running in DeviceRecoveryEnvironment\n", buf, 0xCu);
+          v14 = "DREIsRunningInDeviceRecoveryEnvironment";
+          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: Running in DeviceRecoveryEnvironment\n", buf, 0xCu);
         }
       }
 
       goto LABEL_18;
     }
 
-    v7 = sub_1000118BC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v10 = sub_1000118BC(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_1000181D0(v7);
+      sub_1000181D0(v10);
     }
   }
 
@@ -219,7 +223,7 @@ id sub_1000023A4()
 uint64_t start()
 {
   v0 = objc_autoreleasePoolPush();
-  v1 = sub_1000118BC();
+  v1 = sub_1000118BC(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 136446722;
@@ -283,7 +287,7 @@ BOOL sub_1000025E8(NSObject *a1)
 
 void sub_100002B74(uint64_t a1)
 {
-  v2 = sub_1000118BC();
+  v2 = sub_1000118BC(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -297,7 +301,7 @@ void sub_100002B74(uint64_t a1)
 
 void sub_100002C30(uint64_t a1)
 {
-  v2 = sub_1000118BC();
+  v2 = sub_1000118BC(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -309,10 +313,11 @@ void sub_100002C30(uint64_t a1)
   }
 }
 
-void sub_1000033AC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000033AC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x3Au);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
 void sub_1000033D8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -323,7 +328,7 @@ void sub_1000033D8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t 
 
 void sub_1000033F0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1000118BC();
+  v4 = sub_1000118BC(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [NSString alloc];
@@ -339,7 +344,7 @@ void sub_1000033F0(uint64_t a1, uint64_t a2)
 
 void sub_1000034FC(uint64_t a1, int a2)
 {
-  v4 = sub_1000118BC();
+  v4 = sub_1000118BC(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136446722;
@@ -352,100 +357,103 @@ void sub_1000034FC(uint64_t a1, int a2)
   }
 }
 
-uint64_t sub_1000035CC(uint64_t *a1, void (*a2)(_BYTE *, ssize_t, uint64_t), uint64_t a3)
+uint64_t sub_1000035CC(const char **a1, void (*a2)(_BYTE *, ssize_t, uint64_t), uint64_t a3)
 {
-  v18 = 0;
-  *v20 = -1;
-  if (pipe(v20))
+  v21 = 0;
+  *v23 = -1;
+  v6 = pipe(v23);
+  if (v6)
   {
-    v6 = sub_1000118BC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1000118BC(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100018EF8(a1);
+      sub_100018EF8();
     }
 
     return 0xFFFFFFFFLL;
   }
 
-  v17 = 0;
-  posix_spawn_file_actions_init(&v17);
-  posix_spawn_file_actions_adddup2(&v17, v20[1], 1);
-  posix_spawn_file_actions_addclose(&v17, v20[0]);
-  v8 = posix_spawn(&v18, *a1, &v17, 0, a1, 0);
-  if (v8)
+  v20 = 0;
+  posix_spawn_file_actions_init(&v20);
+  posix_spawn_file_actions_adddup2(&v20, v23[1], 1);
+  posix_spawn_file_actions_addclose(&v20, v23[0]);
+  v9 = posix_spawn(&v21, *a1, &v20, 0, a1, 0);
+  if (v9)
   {
-    v7 = v8;
-    v9 = sub_1000118BC();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = v9;
+    v10 = sub_1000118BC(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_100018F90(a1, v7);
+      sub_100018F90(a1, v8);
     }
 
-    close(v20[0]);
+    close(v23[0]);
     goto LABEL_9;
   }
 
-  v11 = v20[0];
-  close(v20[1]);
-  v20[1] = -1;
-  v12 = read(v11, v19, 0x400uLL);
-  if (v12 >= 1)
+  v12 = v23[0];
+  close(v23[1]);
+  v23[1] = -1;
+  v13 = read(v12, v22, 0x400uLL);
+  if (v13 >= 1)
   {
-    for (i = v12; i > 0; i = read(v11, v19, 0x400uLL))
+    for (i = v13; i > 0; i = read(v12, v22, 0x400uLL))
     {
       if (a2)
       {
-        a2(v19, i, a3);
+        a2(v22, i, a3);
       }
     }
   }
 
-  v16 = 0;
-  if (waitpid(v18, &v16, 0) == -1)
+  v19 = 0;
+  v15 = waitpid(v21, &v19, 0);
+  if (v15 == -1)
   {
-    v7 = *__error();
-    v14 = sub_1000118BC();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = __error();
+    v8 = *v16;
+    v17 = sub_1000118BC(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      sub_100019144(a1);
+      sub_100019144();
     }
 
     goto LABEL_9;
   }
 
-  if ((v16 & 0x7F) == 0x7F)
+  if ((v19 & 0x7F) == 0x7F)
   {
-    v15 = sub_1000118BC();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = sub_1000118BC(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_100019024(a1, &v16);
+      sub_100019024();
     }
   }
 
   else
   {
-    if ((v16 & 0x7F) == 0)
+    if ((v19 & 0x7F) == 0)
     {
-      v7 = BYTE1(v16);
+      v8 = BYTE1(v19);
       goto LABEL_9;
     }
 
-    v15 = sub_1000118BC();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = sub_1000118BC(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_1000190B4(a1, &v16);
+      sub_1000190B4();
     }
   }
 
-  v7 = 0xFFFFFFFFLL;
+  v8 = 0xFFFFFFFFLL;
 LABEL_9:
-  posix_spawn_file_actions_destroy(&v17);
-  if (v20[1] != -1)
+  posix_spawn_file_actions_destroy(&v20);
+  if (v23[1] != -1)
   {
-    close(v20[1]);
+    close(v23[1]);
   }
 
-  return v7;
+  return v8;
 }
 
 void sub_100003A8C(id a1, NSError *a2)
@@ -463,10 +471,11 @@ void sub_100003AD8(uint64_t a1)
     set_partition_execution_function(sub_1000035CC);
     set_partition_execution_logging_function(sub_1000034FC);
     v3 = [@"/var/MobileSoftwareUpdate" UTF8String];
-    if (mount_update_partition_if_exists(v3, v4, v5, v6, v7, v8, v9, v10))
+    updated = mount_update_partition_if_exists(v3, v4, v5, v6, v7, v8, v9, v10);
+    if (updated)
     {
-      v11 = sub_1000118BC();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = sub_1000118BC(updated);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_1000194C0();
       }
@@ -477,78 +486,78 @@ void sub_100003AD8(uint64_t a1)
       [*(a1 + 32) setUpdateVolumeMountPath:@"/var/MobileSoftwareUpdate"];
     }
 
-    v13 = [*(a1 + 32) systemDataVolumeMountPath];
+    v14 = [*(a1 + 32) systemDataVolumeMountPath];
 
-    if (v13)
+    if (v14)
     {
-      v14 = +[MCProfileConnection sharedConnection];
-      v15 = [*(a1 + 32) systemDataVolumeMountPath];
-      [*(a1 + 32) setUnlockScreenType:{objc_msgSend(v14, "unlockScreenTypeForSharedDataVolume:OutSimplePasscodeType:", v15, *(a1 + 32) + 52)}];
+      v15 = +[MCProfileConnection sharedConnection];
+      v16 = [*(a1 + 32) systemDataVolumeMountPath];
+      [*(a1 + 32) setUnlockScreenType:{objc_msgSend(v15, "unlockScreenTypeForSharedDataVolume:OutSimplePasscodeType:", v16, *(a1 + 32) + 52)}];
 
-      v16 = sub_1000118BC();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = sub_1000118BC(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = [*(a1 + 32) unlockScreenType];
-        v18 = [*(a1 + 32) simplePasscodeType];
+        v19 = [*(a1 + 32) unlockScreenType];
+        v20 = [*(a1 + 32) simplePasscodeType];
         *buf = 136446722;
-        v32 = "[DeviceRecoveryService init]_block_invoke";
-        v33 = 1024;
-        *v34 = v17;
-        *&v34[4] = 1024;
-        *&v34[6] = v18;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}s: unlockScreenType = %d, simplePasscodeType = %d", buf, 0x18u);
+        v35 = "[DeviceRecoveryService init]_block_invoke";
+        v36 = 1024;
+        *v37 = v19;
+        *&v37[4] = 1024;
+        *&v37[6] = v20;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}s: unlockScreenType = %d, simplePasscodeType = %d", buf, 0x18u);
       }
     }
 
-    v29 = @"DeviceHandle";
-    v30 = &off_100037A50;
-    [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-    [*(a1 + 32) setIsPasscodeSet:MKBGetDeviceLockState() != 3];
-    v19 = sub_1000118BC();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v32 = @"DeviceHandle";
+    v33 = &off_100037A50;
+    [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v21 = [*(a1 + 32) setIsPasscodeSet:MKBGetDeviceLockState() != 3];
+    v22 = sub_1000118BC(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = [*(a1 + 32) isPasscodeSet];
-      v21 = "is not";
-      if (v20)
+      v23 = [*(a1 + 32) isPasscodeSet];
+      v24 = "is not";
+      if (v23)
       {
-        v21 = "is";
+        v24 = "is";
       }
 
       *buf = 136446466;
-      v32 = "[DeviceRecoveryService init]_block_invoke";
-      v33 = 2080;
-      *v34 = v21;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}s: passcode %s set", buf, 0x16u);
+      v35 = "[DeviceRecoveryService init]_block_invoke";
+      v36 = 2080;
+      *v37 = v24;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%{public}s: passcode %s set", buf, 0x16u);
     }
 
-    v22 = MSUCopyEnvInfoForNeRD();
-    v23 = v22;
-    if (v22)
+    v25 = MSUCopyEnvInfoForNeRD();
+    v26 = v25;
+    if (v25)
     {
-      v24 = [v22 objectForKeyedSubscript:@"BootedOSLanguage"];
-      [*(a1 + 32) setMainOSLanguageCode:v24];
+      v27 = [v25 objectForKeyedSubscript:@"BootedOSLanguage"];
+      [*(a1 + 32) setMainOSLanguageCode:v27];
     }
 
-    v25 = [[DRAnalyticsEvent alloc] initWithEventName:@"com.apple.DeviceRecovery.enteredDeviceRecovery"];
-    v26 = [NSNumber numberWithUnsignedInt:sub_1000022B4()];
-    [(DRAnalyticsEvent *)v25 setEventPayloadEntry:@"EntryMethod" value:v26];
+    v28 = [[DRAnalyticsEvent alloc] initWithEventName:@"com.apple.DeviceRecovery.enteredDeviceRecovery"];
+    v29 = [NSNumber numberWithUnsignedInt:sub_1000022B4()];
+    objc_msgSend_setEventPayloadEntry_value_(v28);
 
-    v27 = sub_1000022F4();
-    if (v27)
+    v30 = sub_1000022F4();
+    if (v30)
     {
-      [(DRAnalyticsEvent *)v25 setEventPayloadEntry:@"EntryDescription" value:v27];
+      objc_msgSend_setEventPayloadEntry_value_(v28);
     }
 
-    [*(*(a1 + 32) + 16) addEvent:v25];
+    [*(*(a1 + 32) + 16) addEvent:v28];
   }
 
   else
   {
-    v12 = +[MCProfileConnection sharedConnection];
-    [*(a1 + 32) setUnlockScreenType:{objc_msgSend(v12, "unlockScreenType")}];
+    v13 = +[MCProfileConnection sharedConnection];
+    [*(a1 + 32) setUnlockScreenType:{objc_msgSend(v13, "unlockScreenType")}];
 
-    v28 = +[MCProfileConnection sharedConnection];
-    [v28 unlockScreenTypeWithOutSimplePasscodeType:*(a1 + 32) + 52];
+    v31 = +[MCProfileConnection sharedConnection];
+    [v31 unlockScreenTypeWithOutSimplePasscodeType:*(a1 + 32) + 52];
   }
 }
 
@@ -560,7 +569,7 @@ void sub_100003EF4(id a1)
 
 void sub_1000045C8(uint64_t a1)
 {
-  v2 = sub_1000118BC();
+  v2 = sub_1000118BC(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -578,7 +587,7 @@ void sub_1000045C8(uint64_t a1)
 
 void sub_1000046A4(uint64_t a1)
 {
-  v2 = sub_1000118BC();
+  v2 = sub_1000118BC(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -602,17 +611,18 @@ void sub_1000046A4(uint64_t a1)
   }
 }
 
-void sub_100004CC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, char a27)
+void sub_100004CC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100004CF8(uint64_t a1)
 {
   v2 = [[DRAnalyticsEvent alloc] initWithEventName:@"com.apple.DeviceRecovery.PostRecovery"];
-  [(DRAnalyticsEvent *)v2 setEventPayloadEntry:@"BootedPostRecovery" value:&__kCFBooleanTrue];
+  objc_msgSend_setEventPayloadEntry_value_(v2);
   [*(*(a1 + 32) + 16) addEvent:v2];
   [*(*(a1 + 32) + 16) submitAllEvents];
 }
@@ -631,37 +641,37 @@ void sub_100004DA0(uint64_t a1)
 
   if (!v3)
   {
-    v13 = sub_1000118BC();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_1000118BC(v4);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v31 = "[DeviceRecoveryService processOSRecoveryPhaseStateFile:]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: Will use builtin recovery brain", buf, 0xCu);
+      v36 = "[DeviceRecoveryService processOSRecoveryPhaseStateFile:]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}s: Will use builtin recovery brain", buf, 0xCu);
     }
 
     goto LABEL_23;
   }
 
-  v4 = objc_loadWeakRetained((a1 + 56));
-  v5 = [v4 recoveryBrainAsset];
+  v5 = objc_loadWeakRetained((a1 + 56));
+  v6 = [v5 recoveryBrainAsset];
 
-  if (!v5)
+  if (!v6)
   {
-    v6 = sub_1000118BC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_1000118BC(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v31 = "[DeviceRecoveryService processOSRecoveryPhaseStateFile:]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: Will attempt to download external brain", buf, 0xCu);
+      v36 = "[DeviceRecoveryService processOSRecoveryPhaseStateFile:]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: Will attempt to download external brain", buf, 0xCu);
     }
 
-    v7 = objc_loadWeakRetained((a1 + 56));
-    v8 = [v7 downloadRecoveryBrain];
+    v9 = objc_loadWeakRetained((a1 + 56));
+    v10 = [v9 downloadRecoveryBrain];
 
-    if (!v8 || (v9 = objc_loadWeakRetained((a1 + 56)), [v9 recoveryBrainAsset], v10 = objc_claimAutoreleasedReturnValue(), v11 = v10 == 0, v10, v9, v11))
+    if (!v10 || (v12 = objc_loadWeakRetained((a1 + 56)), [v12 recoveryBrainAsset], v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 == 0, v13, v12, v14))
     {
-      v12 = sub_1000118BC();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v15 = sub_1000118BC(v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_100019EE0();
       }
@@ -669,49 +679,49 @@ void sub_100004DA0(uint64_t a1)
 
     else
     {
-      v12 = sub_1000118BC();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_1000118BC(v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v31 = "[DeviceRecoveryService processOSRecoveryPhaseStateFile:]_block_invoke";
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: Successfully grafted downloaded DeviceRecoveryBrain", buf, 0xCu);
+        v36 = "[DeviceRecoveryService processOSRecoveryPhaseStateFile:]_block_invoke";
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}s: Successfully grafted downloaded DeviceRecoveryBrain", buf, 0xCu);
       }
     }
   }
 
-  v14 = objc_loadWeakRetained((a1 + 56));
-  v15 = [v14 recoveryBrainAsset];
-  v16 = v15 == 0;
+  v17 = objc_loadWeakRetained((a1 + 56));
+  v18 = [v17 recoveryBrainAsset];
+  v19 = v18 == 0;
 
-  if (!v16)
+  if (!v19)
   {
-    v17 = sub_1000118BC();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v21 = sub_1000118BC(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v31 = "[DeviceRecoveryService processOSRecoveryPhaseStateFile:]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: Attempting to personalize and graft downloaded DeviceRecoveryBrain", buf, 0xCu);
+      v36 = "[DeviceRecoveryService processOSRecoveryPhaseStateFile:]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%{public}s: Attempting to personalize and graft downloaded DeviceRecoveryBrain", buf, 0xCu);
     }
 
-    v18 = objc_loadWeakRetained((a1 + 56));
-    v19 = [v18 personalizeAndGraftRecoveryBrain];
+    v22 = objc_loadWeakRetained((a1 + 56));
+    v23 = [v22 personalizeAndGraftRecoveryBrain];
 
-    v20 = sub_1000118BC();
-    v13 = v20;
-    if (v19)
+    v25 = sub_1000118BC(v24);
+    v16 = v25;
+    if (v23)
     {
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v31 = "[DeviceRecoveryService processOSRecoveryPhaseStateFile:]_block_invoke";
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: Successfully grafted downloaded DeviceRecoveryBrain", buf, 0xCu);
+        v36 = "[DeviceRecoveryService processOSRecoveryPhaseStateFile:]_block_invoke";
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}s: Successfully grafted downloaded DeviceRecoveryBrain", buf, 0xCu);
       }
 
-      v13 = objc_loadWeakRetained((a1 + 56));
-      [v13 setDownloadedBrainIsAvailable:1];
+      v16 = objc_loadWeakRetained((a1 + 56));
+      [v16 setDownloadedBrainIsAvailable:1];
     }
 
-    else if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       sub_100019F60();
     }
@@ -719,73 +729,74 @@ void sub_100004DA0(uint64_t a1)
 LABEL_23:
   }
 
-  v21 = objc_loadWeakRetained((a1 + 56));
-  v24[0] = _NSConcreteStackBlock;
-  v24[1] = 3221225472;
-  v24[2] = sub_1000051A4;
-  v24[3] = &unk_100034C98;
-  v23 = *(a1 + 40);
-  v22 = v23;
-  v26 = v23;
-  objc_copyWeak(&v27, (a1 + 56));
-  v28 = *(a1 + 64);
-  v25 = *(a1 + 32);
-  v29 = *(a1 + 65);
-  [v21 configureBrain:v24];
+  v26 = objc_loadWeakRetained((a1 + 56));
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_1000051A4;
+  v29[3] = &unk_100034C98;
+  v28 = *(a1 + 40);
+  v27 = v28;
+  v31 = v28;
+  objc_copyWeak(&v32, (a1 + 56));
+  v33 = *(a1 + 64);
+  v30 = *(a1 + 32);
+  v34 = *(a1 + 65);
+  [v26 configureBrain:v29];
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v32);
 }
 
 void sub_1000051A4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = sub_1000054B8;
-  v25[3] = &unk_100034BF8;
-  v15 = *(a1 + 40);
-  v4 = v15;
-  v26 = v15;
-  v5 = objc_retainBlock(v25);
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_1000054B8;
+  v26[3] = &unk_100034BF8;
+  v16 = *(a1 + 40);
+  v4 = v16;
+  v27 = v16;
+  v5 = objc_retainBlock(v26);
+  v6 = v5;
   if (v3)
   {
-    v6 = sub_1000118BC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1000118BC(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100019FE0();
     }
 
-    v7 = v3;
+    v8 = v3;
     goto LABEL_5;
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v9 = [WeakRetained brainConnection];
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_100005548;
-  v23[3] = &unk_100034C20;
-  v10 = v5;
-  v24 = v10;
-  v11 = [v9 remoteObjectProxyWithErrorHandler:v23];
+  v10 = [WeakRetained brainConnection];
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_100005548;
+  v24[3] = &unk_100034C20;
+  v11 = v6;
+  v25 = v11;
+  v12 = [v10 remoteObjectProxyWithErrorHandler:v24];
 
-  if (v11)
+  if (v12)
   {
     if (*(a1 + 64) == 1)
     {
-      v12 = [*(a1 + 32) objectForKeyedSubscript:@"OSRecoveryState"];
-      v18[0] = _NSConcreteStackBlock;
-      v18[1] = 3221225472;
-      v18[2] = sub_1000055BC;
-      v18[3] = &unk_100034C70;
-      v13 = &v21;
-      v21 = v10;
-      v22 = *(a1 + 65);
-      v19 = v11;
-      v20 = *(a1 + 32);
-      [v19 recoverDeviceFromBootedOS:v12 userUnlocked:0 completion:v18];
+      v13 = [*(a1 + 32) objectForKeyedSubscript:@"OSRecoveryState"];
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_1000055BC;
+      v19[3] = &unk_100034C70;
+      v14 = &v22;
+      v22 = v11;
+      v23 = *(a1 + 65);
+      v20 = v12;
+      v21 = *(a1 + 32);
+      [v20 recoverDeviceFromBootedOS:v13 userUnlocked:0 completion:v19];
 
-      v14 = v19;
+      v15 = v20;
     }
 
     else
@@ -795,18 +806,18 @@ void sub_1000051A4(uint64_t a1, void *a2)
 LABEL_12:
 
 LABEL_13:
-        v7 = 0;
+        v8 = 0;
         goto LABEL_14;
       }
 
-      v14 = [*(a1 + 32) objectForKeyedSubscript:@"OSRecoveryState"];
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = sub_100005714;
-      v16[3] = &unk_100034C48;
-      v13 = &v17;
-      v17 = v10;
-      [v11 recoverDeviceFromBootedOS:v14 userUnlocked:1 completion:v16];
+      v15 = [*(a1 + 32) objectForKeyedSubscript:@"OSRecoveryState"];
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_100005714;
+      v17[3] = &unk_100034C48;
+      v14 = &v18;
+      v18 = v11;
+      [v12 recoverDeviceFromBootedOS:v15 userUnlocked:1 completion:v17];
     }
 
     goto LABEL_12;
@@ -817,39 +828,40 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v7 = v27;
+  v8 = v28;
 LABEL_5:
-  (v5[2])(v5, v7);
+  (v6)[2](v6, v8);
 LABEL_14:
 }
 
 void sub_1000054B8(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_1000118BC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_1000118BC(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10001A1A0();
     }
   }
 
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = 0;
+  v6 = *(*(a1 + 40) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = 0;
 
-  v7 = *(a1 + 32);
-  if (v7)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    (*(v7 + 16))(v7, v3);
+    (*(v8 + 16))(v8, v4);
   }
 }
 
 void sub_100005548(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000118BC();
+  v4 = sub_1000118BC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10001A21C();
@@ -862,34 +874,35 @@ void sub_1000055BC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = sub_1000118BC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_1000118BC(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10001A298();
     }
 
-    v8 = *(*(a1 + 48) + 16);
+    v9 = *(*(a1 + 48) + 16);
     goto LABEL_8;
   }
 
   if (*(a1 + 56) != 1)
   {
-    v8 = *(*(a1 + 48) + 16);
+    v9 = *(*(a1 + 48) + 16);
 LABEL_8:
-    v8();
+    v9();
     goto LABEL_9;
   }
 
-  v9 = *(a1 + 32);
-  v10 = [*(a1 + 40) objectForKeyedSubscript:@"OSRecoveryState"];
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_100005704;
-  v11[3] = &unk_100034C48;
-  v12 = *(a1 + 48);
-  [v9 recoverDeviceFromBootedOS:v10 userUnlocked:1 completion:v11];
+  v10 = *(a1 + 32);
+  v11 = [*(a1 + 40) objectForKeyedSubscript:@"OSRecoveryState"];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100005704;
+  v12[3] = &unk_100034C48;
+  v13 = *(a1 + 48);
+  [v10 recoverDeviceFromBootedOS:v11 userUnlocked:1 completion:v12];
 
 LABEL_9:
 }
@@ -904,7 +917,7 @@ void sub_10000612C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_100006188(uint64_t a1)
 {
-  v2 = sub_1000118BC();
+  v2 = sub_1000118BC(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136446210;
@@ -921,7 +934,7 @@ void sub_100006188(uint64_t a1)
 
 void sub_100006260(uint64_t a1)
 {
-  v2 = sub_1000118BC();
+  v2 = sub_1000118BC(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136446210;
@@ -939,7 +952,7 @@ void sub_100006260(uint64_t a1)
 void sub_1000063D8(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10001AB9C();
@@ -970,7 +983,7 @@ void sub_1000072F0(uint64_t a1)
 void sub_10000736C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000118BC();
+  v4 = sub_1000118BC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10001AC18();
@@ -983,7 +996,7 @@ void sub_1000073E4(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_1000118BC();
+  v7 = sub_1000118BC(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136446466;
@@ -999,7 +1012,7 @@ void sub_1000073E4(uint64_t a1, void *a2, void *a3)
 void sub_100007938(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000118BC();
+  v4 = sub_1000118BC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10001B1DC();
@@ -1017,7 +1030,7 @@ void sub_100007A38(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_1000118BC();
+  v7 = sub_1000118BC(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 136446466;
@@ -1032,12 +1045,12 @@ void sub_100007A38(uint64_t a1, void *a2, void *a3)
   (*(v8 + 16))(v8, v5, v6, v9);
 }
 
-void sub_100008050(uint64_t a1)
+void sub_100008050(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_1000118BC();
+  v2 = sub_1000118BC(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    sub_10001B8C8(a1);
+    sub_10001B8C8();
   }
 }
 
@@ -1053,7 +1066,7 @@ void sub_100009180(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_1000118BC();
+  v7 = sub_1000118BC(v6);
   v8 = v7;
   if (v5)
   {
@@ -1100,72 +1113,60 @@ void sub_100009180(uint64_t a1, void *a2, void *a3)
 void sub_100009390(uint64_t a1)
 {
   v2 = [[DRAnalyticsEvent alloc] initWithEventName:@"com.apple.DeviceRecovery.userAuthenticated"];
-  v3 = [*(a1 + 32) userAuthenticated];
-  v4 = &off_100034A58;
-  v5 = @"Status";
-  if ((v3 & 1) == 0)
+  if (([*(a1 + 32) userAuthenticated] & 1) == 0)
   {
-    [(DRAnalyticsEvent *)v2 setEventPayloadEntry:@"Status" value:&__kCFBooleanFalse];
-    v5 = @"Error";
-    v4 = (a1 + 40);
+    objc_msgSend_setEventPayloadEntry_value_(v2);
   }
 
-  [(DRAnalyticsEvent *)v2 setEventPayloadEntry:v5 value:*v4];
-  v6 = sub_1000118BC();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v3 = objc_msgSend_setEventPayloadEntry_value_(v2);
+  v4 = sub_1000118BC(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [*(a1 + 32) userApprovedDiagnosticsSubmission];
-    v8 = @"has not";
-    if (v7)
+    v5 = [*(a1 + 32) userApprovedDiagnosticsSubmission];
+    v6 = @"has not";
+    if (v5)
     {
-      v8 = @"has";
+      v6 = @"has";
     }
 
     *buf = 136446466;
-    v17 = "[DeviceRecoveryService userAuthenticated:completion:]_block_invoke";
-    v18 = 2114;
-    v19 = v8;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: User %{public}@ opted in to sharing diagnostics", buf, 0x16u);
+    v12 = "[DeviceRecoveryService userAuthenticated:completion:]_block_invoke";
+    v13 = 2114;
+    v14 = v6;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: User %{public}@ opted in to sharing diagnostics", buf, 0x16u);
   }
 
   if ([*(a1 + 32) userApprovedDiagnosticsSubmission])
   {
-    v9 = +[OSASystemConfiguration sharedInstance];
-    [v9 setDREOptIn:1];
+    v7 = +[OSASystemConfiguration sharedInstance];
+    [v7 setDREOptIn:1];
   }
 
-  v10 = [[DRAnalyticsEvent alloc] initWithEventName:@"com.apple.DeviceRecovery.dataVolumeMounted"];
+  v8 = [[DRAnalyticsEvent alloc] initWithEventName:@"com.apple.DeviceRecovery.dataVolumeMounted"];
   if ([*(a1 + 32) dataVolumeMounted])
   {
-    v11 = [*(a1 + 32) osaQueue];
+    v9 = [*(a1 + 32) osaQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100009610;
     block[3] = &unk_100034AE8;
     block[4] = *(a1 + 32);
-    dispatch_async(v11, block);
-
-    v12 = &__kCFBooleanTrue;
-    v13 = v10;
-    v14 = @"Status";
+    dispatch_async(v9, block);
   }
 
   else
   {
-    [(DRAnalyticsEvent *)v10 setEventPayloadEntry:@"Status" value:&__kCFBooleanFalse];
-    v14 = @"Error";
-    v12 = *(a1 + 40);
-    v13 = v10;
+    objc_msgSend_setEventPayloadEntry_value_(v8);
   }
 
-  [(DRAnalyticsEvent *)v13 setEventPayloadEntry:v14 value:v12];
+  objc_msgSend_setEventPayloadEntry_value_(v8);
   [*(*(a1 + 32) + 16) addEvent:v2];
-  [*(*(a1 + 32) + 16) addEvent:v10];
+  [*(*(a1 + 32) + 16) addEvent:v8];
 }
 
 uint64_t sub_10000961C(uint64_t a1)
 {
-  v2 = sub_1000118BC();
+  v2 = sub_1000118BC(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -1180,7 +1181,7 @@ void sub_100009AA4(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_1000118BC();
+  v7 = sub_1000118BC(v6);
   v8 = v7;
   if (v5)
   {
@@ -1236,7 +1237,7 @@ void sub_100009C94(uint64_t a1)
 
 uint64_t sub_100009D40(uint64_t a1)
 {
-  v2 = sub_1000118BC();
+  v2 = sub_1000118BC(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -1251,7 +1252,7 @@ void sub_10000A2FC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_1000118BC();
+  v7 = sub_1000118BC(v6);
   v8 = v7;
   if (v5)
   {
@@ -1269,9 +1270,9 @@ void sub_10000A2FC(uint64_t a1, void *a2, void *a3)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 136446210;
-      v21 = "[DeviceRecoveryService loadRecoveryBrain:]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: recovery brain loaded", &v20, 0xCu);
+      v17 = 136446210;
+      v18 = "[DeviceRecoveryService loadRecoveryBrain:]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: recovery brain loaded", &v17, 0xCu);
     }
 
     [*(a1 + 32) setRecoveryBrainLoaded:1];
@@ -1282,52 +1283,44 @@ void sub_10000A2FC(uint64_t a1, void *a2, void *a3)
     v11 = [[DRAnalyticsEvent alloc] initWithEventName:@"com.apple.DeviceRecovery.brainLoad"];
     if ([*(a1 + 32) recoveryBrainLoaded])
     {
-      [(DRAnalyticsEvent *)v11 setEventPayloadEntry:@"Status" value:&__kCFBooleanTrue];
+      objc_msgSend_setEventPayloadEntry_value_(v11);
       if ([*(a1 + 32) downloadedBrainIsAvailable])
       {
         v12 = [*(a1 + 32) recoveryBrainAsset];
         v13 = [v12 attributes];
         v14 = [v13 objectForKeyedSubscript:@"Build"];
 
-        [(DRAnalyticsEvent *)v11 setEventPayloadEntry:@"BrainInfo" value:v14];
-        [(DRAnalyticsEvent *)v11 setEventPayloadEntry:@"BrainType" value:&off_100037A38];
-
-LABEL_16:
-        [*(*(a1 + 32) + 16) addEvent:v11];
-
-        goto LABEL_17;
+        objc_msgSend_setEventPayloadEntry_value_(v11);
+        objc_msgSend_setEventPayloadEntry_value_(v11);
       }
 
-      [(DRAnalyticsEvent *)v11 setEventPayloadEntry:@"BrainInfo" value:@"BuiltInBrain"];
-      v15 = @"BrainType";
-      v17 = &off_100037A20;
-      v16 = v11;
+      else
+      {
+        objc_msgSend_setEventPayloadEntry_value_(v11);
+        objc_msgSend_setEventPayloadEntry_value_(v11);
+      }
     }
 
     else
     {
-      [(DRAnalyticsEvent *)v11 setEventPayloadEntry:@"Status" value:&__kCFBooleanFalse];
-      [(DRAnalyticsEvent *)v11 setEventPayloadEntry:@"BrainType" value:&off_100037A08];
-      v15 = @"Error";
-      v16 = v11;
-      v17 = v5;
+      objc_msgSend_setEventPayloadEntry_value_(v11);
+      objc_msgSend_setEventPayloadEntry_value_(v11);
+      objc_msgSend_setEventPayloadEntry_value_(v11);
     }
 
-    [(DRAnalyticsEvent *)v16 setEventPayloadEntry:v15 value:v17];
-    goto LABEL_16;
+    [*(*(a1 + 32) + 16) addEvent:v11];
   }
 
-LABEL_17:
-  v18 = *(a1 + 40);
-  v19 = [*(a1 + 32) attributeDict];
-  (*(v18 + 16))(v18, v5, v6, v19);
+  v15 = *(a1 + 40);
+  v16 = [*(a1 + 32) attributeDict];
+  (*(v15 + 16))(v15, v5, v6, v16);
 }
 
 void sub_10000ABB4(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_1000118BC();
+  v7 = sub_1000118BC(v6);
   v8 = v7;
   if (v5)
   {
@@ -1344,105 +1337,94 @@ void sub_10000ABB4(uint64_t a1, void *a2, void *a3)
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v36 = "[DeviceRecoveryService scanForIssues:]_block_invoke";
+    v32 = "[DeviceRecoveryService scanForIssues:]_block_invoke";
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: issue scan complete", buf, 0xCu);
   }
 
   if ([*(a1 + 32) isRunningInDeviceRecoveryEnvironment] && (objc_msgSend(*(a1 + 32), "testModeEnabled") & 1) == 0)
   {
     v10 = [[DRAnalyticsEvent alloc] initWithEventName:@"com.apple.DeviceRecovery.issueScan"];
-    v11 = [*(a1 + 32) issuesScanComplete];
-    v12 = @"Status";
-    if (v11)
+    if (![*(a1 + 32) issuesScanComplete])
     {
-      v13 = &__kCFBooleanTrue;
-      v14 = v10;
+      objc_msgSend_setEventPayloadEntry_value_(v10);
     }
 
-    else
+    objc_msgSend_setEventPayloadEntry_value_(v10);
+    v11 = [*(a1 + 32) repairableIssuesFound];
+    if (v6 && v11)
     {
-      [(DRAnalyticsEvent *)v10 setEventPayloadEntry:@"Status" value:&__kCFBooleanFalse];
-      v12 = @"Error";
-      v14 = v10;
-      v13 = v5;
-    }
-
-    [(DRAnalyticsEvent *)v14 setEventPayloadEntry:v12 value:v13];
-    v15 = [*(a1 + 32) repairableIssuesFound];
-    if (v6 && v15)
-    {
-      v16 = objc_opt_new();
-      v17 = [v6 objectForKeyedSubscript:@"RepairableIssues"];
-      v18 = v17;
-      if (v17)
+      v12 = objc_opt_new();
+      v13 = [v6 objectForKeyedSubscript:@"RepairableIssues"];
+      v14 = v13;
+      if (v13)
       {
-        v28 = v10;
-        v29 = v5;
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
-        v31 = 0u;
-        v19 = [v17 countByEnumeratingWithState:&v30 objects:v34 count:16];
-        if (v19)
+        v24 = v10;
+        v25 = v5;
+        v28 = 0u;
+        v29 = 0u;
+        v26 = 0u;
+        v27 = 0u;
+        v15 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        if (v15)
         {
-          v20 = v19;
-          v21 = *v31;
+          v16 = v15;
+          v17 = *v27;
           do
           {
-            for (i = 0; i != v20; i = i + 1)
+            for (i = 0; i != v16; i = i + 1)
             {
-              if (*v31 != v21)
+              if (*v27 != v17)
               {
-                objc_enumerationMutation(v18);
+                objc_enumerationMutation(v14);
               }
 
-              v23 = *(*(&v30 + 1) + 8 * i);
+              v19 = *(*(&v26 + 1) + 8 * i);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v24 = [v23 objectForKeyedSubscript:@"RepairableIssueDescription"];
-                v25 = v24;
-                if (v24)
+                v20 = [v19 objectForKeyedSubscript:@"RepairableIssueDescription"];
+                v21 = v20;
+                if (v20)
                 {
-                  [v16 appendFormat:@" | %@", v24];
+                  [v12 appendFormat:@" | %@", v20];
                 }
               }
             }
 
-            v20 = [v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
           }
 
-          while (v20);
+          while (v16);
         }
 
-        if ([v16 length] >= 4)
+        if ([v12 length] >= 4)
         {
-          [v16 deleteCharactersInRange:{objc_msgSend(v16, "length") - 3, 3}];
+          [v12 deleteCharactersInRange:{objc_msgSend(v12, "length") - 3, 3}];
         }
 
-        v10 = v28;
-        [(DRAnalyticsEvent *)v28 setEventPayloadEntry:@"RepairableIssuesFound" value:v16];
-        v5 = v29;
+        v10 = v24;
+        objc_msgSend_setEventPayloadEntry_value_(v24);
+        v5 = v25;
       }
 
       else
       {
-        [(DRAnalyticsEvent *)v10 setEventPayloadEntry:@"RepairableIssuesFound" value:@"No issues found"];
+        objc_msgSend_setEventPayloadEntry_value_(v10);
       }
 
       [*(*(a1 + 32) + 16) addEvent:v10];
     }
   }
 
-  v26 = *(a1 + 40);
-  v27 = [*(a1 + 32) attributeDict];
-  (*(v26 + 16))(v26, v5, v6, v27);
+  v22 = *(a1 + 40);
+  v23 = [*(a1 + 32) attributeDict];
+  (*(v22 + 16))(v22, v5, v6, v23);
 }
 
 void sub_10000AF58(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000118BC();
+  v4 = sub_1000118BC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10001DD7C();
@@ -1457,10 +1439,11 @@ void sub_10000AF58(uint64_t a1, void *a2)
 void sub_10000B040(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_1000118BC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_1000118BC(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10001DDF8();
     }
@@ -1470,17 +1453,17 @@ void sub_10000B040(uint64_t a1, void *a2)
 
   else
   {
-    v5 = *(a1 + 32);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_10000B148;
-    v8[3] = &unk_100034E70;
-    v11 = *(a1 + 48);
     v6 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v9 = v6;
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10000B148;
+    v9[3] = &unk_100034E70;
+    v12 = *(a1 + 48);
+    v7 = *(a1 + 32);
+    v8 = *(a1 + 40);
     v10 = v7;
-    [v5 checkFreeSpace:v8];
+    v11 = v8;
+    [v6 checkFreeSpace:v9];
   }
 }
 
@@ -1491,7 +1474,7 @@ void sub_10000B148(uint64_t a1, void *a2, void *a3)
   v7 = v6;
   if (v5)
   {
-    v8 = sub_1000118BC();
+    v8 = sub_1000118BC(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10001DE74();
@@ -1517,27 +1500,28 @@ void sub_10000B148(uint64_t a1, void *a2, void *a3)
 void sub_10000B25C(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
+  v6 = v5;
   if (v5)
   {
-    v6 = sub_1000118BC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1000118BC(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10001DEF0();
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v7 = [*(a1 + 32) mergeResults:a3 withResults:*(a1 + 40)];
+    v8 = [*(a1 + 32) mergeResults:a3 withResults:*(a1 + 40)];
     [*(a1 + 32) setIssuesScanComplete:1];
-    if (v7)
+    if (v8)
     {
-      v8 = [v7 objectForKeyedSubscript:@"RepairableIssues"];
-      v9 = [v8 count];
+      v9 = [v8 objectForKeyedSubscript:@"RepairableIssues"];
+      v10 = [v9 count];
 
-      if (v9)
+      if (v10)
       {
         [*(a1 + 32) setRepairableIssuesFound:1];
       }
@@ -1551,7 +1535,7 @@ void sub_10000BA28(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_1000118BC();
+  v7 = sub_1000118BC(v6);
   v8 = v7;
   if (v5)
   {
@@ -1567,43 +1551,32 @@ void sub_10000BA28(uint64_t a1, void *a2, void *a3)
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 136446210;
-    v18 = "[DeviceRecoveryService recoverDevice:]_block_invoke";
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: device recovery complete", &v17, 0xCu);
+    v13 = 136446210;
+    v14 = "[DeviceRecoveryService recoverDevice:]_block_invoke";
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: device recovery complete", &v13, 0xCu);
   }
 
   if ([*(a1 + 32) isRunningInDeviceRecoveryEnvironment] && (objc_msgSend(*(a1 + 32), "testModeEnabled") & 1) == 0)
   {
     v10 = [[DRAnalyticsEvent alloc] initWithEventName:@"com.apple.DeviceRecovery.recoverDevice"];
-    v11 = [*(a1 + 32) recoveryComplete];
-    v12 = @"Status";
-    if (v11)
+    if (![*(a1 + 32) recoveryComplete])
     {
-      v13 = &__kCFBooleanTrue;
-      v14 = v10;
+      objc_msgSend_setEventPayloadEntry_value_(v10);
     }
 
-    else
-    {
-      [(DRAnalyticsEvent *)v10 setEventPayloadEntry:@"Status" value:&__kCFBooleanFalse];
-      v12 = @"Error";
-      v14 = v10;
-      v13 = v5;
-    }
-
-    [(DRAnalyticsEvent *)v14 setEventPayloadEntry:v12 value:v13];
+    objc_msgSend_setEventPayloadEntry_value_(v10);
     [*(*(a1 + 32) + 16) addEvent:v10];
   }
 
-  v15 = *(a1 + 40);
-  v16 = [*(a1 + 32) attributeDict];
-  (*(v15 + 16))(v15, v5, v6, v16);
+  v11 = *(a1 + 40);
+  v12 = [*(a1 + 32) attributeDict];
+  (*(v11 + 16))(v11, v5, v6, v12);
 }
 
 void sub_10000BC2C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000118BC();
+  v4 = sub_1000118BC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10001ED20();
@@ -1618,10 +1591,11 @@ void sub_10000BC2C(uint64_t a1, void *a2)
 void sub_10000BD14(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_1000118BC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_1000118BC(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10001EDA4();
     }
@@ -1631,17 +1605,17 @@ void sub_10000BD14(uint64_t a1, void *a2)
 
   else
   {
-    v5 = *(a1 + 32);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_10000BE1C;
-    v8[3] = &unk_100034E70;
-    v11 = *(a1 + 48);
     v6 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v9 = v6;
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10000BE1C;
+    v9[3] = &unk_100034E70;
+    v12 = *(a1 + 48);
+    v7 = *(a1 + 32);
+    v8 = *(a1 + 40);
     v10 = v7;
-    [v5 reclaimFreeSpace:v8];
+    v11 = v8;
+    [v6 reclaimFreeSpace:v9];
   }
 }
 
@@ -1649,10 +1623,11 @@ void sub_10000BE1C(void *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = sub_1000118BC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_1000118BC(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10001EE20();
     }
@@ -1662,15 +1637,15 @@ void sub_10000BE1C(void *a1, void *a2, void *a3)
 
   else
   {
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10000BF20;
-    v10[3] = &unk_100034DD0;
-    v8 = a1[4];
-    v9 = a1[6];
-    v10[4] = a1[5];
-    v11 = v9;
-    [v8 recoverDevice:v10];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10000BF20;
+    v11[3] = &unk_100034DD0;
+    v9 = a1[4];
+    v10 = a1[6];
+    v11[4] = a1[5];
+    v12 = v10;
+    [v9 recoverDevice:v11];
   }
 }
 
@@ -1678,10 +1653,11 @@ void sub_10000BF20(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = sub_1000118BC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_1000118BC(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10001EE9C();
     }
@@ -1690,9 +1666,9 @@ void sub_10000BF20(uint64_t a1, void *a2, void *a3)
   else
   {
     [*(a1 + 32) setRecoveryComplete:1];
-    v8 = [*(a1 + 32) processRecoveryResults:v6];
+    v9 = [*(a1 + 32) processRecoveryResults:v7];
 
-    v6 = v8;
+    v7 = v9;
   }
 
   (*(*(a1 + 40) + 16))();
@@ -1709,12 +1685,13 @@ uint64_t sub_10000C06C(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_10000D7C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id obj, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_10000D7C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id obj, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a29, 8);
   _Block_object_dispose(&a33, 8);
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 224), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 224), 8);
   objc_sync_exit(obj);
   _Unwind_Resume(a1);
 }
@@ -1730,36 +1707,42 @@ void sub_10000D8B4(uint64_t a1, uint64_t a2, id obj)
 void sub_10000D930(id a1, MAProgressNotification *a2)
 {
   v2 = a2;
-  v3 = 0.0;
-  if ([(MAProgressNotification *)v2 totalWritten]>= 1 && [(MAProgressNotification *)v2 totalExpected]>= 1)
+  v3 = [(MAProgressNotification *)v2 totalWritten];
+  v4 = 0.0;
+  if (v3 >= 1)
   {
-    v4 = [(MAProgressNotification *)v2 totalWritten];
-    v3 = (v4 / [(MAProgressNotification *)v2 totalExpected]);
+    v3 = [(MAProgressNotification *)v2 totalExpected];
+    if (v3 >= 1)
+    {
+      v5 = [(MAProgressNotification *)v2 totalWritten];
+      v3 = [(MAProgressNotification *)v2 totalExpected];
+      v4 = (v5 / v3);
+    }
   }
 
-  v5 = sub_1000118BC();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_1000118BC(v3);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     if ([(MAProgressNotification *)v2 isStalled])
     {
-      v6 = @"YES";
+      v7 = @"YES";
     }
 
     else
     {
-      v6 = @"NO";
+      v7 = @"NO";
     }
 
-    v7 = [(MAProgressNotification *)v2 taskDescription];
-    v8 = 136446978;
-    v9 = "[DeviceRecoveryService downloadRecoveryBrain]_block_invoke";
-    v10 = 2048;
-    v11 = v3;
-    v12 = 2114;
-    v13 = v6;
-    v14 = 2114;
-    v15 = v7;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Progress: %f stalled: %{public}@ taskID: %{public}@", &v8, 0x2Au);
+    v8 = [(MAProgressNotification *)v2 taskDescription];
+    v9 = 136446978;
+    v10 = "[DeviceRecoveryService downloadRecoveryBrain]_block_invoke";
+    v11 = 2048;
+    v12 = v4;
+    v13 = 2114;
+    v14 = v7;
+    v15 = 2114;
+    v16 = v8;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: [DownloadRecoveryBrain]: Progress: %f stalled: %{public}@ taskID: %{public}@", &v9, 0x2Au);
   }
 }
 
@@ -1771,10 +1754,11 @@ void sub_10000DA88(uint64_t a1, uint64_t a2, id obj)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_10000E324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_10000E324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 144), 8);
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1849,79 +1833,81 @@ LABEL_13:
 void sub_10000E550(void *a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2 != 5)
   {
-    v6 = sub_1000118BC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1000118BC(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10001F440();
     }
   }
 
-  v7 = sub_1000022F4();
-  v26[0] = *(*(a1[7] + 8) + 40);
-  v25[0] = @"LogLines";
-  v25[1] = @"EntryReason";
-  v8 = [NSNumber numberWithUnsignedInt:sub_1000022B4()];
-  v9 = v8;
-  v10 = @"null description";
-  if (v7)
+  v8 = sub_1000022F4();
+  v29[0] = *(*(a1[7] + 8) + 40);
+  v28[0] = @"LogLines";
+  v28[1] = @"EntryReason";
+  v9 = [NSNumber numberWithUnsignedInt:sub_1000022B4()];
+  v10 = v9;
+  v11 = @"null description";
+  if (v8)
   {
-    v10 = v7;
+    v11 = v8;
   }
 
-  v26[1] = v8;
-  v26[2] = v10;
-  v25[2] = @"EntryDescription";
-  v25[3] = @"FailedOperation";
-  v11 = @"null operation";
-  v12 = a1[5];
+  v29[1] = v9;
+  v29[2] = v11;
+  v28[2] = @"EntryDescription";
+  v28[3] = @"FailedOperation";
+  v12 = @"null operation";
+  v13 = a1[5];
   if (a1[4])
   {
-    v11 = a1[4];
+    v12 = a1[4];
   }
 
-  v25[4] = @"FailureDescription";
-  v13 = @"null failure description";
-  if (v12)
+  v28[4] = @"FailureDescription";
+  v14 = @"null failure description";
+  if (v13)
   {
-    v13 = v12;
+    v14 = v13;
   }
 
-  v26[3] = v11;
-  v26[4] = v13;
-  v14 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:5];
+  v29[3] = v12;
+  v29[4] = v14;
+  v15 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:5];
 
-  v24 = 0;
-  v15 = [NSJSONSerialization dataWithJSONObject:v14 options:1 error:&v24];
-  v16 = v24;
-  if (v15)
+  v27 = 0;
+  v16 = [NSJSONSerialization dataWithJSONObject:v15 options:1 error:&v27];
+  v17 = v27;
+  v18 = v17;
+  if (v16)
   {
-    v17 = *(a1[8] + 8);
-    obj = *(v17 + 40);
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_10000E81C;
-    v21[3] = &unk_100034F78;
-    v22 = v15;
-    v18 = [OSALog createForSubmission:@"244" metadata:0 options:0 error:&obj writing:v21];
-    objc_storeStrong((v17 + 40), obj);
-    if (!v18)
+    v19 = *(a1[8] + 8);
+    obj = *(v19 + 40);
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_10000E81C;
+    v24[3] = &unk_100034F78;
+    v25 = v16;
+    v20 = [OSALog createForSubmission:@"244" metadata:0 options:0 error:&obj writing:v24];
+    objc_storeStrong((v19 + 40), obj);
+    if (!v20)
     {
-      v19 = sub_1000118BC();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v22 = sub_1000118BC(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         sub_10001F4C4();
       }
     }
 
-    v20 = v22;
+    v23 = v25;
   }
 
   else
   {
-    v20 = sub_1000118BC();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v23 = sub_1000118BC(v17);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       sub_10001F550();
     }
@@ -1930,23 +1916,18 @@ void sub_10000E550(void *a1, uint64_t a2, void *a3)
   dispatch_group_leave(*(a1[6] + 72));
 }
 
-void sub_10000EB70(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000EB70(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x3Au);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
-uint64_t sub_10000EC08(uint64_t result)
+void sub_10000EC74(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
-  *v1 = result;
-  v3 = *(v2 - 40);
-  return result;
-}
+  va_start(va, a10);
 
-void sub_10000EC74(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
-{
-
-  _os_log_error_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0x3Au);
+  _os_log_error_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
 BOOL sub_10000ECA0(NSObject *a1)
@@ -2056,10 +2037,7 @@ uint64_t sub_10000F1E4(uint64_t result, uint64_t a2)
 
 uint64_t sub_10000F1FC(uint64_t a1)
 {
-  v2 = [NSDictionary dictionaryWithDictionary:*(*(a1 + 32) + 16)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [NSDictionary dictionaryWithDictionary:*(*(a1 + 32) + 16)];
 
   return _objc_release_x1();
 }
@@ -2071,46 +2049,49 @@ __CFString *sub_10000F87C(void *a1, void *a2)
   if ([v3 isEqualToString:@"BrainType"])
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = [v4 unsignedCharValue];
-      v6 = @"None";
-      if (v5 == 2)
+      v6 = [v4 unsignedCharValue];
+      v7 = @"None";
+      if (v6 == 2)
       {
-        v6 = @"Production";
+        v7 = @"Production";
       }
 
-      v7 = @"Builtin";
+      v8 = @"Builtin";
       goto LABEL_6;
     }
 
-    sub_10001FFB0();
+    sub_10001FFB0(isKindOfClass);
 LABEL_54:
-    v8 = @"<unknown>";
+    v9 = @"<unknown>";
     goto LABEL_16;
   }
 
   if (([v3 isEqualToString:@"BrainBundlePath"] & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", @"UserDataPath") & 1) != 0 || (objc_msgSend(v3, "isEqualToString:", @"SystemDataPath") & 1) != 0 || objc_msgSend(v3, "isEqualToString:", @"UpdateVolumePath"))
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    v10 = objc_opt_isKindOfClass();
+    if ((v10 & 1) == 0)
     {
-      sub_10001FEF0();
+      sub_10001FEF0(v10);
       goto LABEL_54;
     }
 
-    v9 = v4;
+    v11 = v4;
 LABEL_15:
-    v8 = v9;
+    v9 = v11;
     goto LABEL_16;
   }
 
   if ([v3 isEqualToString:@"UserAuthResult"])
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    v13 = objc_opt_isKindOfClass();
+    if ((v13 & 1) == 0)
     {
-      sub_10001FE30();
+      sub_10001FE30(v13);
       goto LABEL_54;
     }
 
@@ -2120,9 +2101,10 @@ LABEL_15:
   if ([v3 isEqualToString:@"NetworkAvailableResult"])
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    v14 = objc_opt_isKindOfClass();
+    if ((v14 & 1) == 0)
     {
-      sub_10001FD70();
+      sub_10001FD70(v14);
       goto LABEL_54;
     }
 
@@ -2132,9 +2114,10 @@ LABEL_15:
   if ([v3 isEqualToString:@"BrainLoadResult"])
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    v15 = objc_opt_isKindOfClass();
+    if ((v15 & 1) == 0)
     {
-      sub_10001FCB0();
+      sub_10001FCB0(v15);
       goto LABEL_54;
     }
 
@@ -2148,9 +2131,10 @@ LABEL_15:
       if ([v3 isEqualToString:@"FreeSpaceThreshold"])
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        v19 = objc_opt_isKindOfClass();
+        if ((v19 & 1) == 0)
         {
-          sub_10001FA70();
+          sub_10001FA70(v19);
           goto LABEL_54;
         }
 
@@ -2160,9 +2144,10 @@ LABEL_15:
       else if ([v3 isEqualToString:@"SystemDataPath"])
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        v20 = objc_opt_isKindOfClass();
+        if ((v20 & 1) == 0)
         {
-          sub_10001F9B0();
+          sub_10001F9B0(v20);
           goto LABEL_54;
         }
 
@@ -2172,9 +2157,10 @@ LABEL_15:
       else if ([v3 isEqualToString:@"UserDataPath"])
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        v21 = objc_opt_isKindOfClass();
+        if ((v21 & 1) == 0)
         {
-          sub_10001F8F0();
+          sub_10001F8F0(v21);
           goto LABEL_54;
         }
 
@@ -2183,76 +2169,80 @@ LABEL_15:
 
       else
       {
-        if (![v3 isEqualToString:@"UpdateVolumePath"])
+        v22 = [v3 isEqualToString:@"UpdateVolumePath"];
+        if (!v22)
         {
-          v12 = sub_1000118BC();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v24 = sub_1000118BC(v22);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
-            sub_10001F7A4(v3, v12);
+            sub_10001F7A4(v3, v24);
           }
 
           goto LABEL_54;
         }
 
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        v23 = objc_opt_isKindOfClass();
+        if ((v23 & 1) == 0)
         {
-          sub_10001F830();
+          sub_10001F830(v23);
           goto LABEL_54;
         }
 
         [NSString stringWithFormat:@"Update Volume Path: %@", v4];
       }
-      v9 = ;
+      v11 = ;
       goto LABEL_15;
     }
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    v18 = objc_opt_isKindOfClass();
+    if ((v18 & 1) == 0)
     {
-      sub_10001FB30();
+      sub_10001FB30(v18);
       goto LABEL_54;
     }
 
 LABEL_27:
-    v5 = [v4 unsignedCharValue];
-    v6 = @"None";
-    v7 = @"Force Failure";
+    v6 = [v4 unsignedCharValue];
+    v7 = @"None";
+    v8 = @"Force Failure";
 LABEL_6:
-    if (v5 == 1)
+    if (v6 == 1)
     {
-      v8 = v7;
+      v9 = v8;
     }
 
     else
     {
-      v8 = v6;
+      v9 = v7;
     }
 
     goto LABEL_16;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  v16 = objc_opt_isKindOfClass();
+  if ((v16 & 1) == 0)
   {
-    sub_10001FBF0();
+    sub_10001FBF0(v16);
     goto LABEL_54;
   }
 
-  v11 = [v4 unsignedCharValue] - 1;
-  if (v11 >= 3)
+  v17 = [v4 unsignedCharValue] - 1;
+  if (v17 >= 3)
   {
-    v8 = @"None";
+    v9 = @"None";
   }
 
   else
   {
-    v8 = *(&off_100035108 + v11);
+    v9 = *(&off_100035108 + v17);
   }
 
 LABEL_16:
 
-  return v8;
+  return v9;
 }
 
 id sub_10000FC9C(void *a1, void *a2)
@@ -2507,10 +2497,11 @@ id sub_1000101CC(void *a1)
   return v3;
 }
 
-void sub_100010264(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_100010264(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0x3Au);
+  _os_log_error_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
 void sub_100010284(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -2527,39 +2518,39 @@ id sub_1000102E0(const char *a1, void *a2, void *a3)
   {
     v7 = v6;
     CFProperty = IORegistryEntryCreateCFProperty(v6, v5, kCFAllocatorDefault, 0);
-    IOObjectRelease(v7);
-    v9 = sub_1000118BC();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v9 = IOObjectRelease(v7);
+    v10 = sub_1000118BC(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446722;
-      v16 = "DRECopyIORegEntryWithError";
-      v17 = 2082;
-      v18 = a1;
-      v19 = 2114;
-      v20 = CFProperty;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: ioreg property: '%{public}s' = %{public}@", buf, 0x20u);
+      v17 = "DRECopyIORegEntryWithError";
+      v18 = 2082;
+      v19 = a1;
+      v20 = 2114;
+      v21 = CFProperty;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: ioreg property: '%{public}s' = %{public}@", buf, 0x20u);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v12 = sub_1000118BC();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_1000118BC(v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_1000211DC();
     }
 
-    v13 = [NSString stringWithFormat:@"unable to fetch io-reg entry for %s", a1];
-    v10 = sub_100002034(@"DeviceRecoveryError", 16, v13, @"unable to fetch io-reg entry for %s", 0, "DRECopyIORegEntryWithError", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Common/DeviceRecoveryHelpers.m", 0x16u);
+    v14 = [NSString stringWithFormat:@"unable to fetch io-reg entry for %s", a1];
+    v11 = sub_100002034(@"DeviceRecoveryError", 16, v14, @"unable to fetch io-reg entry for %s", 0, "DRECopyIORegEntryWithError", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Common/DeviceRecoveryHelpers.m", 0x16u);
 
     CFProperty = 0;
-    if (a3 && v10)
+    if (a3 && v11)
     {
-      v14 = v10;
+      v15 = v11;
       CFProperty = 0;
-      *a3 = v10;
+      *a3 = v11;
     }
   }
 
@@ -2642,7 +2633,7 @@ uint64_t sub_100010708(void *a1, void *a2)
   if (v5)
   {
     v6 = v5;
-    v7 = sub_1000118BC();
+    v7 = sub_1000118BC(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 136446722;
@@ -2690,29 +2681,30 @@ id sub_10001087C(void *a1)
 {
   v1 = a1;
   v2 = sub_100010818();
-  v3 = sub_1000118BC();
-  v4 = v3;
-  if (v2)
+  v3 = v2;
+  v4 = sub_1000118BC(v2);
+  v5 = v4;
+  if (v3)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136446466;
-      v8 = "DREGetNVRAMVar";
-      v9 = 2114;
-      v10 = v1;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Deleting NVRAM var: %{public}@", &v7, 0x16u);
+      v8 = 136446466;
+      v9 = "DREGetNVRAMVar";
+      v10 = 2114;
+      v11 = v1;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Deleting NVRAM var: %{public}@", &v8, 0x16u);
     }
 
-    v5 = IORegistryEntryCreateCFProperty(v2, v1, 0, 0);
+    v6 = IORegistryEntryCreateCFProperty(v3, v1, 0, 0);
   }
 
   else
   {
-    sub_1000214F8(v3);
-    v5 = 0;
+    sub_1000214F8(v4);
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 void sub_1000109F0(id a1)
@@ -2785,16 +2777,16 @@ void sub_100011678(uint64_t a1)
   }
 }
 
-id sub_1000118BC()
+id sub_1000118BC(uint64_t a1)
 {
   if (qword_10003A2E0 != -1)
   {
     sub_10002204C();
   }
 
-  v1 = off_10003A288;
+  v2 = off_10003A288;
 
-  return v1;
+  return v2;
 }
 
 void sub_100011900(id a1)
@@ -2805,16 +2797,16 @@ void sub_100011900(id a1)
   _objc_release_x1();
 }
 
-id sub_100011944()
+id sub_100011944(uint64_t a1)
 {
   if (qword_10003A2E8 != -1)
   {
     sub_100022060();
   }
 
-  v1 = off_10003A290;
+  v2 = off_10003A290;
 
-  return v1;
+  return v2;
 }
 
 void sub_100011988(id a1)
@@ -2834,7 +2826,7 @@ void sub_100011B88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_100011BB0(id a1)
 {
-  v1 = sub_1000118BC();
+  v1 = sub_1000118BC(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v2 = 136446210;
@@ -2845,7 +2837,7 @@ void sub_100011BB0(id a1)
 
 void sub_100011C58(uint64_t a1)
 {
-  v2 = sub_1000118BC();
+  v2 = sub_1000118BC(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -2857,9 +2849,9 @@ void sub_100011C58(uint64_t a1)
   [WeakRetained setServiceConnection:0];
 }
 
-void sub_100011EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100011EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2874,16 +2866,16 @@ uint64_t sub_100011EC4(uint64_t result, uint64_t a2)
 void sub_100011EDC(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100022404();
   }
 }
 
-void sub_1000121B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000121B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2891,16 +2883,16 @@ void sub_1000121B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_1000121E0(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_1000228A8();
   }
 }
 
-void sub_100012A2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100012A2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2908,7 +2900,7 @@ void sub_100012A2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_100012A4C(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100022A84();
@@ -2918,23 +2910,25 @@ void sub_100012A4C(id a1, NSError *a2)
 void sub_100012B48(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100022C78();
   }
 }
 
-void sub_100012BC0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100012BC0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x3Au);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
-void sub_100012BE0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100012BE0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 BOOL sub_100012BFC@<W0>(NSObject *a1@<X0>, uint64_t a2@<X8>)
@@ -3004,26 +2998,25 @@ uint64_t create_update_partition_folder_hierarchy(const char *a1, uint64_t a2, u
   }
 }
 
-uint64_t sub_100012E44(uint64_t *a1, const char *a2)
+uint64_t sub_100012E44(uint64_t a1, const char *a2)
 {
-  v55 = 0;
-  asprintf(&v55, "%s/%s", a2, *a1);
-  if (v55)
+  v46 = 0;
+  asprintf(&v46, "%s/%s", a2, *a1);
+  if (v46)
   {
-    if (mkdir(v55, *(a1 + 4)) && *__error() != 17)
+    if (mkdir(v46, *(a1 + 8)) && *__error() != 17)
     {
-      v20 = v55;
-      v50 = *__error();
+      v20 = v46;
+      __error();
       sub_100012C38("failed to mkdir %s with errno=%d", v21, v22, v23, v24, v25, v26, v27, v20);
     }
 
     else
     {
-      if (chmod(v55, *(a1 + 4)))
+      if (chmod(v46, *(a1 + 8)))
       {
-        v11 = v55;
-        v48 = *(a1 + 4);
-        v52 = *__error();
+        v11 = v46;
+        __error();
         sub_100012C38("Failed to chmod %s 0%o with errno=%d", v12, v13, v14, v15, v16, v17, v18, v11);
         v19 = 0;
       }
@@ -3034,29 +3027,26 @@ uint64_t sub_100012E44(uint64_t *a1, const char *a2)
       }
 
       *__error() = 0;
-      v28 = getpwnam(a1[2]);
+      v28 = getpwnam(*(a1 + 16));
       if (v28)
       {
-        v29 = v28;
-        if (!chown(v55, v29->pw_uid, v29->pw_gid))
+        if (!chown(v46, v28->pw_uid, v28->pw_gid))
         {
 LABEL_14:
-          free(v55);
+          free(v46);
           return v19;
         }
 
-        v30 = v55;
-        pw_uid = v29->pw_uid;
-        pw_gid = v29->pw_gid;
-        v54 = *__error();
-        sub_100012C38("failed to chown %s %d:%d with errno=%d", v32, v33, v34, v35, v36, v37, v38, v30);
+        v29 = v46;
+        __error();
+        sub_100012C38("failed to chown %s %d:%d with errno=%d", v30, v31, v32, v33, v34, v35, v36, v29);
       }
 
       else
       {
-        v39 = a1[2];
-        v51 = *__error();
-        sub_100012C38("failed to getpwnam for %s with errno=%d", v40, v41, v42, v43, v44, v45, v46, v39);
+        v37 = *(a1 + 16);
+        __error();
+        sub_100012C38("failed to getpwnam for %s with errno=%d", v38, v39, v40, v41, v42, v43, v44, v37);
       }
     }
 
@@ -3064,7 +3054,6 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v49 = *a1;
   sub_100012C38("failed to allocate path string for %s/%s", v4, v5, v6, v7, v8, v9, v10, a2);
   return 0;
 }
@@ -3196,8 +3185,8 @@ LABEL_14:
 
 uint64_t sub_100013288(const char *a1)
 {
-  bzero(&v50, 0x878uLL);
-  if (statfs(a1, &v50))
+  bzero(&v48, 0x878uLL);
+  if (statfs(a1, &v48))
   {
     v2 = __error();
     strerror(*v2);
@@ -3208,57 +3197,57 @@ uint64_t sub_100013288(const char *a1)
   v11 = realpath_DARWIN_EXTSN(a1, 0);
   if (!v11)
   {
-    v12 = *__error();
-    v13 = __error();
-    strerror(*v13);
-    sub_100012C38("realpath %s failed: %d %s", v14, v15, v16, v17, v18, v19, v20, a1);
+    __error();
+    v12 = __error();
+    strerror(*v12);
+    sub_100012C38("realpath %s failed: %d %s", v13, v14, v15, v16, v17, v18, v19, a1);
   }
 
-  if (!strcmp(v50.f_mntonname, v11))
+  if (!strcmp(v48.f_mntonname, v11))
   {
-    v28 = unmount(v11, 0x80000);
-    if (v28)
+    v27 = unmount(v11, 0x80000);
+    if (v27)
     {
-      v10 = v28;
+      v10 = v27;
       if (*__error() != 1)
       {
         goto LABEL_18;
       }
 
-      *&v47 = "/sbin/umount";
-      *(&v47 + 1) = "-f";
-      v48 = v11;
-      v49 = 0;
+      *&v45 = "/sbin/umount";
+      *(&v45 + 1) = "-f";
+      v46 = v11;
+      v47 = 0;
       if (!off_10003A300)
       {
         v10 = 0xFFFFFFFFLL;
 LABEL_18:
-        v38 = *__error();
-        v39 = __error();
-        strerror(*v39);
-        sub_100012C38("error unmounting '%s': %d %s", v40, v41, v42, v43, v44, v45, v46, a1);
-        v47 = off_1000354A8;
+        __error();
+        v37 = __error();
+        strerror(*v37);
+        sub_100012C38("error unmounting '%s': %d %s", v38, v39, v40, v41, v42, v43, v44, a1);
+        v45 = off_1000354A8;
         if (off_10003A300)
         {
-          (off_10003A300)(&v47, sub_100017818, 0);
+          off_10003A300(&v45, sub_100017818, 0);
         }
 
         goto LABEL_14;
       }
 
-      v36 = (off_10003A300)(&v47, sub_100017818, 0);
-      if (v36)
+      v35 = off_10003A300(&v45, sub_100017818, 0);
+      if (v35)
       {
-        v10 = v36;
+        v10 = v35;
         goto LABEL_18;
       }
     }
 
-    sub_100012C38("file system at %s successfully unmounted", v29, v30, v31, v32, v33, v34, v35, a1);
+    sub_100012C38("file system at %s successfully unmounted", v28, v29, v30, v31, v32, v33, v34, a1);
     goto LABEL_13;
   }
 
-  sub_100012C38("no file system mounted at %s", v21, v22, v23, v24, v25, v26, v27, a1);
+  sub_100012C38("no file system mounted at %s", v20, v21, v22, v23, v24, v25, v26, a1);
 LABEL_13:
   v10 = 0;
 LABEL_14:
@@ -3682,23 +3671,22 @@ uint64_t delete_apfs_partition(unsigned int a1, const char *a2, uint64_t a3, uin
   v25 = off_1000354B8[a1];
   if (*v25)
   {
-    v26 = off_1000354B8[a1];
     if (APFSVolumeDelete())
     {
-      sub_100012C38("%s : failed to delete partition at slice %d\n", v27, v28, v29, v30, v31, v32, v33, "delete_apfs_partition");
+      sub_100012C38("%s : failed to delete partition at slice %d\n", v26, v27, v28, v29, v30, v31, v32, "delete_apfs_partition");
       return 1;
     }
 
-    v35 = sub_100012C38("%s : delete partition succeeded at slice %d %s\n", v27, v28, v29, v30, v31, v32, v33, "delete_apfs_partition");
-    if (!partition_probe_media(v35, v36, v37, v38, v39, v40, v41, v42))
+    v34 = sub_100012C38("%s : delete partition succeeded at slice %d %s\n", v26, v27, v28, v29, v30, v31, v32, "delete_apfs_partition");
+    if (!partition_probe_media(v34, v35, v36, v37, v38, v39, v40, v41))
     {
-      sub_100012C38("%s : partition_probe_media() failed for checking for partition at slice %d\n", v43, v44, v45, v46, v47, v48, v49, "delete_apfs_partition");
+      sub_100012C38("%s : partition_probe_media() failed for checking for partition at slice %d\n", v42, v43, v44, v45, v46, v47, v48, "delete_apfs_partition");
       return 1;
     }
 
     if (*v25)
     {
-      sub_100012C38("%s : partition_probe_media() found partition at slice %d after it was deleted\n", v43, v44, v45, v46, v47, v48, v49, "delete_apfs_partition");
+      sub_100012C38("%s : partition_probe_media() found partition at slice %d after it was deleted\n", v42, v43, v44, v45, v46, v47, v48, "delete_apfs_partition");
       return 1;
     }
 
@@ -3859,35 +3847,35 @@ uint64_t sub_10001415C(uint64_t a1, char *a2)
 
 uint64_t sub_100014250(uint64_t a1, char *a2)
 {
-  v47 = 0;
+  v46 = 0;
   unlink(a2);
   v4 = open(a2, 2562, 384);
   if (v4 == -1)
   {
-    v44 = *__error();
+    v43 = *__error();
     sub_100012C38("Could not open %s with error %d", v21, v22, v23, v24, v25, v26, v27, a2);
-    return v44;
+    return v43;
   }
 
   else
   {
     v5 = v4;
-    v46[0] = 0x30000000CLL;
-    v46[1] = 0;
-    v46[2] = a1;
-    if (fcntl(v4, 42, v46) == -1)
+    v45[0] = 0x30000000CLL;
+    v45[1] = 0;
+    v45[2] = a1;
+    if (fcntl(v4, 42, v45) == -1)
     {
       v20 = *__error();
       sub_100012C38("preallocation of %llu bytes failed: %d", v28, v29, v30, v31, v32, v33, v34, a1);
     }
 
-    else if (v47 >= a1)
+    else if (v46 >= a1)
     {
       if (ftruncate(v5, a1) == -1)
       {
-        v45 = *__error();
+        v44 = *__error();
         sub_100012C38("failed to write to %s file to establish the size (%d).", v35, v36, v37, v38, v39, v40, v41, a2);
-        v20 = v45;
+        v20 = v44;
       }
 
       else
@@ -3901,7 +3889,7 @@ uint64_t sub_100014250(uint64_t a1, char *a2)
       sub_100012C38("failed to allocate all %llu bytes for %s. only allocatedf %llu bytes", v6, v7, v8, v9, v10, v11, v12, a1);
       if (unlink(a2) == -1)
       {
-        v43 = *__error();
+        __error();
         sub_100012C38("failed to unlink %s: %d", v13, v14, v15, v16, v17, v18, v19, a2);
       }
 
@@ -4006,28 +3994,28 @@ const char *mount_recovery_boot(const char *a1, uint64_t a2, uint64_t a3, uint64
       sub_100012C38("%s: no device node found for recovery volume\n", v17, v18, v19, v20, v21, v22, v23, "mount_recovery_boot");
     }
 
-    bzero(&v55, 0x878uLL);
-    if (!statfs(a1, &v55) && !strcmp(v55.f_mntonname, a1) && !strcmp(v55.f_mntfromname, &byte_10003A388))
+    bzero(&v54, 0x878uLL);
+    if (!statfs(a1, &v54) && !strcmp(v54.f_mntonname, a1) && !strcmp(v54.f_mntfromname, &byte_10003A388))
     {
       sub_100012C38("%s: Recovery device already mounted at %s\n", v24, v25, v26, v27, v28, v29, v30, "mount_recovery_boot");
       return a1;
     }
 
-    if (!statfs("/", &v55) && !strcmp(v55.f_mntfromname, &byte_10003A388))
+    if (!statfs("/", &v54) && !strcmp(v54.f_mntfromname, &byte_10003A388))
     {
       sub_100012C38("%s: Recovery device already mounted at %s\n", v31, v32, v33, v34, v35, v36, v37, "mount_recovery_boot");
       return "/";
     }
 
-    v54[0] = 0;
-    v54[1] = &byte_10003A388;
-    if (!mount("apfs", a1, 0x20000000, v54))
+    v53[0] = 0;
+    v53[1] = &byte_10003A388;
+    if (!mount("apfs", a1, 0x20000000, v53))
     {
       sub_100012C38("%s: Successfully mounted recovery boot at %s", v38, v39, v40, v41, v42, v43, v44, "mount_recovery_boot");
       return a1;
     }
 
-    v53 = *__error();
+    __error();
     sub_100012C38("%s: Recovery boot failed to mount at %s: %d, errno %d\n", v45, v46, v47, v48, v49, v50, v51, "mount_recovery_boot");
   }
 
@@ -4054,17 +4042,17 @@ uint64_t mount_update_partition_if_exists(const char *a1, uint64_t a2, uint64_t 
     return 0xFFFFFFFFLL;
   }
 
-  v63 = 0;
+  v62 = 0;
   v24 = realpath_DARWIN_EXTSN(a1, 0);
   if (!v24)
   {
-    v62 = *__error();
+    __error();
     sub_100012C38("Failed to realpath(%s). errno=%d", v37, v38, v39, v40, v41, v42, v43, a1);
     return 0xFFFFFFFFLL;
   }
 
   v25 = v24;
-  v26 = getmntinfo_r_np(&v63, 2);
+  v26 = getmntinfo_r_np(&v62, 2);
   if (v26 < 1)
   {
     sub_100012C38("Failed to get mount info for all mounted file systems", v27, v28, v29, v30, v31, v32, v33, v61);
@@ -4073,7 +4061,7 @@ uint64_t mount_update_partition_if_exists(const char *a1, uint64_t a2, uint64_t 
 
   else
   {
-    v34 = v63;
+    v34 = v62;
     v35 = v26;
     v36 = 1112;
     while (strcmp(v34 + v36, &byte_10003A328))
@@ -4093,7 +4081,7 @@ uint64_t mount_update_partition_if_exists(const char *a1, uint64_t a2, uint64_t 
     }
 
     sub_100012C38("unmounting %s at %s", v45, v46, v47, v48, v49, v50, v51, v34 + v36);
-    sub_100013288(v63 + v36 - 1024);
+    sub_100013288(v62 + v36 - 1024);
 LABEL_16:
     v44 = sub_10001415C(&byte_10003A328, v25);
     v59 = "Failed to mount";
@@ -4106,9 +4094,9 @@ LABEL_16:
   }
 
 LABEL_19:
-  if (v63)
+  if (v62)
   {
-    free(v63);
+    free(v62);
   }
 
   free(v25);
@@ -4221,7 +4209,7 @@ BOOL sub_100014B28(id a1, int a2, const char *a3)
 {
   if (fs_snapshot_delete(a2, a3, 0))
   {
-    v18 = *__error();
+    __error();
     sub_100012C38("%s : Unable to delete snapshot %s: %d\n", v10, v11, v12, v13, v14, v15, v16, "delete_all_mobilebackup_snapshots_block_invoke");
   }
 
@@ -4269,115 +4257,115 @@ uint64_t partition_raw_device_for_block_device(const char *a1, char *a2, size_t 
   return v14;
 }
 
-uint64_t reserve_space_for_overprovisioning()
+uint64_t reserve_space_for_overprovisioning(uint64_t a1)
 {
-  bzero(v140, 0x400uLL);
+  bzero(v136, 0x400uLL);
   __strlcpy_chk();
   __strlcat_chk();
   __strlcat_chk();
-  *v138 = 0u;
-  v139 = 0u;
-  memset(v137, 0, sizeof(v137));
-  v136 = 0;
-  v135 = 0;
-  v133 = 0u;
-  v134 = 0u;
-  memset(&v132, 0, sizeof(v132));
-  v130 = 0;
+  *v134 = 0u;
+  v135 = 0u;
+  memset(v133, 0, sizeof(v133));
+  v132 = 0;
   v131 = 0;
-  if (!stat(v140, &v132))
+  v129 = 0u;
+  v130 = 0u;
+  memset(&v128, 0, sizeof(v128));
+  v126 = 0;
+  v127 = 0;
+  if (!stat(v136, &v128))
   {
-    v16 = "space already reserved for overprovisioning\n";
+    v17 = "space already reserved for overprovisioning\n";
 LABEL_7:
-    sub_100012C38(v16, v0, v1, v2, v3, v4, v5, v6, v119);
+    sub_100012C38(v17, v1, v2, v3, v4, v5, v6, v7, v120);
     return 0;
   }
 
-  if (!sub_10001523C(v137, v0, v1, v2, v3, v4, v5, v6))
+  if (!sub_10001523C(v133, v1, v2, v3, v4, v5, v6, v7))
   {
-    v119 = "EmbeddedDeviceTypeRoot";
-    v16 = "Unable to find storage device node for service named: %s";
+    v120 = "EmbeddedDeviceTypeRoot";
+    v17 = "Unable to find storage device node for service named: %s";
     goto LABEL_7;
   }
 
-  v7 = partition_raw_device_for_block_device(v137, v138, 0x20uLL);
-  if (!v7)
+  v8 = partition_raw_device_for_block_device(v133, v134, 0x20uLL);
+  if (!v8)
   {
-    v18 = open(v138, 0);
-    if (v18 == -1)
+    v19 = open(v134, 0);
+    if (v19 == -1)
     {
-      v15 = *__error();
-      v120 = *__error();
-      sub_100012C38("unable to open device: %d\n", v46, v47, v48, v49, v50, v51, v52, v120);
-      return v15;
-    }
-
-    v19 = v18;
-    if (ioctl(v18, 0x40046418uLL, &v136) == -1)
-    {
-      v15 = *__error();
+      v16 = *__error();
       v121 = *__error();
-      sub_100012C38("unable to get DKIOCGETBLOCKSIZE: %d\n", v53, v54, v55, v56, v57, v58, v59, v121);
+      sub_100012C38("unable to open device: %d\n", v47, v48, v49, v50, v51, v52, v53, v121);
+      return v16;
     }
 
-    else if (ioctl(v19, 0x40086419uLL, &v135) == -1)
+    v20 = v19;
+    if (ioctl(v19, 0x40046418uLL, &v132) == -1)
     {
-      v15 = *__error();
+      v16 = *__error();
       v122 = *__error();
-      sub_100012C38("unable to get DKIOCGETBLOCKCOUNT: %d\n", v60, v61, v62, v63, v64, v65, v66, v122);
+      sub_100012C38("unable to get DKIOCGETBLOCKSIZE: %d\n", v54, v55, v56, v57, v58, v59, v60, v122);
+    }
+
+    else if (ioctl(v20, 0x40086419uLL, &v131) == -1)
+    {
+      v16 = *__error();
+      v123 = *__error();
+      sub_100012C38("unable to get DKIOCGETBLOCKCOUNT: %d\n", v61, v62, v63, v64, v65, v66, v67, v123);
     }
 
     else
     {
-      v27 = v135 * v136;
-      sub_100012C38("device_size = %llu (%lld GB)\n", v20, v21, v22, v23, v24, v25, v26, v27);
-      if (v27 <= 0x1900000063)
+      v28 = v131 * v132;
+      sub_100012C38("device_size = %llu (%lld GB)\n", v21, v22, v23, v24, v25, v26, v27, v28);
+      if (v28 <= 0x1900000063)
       {
-        v35 = v27 / 100;
+        v36 = v28 / 100;
       }
 
       else
       {
-        v35 = 0x40000000;
+        v36 = 0x40000000;
       }
 
-      sub_100012C38("file_size = %llu (%lld GB)\n", v28, v29, v30, v31, v32, v33, v34, v35);
-      v36 = open_dprotected_np(v140, 2562, 4, 0, 384, v35 / 0x40000000);
-      if (v36 == -1)
+      sub_100012C38("file_size = %llu (%lld GB)\n", v29, v30, v31, v32, v33, v34, v35, v36);
+      v37 = open_dprotected_np(v136, 2562, 4, 0, 384, v36 / 0x40000000);
+      if (v37 == -1)
       {
-        v15 = *__error();
-        v126 = *__error();
-        sub_100012C38("Could not open %s with error %d\n", v67, v68, v69, v70, v71, v72, v73, v140);
+        v16 = *__error();
+        __error();
+        sub_100012C38("Could not open %s with error %d\n", v68, v69, v70, v71, v72, v73, v74, v136);
       }
 
       else
       {
-        v37 = v36;
-        v133 = 0x30000000EuLL;
-        *&v134 = v35;
-        if (fcntl(v36, 42, &v133) == -1)
+        v38 = v37;
+        v129 = 0x30000000EuLL;
+        *&v130 = v36;
+        if (fcntl(v37, 42, &v129) == -1)
         {
           if (*__error() == 28)
           {
-            LODWORD(v133) = 10;
-            if (fcntl(v37, 42, &v133) == -1)
+            LODWORD(v129) = 10;
+            if (fcntl(v38, 42, &v129) == -1)
             {
               if (*__error() == 28)
               {
-                LODWORD(v133) = 8;
-                if (fcntl(v37, 42, &v133) == -1)
+                LODWORD(v129) = 8;
+                if (fcntl(v38, 42, &v129) == -1)
                 {
-                  v15 = *__error();
-                  v127 = *__error();
-                  sub_100012C38("preallocation of %llu bytes failed with error: %d (Allocated %llu bytes)\n", v75, v76, v77, v78, v79, v80, v81, v35);
+                  v16 = *__error();
+                  __error();
+                  sub_100012C38("preallocation of %llu bytes failed with error: %d (Allocated %llu bytes)\n", v76, v77, v78, v79, v80, v81, v82, v36);
                   goto LABEL_35;
                 }
               }
 
               else if (*__error())
               {
-                v124 = *__error();
-                sub_100012C38("fcntl(2) failed trying to allocate contiguous space with error: %d", v112, v113, v114, v115, v116, v117, v118, v124);
+                v125 = *__error();
+                sub_100012C38("fcntl(2) failed trying to allocate contiguous space with error: %d", v113, v114, v115, v116, v117, v118, v119, v125);
                 goto LABEL_34;
               }
             }
@@ -4385,63 +4373,63 @@ LABEL_7:
 
           else if (*__error())
           {
-            v123 = *__error();
-            sub_100012C38("fcntl(2) failed trying to allocate contiguous space all at once with error: %d", v90, v91, v92, v93, v94, v95, v96, v123);
+            v124 = *__error();
+            sub_100012C38("fcntl(2) failed trying to allocate contiguous space all at once with error: %d", v91, v92, v93, v94, v95, v96, v97, v124);
             goto LABEL_34;
           }
         }
 
-        v38 = ftruncate(v37, v35);
-        if (v38)
+        v39 = ftruncate(v38, v36);
+        if (v39)
         {
-          v15 = v38;
-          v125 = *__error();
-          sub_100012C38("failed to write to %s file to establish the size (%d).\n", v39, v40, v41, v42, v43, v44, v45, v140);
+          v16 = v39;
+          __error();
+          sub_100012C38("failed to write to %s file to establish the size (%d).\n", v40, v41, v42, v43, v44, v45, v46, v136);
 LABEL_35:
-          close(v19);
-          v74 = v37;
+          close(v20);
+          v75 = v38;
           goto LABEL_36;
         }
 
-        v82 = fcntl(v37, 51, 0);
-        if (v82)
+        v83 = fcntl(v38, 51, 0);
+        if (v83)
         {
-          v15 = v82;
-          v128 = *__error();
-          sub_100012C38("failed to fullsync %s file with %d.\n", v83, v84, v85, v86, v87, v88, v89, v140);
+          v16 = v83;
+          __error();
+          sub_100012C38("failed to fullsync %s file with %d.\n", v84, v85, v86, v87, v88, v89, v90, v136);
           goto LABEL_35;
         }
 
-        v130 = 0;
-        v131 = v35;
-        if (fcntl(v37, 100, &v130) != -1)
+        v126 = 0;
+        v127 = v36;
+        if (fcntl(v38, 100, &v126) != -1)
         {
 LABEL_34:
-          v15 = 0;
+          v16 = 0;
           goto LABEL_35;
         }
 
-        v15 = *__error();
-        v97 = __error();
-        sub_100012C38("F_TRIM_ACTIVE_FILE failed with: %d \n", v98, v99, v100, v101, v102, v103, v104, *v97);
-        close(v37);
-        if (unlink(v140))
+        v16 = *__error();
+        v98 = __error();
+        sub_100012C38("F_TRIM_ACTIVE_FILE failed with: %d \n", v99, v100, v101, v102, v103, v104, v105, *v98);
+        close(v38);
+        if (unlink(v136))
         {
-          v129 = *__error();
-          sub_100012C38("failed to unlink %s: %d \n", v105, v106, v107, v108, v109, v110, v111, v140);
+          __error();
+          sub_100012C38("failed to unlink %s: %d \n", v106, v107, v108, v109, v110, v111, v112, v136);
         }
       }
     }
 
-    v74 = v19;
+    v75 = v20;
 LABEL_36:
-    close(v74);
-    return v15;
+    close(v75);
+    return v16;
   }
 
-  v15 = v7;
-  sub_100012C38("unable to determine character device for %s\n", v8, v9, v10, v11, v12, v13, v14, v137);
-  return v15;
+  v16 = v8;
+  sub_100012C38("unable to determine character device for %s\n", v9, v10, v11, v12, v13, v14, v15, v133);
+  return v16;
 }
 
 uint64_t sub_10001523C(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -4806,19 +4794,19 @@ uint64_t mount_apfs_system_readwrite_with_revert(char *a1, const char *a2, uint6
   partition_probe_media(a1, a2, a3, a4, a5, a6, a7, a8);
   if (!byte_10003A3A8)
   {
-    sub_100012C38("system volume device node not found", v10, v11, v12, v13, v14, v15, v16, v102);
+    sub_100012C38("system volume device node not found", v10, v11, v12, v13, v14, v15, v16, v101);
     return 2;
   }
 
-  v103 = 0;
-  v17 = getmntinfo_r_np(&v103, 2);
+  v102 = 0;
+  v17 = getmntinfo_r_np(&v102, 2);
   if (v17 < 1)
   {
-    sub_100012C38("Failed to get mount info for all mounted file systems", v18, v19, v20, v21, v22, v23, v24, v102);
+    sub_100012C38("Failed to get mount info for all mounted file systems", v18, v19, v20, v21, v22, v23, v24, v101);
     return *__error();
   }
 
-  v25 = v103;
+  v25 = v102;
   v26 = v17;
   v27 = 1112;
   while (strcmp(v25 + v27, &byte_10003A3A8))
@@ -4831,8 +4819,8 @@ uint64_t mount_apfs_system_readwrite_with_revert(char *a1, const char *a2, uint6
   }
 
   sub_100012C38("unmounting %s at %s", v28, v29, v30, v31, v32, v33, v34, v25 + v27);
-  sub_100013288(v103 + v27 - 1024);
-  v25 = v103;
+  sub_100013288(v102 + v27 - 1024);
+  v25 = v102;
 LABEL_10:
   free(v25);
   v36 = sub_10001415C(&byte_10003A3A8, a1);
@@ -4845,7 +4833,7 @@ LABEL_10:
 
   if (!is_mountpoint_apfs(a1))
   {
-    sub_100012C38("media is not apfs managed: unsupported operation", v45, v46, v47, v48, v49, v50, v51, v102);
+    sub_100012C38("media is not apfs managed: unsupported operation", v45, v46, v47, v48, v49, v50, v51, v101);
     return 45;
   }
 
@@ -4882,18 +4870,18 @@ LABEL_29:
   sub_100012C38("reverting system volume to snapshot %s succeeded. remounting...", v54, v55, v56, v57, v58, v59, v60, a2);
   if (!close(v53))
   {
-    v93 = sub_100013288(a1);
-    if (v93)
+    v92 = sub_100013288(a1);
+    if (v92)
     {
-      v35 = v93;
-      sub_100012C38("system volume device node %s could not be unmounted from %s", v94, v95, v96, v97, v98, v99, v100, &byte_10003A3A8);
+      v35 = v92;
+      sub_100012C38("system volume device node %s could not be unmounted from %s", v93, v94, v95, v96, v97, v98, v99, &byte_10003A3A8);
       return v35;
     }
 
-    v101 = sub_10001415C(&byte_10003A3A8, a1);
-    if (v101)
+    v100 = sub_10001415C(&byte_10003A3A8, a1);
+    if (v100)
     {
-      v35 = v101;
+      v35 = v100;
       sub_100012C38("system volume device node %s could not be re-mounted read/write at %s", v45, v46, v47, v48, v49, v50, v51, &byte_10003A3A8);
       return v35;
     }
@@ -4908,10 +4896,10 @@ LABEL_29:
 LABEL_23:
   if (close(v53))
   {
-    v84 = *__error();
-    v85 = __error();
-    strerror(*v85);
-    sub_100012C38("%s: Unable to close directory: %d %s\n", v86, v87, v88, v89, v90, v91, v92, "mount_apfs_system_readwrite_with_revert");
+    __error();
+    v84 = __error();
+    strerror(*v84);
+    sub_100012C38("%s: Unable to close directory: %d %s\n", v85, v86, v87, v88, v89, v90, v91, "mount_apfs_system_readwrite_with_revert");
   }
 
   return v35;
@@ -4927,7 +4915,7 @@ uint64_t create_apfs_system_snapshot(const char *a1, const char *a2, uint64_t a3
 
   if (!is_mountpoint_apfs(a1))
   {
-    sub_100012C38("media is not apfs managed: unsupported operation", v10, v11, v12, v13, v14, v15, v16, v52);
+    sub_100012C38("media is not apfs managed: unsupported operation", v10, v11, v12, v13, v14, v15, v16, v51);
     return 45;
   }
 
@@ -4965,10 +4953,10 @@ uint64_t create_apfs_system_snapshot(const char *a1, const char *a2, uint64_t a3
 
   if (close(v18))
   {
-    v42 = *__error();
-    v43 = __error();
-    strerror(*v43);
-    sub_100012C38("%s: Unable to close directory: %d %s\n", v44, v45, v46, v47, v48, v49, v50, "create_apfs_system_snapshot");
+    __error();
+    v42 = __error();
+    strerror(*v42);
+    sub_100012C38("%s: Unable to close directory: %d %s\n", v43, v44, v45, v46, v47, v48, v49, "create_apfs_system_snapshot");
   }
 
   return v27;
@@ -4984,7 +4972,7 @@ uint64_t delete_apfs_system_snapshot(const char *a1, const char *a2, uint64_t a3
 
   if (!is_mountpoint_apfs(a1))
   {
-    sub_100012C38("media is not apfs managed: unsupported operation", v10, v11, v12, v13, v14, v15, v16, v52);
+    sub_100012C38("media is not apfs managed: unsupported operation", v10, v11, v12, v13, v14, v15, v16, v51);
     return 45;
   }
 
@@ -5022,10 +5010,10 @@ uint64_t delete_apfs_system_snapshot(const char *a1, const char *a2, uint64_t a3
 
   if (close(v18))
   {
-    v42 = *__error();
-    v43 = __error();
-    strerror(*v43);
-    sub_100012C38("%s: Unable to close directory: %d %s\n", v44, v45, v46, v47, v48, v49, v50, "delete_apfs_system_snapshot");
+    __error();
+    v42 = __error();
+    strerror(*v42);
+    sub_100012C38("%s: Unable to close directory: %d %s\n", v43, v44, v45, v46, v47, v48, v49, "delete_apfs_system_snapshot");
   }
 
   return v27;
@@ -5041,7 +5029,7 @@ uint64_t rename_apfs_system_snapshot(const char *a1, const char *a2, const char 
 
   if (!is_mountpoint_apfs(a1))
   {
-    sub_100012C38("media is not apfs managed: unsupported operation", v11, v12, v13, v14, v15, v16, v17, v53);
+    sub_100012C38("media is not apfs managed: unsupported operation", v11, v12, v13, v14, v15, v16, v17, v52);
     return 45;
   }
 
@@ -5085,16 +5073,16 @@ uint64_t rename_apfs_system_snapshot(const char *a1, const char *a2, const char 
 
   if (close(v19))
   {
-    v44 = *__error();
-    v45 = __error();
-    strerror(*v45);
-    sub_100012C38("%s: Unable to close directory: %d %s\n", v46, v47, v48, v49, v50, v51, v52, "rename_apfs_system_snapshot");
+    __error();
+    v44 = __error();
+    strerror(*v44);
+    sub_100012C38("%s: Unable to close directory: %d %s\n", v45, v46, v47, v48, v49, v50, v51, "rename_apfs_system_snapshot");
   }
 
   return v28;
 }
 
-uint64_t root_from_apfs_system_snapshot(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t root_from_apfs_system_snapshot(const char *a1, _BYTE *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (!a1)
   {
@@ -5104,7 +5092,7 @@ uint64_t root_from_apfs_system_snapshot(const char *a1, uint64_t a2, uint64_t a3
 
   if (!is_mountpoint_apfs(a1))
   {
-    sub_100012C38("media is not apfs managed: unsupported operation", v10, v11, v12, v13, v14, v15, v16, v44);
+    sub_100012C38("media is not apfs managed: unsupported operation", v10, v11, v12, v13, v14, v15, v16, v43);
     return 45;
   }
 
@@ -5114,7 +5102,7 @@ uint64_t root_from_apfs_system_snapshot(const char *a1, uint64_t a2, uint64_t a3
     return 22;
   }
 
-  LOBYTE(v45) = 0;
+  LOBYTE(v44) = 0;
   APFSShouldSealSystemVolume();
   v17 = open(a1, 0x100000);
   if (v17 < 0)
@@ -5142,10 +5130,10 @@ uint64_t root_from_apfs_system_snapshot(const char *a1, uint64_t a2, uint64_t a3
 
   if (close(v17))
   {
-    v35 = *__error();
-    v36 = __error();
-    strerror(*v36);
-    sub_100012C38("%s: Unable to close directory: %d %s\n", v37, v38, v39, v40, v41, v42, v43, "root_from_apfs_system_snapshot");
+    __error();
+    v35 = __error();
+    strerror(*v35);
+    sub_100012C38("%s: Unable to close directory: %d %s\n", v36, v37, v38, v39, v40, v41, v42, "root_from_apfs_system_snapshot");
   }
 
   return v19;
@@ -6200,6 +6188,48 @@ LABEL_17:
   return v31;
 }
 
+void sub_100017DB8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[DRAnalytics addEvent:]_block_invoke";
+  sub_100001DC4(&_mh_execute_header, a1, a3, "%{public}s: SET_EVENT: Nil event passed to setEvent", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100017E30(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[DRAnalytics _queue_addEvent:]";
+  sub_100001DC4(&_mh_execute_header, a1, a3, "%{public}s: ADD_EVENT: Event without UUID passed to addEvent", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100017EA8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[DRAnalytics _queue_addEvent:]";
+  sub_100001DC4(&_mh_execute_header, a1, a3, "%{public}s: ADD_EVENT: Nil event passed to addEvent", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100017F20(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[DRAnalytics _queue_submitEvent:]";
+  sub_100001DC4(&_mh_execute_header, a1, a3, "%{public}s: SUBMIT_EVENT: Unable to register send null CoreAnalytics event", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100017F98(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[DRAnalytics _queue_removeEvent:]";
+  sub_100001DC4(&_mh_execute_header, a1, a3, "%{public}s: REMOVE_EVENT: Event without UUID passed to removeEvent", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100018010(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[DRAnalytics _queue_removeEvent:]";
+  sub_100001DC4(&_mh_execute_header, a1, a3, "%{public}s: REMOVE_EVENT: Nil event passed to removeEvent", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100018088(uint64_t a1, NSObject *a2)
 {
   v2 = 136446466;
@@ -6243,47 +6273,47 @@ void sub_100018254(NSObject *a1)
 
 void sub_1000182FC(void *a1)
 {
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(a1);
   if (sub_1000025E8(v3))
   {
     sub_10000259C();
     sub_100002600();
     sub_10000258C();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0x3Au);
+    _os_log_error_impl(v6, v7, v8, v9, v10, 0x3Au);
   }
 
-  v4 = sub_1000118BC();
-  if (sub_1000025E8(v4))
+  v5 = sub_1000118BC(v4);
+  if (sub_1000025E8(v5))
   {
     sub_1000025B8();
     sub_10000258C();
-    _os_log_error_impl(v10, v11, v12, v13, v14, 0x16u);
+    _os_log_error_impl(v11, v12, v13, v14, v15, 0x16u);
   }
 }
 
 void sub_10001841C(void *a1)
 {
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(a1);
   if (sub_1000025E8(v3))
   {
     sub_10000259C();
     sub_100002600();
     sub_10000258C();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0x3Au);
+    _os_log_error_impl(v6, v7, v8, v9, v10, 0x3Au);
   }
 
-  v4 = sub_1000118BC();
-  if (sub_1000025E8(v4))
+  v5 = sub_1000118BC(v4);
+  if (sub_1000025E8(v5))
   {
     sub_1000025B8();
     sub_10000258C();
-    _os_log_error_impl(v10, v11, v12, v13, v14, 0x16u);
+    _os_log_error_impl(v11, v12, v13, v14, v15, 0x16u);
   }
 }
 
 void sub_10001853C(void *a1)
 {
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(a1);
   if (sub_1000025E8(v3))
   {
     sub_1000025D0();
@@ -6297,7 +6327,7 @@ void sub_10001853C(void *a1)
 
 void sub_100018614(void *a1)
 {
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(a1);
   if (sub_1000025E8(v3))
   {
     sub_1000025D0();
@@ -6322,7 +6352,7 @@ void sub_1000186EC()
 
 void sub_100018794(uint64_t *a1)
 {
-  v2 = sub_1000118BC();
+  v2 = sub_1000118BC(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v5 = 136447490;
@@ -6344,50 +6374,51 @@ void sub_100018794(uint64_t *a1)
   *a1 = sub_100002034(@"DeviceRecoveryError", 1, v4, @"Unable to create NSXPCListener for service: %@", 0, "[DeviceRecoveryOverrideService startService]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryOverrideService.m", 0x51u);
 }
 
-void sub_100018900()
+void sub_100018900(uint64_t a1)
 {
-  v0 = sub_1000118BC();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_1000118BC(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136447490;
-    v6 = "[DeviceRecoveryOverrideService listener:shouldAcceptNewConnection:]";
-    v7 = 2082;
+    v7 = 136447490;
     v8 = "[DeviceRecoveryOverrideService listener:shouldAcceptNewConnection:]";
     v9 = 2082;
-    v10 = "[recoveryOverrideEntitlement isKindOfClass:[NSNumber class]]";
+    v10 = "[DeviceRecoveryOverrideService listener:shouldAcceptNewConnection:]";
     v11 = 2082;
-    v12 = "";
+    v12 = "[recoveryOverrideEntitlement isKindOfClass:[NSNumber class]]";
     v13 = 2082;
-    v14 = "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryOverrideService.m";
-    v15 = 1026;
-    v16 = 115;
-    sub_1000033D8(&_mh_execute_header, v0, v1, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", &v5);
+    v14 = "";
+    v15 = 2082;
+    v16 = "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryOverrideService.m";
+    v17 = 1026;
+    v18 = 115;
+    sub_1000033D8(&_mh_execute_header, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", &v7);
   }
 
-  v2 = sub_1000118BC();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v4 = sub_1000118BC(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v3 = objc_opt_class();
-    v4 = NSStringFromClass(v3);
-    v5 = 136446722;
-    v6 = "[DeviceRecoveryOverrideService listener:shouldAcceptNewConnection:]";
-    v7 = 2114;
-    v8 = @"com.apple.DeviceRecovery.Override";
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = 136446722;
+    v8 = "[DeviceRecoveryOverrideService listener:shouldAcceptNewConnection:]";
     v9 = 2114;
-    v10 = v4;
-    _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "%{public}s: entitlement '%{public}@' on client is not an NSNumber: %{public}@", &v5, 0x20u);
+    v10 = @"com.apple.DeviceRecovery.Override";
+    v11 = 2114;
+    v12 = v6;
+    _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%{public}s: entitlement '%{public}@' on client is not an NSNumber: %{public}@", &v7, 0x20u);
   }
 }
 
-void sub_100018A84()
+void sub_100018A84(uint64_t a1)
 {
-  v0 = sub_1000118BC();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_1000118BC(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
+    v8 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_1000033AC(&_mh_execute_header, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, 2u);
+    sub_1000033AC(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, v8);
   }
 }
 
@@ -6411,21 +6442,22 @@ void sub_100018BF4(os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%{public}s: override client is missing entitlement: '%{public}@'", &v1, 0x16u);
 }
 
-void sub_100018C8C()
+void sub_100018C8C(uint64_t a1)
 {
-  v0 = sub_1000118BC();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_1000118BC(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
+    v8 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_1000033AC(&_mh_execute_header, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, 2u);
+    sub_1000033AC(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, v8);
   }
 }
 
 void sub_100018D54(NSObject **a1, _BYTE *a2)
 {
-  v4 = sub_1000118BC();
+  v4 = sub_1000118BC(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v6[0] = 136447490;
@@ -6445,79 +6477,84 @@ void sub_100018E38(NSObject *a1)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
+    v8 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_1000033AC(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, 2u);
+    sub_1000033AC(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, v8);
   }
 }
 
-void sub_100018EF8(uint64_t *a1)
+void sub_100018EF8()
 {
-  v1 = *a1;
-  v2 = __error();
-  strerror(*v2);
+  v0 = __error();
+  strerror(*v0);
   sub_10000EC44();
   sub_10000EB90();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
 }
 
-void sub_100018F90(uint64_t *a1, int __errnum)
+void sub_100018F90(int a1, int __errnum)
 {
-  v2 = *a1;
   strerror(__errnum);
   sub_10000EC44();
   sub_10000EB90();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
-void sub_100019024(uint64_t *a1, int *a2)
+void sub_100019024()
 {
-  v2 = *a1;
-  v3 = (*a2 >> 8);
   sub_10000ECD4();
   sub_10000EBDC();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_1000190B4(uint64_t *a1, _DWORD *a2)
+void sub_1000190B4()
 {
-  v2 = *a1;
-  v3 = *a2 & 0x7F;
   sub_10000ECD4();
   sub_10000EBDC();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100019144(uint64_t *a1)
+void sub_100019144()
 {
-  v1 = *a1;
-  v2 = __error();
-  strerror(*v2);
+  v0 = __error();
+  strerror(*v0);
   sub_10000EC44();
   sub_10000EB90();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
 }
 
 void sub_1000191DC(void *a1)
 {
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(a1);
   if (sub_10000ECA0(v3))
   {
-    sub_10000EB70(&_mh_execute_header, v4, v5, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v6, v7, v8, v9, 2u);
+    *v17 = 136447490;
+    *&v17[4] = "[DeviceRecoveryService init]";
+    *&v17[12] = 2082;
+    *&v17[14] = "[DeviceRecoveryService init]";
+    *&v17[22] = 2082;
+    *v18 = 2082;
+    *&v18[2] = "";
+    *&v18[10] = 2082;
+    *&v18[12] = "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryService.m";
+    *&v18[20] = 1026;
+    *&v18[22] = 399;
+    sub_10000EB70(&_mh_execute_header, v4, v5, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v6, v7, v8, v9, *v17, *&v17[8], *&v17[16], "result == 0", *v18, *&v18[8], *&v18[16], *&v18[24]);
   }
 
-  v10 = sub_1000118BC();
-  if (sub_1000025E8(v10))
+  v11 = sub_1000118BC(v10);
+  if (sub_1000025E8(v11))
   {
     sub_10000258C();
-    _os_log_error_impl(v11, v12, v13, v14, v15, 0x12u);
+    _os_log_error_impl(v12, v13, v14, v15, v16, 0x12u);
   }
 }
 
 void sub_100019320(void *a1)
 {
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(a1);
   if (sub_1000025E8(v3))
   {
     sub_1000025D0();
@@ -6530,7 +6567,7 @@ void sub_100019320(void *a1)
 
 void sub_1000193F0(void *a1)
 {
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(a1);
   if (sub_1000025E8(v3))
   {
     sub_1000025D0();
@@ -6543,7 +6580,7 @@ void sub_1000193F0(void *a1)
 
 void sub_100019548(uint64_t *a1)
 {
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(a1);
   if (sub_1000025E8(v3))
   {
     v6[0] = 136447490;
@@ -6560,13 +6597,13 @@ void sub_100019548(uint64_t *a1)
 
 void sub_100019688(void *a1, uint64_t *a2, uint64_t *a3)
 {
-  v7 = sub_1000118BC();
+  v7 = sub_1000118BC(a1);
   if (sub_10000ED4C(v7))
   {
     sub_10000EB5C();
     sub_10000EBEC();
     sub_10000EB24();
-    sub_10000EC74(&_mh_execute_header, v15, v16, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v17, v18, v19, v20, v21, v22, 2u);
+    sub_10000EC74(&_mh_execute_header, v15, v16, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v17, v18, v19, v20, v21, v22);
   }
 
   *a2 = [NSString stringWithFormat:@"Failed to create mount point for system data volume: %@", a1];
@@ -6576,13 +6613,13 @@ void sub_100019688(void *a1, uint64_t *a2, uint64_t *a3)
 
 void sub_1000197BC(void *a1, uint64_t *a2, uint64_t *a3)
 {
-  v7 = sub_1000118BC();
+  v7 = sub_1000118BC(a1);
   if (sub_10000ED4C(v7))
   {
     sub_10000EB5C();
     sub_10000EBEC();
     sub_10000EB24();
-    sub_10000EC74(&_mh_execute_header, v15, v16, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v17, v18, v19, v20, v21, v22, 2u);
+    sub_10000EC74(&_mh_execute_header, v15, v16, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v17, v18, v19, v20, v21, v22);
   }
 
   *a2 = [NSString stringWithFormat:@"Failed to mount system data volume: %@", a1];
@@ -6590,16 +6627,16 @@ void sub_1000197BC(void *a1, uint64_t *a2, uint64_t *a3)
   *a3 = sub_100002034(v8, v9, v10, v11, v12, v13, v14, 0x20Cu);
 }
 
-void sub_1000198F0()
+void sub_1000198F0(uint64_t a1)
 {
-  v1 = sub_1000118BC();
-  if (sub_10000ED34(v1))
+  v2 = sub_1000118BC(a1);
+  if (sub_10000ED34(v2))
   {
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
     sub_10000EB90();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0x3Au);
   }
 }
 
@@ -6621,13 +6658,14 @@ void sub_1000199BC()
 void sub_100019A80()
 {
   sub_10000ED78();
-  v3 = sub_1000118BC();
-  if (sub_10000ECA0(v3))
+  v4 = sub_1000118BC(v3);
+  if (sub_10000ECA0(v4))
   {
+    v11 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_10000EB70(&_mh_execute_header, v4, v5, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v6, v7, v8, v9, 2u);
+    sub_10000EB70(&_mh_execute_header, v5, v6, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v7, v8, v9, v10, v11);
   }
 
   *v1 = 0;
@@ -6677,19 +6715,20 @@ uint64_t sub_100019C84()
 uint64_t sub_100019DBC()
 {
   sub_10000EC14();
-  v2 = sub_1000118BC();
-  if (sub_10000ECA0(v2))
+  v3 = sub_1000118BC(v2);
+  if (sub_10000ECA0(v3))
   {
+    v13 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v6, v7, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v8, v9, v10, v11, 2u);
+    sub_10000EB70(&_mh_execute_header, v7, v8, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v9, v10, v11, v12, v13);
   }
 
-  v3 = [NSString stringWithFormat:@"OS Recovery Phase not supported in DRE"];
-  *v0 = v3;
-  v4 = sub_100002034(@"DeviceRecoveryError", 1, v3, @"OS Recovery Phase not supported in DRE", 0, "[DeviceRecoveryService processOSRecoveryPhaseStateFile:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryService.m", 0x269u);
-  return sub_10000EC08(v4);
+  v4 = [NSString stringWithFormat:@"OS Recovery Phase not supported in DRE"];
+  *v0 = v4;
+  v5 = sub_100002034(@"DeviceRecoveryError", 1, v4, @"OS Recovery Phase not supported in DRE", 0, "[DeviceRecoveryService processOSRecoveryPhaseStateFile:]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryService.m", 0x269u);
+  return sub_10000EC08(v5);
 }
 
 void sub_100019FE0()
@@ -6702,21 +6741,22 @@ void sub_100019FE0()
 BOOL sub_10001A05C()
 {
   sub_10000ED78();
-  v3 = sub_1000118BC();
-  if (sub_10000ECA0(v3))
+  v4 = sub_1000118BC(v3);
+  if (sub_10000ECA0(v4))
   {
+    v21 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v14, v15, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v16, v17, v18, v19, 2u);
+    sub_10000EB70(&_mh_execute_header, v15, v16, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v17, v18, v19, v20, v21);
   }
 
-  v4 = [NSString stringWithFormat:@"no connection from daemon to brain"];
+  v5 = [NSString stringWithFormat:@"no connection from daemon to brain"];
   sub_10000EC2C();
-  v12 = sub_100002034(v5, v6, v7, v8, v9, v10, v11, 0x2CAu);
-  *v1 = v12;
+  v13 = sub_100002034(v6, v7, v8, v9, v10, v11, v12, 0x2CAu);
+  *v1 = v13;
 
-  return v12 == 0;
+  return v13 == 0;
 }
 
 void sub_10001A1A0()
@@ -6749,9 +6789,9 @@ void sub_10001A314()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x3Au);
 }
 
-void sub_10001A3C0(uint64_t a1, NSObject **a2, void *a3)
+void sub_10001A3C0(uint64_t a1, NSObject **a2, uint64_t *a3)
 {
-  v7 = sub_1000118BC();
+  v7 = sub_1000118BC(a1);
   if (sub_10000ED4C(v7))
   {
     v9[0] = 136447490;
@@ -6789,13 +6829,14 @@ void sub_10001A54C()
 void sub_10001A5F8()
 {
   sub_10000ED78();
-  v3 = sub_1000118BC();
-  if (sub_10000ECA0(v3))
+  v4 = sub_1000118BC(v3);
+  if (sub_10000ECA0(v4))
   {
+    v11 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_10000EB70(&_mh_execute_header, v4, v5, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v6, v7, v8, v9, 2u);
+    sub_10000EB70(&_mh_execute_header, v5, v6, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v7, v8, v9, v10, v11);
   }
 
   *v1 = 0;
@@ -6805,13 +6846,14 @@ void sub_10001A5F8()
 void sub_10001A6C8()
 {
   sub_10000ED78();
-  v3 = sub_1000118BC();
-  if (sub_10000ECA0(v3))
+  v4 = sub_1000118BC(v3);
+  if (sub_10000ECA0(v4))
   {
+    v11 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_10000EB70(&_mh_execute_header, v4, v5, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v6, v7, v8, v9, 2u);
+    sub_10000EB70(&_mh_execute_header, v5, v6, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v7, v8, v9, v10, v11);
   }
 
   *v1 = 0;
@@ -6820,7 +6862,7 @@ void sub_10001A6C8()
 
 void sub_10001A798(uint64_t *a1)
 {
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(a1);
   if (sub_1000025E8(v3))
   {
     sub_10000EAFC();
@@ -6838,13 +6880,13 @@ void sub_10001A8C4()
 {
   sub_10000ECEC();
   v4 = v3;
-  v5 = sub_1000118BC();
+  v5 = sub_1000118BC(v3);
   if (sub_10000ED4C(v5))
   {
     sub_10000EB5C();
     sub_10000EBEC();
     sub_10000EB24();
-    sub_10000EC74(&_mh_execute_header, v8, v9, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v10, v11, v12, v13, v14, v15, 2u);
+    sub_10000EC74(&_mh_execute_header, v8, v9, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v10, v11, v12, v13, v14, v15);
   }
 
   v6 = [v4 brainServiceName];
@@ -6853,31 +6895,31 @@ void sub_10001A8C4()
   *v0 = sub_100002034(@"DeviceRecoveryError", 3, v7, @"Unable to create brain service connection: %@", 0, "[DeviceRecoveryService connectToRecoveryBrain]", "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Daemon/DeviceRecoveryService.m", 0x39Bu);
 }
 
-void sub_10001AA0C()
+void sub_10001AA0C(uint64_t a1)
 {
-  v0 = sub_1000118BC();
-  if (sub_1000025E8(v0))
+  v1 = sub_1000118BC(a1);
+  if (sub_1000025E8(v1))
   {
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
     sub_10000258C();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x3Au);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
   }
 
   sub_10000EC94();
 }
 
-void sub_10001AAD4()
+void sub_10001AAD4(uint64_t a1)
 {
-  v0 = sub_1000118BC();
-  if (sub_1000025E8(v0))
+  v1 = sub_1000118BC(a1);
+  if (sub_1000025E8(v1))
   {
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
     sub_10000258C();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x3Au);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
   }
 
   sub_10000EC94();
@@ -6897,95 +6939,97 @@ void sub_10001AC18()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10001AC94()
+void sub_10001AC94(uint64_t a1)
 {
-  v1 = sub_1000118BC();
-  if (sub_10000ED34(v1))
+  v2 = sub_1000118BC(a1);
+  if (sub_10000ED34(v2))
   {
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
     sub_10000EB90();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0x3Au);
   }
 }
 
-void sub_10001AD5C()
+void sub_10001AD5C(uint64_t a1)
 {
-  v0 = sub_1000118BC();
-  if (sub_1000025E8(v0))
+  v1 = sub_1000118BC(a1);
+  if (sub_1000025E8(v1))
   {
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
     sub_10000258C();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x3Au);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
   }
 
   sub_10000EC94();
 }
 
-void sub_10001AE24()
+void sub_10001AE24(uint64_t a1)
 {
-  v1 = sub_1000118BC();
-  if (sub_10000ED34(v1))
+  v2 = sub_1000118BC(a1);
+  if (sub_10000ED34(v2))
   {
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
     sub_10000EB90();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0x3Au);
   }
 }
 
 uint64_t sub_10001AEEC()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"unable to get brain service object"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBB4();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x4B5u);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"unable to get brain service object"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBB4();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x4B5u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001B000()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"trying to talk to brain without a connection"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBB4();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x4AAu);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"trying to talk to brain without a connection"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBB4();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x4AAu);
+  return sub_10000EC08(v11);
 }
 
-void sub_10001B114()
+void sub_10001B114(uint64_t a1)
 {
-  v0 = sub_1000118BC();
-  if (sub_1000025E8(v0))
+  v1 = sub_1000118BC(a1);
+  if (sub_1000025E8(v1))
   {
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
     sub_10000258C();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x3Au);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
   }
 
   sub_10000EC94();
@@ -7081,27 +7125,26 @@ void sub_10001B73C()
   sub_10000EC94();
 }
 
-void sub_10001B800()
+void sub_10001B800(uint64_t a1)
 {
-  v0 = sub_1000118BC();
-  if (sub_1000025E8(v0))
+  v1 = sub_1000118BC(a1);
+  if (sub_1000025E8(v1))
   {
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
     sub_10000258C();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x3Au);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
   }
 
   sub_10000EC94();
 }
 
-void sub_10001B8C8(uint64_t a1)
+void sub_10001B8C8()
 {
-  v6 = *(a1 + 32);
   sub_10000ED10();
   sub_10000EBDC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_10001B95C()
@@ -7117,13 +7160,13 @@ uint64_t sub_10001BA08()
 {
   sub_10000ECEC();
   v2 = v1;
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(v1);
   if (sub_10000ED4C(v3))
   {
     sub_10000EB5C();
     sub_10000EBEC();
     sub_10000EB24();
-    sub_10000EC74(&_mh_execute_header, v14, v15, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v16, v17, v18, v19, v20, v21, 2u);
+    sub_10000EC74(&_mh_execute_header, v14, v15, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v16, v17, v18, v19, v20, v21);
   }
 
   v4 = [NSString stringWithFormat:@"DRESetNVRAMProperty() call failed: %d", v2];
@@ -7137,13 +7180,13 @@ uint64_t sub_10001BB24()
 {
   sub_10000ECEC();
   v2 = v1;
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(v1);
   if (sub_10000ED4C(v3))
   {
     sub_10000EB5C();
     sub_10000EBEC();
     sub_10000EB24();
-    sub_10000EC74(&_mh_execute_header, v14, v15, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v16, v17, v18, v19, v20, v21, 2u);
+    sub_10000EC74(&_mh_execute_header, v14, v15, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v16, v17, v18, v19, v20, v21);
   }
 
   v4 = [NSString stringWithFormat:@"reboot3() call failed: %d", v2];
@@ -7156,25 +7199,26 @@ uint64_t sub_10001BB24()
 uint64_t sub_10001BC40()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"no current connection/client"];
-  sub_10000EC20(v2);
+  v3 = [NSString stringWithFormat:@"no current connection/client"];
+  sub_10000EC20(v3);
   sub_10000EC2C();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x51Du);
-  return sub_10000EC08(v10);
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x51Du);
+  return sub_10000EC08(v11);
 }
 
 void sub_10001BD5C(uint64_t a1, uint64_t *a2)
 {
-  v5 = sub_1000118BC();
+  v5 = sub_1000118BC(a1);
   if (sub_10000ECA0(v5))
   {
     v8[0] = 136447490;
@@ -7192,20 +7236,21 @@ void sub_10001BD5C(uint64_t a1, uint64_t *a2)
 uint64_t sub_10001BE98()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"Operation not allowed - another client is in control of recovery"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBC8();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x5B7u);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"Operation not allowed - another client is in control of recovery"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBC8();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x5B7u);
+  return sub_10000EC08(v11);
 }
 
 void sub_10001BFAC()
@@ -7227,51 +7272,53 @@ void sub_10001C058(void *a1)
 uint64_t sub_10001C0F0()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"data volume already mounted"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBA0();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x5B1u);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"data volume already mounted"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBA0();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x5B1u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001C204()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"user already authenticated"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBA0();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x5B0u);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"user already authenticated"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBA0();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x5B0u);
+  return sub_10000EC08(v11);
 }
 
-void sub_10001C318()
+void sub_10001C318(uint64_t a1)
 {
-  v0 = sub_1000118BC();
-  if (sub_1000025E8(v0))
+  v1 = sub_1000118BC(a1);
+  if (sub_1000025E8(v1))
   {
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
     sub_10000258C();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x3Au);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
   }
 
   sub_10000EC94();
@@ -7287,89 +7334,93 @@ void sub_10001C3E0()
 uint64_t sub_10001C45C()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"user not authenticated"];
-  sub_10000EC20(v2);
+  v3 = [NSString stringWithFormat:@"user not authenticated"];
+  sub_10000EC20(v3);
   sub_10000EC2C();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x6C8u);
-  return sub_10000EC08(v10);
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x6C8u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001C578()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"data volume not mounted"];
-  sub_10000EC20(v2);
+  v3 = [NSString stringWithFormat:@"data volume not mounted"];
+  sub_10000EC20(v3);
   sub_10000EC2C();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x6C9u);
-  return sub_10000EC08(v10);
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x6C9u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001C694()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"Operation not allowed - another client is in control of recovery"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBC8();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x6D0u);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"Operation not allowed - another client is in control of recovery"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBC8();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x6D0u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001C7A8()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"network already reported as available"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBA0();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x6CAu);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"network already reported as available"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBA0();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x6CAu);
+  return sub_10000EC08(v11);
 }
 
-void sub_10001C8BC()
+void sub_10001C8BC(uint64_t a1)
 {
-  v1 = sub_1000118BC();
-  if (sub_10000ED34(v1))
+  v2 = sub_1000118BC(a1);
+  if (sub_10000ED34(v2))
   {
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
     sub_10000EB90();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0x3Au);
   }
 }
 
@@ -7383,108 +7434,113 @@ void sub_10001C984()
 uint64_t sub_10001CA00()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"user not authenticated"];
-  sub_10000EC20(v2);
+  v3 = [NSString stringWithFormat:@"user not authenticated"];
+  sub_10000EC20(v3);
   sub_10000EC2C();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x718u);
-  return sub_10000EC08(v10);
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x718u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001CB1C()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"data volume not mounted"];
-  sub_10000EC20(v2);
+  v3 = [NSString stringWithFormat:@"data volume not mounted"];
+  sub_10000EC20(v3);
   sub_10000EC2C();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x719u);
-  return sub_10000EC08(v10);
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x719u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001CC38()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"network not reported as available"];
-  sub_10000EC20(v2);
+  v3 = [NSString stringWithFormat:@"network not reported as available"];
+  sub_10000EC20(v3);
   sub_10000EC2C();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x71Au);
-  return sub_10000EC08(v10);
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x71Au);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001CD54()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"Operation not allowed - another client is in control of recovery"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBC8();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x721u);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"Operation not allowed - another client is in control of recovery"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBC8();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x721u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001CF68()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"recovery brain already loaded"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBA0();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x71Bu);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"recovery brain already loaded"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBA0();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x71Bu);
+  return sub_10000EC08(v11);
 }
 
-void sub_10001D07C()
+void sub_10001D07C(uint64_t a1)
 {
-  v0 = sub_1000118BC();
-  if (sub_1000025E8(v0))
+  v1 = sub_1000118BC(a1);
+  if (sub_1000025E8(v1))
   {
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
     sub_10000258C();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x3Au);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
   }
 
   sub_10000EC94();
@@ -7499,7 +7555,7 @@ void sub_10001D144()
 
 id sub_10001D1C0(void *a1)
 {
-  v2 = sub_1000118BC();
+  v2 = sub_1000118BC(a1);
   if (sub_10000ED34(v2))
   {
     v7[0] = 136447490;
@@ -7518,180 +7574,189 @@ id sub_10001D1C0(void *a1)
 void sub_10001D2A4()
 {
   sub_10000EC14();
-  v3 = sub_1000118BC();
-  if (sub_10000ECA0(v3))
+  v4 = sub_1000118BC(v3);
+  if (sub_10000ECA0(v4))
   {
+    v12 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_10000EB70(&_mh_execute_header, v5, v6, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v7, v8, v9, v10, 2u);
+    sub_10000EB70(&_mh_execute_header, v6, v7, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v8, v9, v10, v11, v12);
   }
 
-  v4 = v1;
+  v5 = v1;
 }
 
 uint64_t sub_10001D378()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"user not authenticated"];
-  sub_10000EC20(v2);
+  v3 = [NSString stringWithFormat:@"user not authenticated"];
+  sub_10000EC20(v3);
   sub_10000EC2C();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x7C3u);
-  return sub_10000EC08(v10);
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x7C3u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001D494()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"data volume not mounted"];
-  sub_10000EC20(v2);
+  v3 = [NSString stringWithFormat:@"data volume not mounted"];
+  sub_10000EC20(v3);
   sub_10000EC2C();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x7C4u);
-  return sub_10000EC08(v10);
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x7C4u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001D5B0()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"network not reported as available"];
-  sub_10000EC20(v2);
+  v3 = [NSString stringWithFormat:@"network not reported as available"];
+  sub_10000EC20(v3);
   sub_10000EC2C();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x7C5u);
-  return sub_10000EC08(v10);
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x7C5u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001D6CC()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"recovery brain not loaded"];
-  sub_10000EC20(v2);
+  v3 = [NSString stringWithFormat:@"recovery brain not loaded"];
+  sub_10000EC20(v3);
   sub_10000EC2C();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x7C6u);
-  return sub_10000EC08(v10);
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x7C6u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001D7E8()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"Operation not allowed - another client is in control of recovery"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBC8();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x7CEu);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"Operation not allowed - another client is in control of recovery"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBC8();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x7CEu);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001D8FC()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"no connection from daemon to brain"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBB4();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x7D9u);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"no connection from daemon to brain"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBB4();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x7D9u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001DA10()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"issues scan already complete"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBA0();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x7C8u);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"issues scan already complete"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBA0();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x7C8u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001DB24()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"no connection to recovery brain"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBB4();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x7C7u);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"no connection to recovery brain"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBB4();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x7C7u);
+  return sub_10000EC08(v11);
 }
 
-void sub_10001DC38()
+void sub_10001DC38(uint64_t a1)
 {
-  v1 = sub_1000118BC();
-  if (sub_10000ED34(v1))
+  v2 = sub_1000118BC(a1);
+  if (sub_10000ED34(v2))
   {
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
     sub_10000EB90();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0x3Au);
   }
 }
 
@@ -7742,7 +7807,7 @@ void sub_10001DF6C()
 
 id sub_10001E000(void *a1)
 {
-  v2 = sub_1000118BC();
+  v2 = sub_1000118BC(a1);
   if (sub_10000ED34(v2))
   {
     v7[0] = 136447490;
@@ -7761,203 +7826,213 @@ id sub_10001E000(void *a1)
 uint64_t sub_10001E0E4()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"user not authenticated"];
-  sub_10000EC20(v2);
+  v3 = [NSString stringWithFormat:@"user not authenticated"];
+  sub_10000EC20(v3);
   sub_10000EC2C();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x868u);
-  return sub_10000EC08(v10);
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x868u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001E200()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"data volume not mounted"];
-  sub_10000EC20(v2);
+  v3 = [NSString stringWithFormat:@"data volume not mounted"];
+  sub_10000EC20(v3);
   sub_10000EC2C();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x869u);
-  return sub_10000EC08(v10);
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x869u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001E31C()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"network not reported as available"];
-  sub_10000EC20(v2);
+  v3 = [NSString stringWithFormat:@"network not reported as available"];
+  sub_10000EC20(v3);
   sub_10000EC2C();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x86Au);
-  return sub_10000EC08(v10);
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x86Au);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001E438()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"recovery brain not loaded"];
-  sub_10000EC20(v2);
+  v3 = [NSString stringWithFormat:@"recovery brain not loaded"];
+  sub_10000EC20(v3);
   sub_10000EC2C();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x86Bu);
-  return sub_10000EC08(v10);
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x86Bu);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001E554()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"issues scan not complete"];
-  sub_10000EC20(v2);
+  v3 = [NSString stringWithFormat:@"issues scan not complete"];
+  sub_10000EC20(v3);
   sub_10000EC2C();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x86Cu);
-  return sub_10000EC08(v10);
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x86Cu);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001E670()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"no recoverable issues found"];
-  sub_10000EC20(v2);
+  v3 = [NSString stringWithFormat:@"no recoverable issues found"];
+  sub_10000EC20(v3);
   sub_10000EC2C();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x86Du);
-  return sub_10000EC08(v10);
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x86Du);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001E78C()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"Operation not allowed - another client is in control of recovery"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBC8();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x875u);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"Operation not allowed - another client is in control of recovery"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBC8();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x875u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001E8A0()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"no connection from daemon to brain"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBB4();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x880u);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"no connection from daemon to brain"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBB4();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x880u);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001E9B4()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"recovery already"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBA0();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x86Fu);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"recovery already"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBA0();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x86Fu);
+  return sub_10000EC08(v11);
 }
 
 uint64_t sub_10001EAC8()
 {
   sub_10000EC14();
-  v1 = sub_1000118BC();
-  if (sub_10000ECA0(v1))
+  v2 = sub_1000118BC(v1);
+  if (sub_10000ECA0(v2))
   {
+    v19 = 136447490;
     sub_10000EAFC();
     sub_10000EB3C();
     sub_10000EAE4();
-    sub_10000EB70(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, 2u);
+    sub_10000EB70(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19);
   }
 
-  v2 = [NSString stringWithFormat:@"no connection to recovery brain"];
-  sub_10000EC20(v2);
-  v3 = sub_10000EBB4();
-  v10 = sub_100002034(v3, v4, v5, v6, v7, v8, v9, 0x86Eu);
-  return sub_10000EC08(v10);
+  v3 = [NSString stringWithFormat:@"no connection to recovery brain"];
+  sub_10000EC20(v3);
+  v4 = sub_10000EBB4();
+  v11 = sub_100002034(v4, v5, v6, v7, v8, v9, v10, 0x86Eu);
+  return sub_10000EC08(v11);
 }
 
-void sub_10001EBDC()
+void sub_10001EBDC(uint64_t a1)
 {
-  v0 = sub_1000118BC();
-  if (sub_1000025E8(v0))
+  v1 = sub_1000118BC(a1);
+  if (sub_1000025E8(v1))
   {
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
     sub_10000258C();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0x3Au);
+    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
   }
 
   sub_10000EC94();
@@ -8005,12 +8080,12 @@ void sub_10001EF18()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10001F09C(uint64_t a1, uint64_t a2)
+void sub_10001F09C()
 {
-  sub_10000ECF8(a1, a2);
-  *v3 = 136446722;
-  sub_10000ECB8(v4, v5, v3);
-  _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}s: [DownloadRecoveryBrain]: Failed to download DeviceRecoveryBrain catalog: %{public}@ : %{public}@", v6, 0x20u);
+  sub_10000ECF8();
+  *v1 = 136446722;
+  sub_10000ECB8(v2, v3, v1);
+  _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}s: [DownloadRecoveryBrain]: Failed to download DeviceRecoveryBrain catalog: %{public}@ : %{public}@", v4, 0x20u);
 }
 
 void sub_10001F0F8(void *a1, uint8_t *buf, os_log_t log)
@@ -8022,12 +8097,12 @@ void sub_10001F0F8(void *a1, uint8_t *buf, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%{public}s: [DownloadRecoveryBrain]: Failed to query for DeviceRecoveryBrain: (%{public}@)", buf, 0x16u);
 }
 
-void sub_10001F1E4(uint64_t a1, uint64_t a2)
+void sub_10001F1E4()
 {
-  sub_10000ECF8(a1, a2);
-  *v3 = 136446722;
-  sub_10000ECB8(v4, v5, v3);
-  _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}s: [DownloadRecoveryBrain]: Failed to download DeviceRecoveryBrain asset: %{public}@ : %{public}@", v6, 0x20u);
+  sub_10000ECF8();
+  *v1 = 136446722;
+  sub_10000ECB8(v2, v3, v1);
+  _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}s: [DownloadRecoveryBrain]: Failed to download DeviceRecoveryBrain asset: %{public}@ : %{public}@", v4, 0x20u);
 }
 
 void sub_10001F340()
@@ -8096,423 +8171,434 @@ void sub_10001F7A4(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "%{public}s: Unknown override name: %{public}@", &v2, 0x16u);
 }
 
-void sub_10001F830()
+void sub_10001F830(uint64_t a1)
 {
-  v1 = sub_1000118BC();
-  if (sub_10000ED34(v1))
+  v2 = sub_1000118BC(a1);
+  if (sub_10000ED34(v2))
   {
+    v9 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_1000033AC(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, 2u);
+    sub_1000033AC(&_mh_execute_header, v3, v4, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v5, v6, v7, v8, v9);
   }
 }
 
-void sub_10001F8F0()
+void sub_10001F8F0(uint64_t a1)
 {
-  v1 = sub_1000118BC();
-  if (sub_10000ED34(v1))
+  v2 = sub_1000118BC(a1);
+  if (sub_10000ED34(v2))
   {
+    v9 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_1000033AC(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, 2u);
+    sub_1000033AC(&_mh_execute_header, v3, v4, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v5, v6, v7, v8, v9);
   }
 }
 
-void sub_10001F9B0()
+void sub_10001F9B0(uint64_t a1)
 {
-  v1 = sub_1000118BC();
-  if (sub_10000ED34(v1))
+  v2 = sub_1000118BC(a1);
+  if (sub_10000ED34(v2))
   {
+    v9 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_1000033AC(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, 2u);
+    sub_1000033AC(&_mh_execute_header, v3, v4, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v5, v6, v7, v8, v9);
   }
 }
 
-void sub_10001FA70()
+void sub_10001FA70(uint64_t a1)
 {
-  v1 = sub_1000118BC();
-  if (sub_10000ED34(v1))
+  v2 = sub_1000118BC(a1);
+  if (sub_10000ED34(v2))
   {
+    v9 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_1000033AC(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, 2u);
+    sub_1000033AC(&_mh_execute_header, v3, v4, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v5, v6, v7, v8, v9);
   }
 }
 
-void sub_10001FB30()
+void sub_10001FB30(uint64_t a1)
 {
-  v1 = sub_1000118BC();
-  if (sub_10000ED34(v1))
+  v2 = sub_1000118BC(a1);
+  if (sub_10000ED34(v2))
   {
+    v9 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_1000033AC(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, 2u);
+    sub_1000033AC(&_mh_execute_header, v3, v4, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v5, v6, v7, v8, v9);
   }
 }
 
-void sub_10001FBF0()
+void sub_10001FBF0(uint64_t a1)
 {
-  v1 = sub_1000118BC();
-  if (sub_10000ED34(v1))
+  v2 = sub_1000118BC(a1);
+  if (sub_10000ED34(v2))
   {
+    v9 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_1000033AC(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, 2u);
+    sub_1000033AC(&_mh_execute_header, v3, v4, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v5, v6, v7, v8, v9);
   }
 }
 
-void sub_10001FCB0()
+void sub_10001FCB0(uint64_t a1)
 {
-  v1 = sub_1000118BC();
-  if (sub_10000ED34(v1))
+  v2 = sub_1000118BC(a1);
+  if (sub_10000ED34(v2))
   {
+    v9 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_1000033AC(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, 2u);
+    sub_1000033AC(&_mh_execute_header, v3, v4, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v5, v6, v7, v8, v9);
   }
 }
 
-void sub_10001FD70()
+void sub_10001FD70(uint64_t a1)
 {
-  v1 = sub_1000118BC();
-  if (sub_10000ED34(v1))
+  v2 = sub_1000118BC(a1);
+  if (sub_10000ED34(v2))
   {
+    v9 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_1000033AC(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, 2u);
+    sub_1000033AC(&_mh_execute_header, v3, v4, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v5, v6, v7, v8, v9);
   }
 }
 
-void sub_10001FE30()
+void sub_10001FE30(uint64_t a1)
 {
-  v1 = sub_1000118BC();
-  if (sub_10000ED34(v1))
+  v2 = sub_1000118BC(a1);
+  if (sub_10000ED34(v2))
   {
+    v9 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_1000033AC(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, 2u);
+    sub_1000033AC(&_mh_execute_header, v3, v4, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v5, v6, v7, v8, v9);
   }
 }
 
-void sub_10001FEF0()
+void sub_10001FEF0(uint64_t a1)
 {
-  v1 = sub_1000118BC();
-  if (sub_10000ED34(v1))
+  v2 = sub_1000118BC(a1);
+  if (sub_10000ED34(v2))
   {
+    v9 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_1000033AC(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, 2u);
+    sub_1000033AC(&_mh_execute_header, v3, v4, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v5, v6, v7, v8, v9);
   }
 }
 
-void sub_10001FFB0()
+void sub_10001FFB0(uint64_t a1)
 {
-  v1 = sub_1000118BC();
-  if (sub_10000ED34(v1))
+  v2 = sub_1000118BC(a1);
+  if (sub_10000ED34(v2))
   {
+    v9 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_1000033AC(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, 2u);
+    sub_1000033AC(&_mh_execute_header, v3, v4, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v5, v6, v7, v8, v9);
   }
 }
 
 void sub_100020070()
 {
   sub_10000EC14();
-  v3 = sub_1000118BC();
-  if (sub_10000ECA0(v3))
+  v4 = sub_1000118BC(v3);
+  if (sub_10000ECA0(v4))
   {
     sub_10000EB5C();
     sub_10000EBEC();
     sub_10000EB24();
-    sub_100010264(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, v18, v20, 2u);
+    sub_100010264(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19, v21);
   }
 
   ClassName = object_getClassName(v1);
-  v4 = [sub_1000102B0() stringWithFormat:ClassName];
-  v5 = sub_100010220();
-  *v0 = sub_100002034(v5, v6, v7, v8, v9, v10, v11, 0xDFu);
+  v5 = [sub_1000102B0() stringWithFormat:ClassName];
+  v6 = sub_100010220();
+  *v0 = sub_100002034(v6, v7, v8, v9, v10, v11, v12, 0xDFu);
 }
 
 void sub_100020198()
 {
   sub_10000EC14();
-  v3 = sub_1000118BC();
-  if (sub_10000ECA0(v3))
+  v4 = sub_1000118BC(v3);
+  if (sub_10000ECA0(v4))
   {
     sub_10000EB5C();
     sub_10000EBEC();
     sub_10000EB24();
-    sub_100010264(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, v18, v20, 2u);
+    sub_100010264(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19, v21);
   }
 
   ClassName = object_getClassName(v1);
-  v4 = [sub_1000102B0() stringWithFormat:ClassName];
-  v5 = sub_100010220();
-  *v0 = sub_100002034(v5, v6, v7, v8, v9, v10, v11, 0xDDu);
+  v5 = [sub_1000102B0() stringWithFormat:ClassName];
+  v6 = sub_100010220();
+  *v0 = sub_100002034(v6, v7, v8, v9, v10, v11, v12, 0xDDu);
 }
 
 void sub_1000202C0()
 {
   sub_10000EC14();
-  v3 = sub_1000118BC();
-  if (sub_10000ECA0(v3))
+  v4 = sub_1000118BC(v3);
+  if (sub_10000ECA0(v4))
   {
     sub_10000EB5C();
     sub_10000EBEC();
     sub_10000EB24();
-    sub_100010264(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, v18, v20, 2u);
+    sub_100010264(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19, v21);
   }
 
   ClassName = object_getClassName(v1);
-  v4 = [sub_1000102B0() stringWithFormat:ClassName];
-  v5 = sub_100010220();
-  *v0 = sub_100002034(v5, v6, v7, v8, v9, v10, v11, 0xD1u);
+  v5 = [sub_1000102B0() stringWithFormat:ClassName];
+  v6 = sub_100010220();
+  *v0 = sub_100002034(v6, v7, v8, v9, v10, v11, v12, 0xD1u);
 }
 
 void sub_1000203E8()
 {
   sub_10000EC14();
-  v3 = sub_1000118BC();
-  if (sub_10000ECA0(v3))
+  v4 = sub_1000118BC(v3);
+  if (sub_10000ECA0(v4))
   {
-    v14[0] = 136447490;
+    v15[0] = 136447490;
     sub_100010250();
     sub_1000102A0();
     sub_100010238();
-    *(&v14[13] + 2) = 216;
-    sub_100010284(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14);
+    *(&v15[13] + 2) = 216;
+    sub_100010284(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15);
   }
 
-  v4 = [NSString stringWithFormat:@"RecoveryResult override has an invalid value: %d (must be between %d and %d)", v1, 0, 4];
-  v5 = sub_100010220();
-  *v0 = sub_100002034(v5, v6, v7, v8, v9, v10, v11, 0xD8u);
+  v5 = [NSString stringWithFormat:@"RecoveryResult override has an invalid value: %d (must be between %d and %d)", v1, 0, 4];
+  v6 = sub_100010220();
+  *v0 = sub_100002034(v6, v7, v8, v9, v10, v11, v12, 0xD8u);
 }
 
 void sub_100020514()
 {
   sub_10000EC14();
-  v3 = sub_1000118BC();
-  if (sub_10000ECA0(v3))
+  v4 = sub_1000118BC(v3);
+  if (sub_10000ECA0(v4))
   {
     sub_10000EB5C();
     sub_10000EBEC();
     sub_10000EB24();
-    sub_100010264(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, v18, v20, 2u);
+    sub_100010264(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19, v21);
   }
 
   ClassName = object_getClassName(v1);
-  v4 = [sub_1000102B0() stringWithFormat:ClassName];
-  v5 = sub_100010220();
-  *v0 = sub_100002034(v5, v6, v7, v8, v9, v10, v11, 0xC7u);
+  v5 = [sub_1000102B0() stringWithFormat:ClassName];
+  v6 = sub_100010220();
+  *v0 = sub_100002034(v6, v7, v8, v9, v10, v11, v12, 0xC7u);
 }
 
 void sub_10002063C()
 {
   sub_10000EC14();
-  v2 = sub_1000118BC();
-  if (sub_10000ECA0(v2))
+  v3 = sub_1000118BC(v2);
+  if (sub_10000ECA0(v3))
   {
-    v14 = 136447490;
-    v15 = "DRValidateOverride";
-    v16 = 2082;
-    v17 = "DRValidateOverride";
-    v18 = 2082;
-    v19 = "((issuesScanResultVal == DROverrideIssuesScanResultNoOverride) || (issuesScanResultVal == DROverrideIssuesScanResultForceFailure) || (issuesScanResultVal == DROverrideIssuesScanResultNoResults) || (issuesScanResultVal == DROverrideIssuesScanResultRequireUserApproval))";
-    v20 = 2082;
-    v21 = "";
-    v22 = 2082;
-    v23 = "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Common/DeviceRecoveryOverrides.m";
-    v24 = 1026;
-    v25 = 205;
-    sub_100010284(&_mh_execute_header, v3, v4, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", &v14);
+    v15 = 136447490;
+    v16 = "DRValidateOverride";
+    v17 = 2082;
+    v18 = "DRValidateOverride";
+    v19 = 2082;
+    v20 = "((issuesScanResultVal == DROverrideIssuesScanResultNoOverride) || (issuesScanResultVal == DROverrideIssuesScanResultForceFailure) || (issuesScanResultVal == DROverrideIssuesScanResultNoResults) || (issuesScanResultVal == DROverrideIssuesScanResultRequireUserApproval))";
+    v21 = 2082;
+    v22 = "";
+    v23 = 2082;
+    v24 = "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/Common/DeviceRecoveryOverrides.m";
+    v25 = 1026;
+    v26 = 205;
+    sub_100010284(&_mh_execute_header, v4, v5, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", &v15);
   }
 
   sub_1000102CC();
-  v6 = [v5 stringWithFormat:@"IssuesScanResult override has an invalid value: %d (must be %d, %d, %d or %d)"];
-  v7 = sub_100010220();
-  *v0 = sub_100002034(v7, v8, v9, v10, v11, v12, v13, 0xCDu);
+  v7 = [v6 stringWithFormat:@"IssuesScanResult override has an invalid value: %d (must be %d, %d, %d or %d)"];
+  v8 = sub_100010220();
+  *v0 = sub_100002034(v8, v9, v10, v11, v12, v13, v14, 0xCDu);
 }
 
 void sub_10002078C()
 {
   sub_10000EC14();
-  v3 = sub_1000118BC();
-  if (sub_10000ECA0(v3))
+  v4 = sub_1000118BC(v3);
+  if (sub_10000ECA0(v4))
   {
     sub_10000EB5C();
     sub_10000EBEC();
     sub_10000EB24();
-    sub_100010264(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, v18, v20, 2u);
+    sub_100010264(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19, v21);
   }
 
   ClassName = object_getClassName(v1);
-  v4 = [sub_1000102B0() stringWithFormat:ClassName];
-  v5 = sub_100010220();
-  *v0 = sub_100002034(v5, v6, v7, v8, v9, v10, v11, 0xBFu);
+  v5 = [sub_1000102B0() stringWithFormat:ClassName];
+  v6 = sub_100010220();
+  *v0 = sub_100002034(v6, v7, v8, v9, v10, v11, v12, 0xBFu);
 }
 
 void sub_1000208B4()
 {
   sub_10000EC14();
-  v2 = sub_1000118BC();
-  if (sub_10000ECA0(v2))
+  v3 = sub_1000118BC(v2);
+  if (sub_10000ECA0(v3))
   {
-    v14[0] = 136447490;
+    v15[0] = 136447490;
     sub_100010250();
     sub_1000102A0();
     sub_100010238();
-    *(&v14[13] + 2) = 195;
-    sub_100010284(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14);
+    *(&v15[13] + 2) = 195;
+    sub_100010284(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15);
   }
 
   sub_1000102BC();
-  v4 = [v3 stringWithFormat:@"UserAuthResult override has an invalid value: %d (must be %d or %d)"];
-  v5 = sub_100010220();
-  *v0 = sub_100002034(v5, v6, v7, v8, v9, v10, v11, 0xC3u);
+  v5 = [v4 stringWithFormat:@"UserAuthResult override has an invalid value: %d (must be %d or %d)"];
+  v6 = sub_100010220();
+  *v0 = sub_100002034(v6, v7, v8, v9, v10, v11, v12, 0xC3u);
 }
 
 void sub_1000209D8()
 {
   sub_10000EC14();
-  v3 = sub_1000118BC();
-  if (sub_10000ECA0(v3))
+  v4 = sub_1000118BC(v3);
+  if (sub_10000ECA0(v4))
   {
     sub_10000EB5C();
     sub_10000EBEC();
     sub_10000EB24();
-    sub_100010264(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, v18, v20, 2u);
+    sub_100010264(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19, v21);
   }
 
   ClassName = object_getClassName(v1);
-  v4 = [sub_1000102B0() stringWithFormat:ClassName];
-  v5 = sub_100010220();
-  *v0 = sub_100002034(v5, v6, v7, v8, v9, v10, v11, 0xB7u);
+  v5 = [sub_1000102B0() stringWithFormat:ClassName];
+  v6 = sub_100010220();
+  *v0 = sub_100002034(v6, v7, v8, v9, v10, v11, v12, 0xB7u);
 }
 
 void sub_100020B00()
 {
   sub_10000EC14();
-  v2 = sub_1000118BC();
-  if (sub_10000ECA0(v2))
+  v3 = sub_1000118BC(v2);
+  if (sub_10000ECA0(v3))
   {
-    v14[0] = 136447490;
+    v15[0] = 136447490;
     sub_100010250();
     sub_1000102A0();
     sub_100010238();
-    *(&v14[13] + 2) = 187;
-    sub_100010284(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14);
+    *(&v15[13] + 2) = 187;
+    sub_100010284(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15);
   }
 
   sub_1000102BC();
-  v4 = [v3 stringWithFormat:@"UserAuthResult override has an invalid value: %d (must be %d or %d)"];
-  v5 = sub_100010220();
-  *v0 = sub_100002034(v5, v6, v7, v8, v9, v10, v11, 0xBBu);
+  v5 = [v4 stringWithFormat:@"UserAuthResult override has an invalid value: %d (must be %d or %d)"];
+  v6 = sub_100010220();
+  *v0 = sub_100002034(v6, v7, v8, v9, v10, v11, v12, 0xBBu);
 }
 
 void sub_100020C24()
 {
   sub_10000EC14();
-  v3 = sub_1000118BC();
-  if (sub_10000ECA0(v3))
+  v4 = sub_1000118BC(v3);
+  if (sub_10000ECA0(v4))
   {
     sub_10000EB5C();
     sub_10000EBEC();
     sub_10000EB24();
-    sub_100010264(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, v18, v20, 2u);
+    sub_100010264(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19, v21);
   }
 
   ClassName = object_getClassName(v1);
-  v4 = [sub_1000102B0() stringWithFormat:ClassName];
-  v5 = sub_100010220();
-  *v0 = sub_100002034(v5, v6, v7, v8, v9, v10, v11, 0xAFu);
+  v5 = [sub_1000102B0() stringWithFormat:ClassName];
+  v6 = sub_100010220();
+  *v0 = sub_100002034(v6, v7, v8, v9, v10, v11, v12, 0xAFu);
 }
 
 void sub_100020D4C()
 {
   sub_10000EC14();
-  v2 = sub_1000118BC();
-  if (sub_10000ECA0(v2))
+  v3 = sub_1000118BC(v2);
+  if (sub_10000ECA0(v3))
   {
-    v14[0] = 136447490;
+    v15[0] = 136447490;
     sub_100010250();
     sub_1000102A0();
     sub_100010238();
-    *(&v14[13] + 2) = 179;
-    sub_100010284(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14);
+    *(&v15[13] + 2) = 179;
+    sub_100010284(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15);
   }
 
   sub_1000102BC();
-  v4 = [v3 stringWithFormat:@"UserAuthResult override has an invalid value: %d (must be %d or %d)"];
-  v5 = sub_100010220();
-  *v0 = sub_100002034(v5, v6, v7, v8, v9, v10, v11, 0xB3u);
+  v5 = [v4 stringWithFormat:@"UserAuthResult override has an invalid value: %d (must be %d or %d)"];
+  v6 = sub_100010220();
+  *v0 = sub_100002034(v6, v7, v8, v9, v10, v11, v12, 0xB3u);
 }
 
 void sub_100020E70()
 {
   sub_10000EC14();
-  v3 = sub_1000118BC();
-  if (sub_10000ECA0(v3))
+  v4 = sub_1000118BC(v3);
+  if (sub_10000ECA0(v4))
   {
     sub_10000EB5C();
     sub_10000EBEC();
     sub_10000EB24();
-    sub_100010264(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, v18, v19, 2u);
+    sub_100010264(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19, v20);
   }
 
-  v4 = [NSString stringWithFormat:@"%@", v1];
-  v5 = sub_100010220();
-  *v0 = sub_100002034(v5, v6, v7, v8, v9, v10, v11, 0xABu);
+  v5 = [NSString stringWithFormat:@"%@", v1];
+  v6 = sub_100010220();
+  *v0 = sub_100002034(v6, v7, v8, v9, v10, v11, v12, 0xABu);
 }
 
 void sub_100020F90()
 {
   sub_10000EC14();
-  v3 = sub_1000118BC();
-  if (sub_10000ECA0(v3))
+  v4 = sub_1000118BC(v3);
+  if (sub_10000ECA0(v4))
   {
     sub_10000EB5C();
     sub_10000EBEC();
     sub_10000EB24();
-    sub_100010264(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14, v15, v16, v17, v18, v20, 2u);
+    sub_100010264(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19, v21);
   }
 
   ClassName = object_getClassName(v1);
-  v4 = [sub_1000102B0() stringWithFormat:ClassName];
-  v5 = sub_100010220();
-  *v0 = sub_100002034(v5, v6, v7, v8, v9, v10, v11, 0xA0u);
+  v5 = [sub_1000102B0() stringWithFormat:ClassName];
+  v6 = sub_100010220();
+  *v0 = sub_100002034(v6, v7, v8, v9, v10, v11, v12, 0xA0u);
 }
 
 void sub_1000210B8()
 {
   sub_10000EC14();
-  v2 = sub_1000118BC();
-  if (sub_10000ECA0(v2))
+  v3 = sub_1000118BC(v2);
+  if (sub_10000ECA0(v3))
   {
-    v14[0] = 136447490;
+    v15[0] = 136447490;
     sub_100010250();
     sub_1000102A0();
     sub_100010238();
-    *(&v14[13] + 2) = 165;
-    sub_100010284(&_mh_execute_header, v12, v13, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v14);
+    *(&v15[13] + 2) = 165;
+    sub_100010284(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15);
   }
 
   sub_1000102CC();
-  v4 = [v3 stringWithFormat:@"BrainType override has an invalid value: %d (must be %d, %d or %d)"];
-  v5 = sub_100010220();
-  *v0 = sub_100002034(v5, v6, v7, v8, v9, v10, v11, 0xA5u);
+  v5 = [v4 stringWithFormat:@"BrainType override has an invalid value: %d (must be %d, %d or %d)"];
+  v6 = sub_100010220();
+  *v0 = sub_100002034(v6, v7, v8, v9, v10, v11, v12, 0xA5u);
 }
 
 void sub_1000211DC()
@@ -8529,12 +8615,12 @@ void sub_1000211DC()
 
 void sub_100021290(uint64_t a1, uint64_t *a2)
 {
-  v4 = sub_1000118BC();
+  v4 = sub_1000118BC(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10000EB5C();
     sub_10000EB24();
-    sub_100010264(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19, v20, 2u);
+    sub_100010264(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19, v20);
   }
 
   v5 = [NSString stringWithFormat:@"unable to fetch property for key: %@", a1];
@@ -8544,12 +8630,12 @@ void sub_100021290(uint64_t a1, uint64_t *a2)
 
 void sub_1000213C4(uint64_t a1, uint64_t *a2)
 {
-  v4 = sub_1000118BC();
+  v4 = sub_1000118BC(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10000EB5C();
     sub_10000EB24();
-    sub_100010264(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19, v20, 2u);
+    sub_100010264(&_mh_execute_header, v13, v14, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v15, v16, v17, v18, v19, v20);
   }
 
   v5 = [NSString stringWithFormat:@"unable to fetch io-reg entry for %s", a1];
@@ -8574,45 +8660,45 @@ void sub_1000214F8(NSObject *a1)
 
 void sub_1000215E0(void *a1)
 {
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(a1);
   if (sub_1000025E8(v3))
   {
     sub_10000259C();
     sub_1000118B0();
     sub_10001188C();
     sub_10000258C();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0x3Au);
+    _os_log_error_impl(v6, v7, v8, v9, v10, 0x3Au);
   }
 
-  v4 = sub_1000118BC();
-  if (sub_1000025E8(v4))
+  v5 = sub_1000118BC(v4);
+  if (sub_1000025E8(v5))
   {
-    v10 = [a1 description];
+    v11 = [a1 description];
     sub_1000118A0();
     sub_10000258C();
-    _os_log_error_impl(v11, v12, v13, v14, v15, 0x20u);
+    _os_log_error_impl(v12, v13, v14, v15, v16, 0x20u);
   }
 }
 
 void sub_10002171C(void *a1)
 {
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(a1);
   if (sub_1000025E8(v3))
   {
     sub_10000259C();
     sub_1000118B0();
     sub_10001188C();
     sub_10000258C();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0x3Au);
+    _os_log_error_impl(v6, v7, v8, v9, v10, 0x3Au);
   }
 
-  v4 = sub_1000118BC();
-  if (sub_1000025E8(v4))
+  v5 = sub_1000118BC(v4);
+  if (sub_1000025E8(v5))
   {
     object_getClassName(a1);
     sub_1000118A0();
     sub_10000258C();
-    _os_log_error_impl(v10, v11, v12, v13, v14, 0x20u);
+    _os_log_error_impl(v11, v12, v13, v14, v15, 0x20u);
   }
 }
 
@@ -8625,23 +8711,23 @@ void sub_100021850(void *a1)
 
 void sub_100021918(void *a1)
 {
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(a1);
   if (sub_1000025E8(v3))
   {
     sub_10000259C();
     sub_1000118B0();
     sub_10001188C();
     sub_10000258C();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0x3Au);
+    _os_log_error_impl(v6, v7, v8, v9, v10, 0x3Au);
   }
 
-  v4 = sub_1000118BC();
-  if (sub_1000025E8(v4))
+  v5 = sub_1000118BC(v4);
+  if (sub_1000025E8(v5))
   {
     [a1 length];
     sub_1000118A0();
     sub_10000258C();
-    _os_log_error_impl(v10, v11, v12, v13, v14, 0x20u);
+    _os_log_error_impl(v11, v12, v13, v14, v15, 0x20u);
   }
 }
 
@@ -8677,85 +8763,86 @@ void sub_100021C3C(void *a1)
 
 void sub_100021CD4(void *a1)
 {
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(a1);
   if (sub_1000025E8(v3))
   {
     sub_10000259C();
     sub_1000118B0();
     sub_10001188C();
     sub_10000258C();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0x3Au);
+    _os_log_error_impl(v6, v7, v8, v9, v10, 0x3Au);
   }
 
-  v4 = sub_1000118BC();
-  if (sub_1000025E8(v4))
+  v5 = sub_1000118BC(v4);
+  if (sub_1000025E8(v5))
   {
     sub_1000118A0();
     sub_10000258C();
-    _os_log_error_impl(v10, v11, v12, v13, v14, 0x20u);
+    _os_log_error_impl(v11, v12, v13, v14, v15, 0x20u);
   }
 
   *a1 = v1;
 }
 
-void sub_100021E98()
+void sub_100021E98(uint64_t a1)
 {
-  v0 = sub_1000118BC();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_1000118BC(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_1000118B0();
     sub_10001188C();
     sub_10000EB90();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
+    _os_log_error_impl(v4, v5, v6, v7, v8, 0x3Au);
   }
 
-  v1 = sub_1000118BC();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v3 = sub_1000118BC(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EB90();
-    _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+    _os_log_error_impl(v9, v10, v11, v12, v13, 0xCu);
   }
 }
 
 void sub_100022074(void *a1)
 {
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(a1);
   if (sub_1000025E8(v3))
   {
+    v10 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_100012BC0(&_mh_execute_header, v4, v5, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v6, v7, v8, v9, 2u);
+    sub_100012BC0(&_mh_execute_header, v4, v5, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v6, v7, v8, v9, v10);
   }
 }
 
 void sub_100022140(void *a1)
 {
-  v3 = sub_1000118BC();
+  v3 = sub_1000118BC(a1);
   if (sub_1000025E8(v3))
   {
-    v12 = "[DeviceRecoveryOverrideClient init]";
-    v13 = 2082;
-    v14 = "[DeviceRecoveryOverrideClient init]";
-    v15 = 2082;
-    v16 = "self.serviceConnection != nil";
-    v17 = 2082;
-    v18 = "";
-    v19 = 2082;
-    v20 = "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecovery_Framework/DeviceRecoveryOverrideClient.m";
-    v21 = 1026;
-    v22 = 46;
-    sub_100012BC0(&_mh_execute_header, v4, v5, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v6, v7, v8, v9, 2u);
+    *v12 = 136447490;
+    *&v12[4] = "[DeviceRecoveryOverrideClient init]";
+    *&v12[12] = 2082;
+    *&v12[14] = "[DeviceRecoveryOverrideClient init]";
+    *&v12[22] = 2082;
+    *v13 = 2082;
+    *&v13[2] = "";
+    *&v13[10] = 2082;
+    *&v13[12] = "/Library/Caches/com.apple.xbs/Sources/DeviceRecovery/DeviceRecovery_Framework/DeviceRecoveryOverrideClient.m";
+    *&v13[20] = 1026;
+    *&v13[22] = 46;
+    sub_100012BC0(&_mh_execute_header, v4, v5, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v6, v7, v8, v9, *v12, *&v12[16], "self.serviceConnection != nil", *v13, *&v13[16]);
   }
 
-  v10 = sub_1000118BC();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = sub_1000118BC(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v11 = 136446466;
-    v12 = "[DeviceRecoveryOverrideClient init]";
-    v13 = 2114;
-    v14 = @"com.apple.DeviceRecoveryOverrideService";
-    _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}s: Couldn't connect to service: %{public}@", &v11, 0x16u);
+    *v12 = 136446466;
+    *&v12[4] = "[DeviceRecoveryOverrideClient init]";
+    *&v12[12] = 2114;
+    *&v12[14] = @"com.apple.DeviceRecoveryOverrideService";
+    _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}s: Couldn't connect to service: %{public}@", v12, 0x16u);
   }
 }
 
@@ -8764,10 +8851,11 @@ void sub_10002229C()
   sub_10000EC14();
   if (sub_100012BFC(v0, __stack_chk_guard))
   {
+    v7 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_100012BC0(&_mh_execute_header, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, 2u);
+    sub_100012BC0(&_mh_execute_header, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, v7);
   }
 
   sub_10000EC94();
@@ -8778,13 +8866,21 @@ void sub_100022350()
   sub_10000EC14();
   if (sub_100012BFC(v0, __stack_chk_guard))
   {
+    v7 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_100012BC0(&_mh_execute_header, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, 2u);
+    sub_100012BC0(&_mh_execute_header, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, v7);
   }
 
   sub_10000EC94();
+}
+
+void sub_100022404()
+{
+  v6 = 136446466;
+  sub_10000EB10();
+  sub_100012BE0(&_mh_execute_header, v0, v1, "%{public}s: Error talking to DeviceRecoveryOverrideService: %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_100022478(NSObject *a1)
@@ -8824,6 +8920,13 @@ void sub_1000225C0(NSObject *a1)
   }
 }
 
+void sub_10002267C()
+{
+  v6 = 136446466;
+  sub_10000EB10();
+  sub_100012BE0(&_mh_execute_header, v0, v1, "%{public}s: Error removing override: %{public}@", v2, v3, v4, v5, v6);
+}
+
 void sub_1000226F0(NSObject *a1, NSObject **a2, void *a3)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
@@ -8858,15 +8961,23 @@ void sub_1000227CC(NSObject *a1, NSObject **a2, void *a3)
   *a2 = a1;
 }
 
+void sub_1000228A8()
+{
+  v6 = 136446466;
+  sub_10000EB10();
+  sub_100012BE0(&_mh_execute_header, v0, v1, "%{public}s: Error talking to DeviceRecoveryOverrideService: %{public}@", v2, v3, v4, v5, v6);
+}
+
 void sub_10002291C()
 {
   sub_10000EC14();
   if (sub_100012BFC(v0, __stack_chk_guard))
   {
+    v7 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_100012BC0(&_mh_execute_header, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, 2u);
+    sub_100012BC0(&_mh_execute_header, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, v7);
   }
 
   sub_10000EC94();
@@ -8877,41 +8988,58 @@ void sub_1000229D0()
   sub_10000EC14();
   if (sub_100012BFC(v0, __stack_chk_guard))
   {
+    v7 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_100012BC0(&_mh_execute_header, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, 2u);
+    sub_100012BC0(&_mh_execute_header, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, v7);
   }
 
   sub_10000EC94();
 }
 
-void sub_100022AF8()
+void sub_100022A84()
 {
-  v0 = sub_1000118BC();
-  if (sub_1000025E8(v0))
+  v6 = 136446466;
+  sub_10000EB10();
+  sub_100012BE0(&_mh_execute_header, v0, v1, "%{public}s: Error talking to DeviceRecoveryOverrideService: %{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_100022AF8(uint64_t a1)
+{
+  v1 = sub_1000118BC(a1);
+  if (sub_1000025E8(v1))
   {
+    v8 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_100012BC0(&_mh_execute_header, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, 2u);
+    sub_100012BC0(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, v8);
   }
 
   sub_10000EC94();
 }
 
-void sub_100022BB8()
+void sub_100022BB8(uint64_t a1)
 {
-  v0 = sub_1000118BC();
-  if (sub_1000025E8(v0))
+  v1 = sub_1000118BC(a1);
+  if (sub_1000025E8(v1))
   {
+    v8 = 136447490;
     sub_1000025D0();
     sub_1000033CC();
     sub_100003398();
-    sub_100012BC0(&_mh_execute_header, v1, v2, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v3, v4, v5, v6, 2u);
+    sub_100012BC0(&_mh_execute_header, v2, v3, "%{public}s: %{public}s: AssertMacros: %{public}s, %{public}s file: %{public}s, line: %{public}d\n", v4, v5, v6, v7, v8);
   }
 
   sub_10000EC94();
+}
+
+void sub_100022C78()
+{
+  v6 = 136446466;
+  sub_10000EB10();
+  sub_100012BE0(&_mh_execute_header, v0, v1, "%{public}s: Error talking to DeviceRecoveryOverrideService: %{public}@", v2, v3, v4, v5, v6);
 }
 
 char *copy_tagged_apfs_system_snapshot_name(const void *a1, CFErrorRef *a2)

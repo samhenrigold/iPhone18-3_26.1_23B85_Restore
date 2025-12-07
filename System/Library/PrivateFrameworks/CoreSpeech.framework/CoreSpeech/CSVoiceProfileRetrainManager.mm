@@ -2,6 +2,7 @@
 + (CSVoiceProfileRetrainManager)sharedInstance;
 - (CSVoiceProfileRetrainManager)init;
 - (void)CSLanguageCodeUpdateMonitor:(id)monitor didReceiveLanguageCodeChanged:(id)changed;
+- (void)CSSpeakerRecognitionAssetDownloadMonitor:(id)monitor didInstallNewAsset:(BOOL)asset assetProviderType:(unint64_t)type;
 - (void)CSVoiceTriggerEnabledMonitor:(id)monitor didReceiveEnabled:(BOOL)enabled;
 - (void)_migrateTDVoiceProfileCallback;
 - (void)_retrainingVoiceProfile:(id)profile voiceProfile:(id)voiceProfile asset:(id)asset secureAsset:(id)secureAsset;
@@ -347,6 +348,52 @@ LABEL_38:
   v8 = v4;
   v6 = v4;
   [v5 getSpeakerRecognitionAssetWithLanguage:v6 completion:v7];
+}
+
+- (void)CSSpeakerRecognitionAssetDownloadMonitor:(id)monitor didInstallNewAsset:(BOOL)asset assetProviderType:(unint64_t)type
+{
+  v7 = [CSUtils supportsSpeakerRecognitionAssets:monitor];
+  v8 = CSLogContextFacilityCoreSpeech;
+  if (v7)
+  {
+    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      v15 = "[CSVoiceProfileRetrainManager CSSpeakerRecognitionAssetDownloadMonitor:didInstallNewAsset:assetProviderType:]";
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s New SpeakerRecognition assets downloaded - Triggering voice profile retraining", buf, 0xCu);
+    }
+
+    v9 = [CSUtils getSiriLanguageWithFallback:0];
+    if (type)
+    {
+      v10 = CSLogContextFacilityCoreSpeech;
+      if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315138;
+        v15 = "[CSVoiceProfileRetrainManager CSSpeakerRecognitionAssetDownloadMonitor:didInstallNewAsset:assetProviderType:]";
+        _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s ERR: SpeakerRecognition asset is only from MobileAsset Provider", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v11 = +[SSRAssetManager sharedManager];
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_100153B08;
+      v12[3] = &unk_100252F60;
+      v12[4] = self;
+      v13 = v9;
+      [v11 getSpeakerRecognitionAssetWithLanguage:v13 completion:v12];
+    }
+  }
+
+  else if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315138;
+    v15 = "[CSVoiceProfileRetrainManager CSSpeakerRecognitionAssetDownloadMonitor:didInstallNewAsset:assetProviderType:]";
+    _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%s ERR: Ignoring CSSpeakerRecognitionAssetDownloadMonitorDelegate for non-TVOS platforms !", buf, 0xCu);
+  }
 }
 
 - (void)CSLanguageCodeUpdateMonitor:(id)monitor didReceiveLanguageCodeChanged:(id)changed

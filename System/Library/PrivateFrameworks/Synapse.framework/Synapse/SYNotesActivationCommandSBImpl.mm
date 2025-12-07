@@ -7,25 +7,23 @@
 
 + (void)activateWithDomainIdentifier:(id)identifier noteIdentifier:(id)noteIdentifier completion:(id)completion
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v9 = 0;
   if (identifier && noteIdentifier)
   {
-    v17[0] = identifier;
+    v16[0] = identifier;
     v10 = MEMORY[0x277CBEA60];
     noteIdentifierCopy = noteIdentifier;
     identifierCopy = identifier;
-    v13 = [v10 arrayWithObjects:v17 count:1];
-    v16 = noteIdentifierCopy;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+    v13 = [v10 arrayWithObjects:v16 count:1];
+    v15 = noteIdentifierCopy;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
 
     v9 = SYMakeEditNoteUserActivity(v13, v14);
   }
 
   [self _activateWithActivity:v9 completion:completionCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_activateWithActivity:(id)activity completion:(id)completion
@@ -80,16 +78,16 @@
 
 void __67__SYNotesActivationCommandSBImpl__activateWithActivity_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = os_log_create("com.apple.synapse", "");
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_225901000, v4, OS_LOG_TYPE_DEFAULT, "Error received requesting backlink indicator: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_impl(&dword_225901000, v4, OS_LOG_TYPE_DEFAULT, "Error received requesting backlink indicator: %@", &v6, 0xCu);
     }
   }
 
@@ -98,8 +96,6 @@ void __67__SYNotesActivationCommandSBImpl__activateWithActivity_completion___blo
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

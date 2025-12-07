@@ -25,34 +25,32 @@
 
 - (id)requestPayload
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"request";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"request";
   v2 = [MEMORY[0x277CCABB0] numberWithInteger:{-[SASProximityAnisetteRequestAction request](self, "request")}];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 - (id)responsePayload
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = dispatch_semaphore_create(0);
   request = [(SASProximityAnisetteRequestAction *)self request];
   if (request <= 1)
   {
     if (!request)
     {
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke;
-      v26[3] = &unk_278846520;
-      v26[4] = self;
-      v6 = &v27;
-      v27 = v3;
-      [(SASProximityAnisetteRequestAction *)self provisionAnisetteWithCompletion:v26];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke;
+      v25[3] = &unk_278846520;
+      v25[4] = self;
+      v6 = &v26;
+      v26 = v3;
+      [(SASProximityAnisetteRequestAction *)self provisionAnisetteWithCompletion:v25];
       goto LABEL_13;
     }
 
@@ -62,42 +60,42 @@
     }
 
     dsid = [(SASProximityAnisetteRequestAction *)self sim];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_11;
-    v24[3] = &unk_278846520;
-    v24[4] = self;
-    v6 = &v25;
-    v25 = v3;
-    [(SASProximityAnisetteRequestAction *)self syncAnisetteWithSIMData:dsid completion:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_11;
+    v23[3] = &unk_278846520;
+    v23[4] = self;
+    v6 = &v24;
+    v24 = v3;
+    [(SASProximityAnisetteRequestAction *)self syncAnisetteWithSIMData:dsid completion:v23];
   }
 
   else
   {
     if (request == 2)
     {
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_12;
-      v22[3] = &unk_278846520;
-      v22[4] = self;
-      v6 = &v23;
-      v23 = v3;
-      [(SASProximityAnisetteRequestAction *)self eraseAnisetteWithCompletion:v22];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_12;
+      v21[3] = &unk_278846520;
+      v21[4] = self;
+      v6 = &v22;
+      v22 = v3;
+      [(SASProximityAnisetteRequestAction *)self eraseAnisetteWithCompletion:v21];
       goto LABEL_13;
     }
 
     if (request == 3)
     {
       shouldProvision = [(SASProximityAnisetteRequestAction *)self shouldProvision];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_13;
-      v20[3] = &unk_278846548;
-      v20[4] = self;
-      v6 = &v21;
-      v21 = v3;
-      [(SASProximityAnisetteRequestAction *)self fetchAnisetteDataAndProvisionIfNecessary:shouldProvision withCompletion:v20];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_13;
+      v19[3] = &unk_278846548;
+      v19[4] = self;
+      v6 = &v20;
+      v20 = v3;
+      [(SASProximityAnisetteRequestAction *)self fetchAnisetteDataAndProvisionIfNecessary:shouldProvision withCompletion:v19];
       goto LABEL_13;
     }
 
@@ -107,14 +105,14 @@
     }
 
     dsid = [(SASProximityAnisetteRequestAction *)self dsid];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_15;
-    v18[3] = &unk_278846548;
-    v18[4] = self;
-    v6 = &v19;
-    v19 = v3;
-    [(SASProximityAnisetteRequestAction *)self legacyAnisetteDataForDSID:dsid withCompletion:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_15;
+    v17[3] = &unk_278846548;
+    v17[4] = self;
+    v6 = &v18;
+    v18 = v3;
+    [(SASProximityAnisetteRequestAction *)self legacyAnisetteDataForDSID:dsid withCompletion:v17];
   }
 
 LABEL_13:
@@ -132,28 +130,26 @@ LABEL_14:
     [v8 setObject:anisetteData2 forKeyedSubscript:@"anisette"];
   }
 
-  v17 = 0;
-  v12 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v8 requiringSecureCoding:1 error:&v17];
-  v13 = v17;
+  v16 = 0;
+  v12 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v8 requiringSecureCoding:1 error:&v16];
+  v13 = v16;
   if (!v12)
   {
     v14 = +[SASLogging facility];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = v13;
+      v28 = v13;
       _os_log_impl(&dword_22E4D7000, v14, OS_LOG_TYPE_DEFAULT, "Failed to archive response: %@", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 void __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a3;
   [*(a1 + 32) setAnisetteData:0];
   [*(a1 + 32) setSuccess:a2];
@@ -162,20 +158,18 @@ void __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke(uint6
     v6 = +[SASLogging facility];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_22E4D7000, v6, OS_LOG_TYPE_DEFAULT, "Provisioning anisette failed: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_22E4D7000, v6, OS_LOG_TYPE_DEFAULT, "Provisioning anisette failed: %@", &v7, 0xCu);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_11(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a3;
   [*(a1 + 32) setAnisetteData:0];
   [*(a1 + 32) setSuccess:a2];
@@ -184,20 +178,18 @@ void __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_11(ui
     v6 = +[SASLogging facility];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_22E4D7000, v6, OS_LOG_TYPE_DEFAULT, "Syncing anisette with SIM data failed: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_22E4D7000, v6, OS_LOG_TYPE_DEFAULT, "Syncing anisette with SIM data failed: %@", &v7, 0xCu);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_12(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a3;
   [*(a1 + 32) setAnisetteData:0];
   [*(a1 + 32) setSuccess:a2];
@@ -206,20 +198,18 @@ void __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_12(ui
     v6 = +[SASLogging facility];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_22E4D7000, v6, OS_LOG_TYPE_DEFAULT, "Erase anisette failed: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_22E4D7000, v6, OS_LOG_TYPE_DEFAULT, "Erase anisette failed: %@", &v7, 0xCu);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_13(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a3;
   [*(a1 + 32) setAnisetteData:a2];
   [*(a1 + 32) setSuccess:v5 != 0];
@@ -228,20 +218,18 @@ void __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_13(ui
     v6 = +[SASLogging facility];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_22E4D7000, v6, OS_LOG_TYPE_DEFAULT, "Fetch anisette data and provision failed: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_22E4D7000, v6, OS_LOG_TYPE_DEFAULT, "Fetch anisette data and provision failed: %@", &v7, 0xCu);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_15(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a3;
   [*(a1 + 32) setAnisetteData:a2];
   [*(a1 + 32) setSuccess:v5 != 0];
@@ -250,20 +238,18 @@ void __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_15(ui
     v6 = +[SASLogging facility];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_22E4D7000, v6, OS_LOG_TYPE_DEFAULT, "Legacy anisette data for DSID failed: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_22E4D7000, v6, OS_LOG_TYPE_DEFAULT, "Legacy anisette data for DSID failed: %@", &v7, 0xCu);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setResponseFromData:(id)data
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCAAC8];
   v5 = MEMORY[0x277CBEB98];
   dataCopy = data;
@@ -271,17 +257,17 @@ void __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_15(ui
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = [v5 setWithObjects:{v7, v8, v9, objc_opt_class(), 0}];
-  v17 = 0;
-  v11 = [v4 unarchivedObjectOfClasses:v10 fromData:dataCopy error:&v17];
+  v16 = 0;
+  v11 = [v4 unarchivedObjectOfClasses:v10 fromData:dataCopy error:&v16];
 
-  v12 = v17;
+  v12 = v16;
   if (!v11)
   {
     v13 = +[SASLogging facility];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_22E4D7000, v13, OS_LOG_TYPE_DEFAULT, "Failed to unarchive information: %@", buf, 0xCu);
     }
   }
@@ -291,8 +277,6 @@ void __52__SASProximityAnisetteRequestAction_responsePayload__block_invoke_15(ui
 
   v15 = [v11 objectForKeyedSubscript:@"success"];
   -[SASProximityAnisetteRequestAction setSuccess:](self, "setSuccess:", [v15 BOOLValue]);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)provisionAnisetteWithCompletion:(id)completion

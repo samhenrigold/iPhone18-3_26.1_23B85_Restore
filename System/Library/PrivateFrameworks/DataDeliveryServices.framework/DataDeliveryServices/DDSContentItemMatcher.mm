@@ -1,5 +1,6 @@
 @interface DDSContentItemMatcher
 + (BOOL)_anyDictionaryIn:(id)in matches:(id)matches shouldLenientlyMatch:(id)match;
++ (BOOL)_anyStringIn:(id)in matches:(id)matches acceptUnspecifiedValue:(BOOL)value;
 + (BOOL)_dictionary:(id)_dictionary matches:(id)matches acceptUnspecifiedAttribute:(BOOL)attribute lenientMatch:(BOOL)match;
 + (BOOL)_string:(id)_string matches:(id)matches acceptUnspecifiedValue:(BOOL)value;
 + (BOOL)shouldLenientlyMatchWithContentItemsForRegion:(id)region;
@@ -10,38 +11,38 @@
 
 + (id)assetContentItemsMatching:(id)matching contentItems:(id)items parentAsset:(id)asset
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   matchingCopy = matching;
   itemsCopy = items;
   assetCopy = asset;
   attributes = [assetCopy attributes];
   array = [MEMORY[0x1E695DF70] array];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   obj = itemsCopy;
-  v10 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+  v10 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v45;
+    v12 = *v44;
     selfCopy = self;
-    v37 = matchingCopy;
+    v36 = matchingCopy;
     do
     {
       v13 = 0;
-      v33 = v11;
+      v32 = v11;
       do
       {
-        if (*v45 != v12)
+        if (*v44 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v44 + 1) + 8 * v13);
-        v42 = [v14 objectForKey:@"ContentType"];
-        v41 = [matchingCopy objectForKeyedSubscript:@"ContentType"];
+        v14 = *(*(&v43 + 1) + 8 * v13);
+        v41 = [v14 objectForKey:@"ContentType"];
+        v40 = [matchingCopy objectForKeyedSubscript:@"ContentType"];
         v15 = [v14 objectForKey:@"Locale"];
         v16 = v15;
         if (v15)
@@ -54,9 +55,9 @@
           v17 = [attributes objectForKeyedSubscript:@"AssetLocale"];
         }
 
-        v40 = v17;
+        v39 = v17;
 
-        v39 = [matchingCopy objectForKeyedSubscript:@"Locale"];
+        v38 = [matchingCopy objectForKeyedSubscript:@"Locale"];
         v18 = [v14 objectForKey:@"AssetRegion"];
         v19 = v18;
         if (v18)
@@ -69,28 +70,28 @@
           v20 = [attributes objectForKeyedSubscript:@"AssetRegion"];
         }
 
-        v38 = v20;
+        v37 = v20;
 
         v21 = [matchingCopy objectForKeyedSubscript:@"AssetRegion"];
         allObjects = [v21 allObjects];
 
-        v43[0] = MEMORY[0x1E69E9820];
-        v43[1] = 3221225472;
-        v43[2] = __76__DDSContentItemMatcher_assetContentItemsMatching_contentItems_parentAsset___block_invoke;
-        v43[3] = &__block_descriptor_40_e22_B16__0__NSDictionary_8l;
-        v43[4] = self;
-        v23 = MEMORY[0x1E12DF5E0](v43);
+        v42[0] = MEMORY[0x1E69E9820];
+        v42[1] = 3221225472;
+        v42[2] = __76__DDSContentItemMatcher_assetContentItemsMatching_contentItems_parentAsset___block_invoke;
+        v42[3] = &__block_descriptor_40_e22_B16__0__NSDictionary_8l;
+        v42[4] = self;
+        v23 = MEMORY[0x1E12DF5E0](v42);
         v24 = objc_opt_class();
-        allObjects2 = [v41 allObjects];
-        if ([v24 _anyStringIn:allObjects2 matches:v42 acceptUnspecifiedValue:1])
+        allObjects2 = [v40 allObjects];
+        if ([v24 _anyStringIn:allObjects2 matches:v41 acceptUnspecifiedValue:1])
         {
           v26 = objc_opt_class();
-          allObjects3 = [v39 allObjects];
-          if ([v26 _anyStringIn:allObjects3 matches:v40 acceptUnspecifiedValue:1])
+          allObjects3 = [v38 allObjects];
+          if ([v26 _anyStringIn:allObjects3 matches:v39 acceptUnspecifiedValue:1])
           {
-            v28 = [objc_opt_class() _anyDictionaryIn:allObjects matches:v38 shouldLenientlyMatch:v23];
+            v28 = [objc_opt_class() _anyDictionaryIn:allObjects matches:v37 shouldLenientlyMatch:v23];
 
-            v11 = v33;
+            v11 = v32;
             if (!v28)
             {
               goto LABEL_18;
@@ -103,35 +104,32 @@
           else
           {
 
-            v11 = v33;
+            v11 = v32;
           }
         }
 
 LABEL_18:
         ++v13;
         self = selfCopy;
-        matchingCopy = v37;
+        matchingCopy = v36;
       }
 
       while (v11 != v13);
-      v11 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v11 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
     }
 
     while (v11);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 uint64_t __76__DDSContentItemMatcher_assetContentItemsMatching_contentItems_parentAsset___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = [objc_opt_class() shouldLenientlyMatchWithContentItemsForRegion:v3];
+  v2 = a2;
+  v3 = [objc_opt_class() shouldLenientlyMatchWithContentItemsForRegion:v2];
 
-  return v4;
+  return v3;
 }
 
 + (BOOL)shouldLenientlyMatchWithContentItemsForRegion:(id)region
@@ -197,11 +195,75 @@ LABEL_10:
   return v12;
 }
 
++ (BOOL)_anyStringIn:(id)in matches:(id)matches acceptUnspecifiedValue:(BOOL)value
+{
+  valueCopy = value;
+  v21 = *MEMORY[0x1E69E9840];
+  inCopy = in;
+  matchesCopy = matches;
+  if (inCopy)
+  {
+    if ([inCopy count])
+    {
+      v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
+      v9 = inCopy;
+      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      if (v10)
+      {
+        v11 = v10;
+        v12 = *v17;
+        while (2)
+        {
+          for (i = 0; i != v11; ++i)
+          {
+            if (*v17 != v12)
+            {
+              objc_enumerationMutation(v9);
+            }
+
+            if ([objc_opt_class() _string:*(*(&v16 + 1) + 8 * i) matches:matchesCopy acceptUnspecifiedValue:{valueCopy, v16}])
+            {
+
+              goto LABEL_13;
+            }
+          }
+
+          v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          if (v11)
+          {
+            continue;
+          }
+
+          break;
+        }
+      }
+
+      v14 = 0;
+    }
+
+    else
+    {
+      v14 = [objc_opt_class() _string:&stru_1F5ABCB80 matches:matchesCopy acceptUnspecifiedValue:1];
+    }
+  }
+
+  else
+  {
+LABEL_13:
+    v14 = 1;
+  }
+
+  return v14;
+}
+
 + (BOOL)_dictionary:(id)_dictionary matches:(id)matches acceptUnspecifiedAttribute:(BOOL)attribute lenientMatch:(BOOL)match
 {
   matchCopy = match;
   attributeCopy = attribute;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   _dictionaryCopy = _dictionary;
   matchesCopy = matches;
   v10 = matchesCopy;
@@ -209,26 +271,26 @@ LABEL_10:
   {
     if ([_dictionaryCopy count])
     {
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       obj = [_dictionaryCopy allKeys];
-      v11 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v11 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v26;
+        v13 = *v25;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v26 != v13)
+            if (*v25 != v13)
             {
               objc_enumerationMutation(obj);
             }
 
-            v15 = *(*(&v25 + 1) + 8 * i);
+            v15 = *(*(&v24 + 1) + 8 * i);
             v16 = [_dictionaryCopy objectForKeyedSubscript:v15];
             v17 = v16;
             if (!matchCopy || [v16 length])
@@ -245,7 +307,7 @@ LABEL_10:
             }
           }
 
-          v12 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v12 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
           if (v12)
           {
             continue;
@@ -270,13 +332,12 @@ LABEL_17:
     v20 = 1;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 + (BOOL)_anyDictionaryIn:(id)in matches:(id)matches shouldLenientlyMatch:(id)match
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   inCopy = in;
   matchesCopy = matches;
   matchCopy = match;
@@ -284,30 +345,30 @@ LABEL_17:
   {
     if ([inCopy count])
     {
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
-      v20 = inCopy;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
+      v19 = inCopy;
       v10 = inCopy;
-      v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v22;
+        v13 = *v21;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v22 != v13)
+            if (*v21 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v21 + 1) + 8 * i);
+            v15 = *(*(&v20 + 1) + 8 * i);
             if (matchCopy)
             {
-              v16 = matchCopy[2](matchCopy, *(*(&v21 + 1) + 8 * i));
+              v16 = matchCopy[2](matchCopy, *(*(&v20 + 1) + 8 * i));
             }
 
             else
@@ -323,7 +384,7 @@ LABEL_17:
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
           if (v12)
           {
             continue;
@@ -335,7 +396,7 @@ LABEL_17:
 
       v17 = 0;
 LABEL_17:
-      inCopy = v20;
+      inCopy = v19;
     }
 
     else
@@ -349,7 +410,6 @@ LABEL_17:
     v17 = 1;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

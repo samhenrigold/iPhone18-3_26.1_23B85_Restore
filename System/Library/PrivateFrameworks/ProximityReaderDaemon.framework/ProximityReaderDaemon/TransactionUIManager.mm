@@ -2,7 +2,9 @@
 - (void)pinAuthResultWithError:(id)error cancelsFlow:(BOOL)flow;
 - (void)pinDataReceivedWithPinData:(id)data analyticsData:(id)analyticsData;
 - (void)pinViewLoaded;
+- (void)reportGuidanceUpdateWithVisible:(BOOL)visible trigger:(id)trigger;
 - (void)reportPINErrorWithError:(int64_t)error analyticsData:(id)data;
+- (void)reportProxEventInRange:(BOOL)range inRangeTime:(unsigned int)time;
 - (void)setVoiceOverWithEnabled:(BOOL)enabled;
 - (void)vasReadSuccessWithMerchantNames:(id)names;
 @end
@@ -24,6 +26,35 @@
 
   else
   {
+  }
+}
+
+- (void)reportGuidanceUpdateWithVisible:(BOOL)visible trigger:(id)trigger
+{
+  visibleCopy = visible;
+  v6 = sub_2613A18CC();
+  v8 = v7;
+  v9 = *(*self + 288);
+
+  v11 = v9(v10);
+  if (v11)
+  {
+    v12 = v11;
+    sub_26131CEF8(visibleCopy, v6, v8);
+  }
+}
+
+- (void)reportProxEventInRange:(BOOL)range inRangeTime:(unsigned int)time
+{
+  v4 = *&time;
+  rangeCopy = range;
+  v6 = *(*self + 288);
+
+  v7 = v6();
+  if (v7)
+  {
+    v8 = v7;
+    sub_26131CFA8(rangeCopy, v4);
   }
 }
 

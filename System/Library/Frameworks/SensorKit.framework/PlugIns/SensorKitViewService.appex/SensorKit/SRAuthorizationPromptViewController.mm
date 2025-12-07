@@ -222,7 +222,7 @@ LABEL_38:
     v34 = [-[SRAuthorizationPromptViewController extensionContext](v17 "extensionContext")];
     if (v34)
     {
-      [v34 auditToken];
+      objc_msgSend_auditToken(v34);
     }
 
     else

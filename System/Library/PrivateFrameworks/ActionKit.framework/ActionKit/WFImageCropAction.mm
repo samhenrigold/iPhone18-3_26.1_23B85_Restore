@@ -158,66 +158,40 @@ void __48__WFImageCropAction_runAsynchronouslyWithInput___block_invoke_6(uint64_
   [*(a1 + 32) finishRunningWithError:v6];
 }
 
-void __48__WFImageCropAction_runAsynchronouslyWithInput___block_invoke_3(uint64_t a1, void *a2)
+void __48__WFImageCropAction_runAsynchronouslyWithInput___block_invoke_3(id *a1, void *a2)
 {
   v3 = a2;
   if (v3)
   {
     WFImageSizeFromFile();
-    v18 = v5;
-    v19 = v4;
-    if ([*(a1 + 32) isEqualToString:@"Center"])
+    if ([a1[4] isEqualToString:@"Center"])
     {
-      v6.f64[0] = v19;
-      v6.f64[1] = v18;
-      v7 = vsubq_f64(v6, *(a1 + 64));
       __asm { FMOV            V1.2D, #0.5 }
     }
 
-    else if ([*(a1 + 32) isEqualToString:@"Top Right"])
+    else if (![a1[4] isEqualToString:@"Top Right"] && !objc_msgSend(a1[4], "isEqualToString:", @"Bottom Left") && !objc_msgSend(a1[4], "isEqualToString:", @"Bottom Right"))
     {
-      v13 = v19 - *(a1 + 64);
+      [a1[4] isEqualToString:@"Custom"];
     }
 
-    else if ([*(a1 + 32) isEqualToString:@"Bottom Left"])
-    {
-      v14 = v18 - *(a1 + 72);
-    }
-
-    else if ([*(a1 + 32) isEqualToString:@"Bottom Right"])
-    {
-      v15.f64[0] = v19;
-      v15.f64[1] = v18;
-      v16 = vsubq_f64(v15, *(a1 + 64));
-    }
-
-    else if ([*(a1 + 32) isEqualToString:@"Custom"])
-    {
-      v17 = *(a1 + 80);
-    }
-
-    v22 = *(a1 + 40);
-    v23 = *(a1 + 64);
-    v24 = *(a1 + 72);
-    v21 = *(a1 + 56);
-    v20 = *(a1 + 48);
+    v10 = a1[7];
+    v9 = a1[6];
     WFAsyncTransformedImageFromImage();
   }
 
   else
   {
-    (*(*(a1 + 56) + 16))();
+    (*(a1[7] + 2))();
   }
 }
 
-void __48__WFImageCropAction_runAsynchronouslyWithInput___block_invoke_4(uint64_t a1, void *a2, void *a3, double a4, double a5, double a6, double a7)
+void __48__WFImageCropAction_runAsynchronouslyWithInput___block_invoke_4(double *a1, void *a2, void *a3, double a4, double a5, double a6, double a7)
 {
-  v13 = *(a1 + 32);
-  v14 = a3;
-  v15 = a2;
-  v16 = [objc_opt_class() imageByCroppingImage:v15 toRect:{*(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64)}];
+  v13 = a3;
+  v14 = a2;
+  v15 = [objc_opt_class() imageByCroppingImage:v14 toRect:{a1[5], a1[6], a1[7], a1[8]}];
 
-  [v16 drawInContext:v14 inRect:{a4, a5, a6, a7}];
+  [v15 drawInContext:v13 inRect:{a4, a5, a6, a7}];
 }
 
 void __48__WFImageCropAction_runAsynchronouslyWithInput___block_invoke_5(uint64_t a1, void *a2, void *a3)

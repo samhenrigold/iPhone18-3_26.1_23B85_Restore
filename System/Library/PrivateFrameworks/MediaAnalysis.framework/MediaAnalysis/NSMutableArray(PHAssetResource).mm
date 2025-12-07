@@ -1,10 +1,10 @@
 @interface NSMutableArray(PHAssetResource)
-- (unint64_t)vcp_sortBySize;
+- (void)vcp_sortBySize;
 @end
 
 @implementation NSMutableArray(PHAssetResource)
 
-- (unint64_t)vcp_sortBySize
+- (void)vcp_sortBySize
 {
   result = [self count];
   if (result >= 2)

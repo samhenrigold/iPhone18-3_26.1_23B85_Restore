@@ -38,18 +38,19 @@
   if (v2)
   {
     selfCopy = self;
-    if ([v2 hasCompletedInitialRun])
+    hasCompletedInitialRun = [v2 hasCompletedInitialRun];
+    if (hasCompletedInitialRun)
     {
-      needsToRun = [sub_100004C40() needsToRun];
+      v6 = [sub_100004C40(hasCompletedInitialRun v5)];
       swift_unknownObjectRelease();
     }
 
     else
     {
-      needsToRun = 0;
+      v6 = 0;
     }
 
-    LOBYTE(self) = needsToRun;
+    LOBYTE(self) = v6;
   }
 
   else
@@ -62,33 +63,33 @@
 
 - (void)performExtendedInitializationWithCompletion:(id)completion
 {
-  sub_100006410(&qword_1003A0110);
-  __chkstk_darwin();
-  v6 = &v13 - v5;
-  v7 = _Block_copy(completion);
-  v8 = swift_allocObject();
-  *(v8 + 16) = v7;
-  *(v8 + 24) = self;
-  v9 = type metadata accessor for TaskPriority();
-  (*(*(v9 - 8) + 56))(v6, 1, 1, v9);
-  v10 = swift_allocObject();
-  v10[2] = 0;
-  v10[3] = 0;
-  v10[4] = &unk_100297308;
-  v10[5] = v8;
+  v5 = sub_100006410(&qword_1003A0110, &qword_100297980);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(completion);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
   v11 = swift_allocObject();
   v11[2] = 0;
   v11[3] = 0;
-  v11[4] = &unk_100297310;
-  v11[5] = v10;
+  v11[4] = &unk_100297308;
+  v11[5] = v9;
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_100297310;
+  v12[5] = v11;
   selfCopy = self;
-  sub_100063A28(0, 0, v6, &unk_1002979A0, v11);
+  sub_100063A28(0, 0, v7, &unk_1002979A0, v12);
 }
 
 - (void)controllerWasPopped
 {
   selfCopy = self;
-  [sub_100004C40() updatePresentedKey:0];
+  [sub_100004C40(selfCopy v2)];
   swift_unknownObjectRelease();
 }
 

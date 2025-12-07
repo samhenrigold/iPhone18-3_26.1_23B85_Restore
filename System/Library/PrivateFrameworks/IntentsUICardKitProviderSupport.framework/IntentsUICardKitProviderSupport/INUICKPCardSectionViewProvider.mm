@@ -67,7 +67,7 @@ uint64_t __59__INUICKPCardSectionViewProvider_vetoDisplayOfCardSection___block_i
 
 + (void)requestInstanceWithCard:(id)card delegate:(id)delegate allocator:(id)allocator reply:(id)reply
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   cardCopy = card;
   delegateCopy = delegate;
   allocatorCopy = allocator;
@@ -95,10 +95,10 @@ uint64_t __59__INUICKPCardSectionViewProvider_vetoDisplayOfCardSection___block_i
             v22 = [v20 numberWithBool:v18];
             *buf = 138412802;
             selfCopy = self;
-            v33 = 2112;
-            v34 = delegateCopy;
-            v35 = 2112;
-            v36 = v22;
+            v32 = 2112;
+            v33 = delegateCopy;
+            v34 = 2112;
+            v35 = v22;
             _os_log_impl(&dword_255550000, v21, OS_LOG_TYPE_INFO, "%@ respecting delegate %@ preference to require user consent: %@", buf, 0x20u);
           }
         }
@@ -115,16 +115,16 @@ uint64_t __59__INUICKPCardSectionViewProvider_vetoDisplayOfCardSection___block_i
 
         [allocatorCopy setRequiresUserConsent:v18];
         v23 = INUICKPInterfaceSectionsFromCard(cardCopy);
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __83__INUICKPCardSectionViewProvider_requestInstanceWithCard_delegate_allocator_reply___block_invoke;
-        v26[3] = &unk_2797EB8E8;
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __83__INUICKPCardSectionViewProvider_requestInstanceWithCard_delegate_allocator_reply___block_invoke;
+        v25[3] = &unk_2797EB8E8;
         selfCopy2 = self;
-        v27 = allocatorCopy;
-        v28 = v17;
-        v29 = v14;
+        v26 = allocatorCopy;
+        v27 = v17;
+        v28 = v14;
         v24 = v17;
-        [v27 performAllocationsFromInteraction:anyObject initialInterfaceSections:v23 completion:v26];
+        [v26 performAllocationsFromInteraction:anyObject initialInterfaceSections:v23 completion:v25];
 
 LABEL_17:
         goto LABEL_18;
@@ -150,8 +150,6 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __83__INUICKPCardSectionViewProvider_requestInstanceWithCard_delegate_allocator_reply___block_invoke(uint64_t a1)
@@ -164,16 +162,15 @@ uint64_t __83__INUICKPCardSectionViewProvider_requestInstanceWithCard_delegate_a
     {
       [*(a1 + 40) setViewConfigurations:v2];
       [*(a1 + 40) setAllocator:*(a1 + 32)];
-      v4 = *(a1 + 40);
-      v5 = *(*(a1 + 48) + 16);
+      v4 = *(*(a1 + 48) + 16);
     }
 
     else
     {
-      v5 = *(v3 + 16);
+      v4 = *(v3 + 16);
     }
 
-    v5();
+    v4();
   }
 
   return MEMORY[0x2821F9730]();
@@ -198,32 +195,32 @@ uint64_t __83__INUICKPCardSectionViewProvider_requestInstanceWithCard_delegate_a
 
 + (id)_viewConfigurationsFromAllocator:(id)allocator
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   allocatorCopy = allocator;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = [allocatorCopy allocatedViewControllers];
-  v5 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v5 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v24;
+    v8 = *v23;
     *&v6 = 138412290;
-    v21 = v6;
+    v20 = v6;
     do
     {
       v9 = 0;
       do
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * v9);
+        v10 = *(*(&v22 + 1) + 8 * v9);
         v11 = objc_alloc_init(MEMORY[0x277CF93B8]);
         viewControllersByInitialInterfaceSection = [allocatorCopy viewControllersByInitialInterfaceSection];
         v13 = [viewControllersByInitialInterfaceSection allKeysForObject:v10];
@@ -241,8 +238,8 @@ uint64_t __83__INUICKPCardSectionViewProvider_requestInstanceWithCard_delegate_a
           v16 = *MEMORY[0x277CF93F0];
           if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_ERROR))
           {
-            *buf = v21;
-            v28 = firstObject;
+            *buf = v20;
+            v27 = firstObject;
             _os_log_error_impl(&dword_255550000, v16, OS_LOG_TYPE_ERROR, "Interface section is not a card interface section\n    Interface section: %@", buf, 0xCu);
           }
         }
@@ -267,13 +264,11 @@ uint64_t __83__INUICKPCardSectionViewProvider_requestInstanceWithCard_delegate_a
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v7 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v7);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

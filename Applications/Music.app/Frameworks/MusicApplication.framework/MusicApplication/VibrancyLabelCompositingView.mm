@@ -44,7 +44,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_38FB24(v7, v8);
+  sub_38FB24(v7, v8, v10);
 }
 
 - (void)layoutSubviews

@@ -116,8 +116,8 @@
   os_unfair_lock_unlock(&self->_stateLock);
   if (!l_isCompleted)
   {
-    v4 = TUITransactionLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = TUITransactionLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       sub_1994D4();
     }
@@ -125,9 +125,9 @@
     [(TUITransactionGroup *)self removeNotifyWhenAppliedDeferral];
   }
 
-  v5.receiver = self;
-  v5.super_class = TUITransactionGroup;
-  [(TUITransactionGroup *)&v5 dealloc];
+  v6.receiver = self;
+  v6.super_class = TUITransactionGroup;
+  [(TUITransactionGroup *)&v6 dealloc];
 }
 
 - (id)description
@@ -334,7 +334,7 @@
 
 - (void)_invokeHandlersForUpdatesApplied
 {
-  v3 = TUITransactionLog();
+  v3 = TUITransactionLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     uniqueIdentifier = self->_feedId.uniqueIdentifier;
@@ -381,7 +381,7 @@
 
 - (void)_invokeCompletions
 {
-  v3 = TUITransactionLog();
+  v3 = TUITransactionLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     uniqueIdentifier = self->_feedId.uniqueIdentifier;
@@ -432,88 +432,88 @@
 
 - (void)applyUpdates
 {
-  v3 = TUITransactionLog();
+  v3 = TUITransactionLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_19954C();
   }
 
-  v4 = TUITransactionLog();
-  v5 = os_signpost_id_generate(v4);
+  v5 = TUITransactionLog(v4);
+  v6 = os_signpost_id_generate(v5);
 
-  v6 = TUITransactionLog();
-  v7 = v6;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v8 = TUITransactionLog(v7);
+  v9 = v8;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "TUITransaction.applyUpdates", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "TUITransaction.applyUpdates", "", buf, 2u);
   }
 
-  v8 = dispatch_group_create();
-  v21[0] = _NSConcreteStackBlock;
-  v21[1] = 3221225472;
-  v21[2] = sub_15DA0;
-  v21[3] = &unk_25DCA0;
-  v21[4] = self;
-  v9 = [[_TUITransactionGroupCompletionToken alloc] initWithGroup:v8];
-  v22 = v9;
-  v10 = objc_retainBlock(v21);
+  v10 = dispatch_group_create();
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_15DA0;
+  v24[3] = &unk_25DCA0;
+  v24[4] = self;
+  v11 = [[_TUITransactionGroupCompletionToken alloc] initWithGroup:v10];
+  v25 = v11;
+  v12 = objc_retainBlock(v24);
   if ([(TUITransactionOptions *)self->_options animate])
   {
     timingProvider = [(TUITransactionOptions *)self->_options timingProvider];
-    v12 = [_TUIAnimationState alloc];
-    [(TUITransactionOptions *)self->_options duration];
-    v13 = [(_TUIAnimationState *)v12 initWithDuration:timingProvider timingParameters:?];
-    [_TUIAnimationState pushState:v13];
-    v14 = [UIViewPropertyAnimator alloc];
-    [(TUITransactionOptions *)self->_options duration];
+    v14 = [_TUIAnimationState alloc];
+    objc_msgSend_duration(self->_options);
+    v15 = [(_TUIAnimationState *)v14 initWithDuration:timingProvider timingParameters:?];
+    [_TUIAnimationState pushState:v15];
+    v16 = [UIViewPropertyAnimator alloc];
+    objc_msgSend_duration(self->_options);
     if (timingProvider)
     {
-      v15 = [v14 initWithDuration:timingProvider timingParameters:?];
-      [v15 addAnimations:v10];
+      v17 = [v16 initWithDuration:timingProvider timingParameters:?];
+      [v17 addAnimations:v12];
     }
 
     else
     {
-      v15 = [v14 initWithDuration:0 curve:v10 animations:?];
+      v17 = [v16 initWithDuration:0 curve:v12 animations:?];
     }
 
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_15EB8;
-    v19[3] = &unk_25DEA8;
-    v20 = v9;
-    [v15 addCompletion:v19];
-    [v15 startAnimation];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_15EB8;
+    v22[3] = &unk_25DEA8;
+    v23 = v11;
+    [v17 addCompletion:v22];
+    [v17 startAnimation];
     +[_TUIAnimationState popState];
   }
 
   else
   {
-    [UIView performWithoutAnimation:v10];
+    v18 = [UIView performWithoutAnimation:v12];
   }
 
-  v16 = TUITransactionLog();
-  v17 = v16;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v19 = TUITransactionLog(v18);
+  v20 = v19;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v17, OS_SIGNPOST_INTERVAL_END, v5, "TUITransaction.applyUpdates", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v20, OS_SIGNPOST_INTERVAL_END, v6, "TUITransaction.applyUpdates", "", buf, 2u);
   }
 
   [(TUITransactionGroup *)self _invokeHandlersForUpdatesApplied];
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_15EC0;
-  v18[3] = &unk_25DED0;
-  v18[4] = self;
-  v18[5] = v5;
-  TUIDispatchGroupNotifyViaRunloopIfMain(v8, &_dispatch_main_q, v18);
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_15EC0;
+  v21[3] = &unk_25DED0;
+  v21[4] = self;
+  v21[5] = v6;
+  TUIDispatchGroupNotifyViaRunloopIfMain(v10, &_dispatch_main_q, v21);
 }
 
 - (void)applyNonVisualUpdates
 {
-  v3 = TUITransactionLog();
+  v3 = TUITransactionLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_199628();

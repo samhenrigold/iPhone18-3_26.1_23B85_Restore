@@ -106,7 +106,7 @@ LABEL_11:
   {
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input, v30[0]);
     }
 
     else
@@ -134,7 +134,7 @@ LABEL_11:
   v23 = 0u;
   if (input)
   {
-    [input imageInfo];
+    objc_msgSend_imageInfo(input);
     if (*(&v24 + 1) == 2)
     {
       v28 = -v28;
@@ -149,7 +149,7 @@ LABEL_11:
     v29 = 1.0;
   }
 
-  [(PAESharedDefaultBase *)self getPixelTransformForImage:input, v12];
+  objc_msgSend_getPixelTransformForImage_(self, v12);
   v29 = fabs(v21[5]) * v29;
   v30[0] = fabs(v21[0]) * v30[0];
   v11 = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
@@ -159,7 +159,7 @@ LABEL_11:
     {
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input);
       }
 
       else
@@ -167,7 +167,7 @@ LABEL_11:
         v20 = 0;
       }
 
-      [(PAESharedDefaultBase *)self getImageBoundary:input];
+      objc_msgSend_getImageBoundary_(self);
       v19[0] = vcvtq_f64_f32(v17);
       v19[1] = vcvtq_f64_f32(v18);
       if (PCMatrix44Tmpl<double>::transformRect<double>(v21, v19, v19))
@@ -178,13 +178,13 @@ LABEL_11:
           (*(*v20 + 16))(v20);
         }
 
-        [(PAESharedDefaultBase *)self changeDOD:&v16 withRect:v19];
+        objc_msgSend_changeDOD_withRect_(self);
         v13 = v17;
         if (v20 == v17)
         {
           if (v20)
           {
-            (*(*v17 + 24))(v17);
+            (*(*v17 + 24))();
           }
         }
 
@@ -197,7 +197,6 @@ LABEL_11:
           }
 
           v20 = v13;
-          v17 = 0;
         }
 
         if (v16)

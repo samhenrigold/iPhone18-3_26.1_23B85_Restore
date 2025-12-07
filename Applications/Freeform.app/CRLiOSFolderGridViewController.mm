@@ -98,7 +98,7 @@
     [(CRLiOSFolderGridViewController *)self setEditing:0 animated:1];
   }
 
-  sub_10000CAAC(v8, &unk_1019F4D00);
+  sub_10000CAAC(v8, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)handleFavoriteBoard:(id)board
@@ -129,7 +129,7 @@
   {
   }
 
-  sub_10000CAAC(v8, &unk_1019F4D00);
+  sub_10000CAAC(v8, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)viewBoardsAsIcons:(id)icons
@@ -155,7 +155,7 @@
     sub_10005C940();
   }
 
-  sub_10000CAAC(v7, &unk_1019F4D00);
+  sub_10000CAAC(v7, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)viewBoardsInAList:(id)list
@@ -181,7 +181,7 @@
     sub_10005C940();
   }
 
-  sub_10000CAAC(v7, &unk_1019F4D00);
+  sub_10000CAAC(v7, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)sortByDateAction:(id)action
@@ -202,10 +202,10 @@
 
   if (*(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions) != 1)
   {
-    sub_100064314(1u, *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions + 1), *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions + 2));
+    sub_100064314(1, *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions + 1), *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions + 2));
   }
 
-  sub_10000CAAC(v6, &unk_1019F4D00);
+  sub_10000CAAC(v6, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)sortByNameAction:(id)action
@@ -229,7 +229,7 @@
     sub_100064314(0, *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions + 1), *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions + 2));
   }
 
-  sub_10000CAAC(v6, &unk_1019F4D00);
+  sub_10000CAAC(v6, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)sortBySharedByAction:(id)action
@@ -250,10 +250,10 @@
 
   if (*(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions) != 2)
   {
-    sub_100064314(2u, *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions + 1), *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions + 2));
+    sub_100064314(2, *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions + 1), *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions + 2));
   }
 
-  sub_10000CAAC(v6, &unk_1019F4D00);
+  sub_10000CAAC(v6, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)sortUseGroupsAction:(id)action
@@ -274,7 +274,7 @@
 
   sub_100064314(*(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions), *(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions + 1), (*(&self->super.super.super.super.isa + OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController__persistedSortOptions + 2) & 1) == 0);
 
-  sub_10000CAAC(v6, &unk_1019F4D00);
+  sub_10000CAAC(v6, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
@@ -287,7 +287,7 @@
 {
   disappearCopy = disappear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for CRLiOSFolderGridViewController();
+  v7.super_class = type metadata accessor for CRLiOSFolderGridViewController(0);
   v4 = v7.receiver;
   [(CRLiOSFolderGridViewController *)&v7 viewDidDisappear:disappearCopy];
   v5 = *&v4[OBJC_IVAR____TtC8Freeform30CRLiOSFolderGridViewController_libraryProvider];
@@ -323,7 +323,7 @@
   sub_100F3A670(action, v11);
   v9 = v8;
 
-  sub_10000CAAC(v11, &unk_1019F4D00);
+  sub_10000CAAC(v11, &unk_1019F4D00, &unk_10146E7F0);
   return v9 & 1;
 }
 
@@ -391,7 +391,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_100F74F9C();
+  LOBYTE(self) = sub_100F74F9C(v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -419,7 +419,7 @@
   v7 = type metadata accessor for IndexPath();
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = (&v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
@@ -446,7 +446,7 @@
   configurationCopy = configuration;
   selfCopy = self;
   sub_100070F30();
-  sub_100F5E980(configurationCopy, 2u);
+  sub_100F5E980(configurationCopy, 2);
 }
 
 - (void)collectionView:(id)view willEndContextMenuInteractionWithConfiguration:(id)configuration animator:(id)animator
@@ -497,7 +497,7 @@
   {
   }
 
-  sub_10000CAAC(v9, &unk_1019F4D00);
+  sub_10000CAAC(v9, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (id)itemTitleForCloudSharingController:(id)controller
@@ -508,7 +508,7 @@
   {
     v5 = share;
     static CKShare.SystemFieldKey.title.getter();
-    sub_100006370(0, &qword_1019F52C0);
+    sub_100006370(0, &qword_1019F52C0, CKShare_ptr);
     CKRecordKeyValueSetting.subscript.getter();
 
     if (v9)
@@ -563,7 +563,7 @@ LABEL_6:
   }
 
   v8 = static OS_os_log.shareState;
-  sub_1005B981C(&qword_1019F54E0);
+  sub_1005B981C(&qword_1019F54E0, &unk_10146BE50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C6B0;
   swift_getErrorValue();
@@ -576,7 +576,7 @@ LABEL_6:
   v13 = static os_log_type_t.default.getter();
   sub_100005404(v8, &_mh_execute_header, v13, "Share failed with error %@", 26, 2, inited);
   swift_setDeallocating();
-  sub_100005070(inited + 32);
+  sub_100005070((inited + 32));
   sub_100F74038(errorCopy, selfCopy);
 }
 
@@ -588,7 +588,7 @@ LABEL_6:
   {
     v5 = share;
     static CKShare.SystemFieldKey.thumbnailImageData.getter();
-    sub_100006370(0, &qword_1019F52C0);
+    sub_100006370(0, &qword_1019F52C0, CKShare_ptr);
     CKRecordKeyValueSetting.subscript.getter();
 
     v6 = 0;
@@ -640,7 +640,7 @@ LABEL_6:
 
   sub_100F5D1F8(v6);
 
-  sub_10000CAAC(v6, &unk_1019F4D00);
+  sub_10000CAAC(v6, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)scrollViewWillBeginDragging:(id)dragging
@@ -648,7 +648,7 @@ LABEL_6:
   draggingCopy = dragging;
   selfCopy = self;
   sub_100070F30();
-  sub_100F5E980(draggingCopy, 1u);
+  sub_100F5E980(draggingCopy, 1);
 }
 
 - (void)scrollViewDidEndDragging:(id)dragging willDecelerate:(BOOL)decelerate

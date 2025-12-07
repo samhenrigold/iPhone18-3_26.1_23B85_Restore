@@ -159,11 +159,11 @@ LABEL_20:
 
 - (SFTableAlignmentSchema)initWithProtobuf:(id)protobuf
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v24.receiver = self;
-  v24.super_class = SFTableAlignmentSchema;
-  v5 = [(SFTableAlignmentSchema *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = SFTableAlignmentSchema;
+  v5 = [(SFTableAlignmentSchema *)&v23 init];
   if (v5)
   {
     tableColumnAlignments = [protobufCopy tableColumnAlignments];
@@ -177,33 +177,33 @@ LABEL_20:
       v7 = 0;
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     tableColumnAlignments2 = [protobufCopy tableColumnAlignments];
-    v9 = [tableColumnAlignments2 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v9 = [tableColumnAlignments2 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(tableColumnAlignments2);
           }
 
-          v13 = [[SFTableColumnAlignment alloc] initWithProtobuf:*(*(&v20 + 1) + 8 * i)];
+          v13 = [[SFTableColumnAlignment alloc] initWithProtobuf:*(*(&v19 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [tableColumnAlignments2 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v10 = [tableColumnAlignments2 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v10);
@@ -222,7 +222,6 @@ LABEL_20:
     v17 = v5;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

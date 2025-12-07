@@ -73,30 +73,30 @@ uint64_t __56__CNContactGridCellAccessibility_isAccessibilityElement__block_invo
 
 - (id)accessibilityLabel
 {
-  v15[1] = *MEMORY[0x29EDCA608];
+  v16[1] = *MEMORY[0x29EDCA608];
   v2 = [(CNContactGridCellAccessibility *)self safeValueForKey:@"avatarView"];
   objc_opt_class();
   v3 = [v2 safeValueForKey:@"contact"];
   v4 = __UIAccessibilityCastAsClass();
 
   v5 = [MEMORY[0x29EDB8BA8] descriptorForRequiredKeysForStyle:0];
-  v15[0] = v5;
-  v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v15 count:1];
+  v16[0] = v5;
+  v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v16 count:1];
 
-  if (v4 && (([v4 areKeysAvailable:v6] & 1) != 0 || (objc_msgSend(v4, "identifier"), v7 = objc_claimAutoreleasedReturnValue(), v7, !v7) || (accessibilityContactStore(), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "identifier"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "unifiedContactWithIdentifier:keysToFetch:error:", v9, v6, 0), v10 = objc_claimAutoreleasedReturnValue(), v4, v9, v8, (v4 = v10) != 0)))
+  if (v4 && (([v4 areKeysAvailable:v6] & 1) != 0 || (objc_msgSend(v4, "identifier"), v7 = objc_claimAutoreleasedReturnValue(), v7, !v7) || (accessibilityContactStore(v8), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "identifier"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "unifiedContactWithIdentifier:keysToFetch:error:", v10, v6, 0), v11 = objc_claimAutoreleasedReturnValue(), v4, v10, v9, (v4 = v11) != 0)))
   {
-    v11 = [MEMORY[0x29EDB8BA8] stringFromContact:v4 style:0];
+    v12 = [MEMORY[0x29EDB8BA8] stringFromContact:v4 style:0];
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  v14 = accessibilityLocalizedString(@"contact");
-  v12 = __AXStringForVariables();
+  v15 = accessibilityLocalizedString(@"contact");
+  v13 = __AXStringForVariables();
 
-  return v12;
+  return v13;
 }
 
 - (id)accessibilityCustomActions

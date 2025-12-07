@@ -159,7 +159,7 @@
 
 - (id)buildDescriptions
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   result = [(SPUISResultBuilder *)self result];
   contentType = [result contentType];
@@ -202,19 +202,17 @@
   v16 = objc_opt_new();
   [v16 setGlyph:v15];
   v17 = objc_opt_new();
-  v27[0] = v16;
+  v26[0] = v16;
   v18 = MEMORY[0x277D4C3A0];
   v19 = [v3 componentsJoinedByString:@" · "];
   v20 = [@" " stringByAppendingString:v19];
   v21 = [v18 textWithString:v20];
-  v27[1] = v21;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+  v26[1] = v21;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
   [v17 setFormattedTextPieces:v22];
 
-  v26 = v17;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = v17;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
 
   return v23;
 }
@@ -230,7 +228,7 @@
 
 - (id)buildButtonItems
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   mediaId = [(SPUISMusicResultBuilder *)self mediaId];
 
   if (mediaId)
@@ -256,16 +254,14 @@
     [v4 setMediaType:v8];
     v9 = objc_opt_new();
     [v9 setMediaMetadata:v4];
-    v13[0] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   }
 
   else
   {
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

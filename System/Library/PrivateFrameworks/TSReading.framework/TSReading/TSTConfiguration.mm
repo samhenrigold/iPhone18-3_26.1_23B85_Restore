@@ -16,7 +16,7 @@
   return sTableConfiguration;
 }
 
-uint64_t __44__TSTConfiguration_sharedTableConfiguration__block_invoke()
+TSTConfiguration *__44__TSTConfiguration_sharedTableConfiguration__block_invoke()
 {
   result = objc_opt_new();
   sTableConfiguration = result;

@@ -1,4 +1,5 @@
 @interface BRCLocateRecordOperation
+- (BRCLocateRecordOperation)initWithRecordID:(id)d serverZone:(id)zone isUserWaiting:(BOOL)waiting maxBackoff:(double)backoff sessionContext:(id)context;
 - (id)createActivity;
 - (void)_performAfterLocatingRecord:(id)record;
 - (void)addLocateRecordCompletionBlock:(id)block;
@@ -9,6 +10,56 @@
 @end
 
 @implementation BRCLocateRecordOperation
+
+- (BRCLocateRecordOperation)initWithRecordID:(id)d serverZone:(id)zone isUserWaiting:(BOOL)waiting maxBackoff:(double)backoff sessionContext:(id)context
+{
+  waitingCopy = waiting;
+  v35 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  zoneCopy = zone;
+  contextCopy = context;
+  zoneAppRetriever = [contextCopy zoneAppRetriever];
+  v17 = [dCopy brc_itemIDWithZoneAppRetriever:zoneAppRetriever];
+
+  v18 = brc_bread_crumbs();
+  v19 = brc_default_log();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412802;
+    v30 = dCopy;
+    v31 = 2112;
+    v32 = v17;
+    v33 = 2112;
+    v34 = v18;
+    _os_log_impl(&dword_223E7A000, v19, OS_LOG_TYPE_INFO, "[INFO] Request to locate record: [%@] of item [%@]%@", buf, 0x20u);
+  }
+
+  debugItemIDString = [v17 debugItemIDString];
+  v21 = [@"locate-record/" stringByAppendingString:debugItemIDString];
+
+  metadataSyncContext = [zoneCopy metadataSyncContext];
+  v28.receiver = self;
+  v28.super_class = BRCLocateRecordOperation;
+  v23 = [(_BRCOperation *)&v28 initWithName:v21 syncContext:metadataSyncContext sessionContext:contextCopy];
+
+  if (v23)
+  {
+    br_locateRecord = [MEMORY[0x277CBC4F8] br_locateRecord];
+    [(_BRCOperation *)v23 setGroup:br_locateRecord];
+
+    [(_BRCOperation *)v23 setNonDiscretionary:waitingCopy];
+    [(_BRCOperation *)v23 setMaxBackoff:backoff];
+    objc_storeStrong(&v23->_recordID, d);
+    objc_storeStrong(&v23->_itemID, v17);
+    objc_storeStrong(&v23->_structureRecordID, d);
+    objc_storeStrong(&v23->_serverZone, zone);
+    v25 = objc_opt_new();
+    locateRecordCompletionBlocks = v23->_locateRecordCompletionBlocks;
+    v23->_locateRecordCompletionBlocks = v25;
+  }
+
+  return v23;
+}
 
 - (void)itemMarkedForOOBSync:(id)sync
 {
@@ -107,7 +158,7 @@ LABEL_6:
 
 void __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   if (a2)
@@ -121,17 +172,15 @@ void __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke(u
     v10 = brc_default_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 138412802;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v9;
-      _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] record with id %@ encountered an error while locating - %@%@", &v12, 0x20u);
+      v11 = 138412802;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] record with id %@ encountered an error while locating - %@%@", &v11, 0x20u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke_6(uint64_t a1, void *a2, void *a3)
@@ -158,7 +207,7 @@ void __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke_6
 
 void __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke_2(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = [*(a1 + 40) records];
@@ -166,39 +215,38 @@ void __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke_2
 
     if (!v3)
     {
-      v11 = brc_bread_crumbs();
-      v12 = brc_default_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v10 = brc_bread_crumbs();
+      v11 = brc_default_log();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v32 = *(*(a1 + 48) + 576);
-        v33 = *(a1 + 32);
+        v29 = *(*(a1 + 48) + 576);
+        v30 = *(a1 + 32);
         *buf = 138412802;
-        v36 = v32;
-        v37 = 2112;
-        v38 = v33;
-        v39 = 2112;
-        v40 = v11;
-        _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] Failed to look up record %@ - %@%@", buf, 0x20u);
+        v33 = v29;
+        v34 = 2112;
+        v35 = v30;
+        v36 = 2112;
+        v37 = v10;
+        _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] Failed to look up record %@ - %@%@", buf, 0x20u);
       }
 
-      v13 = *(a1 + 32);
-      v14 = *(*(a1 + 64) + 16);
+      v12 = *(*(a1 + 64) + 16);
       goto LABEL_15;
     }
   }
 
   if (([*(a1 + 40) saveRecordsWithQueryCursor:0] & 1) == 0)
   {
-    v7 = *(a1 + 64);
-    v8 = brc_bread_crumbs();
-    v9 = brc_default_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v6 = *(a1 + 64);
+    v7 = brc_bread_crumbs();
+    v8 = brc_default_log();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke_2_cold_1();
     }
 
-    v10 = [MEMORY[0x277CCA9B8] br_errorWithDomain:*MEMORY[0x277CFACB0] code:15 description:@"unreachable: Can't alloc ranks after fetching records"];
-    (*(v7 + 16))(v7, 0, v10);
+    v9 = [MEMORY[0x277CCA9B8] br_errorWithDomain:*MEMORY[0x277CFACB0] code:15 description:@"unreachable: Can't alloc ranks after fetching records"];
+    (*(v6 + 16))(v6, 0, v9);
     goto LABEL_11;
   }
 
@@ -206,115 +254,107 @@ void __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke_2
 
   if (!v4)
   {
-    v17 = (a1 + 56);
-    v16 = *(a1 + 56);
-    if (v16)
+    v14 = (a1 + 56);
+    v13 = *(a1 + 56);
+    if (v13)
     {
-      goto LABEL_18;
+      goto LABEL_17;
     }
 
-    if ([*(*(a1 + 48) + 552) isSharedZone])
+    if (![*(*(a1 + 48) + 552) isSharedZone])
     {
-      v24 = brc_bread_crumbs();
-      v25 = brc_default_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v13 = *v14;
+      if (!*v14)
       {
-        __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke_2_cold_4();
+        v26 = brc_bread_crumbs();
+        v27 = brc_default_log();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        {
+          __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke_2_cold_3((a1 + 48));
+        }
+
+        v28 = *(a1 + 64);
+        v9 = [MEMORY[0x277CCA9B8] br_errorWithDomain:*MEMORY[0x277CFABD0] code:7 description:@"Could not locate record"];
+        (*(v28 + 16))(v28, 0, v9);
+        goto LABEL_11;
       }
 
-      v14 = *(*(a1 + 64) + 16);
-LABEL_15:
-      v14();
-      goto LABEL_16;
-    }
-
-    v16 = *v17;
-    if (*v17)
-    {
-LABEL_18:
-      v10 = [v16 objectForKeyedSubscript:@"parent"];
-      if (!v10)
+LABEL_17:
+      v9 = [v13 objectForKeyedSubscript:@"parent"];
+      if (!v9)
       {
         if ([*(*(a1 + 48) + 552) isSharedZone])
         {
-          v18 = [*v17 share];
+          v15 = [*v14 share];
 
-          if (v18)
+          if (v15)
           {
             (*(*(a1 + 64) + 16))();
-LABEL_24:
+LABEL_23:
 
             *(*(a1 + 48) + 504) = [*(a1 + 40) recordsFetched];
             *(*(a1 + 48) + 512) = [*(a1 + 40) recordsFetchedTotalMetadataSize];
             *(*(a1 + 48) + 520) = [*(a1 + 40) xattrsFetchedTotalSize];
-            goto LABEL_16;
+            return;
           }
         }
       }
 
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
-      v20 = *(a1 + 64);
+      v17 = *(a1 + 64);
       if (isKindOfClass)
       {
-        v21 = [v10 recordID];
-        v22 = [*(*(a1 + 48) + 256) zoneAppRetriever];
-        v23 = [v21 brc_itemIDWithZoneAppRetriever:v22];
-        (*(v20 + 16))(v20, v23, 0);
+        v18 = [v9 recordID];
+        v19 = [*(*(a1 + 48) + 256) zoneAppRetriever];
+        v20 = [v18 brc_itemIDWithZoneAppRetriever:v19];
+        (*(v17 + 16))(v17, v20, 0);
 
-        goto LABEL_24;
+        goto LABEL_23;
       }
 
-      v26 = brc_bread_crumbs();
-      v27 = brc_default_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+      v23 = brc_bread_crumbs();
+      v24 = brc_default_log();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
       {
-        __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke_2_cold_2(v17, v26, v27);
+        __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke_2_cold_2(v14, v23, v24);
       }
 
-      v28 = [MEMORY[0x277CCA9B8] br_errorWithDomain:*MEMORY[0x277CFACB0] code:15 description:{@"unreachable: parent isn't a reference %@", *v17}];
-      (*(v20 + 16))(v20, 0, v28);
+      v25 = [MEMORY[0x277CCA9B8] br_errorWithDomain:*MEMORY[0x277CFACB0] code:15 description:{@"unreachable: parent isn't a reference %@", *v14}];
+      (*(v17 + 16))(v17, 0, v25);
 
-      goto LABEL_11;
-    }
-
-    v29 = brc_bread_crumbs();
-    v30 = brc_default_log();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
-    {
-      __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke_2_cold_3((a1 + 48));
-    }
-
-    v31 = *(a1 + 64);
-    v10 = [MEMORY[0x277CCA9B8] br_errorWithDomain:*MEMORY[0x277CFABD0] code:7 description:@"Could not locate record"];
-    (*(v31 + 16))(v31, 0, v10);
 LABEL_11:
+      return;
+    }
 
-LABEL_16:
-    v15 = *MEMORY[0x277D85DE8];
+    v21 = brc_bread_crumbs();
+    v22 = brc_default_log();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    {
+      __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke_2_cold_4();
+    }
+
+    v12 = *(*(a1 + 64) + 16);
+LABEL_15:
+    v12();
     return;
   }
 
   v5 = *(a1 + 64);
-  v34 = [*(a1 + 40) error];
+  v31 = [*(a1 + 40) error];
   (*(v5 + 16))(v5, 0);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)main
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(self + 576);
   mangledID = [*(self + 552) mangledID];
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
 }
 
 void __32__BRCLocateRecordOperation_main__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -327,13 +367,13 @@ void __32__BRCLocateRecordOperation_main__block_invoke(uint64_t a1, void *a2, vo
       v10 = *(v9 + 576);
       v11 = [*(v9 + 552) mangledID];
       *buf = 138413058;
-      v25 = v10;
-      v26 = 2112;
-      v27 = v11;
-      v28 = 2112;
-      v29 = v6;
-      v30 = 2112;
-      v31 = v7;
+      v24 = v10;
+      v25 = 2112;
+      v26 = v11;
+      v27 = 2112;
+      v28 = v6;
+      v29 = 2112;
+      v30 = v7;
       _os_log_impl(&dword_223E7A000, v8, OS_LOG_TYPE_INFO, "[INFO] Locating recordID %@ in zone %@ --> Record not found. Error %@%@", buf, 0x2Au);
     }
 
@@ -347,22 +387,22 @@ void __32__BRCLocateRecordOperation_main__block_invoke(uint64_t a1, void *a2, vo
     if (v5)
     {
       v15 = *(*(a1 + 32) + 256);
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __32__BRCLocateRecordOperation_main__block_invoke_20;
-      v21[3] = &unk_2784FFE90;
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __32__BRCLocateRecordOperation_main__block_invoke_20;
+      v20[3] = &unk_2784FFE90;
       v16 = v5;
       v17 = *(a1 + 32);
-      v22 = v16;
-      v23 = v17;
-      [v15 performAsyncOnClientReadWriteDatabaseWorkloop:v21];
+      v21 = v16;
+      v22 = v17;
+      [v15 performAsyncOnClientReadWriteDatabaseWorkloop:v20];
 
       goto LABEL_8;
     }
 
-    v19 = brc_bread_crumbs();
-    v20 = brc_default_log();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v18 = brc_bread_crumbs();
+    v19 = brc_default_log();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       __32__BRCLocateRecordOperation_main__block_invoke_cold_1();
     }
@@ -374,8 +414,6 @@ void __32__BRCLocateRecordOperation_main__block_invoke(uint64_t a1, void *a2, vo
 
   [v12 completedWithResult:v13 error:v14];
 LABEL_8:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __32__BRCLocateRecordOperation_main__block_invoke_20(uint64_t a1)
@@ -397,7 +435,7 @@ void __32__BRCLocateRecordOperation_main__block_invoke_20(uint64_t a1)
 
 void __32__BRCLocateRecordOperation_main__block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -408,15 +446,15 @@ void __32__BRCLocateRecordOperation_main__block_invoke_2(uint64_t a1, void *a2)
       v6 = *(a1 + 32);
       v7 = *(v6 + 576);
       v8 = [*(v6 + 552) mangledID];
-      v13 = 138413058;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v3;
-      v19 = 2112;
-      v20 = v4;
-      _os_log_impl(&dword_223E7A000, v5, OS_LOG_TYPE_INFO, "[INFO] Locating recordID %@ in zone %@ --> Fetch parent chain failed with error %@%@", &v13, 0x2Au);
+      v12 = 138413058;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v3;
+      v18 = 2112;
+      v19 = v4;
+      _os_log_impl(&dword_223E7A000, v5, OS_LOG_TYPE_INFO, "[INFO] Locating recordID %@ in zone %@ --> Fetch parent chain failed with error %@%@", &v12, 0x2Au);
     }
 
     v9 = *(a1 + 32);
@@ -432,8 +470,6 @@ void __32__BRCLocateRecordOperation_main__block_invoke_2(uint64_t a1, void *a2)
   }
 
   [v9 completedWithResult:v10 error:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWithResult:(id)result error:(id)error
@@ -535,40 +571,38 @@ void __32__BRCLocateRecordOperation_main__block_invoke_2(uint64_t a1, void *a2)
 
 void __51__BRCLocateRecordOperation_finishWithResult_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        (*(*(*(&v11 + 1) + 8 * v9) + 16))(*(*(&v11 + 1) + 8 * v9));
+        (*(*(*(&v10 + 1) + 8 * v9) + 16))(*(*(&v10 + 1) + 8 * v9));
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __51__BRCLocateRecordOperation_finishWithResult_error___block_invoke_3(uint64_t a1)
@@ -704,34 +738,34 @@ LABEL_22:
 
 - (void)cancelToBeReplacedByOperation:(id)operation
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   if (operationCopy)
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     dependencies = [(BRCLocateRecordOperation *)selfCopy dependencies];
-    v7 = [dependencies countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v7 = [dependencies countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v7)
     {
-      v8 = *v22;
+      v8 = *v21;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v22 != v8)
+          if (*v21 != v8)
           {
             objc_enumerationMutation(dependencies);
           }
 
-          [operationCopy addDependency:*(*(&v21 + 1) + 8 * i)];
+          [operationCopy addDependency:*(*(&v20 + 1) + 8 * i)];
         }
 
-        v7 = [dependencies countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v7 = [dependencies countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v7);
@@ -742,28 +776,28 @@ LABEL_22:
     selfCopy->_locateRecordCompletionBlocks = 0;
 
     objc_sync_exit(selfCopy);
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v12 = v10;
-    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v16 objects:v24 count:16];
     if (v13)
     {
-      v14 = *v18;
+      v14 = *v17;
       do
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v18 != v14)
+          if (*v17 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          [operationCopy addLocateRecordCompletionBlock:{*(*(&v17 + 1) + 8 * j), v17}];
+          [operationCopy addLocateRecordCompletionBlock:{*(*(&v16 + 1) + 8 * j), v16}];
         }
 
-        v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v16 objects:v24 count:16];
       }
 
       while (v13);
@@ -780,84 +814,67 @@ LABEL_22:
   {
     [(_BRCOperation *)self cancel];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Can't alloc ranks after fetching records%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Can't alloc ranks after fetching records%@", v1, 0xCu);
 }
 
 void __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke_2_cold_2(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_fault_impl(&dword_223E7A000, log, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: parent isn't a reference %@%@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_fault_impl(&dword_223E7A000, log, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: parent isn't a reference %@%@", &v4, 0x16u);
 }
 
 void __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke_2_cold_3(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [*a1 recordID];
   v2 = [v1 debugDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCLocateRecordOperation__performAfterLocatingRecord___block_invoke_2_cold_4()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_223E7A000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] Located record in shared zone. No need to fetch the parent chain.%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_223E7A000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] Located record in shared zone. No need to fetch the parent chain.%@", v1, 0xCu);
 }
 
 void __32__BRCLocateRecordOperation_main__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_223E7A000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] Record located. No need to fetch the parent chain.%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_223E7A000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] Record located. No need to fetch the parent chain.%@", v1, 0xCu);
 }
 
 void __32__BRCLocateRecordOperation_main__block_invoke_20_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    v3 = 138412290;
-    v4 = v0;
-    _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: fetchParentChainOp%@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v0;
+    _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: fetchParentChainOp%@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWithResult:(void *)a1 error:.cold.1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = a1[72];
   [a1 executionTimeInSec];
-  v9 = a1[63];
-  v10 = a1[64];
-  v11 = a1[65];
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x3Eu);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x3Eu);
 }
 
 @end

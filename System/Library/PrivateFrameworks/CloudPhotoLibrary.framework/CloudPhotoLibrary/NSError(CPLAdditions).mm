@@ -101,7 +101,7 @@
 
 - (id)_cplSafeUserInfoForXPCDidChange:()CPLAdditions
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   userInfo = [self userInfo];
   v5 = [userInfo count];
   v6 = *MEMORY[0x1E696A578];
@@ -128,34 +128,34 @@
       [v10 setObject:v8 forKey:v6];
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v11 = _cplSafeUserInfoForXPCDidChange__safeKeys;
-    v12 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v28;
+      v14 = *v27;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v28 != v14)
+          if (*v27 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v27 + 1) + 8 * i);
-          v17 = [userInfo objectForKey:{v16, v27}];
+          v16 = *(*(&v26 + 1) + 8 * i);
+          v17 = [userInfo objectForKey:{v16, v26}];
           if (v17)
           {
             [v9 setObject:v17 forKey:v16];
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v13);
@@ -172,7 +172,7 @@
     }
 
     v22 = *MEMORY[0x1E696AA08];
-    v23 = [userInfo objectForKey:{*MEMORY[0x1E696AA08], v27}];
+    v23 = [userInfo objectForKey:{*MEMORY[0x1E696AA08], v26}];
     cplSafeErrorForXPC = [v23 cplSafeErrorForXPC];
 
     if (cplSafeErrorForXPC)
@@ -180,8 +180,6 @@
       [v9 setObject:cplSafeErrorForXPC forKey:v22];
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

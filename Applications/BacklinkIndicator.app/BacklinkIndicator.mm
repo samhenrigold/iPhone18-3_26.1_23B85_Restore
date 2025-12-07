@@ -1,13 +1,13 @@
-id sub_100000DF0()
+id sub_100000DF0(uint64_t a1)
 {
   if (qword_10000DDF0 != -1)
   {
     sub_100002D20();
   }
 
-  v1 = qword_10000DDE8;
+  v2 = qword_10000DDE8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000E34(id a1)
@@ -27,7 +27,7 @@ void sub_100001588(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_1000015CC(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
-  v6 = sub_100000DF0();
+  v6 = sub_100000DF0(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412546;
@@ -47,25 +47,27 @@ void sub_1000015CC(uint64_t a1, void *a2, uint64_t a3)
 void sub_100001F24(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_100000DF0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_100000DF0(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100002E50(a1);
     }
   }
 }
 
-void sub_1000020F8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000020F8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_100002870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100002870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -115,7 +117,6 @@ uint64_t sub_100002AF0()
 
 uint64_t sub_100002BE8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000DE00 = result;
   return result;
@@ -152,14 +153,14 @@ void sub_100002DB0(void *a1)
   v1 = [a1 userActivity];
   v2 = [v1 _syLoggableDescription];
   sub_1000020E0();
-  sub_1000020F8(&_mh_execute_header, v3, v4, "backlink indicator failed to show for user activity: %@, error: %@", v5, v6, v7, v8, v9);
+  sub_1000020F8(&_mh_execute_header, v3, v4, "backlink indicator failed to show for user activity: %@, error: %@", v5, v6, v7, v8);
 }
 
 void sub_100002E50(uint64_t a1)
 {
   v1 = [*(a1 + 32) _syLoggableDescription];
   sub_1000020E0();
-  sub_1000020F8(&_mh_execute_header, v2, v3, "failed to activate Notes with user activity: %@, error: %@", v4, v5, v6, v7, v8);
+  sub_1000020F8(&_mh_execute_header, v2, v3, "failed to activate Notes with user activity: %@, error: %@", v4, v5, v6, v7);
 }
 
 void sub_100002EE4(void *a1, uint64_t a2, NSObject *a3)

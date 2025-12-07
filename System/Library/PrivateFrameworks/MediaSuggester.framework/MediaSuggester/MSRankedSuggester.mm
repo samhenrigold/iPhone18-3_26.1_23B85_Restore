@@ -123,24 +123,23 @@
 {
   v7 = sub_22CA209F0();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x28223BE20](v7);
-  v12 = &v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v20 - v13;
+  v9 = MEMORY[0x28223BE20](v7);
+  v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = &v19 - v12;
   sub_22CA209D0();
   sub_22CA209D0();
   optionsCopy = options;
   selfCopy = self;
-  MSRankedSuggester.candidates(for:from:to:)(optionsCopy, v14, v12);
+  MSRankedSuggester.candidates(for:from:to:)(optionsCopy, v13, v11);
 
-  v17 = *(v8 + 8);
-  v17(v12, v7);
-  v17(v14, v7);
+  v16 = *(v8 + 8);
+  v16(v11, v7);
+  v16(v13, v7);
   type metadata accessor for MSSuggestion(0);
-  v18 = sub_22CA20EB0();
+  v17 = sub_22CA20EB0();
 
-  return v18;
+  return v17;
 }
 
 @end

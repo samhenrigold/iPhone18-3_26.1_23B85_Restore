@@ -3,8 +3,10 @@
 - (void)deletePlaybackPositionEntitiesFromLibraryWithIdentifier:(id)identifier clientIdentity:(id)identity;
 - (void)deletePlaybackPositionWithRequestContext:(id)context;
 - (void)getLocalPlaybackPositionForEntityIdentifiers:(id)identifiers forDomain:(id)domain fromLibraryWithIdentifier:(id)identifier clientIdentity:(id)identity completionBlock:(id)block;
+- (void)persistPlaybackPositionWithContext:(id)context isCheckpoint:(BOOL)checkpoint completionHandler:(id)handler;
 - (void)pullPlaybackPositionWithRequestContext:(id)context completionBlock:(id)block;
 - (void)pushPlaybackPositionWithContext:(id)context completionHandler:(id)handler;
+- (void)scheduleSyncWithContext:(id)context isCheckpoint:(BOOL)checkpoint;
 - (void)updateForeignDatabaseWithRequestContext:(id)context;
 @end
 
@@ -49,6 +51,58 @@
       v17 = entity3;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}@ updateForeignDatabaseWithRequestContext: Invalid entity pid for entity %{public}@", &v14, 0x16u);
     }
+  }
+}
+
+- (void)scheduleSyncWithContext:(id)context isCheckpoint:(BOOL)checkpoint
+{
+  checkpointCopy = checkpoint;
+  contextCopy = context;
+  v7 = os_log_create("com.apple.amp.itunescloudd", "PlaybackPosition");
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = 138543874;
+    selfCopy = self;
+    v10 = 2114;
+    v11 = contextCopy;
+    v12 = 1024;
+    v13 = checkpointCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Scheduling sync for context %{public}@. isCheckpoint=%{BOOL}u", &v8, 0x1Cu);
+  }
+
+  [(ICDPlaybackPositionSyncCoordinator *)self->_syncCoordinator scheduleSyncForContext:contextCopy isCheckpoint:checkpointCopy];
+}
+
+- (void)persistPlaybackPositionWithContext:(id)context isCheckpoint:(BOOL)checkpoint completionHandler:(id)handler
+{
+  checkpointCopy = checkpoint;
+  contextCopy = context;
+  handlerCopy = handler;
+  library = [contextCopy library];
+  entity = [contextCopy entity];
+  clientIdentity = [contextCopy clientIdentity];
+  v13 = [library updateWithEntity:entity clientIdentity:clientIdentity];
+
+  if (v13)
+  {
+    v14 = os_log_create("com.apple.amp.itunescloudd", "PlaybackPosition");
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = 138543618;
+      selfCopy = self;
+      v18 = 2114;
+      v19 = contextCopy;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ ICDPlaybackPositionPersistEntityOperation succeeded for context %{public}@. Scheduling sync.", &v16, 0x16u);
+    }
+
+    [(ICDPlaybackPositionSyncCoordinator *)self->_syncCoordinator scheduleSyncForContext:contextCopy isCheckpoint:checkpointCopy];
+    handlerCopy[2](handlerCopy, 1, 0);
+  }
+
+  else
+  {
+    v15 = [NSError errorWithDomain:ICErrorDomain code:0 userInfo:0];
+    (handlerCopy)[2](handlerCopy, 0, v15);
   }
 }
 

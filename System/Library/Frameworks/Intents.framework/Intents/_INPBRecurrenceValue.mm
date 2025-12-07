@@ -3,6 +3,8 @@
 - (_INPBRecurrenceValue)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)frequencyAsString:(int)string;
+- (id)weeklyRecurrenceDaysAsString:(int)string;
 - (int)StringAsFrequency:(id)frequency;
 - (int)StringAsWeeklyRecurrenceDays:(id)days;
 - (unint64_t)hash;
@@ -232,36 +234,32 @@ LABEL_20:
   toCopy = to;
   if ([(_INPBRecurrenceValue *)self hasFrequency])
   {
-    frequency = self->_frequency;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBRecurrenceValue *)self hasInterval])
   {
-    interval = self->_interval;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_INPBRecurrenceValue *)self hasOrdinal])
   {
-    ordinal = self->_ordinal;
     PBDataWriterWriteInt64Field();
   }
 
   p_weeklyRecurrenceDays = &self->_weeklyRecurrenceDays;
-  v8 = toCopy;
+  v5 = toCopy;
   if (p_weeklyRecurrenceDays->count)
   {
-    v9 = 0;
+    v6 = 0;
     do
     {
-      v10 = p_weeklyRecurrenceDays->list[v9];
       PBDataWriterWriteInt32Field();
-      v8 = toCopy;
-      ++v9;
+      v5 = toCopy;
+      ++v6;
     }
 
-    while (v9 < p_weeklyRecurrenceDays->count);
+    while (v6 < p_weeklyRecurrenceDays->count);
   }
 }
 
@@ -311,6 +309,21 @@ LABEL_20:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)weeklyRecurrenceDaysAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7281D18[string];
   }
 
   return v4;
@@ -396,6 +409,68 @@ LABEL_20:
   {
     v4 = 0;
   }
+
+  return v4;
+}
+
+- (id)frequencyAsString:(int)string
+{
+  if (string <= 49)
+  {
+    switch(string)
+    {
+      case 0:
+        v4 = @"UNKNOWN";
+
+        return v4;
+      case 30:
+        v4 = @"MINUTE";
+
+        return v4;
+      case 40:
+        v4 = @"HOURLY";
+
+        return v4;
+    }
+
+LABEL_22:
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string > 79)
+  {
+    if (string == 80)
+    {
+      v4 = @"MONTHLY";
+
+      return v4;
+    }
+
+    if (string == 110)
+    {
+      v4 = @"YEARLY";
+
+      return v4;
+    }
+
+    goto LABEL_22;
+  }
+
+  if (string != 50)
+  {
+    if (string == 60)
+    {
+      v4 = @"WEEKLY";
+
+      return v4;
+    }
+
+    goto LABEL_22;
+  }
+
+  v4 = @"DAILY";
 
   return v4;
 }

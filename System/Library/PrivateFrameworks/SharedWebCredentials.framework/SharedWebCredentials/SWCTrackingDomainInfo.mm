@@ -5,11 +5,9 @@
 
 void __65___SWCTrackingDomainInfo__trackingDomainInfoWithDomains_sources___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 48);
-  v6 = v3;
-  v5 = [*(a1 + 40) _trackingDomainInfoWithDomain:? JSONObject:? expectedSources:?];
-  [*(a1 + 32) setObject:v5 forKeyedSubscript:v6];
+  v4 = a2;
+  v3 = [*(a1 + 40) _trackingDomainInfoWithDomain:? JSONObject:? expectedSources:?];
+  [*(a1 + 32) setObject:v3 forKeyedSubscript:v4];
 }
 
 void __86___SWCTrackingDomainInfo__getTrackingDomainInfoWithDomains_sources_completionHandler___block_invoke(uint64_t a1)

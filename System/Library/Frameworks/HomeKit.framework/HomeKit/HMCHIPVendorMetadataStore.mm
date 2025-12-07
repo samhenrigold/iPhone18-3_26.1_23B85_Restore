@@ -23,7 +23,7 @@
 
 - (void)fetchProductDataWithVendorID:(id)d productID:(id)iD completion:(id)completion
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   completionCopy = completion;
@@ -39,17 +39,17 @@
 
     v16 = [MEMORY[0x1E69A2A10] messageWithName:@"kFetchVendorMetadataProductDataRequestKey" destination:v15 payload:dictionary];
     objc_initWeak(location, self);
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = __79__HMCHIPVendorMetadataStore_fetchProductDataWithVendorID_productID_completion___block_invoke;
-    v26 = &unk_1E754CFF8;
-    objc_copyWeak(&v28, location);
-    v27 = completionCopy;
-    [v16 setResponseHandler:&v23];
+    v22 = MEMORY[0x1E69E9820];
+    v23 = 3221225472;
+    v24 = __79__HMCHIPVendorMetadataStore_fetchProductDataWithVendorID_productID_completion___block_invoke;
+    v25 = &unk_1E754CFF8;
+    objc_copyWeak(&v27, location);
+    v26 = completionCopy;
+    [v16 setResponseHandler:&v22];
     messageDispatcher = [context messageDispatcher];
     [messageDispatcher sendMessage:v16];
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(location);
   }
 
@@ -63,20 +63,18 @@
       v21 = HMFGetLogIdentifier();
       *location = 138543618;
       *&location[4] = v21;
-      v30 = 2080;
-      v31 = "[HMCHIPVendorMetadataStore fetchProductDataWithVendorID:productID:completion:]";
+      v29 = 2080;
+      v30 = "[HMCHIPVendorMetadataStore fetchProductDataWithVendorID:productID:completion:]";
       _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", location, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __79__HMCHIPVendorMetadataStore_fetchProductDataWithVendorID_productID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -87,11 +85,11 @@ void __79__HMCHIPVendorMetadataStore_fetchProductDataWithVendorID_productID_comp
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v35 = v11;
-    v36 = 2112;
-    v37 = v6;
-    v38 = 2112;
-    v39 = v5;
+    v34 = v11;
+    v35 = 2112;
+    v36 = v6;
+    v37 = 2112;
+    v38 = v5;
     _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@kFetchVendorMetadataProductDataRequestKey received a response: %@, error: %@", buf, 0x20u);
   }
 
@@ -170,12 +168,12 @@ LABEL_27:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v28 = v32 = v15;
+      v28 = v31 = v15;
       *buf = 138543362;
-      v35 = v28;
+      v34 = v28;
       _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_ERROR, "%{public}@kFetchVendorMetadataProductDataRequestKey response payload is invalid", buf, 0xCu);
 
-      v15 = v32;
+      v15 = v31;
     }
 
     objc_autoreleasePoolPop(context);
@@ -193,22 +191,20 @@ LABEL_27:
   {
     v20 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v35 = v20;
-    v36 = 2112;
-    v37 = v5;
+    v34 = v20;
+    v35 = 2112;
+    v36 = v5;
     _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@kFetchVendorMetadataProductDataRequestKey was responded with error: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v17);
   (*(*(a1 + 32) + 16))();
 LABEL_29:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchVendorDataWithID:(id)d completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   context = [(HMCHIPVendorMetadataStore *)self context];
@@ -222,18 +218,18 @@ LABEL_29:
 
     v13 = [MEMORY[0x1E69A2A10] messageWithName:@"kFetchVendorMetadataVendorDataRequestKey" destination:v12 payload:dictionary];
     objc_initWeak(location, self);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __62__HMCHIPVendorMetadataStore_fetchVendorDataWithID_completion___block_invoke;
-    v20[3] = &unk_1E754D058;
-    v20[4] = self;
-    objc_copyWeak(&v22, location);
-    v21 = completionCopy;
-    [v13 setResponseHandler:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __62__HMCHIPVendorMetadataStore_fetchVendorDataWithID_completion___block_invoke;
+    v19[3] = &unk_1E754D058;
+    v19[4] = self;
+    objc_copyWeak(&v21, location);
+    v20 = completionCopy;
+    [v13 setResponseHandler:v19];
     messageDispatcher = [context messageDispatcher];
     [messageDispatcher sendMessage:v13];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(location);
   }
 
@@ -247,20 +243,18 @@ LABEL_29:
       v18 = HMFGetLogIdentifier();
       *location = 138543618;
       *&location[4] = v18;
-      v24 = 2080;
-      v25 = "[HMCHIPVendorMetadataStore fetchVendorDataWithID:completion:]";
+      v23 = 2080;
+      v24 = "[HMCHIPVendorMetadataStore fetchVendorDataWithID:completion:]";
       _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", location, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __62__HMCHIPVendorMetadataStore_fetchVendorDataWithID_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -269,13 +263,13 @@ void __62__HMCHIPVendorMetadataStore_fetchVendorDataWithID_completion___block_in
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v10 = HMFGetLogIdentifier();
-    v29 = 138543874;
-    v30 = v10;
-    v31 = 2112;
-    v32 = v6;
-    v33 = 2112;
-    v34 = v5;
-    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_DEBUG, "%{public}@kFetchVendorMetadataVendorDataRequestKey received a response: %@, error: %@", &v29, 0x20u);
+    v28 = 138543874;
+    v29 = v10;
+    v30 = 2112;
+    v31 = v6;
+    v32 = 2112;
+    v33 = v5;
+    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_DEBUG, "%{public}@kFetchVendorMetadataVendorDataRequestKey received a response: %@, error: %@", &v28, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -320,9 +314,9 @@ LABEL_20:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         v26 = HMFGetLogIdentifier();
-        v29 = 138543362;
-        v30 = v26;
-        _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@Fetching vendor data response payload is invalid", &v29, 0xCu);
+        v28 = 138543362;
+        v29 = v26;
+        _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@Fetching vendor data response payload is invalid", &v28, 0xCu);
       }
 
       objc_autoreleasePoolPop(v23);
@@ -342,18 +336,16 @@ LABEL_20:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     v22 = HMFGetLogIdentifier();
-    v29 = 138543618;
-    v30 = v22;
-    v31 = 2112;
-    v32 = v5;
-    _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Fetching vendor data responded with error: %@", &v29, 0x16u);
+    v28 = 138543618;
+    v29 = v22;
+    v30 = 2112;
+    v31 = v5;
+    _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Fetching vendor data responded with error: %@", &v28, 0x16u);
   }
 
   objc_autoreleasePoolPop(v19);
   (*(*(a1 + 40) + 16))();
 LABEL_21:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (HMCHIPVendorMetadataStore)init
@@ -390,10 +382,11 @@ LABEL_21:
 
 uint64_t __40__HMCHIPVendorMetadataStore_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  logCategory__hmf_once_v12_7644 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v12_7644;
+  logCategory__hmf_once_v12_7644 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

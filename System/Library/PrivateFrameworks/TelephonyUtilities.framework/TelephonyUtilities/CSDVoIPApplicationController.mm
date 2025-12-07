@@ -12,14 +12,19 @@
 - (id)_apsConnectionForEnvironment:(id)environment;
 - (id)_createAPSConnectionForEnvironment:(id)environment namedDelegatePort:(id)port;
 - (id)_findOrCreateApplicationWithBundleIdentifier:(id)identifier;
+- (id)createPTTApplicationMessageForChannel:(id)channel withPayload:(id)payload isWakingMessage:(BOOL)message;
 - (void)_incrementKillCountForApplication:(id)application;
 - (void)_moveOpportunisticTopicsToIgnoredListForConnection:(id)connection;
 - (void)_pruneUninstalledAppPushTopics;
 - (void)_pruneUninstalledAppPushTopicsForConnection:(id)connection;
+- (void)_registerForPushTokenWithType:(int)type client:(id)client;
 - (void)_registerNetworkExtensionApplicationWithBundleIdentifier:(id)identifier client:(id)client;
+- (void)_registerPushApplicationWithBundleIdentifier:(id)identifier client:(id)client environment:(id)environment pushType:(int)type;
 - (void)_removeAllApplicationsFromKillCountsDictionary;
 - (void)_removeApplicationFromKillCountsDictionary:(id)dictionary;
 - (void)_removeTopic:(id)topic fromConnection:(id)connection;
+- (void)_unregisterForPushTokenWithType:(int)type client:(id)client;
+- (void)_unregisterPushApplication:(id)application inEnvironment:(id)environment pushType:(int)type destroyApp:(BOOL)app;
 - (void)activePersistedChannelIdentityChangedTo:(id)to;
 - (void)addOutstandingMessage:(id)message forBundleIdentifier:(id)identifier;
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message;
@@ -140,27 +145,28 @@
   networkExtensionClientManager = [(CSDVoIPApplicationController *)self networkExtensionClientManager];
   currentClient = [networkExtensionClientManager currentClient];
 
-  if ([currentClient hasVoIPNetworkExtensionEntitlement])
+  hasVoIPNetworkExtensionEntitlement = [currentClient hasVoIPNetworkExtensionEntitlement];
+  if (hasVoIPNetworkExtensionEntitlement)
   {
     processBundleIdentifier = [currentClient processBundleIdentifier];
-    v6 = sub_100004778();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004778(processBundleIdentifier);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = processBundleIdentifier;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Received request to register VoIP Network Extension for client process with bundle identifier %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = processBundleIdentifier;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Received request to register VoIP Network Extension for client process with bundle identifier %@", &v11, 0xCu);
     }
 
-    v7 = [processBundleIdentifier length];
-    v8 = sub_100004778();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-    if (v7)
+    v8 = [processBundleIdentifier length];
+    v9 = sub_100004778(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    if (v8)
     {
-      if (v9)
+      if (v10)
       {
-        v10 = 138412290;
-        v11 = processBundleIdentifier;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Registering VoIP Network Extension for application with bundle identifier %@", &v10, 0xCu);
+        v11 = 138412290;
+        v12 = processBundleIdentifier;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Registering VoIP Network Extension for application with bundle identifier %@", &v11, 0xCu);
       }
 
       [(CSDVoIPApplicationController *)self _registerNetworkExtensionApplicationWithBundleIdentifier:processBundleIdentifier client:currentClient];
@@ -168,23 +174,23 @@
 
     else
     {
-      if (v9)
+      if (v10)
       {
-        v10 = 138412290;
-        v11 = currentClient;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to register VoIP Network Extension; could not obtain a bundle identifier from client process %@", &v10, 0xCu);
+        v11 = 138412290;
+        v12 = currentClient;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to register VoIP Network Extension; could not obtain a bundle identifier from client process %@", &v11, 0xCu);
       }
     }
   }
 
   else
   {
-    processBundleIdentifier = sub_100004778();
+    processBundleIdentifier = sub_100004778(hasVoIPNetworkExtensionEntitlement);
     if (os_log_type_enabled(processBundleIdentifier, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = currentClient;
-      _os_log_impl(&_mh_execute_header, processBundleIdentifier, OS_LOG_TYPE_DEFAULT, "[WARN] Aborting register request for VoIP Network Extension; entitlement was not found on client %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = currentClient;
+      _os_log_impl(&_mh_execute_header, processBundleIdentifier, OS_LOG_TYPE_DEFAULT, "[WARN] Aborting register request for VoIP Network Extension; entitlement was not found on client %@", &v11, 0xCu);
     }
   }
 }
@@ -207,7 +213,7 @@
 {
   connectionCopy = connection;
   tokenCopy = token;
-  v8 = sub_100004778();
+  v8 = sub_100004778(tokenCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -260,7 +266,7 @@
             if ([v24 hasVoIPBackgroundMode])
             {
               v25 = [objc_opt_class() topicFromBundleId:v18 forType:2];
-              v26 = sub_100004778();
+              v26 = sub_100004778(v25);
               if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
@@ -276,7 +282,7 @@
             if ([v24 meetsRequirementsForPTT])
             {
               v27 = [objc_opt_class() topicFromBundleId:v18 forType:3];
-              v28 = sub_100004778();
+              v28 = sub_100004778(v27);
               if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
@@ -303,7 +309,7 @@
 
   else
   {
-    v13 = sub_100004778();
+    v13 = sub_100004778(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -319,7 +325,7 @@
   tokenCopy = token;
   topicCopy = topic;
   identifierCopy = identifier;
-  v14 = sub_100004778();
+  v14 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v17 = 138413058;
@@ -346,18 +352,44 @@
   }
 }
 
+- (id)createPTTApplicationMessageForChannel:(id)channel withPayload:(id)payload isWakingMessage:(BOOL)message
+{
+  messageCopy = message;
+  channelCopy = channel;
+  payloadCopy = payload;
+  v10 = [(CSDVoIPApplicationMessage *)[CSDPTTApplicationMessage alloc] initWithTransportType:3 payload:payloadCopy];
+  channelUUID = [channelCopy channelUUID];
+  [(CSDPTTApplicationMessage *)v10 setChannelUUID:channelUUID];
+  v12 = [objc_opt_class() isPayloadPTTServiceUpdateMessage:payloadCopy];
+
+  [(CSDPTTApplicationMessage *)v10 setIsServiceUpdateMessage:v12];
+  [(CSDPTTApplicationMessage *)v10 setIsWakingMessage:messageCopy];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_1001E0C8C;
+  v16[3] = &unk_10061E200;
+  v16[4] = self;
+  v17 = channelUUID;
+  v18 = channelCopy;
+  v13 = channelCopy;
+  v14 = channelUUID;
+  [(CSDPTTApplicationMessage *)v10 setReply:v16];
+
+  return v10;
+}
+
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
 {
   connectionCopy = connection;
   messageCopy = message;
-  v8 = sub_100004778();
+  v8 = sub_100004778(messageCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412546;
-    v20 = connectionCopy;
-    v21 = 2112;
-    v22 = messageCopy;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "for connection: %@ message: %@", &v19, 0x16u);
+    v21 = 138412546;
+    v22 = connectionCopy;
+    v23 = 2112;
+    v24 = messageCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "for connection: %@ message: %@", &v21, 0x16u);
   }
 
   topic = [messageCopy topic];
@@ -365,38 +397,39 @@
   v11 = [objc_opt_class() bundleIdFromTopic:topic];
   if (![topic hasSuffix:@"voip-ptt"])
   {
-    activePersistedChannelIdentity = [[CSDVoIPApplicationMessage alloc] initWithTransportType:2 payload:userInfo];
+    v18 = [[CSDVoIPApplicationMessage alloc] initWithTransportType:2 payload:userInfo];
+    activePersistedChannelIdentity = v18;
     goto LABEL_7;
   }
 
   persistedChannelRegistry = [(CSDVoIPApplicationController *)self persistedChannelRegistry];
   activePersistedChannelIdentity = [persistedChannelRegistry activePersistedChannelIdentity];
 
-  bundleIdentifier = [(CSDVoIPApplicationMessage *)activePersistedChannelIdentity bundleIdentifier];
+  bundleIdentifier = [activePersistedChannelIdentity bundleIdentifier];
   v15 = [bundleIdentifier isEqualToString:v11];
 
   if (v15)
   {
-    v16 = -[CSDVoIPApplicationController createPTTApplicationMessageForChannel:withPayload:isWakingMessage:](self, "createPTTApplicationMessageForChannel:withPayload:isWakingMessage:", activePersistedChannelIdentity, userInfo, [messageCopy priority] == 10);
+    v17 = -[CSDVoIPApplicationController createPTTApplicationMessageForChannel:withPayload:isWakingMessage:](self, "createPTTApplicationMessageForChannel:withPayload:isWakingMessage:", activePersistedChannelIdentity, userInfo, [messageCopy priority] == 10);
 
-    activePersistedChannelIdentity = v16;
+    activePersistedChannelIdentity = v17;
 LABEL_7:
-    v17 = sub_100004778();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_100004778(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412546;
-      v20 = v11;
-      v21 = 2112;
-      v22 = topic;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Received incoming APS message from application with bundle identifier %@ and topic %@", &v19, 0x16u);
+      v21 = 138412546;
+      v22 = v11;
+      v23 = 2112;
+      v24 = topic;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Received incoming APS message from application with bundle identifier %@ and topic %@", &v21, 0x16u);
     }
 
     [(CSDVoIPApplicationController *)self openApplicationWithBundleIdentifier:v11 message:activePersistedChannelIdentity];
     goto LABEL_13;
   }
 
-  v18 = sub_100004778();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+  v20 = sub_100004778(v16);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
   {
     sub_10047A3C0();
   }
@@ -406,7 +439,7 @@ LABEL_13:
 
 - (void)_removeAllApplicationsFromKillCountsDictionary
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -564,69 +597,70 @@ LABEL_13:
 
 - (void)_pruneUninstalledAppPushTopicsForConnection:(id)connection
 {
-  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
   connectionCopy = connection;
   enabledTopics = [connectionCopy enabledTopics];
   v5 = [enabledTopics copy];
 
-  v6 = [v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v6)
   {
     v7 = v6;
-    v26 = 0;
-    v8 = *v29;
+    v27 = 0;
+    v8 = *v30;
     obj = v5;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v29 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * i);
+        v10 = *(*(&v29 + 1) + 8 * i);
         v11 = [objc_opt_class() bundleIdFromTopic:v10];
         v12 = [LSApplicationRecord alloc];
-        v27 = 0;
-        v13 = [v12 initWithBundleIdentifier:v11 allowPlaceholder:1 error:&v27];
-        v14 = v27;
-        v15 = v14;
-        if (v14)
+        v28 = 0;
+        v13 = [v12 initWithBundleIdentifier:v11 allowPlaceholder:1 error:&v28];
+        code = v28;
+        v15 = code;
+        if (code)
         {
-          if ([v14 code] != -10814 || (objc_msgSend(v15, "domain"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "isEqualToString:", NSOSStatusErrorDomain), v16, (v17 & 1) == 0))
+          code = [code code];
+          if (code != -10814 || ([v15 domain], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "isEqualToString:", NSOSStatusErrorDomain), v16, (v17 & 1) == 0))
           {
-            v23 = sub_100004778();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+            v24 = sub_100004778(code);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
             {
               sub_10047A428();
             }
 
-            v19 = obj;
+            v20 = obj;
             goto LABEL_25;
           }
         }
 
         if (!v13)
         {
-          v18 = sub_100004778();
+          v18 = sub_100004778(code);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v33 = v11;
+            v34 = v11;
             _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "We found an enabled VOIP topic for %@ that is no longer installed. Invalidating its push token", buf, 0xCu);
           }
 
-          ++v26;
+          ++v27;
 
           [(CSDVoIPApplicationController *)self _removeTopic:v10 fromConnection:connectionCopy];
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v7 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
       if (v7)
       {
         continue;
@@ -635,19 +669,19 @@ LABEL_13:
       break;
     }
 
-    if (v26 >= 1)
+    if (v27 >= 1)
     {
-      v19 = sub_100004778();
-      if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = sub_100004778(v19);
+      if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_25;
       }
 
       *buf = 67109120;
-      LODWORD(v33) = v26;
-      v20 = "[WARN] Ran nightly VOIP reconciliation and found %d discrepencies";
-      v21 = v19;
-      v22 = 8;
+      LODWORD(v34) = v27;
+      v21 = "[WARN] Ran nightly VOIP reconciliation and found %d discrepencies";
+      v22 = v20;
+      v23 = 8;
       goto LABEL_24;
     }
   }
@@ -656,15 +690,15 @@ LABEL_13:
   {
   }
 
-  v19 = sub_100004778();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = sub_100004778(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    v20 = "Ran nightly VOIP reconciliation and didn't find any discrepencies.";
-    v21 = v19;
-    v22 = 2;
+    v21 = "Ran nightly VOIP reconciliation and didn't find any discrepencies.";
+    v22 = v20;
+    v23 = 2;
 LABEL_24:
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, v20, buf, v22);
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, v21, buf, v23);
   }
 
 LABEL_25:
@@ -686,18 +720,19 @@ LABEL_25:
     }
 
 LABEL_7:
-    v10 = productionConnection;
+    v11 = productionConnection;
     goto LABEL_11;
   }
 
-  if ([environmentCopy isEqualToString:APSEnvironmentDevelopment])
+  v8 = [environmentCopy isEqualToString:APSEnvironmentDevelopment];
+  if (v8)
   {
     productionConnection = self->_developmentConnection;
     if (!productionConnection)
     {
-      v8 = [(CSDVoIPApplicationController *)self _createAPSConnectionForEnvironment:environmentCopy namedDelegatePort:@"com.apple.telephonyutilities.callservicesdaemon.voip.push.development"];
+      v9 = [(CSDVoIPApplicationController *)self _createAPSConnectionForEnvironment:environmentCopy namedDelegatePort:@"com.apple.telephonyutilities.callservicesdaemon.voip.push.development"];
       developmentConnection = self->_developmentConnection;
-      self->_developmentConnection = v8;
+      self->_developmentConnection = v9;
 
       productionConnection = self->_developmentConnection;
     }
@@ -705,18 +740,18 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v11 = sub_100004778();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100004778(v8);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = environmentCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[WARN] No APS connection found for environment %@", &v13, 0xCu);
+    v14 = 138412290;
+    v15 = environmentCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[WARN] No APS connection found for environment %@", &v14, 0xCu);
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_11:
 
-  return v10;
+  return v11;
 }
 
 - (id)_createAPSConnectionForEnvironment:(id)environment namedDelegatePort:(id)port
@@ -736,26 +771,27 @@ LABEL_11:
 {
   identifierCopy = identifier;
   clientCopy = client;
-  v8 = sub_100004778();
+  v8 = sub_100004778(clientCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
-    v13 = clientCopy;
-    v14 = 2112;
-    v15 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Registering client process %@ with bundle identifier %@ for NetworkExtension VoIP", &v12, 0x16u);
+    v13 = 138412546;
+    v14 = clientCopy;
+    v15 = 2112;
+    v16 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Registering client process %@ with bundle identifier %@ for NetworkExtension VoIP", &v13, 0x16u);
   }
 
   v9 = [(CSDVoIPApplicationController *)self _findOrCreateApplicationWithBundleIdentifier:identifierCopy];
-  if ([v9 hasVoIPBackgroundMode] && objc_msgSend(v9, "hasVoIPNetworkExtensionEntitlement"))
+  hasVoIPBackgroundMode = [v9 hasVoIPBackgroundMode];
+  if (hasVoIPBackgroundMode && (hasVoIPBackgroundMode = [v9 hasVoIPNetworkExtensionEntitlement], hasVoIPBackgroundMode))
   {
     [v9 setNetworkExtensionClient:clientCopy];
   }
 
   else
   {
-    v10 = sub_100004778();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100004778(hasVoIPBackgroundMode);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10047A490(identifierCopy, v9);
     }
@@ -765,11 +801,447 @@ LABEL_11:
   }
 }
 
+- (void)_registerForPushTokenWithType:(int)type client:(id)client
+{
+  v4 = *&type;
+  clientCopy = client;
+  v7 = sub_100004778(clientCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v14) = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "", &v14, 2u);
+  }
+
+  processBundleIdentifier = [clientCopy processBundleIdentifier];
+  v9 = [clientCopy valueForEntitlement:@"aps-environment"];
+  v10 = sub_100004778(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  if (processBundleIdentifier && v9)
+  {
+    if (v11)
+    {
+      v12 = @"channel";
+      if (v4 != 3)
+      {
+        v12 = 0;
+      }
+
+      if (v4 == 2)
+      {
+        v12 = @"voip";
+      }
+
+      v13 = v12;
+      v14 = 138412802;
+      *v15 = processBundleIdentifier;
+      *&v15[8] = 2112;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v13;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Asked to register bundle ID %@ with APS environment %@ for VoIP type %@", &v14, 0x20u);
+    }
+
+    [(CSDVoIPApplicationController *)self _registerPushApplicationWithBundleIdentifier:processBundleIdentifier client:clientCopy environment:v9 pushType:v4];
+  }
+
+  else
+  {
+    if (v11)
+    {
+      v14 = 67109632;
+      *v15 = processBundleIdentifier == 0;
+      *&v15[4] = 1024;
+      *&v15[6] = v9 == 0;
+      LOWORD(v16) = 1024;
+      *(&v16 + 2) = v4;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring voipRegister request because either no bundleIdentifier could be determined (%d) or no environment could be determined (%d) type %d", &v14, 0x14u);
+    }
+  }
+}
+
+- (void)_unregisterForPushTokenWithType:(int)type client:(id)client
+{
+  v4 = *&type;
+  clientCopy = client;
+  v7 = sub_100004778(clientCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v14) = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "", &v14, 2u);
+  }
+
+  processBundleIdentifier = [clientCopy processBundleIdentifier];
+  v9 = [clientCopy valueForEntitlement:@"aps-environment"];
+
+  if (processBundleIdentifier && v9)
+  {
+    v11 = [(CSDVoIPApplicationController *)self _findOrCreateApplicationWithBundleIdentifier:processBundleIdentifier];
+    [(CSDVoIPApplicationController *)self _unregisterPushApplication:v11 inEnvironment:v9 pushType:v4 destroyApp:0];
+  }
+
+  else
+  {
+    v11 = sub_100004778(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = @"channel";
+      if (v4 != 3)
+      {
+        v12 = 0;
+      }
+
+      if (v4 == 2)
+      {
+        v12 = @"voip";
+      }
+
+      v13 = v12;
+      v14 = 138543874;
+      v15 = v13;
+      v16 = 1024;
+      v17 = processBundleIdentifier == 0;
+      v18 = 1024;
+      v19 = v9 == 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring %{public}@ unregister request because either no bundleIdentifier could be determined (%d) or no environment could be determined (%d)", &v14, 0x18u);
+    }
+  }
+}
+
+- (void)_registerPushApplicationWithBundleIdentifier:(id)identifier client:(id)client environment:(id)environment pushType:(int)type
+{
+  v6 = *&type;
+  identifierCopy = identifier;
+  clientCopy = client;
+  environmentCopy = environment;
+  v13 = sub_100004778(environmentCopy);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = @"channel";
+    if (v6 != 3)
+    {
+      v14 = 0;
+    }
+
+    if (v6 == 2)
+    {
+      v14 = @"voip";
+    }
+
+    v15 = v14;
+    *buf = 138413058;
+    v50 = clientCopy;
+    v51 = 2112;
+    *v52 = identifierCopy;
+    *&v52[8] = 2114;
+    *&v52[10] = v15;
+    v53 = 2112;
+    v54 = environmentCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Registering client process %@ with bundle identifier %@ for PushKit %{public}@ in environment %@", buf, 0x2Au);
+  }
+
+  v16 = [(CSDVoIPApplicationController *)self _findOrCreateApplicationWithBundleIdentifier:identifierCopy];
+  environment = [v16 environment];
+  if (environment)
+  {
+    v18 = environment;
+    environment2 = [v16 environment];
+    v20 = [environment2 isEqualToString:environmentCopy];
+
+    if ((v20 & 1) == 0)
+    {
+      v22 = sub_100004778(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      {
+        environment3 = [v16 environment];
+        *buf = 138412546;
+        v50 = environment3;
+        v51 = 2112;
+        *v52 = environmentCopy;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Environment was %@ but is now %@. Flushing out old registration with previous environment", buf, 0x16u);
+      }
+
+      [(CSDVoIPApplicationController *)self _unregisterPushApplication:v16 inEnvironment:0 pushType:v6 destroyApp:1];
+      v24 = [(CSDVoIPApplicationController *)self _findOrCreateApplicationWithBundleIdentifier:identifierCopy];
+
+      v16 = v24;
+    }
+  }
+
+  v25 = [(CSDVoIPApplicationController *)self _apsConnectionForEnvironment:environmentCopy];
+  if (!v25)
+  {
+    v29 = sub_100004778(0);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412802;
+      v50 = identifierCopy;
+      v51 = 1024;
+      *v52 = v6;
+      *&v52[4] = 2112;
+      *&v52[6] = environmentCopy;
+      _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Aborting PushKit registration for app %@ for type %d because no APS connection exists for the environment (%@)", buf, 0x1Cu);
+    }
+
+    goto LABEL_40;
+  }
+
+  if (v6 == 3)
+  {
+    meetsRequirementsForPTT = [v16 meetsRequirementsForPTT];
+    if (meetsRequirementsForPTT)
+    {
+      channelPushToken = [v16 channelPushToken];
+      v28 = 0;
+      goto LABEL_22;
+    }
+
+    v31 = sub_100004778(meetsRequirementsForPTT);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    {
+      sub_10047A5B8();
+    }
+
+    goto LABEL_39;
+  }
+
+  v28 = v6 == 2;
+  if (v6 == 2)
+  {
+    hasVoIPBackgroundMode = [v16 hasVoIPBackgroundMode];
+    if ((hasVoIPBackgroundMode & 1) == 0)
+    {
+      v31 = sub_100004778(hasVoIPBackgroundMode);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      {
+        sub_10047A548();
+      }
+
+LABEL_39:
+
+LABEL_40:
+      channelPushToken = [(CSDVoIPApplicationController *)self bundleIdentifierToVoIPApplication];
+      [channelPushToken removeObjectForKey:identifierCopy];
+      goto LABEL_41;
+    }
+  }
+
+  channelPushToken = [v16 voipToken];
+LABEL_22:
+  [v16 setEnvironment:environmentCopy];
+  if (channelPushToken)
+  {
+    if (!v28)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+    v46 = clientCopy;
+    v32 = [objc_opt_class() topicFromBundleId:identifierCopy forType:v6];
+    v33 = sub_100004778(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v50 = v32;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Requesting token for topic %@", buf, 0xCu);
+    }
+
+    [v25 requestTokenForTopic:v32 identifier:&stru_100631E68];
+    v47 = v32;
+    if (v6 == 3)
+    {
+      v45 = v28;
+      opportunisticTopics = [v25 opportunisticTopics];
+      v35 = opportunisticTopics;
+      v36 = &__NSArray0__struct;
+      if (opportunisticTopics)
+      {
+        v36 = opportunisticTopics;
+      }
+
+      v37 = v36;
+
+      v48 = v37;
+      v38 = [v37 arrayByAddingObject:v32];
+      v39 = sub_100004778([v25 _setOpportunisticTopics:v38]);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412546;
+        v50 = v48;
+        v51 = 2112;
+        *v52 = v38;
+        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Setting opportunistic topics from %@ to %@", buf, 0x16u);
+      }
+
+      [(CSDVoIPApplicationController *)self reconcileChannelTopicFilters];
+      v28 = v45;
+    }
+
+    else
+    {
+      enabledTopics = [v25 enabledTopics];
+      v41 = enabledTopics;
+      v42 = &__NSArray0__struct;
+      if (enabledTopics)
+      {
+        v42 = enabledTopics;
+      }
+
+      v43 = v42;
+
+      v48 = v43;
+      v38 = [v43 arrayByAddingObject:v32];
+      v44 = sub_100004778(v38);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412546;
+        v50 = v48;
+        v51 = 2112;
+        *v52 = v38;
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Setting enabled topics from %@ to %@", buf, 0x16u);
+      }
+
+      [v25 _setEnabledTopics:v38];
+    }
+
+    clientCopy = v46;
+
+    if (!v28)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  [v16 setPushKitClient:clientCopy];
+LABEL_25:
+  if (v6 == 3)
+  {
+    [v16 setChannelPushClient:clientCopy];
+  }
+
+LABEL_41:
+}
+
+- (void)_unregisterPushApplication:(id)application inEnvironment:(id)environment pushType:(int)type destroyApp:(BOOL)app
+{
+  appCopy = app;
+  v7 = *&type;
+  applicationCopy = application;
+  environmentCopy = environment;
+  v12 = sub_100004778(environmentCopy);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = @"channel";
+    if (v7 != 3)
+    {
+      v13 = 0;
+    }
+
+    if (v7 == 2)
+    {
+      v13 = @"voip";
+    }
+
+    v14 = v13;
+    v28 = 138412802;
+    v29 = applicationCopy;
+    v30 = 2114;
+    v31 = v14;
+    v32 = 2112;
+    v33 = environmentCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Unregistering application %@ from PushKit %{public}@ in environment %@", &v28, 0x20u);
+  }
+
+  v15 = objc_opt_class();
+  bundleIdentifier = [applicationCopy bundleIdentifier];
+  v17 = [v15 topicFromBundleId:bundleIdentifier forType:v7];
+
+  if (!environmentCopy)
+  {
+    environmentCopy = [applicationCopy environment];
+
+    if (environmentCopy)
+    {
+      v19 = sub_100004778(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        environment = [applicationCopy environment];
+        v28 = 138412290;
+        v29 = environment;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Supplied environment was nil. Inferring it as %@", &v28, 0xCu);
+      }
+
+      environmentCopy = [applicationCopy environment];
+    }
+  }
+
+  v21 = [(CSDVoIPApplicationController *)self _apsConnectionForEnvironment:environmentCopy];
+  v22 = sub_100004778(v21);
+  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+  if (v21)
+  {
+    if (v23)
+    {
+      v28 = 138412546;
+      v29 = v17;
+      v30 = 2112;
+      v31 = v21;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Disabling topic %@ and invalidating its token for connection %@", &v28, 0x16u);
+    }
+
+    [(CSDVoIPApplicationController *)self _removeTopic:v17 fromConnection:v21];
+    if (appCopy)
+    {
+LABEL_16:
+      bundleIdentifierToVoIPApplication = [(CSDVoIPApplicationController *)self bundleIdentifierToVoIPApplication];
+      bundleIdentifier2 = [applicationCopy bundleIdentifier];
+      [bundleIdentifierToVoIPApplication removeObjectForKey:bundleIdentifier2];
+
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+    if (v23)
+    {
+      v28 = 138412290;
+      v29 = v17;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Disabling topic %@ and invalidating its token for all connections", &v28, 0xCu);
+    }
+
+    productionConnection = [(CSDVoIPApplicationController *)self productionConnection];
+    [(CSDVoIPApplicationController *)self _removeTopic:v17 fromConnection:productionConnection];
+
+    developmentConnection = [(CSDVoIPApplicationController *)self developmentConnection];
+    [(CSDVoIPApplicationController *)self _removeTopic:v17 fromConnection:developmentConnection];
+
+    if (appCopy)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  if (v7 == 3)
+  {
+    [applicationCopy unsetChannelPushToken];
+  }
+
+  else if (v7 == 2)
+  {
+    [applicationCopy unsetVoIPToken];
+  }
+
+LABEL_24:
+}
+
 - (void)networkExtensionMessageControllerHost:(id)host didReceiveIncomingMessage:(id)message forBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
   messageCopy = message;
-  v9 = sub_100004778();
+  v9 = sub_100004778(messageCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412290;
@@ -785,12 +1257,12 @@ LABEL_11:
 {
   messageCopy = message;
   identifierCopy = identifier;
-  v9 = sub_100004778();
+  v9 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Received incoming network extension PushToTalk message from application with bundle identifier %@", &v15, 0xCu);
+    v16 = 138412290;
+    v17 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Received incoming network extension PushToTalk message from application with bundle identifier %@", &v16, 0xCu);
   }
 
   persistedChannelRegistry = [(CSDVoIPApplicationController *)self persistedChannelRegistry];
@@ -801,14 +1273,14 @@ LABEL_11:
 
   if (v13)
   {
-    v14 = [(CSDVoIPApplicationController *)self createPTTApplicationMessageForChannel:activePersistedChannelIdentity withPayload:messageCopy isWakingMessage:1];
-    [(CSDVoIPApplicationController *)self openApplicationWithBundleIdentifier:identifierCopy message:v14];
+    v15 = [(CSDVoIPApplicationController *)self createPTTApplicationMessageForChannel:activePersistedChannelIdentity withPayload:messageCopy isWakingMessage:1];
+    [(CSDVoIPApplicationController *)self openApplicationWithBundleIdentifier:identifierCopy message:v15];
   }
 
   else
   {
-    v14 = sub_100004778();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v15 = sub_100004778(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       sub_10047A628();
     }
@@ -895,7 +1367,7 @@ LABEL_11:
   messageCopy = message;
   v8 = [(CSDVoIPApplicationController *)self _findOrCreateApplicationWithBundleIdentifier:identifierCopy];
   transportType = [messageCopy transportType];
-  v52 = transportType == 3;
+  v55 = transportType == 3;
   if (transportType == 3)
   {
     objc_opt_class();
@@ -931,18 +1403,18 @@ LABEL_11:
 
     [(CSDVoIPApplicationController *)self _isApplicationPreventedFromBeingLaunched:v8];
     requiresStrictPolicyEnforcement = [v8 requiresStrictPolicyEnforcement];
-    v21 = [(CSDVoIPApplicationController *)self containsAnyOutstandingMessageForBundleIdentifier:identifierCopy];
+    v22 = [(CSDVoIPApplicationController *)self containsAnyOutstandingMessageForBundleIdentifier:identifierCopy];
     requiresStrictPolicyEnforcement2 = requiresStrictPolicyEnforcement;
-    if (v15 & 1) != 0 || (v21)
+    if (v15 & 1) != 0 || (v22)
     {
-      v50 = 0;
+      v53 = 0;
       when = v15;
       goto LABEL_22;
     }
 
-    [(CSDVoIPApplicationController *)self addOutstandingMessage:messageCopy forBundleIdentifier:identifierCopy];
+    v22 = [(CSDVoIPApplicationController *)self addOutstandingMessage:messageCopy forBundleIdentifier:identifierCopy];
     when = 0;
-    v22 = 1;
+    v23 = 1;
     goto LABEL_16;
   }
 
@@ -956,62 +1428,62 @@ LABEL_11:
 
     else
     {
-      v45 = [(CSDVoIPApplicationController *)self containsAnyOutstandingMessageForBundleIdentifier:identifierCopy];
+      v48 = [(CSDVoIPApplicationController *)self containsAnyOutstandingMessageForBundleIdentifier:identifierCopy];
 
-      if ((v45 & 1) == 0)
+      if ((v48 & 1) == 0)
       {
-        [(CSDVoIPApplicationController *)self addOutstandingMessage:messageCopy forBundleIdentifier:identifierCopy];
+        v22 = [(CSDVoIPApplicationController *)self addOutstandingMessage:messageCopy forBundleIdentifier:identifierCopy];
         when = 0;
-        v22 = requiresStrictPolicyEnforcement2;
+        v23 = requiresStrictPolicyEnforcement2;
 LABEL_16:
-        v50 = v22;
+        v53 = v23;
 LABEL_22:
-        v24 = sub_100004778();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v25 = sub_100004778(v22);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(buf) = 138412290;
           *(&buf + 4) = v8;
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Attempting to open application %@ and acquire a process assertion", &buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Attempting to open application %@ and acquire a process assertion", &buf, 0xCu);
         }
 
         *&buf = 0;
         *(&buf + 1) = &buf;
-        v71 = 0x2020000000;
-        v72 = 0;
-        v25 = dispatch_semaphore_create(0);
-        v26 = objc_alloc_init(_LSOpenConfiguration);
-        v68 = FBSOpenApplicationOptionKeyActivateSuspended;
-        v69 = &__kCFBooleanTrue;
-        v27 = [NSDictionary dictionaryWithObjects:&v69 forKeys:&v68 count:1];
-        [v26 setFrontBoardOptions:v27];
+        v74 = 0x2020000000;
+        v75 = 0;
+        v26 = dispatch_semaphore_create(0);
+        v27 = objc_alloc_init(_LSOpenConfiguration);
+        v71 = FBSOpenApplicationOptionKeyActivateSuspended;
+        v72 = &__kCFBooleanTrue;
+        v28 = [NSDictionary dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+        [v27 setFrontBoardOptions:v28];
 
-        v28 = +[LSApplicationWorkspace defaultWorkspace];
-        v62[0] = _NSConcreteStackBlock;
-        v62[1] = 3221225472;
-        v62[2] = sub_1001E38A8;
-        v62[3] = &unk_10061E228;
-        v29 = identifierCopy;
-        v63 = v29;
+        v29 = +[LSApplicationWorkspace defaultWorkspace];
+        v65[0] = _NSConcreteStackBlock;
+        v65[1] = 3221225472;
+        v65[2] = sub_1001E38A8;
+        v65[3] = &unk_10061E228;
+        v30 = identifierCopy;
+        v66 = v30;
         p_buf = &buf;
-        v30 = v25;
-        v64 = v30;
-        [v28 openApplicationWithBundleIdentifier:v29 configuration:v26 completionHandler:v62];
+        v31 = v26;
+        v67 = v31;
+        [v29 openApplicationWithBundleIdentifier:v30 configuration:v27 completionHandler:v65];
 
-        v31 = dispatch_time(0, 20000000000);
-        v32 = dispatch_semaphore_wait(v30, v31);
+        v32 = dispatch_time(0, 20000000000);
+        v33 = dispatch_semaphore_wait(v31, v32);
         if (*(*(&buf + 1) + 24) == 1)
         {
-          v33 = sub_100004778();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v34 = sub_100004778(v33);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             sub_10047A710();
           }
         }
 
-        else if (v32)
+        else if (v33)
         {
-          v33 = sub_100004778();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v34 = sub_100004778(v33);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             sub_10047A690();
           }
@@ -1019,82 +1491,83 @@ LABEL_22:
 
         else
         {
-          v34 = sub_100004778();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          v35 = sub_100004778(0);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
-            *v66 = 0;
-            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Successfully opened application", v66, 2u);
+            *v69 = 0;
+            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Successfully opened application", v69, 2u);
           }
 
-          v33 = [CSDVoIPProcessAssertion processAssertionWithBundleIdentifier:v29];
-          if ([v33 acquire])
+          v34 = [CSDVoIPProcessAssertion processAssertionWithBundleIdentifier:v30];
+          acquire = [v34 acquire];
+          if (acquire)
           {
-            v35 = sub_100004778();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+            v37 = sub_100004778(acquire);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
             {
-              *v66 = 0;
-              _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Successfully took out process assertion", v66, 2u);
+              *v69 = 0;
+              _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Successfully took out process assertion", v69, 2u);
             }
 
-            v36 = 7000000000;
+            v38 = 7000000000;
             if (!((transportType == 3) | requiresStrictPolicyEnforcement2))
             {
-              v36 = 30000000000;
+              v38 = 30000000000;
             }
 
             if (when)
             {
-              v37 = 30000000000;
+              v39 = 30000000000;
             }
 
             else
             {
-              v37 = v36;
+              v39 = v38;
             }
 
-            whena = dispatch_time(0, v37);
+            whena = dispatch_time(0, v39);
             queue = [(CSDVoIPApplicationController *)self queue];
             block[0] = _NSConcreteStackBlock;
             block[1] = 3221225472;
             block[2] = sub_1001E39BC;
             block[3] = &unk_10061E250;
-            v47 = v29;
-            v54 = v47;
-            v39 = v33;
-            v59 = v52;
-            v55 = v39;
-            selfCopy = self;
-            v40 = messageCopy;
-            v57 = v40;
-            v41 = v8;
+            v50 = v30;
+            v57 = v50;
+            v41 = v34;
+            v62 = v55;
             v58 = v41;
-            v60 = requiresStrictPolicyEnforcement2;
-            v61 = v50;
+            selfCopy = self;
+            v42 = messageCopy;
+            v60 = v42;
+            v43 = v8;
+            v61 = v43;
+            v63 = requiresStrictPolicyEnforcement2;
+            v64 = v53;
             dispatch_after(whena, queue, block);
 
-            if (v41)
+            if (v43)
             {
-              [v41 deliverMessage:v40 withAssertion:v39 applicationShouldPostIncomingCall:v50];
+              [v43 deliverMessage:v42 withAssertion:v41 applicationShouldPostIncomingCall:v53];
             }
 
             else
             {
-              v46 = sub_100004778();
-              if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+              v49 = sub_100004778(v44);
+              if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
               {
-                *v66 = 138412290;
-                v67 = v47;
-                _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "[WARN] No existing VoIP application found for bundle ID %@", v66, 0xCu);
+                *v69 = 138412290;
+                v70 = v50;
+                _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "[WARN] No existing VoIP application found for bundle ID %@", v69, 0xCu);
               }
             }
 
-            v44 = v54;
+            v47 = v57;
           }
 
           else
           {
-            v44 = sub_100004778();
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+            v47 = sub_100004778(acquire);
+            if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
             {
               sub_10047A6D0();
             }
@@ -1107,22 +1580,22 @@ LABEL_22:
     }
 
     when = 0;
-    v50 = 0;
+    v53 = 0;
     goto LABEL_22;
   }
 
   applicationMonitor2 = [(CSDVoIPApplicationController *)self applicationMonitor];
   v17 = [applicationMonitor2 isRunningForegroundForVoIPApplication:v8];
 
-  v18 = sub_100004778();
-  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+  v19 = sub_100004778(v18);
+  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
   if (v17)
   {
-    if (v19)
+    if (v20)
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = identifierCopy;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Application %@ will not be launched because it failed to report an incoming call too many times or repeatedly crashed. However because the app is foreground, delivering VOIP payload anyway.", &buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Application %@ will not be launched because it failed to report an incoming call too many times or repeatedly crashed. However because the app is foreground, delivering VOIP payload anyway.", &buf, 0xCu);
     }
 
     [v8 deliverMessage:messageCopy withAssertion:0 applicationShouldPostIncomingCall:0];
@@ -1130,16 +1603,16 @@ LABEL_22:
 
   else
   {
-    if (v19)
+    if (v20)
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = identifierCopy;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Application %@ will not be launched because it failed to report an incoming call too many times (or repeatedly crashed.)", &buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Application %@ will not be launched because it failed to report an incoming call too many times (or repeatedly crashed.)", &buf, 0xCu);
     }
 
-    v42 = +[CSDReportingController sharedInstance];
+    v45 = +[CSDReportingController sharedInstance];
     bundleIdentifier = [v8 bundleIdentifier];
-    [v42 voipPushDroppedOnTheFloor:bundleIdentifier];
+    [v45 voipPushDroppedOnTheFloor:bundleIdentifier];
   }
 
 LABEL_56:
@@ -1151,10 +1624,11 @@ LABEL_56:
   identifierCopy = identifier;
   replyCopy = reply;
   v12 = [(CSDVoIPApplicationController *)self _findOrCreateApplicationWithBundleIdentifier:identifierCopy];
-  if ([v12 hasVoIPBackgroundMode])
+  hasVoIPBackgroundMode = [v12 hasVoIPBackgroundMode];
+  if (hasVoIPBackgroundMode)
   {
-    v13 = [[CSDVoIPApplicationMessage alloc] initWithTransportType:2 payload:messageCopy];
-    [(CSDVoIPApplicationController *)self openApplicationWithBundleIdentifier:identifierCopy message:v13];
+    v14 = [[CSDVoIPApplicationMessage alloc] initWithTransportType:2 payload:messageCopy];
+    [(CSDVoIPApplicationController *)self openApplicationWithBundleIdentifier:identifierCopy message:v14];
     if (replyCopy)
     {
       replyCopy[2](replyCopy, 0);
@@ -1163,8 +1637,8 @@ LABEL_56:
 
   else
   {
-    v14 = sub_100004778();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = sub_100004778(hasVoIPBackgroundMode);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10047A918(identifierCopy, v12);
     }
@@ -1174,8 +1648,8 @@ LABEL_56:
 
     if (replyCopy)
     {
-      v16 = [NSError cx_errorWithCode:3];
-      (replyCopy)[2](replyCopy, v16);
+      v17 = [NSError cx_errorWithCode:3];
+      (replyCopy)[2](replyCopy, v17);
     }
   }
 }
@@ -1198,14 +1672,15 @@ LABEL_56:
   bundleIdentifier = [provider bundleIdentifier];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = bundleIdentifier;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Channel: app posted a valid remote participant %@", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = bundleIdentifier;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Channel: app posted a valid remote participant %@", &v9, 0xCu);
     }
 
     [(CSDVoIPApplicationController *)self removeOutstandingMessagesForBundleIdentifier:bundleIdentifier];
@@ -1233,31 +1708,31 @@ LABEL_56:
       environment = [v8 environment];
       if (!environment)
       {
-        v10 = sub_100004778();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+        v11 = sub_100004778(0);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
         {
-          sub_10047A9B0(activePersistedChannelIdentity, v10);
+          sub_10047A9B0(activePersistedChannelIdentity, v11);
         }
 
         environment = [v8 pushEnvironmentAccordingToLaunchServices];
       }
 
-      v11 = [(CSDVoIPApplicationController *)self _apsConnectionForEnvironment:environment];
-      if (v11)
+      v12 = [(CSDVoIPApplicationController *)self _apsConnectionForEnvironment:environment];
+      if (v12)
       {
-        v12 = objc_opt_class();
+        v13 = objc_opt_class();
         bundleIdentifier2 = [activePersistedChannelIdentity bundleIdentifier];
-        v14 = [v12 topicFromBundleId:bundleIdentifier2 forType:3];
+        v15 = [v13 topicFromBundleId:bundleIdentifier2 forType:3];
 
-        v16 = v14;
-        v15 = [NSArray arrayWithObjects:&v16 count:1];
-        [v11 _setOpportunisticTopics:v15];
+        v17 = v15;
+        v16 = [NSArray arrayWithObjects:&v17 count:1];
+        [v12 _setOpportunisticTopics:v16];
       }
 
       else
       {
-        v14 = sub_100004778();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = sub_100004778(0);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           sub_10047AA44(activePersistedChannelIdentity);
         }
@@ -1266,7 +1741,7 @@ LABEL_56:
 
     else
     {
-      environment = sub_100004778();
+      environment = sub_100004778(v9);
       if (os_log_type_enabled(environment, OS_LOG_TYPE_ERROR))
       {
         sub_10047AAD0(activePersistedChannelIdentity);
@@ -1338,20 +1813,20 @@ LABEL_56:
       persistedChannelRegistry3 = [(CSDVoIPApplicationController *)self persistedChannelRegistry];
       activePersistedChannelIdentity = [persistedChannelRegistry3 activePersistedChannelIdentity];
 
-      if (activePersistedChannelIdentity && ([activePersistedChannelIdentity bundleIdentifier], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isEqualToString:", processBundleIdentifier), v14, v15))
+      if (activePersistedChannelIdentity && ([activePersistedChannelIdentity bundleIdentifier], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "isEqualToString:", processBundleIdentifier), v15, v16))
       {
         channelUUID = [activePersistedChannelIdentity channelUUID];
         if ([v8 hasPendingChannelPushMessagesToDeliver])
         {
-          v17 = 1;
+          v18 = 1;
         }
 
         else
         {
-          v17 = 3;
+          v18 = 3;
         }
 
-        replyCopy[2](replyCopy, v17, channelUUID);
+        replyCopy[2](replyCopy, v18, channelUUID);
       }
 
       else
@@ -1365,8 +1840,8 @@ LABEL_56:
 
   else
   {
-    replyCopy[2](replyCopy, 4, 0);
-    v10 = sub_100004778();
+    v13 = (replyCopy[2])(replyCopy, 4, 0);
+    v10 = sub_100004778(v13);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10047AB5C();
@@ -1496,16 +1971,16 @@ LABEL_56:
   applicationMonitor = [(CSDVoIPApplicationController *)self applicationMonitor];
   v9 = [applicationMonitor isRunningForegroundForVoIPApplication:applicationCopy];
 
-  v10 = sub_100004778();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  v11 = sub_100004778(v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
   if (v9)
   {
-    if (v11)
+    if (v12)
     {
       bundleIdentifier = [applicationCopy bundleIdentifier];
-      v16 = 138412290;
-      v17 = bundleIdentifier;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Application %@ will not be launched because the number of PushToTalk Service Update Messages have exceeded the allotted budget. However because the app is foreground, delivering Service Update Message anyway.", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = bundleIdentifier;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Application %@ will not be launched because the number of PushToTalk Service Update Messages have exceeded the allotted budget. However because the app is foreground, delivering Service Update Message anyway.", &v17, 0xCu);
     }
 
     [applicationCopy deliverMessage:messageCopy withAssertion:0 applicationShouldPostIncomingCall:0];
@@ -1513,12 +1988,12 @@ LABEL_56:
 
   else
   {
-    if (v11)
+    if (v12)
     {
       bundleIdentifier2 = [applicationCopy bundleIdentifier];
-      v16 = 138412290;
-      v17 = bundleIdentifier2;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Application %@ will not be launched because the number of PushToTalk Service Update Messages have exceeded the allotted budget.", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = bundleIdentifier2;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Application %@ will not be launched because the number of PushToTalk Service Update Messages have exceeded the allotted budget.", &v17, 0xCu);
     }
 
     if ([applicationCopy isDevelopmentOrTestFlightApp] && MKBGetDeviceLockState() != 1 && MKBGetDeviceLockState() != 2)

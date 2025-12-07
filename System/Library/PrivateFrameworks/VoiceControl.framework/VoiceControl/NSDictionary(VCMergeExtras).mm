@@ -6,7 +6,7 @@
 
 - (id)dictionaryByMergingEntriesFromDictionary:()VCMergeExtras
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4)
   {
@@ -18,37 +18,37 @@
     allKeys2 = [v4 allKeys];
     [v6 addObjectsFromArray:allKeys2];
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v43 objects:v48 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v42 objects:v47 count:16];
     if (!v10)
     {
       goto LABEL_33;
     }
 
     v11 = v10;
-    v12 = *v44;
-    v36 = v4;
-    v37 = *v44;
+    v12 = *v43;
+    v35 = v4;
+    v36 = *v43;
     selfCopy = self;
-    v35 = selfCopy2;
-    v33 = v9;
+    v34 = selfCopy2;
+    v32 = v9;
     while (1)
     {
       v13 = 0;
-      v38 = v11;
+      v37 = v11;
       do
       {
-        if (*v44 != v12)
+        if (*v43 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v43 + 1) + 8 * v13);
-        v15 = [self objectForKeyedSubscript:{v14, v33, selfCopy}];
+        v14 = *(*(&v42 + 1) + 8 * v13);
+        v15 = [self objectForKeyedSubscript:{v14, v32, selfCopy}];
         v16 = [v4 objectForKeyedSubscript:v14];
         if (!v16)
         {
@@ -71,10 +71,10 @@
             v22 = [v15 mutableCopy];
             [v22 unionOrderedSet:v21];
 
-            v11 = v38;
+            v11 = v37;
             [selfCopy2 setObject:v22 forKeyedSubscript:v14];
 
-            v12 = v37;
+            v12 = v36;
             goto LABEL_31;
           }
 
@@ -83,44 +83,44 @@
           {
             v23 = v16;
             v24 = [v15 mutableCopy];
+            v38 = 0u;
             v39 = 0u;
             v40 = 0u;
             v41 = 0u;
-            v42 = 0u;
             v25 = v23;
-            v26 = [v25 countByEnumeratingWithState:&v39 objects:v47 count:16];
+            v26 = [v25 countByEnumeratingWithState:&v38 objects:v46 count:16];
             if (v26)
             {
               v27 = v26;
-              v28 = *v40;
+              v28 = *v39;
               do
               {
                 for (i = 0; i != v27; ++i)
                 {
-                  if (*v40 != v28)
+                  if (*v39 != v28)
                   {
                     objc_enumerationMutation(v25);
                   }
 
-                  v30 = *(*(&v39 + 1) + 8 * i);
+                  v30 = *(*(&v38 + 1) + 8 * i);
                   if (([v24 containsObject:v30] & 1) == 0)
                   {
                     [v24 addObject:v30];
                   }
                 }
 
-                v27 = [v25 countByEnumeratingWithState:&v39 objects:v47 count:16];
+                v27 = [v25 countByEnumeratingWithState:&v38 objects:v46 count:16];
               }
 
               while (v27);
             }
 
-            selfCopy2 = v35;
-            [v35 setObject:v24 forKeyedSubscript:v14];
+            selfCopy2 = v34;
+            [v34 setObject:v24 forKeyedSubscript:v14];
 
-            v4 = v36;
-            v12 = v37;
-            v9 = v33;
+            v4 = v35;
+            v12 = v36;
+            v9 = v32;
             self = selfCopy;
             goto LABEL_12;
           }
@@ -134,7 +134,7 @@ LABEL_11:
             [selfCopy2 setObject:v17 forKeyedSubscript:v14];
 
 LABEL_12:
-            v11 = v38;
+            v11 = v37;
             goto LABEL_31;
           }
 
@@ -154,7 +154,7 @@ LABEL_31:
       }
 
       while (v13 != v11);
-      v11 = [v9 countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v42 objects:v47 count:16];
       if (!v11)
       {
 LABEL_33:
@@ -166,8 +166,6 @@ LABEL_33:
 
   selfCopy2 = self;
 LABEL_35:
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return selfCopy2;
 }

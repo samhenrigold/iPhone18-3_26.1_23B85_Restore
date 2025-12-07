@@ -1,1704 +1,3 @@
-int *google::protobuf::RepeatedField<BOOL>::Truncate(int *result, int a2)
-{
-  if (*result >= 1)
-  {
-    *result = a2;
-  }
-
-  return result;
-}
-
-int *google::protobuf::RepeatedField<BOOL>::MergeFrom(int *result, _DWORD *a2)
-{
-  if (*a2)
-  {
-    v2 = *result;
-    google::protobuf::RepeatedField<BOOL>::Reserve();
-  }
-
-  return result;
-}
-
-int *google::protobuf::RepeatedField<BOOL>::AddAlreadyReserved(int *result, char *a2)
-{
-  v2 = *a2;
-  v3 = *(result + 1);
-  v4 = *result;
-  *result = v4 + 1;
-  *(v3 + v4) = v2;
-  return result;
-}
-
-uint64_t google::protobuf::RepeatedField<BOOL>::AddAlreadyReserved(int *a1)
-{
-  v1 = *(a1 + 1);
-  v2 = *a1;
-  *a1 = v2 + 1;
-  return v1 + v2;
-}
-
-_DWORD *google::protobuf::RepeatedField<BOOL>::Resize(_DWORD *result, int a2)
-{
-  if (*result < a2)
-  {
-    google::protobuf::RepeatedField<BOOL>::Reserve();
-  }
-
-  *result = a2;
-  return result;
-}
-
-void google::protobuf::RepeatedField<BOOL>::Swap(uint64_t *a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    v2 = (a1 + 1);
-    if (*(a1 + 1))
-    {
-      v2 = (*v2 - 8);
-    }
-
-    v3 = *v2;
-    v4 = *(a2 + 8);
-    if (*(a2 + 4))
-    {
-      v4 = *(v4 - 1);
-    }
-
-    if (v3 == v4)
-    {
-      v8 = *a1;
-      v9 = a1[1];
-      *a1 = *a2;
-      *a2 = v8;
-      *(a2 + 8) = v9;
-    }
-
-    else
-    {
-      __dst[0] = 0;
-      __dst[1] = v4;
-      if (*a1)
-      {
-        google::protobuf::RepeatedField<BOOL>::Reserve();
-      }
-
-      *a1 = 0;
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<BOOL>::Reserve();
-      }
-
-      if (__dst == a2)
-      {
-        LODWORD(v7) = HIDWORD(__dst[0]);
-      }
-
-      else
-      {
-        v5 = *a2;
-        v6 = *(a2 + 8);
-        *a2 = *__dst;
-        __dst[0] = v5;
-        __dst[1] = v6;
-        v7 = HIDWORD(v5);
-      }
-
-      if (v7 >= 1 && !*(__dst[1] - 1))
-      {
-        operator delete(__dst[1] - 8);
-      }
-    }
-  }
-}
-
-void sub_276B8E1A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10)
-{
-  if (a10 >= 1)
-  {
-    sub_276BDA7BC((v10 | 8));
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-__n128 google::protobuf::RepeatedField<BOOL>::UnsafeArenaSwap(__n128 *a1, __n128 *a2)
-{
-  if (a1 != a2)
-  {
-    v2 = a1->n128_u64[0];
-    v3 = a1->n128_u64[1];
-    result = *a2;
-    *a1 = *a2;
-    a2->n128_u64[0] = v2;
-    a2->n128_u64[1] = v3;
-  }
-
-  return result;
-}
-
-uint64_t google::protobuf::RepeatedField<BOOL>::SwapElements(uint64_t result, int a2, int a3)
-{
-  v3 = *(result + 8);
-  v4 = *(v3 + a2);
-  *(v3 + a2) = *(v3 + a3);
-  *(v3 + a3) = v4;
-  return result;
-}
-
-uint64_t google::protobuf::RepeatedField<BOOL>::begin(uint64_t a1)
-{
-  return *(a1 + 8);
-}
-
-{
-  return *(a1 + 8);
-}
-
-uint64_t google::protobuf::RepeatedField<BOOL>::end(int *a1)
-{
-  return *(a1 + 1) + *a1;
-}
-
-{
-  return *(a1 + 1) + *a1;
-}
-
-uint64_t google::protobuf::RepeatedField<BOOL>::rbegin(int *a1)
-{
-  return *(a1 + 1) + *a1;
-}
-
-{
-  return *(a1 + 1) + *a1;
-}
-
-uint64_t google::protobuf::RepeatedField<BOOL>::rend(uint64_t a1)
-{
-  return *(a1 + 8);
-}
-
-{
-  return *(a1 + 8);
-}
-
-uint64_t google::protobuf::RepeatedField<BOOL>::SpaceUsedExcludingSelfLong(uint64_t a1)
-{
-  v1 = *(a1 + 4);
-  if (v1 <= 0)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return (v1 + 8);
-  }
-}
-
-uint64_t google::protobuf::RepeatedField<BOOL>::SpaceUsedExcludingSelf(uint64_t a1)
-{
-  v1 = *(a1 + 4);
-  if (v1 <= 0)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return (v1 + 8);
-  }
-}
-
-uint64_t google::protobuf::RepeatedField<BOOL>::erase(int *a1, uint64_t a2)
-{
-  v2 = a2;
-  v4 = (a2 + 1);
-  v5 = *(a1 + 1);
-  v6 = v2 - v5;
-  v7 = *a1;
-  v8 = v5 + v6;
-  v9 = v5 + v7 - v4;
-  if ((v5 + v7) != v4)
-  {
-    memmove((v5 + v6), v4, v5 + v7 - v4);
-    LODWORD(v7) = *a1;
-    v5 = *(a1 + 1);
-  }
-
-  if (v7 >= 1)
-  {
-    *a1 = v8 + v9 - v5;
-  }
-
-  return v5 + v6;
-}
-
-uint64_t google::protobuf::RepeatedField<BOOL>::erase(int *a1, void *a2, void *__src)
-{
-  v3 = *(a1 + 1);
-  v4 = a2 - v3;
-  if (a2 == __src)
-  {
-    v7 = v4;
-  }
-
-  else
-  {
-    v6 = *a1;
-    v7 = v4;
-    v8 = a2;
-    v9 = v3 + v6 - __src;
-    if ((v3 + v6) != __src)
-    {
-      memmove((v3 + v4), __src, v3 + v6 - __src);
-      LODWORD(v6) = *a1;
-      v3 = *(a1 + 1);
-    }
-
-    if (v6 >= 1)
-    {
-      *a1 = v8 + v9 - v3;
-    }
-  }
-
-  return v3 + v7;
-}
-
-void *google::protobuf::RepeatedField<int>::RepeatedField(void *result)
-{
-  *result = 0;
-  result[1] = 0;
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  return result;
-}
-
-void *google::protobuf::RepeatedField<int>::RepeatedField(void *result, uint64_t a2)
-{
-  *result = 0;
-  result[1] = a2;
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = a2;
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  v2 = (a2 + 8);
-  if (*(a2 + 4))
-  {
-    v2 = (*(a2 + 8) - 8);
-  }
-
-  if (*v2)
-  {
-    if (a2 != result)
-    {
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<int>::Reserve();
-      }
-    }
-  }
-
-  else
-  {
-    *result = *a2;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  v2 = (a2 + 8);
-  if (*(a2 + 4))
-  {
-    v2 = (*(a2 + 8) - 8);
-  }
-
-  if (*v2)
-  {
-    if (a2 != result)
-    {
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<int>::Reserve();
-      }
-    }
-  }
-
-  else
-  {
-    *result = *a2;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  return result;
-}
-
-void *google::protobuf::RepeatedField<int>::RepeatedField(void *result, _DWORD *a2)
-{
-  *result = 0;
-  result[1] = 0;
-  if (*a2)
-  {
-    google::protobuf::RepeatedField<int>::Reserve();
-  }
-
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  if (*a2)
-  {
-    google::protobuf::RepeatedField<int>::Reserve();
-  }
-
-  return result;
-}
-
-void google::protobuf::RepeatedField<int>::Reserve(unsigned int *a1, int a2)
-{
-  v2 = a1[1];
-  if (v2 >= a2)
-  {
-    return;
-  }
-
-  if (v2 < 1)
-  {
-    v4 = *(a1 + 1);
-    v5 = 0;
-    if (!v2)
-    {
-      if (a2 < 4)
-      {
-        goto LABEL_6;
-      }
-
-      goto LABEL_10;
-    }
-  }
-
-  else
-  {
-    v4 = *(a1 + 1);
-    v5 = (v4 - 8);
-  }
-
-  v4 = *(v4 - 1);
-  if (a2 < 4)
-  {
-LABEL_6:
-    v6 = 4;
-    goto LABEL_13;
-  }
-
-  if (v2 > 0x3FFFFFFF)
-  {
-    v6 = 0x7FFFFFFF;
-    goto LABEL_13;
-  }
-
-LABEL_10:
-  v7 = 2 * v2;
-  if (v7 <= a2)
-  {
-    v6 = a2;
-  }
-
-  else
-  {
-    v6 = v7;
-  }
-
-LABEL_13:
-  v8 = 4 * v6;
-  if (v4)
-  {
-    v9 = sub_2769B0A98(v4, v8 + 8);
-  }
-
-  else
-  {
-    v9 = operator new(v8 + 8);
-  }
-
-  *v9 = v4;
-  v10 = v9 + 1;
-  a1[1] = v6;
-  *(a1 + 1) = v10;
-  v11 = *a1;
-  if (v11 >= 1)
-  {
-    memcpy(v10, v5 + 1, 4 * v11);
-  }
-
-  if (v5 && !*v5)
-  {
-
-    operator delete(v5);
-  }
-}
-
-uint64_t google::protobuf::RepeatedField<int>::AddNAlreadyReserved(int *a1, int a2)
-{
-  v2 = *a1;
-  v3 = *(a1 + 1) + 4 * v2;
-  *a1 = v2 + a2;
-  return v3;
-}
-
-uint64_t google::protobuf::RepeatedField<int>::~RepeatedField(uint64_t a1)
-{
-  if (*(a1 + 4) >= 1)
-  {
-    v2 = *(a1 + 8);
-    v4 = *(v2 - 8);
-    v3 = (v2 - 8);
-    if (!v4)
-    {
-      operator delete(v3);
-    }
-  }
-
-  return a1;
-}
-
-{
-  if (*(a1 + 4) >= 1)
-  {
-    v2 = *(a1 + 8);
-    v4 = *(v2 - 8);
-    v3 = (v2 - 8);
-    if (!v4)
-    {
-      operator delete(v3);
-    }
-  }
-
-  return a1;
-}
-
-void google::protobuf::RepeatedField<int>::InternalDeallocate(int a1, void *__p)
-{
-  if (__p)
-  {
-    if (!*__p)
-    {
-      operator delete(__p);
-    }
-  }
-}
-
-_DWORD *google::protobuf::RepeatedField<int>::operator=(_DWORD *result, _DWORD *a2)
-{
-  if (result != a2)
-  {
-    *result = 0;
-    if (*a2)
-    {
-      google::protobuf::RepeatedField<int>::Reserve();
-    }
-  }
-
-  return result;
-}
-
-_DWORD *google::protobuf::RepeatedField<int>::CopyFrom(_DWORD *result, _DWORD *a2)
-{
-  if (a2 != result)
-  {
-    *result = 0;
-    if (*a2)
-    {
-      google::protobuf::RepeatedField<int>::Reserve();
-    }
-  }
-
-  return result;
-}
-
-uint64_t google::protobuf::RepeatedField<int>::GetArena(uint64_t a1)
-{
-  v1 = a1 + 8;
-  if (*(a1 + 4))
-  {
-    v1 = *v1 - 8;
-  }
-
-  return *v1;
-}
-
-__n128 google::protobuf::RepeatedField<int>::InternalSwap(unint64_t *a1, __n128 *a2)
-{
-  v2 = *a1;
-  v3 = a1[1];
-  result = *a2;
-  *a1 = *a2;
-  a2->n128_u64[0] = v2;
-  a2->n128_u64[1] = v3;
-  return result;
-}
-
-uint64_t *google::protobuf::RepeatedField<int>::operator=(uint64_t *result, uint64_t a2)
-{
-  if (result != a2)
-  {
-    v2 = result + 1;
-    if (*(result + 1))
-    {
-      v2 = (*v2 - 8);
-    }
-
-    v3 = *v2;
-    v4 = (a2 + 8);
-    if (*(a2 + 4))
-    {
-      v4 = (*(a2 + 8) - 8);
-    }
-
-    if (v3 == *v4)
-    {
-      v5 = *result;
-      v6 = result[1];
-      *result = *a2;
-      *a2 = v5;
-      *(a2 + 8) = v6;
-    }
-
-    else
-    {
-      *result = 0;
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<int>::Reserve();
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t google::protobuf::RepeatedField<int>::operator[](uint64_t a1, int a2)
-{
-  return *(a1 + 8) + 4 * a2;
-}
-
-{
-  return *(a1 + 8) + 4 * a2;
-}
-
-uint64_t google::protobuf::RepeatedField<int>::at(uint64_t a1, int a2)
-{
-  if (a2 < 0)
-  {
-    google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkImport/install/Root/include/google/protobuf/repeated_field.h", 1308);
-    v4 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, &v4->__r_.__value_.__l.__data_);
-    google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
-  }
-
-  if (*a1 <= a2)
-  {
-    google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkImport/install/Root/include/google/protobuf/repeated_field.h", 1309);
-    v5 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) < (current_size_): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, &v5->__r_.__value_.__l.__data_);
-    google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
-  }
-
-  return *(a1 + 8) + 4 * a2;
-}
-
-{
-  if (a2 < 0)
-  {
-    google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkImport/install/Root/include/google/protobuf/repeated_field.h", 1315);
-    v4 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, &v4->__r_.__value_.__l.__data_);
-    google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
-  }
-
-  if (*a1 <= a2)
-  {
-    google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkImport/install/Root/include/google/protobuf/repeated_field.h", 1316);
-    v5 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) < (current_size_): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, &v5->__r_.__value_.__l.__data_);
-    google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
-  }
-
-  return *(a1 + 8) + 4 * a2;
-}
-
-void sub_276B8EA74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  google::protobuf::internal::LogMessage::~LogMessage(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_276B8EB50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  google::protobuf::internal::LogMessage::~LogMessage(va);
-  _Unwind_Resume(a1);
-}
-
-unsigned int *google::protobuf::RepeatedField<int>::Add(unsigned int *result, _DWORD *a2)
-{
-  v2 = *result;
-  if (v2 == result[1])
-  {
-    google::protobuf::RepeatedField<int>::Reserve();
-  }
-
-  *(*(result + 1) + 4 * v2) = *a2;
-  *result = v2 + 1;
-  return result;
-}
-
-uint64_t google::protobuf::RepeatedField<int>::Add(unsigned int *a1)
-{
-  v2 = *a1;
-  if (v2 == a1[1])
-  {
-    google::protobuf::RepeatedField<int>::Reserve();
-  }
-
-  result = *(a1 + 1) + 4 * v2;
-  *a1 = v2 + 1;
-  return result;
-}
-
-int *google::protobuf::RepeatedField<int>::ExtractSubrange(int *result, int a2, int a3, _DWORD *a4)
-{
-  if (a4 && a3 >= 1)
-  {
-    v4 = a3;
-    v5 = (*(result + 1) + 4 * a2);
-    do
-    {
-      v6 = *v5++;
-      *a4++ = v6;
-      --v4;
-    }
-
-    while (v4);
-  }
-
-  if (a3 >= 1)
-  {
-    LODWORD(v7) = a3 + a2;
-    LODWORD(v8) = *result;
-    if (a3 + a2 < *result)
-    {
-      v9 = *(result + 1);
-      v7 = v7;
-      do
-      {
-        *(v9 - 4 * a3 + 4 * v7) = *(v9 + 4 * v7);
-        ++v7;
-        v8 = *result;
-      }
-
-      while (v7 < v8);
-    }
-
-    if (v8 >= 1)
-    {
-      *result = v8 - a3;
-    }
-  }
-
-  return result;
-}
-
-int *google::protobuf::RepeatedField<int>::Truncate(int *result, int a2)
-{
-  if (*result >= 1)
-  {
-    *result = a2;
-  }
-
-  return result;
-}
-
-int *google::protobuf::RepeatedField<int>::MergeFrom(int *result, _DWORD *a2)
-{
-  if (*a2)
-  {
-    v2 = *result;
-    google::protobuf::RepeatedField<int>::Reserve();
-  }
-
-  return result;
-}
-
-int *google::protobuf::RepeatedField<int>::AddAlreadyReserved(int *result, int *a2)
-{
-  v2 = *a2;
-  v3 = *(result + 1);
-  v4 = *result;
-  *result = v4 + 1;
-  *(v3 + 4 * v4) = v2;
-  return result;
-}
-
-uint64_t google::protobuf::RepeatedField<int>::AddAlreadyReserved(int *a1)
-{
-  v1 = *(a1 + 1);
-  v2 = *a1;
-  *a1 = v2 + 1;
-  return v1 + 4 * v2;
-}
-
-_DWORD *google::protobuf::RepeatedField<int>::Resize(_DWORD *result, int a2)
-{
-  if (*result < a2)
-  {
-    google::protobuf::RepeatedField<int>::Reserve();
-  }
-
-  *result = a2;
-  return result;
-}
-
-void google::protobuf::RepeatedField<int>::Swap(uint64_t *a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    v2 = (a1 + 1);
-    if (*(a1 + 1))
-    {
-      v2 = (*v2 - 8);
-    }
-
-    v3 = *v2;
-    v4 = *(a2 + 8);
-    if (*(a2 + 4))
-    {
-      v4 = *(v4 - 1);
-    }
-
-    if (v3 == v4)
-    {
-      v8 = *a1;
-      v9 = a1[1];
-      *a1 = *a2;
-      *a2 = v8;
-      *(a2 + 8) = v9;
-    }
-
-    else
-    {
-      __dst[0] = 0;
-      __dst[1] = v4;
-      if (*a1)
-      {
-        google::protobuf::RepeatedField<int>::Reserve();
-      }
-
-      *a1 = 0;
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<int>::Reserve();
-      }
-
-      if (__dst == a2)
-      {
-        LODWORD(v7) = HIDWORD(__dst[0]);
-      }
-
-      else
-      {
-        v5 = *a2;
-        v6 = *(a2 + 8);
-        *a2 = *__dst;
-        __dst[0] = v5;
-        __dst[1] = v6;
-        v7 = HIDWORD(v5);
-      }
-
-      if (v7 >= 1 && !*(__dst[1] - 1))
-      {
-        operator delete(__dst[1] - 8);
-      }
-    }
-  }
-}
-
-void sub_276B8EFE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10)
-{
-  if (a10 >= 1)
-  {
-    sub_276BDA7BC((v10 | 8));
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-__n128 google::protobuf::RepeatedField<int>::UnsafeArenaSwap(__n128 *a1, __n128 *a2)
-{
-  if (a1 != a2)
-  {
-    v2 = a1->n128_u64[0];
-    v3 = a1->n128_u64[1];
-    result = *a2;
-    *a1 = *a2;
-    a2->n128_u64[0] = v2;
-    a2->n128_u64[1] = v3;
-  }
-
-  return result;
-}
-
-uint64_t google::protobuf::RepeatedField<int>::SwapElements(uint64_t result, int a2, int a3)
-{
-  v3 = *(result + 8);
-  v4 = *(v3 + 4 * a2);
-  *(v3 + 4 * a2) = *(v3 + 4 * a3);
-  *(v3 + 4 * a3) = v4;
-  return result;
-}
-
-uint64_t google::protobuf::RepeatedField<int>::begin(uint64_t a1)
-{
-  return *(a1 + 8);
-}
-
-{
-  return *(a1 + 8);
-}
-
-uint64_t google::protobuf::RepeatedField<int>::end(int *a1)
-{
-  return *(a1 + 1) + 4 * *a1;
-}
-
-{
-  return *(a1 + 1) + 4 * *a1;
-}
-
-uint64_t google::protobuf::RepeatedField<int>::rbegin(int *a1)
-{
-  return *(a1 + 1) + 4 * *a1;
-}
-
-{
-  return *(a1 + 1) + 4 * *a1;
-}
-
-uint64_t google::protobuf::RepeatedField<int>::rend(uint64_t a1)
-{
-  return *(a1 + 8);
-}
-
-{
-  return *(a1 + 8);
-}
-
-uint64_t google::protobuf::RepeatedField<int>::SpaceUsedExcludingSelfLong(uint64_t a1)
-{
-  v1 = *(a1 + 4);
-  if (v1 <= 0)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return 4 * v1 + 8;
-  }
-}
-
-uint64_t google::protobuf::RepeatedField<int>::SpaceUsedExcludingSelf(uint64_t a1)
-{
-  v1 = *(a1 + 4);
-  if (v1 <= 0)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return (4 * v1 + 8);
-  }
-}
-
-uint64_t google::protobuf::RepeatedField<int>::erase(int *a1, uint64_t a2)
-{
-  v4 = (a2 + 4);
-  v5 = *(a1 + 1);
-  v6 = a2 - v5;
-  v7 = *a1;
-  v8 = (v5 + 4 * v7);
-  v9 = v5 + 4 * (v6 >> 2);
-  v10 = v8 - v4;
-  if (v8 != v4)
-  {
-    memmove((v5 + 4 * (v6 >> 2)), v4, v8 - v4);
-    LODWORD(v7) = *a1;
-    v5 = *(a1 + 1);
-  }
-
-  if (v7 >= 1)
-  {
-    *a1 = (v9 + v10 - v5) >> 2;
-  }
-
-  return v5 + 4 * (v6 >> 2);
-}
-
-uint64_t google::protobuf::RepeatedField<int>::erase(int *a1, _BYTE *a2, _BYTE *__src)
-{
-  v3 = *(a1 + 1);
-  v4 = &a2[-v3];
-  if (a2 == __src)
-  {
-    v8 = (v4 >> 2);
-  }
-
-  else
-  {
-    v6 = *a1;
-    v7 = (v3 + 4 * v6);
-    v8 = (v4 >> 2);
-    v9 = v3 + 4 * (v4 >> 2);
-    v10 = v7 - __src;
-    if (v7 != __src)
-    {
-      memmove((v3 + 4 * (v4 >> 2)), __src, v7 - __src);
-      LODWORD(v6) = *a1;
-      v3 = *(a1 + 1);
-    }
-
-    if (v6 >= 1)
-    {
-      *a1 = (v9 + v10 - v3) >> 2;
-    }
-  }
-
-  return v3 + 4 * v8;
-}
-
-void *google::protobuf::RepeatedField<unsigned int>::RepeatedField(void *result)
-{
-  *result = 0;
-  result[1] = 0;
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  return result;
-}
-
-void *google::protobuf::RepeatedField<unsigned int>::RepeatedField(void *result, uint64_t a2)
-{
-  *result = 0;
-  result[1] = a2;
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = a2;
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  v2 = (a2 + 8);
-  if (*(a2 + 4))
-  {
-    v2 = (*(a2 + 8) - 8);
-  }
-
-  if (*v2)
-  {
-    if (a2 != result)
-    {
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<unsigned int>::Reserve();
-      }
-    }
-  }
-
-  else
-  {
-    *result = *a2;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  v2 = (a2 + 8);
-  if (*(a2 + 4))
-  {
-    v2 = (*(a2 + 8) - 8);
-  }
-
-  if (*v2)
-  {
-    if (a2 != result)
-    {
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<unsigned int>::Reserve();
-      }
-    }
-  }
-
-  else
-  {
-    *result = *a2;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  return result;
-}
-
-void *google::protobuf::RepeatedField<unsigned int>::RepeatedField(void *result, _DWORD *a2)
-{
-  *result = 0;
-  result[1] = 0;
-  if (*a2)
-  {
-    google::protobuf::RepeatedField<unsigned int>::Reserve();
-  }
-
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  if (*a2)
-  {
-    google::protobuf::RepeatedField<unsigned int>::Reserve();
-  }
-
-  return result;
-}
-
-void google::protobuf::RepeatedField<unsigned int>::Reserve(unsigned int *a1, int a2)
-{
-  v2 = a1[1];
-  if (v2 >= a2)
-  {
-    return;
-  }
-
-  if (v2 < 1)
-  {
-    v4 = *(a1 + 1);
-    v5 = 0;
-    if (!v2)
-    {
-      if (a2 < 4)
-      {
-        goto LABEL_6;
-      }
-
-      goto LABEL_10;
-    }
-  }
-
-  else
-  {
-    v4 = *(a1 + 1);
-    v5 = (v4 - 8);
-  }
-
-  v4 = *(v4 - 1);
-  if (a2 < 4)
-  {
-LABEL_6:
-    v6 = 4;
-    goto LABEL_13;
-  }
-
-  if (v2 > 0x3FFFFFFF)
-  {
-    v6 = 0x7FFFFFFF;
-    goto LABEL_13;
-  }
-
-LABEL_10:
-  v7 = 2 * v2;
-  if (v7 <= a2)
-  {
-    v6 = a2;
-  }
-
-  else
-  {
-    v6 = v7;
-  }
-
-LABEL_13:
-  v8 = 4 * v6;
-  if (v4)
-  {
-    v9 = sub_2769B0A98(v4, v8 + 8);
-  }
-
-  else
-  {
-    v9 = operator new(v8 + 8);
-  }
-
-  *v9 = v4;
-  v10 = v9 + 1;
-  a1[1] = v6;
-  *(a1 + 1) = v10;
-  v11 = *a1;
-  if (v11 >= 1)
-  {
-    memcpy(v10, v5 + 1, 4 * v11);
-  }
-
-  if (v5 && !*v5)
-  {
-
-    operator delete(v5);
-  }
-}
-
-uint64_t google::protobuf::RepeatedField<unsigned int>::AddNAlreadyReserved(int *a1, int a2)
-{
-  v2 = *a1;
-  v3 = *(a1 + 1) + 4 * v2;
-  *a1 = v2 + a2;
-  return v3;
-}
-
-uint64_t google::protobuf::RepeatedField<unsigned int>::~RepeatedField(uint64_t a1)
-{
-  if (*(a1 + 4) >= 1)
-  {
-    v2 = *(a1 + 8);
-    v4 = *(v2 - 8);
-    v3 = (v2 - 8);
-    if (!v4)
-    {
-      operator delete(v3);
-    }
-  }
-
-  return a1;
-}
-
-{
-  if (*(a1 + 4) >= 1)
-  {
-    v2 = *(a1 + 8);
-    v4 = *(v2 - 8);
-    v3 = (v2 - 8);
-    if (!v4)
-    {
-      operator delete(v3);
-    }
-  }
-
-  return a1;
-}
-
-void google::protobuf::RepeatedField<unsigned int>::InternalDeallocate(int a1, void *__p)
-{
-  if (__p)
-  {
-    if (!*__p)
-    {
-      operator delete(__p);
-    }
-  }
-}
-
-_DWORD *google::protobuf::RepeatedField<unsigned int>::operator=(_DWORD *result, _DWORD *a2)
-{
-  if (result != a2)
-  {
-    *result = 0;
-    if (*a2)
-    {
-      google::protobuf::RepeatedField<unsigned int>::Reserve();
-    }
-  }
-
-  return result;
-}
-
-_DWORD *google::protobuf::RepeatedField<unsigned int>::CopyFrom(_DWORD *result, _DWORD *a2)
-{
-  if (a2 != result)
-  {
-    *result = 0;
-    if (*a2)
-    {
-      google::protobuf::RepeatedField<unsigned int>::Reserve();
-    }
-  }
-
-  return result;
-}
-
-uint64_t google::protobuf::RepeatedField<unsigned int>::GetArena(uint64_t a1)
-{
-  v1 = a1 + 8;
-  if (*(a1 + 4))
-  {
-    v1 = *v1 - 8;
-  }
-
-  return *v1;
-}
-
-__n128 google::protobuf::RepeatedField<unsigned int>::InternalSwap(unint64_t *a1, __n128 *a2)
-{
-  v2 = *a1;
-  v3 = a1[1];
-  result = *a2;
-  *a1 = *a2;
-  a2->n128_u64[0] = v2;
-  a2->n128_u64[1] = v3;
-  return result;
-}
-
-uint64_t *google::protobuf::RepeatedField<unsigned int>::operator=(uint64_t *result, uint64_t a2)
-{
-  if (result != a2)
-  {
-    v2 = result + 1;
-    if (*(result + 1))
-    {
-      v2 = (*v2 - 8);
-    }
-
-    v3 = *v2;
-    v4 = (a2 + 8);
-    if (*(a2 + 4))
-    {
-      v4 = (*(a2 + 8) - 8);
-    }
-
-    if (v3 == *v4)
-    {
-      v5 = *result;
-      v6 = result[1];
-      *result = *a2;
-      *a2 = v5;
-      *(a2 + 8) = v6;
-    }
-
-    else
-    {
-      *result = 0;
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<unsigned int>::Reserve();
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t google::protobuf::RepeatedField<unsigned int>::operator[](uint64_t a1, int a2)
-{
-  return *(a1 + 8) + 4 * a2;
-}
-
-{
-  return *(a1 + 8) + 4 * a2;
-}
-
-uint64_t google::protobuf::RepeatedField<unsigned int>::at(uint64_t a1, int a2)
-{
-  if (a2 < 0)
-  {
-    google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkImport/install/Root/include/google/protobuf/repeated_field.h", 1308);
-    v4 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, &v4->__r_.__value_.__l.__data_);
-    google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
-  }
-
-  if (*a1 <= a2)
-  {
-    google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkImport/install/Root/include/google/protobuf/repeated_field.h", 1309);
-    v5 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) < (current_size_): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, &v5->__r_.__value_.__l.__data_);
-    google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
-  }
-
-  return *(a1 + 8) + 4 * a2;
-}
-
-{
-  if (a2 < 0)
-  {
-    google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkImport/install/Root/include/google/protobuf/repeated_field.h", 1315);
-    v4 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) >= (0): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, &v4->__r_.__value_.__l.__data_);
-    google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
-  }
-
-  if (*a1 <= a2)
-  {
-    google::protobuf::internal::LogMessage::LogMessage(v8, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkImport/install/Root/include/google/protobuf/repeated_field.h", 1316);
-    v5 = google::protobuf::internal::LogMessage::operator<<(v8, "CHECK failed: (index) < (current_size_): ");
-    google::protobuf::internal::LogFinisher::operator=(&v7, &v5->__r_.__value_.__l.__data_);
-    google::protobuf::internal::LogMessage::~LogMessage(&v8[0].__r_.__value_.__l.__data_);
-  }
-
-  return *(a1 + 8) + 4 * a2;
-}
-
-void sub_276B8F8D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  google::protobuf::internal::LogMessage::~LogMessage(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_276B8F9B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  google::protobuf::internal::LogMessage::~LogMessage(va);
-  _Unwind_Resume(a1);
-}
-
-unsigned int *google::protobuf::RepeatedField<unsigned int>::Add(unsigned int *result, _DWORD *a2)
-{
-  v2 = *result;
-  if (v2 == result[1])
-  {
-    google::protobuf::RepeatedField<unsigned int>::Reserve();
-  }
-
-  *(*(result + 1) + 4 * v2) = *a2;
-  *result = v2 + 1;
-  return result;
-}
-
-uint64_t google::protobuf::RepeatedField<unsigned int>::Add(unsigned int *a1)
-{
-  v2 = *a1;
-  if (v2 == a1[1])
-  {
-    google::protobuf::RepeatedField<unsigned int>::Reserve();
-  }
-
-  result = *(a1 + 1) + 4 * v2;
-  *a1 = v2 + 1;
-  return result;
-}
-
-int *google::protobuf::RepeatedField<unsigned int>::ExtractSubrange(int *result, int a2, int a3, _DWORD *a4)
-{
-  if (a4 && a3 >= 1)
-  {
-    v4 = a3;
-    v5 = (*(result + 1) + 4 * a2);
-    do
-    {
-      v6 = *v5++;
-      *a4++ = v6;
-      --v4;
-    }
-
-    while (v4);
-  }
-
-  if (a3 >= 1)
-  {
-    LODWORD(v7) = a3 + a2;
-    LODWORD(v8) = *result;
-    if (a3 + a2 < *result)
-    {
-      v9 = *(result + 1);
-      v7 = v7;
-      do
-      {
-        *(v9 - 4 * a3 + 4 * v7) = *(v9 + 4 * v7);
-        ++v7;
-        v8 = *result;
-      }
-
-      while (v7 < v8);
-    }
-
-    if (v8 >= 1)
-    {
-      *result = v8 - a3;
-    }
-  }
-
-  return result;
-}
-
-int *google::protobuf::RepeatedField<unsigned int>::Truncate(int *result, int a2)
-{
-  if (*result >= 1)
-  {
-    *result = a2;
-  }
-
-  return result;
-}
-
-int *google::protobuf::RepeatedField<unsigned int>::MergeFrom(int *result, _DWORD *a2)
-{
-  if (*a2)
-  {
-    v2 = *result;
-    google::protobuf::RepeatedField<unsigned int>::Reserve();
-  }
-
-  return result;
-}
-
-int *google::protobuf::RepeatedField<unsigned int>::AddAlreadyReserved(int *result, int *a2)
-{
-  v2 = *a2;
-  v3 = *(result + 1);
-  v4 = *result;
-  *result = v4 + 1;
-  *(v3 + 4 * v4) = v2;
-  return result;
-}
-
-uint64_t google::protobuf::RepeatedField<unsigned int>::AddAlreadyReserved(int *a1)
-{
-  v1 = *(a1 + 1);
-  v2 = *a1;
-  *a1 = v2 + 1;
-  return v1 + 4 * v2;
-}
-
-_DWORD *google::protobuf::RepeatedField<unsigned int>::Resize(_DWORD *result, int a2)
-{
-  if (*result < a2)
-  {
-    google::protobuf::RepeatedField<unsigned int>::Reserve();
-  }
-
-  *result = a2;
-  return result;
-}
-
-void google::protobuf::RepeatedField<unsigned int>::Swap(uint64_t *a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    v2 = (a1 + 1);
-    if (*(a1 + 1))
-    {
-      v2 = (*v2 - 8);
-    }
-
-    v3 = *v2;
-    v4 = *(a2 + 8);
-    if (*(a2 + 4))
-    {
-      v4 = *(v4 - 1);
-    }
-
-    if (v3 == v4)
-    {
-      v8 = *a1;
-      v9 = a1[1];
-      *a1 = *a2;
-      *a2 = v8;
-      *(a2 + 8) = v9;
-    }
-
-    else
-    {
-      __dst[0] = 0;
-      __dst[1] = v4;
-      if (*a1)
-      {
-        google::protobuf::RepeatedField<unsigned int>::Reserve();
-      }
-
-      *a1 = 0;
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<unsigned int>::Reserve();
-      }
-
-      if (__dst == a2)
-      {
-        LODWORD(v7) = HIDWORD(__dst[0]);
-      }
-
-      else
-      {
-        v5 = *a2;
-        v6 = *(a2 + 8);
-        *a2 = *__dst;
-        __dst[0] = v5;
-        __dst[1] = v6;
-        v7 = HIDWORD(v5);
-      }
-
-      if (v7 >= 1 && !*(__dst[1] - 1))
-      {
-        operator delete(__dst[1] - 8);
-      }
-    }
-  }
-}
-
-void sub_276B8FE48(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10)
-{
-  if (a10 >= 1)
-  {
-    sub_276BDA7BC((v10 | 8));
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-__n128 google::protobuf::RepeatedField<unsigned int>::UnsafeArenaSwap(__n128 *a1, __n128 *a2)
-{
-  if (a1 != a2)
-  {
-    v2 = a1->n128_u64[0];
-    v3 = a1->n128_u64[1];
-    result = *a2;
-    *a1 = *a2;
-    a2->n128_u64[0] = v2;
-    a2->n128_u64[1] = v3;
-  }
-
-  return result;
-}
-
-uint64_t google::protobuf::RepeatedField<unsigned int>::SwapElements(uint64_t result, int a2, int a3)
-{
-  v3 = *(result + 8);
-  v4 = *(v3 + 4 * a2);
-  *(v3 + 4 * a2) = *(v3 + 4 * a3);
-  *(v3 + 4 * a3) = v4;
-  return result;
-}
-
-uint64_t google::protobuf::RepeatedField<unsigned int>::begin(uint64_t a1)
-{
-  return *(a1 + 8);
-}
-
-{
-  return *(a1 + 8);
-}
-
-uint64_t google::protobuf::RepeatedField<unsigned int>::end(int *a1)
-{
-  return *(a1 + 1) + 4 * *a1;
-}
-
-{
-  return *(a1 + 1) + 4 * *a1;
-}
-
-uint64_t google::protobuf::RepeatedField<unsigned int>::rbegin(int *a1)
-{
-  return *(a1 + 1) + 4 * *a1;
-}
-
-{
-  return *(a1 + 1) + 4 * *a1;
-}
-
-uint64_t google::protobuf::RepeatedField<unsigned int>::rend(uint64_t a1)
-{
-  return *(a1 + 8);
-}
-
-{
-  return *(a1 + 8);
-}
-
-uint64_t google::protobuf::RepeatedField<unsigned int>::SpaceUsedExcludingSelfLong(uint64_t a1)
-{
-  v1 = *(a1 + 4);
-  if (v1 <= 0)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return 4 * v1 + 8;
-  }
-}
-
-uint64_t google::protobuf::RepeatedField<unsigned int>::SpaceUsedExcludingSelf(uint64_t a1)
-{
-  v1 = *(a1 + 4);
-  if (v1 <= 0)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return (4 * v1 + 8);
-  }
-}
-
-uint64_t google::protobuf::RepeatedField<unsigned int>::erase(int *a1, uint64_t a2)
-{
-  v4 = (a2 + 4);
-  v5 = *(a1 + 1);
-  v6 = a2 - v5;
-  v7 = *a1;
-  v8 = (v5 + 4 * v7);
-  v9 = v5 + 4 * (v6 >> 2);
-  v10 = v8 - v4;
-  if (v8 != v4)
-  {
-    memmove((v5 + 4 * (v6 >> 2)), v4, v8 - v4);
-    LODWORD(v7) = *a1;
-    v5 = *(a1 + 1);
-  }
-
-  if (v7 >= 1)
-  {
-    *a1 = (v9 + v10 - v5) >> 2;
-  }
-
-  return v5 + 4 * (v6 >> 2);
-}
-
 uint64_t google::protobuf::RepeatedField<unsigned int>::erase(int *a1, _BYTE *a2, _BYTE *__src)
 {
   v3 = *(a1 + 1);
@@ -1757,87 +56,27 @@ void *google::protobuf::RepeatedField<long long>::RepeatedField(void *result, ui
   return result;
 }
 
+void *google::protobuf::RepeatedField<long long>::RepeatedField(void *a1, unsigned int *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  v2 = (a2 + 8);
-  if (*(a2 + 4))
-  {
-    v2 = (*(a2 + 8) - 8);
-  }
-
-  if (*v2)
-  {
-    if (a2 != result)
-    {
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<long long>::Reserve();
-      }
-    }
-  }
-
-  else
-  {
-    *result = *a2;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  v2 = (a2 + 8);
-  if (*(a2 + 4))
-  {
-    v2 = (*(a2 + 8) - 8);
-  }
-
-  if (*v2)
-  {
-    if (a2 != result)
-    {
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<long long>::Reserve();
-      }
-    }
-  }
-
-  else
-  {
-    *result = *a2;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  return result;
-}
-
-void *google::protobuf::RepeatedField<long long>::RepeatedField(void *result, _DWORD *a2)
-{
-  *result = 0;
-  result[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   if (*a2)
   {
     google::protobuf::RepeatedField<long long>::Reserve();
   }
 
-  return result;
+  return a1;
 }
 
 {
-  *result = 0;
-  result[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   if (*a2)
   {
     google::protobuf::RepeatedField<long long>::Reserve();
   }
 
-  return result;
+  return a1;
 }
 
 void google::protobuf::RepeatedField<long long>::Reserve(unsigned int *a1, int a2)
@@ -1974,21 +213,59 @@ void google::protobuf::RepeatedField<long long>::InternalDeallocate(int a1, void
   }
 }
 
-_DWORD *google::protobuf::RepeatedField<long long>::operator=(_DWORD *result, _DWORD *a2)
+unsigned int *google::protobuf::RepeatedField<long long>::operator=(unsigned int *a1, unsigned int *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
-    *result = 0;
+    *a1 = 0;
     if (*a2)
     {
       google::protobuf::RepeatedField<long long>::Reserve();
     }
   }
 
-  return result;
+  return a1;
 }
 
-_DWORD *google::protobuf::RepeatedField<long long>::CopyFrom(_DWORD *result, _DWORD *a2)
+{
+  if (a1 != a2)
+  {
+    v2 = a1 + 2;
+    if (a1[1])
+    {
+      v2 = (*v2 - 8);
+    }
+
+    v3 = *v2;
+    v4 = a2 + 2;
+    if (a2[1])
+    {
+      v4 = (*(a2 + 1) - 8);
+    }
+
+    if (v3 == *v4)
+    {
+      v5 = *a1;
+      v6 = *(a1 + 1);
+      *a1 = *a2;
+      *a2 = v5;
+      *(a2 + 1) = v6;
+    }
+
+    else
+    {
+      *a1 = 0;
+      if (*a2)
+      {
+        google::protobuf::RepeatedField<long long>::Reserve();
+      }
+    }
+  }
+
+  return a1;
+}
+
+unsigned int *google::protobuf::RepeatedField<long long>::CopyFrom(unsigned int *result, unsigned int *a2)
 {
   if (a2 != result)
   {
@@ -2000,6 +277,67 @@ _DWORD *google::protobuf::RepeatedField<long long>::CopyFrom(_DWORD *result, _DW
   }
 
   return result;
+}
+
+unsigned int *google::protobuf::RepeatedField<long long>::RepeatedField(unsigned int *a1, unsigned int *a2)
+{
+  *a1 = 0;
+  *(a1 + 1) = 0;
+  v2 = a2 + 2;
+  if (a2[1])
+  {
+    v2 = (*(a2 + 1) - 8);
+  }
+
+  if (*v2)
+  {
+    if (a2 != a1)
+    {
+      if (*a2)
+      {
+        google::protobuf::RepeatedField<long long>::Reserve();
+      }
+    }
+  }
+
+  else
+  {
+    *a1 = *a2;
+    *a2 = 0;
+    *(a2 + 1) = 0;
+  }
+
+  return a1;
+}
+
+{
+  *a1 = 0;
+  *(a1 + 1) = 0;
+  v2 = a2 + 2;
+  if (a2[1])
+  {
+    v2 = (*(a2 + 1) - 8);
+  }
+
+  if (*v2)
+  {
+    if (a2 != a1)
+    {
+      if (*a2)
+      {
+        google::protobuf::RepeatedField<long long>::Reserve();
+      }
+    }
+  }
+
+  else
+  {
+    *a1 = *a2;
+    *a2 = 0;
+    *(a2 + 1) = 0;
+  }
+
+  return a1;
 }
 
 uint64_t google::protobuf::RepeatedField<long long>::GetArena(uint64_t a1)
@@ -2021,45 +359,6 @@ __n128 google::protobuf::RepeatedField<long long>::InternalSwap(unint64_t *a1, _
   *a1 = *a2;
   a2->n128_u64[0] = v2;
   a2->n128_u64[1] = v3;
-  return result;
-}
-
-uint64_t *google::protobuf::RepeatedField<long long>::operator=(uint64_t *result, uint64_t a2)
-{
-  if (result != a2)
-  {
-    v2 = result + 1;
-    if (*(result + 1))
-    {
-      v2 = (*v2 - 8);
-    }
-
-    v3 = *v2;
-    v4 = (a2 + 8);
-    if (*(a2 + 4))
-    {
-      v4 = (*(a2 + 8) - 8);
-    }
-
-    if (v3 == *v4)
-    {
-      v5 = *result;
-      v6 = result[1];
-      *result = *a2;
-      *a2 = v5;
-      *(a2 + 8) = v6;
-    }
-
-    else
-    {
-      *result = 0;
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<long long>::Reserve();
-      }
-    }
-  }
-
   return result;
 }
 
@@ -2113,21 +412,21 @@ uint64_t google::protobuf::RepeatedField<long long>::at(uint64_t a1, int a2)
   return *(a1 + 8) + 8 * a2;
 }
 
-void sub_276B90734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_276B90734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void sub_276B90810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_276B90810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-unsigned int *google::protobuf::RepeatedField<long long>::Add(unsigned int *result, void *a2)
+unsigned int *google::protobuf::RepeatedField<long long>::Add(unsigned int *result, uint64_t *a2)
 {
   v2 = *result;
   if (v2 == result[1])
@@ -2153,7 +452,7 @@ uint64_t google::protobuf::RepeatedField<long long>::Add(unsigned int *a1)
   return result;
 }
 
-int *google::protobuf::RepeatedField<long long>::ExtractSubrange(int *result, int a2, int a3, void *a4)
+int *google::protobuf::RepeatedField<long long>::ExtractSubrange(int *result, int a2, unsigned int a3, void *a4)
 {
   if (a4 && a3 >= 1)
   {
@@ -2173,7 +472,7 @@ int *google::protobuf::RepeatedField<long long>::ExtractSubrange(int *result, in
   {
     LODWORD(v7) = a3 + a2;
     v8 = *result;
-    if (a3 + a2 < v8)
+    if ((a3 + a2) < v8)
     {
       v9 = *(result + 1);
       v7 = v7;
@@ -2205,15 +504,12 @@ int *google::protobuf::RepeatedField<long long>::Truncate(int *result, int a2)
   return result;
 }
 
-int *google::protobuf::RepeatedField<long long>::MergeFrom(int *result, _DWORD *a2)
+void google::protobuf::RepeatedField<long long>::MergeFrom(int *result, int *a2)
 {
   if (*a2)
   {
-    v2 = *result;
     google::protobuf::RepeatedField<long long>::Reserve();
   }
-
-  return result;
 }
 
 int *google::protobuf::RepeatedField<long long>::AddAlreadyReserved(int *result, uint64_t *a2)
@@ -2234,7 +530,7 @@ uint64_t google::protobuf::RepeatedField<long long>::AddAlreadyReserved(int *a1)
   return v1 + 8 * v2;
 }
 
-_DWORD *google::protobuf::RepeatedField<long long>::Resize(_DWORD *result, int a2)
+int *google::protobuf::RepeatedField<long long>::Resize(int *result, uint64_t a2, uint64_t *a3)
 {
   if (*result < a2)
   {
@@ -2245,7 +541,7 @@ _DWORD *google::protobuf::RepeatedField<long long>::Resize(_DWORD *result, int a
   return result;
 }
 
-void google::protobuf::RepeatedField<long long>::Swap(uint64_t *a1, uint64_t a2)
+void google::protobuf::RepeatedField<long long>::Swap(void **a1, void **a2)
 {
   if (a1 != a2)
   {
@@ -2256,8 +552,8 @@ void google::protobuf::RepeatedField<long long>::Swap(uint64_t *a1, uint64_t a2)
     }
 
     v3 = *v2;
-    v4 = *(a2 + 8);
-    if (*(a2 + 4))
+    v4 = a2[1];
+    if (*(a2 + 1))
     {
       v4 = *(v4 - 1);
     }
@@ -2268,7 +564,7 @@ void google::protobuf::RepeatedField<long long>::Swap(uint64_t *a1, uint64_t a2)
       v9 = a1[1];
       *a1 = *a2;
       *a2 = v8;
-      *(a2 + 8) = v9;
+      a2[1] = v9;
     }
 
     else
@@ -2294,7 +590,7 @@ void google::protobuf::RepeatedField<long long>::Swap(uint64_t *a1, uint64_t a2)
       else
       {
         v5 = *a2;
-        v6 = *(a2 + 8);
+        v6 = a2[1];
         *a2 = *__dst;
         __dst[0] = v5;
         __dst[1] = v6;
@@ -2489,87 +785,27 @@ void *google::protobuf::RepeatedField<unsigned long long>::RepeatedField(void *r
   return result;
 }
 
+void *google::protobuf::RepeatedField<unsigned long long>::RepeatedField(void *a1, unsigned int *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  v2 = (a2 + 8);
-  if (*(a2 + 4))
-  {
-    v2 = (*(a2 + 8) - 8);
-  }
-
-  if (*v2)
-  {
-    if (a2 != result)
-    {
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<unsigned long long>::Reserve();
-      }
-    }
-  }
-
-  else
-  {
-    *result = *a2;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  v2 = (a2 + 8);
-  if (*(a2 + 4))
-  {
-    v2 = (*(a2 + 8) - 8);
-  }
-
-  if (*v2)
-  {
-    if (a2 != result)
-    {
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<unsigned long long>::Reserve();
-      }
-    }
-  }
-
-  else
-  {
-    *result = *a2;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  return result;
-}
-
-void *google::protobuf::RepeatedField<unsigned long long>::RepeatedField(void *result, _DWORD *a2)
-{
-  *result = 0;
-  result[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   if (*a2)
   {
     google::protobuf::RepeatedField<unsigned long long>::Reserve();
   }
 
-  return result;
+  return a1;
 }
 
 {
-  *result = 0;
-  result[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   if (*a2)
   {
     google::protobuf::RepeatedField<unsigned long long>::Reserve();
   }
 
-  return result;
+  return a1;
 }
 
 void google::protobuf::RepeatedField<unsigned long long>::Reserve(unsigned int *a1, int a2)
@@ -2706,21 +942,59 @@ void google::protobuf::RepeatedField<unsigned long long>::InternalDeallocate(int
   }
 }
 
-_DWORD *google::protobuf::RepeatedField<unsigned long long>::operator=(_DWORD *result, _DWORD *a2)
+unsigned int *google::protobuf::RepeatedField<unsigned long long>::operator=(unsigned int *a1, unsigned int *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
-    *result = 0;
+    *a1 = 0;
     if (*a2)
     {
       google::protobuf::RepeatedField<unsigned long long>::Reserve();
     }
   }
 
-  return result;
+  return a1;
 }
 
-_DWORD *google::protobuf::RepeatedField<unsigned long long>::CopyFrom(_DWORD *result, _DWORD *a2)
+{
+  if (a1 != a2)
+  {
+    v2 = a1 + 2;
+    if (a1[1])
+    {
+      v2 = (*v2 - 8);
+    }
+
+    v3 = *v2;
+    v4 = a2 + 2;
+    if (a2[1])
+    {
+      v4 = (*(a2 + 1) - 8);
+    }
+
+    if (v3 == *v4)
+    {
+      v5 = *a1;
+      v6 = *(a1 + 1);
+      *a1 = *a2;
+      *a2 = v5;
+      *(a2 + 1) = v6;
+    }
+
+    else
+    {
+      *a1 = 0;
+      if (*a2)
+      {
+        google::protobuf::RepeatedField<unsigned long long>::Reserve();
+      }
+    }
+  }
+
+  return a1;
+}
+
+unsigned int *google::protobuf::RepeatedField<unsigned long long>::CopyFrom(unsigned int *result, unsigned int *a2)
 {
   if (a2 != result)
   {
@@ -2732,6 +1006,67 @@ _DWORD *google::protobuf::RepeatedField<unsigned long long>::CopyFrom(_DWORD *re
   }
 
   return result;
+}
+
+unsigned int *google::protobuf::RepeatedField<unsigned long long>::RepeatedField(unsigned int *a1, unsigned int *a2)
+{
+  *a1 = 0;
+  *(a1 + 1) = 0;
+  v2 = a2 + 2;
+  if (a2[1])
+  {
+    v2 = (*(a2 + 1) - 8);
+  }
+
+  if (*v2)
+  {
+    if (a2 != a1)
+    {
+      if (*a2)
+      {
+        google::protobuf::RepeatedField<unsigned long long>::Reserve();
+      }
+    }
+  }
+
+  else
+  {
+    *a1 = *a2;
+    *a2 = 0;
+    *(a2 + 1) = 0;
+  }
+
+  return a1;
+}
+
+{
+  *a1 = 0;
+  *(a1 + 1) = 0;
+  v2 = a2 + 2;
+  if (a2[1])
+  {
+    v2 = (*(a2 + 1) - 8);
+  }
+
+  if (*v2)
+  {
+    if (a2 != a1)
+    {
+      if (*a2)
+      {
+        google::protobuf::RepeatedField<unsigned long long>::Reserve();
+      }
+    }
+  }
+
+  else
+  {
+    *a1 = *a2;
+    *a2 = 0;
+    *(a2 + 1) = 0;
+  }
+
+  return a1;
 }
 
 uint64_t google::protobuf::RepeatedField<unsigned long long>::GetArena(uint64_t a1)
@@ -2753,45 +1088,6 @@ __n128 google::protobuf::RepeatedField<unsigned long long>::InternalSwap(unint64
   *a1 = *a2;
   a2->n128_u64[0] = v2;
   a2->n128_u64[1] = v3;
-  return result;
-}
-
-uint64_t *google::protobuf::RepeatedField<unsigned long long>::operator=(uint64_t *result, uint64_t a2)
-{
-  if (result != a2)
-  {
-    v2 = result + 1;
-    if (*(result + 1))
-    {
-      v2 = (*v2 - 8);
-    }
-
-    v3 = *v2;
-    v4 = (a2 + 8);
-    if (*(a2 + 4))
-    {
-      v4 = (*(a2 + 8) - 8);
-    }
-
-    if (v3 == *v4)
-    {
-      v5 = *result;
-      v6 = result[1];
-      *result = *a2;
-      *a2 = v5;
-      *(a2 + 8) = v6;
-    }
-
-    else
-    {
-      *result = 0;
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<unsigned long long>::Reserve();
-      }
-    }
-  }
-
   return result;
 }
 
@@ -2845,21 +1141,21 @@ uint64_t google::protobuf::RepeatedField<unsigned long long>::at(uint64_t a1, in
   return *(a1 + 8) + 8 * a2;
 }
 
-void sub_276B91554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_276B91554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void sub_276B91630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_276B91630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-unsigned int *google::protobuf::RepeatedField<unsigned long long>::Add(unsigned int *result, void *a2)
+unsigned int *google::protobuf::RepeatedField<unsigned long long>::Add(unsigned int *result, uint64_t *a2)
 {
   v2 = *result;
   if (v2 == result[1])
@@ -2885,7 +1181,7 @@ uint64_t google::protobuf::RepeatedField<unsigned long long>::Add(unsigned int *
   return result;
 }
 
-int *google::protobuf::RepeatedField<unsigned long long>::ExtractSubrange(int *result, int a2, int a3, void *a4)
+int *google::protobuf::RepeatedField<unsigned long long>::ExtractSubrange(int *result, int a2, unsigned int a3, void *a4)
 {
   if (a4 && a3 >= 1)
   {
@@ -2905,7 +1201,7 @@ int *google::protobuf::RepeatedField<unsigned long long>::ExtractSubrange(int *r
   {
     LODWORD(v7) = a3 + a2;
     v8 = *result;
-    if (a3 + a2 < v8)
+    if ((a3 + a2) < v8)
     {
       v9 = *(result + 1);
       v7 = v7;
@@ -2937,15 +1233,12 @@ int *google::protobuf::RepeatedField<unsigned long long>::Truncate(int *result, 
   return result;
 }
 
-int *google::protobuf::RepeatedField<unsigned long long>::MergeFrom(int *result, _DWORD *a2)
+void google::protobuf::RepeatedField<unsigned long long>::MergeFrom(int *result, int *a2)
 {
   if (*a2)
   {
-    v2 = *result;
     google::protobuf::RepeatedField<unsigned long long>::Reserve();
   }
-
-  return result;
 }
 
 int *google::protobuf::RepeatedField<unsigned long long>::AddAlreadyReserved(int *result, uint64_t *a2)
@@ -2966,7 +1259,7 @@ uint64_t google::protobuf::RepeatedField<unsigned long long>::AddAlreadyReserved
   return v1 + 8 * v2;
 }
 
-_DWORD *google::protobuf::RepeatedField<unsigned long long>::Resize(_DWORD *result, int a2)
+int *google::protobuf::RepeatedField<unsigned long long>::Resize(int *result, uint64_t a2, uint64_t *a3)
 {
   if (*result < a2)
   {
@@ -2977,7 +1270,7 @@ _DWORD *google::protobuf::RepeatedField<unsigned long long>::Resize(_DWORD *resu
   return result;
 }
 
-void google::protobuf::RepeatedField<unsigned long long>::Swap(uint64_t *a1, uint64_t a2)
+void google::protobuf::RepeatedField<unsigned long long>::Swap(void **a1, void **a2)
 {
   if (a1 != a2)
   {
@@ -2988,8 +1281,8 @@ void google::protobuf::RepeatedField<unsigned long long>::Swap(uint64_t *a1, uin
     }
 
     v3 = *v2;
-    v4 = *(a2 + 8);
-    if (*(a2 + 4))
+    v4 = a2[1];
+    if (*(a2 + 1))
     {
       v4 = *(v4 - 1);
     }
@@ -3000,7 +1293,7 @@ void google::protobuf::RepeatedField<unsigned long long>::Swap(uint64_t *a1, uin
       v9 = a1[1];
       *a1 = *a2;
       *a2 = v8;
-      *(a2 + 8) = v9;
+      a2[1] = v9;
     }
 
     else
@@ -3026,7 +1319,7 @@ void google::protobuf::RepeatedField<unsigned long long>::Swap(uint64_t *a1, uin
       else
       {
         v5 = *a2;
-        v6 = *(a2 + 8);
+        v6 = a2[1];
         *a2 = *__dst;
         __dst[0] = v5;
         __dst[1] = v6;
@@ -3221,87 +1514,27 @@ void *google::protobuf::RepeatedField<float>::RepeatedField(void *result, uint64
   return result;
 }
 
+void *google::protobuf::RepeatedField<float>::RepeatedField(void *a1, unsigned int *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  v2 = (a2 + 8);
-  if (*(a2 + 4))
-  {
-    v2 = (*(a2 + 8) - 8);
-  }
-
-  if (*v2)
-  {
-    if (a2 != result)
-    {
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<float>::Reserve();
-      }
-    }
-  }
-
-  else
-  {
-    *result = *a2;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  v2 = (a2 + 8);
-  if (*(a2 + 4))
-  {
-    v2 = (*(a2 + 8) - 8);
-  }
-
-  if (*v2)
-  {
-    if (a2 != result)
-    {
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<float>::Reserve();
-      }
-    }
-  }
-
-  else
-  {
-    *result = *a2;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  return result;
-}
-
-void *google::protobuf::RepeatedField<float>::RepeatedField(void *result, _DWORD *a2)
-{
-  *result = 0;
-  result[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   if (*a2)
   {
     google::protobuf::RepeatedField<float>::Reserve();
   }
 
-  return result;
+  return a1;
 }
 
 {
-  *result = 0;
-  result[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   if (*a2)
   {
     google::protobuf::RepeatedField<float>::Reserve();
   }
 
-  return result;
+  return a1;
 }
 
 void google::protobuf::RepeatedField<float>::Reserve(unsigned int *a1, int a2)
@@ -3438,21 +1671,59 @@ void google::protobuf::RepeatedField<float>::InternalDeallocate(int a1, void *__
   }
 }
 
-_DWORD *google::protobuf::RepeatedField<float>::operator=(_DWORD *result, _DWORD *a2)
+unsigned int *google::protobuf::RepeatedField<float>::operator=(unsigned int *a1, unsigned int *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
-    *result = 0;
+    *a1 = 0;
     if (*a2)
     {
       google::protobuf::RepeatedField<float>::Reserve();
     }
   }
 
-  return result;
+  return a1;
 }
 
-_DWORD *google::protobuf::RepeatedField<float>::CopyFrom(_DWORD *result, _DWORD *a2)
+{
+  if (a1 != a2)
+  {
+    v2 = a1 + 2;
+    if (a1[1])
+    {
+      v2 = (*v2 - 8);
+    }
+
+    v3 = *v2;
+    v4 = a2 + 2;
+    if (a2[1])
+    {
+      v4 = (*(a2 + 1) - 8);
+    }
+
+    if (v3 == *v4)
+    {
+      v5 = *a1;
+      v6 = *(a1 + 1);
+      *a1 = *a2;
+      *a2 = v5;
+      *(a2 + 1) = v6;
+    }
+
+    else
+    {
+      *a1 = 0;
+      if (*a2)
+      {
+        google::protobuf::RepeatedField<float>::Reserve();
+      }
+    }
+  }
+
+  return a1;
+}
+
+unsigned int *google::protobuf::RepeatedField<float>::CopyFrom(unsigned int *result, unsigned int *a2)
 {
   if (a2 != result)
   {
@@ -3464,6 +1735,67 @@ _DWORD *google::protobuf::RepeatedField<float>::CopyFrom(_DWORD *result, _DWORD 
   }
 
   return result;
+}
+
+unsigned int *google::protobuf::RepeatedField<float>::RepeatedField(unsigned int *a1, unsigned int *a2)
+{
+  *a1 = 0;
+  *(a1 + 1) = 0;
+  v2 = a2 + 2;
+  if (a2[1])
+  {
+    v2 = (*(a2 + 1) - 8);
+  }
+
+  if (*v2)
+  {
+    if (a2 != a1)
+    {
+      if (*a2)
+      {
+        google::protobuf::RepeatedField<float>::Reserve();
+      }
+    }
+  }
+
+  else
+  {
+    *a1 = *a2;
+    *a2 = 0;
+    *(a2 + 1) = 0;
+  }
+
+  return a1;
+}
+
+{
+  *a1 = 0;
+  *(a1 + 1) = 0;
+  v2 = a2 + 2;
+  if (a2[1])
+  {
+    v2 = (*(a2 + 1) - 8);
+  }
+
+  if (*v2)
+  {
+    if (a2 != a1)
+    {
+      if (*a2)
+      {
+        google::protobuf::RepeatedField<float>::Reserve();
+      }
+    }
+  }
+
+  else
+  {
+    *a1 = *a2;
+    *a2 = 0;
+    *(a2 + 1) = 0;
+  }
+
+  return a1;
 }
 
 uint64_t google::protobuf::RepeatedField<float>::GetArena(uint64_t a1)
@@ -3485,45 +1817,6 @@ __n128 google::protobuf::RepeatedField<float>::InternalSwap(unint64_t *a1, __n12
   *a1 = *a2;
   a2->n128_u64[0] = v2;
   a2->n128_u64[1] = v3;
-  return result;
-}
-
-uint64_t *google::protobuf::RepeatedField<float>::operator=(uint64_t *result, uint64_t a2)
-{
-  if (result != a2)
-  {
-    v2 = result + 1;
-    if (*(result + 1))
-    {
-      v2 = (*v2 - 8);
-    }
-
-    v3 = *v2;
-    v4 = (a2 + 8);
-    if (*(a2 + 4))
-    {
-      v4 = (*(a2 + 8) - 8);
-    }
-
-    if (v3 == *v4)
-    {
-      v5 = *result;
-      v6 = result[1];
-      *result = *a2;
-      *a2 = v5;
-      *(a2 + 8) = v6;
-    }
-
-    else
-    {
-      *result = 0;
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<float>::Reserve();
-      }
-    }
-  }
-
   return result;
 }
 
@@ -3577,16 +1870,16 @@ uint64_t google::protobuf::RepeatedField<float>::at(uint64_t a1, int a2)
   return *(a1 + 8) + 4 * a2;
 }
 
-void sub_276B92374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_276B92374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void sub_276B92450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_276B92450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3598,7 +1891,7 @@ float google::protobuf::RepeatedField<float>::Set(uint64_t a1, int a2, float *a3
   return result;
 }
 
-unsigned int *google::protobuf::RepeatedField<float>::Add(unsigned int *result, _DWORD *a2)
+unsigned int *google::protobuf::RepeatedField<float>::Add(unsigned int *result, int *a2)
 {
   v2 = *result;
   if (v2 == result[1])
@@ -3624,7 +1917,7 @@ uint64_t google::protobuf::RepeatedField<float>::Add(unsigned int *a1)
   return result;
 }
 
-int *google::protobuf::RepeatedField<float>::ExtractSubrange(int *result, int a2, int a3, _DWORD *a4)
+int *google::protobuf::RepeatedField<float>::ExtractSubrange(int *result, int a2, unsigned int a3, _DWORD *a4)
 {
   if (a4 && a3 >= 1)
   {
@@ -3644,7 +1937,7 @@ int *google::protobuf::RepeatedField<float>::ExtractSubrange(int *result, int a2
   {
     LODWORD(v7) = a3 + a2;
     v8 = *result;
-    if (a3 + a2 < v8)
+    if ((a3 + a2) < v8)
     {
       v9 = *(result + 1);
       v7 = v7;
@@ -3676,15 +1969,12 @@ int *google::protobuf::RepeatedField<float>::Truncate(int *result, int a2)
   return result;
 }
 
-int *google::protobuf::RepeatedField<float>::MergeFrom(int *result, _DWORD *a2)
+void google::protobuf::RepeatedField<float>::MergeFrom(int *result, int *a2)
 {
   if (*a2)
   {
-    v2 = *result;
     google::protobuf::RepeatedField<float>::Reserve();
   }
-
-  return result;
 }
 
 float google::protobuf::RepeatedField<float>::AddAlreadyReserved(int *a1, float *a2)
@@ -3705,7 +1995,7 @@ uint64_t google::protobuf::RepeatedField<float>::AddAlreadyReserved(int *a1)
   return v1 + 4 * v2;
 }
 
-_DWORD *google::protobuf::RepeatedField<float>::Resize(_DWORD *result, int a2)
+int *google::protobuf::RepeatedField<float>::Resize(int *result, uint64_t a2, __int32 *a3)
 {
   if (*result < a2)
   {
@@ -3716,7 +2006,7 @@ _DWORD *google::protobuf::RepeatedField<float>::Resize(_DWORD *result, int a2)
   return result;
 }
 
-void google::protobuf::RepeatedField<float>::Swap(uint64_t *a1, uint64_t a2)
+void google::protobuf::RepeatedField<float>::Swap(void **a1, void **a2)
 {
   if (a1 != a2)
   {
@@ -3727,8 +2017,8 @@ void google::protobuf::RepeatedField<float>::Swap(uint64_t *a1, uint64_t a2)
     }
 
     v3 = *v2;
-    v4 = *(a2 + 8);
-    if (*(a2 + 4))
+    v4 = a2[1];
+    if (*(a2 + 1))
     {
       v4 = *(v4 - 1);
     }
@@ -3739,7 +2029,7 @@ void google::protobuf::RepeatedField<float>::Swap(uint64_t *a1, uint64_t a2)
       v9 = a1[1];
       *a1 = *a2;
       *a2 = v8;
-      *(a2 + 8) = v9;
+      a2[1] = v9;
     }
 
     else
@@ -3765,7 +2055,7 @@ void google::protobuf::RepeatedField<float>::Swap(uint64_t *a1, uint64_t a2)
       else
       {
         v5 = *a2;
-        v6 = *(a2 + 8);
+        v6 = a2[1];
         *a2 = *__dst;
         __dst[0] = v5;
         __dst[1] = v6;
@@ -3960,87 +2250,27 @@ void *google::protobuf::RepeatedField<double>::RepeatedField(void *result, uint6
   return result;
 }
 
+void *google::protobuf::RepeatedField<double>::RepeatedField(void *a1, unsigned int *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  v2 = (a2 + 8);
-  if (*(a2 + 4))
-  {
-    v2 = (*(a2 + 8) - 8);
-  }
-
-  if (*v2)
-  {
-    if (a2 != result)
-    {
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<double>::Reserve();
-      }
-    }
-  }
-
-  else
-  {
-    *result = *a2;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  v2 = (a2 + 8);
-  if (*(a2 + 4))
-  {
-    v2 = (*(a2 + 8) - 8);
-  }
-
-  if (*v2)
-  {
-    if (a2 != result)
-    {
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<double>::Reserve();
-      }
-    }
-  }
-
-  else
-  {
-    *result = *a2;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  return result;
-}
-
-void *google::protobuf::RepeatedField<double>::RepeatedField(void *result, _DWORD *a2)
-{
-  *result = 0;
-  result[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   if (*a2)
   {
     google::protobuf::RepeatedField<double>::Reserve();
   }
 
-  return result;
+  return a1;
 }
 
 {
-  *result = 0;
-  result[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   if (*a2)
   {
     google::protobuf::RepeatedField<double>::Reserve();
   }
 
-  return result;
+  return a1;
 }
 
 void google::protobuf::RepeatedField<double>::Reserve(unsigned int *a1, int a2)
@@ -4177,21 +2407,59 @@ void google::protobuf::RepeatedField<double>::InternalDeallocate(int a1, void *_
   }
 }
 
-_DWORD *google::protobuf::RepeatedField<double>::operator=(_DWORD *result, _DWORD *a2)
+unsigned int *google::protobuf::RepeatedField<double>::operator=(unsigned int *a1, unsigned int *a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
-    *result = 0;
+    *a1 = 0;
     if (*a2)
     {
       google::protobuf::RepeatedField<double>::Reserve();
     }
   }
 
-  return result;
+  return a1;
 }
 
-_DWORD *google::protobuf::RepeatedField<double>::CopyFrom(_DWORD *result, _DWORD *a2)
+{
+  if (a1 != a2)
+  {
+    v2 = a1 + 2;
+    if (a1[1])
+    {
+      v2 = (*v2 - 8);
+    }
+
+    v3 = *v2;
+    v4 = a2 + 2;
+    if (a2[1])
+    {
+      v4 = (*(a2 + 1) - 8);
+    }
+
+    if (v3 == *v4)
+    {
+      v5 = *a1;
+      v6 = *(a1 + 1);
+      *a1 = *a2;
+      *a2 = v5;
+      *(a2 + 1) = v6;
+    }
+
+    else
+    {
+      *a1 = 0;
+      if (*a2)
+      {
+        google::protobuf::RepeatedField<double>::Reserve();
+      }
+    }
+  }
+
+  return a1;
+}
+
+unsigned int *google::protobuf::RepeatedField<double>::CopyFrom(unsigned int *result, unsigned int *a2)
 {
   if (a2 != result)
   {
@@ -4203,6 +2471,67 @@ _DWORD *google::protobuf::RepeatedField<double>::CopyFrom(_DWORD *result, _DWORD
   }
 
   return result;
+}
+
+unsigned int *google::protobuf::RepeatedField<double>::RepeatedField(unsigned int *a1, unsigned int *a2)
+{
+  *a1 = 0;
+  *(a1 + 1) = 0;
+  v2 = a2 + 2;
+  if (a2[1])
+  {
+    v2 = (*(a2 + 1) - 8);
+  }
+
+  if (*v2)
+  {
+    if (a2 != a1)
+    {
+      if (*a2)
+      {
+        google::protobuf::RepeatedField<double>::Reserve();
+      }
+    }
+  }
+
+  else
+  {
+    *a1 = *a2;
+    *a2 = 0;
+    *(a2 + 1) = 0;
+  }
+
+  return a1;
+}
+
+{
+  *a1 = 0;
+  *(a1 + 1) = 0;
+  v2 = a2 + 2;
+  if (a2[1])
+  {
+    v2 = (*(a2 + 1) - 8);
+  }
+
+  if (*v2)
+  {
+    if (a2 != a1)
+    {
+      if (*a2)
+      {
+        google::protobuf::RepeatedField<double>::Reserve();
+      }
+    }
+  }
+
+  else
+  {
+    *a1 = *a2;
+    *a2 = 0;
+    *(a2 + 1) = 0;
+  }
+
+  return a1;
 }
 
 uint64_t google::protobuf::RepeatedField<double>::GetArena(uint64_t a1)
@@ -4224,45 +2553,6 @@ __n128 google::protobuf::RepeatedField<double>::InternalSwap(unint64_t *a1, __n1
   *a1 = *a2;
   a2->n128_u64[0] = v2;
   a2->n128_u64[1] = v3;
-  return result;
-}
-
-uint64_t *google::protobuf::RepeatedField<double>::operator=(uint64_t *result, uint64_t a2)
-{
-  if (result != a2)
-  {
-    v2 = result + 1;
-    if (*(result + 1))
-    {
-      v2 = (*v2 - 8);
-    }
-
-    v3 = *v2;
-    v4 = (a2 + 8);
-    if (*(a2 + 4))
-    {
-      v4 = (*(a2 + 8) - 8);
-    }
-
-    if (v3 == *v4)
-    {
-      v5 = *result;
-      v6 = result[1];
-      *result = *a2;
-      *a2 = v5;
-      *(a2 + 8) = v6;
-    }
-
-    else
-    {
-      *result = 0;
-      if (*a2)
-      {
-        google::protobuf::RepeatedField<double>::Reserve();
-      }
-    }
-  }
-
   return result;
 }
 
@@ -4316,16 +2606,16 @@ uint64_t google::protobuf::RepeatedField<double>::at(uint64_t a1, int a2)
   return *(a1 + 8) + 8 * a2;
 }
 
-void sub_276B931D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_276B931D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void sub_276B932B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_276B932B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4337,7 +2627,7 @@ double google::protobuf::RepeatedField<double>::Set(uint64_t a1, int a2, double 
   return result;
 }
 
-unsigned int *google::protobuf::RepeatedField<double>::Add(unsigned int *result, void *a2)
+unsigned int *google::protobuf::RepeatedField<double>::Add(unsigned int *result, uint64_t *a2)
 {
   v2 = *result;
   if (v2 == result[1])
@@ -4363,7 +2653,7 @@ uint64_t google::protobuf::RepeatedField<double>::Add(unsigned int *a1)
   return result;
 }
 
-int *google::protobuf::RepeatedField<double>::ExtractSubrange(int *result, int a2, int a3, void *a4)
+int *google::protobuf::RepeatedField<double>::ExtractSubrange(int *result, int a2, unsigned int a3, void *a4)
 {
   if (a4 && a3 >= 1)
   {
@@ -4383,7 +2673,7 @@ int *google::protobuf::RepeatedField<double>::ExtractSubrange(int *result, int a
   {
     LODWORD(v7) = a3 + a2;
     v8 = *result;
-    if (a3 + a2 < v8)
+    if ((a3 + a2) < v8)
     {
       v9 = *(result + 1);
       v7 = v7;
@@ -4415,15 +2705,12 @@ int *google::protobuf::RepeatedField<double>::Truncate(int *result, int a2)
   return result;
 }
 
-int *google::protobuf::RepeatedField<double>::MergeFrom(int *result, _DWORD *a2)
+void google::protobuf::RepeatedField<double>::MergeFrom(int *result, int *a2)
 {
   if (*a2)
   {
-    v2 = *result;
     google::protobuf::RepeatedField<double>::Reserve();
   }
-
-  return result;
 }
 
 double google::protobuf::RepeatedField<double>::AddAlreadyReserved(int *a1, double *a2)
@@ -4444,7 +2731,7 @@ uint64_t google::protobuf::RepeatedField<double>::AddAlreadyReserved(int *a1)
   return v1 + 8 * v2;
 }
 
-_DWORD *google::protobuf::RepeatedField<double>::Resize(_DWORD *result, int a2)
+int *google::protobuf::RepeatedField<double>::Resize(int *result, uint64_t a2, uint64_t *a3)
 {
   if (*result < a2)
   {
@@ -4455,7 +2742,7 @@ _DWORD *google::protobuf::RepeatedField<double>::Resize(_DWORD *result, int a2)
   return result;
 }
 
-void google::protobuf::RepeatedField<double>::Swap(uint64_t *a1, uint64_t a2)
+void google::protobuf::RepeatedField<double>::Swap(void **a1, void **a2)
 {
   if (a1 != a2)
   {
@@ -4466,8 +2753,8 @@ void google::protobuf::RepeatedField<double>::Swap(uint64_t *a1, uint64_t a2)
     }
 
     v3 = *v2;
-    v4 = *(a2 + 8);
-    if (*(a2 + 4))
+    v4 = a2[1];
+    if (*(a2 + 1))
     {
       v4 = *(v4 - 1);
     }
@@ -4478,7 +2765,7 @@ void google::protobuf::RepeatedField<double>::Swap(uint64_t *a1, uint64_t a2)
       v9 = a1[1];
       *a1 = *a2;
       *a2 = v8;
-      *(a2 + 8) = v9;
+      a2[1] = v9;
     }
 
     else
@@ -4504,7 +2791,7 @@ void google::protobuf::RepeatedField<double>::Swap(uint64_t *a1, uint64_t a2)
       else
       {
         v5 = *a2;
-        v6 = *(a2 + 8);
+        v6 = a2[1];
         *a2 = *__dst;
         __dst[0] = v5;
         __dst[1] = v6;
@@ -4705,8 +2992,7 @@ void *google::protobuf::RepeatedPtrField<std::string>::RepeatedPtrField(void *re
 
 std::string *google::protobuf::RepeatedPtrField<std::string>::RepeatedPtrField(std::string *this, uint64_t a2)
 {
-  this->__r_.__value_.__r.__words[0] = 0;
-  this->__r_.__value_.__l.__size_ = 0;
+  *&this->__r_.__value_.__l.__data_ = 0uLL;
   this->__r_.__value_.__r.__words[2] = 0;
   v3 = *(a2 + 8);
   if (v3)
@@ -4727,8 +3013,7 @@ std::string *google::protobuf::RepeatedPtrField<std::string>::RepeatedPtrField(s
 }
 
 {
-  this->__r_.__value_.__r.__words[0] = 0;
-  this->__r_.__value_.__l.__size_ = 0;
+  *&this->__r_.__value_.__l.__data_ = 0uLL;
   this->__r_.__value_.__r.__words[2] = 0;
   v3 = *(a2 + 8);
   if (v3)
@@ -5073,9 +3358,9 @@ uint64_t sub_276B940CC(uint64_t a1, int a2)
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_276B9418C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_276B9418C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5101,9 +3386,9 @@ uint64_t sub_276B941B0(uint64_t a1, int a2)
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_276B94270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_276B94270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5129,7 +3414,7 @@ uint64_t google::protobuf::RepeatedPtrField<std::string>::RemoveLast(uint64_t re
   return result;
 }
 
-void *google::protobuf::RepeatedPtrField<std::string>::DeleteSubrange(void *this, int a2, int a3)
+google::protobuf::internal::RepeatedPtrFieldBase *google::protobuf::RepeatedPtrField<std::string>::DeleteSubrange(google::protobuf::internal::RepeatedPtrFieldBase *this, int a2, int a3)
 {
   if (a3 >= 1)
   {
@@ -5138,7 +3423,7 @@ void *google::protobuf::RepeatedPtrField<std::string>::DeleteSubrange(void *this
     v8 = 8 * a2 + 8;
     do
     {
-      v9 = *(v6[2] + v8);
+      v9 = *(*(v6 + 2) + v8);
       if (v9)
       {
         v10 = *v6 == 0;
@@ -5171,7 +3456,7 @@ void *google::protobuf::RepeatedPtrField<std::string>::DeleteSubrange(void *this
   return this;
 }
 
-void *google::protobuf::RepeatedPtrField<std::string>::ExtractSubrange(void *this, int a2, int a3, void *a4)
+google::protobuf::internal::RepeatedPtrFieldBase *google::protobuf::RepeatedPtrField<std::string>::ExtractSubrange(google::protobuf::internal::RepeatedPtrFieldBase *this, int a2, int a3, std::string **a4)
 {
   if (a3 >= 1)
   {
@@ -5179,18 +3464,16 @@ void *google::protobuf::RepeatedPtrField<std::string>::ExtractSubrange(void *thi
     if (a4)
     {
       v6 = a3;
-      v7 = 8 * a2;
       if (*this)
       {
-        v8 = *(this[2] + v7 + 8);
         operator new();
       }
 
-      v9 = v7 + 8;
+      v7 = 8 * a2 + 8;
       do
       {
-        *v5++ = *(this[2] + v9);
-        v9 += 8;
+        *v5++ = *(*(this + 2) + v7);
+        v7 += 8;
         --v6;
       }
 
@@ -5203,9 +3486,9 @@ void *google::protobuf::RepeatedPtrField<std::string>::ExtractSubrange(void *thi
   return this;
 }
 
-unsigned int *google::protobuf::RepeatedPtrField<std::string>::Reserve(unsigned int *result, int a2)
+google::protobuf::internal::RepeatedPtrFieldBase *google::protobuf::RepeatedPtrField<std::string>::Reserve(google::protobuf::internal::RepeatedPtrFieldBase *result, int a2)
 {
-  v2 = result[2];
+  v2 = *(result + 2);
   v3 = __OFSUB__(a2, v2);
   v4 = a2 - v2;
   if (!((v4 < 0) ^ v3 | (v4 == 0)))
@@ -5216,9 +3499,9 @@ unsigned int *google::protobuf::RepeatedPtrField<std::string>::Reserve(unsigned 
   return result;
 }
 
-unsigned int *google::protobuf::internal::RepeatedPtrFieldBase::Reserve(unsigned int *this, int a2)
+google::protobuf::internal::RepeatedPtrFieldBase *google::protobuf::internal::RepeatedPtrFieldBase::Reserve(google::protobuf::internal::RepeatedPtrFieldBase *this, int a2)
 {
-  v2 = this[2];
+  v2 = *(this + 2);
   v3 = __OFSUB__(a2, v2);
   v4 = a2 - v2;
   if (!((v4 < 0) ^ v3 | (v4 == 0)))
@@ -5556,7 +3839,7 @@ uint64_t google::protobuf::RepeatedPtrField<std::string>::SpaceUsedExcludingSelf
   return v1;
 }
 
-uint64_t google::protobuf::RepeatedPtrField<std::string>::ReleaseLast(uint64_t a1)
+std::string *google::protobuf::RepeatedPtrField<std::string>::ReleaseLast(uint64_t a1)
 {
   v1 = *(a1 + 16);
   v2 = *v1;
@@ -5597,7 +3880,7 @@ uint64_t google::protobuf::RepeatedPtrField<std::string>::UnsafeArenaReleaseLast
   return result;
 }
 
-void *google::protobuf::RepeatedPtrField<std::string>::ExtractSubrangeInternal(void *this, int a2, int a3, void *a4)
+google::protobuf::internal::RepeatedPtrFieldBase *google::protobuf::RepeatedPtrField<std::string>::ExtractSubrangeInternal(google::protobuf::internal::RepeatedPtrFieldBase *this, int a2, int a3, std::string **a4)
 {
   if (a3 >= 1)
   {
@@ -5605,18 +3888,16 @@ void *google::protobuf::RepeatedPtrField<std::string>::ExtractSubrangeInternal(v
     if (a4)
     {
       v6 = a3;
-      v7 = 8 * a2;
       if (*this)
       {
-        v8 = *(this[2] + v7 + 8);
         operator new();
       }
 
-      v9 = v7 + 8;
+      v7 = 8 * a2 + 8;
       do
       {
-        *v5++ = *(this[2] + v9);
-        v9 += 8;
+        *v5++ = *(*(this + 2) + v7);
+        v7 += 8;
         --v6;
       }
 
@@ -5629,7 +3910,7 @@ void *google::protobuf::RepeatedPtrField<std::string>::ExtractSubrangeInternal(v
   return this;
 }
 
-uint64_t google::protobuf::RepeatedPtrField<std::string>::UnsafeArenaExtractSubrange(uint64_t this, int a2, int a3, void *a4)
+google::protobuf::internal::RepeatedPtrFieldBase *google::protobuf::RepeatedPtrField<std::string>::UnsafeArenaExtractSubrange(google::protobuf::internal::RepeatedPtrFieldBase *result, int a2, int a3, void *a4)
 {
   if (a3 >= 1)
   {
@@ -5639,7 +3920,7 @@ uint64_t google::protobuf::RepeatedPtrField<std::string>::UnsafeArenaExtractSubr
       v5 = 8 * a2 + 8;
       do
       {
-        *a4++ = *(*(this + 16) + v5);
+        *a4++ = *(*(result + 2) + v5);
         v5 += 8;
         --v4;
       }
@@ -5647,10 +3928,10 @@ uint64_t google::protobuf::RepeatedPtrField<std::string>::UnsafeArenaExtractSubr
       while (v4);
     }
 
-    return google::protobuf::internal::RepeatedPtrFieldBase::CloseGap(this, a2, a3);
+    return google::protobuf::internal::RepeatedPtrFieldBase::CloseGap(result, a2, a3);
   }
 
-  return this;
+  return result;
 }
 
 uint64_t google::protobuf::internal::RepeatedPtrFieldBase::CloseGap(uint64_t this, int a2, int a3)
@@ -6085,7 +4366,7 @@ void *google::protobuf::util::MessageDifferencer::MapKeyComparator::MapKeyCompar
   return this;
 }
 
-std::string::size_type google::protobuf::util::MessageDifferencer::MapEntryKeyComparator::IsMatch(uint64_t a1, const google::protobuf::Message *a2, const google::protobuf::Message *a3, uint64_t *a4)
+std::string::size_type google::protobuf::util::MessageDifferencer::MapEntryKeyComparator::IsMatch(uint64_t a1, const google::protobuf::Message *a2, const google::protobuf::Message *a3, uint64_t a4)
 {
   v8 = (*(*a2 + 152))(a2);
   FieldByNumber = google::protobuf::Descriptor::FindFieldByNumber(v8, 1);
@@ -6098,7 +4379,7 @@ std::string::size_type google::protobuf::util::MessageDifferencer::MapEntryKeyCo
       __p = 0;
       v17 = 0;
       v18 = 0;
-      sub_276B9D974(&__p, *a4, a4[1], 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 4));
+      sub_276B9D974(&__p, *a4, *(a4 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a4 + 8) - *a4) >> 4));
       goto LABEL_7;
     }
 
@@ -6109,7 +4390,7 @@ std::string::size_type google::protobuf::util::MessageDifferencer::MapEntryKeyCo
   __p = 0;
   v17 = 0;
   v18 = 0;
-  sub_276B9D974(&__p, *a4, a4[1], 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 4));
+  sub_276B9D974(&__p, *a4, *(a4 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a4 + 8) - *a4) >> 4));
   if ((IsIgnored & 1) == 0)
   {
     v13 = google::protobuf::util::MessageDifferencer::CompareFieldValueUsingParentFields(*(a1 + 8), a2, a3, FieldByNumber, 0xFFFFFFFFLL, 0xFFFFFFFFLL, &__p);
@@ -6189,7 +4470,7 @@ uint64_t google::protobuf::util::MessageDifferencer::IsIgnored(void *a1, uint64_
   return result;
 }
 
-std::string::size_type google::protobuf::util::MessageDifferencer::Compare(google::protobuf::util::MessageDifferencer *a1, google::protobuf::internal *a2, google::protobuf::internal *a3, uint64_t *a4)
+std::string::size_type google::protobuf::util::MessageDifferencer::Compare(google::protobuf::util::MessageDifferencer *a1, const google::protobuf::Message *a2, const google::protobuf::Message *a3, uint64_t a4)
 {
   v8 = (*(*a2 + 152))(a2);
   v9 = (*(*a3 + 152))(a3);
@@ -6302,8 +4583,8 @@ LABEL_21:
     }
   }
 
-  google::protobuf::util::MessageDifferencer::RetrieveFields(a1, a2, 1, v32);
-  google::protobuf::util::MessageDifferencer::RetrieveFields(a1, a3, 0, __p);
+  google::protobuf::util::MessageDifferencer::RetrieveFields(v32, a1, a2, 1);
+  google::protobuf::util::MessageDifferencer::RetrieveFields(__p, a1, a3, 0);
   v29 = google::protobuf::util::MessageDifferencer::CompareRequestedFieldsUsingSettings(a1, a2, a3, v32, __p, a4);
   if (__p[0])
   {
@@ -6344,7 +4625,7 @@ uint64_t google::protobuf::util::MessageDifferencer::CompareFieldValueUsingParen
 
   else
   {
-    v14 = (a1 + 8);
+    v14 = a1 + 8;
   }
 
   v15 = (*(*v14 + 16))(v14, a2, a3, a4, a5, a6, &v33);
@@ -6413,17 +4694,16 @@ uint64_t google::protobuf::util::MessageDifferencer::CompareFieldValueUsingParen
 
 std::string::size_type google::protobuf::util::MessageDifferencer::Equals(google::protobuf::util::MessageDifferencer *this, const google::protobuf::Message *a2, const google::protobuf::Message *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  google::protobuf::util::MessageDifferencer::MessageDifferencer(v8);
-  v5 = google::protobuf::util::MessageDifferencer::Compare(v8, this, a2);
-  google::protobuf::util::MessageDifferencer::~MessageDifferencer(v8);
-  v6 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  google::protobuf::util::MessageDifferencer::MessageDifferencer(v7);
+  v5 = google::protobuf::util::MessageDifferencer::Compare(v7, this, a2);
+  google::protobuf::util::MessageDifferencer::~MessageDifferencer(v7);
   return v5;
 }
 
-void sub_276B9591C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_276B9591C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::util::MessageDifferencer::~MessageDifferencer(va);
   _Unwind_Resume(a1);
 }
@@ -6436,8 +4716,8 @@ std::string::size_type google::protobuf::util::MessageDifferencer::Compare(googl
   v4 = *(this + 32);
   if (v4)
   {
-    google::protobuf::io::StringOutputStream::StringOutputStream(&v8, v4);
-    google::protobuf::util::MessageDifferencer::StreamReporter::StreamReporter(v7);
+    google::protobuf::io::StringOutputStream::StringOutputStream(v8, v4);
+    google::protobuf::util::MessageDifferencer::StreamReporter::StreamReporter(v7, v8);
   }
 
   v5 = google::protobuf::util::MessageDifferencer::Compare(this, a2, a3, &__p);
@@ -6462,55 +4742,52 @@ void sub_276B959F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 std::string::size_type google::protobuf::util::MessageDifferencer::Equivalent(google::protobuf::util::MessageDifferencer *this, const google::protobuf::Message *a2, const google::protobuf::Message *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  google::protobuf::util::MessageDifferencer::MessageDifferencer(v8);
-  v9 = 1;
-  v5 = google::protobuf::util::MessageDifferencer::Compare(v8, this, a2);
-  google::protobuf::util::MessageDifferencer::~MessageDifferencer(v8);
-  v6 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  google::protobuf::util::MessageDifferencer::MessageDifferencer(v7);
+  v8 = 1;
+  v5 = google::protobuf::util::MessageDifferencer::Compare(v7, this, a2);
+  google::protobuf::util::MessageDifferencer::~MessageDifferencer(v7);
   return v5;
 }
 
-void sub_276B95ABC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_276B95ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::util::MessageDifferencer::~MessageDifferencer(va);
   _Unwind_Resume(a1);
 }
 
 std::string::size_type google::protobuf::util::MessageDifferencer::ApproximatelyEquals(google::protobuf::util::MessageDifferencer *this, const google::protobuf::Message *a2, const google::protobuf::Message *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  google::protobuf::util::MessageDifferencer::MessageDifferencer(v8);
-  v9 = 1;
-  v5 = google::protobuf::util::MessageDifferencer::Compare(v8, this, a2);
-  google::protobuf::util::MessageDifferencer::~MessageDifferencer(v8);
-  v6 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  google::protobuf::util::MessageDifferencer::MessageDifferencer(v7);
+  v8 = 1;
+  v5 = google::protobuf::util::MessageDifferencer::Compare(v7, this, a2);
+  google::protobuf::util::MessageDifferencer::~MessageDifferencer(v7);
   return v5;
 }
 
-void sub_276B95B70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_276B95B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::util::MessageDifferencer::~MessageDifferencer(va);
   _Unwind_Resume(a1);
 }
 
 std::string::size_type google::protobuf::util::MessageDifferencer::ApproximatelyEquivalent(google::protobuf::util::MessageDifferencer *this, const google::protobuf::Message *a2, const google::protobuf::Message *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  google::protobuf::util::MessageDifferencer::MessageDifferencer(v8);
-  v10 = 1;
+  v10 = *MEMORY[0x277D85DE8];
+  google::protobuf::util::MessageDifferencer::MessageDifferencer(v7);
   v9 = 1;
-  v5 = google::protobuf::util::MessageDifferencer::Compare(v8, this, a2);
-  google::protobuf::util::MessageDifferencer::~MessageDifferencer(v8);
-  v6 = *MEMORY[0x277D85DE8];
+  v8 = 1;
+  v5 = google::protobuf::util::MessageDifferencer::Compare(v7, this, a2);
+  google::protobuf::util::MessageDifferencer::~MessageDifferencer(v7);
   return v5;
 }
 
-void sub_276B95C30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_276B95C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::util::MessageDifferencer::~MessageDifferencer(va);
   _Unwind_Resume(a1);
 }
@@ -6624,9 +4901,9 @@ void google::protobuf::util::MessageDifferencer::set_field_comparator(google::pr
   *(this + 8) = a2;
 }
 
-void sub_276B95EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_276B95EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6658,7 +4935,7 @@ void google::protobuf::util::MessageDifferencer::CheckRepeatedFieldComparisons(c
   }
 
   v17 = this[12];
-  v16 = (this + 12);
+  v16 = this + 12;
   v15 = v17;
   if (v17)
   {
@@ -6677,21 +4954,21 @@ void google::protobuf::util::MessageDifferencer::CheckRepeatedFieldComparisons(c
     }
 
     while (v15);
-    if (v18 != v16 && *(v18 + 4) <= a2)
+    if (v18 != v16 && v18[4] <= a2)
     {
       v31[0].__r_.__value_.__r.__words[0] = &v32;
-      if (*(sub_276B9DC20((v16 - 8), &v32) + 10) != *a3)
+      if (*(sub_276B9DC20((v16 - 1), &v32, &unk_276C1A908, v31) + 10) != *a3)
       {
         google::protobuf::internal::LogMessage::LogMessage(v31, 3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/google/protobuf/util/message_differencer.cc", 328);
         v22 = google::protobuf::internal::LogMessage::operator<<(v31, "CHECK failed: repeated_field_comparisons_.find(field) == repeated_field_comparisons_.end() || repeated_field_comparisons_[field] == new_comparison: ");
         v23 = google::protobuf::internal::LogMessage::operator<<(v22, "Cannot treat the same field as both ");
         v33 = &v32;
-        v24 = sub_276B9DC20((v16 - 8), &v32);
+        v24 = sub_276B9DC20((v16 - 1), &v32, &unk_276C1A908, &v33);
         v25 = google::protobuf::internal::LogMessage::operator<<(v23, *(v24 + 10));
         v26 = google::protobuf::internal::LogMessage::operator<<(v25, " and ");
         v27 = google::protobuf::internal::LogMessage::operator<<(v26, *a3);
         v28 = google::protobuf::internal::LogMessage::operator<<(v27, ". Field name is: ");
-        v29 = google::protobuf::internal::LogMessage::operator<<(v28, v32[1]);
+        v29 = google::protobuf::internal::LogMessage::operator<<(v28, *(v32 + 1));
         google::protobuf::internal::LogFinisher::operator=(&v30, &v29->__r_.__value_.__l.__data_);
         google::protobuf::internal::LogMessage::~LogMessage(&v31[0].__r_.__value_.__l.__data_);
       }
@@ -6699,9 +4976,9 @@ void google::protobuf::util::MessageDifferencer::CheckRepeatedFieldComparisons(c
   }
 }
 
-void sub_276B96140(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_276B96140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6766,56 +5043,55 @@ uint64_t google::protobuf::util::MessageDifferencer::GetMapKeyComparator(google:
   return 0;
 }
 
-void *google::protobuf::util::MessageDifferencer::TreatAsSet(char **this, const std::string::value_type **a2)
+void *google::protobuf::util::MessageDifferencer::TreatAsSet(char **this, const google::protobuf::FieldDescriptor *a2)
 {
   v4 = a2;
   LODWORD(v5) = 1;
   google::protobuf::util::MessageDifferencer::CheckRepeatedFieldComparisons(this, a2, &v5);
   v5 = &v4;
-  result = sub_276B9DC20((this + 11), &v4);
+  result = sub_276B9DC20((this + 11), &v4, &unk_276C1A908, &v5);
   *(result + 10) = 1;
   return result;
 }
 
-void *google::protobuf::util::MessageDifferencer::TreatAsSmartSet(char **this, const std::string::value_type **a2)
+void *google::protobuf::util::MessageDifferencer::TreatAsSmartSet(char **this, const google::protobuf::FieldDescriptor *a2)
 {
   v4 = a2;
   LODWORD(v5) = 3;
   google::protobuf::util::MessageDifferencer::CheckRepeatedFieldComparisons(this, a2, &v5);
   v5 = &v4;
-  result = sub_276B9DC20((this + 11), &v4);
+  result = sub_276B9DC20((this + 11), &v4, &unk_276C1A908, &v5);
   *(result + 10) = 3;
   return result;
 }
 
 void *sub_276B96338(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  sub_276B9DCF4(v5, a2);
-  sub_276B9DD8C(v5, a1);
-  sub_276B9DBA0(v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  sub_276B9DCF4(v4, a2);
+  sub_276B9DD8C(v4, a1);
+  sub_276B9DBA0(v4);
   return a1;
 }
 
-void *google::protobuf::util::MessageDifferencer::TreatAsList(char **this, const std::string::value_type **a2)
+void *google::protobuf::util::MessageDifferencer::TreatAsList(char **this, const google::protobuf::FieldDescriptor *a2)
 {
   v4 = a2;
   LODWORD(v5) = 0;
   google::protobuf::util::MessageDifferencer::CheckRepeatedFieldComparisons(this, a2, &v5);
   v5 = &v4;
-  result = sub_276B9DC20((this + 11), &v4);
+  result = sub_276B9DC20((this + 11), &v4, &unk_276C1A908, &v5);
   *(result + 10) = 0;
   return result;
 }
 
-void *google::protobuf::util::MessageDifferencer::TreatAsSmartList(char **this, const std::string::value_type **a2)
+void *google::protobuf::util::MessageDifferencer::TreatAsSmartList(char **this, const google::protobuf::FieldDescriptor *a2)
 {
   v4 = a2;
   LODWORD(v5) = 2;
   google::protobuf::util::MessageDifferencer::CheckRepeatedFieldComparisons(this, a2, &v5);
   v5 = &v4;
-  result = sub_276B9DC20((this + 11), &v4);
+  result = sub_276B9DC20((this + 11), &v4, &unk_276C1A908, &v5);
   *(result + 10) = 2;
   return result;
 }
@@ -6891,7 +5167,7 @@ void google::protobuf::util::MessageDifferencer::TreatAsMap(google::protobuf::ut
       v23 = google::protobuf::internal::LogMessage::operator<<(v29, "CHECK failed: repeated_field_comparisons_.find(field) == repeated_field_comparisons_.end(): ");
       v24 = google::protobuf::internal::LogMessage::operator<<(v23, "Cannot treat the same field as both ");
       v33 = &v30;
-      v25 = sub_276B9DC20(this + 88, &v30);
+      v25 = sub_276B9DC20(this + 88, &v30, &unk_276C1A908, &v33);
       v26 = google::protobuf::internal::LogMessage::operator<<(v24, *(v25 + 10));
       v27 = google::protobuf::internal::LogMessage::operator<<(v26, " and MAP. Field name is: ");
       v28 = google::protobuf::internal::LogMessage::operator<<(v27, *(v30 + 1));
@@ -6936,7 +5212,7 @@ void sub_276B96814(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_276B96848(uint64_t a1, uint64_t *a2)
+void *sub_276B96848(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -6947,7 +5223,7 @@ uint64_t sub_276B96848(uint64_t a1, uint64_t *a2)
   else
   {
     sub_276B9D7F0(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
@@ -7100,7 +5376,7 @@ void google::protobuf::util::MessageDifferencer::TreatAsMapWithMultipleFieldPath
       v37 = google::protobuf::internal::LogMessage::operator<<(v45, "CHECK failed: repeated_field_comparisons_.find(field) == repeated_field_comparisons_.end(): ");
       v38 = google::protobuf::internal::LogMessage::operator<<(v37, "Cannot treat the same field as both ");
       v49 = &v46;
-      v39 = sub_276B9DC20(v43 + 88, &v46);
+      v39 = sub_276B9DC20(v43 + 88, &v46, &unk_276C1A908, &v49);
       v40 = google::protobuf::internal::LogMessage::operator<<(v38, *(v39 + 10));
       v41 = google::protobuf::internal::LogMessage::operator<<(v40, " and MAP. Field name is: ");
       v42 = google::protobuf::internal::LogMessage::operator<<(v41, *(v46 + 8));
@@ -7112,9 +5388,9 @@ void google::protobuf::util::MessageDifferencer::TreatAsMapWithMultipleFieldPath
   operator new();
 }
 
-void sub_276B96D30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_276B96D30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7156,24 +5432,24 @@ void *google::protobuf::util::MessageDifferencer::TreatAsMapUsingKeyComparator(g
       v14 = google::protobuf::internal::LogMessage::operator<<(v22, "CHECK failed: repeated_field_comparisons_.find(field) == repeated_field_comparisons_.end(): ");
       v15 = google::protobuf::internal::LogMessage::operator<<(v14, "Cannot treat the same field as both ");
       v24 = &v23;
-      v16 = sub_276B9DC20(this + 88, &v23);
+      v16 = sub_276B9DC20(this + 88, &v23, &unk_276C1A908, &v24);
       v17 = google::protobuf::internal::LogMessage::operator<<(v15, *(v16 + 10));
       v18 = google::protobuf::internal::LogMessage::operator<<(v17, " and MAP. Field name is: ");
-      v19 = google::protobuf::internal::LogMessage::operator<<(v18, v23[1]);
+      v19 = google::protobuf::internal::LogMessage::operator<<(v18, *(v23 + 1));
       google::protobuf::internal::LogFinisher::operator=(&v21, &v19->__r_.__value_.__l.__data_);
       google::protobuf::internal::LogMessage::~LogMessage(&v22[0].__r_.__value_.__l.__data_);
     }
   }
 
   v22[0].__r_.__value_.__r.__words[0] = &v23;
-  result = sub_276B9DFF0(this + 136, &v23);
+  result = sub_276B9DFF0(this + 136, &v23, &unk_276C1A908, v22);
   result[5] = a3;
   return result;
 }
 
-void sub_276B96F18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_276B96F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7278,7 +5554,7 @@ BOOL google::protobuf::util::MessageDifferencer::FieldBefore(_BOOL8 this, const 
   return this;
 }
 
-uint64_t google::protobuf::util::MessageDifferencer::CompareWithFields(uint64_t a1, const google::protobuf::Message *a2, const google::protobuf::Message *a3, uint64_t a4, uint64_t a5)
+uint64_t google::protobuf::util::MessageDifferencer::CompareWithFields(void *a1, const google::protobuf::Message *a2, const google::protobuf::Message *a3, uint64_t a4, uint64_t a5)
 {
   v10 = (*(*a2 + 152))(a2);
   if (v10 == (*(*a3 + 152))(a3))
@@ -7326,11 +5602,11 @@ uint64_t google::protobuf::util::MessageDifferencer::CompareWithFields(uint64_t 
     }
 
     sub_276B9E138(__p, v25, v22, v16, 1);
-    v17 = *(a1 + 256);
+    v17 = a1[32];
     if (v17)
     {
-      google::protobuf::io::StringOutputStream::StringOutputStream(&v23, v17);
-      google::protobuf::util::MessageDifferencer::StreamReporter::StreamReporter(v22);
+      google::protobuf::io::StringOutputStream::StringOutputStream(v23, v17);
+      google::protobuf::util::MessageDifferencer::StreamReporter::StreamReporter(v22, v23);
     }
 
     v20 = google::protobuf::util::MessageDifferencer::CompareRequestedFieldsUsingSettings(a1, a2, a3, &__dst, &__p, v28);
@@ -7366,7 +5642,7 @@ uint64_t google::protobuf::util::MessageDifferencer::CompareWithFields(uint64_t 
   return v20;
 }
 
-void sub_276B97338(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22)
+void sub_276B97338(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22)
 {
   google::protobuf::util::MessageDifferencer::StreamReporter::~StreamReporter(&a10);
   if (__p)
@@ -7390,7 +5666,7 @@ void sub_276B97338(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t google::protobuf::util::MessageDifferencer::CompareRequestedFieldsUsingSettings(uint64_t a1, const google::protobuf::Message *a2, const google::protobuf::Message *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
+uint64_t google::protobuf::util::MessageDifferencer::CompareRequestedFieldsUsingSettings(uint64_t a1, const google::protobuf::Message *a2, const google::protobuf::Message *a3, uint64_t *a4, uint64_t *a5, uint64_t a6)
 {
   v11 = *(a1 + 72);
   if (*(a1 + 76))
@@ -7444,7 +5720,7 @@ uint64_t google::protobuf::util::MessageDifferencer::UnpackAny(uint64_t a1, goog
     return 0;
   }
 
-  google::protobuf::Reflection::GetString(v7, a2, v26, v23);
+  google::protobuf::Reflection::GetString(v23, v7, a2, v26);
   v21[0] = 0;
   v21[1] = 0;
   v22 = 0;
@@ -7466,7 +5742,7 @@ uint64_t google::protobuf::util::MessageDifferencer::UnpackAny(uint64_t a1, goog
       (*(*v16 + 8))(v16);
     }
 
-    google::protobuf::Reflection::GetString(v7, a2, v25, __p);
+    google::protobuf::Reflection::GetString(__p, v7, a2, v25);
     v17 = google::protobuf::MessageLite::ParsePartialFromString(*a3, __p);
     if (v20 < 0)
     {
@@ -7492,9 +5768,9 @@ uint64_t google::protobuf::util::MessageDifferencer::UnpackAny(uint64_t a1, goog
   return v17;
 }
 
-void sub_276B97750(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_276B97750(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
-  MEMORY[0x277C9F670](v27, 0x10E1C401296BE88);
+  MEMORY[0x277C9F670](v27, 0x10E1C401296BE88, a3, a4, a5, a6, a7, a8);
   if (a21 < 0)
   {
     operator delete(__p);
@@ -7922,15 +6198,15 @@ void sub_276B97F00(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t google::protobuf::util::MessageDifferencer::RetrieveFields@<X0>(google::protobuf::util::MessageDifferencer *this@<X0>, const google::protobuf::Message *a2@<X1>, char a3@<W2>, void *a4@<X8>)
+uint64_t *google::protobuf::util::MessageDifferencer::RetrieveFields@<X0>(uint64_t *__return_ptr a1@<X8>, google::protobuf::util::MessageDifferencer *this@<X0>, const google::protobuf::Message *a3@<X1>, char a4@<W2>)
 {
-  v8 = (*(*a2 + 152))(a2);
+  v8 = (*(*a3 + 152))(a3);
   *(this + 26) = *(this + 25);
   sub_276B7173C(this + 25, *(v8 + 104) + 1);
-  (*(*a2 + 152))(a2);
-  if (*(*(v8 + 32) + 75) != 1 || *(this + 19) == 1 && (a3 & 1) != 0)
+  (*(*a3 + 152))(a3);
+  if (*(*(v8 + 32) + 75) != 1 || *(this + 19) == 1 && (a4 & 1) != 0)
   {
-    google::protobuf::Reflection::ListFields(v9, a2, this + 25);
+    google::protobuf::Reflection::ListFields(v9, a3, this + 25);
   }
 
   else if (*(v8 + 104) >= 1)
@@ -7952,13 +6228,13 @@ uint64_t google::protobuf::util::MessageDifferencer::RetrieveFields@<X0>(google:
   sub_276B23B7C(this + 200, &v15);
   v10 = *(this + 25);
   v11 = *(this + 26);
-  a4[1] = 0;
-  a4[2] = 0;
-  *a4 = 0;
-  return sub_276B9D060(a4, v10, v11, (v11 - v10) >> 3);
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  return sub_276B9D060(a1, v10, v11, (v11 - v10) >> 3);
 }
 
-uint64_t google::protobuf::util::MessageDifferencer::CombineFields@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, int a3@<W2>, uint64_t *a4@<X3>, int a5@<W4>, void *a6@<X8>)
+uint64_t *google::protobuf::util::MessageDifferencer::CombineFields@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, int a3@<W2>, uint64_t *a4@<X3>, int a5@<W4>, uint64_t *a6@<X8>)
 {
   v8 = a1 + 200;
   *(a1 + 208) = *(a1 + 200);
@@ -8030,7 +6306,7 @@ LABEL_16:
   return sub_276B9D060(a6, v22, v23, (v23 - v22) >> 3);
 }
 
-uint64_t google::protobuf::util::MessageDifferencer::CompareWithFieldsInternal(void *a1, const google::protobuf::Message *a2, const google::protobuf::Message *a3, const google::protobuf::FieldDescriptor ***a4, const google::protobuf::FieldDescriptor ***a5, uint64_t *a6)
+uint64_t google::protobuf::util::MessageDifferencer::CompareWithFieldsInternal(void *a1, const google::protobuf::Message *a2, const google::protobuf::Message *a3, const google::protobuf::FieldDescriptor ***a4, const google::protobuf::FieldDescriptor ***a5, uint64_t a6)
 {
   (*(*a2 + 152))(a2);
   v36 = v12;
@@ -8143,7 +6419,7 @@ LABEL_6:
               }
 
 LABEL_59:
-              a6[1] -= 48;
+              *(a6 + 8) -= 48;
             }
 
 LABEL_60:
@@ -8172,7 +6448,7 @@ LABEL_27:
                 (*(**a1 + 56))(*a1, a2, a3, a6);
               }
 
-              a6[1] -= 48;
+              *(a6 + 8) -= 48;
             }
 
             v27 = v38;
@@ -8225,7 +6501,7 @@ LABEL_53:
             HIDWORD(v41) = v33;
             sub_276B987FC(a6, &v40);
             (*(**a1 + 16))(*a1, a2, a3, a6);
-            a6[1] -= 48;
+            *(a6 + 8) -= 48;
           }
 
           goto LABEL_53;
@@ -8249,7 +6525,7 @@ LABEL_53:
             (*(**a1 + 56))(*a1, a2, a3, a6);
           }
 
-          a6[1] -= 48;
+          *(a6 + 8) -= 48;
         }
 
         v20 = v39 + 1;
@@ -8310,7 +6586,7 @@ LABEL_38:
       *(&v41 + 1) = v30 | 0xFFFFFFFF00000000;
       sub_276B987FC(a6, &v40);
       (*(**a1 + 24))(*a1, a2, a3, a6);
-      a6[1] -= 48;
+      *(a6 + 8) -= 48;
     }
 
     goto LABEL_43;
@@ -8387,7 +6663,7 @@ void sub_276B987FC(uint64_t a1, __int128 *a2)
   *(a1 + 8) = v8;
 }
 
-uint64_t google::protobuf::util::MessageDifferencer::CompareRepeatedField(void *a1, const google::protobuf::Message *a2, const google::protobuf::Message *a3, unint64_t a4, uint64_t *a5)
+uint64_t google::protobuf::util::MessageDifferencer::CompareRepeatedField(void *a1, const google::protobuf::Message *a2, const google::protobuf::Message *a3, unint64_t a4, uint64_t a5)
 {
   (*(*a2 + 152))(a2);
   v11 = v10;
@@ -8464,7 +6740,7 @@ uint64_t google::protobuf::util::MessageDifferencer::CompareRepeatedField(void *
   MapData = google::protobuf::Reflection::GetMapData(v11, a2, a4);
   v45 = google::protobuf::Reflection::GetMapData(v13, a3, a4);
   memset(v53, 0, 24);
-  sub_276B9D974(v53, *a5, a5[1], 0xAAAAAAAAAAAAAAABLL * ((a5[1] - *a5) >> 4));
+  sub_276B9D974(v53, *a5, *(a5 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a5 + 8) - *a5) >> 4));
   v61 = xmmword_276C1A750;
   v62 = 0;
   v63 = 0;
@@ -8579,7 +6855,7 @@ LABEL_90:
             DWORD2(v61) = v29;
             sub_276B987FC(a5, &v60);
             (*(**a1 + 24))(*a1, a2, a3, a5);
-            a5[1] -= 48;
+            *(a5 + 8) -= 48;
             *(v57 + v29) = -2;
             goto LABEL_66;
           }
@@ -8609,7 +6885,7 @@ LABEL_90:
               HIDWORD(v61) = v30;
               sub_276B987FC(a5, &v60);
               (*(**a1 + 16))(*a1, a2, a3, a5);
-              a5[1] -= 48;
+              *(a5 + 8) -= 48;
               *(__p + v30++) = -2;
             }
 
@@ -8642,7 +6918,7 @@ LABEL_90:
 
             sub_276B987FC(a5, &v60);
             (*(**a1 + 32))(*a1, a2, a3, a5);
-            a5[1] -= 48;
+            *(a5 + 8) -= 48;
 LABEL_66:
             v27 = 1;
             goto LABEL_67;
@@ -8670,7 +6946,7 @@ LABEL_66:
               sub_276B987FC(a5, &v60);
               (*(**a1 + 40))(*a1, a2, a3, a5);
 LABEL_62:
-              a5[1] -= 48;
+              *(a5 + 8) -= 48;
               goto LABEL_67;
             }
           }
@@ -8720,7 +6996,7 @@ LABEL_78:
             HIDWORD(v61) = i;
             sub_276B987FC(a5, &v60);
             (*(**a1 + 16))(*a1, a2, a3, a5);
-            a5[1] -= 48;
+            *(a5 + 8) -= 48;
           }
         }
       }
@@ -8757,7 +7033,7 @@ LABEL_87:
     DWORD2(v61) = v39;
     sub_276B987FC(a5, &v60);
     (*(**a1 + 24))(*a1, a2, a3, a5);
-    a5[1] -= 48;
+    *(a5 + 8) -= 48;
     v27 = 1;
     goto LABEL_88;
   }
@@ -8775,12 +7051,12 @@ void sub_276B99208(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t google::protobuf::util::MessageDifferencer::IsMatch(google::protobuf::util::MessageDifferencer *a1, uint64_t a2, uint64_t a3, const google::protobuf::Message *a4, const google::protobuf::Message *a5, uint64_t *a6, uint64_t a7, uint64_t a8, unsigned int a9)
+uint64_t google::protobuf::util::MessageDifferencer::IsMatch(google::protobuf::util::MessageDifferencer *a1, uint64_t a2, uint64_t a3, const google::protobuf::Message *a4, const google::protobuf::Message *a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
 {
   __p = 0;
   v35 = 0;
   v36 = 0;
-  sub_276B9D974(&__p, *a6, a6[1], 0xAAAAAAAAAAAAAAABLL * ((a6[1] - *a6) >> 4));
+  sub_276B9D974(&__p, *a6, *(a6 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a6 + 8) - *a6) >> 4));
   v16 = *(a2 + 48);
   if (v16)
   {
@@ -8856,7 +7132,7 @@ void sub_276B994DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t google::protobuf::util::MessageDifferencer::CompareMapFieldByMapReflection(google::protobuf::util::MessageDifferencer *a1, const google::protobuf::Message *a2, const google::protobuf::Message *a3, const google::protobuf::FieldDescriptor *a4, uint64_t a5, google::protobuf::util::DefaultFieldComparator *a6)
 {
-  v61[2] = *MEMORY[0x277D85DE8];
+  v60[2] = *MEMORY[0x277D85DE8];
   (*(*a2 + 152))(a2);
   v13 = v12;
   (*(*a3 + 152))(a3);
@@ -8872,14 +7148,14 @@ uint64_t google::protobuf::util::MessageDifferencer::CompareMapFieldByMapReflect
     v22 = *(v21 + 48);
     if (v22)
     {
-      v50 = google::protobuf::FieldDescriptor::TypeOnceInit;
-      v52 = v21;
+      v49 = google::protobuf::FieldDescriptor::TypeOnceInit;
+      v51 = v21;
       if (atomic_load_explicit(v22, memory_order_acquire) != -1)
       {
-        v58 = &v50;
-        v59 = &v52;
-        v53 = &v58;
-        std::__call_once(v22, &v53, sub_2769C149C);
+        v57 = &v49;
+        v58 = &v51;
+        v52 = &v57;
+        std::__call_once(v22, &v52, sub_2769C149C);
       }
     }
 
@@ -8891,340 +7167,344 @@ uint64_t google::protobuf::util::MessageDifferencer::CompareMapFieldByMapReflect
       {
         if (v23 == 6)
         {
-          google::protobuf::Reflection::MapBegin(v13, a2, a4, &v58);
+          google::protobuf::Reflection::MapBegin(v13, a2, a4, &v57);
           while (1)
           {
-            google::protobuf::Reflection::MapEnd(v13, a2, a4, &v53);
-            v37 = (*(*v59 + 48))(v59, &v58, &v53);
-            sub_276B7951C(&v53);
+            google::protobuf::Reflection::MapEnd(v13, a2, a4, &v52);
+            v37 = (*(*v58 + 48))(v58, &v57, &v52);
+            sub_276B7951C(&v52);
             if (v37)
             {
               break;
             }
 
-            if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v60) & 1) == 0 || (v53 = 0, LODWORD(v54) = 0, google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v60, &v53), v38 = sub_276B64B84(v61), v39 = sub_276B64B84(&v53), !google::protobuf::util::DefaultFieldComparator::CompareFloat(a6, v21, v38, v39)))
+            if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v59) & 1) == 0 || (v52 = 0, LODWORD(v53) = 0, google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v59, &v52), v38 = sub_276B64B84(v60), v39 = sub_276B64B84(&v52), !google::protobuf::util::DefaultFieldComparator::CompareFloat(a6, v21, v38, v39)))
             {
 LABEL_67:
-              sub_276B7951C(&v58);
-              result = 0;
-              goto LABEL_69;
+              sub_276B7951C(&v57);
+              return 0;
             }
 
-            (*(*v59 + 152))(v59, &v58);
+            (*(*v58 + 152))(v58, &v57);
           }
         }
 
         else
         {
-          google::protobuf::Reflection::MapBegin(v13, a2, a4, &v58);
+          google::protobuf::Reflection::MapBegin(v13, a2, a4, &v57);
           while (1)
           {
-            google::protobuf::Reflection::MapEnd(v13, a2, a4, &v53);
-            v33 = (*(*v59 + 48))(v59, &v58, &v53);
-            sub_276B7951C(&v53);
+            google::protobuf::Reflection::MapEnd(v13, a2, a4, &v52);
+            v33 = (*(*v58 + 48))(v58, &v57, &v52);
+            sub_276B7951C(&v52);
             if (v33)
             {
               break;
             }
 
-            if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v60) & 1) == 0)
+            if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v59) & 1) == 0)
             {
               goto LABEL_67;
             }
 
-            v53 = 0;
-            LODWORD(v54) = 0;
-            google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v60, &v53);
-            v34 = sub_276B64F84(v61);
-            if (v34 != sub_276B64F84(&v53))
+            v52 = 0;
+            LODWORD(v53) = 0;
+            google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v59, &v52);
+            v34 = sub_276B64F84(v60);
+            if (v34 != sub_276B64F84(&v52))
             {
               goto LABEL_67;
             }
 
-            (*(*v59 + 152))(v59, &v58);
+            (*(*v58 + 152))(v58, &v57);
           }
         }
-
-        goto LABEL_68;
       }
 
-      switch(v23)
+      else
       {
-        case 8:
-          google::protobuf::Reflection::MapBegin(v13, a2, a4, &v58);
-          while (1)
+        switch(v23)
+        {
+          case 8:
+            google::protobuf::Reflection::MapBegin(v13, a2, a4, &v57);
+            while (1)
+            {
+              google::protobuf::Reflection::MapEnd(v13, a2, a4, &v52);
+              v42 = (*(*v58 + 48))(v58, &v57, &v52);
+              sub_276B7951C(&v52);
+              if (v42)
+              {
+                break;
+              }
+
+              if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v59) & 1) == 0)
+              {
+                goto LABEL_67;
+              }
+
+              v52 = 0;
+              LODWORD(v53) = 0;
+              google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v59, &v52);
+              v43 = sub_276B6537C(v60);
+              if (v43 != sub_276B6537C(&v52))
+              {
+                goto LABEL_67;
+              }
+
+              (*(*v58 + 152))(v58, &v57);
+            }
+
+            break;
+          case 9:
+            google::protobuf::Reflection::MapBegin(v13, a2, a4, &v57);
+            while (1)
+            {
+              google::protobuf::Reflection::MapEnd(v13, a2, a4, &v52);
+              v46 = (*(*v58 + 48))(v58, &v57, &v52);
+              sub_276B7951C(&v52);
+              if (v46)
+              {
+                break;
+              }
+
+              if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v59) & 1) == 0)
+              {
+                goto LABEL_67;
+              }
+
+              v52 = 0;
+              LODWORD(v53) = 0;
+              google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v59, &v52);
+              v47 = sub_276B65184(v60);
+              v48 = sub_276B65184(&v52);
+              if (!sub_276B07FE0(a6, v21, v47, v48))
+              {
+                goto LABEL_67;
+              }
+
+              (*(*v58 + 152))(v58, &v57);
+            }
+
+            break;
+          case 10:
+            google::protobuf::Reflection::MapBegin(v13, a2, a4, &v57);
+            while (1)
+            {
+              google::protobuf::Reflection::MapEnd(v13, a2, a4, &v52);
+              v27 = (*(*v58 + 48))(v58, &v57, &v52);
+              sub_276B7951C(&v52);
+              if (v27)
+              {
+                break;
+              }
+
+              if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v59) & 1) == 0)
+              {
+                goto LABEL_67;
+              }
+
+              v49 = 0;
+              v50 = 0;
+              google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v59, &v49);
+              v53 = xmmword_276C1A750;
+              v54 = 0;
+              v55 = 0;
+              v56 = -1;
+              v52 = v21;
+              sub_276B987FC(a5, &v52);
+              v28 = sub_276B65570(v60);
+              v29 = sub_276B65570(&v49);
+              v30 = google::protobuf::util::MessageDifferencer::Compare(a1, v28, v29, a5);
+              *(a5 + 8) -= 48;
+              if ((v30 & 1) == 0)
+              {
+                goto LABEL_67;
+              }
+
+              (*(*v58 + 152))(v58, &v57);
+            }
+
+            break;
+          default:
+            return result;
+        }
+      }
+    }
+
+    else if (v23 <= 2)
+    {
+      if (v23 == 1)
+      {
+        google::protobuf::Reflection::MapBegin(v13, a2, a4, &v57);
+        while (1)
+        {
+          google::protobuf::Reflection::MapEnd(v13, a2, a4, &v52);
+          v35 = (*(*v58 + 48))(v58, &v57, &v52);
+          sub_276B7951C(&v52);
+          if (v35)
           {
-            google::protobuf::Reflection::MapEnd(v13, a2, a4, &v53);
-            v42 = (*(*v59 + 48))(v59, &v58, &v53);
-            sub_276B7951C(&v53);
-            if (v42)
-            {
-              goto LABEL_68;
-            }
-
-            if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v60) & 1) == 0)
-            {
-              goto LABEL_67;
-            }
-
-            v53 = 0;
-            LODWORD(v54) = 0;
-            google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v60, &v53);
-            v43 = sub_276B6537C(v61);
-            if (v43 != sub_276B6537C(&v53))
-            {
-              goto LABEL_67;
-            }
-
-            (*(*v59 + 152))(v59, &v58);
+            break;
           }
 
-        case 9:
-          google::protobuf::Reflection::MapBegin(v13, a2, a4, &v58);
-          while (1)
+          if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v59) & 1) == 0)
           {
-            google::protobuf::Reflection::MapEnd(v13, a2, a4, &v53);
-            v46 = (*(*v59 + 48))(v59, &v58, &v53);
-            sub_276B7951C(&v53);
-            if (v46)
-            {
-              goto LABEL_68;
-            }
-
-            if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v60) & 1) == 0)
-            {
-              goto LABEL_67;
-            }
-
-            v53 = 0;
-            LODWORD(v54) = 0;
-            google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v60, &v53);
-            v47 = sub_276B65184(v61);
-            v48 = sub_276B65184(&v53);
-            if (!sub_276B07FE0(a6, v21, v47, v48))
-            {
-              goto LABEL_67;
-            }
-
-            (*(*v59 + 152))(v59, &v58);
+            goto LABEL_67;
           }
 
-        case 10:
-          google::protobuf::Reflection::MapBegin(v13, a2, a4, &v58);
-          while (1)
+          v52 = 0;
+          LODWORD(v53) = 0;
+          google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v59, &v52);
+          v36 = sub_276B6438C(v60);
+          if (v36 != sub_276B6438C(&v52))
           {
-            google::protobuf::Reflection::MapEnd(v13, a2, a4, &v53);
-            v27 = (*(*v59 + 48))(v59, &v58, &v53);
-            sub_276B7951C(&v53);
-            if (v27)
-            {
-              goto LABEL_68;
-            }
-
-            if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v60) & 1) == 0)
-            {
-              goto LABEL_67;
-            }
-
-            v50 = 0;
-            v51 = 0;
-            google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v60, &v50);
-            v54 = xmmword_276C1A750;
-            v55 = 0;
-            v56 = 0;
-            v57 = -1;
-            v53 = v21;
-            sub_276B987FC(a5, &v53);
-            v28 = sub_276B65570(v61);
-            v29 = sub_276B65570(&v50);
-            v30 = google::protobuf::util::MessageDifferencer::Compare(a1, v28, v29, a5);
-            *(a5 + 8) -= 48;
-            if ((v30 & 1) == 0)
-            {
-              goto LABEL_67;
-            }
-
-            (*(*v59 + 152))(v59, &v58);
+            goto LABEL_67;
           }
+
+          (*(*v58 + 152))(v58, &v57);
+        }
+      }
+
+      else
+      {
+        if (v23 != 2)
+        {
+          return result;
+        }
+
+        google::protobuf::Reflection::MapBegin(v13, a2, a4, &v57);
+        while (1)
+        {
+          google::protobuf::Reflection::MapEnd(v13, a2, a4, &v52);
+          v31 = (*(*v58 + 48))(v58, &v57, &v52);
+          sub_276B7951C(&v52);
+          if (v31)
+          {
+            break;
+          }
+
+          if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v59) & 1) == 0)
+          {
+            goto LABEL_67;
+          }
+
+          v52 = 0;
+          LODWORD(v53) = 0;
+          google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v59, &v52);
+          v32 = sub_276B64588(v60);
+          if (v32 != sub_276B64588(&v52))
+          {
+            goto LABEL_67;
+          }
+
+          (*(*v58 + 152))(v58, &v57);
+        }
+      }
+    }
+
+    else if (v23 == 3)
+    {
+      google::protobuf::Reflection::MapBegin(v13, a2, a4, &v57);
+      while (1)
+      {
+        google::protobuf::Reflection::MapEnd(v13, a2, a4, &v52);
+        v40 = (*(*v58 + 48))(v58, &v57, &v52);
+        sub_276B7951C(&v52);
+        if (v40)
+        {
+          break;
+        }
+
+        if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v59) & 1) == 0)
+        {
+          goto LABEL_67;
+        }
+
+        v52 = 0;
+        LODWORD(v53) = 0;
+        google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v59, &v52);
+        v41 = sub_276B64784(v60);
+        if (v41 != sub_276B64784(&v52))
+        {
+          goto LABEL_67;
+        }
+
+        (*(*v58 + 152))(v58, &v57);
+      }
+    }
+
+    else if (v23 == 4)
+    {
+      google::protobuf::Reflection::MapBegin(v13, a2, a4, &v57);
+      while (1)
+      {
+        google::protobuf::Reflection::MapEnd(v13, a2, a4, &v52);
+        v44 = (*(*v58 + 48))(v58, &v57, &v52);
+        sub_276B7951C(&v52);
+        if (v44)
+        {
+          break;
+        }
+
+        if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v59) & 1) == 0)
+        {
+          goto LABEL_67;
+        }
+
+        v52 = 0;
+        LODWORD(v53) = 0;
+        google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v59, &v52);
+        v45 = sub_276B64980(v60);
+        if (v45 != sub_276B64980(&v52))
+        {
+          goto LABEL_67;
+        }
+
+        (*(*v58 + 152))(v58, &v57);
       }
     }
 
     else
     {
-      if (v23 > 2)
+      google::protobuf::Reflection::MapBegin(v13, a2, a4, &v57);
+      while (1)
       {
-        if (v23 == 3)
+        google::protobuf::Reflection::MapEnd(v13, a2, a4, &v52);
+        v24 = (*(*v58 + 48))(v58, &v57, &v52);
+        sub_276B7951C(&v52);
+        if (v24)
         {
-          google::protobuf::Reflection::MapBegin(v13, a2, a4, &v58);
-          while (1)
-          {
-            google::protobuf::Reflection::MapEnd(v13, a2, a4, &v53);
-            v40 = (*(*v59 + 48))(v59, &v58, &v53);
-            sub_276B7951C(&v53);
-            if (v40)
-            {
-              break;
-            }
-
-            if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v60) & 1) == 0)
-            {
-              goto LABEL_67;
-            }
-
-            v53 = 0;
-            LODWORD(v54) = 0;
-            google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v60, &v53);
-            v41 = sub_276B64784(v61);
-            if (v41 != sub_276B64784(&v53))
-            {
-              goto LABEL_67;
-            }
-
-            (*(*v59 + 152))(v59, &v58);
-          }
+          break;
         }
 
-        else if (v23 == 4)
+        if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v59) & 1) == 0)
         {
-          google::protobuf::Reflection::MapBegin(v13, a2, a4, &v58);
-          while (1)
-          {
-            google::protobuf::Reflection::MapEnd(v13, a2, a4, &v53);
-            v44 = (*(*v59 + 48))(v59, &v58, &v53);
-            sub_276B7951C(&v53);
-            if (v44)
-            {
-              break;
-            }
-
-            if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v60) & 1) == 0)
-            {
-              goto LABEL_67;
-            }
-
-            v53 = 0;
-            LODWORD(v54) = 0;
-            google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v60, &v53);
-            v45 = sub_276B64980(v61);
-            if (v45 != sub_276B64980(&v53))
-            {
-              goto LABEL_67;
-            }
-
-            (*(*v59 + 152))(v59, &v58);
-          }
+          goto LABEL_67;
         }
 
-        else
+        v52 = 0;
+        LODWORD(v53) = 0;
+        google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v59, &v52);
+        v25 = sub_276B64D88(v60);
+        v26 = sub_276B64D88(&v52);
+        if (!google::protobuf::util::DefaultFieldComparator::CompareDouble(a6, v21, v25, v26))
         {
-          google::protobuf::Reflection::MapBegin(v13, a2, a4, &v58);
-          while (1)
-          {
-            google::protobuf::Reflection::MapEnd(v13, a2, a4, &v53);
-            v24 = (*(*v59 + 48))(v59, &v58, &v53);
-            sub_276B7951C(&v53);
-            if (v24)
-            {
-              break;
-            }
-
-            if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v60) & 1) == 0)
-            {
-              goto LABEL_67;
-            }
-
-            v53 = 0;
-            LODWORD(v54) = 0;
-            google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v60, &v53);
-            v25 = sub_276B64D88(v61);
-            v26 = sub_276B64D88(&v53);
-            if (!google::protobuf::util::DefaultFieldComparator::CompareDouble(a6, v21, v25, v26))
-            {
-              goto LABEL_67;
-            }
-
-            (*(*v59 + 152))(v59, &v58);
-          }
+          goto LABEL_67;
         }
 
-LABEL_68:
-        sub_276B7951C(&v58);
-        result = 1;
-        goto LABEL_69;
-      }
-
-      if (v23 == 1)
-      {
-        google::protobuf::Reflection::MapBegin(v13, a2, a4, &v58);
-        while (1)
-        {
-          google::protobuf::Reflection::MapEnd(v13, a2, a4, &v53);
-          v35 = (*(*v59 + 48))(v59, &v58, &v53);
-          sub_276B7951C(&v53);
-          if (v35)
-          {
-            goto LABEL_68;
-          }
-
-          if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v60) & 1) == 0)
-          {
-            goto LABEL_67;
-          }
-
-          v53 = 0;
-          LODWORD(v54) = 0;
-          google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v60, &v53);
-          v36 = sub_276B6438C(v61);
-          if (v36 != sub_276B6438C(&v53))
-          {
-            goto LABEL_67;
-          }
-
-          (*(*v59 + 152))(v59, &v58);
-        }
-      }
-
-      if (v23 == 2)
-      {
-        google::protobuf::Reflection::MapBegin(v13, a2, a4, &v58);
-        while (1)
-        {
-          google::protobuf::Reflection::MapEnd(v13, a2, a4, &v53);
-          v31 = (*(*v59 + 48))(v59, &v58, &v53);
-          sub_276B7951C(&v53);
-          if (v31)
-          {
-            goto LABEL_68;
-          }
-
-          if ((google::protobuf::Reflection::ContainsMapKey(v15, a3, a4, v60) & 1) == 0)
-          {
-            goto LABEL_67;
-          }
-
-          v53 = 0;
-          LODWORD(v54) = 0;
-          google::protobuf::Reflection::LookupMapValue(v15, a3, a4, v60, &v53);
-          v32 = sub_276B64588(v61);
-          if (v32 != sub_276B64588(&v53))
-          {
-            goto LABEL_67;
-          }
-
-          (*(*v59 + 152))(v59, &v58);
-        }
+        (*(*v58 + 152))(v58, &v57);
       }
     }
+
+    sub_276B7951C(&v57);
+    return 1;
   }
 
-LABEL_69:
-  v49 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_276B9A124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_276B9A124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   sub_276B7951C(va);
   _Unwind_Resume(a1);
 }
@@ -9246,7 +7526,7 @@ BOOL google::protobuf::util::MessageDifferencer::IsTreatedAsSubset(google::proto
 
 BOOL google::protobuf::util::MessageDifferencer::IsTreatedAsSmartList(google::protobuf::util::MessageDifferencer *this, const google::protobuf::FieldDescriptor *a2)
 {
-  v12[0] = a2;
+  v12 = a2;
   if (*(a2 + 15) != 3)
   {
     return 0;
@@ -9277,8 +7557,8 @@ BOOL google::protobuf::util::MessageDifferencer::IsTreatedAsSmartList(google::pr
   while (v4);
   if (v6 != v3 && *(v6 + 4) <= a2)
   {
-    v12[2] = v12;
-    v11 = *(sub_276B9DC20(v5, v12) + 10);
+    v13 = &v12;
+    v11 = *(sub_276B9DC20(v5, &v12, &unk_276C1A908, &v13) + 10);
   }
 
   else
@@ -9297,7 +7577,7 @@ LABEL_17:
 
 BOOL google::protobuf::util::MessageDifferencer::IsTreatedAsSet(google::protobuf::util::MessageDifferencer *this, const google::protobuf::FieldDescriptor *a2)
 {
-  v12[0] = a2;
+  v12 = a2;
   if (*(a2 + 15) != 3)
   {
     return 0;
@@ -9328,8 +7608,8 @@ BOOL google::protobuf::util::MessageDifferencer::IsTreatedAsSet(google::protobuf
   while (v4);
   if (v6 != v3 && *(v6 + 4) <= a2)
   {
-    v12[2] = v12;
-    v11 = *(sub_276B9DC20(v5, v12) + 10);
+    v13 = &v12;
+    v11 = *(sub_276B9DC20(v5, &v12, &unk_276C1A908, &v13) + 10);
   }
 
   else
@@ -9348,7 +7628,7 @@ LABEL_17:
 
 BOOL google::protobuf::util::MessageDifferencer::IsTreatedAsSmartSet(google::protobuf::util::MessageDifferencer *this, const google::protobuf::FieldDescriptor *a2)
 {
-  v12[0] = a2;
+  v12 = a2;
   if (*(a2 + 15) != 3)
   {
     return 0;
@@ -9379,8 +7659,8 @@ BOOL google::protobuf::util::MessageDifferencer::IsTreatedAsSmartSet(google::pro
   while (v4);
   if (v6 != v3 && *(v6 + 4) <= a2)
   {
-    v12[2] = v12;
-    v11 = *(sub_276B9DC20(v5, v12) + 10);
+    v13 = &v12;
+    v11 = *(sub_276B9DC20(v5, &v12, &unk_276C1A908, &v13) + 10);
   }
 
   else
@@ -9397,42 +7677,42 @@ LABEL_17:
   return v11 == 3;
 }
 
-uint64_t google::protobuf::util::MessageDifferencer::MatchRepeatedFieldIndices(google::protobuf::util::MessageDifferencer *a1, const google::protobuf::Message *a2, const google::protobuf::Message *a3, google::protobuf::FieldDescriptor *a4, uint64_t a5, uint64_t *a6, void *a7, void *a8)
+uint64_t google::protobuf::util::MessageDifferencer::MatchRepeatedFieldIndices(google::protobuf::util::MessageDifferencer *a1, const google::protobuf::Message *a2, const google::protobuf::Message *a3, google::protobuf::FieldDescriptor *a4, uint64_t a5, uint64_t a6, uint64_t *a7, uint64_t *a8)
 {
-  v53[10] = *MEMORY[0x277D85DE8];
-  v48 = a5;
-  v49 = a4;
+  v52[10] = *MEMORY[0x277D85DE8];
+  v47 = a5;
+  v48 = a4;
   (*(*a2 + 152))(a2);
   v15 = google::protobuf::Reflection::FieldSize(v14, a2, a4);
   (*(*a3 + 152))(a3);
   v17 = google::protobuf::Reflection::FieldSize(v16, a3, a4);
   IsTreatedAsSmartSet = google::protobuf::util::MessageDifferencer::IsTreatedAsSmartSet(a1, a4);
-  v38 = a7;
-  v39 = v15;
-  LODWORD(v53[0]) = -1;
-  sub_276B9B008(a7, v15, v53);
-  LODWORD(v53[0]) = -1;
-  sub_276B9B008(a8, v17, v53);
-  v40 = *a1;
+  v37 = a7;
+  v38 = v15;
+  LODWORD(v52[0]) = -1;
+  sub_276B9B008(a7, v15, v52);
+  LODWORD(v52[0]) = -1;
+  sub_276B9B008(a8, v17, v52);
+  v39 = *a1;
   *a1 = 0;
-  v45 = 0;
-  v46 = &unk_2885C8B68;
-  v47 = 0;
-  v43 = 0;
   v44 = 0;
+  v45 = &unk_2885C8B68;
+  v46 = 0;
+  v42 = 0;
+  v43 = 0;
   if (IsTreatedAsSmartSet)
   {
-    sub_276B9B008(&v43, v15, &dword_276C1A760);
+    sub_276B9B008(&v42, v15, &dword_276C1A760);
   }
 
-  v41 = a1;
+  v40 = a1;
   if (*(a1 + 19) == 1)
   {
-    v52[4] = 0;
+    v51[4] = 0;
     operator new();
   }
 
-  if (google::protobuf::util::MessageDifferencer::IsTreatedAsSet(a1, v49) || IsTreatedAsSmartSet || google::protobuf::util::MessageDifferencer::IsTreatedAsSmartList(a1, v49))
+  if (google::protobuf::util::MessageDifferencer::IsTreatedAsSet(a1, v48) || IsTreatedAsSmartSet || google::protobuf::util::MessageDifferencer::IsTreatedAsSmartList(a1, v48))
   {
     if (v17 >= v15)
     {
@@ -9447,9 +7727,9 @@ uint64_t google::protobuf::util::MessageDifferencer::MatchRepeatedFieldIndices(g
     if (v19 >= 1)
     {
       v20 = 0;
-      while (google::protobuf::util::MessageDifferencer::IsMatch(a1, v49, v48, a2, a3, a6, 0, v20, v20))
+      while (google::protobuf::util::MessageDifferencer::IsMatch(a1, v48, v47, a2, a3, a6, 0, v20, v20))
       {
-        if (v20 >= (v38[1] - *v38) >> 2 || (*(*v38 + 4 * v20) = v20, v20 >= (a8[1] - *a8) >> 2))
+        if (v20 >= (v37[1] - *v37) >> 2 || (*(*v37 + 4 * v20) = v20, v20 >= (a8[1] - *a8) >> 2))
         {
           sub_276B9DA94();
         }
@@ -9480,18 +7760,18 @@ LABEL_20:
 
   v23 = v19;
   LODWORD(v21) = 1;
+  v35 = v19;
   v36 = v19;
-  v37 = v19;
   do
   {
-    if (v37 >= v17)
+    if (v36 >= v17)
     {
       v32 = 0;
       goto LABEL_61;
     }
 
     v24 = -1;
-    v25 = v36;
+    v25 = v35;
     do
     {
       if (v25 >= (a8[1] - *a8) >> 2)
@@ -9502,10 +7782,10 @@ LABEL_20:
       v26 = *(*a8 + 4 * v25);
       if (v26 == -1)
       {
-        v27 = v49;
+        v27 = v48;
         if (!IsTreatedAsSmartSet)
         {
-          if (google::protobuf::util::MessageDifferencer::IsMatch(v41, v49, v48, a2, a3, a6, 0, v23, v25))
+          if (google::protobuf::util::MessageDifferencer::IsMatch(v40, v48, v47, a2, a3, a6, 0, v23, v25))
           {
             v32 = 1;
             goto LABEL_57;
@@ -9517,20 +7797,20 @@ LABEL_20:
 
       else
       {
-        if (!IsTreatedAsSmartSet || !*(v43 + v23) || !*(v43 + v26))
+        if (!IsTreatedAsSmartSet || !*(v42 + v23) || !*(v42 + v26))
         {
           goto LABEL_43;
         }
 
-        v27 = v49;
+        v27 = v48;
       }
 
-      v47 = 0;
-      if (google::protobuf::util::MessageDifferencer::IsMatch(v41, v27, v48, a2, a3, a6, &v46, v23, v25))
+      v46 = 0;
+      if (google::protobuf::util::MessageDifferencer::IsMatch(v40, v27, v47, a2, a3, a6, &v45, v23, v25))
       {
-        *(v43 + v23) = 0;
+        *(v42 + v23) = 0;
 LABEL_50:
-        v22 = v39;
+        v22 = v38;
         if (v25 < ((a8[1] - *a8) >> 2))
         {
           v33 = *(*a8 + 4 * v25);
@@ -9540,10 +7820,10 @@ LABEL_50:
             goto LABEL_58;
           }
 
-          if (v33 < (v38[1] - *v38) >> 2)
+          if (v33 < (v37[1] - *v37) >> 2)
           {
             v32 = 0;
-            *(*v38 + 4 * v33) = -1;
+            *(*v37 + 4 * v33) = -1;
             goto LABEL_58;
           }
         }
@@ -9552,25 +7832,25 @@ LABEL_73:
         sub_276B9DA94();
       }
 
-      v28 = v49;
-      v29 = *(v49 + 6);
+      v28 = v48;
+      v29 = *(v48 + 6);
       if (v29)
       {
-        v51 = v49;
-        v52[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
+        v50 = v48;
+        v51[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
         if (atomic_load_explicit(v29, memory_order_acquire) != -1)
         {
-          v53[0] = v52;
-          v53[1] = &v51;
-          __p = v53;
+          v52[0] = v51;
+          v52[1] = &v50;
+          __p = v52;
           std::__call_once(v29, &__p, sub_2769C149C);
         }
       }
 
       if (google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v28 + 14)] == 10)
       {
-        v30 = v47;
-        if (v47 < *(v43 + v23))
+        v30 = v46;
+        if (v46 < *(v42 + v23))
         {
           if (v25 >= (a8[1] - *a8) >> 2)
           {
@@ -9578,9 +7858,9 @@ LABEL_73:
           }
 
           v31 = *(*a8 + 4 * v25);
-          if (v31 == -1 || v47 < *(v43 + v31))
+          if (v31 == -1 || v46 < *(v42 + v31))
           {
-            *(v43 + v23) = v47;
+            *(v42 + v23) = v46;
             v24 = v25;
             if (!v30)
             {
@@ -9598,8 +7878,8 @@ LABEL_43:
     if (v24 == -1)
     {
       v32 = 0;
-      a1 = v41;
-      v22 = v39;
+      a1 = v40;
+      v22 = v38;
       goto LABEL_61;
     }
 
@@ -9612,28 +7892,28 @@ LABEL_43:
     v32 = 1;
     LODWORD(v25) = v24;
 LABEL_57:
-    v22 = v39;
+    v22 = v38;
 LABEL_58:
-    if (v23 >= (v38[1] - *v38) >> 2)
+    if (v23 >= (v37[1] - *v37) >> 2)
     {
       goto LABEL_73;
     }
 
-    *(*v38 + 4 * v23) = v25;
+    *(*v37 + 4 * v23) = v25;
     if (v25 >= ((a8[1] - *a8) >> 2))
     {
       goto LABEL_73;
     }
 
     *(*a8 + 4 * v25) = v23;
-    a1 = v41;
+    a1 = v40;
     if (v32)
     {
       goto LABEL_62;
     }
 
 LABEL_61:
-    if (!v40)
+    if (!v39)
     {
       v21 = 0;
       goto LABEL_68;
@@ -9646,28 +7926,28 @@ LABEL_62:
 
   while (v22 != v23);
 LABEL_65:
-  if (google::protobuf::util::MessageDifferencer::IsTreatedAsSmartList(a1, v49))
+  if (google::protobuf::util::MessageDifferencer::IsTreatedAsSmartList(a1, v48))
   {
-    sub_276B9B2E4(a1 + 264, v38, a8);
+    sub_276B9B2E4(a1 + 264, v37, a8);
   }
 
-  *a1 = v40;
+  *a1 = v39;
 LABEL_68:
-  if (v43)
+  if (v42)
   {
-    v44 = v43;
-    operator delete(v43);
+    v43 = v42;
+    operator delete(v42);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
-void sub_276B9AB70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_276B9AB70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  sub_276A579A4(v29 + 40, *(v30 - 128));
-  sub_276B9FE6C(v29 + 8);
-  sub_276B9FE6C(&a29);
+  va_start(va, a28);
+  sub_276A579A4(v28 + 40, *(v29 - 128));
+  sub_276B9FE6C(v28 + 8);
+  sub_276B9FE6C(va);
   if (__p)
   {
     operator delete(__p);
@@ -9725,13 +8005,13 @@ uint64_t google::protobuf::util::MessageDifferencer::CheckPathChanged(uint64_t *
     if (*(v3 + 56) != 11 || (google::protobuf::FieldDescriptor::is_map_message_type(v3) & 1) == 0)
     {
 LABEL_8:
-      if (*(v1 + 4) != *(v1 + 5))
+      if (*(v1 + 16) != *(v1 + 20))
       {
         return 1;
       }
     }
 
-    v1 += 6;
+    v1 += 48;
     if (v1 == v2)
     {
       return 0;
@@ -9765,17 +8045,1751 @@ uint64_t google::protobuf::util::MessageDifferencer::IsUnknownFieldIgnored(uint6
   return result;
 }
 
-void *sub_276B9ADB4(void *result, unint64_t a2)
+void sub_276B9ADB4(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      sub_276B9F3CC(result, a2);
+      sub_276B9F3CC(a1, a2);
     }
 
     sub_2769BA860();
+  }
+}
+
+void sub_276B9AE54(uint64_t a1, _OWORD *a2)
+{
+  v5 = *(a1 + 8);
+  v4 = *(a1 + 16);
+  if (v5 >= v4)
+  {
+    v7 = (v5 - *a1) >> 4;
+    v8 = v7 + 1;
+    if ((v7 + 1) >> 60)
+    {
+      sub_2769BA860();
+    }
+
+    v9 = v4 - *a1;
+    if (v9 >> 3 > v8)
+    {
+      v8 = v9 >> 3;
+    }
+
+    if (v9 >= 0x7FFFFFFFFFFFFFF0)
+    {
+      v10 = 0xFFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v10 = v8;
+    }
+
+    if (v10)
+    {
+      sub_276B9F3CC(a1, v10);
+    }
+
+    v11 = (16 * v7);
+    *v11 = *a2;
+    v6 = 16 * v7 + 16;
+    v12 = *(a1 + 8) - *a1;
+    v13 = v11 - v12;
+    memcpy(v11 - v12, *a1, v12);
+    v14 = *a1;
+    *a1 = v13;
+    *(a1 + 8) = v6;
+    *(a1 + 16) = 0;
+    if (v14)
+    {
+      operator delete(v14);
+    }
+  }
+
+  else
+  {
+    *v5 = *a2;
+    v6 = (v5 + 1);
+  }
+
+  *(a1 + 8) = v6;
+}
+
+void sub_276B9AF2C(__n128 *a1, __n128 *a2, __n128 a3)
+{
+  v5 = a2 - a1;
+  if (v5 < 1)
+  {
+    v9 = 0;
+LABEL_7:
+
+    sub_276B9F414(a1, a2, v5, 0, v9, a3);
+  }
+
+  else
+  {
+    v6 = MEMORY[0x277D826F0];
+    v7 = a2 - a1;
+    while (1)
+    {
+      v8 = operator new(16 * v7, v6);
+      if (v8)
+      {
+        break;
+      }
+
+      v9 = v7 >> 1;
+      v10 = v7 > 1;
+      v7 >>= 1;
+      if (!v10)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    v11 = v8;
+    sub_276B9F414(a1, a2, v5, v8, v7, a3);
+
+    operator delete(v11);
+  }
+}
+
+_DWORD *sub_276B9B008(uint64_t *a1, unint64_t a2, int *a3)
+{
+  v5 = a1[2];
+  result = *a1;
+  if (a2 > (v5 - result) >> 2)
+  {
+    if (result)
+    {
+      a1[1] = result;
+      operator delete(result);
+      v5 = 0;
+      *a1 = 0;
+      a1[1] = 0;
+      a1[2] = 0;
+    }
+
+    if (!(a2 >> 62))
+    {
+      v7 = v5 >> 1;
+      if (v5 >> 1 <= a2)
+      {
+        v7 = a2;
+      }
+
+      if (v5 >= 0x7FFFFFFFFFFFFFFCLL)
+      {
+        v8 = 0x3FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v8 = v7;
+      }
+
+      sub_276B2BC6C(a1, v8);
+    }
+
+    sub_2769BA860();
+  }
+
+  v9 = a1[1];
+  v10 = (v9 - result) >> 2;
+  if (v10 >= a2)
+  {
+    v11 = a2;
+  }
+
+  else
+  {
+    v11 = (v9 - result) >> 2;
+  }
+
+  if (v11)
+  {
+    v12 = 0;
+    v13 = *a3;
+    v14 = (v11 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+    v15 = vdupq_n_s64(v11 - 1);
+    v16 = result + 2;
+    do
+    {
+      v17 = vdupq_n_s64(v12);
+      v18 = vmovn_s64(vcgeq_u64(v15, vorrq_s8(v17, xmmword_276C19EB0)));
+      if (vuzp1_s16(v18, *v15.i8).u8[0])
+      {
+        *(v16 - 2) = v13;
+      }
+
+      if (vuzp1_s16(v18, *&v15).i8[2])
+      {
+        *(v16 - 1) = v13;
+      }
+
+      if (vuzp1_s16(*&v15, vmovn_s64(vcgeq_u64(v15, vorrq_s8(v17, xmmword_276C1A740)))).i32[1])
+      {
+        *v16 = v13;
+        v16[1] = v13;
+      }
+
+      v12 += 4;
+      v16 += 4;
+    }
+
+    while (v14 != v12);
+  }
+
+  v19 = a2 >= v10;
+  v20 = a2 - v10;
+  if (v20 != 0 && v19)
+  {
+    v21 = 0;
+    v22 = v9 + 4 * v20;
+    v23 = *a3;
+    v24 = (4 * a2 - (v9 - result) - 4) >> 2;
+    v25 = vdupq_n_s64(v24);
+    v26 = (v9 + 8);
+    do
+    {
+      v27 = vdupq_n_s64(v21);
+      v28 = vmovn_s64(vcgeq_u64(v25, vorrq_s8(v27, xmmword_276C19EB0)));
+      if (vuzp1_s16(v28, *v25.i8).u8[0])
+      {
+        *(v26 - 2) = v23;
+      }
+
+      if (vuzp1_s16(v28, *&v25).i8[2])
+      {
+        *(v26 - 1) = v23;
+      }
+
+      if (vuzp1_s16(*&v25, vmovn_s64(vcgeq_u64(v25, vorrq_s8(v27, xmmword_276C1A740)))).i32[1])
+      {
+        *v26 = v23;
+        v26[1] = v23;
+      }
+
+      v21 += 4;
+      v26 += 4;
+    }
+
+    while (((v24 + 4) & 0x7FFFFFFFFFFFFFFCLL) != v21);
+    a1[1] = v22;
+  }
+
+  else
+  {
+    a1[1] = &result[a2];
+  }
+
+  return result;
+}
+
+uint64_t sub_276B9B2AC(uint64_t a1)
+{
+  sub_276A579A4(a1 + 40, *(a1 + 48));
+  sub_276B9FE6C(a1 + 8);
+  return a1;
+}
+
+uint64_t sub_276B9B2E4(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = a3;
+  v6 = a2;
+  v3 = *(a1 + 24);
+  if (!v3)
+  {
+    sub_276B9D6A4();
+  }
+
+  return (*(*v3 + 48))(v3, &v6, &v5);
+}
+
+uint64_t google::protobuf::util::MessageDifferencer::StreamReporter::StreamReporter(uint64_t this, google::protobuf::io::Printer *a2)
+{
+  *this = &unk_2885C8A50;
+  *(this + 8) = a2;
+  *(this + 16) = 0;
+  return this;
+}
+
+{
+  *this = &unk_2885C8A50;
+  *(this + 8) = a2;
+  *(this + 16) = 0;
+  return this;
+}
+
+void google::protobuf::util::MessageDifferencer::StreamReporter::~StreamReporter(google::protobuf::util::MessageDifferencer::StreamReporter *this)
+{
+  *this = &unk_2885C8A50;
+  if (*(this + 16) == 1)
+  {
+    v1 = *(this + 1);
+    if (v1)
+    {
+      google::protobuf::io::Printer::~Printer(v1);
+      MEMORY[0x277C9F670]();
+    }
+  }
+}
+
+{
+  google::protobuf::util::MessageDifferencer::StreamReporter::~StreamReporter(this);
+
+  JUMPOUT(0x277C9F670);
+}
+
+void google::protobuf::util::MessageDifferencer::StreamReporter::PrintPath(uint64_t a1, uint64_t *a2, char *a3)
+{
+  v23 = a3;
+  v31 = *MEMORY[0x277D85DE8];
+  v3 = *a2;
+  if (a2[1] != *a2)
+  {
+    v4 = 0;
+    v5 = 0;
+    do
+    {
+      if (v4)
+      {
+        sub_276B9B998(*(a1 + 8), ".");
+        v3 = *a2;
+      }
+
+      v6 = (v3 + v4);
+      v7 = *v6;
+      v8 = *(v6 + 4);
+      v9 = *(v6 + 5);
+      if (*v6)
+      {
+        v10 = *(a1 + 8);
+        if (*(v7 + 67) == 1)
+        {
+          sub_276B9B9FC(v10, "($name$)", "name", *(v7 + 8));
+        }
+
+        else
+        {
+          google::protobuf::io::Printer::PrintRaw(v10, *v7);
+        }
+
+        v15 = *(v7 + 48);
+        if (v15)
+        {
+          v26 = v7;
+          v27 = google::protobuf::FieldDescriptor::TypeOnceInit;
+          if (atomic_load_explicit(v15, memory_order_acquire) != -1)
+          {
+            __src = &v27;
+            v29 = &v26;
+            __dst.__r_.__value_.__r.__words[0] = &__src;
+            std::__call_once(v15, &__dst, sub_2769C149C);
+          }
+        }
+
+        if (*(v7 + 56) == 11 && (google::protobuf::FieldDescriptor::is_map_message_type(v7) & 1) != 0)
+        {
+          goto LABEL_43;
+        }
+      }
+
+      else
+      {
+        v11 = *(v6 + 2);
+        v12 = *(a1 + 8);
+        __src = v30;
+        v13 = google::protobuf::FastInt32ToBufferLeft(v11, v30, a3);
+        v14 = v13 - v30;
+        v29 = (v13 - v30);
+        if ((v13 - v30) > 0x7FFFFFFFFFFFFFF7)
+        {
+          sub_2769DD7D8();
+        }
+
+        if (v14 >= 0x17)
+        {
+          operator new();
+        }
+
+        *(&__dst.__r_.__value_.__s + 23) = v13 - v30;
+        if (v13 != v30)
+        {
+          memmove(&__dst, __src, v14);
+        }
+
+        __dst.__r_.__value_.__s.__data_[v14] = 0;
+        google::protobuf::io::Printer::PrintRaw(v12, &__dst);
+        if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__dst.__r_.__value_.__l.__data_);
+        }
+      }
+
+      if (v23 && (v8 & 0x80000000) == 0)
+      {
+        v16 = *(a1 + 8);
+        __src = v30;
+        v17 = google::protobuf::FastInt32ToBufferLeft(v8, v30, a3);
+        v18 = v17 - v30;
+        v29 = (v17 - v30);
+        if ((v17 - v30) > 0x7FFFFFFFFFFFFFF7)
+        {
+          sub_2769DD7D8();
+        }
+
+        if (v18 >= 0x17)
+        {
+          operator new();
+        }
+
+        *(&__dst.__r_.__value_.__s + 23) = v17 - v30;
+        if (v17 != v30)
+        {
+          memmove(&__dst, __src, v18);
+        }
+
+        __dst.__r_.__value_.__s.__data_[v18] = 0;
+        sub_276B9B9FC(v16, "[$name$]", "name", &__dst);
+        if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__dst.__r_.__value_.__l.__data_);
+        }
+      }
+
+      if ((v23 & 1) == 0 && (v9 & 0x80000000) == 0)
+      {
+        v19 = *(a1 + 8);
+        __src = v30;
+        v20 = google::protobuf::FastInt32ToBufferLeft(v9, v30, a3);
+        v21 = v20 - v30;
+        v29 = (v20 - v30);
+        if ((v20 - v30) > 0x7FFFFFFFFFFFFFF7)
+        {
+          sub_2769DD7D8();
+        }
+
+        if (v21 >= 0x17)
+        {
+          operator new();
+        }
+
+        *(&__dst.__r_.__value_.__s + 23) = v20 - v30;
+        if (v20 != v30)
+        {
+          memmove(&__dst, __src, v21);
+        }
+
+        __dst.__r_.__value_.__s.__data_[v21] = 0;
+        sub_276B9B9FC(v19, "[$name$]", "name", &__dst);
+        if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__dst.__r_.__value_.__l.__data_);
+        }
+      }
+
+LABEL_43:
+      ++v5;
+      v3 = *a2;
+      v4 += 48;
+    }
+
+    while (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 4) > v5);
+  }
+}
+
+void sub_276B9B96C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+{
+  if (a18 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_276B9B998(char *a1, char *__s)
+{
+  v3[0] = 0;
+  v3[1] = 0;
+  v2 = v3;
+  google::protobuf::io::Printer::Print(a1, &v2, __s);
+  sub_276BA0044(&v2, v3[0]);
+}
+
+void sub_276B9B9FC(char *a1, char *a2, char *__s, const std::string *a4)
+{
+  v5[0] = 0;
+  v5[1] = 0;
+  v4 = v5;
+  sub_276BA00F8(a1, &v4, a2, __s, a4);
+  sub_276BA0044(&v4, v5[0]);
+}
+
+void google::protobuf::util::MessageDifferencer::StreamReporter::PrintValue(uint64_t *a1, const google::protobuf::Message *a2, uint64_t a3, int a4)
+{
+  v4 = *(a3 + 8);
+  v5 = *(v4 - 48);
+  if (v5)
+  {
+    __p[0] = 0;
+    __p[1] = 0;
+    v14 = 0;
+    v7 = -28;
+    if (a4)
+    {
+      v7 = -32;
+    }
+
+    v8 = *(v4 + v7);
+    v9 = *(v5 + 48);
+    if (v9)
+    {
+      v16 = google::protobuf::FieldDescriptor::TypeOnceInit;
+      v15 = v5;
+      if (atomic_load_explicit(v9, memory_order_acquire) != -1)
+      {
+        v12.__r_.__value_.__r.__words[0] = &v16;
+        v12.__r_.__value_.__l.__size_ = &v15;
+        v17 = &v12;
+        std::__call_once(v9, &v17, sub_2769C149C);
+      }
+    }
+
+    if (google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v5 + 56)] == 10)
+    {
+      (*(*a2 + 152))(a2);
+      if (*(v5 + 60) == 3)
+      {
+        google::protobuf::Reflection::GetRepeatedMessage(v10, a2, v5, v8);
+      }
+
+      else
+      {
+        google::protobuf::Reflection::GetMessage(v10, a2, v5, 0);
+      }
+
+      google::protobuf::Message::ShortDebugString(&v12);
+    }
+
+    google::protobuf::TextFormat::PrintFieldValueToString(a2, v5, v8, __p);
+  }
+
+  v11 = *(*a1 + 96);
+
+  v11();
+}
+
+void sub_276B9BCC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+{
+  if (a18 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void google::protobuf::util::MessageDifferencer::StreamReporter::PrintUnknownFieldValue(google::protobuf::util::MessageDifferencer::StreamReporter *this, const google::protobuf::UnknownField *a2, char *a3)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  if (!a2)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(__src, 3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/google/protobuf/util/message_differencer.cc", 1957);
+    v5 = google::protobuf::internal::LogMessage::operator<<(__src, "CHECK failed: unknown_field != NULL: ");
+    v6 = google::protobuf::internal::LogMessage::operator<<(v5, " Cannot print NULL unknown_field.");
+    google::protobuf::internal::LogFinisher::operator=(__dst, &v6->__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::~LogMessage(&__src[0].__r_.__value_.__l.__data_);
+  }
+
+  memset(&__p, 0, sizeof(__p));
+  v7 = *(a2 + 1);
+  if (v7 <= 1)
+  {
+    if (!v7)
+    {
+      v11 = *(a2 + 1);
+      __src[0].__r_.__value_.__r.__words[0] = &__src[0].__r_.__value_.__r.__words[2];
+      v12 = google::protobuf::FastUInt64ToBufferLeft(v11, &__src[0].__r_.__value_.__s.__data_[16], a3);
+      v13 = v12 - &__src[0].__r_.__value_.__r.__words[2];
+      __src[0].__r_.__value_.__l.__size_ = v12 - &__src[0].__r_.__value_.__r.__words[2];
+      if ((v12 - &__src[0].__r_.__value_.__r.__words[2]) >= 0x7FFFFFFFFFFFFFF8)
+      {
+        sub_2769DD7D8();
+      }
+
+      if (v13 >= 0x17)
+      {
+        operator new();
+      }
+
+      *(&__dst[0].__r_.__value_.__s + 23) = v12 - &__src[0].__r_.__value_.__r.__words[2];
+      if (v12 != &__src[0].__r_.__value_.__r.__words[2])
+      {
+        memmove(__dst, __src[0].__r_.__value_.__l.__data_, v13);
+      }
+
+      __dst[0].__r_.__value_.__s.__data_[v13] = 0;
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__p.__r_.__value_.__l.__data_);
+      }
+
+      *&__p.__r_.__value_.__l.__data_ = *&__dst[0].__r_.__value_.__l.__data_;
+      v8 = __dst[0].__r_.__value_.__r.__words[2];
+      goto LABEL_31;
+    }
+
+    if (v7 != 1)
+    {
+      goto LABEL_32;
+    }
+
+    __src[0].__r_.__value_.__r.__words[0] = "0x";
+    __src[0].__r_.__value_.__l.__size_ = 2;
+    google::protobuf::strings::AlphaNum::AlphaNum(__dst, *(a2 + 2), 8);
+    google::protobuf::StrCat(__src, __dst, &v14);
+LABEL_12:
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    *&__p.__r_.__value_.__l.__data_ = *&v14.__r_.__value_.__l.__data_;
+    v8 = v14.__r_.__value_.__r.__words[2];
+LABEL_31:
+    __p.__r_.__value_.__r.__words[2] = v8;
+    goto LABEL_32;
+  }
+
+  switch(v7)
+  {
+    case 2:
+      __src[0].__r_.__value_.__r.__words[0] = "0x";
+      __src[0].__r_.__value_.__l.__size_ = 2;
+      google::protobuf::strings::AlphaNum::AlphaNum(__dst, *(a2 + 1), 16);
+      google::protobuf::StrCat(__src, __dst, &v14);
+      goto LABEL_12;
+    case 3:
+      google::protobuf::CEscape(*(a2 + 1), a3, __dst);
+      if ((__dst[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v10 = __dst;
+      }
+
+      else
+      {
+        v10 = __dst[0].__r_.__value_.__r.__words[0];
+      }
+
+      google::protobuf::StringPrintf(__src, "%s", v9, v10);
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__p.__r_.__value_.__l.__data_);
+      }
+
+      __p = __src[0];
+      *(&__src[0].__r_.__value_.__s + 23) = 0;
+      __src[0].__r_.__value_.__s.__data_[0] = 0;
+      if (SHIBYTE(__dst[0].__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__dst[0].__r_.__value_.__l.__data_);
+      }
+
+      break;
+    case 4:
+      MEMORY[0x277C9F450](&__p, "{ ... }", a3);
+      break;
+  }
+
+LABEL_32:
+  google::protobuf::io::Printer::PrintRaw(*(this + 1), &__p);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_276B9BFC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+{
+  if (a24 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a18 < 0)
+  {
+    operator delete(a13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void google::protobuf::util::MessageDifferencer::StreamReporter::Print(uint64_t a1, char *a2)
+{
+  v2 = *(a1 + 8);
+  if (a2[23] < 0)
+  {
+    a2 = *a2;
+  }
+
+  sub_276B9B998(v2, a2);
+}
+
+void google::protobuf::util::MessageDifferencer::StreamReporter::ReportAdded(char **a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  sub_276B9B998(a1[1], "added: ");
+  (*(*a1 + 9))(a1, a4, 0, a3);
+  sub_276B9B998(a1[1], ": ");
+  (*(*a1 + 11))(a1, a3, a4, 0);
+  v7 = a1[1];
+
+  sub_276B9B998(v7, "\n");
+}
+
+void google::protobuf::util::MessageDifferencer::StreamReporter::ReportDeleted(char **a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  sub_276B9B998(a1[1], "deleted: ");
+  (*(*a1 + 9))(a1, a4, 1, a2);
+  sub_276B9B998(a1[1], ": ");
+  (*(*a1 + 11))(a1, a2, a4, 1);
+  v7 = a1[1];
+
+  sub_276B9B998(v7, "\n");
+}
+
+void google::protobuf::util::MessageDifferencer::StreamReporter::ReportModified(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (*(a1 + 17))
+  {
+    goto LABEL_9;
+  }
+
+  v8 = *(a4 + 8);
+  v9 = *(v8 - 48);
+  if (!v9)
+  {
+    if (*(v8 - 36) == 4)
+    {
+      return;
+    }
+
+    goto LABEL_9;
+  }
+
+  v10 = *(v9 + 48);
+  if (v10)
+  {
+    v11 = *(v8 - 48);
+    v12 = google::protobuf::FieldDescriptor::TypeOnceInit;
+    if (atomic_load_explicit(v10, memory_order_acquire) != -1)
+    {
+      v14[0] = &v12;
+      v14[1] = &v11;
+      v13 = v14;
+      std::__call_once(v10, &v13, sub_2769C149C);
+    }
+  }
+
+  if (google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v9 + 56)] != 10)
+  {
+LABEL_9:
+    sub_276B9B998(*(a1 + 8), "modified: ");
+    (*(*a1 + 72))(a1, a4, 1, a2);
+    if (google::protobuf::util::MessageDifferencer::CheckPathChanged(a4))
+    {
+      sub_276B9B998(*(a1 + 8), " -> ");
+      (*(*a1 + 72))(a1, a4, 0, a3);
+    }
+
+    sub_276B9B998(*(a1 + 8), ": ");
+    (*(*a1 + 88))(a1, a2, a4, 1);
+    sub_276B9B998(*(a1 + 8), " -> ");
+    (*(*a1 + 88))(a1, a3, a4, 0);
+    sub_276B9B998(*(a1 + 8), "\n");
+  }
+}
+
+void google::protobuf::util::MessageDifferencer::StreamReporter::ReportMoved(char **a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  sub_276B9B998(a1[1], "moved: ");
+  (*(*a1 + 9))(a1, a4, 1, a2);
+  sub_276B9B998(a1[1], " -> ");
+  (*(*a1 + 9))(a1, a4, 0, a3);
+  sub_276B9B998(a1[1], " : ");
+  (*(*a1 + 11))(a1, a2, a4, 1);
+  v8 = a1[1];
+
+  sub_276B9B998(v8, "\n");
+}
+
+void google::protobuf::util::MessageDifferencer::StreamReporter::ReportMatched(char **a1, uint64_t a2, uint64_t a3, uint64_t **a4)
+{
+  sub_276B9B998(a1[1], "matched: ");
+  (*(*a1 + 9))(a1, a4, 1, a2);
+  if (google::protobuf::util::MessageDifferencer::CheckPathChanged(a4))
+  {
+    sub_276B9B998(a1[1], " -> ");
+    (*(*a1 + 9))(a1, a4, 0, a3);
+  }
+
+  sub_276B9B998(a1[1], " : ");
+  (*(*a1 + 11))(a1, a2, a4, 1);
+  v8 = a1[1];
+
+  sub_276B9B998(v8, "\n");
+}
+
+void google::protobuf::util::MessageDifferencer::StreamReporter::ReportIgnored(char **a1, uint64_t a2, uint64_t a3, uint64_t **a4)
+{
+  sub_276B9B998(a1[1], "ignored: ");
+  (*(*a1 + 9))(a1, a4, 1, a2);
+  if (google::protobuf::util::MessageDifferencer::CheckPathChanged(a4))
+  {
+    sub_276B9B998(a1[1], " -> ");
+    (*(*a1 + 9))(a1, a4, 0, a3);
+  }
+
+  v8 = a1[1];
+
+  sub_276B9B998(v8, "\n");
+}
+
+void google::protobuf::util::MessageDifferencer::StreamReporter::ReportUnknownFieldIgnored(char **a1, uint64_t a2, uint64_t a3, uint64_t **a4)
+{
+  sub_276B9B998(a1[1], "ignored: ");
+  (*(*a1 + 9))(a1, a4, 1, a2);
+  if (google::protobuf::util::MessageDifferencer::CheckPathChanged(a4))
+  {
+    sub_276B9B998(a1[1], " -> ");
+    (*(*a1 + 9))(a1, a4, 0, a3);
+  }
+
+  v8 = a1[1];
+
+  sub_276B9B998(v8, "\n");
+}
+
+uint64_t sub_276B9C85C()
+{
+  google::protobuf::internal::LogMessage::LogMessage(v4, 3, "/Library/Caches/com.apple.xbs/Binaries/iWorkImport/install/Root/include/google/protobuf/util/message_differencer.h", 311);
+  v0 = google::protobuf::internal::LogMessage::operator<<(v4, "CHECK failed: false: ");
+  v1 = google::protobuf::internal::LogMessage::operator<<(v0, "IsMatch() is not implemented.");
+  google::protobuf::internal::LogFinisher::operator=(&v3, &v1->__r_.__value_.__l.__data_);
+  google::protobuf::internal::LogMessage::~LogMessage(&v4[0].__r_.__value_.__l.__data_);
+  return 0;
+}
+
+void sub_276B9C8CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  _Unwind_Resume(a1);
+}
+
+void *sub_276B9C8E4(void *a1, uint64_t a2, uint64_t a3)
+{
+  v8 = 0;
+  v9 = a3;
+  a1[2] = 0;
+  v4 = a1 + 2;
+  *a1 = &unk_2885C8B28;
+  a1[1] = a2;
+  a1[3] = 0;
+  a1[4] = 0;
+  __p = 0;
+  v7 = 0;
+  sub_276B23B7C(&__p, &v9);
+  sub_276B96848(v4, &__p);
+  if (__p)
+  {
+    v7 = __p;
+    operator delete(__p);
+  }
+
+  return a1;
+}
+
+void sub_276B9C968(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
+{
+  if (__p)
+  {
+    a10 = __p;
+    operator delete(__p);
+  }
+
+  sub_276B282A4(&__p);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_276B9C990(uint64_t a1)
+{
+  *a1 = &unk_2885C8B28;
+  v3 = (a1 + 16);
+  sub_276B282A4(&v3);
+  return a1;
+}
+
+uint64_t sub_276B9C9E8(uint64_t a1)
+{
+  *a1 = &unk_2885C8B28;
+  v3 = (a1 + 16);
+  sub_276B282A4(&v3);
+  return MEMORY[0x277C9F670](a1, 0xA1C40987D6AD5);
+}
+
+uint64_t sub_276B9CA54(uint64_t a1, const google::protobuf::Message *a2, const google::protobuf::Message *a3, uint64_t a4)
+{
+  v4 = *(a1 + 16);
+  v5 = *(a1 + 24);
+  if (v4 == v5)
+  {
+    return 1;
+  }
+
+  do
+  {
+    result = sub_276B9CAD0(a1, a2, a3, a4, v4, 0);
+    if (!result)
+    {
+      break;
+    }
+
+    v4 += 3;
+  }
+
+  while (v4 != v5);
+  return result;
+}
+
+uint64_t sub_276B9CAD0(uint64_t a1, const google::protobuf::Message *a2, const google::protobuf::Message *a3, uint64_t a4, void *a5, int a6)
+{
+  v11 = *(*a5 + 8 * a6);
+  __p = 0;
+  v29 = 0;
+  v30 = 0;
+  sub_276B9D974(&__p, *a4, *(a4 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a4 + 8) - *a4) >> 4));
+  if (((a5[1] - *a5) >> 3) - 1 != a6)
+  {
+    (*(*a2 + 152))(a2);
+    v14 = v13;
+    (*(*a3 + 152))(a3);
+    v16 = v15;
+    HasField = google::protobuf::Reflection::HasField(v14, a2, v11);
+    v18 = google::protobuf::Reflection::HasField(v16, a3, v11);
+    if ((HasField | v18))
+    {
+      if (HasField == v18)
+      {
+        v24 = xmmword_276C1A750;
+        v25 = 0;
+        v26 = 0;
+        v27 = -1;
+        v23 = v11;
+        sub_276B987FC(&__p, &v23);
+        Message = google::protobuf::Reflection::GetMessage(v14, a2, v11, 0);
+        v20 = google::protobuf::Reflection::GetMessage(v16, a3, v11, 0);
+        v21 = sub_276B9CAD0(a1, Message, v20, &__p, a5, a6 + 1);
+        goto LABEL_11;
+      }
+
+      goto LABEL_10;
+    }
+
+    goto LABEL_9;
+  }
+
+  v12 = *(a1 + 8);
+  if (*(v11 + 15) == 3)
+  {
+    if ((google::protobuf::util::MessageDifferencer::CompareRepeatedField(v12, a2, a3, v11, &__p) & 1) == 0)
+    {
+      goto LABEL_10;
+    }
+
+LABEL_9:
+    v21 = 1;
+    goto LABEL_11;
+  }
+
+  if (google::protobuf::util::MessageDifferencer::CompareFieldValueUsingParentFields(v12, a2, a3, v11, 0xFFFFFFFFLL, 0xFFFFFFFFLL, &__p))
+  {
+    goto LABEL_9;
+  }
+
+LABEL_10:
+  v21 = 0;
+LABEL_11:
+  if (__p)
+  {
+    v29 = __p;
+    operator delete(__p);
+  }
+
+  return v21;
+}
+
+void sub_276B9CCE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void *sub_276B9CD10(void *a1, uint64_t a2, uint64_t *a3)
+{
+  *a1 = &unk_2885C8B28;
+  a1[1] = a2;
+  a1[2] = 0;
+  v4 = (a1 + 2);
+  a1[3] = 0;
+  a1[4] = 0;
+  sub_276B9CE80(a1 + 2, *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 3));
+  v5 = *v4;
+  v6 = a1[3];
+  if (*v4 == v6)
+  {
+    google::protobuf::internal::LogMessage::LogMessage(v11, 3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/google/protobuf/util/message_differencer.cc", 114);
+    v7 = google::protobuf::internal::LogMessage::operator<<(v11, "CHECK failed: !key_field_paths_.empty(): ");
+    google::protobuf::internal::LogFinisher::operator=(&v10, &v7->__r_.__value_.__l.__data_);
+    google::protobuf::internal::LogMessage::~LogMessage(&v11[0].__r_.__value_.__l.__data_);
+    v5 = a1[2];
+    v6 = a1[3];
+  }
+
+  for (; v5 != v6; v5 += 3)
+  {
+    if (*v5 == v5[1])
+    {
+      google::protobuf::internal::LogMessage::LogMessage(v11, 3, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/google/protobuf/util/message_differencer.cc", 116);
+      v8 = google::protobuf::internal::LogMessage::operator<<(v11, "CHECK failed: !path.empty(): ");
+      google::protobuf::internal::LogFinisher::operator=(&v10, &v8->__r_.__value_.__l.__data_);
+      google::protobuf::internal::LogMessage::~LogMessage(&v11[0].__r_.__value_.__l.__data_);
+    }
+  }
+
+  return a1;
+}
+
+void sub_276B9CE48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  google::protobuf::internal::LogMessage::~LogMessage(va);
+  sub_276B282A4(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *sub_276B9CE80(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
+{
+  if (a4)
+  {
+    sub_276B9CF08(result, a4);
+  }
+
+  return result;
+}
+
+void sub_276B9CEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+{
+  *(v9 + 8) = v10;
+  sub_276B282A4(&a9);
+  _Unwind_Resume(a1);
+}
+
+void sub_276B9CF08(uint64_t *a1, unint64_t a2)
+{
+  if (a2 < 0xAAAAAAAAAAAAAABLL)
+  {
+    sub_276B9CF54(a1, a2);
+  }
+
+  sub_2769BA860();
+}
+
+void sub_276B9CF54(uint64_t a1, unint64_t a2)
+{
+  if (a2 < 0xAAAAAAAAAAAAAABLL)
+  {
+    operator new();
+  }
+
+  sub_2769ABE6C();
+}
+
+uint64_t *sub_276B9CFAC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+{
+  v4 = a4;
+  v10 = a4;
+  v11 = a4;
+  v8[0] = a1;
+  v8[1] = &v10;
+  v8[2] = &v11;
+  v9 = 0;
+  if (a2 != a3)
+  {
+    v6 = a2;
+    do
+    {
+      *v4 = 0;
+      v4[1] = 0;
+      v4[2] = 0;
+      sub_276B9D060(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 3);
+      v6 += 24;
+      v4 = v11 + 3;
+      v11 += 3;
+    }
+
+    while (v6 != a3);
+  }
+
+  v9 = 1;
+  sub_276B9D118(v8);
+  return v4;
+}
+
+uint64_t *sub_276B9D060(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
+{
+  if (a4)
+  {
+    sub_276B9D0DC(result, a4);
+  }
+
+  return result;
+}
+
+void sub_276B9D0C0(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_276B9D0DC(uint64_t *a1, unint64_t a2)
+{
+  if (!(a2 >> 61))
+  {
+    sub_276B2A0B4(a1, a2);
+  }
+
+  sub_2769BA860();
+}
+
+uint64_t sub_276B9D118(uint64_t a1)
+{
+  if ((*(a1 + 24) & 1) == 0)
+  {
+    sub_276B9D150(a1);
+  }
+
+  return a1;
+}
+
+void sub_276B9D150(uint64_t a1)
+{
+  v1 = **(a1 + 16);
+  v2 = **(a1 + 8);
+  if (v1 != v2)
+  {
+    v3 = **(a1 + 16);
+    do
+    {
+      v5 = *(v3 - 24);
+      v3 -= 24;
+      v4 = v5;
+      if (v5)
+      {
+        *(v1 - 16) = v4;
+        operator delete(v4);
+      }
+
+      v1 = v3;
+    }
+
+    while (v3 != v2);
+  }
+}
+
+uint64_t sub_276B9D1C4(uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 24);
+  v4 = *(a2 + 24);
+  if (v4)
+  {
+    if (v4 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**v3 + 24))(*v3, a1);
+      return a1;
+    }
+
+    *(a1 + 24) = v4;
+  }
+
+  else
+  {
+    v3 = (a1 + 24);
+  }
+
+  *v3 = 0;
+  return a1;
+}
+
+uint64_t sub_276B9D244(uint64_t a1, uint64_t a2, void *a3)
+{
+  *(*a3 + ((a2 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << a2;
+  v4 = *(a1 + 4);
+  if (v4 < 1)
+  {
+    return 0;
+  }
+
+  for (i = 0; i < v4; ++i)
+  {
+    if (*(**(a1 + 72) + 4 * i) == -1)
+    {
+      if (sub_276B9D50C(a1, a2, i))
+      {
+        goto LABEL_15;
+      }
+
+      v4 = *(a1 + 4);
+    }
+  }
+
+  if (v4 < 1)
+  {
+    return 0;
+  }
+
+  i = 0;
+  while (1)
+  {
+    v8 = *(**(a1 + 72) + 4 * i);
+    if (v8 != -1 && sub_276B9D50C(a1, a2, i) && ((*(*a3 + ((v8 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v8) & 1) == 0 && (sub_276B9D244(a1, v8, a3) & 1) != 0)
+    {
+      break;
+    }
+
+    if (++i >= *(a1 + 4))
+    {
+      return 0;
+    }
+  }
+
+LABEL_15:
+  *(**(a1 + 72) + 4 * i) = a2;
+  return 1;
+}
+
+uint64_t *sub_276B9D370(uint64_t *a1, uint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    sub_276B9D418(a1, a2);
+  }
+
+  return a1;
+}
+
+void sub_276B9D418(uint64_t *a1, uint64_t a2)
+{
+  if ((a2 & 0x8000000000000000) == 0)
+  {
+    if (a2)
+    {
+      v2 = ((a2 - 1) >> 6) + 1;
+    }
+
+    else
+    {
+      v2 = 0;
+    }
+
+    sub_2769BAFA4(a1, v2);
+  }
+
+  sub_2769BA860();
+}
+
+void sub_276B9D45C(uint64_t a1, unint64_t a2)
+{
+  v2 = a2;
+  v4 = *(a1 + 8);
+  v5 = *a1;
+  if (v4)
+  {
+    if ((64 - v4) >= a2)
+    {
+      v6 = a2;
+    }
+
+    else
+    {
+      v6 = (64 - v4);
+    }
+
+    *v5++ &= ~((0xFFFFFFFFFFFFFFFFLL >> (64 - v4 - v6)) & (-1 << v4));
+    v2 = a2 - v6;
+    *a1 = v5;
+  }
+
+  v7 = v2 >> 6;
+  if (v2 >= 0x40)
+  {
+    bzero(v5, 8 * v7);
+  }
+
+  if ((v2 & 0x3F) != 0)
+  {
+    v8 = &v5[v7];
+    *a1 = v8;
+    *v8 &= ~(0xFFFFFFFFFFFFFFFFLL >> -(v2 & 0x3F));
+  }
+}
+
+uint64_t sub_276B9D50C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = a3;
+  v9[0] = a2;
+  v9[1] = a3;
+  v6 = sub_276B9D61C(a1 + 40, v9);
+  if (a1 + 48 == v6)
+  {
+    v7 = sub_276B9D5C0(a1 + 8, a2, v3);
+    v10 = v9;
+    *(sub_276B9D6F0((a1 + 40), v9, &unk_276C1A908, &v10) + 36) = v7;
+    v10 = v9;
+    v6 = sub_276B9D6F0((a1 + 40), v9, &unk_276C1A908, &v10);
+  }
+
+  return *(v6 + 36);
+}
+
+uint64_t sub_276B9D5C0(uint64_t a1, uint64_t a2, int a3)
+{
+  v6 = a2;
+  v5 = a3;
+  v3 = *(a1 + 24);
+  if (!v3)
+  {
+    sub_276B9D6A4();
+  }
+
+  return (*(*v3 + 48))(v3, &v6, &v5);
+}
+
+uint64_t *sub_276B9D61C(uint64_t a1, int *a2)
+{
+  v4 = *(a1 + 8);
+  v2 = (a1 + 8);
+  v3 = v4;
+  if (!v4)
+  {
+    return v2;
+  }
+
+  v6 = *a2;
+  v5 = a2[1];
+  v7 = v2;
+  do
+  {
+    v8 = *(v3 + 7);
+    if (v8 >= v6)
+    {
+      if (v6 >= v8)
+      {
+        if (*(v3 + 8) >= v5)
+        {
+          v7 = v3;
+        }
+
+        v3 += *(v3 + 8) < v5;
+      }
+
+      else
+      {
+        v7 = v3;
+      }
+    }
+
+    else
+    {
+      ++v3;
+    }
+
+    v3 = *v3;
+  }
+
+  while (v3);
+  if (v7 == v2)
+  {
+    return v2;
+  }
+
+  v9 = *(v7 + 7);
+  if (v6 < v9 || v9 >= v6 && v5 < *(v7 + 8))
+  {
+    return v2;
+  }
+
+  return v7;
+}
+
+void sub_276B9D6A4()
+{
+  exception = __cxa_allocate_exception(8uLL);
+  *exception = MEMORY[0x277D82888] + 16;
+  __cxa_throw(exception, MEMORY[0x277D82728], MEMORY[0x277D82660]);
+}
+
+uint64_t sub_276B9D6F0(uint64_t **a1, int *a2, uint64_t a3, void **a4)
+{
+  v4 = *sub_276B9D78C(a1, &v6, a2);
+  if (!v4)
+  {
+    operator new();
+  }
+
+  return v4;
+}
+
+uint64_t *sub_276B9D78C(uint64_t a1, uint64_t **a2, int *a3)
+{
+  v5 = *(a1 + 8);
+  result = (a1 + 8);
+  v4 = v5;
+  if (v5)
+  {
+    v6 = *a3;
+    v7 = a3[1];
+    while (1)
+    {
+      while (1)
+      {
+        v8 = v4;
+        v9 = *(v4 + 28);
+        if (v6 >= v9)
+        {
+          break;
+        }
+
+LABEL_4:
+        v4 = *v8;
+        result = v8;
+        if (!*v8)
+        {
+          goto LABEL_12;
+        }
+      }
+
+      if (v9 >= v6)
+      {
+        v10 = *(v8 + 8);
+        if (v7 < v10)
+        {
+          goto LABEL_4;
+        }
+
+        if (v10 >= v7)
+        {
+          goto LABEL_12;
+        }
+      }
+
+      result = v8 + 1;
+      v4 = v8[1];
+      if (!v4)
+      {
+        goto LABEL_12;
+      }
+    }
+  }
+
+  v8 = result;
+LABEL_12:
+  *a2 = v8;
+  return result;
+}
+
+uint64_t *sub_276B9D7F0(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 8);
+  *v3 = 0;
+  v3[1] = 0;
+  v3[2] = 0;
+  result = sub_276B9D060(v3, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
+  *(a1 + 8) = v3 + 3;
+  return result;
+}
+
+void *sub_276B9D844(char **a1, uint64_t a2)
+{
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
+  v3 = v2 + 1;
+  if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
+  {
+    sub_2769BA860();
+  }
+
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
+  {
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+  }
+
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+  {
+    v6 = 0xAAAAAAAAAAAAAAALL;
+  }
+
+  else
+  {
+    v6 = v3;
+  }
+
+  v18 = a1;
+  if (v6)
+  {
+    sub_276B9CF54(a1, v6);
+  }
+
+  v7 = 24 * v2;
+  v14 = 0;
+  v15 = v7;
+  v16 = 24 * v2;
+  v17 = 0;
+  *v7 = 0;
+  *(v7 + 8) = 0;
+  *(v7 + 16) = 0;
+  sub_276B9D060((24 * v2), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
+  v8 = v16 + 24;
+  v9 = a1[1] - *a1;
+  v10 = &v15[-v9];
+  memcpy(&v15[-v9], *a1, v9);
+  v11 = *a1;
+  *a1 = v10;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
+  v16 = v11;
+  v17 = v12;
+  v14 = v11;
+  v15 = v11;
+  sub_276B29F34(&v14);
+  return v8;
+}
+
+void sub_276B9D960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  sub_276B29F34(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *sub_276B9D974(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
+{
+  if (a4)
+  {
+    sub_276B9D9F0(result, a4);
+  }
+
+  return result;
+}
+
+void sub_276B9D9D4(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_276B9D9F0(uint64_t *a1, unint64_t a2)
+{
+  if (a2 < 0x555555555555556)
+  {
+    sub_276B9DA3C(a1, a2);
+  }
+
+  sub_2769BA860();
+}
+
+void sub_276B9DA3C(uint64_t a1, unint64_t a2)
+{
+  if (a2 < 0x555555555555556)
+  {
+    operator new();
+  }
+
+  sub_2769ABE6C();
+}
+
+uint64_t sub_276B9DB18(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_2885C8BD8;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t sub_276B9DB54(uint64_t a1, uint64_t a2)
+{
+  if (sub_276A07DC4(a2, &unk_2885C8C58))
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t sub_276B9DBA0(uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+void *sub_276B9DC20(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
+{
+  v4 = *(a1 + 8);
+  if (!v4)
+  {
+LABEL_8:
+    operator new();
+  }
+
+  v5 = *a2;
+  while (1)
+  {
+    while (1)
+    {
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
+      {
+        break;
+      }
+
+      v4 = *v6;
+      if (!*v6)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    if (v7 >= v5)
+    {
+      return v6;
+    }
+
+    v4 = v6[1];
+    if (!v4)
+    {
+      goto LABEL_8;
+    }
+  }
+}
+
+uint64_t sub_276B9DCF4(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+void *sub_276B9DD8C(void *result, void *a2)
+{
+  v5[3] = *MEMORY[0x277D85DE8];
+  if (a2 != result)
+  {
+    v3 = result;
+    result = result[3];
+    v4 = a2[3];
+    if (result == v3)
+    {
+      if (v4 == a2)
+      {
+        (*(*result + 24))(result, v5);
+        (*(*v3[3] + 32))(v3[3]);
+        v3[3] = 0;
+        (*(*a2[3] + 24))(a2[3], v3);
+        (*(*a2[3] + 32))(a2[3]);
+        a2[3] = 0;
+        v3[3] = v3;
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
+      }
+
+      else
+      {
+        (*(*result + 24))(result, a2);
+        result = (*(*v3[3] + 32))(v3[3]);
+        v3[3] = a2[3];
+      }
+
+      a2[3] = a2;
+    }
+
+    else if (v4 == a2)
+    {
+      (*(*v4 + 24))(a2[3], v3);
+      result = (*(*a2[3] + 32))(a2[3]);
+      a2[3] = v3[3];
+      v3[3] = v3;
+    }
+
+    else
+    {
+      v3[3] = v4;
+      a2[3] = result;
+    }
   }
 
   return result;

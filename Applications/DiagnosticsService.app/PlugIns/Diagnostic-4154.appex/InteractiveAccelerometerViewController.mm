@@ -1452,7 +1452,7 @@ LABEL_20:
   v66 = 0u;
   if (attitude)
   {
-    [attitude rotationMatrix];
+    objc_msgSend_rotationMatrix(attitude);
     v6 = *&v66;
     v7 = *(&v67 + 1);
     v8 = v69;

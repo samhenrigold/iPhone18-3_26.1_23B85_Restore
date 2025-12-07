@@ -14,6 +14,7 @@
 - (id)fileRefForWrite;
 - (id)findSharedFileRef:(unsigned int)ref;
 - (id)getDirEnumerator:(int *)enumerator;
+- (id)getNewFileRefwithMode:(unsigned int)mode;
 - (id)makeSillyDeleteName;
 - (id)symlinkTargetCache;
 - (int)prepareForReclaimSync;
@@ -191,9 +192,7 @@
   {
     getNextFileID = [(smbMount *)mp getNextFileID];
     self->fattr.fa_ino = getNextFileID;
-    v5 = [smbNode fileHandleForIno:getNextFileID];
-    fh = self->_fh;
-    self->_fh = v5;
+    self->_fh = [smbNode fileHandleForIno:getNextFileID];
 
     _objc_release_x1();
   }
@@ -510,6 +509,53 @@ LABEL_8:
 LABEL_8:
 
   return v6;
+}
+
+- (id)getNewFileRefwithMode:(unsigned int)mode
+{
+  modeCopy = mode;
+  v4 = [[fileRef alloc] initWithMode:*&mode];
+  v5 = v4;
+  if (v4)
+  {
+    if ((modeCopy & 2) != 0)
+    {
+      v6 = 131078;
+    }
+
+    else
+    {
+      v6 = 0x20000;
+    }
+
+    v7 = v6 & 0xFFFFFFFE | modeCopy & 1;
+    if ((modeCopy & 0x20) != 0)
+    {
+      v8 = 0;
+    }
+
+    else
+    {
+      v8 = 7;
+    }
+
+    if ((modeCopy & 0x10) != 0)
+    {
+      v9 = 5;
+    }
+
+    else
+    {
+      v9 = v8;
+    }
+
+    [(fileRef *)v4 setShareMode:v9];
+    [(fileRef *)v5 setDesiredAccess:v7];
+    [(fileRef *)v5 addRef];
+    v10 = v5;
+  }
+
+  return v5;
 }
 
 - (void)addNewFileRef:(id)ref
@@ -1541,9 +1587,9 @@ LABEL_8:
   v26 = &v25;
   v27 = 0x3032000000;
   v28 = sub_10002DAFC;
-  v22 = 0;
-  v23[0] = &v22;
-  v23[1] = 0x2020000000;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
   v24 = 0;
   v29 = sub_10002DB0C;
   v30 = 0;
@@ -1558,20 +1604,20 @@ LABEL_8:
   *(v6 + 2) = shareMode;
   *(v6 + 12) = fa_vtype;
   dispatch_group_enter(v5);
-  v14 = _NSConcreteStackBlock;
-  v15 = 3221225472;
-  v16 = sub_100030B8C;
-  v17 = &unk_10008E080;
-  v19 = &v22;
-  v20 = &v25;
-  v21 = v6;
+  v13 = _NSConcreteStackBlock;
+  v14 = 3221225472;
+  v15 = sub_100030B8C;
+  v16 = &unk_10008E080;
+  v18 = &v21;
+  v19 = &v25;
+  v20 = v6;
   v9 = v5;
-  v18 = v9;
-  [smb_subr openFileNode:self withStream:0 withArgs:v6 CompletionHandler:&v14];
+  v17 = v9;
+  [smb_subr openFileNode:self withStream:0 withArgs:v6 CompletionHandler:&v13];
   dispatch_group_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
   if (v26[5])
   {
-    [refCopy setFidCtx:{v14, v15, v16, v17}];
+    [refCopy setFidCtx:{v13, v14, v15, v16}];
   }
 
   else
@@ -1579,17 +1625,18 @@ LABEL_8:
     v10 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
     {
-      v11 = [(smbNode *)self name:v14];
-      sub_100058BB8(v11, v23);
+      [(smbNode *)self name:v13];
+      objc_claimAutoreleasedReturnValue();
+      sub_100058BB8();
     }
   }
 
-  v12 = *(v23[0] + 24);
+  v11 = *(v22 + 6);
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
   _Block_object_dispose(&v25, 8);
 
-  return v12;
+  return v11;
 }
 
 - (void)addChangeNotify:(id)notify NotifyHandler:(id)handler
@@ -1784,16 +1831,16 @@ LABEL_6:
 - (BOOL)reopenChangeNotify:(id)notify
 {
   notifyCopy = notify;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = sub_10002DAFC;
-  v42 = sub_10002DB0C;
-  v43 = 0;
-  v35 = 0;
-  v36[0] = &v35;
-  v36[1] = 0x2020000000;
   v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = sub_10002DAFC;
+  v41 = sub_10002DB0C;
+  v42 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
   if (self->_changeNotifyFileRef)
   {
     v5 = dispatch_group_create();
@@ -1805,93 +1852,95 @@ LABEL_6:
     *(v6 + 2) = [(fileRef *)self->_changeNotifyFileRef shareMode];
     *(v6 + 3) = 2;
     dispatch_group_enter(v5);
-    v30[0] = _NSConcreteStackBlock;
-    v30[1] = 3221225472;
-    v30[2] = sub_100032174;
-    v30[3] = &unk_10008E080;
-    v32 = &v35;
-    v33 = &v38;
-    v34 = v6;
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_100032174;
+    v28[3] = &unk_10008E080;
+    v30 = &v33;
+    v31 = &v37;
+    v32 = v6;
     v7 = v5;
-    v31 = v7;
-    [smb_subr openFileNode:self withStream:0 withArgs:v6 CompletionHandler:v30];
+    v29 = v7;
+    [smb_subr openFileNode:self withStream:0 withArgs:v6 CompletionHandler:v28];
     dispatch_group_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
-    if (v39[5])
+    if (v38[5])
     {
       [(fileRef *)self->_changeNotifyFileRef setFidCtx:?];
       [(fileRef *)self->_changeNotifyFileRef setOpenMode:0];
       dispatch_group_enter(v7);
       fidCtx = [(fileRef *)self->_changeNotifyFileRef fidCtx];
-      v27[0] = _NSConcreteStackBlock;
-      v27[1] = 3221225472;
-      v27[2] = sub_1000321F4;
-      v27[3] = &unk_10008C740;
-      v29 = &v35;
+      v25[0] = _NSConcreteStackBlock;
+      v25[1] = 3221225472;
+      v25[2] = sub_1000321F4;
+      v25[3] = &unk_10008C740;
+      v27 = &v33;
       v9 = v7;
-      v28 = v9;
-      [smb_subr setChangeNotify:fidCtx Param:&self->changeNotifyArgs CompletionHandler:v27 NotifyHandler:notifyCopy];
+      v26 = v9;
+      [smb_subr setChangeNotify:fidCtx Param:&self->changeNotifyArgs CompletionHandler:v25 NotifyHandler:notifyCopy];
 
       dispatch_group_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
-      v10 = *(v36[0] + 24);
+      v10 = *(v34 + 6);
       if (v10)
       {
         v11 = sub_1000326AC(v10);
         v12 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          name = [(smbNode *)self name];
-          sub_100059090(name, v36);
+          [(smbNode *)self name];
+          objc_claimAutoreleasedReturnValue();
+          sub_100059090();
         }
 
-        v14 = malloc_type_malloc(0x40uLL, 0x100004022DBA428uLL);
+        v13 = malloc_type_malloc(0x40uLL, 0x100004022DBA428uLL);
         dispatch_group_enter(v9);
         fidCtx2 = [(fileRef *)self->_changeNotifyFileRef fidCtx];
-        v23[0] = _NSConcreteStackBlock;
-        v23[1] = 3221225472;
-        v23[2] = sub_100032208;
-        v23[3] = &unk_10008C830;
-        v25 = &v35;
-        v26 = v14;
-        v24 = v9;
-        [smb_subr sendClose:fidCtx2 Param:v14 GetPostAttrs:0 CompletionHandler:v23];
+        v21[0] = _NSConcreteStackBlock;
+        v21[1] = 3221225472;
+        v21[2] = sub_100032208;
+        v21[3] = &unk_10008C830;
+        v23 = &v33;
+        v24 = v13;
+        v22 = v9;
+        [smb_subr sendClose:fidCtx2 Param:v13 GetPostAttrs:0 CompletionHandler:v21];
 
         changeNotifyFileRef = self->_changeNotifyFileRef;
         self->_changeNotifyFileRef = 0;
 
-        if (*(v36[0] + 24))
+        if (*(v34 + 6))
         {
-          v17 = &_os_log_default;
+          v16 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
-            name2 = [(smbNode *)self name];
-            sub_1000590F0(name2, v36);
+            [(smbNode *)self name];
+            objc_claimAutoreleasedReturnValue();
+            sub_1000590F0();
           }
         }
 
-        v19 = v24;
+        v17 = v22;
       }
 
       else
       {
-        v19 = [(smbNode *)self mp];
-        [v19 increaseChangeNotifyCount:1];
+        v17 = [(smbNode *)self mp];
+        [v17 increaseChangeNotifyCount:1];
         v11 = 0;
       }
 
-      v21 = v28;
+      v19 = v26;
     }
 
     else
     {
-      v20 = *(v36[0] + 24);
-      if (!v20)
+      v18 = *(v34 + 6);
+      if (!v18)
       {
-        v20 = 5;
-        *(v36[0] + 24) = 5;
+        v18 = 5;
+        *(v34 + 6) = 5;
       }
 
-      v11 = sub_1000326AC(v20);
-      v21 = self->_changeNotifyFileRef;
+      v11 = sub_1000326AC(v18);
+      v19 = self->_changeNotifyFileRef;
       self->_changeNotifyFileRef = 0;
     }
   }
@@ -1901,8 +1950,8 @@ LABEL_6:
     v11 = 0;
   }
 
-  _Block_object_dispose(&v35, 8);
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v37, 8);
 
   return v11;
 }

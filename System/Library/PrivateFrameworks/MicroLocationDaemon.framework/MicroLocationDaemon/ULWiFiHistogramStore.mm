@@ -34,60 +34,56 @@
 
 - (BOOL)insertDataObjects:(const void *)objects atLoiUUID:(const uuid *)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   if (*objects == *(objects + 1))
   {
-    inserted = 1;
+    return 1;
+  }
+
+  dbStore = [(ULStore *)self dbStore];
+  v8 = (*(dbStore->var0 + 8))(dbStore);
+  managedObjectContext = [(ULStore *)self managedObjectContext];
+  v14 = [v8 fetchLoiManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
+
+  if (v14)
+  {
+    v16[0] = &unk_286A56E48;
+    v16[1] = &v14;
+    v16[2] = &selfCopy;
+    v16[3] = v16;
+    inserted = ULDBUtils::insertDataObjects<ULWiFiHistogramDO,ULWiFiHistogramMO>(self, objects, v16);
+    std::__function::__value_func<ULWiFiHistogramMO * ()(ULWiFiHistogramDO const&)>::~__value_func[abi:ne200100](v16);
   }
 
   else
   {
-    dbStore = [(ULStore *)self dbStore];
-    v8 = (*(dbStore->var0 + 8))(dbStore);
-    managedObjectContext = [(ULStore *)self managedObjectContext];
-    v15 = [v8 fetchLoiManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
-
-    if (v15)
+    if (onceToken_MicroLocation_Default != -1)
     {
-      v17[0] = &unk_286A56E48;
-      v17[1] = &v15;
-      v17[2] = &selfCopy;
-      v17[3] = v17;
-      inserted = ULDBUtils::insertDataObjects<ULWiFiHistogramDO,ULWiFiHistogramMO>(self, objects, v17);
-      std::__function::__value_func<ULWiFiHistogramMO * ()(ULWiFiHistogramDO const&)>::~__value_func[abi:ne200100](v17);
+      [ULWiFiHistogramStore insertDataObjects:atLoiUUID:];
     }
 
-    else
+    v11 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      if (onceToken_MicroLocation_Default != -1)
-      {
-        [ULWiFiHistogramStore insertDataObjects:atLoiUUID:];
-      }
-
-      v11 = logObject_MicroLocation_Default;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        operator new();
-      }
-
-      if (onceToken_MicroLocation_Default != -1)
-      {
-        [ULWiFiHistogramStore insertDataObjects:atLoiUUID:];
-      }
-
-      v12 = logObject_MicroLocation_Default;
-      if (os_signpost_enabled(v12))
-      {
-        operator new();
-      }
-
-      [(ULStore *)self resetMOC:v15];
-      inserted = 0;
+      operator new();
     }
+
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      [ULWiFiHistogramStore insertDataObjects:atLoiUUID:];
+    }
+
+    v12 = logObject_MicroLocation_Default;
+    if (os_signpost_enabled(v12))
+    {
+      operator new();
+    }
+
+    [(ULStore *)self resetMOC:v14];
+    return 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return inserted;
 }
 
@@ -96,10 +92,10 @@
   v5 = v4;
   v6 = v3;
   v7 = v2;
-  v28[1] = *MEMORY[0x277D85DE8];
-  v25 = 0uLL;
-  v26 = 0;
-  std::vector<ULWiFiHistogramDO>::reserve(&v25, 1uLL);
+  v27[1] = *MEMORY[0x277D85DE8];
+  v24 = 0uLL;
+  v25 = 0;
+  std::vector<ULWiFiHistogramDO>::reserve(&v24, 1uLL);
   v10 = objc_autoreleasePoolPush();
   array = [MEMORY[0x277CBEB18] array];
   v12 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v7];
@@ -117,19 +113,19 @@
   }
 
   v18 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0];
-  v28[0] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
-  [(ULWiFiHistogramStore *)self _fetchWiFiHistogramByAndPredicates:array sortDescriptors:v19 andLimit:1];
-  std::vector<ULWiFiHistogramDO>::__vdeallocate(&v25);
+  v27[0] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  objc_msgSend__fetchWiFiHistogramByAndPredicates_sortDescriptors_andLimit_(self);
+  std::vector<ULWiFiHistogramDO>::__vdeallocate(&v24);
+  v24 = v22;
   v25 = v23;
-  v26 = v24;
-  v27 = &v23;
-  v24 = 0;
-  v23 = 0uLL;
-  std::vector<ULWiFiHistogramDO>::__destroy_vector::operator()[abi:ne200100](&v27);
+  v26 = &v22;
+  v23 = 0;
+  v22 = 0uLL;
+  std::vector<ULWiFiHistogramDO>::__destroy_vector::operator()[abi:ne200100](&v26);
 
   objc_autoreleasePoolPop(v10);
-  if (v25 == *(&v25 + 1))
+  if (v24 == *(&v24 + 1))
   {
     v20 = 0;
     retstr->var0.var0 = 0;
@@ -137,14 +133,13 @@
 
   else
   {
-    ULWiFiHistogramDO::ULWiFiHistogramDO(retstr, v25);
+    ULWiFiHistogramDO::ULWiFiHistogramDO(retstr, v24);
     v20 = 1;
   }
 
   LOBYTE(retstr[1].var0.var3.var1.var3) = v20;
-  *&v23 = &v25;
-  std::vector<ULWiFiHistogramDO>::__destroy_vector::operator()[abi:ne200100](&v23);
-  v22 = *MEMORY[0x277D85DE8];
+  *&v22 = &v24;
+  std::vector<ULWiFiHistogramDO>::__destroy_vector::operator()[abi:ne200100](&v22);
   return result;
 }
 

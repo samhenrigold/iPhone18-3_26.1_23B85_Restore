@@ -103,7 +103,7 @@
     v16 = v15;
     v66 = v16;
     [supportedIdentifiers enumerateObjectsUsingBlock:v64];
-    if ([v16 count])
+    if (objc_msgSend_count(v16))
     {
       v17 = PLPhotosSearchGetLog();
       spid = os_signpost_id_generate(v17);
@@ -131,7 +131,7 @@
       v59 = buf;
       v60 = 0x2020000000;
       v61 = 0;
-      if ([v21 count])
+      if (objc_msgSend_count(v21))
       {
         v22 = objc_alloc_init(MEMORY[0x1E695DF90]);
         v52[0] = MEMORY[0x1E69E9820];
@@ -155,7 +155,7 @@
       if (v59[24] == 1)
       {
         allValues = [v21 allValues];
-        v27 = [allValues count] == 0;
+        v27 = objc_msgSend_count(allValues) == 0;
 
         if (!v27)
         {
@@ -255,7 +255,7 @@ void __140__PLInitialSuggestionsManager__rankedGroupsFromPSIDatabase_photoLibrar
   v44 = 0;
   v8 = [v7 executeFetchRequest:v2 error:&v44];
   v9 = v44;
-  if (v9 || ![v8 count])
+  if (v9 || !objc_msgSend_count(v8))
   {
     v10 = PLSearchBackendInitialSuggestionsGetLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -674,7 +674,7 @@ LABEL_14:
   }
 
   v61 = [objc_opt_class() _fetchAssetIdsForDateFilters:v63 psiDatabase:databaseCopy];
-  v53 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v10, "count")}];
+  v53 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(v10)];
   v70 = 0u;
   v71 = 0u;
   v72 = 0u;
@@ -989,8 +989,8 @@ LABEL_42:
   v49 = PLSearchBackendInitialSuggestionsGetLog();
   if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
   {
-    v50 = [v53 count];
-    v51 = [v17 count];
+    v50 = objc_msgSend_count(v53);
+    v51 = objc_msgSend_count(v17);
     *buf = 134218240;
     v79 = v50;
     v80 = 2048;
@@ -1052,16 +1052,16 @@ void __60__PLInitialSuggestionsManager__mePersonUUIDForPhotoLibrary___block_invo
   dCopy = d;
   if (![dCopy length] || (v7 = objc_msgSend(personCopy, "category"), (v7 - 1302) != 65534 && (v7 - 1302) != 0xFFFF))
   {
-    v9 = 0;
+    isEqualToString = 0;
   }
 
   else
   {
     lookupIdentifier = [personCopy lookupIdentifier];
-    v9 = [lookupIdentifier isEqualToString:dCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(lookupIdentifier);
   }
 
-  return v9;
+  return isEqualToString;
 }
 
 + (id)_fetchAssetIdsForDateFilters:(id)filters psiDatabase:(id)database
@@ -1204,7 +1204,7 @@ void __60__PLInitialSuggestionsManager__mePersonUUIDForPhotoLibrary___block_invo
 {
   v22 = *MEMORY[0x1E69E9840];
   groupsCopy = groups;
-  v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(groupsCopy, "count")}];
+  v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(groupsCopy)];
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
@@ -1357,9 +1357,9 @@ void __60__PLInitialSuggestionsManager__mePersonUUIDForPhotoLibrary___block_invo
               group4 = [groupCopy group];
               lookupIdentifier = [group4 lookupIdentifier];
               identifier2 = [v25 identifier];
-              v59 = [lookupIdentifier isEqualToString:identifier2];
+              isEqualToString = objc_msgSend_isEqualToString_(lookupIdentifier);
 
-              if ((v59 & 1) == 0)
+              if ((isEqualToString & 1) == 0)
               {
                 goto LABEL_67;
               }
@@ -1390,7 +1390,7 @@ void __60__PLInitialSuggestionsManager__mePersonUUIDForPhotoLibrary___block_invo
               group6 = [rankedGroupCopy group];
               lookupIdentifier2 = [group6 lookupIdentifier];
               identifier4 = [v25 identifier];
-              v68 = [lookupIdentifier2 isEqualToString:identifier4];
+              v68 = objc_msgSend_isEqualToString_(lookupIdentifier2);
 
               if ((v68 & 1) == 0)
               {
@@ -1468,7 +1468,7 @@ LABEL_66:
             group10 = [rankedGroupCopy group];
             lookupIdentifier3 = [group10 lookupIdentifier];
             identifier6 = [v25 identifier];
-            if ([lookupIdentifier3 isEqualToString:identifier6])
+            if (objc_msgSend_isEqualToString_(lookupIdentifier3))
             {
 
               rankedGroupCopy = v88;
@@ -1478,7 +1478,7 @@ LABEL_66:
             group11 = [groupCopy group];
             lookupIdentifier4 = [group11 lookupIdentifier];
             identifier7 = [v25 identifier];
-            v85 = [lookupIdentifier4 isEqualToString:identifier7];
+            v85 = objc_msgSend_isEqualToString_(lookupIdentifier4);
 
             groupCopy = v83;
             rankedGroupCopy = v88;
@@ -1514,7 +1514,7 @@ LABEL_66:
           group13 = [groupCopy group];
           lookupIdentifier5 = [group13 lookupIdentifier];
           identifier9 = [v25 identifier];
-          if ([lookupIdentifier5 isEqualToString:identifier9])
+          if (objc_msgSend_isEqualToString_(lookupIdentifier5))
           {
 
             rankedGroupCopy = v88;
@@ -1529,7 +1529,7 @@ LABEL_53:
           group14 = [v88 group];
           lookupIdentifier6 = [group14 lookupIdentifier];
           identifier10 = [v25 identifier];
-          v84 = [lookupIdentifier6 isEqualToString:identifier10];
+          v84 = objc_msgSend_isEqualToString_(lookupIdentifier6);
 
           groupCopy = v83;
           rankedGroupCopy = v88;
@@ -1583,7 +1583,7 @@ LABEL_76:
   filterCopy = filter;
   providerCopy = provider;
   v54 = groupsCopy;
-  if ([groupsCopy count])
+  if (objc_msgSend_count(groupsCopy))
   {
     theArray = ids;
     v53 = [groupsCopy mutableCopy];
@@ -1592,7 +1592,7 @@ LABEL_76:
     v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:1];
     v17 = [v53 sortedArrayUsingDescriptors:v16];
 
-    if ([groupsCopy count] <= 0x1F3)
+    if (objc_msgSend_count(groupsCopy) <= 0x1F3)
     {
       v18 = v53;
     }
@@ -1604,7 +1604,7 @@ LABEL_76:
 
     v20 = v18;
     allTemplates = [providerCopy allTemplates];
-    if ([allTemplates count])
+    if (objc_msgSend_count(allTemplates))
     {
       v55 = objc_alloc_init(MEMORY[0x1E695DFA8]);
       if (type)
@@ -1638,9 +1638,9 @@ LABEL_76:
           Count = 0;
         }
 
-        for (i = 0; i < [v20 count] - 1; ++i)
+        for (i = 0; i < objc_msgSend_count(v20) - 1; ++i)
         {
-          for (j = i + 1; j < [v20 count]; ++j)
+          for (j = i + 1; j < objc_msgSend_count(v20); ++j)
           {
             v29 = objc_autoreleasePoolPush();
             v30 = [v20 objectAtIndexedSubscript:i];
@@ -1880,7 +1880,7 @@ LABEL_19:
   {
     v22 = 0;
     v15 = [PLInitialSuggestionsStorageManager initialSearchSuggestionsForPhotoLibrary:libraryCopy psiDatabase:databaseCopy error:&v22];
-    if (![v15 count])
+    if (!objc_msgSend_count(v15))
     {
       v18 = MEMORY[0x1E695E0F0];
       goto LABEL_8;
@@ -2026,7 +2026,7 @@ LABEL_8:
     v42 = PLSearchBackendInitialSuggestionsGetLog();
     if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = [v34 count];
+      v43 = objc_msgSend_count(v34);
       *buf = 134218242;
       v58 = v43;
       v59 = 2112;
@@ -2138,7 +2138,7 @@ LABEL_8:
         v29 = PLSearchBackendInitialSuggestionsGetLog();
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v30 = [v28 count];
+          v30 = objc_msgSend_count(v28);
           *buf = 134217984;
           v68 = v30;
           _os_log_impl(&dword_19BF1F000, v29, OS_LOG_TYPE_DEFAULT, "Found %tu pre-generated initial suggestions.", buf, 0xCu);
@@ -2191,7 +2191,7 @@ LABEL_8:
           }
         }
 
-        v21 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v32, "count")}];
+        v21 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(v32)];
         v59 = 0u;
         v60 = 0u;
         v57 = 0u;
@@ -2238,7 +2238,7 @@ LABEL_8:
         v46 = PLSearchBackendInitialSuggestionsGetLog();
         if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
         {
-          v47 = [v21 count];
+          v47 = objc_msgSend_count(v21);
           *buf = 134217984;
           v68 = v47;
           _os_log_impl(&dword_19BF1F000, v46, OS_LOG_TYPE_DEFAULT, "Found %tu pre-generated initial suggestions.", buf, 0xCu);

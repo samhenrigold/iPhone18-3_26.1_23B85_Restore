@@ -289,7 +289,7 @@ LABEL_6:
 
 - (void)connectionMonitorDidUpdate:(id)update
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   connectionMonitor = self->_connectionMonitor;
   if (connectionMonitor == update)
   {
@@ -299,15 +299,13 @@ LABEL_6:
       v8 = isImmediatelyReachable;
       self->_lastPostedNetworkUp = isImmediatelyReachable;
       v9 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v6, v7);
-      v16 = @"__kIMNetworkChangedNotificationNetworkAvailableKey";
+      v15 = @"__kIMNetworkChangedNotificationNetworkAvailableKey";
       v11 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v10, v8);
-      v17[0] = v11;
-      v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v12, v17, &v16, 1);
+      v16[0] = v11;
+      v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v12, v16, &v15, 1);
       objc_msgSend___mainThreadPostNotificationName_object_userInfo_(v9, v14, @"__kIMNetworkChangedNotification", 0, v13);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isPrimaryCellular

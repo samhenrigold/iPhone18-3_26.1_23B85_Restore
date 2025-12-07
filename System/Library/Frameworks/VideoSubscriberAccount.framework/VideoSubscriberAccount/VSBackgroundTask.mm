@@ -25,24 +25,25 @@
 
 - (BOOL)begin
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   currentProcess = [MEMORY[0x277D47008] currentProcess];
   v4 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.common" name:@"FinishTaskUninterruptable"];
   v5 = objc_alloc(MEMORY[0x277D46DB8]);
   name = [(VSBackgroundTask *)self name];
-  v14[0] = v4;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v15[0] = v4;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v8 = [v5 initWithExplanation:name target:currentProcess attributes:v7];
 
-  v13 = 0;
-  LOBYTE(v7) = [v8 acquireWithError:&v13];
-  v9 = v13;
+  v14 = 0;
+  LOBYTE(v7) = [v8 acquireWithError:&v14];
+  v9 = v14;
+  v10 = v9;
   if ((v7 & 1) == 0)
   {
-    v10 = VSErrorLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = VSErrorLogObject(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(VSBackgroundTask *)v9 begin];
+      [(VSBackgroundTask *)v10 begin];
     }
 
     delegate = [(VSBackgroundTask *)self delegate];

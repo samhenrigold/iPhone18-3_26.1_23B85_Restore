@@ -24,6 +24,7 @@
 - (void)setHidden:(BOOL)hidden;
 - (void)setOriginalToolbar:(id)toolbar;
 - (void)setOriginalToolbarAlpha:(double)alpha;
+- (void)setOriginalToolbarHidden:(BOOL)hidden;
 - (void)setPreferredAccesoryViewHeight:(double)height;
 - (void)setPreferredSuperview:(id)superview preferredParentViewForSafeAreaInset:(id)inset;
 - (void)updateLayout;
@@ -92,24 +93,13 @@ LABEL_11:
         [(UIToolbar *)customToolbar removeConstraints:constraints];
 
         preferredSuperview2 = [(QLToolbarController *)self preferredSuperview];
-        if (!preferredSuperview2)
-        {
-          goto LABEL_15;
-        }
-
-        v18 = preferredSuperview2;
-        preferredSuperview3 = [(QLToolbarController *)self preferredSuperview];
-        v20 = objc_loadWeakRetained(&self->_originalToolbar);
-        v21 = [preferredSuperview3 containsView:v20];
-
-        if (!v21)
+        if (preferredSuperview2 && (v18 = preferredSuperview2, -[QLToolbarController preferredSuperview](self, "preferredSuperview"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_loadWeakRetained(&self->_originalToolbar), v21 = [v19 containsView:v20], v20, v19, v18, !v21))
         {
           [superview addSubview:self->_customToolbar];
         }
 
         else
         {
-LABEL_15:
           v22 = self->_customToolbar;
           v23 = objc_loadWeakRetained(&self->_originalToolbar);
           [superview insertSubview:v22 belowSubview:v23];
@@ -680,6 +670,13 @@ void __49__QLToolbarController_setAccessoryView_animated___block_invoke_5(uint64
   isHidden = [originalToolbar isHidden];
 
   return isHidden;
+}
+
+- (void)setOriginalToolbarHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  originalToolbar = [(QLToolbarController *)self originalToolbar];
+  [originalToolbar setHidden:hiddenCopy];
 }
 
 - (void)setPreferredAccesoryViewHeight:(double)height

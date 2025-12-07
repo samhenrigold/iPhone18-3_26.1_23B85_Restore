@@ -136,24 +136,24 @@ uint64_t __39__CNLaunchServicesRemoteAdapter_os_log__block_invoke()
   return v6;
 }
 
-void __63__CNLaunchServicesRemoteAdapter_createConnectionWithInterface___block_invoke()
+void __63__CNLaunchServicesRemoteAdapter_createConnectionWithInterface___block_invoke(uint64_t a1)
 {
-  v0 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __63__CNLaunchServicesRemoteAdapter_createConnectionWithInterface___block_invoke_cold_1(v0, v1, v2, v3, v4, v5, v6, v7);
+    __63__CNLaunchServicesRemoteAdapter_createConnectionWithInterface___block_invoke_cold_1(v1, v2, v3, v4, v5, v6, v7, v8);
   }
 }
 
-void __63__CNLaunchServicesRemoteAdapter_createConnectionWithInterface___block_invoke_34()
+void __63__CNLaunchServicesRemoteAdapter_createConnectionWithInterface___block_invoke_34(uint64_t a1)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v0 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v4 = *MEMORY[0x1E69E9840];
+  v1 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = 138412290;
-    v2 = @"com.apple.contactsd.launch-services-proxy";
-    _os_log_impl(&dword_1954A0000, v0, OS_LOG_TYPE_DEFAULT, "Service connection to %@ was invalidated", &v1, 0xCu);
+    v2 = 138412290;
+    v3 = @"com.apple.contactsd.launch-services-proxy";
+    _os_log_impl(&dword_1954A0000, v1, OS_LOG_TYPE_DEFAULT, "Service connection to %@ was invalidated", &v2, 0xCu);
   }
 }
 
@@ -360,6 +360,13 @@ void __84__CNLaunchServicesRemoteAdapter_openSensitiveURLInBackground_withOption
   {
     __75__CNLaunchServicesRemoteAdapter_applicationsForUserActivityType_withReply___block_invoke_cold_1();
   }
+}
+
+void __63__CNLaunchServicesRemoteAdapter_createConnectionWithInterface___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"com.apple.contactsd.launch-services-proxy";
+  OUTLINED_FUNCTION_2_1(&dword_1954A0000, a1, a3, "Error: service connection to %@ was interrupted", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

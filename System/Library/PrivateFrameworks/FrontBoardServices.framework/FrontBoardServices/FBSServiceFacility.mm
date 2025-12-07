@@ -92,15 +92,14 @@
 
 - (void)dealloc
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_invalidated == __objc_yes"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_invalidated == __objc_yes", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -130,13 +129,14 @@
   messageCopy = message;
   [(BSServiceQueue *)self->_queue assertBarrierOnQueue];
   v8 = [(FBSServiceFacility *)self shouldAllowClientConnection:connectCopy withMessage:messageCopy];
+  v9 = v8;
   if (v8)
   {
     [(NSMutableSet *)self->_clients addObject:connectCopy];
     os_unfair_lock_lock(&self->_clients_immutable_lock);
-    v9 = [(NSMutableSet *)self->_clients copy];
+    v10 = [(NSMutableSet *)self->_clients copy];
     clients_immutable = self->_clients_immutable;
-    self->_clients_immutable = v9;
+    self->_clients_immutable = v10;
 
     os_unfair_lock_unlock(&self->_clients_immutable_lock);
     [(FBSServiceFacility *)self noteClientDidConnect:connectCopy withMessage:messageCopy];
@@ -144,14 +144,14 @@
 
   else
   {
-    v11 = FBLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = FBLogCommon(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [FBSServiceFacility queue_clientDidConnect:connectCopy withMessage:?];
     }
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)queue_clientDidDisconnect:(id)disconnect
@@ -187,15 +187,16 @@
   messageCopy = message;
   clientCopy = client;
   [(BSServiceQueue *)self->_queue assertBarrierOnQueue];
-  if ([(NSMutableSet *)self->_clients containsObject:clientCopy])
+  v10 = [(NSMutableSet *)self->_clients containsObject:clientCopy];
+  if (v10)
   {
     [(FBSServiceFacility *)self noteDidReceiveMessage:messageCopy withType:type fromClient:clientCopy];
   }
 
   else
   {
-    v10 = FBLogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = FBLogCommon(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [FBSServiceFacility queue_handleMessage:clientCopy withType:? fromClient:?];
     }
@@ -317,17 +318,16 @@ void __60__FBSServiceFacility_descriptionBuilderWithMultilinePrefix___block_invo
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"no service facility manager found"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    v7 = @"FBSServiceFacility.m";
-    v8 = 1024;
-    v9 = 51;
-    v10 = v5;
-    v11 = v2;
-    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, 0x3Au);
+    v9 = @"FBSServiceFacility.m";
+    v10 = 1024;
+    v11 = 51;
+    v12 = v7;
+    v13 = v2;
+    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, 0x3Au);
   }
 
   [v2 UTF8String];
@@ -336,15 +336,14 @@ void __60__FBSServiceFacility_descriptionBuilderWithMultilinePrefix___block_invo
 
 - (void)initWithIdentifier:(char *)a1 queue:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"queue"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"queue", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -353,15 +352,14 @@ void __60__FBSServiceFacility_descriptionBuilderWithMultilinePrefix___block_invo
 
 - (void)initWithIdentifier:(char *)a1 queue:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"identifier != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"identifier != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -374,7 +372,7 @@ void __60__FBSServiceFacility_descriptionBuilderWithMultilinePrefix___block_invo
   v4 = NSStringFromClass(v3);
   v5 = [a2 prettyProcessDescription];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5_0(&dword_1A2DBB000, v6, v7, "[%{public}@] Rejecting client %{public}@.", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_5_0(&dword_1A2DBB000, v6, v7, "[%{public}@] Rejecting client %{public}@.", v8, v9, v10, v11);
 }
 
 - (void)queue_handleMessage:(uint64_t)a1 withType:(void *)a2 fromClient:.cold.1(uint64_t a1, void *a2)
@@ -383,7 +381,7 @@ void __60__FBSServiceFacility_descriptionBuilderWithMultilinePrefix___block_invo
   v4 = NSStringFromClass(v3);
   v5 = [a2 prettyProcessDescription];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5_0(&dword_1A2DBB000, v6, v7, "[%{public}@] Ignoring message from untracked client %{public}@.", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_5_0(&dword_1A2DBB000, v6, v7, "[%{public}@] Ignoring message from untracked client %{public}@.", v8, v9, v10, v11);
 }
 
 - (void)sendMessage:(char *)a1 withType:toClients:.cold.1(char *a1)
@@ -391,17 +389,16 @@ void __60__FBSServiceFacility_descriptionBuilderWithMultilinePrefix___block_invo
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Client must be provided by the system."];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    v7 = @"FBSServiceFacility.m";
-    v8 = 1024;
-    v9 = 129;
-    v10 = v5;
-    v11 = v2;
-    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, 0x3Au);
+    v9 = @"FBSServiceFacility.m";
+    v10 = 1024;
+    v11 = 129;
+    v12 = v7;
+    v13 = v2;
+    _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, 0x3Au);
   }
 
   [v2 UTF8String];

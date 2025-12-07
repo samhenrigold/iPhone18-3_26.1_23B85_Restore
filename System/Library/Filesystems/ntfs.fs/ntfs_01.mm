@@ -251,14 +251,14 @@ uint64_t ntfs_rl_vcn_to_lcn(void *a1, uint64_t a2)
   }
 }
 
-uint64_t ntfs_rl_pread(uint64_t a1, uint64_t a2, uint64_t a3, int64_t a4, char *a5)
+uint64_t ntfs_rl_pread(uint64_t **a1, void *a2, uint64_t a3, int64_t a4, char *a5)
 {
   v5 = a4;
-  v6 = a2;
+  v7 = a2;
   if (!a1 || !a2 || (a4 | a3) < 0)
   {
     *__error() = 22;
-    ntfs_log_redirect("ntfs_rl_pread", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/runlist.c", 1094, 256);
+    ntfs_log_redirect("ntfs_rl_pread", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/runlist.c", 1094, 256, 0, "Failed to read runlist [vol: %p rl: %p pos: %lld count: %lld]", a1, v7, a3, v5);
     return -1;
   }
 
@@ -267,104 +267,104 @@ uint64_t ntfs_rl_pread(uint64_t a1, uint64_t a2, uint64_t a3, int64_t a4, char *
     return 0;
   }
 
-  v9 = *(a2 + 16);
-  if (v9)
+  v10 = a2[2];
+  if (v10)
   {
-    v10 = 0;
-    v11 = a2;
+    v11 = 0;
+    v12 = a2;
     while (1)
     {
-      v12 = (v9 << *(a1 + 52)) + v10;
-      if (v12 > a3)
+      v13 = (v10 << *(a1 + 52)) + v11;
+      if (v13 > a3)
       {
         break;
       }
 
-      v6 = v11 + 24;
-      v9 = *(v11 + 40);
-      v10 = v12;
-      v11 += 24;
-      if (!v9)
+      v7 = v12 + 3;
+      v10 = v12[5];
+      v11 = v13;
+      v12 += 3;
+      if (!v10)
       {
         goto LABEL_15;
       }
     }
 
-    v6 = v11;
-    v12 = v10;
+    v7 = v12;
+    v13 = v11;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
 LABEL_15:
-  v13 = 0;
-  v14 = a3 - v12;
+  v14 = 0;
+  v15 = a3 - v13;
   while (1)
   {
-    v15 = *(v6 + 16);
-    if (!v15)
+    v16 = v7[2];
+    if (!v16)
     {
       break;
     }
 
-    v16 = *(v6 + 8);
-    if (v16 < 0)
+    v17 = v7[1];
+    if (v17 < 0)
     {
-      if (v16 != -1)
+      if (v17 != -1)
       {
         break;
       }
 
-      v21 = (v15 << *(a1 + 52)) - v14;
-      if (v5 >= v21)
+      v22 = (v16 << *(a1 + 52)) - v15;
+      if (v5 >= v22)
       {
-        v20 = v21;
+        v21 = v22;
       }
 
       else
       {
-        v20 = v5;
+        v21 = v5;
       }
 
-      bzero(a5, v20);
+      bzero(a5, v21);
     }
 
     else
     {
-      v17 = (v15 << *(a1 + 52)) - v14;
-      if (v5 >= v17)
+      v18 = (v16 << *(a1 + 52)) - v15;
+      if (v5 >= v18)
       {
-        v18 = v17;
+        v19 = v18;
       }
 
       else
       {
-        v18 = v5;
+        v19 = v5;
       }
 
       while (1)
       {
-        v19 = ntfs_pread(*a1, (*(v6 + 8) << *(a1 + 52)) + v14, v18, a5);
-        v20 = v19;
-        if (v19 > 0)
+        v20 = ntfs_pread(*a1, (v7[1] << *(a1 + 52)) + v15, v19, a5);
+        v21 = v20;
+        if (v20 > 0)
         {
           break;
         }
 
-        if (v19 != -1)
+        if (v20 != -1)
         {
           goto LABEL_32;
         }
 
         if (*__error() != 4)
         {
-          v22 = *__error();
-          if (v13)
+          v23 = *__error();
+          if (v14)
           {
-            return v13;
+            return v14;
           }
 
           goto LABEL_35;
@@ -372,37 +372,37 @@ LABEL_15:
       }
     }
 
-    v14 = 0;
-    v13 += v20;
-    a5 += v20;
-    v6 += 24;
-    v5 -= v20;
+    v15 = 0;
+    v14 += v21;
+    a5 += v21;
+    v7 += 3;
+    v5 -= v21;
     if (!v5)
     {
-      return v13;
+      return v14;
     }
   }
 
 LABEL_32:
-  v22 = 5;
-  if (!v13)
+  v23 = 5;
+  if (!v14)
   {
 LABEL_35:
-    *__error() = v22;
+    *__error() = v23;
     return -1;
   }
 
-  return v13;
+  return v14;
 }
 
-uint64_t ntfs_rl_pwrite(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t ntfs_rl_pwrite(uint64_t **a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v6 = a5;
-  v7 = a2;
+  v8 = a2;
   if (!a1 || !a2 || (a5 | a4) < 0)
   {
     *__error() = 22;
-    ntfs_log_redirect("ntfs_rl_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/runlist.c", 1183, 256);
+    ntfs_log_redirect("ntfs_rl_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/runlist.c", 1183, 256, 0, "Failed to write runlist [vol: %p rl: %p pos: %lld count: %lld]", a1, v8, a4, v6);
     return -1;
   }
 
@@ -411,98 +411,98 @@ uint64_t ntfs_rl_pwrite(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
     return 0;
   }
 
-  v10 = *(a2 + 16);
-  if (v10)
+  v11 = a2[2];
+  if (v11)
   {
     while (1)
     {
-      v11 = (v10 << *(a1 + 52)) + a3;
-      if (v11 > a4)
+      v12 = (v11 << *(a1 + 52)) + a3;
+      if (v12 > a4)
       {
         break;
       }
 
-      v12 = v7 + 24;
-      v10 = *(v7 + 40);
-      v7 += 24;
-      a3 = v11;
-      if (!v10)
+      v13 = v8 + 3;
+      v11 = v8[5];
+      v8 += 3;
+      a3 = v12;
+      if (!v11)
       {
         goto LABEL_12;
       }
     }
   }
 
-  v11 = a3;
-  v12 = v7;
+  v12 = a3;
+  v13 = v8;
 LABEL_12:
-  v13 = 0;
-  v14 = a4 - v11;
+  v14 = 0;
+  v15 = a4 - v12;
   while (1)
   {
-    v15 = *(v12 + 16);
-    if (!v15)
+    v16 = v13[2];
+    if (!v16)
     {
       break;
     }
 
-    v16 = *(v12 + 8);
-    if (v16 < 0)
+    v17 = v13[1];
+    if (v17 < 0)
     {
-      if (v16 != -1)
+      if (v17 != -1)
       {
         break;
       }
 
-      v20 = (v15 << *(a1 + 52)) - v14;
-      if (v6 >= v20)
+      v21 = (v16 << *(a1 + 52)) - v15;
+      if (v6 >= v21)
       {
-        v19 = v20;
+        v20 = v21;
+      }
+
+      else
+      {
+        v20 = v6;
+      }
+    }
+
+    else
+    {
+      v18 = (v16 << *(a1 + 52)) - v15;
+      if (v6 >= v18)
+      {
+        v19 = v18;
       }
 
       else
       {
         v19 = v6;
       }
-    }
-
-    else
-    {
-      v17 = (v15 << *(a1 + 52)) - v14;
-      if (v6 >= v17)
-      {
-        v18 = v17;
-      }
-
-      else
-      {
-        v18 = v6;
-      }
 
       while (1)
       {
-        v19 = v18;
-        if ((*(a1 + 16) & 1) == 0)
+        v20 = v19;
+        if ((a1[2] & 1) == 0)
         {
-          v19 = ntfs_pwrite(*a1, (*(v12 + 8) << *(a1 + 52)) + v14, v18, a6);
+          v20 = ntfs_pwrite(*a1, (v13[1] << *(a1 + 52)) + v15, v19, a6);
         }
 
-        if (v19 > 0)
+        if (v20 > 0)
         {
           break;
         }
 
-        if (v19 != -1)
+        if (v20 != -1)
         {
           goto LABEL_31;
         }
 
         if (*__error() != 4)
         {
-          v21 = *__error();
-          if (v13)
+          v22 = *__error();
+          if (v14)
           {
-            return v13;
+            return v14;
           }
 
           goto LABEL_34;
@@ -510,27 +510,27 @@ LABEL_12:
       }
     }
 
-    v14 = 0;
-    v13 += v19;
-    a6 += v19;
-    v12 += 24;
-    v6 -= v19;
+    v15 = 0;
+    v14 += v20;
+    a6 += v20;
+    v13 += 3;
+    v6 -= v20;
     if (!v6)
     {
-      return v13;
+      return v14;
     }
   }
 
 LABEL_31:
-  v21 = 5;
-  if (!v13)
+  v22 = 5;
+  if (!v14)
   {
 LABEL_34:
-    *__error() = v21;
+    *__error() = v22;
     return -1;
   }
 
-  return v13;
+  return v14;
 }
 
 uint64_t ntfs_get_nr_significant_bytes(uint64_t a1)
@@ -554,7 +554,7 @@ uint64_t ntfs_get_nr_significant_bytes(uint64_t a1)
   return result;
 }
 
-uint64_t ntfs_get_size_for_mapping_pairs(uint64_t a1, uint64_t *a2, uint64_t a3, int a4)
+unint64_t ntfs_get_size_for_mapping_pairs(uint64_t a1, uint64_t *a2, uint64_t a3, int a4)
 {
   if (a3 < 0)
   {
@@ -775,7 +775,7 @@ LABEL_2:
   return 1;
 }
 
-uint64_t ntfs_mapping_pairs_build(uint64_t a1, _BYTE *a2, int a3, void *a4, uint64_t a5, void *a6)
+uint64_t ntfs_mapping_pairs_build(uint64_t a1, _BYTE *a2, int a3, uint64_t *a4, uint64_t a5, uint64_t **a6)
 {
   if (a5 < 0)
   {
@@ -982,53 +982,50 @@ uint64_t ntfs_rl_truncate(void **a1, uint64_t a2)
   if (!a1)
   {
     *__error() = 22;
-    v4 = 1620;
-    goto LABEL_12;
-  }
-
-  v3 = *a1;
-  if (!*a1)
-  {
-    *__error() = 22;
-    v9 = *a1;
-    v4 = 1623;
-LABEL_12:
-    ntfs_log_redirect("ntfs_rl_truncate", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/runlist.c", v4, 256);
+    ntfs_log_redirect("ntfs_rl_truncate", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/runlist.c", 1620, 256, 0, "rl_truncate error: arl: %p");
     return 0xFFFFFFFFLL;
   }
 
-  if (*v3 > a2)
+  v2 = *a1;
+  if (!*a1)
   {
     *__error() = 22;
-    v4 = 1631;
-    goto LABEL_12;
+    ntfs_log_redirect("ntfs_rl_truncate", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/runlist.c", 1623, 256, 0, "rl_truncate error: arl: %p *arl: %p");
+    return 0xFFFFFFFFLL;
+  }
+
+  if (*v2 > a2)
+  {
+    *__error() = 22;
+    ntfs_log_redirect("ntfs_rl_truncate", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/runlist.c", 1631, 256, 0, "Start_vcn lies outside front of runlist");
+    return 0xFFFFFFFFLL;
   }
 
   do
   {
-    if (!v3[2])
+    if (!v2[2])
     {
       *__error() = 5;
       return 0xFFFFFFFFLL;
     }
 
-    v5 = v3[3];
-    v3 += 3;
+    v3 = v2[3];
+    v2 += 3;
   }
 
-  while (v5 <= a2);
-  v6 = v3 - 3;
-  v7 = a2 - *(v3 - 3);
-  *(v3 - 1) = v7;
-  if (v7)
+  while (v3 <= a2);
+  v4 = v2 - 3;
+  v5 = a2 - *(v2 - 3);
+  *(v2 - 1) = v5;
+  if (v5)
   {
-    *v3 = a2;
-    v3[2] = 0;
-    v6 = v3;
+    *v2 = a2;
+    v2[2] = 0;
+    v4 = v2;
   }
 
   result = 0;
-  v6[1] = -3;
+  v4[1] = -3;
   return result;
 }
 
@@ -1061,16 +1058,15 @@ uint64_t ntfs_rl_sparse(uint64_t a1)
     }
 
     *__error() = 22;
-    v5 = 1702;
+    ntfs_log_redirect("ntfs_rl_sparse", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/runlist.c", 1702, 256, 0, "%s: bad runlist");
   }
 
   else
   {
     *__error() = 22;
-    v5 = 1694;
+    ntfs_log_redirect("ntfs_rl_sparse", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/runlist.c", 1694, 256, 0, "%s: ");
   }
 
-  ntfs_log_redirect("ntfs_rl_sparse", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/runlist.c", v5, 256);
   return 0xFFFFFFFFLL;
 }
 
@@ -1079,8 +1075,8 @@ uint64_t ntfs_rl_get_compressed_size(uint64_t a1, uint64_t a2)
   if (!a2)
   {
     *__error() = 22;
-    v7 = 1724;
-    goto LABEL_13;
+    ntfs_log_redirect("ntfs_rl_get_compressed_size", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/runlist.c", 1724, 256, 0, "%s: ");
+    return -1;
   }
 
   v2 = *(a2 + 16);
@@ -1115,13 +1111,11 @@ LABEL_7:
   }
 
   *__error() = 22;
-  v7 = 1732;
-LABEL_13:
-  ntfs_log_redirect("ntfs_rl_get_compressed_size", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/runlist.c", v7, 256);
+  ntfs_log_redirect("ntfs_rl_get_compressed_size", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/runlist.c", 1732, 256, 0, "%s: bad runlist");
   return -1;
 }
 
-uint64_t sub_10000E594(uint64_t *a1, uint64_t *a2)
+uint64_t sub_10000E594(uint64_t *a1, void *a2)
 {
   result = 0;
   if (a1 && a2)
@@ -1131,17 +1125,15 @@ uint64_t sub_10000E594(uint64_t *a1, uint64_t *a2)
     {
       if (a2[1] != -2)
       {
-        v5 = a1[2] + *a1;
-        v6 = *a2;
         return 0;
       }
     }
 
     else
     {
-      v7 = *a1;
-      v8 = a1[2];
-      if (v8 + v7 != *a2)
+      v5 = *a1;
+      v6 = a1[2];
+      if (v6 + v5 != *a2)
       {
         return 0;
       }
@@ -1156,8 +1148,8 @@ uint64_t sub_10000E594(uint64_t *a1, uint64_t *a2)
 
       else
       {
-        v9 = a2[1];
-        if (v9 < 0 || v8 + v4 != v9)
+        v7 = a2[1];
+        if (v7 < 0 || v6 + v4 != v7)
         {
           return 0;
         }
@@ -1362,7 +1354,7 @@ LABEL_19:
   return v9;
 }
 
-uint64_t ntfs_mst_pwrite(uint64_t *a1, uint64_t a2, uint64_t a3, unsigned int a4, _WORD *a5)
+unint64_t ntfs_mst_pwrite(uint64_t *a1, uint64_t a2, uint64_t a3, unsigned int a4, _WORD *a5)
 {
   if (a3 < 0 || (a4 & 0x1FF) != 0)
   {
@@ -1384,7 +1376,7 @@ uint64_t ntfs_mst_pwrite(uint64_t *a1, uint64_t a2, uint64_t a3, unsigned int a4
       }
 
       ++v10;
-      v11 += a4;
+      v11 = (v11 + a4);
       if (a3 == v10)
       {
         v10 = a3;
@@ -1421,7 +1413,7 @@ LABEL_11:
   return v13;
 }
 
-unint64_t ntfs_device_size_get(uint64_t a1, int a2)
+unint64_t ntfs_device_size_get(uint64_t a1, unsigned int a2)
 {
   if (a1 && a2 >= 1 && ((a2 + 0x7FFFFFFF) & a2) == 0)
   {
@@ -1739,8 +1731,7 @@ uint64_t ntfs_get_attribute_value(uint64_t a1, uint64_t a2, char *__dst)
 
   if (*a2 != 32 && *(a2 + 12))
   {
-    v24 = *(a2 + 12);
-    ntfs_log_redirect("ntfs_get_attribute_value", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 155, 128);
+    ntfs_log_redirect("ntfs_get_attribute_value", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 155, 128, 0, "Non-zero (%04x) attribute flags. Cannot handle this yet.\n", *(a2 + 12));
     v6 = __error();
     v7 = 0;
     v8 = 102;
@@ -1801,7 +1792,7 @@ LABEL_16:
       {
         if (v15 == -1)
         {
-          ntfs_log_redirect("ntfs_get_attribute_value", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 278, 256);
+          ntfs_log_redirect("ntfs_get_attribute_value", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 278, 256, 0, "Error reading attribute value");
         }
 
         else
@@ -1842,7 +1833,7 @@ LABEL_30:
 
     if (v22 == -1)
     {
-      ntfs_log_redirect("ntfs_get_attribute_value", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 242, 256);
+      ntfs_log_redirect("ntfs_get_attribute_value", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 242, 256, 0, "Error reading attribute value");
     }
 
     else
@@ -1926,9 +1917,9 @@ LABEL_18:
   return result;
 }
 
-void *ntfs_attr_open(uint64_t *a1, unsigned int a2, unsigned __int16 *a3, unsigned int a4)
+void *ntfs_attr_open(uint64_t a1, unsigned int a2, unsigned __int16 *a3, unsigned int a4)
 {
-  if (!a1 || !a1[2] || !a1[1])
+  if (!a1 || !*(a1 + 16) || !*(a1 + 8))
   {
     v8 = 0;
     *__error() = 22;
@@ -1962,7 +1953,7 @@ void *ntfs_attr_open(uint64_t *a1, unsigned int a2, unsigned __int16 *a3, unsign
     }
 
     v11 = v10;
-    v12 = a1[1];
+    v12 = *(a1 + 8);
     v13 = v12 + *(v12 + 20);
     *v10 = v12;
     v10[1] = v13;
@@ -1985,15 +1976,15 @@ LABEL_12:
     {
       if (*(v15 + 9))
       {
-        v19 = ntfs_ucsndup((v15 + *(v15 + 10)), *(v15 + 9));
-        if (!v19)
+        v18 = ntfs_ucsndup((v15 + *(v15 + 10)), *(v15 + 9));
+        if (!v18)
         {
           goto LABEL_11;
         }
 
-        a3 = v19;
+        a3 = v18;
         a4 = *(v15 + 9);
-        v9 = v19;
+        v9 = v18;
       }
 
       else
@@ -2023,7 +2014,7 @@ LABEL_12:
         *(v15 + 12) = v16;
         if ((*(a1 + 33) & 8) != 0)
         {
-          v17 = a1[2];
+          v17 = *(a1 + 16);
           if (*(v17 + 32) >= 3u && (*(v17 + 16) & 0x40) != 0 && *(v17 + 40) <= 0x1000u)
           {
             v16 |= 1u;
@@ -2032,15 +2023,10 @@ LABEL_12:
         }
       }
 
-      if (a3 == &AT_UNNAMED && (v16 < 0 && (a1[4] & 0x200) == 0 || ((((v16 & 0x4000) == 0) ^ ((a1[4] & 0x4000u) >> 14)) & 1) == 0))
+      if (a3 == &AT_UNNAMED && (v16 < 0 && (*(a1 + 32) & 0x200) == 0 || ((((v16 & 0x4000) == 0) ^ ((*(a1 + 32) & 0x4000u) >> 14)) & 1) == 0))
       {
         *__error() = 5;
-        v26 = *(v15 + 12);
-        v27 = *(v8[1] + 32);
-        v24 = *a1;
-        v18 = 473;
-LABEL_48:
-        ntfs_log_redirect("ntfs_attr_open", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v18, 256);
+        ntfs_log_redirect("ntfs_attr_open", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 473, 256, 0, "Inode %lld has corrupt attribute flags (0x%x <> 0x%x)", *a1);
         goto LABEL_11;
       }
     }
@@ -2055,40 +2041,39 @@ LABEL_48:
       if (v16 && !*(v15 + 34))
       {
         *__error() = 5;
-        v25 = *a1;
-        v18 = 483;
-        goto LABEL_48;
+        ntfs_log_redirect("ntfs_attr_open", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 483, 256, 0, "Compressed inode %lld attr 0x%x has no compression unit");
+        goto LABEL_11;
       }
 
       if ((v16 & 0x8001) != 0)
       {
-        v20 = *(v15 + 64);
-        v21 = *(v15 + 34);
+        v19 = *(v15 + 64);
+        v20 = *(v15 + 34);
       }
 
       else
       {
+        v19 = 0;
         v20 = 0;
-        v21 = 0;
       }
 
-      ntfs_attr_init(v8, 1, v16, v16 & 0x4000, v16 & 0x8000, *(v15 + 40), *(v15 + 48), *(v15 + 56), v20, v21);
+      ntfs_attr_init(v8, 1, v16, v16 & 0x4000, v16 & 0x8000, *(v15 + 40), *(v15 + 48), *(v15 + 56), v19, v20);
     }
 
     else
     {
-      v22 = *(v15 + 16);
+      v21 = *(v15 + 16);
       if ((v16 & 0x8001) != 0)
       {
-        v23 = (v22 + 7) & 0x1FFFFFFF8;
+        v22 = (v21 + 7) & 0x1FFFFFFF8;
       }
 
       else
       {
-        v23 = 0;
+        v22 = 0;
       }
 
-      ntfs_attr_init(v8, 0, v16, v16 & 0x4000, v16 & 0x8000, (v22 + 7) & 0x1FFFFFFF8, v22, v22, v23, 0);
+      ntfs_attr_init(v8, 0, v16, v16 & 0x4000, v16 & 0x8000, (v21 + 7) & 0x1FFFFFFF8, v21, v21, v22, 0);
     }
 
     free(v11);
@@ -2123,260 +2108,251 @@ void *ntfs_attr_get_search_ctx(uint64_t a1, uint64_t a2)
   else
   {
     *__error() = 22;
-    ntfs_log_redirect("ntfs_attr_get_search_ctx", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 2736, 256);
+    ntfs_log_redirect("ntfs_attr_get_search_ctx", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 2736, 256, 0, "NULL arguments");
     return 0;
   }
 
   return result;
 }
 
-uint64_t ntfs_attr_lookup(unsigned int a1, unsigned __int16 *a2, unsigned int a3, int a4, uint64_t a5, void *__s1, unsigned int a7, uint64_t a8)
+uint64_t ntfs_attr_lookup(unsigned int a1, unsigned __int16 *a2, unsigned int a3, int a4, uint64_t a5, void *__s1, unsigned int a7, unint64_t *a8)
 {
-  if (!a8 || (v9 = *a8) == 0 || (v10 = *(a8 + 8)) == 0 || (v17 = a1, a2) && a2 != &AT_UNNAMED && ((v18 = *(a8 + 24)) == 0 || (v19 = *(v18 + 16)) == 0 || !*(v19 + 224) || !*(v19 + 232)))
+  if (!a8 || (v9 = *a8) == 0 || (v10 = a8[1]) == 0 || (v17 = a1, a2) && a2 != &AT_UNNAMED && ((v18 = a8[3]) == 0 || (v19 = *(v18 + 16)) == 0 || !*(v19 + 224) || !*(v19 + 232)))
   {
     *__error() = 22;
-    v22 = "ntfs_attr_lookup";
-    v23 = 2616;
-    goto LABEL_16;
+    ntfs_log_redirect("ntfs_attr_lookup", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 2616, 256, 0, "%s");
+    return 0xFFFFFFFFLL;
   }
 
-  v20 = *(a8 + 40);
+  v20 = a8[5];
   if (v20)
   {
     if (a1 == 32 || (*(v20 + 24) & 2) == 0)
     {
-      goto LABEL_114;
+      goto LABEL_112;
     }
 
-    v21 = *(a8 + 24);
+    v21 = a8[3];
     if (v21 != v20)
     {
-      goto LABEL_25;
+      goto LABEL_23;
     }
   }
 
   else
   {
-    v21 = *(a8 + 24);
+    v21 = a8[3];
     if (!v21 || a1 == 32 || (v21[3] & 2) == 0)
     {
-      goto LABEL_114;
+      goto LABEL_112;
     }
 
-    *(a8 + 40) = v21;
-    *(a8 + 48) = v9;
+    a8[5] = v21;
+    a8[6] = v9;
     v20 = v21;
   }
 
-  *(a8 + 56) = v10;
-LABEL_25:
+  a8[7] = v10;
+LABEL_23:
   if (a1 == -1)
   {
-LABEL_113:
+LABEL_111:
     ntfs_attr_reinit_search_ctx(a8);
     a1 = -1;
-LABEL_114:
+LABEL_112:
 
     return sub_100012334(a1, a2, a3, a4, __s1, a7, a8);
   }
 
-  v68 = *(v20 + 16);
-  v26 = *(v20 + 40);
-  v27 = *(v20 + 36);
-  v28 = *(a8 + 32);
-  v29 = v28;
-  if (!v28)
+  v64 = *(v20 + 16);
+  v23 = *(v20 + 40);
+  v24 = *(v20 + 36);
+  v25 = a8[4];
+  v26 = v25;
+  if (!v25)
   {
-    *(a8 + 32) = v26;
-    v29 = v26;
+    a8[4] = v23;
+    v26 = v23;
   }
 
-  if (*(a8 + 16))
+  if (*(a8 + 4))
   {
-    *(a8 + 16) = 0;
-    if (!a1 && !v28 && *v29 > 0x20u)
+    *(a8 + 4) = 0;
+    if (!a1 && !v25 && *v26 > 0x20u)
     {
-      goto LABEL_32;
+LABEL_30:
+      if (a2 || a5 || __s1 || a7 | a3)
+      {
+        *__error() = 22;
+        ntfs_log_redirect("ntfs_external_attr_find", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 2279, 256, 0, "%s");
+      }
+
+      else
+      {
+        a8[3] = v20;
+        v27 = a8[6];
+        *(a8 + 4) = 1;
+        v28 = v27 + *(v27 + 20);
+        *a8 = v27;
+        a8[1] = v28;
+        v29 = v26;
+        result = sub_100012334(0x20u, 0, 0, 1, 0, 0, a8);
+        a8[4] = v29;
+        *(a8 + 4) = 1;
+        if (!result)
+        {
+          return result;
+        }
+
+        if (*__error() == 2)
+        {
+          *__error() = 5;
+          ntfs_log_redirect("ntfs_external_attr_find", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 2312, 128, 0, "Attribute list wasn't found");
+        }
+      }
+
+      return 0xFFFFFFFFLL;
     }
   }
 
   else
   {
-    v33 = (v29 + *(v29 + 4));
-    if (a1 || *v29 > 0x1Fu)
+    v30 = (v26 + *(v26 + 4));
+    if (a1 || *v26 > 0x1Fu)
     {
-      v29 += *(v29 + 4);
+      v26 += *(v26 + 4);
     }
 
     else
     {
-      v29 += *(v29 + 4);
-      if (*v33 >= 0x21u)
+      v26 += *(v26 + 4);
+      if (*v30 >= 0x21u)
       {
-LABEL_32:
-        if (!a2 && !a5 && !__s1 && !(a7 | a3))
-        {
-          *(a8 + 24) = v20;
-          v30 = *(a8 + 48);
-          *(a8 + 16) = 1;
-          v31 = v30 + *(v30 + 20);
-          *a8 = v30;
-          *(a8 + 8) = v31;
-          v32 = v29;
-          result = sub_100012334(0x20u, 0, 0, 1, 0, 0, a8);
-          *(a8 + 32) = v32;
-          *(a8 + 16) = 1;
-          if (!result)
-          {
-            return result;
-          }
-
-          if (*__error() != 2)
-          {
-            return 0xFFFFFFFFLL;
-          }
-
-          *__error() = 5;
-          v22 = "ntfs_external_attr_find";
-          v23 = 2312;
-          v24 = 128;
-LABEL_17:
-          ntfs_log_redirect(v22, "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v23, v24);
-          return 0xFFFFFFFFLL;
-        }
-
-        *__error() = 22;
-        v22 = "ntfs_external_attr_find";
-        v23 = 2279;
-LABEL_16:
-        v24 = 256;
-        goto LABEL_17;
+        goto LABEL_30;
       }
     }
   }
 
-  if (v29 < v26 || (v34 = v26 + v27, v29 > v26 + v27))
+  if (v26 < v23 || (v31 = v23 + v24, v26 > v23 + v24))
   {
-LABEL_106:
+LABEL_104:
     if (v21 != v20)
     {
-      *(a8 + 24) = v20;
-      *a8 = *(a8 + 48);
+      a8[3] = v20;
+      *a8 = *(a8 + 3);
     }
 
     *__error() = 5;
-    v55 = *v20;
-    v22 = "ntfs_external_attr_find";
-    v23 = 2482;
-    goto LABEL_16;
+    ntfs_log_redirect("ntfs_external_attr_find", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 2482, 256, 0, "Inode is corrupt (%lld)");
+    return 0xFFFFFFFFLL;
   }
 
-  v59 = (a8 + 40);
+  v55 = a8 + 5;
   if (a1)
   {
-    v35 = __s1 == 0;
+    v32 = __s1 == 0;
   }
 
   else
   {
-    v35 = 1;
+    v32 = 1;
   }
 
-  v36 = !v35;
-  v64 = v36;
-  v56 = v26;
+  v33 = !v32;
+  v60 = v33;
+  v52 = v23;
   __n = a7;
-  v67 = v34;
+  v63 = v31;
   while (1)
   {
-    *(a8 + 32) = v29;
-    if (v29 == v34)
+    a8[4] = v26;
+    if (v26 == v31)
     {
       break;
     }
 
-    if (*(v29 + 4))
+    if (*(v26 + 4))
     {
-      v37 = v29 + 6 > v67;
+      v34 = v26 + 6 > v63;
     }
 
     else
     {
-      v37 = 1;
+      v34 = 1;
     }
 
-    v34 = v67;
-    if (v37 || v29 + *(v29 + 4) > v67)
+    v31 = v63;
+    if (v34 || v26 + *(v26 + 4) > v63)
     {
-      goto LABEL_106;
+      goto LABEL_104;
     }
 
-    v60 = v29 + *(v29 + 4);
-    v66 = v29;
+    v56 = v26 + *(v26 + 4);
+    v62 = v26;
     if (!v17)
     {
-      LODWORD(v40) = *(v29 + 6);
-      v65 = (v29 + *(v29 + 7));
-LABEL_71:
-      v43 = *(v29 + 16);
-      v58 = v20;
-      if ((v43 & 0xFFFFFFFFFFFFLL) == *v21)
+      LODWORD(v37) = *(v26 + 6);
+      v61 = (v26 + *(v26 + 7));
+LABEL_69:
+      v40 = *(v26 + 16);
+      v54 = v20;
+      if ((v40 & 0xFFFFFFFFFFFFLL) == *v21)
       {
-        if (*(v21[1] + 16) == HIWORD(v43))
+        if (*(v21[1] + 16) == HIWORD(v40))
         {
-          v44 = *a8;
-LABEL_78:
-          v46 = v44 + *(v44 + 20);
-          *(a8 + 8) = v46;
-          v62 = v40;
+          v41 = *a8;
+LABEL_76:
+          v43 = v41 + *(v41 + 20);
+          a8[1] = v43;
+          v58 = v37;
           while (1)
           {
-            if (v46 > v44 + *(v44 + 28))
+            if (v43 > v41 + *(v41 + 28))
             {
-              goto LABEL_105;
+              goto LABEL_103;
             }
 
-            if (*v46 == -1)
+            if (*v43 == -1)
             {
-              v20 = v58;
-              goto LABEL_102;
+              v20 = v54;
+              goto LABEL_100;
             }
 
-            if (!*(v46 + 4))
+            if (!*(v43 + 4))
             {
-LABEL_105:
-              v20 = v58;
-              goto LABEL_106;
+LABEL_103:
+              v20 = v54;
+              goto LABEL_104;
             }
 
-            if (*(v29 + 24) == *(v46 + 14))
+            if (*(v26 + 24) == *(v43 + 14))
             {
-              if (*v29 != *v46)
+              if (*v26 != *v43)
               {
-                goto LABEL_105;
+                goto LABEL_103;
               }
 
-              v47 = v21;
-              if (!ntfs_names_are_equal((v46 + *(v46 + 10)), *(v46 + 9), v65, v62, 0, *(v68 + 224), *(v68 + 232)))
+              v44 = v21;
+              if (!ntfs_names_are_equal((v43 + *(v43 + 10)), *(v43 + 9), v61, v58, 0, *(v64 + 224), *(v64 + 232)))
               {
-                v20 = v58;
-                v21 = v47;
-                goto LABEL_106;
+                v20 = v54;
+                v21 = v44;
+                goto LABEL_104;
               }
 
-              *(a8 + 8) = v46;
-              if (!v64)
+              a8[1] = v43;
+              if (!v60)
               {
                 return 0;
               }
 
-              v21 = v47;
-              v29 = v66;
-              if (!*(v46 + 8) && *(v46 + 16) == a7)
+              v21 = v44;
+              v26 = v62;
+              if (!*(v43 + 8) && *(v43 + 16) == a7)
               {
-                result = memcmp((v46 + *(v46 + 20)), __s1, __n);
-                v29 = v66;
-                v21 = v47;
+                result = memcmp((v43 + *(v43 + 20)), __s1, __n);
+                v26 = v62;
+                v21 = v44;
                 if (!result)
                 {
                   return result;
@@ -2384,59 +2360,59 @@ LABEL_105:
               }
             }
 
-            v46 += *(v46 + 4);
-            v44 = *a8;
-            if (v46 < *a8)
+            v43 += *(v43 + 4);
+            v41 = *a8;
+            if (v43 < *a8)
             {
-              goto LABEL_105;
+              goto LABEL_103;
             }
           }
         }
 
-        v54 = v21;
-        ntfs_log_redirect("ntfs_external_attr_find", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 2398, 128);
-        v21 = v54;
+        v51 = v21;
+        ntfs_log_redirect("ntfs_external_attr_find", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 2398, 128, 0, "Found stale mft reference in attribute list!\n");
+        v21 = v51;
       }
 
       else
       {
-        if ((v43 & 0xFFFFFFFFFFFFLL) == *v20)
+        if ((v40 & 0xFFFFFFFFFFFFLL) == *v20)
         {
-          *(a8 + 24) = v20;
-          v44 = *(a8 + 48);
-          *a8 = v44;
+          a8[3] = v20;
+          v41 = a8[6];
+          *a8 = v41;
           v21 = v20;
-          goto LABEL_78;
+          goto LABEL_76;
         }
 
-        v45 = ntfs_extent_inode_open(v20, v43);
-        v21 = v45;
-        if (v45)
+        v42 = ntfs_extent_inode_open(v20, v40);
+        v21 = v42;
+        if (v42)
         {
-          *(a8 + 24) = v45;
-          v44 = v45[1];
-          *a8 = v44;
-          v29 = v66;
-          goto LABEL_78;
+          a8[3] = v42;
+          v41 = v42[1];
+          *a8 = v41;
+          v26 = v62;
+          goto LABEL_76;
         }
       }
 
-      goto LABEL_106;
+      goto LABEL_104;
     }
 
-    v39 = v59;
-    if (*v29 > v17)
+    v36 = v55;
+    if (*v26 > v17)
     {
-      goto LABEL_117;
+      goto LABEL_115;
     }
 
-    if (*v29 == v17)
+    if (*v26 == v17)
     {
-      v40 = *(v29 + 6);
-      v65 = (v29 + *(v29 + 7));
+      v37 = *(v26 + 6);
+      v61 = (v26 + *(v26 + 7));
       if (a2 == &AT_UNNAMED)
       {
-        if (*(v29 + 6))
+        if (*(v26 + 6))
         {
           break;
         }
@@ -2444,101 +2420,101 @@ LABEL_105:
 
       else if (a2)
       {
-        v61 = *(v29 + 6);
-        v41 = v21;
-        v42 = ntfs_names_full_collate(a2, a3, v65, *(v29 + 6), a4, *(v68 + 224), *(v68 + 232));
-        v29 = v66;
-        v34 = v67;
-        v21 = v41;
-        v40 = v61;
-        if (v42)
+        v57 = *(v26 + 6);
+        v38 = v21;
+        v39 = ntfs_names_full_collate(a2, a3, v61, *(v26 + 6), a4, *(v64 + 224), *(v64 + 232));
+        v26 = v62;
+        v31 = v63;
+        v21 = v38;
+        v37 = v57;
+        if (v39)
         {
-          if (v42 < 0)
+          if (v39 < 0)
           {
             break;
           }
 
-          goto LABEL_103;
+          goto LABEL_101;
         }
       }
 
       if (!a5)
       {
-        goto LABEL_71;
+        goto LABEL_69;
       }
 
-      if (v60 < v56)
+      if (v56 < v52)
       {
-        goto LABEL_71;
+        goto LABEL_69;
       }
 
-      if (v60 + 6 >= v34)
+      if (v56 + 6 >= v31)
       {
-        goto LABEL_71;
+        goto LABEL_69;
       }
 
-      if (v60 + *(v60 + 4) > v34)
+      if (v56 + *(v56 + 4) > v31)
       {
-        goto LABEL_71;
+        goto LABEL_69;
       }
 
-      if (*(v60 + 8) > a5)
+      if (*(v56 + 8) > a5)
       {
-        goto LABEL_71;
+        goto LABEL_69;
       }
 
-      if (*v60 != *v29)
+      if (*v56 != *v26)
       {
-        goto LABEL_71;
+        goto LABEL_69;
       }
 
-      if (*(v60 + 6) != v40)
+      if (*(v56 + 6) != v37)
       {
-        goto LABEL_71;
+        goto LABEL_69;
       }
 
-      v48 = v40;
-      v49 = v40;
-      v63 = v40;
-      v40 = v21;
-      v50 = ntfs_names_are_equal((v60 + *(v60 + 7)), v48, v65, v49, 0, *(v68 + 224), *(v68 + 232));
-      v29 = v66;
-      v21 = v40;
-      LODWORD(v40) = v63;
-      if (!v50)
+      v45 = v37;
+      v46 = v37;
+      v59 = v37;
+      v37 = v21;
+      v47 = ntfs_names_are_equal((v56 + *(v56 + 7)), v45, v61, v46, 0, *(v64 + 224), *(v64 + 232));
+      v26 = v62;
+      v21 = v37;
+      LODWORD(v37) = v59;
+      if (!v47)
       {
-        goto LABEL_71;
+        goto LABEL_69;
       }
 
-LABEL_102:
-      v34 = v67;
+LABEL_100:
+      v31 = v63;
     }
 
-LABEL_103:
-    v29 = v60;
-    if (v60 < *(v20 + 40))
+LABEL_101:
+    v26 = v56;
+    if (v56 < *(v20 + 40))
     {
-      goto LABEL_106;
+      goto LABEL_104;
     }
   }
 
-  v39 = v59;
+  v36 = v55;
   if (v17 + 1 <= 1)
   {
-    goto LABEL_113;
+    goto LABEL_111;
   }
 
-LABEL_117:
-  v52 = *(a8 + 40);
-  v51 = *(a8 + 48);
-  v53 = v51 + *(v51 + 20);
-  *a8 = v51;
-  *(a8 + 8) = v53;
-  *(a8 + 16) = 1;
-  *(a8 + 24) = v52;
-  v39[1] = 0;
-  v39[2] = 0;
-  *v39 = 0;
+LABEL_115:
+  v49 = a8[5];
+  v48 = a8[6];
+  v50 = v48 + *(v48 + 20);
+  *a8 = v48;
+  a8[1] = v50;
+  *(a8 + 4) = 1;
+  a8[3] = v49;
+  v36[1] = 0;
+  v36[2] = 0;
+  *v36 = 0;
   do
   {
     result = sub_100012334(v17, a2, a3, a4, __s1, a7, a8);
@@ -2609,7 +2585,7 @@ uint64_t ntfs_attr_map_whole_runlist(char **a1)
   }
 
   v2 = a1[1];
-  v3 = *(v2 + 16);
+  v3 = *(v2 + 2);
   search_ctx = ntfs_attr_get_search_ctx(v2, 0);
   if (!search_ctx)
   {
@@ -2635,7 +2611,7 @@ uint64_t ntfs_attr_map_whole_runlist(char **a1)
       v11 = ntfs_mapping_pairs_decompress(*(a1[1] + 2), v5[1], *a1);
       if (!v11)
       {
-        goto LABEL_26;
+        goto LABEL_25;
       }
 
       *a1 = v11;
@@ -2646,8 +2622,7 @@ uint64_t ntfs_attr_map_whole_runlist(char **a1)
       if (v9[2])
       {
         *__error() = 5;
-        v18 = *a1[1];
-        v12 = 718;
+        ntfs_log_redirect("ntfs_attr_map_whole_runlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 718, 256, 0, "First extent of inode %llu attribute has non-zero lowest_vcn");
         goto LABEL_25;
       }
 
@@ -2665,42 +2640,40 @@ uint64_t ntfs_attr_map_whole_runlist(char **a1)
     if (v8 + 1 < v9[2])
     {
       *__error() = 5;
-      v16 = *a1[1];
-      v12 = 740;
-LABEL_25:
-      ntfs_log_redirect("ntfs_attr_map_whole_runlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v12, 256);
-      goto LABEL_26;
+      ntfs_log_redirect("ntfs_attr_map_whole_runlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 740, 256, 0, "Inode %llu has corrupt attribute list");
+      goto LABEL_25;
     }
   }
 
   if (!v9)
   {
-    v12 = 745;
+    ntfs_log_redirect("ntfs_attr_map_whole_runlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 745, 256, 0, "Couldn't find attribute for runlist mapping");
     goto LABEL_25;
   }
 
 LABEL_19:
-  v14 = __error();
-  if (v8 && v8 != v7 - 1)
+  v13 = __error();
+  if (!v8 || v8 == v7 - 1)
   {
-    *v14 = 5;
-    v17 = *a1[1];
-    v12 = 753;
-    goto LABEL_25;
+    if (*v13 == 2)
+    {
+      v12 = 0;
+      a1[5] = (a1[5] | 8);
+      goto LABEL_26;
+    }
   }
 
-  if (*v14 == 2)
+  else
   {
-    v13 = 0;
-    a1[5] = (a1[5] | 8);
-    goto LABEL_27;
+    *v13 = 5;
+    ntfs_log_redirect("ntfs_attr_map_whole_runlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 753, 256, 0, "Failed to load full runlist: inode: %llu highest_vcn: 0x%llx last_vcn: 0x%llx", *a1[1]);
   }
 
+LABEL_25:
+  v12 = 0xFFFFFFFFLL;
 LABEL_26:
-  v13 = 0xFFFFFFFFLL;
-LABEL_27:
   free(v5);
-  return v13;
+  return v12;
 }
 
 char *ntfs_attr_find_vcn(uint64_t a1, uint64_t a2)
@@ -2801,16 +2774,15 @@ size_t ntfs_attr_pread(uint64_t a1, int64_t a2, size_t a3, char *a4)
   if (!a1 || (v8 = *(a1 + 8)) == 0 || ((a3 | a2) & 0x8000000000000000) != 0 || !a4 || (v9 = *(v8 + 16)) == 0)
   {
     *__error() = 22;
-    v14 = "ntfs_attr_pread";
-    v15 = 1080;
-    goto LABEL_15;
+    ntfs_log_redirect("ntfs_attr_pread", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1080, 256, 0, "%s: na=%p  b=%p  pos=%lld  count=%lld", "ntfs_attr_pread", a1, v4);
+    return -1;
   }
 
   if (*(a1 + 20) && (*(a1 + 40) & 2) != 0)
   {
-    v17 = __error();
-    v18 = 102;
-    goto LABEL_19;
+    v15 = __error();
+    v16 = 102;
+    goto LABEL_18;
   }
 
   v10 = *(v9 + 280);
@@ -2828,10 +2800,10 @@ size_t ntfs_attr_pread(uint64_t a1, int64_t a2, size_t a3, char *a4)
     {
       if (v11 != v13)
       {
-        ntfs_log_redirect("ntfs_attr_pread_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 886, 128);
-        v17 = __error();
-        v18 = 22;
-        goto LABEL_19;
+        ntfs_log_redirect("ntfs_attr_pread_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 886, 128, 0, "uninitialized encrypted file not supported\n");
+        v15 = __error();
+        v16 = 22;
+        goto LABEL_18;
       }
 
       v11 = (v11 + 511) & 0xFFFFFFFFFFFFFE00 | 2;
@@ -2843,9 +2815,9 @@ size_t ntfs_attr_pread(uint64_t a1, int64_t a2, size_t a3, char *a4)
   {
     if (*(a1 + 16) == 128 && *(a1 + 24) == &AT_UNNAMED && (*(v8 + 33) & 0x40) != 0 && (*(a1 + 40) & 2) != 0)
     {
-      v17 = __error();
-      v18 = 13;
-      goto LABEL_19;
+      v15 = __error();
+      v16 = 13;
+      goto LABEL_18;
     }
 
     if (!a3)
@@ -2869,44 +2841,44 @@ size_t ntfs_attr_pread(uint64_t a1, int64_t a2, size_t a3, char *a4)
 
   if ((*(a1 + 40) & 2) == 0)
   {
-    v19 = ntfs_malloc(0x40uLL);
-    if (!v19)
+    v17 = ntfs_malloc(0x40uLL);
+    if (!v17)
     {
       return -1;
     }
 
-    v20 = v19;
-    v21 = *(v8 + 8);
-    v22 = v21 + *(v21 + 20);
-    *v19 = v21;
-    v19[1] = v22;
-    *(v19 + 4) = 1;
-    v19[3] = v8;
-    *(v19 + 2) = 0u;
-    *(v19 + 3) = 0u;
-    if (!ntfs_attr_lookup(*(a1 + 16), *(a1 + 24), *(a1 + 32), 0, 0, 0, 0, v19))
+    v18 = v17;
+    v19 = *(v8 + 8);
+    v20 = v19 + *(v19 + 20);
+    *v17 = v19;
+    v17[1] = v20;
+    *(v17 + 4) = 1;
+    v17[3] = v8;
+    *(v17 + 2) = 0u;
+    *(v17 + 3) = 0u;
+    if (!ntfs_attr_lookup(*(a1 + 16), *(a1 + 24), *(a1 + 32), 0, 0, 0, 0, v17))
     {
-      v23 = v20[1];
-      v24 = v23 + *(v23 + 20);
-      if (v24 + *(v23 + 16) <= *v20 + *(v9 + 44))
+      v21 = v18[1];
+      v22 = v21 + *(v21 + 20);
+      if (v22 + *(v21 + 16) <= *v18 + *(v9 + 44))
       {
-        memcpy(v4, (v24 + a2), v5);
-        free(v20);
+        memcpy(v4, (v22 + a2), v5);
+        free(v18);
         return v5;
       }
 
       *__error() = 5;
-      ntfs_log_redirect("ntfs_attr_pread_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 916, 256);
+      ntfs_log_redirect("ntfs_attr_pread_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 916, 256, 0, "%s: Sanity check failed", "ntfs_attr_pread_i");
     }
 
-    free(v20);
+    free(v18);
     return -1;
   }
 
-  v25 = v5 + a2 - v13;
+  v23 = v5 + a2 - v13;
   if ((v5 + a2) <= v13)
   {
-    v25 = 0;
+    v23 = 0;
   }
 
   else
@@ -2918,320 +2890,311 @@ size_t ntfs_attr_pread(uint64_t a1, int64_t a2, size_t a3, char *a4)
     }
 
     v5 = v13 - a2;
-    bzero(&a4[v13 - a2], v25);
+    bzero(&a4[v13 - a2], v23);
     v10 = *(*(*(a1 + 8) + 16) + 280);
   }
 
-  if (!v10 || (*(a1 + 20) & 0x4000) == 0 || (v5 + a2) <= v13 - 2)
+  if (v10 && (*(a1 + 20) & 0x4000) != 0 && (v5 + a2) > v13 - 2)
   {
-    v27 = v5;
-    goto LABEL_46;
+    v24 = -*v12 & 0x1FF;
+    if (v5 + a2 == v13)
+    {
+      if (v5 != 1)
+      {
+        *&v4[v5 - 2] = v24;
+        v25 = v5 - 2;
+        v23 += 2;
+        goto LABEL_45;
+      }
+
+      v25 = 0;
+      *v4 = BYTE1(v24);
+    }
+
+    else
+    {
+      v4[v5 - 1] = -*v12;
+      v25 = v5 - 1;
+    }
+
+    ++v23;
   }
 
-  v26 = -*v12 & 0x1FF;
-  if (v5 + a2 != v13)
+  else
   {
-    v4[v5 - 1] = -*v12;
-    v27 = v5 - 1;
-    goto LABEL_83;
+    v25 = v5;
   }
 
-  if (v5 == 1)
-  {
-    v27 = 0;
-    *v4 = BYTE1(v26);
-LABEL_83:
-    ++v25;
-    goto LABEL_46;
-  }
-
-  *&v4[v5 - 2] = v26;
-  v27 = v5 - 2;
-  v25 += 2;
-LABEL_46:
+LABEL_45:
   vcn = ntfs_attr_find_vcn(a1, a2 >> *(v9 + 52));
   if (!vcn)
   {
-    if (*__error() != 2)
+    if (*__error() == 2)
     {
-      return -1;
+      *__error() = 5;
+      ntfs_log_redirect("ntfs_attr_pread_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 971, 256, 0, "%s: Failed to find VCN #1");
     }
 
-    *__error() = 5;
-    v14 = "ntfs_attr_pread_i";
-    v15 = 971;
-LABEL_15:
-    ntfs_log_redirect(v14, "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v15, 256);
     return -1;
   }
 
-  if (!v27)
+  if (!v25)
   {
     v5 = 0;
-LABEL_74:
-    v5 += v25;
+LABEL_73:
+    v5 += v23;
     return v5;
   }
 
-  v29 = vcn;
+  v27 = vcn;
   v5 = 0;
-  v30 = a2 - (*vcn << *(v9 + 52));
-  v42 = v25;
+  v28 = a2 - (*vcn << *(v9 + 52));
+  v39 = v23;
   while (1)
   {
-    if (v29[1] != -2)
+    if (v27[1] != -2)
     {
-      goto LABEL_52;
+      goto LABEL_51;
     }
 
-    v31 = ntfs_attr_find_vcn(a1, *v29);
-    if (!v31)
+    v29 = ntfs_attr_find_vcn(a1, *v27);
+    if (!v29)
     {
       break;
     }
 
-    v29 = v31;
-    v30 = v5 + a2 - (*v31 << *(v9 + 52));
-LABEL_52:
-    v32 = v29[2];
-    if (!v32)
+    v27 = v29;
+    v28 = v5 + a2 - (*v29 << *(v9 + 52));
+LABEL_51:
+    v30 = v27[2];
+    if (!v30)
     {
       *__error() = 5;
-      v41 = 997;
-      goto LABEL_89;
+      ntfs_log_redirect("ntfs_attr_pread_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 997, 256, 0, "%s: Zero run length");
+      goto LABEL_88;
     }
 
-    v33 = v29[1];
-    if ((v33 & 0x8000000000000000) == 0)
+    v31 = v27[1];
+    if ((v31 & 0x8000000000000000) == 0)
     {
-      v34 = (v32 << *(v9 + 52)) - v30;
-      if (v27 >= v34)
+      v32 = (v30 << *(v9 + 52)) - v28;
+      if (v25 >= v32)
       {
-        v35 = v34;
+        v33 = v32;
       }
 
       else
       {
-        v35 = v27;
+        v33 = v25;
       }
 
       do
       {
-        v36 = v5;
-        v37 = ntfs_pread(*v9, (v29[1] << *(v9 + 52)) + v30, v35, v4);
-        v38 = v37 & ~(v37 >> 63);
-        v27 -= v38;
-        v4 += v38;
-        v5 += v38;
-        if (v37 == v35)
+        v34 = v5;
+        v35 = ntfs_pread(*v9, (v27[1] << *(v9 + 52)) + v28, v33, v4);
+        v36 = v35 & ~(v35 >> 63);
+        v25 -= v36;
+        v4 += v36;
+        v5 += v36;
+        if (v35 == v33)
         {
-          v25 = v42;
-          goto LABEL_67;
+          v23 = v39;
+          goto LABEL_66;
         }
 
-        if (v37 != -1)
+        if (v35 != -1)
         {
           if (v5)
           {
             return v5;
           }
 
-          if (!v37)
+          if (!v35)
           {
             *__error() = 5;
           }
 
-          goto LABEL_79;
+          goto LABEL_78;
         }
       }
 
       while (*__error() == 4);
-      if (v36)
+      if (v34)
       {
         return v5;
       }
 
-LABEL_79:
-      v14 = "ntfs_attr_pread_i";
-      v15 = 1041;
-      goto LABEL_15;
+LABEL_78:
+      ntfs_log_redirect("ntfs_attr_pread_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1041, 256, 0, "%s: ntfs_pread failed");
+      return -1;
     }
 
-    if (v33 != -1)
+    if (v31 != -1)
     {
-      v41 = 1004;
-      goto LABEL_89;
+      ntfs_log_redirect("ntfs_attr_pread_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1004, 256, 0, "%s: Bad run (%lld)");
+      goto LABEL_88;
     }
 
-    v39 = (v32 << *(v9 + 52)) - v30;
-    if (v27 >= v39)
+    v37 = (v30 << *(v9 + 52)) - v28;
+    if (v25 >= v37)
     {
-      v40 = v39;
+      v38 = v37;
     }
 
     else
     {
-      v40 = v27;
+      v38 = v25;
     }
 
-    bzero(v4, v40);
-    v5 += v40;
-    v27 -= v40;
-    v4 += v40;
-LABEL_67:
-    v30 = 0;
-    v29 += 3;
-    if (!v27)
+    bzero(v4, v38);
+    v5 += v38;
+    v25 -= v38;
+    v4 += v38;
+LABEL_66:
+    v28 = 0;
+    v27 += 3;
+    if (!v25)
     {
-      goto LABEL_74;
+      goto LABEL_73;
     }
   }
 
-  if (*__error() != 2)
+  if (*__error() == 2)
   {
-    goto LABEL_90;
+    *__error() = 5;
+    ntfs_log_redirect("ntfs_attr_pread_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 988, 256, 0, "%s: Failed to find VCN #2");
   }
 
-  *__error() = 5;
-  v41 = 988;
-LABEL_89:
-  ntfs_log_redirect("ntfs_attr_pread_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v41, 256);
-LABEL_90:
+LABEL_88:
   if (v5)
   {
     return v5;
   }
 
-  v17 = __error();
-  v18 = 5;
-LABEL_19:
-  *v17 = v18;
+  v15 = __error();
+  v16 = 5;
+LABEL_18:
+  *v15 = v16;
   return -1;
 }
 
-uint64_t ntfs_attr_pwrite(uint64_t a1, uint64_t a2, int64_t a3, char *a4)
+uint64_t ntfs_attr_pwrite(uint64_t a1, int64_t a2, int64_t a3, char *a4)
 {
-  v70 = -1;
+  v66 = -1;
   if (!a1 || (v5 = *(a1 + 8)) == 0 || (v6 = a3, (a3 | a2) < 0) || (v8 = a4) == 0 || (v9 = *(v5 + 16)) == 0)
   {
     *__error() = 22;
-    v13 = 1392;
-LABEL_10:
-    ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v13, 256);
+    ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1392, 256, 0, "%s");
     return -1;
   }
 
   v10 = *(a1 + 20);
-  if (!v10)
+  if (v10)
   {
-    *(a1 + 86) = 0;
-    if ((v10 & 0x4000) != 0 && !*(v9 + 280))
+    goto LABEL_7;
+  }
+
+  *(a1 + 86) = 0;
+  if ((v10 & 0x4000) != 0 && !*(v9 + 280))
+  {
+    v11 = __error();
+    v12 = 13;
+    goto LABEL_8;
+  }
+
+  if (!a3)
+  {
+    return v6;
+  }
+
+  search_ctx = *(a1 + 40);
+  v15 = *(a1 + 56);
+  if (*(a1 + 16) == 128 && v15 <= a2)
+  {
+    v16 = *(a1 + 40);
+    if ((search_ctx & 2) != 0)
     {
-      v11 = __error();
-      v12 = 13;
-      goto LABEL_8;
+      LOBYTE(v16) = search_ctx | 0x10;
+      *(a1 + 40) = search_ctx | 0x10;
     }
+  }
 
-    if (!a3)
-    {
-      return v6;
-    }
+  else
+  {
+    v16 = *(a1 + 40);
+  }
 
-    search_ctx = *(a1 + 40);
-    v16 = *(a1 + 56);
-    if (*(a1 + 16) == 128 && v16 <= a2)
-    {
-      v17 = *(a1 + 40);
-      if ((search_ctx & 2) != 0)
-      {
-        LOBYTE(v17) = search_ctx | 0x10;
-        *(a1 + 40) = search_ctx | 0x10;
-      }
-    }
+  v17 = a3 + a2;
+  if (a3 + a2 <= v15)
+  {
+    v19 = 0;
+    goto LABEL_28;
+  }
 
-    else
-    {
-      v17 = *(a1 + 40);
-    }
+  if ((v16 & 0x10) != 0)
+  {
+    v18 = 2;
+  }
 
-    v18 = a3 + a2;
-    if (a3 + a2 <= v16)
-    {
-      v20 = 0;
-    }
+  else
+  {
+    v18 = 1;
+  }
 
-    else
-    {
-      if ((v17 & 0x10) != 0)
-      {
-        v19 = 2;
-      }
+  if (sub_1000110E0(a1, (v6 + a2), v18))
+  {
+    ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1439, 256, 0, "Failed to enlarge attribute");
+    return -1;
+  }
 
-      else
-      {
-        v19 = 1;
-      }
-
-      if (sub_1000110E0(a1, v6 + a2, v19))
-      {
-        v13 = 1439;
-        goto LABEL_10;
-      }
-
-      if (*(a1 + 20))
-      {
-        goto LABEL_7;
-      }
-
-      v17 = *(a1 + 40);
-      v20 = 2;
-    }
-
-    v71 = 0;
-    v21 = *(a1 + 64);
-    v68 = v21;
-    v69 = 0;
-    if ((v17 & 2) == 0)
+  if (!*(a1 + 20))
+  {
+    v16 = *(a1 + 40);
+    v19 = 2;
+LABEL_28:
+    v67 = 0;
+    v20 = *(a1 + 64);
+    v64 = v20;
+    v65 = 0;
+    if ((v16 & 2) == 0)
     {
       search_ctx = ntfs_attr_get_search_ctx(*(a1 + 8), 0);
       if (search_ctx)
       {
         if (ntfs_attr_lookup(*(a1 + 16), *(a1 + 24), *(a1 + 32), 0, 0, 0, 0, search_ctx))
         {
-          v22 = 1466;
+          ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1466, 256, 0, "%s: lookup failed");
         }
 
         else
         {
-          v29 = *(search_ctx + 8);
-          v30 = v29 + *(v29 + 20);
-          if (v30 + *(v29 + 16) <= *search_ctx + *(v9 + 44))
+          v27 = *(search_ctx + 8);
+          v28 = v27 + *(v27 + 20);
+          if (v28 + *(v27 + 16) <= *search_ctx + *(v9 + 44))
           {
-            memcpy((v30 + a2), v8, v6);
+            memcpy((v28 + a2), v8, v6);
             if (!ntfs_mft_records_write(v9, **(search_ctx + 24), 1, *search_ctx))
             {
               free(search_ctx);
               return v6;
             }
 
-            v22 = 1487;
+            ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1487, 256, 0, "%s: failed to write mft record");
           }
 
           else
           {
             *__error() = 5;
-            v22 = 1474;
+            ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1474, 256, 0, "%s: Sanity check failed");
           }
         }
-
-        ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v22, 256);
       }
 
-LABEL_106:
-      v55 = *__error();
-      if ((v20 & 1) == 0)
+LABEL_104:
+      v53 = *__error();
+      if ((v19 & 1) == 0)
       {
-        goto LABEL_113;
+        goto LABEL_111;
       }
 
       if (search_ctx)
@@ -3244,331 +3207,327 @@ LABEL_106:
         search_ctx = ntfs_attr_get_search_ctx(*(a1 + 8), 0);
         if (!search_ctx)
         {
-LABEL_112:
-          ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1760, 128);
-LABEL_113:
+LABEL_110:
+          ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1760, 128, 0, "Eeek! Failed to recover from error. Leaving metadata in inconsistent state! Run chkdsk!\n");
+LABEL_111:
           if (!search_ctx)
           {
-LABEL_115:
-            if (v70 != -1)
+LABEL_113:
+            if (v66 != -1)
             {
               sub_100014038(a1, 0, 1);
             }
 
-            if ((v20 & 2) != 0 && sub_1000110E0(a1, v16, 1))
+            if ((v19 & 2) != 0 && sub_1000110E0(a1, v15, 1))
             {
-              ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1772, 256);
+              ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1772, 256, 0, "Failed to restore data_size");
             }
 
-            *__error() = v55;
+            *__error() = v53;
             return -1;
           }
 
-LABEL_114:
+LABEL_112:
           free(search_ctx);
-          goto LABEL_115;
+          goto LABEL_113;
         }
       }
 
       if (!ntfs_attr_lookup(*(a1 + 16), *(a1 + 24), *(a1 + 32), 0, 0, 0, 0, search_ctx))
       {
-        *(a1 + 64) = v68;
-        *(*(search_ctx + 8) + 56) = v68;
+        *(a1 + 64) = v64;
+        *(*(search_ctx + 8) + 56) = v64;
         if (!ntfs_mft_records_write(v9, **(search_ctx + 24), 1, *search_ctx))
         {
-          goto LABEL_114;
+          goto LABEL_112;
         }
       }
 
-      goto LABEL_112;
+      goto LABEL_110;
     }
 
-    if (v18 > v21)
+    if (v17 > v20)
     {
-      if ((v17 & 0x10) != 0)
+      if ((v16 & 0x10) != 0)
       {
-        v23 = a2 >> *(v9 + 52);
-        v24 = v23 != 0;
-        v25 = v23 - 1;
-        if (v24)
+        v21 = a2 >> *(v9 + 52);
+        v22 = v21 != 0;
+        v23 = v21 - 1;
+        if (v22)
         {
-          v26 = v25;
+          v24 = v23;
         }
 
         else
         {
-          v26 = 0;
+          v24 = 0;
         }
 
-        if (sub_100011874(a1, v26))
+        if (sub_100011874(a1, v24))
         {
-          goto LABEL_105;
+          goto LABEL_103;
         }
 
-        v70 = v26;
+        v66 = v24;
       }
 
       else if (ntfs_attr_map_whole_runlist(a1))
       {
-        goto LABEL_105;
+        goto LABEL_103;
       }
 
-      v27 = search_ctx;
+      v25 = search_ctx;
       search_ctx = ntfs_attr_get_search_ctx(*(a1 + 8), 0);
       if (!search_ctx)
       {
-        goto LABEL_106;
+        goto LABEL_104;
       }
 
       if (ntfs_attr_lookup(*(a1 + 16), *(a1 + 24), *(a1 + 32), 0, 0, 0, 0, search_ctx))
       {
-        goto LABEL_106;
+        goto LABEL_104;
       }
 
-      v28 = *(a1 + 64);
-      if (a2 > v28)
+      v26 = *(a1 + 64);
+      if (a2 > v26)
       {
-        if (sub_100011A04(a1, v28, a2 - v28))
+        if (sub_100011A04(a1, v26, a2 - v26))
         {
-          goto LABEL_106;
+          goto LABEL_104;
         }
       }
 
-      *(*(search_ctx + 8) + 56) = v18;
+      *(*(search_ctx + 8) + 56) = v17;
       if (ntfs_mft_records_write(v9, **(search_ctx + 24), 1, *search_ctx))
       {
-        *(*(search_ctx + 8) + 56) = v68;
+        *(*(search_ctx + 8) + 56) = v64;
         ntfs_mft_records_write(v9, **(search_ctx + 24), 1, *search_ctx);
-        goto LABEL_106;
+        goto LABEL_104;
       }
 
-      *(a1 + 64) = v18;
+      *(a1 + 64) = v17;
       free(search_ctx);
-      v20 |= 1u;
-      LOBYTE(search_ctx) = v27;
+      v19 |= 1u;
+      LOBYTE(search_ctx) = v25;
     }
 
     vcn = ntfs_attr_find_vcn(a1, a2 >> *(v9 + 52));
-    v69 = vcn;
+    v65 = vcn;
     if (!vcn)
     {
       if (*__error() == 2)
       {
         *__error() = 5;
-        ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1578, 256);
+        ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1578, 256, 0, "%s: Failed to find VCN #3", "ntfs_attr_pwrite");
       }
 
-      goto LABEL_105;
+      goto LABEL_103;
     }
 
-    v32 = vcn;
-    v59 = search_ctx;
-    v64 = 0;
+    v30 = vcn;
+    v55 = search_ctx;
+    v60 = 0;
     search_ctx = 0;
-    v33 = a2 - (*vcn << *(v9 + 52));
-    v71 = v33;
-    v34 = v6;
-    v61 = v16;
-    v60 = v20;
+    v31 = a2 - (*vcn << *(v9 + 52));
+    v67 = v31;
+    v32 = v6;
+    v57 = v15;
+    v56 = v19;
     while (2)
     {
-      if (v32[1] == -2)
+      if (v30[1] == -2)
       {
-        v35 = ntfs_attr_find_vcn(a1, *v32);
-        v69 = v35;
-        if (!v35)
+        v33 = ntfs_attr_find_vcn(a1, *v30);
+        v65 = v33;
+        if (!v33)
         {
-          if (*__error() != 2)
+          if (*__error() == 2)
           {
-LABEL_96:
-            v53 = __error();
-            if (!search_ctx)
-            {
-              v56 = *v53;
-              *__error() = v56;
-              goto LABEL_122;
-            }
-
-            v16 = v61;
-            v20 = v60;
-            if ((v60 & 1) == 0 || search_ctx + a2 > *(a1 + 64))
-            {
-              goto LABEL_99;
-            }
-
-LABEL_105:
-            search_ctx = 0;
-            goto LABEL_106;
+            *__error() = 5;
+            ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1595, 256, 0, "%s: Failed to find VCN #4");
           }
 
-          *__error() = 5;
-          v57 = 1595;
-LABEL_128:
-          ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v57, 256);
-          goto LABEL_96;
+LABEL_94:
+          v51 = __error();
+          if (!search_ctx)
+          {
+            v54 = *v51;
+            *__error() = v54;
+            goto LABEL_120;
+          }
+
+          v15 = v57;
+          v19 = v56;
+          if ((v56 & 1) == 0 || search_ctx + a2 > *(a1 + 64))
+          {
+            goto LABEL_97;
+          }
+
+LABEL_103:
+          search_ctx = 0;
+          goto LABEL_104;
         }
 
-        v32 = v35;
-        v33 = search_ctx + a2 - (*v35 << *(v9 + 52));
-        v71 = v33;
+        v30 = v33;
+        v31 = search_ctx + a2 - (*v33 << *(v9 + 52));
+        v67 = v31;
       }
 
-      v36 = v32;
-      v37 = v32[2];
-      if (v37)
+      v34 = v30;
+      v35 = v30[2];
+      if (v35)
       {
-        v65 = v36;
-        v38 = v36[1];
-        if ((v38 & 0x8000000000000000) == 0)
+        v61 = v34;
+        v36 = v34[1];
+        if ((v36 & 0x8000000000000000) == 0)
         {
-          goto LABEL_67;
+          goto LABEL_65;
         }
 
-        if (v38 == -1)
+        if (v36 == -1)
         {
-          v39 = *v65;
-          if (!sub_100011B78(a1, v34, &v71, &v69, &v70))
+          v37 = *v61;
+          if (!sub_100011B78(a1, v32, &v67, &v65, &v66))
           {
-            v64 = v39 + v37;
-            v65 = v69;
-            v37 = v69[2];
-            v33 = v71;
-LABEL_67:
-            if (v6 >= (v37 << *(v9 + 52)) - v33)
+            v60 = v37 + v35;
+            v61 = v65;
+            v35 = v65[2];
+            v31 = v67;
+LABEL_65:
+            if (v6 >= ((v35 << *(v9 + 52)) - v31))
             {
-              v40 = (v37 << *(v9 + 52)) - v33;
+              v38 = (v35 << *(v9 + 52)) - v31;
             }
 
             else
             {
-              v40 = v6;
+              v38 = v6;
             }
 
-            v66 = v33;
-            v67 = v33 + v40;
-            v41 = v65;
+            v62 = v31;
+            v63 = v31 + v38;
+            v39 = v61;
             while (1)
             {
-              v42 = v40;
+              v40 = v38;
               if ((*(v9 + 16) & 1) == 0)
               {
-                v43 = *(v9 + 52);
-                v44 = v41[1] << v43;
-                v45 = v67 + (*v41 << v43);
-                v46 = (*(v9 + 40) + v45 - 1) & ~(*(v9 + 40) - 1);
-                v47 = v46 - v45;
-                if (v46 != v45 && ((v48 = v64 << v43, v45 != *(a1 + 64)) ? (v49 = v45 < v48) : (v49 = 1), v49))
+                v41 = *(v9 + 52);
+                v42 = v39[1] << v41;
+                v43 = v63 + (*v39 << v41);
+                v44 = (*(v9 + 40) + v43 - 1) & ~(*(v9 + 40) - 1);
+                v45 = v44 - v43;
+                if (v44 != v43 && ((v46 = v60 << v41, v43 != *(a1 + 64)) ? (v47 = v43 < v46) : (v47 = 1), v47))
                 {
-                  v62 = v47 + v40;
-                  v63 = v44;
-                  v50 = ntfs_malloc(v47 + v40);
-                  if (!v50)
+                  v58 = v45 + v38;
+                  v59 = v42;
+                  v48 = ntfs_malloc(v45 + v38);
+                  if (!v48)
                   {
-                    goto LABEL_123;
+                    goto LABEL_121;
                   }
 
-                  v51 = v50;
-                  memcpy(v50, v8, v40);
-                  bzero(&v51[v40], v47);
-                  v52 = ntfs_pwrite(*v9, v63 + v66, v62, v51);
-                  if (v52 == v62)
+                  v49 = v48;
+                  memcpy(v48, v8, v38);
+                  bzero(&v49[v38], v45);
+                  v50 = ntfs_pwrite(*v9, v59 + v62, v58, v49);
+                  if (v50 == v58)
                   {
-                    v42 = v40;
+                    v40 = v38;
                   }
 
                   else
                   {
-                    v42 = v52;
+                    v40 = v50;
                   }
 
-                  free(v51);
-                  v41 = v65;
+                  free(v49);
+                  v39 = v61;
                 }
 
                 else
                 {
-                  v42 = ntfs_pwrite(*v9, v44 + v66, v40, v8);
+                  v40 = ntfs_pwrite(*v9, v42 + v62, v38, v8);
                 }
               }
 
-              if (v42 >= 1)
+              if (v40 >= 1)
               {
-                search_ctx += v42;
-                v34 -= v42;
-                v8 += v42;
-                v6 -= v42;
+                search_ctx += v40;
+                v32 -= v40;
+                v8 += v40;
+                v6 -= v40;
               }
 
-              if (v42 == v40)
+              if (v40 == v38)
               {
                 break;
               }
 
-              if (v42 != -1)
+              if (v40 != -1)
               {
-                if (!v42)
+                if (!v40)
                 {
                   *__error() = 5;
                 }
 
-                goto LABEL_96;
+                goto LABEL_94;
               }
 
               if (*__error() != 4)
               {
-                goto LABEL_96;
+                goto LABEL_94;
               }
             }
 
-            v33 = 0;
-            v32 = v41 + 3;
-            v69 = v32;
-            v71 = 0;
+            v31 = 0;
+            v30 = v39 + 3;
+            v65 = v30;
+            v67 = 0;
             if (v6)
             {
               continue;
             }
 
-LABEL_99:
+LABEL_97:
             if ((*(a1 + 40) & 0x18) != 0)
             {
-              if (sub_100014038(a1, v70 & ~(v70 >> 63), 1))
+              if (sub_100014038(a1, v66 & ~(v66 >> 63), 1))
               {
                 return -1;
               }
 
-              v54 = *(a1 + 40);
-              if ((v59 & 2) == 0)
+              v52 = *(a1 + 40);
+              if ((v55 & 2) == 0)
               {
-                v54 &= 0xFFFFFFFFFFFFFFEBLL;
+                v52 &= 0xFFFFFFFFFFFFFFEBLL;
               }
 
-              *(a1 + 40) = v54 & 0xFFFFFFFFFFFFFFEFLL;
+              *(a1 + 40) = v52 & 0xFFFFFFFFFFFFFFEFLL;
             }
 
             return search_ctx;
           }
 
-LABEL_123:
+LABEL_121:
           search_ctx = 0;
-LABEL_122:
-          v16 = v61;
-          v20 = v60;
-          goto LABEL_106;
+LABEL_120:
+          v15 = v57;
+          v19 = v56;
+          goto LABEL_104;
         }
 
         *__error() = 5;
-        v58 = v65[1];
-        v57 = 1614;
+        ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1614, 256, 0, "%s: Unexpected LCN (%lld)");
       }
 
       else
       {
         *__error() = 5;
-        v57 = 1604;
+        ntfs_log_redirect("ntfs_attr_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1604, 256, 0, "%s: Zero run length");
       }
 
-      goto LABEL_128;
+      goto LABEL_94;
     }
   }
 
@@ -3580,7 +3539,7 @@ LABEL_8:
   return -1;
 }
 
-uint64_t sub_1000110E0(uint64_t a1, uint64_t a2, int a3)
+uint64_t sub_1000110E0(uint64_t a1, char *a2, int a3)
 {
   if (a1)
   {
@@ -3622,10 +3581,7 @@ uint64_t sub_1000110E0(uint64_t a1, uint64_t a2, int a3)
         if (!v8 && (*(a1 + 40) & 2) != 0)
         {
           *__error() = 102;
-          v40 = "ntfs_attr_truncate_i";
-          v41 = 5636;
-LABEL_86:
-          ntfs_log_redirect(v40, "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v41, 256);
+          ntfs_log_redirect("ntfs_attr_truncate_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5636, 256, 0, "Failed to truncate compressed attribute");
           return 0xFFFFFFFFLL;
         }
 
@@ -3633,7 +3589,7 @@ LABEL_86:
         {
           if (v3 && v6 < v3 && v7)
           {
-            v3 = (*(a1 + 64) | (*(a1 + 80) - 1)) + 1;
+            v3 = ((*(a1 + 64) | (*(a1 + 80) - 1)) + 1);
           }
 
           if (v3 <= v6)
@@ -3668,33 +3624,31 @@ LABEL_18:
         if (ntfs_attr_lookup(*(a1 + 16), *(a1 + 24), *(a1 + 32), 0, 0, 0, 0, search_ctx))
         {
           v33 = *__error();
-          v34 = 4203;
-LABEL_109:
-          ntfs_log_redirect("ntfs_resident_attr_resize_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v34, 256);
-LABEL_110:
-          v32 = 0xFFFFFFFFLL;
-LABEL_111:
-          free(search_ctx);
-          *__error() = v33;
-          return v32;
+          ntfs_log_redirect("ntfs_resident_attr_resize_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4203, 256, 0, "ntfs_attr_lookup failed");
+          goto LABEL_108;
         }
 
         v14 = *(*(a1 + 8) + 16);
         if ((ntfs_attr_size_bounds_check(v14, *(a1 + 16), v3) & 0x80000000) != 0)
         {
-          v35 = *__error();
-          if (v35 == 2)
+          v34 = *__error();
+          if (v34 == 2)
           {
             v33 = 5;
           }
 
           else
           {
-            v33 = v35;
+            v33 = v34;
           }
 
-          v34 = 4215;
-          goto LABEL_109;
+          ntfs_log_redirect("ntfs_resident_attr_resize_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4215, 256, 0, "%s: bounds check failed");
+LABEL_108:
+          v32 = 0xFFFFFFFFLL;
+LABEL_109:
+          free(search_ctx);
+          *__error() = v33;
+          return v32;
         }
 
         if (*(v14 + 44) > v3)
@@ -3704,7 +3658,7 @@ LABEL_111:
           {
             v33 = *__error();
             v32 = 4294967294;
-            goto LABEL_111;
+            goto LABEL_109;
           }
 
           if (!v15)
@@ -3718,8 +3672,8 @@ LABEL_111:
           if (*__error() != 28 && *__error() != 1)
           {
             v33 = *__error();
-            v34 = 4282;
-            goto LABEL_109;
+            ntfs_log_redirect("ntfs_resident_attr_resize_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4282, 256, 0, "Failed to make attribute non-resident");
+            goto LABEL_108;
           }
 
           v16 = *(*(a1 + 8) + 8);
@@ -3747,8 +3701,8 @@ LABEL_111:
                 if (!v20)
                 {
                   v33 = *__error();
-                  v34 = 4309;
-                  goto LABEL_109;
+                  ntfs_log_redirect("ntfs_resident_attr_resize_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4309, 256, 0, "Couldn't open attribute");
+                  goto LABEL_108;
                 }
 
                 v21 = v20;
@@ -3765,7 +3719,7 @@ LABEL_111:
                   {
                     v33 = *__error();
                     ntfs_attr_close(v21);
-                    goto LABEL_110;
+                    goto LABEL_108;
                   }
 
                   ntfs_inode_mark_dirty(*(v21 + 8));
@@ -3781,8 +3735,8 @@ LABEL_111:
           if (*__error() != 2)
           {
             v33 = *__error();
-            v34 = 4340;
-            goto LABEL_109;
+            ntfs_log_redirect("ntfs_resident_attr_resize_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4340, 256, 0, "%s: Attribute lookup failed 1");
+            goto LABEL_108;
           }
 
           v22 = *(a1 + 16);
@@ -3791,9 +3745,8 @@ LABEL_111:
             free(search_ctx);
             if (ntfs_inode_free_space(*(a1 + 8), 72))
             {
-              v40 = "ntfs_resident_attr_resize_i";
-              v41 = 4352;
-              goto LABEL_86;
+              ntfs_log_redirect("ntfs_resident_attr_resize_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4352, 256, 0, "Could not free space in MFT record");
+              return 0xFFFFFFFFLL;
             }
           }
 
@@ -3810,16 +3763,16 @@ LABEL_111:
             *(search_ctx + 3) = 0u;
             if (ntfs_attr_lookup(*(a1 + 16), *(a1 + 24), *(a1 + 32), 0, 0, 0, 0, search_ctx))
             {
-              ntfs_log_redirect("ntfs_resident_attr_resize_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4367, 256);
+              ntfs_log_redirect("ntfs_resident_attr_resize_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4367, 256, 0, "%s: Attribute lookup failed 2", "ntfs_resident_attr_resize_i");
               v33 = *__error();
-              goto LABEL_110;
+              goto LABEL_108;
             }
 
             if (*(*search_ctx + 24) == *(*search_ctx + 20) + *(search_ctx[1] + 4) + 8)
             {
               v32 = 4294967294;
               v33 = 28;
-              goto LABEL_111;
+              goto LABEL_109;
             }
 
             v26 = *(a1 + 8);
@@ -3834,16 +3787,16 @@ LABEL_111:
               if (!v27)
               {
                 v33 = *__error();
-                v34 = 4400;
-                goto LABEL_109;
+                ntfs_log_redirect("ntfs_resident_attr_resize_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4400, 256, 0, "Couldn't allocate new MFT record");
+                goto LABEL_108;
               }
 
               v28 = v27;
               if (ntfs_attr_record_move_to(search_ctx, v27))
               {
                 v33 = *__error();
-                v34 = 4406;
-                goto LABEL_109;
+                ntfs_log_redirect("ntfs_resident_attr_resize_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4406, 256, 0, "Couldn't move attribute to new MFT record");
+                goto LABEL_108;
               }
 
               if (*(*(a1 + 8) + 48) == -1)
@@ -3880,82 +3833,82 @@ LABEL_58:
 
       *(a1 + 56) = v3;
       *(a1 + 64) = v3;
-      v36 = (v3 + 7) & 0x7FFFFFFFFFFFFFF8;
-      *(a1 + 48) = v36;
-      v37 = *(a1 + 20);
-      v38 = *(a1 + 16);
+      v35 = (v3 + 7) & 0x7FFFFFFFFFFFFFF8;
+      *(a1 + 48) = v35;
+      v36 = *(a1 + 20);
+      v37 = *(a1 + 16);
       if (*(a1 + 20))
       {
         goto LABEL_73;
       }
 
-      if (v38 == 128)
+      if (v37 == 128)
       {
         if (*(a1 + 24) == &AT_UNNAMED && (*(*(a1 + 8) + 33) & 2) != 0)
         {
 LABEL_73:
-          *(a1 + 72) = v36;
-          goto LABEL_91;
+          *(a1 + 72) = v35;
+          goto LABEL_90;
         }
 
-        v38 = 128;
+        v37 = 128;
       }
 
-LABEL_91:
-      v42 = *(a1 + 8);
-      v43 = *(*(v42 + 8) + 22);
-      if ((v43 & 2) != 0)
+LABEL_90:
+      v39 = *(a1 + 8);
+      v40 = *(*(v39 + 8) + 22);
+      if ((v40 & 2) != 0)
       {
-        if (v38 != 144 || *(a1 + 24) != NTFS_INDEX_I30)
+        if (v37 != 144 || *(a1 + 24) != NTFS_INDEX_I30)
         {
-          goto LABEL_115;
+          goto LABEL_113;
         }
 
-        *(v42 + 64) = v3;
-        if (!v37)
+        *(v39 + 64) = v3;
+        if (!v36)
         {
-          *(v42 + 72) = v36;
-          *(v42 + 24) |= 0x40uLL;
-          goto LABEL_115;
+          *(v39 + 72) = v35;
+          *(v39 + 24) |= 0x40uLL;
+          goto LABEL_113;
         }
       }
 
       else
       {
-        if (v38 != 128 || *(a1 + 24) != &AT_UNNAMED)
+        if (v37 != 128 || *(a1 + 24) != &AT_UNNAMED)
         {
-          goto LABEL_115;
+          goto LABEL_113;
         }
 
-        *(v42 + 64) = v3;
-        if (!v37 && (*(v42 + 33) & 2) == 0)
+        *(v39 + 64) = v3;
+        if (!v36 && (*(v39 + 33) & 2) == 0)
         {
-          v46 = *(v42 + 24);
-          v44 = (v42 + 24);
-          v45 = v46;
-          v44[6] = v36;
-LABEL_103:
-          *v44 = v45 | 0x48;
-          goto LABEL_115;
+          v43 = *(v39 + 24);
+          v41 = (v39 + 24);
+          v42 = v43;
+          v41[6] = v35;
+LABEL_102:
+          *v41 = v42 | 0x48;
+          goto LABEL_113;
         }
       }
 
       if ((*(a1 + 40) & 2) != 0)
       {
-        v36 = *(a1 + 72);
+        v35 = *(a1 + 72);
       }
 
-      v47 = *(v42 + 24);
-      v44 = (v42 + 24);
-      v45 = v47;
-      v44[6] = v36;
-      *v44 = v47 | 0x40;
-      if ((v43 & 2) == 0)
+      v44 = *(v39 + 24);
+      v41 = (v39 + 24);
+      v42 = v44;
+      v41[6] = v35;
+      *v41 = v44 | 0x40;
+      if ((v40 & 2) == 0)
       {
-        goto LABEL_103;
+        goto LABEL_102;
       }
 
-LABEL_115:
+LABEL_113:
       ntfs_inode_mark_dirty(search_ctx[3]);
       free(search_ctx);
       return 0;
@@ -4014,7 +3967,7 @@ uint64_t sub_100011874(char **a1, uint64_t a2)
     v17 = !v16;
     if (v16)
     {
-      ntfs_log_redirect("ntfs_attr_map_partial_runlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 631, 128);
+      ntfs_log_redirect("ntfs_attr_map_partial_runlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 631, 128, 0, "Corrupt attribute list\n");
     }
 
     if (!*(v12 + 16))
@@ -4142,7 +4095,7 @@ uint64_t sub_100011A04(uint64_t a1, uint64_t a2, uint64_t a3)
         v18 = ntfs_rl_pwrite(v11, v10, v8, v4, v15, v7);
         if (v18 <= 0)
         {
-          ntfs_log_redirect("ntfs_attr_fill_zero", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1141, 256);
+          ntfs_log_redirect("ntfs_attr_fill_zero", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1141, 256, 0, "Failed to zero space");
           v20 = 0xFFFFFFFFLL;
           goto LABEL_27;
         }
@@ -4160,20 +4113,20 @@ LABEL_27:
   return v20;
 }
 
-uint64_t sub_100011B78(char **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
+uint64_t sub_100011B78(char **a1, uint64_t a2, uint64_t *a3, uint64_t **a4, uint64_t *a5)
 {
   v9 = *(a1[1] + 2);
   v10 = *a4;
   v11 = *(v9 + 52);
   v12 = *a3;
-  if ((*(*a4 + 16) << v11) - *a3 >= a2)
+  if (((*a4)[2] << v11) - *a3 >= a2)
   {
     v13 = a2;
   }
 
   else
   {
-    v13 = (*(*a4 + 16) << v11) - *a3;
+    v13 = ((*a4)[2] << v11) - *a3;
   }
 
   v14 = *v10;
@@ -4195,9 +4148,8 @@ uint64_t sub_100011B78(char **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint6
   *a4 = vcn;
   if (!vcn)
   {
-    v22 = 1201;
+    ntfs_log_redirect("ntfs_attr_fill_hole", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1201, 128, 0, "Failed to find run after mapping runlist. Please report to %s.\n");
 LABEL_65:
-    ntfs_log_redirect("ntfs_attr_fill_hole", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v22, 128);
     *__error() = 5;
     return 0xFFFFFFFFLL;
   }
@@ -4221,7 +4173,7 @@ LABEL_65:
         v21 = v17 - *v19;
       }
 
-      v23 = v21 + v20;
+      v22 = v21 + v20;
       if (v21 + v20 != -1)
       {
         goto LABEL_29;
@@ -4231,111 +4183,111 @@ LABEL_65:
     }
   }
 
-  v24 = (vcn + 32);
+  v23 = (vcn + 32);
   do
   {
-    if (!*(v24 - 2))
+    if (!*(v23 - 2))
     {
-      v23 = -1;
+      v22 = -1;
       goto LABEL_29;
     }
 
-    v26 = *v24;
-    v24 += 3;
-    v25 = v26;
+    v25 = *v23;
+    v23 += 3;
+    v24 = v25;
   }
 
-  while (v26 < 0);
-  v27 = v25 + v17 - *(v24 - 4);
-  if (v27 < 0)
+  while (v25 < 0);
+  v26 = v24 + v17 - *(v23 - 4);
+  if (v26 < 0)
   {
-    v23 = -1;
+    v22 = -1;
   }
 
   else
   {
-    v23 = v27;
+    v22 = v26;
   }
 
 LABEL_29:
-  v28 = *vcn - v17 + ((v13 + *a3 - 1) >> *(v9 + 52)) + 1;
-  if (*(a1 + 20) && (v29 = *(a1 + 85), v28 < v29))
+  v27 = *vcn - v17 + ((v13 + *a3 - 1) >> *(v9 + 52)) + 1;
+  if (*(a1 + 20) && (v28 = *(a1 + 85), v27 < v28))
   {
-    if ((v17 & -v29) <= *vcn)
+    if ((v17 & -v28) <= *vcn)
     {
-      v30 = *vcn;
+      v29 = *vcn;
     }
 
     else
     {
-      v30 = v17 & -v29;
+      v29 = v17 & -v28;
     }
 
-    v28 = ((v29 - 1) & ~v30) + 1;
-    if (v28 > *(vcn + 2))
+    v27 = ((v28 - 1) & ~v29) + 1;
+    if (v27 > *(vcn + 2))
     {
-      v22 = 1261;
+      ntfs_log_redirect("ntfs_attr_fill_hole", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1261, 128, 0, "Cannot allocate %lld clusters within a hole of %lld\n");
       goto LABEL_65;
     }
 
-    v31 = v9;
+    v30 = v9;
   }
 
   else
   {
-    v31 = v9;
-    v30 = v17;
+    v30 = v9;
+    v29 = v17;
   }
 
-  v32 = ntfs_cluster_alloc(v31, v30, v28, v23, 1u);
-  if (!v32)
+  v31 = ntfs_cluster_alloc(v30, v29, v27, v22, 1u);
+  if (!v31)
   {
     return 0xFFFFFFFFLL;
   }
 
   if ((*(a1 + 10) & 0x80FF) != 0)
   {
-    a1[9] += v28 << *(v9 + 52);
+    a1[9] += v27 << *(v9 + 52);
   }
 
-  v33 = ntfs_runlists_merge(*a1, v32);
-  *a4 = v33;
-  if (!v33 || *(a1 + 20) && (v34 = *a1, *a1 = v33, v33 = ntfs_rl_extend(a1, *a4, 2), (*a4 = v33) == 0) && (*a1 = v34, (v33 = *a4) == 0))
+  v32 = ntfs_runlists_merge(*a1, v31);
+  *a4 = v32;
+  if (!v32 || *(a1 + 20) && (v33 = *a1, *a1 = v32, v32 = ntfs_rl_extend(a1, *a4, 2), (*a4 = v32) == 0) && (*a1 = v33, (v32 = *a4) == 0))
   {
-    v41 = *__error();
-    ntfs_log_redirect("ntfs_attr_fill_hole", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1288, 256);
-    if (ntfs_cluster_free_from_rl(v9, v32))
+    v40 = *__error();
+    ntfs_log_redirect("ntfs_attr_fill_hole", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1288, 256, 0, "Failed to merge runlists");
+    if (ntfs_cluster_free_from_rl(v9, v31))
     {
-      ntfs_log_redirect("ntfs_attr_fill_hole", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1291, 256);
+      ntfs_log_redirect("ntfs_attr_fill_hole", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1291, 256, 0, "Failed to free hot clusters. Please run chkdsk /f");
     }
 
-    *__error() = v41;
+    *__error() = v40;
     return 0xFFFFFFFFLL;
   }
 
   *(a1 + 86) = 2;
-  *a1 = v33;
+  *a1 = v32;
   if (*a5 == -1 || v17 < *a5)
   {
     *a5 = v17;
   }
 
-  v35 = ntfs_attr_find_vcn(a1, v14);
-  *a4 = v35;
-  if (!v35)
+  v34 = ntfs_attr_find_vcn(a1, v14);
+  *a4 = v34;
+  if (!v34)
   {
-    v22 = 1307;
+    ntfs_log_redirect("ntfs_attr_fill_hole", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1307, 128, 0, "Failed to find run after hole instantiation. Please report to %s.\n");
     goto LABEL_65;
   }
 
-  if ((*(v35 + 1) & 0x8000000000000000) != 0)
+  if ((*(v34 + 1) & 0x8000000000000000) != 0)
   {
-    v36 = *(v35 + 4);
-    v35 += 24;
-    *a4 = v35;
-    if (v36 < 0)
+    v35 = *(v34 + 4);
+    v34 += 24;
+    *a4 = v34;
+    if (v35 < 0)
     {
-      v22 = 1317;
+      ntfs_log_redirect("ntfs_attr_fill_hole", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1317, 128, 0, "BUG! LCN is lesser than 0. Please report to the %s.\n");
       goto LABEL_65;
     }
   }
@@ -4344,7 +4296,7 @@ LABEL_29:
   {
     if (!sub_100011A04(a1, v14 << *(v9 + 52), *a3))
     {
-      v35 = *a4;
+      v34 = *a4;
       goto LABEL_53;
     }
 
@@ -4352,19 +4304,19 @@ LABEL_29:
   }
 
 LABEL_53:
-  v37 = *v35;
-  if (v14 > *v35)
+  v36 = *v34;
+  if (v14 > *v34)
   {
-    *a3 += (v14 - *v35) << *(v9 + 52);
-    v37 = *v35;
+    *a3 += (v14 - *v34) << *(v9 + 52);
+    v36 = *v34;
   }
 
   result = 0;
-  v39 = __OFSUB__(v14, v37);
-  v40 = v14 - v37;
-  if (v40 < 0 != v39)
+  v38 = __OFSUB__(v14, v36);
+  v39 = v14 - v36;
+  if (v39 < 0 != v38)
   {
-    *a3 += v40 << *(v9 + 52);
+    *a3 += v39 << *(v9 + 52);
   }
 
   return result;
@@ -4428,18 +4380,18 @@ uint64_t ntfs_attr_pclose(uint64_t a1)
   else
   {
     *__error() = 22;
-    ntfs_log_redirect("ntfs_attr_pclose", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1789, 256);
+    ntfs_log_redirect("ntfs_attr_pclose", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1789, 256, 0, "%s", "ntfs_attr_pclose");
   }
 
   return 1;
 }
 
-unint64_t ntfs_attr_mst_pread(uint64_t a1, int a2, uint64_t a3, unsigned int a4, unsigned int *a5)
+size_t ntfs_attr_mst_pread(uint64_t a1, int64_t a2, uint64_t a3, unsigned int a4, char *a5)
 {
   if (a3 < 0 || (a4 & 0x1FF) != 0)
   {
     *__error() = 22;
-    ntfs_log_redirect("ntfs_attr_mst_pread", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1857, 256);
+    ntfs_log_redirect("ntfs_attr_mst_pread", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1857, 256, 0, "%s", "ntfs_attr_mst_pread");
     return -1;
   }
 
@@ -4474,7 +4426,7 @@ unint64_t ntfs_attr_mst_pread(uint64_t a1, int a2, uint64_t a3, unsigned int a4,
   return v10;
 }
 
-uint64_t ntfs_attr_mst_pwrite(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, _WORD *a5)
+unint64_t ntfs_attr_mst_pwrite(uint64_t a1, unint64_t a2, uint64_t a3, unsigned int a4, char *a5)
 {
   if (a3 < 0 || (a4 & 0x1FF) != 0)
   {
@@ -4505,7 +4457,7 @@ uint64_t ntfs_attr_mst_pwrite(uint64_t a1, uint64_t a2, uint64_t a3, unsigned in
     }
 
     v14 = v12;
-    ntfs_log_redirect("ntfs_attr_mst_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1925, 256);
+    ntfs_log_redirect("ntfs_attr_mst_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1925, 256, 0, "%s #1", "ntfs_attr_mst_pwrite");
     if (!v10)
     {
       return v14;
@@ -4515,13 +4467,13 @@ LABEL_11:
     v13 = ntfs_attr_pwrite(a1, a2, v10 * a4, v7);
     if (v13 <= 0)
     {
-      ntfs_log_redirect("ntfs_attr_mst_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1936, 256);
+      ntfs_log_redirect("ntfs_attr_mst_pwrite", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 1936, 256, 0, "%s: written=%lld", "ntfs_attr_mst_pwrite", v13);
     }
 
     do
     {
       ntfs_mst_post_write_fixup(v7);
-      v7 = (v7 + a4);
+      v7 += a4;
       --v10;
     }
 
@@ -4548,121 +4500,116 @@ uint64_t sub_100012334(unsigned int a1, unsigned __int16 *a2, unsigned int a3, i
     v14 = *(v13 + 16);
     v15 = *(v14 + 224);
     v16 = *(v14 + 232);
-  }
-
-  else
-  {
-    v16 = 0;
-    v15 = 0;
-    if (a2 && a2 != &AT_UNNAMED)
+LABEL_3:
+    v17 = *(a7 + 8);
+    if (!*(a7 + 16))
     {
-      *__error() = 22;
-      v18 = 2036;
-      goto LABEL_39;
-    }
-  }
-
-  v17 = *(a7 + 8);
-  if (!*(a7 + 16))
-  {
-    goto LABEL_8;
-  }
-
-  *(a7 + 16) = 0;
-  while (v17 >= *a7 && v17 <= *a7 + *(*a7 + 28))
-  {
-    v19 = *v17;
-    v20 = *v17 <= a1 || a1 == 0;
-    *(a7 + 8) = v17;
-    if (!v20 || v19 == -1)
-    {
-      goto LABEL_37;
+      goto LABEL_8;
     }
 
-    if (!*(v17 + 4))
+    *(a7 + 16) = 0;
+    while (1)
     {
-      break;
-    }
-
-    if (!a1)
-    {
-      return 0;
-    }
-
-    if (v19 == a1)
-    {
-      if (a2 == &AT_UNNAMED)
+      if (v17 < *a7 || v17 > *a7 + *(*a7 + 28))
       {
-        if (*(v17 + 9))
-        {
-          goto LABEL_37;
-        }
+LABEL_25:
+        *__error() = 5;
+        ntfs_log_redirect("ntfs_attr_find", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 2136, 256, 0, "%s: Corrupt inode (%lld)");
+        return 0xFFFFFFFFLL;
       }
 
-      else if (a2)
+      v18 = *v17;
+      v19 = *v17 <= a1 || a1 == 0;
+      *(a7 + 8) = v17;
+      if (!v19 || v18 == -1)
       {
-        v22 = ntfs_names_full_collate(a2, a3, (v17 + *(v17 + 10)), *(v17 + 9), a4, v15, v16);
-        if (v22)
-        {
-          goto LABEL_33;
-        }
-      }
-
-      if (!__s1)
-      {
-        return 0;
-      }
-
-      v25 = *(v17 + 16);
-      if (v25 >= a6)
-      {
-        v26 = a6;
-      }
-
-      else
-      {
-        v26 = v25;
-      }
-
-      v22 = memcmp(__s1, (v17 + *(v17 + 20)), v26);
-      if (v22)
-      {
-LABEL_33:
-        if (v22 < 0)
-        {
-          goto LABEL_37;
-        }
-
-        goto LABEL_8;
-      }
-
-      if (v25 == a6)
-      {
-        return 0;
-      }
-
-      if (v25 > a6)
-      {
-LABEL_37:
+LABEL_36:
         *__error() = 2;
         return 0xFFFFFFFFLL;
       }
-    }
+
+      if (!*(v17 + 4))
+      {
+        goto LABEL_25;
+      }
+
+      if (!a1)
+      {
+        return 0;
+      }
+
+      if (v18 == a1)
+      {
+        if (a2 == &AT_UNNAMED)
+        {
+          if (*(v17 + 9))
+          {
+            goto LABEL_36;
+          }
+        }
+
+        else if (a2)
+        {
+          v21 = ntfs_names_full_collate(a2, a3, (v17 + *(v17 + 10)), *(v17 + 9), a4, v15, v16);
+          if (v21)
+          {
+            goto LABEL_32;
+          }
+        }
+
+        if (!__s1)
+        {
+          return 0;
+        }
+
+        v22 = *(v17 + 16);
+        if (v22 >= a6)
+        {
+          v23 = a6;
+        }
+
+        else
+        {
+          v23 = v22;
+        }
+
+        v21 = memcmp(__s1, (v17 + *(v17 + 20)), v23);
+        if (v21)
+        {
+LABEL_32:
+          if (v21 < 0)
+          {
+            goto LABEL_36;
+          }
+
+          goto LABEL_8;
+        }
+
+        if (v22 == a6)
+        {
+          return 0;
+        }
+
+        if (v22 > a6)
+        {
+          goto LABEL_36;
+        }
+      }
 
 LABEL_8:
-    v17 += *(v17 + 4);
+      v17 += *(v17 + 4);
+    }
   }
 
-  *__error() = 5;
-  v23 = *(a7 + 24);
-  if (v23)
+  v16 = 0;
+  v15 = 0;
+  if (!a2 || a2 == &AT_UNNAMED)
   {
-    v24 = *v23;
+    goto LABEL_3;
   }
 
-  v18 = 2136;
-LABEL_39:
-  ntfs_log_redirect("ntfs_attr_find", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v18, 256);
+  *__error() = 22;
+  ntfs_log_redirect("ntfs_attr_find", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 2036, 256, 0, "%s");
   return 0xFFFFFFFFLL;
 }
 
@@ -4689,8 +4636,8 @@ uint64_t ntfs_attr_position(unsigned int a1, uint64_t a2)
 
 uint64_t ntfs_attr_find_in_attrdef(uint64_t a1, unsigned int a2)
 {
-  v2 = 2778;
-  v3 = 22;
+  v3 = 2778;
+  v4 = 22;
   if (a1)
   {
     if (a2)
@@ -4698,20 +4645,20 @@ uint64_t ntfs_attr_find_in_attrdef(uint64_t a1, unsigned int a2)
       result = *(a1 + 248);
       if (result)
       {
-        v6 = *(a1 + 256);
-        if (v6 >= 1)
+        v7 = *(a1 + 256);
+        if (v7 >= 1)
         {
-          for (i = 0; i < v6; i += 160)
+          for (i = 0; i < v7; i += 160)
           {
-            v8 = *(result + 128);
-            if (!v8)
+            v9 = *(result + 128);
+            if (!v9)
             {
               break;
             }
 
-            if (v8 >= a2)
+            if (v9 >= a2)
             {
-              if (v8 == a2)
+              if (v9 == a2)
               {
                 return result;
               }
@@ -4723,58 +4670,55 @@ uint64_t ntfs_attr_find_in_attrdef(uint64_t a1, unsigned int a2)
           }
         }
 
-        v2 = 2793;
-        v3 = 2;
+        v3 = 2793;
+        v4 = 2;
       }
     }
   }
 
-  *__error() = v3;
-  ntfs_log_redirect("ntfs_attr_find_in_attrdef", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v2, 256);
+  *__error() = v4;
+  ntfs_log_redirect("ntfs_attr_find_in_attrdef", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v3, 256, 0, "%s: type=%d", "ntfs_attr_find_in_attrdef", a2);
   return 0;
 }
 
-uint64_t ntfs_attr_size_bounds_check(uint64_t a1, unsigned int a2, int64_t a3)
+uint64_t ntfs_attr_size_bounds_check(uint64_t a1, uint64_t a2, int64_t a3)
 {
   if (a3 < 0)
   {
     *__error() = 22;
-    v5 = 2821;
-    goto LABEL_14;
+    ntfs_log_redirect("ntfs_attr_size_bounds_check", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 2821, 256, 0, "%s: size=%lld");
+    return 0xFFFFFFFFLL;
   }
 
   if (a2 == 32 && a3 > 0x40000)
   {
     *__error() = 34;
-    v5 = 2831;
-LABEL_14:
-    ntfs_log_redirect("ntfs_attr_size_bounds_check", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v5, 256);
+    ntfs_log_redirect("ntfs_attr_size_bounds_check", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 2831, 256, 0, "Too large attrlist (%lld)");
     return 0xFFFFFFFFLL;
   }
 
-  v6 = ntfs_attr_find_in_attrdef(a1, a2);
-  if (!v6)
+  v5 = ntfs_attr_find_in_attrdef(a1, a2);
+  if (!v5)
   {
     return 0xFFFFFFFFLL;
   }
 
-  v7 = *(v6 + 144);
-  v8 = *(v6 + 152);
+  v6 = *(v5 + 152);
   if (a2 == 96)
   {
-    v9 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v9 = *(v6 + 144);
+    v7 = *(v5 + 144);
   }
 
-  if (v9 > a3 || (result = 0, v8 >= 1) && v8 < a3)
+  if (v7 > a3 || (result = 0, v6 >= 1) && v6 < a3)
   {
     *__error() = 34;
-    v5 = 2855;
-    goto LABEL_14;
+    ntfs_log_redirect("ntfs_attr_size_bounds_check", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 2855, 256, 0, "Attr type %d size check failed (min,size,max=%lld,%lld,%lld)", a2, v7);
+    return 0xFFFFFFFFLL;
   }
 
   return result;
@@ -4801,40 +4745,40 @@ LABEL_6:
 
 uint64_t ntfs_make_room_for_attr(unint64_t a1, char *__src, int a3)
 {
-  v4 = &__src[-a1];
+  v5 = &__src[-a1];
   if (__src < a1 || !a1 || !__src)
   {
     *__error() = 22;
-    ntfs_log_redirect("ntfs_make_room_for_attr", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 2978, 256);
+    ntfs_log_redirect("ntfs_make_room_for_attr", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 2978, 256, 0, "%s: pos=%p  m=%p", "ntfs_make_room_for_attr", __src, a1);
     return 0xFFFFFFFFLL;
   }
 
-  v5 = *(a1 + 24);
-  if (v4 > v5 - 8)
+  v6 = *(a1 + 24);
+  if (v5 > v6 - 8)
   {
-    v6 = __error();
-    v7 = 22;
+    v7 = __error();
+    v8 = 22;
 LABEL_14:
-    *v6 = v7;
+    *v7 = v8;
     return 0xFFFFFFFFLL;
   }
 
-  v8 = (a3 + 7) & 0xFFFFFFF8;
-  if (v8)
+  v9 = (a3 + 7) & 0xFFFFFFF8;
+  if (v9)
   {
-    v9 = v5 + v8;
-    v10 = *(a1 + 28);
-    v11 = &__src[v8];
-    if (v5 + v8 <= v10 && v11 <= a1 + v10)
+    v10 = v6 + v9;
+    v11 = *(a1 + 28);
+    v12 = &__src[v9];
+    if (v6 + v9 <= v11 && v12 <= a1 + v11)
     {
-      memmove(v11, __src, v5 - v4);
+      memmove(v12, __src, v6 - v5);
       result = 0;
-      *(a1 + 24) = v9;
+      *(a1 + 24) = v10;
       return result;
     }
 
-    v6 = __error();
-    v7 = 28;
+    v7 = __error();
+    v8 = 28;
     goto LABEL_14;
   }
 
@@ -5036,9 +4980,9 @@ uint64_t ntfs_attr_record_resize(uint64_t a1, _DWORD *a2, int a3)
   return result;
 }
 
-uint64_t ntfs_non_resident_attr_record_add(uint64_t a1, unsigned int a2, unsigned __int16 *a3, unsigned int a4, uint64_t a5, int a6, __int16 a7)
+uint64_t ntfs_non_resident_attr_record_add(uint64_t a1, uint64_t a2, unsigned __int16 *a3, uint64_t a4, uint64_t a5, int a6, __int16 a7)
 {
-  if (!a1 || a6 < 1 || !a3 && a4)
+  if (!a1 || a6 < 1 || (v10 = a4, v12 = a2, !a3) && a4)
   {
     *__error() = 22;
     return 0xFFFFFFFFLL;
@@ -5048,99 +4992,98 @@ uint64_t ntfs_non_resident_attr_record_add(uint64_t a1, unsigned int a2, unsigne
   {
     if (*__error() == 1)
     {
-      v16 = 3177;
+      ntfs_log_redirect("ntfs_non_resident_attr_record_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3177, 256, 0, "Attribute can't be non resident");
     }
 
     else
     {
-      v16 = 3179;
+      ntfs_log_redirect("ntfs_non_resident_attr_record_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3179, 256, 0, "ntfs_attr_can_be_non_resident failed");
     }
 
-    ntfs_log_redirect("ntfs_non_resident_attr_record_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v16, 256);
     return 0xFFFFFFFFLL;
   }
 
   search_ctx = ntfs_attr_get_search_ctx(a1, 0);
   if (search_ctx)
   {
-    v18 = search_ctx;
-    if (!sub_100012334(a2, a3, a4, 0, 0, 0, search_ctx))
+    v17 = search_ctx;
+    if (!sub_100012334(v12, a3, v10, 0, 0, 0, search_ctx))
     {
-      ntfs_log_redirect("ntfs_non_resident_attr_record_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3195, 256);
-      v21 = 17;
+      ntfs_log_redirect("ntfs_non_resident_attr_record_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3195, 256, 0, "Attribute 0x%x already present", v12);
+      v20 = 17;
       goto LABEL_20;
     }
 
     if (*__error() != 2)
     {
-      ntfs_log_redirect("ntfs_non_resident_attr_record_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3199, 256);
-      v21 = 5;
+      ntfs_log_redirect("ntfs_non_resident_attr_record_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3199, 256, 0, "ntfs_attr_find failed");
+      v20 = 5;
       goto LABEL_20;
     }
 
-    v19 = v18[1];
-    v20 = ((2 * a4 + 7) & 0x3F8) + ((a6 + 7) & 0x7FFFFFF8) + 8 * ((a7 & 0x8001) != 0) + 64;
-    v23 = *v18;
-    if (ntfs_make_room_for_attr(*v18, v19, v20))
+    v18 = v17[1];
+    v19 = ((2 * v10 + 7) & 0x3F8) + ((a6 + 7) & 0x7FFFFFF8) + 8 * ((a7 & 0x8001) != 0) + 64;
+    v22 = *v17;
+    if (ntfs_make_room_for_attr(*v17, v18, v19))
     {
-      v21 = *__error();
-      ntfs_log_redirect("ntfs_non_resident_attr_record_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3214, 256);
+      v20 = *__error();
+      ntfs_log_redirect("ntfs_non_resident_attr_record_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3214, 256, 0, "Failed to make room for attribute");
 LABEL_20:
-      free(v18);
-      *__error() = v21;
+      free(v17);
+      *__error() = v20;
       return 0xFFFFFFFFLL;
     }
 
-    *v19 = a2;
-    *(v19 + 4) = v20;
-    *(v19 + 8) = 1;
-    *(v19 + 9) = a4;
-    *(v19 + 10) = (8 * ((a7 & 0x8001) != 0)) | 0x40;
-    *(v19 + 12) = a7;
-    *(v19 + 14) = *(v23 + 40);
-    *(v19 + 16) = a5;
-    *(v19 + 32) = ((2 * a4 + 7) & 0x3F8) + 8 * ((a7 & 0x8001) != 0) + 64;
-    *(v19 + 34) = 4 * (a7 & 1);
+    *v18 = v12;
+    *(v18 + 4) = v19;
+    *(v18 + 8) = 1;
+    *(v18 + 9) = v10;
+    *(v18 + 10) = (8 * ((a7 & 0x8001) != 0)) | 0x40;
+    *(v18 + 12) = a7;
+    *(v18 + 14) = *(v22 + 40);
+    *(v18 + 16) = a5;
+    *(v18 + 32) = ((2 * v10 + 7) & 0x3F8) + 8 * ((a7 & 0x8001) != 0) + 64;
+    *(v18 + 34) = 4 * (a7 & 1);
     if (!a5)
     {
-      *(v19 + 24) = -1;
-      *(v19 + 48) = 0;
-      *(v19 + 56) = 0;
-      *(v19 + 40) = 0;
-      *(v19 + (((2 * a4 + 7) & 0x3F8) + 8 * ((a7 & 0x8001) != 0) + 64)) = 0;
+      *(v18 + 24) = -1;
+      *(v18 + 48) = 0;
+      *(v18 + 56) = 0;
+      *(v18 + 40) = 0;
+      *(v18 + (((2 * v10 + 7) & 0x3F8) + 8 * ((a7 & 0x8001) != 0) + 64)) = 0;
     }
 
-    if (a4)
+    if (v10)
     {
-      memcpy((v19 + *(v19 + 10)), a3, 2 * a4);
+      memcpy((v18 + *(v18 + 10)), a3, 2 * v10);
     }
 
-    ++*(v23 + 40);
-    v22 = a1;
+    ++*(v22 + 40);
+    v21 = a1;
     if (*(a1 + 48) == -1)
     {
-      v22 = *(a1 + 56);
+      v21 = *(a1 + 56);
     }
 
-    if (a2 != 32 && (*(v22 + 24) & 2) != 0 && ntfs_attrlist_entry_add(a1, v19))
+    if (v12 != 32 && (*(v21 + 24) & 2) != 0 && ntfs_attrlist_entry_add(a1, v18))
     {
-      v21 = *__error();
-      ntfs_log_redirect("ntfs_non_resident_attr_record_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3253, 256);
-      ntfs_attr_record_resize(v23, v19, 0);
+      v20 = *__error();
+      ntfs_log_redirect("ntfs_non_resident_attr_record_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3253, 256, 0, "Failed add attr entry to attrlist");
+      ntfs_attr_record_resize(v22, v18, 0);
       goto LABEL_20;
     }
 
     ntfs_inode_mark_dirty(a1);
-    ntfs_attr_reinit_search_ctx(v18);
-    if (!ntfs_attr_lookup(a2, a3, a4, 0, a5, 0, 0, v18))
+    ntfs_attr_reinit_search_ctx(v17);
+    if (!ntfs_attr_lookup(v12, a3, v10, 0, a5, 0, 0, v17))
     {
-      v14 = (*(v18 + 2) - *v18);
-      free(v18);
+      v14 = (*(v17 + 2) - *v17);
+      free(v17);
       return v14;
     }
 
-    ntfs_log_redirect("ntfs_non_resident_attr_record_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3267, 256);
-    free(v18);
+    ntfs_log_redirect("ntfs_non_resident_attr_record_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3267, 256, 0, "%s: attribute lookup failed", "ntfs_non_resident_attr_record_add");
+    free(v17);
   }
 
   return 0xFFFFFFFFLL;
@@ -5335,19 +5278,19 @@ LABEL_39:
   }
 }
 
-uint64_t ntfs_attr_add(uint64_t a1, unsigned int a2, unsigned __int16 *a3, unsigned int a4, char *a5, unint64_t a6)
+uint64_t ntfs_attr_add(unint64_t a1, uint64_t a2, unsigned __int16 *a3, uint64_t a4, char *a5, unint64_t a6)
 {
   v7 = a5;
   v12 = (2 * a4 + 7) & 0x3F8;
-  v34 = v12 + ((a6 + 7) & 0xFFFFFFF8) + 24;
+  v31 = v12 + ((a6 + 7) & 0xFFFFFFF8) + 24;
   v13 = v12 + 72;
   while (1)
   {
     if (a2 == 32 || (a6 & 0x8000000000000000) != 0 || !a1)
     {
       *__error() = 22;
-      v32 = 3451;
-      goto LABEL_66;
+      ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3451, 256, 0, "%s: ni=%p  size=%lld", "ntfs_attr_add");
+      return 0xFFFFFFFFLL;
     }
 
     if (*(a1 + 48) == -1)
@@ -5371,24 +5314,22 @@ uint64_t ntfs_attr_add(uint64_t a1, unsigned int a2, unsigned __int16 *a3, unsig
       if (*__error() != 1)
       {
         v24 = *__error();
-        v25 = 3472;
-        goto LABEL_64;
+        ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3472, 256, 0, "ntfs_attr_can_be_non_resident failed");
+        goto LABEL_63;
       }
 
       if (!v7)
       {
         *__error() = 22;
-        v32 = 3479;
-        goto LABEL_66;
+        ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3479, 256, 0, "val is mandatory for always resident attributes");
+        return 0xFFFFFFFFLL;
       }
 
       v15 = *(a1 + 16);
       if (*(v15 + 44) < a6)
       {
         *__error() = 34;
-        v32 = 3484;
-LABEL_66:
-        ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v32, 256);
+        ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3484, 256, 0, "Attribute is too big");
         return 0xFFFFFFFFLL;
       }
     }
@@ -5427,7 +5368,7 @@ LABEL_66:
     if (v16 && a2 != 160 && a2)
     {
       v19 = 1;
-      v20 = v34;
+      v20 = v31;
       goto LABEL_27;
     }
 
@@ -5436,8 +5377,8 @@ LABEL_25:
     if (*__error() != 1)
     {
       v24 = *__error();
-      v25 = 3499;
-      goto LABEL_64;
+      ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3499, 256, 0, "ntfs_attr_can_be_resident failed");
+      goto LABEL_63;
     }
 
     v19 = 0;
@@ -5452,8 +5393,8 @@ LABEL_27:
     if (ntfs_inode_attach_all_extents(a1))
     {
       v24 = *__error();
-      v25 = 3526;
-      goto LABEL_64;
+      ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3526, 256, 0, "Failed to attach all extents to inode");
+      goto LABEL_63;
     }
 
     v21 = *(a1 + 48);
@@ -5472,16 +5413,16 @@ LABEL_33:
       }
 
       v24 = *__error();
-      v25 = 3551;
-      goto LABEL_64;
+      ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3551, 256, 0, "Failed to allocate extent record");
+      goto LABEL_63;
     }
 
     v7 = a5;
     if (ntfs_inode_add_attrlist(a1))
     {
       v24 = *__error();
-      v25 = 3542;
-      goto LABEL_64;
+      ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3542, 256, 0, "Failed to add attribute list");
+      goto LABEL_63;
     }
   }
 
@@ -5489,7 +5430,7 @@ LABEL_33:
   while (1)
   {
     v23 = *v22;
-    if (*((*v22)[1] + 28) - *((*v22)[1] + 24) >= v20)
+    if (*(*(*v22 + 8) + 28) - *(*(*v22 + 8) + 24) >= v20)
     {
       break;
     }
@@ -5505,11 +5446,11 @@ LABEL_45:
   if (!v19)
   {
 LABEL_49:
-    v27 = ntfs_non_resident_attr_record_add(v23, a2, a3, a4, 0, 8, 0);
-    if ((v27 & 0x80000000) != 0)
+    v26 = ntfs_non_resident_attr_record_add(v23, a2, a3, a4, 0, 8, 0);
+    if ((v26 & 0x80000000) != 0)
     {
       v24 = *__error();
-      v31 = 3586;
+      ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3586, 256, 0, "Failed to add non resident attribute");
       goto LABEL_60;
     }
 
@@ -5518,63 +5459,57 @@ LABEL_49:
       return 0;
     }
 
-    v28 = v27;
-    v29 = ntfs_attr_open(a1, a2, a3, a4);
-    if (v29)
+    v27 = v26;
+    v28 = ntfs_attr_open(a1, a2, a3, a4);
+    if (!v28)
     {
-      v30 = v29;
-      if (!sub_1000110E0(v29, a6, 1) && (!a5 || ntfs_attr_pwrite(v30, 0, a6, a5) == a6))
-      {
-        ntfs_attr_close(v30);
-        return 0;
-      }
-
       v24 = *__error();
-      ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3605, 256);
-      if (ntfs_attr_rm(v30))
+      ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3598, 256, 0, "Failed to open just added attribute");
+      if (ntfs_attr_record_resize(*(v23 + 8), (*(v23 + 8) + v27), 0))
       {
-        ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3607, 256);
+        ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3618, 256, 0, "Failed to remove just added attribute #2");
       }
 
-      ntfs_attr_close(v30);
-      goto LABEL_65;
-    }
-
-    v24 = *__error();
-    ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3598, 256);
-    if (ntfs_attr_record_resize(v23[1], (v23[1] + v28), 0))
-    {
-      v31 = 3618;
       goto LABEL_60;
     }
 
-LABEL_61:
-    if (*(v23[1] + 24) - *(v23[1] + 20) != 8 || !ntfs_mft_record_free(v23[2], v23))
+    v29 = v28;
+    if (!sub_1000110E0(v28, a6, 1) && (!a5 || ntfs_attr_pwrite(v29, 0, a6, a5) == a6))
     {
-LABEL_65:
-      *__error() = v24;
-      return 0xFFFFFFFFLL;
+      ntfs_attr_close(v29);
+      return 0;
     }
 
-    v25 = 3624;
-LABEL_64:
-    ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v25, 256);
-    goto LABEL_65;
+    v24 = *__error();
+    ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3605, 256, 0, "Failed to initialize just added attribute");
+    if (ntfs_attr_rm(v29))
+    {
+      ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3607, 256, 0, "Failed to remove just added attribute");
+    }
+
+    ntfs_attr_close(v29);
+LABEL_63:
+    *__error() = v24;
+    return 0xFFFFFFFFLL;
   }
 
   if ((ntfs_resident_attr_record_add(v23, a2, a3, a4, a5, a6, 0) & 0x80000000) != 0)
   {
-    v26 = __error();
-    if (!v14 && *v26 == 28)
+    v25 = __error();
+    if (!v14 && *v25 == 28)
     {
       goto LABEL_49;
     }
 
     v24 = *__error();
-    v31 = 3574;
+    ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3574, 256, 0, "Failed to add resident attribute");
 LABEL_60:
-    ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v31, 256);
-    goto LABEL_61;
+    if (*(*(v23 + 8) + 24) - *(*(v23 + 8) + 20) == 8 && ntfs_mft_record_free(*(v23 + 16), v23))
+    {
+      ntfs_log_redirect("ntfs_attr_add", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3624, 256, 0, "Failed to free MFT record");
+    }
+
+    goto LABEL_63;
   }
 
   return 0;
@@ -5735,19 +5670,11 @@ LABEL_15:
 
 uint64_t ntfs_attr_record_move_away(uint64_t *a1, int a2)
 {
-  if (!a1)
+  if (!a1 || !a1[1] || a2 < 0 || (v4 = a1[3]) == 0)
   {
     *__error() = 22;
-    goto LABEL_11;
-  }
-
-  if (!a1[1] || a2 < 0 || (v4 = a1[3]) == 0)
-  {
-    *__error() = 22;
-    v7 = a1[1];
-LABEL_11:
-    v6 = 3906;
-    goto LABEL_12;
+    ntfs_log_redirect("ntfs_attr_record_move_away", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3906, 256, 0, "%s: ctx=%p ctx->attr=%p extra=%d", "ntfs_attr_record_move_away", a1);
+    return 0xFFFFFFFFLL;
   }
 
   v5 = a1[3];
@@ -5759,51 +5686,47 @@ LABEL_11:
   if ((*(v5 + 24) & 2) == 0)
   {
     *__error() = 22;
-    v13 = *v5;
-    v6 = 3922;
-LABEL_12:
-    ntfs_log_redirect("ntfs_attr_record_move_away", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v6, 256);
+    ntfs_log_redirect("ntfs_attr_record_move_away", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3922, 256, 0, "Inode %llu has no attrlist");
     return 0xFFFFFFFFLL;
   }
 
   if (ntfs_inode_attach_all_extents(v4))
   {
-    v14 = *v5;
-    v6 = 3928;
-    goto LABEL_12;
+    ntfs_log_redirect("ntfs_attr_record_move_away", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3928, 256, 0, "Couldn't attach extents, inode=%llu");
+    return 0xFFFFFFFFLL;
   }
 
-  v9 = *(v5 + 48);
-  if (v9 >= 1)
+  v7 = *(v5 + 48);
+  if (v7 >= 1)
   {
-    for (i = 0; i < v9; ++i)
+    for (i = 0; i < v7; ++i)
     {
-      v11 = *(*(v5 + 56) + 8 * i);
-      if (*a1[3] != *v11 && *(v11[1] + 28) - *(v11[1] + 24) >= (*(a1[1] + 4) + a2))
+      v9 = *(*(v5 + 56) + 8 * i);
+      if (*a1[3] != *v9 && *(v9[1] + 28) - *(v9[1] + 24) >= (*(a1[1] + 4) + a2))
       {
-        result = ntfs_attr_record_move_to(a1, v11);
+        result = ntfs_attr_record_move_to(a1, v9);
         if (!result)
         {
           return result;
         }
 
-        v9 = *(v5 + 48);
+        v7 = *(v5 + 48);
       }
     }
   }
 
-  v12 = ntfs_mft_record_alloc(*(v5 + 16), v5);
-  if (!v12)
+  v10 = ntfs_mft_record_alloc(*(v5 + 16), v5);
+  if (!v10)
   {
-    v6 = 3960;
-    goto LABEL_12;
+    ntfs_log_redirect("ntfs_attr_record_move_away", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3960, 256, 0, "Couldn't allocate MFT record");
+    return 0xFFFFFFFFLL;
   }
 
-  result = ntfs_attr_record_move_to(a1, v12);
+  result = ntfs_attr_record_move_to(a1, v10);
   if (result)
   {
-    v6 = 3964;
-    goto LABEL_12;
+    ntfs_log_redirect("ntfs_attr_record_move_away", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 3964, 256, 0, "Couldn't move attribute to MFT record");
+    return 0xFFFFFFFFLL;
   }
 
   return result;
@@ -5836,7 +5759,7 @@ uint64_t ntfs_attr_make_non_resident(uint64_t a1, uint64_t *a2)
       v9 = (((16 << v10) - 1) | (v9 - 1)) + 1;
     }
 
-    v12 = ntfs_cluster_alloc(v4, 0, v9 >> v10, -1, 1u);
+    v12 = ntfs_cluster_alloc(v4, 0, v9 >> v10, 0xFFFFFFFFFFFFFFFFLL, 1u);
     if (!v12)
     {
       return 0xFFFFFFFFLL;
@@ -5869,7 +5792,7 @@ uint64_t ntfs_attr_make_non_resident(uint64_t a1, uint64_t *a2)
 
   if (v12)
   {
-    v15 = ntfs_attr_pwrite(a1, 0, *(v5 + 16), v5 + *(v5 + 20));
+    v15 = ntfs_attr_pwrite(a1, 0, *(v5 + 16), (v5 + *(v5 + 20)));
     if (v15 != *(v5 + 16))
     {
       v22 = v15;
@@ -5946,7 +5869,7 @@ LABEL_32:
 
 uint64_t sub_100014038(void **a1, uint64_t a2, int a3)
 {
-  v75 = 0;
+  v69 = 0;
   if (!a1)
   {
     goto LABEL_101;
@@ -5961,51 +5884,30 @@ uint64_t sub_100014038(void **a1, uint64_t a2, int a3)
 
   v6 = a3;
   v8 = 0;
-  v72 = (a1 + 9);
-  while (1)
+  v66 = (a1 + 9);
+LABEL_4:
+  v9 = a1[5];
+  if ((v9 & 2) == 0)
   {
-    v9 = a1[5];
-    if ((v9 & 2) == 0)
+    *__error() = 22;
+    ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4777, 256, 0, "%s: resident attribute");
+    return 0xFFFFFFFFLL;
+  }
+
+  if (v6 == 2)
+  {
+    goto LABEL_18;
+  }
+
+  if (!a2 && (v9 & 8) != 0)
+  {
+    goto LABEL_17;
+  }
+
+  if ((*(a1 + 10) & 1) == 0)
+  {
+    if ((*(a1 + 10) & 0x8000) == 0)
     {
-      *__error() = 22;
-      v71 = 4777;
-      goto LABEL_102;
-    }
-
-    if (v6 != 2)
-    {
-      if (!a2 && (v9 & 8) != 0)
-      {
-        goto LABEL_17;
-      }
-
-      if (*(a1 + 10))
-      {
-        goto LABEL_18;
-      }
-
-      if ((*(a1 + 10) & 0x8000) != 0)
-      {
-        if ((((a1[7] - 1) | (*(a1[1][2] + 40) - 1)) + 1) != a1[9])
-        {
-          goto LABEL_18;
-        }
-
-LABEL_16:
-        if (!ntfs_attr_map_whole_runlist(a1))
-        {
-LABEL_17:
-          a2 = 0;
-          goto LABEL_18;
-        }
-
-        v70 = 4826;
-LABEL_165:
-        ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v70, 128);
-        *__error() = 5;
-        return 0xFFFFFFFFLL;
-      }
-
       v10 = 24;
       if (*(v4 + 1) != -2)
       {
@@ -6015,37 +5917,53 @@ LABEL_165:
       v11 = ntfs_rl_sparse(&v4[v10]);
       if (v11 < 0)
       {
-        v70 = 4808;
-        goto LABEL_165;
+        ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4808, 128, 0, "Could not check whether sparse\n");
+        goto LABEL_161;
       }
 
-      if (v11)
+      if (!v11)
       {
-        goto LABEL_16;
+        goto LABEL_18;
       }
-    }
 
-LABEL_18:
-    v12 = a1[1];
-    if (*(v12 + 48) == -1)
-    {
-      v12 = *(v12 + 56);
-    }
+LABEL_16:
+      if (!ntfs_attr_map_whole_runlist(a1))
+      {
+LABEL_17:
+        a2 = 0;
+        goto LABEL_18;
+      }
 
-    search_ctx = ntfs_attr_get_search_ctx(v12, 0);
-    if (!search_ctx)
-    {
+      ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4826, 128, 0, "Could not map whole for sparse change\n");
+LABEL_161:
+      *__error() = 5;
       return 0xFFFFFFFFLL;
     }
 
-    v14 = search_ctx;
-    v75 = *a1;
-    if (ntfs_attr_lookup(*(a1 + 4), a1[3], *(a1 + 8), 0, a2, 0, 0, search_ctx))
+    if ((((a1[7] - 1) | (*(a1[1][2] + 40) - 1)) + 1) == a1[9])
     {
-      break;
+      goto LABEL_16;
     }
+  }
 
-    v74 = v12;
+LABEL_18:
+  v12 = a1[1];
+  if (*(v12 + 12) == -1)
+  {
+    v12 = v12[7];
+  }
+
+  search_ctx = ntfs_attr_get_search_ctx(v12, 0);
+  if (!search_ctx)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v14 = search_ctx;
+  v69 = *a1;
+  if (!ntfs_attr_lookup(*(a1 + 4), a1[3], *(a1 + 8), 0, a2, 0, 0, search_ctx))
+  {
+    v68 = v12;
     v15 = 0;
     v16 = 0;
     v17 = a2 == 0;
@@ -6059,31 +5977,300 @@ LABEL_18:
         v8 = 1;
       }
 
-      if (!v17)
+      if (v17)
       {
-        v21 = ntfs_rl_vcn_to_lcn(*a1, *(v18 + 16));
-        if (v21 == -4)
-        {
-          *__error() = 5;
-          v60 = "ntfs_attr_update_mapping_pairs_i";
-          v61 = 4872;
-          goto LABEL_140;
-        }
-
-        v16 = v20;
-        if ((v21 + 3) < 2)
-        {
-          goto LABEL_30;
-        }
+        goto LABEL_28;
       }
 
-      if (!v15)
+      v21 = ntfs_rl_vcn_to_lcn(*a1, *(v18 + 16));
+      if (v21 == -4)
       {
-        break;
+        *__error() = 5;
+        ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4872, 256, 0, "Bad runlist");
+        goto LABEL_139;
       }
 
-      v20 = v16;
-LABEL_30:
+      v16 = v20;
+      if ((v21 + 3) >= 2)
+      {
+LABEL_28:
+        if (!v15)
+        {
+          if (!*(v18 + 16))
+          {
+            *(v18 + 40) = *v5;
+            if (a3 != 2)
+            {
+              v23 = ntfs_rl_sparse(*a1);
+              if (v23)
+              {
+                if (v23 == -1)
+                {
+                  *__error() = 5;
+                  goto LABEL_139;
+                }
+
+                v24 = *(v18 + 12);
+                if ((v24 & 0xFFFF8001) != 0)
+                {
+                  goto LABEL_38;
+                }
+
+                v30 = (v18 + 32);
+                v32 = *(v18 + 32);
+                v33 = *(v18 + 4);
+                if (v33 - v32 == 8 && *(v19 + 28) == *(v19 + 24))
+                {
+                  if ((a1[1][3] & 2) != 0)
+                  {
+                    if (ntfs_attr_record_move_away(v14, 8))
+                    {
+                      ntfs_log_redirect("ntfs_attr_update_meta", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4669, 256, 0, "Failed to move attribute");
+                      goto LABEL_139;
+                    }
+
+                    free(v14);
+                  }
+
+                  else
+                  {
+                    free(v14);
+                    if (ntfs_inode_add_attrlist(a1[1]))
+                    {
+                      return 0xFFFFFFFFLL;
+                    }
+                  }
+
+LABEL_94:
+                  a2 = 0;
+                  v4 = *a1;
+                  v6 = a3;
+                  if (!*a1)
+                  {
+LABEL_101:
+                    *__error() = 22;
+                    ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4768, 256, 0, "%s: na=%p");
+                    return 0xFFFFFFFFLL;
+                  }
+
+                  goto LABEL_4;
+                }
+
+                if (v33 == v32)
+                {
+                  *__error() = 5;
+                  ntfs_log_redirect("ntfs_attr_update_meta", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4678, 256, 0, "Mapping pairs space is 0");
+                  goto LABEL_139;
+                }
+
+                if (*(a1 + 4) == 128 && a1[3] == &AT_UNNAMED)
+                {
+                  *(a1[1] + 8) |= 0x200u;
+                }
+
+                v34 = v24 | 0x8000;
+                *(v18 + 12) = v34;
+                *(a1 + 10) = v34;
+                *(v18 + 34) = 4;
+                memmove((v18 + *(v18 + 10) + 8), (v18 + *(v18 + 10)), 2 * *(v18 + 9));
+                *(v18 + 10) += 8;
+                v25 = 1;
+                v31 = 8;
+              }
+
+              else
+              {
+                v22 = *(v18 + 12);
+LABEL_40:
+                if ((v22 & 0xFFFF8001) != 0x8000)
+                {
+                  if ((a1[5] & 8) != 0)
+                  {
+                    goto LABEL_61;
+                  }
+
+                  v25 = 0;
+                  goto LABEL_64;
+                }
+
+                if (*(a1 + 4) == 128 && a1[3] == &AT_UNNAMED)
+                {
+                  *(a1[1] + 8) &= ~0x200u;
+                }
+
+                v26 = v22 & 0x7FFE;
+                *(v18 + 12) = v26;
+                *(a1 + 10) = v26;
+                *(v18 + 34) = 0;
+                memmove((v18 + *(v18 + 10) - 8), (v18 + *(v18 + 10)), 2 * *(v18 + 9));
+                v27 = *(v18 + 10);
+                v28 = v27 >= 8;
+                v29 = v27 - 8;
+                if (v28)
+                {
+                  *(v18 + 10) = v29;
+                }
+
+                v25 = 0;
+                v30 = (v18 + 32);
+                v31 = -8;
+              }
+
+              *v30 += v31;
+              goto LABEL_58;
+            }
+
+            if ((*(v18 + 12) & 0x80000000) == 0)
+            {
+              v22 = *(v18 + 12);
+              goto LABEL_40;
+            }
+
+LABEL_38:
+            v25 = 1;
+LABEL_58:
+            if ((a1[5] & 8) != 0)
+            {
+              if (v25)
+              {
+                v25 = 1;
+                goto LABEL_62;
+              }
+
+LABEL_61:
+              v25 = 0;
+              if (*(a1 + 20))
+              {
+LABEL_62:
+                compressed_size = ntfs_rl_get_compressed_size(a1[1][2], *a1);
+                if (compressed_size == -1)
+                {
+                  goto LABEL_139;
+                }
+
+                *v66 = compressed_size;
+                *(v18 + 64) = compressed_size;
+              }
+            }
+
+LABEL_64:
+            if (*(a1 + 4) == 128 && a1[3] == &AT_UNNAMED)
+            {
+              if ((v25 & 1) != 0 || (v36 = (a1 + 6), *(a1 + 20)))
+              {
+                v36 = v66;
+              }
+
+              v37 = a1[1];
+              v37[9] = *v36;
+              v37[3] |= 8uLL;
+            }
+          }
+
+          v38 = *(v18 + 4) - *(v18 + 32);
+          v39 = *(v19 + 28) - *(v19 + 24) + v38;
+          size_for_mapping_pairs = ntfs_get_size_for_mapping_pairs(a1[1][2], v69, v16, v39);
+          if (size_for_mapping_pairs <= 0)
+          {
+            ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4918, 256, 0, "%s: get MP size failed");
+            goto LABEL_139;
+          }
+
+          v41 = size_for_mapping_pairs;
+          if (size_for_mapping_pairs > v39)
+          {
+            if (*(a1 + 4) == 32)
+            {
+              free(v14);
+              if (ntfs_inode_free_space(a1[1], v41 - v38))
+              {
+                ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4934, 256, 0, "Attribute list is too big. Defragment the volume\n");
+                return 0xFFFFFFFFLL;
+              }
+
+              goto LABEL_94;
+            }
+
+            v41 = v39;
+            if ((*(v68 + 24) & 2) == 0)
+            {
+              free(v14);
+              if (ntfs_inode_add_attrlist(v68))
+              {
+                ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4944, 256, 0, "Can not add attrlist");
+                return 0xFFFFFFFFLL;
+              }
+
+              goto LABEL_94;
+            }
+          }
+
+          if (((v41 + 7) & 0xFFFFFFF8) != v38 && ntfs_attr_record_resize(v19, v18, v41 + *(v18 + 32)))
+          {
+            *__error() = 5;
+            ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4964, 256, 0, "Failed to resize attribute");
+            goto LABEL_139;
+          }
+
+          *(v18 + 16) = v16;
+          ntfs_inode_mark_dirty(v14[3]);
+          v42 = v14[3];
+          if (*(v42 + 48) == -1)
+          {
+            if (*v14[1] != 32)
+            {
+              *(v14[4] + 8) = v16;
+              v42 = *(v42 + 56);
+              v43 = *(v42 + 24);
+LABEL_82:
+              *(v42 + 24) = v43 | 4;
+            }
+          }
+
+          else
+          {
+            v43 = *(v42 + 24);
+            if ((v43 & 2) != 0 && *v14[1] != 32)
+            {
+              *(v14[4] + 8) = v16;
+              goto LABEL_82;
+            }
+          }
+
+          v44 = ntfs_mapping_pairs_build(a1[1][2], (v18 + *(v18 + 32)), v41, *a1, v16, &v69);
+          v15 = v44 == 0;
+          if (v69)
+          {
+            v16 = *v69;
+            if (!v44)
+            {
+              goto LABEL_88;
+            }
+          }
+
+          else
+          {
+            v16 = 0;
+            if (!v44)
+            {
+LABEL_88:
+              *(v18 + 24) = v16 - 1;
+              goto LABEL_89;
+            }
+          }
+
+          if (*__error() != 28)
+          {
+            ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4992, 256, 0, "Failed to build mapping pairs");
+            goto LABEL_139;
+          }
+
+          goto LABEL_88;
+        }
+
+        v20 = v16;
+      }
+
       *(v18 + 24) = -2;
       ntfs_inode_mark_dirty(v14[3]);
       v15 = 1;
@@ -6094,303 +6281,19 @@ LABEL_89:
       if (v45)
       {
         v46 = !v15;
-        v12 = v74;
-        goto LABEL_103;
+        v12 = v68;
+        goto LABEL_102;
       }
-    }
-
-    if (*(v18 + 16))
-    {
-      goto LABEL_70;
-    }
-
-    *(v18 + 40) = *v5;
-    if (a3 == 2)
-    {
-      if ((*(v18 + 12) & 0x80000000) == 0)
-      {
-        v22 = *(v18 + 12);
-        goto LABEL_40;
-      }
-
-LABEL_38:
-      v25 = 1;
-LABEL_58:
-      if ((a1[5] & 8) != 0)
-      {
-        if (v25)
-        {
-          v25 = 1;
-          goto LABEL_62;
-        }
-
-LABEL_61:
-        v25 = 0;
-        if (*(a1 + 20))
-        {
-LABEL_62:
-          compressed_size = ntfs_rl_get_compressed_size(a1[1][2], *a1);
-          if (compressed_size == -1)
-          {
-            goto LABEL_142;
-          }
-
-          *v72 = compressed_size;
-          *(v18 + 64) = compressed_size;
-        }
-      }
-
-LABEL_64:
-      if (*(a1 + 4) == 128 && a1[3] == &AT_UNNAMED)
-      {
-        if ((v25 & 1) != 0 || (v36 = (a1 + 6), *(a1 + 20)))
-        {
-          v36 = v72;
-        }
-
-        v37 = a1[1];
-        v37[9] = *v36;
-        v37[3] |= 8uLL;
-      }
-
-LABEL_70:
-      v38 = *(v18 + 4) - *(v18 + 32);
-      v39 = *(v19 + 28) - *(v19 + 24) + v38;
-      size_for_mapping_pairs = ntfs_get_size_for_mapping_pairs(a1[1][2], v75, v16, v39);
-      if (size_for_mapping_pairs <= 0)
-      {
-        v60 = "ntfs_attr_update_mapping_pairs_i";
-        v61 = 4918;
-        goto LABEL_140;
-      }
-
-      v41 = size_for_mapping_pairs;
-      if (size_for_mapping_pairs > v39)
-      {
-        if (*(a1 + 4) == 32)
-        {
-          free(v14);
-          if (!ntfs_inode_free_space(a1[1], v41 - v38))
-          {
-            goto LABEL_94;
-          }
-
-          v71 = 4934;
-        }
-
-        else
-        {
-          v41 = v39;
-          if ((*(v74 + 24) & 2) != 0)
-          {
-            goto LABEL_74;
-          }
-
-          free(v14);
-          if (!ntfs_inode_add_attrlist(v74))
-          {
-            goto LABEL_94;
-          }
-
-          v71 = 4944;
-        }
-
-LABEL_102:
-        ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v71, 256);
-        return 0xFFFFFFFFLL;
-      }
-
-LABEL_74:
-      if (((v41 + 7) & 0xFFFFFFF8) != v38 && ntfs_attr_record_resize(v19, v18, v41 + *(v18 + 32)))
-      {
-        *__error() = 5;
-        v60 = "ntfs_attr_update_mapping_pairs_i";
-        v61 = 4964;
-        goto LABEL_140;
-      }
-
-      *(v18 + 16) = v16;
-      ntfs_inode_mark_dirty(v14[3]);
-      v42 = v14[3];
-      if (*(v42 + 48) == -1)
-      {
-        if (*v14[1] != 32)
-        {
-          *(v14[4] + 8) = v16;
-          v42 = *(v42 + 56);
-          v43 = *(v42 + 24);
-LABEL_82:
-          *(v42 + 24) = v43 | 4;
-        }
-      }
-
-      else
-      {
-        v43 = *(v42 + 24);
-        if ((v43 & 2) != 0 && *v14[1] != 32)
-        {
-          *(v14[4] + 8) = v16;
-          goto LABEL_82;
-        }
-      }
-
-      v44 = ntfs_mapping_pairs_build(a1[1][2], (v18 + *(v18 + 32)), v41, *a1, v16, &v75);
-      v15 = v44 == 0;
-      if (v75)
-      {
-        v16 = *v75;
-        if (!v44)
-        {
-          goto LABEL_88;
-        }
-      }
-
-      else
-      {
-        v16 = 0;
-        if (!v44)
-        {
-LABEL_88:
-          *(v18 + 24) = v16 - 1;
-          goto LABEL_89;
-        }
-      }
-
-      if (*__error() != 28)
-      {
-        v60 = "ntfs_attr_update_mapping_pairs_i";
-        v61 = 4992;
-        goto LABEL_140;
-      }
-
-      goto LABEL_88;
-    }
-
-    v23 = ntfs_rl_sparse(*a1);
-    if (!v23)
-    {
-      v22 = *(v18 + 12);
-LABEL_40:
-      if ((v22 & 0xFFFF8001) != 0x8000)
-      {
-        if ((a1[5] & 8) != 0)
-        {
-          goto LABEL_61;
-        }
-
-        v25 = 0;
-        goto LABEL_64;
-      }
-
-      if (*(a1 + 4) == 128 && a1[3] == &AT_UNNAMED)
-      {
-        *(a1[1] + 8) &= ~0x200u;
-      }
-
-      v26 = v22 & 0x7FFE;
-      *(v18 + 12) = v26;
-      *(a1 + 10) = v26;
-      *(v18 + 34) = 0;
-      memmove((v18 + *(v18 + 10) - 8), (v18 + *(v18 + 10)), 2 * *(v18 + 9));
-      v27 = *(v18 + 10);
-      v28 = v27 >= 8;
-      v29 = v27 - 8;
-      if (v28)
-      {
-        *(v18 + 10) = v29;
-      }
-
-      v25 = 0;
-      v30 = (v18 + 32);
-      v31 = -8;
-LABEL_57:
-      *v30 += v31;
-      goto LABEL_58;
-    }
-
-    if (v23 == -1)
-    {
-      *__error() = 5;
-      goto LABEL_142;
-    }
-
-    v24 = *(v18 + 12);
-    if ((v24 & 0xFFFF8001) != 0)
-    {
-      goto LABEL_38;
-    }
-
-    v30 = (v18 + 32);
-    v32 = *(v18 + 32);
-    v33 = *(v18 + 4);
-    if (v33 - v32 != 8 || *(v19 + 28) != *(v19 + 24))
-    {
-      if (v33 == v32)
-      {
-        *__error() = 5;
-        v60 = "ntfs_attr_update_meta";
-        v61 = 4678;
-        goto LABEL_140;
-      }
-
-      if (*(a1 + 4) == 128 && a1[3] == &AT_UNNAMED)
-      {
-        *(a1[1] + 8) |= 0x200u;
-      }
-
-      v34 = v24 | 0x8000;
-      *(v18 + 12) = v34;
-      *(a1 + 10) = v34;
-      *(v18 + 34) = 4;
-      memmove((v18 + *(v18 + 10) + 8), (v18 + *(v18 + 10)), 2 * *(v18 + 9));
-      *(v18 + 10) += 8;
-      v25 = 1;
-      v31 = 8;
-      goto LABEL_57;
-    }
-
-    if ((a1[1][3] & 2) != 0)
-    {
-      if (ntfs_attr_record_move_away(v14, 8))
-      {
-        v60 = "ntfs_attr_update_meta";
-        v61 = 4669;
-        goto LABEL_140;
-      }
-
-      free(v14);
-    }
-
-    else
-    {
-      free(v14);
-      if (ntfs_inode_add_attrlist(a1[1]))
-      {
-        return 0xFFFFFFFFLL;
-      }
-    }
-
-LABEL_94:
-    a2 = 0;
-    v4 = *a1;
-    v6 = a3;
-    if (!*a1)
-    {
-LABEL_101:
-      *__error() = 22;
-      v71 = 4768;
-      goto LABEL_102;
     }
   }
 
   v16 = 0;
   v46 = 1;
-LABEL_103:
+LABEL_102:
   if (*__error() != 2)
   {
-    v60 = "ntfs_attr_update_mapping_pairs_i";
-    v61 = 4999;
-    goto LABEL_140;
+    ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4999, 256, 0, "%s: Attribute lookup failed");
+    goto LABEL_139;
   }
 
   if (!v8)
@@ -6398,87 +6301,80 @@ LABEL_103:
     ntfs_attr_reinit_search_ctx(v14);
     if (ntfs_attr_lookup(*(a1 + 4), a1[3], *(a1 + 8), 0, 0, 0, 0, v14))
     {
-      v60 = "ntfs_attr_update_mapping_pairs_i";
-      v61 = 5026;
-      v62 = 128;
-      goto LABEL_141;
+      ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5026, 128, 0, "Failed to update sizes in base extent\n");
+      goto LABEL_139;
     }
 
-    v63 = v14[1];
-    *(v63 + 40) = a1[6];
-    v64 = *(a1 + 10) & 0x8001;
-    if (v64)
+    v60 = v14[1];
+    *(v60 + 40) = a1[6];
+    v61 = *(a1 + 10) & 0x8001;
+    if (v61)
     {
-      *(v63 + 64) = *v72;
+      *(v60 + 64) = *v66;
     }
 
     if (*(a1 + 4) == 128 && a1[3] == &AT_UNNAMED)
     {
-      v65 = v64 == 0;
-      v66 = 9;
-      if (v65)
+      v62 = v61 == 0;
+      v63 = 9;
+      if (v62)
       {
-        v66 = 6;
+        v63 = 6;
       }
 
-      v67 = a1[1];
-      v67[9] = a1[v66];
-      v67[3] |= 8uLL;
+      v64 = a1[1];
+      v64[9] = a1[v63];
+      v64[3] |= 8uLL;
     }
   }
 
   if (!v46)
   {
-LABEL_125:
-    ntfs_attr_reinit_search_ctx(v14);
-    while (!ntfs_attr_lookup(*(a1 + 4), a1[3], *(a1 + 8), 0, 0, 0, 0, v14))
+    while (1)
     {
-      if (*(v14[1] + 24) == -2)
+      ntfs_attr_reinit_search_ctx(v14);
+      do
       {
-        if (ntfs_attr_record_rm(v14))
+        if (ntfs_attr_lookup(*(a1 + 4), a1[3], *(a1 + 8), 0, 0, 0, 0, v14))
         {
-          v60 = "ntfs_attr_update_mapping_pairs_i";
-          v61 = 5042;
-          goto LABEL_140;
-        }
+          if (*__error() == 2)
+          {
+            free(v14);
+            return 0;
+          }
 
-        goto LABEL_125;
+          ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5048, 256, 0, "%s: Attr lookup failed");
+LABEL_139:
+          free(v14);
+          return 0xFFFFFFFFLL;
+        }
+      }
+
+      while (*(v14[1] + 24) != -2);
+      if (ntfs_attr_record_rm(v14))
+      {
+        ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5042, 256, 0, "Could not remove unused attr");
+        goto LABEL_139;
       }
     }
-
-    if (*__error() == 2)
-    {
-      free(v14);
-      return 0;
-    }
-
-    v60 = "ntfs_attr_update_mapping_pairs_i";
-    v61 = 5048;
-LABEL_140:
-    v62 = 256;
-LABEL_141:
-    ntfs_log_redirect(v60, "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v61, v62);
-LABEL_142:
-    free(v14);
-    return 0xFFFFFFFFLL;
   }
 
   free(v14);
-  while (2)
+  while (1)
   {
     v47 = ntfs_get_size_for_mapping_pairs(a1[1][2], *a1, v16, 0x7FFFFFFF);
     if (v47 <= 0)
     {
-      v71 = 5064;
-      goto LABEL_102;
+      ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5064, 256, 0, "%s: get mp size failed");
+      return 0xFFFFFFFFLL;
     }
 
     v48 = v47;
     v49 = ntfs_mft_record_alloc(a1[1][2], v12);
     if (!v49)
     {
-      v71 = 5070;
-      goto LABEL_102;
+      ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5070, 256, 0, "Could not allocate new MFT record");
+      return 0xFFFFFFFFLL;
     }
 
     v50 = v49;
@@ -6503,78 +6399,72 @@ LABEL_142:
     v55 = ntfs_non_resident_attr_record_add(v49, v51, a1[3], *(a1 + 8), v16, v48, *(a1 + 10));
     if (v55 == -1)
     {
-      v68 = *__error();
-      ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5093, 256);
-      if (!ntfs_mft_record_free(a1[1][2], v50))
-      {
-        goto LABEL_161;
-      }
-
-      v69 = 5095;
-      goto LABEL_160;
+      break;
     }
 
     v56 = v53 + v55;
-    v57 = ntfs_mapping_pairs_build(a1[1][2], (v56 + *(v56 + 32)), v48, *a1, v16, &v75);
+    v57 = ntfs_mapping_pairs_build(a1[1][2], (v56 + *(v56 + 32)), v48, *a1, v16, &v69);
     v58 = v57;
-    if (!v75)
+    if (v69)
     {
-      v16 = 0;
-      if (v57 < 0)
+      v16 = *v69;
+      if ((v57 & 0x80000000) == 0)
       {
         goto LABEL_122;
       }
-
-      goto LABEL_123;
     }
 
-    v16 = *v75;
-    if ((v57 & 0x80000000) == 0)
+    else
     {
-      goto LABEL_123;
+      v16 = 0;
+      if ((v57 & 0x80000000) == 0)
+      {
+        goto LABEL_122;
+      }
+    }
+
+    if (*__error() != 28)
+    {
+      v65 = *__error();
+      ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5110, 256, 0, "Failed to build MP");
+      if (ntfs_mft_record_free(a1[1][2], v50))
+      {
+        ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5112, 256, 0, "Couldn't free MFT record");
+      }
+
+      goto LABEL_157;
     }
 
 LABEL_122:
-    if (*__error() == 28)
+    *(v56 + 24) = v16 - 1;
+    ntfs_inode_mark_dirty(v50);
+    result = 0;
+    if (!v58)
     {
-LABEL_123:
-      *(v56 + 24) = v16 - 1;
-      ntfs_inode_mark_dirty(v50);
-      result = 0;
-      if (!v58)
-      {
-        return result;
-      }
-
-      continue;
+      return result;
     }
-
-    break;
   }
 
-  v68 = *__error();
-  ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5110, 256);
-  if (!ntfs_mft_record_free(a1[1][2], v50))
+  v65 = *__error();
+  ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5093, 256, 0, "Could not add attribute extent");
+  if (ntfs_mft_record_free(a1[1][2], v50))
   {
-    goto LABEL_161;
+    ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5095, 256, 0, "Could not free MFT record");
   }
 
-  v69 = 5112;
-LABEL_160:
-  ntfs_log_redirect("ntfs_attr_update_mapping_pairs_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v69, 256);
-LABEL_161:
-  *__error() = v68;
+LABEL_157:
+  *__error() = v65;
   return 0xFFFFFFFFLL;
 }
 
 uint64_t ntfs_attr_truncate(uint64_t a1, uint64_t a2)
 {
-  result = sub_1000110E0(a1, a2, 1);
+  result = sub_1000110E0(a1, a2);
   *(a1 + 40) &= 0xFFFFFFFFFFFFFFEBLL;
   return result;
 }
 
-char *ntfs_attr_readall(uint64_t *a1, unsigned int a2, unsigned __int16 *a3, unsigned int a4, size_t *a5)
+char *ntfs_attr_readall(uint64_t a1, unsigned int a2, unsigned __int16 *a3, unsigned int a4, size_t *a5)
 {
   v6 = ntfs_attr_open(a1, a2, a3, a4);
   if (v6)
@@ -6594,7 +6484,7 @@ char *ntfs_attr_readall(uint64_t *a1, unsigned int a2, unsigned __int16 *a3, uns
 
       else
       {
-        ntfs_log_redirect("ntfs_attr_readall", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5721, 256);
+        ntfs_log_redirect("ntfs_attr_readall", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5721, 256, 0, "ntfs_attr_pread failed");
         free(v8);
         v8 = 0;
       }
@@ -6605,14 +6495,14 @@ char *ntfs_attr_readall(uint64_t *a1, unsigned int a2, unsigned __int16 *a3, uns
 
   else
   {
-    ntfs_log_redirect("ntfs_attr_readall", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5712, 256);
+    ntfs_log_redirect("ntfs_attr_readall", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5712, 256, 0, "ntfs_attr_open failed");
     return 0;
   }
 
   return v8;
 }
 
-void *ntfs_attr_exist(uint64_t a1, unsigned int a2, unsigned __int16 *a3, unsigned int a4)
+unint64_t *ntfs_attr_exist(uint64_t a1, unsigned int a2, unsigned __int16 *a3, unsigned int a4)
 {
   result = ntfs_attr_get_search_ctx(a1, 0);
   if (result)
@@ -6626,9 +6516,9 @@ void *ntfs_attr_exist(uint64_t a1, unsigned int a2, unsigned __int16 *a3, unsign
   return result;
 }
 
-uint64_t sub_100014DE8(void **a1, int64_t a2, int a3)
+uint64_t sub_100014DE8(char **a1, char *a2, int a3)
 {
-  v6 = a1[1][2];
+  v6 = *(a1[1] + 2);
   if ((ntfs_attr_size_bounds_check(v6, *(a1 + 4), a2) & 0x80000000) != 0)
   {
     if (*__error() == 2)
@@ -6636,8 +6526,8 @@ uint64_t sub_100014DE8(void **a1, int64_t a2, int a3)
       *__error() = 5;
     }
 
-    v15 = 5357;
-    goto LABEL_13;
+    ntfs_log_redirect("ntfs_non_resident_attr_expand_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5357, 256, 0, "%s: bounds check failed");
+    return 0xFFFFFFFFLL;
   }
 
   if (*(a1 + 4) == 128)
@@ -6648,11 +6538,11 @@ uint64_t sub_100014DE8(void **a1, int64_t a2, int a3)
   v8 = (a1 + 6);
   v7 = a1[6];
   v9 = *(v6 + 52);
-  v10 = (a2 + *(v6 + 40) - 1) >> v9;
+  v10 = &a2[*(v6 + 40) - 1] >> v9;
   v11 = v7 >> v9;
   if (v7 >> v9 >= v10)
   {
-    goto LABEL_32;
+    goto LABEL_31;
   }
 
   v12 = v11 != 0;
@@ -6669,194 +6559,190 @@ uint64_t sub_100014DE8(void **a1, int64_t a2, int a3)
 
   if (sub_100011874(a1, v14))
   {
-    v15 = 5384;
-LABEL_13:
-    ntfs_log_redirect("ntfs_non_resident_attr_expand_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v15, 256);
+    ntfs_log_redirect("ntfs_non_resident_attr_expand_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5384, 256, 0, "failed to map partial runlist");
     return 0xFFFFFFFFLL;
   }
 
-  if (*(a1 + 4) == 128 && *(v6 + 32) >= 3u)
+  if (*(a1 + 4) != 128 || *(v6 + 32) < 3u)
   {
-    v16 = ntfs_malloc(0x1000uLL);
+    v18 = *a1;
+    if (*(*a1 + 2))
+    {
+      v19 = 0;
+      do
+      {
+        v20 = *&v18[v19 + 40];
+        v19 += 24;
+      }
+
+      while (v20);
+      v21 = *&v18[v19 - 16];
+      v22 = &v18[v19 - 24];
+      if ((v21 & 0x8000000000000000) == 0)
+      {
+LABEL_25:
+        v24 = *(v22 + 16) + v21;
+        goto LABEL_27;
+      }
+
+      v23 = 24 - v19;
+      while (v23)
+      {
+        v21 = *(v22 - 16);
+        v22 -= 24;
+        v23 += 24;
+        if ((v21 & 0x8000000000000000) == 0)
+        {
+          v22 = &v18[-v23];
+          goto LABEL_25;
+        }
+      }
+    }
+
+    v24 = -1;
+LABEL_27:
+    v16 = ntfs_cluster_alloc(v6, *v8 >> *(v6 + 52), v10 - (*v8 >> *(v6 + 52)), v24, 1u);
     if (!v16)
     {
+      ntfs_log_redirect("ntfs_non_resident_attr_expand_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5448, 256, 0, "Cluster allocation failed (%lld)");
       return 0xFFFFFFFFLL;
     }
 
-    v17 = v16;
-    v18 = *v8 >> *(v6 + 52);
-    *v16 = v18;
-    *(v16 + 1) = -1;
-    *(v16 + 2) = v10 - v18;
-    *(v16 + 3) = v10;
-    *(v16 + 2) = xmmword_100019850;
-    goto LABEL_29;
+    goto LABEL_28;
   }
 
-  v19 = *a1;
-  if ((*a1)[2])
+  v15 = ntfs_malloc(0x1000uLL);
+  if (!v15)
   {
-    v20 = 0;
-    do
-    {
-      v21 = *&v19[v20 + 40];
-      v20 += 24;
-    }
-
-    while (v21);
-    v22 = *&v19[v20 - 16];
-    v23 = &v19[v20 - 24];
-    if ((v22 & 0x8000000000000000) == 0)
-    {
-LABEL_26:
-      v25 = *(v23 + 16) + v22;
-      goto LABEL_28;
-    }
-
-    v24 = 24 - v20;
-    while (v24)
-    {
-      v22 = *(v23 - 16);
-      v23 -= 24;
-      v24 += 24;
-      if ((v22 & 0x8000000000000000) == 0)
-      {
-        v23 = &v19[-v24];
-        goto LABEL_26;
-      }
-    }
-  }
-
-  v25 = -1;
-LABEL_28:
-  v17 = ntfs_cluster_alloc(v6, *v8 >> *(v6 + 52), v10 - (*v8 >> *(v6 + 52)), v25, 1u);
-  if (!v17)
-  {
-    v38 = v10 - (*v8 >> *(v6 + 52));
-    v15 = 5448;
-    goto LABEL_13;
-  }
-
-LABEL_29:
-  v26 = ntfs_runlists_merge(*a1, v17);
-  if (!v26)
-  {
-    v37 = *__error();
-    ntfs_log_redirect("ntfs_non_resident_attr_expand_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5458, 256);
-    ntfs_cluster_free_from_rl(v6, v17);
-    free(v17);
-    *__error() = v37;
     return 0xFFFFFFFFLL;
   }
 
-  *a1 = v26;
+  v16 = v15;
+  v17 = *v8 >> *(v6 + 52);
+  *v15 = v17;
+  *(v15 + 1) = -1;
+  *(v15 + 2) = v10 - v17;
+  *(v15 + 3) = v10;
+  *(v15 + 2) = xmmword_100019850;
+LABEL_28:
+  v25 = ntfs_runlists_merge(*a1, v16);
+  if (!v25)
+  {
+    v35 = *__error();
+    ntfs_log_redirect("ntfs_non_resident_attr_expand_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5458, 256, 0, "Run list merge failed");
+    ntfs_cluster_free_from_rl(v6, v16);
+    free(v16);
+    *__error() = v35;
+    return 0xFFFFFFFFLL;
+  }
+
+  *a1 = v25;
   a1[6] = (v10 << *(v6 + 52));
   if (sub_100014038(a1, v14, a3))
   {
-    v27 = *__error();
-    ntfs_log_redirect("ntfs_non_resident_attr_expand_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5475, 256);
-LABEL_39:
+    v26 = *__error();
+    ntfs_log_redirect("ntfs_non_resident_attr_expand_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5475, 256, 0, "Mapping pairs update failed");
+    goto LABEL_38;
+  }
+
+LABEL_31:
+  search_ctx = ntfs_attr_get_search_ctx(a1[1], 0);
+  if (!search_ctx)
+  {
+    v26 = *__error();
+    if (*v8 == v7)
+    {
+LABEL_48:
+      *__error() = v26;
+      return 0xFFFFFFFFLL;
+    }
+
+LABEL_38:
     if ((ntfs_cluster_free(v6, a1, v7 >> *(v6 + 52), -1) & 0x80000000) != 0)
     {
-      ntfs_log_redirect("ntfs_non_resident_attr_expand_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5529, 256);
-      v27 = 5;
+      ntfs_log_redirect("ntfs_non_resident_attr_expand_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5529, 256, 0, "Leaking clusters");
+      v26 = 5;
     }
 
     if (ntfs_rl_truncate(a1, v7 >> *(v6 + 52)))
     {
       free(*a1);
       *a1 = 0;
-      v31 = 5540;
-LABEL_49:
-      ntfs_log_redirect("ntfs_non_resident_attr_expand_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", v31, 256);
-      goto LABEL_50;
+      ntfs_log_redirect("ntfs_non_resident_attr_expand_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5540, 256, 0, "Couldn't truncate runlist. Rollback failed");
     }
 
-    a1[6] = v7;
-    if (sub_100014038(a1, 0, 1))
+    else
     {
-      v31 = 5547;
-      goto LABEL_49;
+      a1[6] = v7;
+      if (sub_100014038(a1, 0, 1))
+      {
+        ntfs_log_redirect("ntfs_non_resident_attr_expand_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5547, 256, 0, "Failed to restore old mapping pairs");
+      }
     }
 
-LABEL_50:
-    *__error() = v27;
-    return 0xFFFFFFFFLL;
+    goto LABEL_48;
   }
 
-LABEL_32:
-  search_ctx = ntfs_attr_get_search_ctx(a1[1], 0);
-  if (!search_ctx)
-  {
-    v27 = *__error();
-    if (*v8 == v7)
-    {
-      goto LABEL_50;
-    }
-
-    goto LABEL_39;
-  }
-
-  v29 = search_ctx;
+  v28 = search_ctx;
   if (ntfs_attr_lookup(*(a1 + 4), a1[3], *(a1 + 8), 0, 0, 0, 0, search_ctx))
   {
-    v27 = *__error();
-    ntfs_log_redirect("ntfs_non_resident_attr_expand_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5493, 256);
-    if (v27 == 2)
+    v26 = *__error();
+    ntfs_log_redirect("ntfs_non_resident_attr_expand_i", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5493, 256, 0, "Lookup of first attribute extent failed");
+    if (v26 == 2)
     {
-      v27 = 5;
+      v26 = 5;
     }
 
-    v30 = *v8;
-    free(v29);
-    if (v30 == v7)
+    v29 = *v8;
+    free(v28);
+    if (v29 == v7)
     {
-      goto LABEL_50;
+      goto LABEL_48;
     }
 
-    goto LABEL_39;
+    goto LABEL_38;
   }
 
   a1[7] = a2;
-  *(v29[1] + 48) = a2;
-  v32 = a1[1];
-  v33 = *(a1 + 4);
-  if ((*(v32[1] + 22) & 2) != 0)
+  *(v28[1] + 48) = a2;
+  v30 = a1[1];
+  v31 = *(a1 + 4);
+  if ((*(*(v30 + 1) + 22) & 2) != 0)
   {
-    if (v33 != 144 || a1[3] != NTFS_INDEX_I30)
+    if (v31 != 144 || a1[3] != NTFS_INDEX_I30)
     {
-      goto LABEL_56;
+      goto LABEL_54;
     }
 
-    v32[8] = a1[7];
-    v34 = 64;
-    v35 = 9;
+    *(v30 + 8) = a1[7];
+    v32 = 64;
+    v33 = 72;
   }
 
   else
   {
-    if (v33 != 128 || a1[3] != &AT_UNNAMED)
+    if (v31 != 128 || a1[3] != &AT_UNNAMED)
     {
-      goto LABEL_56;
+      goto LABEL_54;
     }
 
-    v34 = 8;
-    v35 = 8;
+    v32 = 8;
+    v33 = 64;
     v8 = (a1 + 7);
   }
 
-  v32[v35] = *v8;
-  v32[3] |= v34;
-LABEL_56:
-  ntfs_inode_mark_dirty(v29[3]);
-  free(v29);
+  *&v30[v33] = *v8;
+  *(v30 + 3) |= v32;
+LABEL_54:
+  ntfs_inode_mark_dirty(v28[3]);
+  free(v28);
   return 0;
 }
 
-uint64_t sub_1000152FC(uint64_t a1, int64_t a2)
+uint64_t sub_1000152FC(void **a1, void *a2)
 {
-  v4 = *(*(a1 + 8) + 16);
-  if ((ntfs_attr_size_bounds_check(v4, *(a1 + 16), a2) & 0x80000000) != 0)
+  v4 = a1[1][2];
+  if ((ntfs_attr_size_bounds_check(v4, *(a1 + 4), a2) & 0x80000000) != 0)
   {
     if (*__error() != 34 && *__error() == 2)
     {
@@ -6868,7 +6754,7 @@ uint64_t sub_1000152FC(uint64_t a1, int64_t a2)
 
   if (*(a1 + 20))
   {
-    v5 = ((a2 - 1) | (*(a1 + 80) - 1)) + 1;
+    v5 = ((a2 - 1) | (*(a1 + 20) - 1)) + 1;
   }
 
   else
@@ -6878,8 +6764,8 @@ uint64_t sub_1000152FC(uint64_t a1, int64_t a2)
 
   v6 = *(v4 + 52);
   v7 = v5 >> v6;
-  v8 = (a1 + 48);
-  if (*(a1 + 48) >> v6 != v5 >> v6)
+  v8 = a1 + 6;
+  if (a1[6] >> v6 != v5 >> v6)
   {
     if (ntfs_attr_map_whole_runlist(a1) || (ntfs_cluster_free(v4, a1, v7, -1) & 0x80000000) != 0)
     {
@@ -6893,21 +6779,21 @@ uint64_t sub_1000152FC(uint64_t a1, int64_t a2)
       return 0xFFFFFFFFLL;
     }
 
-    *(a1 + 48) = v7 << *(v4 + 52);
+    a1[6] = (v7 << *(v4 + 52));
     if (sub_100014038(a1, 0, 1))
     {
       return 0xFFFFFFFFLL;
     }
   }
 
-  search_ctx = ntfs_attr_get_search_ctx(*(a1 + 8), 0);
+  search_ctx = ntfs_attr_get_search_ctx(a1[1], 0);
   if (!search_ctx)
   {
     return 0xFFFFFFFFLL;
   }
 
   v10 = search_ctx;
-  if (ntfs_attr_lookup(*(a1 + 16), *(a1 + 24), *(a1 + 32), 0, 0, 0, 0, search_ctx))
+  if (ntfs_attr_lookup(*(a1 + 4), a1[3], *(a1 + 8), 0, 0, 0, 0, search_ctx))
   {
     v11 = *__error();
     if (v11 == 2)
@@ -6925,17 +6811,17 @@ uint64_t sub_1000152FC(uint64_t a1, int64_t a2)
     return 0xFFFFFFFFLL;
   }
 
-  *(a1 + 56) = a2;
-  v14 = (a1 + 56);
+  a1[7] = a2;
+  v14 = a1 + 7;
   *(v10[1] + 48) = a2;
-  if (*(a1 + 64) > a2)
+  if (a1[8] > a2)
   {
-    *(a1 + 64) = a2;
+    a1[8] = a2;
     *(v10[1] + 56) = a2;
   }
 
-  v15 = *(a1 + 8);
-  v16 = *(a1 + 16);
+  v15 = a1[1];
+  v16 = *(a1 + 4);
   if ((*(v15[1] + 22) & 2) != 0)
   {
     if (v16 != 144)
@@ -6943,7 +6829,7 @@ uint64_t sub_1000152FC(uint64_t a1, int64_t a2)
       goto LABEL_33;
     }
 
-    if (*(a1 + 24) != NTFS_INDEX_I30)
+    if (a1[3] != NTFS_INDEX_I30)
     {
       v16 = 144;
       goto LABEL_33;
@@ -6956,11 +6842,11 @@ uint64_t sub_1000152FC(uint64_t a1, int64_t a2)
     goto LABEL_32;
   }
 
-  if (v16 == 128 && *(a1 + 24) == &AT_UNNAMED)
+  if (v16 == 128 && a1[3] == &AT_UNNAMED)
   {
     v17 = 8;
     v18 = 8;
-    v8 = (a1 + 56);
+    v8 = a1 + 7;
 LABEL_32:
     v15[v18] = *v8;
     v15[3] |= v17;
@@ -6970,7 +6856,7 @@ LABEL_33:
   if (!a2)
   {
     v19 = v10[1];
-    if (!*(v19 + 16) && (*(a1 + 40) & 2) != 0)
+    if (!*(v19 + 16) && (a1[5] & 2) != 0)
     {
       v20 = v15[2];
       if (v16 == 176 && !*v15)
@@ -6981,14 +6867,14 @@ LABEL_33:
       if (v20)
       {
         v21 = 22;
-        if (!v16 || !v20[31])
+        if (!v16 || !*(v20 + 248))
         {
           goto LABEL_44;
         }
 
         if (v16 != 160)
         {
-          if ((*(a1 + 20) & 0x4000) != 0)
+          if ((*(a1 + 10) & 0x4000) != 0)
           {
             v21 = 102;
           }
@@ -6998,14 +6884,14 @@ LABEL_33:
             v22 = (2 * *(v19 + 9) + 31) & 0x3F8;
             if ((((*v14 + v22 + 7) & 0xFFFFFFFFFFFFFFF8) + (*(*v10 + 24) - *(v19 + 4))) <= *(*v10 + 28))
             {
-              v31 = (a1 + 56);
+              v31 = a1 + 7;
               v32 = (*v14 + v22 + 7) & 0xFFFFFFFFFFFFFFF8;
               if (ntfs_attr_map_whole_runlist(a1))
               {
 LABEL_45:
                 if (*__error() != 1)
                 {
-                  ntfs_log_redirect("ntfs_non_resident_attr_shrink", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5304, 128);
+                  ntfs_log_redirect("ntfs_non_resident_attr_shrink", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 5304, 128, 0, "Failed to make attribute resident. Leaving as is...\n");
                 }
 
                 goto LABEL_47;
@@ -7019,7 +6905,7 @@ LABEL_45:
               *(v19 + 10) = 24;
               if ((ntfs_attr_record_resize(*v10, v19, v32) & 0x80000000) != 0)
               {
-                ntfs_log_redirect("ntfs_attr_make_resident", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4535, 128);
+                ntfs_log_redirect("ntfs_attr_make_resident", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4535, 128, 0, "BUG! Failed to resize attribute record. Please report to the %s.  Aborting...\n", "ntfs-support@tuxera.com");
               }
 
               else
@@ -7028,30 +6914,30 @@ LABEL_45:
                 *(v19 + 12) = 0;
                 *(v19 + 16) = *v31;
                 *(v19 + 20) = v22;
-                if (!*v31 && *(a1 + 16) == 128)
+                if (!*v31 && *(a1 + 4) == 128)
                 {
-                  v23 = *(a1 + 8);
-                  v24 = *(v23 + 16);
+                  v23 = a1[1];
+                  v24 = v23[2];
                   if (*(v24 + 32) >= 3u && (*(v24 + 16) & 0x40) != 0 && *(v24 + 40) <= 0x1000u && (*(v23 + 33) & 8) != 0)
                   {
                     *(v19 + 12) = 1;
-                    *(a1 + 20) = 1;
+                    *(a1 + 10) = 1;
                   }
                 }
 
                 *(v19 + 22) = *v19 == 48;
                 *(v19 + 23) = 0;
-                v26 = *(a1 + 56);
-                v25 = *(a1 + 64);
+                v26 = a1[7];
+                v25 = a1[8];
                 if (v25 > v26)
                 {
-                  *(a1 + 64) = v26;
+                  a1[8] = v26;
                   v25 = v26;
                 }
 
                 v27 = (v19 + v22);
                 v28 = ntfs_rl_pread(v20, *a1, 0, v25, v27);
-                if (v28 == *(a1 + 64))
+                if (v28 == a1[8])
                 {
                   if (*v31 > v28)
                   {
@@ -7060,24 +6946,24 @@ LABEL_45:
 
                   if ((ntfs_cluster_free(v20, a1, 0, -1) & 0x80000000) != 0)
                   {
-                    ntfs_log_redirect("ntfs_attr_make_resident", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4599, 256);
+                    ntfs_log_redirect("ntfs_attr_make_resident", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/attrib.c", 4599, 256, 0, "Eeek! Failed to release allocated clusters");
                   }
 
                   free(*a1);
                   *a1 = 0;
-                  *(a1 + 40) &= 0xFFFFFFFFFFFFFFF5;
-                  if (*(a1 + 16) == 128 && *(a1 + 24) == &AT_UNNAMED)
+                  a1[5] = (a1[5] & 0xFFFFFFFFFFFFFFF5);
+                  if (*(a1 + 4) == 128 && a1[3] == &AT_UNNAMED)
                   {
-                    *(*(a1 + 8) + 32) &= 0xFFFFBDFF;
+                    *(a1[1] + 8) &= 0xFFFFBDFF;
                   }
 
-                  v29 = *(a1 + 56);
-                  v30 = (v29 + 7) & 0xFFFFFFFFFFFFFFF8;
-                  *(a1 + 64) = v29;
-                  *(a1 + 72) = v30;
-                  *(a1 + 48) = v30;
-                  *(a1 + 80) = 0;
-                  *(a1 + 84) = 0;
+                  v29 = a1[7];
+                  v30 = ((v29 + 7) & 0xFFFFFFFFFFFFFFF8);
+                  a1[8] = v29;
+                  a1[9] = v30;
+                  a1[6] = v30;
+                  *(a1 + 20) = 0;
+                  *(a1 + 42) = 0;
                   goto LABEL_47;
                 }
 
@@ -7331,12 +7217,12 @@ uint64_t ntfs_inode_real_close(uint64_t result)
     goto LABEL_4;
   }
 
-  v2 = *(v1 + 48);
+  v2 = *(v1 + 12);
   if (v2 >= 1)
   {
-    while (!ntfs_inode_real_close(**(v1 + 56)))
+    while (!ntfs_inode_real_close(*v1[7]))
     {
-      if (*(v1 + 48) < 1)
+      if (*(v1 + 12) < 1)
       {
         goto LABEL_18;
       }
@@ -7353,13 +7239,12 @@ LABEL_4:
 
   if (v2 == -1)
   {
-    v3 = *(v1 + 56);
+    v3 = v1[7];
     v4 = *(v3 + 48);
     if (v4 < 1)
     {
 LABEL_16:
-      v10 = *v1;
-      ntfs_log_redirect("ntfs_inode_real_close", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 375, 128);
+      ntfs_log_redirect("ntfs_inode_real_close", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 375, 128, 0, "Extent inode %lld was not found\n", *v1);
     }
 
     else
@@ -7367,7 +7252,7 @@ LABEL_16:
       v5 = 0;
       v6 = *(v3 + 56);
       v7 = 1;
-      while (v6[v5] != v1)
+      while (*&v6[8 * v5] != v1)
       {
         ++v5;
         ++v7;
@@ -7377,7 +7262,7 @@ LABEL_16:
         }
       }
 
-      memmove(&v6[v5], &v6[v7], 8 * (v4 - v7));
+      memmove(&v6[8 * v5], &v6[8 * v7], 8 * (v4 - v7));
       v8 = *(v3 + 48) - 1;
       *(v3 + 48) = v8;
       if ((v8 & 3) == 0)
@@ -7405,13 +7290,12 @@ LABEL_18:
   return 0;
 }
 
-void sub_100015E10(uint64_t *a1)
+void sub_100015E10(void *a1)
 {
   v2 = a1[3];
   if (v2)
   {
-    v4 = *a1;
-    ntfs_log_redirect("__ntfs_inode_release", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 115, 128);
+    ntfs_log_redirect("__ntfs_inode_release", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 115, 128, 0, "Releasing dirty inode %lld!\n", *a1);
     v2 = a1[3];
   }
 
@@ -7461,42 +7345,37 @@ LABEL_32:
       v7 = search_ctx;
       if (ntfs_attr_lookup(0x10u, &AT_UNNAMED, 0, 0, 0, 0, 0, search_ctx))
       {
-        if (*(*(v5 + 8) + 32))
+        if (!*(*(v5 + 8) + 32))
         {
-LABEL_31:
-          ntfs_attr_put_search_ctx(v7);
-          goto LABEL_32;
+          ntfs_log_redirect("ntfs_inode_real_open", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 178, 256, 0, "No STANDARD_INFORMATION in base record %lld");
         }
 
-        v8 = 178;
-LABEL_11:
-        ntfs_log_redirect("ntfs_inode_real_open", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", v8, 256);
         goto LABEL_31;
       }
 
-      v9 = v7[1];
-      v10 = v9 + *(v9 + 20);
-      *(v5 + 32) = *(v10 + 32);
-      *(v5 + 80) = *v10;
-      *(v5 + 96) = *(v10 + 16);
-      v11 = *(v9 + 4);
-      v12 = *(v5 + 24);
-      if (v11 < 0x49)
+      v8 = v7[1];
+      v9 = v8 + *(v8 + 20);
+      *(v5 + 32) = *(v9 + 32);
+      *(v5 + 80) = *v9;
+      *(v5 + 96) = *(v9 + 16);
+      v10 = *(v8 + 4);
+      v11 = *(v5 + 24);
+      if (v10 < 0x49)
       {
-        *(v5 + 24) = v12 & 0xFFFFFFFFFFFFFFEFLL;
+        *(v5 + 24) = v11 & 0xFFFFFFFFFFFFFFEFLL;
         *(v5 + 112) = 0;
       }
 
       else
       {
-        *(v5 + 24) = v12 | 0x10;
-        *(v5 + 112) = *(v10 + 48);
-        *(v5 + 116) = *(v10 + 52);
-        *(v5 + 120) = *(v10 + 56);
-        *(v5 + 128) = *(v10 + 64);
+        *(v5 + 24) = v11 | 0x10;
+        *(v5 + 112) = *(v9 + 48);
+        *(v5 + 116) = *(v9 + 52);
+        *(v5 + 120) = *(v9 + 56);
+        *(v5 + 128) = *(v9 + 64);
       }
 
-      v13 = *__error();
+      v12 = *__error();
       if (ntfs_attr_lookup(0x20u, &AT_UNNAMED, 0, 0, 0, 0, 0, v7))
       {
         if (*__error() != 2)
@@ -7504,7 +7383,7 @@ LABEL_11:
           goto LABEL_31;
         }
 
-        *__error() = v13;
+        *__error() = v12;
       }
 
       else
@@ -7519,76 +7398,77 @@ LABEL_11:
         if (attribute_value_length > 0x40000)
         {
           *__error() = 5;
-          v8 = 220;
-          goto LABEL_11;
+          ntfs_log_redirect("ntfs_inode_real_open", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 220, 256, 0, "Too large attrlist attribute (%lld), inode %lld");
+          goto LABEL_31;
         }
 
         *(v5 + 36) = attribute_value_length;
-        v18 = ntfs_malloc(attribute_value_length);
-        *(v5 + 40) = v18;
-        if (!v18)
+        v17 = ntfs_malloc(attribute_value_length);
+        *(v5 + 40) = v17;
+        if (!v17)
         {
           goto LABEL_31;
         }
 
-        attribute_value = ntfs_get_attribute_value(a1, v7[1], v18);
+        attribute_value = ntfs_get_attribute_value(a1, v7[1], v17);
         if (!attribute_value)
         {
           goto LABEL_31;
         }
 
+        v19 = attribute_value;
         if (attribute_value != *(v5 + 36))
         {
           *__error() = 5;
-          v22 = *(v5 + 36);
-          v8 = 234;
-          goto LABEL_11;
-        }
-      }
-
-      v14 = *__error();
-      if (ntfs_attr_lookup(0x80u, &AT_UNNAMED, 0, 0, 0, 0, 0, v7))
-      {
-        if (*__error() != 2)
-        {
+          ntfs_log_redirect("ntfs_inode_real_open", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 234, 256, 0, "Unexpected attrlist size (%lld <> %u), inode %lld", v19);
           goto LABEL_31;
         }
-
-        *__error() = v14;
-        *(v5 + 64) = 0;
-        *(v5 + 72) = 0;
       }
 
-      else
+      v13 = *__error();
+      if (!ntfs_attr_lookup(0x80u, &AT_UNNAMED, 0, 0, 0, 0, 0, v7))
       {
-        v16 = v7[1];
-        if (*(v16 + 8))
+        v15 = v7[1];
+        if (*(v15 + 8))
         {
-          *(v5 + 64) = *(v16 + 48);
-          if ((*(v16 + 12) & 0x8001) != 0)
+          *(v5 + 64) = *(v15 + 48);
+          if ((*(v15 + 12) & 0x8001) != 0)
           {
-            v17 = *(v16 + 64);
+            v16 = *(v15 + 64);
           }
 
           else
           {
-            v17 = *(v16 + 40);
+            v16 = *(v15 + 40);
           }
 
-          *(v5 + 72) = v17;
+          *(v5 + 72) = v16;
         }
 
         else
         {
-          v21 = *(v16 + 16);
+          v21 = *(v15 + 16);
           *(v5 + 64) = v21;
           *(v5 + 72) = (v21 + 7) & 0x1FFFFFFF8;
         }
 
         *(v5 + 24) |= 0x40uLL;
+        goto LABEL_38;
       }
 
+      if (*__error() == 2)
+      {
+        *__error() = v13;
+        *(v5 + 64) = 0;
+        *(v5 + 72) = 0;
+LABEL_38:
+        ntfs_attr_put_search_ctx(v7);
+        return v5;
+      }
+
+LABEL_31:
       ntfs_attr_put_search_ctx(v7);
+      goto LABEL_32;
     }
   }
 
@@ -7601,12 +7481,12 @@ LABEL_11:
   return v5;
 }
 
-uint64_t *ntfs_extent_inode_open(uint64_t a1, unint64_t a2)
+unint64_t *ntfs_extent_inode_open(unint64_t a1, unint64_t a2)
 {
   if (!a1)
   {
     *__error() = 22;
-    ntfs_log_redirect("ntfs_extent_inode_open", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 456, 256);
+    ntfs_log_redirect("ntfs_extent_inode_open", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 456, 256, 0, "%s", "ntfs_extent_inode_open");
     return 0;
   }
 
@@ -7623,7 +7503,7 @@ uint64_t *ntfs_extent_inode_open(uint64_t a1, unint64_t a2)
     v12 = v11[2];
     if (v12)
     {
-      v13 = (v4 << *(v10 + 53)) >> *(v10 + 52);
+      v13 = v4 << *(v10 + 53) >> *(v10 + 52);
       while (*v11 + v12 <= v13)
       {
         v14 = v11 + 3;
@@ -7641,8 +7521,8 @@ LABEL_22:
     if ((v14[1] & 0x8000000000000000) != 0)
     {
 LABEL_23:
-      ntfs_log_redirect("ntfs_extent_inode_open", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 486, 128);
-      ntfs_log_redirect("ntfs_extent_inode_open", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 488, 128);
+      ntfs_log_redirect("ntfs_extent_inode_open", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 486, 128, 0, "MFT is corrupt, cannot read its unmapped extent record %lld\n", a2 & 0xFFFFFFFFFFFFLL);
+      ntfs_log_redirect("ntfs_extent_inode_open", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 488, 128, 0, "Note : chkdsk cannot fix this, try ntfsfix\n");
       v7 = 0;
       *__error() = 5;
       return v7;
@@ -7723,14 +7603,13 @@ LABEL_9:
   if (HIWORD(a2) && *(v7[1] + 16) != HIWORD(a2))
   {
     *__error() = 5;
-    v20 = *v7;
-    ntfs_log_redirect("ntfs_extent_inode_open", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 511, 256);
+    ntfs_log_redirect("ntfs_extent_inode_open", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 511, 256, 0, "Found stale extent mft reference mft=%lld", *v7);
   }
 
   return v7;
 }
 
-uint64_t ntfs_inode_attach_all_extents(uint64_t a1)
+uint64_t ntfs_inode_attach_all_extents(unint64_t a1)
 {
   if (a1)
   {
@@ -7790,16 +7669,16 @@ uint64_t ntfs_inode_attach_all_extents(uint64_t a1)
   return 0xFFFFFFFFLL;
 }
 
-uint64_t ntfs_inode_sync_0(uint64_t a1)
+uint64_t ntfs_inode_sync_0(void *a1)
 {
   if (!a1)
   {
     *__error() = 22;
-    ntfs_log_redirect("ntfs_inode_sync_in_dir", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 823, 128);
+    ntfs_log_redirect("ntfs_inode_sync_in_dir", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 823, 128, 0, "Failed to sync NULL inode\n");
     return 0xFFFFFFFFLL;
   }
 
-  if ((*(*(a1 + 8) + 22) & 1) == 0 || *(a1 + 48) == -1)
+  if ((*(a1[1] + 22) & 1) == 0 || *(a1 + 12) == -1)
   {
     goto LABEL_21;
   }
@@ -7815,26 +7694,26 @@ uint64_t ntfs_inode_sync_0(uint64_t a1)
   {
     v5 = v3[1];
     v6 = v5 + *(v5 + 20);
-    *(v6 + 32) = *(a1 + 32);
-    v7 = *(a1 + 24);
+    *(v6 + 32) = *(a1 + 8);
+    v7 = a1[3];
     if ((v7 & 0x20) == 0)
     {
-      *v6 = *(a1 + 80);
-      *(v6 + 16) = *(a1 + 96);
+      *v6 = *(a1 + 5);
+      *(v6 + 16) = *(a1 + 6);
     }
 
     v8 = *(v5 + 4);
     if ((v7 & 0x10) != 0 && v8 <= 0x48)
     {
-      ntfs_log_redirect("ntfs_inode_sync_standard_information", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 640, 128);
+      ntfs_log_redirect("ntfs_inode_sync_standard_information", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 640, 128, 0, "bad sync of standard information\n");
     }
 
     else if (v8 >= 0x49)
     {
-      *(v6 + 48) = *(a1 + 112);
-      *(v6 + 52) = *(a1 + 116);
-      *(v6 + 56) = *(a1 + 120);
-      *(v6 + 64) = *(a1 + 128);
+      *(v6 + 48) = *(a1 + 28);
+      *(v6 + 52) = *(a1 + 29);
+      *(v6 + 56) = a1[15];
+      *(v6 + 64) = a1[16];
     }
 
     v9 = v3[3];
@@ -7850,8 +7729,7 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v38 = *a1;
-  ntfs_log_redirect("ntfs_inode_sync_standard_information", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 620, 256);
+  ntfs_log_redirect("ntfs_inode_sync_standard_information", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 620, 256, 0, "Failed to sync standard info (inode %lld)", *a1);
   ntfs_attr_put_search_ctx(v3);
 LABEL_7:
   if (*__error() == 5)
@@ -7865,10 +7743,10 @@ LABEL_7:
   }
 
 LABEL_22:
-  if ((*(*(a1 + 8) + 22) & 1) != 0 && *(a1 + 48) != -1)
+  if ((*(a1[1] + 22) & 1) != 0 && *(a1 + 12) != -1)
   {
-    v10 = *(a1 + 24);
-    *(a1 + 24) = v10 & 0xFFFFFFFFFFFFFFF7;
+    v10 = a1[3];
+    a1[3] = v10 & 0xFFFFFFFFFFFFFFF7;
     if ((v10 & 8) != 0)
     {
       v11 = ntfs_attr_get_search_ctx(a1, 0);
@@ -7877,10 +7755,10 @@ LABEL_22:
         v12 = v11;
         if ((*(a1 + 33) & 4) != 0)
         {
-          v50 = 0;
+          v38 = 0;
           if (!ntfs_attr_lookup(0xC0u, 0, 0, 0, 0, 0, 0, v11))
           {
-            v50 = *(v12[1] + *(v12[1] + 20));
+            v38 = *(v12[1] + *(v12[1] + 20));
           }
 
           ntfs_attr_reinit_search_ctx(v12);
@@ -7888,7 +7766,7 @@ LABEL_22:
 
         else
         {
-          v50 = 0;
+          v38 = 0;
         }
 
         v13 = 0;
@@ -7899,7 +7777,7 @@ LABEL_22:
           {
             v18 = (v12[1] + *(v12[1] + 20));
             v19 = a1;
-            if ((*v18 & 0xFFFFFFFFFFFFLL) == *a1 || (v19 = ntfs_inode_open(*(a1 + 16), *v18)) != 0)
+            if ((*v18 & 0xFFFFFFFFFFFFLL) == *a1 || (v19 = ntfs_inode_open(a1[2], *v18)) != 0)
             {
               v20 = ntfs_index_ctx_get(v19, NTFS_INDEX_I30, 4);
               if (v20)
@@ -7920,15 +7798,14 @@ LABEL_22:
                     }
                   }
 
-                  v42 = *v19;
-                  ntfs_log_redirect("ntfs_inode_sync_file_name", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 735, 256);
+                  ntfs_log_redirect("ntfs_inode_sync_file_name", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 735, 256, 0, "Index lookup failed, inode %lld", *v19);
                 }
 
                 else
                 {
                   v22 = *(v21 + 32);
-                  *(v22 + 56) = *(a1 + 32) & 0x7FB7 | *(v22 + 56) & 0xFFFF8048;
-                  if ((*(*(a1 + 8) + 22) & 2) != 0)
+                  *(v22 + 56) = a1[4] & 0x7FB7 | *(v22 + 56) & 0xFFFF8048;
+                  if ((*(a1[1] + 22) & 2) != 0)
                   {
                     v23 = 0;
                     v24 = 0;
@@ -7937,25 +7814,25 @@ LABEL_22:
 
                   else
                   {
-                    v24 = *(a1 + 64);
-                    v23 = *(a1 + 72);
+                    v24 = a1[8];
+                    v23 = a1[9];
                     *(v22 + 40) = v23;
                     v25 = v18;
                   }
 
                   v25[5] = v23;
                   *(v22 + 48) = v24;
-                  *(v22 + 60) = v50;
-                  v27 = (a1 + 88);
-                  v26 = (a1 + 80);
-                  v29 = (a1 + 104);
-                  v28 = (a1 + 96);
-                  if ((*(a1 + 24) & 0x20) != 0)
+                  *(v22 + 60) = v38;
+                  v27 = a1 + 11;
+                  v26 = a1 + 10;
+                  v29 = a1 + 13;
+                  v28 = a1 + 12;
+                  if ((a1[3] & 0x20) != 0)
                   {
                     v26 = v18 + 1;
-                    v27 = (v18 + 2);
-                    v28 = (v18 + 3);
-                    v29 = (v18 + 4);
+                    v27 = v18 + 2;
+                    v28 = v18 + 3;
+                    v29 = v18 + 4;
                   }
 
                   v30 = *v29;
@@ -7978,8 +7855,7 @@ LABEL_22:
                   v13 = *__error();
                 }
 
-                v43 = *v19;
-                ntfs_log_redirect("ntfs_inode_sync_file_name", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 721, 256);
+                ntfs_log_redirect("ntfs_inode_sync_file_name", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 721, 256, 0, "Failed to get index ctx, inode %lld", *v19);
               }
 
               if (v19 != a1 && ntfs_inode_real_close(v19) && !v13)
@@ -7995,8 +7871,7 @@ LABEL_22:
                 v13 = *__error();
               }
 
-              v44 = *v18;
-              ntfs_log_redirect("ntfs_inode_sync_file_name", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 713, 256);
+              ntfs_log_redirect("ntfs_inode_sync_file_name", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 713, 256, 0, "Failed to open inode %lld with index", *v18);
             }
           }
 
@@ -8015,8 +7890,7 @@ LABEL_22:
         else
         {
           v13 = *__error();
-          v39 = *a1;
-          ntfs_log_redirect("ntfs_inode_sync_file_name", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 782, 256);
+          ntfs_log_redirect("ntfs_inode_sync_file_name", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 782, 256, 0, "Attribute lookup failed, inode %lld", *a1);
           ntfs_attr_put_search_ctx(v12);
         }
       }
@@ -8040,19 +7914,18 @@ LABEL_22:
         }
       }
 
-      v40 = *a1;
-      ntfs_log_redirect("ntfs_inode_sync_in_dir", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 849, 256);
-      *(a1 + 24) |= 8uLL;
+      ntfs_log_redirect("ntfs_inode_sync_in_dir", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 849, 256, 0, "Failed to sync FILE_NAME (inode %lld)", *a1);
+      a1[3] |= 8uLL;
     }
   }
 
 LABEL_43:
-  if ((*(*(a1 + 8) + 22) & 1) != 0 && *(a1 + 48) != -1)
+  if ((*(a1[1] + 22) & 1) != 0 && *(a1 + 12) != -1)
   {
-    v14 = *(a1 + 24);
+    v14 = a1[3];
     if ((v14 & 2) != 0)
     {
-      *(a1 + 24) = v14 & 0xFFFFFFFFFFFFFFFBLL;
+      a1[3] = v14 & 0xFFFFFFFFFFFFFFFBLL;
       if ((v14 & 4) != 0)
       {
         v15 = ntfs_attr_open(a1, 0x20u, &AT_UNNAMED, 0);
@@ -8060,9 +7933,9 @@ LABEL_43:
         {
           v16 = v15;
           v17 = v15[7];
-          if (v17 == *(a1 + 36))
+          if (v17 == *(a1 + 9))
           {
-            if (ntfs_attr_pwrite(v15, 0, v17, *(a1 + 40)) == *(a1 + 36))
+            if (ntfs_attr_pwrite(v15, 0, v17, a1[5]) == *(a1 + 9))
             {
 LABEL_94:
               ntfs_attr_close(v16);
@@ -8081,19 +7954,17 @@ LABEL_94:
                 v4 = 16;
               }
 
-              v41 = *a1;
-              ntfs_log_redirect("ntfs_inode_sync_in_dir", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 881, 256);
+              ntfs_log_redirect("ntfs_inode_sync_in_dir", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 881, 256, 0, "Attribute list sync failed (write, inode %lld)", *a1);
             }
           }
 
           else
           {
-            v46 = *a1;
-            ntfs_log_redirect("ntfs_inode_sync_in_dir", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 888, 128);
+            ntfs_log_redirect("ntfs_inode_sync_in_dir", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 888, 128, 0, "Attribute list sync failed (bad size, inode %lld)\n", *a1);
             v4 = 5;
           }
 
-          *(a1 + 24) |= 4uLL;
+          a1[3] |= 4uLL;
           goto LABEL_94;
         }
 
@@ -8109,19 +7980,18 @@ LABEL_94:
             v4 = 16;
           }
 
-          v45 = *a1;
-          ntfs_log_redirect("ntfs_inode_sync_in_dir", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 866, 256);
+          ntfs_log_redirect("ntfs_inode_sync_in_dir", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 866, 256, 0, "Attribute list sync failed (open, inode %lld)", *a1);
         }
 
-        *(a1 + 24) |= 4uLL;
+        a1[3] |= 4uLL;
       }
     }
   }
 
 LABEL_95:
-  v33 = *(a1 + 24);
-  *(a1 + 24) = v33 & 0xFFFFFFFFFFFFFFFELL;
-  if ((v33 & 1) != 0 && ntfs_mft_records_write(*(a1 + 16), *a1, 1, *(a1 + 8)))
+  v33 = a1[3];
+  a1[3] = v33 & 0xFFFFFFFFFFFFFFFELL;
+  if ((v33 & 1) != 0 && ntfs_mft_records_write(a1[2], *a1, 1, a1[1]))
   {
     if (!v4 || *__error() == 5)
     {
@@ -8136,20 +8006,19 @@ LABEL_95:
       }
     }
 
-    *(a1 + 24) |= 1uLL;
-    v47 = *a1;
-    ntfs_log_redirect("ntfs_inode_sync_in_dir", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 905, 256);
+    a1[3] |= 1uLL;
+    ntfs_log_redirect("ntfs_inode_sync_in_dir", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 905, 256, 0, "MFT record sync failed, inode %lld", *a1);
   }
 
-  if (*(a1 + 48) >= 1)
+  if (*(a1 + 12) >= 1)
   {
     v34 = 0;
     do
     {
-      v35 = *(*(a1 + 56) + 8 * v34);
-      v36 = *(v35 + 24);
-      *(v35 + 24) = v36 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v36 & 1) != 0 && ntfs_mft_records_write(*(v35 + 16), *v35, 1, *(v35 + 8)))
+      v35 = *(a1[7] + 8 * v34);
+      v36 = v35[3];
+      v35[3] = v36 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v36 & 1) != 0 && ntfs_mft_records_write(v35[2], *v35, 1, v35[1]))
       {
         if (!v4 || *__error() == 5)
         {
@@ -8164,16 +8033,14 @@ LABEL_95:
           }
         }
 
-        *(v35 + 24) |= 1uLL;
-        v48 = *a1;
-        v49 = *v35;
-        ntfs_log_redirect("ntfs_inode_sync_in_dir", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 931, 256);
+        v35[3] |= 1uLL;
+        ntfs_log_redirect("ntfs_inode_sync_in_dir", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 931, 256, 0, "Extent MFT record sync failed, inode %lld/%lld", *a1, *v35);
       }
 
       ++v34;
     }
 
-    while (v34 < *(a1 + 48));
+    while (v34 < *(a1 + 12));
   }
 
   if (v4)
@@ -8190,208 +8057,187 @@ uint64_t ntfs_inode_add_attrlist(uint64_t a1)
   if (!a1)
   {
     *__error() = 22;
-    v2 = 972;
-    goto LABEL_6;
+    ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 972, 256, 0, "%s");
+    return 0xFFFFFFFFLL;
   }
 
   if ((*(a1 + 24) & 2) != 0 || *(a1 + 48))
   {
     *__error() = 17;
-    v2 = 980;
-LABEL_6:
-    ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", v2, 256);
+    ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 980, 256, 0, "Inode already has attribute list");
     return 0xFFFFFFFFLL;
   }
 
   search_ctx = ntfs_attr_get_search_ctx(a1, 0);
   if (!search_ctx)
   {
-    v6 = 0;
-    v8 = *__error();
-LABEL_53:
-    free(v6);
-    *__error() = v8;
+    v5 = 0;
+    v7 = *__error();
+LABEL_49:
+    free(v5);
+    *__error() = v7;
     return 0xFFFFFFFFLL;
   }
 
-  v5 = search_ctx;
+  v4 = search_ctx;
   if (!ntfs_attr_lookup(0, 0, 0, 0, 0, 0, 0, search_ctx))
   {
-    v10 = 0;
-    LODWORD(v7) = 0;
-    v11 = 0;
+    v8 = 0;
+    LODWORD(v6) = 0;
+    v9 = 0;
     while (1)
     {
-      v12 = v5[1];
-      if (*v12 == 32)
+      v10 = v4[1];
+      if (*v10 == 32)
       {
-        ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 997, 256);
-        v8 = 5;
-        goto LABEL_31;
+        ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 997, 256, 0, "Attribute list already present");
+        v7 = 5;
+        goto LABEL_30;
       }
 
-      v13 = (2 * *(v12 + 9) + 33) & 0x3F8;
-      v7 = (v13 + v7);
-      v14 = malloc_type_realloc(v11, v7, 0x8F61C71EuLL);
-      if (!v14)
+      v11 = (2 * *(v10 + 9) + 33) & 0x3F8;
+      v6 = (v11 + v6);
+      v12 = malloc_type_realloc(v9, v6, 0x8F61C71EuLL);
+      if (!v12)
       {
         break;
       }
 
-      v6 = v14;
-      v15 = &v14[v10 - v11];
-      bzero(v15, v13);
-      v16 = v5[1];
-      *v15 = *v16;
-      v17 = *(v16 + 9);
-      *(v15 + 2) = (2 * v17 + 33) & 0x3F8;
-      v15[6] = v17;
-      v15[7] = 26;
-      if (*(v16 + 8))
+      v5 = v12;
+      v13 = &v12[v8 - v9];
+      bzero(v13, v11);
+      v14 = v4[1];
+      *v13 = *v14;
+      v15 = *(v14 + 9);
+      *(v13 + 2) = (2 * v15 + 33) & 0x3F8;
+      v13[6] = v15;
+      v13[7] = 26;
+      if (*(v14 + 8))
       {
-        v18 = *(v16 + 16);
+        v16 = *(v14 + 16);
       }
 
       else
       {
-        v18 = 0;
+        v16 = 0;
       }
 
-      v19 = *a1 & 0xFFFFFFFFFFFFLL | (*(*(a1 + 8) + 16) << 48);
-      *(v15 + 1) = v18;
-      *(v15 + 2) = v19;
-      *(v15 + 12) = *(v16 + 14);
-      memcpy(v15 + 26, (v16 + *(v16 + 10)), 2 * v17);
-      v10 = &v6[v7];
-      v11 = v6;
-      if (ntfs_attr_lookup(0, 0, 0, 0, 0, 0, 0, v5))
+      v17 = *a1 & 0xFFFFFFFFFFFFLL | (*(*(a1 + 8) + 16) << 48);
+      *(v13 + 1) = v16;
+      *(v13 + 2) = v17;
+      *(v13 + 12) = *(v14 + 14);
+      memcpy(v13 + 26, (v14 + *(v14 + 10)), 2 * v15);
+      v8 = &v5[v6];
+      v9 = v5;
+      if (ntfs_attr_lookup(0, 0, 0, 0, 0, 0, 0, v4))
       {
-        goto LABEL_11;
+        goto LABEL_10;
       }
     }
 
-    v8 = *__error();
-    ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1008, 256);
-LABEL_31:
-    v6 = v11;
-    goto LABEL_52;
+    v7 = *__error();
+    ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1008, 256, 0, "Failed to realloc %d bytes", v6);
+LABEL_30:
+    v5 = v9;
+    goto LABEL_48;
   }
 
-  v6 = 0;
-  LODWORD(v7) = 0;
-LABEL_11:
+  v5 = 0;
+  LODWORD(v6) = 0;
+LABEL_10:
   if (*__error() != 2)
   {
-    v8 = *__error();
-    v25 = *a1;
-    ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1038, 256);
-LABEL_52:
-    ntfs_attr_put_search_ctx(v5);
-    goto LABEL_53;
+    v7 = *__error();
+    ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1038, 256, 0, "%s: Attribute lookup failed, inode %lld", "ntfs_inode_add_attrlist", *a1);
+LABEL_48:
+    ntfs_attr_put_search_ctx(v4);
+    goto LABEL_49;
   }
 
-  *(a1 + 40) = v6;
-  *(a1 + 36) = v7;
+  *(a1 + 40) = v5;
+  *(a1 + 36) = v6;
   *(a1 + 24) |= 6uLL;
   if ((*(*(a1 + 8) + 28) - *(*(a1 + 8) + 24)) <= 0x17 && ntfs_inode_free_space(a1, 24))
   {
-    v8 = *__error();
-    v9 = 1056;
-LABEL_33:
-    ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", v9, 256);
-LABEL_41:
-    ntfs_attr_reinit_search_ctx(v5);
-    if (v7)
+    v7 = *__error();
+    ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1056, 256, 0, "Failed to free space for attrlist");
+LABEL_38:
+    ntfs_attr_reinit_search_ctx(v4);
+    if (v6)
     {
-      v23 = v6;
-      while ((*(v23 + 2) & 0xFFFFFFFFFFFFLL) == *a1)
+      v20 = v5;
+      do
       {
-LABEL_50:
-        v23 += *(v23 + 2);
-        if (v23 >= &v6[v7])
+        if ((*(v20 + 2) & 0xFFFFFFFFFFFFLL) != *a1)
         {
-          goto LABEL_51;
-        }
-      }
+          if (ntfs_attr_lookup(*v20, v20 + 13, v20[6], 0, *(v20 + 1), 0, 0, v4))
+          {
+            ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1121, 256, 0, "Rollback failed to find attr");
+          }
 
-      if (ntfs_attr_lookup(*v23, v23 + 13, v23[6], 0, *(v23 + 1), 0, 0, v5))
-      {
-        v24 = 1121;
-      }
+          else if (ntfs_attr_record_move_to(v4, a1))
+          {
+            ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1119, 256, 0, "Rollback failed to move attribute");
+          }
 
-      else
-      {
-        if (!ntfs_attr_record_move_to(v5, a1))
-        {
-LABEL_49:
-          ntfs_attr_reinit_search_ctx(v5);
-          goto LABEL_50;
+          ntfs_attr_reinit_search_ctx(v4);
         }
 
-        v24 = 1119;
+        v20 += *(v20 + 2);
       }
 
-      ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", v24, 256);
-      goto LABEL_49;
+      while (v20 < &v5[v6]);
     }
 
-LABEL_51:
     *(a1 + 40) = 0;
     *(a1 + 36) = 0;
     *(a1 + 24) &= 0xFFFFFFFFFFFFFFF9;
-    goto LABEL_52;
+    goto LABEL_48;
   }
 
   if ((ntfs_resident_attr_record_add(a1, 0x20u, 0, 0, 0, 0, 0) & 0x80000000) != 0)
   {
-    v8 = *__error();
-    v9 = 1065;
+    v7 = *__error();
+    ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1065, 256, 0, "Couldn't add $ATTRIBUTE_LIST to MFT");
+    goto LABEL_38;
+  }
+
+  v18 = ntfs_attr_open(a1, 0x20u, &AT_UNNAMED, 0);
+  if (!v18)
+  {
+    v7 = *__error();
+    ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1073, 256, 0, "Failed to open just added $ATTRIBUTE_LIST");
     goto LABEL_33;
   }
 
-  v20 = ntfs_attr_open(a1, 0x20u, &AT_UNNAMED, 0);
-  if (!v20)
+  v19 = v18;
+  if (ntfs_attr_truncate(v18, v6))
   {
-    v8 = *__error();
-    ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1073, 256);
-LABEL_35:
+    v7 = *__error();
+    ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1078, 256, 0, "Failed to resize just added $ATTRIBUTE_LIST");
+    ntfs_attr_close(v19);
+LABEL_33:
     *(a1 + 40) = 0;
     *(a1 + 24) &= ~2uLL;
-    ntfs_attr_reinit_search_ctx(v5);
-    if (ntfs_attr_lookup(0x20u, 0, 0, 0, 0, 0, 0, v5))
+    ntfs_attr_reinit_search_ctx(v4);
+    if (ntfs_attr_lookup(0x20u, 0, 0, 0, 0, 0, 0, v4))
     {
-      v22 = 1098;
+      ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1098, 256, 0, "Rollback failed to find attrlist");
     }
 
-    else
+    else if (ntfs_attr_record_rm(v4))
     {
-      if (!ntfs_attr_record_rm(v5))
-      {
-LABEL_40:
-        *(a1 + 40) = v6;
-        *(a1 + 36) = v7;
-        *(a1 + 24) |= 2uLL;
-        goto LABEL_41;
-      }
-
-      v22 = 1096;
+      ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1096, 256, 0, "Rollback failed to remove attrlist");
     }
 
-    ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", v22, 256);
-    goto LABEL_40;
+    *(a1 + 40) = v5;
+    *(a1 + 36) = v6;
+    *(a1 + 24) |= 2uLL;
+    goto LABEL_38;
   }
 
-  v21 = v20;
-  if (ntfs_attr_truncate(v20, v7))
-  {
-    v8 = *__error();
-    ntfs_log_redirect("ntfs_inode_add_attrlist", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1078, 256);
-    ntfs_attr_close(v21);
-    goto LABEL_35;
-  }
-
-  ntfs_attr_put_search_ctx(v5);
-  ntfs_attr_close(v21);
+  ntfs_attr_put_search_ctx(v4);
+  ntfs_attr_close(v19);
   return 0;
 }
 
@@ -8400,7 +8246,7 @@ uint64_t ntfs_inode_free_space(void *a1, int a2)
   if (!a1 || a2 < 0)
   {
     *__error() = 22;
-    ntfs_log_redirect("ntfs_inode_free_space", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1153, 256);
+    ntfs_log_redirect("ntfs_inode_free_space", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1153, 256, 0, "%s: ni=%p size=%d", "ntfs_inode_free_space", a1, a2);
     return 0xFFFFFFFFLL;
   }
 
@@ -8441,7 +8287,7 @@ uint64_t ntfs_inode_free_space(void *a1, int a2)
         v12 = v10[1];
         if (ntfs_attr_record_move_away(v6, 0))
         {
-          ntfs_log_redirect("ntfs_inode_free_space", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1198, 256);
+          ntfs_log_redirect("ntfs_inode_free_space", "/Library/Caches/com.apple.xbs/Sources/ntfs/newfs/inode.c", 1198, 256, 0, "Failed to move out attribute #2");
 LABEL_22:
           ntfs_attr_put_search_ctx(v6);
           __error();

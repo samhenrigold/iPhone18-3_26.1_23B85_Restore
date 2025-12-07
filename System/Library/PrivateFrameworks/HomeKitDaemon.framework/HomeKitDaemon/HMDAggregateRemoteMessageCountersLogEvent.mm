@@ -1,4 +1,5 @@
 @interface HMDAggregateRemoteMessageCountersLogEvent
++ (id)aggregateRemoteCountersLogEventWithMessageName:(id)name deviceType:(id)type transportType:(unsigned __int8)transportType direction:(unsigned __int8)direction primaryResidentDuration:(double)duration count:(id)count;
 - (HMDAggregateRemoteMessageCountersLogEvent)initWithMessageName:(id)name deviceType:(id)type transportType:(unsigned __int8)transportType direction:(unsigned __int8)direction primaryResidentDuration:(double)duration count:(id)count;
 - (NSDictionary)coreAnalyticsEventDictionary;
 @end
@@ -41,7 +42,7 @@
   v13 = [(HMDAggregateRemoteMessageCountersLogEvent *)self count];
   [dictionary setObject:v13 forKeyedSubscript:@"aggregateCount"];
 
-  v14 = [dictionary copy];
+  v14 = objc_msgSend_copy(dictionary);
 
   return v14;
 }
@@ -66,6 +67,18 @@
   }
 
   return v19;
+}
+
++ (id)aggregateRemoteCountersLogEventWithMessageName:(id)name deviceType:(id)type transportType:(unsigned __int8)transportType direction:(unsigned __int8)direction primaryResidentDuration:(double)duration count:(id)count
+{
+  directionCopy = direction;
+  transportTypeCopy = transportType;
+  countCopy = count;
+  typeCopy = type;
+  nameCopy = name;
+  v17 = [[self alloc] initWithMessageName:nameCopy deviceType:typeCopy transportType:transportTypeCopy direction:directionCopy primaryResidentDuration:countCopy count:duration];
+
+  return v17;
 }
 
 @end

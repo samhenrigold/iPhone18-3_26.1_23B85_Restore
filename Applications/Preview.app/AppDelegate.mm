@@ -35,7 +35,7 @@
 
   sub_100007D00();
 
-  sub_100007710(v7, &qword_100206500);
+  sub_100007710(v7, &qword_100206500, &qword_10019A9D0);
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
@@ -64,7 +64,7 @@
 
   v9 = sub_100007FD8(action, v11);
 
-  sub_100007710(v11, &qword_100206500);
+  sub_100007710(v11, &qword_100206500, &qword_10019A9D0);
 
   return v9 & 1;
 }
@@ -82,7 +82,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_10008A478(&unk_10020A0E0, type metadata accessor for LaunchOptionsKey);
+    sub_10008A478(&unk_10020A0E0, type metadata accessor for LaunchOptionsKey, &unk_100199E70);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

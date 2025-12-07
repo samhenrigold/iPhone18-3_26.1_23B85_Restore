@@ -6,6 +6,7 @@
 - (void)_pumpReadDataIfPossible;
 - (void)asyncHandleIncomingPackets:(id)packets isEof:(BOOL)eof;
 - (void)asyncHandleRemoteCloseWithError:(id)error;
+- (void)cancelWithReason:(unsigned __int16)reason;
 - (void)dealloc;
 - (void)read:(id)read;
 @end
@@ -99,7 +100,7 @@ LABEL_6:
 
 uint64_t __64__HMDDataStreamBulkSendSession_asyncHandleRemoteCloseWithError___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -107,19 +108,17 @@ uint64_t __64__HMDDataStreamBulkSendSession_asyncHandleRemoteCloseWithError___bl
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Received remote close with error: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Received remote close with error: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
   *(*(a1 + 32) + 9) = 1;
   [*(a1 + 32) setPendingError:*(a1 + 40)];
-  result = [*(a1 + 32) _pumpReadDataIfPossible];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _pumpReadDataIfPossible];
 }
 
 - (void)asyncHandleIncomingPackets:(id)packets isEof:(BOOL)eof
@@ -139,7 +138,7 @@ uint64_t __64__HMDDataStreamBulkSendSession_asyncHandleRemoteCloseWithError___bl
 
 uint64_t __65__HMDDataStreamBulkSendSession_asyncHandleIncomingPackets_isEof___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48) == 1)
   {
     v2 = objc_autoreleasePoolPush();
@@ -148,9 +147,9 @@ uint64_t __65__HMDDataStreamBulkSendSession_asyncHandleIncomingPackets_isEof___b
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Received EOF from accessory.", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Received EOF from accessory.", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -163,9 +162,7 @@ uint64_t __65__HMDDataStreamBulkSendSession_asyncHandleIncomingPackets_isEof___b
     [v6 hmf_enqueueMultiple:*(a1 + 40)];
   }
 
-  result = [*(a1 + 32) _pumpReadDataIfPossible];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _pumpReadDataIfPossible];
 }
 
 - (void)read:(id)read
@@ -199,6 +196,21 @@ uint64_t __65__HMDDataStreamBulkSendSession_asyncHandleIncomingPackets_isEof___b
       [(HMDDataStreamBulkSendSession *)self setActiveReadHandler:readCopy];
       [(HMDDataStreamBulkSendSession *)self _pumpReadDataIfPossible];
     }
+  }
+}
+
+- (void)cancelWithReason:(unsigned __int16)reason
+{
+  reasonCopy = reason;
+  [(HMDDataStreamBulkSendSession *)self _closeSession];
+  bulkSendProtocol = [(HMDDataStreamBulkSendSession *)self bulkSendProtocol];
+  if (bulkSendProtocol)
+  {
+    v7 = bulkSendProtocol;
+    sessionIdentifier = [(HMDDataStreamBulkSendSession *)self sessionIdentifier];
+    [v7 asyncBulkSendSessionDidCancelSessionWithIdentifier:sessionIdentifier reason:reasonCopy hadReceivedEof:self->_hasReceivedEof];
+
+    bulkSendProtocol = v7;
   }
 }
 

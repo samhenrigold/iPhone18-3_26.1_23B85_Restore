@@ -37,77 +37,63 @@
 {
   pathCopy = path;
   v9 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:l error:0];
-  if (!v9)
+  if (v9)
   {
-    goto LABEL_15;
-  }
-
-  if (type == 1)
-  {
-    v10 = MEMORY[0x277D54D10];
-  }
-
-  else
-  {
-    if (type != 2)
+    if (type == 1 || type == 2)
     {
-      v12 = 0;
-      goto LABEL_8;
+      CFDictionaryGetTypeID();
+      v10 = CFDictionaryGetTypedValue();
     }
 
-    v10 = MEMORY[0x277D54D18];
-  }
-
-  v11 = *v10;
-  CFDictionaryGetTypeID();
-  v12 = CFDictionaryGetTypedValue();
-LABEL_8:
-  v35 = 0;
-  v13 = *MEMORY[0x277D54D20];
-  CFDictionaryGetDouble();
-  v15 = v14;
-  v16 = objc_alloc(MEMORY[0x277CD9EA0]);
-  v17 = [v16 initWithType:*MEMORY[0x277CDA2C0]];
-  v27 = v15;
-  v28 = *(MEMORY[0x277CD9DA0] + 4);
-  v29 = *(MEMORY[0x277CD9DA0] + 20);
-  v30 = v15;
-  v31 = *(MEMORY[0x277CD9DA0] + 28);
-  v32 = *(MEMORY[0x277CD9DA0] + 44);
-  v33 = v15;
-  *v34 = *(MEMORY[0x277CD9DA0] + 52);
-  *&v34[12] = *(MEMORY[0x277CD9DA0] + 64);
-  v18 = [MEMORY[0x277CCAE60] valueWithCAColorMatrix:&v27];
-  [v17 setValue:v18 forKey:@"inputColorMatrix"];
-
-  v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  [v19 addObject:v17];
-
-  v20 = *MEMORY[0x277D54D08];
-  CFDictionaryGetDouble();
-  if (!v35)
-  {
-    v22 = v21;
-    v23 = objc_alloc(MEMORY[0x277CD9EA0]);
-    v24 = [v23 initWithType:*MEMORY[0x277CDA270]];
-    v25 = [MEMORY[0x277CCABB0] numberWithDouble:v22];
-    [v24 setValue:v25 forKey:@"inputAmount"];
-
-    if (!v19)
+    else
     {
-      v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v10 = 0;
     }
 
-    [v19 addObject:v24];
+    v31 = 0;
+    CFDictionaryGetDouble();
+    v12 = v11;
+    v13 = objc_alloc(MEMORY[0x277CD9EA0]);
+    v14 = [v13 initWithType:*MEMORY[0x277CDA2C0]];
+    v23 = v12;
+    v24 = *(MEMORY[0x277CD9DA0] + 4);
+    v25 = *(MEMORY[0x277CD9DA0] + 20);
+    v26 = v12;
+    v27 = *(MEMORY[0x277CD9DA0] + 28);
+    v28 = *(MEMORY[0x277CD9DA0] + 44);
+    v29 = v12;
+    *v30 = *(MEMORY[0x277CD9DA0] + 52);
+    *&v30[12] = *(MEMORY[0x277CD9DA0] + 64);
+    v15 = [MEMORY[0x277CCAE60] valueWithCAColorMatrix:&v23];
+    [v14 setValue:v15 forKey:@"inputColorMatrix"];
+
+    v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    [v16 addObject:v14];
+
+    CFDictionaryGetDouble();
+    if (!v31)
+    {
+      v18 = v17;
+      v19 = objc_alloc(MEMORY[0x277CD9EA0]);
+      v20 = [v19 initWithType:*MEMORY[0x277CDA270]];
+      v21 = [MEMORY[0x277CCABB0] numberWithDouble:v18];
+      [v20 setValue:v21 forKey:@"inputAmount"];
+
+      if (!v16)
+      {
+        v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      }
+
+      [v16 addObject:v20];
+    }
+
+    if ([v16 count])
+    {
+      layer = [(BTMediaPlayerView *)self layer];
+      [layer setFilters:v16];
+    }
   }
 
-  if ([v19 count])
-  {
-    layer = [(BTMediaPlayerView *)self layer];
-    [layer setFilters:v19];
-  }
-
-LABEL_15:
   [(BTMediaPlayerView *)self startMovieLoopWithPath:pathCopy];
 }
 

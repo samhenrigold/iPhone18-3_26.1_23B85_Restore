@@ -64,7 +64,7 @@
     swift_once();
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAF74790);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAF74790, &qword_199E38F80);
   v2 = sub_199DFA0BC();
 
   return v2;

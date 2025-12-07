@@ -39,40 +39,38 @@
 
 - (void)_updateGrayScaleSettings
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   serverIfRunning = [MEMORY[0x29EDBBAE0] serverIfRunning];
   displays = [serverIfRunning displays];
 
-  v4 = [displays countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [displays countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(displays);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) setGrayscale:_AXSGrayscaleEnabled() != 0];
+        [*(*(&v8 + 1) + 8 * v7++) setGrayscale:_AXSGrayscaleEnabled() != 0];
       }
 
       while (v5 != v7);
-      v5 = [displays countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [displays countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 - (void)dealloc

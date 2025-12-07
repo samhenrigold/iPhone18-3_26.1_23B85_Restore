@@ -247,10 +247,10 @@ void __52__WFManagedConfigurationProfile_primaryAppleAccount__block_invoke(uint6
 
 - (WFManagedConfigurationProfile)init
 {
-  sharedConnection = [(objc_class *)getMCProfileConnectionClass() sharedConnection];
+  v3 = [getMCProfileConnectionClass(self a2)];
   getACAccountStoreClass();
   v4 = objc_opt_new();
-  v5 = [(WFManagedConfigurationProfile *)self initWithProfileConnection:sharedConnection accountStore:v4];
+  v5 = [(WFManagedConfigurationProfile *)self initWithProfileConnection:v3 accountStore:v4];
 
   return v5;
 }

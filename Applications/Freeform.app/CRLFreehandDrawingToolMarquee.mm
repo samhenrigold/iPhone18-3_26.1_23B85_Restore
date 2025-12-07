@@ -48,9 +48,9 @@
   finalPointCopy = finalPoint;
   initialPointCopy = initialPoint;
   pointCopy = point;
-  v70.receiver = self;
-  v70.super_class = CRLFreehandDrawingToolMarquee;
-  [(CRLFreehandDrawingTool *)&v70 performActionWithInputPoint:pointCopy isInitialPoint:initialPointCopy isFinalPoint:finalPointCopy];
+  v77.receiver = self;
+  v77.super_class = CRLFreehandDrawingToolMarquee;
+  [(CRLFreehandDrawingTool *)&v77 performActionWithInputPoint:pointCopy isInitialPoint:initialPointCopy isFinalPoint:finalPointCopy];
   v9 = [(CRLFreehandDrawingTool *)self icc];
   [pointCopy unscaledPoint];
   v12 = v10;
@@ -101,12 +101,12 @@
       block[3] = &unk_10186ED40;
       block[4] = self;
       block[5] = v19;
-      v64 = v25;
-      v65 = v27;
-      v66 = v29;
-      v67 = v31;
-      v68 = v33;
-      v69 = v35;
+      v71 = v25;
+      v72 = v27;
+      v73 = v29;
+      v74 = v31;
+      v75 = v33;
+      v76 = v35;
       dispatch_async(hitTestingQueue, block);
     }
 
@@ -157,36 +157,36 @@
 
   if ([pointCopy inputType] == 2 && (objc_msgSend(pointCopy, "wasAddedByTouchesEnded") & 1) == 0)
   {
-    v62 = 0;
-    v60 = 0u;
+    v69 = 0;
+    v67 = 0u;
+    v68 = 0u;
+    v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     v61 = 0u;
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
+    v62 = 0u;
     freehandDrawingToolkit2 = [v9 freehandDrawingToolkit];
     v47 = freehandDrawingToolkit2;
     if (pointCopy)
     {
-      [pointCopy PKInputPoint];
+      objc_msgSend_PKInputPoint(pointCopy);
       if (v47)
       {
 LABEL_22:
-        [v47 inputPointInPKCanvasViewFromUnscaledSpace:v52];
+        objc_msgSend_inputPointInPKCanvasViewFromUnscaledSpace_(v47);
 LABEL_25:
 
         freehandDrawingToolkit3 = [v9 freehandDrawingToolkit];
-        v50[6] = v60;
-        v50[7] = v61;
-        v51 = v62;
-        v50[2] = v56;
-        v50[3] = v57;
-        v50[4] = v58;
-        v50[5] = v59;
-        v50[0] = v54;
-        v50[1] = v55;
+        v50[6] = v67;
+        v50[7] = v68;
+        v51 = v69;
+        v50[2] = v63;
+        v50[3] = v64;
+        v50[4] = v65;
+        v50[5] = v66;
+        v50[0] = v61;
+        v50[1] = v62;
         [freehandDrawingToolkit3 updatePencilShadowWithInputPoint:v50];
 
         goto LABEL_26;
@@ -195,23 +195,30 @@ LABEL_25:
 
     else
     {
-      v53 = 0;
-      memset(v52, 0, sizeof(v52));
+      v60 = 0;
+      v58 = 0u;
+      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
       if (freehandDrawingToolkit2)
       {
         goto LABEL_22;
       }
     }
 
-    v62 = 0;
-    v60 = 0u;
+    v69 = 0;
+    v67 = 0u;
+    v68 = 0u;
+    v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     v61 = 0u;
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
+    v62 = 0u;
     goto LABEL_25;
   }
 
@@ -548,7 +555,7 @@ LABEL_4:
           i_wrapPath = [v32 i_wrapPath];
           v34 = [i_wrapPath copy];
 
-          [v32 transformInRoot];
+          objc_msgSend_transformInRoot(v32);
           [v34 transformUsingAffineTransform:buf];
           -[CRLBezierHitTester addPath:filled:](self->_hitTester, "addPath:filled:", v34, [v34 containsClosePathElement]);
           [(NSHashTable *)self->_selectionIneligiblePaths addObject:v34];
@@ -608,7 +615,7 @@ LABEL_14:
           i_wrapPath2 = [v66 i_wrapPath];
           v64 = [i_wrapPath2 copy];
 
-          [v65 transformInRoot];
+          objc_msgSend_transformInRoot(v65);
           [v64 transformUsingAffineTransform:buf];
           if (([v64 isEmpty] & 1) == 0)
           {
@@ -684,7 +691,7 @@ LABEL_21:
               bezierPath = [pathSource bezierPath];
               v57 = [bezierPath copy];
 
-              [v54 transformInRoot];
+              objc_msgSend_transformInRoot(v54);
               [v57 transformUsingAffineTransform:buf];
               [v57 bounds];
               v102.origin.x = x;

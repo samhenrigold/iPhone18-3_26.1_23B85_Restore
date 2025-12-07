@@ -251,7 +251,6 @@ LABEL_8:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -271,7 +270,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  drxCycleLength = self->_drxCycleLength;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -283,7 +281,6 @@ LABEL_4:
     }
 
 LABEL_18:
-    ueGrantMonitoringInactivityThreshold = self->_ueGrantMonitoringInactivityThreshold;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x80) == 0)
     {
@@ -294,7 +291,6 @@ LABEL_18:
   }
 
 LABEL_17:
-  ueDrxCycleInactivityThreshold = self->_ueDrxCycleInactivityThreshold;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) != 0)
@@ -309,7 +305,6 @@ LABEL_5:
   }
 
 LABEL_19:
-  ueDrxGrantMonitoring = self->_ueDrxGrantMonitoring;
   PBDataWriterWriteBOOLField();
 LABEL_6:
   if (self->_plmn)
@@ -320,7 +315,6 @@ LABEL_6:
   v5 = self->_has;
   if ((v5 & 4) != 0)
   {
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
     v5 = self->_has;
     if ((v5 & 0x40) == 0)
@@ -340,12 +334,10 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  isDataPreferred = self->_isDataPreferred;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_11:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 
@@ -640,7 +632,6 @@ LABEL_9:
       goto LABEL_45;
     }
 
-    v8 = *(equalCopy + 45);
     if (self->_ueDrxGrantMonitoring)
     {
       if ((*(equalCopy + 45) & 1) == 0)
@@ -693,7 +684,7 @@ LABEL_9:
     }
 
 LABEL_45:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_46;
   }
 
@@ -702,7 +693,6 @@ LABEL_45:
     goto LABEL_45;
   }
 
-  v11 = *(equalCopy + 44);
   if (self->_isDataPreferred)
   {
     if ((*(equalCopy + 44) & 1) == 0)
@@ -717,7 +707,7 @@ LABEL_45:
   }
 
 LABEL_38:
-  v9 = (v6 & 8) == 0;
+  v8 = (v6 & 8) == 0;
   if ((has & 8) != 0)
   {
     if ((v6 & 8) == 0 || self->_subsId != *(equalCopy + 8))
@@ -725,12 +715,12 @@ LABEL_38:
       goto LABEL_45;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_46:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

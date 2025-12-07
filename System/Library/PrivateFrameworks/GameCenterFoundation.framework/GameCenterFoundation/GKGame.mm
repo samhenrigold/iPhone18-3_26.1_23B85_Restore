@@ -108,15 +108,14 @@ void __22__GKGame_isGameCenter__block_invoke()
 
 + (BOOL)isNewsApp:(id)app
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"com.apple.news";
-  v8[1] = @"com.apple.news.gamecentertest";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"com.apple.news";
+  v7[1] = @"com.apple.news.gamecentertest";
   v3 = MEMORY[0x277CBEA60];
   appCopy = app;
-  v5 = [v3 arrayWithObjects:v8 count:2];
+  v5 = [v3 arrayWithObjects:v7 count:2];
   LOBYTE(v3) = [v5 containsObject:appCopy];
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -195,17 +194,15 @@ void __22__GKGame_isGameCenter__block_invoke()
 
 void __27__GKGame_isInternalTestApp__block_invoke()
 {
-  v5[3] = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"com.iosframeworksqa.GameKitTester";
-  v5[1] = @"com.apple.gamekit.GKTester2";
-  v5[2] = @"com.iosframeworksqa.GKTester2";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
+  v4[0] = @"com.iosframeworksqa.GameKitTester";
+  v4[1] = @"com.apple.gamekit.GKTester2";
+  v4[2] = @"com.iosframeworksqa.GKTester2";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
   v2 = [v0 setWithArray:v1];
   v3 = isInternalTestApp_sInternalTestAppIdentifiers;
   isInternalTestApp_sInternalTestAppIdentifiers = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isNewsApp
@@ -235,9 +232,11 @@ void __27__GKGame_isInternalTestApp__block_invoke()
 
 uint64_t __21__GKGame_currentGame__block_invoke(uint64_t a1)
 {
-  currentGame_sCurrentGame = [*(a1 + 32) createNonStaticCurrentGame];
+  v1 = [*(a1 + 32) createNonStaticCurrentGame];
+  v2 = currentGame_sCurrentGame;
+  currentGame_sCurrentGame = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (id)createNonStaticCurrentGame
@@ -543,35 +542,35 @@ void __55__GKGame_loadGamesWithBundleIDs_withCompletionHandler___block_invoke(ui
 
 void __55__GKGame_loadGamesWithBundleIDs_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   [*(a1 + 32) setError:a3];
   if ([v5 count])
   {
     v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:*(a1 + 56)];
     v7 = [v5 _gkMapDictionaryWithKeyPath:@"bundleIdentifier"];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v17 = a1;
+    v16 = a1;
     v8 = *(a1 + 40);
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
-          v14 = [v7 objectForKey:{v13, v17}];
+          v13 = *(*(&v17 + 1) + 8 * i);
+          v14 = [v7 objectForKey:{v13, v16}];
           if (!v14)
           {
             v14 = objc_alloc_init(GKGameInternal);
@@ -582,19 +581,17 @@ void __55__GKGame_loadGamesWithBundleIDs_withCompletionHandler___block_invoke_2(
           [v6 addObject:v15];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
     }
 
-    a1 = v17;
-    [*(v17 + 32) setObject:v6 forKeyedSubscript:@"games"];
+    a1 = v16;
+    [*(v16 + 32) setObject:v6 forKeyedSubscript:@"games"];
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __55__GKGame_loadGamesWithBundleIDs_withCompletionHandler___block_invoke_3(uint64_t a1)
@@ -674,33 +671,33 @@ void __44__GKGame_updateGames_withCompletionHandler___block_invoke(uint64_t a1, 
 
 void __44__GKGame_updateGames_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v5 count])
   {
-    v24 = v6;
+    v23 = v6;
     v7 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:*(a1 + 56)];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v30;
+      v11 = *v29;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v30 != v11)
+          if (*v29 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v29 + 1) + 8 * i);
+          v13 = *(*(&v28 + 1) + 8 * i);
           v14 = [v13 bundleIdentifier];
           if (v14)
           {
@@ -708,32 +705,32 @@ void __44__GKGame_updateGames_withCompletionHandler___block_invoke_2(uint64_t a1
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v10);
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v15 = *(a1 + 32);
-    v16 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v26;
+      v18 = *v25;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v26 != v18)
+          if (*v25 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v25 + 1) + 8 * j);
+          v20 = *(*(&v24 + 1) + 8 * j);
           v21 = [v20 bundleIdentifier];
           if (v21)
           {
@@ -745,19 +742,17 @@ void __44__GKGame_updateGames_withCompletionHandler___block_invoke_2(uint64_t a1
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
       }
 
       while (v17);
     }
 
-    v6 = v24;
+    v6 = v23;
   }
 
   [*(a1 + 40) setError:v6];
   (*(*(a1 + 48) + 16))();
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __44__GKGame_updateGames_withCompletionHandler___block_invoke_3(uint64_t a1)
@@ -890,43 +885,43 @@ void __44__GKGame_updateGames_withCompletionHandler___block_invoke_3(uint64_t a1
 
 void __59__GKGame_GKEntitled__getGameMatchesForAchievement_handler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 count];
   if (v7)
   {
     v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:v7];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         v13 = 0;
         do
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * v13);
+          v14 = *(*(&v18 + 1) + 8 * v13);
           v15 = [GKGameMatch alloc];
-          v16 = [(GKGameMatch *)v15 initWithInternalRepresentation:v14 game:*(a1 + 32), v19];
+          v16 = [(GKGameMatch *)v15 initWithInternalRepresentation:v14 game:*(a1 + 32), v18];
           [v8 addObject:v16];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v11);
@@ -943,8 +938,6 @@ void __59__GKGame_GKEntitled__getGameMatchesForAchievement_handler___block_invok
   {
     (*(v17 + 16))(v17, v8, v6);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setTestGameWith:(id)with protocolVersions:(id)versions andCompletionHandler:(id)handler
@@ -984,7 +977,7 @@ void __80__GKGame_GameKitPrivate__setTestGameWith_protocolVersions_andCompletion
 
     if (os_log_type_enabled(os_log_GKError, OS_LOG_TYPE_ERROR))
     {
-      __80__GKGame_GameKitPrivate__setTestGameWith_protocolVersions_andCompletionHandler___block_invoke_cold_1(a1);
+      __80__GKGame_GameKitPrivate__setTestGameWith_protocolVersions_andCompletionHandler___block_invoke_cold_1();
     }
   }
 
@@ -998,7 +991,7 @@ void __80__GKGame_GameKitPrivate__setTestGameWith_protocolVersions_andCompletion
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      __80__GKGame_GameKitPrivate__setTestGameWith_protocolVersions_andCompletionHandler___block_invoke_cold_2(a1);
+      __80__GKGame_GameKitPrivate__setTestGameWith_protocolVersions_andCompletionHandler___block_invoke_cold_2();
     }
   }
 
@@ -1007,44 +1000,35 @@ void __80__GKGame_GameKitPrivate__setTestGameWith_protocolVersions_andCompletion
 
 + (void)currentGameIncludingGameCenter:(void *)a1 .cold.2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CCACC8];
   v2 = a1;
   v3 = [v1 callStackSymbols];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_227904000, v2, OS_LOG_TYPE_DEBUG, "+[GKGame currentGame] called from Game Center %@.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_227904000, v2, OS_LOG_TYPE_DEBUG, "+[GKGame currentGame] called from Game Center %@.", &v4, 0xCu);
 }
 
 + (void)setCurrentGameFromInternal:(uint64_t)a1 serverEnvironment:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_227904000, a2, OS_LOG_TYPE_DEBUG, "setCurrentGameFromInternal: ignoring -- nil bundleIdentifier :%@", &v3, 0xCu);
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_227904000, a2, OS_LOG_TYPE_DEBUG, "setCurrentGameFromInternal: ignoring -- nil bundleIdentifier :%@", &v2, 0xCu);
+}
+
+void __80__GKGame_GameKitPrivate__setTestGameWith_protocolVersions_andCompletionHandler___block_invoke_cold_1()
+{
   v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1();
+  _os_log_error_impl(&dword_227904000, v0, OS_LOG_TYPE_ERROR, "Failed to set test game with bundle version: %@, and protocols: %@", v1, 0x16u);
 }
 
-void __80__GKGame_GameKitPrivate__setTestGameWith_protocolVersions_andCompletionHandler___block_invoke_cold_1(uint64_t a1)
+void __80__GKGame_GameKitPrivate__setTestGameWith_protocolVersions_andCompletionHandler___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_227904000, v3, OS_LOG_TYPE_ERROR, "Failed to set test game with bundle version: %@, and protocols: %@", v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __80__GKGame_GameKitPrivate__setTestGameWith_protocolVersions_andCompletionHandler___block_invoke_cold_2(uint64_t a1)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(&dword_227904000, v3, OS_LOG_TYPE_DEBUG, "Successfully set test game with bundle version: %@, and protocols: %@", v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_227904000, v0, OS_LOG_TYPE_DEBUG, "Successfully set test game with bundle version: %@, and protocols: %@", v1, 0x16u);
 }
 
 @end

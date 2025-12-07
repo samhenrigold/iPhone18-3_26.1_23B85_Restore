@@ -167,7 +167,7 @@
 
 - (void)addLocation:(id)location
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   locations = [(FMFRefreshBarButtonItem *)self locations];
   v6 = [locations mutableCopy];
@@ -177,27 +177,27 @@
     v6 = [MEMORY[0x277CBEB58] set];
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   selfCopy = self;
   locations2 = [(FMFRefreshBarButtonItem *)self locations];
-  v8 = [locations2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [locations2 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(locations2);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         handle = [v12 handle];
         handle2 = [locationCopy handle];
         v15 = [handle isEqual:handle2];
@@ -209,7 +209,7 @@
         }
       }
 
-      v9 = [locations2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [locations2 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         continue;
@@ -224,34 +224,32 @@ LABEL_13:
   [v6 addObject:locationCopy];
   [(FMFRefreshBarButtonItem *)selfCopy setLocations:v6];
   [(FMFRefreshBarButtonItem *)selfCopy _updateLocateInProgress];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeLocationForHandle:(id)handle
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   locations = [(FMFRefreshBarButtonItem *)self locations];
-  v6 = [locations countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [locations countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v18 != v8)
+      if (*v17 != v8)
       {
         objc_enumerationMutation(locations);
       }
 
-      v10 = *(*(&v17 + 1) + 8 * v9);
+      v10 = *(*(&v16 + 1) + 8 * v9);
       handle = [v10 handle];
       v12 = [handle isEqual:handleCopy];
 
@@ -262,7 +260,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [locations countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [locations countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -291,7 +289,6 @@ LABEL_3:
 LABEL_12:
 
 LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)localTapped
@@ -319,7 +316,7 @@ LABEL_13:
 
 uint64_t __53__FMFRefreshBarButtonItem_locatingInProgressChanged___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_Daemon();
+  v2 = LogCategory_Daemon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -348,33 +345,33 @@ uint64_t __53__FMFRefreshBarButtonItem_locatingInProgressChanged___block_invoke(
 
 - (BOOL)anyLocationIsUpdating
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   locations = [(FMFRefreshBarButtonItem *)self locations];
-  v3 = [locations countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [locations countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(locations);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isLocatingInProgress])
+        if ([*(*(&v7 + 1) + 8 * i) isLocatingInProgress])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [locations countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [locations countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -386,7 +383,6 @@ uint64_t __53__FMFRefreshBarButtonItem_locatingInProgressChanged___block_invoke(
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

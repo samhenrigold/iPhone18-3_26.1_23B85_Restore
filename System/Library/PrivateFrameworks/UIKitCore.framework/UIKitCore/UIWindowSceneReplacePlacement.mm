@@ -62,15 +62,15 @@
   if ([(UIWindowScenePlacement *)&v8 isEqual:equalCopy])
   {
     _targetSceneSessionPersistentIdentifier = [equalCopy _targetSceneSessionPersistentIdentifier];
-    v6 = [_targetSceneSessionPersistentIdentifier isEqual:self->_targetSceneSessionPersistentIdentifier];
+    isEqual = objc_msgSend_isEqual_(_targetSceneSessionPersistentIdentifier);
   }
 
   else
   {
-    v6 = 0;
+    isEqual = 0;
   }
 
-  return v6;
+  return isEqual;
 }
 
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix

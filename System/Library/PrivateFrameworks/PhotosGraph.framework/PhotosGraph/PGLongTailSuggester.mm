@@ -46,47 +46,45 @@
 
 - (id)_assetUUIDsFromAssets:(id)assets atIndices:(id)indices
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   indicesCopy = indices;
   v7 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = [assetsCopy objectsAtIndexes:{indicesCopy, 0}];
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        uuid = [*(*(&v16 + 1) + 8 * i) uuid];
+        uuid = [*(*(&v15 + 1) + 8 * i) uuid];
         [v7 addObject:uuid];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)reasonsForSuggestion:(id)suggestion
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   keyAssets = [suggestion keyAssets];
   firstObject = [keyAssets firstObject];
 
@@ -94,41 +92,39 @@
   v7 = MEMORY[0x277CCACA8];
   [firstObject overallAestheticScore];
   v9 = [v7 stringWithFormat:@"aesthetics = %.3f", v8];
-  v13[0] = v6;
-  v13[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[0] = v6;
+  v12[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
 
   return v10;
 }
 
 - (id)_assetUUIDByWeightedProbablisticSamplingFromAssetUUIDS:(id)s weights:(id)weights
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   sCopy = s;
   weightsCopy = weights;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v8 = sCopy;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * i);
+        v13 = *(*(&v22 + 1) + 8 * i);
         v14 = objc_autoreleasePoolPush();
         v15 = [weightsCopy objectForKeyedSubscript:v13];
         score = [v15 score];
@@ -147,7 +143,7 @@
         objc_autoreleasePoolPop(v14);
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v10);
@@ -163,8 +159,6 @@
   {
     v19 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -215,82 +209,80 @@ uint64_t __64__PGLongTailSuggester__bestAssetUUIDsFromCandidates_percentile___bl
 
 - (id)_candidateByAssetUUIDsFromAssets:(id)assets
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
-  v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = assetsCopy;
-  v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         v10 = objc_autoreleasePoolPush();
         uuid = [v9 uuid];
         v12 = [[PGLongTailSuggestionCandidate alloc] initWithAsset:v9 score:[(PGLongTailSuggester *)self _longTailScoreWithAsset:v9 withAdditionalOptions:self->_additionalOptions]];
         if ([(PGLongTailSuggestionCandidate *)v12 isValidWithMeNodeLocalIdentifier:self->_meNodeLocalIdentifier])
         {
-          [v15 setValue:v12 forKey:uuid];
+          [v14 setValue:v12 forKey:uuid];
         }
 
         objc_autoreleasePoolPop(v10);
       }
 
-      v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v14;
 }
 
 - (id)_eligibleAssetUUIDsWithProgress:(id)progress
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   v4 = _Block_copy(progressCopy);
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x2020000000;
-  v77 = 0;
-  v70 = 0;
-  v71 = &v70;
-  v72 = 0x2020000000;
   v73 = 0;
+  v74 = &v73;
+  v75 = 0x2020000000;
+  v76 = 0;
+  v69 = 0;
+  v70 = &v69;
+  v71 = 0x2020000000;
+  v72 = 0;
   if (v4)
   {
     Current = CFAbsoluteTimeGetCurrent();
-    if (Current - v71[3] >= 0.01)
+    if (Current - v70[3] >= 0.01)
     {
-      v71[3] = Current;
-      v82[0] = 0;
-      v4[2](v4, v82, 0.0);
-      v6 = *(v75 + 24) | v82[0];
-      *(v75 + 24) = v6;
+      v70[3] = Current;
+      v81[0] = 0;
+      v4[2](v4, v81, 0.0);
+      v6 = *(v74 + 24) | v81[0];
+      *(v74 + 24) = v6;
       if (v6)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
           *&buf[4] = 608;
-          LOWORD(v87) = 2080;
-          *(&v87 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+          LOWORD(v86) = 2080;
+          *(&v86 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
           v7 = MEMORY[0x277D86220];
 LABEL_12:
           _os_log_impl(&dword_22F0FC000, v7, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -308,7 +300,7 @@ LABEL_12:
     selfCopy = self;
     if (session)
     {
-      v48 = session;
+      v47 = session;
       loggingConnection = [session loggingConnection];
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEBUG))
       {
@@ -317,36 +309,36 @@ LABEL_12:
       }
 
       *buf = 0;
-      *&v87 = buf;
-      *(&v87 + 1) = 0x3032000000;
-      v88 = __Block_byref_object_copy__25916;
-      v89 = __Block_byref_object_dispose__25917;
-      v90 = 0;
-      workingContext = [v48 workingContext];
-      v64[0] = MEMORY[0x277D85DD0];
-      v64[1] = 3221225472;
-      v64[2] = __55__PGLongTailSuggester__eligibleAssetUUIDsWithProgress___block_invoke;
-      v64[3] = &unk_278881E40;
-      v66 = buf;
-      v64[4] = self;
-      v50 = v4;
-      v65 = v50;
-      v67 = &v70;
-      v68 = &v74;
-      v69 = 0x3F847AE147AE147BLL;
-      [workingContext performSynchronousConcurrentGraphReadUsingBlock:v64];
+      *&v86 = buf;
+      *(&v86 + 1) = 0x3032000000;
+      v87 = __Block_byref_object_copy__25916;
+      v88 = __Block_byref_object_dispose__25917;
+      v89 = 0;
+      workingContext = [v47 workingContext];
+      v63[0] = MEMORY[0x277D85DD0];
+      v63[1] = 3221225472;
+      v63[2] = __55__PGLongTailSuggester__eligibleAssetUUIDsWithProgress___block_invoke;
+      v63[3] = &unk_278881E40;
+      v65 = buf;
+      v63[4] = self;
+      v49 = v4;
+      v64 = v49;
+      v66 = &v69;
+      v67 = &v73;
+      v68 = 0x3F847AE147AE147BLL;
+      [workingContext performSynchronousConcurrentGraphReadUsingBlock:v63];
 
-      if (*(v75 + 24) == 1)
+      if (*(v74 + 24) == 1)
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           goto LABEL_20;
         }
 
-        *v82 = 67109378;
-        v83 = 631;
-        v84 = 2080;
-        v85 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+        *v81 = 67109378;
+        v82 = 631;
+        v83 = 2080;
+        v84 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
         v13 = MEMORY[0x277D86220];
         goto LABEL_19;
       }
@@ -354,10 +346,10 @@ LABEL_12:
       v14 = loggingConnection;
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v44 = [*(v87 + 40) count];
-        *v82 = 67109120;
-        v83 = v44;
-        _os_log_debug_impl(&dword_22F0FC000, v14, OS_LOG_TYPE_DEBUG, "Long Tail: Fetching all interesting moments: %d found", v82, 8u);
+        v43 = [*(v86 + 40) count];
+        *v81 = 67109120;
+        v82 = v43;
+        _os_log_debug_impl(&dword_22F0FC000, v14, OS_LOG_TYPE_DEBUG, "Long Tail: Fetching all interesting moments: %d found", v81, 8u);
       }
 
       oslog = v14;
@@ -365,13 +357,13 @@ LABEL_12:
       if (v4)
       {
         v15 = CFAbsoluteTimeGetCurrent();
-        if (v15 - v71[3] >= 0.01)
+        if (v15 - v70[3] >= 0.01)
         {
-          v71[3] = v15;
-          v63 = 0;
-          v50[2](v50, &v63, 0.2);
-          v16 = *(v75 + 24) | v63;
-          *(v75 + 24) = v16;
+          v70[3] = v15;
+          v62 = 0;
+          v49[2](v49, &v62, 0.2);
+          v16 = *(v74 + 24) | v62;
+          *(v74 + 24) = v16;
           if (v16)
           {
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -384,13 +376,13 @@ LABEL_58:
               goto LABEL_59;
             }
 
-            *v82 = 67109378;
-            v83 = 635;
-            v84 = 2080;
-            v85 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+            *v81 = 67109378;
+            v82 = 635;
+            v83 = 2080;
+            v84 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
             v13 = MEMORY[0x277D86220];
 LABEL_19:
-            _os_log_impl(&dword_22F0FC000, v13, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v82, 0x12u);
+            _os_log_impl(&dword_22F0FC000, v13, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v81, 0x12u);
             goto LABEL_20;
           }
         }
@@ -398,59 +390,59 @@ LABEL_19:
 
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        *v82 = 0;
-        _os_log_debug_impl(&dword_22F0FC000, v14, OS_LOG_TYPE_DEBUG, "Long Tail: Fetching all UUIDs of assets highlighted in interesting moments in curated library", v82, 2u);
+        *v81 = 0;
+        _os_log_debug_impl(&dword_22F0FC000, v14, OS_LOG_TYPE_DEBUG, "Long Tail: Fetching all UUIDs of assets highlighted in interesting moments in curated library", v81, 2u);
       }
 
       highlightedAssetInternalPredicate = [(PGLongTailSuggester *)self highlightedAssetInternalPredicate];
-      v53 = [(PGAbstractSuggester *)self defaultAssetFetchOptionsWithInternalPredicate:highlightedAssetInternalPredicate];
+      v52 = [(PGAbstractSuggester *)self defaultAssetFetchOptionsWithInternalPredicate:highlightedAssetInternalPredicate];
 
-      v81 = *MEMORY[0x277CD9AA8];
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v81 count:1];
-      [v53 setFetchPropertySets:v18];
+      v80 = *MEMORY[0x277CD9AA8];
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v80 count:1];
+      [v52 setFetchPropertySets:v18];
 
       v19 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"creationDate" ascending:1];
-      v80[0] = v19;
+      v79[0] = v19;
       v20 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:1];
-      v80[1] = v20;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:2];
-      [v53 setSortDescriptors:v21];
+      v79[1] = v20;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:2];
+      [v52 setSortDescriptors:v21];
 
       v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v23 = [*(v87 + 40) count];
-      v61 = 0u;
-      v62 = 0u;
-      v59 = 0u;
+      v23 = [*(v86 + 40) count];
       v60 = 0u;
-      obj = *(v87 + 40);
-      v24 = [obj countByEnumeratingWithState:&v59 objects:v79 count:16];
+      v61 = 0u;
+      v58 = 0u;
+      v59 = 0u;
+      obj = *(v86 + 40);
+      v24 = [obj countByEnumeratingWithState:&v58 objects:v78 count:16];
       if (v24)
       {
         v26 = 1.0 / v23;
-        v52 = *v60;
+        v51 = *v59;
         v27 = 0.0;
         *&v25 = 67109378;
-        v46 = v25;
+        v45 = v25;
         while (2)
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v60 != v52)
+            if (*v59 != v51)
             {
               objc_enumerationMutation(obj);
             }
 
-            v29 = *(*(&v59 + 1) + 8 * i);
+            v29 = *(*(&v58 + 1) + 8 * i);
             v30 = objc_autoreleasePoolPush();
-            if (v4 && (v31 = CFAbsoluteTimeGetCurrent(), v31 - v71[3] >= 0.01) && (v71[3] = v31, v63 = 0, v50[2](v50, &v63, v27 * 0.8 + 0.2), v32 = *(v75 + 24) | v63, *(v75 + 24) = v32, (v32 & 1) != 0))
+            if (v4 && (v31 = CFAbsoluteTimeGetCurrent(), v31 - v70[3] >= 0.01) && (v70[3] = v31, v62 = 0, v49[2](v49, &v62, v27 * 0.8 + 0.2), v32 = *(v74 + 24) | v62, *(v74 + 24) = v32, (v32 & 1) != 0))
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
-                *v82 = v46;
-                v83 = 650;
-                v84 = 2080;
-                v85 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
-                _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v82, 0x12u);
+                *v81 = v45;
+                v82 = 650;
+                v83 = 2080;
+                v84 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+                _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v81, 0x12u);
               }
 
               v33 = 0;
@@ -458,30 +450,30 @@ LABEL_19:
 
             else
             {
-              v34 = [MEMORY[0x277CD97A8] fetchAssetsInAssetCollection:v29 options:{v53, v46}];
-              v57 = 0u;
-              v58 = 0u;
-              v55 = 0u;
+              v34 = [MEMORY[0x277CD97A8] fetchAssetsInAssetCollection:v29 options:{v52, v45}];
               v56 = 0u;
+              v57 = 0u;
+              v54 = 0u;
+              v55 = 0u;
               v35 = v34;
-              v36 = [v35 countByEnumeratingWithState:&v55 objects:v78 count:16];
+              v36 = [v35 countByEnumeratingWithState:&v54 objects:v77 count:16];
               if (v36)
               {
-                v37 = *v56;
+                v37 = *v55;
                 do
                 {
                   for (j = 0; j != v36; ++j)
                   {
-                    if (*v56 != v37)
+                    if (*v55 != v37)
                     {
                       objc_enumerationMutation(v35);
                     }
 
-                    uuid = [*(*(&v55 + 1) + 8 * j) uuid];
+                    uuid = [*(*(&v54 + 1) + 8 * j) uuid];
                     [v22 addObject:uuid];
                   }
 
-                  v36 = [v35 countByEnumeratingWithState:&v55 objects:v78 count:16];
+                  v36 = [v35 countByEnumeratingWithState:&v54 objects:v77 count:16];
                 }
 
                 while (v36);
@@ -501,7 +493,7 @@ LABEL_19:
             }
           }
 
-          v24 = [obj countByEnumeratingWithState:&v59 objects:v79 count:16];
+          v24 = [obj countByEnumeratingWithState:&v58 objects:v78 count:16];
           if (v24)
           {
             continue;
@@ -515,14 +507,14 @@ LABEL_19:
       v40 = oslog;
       if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
       {
-        v45 = [v22 count];
-        *v82 = 67109120;
-        v83 = v45;
-        _os_log_debug_impl(&dword_22F0FC000, v40, OS_LOG_TYPE_DEBUG, "Long Tail: Fetching all UUIDs of assets highlighted in interesting moments in curated library: %d found", v82, 8u);
+        v44 = [v22 count];
+        *v81 = 67109120;
+        v82 = v44;
+        _os_log_debug_impl(&dword_22F0FC000, v40, OS_LOG_TYPE_DEBUG, "Long Tail: Fetching all UUIDs of assets highlighted in interesting moments in curated library: %d found", v81, 8u);
       }
 
       _Block_object_dispose(buf, 8);
-      session = v48;
+      session = v47;
     }
 
     self = selfCopy;
@@ -543,16 +535,16 @@ LABEL_56:
 
 LABEL_8:
   v8 = CFAbsoluteTimeGetCurrent();
-  if (v8 - v71[3] < 0.01)
+  if (v8 - v70[3] < 0.01)
   {
     goto LABEL_56;
   }
 
-  v71[3] = v8;
-  v82[0] = 0;
-  v4[2](v4, v82, 1.0);
-  v9 = *(v75 + 24) | v82[0];
-  *(v75 + 24) = v9;
+  v70[3] = v8;
+  v81[0] = 0;
+  v4[2](v4, v81, 1.0);
+  v9 = *(v74 + 24) | v81[0];
+  *(v74 + 24) = v9;
   if ((v9 & 1) == 0)
   {
     goto LABEL_56;
@@ -562,8 +554,8 @@ LABEL_8:
   {
     *buf = 67109378;
     *&buf[4] = 667;
-    LOWORD(v87) = 2080;
-    *(&v87 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+    LOWORD(v86) = 2080;
+    *(&v86 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
     v7 = MEMORY[0x277D86220];
     goto LABEL_12;
   }
@@ -571,10 +563,8 @@ LABEL_8:
 LABEL_59:
   v41 = MEMORY[0x277CBEBF8];
 LABEL_60:
-  _Block_object_dispose(&v70, 8);
-  _Block_object_dispose(&v74, 8);
-
-  v42 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v69, 8);
+  _Block_object_dispose(&v73, 8);
 
   return v41;
 }
@@ -620,25 +610,25 @@ void __55__PGLongTailSuggester__eligibleAssetUUIDsWithProgress___block_invoke_2(
 
 - (id)allInterestingMomentsFromGraph:(id)graph progress:(id)progress
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   progressCopy = progress;
   v8 = _Block_copy(progressCopy);
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v41 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
   v37 = 0;
-  if (v8 && (v9 = CFAbsoluteTimeGetCurrent(), v9 - v35[3] >= 0.01) && (v35[3] = v9, LOBYTE(v33[0]) = 0, (*(v8 + 2))(v8, v33, 0.0), v10 = *(v39 + 24) | LOBYTE(v33[0]), *(v39 + 24) = v10, (v10 & 1) != 0))
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
+  if (v8 && (v9 = CFAbsoluteTimeGetCurrent(), v9 - v34[3] >= 0.01) && (v34[3] = v9, LOBYTE(v32[0]) = 0, (*(v8 + 2))(v8, v32, 0.0), v10 = *(v38 + 24) | LOBYTE(v32[0]), *(v38 + 24) = v10, (v10 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       buf = 0x24604000202;
-      LOWORD(v47) = 2080;
-      *(&v47 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+      LOWORD(v46) = 2080;
+      *(&v46 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
     }
 
@@ -649,41 +639,41 @@ void __55__PGLongTailSuggester__eligibleAssetUUIDsWithProgress___block_invoke_2(
   {
     v12 = objc_alloc_init(PGNeighborScoreComputer);
     buf = 0;
-    *&v47 = &buf;
-    *(&v47 + 1) = 0x3032000000;
-    v48 = __Block_byref_object_copy__25916;
-    v49 = __Block_byref_object_dispose__25917;
-    v50 = [MEMORY[0x277CBEB58] set];
-    v33[0] = 0;
-    v33[1] = v33;
-    v33[2] = 0x2020000000;
-    v33[3] = 0;
+    *&v46 = &buf;
+    *(&v46 + 1) = 0x3032000000;
+    v47 = __Block_byref_object_copy__25916;
+    v48 = __Block_byref_object_dispose__25917;
+    v49 = [MEMORY[0x277CBEB58] set];
+    v32[0] = 0;
+    v32[1] = v32;
+    v32[2] = 0x2020000000;
+    v32[3] = 0;
     momentNodes = [graphCopy momentNodes];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __63__PGLongTailSuggester_allInterestingMomentsFromGraph_progress___block_invoke;
-    v25[3] = &unk_278881E18;
-    v28 = v33;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __63__PGLongTailSuggester_allInterestingMomentsFromGraph_progress___block_invoke;
+    v24[3] = &unk_278881E18;
+    v27 = v32;
     v14 = v8;
-    v32 = 0x3F847AE147AE147BLL;
-    v29 = &v34;
-    v30 = &v38;
-    v27 = v14;
-    v25[4] = self;
+    v31 = 0x3F847AE147AE147BLL;
+    v28 = &v33;
+    v29 = &v37;
+    v26 = v14;
+    v24[4] = self;
     v15 = v12;
-    v26 = v15;
+    v25 = v15;
     p_buf = &buf;
-    [momentNodes enumerateNodesUsingBlock:v25];
+    [momentNodes enumerateNodesUsingBlock:v24];
 
-    if (*(v39 + 24) == 1)
+    if (*(v38 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        v42 = 67109378;
-        v43 = 596;
-        v44 = 2080;
-        v45 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
-        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v42, 0x12u);
+        v41 = 67109378;
+        v42 = 596;
+        v43 = 2080;
+        v44 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v41, 0x12u);
       }
 
       v11 = MEMORY[0x277CBEBF8];
@@ -691,20 +681,20 @@ void __55__PGLongTailSuggester__eligibleAssetUUIDsWithProgress___block_invoke_2(
 
     else
     {
-      v16 = *(v47 + 40);
+      v16 = *(v46 + 40);
       session = [(PGAbstractSuggester *)self session];
       photoLibrary = [session photoLibrary];
       v19 = [graphCopy momentsForMomentNodes:v16 inPhotoLibrary:photoLibrary sortChronologically:0];
 
-      if (v8 && (Current = CFAbsoluteTimeGetCurrent(), Current - v35[3] >= 0.01) && (v35[3] = Current, v24 = 0, (*(v14 + 2))(v14, &v24, 1.0), v21 = *(v39 + 24) | v24, *(v39 + 24) = v21, (v21 & 1) != 0))
+      if (v8 && (Current = CFAbsoluteTimeGetCurrent(), Current - v34[3] >= 0.01) && (v34[3] = Current, v23 = 0, (*(v14 + 2))(v14, &v23, 1.0), v21 = *(v38 + 24) | v23, *(v38 + 24) = v21, (v21 & 1) != 0))
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
-          v42 = 67109378;
-          v43 = 600;
-          v44 = 2080;
-          v45 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
-          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v42, 0x12u);
+          v41 = 67109378;
+          v42 = 600;
+          v43 = 2080;
+          v44 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v41, 0x12u);
         }
 
         v11 = MEMORY[0x277CBEBF8];
@@ -716,14 +706,12 @@ void __55__PGLongTailSuggester__eligibleAssetUUIDsWithProgress___block_invoke_2(
       }
     }
 
-    _Block_object_dispose(v33, 8);
+    _Block_object_dispose(v32, 8);
     _Block_object_dispose(&buf, 8);
   }
 
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(&v38, 8);
-
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v37, 8);
 
   return v11;
 }
@@ -765,27 +753,25 @@ void __63__PGLongTailSuggester_allInterestingMomentsFromGraph_progress___block_i
 
 - (id)highlightedAssetInternalPredicate
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCAC30];
   [MEMORY[0x277D3CAA8] legacyAestheticScoreThresholdToBeAestheticallyPrettyGood];
   v4 = [v2 predicateWithFormat:@"highlightBeingExtendedAssets != nil AND overallAestheticScore >= %f AND (kindSubtype & %d) == 0", v3, 1];
   noVideoPredicate = [objc_opt_class() noVideoPredicate];
   v6 = [objc_opt_class() internalPredicateForProcessedAssetsWithMinimumSceneAnalysisVersion:33];
   v7 = MEMORY[0x277CCA920];
-  v12[0] = v4;
-  v12[1] = noVideoPredicate;
-  v12[2] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+  v11[0] = v4;
+  v11[1] = noVideoPredicate;
+  v11[2] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
   v9 = [v7 andPredicateWithSubpredicates:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_batchOfRandomAssetsWithCount:(unint64_t)count progress:(id)progress
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   session = [(PGAbstractSuggester *)self session];
   if (!session)
@@ -795,32 +781,32 @@ void __63__PGLongTailSuggester_allInterestingMomentsFromGraph_progress___block_i
   }
 
   v8 = _Block_copy(progressCopy);
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x2020000000;
-  v54 = 0;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x2020000000;
   v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
+  v53 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = 0;
   if (v8)
   {
     Current = CFAbsoluteTimeGetCurrent();
-    if (Current - v48[3] >= 0.01)
+    if (Current - v47[3] >= 0.01)
     {
-      v48[3] = Current;
-      v46 = 0;
-      v8[2](v8, &v46, 0.0);
-      v10 = *(v52 + 24) | v46;
-      *(v52 + 24) = v10;
+      v47[3] = Current;
+      v45 = 0;
+      v8[2](v8, &v45, 0.0);
+      v10 = *(v51 + 24) | v45;
+      *(v51 + 24) = v10;
       if (v10)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v56 = 508;
-          v57 = 2080;
-          v58 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+          v55 = 508;
+          v56 = 2080;
+          v57 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
@@ -830,24 +816,24 @@ void __63__PGLongTailSuggester_allInterestingMomentsFromGraph_progress___block_i
     }
   }
 
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __62__PGLongTailSuggester__batchOfRandomAssetsWithCount_progress___block_invoke;
-  v41[3] = &unk_27888A188;
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __62__PGLongTailSuggester__batchOfRandomAssetsWithCount_progress___block_invoke;
+  v40[3] = &unk_27888A188;
   v12 = v8;
-  v42 = v12;
-  v43 = &v47;
-  v44 = &v51;
-  v45 = 0x3F847AE147AE147BLL;
-  v13 = [(PGLongTailSuggester *)self _eligibleAssetUUIDsWithProgress:v41];
-  if (*(v52 + 24) == 1)
+  v41 = v12;
+  v42 = &v46;
+  v43 = &v50;
+  v44 = 0x3F847AE147AE147BLL;
+  v13 = [(PGLongTailSuggester *)self _eligibleAssetUUIDsWithProgress:v40];
+  if (*(v51 + 24) == 1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v56 = 513;
-      v57 = 2080;
-      v58 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+      v55 = 513;
+      v56 = 2080;
+      v57 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
       v14 = MEMORY[0x277D86220];
 LABEL_11:
       _os_log_impl(&dword_22F0FC000, v14, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -856,7 +842,7 @@ LABEL_11:
 
   else
   {
-    if (!v8 || (v15 = CFAbsoluteTimeGetCurrent(), v15 - v48[3] < 0.01) || (v48[3] = v15, v46 = 0, v12[2](v12, &v46, 0.5), v16 = *(v52 + 24) | v46, *(v52 + 24) = v16, (v16 & 1) == 0))
+    if (!v8 || (v15 = CFAbsoluteTimeGetCurrent(), v15 - v47[3] < 0.01) || (v47[3] = v15, v45 = 0, v12[2](v12, &v45, 0.5), v16 = *(v51 + 24) | v45, *(v51 + 24) = v16, (v16 & 1) == 0))
     {
       oslog = [session loggingConnection];
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
@@ -870,14 +856,14 @@ LABEL_11:
       {
         v18 = [(PGLongTailSuggester *)self _randomRangeWithLocationUpperBound:v17 maxLength:count];
         v20 = v19;
-        if (v8 && (v21 = CFAbsoluteTimeGetCurrent(), v21 - v48[3] >= 0.01) && (v48[3] = v21, v46 = 0, v12[2](v12, &v46, 0.7), v22 = *(v52 + 24) | v46, *(v52 + 24) = v22, (v22 & 1) != 0))
+        if (v8 && (v21 = CFAbsoluteTimeGetCurrent(), v21 - v47[3] >= 0.01) && (v47[3] = v21, v45 = 0, v12[2](v12, &v45, 0.7), v22 = *(v51 + 24) | v45, *(v51 + 24) = v22, (v22 & 1) != 0))
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v56 = 529;
-            v57 = 2080;
-            v58 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+            v55 = 529;
+            v56 = 2080;
+            v57 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -896,20 +882,20 @@ LABEL_11:
             _os_log_debug_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_DEBUG, "Long Tail: Fetching selected random batch of assets with curation properties", buf, 2u);
           }
 
-          v38 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(uuid IN %@)", v25];
+          v37 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(uuid IN %@)", v25];
           v26 = [(PGAbstractSuggester *)self defaultAssetFetchOptionsWithInternalPredicate:?];
           v27 = +[PGCurationManager assetPropertySetsForCuration];
           [v26 setFetchPropertySets:v27];
 
-          v39 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:v26];
-          if (v8 && (v28 = CFAbsoluteTimeGetCurrent(), v28 - v48[3] >= 0.01) && (v48[3] = v28, v46 = 0, v12[2](v12, &v46, 0.8), v29 = *(v52 + 24) | v46, *(v52 + 24) = v29, (v29 & 1) != 0))
+          v38 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:v26];
+          if (v8 && (v28 = CFAbsoluteTimeGetCurrent(), v28 - v47[3] >= 0.01) && (v47[3] = v28, v45 = 0, v12[2](v12, &v45, 0.8), v29 = *(v51 + 24) | v45, *(v51 + 24) = v29, (v29 & 1) != 0))
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
-              v56 = 542;
-              v57 = 2080;
-              v58 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+              v55 = 542;
+              v56 = 2080;
+              v57 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
               _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
             }
 
@@ -921,16 +907,16 @@ LABEL_11:
             v30 = MEMORY[0x277CD97A8];
             clsPrefetchOptionsForKeyAsset = [MEMORY[0x277CD97A8] clsPrefetchOptionsForKeyAsset];
             curationContext = [session curationContext];
-            v33 = [v30 clsAllAssetsFromFetchResult:v39 prefetchOptions:clsPrefetchOptionsForKeyAsset curationContext:curationContext];
+            v33 = [v30 clsAllAssetsFromFetchResult:v38 prefetchOptions:clsPrefetchOptionsForKeyAsset curationContext:curationContext];
 
-            if (v8 && (v34 = CFAbsoluteTimeGetCurrent(), v34 - v48[3] >= 0.01) && (v48[3] = v34, v46 = 0, v12[2](v12, &v46, 1.0), v35 = *(v52 + 24) | v46, *(v52 + 24) = v35, (v35 & 1) != 0))
+            if (v8 && (v34 = CFAbsoluteTimeGetCurrent(), v34 - v47[3] >= 0.01) && (v47[3] = v34, v45 = 0, v12[2](v12, &v45, 1.0), v35 = *(v51 + 24) | v45, *(v51 + 24) = v35, (v35 & 1) != 0))
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
-                v56 = 546;
-                v57 = 2080;
-                v58 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+                v55 = 546;
+                v56 = 2080;
+                v57 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
 
@@ -962,9 +948,9 @@ LABEL_11:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v56 = 515;
-      v57 = 2080;
-      v58 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+      v55 = 515;
+      v56 = 2080;
+      v57 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
       v14 = MEMORY[0x277D86220];
       goto LABEL_11;
     }
@@ -974,11 +960,10 @@ LABEL_11:
 LABEL_49:
 
 LABEL_50:
-  _Block_object_dispose(&v47, 8);
-  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v50, 8);
 
 LABEL_51:
-  v36 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1078,32 +1063,32 @@ void __62__PGLongTailSuggester__batchOfRandomAssetsWithCount_progress___block_in
 
 - (id)nextSuggestedAssetWithProgress:(id)progress
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   v4 = _Block_copy(progressCopy);
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x2020000000;
-  v60 = 0;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
   v56 = 0;
-  if (!v4 || (v5 = CFAbsoluteTimeGetCurrent(), v5 - v54[3] < 0.01) || (v54[3] = v5, v52 = 0, (*(v4 + 2))(v4, &v52, 0.0), v6 = *(v58 + 24) | v52, *(v58 + 24) = v6, (v6 & 1) == 0))
+  v57 = &v56;
+  v58 = 0x2020000000;
+  v59 = 0;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
+  v55 = 0;
+  if (!v4 || (v5 = CFAbsoluteTimeGetCurrent(), v5 - v53[3] < 0.01) || (v53[3] = v5, v51 = 0, (*(v4 + 2))(v4, &v51, 0.0), v6 = *(v57 + 24) | v51, *(v57 + 24) = v6, (v6 & 1) == 0))
   {
     ++self->_randomSeed;
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __54__PGLongTailSuggester_nextSuggestedAssetWithProgress___block_invoke;
-    v47[3] = &unk_27888A188;
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __54__PGLongTailSuggester_nextSuggestedAssetWithProgress___block_invoke;
+    v46[3] = &unk_27888A188;
     v8 = v4;
-    v48 = v8;
-    v49 = &v53;
-    v50 = &v57;
-    v51 = 0x3F847AE147AE147BLL;
-    v9 = [(PGLongTailSuggester *)self _nextCandidateAssetsWithProgress:v47];
+    v47 = v8;
+    v48 = &v52;
+    v49 = &v56;
+    v50 = 0x3F847AE147AE147BLL;
+    v9 = [(PGLongTailSuggester *)self _nextCandidateAssetsWithProgress:v46];
     v10 = v9;
-    if (*(v58 + 24) == 1)
+    if (*(v57 + 24) == 1)
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
@@ -1115,9 +1100,9 @@ LABEL_63:
       }
 
       *buf = 67109378;
-      v63 = 394;
-      v64 = 2080;
-      v65 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+      v62 = 394;
+      v63 = 2080;
+      v64 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
       v11 = MEMORY[0x277D86220];
 LABEL_10:
       _os_log_impl(&dword_22F0FC000, v11, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -1132,13 +1117,13 @@ LABEL_10:
     if (v4)
     {
       Current = CFAbsoluteTimeGetCurrent();
-      if (Current - v54[3] >= 0.01)
+      if (Current - v53[3] >= 0.01)
       {
-        v54[3] = Current;
-        v52 = 0;
-        (*(v8 + 2))(v8, &v52, 0.2);
-        v13 = *(v58 + 24) | v52;
-        *(v58 + 24) = v13;
+        v53[3] = Current;
+        v51 = 0;
+        (*(v8 + 2))(v8, &v51, 0.2);
+        v13 = *(v57 + 24) | v51;
+        *(v57 + 24) = v13;
         if (v13)
         {
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -1147,9 +1132,9 @@ LABEL_10:
           }
 
           *buf = 67109378;
-          v63 = 401;
-          v64 = 2080;
-          v65 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+          v62 = 401;
+          v63 = 2080;
+          v64 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
           v11 = MEMORY[0x277D86220];
           goto LABEL_10;
         }
@@ -1157,28 +1142,28 @@ LABEL_10:
     }
 
     v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v15 = v10;
-    v16 = [v15 countByEnumeratingWithState:&v43 objects:v61 count:16];
-    v41 = v10;
+    v16 = [v15 countByEnumeratingWithState:&v42 objects:v60 count:16];
+    v40 = v10;
     if (v16)
     {
-      v17 = *v44;
+      v17 = *v43;
       do
       {
         v18 = 0;
         v19 = v14;
         do
         {
-          if (*v44 != v17)
+          if (*v43 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          uuid = [*(*(&v43 + 1) + 8 * v18) uuid];
+          uuid = [*(*(&v42 + 1) + 8 * v18) uuid];
           v14 = [v19 arrayByAddingObject:uuid];
 
           ++v18;
@@ -1186,35 +1171,35 @@ LABEL_10:
         }
 
         while (v16 != v18);
-        v16 = [v15 countByEnumeratingWithState:&v43 objects:v61 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v42 objects:v60 count:16];
       }
 
       while (v16);
     }
 
     v21 = [(PGLongTailSuggester *)self _fetchVerifiedPersonUUIDsByAssetUUIds:v14];
-    v22 = v41;
+    v22 = v40;
     verifiedPersonUUIDsByAssetUUIds = self->_verifiedPersonUUIDsByAssetUUIds;
     self->_verifiedPersonUUIDsByAssetUUIds = v21;
 
     if (v4)
     {
       v24 = CFAbsoluteTimeGetCurrent();
-      if (v24 - v54[3] >= 0.01)
+      if (v24 - v53[3] >= 0.01)
       {
-        v54[3] = v24;
-        v52 = 0;
-        (*(v8 + 2))(v8, &v52, 0.4);
-        v25 = *(v58 + 24) | v52;
-        *(v58 + 24) = v25;
+        v53[3] = v24;
+        v51 = 0;
+        (*(v8 + 2))(v8, &v51, 0.4);
+        v25 = *(v57 + 24) | v51;
+        *(v57 + 24) = v25;
         if (v25)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v63 = 410;
-            v64 = 2080;
-            v65 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+            v62 = 410;
+            v63 = 2080;
+            v64 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -1224,25 +1209,25 @@ LABEL_10:
       }
     }
 
-    v26 = [(PGLongTailSuggester *)self _candidateByAssetUUIDsFromAssets:v15, v41];
+    v26 = [(PGLongTailSuggester *)self _candidateByAssetUUIDsFromAssets:v15, v40];
     if (v4)
     {
       v27 = CFAbsoluteTimeGetCurrent();
-      if (v27 - v54[3] >= 0.01)
+      if (v27 - v53[3] >= 0.01)
       {
-        v54[3] = v27;
-        v52 = 0;
-        (*(v8 + 2))(v8, &v52, 0.6);
-        v28 = *(v58 + 24) | v52;
-        *(v58 + 24) = v28;
+        v53[3] = v27;
+        v51 = 0;
+        (*(v8 + 2))(v8, &v51, 0.6);
+        v28 = *(v57 + 24) | v51;
+        *(v57 + 24) = v28;
         if (v28)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v63 = 415;
-            v64 = 2080;
-            v65 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+            v62 = 415;
+            v63 = 2080;
+            v64 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -1261,21 +1246,21 @@ LABEL_10:
     if (v4)
     {
       v30 = CFAbsoluteTimeGetCurrent();
-      if (v30 - v54[3] >= 0.01)
+      if (v30 - v53[3] >= 0.01)
       {
-        v54[3] = v30;
-        v52 = 0;
-        (*(v8 + 2))(v8, &v52, 0.8);
-        v31 = *(v58 + 24) | v52;
-        *(v58 + 24) = v31;
+        v53[3] = v30;
+        v51 = 0;
+        (*(v8 + 2))(v8, &v51, 0.8);
+        v31 = *(v57 + 24) | v51;
+        *(v57 + 24) = v31;
         if (v31)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v63 = 424;
-            v64 = 2080;
-            v65 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+            v62 = 424;
+            v63 = 2080;
+            v64 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -1295,20 +1280,20 @@ LABEL_62:
     v32 = [(PGLongTailSuggester *)self _assetUUIDByWeightedProbablisticSamplingFromAssetUUIDS:v29 weights:v26];
     if (v32)
     {
-      if (!v4 || (v33 = CFAbsoluteTimeGetCurrent(), v33 - v54[3] < 0.01) || (v54[3] = v33, v52 = 0, (*(v8 + 2))(v8, &v52, 0.9), v34 = *(v58 + 24) | v52, *(v58 + 24) = v34, (v34 & 1) == 0))
+      if (!v4 || (v33 = CFAbsoluteTimeGetCurrent(), v33 - v53[3] < 0.01) || (v53[3] = v33, v51 = 0, (*(v8 + 2))(v8, &v51, 0.9), v34 = *(v57 + 24) | v51, *(v57 + 24) = v34, (v34 & 1) == 0))
       {
         v35 = [v26 objectForKeyedSubscript:v32];
         asset = [v35 asset];
         [(NSMutableSet *)self->_suggestedAssetsFromPreviousBatch addObject:asset];
         ++self->_numberOfGeneratedSuggestions;
-        if (v4 && (v37 = CFAbsoluteTimeGetCurrent(), v37 - v54[3] >= 0.01) && (v54[3] = v37, v52 = 0, (*(v8 + 2))(v8, &v52, 1.0), v38 = *(v58 + 24) | v52, *(v58 + 24) = v38, (v38 & 1) != 0))
+        if (v4 && (v37 = CFAbsoluteTimeGetCurrent(), v37 - v53[3] >= 0.01) && (v53[3] = v37, v51 = 0, (*(v8 + 2))(v8, &v51, 1.0), v38 = *(v57 + 24) | v51, *(v57 + 24) = v38, (v38 & 1) != 0))
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v63 = 442;
-            v64 = 2080;
-            v65 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+            v62 = 442;
+            v63 = 2080;
+            v64 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -1326,9 +1311,9 @@ LABEL_62:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v63 = 433;
-        v64 = 2080;
-        v65 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+        v62 = 433;
+        v63 = 2080;
+        v64 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
     }
@@ -1342,18 +1327,16 @@ LABEL_59:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v63 = 386;
-    v64 = 2080;
-    v65 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+    v62 = 386;
+    v63 = 2080;
+    v64 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v7 = 0;
 LABEL_64:
-  _Block_object_dispose(&v53, 8);
-  _Block_object_dispose(&v57, 8);
-
-  v39 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v56, 8);
 
   return v7;
 }
@@ -1444,7 +1427,7 @@ void __54__PGLongTailSuggester_nextSuggestedAssetWithProgress___block_invoke(uin
 
 - (id)nextSuggestionWithProgress:(id)progress
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   if (self->_numberOfGeneratedSuggestions < 0x65)
   {
@@ -1455,8 +1438,8 @@ void __54__PGLongTailSuggester_nextSuggestedAssetWithProgress___block_invoke(uin
       loggingConnection = [session loggingConnection];
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v16) = 0;
-        _os_log_debug_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEBUG, "Long Tail Suggester: nextSuggestion", &v16, 2u);
+        LOWORD(v15) = 0;
+        _os_log_debug_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEBUG, "Long Tail Suggester: nextSuggestion", &v15, 2u);
       }
 
       v9 = [(PGLongTailSuggester *)self nextSuggestedAssetWithProgress:progressCopy];
@@ -1473,11 +1456,11 @@ void __54__PGLongTailSuggester_nextSuggestedAssetWithProgress___block_invoke(uin
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           reasons = [(PGSingleAssetSuggestion *)v5 reasons];
-          v16 = 138478083;
-          v17 = v5;
-          v18 = 2112;
-          v19 = reasons;
-          _os_log_debug_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_DEBUG, "Long Tail Suggester: Suggesting %{private}@ with reasons: %@", &v16, 0x16u);
+          v15 = 138478083;
+          v16 = v5;
+          v17 = 2112;
+          v18 = reasons;
+          _os_log_debug_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_DEBUG, "Long Tail Suggester: Suggesting %{private}@ with reasons: %@", &v15, 0x16u);
         }
       }
 
@@ -1485,8 +1468,8 @@ void __54__PGLongTailSuggester_nextSuggestedAssetWithProgress___block_invoke(uin
       {
         if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEBUG))
         {
-          LOWORD(v16) = 0;
-          _os_log_debug_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEBUG, "Long Tail Suggester: Nothing to suggest", &v16, 2u);
+          LOWORD(v15) = 0;
+          _os_log_debug_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEBUG, "Long Tail Suggester: Nothing to suggest", &v15, 2u);
         }
 
         v5 = 0;
@@ -1497,8 +1480,8 @@ void __54__PGLongTailSuggester_nextSuggestedAssetWithProgress___block_invoke(uin
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
       {
-        LOWORD(v16) = 0;
-        _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Long Tail Suggester: Needs a session!", &v16, 2u);
+        LOWORD(v15) = 0;
+        _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Long Tail Suggester: Needs a session!", &v15, 2u);
       }
 
       v5 = 0;
@@ -1509,14 +1492,12 @@ void __54__PGLongTailSuggester_nextSuggestedAssetWithProgress___block_invoke(uin
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Long Tail Suggester: All suggestion trials have been used.", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Long Tail Suggester: All suggestion trials have been used.", &v15, 2u);
     }
 
     v5 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1586,7 +1567,7 @@ void __50__PGLongTailSuggester_startSuggestingWithOptions___block_invoke(uint64_
 
 - (void)captureInformationFromGraph:(id)graph
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   meNodeWithFallbackInferredMeNode = [graph meNodeWithFallbackInferredMeNode];
   localIdentifier = [meNodeWithFallbackInferredMeNode localIdentifier];
   meNodeLocalIdentifier = self->_meNodeLocalIdentifier;
@@ -1597,13 +1578,11 @@ void __50__PGLongTailSuggester_startSuggestingWithOptions___block_invoke(uint64_
 
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEBUG))
   {
-    v10 = self->_meNodeLocalIdentifier;
-    v11 = 138412290;
-    v12 = v10;
-    _os_log_debug_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEBUG, "Long Tail: meNode local identifier is: %@", &v11, 0xCu);
+    v9 = self->_meNodeLocalIdentifier;
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_debug_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEBUG, "Long Tail: meNode local identifier is: %@", &v10, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)canGenerateSuggestionWithAsset:(id)asset onDate:(id)date
@@ -1637,7 +1616,7 @@ void __50__PGLongTailSuggester_startSuggestingWithOptions___block_invoke(uint64_
 
 void __61__PGLongTailSuggester_canGenerateSuggestionWithAsset_onDate___block_invoke(uint64_t a1, void *a2)
 {
-  v41[2] = *MEMORY[0x277D85DE8];
+  v40[2] = *MEMORY[0x277D85DE8];
   v3 = [a2 graph];
   [*(a1 + 32) captureInformationFromGraph:v3];
   v4 = [*(a1 + 32) highlightedAssetInternalPredicate];
@@ -1646,9 +1625,9 @@ void __61__PGLongTailSuggester_canGenerateSuggestionWithAsset_onDate___block_inv
   v7 = [v5 predicateWithFormat:@"uuid == %@", v6];
 
   v8 = MEMORY[0x277CCA920];
-  v41[0] = v4;
-  v41[1] = v7;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
+  v40[0] = v4;
+  v40[1] = v7;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
   v10 = [v8 andPredicateWithSubpredicates:v9];
 
   v11 = [*(a1 + 32) defaultAssetFetchOptionsWithInternalPredicate:v10];
@@ -1658,20 +1637,20 @@ void __61__PGLongTailSuggester_canGenerateSuggestionWithAsset_onDate___block_inv
   [v11 setFetchLimit:1];
   v13 = MEMORY[0x277CD97A8];
   v14 = [*(a1 + 40) uuid];
-  v40 = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+  v39 = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
   v16 = [v13 fetchAssetsWithUUIDs:v15 options:v11];
 
   if ([v16 count])
   {
-    v37 = v7;
-    v38 = v4;
+    v36 = v7;
+    v37 = v4;
     v17 = [*(a1 + 48) librarySpecificFetchOptions];
     v18 = MEMORY[0x277CD98F8];
     v19 = [*(a1 + 40) uuid];
-    v39 = v19;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
-    v36 = v17;
+    v38 = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+    v35 = v17;
     v21 = [v18 fetchMomentUUIDByAssetUUIDForAssetUUIDs:v20 options:v17];
     v22 = [v21 allValues];
     v23 = [v22 firstObject];
@@ -1684,11 +1663,11 @@ void __61__PGLongTailSuggester_canGenerateSuggestionWithAsset_onDate___block_inv
 
       if (v26 && [*(a1 + 32) isMomentNodeInteresting:v26 withNeighborScoreComputer:v24])
       {
-        v35 = v24;
+        v34 = v24;
         v27 = MEMORY[0x277CD97A8];
         v28 = [MEMORY[0x277CD97A8] clsPrefetchOptionsForKeyAsset];
-        v34 = [*(a1 + 32) session];
-        v29 = [v34 curationContext];
+        v33 = [*(a1 + 32) session];
+        v29 = [v33 curationContext];
         v30 = [v27 clsAllAssetsFromFetchResult:v16 prefetchOptions:v28 curationContext:v29];
         v31 = [v30 firstObject];
 
@@ -1698,42 +1677,40 @@ void __61__PGLongTailSuggester_canGenerateSuggestionWithAsset_onDate___block_inv
           *(*(*(a1 + 56) + 8) + 24) = [(PGLongTailSuggestionCandidate *)v32 isValidWithMeNodeLocalIdentifier:*(*(a1 + 32) + 120)];
         }
 
-        v24 = v35;
+        v24 = v34;
       }
     }
 
-    v7 = v37;
-    v4 = v38;
+    v7 = v36;
+    v4 = v37;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (id)suggestionsWithOptions:(id)options progress:(id)progress
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   aBlock = progress;
   session = [(PGAbstractSuggester *)self session];
   if (session)
   {
     v6 = _Block_copy(aBlock);
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x2020000000;
-    v44 = 0;
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x2020000000;
     v40 = 0;
-    if (v6 && (v7 = CFAbsoluteTimeGetCurrent(), v7 - v38[3] >= 0.01) && (v38[3] = v7, v36 = 0, (*(v6 + 2))(v6, &v36, 0.0), v8 = *(v42 + 24) | v36, *(v42 + 24) = v8, (v8 & 1) != 0))
+    v41 = &v40;
+    v42 = 0x2020000000;
+    v43 = 0;
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x2020000000;
+    v39 = 0;
+    if (v6 && (v7 = CFAbsoluteTimeGetCurrent(), v7 - v37[3] >= 0.01) && (v37[3] = v7, v35 = 0, (*(v6 + 2))(v6, &v35, 0.0), v8 = *(v41 + 24) | v35, *(v41 + 24) = v8, (v8 & 1) != 0))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v46 = 192;
-        v47 = 2080;
-        v48 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+        v45 = 192;
+        v46 = 2080;
+        v47 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -1743,7 +1720,7 @@ void __61__PGLongTailSuggester_canGenerateSuggestionWithAsset_onDate___block_inv
     else
     {
       [(PGLongTailSuggester *)self startSuggestingWithOptions:optionsCopy];
-      v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
       v10 = 0;
       v11 = 1.0 / self->_maximumNumberOfSuggestions;
       v12 = 0.0;
@@ -1751,14 +1728,14 @@ void __61__PGLongTailSuggester_canGenerateSuggestionWithAsset_onDate___block_inv
       while (v10 < self->_maximumNumberOfSuggestions)
       {
         v14 = objc_autoreleasePoolPush();
-        if (v6 && (Current = CFAbsoluteTimeGetCurrent(), Current - v38[3] >= 0.01) && (v38[3] = Current, v36 = 0, (*(v6 + 2))(v6, &v36, v12), v16 = *(v42 + 24) | v36, *(v42 + 24) = v16, (v16 & 1) != 0))
+        if (v6 && (Current = CFAbsoluteTimeGetCurrent(), Current - v37[3] >= 0.01) && (v37[3] = Current, v35 = 0, (*(v6 + 2))(v6, &v35, v12), v16 = *(v41 + 24) | v35, *(v41 + 24) = v16, (v16 & 1) != 0))
         {
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v46 = 202;
-            v47 = 2080;
-            v48 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+            v45 = 202;
+            v46 = 2080;
+            v47 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
             _os_log_impl(&dword_22F0FC000, v13, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -1767,34 +1744,34 @@ void __61__PGLongTailSuggester_canGenerateSuggestionWithAsset_onDate___block_inv
 
         else
         {
-          v29[0] = MEMORY[0x277D85DD0];
-          v29[1] = 3221225472;
-          v29[2] = __55__PGLongTailSuggester_suggestionsWithOptions_progress___block_invoke;
-          v29[3] = &unk_278886858;
-          v30 = v6;
-          v31 = &v37;
-          v34 = v12;
-          v35 = v11;
-          v33 = 0x3F847AE147AE147BLL;
-          v32 = &v41;
-          v18 = [(PGLongTailSuggester *)self nextSuggestionWithProgress:v29];
+          v28[0] = MEMORY[0x277D85DD0];
+          v28[1] = 3221225472;
+          v28[2] = __55__PGLongTailSuggester_suggestionsWithOptions_progress___block_invoke;
+          v28[3] = &unk_278886858;
+          v29 = v6;
+          v30 = &v36;
+          v33 = v12;
+          v34 = v11;
+          v32 = 0x3F847AE147AE147BLL;
+          v31 = &v40;
+          v18 = [(PGLongTailSuggester *)self nextSuggestionWithProgress:v28];
           v19 = v18;
-          if (*(v42 + 24) == 1)
+          if (*(v41 + 24) == 1)
           {
             v17 = 1;
             if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
-              v46 = 207;
-              v47 = 2080;
-              v48 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+              v45 = 207;
+              v46 = 2080;
+              v47 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
               _os_log_impl(&dword_22F0FC000, v13, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
             }
           }
 
           else if (v18)
           {
-            [v26 addObject:v18];
+            [v25 addObject:v18];
             v17 = 0;
             ++v10;
             v12 = v11 + v12;
@@ -1812,7 +1789,7 @@ void __61__PGLongTailSuggester_canGenerateSuggestionWithAsset_onDate___block_inv
           if (v17 != 3)
           {
             v9 = MEMORY[0x277CBEBF8];
-            v20 = v26;
+            v20 = v25;
             goto LABEL_34;
           }
 
@@ -1820,15 +1797,15 @@ void __61__PGLongTailSuggester_canGenerateSuggestionWithAsset_onDate___block_inv
         }
       }
 
-      v20 = v26;
-      if (v6 && (v21 = CFAbsoluteTimeGetCurrent(), v21 - v38[3] >= 0.01) && (v38[3] = v21, v36 = 0, (*(v6 + 2))(v6, &v36, 1.0), v22 = *(v42 + 24) | v36, *(v42 + 24) = v22, (v22 & 1) != 0))
+      v20 = v25;
+      if (v6 && (v21 = CFAbsoluteTimeGetCurrent(), v21 - v37[3] >= 0.01) && (v37[3] = v21, v35 = 0, (*(v6 + 2))(v6, &v35, 1.0), v22 = *(v41 + 24) | v35, *(v41 + 24) = v22, (v22 & 1) != 0))
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v46 = 217;
-          v47 = 2080;
-          v48 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
+          v45 = 217;
+          v46 = 2080;
+          v47 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Long Tail Suggester/PGLongTailSuggester.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
@@ -1837,22 +1814,20 @@ void __61__PGLongTailSuggester_canGenerateSuggestionWithAsset_onDate___block_inv
 
       else
       {
-        v9 = v26;
+        v9 = v25;
       }
 
 LABEL_34:
     }
 
-    _Block_object_dispose(&v37, 8);
-    _Block_object_dispose(&v41, 8);
+    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v40, 8);
   }
 
   else
   {
     v9 = MEMORY[0x277CBEBF8];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

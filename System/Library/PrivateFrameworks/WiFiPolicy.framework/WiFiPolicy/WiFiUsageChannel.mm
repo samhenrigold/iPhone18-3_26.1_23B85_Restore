@@ -5,6 +5,8 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToChannel:(id)channel;
 - (WiFiUsageChannel)initWithChannel:(unint64_t)channel flags:(unint64_t)flags;
+- (WiFiUsageChannel)initWithChannel:(unint64_t)channel flags:(unint64_t)flags band:(int)band width:(unint64_t)width isDFS:(BOOL)s;
+- (WiFiUsageChannel)initWithChannel:(unint64_t)channel flags:(unint64_t)flags isDFS:(BOOL)s;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (unint64_t)hash;
@@ -12,6 +14,45 @@
 @end
 
 @implementation WiFiUsageChannel
+
+- (WiFiUsageChannel)initWithChannel:(unint64_t)channel flags:(unint64_t)flags band:(int)band width:(unint64_t)width isDFS:(BOOL)s
+{
+  sCopy = s;
+  v9 = *&band;
+  v15.receiver = self;
+  v15.super_class = WiFiUsageChannel;
+  v12 = [(WiFiUsageChannel *)&v15 init];
+  v13 = v12;
+  if (v12)
+  {
+    [(WiFiUsageChannel *)v12 setChannel:channel];
+    [(WiFiUsageChannel *)v13 setChannelFlags:flags];
+    [(WiFiUsageChannel *)v13 setBand:v9];
+    [(WiFiUsageChannel *)v13 setChannelWidth:width];
+    [(WiFiUsageChannel *)v13 setIsDFSChannel:sCopy];
+  }
+
+  return v13;
+}
+
+- (WiFiUsageChannel)initWithChannel:(unint64_t)channel flags:(unint64_t)flags isDFS:(BOOL)s
+{
+  sCopy = s;
+  v11.receiver = self;
+  v11.super_class = WiFiUsageChannel;
+  v8 = [(WiFiUsageChannel *)&v11 init];
+  v9 = v8;
+  if (v8)
+  {
+    [(WiFiUsageChannel *)v8 setChannel:channel];
+    [(WiFiUsageChannel *)v9 setChannelFlags:flags];
+    [(WiFiUsageChannel *)v9 setBand:[WiFiUsagePrivacyFilter bandFromFlags:flags]];
+    [(WiFiUsageChannel *)v9 setChannelWidth:[WiFiUsagePrivacyFilter channelWidthFromFlags:flags]];
+    [(WiFiUsageChannel *)v9 setIsDFSChannel:sCopy];
+  }
+
+  return v9;
+}
 
 - (WiFiUsageChannel)initWithChannel:(unint64_t)channel flags:(unint64_t)flags
 {

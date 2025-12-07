@@ -15,7 +15,7 @@
 
   if (wantsFullscreenViewfinder)
   {
-    [CAMDynamicShutterControl shutterButtonSpecForLayoutStyle:style];
+    objc_msgSend_shutterButtonSpecForLayoutStyle_(CAMDynamicShutterControl);
     v13 = [[CAMFullscreenViewfinderLayout alloc] initWithReferenceBounds:0.0 shutterIntrinsicSize:{0.0, fmin(width, height), fmax(width, height), v39, v39}];
     [v13 alignmentRectForShutterControl];
     v15 = v14;

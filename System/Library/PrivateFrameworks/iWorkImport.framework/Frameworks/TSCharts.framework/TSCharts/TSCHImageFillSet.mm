@@ -38,81 +38,81 @@ LABEL_6:
 {
   contextCopy = context;
   propertiesCopy = properties;
-  objc_opt_class();
-  v12 = objc_msgSend_objectForKey_(propertiesCopy, v8, v9, v10, v11, @"path");
+  v8 = objc_opt_class();
+  v13 = objc_msgSend_objectForKey_(propertiesCopy, v9, v10, v11, v12, @"path");
 
-  v13 = sub_2761C47AC();
+  v14 = sub_2761C47AC(v8, v13);
 
-  v18 = objc_msgSend_plistPath(self, v14, v15, v16, v17);
-  v23 = objc_msgSend_stringByDeletingPathExtension(v18, v19, v20, v21, v22);
+  v19 = objc_msgSend_plistPath(self, v15, v16, v17, v18);
+  v24 = objc_msgSend_stringByDeletingPathExtension(v19, v20, v21, v22, v23);
 
-  v28 = objc_msgSend_stringByAppendingPathComponent_(v23, v24, v25, v26, v27, v13);
-  v34 = objc_msgSend_tsu_fileURLWithPath_(MEMORY[0x277CBEBC0], v29, v30, v31, v32, v28);
+  v29 = objc_msgSend_stringByAppendingPathComponent_(v24, v25, v26, v27, v28, v14);
+  v35 = objc_msgSend_tsu_fileURLWithPath_(MEMORY[0x277CBEBC0], v30, v31, v32, v33, v29);
   if (contextCopy)
   {
-    objc_msgSend_dataFromURL_useExternalReferenceIfAllowed_context_(MEMORY[0x277D80828], v33, v35, v36, v37, v34, 0, contextCopy);
+    objc_msgSend_dataFromURL_useExternalReferenceIfAllowed_context_(MEMORY[0x277D80828], v34, v36, v37, v38, v35, 0, contextCopy);
   }
 
   else
   {
-    objc_msgSend_readOnlyDataFromURL_(MEMORY[0x277D80828], v33, v35, v36, v37, v34);
+    objc_msgSend_readOnlyDataFromURL_(MEMORY[0x277D80828], v34, v36, v37, v38, v35);
   }
-  v38 = ;
+  v39 = ;
 
-  return v38;
+  return v39;
 }
 
 - (id)fillFromSageProperties:(id)properties context:(id)context
 {
   propertiesCopy = properties;
   contextCopy = context;
-  objc_opt_class();
-  v12 = objc_msgSend_objectForKey_(propertiesCopy, v8, v9, v10, v11, @"class");
-  v13 = sub_2761C47AC();
+  v8 = objc_opt_class();
+  v13 = objc_msgSend_objectForKey_(propertiesCopy, v9, v10, v11, v12, @"class");
+  v14 = sub_2761C47AC(v8, v13);
 
-  if ((objc_msgSend_isEqualToString_(v13, v14, v15, v16, v17, @"textured-fill") & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v14, v15, v16, v17, v18, @"textured-fill") & 1) == 0)
   {
-    v22 = MEMORY[0x277D81150];
-    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, v19, v20, v21, "[TSCHImageFillSet fillFromSageProperties:context:]");
-    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHFillSet.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v29, v30, v31, v32, v23, v28, 471, 0, "only textured-fill is supported");
+    v23 = MEMORY[0x277D81150];
+    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, v20, v21, v22, "[TSCHImageFillSet fillFromSageProperties:context:]");
+    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, v26, v27, v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHFillSet.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v30, v31, v32, v33, v24, v29, 471, 0, "only textured-fill is supported");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v34, v35, v36);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35, v36, v37);
   }
 
-  objc_opt_class();
-  v41 = objc_msgSend_objectForKey_(propertiesCopy, v37, v38, v39, v40, @"filtered-image");
-  v42 = sub_2761C47AC();
+  v38 = objc_opt_class();
+  v43 = objc_msgSend_objectForKey_(propertiesCopy, v39, v40, v41, v42, @"filtered-image");
+  v44 = sub_2761C47AC(v38, v43);
+
+  v45 = objc_opt_class();
+  v50 = objc_msgSend_objectForKey_(v44, v46, v47, v48, v49, @"data");
+  v51 = sub_2761C47AC(v45, v50);
+
+  v56 = objc_msgSend_p_tspDataFromProperties_context_(self, v52, v53, v54, v55, v51, contextCopy);
 
   objc_opt_class();
-  v47 = objc_msgSend_objectForKey_(v42, v43, v44, v45, v46, @"data");
-  v48 = sub_2761C47AC();
+  v61 = objc_msgSend_objectForKey_(propertiesCopy, v57, v58, v59, v60, @"color");
+  v62 = TSUDynamicCast();
 
-  v53 = objc_msgSend_p_tspDataFromProperties_context_(self, v49, v50, v51, v52, v48, contextCopy);
-
-  objc_opt_class();
-  v58 = objc_msgSend_objectForKey_(propertiesCopy, v54, v55, v56, v57, @"color");
-  v59 = TSUDynamicCast();
-
-  if (v59)
+  if (v62)
   {
-    v64 = objc_msgSend_colorFromProperties_(self, v60, v61, v62, v63, v59);
+    v67 = objc_msgSend_colorFromProperties_(self, v63, v64, v65, v66, v62);
   }
 
   else
   {
-    v64 = 0;
+    v67 = 0;
   }
 
   objc_opt_class();
-  v69 = objc_msgSend_objectForKey_(propertiesCopy, v65, v66, v67, v68, @"technique");
-  v70 = TSUDynamicCast();
+  v72 = objc_msgSend_objectForKey_(propertiesCopy, v68, v69, v70, v71, @"technique");
+  v73 = TSUDynamicCast();
 
-  v75 = objc_msgSend_p_techniqueFromString_(self, v71, v72, v73, v74, v70);
-  v76 = objc_alloc(MEMORY[0x277D802C0]);
-  v79 = objc_msgSend_initWithImageData_technique_tintColor_size_(v76, v77, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8), v78, v53, v75, v64);
+  v78 = objc_msgSend_p_techniqueFromString_(self, v74, v75, v76, v77, v73);
+  v79 = objc_alloc(MEMORY[0x277D802C0]);
+  v82 = objc_msgSend_initWithImageData_technique_tintColor_size_(v79, v80, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8), v81, v56, v78, v67);
 
-  return v79;
+  return v82;
 }
 
 @end

@@ -7,12 +7,12 @@
 
 - (id)waiterID
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC7reminddP33_A793612D66A4A6A32EDDE79136FC5A3839DebugPerformerMockDABabysittableAccount_accountID);
-  v3 = *&self->accountID[OBJC_IVAR____TtC7reminddP33_A793612D66A4A6A32EDDE79136FC5A3839DebugPerformerMockDABabysittableAccount_accountID];
+  v2 = *&self->accountID[OBJC_IVAR____TtC7reminddP33_A793612D66A4A6A32EDDE79136FC5A3839DebugPerformerMockDABabysittableAccount_accountID];
 
-  v4 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
+  v2, v4, v5, v6, v7, v8, v9, v10;
 
-  return v4;
+  return v3;
 }
 
 - (_TtC7reminddP33_A793612D66A4A6A32EDDE79136FC5A3839DebugPerformerMockDABabysittableAccount)init

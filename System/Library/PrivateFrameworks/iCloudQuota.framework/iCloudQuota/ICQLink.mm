@@ -68,10 +68,9 @@
   text = self->_text;
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:self->_options];
   v6 = _ICQStringForAction(self->_action);
-  parameters = self->_parameters;
-  v8 = [v3 stringWithFormat:@"Text: %@, Options: %@, Action: %@, Parameters: %@, actionURL: %@", text, v5, v6, parameters, self->_actionURL];
+  v7 = [v3 stringWithFormat:@"Text: %@, Options: %@, Action: %@, Parameters: %@, actionURL: %@", text, v5, v6, self->_parameters, self->_actionURL];
 
-  return v8;
+  return v7;
 }
 
 - (NSURL)serverUIURL
@@ -122,7 +121,7 @@
 - (NSURL)dynamicUIRouteURL
 {
   p_parameters = &self->_parameters;
-  v3 = [(NSDictionary *)self->_parameters objectForKeyedSubscript:@"route"];
+  v3 = objc_msgSend_objectForKeyedSubscript_(self->_parameters, a2, @"route");
   if (v3)
   {
     v4 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:v3];
@@ -145,7 +144,7 @@
 - (NSString)purchaseAttribution
 {
   p_parameters = &self->_parameters;
-  v3 = [(NSDictionary *)self->_parameters objectForKeyedSubscript:@"purchaseAttribution"];
+  v3 = objc_msgSend_objectForKeyedSubscript_(self->_parameters, a2, @"purchaseAttribution");
   v4 = v3;
   if (v3)
   {
@@ -176,7 +175,7 @@
 
 + (BOOL)performAction:(int64_t)action parameters:(id)parameters options:(int64_t)options
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   v9 = parametersCopy;
   isKindOfClass = 0;
@@ -190,13 +189,13 @@
         {
           if (action == 6)
           {
-            v16 = [parametersCopy objectForKeyedSubscript:@"URL"];
+            v16 = objc_msgSend_objectForKeyedSubscript_(parametersCopy);
             v17 = _ICQGetLogSystem();
             if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
-              v24 = 138412290;
-              v25 = v16;
-              _os_log_impl(&dword_275572000, v17, OS_LOG_TYPE_DEFAULT, "link - opening URL %@", &v24, 0xCu);
+              v23 = 138412290;
+              v24 = v16;
+              _os_log_impl(&dword_275572000, v17, OS_LOG_TYPE_DEFAULT, "link - opening URL %@", &v23, 0xCu);
             }
 
             objc_opt_class();
@@ -223,15 +222,15 @@
 
       if (action == 1)
       {
-        v20 = [parametersCopy objectForKeyedSubscript:@"openURL"];
+        v20 = objc_msgSend_objectForKeyedSubscript_(parametersCopy);
 
         if (!v20)
         {
           v12 = _ICQGetLogSystem();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v24) = 0;
-            _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "ICQLink: performAction: ICQActionDismiss not handled", &v24, 2u);
+            LOWORD(v23) = 0;
+            _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "ICQLink: performAction: ICQActionDismiss not handled", &v23, 2u);
           }
 
           goto LABEL_28;
@@ -247,8 +246,8 @@ LABEL_49:
         v19 = _ICQGetLogSystem();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v24) = 0;
-          _os_log_impl(&dword_275572000, v19, OS_LOG_TYPE_DEFAULT, "link - offer rejected", &v24, 2u);
+          LOWORD(v23) = 0;
+          _os_log_impl(&dword_275572000, v19, OS_LOG_TYPE_DEFAULT, "link - offer rejected", &v23, 2u);
         }
 
         goto LABEL_54;
@@ -265,8 +264,8 @@ LABEL_32:
         v15 = _ICQGetLogSystem();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v24) = 0;
-          _os_log_impl(&dword_275572000, v15, OS_LOG_TYPE_DEFAULT, "link - presenting purchase flow in Settings", &v24, 2u);
+          LOWORD(v23) = 0;
+          _os_log_impl(&dword_275572000, v15, OS_LOG_TYPE_DEFAULT, "link - presenting purchase flow in Settings", &v23, 2u);
         }
 
         _ICQOpenPurchaseFlowInSettings();
@@ -283,8 +282,8 @@ LABEL_32:
         v21 = _ICQGetLogSystem();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v24) = 0;
-          _os_log_impl(&dword_275572000, v21, OS_LOG_TYPE_DEFAULT, "link - presenting manage storage in Settings", &v24, 2u);
+          LOWORD(v23) = 0;
+          _os_log_impl(&dword_275572000, v21, OS_LOG_TYPE_DEFAULT, "link - presenting manage storage in Settings", &v23, 2u);
         }
 
         _ICQOpenManageStorageInSettings();
@@ -298,11 +297,11 @@ LABEL_18:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           v13 = _ICQStringForAction(action);
-          v24 = 138412290;
-          v25 = v13;
+          v23 = 138412290;
+          v24 = v13;
           v14 = "ICQLink: performAction: %@ not handled since it requires context";
 LABEL_27:
-          _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, v14, &v24, 0xCu);
+          _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, v14, &v23, 0xCu);
 
           goto LABEL_28;
         }
@@ -358,8 +357,8 @@ LABEL_25:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = _ICQStringForAction(action);
-      v24 = 138412290;
-      v25 = v13;
+      v23 = 138412290;
+      v24 = v13;
       v14 = "ICQLink: performAction: %@ not handled";
       goto LABEL_27;
     }
@@ -379,8 +378,8 @@ LABEL_28:
     v11 = _ICQGetLogSystem();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v24) = 0;
-      _os_log_impl(&dword_275572000, v11, OS_LOG_TYPE_DEFAULT, "link - presenting family setup in Settings", &v24, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_275572000, v11, OS_LOG_TYPE_DEFAULT, "link - presenting family setup in Settings", &v23, 2u);
     }
 
     _ICQOpenFamilySetupInSettings();
@@ -389,7 +388,6 @@ LABEL_28:
 
 LABEL_55:
 
-  v22 = *MEMORY[0x277D85DE8];
   return isKindOfClass & 1;
 }
 
@@ -407,17 +405,17 @@ LABEL_55:
 + (id)urlRequestWithParams:(id)params options:(int64_t)options
 {
   optionsCopy = options;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CBEBC0];
-  v7 = [params objectForKeyedSubscript:@"openURL"];
+  v7 = objc_msgSend_objectForKeyedSubscript_(params, a2, @"openURL");
   v8 = [v6 URLWithString:v7];
 
   v9 = _ICQGetLogSystem();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = v8;
-    _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "HTTP Call - server call to URL %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v8;
+    _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "HTTP Call - server call to URL %@", &v12, 0xCu);
   }
 
   v10 = [MEMORY[0x277CCAB70] requestWithURL:v8 cachePolicy:1 timeoutInterval:30.0];
@@ -427,8 +425,6 @@ LABEL_55:
     [v10 setValue:@"application/x-plist" forHTTPHeaderField:@"Content-Type"];
     [v10 setValue:@"application/x-buddyml" forHTTPHeaderField:@"Accept"];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -470,7 +466,7 @@ LABEL_55:
 
 void __36__ICQLink_startDataTaskWithRequest___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a4;
   if (v4)
   {
@@ -478,13 +474,11 @@ void __36__ICQLink_startDataTaskWithRequest___block_invoke(uint64_t a1, uint64_t
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [v4 localizedDescription];
-      v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, "Error making HTTP call to url: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, "Error making HTTP call to url: %@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)addHeadersToRequest:(id)request
@@ -500,21 +494,21 @@ void __36__ICQLink_startDataTaskWithRequest___block_invoke(uint64_t a1, uint64_t
 
 + (void)addPOSTParams:(id)params toRequest:(id)request
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   requestCopy = request;
   [requestCopy setHTTPMethod:@"POST"];
   [requestCopy setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-  v12 = 0;
-  v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:paramsCopy options:0 error:&v12];
-  v8 = v12;
+  v11 = 0;
+  v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:paramsCopy options:0 error:&v11];
+  v8 = v11;
   if (v8)
   {
     v9 = _ICQGetLogSystem();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = v8;
+      v13 = v8;
       _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "Could not convert message body to JSON. Error: %@", buf, 0xCu);
     }
 
@@ -529,8 +523,6 @@ void __36__ICQLink_startDataTaskWithRequest___block_invoke(uint64_t a1, uint64_t
   {
     [requestCopy setHTTPBody:v7];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -547,7 +539,7 @@ void __36__ICQLink_startDataTaskWithRequest___block_invoke(uint64_t a1, uint64_t
 
 - (ICQLink)initWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(ICQLink *)self init];
   if (v5)
@@ -559,11 +551,11 @@ void __36__ICQLink_startDataTaskWithRequest___block_invoke(uint64_t a1, uint64_t
     v5->_action = [coderCopy decodeIntegerForKey:@"action"];
     v5->_options = [coderCopy decodeIntegerForKey:@"options"];
     v8 = MEMORY[0x277CBEB98];
+    v18 = objc_opt_class();
     v19 = objc_opt_class();
     v20 = objc_opt_class();
-    v21 = objc_opt_class();
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:3];
-    v10 = [v8 setWithArray:{v9, v19, v20}];
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:3];
+    v10 = [v8 setWithArray:{v9, v18, v19}];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"parameters"];
     parameters = v5->_parameters;
     v5->_parameters = v11;
@@ -577,7 +569,6 @@ void __36__ICQLink_startDataTaskWithRequest___block_invoke(uint64_t a1, uint64_t
     v5->_serverUIContent = v15;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -625,32 +616,32 @@ void __36__ICQLink_startDataTaskWithRequest___block_invoke(uint64_t a1, uint64_t
 
 + (id)_icqDismissLinkForServerMessageParameters:(id)parameters
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v4 = parametersCopy;
-    v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v16;
+      v7 = *v15;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * i);
-          v10 = [v9 objectForKeyedSubscript:{@"id", v15}];
+          v9 = *(*(&v14 + 1) + 8 * i);
+          v10 = objc_msgSend_objectForKeyedSubscript_(v9, v14);
           if ([v10 isEqualToString:@"cancel"])
           {
             v11 = _ICQLinkForServerMessageParameterWithOptions(v9, 0);
@@ -663,7 +654,7 @@ void __36__ICQLink_startDataTaskWithRequest___block_invoke(uint64_t a1, uint64_t
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v6)
         {
           continue;
@@ -686,7 +677,7 @@ void __36__ICQLink_startDataTaskWithRequest___block_invoke(uint64_t a1, uint64_t
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = parametersCopy;
+      v20 = parametersCopy;
       _os_log_impl(&dword_275572000, v4, OS_LOG_TYPE_DEFAULT, "links: expected array: invalid server message parameters:%@", buf, 0xCu);
     }
   }
@@ -695,38 +686,34 @@ void __36__ICQLink_startDataTaskWithRequest___block_invoke(uint64_t a1, uint64_t
 LABEL_17:
 
 LABEL_18:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (void)dynamicUIRouteURL
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *self;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_275572000, a2, OS_LOG_TYPE_ERROR, "Unable to find dynamicUI route in params %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_275572000, a2, OS_LOG_TYPE_ERROR, "Unable to find dynamicUI route in params %@", &v3, 0xCu);
 }
 
 - (void)purchaseAttribution
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *self;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_275572000, a2, OS_LOG_TYPE_ERROR, "Unable to find dynamicUI purchase attribution in params %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_275572000, a2, OS_LOG_TYPE_ERROR, "Unable to find dynamicUI purchase attribution in params %@", &v3, 0xCu);
 }
 
 + (void)addPOSTParams:(uint64_t)a1 toRequest:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_275572000, a2, OS_LOG_TYPE_DEBUG, "Body: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_275572000, a2, OS_LOG_TYPE_DEBUG, "Body: %@", &v2, 0xCu);
 }
 
 @end

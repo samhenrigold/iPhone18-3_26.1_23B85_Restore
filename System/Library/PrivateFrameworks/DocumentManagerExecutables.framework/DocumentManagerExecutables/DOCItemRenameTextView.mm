@@ -140,7 +140,7 @@
 
   if (v3)
   {
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIKeyCommand);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIKeyCommand, 0x277D75650);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -194,7 +194,7 @@
 
 - (id)textView:(id)view editMenuForTextInRange:(_NSRange)range suggestedActions:(id)actions
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIMenuElement);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIMenuElement, 0x277D75720);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;

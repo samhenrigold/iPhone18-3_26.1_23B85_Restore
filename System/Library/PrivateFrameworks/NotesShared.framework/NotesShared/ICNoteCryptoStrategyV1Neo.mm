@@ -646,14 +646,14 @@ void __52__ICNoteCryptoStrategyV1Neo_writeEncryptedNoteData___block_invoke_cold_
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot serialize encrypted note data {note: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot serialize encrypted note data {note: %@}", v4, v5, v6, v7);
 }
 
 void __52__ICNoteCryptoStrategyV1Neo_writeEncryptedNoteData___block_invoke_cold_2(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt note data {note: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot encrypt note data {note: %@}", v4, v5, v6, v7);
 }
 
 - (void)decrypt
@@ -683,7 +683,7 @@ void __36__ICNoteCryptoStrategyV1Neo_decrypt__block_invoke_cold_2(void *a1)
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt note data {note: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt note data {note: %@}", v4, v5, v6, v7);
 }
 
 - (void)decryptTextDataOrSaveAsUnappliedRecordIfNotAuthenticated:(void *)a1 .cold.1(void *a1)
@@ -730,7 +730,7 @@ void __86__ICNoteCryptoStrategyV1Neo_decryptTextDataOrSaveAsUnappliedRecordIfNot
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt note data from record {note: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt note data from record {note: %@}", v4, v5, v6, v7);
 }
 
 - (void)decryptNotePrimitiveData
@@ -757,7 +757,7 @@ void __53__ICNoteCryptoStrategyV1Neo_decryptNotePrimitiveData__block_invoke_cold
 {
   v1 = [a1 shortLoggingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt primitive note data {note: %@}", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Cannot decrypt primitive note data {note: %@}", v4, v5, v6, v7);
 }
 
 - (void)mergeEncryptedData:(void *)a1 mergeConflict:.cold.1(void *a1)

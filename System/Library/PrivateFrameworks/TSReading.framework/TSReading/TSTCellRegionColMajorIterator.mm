@@ -49,7 +49,7 @@
       BYTE2(v8) = BYTE2(v6) + 1;
       if (WORD2(v6) != 1)
       {
-        std::__tree<TSUColumnRowRect,TSTCellRangeColumnMajorLess,std::allocator<TSUColumnRowRect>>::__emplace_unique_key_args<TSUColumnRowRect,TSUColumnRowRect const&>(p_mCellRangeSet, &v8);
+        std::__tree<TSUColumnRowRect,TSTCellRangeColumnMajorLess,std::allocator<TSUColumnRowRect>>::__emplace_unique_key_args<TSUColumnRowRect,TSUColumnRowRect const&>(p_mCellRangeSet, &v8, &v8);
       }
 
       self->mCellID = *(self->mCellRangeSet.__tree_.__begin_node_ + 26);

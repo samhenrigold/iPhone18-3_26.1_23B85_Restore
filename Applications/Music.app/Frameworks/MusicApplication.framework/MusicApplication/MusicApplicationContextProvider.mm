@@ -20,13 +20,13 @@
   v10 = v18;
   if (v18)
   {
-    v11 = __swift_project_boxed_opaque_existential_1(v17, v18);
-    v12 = *(v10 - 8);
-    __chkstk_darwin(v11);
+    __swift_project_boxed_opaque_existential_1(v17, v18);
+    v11 = *(v10 - 8);
+    v12 = __chkstk_darwin();
     v14 = v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v12 + 16))(v14);
+    (*(v11 + 16))(v14, v12);
     v15 = sub_ABB3A0();
-    (*(v12 + 8))(v14, v10);
+    (*(v11 + 8))(v14, v10);
     __swift_destroy_boxed_opaque_existential_0(v17);
   }
 
@@ -64,7 +64,7 @@
     v11 = 0;
   }
 
-  sub_12E1C(v7, &unk_DEA520);
+  sub_12E1C(v7, &unk_DEA520, &unk_AFDBF0);
   v5 = 0;
 LABEL_6:
 
@@ -99,12 +99,12 @@ LABEL_6:
 - (void)setLastMessageDisplayTime:(double)time
 {
   standardUserDefaults = [objc_opt_self() standardUserDefaults];
-  v6[3] = &type metadata for Double;
-  *v6 = time;
-  v5[0] = 0xD00000000000001CLL;
-  v5[1] = 0x8000000000B551D0;
-  sub_36A48();
-  NSUserDefaults.subscript.setter(v6, v5, &type metadata for String);
+  v7[3] = &type metadata for Double;
+  *v7 = time;
+  v6[0] = 0xD00000000000001CLL;
+  v6[1] = 0x8000000000B551D0;
+  v5 = sub_36A48();
+  NSUserDefaults.subscript.setter(v7, v6, &type metadata for String, v5);
 }
 
 @end

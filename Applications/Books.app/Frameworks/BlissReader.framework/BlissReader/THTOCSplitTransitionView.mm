@@ -225,7 +225,7 @@ LABEL_15:
   [(THTOCSplitTransitionView *)self _splitReplicatorLayerPositionForOpen:self->_isReverse];
   [(CAReplicatorLayer *)self->_splitReplicatorLayer setPosition:?];
   [(CAReplicatorLayer *)self->_splitReplicatorLayer setPreservesDepth:1];
-  [(THTOCSplitTransitionView *)self _splitInstanceTransformForOpen:self->_isReverse];
+  objc_msgSend__splitInstanceTransformForOpen_(self);
   splitReplicatorLayer = self->_splitReplicatorLayer;
   v33[0] = v33[1];
   [(CAReplicatorLayer *)splitReplicatorLayer setInstanceTransform:v33];
@@ -336,7 +336,7 @@ LABEL_15:
   [(CAReplicatorLayer *)self->_scaleReplicatorLayer setInstanceCount:2];
   [(CAReplicatorLayer *)self->_scaleReplicatorLayer setInstanceDelay:self->_animationDuration + 100.0];
   [(CAReplicatorLayer *)self->_scaleReplicatorLayer setPreservesDepth:1];
-  [(THTOCSplitTransitionView *)self _scaleInstanceTransformForOpen:self->_isReverse];
+  objc_msgSend__scaleInstanceTransformForOpen_(self);
   scaleReplicatorLayer = self->_scaleReplicatorLayer;
   v15[4] = v15[12];
   v15[5] = v15[13];
@@ -422,12 +422,12 @@ LABEL_15:
 {
   [(THTransitionViewDelegate *)[(THTransitionView *)self delegate] transitionWillFinish:self];
   +[CATransaction begin];
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = sub_10BFDC;
-  v31[3] = &unk_45AE00;
-  v31[4] = self;
-  [CATransaction setCompletionBlock:v31];
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10BFDC;
+  v24[3] = &unk_45AE00;
+  v24[4] = self;
+  [CATransaction setCompletionBlock:v24];
   [(THTOCSplitTransitionView *)self slideAnimationDuration];
   [CATransaction setAnimationDuration:?];
   if (self->_isFinishingInteractive)
@@ -443,16 +443,16 @@ LABEL_15:
   [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:*v3]];
   [(THTOCSplitTransitionView *)self _splitReplicatorLayerPositionForOpen:!self->_isReverse];
   [(CAReplicatorLayer *)self->_splitReplicatorLayer setPosition:?];
-  [(THTOCSplitTransitionView *)self _splitInstanceTransformForOpen:!self->_isReverse];
+  objc_msgSend__splitInstanceTransformForOpen_(self);
   splitReplicatorLayer = self->_splitReplicatorLayer;
-  v19 = v27;
-  v20 = v28;
-  v21 = v29;
-  v22 = v30;
-  v15 = v23;
-  v16 = v24;
-  v17 = v25;
-  v18 = v26;
+  v19 = v23[4];
+  v20 = v23[5];
+  v21 = v23[6];
+  v22 = v23[7];
+  v15 = v23[0];
+  v16 = v23[1];
+  v17 = v23[2];
+  v18 = v23[3];
   [(CAReplicatorLayer *)splitReplicatorLayer setInstanceTransform:&v15];
   [(THTOCSplitTransitionView *)self _shadowLayerPositionForOpen:!self->_isReverse top:1];
   [(CALayer *)self->_topShadowLayer setPosition:?];
@@ -462,7 +462,7 @@ LABEL_15:
   [(CALayer *)self->_bottomShadowLayer setOpacity:0.0];
   [CATransaction setAnimationDuration:self->_animationDuration];
   [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
-  [(THTOCSplitTransitionView *)self _scaleInstanceTransformForOpen:!self->_isReverse];
+  objc_msgSend__scaleInstanceTransformForOpen_(self);
   scaleReplicatorLayer = self->_scaleReplicatorLayer;
   v19 = v11;
   v20 = v12;
@@ -485,7 +485,7 @@ LABEL_15:
   [CATransaction setDisableActions:1];
   [(THTOCSplitTransitionView *)self _splitReplicatorLayerPositionForOpen:!self->_isReverse];
   [(CAReplicatorLayer *)self->_splitReplicatorLayer setPosition:?];
-  [(THTOCSplitTransitionView *)self _splitInstanceTransformForOpen:!self->_isReverse];
+  objc_msgSend__splitInstanceTransformForOpen_(self);
   splitReplicatorLayer = self->_splitReplicatorLayer;
   v18 = v26;
   v19 = v27;
@@ -500,7 +500,7 @@ LABEL_15:
   [(CALayer *)self->_topShadowLayer setPosition:?];
   [(THTOCSplitTransitionView *)self _shadowLayerPositionForOpen:!self->_isReverse top:0];
   [(CALayer *)self->_bottomShadowLayer setPosition:?];
-  [(THTOCSplitTransitionView *)self _scaleInstanceTransformForOpen:!self->_isReverse];
+  objc_msgSend__scaleInstanceTransformForOpen_(self);
   scaleReplicatorLayer = self->_scaleReplicatorLayer;
   v18 = v10;
   v19 = v11;

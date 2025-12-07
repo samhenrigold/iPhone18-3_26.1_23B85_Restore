@@ -311,7 +311,7 @@ void __99__SBSystemApertureStatusBarPillElementProvider_acquireActiveElementAsse
   resolvedBackgroundActivityIdentifier = [(SBSystemApertureStatusBarPillElementProvider *)self resolvedBackgroundActivityIdentifier];
   v7 = [v5 isEqualToString:resolvedBackgroundActivityIdentifier];
 
-  if (!v7 || [(NSMutableSet *)self->_applicationsWithActiveElements containsObject:nowRecordingApplication])
+  if (!v7 || objc_msgSend_containsObject_(self->_applicationsWithActiveElements))
   {
 
     nowRecordingApplication = 0;
@@ -457,7 +457,7 @@ uint64_t __62__SBSystemApertureStatusBarPillElementProvider__activeElement__bloc
 uint64_t __67__SBSystemApertureStatusBarPillElementProvider__nowLocatingElement__block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a2 representedBackgroundActivityIdentifiers];
-  v3 = [v2 containsObject:*MEMORY[0x277D6BC00]];
+  v3 = objc_msgSend_containsObject_(v2);
 
   return v3;
 }
@@ -465,7 +465,7 @@ uint64_t __67__SBSystemApertureStatusBarPillElementProvider__nowLocatingElement_
 uint64_t __68__SBSystemApertureStatusBarPillElementProvider__nowRecordingElement__block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a2 representedBackgroundActivityIdentifiers];
-  v3 = [v2 containsObject:*MEMORY[0x277D6BCA8]];
+  v3 = objc_msgSend_containsObject_(v2);
 
   return v3;
 }
@@ -721,7 +721,7 @@ void __129__SBSystemApertureStatusBarPillElementProvider__updateActiveElementIfN
   v22 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _activeElement];
   v3 = [v2 representedBackgroundActivityIdentifiers];
-  if ([v3 containsObject:*(a1 + 40)])
+  if (objc_msgSend_containsObject_(v3))
   {
     if (*(a1 + 56) == 1)
     {
@@ -739,7 +739,7 @@ void __129__SBSystemApertureStatusBarPillElementProvider__updateActiveElementIfN
   {
     v5 = STBackgroundActivityIdentifiersDescription();
     v6 = STBackgroundActivityIdentifierDescription();
-    v7 = SBLogSystemAperturePills();
+    v7 = SBLogSystemAperturePills(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 48);
@@ -804,14 +804,14 @@ void __129__SBSystemApertureStatusBarPillElementProvider__updateActiveElementIfN
 - (BOOL)_managesDedicatedElementForBackgroundActivityIdentifiers:(id)identifiers
 {
   identifiersCopy = identifiers;
-  if ([identifiersCopy containsObject:*MEMORY[0x277D6BC00]])
+  if (objc_msgSend_containsObject_(identifiersCopy))
   {
     v4 = 1;
   }
 
   else
   {
-    v4 = [identifiersCopy containsObject:*MEMORY[0x277D6BCA8]];
+    v4 = objc_msgSend_containsObject_(identifiersCopy);
   }
 
   return v4;

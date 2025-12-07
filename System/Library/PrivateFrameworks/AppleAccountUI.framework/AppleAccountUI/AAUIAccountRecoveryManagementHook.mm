@@ -68,48 +68,48 @@
     v9 = 0;
   }
 
-  v10 = _AAUILogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = _AAUILogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    [AAUIAccountRecoveryManagementHook _showAccountRecoveryManagementWithServerAttributes:v9 completion:v10];
+    [AAUIAccountRecoveryManagementHook _showAccountRecoveryManagementWithServerAttributes:v9 completion:v11];
   }
 
   self->_presentationType = [(AAUIAccountRecoveryManagementHook *)self _presentationTypeForString:v9];
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__2;
-  v27 = __Block_byref_object_dispose__2;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__2;
+  v28 = __Block_byref_object_dispose__2;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v28 = [WeakRetained presentationContextForHook:self];
+  v29 = [WeakRetained presentationContextForHook:self];
 
-  v12 = [[AAUID2DEncryptionFlowContext alloc] initWithType:2];
-  v13 = [AAUIManateeStateValidator alloc];
-  v14 = [(AAUIManateeStateValidator *)v13 initWithFlowContext:v12 withPresentingViewController:v24[5]];
+  v13 = [[AAUID2DEncryptionFlowContext alloc] initWithType:2];
+  v14 = [AAUIManateeStateValidator alloc];
+  v15 = [(AAUIManateeStateValidator *)v14 initWithFlowContext:v13 withPresentingViewController:v25[5]];
   objc_initWeak(&location, self);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __99__AAUIAccountRecoveryManagementHook__showAccountRecoveryManagementWithServerAttributes_completion___block_invoke;
-  v17[3] = &unk_1E820BFD0;
-  v15 = v14;
-  v18 = v15;
-  objc_copyWeak(&v21, &location);
-  v20 = &v23;
-  v16 = completionCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __99__AAUIAccountRecoveryManagementHook__showAccountRecoveryManagementWithServerAttributes_completion___block_invoke;
+  v18[3] = &unk_1E820BFD0;
+  v16 = v15;
   v19 = v16;
-  [(AAUIManateeStateValidator *)v15 repairIfPrimaryAppleAccountIsCDP:v17];
+  objc_copyWeak(&v22, &location);
+  v21 = &v24;
+  v17 = completionCopy;
+  v20 = v17;
+  [(AAUIManateeStateValidator *)v16 repairIfPrimaryAppleAccountIsCDP:v18];
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v24, 8);
 }
 
 void __99__AAUIAccountRecoveryManagementHook__showAccountRecoveryManagementWithServerAttributes_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v7 = _AAUILogSystem();
+  v7 = _AAUILogSystem(WeakRetained);
   v8 = v7;
   if (WeakRetained && a2)
   {
@@ -136,7 +136,7 @@ void __99__AAUIAccountRecoveryManagementHook__showAccountRecoveryManagementWithS
 
 - (void)_presentWithBasePresentationMode:(id)mode fromCurrentViewController:(id)controller completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   modeCopy = mode;
   controllerCopy = controller;
   completionCopy = completion;
@@ -166,39 +166,39 @@ void __99__AAUIAccountRecoveryManagementHook__showAccountRecoveryManagementWithS
     v13 = 0;
   }
 
-  v14 = _AAUILogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _AAUILogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v25 = v10;
-    v26 = 2112;
-    v27 = v11;
-    v28 = 2112;
-    v29 = v13;
-    _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Base presentation was specified. Dismissing current vc %@ as modal %@ and showing on host %@.", buf, 0x20u);
+    v26 = v10;
+    v27 = 2112;
+    v28 = v11;
+    v29 = 2112;
+    v30 = v13;
+    _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "Base presentation was specified. Dismissing current vc %@ as modal %@ and showing on host %@.", buf, 0x20u);
   }
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __107__AAUIAccountRecoveryManagementHook__presentWithBasePresentationMode_fromCurrentViewController_completion___block_invoke;
-  v19[3] = &unk_1E820BFF8;
-  v20 = v10;
-  v21 = v13;
-  v22 = modeCopy;
-  v23 = completionCopy;
-  v15 = completionCopy;
-  v16 = modeCopy;
-  v17 = v13;
-  v18 = v10;
-  [v18 dismissViewControllerAnimated:1 completion:v19];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __107__AAUIAccountRecoveryManagementHook__presentWithBasePresentationMode_fromCurrentViewController_completion___block_invoke;
+  v20[3] = &unk_1E820BFF8;
+  v21 = v10;
+  v22 = v13;
+  v23 = modeCopy;
+  v24 = completionCopy;
+  v16 = completionCopy;
+  v17 = modeCopy;
+  v18 = v13;
+  v19 = v10;
+  [v19 dismissViewControllerAnimated:1 completion:v20];
 }
 
-uint64_t __107__AAUIAccountRecoveryManagementHook__presentWithBasePresentationMode_fromCurrentViewController_completion___block_invoke(uint64_t a1)
+uint64_t __107__AAUIAccountRecoveryManagementHook__presentWithBasePresentationMode_fromCurrentViewController_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __107__AAUIAccountRecoveryManagementHook__presentWithBasePresentationMode_fromCurrentViewController_completion___block_invoke_cold_1(a1, v2);
+    __107__AAUIAccountRecoveryManagementHook__presentWithBasePresentationMode_fromCurrentViewController_completion___block_invoke_cold_1(a1, v3);
   }
 
   [*(a1 + 40) aaui_pushViewController:*(a1 + 48) animated:1];

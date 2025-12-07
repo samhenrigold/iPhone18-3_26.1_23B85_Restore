@@ -36,7 +36,7 @@
 
 - (AVAudioSessionXPCServer)init
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = *avas::server::gSessionServerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -47,12 +47,12 @@
     _os_log_impl(&dword_241701000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Server starting", buf, 0x12u);
   }
 
-  v19.receiver = self;
-  v19.super_class = AVAudioSessionXPCServer;
-  v4 = [(AVAudioSessionXPCServer *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = AVAudioSessionXPCServer;
+  v4 = [(AVAudioSessionXPCServer *)&v18 init];
   if (v4)
   {
-    avas::WorkloopPool::Create(0x14);
+    avas::WorkloopPool::Create(buf, 0x14);
     v5 = *buf;
     *buf = 0;
     *&buf[8] = 0;
@@ -74,29 +74,28 @@
     _queue = [*(v4 + 9) _queue];
     label = dispatch_queue_get_label(_queue);
     std::string::basic_string[abi:ne200100]<0>(buf, label);
-    avas::CreateFixedPriorityDispatchQueue(buf, QOS_CLASS_USER_INTERACTIVE, &v18);
-    if (v21 < 0)
+    avas::CreateFixedPriorityDispatchQueue(buf, QOS_CLASS_USER_INTERACTIVE, &v17);
+    if (v20 < 0)
     {
       operator delete(*buf);
     }
 
-    [*(v4 + 9) _setQueue:v18];
+    [*(v4 + 9) _setQueue:v17];
     endpoint = [*(v4 + 9) endpoint];
     avas::SetServerXPCListenerEndpoint(endpoint, v12);
 
     objc_initWeak(buf, v4);
-    v16 = MEMORY[0x277D85DD0];
-    objc_copyWeak(&v17, buf);
+    v15 = MEMORY[0x277D85DD0];
+    objc_copyWeak(&v16, buf);
     avas::SetInProcessIONodeSessionServerFactory();
     *(v4 + 40) = 1;
     [v4 init2];
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(buf);
-    v13 = v18;
-    v18 = 0;
+    v13 = v17;
+    v17 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -119,7 +118,7 @@ AVAudioIONodeSessionDirectServer *__31__AVAudioSessionXPCServer_init__block_invo
 
 - (AVAudioSessionXPCServer)initWithDelegate:(id)delegate
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   v6 = *avas::server::gSessionServerLog(delegateCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -131,12 +130,12 @@ AVAudioIONodeSessionDirectServer *__31__AVAudioSessionXPCServer_init__block_invo
     _os_log_impl(&dword_241701000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Server starting", buf, 0x12u);
   }
 
-  v22.receiver = self;
-  v22.super_class = AVAudioSessionXPCServer;
-  v7 = [(AVAudioSessionXPCServer *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = AVAudioSessionXPCServer;
+  v7 = [(AVAudioSessionXPCServer *)&v21 init];
   if (v7)
   {
-    avas::WorkloopPool::Create(0x14);
+    avas::WorkloopPool::Create(buf, 0x14);
     v8 = *buf;
     *buf = 0;
     *&buf[8] = 0;
@@ -159,29 +158,28 @@ AVAudioIONodeSessionDirectServer *__31__AVAudioSessionXPCServer_init__block_invo
     _queue = [*(v7 + 9) _queue];
     label = dispatch_queue_get_label(_queue);
     std::string::basic_string[abi:ne200100]<0>(buf, label);
-    avas::CreateFixedPriorityDispatchQueue(buf, QOS_CLASS_USER_INTERACTIVE, &v21);
-    if (v24 < 0)
+    avas::CreateFixedPriorityDispatchQueue(buf, QOS_CLASS_USER_INTERACTIVE, &v20);
+    if (v23 < 0)
     {
       operator delete(*buf);
     }
 
-    [*(v7 + 9) _setQueue:v21];
+    [*(v7 + 9) _setQueue:v20];
     endpoint = [*(v7 + 9) endpoint];
     avas::SetServerXPCListenerEndpoint(endpoint, v15);
 
     objc_initWeak(buf, v7);
-    v19 = MEMORY[0x277D85DD0];
-    objc_copyWeak(&v20, buf);
+    v18 = MEMORY[0x277D85DD0];
+    objc_copyWeak(&v19, buf);
     avas::SetInProcessIONodeSessionServerFactory();
     *(v7 + 40) = 1;
     [v7 init2];
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(buf);
-    v16 = v21;
-    v21 = 0;
+    v16 = v20;
+    v20 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -204,33 +202,33 @@ AVAudioIONodeSessionDirectServer *__44__AVAudioSessionXPCServer_initWithDelegate
 
 - (void)dealloc
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = self->_connections;
   objc_sync_enter(v3);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_connections;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v24 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v23 count:16];
   if (v5)
   {
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         [v8 suspend];
         [v8 invalidate];
       }
 
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v24 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v23 count:16];
     }
 
     while (v5);
@@ -250,23 +248,22 @@ AVAudioIONodeSessionDirectServer *__44__AVAudioSessionXPCServer_initWithDelegate
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v19 = "AVAudioSessionXPCServer.mm";
-    v20 = 1024;
-    v21 = 371;
-    v22 = 2048;
+    v18 = "AVAudioSessionXPCServer.mm";
+    v19 = 1024;
+    v20 = 371;
+    v21 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_241701000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Server %p deallocated", buf, 0x1Cu);
   }
 
-  v13.receiver = self;
-  v13.super_class = AVAudioSessionXPCServer;
-  [(AVAudioSessionXPCServer *)&v13 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = AVAudioSessionXPCServer;
+  [(AVAudioSessionXPCServer *)&v12 dealloc];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = connectionCopy;
@@ -295,21 +292,21 @@ AVAudioIONodeSessionDirectServer *__44__AVAudioSessionXPCServer_initWithDelegate
   _queue = [(avas::server *)v8 _queue];
   label = dispatch_queue_get_label(_queue);
   std::string::basic_string[abi:ne200100]<0>(buf, label);
-  avas::CreateFixedPriorityDispatchQueue(&buf[0].__r_.__value_.__l.__data_, QOS_CLASS_USER_INTERACTIVE, &v28);
+  avas::CreateFixedPriorityDispatchQueue(&buf[0].__r_.__value_.__l.__data_, QOS_CLASS_USER_INTERACTIVE, &v27);
   if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(buf[0].__r_.__value_.__l.__data_);
   }
 
-  [(avas::server *)v8 _setQueue:v28];
+  [(avas::server *)v8 _setQueue:v27];
   LODWORD(buf[0].__r_.__value_.__l.__data_) = 0;
   memset(&buf[0].__r_.__value_.__r.__words[1], 0, 40);
   LODWORD(buf[0].__r_.__value_.__l.__data_) = [(avas::server *)v8 processIdentifier];
   objc_storeStrong(&buf[0].__r_.__value_.__l.__size_, connection);
   v13 = [AVAudioSessionRemoteXPCClient alloc];
   data = buf[0].__r_.__value_.__l.__data_;
-  v25 = buf[0].__r_.__value_.__l.__size_;
-  objc_copyWeak(&v26, &buf[0].__r_.__value_.__r.__words[2]);
+  v24 = buf[0].__r_.__value_.__l.__size_;
+  objc_copyWeak(&v25, &buf[0].__r_.__value_.__r.__words[2]);
   if (SHIBYTE(buf[1].__r_.__value_.__r.__words[2]) < 0)
   {
     std::string::__init_copy_ctor_external(&__p, buf[1].__r_.__value_.__l.__data_, buf[1].__r_.__value_.__l.__size_);
@@ -326,24 +323,24 @@ AVAudioIONodeSessionDirectServer *__44__AVAudioSessionXPCServer_initWithDelegate
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v25);
 
   objc_initWeak(&location, v14);
   objc_initWeak(&from, v8);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __62__AVAudioSessionXPCServer_listener_shouldAcceptNewConnection___block_invoke;
-  v19[3] = &unk_278CEAA00;
-  objc_copyWeak(&v20, &location);
-  objc_copyWeak(&v21, &from);
-  v15 = MEMORY[0x245CEF0E0](v19);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __62__AVAudioSessionXPCServer_listener_shouldAcceptNewConnection___block_invoke;
+  v18[3] = &unk_278CEAA00;
+  objc_copyWeak(&v19, &location);
+  objc_copyWeak(&v20, &from);
+  v15 = MEMORY[0x245CEF0E0](v18);
   [(avas::server *)v8 setInterruptionHandler:v15];
   [(avas::server *)v8 setInvalidationHandler:v15];
   [(avas::server *)v8 setExportedObject:v14];
   [(avas::server *)v8 resume];
 
-  objc_destroyWeak(&v21);
   objc_destroyWeak(&v20);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
 
@@ -354,10 +351,9 @@ AVAudioIONodeSessionDirectServer *__44__AVAudioSessionXPCServer_initWithDelegate
 
   objc_destroyWeak(&buf[0].__r_.__value_.__r.__words[2]);
 
-  v16 = v28;
-  v28 = 0;
+  v16 = v27;
+  v27 = 0;
 
-  v17 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

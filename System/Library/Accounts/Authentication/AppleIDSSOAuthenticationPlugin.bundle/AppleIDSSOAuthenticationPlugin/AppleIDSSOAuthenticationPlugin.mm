@@ -1,31 +1,26 @@
 uint64_t sub_29C8130C8(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   if (a2)
   {
     v3 = _AIDALogSystem();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v4;
-      _os_log_impl(&dword_29C812000, v3, OS_LOG_TYPE_DEFAULT, "No luck with silent renewal. Trying interactive renewal for services: %@", &v10, 0xCu);
+      v7 = 138412290;
+      v8 = v4;
+      _os_log_impl(&dword_29C812000, v3, OS_LOG_TYPE_DEFAULT, "No luck with silent renewal. Trying interactive renewal for services: %@", &v7, 0xCu);
     }
 
-    result = [*(a1 + 40) _attemptInteractiveCredentialRenewalForAccount:*(a1 + 48) store:*(a1 + 56) options:*(a1 + 64) completion:*(a1 + 72)];
-    v6 = *MEMORY[0x29EDCA608];
+    return [*(a1 + 40) _attemptInteractiveCredentialRenewalForAccount:*(a1 + 48) store:*(a1 + 56) options:*(a1 + 64) completion:*(a1 + 72)];
   }
 
   else
   {
-    v7 = *(a1 + 72);
-    v8 = *(*(a1 + 72) + 16);
-    v9 = *MEMORY[0x29EDCA608];
+    v6 = *(*(a1 + 72) + 16);
 
-    return v8();
+    return v6();
   }
-
-  return result;
 }
 
 void sub_29C8133CC(uint64_t a1, uint64_t a2, void *a3)
@@ -103,60 +98,50 @@ LABEL_12:
 
 uint64_t sub_29C813900(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (a3)
+  if (!a3)
   {
-    v4 = *(a1 + 40);
+    v5 = [*(a1 + 32) credential];
+    [v5 setPassword:0];
   }
 
-  else
-  {
-    v6 = [*(a1 + 32) credential];
-    [v6 setPassword:0];
+  v4 = *(*(a1 + 40) + 16);
 
-    v7 = *(a1 + 32);
-  }
-
-  v5 = *(*(a1 + 40) + 16);
-
-  return v5();
+  return v4();
 }
 
 void sub_29C813C40(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v3 = [a1 name];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_29C812000, a2, OS_LOG_TYPE_ERROR, "Client - %@ does not have the correct entitlements to get the master token", &v5, 0xCu);
-
-  v4 = *MEMORY[0x29EDCA608];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_29C812000, a2, OS_LOG_TYPE_ERROR, "Client - %@ does not have the correct entitlements to get the master token", &v4, 0xCu);
 }
 
 void sub_29C813CD8(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29C812000, a2, OS_LOG_TYPE_ERROR, "Silent renewal failed! Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29C812000, a2, OS_LOG_TYPE_ERROR, "Silent renewal failed! Error: %@", &v2, 0xCu);
 }
 
 void sub_29C813D50(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29C812000, a2, OS_LOG_TYPE_ERROR, "Renew failed! Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29C812000, a2, OS_LOG_TYPE_ERROR, "Renew failed! Error: %@", &v2, 0xCu);
 }
 
-;
-    v22[0] = MEMORY[0x29EDCA5F8];
-    v22[1] = 3221225472;
-    v22[2] = sub_29C8133CC;
-    v22[3] = &unk_29F326500;
-    v23 = v13;
-    [v19 authenticateWithContext:v18 completion:v22];
+    v18 = AuthContextForAccount:v10 rawPassword:v17 store:v11 options:v12];
+    v19 = [(AppleIDSSOAuthenticationPlugin *)self _authController];
+    v21[0] = MEMORY[0x29EDCA5F8];
+    v21[1] = 3221225472;
+    v21[2] = sub_29C8133CC;
+    v21[3] = &unk_29F326500;
+    v22 = v13;
+    [v19 authenticateWithContext:v18 completion:v21];
   }
 
   else
@@ -165,14 +150,12 @@ void sub_29C813D50(uint64_t a1, NSObject *a2)
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = v10;
+      v24 = v10;
       _os_log_impl(&dword_29C812000, v20, OS_LOG_TYPE_DEFAULT, "No matching iCloud account for GS account: %@", buf, 0xCu);
     }
 
     (*(v13 + 2))(v13, 2, 0);
   }
-
-  v21 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_attemptInteractiveCredentialRenewalForAccount:(id)a3 store:(id)a4 options:(id)a5 completion:(id)a6
@@ -195,16 +178,7 @@ void sub_29C813D50(uint64_t a1, NSObject *a2)
   v9 = a4;
   v10 = a5;
   v11 = [v8 username];
-  if (!v11)
-  {
-    goto LABEL_4;
-  }
-
-  v12 = v11;
-  v13 = [v8 credential];
-  v14 = [v13 password];
-
-  if (v14)
+  if (v11 && (v12 = v11, [v8 credential], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "password"), v14 = objc_claimAutoreleasedReturnValue(), v14, v13, v12, v14))
   {
     v15 = [v8 credential];
     v16 = [v15 password];
@@ -222,7 +196,6 @@ void sub_29C813D50(uint64_t a1, NSObject *a2)
 
   else
   {
-LABEL_4:
     v19 = _AIDALogSystem();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {

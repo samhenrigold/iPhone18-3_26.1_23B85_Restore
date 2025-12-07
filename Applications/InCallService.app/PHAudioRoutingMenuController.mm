@@ -170,51 +170,51 @@
     dataSource = [(PHAudioRoutingMenuController *)self dataSource];
     v6 = [dataSource routesForAudioRoutingMenuController:self];
 
-    v7 = sub_100004F84();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004F84(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "going to construct menu actions with current routes: %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "going to construct menu actions with current routes: %@", &v11, 0xCu);
     }
 
-    v8 = [(PHAudioRoutingMenuController *)self menuActionsWithRoutes:v6];
+    v9 = [(PHAudioRoutingMenuController *)self menuActionsWithRoutes:v6];
   }
 
   else
   {
-    v8 = &__NSArray0__struct;
+    v9 = &__NSArray0__struct;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)menuActionsWithRoutes:(id)routes
 {
   routesCopy = routes;
-  v23 = +[NSMutableArray array];
+  v25 = +[NSMutableArray array];
   isSharePlayActive = [(PHAudioRoutingMenuController *)self isSharePlayActive];
-  v24 = objc_alloc_init(NSMutableArray);
-  v25 = 0u;
-  v26 = 0u;
+  v26 = objc_alloc_init(NSMutableArray);
   v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   obj = routesCopy;
-  v6 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v6 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v28;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v26 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
+        v10 = *(*(&v27 + 1) + 8 * i);
         name = [v10 name];
         v12 = [(PHAudioRoutingMenuController *)self routeActionWithTitle:name route:v10];
 
@@ -222,58 +222,63 @@
         name2 = [v10 name];
         v14 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"route title: %@, route state: %ld", name2, [v12 state]);
 
-        if (isSharePlayActive && ([v10 supportsSharePlay] & 1) == 0)
+        if (isSharePlayActive)
         {
-          [v12 setAttributes:1];
-          v15 = TUBundle();
-          v16 = [v15 localizedStringForKey:@"UNAVAILABLE_AUDIO_ROUTE" value:&stru_100361FD0 table:@"TelephonyUtilities"];
-          [v12 setDiscoverabilityTitle:v16];
+          supportsSharePlay = [v10 supportsSharePlay];
+          if ((supportsSharePlay & 1) == 0)
+          {
+            [v12 setAttributes:1];
+            v16 = TUBundle();
+            v17 = [v16 localizedStringForKey:@"UNAVAILABLE_AUDIO_ROUTE" value:&stru_100361FD0 table:@"TelephonyUtilities"];
+            [v12 setDiscoverabilityTitle:v17];
+          }
         }
 
         if (v12)
         {
-          [v23 addObject:v12];
-          [v24 addObject:v14];
+          [v25 addObject:v12];
+          [v26 addObject:v14];
         }
 
         else
         {
-          v17 = sub_100004F84();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v18 = sub_100004F84(supportsSharePlay);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v30 = v10;
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARN] Unable to create menu action for route %@", buf, 0xCu);
+            v32 = v10;
+            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[WARN] Unable to create menu action for route %@", buf, 0xCu);
           }
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v7 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v7);
   }
 
-  if ([(PHAudioRoutingMenuController *)self style]== 2)
+  style = [(PHAudioRoutingMenuController *)self style];
+  if (style == 2)
   {
     muteMenuAction = [(PHAudioRoutingMenuController *)self muteMenuAction];
     if (muteMenuAction)
     {
-      [v23 addObject:muteMenuAction];
+      [v25 addObject:muteMenuAction];
     }
   }
 
-  v19 = sub_100004F84();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v21 = sub_100004F84(style);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v30 = v24;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "menuActionsWithRoutes: %@", buf, 0xCu);
+    v32 = v26;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "menuActionsWithRoutes: %@", buf, 0xCu);
   }
 
-  v20 = [v23 copy];
+  v22 = [v25 copy];
 
-  return v20;
+  return v22;
 }
 
 - (id)routeActionWithTitle:(id)title route:(id)route
@@ -312,35 +317,35 @@
   frontmostAudioOrVideoCall = [callCenter frontmostAudioOrVideoCall];
 
   callCenter2 = [(PHAudioRoutingMenuController *)self callCenter];
-  v19 = frontmostAudioOrVideoCall;
+  v20 = frontmostAudioOrVideoCall;
   v6 = [callCenter2 activeConversationForCall:frontmostAudioOrVideoCall];
 
   callCenter3 = [(PHAudioRoutingMenuController *)self callCenter];
   v8 = [TPAudioRouting eligibleLagunaDevices:callCenter3];
 
   v9 = +[NSMutableArray array];
-  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v22;
     do
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v21 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
+        v15 = *(*(&v21 + 1) + 8 * i);
         v16 = [(PHAudioRoutingMenuController *)self lagunaActionForConversation:v6 deviceHandle:v15];
-        [v16 setState:0];
+        v17 = [v16 setState:0];
         if (v16)
         {
           [v9 addObject:v16];
@@ -348,17 +353,17 @@
 
         else
         {
-          v17 = sub_100004F84();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v18 = sub_100004F84(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v25 = v15;
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARN] Unable to create menu action for laguna deviceHandle %@", buf, 0xCu);
+            v26 = v15;
+            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[WARN] Unable to create menu action for laguna deviceHandle %@", buf, 0xCu);
           }
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v12);

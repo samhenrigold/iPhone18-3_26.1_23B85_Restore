@@ -95,7 +95,7 @@
 
 - (void)setPropertiesWithDictionary:(id)dictionary
 {
-  if (sub_19B6E9540(dictionary))
+  if (sub_19B6E9540(dictionary, a2))
   {
     fPrivateQueue = self->fPrivateQueue;
     v6[0] = MEMORY[0x1E69E9820];
@@ -129,7 +129,8 @@
 
 - (void)startOnBodyStatusDetectionPrivateToQueue:(id)queue withParameters:(id)parameters handler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v19[4] = parameters;
   if (queue && handler)
   {
     fOnBodyStatusQueue = self->fOnBodyStatusQueue;
@@ -147,16 +148,16 @@
     }
 
     objc_msgSend_connect(self, a2, queue);
-    if (sub_19B6E9540(parameters))
+    if (sub_19B6E9540(parameters, v13))
     {
       sub_19B44BE58();
     }
 
     if (!self->fSubscribedToOnBodyStatusDetection)
     {
-      v18 = @"kCLConnectionMessageSubscribeKey";
-      v19 = MEMORY[0x1E695E118];
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v13, &v19, &v18, 1);
+      v20 = @"kCLConnectionMessageSubscribeKey";
+      v21 = MEMORY[0x1E695E118];
+      v19[0] = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v14, &v21, &v20, 1);
       sub_19B6258C4();
     }
   }
@@ -168,15 +169,15 @@
       dispatch_once(&qword_1EAFE2A48, &unk_1F0E3A6D8);
     }
 
-    v14 = qword_1EAFE2A50;
+    v15 = qword_1EAFE2A50;
     if (os_log_type_enabled(qword_1EAFE2A50, OS_LOG_TYPE_FAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_FAULT, "Neither the queue nor the handler can be nil", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v15, OS_LOG_TYPE_FAULT, "Neither the queue nor the handler can be nil", buf, 2u);
     }
 
-    v15 = sub_19B420058();
-    if ((*(v15 + 160) & 0x80000000) == 0 || (*(v15 + 164) & 0x80000000) == 0 || (*(v15 + 168) & 0x80000000) == 0 || *(v15 + 152))
+    v16 = sub_19B420058();
+    if ((*(v16 + 160) & 0x80000000) == 0 || (*(v16 + 164) & 0x80000000) == 0 || (*(v16 + 168) & 0x80000000) == 0 || *(v16 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2A48 != -1)
@@ -184,30 +185,31 @@
         dispatch_once(&qword_1EAFE2A48, &unk_1F0E3A6D8);
       }
 
-      v16 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMOnBodyStatusManager startOnBodyStatusDetectionPrivateToQueue:withParameters:handler:]", "CoreLocation: %s\n", v16);
-      if (v16 != buf)
+      LOWORD(v19[0]) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A50, 17, "Neither the queue nor the handler can be nil", v19, 2);
+      v18 = v17;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMOnBodyStatusManager startOnBodyStatusDetectionPrivateToQueue:withParameters:handler:]", "CoreLocation: %s\n", v17);
+      if (v18 != buf)
       {
-        free(v16);
+        free(v18);
       }
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopOnBodyStatusDetectionPrivate
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  if (self->fOnBodyStatusQueue && self->fOnBodyStatusHandler)
+  v3[1] = *MEMORY[0x1E69E9840];
+  if (self->fOnBodyStatusQueue)
   {
-    v3 = @"kCLConnectionMessageSubscribeKey";
-    v4[0] = MEMORY[0x1E695E110];
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v4, &v3, 1);
-    sub_19B6258C4();
+    if (self->fOnBodyStatusHandler)
+    {
+      v2 = @"kCLConnectionMessageSubscribeKey";
+      v3[0] = MEMORY[0x1E695E110];
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v3, &v2, 1);
+      sub_19B6258C4();
+    }
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -251,15 +251,15 @@ double __64__PKContinuityPaymentCoordinator_setUpdatePaymentDeviceTimeout___bloc
   dispatch_sync(internalQueue, block);
 }
 
-uint64_t __54__PKContinuityPaymentCoordinator_updatePaymentDevices__block_invoke(uint64_t result)
+void *__54__PKContinuityPaymentCoordinator_updatePaymentDevices__block_invoke(void *result)
 {
   v11 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 48) & 1) == 0)
   {
     v2 = result;
     *(v1 + 48) = 1;
-    v3 = *(*(result + 32) + 88);
+    v3 = *(result[4] + 88);
     v4 = PKLogFacilityTypeGetObject(9uLL);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
@@ -268,13 +268,13 @@ uint64_t __54__PKContinuityPaymentCoordinator_updatePaymentDevices__block_invoke
       _os_log_impl(&dword_1AD337000, v4, OS_LOG_TYPE_DEFAULT, "Updating remote payment devices with timeout: %g", &v9, 0xCu);
     }
 
-    v5 = *(*(v2 + 32) + 32);
+    v5 = *(v2[4] + 32);
     v6 = dispatch_time(0, (v3 * 1000000000.0));
     dispatch_source_set_timer(v5, v6, 0xFFFFFFFFFFFFFFFFLL, 0x5F5E100uLL);
-    v7 = *(*(v2 + 32) + 40);
+    v7 = *(v2[4] + 40);
     v8 = dispatch_time(0, (v3 * 1000000000.0));
     dispatch_source_set_timer(v7, v8, 0xFFFFFFFFFFFFFFFFLL, 0x5F5E100uLL);
-    return [*(*(v2 + 32) + 8) updatePaymentDevices];
+    return [*(v2[4] + 8) updatePaymentDevices];
   }
 
   return result;
@@ -396,11 +396,11 @@ void __70__PKContinuityPaymentCoordinator_sendRemotePaymentRequest_completion___
   v15 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = [*(*(a1 + 40) + 56) identifier];
-  v4 = [v2 isEqualToString:v3];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
   v5 = PKLogFacilityTypeGetObject(9uLL);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (v4)
+  if (isEqualToString)
   {
     if (v6)
     {
@@ -546,11 +546,11 @@ void __69__PKContinuityPaymentCoordinator_sendPaymentClientUpdate_completion___b
   v10 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = [*(*(a1 + 40) + 56) identifier];
-  v4 = [v2 isEqualToString:v3];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
   v5 = PKLogFacilityTypeGetObject(9uLL);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (v4)
+  if (isEqualToString)
   {
     if (v6)
     {
@@ -725,9 +725,9 @@ void __76__PKContinuityPaymentCoordinator_didReceivePayment_forRemotePaymentRequ
   v16 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 56) identifier];
   v3 = [*(a1 + 40) identifier];
-  v4 = [v2 isEqualToString:v3];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  if (!v4)
+  if (!isEqualToString)
   {
     v11 = PKLogFacilityTypeGetObject(9uLL);
     if (os_log_type_enabled(&v11->super, OS_LOG_TYPE_DEFAULT))
@@ -794,11 +794,11 @@ void __80__PKContinuityPaymentCoordinator_didReceiveCancellationForRemotePayment
   v10 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 56) identifier];
   v3 = [*(a1 + 40) identifier];
-  v4 = [v2 isEqualToString:v3];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
   v5 = PKLogFacilityTypeGetObject(9uLL);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (v4)
+  if (isEqualToString)
   {
     if (v6)
     {
@@ -908,11 +908,11 @@ void __70__PKContinuityPaymentCoordinator__queue_sendPaymentResult_completion___
   v10 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = [*(*(a1 + 40) + 56) identifier];
-  v4 = [v2 isEqualToString:v3];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
   v5 = PKLogFacilityTypeGetObject(9uLL);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (v4)
+  if (isEqualToString)
   {
     if (v6)
     {

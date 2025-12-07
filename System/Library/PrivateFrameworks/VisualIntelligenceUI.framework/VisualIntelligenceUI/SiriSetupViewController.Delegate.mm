@@ -14,7 +14,7 @@
 
 - (BOOL)siriSetupViewController:(id)controller openURL:(id)l
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEA9990);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEA9990, &qword_21E148DD0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v11 - v6;
   if (l)

@@ -1,6 +1,6 @@
 void cva::Buffer<float>::doResize(uint64_t a1, _DWORD *a2)
 {
-  v16[5] = *MEMORY[0x277D85DE8];
+  v15[5] = *MEMORY[0x277D85DE8];
   v4 = a1 + 16;
   if (*a2 > *(a1 + 16) || (a2[1] <= *(a1 + 20) ? (v5 = a2[2] > *(a1 + 24)) : (v5 = 1), v5))
   {
@@ -17,11 +17,11 @@ void cva::Buffer<float>::doResize(uint64_t a1, _DWORD *a2)
     *(a1 + 36) = v8;
     v10 = *(a1 + 24);
     v11 = (*(a1 + 20) * *(a1 + 16));
-    AttributeDictionary = cva::createAttributeDictionary(v11, *(a1 + 24), 1278226534, 64, 64, 0, 0, 0, v16[0]);
-    v16[0] = 0;
-    CVPixelBufferCreate(*MEMORY[0x277CBECE8], v11, v10, 0x4C303066u, AttributeDictionary, v16);
+    AttributeDictionary = cva::createAttributeDictionary(v11, *(a1 + 24), 1278226534, 64, 64, 0, 0, 0, v15[0]);
+    v15[0] = 0;
+    CVPixelBufferCreate(*MEMORY[0x277CBECE8], v11, v10, 0x4C303066u, AttributeDictionary, v15);
     CFRelease(AttributeDictionary);
-    *(a1 + 48) = v16[0];
+    *(a1 + 48) = v15[0];
   }
 
   else
@@ -32,8 +32,6 @@ void cva::Buffer<float>::doResize(uint64_t a1, _DWORD *a2)
     *v4 = v14;
     *(a1 + 24) = v13;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void cva::Buffer<float>::~Buffer(uint64_t a1)
@@ -101,7 +99,7 @@ uint64_t cva::Buffer<float>::~Buffer(uint64_t a1)
 
 void cva::Buffer<unsigned short>::doResize(uint64_t a1, _DWORD *a2)
 {
-  v16[5] = *MEMORY[0x277D85DE8];
+  v15[5] = *MEMORY[0x277D85DE8];
   v4 = a1 + 16;
   if (*a2 > *(a1 + 16) || (a2[1] <= *(a1 + 20) ? (v5 = a2[2] > *(a1 + 24)) : (v5 = 1), v5))
   {
@@ -118,11 +116,11 @@ void cva::Buffer<unsigned short>::doResize(uint64_t a1, _DWORD *a2)
     *(a1 + 36) = v8;
     v10 = *(a1 + 24);
     v11 = (*(a1 + 20) * *(a1 + 16));
-    AttributeDictionary = cva::createAttributeDictionary(v11, *(a1 + 24), 2037741158, 64, 64, 0, 0, 0, v16[0]);
-    v16[0] = 0;
-    CVPixelBufferCreate(*MEMORY[0x277CBECE8], v11, v10, 0x79757666u, AttributeDictionary, v16);
+    AttributeDictionary = cva::createAttributeDictionary(v11, *(a1 + 24), 2037741158, 64, 64, 0, 0, 0, v15[0]);
+    v15[0] = 0;
+    CVPixelBufferCreate(*MEMORY[0x277CBECE8], v11, v10, 0x79757666u, AttributeDictionary, v15);
     CFRelease(AttributeDictionary);
-    *(a1 + 48) = v16[0];
+    *(a1 + 48) = v15[0];
   }
 
   else
@@ -133,8 +131,6 @@ void cva::Buffer<unsigned short>::doResize(uint64_t a1, _DWORD *a2)
     *v4 = v14;
     *(a1 + 24) = v13;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void cva::Buffer<unsigned short>::~Buffer(uint64_t a1)
@@ -200,9 +196,9 @@ uint64_t cva::Buffer<unsigned short>::~Buffer(uint64_t a1)
   return a1;
 }
 
-void cva::Buffer<unsigned char>::doResize(uint64_t a1, int *a2)
+void cva::Buffer<unsigned char>::doResize(uint64_t a1, unsigned int *a2)
 {
-  v16[5] = *MEMORY[0x277D85DE8];
+  v15[5] = *MEMORY[0x277D85DE8];
   v4 = a1 + 16;
   if (*a2 > *(a1 + 16) || (a2[1] <= *(a1 + 20) ? (v5 = a2[2] > *(a1 + 24)) : (v5 = 1), v5))
   {
@@ -219,11 +215,11 @@ void cva::Buffer<unsigned char>::doResize(uint64_t a1, int *a2)
     *(a1 + 36) = v8;
     v10 = *(a1 + 24);
     v11 = (*(a1 + 20) * *(a1 + 16));
-    AttributeDictionary = cva::createAttributeDictionary(v11, *(a1 + 24), 1278226488, 64, 64, 0, 0, 0, v16[0]);
-    v16[0] = 0;
-    CVPixelBufferCreate(*MEMORY[0x277CBECE8], v11, v10, 0x4C303038u, AttributeDictionary, v16);
+    AttributeDictionary = cva::createAttributeDictionary(v11, *(a1 + 24), 1278226488, 64, 64, 0, 0, 0, v15[0]);
+    v15[0] = 0;
+    CVPixelBufferCreate(*MEMORY[0x277CBECE8], v11, v10, 0x4C303038u, AttributeDictionary, v15);
     CFRelease(AttributeDictionary);
-    *(a1 + 48) = v16[0];
+    *(a1 + 48) = v15[0];
   }
 
   else
@@ -234,8 +230,6 @@ void cva::Buffer<unsigned char>::doResize(uint64_t a1, int *a2)
     *v4 = v14;
     *(a1 + 24) = v13;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void cva::Buffer<unsigned char>::~Buffer(uint64_t a1)
@@ -303,7 +297,7 @@ uint64_t cva::Buffer<unsigned char>::~Buffer(uint64_t a1)
 
 void cva::Buffer<unsigned int>::doResize(uint64_t a1, _DWORD *a2)
 {
-  v16[5] = *MEMORY[0x277D85DE8];
+  v15[5] = *MEMORY[0x277D85DE8];
   v4 = a1 + 16;
   if (*a2 > *(a1 + 16) || (a2[1] <= *(a1 + 20) ? (v5 = a2[2] > *(a1 + 24)) : (v5 = 1), v5))
   {
@@ -320,11 +314,11 @@ void cva::Buffer<unsigned int>::doResize(uint64_t a1, _DWORD *a2)
     *(a1 + 36) = v8;
     v10 = *(a1 + 24);
     v11 = (*(a1 + 20) * *(a1 + 16));
-    AttributeDictionary = cva::createAttributeDictionary(v11, *(a1 + 24), 1111970369, 64, 64, 0, 0, 0, v16[0]);
-    v16[0] = 0;
-    CVPixelBufferCreate(*MEMORY[0x277CBECE8], v11, v10, 0x42475241u, AttributeDictionary, v16);
+    AttributeDictionary = cva::createAttributeDictionary(v11, *(a1 + 24), 1111970369, 64, 64, 0, 0, 0, v15[0]);
+    v15[0] = 0;
+    CVPixelBufferCreate(*MEMORY[0x277CBECE8], v11, v10, 0x42475241u, AttributeDictionary, v15);
     CFRelease(AttributeDictionary);
-    *(a1 + 48) = v16[0];
+    *(a1 + 48) = v15[0];
   }
 
   else
@@ -335,8 +329,6 @@ void cva::Buffer<unsigned int>::doResize(uint64_t a1, _DWORD *a2)
     *v4 = v14;
     *(a1 + 24) = v13;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void cva::Buffer<unsigned int>::~Buffer(uint64_t a1)
@@ -404,7 +396,7 @@ uint64_t cva::Buffer<unsigned int>::~Buffer(uint64_t a1)
 
 void cva::Buffer<cva::half>::doResize(uint64_t a1, _DWORD *a2)
 {
-  v16[5] = *MEMORY[0x277D85DE8];
+  v15[5] = *MEMORY[0x277D85DE8];
   v4 = a1 + 16;
   if (*a2 > *(a1 + 16) || (a2[1] <= *(a1 + 20) ? (v5 = a2[2] > *(a1 + 24)) : (v5 = 1), v5))
   {
@@ -421,11 +413,11 @@ void cva::Buffer<cva::half>::doResize(uint64_t a1, _DWORD *a2)
     *(a1 + 36) = v8;
     v10 = *(a1 + 24);
     v11 = (*(a1 + 20) * *(a1 + 16));
-    AttributeDictionary = cva::createAttributeDictionary(v11, *(a1 + 24), 1278226536, 64, 64, 0, 0, 0, v16[0]);
-    v16[0] = 0;
-    CVPixelBufferCreate(*MEMORY[0x277CBECE8], v11, v10, 0x4C303068u, AttributeDictionary, v16);
+    AttributeDictionary = cva::createAttributeDictionary(v11, *(a1 + 24), 1278226536, 64, 64, 0, 0, 0, v15[0]);
+    v15[0] = 0;
+    CVPixelBufferCreate(*MEMORY[0x277CBECE8], v11, v10, 0x4C303068u, AttributeDictionary, v15);
     CFRelease(AttributeDictionary);
-    *(a1 + 48) = v16[0];
+    *(a1 + 48) = v15[0];
   }
 
   else
@@ -436,8 +428,6 @@ void cva::Buffer<cva::half>::doResize(uint64_t a1, _DWORD *a2)
     *v4 = v14;
     *(a1 + 24) = v13;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void cva::Buffer<cva::half>::~Buffer(uint64_t a1)
@@ -690,12 +680,11 @@ double cva::Buffer<float>::Buffer(uint64_t a1, uint64_t a2)
 
 __n128 cva::Buffer<float>::operator=(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 8);
-  v9 = *(a1 + 16);
-  v10 = *(a1 + 24);
-  v7 = *(a1 + 28);
-  v8 = *(a1 + 36);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 28);
+  v7 = *(a1 + 36);
   *(a1 + 8) = *(a2 + 8);
   v3 = *(a2 + 16);
   *(a1 + 24) = *(a2 + 24);
@@ -704,23 +693,22 @@ __n128 cva::Buffer<float>::operator=(uint64_t a1, uint64_t a2)
   *(a1 + 28) = *(a2 + 28);
   *(a1 + 36) = v3;
   *(a2 + 8) = v2;
-  *(a2 + 16) = v9;
-  *(a2 + 24) = v10;
-  *(a2 + 28) = v7;
-  *(a2 + 36) = v8;
+  *(a2 + 16) = v8;
+  *(a2 + 24) = v9;
+  *(a2 + 28) = v6;
+  *(a2 + 36) = v7;
   v4 = *(a1 + 40);
   *(a1 + 40) = *(a2 + 40);
   *(a2 + 40) = v4;
   result = *(a1 + 56);
   *(a1 + 56) = *(a2 + 56);
   *(a2 + 56) = result;
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t cva::Buffer<float>::Buffer(uint64_t a1, uint64_t a2)
 {
-  v40[3] = *MEMORY[0x277D85DE8];
+  v39[3] = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 24);
   v5 = *(a2 + 16);
   v6 = 4 * *(a2 + 16);
@@ -737,11 +725,11 @@ uint64_t cva::Buffer<float>::Buffer(uint64_t a1, uint64_t a2)
   *(a1 + 64) = 0;
   v8 = *(a1 + 24);
   v9 = (*(a1 + 20) * *(a1 + 16));
-  AttributeDictionary = cva::createAttributeDictionary(v9, v8, 1278226534, 64, 64, 0, 0, 0, v40[0]);
-  v40[0] = 0;
-  CVPixelBufferCreate(*MEMORY[0x277CBECE8], v9, v8, 0x4C303066u, AttributeDictionary, v40);
+  AttributeDictionary = cva::createAttributeDictionary(v9, v8, 1278226534, 64, 64, 0, 0, 0, v39[0]);
+  v39[0] = 0;
+  CVPixelBufferCreate(*MEMORY[0x277CBECE8], v9, v8, 0x4C303066u, AttributeDictionary, v39);
   CFRelease(AttributeDictionary);
-  *(a1 + 48) = v40[0];
+  *(a1 + 48) = v39[0];
   v11 = *(a2 + 48);
   if (v11 && !CVPixelBufferLockBaseAddress(v11, 1uLL))
   {
@@ -879,7 +867,6 @@ uint64_t cva::Buffer<float>::Buffer(uint64_t a1, uint64_t a2)
     }
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -1030,7 +1017,6 @@ uint64_t cva::Buffer<float>::Buffer(uint64_t a1, uint64_t a2)
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -1567,12 +1553,11 @@ double cva::Buffer<unsigned short>::Buffer(uint64_t a1, uint64_t a2)
 
 __n128 cva::Buffer<unsigned short>::operator=(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 8);
-  v9 = *(a1 + 16);
-  v10 = *(a1 + 24);
-  v7 = *(a1 + 28);
-  v8 = *(a1 + 36);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 28);
+  v7 = *(a1 + 36);
   *(a1 + 8) = *(a2 + 8);
   v3 = *(a2 + 16);
   *(a1 + 24) = *(a2 + 24);
@@ -1581,23 +1566,22 @@ __n128 cva::Buffer<unsigned short>::operator=(uint64_t a1, uint64_t a2)
   *(a1 + 28) = *(a2 + 28);
   *(a1 + 36) = v3;
   *(a2 + 8) = v2;
-  *(a2 + 16) = v9;
-  *(a2 + 24) = v10;
-  *(a2 + 28) = v7;
-  *(a2 + 36) = v8;
+  *(a2 + 16) = v8;
+  *(a2 + 24) = v9;
+  *(a2 + 28) = v6;
+  *(a2 + 36) = v7;
   v4 = *(a1 + 40);
   *(a1 + 40) = *(a2 + 40);
   *(a2 + 40) = v4;
   result = *(a1 + 56);
   *(a1 + 56) = *(a2 + 56);
   *(a2 + 56) = result;
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t cva::Buffer<unsigned short>::Buffer(uint64_t a1, uint64_t a2)
 {
-  v40[3] = *MEMORY[0x277D85DE8];
+  v39[3] = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 24);
   v5 = *(a2 + 16);
   v6 = 2 * *(a2 + 16);
@@ -1614,11 +1598,11 @@ uint64_t cva::Buffer<unsigned short>::Buffer(uint64_t a1, uint64_t a2)
   *(a1 + 64) = 0;
   v8 = *(a1 + 24);
   v9 = (*(a1 + 20) * *(a1 + 16));
-  AttributeDictionary = cva::createAttributeDictionary(v9, v8, 2037741158, 64, 64, 0, 0, 0, v40[0]);
-  v40[0] = 0;
-  CVPixelBufferCreate(*MEMORY[0x277CBECE8], v9, v8, 0x79757666u, AttributeDictionary, v40);
+  AttributeDictionary = cva::createAttributeDictionary(v9, v8, 2037741158, 64, 64, 0, 0, 0, v39[0]);
+  v39[0] = 0;
+  CVPixelBufferCreate(*MEMORY[0x277CBECE8], v9, v8, 0x79757666u, AttributeDictionary, v39);
   CFRelease(AttributeDictionary);
-  *(a1 + 48) = v40[0];
+  *(a1 + 48) = v39[0];
   v11 = *(a2 + 48);
   if (v11 && !CVPixelBufferLockBaseAddress(v11, 1uLL))
   {
@@ -1756,7 +1740,6 @@ uint64_t cva::Buffer<unsigned short>::Buffer(uint64_t a1, uint64_t a2)
     }
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -1907,7 +1890,6 @@ uint64_t cva::Buffer<unsigned short>::Buffer(uint64_t a1, uint64_t a2)
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -2444,12 +2426,11 @@ double cva::Buffer<unsigned char>::Buffer(uint64_t a1, uint64_t a2)
 
 __n128 cva::Buffer<unsigned char>::operator=(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 8);
-  v9 = *(a1 + 16);
-  v10 = *(a1 + 24);
-  v7 = *(a1 + 28);
-  v8 = *(a1 + 36);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 28);
+  v7 = *(a1 + 36);
   *(a1 + 8) = *(a2 + 8);
   v3 = *(a2 + 16);
   *(a1 + 24) = *(a2 + 24);
@@ -2458,23 +2439,22 @@ __n128 cva::Buffer<unsigned char>::operator=(uint64_t a1, uint64_t a2)
   *(a1 + 28) = *(a2 + 28);
   *(a1 + 36) = v3;
   *(a2 + 8) = v2;
-  *(a2 + 16) = v9;
-  *(a2 + 24) = v10;
-  *(a2 + 28) = v7;
-  *(a2 + 36) = v8;
+  *(a2 + 16) = v8;
+  *(a2 + 24) = v9;
+  *(a2 + 28) = v6;
+  *(a2 + 36) = v7;
   v4 = *(a1 + 40);
   *(a1 + 40) = *(a2 + 40);
   *(a2 + 40) = v4;
   result = *(a1 + 56);
   *(a1 + 56) = *(a2 + 56);
   *(a2 + 56) = result;
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t cva::Buffer<unsigned char>::Buffer(uint64_t a1, uint64_t a2)
 {
-  v39[3] = *MEMORY[0x277D85DE8];
+  v38[3] = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 24);
   v5 = *(a2 + 16);
   v6 = *(a2 + 16);
@@ -2491,11 +2471,11 @@ uint64_t cva::Buffer<unsigned char>::Buffer(uint64_t a1, uint64_t a2)
   *(a1 + 64) = 0;
   v8 = *(a1 + 24);
   v9 = (*(a1 + 20) * *(a1 + 16));
-  AttributeDictionary = cva::createAttributeDictionary(v9, v8, 1278226488, 64, 64, 0, 0, 0, v39[0]);
-  v39[0] = 0;
-  CVPixelBufferCreate(*MEMORY[0x277CBECE8], v9, v8, 0x4C303038u, AttributeDictionary, v39);
+  AttributeDictionary = cva::createAttributeDictionary(v9, v8, 1278226488, 64, 64, 0, 0, 0, v38[0]);
+  v38[0] = 0;
+  CVPixelBufferCreate(*MEMORY[0x277CBECE8], v9, v8, 0x4C303038u, AttributeDictionary, v38);
   CFRelease(AttributeDictionary);
-  *(a1 + 48) = v39[0];
+  *(a1 + 48) = v38[0];
   v11 = *(a2 + 48);
   if (v11 && !CVPixelBufferLockBaseAddress(v11, 1uLL))
   {
@@ -2628,7 +2608,6 @@ uint64_t cva::Buffer<unsigned char>::Buffer(uint64_t a1, uint64_t a2)
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -2658,7 +2637,7 @@ uint64_t cva::Buffer<unsigned char>::Buffer(uint64_t a1, uint64_t a2)
   *(a1 + 48) = pixelBuffer[0];
   if (!v11 || CVPixelBufferLockBaseAddress(v11, 0))
   {
-    goto LABEL_32;
+    return a1;
   }
 
   CVPixelBufferGetWidth(*(a1 + 48));
@@ -2777,8 +2756,6 @@ LABEL_30:
     *(a1 + 40) = 0;
   }
 
-LABEL_32:
-  v34 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -3365,12 +3342,11 @@ double cva::Buffer<unsigned int>::Buffer(uint64_t a1, uint64_t a2)
 
 __n128 cva::Buffer<unsigned int>::operator=(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 8);
-  v9 = *(a1 + 16);
-  v10 = *(a1 + 24);
-  v7 = *(a1 + 28);
-  v8 = *(a1 + 36);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 28);
+  v7 = *(a1 + 36);
   *(a1 + 8) = *(a2 + 8);
   v3 = *(a2 + 16);
   *(a1 + 24) = *(a2 + 24);
@@ -3379,23 +3355,22 @@ __n128 cva::Buffer<unsigned int>::operator=(uint64_t a1, uint64_t a2)
   *(a1 + 28) = *(a2 + 28);
   *(a1 + 36) = v3;
   *(a2 + 8) = v2;
-  *(a2 + 16) = v9;
-  *(a2 + 24) = v10;
-  *(a2 + 28) = v7;
-  *(a2 + 36) = v8;
+  *(a2 + 16) = v8;
+  *(a2 + 24) = v9;
+  *(a2 + 28) = v6;
+  *(a2 + 36) = v7;
   v4 = *(a1 + 40);
   *(a1 + 40) = *(a2 + 40);
   *(a2 + 40) = v4;
   result = *(a1 + 56);
   *(a1 + 56) = *(a2 + 56);
   *(a2 + 56) = result;
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t cva::Buffer<unsigned int>::Buffer(uint64_t a1, uint64_t a2)
 {
-  v40[3] = *MEMORY[0x277D85DE8];
+  v39[3] = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 24);
   v5 = *(a2 + 16);
   v6 = 4 * *(a2 + 16);
@@ -3412,11 +3387,11 @@ uint64_t cva::Buffer<unsigned int>::Buffer(uint64_t a1, uint64_t a2)
   *(a1 + 64) = 0;
   v8 = *(a1 + 24);
   v9 = (*(a1 + 20) * *(a1 + 16));
-  AttributeDictionary = cva::createAttributeDictionary(v9, v8, 1111970369, 64, 64, 0, 0, 0, v40[0]);
-  v40[0] = 0;
-  CVPixelBufferCreate(*MEMORY[0x277CBECE8], v9, v8, 0x42475241u, AttributeDictionary, v40);
+  AttributeDictionary = cva::createAttributeDictionary(v9, v8, 1111970369, 64, 64, 0, 0, 0, v39[0]);
+  v39[0] = 0;
+  CVPixelBufferCreate(*MEMORY[0x277CBECE8], v9, v8, 0x42475241u, AttributeDictionary, v39);
   CFRelease(AttributeDictionary);
-  *(a1 + 48) = v40[0];
+  *(a1 + 48) = v39[0];
   v11 = *(a2 + 48);
   if (v11 && !CVPixelBufferLockBaseAddress(v11, 1uLL))
   {
@@ -3554,7 +3529,6 @@ uint64_t cva::Buffer<unsigned int>::Buffer(uint64_t a1, uint64_t a2)
     }
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -3705,7 +3679,6 @@ uint64_t cva::Buffer<unsigned int>::Buffer(uint64_t a1, uint64_t a2)
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -4242,12 +4215,11 @@ double cva::Buffer<cva::half>::Buffer(uint64_t a1, uint64_t a2)
 
 __n128 cva::Buffer<cva::half>::operator=(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 8);
-  v9 = *(a1 + 16);
-  v10 = *(a1 + 24);
-  v7 = *(a1 + 28);
-  v8 = *(a1 + 36);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 24);
+  v6 = *(a1 + 28);
+  v7 = *(a1 + 36);
   *(a1 + 8) = *(a2 + 8);
   v3 = *(a2 + 16);
   *(a1 + 24) = *(a2 + 24);
@@ -4256,23 +4228,22 @@ __n128 cva::Buffer<cva::half>::operator=(uint64_t a1, uint64_t a2)
   *(a1 + 28) = *(a2 + 28);
   *(a1 + 36) = v3;
   *(a2 + 8) = v2;
-  *(a2 + 16) = v9;
-  *(a2 + 24) = v10;
-  *(a2 + 28) = v7;
-  *(a2 + 36) = v8;
+  *(a2 + 16) = v8;
+  *(a2 + 24) = v9;
+  *(a2 + 28) = v6;
+  *(a2 + 36) = v7;
   v4 = *(a1 + 40);
   *(a1 + 40) = *(a2 + 40);
   *(a2 + 40) = v4;
   result = *(a1 + 56);
   *(a1 + 56) = *(a2 + 56);
   *(a2 + 56) = result;
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t cva::Buffer<cva::half>::Buffer(uint64_t a1, uint64_t a2)
 {
-  v40[3] = *MEMORY[0x277D85DE8];
+  v39[3] = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 24);
   v5 = *(a2 + 16);
   v6 = 2 * *(a2 + 16);
@@ -4289,11 +4260,11 @@ uint64_t cva::Buffer<cva::half>::Buffer(uint64_t a1, uint64_t a2)
   *(a1 + 64) = 0;
   v8 = *(a1 + 24);
   v9 = (*(a1 + 20) * *(a1 + 16));
-  AttributeDictionary = cva::createAttributeDictionary(v9, v8, 1278226536, 64, 64, 0, 0, 0, v40[0]);
-  v40[0] = 0;
-  CVPixelBufferCreate(*MEMORY[0x277CBECE8], v9, v8, 0x4C303068u, AttributeDictionary, v40);
+  AttributeDictionary = cva::createAttributeDictionary(v9, v8, 1278226536, 64, 64, 0, 0, 0, v39[0]);
+  v39[0] = 0;
+  CVPixelBufferCreate(*MEMORY[0x277CBECE8], v9, v8, 0x4C303068u, AttributeDictionary, v39);
   CFRelease(AttributeDictionary);
-  *(a1 + 48) = v40[0];
+  *(a1 + 48) = v39[0];
   v11 = *(a2 + 48);
   if (v11 && !CVPixelBufferLockBaseAddress(v11, 1uLL))
   {
@@ -4431,7 +4402,6 @@ uint64_t cva::Buffer<cva::half>::Buffer(uint64_t a1, uint64_t a2)
     }
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -4582,7 +4552,6 @@ uint64_t cva::Buffer<cva::half>::Buffer(uint64_t a1, uint64_t a2)
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -4934,25 +4903,25 @@ CVPixelBufferRef cva::Buffer<cva::half>::allocate(_DWORD *a1, OSType a2)
 
 size_t cva::imageViewFromPixelBuffer<unsigned char>@<X0>(__CVBuffer *a1@<X0>, void *a2@<X8>)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
-  cva::formatDescription(PixelFormatType, v17, v5);
+  cva::formatDescription(PixelFormatType, v16, v5);
   PlaneCount = CVPixelBufferGetPlaneCount(a1);
   v7 = PlaneCount;
   if (PlaneCount)
   {
     v8 = 0;
-    memset(v15, 0, sizeof(v15));
+    memset(v14, 0, sizeof(v14));
     do
     {
-      v15[v8] = CVPixelBufferGetBaseAddressOfPlane(a1, v8);
-      v16[v8] = CVPixelBufferGetBytesPerRowOfPlane(a1, v8);
+      v14[v8] = CVPixelBufferGetBaseAddressOfPlane(a1, v8);
+      v15[v8] = CVPixelBufferGetBytesPerRowOfPlane(a1, v8);
       ++v8;
     }
 
     while (v7 != v8);
-    BytesPerRow = v16[0];
-    BaseAddress = v15[0];
+    BytesPerRow = v15[0];
+    BaseAddress = v14[0];
   }
 
   else
@@ -4963,126 +4932,57 @@ size_t cva::imageViewFromPixelBuffer<unsigned char>@<X0>(__CVBuffer *a1@<X0>, vo
 
   Width = CVPixelBufferGetWidth(a1);
   result = CVPixelBufferGetHeight(a1);
-  v13 = v17[0] | (BytesPerRow << 32);
+  v13 = v16[0] | (BytesPerRow << 32);
   *a2 = 0;
   a2[1] = Width | (result << 32);
   a2[2] = v13;
   a2[3] = BaseAddress;
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t cva::formatDescription(OSType pixelFormat, uint64_t a2, unsigned int *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v29 = 0;
+  v29 = *MEMORY[0x277D85DE8];
+  v28 = 0;
   valuePtr = 0;
-  v27 = 0;
   v26 = 0;
+  v25 = 0;
   *a2 = 0;
   *(a2 + 8) = 0;
   v4 = CVPixelFormatDescriptionCreateWithPixelFormatType(*MEMORY[0x277CBECE8], pixelFormat);
-  if (v4)
+  if (!v4)
   {
-    v5 = v4;
-    Value = CFDictionaryGetValue(v4, *MEMORY[0x277CC4F70]);
-    if (Value)
+    return 4294960636;
+  }
+
+  v5 = v4;
+  Value = CFDictionaryGetValue(v4, *MEMORY[0x277CC4F70]);
+  if (Value)
+  {
+    v7 = Value;
+    Count = CFArrayGetCount(Value);
+    if (Count < 1)
     {
-      v7 = Value;
-      Count = CFArrayGetCount(Value);
-      if (Count < 1)
-      {
-        v15 = 0;
-      }
-
-      else
-      {
-        v9 = Count;
-        v10 = *MEMORY[0x277CC4EF0];
-        v11 = *MEMORY[0x277CC4ED0];
-        LODWORD(valuePtr) = 1;
-        ValueAtIndex = CFArrayGetValueAtIndex(v7, 0);
-        v13 = CFDictionaryGetValue(ValueAtIndex, v10);
-        if (v13)
-        {
-          CFNumberGetValue(v13, kCFNumberIntType, &valuePtr);
-        }
-
-        v14 = CFDictionaryGetValue(ValueAtIndex, v11);
-        if (v14)
-        {
-          CFNumberGetValue(v14, kCFNumberIntType, &v26);
-          v15 = 0;
-        }
-
-        else
-        {
-          v15 = 4294960636;
-        }
-
-        *a2 = (v26 / valuePtr) >> 3;
-        if (v9 != 1)
-        {
-          HIDWORD(valuePtr) = 1;
-          v18 = CFArrayGetValueAtIndex(v7, 1);
-          v19 = CFDictionaryGetValue(v18, v10);
-          if (v19)
-          {
-            CFNumberGetValue(v19, kCFNumberIntType, &valuePtr + 4);
-          }
-
-          v20 = CFDictionaryGetValue(v18, v11);
-          if (v20)
-          {
-            CFNumberGetValue(v20, kCFNumberIntType, &v26 + 4);
-          }
-
-          else
-          {
-            v15 = 4294960636;
-          }
-
-          *(a2 + 4) = (SHIDWORD(v26) / SHIDWORD(valuePtr)) >> 3;
-          if (v9 != 2)
-          {
-            v29 = 1;
-            v21 = CFArrayGetValueAtIndex(v7, 2);
-            v22 = CFDictionaryGetValue(v21, v10);
-            if (v22)
-            {
-              CFNumberGetValue(v22, kCFNumberIntType, &v29);
-            }
-
-            v23 = CFDictionaryGetValue(v21, v11);
-            if (v23)
-            {
-              CFNumberGetValue(v23, kCFNumberIntType, &v27);
-            }
-
-            else
-            {
-              v15 = 4294960636;
-            }
-
-            *(a2 + 8) = (v27 / v29) >> 3;
-          }
-        }
-      }
+      v15 = 0;
     }
 
     else
     {
+      v9 = Count;
+      v10 = *MEMORY[0x277CC4EF0];
+      v11 = *MEMORY[0x277CC4ED0];
       LODWORD(valuePtr) = 1;
-      v16 = CFDictionaryGetValue(v5, *MEMORY[0x277CC4EF0]);
-      if (v16)
+      ValueAtIndex = CFArrayGetValueAtIndex(v7, 0);
+      v13 = CFDictionaryGetValue(ValueAtIndex, v10);
+      if (v13)
       {
-        CFNumberGetValue(v16, kCFNumberIntType, &valuePtr);
+        CFNumberGetValue(v13, kCFNumberIntType, &valuePtr);
       }
 
-      v17 = CFDictionaryGetValue(v5, *MEMORY[0x277CC4ED0]);
-      if (v17)
+      v14 = CFDictionaryGetValue(ValueAtIndex, v11);
+      if (v14)
       {
-        CFNumberGetValue(v17, kCFNumberIntType, &v26);
+        CFNumberGetValue(v14, kCFNumberIntType, &v25);
         v15 = 0;
       }
 
@@ -5091,42 +4991,105 @@ uint64_t cva::formatDescription(OSType pixelFormat, uint64_t a2, unsigned int *a
         v15 = 4294960636;
       }
 
-      *a2 = (v26 / valuePtr) >> 3;
-    }
+      *a2 = (v25 / valuePtr) >> 3;
+      if (v9 != 1)
+      {
+        HIDWORD(valuePtr) = 1;
+        v18 = CFArrayGetValueAtIndex(v7, 1);
+        v19 = CFDictionaryGetValue(v18, v10);
+        if (v19)
+        {
+          CFNumberGetValue(v19, kCFNumberIntType, &valuePtr + 4);
+        }
 
-    CFRelease(v5);
+        v20 = CFDictionaryGetValue(v18, v11);
+        if (v20)
+        {
+          CFNumberGetValue(v20, kCFNumberIntType, &v25 + 4);
+        }
+
+        else
+        {
+          v15 = 4294960636;
+        }
+
+        *(a2 + 4) = (SHIDWORD(v25) / SHIDWORD(valuePtr)) >> 3;
+        if (v9 != 2)
+        {
+          v28 = 1;
+          v21 = CFArrayGetValueAtIndex(v7, 2);
+          v22 = CFDictionaryGetValue(v21, v10);
+          if (v22)
+          {
+            CFNumberGetValue(v22, kCFNumberIntType, &v28);
+          }
+
+          v23 = CFDictionaryGetValue(v21, v11);
+          if (v23)
+          {
+            CFNumberGetValue(v23, kCFNumberIntType, &v26);
+          }
+
+          else
+          {
+            v15 = 4294960636;
+          }
+
+          *(a2 + 8) = (v26 / v28) >> 3;
+        }
+      }
+    }
   }
 
   else
   {
-    v15 = 4294960636;
+    LODWORD(valuePtr) = 1;
+    v16 = CFDictionaryGetValue(v5, *MEMORY[0x277CC4EF0]);
+    if (v16)
+    {
+      CFNumberGetValue(v16, kCFNumberIntType, &valuePtr);
+    }
+
+    v17 = CFDictionaryGetValue(v5, *MEMORY[0x277CC4ED0]);
+    if (v17)
+    {
+      CFNumberGetValue(v17, kCFNumberIntType, &v25);
+      v15 = 0;
+    }
+
+    else
+    {
+      v15 = 4294960636;
+    }
+
+    *a2 = (v25 / valuePtr) >> 3;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
+  CFRelease(v5);
   return v15;
 }
 
 size_t cva::imageViewFromPixelBuffer<unsigned short>@<X0>(__CVBuffer *a1@<X0>, void *a2@<X8>)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
-  cva::formatDescription(PixelFormatType, v17, v5);
+  cva::formatDescription(PixelFormatType, v16, v5);
   PlaneCount = CVPixelBufferGetPlaneCount(a1);
   v7 = PlaneCount;
   if (PlaneCount)
   {
     v8 = 0;
-    memset(v15, 0, sizeof(v15));
+    memset(v14, 0, sizeof(v14));
     do
     {
-      v15[v8] = CVPixelBufferGetBaseAddressOfPlane(a1, v8);
-      v16[v8] = CVPixelBufferGetBytesPerRowOfPlane(a1, v8);
+      v14[v8] = CVPixelBufferGetBaseAddressOfPlane(a1, v8);
+      v15[v8] = CVPixelBufferGetBytesPerRowOfPlane(a1, v8);
       ++v8;
     }
 
     while (v7 != v8);
-    BytesPerRow = v16[0];
-    BaseAddress = v15[0];
+    BytesPerRow = v15[0];
+    BaseAddress = v14[0];
   }
 
   else
@@ -5137,36 +5100,35 @@ size_t cva::imageViewFromPixelBuffer<unsigned short>@<X0>(__CVBuffer *a1@<X0>, v
 
   Width = CVPixelBufferGetWidth(a1);
   result = CVPixelBufferGetHeight(a1);
-  v13 = v17[0] | (BytesPerRow << 32);
+  v13 = v16[0] | (BytesPerRow << 32);
   *a2 = 0;
   a2[1] = Width | (result << 32);
   a2[2] = v13;
   a2[3] = BaseAddress;
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 size_t cva::imageViewFromPixelBuffer<float>@<X0>(__CVBuffer *a1@<X0>, void *a2@<X8>)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
-  cva::formatDescription(PixelFormatType, v17, v5);
+  cva::formatDescription(PixelFormatType, v16, v5);
   PlaneCount = CVPixelBufferGetPlaneCount(a1);
   v7 = PlaneCount;
   if (PlaneCount)
   {
     v8 = 0;
-    memset(v15, 0, sizeof(v15));
+    memset(v14, 0, sizeof(v14));
     do
     {
-      v15[v8] = CVPixelBufferGetBaseAddressOfPlane(a1, v8);
-      v16[v8] = CVPixelBufferGetBytesPerRowOfPlane(a1, v8);
+      v14[v8] = CVPixelBufferGetBaseAddressOfPlane(a1, v8);
+      v15[v8] = CVPixelBufferGetBytesPerRowOfPlane(a1, v8);
       ++v8;
     }
 
     while (v7 != v8);
-    BytesPerRow = v16[0];
-    BaseAddress = v15[0];
+    BytesPerRow = v15[0];
+    BaseAddress = v14[0];
   }
 
   else
@@ -5177,36 +5139,35 @@ size_t cva::imageViewFromPixelBuffer<float>@<X0>(__CVBuffer *a1@<X0>, void *a2@<
 
   Width = CVPixelBufferGetWidth(a1);
   result = CVPixelBufferGetHeight(a1);
-  v13 = v17[0] | (BytesPerRow << 32);
+  v13 = v16[0] | (BytesPerRow << 32);
   *a2 = 0;
   a2[1] = Width | (result << 32);
   a2[2] = v13;
   a2[3] = BaseAddress;
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 size_t cva::imageViewFromPixelBuffer<cva::Matrix<unsigned char,3u,1u,false>>@<X0>(__CVBuffer *a1@<X0>, void *a2@<X8>)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
-  cva::formatDescription(PixelFormatType, v17, v5);
+  cva::formatDescription(PixelFormatType, v16, v5);
   PlaneCount = CVPixelBufferGetPlaneCount(a1);
   v7 = PlaneCount;
   if (PlaneCount)
   {
     v8 = 0;
-    memset(v15, 0, sizeof(v15));
+    memset(v14, 0, sizeof(v14));
     do
     {
-      v15[v8] = CVPixelBufferGetBaseAddressOfPlane(a1, v8);
-      v16[v8] = CVPixelBufferGetBytesPerRowOfPlane(a1, v8);
+      v14[v8] = CVPixelBufferGetBaseAddressOfPlane(a1, v8);
+      v15[v8] = CVPixelBufferGetBytesPerRowOfPlane(a1, v8);
       ++v8;
     }
 
     while (v7 != v8);
-    BytesPerRow = v16[0];
-    BaseAddress = v15[0];
+    BytesPerRow = v15[0];
+    BaseAddress = v14[0];
   }
 
   else
@@ -5217,36 +5178,35 @@ size_t cva::imageViewFromPixelBuffer<cva::Matrix<unsigned char,3u,1u,false>>@<X0
 
   Width = CVPixelBufferGetWidth(a1);
   result = CVPixelBufferGetHeight(a1);
-  v13 = v17[0] | (BytesPerRow << 32);
+  v13 = v16[0] | (BytesPerRow << 32);
   *a2 = 0;
   a2[1] = Width | (result << 32);
   a2[2] = v13;
   a2[3] = BaseAddress;
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 size_t cva::imageViewFromPixelBuffer<cva::Matrix<unsigned char,4u,1u,false>>@<X0>(__CVBuffer *a1@<X0>, void *a2@<X8>)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
-  cva::formatDescription(PixelFormatType, v17, v5);
+  cva::formatDescription(PixelFormatType, v16, v5);
   PlaneCount = CVPixelBufferGetPlaneCount(a1);
   v7 = PlaneCount;
   if (PlaneCount)
   {
     v8 = 0;
-    memset(v15, 0, sizeof(v15));
+    memset(v14, 0, sizeof(v14));
     do
     {
-      v15[v8] = CVPixelBufferGetBaseAddressOfPlane(a1, v8);
-      v16[v8] = CVPixelBufferGetBytesPerRowOfPlane(a1, v8);
+      v14[v8] = CVPixelBufferGetBaseAddressOfPlane(a1, v8);
+      v15[v8] = CVPixelBufferGetBytesPerRowOfPlane(a1, v8);
       ++v8;
     }
 
     while (v7 != v8);
-    BytesPerRow = v16[0];
-    BaseAddress = v15[0];
+    BytesPerRow = v15[0];
+    BaseAddress = v14[0];
   }
 
   else
@@ -5257,36 +5217,35 @@ size_t cva::imageViewFromPixelBuffer<cva::Matrix<unsigned char,4u,1u,false>>@<X0
 
   Width = CVPixelBufferGetWidth(a1);
   result = CVPixelBufferGetHeight(a1);
-  v13 = v17[0] | (BytesPerRow << 32);
+  v13 = v16[0] | (BytesPerRow << 32);
   *a2 = 0;
   a2[1] = Width | (result << 32);
   a2[2] = v13;
   a2[3] = BaseAddress;
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 size_t cva::imageViewFromPixelBuffer<unsigned char>@<X0>(__CVBuffer *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
-  cva::formatDescription(PixelFormatType, v19, v7);
+  cva::formatDescription(PixelFormatType, v18, v7);
   PlaneCount = CVPixelBufferGetPlaneCount(a1);
   v9 = PlaneCount;
   if (PlaneCount)
   {
     v10 = 0;
-    memset(v17, 0, sizeof(v17));
+    memset(v16, 0, sizeof(v16));
     do
     {
-      v17[v10] = CVPixelBufferGetBaseAddressOfPlane(a1, v10);
-      v18[v10] = CVPixelBufferGetBytesPerRowOfPlane(a1, v10);
+      v16[v10] = CVPixelBufferGetBaseAddressOfPlane(a1, v10);
+      v17[v10] = CVPixelBufferGetBytesPerRowOfPlane(a1, v10);
       ++v10;
     }
 
     while (v9 != v10);
-    result = v18[0];
-    BaseAddress = v17[0];
+    result = v17[0];
+    BaseAddress = v16[0];
   }
 
   else
@@ -5295,38 +5254,37 @@ size_t cva::imageViewFromPixelBuffer<unsigned char>@<X0>(__CVBuffer *a1@<X0>, ui
     result = CVPixelBufferGetBytesPerRow(a1);
   }
 
-  v13 = v19[0] | (result << 32);
-  v14 = &BaseAddress[*a2 * v19[0] + *(a2 + 4) * result];
+  v13 = v18[0] | (result << 32);
+  v14 = &BaseAddress[*a2 * v18[0] + *(a2 + 4) * result];
   v15 = *(a2 + 8);
   *a3 = 0;
   a3[1] = v15;
   a3[2] = v13;
   a3[3] = v14;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 size_t cva::imageViewFromPixelBuffer<unsigned short>@<X0>(__CVBuffer *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
-  cva::formatDescription(PixelFormatType, v19, v7);
+  cva::formatDescription(PixelFormatType, v18, v7);
   PlaneCount = CVPixelBufferGetPlaneCount(a1);
   v9 = PlaneCount;
   if (PlaneCount)
   {
     v10 = 0;
-    memset(v17, 0, sizeof(v17));
+    memset(v16, 0, sizeof(v16));
     do
     {
-      v17[v10] = CVPixelBufferGetBaseAddressOfPlane(a1, v10);
-      v18[v10] = CVPixelBufferGetBytesPerRowOfPlane(a1, v10);
+      v16[v10] = CVPixelBufferGetBaseAddressOfPlane(a1, v10);
+      v17[v10] = CVPixelBufferGetBytesPerRowOfPlane(a1, v10);
       ++v10;
     }
 
     while (v9 != v10);
-    result = v18[0];
-    BaseAddress = v17[0];
+    result = v17[0];
+    BaseAddress = v16[0];
   }
 
   else
@@ -5335,38 +5293,37 @@ size_t cva::imageViewFromPixelBuffer<unsigned short>@<X0>(__CVBuffer *a1@<X0>, u
     result = CVPixelBufferGetBytesPerRow(a1);
   }
 
-  v13 = v19[0] | (result << 32);
-  v14 = &BaseAddress[*a2 * v19[0] + *(a2 + 4) * result];
+  v13 = v18[0] | (result << 32);
+  v14 = &BaseAddress[*a2 * v18[0] + *(a2 + 4) * result];
   v15 = *(a2 + 8);
   *a3 = 0;
   a3[1] = v15;
   a3[2] = v13;
   a3[3] = v14;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 size_t cva::imageViewFromPixelBuffer<float>@<X0>(__CVBuffer *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
-  cva::formatDescription(PixelFormatType, v19, v7);
+  cva::formatDescription(PixelFormatType, v18, v7);
   PlaneCount = CVPixelBufferGetPlaneCount(a1);
   v9 = PlaneCount;
   if (PlaneCount)
   {
     v10 = 0;
-    memset(v17, 0, sizeof(v17));
+    memset(v16, 0, sizeof(v16));
     do
     {
-      v17[v10] = CVPixelBufferGetBaseAddressOfPlane(a1, v10);
-      v18[v10] = CVPixelBufferGetBytesPerRowOfPlane(a1, v10);
+      v16[v10] = CVPixelBufferGetBaseAddressOfPlane(a1, v10);
+      v17[v10] = CVPixelBufferGetBytesPerRowOfPlane(a1, v10);
       ++v10;
     }
 
     while (v9 != v10);
-    result = v18[0];
-    BaseAddress = v17[0];
+    result = v17[0];
+    BaseAddress = v16[0];
   }
 
   else
@@ -5375,38 +5332,37 @@ size_t cva::imageViewFromPixelBuffer<float>@<X0>(__CVBuffer *a1@<X0>, uint64_t a
     result = CVPixelBufferGetBytesPerRow(a1);
   }
 
-  v13 = v19[0] | (result << 32);
-  v14 = &BaseAddress[*a2 * v19[0] + *(a2 + 4) * result];
+  v13 = v18[0] | (result << 32);
+  v14 = &BaseAddress[*a2 * v18[0] + *(a2 + 4) * result];
   v15 = *(a2 + 8);
   *a3 = 0;
   a3[1] = v15;
   a3[2] = v13;
   a3[3] = v14;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 size_t cva::imageViewFromPixelBuffer<cva::Matrix<unsigned char,3u,1u,false>>@<X0>(__CVBuffer *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
-  cva::formatDescription(PixelFormatType, v19, v7);
+  cva::formatDescription(PixelFormatType, v18, v7);
   PlaneCount = CVPixelBufferGetPlaneCount(a1);
   v9 = PlaneCount;
   if (PlaneCount)
   {
     v10 = 0;
-    memset(v17, 0, sizeof(v17));
+    memset(v16, 0, sizeof(v16));
     do
     {
-      v17[v10] = CVPixelBufferGetBaseAddressOfPlane(a1, v10);
-      v18[v10] = CVPixelBufferGetBytesPerRowOfPlane(a1, v10);
+      v16[v10] = CVPixelBufferGetBaseAddressOfPlane(a1, v10);
+      v17[v10] = CVPixelBufferGetBytesPerRowOfPlane(a1, v10);
       ++v10;
     }
 
     while (v9 != v10);
-    result = v18[0];
-    BaseAddress = v17[0];
+    result = v17[0];
+    BaseAddress = v16[0];
   }
 
   else
@@ -5415,38 +5371,37 @@ size_t cva::imageViewFromPixelBuffer<cva::Matrix<unsigned char,3u,1u,false>>@<X0
     result = CVPixelBufferGetBytesPerRow(a1);
   }
 
-  v13 = v19[0] | (result << 32);
-  v14 = &BaseAddress[*a2 * v19[0] + *(a2 + 4) * result];
+  v13 = v18[0] | (result << 32);
+  v14 = &BaseAddress[*a2 * v18[0] + *(a2 + 4) * result];
   v15 = *(a2 + 8);
   *a3 = 0;
   a3[1] = v15;
   a3[2] = v13;
   a3[3] = v14;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 size_t cva::imageViewFromPixelBuffer<cva::Matrix<unsigned char,4u,1u,false>>@<X0>(__CVBuffer *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
-  cva::formatDescription(PixelFormatType, v19, v7);
+  cva::formatDescription(PixelFormatType, v18, v7);
   PlaneCount = CVPixelBufferGetPlaneCount(a1);
   v9 = PlaneCount;
   if (PlaneCount)
   {
     v10 = 0;
-    memset(v17, 0, sizeof(v17));
+    memset(v16, 0, sizeof(v16));
     do
     {
-      v17[v10] = CVPixelBufferGetBaseAddressOfPlane(a1, v10);
-      v18[v10] = CVPixelBufferGetBytesPerRowOfPlane(a1, v10);
+      v16[v10] = CVPixelBufferGetBaseAddressOfPlane(a1, v10);
+      v17[v10] = CVPixelBufferGetBytesPerRowOfPlane(a1, v10);
       ++v10;
     }
 
     while (v9 != v10);
-    result = v18[0];
-    BaseAddress = v17[0];
+    result = v17[0];
+    BaseAddress = v16[0];
   }
 
   else
@@ -5455,14 +5410,13 @@ size_t cva::imageViewFromPixelBuffer<cva::Matrix<unsigned char,4u,1u,false>>@<X0
     result = CVPixelBufferGetBytesPerRow(a1);
   }
 
-  v13 = v19[0] | (result << 32);
-  v14 = &BaseAddress[*a2 * v19[0] + *(a2 + 4) * result];
+  v13 = v18[0] | (result << 32);
+  v14 = &BaseAddress[*a2 * v18[0] + *(a2 + 4) * result];
   v15 = *(a2 + 8);
   *a3 = 0;
   a3[1] = v15;
   a3[2] = v13;
   a3[3] = v14;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5634,11 +5588,19 @@ uint64_t cva::createCVPixelBufferFromImageCopy<cva::Matrix<unsigned char,4u,1u,f
 
 vImage_Error cva::pixelBufferConvertYCbCrToARGB(__CVBuffer *a1, uint64_t a2, int a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  if (!a1 || ((PixelFormatType = CVPixelBufferGetPixelFormatType(a1), Width = CVPixelBufferGetWidth(a1), Height = CVPixelBufferGetHeight(a1), v9 = Height, *(a2 + 8) >= Width) ? (v10 = *(a2 + 12) >= Height) : (v10 = 0), !v10))
+  v30 = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    result = 4294960635;
-    goto LABEL_29;
+    return 4294960635;
+  }
+
+  PixelFormatType = CVPixelBufferGetPixelFormatType(a1);
+  Width = CVPixelBufferGetWidth(a1);
+  Height = CVPixelBufferGetHeight(a1);
+  v9 = Height;
+  if (*(a2 + 8) < Width || *(a2 + 12) < Height)
+  {
+    return 4294960635;
   }
 
   v12 = MEMORY[0x277CB86F0];
@@ -5657,7 +5619,7 @@ vImage_Error cva::pixelBufferConvertYCbCrToARGB(__CVBuffer *a1, uint64_t a2, int
       pixelRange = *ymmword_24508A930;
       if (vImageConvert_YpCbCrToARGB_GenerateConversion(v13, &pixelRange, &outInfo, kvImage422CbYpCrYp8, kvImageARGB8888, 0))
       {
-        goto LABEL_28;
+        return 4294960636;
       }
 
       srcYp.data = CVPixelBufferGetBaseAddress(a1);
@@ -5666,26 +5628,26 @@ vImage_Error cva::pixelBufferConvertYCbCrToARGB(__CVBuffer *a1, uint64_t a2, int
       srcYp.rowBytes = CVPixelBufferGetBytesPerRow(a1);
       srcCbCr.data = *(a2 + 24);
       srcCbCr.height = v22;
-      v24 = *(a2 + 20);
+      v23 = *(a2 + 20);
       srcCbCr.width = Width;
-      srcCbCr.rowBytes = v24;
+      srcCbCr.rowBytes = v23;
       if (!srcYp.data)
       {
-        goto LABEL_28;
+        return 4294960636;
       }
 
       result = vImageConvert_422CbYpCrYp8ToARGB8888(&srcYp, &srcCbCr, &outInfo, permuteMap, 0xFFu, 0);
       if (result)
       {
-        goto LABEL_28;
+        return 4294960636;
       }
 
-      goto LABEL_29;
+      return result;
     }
 
     if (PixelFormatType != 875704422)
     {
-      goto LABEL_28;
+      return 4294960636;
     }
 
     v16 = v9;
@@ -5706,7 +5668,7 @@ vImage_Error cva::pixelBufferConvertYCbCrToARGB(__CVBuffer *a1, uint64_t a2, int
       {
         if (PixelFormatType != 2037741171)
         {
-          goto LABEL_28;
+          return 4294960636;
         }
 
         v14 = v9;
@@ -5732,14 +5694,12 @@ vImage_Error cva::pixelBufferConvertYCbCrToARGB(__CVBuffer *a1, uint64_t a2, int
           result = vImageConvert_422YpCbYpCr8ToARGB8888(&srcYp, &srcCbCr, &outInfo, permuteMap, 0xFFu, 0);
           if (!result)
           {
-            goto LABEL_29;
+            return result;
           }
         }
       }
 
-LABEL_28:
-      result = 4294960636;
-      goto LABEL_29;
+      return 4294960636;
     }
 
     v16 = v9;
@@ -5751,7 +5711,7 @@ LABEL_28:
   *&pixelRange.YpMax = v18;
   if (vImageConvert_YpCbCrToARGB_GenerateConversion(v13, &pixelRange, &outInfo, kvImage420Yp8_CbCr8, kvImageARGB8888, 0))
   {
-    goto LABEL_28;
+    return 4294960636;
   }
 
   srcYp.data = CVPixelBufferGetBaseAddressOfPlane(a1, 0);
@@ -5762,34 +5722,40 @@ LABEL_28:
   srcCbCr.height = v16;
   srcCbCr.width = Width;
   srcCbCr.rowBytes = CVPixelBufferGetBytesPerRowOfPlane(a1, 1uLL);
-  v25.data = *(a2 + 24);
-  v25.height = v16;
+  v24.data = *(a2 + 24);
+  v24.height = v16;
   v19 = *(a2 + 20);
-  v25.width = Width;
-  v25.rowBytes = v19;
+  v24.width = Width;
+  v24.rowBytes = v19;
   if (!srcYp.data)
   {
-    goto LABEL_28;
+    return 4294960636;
   }
 
-  result = vImageConvert_420Yp8_CbCr8ToARGB8888(&srcYp, &srcCbCr, &v25, &outInfo, permuteMap, 0xFFu, 0);
+  result = vImageConvert_420Yp8_CbCr8ToARGB8888(&srcYp, &srcCbCr, &v24, &outInfo, permuteMap, 0xFFu, 0);
   if (result)
   {
-    goto LABEL_28;
+    return 4294960636;
   }
 
-LABEL_29:
-  v23 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 vImage_Error cva::pixelBufferConvertARGBToYpCbCr(uint64_t a1, CVPixelBufferRef pixelBuffer, int a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  if (!pixelBuffer || ((PixelFormatType = CVPixelBufferGetPixelFormatType(pixelBuffer), Width = CVPixelBufferGetWidth(pixelBuffer), Height = CVPixelBufferGetHeight(pixelBuffer), v9 = Height, *(a1 + 8) <= Width) ? (v10 = *(a1 + 12) > Height) : (v10 = 1), v10))
+  v28 = *MEMORY[0x277D85DE8];
+  if (!pixelBuffer)
   {
-    result = 4294960635;
-    goto LABEL_25;
+    return 4294960635;
+  }
+
+  PixelFormatType = CVPixelBufferGetPixelFormatType(pixelBuffer);
+  Width = CVPixelBufferGetWidth(pixelBuffer);
+  Height = CVPixelBufferGetHeight(pixelBuffer);
+  v9 = Height;
+  if (*(a1 + 8) > Width || *(a1 + 12) > Height)
+  {
+    return 4294960635;
   }
 
   v12 = MEMORY[0x277CB86D8];
@@ -5812,11 +5778,11 @@ vImage_Error cva::pixelBufferConvertARGBToYpCbCr(uint64_t a1, CVPixelBufferRef p
     {
       if (PixelFormatType != 875704438)
       {
-        goto LABEL_24;
+        return 4294960636;
       }
 
       v14 = v9;
-      v15 = &xmmword_24508A930;
+      v15 = ymmword_24508A930;
     }
 
     v18 = v15[1];
@@ -5832,24 +5798,22 @@ vImage_Error cva::pixelBufferConvertARGBToYpCbCr(uint64_t a1, CVPixelBufferRef p
       destCbCr.height = v14;
       destCbCr.width = Width;
       destCbCr.rowBytes = CVPixelBufferGetBytesPerRowOfPlane(pixelBuffer, 1uLL);
-      v23.data = *(a1 + 24);
-      v23.height = v14;
+      v22.data = *(a1 + 24);
+      v22.height = v14;
       v19 = *(a1 + 20);
-      v23.width = Width;
-      v23.rowBytes = v19;
+      v22.width = Width;
+      v22.rowBytes = v19;
       if (destYp.data)
       {
-        result = vImageConvert_ARGB8888To420Yp8_CbCr8(&v23, &destYp, &destCbCr, &outInfo, permuteMap, 0);
+        result = vImageConvert_ARGB8888To420Yp8_CbCr8(&v22, &destYp, &destCbCr, &outInfo, permuteMap, 0);
         if (!result)
         {
-          goto LABEL_25;
+          return result;
         }
       }
     }
 
-LABEL_24:
-    result = 4294960636;
-    goto LABEL_25;
+    return 4294960636;
   }
 
   if (PixelFormatType == 2037741158)
@@ -5862,11 +5826,11 @@ LABEL_24:
   {
     if (PixelFormatType != 2037741171)
     {
-      goto LABEL_24;
+      return 4294960636;
     }
 
     v16 = v9;
-    v17 = &xmmword_24508A930;
+    v17 = ymmword_24508A930;
   }
 
   v20 = v17[1];
@@ -5874,7 +5838,7 @@ LABEL_24:
   *&pixelRange.YpMax = v20;
   if (vImageConvert_ARGBToYpCbCr_GenerateConversion(v13, &pixelRange, &outInfo, kvImageARGB8888, kvImage422YpCbYpCr8, 0))
   {
-    goto LABEL_24;
+    return 4294960636;
   }
 
   destYp.data = CVPixelBufferGetBaseAddress(pixelBuffer);
@@ -5883,22 +5847,20 @@ LABEL_24:
   destYp.rowBytes = CVPixelBufferGetBytesPerRow(pixelBuffer);
   destCbCr.data = *(a1 + 24);
   destCbCr.height = v16;
-  v22 = *(a1 + 20);
+  v21 = *(a1 + 20);
   destCbCr.width = Width;
-  destCbCr.rowBytes = v22;
+  destCbCr.rowBytes = v21;
   if (!destYp.data)
   {
-    goto LABEL_24;
+    return 4294960636;
   }
 
   result = vImageConvert_ARGB8888To422YpCbYpCr8(&destCbCr, &destYp, &outInfo, permuteMap, 0);
   if (result)
   {
-    goto LABEL_24;
+    return 4294960636;
   }
 
-LABEL_25:
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5915,52 +5877,7 @@ __CFDictionary *cva::createAttributeDictionary(cva *this, int a2, int a3, int a4
   if (Mutable)
   {
     v13 = CFNumberCreate(v11, kCFNumberIntType, &valuePtr);
-    if (!v13)
-    {
-      goto LABEL_13;
-    }
-
-    v14 = v13;
-    CFDictionarySetValue(Mutable, *MEMORY[0x277CC4EC8], v13);
-    CFRelease(v14);
-    v15 = CFNumberCreate(v11, kCFNumberIntType, &v33);
-    if (!v15)
-    {
-      goto LABEL_13;
-    }
-
-    v16 = v15;
-    CFDictionarySetValue(Mutable, *MEMORY[0x277CC4DD8], v15);
-    CFRelease(v16);
-    v17 = CFNumberCreate(v11, kCFNumberIntType, &v32);
-    if (!v17)
-    {
-      goto LABEL_13;
-    }
-
-    v18 = v17;
-    CFDictionarySetValue(Mutable, *MEMORY[0x277CC4E30], v17);
-    CFRelease(v18);
-    v19 = CFNumberCreate(v11, kCFNumberIntType, &v31);
-    if (!v19)
-    {
-      goto LABEL_13;
-    }
-
-    v20 = v19;
-    CFDictionarySetValue(Mutable, *MEMORY[0x277CC4D60], v19);
-    CFRelease(v20);
-    v21 = CFNumberCreate(v11, kCFNumberIntType, &v30);
-    if (!v21)
-    {
-      goto LABEL_13;
-    }
-
-    v22 = v21;
-    CFDictionarySetValue(Mutable, *MEMORY[0x277CC4E38], v21);
-    CFRelease(v22);
-    v23 = CFDictionaryCreateMutable(v11, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    if (v23)
+    if (v13 && (v14 = v13, CFDictionarySetValue(Mutable, *MEMORY[0x277CC4EC8], v13), CFRelease(v14), (v15 = CFNumberCreate(v11, kCFNumberIntType, &v33)) != 0) && (v16 = v15, CFDictionarySetValue(Mutable, *MEMORY[0x277CC4DD8], v15), CFRelease(v16), (v17 = CFNumberCreate(v11, kCFNumberIntType, &v32)) != 0) && (v18 = v17, CFDictionarySetValue(Mutable, *MEMORY[0x277CC4E30], v17), CFRelease(v18), (v19 = CFNumberCreate(v11, kCFNumberIntType, &v31)) != 0) && (v20 = v19, CFDictionarySetValue(Mutable, *MEMORY[0x277CC4D60], v19), CFRelease(v20), (v21 = CFNumberCreate(v11, kCFNumberIntType, &v30)) != 0) && (v22 = v21, CFDictionarySetValue(Mutable, *MEMORY[0x277CC4E38], v21), CFRelease(v22), (v23 = CFDictionaryCreateMutable(v11, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150])) != 0))
     {
       v24 = *MEMORY[0x277CBED28];
       v25 = v23;
@@ -5984,7 +5901,6 @@ __CFDictionary *cva::createAttributeDictionary(cva *this, int a2, int a3, int a4
 
     else
     {
-LABEL_13:
       v27 = Mutable;
       Mutable = 0;
     }
@@ -8918,14 +8834,14 @@ float cva::SO3GroupStorage<float,cva::Matrix<float,3u,3u,false>>::angleInDegrees
   return (sqrtf(((v3[0].f32[0] * v3[0].f32[0]) + v1.f32[0]) + v1.f32[1]) * 180.0) / 3.1416;
 }
 
-void sub_245036594(float32x2_t *a1, float *a2)
+void sub_245036594(float32x2_t *a1, float32x2_t *a2)
 {
   v4 = (a1[2].f32[1] - a1[3].f32[1]) * 0.5;
-  *a2 = v4;
+  a2->f32[0] = v4;
   v5 = (a1[3].f32[0] - a1[1].f32[0]) * 0.5;
-  a2[1] = v5;
+  a2->f32[1] = v5;
   v6 = (a1->f32[1] - a1[1].f32[1]) * 0.5;
-  a2[2] = v6;
+  a2[1].f32[0] = v6;
   v7 = a1->f32[0];
   v8 = a1[2].f32[0];
   v9 = a1[4].f32[0];
@@ -8938,8 +8854,8 @@ void sub_245036594(float32x2_t *a1, float *a2)
     if (v11 > 0.99 || v15)
     {
       v16 = (v12 * ((v12 * (((v12 * 5.0) / 112.0) + 0.075)) + 0.16667)) + 1.0;
-      *a2 = v4 * v16;
-      a2[1] = v5 * v16;
+      a2->f32[0] = v4 * v16;
+      a2->f32[1] = v5 * v16;
     }
 
     else
@@ -8951,11 +8867,11 @@ void sub_245036594(float32x2_t *a1, float *a2)
       }
 
       v16 = acosf(v11) / sqrtf(v12);
-      *a2 = v4 * v16;
-      a2[1] = v5 * v16;
+      a2->f32[0] = v4 * v16;
+      a2->f32[1] = v5 * v16;
     }
 
-    a2[2] = v6 * v16;
+    a2[1].f32[0] = v6 * v16;
     return;
   }
 
@@ -8976,7 +8892,7 @@ LABEL_19:
         v33 = -v33;
       }
 
-      a2[2] = v33;
+      a2[1].f32[0] = v33;
       v34.i32[0] = a1[1].i32[0];
       v34.i32[1] = a1[2].i32[1];
       *a2 = vmul_n_f32(vmul_n_f32(vadd_f32(a1[3], v34), v26), 1.0 / v33);
@@ -8990,11 +8906,11 @@ LABEL_19:
         v27 = -v27;
       }
 
-      a2[1] = v27;
+      a2->f32[1] = v27;
       v28 = 1.0 / v27;
       v29 = a1[3].f32[1] + a1[2].f32[1];
-      *a2 = v28 * (v26 * (a1[1].f32[1] + a1->f32[1]));
-      a2[2] = v28 * (v26 * v29);
+      a2->f32[0] = v28 * (v26 * (a1[1].f32[1] + a1->f32[1]));
+      a2[1].f32[0] = v28 * (v26 * v29);
     }
   }
 
@@ -9010,11 +8926,11 @@ LABEL_19:
         v30 = -v30;
       }
 
-      a2[2] = v30;
+      a2[1].f32[0] = v30;
       v31 = 1.0 / v30;
       v32 = v31 * (v22 * (a1[3].f32[1] + a1[2].f32[1]));
-      *a2 = v31 * v23;
-      a2[1] = v32;
+      a2->f32[0] = v31 * v23;
+      a2->f32[1] = v32;
     }
 
     else
@@ -9025,10 +8941,10 @@ LABEL_19:
         v24 = -v24;
       }
 
-      *a2 = v24;
+      a2->f32[0] = v24;
       v25 = 1.0 / v24;
-      a2[1] = v25 * (v22 * (a1[1].f32[1] + a1->f32[1]));
-      a2[2] = v25 * v23;
+      a2->f32[1] = v25 * (v22 * (a1[1].f32[1] + a1->f32[1]));
+      a2[1].f32[0] = v25 * v23;
     }
   }
 }
@@ -9041,9 +8957,9 @@ float cva::SO3GroupStorage<float,cva::Matrix<float,3u,3u,false>>::angleInRadians
   return sqrtf(((v3[0].f32[0] * v3[0].f32[0]) + v1.f32[0]) + v1.f32[1]);
 }
 
-void cva::SO3GroupStorage<float,cva::Matrix<float,3u,3u,false>>::log(float32x2_t *a1@<X0>, uint64_t a2@<X8>)
+void cva::SO3GroupStorage<float,cva::Matrix<float,3u,3u,false>>::log(float32x2_t *a1@<X0>, float32x2_t *a2@<X8>)
 {
-  *(a2 + 8) = 0;
+  a2[1].i32[0] = 0;
   *a2 = 0;
   sub_245036594(a1, a2);
 }
@@ -9110,7 +9026,7 @@ __n64 sub_245036A80(uint64_t a1, float **a2)
     v9 = 0;
     v7 = 0u;
     v8 = 0u;
-    sub_245036A80(&v7);
+    sub_245036A80(&v7, a2);
     result.n64_u64[0] = v7;
     v6 = v8;
     *a1 = v7;
@@ -9268,7 +9184,7 @@ float *sub_245036F44(float *result, float **a2)
   {
     v6 = 0;
     v5 = 0;
-    result = sub_245036F44(&v5);
+    result = sub_245036F44(&v5, a2);
     *v2 = v5;
     *(v2 + 2) = v6;
   }
@@ -9301,7 +9217,7 @@ float *sub_245037054(float *result, uint64_t a2)
   {
     v6 = 0;
     v5 = 0;
-    result = sub_245037054(&v5);
+    result = sub_245037054(&v5, a2);
     *v2 = v5;
     *(v2 + 2) = v6;
   }
@@ -9462,11 +9378,11 @@ float32_t cva::SO3GroupStorage<float,cva::Matrix<float,3u,3u,false>>::enforce(fl
   v30 = 0.0;
   v29 = 0;
   sub_245036594(a1, &v29);
-  v2 = *(&v29 + 1);
-  v3 = *&v29;
-  v4 = *(&v29 + 1) * *(&v29 + 1);
+  v2 = v29.f32[1];
+  v3 = v29.f32[0];
+  v4 = v29.f32[1] * v29.f32[1];
   v5 = v30;
-  v6 = ((*(&v29 + 1) * *(&v29 + 1)) + (v3 * v3)) + (v5 * v5);
+  v6 = ((v29.f32[1] * v29.f32[1]) + (v3 * v3)) + (v5 * v5);
   if (v6 > 9.8696)
   {
     v7 = sqrtf(v6) / 3.1416;
@@ -9479,8 +9395,8 @@ float32_t cva::SO3GroupStorage<float,cva::Matrix<float,3u,3u,false>>::enforce(fl
     }
 
     v11 = v10 / v7;
-    v3 = *&v29 * v11;
-    v2 = *(&v29 + 1) * v11;
+    v3 = v29.f32[0] * v11;
+    v2 = v29.f32[1] * v11;
     v5 = v30 * v11;
     v4 = v2 * v2;
   }
@@ -9627,14 +9543,14 @@ double cva::SO3GroupStorage<double,cva::Matrix<double,3u,3u,false>>::angleInDegr
   return sqrt(v3 * v3 + v1.f64[0] + v1.f64[1]) * 180.0 / 3.14159265;
 }
 
-void sub_245037840(float64x2_t *a1, double *a2)
+void sub_245037840(float64x2_t *a1, float64x2_t *a2)
 {
   v4 = (a1[2].f64[1] - a1[3].f64[1]) * 0.5;
-  *a2 = v4;
+  a2->f64[0] = v4;
   v5 = (a1[3].f64[0] - a1[1].f64[0]) * 0.5;
-  a2[1] = v5;
+  a2->f64[1] = v5;
   v6 = (a1->f64[1] - a1[1].f64[1]) * 0.5;
-  a2[2] = v6;
+  a2[1].f64[0] = v6;
   v7 = a1->f64[0];
   v8 = a1[2].f64[0];
   v9 = a1[4].f64[0];
@@ -9665,9 +9581,9 @@ void sub_245037840(float64x2_t *a1, double *a2)
       v24 = v12 * (v12 * (v12 * 5.0 / 112.0 + 0.075) + 0.166666667) + 1.0;
     }
 
-    *a2 = v4 * v24;
-    a2[1] = v5 * v24;
-    a2[2] = v6 * v24;
+    a2->f64[0] = v4 * v24;
+    a2->f64[1] = v5 * v24;
+    a2[1].f64[0] = v6 * v24;
     return;
   }
 
@@ -9688,7 +9604,7 @@ LABEL_3:
         v32 = -v32;
       }
 
-      a2[2] = v32;
+      a2[1].f64[0] = v32;
       v33.f64[0] = a1[1].f64[0];
       v33.f64[1] = a1[2].f64[1];
       *a2 = vmulq_n_f64(vmulq_n_f64(vaddq_f64(a1[3], v33), v25), 1.0 / v32);
@@ -9702,11 +9618,11 @@ LABEL_3:
         v26 = -v26;
       }
 
-      a2[1] = v26;
+      a2->f64[1] = v26;
       v27 = 1.0 / v26;
       v28 = a1[3].f64[1] + a1[2].f64[1];
-      *a2 = v27 * (v25 * (a1[1].f64[1] + a1->f64[1]));
-      a2[2] = v27 * (v25 * v28);
+      a2->f64[0] = v27 * (v25 * (a1[1].f64[1] + a1->f64[1]));
+      a2[1].f64[0] = v27 * (v25 * v28);
     }
   }
 
@@ -9722,11 +9638,11 @@ LABEL_3:
         v29 = -v29;
       }
 
-      a2[2] = v29;
+      a2[1].f64[0] = v29;
       v30 = 1.0 / v29;
       v31 = v30 * (v18 * (a1[3].f64[1] + a1[2].f64[1]));
-      *a2 = v30 * v19;
-      a2[1] = v31;
+      a2->f64[0] = v30 * v19;
+      a2->f64[1] = v31;
     }
 
     else
@@ -9737,10 +9653,10 @@ LABEL_3:
         v20 = -v20;
       }
 
-      *a2 = v20;
+      a2->f64[0] = v20;
       v21 = 1.0 / v20;
-      a2[1] = v21 * (v18 * (a1[1].f64[1] + a1->f64[1]));
-      a2[2] = v21 * v19;
+      a2->f64[1] = v21 * (v18 * (a1[1].f64[1] + a1->f64[1]));
+      a2[1].f64[0] = v21 * v19;
     }
   }
 }
@@ -9830,7 +9746,7 @@ __n128 sub_245037D34(uint64_t a1, double **a2)
     v10 = 0u;
     v7 = 0u;
     v8 = 0u;
-    sub_245037D34(&v7);
+    sub_245037D34(&v7, a2);
     v6 = v10;
     *(a1 + 32) = v9;
     *(a1 + 48) = v6;
@@ -9854,5 +9770,66 @@ __n128 sub_245037D34(uint64_t a1, double **a2)
     *(a1 + 64) = result.n128_u64[0];
   }
 
+  return result;
+}
+
+double cva::SO3AlgebraStorage<double,cva::MatrixRef<double const,3u,1u,false>>::SO3AlgebraStorage(void *a1, uint64_t a2)
+{
+  *a1 = a2;
+  *&result = 3;
+  a1[1] = 3;
+  return result;
+}
+
+{
+  *a1 = a2;
+  *&result = 3;
+  a1[1] = 3;
+  return result;
+}
+
+double cva::SO3AlgebraStorage<double,cva::MatrixRef<double const,3u,1u,false>>::exp@<D0>(double **a1@<X0>, double *a2@<X8>)
+{
+  v3 = **a1;
+  v4 = (*a1)[1];
+  v5 = (*a1)[2];
+  v6 = v3 * v3 + v4 * v4 + v5 * v5;
+  if (v6 >= 0.0000002635)
+  {
+    v10 = sqrt(v6);
+    v11 = __sincos_stret(v10);
+    cosval = v11.__cosval;
+    v8 = v11.__sinval / v10;
+    v7 = 1.0 / v6 * (1.0 - v11.__cosval);
+  }
+
+  else
+  {
+    v7 = 0.5 - v6 * (v6 / -720.0 + 0.0416666667);
+    v8 = 1.0 - v6 * (0.166666667 - v6 * (v6 / -5040.0 + 0.00833333333));
+    cosval = 1.0 - v6 * v7;
+  }
+
+  v12 = v3 * v7;
+  v13 = v4 * v7;
+  v14 = cosval + v3 * v7 * v3;
+  v15 = cosval + v5 * v7 * v5;
+  v16 = cosval + v13 * v4;
+  a2[8] = v15;
+  v17 = v4 * v12;
+  v18 = v5 * v12;
+  v19 = v5 * v13;
+  v20 = v3 * v8;
+  v21 = v4 * v8;
+  v22 = v5 * v8;
+  *a2 = v14;
+  a2[1] = v17 + v22;
+  a2[6] = v21 + v18;
+  a2[7] = v19 - v20;
+  a2[2] = v18 - v21;
+  a2[3] = v17 - v22;
+  result = v19 + v20;
+  a2[4] = v16;
+  a2[5] = v19 + v20;
   return result;
 }

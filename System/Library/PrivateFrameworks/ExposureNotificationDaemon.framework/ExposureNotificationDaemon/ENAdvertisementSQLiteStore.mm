@@ -37,6 +37,7 @@
 - (int)initializePreparedStatements;
 - (int)initializeRPIBufferModule;
 - (int)migrateDatabase;
+- (int)migrateFromVersion:(int)version;
 - (int)openDatabase;
 - (int)rollbackDatabaseTransaction;
 - (int)setVersionCurrent;
@@ -86,7 +87,7 @@
   {
     if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
     {
-      +[ENAdvertisementSQLiteStore temporaryStoreInFolderPath:error:];
+      [ENAdvertisementSQLiteStore temporaryStoreInFolderPath:v8 error:?];
       if (error)
       {
         goto LABEL_6;
@@ -143,12 +144,12 @@ LABEL_10:
 
 + (id)temporaryStorePathsInFolderPath:(id)path
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   defaultManager = [MEMORY[0x277CCAA08] defaultManager];
-  v23 = 0;
-  v6 = [defaultManager contentsOfDirectoryAtPath:pathCopy error:&v23];
-  v7 = v23;
+  v22 = 0;
+  v6 = [defaultManager contentsOfDirectoryAtPath:pathCopy error:&v22];
+  v7 = v22;
 
   v8 = objc_alloc_init(MEMORY[0x277CBEB10]);
   if (v6)
@@ -163,34 +164,34 @@ LABEL_10:
 
   if (v9)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = v6;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * i);
-          if ([self isTemporaryStore:{v15, v19}])
+          v15 = *(*(&v18 + 1) + 8 * i);
+          if ([self isTemporaryStore:{v15, v18}])
           {
             v16 = [pathCopy stringByAppendingPathComponent:v15];
             [v8 addObject:v16];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
       while (v12);
@@ -202,11 +203,9 @@ LABEL_10:
   if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
   {
     [(ENAdvertisementSQLiteStore *)v7 temporaryStorePathsInFolderPath:?];
-    v10 = v24;
+    v10 = v23;
 LABEL_18:
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -221,30 +220,30 @@ LABEL_18:
 
 + (id)temporaryStoresInFolderPath:(id)path
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v5 = objc_alloc_init(MEMORY[0x277CBEB10]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = [self temporaryStorePathsInFolderPath:{pathCopy, 0}];
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * v10);
+        v11 = *(*(&v15 + 1) + 8 * v10);
         if (gLogCategory_ENAdvertisementSQLiteStore <= 40 && (gLogCategory_ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
         {
           [ENAdvertisementSQLiteStore temporaryStoresInFolderPath:v11];
@@ -260,43 +259,41 @@ LABEL_18:
       }
 
       while (v8 != v10);
-      v13 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v13 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       v8 = v13;
     }
 
     while (v13);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 + (void)enumerateTemporaryStoresInFolderPath:(id)path handler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = [self temporaryStorePathsInFolderPath:path];
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       v11 = 0;
       do
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * v11);
+        v12 = *(*(&v16 + 1) + 8 * v11);
         if (gLogCategory_ENAdvertisementSQLiteStore <= 40 && (gLogCategory_ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
         {
           [ENAdvertisementSQLiteStore enumerateTemporaryStoresInFolderPath:v12 handler:?];
@@ -305,9 +302,9 @@ LABEL_18:
         v13 = [[ENAdvertisementSQLiteStore alloc] initWithPath:v12];
         if (v13)
         {
-          v16 = 0;
-          handlerCopy[2](handlerCopy, v13, &v16);
-          if (v16)
+          v15 = 0;
+          handlerCopy[2](handlerCopy, v13, &v15);
+          if (v15)
           {
 
             goto LABEL_20;
@@ -323,7 +320,7 @@ LABEL_18:
       }
 
       while (v9 != v11);
-      v14 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v14 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       v9 = v14;
     }
 
@@ -331,18 +328,16 @@ LABEL_18:
   }
 
 LABEL_20:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (id)storePathsInFolderPath:(id)path
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   defaultManager = [MEMORY[0x277CCAA08] defaultManager];
-  v23 = 0;
-  v6 = [defaultManager contentsOfDirectoryAtPath:pathCopy error:&v23];
-  v7 = v23;
+  v22 = 0;
+  v6 = [defaultManager contentsOfDirectoryAtPath:pathCopy error:&v22];
+  v7 = v22;
 
   v8 = objc_alloc_init(MEMORY[0x277CBEB10]);
   if (v6)
@@ -357,34 +352,34 @@ LABEL_20:
 
   if (v9)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = v6;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * i);
-          if ([self isStore:{v15, v19}])
+          v15 = *(*(&v18 + 1) + 8 * i);
+          if ([self isStore:{v15, v18}])
           {
             v16 = [pathCopy stringByAppendingPathComponent:v15];
             [v8 addObject:v16];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
       while (v12);
@@ -396,11 +391,9 @@ LABEL_20:
   if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
   {
     [(ENAdvertisementSQLiteStore *)v7 storePathsInFolderPath:?];
-    v10 = v24;
+    v10 = v23;
 LABEL_18:
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -525,7 +518,7 @@ LABEL_18:
   {
     if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore importContentsOfStore:error:]", 90, "failed to allocate import advertisementBuffer");
     }
 
     *(v20 + 24) = 0;
@@ -549,13 +542,7 @@ uint64_t __58__ENAdvertisementSQLiteStore_importContentsOfStore_error___block_in
   *v3 = v4;
   *(v3 + 16) = v5;
   ++*(*(*(a1 + 40) + 8) + 24);
-  if (v2 != *(a1 + 56) - 1)
-  {
-    return 1;
-  }
-
-  v7 = *(a1 + 72);
-  if ([*(a1 + 32) saveContactTracingAdvertisementBuffer:*(a1 + 64) count:? error:?])
+  if (v2 != *(a1 + 56) - 1 || ([*(a1 + 32) saveContactTracingAdvertisementBuffer:*(a1 + 64) count:? error:?] & 1) != 0)
   {
     return 1;
   }
@@ -580,27 +567,31 @@ uint64_t __58__ENAdvertisementSQLiteStore_importContentsOfStore_error___block_in
 
 - (BOOL)connectToDatabaseAndReturnError:(id *)error
 {
-  [(NSString *)self->_databasePath UTF8String];
-  if (gLogCategory_ENAdvertisementSQLiteStore <= 50 && (gLogCategory_ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
+  uTF8String = [(NSString *)self->_databasePath UTF8String];
+  if (gLogCategory_ENAdvertisementSQLiteStore <= 50)
   {
-    [ENAdvertisementSQLiteStore connectToDatabaseAndReturnError:];
+    v6 = uTF8String;
+    if (gLogCategory_ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize())
+    {
+      [ENAdvertisementSQLiteStore connectToDatabaseAndReturnError:v6];
+    }
   }
 
   openDatabase = [(ENAdvertisementSQLiteStore *)self openDatabase];
   if (openDatabase)
   {
-    v6 = openDatabase;
+    v10 = openDatabase;
     if (gLogCategory__ENAdvertisementSQLiteStore <= 90)
     {
-      if (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize())
+      if (gLogCategory__ENAdvertisementSQLiteStore != -1 || (openDatabase = _LogCategory_Initialize(), openDatabase))
       {
-        [ENAdvertisementSQLiteStore connectToDatabaseAndReturnError:];
+        [(ENAdvertisementSQLiteStore *)openDatabase connectToDatabaseAndReturnError:v8, v9];
       }
 
 LABEL_41:
       if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
       {
-        [ENAdvertisementSQLiteStore connectToDatabaseAndReturnError:];
+        [ENAdvertisementSQLiteStore connectToDatabaseAndReturnError:v10];
       }
     }
   }
@@ -610,12 +601,12 @@ LABEL_41:
     configureDatabase = [(ENAdvertisementSQLiteStore *)self configureDatabase];
     if (configureDatabase)
     {
-      v6 = configureDatabase;
+      v10 = configureDatabase;
       if (gLogCategory__ENAdvertisementSQLiteStore <= 90)
       {
-        if (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize())
+        if (gLogCategory__ENAdvertisementSQLiteStore != -1 || (configureDatabase = _LogCategory_Initialize(), configureDatabase))
         {
-          [ENAdvertisementSQLiteStore connectToDatabaseAndReturnError:];
+          [(ENAdvertisementSQLiteStore *)configureDatabase connectToDatabaseAndReturnError:v12, v13];
         }
 
         goto LABEL_41;
@@ -627,12 +618,12 @@ LABEL_41:
       migrateDatabase = [(ENAdvertisementSQLiteStore *)self migrateDatabase];
       if (migrateDatabase)
       {
-        v6 = migrateDatabase;
+        v10 = migrateDatabase;
         if (gLogCategory__ENAdvertisementSQLiteStore <= 90)
         {
-          if (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize())
+          if (gLogCategory__ENAdvertisementSQLiteStore != -1 || (migrateDatabase = _LogCategory_Initialize(), migrateDatabase))
           {
-            [ENAdvertisementSQLiteStore connectToDatabaseAndReturnError:];
+            [(ENAdvertisementSQLiteStore *)migrateDatabase connectToDatabaseAndReturnError:v15, v16];
           }
 
           goto LABEL_41;
@@ -644,12 +635,12 @@ LABEL_41:
         initializeAdvertisementTable = [(ENAdvertisementSQLiteStore *)self initializeAdvertisementTable];
         if (initializeAdvertisementTable)
         {
-          v6 = initializeAdvertisementTable;
+          v10 = initializeAdvertisementTable;
           if (gLogCategory__ENAdvertisementSQLiteStore <= 90)
           {
-            if (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize())
+            if (gLogCategory__ENAdvertisementSQLiteStore != -1 || (initializeAdvertisementTable = _LogCategory_Initialize(), initializeAdvertisementTable))
             {
-              [ENAdvertisementSQLiteStore connectToDatabaseAndReturnError:];
+              [(ENAdvertisementSQLiteStore *)initializeAdvertisementTable connectToDatabaseAndReturnError:v18, v19];
             }
 
             goto LABEL_41;
@@ -661,12 +652,12 @@ LABEL_41:
           initializeRPIBufferModule = [(ENAdvertisementSQLiteStore *)self initializeRPIBufferModule];
           if (initializeRPIBufferModule)
           {
-            v6 = initializeRPIBufferModule;
+            v10 = initializeRPIBufferModule;
             if (gLogCategory__ENAdvertisementSQLiteStore <= 90)
             {
-              if (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize())
+              if (gLogCategory__ENAdvertisementSQLiteStore != -1 || (initializeRPIBufferModule = _LogCategory_Initialize(), initializeRPIBufferModule))
               {
-                [ENAdvertisementSQLiteStore connectToDatabaseAndReturnError:];
+                [(ENAdvertisementSQLiteStore *)initializeRPIBufferModule connectToDatabaseAndReturnError:v21, v22];
               }
 
               goto LABEL_41;
@@ -678,8 +669,8 @@ LABEL_41:
             initializePreparedStatements = [(ENAdvertisementSQLiteStore *)self initializePreparedStatements];
             if (!initializePreparedStatements)
             {
-              v15 = 0;
-              if ([(ENAdvertisementSQLiteStore *)self refreshStoredAdvertismentCountWithError:&v15])
+              v29 = 0;
+              if ([(ENAdvertisementSQLiteStore *)self refreshStoredAdvertismentCountWithError:&v29])
               {
                 return 1;
               }
@@ -689,16 +680,16 @@ LABEL_41:
                 [ENAdvertisementSQLiteStore connectToDatabaseAndReturnError:];
               }
 
-              v6 = 1;
+              v10 = 1;
               goto LABEL_41;
             }
 
-            v6 = initializePreparedStatements;
+            v10 = initializePreparedStatements;
             if (gLogCategory__ENAdvertisementSQLiteStore <= 90)
             {
-              if (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize())
+              if (gLogCategory__ENAdvertisementSQLiteStore != -1 || (initializePreparedStatements = _LogCategory_Initialize(), initializePreparedStatements))
               {
-                [ENAdvertisementSQLiteStore connectToDatabaseAndReturnError:];
+                [(ENAdvertisementSQLiteStore *)initializePreparedStatements connectToDatabaseAndReturnError:v24, v25];
               }
 
               goto LABEL_41;
@@ -709,7 +700,7 @@ LABEL_41:
     }
   }
 
-  if (v6 == 26 || v6 == 11)
+  if (v10 == 26 || v10 == 11)
   {
     if (gLogCategory_ENAdvertisementSQLiteStore <= 50 && (gLogCategory_ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
     {
@@ -732,10 +723,10 @@ LABEL_41:
     return 0;
   }
 
-  v13 = [objc_opt_class() errorForSQLiteResult:v6];
-  v14 = v13;
+  v27 = [objc_opt_class() errorForSQLiteResult:v10];
+  v28 = v27;
   result = 0;
-  *error = v13;
+  *error = v27;
   return result;
 }
 
@@ -760,8 +751,8 @@ LABEL_41:
   database = self->_database;
   if (database)
   {
-    v4 = sqlite3_close(database);
-    if (v4)
+    v5 = sqlite3_close(database);
+    if (v5)
     {
       if (gLogCategory_ENAdvertisementSQLiteStore <= 90 && (gLogCategory_ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
       {
@@ -777,51 +768,64 @@ LABEL_41:
 
   else
   {
-    if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
+    if (gLogCategory__ENAdvertisementSQLiteStore <= 90)
     {
-      [ENAdvertisementSQLiteStore closeDatabase];
+      if (gLogCategory__ENAdvertisementSQLiteStore != -1 || (database = _LogCategory_Initialize(), database))
+      {
+        [(ENAdvertisementSQLiteStore *)database closeDatabase];
+      }
     }
 
     return 1;
   }
 
-  return v4;
+  return v5;
 }
 
 - (int)configureDatabase
 {
-  [(NSString *)self->_databasePath UTF8String];
-  if (gLogCategory_ENAdvertisementSQLiteStore <= 50 && (gLogCategory_ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
+  uTF8String = [(NSString *)self->_databasePath UTF8String];
+  if (gLogCategory_ENAdvertisementSQLiteStore <= 50)
   {
-    [ENAdvertisementSQLiteStore configureDatabase];
+    v4 = uTF8String;
+    if (gLogCategory_ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize())
+    {
+      [(ENAdvertisementSQLiteStore *)v4 configureDatabase];
+    }
   }
 
-  if (sqlite3_busy_timeout(self->_database, 600000) && gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
+  busy = sqlite3_busy_timeout(self->_database, 600000);
+  if (busy)
   {
-    [ENAdvertisementSQLiteStore configureDatabase];
+    if (gLogCategory__ENAdvertisementSQLiteStore <= 90)
+    {
+      if (gLogCategory__ENAdvertisementSQLiteStore != -1 || (busy = _LogCategory_Initialize(), busy))
+      {
+        [(ENAdvertisementSQLiteStore *)busy configureDatabase];
+      }
+    }
   }
 
-  v3 = sqlite3_exec(self->_database, "pragma auto_vacuum = 1;", 0, 0, 0);
-  if (v3)
+  v8 = sqlite3_exec(self->_database, "pragma auto_vacuum = 1;", 0, 0, 0);
+  if (v8)
   {
-    v4 = v3;
+    v9 = v8;
     if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
     {
-LABEL_15:
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore configureDatabase]", 90, "Failed to enable vacuuming");
     }
   }
 
   else
   {
-    v4 = sqlite3_exec(self->_database, "pragma journal_mode=WAL;", 0, 0, 0);
-    if (v4 && gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
+    v9 = sqlite3_exec(self->_database, "pragma journal_mode=WAL;", 0, 0, 0);
+    if (v9 && gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_15;
+      LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore configureDatabase]", 90, "Failed to enable journaling");
     }
   }
 
-  return v4;
+  return v9;
 }
 
 - (int)migrateDatabase
@@ -866,13 +870,91 @@ LABEL_16:
   {
     if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
     {
-      [ENAdvertisementSQLiteStore migrateDatabase];
+      [(ENAdvertisementSQLiteStore *)v6 migrateDatabase];
     }
 
     return [(ENAdvertisementSQLiteStore *)self migrateFromVersion:v6];
   }
 
   return v4;
+}
+
+- (int)migrateFromVersion:(int)version
+{
+  v3 = *&version;
+  if ([(ENAdvertisementSQLiteStore *)self transactionNeededForMigrationFromVersion:?])
+  {
+    beginDatabaseTransaction = [(ENAdvertisementSQLiteStore *)self beginDatabaseTransaction];
+    if (beginDatabaseTransaction)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (v3 && v3 <= 2)
+  {
+    if (v3 == 1)
+    {
+      v6 = sqlite3_exec(self->_database, "ALTER TABLE en_advertisements ADD COLUMN max_rssi INTEGER;", 0, 0, 0);
+      if (v6)
+      {
+        beginDatabaseTransaction = v6;
+        if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
+        {
+LABEL_10:
+          [ENAdvertisementSQLiteStore migrateFromVersion:];
+        }
+
+LABEL_18:
+        if ([(ENAdvertisementSQLiteStore *)self transactionNeededForMigrationFromVersion:v3]&& [(ENAdvertisementSQLiteStore *)self rollbackDatabaseTransaction]&& gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
+        {
+          [ENAdvertisementSQLiteStore migrateFromVersion:];
+        }
+
+        return beginDatabaseTransaction;
+      }
+
+      v11 = sqlite3_exec(self->_database, "UPDATE en_advertisements SET max_rssi = rssi;", 0, 0, 0);
+      if (v11)
+      {
+        beginDatabaseTransaction = v11;
+        if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
+        {
+          goto LABEL_10;
+        }
+
+        goto LABEL_18;
+      }
+    }
+  }
+
+  else if (![(ENAdvertisementSQLiteStore *)self purgeAndRemoveFromDisk:0])
+  {
+    beginDatabaseTransaction = 1;
+    goto LABEL_18;
+  }
+
+  setVersionCurrent = [(ENAdvertisementSQLiteStore *)self setVersionCurrent];
+  if (setVersionCurrent)
+  {
+    beginDatabaseTransaction = setVersionCurrent;
+    if (gLogCategory__ENAdvertisementSQLiteStore <= 90)
+    {
+      if (gLogCategory__ENAdvertisementSQLiteStore != -1 || (setVersionCurrent = _LogCategory_Initialize(), setVersionCurrent))
+      {
+        [(ENAdvertisementSQLiteStore *)setVersionCurrent migrateFromVersion:v8, v9];
+      }
+    }
+
+    goto LABEL_18;
+  }
+
+  if (![(ENAdvertisementSQLiteStore *)self transactionNeededForMigrationFromVersion:v3])
+  {
+    return 0;
+  }
+
+  return [(ENAdvertisementSQLiteStore *)self endDatabaseTransaction];
 }
 
 - (int)setVersionCurrent
@@ -927,28 +1009,28 @@ LABEL_16:
   self->_preparedStatements = v3;
   if (v3)
   {
-    v4 = 0;
-    v5 = 0;
+    v6 = 0;
+    v7 = 0;
     while (1)
     {
-      v6 = [objc_opt_class() statementStringForStatementType:v5];
-      uTF8String = [v6 UTF8String];
+      v8 = [objc_opt_class() statementStringForStatementType:v7];
+      uTF8String = [v8 UTF8String];
 
-      v8 = sqlite3_prepare(self->_database, uTF8String, -1, &self->_preparedStatements[v4], 0);
-      if (v8)
+      v10 = sqlite3_prepare(self->_database, uTF8String, -1, &self->_preparedStatements[v6], 0);
+      if (v10)
       {
         break;
       }
 
-      ++v5;
-      ++v4;
-      if (v5 == 5)
+      ++v7;
+      ++v6;
+      if (v7 == 5)
       {
         return 0;
       }
     }
 
-    v9 = v8;
+    v11 = v10;
     if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
     {
       [ENAdvertisementSQLiteStore initializePreparedStatements];
@@ -960,15 +1042,18 @@ LABEL_16:
 
   else
   {
-    if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
+    if (gLogCategory__ENAdvertisementSQLiteStore <= 90)
     {
-      [ENAdvertisementSQLiteStore initializePreparedStatements];
+      if (gLogCategory__ENAdvertisementSQLiteStore != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(ENAdvertisementSQLiteStore *)v3 initializePreparedStatements];
+      }
     }
 
     return 7;
   }
 
-  return v9;
+  return v11;
 }
 
 - (void)enumeratePreparedStatements:(id)statements
@@ -1112,13 +1197,13 @@ LABEL_17:
   {
     if (gLogCategory__ENAdvertisementSQLiteStore != -1)
     {
-      return +[ENAdvertisementSQLiteStore advertisementForSQLiteStatement:];
+      return [ENAdvertisementSQLiteStore advertisementForSQLiteStatement:v6];
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return +[ENAdvertisementSQLiteStore advertisementForSQLiteStatement:];
+      return [ENAdvertisementSQLiteStore advertisementForSQLiteStatement:v6];
     }
   }
 
@@ -1280,7 +1365,7 @@ LABEL_11:
 
 - (BOOL)saveContactTracingAdvertisementBuffer:(id *)buffer count:(unint64_t)count error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v9 = [(ENAdvertisementSQLiteStore *)self preparedStatementOfType:0];
   beginDatabaseTransaction = [(ENAdvertisementSQLiteStore *)self beginDatabaseTransaction];
   if (!beginDatabaseTransaction)
@@ -1295,10 +1380,10 @@ LABEL_11:
     while (1)
     {
       v15 = *buffer->var1.var0;
-      v20[0] = buffer->var0;
-      v20[1] = v15;
-      v21 = *&buffer->var3;
-      v16 = [(ENAdvertisementSQLiteStore *)self bindAdvertisement:v20 toSQLiteStatement:v9];
+      v19[0] = buffer->var0;
+      v19[1] = v15;
+      v20 = *&buffer->var3;
+      v16 = [(ENAdvertisementSQLiteStore *)self bindAdvertisement:v19 toSQLiteStatement:v9];
       if (v16)
       {
         break;
@@ -1381,53 +1466,51 @@ LABEL_18:
 
 LABEL_20:
   sqlite3_reset(v9);
-  result = beginDatabaseTransaction == 0;
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return beginDatabaseTransaction == 0;
 }
 
 - (int)enumerateAdvertisments:(id)advertisments
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   advertismentsCopy = advertisments;
   v5 = [(ENAdvertisementSQLiteStore *)self preparedStatementOfType:2];
   if (![(ENAdvertisementSQLiteStore *)self beginDatabaseTransaction])
   {
     while (1)
     {
-      v9 = sqlite3_step(v5);
-      if (v9 != 100)
+      v8 = sqlite3_step(v5);
+      if (v8 != 100)
       {
         break;
       }
 
-      v16 = 0;
+      v15 = 0;
+      v13 = 0u;
       v14 = 0u;
-      v15 = 0u;
-      v10 = objc_opt_class();
-      if (v10)
+      v9 = objc_opt_class();
+      if (v9)
       {
-        [v10 advertisementForSQLiteStatement:v5];
+        objc_msgSend_advertisementForSQLiteStatement_(v9);
       }
 
       else
       {
-        v16 = 0;
+        v15 = 0;
+        v13 = 0u;
         v14 = 0u;
-        v15 = 0u;
       }
 
-      v11 = advertismentsCopy[2];
-      v12[0] = v14;
-      v12[1] = v15;
-      v13 = v16;
-      if ((v11(advertismentsCopy, v12) & 1) == 0)
+      v10 = advertismentsCopy[2];
+      v11[0] = v13;
+      v11[1] = v14;
+      v12 = v15;
+      if ((v10(advertismentsCopy, v11) & 1) == 0)
       {
         goto LABEL_2;
       }
     }
 
-    if (v9 != 101 && gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
+    if (v8 != 101 && gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
     {
       [ENAdvertisementSQLiteStore enumerateAdvertisments:];
     }
@@ -1437,7 +1520,6 @@ LABEL_2:
   endDatabaseTransaction = [(ENAdvertisementSQLiteStore *)self endDatabaseTransaction];
   sqlite3_reset(v5);
 
-  v7 = *MEMORY[0x277D85DE8];
   return endDatabaseTransaction;
 }
 
@@ -1490,16 +1572,15 @@ LABEL_2:
 
 uint64_t __85__ENAdvertisementSQLiteStore_beaconCountMetricsWithStartDate_endDate_windowDuration___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = [ENAdvertisement alloc];
   v5 = *(a2 + 16);
-  v9[0] = *a2;
-  v9[1] = v5;
-  v10 = *(a2 + 32);
-  v6 = [(ENAdvertisement *)v4 initWithStructRepresentation:v9];
+  v8[0] = *a2;
+  v8[1] = v5;
+  v9 = *(a2 + 32);
+  v6 = [(ENAdvertisement *)v4 initWithStructRepresentation:v8];
   [*(a1 + 32) addAdvertisement:v6];
 
-  v7 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1513,34 +1594,37 @@ uint64_t __85__ENAdvertisementSQLiteStore_beaconCountMetricsWithStartDate_endDat
     v13 = v12;
     if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
     {
-LABEL_18:
-      sqlite3_errmsg(self->_database);
-      sqlite3_extended_errcode(self->_database);
-      LogPrintF_safe();
+      v14 = "Failed to bind RPI buffer to query statement (%s, %d)";
+LABEL_19:
+      v17 = sqlite3_errmsg(self->_database);
+      v18 = sqlite3_extended_errcode(self->_database);
+      LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore bindRPIBuffer:count:validityBuffer:validRPICount:toSQLiteStatement:]", 90, v14, v17, v18);
     }
   }
 
   else
   {
-    v14 = sqlite3_bind_pointer(statement, 2, validityBuffer, "ct_sqlite_rpi_validity_buffer", 0);
-    if (v14)
+    v15 = sqlite3_bind_pointer(statement, 2, validityBuffer, "ct_sqlite_rpi_validity_buffer", 0);
+    if (v15)
     {
-      v13 = v14;
+      v13 = v15;
       if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_18;
+        v14 = "Failed to bind validity buffer to query statement (%s, %d)";
+        goto LABEL_19;
       }
     }
 
     else
     {
-      v15 = sqlite3_bind_int(statement, 3, countCopy);
-      if (v15)
+      v16 = sqlite3_bind_int(statement, 3, countCopy);
+      if (v16)
       {
-        v13 = v15;
+        v13 = v16;
         if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
         {
-          goto LABEL_18;
+          v14 = "Failed to bind RPI buffer count to query statement (%s, %d)";
+          goto LABEL_19;
         }
       }
 
@@ -1549,7 +1633,8 @@ LABEL_18:
         v13 = sqlite3_bind_int(statement, 4, iCountCopy);
         if (v13 && gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
         {
-          goto LABEL_18;
+          v14 = "Failed to bind valid RPI count to query statement (%s, %d)";
+          goto LABEL_19;
         }
       }
     }
@@ -1560,34 +1645,40 @@ LABEL_18:
 
 - (unint64_t)getAdvertisementsMatchingRPIBuffer:(const void *)buffer count:(unint64_t)count validityBuffer:(const void *)validityBuffer validRPICount:(unint64_t)iCount matchingAdvertisementBuffer:(id *)advertisementBuffer error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
   storedAdvertisementCount = [(ENAdvertisementSQLiteStore *)self storedAdvertisementCount];
   if (storedAdvertisementCount)
   {
   }
 
-  else if (![(ENAdvertisementSQLiteStore *)self refreshStoredAdvertismentCountWithError:error])
+  else
   {
-    if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
+    v16 = [(ENAdvertisementSQLiteStore *)self refreshStoredAdvertismentCountWithError:error];
+    if ((v16 & 1) == 0)
     {
-      [ENAdvertisementSQLiteStore getAdvertisementsMatchingRPIBuffer:count:validityBuffer:validRPICount:matchingAdvertisementBuffer:error:];
-    }
+      if (gLogCategory__ENAdvertisementSQLiteStore <= 90)
+      {
+        if (gLogCategory__ENAdvertisementSQLiteStore != -1 || (v16 = _LogCategory_Initialize(), v16))
+        {
+          [ENAdvertisementSQLiteStore getAdvertisementsMatchingRPIBuffer:v16 count:v17 validityBuffer:v18 validRPICount:? matchingAdvertisementBuffer:? error:?];
+        }
+      }
 
-    goto LABEL_21;
+      return 0;
+    }
   }
 
   storedAdvertisementCount2 = [(ENAdvertisementSQLiteStore *)self storedAdvertisementCount];
   unsignedIntValue = [storedAdvertisementCount2 unsignedIntValue];
 
-  v18 = malloc_type_calloc(unsignedIntValue, 0x28uLL, 0x10000400A747E1EuLL);
-  if (v18)
+  v21 = malloc_type_calloc(unsignedIntValue, 0x28uLL, 0x10000400A747E1EuLL);
+  if (v21)
   {
-    v19 = v18;
-    v20 = [(ENAdvertisementSQLiteStore *)self preparedStatementOfType:3];
-    v21 = [(ENAdvertisementSQLiteStore *)self bindRPIBuffer:buffer count:count validityBuffer:validityBuffer validRPICount:iCount toSQLiteStatement:v20];
-    if (v21)
+    v24 = v21;
+    v25 = [(ENAdvertisementSQLiteStore *)self preparedStatementOfType:3];
+    v26 = [(ENAdvertisementSQLiteStore *)self bindRPIBuffer:buffer count:count validityBuffer:validityBuffer validRPICount:iCount toSQLiteStatement:v25];
+    if (v26)
     {
-      beginDatabaseTransaction = v21;
+      beginDatabaseTransaction = v26;
       if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
       {
         [ENAdvertisementSQLiteStore getAdvertisementsMatchingRPIBuffer:? count:? validityBuffer:? validRPICount:? matchingAdvertisementBuffer:? error:?];
@@ -1599,44 +1690,44 @@ LABEL_18:
       beginDatabaseTransaction = [(ENAdvertisementSQLiteStore *)self beginDatabaseTransaction];
       if (!beginDatabaseTransaction)
       {
-        v23 = 0;
+        v28 = 0;
         while (1)
         {
-          v24 = sqlite3_step(v20);
-          if (v24 != 100)
+          v29 = sqlite3_step(v25);
+          if (v29 != 100)
           {
             break;
           }
 
-          if (v23 < unsignedIntValue)
+          if (v28 < unsignedIntValue)
           {
-            v28 = objc_opt_class();
-            if (v28)
+            v33 = objc_opt_class();
+            if (v33)
             {
-              [v28 advertisementForSQLiteStatement:v20];
+              objc_msgSend_advertisementForSQLiteStatement_(v33);
             }
 
             else
             {
-              v34 = 0;
-              v32 = 0u;
-              v33 = 0u;
+              v38 = 0;
+              v36 = 0u;
+              v37 = 0u;
             }
 
-            v29 = v19 + 40 * v23++;
-            *(v29 + 4) = v34;
-            *v29 = v32;
-            *(v29 + 1) = v33;
+            v34 = v24 + 40 * v28++;
+            *(v34 + 4) = v38;
+            *v34 = v36;
+            *(v34 + 1) = v37;
           }
 
           else
           {
-            v25 = +[ENLoggingPrefs sharedENLoggingPrefs];
-            isSensitiveLoggingAllowed = [v25 isSensitiveLoggingAllowed];
+            v30 = +[ENLoggingPrefs sharedENLoggingPrefs];
+            isSensitiveLoggingAllowed = [v30 isSensitiveLoggingAllowed];
 
             if (isSensitiveLoggingAllowed && gLogCategory_ENAdvertisementSQLiteStore <= 90 && (gLogCategory_ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
             {
-              [ENAdvertisementSQLiteStore getAdvertisementsMatchingRPIBuffer:count:validityBuffer:validRPICount:matchingAdvertisementBuffer:error:];
+              [ENAdvertisementSQLiteStore getAdvertisementsMatchingRPIBuffer:unsignedIntValue count:? validityBuffer:? validRPICount:? matchingAdvertisementBuffer:? error:?];
             }
 
             storedAdvertisementCount = self->_storedAdvertisementCount;
@@ -1644,8 +1735,8 @@ LABEL_18:
           }
         }
 
-        beginDatabaseTransaction = v24;
-        if (v24 == 101)
+        beginDatabaseTransaction = v29;
+        if (v29 == 101)
         {
           goto LABEL_17;
         }
@@ -1661,43 +1752,42 @@ LABEL_18:
 
     if (beginDatabaseTransaction == 101)
     {
-      v23 = 0;
+      v28 = 0;
 LABEL_17:
-      *advertisementBuffer = v19;
+      *advertisementBuffer = v24;
 LABEL_42:
-      [(ENAdvertisementSQLiteStore *)self endDatabaseTransaction:v32];
-      sqlite3_clear_bindings(v20);
-      sqlite3_reset(v20);
-      goto LABEL_43;
+      [(ENAdvertisementSQLiteStore *)self endDatabaseTransaction:v36];
+      sqlite3_clear_bindings(v25);
+      sqlite3_reset(v25);
+      return v28;
     }
 
 LABEL_39:
-    free(v19);
+    free(v24);
     *advertisementBuffer = 0;
     if (error)
     {
       [objc_opt_class() errorForSQLiteResult:beginDatabaseTransaction];
-      *error = v23 = 0;
+      *error = v28 = 0;
     }
 
     else
     {
-      v23 = 0;
+      v28 = 0;
     }
 
     goto LABEL_42;
   }
 
-  if (gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
+  if (gLogCategory__ENAdvertisementSQLiteStore <= 90)
   {
-    [ENAdvertisementSQLiteStore getAdvertisementsMatchingRPIBuffer:count:validityBuffer:validRPICount:matchingAdvertisementBuffer:error:];
+    if (gLogCategory__ENAdvertisementSQLiteStore != -1 || (v21 = _LogCategory_Initialize(), v21))
+    {
+      [ENAdvertisementSQLiteStore getAdvertisementsMatchingRPIBuffer:v21 count:v22 validityBuffer:v23 validRPICount:? matchingAdvertisementBuffer:? error:?];
+    }
   }
 
-LABEL_21:
-  v23 = 0;
-LABEL_43:
-  v30 = *MEMORY[0x277D85DE8];
-  return v23;
+  return 0;
 }
 
 - (BOOL)purgeAdvertismentsRecordedPriorToDate:(id)date error:(id *)error
@@ -1706,7 +1796,7 @@ LABEL_43:
   v7 = v6;
   if (gLogCategory_ENAdvertisementSQLiteStore <= 50 && (gLogCategory_ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
   {
-    [ENAdvertisementSQLiteStore purgeAdvertismentsRecordedPriorToDate:? error:?];
+    [ENAdvertisementSQLiteStore purgeAdvertismentsRecordedPriorToDate:v7 error:?];
   }
 
   v8 = [(ENAdvertisementSQLiteStore *)self preparedStatementOfType:4];
@@ -1777,9 +1867,13 @@ LABEL_22:
   }
 
 LABEL_27:
-  if (![(ENAdvertisementSQLiteStore *)self refreshStoredAdvertismentCountWithError:error]&& gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
+  v12 = [(ENAdvertisementSQLiteStore *)self refreshStoredAdvertismentCountWithError:error];
+  if ((v12 & 1) == 0 && gLogCategory__ENAdvertisementSQLiteStore <= 90)
   {
-    [ENAdvertisementSQLiteStore purgeAdvertismentsRecordedPriorToDate:error:];
+    if (gLogCategory__ENAdvertisementSQLiteStore != -1 || (v12 = _LogCategory_Initialize(), v12))
+    {
+      [(ENAdvertisementSQLiteStore *)v12 purgeAdvertismentsRecordedPriorToDate:v13 error:v14];
+    }
   }
 
   sqlite3_reset(v8);
@@ -1788,12 +1882,12 @@ LABEL_27:
 
 + (BOOL)removeAllDatabaseFilesWithDatabasePath:(id)path
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   defaultManager = [MEMORY[0x277CCAA08] defaultManager];
-  v27 = 0;
-  v5 = [defaultManager removeItemAtPath:pathCopy error:&v27];
-  v6 = v27;
+  v26 = 0;
+  v5 = [defaultManager removeItemAtPath:pathCopy error:&v26];
+  v6 = v26;
   if (v6)
   {
     v7 = 0;
@@ -1804,39 +1898,39 @@ LABEL_27:
     v7 = v5;
   }
 
-  v20 = v7;
+  v19 = v7;
   if ((v7 & 1) == 0 && gLogCategory_ENAdvertisementSQLiteStore <= 90 && (gLogCategory_ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
   {
     [(ENAdvertisementSQLiteStore *)pathCopy removeAllDatabaseFilesWithDatabasePath:v6];
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   obj = [&unk_285D6E548 allKeys];
-  v8 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v8 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       v11 = 0;
       do
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * v11);
+        v12 = *(*(&v22 + 1) + 8 * v11);
         v13 = [pathCopy stringByAppendingString:v12];
         if ([defaultManager fileExistsAtPath:v13])
         {
-          v22 = v6;
-          v14 = [defaultManager removeItemAtPath:v13 error:&v22];
-          v15 = v22;
+          v21 = v6;
+          v14 = [defaultManager removeItemAtPath:v13 error:&v21];
+          v15 = v21;
 
           if (v14)
           {
@@ -1860,7 +1954,7 @@ LABEL_27:
               [(ENAdvertisementSQLiteStore *)v12 removeAllDatabaseFilesWithDatabasePath:v13, v15];
             }
 
-            v20 = 0;
+            v19 = 0;
             v6 = v15;
           }
         }
@@ -1869,15 +1963,14 @@ LABEL_27:
       }
 
       while (v9 != v11);
-      v17 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v17 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
       v9 = v17;
     }
 
     while (v17);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v20 & 1;
+  return v19 & 1;
 }
 
 - (BOOL)purgeAndRemoveFromDisk:(BOOL)disk
@@ -1885,7 +1978,7 @@ LABEL_27:
   diskCopy = disk;
   if (gLogCategory_ENAdvertisementSQLiteStore <= 50 && (gLogCategory_ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
   {
-    [ENAdvertisementSQLiteStore purgeAndRemoveFromDisk:?];
+    [(ENAdvertisementSQLiteStore *)self purgeAndRemoveFromDisk:diskCopy];
   }
 
   if (self->_database && _sqlite3_db_truncate())
@@ -1931,43 +2024,42 @@ LABEL_12:
 
 - (BOOL)cloneStoreTo:(id)to
 {
-  v4 = [to stringByAppendingPathComponent:@"en_advertisements.db"];
-  [v4 UTF8String];
-  database = self->_database;
-  v6 = _sqlite3_db_copy();
-  if (v6 && gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
+  v3 = [to stringByAppendingPathComponent:@"en_advertisements.db"];
+  [v3 UTF8String];
+  v4 = _sqlite3_db_copy();
+  if (v4 && gLogCategory__ENAdvertisementSQLiteStore <= 90 && (gLogCategory__ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
   {
     [ENAdvertisementSQLiteStore cloneStoreTo:];
   }
 
-  return v6 == 0;
+  return v4 == 0;
 }
 
 + (BOOL)removeAllStoresFromDiskWithFolderPath:(id)path
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = [self storePathsInFolderPath:path];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     v8 = 1;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         if (([self removeAllDatabaseFilesWithDatabasePath:v10] & 1) == 0)
         {
           if (gLogCategory_ENAdvertisementSQLiteStore <= 90 && (gLogCategory_ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
@@ -1982,7 +2074,7 @@ LABEL_12:
       }
 
       while (v6 != v9);
-      v11 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v11 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       v6 = v11;
     }
 
@@ -1994,22 +2086,21 @@ LABEL_12:
     v8 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8 & 1;
 }
 
 + (BOOL)removeAllTemporaryStoresFromDiskWithFolderPath:(id)path lastModifiedBeforeDate:(id)date
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v6 = [self temporaryStorePathsInFolderPath:path];
   defaultManager = [MEMORY[0x277CCAA08] defaultManager];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = v6;
-  v8 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v8 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (!v8)
   {
     v12 = 1;
@@ -2018,23 +2109,23 @@ LABEL_12:
 
   v9 = v8;
   v10 = 0;
-  v11 = *v30;
-  v24 = *MEMORY[0x277CCA148];
+  v11 = *v29;
+  v23 = *MEMORY[0x277CCA148];
   v12 = 1;
   do
   {
     v13 = 0;
     do
     {
-      if (*v30 != v11)
+      if (*v29 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v29 + 1) + 8 * v13);
-      v28 = v10;
-      v15 = [defaultManager attributesOfItemAtPath:v14 error:&v28];
-      v16 = v28;
+      v14 = *(*(&v28 + 1) + 8 * v13);
+      v27 = v10;
+      v15 = [defaultManager attributesOfItemAtPath:v14 error:&v27];
+      v16 = v27;
 
       if (v15)
       {
@@ -2048,7 +2139,7 @@ LABEL_12:
 
       if (v17)
       {
-        v18 = [v15 objectForKey:v24];
+        v18 = [v15 objectForKey:v23];
         if ([v18 compare:dateCopy] == -1)
         {
           if (gLogCategory_ENAdvertisementSQLiteStore <= 40 && (gLogCategory_ENAdvertisementSQLiteStore != -1 || _LogCategory_Initialize()))
@@ -2057,9 +2148,9 @@ LABEL_12:
           }
 
           defaultManager2 = [MEMORY[0x277CCAA08] defaultManager];
-          v27 = 0;
-          v20 = [defaultManager2 removeItemAtPath:v14 error:&v27];
-          v16 = v27;
+          v26 = 0;
+          v20 = [defaultManager2 removeItemAtPath:v14 error:&v26];
+          v16 = v26;
 
           if (!v20 || v16)
           {
@@ -2086,9 +2177,9 @@ LABEL_12:
           goto LABEL_26;
         }
 
-        [(ENAdvertisementSQLiteStore *)v14 removeAllTemporaryStoresFromDiskWithFolderPath:v16 lastModifiedBeforeDate:&v33];
+        [(ENAdvertisementSQLiteStore *)v14 removeAllTemporaryStoresFromDiskWithFolderPath:v16 lastModifiedBeforeDate:&v32];
         v12 = 0;
-        v18 = v33;
+        v18 = v32;
       }
 
 LABEL_26:
@@ -2098,14 +2189,13 @@ LABEL_26:
     }
 
     while (v9 != v13);
-    v21 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v21 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     v9 = v21;
   }
 
   while (v21);
 
 LABEL_34:
-  v22 = *MEMORY[0x277D85DE8];
   return v12 & 1;
 }
 
@@ -2113,25 +2203,22 @@ LABEL_34:
 {
   v3 = [a1 localizedDescription];
   *a2 = v3;
-  [v3 UTF8String];
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "+[ENAdvertisementSQLiteStore temporaryStorePathsInFolderPath:]", 90, "failed to list database files due to error: %s", [v3 UTF8String]);
 }
 
 + (uint64_t)storePathsInFolderPath:(void *)a1 .cold.1(void *a1, void *a2)
 {
   v3 = [a1 localizedDescription];
   *a2 = v3;
-  [v3 UTF8String];
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "+[ENAdvertisementSQLiteStore storePathsInFolderPath:]", 90, "failed to list database files due to error: %s", [v3 UTF8String]);
 }
 
 - (void)importContentsOfStore:(uint64_t)a1 error:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  [*(a1 + 32) UTF8String];
-  v4 = [a2 databasePath];
-  v3 = v4;
-  [v4 UTF8String];
-  LogPrintF_safe();
+  v3 = [*(a1 + 32) UTF8String];
+  v5 = [a2 databasePath];
+  v4 = v5;
+  LogPrintF_safe(&gLogCategory_ENAdvertisementSQLiteStore, "-[ENAdvertisementSQLiteStore importContentsOfStore:error:]", 50, "importing contents of advertisement store destination:%s <-- source:%s", v3, [v5 UTF8String]);
 }
 
 - (uint64_t)migrateDatabase
@@ -2140,7 +2227,7 @@ LABEL_34:
   sqlite3_errmsg(*v0);
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore migrateDatabase]", 90, "Failed to check user_version %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)migrateFromVersion:.cold.1()
@@ -2149,7 +2236,7 @@ LABEL_34:
   sqlite3_errmsg(*v0);
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore migrateFromVersion:]", 90, "Failed to add max_rssi column %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)migrateFromVersion:.cold.4()
@@ -2158,7 +2245,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore migrateFromVersion:]", 90, "Failed to rollback database v2 migration %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)initializeAdvertisementTable
@@ -2167,7 +2254,7 @@ LABEL_34:
   sqlite3_errmsg(*v0);
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore initializeAdvertisementTable]", 90, "Failed to create timestamp index with error %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)initializeRPIBufferModule
@@ -2176,7 +2263,7 @@ LABEL_34:
   sqlite3_errmsg(*v0);
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore initializeRPIBufferModule]", 90, "Failed to initialize ct_sqlite_rpi_buffer module with error %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)initializePreparedStatements
@@ -2185,7 +2272,7 @@ LABEL_34:
   sqlite3_errmsg(*v0);
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore initializePreparedStatements]", 90, "Failed to prepare sqlite statement %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)beginDatabaseTransaction
@@ -2194,7 +2281,7 @@ LABEL_34:
   sqlite3_errmsg(*v0);
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore beginDatabaseTransaction]", 90, "Failed to begin transaction with error %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)endDatabaseTransaction
@@ -2203,7 +2290,7 @@ LABEL_34:
   sqlite3_errmsg(*v0);
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore endDatabaseTransaction]", 90, "Failed to commit transaction with error %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)rollbackDatabaseTransaction
@@ -2212,7 +2299,7 @@ LABEL_34:
   sqlite3_errmsg(*v0);
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore rollbackDatabaseTransaction]", 90, "Failed to rollback transaction with error %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)checkpointWAL
@@ -2221,7 +2308,7 @@ LABEL_34:
   sqlite3_errmsg(*v0);
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore checkpointWAL]", 90, "Failed to checkpoint WAL with error %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)bindAdvertisement:toSQLiteStatement:.cold.1()
@@ -2230,7 +2317,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore bindAdvertisement:toSQLiteStatement:]", 90, "Failed to bind RPI %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)bindAdvertisement:toSQLiteStatement:.cold.2()
@@ -2239,7 +2326,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore bindAdvertisement:toSQLiteStatement:]", 90, "Failed to bind encrypted AEM %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)bindAdvertisement:toSQLiteStatement:.cold.3()
@@ -2248,7 +2335,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore bindAdvertisement:toSQLiteStatement:]", 90, "Failed to bind timestamp %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)bindAdvertisement:toSQLiteStatement:.cold.4()
@@ -2257,7 +2344,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore bindAdvertisement:toSQLiteStatement:]", 90, "Failed to bind scan interval %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)bindAdvertisement:toSQLiteStatement:.cold.5()
@@ -2266,7 +2353,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore bindAdvertisement:toSQLiteStatement:]", 90, "Failed to bind typical RSSI %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)bindAdvertisement:toSQLiteStatement:.cold.6()
@@ -2275,7 +2362,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore bindAdvertisement:toSQLiteStatement:]", 90, "Failed to bind max RSSI %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)bindAdvertisement:toSQLiteStatement:.cold.7()
@@ -2284,7 +2371,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore bindAdvertisement:toSQLiteStatement:]", 90, "Failed to bind saturated %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)bindAdvertisement:toSQLiteStatement:.cold.8()
@@ -2293,7 +2380,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore bindAdvertisement:toSQLiteStatement:]", 90, "Failed to bind count %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)refreshStoredAdvertismentCountWithError:.cold.1()
@@ -2302,7 +2389,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore refreshStoredAdvertismentCountWithError:]", 90, "Failed to execute sqlite count statement %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)saveContactTracingAdvertisementBuffer:count:error:.cold.1()
@@ -2311,7 +2398,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore saveContactTracingAdvertisementBuffer:count:error:]", 90, "Failed to bind sqlite insertion statement %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)saveContactTracingAdvertisementBuffer:count:error:.cold.2()
@@ -2320,7 +2407,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore saveContactTracingAdvertisementBuffer:count:error:]", 90, "Failed to execute sqlite insertion statement %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)saveContactTracingAdvertisementBuffer:count:error:.cold.3()
@@ -2329,7 +2416,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore saveContactTracingAdvertisementBuffer:count:error:]", 90, "Failed to rollback sqlite insertion statement %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)enumerateAdvertisments:.cold.1()
@@ -2338,7 +2425,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore enumerateAdvertisments:]", 90, "Failed to retreive next advertisement %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)queryFilterWithBufferSize:hashCount:attenuationThreshold:.cold.1()
@@ -2347,7 +2434,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore queryFilterWithBufferSize:hashCount:attenuationThreshold:]", 90, "Error creating query filter %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)beaconCountMetricsWithStartDate:endDate:windowDuration:.cold.1()
@@ -2356,14 +2443,14 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore beaconCountMetricsWithStartDate:endDate:windowDuration:]", 90, "Error creating beacon count metrics %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)getAdvertisementsMatchingRPIBuffer:(uint64_t)a1 count:validityBuffer:validRPICount:matchingAdvertisementBuffer:error:.cold.2(uint64_t a1)
 {
-  sqlite3_errmsg(*(a1 + 8));
-  sqlite3_extended_errcode(*(a1 + 8));
-  return LogPrintF_safe();
+  v2 = sqlite3_errmsg(*(a1 + 8));
+  v3 = sqlite3_extended_errcode(*(a1 + 8));
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore getAdvertisementsMatchingRPIBuffer:count:validityBuffer:validRPICount:matchingAdvertisementBuffer:error:]", 90, "Failed to bind data to sqlite statement (%s, %d)", v2, v3);
 }
 
 - (uint64_t)getAdvertisementsMatchingRPIBuffer:count:validityBuffer:validRPICount:matchingAdvertisementBuffer:error:.cold.4()
@@ -2372,7 +2459,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore getAdvertisementsMatchingRPIBuffer:count:validityBuffer:validRPICount:matchingAdvertisementBuffer:error:]", 90, "Failed to query matching advertisements %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)purgeAdvertismentsRecordedPriorToDate:error:.cold.2()
@@ -2381,7 +2468,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore purgeAdvertismentsRecordedPriorToDate:error:]", 90, "Failed to bind data to sqlite statement %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)purgeAdvertismentsRecordedPriorToDate:error:.cold.3()
@@ -2390,7 +2477,7 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore purgeAdvertismentsRecordedPriorToDate:error:]", 90, "Failed to execute contact tracing sqlite purge statement %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)purgeAdvertismentsRecordedPriorToDate:error:.cold.4()
@@ -2399,25 +2486,23 @@ LABEL_34:
   sqlite3_errmsg(*(v0 + 8));
   OUTLINED_FUNCTION_3_4();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore purgeAdvertismentsRecordedPriorToDate:error:]", 90, "Failed to rollback sqlite insertion statement %d (%s, %d)", v2, v3, v4);
 }
 
 + (void)removeAllDatabaseFilesWithDatabasePath:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  [a1 UTF8String];
-  v3 = [a2 localizedDescription];
-  [v3 UTF8String];
-  LogPrintF_safe();
+  v3 = [a1 UTF8String];
+  v4 = [a2 localizedDescription];
+  LogPrintF_safe(&gLogCategory_ENAdvertisementSQLiteStore, "+[ENAdvertisementSQLiteStore removeAllDatabaseFilesWithDatabasePath:]", 90, "failed to remove database at path: %s due to error: %s", v3, [v4 UTF8String]);
 }
 
 + (void)removeAllDatabaseFilesWithDatabasePath:(void *)a3 .cold.2(uint64_t a1, void *a2, void *a3)
 {
   v5 = [&unk_285D6E548 objectForKey:a1];
-  [v5 UTF8String];
-  [a2 UTF8String];
-  v6 = [a3 localizedDescription];
-  [v6 UTF8String];
-  LogPrintF_safe();
+  v6 = [v5 UTF8String];
+  v7 = [a2 UTF8String];
+  v8 = [a3 localizedDescription];
+  LogPrintF_safe(&gLogCategory_ENAdvertisementSQLiteStore, "+[ENAdvertisementSQLiteStore removeAllDatabaseFilesWithDatabasePath:]", 90, "failed to remove database %s at path: %s due to error: %s", v6, v7, [v8 UTF8String]);
 }
 
 - (uint64_t)purgeAndRemoveFromDisk:.cold.2()
@@ -2426,7 +2511,7 @@ LABEL_34:
   sqlite3_errmsg(*v0);
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore purgeAndRemoveFromDisk:]", 90, "Failed to truncate database %d (%s, %d)", v2, v3, v4);
 }
 
 - (uint64_t)cloneStoreTo:.cold.1()
@@ -2435,23 +2520,21 @@ LABEL_34:
   sqlite3_errmsg(*v0);
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1_6();
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "[ENAdvertisementSQLiteStore cloneStoreTo:]", 90, "Failed to clone %d (%s, %d)", v2, v3, v4);
 }
 
 + (void)removeAllTemporaryStoresFromDiskWithFolderPath:(void *)a1 lastModifiedBeforeDate:.cold.2(void *a1)
 {
   v1 = [a1 localizedDescription];
-  [v1 UTF8String];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory__ENAdvertisementSQLiteStore, "+[ENAdvertisementSQLiteStore removeAllTemporaryStoresFromDiskWithFolderPath:lastModifiedBeforeDate:]", 90, "failed to remove database due to error: %s", [v1 UTF8String]);
 }
 
 + (uint64_t)removeAllTemporaryStoresFromDiskWithFolderPath:(void *)a3 lastModifiedBeforeDate:.cold.3(void *a1, void *a2, void *a3)
 {
-  [a1 UTF8String];
-  v5 = [a2 localizedDescription];
-  *a3 = v5;
-  [v5 UTF8String];
-  return LogPrintF_safe();
+  v5 = [a1 UTF8String];
+  v6 = [a2 localizedDescription];
+  *a3 = v6;
+  return LogPrintF_safe(&gLogCategory_ENAdvertisementSQLiteStore, "+[ENAdvertisementSQLiteStore removeAllTemporaryStoresFromDiskWithFolderPath:lastModifiedBeforeDate:]", 90, "failed to fetch file attributes for database at path: %s due to error: %s", v5, [v6 UTF8String]);
 }
 
 @end

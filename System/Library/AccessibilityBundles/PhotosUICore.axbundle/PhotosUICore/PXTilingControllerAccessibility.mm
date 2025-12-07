@@ -41,12 +41,12 @@
   v3 = [(PXTilingControllerAccessibility *)self safeValueForKey:@"_needsUpdateFlags"];
   v4 = __UIAccessibilityCastAsClass();
 
-  *(v15 + 7) = 0;
-  v15[0] = 0;
+  *&v15[7] = 0;
+  *v15 = 0;
   if (!strcmp([v4 objCType], "{?=BBBBBBBBBBB}"))
   {
     [v4 getValue:v15];
-    v5 = HIBYTE(v15[0]);
+    v5 = v15[7];
     v14.receiver = self;
     v14.super_class = PXTilingControllerAccessibility;
     [(PXTilingControllerAccessibility *)&v14 _updateTilesIfNeeded];

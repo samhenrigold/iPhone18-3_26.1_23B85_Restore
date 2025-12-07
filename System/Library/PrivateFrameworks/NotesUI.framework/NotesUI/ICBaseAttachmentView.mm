@@ -233,22 +233,23 @@
 
 uint64_t __38__ICBaseAttachmentView_textAttachment__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v12 = a2;
+  v13 = a2;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v8 = v12;
-    v9 = [v8 attachment];
-    v10 = *(a1 + 32);
+    v9 = v13;
+    v10 = [v9 attachment];
+    v11 = *(a1 + 32);
 
-    if (v9 == v10)
+    if (v10 == v11)
     {
       objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
       *a5 = 1;
     }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](isKindOfClass);
 }
 
 - (void)didChangeSize

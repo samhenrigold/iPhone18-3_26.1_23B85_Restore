@@ -9,6 +9,7 @@
 - (void)setColorTextureBarrierStages:(unint64_t)stages;
 - (void)setDebugTexture:(id)texture;
 - (void)setDenoiseStrengthMaskTexture:(id)texture;
+- (void)setDepthReversed:(BOOL)reversed;
 - (void)setDepthTexture:(id)texture;
 - (void)setDiffuseAlbedoTexture:(id)texture;
 - (void)setExposureTexture:(id)texture;
@@ -25,6 +26,7 @@
 - (void)setPreExposure:(float)exposure;
 - (void)setReactiveMaskTexture:(id)texture;
 - (void)setRoughnessTexture:(id)texture;
+- (void)setShouldResetHistory:(BOOL)history;
 - (void)setSpecularAlbedoTexture:(id)texture;
 - (void)setSpecularHitDistanceTexture:(id)texture;
 - (void)setTransparencyOverlayTexture:(id)texture;
@@ -37,30 +39,29 @@
 
 - (void)dealloc
 {
-  v15 = 0u;
-  v16 = 0u;
   v14 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v14);
-  v4 = v15;
-  *(v15 + 8) = -20371;
-  v5 = BYTE9(v16);
-  if (BYTE9(v16) > 0x38uLL)
+  v15 = 0u;
+  v13 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v13);
+  v3 = v14;
+  *(v14 + 8) = -20371;
+  v4 = BYTE9(v15);
+  if (BYTE9(v15) > 0x38uLL)
   {
-    v7 = *(*(&v14 + 1) + 24);
-    v8 = BYTE10(v16);
-    ++BYTE10(v16);
-    v6 = GTTraceMemPool_allocateBytes(v7, *(&v15 + 1), v8 | 0x800000000) + 16;
-    v5 = v8;
+    v6 = *(*(&v13 + 1) + 24);
+    v7 = BYTE10(v15);
+    ++BYTE10(v15);
+    v5 = GTTraceMemPool_allocateBytes(v6, *(&v14 + 1), v7 | 0x800000000) + 16;
+    v4 = v7;
   }
 
   else
   {
-    v6 = (v4 + BYTE9(v16));
-    BYTE9(v16) += 8;
+    v5 = (v3 + BYTE9(v15));
+    BYTE9(v15) += 8;
   }
 
-  *(v4 + 13) = v5;
+  *(v3 + 13) = v4;
   traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
   if (traceStream)
   {
@@ -72,121 +73,165 @@
     var0 = 0;
   }
 
-  *v6 = var0;
+  *v5 = var0;
   s();
-  *v11 = v12;
-  *(v11 + 8) = BYTE8(v16);
-  *(v15 + 15) |= 8u;
+  *v10 = v11;
+  *(v10 + 8) = BYTE8(v15);
+  *(v14 + 15) |= 8u;
   GTTraceContext_closeStream(self->_traceContext, &self->_traceStream->var0);
-  v13.receiver = self;
-  v13.super_class = CaptureMTL4FXTemporalDenoisedScaler;
-  [(CaptureMTL4FXTemporalDenoisedScaler *)&v13 dealloc];
+  v12.receiver = self;
+  v12.super_class = CaptureMTL4FXTemporalDenoisedScaler;
+  [(CaptureMTL4FXTemporalDenoisedScaler *)&v12 dealloc];
 }
 
 - (void)setWorldToViewMatrix:(__n128)matrix
 {
-  v21 = 0u;
-  v22 = 0u;
   v20 = 0u;
-  v6 = *(self + 160);
-  GTTraceContext_pushEncoderWithStream(*(self + 152), &v20);
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(*(self + 152), &v19);
   [*(self + 8) setWorldToViewMatrix:{a2.n128_f64[0], matrix.n128_f64[0], a4.n128_f64[0], a5.n128_f64[0]}];
-  v7 = *(&v20 + 1);
-  v8 = v21;
-  *(v21 + 8) = -20372;
-  v9 = *(v7 + 24);
-  v10 = BYTE10(v22);
-  ++BYTE10(v22);
-  Bytes = GTTraceMemPool_allocateBytes(v9, *(&v21 + 1), v10 | 0x4800000000);
-  *(v8 + 13) = v10;
+  v6 = *(&v19 + 1);
+  v7 = v20;
+  *(v20 + 8) = -20372;
+  v8 = *(v6 + 24);
+  v9 = BYTE10(v21);
+  ++BYTE10(v21);
+  Bytes = GTTraceMemPool_allocateBytes(v8, *(&v20 + 1), v9 | 0x4800000000);
+  *(v7 + 13) = v9;
   traceStream = [self traceStream];
   if (traceStream)
   {
-    v13 = *traceStream;
+    v12 = *traceStream;
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  *(Bytes + 2) = v13;
+  *(Bytes + 2) = v12;
   *(Bytes + 24) = a2;
   *(Bytes + 40) = matrix;
   *(Bytes + 56) = a4;
   *(Bytes + 72) = a5;
   s();
-  *v14 = v15;
-  *(v14 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
+  *v13 = v14;
+  *(v13 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
 }
 
 - (void)setViewToClipMatrix:(__n128)matrix
 {
-  v21 = 0u;
-  v22 = 0u;
   v20 = 0u;
-  v6 = *(self + 160);
-  GTTraceContext_pushEncoderWithStream(*(self + 152), &v20);
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(*(self + 152), &v19);
   [*(self + 8) setViewToClipMatrix:{a2.n128_f64[0], matrix.n128_f64[0], a4.n128_f64[0], a5.n128_f64[0]}];
-  v7 = *(&v20 + 1);
-  v8 = v21;
-  *(v21 + 8) = -20373;
-  v9 = *(v7 + 24);
-  v10 = BYTE10(v22);
-  ++BYTE10(v22);
-  Bytes = GTTraceMemPool_allocateBytes(v9, *(&v21 + 1), v10 | 0x4800000000);
-  *(v8 + 13) = v10;
+  v6 = *(&v19 + 1);
+  v7 = v20;
+  *(v20 + 8) = -20373;
+  v8 = *(v6 + 24);
+  v9 = BYTE10(v21);
+  ++BYTE10(v21);
+  Bytes = GTTraceMemPool_allocateBytes(v8, *(&v20 + 1), v9 | 0x4800000000);
+  *(v7 + 13) = v9;
   traceStream = [self traceStream];
   if (traceStream)
   {
-    v13 = *traceStream;
+    v12 = *traceStream;
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  *(Bytes + 2) = v13;
+  *(Bytes + 2) = v12;
   *(Bytes + 24) = a2;
   *(Bytes + 40) = matrix;
   *(Bytes + 56) = a4;
   *(Bytes + 72) = a5;
   s();
-  *v14 = v15;
-  *(v14 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
+  *v13 = v14;
+  *(v13 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
+}
+
+- (void)setShouldResetHistory:(BOOL)history
+{
+  historyCopy = history;
+  v15 = 0u;
+  v16 = 0u;
+  v14 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v14);
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setShouldResetHistory:historyCopy];
+  v5 = v15;
+  *(v15 + 8) = -20318;
+  v6 = BYTE9(v16);
+  if (BYTE9(v16) > 0x30uLL)
+  {
+    v8 = *(*(&v14 + 1) + 24);
+    v9 = BYTE10(v16);
+    ++BYTE10(v16);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v15 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
+  }
+
+  else
+  {
+    v7 = (v5 + BYTE9(v16));
+    BYTE9(v16) += 16;
+  }
+
+  *(v5 + 13) = v6;
+  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  *v7 = var0;
+  *(v7 + 2) = historyCopy;
+  *(v7 + 3) = 0;
+  s();
+  *v12 = v13;
+  *(v12 + 8) = BYTE8(v16);
+  *(v15 + 15) |= 8u;
 }
 
 - (void)setPreExposure:(float)exposure
 {
-  v17 = 0u;
-  v18 = 0u;
   v16 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v16);
-  *&v6 = exposure;
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setPreExposure:v6];
-  v7 = v17;
-  *(v17 + 8) = -20380;
-  v8 = BYTE9(v18);
-  if (BYTE9(v18) > 0x30uLL)
+  v17 = 0u;
+  v15 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v15);
+  *&v5 = exposure;
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setPreExposure:v5];
+  v6 = v16;
+  *(v16 + 8) = -20380;
+  v7 = BYTE9(v17);
+  if (BYTE9(v17) > 0x30uLL)
   {
-    v10 = *(*(&v16 + 1) + 24);
-    v11 = BYTE10(v18);
-    ++BYTE10(v18);
-    v9 = GTTraceMemPool_allocateBytes(v10, *(&v17 + 1), v11 | 0x1000000000) + 16;
-    v8 = v11;
+    v9 = *(*(&v15 + 1) + 24);
+    v10 = BYTE10(v17);
+    ++BYTE10(v17);
+    v8 = GTTraceMemPool_allocateBytes(v9, *(&v16 + 1), v10 | 0x1000000000) + 16;
+    v7 = v10;
   }
 
   else
   {
-    v9 = (v7 + BYTE9(v18));
-    BYTE9(v18) += 16;
+    v8 = (v6 + BYTE9(v17));
+    BYTE9(v17) += 16;
   }
 
-  *(v7 + 13) = v8;
+  *(v6 + 13) = v7;
   traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
   if (traceStream)
   {
@@ -198,43 +243,42 @@
     var0 = 0;
   }
 
-  *v9 = var0;
-  *(v9 + 2) = exposure;
-  *(v9 + 3) = 0;
+  *v8 = var0;
+  *(v8 + 2) = exposure;
+  *(v8 + 3) = 0;
   s();
-  *v14 = v15;
-  *(v14 + 8) = BYTE8(v18);
-  *(v17 + 15) |= 8u;
+  *v13 = v14;
+  *(v13 + 8) = BYTE8(v17);
+  *(v16 + 15) |= 8u;
 }
 
 - (void)setMotionVectorScaleY:(float)y
 {
-  v17 = 0u;
-  v18 = 0u;
   v16 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v16);
-  *&v6 = y;
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setMotionVectorScaleY:v6];
-  v7 = v17;
-  *(v17 + 8) = -20384;
-  v8 = BYTE9(v18);
-  if (BYTE9(v18) > 0x30uLL)
+  v17 = 0u;
+  v15 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v15);
+  *&v5 = y;
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setMotionVectorScaleY:v5];
+  v6 = v16;
+  *(v16 + 8) = -20384;
+  v7 = BYTE9(v17);
+  if (BYTE9(v17) > 0x30uLL)
   {
-    v10 = *(*(&v16 + 1) + 24);
-    v11 = BYTE10(v18);
-    ++BYTE10(v18);
-    v9 = GTTraceMemPool_allocateBytes(v10, *(&v17 + 1), v11 | 0x1000000000) + 16;
-    v8 = v11;
+    v9 = *(*(&v15 + 1) + 24);
+    v10 = BYTE10(v17);
+    ++BYTE10(v17);
+    v8 = GTTraceMemPool_allocateBytes(v9, *(&v16 + 1), v10 | 0x1000000000) + 16;
+    v7 = v10;
   }
 
   else
   {
-    v9 = (v7 + BYTE9(v18));
-    BYTE9(v18) += 16;
+    v8 = (v6 + BYTE9(v17));
+    BYTE9(v17) += 16;
   }
 
-  *(v7 + 13) = v8;
+  *(v6 + 13) = v7;
   traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
   if (traceStream)
   {
@@ -246,43 +290,42 @@
     var0 = 0;
   }
 
-  *v9 = var0;
-  *(v9 + 2) = y;
-  *(v9 + 3) = 0;
+  *v8 = var0;
+  *(v8 + 2) = y;
+  *(v8 + 3) = 0;
   s();
-  *v14 = v15;
-  *(v14 + 8) = BYTE8(v18);
-  *(v17 + 15) |= 8u;
+  *v13 = v14;
+  *(v13 + 8) = BYTE8(v17);
+  *(v16 + 15) |= 8u;
 }
 
 - (void)setMotionVectorScaleX:(float)x
 {
-  v17 = 0u;
-  v18 = 0u;
   v16 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v16);
-  *&v6 = x;
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setMotionVectorScaleX:v6];
-  v7 = v17;
-  *(v17 + 8) = -20385;
-  v8 = BYTE9(v18);
-  if (BYTE9(v18) > 0x30uLL)
+  v17 = 0u;
+  v15 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v15);
+  *&v5 = x;
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setMotionVectorScaleX:v5];
+  v6 = v16;
+  *(v16 + 8) = -20385;
+  v7 = BYTE9(v17);
+  if (BYTE9(v17) > 0x30uLL)
   {
-    v10 = *(*(&v16 + 1) + 24);
-    v11 = BYTE10(v18);
-    ++BYTE10(v18);
-    v9 = GTTraceMemPool_allocateBytes(v10, *(&v17 + 1), v11 | 0x1000000000) + 16;
-    v8 = v11;
+    v9 = *(*(&v15 + 1) + 24);
+    v10 = BYTE10(v17);
+    ++BYTE10(v17);
+    v8 = GTTraceMemPool_allocateBytes(v9, *(&v16 + 1), v10 | 0x1000000000) + 16;
+    v7 = v10;
   }
 
   else
   {
-    v9 = (v7 + BYTE9(v18));
-    BYTE9(v18) += 16;
+    v8 = (v6 + BYTE9(v17));
+    BYTE9(v17) += 16;
   }
 
-  *(v7 + 13) = v8;
+  *(v6 + 13) = v7;
   traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
   if (traceStream)
   {
@@ -294,43 +337,42 @@
     var0 = 0;
   }
 
-  *v9 = var0;
-  *(v9 + 2) = x;
-  *(v9 + 3) = 0;
+  *v8 = var0;
+  *(v8 + 2) = x;
+  *(v8 + 3) = 0;
   s();
-  *v14 = v15;
-  *(v14 + 8) = BYTE8(v18);
-  *(v17 + 15) |= 8u;
+  *v13 = v14;
+  *(v13 + 8) = BYTE8(v17);
+  *(v16 + 15) |= 8u;
 }
 
 - (void)setJitterOffsetY:(float)y
 {
-  v17 = 0u;
-  v18 = 0u;
   v16 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v16);
-  *&v6 = y;
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setJitterOffsetY:v6];
-  v7 = v17;
-  *(v17 + 8) = -20387;
-  v8 = BYTE9(v18);
-  if (BYTE9(v18) > 0x30uLL)
+  v17 = 0u;
+  v15 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v15);
+  *&v5 = y;
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setJitterOffsetY:v5];
+  v6 = v16;
+  *(v16 + 8) = -20387;
+  v7 = BYTE9(v17);
+  if (BYTE9(v17) > 0x30uLL)
   {
-    v10 = *(*(&v16 + 1) + 24);
-    v11 = BYTE10(v18);
-    ++BYTE10(v18);
-    v9 = GTTraceMemPool_allocateBytes(v10, *(&v17 + 1), v11 | 0x1000000000) + 16;
-    v8 = v11;
+    v9 = *(*(&v15 + 1) + 24);
+    v10 = BYTE10(v17);
+    ++BYTE10(v17);
+    v8 = GTTraceMemPool_allocateBytes(v9, *(&v16 + 1), v10 | 0x1000000000) + 16;
+    v7 = v10;
   }
 
   else
   {
-    v9 = (v7 + BYTE9(v18));
-    BYTE9(v18) += 16;
+    v8 = (v6 + BYTE9(v17));
+    BYTE9(v17) += 16;
   }
 
-  *(v7 + 13) = v8;
+  *(v6 + 13) = v7;
   traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
   if (traceStream)
   {
@@ -342,43 +384,42 @@
     var0 = 0;
   }
 
-  *v9 = var0;
-  *(v9 + 2) = y;
-  *(v9 + 3) = 0;
+  *v8 = var0;
+  *(v8 + 2) = y;
+  *(v8 + 3) = 0;
   s();
-  *v14 = v15;
-  *(v14 + 8) = BYTE8(v18);
-  *(v17 + 15) |= 8u;
+  *v13 = v14;
+  *(v13 + 8) = BYTE8(v17);
+  *(v16 + 15) |= 8u;
 }
 
 - (void)setJitterOffsetX:(float)x
 {
-  v17 = 0u;
-  v18 = 0u;
   v16 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v16);
-  *&v6 = x;
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setJitterOffsetX:v6];
-  v7 = v17;
-  *(v17 + 8) = -20388;
-  v8 = BYTE9(v18);
-  if (BYTE9(v18) > 0x30uLL)
+  v17 = 0u;
+  v15 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v15);
+  *&v5 = x;
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setJitterOffsetX:v5];
+  v6 = v16;
+  *(v16 + 8) = -20388;
+  v7 = BYTE9(v17);
+  if (BYTE9(v17) > 0x30uLL)
   {
-    v10 = *(*(&v16 + 1) + 24);
-    v11 = BYTE10(v18);
-    ++BYTE10(v18);
-    v9 = GTTraceMemPool_allocateBytes(v10, *(&v17 + 1), v11 | 0x1000000000) + 16;
-    v8 = v11;
+    v9 = *(*(&v15 + 1) + 24);
+    v10 = BYTE10(v17);
+    ++BYTE10(v17);
+    v8 = GTTraceMemPool_allocateBytes(v9, *(&v16 + 1), v10 | 0x1000000000) + 16;
+    v7 = v10;
   }
 
   else
   {
-    v9 = (v7 + BYTE9(v18));
-    BYTE9(v18) += 16;
+    v8 = (v6 + BYTE9(v17));
+    BYTE9(v17) += 16;
   }
 
-  *(v7 + 13) = v8;
+  *(v6 + 13) = v7;
   traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
   if (traceStream)
   {
@@ -390,42 +431,41 @@
     var0 = 0;
   }
 
-  *v9 = var0;
-  *(v9 + 2) = x;
-  *(v9 + 3) = 0;
+  *v8 = var0;
+  *(v8 + 2) = x;
+  *(v8 + 3) = 0;
   s();
-  *v14 = v15;
-  *(v14 + 8) = BYTE8(v18);
-  *(v17 + 15) |= 8u;
+  *v13 = v14;
+  *(v13 + 8) = BYTE8(v17);
+  *(v16 + 15) |= 8u;
 }
 
 - (void)setInputContentWidth:(unint64_t)width
 {
-  v16 = 0u;
-  v17 = 0u;
   v15 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v15);
+  v16 = 0u;
+  v14 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v14);
   [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setInputContentWidth:width];
-  v6 = v16;
-  *(v16 + 8) = -20389;
-  v7 = BYTE9(v17);
-  if (BYTE9(v17) > 0x30uLL)
+  v5 = v15;
+  *(v15 + 8) = -20389;
+  v6 = BYTE9(v16);
+  if (BYTE9(v16) > 0x30uLL)
   {
-    v9 = *(*(&v15 + 1) + 24);
-    v10 = BYTE10(v17);
-    ++BYTE10(v17);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v16 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v8 = *(*(&v14 + 1) + 24);
+    v9 = BYTE10(v16);
+    ++BYTE10(v16);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v15 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v17));
-    BYTE9(v17) += 16;
+    v7 = (v5 + BYTE9(v16));
+    BYTE9(v16) += 16;
   }
 
-  *(v6 + 13) = v7;
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
   if (traceStream)
   {
@@ -437,41 +477,40 @@
     var0 = 0;
   }
 
-  *v8 = var0;
-  *(v8 + 1) = width;
+  *v7 = var0;
+  *(v7 + 1) = width;
   s();
-  *v13 = v14;
-  *(v13 + 8) = BYTE8(v17);
-  *(v16 + 15) |= 8u;
+  *v12 = v13;
+  *(v12 + 8) = BYTE8(v16);
+  *(v15 + 15) |= 8u;
 }
 
 - (void)setInputContentHeight:(unint64_t)height
 {
-  v16 = 0u;
-  v17 = 0u;
   v15 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v15);
+  v16 = 0u;
+  v14 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v14);
   [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setInputContentHeight:height];
-  v6 = v16;
-  *(v16 + 8) = -20390;
-  v7 = BYTE9(v17);
-  if (BYTE9(v17) > 0x30uLL)
+  v5 = v15;
+  *(v15 + 8) = -20390;
+  v6 = BYTE9(v16);
+  if (BYTE9(v16) > 0x30uLL)
   {
-    v9 = *(*(&v15 + 1) + 24);
-    v10 = BYTE10(v17);
-    ++BYTE10(v17);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v16 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v8 = *(*(&v14 + 1) + 24);
+    v9 = BYTE10(v16);
+    ++BYTE10(v16);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v15 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v17));
-    BYTE9(v17) += 16;
+    v7 = (v5 + BYTE9(v16));
+    BYTE9(v16) += 16;
   }
 
-  *(v6 + 13) = v7;
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
   if (traceStream)
   {
@@ -483,41 +522,87 @@
     var0 = 0;
   }
 
-  *v8 = var0;
-  *(v8 + 1) = height;
+  *v7 = var0;
+  *(v7 + 1) = height;
   s();
-  *v13 = v14;
-  *(v13 + 8) = BYTE8(v17);
-  *(v16 + 15) |= 8u;
+  *v12 = v13;
+  *(v12 + 8) = BYTE8(v16);
+  *(v15 + 15) |= 8u;
+}
+
+- (void)setDepthReversed:(BOOL)reversed
+{
+  reversedCopy = reversed;
+  v15 = 0u;
+  v16 = 0u;
+  v14 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v14);
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setDepthReversed:reversedCopy];
+  v5 = v15;
+  *(v15 + 8) = -20395;
+  v6 = BYTE9(v16);
+  if (BYTE9(v16) > 0x30uLL)
+  {
+    v8 = *(*(&v14 + 1) + 24);
+    v9 = BYTE10(v16);
+    ++BYTE10(v16);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v15 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
+  }
+
+  else
+  {
+    v7 = (v5 + BYTE9(v16));
+    BYTE9(v16) += 16;
+  }
+
+  *(v5 + 13) = v6;
+  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  *v7 = var0;
+  *(v7 + 2) = reversedCopy;
+  *(v7 + 3) = 0;
+  s();
+  *v12 = v13;
+  *(v12 + 8) = BYTE8(v16);
+  *(v15 + 15) |= 8u;
 }
 
 - (void)setColorTextureBarrierStages:(unint64_t)stages
 {
-  v16 = 0u;
-  v17 = 0u;
   v15 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v15);
+  v16 = 0u;
+  v14 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v14);
   [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setColorTextureBarrierStages:stages];
-  v6 = v16;
-  *(v16 + 8) = -20325;
-  v7 = BYTE9(v17);
-  if (BYTE9(v17) > 0x30uLL)
+  v5 = v15;
+  *(v15 + 8) = -20325;
+  v6 = BYTE9(v16);
+  if (BYTE9(v16) > 0x30uLL)
   {
-    v9 = *(*(&v15 + 1) + 24);
-    v10 = BYTE10(v17);
-    ++BYTE10(v17);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v16 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v8 = *(*(&v14 + 1) + 24);
+    v9 = BYTE10(v16);
+    ++BYTE10(v16);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v15 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v17));
-    BYTE9(v17) += 16;
+    v7 = (v5 + BYTE9(v16));
+    BYTE9(v16) += 16;
   }
 
-  *(v6 + 13) = v7;
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
   if (traceStream)
   {
@@ -529,12 +614,12 @@
     var0 = 0;
   }
 
-  *v8 = var0;
-  *(v8 + 1) = stages;
+  *v7 = var0;
+  *(v7 + 1) = stages;
   s();
-  *v13 = v14;
-  *(v13 + 8) = BYTE8(v17);
-  *(v16 + 15) |= 8u;
+  *v12 = v13;
+  *(v12 + 8) = BYTE8(v16);
+  *(v15 + 15) |= 8u;
 }
 
 - (BOOL)conformsToProtocol:(id)protocol
@@ -600,36 +685,35 @@
 
 - (void)encodeToCommandBuffer:(id)buffer
 {
-  v21 = 0u;
-  v22 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v19 = 0u;
   traceContext = self->_traceContext;
-  traceStream = self->_traceStream;
   bufferCopy = buffer;
-  GTTraceContext_pushEncoderWithStream(traceContext, &v20);
+  GTTraceContext_pushEncoderWithStream(traceContext, &v19);
   baseObject = self->_baseObject;
   baseObject = [bufferCopy baseObject];
   [(MTL4FXTemporalDenoisedScalerSPI *)baseObject encodeToCommandBuffer:baseObject];
 
-  v9 = v21;
-  *(v21 + 8) = -20370;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
+  v8 = v20;
+  *(v20 + 8) = -20370;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
   {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
   }
 
   else
   {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
   }
 
-  *(v9 + 13) = v10;
+  *(v8 + 13) = v9;
   traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
   if (traceStream)
   {
@@ -645,832 +729,55 @@
 
   if (traceStream2)
   {
-    v17 = *traceStream2;
+    v16 = *traceStream2;
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  *v11 = var0;
-  *(v11 + 1) = v17;
+  *v10 = var0;
+  *(v10 + 1) = v16;
   s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
 }
 
 - (void)setSpecularHitDistanceTexture:(id)texture
 {
   textureCopy = texture;
-  v21 = 0u;
-  v22 = 0u;
   v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
   baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
   [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setSpecularHitDistanceTexture:baseObject];
 
   captureSpecularHitDistanceTexture = self->_captureSpecularHitDistanceTexture;
   self->_captureSpecularHitDistanceTexture = textureCopy;
-  v8 = textureCopy;
-
-  v9 = v21;
-  *(v21 + 8) = -20374;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
-  {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
-  }
-
-  else
-  {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
-  }
-
-  *(v9 + 13) = v10;
-  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
-  if (traceStream)
-  {
-    var0 = traceStream->var0;
-  }
-
-  else
-  {
-    var0 = 0;
-  }
-
-  traceStream2 = [(CaptureMTLTexture *)v8 traceStream];
-  if (traceStream2)
-  {
-    v17 = traceStream2->var0;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  *v11 = var0;
-  *(v11 + 1) = v17;
-  s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
-}
-
-- (void)setSpecularAlbedoTexture:(id)texture
-{
-  textureCopy = texture;
-  v21 = 0u;
-  v22 = 0u;
-  v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
-  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setSpecularAlbedoTexture:baseObject];
-
-  captureSpecularAlbedoTexture = self->_captureSpecularAlbedoTexture;
-  self->_captureSpecularAlbedoTexture = textureCopy;
-  v8 = textureCopy;
-
-  v9 = v21;
-  *(v21 + 8) = -20375;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
-  {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
-  }
-
-  else
-  {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
-  }
-
-  *(v9 + 13) = v10;
-  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
-  if (traceStream)
-  {
-    var0 = traceStream->var0;
-  }
-
-  else
-  {
-    var0 = 0;
-  }
-
-  traceStream2 = [(CaptureMTLTexture *)v8 traceStream];
-  if (traceStream2)
-  {
-    v17 = traceStream2->var0;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  *v11 = var0;
-  *(v11 + 1) = v17;
-  s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
-}
-
-- (void)setRoughnessTexture:(id)texture
-{
-  textureCopy = texture;
-  v21 = 0u;
-  v22 = 0u;
-  v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
-  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setRoughnessTexture:baseObject];
-
-  captureRoughnessTexture = self->_captureRoughnessTexture;
-  self->_captureRoughnessTexture = textureCopy;
-  v8 = textureCopy;
-
-  v9 = v21;
-  *(v21 + 8) = -20376;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
-  {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
-  }
-
-  else
-  {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
-  }
-
-  *(v9 + 13) = v10;
-  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
-  if (traceStream)
-  {
-    var0 = traceStream->var0;
-  }
-
-  else
-  {
-    var0 = 0;
-  }
-
-  traceStream2 = [(CaptureMTLTexture *)v8 traceStream];
-  if (traceStream2)
-  {
-    v17 = traceStream2->var0;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  *v11 = var0;
-  *(v11 + 1) = v17;
-  s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
-}
-
-- (void)setReactiveMaskTexture:(id)texture
-{
-  textureCopy = texture;
-  v21 = 0u;
-  v22 = 0u;
-  v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
-  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setReactiveMaskTexture:baseObject];
-
-  captureReactiveMaskTexture = self->_captureReactiveMaskTexture;
-  self->_captureReactiveMaskTexture = textureCopy;
-  v8 = textureCopy;
-
-  v9 = v21;
-  *(v21 + 8) = -20378;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
-  {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
-  }
-
-  else
-  {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
-  }
-
-  *(v9 + 13) = v10;
-  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
-  if (traceStream)
-  {
-    var0 = traceStream->var0;
-  }
-
-  else
-  {
-    var0 = 0;
-  }
-
-  traceStream2 = [(CaptureMTLTexture *)v8 traceStream];
-  if (traceStream2)
-  {
-    v17 = traceStream2->var0;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  *v11 = var0;
-  *(v11 + 1) = v17;
-  s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
-}
-
-- (void)setTransparencyOverlayTexture:(id)texture
-{
-  textureCopy = texture;
-  v21 = 0u;
-  v22 = 0u;
-  v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
-  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setTransparencyOverlayTexture:baseObject];
-
-  captureTransparencyOverlayTexture = self->_captureTransparencyOverlayTexture;
-  self->_captureTransparencyOverlayTexture = textureCopy;
-  v8 = textureCopy;
-
-  v9 = v21;
-  *(v21 + 8) = -20317;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
-  {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
-  }
-
-  else
-  {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
-  }
-
-  *(v9 + 13) = v10;
-  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
-  if (traceStream)
-  {
-    var0 = traceStream->var0;
-  }
-
-  else
-  {
-    var0 = 0;
-  }
-
-  traceStream2 = [(CaptureMTLTexture *)v8 traceStream];
-  if (traceStream2)
-  {
-    v17 = traceStream2->var0;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  *v11 = var0;
-  *(v11 + 1) = v17;
-  s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
-}
-
-- (void)setOutputTexture:(id)texture
-{
-  textureCopy = texture;
-  v21 = 0u;
-  v22 = 0u;
-  v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
-  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setOutputTexture:baseObject];
-
-  captureOutputTexture = self->_captureOutputTexture;
-  self->_captureOutputTexture = textureCopy;
-  v8 = textureCopy;
-
-  v9 = v21;
-  *(v21 + 8) = -20382;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
-  {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
-  }
-
-  else
-  {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
-  }
-
-  *(v9 + 13) = v10;
-  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
-  if (traceStream)
-  {
-    var0 = traceStream->var0;
-  }
-
-  else
-  {
-    var0 = 0;
-  }
-
-  traceStream2 = [(CaptureMTLTexture *)v8 traceStream];
-  if (traceStream2)
-  {
-    v17 = traceStream2->var0;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  *v11 = var0;
-  *(v11 + 1) = v17;
-  s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
-}
-
-- (void)setNormalTexture:(id)texture
-{
-  textureCopy = texture;
-  v21 = 0u;
-  v22 = 0u;
-  v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
-  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setNormalTexture:baseObject];
-
-  captureNormalTexture = self->_captureNormalTexture;
-  self->_captureNormalTexture = textureCopy;
-  v8 = textureCopy;
-
-  v9 = v21;
-  *(v21 + 8) = -20383;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
-  {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
-  }
-
-  else
-  {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
-  }
-
-  *(v9 + 13) = v10;
-  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
-  if (traceStream)
-  {
-    var0 = traceStream->var0;
-  }
-
-  else
-  {
-    var0 = 0;
-  }
-
-  traceStream2 = [(CaptureMTLTexture *)v8 traceStream];
-  if (traceStream2)
-  {
-    v17 = traceStream2->var0;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  *v11 = var0;
-  *(v11 + 1) = v17;
-  s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
-}
-
-- (void)setMotionTexture:(id)texture
-{
-  textureCopy = texture;
-  v21 = 0u;
-  v22 = 0u;
-  v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
-  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setMotionTexture:baseObject];
-
-  captureMotionTexture = self->_captureMotionTexture;
-  self->_captureMotionTexture = textureCopy;
-  v8 = textureCopy;
-
-  v9 = v21;
-  *(v21 + 8) = -20386;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
-  {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
-  }
-
-  else
-  {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
-  }
-
-  *(v9 + 13) = v10;
-  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
-  if (traceStream)
-  {
-    var0 = traceStream->var0;
-  }
-
-  else
-  {
-    var0 = 0;
-  }
-
-  traceStream2 = [(CaptureMTLTexture *)v8 traceStream];
-  if (traceStream2)
-  {
-    v17 = traceStream2->var0;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  *v11 = var0;
-  *(v11 + 1) = v17;
-  s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
-}
-
-- (void)setExposureTexture:(id)texture
-{
-  textureCopy = texture;
-  v21 = 0u;
-  v22 = 0u;
-  v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
-  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setExposureTexture:baseObject];
-
-  captureExposureTexture = self->_captureExposureTexture;
-  self->_captureExposureTexture = textureCopy;
-  v8 = textureCopy;
-
-  v9 = v21;
-  *(v21 + 8) = -20392;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
-  {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
-  }
-
-  else
-  {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
-  }
-
-  *(v9 + 13) = v10;
-  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
-  if (traceStream)
-  {
-    var0 = traceStream->var0;
-  }
-
-  else
-  {
-    var0 = 0;
-  }
-
-  traceStream2 = [(CaptureMTLTexture *)v8 traceStream];
-  if (traceStream2)
-  {
-    v17 = traceStream2->var0;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  *v11 = var0;
-  *(v11 + 1) = v17;
-  s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
-}
-
-- (void)setDiffuseAlbedoTexture:(id)texture
-{
-  textureCopy = texture;
-  v21 = 0u;
-  v22 = 0u;
-  v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
-  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setDiffuseAlbedoTexture:baseObject];
-
-  captureDiffuseAlbedoTexture = self->_captureDiffuseAlbedoTexture;
-  self->_captureDiffuseAlbedoTexture = textureCopy;
-  v8 = textureCopy;
-
-  v9 = v21;
-  *(v21 + 8) = -20393;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
-  {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
-  }
-
-  else
-  {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
-  }
-
-  *(v9 + 13) = v10;
-  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
-  if (traceStream)
-  {
-    var0 = traceStream->var0;
-  }
-
-  else
-  {
-    var0 = 0;
-  }
-
-  traceStream2 = [(CaptureMTLTexture *)v8 traceStream];
-  if (traceStream2)
-  {
-    v17 = traceStream2->var0;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  *v11 = var0;
-  *(v11 + 1) = v17;
-  s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
-}
-
-- (void)setDepthTexture:(id)texture
-{
-  textureCopy = texture;
-  v21 = 0u;
-  v22 = 0u;
-  v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
-  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setDepthTexture:baseObject];
-
-  captureDepthTexture = self->_captureDepthTexture;
-  self->_captureDepthTexture = textureCopy;
-  v8 = textureCopy;
-
-  v9 = v21;
-  *(v21 + 8) = -20394;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
-  {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
-  }
-
-  else
-  {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
-  }
-
-  *(v9 + 13) = v10;
-  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
-  if (traceStream)
-  {
-    var0 = traceStream->var0;
-  }
-
-  else
-  {
-    var0 = 0;
-  }
-
-  traceStream2 = [(CaptureMTLTexture *)v8 traceStream];
-  if (traceStream2)
-  {
-    v17 = traceStream2->var0;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  *v11 = var0;
-  *(v11 + 1) = v17;
-  s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
-}
-
-- (void)setDenoiseStrengthMaskTexture:(id)texture
-{
-  textureCopy = texture;
-  v21 = 0u;
-  v22 = 0u;
-  v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
-  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setDenoiseStrengthMaskTexture:baseObject];
-
-  captureDenoiseStrengthMaskTexture = self->_captureDenoiseStrengthMaskTexture;
-  self->_captureDenoiseStrengthMaskTexture = textureCopy;
-  v8 = textureCopy;
-
-  v9 = v21;
-  *(v21 + 8) = -20396;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
-  {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
-  }
-
-  else
-  {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
-  }
-
-  *(v9 + 13) = v10;
-  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
-  if (traceStream)
-  {
-    var0 = traceStream->var0;
-  }
-
-  else
-  {
-    var0 = 0;
-  }
-
-  traceStream2 = [(CaptureMTLTexture *)v8 traceStream];
-  if (traceStream2)
-  {
-    v17 = traceStream2->var0;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  *v11 = var0;
-  *(v11 + 1) = v17;
-  s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
-}
-
-- (void)setDebugTexture:(id)texture
-{
-  textureCopy = texture;
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setDebugTexture:textureCopy];
-  captureDebugTexture = self->_captureDebugTexture;
-  self->_captureDebugTexture = textureCopy;
-}
-
-- (void)setColorTexture:(id)texture
-{
-  textureCopy = texture;
-  v21 = 0u;
-  v22 = 0u;
-  v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
-  captureColorTexture = self->_captureColorTexture;
-  self->_captureColorTexture = textureCopy;
   v7 = textureCopy;
 
-  baseObject = [(CaptureMTLTexture *)v7 baseObject];
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setColorTexture:baseObject];
-
-  v9 = v21;
-  *(v21 + 8) = -20397;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
+  v8 = v20;
+  *(v20 + 8) = -20374;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
   {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
   }
 
   else
   {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
   }
 
-  *(v9 + 13) = v10;
+  *(v8 + 13) = v9;
   traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
   if (traceStream)
   {
@@ -1485,56 +792,55 @@
   traceStream2 = [(CaptureMTLTexture *)v7 traceStream];
   if (traceStream2)
   {
-    v17 = traceStream2->var0;
+    v16 = traceStream2->var0;
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  *v11 = var0;
-  *(v11 + 1) = v17;
+  *v10 = var0;
+  *(v10 + 1) = v16;
   s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
 }
 
-- (void)setFence:(id)fence
+- (void)setSpecularAlbedoTexture:(id)texture
 {
-  fenceCopy = fence;
-  v21 = 0u;
-  v22 = 0u;
+  textureCopy = texture;
   v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
-  baseObject = [(CaptureMTLFence *)fenceCopy baseObject];
-  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setFence:baseObject];
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setSpecularAlbedoTexture:baseObject];
 
-  captureFence = self->_captureFence;
-  self->_captureFence = fenceCopy;
-  v8 = fenceCopy;
+  captureSpecularAlbedoTexture = self->_captureSpecularAlbedoTexture;
+  self->_captureSpecularAlbedoTexture = textureCopy;
+  v7 = textureCopy;
 
-  v9 = v21;
-  *(v21 + 8) = -20391;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
+  v8 = v20;
+  *(v20 + 8) = -20375;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
   {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
   }
 
   else
   {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
   }
 
-  *(v9 + 13) = v10;
+  *(v8 + 13) = v9;
   traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
   if (traceStream)
   {
@@ -1546,23 +852,787 @@
     var0 = 0;
   }
 
-  traceStream2 = [(CaptureMTLFence *)v8 traceStream];
+  traceStream2 = [(CaptureMTLTexture *)v7 traceStream];
   if (traceStream2)
   {
-    v17 = traceStream2->var0;
+    v16 = traceStream2->var0;
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  *v11 = var0;
-  *(v11 + 1) = v17;
+  *v10 = var0;
+  *(v10 + 1) = v16;
   s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
+}
+
+- (void)setRoughnessTexture:(id)texture
+{
+  textureCopy = texture;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setRoughnessTexture:baseObject];
+
+  captureRoughnessTexture = self->_captureRoughnessTexture;
+  self->_captureRoughnessTexture = textureCopy;
+  v7 = textureCopy;
+
+  v8 = v20;
+  *(v20 + 8) = -20376;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
+  {
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
+  }
+
+  else
+  {
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
+  }
+
+  *(v8 + 13) = v9;
+  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  traceStream2 = [(CaptureMTLTexture *)v7 traceStream];
+  if (traceStream2)
+  {
+    v16 = traceStream2->var0;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  *v10 = var0;
+  *(v10 + 1) = v16;
+  s();
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
+}
+
+- (void)setReactiveMaskTexture:(id)texture
+{
+  textureCopy = texture;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setReactiveMaskTexture:baseObject];
+
+  captureReactiveMaskTexture = self->_captureReactiveMaskTexture;
+  self->_captureReactiveMaskTexture = textureCopy;
+  v7 = textureCopy;
+
+  v8 = v20;
+  *(v20 + 8) = -20378;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
+  {
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
+  }
+
+  else
+  {
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
+  }
+
+  *(v8 + 13) = v9;
+  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  traceStream2 = [(CaptureMTLTexture *)v7 traceStream];
+  if (traceStream2)
+  {
+    v16 = traceStream2->var0;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  *v10 = var0;
+  *(v10 + 1) = v16;
+  s();
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
+}
+
+- (void)setTransparencyOverlayTexture:(id)texture
+{
+  textureCopy = texture;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setTransparencyOverlayTexture:baseObject];
+
+  captureTransparencyOverlayTexture = self->_captureTransparencyOverlayTexture;
+  self->_captureTransparencyOverlayTexture = textureCopy;
+  v7 = textureCopy;
+
+  v8 = v20;
+  *(v20 + 8) = -20317;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
+  {
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
+  }
+
+  else
+  {
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
+  }
+
+  *(v8 + 13) = v9;
+  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  traceStream2 = [(CaptureMTLTexture *)v7 traceStream];
+  if (traceStream2)
+  {
+    v16 = traceStream2->var0;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  *v10 = var0;
+  *(v10 + 1) = v16;
+  s();
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
+}
+
+- (void)setOutputTexture:(id)texture
+{
+  textureCopy = texture;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setOutputTexture:baseObject];
+
+  captureOutputTexture = self->_captureOutputTexture;
+  self->_captureOutputTexture = textureCopy;
+  v7 = textureCopy;
+
+  v8 = v20;
+  *(v20 + 8) = -20382;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
+  {
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
+  }
+
+  else
+  {
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
+  }
+
+  *(v8 + 13) = v9;
+  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  traceStream2 = [(CaptureMTLTexture *)v7 traceStream];
+  if (traceStream2)
+  {
+    v16 = traceStream2->var0;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  *v10 = var0;
+  *(v10 + 1) = v16;
+  s();
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
+}
+
+- (void)setNormalTexture:(id)texture
+{
+  textureCopy = texture;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setNormalTexture:baseObject];
+
+  captureNormalTexture = self->_captureNormalTexture;
+  self->_captureNormalTexture = textureCopy;
+  v7 = textureCopy;
+
+  v8 = v20;
+  *(v20 + 8) = -20383;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
+  {
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
+  }
+
+  else
+  {
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
+  }
+
+  *(v8 + 13) = v9;
+  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  traceStream2 = [(CaptureMTLTexture *)v7 traceStream];
+  if (traceStream2)
+  {
+    v16 = traceStream2->var0;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  *v10 = var0;
+  *(v10 + 1) = v16;
+  s();
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
+}
+
+- (void)setMotionTexture:(id)texture
+{
+  textureCopy = texture;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setMotionTexture:baseObject];
+
+  captureMotionTexture = self->_captureMotionTexture;
+  self->_captureMotionTexture = textureCopy;
+  v7 = textureCopy;
+
+  v8 = v20;
+  *(v20 + 8) = -20386;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
+  {
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
+  }
+
+  else
+  {
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
+  }
+
+  *(v8 + 13) = v9;
+  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  traceStream2 = [(CaptureMTLTexture *)v7 traceStream];
+  if (traceStream2)
+  {
+    v16 = traceStream2->var0;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  *v10 = var0;
+  *(v10 + 1) = v16;
+  s();
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
+}
+
+- (void)setExposureTexture:(id)texture
+{
+  textureCopy = texture;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setExposureTexture:baseObject];
+
+  captureExposureTexture = self->_captureExposureTexture;
+  self->_captureExposureTexture = textureCopy;
+  v7 = textureCopy;
+
+  v8 = v20;
+  *(v20 + 8) = -20392;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
+  {
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
+  }
+
+  else
+  {
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
+  }
+
+  *(v8 + 13) = v9;
+  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  traceStream2 = [(CaptureMTLTexture *)v7 traceStream];
+  if (traceStream2)
+  {
+    v16 = traceStream2->var0;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  *v10 = var0;
+  *(v10 + 1) = v16;
+  s();
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
+}
+
+- (void)setDiffuseAlbedoTexture:(id)texture
+{
+  textureCopy = texture;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setDiffuseAlbedoTexture:baseObject];
+
+  captureDiffuseAlbedoTexture = self->_captureDiffuseAlbedoTexture;
+  self->_captureDiffuseAlbedoTexture = textureCopy;
+  v7 = textureCopy;
+
+  v8 = v20;
+  *(v20 + 8) = -20393;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
+  {
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
+  }
+
+  else
+  {
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
+  }
+
+  *(v8 + 13) = v9;
+  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  traceStream2 = [(CaptureMTLTexture *)v7 traceStream];
+  if (traceStream2)
+  {
+    v16 = traceStream2->var0;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  *v10 = var0;
+  *(v10 + 1) = v16;
+  s();
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
+}
+
+- (void)setDepthTexture:(id)texture
+{
+  textureCopy = texture;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setDepthTexture:baseObject];
+
+  captureDepthTexture = self->_captureDepthTexture;
+  self->_captureDepthTexture = textureCopy;
+  v7 = textureCopy;
+
+  v8 = v20;
+  *(v20 + 8) = -20394;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
+  {
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
+  }
+
+  else
+  {
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
+  }
+
+  *(v8 + 13) = v9;
+  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  traceStream2 = [(CaptureMTLTexture *)v7 traceStream];
+  if (traceStream2)
+  {
+    v16 = traceStream2->var0;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  *v10 = var0;
+  *(v10 + 1) = v16;
+  s();
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
+}
+
+- (void)setDenoiseStrengthMaskTexture:(id)texture
+{
+  textureCopy = texture;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  baseObject = [(CaptureMTLTexture *)textureCopy baseObject];
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setDenoiseStrengthMaskTexture:baseObject];
+
+  captureDenoiseStrengthMaskTexture = self->_captureDenoiseStrengthMaskTexture;
+  self->_captureDenoiseStrengthMaskTexture = textureCopy;
+  v7 = textureCopy;
+
+  v8 = v20;
+  *(v20 + 8) = -20396;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
+  {
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
+  }
+
+  else
+  {
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
+  }
+
+  *(v8 + 13) = v9;
+  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  traceStream2 = [(CaptureMTLTexture *)v7 traceStream];
+  if (traceStream2)
+  {
+    v16 = traceStream2->var0;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  *v10 = var0;
+  *(v10 + 1) = v16;
+  s();
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
+}
+
+- (void)setDebugTexture:(id)texture
+{
+  textureCopy = texture;
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setDebugTexture:textureCopy];
+  captureDebugTexture = self->_captureDebugTexture;
+  self->_captureDebugTexture = textureCopy;
+}
+
+- (void)setColorTexture:(id)texture
+{
+  textureCopy = texture;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  captureColorTexture = self->_captureColorTexture;
+  self->_captureColorTexture = textureCopy;
+  v6 = textureCopy;
+
+  baseObject = [(CaptureMTLTexture *)v6 baseObject];
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setColorTexture:baseObject];
+
+  v8 = v20;
+  *(v20 + 8) = -20397;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
+  {
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
+  }
+
+  else
+  {
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
+  }
+
+  *(v8 + 13) = v9;
+  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  traceStream2 = [(CaptureMTLTexture *)v6 traceStream];
+  if (traceStream2)
+  {
+    v16 = traceStream2->var0;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  *v10 = var0;
+  *(v10 + 1) = v16;
+  s();
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
+}
+
+- (void)setFence:(id)fence
+{
+  fenceCopy = fence;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  baseObject = [(CaptureMTLFence *)fenceCopy baseObject];
+  [(MTL4FXTemporalDenoisedScalerSPI *)self->_baseObject setFence:baseObject];
+
+  captureFence = self->_captureFence;
+  self->_captureFence = fenceCopy;
+  v7 = fenceCopy;
+
+  v8 = v20;
+  *(v20 + 8) = -20391;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
+  {
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
+  }
+
+  else
+  {
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
+  }
+
+  *(v8 + 13) = v9;
+  traceStream = [(CaptureMTL4FXTemporalDenoisedScaler *)self traceStream];
+  if (traceStream)
+  {
+    var0 = traceStream->var0;
+  }
+
+  else
+  {
+    var0 = 0;
+  }
+
+  traceStream2 = [(CaptureMTLFence *)v7 traceStream];
+  if (traceStream2)
+  {
+    v16 = traceStream2->var0;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  *v10 = var0;
+  *(v10 + 1) = v16;
+  s();
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
 }
 
 - (CaptureMTL4FXTemporalDenoisedScaler)initWithBaseObject:(id)object captureDevice:(id)device captureCompiler:(id)compiler

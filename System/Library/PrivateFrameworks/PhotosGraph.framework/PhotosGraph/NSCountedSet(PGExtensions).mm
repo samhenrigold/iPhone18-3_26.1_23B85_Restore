@@ -6,31 +6,31 @@
 
 - (uint64_t)pg_accumulatedCount
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   selfCopy = self;
-  v2 = [selfCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [selfCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v4 += [selfCopy countForObject:{*(*(&v9 + 1) + 8 * i), v9}];
+        v4 += [selfCopy countForObject:{*(*(&v8 + 1) + 8 * i), v8}];
       }
 
-      v3 = [selfCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [selfCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v3);
@@ -41,7 +41,6 @@
     v4 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

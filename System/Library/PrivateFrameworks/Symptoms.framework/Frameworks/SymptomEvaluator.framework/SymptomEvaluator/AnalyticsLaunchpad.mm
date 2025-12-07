@@ -64,75 +64,75 @@ uint64_t __36__AnalyticsLaunchpad_sharedInstance__block_invoke_2()
   return +[AnalyticsLaunchpad clearInitialWorkspaceSaveBreadcrumb];
 }
 
-uint64_t __36__AnalyticsLaunchpad_sharedInstance__block_invoke_3()
+uint64_t __36__AnalyticsLaunchpad_sharedInstance__block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v0 = measureLaunchXPCHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v18 = *MEMORY[0x277D85DE8];
+  v1 = measureLaunchXPCHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v14) = 0;
-    _os_log_impl(&dword_23255B000, v0, OS_LOG_TYPE_DEFAULT, "Received com.apple.mobile.keybagd.first_unlock notification", &v14, 2u);
+    LOWORD(v16) = 0;
+    _os_log_impl(&dword_23255B000, v1, OS_LOG_TYPE_DEFAULT, "Received com.apple.mobile.keybagd.first_unlock notification", &v16, 2u);
   }
 
-  v1 = otherLogHandle;
+  v2 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v2 = v1;
-    v3 = qos_class_self();
-    v4 = qos_string(v3);
-    v14 = 136315138;
-    v15 = v4;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Launchpad com.apple.mobile.keybagd.first_unlock: QoS %s", &v14, 0xCu);
+    v3 = v2;
+    v4 = qos_class_self();
+    v5 = qos_string(v4);
+    v16 = 136315138;
+    v17 = v5;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "Launchpad com.apple.mobile.keybagd.first_unlock: QoS %s", &v16, 0xCu);
   }
 
   setMeasurement(2, 255, 1);
-  v5 = MKBDeviceUnlockedSinceBoot();
-  if (v5 != 1)
+  v6 = MKBDeviceUnlockedSinceBoot();
+  if (v6 != 1)
   {
-    v6 = v5;
-    v7 = otherLogHandle;
-    if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
+    v7 = v6;
+    v8 = otherLogHandle;
+    v6 = os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR);
+    if (v6)
     {
-      v14 = 67109120;
-      LODWORD(v15) = v6;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Unexpected first-unlock event, %d", &v14, 8u);
+      v16 = 67109120;
+      LODWORD(v17) = v7;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "Unexpected first-unlock event, %d", &v16, 8u);
     }
   }
 
-  v8 = measureLaunchXPCHandle();
-  if (os_signpost_enabled(v8))
+  v9 = measureLaunchXPCHandle(v6);
+  if (os_signpost_enabled(v9))
   {
-    LOWORD(v14) = 0;
-    _os_signpost_emit_with_name_impl(&dword_23255B000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "FirstUnlockLaunchSequenceInterval", "", &v14, 2u);
+    LOWORD(v16) = 0;
+    _os_signpost_emit_with_name_impl(&dword_23255B000, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "FirstUnlockLaunchSequenceInterval", "", &v16, 2u);
   }
 
   markMeasurement(2, 1);
-  v9 = measureLaunchXPCHandle();
-  if (os_signpost_enabled(v9))
+  v11 = measureLaunchXPCHandle(v10);
+  if (os_signpost_enabled(v11))
   {
-    LOWORD(v14) = 0;
-    _os_signpost_emit_with_name_impl(&dword_23255B000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FirstUnlockNotification", "Received com.apple.mobile.keybagd.first_unlock notification", &v14, 2u);
+    LOWORD(v16) = 0;
+    _os_signpost_emit_with_name_impl(&dword_23255B000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FirstUnlockNotification", "Received com.apple.mobile.keybagd.first_unlock notification", &v16, 2u);
   }
 
   markMeasurement(2, 2);
-  v10 = measureLaunchXPCHandle();
-  if (os_signpost_enabled(v10))
+  v13 = measureLaunchXPCHandle(v12);
+  if (os_signpost_enabled(v13))
   {
-    LOWORD(v14) = 0;
-    _os_signpost_emit_with_name_impl(&dword_23255B000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UnlockCheckComplete", "First unlock processing complete - ready to continue with launch", &v14, 2u);
+    LOWORD(v16) = 0;
+    _os_signpost_emit_with_name_impl(&dword_23255B000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UnlockCheckComplete", "First unlock processing complete - ready to continue with launch", &v16, 2u);
   }
 
-  v11 = otherLogHandle;
+  v14 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v14) = 0;
-    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "First unlock occurred, proceeding", &v14, 2u);
+    LOWORD(v16) = 0;
+    _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "First unlock occurred, proceeding", &v16, 2u);
   }
 
   [sharedInstance_sharedInstance_0 _launchSequenceWithSelfParams];
   result = notify_cancel(tokenUnlock);
   tokenUnlock = -1;
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -206,7 +206,7 @@ void __26__AnalyticsLaunchpad_init__block_invoke(uint64_t a1, uint64_t a2, void 
 
 void __26__AnalyticsLaunchpad_init__block_invoke_2(uint64_t a1)
 {
-  *&v17[5] = *MEMORY[0x277D85DE8];
+  *&v16[5] = *MEMORY[0x277D85DE8];
   v2 = configurationLogHandle;
   if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -216,9 +216,9 @@ void __26__AnalyticsLaunchpad_init__block_invoke_2(uint64_t a1)
       v3 = &stru_2847966D8;
     }
 
-    v16 = 138412290;
-    *v17 = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Checking for forced override: (Carrier Seed) %@", &v16, 0xCu);
+    v15 = 138412290;
+    *v16 = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Checking for forced override: (Carrier Seed) %@", &v15, 0xCu);
   }
 
   if (*(a1 + 32))
@@ -239,11 +239,11 @@ void __26__AnalyticsLaunchpad_init__block_invoke_2(uint64_t a1)
           v10 = +[SystemProperties sharedInstance];
           v11 = [v10 carrierSeedBuildOverride];
           v12 = [v11 BOOLValue];
-          v16 = 67109376;
-          v17[0] = v12;
-          LOWORD(v17[1]) = 1024;
-          *(&v17[1] + 2) = value;
-          _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Forced Override: Carrier Seed flag %d => %d)", &v16, 0xEu);
+          v15 = 67109376;
+          v16[0] = v12;
+          LOWORD(v16[1]) = 1024;
+          *(&v16[1] + 2) = value;
+          _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Forced Override: Carrier Seed flag %d => %d)", &v15, 0xEu);
         }
 
         v13 = [MEMORY[0x277CCABB0] numberWithBool:value];
@@ -252,8 +252,6 @@ void __26__AnalyticsLaunchpad_init__block_invoke_2(uint64_t a1)
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __26__AnalyticsLaunchpad_init__block_invoke_44(uint64_t a1, uint64_t a2, void *a3)
@@ -274,7 +272,7 @@ void __26__AnalyticsLaunchpad_init__block_invoke_44(uint64_t a1, uint64_t a2, vo
 
 void __26__AnalyticsLaunchpad_init__block_invoke_2_47(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = configurationLogHandle;
   if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -284,9 +282,9 @@ void __26__AnalyticsLaunchpad_init__block_invoke_2_47(uint64_t a1)
       v3 = &stru_2847966D8;
     }
 
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Checking for forced override: (disable Internal build) %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Checking for forced override: (disable Internal build) %@", &v6, 0xCu);
   }
 
   if (*(a1 + 32) && MEMORY[0x238389170]() == MEMORY[0x277D86448] && xpc_BOOL_get_value(*(a1 + 32)))
@@ -294,16 +292,14 @@ void __26__AnalyticsLaunchpad_init__block_invoke_2_47(uint64_t a1)
     v4 = configurationLogHandle;
     if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 67109120;
-      LODWORD(v8) = 1;
-      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Forced Override: Internal build flag disabled by override - (%d)", &v7, 8u);
+      v6 = 67109120;
+      LODWORD(v7) = 1;
+      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Forced Override: Internal build flag disabled by override - (%d)", &v6, 8u);
     }
 
     v5 = +[SystemProperties sharedInstance];
     [v5 setInternalBuildDisabledByOverride:1];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __26__AnalyticsLaunchpad_init__block_invoke_49(uint64_t a1, uint64_t a2, void *a3)
@@ -324,7 +320,7 @@ void __26__AnalyticsLaunchpad_init__block_invoke_49(uint64_t a1, uint64_t a2, vo
 
 void __26__AnalyticsLaunchpad_init__block_invoke_2_52(uint64_t a1)
 {
-  *&v17[5] = *MEMORY[0x277D85DE8];
+  *&v16[5] = *MEMORY[0x277D85DE8];
   v2 = configurationLogHandle;
   if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -334,9 +330,9 @@ void __26__AnalyticsLaunchpad_init__block_invoke_2_52(uint64_t a1)
       v3 = &stru_2847966D8;
     }
 
-    v16 = 138412290;
-    *v17 = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Checking for forced override: (Seed Build) %@", &v16, 0xCu);
+    v15 = 138412290;
+    *v16 = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Checking for forced override: (Seed Build) %@", &v15, 0xCu);
   }
 
   if (*(a1 + 32))
@@ -357,11 +353,11 @@ void __26__AnalyticsLaunchpad_init__block_invoke_2_52(uint64_t a1)
           v10 = +[SystemProperties sharedInstance];
           v11 = [v10 seedBuildOverride];
           v12 = [v11 BOOLValue];
-          v16 = 67109376;
-          v17[0] = v12;
-          LOWORD(v17[1]) = 1024;
-          *(&v17[1] + 2) = value;
-          _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Forced Override: Seed Build flag %d => %d)", &v16, 0xEu);
+          v15 = 67109376;
+          v16[0] = v12;
+          LOWORD(v16[1]) = 1024;
+          *(&v16[1] + 2) = value;
+          _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Forced Override: Seed Build flag %d => %d)", &v15, 0xEu);
         }
 
         v13 = [MEMORY[0x277CCABB0] numberWithBool:value];
@@ -370,8 +366,6 @@ void __26__AnalyticsLaunchpad_init__block_invoke_2_52(uint64_t a1)
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __26__AnalyticsLaunchpad_init__block_invoke_54(uint64_t a1, uint64_t a2, void *a3)
@@ -392,7 +386,7 @@ void __26__AnalyticsLaunchpad_init__block_invoke_54(uint64_t a1, uint64_t a2, vo
 
 void __26__AnalyticsLaunchpad_init__block_invoke_2_57(uint64_t a1)
 {
-  *&v17[5] = *MEMORY[0x277D85DE8];
+  *&v16[5] = *MEMORY[0x277D85DE8];
   v2 = configurationLogHandle;
   if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -402,9 +396,9 @@ void __26__AnalyticsLaunchpad_init__block_invoke_2_57(uint64_t a1)
       v3 = &stru_2847966D8;
     }
 
-    v16 = 138412290;
-    *v17 = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Checking for forced override: (Vendor Build) %@", &v16, 0xCu);
+    v15 = 138412290;
+    *v16 = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Checking for forced override: (Vendor Build) %@", &v15, 0xCu);
   }
 
   if (*(a1 + 32))
@@ -425,11 +419,11 @@ void __26__AnalyticsLaunchpad_init__block_invoke_2_57(uint64_t a1)
           v10 = +[SystemProperties sharedInstance];
           v11 = [v10 vendorBuildOverride];
           v12 = [v11 BOOLValue];
-          v16 = 67109376;
-          v17[0] = v12;
-          LOWORD(v17[1]) = 1024;
-          *(&v17[1] + 2) = value;
-          _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Forced Override: Vendor Build flag %d => %d)", &v16, 0xEu);
+          v15 = 67109376;
+          v16[0] = v12;
+          LOWORD(v16[1]) = 1024;
+          *(&v16[1] + 2) = value;
+          _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Forced Override: Vendor Build flag %d => %d)", &v15, 0xEu);
         }
 
         v13 = [MEMORY[0x277CCABB0] numberWithBool:value];
@@ -438,8 +432,6 @@ void __26__AnalyticsLaunchpad_init__block_invoke_2_57(uint64_t a1)
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (id)configureClass:(id)class
@@ -453,14 +445,14 @@ void __26__AnalyticsLaunchpad_init__block_invoke_2_57(uint64_t a1)
 
 - (void)_launchSequenceWithSelfParams
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v4 = v3;
     v5 = qos_class_self();
     *buf = 136315138;
-    v11 = qos_string(v5);
+    v10 = qos_string(v5);
     _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "Launchpad _launchSequenceWithSelfParams: QoS %s", buf, 0xCu);
   }
 
@@ -472,8 +464,6 @@ void __26__AnalyticsLaunchpad_init__block_invoke_2_57(uint64_t a1)
   block[4] = self;
   v7 = dispatch_block_create(DISPATCH_BLOCK_ASSIGN_CURRENT, block);
   dispatch_async(service_queue, v7);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __51__AnalyticsLaunchpad__launchSequenceWithSelfParams__block_invoke(uint64_t a1)
@@ -485,7 +475,7 @@ void __51__AnalyticsLaunchpad__launchSequenceWithSelfParams__block_invoke(uint64
 
 - (void)_launchSequence:(id)sequence
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   sequenceCopy = sequence;
   v5 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
@@ -493,86 +483,85 @@ void __51__AnalyticsLaunchpad__launchSequenceWithSelfParams__block_invoke(uint64
     v6 = v5;
     v7 = qos_class_self();
     *buf = 136315138;
-    v24 = qos_string(v7);
+    v25 = qos_string(v7);
     _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "Launchpad _launchSequence: QoS %s", buf, 0xCu);
   }
 
   if (self->_launchSequenceStarted)
   {
     v8 = otherLogHandle;
-    if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
+    v9 = os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO);
+    if (v9)
     {
       *buf = 0;
       _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "LaunchSequence already in progress - ignoring multiple calls into _launchSequence:", buf, 2u);
     }
 
-    v9 = measureLaunchXPCHandle();
-    if (os_signpost_enabled(v9))
+    v10 = measureLaunchXPCHandle(v9);
+    if (os_signpost_enabled(v10))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_23255B000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LaunchSequenceAlreadyInProgress", "LaunchSequence already called, ignoring multiple calls", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_23255B000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LaunchSequenceAlreadyInProgress", "LaunchSequence already called, ignoring multiple calls", buf, 2u);
     }
   }
 
   else
   {
     markMeasurement(2, 3);
-    v10 = measureLaunchXPCHandle();
-    if (os_signpost_enabled(v10))
+    v12 = measureLaunchXPCHandle(v11);
+    if (os_signpost_enabled(v12))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_23255B000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LaunchSequenceStart", "Immediately after called into launchSequence", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_23255B000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LaunchSequenceStart", "Immediately after called into launchSequence", buf, 2u);
     }
 
     self->_launchSequenceStarted = 1;
-    v11 = [sequenceCopy objectForKeyedSubscript:@"isHelper"];
-    bOOLValue = [v11 BOOLValue];
+    v13 = [sequenceCopy objectForKeyedSubscript:@"isHelper"];
+    bOOLValue = [v13 BOOLValue];
 
-    v13 = +[SystemSettingsRelay defaultRelay];
+    v15 = +[SystemSettingsRelay defaultRelay];
 
-    if (!v13)
+    if (!v15)
     {
-      v14 = otherLogHandle;
+      v16 = otherLogHandle;
       if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "Failed to create system settings relay", buf, 2u);
+        _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "Failed to create system settings relay", buf, 2u);
       }
     }
 
     if (bOOLValue)
     {
-      v15 = 0;
+      v17 = 0;
     }
 
     else
     {
       configure_symptom_network_diagnostics();
-      v15 = @"/var/networkd";
+      v17 = @"/var/networkd";
     }
 
     flows_queue = self->flows_queue;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __38__AnalyticsLaunchpad__launchSequence___block_invoke;
-    v18[3] = &unk_27898A378;
-    v19 = v15;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __38__AnalyticsLaunchpad__launchSequence___block_invoke;
+    v19[3] = &unk_27898A378;
+    v20 = v17;
     selfCopy = self;
-    v22 = bOOLValue;
-    v21 = sequenceCopy;
-    dispatch_sync(flows_queue, v18);
+    v23 = bOOLValue;
+    v22 = sequenceCopy;
+    dispatch_sync(flows_queue, v19);
 
-    v9 = v19;
+    v10 = v20;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __38__AnalyticsLaunchpad__launchSequence___block_invoke(uint64_t a1)
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v57[1] = *MEMORY[0x277D85DE8];
   ++_launchSequence__attempts;
-  v2 = measureLaunchXPCHandle();
+  v2 = measureLaunchXPCHandle(a1);
   if (os_signpost_enabled(v2))
   {
     *buf = 0;
@@ -585,252 +574,249 @@ void __38__AnalyticsLaunchpad__launchSequence___block_invoke(uint64_t a1)
   v5 = [v4 symptomEvaluatorDatabaseContainerPath];
   v6 = [v3 workspaceWithName:@"netusage" atPath:v5 objectModelName:*MEMORY[0x277D6B618] objectModelBundle:0 useReadOnly:0 legacyDBContainerPathToMigrate:*(a1 + 32)];
 
-  v7 = measureLaunchXPCHandle();
-  if (os_signpost_enabled(v7))
+  v8 = measureLaunchXPCHandle(v7);
+  if (os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_23255B000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "WorkspaceInitializeEnd", "Immediately after allocating the first workspace", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_23255B000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "WorkspaceInitializeEnd", "Immediately after allocating the first workspace", buf, 2u);
   }
 
   markMeasurement(2, 5);
   if (v6)
   {
-    v8 = measureLaunchXPCHandle();
-    if (os_signpost_enabled(v8))
+    v10 = measureLaunchXPCHandle(v9);
+    if (os_signpost_enabled(v10))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_23255B000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PersistenceInitializationBegin", "Immediately before performing persistence initialization", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_23255B000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PersistenceInitializationBegin", "Immediately before performing persistence initialization", buf, 2u);
     }
 
     markMeasurement(2, 6);
     [v6 setHealthDelegate:*(a1 + 40)];
     if ((*(a1 + 56) & 1) != 0 || ![AnalyticsLaunchpad launchHealthCheck:v6])
     {
-      v9 = 0;
+      v11 = 0;
     }
 
     else
     {
       +[AnalyticsLaunchpad leaveBreadcrumbForInitialWorkspaceSave];
-      v9 = 1;
+      v11 = 1;
     }
 
-    v10 = [v6 save];
-    if (v9)
+    v12 = [v6 save];
+    if (v11)
     {
       +[AnalyticsLaunchpad clearInitialWorkspaceSaveBreadcrumb];
     }
 
-    v11 = +[SystemProperties sharedInstance];
-    v12 = [v11 internalBuild];
+    v13 = +[SystemProperties sharedInstance];
+    v14 = [v13 internalBuild];
 
-    if (v12)
+    if (v14)
     {
-      v13 = [ImpoExpoService impoExpoServiceInWorkspace:v6 andQueue:*(*(a1 + 40) + 16)];
-      v14 = [v13 listItemsNameWithPrefix:@"manually_modified_using_" sortDescriptor:0];
-      [v14 enumerateObjectsUsingBlock:&__block_literal_global_73_0];
+      v15 = [ImpoExpoService impoExpoServiceInWorkspace:v6 andQueue:*(*(a1 + 40) + 16)];
+      v16 = [v15 listItemsNameWithPrefix:@"manually_modified_using_" sortDescriptor:0];
+      [v16 enumerateObjectsUsingBlock:&__block_literal_global_73_0];
     }
 
-    [v6 setHealthDelegate:0];
-    v15 = measureLaunchXPCHandle();
-    if (os_signpost_enabled(v15))
+    v17 = measureLaunchXPCHandle([v6 setHealthDelegate:0]);
+    if (os_signpost_enabled(v17))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_23255B000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PersistenceInitializationEnd", "Immediately after completing persistence initialization and health checks", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_23255B000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PersistenceInitializationEnd", "Immediately after completing persistence initialization and health checks", buf, 2u);
     }
 
     markMeasurement(2, 7);
-    if (v10)
+    if (v12)
     {
-      v16 = +[SystemSettingsRelay defaultRelay];
-      v17 = [v16 ndfFeatureFlagEnabled];
+      v18 = +[SystemSettingsRelay defaultRelay];
+      v19 = [v18 ndfFeatureFlagEnabled];
 
-      if (v17)
+      if (v19)
       {
-        v18 = [v6 persistentStoreCoordinator];
-        v19 = v18 == 0;
+        v20 = [v6 persistentStoreCoordinator];
+        v21 = v20 == 0;
 
-        if (!v19)
+        if (!v21)
         {
-          v20 = +[NDFCoreShim sharedInstance];
-          v21 = [v6 persistentStoreCoordinator];
-          [v20 setupPersistentStorageWithCoordinator:v21];
+          v22 = +[NDFCoreShim sharedInstance];
+          v23 = [v6 persistentStoreCoordinator];
+          [v22 setupPersistentStorageWithCoordinator:v23];
 
 LABEL_42:
-          v35 = measureLaunchXPCHandle();
-          if (os_signpost_enabled(v35))
+          v38 = measureLaunchXPCHandle(v24);
+          if (os_signpost_enabled(v38))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_23255B000, v35, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FlowAnalyticsEngineAllocated", "Allocating FlowAnalyticsEngine", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_23255B000, v38, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FlowAnalyticsEngineAllocated", "Allocating FlowAnalyticsEngine", buf, 2u);
           }
 
           markMeasurement(2, 8);
-          v23 = [[FlowAnalyticsEngine alloc] initWithWorkspace:v6 params:*(a1 + 48) queue:*(*(a1 + 40) + 16)];
-          v36 = [MEMORY[0x277CCAB98] defaultCenter];
-          if (v23)
+          v26 = [[FlowAnalyticsEngine alloc] initWithWorkspace:v6 params:*(a1 + 48) queue:*(*(a1 + 40) + 16)];
+          v39 = [MEMORY[0x277CCAB98] defaultCenter];
+          if (v26)
           {
-            v54 = @"ObjectKey";
-            v55[0] = v23;
-            v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:&v54 count:1];
-            [v36 postNotificationName:@"kNotificationOfPartialInitialization" object:v23 userInfo:v37];
+            v56 = @"ObjectKey";
+            v57[0] = v26;
+            v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:&v56 count:1];
+            [v39 postNotificationName:@"kNotificationOfPartialInitialization" object:v26 userInfo:v40];
           }
 
           else
           {
-            v38 = otherLogHandle;
+            v41 = otherLogHandle;
             if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_ERROR, "Failed to start flow analytics", buf, 2u);
+              _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_ERROR, "Failed to start flow analytics", buf, 2u);
             }
 
-            v37 = +[AWDAgent defaultInstance];
-            v39 = [MEMORY[0x277CCA9B8] errorWithDomain:0x2847AAC78 code:3404 userInfo:0];
-            [v37 postMetricForSignificantEventWithName:@"AnalyticsEngineAllocationFailure" errorContext:3 error:v39 status:0];
+            v40 = +[AWDAgent defaultInstance];
+            v42 = [MEMORY[0x277CCA9B8] errorWithDomain:0x2847AAC78 code:3404 userInfo:0];
+            [v40 postMetricForSignificantEventWithName:@"AnalyticsEngineAllocationFailure" errorContext:3 error:v42 status:0];
           }
 
-          v40 = *(*(a1 + 40) + 24);
+          v43 = *(*(a1 + 40) + 24);
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __38__AnalyticsLaunchpad__launchSequence___block_invoke_83;
           block[3] = &unk_27898A328;
-          v41 = *(a1 + 48);
-          v42 = *(a1 + 40);
-          v50 = v41;
-          v51 = v42;
-          v52 = v36;
-          v43 = v36;
-          dispatch_sync(v40, block);
+          v44 = *(a1 + 48);
+          v45 = *(a1 + 40);
+          v52 = v44;
+          v53 = v45;
+          v54 = v39;
+          v46 = v39;
+          dispatch_sync(v43, block);
 
           goto LABEL_50;
         }
 
-        v34 = otherLogHandle;
-        if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
+        v37 = otherLogHandle;
+        v24 = os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR);
+        if (!v24)
         {
           goto LABEL_42;
         }
 
         *buf = 0;
-        v31 = "Failed to set up a PSC";
-        v32 = v34;
-        v33 = OS_LOG_TYPE_ERROR;
+        v34 = "Failed to set up a PSC";
+        v35 = v37;
+        v36 = OS_LOG_TYPE_ERROR;
       }
 
       else
       {
-        v30 = otherLogHandle;
-        if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
+        v33 = otherLogHandle;
+        v24 = os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO);
+        if (!v24)
         {
           goto LABEL_42;
         }
 
         *buf = 0;
-        v31 = "NDF: This feature is not enabled";
-        v32 = v30;
-        v33 = OS_LOG_TYPE_INFO;
+        v34 = "NDF: This feature is not enabled";
+        v35 = v33;
+        v36 = OS_LOG_TYPE_INFO;
       }
 
-      _os_log_impl(&dword_23255B000, v32, v33, v31, buf, 2u);
+      _os_log_impl(&dword_23255B000, v35, v36, v34, buf, 2u);
       goto LABEL_42;
     }
 
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __38__AnalyticsLaunchpad__launchSequence___block_invoke_85;
-    v47[3] = &unk_27898A0C8;
-    v48 = v6;
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __38__AnalyticsLaunchpad__launchSequence___block_invoke_85;
+    v49[3] = &unk_27898A0C8;
+    v50 = v6;
     if (kSymptomEvaluatorAnalyticsFileName_block_invoke_5_persistentStoreFailureToken != -1)
     {
-      dispatch_once(&kSymptomEvaluatorAnalyticsFileName_block_invoke_5_persistentStoreFailureToken, v47);
+      dispatch_once(&kSymptomEvaluatorAnalyticsFileName_block_invoke_5_persistentStoreFailureToken, v49);
     }
 
     if (_launchSequence__attempts > 19)
     {
-      v29 = otherLogHandle;
+      v32 = otherLogHandle;
       if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_ERROR, "Workspace allocated but non functional. Retries exhausted. Fatal", buf, 2u);
+        _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_ERROR, "Workspace allocated but non functional. Retries exhausted. Fatal", buf, 2u);
       }
 
-      v27 = +[AWDAgent defaultInstance];
-      [v27 postMetricForSignificantEventWithName:@"ExceededWorkspaceRecoveryRetryAttempts" errorContext:6 error:0 status:0];
+      v30 = +[AWDAgent defaultInstance];
+      [v30 postMetricForSignificantEventWithName:@"ExceededWorkspaceRecoveryRetryAttempts" errorContext:6 error:0 status:0];
     }
 
     else
     {
-      v25 = 2 * kLaunchRecoverActivityDelay;
+      v28 = 2 * kLaunchRecoverActivityDelay;
       if (2 * kLaunchRecoverActivityDelay >= 300)
       {
-        v25 = 300;
+        v28 = 300;
       }
 
-      v26 = 5;
+      v29 = 5;
       if (kLaunchRecoverActivityDelay)
       {
-        v26 = v25;
+        v29 = v28;
       }
 
-      kLaunchRecoverActivityDelay = v26;
-      v27 = xpc_dictionary_create(0, 0, 0);
-      xpc_dictionary_set_int64(v27, *MEMORY[0x277D86250], kLaunchRecoverActivityDelay);
-      xpc_dictionary_set_int64(v27, *MEMORY[0x277D86270], 5);
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __38__AnalyticsLaunchpad__launchSequence___block_invoke_2;
-      v45[3] = &unk_27898A350;
-      v28 = *(a1 + 48);
-      v45[4] = *(a1 + 40);
-      v46 = v28;
-      xpc_activity_register("com.apple.symptoms.launch_recover_xpc_activity", v27, v45);
+      kLaunchRecoverActivityDelay = v29;
+      v30 = xpc_dictionary_create(0, 0, 0);
+      xpc_dictionary_set_int64(v30, *MEMORY[0x277D86250], kLaunchRecoverActivityDelay);
+      xpc_dictionary_set_int64(v30, *MEMORY[0x277D86270], 5);
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __38__AnalyticsLaunchpad__launchSequence___block_invoke_2;
+      v47[3] = &unk_27898A350;
+      v31 = *(a1 + 48);
+      v47[4] = *(a1 + 40);
+      v48 = v31;
+      xpc_activity_register("com.apple.symptoms.launch_recover_xpc_activity", v30, v47);
     }
 
-    v23 = v48;
+    v26 = v50;
   }
 
   else
   {
-    v22 = otherLogHandle;
+    v25 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "Failed to allocate workspace for all analytics.", buf, 2u);
+      _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_ERROR, "Failed to allocate workspace for all analytics.", buf, 2u);
     }
 
-    v23 = +[AWDAgent defaultInstance];
-    v24 = [MEMORY[0x277CCA9B8] errorWithDomain:0x2847AAC78 code:3401 userInfo:0];
-    [(FlowAnalyticsEngine *)v23 postMetricForSignificantEventWithName:@"AnalyticsWorkspaceAllocationFailure" errorContext:3 error:v24 status:0];
+    v26 = +[AWDAgent defaultInstance];
+    v27 = [MEMORY[0x277CCA9B8] errorWithDomain:0x2847AAC78 code:3401 userInfo:0];
+    [(FlowAnalyticsEngine *)v26 postMetricForSignificantEventWithName:@"AnalyticsWorkspaceAllocationFailure" errorContext:3 error:v27 status:0];
   }
 
 LABEL_50:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __38__AnalyticsLaunchpad__launchSequence___block_invoke_70(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_ERROR, "WARNING: This persistent store has been manually modified. Proceed with caution! (%@)", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_ERROR, "WARNING: This persistent store has been manually modified. Proceed with caution! (%@)", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __38__AnalyticsLaunchpad__launchSequence___block_invoke_83(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v2 = measureLaunchXPCHandle();
+  v10[1] = *MEMORY[0x277D85DE8];
+  v2 = measureLaunchXPCHandle(a1);
   if (os_signpost_enabled(v2))
   {
-    *v9 = 0;
-    _os_signpost_emit_with_name_impl(&dword_23255B000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NetworkAnalyticsEngineAllocated", "Allocating NetworkAnalyticsEngine", v9, 2u);
+    *v8 = 0;
+    _os_signpost_emit_with_name_impl(&dword_23255B000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NetworkAnalyticsEngineAllocated", "Allocating NetworkAnalyticsEngine", v8, 2u);
   }
 
   markMeasurement(2, 10);
@@ -838,9 +824,9 @@ void __38__AnalyticsLaunchpad__launchSequence___block_invoke_83(uint64_t a1)
   v4 = v3;
   if (v3)
   {
-    v10 = @"ObjectKey";
-    v11[0] = v3;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = @"ObjectKey";
+    v10[0] = v3;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     [*(a1 + 48) postNotificationName:@"kNotificationOfPartialInitialization" object:v4 userInfo:v5];
   }
 
@@ -849,16 +835,14 @@ void __38__AnalyticsLaunchpad__launchSequence___block_invoke_83(uint64_t a1)
     v6 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Failed to start net analytics", v9, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Failed to start net analytics", v8, 2u);
     }
 
     v5 = +[AWDAgent defaultInstance];
     v7 = [MEMORY[0x277CCA9B8] errorWithDomain:0x2847AAC78 code:3405 userInfo:0];
     [v5 postMetricForSignificantEventWithName:@"AnalyticsEngineAllocationFailure" errorContext:3 error:v7 status:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __38__AnalyticsLaunchpad__launchSequence___block_invoke_85(uint64_t a1)
@@ -898,25 +882,24 @@ LABEL_7:
   [v10 postMetricForSignificantEventWithName:v9 errorContext:3 error:v8 status:0];
 }
 
-xpc_activity_state_t __38__AnalyticsLaunchpad__launchSequence___block_invoke_2(uint64_t a1, xpc_activity_t activity)
+void *__38__AnalyticsLaunchpad__launchSequence___block_invoke_2(uint64_t a1, xpc_activity_t activity)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   result = xpc_activity_get_state(activity);
   if (result == 2)
   {
     v4 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v6[0] = 67109120;
-      v6[1] = _launchSequence__attempts;
-      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "Workspace allocated but non functional. Retrying now (%d) ...", v6, 8u);
+      v5[0] = 67109120;
+      v5[1] = _launchSequence__attempts;
+      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "Workspace allocated but non functional. Retrying now (%d) ...", v5, 8u);
     }
 
     *(*(a1 + 32) + 8) = 0;
-    result = [*(a1 + 32) _launchSequence:*(a1 + 40)];
+    return [*(a1 + 32) _launchSequence:*(a1 + 40)];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -928,46 +911,46 @@ xpc_activity_state_t __38__AnalyticsLaunchpad__launchSequence___block_invoke_2(u
 
   if (bOOLValue)
   {
-    v6 = otherLogHandle;
+    v7 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "NOI analytics unavailable in the helper", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "NOI analytics unavailable in the helper", v14, 2u);
     }
 
 LABEL_10:
-    v8 = 0;
+    v9 = 0;
     goto LABEL_11;
   }
 
-  v7 = measureLaunchXPCHandle();
-  if (os_signpost_enabled(v7))
+  v8 = measureLaunchXPCHandle(v6);
+  if (os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_23255B000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NOIAnalyticsEngineAllocated", "Allocating NOIAnalyticsEngine", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_23255B000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NOIAnalyticsEngineAllocated", "Allocating NOIAnalyticsEngine", buf, 2u);
   }
 
   markMeasurement(2, 12);
-  v8 = [[NOIAnalyticsEngine alloc] initWithWorkspace:0 params:paramsCopy];
-  if (!v8)
+  v9 = [[NOIAnalyticsEngine alloc] initWithWorkspace:0 params:paramsCopy];
+  if (!v9)
   {
-    v9 = otherLogHandle;
+    v10 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "Failed to start noi analytics", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Failed to start noi analytics", v15, 2u);
     }
 
-    v10 = +[AWDAgent defaultInstance];
-    v11 = [MEMORY[0x277CCA9B8] errorWithDomain:0x2847AAC78 code:3406 userInfo:0];
-    [v10 postMetricForSignificantEventWithName:@"AnalyticsEngineAllocationFailure" errorContext:3 error:v11 status:0];
+    v11 = +[AWDAgent defaultInstance];
+    v12 = [MEMORY[0x277CCA9B8] errorWithDomain:0x2847AAC78 code:3406 userInfo:0];
+    [v11 postMetricForSignificantEventWithName:@"AnalyticsEngineAllocationFailure" errorContext:3 error:v12 status:0];
 
     goto LABEL_10;
   }
 
 LABEL_11:
 
-  return v8;
+  return v9;
 }
 
 - (void)integrityCheckCompleted:(BOOL)completed error:(id)error
@@ -987,15 +970,15 @@ LABEL_11:
 - (void)destroyPersistentStoreCompleted:(BOOL)completed error:(id)error
 {
   completedCopy = completed;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = otherLogHandle;
   if (completedCopy)
   {
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "DATA LOSS: Destroyed the PersistentStore", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "DATA LOSS: Destroyed the PersistentStore", &v12, 2u);
     }
 
     v7 = +[AWDAgent defaultInstance];
@@ -1009,9 +992,9 @@ LABEL_11:
   {
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412290;
-      v14 = errorCopy;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "DATA LOSS: Failure to destroy the PersistentStore because %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = errorCopy;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "DATA LOSS: Failure to destroy the PersistentStore because %@", &v12, 0xCu);
     }
 
     v7 = +[AWDAgent defaultInstance];
@@ -1024,21 +1007,20 @@ LABEL_11:
   [v7 postMetricForSignificantEventWithName:@"DestroyPersistentStoreAction" errorContext:v9 error:v10 status:v11];
 
   +[AnalyticsLaunchpad clearDestroyPersistentStoreBreadcrumb];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteDatabaseCompleted:(BOOL)completed error:(id)error
 {
   completedCopy = completed;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = otherLogHandle;
   if (completedCopy)
   {
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "DATA LOSS: Deleted the database file", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "DATA LOSS: Deleted the database file", &v12, 2u);
     }
 
     v7 = +[AWDAgent defaultInstance];
@@ -1052,9 +1034,9 @@ LABEL_11:
   {
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412290;
-      v14 = errorCopy;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "DATA LOSS: Failure to delete database file because %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = errorCopy;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "DATA LOSS: Failure to delete database file because %@", &v12, 0xCu);
     }
 
     v7 = +[AWDAgent defaultInstance];
@@ -1065,13 +1047,11 @@ LABEL_11:
   }
 
   [v7 postMetricForSignificantEventWithName:@"DeleteDatabaseAction" errorContext:v9 error:v10 status:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)launchHealthCheck:(id)check
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   checkCopy = check;
   p_superclass = CountDown.superclass;
   v5 = [AnalyticsLaunchpad foundBreadcrumb:checkCopy];
@@ -1092,7 +1072,7 @@ LABEL_11:
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v39 = v12;
+      v38 = v12;
       _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "loaded launchTimes is %@", buf, 0xCu);
     }
 
@@ -1116,32 +1096,32 @@ LABEL_30:
 
     else
     {
-      v33 = v14;
+      v32 = v14;
       v9 = !v10;
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       v15 = v12;
-      v16 = [v15 countByEnumeratingWithState:&v34 objects:v44 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v33 objects:v43 count:16];
       if (v16)
       {
         v17 = v16;
         v18 = 0;
         v19 = 0;
-        v20 = *v35;
+        v20 = *v34;
         while (2)
         {
           v21 = 0;
           v22 = v19;
           do
           {
-            if (*v35 != v20)
+            if (*v34 != v20)
             {
               objc_enumerationMutation(v15);
             }
 
-            unsignedLongLongValue = [*(*(&v34 + 1) + 8 * v21) unsignedLongLongValue];
+            unsignedLongLongValue = [*(*(&v33 + 1) + 8 * v21) unsignedLongLongValue];
             v19 = unsignedLongLongValue;
             if (v22)
             {
@@ -1163,7 +1143,7 @@ LABEL_30:
           }
 
           while (v17 != v21);
-          v17 = [v15 countByEnumeratingWithState:&v34 objects:v44 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v33 objects:v43 count:16];
           if (v17)
           {
             continue;
@@ -1178,7 +1158,7 @@ LABEL_30:
         v18 = 0;
       }
 
-      v25 = v18 / (v33 - 1);
+      v25 = v18 / (v32 - 1);
       if (v25 > 0x257)
       {
         v24 = 0;
@@ -1197,11 +1177,11 @@ LABEL_30:
         if (v27)
         {
           *buf = 134218498;
-          v39 = v25;
-          v40 = 2048;
-          v41 = 600;
-          v42 = 2112;
-          v43 = v15;
+          v38 = v25;
+          v39 = 2048;
+          v40 = 600;
+          v41 = 2112;
+          v42 = v15;
           _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "DATA INTEGRITY: Average Launch Interval is too low (%llu < %llu). Will force integrity check. [launch times: %@]", buf, 0x20u);
         }
 
@@ -1242,7 +1222,6 @@ LABEL_31:
 LABEL_34:
   [p_superclass + 489 appendLaunchTime];
 
-  v31 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1264,11 +1243,11 @@ LABEL_34:
 
 + (void)appendLaunchTime
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
-  v11.tv_sec = 0;
-  *&v11.tv_usec = 0;
-  gettimeofday(&v11, 0);
+  v10.tv_sec = 0;
+  *&v10.tv_usec = 0;
+  gettimeofday(&v10, 0);
   v3 = *MEMORY[0x277CBF040];
   v4 = *MEMORY[0x277CBF030];
   v5 = CFPreferencesCopyValue(@"launchTimestamps", @"com.apple.symptomsd", *MEMORY[0x277CBF040], *MEMORY[0x277CBF030]);
@@ -1278,7 +1257,7 @@ LABEL_34:
     [array addObjectsFromArray:v5];
   }
 
-  v7 = [MEMORY[0x277CCABB0] numberWithLong:v11.tv_sec];
+  v7 = [MEMORY[0x277CCABB0] numberWithLong:v10.tv_sec];
   [array addObject:v7];
 
   if ([array count] >= 0xB)
@@ -1290,7 +1269,7 @@ LABEL_34:
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v13 = array;
+    v12 = array;
     _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "About to save launchTimes: %@", buf, 0xCu);
   }
 
@@ -1301,8 +1280,6 @@ LABEL_34:
     CFPreferencesAppSynchronize(@"com.apple.symptomsd");
     CFRelease(v9);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)foundBreadcrumb:(id)breadcrumb
@@ -1411,45 +1388,41 @@ LABEL_34:
 
 + (unint64_t)integrityCheckBreadcrumbCount
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = CFPreferencesCopyValue(@"integrityCheckInProgress", @"com.apple.symptomsd", *MEMORY[0x277CBF040], *MEMORY[0x277CBF030]);
-  if (v2)
+  if (!v2)
   {
-    v3 = v2;
-    v4 = CFGetTypeID(v2);
-    if (v4 == CFNumberGetTypeID())
-    {
-      unsignedIntegerValue = [v3 unsignedIntegerValue];
-      v6 = otherLogHandle;
-      if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
-      {
-        v10 = 134217984;
-        v11 = unsignedIntegerValue;
-        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "IntegrityCheckInProgress breadcrumb count is %ld.", &v10, 0xCu);
-      }
-    }
+    return 0;
+  }
 
-    else
+  v3 = v2;
+  v4 = CFGetTypeID(v2);
+  if (v4 == CFNumberGetTypeID())
+  {
+    unsignedIntegerValue = [v3 unsignedIntegerValue];
+    v6 = otherLogHandle;
+    if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
     {
-      v7 = otherLogHandle;
-      if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
-      {
-        v10 = 138412290;
-        v11 = v3;
-        _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "Found unexpected value stored for IntegrityCheckInProgress breadcrumb: %@", &v10, 0xCu);
-      }
-
-      +[AnalyticsLaunchpad clearIntegrityCheckBreadcrumb];
-      unsignedIntegerValue = 0;
+      v9 = 134217984;
+      v10 = unsignedIntegerValue;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "IntegrityCheckInProgress breadcrumb count is %ld.", &v9, 0xCu);
     }
   }
 
   else
   {
+    v7 = otherLogHandle;
+    if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = 138412290;
+      v10 = v3;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "Found unexpected value stored for IntegrityCheckInProgress breadcrumb: %@", &v9, 0xCu);
+    }
+
+    +[AnalyticsLaunchpad clearIntegrityCheckBreadcrumb];
     unsignedIntegerValue = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return unsignedIntegerValue;
 }
 
@@ -1468,27 +1441,26 @@ LABEL_34:
 
 + (void)leaveBreadcrumbForIntegrityCheck
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Incrementing IntegrityCheckInProgress breadcrumb", &v7, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Incrementing IntegrityCheckInProgress breadcrumb", &v6, 2u);
   }
 
   v3 = +[AnalyticsLaunchpad integrityCheckBreadcrumbCount];
   v4 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = v3;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Incrementing IntegrityCheckInProgress breadcrumb count from %ld.", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v3;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Incrementing IntegrityCheckInProgress breadcrumb count from %ld.", &v6, 0xCu);
   }
 
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v3 + 1];
   CFPreferencesSetValue(@"integrityCheckInProgress", v5, @"com.apple.symptomsd", *MEMORY[0x277CBF040], *MEMORY[0x277CBF030]);
   CFPreferencesAppSynchronize(@"com.apple.symptomsd");
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)clearIntegrityCheckBreadcrumb
@@ -1540,9 +1512,9 @@ LABEL_34:
 
 - (int)configureInstance:(id)instance
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   instanceCopy = instance;
-  v5 = measureLaunchXPCHandle();
+  v5 = measureLaunchXPCHandle(instanceCopy);
   if (os_signpost_enabled(v5))
   {
     *buf = 0;
@@ -1557,7 +1529,7 @@ LABEL_34:
     v8 = qos_class_self();
     v9 = qos_string(v8);
     *buf = 136315138;
-    v20 = v9;
+    v19 = v9;
     _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "configureInstance: QoS %s", buf, 0xCu);
   }
 
@@ -1572,18 +1544,17 @@ LABEL_34:
   [launchParams setObject:v13 forKeyedSubscript:@"isHelper"];
 
   setMeasurement(1, 255, isSymptomsdHelper);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __40__AnalyticsLaunchpad_configureInstance___block_invoke;
-  v17[3] = &unk_27898A3A0;
-  v17[4] = self;
-  v18 = isSymptomsdHelper;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __40__AnalyticsLaunchpad_configureInstance___block_invoke;
+  v16[3] = &unk_27898A3A0;
+  v16[4] = self;
+  v17 = isSymptomsdHelper;
   if (configureInstance__pred != -1)
   {
-    dispatch_once(&configureInstance__pred, v17);
+    dispatch_once(&configureInstance__pred, v16);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1602,15 +1573,15 @@ void __40__AnalyticsLaunchpad_configureInstance___block_invoke(uint64_t a1)
 
 void __40__AnalyticsLaunchpad_configureInstance___block_invoke_2(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v3 = v2;
     v4 = qos_class_self();
-    v19 = 136315138;
-    v20 = qos_string(v4);
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "dispatch service_queue: QoS %s", &v19, 0xCu);
+    v21 = 136315138;
+    v22 = qos_string(v4);
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "dispatch service_queue: QoS %s", &v21, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -1631,37 +1602,37 @@ void __40__AnalyticsLaunchpad_configureInstance___block_invoke_2(uint64_t a1)
     v10 = 0;
   }
 
-  [AnalyticsPortal setListeningPort:v8 queue:*(*(a1 + 32) + 32) noiEngine:v7 isHelper:v10 & 1];
-  v11 = measureLaunchXPCHandle();
+  v11 = measureLaunchXPCHandle([AnalyticsPortal setListeningPort:v8 queue:*(*(a1 + 32) + 32) noiEngine:v7 isHelper:v10 & 1]);
   if (os_signpost_enabled(v11))
   {
-    LOWORD(v19) = 0;
-    _os_signpost_emit_with_name_impl(&dword_23255B000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FirstUnlockCheck", "Immediately before calling _checkUnlockedSinceBoot", &v19, 2u);
+    LOWORD(v21) = 0;
+    _os_signpost_emit_with_name_impl(&dword_23255B000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FirstUnlockCheck", "Immediately before calling _checkUnlockedSinceBoot", &v21, 2u);
   }
 
   markMeasurement(1, 4);
-  v12 = measureLaunchXPCHandle();
-  if (os_signpost_enabled(v12))
+  v13 = measureLaunchXPCHandle(v12);
+  if (os_signpost_enabled(v13))
   {
-    LOWORD(v19) = 0;
-    _os_signpost_emit_with_name_impl(&dword_23255B000, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PrelaunchSequenceInterval", "Prelaunch sequence complete, ready to call _checkUnlockedSinceBoot", &v19, 2u);
+    LOWORD(v21) = 0;
+    _os_signpost_emit_with_name_impl(&dword_23255B000, v13, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "PrelaunchSequenceInterval", "Prelaunch sequence complete, ready to call _checkUnlockedSinceBoot", &v21, 2u);
   }
 
-  if ([(AnalyticsLaunchpad *)*(a1 + 32) _checkUnlockedSinceBoot])
+  v14 = [(AnalyticsLaunchpad *)*(a1 + 32) _checkUnlockedSinceBoot];
+  if (v14)
   {
-    v13 = measureLaunchXPCHandle();
-    if (os_signpost_enabled(v13))
+    v15 = measureLaunchXPCHandle(v14);
+    if (os_signpost_enabled(v15))
     {
-      LOWORD(v19) = 0;
-      _os_signpost_emit_with_name_impl(&dword_23255B000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "LaunchSequenceInterval", "", &v19, 2u);
+      LOWORD(v21) = 0;
+      _os_signpost_emit_with_name_impl(&dword_23255B000, v15, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "LaunchSequenceInterval", "", &v21, 2u);
     }
 
     markMeasurement(2, 2);
-    v14 = measureLaunchXPCHandle();
-    if (os_signpost_enabled(v14))
+    v17 = measureLaunchXPCHandle(v16);
+    if (os_signpost_enabled(v17))
     {
-      LOWORD(v19) = 0;
-      _os_signpost_emit_with_name_impl(&dword_23255B000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UnlockCheckComplete", "Unlock check complete - device already unlocked", &v19, 2u);
+      LOWORD(v21) = 0;
+      _os_signpost_emit_with_name_impl(&dword_23255B000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UnlockCheckComplete", "Unlock check complete - device already unlocked", &v21, 2u);
     }
 
     if (tokenUnlock != -1)
@@ -1670,31 +1641,28 @@ void __40__AnalyticsLaunchpad_configureInstance___block_invoke_2(uint64_t a1)
       tokenUnlock = -1;
     }
 
-    v15 = *(a1 + 32);
-    v16 = [v15 launchParams];
-    [v15 _launchSequence:v16];
+    v18 = *(a1 + 32);
+    v19 = [v18 launchParams];
+    [v18 _launchSequence:v19];
   }
 
   else
   {
-    v17 = otherLogHandle;
+    v20 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Waiting for first unlock...", &v19, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "Waiting for first unlock...", &v21, 2u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_checkUnlockedSinceBoot
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (!self)
   {
-    v10 = 0;
-    goto LABEL_12;
+    return 0;
   }
 
   v1 = MKBDeviceFormattedForContentProtection();
@@ -1703,65 +1671,60 @@ void __40__AnalyticsLaunchpad_configureInstance___block_invoke_2(uint64_t a1)
   {
     if (v2)
     {
-      LOWORD(v15[0]) = 0;
+      LOWORD(v14) = 0;
       v9 = "Filesystem does not support content protection, proceeding as if device was unlocked";
       goto LABEL_10;
     }
 
-LABEL_11:
-    v10 = 1;
-    goto LABEL_12;
+    return 1;
   }
 
   if (v2)
   {
-    OUTLINED_FUNCTION_0_0(&dword_23255B000, v3, v4, "Filesystem formatted for content protection", v5, v6, v7, v8, 0);
+    LOWORD(v14) = 0;
+    OUTLINED_FUNCTION_0_0(&dword_23255B000, v3, v4, "Filesystem formatted for content protection", v5, v6, v7, v8, v14, v15);
   }
 
   if (MKBGetDeviceLockState() == 3)
   {
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15[0]) = 0;
+      LOWORD(v14) = 0;
       v9 = "Key bag disabled, proceeding as if device was unlocked";
 LABEL_10:
-      OUTLINED_FUNCTION_0_0(&dword_23255B000, v3, v4, v9, v5, v6, v7, v8, v15[0]);
-      goto LABEL_11;
+      OUTLINED_FUNCTION_0_0(&dword_23255B000, v3, v4, v9, v5, v6, v7, v8, v14);
+      return 1;
     }
 
-    goto LABEL_11;
+    return 1;
   }
 
-  v13 = MKBDeviceUnlockedSinceBoot();
-  v10 = v13 == 1;
-  v14 = otherLogHandle;
+  v12 = MKBDeviceUnlockedSinceBoot();
+  v10 = v12 == 1;
+  v13 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v15[0] = 67109120;
-    v15[1] = v13 == 1;
-    _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "Key bag unlocked since boot: %{BOOL}d", v15, 8u);
+    LODWORD(v14) = 67109120;
+    HIDWORD(v14) = v12 == 1;
+    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "Key bag unlocked since boot: %{BOOL}d", &v14, 8u);
   }
 
-LABEL_12:
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 void __38__AnalyticsLaunchpad__launchSequence___block_invoke_cold_1(void *a1, uint64_t a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = objc_begin_catch(a1);
   *a3 = v4;
   v5 = v4;
   v6 = otherLogHandle;
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Exception during initial workspace save. %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Exception during initial workspace save. %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -40,7 +40,7 @@
   make = [rentalCar5 make];
   [v15 setObject:make forKeyedSubscript:@"name"];
 
-  if ([v15 count] >= 2)
+  if (objc_msgSend_count(v15) >= 2)
   {
     [v6 setObject:v15 forKeyedSubscript:@"brand"];
   }
@@ -51,12 +51,12 @@
   rentalCompanyName = [rentalCar6 rentalCompanyName];
   [v18 setObject:rentalCompanyName forKeyedSubscript:@"name"];
 
-  if ([v18 count] >= 2)
+  if (objc_msgSend_count(v18) >= 2)
   {
     [v6 setObject:v18 forKeyedSubscript:@"rentalCompany"];
   }
 
-  if ([v6 count] >= 2)
+  if (objc_msgSend_count(v6) >= 2)
   {
     [v5 setObject:v6 forKeyedSubscript:@"reservationFor"];
   }

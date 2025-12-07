@@ -13,16 +13,17 @@
   v5 = [containerCopy url];
   path = [v5 path];
   v7 = [(STMSizeCacheEntry *)self initWithPath:path];
+  v8 = v7;
   if (v7)
   {
-    v8 = STSharedContainerSizingQueue();
-    [(STMSizeCacheEntry *)v7 setDispatchQueue:v8];
+    v9 = STSharedContainerSizingQueue(v7);
+    [(STMSizeCacheEntry *)v8 setDispatchQueue:v9];
 
-    [(STMSizeCacheEntry *)v7 setItem:containerCopy];
-    [(STMSizeCacheEntry *)v7 setSizingBlock:&__block_literal_global];
+    [(STMSizeCacheEntry *)v8 setItem:containerCopy];
+    [(STMSizeCacheEntry *)v8 setSizingBlock:&__block_literal_global];
   }
 
-  return v7;
+  return v8;
 }
 
 id __50__STMSizeCacheEntry_Container__initWithContainer___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -54,17 +55,17 @@ id __50__STMSizeCacheEntry_Container__initWithContainer___block_invoke(uint64_t 
 
   if (v8)
   {
-    v9 = STSharedPathSizingOpQueue();
-    [(STMSizeCacheEntry *)v8 setQueue:v9];
+    v10 = STSharedPathSizingOpQueue(v9);
+    [(STMSizeCacheEntry *)v8 setQueue:v10];
 
     [(STMSizeCacheEntry *)v8 setItem:lCopy];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __64__STMSizeCacheEntry_URL__initWithURL_usingFastSizingIfPossible___block_invoke;
-    v11[3] = &unk_279D1D160;
-    v12 = lCopy;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __64__STMSizeCacheEntry_URL__initWithURL_usingFastSizingIfPossible___block_invoke;
+    v12[3] = &unk_279D1D160;
+    v13 = lCopy;
     possibleCopy = possible;
-    [(STMSizeCacheEntry *)v8 setSizingBlock:v11];
+    [(STMSizeCacheEntry *)v8 setSizingBlock:v12];
   }
 
   return v8;

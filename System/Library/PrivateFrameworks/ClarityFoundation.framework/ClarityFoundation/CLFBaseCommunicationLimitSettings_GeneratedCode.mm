@@ -3,6 +3,7 @@
 - (CLFBaseCommunicationLimitSettings_GeneratedCode)init;
 - (NSString)incomingCommunicationLimit;
 - (NSString)outgoingCommunicationLimit;
+- (void)setNeedsMigrationFor117558856:(BOOL)for117558856;
 @end
 
 @implementation CLFBaseCommunicationLimitSettings_GeneratedCode
@@ -40,22 +41,26 @@
 
 + (id)allPreferenceSelectorsAsStrings
 {
-  v11[3] = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = &OBJC_METACLASS___CLFBaseCommunicationLimitSettings_GeneratedCode;
-  v2 = objc_msgSendSuper2(&v10, sel_allPreferenceSelectorsAsStrings);
+  v10[3] = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = &OBJC_METACLASS___CLFBaseCommunicationLimitSettings_GeneratedCode;
+  v2 = objc_msgSendSuper2(&v9, sel_allPreferenceSelectorsAsStrings);
   v3 = NSStringFromSelector(sel_incomingCommunicationLimit);
-  v11[0] = v3;
+  v10[0] = v3;
   v4 = NSStringFromSelector(sel_needsMigrationFor117558856);
-  v11[1] = v4;
+  v10[1] = v4;
   v5 = NSStringFromSelector(sel_outgoingCommunicationLimit);
-  v11[2] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
+  v10[2] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
   v7 = [v2 arrayByAddingObjectsFromArray:v6];
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
+}
+
+- (void)setNeedsMigrationFor117558856:(BOOL)for117558856
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:for117558856];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"NeedsMigrationFor117558856"];
 }
 
 - (NSString)outgoingCommunicationLimit

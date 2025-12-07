@@ -11,7 +11,7 @@
   v10 = 0;
   if ([v3 length])
   {
-    +[NSData(hexString) dataWithHexString:];
+    [NSData(hexString) dataWithHexString:v3];
 LABEL_12:
     v4 = 0;
     goto LABEL_8;
@@ -48,7 +48,7 @@ LABEL_7:
       }
     }
 
-    +[NSData(hexString) dataWithHexString:];
+    [NSData(hexString) dataWithHexString:v3];
     goto LABEL_12;
   }
 
@@ -79,44 +79,35 @@ LABEL_8:
   return v3;
 }
 
-+ (void)dataWithHexString:()hexString .cold.1()
++ (void)dataWithHexString:()hexString .cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = defaultLogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = defaultLogHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_2();
     _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
-+ (void)dataWithHexString:()hexString .cold.2()
++ (void)dataWithHexString:()hexString .cold.2(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = defaultLogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = defaultLogHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_2();
     _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 + (void)dataWithHexString:()hexString .cold.3(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = defaultLogHandle();
+  v2 = defaultLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [a1 length];
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

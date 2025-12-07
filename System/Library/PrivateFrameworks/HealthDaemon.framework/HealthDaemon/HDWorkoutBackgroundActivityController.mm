@@ -59,7 +59,7 @@
 
   selfCopy = self;
   sub_228A15314(v7, v6);
-  sub_2289ACBE4(v7);
+  sub_2289ACBE4(v7, v6);
 }
 
 - (void)hidePillIfNeededWithCompletion:(id)completion
@@ -81,7 +81,7 @@
 
   selfCopy = self;
   sub_228A155E4(v7, v6);
-  sub_2289ACBE4(v7);
+  sub_2289ACBE4(v7, v6);
 }
 
 - (_TtC12HealthDaemon37HDWorkoutBackgroundActivityController)init

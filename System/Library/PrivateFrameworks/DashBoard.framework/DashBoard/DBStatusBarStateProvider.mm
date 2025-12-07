@@ -106,7 +106,7 @@
     v18 = 0u;
     *buf = 0u;
     v16 = 0u;
-    [(DBStatusBarStateProvider *)self _generateData];
+    objc_msgSend__generateData(self);
     v12 = 0u;
     v13 = 0u;
     v10 = 0u;
@@ -347,7 +347,7 @@
 {
   cachedTimeString = [self cachedTimeString];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_248146000, v2, v3, "Cached time string is empty or nil: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_1(&dword_248146000, v2, v3, "Cached time string is empty or nil: %@", v4, v5, v6, v7);
 }
 
 void __47__DBStatusBarStateProvider__setupCallingDomain__block_invoke(uint64_t a1, void *a2)
@@ -592,7 +592,7 @@ LABEL_23:
 - (void)getStatusBarData:(id *)data
 {
   v5 = *MEMORY[0x277D85DE8];
-  [(DBStatusBarStateProvider *)self _generateData];
+  objc_msgSend__generateData(self, a2);
   memcpy(data, v4, sizeof($6C45178016D353444451090973A2A97F));
 }
 
@@ -1733,14 +1733,14 @@ uint64_t __75__DBStatusBarStateProvider_observeValueForKeyPath_ofObject_change_c
 {
   v1 = [a1 cachedTimeString];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_248146000, v2, v3, "Unable to store time string in status bar data: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_1(&dword_248146000, v2, v3, "Unable to store time string in status bar data: %@", v4, v5, v6, v7);
 }
 
 - (void)_getTimeData:(void *)a1 .cold.2(void *a1)
 {
   v1 = [a1 cachedTimeString];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_248146000, v2, v3, "Time string is empty from cached string: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_1(&dword_248146000, v2, v3, "Time string is empty from cached string: %@", v4, v5, v6, v7);
 }
 
 void __54__DBStatusBarStateProvider__mediaDataUpdatedWithData___block_invoke_cold_1()
@@ -1761,7 +1761,7 @@ void __54__DBStatusBarStateProvider__mediaDataUpdatedWithData___block_invoke_col
 {
   v1 = [a1 attributedEntity];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_248146000, v2, v3, "Recording attribution exists, but attributed entity has no bundle identifier: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_1(&dword_248146000, v2, v3, "Recording attribution exists, but attributed entity has no bundle identifier: %{public}@", v4, v5, v6, v7);
 }
 
 @end

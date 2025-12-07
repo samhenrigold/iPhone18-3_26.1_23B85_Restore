@@ -44,9 +44,11 @@
 
 - (_TtC19HeadphoneSettingsUI17BatteryStatusView)initWithFrame:(CGRect)frame device:(id)device darkMode:(BOOL)mode
 {
+  v6 = *&frame.origin.x;
+  v7 = *&frame.origin.y;
   MEMORY[0x1E69E5928](device);
   v5 = sub_1AC30910C();
-  sub_1AC23355C(v5);
+  sub_1AC23355C(device, v5 & 1, v6, v7, v5);
 }
 
 - (id)getDeviceCaseIconName:(unsigned int)name

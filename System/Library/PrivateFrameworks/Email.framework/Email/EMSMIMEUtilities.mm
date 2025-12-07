@@ -16,32 +16,31 @@ void ___ef_log_EMSMIMEUtilities_block_invoke()
 
 + (unint64_t)_messageSecurityLevelViaOtherDevices
 {
-  v49[1] = *MEMORY[0x1E69E9840];
+  v50[1] = *MEMORY[0x1E69E9840];
   if (![EMInternalPreferences preferenceEnabled:26])
   {
     if (sComputedMessageSecurityLevel == 1)
     {
-      v2 = sCurrentSecurityLevel;
-      goto LABEL_16;
+      return sCurrentSecurityLevel;
     }
 
     defaultStore = [MEMORY[0x1E6959A48] defaultStore];
-    v49[0] = *MEMORY[0x1E69597F8];
-    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:1];
-    v44 = 0;
-    v4 = [defaultStore accountsWithAccountTypeIdentifiers:v3 error:&v44];
-    v5 = v44;
+    v50[0] = *MEMORY[0x1E69597F8];
+    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:1];
+    v45 = 0;
+    v4 = [defaultStore accountsWithAccountTypeIdentifiers:v3 error:&v45];
+    v5 = v45;
     firstObject = [v4 firstObject];
 
     if (v5)
     {
-      v6 = _ef_log_EMSMIMEUtilities();
-      mEMORY[0x1E698DC80] = v6;
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _ef_log_EMSMIMEUtilities(v6);
+      mEMORY[0x1E698DC80] = v7;
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v46 = v5;
-        _os_log_impl(&dword_1C6655000, v6, OS_LOG_TYPE_DEFAULT, "Error in getting account: %@\nWill drop to most-compatible", buf, 0xCu);
+        v47 = v5;
+        _os_log_impl(&dword_1C6655000, v7, OS_LOG_TYPE_DEFAULT, "Error in getting account: %@\nWill drop to most-compatible", buf, 0xCu);
       }
 
       v2 = 100;
@@ -49,53 +48,53 @@ void ___ef_log_EMSMIMEUtilities_block_invoke()
     }
 
     mEMORY[0x1E698DC80] = [MEMORY[0x1E698DC80] sharedInstance];
-    v32 = [mEMORY[0x1E698DC80] altDSIDForAccount:firstObject];
-    v31 = objc_alloc_init(MEMORY[0x1E698DCC0]);
-    [v31 setAppleIDWithAltDSID:v32 inUse:1 forService:1];
-    v33 = objc_alloc_init(MEMORY[0x1E698DD68]);
+    v33 = [mEMORY[0x1E698DC80] altDSIDForAccount:firstObject];
+    v32 = objc_alloc_init(MEMORY[0x1E698DCC0]);
+    [v32 setAppleIDWithAltDSID:v33 inUse:1 forService:1];
+    v34 = objc_alloc_init(MEMORY[0x1E698DD68]);
     aa_altDSID = [firstObject aa_altDSID];
-    [v33 setAltDSID:aa_altDSID];
+    [v34 setAltDSID:aa_altDSID];
 
-    [v33 setIncludeUntrustedDevices:1];
-    v48 = *MEMORY[0x1E698DC58];
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
-    [v33 setServices:v8];
+    [v34 setIncludeUntrustedDevices:1];
+    v49 = *MEMORY[0x1E698DC58];
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
+    [v34 setServices:v9];
 
-    [v33 setOperatingSystems:&unk_1F461CED0];
+    [v34 setOperatingSystems:&unk_1F461CED0];
     promise = [MEMORY[0x1E699B868] promise];
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __56__EMSMIMEUtilities__messageSecurityLevelViaOtherDevices__block_invoke;
-    v42[3] = &unk_1E826C5B0;
-    v10 = promise;
-    v43 = v10;
-    v29 = v10;
-    [v31 fetchDeviceListWithContext:v33 completion:v42];
-    future = [v10 future];
-    v41 = 0;
-    v30 = [future result:&v41];
-    v5 = v41;
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __56__EMSMIMEUtilities__messageSecurityLevelViaOtherDevices__block_invoke;
+    v43[3] = &unk_1E826C5B0;
+    v11 = promise;
+    v44 = v11;
+    v30 = v11;
+    [v32 fetchDeviceListWithContext:v34 completion:v43];
+    future = [v11 future];
+    v42 = 0;
+    v31 = [future result:&v42];
+    v5 = v42;
 
     if (v5)
     {
-      v12 = _ef_log_EMSMIMEUtilities();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = _ef_log_EMSMIMEUtilities(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v46 = v5;
-        _os_log_impl(&dword_1C6655000, v12, OS_LOG_TYPE_DEFAULT, "Error in getting devices: %@\nWill drop to most-compatible", buf, 0xCu);
+        v47 = v5;
+        _os_log_impl(&dword_1C6655000, v14, OS_LOG_TYPE_DEFAULT, "Error in getting devices: %@\nWill drop to most-compatible", buf, 0xCu);
       }
 
 LABEL_12:
       v2 = 100;
 LABEL_13:
 
-      v13 = v30;
+      v15 = v31;
       goto LABEL_14;
     }
 
-    v13 = v30;
-    if (![v30 count])
+    v15 = v31;
+    if (![v31 count])
     {
       v2 = 200;
 LABEL_14:
@@ -104,61 +103,61 @@ LABEL_15:
       sCurrentSecurityLevel = v2;
       sComputedMessageSecurityLevel = 1;
 
-      goto LABEL_16;
+      return v2;
     }
 
-    v39 = 0u;
     v40 = 0u;
-    v37 = 0u;
+    v41 = 0u;
     v38 = 0u;
-    v12 = v30;
-    v16 = [v12 countByEnumeratingWithState:&v37 objects:v47 count:16];
-    if (!v16)
+    v39 = 0u;
+    v14 = v31;
+    v17 = [v14 countByEnumeratingWithState:&v38 objects:v48 count:16];
+    if (!v17)
     {
       v2 = 200;
       goto LABEL_13;
     }
 
-    v17 = *v38;
+    v18 = *v39;
     v2 = 200;
 LABEL_20:
-    v18 = 0;
+    v19 = 0;
     while (1)
     {
-      if (*v38 != v17)
+      if (*v39 != v18)
       {
-        objc_enumerationMutation(v12);
+        objc_enumerationMutation(v14);
       }
 
-      v19 = *(*(&v37 + 1) + 8 * v18);
-      operatingSystemName = [v19 operatingSystemName];
-      v21 = [operatingSystemName isEqualToString:@"macOS"];
+      v20 = *(*(&v38 + 1) + 8 * v19);
+      operatingSystemName = [v20 operatingSystemName];
+      v22 = [operatingSystemName isEqualToString:@"macOS"];
 
-      if (v21)
+      if (v22)
       {
         break;
       }
 
-      operatingSystemName2 = [v19 operatingSystemName];
-      v26 = [operatingSystemName2 isEqualToString:@"iOS"];
+      operatingSystemName2 = [v20 operatingSystemName];
+      v27 = [operatingSystemName2 isEqualToString:@"iOS"];
 
-      if (v26)
+      if (v27)
       {
-        operatingSystemVersion = [v19 operatingSystemVersion];
+        operatingSystemVersion = [v20 operatingSystemVersion];
         [operatingSystemVersion floatValue];
-        v24 = v28 < 17.0;
+        v25 = v29 < 17.0;
 
 LABEL_27:
-        if (v24)
+        if (v25)
         {
           goto LABEL_12;
         }
       }
 
-      if (v16 == ++v18)
+      if (v17 == ++v19)
       {
-        v16 = [v12 countByEnumeratingWithState:&v37 objects:v47 count:16];
-        if (!v16)
+        v17 = [v14 countByEnumeratingWithState:&v38 objects:v48 count:16];
+        if (!v17)
         {
           goto LABEL_13;
         }
@@ -167,17 +166,14 @@ LABEL_27:
       }
     }
 
-    operatingSystemVersion2 = [v19 operatingSystemVersion];
+    operatingSystemVersion2 = [v20 operatingSystemVersion];
     [operatingSystemVersion2 floatValue];
-    v24 = v23 < 14.0;
+    v25 = v24 < 14.0;
 
     goto LABEL_27;
   }
 
-  v2 = 200;
-LABEL_16:
-  v14 = *MEMORY[0x1E69E9840];
-  return v2;
+  return 200;
 }
 
 + (BOOL)_isICloudAddress:(id)address

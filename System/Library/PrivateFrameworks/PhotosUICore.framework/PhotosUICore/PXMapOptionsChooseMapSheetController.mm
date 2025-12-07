@@ -47,7 +47,7 @@
 - (void)viewDidLoad
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for MapOptionsChooseMapSheetController();
+  v3.super_class = type metadata accessor for MapOptionsChooseMapSheetController(self, a2);
   v2 = v3.receiver;
   [(PXMapOptionsChooseMapSheetController *)&v3 viewDidLoad];
   sub_1A42A67D8();

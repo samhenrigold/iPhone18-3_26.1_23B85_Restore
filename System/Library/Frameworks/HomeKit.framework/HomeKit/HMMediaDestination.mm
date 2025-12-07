@@ -21,7 +21,7 @@
 
 - (HMMediaDestination)initWithProtoBufferData:(id)data
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = [[HMMediaGroupProtoMediaDestination alloc] initWithData:dataCopy];
   v6 = v5;
@@ -40,11 +40,11 @@
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           v26 = HMFGetLogIdentifier();
-          v35 = 138543618;
-          v36 = v26;
-          v37 = 2112;
-          v38 = v6;
-          _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@missing field=parentIdentifier from data=%@", &v35, 0x16u);
+          v34 = 138543618;
+          v35 = v26;
+          v36 = 2112;
+          v37 = v6;
+          _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@missing field=parentIdentifier from data=%@", &v34, 0x16u);
         }
 
         objc_autoreleasePoolPop(v24);
@@ -87,10 +87,10 @@
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           v29 = HMFGetLogIdentifier();
-          v35 = 138543618;
-          v36 = v29;
-          v37 = 2112;
-          v38 = v6;
+          v34 = 138543618;
+          v35 = v29;
+          v36 = 2112;
+          v37 = v6;
           v30 = "%{public}@missing field=audioGroupIdentifier from data=%@";
           goto LABEL_21;
         }
@@ -103,13 +103,13 @@
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           v29 = HMFGetLogIdentifier();
-          v35 = 138543618;
-          v36 = v29;
-          v37 = 2112;
-          v38 = v6;
+          v34 = 138543618;
+          v35 = v29;
+          v36 = 2112;
+          v37 = v6;
           v30 = "%{public}@missing field=supportedOptions from data=%@";
 LABEL_21:
-          _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_ERROR, v30, &v35, 0x16u);
+          _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_ERROR, v30, &v34, 0x16u);
         }
       }
 
@@ -126,10 +126,10 @@ LABEL_26:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v35 = 138543618;
-      v36 = v19;
-      v37 = 2112;
-      v38 = v6;
+      v34 = 138543618;
+      v35 = v19;
+      v36 = 2112;
+      v37 = v6;
       v20 = "%{public}@missing field=identifier from data=%@";
       v21 = v18;
       v22 = 22;
@@ -144,13 +144,13 @@ LABEL_26:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v35 = 138543362;
-      v36 = v19;
+      v34 = 138543362;
+      v35 = v19;
       v20 = "%{public}@Error deserializing ProtoBuffer data";
       v21 = v18;
       v22 = 12;
 LABEL_12:
-      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, v20, &v35, v22);
+      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, v20, &v34, v22);
     }
   }
 
@@ -158,7 +158,6 @@ LABEL_12:
   selfCopy = 0;
 LABEL_27:
 
-  v33 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -210,7 +209,7 @@ LABEL_27:
 
 - (HMMediaDestination)initWithCoder:(id)coder
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMMediaDestinationIdentifierCodingKey"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMMediaDestinationParentIdentifierCodingKey"];
@@ -223,9 +222,9 @@ LABEL_27:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v11;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Using legacy encoding to get supported options", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v11;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Using legacy encoding to get supported options", &v26, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -260,9 +259,9 @@ LABEL_8:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     v17 = HMFGetLogIdentifier();
-    v27 = 138543362;
-    v28 = v17;
-    _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Using legacy encoding to get identifier", &v27, 0xCu);
+    v26 = 138543362;
+    v27 = v17;
+    _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Using legacy encoding to get identifier", &v26, 0xCu);
   }
 
   objc_autoreleasePoolPop(v14);
@@ -279,9 +278,9 @@ LABEL_11:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       v23 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v23;
-      _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@No parent identifier given - user is in a legacy state", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v23;
+      _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@No parent identifier given - user is in a legacy state", &v26, 0xCu);
     }
 
     objc_autoreleasePoolPop(v20);
@@ -290,7 +289,6 @@ LABEL_11:
 
   v24 = [(HMMediaDestination *)self initWithUniqueIdentifier:v5 parentIdentifier:v6 supportedOptions:unsignedIntegerValue audioGroupIdentifier:v7];
 
-  v25 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -393,10 +391,11 @@ LABEL_11:
 
 uint64_t __33__HMMediaDestination_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  logCategory__hmf_once_v1_6032 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_6032;
+  logCategory__hmf_once_v1_6032 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)attributeDescriptionForAudioGroupIdentifier
@@ -418,26 +417,24 @@ uint64_t __33__HMMediaDestination_logCategory__block_invoke()
 
 - (NSArray)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   identifier = [(HMMediaDestination *)self identifier];
   v5 = [v3 initWithName:@"identifier" value:identifier];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   parentIdentifier = [(HMMediaDestination *)self parentIdentifier];
   v8 = [v6 initWithName:@"parentIdentifier" value:parentIdentifier];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   v10 = HMMediaDestinationSupportOptionsAsString([(HMMediaDestination *)self supportedOptions]);
   v11 = [v9 initWithName:@"supportOptions" value:v10];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x1E69A29C8]);
   attributeDescriptionForAudioGroupIdentifier = [(HMMediaDestination *)self attributeDescriptionForAudioGroupIdentifier];
   v14 = [v12 initWithName:@"audioGroupIdentifier" value:attributeDescriptionForAudioGroupIdentifier];
-  v18[3] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v17[3] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:4];
 
   return v15;
 }

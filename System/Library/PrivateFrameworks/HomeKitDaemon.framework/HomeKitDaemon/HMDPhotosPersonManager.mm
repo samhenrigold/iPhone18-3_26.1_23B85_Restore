@@ -45,7 +45,7 @@
 
 - (void)handleUpdatedSettings:(id)settings
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   workQueue = [(HMDPersonManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -57,35 +57,35 @@
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v23 = v9;
-    v24 = 2112;
-    v25 = settingsCopy;
+    v22 = v9;
+    v23 = 2112;
+    v24 = settingsCopy;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Photos person manager settings changed: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   [(HMDPersonManager *)selfCopy _createOrRemoveZonesForSettings:settingsCopy];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   dataInterfaces = [(HMDPersonManager *)selfCopy dataInterfaces];
-  v11 = [dataInterfaces countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v11 = [dataInterfaces countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(dataInterfaces);
         }
 
-        v15 = *(*(&v17 + 1) + 8 * v14);
+        v15 = *(*(&v16 + 1) + 8 * v14);
         if (objc_opt_respondsToSelector())
         {
           [v15 handleUpdatedSettings:settingsCopy mirrorOutputFuture:0];
@@ -95,13 +95,11 @@
       }
 
       while (v12 != v14);
-      v12 = [dataInterfaces countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v12 = [dataInterfaces countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (HMPhotosPersonManagerSettings)settings
@@ -238,10 +236,9 @@ id __42__HMDPhotosPersonManager_hmiPersonManager__block_invoke(uint64_t a1, void
 
 void __37__HMDPhotosPersonManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_16226;
-  logCategory__hmf_once_v2_16226 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_16226;
+  logCategory__hmf_once_v2_16226 = v0;
 }
 
 + (id)zoneNameForZoneUUID:(id)d

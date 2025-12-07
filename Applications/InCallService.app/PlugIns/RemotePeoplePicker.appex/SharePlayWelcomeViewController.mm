@@ -2,6 +2,7 @@
 - (_TtC18RemotePeoplePicker30SharePlayWelcomeViewController)initWithTitle:(id)title detailText:(id)text icon:(id)icon contentLayout:(int64_t)layout;
 - (_TtC18RemotePeoplePicker30SharePlayWelcomeViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout;
 - (void)didTapContinueButton;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)viewWillLayoutSubviews;
 @end
@@ -17,10 +18,24 @@
   sub_100002994();
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for SharePlayWelcomeViewController();
+  v4 = v7.receiver;
+  [(SharePlayWelcomeViewController *)&v7 viewDidAppear:appearCopy];
+  v6 = &type metadata for Bool;
+  v5[0] = 0;
+  sub_100001CDC(v5);
+
+  sub_1000032CC(v5, &qword_100010D08, &unk_1000082A0);
+}
+
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_100002854();
+  sub_100002854(selfCopy, v2);
 }
 
 - (void)didTapContinueButton

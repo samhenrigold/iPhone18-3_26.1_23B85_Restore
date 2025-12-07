@@ -4,7 +4,7 @@ void sub_10001EA6C(uint64_t a1, int a2)
   {
     v6 = v2;
     v7 = v3;
-    v4 = sub_100001684();
+    v4 = sub_100001684(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *v5 = 0;
@@ -19,36 +19,36 @@ BOOL sub_10001F55C(void *a1, void *a2, float *a3, void *a4)
   v8 = a2;
   v9 = a1;
   v10 = objc_opt_new();
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_10001F7BC;
-  v20[3] = &unk_100085DA8;
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_10001F7BC;
+  v21[3] = &unk_100085DA8;
   v11 = v7;
-  v21 = v11;
-  [v10 setIntervalCompletionProcessingBlock:v20];
+  v22 = v11;
+  [v10 setIntervalCompletionProcessingBlock:v21];
   v12 = objc_opt_new();
   [v12 addSubsystem:@"com.apple.hangtracer" category:@"always_on_hang"];
   [v10 setSubsystemCategoryFilter:v12];
-  memset(&v18, 0, sizeof(v18));
   memset(&v19, 0, sizeof(v19));
-  getrusage(0, &v19);
-  v17 = 0;
-  [v10 processLogArchiveWithPath:0 startDate:v9 endDate:v8 errorOut:&v17];
+  memset(&v20, 0, sizeof(v20));
+  getrusage(0, &v20);
+  v18 = 0;
+  [v10 processLogArchiveWithPath:0 startDate:v9 endDate:v8 errorOut:&v18];
 
-  v13 = v17;
-  getrusage(0, &v18);
+  v13 = v18;
+  v14 = getrusage(0, &v19);
   if (a3)
   {
-    v14 = ((v18.ru_stime.tv_usec / 1000000.0) + v18.ru_stime.tv_sec) - ((v19.ru_stime.tv_usec / 1000000.0) + v19.ru_stime.tv_sec) + ((v18.ru_utime.tv_usec / 1000000.0) + v18.ru_utime.tv_sec) - ((v19.ru_utime.tv_usec / 1000000.0) + v19.ru_utime.tv_sec);
-    *a3 = v14;
+    v15 = ((v19.ru_stime.tv_usec / 1000000.0) + v19.ru_stime.tv_sec) - ((v20.ru_stime.tv_usec / 1000000.0) + v20.ru_stime.tv_sec) + ((v19.ru_utime.tv_usec / 1000000.0) + v19.ru_utime.tv_sec) - ((v20.ru_utime.tv_usec / 1000000.0) + v20.ru_utime.tv_sec);
+    *a3 = v15;
   }
 
   if (v13)
   {
-    v15 = sub_100001684();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_100001684(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_100040138(v13, v15);
+      sub_100040138(v13, v16);
     }
   }
 
@@ -84,98 +84,99 @@ id sub_10001F8F8(uint64_t a1, uint64_t a2)
 {
   v4 = +[NSDate now];
   [v4 timeIntervalSinceReferenceDate];
-  v6 = sub_10000B5E4((v5 * 1000.0));
-  v7 = mach_absolute_time();
-  v8 = [NSDate dateWithTimeIntervalSinceReferenceDate:sub_10000B590((v6 - v7) + a1)];
-  v9 = sub_10000B590(a2 - a1);
-  v10 = [NSDate dateWithTimeInterval:v8 sinceDate:-5.0];
-  v56 = v8;
-  v11 = [NSDate dateWithTimeInterval:v8 sinceDate:v9 + 5.0];
-  v50 = v4;
-  v12 = [v11 earlierDate:v4];
+  v7 = sub_10000B5E4((v5 * 1000.0), v6);
+  v8 = mach_absolute_time();
+  v10 = [NSDate dateWithTimeIntervalSinceReferenceDate:sub_10000B590((v7 - v8) + a1, v9)];
+  v12 = sub_10000B590(a2 - a1, v11);
+  v13 = [NSDate dateWithTimeInterval:v10 sinceDate:-5.0];
+  v61 = v10;
+  v14 = [NSDate dateWithTimeInterval:v10 sinceDate:v12 + 5.0];
+  v55 = v4;
+  v15 = [v14 earlierDate:v4];
 
-  v62 = 0.0;
-  v51 = v12;
-  v52 = v10;
-  v13 = sub_10001F7CC(v10, v12, &v62);
-  v57 = objc_opt_new();
-  v58 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v14 = v13;
-  v55 = [v14 countByEnumeratingWithState:&v58 objects:v77 count:16];
-  if (v55)
+  v67 = 0.0;
+  v56 = v15;
+  v57 = v13;
+  v16 = sub_10001F7CC(v13, v15, &v67);
+  v62 = objc_opt_new();
+  v63 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v17 = v16;
+  v60 = [v17 countByEnumeratingWithState:&v63 objects:v82 count:16];
+  if (v60)
   {
-    v54 = *v59;
-    obj = v14;
-    v15 = 0.0;
+    v59 = *v64;
+    obj = v17;
+    v18 = 0.0;
     while (2)
     {
-      for (i = 0; i != v55; i = i + 1)
+      for (i = 0; i != v60; i = i + 1)
       {
-        if (*v59 != v54)
+        if (*v64 != v59)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v58 + 1) + 8 * i);
-        v18 = [v17 beginDate];
-        [v18 timeIntervalSinceReferenceDate];
-        v20 = v19;
-        [v56 timeIntervalSinceReferenceDate];
-        v22 = v20 - v21;
+        v20 = *(*(&v63 + 1) + 8 * i);
+        v21 = [v20 beginDate];
+        [v21 timeIntervalSinceReferenceDate];
+        v23 = v22;
+        [v61 timeIntervalSinceReferenceDate];
+        v25 = v23 - v24;
 
-        v75[0] = @"startTime";
-        v23 = [v17 beginWallTimeStringWithTimeZoneName:0];
-        v76[0] = v23;
-        v75[1] = @"durationMS";
-        [v17 durationSeconds];
-        v25 = [NSString stringWithFormat:@"%.02f", (v24 * 1000.0)];
-        v76[1] = v25;
-        v75[2] = @"processName";
-        v26 = [v17 beginEvent];
-        v27 = [v26 processName];
-        v28 = v27;
-        v29 = @"Unknown";
-        if (v27)
+        v80[0] = @"startTime";
+        v26 = [v20 beginWallTimeStringWithTimeZoneName:0];
+        v81[0] = v26;
+        v80[1] = @"durationMS";
+        [v20 durationSeconds];
+        v28 = [NSString stringWithFormat:@"%.02f", (v27 * 1000.0)];
+        v81[1] = v28;
+        v80[2] = @"processName";
+        v29 = [v20 beginEvent];
+        v30 = [v29 processName];
+        v31 = v30;
+        v32 = @"Unknown";
+        if (v30)
         {
-          v29 = v27;
+          v32 = v30;
         }
 
-        v76[2] = v29;
-        v75[3] = @"processID";
-        v30 = [v17 beginEvent];
-        v31 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v30 processID]);
-        v76[3] = v31;
-        v75[4] = @"relativeTimeMS";
-        v32 = [NSString stringWithFormat:@"%+.02f", v22 * 1000.0];
-        v76[4] = v32;
-        v33 = [NSDictionary dictionaryWithObjects:v76 forKeys:v75 count:5];
+        v81[2] = v32;
+        v80[3] = @"processID";
+        v33 = [v20 beginEvent];
+        v34 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v33 processID]);
+        v81[3] = v34;
+        v80[4] = @"relativeTimeMS";
+        v35 = [NSString stringWithFormat:@"%+.02f", v25 * 1000.0];
+        v81[4] = v35;
+        v36 = [NSDictionary dictionaryWithObjects:v81 forKeys:v80 count:5];
 
-        [v57 addObject:v33];
-        [v17 durationSeconds];
-        v15 = v15 + v34;
-        if ([v57 count] >= 0x28)
+        [v62 addObject:v36];
+        [v20 durationSeconds];
+        v18 = v18 + v37;
+        v38 = [v62 count];
+        if (v38 >= 0x28)
         {
-          v35 = sub_100001684();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          v39 = sub_100001684(v38);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v66 = "getSurroundingHangIntervalsData";
-            v67 = 1024;
-            LODWORD(v68) = 40;
-            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%s retrieved max logs of %d.", buf, 0x12u);
+            v71 = "getSurroundingHangIntervalsData";
+            v72 = 1024;
+            LODWORD(v73) = 40;
+            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "%s retrieved max logs of %d.", buf, 0x12u);
           }
 
-          v14 = obj;
+          v17 = obj;
           goto LABEL_16;
         }
       }
 
-      v14 = obj;
-      v55 = [obj countByEnumeratingWithState:&v58 objects:v77 count:16];
-      if (v55)
+      v17 = obj;
+      v60 = [obj countByEnumeratingWithState:&v63 objects:v82 count:16];
+      if (v60)
       {
         continue;
       }
@@ -186,51 +187,51 @@ id sub_10001F8F8(uint64_t a1, uint64_t a2)
 
   else
   {
-    v15 = 0.0;
+    v18 = 0.0;
   }
 
 LABEL_16:
 
-  v36 = sub_100001684();
-  v37 = v14;
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+  v41 = sub_100001684(v40);
+  v42 = v17;
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
   {
-    v48 = [NSString stringWithFormat:@"%.02f", (v62 * 1000.0)];
-    v49 = [v57 count];
+    v53 = [NSString stringWithFormat:@"%.02f", (v67 * 1000.0)];
+    v54 = [v62 count];
     *buf = 136316162;
-    v66 = "getSurroundingHangIntervalsData";
-    v67 = 2112;
-    v68 = v52;
-    v69 = 2112;
-    v70 = v51;
-    v71 = 2112;
-    v72 = v48;
-    v73 = 2048;
-    v74 = v49;
-    _os_log_debug_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "%s retrieved hang history between windowStartDate %@ and windowEndDate %@ which took %@ms and found %lu hangs.", buf, 0x34u);
+    v71 = "getSurroundingHangIntervalsData";
+    v72 = 2112;
+    v73 = v57;
+    v74 = 2112;
+    v75 = v56;
+    v76 = 2112;
+    v77 = v53;
+    v78 = 2048;
+    v79 = v54;
+    _os_log_debug_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEBUG, "%s retrieved hang history between windowStartDate %@ and windowEndDate %@ which took %@ms and found %lu hangs.", buf, 0x34u);
   }
 
-  v63[0] = @"hangHistory";
-  v38 = [v57 copy];
-  v64[0] = v38;
-  v63[1] = @"hangHistoryRetrievalTimeMS";
-  v39 = [NSString stringWithFormat:@"%.02f", (v62 * 1000.0)];
-  v64[1] = v39;
-  v63[2] = @"hangHistoryCount";
-  v40 = +[NSNumber numberWithUnsignedLong:](NSNumber, "numberWithUnsignedLong:", [v57 count]);
-  v64[2] = v40;
-  v63[3] = @"hangHistoryTotalHangTimeMS";
-  v41 = [NSString stringWithFormat:@"%.02f", (v15 * 1000.0)];
-  v64[3] = v41;
-  v63[4] = @"hangHistoryForwardWindowTimeMS";
-  [v51 timeIntervalSinceReferenceDate];
-  v43 = v42;
+  v68[0] = @"hangHistory";
+  v43 = [v62 copy];
+  v69[0] = v43;
+  v68[1] = @"hangHistoryRetrievalTimeMS";
+  v44 = [NSString stringWithFormat:@"%.02f", (v67 * 1000.0)];
+  v69[1] = v44;
+  v68[2] = @"hangHistoryCount";
+  v45 = +[NSNumber numberWithUnsignedLong:](NSNumber, "numberWithUnsignedLong:", [v62 count]);
+  v69[2] = v45;
+  v68[3] = @"hangHistoryTotalHangTimeMS";
+  v46 = [NSString stringWithFormat:@"%.02f", (v18 * 1000.0)];
+  v69[3] = v46;
+  v68[4] = @"hangHistoryForwardWindowTimeMS";
   [v56 timeIntervalSinceReferenceDate];
-  v45 = [NSString stringWithFormat:@"%.02f", (v43 - (v9 + v44)) * 1000.0];
-  v64[4] = v45;
-  v46 = [NSDictionary dictionaryWithObjects:v64 forKeys:v63 count:5];
+  v48 = v47;
+  [v61 timeIntervalSinceReferenceDate];
+  v50 = [NSString stringWithFormat:@"%.02f", (v48 - (v12 + v49)) * 1000.0];
+  v69[4] = v50;
+  v51 = [NSDictionary dictionaryWithObjects:v69 forKeys:v68 count:5];
 
-  return v46;
+  return v51;
 }
 
 void sub_10001FFDC(id a1)
@@ -240,16 +241,16 @@ void sub_10001FFDC(id a1)
   _objc_release_x1();
 }
 
-id sub_100020020()
+id sub_100020020(uint64_t a1)
 {
   if (qword_100090440 != -1)
   {
     sub_1000401F8();
   }
 
-  v1 = qword_100090448;
+  v2 = qword_100090448;
 
-  return v1;
+  return v2;
 }
 
 void sub_100020064(id a1)
@@ -269,7 +270,7 @@ void sub_100020064(id a1)
 id sub_100020148(void *a1)
 {
   v1 = a1;
-  v2 = sub_100020020();
+  v2 = sub_100020020(v1);
   v3 = [v2 containsObject:v1];
 
   return v3;
@@ -280,13 +281,13 @@ void sub_100020198()
   v0 = __chkstk_darwin();
   v2 = v1;
   v3 = v0;
-  v4 = listxattr(v0, v26, 0x2710uLL, 1);
+  v4 = listxattr(v0, v29, 0x2710uLL, 1);
   if (v4 == -1)
   {
-    v17 = sub_100001684();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v20 = sub_100001684(-1);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      sub_10004020C(v3, v17);
+      sub_10004020C(v3, v20);
     }
   }
 
@@ -297,46 +298,47 @@ void sub_100020198()
     {
       v7 = 0;
       *&v5 = 136315650;
-      v18 = v5;
+      v21 = v5;
       while (1)
       {
-        v8 = [NSString stringWithUTF8String:&v26[v7], v18];
+        v8 = [NSString stringWithUTF8String:&v29[v7], v21];
         v9 = sub_100020148(v8);
 
         if ((v9 & 1) == 0)
         {
-          v12 = sub_100001684();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v14 = sub_100001684(v10);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v20 = &v26[v7];
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Skipping copying extended attribute which is either NULL or not in allowlist: %s", buf, 0xCu);
+            v23 = &v29[v7];
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Skipping copying extended attribute which is either NULL or not in allowlist: %s", buf, 0xCu);
           }
 
           goto LABEL_12;
         }
 
-        v10 = getxattr(v3, &v26[v7], value, 0x2710uLL, 0, 0);
-        if (v10 == -1)
+        v11 = getxattr(v3, &v29[v7], value, 0x2710uLL, 0, 0);
+        if (v11 == -1)
         {
           break;
         }
 
-        if (fsetxattr(v2, &v26[v7], value, v10, 0, 0) == -1)
+        if (fsetxattr(v2, &v29[v7], value, v11, 0, 0) == -1)
         {
-          v11 = *__error();
-          v12 = sub_100001684();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+          v12 = __error();
+          v13 = *v12;
+          v14 = sub_100001684(v12);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            *buf = v18;
-            v20 = &v26[v7];
-            v21 = 2080;
-            v22 = v3;
-            v23 = 1024;
-            v24 = v11;
-            v13 = v12;
-            v14 = "Unable to copy extended attribute %s from file %s: %{darwin.errno}d";
-            v15 = 28;
+            *buf = v21;
+            v23 = &v29[v7];
+            v24 = 2080;
+            v25 = v3;
+            v26 = 1024;
+            v27 = v13;
+            v15 = v14;
+            v16 = "Unable to copy extended attribute %s from file %s: %{darwin.errno}d";
+            v17 = 28;
             goto LABEL_16;
           }
 
@@ -344,24 +346,25 @@ void sub_100020198()
         }
 
 LABEL_13:
-        v7 += strlen(&v26[v7]) + 1;
+        v7 += strlen(&v29[v7]) + 1;
         if (v7 >= v6)
         {
           return;
         }
       }
 
-      v16 = *__error();
-      v12 = sub_100001684();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v18 = __error();
+      v19 = *v18;
+      v14 = sub_100001684(v18);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v20) = v16;
-        v13 = v12;
-        v14 = "Unable to retrieve extended attribute: %{darwin.errno}d";
-        v15 = 8;
+        LODWORD(v23) = v19;
+        v15 = v14;
+        v16 = "Unable to retrieve extended attribute: %{darwin.errno}d";
+        v17 = 8;
 LABEL_16:
-        _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, v14, buf, v15);
+        _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, v16, buf, v17);
       }
 
 LABEL_12:
@@ -376,8 +379,8 @@ void sub_100020444(int a1, char *a2)
   v2 = open(a2, 2);
   if (v2 == -1)
   {
-    v6 = *__error();
-    v5 = sub_100001684();
+    v6 = __error();
+    v5 = sub_100001684(v6);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100040314();
@@ -393,8 +396,8 @@ void sub_100020444(int a1, char *a2)
       return;
     }
 
-    v4 = *__error();
-    v5 = sub_100001684();
+    v4 = __error();
+    v5 = sub_100001684(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1000402AC();
@@ -408,14 +411,14 @@ void sub_100020510(int a1, void *a2, void *a3)
   v6 = a3;
   if (!v6)
   {
-    v8 = sub_100001684();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100001684(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v5;
-      v9 = "Not writing extended attribute %@ since the value is nil";
+      v12 = 138412290;
+      v13 = v5;
+      v11 = "Not writing extended attribute %@ since the value is nil";
 LABEL_10:
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v9, &v10, 0xCu);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v11, &v12, 0xCu);
     }
 
 LABEL_11:
@@ -423,14 +426,15 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  if ((sub_100020148(v5) & 1) == 0)
+  v7 = sub_100020148(v5);
+  if ((v7 & 1) == 0)
   {
-    v8 = sub_100001684();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100001684(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v5;
-      v9 = "Not writing extended attribute %@ since it's not in the allowlist";
+      v12 = 138412290;
+      v13 = v5;
+      v11 = "Not writing extended attribute %@ since it's not in the allowlist";
       goto LABEL_10;
     }
 
@@ -439,17 +443,18 @@ LABEL_11:
 
   if (fsetxattr(a1, [v5 UTF8String], objc_msgSend(v6, "UTF8String"), objc_msgSend(v6, "lengthOfBytesUsingEncoding:", 4), 0, 0))
   {
-    v7 = *__error();
-    v8 = sub_100001684();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v8 = __error();
+    v9 = *v8;
+    v10 = sub_100001684(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412802;
-      v11 = v5;
-      v12 = 2112;
-      v13 = v6;
-      v14 = 1024;
-      v15 = v7;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Unable to write extended attribute %@ with value %@: %d{darwin.errno}d", &v10, 0x1Cu);
+      v12 = 138412802;
+      v13 = v5;
+      v14 = 2112;
+      v15 = v6;
+      v16 = 1024;
+      v17 = v9;
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Unable to write extended attribute %@ with value %@: %d{darwin.errno}d", &v12, 0x1Cu);
     }
 
     goto LABEL_11;
@@ -472,22 +477,22 @@ void sub_1000206E8(int a1, void *a2, uint64_t a3)
   v10 = [v5 objectForKeyedSubscript:@"StartTime"];
   v11 = (v9 - [v10 unsignedLongLongValue]);
 
-  v12 = v11 + -24000000.0;
+  v13 = v11 + -24000000.0;
   if (a3 != 1)
   {
-    v12 = v11;
+    v13 = v11;
   }
 
-  v13 = [NSString stringWithFormat:@"%.0f", sub_10000B548(v12)];
-  sub_100020510(a1, @"hangtracer.duration", v13);
+  v14 = [NSString stringWithFormat:@"%.0f", sub_10000B548(v13, v12)];
+  sub_100020510(a1, @"hangtracer.duration", v14);
 
-  v15 = [v5 objectForKeyedSubscript:@"ProcessPath"];
+  v16 = [v5 objectForKeyedSubscript:@"ProcessPath"];
 
-  if (v15)
+  if (v16)
   {
-    sub_100020510(a1, @"hangtracer.process_path", v15);
-    v14 = sub_10000AA30(v15);
-    sub_100020510(a1, @"hangtracer.bundle_id", v14);
+    sub_100020510(a1, @"hangtracer.process_path", v16);
+    v15 = sub_10000AA30(v16);
+    sub_100020510(a1, @"hangtracer.bundle_id", v15);
   }
 }
 
@@ -498,8 +503,8 @@ void sub_1000208CC(const char *a1, void *a2, void *a3)
   v7 = open(a1, 2);
   if (v7 == -1)
   {
-    v11 = *__error();
-    v10 = sub_100001684();
+    v11 = __error();
+    v10 = sub_100001684(v11);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10004037C();
@@ -512,8 +517,8 @@ void sub_1000208CC(const char *a1, void *a2, void *a3)
   sub_100020510(v7, v5, v6);
   if (close(v8) == -1)
   {
-    v9 = *__error();
-    v10 = sub_100001684();
+    v9 = __error();
+    v10 = sub_100001684(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1000402AC();
@@ -523,11 +528,11 @@ LABEL_7:
   }
 }
 
-void sub_1000209B8(int a1)
+void sub_1000209B8(uint64_t a1)
 {
   if (a1 == -1)
   {
-    v3 = sub_100001684();
+    v3 = sub_100001684(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1000403E4(v3);
@@ -536,13 +541,14 @@ void sub_1000209B8(int a1)
 
   else
   {
+    v1 = a1;
     fremovexattr(a1, [@"hangtracer.hangid" UTF8String], 0);
-    fremovexattr(a1, [@"hangtracer.created_at" UTF8String], 0);
-    fremovexattr(a1, [@"hangtracer.duration" UTF8String], 0);
-    fremovexattr(a1, [@"hangtracer.process_path" UTF8String], 0);
+    fremovexattr(v1, [@"hangtracer.created_at" UTF8String], 0);
+    fremovexattr(v1, [@"hangtracer.duration" UTF8String], 0);
+    fremovexattr(v1, [@"hangtracer.process_path" UTF8String], 0);
     v2 = [@"hangtracer.bundle_id" UTF8String];
 
-    fremovexattr(a1, v2, 0);
+    fremovexattr(v1, v2, 0);
   }
 }
 
@@ -552,8 +558,8 @@ void sub_100020AC0(const char *a1, void *a2)
   v4 = open(a1, 2);
   if (v4 == -1)
   {
-    v9 = *__error();
-    v10 = sub_100001684();
+    v9 = __error();
+    v10 = sub_100001684(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10004037C();
@@ -579,8 +585,8 @@ void sub_100020AC0(const char *a1, void *a2)
   sub_1000206E8(v5, v3, v8);
   if (close(v5) == -1)
   {
-    v11 = *__error();
-    v10 = sub_100001684();
+    v11 = __error();
+    v10 = sub_100001684(v11);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1000402AC();
@@ -590,45 +596,45 @@ LABEL_10:
   }
 }
 
-id sub_100020C58(uint64_t a1, uint64_t a2)
+id sub_100020C58(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = 0;
+  v3 = 0;
   if (a1 && a2)
   {
-    v3 = [[NSData alloc] initWithBytesNoCopy:a1 length:a2 freeWhenDone:0];
-    v9 = 0;
-    v2 = [NSPropertyListSerialization propertyListWithData:v3 options:0 format:0 error:&v9];
-    v4 = v9;
-    if (!v2 || (objc_opt_isKindOfClass() & 1) == 0 || v4)
+    v4 = [[NSData alloc] initWithBytesNoCopy:a1 length:a2 freeWhenDone:0];
+    v10 = 0;
+    v3 = [NSPropertyListSerialization propertyListWithData:v4 options:0 format:0 error:&v10];
+    v5 = v10;
+    if (!v3 || (objc_opt_isKindOfClass() & 1) == 0 || v5)
     {
-      v8 = 0;
-      v5 = [NSJSONSerialization JSONObjectWithData:v3 options:0 error:&v8];
-      v6 = v8;
+      v9 = 0;
+      v6 = [NSJSONSerialization JSONObjectWithData:v4 options:0 error:&v9];
+      v7 = v9;
 
-      if (v5)
+      if (v6)
       {
-        v2 = 0;
-        if ((objc_opt_isKindOfClass() & 1) != 0 && !v6)
+        v3 = 0;
+        if ((objc_opt_isKindOfClass() & 1) != 0 && !v7)
         {
-          v2 = v5;
+          v3 = v6;
         }
       }
 
       else
       {
-        v2 = 0;
+        v3 = 0;
       }
     }
   }
 
-  return v2;
+  return v3;
 }
 
 id sub_100020D88(uint64_t a1, uint64_t a2)
 {
-  objc_opt_class();
+  v4 = objc_opt_class();
 
-  return sub_100020C58(a1, a2);
+  return sub_100020C58(a1, a2, v4);
 }
 
 id sub_100020DD4(uint64_t a1, uint64_t a2)
@@ -686,7 +692,7 @@ id sub_100020DD4(uint64_t a1, uint64_t a2)
 id sub_100020F90(void *a1)
 {
   v1 = a1;
-  v2 = sub_100001684();
+  v2 = sub_100001684(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf) = 138412290;
@@ -696,47 +702,47 @@ id sub_100020F90(void *a1)
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v9 = 0x3032000000;
-  v10 = sub_1000211BC;
-  v11 = sub_1000211CC;
-  v12 = 0;
+  v10 = 0x3032000000;
+  v11 = sub_1000211BC;
+  v12 = sub_1000211CC;
+  v13 = 0;
   v3 = v1;
   [v1 UTF8String];
   if (ktrace_file_open())
   {
     v4 = ktrace_file_iterate();
-    ktrace_file_close();
+    v5 = ktrace_file_close();
     if (!v4)
     {
       goto LABEL_10;
     }
 
-    v5 = sub_100001684();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100001684(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_100040464(v4, v5);
+      sub_100040464(v4, v6);
     }
   }
 
   else
   {
-    v5 = sub_100001684();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100001684(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_1000404DC(v5);
+      sub_1000404DC(v6);
     }
   }
 
 LABEL_10:
-  v6 = *(*(&buf + 1) + 40);
+  v7 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
-  return v6;
+  return v7;
 }
 
-void sub_100021190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100021190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -761,11 +767,11 @@ BOOL sub_1000211D4(uint64_t a1, uint64_t a2)
 
     if (*(*(*(a1 + 32) + 8) + 40))
     {
-      v9 = sub_100001684();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v10 = sub_100001684(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        *v11 = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Found and fetched AGX SchedulerState info from IOReg GPU", v11, 2u);
+        *v12 = 0;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Found and fetched AGX SchedulerState info from IOReg GPU", v12, 2u);
       }
     }
   }
@@ -773,18 +779,18 @@ BOOL sub_1000211D4(uint64_t a1, uint64_t a2)
   return v4 != 32776;
 }
 
-void sub_10002138C()
+void sub_10002138C(uint64_t a1)
 {
-  v0 = sub_100001684();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = sub_100001684(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "marking hangreporter as clean to exit", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "marking hangreporter as clean to exit", v3, 2u);
   }
 
-  v1 = [qword_100090458 transaction];
+  v2 = [qword_100090458 transaction];
 
-  if (v1)
+  if (v2)
   {
     [qword_100090458 setTransaction:0];
   }
@@ -798,28 +804,29 @@ void sub_100021D30(id a1)
 
   if (!qword_100090458)
   {
-    v3 = sub_100001684();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100001684(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_10004058C(v3);
+      sub_10004058C(v4);
     }
 
     exit(12);
   }
 }
 
-void sub_100022624(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100022624(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   bzero(__str, 0x400uLL);
   if (!qword_100090570)
   {
     qword_100090570 = malloc_type_calloc(0x400uLL, 1uLL, 0x100004077774924uLL);
-    vsnprintf(__str, 0x400uLL, a1, &a9);
+    vsnprintf(__str, 0x400uLL, a1, va);
     snprintf(qword_100090570, 0x400uLL, "%s", __str);
   }
 }
 
-uint64_t sub_1000226F4(uint64_t a1, uint64_t *a2, unsigned int a3)
+uint64_t sub_1000226F4(uint64_t a1, unint64_t *a2, unsigned int a3)
 {
   *(a1 + 36) = -1;
   if (a3 < 8)
@@ -831,7 +838,7 @@ uint64_t sub_1000226F4(uint64_t a1, uint64_t *a2, unsigned int a3)
   while (2)
   {
     v9 = *a2;
-    v8 = a2 + 1;
+    v8 = (a2 + 1);
     v7 = v9;
     v10 = HIDWORD(v9);
     v11 = v6 - 1;
@@ -5426,7 +5433,7 @@ double sub_100027F88(uint64_t a1)
   return result;
 }
 
-uint64_t sub_100027FFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100027FFC(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a2;
   v10 = 0;
@@ -14213,7 +14220,7 @@ LABEL_2:
                                                 {
                                                   v17 = "ASPFTLParseBufferToCxt: clogReplayTransientError(1002) cannot add 1 element to context";
 LABEL_161:
-                                                  sub_100022624(v17, a2, a3, a4, a5, a6, a7, a8, v21);
+                                                  sub_100022624(v17, a2, a3, a4, a5, a6, a7, a8);
                                                 }
 
 LABEL_162:
@@ -15275,17 +15282,17 @@ LABEL_2686:
 LABEL_2987:
                                                             if (v12 >> 33)
                                                             {
-                                                              snprintf(__str, 0x20uLL, "Stat_%d_");
+                                                              snprintf(__str, 0x20uLL, "Stat_%d_", a4, a5, a6, a7, a8);
                                                             }
 
                                                             else
                                                             {
-                                                              snprintf(__str, 0x20uLL, "Stat_%d");
+                                                              snprintf(__str, 0x20uLL, "Stat_%d", a4, a5, a6, a7, a8);
                                                             }
 
                                                             if ((sub_100034618(a1, __str, v8, 8u, v14) & 1) == 0)
                                                             {
-                                                              sub_100022624("ASPFTLParseBufferToCxt %d: Cannot add %d elements to context", a2, a3, a4, a5, a6, a7, a8, v12);
+                                                              sub_100022624("ASPFTLParseBufferToCxt %d: Cannot add %d elements to context", a2, a3, a4, a5, a6, a7, a8, v12, v14);
                                                               return v10;
                                                             }
 

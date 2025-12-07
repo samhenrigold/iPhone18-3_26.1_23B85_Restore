@@ -35,7 +35,11 @@
 - (void)showResetMediaServices:(id)services;
 - (void)syncRecentDonations:(id)donations;
 - (void)updateAndReloadNCOStatusIfNeeded;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)webViewController:(id)controller handleAuthenticateRequest:(id)request completion:(id)completion;
 - (void)webViewController:(id)controller handleDialogRequest:(id)request completion:(id)completion;
 @end
@@ -244,6 +248,45 @@ LABEL_35:
   v3 = [NSBundle bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"DEVELOPER" value:&stru_3E0D8 table:@"DTSettings"];
   [(DTSettings *)self setTitle:v4];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = DTSettings;
+  [(DTSettings *)&v4 viewWillAppear:appear];
+  [(DTSettings *)self reloadSpecifierID:@"L4S_SETTINGS"];
+  [(DTSettings *)self updateAndReloadNCOStatusIfNeeded];
+  [(DTSettings *)self refreshAdAttributionKitDeveloperModeEnabled];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = DTSettings;
+  [(DTSettings *)&v10 viewDidAppear:appear];
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v4 bundleURL];
+
+  v6 = [_NSLocalizedStringResource alloc];
+  v7 = +[NSLocale currentLocale];
+  v8 = [v6 initWithKey:@"DEVELOPER" table:@"DTSettings" locale:v7 bundleURL:bundleURL];
+
+  v9 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Developer/"];
+  [(DTSettings *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.developer-tools" title:v8 localizedNavigationComponents:&__NSArray0__struct deepLink:v9];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v3 = +[NSNotificationCenter defaultCenter];
+  [v3 postNotificationName:@"com.apple.Preferences.DTNetQualViewWillDisappear" object:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = DTSettings;
+  [(DTSettings *)&v3 viewDidDisappear:disappear];
 }
 
 - (BOOL)isNCOSupported

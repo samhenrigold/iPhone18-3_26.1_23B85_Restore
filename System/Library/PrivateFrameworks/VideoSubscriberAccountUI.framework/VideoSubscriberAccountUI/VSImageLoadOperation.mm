@@ -44,7 +44,7 @@
 
 - (void)_finishWithImageData:(id)data orError:(id)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   errorCopy = error;
   if (dataCopy)
@@ -52,9 +52,9 @@
     v8 = VSDefaultLogObject();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138412290;
-      v23 = dataCopy;
-      _os_log_impl(&dword_270DD4000, v8, OS_LOG_TYPE_DEFAULT, "Did load image data %@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = dataCopy;
+      _os_log_impl(&dword_270DD4000, v8, OS_LOG_TYPE_DEFAULT, "Did load image data %@", &v21, 0xCu);
     }
 
     v9 = dataCopy;
@@ -106,7 +106,6 @@
   }
 
   [(VSAsyncOperation *)self finishExecutionIfPossible];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_beginFetchingDataFromURL:(id)l
@@ -143,7 +142,7 @@ void __50__VSImageLoadOperation__beginFetchingDataFromURL___block_invoke(uint64_
 
 - (void)executionDidBegin
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = MEMORY[0x277CCAE60];
   [(VSImageLoadOperation *)self preferredImageSize];
@@ -152,12 +151,12 @@ void __50__VSImageLoadOperation__beginFetchingDataFromURL___block_invoke(uint64_
 
   [v3 setObject:*MEMORY[0x277CCA2C8] forKey:*MEMORY[0x277CCA2D0]];
   objc_initWeak(&location, self);
-  v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = __41__VSImageLoadOperation_executionDidBegin__block_invoke;
-  v17 = &unk_279E1A5B0;
-  objc_copyWeak(&v18, &location);
-  v6 = MEMORY[0x2743B6E40](&v14);
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __41__VSImageLoadOperation_executionDidBegin__block_invoke;
+  v16 = &unk_279E1A5B0;
+  objc_copyWeak(&v17, &location);
+  v6 = MEMORY[0x2743B6E40](&v13);
   v10 = MEMORY[0x2743B6E40](v6, v7, v8, v9);
   v11 = VSDefaultLogObject();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
@@ -167,13 +166,11 @@ void __50__VSImageLoadOperation__beginFetchingDataFromURL___block_invoke(uint64_
     _os_log_impl(&dword_270DD4000, v11, OS_LOG_TYPE_DEFAULT, "Will load image %@", buf, 0xCu);
   }
 
-  v12 = [(VSImageLoadOperation *)self itemProvider:v14];
+  v12 = [(VSImageLoadOperation *)self itemProvider:v13];
   [v12 loadItemForTypeIdentifier:*MEMORY[0x277CC20B0] options:v3 completionHandler:v10];
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __41__VSImageLoadOperation_executionDidBegin__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -228,11 +225,10 @@ void __41__VSImageLoadOperation_executionDidBegin__block_invoke(uint64_t a1, voi
 
 - (void)_finishWithImageData:(uint64_t)a1 orError:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Error loading image data: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Error loading image data: %@", &v2, 0xCu);
 }
 
 @end

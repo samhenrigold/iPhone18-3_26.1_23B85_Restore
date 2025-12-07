@@ -144,18 +144,18 @@
   v9 = v7;
 }
 
-void __79__CalCalendarDatabaseReminderMigrationContext__removeCalendarsToDeleteInStore___block_invoke(uint64_t a1, void *a2)
+void __79__CalCalendarDatabaseReminderMigrationContext__removeCalendarsToDeleteInStore___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v4 = a2;
-  v3 = CalCalendarCopyStore();
-  if (v3 != *(a1 + 40))
+  v5 = a2;
+  v4 = CalCalendarCopyStore();
+  if (v4 != *(a1 + 40))
   {
-    [*(a1 + 32) addObject:v4];
+    [*(a1 + 32) addObject:v5];
   }
 
-  if (v3)
+  if (v4)
   {
-    CFRelease(v3);
+    CFRelease(v4);
   }
 }
 

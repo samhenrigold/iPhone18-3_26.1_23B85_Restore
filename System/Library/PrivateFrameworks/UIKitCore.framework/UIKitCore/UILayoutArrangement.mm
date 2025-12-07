@@ -3,7 +3,7 @@
 
 @implementation UILayoutArrangement
 
-id __69___UILayoutArrangement__updateCanvasConnectionConstraintsIfNecessary__block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
+id __69___UILayoutArrangement__updateCanvasConnectionConstraintsIfNecessary__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
   v7 = a2;
   v8 = a4;

@@ -7,8 +7,8 @@
 
 + (NSString)attributionTokenWithError:(NSError *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v4 = sub_236A43010();
+  v44 = *MEMORY[0x277D85DE8];
+  v4 = sub_236A43010(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -21,17 +21,17 @@
   isMainThread = objc_msgSend_isMainThread(MEMORY[0x277CCACC8], v20, v21, v22, v23, v24, v25);
   v27 = sub_236A44770(&v12->super.isa, v19, isMainThread, v11);
 
-  v42 = 0;
-  v28 = sub_236A43120(v27, &v42);
-  v29 = v42;
-  v30 = sub_236A43010();
+  v41 = 0;
+  v28 = sub_236A43120(v27, &v41);
+  v29 = v41;
+  v30 = sub_236A43010(v29);
   v31 = os_log_type_enabled(v30, OS_LOG_TYPE_INFO);
   if (v28 || !v29)
   {
     if (v31)
     {
       *buf = 138543362;
-      v44 = v28;
+      v43 = v28;
       _os_log_impl(&dword_236A42000, v30, OS_LOG_TYPE_INFO, "Returning token to caller: %{public}@", buf, 0xCu);
     }
   }
@@ -42,7 +42,7 @@
     {
       v38 = objc_msgSend_localizedDescription(v29, v32, v33, v34, v35, v36, v37);
       *buf = 138543362;
-      v44 = v38;
+      v43 = v38;
       _os_log_impl(&dword_236A42000, v30, OS_LOG_TYPE_INFO, "Returning error to caller: %{public}@", buf, 0xCu);
     }
 
@@ -52,8 +52,6 @@
       *error = v29;
     }
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

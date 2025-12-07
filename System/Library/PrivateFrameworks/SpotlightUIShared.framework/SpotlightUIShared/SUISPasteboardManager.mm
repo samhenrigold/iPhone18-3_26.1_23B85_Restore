@@ -38,7 +38,7 @@ uint64_t __31__SUISPasteboardManager_shared__block_invoke()
 
 - (void)indexOrUpdateIfExistsCorespotlightItemAttributeSet:(id)set
 {
-  v21[5] = *MEMORY[0x277D85DE8];
+  v20[5] = *MEMORY[0x277D85DE8];
   setCopy = set;
   uniqueIdentifier = [setCopy uniqueIdentifier];
   if ([uniqueIdentifier length])
@@ -47,22 +47,22 @@ uint64_t __31__SUISPasteboardManager_shared__block_invoke()
     {
       defaultSearchableIndex = [MEMORY[0x277CC34A8] defaultSearchableIndex];
       v7 = *MEMORY[0x277CC31F0];
-      v21[0] = *MEMORY[0x277CC2640];
-      v21[1] = v7;
+      v20[0] = *MEMORY[0x277CC2640];
+      v20[1] = v7;
       v8 = *MEMORY[0x277CC31B8];
-      v21[2] = *MEMORY[0x277CC3038];
-      v21[3] = v8;
-      v21[4] = @"_kMDItemThumbnailData";
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:5];
-      v20 = uniqueIdentifier;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
-      v13 = MEMORY[0x277D85DD0];
-      v14 = 3221225472;
-      v15 = __76__SUISPasteboardManager_indexOrUpdateIfExistsCorespotlightItemAttributeSet___block_invoke;
-      v16 = &unk_279D10278;
-      v17 = setCopy;
+      v20[2] = *MEMORY[0x277CC3038];
+      v20[3] = v8;
+      v20[4] = @"_kMDItemThumbnailData";
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:5];
+      v19 = uniqueIdentifier;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+      v12 = MEMORY[0x277D85DD0];
+      v13 = 3221225472;
+      v14 = __76__SUISPasteboardManager_indexOrUpdateIfExistsCorespotlightItemAttributeSet___block_invoke;
+      v15 = &unk_279D10278;
+      v16 = setCopy;
       selfCopy = self;
-      [defaultSearchableIndex slowFetchAttributes:v9 protectionClass:0 bundleID:@"com.apple.spotlight" identifiers:v10 options:32 completionHandler:&v13];
+      [defaultSearchableIndex slowFetchAttributes:v9 protectionClass:0 bundleID:@"com.apple.spotlight" identifiers:v10 options:32 completionHandler:&v12];
     }
 
     else
@@ -70,20 +70,18 @@ uint64_t __31__SUISPasteboardManager_shared__block_invoke()
       [(SUISPasteboardManager *)self indexCoreSpotlightItemWithAttributeSet:setCopy];
     }
 
-    [(SUISPasteboardManager *)self setPasteboardHistoryItemWasCopied:0, v13, v14, v15, v16];
+    [(SUISPasteboardManager *)self setPasteboardHistoryItemWasCopied:0, v12, v13, v14, v15];
   }
 
   else
   {
-    v11 = SUISPasteboardIndexingLog();
+    v11 = SUISPasteboardIndexingLog(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_26B8E8000, v11, OS_LOG_TYPE_DEFAULT, "identifier for CSSItem has no length", buf, 2u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __76__SUISPasteboardManager_indexOrUpdateIfExistsCorespotlightItemAttributeSet___block_invoke(uint64_t a1, void *a2)
@@ -156,26 +154,26 @@ void __76__SUISPasteboardManager_indexOrUpdateIfExistsCorespotlightItemAttribute
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    [*(a1 + 32) setThumbnailData:v8];
+    isKindOfClass = [*(a1 + 32) setThumbnailData:v8];
   }
 
-  v9 = SUISPasteboardIndexingLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = SUISPasteboardIndexingLog(isKindOfClass);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 134217984;
     v12 = [v3 count];
-    _os_log_impl(&dword_26B8E8000, v9, OS_LOG_TYPE_DEFAULT, "got attributes: %lu", &v11, 0xCu);
+    _os_log_impl(&dword_26B8E8000, v10, OS_LOG_TYPE_DEFAULT, "got attributes: %lu", &v11, 0xCu);
   }
 
   [*(a1 + 40) indexCoreSpotlightItemWithAttributeSet:*(a1 + 32)];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)indexCoreSpotlightItemWithAttributeSet:(id)set
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   setCopy = set;
   isShared = [setCopy isShared];
   bOOLValue = [isShared BOOLValue];
@@ -191,11 +189,11 @@ void __76__SUISPasteboardManager_indexOrUpdateIfExistsCorespotlightItemAttribute
   uniqueIdentifier = [setCopy uniqueIdentifier];
   v11 = [v9 initWithUniqueIdentifier:uniqueIdentifier domainIdentifier:v8 attributeSet:setCopy];
 
-  v12 = SUISPasteboardIndexingLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = SUISPasteboardIndexingLog(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_26B8E8000, v12, OS_LOG_TYPE_DEFAULT, "indexing pasteboard contents", buf, 2u);
+    _os_log_impl(&dword_26B8E8000, v13, OS_LOG_TYPE_DEFAULT, "indexing pasteboard contents", buf, 2u);
   }
 
   lastUsedDate = [setCopy lastUsedDate];
@@ -203,50 +201,49 @@ void __76__SUISPasteboardManager_indexOrUpdateIfExistsCorespotlightItemAttribute
   if (lastUsedDate)
   {
     defaultSearchableIndex = [MEMORY[0x277CC34A8] defaultSearchableIndex];
-    v21[0] = v11;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __64__SUISPasteboardManager_indexCoreSpotlightItemWithAttributeSet___block_invoke;
-    v18[3] = &unk_279D102A0;
-    v18[4] = self;
-    v19 = v11;
-    [defaultSearchableIndex indexSearchableItems:v15 deleteSearchableItemsWithIdentifiers:0 clientState:0 protectionClass:0 forBundleID:0 options:32 completionHandler:v18];
+    v22[0] = v11;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __64__SUISPasteboardManager_indexCoreSpotlightItemWithAttributeSet___block_invoke;
+    v19[3] = &unk_279D102A0;
+    v19[4] = self;
+    v20 = v11;
+    [defaultSearchableIndex indexSearchableItems:v17 deleteSearchableItemsWithIdentifiers:0 clientState:0 protectionClass:0 forBundleID:0 options:32 completionHandler:v19];
   }
 
   else
   {
-    v16 = SUISPasteboardIndexingLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = SUISPasteboardIndexingLog(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [SUISPasteboardManager indexCoreSpotlightItemWithAttributeSet:v16];
+      [SUISPasteboardManager indexCoreSpotlightItemWithAttributeSet:v18];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __64__SUISPasteboardManager_indexCoreSpotlightItemWithAttributeSet___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SUISPasteboardIndexingLog();
+  v4 = SUISPasteboardIndexingLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_26B8E8000, v4, OS_LOG_TYPE_DEFAULT, "finished indexing pasteboard contents", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_26B8E8000, v4, OS_LOG_TYPE_DEFAULT, "finished indexing pasteboard contents", v7, 2u);
   }
 
-  if ([*(a1 + 32) isNothingDispatchedForNextExpiration])
+  v5 = [*(a1 + 32) isNothingDispatchedForNextExpiration];
+  if (v5)
   {
-    [*(a1 + 32) deleteExpiredItemsAndDispatchForNextExpiration];
+    v5 = [*(a1 + 32) deleteExpiredItemsAndDispatchForNextExpiration];
   }
 
   if (v3)
   {
-    v5 = SUISPasteboardIndexingLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = SUISPasteboardIndexingLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __64__SUISPasteboardManager_indexCoreSpotlightItemWithAttributeSet___block_invoke_cold_1(v3, a1, v5);
+      __64__SUISPasteboardManager_indexCoreSpotlightItemWithAttributeSet___block_invoke_cold_1(v3, a1, v6);
     }
   }
 }
@@ -325,12 +322,13 @@ uint64_t __57__SUISPasteboardManager_pasteboardExpirationManagerQueue__block_inv
 void __56__SUISPasteboardManager_deleteContinuityPasteboardItems__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = SUISPasteboardIndexingLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = SUISPasteboardIndexingLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __56__SUISPasteboardManager_deleteContinuityPasteboardItems__block_invoke_cold_1(v2, v3);
+      __56__SUISPasteboardManager_deleteContinuityPasteboardItems__block_invoke_cold_1(v3, v4);
     }
   }
 }
@@ -385,135 +383,134 @@ void __56__SUISPasteboardManager_deleteContinuityPasteboardItems__block_invoke(u
 
 - (void)clearIndexAndCachedFiles
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
-  v10[0] = *MEMORY[0x277D65CF0];
-  v10[1] = @"com.apple.spotlight.pasteboard.continuity";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[0] = *MEMORY[0x277D65CF0];
+  v9[1] = @"com.apple.spotlight.pasteboard.continuity";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   [v2 setDomainIdentifiers:v3];
 
   v4 = MEMORY[0x277CBEBC0];
   spotlightPasteboardCacheDirectory = [MEMORY[0x277D65910] spotlightPasteboardCacheDirectory];
   v6 = [v4 fileURLWithPath:spotlightPasteboardCacheDirectory];
-  v9 = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
+  v8 = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
   [v2 setFilesToDelete:v7];
 
   [SUIUtilities performDeleteCommand:v2];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)collectExpiredItemsFromItems:(id)items expirationThresholdInSeconds:(double)seconds outputNextExpirationDate:(id *)date
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v6 = [items sortedArrayUsingComparator:&__block_literal_global_553];
   v7 = [v6 mutableCopy];
 
-  v45 = objc_opt_new();
+  v46 = objc_opt_new();
   v8 = objc_opt_new();
   v9 = [MEMORY[0x277CBEAA8] now];
-  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
   v10 = v7;
-  v49 = [v10 countByEnumeratingWithState:&v58 objects:v67 count:16];
+  v50 = [v10 countByEnumeratingWithState:&v59 objects:v68 count:16];
   v11 = 0;
-  if (v49)
+  if (v50)
   {
-    v47 = 0;
-    v48 = *v59;
-    v43 = v9;
-    v44 = v10;
+    v48 = 0;
+    v49 = *v60;
+    v44 = v9;
+    v45 = v10;
     do
     {
-      for (i = 0; i != v49; i = v34 + 1)
+      for (i = 0; i != v50; i = v35 + 1)
       {
-        if (*v59 != v48)
+        if (*v60 != v49)
         {
           objc_enumerationMutation(v10);
         }
 
-        v50 = i;
-        v13 = *(*(&v58 + 1) + 8 * i);
+        v51 = i;
+        v13 = *(*(&v59 + 1) + 8 * i);
         attributeSet = [v13 attributeSet];
         lastUsedDate = [attributeSet lastUsedDate];
 
         if (!lastUsedDate)
         {
-          v16 = SUISPasteboardIndexingLog();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v17 = SUISPasteboardIndexingLog(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            [SUISPasteboardManager collectExpiredItemsFromItems:v57 expirationThresholdInSeconds:v16 outputNextExpirationDate:?];
+            [SUISPasteboardManager collectExpiredItemsFromItems:v58 expirationThresholdInSeconds:v17 outputNextExpirationDate:?];
           }
         }
 
         attributeSet2 = [v13 attributeSet];
         lastUsedDate2 = [attributeSet2 lastUsedDate];
-        v19 = [lastUsedDate2 dateByAddingTimeInterval:seconds];
+        v20 = [lastUsedDate2 dateByAddingTimeInterval:seconds];
 
-        v51 = v19;
-        v20 = [v9 laterDate:v19];
+        v52 = v20;
+        v21 = [v9 laterDate:v20];
 
-        if (v20 == v9)
+        if (v21 == v9)
         {
           uniqueIdentifier = [v13 uniqueIdentifier];
-          [v45 addObject:uniqueIdentifier];
+          [v46 addObject:uniqueIdentifier];
 
-          v54 = 0u;
           v55 = 0u;
-          v52 = 0u;
+          v56 = 0u;
           v53 = 0u;
+          v54 = 0u;
           attributeSet3 = [v13 attributeSet];
           attachmentPaths = [attributeSet3 attachmentPaths];
 
-          v26 = [attachmentPaths countByEnumeratingWithState:&v52 objects:v66 count:16];
-          if (v26)
+          v27 = [attachmentPaths countByEnumeratingWithState:&v53 objects:v67 count:16];
+          if (v27)
           {
-            v27 = v26;
-            v46 = v11;
-            v28 = *v53;
+            v28 = v27;
+            v47 = v11;
+            v29 = *v54;
             do
             {
-              for (j = 0; j != v27; ++j)
+              for (j = 0; j != v28; ++j)
               {
-                if (*v53 != v28)
+                if (*v54 != v29)
                 {
                   objc_enumerationMutation(attachmentPaths);
                 }
 
-                v30 = *(*(&v52 + 1) + 8 * j);
+                v31 = *(*(&v53 + 1) + 8 * j);
                 spotlightPasteboardCacheDirectory = [MEMORY[0x277D65910] spotlightPasteboardCacheDirectory];
-                v32 = [v30 containsString:spotlightPasteboardCacheDirectory];
+                v33 = [v31 containsString:spotlightPasteboardCacheDirectory];
 
-                if (v32)
+                if (v33)
                 {
-                  v33 = [MEMORY[0x277CBEBC0] URLWithString:v30];
-                  [v8 addObject:v33];
+                  v34 = [MEMORY[0x277CBEBC0] URLWithString:v31];
+                  [v8 addObject:v34];
                 }
               }
 
-              v27 = [attachmentPaths countByEnumeratingWithState:&v52 objects:v66 count:16];
+              v28 = [attachmentPaths countByEnumeratingWithState:&v53 objects:v67 count:16];
             }
 
-            while (v27);
-            v9 = v43;
-            v10 = v44;
-            v11 = v46;
+            while (v28);
+            v9 = v44;
+            v10 = v45;
+            v11 = v47;
           }
 
-          v34 = v50;
-          v19 = v51;
+          v35 = v51;
+          v20 = v52;
         }
 
         else
         {
-          if (v47)
+          if (v48)
           {
             currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-            v22 = [currentCalendar isDate:v47 equalToDate:v19 toUnitGranularity:64];
+            v23 = [currentCalendar isDate:v48 equalToDate:v20 toUnitGranularity:64];
 
-            if ((v22 & 1) == 0)
+            if ((v23 & 1) == 0)
             {
 
               goto LABEL_31;
@@ -522,53 +519,51 @@ void __56__SUISPasteboardManager_deleteContinuityPasteboardItems__block_invoke(u
 
           else
           {
-            v47 = v19;
+            v48 = v20;
           }
 
           attachmentPaths = v11;
-          v11 = v19;
-          v34 = v50;
+          v11 = v20;
+          v35 = v51;
         }
       }
 
-      v49 = [v10 countByEnumeratingWithState:&v58 objects:v67 count:16];
+      v50 = [v10 countByEnumeratingWithState:&v59 objects:v68 count:16];
     }
 
-    while (v49);
+    while (v50);
   }
 
   else
   {
-    v47 = 0;
+    v48 = 0;
   }
 
 LABEL_31:
 
-  v35 = SUISPasteboardIndexingLog();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v37 = SUISPasteboardIndexingLog(v36);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
-    v36 = [v45 count];
-    v37 = [v8 count];
+    v38 = [v46 count];
+    v39 = [v8 count];
     *buf = 134218240;
-    v63 = v36;
-    v64 = 2048;
-    v65 = v37;
-    _os_log_impl(&dword_26B8E8000, v35, OS_LOG_TYPE_DEFAULT, "Found expired items %lu, files %lu", buf, 0x16u);
+    v64 = v38;
+    v65 = 2048;
+    v66 = v39;
+    _os_log_impl(&dword_26B8E8000, v37, OS_LOG_TYPE_DEFAULT, "Found expired items %lu, files %lu", buf, 0x16u);
   }
 
   if (date)
   {
-    v38 = v11;
+    v40 = v11;
     *date = v11;
   }
 
-  v39 = objc_opt_new();
-  [v39 setItemIdentifiers:v45];
-  [v39 setFilesToDelete:v8];
+  v41 = objc_opt_new();
+  [v41 setItemIdentifiers:v46];
+  [v41 setFilesToDelete:v8];
 
-  v40 = *MEMORY[0x277D85DE8];
-
-  return v39;
+  return v41;
 }
 
 uint64_t __108__SUISPasteboardManager_collectExpiredItemsFromItems_expirationThresholdInSeconds_outputNextExpirationDate___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -586,40 +581,37 @@ uint64_t __108__SUISPasteboardManager_collectExpiredItemsFromItems_expirationThr
 
 - (void)setChangeCount:(int64_t)count
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = SUISPasteboardIndexingLog();
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = SUISPasteboardIndexingLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134218240;
+    v6 = 134218240;
     changeCount = [(SUISPasteboardManager *)self changeCount];
-    v9 = 2048;
+    v8 = 2048;
     countCopy = count;
-    _os_log_impl(&dword_26B8E8000, v5, OS_LOG_TYPE_DEFAULT, "updating changeCount from:%ld to %ld", &v7, 0x16u);
+    _os_log_impl(&dword_26B8E8000, v5, OS_LOG_TYPE_DEFAULT, "updating changeCount from:%ld to %ld", &v6, 0x16u);
   }
 
   self->_changeCount = count;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __64__SUISPasteboardManager_indexCoreSpotlightItemWithAttributeSet___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 40);
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_26B8E8000, log, OS_LOG_TYPE_ERROR, "error: %@ indexing pasteboard item :%@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_26B8E8000, log, OS_LOG_TYPE_ERROR, "error: %@ indexing pasteboard item :%@", &v4, 0x16u);
 }
 
 void __56__SUISPasteboardManager_deleteContinuityPasteboardItems__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26B8E8000, a2, OS_LOG_TYPE_ERROR, "error deleting continuity pasteboard items in corespotlight: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26B8E8000, a2, OS_LOG_TYPE_ERROR, "error deleting continuity pasteboard items in corespotlight: %@", &v2, 0xCu);
 }
 
 + (void)collectExpiredItemsFromItems:(uint8_t *)buf expirationThresholdInSeconds:(_BYTE *)a2 outputNextExpirationDate:(os_log_t)log .cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)

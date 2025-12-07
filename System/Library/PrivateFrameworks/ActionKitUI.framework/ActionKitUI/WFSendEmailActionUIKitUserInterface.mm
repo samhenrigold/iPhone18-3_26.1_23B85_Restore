@@ -126,7 +126,7 @@ LABEL_3:
 
 void __117__WFSendEmailActionUIKitUserInterface_showWithEmailContent_preferredSendingEmailAddress_isManaged_completionHandler___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CD6878]);
   if (*(a1 + 56))
   {
@@ -178,27 +178,27 @@ void __117__WFSendEmailActionUIKitUserInterface_showWithEmailContent_preferredSe
     v16 = v5;
     [v5 setMessageBody:v15 isHTML:{objc_msgSend(*(a1 + 40), "isHTML")}];
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
-    v31 = a1;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v30 = a1;
     obj = [*(a1 + 40) attachments];
-    v17 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v17 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v34;
+      v19 = *v33;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v34 != v19)
+          if (*v33 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v33 + 1) + 8 * i);
+          v21 = *(*(&v32 + 1) + 8 * i);
           v22 = [v21 mappedData];
           v23 = [v21 wfType];
           v24 = [v23 MIMEType];
@@ -217,14 +217,14 @@ void __117__WFSendEmailActionUIKitUserInterface_showWithEmailContent_preferredSe
           [v16 addAttachmentData:v22 mimeType:v26 fileName:v27];
         }
 
-        v18 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v18 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v18);
     }
 
     v5 = v16;
-    [*(v31 + 32) presentContent:v16];
+    [*(v30 + 32) presentContent:v16];
   }
 
   else
@@ -233,8 +233,6 @@ void __117__WFSendEmailActionUIKitUserInterface_showWithEmailContent_preferredSe
     v29 = [MEMORY[0x277CCA9B8] wf_mailComposerUnavailableError];
     (v28)[2](v28, 0, v29);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,9 +1,9 @@
 @interface UIViewController(MobileSafariFrameworkExtras)
+- (BOOL)_sf_canEditFields;
 - (double)_sf_bottomUnsafeAreaFrame;
 - (double)_sf_bottomUnsafeAreaFrameForToolbar;
 - (id)_sf_viewControllerToPresentFrom;
 - (id)safari_sheetPresentationController;
-- (uint64_t)_sf_canEditFields;
 - (uint64_t)_sf_isPresentationControllerDismissalTransitionDidEndNotification:()MobileSafariFrameworkExtras;
 - (uint64_t)safari_isEventuallyPresentedByViewControllerClass:()MobileSafariFrameworkExtras;
 - (uint64_t)safari_isPresentedByActivityViewController;
@@ -232,7 +232,7 @@ LABEL_9:
   }
 }
 
-- (uint64_t)_sf_canEditFields
+- (BOOL)_sf_canEditFields
 {
   if ([self _isInPopoverPresentation])
   {

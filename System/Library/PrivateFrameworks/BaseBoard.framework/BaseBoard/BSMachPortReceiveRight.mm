@@ -11,7 +11,7 @@
   v8 = 0;
   if (BSMachCreateReceiveRight(&v8))
   {
-    v3 = _BSMachPortRightDescription(1u, 0, @"init", v8, 0);
+    v3 = _BSMachPortRightDescription(1, 0, @"init", v8, 0);
     self = [(BSMachPortRight *)self _initWithPort:v8 type:1 owner:0 trace:v3];
     selfCopy = self;
   }
@@ -37,13 +37,13 @@
 - (BSMachPortReceiveRight)initWithPort:(unsigned int)port
 {
   v3 = *&port;
-  if (!BSMachPortIsType(port, 0x20000))
+  if (!BSMachPortIsType(*&port, 0x20000))
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"BSMachPortRight.m" lineNumber:424 description:@"you must pass in a valid receive right"];
   }
 
-  v6 = _BSMachPortRightDescription(1u, 0, @"take", v3, 0);
+  v6 = _BSMachPortRightDescription(1, 0, @"take", v3, 0);
   v7 = [(BSMachPortRight *)self _initWithPort:v3 type:1 owner:0 trace:v6];
 
   return v7;

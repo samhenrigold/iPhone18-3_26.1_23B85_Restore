@@ -72,29 +72,29 @@
   if ((*(&self->super.super.super.isa + *MEMORY[0x277CD7378]) & 1) == 0 && !self->super._padding && MTLReportFailureTypeEnabled())
   {
     v66 = objc_opt_class();
-    v68 = NSStringFromClass(v66);
-    MTLReportFailure();
+    v76 = NSStringFromClass(v66);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/MPSCNNGradientKernel.mm", 0x4B, @"[%@ destinationImageDescriptorForSourceImages:sourceStates:updateOffset:] no padding method set. Can not compute result.", v67, v68, v69, v70);
   }
 
-  v11 = objc_msgSend_paddingMethod(self->super._padding, a2, images, states, v4, v5, v6, v7, v68);
-  v78 = 0uLL;
-  v79 = 0;
+  v11 = objc_msgSend_paddingMethod(self->super._padding, a2, images, states, v4, v5, v6, v7, v76);
+  v86 = 0uLL;
+  v87 = 0;
   objc_msgSend_primaryOffset(self, v12, v13, v14, v15, v16, v17, v18);
-  v76 = 0uLL;
-  v77 = 0;
+  v84 = 0uLL;
+  v85 = 0;
   objc_msgSend_secondaryOffset(self, v19, v20, v21, v22, v23, v24, v25);
   kernelOffsetY = self->_kernelOffsetY;
   kernelOffsetX = self->_kernelOffsetX;
-  v74 = kernelOffsetY;
-  v75 = 0;
-  v28 = objc_msgSend_destinationImageDescriptorForSourceImages_sourceStates_paddingMethod_primaryOffset_secondaryOffset_kernelOffset_(self, v27, images, states, v11, &v78, &v76, &kernelOffsetX);
-  v71 = v78;
-  v72 = v79;
-  objc_msgSend_setPrimaryOffset_(self, v29, &v71, v30, v31, v32, v33, v34);
-  v71 = v76;
-  v72 = v77;
-  objc_msgSend_setSecondaryOffset_(self, v35, &v71, v36, v37, v38, v39, v40);
-  v48 = v74;
+  v82 = kernelOffsetY;
+  v83 = 0;
+  v28 = objc_msgSend_destinationImageDescriptorForSourceImages_sourceStates_paddingMethod_primaryOffset_secondaryOffset_kernelOffset_(self, v27, images, states, v11, &v86, &v84, &kernelOffsetX);
+  v79 = v86;
+  v80 = v87;
+  objc_msgSend_setPrimaryOffset_(self, v29, &v79, v30, v31, v32, v33, v34);
+  v79 = v84;
+  v80 = v85;
+  objc_msgSend_setSecondaryOffset_(self, v35, &v79, v36, v37, v38, v39, v40);
+  v48 = v82;
   self->_kernelOffsetX = kernelOffsetX;
   self->_kernelOffsetY = v48;
   if (states)
@@ -116,13 +116,13 @@
     objc_opt_respondsToSelector();
     if ((objc_opt_respondsToSelector() & 1) == 0 && MTLReportFailureTypeEnabled())
     {
-      v67 = objc_opt_class();
-      v69 = NSStringFromClass(v67);
+      v71 = objc_opt_class();
+      v77 = NSStringFromClass(v71);
       padding = self->super._padding;
-      MTLReportFailure();
+      MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/MPSCNNGradientKernel.mm", 0x6B, @"[%@ destinationImageDescriptorForSourceImages:sourceStates:updateOffset:] the object padding method %p does not respond to the destinationImageDescriptorForSourceImages:sourceStates:forKernel:suggestedDescriptor: selector", v72, v73, v74, v75);
     }
 
-    return objc_msgSend_destinationImageDescriptorForSourceImages_sourceStates_forKernel_suggestedDescriptor_(self->super._padding, v62, images, states, self, v28, v63, v64, v69, padding);
+    return objc_msgSend_destinationImageDescriptorForSourceImages_sourceStates_forKernel_suggestedDescriptor_(self->super._padding, v62, images, states, self, v28, v63, v64, v77, padding);
   }
 
   return v28;
@@ -130,10 +130,10 @@
 
 - (id)encodeToCommandEncoder:(id)encoder commandBuffer:(id)buffer sourceGradient:(id)gradient sourceImage:(id)image gradientState:(id)state
 {
-  v38[2] = *MEMORY[0x277D85DE8];
-  v38[0] = gradient;
-  v38[1] = image;
-  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v38, 2, gradient, image, state, v7);
+  v45[2] = *MEMORY[0x277D85DE8];
+  v45[0] = gradient;
+  v45[1] = image;
+  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v45, 2, gradient, image, state, v7);
   if (state)
   {
     stateCopy = state;
@@ -159,37 +159,44 @@
   {
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_12;
+      v32 = objc_opt_class();
+      NSStringFromClass(v32);
+      v37 = @"[%@ encodeToCommandBuffer:sourceImage:] Unable to create MPSImageDescriptor for destination.  Encode failed.\n";
+      v38 = 148;
+LABEL_13:
+      MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/MPSCNNGradientKernel.mm", v38, v37, v33, v34, v35, v36);
+      return 0;
     }
 
     return 0;
   }
 
-  v32 = objc_msgSend_imageForCommandBuffer_imageDescriptor_kernel_(self->super._destinationImageAllocator, v27, buffer, v26, self, v28, v29, v30);
-  v34 = v32;
+  v39 = objc_msgSend_imageForCommandBuffer_imageDescriptor_kernel_(self->super._destinationImageAllocator, v27, buffer, v26, self, v28, v29, v30);
+  v41 = v39;
   if (*(&self->super.super.super.isa + v31))
   {
-    if (!v32)
+    if (!v39)
     {
-      return v34;
+      return v41;
     }
 
-LABEL_15:
-    objc_msgSend_encodeToCommandEncoder_commandBuffer_sourceGradient_sourceImage_gradientState_destinationGradient_(self, v33, encoder, buffer, gradient, image, state, v32);
-    return v34;
+LABEL_16:
+    objc_msgSend_encodeToCommandEncoder_commandBuffer_sourceGradient_sourceImage_gradientState_destinationGradient_(self, v40, encoder, buffer, gradient, image, state, v39);
+    return v41;
   }
 
-  if (v32)
+  if (v39)
   {
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
   if (MTLReportFailureTypeEnabled())
   {
-LABEL_12:
-    v35 = objc_opt_class();
-    NSStringFromClass(v35);
-    MTLReportFailure();
+    v42 = objc_opt_class();
+    NSStringFromClass(v42);
+    v37 = @"[%@ encodeToCommandBuffer:sourceImage:] Unable to create MPSImage for destination.  Encode failed.\n";
+    v38 = 157;
+    goto LABEL_13;
   }
 
   return 0;
@@ -216,10 +223,12 @@ LABEL_12:
       {
         if (MTLReportFailureTypeEnabled())
         {
-LABEL_23:
-          v49 = objc_opt_class();
-          v50 = NSStringFromClass(v49);
-          MTLReportFailure();
+          v33 = objc_opt_class();
+          v58 = NSStringFromClass(v33);
+          v38 = @"[%@ encode] Error: Gradient filters do not support gradient operations for Inference kernels that use the clipRect to operate on a subregion of the result\n\tThis would force the gradient kernel to have to do software edging at significant performance cost.\n\tUse the slice operator to  trim away the unwanted parts of the gradient input.\n";
+          v39 = 206;
+LABEL_24:
+          MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/MPSCNNGradientKernel.mm", v39, v38, v34, v35, v36, v37);
         }
       }
     }
@@ -231,18 +240,22 @@ LABEL_23:
       {
         if (!*(state + 12) && !*(state + 13))
         {
-          v39 = *(state + 15);
-          if (v39 >= objc_msgSend_width(gradient, a2, v33, v34, v35, v36, v37, v38))
+          v46 = *(state + 15);
+          if (v46 >= objc_msgSend_width(gradient, a2, v40, v41, v42, v43, v44, v45))
           {
-            objc_msgSend_height(gradient, a2, v33, v34, v35, v36, v37, v38);
+            objc_msgSend_height(gradient, a2, v40, v41, v42, v43, v44, v45);
           }
         }
 
-        if (*(state + 12) || *(state + 13) || (v40 = *(state + 15), v40 < objc_msgSend_width(gradient, a2, v33, v34, v35, v36, v37, v38)) || (v48 = *(state + 16), v48 < objc_msgSend_height(gradient, v41, v42, v43, v44, v45, v46, v47)))
+        if (*(state + 12) || *(state + 13) || (v47 = *(state + 15), v47 < objc_msgSend_width(gradient, a2, v40, v41, v42, v43, v44, v45)) || (v55 = *(state + 16), v55 < objc_msgSend_height(gradient, v48, v49, v50, v51, v52, v53, v54)))
         {
           if (MTLReportFailureTypeEnabled())
           {
-            goto LABEL_23;
+            v56 = objc_opt_class();
+            v58 = NSStringFromClass(v56);
+            v38 = @"[%@ encode] Error: Gradient filters do not support gradient operations for Inference kernels that use the clipRect to operate on a subregion of the result\n\tThis would force the gradient kernel to have to do software edging at significant performance cost.\n\tUse the slice operator to  trim away the unwanted parts of the gradient input.\n";
+            v39 = 216;
+            goto LABEL_24;
           }
         }
       }
@@ -264,7 +277,11 @@ LABEL_23:
           {
             if (MTLReportFailureTypeEnabled())
             {
-              goto LABEL_23;
+              v57 = objc_opt_class();
+              v58 = NSStringFromClass(v57);
+              v38 = @"[%@ encode] Error: Unknown state type.  Encode failed.\n";
+              v39 = 222;
+              goto LABEL_24;
             }
           }
         }
@@ -272,22 +289,22 @@ LABEL_23:
     }
   }
 
-  objc_msgSend_encodeToCommandEncoder_commandBuffer_primaryImage_secondaryImage_inState_destinationImage_(self, a2, encoder, buffer, gradient, image, state, destinationGradient, v50);
+  objc_msgSend_encodeToCommandEncoder_commandBuffer_primaryImage_secondaryImage_inState_destinationImage_(self, a2, encoder, buffer, gradient, image, state, destinationGradient, v58);
 
   MPSDecrementReadCount(state);
 }
 
 - (id)encodeBatchToCommandEncoder:(id)encoder commandBuffer:(id)buffer sourceGradients:(id)gradients sourceImages:(id)images gradientStates:(id)states
 {
-  v86[2] = *MEMORY[0x277D85DE8];
+  v94[2] = *MEMORY[0x277D85DE8];
   v13 = objc_msgSend_count(gradients, a2, encoder, buffer, gradients, images, states, v7);
-  v86[0] = objc_msgSend_objectAtIndexedSubscript_(gradients, v14, 0, v15, v16, v17, v18, v19);
-  v86[1] = objc_msgSend_objectAtIndexedSubscript_(images, v20, 0, v21, v22, v23, v24, v25);
-  v37 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v26, v86, 2, v27, v28, v29, v30);
+  v94[0] = objc_msgSend_objectAtIndexedSubscript_(gradients, v14, 0, v15, v16, v17, v18, v19);
+  v94[1] = objc_msgSend_objectAtIndexedSubscript_(images, v20, 0, v21, v22, v23, v24, v25);
+  v37 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v26, v94, 2, v27, v28, v29, v30);
   if (states)
   {
-    v85 = objc_msgSend_objectAtIndexedSubscript_(states, v31, 0, v32, v33, v34, v35, v36);
-    v43 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v38, &v85, 1, v39, v40, v41, v42);
+    v93 = objc_msgSend_objectAtIndexedSubscript_(states, v31, 0, v32, v33, v34, v35, v36);
+    v43 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v38, &v93, 1, v39, v40, v41, v42);
     v49 = objc_msgSend_destinationImageDescriptorForSourceImages_sourceStates_(self, v44, v37, v43, v45, v46, v47, v48);
   }
 
@@ -310,47 +327,47 @@ LABEL_10:
     destinationImageAllocator = self->super._destinationImageAllocator;
     if (objc_opt_respondsToSelector())
     {
-      v53 = objc_msgSend_imageBatchForCommandBuffer_imageDescriptor_kernel_count_(destinationImageAllocator, v55, buffer, v50, self, v13, v59, v60);
+      v57 = objc_msgSend_imageBatchForCommandBuffer_imageDescriptor_kernel_count_(destinationImageAllocator, v59, buffer, v50, self, v13, v63, v64);
     }
 
     else
     {
-      v53 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v55, v13, v56, v57, v58, v59, v60);
-      if (!v53)
+      v57 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v59, v13, v60, v61, v62, v63, v64);
+      if (!v57)
       {
-        return v53;
+        return v57;
       }
 
       if (!v13)
       {
 LABEL_22:
-        objc_msgSend_encodeBatchToCommandEncoder_commandBuffer_sourceGradients_sourceImages_gradientStates_destinationGradients_(self, v61, encoder, buffer, gradients, imagesCopy, states, v53, v82);
-        return v53;
+        objc_msgSend_encodeBatchToCommandEncoder_commandBuffer_sourceGradients_sourceImages_gradientStates_destinationGradients_(self, v65, encoder, buffer, gradients, imagesCopy, states, v57, v90);
+        return v57;
       }
 
       for (i = 0; i != v13; ++i)
       {
-        v66 = objc_msgSend_imageForCommandBuffer_imageDescriptor_kernel_(destinationImageAllocator, v61, buffer, v50, self, v62, v63, v64, v82);
-        objc_msgSend_setObject_atIndexedSubscript_(v53, v67, v66, i, v68, v69, v70, v71);
+        v70 = objc_msgSend_imageForCommandBuffer_imageDescriptor_kernel_(destinationImageAllocator, v65, buffer, v50, self, v66, v67, v68, v90);
+        objc_msgSend_setObject_atIndexedSubscript_(v57, v71, v70, i, v72, v73, v74, v75);
         if ((*(&self->super.super.super.isa + v51) & 1) == 0)
         {
-          objc_msgSend_objectAtIndexedSubscript_(v53, v61, i, v72, v73, v62, v63, v64);
-          if (!objc_msgSend_objectAtIndexedSubscript_(v53, v74, i, v75, v76, v77, v78, v79))
+          objc_msgSend_objectAtIndexedSubscript_(v57, v65, i, v76, v77, v66, v67, v68);
+          if (!objc_msgSend_objectAtIndexedSubscript_(v57, v78, i, v79, v80, v81, v82, v83))
           {
             if (MTLReportFailureTypeEnabled())
             {
-              v80 = objc_opt_class();
-              v82 = NSStringFromClass(v80);
-              MTLReportFailure();
+              v84 = objc_opt_class();
+              v90 = NSStringFromClass(v84);
+              MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Binaries/MetalPerformanceShaders/install/Symbols/BuiltProducts/MPSCore.framework/PrivateHeaders/Internal/MPSImageInternal.h", 0x203, @"[%@ encodeToCommandBuffer:primaryImage:secondaryImage:] Unable to create MPSImage for destination.  Encode failed.\n", v85, v86, v87, v88);
             }
           }
         }
       }
     }
 
-    if (!v53)
+    if (!v57)
     {
-      return v53;
+      return v57;
     }
 
     goto LABEL_22;
@@ -365,7 +382,7 @@ LABEL_22:
   {
     v52 = objc_opt_class();
     NSStringFromClass(v52);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MetalPerformanceShaders/MPSCNNGradientKernel.mm", 0x10E, @"[%@ encodeToCommandBuffer:sourceGradients:...] Unable to create MPSImageDescriptor for destination.  Encode failed.\n", v53, v54, v55, v56);
   }
 
   return 0;

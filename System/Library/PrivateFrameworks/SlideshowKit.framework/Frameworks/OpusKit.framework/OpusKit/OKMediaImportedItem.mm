@@ -169,7 +169,7 @@ LABEL_8:
   [a2 finish];
 }
 
-uint64_t __67__OKMediaImportedItem_importMediaToDirectoryURL_completionHandler___block_invoke_2(void *a1, void *a2, void *a3)
+void *__67__OKMediaImportedItem_importMediaToDirectoryURL_completionHandler___block_invoke_2(void *a1, void *a2, void *a3)
 {
   v5 = a1[4];
   v6 = [a2 relativePath];
@@ -184,7 +184,7 @@ uint64_t __67__OKMediaImportedItem_importMediaToDirectoryURL_completionHandler__
   return result;
 }
 
-uint64_t __67__OKMediaImportedItem_importMediaToDirectoryURL_completionHandler___block_invoke_3(uint64_t a1, _BYTE *a2)
+void *__67__OKMediaImportedItem_importMediaToDirectoryURL_completionHandler___block_invoke_3(uint64_t a1, _BYTE *a2)
 {
   [*(a1 + 32) setProgress:?];
   result = [*(a1 + 32) isCancelled];

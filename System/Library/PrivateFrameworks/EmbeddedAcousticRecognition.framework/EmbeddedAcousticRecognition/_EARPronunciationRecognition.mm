@@ -29,7 +29,7 @@
   v5 = pronunciationCopy;
   if (pronunciationCopy)
   {
-    [pronunciationCopy ear_toString];
+    objc_msgSend_ear_toString(pronunciationCopy);
   }
 
   else
@@ -76,8 +76,8 @@
 - (void)transcribeMultipleFromJsonResultsPath:(id)path
 {
   v5[7] = *MEMORY[0x1E69E9840];
-  std::string::basic_string[abi:ne200100]<0>(v3, [path fileSystemRepresentation]);
-  quasar::filesystem::Path::Path(v4, v3);
+  std::string::basic_string[abi:ne200100]<0>(&v3, [path fileSystemRepresentation]);
+  quasar::filesystem::Path::Path(v4, &v3);
   v5[0] = 0;
   v5[1] = 0;
   v4[11] = v5;

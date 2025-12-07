@@ -11,7 +11,7 @@
 
 - (_TtC18SharingViewService21B389MapViewController)initWithCoder:(id)coder
 {
-  v4 = (&self->super.super.super.isa + OBJC_IVAR____TtC18SharingViewService21B389MapViewController_tapHandler);
+  v4 = (self + OBJC_IVAR____TtC18SharingViewService21B389MapViewController_tapHandler);
   *v4 = 0;
   v4[1] = 0;
   v5 = OBJC_IVAR____TtC18SharingViewService21B389MapViewController_mapView;
@@ -50,7 +50,7 @@
     v5 = *&self->mapAnnotation[OBJC_IVAR____TtC18SharingViewService21B389MapViewController_tapHandler];
     tappedCopy = tapped;
     selfCopy = self;
-    sub_100024138(v3);
+    sub_100024138(v3, v5);
     v3(tapped);
 
     sub_100025EF4(v3, v5);
@@ -69,11 +69,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_1000AB854(viewCopy);
+  v8 = sub_1000AB854(viewCopy, annotation);
 
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 @end

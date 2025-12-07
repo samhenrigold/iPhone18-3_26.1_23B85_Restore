@@ -1,13 +1,14 @@
 @interface TSPDescriptionGenerator
 + (BOOL)dumpMessagesForDocumentURL:(id)l supportURL:(id)rL decryptionKey:(id)key toURL:(id)uRL;
 + (id)directoryForDocumentUUID:(id)d versionUUID:(id)iD;
++ (id)filenameForPackageIdentifier:(unsigned __int8)identifier;
 - (BOOL)dumpComponentMessages:(id)messages printNewLine:(BOOL)line withPrinter:(void *)printer outputStream:(void *)stream;
+- (BOOL)dumpMessagesForDocumentUUID:(id)d versionUUID:(id)iD packageIdentifier:(unsigned __int8)identifier;
 - (BOOL)dumpMessagesToFilePath:(id)path;
 - (TSPDescriptionGenerator)init;
 - (TSPDescriptionGenerator)initWithContext:(id)context options:(unint64_t)options;
 - (id).cxx_construct;
 - (id)descriptionForIdentifier:(int64_t)identifier;
-- (void)_messageAlternateMapFromArchivableContent:(id)content;
 - (void)_strongReferencesFromArchiver:(id)archiver;
 - (void)addArchiver:(id)archiver;
 - (void)addComponent:(id)component;
@@ -20,15 +21,15 @@
 
 + (id)directoryForDocumentUUID:(id)d versionUUID:(id)iD
 {
-  v27[4] = *MEMORY[0x277D85DE8];
+  v26[4] = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   v7 = MEMORY[0x277CCACA8];
   v8 = NSTemporaryDirectory();
-  v27[0] = v8;
+  v26[0] = v8;
   v9 = objc_opt_class();
   v10 = NSStringFromClass(v9);
-  v27[1] = v10;
+  v26[1] = v10;
   v13 = objc_msgSend_UUIDString(dCopy, v11, v12);
   v16 = v13;
   v17 = @"UnknownDocumentUUID";
@@ -37,7 +38,7 @@
     v17 = v13;
   }
 
-  v27[2] = v17;
+  v26[2] = v17;
   v18 = objc_msgSend_UUIDString(iDCopy, v14, v15);
   v20 = v18;
   v21 = @"UnknownVersionUUID";
@@ -46,13 +47,19 @@
     v21 = v18;
   }
 
-  v27[3] = v21;
-  v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v19, v27, 4);
+  v26[3] = v21;
+  v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v19, v26, 4);
   v24 = objc_msgSend_pathWithComponents_(v7, v23, v22);
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v24;
+}
+
++ (id)filenameForPackageIdentifier:(unsigned __int8)identifier
+{
+  v3 = sub_276AC69B4(identifier, a2);
+  v5 = objc_msgSend_stringByAppendingPathExtension_(v3, v4, @"txt");
+
+  return v5;
 }
 
 - (TSPDescriptionGenerator)init
@@ -148,13 +155,6 @@
   }
 
   return 0;
-}
-
-- (void)_messageAlternateMapFromArchivableContent:(id)content
-{
-  v5 = *MEMORY[0x277D85DE8];
-  contentCopy = content;
-  operator new();
 }
 
 - (void)addArchiver:(id)archiver
@@ -263,6 +263,38 @@
   selfCopy = self;
   v6 = componentCopy;
   dispatch_async(accessQueue, v7);
+}
+
+- (BOOL)dumpMessagesForDocumentUUID:(id)d versionUUID:(id)iD packageIdentifier:(unsigned __int8)identifier
+{
+  identifierCopy = identifier;
+  dCopy = d;
+  iDCopy = iD;
+  v10 = objc_opt_class();
+  v12 = objc_msgSend_directoryForDocumentUUID_versionUUID_(v10, v11, dCopy, iDCopy);
+  v15 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v13, v14);
+  DirectoryAtPath_withIntermediateDirectories_attributes_error = objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v15, v16, v12, 1, 0, 0);
+
+  if (DirectoryAtPath_withIntermediateDirectories_attributes_error)
+  {
+    v19 = objc_opt_class();
+    v21 = objc_msgSend_filenameForPackageIdentifier_(v19, v20, identifierCopy);
+    v23 = objc_msgSend_stringByAppendingPathComponent_(v12, v22, v21);
+    v25 = objc_msgSend_dumpMessagesToFilePath_(self, v24, v23);
+  }
+
+  else
+  {
+    v26 = MEMORY[0x277D81150];
+    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPDescriptionGenerator dumpMessagesForDocumentUUID:versionUUID:packageIdentifier:]");
+    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDescriptionGenerator.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v30, v27, v29, 363, 0, "Could not create persistence dump directory at %@", v12);
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32);
+    v25 = 0;
+  }
+
+  return v25;
 }
 
 - (BOOL)dumpMessagesToFilePath:(id)path
@@ -431,160 +463,160 @@
 
 + (BOOL)dumpMessagesForDocumentURL:(id)l supportURL:(id)rL decryptionKey:(id)key toURL:(id)uRL
 {
-  v180 = *MEMORY[0x277D85DE8];
+  v179 = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
   keyCopy = key;
   uRLCopy = uRL;
-  v144 = lCopy;
+  v143 = lCopy;
   v10 = [TSPTemporaryFileCoordinatorDelegate alloc];
-  v142 = objc_msgSend_initWithURL_(v10, v11, lCopy);
+  v141 = objc_msgSend_initWithURL_(v10, v11, lCopy);
   if (rLCopy)
   {
     v13 = [TSPTemporaryFileCoordinatorDelegate alloc];
-    v139 = objc_msgSend_initWithURL_(v13, v14, rLCopy);
+    v138 = objc_msgSend_initWithURL_(v13, v14, rLCopy);
   }
 
   else
   {
-    v139 = 0;
+    v138 = 0;
   }
 
-  v178 = 0;
-  v15 = objc_msgSend_newPackageWithURL_options_packageIdentifier_decryptionKey_fileCoordinatorDelegate_error_(TSPPackage, v12, lCopy, 0, 1, keyCopy, v142, &v178);
-  v16 = v178;
+  v177 = 0;
+  v15 = objc_msgSend_newPackageWithURL_options_packageIdentifier_decryptionKey_fileCoordinatorDelegate_error_(TSPPackage, v12, lCopy, 0, 1, keyCopy, v141, &v177);
+  v16 = v177;
   v17 = v16;
-  v153 = v15;
+  v152 = v15;
   if (v15)
   {
 
     if (!rLCopy)
     {
       v21 = 0;
-      v152 = 0;
+      v151 = 0;
       goto LABEL_12;
     }
 
-    v177 = 0;
-    v19 = objc_msgSend_newPackageWithURL_options_packageIdentifier_decryptionKey_fileCoordinatorDelegate_error_(TSPPackage, v18, rLCopy, 0, 2, keyCopy, v139, &v177);
-    v20 = v177;
+    v176 = 0;
+    v19 = objc_msgSend_newPackageWithURL_options_packageIdentifier_decryptionKey_fileCoordinatorDelegate_error_(TSPPackage, v18, rLCopy, 0, 2, keyCopy, v138, &v176);
+    v20 = v176;
     v17 = v20;
-    v152 = v19;
+    v151 = v19;
     if (v19)
     {
       v21 = v20;
 LABEL_12:
-      v134 = objc_alloc_init(TSPTemporaryObjectContextDelegate);
+      v133 = objc_alloc_init(TSPTemporaryObjectContextDelegate);
       v22 = [TSPObjectContext alloc];
       v25 = objc_msgSend_sharedRegistry(TSPRegistry, v23, v24);
-      InternalMetadataObject = objc_msgSend_initWithDelegate_registry_resourceContext_mode_isLoadingDocument_shouldCreateInternalMetadataObject_(v22, v26, v134, v25, 0, 6, 1, 0);
+      InternalMetadataObject = objc_msgSend_initWithDelegate_registry_resourceContext_mode_isLoadingDocument_shouldCreateInternalMetadataObject_(v22, v26, v133, v25, 0, 6, 1, 0);
 
       v27 = [TSPPackageReadCoordinator alloc];
-      v176 = v21;
-      ValidationPolicy = objc_msgSend_initWithContext_package_packageURL_finalizeHandlerQueue_areExternalDataReferencesAllowed_skipDocumentUpgrade_documentLoadValidationPolicy_(v27, v28, InternalMetadataObject, v153, lCopy, 0, 0, 1, 0);
-      v141 = objc_msgSend_readPackageMetadataWithError_(ValidationPolicy, v29, &v176);
-      v17 = v176;
+      v175 = v21;
+      ValidationPolicy = objc_msgSend_initWithContext_package_packageURL_finalizeHandlerQueue_areExternalDataReferencesAllowed_skipDocumentUpgrade_documentLoadValidationPolicy_(v27, v28, InternalMetadataObject, v152, lCopy, 0, 0, 1, 0);
+      v140 = objc_msgSend_readPackageMetadataWithError_(ValidationPolicy, v29, &v175);
+      v17 = v175;
 
       objc_msgSend_tearDown(ValidationPolicy, v30, v31);
-      v143 = 0;
-      if (!v141 || !v152)
+      v142 = 0;
+      if (!v140 || !v151)
       {
-        v150 = 0;
+        v149 = 0;
 LABEL_27:
         v62 = objc_msgSend_documentRevision(ValidationPolicy, v32, v33);
         v65 = objc_msgSend_passphrase(keyCopy, v63, v64);
-        objc_msgSend_prepareForDocumentDumpWithDocumentPackage_supportPackage_documentRevision_passphrase_(InternalMetadataObject, v66, v153, v152, v62, v65);
+        objc_msgSend_prepareForDocumentDumpWithDocumentPackage_supportPackage_documentRevision_passphrase_(InternalMetadataObject, v66, v152, v151, v62, v65);
 
         objc_msgSend_close(InternalMetadataObject, v67, v68);
-        v137 = v141 != 0;
-        if (v141)
+        v136 = v140 != 0;
+        if (v140)
         {
           v69 = [TSPDescriptionGenerator alloc];
-          v149 = objc_msgSend_initWithContext_options_(v69, v70, InternalMetadataObject, 0);
-          v136 = objc_msgSend_componentManager(InternalMetadataObject, v71, v72);
-          v133 = objc_alloc_init(MEMORY[0x277CBEB18]);
-          v169 = 0;
-          v170 = &v169;
-          v171 = 0x3032000000;
-          v172 = sub_276A4F828;
-          v173 = sub_276A4F838;
-          v174 = 0;
-          v163 = 0;
-          v164 = &v163;
-          v165 = 0x3032000000;
-          v166 = sub_276A4F828;
-          v167 = sub_276A4F838;
+          v148 = objc_msgSend_initWithContext_options_(v69, v70, InternalMetadataObject, 0);
+          v135 = objc_msgSend_componentManager(InternalMetadataObject, v71, v72);
+          v132 = objc_alloc_init(MEMORY[0x277CBEB18]);
           v168 = 0;
-          objc_msgSend_loadFromPackage_metadata_(v136, v73, v153, v141);
-          if (v143)
+          v169 = &v168;
+          v170 = 0x3032000000;
+          v171 = sub_276A4F828;
+          v172 = sub_276A4F838;
+          v173 = 0;
+          v162 = 0;
+          v163 = &v162;
+          v164 = 0x3032000000;
+          v165 = sub_276A4F828;
+          v166 = sub_276A4F838;
+          v167 = 0;
+          objc_msgSend_loadFromPackage_metadata_(v135, v73, v152, v140);
+          if (v142)
           {
-            objc_msgSend_loadFromPackage_metadata_(v136, v74, v152, v143);
+            objc_msgSend_loadFromPackage_metadata_(v135, v74, v151, v142);
           }
 
-          v162[0] = MEMORY[0x277D85DD0];
-          v162[1] = 3221225472;
-          v162[2] = sub_276A50824;
-          v162[3] = &unk_27A6E4DA0;
-          v162[6] = &v169;
-          v162[7] = &v163;
-          v162[4] = v133;
-          v162[5] = v149;
-          objc_msgSend_enumerateComponents_(v136, v74, v162);
-          v76 = objc_msgSend_sortedArrayUsingComparator_(v133, v75, &unk_2885C4180);
-          v135 = objc_msgSend_mutableCopy(v76, v77, v78);
+          v161[0] = MEMORY[0x277D85DD0];
+          v161[1] = 3221225472;
+          v161[2] = sub_276A50824;
+          v161[3] = &unk_27A6E4DA0;
+          v161[6] = &v168;
+          v161[7] = &v162;
+          v161[4] = v132;
+          v161[5] = v148;
+          objc_msgSend_enumerateComponents_(v135, v74, v161);
+          v76 = objc_msgSend_sortedArrayUsingComparator_(v132, v75, &unk_2885C4180);
+          v134 = objc_msgSend_mutableCopy(v76, v77, v78);
 
-          v80 = v164[5];
+          v80 = v163[5];
           if (v80)
           {
-            objc_msgSend_insertObject_atIndex_(v135, v79, v80, 0);
+            objc_msgSend_insertObject_atIndex_(v134, v79, v80, 0);
           }
 
-          v81 = v170[5];
+          v81 = v169[5];
           if (v81)
           {
-            objc_msgSend_insertObject_atIndex_(v135, v79, v81, 0);
+            objc_msgSend_insertObject_atIndex_(v134, v79, v81, 0);
           }
 
-          v82 = objc_msgSend_message(v141, v79, v81);
-          v85 = objc_msgSend_tsp_identifier(v141, v83, v84);
-          objc_msgSend_addMessage_withStrongReferencesMap_forObjectIdentifier_(v149, v86, v82, 0, v85);
+          v82 = objc_msgSend_message(v140, v79, v81);
+          v85 = objc_msgSend_tsp_identifier(v140, v83, v84);
+          objc_msgSend_addMessage_withStrongReferencesMap_forObjectIdentifier_(v148, v86, v82, 0, v85);
           v87 = [TSPComponent alloc];
-          v132 = objc_msgSend_initWithDelegate_identifier_preferredLocator_packageIdentifier_(v87, v88, v136, 2, @"Metadata", 1);
-          objc_msgSend_addObject_(v135, v89, v132);
-          if (v143)
+          v131 = objc_msgSend_initWithDelegate_identifier_preferredLocator_packageIdentifier_(v87, v88, v135, 2, @"Metadata", 1);
+          objc_msgSend_addObject_(v134, v89, v131);
+          if (v142)
           {
-            v92 = objc_msgSend_message(v143, v90, v91);
-            objc_msgSend_addMessage_withStrongReferencesMap_forObjectIdentifier_(v149, v93, v92, 0, 99);
+            v92 = objc_msgSend_message(v142, v90, v91);
+            objc_msgSend_addMessage_withStrongReferencesMap_forObjectIdentifier_(v148, v93, v92, 0, 99);
             v94 = [TSPComponent alloc];
-            v96 = objc_msgSend_initWithDelegate_identifier_preferredLocator_packageIdentifier_(v94, v95, v136, 99, @"Metadata", 2);
-            objc_msgSend_addObject_(v135, v97, v96);
+            v96 = objc_msgSend_initWithDelegate_identifier_preferredLocator_packageIdentifier_(v94, v95, v135, 99, @"Metadata", 2);
+            objc_msgSend_addObject_(v134, v97, v96);
           }
 
-          v160 = 0u;
-          v161 = 0u;
-          v158 = 0u;
           v159 = 0u;
-          obj = v135;
-          v101 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v98, &v158, v179, 16);
+          v160 = 0u;
+          v157 = 0u;
+          v158 = 0u;
+          obj = v134;
+          v101 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v98, &v157, v178, 16);
           if (v101)
           {
-            v102 = *v159;
+            v102 = *v158;
             do
             {
               v103 = 0;
               do
               {
-                if (*v159 != v102)
+                if (*v158 != v102)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v104 = *(*(&v158 + 1) + 8 * v103);
+                v104 = *(*(&v157 + 1) + 8 * v103);
                 v105 = objc_msgSend_packageIdentifier(v104, v99, v100);
-                v106 = v153;
+                v106 = v152;
                 if (v105 != 1)
                 {
-                  v106 = v152;
+                  v106 = v151;
                 }
 
                 v107 = v106;
@@ -592,7 +624,7 @@ LABEL_27:
                 v111 = ValidationPolicy;
                 if (v110 != 1)
                 {
-                  v111 = v150;
+                  v111 = v149;
                 }
 
                 v112 = v111;
@@ -600,14 +632,14 @@ LABEL_27:
                 v115 = objc_msgSend_locator(v104, v113, v114);
                 v118 = objc_msgSend_compressionAlgorithm(v104, v116, v117);
                 isStoredOutsideObjectArchive = objc_msgSend_isStoredOutsideObjectArchive(v104, v119, v120);
-                v157 = 0;
-                isStoredOutsideObjectArchive_error = objc_msgSend_newReadChannelForComponentLocator_compressionAlgorithm_isStoredOutsideObjectArchive_error_(v107, v122, v115, v118, isStoredOutsideObjectArchive, &v157);
-                v17 = v157;
+                v156 = 0;
+                isStoredOutsideObjectArchive_error = objc_msgSend_newReadChannelForComponentLocator_compressionAlgorithm_isStoredOutsideObjectArchive_error_(v107, v122, v115, v118, isStoredOutsideObjectArchive, &v156);
+                v17 = v156;
 
                 if (isStoredOutsideObjectArchive_error)
                 {
                   v124 = [TSPDescriptionComponentReader alloc];
-                  Channel_descriptionGenerator = objc_msgSend_initWithComponent_delegate_readChannel_descriptionGenerator_(v124, v125, v104, v112, isStoredOutsideObjectArchive_error, v149);
+                  Channel_descriptionGenerator = objc_msgSend_initWithComponent_delegate_readChannel_descriptionGenerator_(v124, v125, v104, v112, isStoredOutsideObjectArchive_error, v148);
                   objc_msgSend_read(Channel_descriptionGenerator, v127, v128);
                 }
 
@@ -620,23 +652,23 @@ LABEL_27:
               }
 
               while (v101 != v103);
-              v101 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v99, &v158, v179, 16);
+              v101 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v99, &v157, v178, 16);
             }
 
             while (v101);
           }
 
-          v154[0] = MEMORY[0x277D85DD0];
-          v154[1] = 3221225472;
-          v154[2] = sub_276A509DC;
-          v154[3] = &unk_27A6E29B0;
-          v154[4] = v149;
-          v155 = uRLCopy;
-          v156 = obj;
-          objc_msgSend_performPrintOperationBlock_(v149, v129, v154);
+          v153[0] = MEMORY[0x277D85DD0];
+          v153[1] = 3221225472;
+          v153[2] = sub_276A509DC;
+          v153[3] = &unk_27A6E29B0;
+          v153[4] = v148;
+          v154 = uRLCopy;
+          v155 = obj;
+          objc_msgSend_performPrintOperationBlock_(v148, v129, v153);
 
-          _Block_object_dispose(&v163, 8);
-          _Block_object_dispose(&v169, 8);
+          _Block_object_dispose(&v162, 8);
+          _Block_object_dispose(&v168, 8);
         }
 
         else if (*MEMORY[0x277D81408] != -1)
@@ -648,26 +680,26 @@ LABEL_27:
       }
 
       v34 = [TSPPackageReadCoordinator alloc];
-      v36 = objc_msgSend_initWithContext_package_packageURL_finalizeHandlerQueue_areExternalDataReferencesAllowed_skipDocumentUpgrade_documentLoadValidationPolicy_(v34, v35, InternalMetadataObject, v152, rLCopy, 0, 0, 1, 0);
-      v175 = v17;
-      v38 = objc_msgSend_readPackageMetadataWithError_(v36, v37, &v175);
-      v148 = v175;
+      v36 = objc_msgSend_initWithContext_package_packageURL_finalizeHandlerQueue_areExternalDataReferencesAllowed_skipDocumentUpgrade_documentLoadValidationPolicy_(v34, v35, InternalMetadataObject, v151, rLCopy, 0, 0, 1, 0);
+      v174 = v17;
+      v38 = objc_msgSend_readPackageMetadataWithError_(v36, v37, &v174);
+      v147 = v174;
 
       objc_msgSend_tearDown(v36, v39, v40);
       if (!v38)
       {
-        v143 = 0;
-        v43 = v141;
-        v141 = 0;
+        v142 = 0;
+        v43 = v140;
+        v140 = 0;
 LABEL_26:
 
-        v150 = v36;
-        v17 = v148;
+        v149 = v36;
+        v17 = v147;
         goto LABEL_27;
       }
 
-      v43 = objc_msgSend_documentProperties(v153, v41, v42);
-      v46 = objc_msgSend_documentProperties(v152, v44, v45);
+      v43 = objc_msgSend_documentProperties(v152, v41, v42);
+      v46 = objc_msgSend_documentProperties(v151, v44, v45);
       v49 = objc_msgSend_documentUUID(v46, v47, v48);
       v52 = objc_msgSend_documentUUID(v43, v50, v51);
       if (objc_msgSend_isEqual_(v49, v53, v52))
@@ -678,7 +710,7 @@ LABEL_26:
 
         if (isEqual)
         {
-          v143 = v38;
+          v142 = v38;
 LABEL_25:
 
           goto LABEL_26;
@@ -689,9 +721,9 @@ LABEL_25:
       {
       }
 
-      v143 = 0;
+      v142 = 0;
       v36 = 0;
-      v152 = 0;
+      v151 = 0;
       goto LABEL_25;
     }
 
@@ -700,7 +732,7 @@ LABEL_25:
       sub_276BD4D10();
     }
 
-    v137 = 0;
+    v136 = 0;
   }
 
   else
@@ -710,13 +742,12 @@ LABEL_25:
       sub_276BD4D88();
     }
 
-    v137 = 0;
+    v136 = 0;
   }
 
 LABEL_55:
 
-  v130 = *MEMORY[0x277D85DE8];
-  return v137;
+  return v136;
 }
 
 - (id).cxx_construct

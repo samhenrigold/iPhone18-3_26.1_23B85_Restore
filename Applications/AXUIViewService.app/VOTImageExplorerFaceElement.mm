@@ -1,10 +1,24 @@
 @interface VOTImageExplorerFaceElement
 - (CGRect)accessibilityFrame;
+- (VOTImageExplorerFaceElement)initWithImageView:(id)view forFaceFeature:(id)feature withOverlappingPeopleFeature:(id)peopleFeature hasFlippedYAxis:(BOOL)axis;
 - (id)accessibilityLabel;
 - (id)accessibilityValue;
 @end
 
 @implementation VOTImageExplorerFaceElement
+
+- (VOTImageExplorerFaceElement)initWithImageView:(id)view forFaceFeature:(id)feature withOverlappingPeopleFeature:(id)peopleFeature hasFlippedYAxis:(BOOL)axis
+{
+  axisCopy = axis;
+  peopleFeatureCopy = peopleFeature;
+  v14.receiver = self;
+  v14.super_class = VOTImageExplorerFaceElement;
+  v11 = [(VOTImageExplorerElement *)&v14 initWithImageView:view forFeature:feature hasFlippedYAxis:axisCopy];
+  peopleFeature = v11->_peopleFeature;
+  v11->_peopleFeature = peopleFeatureCopy;
+
+  return v11;
+}
 
 - (id)accessibilityLabel
 {

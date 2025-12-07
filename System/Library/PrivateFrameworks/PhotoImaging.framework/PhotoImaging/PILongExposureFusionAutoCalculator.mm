@@ -197,7 +197,7 @@ void __45__PILongExposureFusionAutoCalculator_submit___block_invoke_2(uint64_t a
         }
       }
 
-      [v3 extent];
+      objc_msgSend_extent(v3);
       v12 = [MEMORY[0x1E696AD98] numberWithInteger:0];
       v27[0] = v12;
       v13 = [MEMORY[0x1E696AD98] numberWithInteger:0];
@@ -266,7 +266,7 @@ void __60__PILongExposureFusionAutoCalculator__computeCleanAperture___block_invo
     v8 = v7;
     if (v7)
     {
-      [v7 cleanAperture];
+      objc_msgSend_cleanAperture(v7);
     }
 
     else

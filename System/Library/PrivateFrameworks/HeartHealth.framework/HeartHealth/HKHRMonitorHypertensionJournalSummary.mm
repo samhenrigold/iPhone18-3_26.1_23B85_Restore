@@ -33,30 +33,30 @@
 
 - (void)extractDates:(id)dates
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   datesCopy = dates;
-  v19 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v18 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = datesCopy;
-  v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         endDate = [v10 endDate];
         v12 = MEMORY[0x277CCABB0];
         calendar = [(HKHRMonitorHypertensionJournalSummary *)self calendar];
@@ -66,7 +66,7 @@
         if (!v15)
         {
           v15 = objc_alloc_init(MEMORY[0x277CBEB58]);
-          [v19 addObject:endDate];
+          [v18 addObject:endDate];
         }
 
         uUID = [v10 UUID];
@@ -75,16 +75,14 @@
         [v5 setObject:v15 forKeyedSubscript:v14];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
   }
 
-  v17 = [v19 copy];
+  v17 = [v18 copy];
   [(HKHRMonitorHypertensionJournalSummary *)self setDatesWithSamples:v17];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isComplete
@@ -105,7 +103,7 @@
 
 - (id)completeDateAsOfDate:(id)date
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   calendar = [(HKHRMonitorHypertensionJournalSummary *)self calendar];
   journal = [(HKHRMonitorHypertensionJournalSummary *)self journal];
@@ -115,12 +113,12 @@
   calendar2 = [(HKHRMonitorHypertensionJournalSummary *)self calendar];
   v10 = [calendar2 dateByAddingUnit:16 value:27 toDate:v8 options:0];
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v11 = self->_samples;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (!v12)
   {
 
@@ -139,21 +137,21 @@ LABEL_15:
 
   v13 = v12;
   obj = v11;
-  v28 = v8;
-  v29 = dateCopy;
+  v27 = v8;
+  v28 = dateCopy;
   v14 = 0;
-  v15 = *v32;
+  v15 = *v31;
   do
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v32 != v15)
+      if (*v31 != v15)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = *(*(&v31 + 1) + 8 * i);
-      v18 = [(HKHRMonitorHypertensionJournalSummary *)self calendar:v28];
+      v17 = *(*(&v30 + 1) + 8 * i);
+      v18 = [(HKHRMonitorHypertensionJournalSummary *)self calendar:v27];
       startDate2 = [v17 startDate];
       v20 = [v18 isDate:startDate2 inSameDayAsDate:v10];
 
@@ -168,21 +166,19 @@ LABEL_15:
       }
     }
 
-    v13 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v13 = [(NSArray *)obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   }
 
   while (v13);
 
-  v8 = v28;
-  dateCopy = v29;
+  v8 = v27;
+  dateCopy = v28;
   if (!v14)
   {
     goto LABEL_15;
   }
 
 LABEL_18:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

@@ -10,6 +10,7 @@
 - (BOOL)loadWithData:(id)data options:(id)options error:(id *)error;
 - (BOOL)premultiplyWithAlpha:(void *)alpha source:(void *)source withWidth:(unsigned int)width withHeight:(unsigned int)height withRowBytes:(unsigned int)bytes error:(id *)error;
 - (BOOL)reorientToGL:(void *)l source:(void *)source withWidth:(unsigned int)width withHeight:(unsigned int)height withRowBytes:(unsigned int)bytes error:(id *)error;
+- (BOOL)uploadToGLTexture:(unsigned int)texture error:(id *)error;
 - (GLKTexture)init;
 - (GLKTexture)initWithCGImage:(CGImage *)image forceCubeMap:(BOOL)map wasCubeMap:(BOOL *)cubeMap cubeMapIndex:(int)index options:(id)options error:(id *)error;
 - (GLKTexture)initWithData:(id)data forceCubeMap:(BOOL)map wasCubeMap:(BOOL *)cubeMap cubeMapIndex:(int)index options:(id)options error:(id *)error;
@@ -530,86 +531,60 @@ LABEL_31:
 {
   ColorSpace = CGImageProviderGetColorSpace();
   Model = CGColorSpaceGetModel(ColorSpace);
-  if (Model <= 1)
+  if (Model > 1)
   {
-    v7 = Model;
-    CGImageProviderGetSize();
-    Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
-    if (Mutable)
+    return 0;
+  }
+
+  v7 = Model;
+  CGImageProviderGetSize();
+  Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], MEMORY[0x277CBF150]);
+  if (!Mutable)
+  {
+    return 0;
+  }
+
+  v9 = Mutable;
+  CFDictionarySetValue(Mutable, @"kCGImageBlockIOSurfaceOptimizedRequest", *MEMORY[0x277CBED28]);
+  CFDictionarySetValue(v9, @"kCGImageBlockFormatRequest", @"kCGImageBlockFormatBGRx8");
+  v10 = CGImageProviderCopyImageBlockSetWithOptions();
+  self->_blockSet = v10;
+  if (v10)
+  {
+    if (CGImageBlockSetGetCount() == 1 && ((CGImageBlockSetGetImageBlock(), CGImageBlockGetRect(), self->_width = v11, self->_height = v12, self->_rowBytes = CGImageBlockGetBytesPerRow(), Data = CGImageBlockGetData(), ComponentType = CGImageBlockSetGetComponentType(), PixelSize = CGImageBlockSetGetPixelSize(), PixelSize != 3) ? (v16 = PixelSize) : (v16 = 4), [(GLKTexture *)self determineCGImageBlockFormatWithComponentType:ComponentType andPixelSize:v16 andColorModel:v7]))
     {
-      v9 = Mutable;
-      CFDictionarySetValue(Mutable, @"kCGImageBlockIOSurfaceOptimizedRequest", *MEMORY[0x277CBED28]);
-      CFDictionarySetValue(v9, @"kCGImageBlockFormatRequest", @"kCGImageBlockFormatBGRx8");
-      v10 = CGImageProviderCopyImageBlockSetWithOptions();
-      self->_blockSet = v10;
-      if (v10)
+      v17 = [(GLKTexture *)self alignmentFix:v16 data:Data];
+      if (v17)
       {
-        Count = CGImageBlockSetGetCount();
-        blockSet = self->_blockSet;
-        if (Count == 1)
-        {
-          CGImageBlockSetGetImageBlock();
-          CGImageBlockGetRect();
-          self->_width = v13;
-          self->_height = v14;
-          self->_rowBytes = CGImageBlockGetBytesPerRow();
-          Data = CGImageBlockGetData();
-          v16 = self->_blockSet;
-          ComponentType = CGImageBlockSetGetComponentType();
-          v18 = self->_blockSet;
-          PixelSize = CGImageBlockSetGetPixelSize();
-          if (PixelSize == 3)
-          {
-            v20 = 4;
-          }
-
-          else
-          {
-            v20 = PixelSize;
-          }
-
-          if ([(GLKTexture *)self determineCGImageBlockFormatWithComponentType:ComponentType andPixelSize:v20 andColorModel:v7])
-          {
-            v21 = [(GLKTexture *)self alignmentFix:v20 data:Data];
-            if (v21)
-            {
-              v22 = v21;
-              v23 = self->_blockSet;
-              CGImageBlockSetRelease();
-              self->_blockSet = 0;
-              v24 = 1;
-              self->_imageData = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v22 length:self->_rowBytes * self->_height freeWhenDone:1];
-            }
-
-            else
-            {
-              self->_imageData = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:Data length:self->_rowBytes * self->_height freeWhenDone:0];
-              v24 = 1;
-            }
-
-            goto LABEL_15;
-          }
-
-          v25 = self->_blockSet;
-        }
-
+        v18 = v17;
         CGImageBlockSetRelease();
-        v24 = 0;
         self->_blockSet = 0;
+        v19 = 1;
+        self->_imageData = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v18 length:self->_rowBytes * self->_height freeWhenDone:1];
       }
 
       else
       {
-        v24 = 0;
+        self->_imageData = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:Data length:self->_rowBytes * self->_height freeWhenDone:0];
+        v19 = 1;
       }
+    }
 
-LABEL_15:
-      CFRelease(v9);
-      return v24;
+    else
+    {
+      CGImageBlockSetRelease();
+      v19 = 0;
+      self->_blockSet = 0;
     }
   }
 
-  return 0;
+  else
+  {
+    v19 = 0;
+  }
+
+  CFRelease(v9);
+  return v19;
 }
 
 - (BOOL)decodeCGImage:(CGImage *)image
@@ -939,6 +914,207 @@ LABEL_16:
   }
 
   return v27 == 0;
+}
+
+- (BOOL)uploadToGLTexture:(unsigned int)texture error:(id *)error
+{
+  v5 = *&texture;
+  if (self->_requestIssuedForSRGB && ![(GLKTexture *)self canHonorSRGBrequest])
+  {
+    if (error)
+    {
+      v10 = @"Incompatible decoded format for sRGB";
+      v11 = 18;
+      goto LABEL_51;
+    }
+
+LABEL_54:
+    LOBYTE(v29) = 0;
+    return v29;
+  }
+
+  if ((self->_dataCategory | 2) == 7)
+  {
+    bytes = [(NSData *)self->_imageData bytes];
+    if (self->_dataCategory == 7 && ([(GLKTexture *)self shouldApplyReorientToGL]|| [(GLKTexture *)self shouldApplyPremultiplication]))
+    {
+      v9 = malloc_type_malloc(self->_rowBytes * self->_height, 0x100004077774924uLL);
+      if (!v9)
+      {
+        if (error)
+        {
+          v10 = @"Failed to create intermediate operation buffer.";
+          v11 = 8;
+LABEL_51:
+          v30 = _GLKTextureErrorWithCodeAndErrorString(v11, v10);
+          LOBYTE(v29) = 0;
+          *error = v30;
+          return v29;
+        }
+
+        goto LABEL_54;
+      }
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    nPrimarySurfaces = self->_nPrimarySurfaces;
+    if (nPrimarySurfaces)
+    {
+      v13 = 0;
+      v14 = bytes + 52;
+      nSurfaces = self->_nSurfaces;
+      while (!nSurfaces)
+      {
+LABEL_40:
+        v13 = (v13 + 1);
+        if (v13 >= nPrimarySurfaces)
+        {
+          goto LABEL_41;
+        }
+      }
+
+      v16 = 0;
+      *&v8 = *&self->_width;
+      while (1)
+      {
+        index = v13;
+        if (self->_isCubeMap)
+        {
+          index = v13;
+          if (self->_nPrimarySurfaces == 1)
+          {
+            index = self->_index;
+          }
+        }
+
+        v33 = v8;
+        if (self->_dataCategory == 5)
+        {
+          internalFormat = self->_internalFormat;
+          if (internalFormat == 35843)
+          {
+            v20 = COERCE_DOUBLE(vshl_u32(*&v8, 0xFFFFFFFEFFFFFFFDLL));
+            v22 = 2;
+            v21 = 32;
+          }
+
+          else
+          {
+            v19 = internalFormat == 35842;
+            v20 = COERCE_DOUBLE(vshr_n_u32(*&v8, 2uLL));
+            if (internalFormat == 35842)
+            {
+              v21 = 16;
+            }
+
+            else
+            {
+              v21 = 0;
+            }
+
+            if (internalFormat == 35842)
+            {
+              v22 = 4;
+            }
+
+            else
+            {
+              v22 = 0;
+            }
+
+            if (!v19)
+            {
+              v20 = 0.0;
+            }
+          }
+
+          v27 = vmax_u32(*&v20, 0x200000002);
+          v26 = vmul_lane_s32(v27, v27, 1).u32[0] * ((v22 * v21) >> 3);
+          v23 = v14;
+        }
+
+        else
+        {
+          v23 = v14;
+          if (v9)
+          {
+            if ([(GLKTexture *)self shouldApplyReorientToGL]&& ![GLKTexture reorientToGL:"reorientToGL:source:withWidth:withHeight:withRowBytes:error:" source:v9 withWidth:v14 withHeight:? withRowBytes:? error:?])
+            {
+              goto LABEL_53;
+            }
+
+            shouldApplyPremultiplication = [(GLKTexture *)self shouldApplyPremultiplication];
+            v23 = v9;
+            *&v8 = v33;
+            if (shouldApplyPremultiplication)
+            {
+              v25 = [GLKTexture premultiplyWithAlpha:"premultiplyWithAlpha:source:withWidth:withHeight:withRowBytes:error:" source:v9 withWidth:v14 withHeight:? withRowBytes:? error:?];
+              *&v8 = v33;
+              v23 = v9;
+              if (!v25)
+              {
+                goto LABEL_53;
+              }
+            }
+          }
+
+          v26 = (vmul_lane_s32(*&v8, *&v8, 1).u32[0] * self->_bitsPerPixel) >> 3;
+        }
+
+        v28 = v26;
+        LODWORD(v32) = v16;
+        if (!-[GLKTexture _uploadToGLTexture:data:width:height:dataCategory:cubeMapIndex:mipMapIndex:error:](self, "_uploadToGLTexture:data:width:height:dataCategory:cubeMapIndex:mipMapIndex:error:", v5, [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v23 length:v26 freeWhenDone:0], v33, DWORD1(v33), self->_dataCategory, index, v32, error))
+        {
+          break;
+        }
+
+        v14 += v28;
+        *(&v8 + 1) = *(&v33 + 1);
+        *&v8 = vmax_u32(vshr_n_u32(*&v33, 1uLL), 0x100000001);
+        ++v16;
+        nSurfaces = self->_nSurfaces;
+        if (v16 >= nSurfaces)
+        {
+          nPrimarySurfaces = self->_nPrimarySurfaces;
+          goto LABEL_40;
+        }
+      }
+
+      if (!v9)
+      {
+        goto LABEL_54;
+      }
+
+LABEL_53:
+      free(v9);
+      goto LABEL_54;
+    }
+
+LABEL_41:
+    if (v9)
+    {
+      free(v9);
+    }
+
+    goto LABEL_48;
+  }
+
+  if ((![(GLKTexture *)self shouldApplyReorientToGL]|| (v29 = [(GLKTexture *)self reorientToGL:[(NSData *)[(GLKTexture *)self imageData] bytes] source:[(NSData *)[(GLKTexture *)self imageData] bytes] withWidth:self->_width withHeight:self->_height withRowBytes:self->_rowBytes error:error])) && (![(GLKTexture *)self shouldApplyPremultiplication]|| (v29 = [(GLKTexture *)self premultiplyWithAlpha:[(NSData *)[(GLKTexture *)self imageData] bytes] source:[(NSData *)[(GLKTexture *)self imageData] bytes] withWidth:self->_width withHeight:self->_height withRowBytes:self->_rowBytes error:error])))
+  {
+    LODWORD(v32) = 0;
+    v29 = [(GLKTexture *)self _uploadToGLTexture:v5 data:self->_imageData width:self->_width height:self->_height dataCategory:self->_dataCategory cubeMapIndex:self->_index mipMapIndex:v32 error:error];
+    if (v29)
+    {
+LABEL_48:
+      LOBYTE(v29) = 1;
+    }
+  }
+
+  return v29;
 }
 
 - (BOOL)determineCGImageBlockFormatWithComponentType:(int)type andPixelSize:(unint64_t)size andColorModel:(int)model

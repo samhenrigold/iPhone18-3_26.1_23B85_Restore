@@ -303,7 +303,7 @@ void __89__SFDynamicURLImageResource_SiriSupport___sf_replacementStringForProper
 
 void __87__SFDynamicURLImageResource_SiriSupport___sf_urlForSettings_shouldResize_width_height___block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 range];
   [v3 range];
@@ -337,15 +337,15 @@ LABEL_5:
 
   if (([v6 isEqualToString:@"color-profile"] & 1) != 0 || objc_msgSend(v6, "isEqualToString:", @"f"))
   {
-    v18 = *(a1 + 48);
-    v19 = [*(a1 + 56) objectForKeyedSubscript:v6];
-    v20 = [v18 _sf_replacementStringForPropertyEntryKey:v6 value:v19];
+    v17 = *(a1 + 48);
+    v18 = [*(a1 + 56) objectForKeyedSubscript:v6];
+    v19 = [v17 _sf_replacementStringForPropertyEntryKey:v6 value:v18];
 
-    if (v20)
+    if (v19)
     {
-      v21 = *(a1 + 40);
-      v22 = [v3 range];
-      [v21 replaceCharactersInRange:v22 withString:{v23, v20}];
+      v20 = *(a1 + 40);
+      v21 = [v3 range];
+      [v20 replaceCharactersInRange:v21 withString:{v22, v19}];
     }
 
     else
@@ -355,36 +355,34 @@ LABEL_5:
         dispatch_once(&PARLogHandleForCategory_onceToken, &__block_literal_global);
       }
 
-      v24 = PARLogHandleForCategory_logHandles_1;
+      v23 = PARLogHandleForCategory_logHandles_1;
       if (os_log_type_enabled(PARLogHandleForCategory_logHandles_1, OS_LOG_TYPE_ERROR))
       {
-        v25 = *(a1 + 56);
-        v26 = v24;
-        v27 = [v25 objectForKeyedSubscript:v6];
-        v28 = *(a1 + 48);
+        v24 = *(a1 + 56);
+        v25 = v23;
+        v26 = [v24 objectForKeyedSubscript:v6];
+        v27 = *(a1 + 48);
         *buf = 138412802;
-        v30 = v6;
-        v31 = 2112;
-        v32 = v27;
-        v33 = 2112;
-        v34 = v28;
-        _os_log_error_impl(&dword_1B116E000, v26, OS_LOG_TYPE_ERROR, "Could not find formatReplacement for key: %@, value: %@, in image resource: %@", buf, 0x20u);
+        v29 = v6;
+        v30 = 2112;
+        v31 = v26;
+        v32 = 2112;
+        v33 = v27;
+        _os_log_error_impl(&dword_1B116E000, v25, OS_LOG_TYPE_ERROR, "Could not find formatReplacement for key: %@, value: %@, in image resource: %@", buf, 0x20u);
       }
     }
   }
 
 LABEL_6:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (SFDynamicURLImageResource)initWithProtobuf:(id)protobuf
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v27.receiver = self;
-  v27.super_class = SFDynamicURLImageResource;
-  v5 = [(SFDynamicURLImageResource *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = SFDynamicURLImageResource;
+  v5 = [(SFDynamicURLImageResource *)&v26 init];
   if (v5)
   {
     pixelWidth = [protobufCopy pixelWidth];
@@ -429,33 +427,33 @@ LABEL_6:
       v13 = 0;
     }
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     imageOptions2 = [protobufCopy imageOptions];
-    v15 = [imageOptions2 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v15 = [imageOptions2 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v24;
+      v17 = *v23;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v24 != v17)
+          if (*v23 != v17)
           {
             objc_enumerationMutation(imageOptions2);
           }
 
-          v19 = [[SFImageOption alloc] initWithProtobuf:*(*(&v23 + 1) + 8 * i)];
+          v19 = [[SFImageOption alloc] initWithProtobuf:*(*(&v22 + 1) + 8 * i)];
           if (v19)
           {
             [v13 addObject:v19];
           }
         }
 
-        v16 = [imageOptions2 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v16 = [imageOptions2 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v16);
@@ -465,7 +463,6 @@ LABEL_6:
     v20 = v5;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

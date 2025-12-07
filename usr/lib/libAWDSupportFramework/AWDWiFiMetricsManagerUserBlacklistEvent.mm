@@ -233,14 +233,12 @@ LABEL_17:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 0x10) != 0)
   {
-    eventType = self->_eventType;
     PBDataWriterWriteUint32Field();
   }
 
@@ -249,10 +247,10 @@ LABEL_17:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((*&v7 & 0x80000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x80000000) == 0)
   {
-    if ((*&v7 & 8) == 0)
+    if ((*&v5 & 8) == 0)
     {
       goto LABEL_10;
     }
@@ -260,21 +258,18 @@ LABEL_17:
     goto LABEL_9;
   }
 
-  securityType = self->_securityType;
   PBDataWriterWriteUint32Field();
-  *&v7 = self->_has;
-  if ((*&v7 & 8) != 0)
+  *&v5 = self->_has;
+  if ((*&v5 & 8) != 0)
   {
 LABEL_9:
-    trigger = self->_trigger;
     PBDataWriterWriteUint64Field();
-    *&v7 = self->_has;
+    *&v5 = self->_has;
   }
 
 LABEL_10:
-  if (*&v7)
+  if (*&v5)
   {
-    blacklistDuration = self->_blacklistDuration;
     PBDataWriterWriteUint64Field();
   }
 
@@ -283,8 +278,8 @@ LABEL_10:
     PBDataWriterWriteStringField();
   }
 
-  v10 = self->_has;
-  if ((v10 & 2) == 0)
+  v6 = self->_has;
+  if ((v6 & 2) == 0)
   {
     if ((*&self->_has & 0x40) == 0)
     {
@@ -292,7 +287,6 @@ LABEL_10:
     }
 
 LABEL_19:
-    moState = self->_moState;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x20) == 0)
     {
@@ -302,22 +296,20 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  dstChange = self->_dstChange;
   PBDataWriterWriteUint64Field();
-  v10 = self->_has;
-  if ((v10 & 0x40) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x40) != 0)
   {
     goto LABEL_19;
   }
 
 LABEL_16:
-  if ((v10 & 0x20) == 0)
+  if ((v6 & 0x20) == 0)
   {
     return;
   }
 
 LABEL_20:
-  locState = self->_locState;
 
   PBDataWriterWriteUint32Field();
 }
@@ -503,7 +495,6 @@ LABEL_13:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 72);
     if ((has & 4) != 0)
     {
       if ((*(equal + 72) & 4) == 0 || self->_timestamp != *(equal + 3))
@@ -542,7 +533,6 @@ LABEL_13:
       has = self->_has;
     }
 
-    v9 = *(equal + 72);
     if (has < 0)
     {
       if ((*(equal + 72) & 0x80) == 0 || self->_securityType != *(equal + 15))

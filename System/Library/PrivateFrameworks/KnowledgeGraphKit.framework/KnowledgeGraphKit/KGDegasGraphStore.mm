@@ -37,6 +37,9 @@
 - (id)changesAfterToken:(id)token transactionLimit:(int64_t)limit error:(id *)error;
 - (id)edgeChangesAfterToken:(id)token transactionLimit:(int64_t)limit edgeFilter:(id)filter error:(id *)error;
 - (id)edgeForIdentifier:(unint64_t)identifier entityFactory:(id)factory error:(id *)error;
+- (id)edgeIdentifiers:(id)identifiers sortedByFloatPropertyForName:(id)name ascending:(BOOL)ascending limit:(int64_t)limit error:(id *)error;
+- (id)edgeIdentifiers:(id)identifiers sortedByIntegerPropertyForName:(id)name ascending:(BOOL)ascending limit:(int64_t)limit error:(id *)error;
+- (id)edgeIdentifiers:(id)identifiers sortedByStringPropertyForName:(id)name ascending:(BOOL)ascending limit:(int64_t)limit error:(id *)error;
 - (id)edgeIdentifiersBetween:(id)between endNodeIdentifiers:(id)identifiers edgeFilter:(id)filter edgeDirection:(unint64_t)direction error:(id *)error;
 - (id)edgeIdentifiersForNodeIdentifier:(unint64_t)identifier withLabels:(id)labels edgeDirection:(unint64_t)direction error:(id *)error;
 - (id)edgeIdentifiersMatchingFilter:(id)filter intersectingIdentifiers:(id)identifiers error:(id *)error;
@@ -48,6 +51,10 @@
 - (id)neighborNodeIdentifiersWithStartNodeIdentifiers:(id)identifiers edgeDirection:(unint64_t)direction edgeFilter:(id)filter error:(id *)error;
 - (id)nodeChangesAfterToken:(id)token transactionLimit:(int64_t)limit nodeFilter:(id)filter error:(id *)error;
 - (id)nodeForIdentifier:(unint64_t)identifier entityFactory:(id)factory error:(id *)error;
+- (id)nodeIdentifiers:(id)identifiers sortedByFloatPropertyForName:(id)name ascending:(BOOL)ascending limit:(int64_t)limit error:(id *)error;
+- (id)nodeIdentifiers:(id)identifiers sortedByIntegerPropertyForName:(id)name ascending:(BOOL)ascending limit:(int64_t)limit error:(id *)error;
+- (id)nodeIdentifiers:(id)identifiers sortedByStringPropertyForName:(id)name ascending:(BOOL)ascending limit:(int64_t)limit error:(id *)error;
+- (id)nodeIdentifiers:(id)identifiers sortedByUnsignedIntegerPropertyForName:(id)name ascending:(BOOL)ascending limit:(int64_t)limit error:(id *)error;
 - (id)nodeIdentifiersMatchingFilter:(id)filter intersectingIdentifiers:(id)identifiers error:(id *)error;
 - (id)nodeIdentifiersOfEdgesWithIdentifiers:(id)identifiers edgeDirection:(unint64_t)direction error:(id *)error;
 - (id)nodeLabels;
@@ -337,7 +344,7 @@ void __62__KGDegasGraphStore_changesAfterToken_transactionLimit_error___block_in
 
 - (BOOL)updateEdgeForIdentifier:(unint64_t)identifier withProperties:(id)properties error:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   os_unfair_lock_lock(&self->_lock);
   CheckInTransaction(self->_inTransactionCheckIsEnabled, self->_transactionCounter);
@@ -348,21 +355,20 @@ void __62__KGDegasGraphStore_changesAfterToken_transactionLimit_error___block_in
     v10 = KGLoggingConnection();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = *error;
-      v14 = 138412290;
-      v15 = v13;
-      _os_log_error_impl(&dword_255870000, v10, OS_LOG_TYPE_ERROR, "edge update failed: %@", &v14, 0xCu);
+      v12 = *error;
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_error_impl(&dword_255870000, v10, OS_LOG_TYPE_ERROR, "edge update failed: %@", &v13, 0xCu);
     }
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)updateNodeForIdentifier:(unint64_t)identifier withProperties:(id)properties error:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   os_unfair_lock_lock(&self->_lock);
   CheckInTransaction(self->_inTransactionCheckIsEnabled, self->_transactionCounter);
@@ -373,15 +379,14 @@ void __62__KGDegasGraphStore_changesAfterToken_transactionLimit_error___block_in
     v10 = KGLoggingConnection();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = *error;
-      v14 = 138412290;
-      v15 = v13;
-      _os_log_error_impl(&dword_255870000, v10, OS_LOG_TYPE_ERROR, "node update failed: %@", &v14, 0xCu);
+      v12 = *error;
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_error_impl(&dword_255870000, v10, OS_LOG_TYPE_ERROR, "node update failed: %@", &v13, 0xCu);
     }
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -535,51 +540,49 @@ void __62__KGDegasGraphStore_changesAfterToken_transactionLimit_error___block_in
 
 - (id)_lock_sourcesByTargetWithEdgeIdentifiers:(id)identifiers error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   os_unfair_lock_assert_owner(&self->_lock);
   CheckInTransaction(self->_inTransactionCheckIsEnabled, self->_transactionCounter);
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
   database = self->_database;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __68__KGDegasGraphStore__lock_sourcesByTargetWithEdgeIdentifiers_error___block_invoke;
-  v23[3] = &unk_2797FDD28;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __68__KGDegasGraphStore__lock_sourcesByTargetWithEdgeIdentifiers_error___block_invoke;
+  v22[3] = &unk_2797FDD28;
   v8 = v6;
-  v24 = v8;
-  [(KGDatabase *)database enumerateSourceAndTargetIdentifiersWithEdgeIdentifiers:identifiersCopy block:v23];
+  v23 = v8;
+  [(KGDatabase *)database enumerateSourceAndTargetIdentifiersWithEdgeIdentifiers:identifiersCopy block:v22];
   v9 = objc_alloc_init(KGMutableDirectedBinaryAdjacency);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
-        v16 = [v10 objectForKeyedSubscript:{v15, v19}];
+        v15 = *(*(&v18 + 1) + 8 * i);
+        v16 = [v10 objectForKeyedSubscript:{v15, v18}];
         -[KGMutableDirectedBinaryAdjacency setTargets:forSource:](v9, "setTargets:forSource:", v16, [v15 unsignedIntegerValue]);
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v12);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -599,58 +602,56 @@ void __68__KGDegasGraphStore__lock_sourcesByTargetWithEdgeIdentifiers_error___bl
 
 - (id)_lock_targetsBySourceWithEdgeIdentifiers:(id)identifiers error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   os_unfair_lock_assert_owner(&self->_lock);
   CheckInTransaction(self->_inTransactionCheckIsEnabled, self->_transactionCounter);
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
   database = self->_database;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __68__KGDegasGraphStore__lock_targetsBySourceWithEdgeIdentifiers_error___block_invoke;
-  v23[3] = &unk_2797FDD28;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __68__KGDegasGraphStore__lock_targetsBySourceWithEdgeIdentifiers_error___block_invoke;
+  v22[3] = &unk_2797FDD28;
   v8 = v6;
-  v24 = v8;
-  [(KGDatabase *)database enumerateSourceAndTargetIdentifiersWithEdgeIdentifiers:identifiersCopy block:v23];
+  v23 = v8;
+  [(KGDatabase *)database enumerateSourceAndTargetIdentifiersWithEdgeIdentifiers:identifiersCopy block:v22];
   v9 = objc_alloc_init(KGMutableDirectedBinaryAdjacency);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
-        v16 = [v10 objectForKeyedSubscript:{v15, v19}];
+        v15 = *(*(&v18 + 1) + 8 * i);
+        v16 = [v10 objectForKeyedSubscript:{v15, v18}];
         -[KGMutableDirectedBinaryAdjacency setTargets:forSource:](v9, "setTargets:forSource:", v16, [v15 unsignedIntegerValue]);
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v12);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 void __68__KGDegasGraphStore__lock_targetsBySourceWithEdgeIdentifiers_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a3];
   v6 = [*(a1 + 32) objectForKeyedSubscript:?];
   if (!v6)
   {
@@ -659,6 +660,104 @@ void __68__KGDegasGraphStore__lock_targetsBySourceWithEdgeIdentifiers_error___bl
   }
 
   [(KGMutableElementIdentifierSet *)v6 addIdentifier:a4];
+}
+
+- (id)edgeIdentifiers:(id)identifiers sortedByFloatPropertyForName:(id)name ascending:(BOOL)ascending limit:(int64_t)limit error:(id *)error
+{
+  ascendingCopy = ascending;
+  nameCopy = name;
+  identifiersCopy = identifiers;
+  os_unfair_lock_lock(&self->_lock);
+  CheckInTransaction(self->_inTransactionCheckIsEnabled, self->_transactionCounter);
+  v14 = [(KGDatabase *)self->_database edgeIdentifiersSortedByPropertyForName:nameCopy dataType:2 ascending:ascendingCopy limit:limit edgeIdentifiers:identifiersCopy error:error];
+
+  os_unfair_lock_unlock(&self->_lock);
+
+  return v14;
+}
+
+- (id)edgeIdentifiers:(id)identifiers sortedByIntegerPropertyForName:(id)name ascending:(BOOL)ascending limit:(int64_t)limit error:(id *)error
+{
+  ascendingCopy = ascending;
+  nameCopy = name;
+  identifiersCopy = identifiers;
+  os_unfair_lock_lock(&self->_lock);
+  CheckInTransaction(self->_inTransactionCheckIsEnabled, self->_transactionCounter);
+  v14 = [(KGDatabase *)self->_database edgeIdentifiersSortedByPropertyForName:nameCopy dataType:1 ascending:ascendingCopy limit:limit edgeIdentifiers:identifiersCopy error:error];
+
+  os_unfair_lock_unlock(&self->_lock);
+
+  return v14;
+}
+
+- (id)edgeIdentifiers:(id)identifiers sortedByStringPropertyForName:(id)name ascending:(BOOL)ascending limit:(int64_t)limit error:(id *)error
+{
+  ascendingCopy = ascending;
+  nameCopy = name;
+  identifiersCopy = identifiers;
+  os_unfair_lock_lock(&self->_lock);
+  CheckInTransaction(self->_inTransactionCheckIsEnabled, self->_transactionCounter);
+  v14 = [(KGDatabase *)self->_database edgeIdentifiersSortedByPropertyForName:nameCopy dataType:3 ascending:ascendingCopy limit:limit edgeIdentifiers:identifiersCopy error:error];
+
+  os_unfair_lock_unlock(&self->_lock);
+
+  return v14;
+}
+
+- (id)nodeIdentifiers:(id)identifiers sortedByUnsignedIntegerPropertyForName:(id)name ascending:(BOOL)ascending limit:(int64_t)limit error:(id *)error
+{
+  ascendingCopy = ascending;
+  nameCopy = name;
+  identifiersCopy = identifiers;
+  os_unfair_lock_lock(&self->_lock);
+  CheckInTransaction(self->_inTransactionCheckIsEnabled, self->_transactionCounter);
+  v14 = [(KGDatabase *)self->_database nodeIdentifiersSortedByPropertyForName:nameCopy dataType:4 ascending:ascendingCopy limit:limit nodeIdentifiers:identifiersCopy error:error];
+
+  os_unfair_lock_unlock(&self->_lock);
+
+  return v14;
+}
+
+- (id)nodeIdentifiers:(id)identifiers sortedByFloatPropertyForName:(id)name ascending:(BOOL)ascending limit:(int64_t)limit error:(id *)error
+{
+  ascendingCopy = ascending;
+  nameCopy = name;
+  identifiersCopy = identifiers;
+  os_unfair_lock_lock(&self->_lock);
+  CheckInTransaction(self->_inTransactionCheckIsEnabled, self->_transactionCounter);
+  v14 = [(KGDatabase *)self->_database nodeIdentifiersSortedByPropertyForName:nameCopy dataType:2 ascending:ascendingCopy limit:limit nodeIdentifiers:identifiersCopy error:error];
+
+  os_unfair_lock_unlock(&self->_lock);
+
+  return v14;
+}
+
+- (id)nodeIdentifiers:(id)identifiers sortedByIntegerPropertyForName:(id)name ascending:(BOOL)ascending limit:(int64_t)limit error:(id *)error
+{
+  ascendingCopy = ascending;
+  nameCopy = name;
+  identifiersCopy = identifiers;
+  os_unfair_lock_lock(&self->_lock);
+  CheckInTransaction(self->_inTransactionCheckIsEnabled, self->_transactionCounter);
+  v14 = [(KGDatabase *)self->_database nodeIdentifiersSortedByPropertyForName:nameCopy dataType:1 ascending:ascendingCopy limit:limit nodeIdentifiers:identifiersCopy error:error];
+
+  os_unfair_lock_unlock(&self->_lock);
+
+  return v14;
+}
+
+- (id)nodeIdentifiers:(id)identifiers sortedByStringPropertyForName:(id)name ascending:(BOOL)ascending limit:(int64_t)limit error:(id *)error
+{
+  ascendingCopy = ascending;
+  nameCopy = name;
+  identifiersCopy = identifiers;
+  os_unfair_lock_lock(&self->_lock);
+  CheckInTransaction(self->_inTransactionCheckIsEnabled, self->_transactionCounter);
+  v14 = [(KGDatabase *)self->_database nodeIdentifiersSortedByPropertyForName:nameCopy dataType:3 ascending:ascendingCopy limit:limit nodeIdentifiers:identifiersCopy error:error];
+
+  os_unfair_lock_unlock(&self->_lock);
+
+  return v14;
 }
 
 - (id)nodeIdentifiersOfEdgesWithIdentifiers:(id)identifiers edgeDirection:(unint64_t)direction error:(id *)error
@@ -1097,7 +1196,7 @@ LABEL_13:
 - (BOOL)_lock_filterEdgesWithProperties:(id)properties includeTombstones:(BOOL)tombstones edgeIdentifiers:(id *)identifiers error:(id *)error
 {
   tombstonesCopy = tombstones;
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   os_unfair_lock_assert_owner(&self->_lock);
   if ([propertiesCopy count])
@@ -1112,13 +1211,13 @@ LABEL_44:
       goto LABEL_45;
     }
 
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     obj = propertiesCopy;
-    v45 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
-    if (!v45)
+    v44 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
+    if (!v44)
     {
 LABEL_40:
 
@@ -1139,24 +1238,24 @@ LABEL_42:
       goto LABEL_44;
     }
 
-    v12 = *v50;
-    v43 = *v50;
+    v12 = *v49;
+    v42 = *v49;
     errorCopy = error;
     identifiersCopy = identifiers;
-    v42 = propertiesCopy;
+    v41 = propertiesCopy;
 LABEL_7:
     v13 = 0;
     while (1)
     {
-      if (*v50 != v12)
+      if (*v49 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v49 + 1) + 8 * v13);
+      v14 = *(*(&v48 + 1) + 8 * v13);
       v15 = [obj objectForKeyedSubscript:v14];
-      v48 = 1;
-      v16 = [(KGDegasGraphStore *)self _resolvedPropertyValue:v15 isScalar:&v48];
+      v47 = 1;
+      v16 = [(KGDegasGraphStore *)self _resolvedPropertyValue:v15 isScalar:&v47];
 
       if (!v16)
       {
@@ -1166,11 +1265,11 @@ LABEL_7:
 
         LOBYTE(identifiers) = 1;
 LABEL_38:
-        propertiesCopy = v42;
+        propertiesCopy = v41;
         goto LABEL_42;
       }
 
-      if ((v48 & 1) == 0)
+      if ((v47 & 1) == 0)
       {
         break;
       }
@@ -1221,23 +1320,23 @@ LABEL_38:
 
         if (tombstonesCopy)
         {
-          v40 = self->_database;
+          v39 = self->_database;
           value12 = [v17 value1];
           value23 = [v17 value2];
-          identifiers = -[KGDatabase filterTombstoneEdgeIdentifiersForPropertyName:rangeValue1:rangeValue2:comparator:edgeIdentifiers:error:](v40, "filterTombstoneEdgeIdentifiersForPropertyName:rangeValue1:rangeValue2:comparator:edgeIdentifiers:error:", v14, value12, value23, [v17 comparator], identifiersCopy2, v29);
+          identifiers = -[KGDatabase filterTombstoneEdgeIdentifiersForPropertyName:rangeValue1:rangeValue2:comparator:edgeIdentifiers:error:](v39, "filterTombstoneEdgeIdentifiersForPropertyName:rangeValue1:rangeValue2:comparator:edgeIdentifiers:error:", v14, value12, value23, [v17 comparator], identifiersCopy2, v29);
 
           v32 = [v21 identifierSetByFormingUnion:identifiers];
 
           v21 = v32;
 LABEL_20:
-          v12 = v43;
+          v12 = v42;
 LABEL_25:
 
           goto LABEL_26;
         }
       }
 
-      v12 = v43;
+      v12 = v42;
 LABEL_26:
 
       identifiers = v21;
@@ -1268,16 +1367,16 @@ LABEL_27:
       if (isEmpty)
       {
         identifiers = identifiersCopy;
-        propertiesCopy = v42;
+        propertiesCopy = v41;
         goto LABEL_40;
       }
 
-      if (v45 == ++v13)
+      if (v44 == ++v13)
       {
         identifiers = identifiersCopy;
-        propertiesCopy = v42;
-        v45 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
-        if (v45)
+        propertiesCopy = v41;
+        v44 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
+        if (v44)
         {
           goto LABEL_7;
         }
@@ -1302,7 +1401,6 @@ LABEL_24:
   LOBYTE(identifiers) = 1;
 LABEL_45:
 
-  v38 = *MEMORY[0x277D85DE8];
   return identifiers;
 }
 
@@ -1608,7 +1706,7 @@ LABEL_38:
 - (BOOL)_lock_filterNodesWithProperties:(id)properties includeTombstones:(BOOL)tombstones nodeIdentifiers:(id *)identifiers error:(id *)error
 {
   tombstonesCopy = tombstones;
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   os_unfair_lock_assert_owner(&self->_lock);
   CheckInTransaction(self->_inTransactionCheckIsEnabled, self->_transactionCounter);
@@ -1624,13 +1722,13 @@ LABEL_44:
       goto LABEL_45;
     }
 
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     obj = propertiesCopy;
-    v45 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
-    if (!v45)
+    v44 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
+    if (!v44)
     {
 LABEL_40:
 
@@ -1651,24 +1749,24 @@ LABEL_42:
       goto LABEL_44;
     }
 
-    v12 = *v50;
-    v43 = *v50;
+    v12 = *v49;
+    v42 = *v49;
     errorCopy = error;
     identifiersCopy = identifiers;
-    v42 = propertiesCopy;
+    v41 = propertiesCopy;
 LABEL_7:
     v13 = 0;
     while (1)
     {
-      if (*v50 != v12)
+      if (*v49 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v49 + 1) + 8 * v13);
+      v14 = *(*(&v48 + 1) + 8 * v13);
       v15 = [obj objectForKeyedSubscript:v14];
-      v48 = 1;
-      v16 = [(KGDegasGraphStore *)self _resolvedPropertyValue:v15 isScalar:&v48];
+      v47 = 1;
+      v16 = [(KGDegasGraphStore *)self _resolvedPropertyValue:v15 isScalar:&v47];
 
       if (!v16)
       {
@@ -1678,11 +1776,11 @@ LABEL_7:
 
         LOBYTE(identifiers) = 1;
 LABEL_38:
-        propertiesCopy = v42;
+        propertiesCopy = v41;
         goto LABEL_42;
       }
 
-      if ((v48 & 1) == 0)
+      if ((v47 & 1) == 0)
       {
         break;
       }
@@ -1733,23 +1831,23 @@ LABEL_38:
 
         if (tombstonesCopy)
         {
-          v40 = self->_database;
+          v39 = self->_database;
           value12 = [v17 value1];
           value23 = [v17 value2];
-          identifiers = -[KGDatabase filterTombstoneNodeIdentifiersForPropertyName:rangeValue1:rangeValue2:comparator:nodeIdentifiers:error:](v40, "filterTombstoneNodeIdentifiersForPropertyName:rangeValue1:rangeValue2:comparator:nodeIdentifiers:error:", v14, value12, value23, [v17 comparator], identifiersCopy2, v29);
+          identifiers = -[KGDatabase filterTombstoneNodeIdentifiersForPropertyName:rangeValue1:rangeValue2:comparator:nodeIdentifiers:error:](v39, "filterTombstoneNodeIdentifiersForPropertyName:rangeValue1:rangeValue2:comparator:nodeIdentifiers:error:", v14, value12, value23, [v17 comparator], identifiersCopy2, v29);
 
           v32 = [v21 identifierSetByFormingUnion:identifiers];
 
           v21 = v32;
 LABEL_20:
-          v12 = v43;
+          v12 = v42;
 LABEL_25:
 
           goto LABEL_26;
         }
       }
 
-      v12 = v43;
+      v12 = v42;
 LABEL_26:
 
       identifiers = v21;
@@ -1780,16 +1878,16 @@ LABEL_27:
       if (!v34)
       {
         identifiers = identifiersCopy;
-        propertiesCopy = v42;
+        propertiesCopy = v41;
         goto LABEL_40;
       }
 
-      if (v45 == ++v13)
+      if (v44 == ++v13)
       {
         identifiers = identifiersCopy;
-        propertiesCopy = v42;
-        v45 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
-        if (v45)
+        propertiesCopy = v41;
+        v44 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
+        if (v44)
         {
           goto LABEL_7;
         }
@@ -1814,7 +1912,6 @@ LABEL_24:
   LOBYTE(identifiers) = 1;
 LABEL_45:
 
-  v38 = *MEMORY[0x277D85DE8];
   return identifiers;
 }
 
@@ -2001,87 +2098,86 @@ LABEL_15:
 
 - (id)orderedArrayOfEdgesWithIdentifiers:(id)identifiers entityFactory:(id)factory error:(id *)error
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   factoryCopy = factory;
   os_unfair_lock_lock(&self->_lock);
   v10 = [[KGElementIdentifierSet alloc] initWithIndexArray:identifiersCopy];
   v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[KGElementIdentifierSet count](v10, "count")}];
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __76__KGDegasGraphStore_orderedArrayOfEdgesWithIdentifiers_entityFactory_error___block_invoke;
-  v40[3] = &unk_2797FDCD8;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __76__KGDegasGraphStore_orderedArrayOfEdgesWithIdentifiers_entityFactory_error___block_invoke;
+  v39[3] = &unk_2797FDCD8;
   v13 = v12;
-  v41 = v13;
+  v40 = v13;
   selfCopy = self;
-  v31 = factoryCopy;
-  [(KGDegasGraphStore *)self _lock_enumerateEdgesWithIdentifiers:v10 entityFactory:factoryCopy error:error block:v40];
+  v30 = factoryCopy;
+  [(KGDegasGraphStore *)self _lock_enumerateEdgesWithIdentifiers:v10 entityFactory:factoryCopy error:error block:v39];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v36 objects:v43 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v35 objects:v42 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v37;
+    v17 = *v36;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v37 != v17)
+        if (*v36 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v36 + 1) + 8 * i);
+        v19 = *(*(&v35 + 1) + 8 * i);
         v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v19, "identifier")}];
         [v11 setObject:v19 forKeyedSubscript:v20];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v36 objects:v43 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v35 objects:v42 count:16];
     }
 
     while (v16);
   }
 
   v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v22 = identifiersCopy;
-  v23 = [v22 countByEnumeratingWithState:&v32 objects:v42 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v31 objects:v41 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v33;
+    v25 = *v32;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v33 != v25)
+        if (*v32 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = [v11 objectForKeyedSubscript:*(*(&v32 + 1) + 8 * j)];
+        v27 = [v11 objectForKeyedSubscript:*(*(&v31 + 1) + 8 * j)];
         if (v27)
         {
           [v21 addObject:v27];
         }
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v32 objects:v42 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v31 objects:v41 count:16];
     }
 
     while (v24);
   }
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v28 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -2241,87 +2337,86 @@ void __83__KGDegasGraphStore__lock_enumerateEdgesWithIdentifiers_entityFactory_e
 
 - (id)orderedArrayOfNodesWithIdentifiers:(id)identifiers entityFactory:(id)factory error:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   factoryCopy = factory;
   os_unfair_lock_lock(&self->_lock);
   v9 = [[KGElementIdentifierSet alloc] initWithIndexArray:identifiersCopy];
   v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[KGElementIdentifierSet count](v9, "count")}];
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __76__KGDegasGraphStore_orderedArrayOfNodesWithIdentifiers_entityFactory_error___block_invoke;
-  v39[3] = &unk_2797FDC60;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __76__KGDegasGraphStore_orderedArrayOfNodesWithIdentifiers_entityFactory_error___block_invoke;
+  v38[3] = &unk_2797FDC60;
   v12 = v11;
-  v40 = v12;
+  v39 = v12;
   selfCopy = self;
-  v30 = factoryCopy;
-  [(KGDegasGraphStore *)self _lock_enumerateNodesWithIdentifiers:v9 entityFactory:factoryCopy block:v39];
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
+  v29 = factoryCopy;
+  [(KGDegasGraphStore *)self _lock_enumerateNodesWithIdentifiers:v9 entityFactory:factoryCopy block:v38];
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v35 objects:v42 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v34 objects:v41 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v36;
+    v16 = *v35;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v36 != v16)
+        if (*v35 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v35 + 1) + 8 * i);
+        v18 = *(*(&v34 + 1) + 8 * i);
         v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v18, "identifier")}];
         [v10 setObject:v18 forKeyedSubscript:v19];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v35 objects:v42 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v34 objects:v41 count:16];
     }
 
     while (v15);
   }
 
   v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v21 = identifiersCopy;
-  v22 = [v21 countByEnumeratingWithState:&v31 objects:v41 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v30 objects:v40 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v32;
+    v24 = *v31;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v32 != v24)
+        if (*v31 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = [v10 objectForKeyedSubscript:*(*(&v31 + 1) + 8 * j)];
+        v26 = [v10 objectForKeyedSubscript:*(*(&v30 + 1) + 8 * j)];
         if (v26)
         {
           [v20 addObject:v26];
         }
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v31 objects:v41 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v30 objects:v40 count:16];
     }
 
     while (v23);
   }
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v27 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -2366,13 +2461,13 @@ void __83__KGDegasGraphStore__lock_enumerateEdgesWithIdentifiers_entityFactory_e
 
 uint64_t __77__KGDegasGraphStore__lock_enumerateNodesWithIdentifiers_entityFactory_block___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  [*(a1 + 32) nodeWithIdentifier:a2 labels:a3 properties:a4];
-  if (objc_claimAutoreleasedReturnValue())
+  v5 = [*(a1 + 32) nodeWithIdentifier:a2 labels:a3 properties:a4];
+  if (v5)
   {
-    (*(*(a1 + 40) + 16))();
+    v5 = (*(*(a1 + 40) + 16))();
   }
 
-  return MEMORY[0x2821F9730]();
+  return MEMORY[0x2821F9730](v5);
 }
 
 - (BOOL)addEdges:(id)edges error:(id *)error

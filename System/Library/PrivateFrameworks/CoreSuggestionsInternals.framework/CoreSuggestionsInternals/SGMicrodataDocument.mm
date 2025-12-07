@@ -27,45 +27,43 @@
 
 - (id)asJsonLd
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_items;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [(SGMicrodataDocument *)self jsonLdForItem:*(*(&v12 + 1) + 8 * i), v12];
+        v9 = [(SGMicrodataDocument *)self jsonLdForItem:*(*(&v11 + 1) + 8 * i), v11];
         [v3 addObject:v9];
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)jsonLdForItem:(id)item
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   selfCopy = self;
   [itemCopy resolveItemRefsWithDocument:self];
@@ -75,7 +73,7 @@
   if (itemType)
   {
     itemType2 = [itemCopy itemType];
-    v8 = [itemType2 count];
+    v8 = objc_msgSend_count(itemType2);
 
     itemType3 = [itemCopy itemType];
     v10 = itemType3;
@@ -92,26 +90,26 @@
     [v5 setObject:v11 forKeyedSubscript:@"@type"];
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   itemProps = [itemCopy itemProps];
-  v13 = [itemProps countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v13 = [itemProps countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v30;
+    v15 = *v29;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v30 != v15)
+        if (*v29 != v15)
         {
           objc_enumerationMutation(itemProps);
         }
 
-        v17 = *(*(&v29 + 1) + 8 * i);
+        v17 = *(*(&v28 + 1) + 8 * i);
         stringValue = [v17 stringValue];
 
         if (stringValue)
@@ -162,13 +160,11 @@
 LABEL_21:
       }
 
-      v14 = [itemProps countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v14 = [itemProps countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v14);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

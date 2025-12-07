@@ -93,7 +93,7 @@ uint64_t __50__PSUICoreTelephonySubscriberCache_sharedInstance__block_invoke()
 
 - (void)fetchMobileEquipmentInfo
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICoreTelephonySubscriberCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
@@ -102,9 +102,9 @@ uint64_t __50__PSUICoreTelephonySubscriberCache_sharedInstance__block_invoke()
   }
 
   client = self->_client;
-  v21 = 0;
-  v16 = [(CoreTelephonyClient *)client getMobileEquipmentInfo:&v21];
-  v5 = v21;
+  v20 = 0;
+  v15 = [(CoreTelephonyClient *)client getMobileEquipmentInfo:&v20];
+  v5 = v20;
   getLogger2 = [(PSUICoreTelephonySubscriberCache *)self getLogger];
   v7 = getLogger2;
   if (v5)
@@ -112,7 +112,7 @@ uint64_t __50__PSUICoreTelephonySubscriberCache_sharedInstance__block_invoke()
     if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v24 = v5;
+      v23 = v5;
       _os_log_error_impl(&dword_2658DE000, v7, OS_LOG_TYPE_ERROR, "fetchMobileEquipmentInfo failed: %@", buf, 0xCu);
     }
   }
@@ -122,35 +122,35 @@ uint64_t __50__PSUICoreTelephonySubscriberCache_sharedInstance__block_invoke()
     if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = v16;
+      v23 = v15;
       _os_log_impl(&dword_2658DE000, v7, OS_LOG_TYPE_DEFAULT, "fetchMobileEquipmentInfo succeeded: %@", buf, 0xCu);
     }
 
     v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
-    meInfoList = [v16 meInfoList];
-    v9 = [meInfoList countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    meInfoList = [v15 meInfoList];
+    v9 = [meInfoList countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v9)
     {
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(meInfoList);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           v13 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v12, "slotId")}];
           [v7 setObject:v12 forKeyedSubscript:v13];
         }
 
-        v9 = [meInfoList countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v9 = [meInfoList countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v9);
@@ -161,8 +161,6 @@ uint64_t __50__PSUICoreTelephonySubscriberCache_sharedInstance__block_invoke()
     [(PSUICoreTelephonySubscriberCache *)selfCopy setMobileEquipmentInfoDict:v7];
     objc_sync_exit(selfCopy);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mobileEquipmentInfo:(id)info
@@ -206,7 +204,7 @@ uint64_t __50__PSUICoreTelephonySubscriberCache_sharedInstance__block_invoke()
 
 - (void)fetchCountryCodes
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICoreTelephonySubscriberCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
@@ -214,42 +212,42 @@ uint64_t __50__PSUICoreTelephonySubscriberCache_sharedInstance__block_invoke()
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "fetchCountryCodes executing", buf, 2u);
   }
 
-  v19 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
+  v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   subscriptionContexts = [(PSSimStatusCache *)self->_simStatusCache subscriptionContexts];
-  v5 = [subscriptionContexts countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v5 = [subscriptionContexts countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v5)
   {
-    v7 = *v22;
+    v7 = *v21;
     *&v6 = 138412546;
-    v18 = v6;
+    v17 = v6;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(subscriptionContexts);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         client = self->_client;
-        v20 = 0;
-        v11 = [(CoreTelephonyClient *)client getMobileSubscriberHomeCountryList:v9 error:&v20, v18];
-        v12 = v20;
+        v19 = 0;
+        v11 = [(CoreTelephonyClient *)client getMobileSubscriberHomeCountryList:v9 error:&v19, v17];
+        v12 = v19;
         getLogger2 = [(PSUICoreTelephonySubscriberCache *)self getLogger];
         firstObject = getLogger2;
         if (v12)
         {
           if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
           {
-            *buf = v18;
-            v26 = v9;
-            v27 = 2112;
-            v28 = v12;
+            *buf = v17;
+            v25 = v9;
+            v26 = 2112;
+            v27 = v12;
             _os_log_error_impl(&dword_2658DE000, firstObject, OS_LOG_TYPE_ERROR, "fetchCountryCodes failed: %@, %@", buf, 0x16u);
           }
         }
@@ -258,20 +256,20 @@ uint64_t __50__PSUICoreTelephonySubscriberCache_sharedInstance__block_invoke()
         {
           if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v18;
-            v26 = v9;
-            v27 = 2112;
-            v28 = v11;
+            *buf = v17;
+            v25 = v9;
+            v26 = 2112;
+            v27 = v11;
             _os_log_impl(&dword_2658DE000, firstObject, OS_LOG_TYPE_DEFAULT, "fetchCountryCodes succeeded: %@, %@", buf, 0x16u);
           }
 
           firstObject = [v11 firstObject];
           v15 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v9, "slotID")}];
-          [v19 setObject:firstObject forKeyedSubscript:v15];
+          [v18 setObject:firstObject forKeyedSubscript:v15];
         }
       }
 
-      v5 = [subscriptionContexts countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v5 = [subscriptionContexts countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v5);
@@ -279,10 +277,8 @@ uint64_t __50__PSUICoreTelephonySubscriberCache_sharedInstance__block_invoke()
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  [(PSUICoreTelephonySubscriberCache *)selfCopy setIsoCountryCodesDict:v19];
+  [(PSUICoreTelephonySubscriberCache *)selfCopy setIsoCountryCodesDict:v18];
   objc_sync_exit(selfCopy);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)isoCountryCode:(id)code
@@ -329,7 +325,7 @@ uint64_t __50__PSUICoreTelephonySubscriberCache_sharedInstance__block_invoke()
 
 - (void)fetchShortLabels
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICoreTelephonySubscriberCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
@@ -337,42 +333,42 @@ uint64_t __50__PSUICoreTelephonySubscriberCache_sharedInstance__block_invoke()
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "fetchShortLabels executing", buf, 2u);
   }
 
-  v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
+  v17 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   subscriptionContexts = [(PSSimStatusCache *)self->_simStatusCache subscriptionContexts];
-  v5 = [subscriptionContexts countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v5 = [subscriptionContexts countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v5)
   {
-    v7 = *v21;
+    v7 = *v20;
     *&v6 = 138412546;
-    v17 = v6;
+    v16 = v6;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(subscriptionContexts);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         client = self->_client;
-        v19 = 0;
-        v11 = [(CoreTelephonyClient *)client getShortLabel:v9 error:&v19, v17];
-        v12 = v19;
+        v18 = 0;
+        v11 = [(CoreTelephonyClient *)client getShortLabel:v9 error:&v18, v16];
+        v12 = v18;
         getLogger2 = [(PSUICoreTelephonySubscriberCache *)self getLogger];
         v14 = getLogger2;
         if (v12)
         {
           if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
           {
-            *buf = v17;
-            v25 = v9;
-            v26 = 2112;
-            v27 = v12;
+            *buf = v16;
+            v24 = v9;
+            v25 = 2112;
+            v26 = v12;
             _os_log_error_impl(&dword_2658DE000, v14, OS_LOG_TYPE_ERROR, "fetchShortLabels failed: %@, %@", buf, 0x16u);
           }
         }
@@ -381,19 +377,19 @@ uint64_t __50__PSUICoreTelephonySubscriberCache_sharedInstance__block_invoke()
         {
           if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v17;
-            v25 = v9;
-            v26 = 2112;
-            v27 = v11;
+            *buf = v16;
+            v24 = v9;
+            v25 = 2112;
+            v26 = v11;
             _os_log_impl(&dword_2658DE000, v14, OS_LOG_TYPE_DEFAULT, "fetchShortLabels succeeded: %@, %@", buf, 0x16u);
           }
 
           v14 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v9, "slotID")}];
-          [v18 setObject:v11 forKeyedSubscript:v14];
+          [v17 setObject:v11 forKeyedSubscript:v14];
         }
       }
 
-      v5 = [subscriptionContexts countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v5 = [subscriptionContexts countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v5);
@@ -401,10 +397,8 @@ uint64_t __50__PSUICoreTelephonySubscriberCache_sharedInstance__block_invoke()
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  [(PSUICoreTelephonySubscriberCache *)selfCopy setShortLabelDict:v18];
+  [(PSUICoreTelephonySubscriberCache *)selfCopy setShortLabelDict:v17];
   objc_sync_exit(selfCopy);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shortLabelsDidChange
@@ -428,26 +422,25 @@ uint64_t __50__PSUICoreTelephonySubscriberCache_sharedInstance__block_invoke()
 
 - (void)prlVersionDidChange:(id)change version:(id)version
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   [(PSUICoreTelephonySubscriberCache *)self setMobileEquipmentInfoDict:0];
   getLogger = [(PSUICoreTelephonySubscriberCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v13 = "[PSUICoreTelephonySubscriberCache prlVersionDidChange:version:]";
-    v14 = 2112;
-    v15 = @"PSUIPRLVersionChanged";
+    v12 = "[PSUICoreTelephonySubscriberCache prlVersionDidChange:version:]";
+    v13 = 2112;
+    v14 = @"PSUIPRLVersionChanged";
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s posting notification %@", buf, 0x16u);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v10 = @"SubscriptionContext";
-  v11 = changeCopy;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v9 = @"SubscriptionContext";
+  v10 = changeCopy;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
 
   [defaultCenter postNotificationName:@"PSUIPRLVersionChanged" object:0 userInfo:v8];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

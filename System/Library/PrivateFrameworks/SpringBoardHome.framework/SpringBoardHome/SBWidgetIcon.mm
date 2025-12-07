@@ -155,54 +155,54 @@
 void __137__SBWidgetIcon_SBHCHSWidgetDescriptor__initWithWidgetExtensionIdentifiers_widgetKinds_widgetContainerBundleIdentifiers_suggestionSource___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v19 = *MEMORY[0x1E69E9840];
-  v5 = a2;
-  v6 = [*(a1 + 32) objectAtIndex:a3];
-  v7 = [MEMORY[0x1E695DFB0] null];
+  v4 = a2;
+  v5 = objc_msgSend_objectAtIndex_(*(a1 + 32));
+  v6 = [MEMORY[0x1E695DFB0] null];
 
-  if (v6 == v7)
+  if (v5 == v6)
   {
-    v10 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = SBHSpecialWidgetDescriptorTypeForKind(v6);
-    if (v8)
+    v7 = SBHSpecialWidgetDescriptorTypeForKind(v5);
+    if (v7)
     {
-      v9 = [[SBHSpecialWidgetDescriptor alloc] initWithType:v8];
-      v10 = [(CHSWidgetDescriptor *)v9 sbh_iconDataSource];
+      v8 = [[SBHSpecialWidgetDescriptor alloc] initWithType:v7];
+      v9 = [(CHSWidgetDescriptor *)v8 sbh_iconDataSource];
     }
 
     else
     {
-      v11 = *(a1 + 40);
-      if (v11 && [v11 count])
+      v10 = *(a1 + 40);
+      if (v10 && [v10 count])
       {
-        v12 = [*(a1 + 40) objectAtIndex:a3];
-        v13 = [[SBHWidget alloc] initWithKind:v6 extensionBundleIdentifier:v5 containerBundleIdentifier:v12];
-        v10 = [(SBHWidget *)v13 copyWithSuggestionSource:*(a1 + 56)];
+        v11 = objc_msgSend_objectAtIndex_(*(a1 + 40));
+        v12 = [[SBHWidget alloc] initWithKind:v5 extensionBundleIdentifier:v4 containerBundleIdentifier:v11];
+        v9 = [(SBHWidget *)v12 copyWithSuggestionSource:*(a1 + 56)];
       }
 
       else
       {
-        v12 = [[SBHWidget alloc] initWithKind:v6 extensionBundleIdentifier:v5];
-        v10 = [(SBHWidget *)v12 copyWithSuggestionSource:*(a1 + 56)];
+        v11 = [[SBHWidget alloc] initWithKind:v5 extensionBundleIdentifier:v4];
+        v9 = [(SBHWidget *)v11 copyWithSuggestionSource:*(a1 + 56)];
       }
 
-      v9 = SBLogWidgets();
-      if (os_log_type_enabled(&v9->super.super.super, OS_LOG_TYPE_DEFAULT))
+      v8 = SBLogWidgets(v13);
+      if (os_log_type_enabled(&v8->super.super.super, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = [v10 uniqueIdentifier];
+        v14 = [v9 uniqueIdentifier];
         v15 = 138543618;
-        v16 = v5;
+        v16 = v4;
         v17 = 2114;
         v18 = v14;
-        _os_log_impl(&dword_1BEB18000, &v9->super.super.super, OS_LOG_TYPE_DEFAULT, "Widget %{public}@ %{public}@ created for icon through extension identifiers.", &v15, 0x16u);
+        _os_log_impl(&dword_1BEB18000, &v8->super.super.super, OS_LOG_TYPE_DEFAULT, "Widget %{public}@ %{public}@ created for icon through extension identifiers.", &v15, 0x16u);
       }
     }
   }
 
-  [*(a1 + 48) addIconDataSource:v10];
+  [*(a1 + 48) addIconDataSource:v9];
 }
 
 - (SBWidgetIcon)initWithWidget:(id)widget
@@ -365,57 +365,57 @@ uint64_t __39__SBWidgetIcon_firstWidgetPassingTest___block_invoke(uint64_t a1, v
 
 - (void)didRemoveIconDataSource:(id)source
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = SBWidgetIcon;
+  v13 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = SBWidgetIcon;
   sourceCopy = source;
-  [(SBLeafIcon *)&v9 didRemoveIconDataSource:sourceCopy];
+  [(SBLeafIcon *)&v10 didRemoveIconDataSource:sourceCopy];
   lastUserSelectedDataSource = self->_lastUserSelectedDataSource;
 
   if (lastUserSelectedDataSource == sourceCopy)
   {
-    v6 = SBLogIcon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SBLogIcon(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [(SBIcon *)self uniqueIdentifier:v9.receiver];
+      v8 = [(SBIcon *)self uniqueIdentifier:v10.receiver];
       *buf = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_DEFAULT, "Clearing out last user selected data source for: %@", buf, 0xCu);
+      v12 = v8;
+      _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_DEFAULT, "Clearing out last user selected data source for: %@", buf, 0xCu);
     }
 
-    v8 = self->_lastUserSelectedDataSource;
+    v9 = self->_lastUserSelectedDataSource;
     self->_lastUserSelectedDataSource = 0;
   }
 
-  [(SBIcon *)self archivableStateDidChange:v9.receiver];
+  [(SBIcon *)self archivableStateDidChange:v10.receiver];
   [(SBWidgetIcon *)self setStackChangeReason:6];
 }
 
 - (void)didReplaceIconDataSource:(id)source withIconDataSource:(id)dataSource
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dataSourceCopy = dataSource;
-  v12.receiver = self;
-  v12.super_class = SBWidgetIcon;
+  v13.receiver = self;
+  v13.super_class = SBWidgetIcon;
   sourceCopy = source;
-  [(SBLeafIcon *)&v12 didReplaceIconDataSource:sourceCopy withIconDataSource:dataSourceCopy];
+  [(SBLeafIcon *)&v13 didReplaceIconDataSource:sourceCopy withIconDataSource:dataSourceCopy];
   lastUserSelectedDataSource = self->_lastUserSelectedDataSource;
 
   if (lastUserSelectedDataSource == sourceCopy)
   {
-    v10 = SBLogIcon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = SBLogIcon(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [(SBIcon *)self uniqueIdentifier:v12.receiver];
+      v12 = [(SBIcon *)self uniqueIdentifier:v13.receiver];
       *buf = 138412290;
-      v14 = v11;
-      _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, "Replacing last user selected data source for: %@", buf, 0xCu);
+      v15 = v12;
+      _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "Replacing last user selected data source for: %@", buf, 0xCu);
     }
 
     objc_storeStrong(&self->_lastUserSelectedDataSource, dataSource);
   }
 
-  [(SBIcon *)self archivableStateDidChange:v12.receiver];
+  [(SBIcon *)self archivableStateDidChange:v13.receiver];
   [(SBWidgetIcon *)self setStackChangeReason:6];
 }
 
@@ -564,7 +564,7 @@ BOOL __44__SBWidgetIcon_firstSuggestedIconDataSource__block_invoke(uint64_t a1, 
 
 - (void)addDataSourcesFromWidgetIcons:(id)icons
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   iconsCopy = icons;
   activeDataSource = [(SBLeafIcon *)self activeDataSource];
   if (activeDataSource)
@@ -579,30 +579,30 @@ BOOL __44__SBWidgetIcon_firstSuggestedIconDataSource__block_invoke(uint64_t a1, 
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
   v9 = iconsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v23;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        iconDataSources2 = [*(*(&v21 + 1) + 8 * i) iconDataSources];
+        iconDataSources2 = [*(*(&v22 + 1) + 8 * i) iconDataSources];
         [array addObjectsFromArray:iconDataSources2];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v11);
@@ -621,11 +621,11 @@ BOOL __44__SBWidgetIcon_firstSuggestedIconDataSource__block_invoke(uint64_t a1, 
   v16 = [MEMORY[0x1E696AC90] indexSetWithIndexesInRange:{iconDataSourceCount, objc_msgSend(array, "count")}];
   [(SBLeafIcon *)self insertIconDataSources:array atIndexes:v16];
 
-  v17 = SBLogIcon();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = SBLogIcon(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    *v20 = 0;
-    _os_log_impl(&dword_1BEB18000, v17, OS_LOG_TYPE_DEFAULT, "Activating data source due to icon insertion", v20, 2u);
+    *v21 = 0;
+    _os_log_impl(&dword_1BEB18000, v18, OS_LOG_TYPE_DEFAULT, "Activating data source due to icon insertion", v21, 2u);
   }
 
   firstObject = [v9 firstObject];

@@ -1,10 +1,21 @@
 @interface CPLEngineWrapperStatus
 - (CPLEngineWrapperStatus)initWithCoder:(id)coder;
 - (CPLEngineWrapperStatus)initWithParameters:(id)parameters clientCount:(unint64_t)count isOpened:(BOOL)opened openError:(id)error;
+- (CPLEngineWrapperStatus)initWithWrapper:(id)wrapper clientCount:(unint64_t)count isOpened:(BOOL)opened openError:(id)error;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation CPLEngineWrapperStatus
+
+- (CPLEngineWrapperStatus)initWithWrapper:(id)wrapper clientCount:(unint64_t)count isOpened:(BOOL)opened openError:(id)error
+{
+  openedCopy = opened;
+  errorCopy = error;
+  parameters = [wrapper parameters];
+  v12 = [(CPLEngineWrapperStatus *)self initWithParameters:parameters clientCount:count isOpened:openedCopy openError:errorCopy];
+
+  return v12;
+}
 
 - (CPLEngineWrapperStatus)initWithParameters:(id)parameters clientCount:(unint64_t)count isOpened:(BOOL)opened openError:(id)error
 {

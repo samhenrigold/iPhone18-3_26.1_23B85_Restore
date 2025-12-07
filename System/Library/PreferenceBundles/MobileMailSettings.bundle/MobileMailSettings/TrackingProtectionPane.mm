@@ -6,7 +6,10 @@
 - (id)specifiers;
 - (void)_mailPrivacyProtectionLearnMoreLinkTapped:(id)tapped;
 - (void)setPreferenceValue:(id)value specifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation TrackingProtectionPane
@@ -19,6 +22,32 @@
   v3 = [NSBundle bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"TRACKING_PROTECTION" value:&stru_3D2B0 table:@"Preferences"];
   [(TrackingProtectionPane *)self setTitle:v4];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = TrackingProtectionPane;
+  [(TrackingProtectionPane *)&v5 viewDidAppear:appear];
+  parentController = [(TrackingProtectionPane *)self parentController];
+  [(TrackingProtectionPane *)self setParentListController:parentController];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = TrackingProtectionPane;
+  [(TrackingProtectionPane *)&v5 viewWillDisappear:disappear];
+  parentListController = [(TrackingProtectionPane *)self parentListController];
+  [parentListController reloadSpecifier:*&self->PSListController_opaque[OBJC_IVAR___PSViewController__specifier]];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = TrackingProtectionPane;
+  [(TrackingProtectionPane *)&v4 viewDidDisappear:disappear];
+  [(TrackingProtectionPane *)self setParentListController:0];
 }
 
 - (id)readPreferenceValue:(id)value

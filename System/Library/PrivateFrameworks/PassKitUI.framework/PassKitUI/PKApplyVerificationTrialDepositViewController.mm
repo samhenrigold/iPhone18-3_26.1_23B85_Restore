@@ -525,7 +525,7 @@ void __62__PKApplyVerificationTrialDepositViewController__submitCodes___block_in
   }
 }
 
-uint64_t __62__PKApplyVerificationTrialDepositViewController__submitCodes___block_invoke_3(uint64_t a1, char a2)
+void *__62__PKApplyVerificationTrialDepositViewController__submitCodes___block_invoke_3(uint64_t a1, char a2)
 {
   result = [*(a1 + 32) showSpinner:0];
   if ((a2 & 1) == 0)
@@ -914,11 +914,11 @@ void __74__PKApplyVerificationTrialDepositViewController__alertControllerForErro
   }
 }
 
-uint64_t __74__PKApplyVerificationTrialDepositViewController__alertControllerForError___block_invoke_2(uint64_t result)
+id *__74__PKApplyVerificationTrialDepositViewController__alertControllerForError___block_invoke_2(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) _performActionForActionIdentifier:@"skipTrialDeposits"];
+    return [result[4] _performActionForActionIdentifier:@"skipTrialDeposits"];
   }
 
   return result;
@@ -963,11 +963,11 @@ uint64_t __74__PKApplyVerificationTrialDepositViewController__alertControllerFor
   return v6;
 }
 
-void __82__PKApplyVerificationTrialDepositViewController__alertControllerForContactSupport__block_invoke()
+void __82__PKApplyVerificationTrialDepositViewController__alertControllerForContactSupport__block_invoke(uint64_t a1)
 {
-  v1 = [MEMORY[0x1E6963608] defaultWorkspace];
-  v0 = PKTelephoneURLFromPhoneNumber();
-  [v1 openSensitiveURL:v0 withOptions:0];
+  v2 = [MEMORY[0x1E6963608] defaultWorkspace];
+  v1 = PKTelephoneURLFromPhoneNumber();
+  [v2 openSensitiveURL:v1 withOptions:0];
 }
 
 - (void)_updateContentUnavailableConfigurationUsingState:(id)state

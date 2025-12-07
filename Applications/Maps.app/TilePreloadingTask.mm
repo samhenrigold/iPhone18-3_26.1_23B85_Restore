@@ -48,8 +48,8 @@ LABEL_6:
 - (id)traitsForPreloadingSession
 {
   observedRoutePlanningSession = [(TilePreloadingTask *)self observedRoutePlanningSession];
-  configuration = [observedRoutePlanningSession configuration];
-  traits = [configuration traits];
+  v4 = objc_msgSend_configuration(observedRoutePlanningSession);
+  traits = [v4 traits];
   v6 = traits;
   if (traits)
   {
@@ -59,8 +59,8 @@ LABEL_6:
   else
   {
     observedNavigationSession = [(TilePreloadingTask *)self observedNavigationSession];
-    configuration2 = [observedNavigationSession configuration];
-    traits2 = [configuration2 traits];
+    v9 = objc_msgSend_configuration(observedNavigationSession);
+    traits2 = [v9 traits];
   }
 
   return traits2;
@@ -164,9 +164,9 @@ LABEL_17:
   {
     v11 = tileLoadingSession2;
     tileLoadingSession3 = [(TilePreloadingTask *)self tileLoadingSession];
-    options = [tileLoadingSession3 options];
+    v13 = objc_msgSend_options(tileLoadingSession3);
 
-    if (v9 != options)
+    if (v9 != v13)
     {
       goto LABEL_17;
     }

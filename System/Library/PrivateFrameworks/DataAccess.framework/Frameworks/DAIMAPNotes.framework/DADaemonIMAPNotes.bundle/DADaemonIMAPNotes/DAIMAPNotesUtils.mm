@@ -13,6 +13,7 @@
 + (void)logBytes:(const char *)bytes length:(int)length;
 + (void)setUpMailLogging;
 - (void)flushLog;
+- (void)logBytes:(const char *)bytes length:(int)length;
 @end
 
 @implementation DAIMAPNotesUtils
@@ -708,15 +709,22 @@ LABEL_17:
     sub_FDC4();
   }
 
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3032000000;
-  v10 = sub_EDF8;
-  v11 = sub_EE08;
-  v12 = [[NSData alloc] initWithBytesNoCopy:bytes length:length freeWhenDone:0];
-  v6 = v8[5];
+  v6[0] = 0;
+  v6[1] = v6;
+  v6[2] = 0x3032000000;
+  v6[3] = sub_EDF8;
+  v6[4] = sub_EE08;
+  v7 = [[NSData alloc] initWithBytesNoCopy:bytes length:length freeWhenDone:0];
   DACPLoggingAppendDataToLogFile();
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(v6, 8);
+}
+
+- (void)logBytes:(const char *)bytes length:(int)length
+{
+  v4 = *&length;
+  v6 = objc_opt_class();
+
+  [v6 logBytes:bytes length:v4];
 }
 
 - (void)flushLog

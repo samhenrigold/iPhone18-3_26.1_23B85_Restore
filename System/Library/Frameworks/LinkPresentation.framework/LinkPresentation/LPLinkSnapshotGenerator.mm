@@ -49,24 +49,24 @@
   return v2;
 }
 
-void __31__LPLinkSnapshotGenerator_init__block_invoke(uint64_t a1)
+void __31__LPLinkSnapshotGenerator_init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = LPLogChannelSnapshotGenerator();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = LPLogChannelSnapshotGenerator(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __31__LPLinkSnapshotGenerator_init__block_invoke_cold_1(v2);
+    __31__LPLinkSnapshotGenerator_init__block_invoke_cold_1(v3);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained connectionWasInvalidated];
 }
 
-void __31__LPLinkSnapshotGenerator_init__block_invoke_6(uint64_t a1)
+void __31__LPLinkSnapshotGenerator_init__block_invoke_6(uint64_t a1, uint64_t a2)
 {
-  v2 = LPLogChannelSnapshotGenerator();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = LPLogChannelSnapshotGenerator(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __31__LPLinkSnapshotGenerator_init__block_invoke_6_cold_1(v2);
+    __31__LPLinkSnapshotGenerator_init__block_invoke_6_cold_1(v3);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));

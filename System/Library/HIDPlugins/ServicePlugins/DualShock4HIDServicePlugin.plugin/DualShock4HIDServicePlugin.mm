@@ -1,4 +1,4 @@
-uint64_t sub_E38()
+uint64_t sub_E38(uint64_t a1, uint64_t a2)
 {
   if (qword_1AF50 != -1)
   {
@@ -8,16 +8,16 @@ uint64_t sub_E38()
   return byte_1AF48;
 }
 
-id sub_E98()
+id sub_E98(uint64_t a1)
 {
   if (qword_1AF60 != -1)
   {
     sub_96FC();
   }
 
-  v1 = qword_1AF58;
+  v2 = qword_1AF58;
 
-  return v1;
+  return v2;
 }
 
 void sub_EDC(id a1)
@@ -27,16 +27,16 @@ void sub_EDC(id a1)
   qword_1AF58 = v1;
 }
 
-id sub_F20()
+id sub_F20(uint64_t a1)
 {
   if (qword_1AF70 != -1)
   {
     sub_9710();
   }
 
-  v1 = qword_1AF68;
+  v2 = qword_1AF68;
 
-  return v1;
+  return v2;
 }
 
 void sub_F64(id a1)
@@ -46,16 +46,16 @@ void sub_F64(id a1)
   qword_1AF68 = v1;
 }
 
-id sub_FA8()
+id sub_FA8(uint64_t a1)
 {
   if (qword_1AF80 != -1)
   {
     sub_9724();
   }
 
-  v1 = qword_1AF78;
+  v2 = qword_1AF78;
 
-  return v1;
+  return v2;
 }
 
 void sub_FEC(id a1)
@@ -65,16 +65,16 @@ void sub_FEC(id a1)
   qword_1AF78 = v1;
 }
 
-id sub_1030()
+id sub_1030(uint64_t a1)
 {
   if (qword_1AF90 != -1)
   {
     sub_9738();
   }
 
-  v1 = qword_1AF88;
+  v2 = qword_1AF88;
 
-  return v1;
+  return v2;
 }
 
 void sub_1074(id a1)
@@ -91,16 +91,16 @@ void sub_10B8(char *category)
   qword_1AF98 = v1;
 }
 
-id sub_10F8()
+id sub_10F8(uint64_t a1)
 {
   if (qword_1AFA0 != -1)
   {
     sub_974C();
   }
 
-  v1 = qword_1AF98;
+  v2 = qword_1AF98;
 
-  return v1;
+  return v2;
 }
 
 void sub_113C(id a1)
@@ -111,16 +111,16 @@ void sub_113C(id a1)
   }
 }
 
-id sub_1160()
+id sub_1160(uint64_t a1)
 {
   if (qword_1AFB0 != -1)
   {
     sub_9760();
   }
 
-  v1 = qword_1AFA8;
+  v2 = qword_1AFA8;
 
-  return v1;
+  return v2;
 }
 
 void sub_11A4(id a1)
@@ -130,16 +130,16 @@ void sub_11A4(id a1)
   qword_1AFA8 = v1;
 }
 
-id sub_11E8()
+id sub_11E8(uint64_t a1)
 {
   if (qword_1AFC0 != -1)
   {
     sub_9774();
   }
 
-  v1 = qword_1AFB8;
+  v2 = qword_1AFB8;
 
-  return v1;
+  return v2;
 }
 
 void sub_122C(id a1)
@@ -149,16 +149,16 @@ void sub_122C(id a1)
   qword_1AFB8 = v1;
 }
 
-id sub_1270()
+id sub_1270(uint64_t a1)
 {
   if (qword_1AFD0 != -1)
   {
     sub_9788();
   }
 
-  v1 = qword_1AFC8;
+  v2 = qword_1AFC8;
 
-  return v1;
+  return v2;
 }
 
 void sub_12B4(id a1)
@@ -168,9 +168,9 @@ void sub_12B4(id a1)
   qword_1AFC8 = v1;
 }
 
-id hexStringFromByteArray(uint64_t a1, int a2)
+id hexStringFromByteArray(uint64_t a1, unsigned int a2)
 {
-  v4 = [NSMutableString stringWithCapacity:2 * a2];
+  v4 = [NSMutableString stringWithCapacity:(2 * a2)];
   if (a2 >= 1)
   {
     v5 = a2 - 1;
@@ -201,7 +201,7 @@ id hexStringFromByteArray(uint64_t a1, int a2)
   return v10;
 }
 
-uint64_t isPartnerSupportEnabled()
+uint64_t isPartnerSupportEnabled(uint64_t a1, uint64_t a2)
 {
   if (qword_1AFD8 != -1)
   {
@@ -214,13 +214,14 @@ uint64_t isPartnerSupportEnabled()
 void sub_2020(id a1)
 {
   v1 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.GameController"];
-  byte_1AFE0 = [v1 BOOLForKey:@"GCPartnersEnable"];
-  v2 = sub_10F8();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v2 = [v1 BOOLForKey:@"GCPartnersEnable"];
+  byte_1AFE0 = v2;
+  v3 = sub_10F8(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3[0] = 67109120;
-    v3[1] = byte_1AFE0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Partners mode enabled? %d", v3, 8u);
+    v4[0] = 67109120;
+    v4[1] = byte_1AFE0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Partners mode enabled? %d", v4, 8u);
   }
 }
 
@@ -278,13 +279,13 @@ id sub_2100()
   return v0;
 }
 
-void sub_2BD4(uint64_t a1, int a2, const void *a3, unint64_t a4)
+void sub_2BD4(uint64_t a1, uint64_t a2, const void *a3, size_t a4)
 {
-  v8 = *(a1 + 40);
-  kdebug_trace();
-  if (a2)
+  v6 = a2;
+  v8 = kdebug_trace();
+  if (v6)
   {
-    v9 = sub_10F8();
+    v9 = sub_10F8(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_9820();
@@ -303,23 +304,23 @@ void sub_2BD4(uint64_t a1, int a2, const void *a3, unint64_t a4)
       v10 = a4;
     }
 
-    memcpy((*(a1 + 32) + 857), a3, v10);
+    v11 = memcpy((*(a1 + 32) + 857), a3, v10);
     *(*(a1 + 32) + 873) = 0;
     *(*(a1 + 32) + 889) = 0;
-    v9 = sub_10F8();
+    v9 = sub_10F8(v11);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(*(a1 + 32) + 857);
-      v12 = *(*(a1 + 32) + 873);
-      v13 = *(*(a1 + 32) + 889);
-      *&v16[13] = *(*(a1 + 32) + 902);
-      v15[1] = v12;
-      *v16 = v13;
-      v15[0] = v11;
-      v14 = sub_2D54(v15);
-      LODWORD(v15[0]) = 138412290;
-      *(v15 + 4) = v14;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "(Async) Firmware Info = %@", v15, 0xCu);
+      v12 = *(*(a1 + 32) + 857);
+      v13 = *(*(a1 + 32) + 873);
+      v14 = *(*(a1 + 32) + 889);
+      *&v17[13] = *(*(a1 + 32) + 902);
+      v16[1] = v13;
+      *v17 = v14;
+      v16[0] = v12;
+      v15 = sub_2D54(v16);
+      LODWORD(v16[0]) = 138412290;
+      *(v16 + 4) = v15;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "(Async) Firmware Info = %@", v16, 0xCu);
     }
   }
 
@@ -394,13 +395,13 @@ id sub_2D54(uint64_t a1)
   return v15;
 }
 
-void sub_3190(uint64_t a1, int a2, const void *a3, unint64_t a4)
+void sub_3190(uint64_t a1, uint64_t a2, const void *a3, size_t a4)
 {
-  v8 = *(a1 + 40);
-  kdebug_trace();
-  if (a2)
+  v6 = a2;
+  v8 = kdebug_trace();
+  if (v6)
   {
-    v9 = sub_10F8();
+    v9 = sub_10F8(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_9900();
@@ -422,18 +423,19 @@ LABEL_4:
     v11 = a4;
   }
 
-  memcpy((*(a1 + 32) + 816), a3, v11);
-  if (sub_E38())
+  v12 = memcpy((*(a1 + 32) + 816), a3, v11);
+  v14 = sub_E38(v12, v13);
+  if (v14)
   {
     sub_9970();
   }
 
-  v12 = vcvtd_n_f64_s32(*(*v10 + 837) + *(*v10 + 835), 1uLL);
-  *(*v10 + 736) = v12 / ((fabs((*(*v10 + 823) - *(*v10 + 817))) + fabs((*(*v10 + 825) - *(*v10 + 817)))) * 0.5);
+  v16 = vcvtd_n_f64_s32(*(*v10 + 837) + *(*v10 + 835), 1uLL);
+  *(*v10 + 736) = v16 / ((fabs((*(*v10 + 823) - *(*v10 + 817))) + fabs((*(*v10 + 825) - *(*v10 + 817)))) * 0.5);
   *(*v10 + 736) = *(*v10 + 736) * 0.0174532925;
-  *(*v10 + 744) = v12 / ((fabs((*(*v10 + 827) - *(*v10 + 819))) + fabs((*(*v10 + 829) - *(*v10 + 819)))) * 0.5);
+  *(*v10 + 744) = v16 / ((fabs((*(*v10 + 827) - *(*v10 + 819))) + fabs((*(*v10 + 829) - *(*v10 + 819)))) * 0.5);
   *(*v10 + 744) = *(*v10 + 744) * 0.0174532925;
-  *(*v10 + 752) = v12 / ((fabs((*(*v10 + 831) - *(*v10 + 821))) + fabs((*(*v10 + 833) - *(*v10 + 821)))) * 0.5);
+  *(*v10 + 752) = v16 / ((fabs((*(*v10 + 831) - *(*v10 + 821))) + fabs((*(*v10 + 833) - *(*v10 + 821)))) * 0.5);
   *(*v10 + 752) = *(*v10 + 752) * 0.0174532925;
   *(*v10 + 760) = vcvtd_n_f64_s32(*(*v10 + 841) + *(*v10 + 839), 1uLL);
   *(*v10 + 768) = vcvtd_n_f64_s32(*(*v10 + 845) + *(*v10 + 843), 1uLL);
@@ -441,54 +443,63 @@ LABEL_4:
   *(*v10 + 784) = 2.0 / (*(*v10 + 839) - *(*v10 + 841));
   *(*v10 + 792) = 2.0 / (*(*v10 + 843) - *(*v10 + 845));
   *(*v10 + 800) = 2.0 / (*(*v10 + 847) - *(*v10 + 849));
-  if (sub_E38())
+  v17 = sub_E38(v14, v15);
+  if (v17)
   {
     sub_9A34();
   }
 
-  if (sub_E38())
+  v19 = sub_E38(v17, v18);
+  if (v19)
   {
     sub_9AC8();
   }
 
-  if (sub_E38())
+  v21 = sub_E38(v19, v20);
+  if (v21)
   {
     sub_9B5C();
   }
 
-  if (sub_E38())
+  v23 = sub_E38(v21, v22);
+  if (v23)
   {
     sub_9BF0();
   }
 
-  if (sub_E38())
+  v25 = sub_E38(v23, v24);
+  if (v25)
   {
     sub_9C84();
   }
 
-  if (sub_E38())
+  v27 = sub_E38(v25, v26);
+  if (v27)
   {
     sub_9D18();
   }
 
-  if (sub_E38())
+  v29 = sub_E38(v27, v28);
+  if (v29)
   {
     sub_9DAC();
   }
 
-  if (sub_E38())
+  v31 = sub_E38(v29, v30);
+  if (v31)
   {
     sub_9E40();
   }
 
-  if (sub_E38())
+  v33 = sub_E38(v31, v32);
+  if (v33)
   {
-    v9 = sub_10F8();
+    v9 = sub_10F8(v33);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v13 = *(*v10 + 800);
+      v34 = *(*v10 + 800);
       *buf = 134217984;
-      v15 = v13;
+      v36 = v34;
       _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "(Async) Accelerometer Z Sensitivity = %f", buf, 0xCu);
     }
 
@@ -849,13 +860,13 @@ void sub_461C(uint64_t a1)
   }
 }
 
-void sub_4A5C(uint64_t a1, int a2)
+void sub_4A5C(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 32);
-  kdebug_trace();
-  if (a2)
+  v2 = a2;
+  v3 = kdebug_trace();
+  if (v2)
   {
-    v4 = sub_10F8();
+    v4 = sub_10F8(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_9F84();
@@ -863,13 +874,13 @@ void sub_4A5C(uint64_t a1, int a2)
   }
 }
 
-void sub_4AC8(uint64_t a1, int a2)
+void sub_4AC8(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 32);
-  kdebug_trace();
-  if (a2)
+  v2 = a2;
+  v3 = kdebug_trace();
+  if (v2)
   {
-    v4 = sub_10F8();
+    v4 = sub_10F8(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_9FF4();
@@ -879,7 +890,7 @@ void sub_4AC8(uint64_t a1, int a2)
 
 id sub_5304(uint64_t a1)
 {
-  v2 = sub_10F8();
+  v2 = sub_10F8(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
@@ -913,33 +924,35 @@ id sub_5304(uint64_t a1)
   return result;
 }
 
-void sub_5600(uint64_t a1)
+void sub_5600(void *a1)
 {
+  v1 = a1;
   if (*(a1 + 40) == 1)
   {
-    v2 = *(a1 + 32);
-    if ((v2[944] & 1) == 0)
+    a1 = a1[4];
+    if ((a1[118] & 1) == 0)
     {
-      [v2 setExtendedSupportEnabled:1];
+      a1 = [a1 setExtendedSupportEnabled:1];
     }
   }
 
-  v3 = sub_10F8();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v2 = sub_10F8(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v4 = *(a1 + 40);
-    v5[0] = 67109120;
-    v5[1] = v4;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "updateSensorsEnabled %d", v5, 8u);
+    v3 = *(v1 + 40);
+    v4[0] = 67109120;
+    v4[1] = v3;
+    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "updateSensorsEnabled %d", v4, 8u);
   }
 
-  *(*(a1 + 32) + 728) = *(a1 + 40);
+  *(v1[4] + 728) = *(v1 + 40);
 }
 
-void sub_5860(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_5860(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_INFO, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_INFO, a4, va, 0xCu);
 }
 
 BOOL sub_58B0(NSObject *a1)
@@ -974,7 +987,7 @@ void sub_5BB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_5BE0(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_10F8();
+  v2 = sub_10F8(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -989,7 +1002,7 @@ void sub_5BE0(uint64_t a1)
 void sub_5C78(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_10F8();
+  v2 = sub_10F8(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1000,9 +1013,9 @@ void sub_5C78(uint64_t a1)
   [v3 driverCheckIn];
 }
 
-void sub_63EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_63EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1017,7 +1030,7 @@ uint64_t sub_640C(uint64_t result, uint64_t a2)
 void sub_6424(uint64_t a1)
 {
   v2 = [NSString stringWithCString:dispatch_queue_get_label(*(a1 + 32)) encoding:4];
-  v3 = sub_10F8();
+  v3 = sub_10F8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -1059,18 +1072,19 @@ void sub_6DCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_6DF0(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = sub_10F8();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_10F8(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "calling cancel handler", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "calling cancel handler", v5, 2u);
     }
 
-    (*(WeakRetained[1] + 16))();
-    v3 = WeakRetained[1];
-    WeakRetained[1] = 0;
+    (*(v2[1] + 16))();
+    v4 = v2[1];
+    v2[1] = 0;
   }
 }
 
@@ -1146,19 +1160,20 @@ void sub_8F70(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v5 = 0uLL;
-    clock_gettime(_CLOCK_MONOTONIC_RAW, &v5);
-    if ((*(&v5 + 1) + v5 * 1000000000.0 - (*(WeakRetained + 64) + *(WeakRetained + 63) * 1000000000.0)) * 0.000000001 >= *(WeakRetained + 122))
+    v6 = 0uLL;
+    clock_gettime(_CLOCK_MONOTONIC_RAW, &v6);
+    if ((*(&v6 + 1) + v6 * 1000000000.0 - (*(WeakRetained + 64) + *(WeakRetained + 63) * 1000000000.0)) * 0.000000001 >= *(WeakRetained + 122))
     {
-      *(WeakRetained + 504) = v5;
+      *(WeakRetained + 504) = v6;
       v2 = [WeakRetained isAnyHapticMotorEnabled];
-      v3 = sub_10F8();
-      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
-      if (v2)
+      v3 = v2;
+      v4 = sub_10F8(v2);
+      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+      if (v3)
       {
-        if (v4)
+        if (v5)
         {
-          sub_A48C(v3);
+          sub_A48C(v4);
         }
 
         *(WeakRetained + 121) = 0;
@@ -1167,9 +1182,9 @@ void sub_8F70(uint64_t a1)
 
       else
       {
-        if (v4)
+        if (v5)
         {
-          sub_A448(v3);
+          sub_A448(v4);
         }
 
         [WeakRetained stopHaptics];
@@ -1178,7 +1193,7 @@ void sub_8F70(uint64_t a1)
   }
 }
 
-uint64_t sub_9650()
+uint64_t sub_9650(unsigned int a1)
 {
 
   return kdebug_trace();
@@ -1186,7 +1201,6 @@ uint64_t sub_9650()
 
 id sub_9678(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 656);
 
   return [a2 timestamp];
 }
@@ -1229,112 +1243,112 @@ void sub_9900()
 void sub_9970()
 {
   sub_5880();
-  v3 = sub_10F8();
-  if (sub_58B0(v3))
+  v4 = sub_10F8(v3);
+  if (sub_58B0(v4))
   {
-    v4 = (*v2 + v1);
-    v12 = *v4;
-    v13[0] = v4[1];
-    *(v13 + 9) = *(v4 + 25);
-    v5 = sub_35D8(&v12);
+    v5 = (*v2 + v1);
+    v13 = *v5;
+    v14[0] = v5[1];
+    *(v14 + 9) = *(v5 + 25);
+    v6 = sub_35D8(&v13);
     sub_58D4();
-    sub_5860(&dword_0, v6, v7, "(Async) Sensor Calibration Info = %@", v8, v9, v10, v11, v12);
+    sub_5860(&dword_0, v7, v8, "(Async) Sensor Calibration Info = %@", v9, v10, v11, v12);
   }
 }
 
 void sub_9A34()
 {
   sub_5880();
-  v1 = sub_10F8();
-  if (sub_58B0(v1))
+  v2 = sub_10F8(v1);
+  if (sub_58B0(v2))
   {
     sub_588C();
     sub_58A4();
-    sub_5860(&dword_0, v2, v3, "(Async) Gyro Pitch Sensitivity = %f", v4, v5, v6, v7, v8);
+    sub_5860(&dword_0, v3, v4, "(Async) Gyro Pitch Sensitivity = %f", v5, v6, v7, v8);
   }
 }
 
 void sub_9AC8()
 {
   sub_5880();
-  v1 = sub_10F8();
-  if (sub_58B0(v1))
+  v2 = sub_10F8(v1);
+  if (sub_58B0(v2))
   {
     sub_588C();
     sub_58A4();
-    sub_5860(&dword_0, v2, v3, "(Async) Gyro Yaw Sensitivity = %f", v4, v5, v6, v7, v8);
+    sub_5860(&dword_0, v3, v4, "(Async) Gyro Yaw Sensitivity = %f", v5, v6, v7, v8);
   }
 }
 
 void sub_9B5C()
 {
   sub_5880();
-  v1 = sub_10F8();
-  if (sub_58B0(v1))
+  v2 = sub_10F8(v1);
+  if (sub_58B0(v2))
   {
     sub_588C();
     sub_58A4();
-    sub_5860(&dword_0, v2, v3, "(Async) Gyro Roll Sensitivity = %f", v4, v5, v6, v7, v8);
+    sub_5860(&dword_0, v3, v4, "(Async) Gyro Roll Sensitivity = %f", v5, v6, v7, v8);
   }
 }
 
 void sub_9BF0()
 {
   sub_5880();
-  v1 = sub_10F8();
-  if (sub_58B0(v1))
+  v2 = sub_10F8(v1);
+  if (sub_58B0(v2))
   {
     sub_588C();
     sub_58A4();
-    sub_5860(&dword_0, v2, v3, "(Async) Accelerometer X Bias = %f", v4, v5, v6, v7, v8);
+    sub_5860(&dword_0, v3, v4, "(Async) Accelerometer X Bias = %f", v5, v6, v7, v8);
   }
 }
 
 void sub_9C84()
 {
   sub_5880();
-  v1 = sub_10F8();
-  if (sub_58B0(v1))
+  v2 = sub_10F8(v1);
+  if (sub_58B0(v2))
   {
     sub_588C();
     sub_58A4();
-    sub_5860(&dword_0, v2, v3, "(Async) Accelerometer Y Bias = %f", v4, v5, v6, v7, v8);
+    sub_5860(&dword_0, v3, v4, "(Async) Accelerometer Y Bias = %f", v5, v6, v7, v8);
   }
 }
 
 void sub_9D18()
 {
   sub_5880();
-  v1 = sub_10F8();
-  if (sub_58B0(v1))
+  v2 = sub_10F8(v1);
+  if (sub_58B0(v2))
   {
     sub_588C();
     sub_58A4();
-    sub_5860(&dword_0, v2, v3, "(Async) Accelerometer Z Bias = %f", v4, v5, v6, v7, v8);
+    sub_5860(&dword_0, v3, v4, "(Async) Accelerometer Z Bias = %f", v5, v6, v7, v8);
   }
 }
 
 void sub_9DAC()
 {
   sub_5880();
-  v1 = sub_10F8();
-  if (sub_58B0(v1))
+  v2 = sub_10F8(v1);
+  if (sub_58B0(v2))
   {
     sub_588C();
     sub_58A4();
-    sub_5860(&dword_0, v2, v3, "(Async) Accelerometer X Sensitivity = %f", v4, v5, v6, v7, v8);
+    sub_5860(&dword_0, v3, v4, "(Async) Accelerometer X Sensitivity = %f", v5, v6, v7, v8);
   }
 }
 
 void sub_9E40()
 {
   sub_5880();
-  v1 = sub_10F8();
-  if (sub_58B0(v1))
+  v2 = sub_10F8(v1);
+  if (sub_58B0(v2))
   {
     sub_588C();
     sub_58A4();
-    sub_5860(&dword_0, v2, v3, "(Async) Accelerometer Y Sensitivity = %f", v4, v5, v6, v7, v8);
+    sub_5860(&dword_0, v3, v4, "(Async) Accelerometer Y Sensitivity = %f", v5, v6, v7, v8);
   }
 }
 
@@ -1364,20 +1378,19 @@ void sub_A064(uint64_t a1, void *a2, int a3)
   v5 = a2;
   if (a1)
   {
-    v8 = v5;
+    v7 = v5;
     if (a3)
     {
       *(a1 + 664) = [v5 timestamp];
     }
 
-    v6 = *(a1 + 656);
-    [v8 timestamp];
-    [v8 type];
+    [v7 timestamp];
+    [v7 type];
     kdebug_trace();
     WeakRetained = objc_loadWeakRetained((a1 + 624));
-    [WeakRetained dispatchEvent:v8];
+    [WeakRetained dispatchEvent:v7];
 
-    v5 = v8;
+    v5 = v7;
   }
 }
 
@@ -1393,7 +1406,7 @@ uint64_t sub_A114(uint64_t result)
 
 void sub_A1C8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_10F8();
+  v6 = sub_10F8(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = *(a1 + 656);
@@ -1410,8 +1423,7 @@ void sub_A1C8(uint64_t a1, uint64_t a2, uint64_t a3)
 void sub_A2AC(uint64_t a1, void *a2)
 {
   sub_9678(a1, a2);
-  [v3 type];
-  sub_9650();
+  sub_9650([v3 type]);
   dispatch_time(0, (*v4 * 1000000000.0));
   [v5 dispatchQueue];
   objc_claimAutoreleasedReturnValue();
@@ -1426,8 +1438,7 @@ void sub_A2AC(uint64_t a1, void *a2)
 void sub_A35C(uint64_t a1, void *a2)
 {
   sub_9678(a1, a2);
-  [v3 type];
-  sub_9650();
+  sub_9650([v3 type]);
   dispatch_time(0, (*v4 * 1000000000.0));
   [v5 dispatchQueue];
   objc_claimAutoreleasedReturnValue();
@@ -1437,14 +1448,4 @@ void sub_A35C(uint64_t a1, void *a2)
   *(v2 + 24) = &unk_146D0;
   *(v2 + 32) = v5;
   sub_96A0(v3);
-}
-
-uint64_t sub_A40C(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 656);
-  }
-
-  return kdebug_trace();
 }

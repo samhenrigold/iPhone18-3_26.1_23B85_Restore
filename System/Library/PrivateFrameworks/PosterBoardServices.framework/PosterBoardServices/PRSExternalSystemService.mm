@@ -1,4 +1,5 @@
 @interface PRSExternalSystemService
+- (id)createLockScreenPhotosPosterWithImageAtURL:(id)l selectedLockScreenPoster:(BOOL)poster;
 - (id)service;
 - (void)createLockScreenPhotosPosterWithImageAtURL:(id)l selectLockScreenPoster:(BOOL)poster completion:(id)completion;
 - (void)fetchEligibleConfigurationsWithCompletion:(id)completion;
@@ -19,7 +20,7 @@
 
 - (id)service
 {
-  v3 = PRSLogExternalSystemService();
+  v3 = PRSLogExternalSystemService(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -27,34 +28,34 @@
   }
 
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v5 = objc_sync_enter(selfCopy);
   service = selfCopy->_service;
   if (!service)
   {
-    v6 = PRSLogExternalSystemService();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PRSLogExternalSystemService(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11[0] = 0;
-      _os_log_impl(&dword_1C26FF000, v6, OS_LOG_TYPE_DEFAULT, "Creating new PRSService instance", v11, 2u);
+      v12[0] = 0;
+      _os_log_impl(&dword_1C26FF000, v7, OS_LOG_TYPE_DEFAULT, "Creating new PRSService instance", v12, 2u);
     }
 
-    v7 = objc_opt_new();
-    v8 = selfCopy->_service;
-    selfCopy->_service = v7;
+    v8 = objc_opt_new();
+    v9 = selfCopy->_service;
+    selfCopy->_service = v8;
 
     service = selfCopy->_service;
   }
 
-  v9 = service;
+  v10 = service;
   objc_sync_exit(selfCopy);
 
-  return v9;
+  return v10;
 }
 
 - (void)fetchEligibleConfigurationsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v6 = PRSLogExternalSystemService();
+  v6 = PRSLogExternalSystemService(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -78,12 +79,12 @@
 
 void __70__PRSExternalSystemService_fetchEligibleConfigurationsWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  v29 = a3;
-  v5 = PRSLogExternalSystemService();
+  v31 = a3;
+  v5 = PRSLogExternalSystemService(v31);
   v6 = v5;
-  if (v29)
+  if (v31)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
@@ -98,29 +99,29 @@ void __70__PRSExternalSystemService_fetchEligibleConfigurationsWithCompletion___
     _os_log_impl(&dword_1C26FF000, v6, OS_LOG_TYPE_DEFAULT, "Retrieved %ld poster configurations", &buf, 0xCu);
   }
 
-  v30 = objc_opt_new();
+  v32 = objc_opt_new();
+  v39 = 0u;
+  v40 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
   obj = v4;
-  v7 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v7 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v7)
   {
-    v8 = *v36;
+    v8 = *v38;
     do
     {
       v9 = 0;
       do
       {
-        if (*v36 != v8)
+        if (*v38 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v35 + 1) + 8 * v9);
+        v10 = *(*(&v37 + 1) + 8 * v9);
         v11 = [v10 providerBundleIdentifier];
-        v12 = PRSLogExternalSystemService();
+        v12 = PRSLogExternalSystemService(v11);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(buf) = 138543362;
@@ -128,103 +129,108 @@ void __70__PRSExternalSystemService_fetchEligibleConfigurationsWithCompletion___
           _os_log_impl(&dword_1C26FF000, v12, OS_LOG_TYPE_DEFAULT, "Checking configuration with bundle identifier: %{public}@", &buf, 0xCu);
         }
 
-        if ([v11 isEqual:@"com.apple.PhotosUIPrivate.PhotosPosterProvider"])
+        v13 = [v11 isEqual:@"com.apple.PhotosUIPrivate.PhotosPosterProvider"];
+        if (v13)
         {
-          v13 = [v10 _path];
-          v14 = [v13 contentsURL];
+          v14 = [v10 _path];
+          v15 = [v14 contentsURL];
 
-          v15 = PRSLogExternalSystemService();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v17 = PRSLogExternalSystemService(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(buf) = 138543362;
-            *(&buf + 4) = v14;
-            _os_log_impl(&dword_1C26FF000, v15, OS_LOG_TYPE_DEFAULT, "Loading PFPosterConfiguration from URL: %{public}@", &buf, 0xCu);
+            *(&buf + 4) = v15;
+            _os_log_impl(&dword_1C26FF000, v17, OS_LOG_TYPE_DEFAULT, "Loading PFPosterConfiguration from URL: %{public}@", &buf, 0xCu);
           }
 
-          v39 = 0;
-          v40 = &v39;
-          v41 = 0x2050000000;
-          v16 = getPFPosterConfigurationClass_softClass;
-          v42 = getPFPosterConfigurationClass_softClass;
+          v41 = 0;
+          v42 = &v41;
+          v43 = 0x2050000000;
+          v18 = getPFPosterConfigurationClass_softClass;
+          v44 = getPFPosterConfigurationClass_softClass;
           if (!getPFPosterConfigurationClass_softClass)
           {
             *&buf = MEMORY[0x1E69E9820];
             *(&buf + 1) = 3221225472;
-            v45 = __getPFPosterConfigurationClass_block_invoke;
-            v46 = &unk_1E818CC28;
-            v47 = &v39;
+            v47 = __getPFPosterConfigurationClass_block_invoke;
+            v48 = &unk_1E818CC28;
+            v49 = &v41;
             __getPFPosterConfigurationClass_block_invoke(&buf);
-            v16 = v40[3];
+            v18 = v42[3];
           }
 
-          v17 = v16;
-          _Block_object_dispose(&v39, 8);
-          v34 = 0;
-          v18 = [v16 loadFromURL:v14 error:&v34];
-          v19 = v34;
-          v20 = v19;
-          if (!v18 || v19)
+          v19 = v18;
+          _Block_object_dispose(&v41, 8);
+          v36 = 0;
+          v20 = [v18 loadFromURL:v15 error:&v36];
+          v21 = v36;
+          v22 = v21;
+          if (!v20 || v21)
           {
-            if (v19)
+            if (v21)
             {
-              v21 = PRSLogExternalSystemService();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+              v23 = PRSLogExternalSystemService(v21);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
               {
                 LODWORD(buf) = 138543362;
-                *(&buf + 4) = v20;
-                _os_log_error_impl(&dword_1C26FF000, v21, OS_LOG_TYPE_ERROR, "Error loading PFPosterConfiguration: %{public}@", &buf, 0xCu);
+                *(&buf + 4) = v22;
+                _os_log_error_impl(&dword_1C26FF000, v23, OS_LOG_TYPE_ERROR, "Error loading PFPosterConfiguration: %{public}@", &buf, 0xCu);
               }
 
               goto LABEL_32;
             }
 
-            if (!v18)
+            if (!v20)
             {
-              v21 = PRSLogExternalSystemService();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+              v23 = PRSLogExternalSystemService(0);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
               {
-                __70__PRSExternalSystemService_fetchEligibleConfigurationsWithCompletion___block_invoke_cold_2(&v32, v33, v21);
+                __70__PRSExternalSystemService_fetchEligibleConfigurationsWithCompletion___block_invoke_cold_2(&v34, v35, v23);
               }
 
               goto LABEL_32;
             }
           }
 
-          else if (![v18 configurationType])
+          else
           {
-            v21 = [v10 serverUUID];
-            v22 = PRSLogExternalSystemService();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            v21 = [v20 configurationType];
+            if (!v21)
             {
-              LODWORD(buf) = 138543362;
-              *(&buf + 4) = v21;
-              _os_log_impl(&dword_1C26FF000, v22, OS_LOG_TYPE_DEFAULT, "Adding eligible configuration UUID: %{public}@", &buf, 0xCu);
-            }
+              v23 = [v10 serverUUID];
+              v24 = PRSLogExternalSystemService(v23);
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+              {
+                LODWORD(buf) = 138543362;
+                *(&buf + 4) = v23;
+                _os_log_impl(&dword_1C26FF000, v24, OS_LOG_TYPE_DEFAULT, "Adding eligible configuration UUID: %{public}@", &buf, 0xCu);
+              }
 
-            [v30 bs_safeAddObject:v21];
+              [v32 bs_safeAddObject:v23];
 LABEL_32:
 
-            goto LABEL_33;
+              goto LABEL_33;
+            }
           }
 
-          v21 = PRSLogExternalSystemService();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v23 = PRSLogExternalSystemService(v21);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
-            v23 = [v18 configurationType];
+            v25 = [v20 configurationType];
             LODWORD(buf) = 134217984;
-            *(&buf + 4) = v23;
-            _os_log_impl(&dword_1C26FF000, v21, OS_LOG_TYPE_DEFAULT, "Configuration type is not photo: %ld", &buf, 0xCu);
+            *(&buf + 4) = v25;
+            _os_log_impl(&dword_1C26FF000, v23, OS_LOG_TYPE_DEFAULT, "Configuration type is not photo: %ld", &buf, 0xCu);
           }
 
           goto LABEL_32;
         }
 
-        v20 = PRSLogExternalSystemService();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v22 = PRSLogExternalSystemService(v13);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(buf) = 138543362;
           *(&buf + 4) = v11;
-          _os_log_impl(&dword_1C26FF000, v20, OS_LOG_TYPE_DEFAULT, "Skipping non-Photos configuration: %{public}@", &buf, 0xCu);
+          _os_log_impl(&dword_1C26FF000, v22, OS_LOG_TYPE_DEFAULT, "Skipping non-Photos configuration: %{public}@", &buf, 0xCu);
         }
 
 LABEL_33:
@@ -233,37 +239,36 @@ LABEL_33:
       }
 
       while (v7 != v9);
-      v24 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
-      v7 = v24;
+      v26 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v7 = v26;
     }
 
-    while (v24);
+    while (v26);
   }
 
-  v25 = PRSLogExternalSystemService();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v28 = PRSLogExternalSystemService(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = [v30 count];
+    v29 = [v32 count];
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v26;
-    _os_log_impl(&dword_1C26FF000, v25, OS_LOG_TYPE_DEFAULT, "Found %ld eligible configurations", &buf, 0xCu);
+    *(&buf + 4) = v29;
+    _os_log_impl(&dword_1C26FF000, v28, OS_LOG_TYPE_DEFAULT, "Found %ld eligible configurations", &buf, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updatePosterMatchingUUID:(id)d withConfiguration:(id)configuration completion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dCopy = d;
   configurationCopy = configuration;
   completionCopy = completion;
-  v12 = PRSLogExternalSystemService();
+  v12 = PRSLogExternalSystemService(completionCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v24 = dCopy;
+    v23 = dCopy;
     _os_log_impl(&dword_1C26FF000, v12, OS_LOG_TYPE_DEFAULT, "Starting updatePosterMatchingUUID: %{public}@", buf, 0xCu);
   }
 
@@ -292,34 +297,32 @@ LABEL_33:
   }
 
   v15 = [PRSPosterUpdate posterUpdatesForWFWallpaperConfiguration:v13];
-  v16 = PRSLogExternalSystemService();
+  v16 = PRSLogExternalSystemService(v15);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     v17 = [v15 count];
     *buf = 134217984;
-    v24 = v17;
+    v23 = v17;
     _os_log_impl(&dword_1C26FF000, v16, OS_LOG_TYPE_DEFAULT, "Created %ld poster updates for wallpaper configuration", buf, 0xCu);
   }
 
   service = self->_service;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __82__PRSExternalSystemService_updatePosterMatchingUUID_withConfiguration_completion___block_invoke;
-  v21[3] = &unk_1E818DAE8;
-  v22 = completionCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __82__PRSExternalSystemService_updatePosterMatchingUUID_withConfiguration_completion___block_invoke;
+  v20[3] = &unk_1E818DAE8;
+  v21 = completionCopy;
   v19 = completionCopy;
-  [(PRSService *)service updatePosterConfigurationMatchingUUID:v14 updates:v15 completion:v21];
-
-  v20 = *MEMORY[0x1E69E9840];
+  [(PRSService *)service updatePosterConfigurationMatchingUUID:v14 updates:v15 completion:v20];
 }
 
 void __82__PRSExternalSystemService_updatePosterMatchingUUID_withConfiguration_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = PRSLogExternalSystemService();
+  v10 = PRSLogExternalSystemService(v9);
   v11 = v10;
   if (v9)
   {
@@ -336,49 +339,49 @@ void __82__PRSExternalSystemService_updatePosterMatchingUUID_withConfiguration_c
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v31 = [v8 count];
+      v32 = [v8 count];
       _os_log_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_DEFAULT, "Received %ld update results", buf, 0xCu);
     }
 
-    v27 = 0u;
     v28 = 0u;
-    v25 = 0u;
+    v29 = 0u;
     v26 = 0u;
+    v27 = 0u;
     v13 = v8;
-    v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v26;
+      v16 = *v27;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v26 != v16)
+          if (*v27 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v25 + 1) + 8 * i);
+          v18 = *(*(&v26 + 1) + 8 * i);
           v19 = [v18 error];
 
           if (v19)
           {
-            v21 = PRSLogExternalSystemService();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v23 = PRSLogExternalSystemService(v20);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
               __82__PRSExternalSystemService_updatePosterMatchingUUID_withConfiguration_completion___block_invoke_cold_2(v18);
             }
 
-            v22 = *(a1 + 32);
-            v23 = [v18 error];
-            (*(v22 + 16))(v22, 0, v23);
+            v24 = *(a1 + 32);
+            v25 = [v18 error];
+            (*(v24 + 16))(v24, 0, v25);
 
             goto LABEL_22;
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v15)
         {
           continue;
@@ -388,11 +391,11 @@ void __82__PRSExternalSystemService_updatePosterMatchingUUID_withConfiguration_c
       }
     }
 
-    v20 = PRSLogExternalSystemService();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = PRSLogExternalSystemService(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C26FF000, v20, OS_LOG_TYPE_DEFAULT, "Successfully updated poster configuration", buf, 2u);
+      _os_log_impl(&dword_1C26FF000, v22, OS_LOG_TYPE_DEFAULT, "Successfully updated poster configuration", buf, 2u);
     }
 
     v12 = *(*(a1 + 32) + 16);
@@ -400,17 +403,15 @@ void __82__PRSExternalSystemService_updatePosterMatchingUUID_withConfiguration_c
 
   v12();
 LABEL_22:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)createLockScreenPhotosPosterWithImageAtURL:(id)l selectLockScreenPoster:(BOOL)poster completion:(id)completion
 {
   posterCopy = poster;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   lCopy = l;
   completionCopy = completion;
-  v10 = PRSLogExternalSystemService();
+  v10 = PRSLogExternalSystemService(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = @"NO";
@@ -420,9 +421,9 @@ LABEL_22:
     }
 
     *buf = 138543618;
-    v23 = lCopy;
-    v24 = 2114;
-    v25 = v11;
+    v22 = lCopy;
+    v23 = 2114;
+    v24 = v11;
     _os_log_impl(&dword_1C26FF000, v10, OS_LOG_TYPE_DEFAULT, "Starting createLockScreenPhotosPosterWithImageAtURL: %{public}@, selectPoster: %{public}@", buf, 0x16u);
   }
 
@@ -437,28 +438,26 @@ LABEL_22:
   }
 
   service = [(PRSExternalSystemService *)self service];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectLockScreenPoster_completion___block_invoke;
-  v17[3] = &unk_1E818DB60;
-  v19 = lCopy;
-  v20 = completionCopy;
-  v18 = service;
-  v21 = posterCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectLockScreenPoster_completion___block_invoke;
+  v16[3] = &unk_1E818DB60;
+  v18 = lCopy;
+  v19 = completionCopy;
+  v17 = service;
+  v20 = posterCopy;
   v13 = lCopy;
   v14 = service;
   v15 = completionCopy;
-  [v14 createPosterConfigurationForProviderIdentifier:@"com.apple.PhotosUIPrivate.PhotosPosterProvider" posterDescriptorIdentifier:0 role:@"PRPosterRoleLockScreen" completion:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [v14 createPosterConfigurationForProviderIdentifier:@"com.apple.PhotosUIPrivate.PhotosPosterProvider" posterDescriptorIdentifier:0 role:@"PRPosterRoleLockScreen" completion:v16];
 }
 
 void __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectLockScreenPoster_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = PRSLogExternalSystemService();
+  v7 = PRSLogExternalSystemService(v6);
   v8 = v7;
   if (v6)
   {
@@ -476,31 +475,29 @@ void __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_
     {
       v9 = [v5 serverUUID];
       *buf = 138543362;
-      v19 = v9;
+      v18 = v9;
       _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_DEFAULT, "Successfully created poster configuration: %{public}@", buf, 0xCu);
     }
 
     v10 = *(a1 + 32);
     v11 = [PRSPosterUpdate posterUpdateLockScreenPosterWithImageAtURL:*(a1 + 40)];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectLockScreenPoster_completion___block_invoke_43;
-    v13[3] = &unk_1E818DB38;
-    v14 = *(a1 + 32);
-    v15 = v5;
-    v16 = *(a1 + 48);
-    v17 = *(a1 + 56);
-    [v10 updatePosterConfiguration:v15 update:v11 completion:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectLockScreenPoster_completion___block_invoke_43;
+    v12[3] = &unk_1E818DB38;
+    v13 = *(a1 + 32);
+    v14 = v5;
+    v15 = *(a1 + 48);
+    v16 = *(a1 + 56);
+    [v10 updatePosterConfiguration:v14 update:v11 completion:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectLockScreenPoster_completion___block_invoke_43(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
   v6 = a2;
   v7 = a4;
-  v8 = PRSLogExternalSystemService();
+  v8 = PRSLogExternalSystemService(v7);
   v9 = v8;
   if (v7)
   {
@@ -511,15 +508,15 @@ void __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_
 
     v10 = *(a1 + 32);
     v11 = [*(a1 + 40) serverUUID];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectLockScreenPoster_completion___block_invoke_44;
-    v21[3] = &unk_1E818DB10;
-    v23 = *(a1 + 48);
-    v22 = v7;
-    [v10 deletePosterConfigurationsMatchingUUID:v11 completion:v21];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectLockScreenPoster_completion___block_invoke_44;
+    v22[3] = &unk_1E818DB10;
+    v24 = *(a1 + 48);
+    v23 = v7;
+    [v10 deletePosterConfigurationsMatchingUUID:v11 completion:v22];
 
-    v12 = v23;
+    v12 = v24;
 LABEL_11:
 
     goto LABEL_12;
@@ -532,33 +529,33 @@ LABEL_11:
   }
 
   v13 = *(a1 + 56);
-  v14 = PRSLogExternalSystemService();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+  v15 = PRSLogExternalSystemService(v14);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
   if (v13 == 1)
   {
-    if (v15)
+    if (v16)
     {
       *buf = 0;
-      _os_log_impl(&dword_1C26FF000, v14, OS_LOG_TYPE_DEFAULT, "Selecting newly created poster as active", buf, 2u);
+      _os_log_impl(&dword_1C26FF000, v15, OS_LOG_TYPE_DEFAULT, "Selecting newly created poster as active", buf, 2u);
     }
 
-    v16 = *(a1 + 32);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectLockScreenPoster_completion___block_invoke_46;
-    v17[3] = &unk_1E818DB10;
-    v19 = *(a1 + 48);
-    v18 = v6;
-    [v16 updateSelectedForRoleIdentifier:@"PRPosterRoleLockScreen" newlySelectedConfiguration:v18 completion:v17];
+    v17 = *(a1 + 32);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectLockScreenPoster_completion___block_invoke_46;
+    v18[3] = &unk_1E818DB10;
+    v20 = *(a1 + 48);
+    v19 = v6;
+    [v17 updateSelectedForRoleIdentifier:@"PRPosterRoleLockScreen" newlySelectedConfiguration:v19 completion:v18];
 
-    v12 = v19;
+    v12 = v20;
     goto LABEL_11;
   }
 
-  if (v15)
+  if (v16)
   {
     *buf = 0;
-    _os_log_impl(&dword_1C26FF000, v14, OS_LOG_TYPE_DEFAULT, "Poster created successfully without selection", buf, 2u);
+    _os_log_impl(&dword_1C26FF000, v15, OS_LOG_TYPE_DEFAULT, "Poster created successfully without selection", buf, 2u);
   }
 
   (*(*(a1 + 48) + 16))();
@@ -568,7 +565,7 @@ LABEL_12:
 void __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectLockScreenPoster_completion___block_invoke_44(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogExternalSystemService();
+  v4 = PRSLogExternalSystemService(v3);
   v5 = v4;
   if (v3)
   {
@@ -580,18 +577,17 @@ void __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_DEFAULT, "Successfully cleaned up failed poster configuration", v7, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_DEFAULT, "Successfully cleaned up failed poster configuration", v6, 2u);
   }
 
-  v6 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
 void __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectLockScreenPoster_completion___block_invoke_46(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogExternalSystemService();
+  v4 = PRSLogExternalSystemService(v3);
   v5 = v4;
   if (v3)
   {
@@ -603,19 +599,52 @@ void __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_DEFAULT, "Successfully selected poster", v7, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_DEFAULT, "Successfully selected poster", v6, 2u);
   }
 
-  v6 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
+}
+
+- (id)createLockScreenPhotosPosterWithImageAtURL:(id)l selectedLockScreenPoster:(BOOL)poster
+{
+  posterCopy = poster;
+  v19 = *MEMORY[0x1E69E9840];
+  lCopy = l;
+  v7 = PRSLogExternalSystemService(lCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = @"NO";
+    if (posterCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *buf = 138543618;
+    v16 = lCopy;
+    v17 = 2114;
+    v18 = v8;
+    _os_log_impl(&dword_1C26FF000, v7, OS_LOG_TYPE_DEFAULT, "Starting createLockScreenPhotosPosterWithImageAtURL (future variant): %{public}@, selectPoster: %{public}@", buf, 0x16u);
+  }
+
+  v9 = objc_alloc_init(MEMORY[0x1E69C5260]);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __96__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectedLockScreenPoster___block_invoke;
+  v13[3] = &unk_1E818DB88;
+  v14 = v9;
+  v10 = v9;
+  [(PRSExternalSystemService *)self createLockScreenPhotosPosterWithImageAtURL:lCopy selectLockScreenPoster:posterCopy completion:v13];
+  future = [v10 future];
+
+  return future;
 }
 
 void __96__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectedLockScreenPoster___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
   v6 = a2;
-  v7 = PRSLogExternalSystemService();
+  v7 = PRSLogExternalSystemService(v6);
   v8 = v7;
   if (v5)
   {
@@ -637,26 +666,26 @@ void __96__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_s
 - (void)updateLockScreenPhotosPoster:(id)poster withImageAtURL:(id)l selectLockScreenPoster:(BOOL)screenPoster completion:(id)completion
 {
   screenPosterCopy = screenPoster;
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   posterCopy = poster;
   lCopy = l;
   completionCopy = completion;
-  v13 = PRSLogExternalSystemService();
+  v13 = PRSLogExternalSystemService(completionCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     serverUUID = [posterCopy serverUUID];
     v15 = @"NO";
     *buf = 138543874;
-    v29 = serverUUID;
-    v30 = 2114;
+    v28 = serverUUID;
+    v29 = 2114;
     if (screenPosterCopy)
     {
       v15 = @"YES";
     }
 
-    v31 = lCopy;
-    v32 = 2114;
-    v33 = v15;
+    v30 = lCopy;
+    v31 = 2114;
+    v32 = v15;
     _os_log_impl(&dword_1C26FF000, v13, OS_LOG_TYPE_DEFAULT, "Starting updateLockScreenPhotosPoster: %{public}@, imageURL: %{public}@, selectPoster: %{public}@", buf, 0x20u);
   }
 
@@ -685,22 +714,20 @@ LABEL_7:
   }
 
   service = [(PRSExternalSystemService *)self service];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL_selectLockScreenPoster_completion___block_invoke;
-  v22[3] = &unk_1E818DBD8;
-  v23 = posterCopy;
-  v24 = service;
-  v25 = lCopy;
-  v26 = completionCopy;
-  v27 = screenPosterCopy;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL_selectLockScreenPoster_completion___block_invoke;
+  v21[3] = &unk_1E818DBD8;
+  v22 = posterCopy;
+  v23 = service;
+  v24 = lCopy;
+  v25 = completionCopy;
+  v26 = screenPosterCopy;
   v17 = lCopy;
   v18 = service;
   v19 = posterCopy;
   v20 = completionCopy;
-  [(PRSExternalSystemService *)self fetchEligibleConfigurationsWithCompletion:v22];
-
-  v21 = *MEMORY[0x1E69E9840];
+  [(PRSExternalSystemService *)self fetchEligibleConfigurationsWithCompletion:v21];
 }
 
 void __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL_selectLockScreenPoster_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -708,7 +735,7 @@ void __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL
   v32 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = PRSLogExternalSystemService();
+  v7 = PRSLogExternalSystemService(v6);
   v8 = v7;
   if (v6)
   {
@@ -735,19 +762,19 @@ void __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL
     v10 = [*(a1 + 32) serverUUID];
     v11 = [v5 containsObject:v10];
 
-    v12 = PRSLogExternalSystemService();
-    v13 = v12;
+    v13 = PRSLogExternalSystemService(v12);
+    v14 = v13;
     if (v11)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C26FF000, v13, OS_LOG_TYPE_DEFAULT, "Poster is eligible, proceeding with update", buf, 2u);
+        _os_log_impl(&dword_1C26FF000, v14, OS_LOG_TYPE_DEFAULT, "Poster is eligible, proceeding with update", buf, 2u);
       }
 
-      v15 = *(a1 + 32);
-      v14 = *(a1 + 40);
-      v16 = [PRSPosterUpdate posterUpdateLockScreenPosterWithImageAtURL:*(a1 + 48)];
+      v16 = *(a1 + 32);
+      v15 = *(a1 + 40);
+      v17 = [PRSPosterUpdate posterUpdateLockScreenPosterWithImageAtURL:*(a1 + 48)];
       v22[0] = MEMORY[0x1E69E9820];
       v22[1] = 3221225472;
       v22[2] = __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL_selectLockScreenPoster_completion___block_invoke_61;
@@ -755,34 +782,32 @@ void __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL
       v24 = *(a1 + 56);
       v25 = *(a1 + 64);
       v23 = *(a1 + 40);
-      [v14 updatePosterConfiguration:v15 update:v16 completion:v22];
+      [v15 updatePosterConfiguration:v16 update:v17 completion:v22];
     }
 
     else
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL_selectLockScreenPoster_completion___block_invoke_cold_2((a1 + 32));
       }
 
-      v17 = *(a1 + 56);
-      v18 = MEMORY[0x1E696ABC0];
+      v18 = *(a1 + 56);
+      v19 = MEMORY[0x1E696ABC0];
       v26 = *MEMORY[0x1E696A588];
       v27 = @"Poster is not eligible";
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-      v20 = [v18 errorWithDomain:@"com.apple.posterboardservices" code:0 userInfo:v19];
-      (*(v17 + 16))(v17, 0, v20);
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      v21 = [v19 errorWithDomain:@"com.apple.posterboardservices" code:0 userInfo:v20];
+      (*(v18 + 16))(v18, 0, v21);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL_selectLockScreenPoster_completion___block_invoke_61(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
   v6 = a2;
   v7 = a4;
-  v8 = PRSLogExternalSystemService();
+  v8 = PRSLogExternalSystemService(v7);
   v9 = v8;
   if (v7)
   {
@@ -804,34 +829,34 @@ LABEL_14:
   }
 
   v11 = *(a1 + 48);
-  v12 = PRSLogExternalSystemService();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v13 = PRSLogExternalSystemService(v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
   if (v11 != 1)
   {
-    if (v13)
+    if (v14)
     {
       *buf = 0;
-      _os_log_impl(&dword_1C26FF000, v12, OS_LOG_TYPE_DEFAULT, "Poster updated successfully without selection", buf, 2u);
+      _os_log_impl(&dword_1C26FF000, v13, OS_LOG_TYPE_DEFAULT, "Poster updated successfully without selection", buf, 2u);
     }
 
     v10 = *(*(a1 + 40) + 16);
     goto LABEL_14;
   }
 
-  if (v13)
+  if (v14)
   {
     *buf = 0;
-    _os_log_impl(&dword_1C26FF000, v12, OS_LOG_TYPE_DEFAULT, "Selecting updated poster as active", buf, 2u);
+    _os_log_impl(&dword_1C26FF000, v13, OS_LOG_TYPE_DEFAULT, "Selecting updated poster as active", buf, 2u);
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL_selectLockScreenPoster_completion___block_invoke_62;
-  v15[3] = &unk_1E818DB10;
-  v14 = *(a1 + 32);
-  v17 = *(a1 + 40);
-  v16 = v6;
-  [v14 updateSelectedForRoleIdentifier:@"PRPosterRoleLockScreen" newlySelectedConfiguration:v16 completion:v15];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL_selectLockScreenPoster_completion___block_invoke_62;
+  v16[3] = &unk_1E818DB10;
+  v15 = *(a1 + 32);
+  v18 = *(a1 + 40);
+  v17 = v6;
+  [v15 updateSelectedForRoleIdentifier:@"PRPosterRoleLockScreen" newlySelectedConfiguration:v17 completion:v16];
 
 LABEL_15:
 }
@@ -839,7 +864,7 @@ LABEL_15:
 void __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL_selectLockScreenPoster_completion___block_invoke_62(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogExternalSystemService();
+  v4 = PRSLogExternalSystemService(v3);
   v5 = v4;
   if (v3)
   {
@@ -851,37 +876,36 @@ void __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_DEFAULT, "Successfully selected updated poster", v7, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_DEFAULT, "Successfully selected updated poster", v6, 2u);
   }
 
-  v6 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
 - (void)updateHomeScreenImageForLockScreenPoster:(id)poster withImageAtURL:(id)l selectLockPoster:(BOOL)lockPoster completion:(id)completion
 {
   lockPosterCopy = lockPoster;
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   posterCopy = poster;
   lCopy = l;
   completionCopy = completion;
-  v13 = PRSLogExternalSystemService();
+  v13 = PRSLogExternalSystemService(completionCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     serverUUID = [posterCopy serverUUID];
     v15 = @"NO";
     *buf = 138543874;
-    v29 = serverUUID;
-    v30 = 2114;
+    v28 = serverUUID;
+    v29 = 2114;
     if (lockPosterCopy)
     {
       v15 = @"YES";
     }
 
-    v31 = lCopy;
-    v32 = 2114;
-    v33 = v15;
+    v30 = lCopy;
+    v31 = 2114;
+    v32 = v15;
     _os_log_impl(&dword_1C26FF000, v13, OS_LOG_TYPE_DEFAULT, "Starting updateHomeScreenImageForLockScreenPoster: %{public}@, imageURL: %{public}@, selectLockPoster: %{public}@", buf, 0x20u);
   }
 
@@ -912,27 +936,25 @@ LABEL_7:
   service = [(PRSExternalSystemService *)self service];
   serverUUID2 = [posterCopy serverUUID];
   v18 = [PRSPosterUpdate posterUpdateHomeScreenPosterWithImageAtURL:lCopy];
-  v27 = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __112__PRSExternalSystemService_updateHomeScreenImageForLockScreenPoster_withImageAtURL_selectLockPoster_completion___block_invoke;
-  v23[3] = &unk_1E818DC00;
-  v26 = lockPosterCopy;
-  v24 = service;
-  v25 = completionCopy;
+  v26 = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __112__PRSExternalSystemService_updateHomeScreenImageForLockScreenPoster_withImageAtURL_selectLockPoster_completion___block_invoke;
+  v22[3] = &unk_1E818DC00;
+  v25 = lockPosterCopy;
+  v23 = service;
+  v24 = completionCopy;
   v20 = service;
   v21 = completionCopy;
-  [v20 updatePosterConfigurationMatchingUUID:serverUUID2 updates:v19 completion:v23];
-
-  v22 = *MEMORY[0x1E69E9840];
+  [v20 updatePosterConfigurationMatchingUUID:serverUUID2 updates:v19 completion:v22];
 }
 
 void __112__PRSExternalSystemService_updateHomeScreenImageForLockScreenPoster_withImageAtURL_selectLockPoster_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
   v6 = a2;
   v7 = a4;
-  v8 = PRSLogExternalSystemService();
+  v8 = PRSLogExternalSystemService(v7);
   v9 = v8;
   if (v7)
   {
@@ -954,34 +976,34 @@ LABEL_14:
   }
 
   v11 = *(a1 + 48);
-  v12 = PRSLogExternalSystemService();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v13 = PRSLogExternalSystemService(v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
   if (v11 != 1)
   {
-    if (v13)
+    if (v14)
     {
       *buf = 0;
-      _os_log_impl(&dword_1C26FF000, v12, OS_LOG_TYPE_DEFAULT, "Home screen image updated successfully without lock poster selection", buf, 2u);
+      _os_log_impl(&dword_1C26FF000, v13, OS_LOG_TYPE_DEFAULT, "Home screen image updated successfully without lock poster selection", buf, 2u);
     }
 
     v10 = *(*(a1 + 40) + 16);
     goto LABEL_14;
   }
 
-  if (v13)
+  if (v14)
   {
     *buf = 0;
-    _os_log_impl(&dword_1C26FF000, v12, OS_LOG_TYPE_DEFAULT, "Selecting lock screen poster as active", buf, 2u);
+    _os_log_impl(&dword_1C26FF000, v13, OS_LOG_TYPE_DEFAULT, "Selecting lock screen poster as active", buf, 2u);
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __112__PRSExternalSystemService_updateHomeScreenImageForLockScreenPoster_withImageAtURL_selectLockPoster_completion___block_invoke_65;
-  v15[3] = &unk_1E818DB10;
-  v14 = *(a1 + 32);
-  v17 = *(a1 + 40);
-  v16 = v6;
-  [v14 updateSelectedForRoleIdentifier:@"PRPosterRoleLockScreen" newlySelectedConfiguration:v16 completion:v15];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __112__PRSExternalSystemService_updateHomeScreenImageForLockScreenPoster_withImageAtURL_selectLockPoster_completion___block_invoke_65;
+  v16[3] = &unk_1E818DB10;
+  v15 = *(a1 + 32);
+  v18 = *(a1 + 40);
+  v17 = v6;
+  [v15 updateSelectedForRoleIdentifier:@"PRPosterRoleLockScreen" newlySelectedConfiguration:v17 completion:v16];
 
 LABEL_15:
 }
@@ -989,7 +1011,7 @@ LABEL_15:
 void __112__PRSExternalSystemService_updateHomeScreenImageForLockScreenPoster_withImageAtURL_selectLockPoster_completion___block_invoke_65(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogExternalSystemService();
+  v4 = PRSLogExternalSystemService(v3);
   v5 = v4;
   if (v3)
   {
@@ -1001,18 +1023,17 @@ void __112__PRSExternalSystemService_updateHomeScreenImageForLockScreenPoster_wi
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_DEFAULT, "Successfully selected lock screen poster", v7, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_DEFAULT, "Successfully selected lock screen poster", v6, 2u);
   }
 
-  v6 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
 - (void)fetchLockScreenWallpaperWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PRSLogExternalSystemService();
+  v5 = PRSLogExternalSystemService(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1024,24 +1045,23 @@ void __112__PRSExternalSystemService_updateHomeScreenImageForLockScreenPoster_wi
 
 - (void)fetchLockScreenWallpaperForOrientation:(int64_t)orientation completion:(id)completion
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v7 = PRSLogExternalSystemService();
+  v7 = PRSLogExternalSystemService(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     orientationCopy = orientation;
-    _os_log_impl(&dword_1C26FF000, v7, OS_LOG_TYPE_DEFAULT, "Starting fetchLockScreenWallpaperForOrientation: %ld", &v9, 0xCu);
+    _os_log_impl(&dword_1C26FF000, v7, OS_LOG_TYPE_DEFAULT, "Starting fetchLockScreenWallpaperForOrientation: %ld", &v8, 0xCu);
   }
 
   [(PRSExternalSystemService *)self fetchLockScreenWallpaperForType:0 variant:0 options:192 orientation:orientation completion:completionCopy];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchHomeScreenWallpaperWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PRSLogExternalSystemService();
+  v5 = PRSLogExternalSystemService(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1053,34 +1073,33 @@ void __112__PRSExternalSystemService_updateHomeScreenImageForLockScreenPoster_wi
 
 - (void)fetchHomeScreenWallpaperForOrientation:(int64_t)orientation completion:(id)completion
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v7 = PRSLogExternalSystemService();
+  v7 = PRSLogExternalSystemService(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     orientationCopy = orientation;
-    _os_log_impl(&dword_1C26FF000, v7, OS_LOG_TYPE_DEFAULT, "Starting fetchHomeScreenWallpaperForOrientation: %ld", &v9, 0xCu);
+    _os_log_impl(&dword_1C26FF000, v7, OS_LOG_TYPE_DEFAULT, "Starting fetchHomeScreenWallpaperForOrientation: %ld", &v8, 0xCu);
   }
 
   [(PRSExternalSystemService *)self fetchLockScreenWallpaperForType:0 variant:1 options:197 orientation:1 completion:completionCopy];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchLockScreenWallpaperForType:(int64_t)type variant:(int64_t)variant options:(unint64_t)options orientation:(int64_t)orientation completion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v13 = PRSLogExternalSystemService();
+  v13 = PRSLogExternalSystemService(completionCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218752;
     typeCopy = type;
-    v22 = 2048;
+    v21 = 2048;
     variantCopy = variant;
-    v24 = 2048;
+    v23 = 2048;
     optionsCopy = options;
-    v26 = 2048;
+    v25 = 2048;
     orientationCopy = orientation;
     _os_log_impl(&dword_1C26FF000, v13, OS_LOG_TYPE_DEFAULT, "Starting fetchLockScreenWallpaperForType: %ld, variant: %ld, options: %ld, orientation: %ld", buf, 0x2Au);
   }
@@ -1090,11 +1109,11 @@ void __112__PRSExternalSystemService_updateHomeScreenImageForLockScreenPoster_wi
     [PRSExternalSystemService fetchLockScreenWallpaperForType:variant:options:orientation:completion:];
   }
 
-  v18 = @"PRSPosterSnapshotRequestOptionSnapshotDefinitionIdentifier";
-  v19 = @"OSMigration";
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+  v17 = @"PRSPosterSnapshotRequestOptionSnapshotDefinitionIdentifier";
+  v18 = @"OSMigration";
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
   v15 = [[PRSPosterSnapshotRequest alloc] initWithConfigurationType:type variantType:variant options:options orientation:orientation requestOptions:v14];
-  v16 = PRSLogExternalSystemService();
+  v16 = PRSLogExternalSystemService(v15);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1102,16 +1121,15 @@ void __112__PRSExternalSystemService_updateHomeScreenImageForLockScreenPoster_wi
   }
 
   [(PRSExternalSystemService *)self fetchLockScreenWallpaperForRequest:v15 checkLockScreenPoster:variant == 0 completion:completionCopy];
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchLockScreenWallpaperForRequest:(id)request checkLockScreenPoster:(BOOL)poster completion:(id)completion
 {
   posterCopy = poster;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   requestCopy = request;
-  v10 = PRSLogExternalSystemService();
+  v10 = PRSLogExternalSystemService(requestCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = @"NO";
@@ -1121,32 +1139,31 @@ void __112__PRSExternalSystemService_updateHomeScreenImageForLockScreenPoster_wi
     }
 
     *buf = 138543362;
-    v19 = v11;
+    v18 = v11;
     _os_log_impl(&dword_1C26FF000, v10, OS_LOG_TYPE_DEFAULT, "Starting fetchLockScreenWallpaperForRequest, checkLockScreenPoster: %{public}@", buf, 0xCu);
   }
 
   service = [(PRSExternalSystemService *)self service];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLockScreenPoster_completion___block_invoke;
-  v15[3] = &unk_1E818DC28;
-  v17 = posterCopy;
-  v15[4] = self;
-  v16 = completionCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLockScreenPoster_completion___block_invoke;
+  v14[3] = &unk_1E818DC28;
+  v16 = posterCopy;
+  v14[4] = self;
+  v15 = completionCopy;
   v13 = completionCopy;
-  [service fetchPosterSnapshotsWithRequest:requestCopy completion:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [service fetchPosterSnapshotsWithRequest:requestCopy completion:v14];
 }
 
 void __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLockScreenPoster_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v50[1] = *MEMORY[0x1E69E9840];
+  v53[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = PRSLogExternalSystemService();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = PRSLogExternalSystemService(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLockScreenPoster_completion___block_invoke_cold_1();
     }
@@ -1156,119 +1173,120 @@ void __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLock
 
   else
   {
-    v7 = [a2 snapshots];
-    v8 = [v7 firstObject];
+    v8 = [a2 snapshots];
+    v9 = [v8 firstObject];
 
-    if (v8)
+    if (v9)
     {
       if (*(a1 + 48))
       {
-        [v8 switcherConfigurationPath];
+        [v9 switcherConfigurationPath];
       }
 
       else
       {
-        [v8 homeScreenConfigurationPath];
+        [v9 homeScreenConfigurationPath];
       }
-      v14 = ;
-      v15 = [v14 identity];
-      v12 = [v15 provider];
+      v16 = ;
+      v17 = [v16 identity];
+      v14 = [v17 provider];
 
-      v16 = PRSLogExternalSystemService();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v19 = PRSLogExternalSystemService(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v48 = v12;
-        _os_log_impl(&dword_1C26FF000, v16, OS_LOG_TYPE_DEFAULT, "Snapshot provider: %{public}@", buf, 0xCu);
+        v51 = v14;
+        _os_log_impl(&dword_1C26FF000, v19, OS_LOG_TYPE_DEFAULT, "Snapshot provider: %{public}@", buf, 0xCu);
       }
 
-      if ([v12 isEqualToString:@"com.apple.PhotosUIPrivate.PhotosPosterProvider"])
+      v20 = [v14 isEqualToString:@"com.apple.PhotosUIPrivate.PhotosPosterProvider"];
+      if (v20)
       {
-        v13 = [MEMORY[0x1E695DFF8] pf_temporaryDirectoryURLWithBasenamePrefix:@"ExternalSystemServiceFetchLockScreen"];
-        v17 = [MEMORY[0x1E696AFB0] UUID];
-        v18 = [v17 UUIDString];
-        v19 = [v18 stringByAppendingFormat:@"fetchedWallpaper.png"];
+        v15 = [MEMORY[0x1E695DFF8] pf_temporaryDirectoryURLWithBasenamePrefix:@"ExternalSystemServiceFetchLockScreen"];
+        v21 = [MEMORY[0x1E696AFB0] UUID];
+        v22 = [v21 UUIDString];
+        v23 = [v22 stringByAppendingFormat:@"fetchedWallpaper.png"];
 
-        v20 = [v13 URLByAppendingPathComponent:v19];
-        v21 = PRSLogExternalSystemService();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v24 = [v15 URLByAppendingPathComponent:v23];
+        v25 = PRSLogExternalSystemService(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v48 = v20;
-          _os_log_impl(&dword_1C26FF000, v21, OS_LOG_TYPE_DEFAULT, "Writing snapshot to temporary URL: %{public}@", buf, 0xCu);
+          v51 = v24;
+          _os_log_impl(&dword_1C26FF000, v25, OS_LOG_TYPE_DEFAULT, "Writing snapshot to temporary URL: %{public}@", buf, 0xCu);
         }
 
-        v46 = 0;
-        v22 = [v8 writePNGToURL:v20 error:&v46];
-        v23 = v46;
-        v24 = PRSLogExternalSystemService();
-        v25 = v24;
-        if (v22)
+        v49 = 0;
+        v26 = [v9 writePNGToURL:v24 error:&v49];
+        v27 = v49;
+        v28 = PRSLogExternalSystemService(v27);
+        v29 = v28;
+        if (v26)
         {
-          v41 = v23;
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v44 = v27;
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1C26FF000, v25, OS_LOG_TYPE_DEFAULT, "Successfully wrote PNG, now mapping data", buf, 2u);
+            _os_log_impl(&dword_1C26FF000, v29, OS_LOG_TYPE_DEFAULT, "Successfully wrote PNG, now mapping data", buf, 2u);
           }
 
-          v45 = 0;
-          v43 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfURL:v20 options:8 error:&v45];
-          v26 = v45;
-          v27 = [MEMORY[0x1E696AC08] defaultManager];
-          v44 = 0;
-          v28 = [v27 removeItemAtURL:v13 error:&v44];
-          v42 = v44;
+          v48 = 0;
+          v46 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfURL:v24 options:8 error:&v48];
+          v30 = v48;
+          v31 = [MEMORY[0x1E696AC08] defaultManager];
+          v47 = 0;
+          v32 = [v31 removeItemAtURL:v15 error:&v47];
+          v45 = v47;
 
-          v29 = PRSLogExternalSystemService();
-          v30 = v29;
-          if (v28)
+          v34 = PRSLogExternalSystemService(v33);
+          v35 = v34;
+          if (v32)
           {
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_1C26FF000, v30, OS_LOG_TYPE_DEFAULT, "Successfully removed temporary directory", buf, 2u);
+              _os_log_impl(&dword_1C26FF000, v35, OS_LOG_TYPE_DEFAULT, "Successfully removed temporary directory", buf, 2u);
             }
           }
 
-          else if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          else if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLockScreenPoster_completion___block_invoke_cold_4();
           }
 
-          v35 = PRSLogExternalSystemService();
-          v36 = v35;
-          v23 = v41;
-          if (v26)
+          v39 = PRSLogExternalSystemService(v38);
+          v40 = v39;
+          v27 = v44;
+          if (v30)
           {
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
             {
               __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLockScreenPoster_completion___block_invoke_cold_5();
             }
 
             (*(*(a1 + 40) + 16))();
-            v37 = v43;
+            v41 = v46;
           }
 
           else
           {
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
             {
-              v38 = [v43 length];
+              v42 = [v46 length];
               *buf = 134217984;
-              v48 = v38;
-              _os_log_impl(&dword_1C26FF000, v36, OS_LOG_TYPE_DEFAULT, "Successfully fetched wallpaper data (%ld bytes)", buf, 0xCu);
+              v51 = v42;
+              _os_log_impl(&dword_1C26FF000, v40, OS_LOG_TYPE_DEFAULT, "Successfully fetched wallpaper data (%ld bytes)", buf, 0xCu);
             }
 
-            v39 = *(*(a1 + 40) + 16);
-            v37 = v43;
-            v39();
+            v43 = *(*(a1 + 40) + 16);
+            v41 = v46;
+            v43();
           }
         }
 
         else
         {
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
             __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLockScreenPoster_completion___block_invoke_cold_3();
           }
@@ -1279,72 +1297,67 @@ void __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLock
 
       else
       {
-        v31 = PRSLogExternalSystemService();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v36 = PRSLogExternalSystemService(v20);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
           __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLockScreenPoster_completion___block_invoke_cold_2();
         }
 
-        v34 = a1 + 32;
-        v32 = *(a1 + 32);
-        v33 = *(v34 + 8);
-        v13 = PFFunctionNameForAddress();
-        v19 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
-        (*(v33 + 16))(v33, 0, 0, v19);
+        v37 = *(a1 + 40);
+        v15 = PFFunctionNameForAddress();
+        v23 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
+        (*(v37 + 16))(v37, 0, 0, v23);
       }
     }
 
     else
     {
-      v9 = PRSLogExternalSystemService();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = PRSLogExternalSystemService(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLockScreenPoster_completion___block_invoke_cold_6(v9);
+        __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLockScreenPoster_completion___block_invoke_cold_6(v11);
       }
 
-      v10 = *(a1 + 40);
-      v11 = MEMORY[0x1E696ABC0];
-      v49 = *MEMORY[0x1E696A588];
-      v50[0] = @"No snapshots available";
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:1];
-      v13 = [v11 errorWithDomain:@"com.apple.posterboardservices" code:0 userInfo:v12];
-      (*(v10 + 16))(v10, 0, 0, v13);
+      v12 = *(a1 + 40);
+      v13 = MEMORY[0x1E696ABC0];
+      v52 = *MEMORY[0x1E696A588];
+      v53[0] = @"No snapshots available";
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+      v15 = [v13 errorWithDomain:@"com.apple.posterboardservices" code:0 userInfo:v14];
+      (*(v12 + 16))(v12, 0, 0, v15);
     }
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetLockScreenWallpapersToImageAtURL:(id)l completion:(id)completion
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   lCopy = l;
   completionCopy = completion;
-  v8 = PRSLogExternalSystemService();
+  v8 = PRSLogExternalSystemService(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543362;
-    v11 = lCopy;
-    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_DEFAULT, "Starting resetLockScreenWallpapersToImageAtURL: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = lCopy;
+    _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_DEFAULT, "Starting resetLockScreenWallpapersToImageAtURL: %{public}@", &v9, 0xCu);
   }
 
   [(PRSExternalSystemService *)self resetLockScreenWallpapersToImageAtURL:lCopy homeScreenWallpaper:0 completion:completionCopy];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetLockScreenWallpapersToImageAtURL:(id)l homeScreenWallpaper:(id)wallpaper completion:(id)completion
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   lCopy = l;
   wallpaperCopy = wallpaper;
   completionCopy = completion;
-  v11 = PRSLogExternalSystemService();
+  v11 = PRSLogExternalSystemService(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v44 = lCopy;
-    v45 = 2114;
-    v46 = wallpaperCopy;
+    v45 = lCopy;
+    v46 = 2114;
+    v47 = wallpaperCopy;
     _os_log_impl(&dword_1C26FF000, v11, OS_LOG_TYPE_DEFAULT, "Starting resetLockScreenWallpapersToImageAtURL: %{public}@, homeScreenWallpaper: %{public}@", buf, 0x16u);
   }
 
@@ -1353,123 +1366,121 @@ void __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLock
     [PRSExternalSystemService resetLockScreenWallpapersToImageAtURL:homeScreenWallpaper:completion:];
   }
 
-  v12 = PRSLogExternalSystemService();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = PRSLogExternalSystemService(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v44 = lCopy;
-    _os_log_impl(&dword_1C26FF000, v12, OS_LOG_TYPE_DEFAULT, "Checking if lockScreenImageURL is reachable: %{public}@", buf, 0xCu);
+    v45 = lCopy;
+    _os_log_impl(&dword_1C26FF000, v13, OS_LOG_TYPE_DEFAULT, "Checking if lockScreenImageURL is reachable: %{public}@", buf, 0xCu);
   }
 
-  v42 = 0;
-  v13 = [lCopy checkResourceIsReachableAndReturnError:&v42];
-  v14 = v42;
-  v15 = PRSLogExternalSystemService();
-  v16 = v15;
-  if (v13)
+  v43 = 0;
+  v14 = [lCopy checkResourceIsReachableAndReturnError:&v43];
+  v15 = v43;
+  v16 = PRSLogExternalSystemService(v15);
+  v17 = v16;
+  if (v14)
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C26FF000, v16, OS_LOG_TYPE_DEFAULT, "lockScreenImageURL is reachable", buf, 2u);
+      _os_log_impl(&dword_1C26FF000, v17, OS_LOG_TYPE_DEFAULT, "lockScreenImageURL is reachable", buf, 2u);
     }
 
     if (wallpaperCopy)
     {
-      v41 = v14;
-      v17 = [wallpaperCopy checkResourceIsReachableAndReturnError:&v41];
-      v18 = v41;
+      v42 = v15;
+      v18 = [wallpaperCopy checkResourceIsReachableAndReturnError:&v42];
+      v19 = v42;
 
-      v19 = PRSLogExternalSystemService();
-      v20 = v19;
-      if ((v17 & 1) == 0)
+      v21 = PRSLogExternalSystemService(v20);
+      v22 = v21;
+      if ((v18 & 1) == 0)
       {
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           [PRSExternalSystemService resetLockScreenWallpapersToImageAtURL:homeScreenWallpaper:completion:];
         }
 
-        v21 = PFFunctionNameForAddress();
-        v22 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
-        completionCopy[2](completionCopy, v22);
+        v23 = PFFunctionNameForAddress();
+        v24 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
+        completionCopy[2](completionCopy, v24);
         goto LABEL_25;
       }
 
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C26FF000, v20, OS_LOG_TYPE_DEFAULT, "homeScreenWallpaperURL is reachable", buf, 2u);
+        _os_log_impl(&dword_1C26FF000, v22, OS_LOG_TYPE_DEFAULT, "homeScreenWallpaperURL is reachable", buf, 2u);
       }
     }
 
     else
     {
-      v18 = v14;
+      v19 = v15;
     }
 
     service = [(PRSExternalSystemService *)self service];
-    v24 = PRSLogExternalSystemService();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v26 = PRSLogExternalSystemService(service);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C26FF000, v24, OS_LOG_TYPE_DEFAULT, "Creating lock screen photos poster and starting reset operation", buf, 2u);
+      _os_log_impl(&dword_1C26FF000, v26, OS_LOG_TYPE_DEFAULT, "Creating lock screen photos poster and starting reset operation", buf, 2u);
     }
 
-    v25 = [(PRSExternalSystemService *)self createLockScreenPhotosPosterWithImageAtURL:lCopy selectedLockScreenPoster:1];
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke;
-    v38[3] = &unk_1E818DC78;
-    v39 = wallpaperCopy;
-    v26 = service;
-    v40 = v26;
-    v27 = [v25 flatMap:v38];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_102;
-    v35[3] = &unk_1E818DCF0;
-    v36 = v26;
-    v28 = completionCopy;
+    v27 = [(PRSExternalSystemService *)self createLockScreenPhotosPosterWithImageAtURL:lCopy selectedLockScreenPoster:1];
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke;
+    v39[3] = &unk_1E818DC78;
+    v40 = wallpaperCopy;
+    v28 = service;
+    v41 = v28;
+    v29 = [v27 flatMap:v39];
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_102;
+    v36[3] = &unk_1E818DCF0;
     v37 = v28;
-    v21 = v26;
-    v29 = [v27 flatMap:v35];
+    v30 = completionCopy;
+    v38 = v30;
+    v23 = v28;
+    v31 = [v29 flatMap:v36];
 
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_108;
-    v33[3] = &unk_1E818DD18;
-    v34 = v28;
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_110;
-    v31[3] = &unk_1E818D020;
-    v32 = v34;
-    [v29 addSuccessBlock:v33 andFailureBlock:v31];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_108;
+    v34[3] = &unk_1E818DD18;
+    v35 = v30;
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_110;
+    v32[3] = &unk_1E818D020;
+    v33 = v35;
+    [v31 addSuccessBlock:v34 andFailureBlock:v32];
 
-    v22 = v39;
+    v24 = v40;
 LABEL_25:
-    v14 = v18;
+    v15 = v19;
     goto LABEL_26;
   }
 
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     [PRSExternalSystemService resetLockScreenWallpapersToImageAtURL:homeScreenWallpaper:completion:];
   }
 
-  v21 = PFFunctionNameForAddress();
-  v22 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
-  completionCopy[2](completionCopy, v22);
+  v23 = PFFunctionNameForAddress();
+  v24 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
+  completionCopy[2](completionCopy, v24);
 LABEL_26:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 id __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke(uint64_t a1, void *a2)
 {
   v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PRSLogExternalSystemService();
+  v4 = PRSLogExternalSystemService(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 serverUUID];
@@ -1479,45 +1490,43 @@ id __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScre
   }
 
   v6 = *(a1 + 32);
-  v7 = PRSLogExternalSystemService();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = PRSLogExternalSystemService(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
-    if (v8)
+    if (v9)
     {
       *buf = 0;
-      _os_log_impl(&dword_1C26FF000, v7, OS_LOG_TYPE_DEFAULT, "Updating home screen wallpaper", buf, 2u);
+      _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_DEFAULT, "Updating home screen wallpaper", buf, 2u);
     }
 
-    v9 = objc_opt_new();
-    v10 = *(a1 + 40);
-    v11 = [PRSPosterUpdate posterUpdateHomeScreenPosterWithImageAtURL:*(a1 + 32)];
+    v10 = objc_opt_new();
+    v11 = *(a1 + 40);
+    v12 = [PRSPosterUpdate posterUpdateHomeScreenPosterWithImageAtURL:*(a1 + 32)];
     v16 = MEMORY[0x1E69E9820];
     v17 = 3221225472;
     v18 = __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_99;
     v19 = &unk_1E818DC50;
-    v20 = v9;
+    v20 = v10;
     v21 = v3;
-    v12 = v9;
-    [v10 updatePosterConfiguration:v21 update:v11 completion:&v16];
+    v13 = v10;
+    [v11 updatePosterConfiguration:v21 update:v12 completion:&v16];
 
-    v13 = [v12 future];
+    v14 = [v13 future];
   }
 
   else
   {
-    if (v8)
+    if (v9)
     {
       *buf = 0;
-      _os_log_impl(&dword_1C26FF000, v7, OS_LOG_TYPE_DEFAULT, "No home screen wallpaper to update", buf, 2u);
+      _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_DEFAULT, "No home screen wallpaper to update", buf, 2u);
     }
 
-    v13 = [MEMORY[0x1E69C5258] futureWithResult:v3];
+    v14 = [MEMORY[0x1E69C5258] futureWithResult:v3];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v14;
 }
 
 void __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_99(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1525,7 +1534,7 @@ void __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeSc
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = PRSLogExternalSystemService();
+  v10 = PRSLogExternalSystemService(v9);
   v11 = v10;
   if (v9)
   {
@@ -1554,7 +1563,7 @@ id __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScre
 {
   v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PRSLogExternalSystemService();
+  v4 = PRSLogExternalSystemService(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1566,41 +1575,40 @@ id __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScre
   v7 = [v6 serverIdentity];
   v8 = [v7 posterUUID];
 
-  v9 = PRSLogExternalSystemService();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = PRSLogExternalSystemService(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     v25 = v8;
-    _os_log_impl(&dword_1C26FF000, v9, OS_LOG_TYPE_DEFAULT, "New configuration UUID to preserve: %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_1C26FF000, v10, OS_LOG_TYPE_DEFAULT, "New configuration UUID to preserve: %{public}@", buf, 0xCu);
   }
 
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
   v18[2] = __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_103;
   v18[3] = &unk_1E818DCC8;
-  v10 = *(a1 + 32);
+  v11 = *(a1 + 32);
   v23 = *(a1 + 40);
   v19 = v8;
   v20 = *(a1 + 32);
-  v11 = v5;
-  v21 = v11;
+  v12 = v5;
+  v21 = v12;
   v22 = v3;
-  v12 = v3;
-  v13 = v8;
-  [v10 fetchPosterConfigurationsForRole:@"PRPosterRoleLockScreen" completion:v18];
-  v14 = v22;
-  v15 = v11;
+  v13 = v3;
+  v14 = v8;
+  [v11 fetchPosterConfigurationsForRole:@"PRPosterRoleLockScreen" completion:v18];
+  v15 = v22;
+  v16 = v12;
 
-  v16 = *MEMORY[0x1E69E9840];
-  return v11;
+  return v12;
 }
 
 void __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_103(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = PRSLogExternalSystemService();
+  v7 = PRSLogExternalSystemService(v6);
   v8 = v7;
   if (v6)
   {
@@ -1614,80 +1622,81 @@ void __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeSc
 
   else
   {
-    v25 = 0;
+    v26 = 0;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v40 = [v5 count];
+      v41 = [v5 count];
       _os_log_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_DEFAULT, "Found %ld configurations to process for cleanup", buf, 0xCu);
     }
 
     v9 = dispatch_group_create();
     dispatch_group_enter(v9);
-    v36 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
     v35 = 0u;
-    v26 = v5;
+    v36 = 0u;
+    v27 = v5;
     obj = v5;
-    v10 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v10 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
-      v13 = *v35;
+      v13 = *v36;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v35 != v13)
+          if (*v36 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = [*(*(&v34 + 1) + 8 * i) _path];
+          v15 = [*(*(&v35 + 1) + 8 * i) _path];
           v16 = [v15 serverIdentity];
           v17 = [v16 posterUUID];
 
-          LODWORD(v16) = [v17 isEqual:*(a1 + 32)];
-          v18 = PRSLogExternalSystemService();
-          v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+          v18 = [v17 isEqual:*(a1 + 32)];
+          LODWORD(v16) = v18;
+          v19 = PRSLogExternalSystemService(v18);
+          v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
           if (v16)
           {
-            if (v19)
+            if (v20)
             {
               *buf = 138543362;
-              v40 = v17;
-              _os_log_impl(&dword_1C26FF000, v18, OS_LOG_TYPE_DEFAULT, "Skipping deletion of new configuration: %{public}@", buf, 0xCu);
+              v41 = v17;
+              _os_log_impl(&dword_1C26FF000, v19, OS_LOG_TYPE_DEFAULT, "Skipping deletion of new configuration: %{public}@", buf, 0xCu);
             }
           }
 
           else
           {
-            if (v19)
+            if (v20)
             {
               *buf = 138543362;
-              v40 = v17;
-              _os_log_impl(&dword_1C26FF000, v18, OS_LOG_TYPE_DEFAULT, "Deleting configuration: %{public}@", buf, 0xCu);
+              v41 = v17;
+              _os_log_impl(&dword_1C26FF000, v19, OS_LOG_TYPE_DEFAULT, "Deleting configuration: %{public}@", buf, 0xCu);
             }
 
             ++v12;
             dispatch_group_enter(v9);
-            v20 = *(a1 + 40);
-            v31[0] = MEMORY[0x1E69E9820];
-            v31[1] = 3221225472;
-            v31[2] = __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_104;
-            v31[3] = &unk_1E818DCA0;
-            v21 = v17;
-            v32 = v21;
-            v33 = v9;
-            [v20 deletePosterConfigurationsMatchingUUID:v21 completion:v31];
+            v21 = *(a1 + 40);
+            v32[0] = MEMORY[0x1E69E9820];
+            v32[1] = 3221225472;
+            v32[2] = __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_104;
+            v32[3] = &unk_1E818DCA0;
+            v22 = v17;
+            v33 = v22;
+            v34 = v9;
+            [v21 deletePosterConfigurationsMatchingUUID:v22 completion:v32];
 
-            v18 = v32;
+            v19 = v33;
           }
         }
 
-        v11 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v11 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v11);
@@ -1699,35 +1708,33 @@ void __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeSc
     }
 
     dispatch_group_leave(v9);
-    v22 = PRSLogExternalSystemService();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v24 = PRSLogExternalSystemService(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v40 = v12;
-      _os_log_impl(&dword_1C26FF000, v22, OS_LOG_TYPE_DEFAULT, "Initiated deletion of %ld configurations", buf, 0xCu);
+      v41 = v12;
+      _os_log_impl(&dword_1C26FF000, v24, OS_LOG_TYPE_DEFAULT, "Initiated deletion of %ld configurations", buf, 0xCu);
     }
 
-    v23 = dispatch_get_global_queue(25, 0);
+    v25 = dispatch_get_global_queue(25, 0);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_105;
     block[3] = &unk_1E818CF88;
-    v29 = *(a1 + 48);
-    v30 = *(a1 + 56);
-    dispatch_group_notify(v9, v23, block);
+    v30 = *(a1 + 48);
+    v31 = *(a1 + 56);
+    dispatch_group_notify(v9, v25, block);
 
-    v6 = v25;
-    v5 = v26;
+    v6 = v26;
+    v5 = v27;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_104(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PRSLogExternalSystemService();
+  v4 = PRSLogExternalSystemService(v3);
   v5 = v4;
   if (v3)
   {
@@ -1740,18 +1747,17 @@ void __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeSc
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_DEFAULT, "Successfully deleted configuration: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_1C26FF000, v5, OS_LOG_TYPE_DEFAULT, "Successfully deleted configuration: %{public}@", &v7, 0xCu);
   }
 
   dispatch_group_leave(*(a1 + 40));
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_105(uint64_t a1)
 {
-  v2 = PRSLogExternalSystemService();
+  v2 = PRSLogExternalSystemService(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1763,7 +1769,7 @@ uint64_t __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_ho
 
 uint64_t __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_108(uint64_t a1)
 {
-  v2 = PRSLogExternalSystemService();
+  v2 = PRSLogExternalSystemService(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1776,7 +1782,7 @@ uint64_t __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_ho
 void __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_110(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PRSLogExternalSystemService();
+  v4 = PRSLogExternalSystemService(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_110_cold_1();
@@ -1787,7 +1793,7 @@ void __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeSc
 
 - (void)fetchEligibleConfigurationsWithCompletion:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"completionHandler"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1795,20 +1801,12 @@ void __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeSc
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"completionHandler", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
-}
-
-void __70__PRSExternalSystemService_fetchEligibleConfigurationsWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error fetching poster configurations: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __70__PRSExternalSystemService_fetchEligibleConfigurationsWithCompletion___block_invoke_cold_2(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -1820,7 +1818,7 @@ void __70__PRSExternalSystemService_fetchEligibleConfigurationsWithCompletion___
 
 - (void)updatePosterMatchingUUID:(char *)a1 withConfiguration:completion:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:WFWallpaperConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1828,7 +1826,7 @@ void __70__PRSExternalSystemService_fetchEligibleConfigurationsWithCompletion___
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:WFWallpaperConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1838,7 +1836,7 @@ void __70__PRSExternalSystemService_fetchEligibleConfigurationsWithCompletion___
 
 - (void)updatePosterMatchingUUID:(char *)a1 withConfiguration:completion:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSUUIDClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1846,7 +1844,7 @@ void __70__PRSExternalSystemService_fetchEligibleConfigurationsWithCompletion___
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSUUIDClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1856,7 +1854,7 @@ void __70__PRSExternalSystemService_fetchEligibleConfigurationsWithCompletion___
 
 - (void)updatePosterMatchingUUID:(char *)a1 withConfiguration:completion:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1864,7 +1862,7 @@ void __70__PRSExternalSystemService_fetchEligibleConfigurationsWithCompletion___
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1874,7 +1872,7 @@ void __70__PRSExternalSystemService_fetchEligibleConfigurationsWithCompletion___
 
 - (void)updatePosterMatchingUUID:(char *)a1 withConfiguration:completion:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1882,7 +1880,7 @@ void __70__PRSExternalSystemService_fetchEligibleConfigurationsWithCompletion___
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1890,22 +1888,11 @@ void __70__PRSExternalSystemService_fetchEligibleConfigurationsWithCompletion___
   __break(0);
 }
 
-void __82__PRSExternalSystemService_updatePosterMatchingUUID_withConfiguration_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error updating poster configuration: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __82__PRSExternalSystemService_updatePosterMatchingUUID_withConfiguration_completion___block_invoke_cold_2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 error];
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_7_1(&dword_1C26FF000, v2, v3, "Update result contains error: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7_1(&dword_1C26FF000, v2, v3, "Update result contains error: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)createLockScreenPhotosPosterWithImageAtURL:selectLockScreenPoster:completion:.cold.1()
@@ -1922,46 +1909,6 @@ void __82__PRSExternalSystemService_updatePosterMatchingUUID_withConfiguration_c
   v0 = [MEMORY[0x1E696AAA8] currentHandler];
   OUTLINED_FUNCTION_4();
   [v1 handleFailureInMethod:@"[imageURL checkResourceIsReachableAndReturnError:nil]" object:? file:? lineNumber:? description:?];
-}
-
-void __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectLockScreenPoster_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error creating poster configuration: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectLockScreenPoster_completion___block_invoke_43_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error updating poster configuration with image: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectLockScreenPoster_completion___block_invoke_44_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error cleaning up failed poster configuration: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __105__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectLockScreenPoster_completion___block_invoke_46_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error selecting poster: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __96__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_selectedLockScreenPoster___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Future-based poster creation failed: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateLockScreenPhotosPoster:withImageAtURL:selectLockScreenPoster:completion:.cold.1()
@@ -1988,38 +1935,11 @@ void __96__PRSExternalSystemService_createLockScreenPhotosPosterWithImageAtURL_s
   [v1 handleFailureInMethod:@"[imageURL checkResourceIsReachableAndReturnError:nil]" object:? file:? lineNumber:? description:?];
 }
 
-void __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL_selectLockScreenPoster_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error fetching eligible configurations: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL_selectLockScreenPoster_completion___block_invoke_cold_2(id *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [*a1 serverUUID];
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_7_1(&dword_1C26FF000, v2, v3, "Poster UUID %{public}@ is not eligible for update", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL_selectLockScreenPoster_completion___block_invoke_61_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error updating lock screen poster: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL_selectLockScreenPoster_completion___block_invoke_62_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error selecting updated poster: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7_1(&dword_1C26FF000, v2, v3, "Poster UUID %{public}@ is not eligible for update", v4, v5, v6, v7);
 }
 
 - (void)updateHomeScreenImageForLockScreenPoster:withImageAtURL:selectLockPoster:completion:.cold.1()
@@ -2046,68 +1966,12 @@ void __106__PRSExternalSystemService_updateLockScreenPhotosPoster_withImageAtURL
   [v1 handleFailureInMethod:@"[imageURL checkResourceIsReachableAndReturnError:nil]" object:? file:? lineNumber:? description:?];
 }
 
-void __112__PRSExternalSystemService_updateHomeScreenImageForLockScreenPoster_withImageAtURL_selectLockPoster_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error updating home screen image: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __112__PRSExternalSystemService_updateHomeScreenImageForLockScreenPoster_withImageAtURL_selectLockPoster_completion___block_invoke_65_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error selecting lock screen poster: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)fetchLockScreenWallpaperForType:variant:options:orientation:completion:.cold.1()
 {
   OUTLINED_FUNCTION_3_1();
   v0 = [MEMORY[0x1E696AAA8] currentHandler];
   OUTLINED_FUNCTION_4();
   [v1 handleFailureInMethod:@"completion" object:? file:? lineNumber:? description:?];
-}
-
-void __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLockScreenPoster_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error fetching poster snapshots: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLockScreenPoster_completion___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Provider is not PhotosPosterProvider: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLockScreenPoster_completion___block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error writing PNG to temporary URL: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLockScreenPoster_completion___block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error removing temporary directory: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLockScreenPoster_completion___block_invoke_cold_5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error mapping data from PNG file: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetLockScreenWallpapersToImageAtURL:homeScreenWallpaper:completion:.cold.1()
@@ -2118,56 +1982,15 @@ void __96__PRSExternalSystemService_fetchLockScreenWallpaperForRequest_checkLock
   [v1 handleFailureInMethod:@"completion" object:? file:? lineNumber:? description:?];
 }
 
-- (void)resetLockScreenWallpapersToImageAtURL:homeScreenWallpaper:completion:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "lockScreenImageURL is not reachable: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)resetLockScreenWallpapersToImageAtURL:homeScreenWallpaper:completion:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "homeScreenWallpaperURL is not reachable: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_99_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error updating home screen wallpaper (not aborting operation): %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_103_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Error fetching configurations for cleanup: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_104_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_1C26FF000, log, OS_LOG_TYPE_ERROR, "Error deleting configuration %{public}@: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __97__PRSExternalSystemService_resetLockScreenWallpapersToImageAtURL_homeScreenWallpaper_completion___block_invoke_110_cold_1()
-{
   v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, v0, v1, "Reset lock screen wallpapers operation failed: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_1C26FF000, log, OS_LOG_TYPE_ERROR, "Error deleting configuration %{public}@: %{public}@", &v4, 0x16u);
 }
 
 @end

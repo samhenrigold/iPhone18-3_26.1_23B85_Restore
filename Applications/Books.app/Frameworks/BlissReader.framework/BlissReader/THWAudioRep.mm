@@ -188,14 +188,15 @@
   {
     if ([(THWAudioRep *)self isPlaying])
     {
-      if ([(THWPressableRepGestureTargetHandler *)[(THWAudioRep *)self pressableHandler] isPressableAtPoint])
+      isPressableAtPoint = [(THWPressableRepGestureTargetHandler *)[(THWAudioRep *)self pressableHandler] isPressableAtPoint];
+      if (isPressableAtPoint)
       {
-        v14 = @"ib_media_btn_pause_bg_well-P";
+        v16 = @"ib_media_btn_pause_bg_well-P";
       }
 
       else
       {
-        v14 = @"ib_media_btn_pause_bg_well";
+        v16 = @"ib_media_btn_pause_bg_well";
       }
     }
 
@@ -203,79 +204,79 @@
     {
       isPaused = [(THWAudioRep *)self isPaused];
       isPressableAtPoint = [(THWPressableRepGestureTargetHandler *)[(THWAudioRep *)self pressableHandler] isPressableAtPoint];
-      v17 = @"ib_media_btn_audio-N";
+      v18 = @"ib_media_btn_audio-N";
       if (isPressableAtPoint)
       {
-        v17 = @"ib_media_btn_audio-P";
+        v18 = @"ib_media_btn_audio-P";
       }
 
-      v18 = @"ib_media_btn_play_bg_well-P";
+      v19 = @"ib_media_btn_play_bg_well-P";
       if (!isPressableAtPoint)
       {
-        v18 = @"ib_media_btn_play_bg_well";
+        v19 = @"ib_media_btn_play_bg_well";
       }
 
       if (isPaused)
       {
-        v14 = v18;
+        v16 = v19;
       }
 
       else
       {
-        v14 = v17;
+        v16 = v18;
       }
     }
 
-    v19 = [TSUImage imageNamed:v14 inBundle:THBundle()];
+    v20 = [TSUImage imageNamed:v16 inBundle:THBundle(isPressableAtPoint, v15)];
     TSDCenterRectOverRect();
-    v21 = v20;
-    v23 = v22;
-    v25 = v24;
-    v27 = v26;
+    v22 = v21;
+    v24 = v23;
+    v26 = v25;
+    v28 = v27;
     [-[THWAudioRep canvas](self "canvas")];
-    v28 = [v19 CGImageForContentsScale:?];
-    v42.origin.x = v21;
-    v42.origin.y = v23;
-    v42.size.width = v25;
-    v42.size.height = v27;
-    CGContextDrawImage(context, v42, v28);
+    v29 = [v20 CGImageForContentsScale:?];
+    v43.origin.x = v22;
+    v43.origin.y = v24;
+    v43.size.width = v26;
+    v43.size.height = v28;
+    CGContextDrawImage(context, v43, v29);
     if ([(THWAudioRep *)self isPlaying]|| [(THWAudioRep *)self isPaused])
     {
       [movieInfo endTime];
-      v30 = v29;
+      v31 = v30;
       [movieInfo startTime];
-      v32 = v30 - v31;
-      [(THWAudioRep *)self currentTime];
-      v34 = v33;
+      v33 = v31 - v32;
+      objc_msgSend_currentTime(self);
+      v35 = v34;
       [movieInfo startTime];
-      v36 = fmax((v34 - v35) / v32, 0.01);
-      if (v36 >= 0.00999999978)
+      v37 = fmax((v35 - v36) / v33, 0.01);
+      if (v37 >= 0.00999999978)
       {
-        v43.origin.x = v6;
-        v43.origin.y = v8;
-        v43.size.width = v10;
-        v43.size.height = v12;
-        MidX = CGRectGetMidX(v43);
         v44.origin.x = v6;
         v44.origin.y = v8;
         v44.size.width = v10;
         v44.size.height = v12;
-        MidY = CGRectGetMidY(v44);
+        MidX = CGRectGetMidX(v44);
+        v45.origin.x = v6;
+        v45.origin.y = v8;
+        v45.size.width = v10;
+        v45.size.height = v12;
+        MidY = CGRectGetMidY(v45);
         if ([(THWPressableRepGestureTargetHandler *)[(THWAudioRep *)self pressableHandler] isPressed])
         {
-          v39 = 0.5;
+          v40 = 0.5;
         }
 
         else
         {
-          v39 = 1.0;
+          v40 = 1.0;
         }
 
         CGContextSetStrokeColorWithColor(context, [[TSUColor colorWithRed:? green:? blue:? alpha:?];
         CGContextSetLineWidth(context, 7.0);
         Mutable = CGPathCreateMutable();
         CGPathMoveToPoint(Mutable, 0, MidX, MidY + -17.82);
-        CGPathAddArc(Mutable, 0, MidX, MidY, 17.82, -1.57079633, v36 * 3.14159265 * 2.0 + -1.57079633, 0);
+        CGPathAddArc(Mutable, 0, MidX, MidY, 17.82, -1.57079633, v37 * 3.14159265 * 2.0 + -1.57079633, 0);
         CGContextAddPath(context, Mutable);
         CGContextStrokePath(context);
 
@@ -374,12 +375,12 @@
     mPlayer = self->mPlayer;
     if (mPlayer)
     {
-      [(AVPlayer *)mPlayer currentTime];
+      objc_msgSend_currentTime(mPlayer);
       v8 = self->mPlayer;
       v9 = v14;
       if (v8)
       {
-        [(AVPlayer *)v8 currentTime];
+        objc_msgSend_currentTime(v8);
         v10 = v12;
 LABEL_11:
         [(THWAudioRep *)self timeChanged:v9 / v10, v11, v12, v13, v14, v15, v16];
@@ -454,7 +455,7 @@ LABEL_11:
   memset(&v14, 0, sizeof(v14));
   if (v4)
   {
-    [(AVPlayerItem *)v4 duration];
+    objc_msgSend_duration(v4);
   }
 
   else
@@ -492,7 +493,7 @@ LABEL_11:
 {
   if (self->mPlayer)
   {
-    [(THWAudioRep *)self currentTime];
+    objc_msgSend_currentTime(self, a2);
     [(THWAudioRep *)self setTimeToBeginPlaybackAt:?];
     [(THWAudioRep *)self p_setPlaying:0];
     [(THWAudioRep *)self p_cleanupPlayerAndController];
@@ -589,7 +590,7 @@ LABEL_11:
   mPlayer = self->mPlayer;
   if (mPlayer)
   {
-    [(AVPlayer *)mPlayer currentTime];
+    objc_msgSend_currentTime(mPlayer);
     return CMTimeGetSeconds(&time);
   }
 

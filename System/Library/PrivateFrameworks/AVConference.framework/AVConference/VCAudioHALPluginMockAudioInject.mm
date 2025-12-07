@@ -160,7 +160,7 @@ LABEL_20:
   v25 = v24;
   if (v11)
   {
-    [(VCAudioInjectorConfig *)v11 audioFormat];
+    objc_msgSend_audioFormat(v11);
     v26 = *&v32;
   }
 

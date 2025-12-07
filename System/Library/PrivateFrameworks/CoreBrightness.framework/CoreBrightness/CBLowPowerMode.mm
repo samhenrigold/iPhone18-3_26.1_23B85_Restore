@@ -71,15 +71,14 @@
     _os_log_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_DEFAULT, "Initial mitigation state set to %@", v14, 0xCu);
   }
 
-  *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)didChangeToMitigations:(id)mitigations withSessionInfo:(id)info
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v29 = a2;
+  v30 = a2;
   mitigationsCopy = mitigations;
   infoCopy = info;
   if (mitigations)
@@ -106,21 +105,21 @@
     }
 
     oslog = v16;
-    v23 = OS_LOG_TYPE_DEFAULT;
+    v24 = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v14 = [CBLowPowerMode levelToString:[(CBLowPowerMode *)selfCopy lastLevel]];
       v13 = [*(selfCopy + 2) count];
       v4 = std::map<void *,void({block_pointer})(PMMitigationLevel),std::less<void *>,std::allocator<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>>::size[abi:de200100](selfCopy + 24);
-      __os_log_helper_16_2_3_8_64_8_0_8_0(v32, v14, v13, v4);
-      _os_log_impl(&dword_1DE8E5000, oslog, v23, "Received mitigation level %@. Notifying %ld observers and %lu blocks", v32, 0x20u);
+      __os_log_helper_16_2_3_8_64_8_0_8_0(v33, v14, v13, v4);
+      _os_log_impl(&dword_1DE8E5000, oslog, v24, "Received mitigation level %@. Notifying %ld observers and %lu blocks", v33, 0x20u);
     }
 
     v10 = selfCopy;
     objc_sync_enter(selfCopy);
     memset(__b, 0, sizeof(__b));
     obj = *(selfCopy + 2);
-    v12 = [obj countByEnumeratingWithState:__b objects:v31 count:16];
+    v12 = [obj countByEnumeratingWithState:__b objects:v32 count:16];
     if (v12)
     {
       v7 = *__b[2];
@@ -134,14 +133,14 @@
           objc_enumerationMutation(obj);
         }
 
-        v22 = 0;
-        v22 = *(__b[1] + 8 * v8);
-        [v22 didChangeToMitigationLevel:{-[CBLowPowerMode lastLevel](selfCopy, "lastLevel")}];
+        v23 = 0;
+        v23 = *(__b[1] + 8 * v8);
+        [v23 didChangeToMitigationLevel:{-[CBLowPowerMode lastLevel](selfCopy, "lastLevel")}];
         ++v8;
         if (v6 + 1 >= v9)
         {
           v8 = 0;
-          v9 = [obj countByEnumeratingWithState:__b objects:v31 count:16];
+          v9 = [obj countByEnumeratingWithState:__b objects:v32 count:16];
           if (!v9)
           {
             break;
@@ -150,14 +149,14 @@
       }
     }
 
-    v20[1] = selfCopy + 24;
-    v20[0] = std::map<void *,void({block_pointer})(PMMitigationLevel),std::less<void *>,std::allocator<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>>::begin[abi:de200100]();
-    v19 = std::map<void *,void({block_pointer})(PMMitigationLevel),std::less<void *>,std::allocator<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>>::end[abi:de200100]();
-    while (std::operator!=[abi:de200100](v20, &v19))
+    v21 = selfCopy + 24;
+    v20 = std::map<void *,void({block_pointer})(PMMitigationLevel),std::less<void *>,std::allocator<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>>::begin[abi:de200100](selfCopy + 24);
+    v19 = std::map<void *,void({block_pointer})(PMMitigationLevel),std::less<void *>,std::allocator<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>>::end[abi:de200100](v21);
+    while (std::operator!=[abi:de200100](&v20, &v19))
     {
-      std::__map_iterator<std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>>::operator*[abi:de200100](v20);
+      std::__map_iterator<std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>>::operator*[abi:de200100](&v20);
       (*(*(v5 + 8) + 16))(*(v5 + 8), [(CBLowPowerMode *)selfCopy lastLevel]);
-      std::__map_iterator<std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>>::operator++[abi:de200100](v20);
+      std::__map_iterator<std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>>::operator++[abi:de200100](&v20);
     }
 
     objc_sync_exit(v10);
@@ -185,16 +184,14 @@
       v18 = v17;
     }
 
-    v26 = v18;
-    v25 = OS_LOG_TYPE_ERROR;
+    v27 = v18;
+    v26 = OS_LOG_TYPE_ERROR;
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_1_8_32(v33, "[CBLowPowerMode didChangeToMitigations:withSessionInfo:]");
-      _os_log_error_impl(&dword_1DE8E5000, v26, v25, "%s called, but no mitigations were provided", v33, 0xCu);
+      __os_log_helper_16_2_1_8_32(v34, "[CBLowPowerMode didChangeToMitigations:withSessionInfo:]");
+      _os_log_error_impl(&dword_1DE8E5000, v27, v26, "%s called, but no mitigations were provided", v34, 0xCu);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 + (id)levelToString:(int64_t)string
@@ -337,7 +334,7 @@
   v7[0] = caller;
   objc_sync_enter(self);
   v6 = std::map<void *,void({block_pointer})(PMMitigationLevel),std::less<void *>,std::allocator<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>>::find[abi:de200100](selfCopy + 24, v7);
-  v5 = std::map<void *,void({block_pointer})(PMMitigationLevel),std::less<void *>,std::allocator<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>>::end[abi:de200100]();
+  v5 = std::map<void *,void({block_pointer})(PMMitigationLevel),std::less<void *>,std::allocator<std::pair<void * const,void({block_pointer})(PMMitigationLevel)>>>::end[abi:de200100](selfCopy + 24);
   if (std::operator!=[abi:de200100](&v6, &v5))
   {
     std::__map_iterator<std::__tree_iterator<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,std::__tree_node<std::__value_type<void *,void({block_pointer})(PMMitigationLevel)>,void *> *,long>>::operator->[abi:de200100](&v6);
@@ -394,7 +391,6 @@
   v5 = [objc_alloc(MEMORY[0x1E69AD3F8]) initWithMitigationLevel:level clientIdentifier:@"com.apple.CoreBrightness"];
   [(CBLowPowerMode *)self didChangeToMitigations:v5 withSessionInfo:0];
   MEMORY[0x1E69E5920](v5);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

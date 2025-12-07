@@ -149,7 +149,7 @@ void __74__PLBackgroundJobService__submitTaskWithoutCoalescingIfNecessaryOnBundl
         shortCode = [v8 shortCode];
         v10 = [(PLBackgroundJobService *)self _getBundleRecordsFromProcessingSetForCriteriaShortCode:shortCode];
 
-        v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v10, "count")}];
+        v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:objc_msgSend_count(v10)];
         name = [v8 name];
         [dictionary setObject:v11 forKeyedSubscript:name];
       }
@@ -291,7 +291,7 @@ LABEL_23:
     goto LABEL_32;
   }
 
-  v7 = [v2 count];
+  v7 = objc_msgSend_count(v2);
   v8 = PLBackgroundJobServiceGetLog();
   v9 = v8;
   if (!v7)
@@ -322,10 +322,10 @@ LABEL_23:
 
   [*(a1 + 32) _removeAllBundlesFromProcessingSet];
   v11 = [*(*(a1 + 32) + 40) pendingJobsOnBundles:v2];
-  if ([v11 count])
+  if (objc_msgSend_count(v11))
   {
     v12 = [v11 objectForKeyedSubscript:*(*(a1 + 32) + 48)];
-    v13 = [v12 count];
+    v13 = objc_msgSend_count(v12);
     v14 = PLBackgroundJobServiceGetLog();
     v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
     if (v13)
@@ -410,7 +410,7 @@ void __87__PLBackgroundJobService_libraryCoordinatorFinishedJobsOnSubmittedBundl
   v3 = [*(a1 + 40) libraryURL];
   v4 = [v2 objectForKeyedSubscript:v3];
 
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     v5 = PLBackgroundJobServiceGetLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -1256,7 +1256,7 @@ void __70__PLBackgroundJobService__inq_startRunningBackgroundJobsWithCriteria___
   }
 }
 
-uint64_t __56__PLBackgroundJobService__inq_startPollingForTaskStatus__block_invoke(uint64_t a1)
+void *__56__PLBackgroundJobService__inq_startPollingForTaskStatus__block_invoke(uint64_t a1)
 {
   v7 = *MEMORY[0x1E69E9840];
   if ([*(*(a1 + 32) + 128) BOOLValue])
@@ -1420,7 +1420,7 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  if ([(__CFString *)v15 count])
+  if (objc_msgSend_count(v15))
   {
     cameraForeground = self->_cameraForeground;
     v17 = PLBackgroundJobServiceGetLog();
@@ -1516,13 +1516,13 @@ void __52__PLBackgroundJobService__inq_runTask_withCriteria___block_invoke(uint6
   dispatch_async(v2, block);
 }
 
-uint64_t __52__PLBackgroundJobService__inq_runTask_withCriteria___block_invoke_2(uint64_t a1)
+uint64_t __52__PLBackgroundJobService__inq_runTask_withCriteria___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = PLBackgroundJobServiceGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PLBackgroundJobServiceGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "Calling _stopRunningBackgroundJobs because background task was expired!", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "Calling _stopRunningBackgroundJobs because background task was expired!", v5, 2u);
   }
 
   return [*(a1 + 32) _inq_stopRunningBackgroundJobs];
@@ -1835,7 +1835,7 @@ LABEL_21:
     _os_log_impl(&dword_19BF1F000, v5, OS_LOG_TYPE_DEBUG, "%s called", buf, 0xCu);
   }
 
-  if ([necessaryCopy count])
+  if (objc_msgSend_count(necessaryCopy))
   {
     v30 = 0u;
     v31 = 0u;
@@ -1907,7 +1907,7 @@ LABEL_24:
       shortCode2 = [v20 shortCode];
       v22 = [(PLBackgroundJobService *)self _getBundleRecordsFromProcessingSetForCriteriaShortCode:shortCode2];
 
-      if ([v22 count])
+      if (objc_msgSend_count(v22))
       {
         [(PLBackgroundJobService *)self _inq_submitTaskWithCriteria:v20];
         v17 = 1;
@@ -2638,7 +2638,7 @@ LABEL_19:
     }
   }
 
-  if ([v35[5] count])
+  if (objc_msgSend_count(v35[5]))
   {
     identifier = PLBackgroundJobServiceGetLog();
     if (os_log_type_enabled(identifier, OS_LOG_TYPE_ERROR))
@@ -2655,9 +2655,9 @@ LABEL_20:
   _Block_object_dispose(&v34, 8);
 }
 
-uint64_t __56__PLBackgroundJobService__closePendingThroughputReports__block_invoke(uint64_t a1)
+void *__56__PLBackgroundJobService__closePendingThroughputReports__block_invoke(uint64_t a1)
 {
-  result = [*(*(a1 + 32) + 184) count];
+  result = objc_msgSend_count(*(*(a1 + 32) + 184));
   if (result)
   {
     v3 = [*(*(a1 + 32) + 184) copy];
@@ -2772,83 +2772,83 @@ void __52__PLBackgroundJobService__simulateBGSTShouldExpire___block_invoke(uint6
   dispatch_sync(isolationQueue, block);
 }
 
-void __31__PLBackgroundJobService_start__block_invoke(uint64_t a1)
+void __31__PLBackgroundJobService_start__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v2 = PLBackgroundJobServiceGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v29 = *MEMORY[0x1E69E9840];
+  v3 = PLBackgroundJobServiceGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "Starting BackgroundJobService", buf, 2u);
+    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "Starting BackgroundJobService", buf, 2u);
   }
 
   [*(a1 + 32) _loadBundleRecordsDictionaryFromUserDefaults];
   [*(*(a1 + 32) + 72) startWatching];
-  v23 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
+  v23 = 0u;
   obj = +[PLBackgroundJobCriteria allKnownCriteria];
-  v3 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
-  if (v3)
+  v4 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
+  if (v4)
   {
-    v4 = v3;
-    v5 = *v22;
+    v5 = v4;
+    v6 = *v23;
     do
     {
-      for (i = 0; i != v4; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v22 != v5)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v21 + 1) + 8 * i);
-        v8 = PLBackgroundJobServiceGetLog();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v8 = *(*(&v22 + 1) + 8 * i);
+        v9 = PLBackgroundJobServiceGetLog();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = [v7 taskIdentifier];
+          v10 = [v8 taskIdentifier];
           *buf = 138412290;
-          v26 = v9;
-          _os_log_impl(&dword_19BF1F000, v8, OS_LOG_TYPE_DEFAULT, "Registering task %@", buf, 0xCu);
+          v27 = v10;
+          _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_DEFAULT, "Registering task %@", buf, 0xCu);
         }
 
-        v10 = [MEMORY[0x1E698E4B8] sharedScheduler];
-        v11 = [v7 taskIdentifier];
-        v12 = *(a1 + 32);
-        v13 = *(v12 + 104);
-        v20[0] = MEMORY[0x1E69E9820];
-        v20[1] = 3221225472;
-        v20[2] = __31__PLBackgroundJobService_start__block_invoke_106;
-        v20[3] = &unk_1E756AFA0;
-        v20[4] = v12;
-        v20[5] = v7;
-        [v10 registerForTaskWithIdentifier:v11 usingQueue:v13 launchHandler:v20];
+        v11 = [MEMORY[0x1E698E4B8] sharedScheduler];
+        v12 = [v8 taskIdentifier];
+        v13 = *(a1 + 32);
+        v14 = *(v13 + 104);
+        v21[0] = MEMORY[0x1E69E9820];
+        v21[1] = 3221225472;
+        v21[2] = __31__PLBackgroundJobService_start__block_invoke_106;
+        v21[3] = &unk_1E756AFA0;
+        v21[4] = v13;
+        v21[5] = v8;
+        [v11 registerForTaskWithIdentifier:v12 usingQueue:v14 launchHandler:v21];
 
-        v14 = [MEMORY[0x1E698E4B8] sharedScheduler];
-        v15 = [v7 taskIdentifier];
-        v16 = [v14 taskRequestForIdentifier:v15];
+        v15 = [MEMORY[0x1E698E4B8] sharedScheduler];
+        v16 = [v8 taskIdentifier];
+        v17 = [v15 taskRequestForIdentifier:v16];
 
-        if (v16)
+        if (v17)
         {
-          v17 = PLBackgroundJobServiceGetLog();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v18 = PLBackgroundJobServiceGetLog();
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
-            v18 = [v7 taskIdentifier];
+            v19 = [v8 taskIdentifier];
             *buf = 138412290;
-            v26 = v18;
-            _os_log_impl(&dword_19BF1F000, v17, OS_LOG_TYPE_DEFAULT, "Task %@ was already submitted at startup time", buf, 0xCu);
+            v27 = v19;
+            _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "Task %@ was already submitted at startup time", buf, 0xCu);
           }
 
           [*(a1 + 32) _inq_setServiceState:4];
-          [*(*(a1 + 32) + 32) recordTaskSubmittedWithCriteria:v7];
+          [*(*(a1 + 32) + 32) recordTaskSubmittedWithCriteria:v8];
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v5 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
-    while (v4);
+    while (v5);
   }
 }
 

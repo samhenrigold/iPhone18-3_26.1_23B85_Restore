@@ -22,12 +22,11 @@
 
 + (id)secondaryCharacteristicFormats
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"0x0000000036000010";
-  v5[1] = @"0x00000000FF00000E";
-  v5[2] = @"0x000000003700000D";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"0x0000000036000010";
+  v4[1] = @"0x00000000FF00000E";
+  v4[2] = @"0x000000003700000D";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }

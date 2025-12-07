@@ -525,7 +525,7 @@ uint64_t __70__PXSharedLibraryStatusProvider__configureInvitationDataSourceManag
   {
     if (dataSource)
     {
-      [dataSource firstItemIndexPath];
+      objc_msgSend_firstItemIndexPath(dataSource);
     }
 
     else
@@ -571,7 +571,7 @@ LABEL_9:
   {
     if (dataSource)
     {
-      [dataSource firstItemIndexPath];
+      objc_msgSend_firstItemIndexPath(dataSource);
     }
 
     else
@@ -625,7 +625,7 @@ void __76__PXSharedLibraryStatusProvider__updateSharedLibraryWithChangeNotificat
   {
     if (dataSource)
     {
-      [dataSource firstItemIndexPath];
+      objc_msgSend_firstItemIndexPath(dataSource);
     }
 
     else
@@ -703,7 +703,7 @@ void __70__PXSharedLibraryStatusProvider__updatePreviewWithChangeNotification___
   {
     if (dataSource)
     {
-      [dataSource firstItemIndexPath];
+      objc_msgSend_firstItemIndexPath(dataSource);
     }
 
     else

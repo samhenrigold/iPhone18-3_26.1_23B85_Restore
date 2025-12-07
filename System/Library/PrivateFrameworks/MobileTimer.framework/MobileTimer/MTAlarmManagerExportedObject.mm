@@ -16,18 +16,18 @@
 
 - (MTAlarmManagerExportedObject)initWithAlarmManager:(id)manager
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
-  v10.receiver = self;
-  v10.super_class = MTAlarmManagerExportedObject;
-  v5 = [(MTAlarmManagerExportedObject *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = MTAlarmManagerExportedObject;
+  v5 = [(MTAlarmManagerExportedObject *)&v9 init];
   if (v5)
   {
     v6 = MTLogForCategory(3);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v12 = v5;
+      v11 = v5;
       _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ initializing...", buf, 0xCu);
     }
 
@@ -36,13 +36,12 @@
     [defaultCenter addObserver:v5 selector:sel__didReceiveAlarmServerReadyNotification_ name:@"com.apple.MTAlarmServer.ready" object:0];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(3);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -54,15 +53,14 @@
   defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
   [defaultCenter removeObserver:self name:@"com.apple.MTAlarmServer.ready" object:0];
 
-  v6.receiver = self;
-  v6.super_class = MTAlarmManagerExportedObject;
-  [(MTAlarmManagerExportedObject *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = MTAlarmManagerExportedObject;
+  [(MTAlarmManagerExportedObject *)&v5 dealloc];
 }
 
 - (void)_didReceiveAlarmServerReadyNotification:(id)notification
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   alarmManager = [(MTAlarmManagerExportedObject *)self alarmManager];
   v5 = MTLogForCategory(3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -91,11 +89,9 @@
     block[1] = 3221225472;
     block[2] = __72__MTAlarmManagerExportedObject__didReceiveAlarmServerReadyNotification___block_invoke;
     block[3] = &unk_1E7B0C9D8;
-    v12 = alarmManager;
+    v11 = alarmManager;
     dispatch_async(mtNotifiyingQueue, block);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __72__MTAlarmManagerExportedObject__didReceiveAlarmServerReadyNotification___block_invoke(uint64_t a1)
@@ -106,7 +102,7 @@ void __72__MTAlarmManagerExportedObject__didReceiveAlarmServerReadyNotification_
 
 - (void)alarmsAdded:(id)added
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   addedCopy = added;
   alarmManager = [(MTAlarmManagerExportedObject *)self alarmManager];
   if (alarmManager)
@@ -116,9 +112,9 @@ void __72__MTAlarmManagerExportedObject__didReceiveAlarmServerReadyNotification_
     {
       v7 = [addedCopy valueForKey:@"alarmID"];
       *buf = 138543618;
-      v16 = alarmManager;
-      v17 = 2114;
-      v18 = v7;
+      v15 = alarmManager;
+      v16 = 2114;
+      v17 = v7;
       _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ notified alarms added: %{public}@", buf, 0x16u);
     }
 
@@ -127,16 +123,14 @@ void __72__MTAlarmManagerExportedObject__didReceiveAlarmServerReadyNotification_
 
     notificationCenter = [alarmManager notificationCenter];
     mtNotifiyingQueue = [notificationCenter mtNotifiyingQueue];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __44__MTAlarmManagerExportedObject_alarmsAdded___block_invoke;
-    v12[3] = &unk_1E7B0C928;
-    v13 = addedCopy;
-    v14 = alarmManager;
-    dispatch_async(mtNotifiyingQueue, v12);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __44__MTAlarmManagerExportedObject_alarmsAdded___block_invoke;
+    v11[3] = &unk_1E7B0C928;
+    v12 = addedCopy;
+    v13 = alarmManager;
+    dispatch_async(mtNotifiyingQueue, v11);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __44__MTAlarmManagerExportedObject_alarmsAdded___block_invoke(uint64_t a1)
@@ -169,7 +163,7 @@ void __44__MTAlarmManagerExportedObject_alarmsAdded___block_invoke(uint64_t a1)
 
 - (void)alarmsUpdated:(id)updated
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   alarmManager = [(MTAlarmManagerExportedObject *)self alarmManager];
   if (alarmManager)
@@ -179,9 +173,9 @@ void __44__MTAlarmManagerExportedObject_alarmsAdded___block_invoke(uint64_t a1)
     {
       v7 = [updatedCopy valueForKey:@"alarmID"];
       *buf = 138543618;
-      v16 = alarmManager;
-      v17 = 2114;
-      v18 = v7;
+      v15 = alarmManager;
+      v16 = 2114;
+      v17 = v7;
       _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ notified alarms updated: %{public}@", buf, 0x16u);
     }
 
@@ -190,16 +184,14 @@ void __44__MTAlarmManagerExportedObject_alarmsAdded___block_invoke(uint64_t a1)
 
     notificationCenter = [alarmManager notificationCenter];
     mtNotifiyingQueue = [notificationCenter mtNotifiyingQueue];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __46__MTAlarmManagerExportedObject_alarmsUpdated___block_invoke;
-    v12[3] = &unk_1E7B0C928;
-    v13 = updatedCopy;
-    v14 = alarmManager;
-    dispatch_async(mtNotifiyingQueue, v12);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __46__MTAlarmManagerExportedObject_alarmsUpdated___block_invoke;
+    v11[3] = &unk_1E7B0C928;
+    v12 = updatedCopy;
+    v13 = alarmManager;
+    dispatch_async(mtNotifiyingQueue, v11);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __46__MTAlarmManagerExportedObject_alarmsUpdated___block_invoke(uint64_t a1)
@@ -232,7 +224,7 @@ void __46__MTAlarmManagerExportedObject_alarmsUpdated___block_invoke(uint64_t a1
 
 - (void)alarmsRemoved:(id)removed
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   removedCopy = removed;
   alarmManager = [(MTAlarmManagerExportedObject *)self alarmManager];
   if (alarmManager)
@@ -242,9 +234,9 @@ void __46__MTAlarmManagerExportedObject_alarmsUpdated___block_invoke(uint64_t a1
     {
       v7 = [removedCopy valueForKey:@"alarmID"];
       *buf = 138543618;
-      v16 = alarmManager;
-      v17 = 2114;
-      v18 = v7;
+      v15 = alarmManager;
+      v16 = 2114;
+      v17 = v7;
       _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ notified alarms removed: %{public}@", buf, 0x16u);
     }
 
@@ -253,16 +245,14 @@ void __46__MTAlarmManagerExportedObject_alarmsUpdated___block_invoke(uint64_t a1
 
     notificationCenter = [alarmManager notificationCenter];
     mtNotifiyingQueue = [notificationCenter mtNotifiyingQueue];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __46__MTAlarmManagerExportedObject_alarmsRemoved___block_invoke;
-    v12[3] = &unk_1E7B0C928;
-    v13 = removedCopy;
-    v14 = alarmManager;
-    dispatch_async(mtNotifiyingQueue, v12);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __46__MTAlarmManagerExportedObject_alarmsRemoved___block_invoke;
+    v11[3] = &unk_1E7B0C928;
+    v12 = removedCopy;
+    v13 = alarmManager;
+    dispatch_async(mtNotifiyingQueue, v11);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __46__MTAlarmManagerExportedObject_alarmsRemoved___block_invoke(uint64_t a1)
@@ -295,7 +285,7 @@ void __46__MTAlarmManagerExportedObject_alarmsRemoved___block_invoke(uint64_t a1
 
 - (void)alarmSnoozed:(id)snoozed
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   snoozedCopy = snoozed;
   alarmManager = [(MTAlarmManagerExportedObject *)self alarmManager];
   if (alarmManager)
@@ -304,9 +294,9 @@ void __46__MTAlarmManagerExportedObject_alarmsRemoved___block_invoke(uint64_t a1
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v15 = alarmManager;
-      v16 = 2114;
-      v17 = snoozedCopy;
+      v14 = alarmManager;
+      v15 = 2114;
+      v16 = snoozedCopy;
       _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ notified alarm snoozed: %{public}@", buf, 0x16u);
     }
 
@@ -315,33 +305,31 @@ void __46__MTAlarmManagerExportedObject_alarmsRemoved___block_invoke(uint64_t a1
 
     notificationCenter = [alarmManager notificationCenter];
     mtNotifiyingQueue = [notificationCenter mtNotifiyingQueue];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __45__MTAlarmManagerExportedObject_alarmSnoozed___block_invoke;
-    v11[3] = &unk_1E7B0C928;
-    v12 = snoozedCopy;
-    v13 = alarmManager;
-    dispatch_async(mtNotifiyingQueue, v11);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __45__MTAlarmManagerExportedObject_alarmSnoozed___block_invoke;
+    v10[3] = &unk_1E7B0C928;
+    v11 = snoozedCopy;
+    v12 = alarmManager;
+    dispatch_async(mtNotifiyingQueue, v10);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __45__MTAlarmManagerExportedObject_alarmSnoozed___block_invoke(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(9);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v10 = 0;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "MTAlarmManager - Alarm Snoozed", v10, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "MTAlarmManager - Alarm Snoozed", v9, 2u);
   }
 
   if (*(a1 + 32))
   {
     v3 = MEMORY[0x1E695DF20];
-    v11[0] = *(a1 + 32);
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+    v10[0] = *(a1 + 32);
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
     v5 = [v3 dictionaryWithObject:v4 forKey:@"Alarms"];
 
     v6 = [*(a1 + 40) notificationCenter];
@@ -353,13 +341,11 @@ void __45__MTAlarmManagerExportedObject_alarmSnoozed___block_invoke(uint64_t a1)
     v8 = [*(a1 + 40) notificationCenter];
     [v8 postNotificationName:@"MTAlarmManagerFiringAlarmChanged" object:*(a1 + 40) userInfo:v5];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)alarmFired:(id)fired
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   firedCopy = fired;
   alarmManager = [(MTAlarmManagerExportedObject *)self alarmManager];
   if (alarmManager)
@@ -368,9 +354,9 @@ void __45__MTAlarmManagerExportedObject_alarmSnoozed___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v15 = alarmManager;
-      v16 = 2114;
-      v17 = firedCopy;
+      v14 = alarmManager;
+      v15 = 2114;
+      v16 = firedCopy;
       _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ notified alarm fired: %{public}@", buf, 0x16u);
     }
 
@@ -379,33 +365,31 @@ void __45__MTAlarmManagerExportedObject_alarmSnoozed___block_invoke(uint64_t a1)
 
     notificationCenter = [alarmManager notificationCenter];
     mtNotifiyingQueue = [notificationCenter mtNotifiyingQueue];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __43__MTAlarmManagerExportedObject_alarmFired___block_invoke;
-    v11[3] = &unk_1E7B0C928;
-    v12 = firedCopy;
-    v13 = alarmManager;
-    dispatch_async(mtNotifiyingQueue, v11);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __43__MTAlarmManagerExportedObject_alarmFired___block_invoke;
+    v10[3] = &unk_1E7B0C928;
+    v11 = firedCopy;
+    v12 = alarmManager;
+    dispatch_async(mtNotifiyingQueue, v10);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __43__MTAlarmManagerExportedObject_alarmFired___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(9);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "MTAlarmManager - Alarm Fired", v9, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "MTAlarmManager - Alarm Fired", v8, 2u);
   }
 
   if (*(a1 + 32))
   {
     v3 = MEMORY[0x1E695DF20];
-    v10[0] = *(a1 + 32);
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = *(a1 + 32);
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
     v5 = [v3 dictionaryWithObject:v4 forKey:@"Alarms"];
 
     v6 = [*(a1 + 40) notificationCenter];
@@ -414,13 +398,11 @@ void __43__MTAlarmManagerExportedObject_alarmFired___block_invoke(uint64_t a1)
     v7 = [*(a1 + 40) notificationCenter];
     [v7 postNotificationName:@"MTAlarmManagerFiringAlarmChanged" object:*(a1 + 40) userInfo:v5];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)alarmDismissed:(id)dismissed
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dismissedCopy = dismissed;
   alarmManager = [(MTAlarmManagerExportedObject *)self alarmManager];
   if (alarmManager)
@@ -429,9 +411,9 @@ void __43__MTAlarmManagerExportedObject_alarmFired___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v15 = alarmManager;
-      v16 = 2114;
-      v17 = dismissedCopy;
+      v14 = alarmManager;
+      v15 = 2114;
+      v16 = dismissedCopy;
       _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ notified alarm dismissed: %{public}@", buf, 0x16u);
     }
 
@@ -440,33 +422,31 @@ void __43__MTAlarmManagerExportedObject_alarmFired___block_invoke(uint64_t a1)
 
     notificationCenter = [alarmManager notificationCenter];
     mtNotifiyingQueue = [notificationCenter mtNotifiyingQueue];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __47__MTAlarmManagerExportedObject_alarmDismissed___block_invoke;
-    v11[3] = &unk_1E7B0C928;
-    v12 = dismissedCopy;
-    v13 = alarmManager;
-    dispatch_async(mtNotifiyingQueue, v11);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __47__MTAlarmManagerExportedObject_alarmDismissed___block_invoke;
+    v10[3] = &unk_1E7B0C928;
+    v11 = dismissedCopy;
+    v12 = alarmManager;
+    dispatch_async(mtNotifiyingQueue, v10);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __47__MTAlarmManagerExportedObject_alarmDismissed___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(9);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "MTAlarmManager - Alarm Dismissed", v9, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "MTAlarmManager - Alarm Dismissed", v8, 2u);
   }
 
   if (*(a1 + 32))
   {
     v3 = MEMORY[0x1E695DF20];
-    v10[0] = *(a1 + 32);
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = *(a1 + 32);
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
     v5 = [v3 dictionaryWithObject:v4 forKey:@"Alarms"];
 
     v6 = [*(a1 + 40) notificationCenter];
@@ -475,13 +455,11 @@ void __47__MTAlarmManagerExportedObject_alarmDismissed___block_invoke(uint64_t a
     v7 = [*(a1 + 40) notificationCenter];
     [v7 postNotificationName:@"MTAlarmManagerFiringAlarmChanged" object:*(a1 + 40) userInfo:v5];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)nextAlarmChanged:(id)changed
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   alarmManager = [(MTAlarmManagerExportedObject *)self alarmManager];
   if (alarmManager)
@@ -490,9 +468,9 @@ void __47__MTAlarmManagerExportedObject_alarmDismissed___block_invoke(uint64_t a
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v15 = alarmManager;
-      v16 = 2114;
-      v17 = changedCopy;
+      v14 = alarmManager;
+      v15 = 2114;
+      v16 = changedCopy;
       _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ notifying next alarm changed: %{public}@", buf, 0x16u);
     }
 
@@ -501,21 +479,19 @@ void __47__MTAlarmManagerExportedObject_alarmDismissed___block_invoke(uint64_t a
 
     notificationCenter = [alarmManager notificationCenter];
     mtNotifiyingQueue = [notificationCenter mtNotifiyingQueue];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __49__MTAlarmManagerExportedObject_nextAlarmChanged___block_invoke;
-    v11[3] = &unk_1E7B0C928;
-    v12 = changedCopy;
-    v13 = alarmManager;
-    dispatch_async(mtNotifiyingQueue, v11);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __49__MTAlarmManagerExportedObject_nextAlarmChanged___block_invoke;
+    v10[3] = &unk_1E7B0C928;
+    v11 = changedCopy;
+    v12 = alarmManager;
+    dispatch_async(mtNotifiyingQueue, v10);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __49__MTAlarmManagerExportedObject_nextAlarmChanged___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(9);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -542,17 +518,17 @@ void __49__MTAlarmManagerExportedObject_nextAlarmChanged___block_invoke(uint64_t
   {
     v7 = *(a1 + 40);
     *buf = 138543618;
-    v17 = v7;
-    v18 = 2114;
-    v19 = v4;
+    v16 = v7;
+    v17 = 2114;
+    v18 = v4;
     _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ notified next alarm changed: %{public}@", buf, 0x16u);
   }
 
   if (*(a1 + 32))
   {
     v8 = MEMORY[0x1E695DF20];
-    v15 = *(a1 + 32);
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
+    v14 = *(a1 + 32);
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
     v10 = [v8 dictionaryWithObject:v9 forKey:@"Alarms"];
 
     v11 = [*(a1 + 40) notificationCenter];
@@ -563,9 +539,9 @@ void __49__MTAlarmManagerExportedObject_nextAlarmChanged___block_invoke(uint64_t
     {
       v13 = *(a1 + 40);
       *buf = 138543618;
-      v17 = v13;
-      v18 = 2114;
-      v19 = v10;
+      v16 = v13;
+      v17 = 2114;
+      v18 = v10;
       _os_log_impl(&dword_1B1F9F000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ notified alarms changed: %{public}@", buf, 0x16u);
     }
   }
@@ -574,8 +550,6 @@ void __49__MTAlarmManagerExportedObject_nextAlarmChanged___block_invoke(uint64_t
   {
     v10 = v4;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (MTAlarmManager)alarmManager

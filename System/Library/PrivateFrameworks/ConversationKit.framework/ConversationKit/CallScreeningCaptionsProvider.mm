@@ -9,18 +9,20 @@
 
 - (void)captionsClient:(id)client didEnableCaptions:(BOOL)captions error:(id)error
 {
+  captionsCopy = captions;
   clientCopy = client;
   selfCopy = self;
   errorCopy = error;
-  CallScreeningCaptionsProvider.captionsClient(_:didEnableCaptions:error:)();
+  CallScreeningCaptionsProvider.captionsClient(_:didEnableCaptions:error:)(errorCopy, captionsCopy, error);
 }
 
 - (void)captionsClient:(id)client didDisableCaptions:(BOOL)captions error:(id)error
 {
+  captionsCopy = captions;
   clientCopy = client;
   selfCopy = self;
   errorCopy = error;
-  CallScreeningCaptionsProvider.captionsClient(_:didDisableCaptions:error:)();
+  CallScreeningCaptionsProvider.captionsClient(_:didDisableCaptions:error:)(errorCopy, captionsCopy, error);
 }
 
 - (void)captionsClient:(id)client didUpdateCaptions:(id)captions

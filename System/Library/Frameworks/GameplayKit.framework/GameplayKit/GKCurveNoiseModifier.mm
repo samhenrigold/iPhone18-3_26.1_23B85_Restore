@@ -11,6 +11,23 @@
 
 - (GKCurveNoiseModifier)init
 {
+  v7[4] = *MEMORY[0x277D85DE8];
+  v6[0] = &unk_284B58770;
+  v6[1] = &unk_284B58790;
+  v7[0] = &unk_284B58770;
+  v7[1] = &unk_284B58790;
+  v6[2] = &unk_284B587A0;
+  v6[3] = &unk_284B58780;
+  v7[2] = &unk_284B587A0;
+  v7[3] = &unk_284B58780;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:4];
+  v4 = [(GKCurveNoiseModifier *)self initWithControlPoints:v3];
+
+  return v4;
+}
+
+- (GKCurveNoiseModifier)initWithInputModuleCount:(unint64_t)count
+{
   v8[4] = *MEMORY[0x277D85DE8];
   v7[0] = &unk_284B58770;
   v7[1] = &unk_284B58790;
@@ -20,38 +37,19 @@
   v7[3] = &unk_284B58780;
   v8[2] = &unk_284B587A0;
   v8[3] = &unk_284B58780;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
-  v4 = [(GKCurveNoiseModifier *)self initWithControlPoints:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
-  return v4;
-}
-
-- (GKCurveNoiseModifier)initWithInputModuleCount:(unint64_t)count
-{
-  v9[4] = *MEMORY[0x277D85DE8];
-  v8[0] = &unk_284B58770;
-  v8[1] = &unk_284B58790;
-  v9[0] = &unk_284B58770;
-  v9[1] = &unk_284B58790;
-  v8[2] = &unk_284B587A0;
-  v8[3] = &unk_284B58780;
-  v9[2] = &unk_284B587A0;
-  v9[3] = &unk_284B58780;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
   v5 = [(GKCurveNoiseModifier *)self initWithControlPoints:v4];
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (GKCurveNoiseModifier)initWithControlPoints:(id)points
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   pointsCopy = points;
-  v21.receiver = self;
-  v21.super_class = GKCurveNoiseModifier;
-  v5 = [(GKNoiseModifier *)&v21 initWithInputModuleCount:1];
+  v20.receiver = self;
+  v20.super_class = GKCurveNoiseModifier;
+  v5 = [(GKNoiseModifier *)&v20 initWithInputModuleCount:1];
   if (v5)
   {
     if (pointsCopy && [pointsCopy count])
@@ -59,33 +57,33 @@
       v6 = [pointsCopy count];
       v5->_count = v6;
       v5->_controlPoints = malloc_type_malloc(8 * v6, 0x100004000313F17uLL);
+      v16 = 0u;
       v17 = 0u;
       v18 = 0u;
       v19 = 0u;
-      v20 = 0u;
       v7 = pointsCopy;
-      v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
       if (v8)
       {
-        v9 = *v18;
+        v9 = *v17;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v18 != v9)
+            if (*v17 != v9)
             {
               objc_enumerationMutation(v7);
             }
 
-            v11 = *(*(&v17 + 1) + 8 * i);
-            v12 = [v7 valueForKey:{v11, v17}];
+            v11 = *(*(&v16 + 1) + 8 * i);
+            v12 = [v7 valueForKey:{v11, v16}];
             [v12 doubleValue];
             *v5->_controlPoints = v13;
             [v11 doubleValue];
             *v5->_parameters = v14;
           }
 
-          v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+          v8 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
         }
 
         while (v8);
@@ -99,7 +97,6 @@
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

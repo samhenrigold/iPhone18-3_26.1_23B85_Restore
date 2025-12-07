@@ -47,16 +47,14 @@
 
 - (void)mismatchError:(id)error
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = MFLogGeneral();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     errorCopy = error;
-    _os_log_impl(&dword_258BDA000, v4, OS_LOG_TYPE_INFO, "Ignoring unmatched </%@> command", &v6, 0xCu);
+    _os_log_impl(&dword_258BDA000, v4, OS_LOG_TYPE_INFO, "Ignoring unmatched </%@> command", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -1139,23 +1137,23 @@ LABEL_15:
 
 - (void)convertEnrichedString:(id)string intoOutputString:(id)outputString
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   Current = CFAbsoluteTimeGetCurrent();
-  v15 = 0;
+  v14 = 0;
   [(MFMimeEnrichedReader *)self resetStateWithString:string outputString:outputString];
   v8 = 1;
   while (1)
   {
-    v9 = [(MFMimeEnrichedReader *)self readTokenInto:&v15];
+    v9 = [(MFMimeEnrichedReader *)self readTokenInto:&v14];
     if (v9 == 3)
     {
-      [(MFMimeEnrichedReader *)self beginCommand:v15];
+      [(MFMimeEnrichedReader *)self beginCommand:v14];
       goto LABEL_12;
     }
 
     if (v9 == 4)
     {
-      [(MFMimeEnrichedReader *)self endCommand:v15];
+      [(MFMimeEnrichedReader *)self endCommand:v14];
       goto LABEL_12;
     }
 
@@ -1166,9 +1164,9 @@ LABEL_15:
 
     if ((*(self + 211) & 0x80000000) == 0)
     {
-      if (v9 != 2 || (v8 & 1) == 0 || ([v15 isEqual:@" "] & 1) == 0)
+      if (v9 != 2 || (v8 & 1) == 0 || ([v14 isEqual:@" "] & 1) == 0)
       {
-        [(MFMimeEnrichedReader *)self appendStringToBuffer:v15];
+        [(MFMimeEnrichedReader *)self appendStringToBuffer:v14];
       }
 
       v8 = 0;
@@ -1186,15 +1184,13 @@ LABEL_12:
     inputLength = self->_inputLength;
     v13 = [self->_outputString length];
     *buf = 134218496;
-    v17 = v11;
-    v18 = 2048;
-    v19 = inputLength;
-    v20 = 2048;
-    v21 = v13;
+    v16 = v11;
+    v17 = 2048;
+    v18 = inputLength;
+    v19 = 2048;
+    v20 = v13;
     _os_log_impl(&dword_258BDA000, v10, OS_LOG_TYPE_INFO, "elapsed time %gs (input length=%ld, output length=%lu)", buf, 0x20u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -1210,8 +1206,7 @@ LABEL_12:
       for (i = 0; i != Count; ++i)
       {
         ValueAtIndex = CFArrayGetValueAtIndex(self->_commandStack, i);
-        v8 = **ValueAtIndex;
-        [v3 appendFormat:@"\n\t\t[%@ parameter=%@]", v8, ValueAtIndex[1]];
+        [v3 appendFormat:@"\n\t\t[%@ parameter=%@]", **ValueAtIndex, ValueAtIndex[1]];
       }
     }
   }

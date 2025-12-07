@@ -13,20 +13,20 @@
 
 - (HKVerifiableClinicalRecordQuery)initWithRecordTypes:(NSArray *)recordTypes predicate:(NSPredicate *)predicate resultsHandler:(void *)resultsHandler
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v8 = recordTypes;
   v9 = resultsHandler;
-  v19.receiver = self;
-  v19.super_class = HKVerifiableClinicalRecordQuery;
-  v10 = [(HKQuery *)&v19 _initWithObjectType:0 predicate:predicate];
+  v18.receiver = self;
+  v18.super_class = HKVerifiableClinicalRecordQuery;
+  v10 = [(HKQuery *)&v18 _initWithObjectType:0 predicate:predicate];
   if (v10)
   {
     v11 = [(NSArray *)v8 copy];
     v12 = v10->_recordTypes;
     v10->_recordTypes = v11;
 
-    v20[0] = @"SMARTHealthCard";
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+    v19[0] = @"SMARTHealthCard";
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
     sourceTypes = v10->_sourceTypes;
     v10->_sourceTypes = v13;
 
@@ -35,7 +35,6 @@
     v10->_resultsHandler = v15;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

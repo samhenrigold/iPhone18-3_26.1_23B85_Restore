@@ -99,7 +99,7 @@ LABEL_10:
 
   else
   {
-    v17 = sub_10007FAA0();
+    v17 = sub_10007FAA0(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = sub_10007FAFC(0);
@@ -174,7 +174,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v20 = sub_10007FAA0();
+  v20 = sub_10007FAA0(0);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     v21 = sub_10007FAFC(0);
@@ -280,7 +280,7 @@ LABEL_13:
 
   else
   {
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v13 = sub_10007FAFC(0);

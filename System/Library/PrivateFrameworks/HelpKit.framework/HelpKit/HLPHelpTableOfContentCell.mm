@@ -48,7 +48,7 @@
     v4->_accessoryImageView = v7;
 
     [(UIImageView *)v4->_accessoryImageView setTranslatesAutoresizingMaskIntoConstraints:0];
-    [(HLPHelpTableOfContentCell *)v4 arrowTransform];
+    objc_msgSend_arrowTransform(v4);
     v9 = v4->_accessoryImageView;
     v86[0] = v86[3];
     v86[1] = v86[4];
@@ -209,7 +209,7 @@
   v5.super_class = HLPHelpTableOfContentCell;
   [(HLPHelpTableOfContentCell *)&v5 prepareForReuse];
   self->_closed = 1;
-  [(HLPHelpTableOfContentCell *)self arrowTransform];
+  objc_msgSend_arrowTransform(self);
   accessoryImageView = [(HLPHelpTableOfContentCell *)self accessoryImageView];
   v4[0] = v4[3];
   v4[1] = v4[4];
@@ -522,7 +522,7 @@ void __41__HLPHelpTableOfContentCell_setHelpItem___block_invoke(uint64_t a1, voi
     v17 = 0u;
     v18 = 0u;
     v16 = 0u;
-    [(HLPHelpTableOfContentCell *)self arrowTransform];
+    objc_msgSend_arrowTransform(self);
     if (animatedCopy)
     {
       v12[0] = MEMORY[0x277D85DD0];
@@ -558,12 +558,11 @@ void __55__HLPHelpTableOfContentCell_updateToggleImageAnimated___block_invoke(ui
 
 - (id)accessibilityLabel
 {
-  helpItem = self->_helpItem;
   objc_opt_class();
-  LOBYTE(helpItem) = objc_opt_isKindOfClass();
+  isKindOfClass = objc_opt_isKindOfClass();
   v4 = +[HLPCommonDefines HLPBundle];
   v5 = v4;
-  if (helpItem)
+  if (isKindOfClass)
   {
     v6 = @"Section:";
   }

@@ -14,7 +14,7 @@
 
 - (id)_pl_prettyDescriptionWithIndent:()PhotoLibraryServices
 {
-  if ([self count])
+  if (objc_msgSend_count(self, a2))
   {
     pl_result_with_autoreleasepool();
   }
@@ -23,24 +23,24 @@
   {
     PLEmptyContainerDescription();
   }
-  v1 = ;
+  v4 = ;
 
-  return v1;
+  return v4;
 }
 
 - (id)_pl_safeObjectAtIndex:()PhotoLibraryServices
 {
-  if ([self count] <= a3)
+  if (objc_msgSend_count(self, a2) <= a3)
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v5 = [self objectAtIndexedSubscript:a3];
+    v6 = [self objectAtIndexedSubscript:a3];
   }
 
-  return v5;
+  return v6;
 }
 
 - (id)_pl_indexBy:()PhotoLibraryServices
@@ -258,12 +258,12 @@ LABEL_11:
 - (id)_pl_map:()PhotoLibraryServices
 {
   v4 = a3;
-  if ([self count] > 0x80)
+  if (objc_msgSend_count(self) > 0x80)
   {
     v6 = v4;
     v7 = MEMORY[0x1E695DF70];
     selfCopy = self;
-    v9 = [[v7 alloc] initWithCapacity:{objc_msgSend(selfCopy, "count")}];
+    v9 = [[v7 alloc] initWithCapacity:objc_msgSend_count(selfCopy)];
     v14[0] = MEMORY[0x1E69E9820];
     v14[1] = 3221225472;
     v14[2] = __PLArrayMapSlowPath_block_invoke;

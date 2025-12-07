@@ -157,11 +157,11 @@ LABEL_28:
           v26 = 0u;
           connection = [connectionCopy connection];
           remoteProcess = [connection remoteProcess];
-          auditToken = [remoteProcess auditToken];
-          v14 = auditToken;
-          if (auditToken)
+          v13 = objc_msgSend_auditToken(remoteProcess);
+          v14 = v13;
+          if (v13)
           {
-            [auditToken realToken];
+            objc_msgSend_realToken(v13);
           }
 
           else

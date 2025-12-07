@@ -16,10 +16,9 @@
   v3[0] = @"source_bundle_id";
   v3[1] = @"status";
   v3[2] = @"date_modified";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:3];
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:3];
 
-  return v0;
+  return v1;
 }
 
 + (BOOL)setStatusIfNeeded:(int64_t)needed profile:(id)profile bundleIdentifier:(id)identifier error:(id *)error
@@ -94,7 +93,7 @@ uint64_t __81__HDProfileAuthorizationEntity_setStatusIfNeeded_profile_bundleIden
   else
   {
     database = [profileCopy database];
-    v18 = +[HDProfileAuthorizationEntity _allProperties];
+    v18 = +[(HDProfileAuthorizationEntity *)self];
     v22[0] = MEMORY[0x277D85DD0];
     v22[1] = 3221225472;
     v22[2] = __86__HDProfileAuthorizationEntity_setStatus_profile_bundleIdentifier_dateModified_error___block_invoke;
@@ -110,27 +109,26 @@ uint64_t __81__HDProfileAuthorizationEntity_setStatusIfNeeded_profile_bundleIden
   return v20;
 }
 
-void __86__HDProfileAuthorizationEntity_setStatus_profile_bundleIdentifier_dateModified_error___block_invoke(void *a1, uint64_t a2)
+void __86__HDProfileAuthorizationEntity_setStatus_profile_bundleIdentifier_dateModified_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  MEMORY[0x22AAC6BD0](a2, @"source_bundle_id", a1[4]);
-  MEMORY[0x22AAC6B90](a2, @"status", a1[6]);
-  v4 = a1[5];
+  MEMORY[0x22AAC6BD0](a2, @"source_bundle_id", *(a1 + 32));
+  MEMORY[0x22AAC6B90](a2, @"status", *(a1 + 48));
 
   JUMPOUT(0x22AAC6B50);
 }
 
 + (BOOL)fetchStatus:(int64_t *)status profile:(id)profile bundleIdentifier:(id)identifier error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   identifierCopy = identifier;
   if ([profileCopy profileType] != 1)
   {
     v13 = [MEMORY[0x277D10B18] predicateWithProperty:@"source_bundle_id" equalToValue:identifierCopy];
     database = [profileCopy database];
-    v22 = 0;
-    v15 = [self propertyValueForAnyWithProperty:@"status" predicate:v13 healthDatabase:database error:&v22];
-    v16 = v22;
+    v21 = 0;
+    v15 = [self propertyValueForAnyWithProperty:@"status" predicate:v13 healthDatabase:database error:&v21];
+    v16 = v21;
 
     if (!v15)
     {
@@ -183,8 +181,8 @@ LABEL_14:
     {
       *buf = 138543618;
       selfCopy = self;
-      v25 = 2048;
-      v26 = integerValue;
+      v24 = 2048;
+      v25 = integerValue;
       _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "%{public}@ Encountered unexpected value %ld in table profile_authorization", buf, 0x16u);
     }
 
@@ -196,7 +194,6 @@ LABEL_14:
   *status = 1;
 LABEL_17:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -257,24 +254,24 @@ LABEL_17:
   return v15;
 }
 
-uint64_t __98__HDProfileAuthorizationEntity_unitTest_getBundleIdentifier_status_dateModified_forProfile_error___block_invoke(uint64_t a1)
+uint64_t __98__HDProfileAuthorizationEntity_unitTest_getBundleIdentifier_status_dateModified_forProfile_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 48))
   {
     **(a1 + 48) = HDSQLiteColumnWithNameAsInt64();
   }
 
-  v2 = HDSQLiteColumnWithNameAsString();
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v4 = HDSQLiteColumnWithNameAsString();
+  v5 = *(*(a1 + 32) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
-  v5 = HDSQLiteColumnWithNameAsDate();
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v7 = HDSQLiteColumnWithNameAsDate();
+  v8 = *(*(a1 + 40) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v7;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v7, v9);
 }
 
 @end

@@ -51,8 +51,7 @@
   v9[2] = __46__CRVehiclePolicyMonitor_monitoringConnection__block_invoke;
   v9[3] = &unk_1E82FBF70;
   v9[4] = self;
-  [v3 setInterruptionHandler:v9];
-  v6 = CarGeneralLogging();
+  v6 = CarGeneralLogging([v3 setInterruptionHandler:v9]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -64,7 +63,7 @@
   return v3;
 }
 
-uint64_t __46__CRVehiclePolicyMonitor_monitoringConnection__block_invoke(uint64_t a1)
+void *__46__CRVehiclePolicyMonitor_monitoringConnection__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isMonitoring];
   if (result)
@@ -89,20 +88,20 @@ uint64_t __46__CRVehiclePolicyMonitor_monitoringConnection__block_invoke(uint64_
 void __41__CRVehiclePolicyMonitor_startMonitoring__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __41__CRVehiclePolicyMonitor_startMonitoring__block_invoke_cold_1(v2, v3);
   }
 }
 
-void __41__CRVehiclePolicyMonitor_startMonitoring__block_invoke_33()
+void __41__CRVehiclePolicyMonitor_startMonitoring__block_invoke_33(uint64_t a1)
 {
-  v0 = CarGeneralLogging();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = CarGeneralLogging(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C81FC000, v0, OS_LOG_TYPE_DEFAULT, "started monitoring", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1C81FC000, v1, OS_LOG_TYPE_DEFAULT, "started monitoring", v2, 2u);
   }
 }
 
@@ -118,20 +117,20 @@ void __41__CRVehiclePolicyMonitor_startMonitoring__block_invoke_33()
 void __40__CRVehiclePolicyMonitor_stopMonitoring__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __41__CRVehiclePolicyMonitor_startMonitoring__block_invoke_cold_1(v2, v3);
   }
 }
 
-void __40__CRVehiclePolicyMonitor_stopMonitoring__block_invoke_38()
+void __40__CRVehiclePolicyMonitor_stopMonitoring__block_invoke_38(uint64_t a1)
 {
-  v0 = CarGeneralLogging();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = CarGeneralLogging(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C81FC000, v0, OS_LOG_TYPE_DEFAULT, "stopped monitoring", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1C81FC000, v1, OS_LOG_TYPE_DEFAULT, "stopped monitoring", v2, 2u);
   }
 }
 
@@ -139,7 +138,7 @@ void __40__CRVehiclePolicyMonitor_stopMonitoring__block_invoke_38()
 {
   replyCopy = reply;
   serialCopy = serial;
-  v8 = CarGeneralLogging();
+  v8 = CarGeneralLogging(serialCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -152,9 +151,9 @@ void __40__CRVehiclePolicyMonitor_stopMonitoring__block_invoke_38()
   if (v10)
   {
     delegate = [(CRVehiclePolicyMonitor *)self delegate];
-    v12 = objc_opt_respondsToSelector();
+    v13 = objc_opt_respondsToSelector();
 
-    if (v12)
+    if (v13)
     {
       delegate2 = [(CRVehiclePolicyMonitor *)self delegate];
       [delegate2 willEnableVehicleTrackedByMonitor:self];
@@ -165,11 +164,11 @@ void __40__CRVehiclePolicyMonitor_stopMonitoring__block_invoke_38()
 
   else
   {
-    v14 = CarGeneralLogging();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = CarGeneralLogging(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_1C81FC000, v14, OS_LOG_TYPE_DEFAULT, "not monitoring this serial, ignoring", v15, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_1C81FC000, v15, OS_LOG_TYPE_DEFAULT, "not monitoring this serial, ignoring", v16, 2u);
     }
   }
 }
@@ -178,7 +177,7 @@ void __40__CRVehiclePolicyMonitor_stopMonitoring__block_invoke_38()
 {
   replyCopy = reply;
   serialCopy = serial;
-  v8 = CarGeneralLogging();
+  v8 = CarGeneralLogging(serialCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -191,9 +190,9 @@ void __40__CRVehiclePolicyMonitor_stopMonitoring__block_invoke_38()
   if (v10)
   {
     delegate = [(CRVehiclePolicyMonitor *)self delegate];
-    v12 = objc_opt_respondsToSelector();
+    v13 = objc_opt_respondsToSelector();
 
-    if (v12)
+    if (v13)
     {
       delegate2 = [(CRVehiclePolicyMonitor *)self delegate];
       [delegate2 willDisableVehicleTrackedByMonitor:self];
@@ -204,11 +203,11 @@ void __40__CRVehiclePolicyMonitor_stopMonitoring__block_invoke_38()
 
   else
   {
-    v14 = CarGeneralLogging();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = CarGeneralLogging(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_1C81FC000, v14, OS_LOG_TYPE_DEFAULT, "not monitoring this serial, ignoring", v15, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_1C81FC000, v15, OS_LOG_TYPE_DEFAULT, "not monitoring this serial, ignoring", v16, 2u);
     }
   }
 }

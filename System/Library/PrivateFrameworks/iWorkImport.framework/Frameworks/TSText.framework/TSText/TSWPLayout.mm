@@ -1486,9 +1486,9 @@ LABEL_20:
 {
   if (self->_isLayingOutIntoTarget)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Mismatch in willLayoutIntoTarget/didLayoutIntoTarget.", a2, "[TSWPLayout willLayoutIntoTarget]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPLayout.mm", 816);
     v2 = MEMORY[0x277D81150];
-    v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "[TSWPLayout willLayoutIntoTarget]", "[TSWPLayout willLayoutIntoTarget]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPLayout.mm", 816);
+    v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "[TSWPLayout willLayoutIntoTarget]");
     v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPLayout.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v7, v4, v6, 816, 1, "Mismatch in willLayoutIntoTarget/didLayoutIntoTarget.");
 
@@ -1503,9 +1503,9 @@ LABEL_20:
 {
   if (!self->_isLayingOutIntoTarget)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Mismatch in calls willLayoutIntoTarget/didLayoutIntoTarget.", a2, "[TSWPLayout didLayoutIntoTarget]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPLayout.mm", 821);
     v2 = MEMORY[0x277D81150];
-    v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "[TSWPLayout didLayoutIntoTarget]", "[TSWPLayout didLayoutIntoTarget]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPLayout.mm", 821);
+    v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "[TSWPLayout didLayoutIntoTarget]");
     v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPLayout.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v7, v4, v6, 821, 1, "Mismatch in calls willLayoutIntoTarget/didLayoutIntoTarget.");
 

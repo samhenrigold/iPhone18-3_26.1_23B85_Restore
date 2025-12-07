@@ -45,12 +45,11 @@
   dateCopy = date;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  activityCreationDate = selfCopy->_activityCreationDate;
   if ((BSEqualObjects() & 1) == 0)
   {
-    v6 = [dateCopy copy];
-    v7 = selfCopy->_activityCreationDate;
-    selfCopy->_activityCreationDate = v6;
+    v5 = [dateCopy copy];
+    activityCreationDate = selfCopy->_activityCreationDate;
+    selfCopy->_activityCreationDate = v5;
   }
 
   objc_sync_exit(selfCopy);
@@ -62,19 +61,18 @@
   selfCopy = self;
   objc_sync_enter(selfCopy);
   p_activityLifetimeDescriptions = &selfCopy->_activityLifetimeDescriptions;
-  activityLifetimeDescriptions = selfCopy->_activityLifetimeDescriptions;
   if ((BSEqualArrays() & 1) == 0)
   {
     if (descriptionsCopy)
     {
-      v7 = [objc_alloc(MEMORY[0x277CBEA60]) initWithArray:descriptionsCopy copyItems:1];
-      v8 = selfCopy->_activityLifetimeDescriptions;
-      selfCopy->_activityLifetimeDescriptions = v7;
+      v6 = [objc_alloc(MEMORY[0x277CBEA60]) initWithArray:descriptionsCopy copyItems:1];
+      activityLifetimeDescriptions = selfCopy->_activityLifetimeDescriptions;
+      selfCopy->_activityLifetimeDescriptions = v6;
 
       p_activityLifetimeDescriptions = &selfCopy->_activityLifetimesAlternativeDescription;
     }
 
-    v9 = *p_activityLifetimeDescriptions;
+    v8 = *p_activityLifetimeDescriptions;
     *p_activityLifetimeDescriptions = 0;
   }
 
@@ -86,12 +84,11 @@
   descriptionCopy = description;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  activityLifetimesAlternativeDescription = selfCopy->_activityLifetimesAlternativeDescription;
   if ((BSEqualStrings() & 1) == 0)
   {
-    v6 = [descriptionCopy copy];
-    v7 = selfCopy->_activityLifetimesAlternativeDescription;
-    selfCopy->_activityLifetimesAlternativeDescription = v6;
+    v5 = [descriptionCopy copy];
+    activityLifetimesAlternativeDescription = selfCopy->_activityLifetimesAlternativeDescription;
+    selfCopy->_activityLifetimesAlternativeDescription = v5;
 
     if (selfCopy->_activityLifetimesAlternativeDescription)
     {

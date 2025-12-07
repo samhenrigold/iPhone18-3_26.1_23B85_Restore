@@ -69,17 +69,17 @@ uint64_t __73__AR3DSkeletonRegistrationTechnique_processResultData_timestamp_con
 
 - (void)requestResultDataAtTimestamp:(double)timestamp context:(id)context
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v7 = *(MEMORY[0x1E69E9B18] + 16);
-  v34 = *MEMORY[0x1E69E9B18];
-  v35 = v7;
+  v36 = *MEMORY[0x1E69E9B18];
+  v37 = v7;
   v8 = *(MEMORY[0x1E69E9B18] + 48);
-  v36 = *(MEMORY[0x1E69E9B18] + 32);
-  v37 = v8;
-  v33 = -1.0;
+  v38 = *(MEMORY[0x1E69E9B18] + 32);
+  v39 = v8;
+  v35 = -1.0;
   imageData = [contextCopy imageData];
-  [imageData timestamp];
+  objc_msgSend_timestamp(imageData);
   kdebug_trace();
 
   v10 = [contextCopy resultDataOfClass:objc_opt_class()];
@@ -93,58 +93,58 @@ uint64_t __73__AR3DSkeletonRegistrationTechnique_processResultData_timestamp_con
   LODWORD(v16) = 981668463;
   v17 = [firstObject3 createResultScaledByFactor:v16];
 
-  v18 = _ARLogGeneral();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v19 = _ARLogGeneral(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    v19 = objc_opt_class();
-    v20 = NSStringFromClass(v19);
+    v20 = objc_opt_class();
+    v21 = NSStringFromClass(v20);
     *buf = 138543618;
-    v41 = v20;
-    v42 = 2048;
+    v43 = v21;
+    v44 = 2048;
     selfCopy2 = self;
-    _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Estimating camera pose and scale", buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Estimating camera pose and scale", buf, 0x16u);
   }
 
   imageData2 = [contextCopy imageData];
-  v22 = [(AR3DSkeletonRegistrationTechnique *)self _estimateCameraPoseFromMatchingImageData:imageData2 to3DData:v17 worldTrackingPose:self->_currentWorldTrackingPose pCameraFromBody:&v34 depthData:firstObject2 pScaleOut:&v33];
+  v23 = [(AR3DSkeletonRegistrationTechnique *)self _estimateCameraPoseFromMatchingImageData:imageData2 to3DData:v17 worldTrackingPose:self->_currentWorldTrackingPose pCameraFromBody:&v36 depthData:firstObject2 pScaleOut:&v35];
 
   imageData3 = [contextCopy imageData];
-  [imageData3 timestamp];
+  objc_msgSend_timestamp(imageData3);
   kdebug_trace();
 
-  v24 = _ARLogGeneral();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+  v26 = _ARLogGeneral(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    v25 = objc_opt_class();
-    v26 = NSStringFromClass(v25);
+    v27 = objc_opt_class();
+    v28 = NSStringFromClass(v27);
     *buf = 138543618;
-    v41 = v26;
-    v42 = 2048;
+    v43 = v28;
+    v44 = 2048;
     selfCopy2 = self;
-    _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Creating result", buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v26, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Creating result", buf, 0x16u);
   }
 
-  if (v22)
+  if (v23)
   {
     self->_last_detection_timestamp = timestamp;
     self->_is_tracking = 1;
-    if (v33 > 0.0)
+    if (v35 > 0.0)
     {
-      self->_estimatedScale = v33;
+      self->_estimatedScale = v35;
     }
 
-    v27 = objc_opt_new();
-    [v27 setTimestamp:timestamp];
-    *&v28 = self->_estimatedScale;
-    [v27 setEstimatedScaleFactor:v28];
-    v29 = vmulq_n_f32(v37, self->_estimatedScale);
-    v29.i32[3] = 1.0;
-    v37 = v29;
-    [v27 setVisionTransform:{*&v34, *&v35, *&v36}];
+    v29 = objc_opt_new();
+    [v29 setTimestamp:timestamp];
+    *&v30 = self->_estimatedScale;
+    [v29 setEstimatedScaleFactor:v30];
+    v31 = vmulq_n_f32(v39, self->_estimatedScale);
+    v31.i32[3] = 1.0;
+    v39 = v31;
+    [v29 setVisionTransform:{*&v36, *&v37, *&v38}];
     delegate = [(ARTechnique *)self delegate];
-    v39 = v27;
-    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
-    [delegate technique:self didOutputResultData:v31 timestamp:contextCopy context:timestamp];
+    v41 = v29;
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+    [delegate technique:self didOutputResultData:v33 timestamp:contextCopy context:timestamp];
   }
 
   else
@@ -154,45 +154,29 @@ uint64_t __73__AR3DSkeletonRegistrationTechnique_processResultData_timestamp_con
       [(AR3DSkeletonRegistrationTechnique *)self resetState];
     }
 
-    v27 = objc_opt_new();
-    LODWORD(v32) = -1.0;
-    [v27 setEstimatedScaleFactor:v32];
-    [v27 setTimestamp:timestamp];
+    v29 = objc_opt_new();
+    LODWORD(v34) = -1.0;
+    [v29 setEstimatedScaleFactor:v34];
+    [v29 setTimestamp:timestamp];
     delegate = [(ARTechnique *)self delegate];
-    v38 = v27;
-    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
-    [delegate technique:self didOutputResultData:v31 timestamp:contextCopy context:timestamp];
+    v40 = v29;
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
+    [delegate technique:self didOutputResultData:v33 timestamp:contextCopy context:timestamp];
   }
 }
 
 - (BOOL)_estimateCameraPoseFromMatchingImageData:(id)data to3DData:(id)dData worldTrackingPose:(id)pose pCameraFromBody:(id *)body depthData:(id)depthData pScaleOut:(float *)out
 {
-  v113 = *MEMORY[0x1E69E9840];
+  v122 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   dDataCopy = dData;
   poseCopy = pose;
   depthDataCopy = depthData;
+  v17 = depthDataCopy;
   if (!dataCopy)
   {
-    v19 = _ARLogTechnique();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
-    {
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
-      *buf = 138543618;
-      *&buf[4] = v23;
-      *&buf[12] = 2048;
-      *&buf[14] = self;
-      _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Missing image data.", buf, 0x16u);
-    }
-
-    goto LABEL_21;
-  }
-
-  if (!dDataCopy)
-  {
-    v19 = _ARLogTechnique();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v21 = _ARLogTechnique(depthDataCopy);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       v24 = objc_opt_class();
       v25 = NSStringFromClass(v24);
@@ -200,7 +184,24 @@ uint64_t __73__AR3DSkeletonRegistrationTechnique_processResultData_timestamp_con
       *&buf[4] = v25;
       *&buf[12] = 2048;
       *&buf[14] = self;
-      _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Missing lifted data.", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Missing image data.", buf, 0x16u);
+    }
+
+    goto LABEL_21;
+  }
+
+  if (!dDataCopy)
+  {
+    v21 = _ARLogTechnique(depthDataCopy);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    {
+      v26 = objc_opt_class();
+      v27 = NSStringFromClass(v26);
+      *buf = 138543618;
+      *&buf[4] = v27;
+      *&buf[12] = 2048;
+      *&buf[14] = self;
+      _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Missing lifted data.", buf, 0x16u);
     }
 
     goto LABEL_21;
@@ -208,77 +209,77 @@ uint64_t __73__AR3DSkeletonRegistrationTechnique_processResultData_timestamp_con
 
   if (!poseCopy)
   {
-    v19 = _ARLogTechnique();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v21 = _ARLogTechnique(depthDataCopy);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      v41 = objc_opt_class();
-      v42 = NSStringFromClass(v41);
+      v45 = objc_opt_class();
+      v46 = NSStringFromClass(v45);
       *buf = 138543618;
-      *&buf[4] = v42;
+      *&buf[4] = v46;
       *&buf[12] = 2048;
       *&buf[14] = self;
-      _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Missing currentWorldTrackingPose", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Missing currentWorldTrackingPose", buf, 0x16u);
     }
 
     goto LABEL_21;
   }
 
-  if (self->_is_tracking || ([poseCopy worldTrackingState], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "vioTrackingState"), v17, !v18))
+  if (self->_is_tracking || ([poseCopy worldTrackingState], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "vioTrackingState"), v18, !v19))
   {
-    v108 = 0u;
-    v109 = 0u;
-    v107 = 0u;
+    v117 = 0u;
+    v118 = 0u;
+    v116 = 0u;
     [dataCopy cameraIntrinsics];
-    DWORD2(v107) = v26;
-    DWORD2(v108) = v27;
-    *&v107 = v28;
-    *&v108 = v29;
-    DWORD2(v109) = v30;
-    *&v109 = v31;
+    DWORD2(v116) = v28;
+    DWORD2(v117) = v29;
+    *&v116 = v30;
+    *&v117 = v31;
+    DWORD2(v118) = v32;
+    *&v118 = v33;
     skeletonDetectionResult2D = [dDataCopy skeletonDetectionResult2D];
-    v33 = skeletonDetectionResult2D;
+    v35 = skeletonDetectionResult2D;
     if (skeletonDetectionResult2D)
     {
       liftingData = [skeletonDetectionResult2D liftingData];
 
       if (liftingData)
       {
-        if (ARIsANEVersionEqualOrPriorToH12())
+        if (ARIsANEVersionEqualOrPriorToH12(v37, v38))
         {
           abpkRegistration = self->_abpkRegistration;
           [dataCopy imageResolution];
-          v36 = v35;
-          v38 = v37;
-          liftingData2 = [v33 liftingData];
-          v40 = -[ABPKCameraRegistration estimateCameraPoseFromMatchingwithImageIntrinsics:imageResolution:joints2d:jointsLifted3D:jointsLifted3DCount:](abpkRegistration, "estimateCameraPoseFromMatchingwithImageIntrinsics:imageResolution:joints2d:jointsLifted3D:jointsLifted3DCount:", [liftingData2 rotatedJoints], objc_msgSend(dDataCopy, "joints"), objc_msgSend(dDataCopy, "jointCount"), *&v107, *&v108, *&v109, v36, v38);
+          v40 = v39;
+          v42 = v41;
+          liftingData2 = [v35 liftingData];
+          v44 = -[ABPKCameraRegistration estimateCameraPoseFromMatchingwithImageIntrinsics:imageResolution:joints2d:jointsLifted3D:jointsLifted3DCount:](abpkRegistration, "estimateCameraPoseFromMatchingwithImageIntrinsics:imageResolution:joints2d:jointsLifted3D:jointsLifted3DCount:", [liftingData2 rotatedJoints], objc_msgSend(dDataCopy, "joints"), objc_msgSend(dDataCopy, "jointCount"), *&v116, *&v117, *&v118, v40, v42);
         }
 
         else
         {
-          jointCount = [v33 jointCount];
-          liftingData3 = [v33 liftingData];
+          jointCount = [v35 jointCount];
+          liftingData3 = [v35 liftingData];
           rotatedJoints = [liftingData3 rotatedJoints];
-          liftingData4 = [v33 liftingData];
+          liftingData4 = [v35 liftingData];
           rotatedJoints2 = [liftingData4 rotatedJoints];
           memset(buf, 0, 24);
-          _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(buf, rotatedJoints, rotatedJoints2 + 8 * jointCount, (rotatedJoints2 + 8 * jointCount - rotatedJoints) >> 3);
+          _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(buf, rotatedJoints, (rotatedJoints2 + 8 * jointCount), (rotatedJoints2 + 8 * jointCount - rotatedJoints) >> 3);
 
-          v53 = 0;
+          v57 = 0;
           __asm { FMOV            V8.2S, #-1.0 }
 
-          while ([v33 jointCount] > v53)
+          while ([v35 jointCount] > v57)
           {
-            if (!*([v33 jointTrackingStates] + 4 * v53))
+            if (!*([v35 jointTrackingStates] + 4 * v57))
             {
-              *(*buf + 8 * v53) = _D8;
+              *(*buf + 8 * v57) = _D8;
             }
 
-            ++v53;
+            ++v57;
           }
 
-          v59 = self->_abpkRegistration;
+          v63 = self->_abpkRegistration;
           [dataCopy imageResolution];
-          v40 = -[ABPKCameraRegistration estimateCameraPoseFromMatchingwithImageIntrinsics:imageResolution:joints2d:jointsLifted3D:jointsLifted3DCount:](v59, "estimateCameraPoseFromMatchingwithImageIntrinsics:imageResolution:joints2d:jointsLifted3D:jointsLifted3DCount:", *buf, [dDataCopy joints], objc_msgSend(dDataCopy, "jointCount"), *&v107, *&v108, *&v109, v60, v61);
+          v44 = -[ABPKCameraRegistration estimateCameraPoseFromMatchingwithImageIntrinsics:imageResolution:joints2d:jointsLifted3D:jointsLifted3DCount:](v63, "estimateCameraPoseFromMatchingwithImageIntrinsics:imageResolution:joints2d:jointsLifted3D:jointsLifted3DCount:", *buf, [dDataCopy joints], objc_msgSend(dDataCopy, "jointCount"), *&v116, *&v117, *&v118, v64, v65);
           if (*buf)
           {
             *&buf[8] = *buf;
@@ -286,183 +287,183 @@ uint64_t __73__AR3DSkeletonRegistrationTechnique_processResultData_timestamp_con
           }
         }
 
-        if (v40 && [v40 registrationValid])
+        if (v44 && [v44 registrationValid])
         {
-          [v40 cameraFromBodyPose];
-          *body = v62;
-          *(body + 1) = v63;
-          *(body + 2) = v64;
-          *(body + 3) = v65;
+          [v44 cameraFromBodyPose];
+          *body = v66;
+          *(body + 1) = v67;
+          *(body + 2) = v68;
+          *(body + 3) = v69;
           if ([(AR3DSkeletonRegistrationTechnique *)self automaticSkeletonScaleEstimationEnabled])
           {
             worldTrackingState = [poseCopy worldTrackingState];
-            v67 = [worldTrackingState vioTrackingState] == 0;
+            v71 = [worldTrackingState vioTrackingState] == 0;
 
-            if (v67)
+            if (v71)
             {
               self->_last_btr_poses_idx = (self->_last_btr_poses_idx + 1) % 5;
-              [v40 cameraFromBodyPose];
-              *buf = v71;
-              *&buf[16] = v72;
-              v111 = v73;
-              v112 = v74;
+              [v44 cameraFromBodyPose];
+              *buf = v76;
+              *&buf[16] = v77;
+              v120 = v78;
+              v121 = v79;
               last_btr_poses_idx = self->_last_btr_poses_idx;
-              [dataCopy timestamp];
+              objc_msgSend_timestamp(dataCopy);
               worldTrackingState2 = [poseCopy worldTrackingState];
               state = [worldTrackingState2 state];
 
-              v79 = [poseCopy worldMappingStatus] != 3 && objc_msgSend(poseCopy, "worldMappingStatus") != 2;
-              if (state == 2 || v79)
+              v84 = [poseCopy worldMappingStatus] != 3 && objc_msgSend(poseCopy, "worldMappingStatus") != 2;
+              if (state == 2 || v84)
               {
-                [poseCopy timestamp];
+                objc_msgSend_timestamp(poseCopy);
                 p_cam_from_vio = &self->_last_btr_poses.__elems_[0].cam_from_vio;
-                v82 = 2520;
-                while (vabdd_f64(*&p_cam_from_vio[1].m_data[1], v80) >= 0.0085)
+                v87 = 2520;
+                while (vabdd_f64(*&p_cam_from_vio[1].m_data[1], v85) >= 0.0085)
                 {
                   p_cam_from_vio = (p_cam_from_vio + 504);
-                  v82 -= 504;
-                  if (!v82)
+                  v87 -= 504;
+                  if (!v87)
                   {
                     goto LABEL_62;
                   }
                 }
 
                 [poseCopy visionCameraTransform];
-                v83 = 0;
-                v102[0] = v84;
-                v102[1] = v85;
-                v102[2] = v86;
-                v102[3] = v87;
-                v103 = xmmword_1C25C85D0;
-                v104 = unk_1C25C85E0;
-                v105 = xmmword_1C25C85F0;
-                v106 = unk_1C25C8600;
-                v88 = &v103;
+                v88 = 0;
+                v111[0] = v89;
+                v111[1] = v90;
+                v111[2] = v91;
+                v111[3] = v92;
+                v112 = xmmword_1C25C85D0;
+                v113 = unk_1C25C85E0;
+                v114 = xmmword_1C25C85F0;
+                v115 = unk_1C25C8600;
+                v93 = &v112;
                 do
                 {
                   for (i = 0; i != 4; ++i)
                   {
-                    LODWORD(v88[i]) = *(&v102[i] + (v83 & 3));
+                    LODWORD(v93[i]) = *(&v111[i] + (v88 & 3));
                   }
 
-                  ++v83;
-                  v88 = (v88 + 4);
+                  ++v88;
+                  v93 = (v93 + 4);
                 }
 
-                while (v83 != 3);
-                v90 = v104;
-                *p_cam_from_vio->m_data = v103;
-                *&p_cam_from_vio->m_data[4] = v90;
-                v91 = v106;
-                *&p_cam_from_vio->m_data[8] = v105;
-                *&p_cam_from_vio->m_data[12] = v91;
-                [poseCopy timestamp];
-                *&p_cam_from_vio[1].m_data[3] = v92;
-                if (ARDeviceSupportsJasper())
+                while (v88 != 3);
+                v95 = v113;
+                *p_cam_from_vio->m_data = v112;
+                *&p_cam_from_vio->m_data[4] = v95;
+                v96 = v115;
+                *&p_cam_from_vio->m_data[8] = v114;
+                *&p_cam_from_vio->m_data[12] = v96;
+                v97 = objc_msgSend_timestamp(poseCopy);
+                *&p_cam_from_vio[1].m_data[3] = v98;
+                if (ARDeviceSupportsJasper(v97, v99))
                 {
-                  v93 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.bodytracking.useAppleDepthForScale"];
-                  v94 = *body;
-                  v95 = *(body + 1);
-                  v96 = *(body + 2);
-                  v97 = *(body + 3);
-                  if (v93)
+                  v102 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.bodytracking.useAppleDepthForScale"];
+                  v103 = *body;
+                  v104 = *(body + 1);
+                  v105 = *(body + 2);
+                  v106 = *(body + 3);
+                  if (v102)
                   {
-                    [(AR3DSkeletonRegistrationTechnique *)self _estimateScaleFromDepthData:depthDataCopy imageData:dataCopy cameraPoseFromBody:dDataCopy skeleton:*&v94, *&v95, *&v96, *&v97];
+                    [(AR3DSkeletonRegistrationTechnique *)self _estimateScaleFromDepthData:v17 imageData:dataCopy cameraPoseFromBody:dDataCopy skeleton:*&v103, *&v104, *&v105, *&v106];
                   }
 
                   else
                   {
-                    [(AR3DSkeletonRegistrationTechnique *)self _estimateScaleFromJasperCloud:dataCopy cameraPoseFromBody:dDataCopy skeleton:*&v94, *&v95, *&v96, *&v97];
+                    [(AR3DSkeletonRegistrationTechnique *)self _estimateScaleFromJasperCloud:dataCopy cameraPoseFromBody:dDataCopy skeleton:*&v103, *&v104, *&v105, *&v106];
                   }
                 }
 
                 else
                 {
-                  *&v103 = 13;
-                  arkit::btr::ScaleCorrection::EstimateScale(self->_scaler.__ptr_, &p_cam_from_vio[-7].m_data[7], &v103);
+                  *&v112 = 13;
+                  arkit::btr::ScaleCorrection::EstimateScale(self->_scaler.__ptr_, &p_cam_from_vio[-7].m_data[7], &v112, v100, v101);
                 }
 
-                *out = v98;
+                *out = v107;
               }
             }
 
             else
             {
-              v68 = _ARLogTechnique();
-              if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
+              v73 = _ARLogTechnique(v72);
+              if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
               {
-                v69 = objc_opt_class();
-                v70 = NSStringFromClass(v69);
+                v74 = objc_opt_class();
+                v75 = NSStringFromClass(v74);
                 *buf = 138543618;
-                *&buf[4] = v70;
+                *&buf[4] = v75;
                 *&buf[12] = 2048;
                 *&buf[14] = self;
-                _os_log_impl(&dword_1C241C000, v68, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Scale estimation skip (tracking not nominal", buf, 0x16u);
+                _os_log_impl(&dword_1C241C000, v73, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Scale estimation skip (tracking not nominal", buf, 0x16u);
               }
             }
           }
 
 LABEL_62:
-          v43 = 1;
+          v47 = 1;
           goto LABEL_42;
         }
       }
 
       else
       {
-        v40 = _ARLogTechnique();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+        v44 = _ARLogTechnique(v37);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
         {
-          v47 = objc_opt_class();
-          v48 = NSStringFromClass(v47);
+          v51 = objc_opt_class();
+          v52 = NSStringFromClass(v51);
           *buf = 138543618;
-          *&buf[4] = v48;
+          *&buf[4] = v52;
           *&buf[12] = 2048;
           *&buf[14] = self;
-          _os_log_impl(&dword_1C241C000, v40, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Missing lifting data", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v44, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Missing lifting data", buf, 0x16u);
         }
       }
     }
 
     else
     {
-      v40 = _ARLogTechnique();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+      v44 = _ARLogTechnique(0);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
       {
-        v45 = objc_opt_class();
-        v46 = NSStringFromClass(v45);
+        v49 = objc_opt_class();
+        v50 = NSStringFromClass(v49);
         *buf = 138543618;
-        *&buf[4] = v46;
+        *&buf[4] = v50;
         *&buf[12] = 2048;
         *&buf[14] = self;
-        _os_log_impl(&dword_1C241C000, v40, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Missing 2D joints", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v44, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Missing 2D joints", buf, 0x16u);
       }
     }
 
-    v43 = 0;
+    v47 = 0;
 LABEL_42:
 
     goto LABEL_22;
   }
 
-  v19 = _ARLogTechnique();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v21 = _ARLogTechnique(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    v20 = objc_opt_class();
-    v21 = NSStringFromClass(v20);
+    v22 = objc_opt_class();
+    v23 = NSStringFromClass(v22);
     *buf = 138543618;
-    *&buf[4] = v21;
+    *&buf[4] = v23;
     *&buf[12] = 2048;
     *&buf[14] = self;
-    _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Tracking state not nominal", buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Tracking state not nominal", buf, 0x16u);
   }
 
 LABEL_21:
 
-  v43 = 0;
+  v47 = 0;
 LABEL_22:
 
-  return v43;
+  return v47;
 }
 
 - (float)_estimateScaleFromDepthData:(__n128)data imageData:(__n128)imageData cameraPoseFromBody:(__n128)body skeleton:(uint64_t)skeleton
@@ -490,7 +491,7 @@ LABEL_22:
           v22 = self[474];
           depthBuffer2 = [v12 depthBuffer];
           confidenceBuffer = [v12 confidenceBuffer];
-          [v13 timestamp];
+          objc_msgSend_timestamp(v13);
           v26 = v25;
           [v13 imageResolution];
           v28 = v27;

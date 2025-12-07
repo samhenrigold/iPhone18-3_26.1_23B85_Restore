@@ -91,16 +91,16 @@ void __28__EDPersistenceDatabase_log__block_invoke(uint64_t a1)
 
 - (EDPersistenceDatabase)initWithBasePath:(id)path databaseName:(id)name minimumCachedReaderConnections:(unint64_t)connections schema:(id)schema protectedSchema:(id)protectedSchema propertyMapper:(id)mapper protectedDatabasePersistence:(id)persistence
 {
-  v49[2] = *MEMORY[0x1E69E9840];
+  v48[2] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   nameCopy = name;
   schemaCopy = schema;
   protectedSchemaCopy = protectedSchema;
   mapperCopy = mapper;
   persistenceCopy = persistence;
-  v48.receiver = self;
-  v48.super_class = EDPersistenceDatabase;
-  v14 = [(EDPersistenceDatabase *)&v48 init];
+  v47.receiver = self;
+  v47.super_class = EDPersistenceDatabase;
+  v14 = [(EDPersistenceDatabase *)&v47 init];
   if (v14)
   {
     v15 = [pathCopy copy];
@@ -120,9 +120,9 @@ void __28__EDPersistenceDatabase_log__block_invoke(uint64_t a1)
       v21 = [@"Protected Index" stringByAppendingString:@"-wal"];
       v22 = [pathCopy stringByAppendingPathComponent:v21];
       v23 = objc_alloc(MEMORY[0x1E699B878]);
-      v49[0] = v14->_protectedDatabasePath;
-      v49[1] = v22;
-      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
+      v48[0] = v14->_protectedDatabasePath;
+      v48[1] = v22;
+      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:2];
       v25 = [(EDPersistenceDatabase *)v14 _fileProtectionTypeForDatabaseType:?];
       v26 = [v23 initWithFilePaths:v24 protectionType:v25];
       protectedDatabaseFile = v14->_protectedDatabaseFile;
@@ -171,7 +171,6 @@ void __28__EDPersistenceDatabase_log__block_invoke(uint64_t a1)
     }
   }
 
-  v39 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -239,7 +238,7 @@ void __28__EDPersistenceDatabase_log__block_invoke(uint64_t a1)
 
 - (BOOL)performWithOptions:(unint64_t)options caller:(id)caller block:(id)block
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   callerCopy = caller;
   blockCopy = block;
   if ([(EDPersistenceDatabase *)self isNestedDatabaseCall])
@@ -247,9 +246,9 @@ void __28__EDPersistenceDatabase_log__block_invoke(uint64_t a1)
     currentThread = [MEMORY[0x1E696AF00] currentThread];
     threadDictionary = [currentThread threadDictionary];
 
-    v47 = [threadDictionary objectForKeyedSubscript:@"_EDPersistenceActiveDatabaseConnection"];
-    transactionLabel = [v47 transactionLabel];
-    [v47 setTransactionLabel:callerCopy];
+    v46 = [threadDictionary objectForKeyedSubscript:@"_EDPersistenceActiveDatabaseConnection"];
+    transactionLabel = [v46 transactionLabel];
+    [v46 setTransactionLabel:callerCopy];
     if ((options & 2) != 0)
     {
       v12 = [threadDictionary objectForKeyedSubscript:@"_EDPersistenceReadOnlyDatabaseConnection"];
@@ -262,13 +261,13 @@ void __28__EDPersistenceDatabase_log__block_invoke(uint64_t a1)
       }
     }
 
-    v56 = 0;
-    v15 = [v47 performWithOptions:options transactionError:&v56 block:blockCopy];
-    v16 = v56;
-    [v47 setTransactionLabel:transactionLabel];
+    v55 = 0;
+    v15 = [v46 performWithOptions:options transactionError:&v55 block:blockCopy];
+    v16 = v55;
+    [v46 setTransactionLabel:transactionLabel];
     if ((v15 & 1) == 0)
     {
-      [v47 handleError:v16 message:@"Committing transaction in nested block"];
+      [v46 handleError:v16 message:@"Committing transaction in nested block"];
     }
   }
 
@@ -277,7 +276,7 @@ void __28__EDPersistenceDatabase_log__block_invoke(uint64_t a1)
     currentThread2 = [MEMORY[0x1E696AF00] currentThread];
     threadDictionary2 = [currentThread2 threadDictionary];
 
-    v47 = threadDictionary2;
+    v46 = threadDictionary2;
     v19 = objc_opt_new();
     [threadDictionary2 setObject:v19 forKeyedSubscript:@"_EDPersistencePostTransactionBlocks"];
 
@@ -292,16 +291,16 @@ void __28__EDPersistenceDatabase_log__block_invoke(uint64_t a1)
     Current = CFAbsoluteTimeGetCurrent();
     v22 = 2;
     *&v23 = 67109376;
-    v45 = v23;
+    v44 = v23;
     while (1)
     {
       protectedDatabasePersistence = [(EDPersistenceDatabase *)self protectedDatabasePersistence];
       protectedSchema = [(EDPersistenceDatabase *)self protectedSchema];
       [protectedDatabasePersistence attachProtectedOrJournalDatabaseToConnectionIfNecessary:v20 withSchema:protectedSchema];
 
-      v55 = 0;
-      v26 = [v20 performWithOptions:options transactionError:&v55 block:blockCopy];
-      v27 = v55;
+      v54 = 0;
+      v26 = [v20 performWithOptions:options transactionError:&v54 block:blockCopy];
+      v27 = v54;
       [v20 setTransactionLabel:0];
       if (v26)
       {
@@ -316,10 +315,10 @@ void __28__EDPersistenceDatabase_log__block_invoke(uint64_t a1)
 
       if (!v22 || (_os_feature_enabled_impl() & 1) != 0)
       {
-        v42 = +[EDPersistenceDatabase log];
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+        v41 = +[EDPersistenceDatabase log];
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
         {
-          v43 = EFProtectedDataAvailable();
+          v42 = EFProtectedDataAvailable();
           if (self)
           {
             protectedDatabaseFile = self->_protectedDatabaseFile;
@@ -330,7 +329,7 @@ void __28__EDPersistenceDatabase_log__block_invoke(uint64_t a1)
             protectedDatabaseFile = 0;
           }
 
-          [(EDPersistenceDatabase *)[(EFProtectedFile *)protectedDatabaseFile backgroundProcessingIsAllowed] performWithOptions:buf caller:v43 block:v42];
+          [(EDPersistenceDatabase *)[(EFProtectedFile *)protectedDatabaseFile backgroundProcessingIsAllowed] performWithOptions:buf caller:v42 block:v41];
         }
 
         abort();
@@ -352,10 +351,10 @@ void __28__EDPersistenceDatabase_log__block_invoke(uint64_t a1)
 
         v32 = v31;
         backgroundProcessingIsAllowed = [(EFProtectedFile *)v32 backgroundProcessingIsAllowed];
-        *buf = v45;
-        v59 = v30;
-        v60 = 1024;
-        v61 = backgroundProcessingIsAllowed;
+        *buf = v44;
+        v58 = v30;
+        v59 = 1024;
+        v60 = backgroundProcessingIsAllowed;
         _os_log_error_impl(&dword_1C61EF000, v28, OS_LOG_TYPE_ERROR, "Got IOError for transaction, retrying again, EFProtectedData = %d, backgroud processing = %d", buf, 0xEu);
       }
 
@@ -367,7 +366,7 @@ void __28__EDPersistenceDatabase_log__block_invoke(uint64_t a1)
         v29 = +[EDPersistenceDatabase log];
         if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          [EDPersistenceDatabase performWithOptions:v54 caller:v29 block:?];
+          [EDPersistenceDatabase performWithOptions:v53 caller:v29 block:?];
         }
       }
 
@@ -402,36 +401,35 @@ LABEL_30:
     }
 
     [threadDictionary2 objectForKeyedSubscript:@"_EDPersistencePostTransactionBlocks"];
+    v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
-    transactionLabel = v50 = 0u;
-    v36 = [transactionLabel countByEnumeratingWithState:&v49 objects:v57 count:16];
+    v48 = 0u;
+    transactionLabel = v49 = 0u;
+    v36 = [transactionLabel countByEnumeratingWithState:&v48 objects:v56 count:16];
     if (v36)
     {
-      v37 = *v50;
+      v37 = *v49;
       do
       {
         for (i = 0; i != v36; ++i)
         {
-          if (*v50 != v37)
+          if (*v49 != v37)
           {
             objc_enumerationMutation(transactionLabel);
           }
 
-          (*(*(*(&v49 + 1) + 8 * i) + 16))();
+          (*(*(*(&v48 + 1) + 8 * i) + 16))();
         }
 
-        v36 = [transactionLabel countByEnumeratingWithState:&v49 objects:v57 count:16];
+        v36 = [transactionLabel countByEnumeratingWithState:&v48 objects:v56 count:16];
       }
 
       while (v36);
     }
 
-    [v47 setObject:0 forKeyedSubscript:@"_EDPersistencePostTransactionBlocks"];
+    [v46 setObject:0 forKeyedSubscript:@"_EDPersistencePostTransactionBlocks"];
   }
 
-  v39 = *MEMORY[0x1E69E9840];
   return v15 & 1;
 }
 
@@ -571,20 +569,18 @@ LABEL_30:
 
 - (BOOL)databaseIsCorrupt
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   [(NSString *)self->_fullPath fileSystemRepresentation];
   v2 = _sqlite3_integrity_check();
   v3 = +[EDPersistenceDatabase log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = v2;
-    _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "Integrity check result: %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v2;
+    _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "Integrity check result: %d", v5, 8u);
   }
 
-  result = v2 == 11;
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return v2 == 11;
 }
 
 - (void)reconcileJournalWithCompletionBlock:(id)block
@@ -700,7 +696,7 @@ LABEL_9:
 
 - (id)urlForDatabasePath:(id)path type:(int64_t)type fileProtection:(id)protection
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   protectionCopy = protection;
   v11 = objc_alloc_init(MEMORY[0x1E696AF20]);
@@ -712,8 +708,8 @@ LABEL_9:
     {
       v14 = [MEMORY[0x1E696AF60] queryItemWithName:@"cache" value:@"shared"];
       v15 = [MEMORY[0x1E696AF60] queryItemWithName:@"mode" value:{@"memory", v14}];
-      v25[1] = v15;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+      v24[1] = v15;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
       [v11 setQueryItems:v16];
 
       goto LABEL_10;
@@ -729,8 +725,8 @@ LABEL_9:
     if ([protectionCopy isEqualToString:*MEMORY[0x1E695DAD8]])
     {
       v12 = [MEMORY[0x1E696AF60] queryItemWithName:@"vfs" value:@"MailClassAVFS"];
-      v28[0] = v12;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+      v27[0] = v12;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
       [v11 setQueryItems:v13];
 
       goto LABEL_10;
@@ -738,20 +734,20 @@ LABEL_9:
 
     if ([protectionCopy isEqualToString:*MEMORY[0x1E695DAE0]])
     {
-      v21 = [MEMORY[0x1E696AF60] queryItemWithName:@"vfs" value:@"MailClassBVFS"];
-      v27 = v21;
-      v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
-      [v11 setQueryItems:v22];
+      v20 = [MEMORY[0x1E696AF60] queryItemWithName:@"vfs" value:@"MailClassBVFS"];
+      v26 = v20;
+      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+      [v11 setQueryItems:v21];
 
       goto LABEL_10;
     }
 
     if ([protectionCopy isEqualToString:*MEMORY[0x1E695DAE8]])
     {
-      v23 = [MEMORY[0x1E696AF60] queryItemWithName:@"vfs" value:@"MailClassCVFS"];
-      v26 = v23;
-      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
-      [v11 setQueryItems:v24];
+      v22 = [MEMORY[0x1E696AF60] queryItemWithName:@"vfs" value:@"MailClassCVFS"];
+      v25 = v22;
+      v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+      [v11 setQueryItems:v23];
 
       goto LABEL_10;
     }
@@ -764,40 +760,38 @@ LABEL_9:
 LABEL_10:
   v18 = [v11 URL];
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 - (void)handleExceptionDuringDatabaseBlock:(id)block
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   string = [MEMORY[0x1E696AD60] string];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   callStackReturnAddresses = [blockCopy callStackReturnAddresses];
-  v6 = [callStackReturnAddresses countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [callStackReturnAddresses countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(callStackReturnAddresses);
         }
 
-        [string appendFormat:@"\t%p\n", objc_msgSend(*(*(&v13 + 1) + 8 * v8++), "unsignedIntegerValue")];
+        [string appendFormat:@"\t%p\n", objc_msgSend(*(*(&v12 + 1) + 8 * v8++), "unsignedIntegerValue")];
       }
 
       while (v6 != v8);
-      v6 = [callStackReturnAddresses countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [callStackReturnAddresses countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -820,8 +814,6 @@ LABEL_10:
   {
     [(EDPersistenceDatabase *)v10 handleExceptionDuringDatabaseBlock:string, v11];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performBlockAfterTransaction:(id)transaction
@@ -897,29 +889,27 @@ LABEL_10:
 
 uint64_t __42__EDPersistenceDatabase_valueForProperty___block_invoke(void *a1, void *a2)
 {
-  v11[8] = *MEMORY[0x1E69E9840];
-  v3 = a1[4];
-  v10 = 0;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __42__EDPersistenceDatabase_valueForProperty___block_invoke_2;
-  v11[3] = &unk_1E8250418;
-  v11[4] = a1[6];
-  v4 = [a2 executeSelectStatement:v3 withBlock:v11 error:&v10];
-  v5 = v10;
-  if ((v4 & 1) == 0)
+  v8[8] = *MEMORY[0x1E69E9840];
+  v2 = a1[4];
+  v7 = 0;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __42__EDPersistenceDatabase_valueForProperty___block_invoke_2;
+  v8[3] = &unk_1E8250418;
+  v8[4] = a1[6];
+  v3 = [a2 executeSelectStatement:v2 withBlock:v8 error:&v7];
+  v4 = v7;
+  if ((v3 & 1) == 0)
   {
-    v6 = +[EDPersistenceDatabase log];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = +[EDPersistenceDatabase log];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = a1[5];
-      [v5 ef_publicDescription];
+      [v4 ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       __42__EDPersistenceDatabase_valueForProperty___block_invoke_cold_1();
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -950,7 +940,7 @@ void __42__EDPersistenceDatabase_valueForProperty___block_invoke_2(uint64_t a1, 
 
 - (void)_setValue:(void *)value forProperty:
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   valueCopy = value;
   if (self)
@@ -958,8 +948,8 @@ void __42__EDPersistenceDatabase_valueForProperty___block_invoke_2(uint64_t a1, 
     v7 = objc_alloc(MEMORY[0x1E699B968]);
     v8 = +[EDPersistenceDatabaseSchema propertiesTableName];
     v9 = +[EDPersistenceDatabaseSchema propertiesKeyColumnName];
-    v20[0] = v9;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+    v19[0] = v9;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
     v11 = [v7 initWithTable:v8 conflictTarget:v10];
 
     v12 = +[EDPersistenceDatabaseSchema propertiesKeyColumnName];
@@ -969,17 +959,15 @@ void __42__EDPersistenceDatabase_valueForProperty___block_invoke_2(uint64_t a1, 
     [v11 setObject:v5 forKeyedSubscript:v13];
 
     v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDPersistenceDatabase _setValue:forProperty:]"];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __47__EDPersistenceDatabase__setValue_forProperty___block_invoke;
-    v17[3] = &unk_1E8250328;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __47__EDPersistenceDatabase__setValue_forProperty___block_invoke;
+    v16[3] = &unk_1E8250328;
     v15 = v11;
-    v18 = v15;
-    v19 = valueCopy;
-    [self __performWriteWithCaller:v14 usingBlock:v17];
+    v17 = v15;
+    v18 = valueCopy;
+    [self __performWriteWithCaller:v14 usingBlock:v16];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeValueForProperty:(void *)property
@@ -1006,48 +994,44 @@ void __42__EDPersistenceDatabase_valueForProperty___block_invoke_2(uint64_t a1, 
 
 uint64_t __47__EDPersistenceDatabase__setValue_forProperty___block_invoke(uint64_t a1, void *a2)
 {
-  v10[4] = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  v10[0] = 0;
-  v4 = [a2 executeUpsertStatement:v3 error:v10];
-  v5 = v10[0];
-  if ((v4 & 1) == 0)
+  v7[4] = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 32);
+  v7[0] = 0;
+  v3 = [a2 executeUpsertStatement:v2 error:v7];
+  v4 = v7[0];
+  if ((v3 & 1) == 0)
   {
-    v6 = +[EDPersistenceDatabase log];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = +[EDPersistenceDatabase log];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 40);
-      [v5 ef_publicDescription];
+      [v4 ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       __47__EDPersistenceDatabase__setValue_forProperty___block_invoke_cold_1();
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-  return v4;
+  return v3;
 }
 
 uint64_t __49__EDPersistenceDatabase__removeValueForProperty___block_invoke(uint64_t a1, void *a2)
 {
-  v10[4] = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  v10[0] = 0;
-  v4 = [a2 executeDeleteStatement:v3 error:v10];
-  v5 = v10[0];
-  if ((v4 & 1) == 0)
+  v7[4] = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 32);
+  v7[0] = 0;
+  v3 = [a2 executeDeleteStatement:v2 error:v7];
+  v4 = v7[0];
+  if ((v3 & 1) == 0)
   {
-    v6 = +[EDPersistenceDatabase log];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = +[EDPersistenceDatabase log];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 40);
-      [v5 ef_publicDescription];
+      [v4 ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       __49__EDPersistenceDatabase__removeValueForProperty___block_invoke_cold_1();
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-  return v4;
+  return v3;
 }
 
 - (id)urlForDatabasePath:(id)path type:(int64_t)type
@@ -1132,24 +1116,22 @@ LABEL_11:
 
 - (void)performWithOptions:(uint64_t)a1 caller:(NSObject *)a2 block:(double)a3 .cold.3(uint64_t a1, NSObject *a2, double a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2048;
-  v7 = a3;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "%{public}@ held the database write connection for %0.05f seconds", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2048;
+  v6 = a3;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "%{public}@ held the database write connection for %0.05f seconds", &v3, 0x16u);
 }
 
 - (void)handleExceptionDuringDatabaseBlock:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_fault_impl(&dword_1C61EF000, log, OS_LOG_TYPE_FAULT, "Exception raised during transaction, %{public}@\nStack:\n%{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_fault_impl(&dword_1C61EF000, log, OS_LOG_TYPE_FAULT, "Exception raised during transaction, %{public}@\nStack:\n%{public}@", &v3, 0x16u);
 }
 
 void __42__EDPersistenceDatabase_valueForProperty___block_invoke_cold_1()

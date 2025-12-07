@@ -11,17 +11,16 @@
 - (_TtC25FitnessIntelligencePlugin16SanityTaskServer)initWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate
 {
   v9 = sub_749B8();
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_74998();
   configurationCopy = configuration;
   clientCopy = client;
   swift_unknownObjectRetain();
-  v15 = sub_16F58(v12, configuration, clientCopy, delegate);
+  v14 = sub_16F58(v11, configuration, clientCopy, delegate);
 
   swift_unknownObjectRelease();
-  return v15;
+  return v14;
 }
 
 + (id)taskIdentifier

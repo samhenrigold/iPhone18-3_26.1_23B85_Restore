@@ -61,7 +61,7 @@
 
 - (void)_timeout
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXCycler();
+  v3 = WBS_LOG_CHANNEL_PREFIXCycler(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -75,20 +75,20 @@
 - (void)tabGroupManagerDidUpdateTabGroups:(id)groups
 {
   groupsCopy = groups;
-  v5 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = WBS_LOG_CHANNEL_PREFIXCycler(groupsCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_272C20000, v5, OS_LOG_TYPE_INFO, "Received notification of Tab Group updates", buf, 2u);
+    _os_log_impl(&dword_272C20000, v6, OS_LOG_TYPE_INFO, "Received notification of Tab Group updates", buf, 2u);
   }
 
-  if (self->_waitForTabGroups && ([groupsCopy allNamedTabGroupsUnsorted], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "count"), v6, !v7))
+  if (self->_waitForTabGroups && ([groupsCopy allNamedTabGroupsUnsorted], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "count"), v7, !v8))
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXCycler();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v11 = WBS_LOG_CHANNEL_PREFIXCycler(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_272C20000, v8, OS_LOG_TYPE_INFO, "Expected tab groups after update but none were found. Continuing to wait.", v9, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_272C20000, v11, OS_LOG_TYPE_INFO, "Expected tab groups after update but none were found. Continuing to wait.", v12, 2u);
     }
   }
 

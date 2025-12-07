@@ -1,6 +1,7 @@
 @interface AMUIPosterSwitcherViewController
 - (AMUIPosterSwitcherViewControllerDelegate)delegate;
 - (BOOL)handleDismiss;
+- (BOOL)posterCategoryViewController:(id)controller wantsBiometricAuthenticationBlockedForDeepUserInteraction:(BOOL)interaction;
 - (BOOL)posterCategoryViewControllerHasInlineAuthenticated:(id)authenticated;
 - (BOOL)posterCategoryViewControllerIsAuthenticated:(id)authenticated;
 - (BOOL)updatePosterConfiguration:(id)configuration withAnimationSettings:(id)settings;
@@ -16,14 +17,18 @@
 - (id)defaultWidgetDescriptorStacksForViewController:(id)controller;
 - (id)posterCategoryViewControllerAuthenticationHandler:(id)handler;
 - (id)widgetHostManagerForViewController:(id)controller;
-- (uint64_t)noteAmbientViewControllingDelegateDidUpdate;
 - (void)dealloc;
 - (void)invalidate;
 - (void)noteAmbientViewControllingDelegateDidUpdate;
+- (void)posterCategoryViewController:(id)controller didSetBiometricAuthenticationDisabled:(BOOL)disabled;
+- (void)posterCategoryViewController:(id)controller didSetInlineAuthenticationViewVisible:(BOOL)visible;
+- (void)posterCategoryViewController:(id)controller didSetPasscodeVisible:(BOOL)visible;
+- (void)posterCategoryViewController:(id)controller didSettleOnConfiguration:(id)configuration interactive:(BOOL)interactive;
 - (void)posterCategoryViewControllerDidSuccessfulyCompleteInlineAuthentication:(id)authentication;
 - (void)requestUnlockForViewController:(id)controller withRequest:(id)request completion:(id)completion;
 - (void)setConfigurations:(id)configurations;
 - (void)setDateProvider:(id)provider;
+- (void)switcher:(id)switcher didSettleOnItem:(id)item interactive:(BOOL)interactive;
 - (void)switcher:(id)switcher transitionDidBegin:(id)begin;
 - (void)switcher:(id)switcher transitionDidEnd:(id)end;
 - (void)switcher:(id)switcher transitioningFromItem:(id)item toItem:(id)toItem progress:(double)progress;
@@ -79,6 +84,7 @@
           v90 = 0;
           v11 = [v8 pr_loadAmbientConfigurationWithError:&v90];
           v12 = v90;
+          v13 = v12;
           if (v11)
           {
             if (([v11 hidden] & 1) == 0)
@@ -89,14 +95,14 @@
 
           else
           {
-            v13 = AMUILogSwitcher();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+            v14 = AMUILogSwitcher(v12);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
               v100 = v8;
               v101 = 2112;
-              v102 = v12;
-              _os_log_error_impl(&dword_23F38B000, v13, OS_LOG_TYPE_ERROR, "Failed to load ambient configuration from configuration %@ with error %@", buf, 0x16u);
+              v102 = v13;
+              _os_log_error_impl(&dword_23F38B000, v14, OS_LOG_TYPE_ERROR, "Failed to load ambient configuration from configuration %@ with error %@", buf, 0x16u);
             }
           }
         }
@@ -113,146 +119,146 @@
     while (v5);
   }
 
-  v14 = [v73 copy];
+  v15 = [v73 copy];
   configurations = self->_configurations;
-  self->_configurations = v14;
+  self->_configurations = v15;
 
-  v16 = objc_alloc_init(MEMORY[0x277CBEB40]);
+  v17 = objc_alloc_init(MEMORY[0x277CBEB40]);
   v86 = 0u;
   v87 = 0u;
   v88 = 0u;
   v89 = 0u;
-  v17 = self->_configurations;
-  v18 = [(NSArray *)v17 countByEnumeratingWithState:&v86 objects:v98 count:16];
-  if (v18)
+  v18 = self->_configurations;
+  v19 = [(NSArray *)v18 countByEnumeratingWithState:&v86 objects:v98 count:16];
+  if (v19)
   {
-    v19 = v18;
-    v20 = *v87;
+    v20 = v19;
+    v21 = *v87;
     do
     {
-      for (j = 0; j != v19; ++j)
+      for (j = 0; j != v20; ++j)
       {
-        if (*v87 != v20)
+        if (*v87 != v21)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v18);
         }
 
         providerBundleIdentifier2 = [*(*(&v86 + 1) + 8 * j) providerBundleIdentifier];
-        [v16 addObject:providerBundleIdentifier2];
+        [v17 addObject:providerBundleIdentifier2];
       }
 
-      v19 = [(NSArray *)v17 countByEnumeratingWithState:&v86 objects:v98 count:16];
+      v20 = [(NSArray *)v18 countByEnumeratingWithState:&v86 objects:v98 count:16];
     }
 
-    while (v19);
+    while (v20);
   }
 
-  v23 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v16, "count")}];
+  v24 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v17, "count")}];
   v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v24 = self->_configurations;
-  v25 = [(NSArray *)v24 countByEnumeratingWithState:&v82 objects:v97 count:16];
-  if (v25)
+  v25 = self->_configurations;
+  v26 = [(NSArray *)v25 countByEnumeratingWithState:&v82 objects:v97 count:16];
+  if (v26)
   {
-    v26 = v25;
-    v27 = *v83;
+    v27 = v26;
+    v28 = *v83;
     do
     {
-      for (k = 0; k != v26; ++k)
+      for (k = 0; k != v27; ++k)
       {
-        if (*v83 != v27)
+        if (*v83 != v28)
         {
-          objc_enumerationMutation(v24);
+          objc_enumerationMutation(v25);
         }
 
-        v29 = *(*(&v82 + 1) + 8 * k);
-        providerBundleIdentifier3 = [v29 providerBundleIdentifier];
-        array = [v23 objectForKeyedSubscript:providerBundleIdentifier3];
+        v30 = *(*(&v82 + 1) + 8 * k);
+        providerBundleIdentifier3 = [v30 providerBundleIdentifier];
+        array = [v24 objectForKeyedSubscript:providerBundleIdentifier3];
         if (!array)
         {
           array = [MEMORY[0x277CBEB18] array];
-          [v23 setObject:array forKeyedSubscript:providerBundleIdentifier3];
+          [v24 setObject:array forKeyedSubscript:providerBundleIdentifier3];
         }
 
-        [array addObject:v29];
+        [array addObject:v30];
       }
 
-      v26 = [(NSArray *)v24 countByEnumeratingWithState:&v82 objects:v97 count:16];
+      v27 = [(NSArray *)v25 countByEnumeratingWithState:&v82 objects:v97 count:16];
     }
 
-    while (v26);
+    while (v27);
   }
 
   selfCopy2 = self;
-  v33 = [(NSArray *)self->_items bs_map:&__block_literal_global_2];
-  v34 = v33;
-  v35 = MEMORY[0x277CBEBF8];
-  if (v33)
+  v34 = [(NSArray *)self->_items bs_map:&__block_literal_global_2];
+  v35 = v34;
+  v36 = MEMORY[0x277CBEBF8];
+  if (v34)
   {
-    v36 = v33;
+    v37 = v34;
   }
 
   else
   {
-    v36 = MEMORY[0x277CBEBF8];
+    v37 = MEMORY[0x277CBEBF8];
   }
 
-  v37 = v36;
+  v38 = v37;
 
-  array2 = [v16 array];
-  v39 = [array2 differenceFromArray:v37];
+  array2 = [v17 array];
+  v40 = [array2 differenceFromArray:v38];
 
-  v69 = v39;
-  if ([v39 hasChanges])
+  v69 = v40;
+  if ([v40 hasChanges])
   {
-    v67 = v37;
+    v67 = v38;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     v78 = 0u;
     v79 = 0u;
     v80 = 0u;
     v81 = 0u;
-    v41 = self->_items;
-    v42 = [(NSArray *)v41 countByEnumeratingWithState:&v78 objects:v96 count:16];
-    if (v42)
+    v42 = self->_items;
+    v43 = [(NSArray *)v42 countByEnumeratingWithState:&v78 objects:v96 count:16];
+    if (v43)
     {
-      v43 = v42;
-      v44 = *v79;
+      v44 = v43;
+      v45 = *v79;
       do
       {
-        v45 = 0;
+        v46 = 0;
         do
         {
-          if (*v79 != v44)
+          if (*v79 != v45)
           {
-            objc_enumerationMutation(v41);
+            objc_enumerationMutation(v42);
           }
 
-          v46 = *(*(&v78 + 1) + 8 * v45);
-          if (v46)
+          v47 = *(*(&v78 + 1) + 8 * v46);
+          if (v47)
           {
-            v47 = *(v46 + 32);
+            v48 = *(v47 + 32);
           }
 
           else
           {
-            v47 = 0;
+            v48 = 0;
           }
 
-          [dictionary setObject:v46 forKeyedSubscript:v47];
-          ++v45;
+          [dictionary setObject:v47 forKeyedSubscript:v48];
+          ++v46;
         }
 
-        while (v43 != v45);
-        v48 = [(NSArray *)v41 countByEnumeratingWithState:&v78 objects:v96 count:16];
-        v43 = v48;
+        while (v44 != v46);
+        v49 = [(NSArray *)v42 countByEnumeratingWithState:&v78 objects:v96 count:16];
+        v44 = v49;
       }
 
-      while (v48);
+      while (v49);
     }
 
-    v68 = v16;
+    v68 = v17;
 
     if (self->_items)
     {
@@ -261,83 +267,81 @@
 
     else
     {
-      items = v35;
+      items = v36;
     }
 
-    v50 = [(NSArray *)items mutableCopy];
+    v51 = [(NSArray *)items mutableCopy];
     v74 = 0u;
     v75 = 0u;
     v76 = 0u;
     v77 = 0u;
     v71 = v69;
-    v51 = [v71 countByEnumeratingWithState:&v74 objects:v95 count:16];
-    if (v51)
+    v52 = [v71 countByEnumeratingWithState:&v74 objects:v95 count:16];
+    if (v52)
     {
-      v52 = v51;
-      v53 = *v75;
+      v53 = v52;
+      v54 = *v75;
       do
       {
-        for (m = 0; m != v52; ++m)
+        for (m = 0; m != v53; ++m)
         {
-          if (*v75 != v53)
+          if (*v75 != v54)
           {
             objc_enumerationMutation(v71);
           }
 
-          v55 = *(*(&v74 + 1) + 8 * m);
-          changeType = [v55 changeType];
+          v56 = *(*(&v74 + 1) + 8 * m);
+          changeType = [v56 changeType];
           if (changeType == 1)
           {
-            [v50 removeObjectAtIndex:{objc_msgSend(v55, "index")}];
+            [v51 removeObjectAtIndex:{objc_msgSend(v56, "index")}];
           }
 
           else if (!changeType)
           {
-            object = [v55 object];
-            v58 = [v23 objectForKeyedSubscript:object];
-            v59 = [dictionary objectForKeyedSubscript:object];
-            if (!v59)
+            object = [v56 object];
+            v59 = [v24 objectForKeyedSubscript:object];
+            v60 = [dictionary objectForKeyedSubscript:object];
+            if (!v60)
             {
-              v59 = [AMUIPosterExtensionSwitcherItem itemWithProviderBundleIdentifier:object configurations:v58 posterCategoryViewControllerDelegate:self dateProvider:self->_dateProvider];
+              v60 = [AMUIPosterExtensionSwitcherItem itemWithProviderBundleIdentifier:object configurations:v59 posterCategoryViewControllerDelegate:self dateProvider:self->_dateProvider];
             }
 
-            [v50 insertObject:v59 atIndex:{objc_msgSend(v55, "index")}];
+            [v51 insertObject:v60 atIndex:{objc_msgSend(v56, "index")}];
           }
         }
 
-        v52 = [v71 countByEnumeratingWithState:&v74 objects:v95 count:16];
+        v53 = [v71 countByEnumeratingWithState:&v74 objects:v95 count:16];
       }
 
-      while (v52);
+      while (v53);
     }
 
-    v60 = [v50 copy];
+    v61 = [v51 copy];
     selfCopy2 = self;
-    v61 = self->_items;
-    self->_items = v60;
+    v62 = self->_items;
+    self->_items = v61;
 
     [(AMUISwitcherViewController *)self->_extensionSwitcherViewController reload];
-    v16 = v68;
-    v37 = v67;
+    v17 = v68;
+    v38 = v67;
   }
 
   if ([(NSArray *)selfCopy2->_items count])
   {
-    v62 = 0;
+    v63 = 0;
     do
     {
-      v63 = [v16 objectAtIndexedSubscript:v62];
-      v64 = [(NSArray *)selfCopy2->_items objectAtIndexedSubscript:v62];
-      v65 = [v23 objectForKeyedSubscript:v63];
-      [(AMUIPosterExtensionSwitcherItem *)v64 setConfigurations:v65];
+      v64 = [v17 objectAtIndexedSubscript:v63];
+      v65 = [(NSArray *)selfCopy2->_items objectAtIndexedSubscript:v63];
+      v66 = [v24 objectForKeyedSubscript:v64];
+      [(AMUIPosterExtensionSwitcherItem *)v65 setConfigurations:v66];
 
-      ++v62;
+      ++v63;
     }
 
-    while (v62 < [(NSArray *)selfCopy2->_items count]);
+    while (v63 < [(NSArray *)selfCopy2->_items count]);
   }
-
-  v66 = *MEMORY[0x277D85DE8];
 }
 
 - (UIView)contentView
@@ -431,40 +435,38 @@
 
 - (void)setDateProvider:(id)provider
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   objc_storeStrong(&self->_dateProvider, provider);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = self->_items;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(AMUIPosterExtensionSwitcherItem *)*(*(&v12 + 1) + 8 * v10++) setDateProvider:?];
+        [(AMUIPosterExtensionSwitcherItem *)*(*(&v11 + 1) + 8 * v10++) setDateProvider:?];
       }
 
       while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLoad
@@ -500,17 +502,18 @@
   configurationCopy = configuration;
   settingsCopy = settings;
   [(AMUIPosterSwitcherViewController *)self loadViewIfNeeded];
-  if (![(AMUISwitcherViewController *)self->_extensionSwitcherViewController isScrollingInteractively])
+  isScrollingInteractively = [(AMUISwitcherViewController *)self->_extensionSwitcherViewController isScrollingInteractively];
+  if (!isScrollingInteractively)
   {
-    v8 = [(AMUIPosterSwitcherViewController *)self _switcherItemForConfiguration:configurationCopy];
-    if (v8)
+    v9 = [(AMUIPosterSwitcherViewController *)self _switcherItemForConfiguration:configurationCopy];
+    if (v9)
     {
-      [(AMUIPosterSwitcherViewController *)settingsCopy updatePosterConfiguration:&v8->isa withAnimationSettings:configurationCopy];
-      v10 = 1;
+      [(AMUIPosterSwitcherViewController *)settingsCopy updatePosterConfiguration:&v9->isa withAnimationSettings:configurationCopy];
+      v11 = 1;
       goto LABEL_9;
     }
 
-    serverUUID = AMUILogSwitcher();
+    serverUUID = AMUILogSwitcher(0);
     if (os_log_type_enabled(serverUUID, OS_LOG_TYPE_ERROR))
     {
       [AMUIPosterSwitcherViewController updatePosterConfiguration:configurationCopy withAnimationSettings:serverUUID];
@@ -519,21 +522,20 @@
     goto LABEL_7;
   }
 
-  v8 = AMUILogSwitcher();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = AMUILogSwitcher(isScrollingInteractively);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     serverUUID = [configurationCopy serverUUID];
     v13 = 138543362;
     v14 = serverUUID;
-    _os_log_impl(&dword_23F38B000, v8, OS_LOG_TYPE_INFO, "horizontal switcher ignoring update to %{public}@ due to interactive scroll", &v13, 0xCu);
+    _os_log_impl(&dword_23F38B000, v9, OS_LOG_TYPE_INFO, "horizontal switcher ignoring update to %{public}@ due to interactive scroll", &v13, 0xCu);
 LABEL_7:
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_9:
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 - (void)invalidate
@@ -594,46 +596,60 @@ LABEL_9:
 
 - (void)noteAmbientViewControllingDelegateDidUpdate
 {
-  v7 = *MEMORY[0x277D85DE8];
-  memset(v5, 0, sizeof(v5));
-  v2 = self->_items;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:v5 objects:v6 count:16];
-  if (v3)
+  v8 = **(self + 16);
+  do
   {
-    [(AMUIPosterSwitcherViewController *)v5 noteAmbientViewControllingDelegateDidUpdate:v2];
+    v9 = 0;
+    do
+    {
+      if (**(self + 16) != v8)
+      {
+        objc_enumerationMutation(obj);
+      }
+
+      posterCategoryViewController = [(AMUIPosterExtensionSwitcherItem *)*(*(self + 8) + 8 * v9) posterCategoryViewController];
+      [posterCategoryViewController noteAmbientViewControllingDelegateDidUpdate];
+
+      v9 = v9 + 1;
+    }
+
+    while (a3 != v9);
+    result = [obj countByEnumeratingWithState:self objects:a4 count:16];
+    a3 = result;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
+  while (result);
+  return result;
 }
 
 - (BOOL)handleDismiss
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = self->_items;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        posterCategoryViewController = [(AMUIPosterExtensionSwitcherItem *)*(*(&v11 + 1) + 8 * i) posterCategoryViewController];
+        posterCategoryViewController = [(AMUIPosterExtensionSwitcherItem *)*(*(&v10 + 1) + 8 * i) posterCategoryViewController];
         v5 |= [posterCategoryViewController handleDismiss];
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -644,7 +660,6 @@ LABEL_9:
     LOBYTE(v5) = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5 & 1;
 }
 
@@ -669,38 +684,54 @@ void __64__AMUIPosterSwitcherViewController_switcher_transitionDidBegin___block_
 
 - (void)switcher:(id)switcher transitionDidEnd:(id)end
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = [end userInfoObjectForKey:@"cancelTouchesAssertions"];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) invalidate];
+        [*(*(&v9 + 1) + 8 * v8++) invalidate];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)posterCategoryViewController:(id)controller didSettleOnConfiguration:(id)configuration interactive:(BOOL)interactive
+{
+  interactiveCopy = interactive;
+  v13[1] = *MEMORY[0x277D85DE8];
+  configurationCopy = configuration;
+  v8 = [(AMUIPosterSwitcherViewController *)self _switcherItemForConfiguration:configurationCopy];
+  visibleItems = [(AMUISwitcherViewController *)self->_extensionSwitcherViewController visibleItems];
+  v13[0] = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v11 = BSEqualArrays();
+
+  if (v11)
+  {
+    delegate = [(AMUIPosterSwitcherViewController *)self delegate];
+    [delegate posterSwitcherViewController:self didSettleOnConfiguration:configurationCopy interactive:interactiveCopy];
+  }
 }
 
 - (id)createUnlockRequestForViewController:(id)controller
@@ -803,6 +834,20 @@ void __64__AMUIPosterSwitcherViewController_switcher_transitionDidBegin___block_
   return v5;
 }
 
+- (void)posterCategoryViewController:(id)controller didSetPasscodeVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  delegate = [(AMUIPosterSwitcherViewController *)self delegate];
+  [delegate posterSwitcherViewController:self didSetPasscodeVisible:visibleCopy];
+}
+
+- (void)posterCategoryViewController:(id)controller didSetInlineAuthenticationViewVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  delegate = [(AMUIPosterSwitcherViewController *)self delegate];
+  [delegate posterSwitcherViewController:self didSetInlineAuthenticationViewVisible:visibleCopy];
+}
+
 - (void)posterCategoryViewControllerDidSuccessfulyCompleteInlineAuthentication:(id)authentication
 {
   delegate = [(AMUIPosterSwitcherViewController *)self delegate];
@@ -816,6 +861,22 @@ void __64__AMUIPosterSwitcherViewController_switcher_transitionDidBegin___block_
   LOBYTE(selfCopy) = [delegate posterSwitcherViewControllerHasInlineAuthenticated:selfCopy];
 
   return selfCopy;
+}
+
+- (void)posterCategoryViewController:(id)controller didSetBiometricAuthenticationDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  delegate = [(AMUIPosterSwitcherViewController *)self delegate];
+  [delegate posterSwitcherViewController:self didSetBiometricAuthenticationDisabled:disabledCopy];
+}
+
+- (BOOL)posterCategoryViewController:(id)controller wantsBiometricAuthenticationBlockedForDeepUserInteraction:(BOOL)interaction
+{
+  interactionCopy = interaction;
+  delegate = [(AMUIPosterSwitcherViewController *)self delegate];
+  LOBYTE(interactionCopy) = [delegate posterSwitcherViewController:self wantsBiometricAuthenticationBlockedForDeepUserInteraction:interactionCopy];
+
+  return interactionCopy;
 }
 
 - (void)switcher:(id)switcher updateItem:(id)item view:(id)view forPresentationProgress:(double)progress
@@ -901,41 +962,39 @@ void __85__AMUIPosterSwitcherViewController_switcher_updateItem_view_forPresenta
 uint64_t __85__AMUIPosterSwitcherViewController_switcher_updateItem_view_forPresentationProgress___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) horizontalExitingCardTargetScale];
-  v2 = *(a1 + 48);
   BSFloatByLinearlyInterpolatingFloats();
-  v3 = *(a1 + 40);
-  CGAffineTransformMakeScale(&v7, v4, v4);
-  [v3 setTransform:&v7];
+  v2 = *(a1 + 40);
+  CGAffineTransformMakeScale(&v5, v3, v3);
+  [v2 setTransform:&v5];
   [*(a1 + 32) exitingCardTargetOpacity];
-  v5 = *(a1 + 56);
   BSFloatByLinearlyInterpolatingFloats();
   return [*(a1 + 40) setAlpha:?];
 }
 
 - (id)_switcherItemForConfiguration:(id)configuration
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_items;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
+        v9 = *(*(&v13 + 1) + 8 * v8);
         if (v9)
         {
           v10 = v9[2];
@@ -946,7 +1005,7 @@ uint64_t __85__AMUIPosterSwitcherViewController_switcher_updateItem_view_forPres
           v10 = 0;
         }
 
-        if ([v10 containsObject:{configurationCopy, v14}])
+        if ([v10 containsObject:{configurationCopy, v13}])
         {
           v6 = v9;
           goto LABEL_15;
@@ -956,7 +1015,7 @@ uint64_t __85__AMUIPosterSwitcherViewController_switcher_updateItem_view_forPres
       }
 
       while (v6 != v8);
-      v11 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v11 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       v6 = v11;
     }
 
@@ -964,8 +1023,6 @@ uint64_t __85__AMUIPosterSwitcherViewController_switcher_updateItem_view_forPres
   }
 
 LABEL_15:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1007,29 +1064,29 @@ id __54__AMUIPosterSwitcherViewController_setConfigurations___block_invoke(uint6
 
 - (PRSPosterConfiguration)mostVisibleConfiguration
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   visibleItems = [(AMUISwitcherViewController *)self->_extensionSwitcherViewController visibleItems];
-  v4 = [visibleItems countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [visibleItems countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v6 = v4;
     v5 = 0;
-    v7 = *v19;
+    v7 = *v18;
     v8 = 0.0;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(visibleItems);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         [(AMUISwitcherViewController *)self->_extensionSwitcherViewController presentationProgressForItem:v10];
         if (v11 > v8)
         {
@@ -1041,7 +1098,7 @@ id __54__AMUIPosterSwitcherViewController_setConfigurations___block_invoke(uint6
         }
       }
 
-      v6 = [visibleItems countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [visibleItems countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
@@ -1055,9 +1112,45 @@ id __54__AMUIPosterSwitcherViewController_setConfigurations___block_invoke(uint6
   posterCategoryViewController = [(AMUIPosterExtensionSwitcherItem *)v5 posterCategoryViewController];
   mostVisibleConfiguration = [posterCategoryViewController mostVisibleConfiguration];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return mostVisibleConfiguration;
+}
+
+- (void)switcher:(id)switcher didSettleOnItem:(id)item interactive:(BOOL)interactive
+{
+  interactiveCopy = interactive;
+  itemCopy = item;
+  delegate = [(AMUIPosterSwitcherViewController *)self delegate];
+  v9 = objc_opt_class();
+  v15 = itemCopy;
+  if (v9)
+  {
+    if (objc_opt_isKindOfClass())
+    {
+      v10 = v15;
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v11 = v10;
+
+  posterCategoryViewController = [(AMUIPosterExtensionSwitcherItem *)v11 posterCategoryViewController];
+
+  visibleConfigurations = [posterCategoryViewController visibleConfigurations];
+
+  if ([visibleConfigurations count] == 1)
+  {
+    firstObject = [visibleConfigurations firstObject];
+    [delegate posterSwitcherViewController:self didSettleOnConfiguration:firstObject interactive:interactiveCopy];
+  }
 }
 
 - (void)switcher:(id)switcher transitionDidBegin:(id)begin
@@ -1162,10 +1255,10 @@ id __54__AMUIPosterSwitcherViewController_setConfigurations___block_invoke(uint6
 
     if (v27)
     {
-      v28 = v27[4];
-      v29 = [WeakRetained posterSwitcherViewController:self requestsLastSelectedConfigurationUUIDForProviderBundleIdentifier:v28];
+      v29 = v27[4];
+      v30 = [WeakRetained posterSwitcherViewController:self requestsLastSelectedConfigurationUUIDForProviderBundleIdentifier:v29];
 
-      if (v29)
+      if (v30)
       {
         *buf = 0;
         *&buf[8] = buf;
@@ -1173,59 +1266,57 @@ id __54__AMUIPosterSwitcherViewController_setConfigurations___block_invoke(uint6
         v45 = __Block_byref_object_copy_;
         v46 = __Block_byref_object_dispose_;
         v47 = 0;
-        v30 = v27[2];
+        v31 = v27[2];
         v37[0] = MEMORY[0x277D85DD0];
         v37[1] = 3221225472;
         v37[2] = __64__AMUIPosterSwitcherViewController_switcher_transitionDidBegin___block_invoke;
         v37[3] = &unk_278C75F58;
-        v38 = v29;
+        v38 = v30;
         v39 = buf;
-        [v30 enumerateObjectsUsingBlock:v37];
+        [v31 enumerateObjectsUsingBlock:v37];
 
-        v31 = *(*&buf[8] + 40);
+        v32 = *(*&buf[8] + 40);
         _Block_object_dispose(buf, 8);
       }
 
       else
       {
-        v31 = 0;
+        v32 = 0;
       }
     }
 
     else
     {
-      v31 = 0;
+      v32 = 0;
     }
 
-    v32 = AMUILogSwitcher();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = AMUILogSwitcher(v28);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       if (v27)
       {
-        v33 = v27[4];
+        v34 = v27[4];
       }
 
       else
       {
-        v33 = 0;
+        v34 = 0;
       }
 
-      v34 = v33;
+      v35 = v34;
       *buf = 138412546;
-      *&buf[4] = v34;
+      *&buf[4] = v35;
       *&buf[12] = 2112;
-      *&buf[14] = v31;
-      _os_log_impl(&dword_23F38B000, v32, OS_LOG_TYPE_DEFAULT, "Interactive transition beginning to provider %@. Pre-selecting configuration %@", buf, 0x16u);
+      *&buf[14] = v32;
+      _os_log_impl(&dword_23F38B000, v33, OS_LOG_TYPE_DEFAULT, "Interactive transition beginning to provider %@. Pre-selecting configuration %@", buf, 0x16u);
     }
 
-    if (v31)
+    if (v32)
     {
       posterCategoryViewController3 = [(AMUIPosterExtensionSwitcherItem *)v27 posterCategoryViewController];
-      [posterCategoryViewController3 updatePosterConfiguration:v31 withAnimationSettings:0];
+      [posterCategoryViewController3 updatePosterConfiguration:v32 withAnimationSettings:0];
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)updatePosterConfiguration:(id *)a3 withAnimationSettings:(uint64_t)a4 .cold.1(uint64_t a1, id *a2, id *a3, uint64_t a4)
@@ -1255,44 +1346,14 @@ id __54__AMUIPosterSwitcherViewController_setConfigurations___block_invoke(uint6
 
 - (void)updatePosterConfiguration:(void *)a1 withAnimationSettings:(NSObject *)a2 .cold.2(void *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = [a1 serverUUID];
   v5 = [a1 providerBundleIdentifier];
-  v7 = 138543618;
-  v8 = v4;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_23F38B000, a2, OS_LOG_TYPE_ERROR, "failed to find configuration with UUID %{public}@ bundle ID %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (uint64_t)noteAmbientViewControllingDelegateDidUpdate
-{
-  v8 = **(self + 16);
-  do
-  {
-    v9 = 0;
-    do
-    {
-      if (**(self + 16) != v8)
-      {
-        objc_enumerationMutation(obj);
-      }
-
-      posterCategoryViewController = [(AMUIPosterExtensionSwitcherItem *)*(*(self + 8) + 8 * v9) posterCategoryViewController];
-      [posterCategoryViewController noteAmbientViewControllingDelegateDidUpdate];
-
-      ++v9;
-    }
-
-    while (a3 != v9);
-    result = [obj countByEnumeratingWithState:self objects:a4 count:16];
-    a3 = result;
-  }
-
-  while (result);
-  return result;
+  v6 = 138543618;
+  v7 = v4;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_23F38B000, a2, OS_LOG_TYPE_ERROR, "failed to find configuration with UUID %{public}@ bundle ID %{public}@", &v6, 0x16u);
 }
 
 @end

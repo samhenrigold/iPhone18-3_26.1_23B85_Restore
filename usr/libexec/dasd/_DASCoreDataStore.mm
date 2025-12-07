@@ -1,4 +1,7 @@
 @interface _DASCoreDataStore
++ (id)storageWithDirectory:(id)directory readOnly:(BOOL)only;
+- (BOOL)deleteStorageWithObliterationOption:(BOOL)option;
+- (_DASCoreDataStore)initWithDirectory:(id)directory readOnly:(BOOL)only;
 - (void)createMOInMOC:(id)c activity:(id)activity group:(id)group triggers:(id)triggers;
 - (void)createMOInMOC:(id)c group:(id)group activities:(id)activities;
 - (void)deleteActivitiesIfRequired;
@@ -23,6 +26,54 @@
 @end
 
 @implementation _DASCoreDataStore
+
++ (id)storageWithDirectory:(id)directory readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  directoryCopy = directory;
+  v7 = [[self alloc] initWithDirectory:directoryCopy readOnly:onlyCopy];
+
+  return v7;
+}
+
+- (_DASCoreDataStore)initWithDirectory:(id)directory readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  directoryCopy = directory;
+  v16.receiver = self;
+  v16.super_class = _DASCoreDataStore;
+  v7 = [(_DASCoreDataStore *)&v16 init];
+  if (!v7)
+  {
+    goto LABEL_4;
+  }
+
+  v8 = [NSBundle bundleWithPath:@"/System/Library/DuetActivityScheduler/Scheduler/DuetActivitySchedulerDaemon.bundle/"];
+  v9 = [v8 pathForResource:@"DuetActivityScheduler" ofType:@"momd"];
+
+  if (v9)
+  {
+    v10 = [NSURL fileURLWithPath:v9];
+    v11 = [_DASCoreDataStorage storageWithDirectory:directoryCopy databaseName:@"DuetActivityScheduler" modelURL:v10 readOnly:onlyCopy];
+    database = v7->_database;
+    v7->_database = v11;
+
+LABEL_4:
+    v13 = v7;
+    goto LABEL_8;
+  }
+
+  v14 = +[_DASDaemonLogger defaultCategory];
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  {
+    sub_10011DBD8(v14);
+  }
+
+  v13 = 0;
+LABEL_8:
+
+  return v13;
+}
 
 - (void)mocSaveAndReset:(id)reset
 {
@@ -286,7 +337,7 @@
 {
   groupsCopy = groups;
   arrayCopy = array;
-  if ([groupsCopy count])
+  if (objc_msgSend_count(groupsCopy))
   {
     database = self->_database;
     v9 = +[_DASDataProtectionStateMonitor dataProtectionClassC];
@@ -495,6 +546,16 @@
   v9 = canceledCopy;
   v10 = v12;
   [v8 performWithOptions:4 andBlock:v11];
+}
+
+- (BOOL)deleteStorageWithObliterationOption:(BOOL)option
+{
+  optionCopy = option;
+  database = self->_database;
+  v5 = +[_DASDataProtectionStateMonitor dataProtectionClassC];
+  LOBYTE(optionCopy) = [(_DASCoreDataStorage *)database deleteStorageFor:v5 obliterate:optionCopy];
+
+  return optionCopy;
 }
 
 - (void)deleteActivity:(id)activity

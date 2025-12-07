@@ -46,7 +46,7 @@
   v19 = v7;
   [onCopy enumerateObjectsUsingBlock:v18];
   objc_storeStrong(&self->_bundleIDs, v6);
-  [(MOHDBSCANClustering *)self _getDistanceMatrixFrom:onCopy];
+  objc_msgSend__getDistanceMatrixFrom_(self);
   if (self->_HDBSCAN.__ptr_)
   {
     memset(v15, 0, sizeof(v15));

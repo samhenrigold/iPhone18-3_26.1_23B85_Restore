@@ -5,7 +5,7 @@
 
 void ___SiriAnalyticsMachAbsoluteTimeRate_block_invoke()
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   info = 0;
   v0 = mach_timebase_info(&info);
   if (v0)
@@ -20,8 +20,8 @@ void ___SiriAnalyticsMachAbsoluteTimeRate_block_invoke()
     if (os_log_type_enabled(SiriAnalyticsLogContextUtility, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v9 = "_SiriAnalyticsMachAbsoluteTimeRate_block_invoke";
-      v10 = 1024;
+      v8 = "_SiriAnalyticsMachAbsoluteTimeRate_block_invoke";
+      v9 = 1024;
       numer = v3;
       _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s mach_timebase_info() failed with %d.", buf, 0x12u);
     }
@@ -41,18 +41,16 @@ void ___SiriAnalyticsMachAbsoluteTimeRate_block_invoke()
     if (os_log_type_enabled(SiriAnalyticsLogContextUtility, OS_LOG_TYPE_INFO))
     {
       *buf = 136315906;
-      v9 = "_SiriAnalyticsMachAbsoluteTimeRate_block_invoke";
-      v10 = 1024;
+      v8 = "_SiriAnalyticsMachAbsoluteTimeRate_block_invoke";
+      v9 = 1024;
       numer = info.numer;
-      v12 = 1024;
+      v11 = 1024;
       denom = info.denom;
-      v14 = 2048;
-      v15 = _SiriAnalyticsMachAbsoluteTimeRate_rate;
+      v13 = 2048;
+      v14 = _SiriAnalyticsMachAbsoluteTimeRate_rate;
       _os_log_impl(&dword_1D9863000, v5, OS_LOG_TYPE_INFO, "%s machTimebaseInfo.numer = %u, machTimebaseInfo.denom = %u, rate = %f", buf, 0x22u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

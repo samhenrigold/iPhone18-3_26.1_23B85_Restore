@@ -2,6 +2,7 @@
 - (BOOL)setupWithPublicKey:(__SecKey *)key label:(id)label;
 - (TKTokenKeychainKey)initWithCertificate:(SecCertificateRef)certificateRef objectID:(TKTokenObjectID)objectID;
 - (TKTokenKeychainKey)initWithItemInfo:(id)info;
+- (TKTokenKeychainKey)initWithPublicKey:(__SecKey *)key label:(id)label objectID:(id)d canSign:(BOOL)sign canDecrypt:(BOOL)decrypt canPerformKeyExchange:(BOOL)exchange;
 - (id)encodedObjectID;
 - (id)keychainAttributes;
 - (unint64_t)keyUsage;
@@ -39,7 +40,7 @@ LABEL_11:
 
     else
     {
-      v12 = TK_LOG_token_2();
+      v12 = TK_LOG_token_2(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [TKTokenKeychainKey initWithCertificate:v12 objectID:?];
@@ -56,6 +57,29 @@ LABEL_12:
   return v11;
 }
 
+- (TKTokenKeychainKey)initWithPublicKey:(__SecKey *)key label:(id)label objectID:(id)d canSign:(BOOL)sign canDecrypt:(BOOL)decrypt canPerformKeyExchange:(BOOL)exchange
+{
+  exchangeCopy = exchange;
+  decryptCopy = decrypt;
+  signCopy = sign;
+  labelCopy = label;
+  v19.receiver = self;
+  v19.super_class = TKTokenKeychainKey;
+  v15 = [(TKTokenKeychainItem *)&v19 initWithObjectID:d];
+  v16 = v15;
+  if (v15 && ([(TKTokenKeychainKey *)v15 setCanSign:signCopy], [(TKTokenKeychainKey *)v16 setCanDecrypt:decryptCopy], [(TKTokenKeychainKey *)v16 setCanPerformKeyExchange:exchangeCopy], [(TKTokenKeychainKey *)v16 setSuitableForLogin:[(TKTokenKeychainKey *)v16 canSign]], [(TKTokenKeychainKey *)v16 setupWithPublicKey:key label:labelCopy]))
+  {
+    v17 = v16;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  return v17;
+}
+
 - (BOOL)setupWithPublicKey:(__SecKey *)key label:(id)label
 {
   [(TKTokenKeychainItem *)self setLabel:label];
@@ -64,50 +88,50 @@ LABEL_12:
   publicKeyData = self->_publicKeyData;
   self->_publicKeyData = v7;
 
-  v9 = self->_publicKeyData;
-  if (v9)
+  v10 = self->_publicKeyData;
+  if (v10)
   {
-    v10 = [(__CFDictionary *)v6 objectForKeyedSubscript:*MEMORY[0x1E697AD68]];
+    v11 = [(__CFDictionary *)v6 objectForKeyedSubscript:*MEMORY[0x1E697AD68]];
     keyType = self->_keyType;
-    self->_keyType = v10;
+    self->_keyType = v11;
 
-    v12 = [(__CFDictionary *)v6 objectForKeyedSubscript:*MEMORY[0x1E697AD50]];
-    self->_keySizeInBits = [v12 integerValue];
+    v13 = [(__CFDictionary *)v6 objectForKeyedSubscript:*MEMORY[0x1E697AD50]];
+    self->_keySizeInBits = [v13 integerValue];
 
-    v13 = [(__CFDictionary *)v6 objectForKeyedSubscript:*MEMORY[0x1E697AC40]];
+    v14 = [(__CFDictionary *)v6 objectForKeyedSubscript:*MEMORY[0x1E697AC40]];
     publicKeyHash = self->_publicKeyHash;
-    self->_publicKeyHash = v13;
+    self->_publicKeyHash = v14;
 
-    v15 = [MEMORY[0x1E695E0F8] mutableCopy];
+    v16 = [MEMORY[0x1E695E0F8] mutableCopy];
     if ([(TKTokenKeychainKey *)self canSign])
     {
-      [v15 setObject:MEMORY[0x1E695E118] forKeyedSubscript:&unk_1F5A85168];
+      [v16 setObject:MEMORY[0x1E695E118] forKeyedSubscript:&unk_1F5A85168];
     }
 
     if ([(TKTokenKeychainKey *)self canDecrypt])
     {
-      [v15 setObject:MEMORY[0x1E695E118] forKeyedSubscript:&unk_1F5A85180];
+      [v16 setObject:MEMORY[0x1E695E118] forKeyedSubscript:&unk_1F5A85180];
     }
 
     if ([(TKTokenKeychainKey *)self canPerformKeyExchange])
     {
-      [v15 setObject:MEMORY[0x1E695E118] forKeyedSubscript:&unk_1F5A85198];
+      [v16 setObject:MEMORY[0x1E695E118] forKeyedSubscript:&unk_1F5A85198];
     }
 
-    v16 = [v15 copy];
-    [(TKTokenKeychainItem *)self setConstraints:v16];
+    v17 = [v16 copy];
+    [(TKTokenKeychainItem *)self setConstraints:v17];
   }
 
   else
   {
-    v17 = TK_LOG_token_2();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = TK_LOG_token_2(v9);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [TKTokenKeychainKey setupWithPublicKey:v17 label:?];
+      [TKTokenKeychainKey setupWithPublicKey:v18 label:?];
     }
   }
 
-  return v9 != 0;
+  return v10 != 0;
 }
 
 - (id)keychainAttributes

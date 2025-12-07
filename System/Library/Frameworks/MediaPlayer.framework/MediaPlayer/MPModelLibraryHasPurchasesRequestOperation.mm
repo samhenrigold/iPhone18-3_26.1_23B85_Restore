@@ -6,6 +6,7 @@
 
 - (void)execute
 {
+  v18 = *MEMORY[0x1E69E9840];
   request = [(MPModelLibraryHasPurchasesRequestOperation *)self request];
   modelObject = [request modelObject];
   v5 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class()];
@@ -18,30 +19,33 @@
     v9 = [(MPMediaLibraryView *)v6 initWithLibrary:mediaLibrary filteringOptions:8];
 
     entityClass = [v5 entityClass];
-    (*(*entityClass + 120))(entityClass);
+    v11 = (*(*entityClass + 120))(entityClass);
     if (v9)
     {
-      [(MPMediaLibraryView *)v9 mlCoreView];
+      objc_msgSend_mlCoreView(v9);
     }
 
     else
     {
-      v12 = 0;
+      persistentID = 0;
+      v17 = 0;
     }
 
     [v5 entityClass];
     mlcore::LibraryView::filterPredicateForEntityClass();
-    if (v12)
+    if (v17)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
     }
 
     [(MPModelLibraryHasPurchasesRequestOperation *)self request];
     [objc_claimAutoreleasedReturnValue() modelObject];
     [objc_claimAutoreleasedReturnValue() identifiers];
     [objc_claimAutoreleasedReturnValue() library];
-    [objc_claimAutoreleasedReturnValue() persistentID];
-    std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator &,long long const&,mlcore::ComparisonOptions &,0>();
+    persistentID = [objc_claimAutoreleasedReturnValue() persistentID];
+    *&v13 = v11;
+    *v15 = 0;
+    std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator &,long long const&,mlcore::ComparisonOptions &,0>(&v14, &v13, &v15[4], &persistentID, v15);
   }
 
   responseHandler = [(MPModelLibraryHasPurchasesRequestOperation *)self responseHandler];

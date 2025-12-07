@@ -40,23 +40,25 @@
 
 - (JUMeasurements)measurementsWithFitting:(CGSize)fitting in:(id)in
 {
+  height = fitting.height;
+  width = fitting.width;
   swift_getObjectType();
   swift_unknownObjectRetain();
   selfCopy = self;
-  v6 = sub_24E27B6E8();
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
+  v9 = sub_24E27B6E8(width, height, in, selfCopy);
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
   swift_unknownObjectRelease();
 
-  v13 = v6;
-  v14 = v8;
-  v15 = v10;
-  v16 = v12;
-  result.var3 = v16;
-  result.var2 = v15;
-  result.var1 = v14;
-  result.var0 = v13;
+  v16 = v9;
+  v17 = v11;
+  v18 = v13;
+  v19 = v15;
+  result.var3 = v19;
+  result.var2 = v18;
+  result.var1 = v17;
+  result.var0 = v16;
   return result;
 }
 
@@ -76,7 +78,7 @@
 
 - (NSDate)accessibilityAchievementCompletedDate
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F1E5890);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F1E5890, qword_24E377010);
   MEMORY[0x28223BE20](v2 - 8);
   v4 = &v8 - v3;
   sub_24E279CE4(&v8 - v3);
@@ -101,7 +103,7 @@
 - (void)didTap
 {
   selfCopy = self;
-  sub_24E27A1A0();
+  sub_24E27A1A0(selfCopy);
 }
 
 @end

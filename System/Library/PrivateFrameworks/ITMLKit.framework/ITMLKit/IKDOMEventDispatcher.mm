@@ -25,14 +25,16 @@
 
 uint64_t __38__IKDOMEventDispatcher_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance_dispatcher = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedInstance_dispatcher;
+  sharedInstance_dispatcher = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (BOOL)dispatchEvent:(id)event
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   [eventCopy setInUse:1];
   array = [MEMORY[0x277CBEB18] array];
@@ -58,8 +60,8 @@ uint64_t __38__IKDOMEventDispatcher_sharedInstance__block_invoke(uint64_t a1)
   if (([eventCopy isPropagationStopped] & 1) == 0)
   {
     target2 = [eventCopy target];
-    v17[0] = target2;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v16[0] = target2;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
 
     objectEnumerator2 = [v12 objectEnumerator];
     v10 |= [(IKDOMEventDispatcher *)self _runPhase:2 event:eventCopy nodeEn:objectEnumerator2];
@@ -73,7 +75,6 @@ uint64_t __38__IKDOMEventDispatcher_sharedInstance__block_invoke(uint64_t a1)
 
   [eventCopy setInUse:0];
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
@@ -122,14 +123,14 @@ uint64_t __38__IKDOMEventDispatcher_sharedInstance__block_invoke(uint64_t a1)
 
 void __47__IKDOMEventDispatcher__runPhase_event_nodeEn___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   *(*(*(a1 + 40) + 8) + 24) = 1;
   if ([v5 isEnabled])
   {
     v6 = [v5 value];
-    v10[0] = *(a1 + 32);
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = *(a1 + 32);
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
     v8 = [v6 callWithArguments:v7];
   }
 
@@ -137,8 +138,6 @@ void __47__IKDOMEventDispatcher__runPhase_event_nodeEn___block_invoke(uint64_t a
   {
     *a3 = 1;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

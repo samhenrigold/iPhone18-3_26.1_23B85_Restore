@@ -17,9 +17,9 @@
 - (UIViewController)childViewControllerForStatusBarStyle
 {
   selfCopy = self;
-  v3 = DockContainerViewController.childForStatusBarStyle.getter();
+  v4 = DockContainerViewController.childForStatusBarStyle.getter(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)viewDidLoad
@@ -31,9 +31,9 @@
 - (BOOL)shouldAutorotate
 {
   selfCopy = self;
-  v3 = DockContainerViewController.shouldAutorotate.getter();
+  v4 = DockContainerViewController.shouldAutorotate.getter(selfCopy, v3);
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (void)viewDidLayoutSubviews

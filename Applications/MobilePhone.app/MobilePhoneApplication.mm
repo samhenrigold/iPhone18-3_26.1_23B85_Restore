@@ -97,22 +97,23 @@ void __56__MobilePhoneApplication_applicationDidFinishLaunching___block_invoke_2
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = PHDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PHDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MobilePhoneApplication - handling account manager updates %@", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "MobilePhoneApplication - handling account manager updates %@", &v9, 0xCu);
     }
 
-    v6 = +[MPVoicemailAccountManagerUpdate subscriptionStatus];
-    v7 = [v3 contains:v6];
+    v7 = +[MPVoicemailAccountManagerUpdate subscriptionStatus];
+    v8 = [v3 contains:v7];
 
-    if (v7)
+    if (v8)
     {
-      [WeakRetained refreshDynamicApplicationShortcuts];
+      [v5 refreshDynamicApplicationShortcuts];
     }
   }
 }
@@ -348,31 +349,31 @@ void __57__MobilePhoneApplication_addVoicemailShortcutIfNecessary__block_invoke_
   v8 = [shortcutItems filteredArrayUsingPredicate:v7];
   v9 = [v8 count];
 
-  v10 = PHDefaultLog();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  v11 = PHDefaultLog(v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
   if (!v9)
   {
-    if (v11)
+    if (v12)
     {
       type2 = [necessaryCopy type];
       *buf = 138412290;
-      v15 = type2;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Adding shortCutItem of type %@", buf, 0xCu);
+      v16 = type2;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Adding shortCutItem of type %@", buf, 0xCu);
     }
 
-    v10 = [shortcutItems mutableCopy];
-    [v10 addObject:necessaryCopy];
+    v11 = [shortcutItems mutableCopy];
+    [v11 addObject:necessaryCopy];
     type3 = +[UIApplication sharedApplication];
-    [type3 setShortcutItems:v10];
+    [type3 setShortcutItems:v11];
     goto LABEL_7;
   }
 
-  if (v11)
+  if (v12)
   {
     type3 = [necessaryCopy type];
     *buf = 138412290;
-    v15 = type3;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "shortCutItem of type %@ already exists, not adding", buf, 0xCu);
+    v16 = type3;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "shortCutItem of type %@ already exists, not adding", buf, 0xCu);
 LABEL_7:
   }
 }
@@ -387,30 +388,30 @@ LABEL_7:
   v7 = [shortcutItems filteredArrayUsingPredicate:typeCopy];
   v8 = [v7 count];
 
-  v9 = PHDefaultLog();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v10 = PHDefaultLog(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (v8)
   {
-    if (v10)
+    if (v11)
     {
       *buf = 138412290;
-      v14 = typeCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Removing shortCutItem of type %@", buf, 0xCu);
+      v15 = typeCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Removing shortCutItem of type %@", buf, 0xCu);
     }
 
-    v9 = [shortcutItems mutableCopy];
-    v11 = [v9 filteredArrayUsingPredicate:typeCopy];
-    [v9 removeObjectsInArray:v11];
+    v10 = [shortcutItems mutableCopy];
+    v12 = [v10 filteredArrayUsingPredicate:typeCopy];
+    [v10 removeObjectsInArray:v12];
 
-    v12 = +[UIApplication sharedApplication];
-    [v12 setShortcutItems:v9];
+    v13 = +[UIApplication sharedApplication];
+    [v13 setShortcutItems:v10];
   }
 
-  else if (v10)
+  else if (v11)
   {
     *buf = 138412290;
-    v14 = typeCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "shortCutItem of type %@ does not exist, no need to remove", buf, 0xCu);
+    v15 = typeCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "shortCutItem of type %@ does not exist, no need to remove", buf, 0xCu);
   }
 }
 

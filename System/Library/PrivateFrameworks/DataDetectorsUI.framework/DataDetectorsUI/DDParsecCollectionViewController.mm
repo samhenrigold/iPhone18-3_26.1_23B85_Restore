@@ -19,17 +19,23 @@
 - (void)interactionEndedWithPunchout:(BOOL)punchout;
 - (void)loadReportAnIssueImage:(id)image;
 - (void)openParsecURL:(id)l;
+- (void)performClientQueryWithServerAccessPermitted:(BOOL)permitted localSearchPermitted:(BOOL)searchPermitted;
 - (void)performClientTextQueryWithTerm:(id)term queryId:(unint64_t)id sessionId:(id)sessionId userAgent:(id)agent reply:(id)reply;
 - (void)presentRemoteCollection:(id)collection;
 - (void)presentationControllerDidDismiss:(id)dismiss;
 - (void)remoteVCIsReady;
 - (void)replaceControllerWithController:(id)controller;
 - (void)reportAnIssueWithReportIdentifier:(id)identifier sfReportData:(id)data;
+- (void)setPreviewMode:(BOOL)mode;
+- (void)setSheetMode:(BOOL)mode;
 - (void)setTitle:(id)title;
 - (void)showError:(id)error;
 - (void)showSpinner;
 - (void)updateDelegateOfPresentationController:(id)controller;
 - (void)updateVisualMode;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation DDParsecCollectionViewController
@@ -165,7 +171,7 @@
 
 - (DDParsecCollectionViewController)initWithResult:(__DDResult *)result context:(id)context
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v7 = [(DDParsecCollectionViewController *)self initWithNibName:0 bundle:0];
   if (v7)
@@ -204,10 +210,10 @@
         }
 
         v19 = [(DDAction *)DDSearchWebAction actionWithURL:0 result:result context:contextCopy];
-        v24[0] = v19;
+        v23[0] = v19;
         v20 = [DDCopyAction actionWithURL:0 result:result context:contextCopy];
-        v24[1] = v20;
-        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+        v23[1] = v20;
+        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
         [(DDParsecCollectionViewController *)v7 setActions:v21];
       }
     }
@@ -215,7 +221,6 @@
     [(DDParsecCollectionViewController *)v7 fetchRemoteViewControllerWithValidInput:v7->_result != 0];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -332,6 +337,19 @@
   return [(DDParsecCollectionViewController *)&v5 modalPresentationStyle];
 }
 
+- (void)setPreviewMode:(BOOL)mode
+{
+  if (self->_previewMode != mode)
+  {
+    self->_previewMode = mode;
+    modeCopy = mode;
+    serviceViewControllerProxy = [(_UIRemoteViewController *)self->_remoteViewController serviceViewControllerProxy];
+    [serviceViewControllerProxy setPreviewMode:modeCopy];
+
+    [(DDParsecCollectionViewController *)self updateVisualMode];
+  }
+}
+
 - (void)adaptForPresentationInPopover:(BOOL)popover
 {
   v3 = popover & ~self->_dictionaryMode;
@@ -340,6 +358,19 @@
     self->_popoverMode = popover & ~self->_dictionaryMode;
     serviceViewControllerProxy = [(_UIRemoteViewController *)self->_remoteViewController serviceViewControllerProxy];
     [serviceViewControllerProxy setPopoverMode:v3];
+  }
+}
+
+- (void)setSheetMode:(BOOL)mode
+{
+  if (self->_sheetMode != mode)
+  {
+    self->_sheetMode = mode;
+    modeCopy = mode;
+    serviceViewControllerProxy = [(_UIRemoteViewController *)self->_remoteViewController serviceViewControllerProxy];
+    [serviceViewControllerProxy setSheetMode:modeCopy];
+
+    [(DDParsecCollectionViewController *)self updateVisualMode];
   }
 }
 
@@ -426,7 +457,7 @@ void __76__DDParsecCollectionViewController_fetchRemoteViewControllerWithValidIn
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      __76__DDParsecCollectionViewController_fetchRemoteViewControllerWithValidInput___block_invoke_cold_1();
+      __76__DDParsecCollectionViewController_fetchRemoteViewControllerWithValidInput___block_invoke_cold_1(v5);
     }
 
     [*(a1 + 32) presentRemoteCollection:v5];
@@ -530,6 +561,27 @@ void __76__DDParsecCollectionViewController_fetchRemoteViewControllerWithValidIn
   [(DDParsecCollectionViewController *)self updateVisualMode];
 }
 
+- (void)performClientQueryWithServerAccessPermitted:(BOOL)permitted localSearchPermitted:(BOOL)searchPermitted
+{
+  searchPermittedCopy = searchPermitted;
+  permittedCopy = permitted;
+  queryProvider = [(RVQuery *)self->_query queryProvider];
+
+  if (queryProvider)
+  {
+    serviceViewControllerProxy = [(_UIRemoteViewController *)self->_remoteViewController serviceViewControllerProxy];
+    queryProvider2 = [(RVQuery *)self->_query queryProvider];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __101__DDParsecCollectionViewController_performClientQueryWithServerAccessPermitted_localSearchPermitted___block_invoke;
+    v12[3] = &unk_278291190;
+    v13 = serviceViewControllerProxy;
+    v10 = queryProvider2[2];
+    v11 = serviceViewControllerProxy;
+    v10(queryProvider2, permittedCopy, searchPermittedCopy, v12);
+  }
+}
+
 - (void)performClientTextQueryWithTerm:(id)term queryId:(unint64_t)id sessionId:(id)sessionId userAgent:(id)agent reply:(id)reply
 {
   termCopy = term;
@@ -614,14 +666,13 @@ void __76__DDParsecCollectionViewController_fetchRemoteViewControllerWithValidIn
 
 - (void)replaceControllerWithController:(id)controller
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   v4 = MEMORY[0x277CBEA60];
   controllerCopy2 = controller;
   v6 = [v4 arrayWithObjects:&controllerCopy count:1];
 
-  [(DDParsecCollectionViewController *)self setViewControllers:v6, controllerCopy, v9];
-  v7 = *MEMORY[0x277D85DE8];
+  [(DDParsecCollectionViewController *)self setViewControllers:v6, controllerCopy, v8];
 }
 
 - (void)interactionEndedWithPunchout:(BOOL)punchout
@@ -718,26 +769,24 @@ void __50__DDParsecCollectionViewController_openParsecURL___block_invoke(uint64_
 
 void __50__DDParsecCollectionViewController_openParsecURL___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = v6;
+    v11 = v6;
     _os_log_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "openParsecURL: failed with error: %@", buf, 0xCu);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __50__DDParsecCollectionViewController_openParsecURL___block_invoke_237;
-  v9[3] = &unk_278290BC8;
-  v9[4] = *(a1 + 32);
-  v10 = v6;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __50__DDParsecCollectionViewController_openParsecURL___block_invoke_237;
+  v8[3] = &unk_278290BC8;
+  v8[4] = *(a1 + 32);
+  v9 = v6;
   v7 = v6;
-  dispatch_async(MEMORY[0x277D85CD0], v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v8);
 }
 
 - (void)getStatusBarHidden:(id)hidden
@@ -795,7 +844,7 @@ void __50__DDParsecCollectionViewController_openParsecURL___block_invoke_2(uint6
 
 - (void)_presentationController:(id)controller prepareAdaptivePresentationController:(id)presentationController
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   presentationControllerCopy = presentationController;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -803,10 +852,10 @@ void __50__DDParsecCollectionViewController_openParsecURL___block_invoke_2(uint6
     v6 = MEMORY[0x277D75A28];
     v7 = presentationControllerCopy;
     mediumDetent = [v6 mediumDetent];
-    v12[0] = mediumDetent;
+    v11[0] = mediumDetent;
     largeDetent = [MEMORY[0x277D75A28] largeDetent];
-    v12[1] = largeDetent;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+    v11[1] = largeDetent;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
     [v7 setDetents:v10];
 
     [v7 setPrefersGrabberVisible:1];
@@ -814,8 +863,6 @@ void __50__DDParsecCollectionViewController_openParsecURL___block_invoke_2(uint6
 
   objc_opt_class();
   [(DDParsecCollectionViewController *)self adaptForPresentationInPopover:objc_opt_isKindOfClass() & 1];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentationControllerDidDismiss:(id)dismiss
@@ -831,6 +878,56 @@ void __50__DDParsecCollectionViewController_openParsecURL___block_invoke_2(uint6
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v7.receiver = self;
+  v7.super_class = DDParsecCollectionViewController;
+  [(DDParsecCollectionViewController *)&v7 viewWillAppear:?];
+  mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
+  self->_previousStatusBarStyle = [mEMORY[0x277D75128] statusBarStyle];
+
+  if (self->_previousStatusBarStyle)
+  {
+    mEMORY[0x277D75128]2 = [MEMORY[0x277D75128] sharedApplication];
+    [mEMORY[0x277D75128]2 setStatusBarStyle:0 animation:appearCopy];
+  }
+
+  self->_dismissed = 0;
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(DDParsecCollectionViewController *)self _interactionEnded];
+  v5.receiver = self;
+  v5.super_class = DDParsecCollectionViewController;
+  [(DDParsecCollectionViewController *)&v5 viewDidDisappear:disappearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  self->_dismissed = 1;
+  if (self->_remoteViewController)
+  {
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    [defaultCenter removeObserver:self name:*MEMORY[0x277D76758] object:0];
+
+    defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
+    [defaultCenter2 removeObserver:self name:*MEMORY[0x277D76660] object:0];
+  }
+
+  v8.receiver = self;
+  v8.super_class = DDParsecCollectionViewController;
+  [(DDParsecCollectionViewController *)&v8 viewWillDisappear:disappearCopy];
+  if (self->_previousStatusBarStyle)
+  {
+    mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
+    [mEMORY[0x277D75128] setStatusBarStyle:self->_previousStatusBarStyle animation:disappearCopy];
+  }
+}
+
 - (DDParsecCollectionDelegate)parsecDelegate
 {
   WeakRetained = objc_loadWeakRetained(&self->_parsecDelegate);
@@ -840,11 +937,10 @@ void __50__DDParsecCollectionViewController_openParsecURL___block_invoke_2(uint6
 
 void __76__DDParsecCollectionViewController_fetchRemoteViewControllerWithValidInput___block_invoke_cold_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not get an out-of-process view controller. Error %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not get an out-of-process view controller. Error %@", &v1, 0xCu);
 }
 
 @end

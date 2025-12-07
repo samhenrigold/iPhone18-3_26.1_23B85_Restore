@@ -1,6 +1,7 @@
 @interface RTStoredVisitFetchOptions
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToFetchOptions:(id)options;
+- (RTStoredVisitFetchOptions)initWithAscending:(BOOL)ascending confidence:(id)confidence dateInterval:(id)interval labelVisit:(BOOL)visit limit:(id)limit;
 - (RTStoredVisitFetchOptions)initWithAscending:(BOOL)ascending confidence:(id)confidence dateInterval:(id)interval labelVisit:(BOOL)visit limit:(id)limit sources:(id)sources redact:(BOOL)redact filterPairedVisitEntries:(BOOL)self0;
 - (RTStoredVisitFetchOptions)initWithCoder:(id)coder;
 - (id)description;
@@ -9,6 +10,20 @@
 @end
 
 @implementation RTStoredVisitFetchOptions
+
+- (RTStoredVisitFetchOptions)initWithAscending:(BOOL)ascending confidence:(id)confidence dateInterval:(id)interval labelVisit:(BOOL)visit limit:(id)limit
+{
+  visitCopy = visit;
+  ascendingCopy = ascending;
+  v12 = MEMORY[0x1E695DFD8];
+  limitCopy = limit;
+  intervalCopy = interval;
+  confidenceCopy = confidence;
+  v16 = [v12 setWithObject:&unk_1F3DE3B68];
+  v17 = [(RTStoredVisitFetchOptions *)self initWithAscending:ascendingCopy confidence:confidenceCopy dateInterval:intervalCopy labelVisit:visitCopy limit:limitCopy sources:v16];
+
+  return v17;
+}
 
 - (RTStoredVisitFetchOptions)initWithAscending:(BOOL)ascending confidence:(id)confidence dateInterval:(id)interval labelVisit:(BOOL)visit limit:(id)limit sources:(id)sources redact:(BOOL)redact filterPairedVisitEntries:(BOOL)self0
 {
@@ -378,7 +393,7 @@ LABEL_45:
 
 - (unint64_t)hash
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithBool:self->_ascending];
   v4 = [v3 hash];
   v5 = [(NSNumber *)self->_confidence hash];
@@ -393,44 +408,43 @@ LABEL_45:
 
   if ([(NSSet *)self->_sources count])
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v14 = self->_sources;
-    v15 = [(NSSet *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v15 = [(NSSet *)v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v22;
+      v17 = *v21;
       do
       {
         v18 = 0;
         do
         {
-          if (*v22 != v17)
+          if (*v21 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v13 ^= [*(*(&v21 + 1) + 8 * v18++) hash];
+          v13 ^= [*(*(&v20 + 1) + 8 * v18++) hash];
         }
 
         while (v16 != v18);
-        v16 = [(NSSet *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v16 = [(NSSet *)v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v16);
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (id)description
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD60];
   if (self->_ascending)
   {
@@ -473,30 +487,30 @@ LABEL_45:
   if ([(NSSet *)self->_sources count])
   {
     [v13 appendString:{@", sources, ["}];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v14 = self->_sources;
-    v15 = [(NSSet *)v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v15 = [(NSSet *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v23;
+      v17 = *v22;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v23 != v17)
+          if (*v22 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@, ", *(*(&v22 + 1) + 8 * i)];
+          v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@, ", *(*(&v21 + 1) + 8 * i)];
           [v13 appendString:v19];
         }
 
-        v16 = [(NSSet *)v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v16 = [(NSSet *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v16);
@@ -505,8 +519,6 @@ LABEL_45:
     [v13 deleteCharactersInRange:{objc_msgSend(v13, "length") - 2, 2}];
     [v13 appendString:@"]"];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

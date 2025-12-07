@@ -39,51 +39,51 @@ void __49__WLKFavoritesRequest_makeRequestWithCompletion___block_invoke(uint64_t
   v4 = [v3 favorites];
 
   v5 = [v2 convertToWLKFavorite:v4];
-  if (WLKIsTVApp())
+  if (WLKIsTVApp(v5, v6))
   {
-    v6 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+    v7 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   }
 
   else
   {
-    v7 = objc_alloc(MEMORY[0x277CBEBD0]);
-    v8 = WLKTVAppBundleID();
-    v6 = [v7 initWithSuiteName:v8];
+    v8 = objc_alloc(MEMORY[0x277CBEBD0]);
+    v9 = WLKTVAppBundleID();
+    v7 = [v8 initWithSuiteName:v9];
   }
 
-  v9 = [MEMORY[0x277CBEAA8] now];
-  [v6 setObject:v9 forKey:@"WLKSettingsLastSyncDate"];
+  v10 = [MEMORY[0x277CBEAA8] now];
+  [v7 setObject:v10 forKey:@"WLKSettingsLastSyncDate"];
 
-  v10 = *(a1 + 32);
-  v11 = [WeakRetained error];
-  (*(v10 + 16))(v10, v5, v11);
+  v11 = *(a1 + 32);
+  v12 = [WeakRetained error];
+  (*(v11 + 16))(v11, v5, v12);
 }
 
 - (id)convertToWLKFavorite:(id)favorite
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   favoriteCopy = favorite;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = favoriteCopy;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [WLKFavorite alloc];
         v12 = [v10 ID];
         name = [v10 name];
@@ -92,14 +92,13 @@ void __49__WLKFavoritesRequest_makeRequestWithCompletion___block_invoke(uint64_t
         [v4 addObject:v15];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
 
   v16 = [v4 copy];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

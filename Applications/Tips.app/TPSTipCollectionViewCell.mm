@@ -15,6 +15,7 @@
 - (void)prepareSharedTipForReuse;
 - (void)processAvailabilityContent;
 - (void)removeFootnoteContentParser;
+- (void)setNeedsTextView:(BOOL)view;
 - (void)setupSharedTipMessaging;
 - (void)updateConstraints;
 - (void)updateContentLabel;
@@ -583,6 +584,31 @@
 {
   heroAssetView = [(TPSBaseTipCollectionViewCell *)self heroAssetView];
   [heroAssetView cancelReplayButtonTimer];
+}
+
+- (void)setNeedsTextView:(BOOL)view
+{
+  v7.receiver = self;
+  v7.super_class = TPSTipCollectionViewCell;
+  [(TPSBaseTipCollectionViewCell *)&v7 setNeedsTextView:view];
+  v4 = [(TPSBaseTipCollectionViewCell *)self tip];
+  footnoteContent = [v4 footnoteContent];
+  if (footnoteContent)
+  {
+  }
+
+  else
+  {
+    isSharedVariant = [(TPSBaseTipCollectionViewCell *)self isSharedVariant];
+
+    if ((isSharedVariant & 1) == 0)
+    {
+      return;
+    }
+  }
+
+  [(NSLayoutConstraint *)self->_contentLabelBottomConstraint setActive:0];
+  [(NSLayoutConstraint *)self->_textViewBottomConstraint setActive:0];
 }
 
 - (void)updateConstraints

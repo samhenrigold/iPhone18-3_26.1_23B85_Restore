@@ -102,23 +102,23 @@
 
 - (void)debug_verifyUniqueShadersInCache
 {
-  v98 = *MEMORY[0x277D85DE8];
-  v92 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2, v3, v4);
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
+  v97 = *MEMORY[0x277D85DE8];
+  v91 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2, v3, v4);
   v94 = 0u;
+  v95 = 0u;
+  v92 = 0u;
+  v93 = 0u;
   obj = self->_shaderCache;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, v7, v8, v9, &v93, v97, 16);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, v7, v8, v9, &v92, v96, 16);
   if (v10)
   {
-    v90 = *v94;
+    v89 = *v93;
     do
     {
-      v91 = v10;
-      for (i = 0; i != v91; ++i)
+      v90 = v10;
+      for (i = 0; i != v90; ++i)
       {
-        if (*v94 != v90)
+        if (*v93 != v89)
         {
           objc_enumerationMutation(obj);
         }
@@ -137,26 +137,26 @@
         }
 
         v37 = objc_msgSend_get(v18, v17, v19, v20, v21);
-        objc_msgSend_stringsFromBuffer_(TSCH3DShaderResource, v38, v39, v40, v41, v37);
+        objc_msgSend_stringsFromBuffer_(TSCH3DShaderResource, v38, v39, v40);
 
-        v46 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v42, v43, v44, v45, @"%s\n%s");
-        v52 = objc_msgSend_objectForKey_(v92, v47, v48, v49, v50, v46);
-        if (v52)
+        v45 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v41, v42, v43, v44, @"%s\n%s");
+        v51 = objc_msgSend_objectForKey_(v91, v46, v47, v48, v49, v45);
+        if (v51)
         {
-          v56 = MEMORY[0x277D81150];
-          v57 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v51, v53, v54, v55, "[TSCH3DShaderCache debug_verifyUniqueShadersInCache]");
-          v62 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v58, v59, v60, v61, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DShaderCache.mm");
-          v67 = objc_msgSend_diffEffects_(v52, v63, v64, v65, v66, v12);
-          v72 = objc_msgSend_diffEffects_(v12, v68, v69, v70, v71, v52);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v56, v73, v74, v75, v76, v57, v62, 77, 0, "Identical shader source code already exists %@, %@, differences %@, %@", v52, v12, v67, v72);
+          v55 = MEMORY[0x277D81150];
+          v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v50, v52, v53, v54, "[TSCH3DShaderCache debug_verifyUniqueShadersInCache]");
+          v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, v58, v59, v60, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DShaderCache.mm");
+          v66 = objc_msgSend_diffEffects_(v51, v62, v63, v64, v65, v12);
+          v71 = objc_msgSend_diffEffects_(v12, v67, v68, v69, v70, v51);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v55, v72, v73, v74, v75, v56, v61, 77, 0, "Identical shader source code already exists %@, %@, differences %@, %@", v51, v12, v66, v71);
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v77, v78, v79, v80);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v76, v77, v78, v79);
         }
 
-        objc_msgSend_setObject_forKey_(v92, v81, v82, v83, v84, v12, v46);
+        objc_msgSend_setObject_forKey_(v91, v80, v81, v82, v83, v12, v45);
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v85, v86, v87, v88, &v93, v97, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v84, v85, v86, v87, &v92, v96, 16);
     }
 
     while (v10);

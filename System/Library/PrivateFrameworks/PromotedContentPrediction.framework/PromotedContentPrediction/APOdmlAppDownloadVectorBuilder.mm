@@ -10,60 +10,59 @@
   andCopy = and;
   betweenCopy = between;
   v7 = objc_alloc_init(APOdmlBiomeSQLQuery);
-  v9 = objc_msgSend_query_startDate_endDate_(v7, v8, @"App.Install", betweenCopy, andCopy);
+  v8 = [(APOdmlBiomeSQLQuery *)v7 query:@"App.Install" startDate:betweenCopy endDate:andCopy];
 
-  return v9;
+  return v8;
 }
 
 - (double)weightForEvents:(id)events
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
-  v7 = objc_msgSend_date(MEMORY[0x277CBEAA8], v5, v6);
-  v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v8 = eventsCopy;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v31, v35, 16);
-  if (v10)
+  date = [MEMORY[0x277CBEAA8] date];
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v6 = eventsCopy;
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v7)
   {
-    v12 = v10;
-    v13 = *v32;
-    v14 = 0.0;
+    v8 = v7;
+    v9 = *v20;
+    v10 = 0.0;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v32 != v13)
+        if (*v20 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v16 = objc_msgSend_objectForKey_(*(*(&v31 + 1) + 8 * i), v11, @"absoluteTimestamp", v31);
-        v17 = MEMORY[0x277CBEAA8];
-        objc_msgSend_doubleValue(v16, v18, v19);
-        v22 = objc_msgSend_dateWithTimeIntervalSince1970_(v17, v20, v21);
-        objc_msgSend_timeIntervalSinceDate_(v7, v23, v22);
-        v25 = v24;
+        v12 = [*(*(&v19 + 1) + 8 * i) objectForKey:{@"absoluteTimestamp", v19}];
+        v13 = MEMORY[0x277CBEAA8];
+        [v12 doubleValue];
+        v14 = [v13 dateWithTimeIntervalSince1970:?];
+        [date timeIntervalSinceDate:v14];
+        v16 = v15;
 
-        objc_msgSend_exponentialDecayConstant(self, v26, v27);
-        v14 = v14 + exp(v25 / -86400.0 * v28);
+        [(APOdmlVectorBuilder *)self exponentialDecayConstant];
+        v10 = v10 + exp(v16 / -86400.0 * v17);
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v31, v35, 16);
+      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v12);
+    while (v8);
   }
 
   else
   {
-    v14 = 0.0;
+    v10 = 0.0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v10;
 }
 
 @end

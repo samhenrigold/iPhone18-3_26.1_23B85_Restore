@@ -102,7 +102,7 @@
   if ([(CRLStroke *)self shouldRender:path])
   {
     memset(&v19, 0, sizeof(v19));
-    [(CRLCalligraphyStroke *)self transformInContext:context];
+    objc_msgSend_transformInContext_(self);
     transform = v19;
     v12 = sub_10007187C(path, &transform);
     CGContextSaveGState(context);
@@ -144,7 +144,7 @@
   CGContextSaveGState(context);
   [(CRLCalligraphyStroke *)self applyToContext:context insideStroke:0];
   memset(&v26, 0, sizeof(v26));
-  [(CRLCalligraphyStroke *)self transformInContext:context];
+  objc_msgSend_transformInContext_(self);
   v24 = v26;
   CGAffineTransformInvert(&transform, &v24);
   CGContextConcatCTM(context, &transform);

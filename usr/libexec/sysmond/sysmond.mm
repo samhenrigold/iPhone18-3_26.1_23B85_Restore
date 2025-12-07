@@ -430,15 +430,16 @@ void sub_1000019DC(uint64_t a1, uint64_t a2)
   _Block_object_dispose(&v7, 8);
 }
 
-uint64_t sub_100001AC8(uint64_t result, int a2)
+uint64_t sub_100001AC8(uint64_t result, uint64_t a2)
 {
+  v2 = a2;
   v3 = result;
   v4 = 12;
   for (i = &off_100008440; ; i += 2)
   {
-    if (*(i - 2) == a2)
+    if (*(i - 2) == v2)
     {
-      result = sub_100002E08(*(v3 + 40), a2);
+      result = sub_100002E08(*(v3 + 40), v2);
       if ((result & 1) == 0)
       {
         result = (*i)(*(v3 + 40));
@@ -461,9 +462,8 @@ uint64_t sub_100001AC8(uint64_t result, int a2)
 
 BOOL sub_100001B4C(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = coalition_info_resource_usage();
-  if (!v3)
+  v2 = coalition_info_resource_usage();
+  if (!v2)
   {
     sub_100002F68(a1, 2, 0);
     sub_100002F68(a1, 3, 0);
@@ -476,13 +476,13 @@ BOOL sub_100001B4C(uint64_t a1)
     pm_energy_impact();
     if (*(a1 + 40) == 1)
     {
-      v4 = 0.0;
+      v3 = 0.0;
     }
 
-    sub_100002FC4(a1, 12, v4);
+    sub_100002FC4(a1, 12, v3);
   }
 
-  return v3 == 0;
+  return v2 == 0;
 }
 
 uint64_t sub_100001D04(uint64_t a1)
@@ -812,15 +812,16 @@ void sub_1000023F8(uint64_t a1, int a2)
   _Block_object_dispose(&v7, 8);
 }
 
-uint64_t sub_1000024E4(uint64_t result, int a2)
+uint64_t sub_1000024E4(uint64_t result, uint64_t a2)
 {
+  v2 = a2;
   v3 = result;
   v4 = 76;
   for (i = &off_1000085C8; ; i += 2)
   {
-    if (*(i - 2) == a2)
+    if (*(i - 2) == v2)
     {
-      result = sub_100002E08(*(v3 + 40), a2);
+      result = sub_100002E08(*(v3 + 40), v2);
       if ((result & 1) == 0)
       {
         result = (*i)(*(v3 + 40));
@@ -1013,7 +1014,7 @@ uint64_t sub_10000297C()
   return __os_object_alloc(v0, 40);
 }
 
-size_t sub_100002B50(void *a1, uint64_t a2)
+uint64_t sub_100002B50(void *a1, uint64_t a2)
 {
   bytes_ptr = xpc_data_get_bytes_ptr(a1);
   result = xpc_data_get_length(a1);
@@ -1079,7 +1080,7 @@ uint64_t sub_100002C54(void *a1, int a2)
   return v2;
 }
 
-uint64_t sub_100002D1C(uint64_t result, int a2)
+uint64_t sub_100002D1C(uint64_t result, uint64_t a2)
 {
   ++*(*(*(result + 32) + 8) + 24);
   if (*(result + 48) == a2)

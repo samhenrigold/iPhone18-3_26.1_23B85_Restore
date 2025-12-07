@@ -71,7 +71,7 @@ void __39__CEKApertureStops_validApertureValues__block_invoke()
   return v5;
 }
 
-uint64_t __56__CEKApertureStops_indexOfClosestValidValueForAperture___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__56__CEKApertureStops_indexOfClosestValidValueForAperture___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 doubleValue];
   v9 = vabdd_f64(v8, *(a1 + 48));

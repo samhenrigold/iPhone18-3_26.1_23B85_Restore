@@ -10,7 +10,7 @@
 
 - (void)observeTaggedEvent:(id)event addProcessorBlock:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   blockCopy = block;
   logEventFactory = [(HMMCoreAnalyticsTagObserver *)self logEventFactory];
@@ -30,17 +30,15 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v14;
-      v18 = 2112;
-      v19 = 0;
-      _os_log_impl(&dword_22B074000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to get logged event from tagged event: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v14;
+      v17 = 2112;
+      v18 = 0;
+      _os_log_impl(&dword_22B074000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to get logged event from tagged event: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unconfigure
@@ -113,7 +111,6 @@ LABEL_9:
 
 uint64_t __42__HMMCoreAnalyticsTagObserver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v2 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

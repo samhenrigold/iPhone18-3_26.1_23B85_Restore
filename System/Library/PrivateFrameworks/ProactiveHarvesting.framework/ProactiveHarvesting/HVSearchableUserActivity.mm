@@ -57,12 +57,12 @@
 
 - (HVSearchableUserActivity)initWithUserActivity:(id)activity searchableItem:(id)item
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   itemCopy = item;
-  v20.receiver = self;
-  v20.super_class = HVSearchableUserActivity;
-  v9 = [(HVSearchableUserActivity *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = HVSearchableUserActivity;
+  v9 = [(HVSearchableUserActivity *)&v19 init];
   v10 = v9;
   if (v9)
   {
@@ -80,7 +80,7 @@
 
     else
     {
-      v22 = 0;
+      v21 = 0;
       __buf = 0;
       arc4random_buf(&__buf, 9uLL);
       v15 = objc_autoreleasePoolPush();
@@ -94,7 +94,6 @@
     v10->_persistentIdentifierOrFallback = v14;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

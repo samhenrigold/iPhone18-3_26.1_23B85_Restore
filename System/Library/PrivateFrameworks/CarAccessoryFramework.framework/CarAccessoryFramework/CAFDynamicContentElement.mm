@@ -12,6 +12,7 @@
 - (NSString)displayPanelIdentifier;
 - (NSString)displayZoneIdentifier;
 - (NSString)dynamicContentURL;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -195,6 +196,101 @@
   stringValue = [displayZoneIdentifierCharacteristic stringValue];
 
   return stringValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000037000013"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    dynamicContentURLCharacteristic = [(CAFDynamicContentElement *)self dynamicContentURLCharacteristic];
+    uniqueIdentifier2 = [dynamicContentURLCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      dynamicContentURL = [(CAFDynamicContentElement *)self dynamicContentURL];
+      [observers dynamicContentElementService:self didUpdateDynamicContentURL:dynamicContentURL];
+LABEL_16:
+
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000036000063"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    userDismissibleCharacteristic = [(CAFDynamicContentElement *)self userDismissibleCharacteristic];
+    uniqueIdentifier4 = [userDismissibleCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      [observers dynamicContentElementService:self didUpdateUserDismissible:{-[CAFDynamicContentElement userDismissible](self, "userDismissible")}];
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000037000007"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    displayPanelIdentifierCharacteristic = [(CAFDynamicContentElement *)self displayPanelIdentifierCharacteristic];
+    uniqueIdentifier6 = [displayPanelIdentifierCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      dynamicContentURL = [(CAFDynamicContentElement *)self displayPanelIdentifier];
+      [observers dynamicContentElementService:self didUpdateDisplayPanelIdentifier:dynamicContentURL];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x000000003700000B"])
+  {
+LABEL_17:
+
+    goto LABEL_18;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  displayZoneIdentifierCharacteristic = [(CAFDynamicContentElement *)self displayZoneIdentifierCharacteristic];
+  uniqueIdentifier8 = [displayZoneIdentifierCharacteristic uniqueIdentifier];
+  v27 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v27)
+  {
+    observers = [(CAFService *)self observers];
+    dynamicContentURL = [(CAFDynamicContentElement *)self displayZoneIdentifier];
+    [observers dynamicContentElementService:self didUpdateDisplayZoneIdentifier:dynamicContentURL];
+    goto LABEL_16;
+  }
+
+LABEL_18:
+  v28.receiver = self;
+  v28.super_class = CAFDynamicContentElement;
+  [(CAFService *)&v28 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForDynamicContentURL

@@ -284,7 +284,7 @@ LABEL_41:
   if (v12)
   {
     v13 = v12;
-    if ([v12 isEqualToString:@"AVAudioBitRateStrategy_Constant"])
+    if (objc_msgSend_isEqualToString_(v12))
     {
       v14 = &unk_1F2243240;
 LABEL_16:
@@ -294,21 +294,21 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    if ([v13 isEqualToString:@"AVAudioBitRateStrategy_LongTermAverage"])
+    if (objc_msgSend_isEqualToString_(v13))
     {
       v14 = &unk_1F2243258;
       goto LABEL_16;
     }
 
-    v20 = [v13 isEqualToString:@"AVAudioBitRateStrategy_VariableConstrained"];
+    isEqualToString = objc_msgSend_isEqualToString_(v13);
     v15 = MEMORY[0x1E6971640];
-    if (v20)
+    if (isEqualToString)
     {
       v14 = &unk_1F2243270;
       goto LABEL_17;
     }
 
-    if ([v13 isEqualToString:@"AVAudioBitRateStrategy_Variable"])
+    if (objc_msgSend_isEqualToString_(v13))
     {
       [(NSDictionary *)dictionary setObject:&unk_1F2243288 forKeyedSubscript:*v15];
       v21 = [(NSDictionary *)self->_avAudioSettings objectForKeyedSubscript:@"AVEncoderQualityForVBRKey"];
@@ -326,7 +326,7 @@ LABEL_18:
   if (v16)
   {
     v17 = v16;
-    if ([v16 isEqualToString:@"AVSampleRateConverterAlgorithm_Normal"])
+    if (objc_msgSend_isEqualToString_(v16))
     {
       v18 = &unk_1F22432A0;
 LABEL_23:
@@ -334,7 +334,7 @@ LABEL_23:
       goto LABEL_24;
     }
 
-    if ([v17 isEqualToString:@"AVSampleRateConverterAlgorithm_Normal"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v18 = &unk_1F22432B8;
       goto LABEL_23;
@@ -415,7 +415,7 @@ LABEL_24:
   if (v14)
   {
     v15 = v14;
-    if ([v14 isEqualToString:@"AVAudioBitRateStrategy_Constant"])
+    if (objc_msgSend_isEqualToString_(v14))
     {
       v16 = @", Constant BRCM";
 LABEL_26:
@@ -423,19 +423,19 @@ LABEL_26:
       goto LABEL_27;
     }
 
-    if ([v15 isEqualToString:@"AVAudioBitRateStrategy_LongTermAverage"])
+    if (objc_msgSend_isEqualToString_(v15))
     {
       v16 = @", LongTermAvg BRCM";
       goto LABEL_26;
     }
 
-    if ([v15 isEqualToString:@"AVAudioBitRateStrategy_VariableConstrained"])
+    if (objc_msgSend_isEqualToString_(v15))
     {
       v16 = @", VariableConstrained BRCM";
       goto LABEL_26;
     }
 
-    if ([v15 isEqualToString:@"AVAudioBitRateStrategy_Variable"])
+    if (objc_msgSend_isEqualToString_(v15))
     {
       [v3 appendString:{@", Variable BRCM"}];
       v21 = [(NSDictionary *)self->_avAudioSettings objectForKeyedSubscript:@"AVEncoderQualityForVBRKey"];
@@ -451,7 +451,7 @@ LABEL_27:
   if (v17)
   {
     v18 = v17;
-    if ([v17 isEqualToString:@"AVSampleRateConverterAlgorithm_Normal"])
+    if (objc_msgSend_isEqualToString_(v17))
     {
       v19 = @", Mastering SRC";
 LABEL_32:
@@ -459,7 +459,7 @@ LABEL_32:
       return v3;
     }
 
-    if ([v18 isEqualToString:@"AVSampleRateConverterAlgorithm_Normal"])
+    if (objc_msgSend_isEqualToString_(v18))
     {
       v19 = @", Normal SRC";
       goto LABEL_32;
@@ -498,36 +498,6 @@ LABEL_32:
   }
 
   return v3;
-}
-
-- (uint64_t)_initForAVAudioSettings:inputFormat:formatExtensions:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_initForAVAudioSettings:inputFormat:formatExtensions:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (void)_initForAVAudioSettings:inputFormat:formatExtensions:.cold.3()
-{
-  fig_log_get_emitter();
-  LODWORD(v1) = 0;
-  FigDebugAssert3();
-  objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Can't make a BWAudioFormat because the provided input format produced a NULL CMFormatDescription" userInfo:{0, v1, v0}]);
-}
-
-- (void)_initForAVAudioSettings:inputFormat:formatExtensions:.cold.4()
-{
-  fig_log_get_emitter();
-  LODWORD(v1) = 0;
-  FigDebugAssert3();
-  objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Can't make a BWAudioFormat when audioSettings and inputFormat are both nil" userInfo:{0, v1, v0}]);
 }
 
 @end

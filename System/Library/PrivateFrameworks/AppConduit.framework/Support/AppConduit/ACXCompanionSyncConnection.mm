@@ -33,7 +33,9 @@
 - (void)_onQueue_processPendingGizmoState;
 - (void)_onQueue_processReunionSyncMessage:(id)message;
 - (void)_onQueue_processReunionSyncMessage:(id)message withAppManager:(id)manager;
+- (void)_onQueue_sendInstallOnGizmoMessageForSystemAppBundleIDs:(id)ds appsWithStoreMetadata:(id)metadata isUserInitiated:(BOOL)initiated exclusiveInstall:(BOOL)install withCompletion:(id)completion;
 - (void)_onQueue_sendRemoveMessageForBundleIDs:(id)ds isUserInitiated:(BOOL)initiated withCompletion:(id)completion;
+- (void)_onQueue_triggerLocalAppStoreInstallForWatchApp:(id)app userInitiated:(BOOL)initiated completion:(id)completion;
 - (void)_processSystemAppChangesForNewApps:(id)apps updatedApps:(id)updatedApps removedApps:(id)removedApps;
 - (void)_setLocallyAvailableForRemoteApplicationInstances:(id)instances;
 - (void)acknowledgeAppEventsForDBUUID:(id)d throughSequenceNumber:(unint64_t)number;
@@ -407,12 +409,12 @@ LABEL_9:
         domain3 = [v22 domain];
         if (![domain3 isEqualToString:IXErrorDomain] || objc_msgSend(v22, "code") != 24)
         {
-          v69 = domain;
+          v70 = domain;
           v25 = domain2;
           domain4 = [v22 domain];
           if ([domain4 isEqualToString:AMSErrorDomain])
           {
-            v71 = v25;
+            v72 = v25;
             code = [v22 code];
 
             if (code == 100)
@@ -427,19 +429,19 @@ LABEL_9:
 
           domain = [(ACXCompanionSyncConnection *)self device];
           v28 = nameCopy;
-          v72 = dCopy;
+          v73 = dCopy;
           v29 = v22;
           v22 = v28;
           domain3 = v29;
           v30 = v20;
-          if (sub_100006760())
+          if (sub_100006760(v30, v31))
           {
-            v31 = +[NSDate date];
-            v65 = sub_10002D2FC(v31);
+            v32 = +[NSDate date];
+            v66 = sub_10002D2FC(v32);
 
+            v65 = MGCopyAnswer();
             v64 = MGCopyAnswer();
-            v63 = MGCopyAnswer();
-            v68 = MGCopyAnswer();
+            v69 = MGCopyAnswer();
             productType = [domain productType];
             osVersion = [domain osVersion];
             osBuildVersion = [domain osBuildVersion];
@@ -447,79 +449,79 @@ LABEL_9:
             idsDeviceIdentifier = [domain idsDeviceIdentifier];
             pairingID = [domain pairingID];
             userInfo = [domain3 userInfo];
-            v57 = [userInfo objectForKeyedSubscript:@"ConnectionIdentifier"];
+            v58 = [userInfo objectForKeyedSubscript:@"ConnectionIdentifier"];
 
             userInfo2 = [domain3 userInfo];
-            v56 = [userInfo2 objectForKeyedSubscript:@"ConnectionCreationDate"];
+            v57 = [userInfo2 objectForKeyedSubscript:@"ConnectionCreationDate"];
 
             userInfo3 = [domain3 userInfo];
-            v51 = [userInfo3 objectForKeyedSubscript:@"WifiAsserted"];
+            v52 = [userInfo3 objectForKeyedSubscript:@"WifiAsserted"];
 
-            v70 = domain3;
+            v71 = domain3;
             userInfo4 = [domain3 userInfo];
-            v55 = [userInfo4 objectForKeyedSubscript:@"IDSMessageID"];
+            v56 = [userInfo4 objectForKeyedSubscript:@"IDSMessageID"];
 
-            v50 = [NSString stringWithFormat:@"Installation of %@ failed", v22];
-            v54 = [NSString stringWithFormat:@"%@ failed to install on your Apple Watch.\n\nPlease file a bug!", v22];
+            v51 = [NSString stringWithFormat:@"Installation of %@ failed", v22];
+            v55 = [NSString stringWithFormat:@"%@ failed to install on your Apple Watch.\n\nPlease file a bug!", v22];
             userInfo5 = [v30 userInfo];
-            v37 = [userInfo5 objectForKeyedSubscript:NSLocalizedFailureReasonErrorKey];
+            v38 = [userInfo5 objectForKeyedSubscript:NSLocalizedFailureReasonErrorKey];
 
             userInfo6 = [v30 userInfo];
-            v53 = [userInfo6 objectForKeyedSubscript:NSLocalizedDescriptionKey];
+            v54 = [userInfo6 objectForKeyedSubscript:NSLocalizedDescriptionKey];
 
-            v66 = v22;
-            v49 = v37;
-            if (v37)
+            v67 = v22;
+            v50 = v38;
+            if (v38)
             {
-              [NSString stringWithFormat:@"INTERNAL-ONLY MESSAGE: (%@) %@", v22, v37];
+              [NSString stringWithFormat:@"INTERNAL-ONLY MESSAGE: (%@) %@", v22, v38];
             }
 
             else
             {
-              [NSString stringWithFormat:@"INTERNAL-ONLY MESSAGE: %@", v50, v46];
+              [NSString stringWithFormat:@"INTERNAL-ONLY MESSAGE: %@", v51, v47];
             }
-            v52 = ;
-            v39 = v54;
-            if (v53)
+            v53 = ;
+            v40 = v55;
+            if (v54)
             {
-              v39 = v53;
+              v40 = v54;
             }
 
-            v48 = v39;
-            domain5 = [v70 domain];
-            v47 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"[%@/%@] [%@:%ld]: Failed to install %@ on Apple Watch", v68, osBuildVersion, domain5, [v70 code], v72);
+            v49 = v40;
+            domain5 = [v71 domain];
+            v48 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"[%@/%@] [%@:%ld]: Failed to install %@ on Apple Watch", v69, osBuildVersion, domain5, [v71 code], v73);
 
-            v41 = objc_opt_new();
-            [v41 appendFormat:@"Steps to reproduce:\n\n\n\nAuto-Gathered Info:\n"];
-            [v41 appendFormat:@"Time: %@\n", v65];
-            [v41 appendFormat:@"IDS Device ID: %@\n", idsDeviceIdentifier];
-            [v41 appendFormat:@"Pairing ID: %@\n", pairingID];
-            if (v55)
+            v42 = objc_opt_new();
+            [v42 appendFormat:@"Steps to reproduce:\n\n\n\nAuto-Gathered Info:\n"];
+            [v42 appendFormat:@"Time: %@\n", v66];
+            [v42 appendFormat:@"IDS Device ID: %@\n", idsDeviceIdentifier];
+            [v42 appendFormat:@"Pairing ID: %@\n", pairingID];
+            if (v56)
             {
-              [v41 appendFormat:@"Failing IDS Message ID: %@\n", v55];
+              [v42 appendFormat:@"Failing IDS Message ID: %@\n", v56];
             }
 
-            if (v57)
+            if (v58)
             {
-              [v41 appendFormat:@"Failing Stream Name: %@\n", v57];
-              v42 = sub_10002D2FC(v56);
-              [v41 appendFormat:@"Connection Start Date: %@\n", v42];
-              [v41 appendFormat:@"WiFi Asserted: %c\n", sub_100006DA8(objc_msgSend(v51, "BOOLValue"))];
+              [v42 appendFormat:@"Failing Stream Name: %@\n", v58];
+              v43 = sub_10002D2FC(v57);
+              [v42 appendFormat:@"Connection Start Date: %@\n", v43];
+              [v42 appendFormat:@"WiFi Asserted: %c\n", sub_100006DA8(objc_msgSend(v52, "BOOLValue"))];
             }
 
-            [v41 appendFormat:@"Error: %@\n", v70];
-            [v41 appendFormat:@"Companion: %@ %@ (%@)\n", v64, v63, v68];
-            [v41 appendFormat:@"Watch: %@ (%@) %@ (%@)\n", productType, watchSize, osVersion, osBuildVersion];
-            [v41 appendFormat:@"App Name: %@\n", v66];
-            [v41 appendFormat:@"Bundle ID: %@\n", v72];
-            v43 = [v41 copy];
-            sub_100005728(v52, v48, v47, v43);
+            [v42 appendFormat:@"Error: %@\n", v71];
+            [v42 appendFormat:@"Companion: %@ %@ (%@)\n", v65, v64, v69];
+            [v42 appendFormat:@"Watch: %@ (%@) %@ (%@)\n", productType, watchSize, osVersion, osBuildVersion];
+            [v42 appendFormat:@"App Name: %@\n", v67];
+            [v42 appendFormat:@"Bundle ID: %@\n", v73];
+            v44 = [v42 copy];
+            sub_100005728(v53, v49, v48, v44);
 
-            domain3 = v70;
-            v22 = v66;
+            domain3 = v71;
+            v22 = v67;
           }
 
-          domain2 = v72;
+          domain2 = v73;
         }
       }
     }
@@ -528,7 +530,7 @@ LABEL_9:
 LABEL_27:
   if (presentableError)
   {
-    v44 = v20;
+    v45 = v20;
     *presentableError = v20;
   }
 
@@ -1218,7 +1220,7 @@ LABEL_19:
     v12 = 0;
   }
 
-  if (!v8 || (objc_opt_class(), (sub_100005D2C(v8) & 1) == 0))
+  if (!v8 || (v13 = objc_opt_class(), (sub_100005D2C(v8, v13) & 1) == 0))
   {
     if (qword_1000A4878 && *(qword_1000A4878 + 44) < 3)
     {
@@ -1232,7 +1234,7 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  if (!v12 || (objc_opt_class(), (sub_100005D2C(v12) & 1) == 0))
+  if (!v12 || (v14 = objc_opt_class(), (sub_100005D2C(v12, v14) & 1) == 0))
   {
     if (qword_1000A4878 && *(qword_1000A4878 + 44) < 3)
     {
@@ -1243,45 +1245,45 @@ LABEL_32:
   }
 
   selfCopy = self;
-  v13 = objc_opt_new();
-  v33 = 0u;
-  v34 = 0u;
+  v15 = objc_opt_new();
   v35 = 0u;
   v36 = 0u;
-  v31 = v8;
-  v14 = v8;
-  v15 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (v15)
+  v37 = 0u;
+  v38 = 0u;
+  v33 = v8;
+  v16 = v8;
+  v17 = [v16 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  if (v17)
   {
-    v16 = v15;
-    v17 = *v34;
+    v18 = v17;
+    v19 = *v36;
     do
     {
-      for (i = 0; i != v16; i = i + 1)
+      for (i = 0; i != v18; i = i + 1)
       {
-        if (*v34 != v17)
+        if (*v36 != v19)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v16);
         }
 
-        v19 = *(*(&v33 + 1) + 8 * i);
-        v20 = [[ACXRemoteApplication alloc] initWithSerializedDictionary:v19];
-        if (v20)
+        v21 = *(*(&v35 + 1) + 8 * i);
+        v22 = [[ACXRemoteApplication alloc] initWithSerializedDictionary:v21];
+        if (v22)
         {
-          [v13 addObject:v20];
+          [v15 addObject:v22];
         }
 
         else if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
         {
-          message3 = v19;
+          message3 = v21;
           MOLogWrite();
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
-    while (v16);
+    while (v18);
   }
 
   self = selfCopy;
@@ -1290,18 +1292,18 @@ LABEL_32:
 
   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
   {
-    v23 = [v13 count];
+    v25 = [v15 count];
     device2 = [(ACXCompanionSyncConnection *)selfCopy device];
     pairingID = [device2 pairingID];
-    v30 = osBuildVersion;
-    message3 = v23;
+    v32 = osBuildVersion;
+    message3 = v25;
     MOLogWrite();
   }
 
-  v25 = [(ACXCompanionSyncConnection *)selfCopy availableSystemAppList:message3];
-  [v25 setAvailableSystemApps:v13 bundleIDsOfInstallableSystemAppsIgnoringCounterpartAvailability:v12 forRemoteOSBuildVersion:osBuildVersion];
+  v27 = [(ACXCompanionSyncConnection *)selfCopy availableSystemAppList:message3];
+  [v27 setAvailableSystemApps:v15 bundleIDsOfInstallableSystemAppsIgnoringCounterpartAvailability:v12 forRemoteOSBuildVersion:osBuildVersion];
 
-  v8 = v31;
+  v8 = v33;
 LABEL_33:
   [(ACXCompanionSyncConnection *)self setAvailableSystemAppFetchRunning:0, message3];
   gizmoState = [(ACXCompanionSyncConnection *)self gizmoState];
@@ -1360,10 +1362,10 @@ LABEL_33:
 
     [(ACXCompanionSyncConnection *)self setReunionSyncRunning:0];
     [(ACXCompanionSyncConnection *)self _onQueue_configureRemoteAppListsAndFetchSystemAppsIfNeeded];
-    goto LABEL_272;
+    goto LABEL_270;
   }
 
-  v179 = deletableSystemAppStateIsMirrored;
+  v183 = deletableSystemAppStateIsMirrored;
   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
   {
     MOLogWrite();
@@ -1379,10 +1381,10 @@ LABEL_33:
     }
 
     [(ACXCompanionSyncConnection *)self setReunionSyncRunning:0, unsignedCharValue];
-    goto LABEL_271;
+    goto LABEL_269;
   }
 
-  v171 = alwaysInstallApps;
+  v175 = alwaysInstallApps;
   selfCopy = self;
   v21 = [message objectForKeyedSubscript:@"IA"];
   objc_opt_class();
@@ -1408,11 +1410,11 @@ LABEL_26:
     MOLogWrite();
 LABEL_27:
     [(ACXCompanionSyncConnection *)selfCopy setReunionSyncRunning:0];
-    goto LABEL_270;
+    goto LABEL_268;
   }
 
-  objc_opt_class();
-  if ((sub_100005D2C(v23) & 1) == 0)
+  v24 = objc_opt_class();
+  if ((sub_100005D2C(v23, v24) & 1) == 0)
   {
     if (qword_1000A4878 && *(qword_1000A4878 + 44) < 3)
     {
@@ -1422,25 +1424,25 @@ LABEL_27:
     goto LABEL_26;
   }
 
-  v168 = v23;
-  v24 = [message objectForKeyedSubscript:@"IP"];
+  v172 = v23;
+  v25 = [message objectForKeyedSubscript:@"IP"];
   objc_opt_class();
-  v25 = v24;
+  v26 = v25;
   if (objc_opt_isKindOfClass())
   {
-    v26 = v25;
+    v27 = v26;
   }
 
   else
   {
-    v26 = 0;
+    v27 = 0;
   }
 
-  v169 = v26;
-  if (v26 && [v26 count])
+  v173 = v27;
+  if (v27 && [v27 count])
   {
-    objc_opt_class();
-    if ((sub_100005D2C(v26) & 1) == 0)
+    v28 = objc_opt_class();
+    if ((sub_100005D2C(v27, v28) & 1) == 0)
     {
       if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
       {
@@ -1448,41 +1450,41 @@ LABEL_27:
       }
 
       [(ACXCompanionSyncConnection *)selfCopy setReunionSyncRunning:0];
-      goto LABEL_269;
+      goto LABEL_267;
     }
 
     if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
     {
-      unsignedCharValue = v26;
+      unsignedCharValue = v27;
       MOLogWrite();
     }
   }
 
-  v27 = [message objectForKeyedSubscript:{@"DBU", unsignedCharValue}];
-  objc_opt_class();
-  v28 = v27;
-  v161 = v20;
-  if (objc_opt_isKindOfClass())
-  {
-    v160 = v28;
-  }
-
-  else
-  {
-    v160 = 0;
-  }
-
-  v29 = [message objectForKeyedSubscript:@"DBS"];
+  v29 = [message objectForKeyedSubscript:{@"DBU", unsignedCharValue}];
   objc_opt_class();
   v30 = v29;
+  v165 = v20;
   if (objc_opt_isKindOfClass())
   {
-    v166 = v30;
+    v164 = v30;
   }
 
   else
   {
-    v166 = 0;
+    v164 = 0;
+  }
+
+  v31 = [message objectForKeyedSubscript:@"DBS"];
+  objc_opt_class();
+  v32 = v31;
+  if (objc_opt_isKindOfClass())
+  {
+    v170 = v32;
+  }
+
+  else
+  {
+    v170 = 0;
   }
 
   device5 = [(ACXCompanionSyncConnection *)selfCopy device];
@@ -1490,59 +1492,59 @@ LABEL_27:
 
   if (supportsTrackingAppRemovability)
   {
-    v33 = [message objectForKeyedSubscript:@"RU"];
-    objc_opt_class();
-    v34 = v33;
-    if (objc_opt_isKindOfClass())
-    {
-      v167 = v34;
-    }
-
-    else
-    {
-      v167 = 0;
-    }
-
-    v35 = [message objectForKeyedSubscript:@"RS"];
+    v35 = [message objectForKeyedSubscript:@"RU"];
     objc_opt_class();
     v36 = v35;
     if (objc_opt_isKindOfClass())
     {
-      v165 = v36;
+      v171 = v36;
     }
 
     else
     {
-      v165 = 0;
+      v171 = 0;
+    }
+
+    v37 = [message objectForKeyedSubscript:@"RS"];
+    objc_opt_class();
+    v38 = v37;
+    if (objc_opt_isKindOfClass())
+    {
+      v169 = v38;
+    }
+
+    else
+    {
+      v169 = 0;
     }
   }
 
   else
   {
-    v165 = 0;
-    v167 = 0;
+    v169 = 0;
+    v171 = 0;
   }
 
-  v37 = [message objectForKeyedSubscript:@"BL"];
+  v39 = [message objectForKeyedSubscript:@"BL"];
   objc_opt_class();
-  v38 = v37;
+  v40 = v39;
   if (objc_opt_isKindOfClass())
   {
-    v39 = v38;
+    v41 = v40;
   }
 
   else
   {
-    v39 = 0;
+    v41 = 0;
   }
 
-  if (v39)
+  if (v41)
   {
-    objc_opt_class();
-    if (sub_100005D2C(v39))
+    v42 = objc_opt_class();
+    if (sub_100005D2C(v41, v42))
     {
       availableSystemAppList = [(ACXCompanionSyncConnection *)selfCopy availableSystemAppList];
-      [availableSystemAppList setInstallableSystemAppBundleIDsExcludingCompanionState:v39];
+      [availableSystemAppList setInstallableSystemAppBundleIDsExcludingCompanionState:v41];
     }
 
     else if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
@@ -1558,13 +1560,13 @@ LABEL_27:
     availableSystemAppList2 = [(ACXCompanionSyncConnection *)selfCopy availableSystemAppList];
     installableSystemAppToCompanionAppIdentifierMap = [availableSystemAppList2 installableSystemAppToCompanionAppIdentifierMap];
 
-    v196 = installableSystemAppToCompanionAppIdentifierMap;
+    v200 = installableSystemAppToCompanionAppIdentifierMap;
     if (installableSystemAppToCompanionAppIdentifierMap)
     {
       goto LABEL_66;
     }
 
-    v43 = &_os_log_default;
+    v46 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
     {
       sub_100059E2C();
@@ -1578,66 +1580,63 @@ LABEL_27:
     locallyAvailableSystemAppBundleIDToCompanionBundleIDMapping = [managerCopy locallyAvailableSystemAppBundleIDToCompanionBundleIDMappingForPreWatchOSSix];
   }
 
-  v196 = locallyAvailableSystemAppBundleIDToCompanionBundleIDMapping;
+  v200 = locallyAvailableSystemAppBundleIDToCompanionBundleIDMapping;
 LABEL_66:
-  v159 = v39;
-  v162 = message;
-  v163 = managerCopy;
-  v181 = osVersion;
-  v164 = messageCopy;
+  v163 = v41;
+  v166 = message;
+  v167 = managerCopy;
+  v185 = osVersion;
+  v168 = messageCopy;
   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
   {
-    v155 = v196;
+    v159 = v200;
     MOLogWrite();
   }
 
-  v45 = objc_opt_new();
-  v170 = objc_opt_new();
-  v182 = objc_opt_new();
+  v48 = objc_opt_new();
+  v174 = objc_opt_new();
   v186 = objc_opt_new();
-  v157 = objc_opt_new();
-  v158 = objc_opt_new();
-  v184 = objc_opt_new();
-  v240 = 0u;
-  v241 = 0u;
-  v242 = 0u;
-  v243 = 0u;
-  obj = v168;
-  v46 = [obj countByEnumeratingWithState:&v240 objects:v246 count:16];
-  v47 = &MISCopyErrorStringForErrorCode_ptr;
-  if (v46)
+  v190 = objc_opt_new();
+  v161 = objc_opt_new();
+  v162 = objc_opt_new();
+  v188 = objc_opt_new();
+  v244 = 0u;
+  v245 = 0u;
+  v246 = 0u;
+  v247 = 0u;
+  obj = v172;
+  v49 = [obj countByEnumeratingWithState:&v244 objects:v250 count:16];
+  if (v49)
   {
-    v48 = v46;
-    v49 = *v241;
+    v50 = v49;
+    v51 = *v245;
     do
     {
-      v50 = 0;
+      v52 = 0;
       do
       {
-        if (*v241 != v49)
+        if (*v245 != v51)
         {
           objc_enumerationMutation(obj);
         }
 
-        v51 = *(*(&v240 + 1) + 8 * v50);
-        v52 = [v51 objectForKeyedSubscript:{@"B", v155}];
-        v53 = v47[255];
+        v53 = *(*(&v244 + 1) + 8 * v52);
+        v54 = [v53 objectForKeyedSubscript:{@"B", v159}];
         objc_opt_class();
-        v54 = v52;
+        v55 = v54;
         if (objc_opt_isKindOfClass())
         {
-          v55 = v54;
+          v56 = v55;
         }
 
         else
         {
-          v55 = 0;
+          v56 = 0;
         }
 
-        v56 = [v51 objectForKeyedSubscript:@"C"];
-        v57 = v47[255];
+        v57 = [v53 objectForKeyedSubscript:@"C"];
         objc_opt_class();
-        v58 = v56;
+        v58 = v57;
         if (objc_opt_isKindOfClass())
         {
           v59 = v58;
@@ -1648,16 +1647,16 @@ LABEL_66:
           v59 = 0;
         }
 
-        if (v55)
+        if (v56)
         {
           if (v59)
           {
-            [v45 addObject:v55];
+            [v48 addObject:v56];
             if (![allAvailablePlaceholders containsObject:v59])
             {
-              v60 = [v196 objectForKeyedSubscript:v55];
+              v60 = [v200 objectForKeyedSubscript:v56];
 
-              v61 = [allAvailableApps objectForKeyedSubscript:v55];
+              v61 = [allAvailableApps objectForKeyedSubscript:v56];
               v62 = v61;
               if (v61)
               {
@@ -1669,128 +1668,123 @@ LABEL_66:
                     {
                       if ([v62 isEligibleForWatchAppInstall])
                       {
-                        v63 = [v51 objectForKeyedSubscript:@"RI"];
+                        v63 = [v53 objectForKeyedSubscript:@"RI"];
                         if (v63)
                         {
                           applicationMode = [v62 applicationMode];
                           if ((applicationMode == 2) != sub_100005E38(v63, 0))
                           {
                             v65 = v63;
-                            v47 = &MISCopyErrorStringForErrorCode_ptr;
                             if (applicationMode == 2)
                             {
                               if (!qword_1000A4878 || *(qword_1000A4878 + 44) > 4)
                               {
-                                goto LABEL_153;
+                                goto LABEL_152;
                               }
                             }
 
                             else if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
                             {
-LABEL_153:
-                              v155 = v55;
+LABEL_152:
+                              v159 = v56;
                               MOLogWrite();
                             }
 
-LABEL_154:
-                            [v170 addObject:{v55, v155}];
-LABEL_159:
+LABEL_153:
+                            [v174 addObject:{v56, v159}];
+LABEL_158:
 
 LABEL_117:
                             goto LABEL_118;
                           }
                         }
 
-                        v173 = v63;
+                        v177 = v63;
                         isProfileValidated = [v62 isProfileValidated];
-                        v74 = [v51 objectForKeyedSubscript:@"P"];
-                        v75 = sub_100005E38(v74, 0);
+                        v73 = [v53 objectForKeyedSubscript:@"P"];
+                        v74 = sub_100005E38(v73, 0);
 
-                        if (isProfileValidated != v75)
+                        if (isProfileValidated != v74)
                         {
                           if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
                           {
-                            v156 = sub_100006DA8(isProfileValidated);
-                            sub_100006DA8(v75);
-                            v155 = v55;
+                            v160 = sub_100006DA8(isProfileValidated);
+                            sub_100006DA8(v74);
+                            v159 = v56;
                             goto LABEL_136;
                           }
 
 LABEL_137:
-                          [v170 addObject:{v55, v155}];
+                          [v174 addObject:{v56, v159}];
 LABEL_138:
-                          v47 = &MISCopyErrorStringForErrorCode_ptr;
-LABEL_139:
-                          v65 = v173;
-                          goto LABEL_159;
+                          v65 = v177;
+                          goto LABEL_158;
                         }
 
-                        v47 = &MISCopyErrorStringForErrorCode_ptr;
                         if (!supportsStandaloneApps || [v62 applicationMode] == 1 || (objc_msgSend(v62, "isProfileValidated") & 1) != 0)
                         {
-                          if (([v62 isCompatibleWithOSVersion:v181] & 1) == 0)
+                          if (([v62 isCompatibleWithOSVersion:v185] & 1) == 0)
                           {
-                            v65 = v173;
+                            v65 = v177;
                             if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
                             {
-                              v155 = v181;
-                              v156 = v55;
+                              v159 = v185;
+                              v160 = v56;
                               MOLogWrite();
                             }
 
                             companionAppBundleID = [v62 companionAppBundleID];
-                            v82 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:4 companionBundleID:companionAppBundleID];
-                            [v184 setObject:v82 forKeyedSubscript:v55];
+                            v81 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:4 companionBundleID:companionAppBundleID];
+                            [v188 setObject:v81 forKeyedSubscript:v56];
 
-                            v47 = &MISCopyErrorStringForErrorCode_ptr;
-                            goto LABEL_159;
+                            goto LABEL_158;
                           }
 
                           device6 = [(ACXCompanionSyncConnection *)selfCopy device];
-                          v77 = [v62 isCompatibleWithDevice:device6];
+                          v76 = [v62 isCompatibleWithDevice:device6];
 
-                          if ((v77 & 1) == 0)
+                          if ((v76 & 1) == 0)
                           {
                             if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
                             {
-                              v155 = v55;
+                              v159 = v56;
                               MOLogWrite();
                             }
 
                             companionAppBundleID2 = [v62 companionAppBundleID];
-                            v84 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:4 companionBundleID:companionAppBundleID2];
-                            [v184 setObject:v84 forKeyedSubscript:v55];
+                            v83 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:4 companionBundleID:companionAppBundleID2];
+                            [v188 setObject:v83 forKeyedSubscript:v56];
 
                             goto LABEL_138;
                           }
 
-                          v78 = [v51 objectForKeyedSubscript:@"BE"];
+                          v77 = [v53 objectForKeyedSubscript:@"BE"];
 
-                          if (v78)
+                          if (v77)
                           {
                             isBetaApp = [v62 isBetaApp];
-                            v79 = [v51 objectForKeyedSubscript:@"BE"];
-                            v80 = sub_100005E38(v79, 0);
+                            v78 = [v53 objectForKeyedSubscript:@"BE"];
+                            v79 = sub_100005E38(v78, 0);
 
-                            if (v80 && (isBetaApp & 1) == 0)
+                            if (v79 && (isBetaApp & 1) == 0)
                             {
                               if (qword_1000A4878 && *(qword_1000A4878 + 44) < 5)
                               {
                                 goto LABEL_137;
                               }
 
-                              v155 = v55;
+                              v159 = v56;
                               goto LABEL_136;
                             }
 
-                            if (!(v80 & 1 | ((isBetaApp & 1) == 0)))
+                            if (!(v79 & 1 | ((isBetaApp & 1) == 0)))
                             {
                               if (qword_1000A4878 && *(qword_1000A4878 + 44) < 5)
                               {
                                 goto LABEL_137;
                               }
 
-                              v155 = v55;
+                              v159 = v56;
 LABEL_136:
                               MOLogWrite();
                               goto LABEL_137;
@@ -1798,112 +1792,108 @@ LABEL_136:
                           }
 
                           bundleVersion = [v62 bundleVersion];
-                          v85 = [v51 objectForKeyedSubscript:@"W"];
-                          objc_opt_class();
-                          v86 = sub_100020BDC(v85);
+                          v84 = [v53 objectForKeyedSubscript:@"W"];
+                          v85 = objc_opt_class();
+                          v86 = sub_100020BDC(v84, v85);
 
                           if ([(ACXCompanionSyncConnection *)selfCopy _value:bundleVersion isDifferentFrom:v86])
                           {
                             v87 = v86;
-                            v65 = v173;
+                            v65 = v177;
                             if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
                             {
-                              v156 = bundleVersion;
-                              v155 = v55;
-                              MOLogWrite();
-                            }
-
-                            v47 = &MISCopyErrorStringForErrorCode_ptr;
-                            goto LABEL_184;
-                          }
-
-                          bundleVersion = [v62 bundleShortVersion];
-                          v88 = [v51 objectForKeyedSubscript:@"V"];
-                          objc_opt_class();
-                          v89 = sub_100020BDC(v88);
-
-                          if ([(ACXCompanionSyncConnection *)selfCopy _value:bundleVersion isDifferentFrom:v89])
-                          {
-                            v87 = v89;
-                            if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
-                            {
-                              v156 = bundleVersion;
-                              v155 = v55;
+                              v160 = bundleVersion;
+                              v159 = v56;
                               MOLogWrite();
                             }
 
                             goto LABEL_182;
                           }
 
-                          bundleVersion = [v62 watchKitVersion];
-                          v90 = [v51 objectForKeyedSubscript:@"K"];
-                          objc_opt_class();
-                          v91 = sub_100020BDC(v90);
+                          bundleVersion = [v62 bundleShortVersion];
+                          v88 = [v53 objectForKeyedSubscript:@"V"];
+                          v89 = objc_opt_class();
+                          v90 = sub_100020BDC(v88, v89);
 
-                          if ([(ACXCompanionSyncConnection *)selfCopy _value:bundleVersion isDifferentFrom:v91])
+                          if ([(ACXCompanionSyncConnection *)selfCopy _value:bundleVersion isDifferentFrom:v90])
                           {
+                            v87 = v90;
                             if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
                             {
-                              v156 = bundleVersion;
-                              v155 = v55;
+                              v160 = bundleVersion;
+                              v159 = v56;
                               MOLogWrite();
                             }
 
-                            v87 = v91;
+LABEL_181:
+                            v65 = v177;
 LABEL_182:
-                            v47 = &MISCopyErrorStringForErrorCode_ptr;
-LABEL_183:
-                            v65 = v173;
-LABEL_184:
 
-                            goto LABEL_154;
+                            goto LABEL_153;
+                          }
+
+                          bundleVersion = [v62 watchKitVersion];
+                          v91 = [v53 objectForKeyedSubscript:@"K"];
+                          v92 = objc_opt_class();
+                          v93 = sub_100020BDC(v91, v92);
+
+                          if ([(ACXCompanionSyncConnection *)selfCopy _value:bundleVersion isDifferentFrom:v93])
+                          {
+                            if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
+                            {
+                              v160 = bundleVersion;
+                              v159 = v56;
+                              MOLogWrite();
+                            }
+
+                            v87 = v93;
+                            goto LABEL_181;
                           }
 
                           bundleVersion = [v62 watchKitAppExecutableHash];
-                          v92 = [v51 objectForKeyedSubscript:@"EH"];
-                          objc_opt_class();
-                          v93 = sub_100020BDC(v92);
+                          v94 = [v53 objectForKeyedSubscript:@"EH"];
+                          v95 = objc_opt_class();
+                          v96 = sub_100020BDC(v94, v95);
 
-                          v87 = v93;
-                          v47 = &MISCopyErrorStringForErrorCode_ptr;
-                          if (bundleVersion && v87 && ([bundleVersion isEqualToString:v87] & 1) == 0)
+                          v87 = v96;
+                          if (bundleVersion && v96 && ([bundleVersion isEqualToString:v96] & 1) == 0)
                           {
                             if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
                             {
-                              v155 = v55;
+                              v159 = v56;
                               MOLogWrite();
                             }
 
-                            goto LABEL_183;
+                            goto LABEL_181;
                           }
 
                           bundleVersion = [v62 companionAppBundleID];
-                          v94 = [v51 objectForKeyedSubscript:@"C"];
-                          objc_opt_class();
-                          v95 = sub_100020BDC(v94);
+                          v97 = [v53 objectForKeyedSubscript:@"C"];
+                          v98 = objc_opt_class();
+                          v99 = sub_100020BDC(v97, v98);
 
-                          if ([(ACXCompanionSyncConnection *)selfCopy _value:bundleVersion isDifferentFrom:v95])
+                          if ([(ACXCompanionSyncConnection *)selfCopy _value:bundleVersion isDifferentFrom:v99])
                           {
-                            v87 = v95;
-                            v65 = v173;
+                            v87 = v99;
+                            v65 = v177;
                             if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
                             {
-                              v156 = bundleVersion;
-                              v155 = v55;
+                              v160 = bundleVersion;
+                              v159 = v56;
                               MOLogWrite();
                             }
 
-                            goto LABEL_184;
+                            goto LABEL_182;
                           }
                         }
 
-                        [v186 addObject:v55];
-                        goto LABEL_139;
+                        [v190 addObject:v56];
+                        goto LABEL_138;
                       }
 
                       if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
                       {
-                        v155 = v55;
+                        v159 = v56;
 LABEL_130:
                         MOLogWrite();
                       }
@@ -1911,15 +1901,14 @@ LABEL_130:
 
                     else if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
                     {
-                      v155 = v55;
+                      v159 = v56;
                       goto LABEL_130;
                     }
 
                     companionAppBundleID3 = [v62 companionAppBundleID];
-                    v73 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:4 companionBundleID:companionAppBundleID3];
-                    [v184 setObject:v73 forKeyedSubscript:v55];
+                    v72 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:4 companionBundleID:companionAppBundleID3];
+                    [v188 setObject:v72 forKeyedSubscript:v56];
 
-                    v47 = &MISCopyErrorStringForErrorCode_ptr;
                     goto LABEL_117;
                   }
 
@@ -1932,22 +1921,20 @@ LABEL_130:
                 goto LABEL_116;
               }
 
-              v66 = [v51 objectForKeyedSubscript:@"RI"];
+              v66 = [v53 objectForKeyedSubscript:@"RI"];
               v67 = sub_100005E38(v66, 0);
 
-              v68 = [v51 objectForKeyedSubscript:@"LD"];
+              v68 = [v53 objectForKeyedSubscript:@"LD"];
               v69 = sub_100005E38(v68, 0);
 
-              v70 = supportsStandaloneApps & v67;
-              v47 = &MISCopyErrorStringForErrorCode_ptr;
-              if (v70 == 1)
+              if ((supportsStandaloneApps & v67) == 1)
               {
                 if (qword_1000A4878 && *(qword_1000A4878 + 44) < 5)
                 {
                   goto LABEL_116;
                 }
 
-                v155 = v55;
+                v159 = v56;
               }
 
               else
@@ -1956,12 +1943,12 @@ LABEL_130:
                 {
                   if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
                   {
-                    v155 = v55;
+                    v159 = v56;
                     MOLogWrite();
                   }
 
-                  v155 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:4 companionBundleID:v59, v155];
-                  [v184 setObject:v155 forKeyedSubscript:v55];
+                  v159 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:4 companionBundleID:v59, v159];
+                  [v188 setObject:v159 forKeyedSubscript:v56];
 
                   goto LABEL_117;
                 }
@@ -1971,409 +1958,409 @@ LABEL_130:
                   goto LABEL_116;
                 }
 
-                v155 = v55;
+                v159 = v56;
               }
 
               MOLogWrite();
 LABEL_116:
-              [v186 addObject:{v55, v155}];
+              [v190 addObject:{v56, v159}];
               goto LABEL_117;
             }
 
             if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
             {
-              v155 = v55;
-              v156 = v59;
+              v159 = v56;
+              v160 = v59;
               MOLogWrite();
             }
 
-            [v186 addObject:{v55, v155, v156}];
+            [v190 addObject:{v56, v159, v160}];
           }
 
           else if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
           {
-            v155 = v51;
+            v159 = v53;
             goto LABEL_93;
           }
         }
 
         else if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
         {
-          v155 = v51;
+          v159 = v53;
 LABEL_93:
           MOLogWrite();
         }
 
 LABEL_118:
 
-        v50 = v50 + 1;
+        v52 = v52 + 1;
       }
 
-      while (v48 != v50);
-      v96 = [obj countByEnumeratingWithState:&v240 objects:v246 count:16];
-      v48 = v96;
+      while (v50 != v52);
+      v100 = [obj countByEnumeratingWithState:&v244 objects:v250 count:16];
+      v50 = v100;
     }
 
-    while (v96);
+    while (v100);
   }
 
-  if (!v169)
+  if (!v173)
   {
-    goto LABEL_240;
+    goto LABEL_238;
   }
 
-  v238 = 0u;
-  v239 = 0u;
-  v236 = 0u;
-  v237 = 0u;
-  v97 = v169;
-  v98 = [v97 countByEnumeratingWithState:&v236 objects:v245 count:16];
-  if (!v98)
+  v242 = 0u;
+  v243 = 0u;
+  v240 = 0u;
+  v241 = 0u;
+  v101 = v173;
+  v102 = [v101 countByEnumeratingWithState:&v240 objects:v249 count:16];
+  if (!v102)
   {
-    goto LABEL_239;
+    goto LABEL_237;
   }
 
-  v99 = v98;
-  v100 = *v237;
+  v103 = v102;
+  v104 = *v241;
   do
   {
-    v101 = 0;
+    v105 = 0;
     do
     {
-      if (*v237 != v100)
+      if (*v241 != v104)
       {
-        objc_enumerationMutation(v97);
+        objc_enumerationMutation(v101);
       }
 
-      v102 = *(*(&v236 + 1) + 8 * v101);
-      [v45 addObject:{v102, v155}];
-      v103 = [allAvailableApps objectForKeyedSubscript:v102];
-      v104 = [v196 objectForKeyedSubscript:v102];
+      v106 = *(*(&v240 + 1) + 8 * v105);
+      [v48 addObject:{v106, v159}];
+      v107 = [allAvailableApps objectForKeyedSubscript:v106];
+      v108 = [v200 objectForKeyedSubscript:v106];
 
-      if (((v104 != 0) & supportsStandaloneApps) == 1)
+      if (((v108 != 0) & supportsStandaloneApps) == 1)
       {
         if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
         {
-          v155 = v102;
+          v159 = v106;
           MOLogWrite();
         }
       }
 
       else
       {
-        if (!v103)
+        if (!v107)
         {
-          if (v104)
+          if (v108)
           {
-LABEL_221:
-            [v182 addObject:v102];
-            goto LABEL_227;
+LABEL_219:
+            [v186 addObject:v106];
+            goto LABEL_225;
           }
 
-LABEL_222:
+LABEL_220:
           if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
           {
-            v155 = v102;
+            v159 = v106;
             MOLogWrite();
           }
 
-          v1552 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:4 companionBundleID:0, v155];
-          [v184 setObject:v1552 forKeyedSubscript:v102];
-          goto LABEL_226;
+          v1592 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:4 companionBundleID:0, v159];
+          [v188 setObject:v1592 forKeyedSubscript:v106];
+          goto LABEL_224;
         }
 
-        isSystemApp = [v103 isSystemApp];
+        isSystemApp = [v107 isSystemApp];
         if (isSystemApp)
         {
-          v106 = v104 == 0;
+          v110 = v108 == 0;
         }
 
         else
         {
-          v106 = 0;
+          v110 = 0;
         }
 
-        if (v106)
+        if (v110)
         {
-          goto LABEL_222;
+          goto LABEL_220;
         }
 
         if (isSystemApp)
         {
-          goto LABEL_221;
+          goto LABEL_219;
         }
 
-        if ([v103 isTrusted])
+        if ([v107 isTrusted])
         {
-          if ([v103 isCompatibleWithOSVersion:v181])
+          if ([v107 isCompatibleWithOSVersion:v185])
           {
-            if ([v103 isEligibleForWatchAppInstall])
+            if ([v107 isEligibleForWatchAppInstall])
             {
-              goto LABEL_221;
+              goto LABEL_219;
             }
 
             if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
             {
-              v155 = v102;
-              goto LABEL_236;
+              v159 = v106;
+              goto LABEL_234;
             }
           }
 
           else if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
           {
-            v155 = v102;
-LABEL_236:
+            v159 = v106;
+LABEL_234:
             MOLogWrite();
           }
 
-          v1552 = [v103 companionAppBundleID];
-          v110 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:4 companionBundleID:v1552];
-          [v184 setObject:v110 forKeyedSubscript:v102];
+          v1592 = [v107 companionAppBundleID];
+          v114 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:4 companionBundleID:v1592];
+          [v188 setObject:v114 forKeyedSubscript:v106];
 
-LABEL_226:
-          goto LABEL_227;
+LABEL_224:
+          goto LABEL_225;
         }
 
         if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
         {
-          v155 = v102;
+          v159 = v106;
           MOLogWrite();
         }
 
-        companionAppBundleID4 = [v103 companionAppBundleID];
-        v109 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:4 companionBundleID:companionAppBundleID4];
-        [v184 setObject:v109 forKeyedSubscript:v102];
+        companionAppBundleID4 = [v107 companionAppBundleID];
+        v113 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:4 companionBundleID:companionAppBundleID4];
+        [v188 setObject:v113 forKeyedSubscript:v106];
       }
 
-LABEL_227:
+LABEL_225:
 
-      v101 = v101 + 1;
+      v105 = v105 + 1;
     }
 
-    while (v99 != v101);
-    v111 = [v97 countByEnumeratingWithState:&v236 objects:v245 count:16];
-    v99 = v111;
+    while (v103 != v105);
+    v115 = [v101 countByEnumeratingWithState:&v240 objects:v249 count:16];
+    v103 = v115;
   }
 
-  while (v111);
-LABEL_239:
+  while (v115);
+LABEL_237:
 
-LABEL_240:
-  v230[0] = _NSConcreteStackBlock;
-  v230[1] = 3221225472;
-  v230[2] = sub_1000245A0;
-  v230[3] = &unk_10008D710;
-  v112 = v45;
-  v231 = v112;
-  v232 = v181;
-  v233 = selfCopy;
-  v113 = v157;
-  v234 = v113;
-  v114 = v184;
-  v235 = v114;
-  [allAvailableApps enumerateKeysAndObjectsUsingBlock:v230];
-  v225[0] = _NSConcreteStackBlock;
-  v225[1] = 3221225472;
-  v225[2] = sub_100024710;
-  v225[3] = &unk_10008D738;
-  v115 = v112;
-  v226 = v115;
-  v229 = v179;
-  v116 = v158;
-  v227 = v116;
-  v117 = v113;
-  v228 = v117;
-  [v196 enumerateKeysAndObjectsUsingBlock:v225];
-  v213[0] = _NSConcreteStackBlock;
-  v213[1] = 3221225472;
-  v213[2] = sub_100024784;
-  v213[3] = &unk_10008D760;
-  v193 = allAvailablePlaceholders;
-  v214 = v193;
-  v224 = v179;
-  v118 = v116;
-  v215 = v118;
-  v119 = v114;
-  v216 = v119;
-  v189 = v115;
-  v217 = v189;
-  v120 = v196;
-  v218 = v120;
-  v121 = allAvailableApps;
-  v219 = v121;
-  v122 = v182;
-  v220 = v122;
-  v123 = v170;
-  v221 = v123;
-  v124 = v186;
+LABEL_238:
+  v234[0] = _NSConcreteStackBlock;
+  v234[1] = 3221225472;
+  v234[2] = sub_1000245A0;
+  v234[3] = &unk_10008D710;
+  v116 = v48;
+  v235 = v116;
+  v236 = v185;
+  v237 = selfCopy;
+  v117 = v161;
+  v238 = v117;
+  v118 = v188;
+  v239 = v118;
+  [allAvailableApps enumerateKeysAndObjectsUsingBlock:v234];
+  v229[0] = _NSConcreteStackBlock;
+  v229[1] = 3221225472;
+  v229[2] = sub_100024710;
+  v229[3] = &unk_10008D738;
+  v119 = v116;
+  v230 = v119;
+  v233 = v183;
+  v120 = v162;
+  v231 = v120;
+  v121 = v117;
+  v232 = v121;
+  [v200 enumerateKeysAndObjectsUsingBlock:v229];
+  v217[0] = _NSConcreteStackBlock;
+  v217[1] = 3221225472;
+  v217[2] = sub_100024784;
+  v217[3] = &unk_10008D760;
+  v197 = allAvailablePlaceholders;
+  v218 = v197;
+  v228 = v183;
+  v122 = v120;
+  v219 = v122;
+  v123 = v118;
+  v220 = v123;
+  v193 = v119;
+  v221 = v193;
+  v124 = v200;
   v222 = v124;
-  v125 = v117;
+  v125 = allAvailableApps;
   v223 = v125;
-  v126 = objc_retainBlock(v213);
+  v126 = v186;
+  v224 = v126;
+  v127 = v174;
+  v225 = v127;
+  v128 = v190;
+  v226 = v128;
+  v129 = v121;
+  v227 = v129;
+  v130 = objc_retainBlock(v217);
   gizmoState3 = [(ACXCompanionSyncConnection *)selfCopy gizmoState];
-  v202[0] = _NSConcreteStackBlock;
-  v202[1] = 3221225472;
-  v202[2] = sub_100024B4C;
-  v202[3] = &unk_10008D788;
-  v211 = v179;
-  v187 = v118;
-  v203 = v187;
-  v195 = v120;
-  v204 = v195;
-  v180 = v119;
-  v205 = v180;
-  v185 = v122;
-  v206 = v185;
-  v197 = v121;
-  v207 = v197;
-  v183 = v123;
-  v208 = v183;
-  v178 = v125;
-  v209 = v178;
-  v212 = v171;
-  v172 = v126;
-  v174 = v124;
-  v210 = v174;
-  [gizmoState3 iterateInstallStatusAndClearNeedsReunionSyncWithIterator:v126 completion:v202];
+  v206[0] = _NSConcreteStackBlock;
+  v206[1] = 3221225472;
+  v206[2] = sub_100024B4C;
+  v206[3] = &unk_10008D788;
+  v215 = v183;
+  v191 = v122;
+  v207 = v191;
+  v199 = v124;
+  v208 = v199;
+  v184 = v123;
+  v209 = v184;
+  v189 = v126;
+  v210 = v189;
+  v201 = v125;
+  v211 = v201;
+  v187 = v127;
+  v212 = v187;
+  v182 = v129;
+  v213 = v182;
+  v216 = v175;
+  v176 = v130;
+  v178 = v128;
+  v214 = v178;
+  [gizmoState3 iterateInstallStatusAndClearNeedsReunionSyncWithIterator:v130 completion:v206];
 
-  v200 = 0u;
-  v201 = 0u;
-  v198 = 0u;
-  v199 = 0u;
-  v128 = obj;
-  v129 = [v128 countByEnumeratingWithState:&v198 objects:v244 count:16];
-  if (v129)
+  v204 = 0u;
+  v205 = 0u;
+  v202 = 0u;
+  v203 = 0u;
+  v132 = obj;
+  v133 = [v132 countByEnumeratingWithState:&v202 objects:v248 count:16];
+  if (v133)
   {
-    v130 = v129;
-    v131 = *v199;
+    v134 = v133;
+    v135 = *v203;
     do
     {
-      for (i = 0; i != v130; i = i + 1)
+      for (i = 0; i != v134; i = i + 1)
       {
-        if (*v199 != v131)
+        if (*v203 != v135)
         {
-          objc_enumerationMutation(v128);
+          objc_enumerationMutation(v132);
         }
 
-        v133 = *(*(&v198 + 1) + 8 * i);
-        v134 = [v133 objectForKeyedSubscript:{@"B", v155}];
+        v137 = *(*(&v202 + 1) + 8 * i);
+        v138 = [v137 objectForKeyedSubscript:{@"B", v159}];
         objc_opt_class();
-        v135 = v134;
+        v139 = v138;
         if (objc_opt_isKindOfClass())
         {
-          v136 = v135;
+          v140 = v139;
         }
 
         else
         {
-          v136 = 0;
+          v140 = 0;
         }
 
-        v137 = [v133 objectForKeyedSubscript:@"EH"];
+        v141 = [v137 objectForKeyedSubscript:@"EH"];
         objc_opt_class();
-        v138 = v137;
+        v142 = v141;
         if (objc_opt_isKindOfClass())
         {
-          v139 = v138;
+          v143 = v142;
         }
 
         else
         {
-          v139 = 0;
+          v143 = 0;
         }
 
-        v140 = [v197 objectForKeyedSubscript:v136];
-        if (([v140 isSystemApp] & 1) == 0 && v139)
+        v144 = [v201 objectForKeyedSubscript:v140];
+        if (([v144 isSystemApp] & 1) == 0 && v143)
         {
           gizmoState4 = [(ACXCompanionSyncConnection *)selfCopy gizmoState];
-          [gizmoState4 setWatchKitAppExecutableHash:v139 forApp:v136];
+          [gizmoState4 setWatchKitAppExecutableHash:v143 forApp:v140];
         }
       }
 
-      v130 = [v128 countByEnumeratingWithState:&v198 objects:v244 count:16];
+      v134 = [v132 countByEnumeratingWithState:&v202 objects:v248 count:16];
     }
 
-    while (v130);
+    while (v134);
   }
 
-  v142 = selfCopy;
+  v146 = selfCopy;
   remoteAppList = [(ACXCompanionSyncConnection *)selfCopy remoteAppList];
-  v144 = remoteAppList;
+  v148 = remoteAppList;
   if (!remoteAppList)
   {
-    managerCopy = v163;
-    messageCopy = v164;
-    osVersion = v181;
-    v20 = v161;
-    message = v162;
-    v145 = v160;
-LABEL_261:
-    v146 = v166;
-    goto LABEL_262;
+    managerCopy = v167;
+    messageCopy = v168;
+    osVersion = v185;
+    v20 = v165;
+    message = v166;
+    v149 = v164;
+LABEL_259:
+    v150 = v170;
+    goto LABEL_260;
   }
 
-  managerCopy = v163;
-  messageCopy = v164;
-  osVersion = v181;
-  v20 = v161;
-  message = v162;
-  v145 = v160;
-  v146 = v166;
-  if (!v160)
+  managerCopy = v167;
+  messageCopy = v168;
+  osVersion = v185;
+  v20 = v165;
+  message = v166;
+  v149 = v164;
+  v150 = v170;
+  if (!v164)
   {
-LABEL_262:
+LABEL_260:
 
-    goto LABEL_263;
-  }
-
-  if (v166)
-  {
-    v144 = [[NSUUID alloc] initWithUUIDString:v160];
-    unsignedIntegerValue = [v166 unsignedIntegerValue];
-    remoteAppList2 = [(ACXCompanionSyncConnection *)selfCopy remoteAppList];
-    v149 = unsignedIntegerValue;
-    v142 = selfCopy;
-    [remoteAppList2 reportCurrentDBUUID:v144 lastSequenceNumber:v149];
-
-    v20 = v161;
     goto LABEL_261;
   }
 
-LABEL_263:
-  remoteRemovabilityManager = [(ACXCompanionSyncConnection *)v142 remoteRemovabilityManager];
+  if (v170)
+  {
+    v148 = [[NSUUID alloc] initWithUUIDString:v164];
+    unsignedIntegerValue = [v170 unsignedIntegerValue];
+    remoteAppList2 = [(ACXCompanionSyncConnection *)selfCopy remoteAppList];
+    v153 = unsignedIntegerValue;
+    v146 = selfCopy;
+    [remoteAppList2 reportCurrentDBUUID:v148 lastSequenceNumber:v153];
+
+    v20 = v165;
+    goto LABEL_259;
+  }
+
+LABEL_261:
+  remoteRemovabilityManager = [(ACXCompanionSyncConnection *)v146 remoteRemovabilityManager];
   remoteRemovabilityManager2 = remoteRemovabilityManager;
-  if (remoteRemovabilityManager && v167)
+  if (remoteRemovabilityManager && v171)
   {
 
-    v152 = v165;
-    if (v165)
+    v156 = v169;
+    if (v169)
     {
-      remoteRemovabilityManager2 = [(ACXCompanionSyncConnection *)v142 remoteRemovabilityManager];
-      v153 = [[NSUUID alloc] initWithUUIDString:v167];
-      [remoteRemovabilityManager2 reportRemoteRemovabilityDBUUID:v153 sequenceNumber:{objc_msgSend(v165, "unsignedIntegerValue")}];
+      remoteRemovabilityManager2 = [(ACXCompanionSyncConnection *)v146 remoteRemovabilityManager];
+      v157 = [[NSUUID alloc] initWithUUIDString:v171];
+      [remoteRemovabilityManager2 reportRemoteRemovabilityDBUUID:v157 sequenceNumber:{objc_msgSend(v169, "unsignedIntegerValue")}];
 
-      v142 = selfCopy;
-      goto LABEL_267;
+      v146 = selfCopy;
+      goto LABEL_265;
     }
   }
 
   else
   {
-LABEL_267:
+LABEL_265:
 
-    v152 = v165;
+    v156 = v169;
   }
 
-  [(ACXCompanionSyncConnection *)v142 setReunionSyncRunning:0];
-  [(ACXCompanionSyncConnection *)v142 _onQueue_processPendingGizmoState];
+  [(ACXCompanionSyncConnection *)v146 setReunionSyncRunning:0];
+  [(ACXCompanionSyncConnection *)v146 _onQueue_processPendingGizmoState];
 
+LABEL_267:
+  v23 = v172;
+
+LABEL_268:
 LABEL_269:
-  v23 = v168;
 
 LABEL_270:
-LABEL_271:
-
-LABEL_272:
 }
 
 - (void)_onQueue_beginReunionSync
@@ -2504,6 +2491,71 @@ LABEL_272:
   }
 }
 
+- (void)_onQueue_sendInstallOnGizmoMessageForSystemAppBundleIDs:(id)ds appsWithStoreMetadata:(id)metadata isUserInitiated:(BOOL)initiated exclusiveInstall:(BOOL)install withCompletion:(id)completion
+{
+  installCopy = install;
+  initiatedCopy = initiated;
+  dsCopy = ds;
+  metadataCopy = metadata;
+  completionCopy = completion;
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_100025CB4;
+  v30[3] = &unk_10008D7B0;
+  v15 = objc_opt_new();
+  v31 = v15;
+  [metadataCopy enumerateKeysAndObjectsUsingBlock:v30];
+  v32[0] = @"T";
+  v32[1] = @"BL";
+  v33[0] = &off_1000976B0;
+  v33[1] = dsCopy;
+  v33[2] = v15;
+  v32[2] = @"SD";
+  v32[3] = @"DL";
+  v16 = [NSNumber numberWithBool:installCopy];
+  v33[3] = v16;
+  v32[4] = @"UI";
+  v17 = [NSNumber numberWithBool:initiatedCopy];
+  v33[4] = v17;
+  v18 = [NSDictionary dictionaryWithObjects:v33 forKeys:v32 count:5];
+
+  if (completionCopy)
+  {
+    v25 = _NSConcreteStackBlock;
+    v26 = 3221225472;
+    v27 = sub_100025D28;
+    v28 = &unk_10008D7D8;
+    v29 = completionCopy;
+    v19 = objc_retainBlock(&v25);
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
+  {
+    [metadataCopy allKeys];
+    v24 = v23 = dsCopy;
+    MOLogWrite();
+  }
+
+  if (initiatedCopy)
+  {
+    v20 = 300;
+  }
+
+  else
+  {
+    v20 = 200;
+  }
+
+  v21 = [(ACXCompanionSyncConnection *)self messager:v23];
+  device = [(ACXCompanionSyncConnection *)self device];
+  [v21 sendMessage:v18 toDevice:device withPriority:v20 timeout:@"installation on gizmo list" logDescription:v19 handleReply:120.0];
+}
+
 - (void)_onQueue_sendRemoveMessageForBundleIDs:(id)ds isUserInitiated:(BOOL)initiated withCompletion:(id)completion
 {
   initiatedCopy = initiated;
@@ -2548,6 +2600,56 @@ LABEL_272:
   messager = [(ACXCompanionSyncConnection *)self messager];
   device = [(ACXCompanionSyncConnection *)self device];
   [messager sendMessage:v10 toDevice:device withPriority:v12 timeout:@"deletion list" logDescription:v11 handleReply:120.0];
+}
+
+- (void)_onQueue_triggerLocalAppStoreInstallForWatchApp:(id)app userInitiated:(BOOL)initiated completion:(id)completion
+{
+  initiatedCopy = initiated;
+  appCopy = app;
+  completionCopy = completion;
+  internalQueue = [(ACXCompanionSyncConnection *)self internalQueue];
+  dispatch_assert_queue_V2(internalQueue);
+
+  bundleIdentifier = [appCopy bundleIdentifier];
+  companionAppBundleID = [appCopy companionAppBundleID];
+  applicationName = [appCopy applicationName];
+  installQueue = [(ACXCompanionSyncConnection *)self installQueue];
+  v15 = [installQueue installIsPendingForWatchApp:bundleIdentifier];
+
+  if (v15)
+  {
+    if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
+    {
+      MOLogWrite();
+    }
+
+    if (completionCopy)
+    {
+      completionCopy[2](completionCopy, 1, 0);
+    }
+  }
+
+  else
+  {
+    if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
+    {
+      v17 = bundleIdentifier;
+      MOLogWrite();
+    }
+
+    appStoreLocalQueue = [(ACXCompanionSyncConnection *)self appStoreLocalQueue];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100026860;
+    v18[3] = &unk_10008D670;
+    v18[4] = self;
+    v19 = bundleIdentifier;
+    v20 = companionAppBundleID;
+    v21 = applicationName;
+    v23 = initiatedCopy;
+    v22 = completionCopy;
+    [appStoreLocalQueue installWatchApp:appCopy userInitiated:initiatedCopy completion:v18];
+  }
 }
 
 - (BOOL)_onQueue_appNeedsInstall:(id)install
@@ -3233,112 +3335,112 @@ LABEL_163:
     v11 = 0;
   }
 
-  if (v11 && (objc_opt_class(), (sub_100005D2C(v11) & 1) != 0))
+  if (v11 && (v12 = objc_opt_class(), (sub_100005D2C(v11, v12) & 1) != 0))
   {
-    v36 = messageCopy;
+    v37 = messageCopy;
     if (qword_1000A4878 && *(qword_1000A4878 + 44) >= 7)
     {
-      v32 = message;
+      v33 = message;
       MOLogWrite();
     }
 
-    v35 = message;
-    v37 = objc_opt_new();
-    v40 = 0u;
+    v36 = message;
+    v38 = objc_opt_new();
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v34 = v11;
-    v12 = v11;
-    v13 = [v12 countByEnumeratingWithState:&v40 objects:v44 count:16];
-    if (v13)
+    v44 = 0u;
+    v35 = v11;
+    v13 = v11;
+    v14 = [v13 countByEnumeratingWithState:&v41 objects:v45 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v41;
+      v15 = v14;
+      v16 = *v42;
       do
       {
-        for (i = 0; i != v14; i = i + 1)
+        for (i = 0; i != v15; i = i + 1)
         {
-          if (*v41 != v15)
+          if (*v42 != v16)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          v17 = *(*(&v40 + 1) + 8 * i);
-          v18 = [v17 objectForKeyedSubscript:{@"B", v32}];
+          v18 = *(*(&v41 + 1) + 8 * i);
+          v19 = [v18 objectForKeyedSubscript:{@"B", v33}];
           objc_opt_class();
-          v19 = v18;
+          v20 = v19;
           if (objc_opt_isKindOfClass())
           {
-            v20 = v19;
+            v21 = v20;
           }
 
           else
           {
-            v20 = 0;
+            v21 = 0;
           }
 
-          if (v20)
+          if (v21)
           {
-            v21 = [v17 objectForKeyedSubscript:@"EH"];
+            v22 = [v18 objectForKeyedSubscript:@"EH"];
             objc_opt_class();
-            v22 = v21;
+            v23 = v22;
             if (objc_opt_isKindOfClass())
             {
-              v23 = v22;
+              v24 = v23;
             }
 
             else
             {
-              v23 = 0;
+              v24 = 0;
             }
 
             if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
             {
-              v32 = v20;
-              v33 = v23;
+              v33 = v21;
+              v34 = v24;
               MOLogWrite();
             }
 
-            v24 = [managerCopy gizmoAppWithBundleID:{v20, v32, v33}];
-            companionAppBundleID = [v24 companionAppBundleID];
-            v26 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:2 companionBundleID:companionAppBundleID];
+            v25 = [managerCopy gizmoAppWithBundleID:{v21, v33, v34}];
+            companionAppBundleID = [v25 companionAppBundleID];
+            v27 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:2 companionBundleID:companionAppBundleID];
 
-            [v26 setWatchAppExecutableHash:v23];
-            [v37 setObject:v26 forKeyedSubscript:v20];
+            [v27 setWatchAppExecutableHash:v24];
+            [v38 setObject:v27 forKeyedSubscript:v21];
             installQueue = [(ACXCompanionSyncConnection *)selfCopy installQueue];
-            [installQueue acknowledgeInstallationForWatchApp:v20];
+            [installQueue acknowledgeInstallationForWatchApp:v21];
           }
 
           else if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
           {
-            v32 = v17;
+            v33 = v18;
             MOLogWrite();
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v41 objects:v45 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
 
     gizmoState = [(ACXCompanionSyncConnection *)selfCopy gizmoState];
-    [gizmoState setInstallStatusForApps:v37 sendNotification:1 withUpdatePredicate:&stru_10008D840];
+    [gizmoState setInstallStatusForApps:v38 sendNotification:1 withUpdatePredicate:&stru_10008D840];
 
     remoteAppList = [(ACXCompanionSyncConnection *)selfCopy remoteAppList];
 
-    message = v35;
-    messageCopy = v36;
-    v11 = v34;
+    message = v36;
+    messageCopy = v37;
+    v11 = v35;
     if (remoteAppList)
     {
-      v30 = [v35 objectForKeyedSubscript:@"IL"];
+      v31 = [v36 objectForKeyedSubscript:@"IL"];
 
-      if (v30)
+      if (v31)
       {
         remoteAppList2 = [(ACXCompanionSyncConnection *)selfCopy remoteAppList];
-        sub_10004B96C(v36, remoteAppList2);
+        sub_10004B96C(v37, remoteAppList2);
       }
 
       else if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
@@ -3408,7 +3510,7 @@ LABEL_163:
 {
   messageCopy = message;
   message = [messageCopy message];
-  v28 = [message objectForKey:@"EO"];
+  v29 = [message objectForKey:@"EO"];
 
   v6 = [message objectForKeyedSubscript:@"BL"];
   objc_opt_class();
@@ -3423,10 +3525,10 @@ LABEL_163:
     v8 = 0;
   }
 
-  if (v8 && (objc_opt_class(), (sub_100005D2C(v8) & 1) != 0))
+  if (v8 && (v9 = objc_opt_class(), (sub_100005D2C(v8, v9) & 1) != 0))
   {
-    v25 = message;
-    if (!v28)
+    v26 = message;
+    if (!v29)
     {
       remoteAppList = [(ACXCompanionSyncConnection *)self remoteAppList];
 
@@ -3437,86 +3539,86 @@ LABEL_163:
       }
     }
 
-    v26 = messageCopy;
-    v11 = objc_opt_new();
-    v27 = objc_opt_new();
-    v29 = 0u;
+    v27 = messageCopy;
+    v12 = objc_opt_new();
+    v28 = objc_opt_new();
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v24 = v8;
-    v12 = v8;
-    v13 = [v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
-    if (v13)
+    v33 = 0u;
+    v25 = v8;
+    v13 = v8;
+    v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v30;
+      v15 = v14;
+      v16 = *v31;
       do
       {
-        for (i = 0; i != v14; i = i + 1)
+        for (i = 0; i != v15; i = i + 1)
         {
-          if (*v30 != v15)
+          if (*v31 != v16)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          v17 = *(*(&v29 + 1) + 8 * i);
-          v18 = [(ACXCompanionSyncConnection *)self _onQueue_availableCompanionAppBundleIDForWatchApp:v17];
-          if (v18)
+          v18 = *(*(&v30 + 1) + 8 * i);
+          v19 = [(ACXCompanionSyncConnection *)self _onQueue_availableCompanionAppBundleIDForWatchApp:v18];
+          if (v19)
           {
-            if (v28)
+            if (v29)
             {
               if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
               {
-                v23 = v17;
+                v24 = v18;
                 MOLogWrite();
               }
 
-              v19 = 2;
+              v20 = 2;
             }
 
             else
             {
               if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
               {
-                v23 = v17;
+                v24 = v18;
                 MOLogWrite();
               }
 
-              v19 = 5;
+              v20 = 5;
             }
 
-            v20 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:v19 companionBundleID:v18, v23];
-            [v11 setObject:v20 forKeyedSubscript:v17];
+            v21 = [ACXGizmoApplicationInstallStatusItem itemWithStatus:v20 companionBundleID:v19, v24];
+            [v12 setObject:v21 forKeyedSubscript:v18];
           }
 
           else
           {
             if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 5)
             {
-              v23 = v17;
+              v24 = v18;
               MOLogWrite();
             }
 
-            [v27 addObject:{v17, v23}];
+            [v28 addObject:{v18, v24}];
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
 
     gizmoState = [(ACXCompanionSyncConnection *)self gizmoState];
-    [gizmoState setInstallStatusForApps:v11];
+    [gizmoState setInstallStatusForApps:v12];
 
     gizmoState2 = [(ACXCompanionSyncConnection *)self gizmoState];
-    [gizmoState2 purgeInstallStatusForApps:v27];
+    [gizmoState2 purgeInstallStatusForApps:v28];
 
-    message = v25;
-    messageCopy = v26;
-    v8 = v24;
+    message = v26;
+    messageCopy = v27;
+    v8 = v25;
   }
 
   else if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)
@@ -3542,55 +3644,55 @@ LABEL_163:
     v8 = 0;
   }
 
-  if (v8 && (objc_opt_class(), (sub_100005D2C(v8) & 1) != 0))
+  if (v8 && (v9 = objc_opt_class(), (sub_100005D2C(v8, v9) & 1) != 0))
   {
     if (qword_1000A4878 && *(qword_1000A4878 + 44) >= 7)
     {
       MOLogWrite();
     }
 
-    v20 = 0u;
     v21 = 0u;
-    v18 = 0u;
+    v22 = 0u;
     v19 = 0u;
-    v15 = v8;
-    v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v10)
+    v20 = 0u;
+    v16 = v8;
+    v10 = v8;
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v19;
+      v12 = v11;
+      v13 = *v20;
       do
       {
-        v13 = 0;
+        v14 = 0;
         do
         {
-          if (*v19 != v12)
+          if (*v20 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * v13);
-          v16[0] = _NSConcreteStackBlock;
-          v16[1] = 3221225472;
-          v16[2] = sub_1000286CC;
-          v16[3] = &unk_10008CA48;
-          v16[4] = v14;
-          v16[5] = self;
-          v17 = messageCopy;
-          [(ACXCompanionSyncConnection *)self _installWatchAppWithBundleID:v14 withProvisioningProfileInfo:0 installationPendingBlock:v16 completionWithError:0];
+          v15 = *(*(&v19 + 1) + 8 * v14);
+          v17[0] = _NSConcreteStackBlock;
+          v17[1] = 3221225472;
+          v17[2] = sub_1000286CC;
+          v17[3] = &unk_10008CA48;
+          v17[4] = v15;
+          v17[5] = self;
+          v18 = messageCopy;
+          [(ACXCompanionSyncConnection *)self _installWatchAppWithBundleID:v15 withProvisioningProfileInfo:0 installationPendingBlock:v17 completionWithError:0];
 
-          v13 = v13 + 1;
+          v14 = v14 + 1;
         }
 
-        while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        while (v12 != v14);
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
 
-    v8 = v15;
+    v8 = v16;
   }
 
   else if (!qword_1000A4878 || *(qword_1000A4878 + 44) >= 3)

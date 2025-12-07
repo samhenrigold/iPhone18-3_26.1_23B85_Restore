@@ -17,10 +17,10 @@
 + (BOOL)triggerEventCommand:(id)command
 {
   commandCopy = command;
-  server = [getAXVoiceOverServerClass() server];
-  v5 = [server triggerEventCommand:commandCopy];
+  v5 = [getAXVoiceOverServerClass(commandCopy v4)];
+  v6 = [v5 triggerEventCommand:commandCopy];
 
-  return v5;
+  return v6;
 }
 
 + (void)connectToVO
@@ -35,8 +35,8 @@
 
 + (id)setRecognizedGesture
 {
-  server = [getAXVoiceOverServerClass() server];
-  recognizedGestureForTutorial = [server recognizedGestureForTutorial];
+  v2 = [getAXVoiceOverServerClass(self a2)];
+  recognizedGestureForTutorial = [v2 recognizedGestureForTutorial];
   v4 = recognizedGesture;
   recognizedGesture = recognizedGestureForTutorial;
 
@@ -50,8 +50,8 @@
 
 + (id)getRotorName
 {
-  server = [getAXVoiceOverServerClass() server];
-  currentRotorName = [server currentRotorName];
+  v2 = [getAXVoiceOverServerClass(self a2)];
+  currentRotorName = [v2 currentRotorName];
 
   return currentRotorName;
 }
@@ -66,7 +66,7 @@
   return v5;
 }
 
-id __52__AXOnboardingVoiceOverBridge_teachableBrailleItems__block_invoke(uint64_t a1, void *a2)
+AXOnboardingTeachableItemBridge *__52__AXOnboardingVoiceOverBridge_teachableBrailleItems__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
   v3 = objc_opt_new();
@@ -90,7 +90,7 @@ id __52__AXOnboardingVoiceOverBridge_teachableBrailleItems__block_invoke(uint64_
   return v5;
 }
 
-id __54__AXOnboardingVoiceOverBridge_teachableVoiceOverItems__block_invoke(uint64_t a1, void *a2)
+AXOnboardingTeachableItemBridge *__54__AXOnboardingVoiceOverBridge_teachableVoiceOverItems__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
   v3 = objc_opt_new();
@@ -167,25 +167,26 @@ id __54__AXOnboardingVoiceOverBridge_teachableVoiceOverItems__block_invoke(uint6
 
 + (BOOL)deviceHasHomeButton
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
   v2 = getAXDeviceHasHomeButtonSymbolLoc_ptr_0;
-  v9 = getAXDeviceHasHomeButtonSymbolLoc_ptr_0;
+  v10 = getAXDeviceHasHomeButtonSymbolLoc_ptr_0;
   if (!getAXDeviceHasHomeButtonSymbolLoc_ptr_0)
   {
     v3 = AccessibilityUtilitiesLibrary();
-    v7[3] = dlsym(v3, "AXDeviceHasHomeButton");
-    getAXDeviceHasHomeButtonSymbolLoc_ptr_0 = v7[3];
-    v2 = v7[3];
+    v8[3] = dlsym(v3, "AXDeviceHasHomeButton");
+    getAXDeviceHasHomeButtonSymbolLoc_ptr_0 = v8[3];
+    v2 = v8[3];
   }
 
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v7, 8);
   if (!v2)
   {
-    HasHomeButton_cold_1 = AXSSDeviceHasHomeButton_cold_1();
-    _Block_object_dispose(&v6, 8);
-    _Unwind_Resume(HasHomeButton_cold_1);
+    AXSSDeviceHasHomeButton_cold_1();
+    v6 = v5;
+    _Block_object_dispose(&v7, 8);
+    _Unwind_Resume(v6);
   }
 
   return v2();

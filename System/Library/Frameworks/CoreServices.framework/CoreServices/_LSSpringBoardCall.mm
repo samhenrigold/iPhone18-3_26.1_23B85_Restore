@@ -99,7 +99,7 @@ LABEL_9:
 - (_LSSpringBoardCall)callWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  _LSAssertRunningInServer("[_LSSpringBoardCall callWithCompletionHandler:]");
+  _LSAssertRunningInServer("[_LSSpringBoardCall callWithCompletionHandler:]", v6);
   if (!handlerCopy)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -108,19 +108,19 @@ LABEL_9:
 
   if (self->_schemeIfNotFileURL)
   {
-    v6 = _LSServer_DatabaseExecutionContext();
-    [(LSDBExecutionContext *)v6 assertActiveForThisThread];
+    v7 = _LSServer_DatabaseExecutionContext();
+    [(LSDBExecutionContext *)v7 assertActiveForThisThread];
 
     clientXPCConnection = [(_LSSpringBoardCall *)self clientXPCConnection];
     bundleIdentifier = [(_LSSpringBoardCall *)self bundleIdentifier];
     schemeIfNotFileURL = self->_schemeIfNotFileURL;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __48___LSSpringBoardCall_callWithCompletionHandler___block_invoke;
-    v12[3] = &unk_1E6A1E068;
-    v12[4] = self;
-    v13 = handlerCopy;
-    _LSSchemeApprovalFindWithCompletionHandler(clientXPCConnection, bundleIdentifier, schemeIfNotFileURL, 0, v12);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __48___LSSpringBoardCall_callWithCompletionHandler___block_invoke;
+    v13[3] = &unk_1E6A1E068;
+    v13[4] = self;
+    v14 = handlerCopy;
+    _LSSchemeApprovalFindWithCompletionHandler(clientXPCConnection, bundleIdentifier, schemeIfNotFileURL, 0, v13);
   }
 
   else
@@ -186,7 +186,7 @@ LABEL_9:
 - (void)callSpringBoardWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  _LSAssertRunningInServer("[_LSSpringBoardCall(Private) callSpringBoardWithCompletionHandler:]");
+  _LSAssertRunningInServer("[_LSSpringBoardCall(Private) callSpringBoardWithCompletionHandler:]", v6);
   if (!handlerCopy)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -196,33 +196,33 @@ LABEL_9:
   targetServiceConnectionEndpoint = [(_LSSpringBoardCall *)self targetServiceConnectionEndpoint];
   if (targetServiceConnectionEndpoint)
   {
-    [getFBSOpenApplicationServiceClass() serviceWithEndpoint:targetServiceConnectionEndpoint];
+    [(objc_class *)getFBSOpenApplicationServiceClass() serviceWithEndpoint:targetServiceConnectionEndpoint];
   }
 
   else
   {
-    [getFBSOpenApplicationServiceClass() serviceWithDefaultShellEndpoint];
+    [(objc_class *)getFBSOpenApplicationServiceClass() serviceWithDefaultShellEndpoint];
   }
-  v7 = ;
-  if (v7)
+  v8 = ;
+  if (v8)
   {
     FBSOpenApplicationOptionsClass = getFBSOpenApplicationOptionsClass();
     launchOptions = [(_LSSpringBoardCall *)self launchOptions];
-    v10 = [FBSOpenApplicationOptionsClass optionsWithDictionary:launchOptions];
+    v11 = [(objc_class *)FBSOpenApplicationOptionsClass optionsWithDictionary:launchOptions];
 
     clientXPCConnection = [(_LSSpringBoardCall *)self clientXPCConnection];
 
-    Helper_x8__OBJC_CLASS___BSProcessHandle = gotLoadHelper_x8__OBJC_CLASS___BSProcessHandle(v12);
-    v15 = *(v13 + 1864);
+    Helper_x8__OBJC_CLASS___BSProcessHandle = gotLoadHelper_x8__OBJC_CLASS___BSProcessHandle(v13);
+    v16 = *(v14 + 1864);
     if (clientXPCConnection)
     {
       clientXPCConnection2 = [(_LSSpringBoardCall *)self clientXPCConnection];
-      processHandle = [v15 processHandleForNSXPCConnection:clientXPCConnection2];
+      processHandle = [v16 processHandleForNSXPCConnection:clientXPCConnection2];
     }
 
     else
     {
-      processHandle = [*(v13 + 1864) processHandle];
+      processHandle = [*(v14 + 1864) processHandle];
     }
 
     if ([(_LSSpringBoardCall *)self callCompletionHandlerWhenFullyComplete])
@@ -233,66 +233,66 @@ LABEL_9:
       block[1] = 3221225472;
       block[2] = __68___LSSpringBoardCall_Private__callSpringBoardWithCompletionHandler___block_invoke;
       block[3] = &unk_1E6A1DFD0;
-      v32 = v7;
+      v33 = v8;
       selfCopy = self;
-      v34 = v10;
-      v35 = processHandle;
-      v36 = handlerCopy;
-      v19 = processHandle;
-      v20 = v10;
+      v35 = v11;
+      v36 = processHandle;
+      v37 = handlerCopy;
+      v20 = processHandle;
+      v21 = v11;
       dispatch_async(springBoardQueue, block);
 
-      v21 = v32;
+      v22 = v33;
     }
 
     else
     {
       MEMORY[0x1865D7C40]();
       springBoardDeadlockPreventionQueue = [objc_opt_class() springBoardDeadlockPreventionQueue];
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __68___LSSpringBoardCall_Private__callSpringBoardWithCompletionHandler___block_invoke_3;
-      v26[3] = &unk_1E6A1DFD0;
-      v26[4] = self;
-      v27 = v7;
-      v28 = v10;
-      v29 = processHandle;
-      v30 = handlerCopy;
-      v23 = processHandle;
-      v24 = v10;
-      dispatch_async(springBoardDeadlockPreventionQueue, v26);
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __68___LSSpringBoardCall_Private__callSpringBoardWithCompletionHandler___block_invoke_3;
+      v27[3] = &unk_1E6A1DFD0;
+      v27[4] = self;
+      v28 = v8;
+      v29 = v11;
+      v30 = processHandle;
+      v31 = handlerCopy;
+      v24 = processHandle;
+      v25 = v11;
+      dispatch_async(springBoardDeadlockPreventionQueue, v27);
 
-      v21 = v27;
+      v22 = v28;
     }
   }
 
   else
   {
-    v10 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 45, 0, "[_LSSpringBoardCall(Private) callSpringBoardWithCompletionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSSpringBoardCall.mm", 300);
-    (*(handlerCopy + 2))(handlerCopy, 0, v10);
+    v11 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 45, 0, "[_LSSpringBoardCall(Private) callSpringBoardWithCompletionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSSpringBoardCall.mm", 300);
+    (*(handlerCopy + 2))(handlerCopy, 0, v11);
   }
 }
 
 - (void)lieWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  _LSAssertRunningInServer("[_LSSpringBoardCall(Private) lieWithCompletionHandler:]");
+  _LSAssertRunningInServer("[_LSSpringBoardCall(Private) lieWithCompletionHandler:]", v5);
   if (!handlerCopy)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"LSSpringBoardCall.mm" lineNumber:308 description:{@"Invalid parameter not satisfying: %@", @"completionHandler != nil"}];
   }
 
-  v5 = [(_LSSpringBoardCall *)self copy];
-  [v5 setCallCompletionHandlerWhenFullyComplete:1];
-  [v5 callWithCompletionHandler:&__block_literal_global_76_0];
+  v6 = [(_LSSpringBoardCall *)self copy];
+  [v6 setCallCompletionHandlerWhenFullyComplete:1];
+  [v6 callWithCompletionHandler:&__block_literal_global_76_0];
   handlerCopy[2](handlerCopy, 1, 0);
 }
 
 - (void)promptAndCallSpringBoardWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  _LSAssertRunningInServer("[_LSSpringBoardCall(Private) promptAndCallSpringBoardWithCompletionHandler:]");
+  _LSAssertRunningInServer("[_LSSpringBoardCall(Private) promptAndCallSpringBoardWithCompletionHandler:]", v6);
   if (!handlerCopy)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -304,13 +304,13 @@ LABEL_9:
     clientXPCConnection = [(_LSSpringBoardCall *)self clientXPCConnection];
     bundleIdentifier = [(_LSSpringBoardCall *)self bundleIdentifier];
     schemeIfNotFileURL = self->_schemeIfNotFileURL;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __77___LSSpringBoardCall_Private__promptAndCallSpringBoardWithCompletionHandler___block_invoke;
-    v10[3] = &unk_1E6A1E068;
-    v10[4] = self;
-    v11 = handlerCopy;
-    _LSSchemeApprovalFindWithCompletionHandler(clientXPCConnection, bundleIdentifier, schemeIfNotFileURL, 3, v10);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __77___LSSpringBoardCall_Private__promptAndCallSpringBoardWithCompletionHandler___block_invoke;
+    v11[3] = &unk_1E6A1E068;
+    v11[4] = self;
+    v12 = handlerCopy;
+    _LSSchemeApprovalFindWithCompletionHandler(clientXPCConnection, bundleIdentifier, schemeIfNotFileURL, 3, v11);
   }
 
   else

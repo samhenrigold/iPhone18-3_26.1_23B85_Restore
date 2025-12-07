@@ -380,15 +380,12 @@ uint64_t __60___QLCacheThread_setLastHitDateOfAllCachedThumbnailsToDate___block_
 
 uint64_t __67___QLCacheThread_itemsAfterFilteringOutItemsWithMissingThumbnails___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 40) itemsAfterFilteringOutItemsWithMissingThumbnails:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 40) itemsAfterFilteringOutItemsWithMissingThumbnails:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t __47___QLCacheThread_itemIsMissingRemoteThumbnail___block_invoke(void *a1)
+void *__47___QLCacheThread_itemIsMissingRemoteThumbnail___block_invoke(void *a1)
 {
   result = [*(a1[4] + 40) itemIsMissingRemoteThumbnail:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -397,7 +394,7 @@ uint64_t __47___QLCacheThread_itemIsMissingRemoteThumbnail___block_invoke(void *
 
 void __67___QLCacheThread_Private___dispatchThumbnailRequestInServerThread___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = _log_3();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -408,37 +405,36 @@ void __67___QLCacheThread_Private___dispatchThumbnailRequestInServerThread___blo
     v7 = v6;
     v8 = [*(a1 + 32) request];
     [v8 size];
-    v26 = 138412802;
-    v27 = v4;
+    v24 = 138412802;
+    v25 = v4;
+    v26 = 2048;
+    v27 = v7;
     v28 = 2048;
-    v29 = v7;
-    v30 = 2048;
-    v31 = v9;
-    _os_log_impl(&dword_2615D3000, v2, OS_LOG_TYPE_INFO, "No thumbnail found in cache for %@ @ %.1f %.1f", &v26, 0x20u);
+    v29 = v9;
+    _os_log_impl(&dword_2615D3000, v2, OS_LOG_TYPE_INFO, "No thumbnail found in cache for %@ @ %.1f %.1f", &v24, 0x20u);
   }
 
-  v10 = *(a1 + 32);
-  if (([v10 shouldGenerateLowQualityThumbnailOnCacheMiss] & 1) == 0 && objc_msgSend(*(a1 + 32), "needsLowQualityThumbnailGeneration"))
+  if (([*(a1 + 32) shouldGenerateLowQualityThumbnailOnCacheMiss] & 1) == 0 && objc_msgSend(*(a1 + 32), "needsLowQualityThumbnailGeneration"))
   {
-    v11 = MEMORY[0x277CDAAE0];
-    v12 = [*(a1 + 32) request];
-    v13 = [v11 errorWithCode:2 request:v12 additionalUserInfo:0];
+    v10 = MEMORY[0x277CDAAE0];
+    v11 = [*(a1 + 32) request];
+    v12 = [v10 errorWithCode:2 request:v11 additionalUserInfo:0];
 
     WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 312));
-    [WeakRetained didNotFindLowQualityEntryInCachedForThumbnailRequest:*(a1 + 32) error:v13];
+    [WeakRetained didNotFindLowQualityEntryInCachedForThumbnailRequest:*(a1 + 32) error:v12];
   }
 
-  v15 = _log_3();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v14 = _log_3();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    __67___QLCacheThread_Private___dispatchThumbnailRequestInServerThread___block_invoke_cold_1((a1 + 32), v15, v16, v17, v18, v19, v20, v21);
+    __67___QLCacheThread_Private___dispatchThumbnailRequestInServerThread___block_invoke_cold_1((a1 + 32), v14, v15, v16, v17, v18, v19, v20);
   }
 
-  v22 = objc_loadWeakRetained((*(a1 + 40) + 312));
-  [v22 queueThumbnailRequest:*(a1 + 32) tryCache:0 tryAdditionsFirst:1];
+  v21 = objc_loadWeakRetained((*(a1 + 40) + 312));
+  [v21 queueThumbnailRequest:*(a1 + 32) tryCache:0 tryAdditionsFirst:1];
 
-  v23 = [*(a1 + 40) modeLock];
-  [v23 lock];
+  v22 = [*(a1 + 40) modeLock];
+  [v22 lock];
 
   [*(a1 + 40) setMissedCount:{objc_msgSend(*(a1 + 40), "missedCount") + 1}];
   if ([*(a1 + 40) currentMode] <= 3)
@@ -446,15 +442,13 @@ void __67___QLCacheThread_Private___dispatchThumbnailRequestInServerThread___blo
     [*(a1 + 40) _updateMode];
   }
 
-  v24 = [*(a1 + 40) modeLock];
-  [v24 unlock];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = [*(a1 + 40) modeLock];
+  [v23 unlock];
 }
 
 void __71___QLCacheThread_Private___addThumbnailRequestIntoDiskCacheQueryQueue___block_invoke(id *a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] modeLock];
   [v2 lock];
 
@@ -465,7 +459,7 @@ void __71___QLCacheThread_Private___addThumbnailRequestIntoDiskCacheQueryQueue__
     {
       v6 = [a1[5] fileIdentifier];
       *buf = 138412290;
-      v32 = v6;
+      v31 = v6;
       v7 = "Refuse to query the disk cache: the cache is closed (%@)";
       goto LABEL_7;
     }
@@ -486,7 +480,7 @@ LABEL_9:
     {
       v6 = [a1[5] fileIdentifier];
       *buf = 138412290;
-      v32 = v6;
+      v31 = v6;
       v7 = "Refuse to query the disk cache: we are in low disk space mode (%@)";
 LABEL_7:
       _os_log_impl(&dword_2615D3000, v4, OS_LOG_TYPE_INFO, v7, buf, 0xCu);
@@ -499,16 +493,26 @@ LABEL_7:
 
   if (v5)
   {
-    v10 = a1[5];
-    v11 = [v10 fileIdentifier];
+    v9 = a1[5];
+    v10 = [v9 fileIdentifier];
     [a1[5] size];
-    v13 = v12;
+    v12 = v11;
     [a1[5] size];
-    v15 = v14;
-    v16 = &stru_2873E31F0;
+    v14 = v13;
+    v15 = &stru_2873E31F0;
     if ([a1[5] iconMode])
     {
-      v17 = @"Icon mode";
+      v16 = @"Icon mode";
+    }
+
+    else
+    {
+      v16 = &stru_2873E31F0;
+    }
+
+    if ([a1[6] needsLowQualityThumbnailGeneration])
+    {
+      v17 = @"(low quality)";
     }
 
     else
@@ -516,69 +520,59 @@ LABEL_7:
       v17 = &stru_2873E31F0;
     }
 
-    if ([a1[6] needsLowQualityThumbnailGeneration])
+    v18 = [a1[6] badgeType];
+    if (v18)
     {
-      v18 = @"(low quality)";
-    }
-
-    else
-    {
-      v18 = &stru_2873E31F0;
-    }
-
-    v19 = [a1[6] badgeType];
-    if (v19)
-    {
-      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", objc_msgSend(a1[6], "badgeType")];
+      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", objc_msgSend(a1[6], "badgeType")];
     }
 
     *buf = 138413826;
-    v32 = v10;
-    v33 = 2112;
-    v34 = v11;
-    v35 = 2048;
-    v36 = v13;
-    v37 = 2048;
-    v38 = v15;
-    v39 = 2112;
-    v40 = v17;
-    v41 = 2112;
-    v42 = v18;
-    v43 = 2112;
-    v44 = v16;
+    v31 = v9;
+    v32 = 2112;
+    v33 = v10;
+    v34 = 2048;
+    v35 = v12;
+    v36 = 2048;
+    v37 = v14;
+    v38 = 2112;
+    v39 = v16;
+    v40 = 2112;
+    v41 = v17;
+    v42 = 2112;
+    v43 = v15;
     _os_log_impl(&dword_2615D3000, v4, OS_LOG_TYPE_INFO, "Trying disk cache for %@ fi: %@ @ %.1fx%.1f %@ %@ %@", buf, 0x48u);
-    if (v19)
+    if (v18)
     {
     }
   }
 
-  v20 = [a1[4] currentDiskCacheQueryOperation];
-  if (!v20 || (v21 = v20, [a1[4] currentDiskCacheQueryOperation], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "appendThumbnailRequest:", a1[6]), v22, v21, (v23 & 1) == 0))
+  v19 = [a1[4] currentDiskCacheQueryOperation];
+  if (!v19 || (v20 = v19, [a1[4] currentDiskCacheQueryOperation], v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "appendThumbnailRequest:", a1[6]), v21, v20, (v22 & 1) == 0))
   {
-    v24 = [[QLDiskCacheQueryOperation alloc] initWithCacheThread:a1[4]];
-    [a1[4] setCurrentDiskCacheQueryOperation:v24];
+    v23 = [[QLDiskCacheQueryOperation alloc] initWithCacheThread:a1[4]];
+    [a1[4] setCurrentDiskCacheQueryOperation:v23];
 
-    v25 = [a1[4] currentDiskCacheQueryOperation];
-    v26 = [v25 appendThumbnailRequest:a1[6]];
+    v24 = [a1[4] currentDiskCacheQueryOperation];
+    v25 = [v24 appendThumbnailRequest:a1[6]];
 
-    if (!v26)
+    if (!v25)
     {
-      v29 = _log_3();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      v28 = _log_3();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
-        v30 = [a1[5] fileIdentifier];
+        v29 = [a1[5] fileIdentifier];
         *buf = 138412290;
-        v32 = v30;
-        _os_log_impl(&dword_2615D3000, v29, OS_LOG_TYPE_INFO, "Could not append thumbnail request to QLCacheThread. (%@)", buf, 0xCu);
+        v31 = v29;
+        _os_log_impl(&dword_2615D3000, v28, OS_LOG_TYPE_INFO, "Could not append thumbnail request to QLCacheThread. (%@)", buf, 0xCu);
       }
 
       [a1[4] setCurrentDiskCacheQueryOperation:0];
       goto LABEL_9;
     }
 
-    v27 = [a1[4] diskCacheQueryOperationQueue];
-    v28 = [a1[4] currentDiskCacheQueryOperation];
-    [v27 addOperation:v28];
+    v26 = [a1[4] diskCacheQueryOperationQueue];
+    v27 = [a1[4] currentDiskCacheQueryOperation];
+    [v26 addOperation:v27];
   }
 
 LABEL_10:
@@ -589,8 +583,6 @@ LABEL_10:
 
   v8 = [a1[4] modeLock];
   [v8 unlock];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __66___QLCacheThread_Private___sendThumbnailData_forThumbnailRequest___block_invoke(uint64_t a1)
@@ -634,20 +626,11 @@ void __54___QLCacheThread_Private___thumbnailHasBeenCancelled___block_invoke(uin
   [v3 unlock];
 }
 
-void __37___QLCacheThread__drainPendingBlocks__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_2615D3000, v0, v1, "Coalesced %ld cache writing jobs", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __67___QLCacheThread_Private___dispatchThumbnailRequestInServerThread___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_2_0(&dword_2615D3000, a2, a3, "Cache miss for %@, reenqueuing request", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_2_0(&dword_2615D3000, a2, a3, "Cache miss for %@, reenqueuing request", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

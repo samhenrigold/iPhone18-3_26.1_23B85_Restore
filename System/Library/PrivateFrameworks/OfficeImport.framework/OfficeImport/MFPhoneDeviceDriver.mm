@@ -1418,10 +1418,11 @@ LABEL_29:
     if (channel)
     {
       pixelData = [imageCopy pixelData];
-      if ([imageCopy pixelDataLength] == Height * 4 * Width && (v44 = TSUDeviceRGBColorSpace(), v45 = CGBitmapContextCreateWithData(pixelData, Width, Height, 8uLL, 4 * Width, v44, 0x2002u, 0, 0), (v46 = v45) != 0))
+      pixelDataLength = [imageCopy pixelDataLength];
+      if (pixelDataLength == Height * 4 * Width && (v46 = TSUDeviceRGBColorSpace(pixelDataLength, v45), v47 = CGBitmapContextCreateWithData(pixelData, Width, Height, 8uLL, 4 * Width, v46, 0x2002u, 0, 0), (v48 = v47) != 0))
       {
-        Image = CGBitmapContextCreateImage(v45);
-        CGContextRelease(v46);
+        Image = CGBitmapContextCreateImage(v47);
+        CGContextRelease(v48);
       }
 
       else
@@ -1431,12 +1432,12 @@ LABEL_29:
 
       if (([imageCopy isFlipped] & 1) == 0)
       {
-        v55.origin.x = srcCopy;
-        v55.origin.y = in_ySrcCopy;
-        v55.size.width = in_widthSrcCopy;
-        v55.size.height = in_heightSrcCopy;
-        v48 = 0;
-        in_ySrcCopy = in_ySrcCopy + Height + CGRectGetMidY(v55) * -2.0;
+        v57.origin.x = srcCopy;
+        v57.origin.y = in_ySrcCopy;
+        v57.size.width = in_widthSrcCopy;
+        v57.size.height = in_heightSrcCopy;
+        v50 = 0;
+        in_ySrcCopy = in_ySrcCopy + Height + CGRectGetMidY(v57) * -2.0;
         if (!Image)
         {
 LABEL_27:
@@ -1447,60 +1448,60 @@ LABEL_28:
         }
 
 LABEL_20:
-        v61.size.width = Width;
-        v61.size.height = Height;
-        v61.origin.x = 0.0;
-        v61.origin.y = 0.0;
-        v56.origin.x = srcCopy;
-        v56.origin.y = in_ySrcCopy;
-        v56.size.width = in_widthSrcCopy;
-        v56.size.height = in_heightSrcCopy;
-        if (CGRectEqualToRect(v56, v61))
+        v63.size.width = Width;
+        v63.size.height = Height;
+        v63.origin.x = 0.0;
+        v63.origin.y = 0.0;
+        v58.origin.x = srcCopy;
+        v58.origin.y = in_ySrcCopy;
+        v58.size.width = in_widthSrcCopy;
+        v58.size.height = in_heightSrcCopy;
+        if (CGRectEqualToRect(v58, v63))
         {
-          v49 = CGImageRetain(Image);
+          v51 = CGImageRetain(Image);
         }
 
         else
         {
-          v57.origin.x = srcCopy;
-          v57.origin.y = in_ySrcCopy;
-          v57.size.width = in_widthSrcCopy;
-          v57.size.height = in_heightSrcCopy;
-          v49 = CGImageCreateWithImageInRect(Image, v57);
+          v59.origin.x = srcCopy;
+          v59.origin.y = in_ySrcCopy;
+          v59.size.width = in_widthSrcCopy;
+          v59.size.height = in_heightSrcCopy;
+          v51 = CGImageCreateWithImageInRect(Image, v59);
         }
 
-        v50 = v49;
+        v52 = v51;
         CGImageRelease(Image);
-        if (v50)
+        if (v52)
         {
-          v51 = TCCurrentGraphicsContext();
-          CGContextSaveGState(v51);
-          if (v48)
+          v53 = TCCurrentGraphicsContext();
+          CGContextSaveGState(v53);
+          if (v50)
           {
-            v58.origin.x = destCopy;
-            v58.origin.y = in_yDestCopy;
-            v58.size.width = in_widthDestCopy;
-            v58.size.height = in_heightDestCopy;
-            MidY = CGRectGetMidY(v58);
-            CGContextTranslateCTM(v51, 0.0, MidY);
-            CGContextScaleCTM(v51, 1.0, -1.0);
-            v59.origin.x = destCopy;
-            v59.origin.y = in_yDestCopy;
-            v59.size.width = in_widthDestCopy;
-            v59.size.height = in_heightDestCopy;
-            v53 = CGRectGetMidY(v59);
-            CGContextTranslateCTM(v51, 0.0, -v53);
+            v60.origin.x = destCopy;
+            v60.origin.y = in_yDestCopy;
+            v60.size.width = in_widthDestCopy;
+            v60.size.height = in_heightDestCopy;
+            MidY = CGRectGetMidY(v60);
+            CGContextTranslateCTM(v53, 0.0, MidY);
+            CGContextScaleCTM(v53, 1.0, -1.0);
+            v61.origin.x = destCopy;
+            v61.origin.y = in_yDestCopy;
+            v61.size.width = in_widthDestCopy;
+            v61.size.height = in_heightDestCopy;
+            v55 = CGRectGetMidY(v61);
+            CGContextTranslateCTM(v53, 0.0, -v55);
           }
 
-          CGContextSetAlpha(v51, opacity / 255.0);
-          CGContextSetBlendMode(v51, kCGBlendModeNormal);
-          v60.origin.x = destCopy;
-          v60.origin.y = in_yDestCopy;
-          v60.size.width = in_widthDestCopy;
-          v60.size.height = in_heightDestCopy;
-          CGContextDrawImage(v51, v60, v50);
-          CGContextRestoreGState(v51);
-          CGImageRelease(v50);
+          CGContextSetAlpha(v53, opacity / 255.0);
+          CGContextSetBlendMode(v53, kCGBlendModeNormal);
+          v62.origin.x = destCopy;
+          v62.origin.y = in_yDestCopy;
+          v62.size.width = in_widthDestCopy;
+          v62.size.height = in_heightDestCopy;
+          CGContextDrawImage(v53, v62, v52);
+          CGContextRestoreGState(v53);
+          CGImageRelease(v52);
           goto LABEL_28;
         }
 
@@ -1513,7 +1514,7 @@ LABEL_20:
       Image = CGImageRetain(v40);
     }
 
-    v48 = 1;
+    v50 = 1;
     if (!Image)
     {
       goto LABEL_27;

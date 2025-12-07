@@ -35,16 +35,17 @@
   v5 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC8AppStore23ArcadeSubscribePageView_dismissActionBlock);
   if (v5)
   {
+    v6 = *&selfCopy->style[OBJC_IVAR____TtC8AppStore23ArcadeSubscribePageView_dismissActionBlock];
 
-    v5(v6);
-    sub_10001F63C(v5);
+    v5(v7);
+    sub_10001F63C(v5, v6);
 
-    sub_100007000(v6);
+    sub_100007000(v7);
   }
 
   else
   {
-    sub_100007000(v6);
+    sub_100007000(v7);
   }
 }
 

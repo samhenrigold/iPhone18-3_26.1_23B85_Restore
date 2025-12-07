@@ -21,11 +21,11 @@
   return v2;
 }
 
-void __33__PKAccessibility_sharedInstance__block_invoke()
+void __33__PKAccessibility_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_new();
-  v1 = _MergedGlobals_144;
-  _MergedGlobals_144 = v0;
+  v1 = objc_opt_new();
+  v2 = _MergedGlobals_144;
+  _MergedGlobals_144 = v1;
 }
 
 @end

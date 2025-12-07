@@ -3,6 +3,7 @@
 - (id)accessibilityValue;
 - (void)accessibilityDecrement;
 - (void)accessibilityIncrement;
+- (void)setValue:(float)value animated:(BOOL)animated objectChange:(BOOL)change;
 @end
 
 @implementation HeadphoneAccessoryLabeledSliderAccessibility
@@ -10,20 +11,20 @@
 + (void)_accessibilityPerformValidations:(id)validations
 {
   validationsCopy = validations;
-  [validationsCopy validateClass:@"_TtGC16HeadphoneConfigs31HeadphoneAccessoryLabeledSliderVSo17AAAutoANCStrength_" hasInstanceMethod:@"selectedIndex" withFullSignature:{"q", 0}];
-  [validationsCopy validateClass:@"_TtGC16HeadphoneConfigs31HeadphoneAccessoryLabeledSliderVSo17AAAutoANCStrength_" hasInstanceMethod:@"setValue:animated:objectChange:" withFullSignature:{"v", "f", "B", "B", 0}];
-  [validationsCopy validateClass:@"_TtGC16HeadphoneConfigs31HeadphoneAccessoryLabeledSliderVSo17AAAutoANCStrength_" hasSwiftField:@"ticks" withSwiftType:"Array<String>"];
+  [validationsCopy validateClass:0 hasInstanceMethod:? withFullSignature:?];
+  [validationsCopy validateClass:"f" hasInstanceMethod:"B" withFullSignature:{"B", 0}];
+  [validationsCopy validateClass:? hasSwiftField:? withSwiftType:?];
 }
 
 - (void)accessibilityIncrement
 {
   objc_opt_class();
-  v3 = [(HeadphoneAccessoryLabeledSliderAccessibility *)self safeSwiftValueForKey:@"ticks"];
+  v3 = [(HeadphoneAccessoryLabeledSliderAccessibility *)self safeSwiftValueForKey:?];
   v4 = __UIAccessibilityCastAsClass();
 
   v9 = 0;
   objc_opt_class();
-  v5 = [(HeadphoneAccessoryLabeledSliderAccessibility *)self safeValueForKey:@"selectedIndex"];
+  v5 = [(HeadphoneAccessoryLabeledSliderAccessibility *)self safeValueForKey:?];
   v6 = __UIAccessibilityCastAsClass();
 
   integerValue = [v6 integerValue];
@@ -44,7 +45,7 @@
 - (void)accessibilityDecrement
 {
   objc_opt_class();
-  v3 = [(HeadphoneAccessoryLabeledSliderAccessibility *)self safeValueForKey:@"selectedIndex"];
+  v3 = [(HeadphoneAccessoryLabeledSliderAccessibility *)self safeValueForKey:?];
   v4 = __UIAccessibilityCastAsClass();
 
   [v4 integerValue];
@@ -54,12 +55,12 @@
 - (id)accessibilityValue
 {
   objc_opt_class();
-  v3 = [(HeadphoneAccessoryLabeledSliderAccessibility *)self safeSwiftValueForKey:@"ticks"];
+  v3 = [(HeadphoneAccessoryLabeledSliderAccessibility *)self safeSwiftValueForKey:?];
   v4 = __UIAccessibilityCastAsClass();
 
   v13 = 0;
   objc_opt_class();
-  v5 = [(HeadphoneAccessoryLabeledSliderAccessibility *)self safeValueForKey:@"selectedIndex"];
+  v5 = [(HeadphoneAccessoryLabeledSliderAccessibility *)self safeValueForKey:?];
   v6 = __UIAccessibilityCastAsClass();
 
   integerValue = [v6 integerValue];
@@ -73,12 +74,23 @@
 
   else
   {
-    accessibilityValue = [v4 objectAtIndex:integerValue];
+    accessibilityValue = [v4 objectAtIndex:?];
   }
 
   v10 = accessibilityValue;
 
   return v10;
+}
+
+- (void)setValue:(float)value animated:(BOOL)animated objectChange:(BOOL)change
+{
+  changeCopy = change;
+  animatedCopy = animated;
+  IsVoiceOverRunning = UIAccessibilityIsVoiceOverRunning();
+  v11.receiver = self;
+  v11.super_class = HeadphoneAccessoryLabeledSliderAccessibility;
+  *&v10 = value;
+  [(HeadphoneAccessoryLabeledSliderAccessibility *)&v11 setValue:animatedCopy animated:IsVoiceOverRunning | changeCopy objectChange:v10];
 }
 
 @end

@@ -40,7 +40,6 @@
 {
   if (*&self->_has)
   {
-    volume = self->_volume;
     PBDataWriterWriteFloatField();
   }
 }

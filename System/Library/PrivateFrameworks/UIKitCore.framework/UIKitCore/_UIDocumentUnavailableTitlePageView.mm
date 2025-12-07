@@ -62,9 +62,9 @@
     {
       if (v4 && v6)
       {
-        v5 = [v6 isEqual:v4];
+        isEqual = objc_msgSend_isEqual_(v6);
 
-        if (v5)
+        if (isEqual)
         {
           return;
         }
@@ -95,9 +95,9 @@
     {
       if (v4 && v6)
       {
-        v5 = [v6 isEqual:v4];
+        isEqual = objc_msgSend_isEqual_(v6);
 
-        if (v5)
+        if (isEqual)
         {
           return;
         }
@@ -128,9 +128,9 @@
     {
       if (v4 && v6)
       {
-        v5 = [v6 isEqual:v4];
+        isEqual = objc_msgSend_isEqual_(v6);
 
-        if (v5)
+        if (isEqual)
         {
           return;
         }
@@ -161,9 +161,9 @@
     {
       if (v4 && v6)
       {
-        v5 = [v6 isEqual:v4];
+        isEqual = objc_msgSend_isEqual_(v6);
 
-        if (v5)
+        if (isEqual)
         {
           return;
         }
@@ -194,9 +194,9 @@
     {
       if (v4 && v6)
       {
-        v5 = [v6 isEqual:v4];
+        isEqual = objc_msgSend_isEqual_(v6);
 
-        if (v5)
+        if (isEqual)
         {
           return;
         }
@@ -227,9 +227,9 @@
     {
       if (v4 && v6)
       {
-        v5 = [v6 isEqual:v4];
+        isEqual = objc_msgSend_isEqual_(v6);
 
-        if (v5)
+        if (isEqual)
         {
           return;
         }

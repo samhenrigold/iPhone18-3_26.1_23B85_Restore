@@ -334,7 +334,7 @@
 - (void)setHasMedicalIDSlider:(BOOL)slider
 {
   sliderCopy = slider;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7[0] = 67109120;
@@ -362,7 +362,7 @@
 
 - (void)showMessagesButtonPressed
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -385,11 +385,11 @@
 
   if (medicalIDSlidingButton == buttonCopy)
   {
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004F84(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PHSOSAlertRestingView,user slid medical ID slider", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "PHSOSAlertRestingView,user slid medical ID slider", v10, 2u);
     }
 
     completionHandler = [(PHSOSAlertRestingView *)self completionHandler];

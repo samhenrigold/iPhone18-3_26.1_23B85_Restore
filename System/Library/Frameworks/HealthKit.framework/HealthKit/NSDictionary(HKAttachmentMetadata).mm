@@ -49,9 +49,9 @@
     +[NSDictionary(HKAttachmentMetadata) hk_acceptedAttachmentMetadataValueClasses];
   }
 
-  v1 = hk_acceptedAttachmentMetadataValueClasses_valueClasses;
+  v2 = hk_acceptedAttachmentMetadataValueClasses_valueClasses;
 
-  return v1;
+  return v2;
 }
 
 + (id)hk_secureAttachmentCodingClasses

@@ -96,31 +96,31 @@
   dispatch_assert_queue_V2(queue);
 
   v4 = +[NSMutableDictionary dictionary];
-  v31 = 0u;
-  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v5 = +[TUCallProviderManager defaultProviders];
-  v6 = [v5 countByEnumeratingWithState:&v31 objects:v40 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v33 objects:v42 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v32;
+    v8 = *v34;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v32 != v8)
+        if (*v34 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * i);
+        v10 = *(*(&v33 + 1) + 8 * i);
         identifier = [v10 identifier];
         [v4 setObject:v10 forKeyedSubscript:identifier];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v31 objects:v40 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v33 objects:v42 count:16];
     }
 
     while (v7);
@@ -129,15 +129,15 @@
   AppIntegerValue = CFPreferencesGetAppIntegerValue(@"registeredProvidersVersion", TUBundleIdentifierTelephonyUtilitiesFramework, 0);
   if (AppIntegerValue < 1)
   {
-    v16 = AppIntegerValue;
-    v17 = sub_100004778();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v17 = AppIntegerValue;
+    v18 = sub_100004778(AppIntegerValue);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v36 = v16;
-      v37 = 1024;
-      v38 = 1;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARN] Not loading registered providers because current registered providers version is %ld and minimum version is %d", buf, 0x12u);
+      v38 = v17;
+      v39 = 1024;
+      v40 = 1;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[WARN] Not loading registered providers because current registered providers version is %ld and minimum version is %d", buf, 0x12u);
     }
   }
 
@@ -146,64 +146,65 @@
     keychainItem = [(CSDCallProviderManagerDataSource *)self keychainItem];
     v14 = [(CSDCallProviderManagerDataSource *)self _providersForKeychainItem:keychainItem];
 
-    if ([v14 count])
+    v15 = [v14 count];
+    if (v15)
     {
-      v15 = sub_100004778();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_100004778(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Found local providers from keychain", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Found local providers from keychain", buf, 2u);
       }
     }
 
     else
     {
       [(CSDCallProviderManagerDataSource *)self _providersForPreferenceKey:@"registeredProviders"];
-      v14 = v15 = v14;
+      v14 = v16 = v14;
     }
 
+    v31 = 0u;
+    v32 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v17 = v14;
-    v18 = [v17 countByEnumeratingWithState:&v27 objects:v39 count:16];
-    if (v18)
+    v18 = v14;
+    v19 = [v18 countByEnumeratingWithState:&v29 objects:v41 count:16];
+    if (v19)
     {
-      v19 = v18;
-      v20 = *v28;
+      v20 = v19;
+      v21 = *v30;
       do
       {
-        for (j = 0; j != v19; j = j + 1)
+        for (j = 0; j != v20; j = j + 1)
         {
-          if (*v28 != v20)
+          if (*v30 != v21)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v18);
           }
 
-          v22 = *(*(&v27 + 1) + 8 * j);
-          identifier2 = [v22 identifier];
-          [v4 setObject:v22 forKeyedSubscript:identifier2];
+          v23 = *(*(&v29 + 1) + 8 * j);
+          identifier2 = [v23 identifier];
+          [v4 setObject:v23 forKeyedSubscript:identifier2];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v27 objects:v39 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v29 objects:v41 count:16];
       }
 
-      while (v19);
+      while (v20);
     }
   }
 
-  v24 = sub_100004778();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v26 = sub_100004778(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v36 = v4;
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "registeredLocalProvidersByIdentifier: %@", buf, 0xCu);
+    v38 = v4;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "registeredLocalProvidersByIdentifier: %@", buf, 0xCu);
   }
 
-  v25 = [v4 copy];
+  v27 = [v4 copy];
 
-  return v25;
+  return v27;
 }
 
 - (void)setRegisteredLocalProvidersByIdentifier:(id)identifier
@@ -212,32 +213,32 @@
   queue = [(CSDCallProviderManagerDataSource *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "registeredLocalProvidersByIdentifier: %@", buf, 0xCu);
+    v16 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "registeredLocalProvidersByIdentifier: %@", buf, 0xCu);
   }
 
   allValues = [identifierCopy allValues];
   keychainItem = [(CSDCallProviderManagerDataSource *)self keychainItem];
-  v12 = 0;
-  [(CSDCallProviderManagerDataSource *)self _saveProviders:allValues forKeychainItem:keychainItem error:&v12];
-  v9 = v12;
+  v14 = 0;
+  [(CSDCallProviderManagerDataSource *)self _saveProviders:allValues forKeychainItem:keychainItem error:&v14];
+  v10 = v14;
 
-  if (v9)
+  if (v10)
   {
-    v10 = sub_100004778();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_100004778(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10047C368();
     }
   }
 
-  v11 = TUBundleIdentifierTelephonyUtilitiesFramework;
+  v13 = TUBundleIdentifierTelephonyUtilitiesFramework;
   CFPreferencesSetAppValue(@"registeredProvidersVersion", &off_10063EDB0, TUBundleIdentifierTelephonyUtilitiesFramework);
-  CFPreferencesAppSynchronize(v11);
+  CFPreferencesAppSynchronize(v13);
 }
 
 - (NSDictionary)registeredPairedHostDeviceProvidersByIdentifier
@@ -249,64 +250,65 @@
   pairedHostKeychainItem = [(CSDCallProviderManagerDataSource *)self pairedHostKeychainItem];
   v6 = [(CSDCallProviderManagerDataSource *)self _providersForKeychainItem:pairedHostKeychainItem];
 
-  if ([v6 count])
+  v7 = [v6 count];
+  if (v7)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Found paired host providers from keychain", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Found paired host providers from keychain", buf, 2u);
     }
   }
 
   else
   {
-    v8 = [(CSDCallProviderManagerDataSource *)self _providersForPreferenceKey:@"registeredRelayProviders"];
+    v9 = [(CSDCallProviderManagerDataSource *)self _providersForPreferenceKey:@"registeredRelayProviders"];
 
-    v6 = v8;
+    v6 = v9;
   }
 
+  v23 = 0u;
+  v24 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v25 count:16];
-  if (v10)
+  v10 = v6;
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v20;
+    v12 = v11;
+    v13 = *v22;
     do
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v12; i = i + 1)
       {
-        if (*v20 != v12)
+        if (*v22 != v13)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * i);
-        identifier = [v14 identifier];
-        [v4 setObject:v14 forKeyedSubscript:identifier];
+        v15 = *(*(&v21 + 1) + 8 * i);
+        identifier = [v15 identifier];
+        [v4 setObject:v15 forKeyedSubscript:identifier];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 
-  v16 = sub_100004778();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_100004778(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = v9;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "registeredPairedHostDeviceProvidersByIdentifier: %@", buf, 0xCu);
+    v26 = v10;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "registeredPairedHostDeviceProvidersByIdentifier: %@", buf, 0xCu);
   }
 
-  v17 = [v4 copy];
+  v19 = [v4 copy];
 
-  return v17;
+  return v19;
 }
 
 - (void)setRegisteredPairedHostDeviceProvidersByIdentifier:(id)identifier
@@ -315,24 +317,24 @@
   queue = [(CSDCallProviderManagerDataSource *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = identifierCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "registeredPairedHostDeviceProvidersByIdentifier: %@", buf, 0xCu);
+    v15 = identifierCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "registeredPairedHostDeviceProvidersByIdentifier: %@", buf, 0xCu);
   }
 
   allValues = [identifierCopy allValues];
   pairedHostKeychainItem = [(CSDCallProviderManagerDataSource *)self pairedHostKeychainItem];
-  v11 = 0;
-  [(CSDCallProviderManagerDataSource *)self _saveProviders:allValues forKeychainItem:pairedHostKeychainItem error:&v11];
-  v9 = v11;
+  v13 = 0;
+  [(CSDCallProviderManagerDataSource *)self _saveProviders:allValues forKeychainItem:pairedHostKeychainItem error:&v13];
+  v10 = v13;
 
-  if (v9)
+  if (v10)
   {
-    v10 = sub_100004778();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_100004778(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10047C368();
     }
@@ -372,37 +374,37 @@
   queue = [(CSDCallProviderManagerDataSource *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v15 = sub_100004778();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_100004778(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138412802;
-    v21 = activityCopy;
-    v22 = 2112;
-    v23 = identifierCopy;
+    v22 = 138412802;
+    v23 = activityCopy;
     v24 = 2112;
-    v25 = optionsCopy;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Opening user activity %@ for bundle identifier %@ with options %@", &v20, 0x20u);
+    v25 = identifierCopy;
+    v26 = 2112;
+    v27 = optionsCopy;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Opening user activity %@ for bundle identifier %@ with options %@", &v22, 0x20u);
   }
 
-  v16 = [LSApplicationRecord csd_applicationRecordForBundleIdentifier:identifierCopy];
-  v17 = objc_alloc_init(_LSOpenConfiguration);
-  [v17 setFrontBoardOptions:optionsCopy];
-  if (v16)
+  v17 = [LSApplicationRecord csd_applicationRecordForBundleIdentifier:identifierCopy];
+  v18 = objc_alloc_init(_LSOpenConfiguration);
+  v19 = [v18 setFrontBoardOptions:optionsCopy];
+  if (v17)
   {
-    v18 = +[LSApplicationWorkspace defaultWorkspace];
-    [v18 openUserActivity:activityCopy usingApplicationRecord:v16 configuration:v17 completionHandler:completionCopy];
+    v20 = +[LSApplicationWorkspace defaultWorkspace];
+    [v20 openUserActivity:activityCopy usingApplicationRecord:v17 configuration:v18 completionHandler:completionCopy];
   }
 
   else
   {
-    v19 = sub_100004778();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = sub_100004778(v19);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       sub_10047C3D0();
     }
 
-    v18 = [NSError errorWithDomain:TUBundleIdentifierTelephonyUtilitiesFramework code:1 userInfo:0];
-    completionCopy[2](completionCopy, 0, v18);
+    v20 = [NSError errorWithDomain:TUBundleIdentifierTelephonyUtilitiesFramework code:1 userInfo:0];
+    completionCopy[2](completionCopy, 0, v20);
   }
 }
 
@@ -415,28 +417,28 @@
   v6 = +[NSFileManager defaultManager];
   path = [lCopy path];
 
-  v13 = 0;
-  v8 = [v6 attributesOfItemAtPath:path error:&v13];
-  v9 = v13;
+  v14 = 0;
+  v8 = [v6 attributesOfItemAtPath:path error:&v14];
+  v9 = v14;
 
   if (v8)
   {
-    v10 = [v8 objectForKeyedSubscript:NSFileType];
-    v11 = [v10 isEqual:NSFileTypeSymbolicLink];
+    v11 = [v8 objectForKeyedSubscript:NSFileType];
+    v12 = [v11 isEqual:NSFileTypeSymbolicLink];
   }
 
   else
   {
-    v10 = sub_100004778();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100004778(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10047C438();
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)createLinkIfNecessaryWithFilename:(id)filename toURL:(id)l
@@ -447,22 +449,22 @@
   dispatch_assert_queue_V2(queue);
 
   ringtonesSandboxExtensionDirectory = [(CSDCallProviderManagerDataSource *)self ringtonesSandboxExtensionDirectory];
-  v14 = 0;
-  v10 = [ringtonesSandboxExtensionDirectory createLinkIfNecessaryWithFilename:filenameCopy toURL:lCopy error:&v14];
-  v11 = v14;
+  v15 = 0;
+  v10 = [ringtonesSandboxExtensionDirectory createLinkIfNecessaryWithFilename:filenameCopy toURL:lCopy error:&v15];
+  v11 = v15;
 
   if (!v10)
   {
-    v12 = sub_100004778();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100004778(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v16 = lCopy;
-      v17 = 2112;
-      v18 = filenameCopy;
-      v19 = 2112;
-      v20 = v11;
-      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Error creating link to source URL '%@' with filename '%@': %@", buf, 0x20u);
+      v17 = lCopy;
+      v18 = 2112;
+      v19 = filenameCopy;
+      v20 = 2112;
+      v21 = v11;
+      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Error creating link to source URL '%@' with filename '%@': %@", buf, 0x20u);
     }
   }
 
@@ -476,14 +478,14 @@
   dispatch_assert_queue_V2(queue);
 
   ringtonesSandboxExtensionDirectory = [(CSDCallProviderManagerDataSource *)self ringtonesSandboxExtensionDirectory];
-  v10 = 0;
-  v7 = [ringtonesSandboxExtensionDirectory removeLinksForFilenamesNotInArray:arrayCopy error:&v10];
-  v8 = v10;
+  v11 = 0;
+  v7 = [ringtonesSandboxExtensionDirectory removeLinksForFilenamesNotInArray:arrayCopy error:&v11];
+  v8 = v11;
 
   if ((v7 & 1) == 0)
   {
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100004778(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10047C4A0();
     }
@@ -520,25 +522,26 @@
   dispatch_assert_queue_V2(queue);
 
   v4 = [(CSDCallProviderManagerDataSource *)self _providersForPreferenceKey:@"registeredProviders"];
-  if ([v4 count])
+  v5 = [v4 count];
+  if (v5)
   {
-    v5 = sub_100004778();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004778(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Found local provider data to move into keychain", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Found local provider data to move into keychain", buf, 2u);
     }
 
     keychainItem = [(CSDCallProviderManagerDataSource *)self keychainItem];
-    v17 = 0;
-    [(CSDCallProviderManagerDataSource *)self _saveProviders:v4 forKeychainItem:keychainItem error:&v17];
-    v7 = v17;
+    v21 = 0;
+    [(CSDCallProviderManagerDataSource *)self _saveProviders:v4 forKeychainItem:keychainItem error:&v21];
+    v8 = v21;
 
-    v8 = sub_100004778();
-    v9 = v8;
-    if (v7)
+    v10 = sub_100004778(v9);
+    v11 = v10;
+    if (v8)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_10047C368();
       }
@@ -546,36 +549,37 @@
 
     else
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Removing preferences for local registered providers", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Removing preferences for local registered providers", buf, 2u);
       }
 
       CFPreferencesSetAppValue(@"registeredProviders", 0, TUBundleIdentifierTelephonyUtilitiesFramework);
     }
   }
 
-  v10 = [(CSDCallProviderManagerDataSource *)self _providersForPreferenceKey:@"registeredRelayProviders"];
-  if ([v10 count])
+  v12 = [(CSDCallProviderManagerDataSource *)self _providersForPreferenceKey:@"registeredRelayProviders"];
+  v13 = [v12 count];
+  if (v13)
   {
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100004778(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Found paired host provider data to move into keychain", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Found paired host provider data to move into keychain", buf, 2u);
     }
 
     pairedHostKeychainItem = [(CSDCallProviderManagerDataSource *)self pairedHostKeychainItem];
-    v16 = 0;
-    [(CSDCallProviderManagerDataSource *)self _saveProviders:v10 forKeychainItem:pairedHostKeychainItem error:&v16];
-    v13 = v16;
+    v20 = 0;
+    [(CSDCallProviderManagerDataSource *)self _saveProviders:v12 forKeychainItem:pairedHostKeychainItem error:&v20];
+    v16 = v20;
 
-    v14 = sub_100004778();
-    v15 = v14;
-    if (v13)
+    v18 = sub_100004778(v17);
+    v19 = v18;
+    if (v16)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         sub_10047C368();
       }
@@ -583,10 +587,10 @@
 
     else
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Removing preferences for paired host registered providers", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Removing preferences for paired host registered providers", buf, 2u);
       }
 
       CFPreferencesSetAppValue(@"registeredRelayProviders", 0, TUBundleIdentifierTelephonyUtilitiesFramework);
@@ -598,56 +602,57 @@
 {
   providersCopy = providers;
   v4 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [providersCopy count]);
-  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
   v5 = providersCopy;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v19 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [[CSDMessagingCallProvider alloc] initWithProvider:*(*(&v18 + 1) + 8 * i)];
+        v10 = [[CSDMessagingCallProvider alloc] initWithProvider:*(*(&v19 + 1) + 8 * i)];
         data = [(CSDMessagingCallProvider *)v10 data];
         [v4 addObject:data];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
   }
 
-  v17 = 0;
-  v12 = [NSPropertyListSerialization dataWithPropertyList:v4 format:200 options:0 error:&v17];
-  v13 = v17;
+  v18 = 0;
+  v12 = [NSPropertyListSerialization dataWithPropertyList:v4 format:200 options:0 error:&v18];
+  v13 = v18;
+  v14 = v13;
   if (v13)
   {
-    v14 = sub_100004778();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = sub_100004778(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10047C520();
     }
 
-    v15 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v15 = v12;
+    v16 = v12;
   }
 
-  return v15;
+  return v16;
 }
 
 - (BOOL)_saveProviders:(id)providers forKeychainItem:(id)item error:(id *)error
@@ -724,13 +729,12 @@ LABEL_13:
   dispatch_assert_queue_V2(queue);
 
   v6 = +[NSMutableArray array];
-  v37 = 0;
-  v7 = [itemCopy readDataAndReturnError:&v37];
-  v8 = v37;
+  v40 = 0;
+  v7 = [itemCopy readDataAndReturnError:&v40];
+  v8 = v40;
   if (v8)
   {
-    [(CSDCallProviderManagerDataSource *)self setSucceededAccessingKeychainOnLastAttempt:0];
-    v9 = sub_100004778();
+    v9 = sub_100004778([(CSDCallProviderManagerDataSource *)self setSucceededAccessingKeychainOnLastAttempt:0]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10047C588();
@@ -751,48 +755,50 @@ LABEL_13:
     }
   }
 
-  v36 = 0;
-  v10 = [NSPropertyListSerialization propertyListWithData:v7 options:0 format:0 error:&v36];
-  v11 = v36;
+  v39 = 0;
+  v10 = [NSPropertyListSerialization propertyListWithData:v7 options:0 format:0 error:&v39];
+  v11 = v39;
 
   if (v10)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v34 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       v35 = 0u;
-      v32 = 0u;
-      v33 = 0u;
-      v12 = v10;
-      v13 = [v12 countByEnumeratingWithState:&v32 objects:v42 count:16];
-      if (!v13)
+      v36 = 0u;
+      v13 = v10;
+      v14 = [v13 countByEnumeratingWithState:&v35 objects:v45 count:16];
+      if (!v14)
       {
         goto LABEL_29;
       }
 
-      v14 = v13;
-      v28 = v11;
-      v29 = v10;
-      v30 = v7;
-      v31 = itemCopy;
-      v15 = *v33;
+      v15 = v14;
+      v31 = v11;
+      v32 = v10;
+      v33 = v7;
+      v34 = itemCopy;
+      v16 = *v36;
       while (1)
       {
-        v16 = 0;
+        v17 = 0;
         do
         {
-          if (*v33 != v15)
+          if (*v36 != v16)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          v17 = *(*(&v32 + 1) + 8 * v16);
+          v18 = *(*(&v35 + 1) + 8 * v17);
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v19 = objc_opt_isKindOfClass();
+          if (v19)
           {
-            v18 = [[CSDMessagingCallProvider alloc] initWithData:v17];
-            provider = [(CSDMessagingCallProvider *)v18 provider];
+            v20 = [[CSDMessagingCallProvider alloc] initWithData:v18];
+            provider = [(CSDMessagingCallProvider *)v20 provider];
 
             if (provider)
             {
@@ -800,71 +806,71 @@ LABEL_13:
               goto LABEL_21;
             }
 
-            v21 = sub_100004778();
-            if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v24 = sub_100004778(v22);
+            if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_20;
             }
 
             *buf = 138412290;
-            v39 = v12;
-            v22 = v21;
-            v23 = "Could not deserialize data to TUCallProvider instance: %@";
-            v24 = 12;
+            v42 = v13;
+            v25 = v24;
+            v26 = "Could not deserialize data to TUCallProvider instance: %@";
+            v27 = 12;
           }
 
           else
           {
-            provider = sub_100004778();
+            provider = sub_100004778(v19);
             if (!os_log_type_enabled(provider, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_21;
             }
 
-            v20 = objc_opt_class();
+            v23 = objc_opt_class();
             *buf = 138412546;
-            v39 = v20;
-            v40 = 2112;
-            v41 = v12;
-            v21 = v20;
-            v22 = provider;
-            v23 = "Archived object was of unexpected class %@: %@";
-            v24 = 22;
+            v42 = v23;
+            v43 = 2112;
+            v44 = v13;
+            v24 = v23;
+            v25 = provider;
+            v26 = "Archived object was of unexpected class %@: %@";
+            v27 = 22;
           }
 
-          _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, v23, buf, v24);
+          _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, v26, buf, v27);
 LABEL_20:
 
 LABEL_21:
-          v16 = v16 + 1;
+          v17 = v17 + 1;
         }
 
-        while (v14 != v16);
-        v25 = [v12 countByEnumeratingWithState:&v32 objects:v42 count:16];
-        v14 = v25;
-        if (!v25)
+        while (v15 != v17);
+        v28 = [v13 countByEnumeratingWithState:&v35 objects:v45 count:16];
+        v15 = v28;
+        if (!v28)
         {
-          itemCopy = v31;
-          v11 = v28;
+          itemCopy = v34;
+          v11 = v31;
           goto LABEL_29;
         }
       }
     }
   }
 
-  v12 = sub_100004778();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v13 = sub_100004778(isKindOfClass);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    sub_10047C5F0();
+    sub_10047C5F0(v10);
   }
 
 LABEL_29:
 
   v8 = v11;
 LABEL_30:
-  v26 = [v6 copy];
+  v29 = [v6 copy];
 
-  return v26;
+  return v29;
 }
 
 - (id)_providersForPreferenceKey:(id)key
@@ -880,39 +886,41 @@ LABEL_30:
   if (v8)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v29 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v30 = 0u;
-      v27 = 0u;
-      v28 = 0u;
-      v9 = v8;
-      v10 = [v9 countByEnumeratingWithState:&v27 objects:v35 count:16];
-      if (!v10)
+      v31 = 0u;
+      v10 = v8;
+      v11 = [v10 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      if (!v11)
       {
         goto LABEL_23;
       }
 
-      v11 = v10;
-      v25 = v8;
-      v26 = keyCopy;
-      v12 = *v28;
+      v12 = v11;
+      v28 = v8;
+      v29 = keyCopy;
+      v13 = *v31;
       while (1)
       {
-        v13 = 0;
+        v14 = 0;
         do
         {
-          if (*v28 != v12)
+          if (*v31 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v27 + 1) + 8 * v13);
+          v15 = *(*(&v30 + 1) + 8 * v14);
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v16 = objc_opt_isKindOfClass();
+          if (v16)
           {
-            v15 = [[CSDMessagingCallProvider alloc] initWithData:v14];
-            provider = [(CSDMessagingCallProvider *)v15 provider];
+            v17 = [[CSDMessagingCallProvider alloc] initWithData:v15];
+            provider = [(CSDMessagingCallProvider *)v17 provider];
 
             if (provider)
             {
@@ -920,67 +928,67 @@ LABEL_30:
               goto LABEL_15;
             }
 
-            v18 = sub_100004778();
-            if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+            v21 = sub_100004778(v19);
+            if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_14;
             }
 
             *buf = 138412290;
-            v32 = v9;
-            v19 = v18;
-            v20 = "Could not deserialize data to TUCallProvider instance: %@";
-            v21 = 12;
+            v35 = v10;
+            v22 = v21;
+            v23 = "Could not deserialize data to TUCallProvider instance: %@";
+            v24 = 12;
           }
 
           else
           {
-            provider = sub_100004778();
+            provider = sub_100004778(v16);
             if (!os_log_type_enabled(provider, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_15;
             }
 
-            v17 = objc_opt_class();
+            v20 = objc_opt_class();
             *buf = 138412546;
-            v32 = v17;
-            v33 = 2112;
-            v34 = v9;
-            v18 = v17;
-            v19 = provider;
-            v20 = "Archived object was of unexpected class %@: %@";
-            v21 = 22;
+            v35 = v20;
+            v36 = 2112;
+            v37 = v10;
+            v21 = v20;
+            v22 = provider;
+            v23 = "Archived object was of unexpected class %@: %@";
+            v24 = 22;
           }
 
-          _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, v20, buf, v21);
+          _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, v23, buf, v24);
 LABEL_14:
 
 LABEL_15:
-          v13 = v13 + 1;
+          v14 = v14 + 1;
         }
 
-        while (v11 != v13);
-        v22 = [v9 countByEnumeratingWithState:&v27 objects:v35 count:16];
-        v11 = v22;
-        if (!v22)
+        while (v12 != v14);
+        v25 = [v10 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v12 = v25;
+        if (!v25)
         {
           goto LABEL_23;
         }
       }
     }
 
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100004778(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_10047C5F0();
+      sub_10047C5F0(v8);
     }
 
 LABEL_23:
   }
 
-  v23 = [v6 copy];
+  v26 = [v6 copy];
 
-  return v23;
+  return v26;
 }
 
 - (void)handleApplicationUnregisteredNotification:(id)notification

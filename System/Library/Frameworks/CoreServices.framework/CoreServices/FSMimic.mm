@@ -324,14 +324,14 @@ void __30__FSMimic_basePropertyClasses__block_invoke()
   +[FSMimic basePropertyClasses]::result = v2;
 }
 
-void __39__FSMimic_resourceValueClassesWithNull__block_invoke()
+void __39__FSMimic_resourceValueClassesWithNull__block_invoke(uint64_t a1)
 {
-  v0 = _LSGetURLPropertyClasses();
-  v1 = [v0 mutableCopy];
+  v1 = _LSGetURLPropertyClasses(a1);
+  v2 = [v1 mutableCopy];
 
-  [v1 addObject:objc_opt_class()];
-  v2 = +[FSMimic resourceValueClassesWithNull]::result;
-  +[FSMimic resourceValueClassesWithNull]::result = v1;
+  [v2 addObject:objc_opt_class()];
+  v3 = +[FSMimic resourceValueClassesWithNull]::result;
+  +[FSMimic resourceValueClassesWithNull]::result = v2;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -402,21 +402,19 @@ void __39__FSMimic_resourceValueClassesWithNull__block_invoke()
 
 - (void)askedForMissingSelector:(SEL)selector
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = _LSDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v4 = _LSDefaultLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     Name = sel_getName(selector);
-    [(FSMimic *)Name askedForMissingSelector:v7, v4];
+    [(FSMimic *)Name askedForMissingSelector:v6, v4];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)askedForMissingResourceKey:(id)key
 {
   keyCopy = key;
-  v4 = _LSDefaultLog();
+  v4 = _LSDefaultLog(keyCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     [(FSMimic *)keyCopy askedForMissingResourceKey:v4];
@@ -473,7 +471,7 @@ void __39__FSMimic_resourceValueClassesWithNull__block_invoke()
 
 - (BOOL)getCachedResourceValueIfPresent:(id *)present forKey:(id)key error:(id *)error
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v9 = [(NSMutableDictionary *)self->_resourceValues objectForKey:keyCopy];
   if (v9)
@@ -497,13 +495,12 @@ void __39__FSMimic_resourceValueClassesWithNull__block_invoke()
 
   else if (error)
   {
-    v14 = *MEMORY[0x1E696A278];
-    v15[0] = keyCopy;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x1E696A278];
+    v14[0] = keyCopy;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 5, v11, "[FSMimic getCachedResourceValueIfPresent:forKey:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/FSMimic.mm", 237);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9 != 0;
 }
 
@@ -933,7 +930,7 @@ LABEL_7:
 
 - (id)pathWithError:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   baseProperties = self->_baseProperties;
   v7 = NSStringFromSelector(a2);
   v8 = objc_opt_class();
@@ -971,22 +968,21 @@ LABEL_7:
   [(FSMimic *)self askedForMissingSelector:a2];
   if (error)
   {
-    v16 = *MEMORY[0x1E696A278];
-    v17[0] = @"path";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A278];
+    v16[0] = @"path";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 5, v13, "[FSMimic pathWithError:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/FSMimic.mm", 329);
   }
 
   v10 = 0;
 LABEL_14:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (id)canonicalPathWithError:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   baseProperties = self->_baseProperties;
   v7 = NSStringFromSelector(a2);
   v8 = objc_opt_class();
@@ -1024,22 +1020,21 @@ LABEL_14:
   [(FSMimic *)self askedForMissingSelector:a2];
   if (error)
   {
-    v16 = *MEMORY[0x1E696A278];
-    v17[0] = @"canonicalPath";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A278];
+    v16[0] = @"canonicalPath";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 5, v13, "[FSMimic canonicalPathWithError:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/FSMimic.mm", 330);
   }
 
   v10 = 0;
 LABEL_14:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (id)nameWithError:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   baseProperties = self->_baseProperties;
   v7 = NSStringFromSelector(a2);
   v8 = objc_opt_class();
@@ -1077,22 +1072,21 @@ LABEL_14:
   [(FSMimic *)self askedForMissingSelector:a2];
   if (error)
   {
-    v16 = *MEMORY[0x1E696A278];
-    v17[0] = @"name";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A278];
+    v16[0] = @"name";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 5, v13, "[FSMimic nameWithError:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/FSMimic.mm", 331);
   }
 
   v10 = 0;
 LABEL_14:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (id)extensionWithError:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   baseProperties = self->_baseProperties;
   v7 = NSStringFromSelector(a2);
   v8 = objc_opt_class();
@@ -1130,15 +1124,14 @@ LABEL_14:
   [(FSMimic *)self askedForMissingSelector:a2];
   if (error)
   {
-    v16 = *MEMORY[0x1E696A278];
-    v17[0] = @"extension";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A278];
+    v16[0] = @"extension";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 5, v13, "[FSMimic extensionWithError:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/FSMimic.mm", 332);
   }
 
   v10 = 0;
 LABEL_14:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -1413,7 +1406,7 @@ LABEL_12:
 
 - (BOOL)getDeviceNumber:(int *)number error:(id *)error
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   baseProperties = self->_baseProperties;
   selfCopy = self;
   v9 = baseProperties;
@@ -1458,22 +1451,21 @@ LABEL_9:
     goto LABEL_14;
   }
 
-  v20 = *MEMORY[0x1E696A278];
-  v21[0] = v10;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v19 = *MEMORY[0x1E696A278];
+  v20[0] = v10;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 5, v17, "getFailableNumericFromBaseProperties", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/FSMimic.mm", 284);
   *error = v16 = 0;
   v13 = v17;
 LABEL_13:
 
 LABEL_14:
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (BOOL)getOwnerUID:(unsigned int *)d error:(id *)error
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   baseProperties = self->_baseProperties;
   selfCopy = self;
   v9 = baseProperties;
@@ -1518,16 +1510,15 @@ LABEL_9:
     goto LABEL_14;
   }
 
-  v20 = *MEMORY[0x1E696A278];
-  v21[0] = v10;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v19 = *MEMORY[0x1E696A278];
+  v20[0] = v10;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 5, v17, "getFailableNumericFromBaseProperties", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/FSMimic.mm", 284);
   *error = v16 = 0;
   v13 = v17;
 LABEL_13:
 
 LABEL_14:
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -1662,7 +1653,7 @@ LABEL_12:
 
 - (id)sideFaultResourceValuesWithError:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   baseProperties = self->_baseProperties;
   v7 = NSStringFromSelector(a2);
   v8 = objc_opt_class();
@@ -1700,15 +1691,14 @@ LABEL_12:
   [(FSMimic *)self askedForMissingSelector:a2];
   if (error)
   {
-    v16 = *MEMORY[0x1E696A278];
-    v17[0] = @"sideFaultResourceValues";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A278];
+    v16[0] = @"sideFaultResourceValues";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 5, v13, "[FSMimic sideFaultResourceValuesWithError:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/FSMimic.mm", 400);
   }
 
   v10 = 0;
 LABEL_14:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -1726,7 +1716,7 @@ LABEL_14:
     do
     {
       v6 = categorizeSelector(*v5);
-      v7 = _LSDefaultLog();
+      v7 = _LSDefaultLog(v6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         Name = sel_getName(*v5);
@@ -1739,13 +1729,13 @@ LABEL_14:
 
       if (v6 == 6)
       {
-        v9 = _LSDefaultLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+        v10 = _LSDefaultLog(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
         {
-          v10 = sel_getName(*v5);
+          v11 = sel_getName(*v5);
           *buf = 136315138;
-          v14 = v10;
-          _os_log_fault_impl(&dword_18162D000, v9, OS_LOG_TYPE_FAULT, "unknown category for %s!", buf, 0xCu);
+          v14 = v11;
+          _os_log_fault_impl(&dword_18162D000, v10, OS_LOG_TYPE_FAULT, "unknown category for %s!", buf, 0xCu);
         }
       }
 
@@ -1757,7 +1747,6 @@ LABEL_14:
   }
 
   free(v3);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)askedForMissingSelector:(os_log_t)log .cold.1(uint64_t a1, uint8_t *buf, os_log_t log)
@@ -1769,11 +1758,10 @@ LABEL_14:
 
 - (void)askedForMissingResourceKey:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_18162D000, a2, OS_LOG_TYPE_FAULT, "asked for missing resource key %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_18162D000, a2, OS_LOG_TYPE_FAULT, "asked for missing resource key %@", &v2, 0xCu);
 }
 
 @end

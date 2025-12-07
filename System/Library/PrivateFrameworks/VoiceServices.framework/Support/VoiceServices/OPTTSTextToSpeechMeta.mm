@@ -19,8 +19,8 @@
   v11 = 1;
   v12 = 256;
   v13 = 0;
-  v2.var0 = [(OPTTSTextToSpeechMeta *)self addObjectToBuffer:&v5];
-  flatbuffers::FlatBufferBuilder::Finish(&v5, v2.var0, v3);
+  v2 = [(OPTTSTextToSpeechMeta *)self addObjectToBuffer:?];
+  flatbuffers::FlatBufferBuilder::Finish(&v5, v2, v3);
   operator new();
 }
 
@@ -40,10 +40,10 @@ flatbuffers::DetachedBuffer *__37__OPTTSTextToSpeechMeta_flatbuffData__block_inv
 - (Offset<siri::speech::schema_fb::TextToSpeechMeta>)addObjectToBuffer:(void *)buffer
 {
   voice = [(OPTTSTextToSpeechMeta *)self voice];
-  v6 = [voice addObjectToBuffer:buffer];
+  v6 = [voice addObjectToBuffer:?];
 
   resource = [(OPTTSTextToSpeechMeta *)self resource];
-  v8 = [resource addObjectToBuffer:buffer];
+  v8 = [resource addObjectToBuffer:?];
 
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
@@ -67,24 +67,11 @@ flatbuffers::DetachedBuffer *__37__OPTTSTextToSpeechMeta_flatbuffData__block_inv
 
 - (OPTTSTextToSpeechResource)resource
 {
-  v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:@"resource"];
+  v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:?];
   if (!v3)
   {
-    v4 = [OPTTSTextToSpeechResource alloc];
-    root = self->_root;
-    v6 = &root[-*root->var0];
-    if (*v6->var0 >= 7u && (v7 = *v6[6].var0) != 0)
-    {
-      v8 = &root[v7 + *root[v7].var0];
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-
-    v3 = [(OPTTSTextToSpeechResource *)v4 initWithFlatbuffData:self->_data root:v8 verify:0];
-    [(NSMutableDictionary *)self->_storage setObject:v3 forKeyedSubscript:@"resource"];
+    v3 = [OPTTSTextToSpeechResource initWithFlatbuffData:"initWithFlatbuffData:root:verify:" root:? verify:?];
+    [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
   }
 
   return v3;
@@ -92,24 +79,11 @@ flatbuffers::DetachedBuffer *__37__OPTTSTextToSpeechMeta_flatbuffData__block_inv
 
 - (OPTTSTextToSpeechVoice)voice
 {
-  v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:@"voice"];
+  v3 = [(NSMutableDictionary *)self->_storage objectForKeyedSubscript:?];
   if (!v3)
   {
-    v4 = [OPTTSTextToSpeechVoice alloc];
-    root = self->_root;
-    v6 = &root[-*root->var0];
-    if (*v6->var0 >= 5u && (v7 = *v6[4].var0) != 0)
-    {
-      v8 = &root[v7 + *root[v7].var0];
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-
-    v3 = [(OPTTSTextToSpeechVoice *)v4 initWithFlatbuffData:self->_data root:v8 verify:0];
-    [(NSMutableDictionary *)self->_storage setObject:v3 forKeyedSubscript:@"voice"];
+    v3 = [OPTTSTextToSpeechVoice initWithFlatbuffData:"initWithFlatbuffData:root:verify:" root:? verify:?];
+    [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
   }
 
   return v3;
@@ -143,7 +117,7 @@ flatbuffers::DetachedBuffer *__37__OPTTSTextToSpeechMeta_flatbuffData__block_inv
       bytes2 = [(NSData *)v10->_data bytes];
       v14 = [(NSData *)v10->_data length];
       root = v10->_root;
-      if (root < bytes2 || root > bytes2 + v14)
+      if (root < bytes2 || root > v14 + bytes2)
       {
         goto LABEL_16;
       }

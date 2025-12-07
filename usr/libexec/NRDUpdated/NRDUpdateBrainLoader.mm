@@ -10,83 +10,84 @@
   {
     if (error)
     {
-      v22 = NSDebugDescriptionErrorKey;
-      v23 = @"trust cache load failed";
-      v15 = [NSError errorWithDomain:@"NRDUpdateErrorDomain" code:100 userInfo:[NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1]];
+      v23 = NSDebugDescriptionErrorKey;
+      v24 = @"trust cache load failed";
+      v16 = [NSError errorWithDomain:@"NRDUpdateErrorDomain" code:100 userInfo:[NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1]];
 LABEL_16:
-      v10 = 0;
-      *error = v15;
-      return v10;
+      v11 = 0;
+      *error = v16;
+      return v11;
     }
 
     return 0;
   }
 
   v8 = [path stringByAppendingPathComponent:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@.xpc", @"com.apple.NRD.UpdateBrainService"}];
-  if (![+[NSFileManager fileExistsAtPath:"fileExistsAtPath:"]
+  v9 = [+[NSFileManager defaultManager](NSFileManager fileExistsAtPath:"fileExistsAtPath:", v8];
+  if (!v9)
   {
     if (error)
     {
-      v24 = NSDebugDescriptionErrorKey;
-      v25 = @"xpc bundle does not exist";
-      v15 = [NSError errorWithDomain:NSPOSIXErrorDomain code:2 userInfo:[NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1]];
+      v25 = NSDebugDescriptionErrorKey;
+      v26 = @"xpc bundle does not exist";
+      v16 = [NSError errorWithDomain:NSPOSIXErrorDomain code:2 userInfo:[NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1]];
       goto LABEL_16;
     }
 
     return 0;
   }
 
-  v9 = nrdSharedLogger();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = nrdSharedLogger(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138543362;
     *(&buf + 4) = v8;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Loading NeRD update brain bundle at %{public}@", &buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Loading NeRD update brain bundle at %{public}@", &buf, 0xCu);
   }
 
   [v8 fileSystemRepresentation];
   xpc_add_bundle();
   isLoaded = 1;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v27 = 0x3052000000;
-  v28 = __Block_byref_object_copy__0;
-  v29 = __Block_byref_object_dispose__0;
-  v30 = 0;
-  v10 = [[NRDUpdateBrainClientImpl alloc] initWithDelegate:delegate];
-  v11 = v10;
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = __51__NRDUpdateBrainLoader_brainAtPath_delegate_error___block_invoke;
-  v17[3] = &unk_1000189C0;
-  v17[4] = &v18;
-  v17[5] = &buf;
-  [(NRDUpdateBrainClientImpl *)v10 ping:v17];
-  if (!*(v19 + 24))
+  v28 = 0x3052000000;
+  v29 = __Block_byref_object_copy__0;
+  v30 = __Block_byref_object_dispose__0;
+  v31 = 0;
+  v11 = [[NRDUpdateBrainClientImpl alloc] initWithDelegate:delegate];
+  v12 = v11;
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = __51__NRDUpdateBrainLoader_brainAtPath_delegate_error___block_invoke;
+  v18[3] = &unk_1000189C0;
+  v18[4] = &v19;
+  v18[5] = &buf;
+  [(NRDUpdateBrainClientImpl *)v11 ping:v18];
+  if (!*(v20 + 24))
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v12 = *(&buf + 1);
-  v13 = *(*(&buf + 1) + 40);
-  if (v13)
+  v13 = *(&buf + 1);
+  v14 = *(*(&buf + 1) + 40);
+  if (v14)
   {
     if (error)
     {
-      *error = v13;
-      v13 = *(v12 + 40);
+      *error = v14;
+      v14 = *(v13 + 40);
     }
 
-    v14 = v13;
+    v15 = v14;
   }
 
   _Block_object_dispose(&buf, 8);
-  _Block_object_dispose(&v18, 8);
-  return v10;
+  _Block_object_dispose(&v19, 8);
+  return v11;
 }
 
 void *__51__NRDUpdateBrainLoader_brainAtPath_delegate_error___block_invoke(void *result, void *a2)

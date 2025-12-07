@@ -114,84 +114,84 @@
 
 - (NSDate)overrideDate
 {
-  v3 = sub_815C(qword_59170);
-  v4 = __chkstk_darwin(v3 - 8);
-  v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v4);
-  v8 = &v20 - v7;
-  v9 = type metadata accessor for WarlockMiniClockView();
-  v20.receiver = self;
-  v20.super_class = v9;
+  v3 = sub_815C(qword_59170, &unk_42070);
+  __chkstk_darwin(v3 - 8, v4);
+  v6 = &v22 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7, v8);
+  v10 = &v22 - v9;
+  v11 = type metadata accessor for WarlockMiniClockView();
+  v22.receiver = self;
+  v22.super_class = v11;
   selfCopy = self;
-  overrideDate = [(WarlockMiniClockView *)&v20 overrideDate];
+  overrideDate = [(WarlockMiniClockView *)&v22 overrideDate];
   if (overrideDate)
   {
-    v12 = overrideDate;
+    v14 = overrideDate;
     sub_36CA0();
 
-    v13 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v13 = 1;
+    v15 = 1;
   }
 
-  v14 = sub_36CB0();
-  v15 = *(v14 - 8);
-  (*(v15 + 56))(v6, v13, 1, v14);
-  sub_16C64(v6, v8);
-  v16 = (*(v15 + 48))(v8, 1, v14);
-  v17 = 0;
-  if (v16 != 1)
+  v16 = sub_36CB0();
+  v17 = *(v16 - 8);
+  (*(v17 + 56))(v6, v15, 1, v16);
+  sub_16C64(v6, v10);
+  v18 = (*(v17 + 48))(v10, 1, v16);
+  v19 = 0;
+  if (v18 != 1)
   {
     isa = sub_36C90().super.isa;
-    (*(v15 + 8))(v8, v14);
-    v17 = isa;
+    (*(v17 + 8))(v10, v16);
+    v19 = isa;
   }
 
-  return v17;
+  return v19;
 }
 
 - (void)setOverrideDate:(id)date
 {
-  v5 = sub_815C(qword_59170);
-  v6 = __chkstk_darwin(v5 - 8);
-  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = &v17 - v9;
+  v5 = sub_815C(qword_59170, &unk_42070);
+  __chkstk_darwin(v5 - 8, v6);
+  v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9, v10);
+  v12 = &v19 - v11;
   if (date)
   {
     sub_36CA0();
-    v11 = sub_36CB0();
-    (*(*(v11 - 8) + 56))(v10, 0, 1, v11);
+    v13 = sub_36CB0();
+    (*(*(v13 - 8) + 56))(v12, 0, 1, v13);
   }
 
   else
   {
-    v11 = sub_36CB0();
-    (*(*(v11 - 8) + 56))(v10, 1, 1, v11);
+    v13 = sub_36CB0();
+    (*(*(v13 - 8) + 56))(v12, 1, 1, v13);
   }
 
-  sub_16B9C(v10, v8, qword_59170);
+  sub_16B9C(v12, v8, qword_59170, &unk_42070);
   sub_36CB0();
-  v12 = *(v11 - 8);
-  v13 = (*(v12 + 48))(v8, 1, v11);
+  v14 = *(v13 - 8);
+  v15 = (*(v14 + 48))(v8, 1, v13);
   selfCopy = self;
   isa = 0;
-  if (v13 != 1)
+  if (v15 != 1)
   {
     isa = sub_36C90().super.isa;
-    (*(v12 + 8))(v8, v11);
+    (*(v14 + 8))(v8, v13);
   }
 
-  v16 = type metadata accessor for WarlockMiniClockView();
-  v17.receiver = selfCopy;
-  v17.super_class = v16;
-  [(WarlockMiniClockView *)&v17 setOverrideDate:isa];
+  v18 = type metadata accessor for WarlockMiniClockView();
+  v19.receiver = selfCopy;
+  v19.super_class = v18;
+  [(WarlockMiniClockView *)&v19 setOverrideDate:isa];
 
   sub_16800();
-  sub_16C04(v10, qword_59170);
+  sub_16C04(v12, qword_59170, &unk_42070);
 }
 
 - (void)timeFormatterTextDidChange:(id)change

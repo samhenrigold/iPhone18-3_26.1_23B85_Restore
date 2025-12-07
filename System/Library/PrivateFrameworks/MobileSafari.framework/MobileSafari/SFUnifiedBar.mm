@@ -929,41 +929,41 @@ void __63__SFUnifiedBar__layoutIndexes_ofItems_alongEdge_transitioning___block_i
 
 - (void)layoutSubviews
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v25.receiver = self;
-  v25.super_class = SFUnifiedBar;
-  [(SFUnifiedBar *)&v25 layoutSubviews];
-  v23 = 0u;
+  v28 = *MEMORY[0x1E69E9840];
+  v26.receiver = self;
+  v26.super_class = SFUnifiedBar;
+  [(SFUnifiedBar *)&v26 layoutSubviews];
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
+  v23 = 0u;
   v3 = self->_itemViewsToRemoveOnNextLayout;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v22;
+    v6 = *v23;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v22 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v21 + 1) + 8 * i) removeFromSuperview];
+        [*(*(&v22 + 1) + 8 * i) removeFromSuperview];
       }
 
-      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v5);
   }
 
   [(NSMutableSet *)self->_itemViewsToRemoveOnNextLayout removeAllObjects];
-  [(SFUnifiedBar *)self squishTransformFactor];
-  [(SFTouchPassthroughView *)self->_glassGroup setAlpha:SFBarBackgroundAlphaForSquishTransformFactor(v8)];
+  squishTransformFactor = [(SFUnifiedBar *)self squishTransformFactor];
+  [(SFTouchPassthroughView *)self->_glassGroup setAlpha:SFBarBackgroundAlphaForSquishTransformFactor(squishTransformFactor, v9)];
   [(SFUnifiedBar *)self bounds];
   [(SFTouchPassthroughView *)self->_glassGroup setFrame:?];
   [(SFUnifiedBar *)self _updateSuperviewForInlineContentView];
@@ -975,18 +975,18 @@ void __63__SFUnifiedBar__layoutIndexes_ofItems_alongEdge_transitioning___block_i
   [(SFUnifiedBar *)self _layoutItems:trailingItems alongEdge:1];
 
   [(SFUnifiedBar *)self bounds];
-  v12 = v11;
+  v13 = v12;
   contentUnderStatusBarHeight = self->_contentUnderStatusBarHeight;
-  v15 = v14 + 0.0;
-  v17 = v16 - contentUnderStatusBarHeight;
-  v19 = v18 - (0.0 - contentUnderStatusBarHeight);
-  [(SFThemeColorEffectView *)self->_backgroundView setFrame:v14 + 0.0, v16 - contentUnderStatusBarHeight, v12, v19];
-  [(UIView *)self->_squishedContentView setFrame:v15, v17, v12, v19];
-  [(UIView *)self->_scrollPocketView setFrame:v15, v17, v12, v19];
+  v16 = v15 + 0.0;
+  v18 = v17 - contentUnderStatusBarHeight;
+  v20 = v19 - (0.0 - contentUnderStatusBarHeight);
+  [(SFThemeColorEffectView *)self->_backgroundView setFrame:v15 + 0.0, v17 - contentUnderStatusBarHeight, v13, v20];
+  [(UIView *)self->_squishedContentView setFrame:v16, v18, v13, v20];
+  [(UIView *)self->_scrollPocketView setFrame:v16, v18, v13, v20];
   [(UIView *)self->_squishedContentView bounds];
   [(UIButton *)self->_squishedBarButton setFrame:?];
   [(SFUnifiedBar *)self squishTransformFactor];
-  [(SFUnifiedBar *)self _setShowsSquishedContent:_SFEqualWithEpsilon(v20, 0.0, 0.01)];
+  [(SFUnifiedBar *)self _setShowsSquishedContent:_SFEqualWithEpsilon(v21, 0.0, 0.01)];
   [(SFUnifiedBar *)self _layOutInlineContentView];
   [(SFUnifiedBar *)self _layOutStandaloneContentViews];
   if (self->_needsNotifyMetricsDidChange)
@@ -995,7 +995,7 @@ void __63__SFUnifiedBar__layoutIndexes_ofItems_alongEdge_transitioning___block_i
     [(SFUnifiedBar *)self metricsDidChange];
   }
 
-  [(SFUnifiedBar *)self bringSubviewToFront:self->_squishedContentView, v21];
+  [(SFUnifiedBar *)self bringSubviewToFront:self->_squishedContentView, v22];
 }
 
 - (void)_layOutInlineContentView
@@ -1291,7 +1291,7 @@ double __45__SFUnifiedBar__layOutStandaloneContentViews__block_invoke(uint64_t a
 {
   viewCopy = view;
   [(SFUnifiedBar *)self directionalLayoutMargins];
-  v48 = v9;
+  v49 = v9;
   v11 = v10;
   [(SFUnifiedBar *)self squishTransformFactor];
   v13 = v12;
@@ -1350,17 +1350,17 @@ double __45__SFUnifiedBar__layOutStandaloneContentViews__block_invoke(uint64_t a
 
   v26 = v19 + y;
   [(SFUnifiedBar *)self bounds];
-  Width = CGRectGetWidth(v53);
+  Width = CGRectGetWidth(v54);
   if (isContentHidden)
   {
-    v54.origin.x = 0.0;
-    v54.origin.y = v26;
-    v54.size.width = Width;
-    v54.size.height = v24;
-    CGRectGetHeight(v54);
+    v55.origin.x = 0.0;
+    v55.origin.y = v26;
+    v55.size.width = Width;
+    v55.size.height = v24;
+    CGRectGetHeight(v55);
   }
 
-  v47 = v19;
+  v48 = v19;
   if (v25)
   {
     [(SFUnifiedBar *)self expandedHeight];
@@ -1383,21 +1383,21 @@ double __45__SFUnifiedBar__layOutStandaloneContentViews__block_invoke(uint64_t a
 
   v33 = v32;
   v34 = *(MEMORY[0x1E695EFD0] + 16);
-  v50 = *MEMORY[0x1E695EFD0];
-  v51 = v34;
-  v52 = *(MEMORY[0x1E695EFD0] + 32);
-  [viewCopy setTransform:&v50];
+  v51 = *MEMORY[0x1E695EFD0];
+  v52 = v34;
+  v53 = *(MEMORY[0x1E695EFD0] + 32);
+  [viewCopy setTransform:&v51];
   [viewCopy setFrame:_SFRoundRectToPixels(0.0)];
   [(SFUnifiedBar *)self _squishAnchorPointForStandaloneContentViewAtIndex:index];
   v36 = v35;
   v38 = v37;
   [(SFUnifiedBar *)self _squishVerticalOffset];
-  makeSquishTransformWithMinimumScale(v49, v36, v38, v31, v39, v33);
-  v50 = v49[0];
-  v51 = v49[1];
-  v52 = v49[2];
-  [viewCopy setTransform:&v50];
-  [viewCopy setDirectionalLayoutMargins:{0.0, v48, 0.0, v11}];
+  makeSquishTransformWithMinimumScale(v50, v36, v38, v31, v39, v33);
+  v51 = v50[0];
+  v52 = v50[1];
+  v53 = v50[2];
+  [viewCopy setTransform:&v51];
+  [viewCopy setDirectionalLayoutMargins:{0.0, v49, 0.0, v11}];
   indexCopy = index;
   layer = [viewCopy layer];
   [layer setZPosition:indexCopy];
@@ -1405,7 +1405,7 @@ double __45__SFUnifiedBar__layOutStandaloneContentViews__block_invoke(uint64_t a
   [viewCopy setUserInteractionEnabled:isContentHidden ^ 1u];
   if (objc_opt_respondsToSelector())
   {
-    [viewCopy setContentInset:{0.0, v48, 0.0, v11}];
+    [viewCopy setContentInset:{0.0, v49, 0.0, v11}];
   }
 
   if (objc_opt_respondsToSelector())
@@ -1431,24 +1431,25 @@ double __45__SFUnifiedBar__layOutStandaloneContentViews__block_invoke(uint64_t a
 
   else
   {
-    if (objc_opt_respondsToSelector())
+    v44 = objc_opt_respondsToSelector();
+    if (v44)
     {
       [viewCopy preferredOpacity];
     }
 
     else
     {
-      v44 = 1.0;
+      v45 = 1.0;
       if (((v42 | showsSquishedContent) & 1) == 0)
       {
-        v44 = SFBarContentAlphaForSquishTransformFactor(v31);
+        v45 = SFBarContentAlphaForSquishTransformFactor(v44, v31);
       }
     }
 
-    [viewCopy setAlpha:v44];
+    [viewCopy setAlpha:v45];
     [viewCopy layoutIfNeeded];
     [(SFUnifiedBar *)self _spacingBelowContentView:viewCopy];
-    v43 = v47 + v24 + v45;
+    v43 = v48 + v24 + v46;
   }
 
   return v43;
@@ -1675,7 +1676,7 @@ void __66__SFUnifiedBar__squishAnchorPointForStandaloneContentViewAtIndex___bloc
     case 2uLL:
       goto LABEL_7;
     case 1uLL:
-      _SFDeviceIsPad();
+      _SFDeviceIsPad(self, a2);
       goto LABEL_7;
     case 0uLL:
       defaultLayoutMargins();
@@ -1823,7 +1824,7 @@ void __28__SFUnifiedBar__itemSpacing__block_invoke_2(uint64_t a1, void *a2, char
 
   if (!*(a1 + 64))
   {
-    v9 = (a3 + 1);
+    v9 = a3 + 1;
     if (v9 >= [*(a1 + 32) count])
     {
       a3 = 0;
@@ -1949,32 +1950,32 @@ LABEL_8:
 
 - (void)_updateSizeClass
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   [(SFUnifiedBar *)self bounds];
-  Width = CGRectGetWidth(v27);
+  Width = CGRectGetWidth(v29);
   _screen = [(SFUnifiedBar *)self _screen];
   [_screen bounds];
-  v5 = CGRectGetWidth(v28);
+  v5 = CGRectGetWidth(v30);
 
   _screen2 = [(SFUnifiedBar *)self _screen];
   [_screen2 bounds];
-  v7 = CGRectGetWidth(v29);
+  v7 = CGRectGetWidth(v31);
 
   if (v7 <= 1366.0)
   {
     if (Width != v5)
     {
 LABEL_13:
-      v11 = 2;
+      v13 = 2;
       goto LABEL_14;
     }
 
 LABEL_11:
-    if (_SFDeviceIsPad())
+    if (_SFDeviceIsPad(v8, v9))
     {
       window = [(SFUnifiedBar *)self window];
       windowScene = [window windowScene];
-      v11 = ([windowScene interfaceOrientation] - 1) < 2;
+      v13 = ([windowScene interfaceOrientation] - 1) < 2;
 
       goto LABEL_14;
     }
@@ -1984,57 +1985,57 @@ LABEL_11:
 
   traitCollection = [(SFUnifiedBar *)self traitCollection];
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
-  v10 = UIContentSizeCategoryCompareToCategory(preferredContentSizeCategory, *MEMORY[0x1E69DDC70]);
+  v12 = UIContentSizeCategoryCompareToCategory(preferredContentSizeCategory, *MEMORY[0x1E69DDC70]);
 
-  if (v10 == NSOrderedDescending)
+  if (v12 == NSOrderedDescending)
   {
-    v11 = 3;
+    v13 = 3;
   }
 
   else
   {
-    v11 = 2;
+    v13 = 2;
   }
 
-  if (v10 != NSOrderedDescending && Width == v5)
+  if (v12 != NSOrderedDescending && Width == v5)
   {
     goto LABEL_11;
   }
 
 LABEL_14:
-  if (self->_sizeClass != v11)
+  if (self->_sizeClass != v13)
   {
-    self->_sizeClass = v11;
-    v21 = 0u;
-    v22 = 0u;
+    self->_sizeClass = v13;
     v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     allContentViews = [(SFUnifiedBarContentArrangement *)self->_contentArrangement allContentViews];
-    v16 = [allContentViews countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v16)
+    v18 = [allContentViews countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v18)
     {
-      v17 = v16;
-      v18 = *v22;
+      v19 = v18;
+      v20 = *v24;
       do
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v22 != v18)
+          if (*v24 != v20)
           {
             objc_enumerationMutation(allContentViews);
           }
 
-          v20 = *(*(&v21 + 1) + 8 * i);
+          v22 = *(*(&v23 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
-            [v20 setSizeClass:v11];
+            [v22 setSizeClass:v13];
           }
         }
 
-        v17 = [allContentViews countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v19 = [allContentViews countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
-      while (v17);
+      while (v19);
     }
   }
 }

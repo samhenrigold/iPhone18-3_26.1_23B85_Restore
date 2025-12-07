@@ -13,11 +13,11 @@
 
 - (SFMediaInfoCardSection)initWithProtobuf:(id)protobuf
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v76.receiver = self;
-  v76.super_class = SFMediaInfoCardSection;
-  v5 = [(SFCardSection *)&v76 init];
+  v75.receiver = self;
+  v75.super_class = SFMediaInfoCardSection;
+  v5 = [(SFCardSection *)&v75 init];
   if (v5)
   {
     punchoutOptions = [protobufCopy punchoutOptions];
@@ -31,33 +31,33 @@
       v7 = 0;
     }
 
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
     v73 = 0u;
+    v74 = 0u;
+    v71 = 0u;
+    v72 = 0u;
     punchoutOptions2 = [protobufCopy punchoutOptions];
-    v9 = [punchoutOptions2 countByEnumeratingWithState:&v72 objects:v79 count:16];
+    v9 = [punchoutOptions2 countByEnumeratingWithState:&v71 objects:v78 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v73;
+      v11 = *v72;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v73 != v11)
+          if (*v72 != v11)
           {
             objc_enumerationMutation(punchoutOptions2);
           }
 
-          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v72 + 1) + 8 * i)];
+          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v71 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [punchoutOptions2 countByEnumeratingWithState:&v72 objects:v79 count:16];
+        v10 = [punchoutOptions2 countByEnumeratingWithState:&v71 objects:v78 count:16];
       }
 
       while (v10);
@@ -139,33 +139,33 @@
       v29 = 0;
     }
 
-    v70 = 0u;
-    v71 = 0u;
-    v68 = 0u;
     v69 = 0u;
+    v70 = 0u;
+    v67 = 0u;
+    v68 = 0u;
     details2 = [protobufCopy details];
-    v31 = [details2 countByEnumeratingWithState:&v68 objects:v78 count:16];
+    v31 = [details2 countByEnumeratingWithState:&v67 objects:v77 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v69;
+      v33 = *v68;
       do
       {
         for (j = 0; j != v32; ++j)
         {
-          if (*v69 != v33)
+          if (*v68 != v33)
           {
             objc_enumerationMutation(details2);
           }
 
-          v35 = [[SFMediaDetail alloc] initWithProtobuf:*(*(&v68 + 1) + 8 * j)];
+          v35 = [[SFMediaDetail alloc] initWithProtobuf:*(*(&v67 + 1) + 8 * j)];
           if (v35)
           {
             [v29 addObject:v35];
           }
         }
 
-        v32 = [details2 countByEnumeratingWithState:&v68 objects:v78 count:16];
+        v32 = [details2 countByEnumeratingWithState:&v67 objects:v77 count:16];
       }
 
       while (v32);
@@ -183,7 +183,7 @@
     }
 
     offers = [protobufCopy offers];
-    v63 = v5;
+    v62 = v5;
     if (offers)
     {
       v41 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -194,46 +194,46 @@
       v41 = 0;
     }
 
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
     v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     offers2 = [protobufCopy offers];
-    v43 = [offers2 countByEnumeratingWithState:&v64 objects:v77 count:16];
+    v43 = [offers2 countByEnumeratingWithState:&v63 objects:v76 count:16];
     if (v43)
     {
       v44 = v43;
-      v45 = *v65;
+      v45 = *v64;
       do
       {
         for (k = 0; k != v44; ++k)
         {
-          if (*v65 != v45)
+          if (*v64 != v45)
           {
             objc_enumerationMutation(offers2);
           }
 
-          v47 = [[SFMediaOffer alloc] initWithProtobuf:*(*(&v64 + 1) + 8 * k)];
+          v47 = [[SFMediaOffer alloc] initWithProtobuf:*(*(&v63 + 1) + 8 * k)];
           if (v47)
           {
             [v41 addObject:v47];
           }
         }
 
-        v44 = [offers2 countByEnumeratingWithState:&v64 objects:v77 count:16];
+        v44 = [offers2 countByEnumeratingWithState:&v63 objects:v76 count:16];
       }
 
       while (v44);
     }
 
-    v5 = v63;
-    [(SFMediaInfoCardSection *)v63 setOffers:v41];
+    v5 = v62;
+    [(SFMediaInfoCardSection *)v62 setOffers:v41];
     watchListIdentifier = [protobufCopy watchListIdentifier];
 
     if (watchListIdentifier)
     {
       watchListIdentifier2 = [protobufCopy watchListIdentifier];
-      [(SFMediaInfoCardSection *)v63 setWatchListIdentifier:watchListIdentifier2];
+      [(SFMediaInfoCardSection *)v62 setWatchListIdentifier:watchListIdentifier2];
     }
 
     watchListButtonLabel = [protobufCopy watchListButtonLabel];
@@ -241,7 +241,7 @@
     if (watchListButtonLabel)
     {
       watchListButtonLabel2 = [protobufCopy watchListButtonLabel];
-      [(SFMediaInfoCardSection *)v63 setWatchListButtonLabel:watchListButtonLabel2];
+      [(SFMediaInfoCardSection *)v62 setWatchListButtonLabel:watchListButtonLabel2];
     }
 
     watchListContinuationText = [protobufCopy watchListContinuationText];
@@ -249,7 +249,7 @@
     if (watchListContinuationText)
     {
       watchListContinuationText2 = [protobufCopy watchListContinuationText];
-      [(SFMediaInfoCardSection *)v63 setWatchListContinuationText:watchListContinuationText2];
+      [(SFMediaInfoCardSection *)v62 setWatchListContinuationText:watchListContinuationText2];
     }
 
     watchListConfirmationText = [protobufCopy watchListConfirmationText];
@@ -257,12 +257,12 @@
     if (watchListConfirmationText)
     {
       watchListConfirmationText2 = [protobufCopy watchListConfirmationText];
-      [(SFMediaInfoCardSection *)v63 setWatchListConfirmationText:watchListConfirmationText2];
+      [(SFMediaInfoCardSection *)v62 setWatchListConfirmationText:watchListConfirmationText2];
     }
 
     if ([protobufCopy isMediaContainer])
     {
-      -[SFMediaInfoCardSection setIsMediaContainer:](v63, "setIsMediaContainer:", [protobufCopy isMediaContainer]);
+      -[SFMediaInfoCardSection setIsMediaContainer:](v62, "setIsMediaContainer:", [protobufCopy isMediaContainer]);
     }
 
     specialOfferButtonLabel = [protobufCopy specialOfferButtonLabel];
@@ -272,18 +272,17 @@
       v57 = [SFRichText alloc];
       specialOfferButtonLabel2 = [protobufCopy specialOfferButtonLabel];
       v59 = [(SFRichText *)v57 initWithProtobuf:specialOfferButtonLabel2];
-      [(SFMediaInfoCardSection *)v63 setSpecialOfferButtonLabel:v59];
+      [(SFMediaInfoCardSection *)v62 setSpecialOfferButtonLabel:v59];
     }
 
     if ([protobufCopy watchListItemType])
     {
-      -[SFMediaInfoCardSection setWatchListItemType:](v63, "setWatchListItemType:", [protobufCopy watchListItemType]);
+      -[SFMediaInfoCardSection setWatchListItemType:](v62, "setWatchListItemType:", [protobufCopy watchListItemType]);
     }
 
-    v60 = v63;
+    v60 = v62;
   }
 
-  v61 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

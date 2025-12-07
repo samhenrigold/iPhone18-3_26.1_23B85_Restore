@@ -53,60 +53,62 @@
 {
   providerCopy = provider;
   identifierCopy = identifier;
-  if ([(CSDCallProviderKVS *)self deviceSupportsPrimaryCalling])
+  deviceSupportsPrimaryCalling = [(CSDCallProviderKVS *)self deviceSupportsPrimaryCalling];
+  if (deviceSupportsPrimaryCalling)
   {
-    v8 = sub_100004778();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004778(deviceSupportsPrimaryCalling);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = identifierCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Received request to update call provider for identifier %@", buf, 0xCu);
+      v29 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Received request to update call provider for identifier %@", buf, 0xCu);
     }
 
     identifier = [providerCopy identifier];
-    v10 = [identifier isEqualToString:identifierCopy];
+    v11 = [identifier isEqualToString:identifierCopy];
 
-    if (v10)
+    if (v11)
     {
-      v23 = 0;
-      v11 = [NSKeyedArchiver archivedDataWithRootObject:providerCopy requiringSecureCoding:1 error:&v23];
-      v12 = v23;
-      if (v11)
+      v27 = 0;
+      v12 = [NSKeyedArchiver archivedDataWithRootObject:providerCopy requiringSecureCoding:1 error:&v27];
+      v13 = v27;
+      v14 = v13;
+      if (v12)
       {
-        v13 = [(CSDCallProviderKVS *)self keyForCurrentDeviceCallProviderWithIdentifier:identifierCopy];
-        if (v13)
+        v15 = [(CSDCallProviderKVS *)self keyForCurrentDeviceCallProviderWithIdentifier:identifierCopy];
+        if (v15)
         {
           queue = [(CSDCallProviderKVS *)self queue];
-          v20[0] = _NSConcreteStackBlock;
-          v20[1] = 3221225472;
-          v20[2] = sub_1001B8D38;
-          v20[3] = &unk_100619E58;
-          v20[4] = self;
-          v21 = v11;
-          v13 = v13;
-          v22 = v13;
-          dispatch_sync(queue, v20);
+          v24[0] = _NSConcreteStackBlock;
+          v24[1] = 3221225472;
+          v24[2] = sub_1001B8D38;
+          v24[3] = &unk_100619E58;
+          v24[4] = self;
+          v25 = v12;
+          v15 = v15;
+          v26 = v15;
+          dispatch_sync(queue, v24);
 
-          v15 = sub_100004778();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v18 = sub_100004778(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v25 = identifierCopy;
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Successfully updated call provider for identifier %@", buf, 0xCu);
+            v29 = identifierCopy;
+            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Successfully updated call provider for identifier %@", buf, 0xCu);
           }
 
-          v16 = sub_100004778();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+          v20 = sub_100004778(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
-            sub_100479324(self, v16);
+            sub_100479324(self, v20);
           }
 
-          v17 = 1;
+          v21 = 1;
           goto LABEL_19;
         }
 
-        v18 = sub_100004778();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v22 = sub_100004778(0);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           sub_1004793D0();
         }
@@ -114,65 +116,66 @@
 
       else
       {
-        v13 = sub_100004778();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = sub_100004778(v13);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           sub_100479438();
         }
       }
 
-      v17 = 0;
+      v21 = 0;
 LABEL_19:
 
       goto LABEL_20;
     }
   }
 
-  v17 = 0;
+  v21 = 0;
 LABEL_20:
 
-  return v17;
+  return v21;
 }
 
 - (BOOL)removeCallProviderForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ([(CSDCallProviderKVS *)self deviceSupportsPrimaryCalling])
+  deviceSupportsPrimaryCalling = [(CSDCallProviderKVS *)self deviceSupportsPrimaryCalling];
+  if (deviceSupportsPrimaryCalling)
   {
-    v5 = sub_100004778();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004778(deviceSupportsPrimaryCalling);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = identifierCopy;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received request to remove call provider for identifier %@", buf, 0xCu);
+      v17 = identifierCopy;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Received request to remove call provider for identifier %@", buf, 0xCu);
     }
 
-    v6 = [(CSDCallProviderKVS *)self keyForCurrentDeviceCallProviderWithIdentifier:identifierCopy];
-    v7 = v6 != 0;
-    if (v6)
+    v7 = [(CSDCallProviderKVS *)self keyForCurrentDeviceCallProviderWithIdentifier:identifierCopy];
+    v8 = v7 != 0;
+    if (v7)
     {
       queue = [(CSDCallProviderKVS *)self queue];
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_1001B8F80;
-      v12[3] = &unk_100619D88;
-      v12[4] = self;
-      v13 = v6;
-      dispatch_sync(queue, v12);
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = sub_1001B8F80;
+      v14[3] = &unk_100619D88;
+      v14[4] = self;
+      v15 = v7;
+      dispatch_sync(queue, v14);
 
-      v9 = sub_100004778();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100004778(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v15 = identifierCopy;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Successfully removed call provider for identifier %@", buf, 0xCu);
+        v17 = identifierCopy;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Successfully removed call provider for identifier %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v10 = sub_100004778();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = sub_100004778(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_1004793D0();
       }
@@ -181,10 +184,10 @@ LABEL_20:
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)removeAllCallProvidersForIDSDeviceIdentifier:(id)identifier
@@ -209,11 +212,11 @@ LABEL_20:
 - (id)fetchCallProvidersForIDSDeviceIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = sub_100004778();
+  v5 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = identifierCopy;
+    v18 = identifierCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received request to fetch call provider for IDS identifier %@", buf, 0xCu);
   }
 
@@ -225,24 +228,24 @@ LABEL_20:
   block[3] = &unk_100619E58;
   block[4] = self;
   v8 = identifierCopy;
-  v14 = v8;
+  v15 = v8;
   v9 = v6;
-  v15 = v9;
+  v16 = v9;
   dispatch_sync(queue, block);
 
-  v10 = sub_100004778();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100004778(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v9;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Successfully fetched call provider for IDS identifier %@ as %@", buf, 0x16u);
+    v18 = v8;
+    v19 = 2112;
+    v20 = v9;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Successfully fetched call provider for IDS identifier %@ as %@", buf, 0x16u);
   }
 
-  v11 = [v9 copy];
+  v12 = [v9 copy];
 
-  return v11;
+  return v12;
 }
 
 - (void)synchronize

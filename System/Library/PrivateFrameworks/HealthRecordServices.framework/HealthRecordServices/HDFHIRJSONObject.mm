@@ -83,7 +83,7 @@ LABEL_8:
 
 - (BOOL)isClinicalNoteRecord
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   fHIRVersion = [(HDFHIRJSONObject *)self FHIRVersion];
   fHIRRelease = [fHIRVersion FHIRRelease];
   v5 = *MEMORY[0x277CCBDD0];
@@ -94,9 +94,9 @@ LABEL_8:
     if ([detectedResourceType isEqual:*MEMORY[0x277CCBDE8]])
     {
       jSONObject = [(HDFHIRJSONObject *)self JSONObject];
-      v29 = 0;
-      v9 = [jSONObject hk_safeValueIfExistsForKeyPath:@"category" class:objc_opt_class() error:&v29];
-      v10 = v29;
+      v28 = 0;
+      v9 = [jSONObject hk_safeValueIfExistsForKeyPath:@"category" class:objc_opt_class() error:&v28];
+      v10 = v28;
 
       if (!v9)
       {
@@ -104,32 +104,32 @@ LABEL_8:
         goto LABEL_21;
       }
 
-      v22 = detectedResourceType;
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
+      v21 = detectedResourceType;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       v11 = v9;
-      v12 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v26;
+        v14 = *v25;
         while (2)
         {
           v15 = 0;
           v16 = v10;
           do
           {
-            if (*v26 != v14)
+            if (*v25 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v17 = *(*(&v25 + 1) + 8 * v15);
-            v24 = v16;
-            v18 = [(HDFHIRJSONObject *)self hasCode:@"clinical-note" codeSystem:@"http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category" codeableConcept:v17 error:&v24];
-            v10 = v24;
+            v17 = *(*(&v24 + 1) + 8 * v15);
+            v23 = v16;
+            v18 = [(HDFHIRJSONObject *)self hasCode:@"clinical-note" codeSystem:@"http://hl7.org/fhir/us/core/CodeSystem/us-core-documentreference-category" codeableConcept:v17 error:&v23];
+            v10 = v23;
 
             if (v18)
             {
@@ -143,7 +143,7 @@ LABEL_8:
           }
 
           while (v13 != v15);
-          v13 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
           if (v13)
           {
             continue;
@@ -155,7 +155,7 @@ LABEL_8:
 
       v6 = 0;
 LABEL_18:
-      detectedResourceType = v22;
+      detectedResourceType = v21;
     }
 
     else
@@ -165,13 +165,13 @@ LABEL_18:
         v6 = 0;
 LABEL_22:
 
-        goto LABEL_23;
+        return v6;
       }
 
       jSONObject2 = [(HDFHIRJSONObject *)self JSONObject];
-      v23 = 0;
-      v11 = [jSONObject2 hk_safeValueIfExistsForKeyPath:@"presentedForm" class:objc_opt_class() error:&v23];
-      v10 = v23;
+      v22 = 0;
+      v11 = [jSONObject2 hk_safeValueIfExistsForKeyPath:@"presentedForm" class:objc_opt_class() error:&v22];
+      v10 = v22;
 
       if (v11)
       {
@@ -188,48 +188,45 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v6 = 0;
-LABEL_23:
-  v19 = *MEMORY[0x277D85DE8];
-  return v6;
+  return 0;
 }
 
 - (BOOL)_isDiagnosticTestReportR4Lab
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   jSONObject = [(HDFHIRJSONObject *)self JSONObject];
-  v23 = 0;
-  v4 = [jSONObject hk_safeValueIfExistsForKeyPath:@"category" class:objc_opt_class() error:&v23];
-  v5 = v23;
+  v22 = 0;
+  v4 = [jSONObject hk_safeValueIfExistsForKeyPath:@"category" class:objc_opt_class() error:&v22];
+  v5 = v22;
 
   if (v4)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v7)
     {
       v8 = v7;
-      v17 = v4;
-      v9 = *v20;
+      v16 = v4;
+      v9 = *v19;
       while (2)
       {
         v10 = 0;
         v11 = v5;
         do
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * v10);
-          v18 = v11;
-          v13 = [(HDFHIRJSONObject *)self hasCode:@"LAB" codeSystem:@"http://terminology.hl7.org/CodeSystem/v2-0074" codeableConcept:v12 error:&v18, v17];
-          v5 = v18;
+          v12 = *(*(&v18 + 1) + 8 * v10);
+          v17 = v11;
+          v13 = [(HDFHIRJSONObject *)self hasCode:@"LAB" codeSystem:@"http://terminology.hl7.org/CodeSystem/v2-0074" codeableConcept:v12 error:&v17, v16];
+          v5 = v17;
 
           if (v13)
           {
@@ -242,7 +239,7 @@ LABEL_23:
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
         if (v8)
         {
           continue;
@@ -253,7 +250,7 @@ LABEL_23:
 
       v14 = 0;
 LABEL_12:
-      v4 = v17;
+      v4 = v16;
     }
 
     else
@@ -267,7 +264,6 @@ LABEL_12:
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -301,29 +297,29 @@ LABEL_12:
 
 - (BOOL)hasCode:(id)code codeSystem:(id)system codings:(id)codings error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   systemCopy = system;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = codings;
-  v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         v15 = [v14 hk_safeValueIfExistsForKeyPath:@"code" class:objc_opt_class() error:error];
         v16 = [v14 hk_safeValueIfExistsForKeyPath:@"system" class:objc_opt_class() error:error];
         if (![codeCopy caseInsensitiveCompare:v15] && !objc_msgSend(systemCopy, "caseInsensitiveCompare:", v16))
@@ -334,7 +330,7 @@ LABEL_12:
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v11)
       {
         continue;
@@ -347,7 +343,6 @@ LABEL_12:
   v17 = 0;
 LABEL_12:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -651,11 +646,10 @@ LABEL_11:
 
 + (void)_dataFromJSONObject:(uint64_t)a1 JSONOptions:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2519FE000, a2, OS_LOG_TYPE_ERROR, "Failed to create FHIR resource data from JSON: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2519FE000, a2, OS_LOG_TYPE_ERROR, "Failed to create FHIR resource data from JSON: %@", &v2, 0xCu);
 }
 
 @end

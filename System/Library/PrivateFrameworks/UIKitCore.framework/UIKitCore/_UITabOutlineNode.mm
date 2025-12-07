@@ -147,9 +147,9 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      v11 = [v7 isEqual:v8];
+      isEqual = objc_msgSend_isEqual_(v7);
 
-      if ((v11 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         goto LABEL_7;
       }
@@ -170,7 +170,7 @@ LABEL_15:
       v10 = 0;
       if (v7 && v14)
       {
-        v10 = [v7 isEqual:v14];
+        v10 = objc_msgSend_isEqual_(v7);
       }
     }
 

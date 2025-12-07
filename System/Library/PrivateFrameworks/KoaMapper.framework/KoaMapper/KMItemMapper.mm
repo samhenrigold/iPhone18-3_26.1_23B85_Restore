@@ -9,64 +9,61 @@
 
 - (id)itemsFromExternalObject:(id)object additionalFields:(id)fields error:(id *)error
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   fieldsCopy = fields;
   if (objectCopy)
   {
-    externalObjectClass = self->_externalObjectClass;
     if (objc_opt_isKindOfClass())
     {
       if (!fieldsCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v11 = [(KMMapper *)self->_mapper itemsFromExternalObject:objectCopy additionalFields:fieldsCopy error:error];
+        v10 = [(KMMapper *)self->_mapper itemsFromExternalObject:objectCopy additionalFields:fieldsCopy error:error];
         goto LABEL_11;
       }
 
-      v23 = MEMORY[0x277CCA9B8];
-      v31 = *MEMORY[0x277CCA068];
-      v24 = MEMORY[0x277CCACA8];
-      v25 = objc_opt_class();
-      v18 = NSStringFromClass(v25);
-      v26 = [v24 stringWithFormat:@"Invalid additional fields: %@ must be %@", fieldsCopy, v18];
-      v32 = v26;
-      v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-      v28 = [v23 errorWithDomain:@"com.apple.siri.koa.mapper" code:5 userInfo:v27];
+      v22 = MEMORY[0x277CCA9B8];
+      v29 = *MEMORY[0x277CCA068];
+      v23 = MEMORY[0x277CCACA8];
+      v24 = objc_opt_class();
+      v17 = NSStringFromClass(v24);
+      v25 = [v23 stringWithFormat:@"Invalid additional fields: %@ must be %@", fieldsCopy, v17];
+      v30 = v25;
+      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v27 = [v22 errorWithDomain:@"com.apple.siri.koa.mapper" code:5 userInfo:v26];
       KVSetError();
     }
 
     else
     {
-      v15 = MEMORY[0x277CCA9B8];
-      v33 = *MEMORY[0x277CCA068];
-      v16 = MEMORY[0x277CCACA8];
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
-      v19 = NSStringFromClass(self->_externalObjectClass);
-      v20 = [v16 stringWithFormat:@"Object class (%@) inconsistent with expected class (%@) provided at initialization", v18, v19];
-      v34 = v20;
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-      v22 = [v15 errorWithDomain:@"com.apple.siri.koa.mapper" code:3 userInfo:v21];
+      v14 = MEMORY[0x277CCA9B8];
+      v31 = *MEMORY[0x277CCA068];
+      v15 = MEMORY[0x277CCACA8];
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
+      v18 = NSStringFromClass(self->_externalObjectClass);
+      v19 = [v15 stringWithFormat:@"Object class (%@) inconsistent with expected class (%@) provided at initialization", v17, v18];
+      v32 = v19;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      v21 = [v14 errorWithDomain:@"com.apple.siri.koa.mapper" code:3 userInfo:v20];
       KVSetError();
     }
   }
 
   else
   {
-    v12 = MEMORY[0x277CCA9B8];
-    v35 = *MEMORY[0x277CCA068];
-    v36[0] = @"Object to be mapped is nil";
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
-    v14 = [v12 errorWithDomain:@"com.apple.siri.koa.mapper" code:1 userInfo:v13];
+    v11 = MEMORY[0x277CCA9B8];
+    v33 = *MEMORY[0x277CCA068];
+    v34[0] = @"Object to be mapped is nil";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v13 = [v11 errorWithDomain:@"com.apple.siri.koa.mapper" code:1 userInfo:v12];
     KVSetError();
   }
 
-  v11 = 0;
+  v10 = 0;
 LABEL_11:
 
-  v29 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v10;
 }
 
 - (KMItemMapper)initWithObjectClass:(Class)class error:(id *)error
@@ -103,7 +100,7 @@ LABEL_6:
 
 + (id)_mapperForObjectClass:(Class)class error:(id *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   if (+[KMMapper_SAPerson externalObjectClass]== class)
   {
     v12 = KMMapper_SAPerson;
@@ -169,12 +166,12 @@ LABEL_6:
     if (+[KMMapper_PBSUserProfile externalObjectClass]!= class)
     {
       v5 = MEMORY[0x277CCA9B8];
-      v15 = *MEMORY[0x277CCA068];
+      v14 = *MEMORY[0x277CCA068];
       v6 = MEMORY[0x277CCACA8];
       v7 = NSStringFromClass(class);
-      v8 = [v6 stringWithFormat:@"Object class (%@) not supported", v7, v15];
-      v16[0] = v8;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v8 = [v6 stringWithFormat:@"Object class (%@) not supported", v7, v14];
+      v15[0] = v8;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       v10 = [v5 errorWithDomain:@"com.apple.siri.koa.mapper" code:2 userInfo:v9];
       KVSetError();
 
@@ -187,7 +184,6 @@ LABEL_6:
 
   v11 = objc_alloc_init(v12);
 LABEL_29:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

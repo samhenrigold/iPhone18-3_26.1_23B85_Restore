@@ -60,10 +60,7 @@
 
 uint64_t __55__HVSpotlightDeletionRequest_copyWithBundleIdentifier___block_invoke(uint64_t a1)
 {
-  v2 = [[HVSpotlightDeletionRequest alloc] initWithBundleIdentifier:*(a1 + 32)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [[HVSpotlightDeletionRequest alloc] initWithBundleIdentifier:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -406,29 +403,29 @@ LABEL_21:
 
 void __49__HVSpotlightDeletionRequest_matchesBloomFilter___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = [a3 allDomains];
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
         v11 = *(a1 + 32);
-        v12 = [HVSpotlightDeletionRequest _hashArrayForBundleIdentifier:v5 xIdentifier:*(*(&v14 + 1) + 8 * i) typeOfX:100 inBloomFilter:v11 hashArrayForReuse:*(a1 + 40)];
+        v12 = [HVSpotlightDeletionRequest _hashArrayForBundleIdentifier:v5 xIdentifier:*(*(&v13 + 1) + 8 * i) typeOfX:100 inBloomFilter:v11 hashArrayForReuse:*(a1 + 40)];
         *(*(*(a1 + 48) + 8) + 24) = [v11 getWithHashes:v12];
 
         if (*(*(*(a1 + 48) + 8) + 24))
@@ -438,7 +435,7 @@ void __49__HVSpotlightDeletionRequest_matchesBloomFilter___block_invoke_2(uint64
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         continue;
@@ -450,36 +447,34 @@ void __49__HVSpotlightDeletionRequest_matchesBloomFilter___block_invoke_2(uint64
 
   *(*(*(a1 + 48) + 8) + 24) = 0;
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HVSpotlightDeletionRequest_matchesBloomFilter___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = a3;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
         v11 = *(a1 + 32);
-        v12 = [HVSpotlightDeletionRequest _hashArrayForBundleIdentifier:v5 xIdentifier:*(*(&v14 + 1) + 8 * i) typeOfX:117 inBloomFilter:v11 hashArrayForReuse:*(a1 + 40)];
-        *(*(*(a1 + 48) + 8) + 24) = [v11 getWithHashes:{v12, v14}];
+        v12 = [HVSpotlightDeletionRequest _hashArrayForBundleIdentifier:v5 xIdentifier:*(*(&v13 + 1) + 8 * i) typeOfX:117 inBloomFilter:v11 hashArrayForReuse:*(a1 + 40)];
+        *(*(*(a1 + 48) + 8) + 24) = [v11 getWithHashes:{v12, v13}];
 
         if (*(*(*(a1 + 48) + 8) + 24))
         {
@@ -488,7 +483,7 @@ void __49__HVSpotlightDeletionRequest_matchesBloomFilter___block_invoke_3(uint64
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         continue;
@@ -500,8 +495,6 @@ void __49__HVSpotlightDeletionRequest_matchesBloomFilter___block_invoke_3(uint64
 
   *(*(*(a1 + 48) + 8) + 24) = 0;
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessCriteriaUsingBundleIdentifierBlock:(id)block domainSelectionBlock:(id)selectionBlock incontrovertiblyDeletedUniqueIdentifiersBlock:(id)identifiersBlock purgedUniqueIdentifiersBlock:(id)uniqueIdentifiersBlock
@@ -517,7 +510,6 @@ LABEL_11:
 
   else if (self->_uniqueIdentifiers)
   {
-    self->_isPurge;
     v13 = MEMORY[0x238381E60]();
     (v13)[2](v13, self->_bundleIdentifier, self->_uniqueIdentifiers);
   }

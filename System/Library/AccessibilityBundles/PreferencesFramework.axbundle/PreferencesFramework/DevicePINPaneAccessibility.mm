@@ -8,6 +8,8 @@
 - (void)_accessibilityInsertText:(id)text;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_accessibilityReplaceCharactersAtCursor:(unint64_t)cursor withString:(id)string;
+- (void)setPINPolicyString:(id)string visible:(BOOL)visible;
+- (void)slideToNewPasscodeField:(BOOL)field requiresKeyboard:(BOOL)keyboard numericOnly:(BOOL)only transition:(int)transition showsOptionsButton:(BOOL)button;
 @end
 
 @implementation DevicePINPaneAccessibility
@@ -39,6 +41,28 @@
   }
 
   return v4;
+}
+
+- (void)setPINPolicyString:(id)string visible:(BOOL)visible
+{
+  visibleCopy = visible;
+  v6.receiver = self;
+  v6.super_class = DevicePINPaneAccessibility;
+  stringCopy = string;
+  [(DevicePINPaneAccessibility *)&v6 setPINPolicyString:stringCopy visible:visibleCopy];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], stringCopy);
+}
+
+- (void)slideToNewPasscodeField:(BOOL)field requiresKeyboard:(BOOL)keyboard numericOnly:(BOOL)only transition:(int)transition showsOptionsButton:(BOOL)button
+{
+  v12.receiver = self;
+  v12.super_class = DevicePINPaneAccessibility;
+  [(DevicePINPaneAccessibility *)&v12 slideToNewPasscodeField:field requiresKeyboard:keyboard numericOnly:only transition:*&transition showsOptionsButton:button];
+  v8 = *MEMORY[0x29EDC7EA8];
+  v9 = [(DevicePINPaneAccessibility *)self safeValueForKey:@"_pinView"];
+  v10 = [v9 safeValueForKey:@"_titleLabel"];
+  accessibilityLabel = [v10 accessibilityLabel];
+  UIAccessibilityPostNotification(v8, accessibilityLabel);
 }
 
 - (void)_accessibilityLoadAccessibilityInformation
@@ -106,7 +130,7 @@
   return v2;
 }
 
-uint64_t __60__DevicePINPaneAccessibility__accessibilityHasDeletableText__block_invoke(uint64_t a1)
+void *__60__DevicePINPaneAccessibility__accessibilityHasDeletableText__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) hasText];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -140,24 +164,24 @@ uint64_t __55__DevicePINPaneAccessibility__accessibilityInsertText___block_invok
   AXPerformSafeBlock();
 }
 
-uint64_t __81__DevicePINPaneAccessibility__accessibilityReplaceCharactersAtCursor_withString___block_invoke(uint64_t result)
+void *__81__DevicePINPaneAccessibility__accessibilityReplaceCharactersAtCursor_withString___block_invoke(void *result)
 {
   v1 = result;
-  if (*(result + 48))
+  if (result[6])
   {
     v2 = 0;
     do
     {
-      result = [*(v1 + 32) deleteBackward];
+      result = [v1[4] deleteBackward];
       ++v2;
     }
 
-    while (v2 < *(v1 + 48));
+    while (v2 < v1[6]);
   }
 
-  if (*(v1 + 40))
+  if (v1[5])
   {
-    v3 = *(v1 + 32);
+    v3 = v1[4];
 
     return [v3 _accessibilityInsertText:?];
   }

@@ -8,7 +8,7 @@
 - (void)didMoveToSuperview
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for DOCRemovableMediaStateSidebarCellAccessoryItem();
+  v3.super_class = type metadata accessor for DOCRemovableMediaStateSidebarCellAccessoryItem(0);
   v2 = v3.receiver;
   [(DOCRemovableMediaStateSidebarCellAccessoryItem *)&v3 didMoveToSuperview];
   DOCRemovableMediaStateSidebarCellAccessoryItem.updateViews(state:)([*&v2[OBJC_IVAR____TtC26DocumentManagerExecutables46DOCRemovableMediaStateSidebarCellAccessoryItem_formattingOperation] operationState]);

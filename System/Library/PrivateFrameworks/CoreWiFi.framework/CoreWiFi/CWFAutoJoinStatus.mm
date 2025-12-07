@@ -60,15 +60,15 @@
 
 - (id)deepCopy
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v16];
-  v3 = v16;
+  v18 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v15];
+  v3 = v15;
   if (v2)
   {
-    v15 = v3;
-    v4 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v2 error:&v15];
-    v5 = v15;
+    v14 = v3;
+    v4 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v2 error:&v14];
+    v5 = v14;
 
     if (v4)
     {
@@ -92,9 +92,9 @@
 
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v17 = 138412290;
-        v18 = v5;
-        _os_log_send_and_compose_impl();
+        v16 = 138412290;
+        v17 = v5;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 16, "[corewifi] failed to unarchive network profile: %@", &v16, 12);
       }
 
       v6 = 0;
@@ -118,16 +118,14 @@
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412290;
-      v18 = v3;
-      _os_log_send_and_compose_impl();
+      v16 = 138412290;
+      v17 = v3;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 16, "[corewifi] failed to archive network profile: %@", &v16, 12);
     }
 
     v7 = 0;
     v5 = v3;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -510,7 +508,7 @@ LABEL_66:
 
 - (id)JSONCompatibleKeyValueMap
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   uUID = [(CWFAutoJoinStatus *)self UUID];
   uUIDString = [uUID UUIDString];
@@ -540,30 +538,30 @@ LABEL_66:
   [v3 setObject:v14 forKeyedSubscript:@"trigger"];
 
   v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   joinAttempts = [(CWFAutoJoinStatus *)self joinAttempts];
-  v17 = [joinAttempts countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v17 = [joinAttempts countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v27;
+    v19 = *v26;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v27 != v19)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(joinAttempts);
         }
 
-        jSONCompatibleKeyValueMap = [*(*(&v26 + 1) + 8 * i) JSONCompatibleKeyValueMap];
+        jSONCompatibleKeyValueMap = [*(*(&v25 + 1) + 8 * i) JSONCompatibleKeyValueMap];
         [v15 addObject:jSONCompatibleKeyValueMap];
       }
 
-      v18 = [joinAttempts countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v18 = [joinAttempts countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v18);
@@ -580,8 +578,6 @@ LABEL_66:
   {
     v23 = 0;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }

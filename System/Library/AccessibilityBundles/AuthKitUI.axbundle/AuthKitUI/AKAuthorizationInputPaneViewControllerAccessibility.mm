@@ -37,17 +37,17 @@
   objc_destroyWeak(&location);
 }
 
-id __97__AKAuthorizationInputPaneViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
+id __97__AKAuthorizationInputPaneViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = __UIAccessibilityCastAsClass();
+  v4 = __UIAccessibilityCastAsClass();
 
-  v4 = [v3 view];
+  v5 = [v4 view];
 
-  v5 = [v4 subviews];
+  v6 = [v5 subviews];
 
-  return v5;
+  return v6;
 }
 
 - (void)viewDidLoad

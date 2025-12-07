@@ -86,27 +86,27 @@
 
 - (id)firstValueForBuyParameter:(id)parameter
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   parameterCopy = parameter;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_buyParameters;
-  value = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  value = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (value)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != value; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         name = [v9 name];
         v11 = [name isEqualToString:parameterCopy];
 
@@ -117,7 +117,7 @@
         }
       }
 
-      value = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      value = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (value)
       {
         continue;
@@ -128,8 +128,6 @@
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return value;
 }
@@ -443,21 +441,18 @@ LABEL_11:
 
 - (id)description
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_opt_class();
-  purchaseID = self->_purchaseID;
-  v6 = [v3 stringWithFormat:@"[%@]: bundleID: %@ accountID: %@ bagKey: %@ buyParams: %@ extensionsToEnable: %lu isBackgroundUpdate: %d isRedownload: %d isUpdate: %d isPreorder: %d itemID: %@ itemName: %@ purchaseID: %lld vendorName: %@ softwarePlatform: %ld remoteDownloadIdentifiers: %@", v4, self->_bundleID, self->_accountIdentifier, self->_bagKey, self->_buyParameters, self->_extensionsToEnable, self->_isBackgroundUpdate, self->_isRedownload, self->_isUpdate, self->_isPreorder, self->_itemID, self->_itemName, purchaseID, self->_vendorName, self->_softwarePlatform, self->_remoteDownloadIdentifiers];
-  v7 = v6;
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@]: bundleID: %@ accountID: %@ bagKey: %@ buyParams: %@ extensionsToEnable: %lu isBackgroundUpdate: %d isRedownload: %d isUpdate: %d isPreorder: %d itemID: %@ itemName: %@ purchaseID: %lld vendorName: %@ softwarePlatform: %ld remoteDownloadIdentifiers: %@", objc_opt_class(), self->_bundleID, self->_accountIdentifier, self->_bagKey, self->_buyParameters, self->_extensionsToEnable, self->_isBackgroundUpdate, self->_isRedownload, self->_isUpdate, self->_isPreorder, self->_itemID, self->_itemName, self->_purchaseID, self->_vendorName, self->_softwarePlatform, self->_remoteDownloadIdentifiers];
+  v4 = v3;
   if (self->_forceAskToBuyReason)
   {
-    v8 = [v6 stringByAppendingFormat:@" forceATBReason: %ld", self->_forceAskToBuyReason];
+    v5 = [v3 stringByAppendingFormat:@" forceATBReason: %ld", self->_forceAskToBuyReason];
 
-    v7 = v8;
+    v4 = v5;
   }
 
-  v9 = [v7 stringByAppendingString:@"]"];
+  v6 = [v4 stringByAppendingString:@"]"];
 
-  return v9;
+  return v6;
 }
 
 @end

@@ -172,7 +172,7 @@ LABEL_10:
     v17 = value;
     if (value)
     {
-      [value nu_pixelRect];
+      objc_msgSend_nu_pixelRect(value);
     }
 
     else

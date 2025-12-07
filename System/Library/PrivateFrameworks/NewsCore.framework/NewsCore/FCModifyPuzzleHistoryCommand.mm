@@ -1,9 +1,19 @@
 @interface FCModifyPuzzleHistoryCommand
 - (BOOL)mergeLocalRecord:(id)record withRemoteRecord:(id)remoteRecord;
+- (FCModifyPuzzleHistoryCommand)initWithPuzzleHistoryItems:(id)items merge:(BOOL)merge;
 - (unint64_t)puzzleTypeTraitsForPuzzleTypeID:(id)d;
 @end
 
 @implementation FCModifyPuzzleHistoryCommand
+
+- (FCModifyPuzzleHistoryCommand)initWithPuzzleHistoryItems:(id)items merge:(BOOL)merge
+{
+  mergeCopy = merge;
+  v6 = [items fc_arrayByTransformingWithBlock:&__block_literal_global_100];
+  v7 = [(FCModifyRecordsCommand *)self initWithLocalRecords:v6 merge:mergeCopy];
+
+  return v7;
+}
 
 - (BOOL)mergeLocalRecord:(id)record withRemoteRecord:(id)remoteRecord
 {

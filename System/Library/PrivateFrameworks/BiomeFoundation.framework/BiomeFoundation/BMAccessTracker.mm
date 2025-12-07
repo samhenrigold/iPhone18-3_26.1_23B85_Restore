@@ -207,41 +207,36 @@ LABEL_25:
 
 - (void)_logMissingEntitlementsForAccess:(uint64_t)a1 useCase:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_ERROR, "Warning: This process is missing mach-lookup entitlement for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_ERROR, "Warning: This process is missing mach-lookup entitlement for %@", &v2, 0xCu);
 }
 
 - (void)_logMissingEntitlementsForAccess:(NSObject *)a3 useCase:.cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = BMAccessModePrintableDescription([a1 mode]);
   v7 = [a1 resource];
-  v9 = 138412802;
-  v10 = v6;
-  v11 = 2112;
-  v12 = v7;
-  v13 = 2112;
-  v14 = a2;
-  _os_log_fault_impl(&dword_1AC15D000, a3, OS_LOG_TYPE_FAULT, "This process is not entitled for %@ access to %@ for use case '%@'", &v9, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138412802;
+  v9 = v6;
+  v10 = 2112;
+  v11 = v7;
+  v12 = 2112;
+  v13 = a2;
+  _os_log_fault_impl(&dword_1AC15D000, a3, OS_LOG_TYPE_FAULT, "This process is not entitled for %@ access to %@ for use case '%@'", &v8, 0x20u);
 }
 
 - (void)_logMissingEntitlementsForAccess:(void *)a1 useCase:(NSObject *)a2 .cold.3(void *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = BMAccessModePrintableDescription([a1 mode]);
   v5 = [a1 resource];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_fault_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_FAULT, "This process is not entitled for %@ access to %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_fault_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_FAULT, "This process is not entitled for %@ access to %@", &v6, 0x16u);
 }
 
 @end

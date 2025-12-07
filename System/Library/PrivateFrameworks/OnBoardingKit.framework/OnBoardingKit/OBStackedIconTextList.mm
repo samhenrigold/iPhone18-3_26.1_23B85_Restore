@@ -12,10 +12,10 @@
 
 - (OBStackedIconTextList)initWithFrame:(CGRect)frame
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = OBStackedIconTextList;
-  v3 = [(OBStackedIconTextList *)&v10 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = OBStackedIconTextList;
+  v3 = [(OBStackedIconTextList *)&v9 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = objc_opt_new();
@@ -27,12 +27,11 @@
     v3->_iconTextPadding = 12.0;
     [(OBStackedIconTextList *)v3 setBaselineRelativeArrangement:1];
     [(OBStackedIconTextList *)v3 updateSpacing];
-    v11[0] = objc_opt_class();
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+    v10[0] = objc_opt_class();
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
     v7 = [(OBStackedIconTextList *)v3 registerForTraitChanges:v6 withAction:sel_updateSpacing];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -98,40 +97,38 @@
 
 - (void)setIconTextPadding:(double)padding
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (self->_iconTextPadding != padding)
   {
     self->_iconTextPadding = padding;
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
     subviews = [(OBStackedIconTextList *)self subviews];
-    v5 = [subviews countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [subviews countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(subviews);
           }
 
-          [*(*(&v10 + 1) + 8 * i) setPadding:padding];
+          [*(*(&v9 + 1) + 8 * i) setPadding:padding];
         }
 
-        v6 = [subviews countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [subviews countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addEntryWithIcon:(id)icon iconSize:(CGSize)size text:(id)text

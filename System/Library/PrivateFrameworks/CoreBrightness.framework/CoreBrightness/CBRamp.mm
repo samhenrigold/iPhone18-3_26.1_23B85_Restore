@@ -65,7 +65,7 @@ float __73__CBRamp_newLinearRampWithWithOrigin_target_length_frequency_identifie
     [a3 targetValue];
     v16 = v12;
     [a3 originalValue];
-    v26 = v15 + ((v16 - v13) * a1);
+    return v15 + ((v16 - v13) * a1);
   }
 
   else
@@ -75,11 +75,8 @@ float __73__CBRamp_newLinearRampWithWithOrigin_target_length_frequency_identifie
     [a3 originalValue];
     v18 = v9;
     [a3 targetValue];
-    v26 = v17 - ((v18 - v10) * a1);
+    return v17 - ((v18 - v10) * a1);
   }
-
-  *MEMORY[0x1E69E9840];
-  return v26;
 }
 
 - (CBRamp)initWithOrigin:(float)origin target:(float)target length:(float)length frequency:(float)frequency identifier:(id)identifier properties:(id)properties
@@ -264,8 +261,6 @@ float __73__CBRamp_newLinearRampWithWithOrigin_target_length_frequency_identifie
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 @end

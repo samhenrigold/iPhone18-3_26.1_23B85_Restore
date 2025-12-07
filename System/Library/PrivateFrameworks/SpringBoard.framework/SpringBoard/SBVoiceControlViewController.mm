@@ -536,7 +536,7 @@ void __70__SBVoiceControlViewController_recognitionSession_openURL_completion___
   }
 }
 
-void __70__SBVoiceControlViewController_recognitionSession_openURL_completion___block_invoke_62(uint64_t a1, char a2)
+void __70__SBVoiceControlViewController_recognitionSession_openURL_completion___block_invoke_62(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -1550,11 +1550,11 @@ uint64_t __47__SBVoiceControlViewController__setStatusText___block_invoke(uint64
   return [*(*(a1 + 32) + 1080) setAlpha:v6];
 }
 
-uint64_t __47__SBVoiceControlViewController__setStatusText___block_invoke_2(uint64_t result)
+void *__47__SBVoiceControlViewController__setStatusText___block_invoke_2(void *result)
 {
-  if (!*(result + 32))
+  if (!result[4])
   {
-    return [*(*(result + 40) + 1080) setText:0];
+    return [*(result[5] + 1080) setText:0];
   }
 
   return result;

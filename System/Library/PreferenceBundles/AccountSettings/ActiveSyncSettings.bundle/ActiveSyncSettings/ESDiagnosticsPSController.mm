@@ -123,16 +123,15 @@
     simpleConfirmSheetDismissedSEL = self->_simpleConfirmSheetDismissedSEL;
     if (simpleConfirmSheetDismissedSEL)
     {
-      v9 = self->_simpleConfirmSheetDismissedSEL;
       [(ESDiagnosticsPSController *)self performSelector:simpleConfirmSheetDismissedSEL withObject:0 afterDelay:1.0];
     }
   }
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = ESDiagnosticsPSController;
-    [(ESDiagnosticsPSController *)&v10 alertView:viewCopy clickedButtonAtIndex:index];
+    v9.receiver = self;
+    v9.super_class = ESDiagnosticsPSController;
+    [(ESDiagnosticsPSController *)&v9 alertView:viewCopy clickedButtonAtIndex:index];
   }
 }
 
@@ -382,20 +381,19 @@ LABEL_4:
   v3 = [NSBundle bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"DIAG_NOTES_TITLE" value:&stru_30C98 table:@"Diagnostic"];
   v5 = objc_opt_class();
-  v10 = [PSSpecifier preferenceSpecifierNamed:v4 target:self set:0 get:0 detail:v5 cell:1 edit:objc_opt_class()];
+  v9 = [PSSpecifier preferenceSpecifierNamed:v4 target:self set:0 get:0 detail:v5 cell:1 edit:objc_opt_class()];
 
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  [v10 setProperty:v7 forKey:PSSetupCustomClassKey];
+  [v9 setProperty:v7 forKey:PSSetupCustomClassKey];
 
-  [v10 setProperty:self forKey:@"kESDiagnosticSaveNotesDelegate"];
-  v8 = *&v10[OBJC_IVAR___PSSpecifier_detailControllerClass];
-  v9 = objc_opt_new();
+  [v9 setProperty:self forKey:@"kESDiagnosticSaveNotesDelegate"];
+  v8 = objc_opt_new();
   self->PSListController_opaque[OBJC_IVAR___PSListController__showingSetupController] = 1;
-  [v9 setParentController:self];
-  [v9 setSpecifier:v10];
-  objc_storeWeak(&v10[OBJC_IVAR___PSSpecifier_target], self);
-  [(ESDiagnosticsPSController *)self pushController:v9];
+  [v8 setParentController:self];
+  [v8 setSpecifier:v9];
+  objc_storeWeak(&v9[OBJC_IVAR___PSSpecifier_target], self);
+  [(ESDiagnosticsPSController *)self pushController:v8];
 }
 
 - (void)handleSaveAllLogsStep2

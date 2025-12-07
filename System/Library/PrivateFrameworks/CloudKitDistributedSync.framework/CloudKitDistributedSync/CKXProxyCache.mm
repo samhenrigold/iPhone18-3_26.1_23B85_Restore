@@ -11,7 +11,7 @@
 
 - (void)dealloc
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (objc_msgSend_totalProxiesRetainedOutOfScope(self, a2, v2, v3, v4, v5, v6) >= 1)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -22,21 +22,20 @@
     v8 = *MEMORY[0x277CBC840];
     if (os_log_type_enabled(*MEMORY[0x277CBC840], OS_LOG_TYPE_DEBUG))
     {
-      v10 = v8;
+      v9 = v8;
       *buf = 134218496;
-      v31 = objc_msgSend_totalProxiesRetainedOutOfScope(self, v11, v12, v13, v14, v15, v16);
-      v32 = 2048;
-      v33 = objc_msgSend_totalProxiesCreated(self, v17, v18, v19, v20, v21, v22);
-      v34 = 2048;
-      v35 = objc_msgSend_totalProxiesReclaimed(self, v23, v24, v25, v26, v27, v28);
-      _os_log_debug_impl(&dword_2438A8000, v10, OS_LOG_TYPE_DEBUG, "%lu proxies retained out of expected scope (%lu created, %lu reclaimed). This may cause degraded performance if it happens too often.", buf, 0x20u);
+      v30 = objc_msgSend_totalProxiesRetainedOutOfScope(self, v10, v11, v12, v13, v14, v15);
+      v31 = 2048;
+      v32 = objc_msgSend_totalProxiesCreated(self, v16, v17, v18, v19, v20, v21);
+      v33 = 2048;
+      v34 = objc_msgSend_totalProxiesReclaimed(self, v22, v23, v24, v25, v26, v27);
+      _os_log_debug_impl(&dword_2438A8000, v9, OS_LOG_TYPE_DEBUG, "%lu proxies retained out of expected scope (%lu created, %lu reclaimed). This may cause degraded performance if it happens too often.", buf, 0x20u);
     }
   }
 
-  v29.receiver = self;
-  v29.super_class = CKXProxyCache;
-  [(CKXProxyCache *)&v29 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v28.receiver = self;
+  v28.super_class = CKXProxyCache;
+  [(CKXProxyCache *)&v28 dealloc];
 }
 
 - (CKXProxyCache)init
@@ -187,7 +186,7 @@ LABEL_11:
 
 - (id)debugDescription
 {
-  v143 = *MEMORY[0x277D85DE8];
+  v142 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v10 = objc_msgSend_cachedProxies(self, v4, v5, v6, v7, v8, v9);
   v17 = objc_msgSend_count(v10, v11, v12, v13, v14, v15, v16);
@@ -196,44 +195,44 @@ LABEL_11:
   {
     objc_msgSend_appendFormat_(v3, v18, @"Proxies by class:\n", v20, v21, v22, v23);
     v24 = objc_opt_new();
+    v137 = 0u;
     v138 = 0u;
     v139 = 0u;
     v140 = 0u;
-    v141 = 0u;
     v31 = objc_msgSend_cachedProxies(self, v25, v26, v27, v28, v29, v30);
     v38 = objc_msgSend_keyEnumerator(v31, v32, v33, v34, v35, v36, v37);
 
-    v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v138, v142, 16, v40, v41);
+    v42 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v137, v141, 16, v40, v41);
     if (v42)
     {
       v48 = v42;
-      v49 = *v139;
+      v49 = *v138;
       do
       {
         for (i = 0; i != v48; ++i)
         {
-          if (*v139 != v49)
+          if (*v138 != v49)
           {
             objc_enumerationMutation(v38);
           }
 
-          objc_msgSend_addObject_(v24, v43, *(*(&v138 + 1) + 8 * i), v44, v45, v46, v47);
+          objc_msgSend_addObject_(v24, v43, *(*(&v137 + 1) + 8 * i), v44, v45, v46, v47);
         }
 
-        v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v43, &v138, v142, 16, v46, v47);
+        v48 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v43, &v137, v141, 16, v46, v47);
       }
 
       while (v48);
     }
 
     v56 = objc_msgSend_sortedArrayUsingComparator_(v24, v51, &unk_2856A2CF8, v52, v53, v54, v55);
-    v136[0] = MEMORY[0x277D85DD0];
-    v136[1] = 3221225472;
-    v136[2] = sub_2439774CC;
-    v136[3] = &unk_278DDB278;
-    v136[4] = self;
-    v137 = v3;
-    objc_msgSend_enumerateObjectsUsingBlock_(v56, v57, v136, v58, v59, v60, v61);
+    v135[0] = MEMORY[0x277D85DD0];
+    v135[1] = 3221225472;
+    v135[2] = sub_2439774CC;
+    v135[3] = &unk_278DDB278;
+    v135[4] = self;
+    v136 = v3;
+    objc_msgSend_enumerateObjectsUsingBlock_(v56, v57, v135, v58, v59, v60, v61);
   }
 
   v62 = objc_msgSend_scopedProxies(self, v18, v19, v20, v21, v22, v23);
@@ -243,21 +242,21 @@ LABEL_11:
   {
     v76 = objc_opt_new();
     v83 = objc_msgSend_scopedProxies(self, v77, v78, v79, v80, v81, v82);
-    v134[0] = MEMORY[0x277D85DD0];
-    v134[1] = 3221225472;
-    v134[2] = sub_24397756C;
-    v134[3] = &unk_278DDB2A0;
-    v135 = v76;
+    v133[0] = MEMORY[0x277D85DD0];
+    v133[1] = 3221225472;
+    v133[2] = sub_24397756C;
+    v133[3] = &unk_278DDB2A0;
+    v134 = v76;
     v84 = v76;
-    objc_msgSend_enumerateObjectsUsingBlock_(v83, v85, v134, v86, v87, v88, v89);
+    objc_msgSend_enumerateObjectsUsingBlock_(v83, v85, v133, v86, v87, v88, v89);
 
     objc_msgSend_appendFormat_(v3, v90, @"Active proxies by scope:\n", v91, v92, v93, v94);
-    v132[0] = MEMORY[0x277D85DD0];
-    v132[1] = 3221225472;
-    v132[2] = sub_243977658;
-    v132[3] = &unk_278DDB2C8;
-    v133 = v3;
-    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v84, v95, v132, v96, v97, v98, v99);
+    v131[0] = MEMORY[0x277D85DD0];
+    v131[1] = 3221225472;
+    v131[2] = sub_243977658;
+    v131[3] = &unk_278DDB2C8;
+    v132 = v3;
+    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v84, v95, v131, v96, v97, v98, v99);
   }
 
   else if (!v17)
@@ -271,7 +270,6 @@ LABEL_11:
   objc_msgSend_appendFormat_(v3, v113, @"Total proxies reclaimed: %ld\n", v114, v115, v116, v117, v112);
   v124 = objc_msgSend_totalProxiesRetainedOutOfScope(self, v118, v119, v120, v121, v122, v123);
   objc_msgSend_appendFormat_(v3, v125, @"Total proxies retained out of scope: %ld\n", v126, v127, v128, v129, v124);
-  v130 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

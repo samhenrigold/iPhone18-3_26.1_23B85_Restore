@@ -617,9 +617,9 @@ void __85__UIKeyboardEmojiFamilyConfigurationView__setCurrentlySelectedSkinToneC
 void __85__UIKeyboardEmojiFamilyConfigurationView__setCurrentlySelectedSkinToneConfiguration___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = [a2 objectAtIndexedSubscript:*(a1 + 48)];
-  v8 = [v7 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v8)
+  if (isEqualToString)
   {
     v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a3];
     [*(a1 + 40) setObject:v9 atIndexedSubscript:*(a1 + 48)];
@@ -899,9 +899,9 @@ LABEL_6:
 void __109__UIKeyboardEmojiFamilyConfigurationView__updateReferencedKeySelectedVariantIndexBasedOnCurrentConfiguration__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = [a2 representedString];
-  v8 = [v7 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v8)
+  if (isEqualToString)
   {
     *(*(*(a1 + 40) + 8) + 24) = a3;
     *a4 = 1;
@@ -933,7 +933,7 @@ void __109__UIKeyboardEmojiFamilyConfigurationView__updateReferencedKeySelectedV
         do
         {
           v12 = [_currentlySelectedSkinToneConfiguration objectAtIndexedSubscript:v10];
-          if ([v12 isEqualToString:v3])
+          if (objc_msgSend_isEqualToString_(v12))
           {
             v28 = v12;
             familyMemberStackViews2 = [(UIKeyboardEmojiFamilyConfigurationView *)self familyMemberStackViews];

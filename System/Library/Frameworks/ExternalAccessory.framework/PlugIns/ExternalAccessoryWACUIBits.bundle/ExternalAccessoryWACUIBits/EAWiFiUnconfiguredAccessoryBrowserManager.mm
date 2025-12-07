@@ -6,6 +6,7 @@
 - (void)cancelActiveConfiguration;
 - (void)configureAccessory:(id)accessory withConfigurationUIOnViewController:(id)controller;
 - (void)didFindNewUnconfiguredAccessories:(id)accessories andRemovedUnconfiguredAccessories:(id)unconfiguredAccessories;
+- (void)dismissWithStatus:(int)status;
 - (void)openHomeAppForConfiguration;
 - (void)openURL:(id)l;
 - (void)purgeAccessoriesSet;
@@ -236,7 +237,6 @@
   macAddress = [accessoryCopy macAddress];
   v10 = [(NSMutableDictionary *)accessoryToDeviceID objectForKey:macAddress];
 
-  debugLog = self->__debugLog;
   if (v10)
   {
     if (self->__debugLog)
@@ -244,21 +244,21 @@
       NSLog(@"### WAC:%s:%d Reconfiguring SecureWAC device", "[EAWiFiUnconfiguredAccessoryBrowserManager configureAccessory:withConfigurationUIOnViewController:]", 333);
     }
 
-    v12 = workQueue;
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_2174;
-    v25[3] = &unk_8468;
-    v13 = &v28;
-    objc_copyWeak(&v28, &location);
-    v14 = &v26;
-    v15 = v27;
-    v26 = accessoryCopy;
-    v27[0] = controllerCopy;
-    v27[1] = self;
-    v16 = controllerCopy;
-    v17 = accessoryCopy;
-    v18 = v25;
+    v11 = workQueue;
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_2174;
+    v24[3] = &unk_8468;
+    v12 = &v27;
+    objc_copyWeak(&v27, &location);
+    v13 = &v25;
+    v14 = v26;
+    v25 = accessoryCopy;
+    v26[0] = controllerCopy;
+    v26[1] = self;
+    v15 = controllerCopy;
+    v16 = accessoryCopy;
+    v17 = v24;
   }
 
   else
@@ -268,26 +268,26 @@
       NSLog(@"### WAC XPC:%s:%d Reconfiguring WAC1 device", "[EAWiFiUnconfiguredAccessoryBrowserManager configureAccessory:withConfigurationUIOnViewController:]", 391);
     }
 
-    v12 = workQueue;
+    v11 = workQueue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_26E0;
     block[3] = &unk_8468;
-    v13 = &v24;
-    objc_copyWeak(&v24, &location);
-    v14 = &v22;
-    v15 = v23;
-    v22 = accessoryCopy;
-    v23[0] = controllerCopy;
-    v23[1] = self;
-    v19 = controllerCopy;
-    v20 = accessoryCopy;
-    v18 = block;
+    v12 = &v23;
+    objc_copyWeak(&v23, &location);
+    v13 = &v21;
+    v14 = v22;
+    v21 = accessoryCopy;
+    v22[0] = controllerCopy;
+    v22[1] = self;
+    v18 = controllerCopy;
+    v19 = accessoryCopy;
+    v17 = block;
   }
 
-  dispatch_async(v12, v18);
+  dispatch_async(v11, v17);
 
-  objc_destroyWeak(v13);
+  objc_destroyWeak(v12);
   objc_destroyWeak(&location);
 }
 
@@ -496,6 +496,58 @@ LABEL_35:
 {
   v3 = +[NSNotificationCenter defaultCenter];
   [v3 postNotificationName:@"EAWiFiUnconfiguredAccessoryBrowserPurgeAccessoriesSet" object:self userInfo:0];
+}
+
+- (void)dismissWithStatus:(int)status
+{
+  v3 = *&status;
+  if (self->__debugLog)
+  {
+    NSLog(@"WAC: BrowserManager: dismissWithStatus method called, status: %d", a2, status);
+  }
+
+  self->_isConfiguring = 0;
+  targetViewController = [(EAWiFiUnconfiguredAccessoryBrowserManager *)self targetViewController];
+  [targetViewController dismissViewControllerAnimated:1 completion:0];
+
+  accessoryBeingConfigured = [(EAWiFiUnconfiguredAccessoryBrowserManager *)self accessoryBeingConfigured];
+  v7 = [NSMutableDictionary dictionaryWithObject:accessoryBeingConfigured forKey:@"EAWiFiUnconfiguredAccessoryConfigured"];
+
+  if (self->__debugLog)
+  {
+    NSLog(@" WAC: BrowserManager: dismissWithStatus, status: %d (cancel=%d), notificationInfoDict %@", v3, -6723, v7);
+  }
+
+  if (v3)
+  {
+    if (v3 == -6723)
+    {
+      v10 = 1;
+    }
+
+    else
+    {
+      v10 = 2;
+    }
+  }
+
+  else
+  {
+    accessoryBeingConfigured2 = [(EAWiFiUnconfiguredAccessoryBrowserManager *)self accessoryBeingConfigured];
+    v13 = accessoryBeingConfigured2;
+    v9 = [NSArray arrayWithObjects:&v13 count:1];
+    [(EAWiFiUnconfiguredAccessoryBrowserManager *)self didFindNewUnconfiguredAccessories:0 andRemovedUnconfiguredAccessories:v9];
+
+    v10 = 0;
+  }
+
+  v11 = [NSNumber numberWithInt:v10];
+  [v7 setObject:v11 forKey:@"EAWiFiUnconfiguredAccessoryBrowserConfigurationStatus"];
+
+  v12 = +[NSNotificationCenter defaultCenter];
+  [v12 postNotificationName:@"EAWiFiUnconfiguredAccessoryBrowserFinishedConfiguringAccessoryNotification" object:self userInfo:v7];
+
+  [(EAWiFiUnconfiguredAccessoryBrowserManager *)self setAccessoryBeingConfigured:0];
 }
 
 - (void)_signalPresentationComplete

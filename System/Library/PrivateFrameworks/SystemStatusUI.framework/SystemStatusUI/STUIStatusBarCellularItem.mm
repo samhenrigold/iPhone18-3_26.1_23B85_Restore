@@ -55,9 +55,11 @@
 - (void)_create_sosView
 {
   v3 = [STUIStatusBarImageView alloc];
-  self->_sosView = [(STUIStatusBarImageView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v4 = [(STUIStatusBarImageView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  sosView = self->_sosView;
+  self->_sosView = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, sosView);
 }
 
 - (STUIStatusBarStringView)networkTypeView
@@ -123,9 +125,11 @@
 - (void)_create_callForwardingView
 {
   v3 = [STUIStatusBarImageView alloc];
-  self->_callForwardingView = [(STUIStatusBarImageView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v4 = [(STUIStatusBarImageView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  callForwardingView = self->_callForwardingView;
+  self->_callForwardingView = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, callForwardingView);
 }
 
 - (STUIStatusBarCellularItemTypeStringProvider)typeStringProvider
@@ -634,11 +638,11 @@ LABEL_21:
   }
 }
 
-uint64_t __61__STUIStatusBarCellularItem_prepareAnimation_forDisplayItem___block_invoke(uint64_t result, uint64_t a2)
+id *__61__STUIStatusBarCellularItem_prepareAnimation_forDisplayItem___block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) setMarqueeRunning:1];
+    return [result[4] setMarqueeRunning:1];
   }
 
   return result;
@@ -702,9 +706,11 @@ uint64_t __61__STUIStatusBarCellularItem_prepareAnimation_forDisplayItem___block
 - (void)_create_warningView
 {
   v3 = [STUIStatusBarImageView alloc];
-  self->_warningView = [(STUIStatusBarImageView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v4 = [(STUIStatusBarImageView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  warningView = self->_warningView;
+  self->_warningView = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, warningView);
 }
 
 - (STUIStatusBarStringView)rawStringView
@@ -722,9 +728,11 @@ uint64_t __61__STUIStatusBarCellularItem_prepareAnimation_forDisplayItem___block
 - (void)_create_rawStringView
 {
   v3 = [STUIStatusBarStringView alloc];
-  self->_rawStringView = [(STUIStatusBarStringView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v4 = [(STUIStatusBarStringView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  rawStringView = self->_rawStringView;
+  self->_rawStringView = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, rawStringView);
 }
 
 - (void)_updateServiceNameMarquee

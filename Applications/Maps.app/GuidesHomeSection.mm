@@ -40,7 +40,7 @@
 
 - (id)description
 {
-  [(GuidesHomeSection *)self configuration];
+  objc_msgSend_configuration(self, a2);
   v3 = [(GuidesHomeSection *)self count];
   sectionTitle = [(GuidesHomeSection *)self sectionTitle];
   v5 = [NSString stringWithFormat:@"Section: (%@). Items: (%lu). Title: (%@)", v7, v3, sectionTitle];

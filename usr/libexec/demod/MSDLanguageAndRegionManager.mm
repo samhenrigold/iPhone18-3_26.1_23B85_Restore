@@ -6,6 +6,7 @@
 - (BOOL)saveDeviceLanguageIdentifier:(id)identifier;
 - (BOOL)saveDeviceRegionCode:(id)code;
 - (BOOL)saveSiriLanguageToPreferences:(id)preferences;
+- (BOOL)setDeviceLanguage:(id)language andRegion:(id)region matchToSystemLanguage:(BOOL)systemLanguage sbRestartNeeded:(BOOL *)needed sbRestartHandler:(id)handler;
 - (BOOL)setSiriLanguage:(id)language;
 - (MSDLanguageAndRegionManager)init;
 - (id)deviceLanguageIdentifier;
@@ -18,6 +19,7 @@
 - (id)getDemoPreferencesSiriLanguage;
 - (void)cancelNotifyToken:(int)token;
 - (void)restoreDeviceLanguageAndRegionIfNeeded;
+- (void)setSiriIsEnabled:(BOOL)enabled;
 @end
 
 @implementation MSDLanguageAndRegionManager
@@ -46,6 +48,85 @@
   }
 
   return v2;
+}
+
+- (BOOL)setDeviceLanguage:(id)language andRegion:(id)region matchToSystemLanguage:(BOOL)systemLanguage sbRestartNeeded:(BOOL *)needed sbRestartHandler:(id)handler
+{
+  systemLanguageCopy = systemLanguage;
+  languageCopy = language;
+  regionCopy = region;
+  handlerCopy = handler;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = -1;
+  v15 = +[MSDLanguageAndRegionHelper sharedInstance];
+  v16 = [v15 setDeviceLanguage:languageCopy andRegion:regionCopy matchToSystemLanguage:systemLanguageCopy];
+
+  if (v16 != 2)
+  {
+    v17 = dispatch_time(0, 60000000000);
+    queue = [(MSDLanguageAndRegionManager *)self queue];
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10007AE3C;
+    block[3] = &unk_10016B688;
+    v39 = &v40;
+    block[4] = self;
+    v19 = handlerCopy;
+    v38 = v19;
+    dispatch_after(v17, queue, block);
+
+    v20 = v41;
+    queue2 = [(MSDLanguageAndRegionManager *)self queue];
+    v30 = _NSConcreteStackBlock;
+    v31 = 3221225472;
+    v32 = sub_10007AEE8;
+    v33 = &unk_10016B6B0;
+    selfCopy = self;
+    v36 = &v40;
+    v35 = v19;
+    notify_register_dispatch("com.apple.springboard.finishedstartup", v20 + 6, queue2, &v30);
+  }
+
+  v22 = [(MSDLanguageAndRegionManager *)self getCurrentDevicePreferredLanguage:v30];
+  v23 = [(MSDLanguageAndRegionManager *)self saveDeviceLanguageIdentifier:v22];
+
+  if ((v23 & 1) == 0)
+  {
+    v28 = sub_100063A54(v24);
+    sub_1000DB5C8(v28, v44);
+    goto LABEL_10;
+  }
+
+  v25 = [(MSDLanguageAndRegionManager *)self saveDeviceRegionCode:regionCopy];
+  if ((v25 & 1) == 0)
+  {
+    v29 = sub_100063A54(v25);
+    sub_1000DB620(v29, v44);
+LABEL_10:
+
+    [(MSDLanguageAndRegionManager *)self cancelNotifyToken:v41[6]];
+    v26 = 0;
+    if (!needed)
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_6;
+  }
+
+  v26 = 1;
+  if (needed)
+  {
+LABEL_6:
+    *needed = v16 != 2;
+  }
+
+LABEL_7:
+  _Block_object_dispose(&v40, 8);
+
+  return v26;
 }
 
 - (id)getCurrentDeviceLanguage
@@ -145,6 +226,13 @@
   return isSiriEnabled;
 }
 
+- (void)setSiriIsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v4 = +[MSDLanguageAndRegionHelper sharedInstance];
+  [v4 setSiriIsEnabled:enabledCopy];
+}
+
 - (BOOL)saveDeviceLanguageIdentifier:(id)identifier
 {
   identifierCopy = identifier;
@@ -201,11 +289,11 @@
 
       if (v7 == 1)
       {
-        v8 = sub_100063A54();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v9 = sub_100063A54(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
-          *v9 = 0;
-          _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to set device language and region.", v9, 2u);
+          *v10 = 0;
+          _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to set device language and region.", v10, 2u);
         }
       }
     }

@@ -74,9 +74,9 @@
 
 - (void)viewDidLoad
 {
-  v55.receiver = self;
-  v55.super_class = AEHighlightColorEditorController;
-  [(AEAnnotationPopoverViewController *)&v55 viewDidLoad];
+  v56.receiver = self;
+  v56.super_class = AEHighlightColorEditorController;
+  [(AEAnnotationPopoverViewController *)&v56 viewDidLoad];
   v3 = [IMCalloutBar alloc];
   view = [(AEHighlightColorEditorController *)self view];
   [view bounds];
@@ -88,12 +88,12 @@
   if (objc_opt_respondsToSelector())
   {
     annotation = [(AEAnnotationPopoverViewController *)self annotation];
-    v54 = [delegate editorController:self isRightArrowEnabledForAnnotation:annotation];
+    v55 = [delegate editorController:self isRightArrowEnabledForAnnotation:annotation];
   }
 
   else
   {
-    v54 = 1;
+    v55 = 1;
   }
 
   if ([(AEHighlightColorEditorController *)self p_shouldShowCompactMenu])
@@ -111,8 +111,7 @@
     [(AEFingerPotView *)height setImage:v17 forState:0];
 
     [(AEFingerPotView *)height addTarget:self action:"showColorControlsMenu:" forControlEvents:64];
-    [(AEFingerPotView *)height setFrame:0.0, 0.0, 40.0, 38.0];
-    v18 = IMCommonCoreBundle();
+    v18 = IMCommonCoreBundle([(AEFingerPotView *)height setFrame:0.0, 0.0, 40.0, 38.0]);
     v19 = [v18 localizedStringForKey:@"Colors\\U2026" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
     [(AEFingerPotView *)height setAccessibilityLabel:v19];
   }
@@ -128,13 +127,12 @@
 
   [v6 addObject:height];
   height2 = [[AEFingerPotView alloc] initWithFrame:x, y, width, height];
-  v21 = IMCommonCoreBundle();
+  v21 = IMCommonCoreBundle(height2);
   v22 = [UIImage imageNamed:@"ib_text_pop_icon_trash" inBundle:v21];
   [(AEFingerPotView *)height2 setImage:v22 forState:0];
 
   [(AEFingerPotView *)height2 addTarget:self action:"handleDeleteButtonTap:" forControlEvents:64];
-  [(AEFingerPotView *)height2 setFrame:0.0, 0.0, 40.0, 38.0];
-  v23 = IMCommonCoreBundle();
+  v23 = IMCommonCoreBundle([(AEFingerPotView *)height2 setFrame:0.0, 0.0, 40.0, 38.0]);
   v24 = [v23 localizedStringForKey:@"Remove Highlight" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
   [(AEFingerPotView *)height2 setAccessibilityLabel:v24];
 
@@ -149,8 +147,7 @@
   [(UIButton *)v27 setImage:v28 forState:0];
 
   [(UIButton *)self->mAddNoteButton addTarget:self action:"handleAddNoteButton:" forControlEvents:64];
-  [(UIButton *)self->mAddNoteButton setFrame:0.0, 0.0, 40.0, 38.0];
-  v29 = IMCommonCoreBundle();
+  v29 = IMCommonCoreBundle([(UIButton *)self->mAddNoteButton setFrame:0.0, 0.0, 40.0, 38.0]);
   v30 = [v29 localizedStringForKey:@"Note" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
   [(UIButton *)self->mAddNoteButton setAccessibilityLabel:v30];
 
@@ -161,60 +158,58 @@
     mShareButton = self->mShareButton;
     self->mShareButton = v31;
 
-    v33 = IMCommonCoreBundle();
-    v34 = [UIImage imageNamed:@"ib_text_pop_icon_actions" inBundle:v33];
+    v34 = IMCommonCoreBundle(v33);
+    v35 = [UIImage imageNamed:@"ib_text_pop_icon_actions" inBundle:v34];
 
-    [(UIButton *)self->mShareButton setImage:v34 forState:0];
+    [(UIButton *)self->mShareButton setImage:v35 forState:0];
     [(UIButton *)self->mShareButton addTarget:self action:"handleShareButton:" forControlEvents:64];
-    [(UIButton *)self->mShareButton setFrame:0.0, 0.0, 40.0, 38.0];
-    v35 = IMCommonCoreBundle();
-    v36 = [v35 localizedStringForKey:@"Share" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
-    [(UIButton *)self->mShareButton setAccessibilityLabel:v36];
+    v36 = IMCommonCoreBundle([(UIButton *)self->mShareButton setFrame:0.0, 0.0, 40.0, 38.0]);
+    v37 = [v36 localizedStringForKey:@"Share" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    [(UIButton *)self->mShareButton setAccessibilityLabel:v37];
 
     [v6 addObject:self->mShareButton];
   }
 
-  if (v54)
+  if (v55)
   {
-    v37 = [IMCalloutButton buttonWithType:0];
-    v38 = IMCommonCoreBundle();
-    v39 = [UIImage imageNamed:@"ib_text_pop_icon_more" inBundle:v38];
-    [v37 setImage:v39 forState:0];
+    v38 = [IMCalloutButton buttonWithType:0];
+    v39 = IMCommonCoreBundle(v38);
+    v40 = [UIImage imageNamed:@"ib_text_pop_icon_more" inBundle:v39];
+    [v38 setImage:v40 forState:0];
 
-    [v37 addTarget:self action:"handleRightArrowButton:" forControlEvents:64];
-    [v37 setFrame:{0.0, 0.0, 40.0, 38.0}];
-    v40 = IMCommonCoreBundle();
-    v41 = [v40 localizedStringForKey:@"More" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
-    [v37 setAccessibilityLabel:v41];
+    [v38 addTarget:self action:"handleRightArrowButton:" forControlEvents:64];
+    v41 = IMCommonCoreBundle([v38 setFrame:{0.0, 0.0, 40.0, 38.0}]);
+    v42 = [v41 localizedStringForKey:@"More" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+    [v38 setAccessibilityLabel:v42];
 
-    [(AEHighlightColorEditorController *)self setRightArrowButton:v37];
-    [v6 addObject:v37];
+    [(AEHighlightColorEditorController *)self setRightArrowButton:v38];
+    [v6 addObject:v38];
   }
 
   [(IMCalloutBar *)v5 setControls:v6];
   [(IMCalloutBar *)v5 sizeThatFitsControls:v6];
-  v43 = v42;
-  v45 = v44;
+  v44 = v43;
+  v46 = v45;
   if ([(AEHighlightColorEditorController *)self p_shouldShowCompactMenu])
   {
-    v46 = [NSArray alloc];
+    v47 = [NSArray alloc];
     colorControls = [(AEHighlightColorEditorController *)self colorControls];
-    v48 = [v46 initWithObjects:{colorControls, 0}];
+    v49 = [v47 initWithObjects:{colorControls, 0}];
 
-    [(IMCalloutBar *)v5 sizeThatFitsControls:v48];
-    if (v43 < v49)
+    [(IMCalloutBar *)v5 sizeThatFitsControls:v49];
+    if (v44 < v50)
     {
-      v43 = v49;
+      v44 = v50;
     }
   }
 
-  [(IMCalloutBar *)v5 setFrame:0.0, 0.0, v43, v45];
+  [(IMCalloutBar *)v5 setFrame:0.0, 0.0, v44, v46];
   [(IMCalloutBar *)v5 frame];
-  v50 = CGRectGetWidth(v56);
+  v51 = CGRectGetWidth(v57);
   [(IMCalloutBar *)v5 frame];
-  v51 = CGRectGetHeight(v57);
+  v52 = CGRectGetHeight(v58);
   view2 = [(AEHighlightColorEditorController *)self view];
-  [view2 setFrame:{0.0, 0.0, v50, v51}];
+  [view2 setFrame:{0.0, 0.0, v51, v52}];
 
   view3 = [(AEHighlightColorEditorController *)self view];
   [view3 addSubview:v5];
@@ -459,7 +454,7 @@
   else
   {
     v3 = off_2CECC0[style - 1];
-    v4 = IMCommonCoreBundle();
+    v4 = IMCommonCoreBundle(self);
     v5 = [v4 localizedStringForKey:v3 value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
   }
 
@@ -525,32 +520,32 @@
 
 - (void)p_postDeleteConfirmation
 {
-  v3 = IMCommonCoreBundle();
+  v3 = IMCommonCoreBundle(self);
   v4 = [v3 localizedStringForKey:@"Delete Highlight" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
-  v5 = IMCommonCoreBundle();
-  v6 = [v5 localizedStringForKey:@"The associated note will also be deleted." value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v6 = IMCommonCoreBundle(v5);
+  v7 = [v6 localizedStringForKey:@"The associated note will also be deleted." value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
-  v7 = IMCommonCoreBundle();
-  v8 = [v7 localizedStringForKey:@"Cancel" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v9 = IMCommonCoreBundle(v8);
+  v10 = [v9 localizedStringForKey:@"Cancel" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
-  v9 = IMCommonCoreBundle();
-  v10 = [v9 localizedStringForKey:@"Delete" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v12 = IMCommonCoreBundle(v11);
+  v13 = [v12 localizedStringForKey:@"Delete" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
 
-  v11 = [UIAlertController alertControllerWithTitle:v4 message:v6 preferredStyle:1];
-  [(AEHighlightColorEditorController *)self setAlertController:v11];
-  v12 = [UIAlertAction actionWithTitle:v8 style:1 handler:0];
-  [v11 addAction:v12];
+  v14 = [UIAlertController alertControllerWithTitle:v4 message:v7 preferredStyle:1];
+  [(AEHighlightColorEditorController *)self setAlertController:v14];
+  v15 = [UIAlertAction actionWithTitle:v10 style:1 handler:0];
+  [v14 addAction:v15];
 
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_171844;
-  v14[3] = &unk_2CEC28;
-  v14[4] = self;
-  v13 = [UIAlertAction actionWithTitle:v10 style:2 handler:v14];
-  [v11 addAction:v13];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_171844;
+  v17[3] = &unk_2CEC28;
+  v17[4] = self;
+  v16 = [UIAlertAction actionWithTitle:v13 style:2 handler:v17];
+  [v14 addAction:v16];
 
-  [(AEHighlightColorEditorController *)self presentViewController:v11 animated:1 completion:0];
+  [(AEHighlightColorEditorController *)self presentViewController:v14 animated:1 completion:0];
 }
 
 - (void)setDelegate:(id)delegate
@@ -770,7 +765,7 @@
   }
 
   v4 = v3;
-  v5 = IMCommonCoreBundle();
+  v5 = IMCommonCoreBundle(v4);
   v6 = [UIImage imageNamed:v4 inBundle:v5];
 
   return v6;

@@ -3,8 +3,10 @@
 - (void)_configureRemoteAlertWithURL:(id)l;
 - (void)_displayLaunchContentViewController;
 - (void)configureWithContext:(id)context completion:(id)completion;
+- (void)launchContentViewControllerDidDisappear:(id)disappear didOpenClip:(BOOL)clip;
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
 - (void)proxCardFlowDidDismiss;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -51,6 +53,18 @@
 
   viewControllers2 = [delegate viewControllers];
   [viewControllers2 addObject:self];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = CPSAlertViewController;
+  [(CPSAlertViewController *)&v7 viewDidDisappear:disappear];
+  v4 = +[UIApplication sharedApplication];
+  delegate = [v4 delegate];
+
+  viewControllers = [delegate viewControllers];
+  [viewControllers removeObject:self];
 }
 
 - (void)_displayLaunchContentViewController
@@ -153,6 +167,23 @@
   v5 = v3(selfCopy, 1);
 
   return v5;
+}
+
+- (void)launchContentViewControllerDidDisappear:(id)disappear didOpenClip:(BOOL)clip
+{
+  clipCopy = clip;
+  if ([(BSAction *)self->_action canSendResponse])
+  {
+    action = self->_action;
+    v7 = [CPSOpenClipCardPresenter responseForOpenClipAction:clipCopy];
+    [(BSAction *)action sendResponse:v7];
+  }
+
+  v8 = self->_action;
+  self->_action = 0;
+
+  _remoteViewControllerProxy = [(CPSAlertViewController *)self _remoteViewControllerProxy];
+  [_remoteViewControllerProxy dismiss];
 }
 
 - (void)proxCardFlowDidDismiss

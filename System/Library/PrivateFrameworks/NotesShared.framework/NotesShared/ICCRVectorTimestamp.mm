@@ -152,7 +152,7 @@
         {
           if (v13 == *(timestamp + 14))
           {
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(timestamp + 40, v13 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(timestamp + 10, v13 + 1);
           }
 
           google::protobuf::internal::GenericTypeHandler<CRDT::VectorTimestamp_Element>::New();

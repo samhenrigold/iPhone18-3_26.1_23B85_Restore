@@ -6,34 +6,32 @@
 
 + (void)fetchWiFiBehaviorWithCompletion:(id)completion
 {
-  v15[8] = *MEMORY[0x277D85DE8];
+  v14[8] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v4 = objc_alloc_init(WCAFetchKeyValuesRequest);
-  v15[0] = @"WiFiInternalSSIDs";
-  v15[1] = @"MacRandomization";
-  v15[2] = @"SoftErrors";
-  v15[3] = @"JTRN";
-  v15[4] = @"DataPathTelemetry";
-  v15[5] = @"WiFiAmbiguousSSIDs";
-  v15[6] = @"AccessPointProfile";
-  v15[7] = @"BeaconParsing";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:8];
+  v14[0] = @"WiFiInternalSSIDs";
+  v14[1] = @"MacRandomization";
+  v14[2] = @"SoftErrors";
+  v14[3] = @"JTRN";
+  v14[4] = @"DataPathTelemetry";
+  v14[5] = @"WiFiAmbiguousSSIDs";
+  v14[6] = @"AccessPointProfile";
+  v14[7] = @"BeaconParsing";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:8];
   [(WCAFetchKeyValuesRequest *)v4 setKeys:v5];
 
   v6 = +[WCAAsset wifiBehaviorPlistAsset];
   [(WCAFetchRequest *)v4 setAsset:v6];
 
-  v10 = MEMORY[0x277D85DD0];
-  v11 = 3221225472;
-  v12 = __66__WCAFetchWiFiBehaviorParameters_fetchWiFiBehaviorWithCompletion___block_invoke;
-  v13 = &unk_2789C81A8;
-  v14 = completionCopy;
+  v9 = MEMORY[0x277D85DD0];
+  v10 = 3221225472;
+  v11 = __66__WCAFetchWiFiBehaviorParameters_fetchWiFiBehaviorWithCompletion___block_invoke;
+  v12 = &unk_2789C81A8;
+  v13 = completionCopy;
   v7 = completionCopy;
-  [(WCAFetchRequest *)v4 setCompletionHandler:&v10];
-  v8 = [WCAClient sharedClient:v10];
+  [(WCAFetchRequest *)v4 setCompletionHandler:&v9];
+  v8 = [WCAClient sharedClient:v9];
   [v8 executeFetchRequest:v4];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __66__WCAFetchWiFiBehaviorParameters_fetchWiFiBehaviorWithCompletion___block_invoke(uint64_t a1, void *a2)

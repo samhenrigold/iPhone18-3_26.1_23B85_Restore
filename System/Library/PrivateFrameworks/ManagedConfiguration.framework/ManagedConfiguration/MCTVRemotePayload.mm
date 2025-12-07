@@ -19,29 +19,28 @@
 
 + (id)typeStrings
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.tvremote";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.tvremote";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (MCTVRemotePayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v54.receiver = self;
-  v54.super_class = MCTVRemotePayload;
-  v9 = [(MCPayload *)&v54 initWithDictionary:dictionaryCopy profile:profile outError:error];
+  v53.receiver = self;
+  v53.super_class = MCTVRemotePayload;
+  v9 = [(MCPayload *)&v53 initWithDictionary:dictionaryCopy profile:profile outError:error];
   if (!v9)
   {
     goto LABEL_31;
   }
 
-  v53 = 0;
-  v10 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"AllowedTVs" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v53];
-  v11 = v53;
+  v52 = 0;
+  v10 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"AllowedTVs" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v52];
+  v11 = v52;
   if (v11)
   {
     v12 = v11;
@@ -52,28 +51,28 @@
     array = [MEMORY[0x1E695DF70] array];
     array2 = [MEMORY[0x1E695DF70] array];
     array3 = [MEMORY[0x1E695DF70] array];
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     obj = v10;
-    v43 = [(NSArray *)obj countByEnumeratingWithState:&v49 objects:v59 count:16];
-    if (v43)
+    v42 = [(NSArray *)obj countByEnumeratingWithState:&v48 objects:v58 count:16];
+    if (v42)
     {
-      v44 = *v50;
-      v45 = array;
+      v43 = *v49;
+      v44 = array;
       errorCopy = error;
-      v46 = array2;
+      v45 = array2;
 LABEL_6:
       v15 = 0;
       while (1)
       {
-        if (*v50 != v44)
+        if (*v49 != v43)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v49 + 1) + 8 * v15);
+        v16 = *(*(&v48 + 1) + 8 * v15);
         dictionary = [MEMORY[0x1E695DF90] dictionary];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -81,9 +80,9 @@ LABEL_6:
           break;
         }
 
-        v48 = 0;
-        v18 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:v16 key:@"TVDeviceID" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v48];
-        v19 = v48;
+        v47 = 0;
+        v18 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:v16 key:@"TVDeviceID" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v47];
+        v19 = v47;
         if (v19)
         {
           v12 = v19;
@@ -94,10 +93,10 @@ LABEL_6:
         uppercaseString = [v18 uppercaseString];
 
         [dictionary setObject:uppercaseString forKeyedSubscript:@"TVDeviceID"];
-        [v46 addObject:uppercaseString];
-        v47 = 0;
-        v21 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:v16 key:@"TVDeviceName" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v47];
-        v22 = v47;
+        [v45 addObject:uppercaseString];
+        v46 = 0;
+        v21 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:v16 key:@"TVDeviceName" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v46];
+        v22 = v46;
         if (v22)
         {
           v12 = v22;
@@ -111,15 +110,15 @@ LABEL_6:
           [array3 addObject:v21];
         }
 
-        [v45 addObject:dictionary];
+        [v44 addObject:dictionary];
 
-        if (v43 == ++v15)
+        if (v42 == ++v15)
         {
           error = errorCopy;
-          array = v45;
-          array2 = v46;
-          v43 = [(NSArray *)obj countByEnumeratingWithState:&v49 objects:v59 count:16];
-          if (v43)
+          array = v44;
+          array2 = v45;
+          v42 = [(NSArray *)obj countByEnumeratingWithState:&v48 objects:v58 count:16];
+          if (v42)
           {
             goto LABEL_6;
           }
@@ -135,8 +134,8 @@ LABEL_20:
       v24 = array3;
       allowedTVIDs = obj;
       error = errorCopy;
-      array = v45;
-      array2 = v46;
+      array = v44;
+      array2 = v45;
       goto LABEL_21;
     }
 
@@ -174,9 +173,9 @@ LABEL_21:
     v33 = v32;
     mCVerboseDescription = [v28 MCVerboseDescription];
     *buf = 138543618;
-    v56 = v32;
-    v57 = 2114;
-    v58 = mCVerboseDescription;
+    v55 = v32;
+    v56 = 2114;
+    v57 = mCVerboseDescription;
     _os_log_impl(&dword_1A795B000, v31, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
   }
 
@@ -190,15 +189,14 @@ LABEL_27:
       v36 = v35;
       friendlyName = [(MCPayload *)v9 friendlyName];
       *buf = 138543618;
-      v56 = friendlyName;
-      v57 = 2114;
-      v58 = dictionaryCopy;
+      v55 = friendlyName;
+      v56 = 2114;
+      v57 = dictionaryCopy;
       _os_log_impl(&dword_1A795B000, v36, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
     }
   }
 
 LABEL_31:
-  v38 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -358,11 +356,11 @@ LABEL_31:
 
 - (id)verboseDescription
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD60];
-  v35.receiver = self;
-  v35.super_class = MCTVRemotePayload;
-  v4 = [(MCPayload *)&v35 description];
+  v34.receiver = self;
+  v34.super_class = MCTVRemotePayload;
+  v4 = [(MCPayload *)&v34 description];
   v5 = [v3 stringWithString:v4];
 
   allowedRemotes = [(MCTVRemotePayload *)self allowedRemotes];
@@ -372,29 +370,29 @@ LABEL_31:
     allowedRemotes2 = [(MCTVRemotePayload *)self allowedRemotes];
     [v5 appendFormat:@"Allowed Remotes   : %lu entries\n", objc_msgSend(allowedRemotes2, "count")];
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     allowedRemotes3 = [(MCTVRemotePayload *)self allowedRemotes];
-    v9 = [allowedRemotes3 countByEnumeratingWithState:&v31 objects:v37 count:16];
+    v9 = [allowedRemotes3 countByEnumeratingWithState:&v30 objects:v36 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v32;
+      v11 = *v31;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v32 != v11)
+          if (*v31 != v11)
           {
             objc_enumerationMutation(allowedRemotes3);
           }
 
-          [v5 appendFormat:@"                  %@\n", *(*(&v31 + 1) + 8 * i)];
+          [v5 appendFormat:@"                  %@\n", *(*(&v30 + 1) + 8 * i)];
         }
 
-        v10 = [allowedRemotes3 countByEnumeratingWithState:&v31 objects:v37 count:16];
+        v10 = [allowedRemotes3 countByEnumeratingWithState:&v30 objects:v36 count:16];
       }
 
       while (v10);
@@ -408,26 +406,26 @@ LABEL_31:
     allowedTVs2 = [(MCTVRemotePayload *)self allowedTVs];
     [v5 appendFormat:@"Allowed TVs       : %lu entries\n", objc_msgSend(allowedTVs2, "count")];
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = [(MCTVRemotePayload *)self allowedTVs];
-    v15 = [obj countByEnumeratingWithState:&v27 objects:v36 count:16];
+    v15 = [obj countByEnumeratingWithState:&v26 objects:v35 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v28;
+      v17 = *v27;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v28 != v17)
+          if (*v27 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v27 + 1) + 8 * j);
+          v19 = *(*(&v26 + 1) + 8 * j);
           v20 = [v19 objectForKeyedSubscript:@"TVDeviceID"];
           v21 = [v19 objectForKeyedSubscript:@"TVDeviceName"];
           v22 = v21;
@@ -444,14 +442,12 @@ LABEL_31:
           [v5 appendFormat:@"                  %@ (%@)\n", v20, v23];
         }
 
-        v16 = [obj countByEnumeratingWithState:&v27 objects:v36 count:16];
+        v16 = [obj countByEnumeratingWithState:&v26 objects:v35 count:16];
       }
 
       while (v16);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

@@ -177,12 +177,12 @@
   [self _accessDataStoreUsingBlock:v10];
 }
 
-uint64_t __44__AMSEphemeralDefaults__setProperty_forKey___block_invoke(uint64_t result, void *a2)
+void *__44__AMSEphemeralDefaults__setProperty_forKey___block_invoke(void *result, void *a2)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if (v2)
   {
-    return [a2 setObject:v2 forKeyedSubscript:*(result + 40)];
+    return [a2 setObject:v2 forKeyedSubscript:result[5]];
   }
 
   return result;

@@ -280,25 +280,7 @@
     uUIDString = [v11 UUIDString];
 
     uTF8String = [uUIDString UTF8String];
-    if (!uTF8String)
-    {
-      goto LABEL_5;
-    }
-
-    v13 = uTF8String;
-    v14 = strlen(uTF8String);
-    v15 = strlen(path);
-    if (v14 + v15 - 743 < 0xFFFFFFFFFFFFFC00)
-    {
-      goto LABEL_5;
-    }
-
-    v19 = v15;
-    bzero(v32, 0x400uLL);
-    __memcpy_chk();
-    v20 = &v32[v19];
-    strcpy(&v32[v19], "/.Spotlight-V100");
-    if (mkdir(v32, 0x1C0u) != -1 || (v8 = *__error(), v8 == 17))
+    if (uTF8String && (v13 = uTF8String, v14 = strlen(uTF8String), v15 = strlen(path), v14 + v15 - 743 >= 0xFFFFFFFFFFFFFC00) && ((v19 = v15, bzero(v32, 0x400uLL), __memcpy_chk(), v20 = &v32[v19], strcpy(&v32[v19], "/.Spotlight-V100"), mkdir(v32, 0x1C0u) != -1) || (v8 = *__error(), v8 == 17)))
     {
       v31[0] = v6;
       v30[0] = @"ConfigurationVolumeUUID";
@@ -368,7 +350,6 @@
 
     else
     {
-LABEL_5:
       v9 = 0;
       v10 = 0;
     }
@@ -1040,24 +1021,8 @@ LABEL_12:
         }
 
         mountTime = [(VolumeScan *)v20 mountTime];
-        if (!mountTime)
+        if (!mountTime || (-[VolumeScan mountTime](v20, "mountTime"), v40 = objc_claimAutoreleasedReturnValue(), [v40 timeIntervalSinceNow], v42 = v41 < 60.0, v40, mountTime, v42) || (-[VolumeScan lastMTime](v20, "lastMTime"), (v43 = objc_claimAutoreleasedReturnValue()) == 0) || (-[VolumeScan lastMTime](v20, "lastMTime"), v44 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v44, "timeIntervalSinceDate:", v53), v46 = v45 < 60.0, v44, v43, v46))
         {
-          goto LABEL_46;
-        }
-
-        mountTime2 = [(VolumeScan *)v20 mountTime];
-        [mountTime2 timeIntervalSinceNow];
-        v42 = v41 < 60.0;
-
-        if (v42)
-        {
-          goto LABEL_46;
-        }
-
-        lastMTime = [(VolumeScan *)v20 lastMTime];
-        if (!lastMTime || (-[VolumeScan lastMTime](v20, "lastMTime"), v44 = objc_claimAutoreleasedReturnValue(), [v44 timeIntervalSinceDate:v53], v46 = v45 < 60.0, v44, lastMTime, v46))
-        {
-LABEL_46:
           v47 = logForCSLogCategoryDefault();
           if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
           {

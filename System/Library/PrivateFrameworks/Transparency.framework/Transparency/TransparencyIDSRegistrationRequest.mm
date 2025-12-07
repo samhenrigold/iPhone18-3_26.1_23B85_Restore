@@ -21,16 +21,16 @@
 
 - (TransparencyIDSRegistrationRequest)initWithCoder:(id)coder
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   [coderCopy decodeDoubleForKey:@"initialTimeout"];
   v6 = v5;
   v7 = MEMORY[0x1E695DFD8];
+  v15 = objc_opt_class();
   v16 = objc_opt_class();
   v17 = objc_opt_class();
-  v18 = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:3];
-  v9 = [v7 setWithArray:{v8, v16, v17}];
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:3];
+  v9 = [v7 setWithArray:{v8, v15, v16}];
 
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"requests"];
   objc_opt_class();
@@ -50,7 +50,6 @@
     selfCopy = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

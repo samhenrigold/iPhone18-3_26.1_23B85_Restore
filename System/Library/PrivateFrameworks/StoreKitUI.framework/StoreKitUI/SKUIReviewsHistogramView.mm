@@ -28,9 +28,9 @@
     [SKUIReviewsHistogramView initWithClientContext:];
   }
 
-  v76.receiver = self;
-  v76.super_class = SKUIReviewsHistogramView;
-  v6 = [(SKUIReviewsHistogramView *)&v76 init];
+  v80.receiver = self;
+  v80.super_class = SKUIReviewsHistogramView;
+  v6 = [(SKUIReviewsHistogramView *)&v80 init];
   v7 = v6;
   if (v6)
   {
@@ -43,47 +43,47 @@
 
       v10 = v7->_starRatingControl;
       v11 = MEMORY[0x277D755B8];
-      v12 = SKUIBundle();
-      v13 = [v11 imageNamed:@"LightRateControl" inBundle:v12];
-      [(SKUIStarRatingControl *)v10 setEmptyStarsImage:v13];
+      v14 = SKUIBundle(v12, v13);
+      v15 = [v11 imageNamed:@"LightRateControl" inBundle:v14];
+      [(SKUIStarRatingControl *)v10 setEmptyStarsImage:v15];
 
-      v14 = v7->_starRatingControl;
-      v15 = MEMORY[0x277D755B8];
-      v16 = SKUIBundle();
-      v17 = [v15 imageNamed:@"RateControlFilled" inBundle:v16];
-      [(SKUIStarRatingControl *)v14 setFilledStarsImage:v17];
+      v16 = v7->_starRatingControl;
+      v17 = MEMORY[0x277D755B8];
+      v20 = SKUIBundle(v18, v19);
+      v21 = [v17 imageNamed:@"RateControlFilled" inBundle:v20];
+      [(SKUIStarRatingControl *)v16 setFilledStarsImage:v21];
 
       [(SKUIStarRatingControl *)v7->_starRatingControl sizeToFit];
       [(SKUIReviewsHistogramView *)v7 addSubview:v7->_starRatingControl];
-      v18 = objc_alloc_init(MEMORY[0x277D756B8]);
+      v22 = objc_alloc_init(MEMORY[0x277D756B8]);
       p_starRatingControlLabel = &v7->_starRatingControlLabel;
       starRatingControlLabel = v7->_starRatingControlLabel;
-      v7->_starRatingControlLabel = v18;
-
-      v21 = v7->_starRatingControlLabel;
-      backgroundColor = [(SKUIReviewsHistogramView *)v7 backgroundColor];
-      [(UILabel *)v21 setBackgroundColor:backgroundColor];
-
-      v23 = v7->_starRatingControlLabel;
-      v24 = [MEMORY[0x277D74300] systemFontOfSize:14.0];
-      [(UILabel *)v23 setFont:v24];
+      v7->_starRatingControlLabel = v22;
 
       v25 = v7->_starRatingControlLabel;
+      backgroundColor = [(SKUIReviewsHistogramView *)v7 backgroundColor];
+      [(UILabel *)v25 setBackgroundColor:backgroundColor];
+
+      v27 = v7->_starRatingControlLabel;
+      v28 = [MEMORY[0x277D74300] systemFontOfSize:14.0];
+      [(UILabel *)v27 setFont:v28];
+
+      v29 = v7->_starRatingControlLabel;
       secondaryTextColor = [(SKUIColorScheme *)v7->_colorScheme secondaryTextColor];
       if (secondaryTextColor)
       {
-        [(UILabel *)v25 setTextColor:secondaryTextColor];
+        [(UILabel *)v29 setTextColor:secondaryTextColor];
       }
 
       else
       {
-        v31 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.8];
-        [(UILabel *)v25 setTextColor:v31];
+        v35 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.8];
+        [(UILabel *)v29 setTextColor:v35];
       }
 
-      v32 = *p_starRatingControlLabel;
+      v36 = *p_starRatingControlLabel;
       clientContext = v7->_clientContext;
-      v34 = 0x277D74000;
+      v38 = 0x277D74000;
       if (clientContext)
       {
         [(SKUIClientContext *)clientContext localizedStringForKey:@"REVIEWS_TAP_TO_RATE" inTable:@"ProductPage"];
@@ -93,35 +93,35 @@
       {
         [SKUIClientContext localizedStringForKey:@"REVIEWS_TAP_TO_RATE" inBundles:0 inTable:@"ProductPage"];
       }
-      v46 = ;
-      [v32 setText:v46];
+      v50 = ;
+      [v36 setText:v50];
 
       [*p_starRatingControlLabel sizeToFit];
     }
 
     else
     {
-      v27 = [MEMORY[0x277D75220] buttonWithType:1];
+      v31 = [MEMORY[0x277D75220] buttonWithType:1];
       appSupportButton = v7->_appSupportButton;
-      v7->_appSupportButton = v27;
+      v7->_appSupportButton = v31;
 
-      v29 = v7->_appSupportButton;
-      v30 = v7->_clientContext;
-      if (v30)
+      v33 = v7->_appSupportButton;
+      v34 = v7->_clientContext;
+      if (v34)
       {
-        [(SKUIClientContext *)v30 localizedStringForKey:@"REVIEWS_HEADER_BUTTON_APP_SUPPORT" inTable:@"ProductPage"];
+        [(SKUIClientContext *)v34 localizedStringForKey:@"REVIEWS_HEADER_BUTTON_APP_SUPPORT" inTable:@"ProductPage"];
       }
 
       else
       {
         [SKUIClientContext localizedStringForKey:@"REVIEWS_HEADER_BUTTON_APP_SUPPORT" inBundles:0 inTable:@"ProductPage"];
       }
-      v35 = ;
-      [(UIButton *)v29 setTitle:v35 forState:0];
+      v39 = ;
+      [(UIButton *)v33 setTitle:v39 forState:0];
 
       titleLabel = [(UIButton *)v7->_appSupportButton titleLabel];
-      v37 = [MEMORY[0x277D74300] systemFontOfSize:18.0];
-      [titleLabel setFont:v37];
+      v41 = [MEMORY[0x277D74300] systemFontOfSize:18.0];
+      [titleLabel setFont:v41];
 
       titleLabel2 = [(UIButton *)v7->_appSupportButton titleLabel];
       [titleLabel2 setAdjustsFontSizeToFitWidth:1];
@@ -130,34 +130,34 @@
       [titleLabel3 setMinimumScaleFactor:0.833333333];
 
       [(UIButton *)v7->_appSupportButton sizeToFit];
-      v40 = v7->_appSupportButton;
+      v44 = v7->_appSupportButton;
       secondaryTextColor2 = [(SKUIColorScheme *)v7->_colorScheme secondaryTextColor];
-      [(UIButton *)v40 setTintColor:secondaryTextColor2];
+      [(UIButton *)v44 setTintColor:secondaryTextColor2];
 
       [(SKUIReviewsHistogramView *)v7 addSubview:v7->_appSupportButton];
-      v42 = [MEMORY[0x277D75220] buttonWithType:1];
+      v46 = [MEMORY[0x277D75220] buttonWithType:1];
       p_starRatingControlLabel = &v7->_writeAReviewButton;
       writeAReviewButton = v7->_writeAReviewButton;
-      v7->_writeAReviewButton = v42;
+      v7->_writeAReviewButton = v46;
 
-      v44 = v7->_writeAReviewButton;
-      v45 = v7->_clientContext;
-      v34 = 0x277D74000uLL;
-      if (v45)
+      v48 = v7->_writeAReviewButton;
+      v49 = v7->_clientContext;
+      v38 = 0x277D74000uLL;
+      if (v49)
       {
-        [(SKUIClientContext *)v45 localizedStringForKey:@"REVIEWS_HEADER_BUTTON_WRITE_A_REVIEW_IPHONE" inTable:@"ProductPage"];
+        [(SKUIClientContext *)v49 localizedStringForKey:@"REVIEWS_HEADER_BUTTON_WRITE_A_REVIEW_IPHONE" inTable:@"ProductPage"];
       }
 
       else
       {
         [SKUIClientContext localizedStringForKey:@"REVIEWS_HEADER_BUTTON_WRITE_A_REVIEW_IPHONE" inBundles:0 inTable:@"ProductPage"];
       }
-      v47 = ;
-      [(UIButton *)v44 setTitle:v47 forState:0];
+      v51 = ;
+      [(UIButton *)v48 setTitle:v51 forState:0];
 
       titleLabel4 = [*p_starRatingControlLabel titleLabel];
-      v49 = [MEMORY[0x277D74300] systemFontOfSize:18.0];
-      [titleLabel4 setFont:v49];
+      v53 = [MEMORY[0x277D74300] systemFontOfSize:18.0];
+      [titleLabel4 setFont:v53];
 
       titleLabel5 = [*p_starRatingControlLabel titleLabel];
       [titleLabel5 setAdjustsFontSizeToFitWidth:1];
@@ -166,67 +166,67 @@
       [titleLabel6 setMinimumScaleFactor:0.833333333];
 
       [*p_starRatingControlLabel sizeToFit];
-      v52 = *p_starRatingControlLabel;
+      v56 = *p_starRatingControlLabel;
       secondaryTextColor3 = [(SKUIColorScheme *)v7->_colorScheme secondaryTextColor];
-      [v52 setTintColor:secondaryTextColor3];
+      [v56 setTintColor:secondaryTextColor3];
     }
 
     [(SKUIReviewsHistogramView *)v7 addSubview:*p_starRatingControlLabel];
-    v54 = objc_alloc(MEMORY[0x277D755E8]);
-    v55 = [(SKUIReviewsHistogramView *)v7 _histogramImageForValues:&unk_2828D2F90];
-    v56 = [v54 initWithImage:v55];
+    v58 = objc_alloc(MEMORY[0x277D755E8]);
+    v59 = [(SKUIReviewsHistogramView *)v7 _histogramImageForValues:&unk_2828D2F90];
+    v60 = [v58 initWithImage:v59];
     histogramImageView = v7->_histogramImageView;
-    v7->_histogramImageView = v56;
+    v7->_histogramImageView = v60;
 
     [(UIImageView *)v7->_histogramImageView sizeToFit];
     [(SKUIReviewsHistogramView *)v7 addSubview:v7->_histogramImageView];
-    v58 = objc_alloc(MEMORY[0x277D755E8]);
-    v59 = [SKUIRatingStarsCache cacheWithProperties:1];
-    v60 = [v59 ratingStarsImageForRating:0.0];
-    v61 = [v58 initWithImage:v60];
+    v62 = objc_alloc(MEMORY[0x277D755E8]);
+    v63 = [SKUIRatingStarsCache cacheWithProperties:1];
+    v64 = [v63 ratingStarsImageForRating:0.0];
+    v65 = [v62 initWithImage:v64];
     userRatingStarsView = v7->_userRatingStarsView;
-    v7->_userRatingStarsView = v61;
+    v7->_userRatingStarsView = v65;
 
     [(SKUIReviewsHistogramView *)v7 addSubview:v7->_userRatingStarsView];
-    v63 = objc_alloc_init(MEMORY[0x277D756B8]);
+    v67 = objc_alloc_init(MEMORY[0x277D756B8]);
     countLabel = v7->_countLabel;
-    v7->_countLabel = v63;
+    v7->_countLabel = v67;
 
-    v65 = v7->_countLabel;
+    v69 = v7->_countLabel;
     secondaryTextColor4 = [(SKUIColorScheme *)v7->_colorScheme secondaryTextColor];
     if (secondaryTextColor4)
     {
-      [(UILabel *)v65 setTextColor:secondaryTextColor4];
+      [(UILabel *)v69 setTextColor:secondaryTextColor4];
     }
 
     else
     {
-      v67 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.8];
-      [(UILabel *)v65 setTextColor:v67];
+      v71 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.8];
+      [(UILabel *)v69 setTextColor:v71];
     }
 
     [(UILabel *)v7->_countLabel setNumberOfLines:0];
-    v68 = v7->_countLabel;
-    v69 = [*(v34 + 768) systemFontOfSize:14.0];
-    [(UILabel *)v68 setFont:v69];
+    v72 = v7->_countLabel;
+    v73 = [*(v38 + 768) systemFontOfSize:14.0];
+    [(UILabel *)v72 setFont:v73];
 
     [(SKUIReviewsHistogramView *)v7 addSubview:v7->_countLabel];
     [(SKUIReviewsHistogramView *)v7 setNumberOfUserRatings:0];
-    v70 = objc_alloc_init(MEMORY[0x277D75D18]);
+    v74 = objc_alloc_init(MEMORY[0x277D75D18]);
     bottomSeparatorView = v7->_bottomSeparatorView;
-    v7->_bottomSeparatorView = v70;
+    v7->_bottomSeparatorView = v74;
 
-    v72 = v7->_bottomSeparatorView;
-    primaryTextColor = [(SKUIColorScheme *)v7->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v76 = v7->_bottomSeparatorView;
+    v77 = objc_msgSend_primaryTextColor(v7->_colorScheme);
+    if (v77)
     {
-      [(UIView *)v72 setBackgroundColor:primaryTextColor];
+      [(UIView *)v76 setBackgroundColor:v77];
     }
 
     else
     {
-      v74 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.2];
-      [(UIView *)v72 setBackgroundColor:v74];
+      v78 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.2];
+      [(UIView *)v76 setBackgroundColor:v78];
     }
 
     [(SKUIReviewsHistogramView *)v7 addSubview:v7->_bottomSeparatorView];
@@ -428,7 +428,7 @@
 {
   titleCopy = title;
   text = [(UILabel *)self->_titleLabel text];
-  if (text != titleCopy && ([text isEqualToString:titleCopy] & 1) == 0)
+  if (text != titleCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)
@@ -756,92 +756,92 @@
   mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen2 scale];
   v15 = v14;
-  v67.width = v9;
-  v67.height = v12;
-  UIGraphicsBeginImageContextWithOptions(v67, 0, v15);
+  v68.width = v9;
+  v68.height = v12;
+  UIGraphicsBeginImageContextWithOptions(v68, 0, v15);
 
   c = UIGraphicsGetCurrentContext();
   v16 = MEMORY[0x277D755B8];
-  v17 = SKUIBundle();
-  v18 = [v16 imageNamed:@"SmallStarFull" inBundle:v17];
+  v18 = SKUIBundle(c, v17);
+  v19 = [v16 imageNamed:@"SmallStarFull" inBundle:v18];
 
-  primaryTextColor = [(SKUIColorScheme *)selfCopy->_colorScheme primaryTextColor];
-  if (primaryTextColor)
+  v20 = objc_msgSend_primaryTextColor(selfCopy->_colorScheme);
+  if (v20)
   {
-    primaryTextColor2 = [(SKUIColorScheme *)selfCopy->_colorScheme primaryTextColor];
-    v21 = SKUIColorWithAlpha(primaryTextColor2, 0.1);
-    v22 = SKUITintedImage(v18, 0, v21);
+    v21 = objc_msgSend_primaryTextColor(selfCopy->_colorScheme);
+    v22 = SKUIColorWithAlpha(v21, 0.1);
+    v23 = SKUITintedImage(v19, 0, v22);
   }
 
   else
   {
-    primaryTextColor2 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.05];
-    v22 = SKUITintedImage(v18, 0, primaryTextColor2);
+    v21 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.05];
+    v23 = SKUITintedImage(v19, 0, v21);
   }
 
-  primaryTextColor3 = [(SKUIColorScheme *)selfCopy->_colorScheme primaryTextColor];
-  if (primaryTextColor3)
+  v24 = objc_msgSend_primaryTextColor(selfCopy->_colorScheme);
+  if (v24)
   {
-    v24 = SKUITintedImage(v18, 0, primaryTextColor3);
+    v25 = SKUITintedImage(v19, 0, v24);
   }
 
   else
   {
-    v25 = [MEMORY[0x277D75348] colorWithWhite:0.517647059 alpha:1.0];
-    v24 = SKUITintedImage(v18, 0, v25);
+    v26 = [MEMORY[0x277D75348] colorWithWhite:0.517647059 alpha:1.0];
+    v25 = SKUITintedImage(v19, 0, v26);
   }
 
-  [v18 size];
-  v27 = v26;
+  [v19 size];
+  v28 = v27;
   if ([valuesCopy count])
   {
-    v28 = 0;
-    v29 = (14.0 - v27) * 0.5;
-    v30 = roundf(v29);
+    v29 = 0;
+    v30 = (14.0 - v28) * 0.5;
+    v31 = roundf(v30);
     do
     {
       if ([valuesCopy count])
       {
-        v31 = 0;
+        v32 = 0;
         do
         {
-          v32 = v31 + 1;
-          if (v31 >= v28)
+          v33 = v32 + 1;
+          if (v32 >= v29)
           {
-            v33 = v24;
+            v34 = v25;
           }
 
           else
           {
-            v33 = v22;
+            v34 = v23;
           }
 
-          v34 = v31;
-          v35 = v33;
-          [v18 size];
-          [v35 drawAtPoint:{v36 * v34, v30 + (v28 * 14.0)}];
+          v35 = v32;
+          v36 = v34;
+          [v19 size];
+          [v36 drawAtPoint:{v37 * v35, v31 + (v29 * 14.0)}];
 
-          v37 = [valuesCopy count];
-          v31 = v32;
+          v38 = [valuesCopy count];
+          v32 = v33;
         }
 
-        while (v32 < v37);
+        while (v33 < v38);
       }
 
-      ++v28;
+      ++v29;
     }
 
-    while (v28 < [valuesCopy count]);
+    while (v29 < [valuesCopy count]);
   }
 
-  [v18 size];
-  v39 = v38;
-  v40 = [valuesCopy count];
-  v41 = selfCopy;
+  [v19 size];
+  v40 = v39;
+  v41 = [valuesCopy count];
+  v42 = selfCopy;
   if (SKUIUserInterfaceIdiom(selfCopy->_clientContext) == 1)
   {
-    v42 = 295.0;
-    v43 = 424;
+    v43 = 295.0;
+    v44 = 424;
   }
 
   else
@@ -849,87 +849,87 @@
     currentDevice2 = [MEMORY[0x277D75418] currentDevice];
     if ([currentDevice2 userInterfaceIdiom] == 1)
     {
-      v42 = 290.0;
+      v43 = 290.0;
     }
 
     else
     {
       mainScreen3 = [MEMORY[0x277D759A0] mainScreen];
       [mainScreen3 bounds];
-      v42 = v46 + -30.0;
+      v43 = v47 + -30.0;
     }
 
-    v43 = 424;
+    v44 = 424;
   }
 
   if ([valuesCopy count])
   {
-    v47 = 0;
-    v48 = v39 * v40 + 9.0;
-    v49 = v42 - v48;
-    v50 = -1;
+    v48 = 0;
+    v49 = v40 * v41 + 9.0;
+    v50 = v43 - v49;
+    v51 = -1;
     do
     {
-      v51 = [valuesCopy objectAtIndex:{objc_msgSend(valuesCopy, "count") + v50}];
-      [v51 floatValue];
-      v53 = v52;
+      v52 = [valuesCopy objectAtIndex:{objc_msgSend(valuesCopy, "count") + v51}];
+      [v52 floatValue];
+      v54 = v53;
 
-      v65 = [MEMORY[0x277D75208] bezierPathWithRoundedRect:v48 cornerRadius:{(v47 * 14.0) + 6.0, v49, 2.0, 2.0}];
-      primaryTextColor4 = [*(&v41->super.super.super.isa + v43) primaryTextColor];
-      if (primaryTextColor4)
+      v66 = [MEMORY[0x277D75208] bezierPathWithRoundedRect:v49 cornerRadius:{(v48 * 14.0) + 6.0, v50, 2.0, 2.0}];
+      v55 = objc_msgSend_primaryTextColor(*(&v42->super.super.super.isa + v44));
+      if (v55)
       {
-        [*(&v41->super.super.super.isa + v43) primaryTextColor];
-        v56 = v55 = v43;
-        v57 = SKUIColorWithAlpha(v56, 0.1);
-        [v57 set];
+        objc_msgSend_primaryTextColor(*(&v42->super.super.super.isa + v44));
+        v57 = v56 = v44;
+        v58 = SKUIColorWithAlpha(v57, 0.1);
+        [v58 set];
 
-        v41 = selfCopy;
+        v42 = selfCopy;
       }
 
       else
       {
         [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.05];
-        v56 = v55 = v43;
-        [v56 set];
+        v57 = v56 = v44;
+        [v57 set];
       }
 
-      [v65 fill];
+      [v66 fill];
       CGContextSaveGState(c);
-      v68.size.height = 2.0;
-      v68.origin.x = v48;
-      v68.origin.y = (v47 * 14.0) + 6.0;
-      v68.size.width = v49 * v53;
-      CGContextClipToRect(c, v68);
-      primaryTextColor5 = [*(&v41->super.super.super.isa + v55) primaryTextColor];
-      v59 = primaryTextColor5;
-      if (primaryTextColor5)
+      v69.size.height = 2.0;
+      v69.origin.x = v49;
+      v69.origin.y = (v48 * 14.0) + 6.0;
+      v69.size.width = v50 * v54;
+      CGContextClipToRect(c, v69);
+      v59 = objc_msgSend_primaryTextColor(*(&v42->super.super.super.isa + v56));
+      v60 = v59;
+      if (v59)
       {
-        v43 = v55;
-        [primaryTextColor5 set];
+        v44 = v56;
+        [v59 set];
       }
 
       else
       {
-        v60 = [MEMORY[0x277D75348] colorWithWhite:0.517647059 alpha:1.0];
-        [v60 set];
+        v61 = [MEMORY[0x277D75348] colorWithWhite:0.517647059 alpha:1.0];
+        [v61 set];
 
-        v43 = 424;
+        v44 = 424;
       }
 
-      [v65 fill];
+      [v66 fill];
       CGContextRestoreGState(c);
 
-      ++v47;
-      --v50;
+      ++v48;
+      --v51;
     }
 
-    while (v47 < [valuesCopy count]);
+    while (v48 < [valuesCopy count]);
   }
 
-  v61 = UIGraphicsGetImageFromCurrentImageContext();
+  v62 = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
 
-  return v61;
+  return v62;
 }
 
 - (id)_countLabelString

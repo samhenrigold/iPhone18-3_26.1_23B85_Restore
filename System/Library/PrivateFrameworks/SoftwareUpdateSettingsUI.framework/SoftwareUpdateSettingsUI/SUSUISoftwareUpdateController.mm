@@ -252,69 +252,65 @@ void __100__SUSUISoftwareUpdateController_BetaUpdates__setBetaProgramFromUI_forV
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v43 = 0;
-  objc_storeStrong(&v43, a3);
-  v42 = 0;
-  objc_storeStrong(&v42, a4);
-  v41 = 0;
-  objc_storeStrong(&v41, a5);
-  v40[1] = a1;
+  v39 = 0;
+  objc_storeStrong(&v39, a3);
+  v38 = 0;
+  objc_storeStrong(&v38, a4);
+  v37 = 0;
+  objc_storeStrong(&v37, a5);
+  v36[1] = a1;
   v8 = MEMORY[0x277CCACA8];
   v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v12 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"DELETE_CONFIRMATION_TITLE"];
   v11 = [v13 localizedStringForKey:? value:? table:?];
-  v10 = [v43 descriptor];
+  v10 = [v39 descriptor];
   v9 = [v10 productVersion];
-  v40[0] = [v8 stringWithFormat:v11, v9];
+  v36[0] = [v8 stringWithFormat:v11, v9];
   MEMORY[0x277D82BD8](v9);
   MEMORY[0x277D82BD8](v10);
   MEMORY[0x277D82BD8](v11);
   MEMORY[0x277D82BD8](v12);
   MEMORY[0x277D82BD8](v13);
   v15 = MEMORY[0x277D75110];
-  v14 = v40[0];
+  v14 = v36[0];
   v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v16 = [v17 localizedStringForKey:@"DELETE_CONFIRMATION_BODY_BETA_UPDATE_ENROLLMENT" value:&stru_287B79370 table:@"Software Update"];
-  v39 = [v15 alertControllerWithTitle:v14 message:? preferredStyle:?];
+  v35 = [v15 alertControllerWithTitle:v14 message:? preferredStyle:?];
   MEMORY[0x277D82BD8](v16);
   MEMORY[0x277D82BD8](v17);
-  v19 = v39;
+  v19 = v35;
   v18 = MEMORY[0x277D750F8];
   v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v21 = [v22 localizedStringForKey:@"CANCEL" value:&stru_287B79370 table:@"Software Update"];
-  v33[1] = MEMORY[0x277D85DD0];
-  v34 = -1073741824;
-  v35 = 0;
-  v36 = __100__SUSUISoftwareUpdateController_BetaUpdates__setBetaProgramFromUI_forViewController_withCompletion___block_invoke_2;
-  v37 = &unk_279CBA670;
-  v38 = MEMORY[0x277D82BE0](v41);
+  v29[1] = MEMORY[0x277D85DD0];
+  v30 = -1073741824;
+  v31 = 0;
+  v32 = __100__SUSUISoftwareUpdateController_BetaUpdates__setBetaProgramFromUI_forViewController_withCompletion___block_invoke_2;
+  v33 = &unk_279CBA670;
+  v34 = MEMORY[0x277D82BE0](v37);
   v20 = [v18 actionWithTitle:v21 style:1 handler:?];
   [v19 addAction:?];
   MEMORY[0x277D82BD8](v20);
   MEMORY[0x277D82BD8](v21);
   MEMORY[0x277D82BD8](v22);
-  v24 = v39;
+  v24 = v35;
   v23 = MEMORY[0x277D750F8];
   v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v26 = [v27 localizedStringForKey:@"OK" value:&stru_287B79370 table:@"Software Update"];
-  v29 = MEMORY[0x277D85DD0];
-  v30 = 3221225472;
-  v31 = __100__SUSUISoftwareUpdateController_BetaUpdates__setBetaProgramFromUI_forViewController_withCompletion___block_invoke_3;
-  v32 = &unk_279CBA670;
-  v33[0] = MEMORY[0x277D82BE0](v41);
+  v29[0] = MEMORY[0x277D82BE0](v37);
   v25 = [v23 actionWithTitle:v26 style:0 handler:?];
   [v24 addAction:?];
   MEMORY[0x277D82BD8](v25);
   MEMORY[0x277D82BD8](v26);
   MEMORY[0x277D82BD8](v27);
-  [a1[4] presentViewController:v39 animated:1 completion:0];
-  objc_storeStrong(v33, 0);
+  [a1[4] presentViewController:v35 animated:1 completion:0];
+  objc_storeStrong(v29, 0);
+  objc_storeStrong(&v34, 0);
+  objc_storeStrong(&v35, 0);
+  objc_storeStrong(v36, 0);
+  objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(&v39, 0);
-  objc_storeStrong(v40, 0);
-  objc_storeStrong(&v41, 0);
-  objc_storeStrong(&v42, 0);
-  objc_storeStrong(&v43, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -1264,7 +1260,6 @@ void __100__SUSUISoftwareUpdateController_BetaUpdates__setBetaProgramFromUI_forV
     v98 = MEMORY[0x277D82BE0](&stru_287B79370);
   }
 
-  *MEMORY[0x277D85DE8];
   v7 = v98;
 
   return v7;
@@ -1371,52 +1366,48 @@ void __100__SUSUISoftwareUpdateController_BetaUpdates__setBetaProgramFromUI_forV
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, manager);
-  v31 = 0;
-  objc_storeStrong(&v31, handler);
+  v27 = 0;
+  objc_storeStrong(&v27, handler);
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v30 = [v5 localizedStringForKey:@"ROLLBACK_APPLIED_ALERT_BODY" value:? table:?];
+  v26 = [v5 localizedStringForKey:@"ROLLBACK_APPLIED_ALERT_BODY" value:? table:?];
   MEMORY[0x277D82BD8](v5);
   v6 = MEMORY[0x277D75110];
   v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v7 = [v8 localizedStringForKey:@"ROLLBACK_APPLIED_ALERT_TITLE" value:&stru_287B79370 table:@"Software Update"];
-  v29 = [v6 alertControllerWithTitle:? message:? preferredStyle:?];
+  v25 = [v6 alertControllerWithTitle:? message:? preferredStyle:?];
   MEMORY[0x277D82BD8](v7);
   MEMORY[0x277D82BD8](v8);
-  v10 = v29;
+  v10 = v25;
   v9 = MEMORY[0x277D750F8];
   v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v12 = [v13 localizedStringForKey:@"CANCEL" value:&stru_287B79370 table:@"Software Update"];
-  v23[1] = MEMORY[0x277D85DD0];
-  v24 = -1073741824;
-  v25 = 0;
-  v26 = __110__SUSUISoftwareUpdateController_StatefulUI__statefulUIManager_requestRollbackRestartApprovalWithReplyHandler___block_invoke;
-  v27 = &unk_279CBA670;
-  v28 = MEMORY[0x277D82BE0](v31);
+  v19[1] = MEMORY[0x277D85DD0];
+  v20 = -1073741824;
+  v21 = 0;
+  v22 = __110__SUSUISoftwareUpdateController_StatefulUI__statefulUIManager_requestRollbackRestartApprovalWithReplyHandler___block_invoke;
+  v23 = &unk_279CBA670;
+  v24 = MEMORY[0x277D82BE0](v27);
   v11 = [v9 actionWithTitle:v12 style:1 handler:?];
   [v10 addAction:?];
   MEMORY[0x277D82BD8](v11);
   MEMORY[0x277D82BD8](v12);
   MEMORY[0x277D82BD8](v13);
-  v15 = v29;
+  v15 = v25;
   v14 = MEMORY[0x277D750F8];
   v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v17 = [v18 localizedStringForKey:@"ROLLBACK_APPLIED_ALERT_BUTTON_REBOOT_NOW" value:&stru_287B79370 table:@"Software Update"];
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __110__SUSUISoftwareUpdateController_StatefulUI__statefulUIManager_requestRollbackRestartApprovalWithReplyHandler___block_invoke_2;
-  v22 = &unk_279CBA670;
-  v23[0] = MEMORY[0x277D82BE0](v31);
+  v19[0] = MEMORY[0x277D82BE0](v27);
   v16 = [v14 actionWithTitle:v17 style:0 handler:?];
   [v15 addAction:?];
   MEMORY[0x277D82BD8](v16);
   MEMORY[0x277D82BD8](v17);
   MEMORY[0x277D82BD8](v18);
-  [(SUSUISoftwareUpdateController *)selfCopy presentViewController:v29 animated:1 completion:0];
-  objc_storeStrong(v23, 0);
-  objc_storeStrong(&v28, 0);
-  objc_storeStrong(&v29, 0);
-  objc_storeStrong(&v30, 0);
-  objc_storeStrong(&v31, 0);
+  [(SUSUISoftwareUpdateController *)selfCopy presentViewController:v25 animated:1 completion:0];
+  objc_storeStrong(v19, 0);
+  objc_storeStrong(&v24, 0);
+  objc_storeStrong(&v25, 0);
+  objc_storeStrong(&v26, 0);
+  objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -1577,7 +1568,6 @@ void __110__SUSUISoftwareUpdateController_StatefulUI__statefulUIManager_requestR
   MEMORY[0x277D82BD8](updatedSpecifiersArray);
   [(SUSUISoftwareUpdateController *)selfCopy reloadCustomCells];
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)statefulUIManager:(id)manager descriptor:(id)descriptor didTransitionFromDescriptorState:(unint64_t)state toState:(unint64_t)toState
@@ -1683,7 +1673,6 @@ void __110__SUSUISoftwareUpdateController_StatefulUI__statefulUIManager_requestR
   [(SUSUISoftwareUpdateController *)selfCopy refreshPane];
   objc_storeStrong(&v63, v11);
   objc_storeStrong(location, v11);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)statefulUIManager:(id)manager didFinishScanningForUpdatesWithResults:(id)results
@@ -1868,7 +1857,6 @@ void __110__SUSUISoftwareUpdateController_StatefulUI__statefulUIManager_requestR
   objc_storeStrong(&v30, 0);
   [(SUSUISoftwareUpdateController *)selfCopy refreshPane];
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)operation:(id)operation requestPurgeConfirmationForDownload:(id)download replyHandler:(id)handler
@@ -1981,84 +1969,84 @@ void __104__SUSUISoftwareUpdateController_StatefulUI__operation_requestPurgeConf
 
 - (void)operation:(id)operation requestDevicePasscodeForDescriptor:(id)descriptor replyHandler:(id)handler
 {
-  v59[5] = *MEMORY[0x277D85DE8];
+  v58[5] = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, operation);
-  v54 = 0;
-  objc_storeStrong(&v54, descriptor);
   v53 = 0;
-  objc_storeStrong(&v53, handler);
-  v59[0] = @"SUSpecifierUpdateOptionsCell";
-  v59[1] = @"SUProactiveSuggestionCell";
-  v59[2] = @"SUNonPromotedUpdateButton";
-  v59[3] = @"SUAlternateUpdateButton";
-  v59[4] = @"SUAutomaticUpdateButton";
-  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:5];
-  v51 = 0;
+  objc_storeStrong(&v53, descriptor);
+  v52 = 0;
+  objc_storeStrong(&v52, handler);
+  v58[0] = @"SUSpecifierUpdateOptionsCell";
+  v58[1] = @"SUProactiveSuggestionCell";
+  v58[2] = @"SUNonPromotedUpdateButton";
+  v58[3] = @"SUAlternateUpdateButton";
+  v58[4] = @"SUAutomaticUpdateButton";
+  v51 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:5];
+  v50 = 0;
   memset(__b, 0, sizeof(__b));
-  v41 = MEMORY[0x277D82BE0](v52);
-  v42 = [v41 countByEnumeratingWithState:__b objects:v58 count:16];
-  if (v42)
+  v40 = MEMORY[0x277D82BE0](v51);
+  v41 = [v40 countByEnumeratingWithState:__b objects:v57 count:16];
+  if (v41)
   {
-    v36 = *__b[2];
-    v37 = 0;
-    v38 = v42;
+    v35 = *__b[2];
+    v36 = 0;
+    v37 = v41;
     while (1)
     {
-      v35 = v37;
-      if (*__b[2] != v36)
+      v34 = v36;
+      if (*__b[2] != v35)
       {
-        objc_enumerationMutation(v41);
+        objc_enumerationMutation(v40);
       }
 
-      v50 = *(__b[1] + 8 * v37);
-      v5 = [(SUSUISoftwareUpdateController *)selfCopy specifierWithID:v50];
-      v6 = v51;
-      v51 = v5;
+      v49 = *(__b[1] + 8 * v36);
+      v5 = [(SUSUISoftwareUpdateController *)selfCopy specifierWithID:v49];
+      v6 = v50;
+      v50 = v5;
       MEMORY[0x277D82BD8](v6);
-      if (v51)
+      if (v50)
       {
         break;
       }
 
-      ++v37;
-      if (v35 + 1 >= v38)
+      ++v36;
+      if (v34 + 1 >= v37)
       {
-        v37 = 0;
-        v38 = [v41 countByEnumeratingWithState:__b objects:v58 count:16];
-        if (!v38)
+        v36 = 0;
+        v37 = [v40 countByEnumeratingWithState:__b objects:v57 count:16];
+        if (!v37)
         {
           goto LABEL_9;
         }
       }
     }
 
-    v48 = 2;
+    v47 = 2;
   }
 
   else
   {
 LABEL_9:
-    v48 = 0;
+    v47 = 0;
   }
 
-  MEMORY[0x277D82BD8](v41);
+  MEMORY[0x277D82BD8](v40);
   oslog = _SUSUILoggingFacility();
   type = OS_LOG_TYPE_DEFAULT;
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
     log = oslog;
-    v21 = type;
+    v20 = type;
     v7 = objc_opt_class();
-    v34 = NSStringFromClass(v7);
-    v16 = MEMORY[0x277D82BE0](v34);
-    v45 = v16;
-    v17 = selfCopy;
-    v33 = SUSettingsUIStateToString([(SUSUISoftwareUpdateController *)selfCopy currentUIState]);
-    v18 = MEMORY[0x277D82BE0](v33);
-    v44 = v18;
+    v33 = NSStringFromClass(v7);
+    v15 = MEMORY[0x277D82BE0](v33);
+    v44 = v15;
+    v16 = selfCopy;
+    v32 = SUSettingsUIStateToString([(SUSUISoftwareUpdateController *)selfCopy currentUIState]);
+    v17 = MEMORY[0x277D82BE0](v32);
+    v43 = v17;
     currentUIState = [(SUSUISoftwareUpdateController *)selfCopy currentUIState];
     presentingStatefulDescriptor = [(SUSUISoftwareUpdateController *)selfCopy presentingStatefulDescriptor];
     presentingStatefulDescriptor2 = [(SUSUISoftwareUpdateController *)selfCopy presentingStatefulDescriptor];
@@ -2068,8 +2056,8 @@ LABEL_9:
     currentDownload = [(SUSettingsStatefulUIManager *)manager currentDownload];
     descriptor = [(SUDownload *)currentDownload descriptor];
     humanReadableUpdateName = [(SUDescriptor *)descriptor humanReadableUpdateName];
-    v15 = MEMORY[0x277D82BE0](humanReadableUpdateName);
-    v43 = v15;
+    v14 = MEMORY[0x277D82BE0](humanReadableUpdateName);
+    v42 = v14;
     manager2 = [(SUSUISoftwareUpdateController *)selfCopy manager];
     currentDownload2 = [(SUSettingsStatefulUIManager *)manager2 currentDownload];
     manager3 = [(SUSUISoftwareUpdateController *)selfCopy manager];
@@ -2083,8 +2071,8 @@ LABEL_9:
       v8 = "NO";
     }
 
-    __os_log_helper_16_2_14_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34_8_66_8_0(v57, "[SUSUISoftwareUpdateController(StatefulUI) operation:requestDevicePasscodeForDescriptor:replyHandler:]", v16, v17, v18, currentUIState, presentingStatefulDescriptor, presentingStatefulDescriptor2, presentingAlternateStatefulDescriptor, presentingAlternateStatefulDescriptor2, v15, currentDownload2, v8, v51, v51);
-    _os_log_impl(&dword_26AC94000, log, v21, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\nShowing PIN sheet using specifier: %{public}@ (%p)", v57, 0x8Eu);
+    __os_log_helper_16_2_14_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34_8_66_8_0(v56, "[SUSUISoftwareUpdateController(StatefulUI) operation:requestDevicePasscodeForDescriptor:replyHandler:]", v15, v16, v17, currentUIState, presentingStatefulDescriptor, presentingStatefulDescriptor2, presentingAlternateStatefulDescriptor, presentingAlternateStatefulDescriptor2, v14, currentDownload2, v8, v50, v50);
+    _os_log_impl(&dword_26AC94000, log, v20, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\nShowing PIN sheet using specifier: %{public}@ (%p)", v56, 0x8Eu);
     MEMORY[0x277D82BD8](manager3);
     MEMORY[0x277D82BD8](currentDownload2);
     MEMORY[0x277D82BD8](manager2);
@@ -2096,37 +2084,35 @@ LABEL_9:
     MEMORY[0x277D82BD8](presentingAlternateStatefulDescriptor);
     MEMORY[0x277D82BD8](presentingStatefulDescriptor2);
     MEMORY[0x277D82BD8](presentingStatefulDescriptor);
+    MEMORY[0x277D82BD8](v32);
     MEMORY[0x277D82BD8](v33);
-    MEMORY[0x277D82BD8](v34);
+    objc_storeStrong(&v42, 0);
     objc_storeStrong(&v43, 0);
     objc_storeStrong(&v44, 0);
-    objc_storeStrong(&v45, 0);
   }
 
   objc_storeStrong(&oslog, 0);
-  if (v51)
+  if (v50)
   {
-    v13 = v51;
+    v12 = v50;
     v9 = objc_opt_class();
-    v14 = NSStringFromClass(v9);
-    v10 = *MEMORY[0x277D400B8];
-    [v13 setProperty:? forKey:?];
-    MEMORY[0x277D82BD8](v14);
-    [v51 setEditPaneClass:objc_opt_class()];
-    [v51 setProperty:&unk_287B855A0 forKey:@"mode"];
-    v11 = MEMORY[0x26D66A460](v53);
+    v13 = NSStringFromClass(v9);
+    [v12 setProperty:? forKey:?];
+    MEMORY[0x277D82BD8](v13);
+    [v50 setEditPaneClass:objc_opt_class()];
+    [v50 setProperty:&unk_287B855A0 forKey:@"mode"];
+    v10 = MEMORY[0x26D66A460](v52);
     passcodeReplyHandler = selfCopy->_passcodeReplyHandler;
-    selfCopy->_passcodeReplyHandler = v11;
+    selfCopy->_passcodeReplyHandler = v10;
     MEMORY[0x277D82BD8](passcodeReplyHandler);
-    [(SUSUISoftwareUpdateController *)selfCopy showPINSheet:v51];
+    [(SUSUISoftwareUpdateController *)selfCopy showPINSheet:v50];
   }
 
+  objc_storeStrong(&v50, 0);
   objc_storeStrong(&v51, 0);
   objc_storeStrong(&v52, 0);
   objc_storeStrong(&v53, 0);
-  objc_storeStrong(&v54, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)operation:(id)operation requestAgreementToTermsAndConditionsForUpdate:(id)update replyHandler:(id)handler
@@ -2167,53 +2153,53 @@ LABEL_9:
 
 void __114__SUSUISoftwareUpdateController_StatefulUI__operation_requestAgreementToTermsAndConditionsForUpdate_replyHandler___block_invoke(uint64_t a1, char a2, id obj)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v34 = a1;
-  v33 = a2;
+  v35 = *MEMORY[0x277D85DE8];
+  v33 = a1;
+  v32 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v31[1] = a1;
-  v31[0] = _SUSUILoggingFacility();
-  v30 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v31[0], OS_LOG_TYPE_DEFAULT))
+  v30[1] = a1;
+  v30[0] = _SUSUILoggingFacility();
+  v29 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v30[0], OS_LOG_TYPE_DEFAULT))
   {
-    log = v31[0];
-    type = v30;
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v25 = NSStringFromClass(v4);
-    v7 = MEMORY[0x277D82BE0](v25);
-    v29 = v7;
-    v8 = *(a1 + 32);
-    v24 = SUSettingsUIStateToString([v8 currentUIState]);
-    v9 = MEMORY[0x277D82BE0](v24);
-    v28 = v9;
-    v10 = [*(a1 + 32) currentUIState];
-    v23 = [*(a1 + 32) presentingStatefulDescriptor];
+    log = v30[0];
+    type = v29;
+    v3 = objc_opt_class();
+    v24 = NSStringFromClass(v3);
+    v6 = MEMORY[0x277D82BE0](v24);
+    v28 = v6;
+    v7 = *(a1 + 32);
+    v23 = SUSettingsUIStateToString([v7 currentUIState]);
+    v8 = MEMORY[0x277D82BE0](v23);
+    v27 = v8;
+    v9 = [*(a1 + 32) currentUIState];
     v22 = [*(a1 + 32) presentingStatefulDescriptor];
-    v21 = [*(a1 + 32) presentingAlternateStatefulDescriptor];
+    v21 = [*(a1 + 32) presentingStatefulDescriptor];
     v20 = [*(a1 + 32) presentingAlternateStatefulDescriptor];
-    v19 = [*(a1 + 32) manager];
-    v18 = [v19 currentDownload];
-    v17 = [v18 descriptor];
-    v16 = [v17 humanReadableUpdateName];
-    v6 = MEMORY[0x277D82BE0](v16);
-    v27 = v6;
-    v15 = [*(a1 + 32) manager];
-    v14 = [v15 currentDownload];
-    v13 = [*(a1 + 32) manager];
-    if ([v13 isTargetedUpdateScheduledForAutoInstall])
+    v19 = [*(a1 + 32) presentingAlternateStatefulDescriptor];
+    v18 = [*(a1 + 32) manager];
+    v17 = [v18 currentDownload];
+    v16 = [v17 descriptor];
+    v15 = [v16 humanReadableUpdateName];
+    v5 = MEMORY[0x277D82BE0](v15);
+    v26 = v5;
+    v14 = [*(a1 + 32) manager];
+    v13 = [v14 currentDownload];
+    v12 = [*(a1 + 32) manager];
+    if ([v12 isTargetedUpdateScheduledForAutoInstall])
     {
-      v5 = "YES";
+      v4 = "YES";
     }
 
     else
     {
-      v5 = "NO";
+      v4 = "NO";
     }
 
-    __os_log_helper_16_2_14_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34_4_0_8_66(v35, "[SUSUISoftwareUpdateController(StatefulUI) operation:requestAgreementToTermsAndConditionsForUpdate:replyHandler:]_block_invoke", v7, v8, v9, v10, v23, v22, v21, v20, v6, v14, v5, v33 & 1, location);
-    _os_log_impl(&dword_26AC94000, log, type, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\nSUSSoftwareUpdateTermsManager returned accepted state: %d; error: %{public}@", v35, 0x8Au);
+    __os_log_helper_16_2_14_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34_4_0_8_66(v34, "[SUSUISoftwareUpdateController(StatefulUI) operation:requestAgreementToTermsAndConditionsForUpdate:replyHandler:]_block_invoke", v6, v7, v8, v9, v22, v21, v20, v19, v5, v13, v4, v32 & 1, location);
+    _os_log_impl(&dword_26AC94000, log, type, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\nSUSSoftwareUpdateTermsManager returned accepted state: %d; error: %{public}@", v34, 0x8Au);
+    MEMORY[0x277D82BD8](v12);
     MEMORY[0x277D82BD8](v13);
     MEMORY[0x277D82BD8](v14);
     MEMORY[0x277D82BD8](v15);
@@ -2226,16 +2212,14 @@ void __114__SUSUISoftwareUpdateController_StatefulUI__operation_requestAgreement
     MEMORY[0x277D82BD8](v22);
     MEMORY[0x277D82BD8](v23);
     MEMORY[0x277D82BD8](v24);
-    MEMORY[0x277D82BD8](v25);
+    objc_storeStrong(&v26, 0);
     objc_storeStrong(&v27, 0);
     objc_storeStrong(&v28, 0);
-    objc_storeStrong(&v29, 0);
   }
 
-  objc_storeStrong(v31, 0);
-  (*(*(a1 + 40) + 16))(*(a1 + 40), (v33 & 1) == 0);
+  objc_storeStrong(v30, 0);
+  (*(*(a1 + 40) + 16))(*(a1 + 40), (v32 & 1) == 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)operation:(id)operation requestApprovalForDownloadConstraints:(id)constraints downloadPolicy:(id)policy replyHandler:(id)handler
@@ -2362,7 +2346,6 @@ void __114__SUSUISoftwareUpdateController_StatefulUI__operation_requestAgreement
   objc_storeStrong(&v55, 0);
   objc_storeStrong(&v56, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __121__SUSUISoftwareUpdateController_StatefulUI__operation_requestApprovalForDownloadConstraints_downloadPolicy_replyHandler___block_invoke(void *a1, void *a2)
@@ -2490,7 +2473,6 @@ void __121__SUSUISoftwareUpdateController_StatefulUI__operation_requestApprovalF
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)devicePINControllerDidDismissPINPane:(id)pane
@@ -2757,7 +2739,6 @@ void __121__SUSUISoftwareUpdateController_StatefulUI__operation_requestApprovalF
   objc_storeStrong(&v148, 0);
   objc_storeStrong(&v154, 0);
   objc_storeStrong(v156, 0);
-  *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -3198,7 +3179,6 @@ id __67__SUSUISoftwareUpdateController_Specifiers__updatedSpecifiersArray__block
   MEMORY[0x277D82BD8](obj);
   [(SUSUISoftwareUpdateController *)selfCopy endUpdates];
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)reloadUsingNewSpecifiers:(id)specifiers
@@ -3307,7 +3287,6 @@ id __67__SUSUISoftwareUpdateController_Specifiers__updatedSpecifiersArray__block
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 uint64_t __79__SUSUISoftwareUpdateController_Specifiers__reloadUsingNewSpecifiers_animated___block_invoke(void *a1, void *a2, void *a3)
@@ -3724,7 +3703,6 @@ uint64_t __79__SUSUISoftwareUpdateController_Specifiers__reloadUsingNewSpecifier
 
   MEMORY[0x277D82BD8](obj);
   objc_storeStrong(v14, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (id)visibleGroupSpecifiers
@@ -3753,9 +3731,7 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
   v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:4];
   v1 = visibleGroupSpecifiers_visibleGroupSpecifiers;
   visibleGroupSpecifiers_visibleGroupSpecifiers = v0;
-  result = MEMORY[0x277D82BD8](v1);
-  *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x277D82BD8](v1);
 }
 
 - (id)specifierForComingSoonGroupWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
@@ -3781,16 +3757,16 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
 - (id)specifierForComingSoonWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
   selfCopy = self;
-  v14[3] = a2;
-  v14[2] = state;
-  v14[1] = descriptorState;
-  v14[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUTipKitComingSoonCell"];
-  if (!v14[0])
+  v13[3] = a2;
+  v13[2] = state;
+  v13[1] = descriptorState;
+  v13[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUTipKitComingSoonCell"];
+  if (!v13[0])
   {
-    v14[0] = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:-1 edit:0];
+    v13[0] = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:-1 edit:0];
     MEMORY[0x277D82BD8](0);
-    [v14[0] setProperty:@"SUTipKitComingSoonCell" forKey:*MEMORY[0x277D3FFB8]];
-    [v14[0] setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
+    [v13[0] setProperty:@"SUTipKitComingSoonCell" forKey:*MEMORY[0x277D3FFB8]];
+    [v13[0] setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
     [(SUSUISoftwareUpdateController *)selfCopy setComingSoonCell:0];
   }
 
@@ -3798,18 +3774,17 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
   MEMORY[0x277D82BD8](comingSoonCell);
   if (!comingSoonCell)
   {
-    v11 = [objc_alloc(MEMORY[0x277D64AA0]) initWithStyle:3 reuseIdentifier:0 specifier:?];
+    v10 = [objc_alloc(MEMORY[0x277D64AA0]) initWithStyle:3 reuseIdentifier:0 specifier:?];
     [(SUSUISoftwareUpdateController *)selfCopy setComingSoonCell:?];
-    MEMORY[0x277D82BD8](v11);
+    MEMORY[0x277D82BD8](v10);
     comingSoonCell2 = [(SUSUISoftwareUpdateController *)selfCopy comingSoonCell];
-    [(SUSSoftwareUpdateComingSoonTipCell *)comingSoonCell2 setSpecifier:v14[0]];
+    [(SUSSoftwareUpdateComingSoonTipCell *)comingSoonCell2 setSpecifier:v13[0]];
     MEMORY[0x277D82BD8](comingSoonCell2);
   }
 
-  v6 = v14[0];
+  v5 = v13[0];
   comingSoonCell3 = [(SUSUISoftwareUpdateController *)selfCopy comingSoonCell];
-  v4 = *MEMORY[0x277D40148];
-  [v6 setProperty:? forKey:?];
+  [v5 setProperty:? forKey:?];
   MEMORY[0x277D82BD8](comingSoonCell3);
   comingSoonCell4 = [(SUSUISoftwareUpdateController *)selfCopy comingSoonCell];
   [(SUSSoftwareUpdateComingSoonTipCell *)comingSoonCell4 setAccessibilityIdentifier:@"SUTipKitComingSoonCell"];
@@ -3817,22 +3792,22 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
   comingSoonCell5 = [(SUSUISoftwareUpdateController *)selfCopy comingSoonCell];
   [(SUSSoftwareUpdateComingSoonTipCell *)comingSoonCell5 setUserInteractionEnabled:[(SUSUISoftwareUpdateController *)selfCopy isBusy]^ 1];
   MEMORY[0x277D82BD8](comingSoonCell5);
-  v10 = MEMORY[0x277D82BE0](v14[0]);
-  objc_storeStrong(v14, 0);
+  v9 = MEMORY[0x277D82BE0](v13[0]);
+  objc_storeStrong(v13, 0);
 
-  return v10;
+  return v9;
 }
 
 - (id)specifierForAutomaticUpdatesGroupWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
   selfCopy = self;
-  v78 = a2;
+  v75 = a2;
   stateCopy = state;
   descriptorStateCopy = descriptorState;
-  v75 = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUAutomaticUpdateGroup"];
-  if (!v75)
+  v72 = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUAutomaticUpdateGroup"];
+  if (!v72)
   {
-    v75 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"SUAutomaticUpdateGroup"];
+    v72 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"SUAutomaticUpdateGroup"];
     MEMORY[0x277D82BD8](0);
   }
 
@@ -3854,7 +3829,7 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
     MEMORY[0x277D82BD8](ddmDeclaration3);
     MEMORY[0x277D82BD8](manager3);
     location = 0;
-    v70 = [MEMORY[0x277CCA968] localizedStringFromDate:enforcedInstallDate dateStyle:1 timeStyle:?];
+    v67 = [MEMORY[0x277CCA968] localizedStringFromDate:enforcedInstallDate dateStyle:1 timeStyle:?];
     manager4 = [(SUSUISoftwareUpdateController *)selfCopy manager];
     currentDownload = [(SUSettingsStatefulUIManager *)manager4 currentDownload];
     descriptor = [(SUDownload *)currentDownload descriptor];
@@ -3863,9 +3838,9 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
     MEMORY[0x277D82BD8](manager4);
     if (descriptor)
     {
-      v43 = MEMORY[0x277CCACA8];
-      v53 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v52 = [v53 localizedStringForKey:@"%@ (%@)" value:&stru_287B79370 table:@"Software Update"];
+      v40 = MEMORY[0x277CCACA8];
+      v50 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v49 = [v50 localizedStringForKey:@"%@ (%@)" value:&stru_287B79370 table:@"Software Update"];
       manager5 = [(SUSUISoftwareUpdateController *)selfCopy manager];
       currentDownload2 = [(SUSettingsStatefulUIManager *)manager5 currentDownload];
       descriptor2 = [(SUDownload *)currentDownload2 descriptor];
@@ -3874,7 +3849,7 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
       currentDownload3 = [(SUSettingsStatefulUIManager *)manager6 currentDownload];
       descriptor3 = [(SUDownload *)currentDownload3 descriptor];
       productBuildVersion = [(SUDescriptor *)descriptor3 productBuildVersion];
-      v4 = [v43 stringWithFormat:v52, productVersion, productBuildVersion];
+      v4 = [v40 stringWithFormat:v49, productVersion, productBuildVersion];
       v5 = location;
       location = v4;
       MEMORY[0x277D82BD8](v5);
@@ -3886,21 +3861,21 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
       MEMORY[0x277D82BD8](descriptor2);
       MEMORY[0x277D82BD8](currentDownload2);
       MEMORY[0x277D82BD8](manager5);
-      MEMORY[0x277D82BD8](v52);
-      MEMORY[0x277D82BD8](v53);
+      MEMORY[0x277D82BD8](v49);
+      MEMORY[0x277D82BD8](v50);
     }
 
     else if (versionString && buildVersionString)
     {
-      v40 = MEMORY[0x277CCACA8];
-      v42 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v41 = [v42 localizedStringForKey:@"%@ (%@)" value:&stru_287B79370 table:@"Software Update"];
-      v6 = [v40 stringWithFormat:versionString, buildVersionString];
+      v37 = MEMORY[0x277CCACA8];
+      v39 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v38 = [v39 localizedStringForKey:@"%@ (%@)" value:&stru_287B79370 table:@"Software Update"];
+      v6 = [v37 stringWithFormat:versionString, buildVersionString];
       v7 = location;
       location = v6;
       MEMORY[0x277D82BD8](v7);
-      MEMORY[0x277D82BD8](v41);
-      MEMORY[0x277D82BD8](v42);
+      MEMORY[0x277D82BD8](v38);
+      MEMORY[0x277D82BD8](v39);
     }
 
     else if (versionString)
@@ -3913,23 +3888,23 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
       objc_storeStrong(&location, buildVersionString);
     }
 
-    v31 = MEMORY[0x277CCACA8];
+    v28 = MEMORY[0x277CCACA8];
+    v31 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v30 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"MANAGED_DEVICE_ENFORCED_UPDATE_BODY"];
+    v29 = [v31 localizedStringForKey:? value:? table:?];
+    v66 = [v28 stringWithFormat:location];
+    MEMORY[0x277D82BD8](v29);
+    MEMORY[0x277D82BD8](v30);
+    MEMORY[0x277D82BD8](v31);
+    v32 = MEMORY[0x277CCACA8];
     v34 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v33 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"MANAGED_DEVICE_ENFORCED_UPDATE_BODY"];
-    v32 = [v34 localizedStringForKey:? value:? table:?];
-    v69 = [v31 stringWithFormat:location];
-    MEMORY[0x277D82BD8](v32);
+    v33 = [v34 localizedStringForKey:@"MANAGED_DEVICE_ENFORCED_UPDATE_BODY_WITH_DATE" value:&stru_287B79370 table:@"Software Update"];
+    v8 = [v32 stringWithFormat:v66, v67];
+    v9 = v66;
+    v66 = v8;
+    MEMORY[0x277D82BD8](v9);
     MEMORY[0x277D82BD8](v33);
     MEMORY[0x277D82BD8](v34);
-    v35 = MEMORY[0x277CCACA8];
-    v37 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v36 = [v37 localizedStringForKey:@"MANAGED_DEVICE_ENFORCED_UPDATE_BODY_WITH_DATE" value:&stru_287B79370 table:@"Software Update"];
-    v8 = [v35 stringWithFormat:v69, v70];
-    v9 = v69;
-    v69 = v8;
-    MEMORY[0x277D82BD8](v9);
-    MEMORY[0x277D82BD8](v36);
-    MEMORY[0x277D82BD8](v37);
     manager7 = [(SUSUISoftwareUpdateController *)selfCopy manager];
     ddmDeclaration4 = [(SUSettingsStatefulUIManager *)manager7 ddmDeclaration];
     detailsURL = [(SUCoreDDMDeclaration *)ddmDeclaration4 detailsURL];
@@ -3937,36 +3912,34 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
     MEMORY[0x277D82BD8](manager7);
     if (detailsURL)
     {
-      v24 = MEMORY[0x277CCACA8];
-      v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v25 = [v26 localizedStringForKey:@"MANAGED_DEVICE_ENFORCED_UPDATE_BODY_WITH_URL" value:&stru_287B79370 table:@"Software Update"];
-      v10 = [v24 stringWithFormat:v69, detailsURL];
-      v11 = v69;
-      v69 = v10;
+      v21 = MEMORY[0x277CCACA8];
+      v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v22 = [v23 localizedStringForKey:@"MANAGED_DEVICE_ENFORCED_UPDATE_BODY_WITH_URL" value:&stru_287B79370 table:@"Software Update"];
+      v10 = [v21 stringWithFormat:v66, detailsURL];
+      v11 = v66;
+      v66 = v10;
       MEMORY[0x277D82BD8](v11);
-      MEMORY[0x277D82BD8](v25);
-      MEMORY[0x277D82BD8](v26);
-      v67.location = [v69 rangeOfString:detailsURL];
-      v67.length = v12;
-      v27 = v75;
+      MEMORY[0x277D82BD8](v22);
+      MEMORY[0x277D82BD8](v23);
+      v64.location = [v66 rangeOfString:detailsURL];
+      v64.length = v12;
+      v24 = v72;
       v13 = objc_opt_class();
-      v28 = NSStringFromClass(v13);
-      v14 = *MEMORY[0x277D3FF48];
-      [v27 setProperty:? forKey:?];
-      MEMORY[0x277D82BD8](v28);
-      v29 = v75;
-      v30 = NSStringFromRange(v67);
-      v15 = *MEMORY[0x277D3FF58];
-      [v29 setProperty:? forKey:?];
-      MEMORY[0x277D82BD8](v30);
-      [v75 setProperty:detailsURL forKey:*MEMORY[0x277D3FF78]];
+      v25 = NSStringFromClass(v13);
+      [v24 setProperty:? forKey:?];
+      MEMORY[0x277D82BD8](v25);
+      v26 = v72;
+      v27 = NSStringFromRange(v64);
+      [v26 setProperty:? forKey:?];
+      MEMORY[0x277D82BD8](v27);
+      [v72 setProperty:detailsURL forKey:*MEMORY[0x277D3FF78]];
     }
 
-    [v75 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
-    [v75 setProperty:v69 forKey:*MEMORY[0x277D3FF88]];
+    [v72 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
+    [v72 setProperty:v66 forKey:*MEMORY[0x277D3FF88]];
     objc_storeStrong(&detailsURL, 0);
-    objc_storeStrong(&v69, 0);
-    objc_storeStrong(&v70, 0);
+    objc_storeStrong(&v66, 0);
+    objc_storeStrong(&v67, 0);
     objc_storeStrong(&location, 0);
     objc_storeStrong(&enforcedInstallDate, 0);
     objc_storeStrong(&buildVersionString, 0);
@@ -3975,86 +3948,85 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
 
   else
   {
-    v65 = 0;
-    v63 = 0;
-    v23 = 0;
+    v62 = 0;
+    v60 = 0;
+    v20 = 0;
     if (stateCopy == 4)
     {
-      v23 = 0;
+      v20 = 0;
       if (![(SUSUISoftwareUpdateController *)selfCopy presentingStatefulDescriptorPromotedAsAlternate])
       {
         manager8 = [(SUSUISoftwareUpdateController *)selfCopy manager];
-        v65 = 1;
+        v62 = 1;
         hasSUPathRestrictions = 1;
         if (![(SUSettingsStatefulUIManager *)manager8 isDelayingUpdate])
         {
           manager9 = [(SUSUISoftwareUpdateController *)selfCopy manager];
-          v63 = 1;
+          v60 = 1;
           hasSUPathRestrictions = [(SUSettingsStatefulUIManager *)manager9 hasSUPathRestrictions];
         }
 
-        v23 = hasSUPathRestrictions;
+        v20 = hasSUPathRestrictions;
       }
     }
 
-    if (v63)
+    if (v60)
     {
       MEMORY[0x277D82BD8](manager9);
     }
 
-    if (v65)
+    if (v62)
     {
       MEMORY[0x277D82BD8](manager8);
     }
 
-    if (v23)
+    if (v20)
     {
-      [v75 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
-      v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v20 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"MANAGED_DEVICE_DELAY_EXPIRED_AVAILABLE"];
-      v19 = [v21 localizedStringForKey:? value:? table:?];
-      v16 = *MEMORY[0x277D3FF88];
-      [v75 setProperty:? forKey:?];
-      MEMORY[0x277D82BD8](v19);
-      MEMORY[0x277D82BD8](v20);
-      MEMORY[0x277D82BD8](v21);
+      [v72 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
+      v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v17 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"MANAGED_DEVICE_DELAY_EXPIRED_AVAILABLE"];
+      v16 = [v18 localizedStringForKey:? value:? table:?];
+      [v72 setProperty:? forKey:?];
+      MEMORY[0x277D82BD8](v16);
+      MEMORY[0x277D82BD8](v17);
+      MEMORY[0x277D82BD8](v18);
     }
 
     else
     {
-      [v75 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FD80]];
-      [v75 setProperty:&stru_287B79370 forKey:*MEMORY[0x277D3FF88]];
+      [v72 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FD80]];
+      [v72 setProperty:&stru_287B79370 forKey:*MEMORY[0x277D3FF88]];
     }
   }
 
-  v18 = MEMORY[0x277D82BE0](v75);
-  objc_storeStrong(&v75, 0);
+  v15 = MEMORY[0x277D82BE0](v72);
+  objc_storeStrong(&v72, 0);
 
-  return v18;
+  return v15;
 }
 
 - (id)specifierForAutomaticUpdatesWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
   selfCopy = self;
-  v25[3] = a2;
-  v25[2] = state;
-  v25[1] = descriptorState;
-  v24 = 0;
-  v25[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUAutomaticUpdateButton"];
+  v24[3] = a2;
+  v24[2] = state;
+  v24[1] = descriptorState;
+  v23 = 0;
+  v24[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUAutomaticUpdateButton"];
   MEMORY[0x277D82BD8](0);
-  if (!v25[0])
+  if (!v24[0])
   {
-    v20 = MEMORY[0x277D3FAD8];
-    v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v22 = [v21 localizedStringForKey:@"AUTOMATIC_UPDATES" value:&stru_287B79370 table:@"Software Update"];
+    v19 = MEMORY[0x277D3FAD8];
+    v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v21 = [v20 localizedStringForKey:@"AUTOMATIC_UPDATES" value:&stru_287B79370 table:@"Software Update"];
     objc_opt_class();
-    v4 = [v20 preferenceSpecifierNamed:v22 target:selfCopy set:0 get:? detail:? cell:? edit:?];
-    v5 = v25[0];
-    v25[0] = v4;
+    v4 = [v19 preferenceSpecifierNamed:v21 target:selfCopy set:0 get:? detail:? cell:? edit:?];
+    v5 = v24[0];
+    v24[0] = v4;
     MEMORY[0x277D82BD8](v5);
-    MEMORY[0x277D82BD8](v22);
     MEMORY[0x277D82BD8](v21);
-    [v25[0] setProperty:@"SUAutomaticUpdateButton" forKey:*MEMORY[0x277D3FFB8]];
+    MEMORY[0x277D82BD8](v20);
+    [v24[0] setProperty:@"SUAutomaticUpdateButton" forKey:*MEMORY[0x277D3FFB8]];
     [(SUSUISoftwareUpdateController *)selfCopy setAutomaticUpdatesCell:0];
   }
 
@@ -4062,17 +4034,17 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
   MEMORY[0x277D82BD8](automaticUpdatesCell);
   if (!automaticUpdatesCell)
   {
-    v18 = [objc_alloc(MEMORY[0x277D3FB38]) initWithStyle:0 reuseIdentifier:@"SUAutomaticUpdateButton" specifier:v25[0]];
+    v17 = [objc_alloc(MEMORY[0x277D3FB38]) initWithStyle:0 reuseIdentifier:@"SUAutomaticUpdateButton" specifier:v24[0]];
     [(SUSUISoftwareUpdateController *)selfCopy setAutomaticUpdatesCell:?];
-    MEMORY[0x277D82BD8](v18);
+    MEMORY[0x277D82BD8](v17);
   }
 
   location = [MEMORY[0x277D756E0] valueCellConfiguration];
-  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v10 = [v11 localizedStringForKey:@"AUTOMATIC_UPDATES" value:&stru_287B79370 table:@"Software Update"];
+  v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v9 = [v10 localizedStringForKey:@"AUTOMATIC_UPDATES" value:&stru_287B79370 table:@"Software Update"];
   [location setText:?];
+  MEMORY[0x277D82BD8](v9);
   MEMORY[0x277D82BD8](v10);
-  MEMORY[0x277D82BD8](v11);
   automaticUpdatesCellTitle = [(SUSUISoftwareUpdateController *)selfCopy automaticUpdatesCellTitle];
   [location setSecondaryText:?];
   MEMORY[0x277D82BD8](automaticUpdatesCellTitle);
@@ -4088,42 +4060,41 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
   automaticUpdatesCell5 = [(SUSUISoftwareUpdateController *)selfCopy automaticUpdatesCell];
   [(PSTableCell *)automaticUpdatesCell5 setUserInteractionEnabled:[(SUSUISoftwareUpdateController *)selfCopy isBusy]^ 1];
   MEMORY[0x277D82BD8](automaticUpdatesCell5);
-  [v25[0] setProperty:&unk_287B855B8 forKey:*MEMORY[0x277D3FD68]];
-  v17 = [v25[0] propertyForKey:*MEMORY[0x277D40148]];
-  MEMORY[0x277D82BD8](v17);
-  if (!v17)
+  [v24[0] setProperty:&unk_287B855B8 forKey:*MEMORY[0x277D3FD68]];
+  v16 = [v24[0] propertyForKey:*MEMORY[0x277D40148]];
+  MEMORY[0x277D82BD8](v16);
+  if (!v16)
   {
     automaticUpdatesCell6 = [(SUSUISoftwareUpdateController *)selfCopy automaticUpdatesCell];
-    v6 = *MEMORY[0x277D40148];
-    [v25[0] setProperty:? forKey:?];
+    [v24[0] setProperty:? forKey:?];
     MEMORY[0x277D82BD8](automaticUpdatesCell6);
   }
 
-  v8 = MEMORY[0x277D82BE0](v25[0]);
+  v7 = MEMORY[0x277D82BE0](v24[0]);
   objc_storeStrong(&location, 0);
-  objc_storeStrong(v25, 0);
+  objc_storeStrong(v24, 0);
 
-  return v8;
+  return v7;
 }
 
 - (id)specifierForBetaUpdatesCellWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
   selfCopy = self;
-  v22[3] = a2;
-  v22[2] = state;
-  v22[1] = descriptorState;
-  v22[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUGetBetaUpdatesButton"];
-  if (!v22[0])
+  v21[3] = a2;
+  v21[2] = state;
+  v21[1] = descriptorState;
+  v21[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUGetBetaUpdatesButton"];
+  if (!v21[0])
   {
-    v18 = MEMORY[0x277D3FAD8];
-    v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v19 = [v20 localizedStringForKey:@"GET_BETA_UPDATES" value:&stru_287B79370 table:@"Software Update"];
+    v17 = MEMORY[0x277D3FAD8];
+    v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v18 = [v19 localizedStringForKey:@"GET_BETA_UPDATES" value:&stru_287B79370 table:@"Software Update"];
     objc_opt_class();
-    v22[0] = [v18 preferenceSpecifierNamed:v19 target:selfCopy set:0 get:? detail:? cell:? edit:?];
+    v21[0] = [v17 preferenceSpecifierNamed:v18 target:selfCopy set:0 get:? detail:? cell:? edit:?];
     MEMORY[0x277D82BD8](0);
+    MEMORY[0x277D82BD8](v18);
     MEMORY[0x277D82BD8](v19);
-    MEMORY[0x277D82BD8](v20);
-    [v22[0] setProperty:@"SUGetBetaUpdatesButton" forKey:*MEMORY[0x277D3FFB8]];
+    [v21[0] setProperty:@"SUGetBetaUpdatesButton" forKey:*MEMORY[0x277D3FFB8]];
     [(SUSUISoftwareUpdateController *)selfCopy setBetaUpdatesCell:0];
   }
 
@@ -4131,17 +4102,17 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
   MEMORY[0x277D82BD8](betaUpdatesCell);
   if (!betaUpdatesCell)
   {
-    v16 = [objc_alloc(MEMORY[0x277D3FB38]) initWithStyle:0 reuseIdentifier:@"SUGetBetaUpdatesButton" specifier:v22[0]];
+    v15 = [objc_alloc(MEMORY[0x277D3FB38]) initWithStyle:0 reuseIdentifier:@"SUGetBetaUpdatesButton" specifier:v21[0]];
     [(SUSUISoftwareUpdateController *)selfCopy setBetaUpdatesCell:?];
-    MEMORY[0x277D82BD8](v16);
+    MEMORY[0x277D82BD8](v15);
   }
 
   location = [MEMORY[0x277D756E0] valueCellConfiguration];
-  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v8 = [v9 localizedStringForKey:@"GET_BETA_UPDATES" value:&stru_287B79370 table:@"Software Update"];
+  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v7 = [v8 localizedStringForKey:@"GET_BETA_UPDATES" value:&stru_287B79370 table:@"Software Update"];
   [location setText:?];
+  MEMORY[0x277D82BD8](v7);
   MEMORY[0x277D82BD8](v8);
-  MEMORY[0x277D82BD8](v9);
   isBetaUpdatesEnabled = [(SUSUISoftwareUpdateController *)selfCopy isBetaUpdatesEnabled];
   [location setSecondaryText:?];
   MEMORY[0x277D82BD8](isBetaUpdatesEnabled);
@@ -4157,157 +4128,152 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
   betaUpdatesCell5 = [(SUSUISoftwareUpdateController *)selfCopy betaUpdatesCell];
   [(PSTableCell *)betaUpdatesCell5 setUserInteractionEnabled:[(SUSUISoftwareUpdateController *)selfCopy isBusy]^ 1];
   MEMORY[0x277D82BD8](betaUpdatesCell5);
-  [v22[0] setProperty:&unk_287B855B8 forKey:*MEMORY[0x277D3FD68]];
-  v15 = [v22[0] propertyForKey:*MEMORY[0x277D40148]];
-  MEMORY[0x277D82BD8](v15);
-  if (!v15)
+  [v21[0] setProperty:&unk_287B855B8 forKey:*MEMORY[0x277D3FD68]];
+  v14 = [v21[0] propertyForKey:*MEMORY[0x277D40148]];
+  MEMORY[0x277D82BD8](v14);
+  if (!v14)
   {
     betaUpdatesCell6 = [(SUSUISoftwareUpdateController *)selfCopy betaUpdatesCell];
-    v4 = *MEMORY[0x277D40148];
-    [v22[0] setProperty:? forKey:?];
+    [v21[0] setProperty:? forKey:?];
     MEMORY[0x277D82BD8](betaUpdatesCell6);
   }
 
-  v6 = MEMORY[0x277D82BE0](v22[0]);
+  v5 = MEMORY[0x277D82BE0](v21[0]);
   objc_storeStrong(&location, 0);
-  objc_storeStrong(v22, 0);
+  objc_storeStrong(v21, 0);
 
-  return v6;
+  return v5;
 }
 
 - (id)specifierForScanHeaderGroupWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
-  v9[4] = self;
-  v9[3] = a2;
-  v9[2] = state;
-  v9[1] = descriptorState;
-  v9[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUScanHeaderGroup"];
-  if (!v9[0])
+  v8[4] = self;
+  v8[3] = a2;
+  v8[2] = state;
+  v8[1] = descriptorState;
+  v8[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUScanHeaderGroup"];
+  if (!v8[0])
   {
-    v9[0] = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
+    v8[0] = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
     MEMORY[0x277D82BD8](0);
-    [v9[0] setProperty:@"SUScanHeaderGroup" forKey:*MEMORY[0x277D3FFB8]];
+    [v8[0] setProperty:@"SUScanHeaderGroup" forKey:*MEMORY[0x277D3FFB8]];
     v4 = objc_opt_class();
-    v8 = NSStringFromClass(v4);
-    v5 = *MEMORY[0x277D3FFA0];
-    [v9[0] setProperty:? forKey:?];
-    MEMORY[0x277D82BD8](v8);
-    [v9[0] setProperty:&unk_287B855D0 forKey:@"SUHeight"];
+    v7 = NSStringFromClass(v4);
+    [v8[0] setProperty:? forKey:?];
+    MEMORY[0x277D82BD8](v7);
+    [v8[0] setProperty:&unk_287B855D0 forKey:@"SUHeight"];
   }
 
-  v7 = MEMORY[0x277D82BE0](v9[0]);
-  objc_storeStrong(v9, 0);
+  v6 = MEMORY[0x277D82BE0](v8[0]);
+  objc_storeStrong(v8, 0);
 
-  return v7;
+  return v6;
 }
 
 - (id)specifierForScanFooterGroupWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
-  v9[4] = self;
-  v9[3] = a2;
-  v9[2] = state;
-  v9[1] = descriptorState;
-  v9[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUScanFooterGroup"];
-  if (!v9[0])
+  v8[4] = self;
+  v8[3] = a2;
+  v8[2] = state;
+  v8[1] = descriptorState;
+  v8[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUScanFooterGroup"];
+  if (!v8[0])
   {
-    v9[0] = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
+    v8[0] = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
     MEMORY[0x277D82BD8](0);
-    [v9[0] setProperty:@"SUScanFooterGroup" forKey:*MEMORY[0x277D3FFB8]];
+    [v8[0] setProperty:@"SUScanFooterGroup" forKey:*MEMORY[0x277D3FFB8]];
     v4 = objc_opt_class();
-    v8 = NSStringFromClass(v4);
-    v5 = *MEMORY[0x277D3FFA0];
-    [v9[0] setProperty:? forKey:?];
-    MEMORY[0x277D82BD8](v8);
-    [v9[0] setProperty:&unk_287B855D0 forKey:@"SUHeight"];
+    v7 = NSStringFromClass(v4);
+    [v8[0] setProperty:? forKey:?];
+    MEMORY[0x277D82BD8](v7);
+    [v8[0] setProperty:&unk_287B855D0 forKey:@"SUHeight"];
   }
 
-  v7 = MEMORY[0x277D82BE0](v9[0]);
-  objc_storeStrong(v9, 0);
+  v6 = MEMORY[0x277D82BE0](v8[0]);
+  objc_storeStrong(v8, 0);
 
-  return v7;
+  return v6;
 }
 
 - (id)specifierForScanStatusWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
-  v9[4] = self;
-  v9[3] = a2;
-  v9[2] = state;
-  v9[1] = descriptorState;
-  v9[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUScanStatusGroup"];
-  if (!v9[0])
+  v8[4] = self;
+  v8[3] = a2;
+  v8[2] = state;
+  v8[1] = descriptorState;
+  v8[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUScanStatusGroup"];
+  if (!v8[0])
   {
-    v9[0] = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
+    v8[0] = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
     MEMORY[0x277D82BD8](0);
-    [v9[0] setProperty:@"SUScanStatusGroup" forKey:*MEMORY[0x277D3FFB8]];
-    [v9[0] setProperty:&unk_287B85630 forKey:@"SUHeight"];
+    [v8[0] setProperty:@"SUScanStatusGroup" forKey:*MEMORY[0x277D3FFB8]];
+    [v8[0] setProperty:&unk_287B85630 forKey:@"SUHeight"];
     v4 = objc_opt_class();
-    v8 = NSStringFromClass(v4);
-    v5 = *MEMORY[0x277D3FFA0];
-    [v9[0] setProperty:? forKey:?];
-    MEMORY[0x277D82BD8](v8);
+    v7 = NSStringFromClass(v4);
+    [v8[0] setProperty:? forKey:?];
+    MEMORY[0x277D82BD8](v7);
   }
 
-  v7 = MEMORY[0x277D82BE0](v9[0]);
-  objc_storeStrong(v9, 0);
+  v6 = MEMORY[0x277D82BE0](v8[0]);
+  objc_storeStrong(v8, 0);
 
-  return v7;
+  return v6;
 }
 
 - (id)specifierForScanStatusCellWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
   selfCopy = self;
-  v15[3] = a2;
-  v15[2] = state;
-  v15[1] = descriptorState;
-  v15[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUScanStatusCell"];
-  if (!v15[0])
+  v14[3] = a2;
+  v14[2] = state;
+  v14[1] = descriptorState;
+  v14[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUScanStatusCell"];
+  if (!v14[0])
   {
-    v15[0] = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:-1 edit:0];
+    v14[0] = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:-1 edit:0];
     MEMORY[0x277D82BD8](0);
-    [v15[0] setProperty:@"SUScanStatusCell" forKey:*MEMORY[0x277D3FFB8]];
-    [v15[0] setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
+    [v14[0] setProperty:@"SUScanStatusCell" forKey:*MEMORY[0x277D3FFB8]];
+    [v14[0] setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
   }
 
   scanCell = [(SUSUISoftwareUpdateController *)selfCopy scanCell];
   MEMORY[0x277D82BD8](scanCell);
   if (!scanCell)
   {
-    v12 = [objc_alloc(MEMORY[0x277D64AB8]) initWithStyle:3 reuseIdentifier:0 specifier:?];
+    v11 = [objc_alloc(MEMORY[0x277D64AB8]) initWithStyle:3 reuseIdentifier:0 specifier:?];
     [(SUSUISoftwareUpdateController *)selfCopy setScanCell:?];
-    MEMORY[0x277D82BD8](v12);
+    MEMORY[0x277D82BD8](v11);
     scanCell2 = [(SUSUISoftwareUpdateController *)selfCopy scanCell];
-    [(SUSSoftwareUpdateScanCell *)scanCell2 setSpecifier:v15[0]];
+    [(SUSSoftwareUpdateScanCell *)scanCell2 setSpecifier:v14[0]];
     MEMORY[0x277D82BD8](scanCell2);
   }
 
   scanCell3 = [(SUSUISoftwareUpdateController *)selfCopy scanCell];
   [(SUSSoftwareUpdateScanCell *)scanCell3 setAccessibilityIdentifier:?];
   MEMORY[0x277D82BD8](scanCell3);
-  [v15[0] setAccessibilityIdentifier:@"SUScanStatusCell"];
-  v11 = [v15[0] propertyForKey:*MEMORY[0x277D40148]];
-  MEMORY[0x277D82BD8](v11);
-  if (!v11)
+  [v14[0] setAccessibilityIdentifier:@"SUScanStatusCell"];
+  v10 = [v14[0] propertyForKey:*MEMORY[0x277D40148]];
+  MEMORY[0x277D82BD8](v10);
+  if (!v10)
   {
     scanCell4 = [(SUSUISoftwareUpdateController *)selfCopy scanCell];
-    v4 = *MEMORY[0x277D40148];
-    [v15[0] setProperty:? forKey:?];
+    [v14[0] setProperty:? forKey:?];
     MEMORY[0x277D82BD8](scanCell4);
   }
 
-  v6 = selfCopy;
+  v5 = selfCopy;
   scanCell5 = [(SUSUISoftwareUpdateController *)selfCopy scanCell];
-  [SUSUISoftwareUpdateController configureScanCell:v6 withUIState:"configureScanCell:withUIState:descriptorState:" descriptorState:?];
+  [SUSUISoftwareUpdateController configureScanCell:v5 withUIState:"configureScanCell:withUIState:descriptorState:" descriptorState:?];
   MEMORY[0x277D82BD8](scanCell5);
-  v8 = MEMORY[0x277D82BE0](v15[0]);
-  objc_storeStrong(v15, 0);
+  v7 = MEMORY[0x277D82BE0](v14[0]);
+  objc_storeStrong(v14, 0);
 
-  return v8;
+  return v7;
 }
 
 - (id)specifierForTitleGroupWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
   selfCopy = self;
-  v28 = a2;
+  v27 = a2;
   stateCopy = state;
   descriptorStateCopy = descriptorState;
   emptyGroupSpecifier = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUTitleGroup"];
@@ -4318,16 +4284,16 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
     [emptyGroupSpecifier setProperty:@"SUTitleGroup" forKey:*MEMORY[0x277D3FFB8]];
   }
 
-  v23 = 0;
+  v22 = 0;
   isClearingSpaceForDownload = 1;
   if (![(SUSUISoftwareUpdateController *)selfCopy shouldShowProactiveSuggestionsSpecifierForUIState:stateCopy descriptorState:descriptorStateCopy])
   {
     manager = [(SUSUISoftwareUpdateController *)selfCopy manager];
-    v23 = 1;
+    v22 = 1;
     isClearingSpaceForDownload = [(SUSettingsStatefulUIManager *)manager isClearingSpaceForDownload];
   }
 
-  if (v23)
+  if (v22)
   {
     MEMORY[0x277D82BD8](manager);
   }
@@ -4343,14 +4309,14 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
     if (![(SUSUISoftwareUpdateController *)selfCopy _shouldHideTonightButton])
     {
       [emptyGroupSpecifier setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
-      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v18 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"UPDATE_OPTIONS_EXPLANATION_FOOTER_TEXT"];
-      v4 = [v19 localizedStringForKey:? value:? table:?];
+      v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v17 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"UPDATE_OPTIONS_EXPLANATION_FOOTER_TEXT"];
+      v4 = [v18 localizedStringForKey:? value:? table:?];
       v5 = location;
       location = v4;
       MEMORY[0x277D82BD8](v5);
+      MEMORY[0x277D82BD8](v17);
       MEMORY[0x277D82BD8](v18);
-      MEMORY[0x277D82BD8](v19);
     }
 
     currentDevice = [MEMORY[0x277D75418] currentDevice];
@@ -4363,9 +4329,9 @@ uint64_t __67__SUSUISoftwareUpdateController_Specifiers__visibleGroupSpecifiers_
       MEMORY[0x277D82BD8](mEMORY[0x277D64AE0]);
       if ((shouldBypassSystemRootWarning & 1) == 0)
       {
-        v21 = 0;
-        system_root_status(0, &v21);
-        if (v21)
+        v20 = 0;
+        system_root_status(0, &v20);
+        if (v20)
         {
           if (location)
           {
@@ -4399,36 +4365,35 @@ LABEL_24:
   if (![(SUSUISoftwareUpdateController *)selfCopy _shouldHideTonightButton])
   {
     [emptyGroupSpecifier setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
-    v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v12 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"INSTALL_OPTIONS_EXPLANATION_FOOTER_TEXT"];
-    v11 = [v13 localizedStringForKey:? value:? table:?];
-    v8 = *MEMORY[0x277D3FF88];
+    v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v11 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"INSTALL_OPTIONS_EXPLANATION_FOOTER_TEXT"];
+    v10 = [v12 localizedStringForKey:? value:? table:?];
     [emptyGroupSpecifier setProperty:? forKey:?];
+    MEMORY[0x277D82BD8](v10);
     MEMORY[0x277D82BD8](v11);
     MEMORY[0x277D82BD8](v12);
-    MEMORY[0x277D82BD8](v13);
   }
 
 LABEL_25:
-  v10 = MEMORY[0x277D82BE0](emptyGroupSpecifier);
+  v9 = MEMORY[0x277D82BE0](emptyGroupSpecifier);
   objc_storeStrong(&emptyGroupSpecifier, 0);
 
-  return v10;
+  return v9;
 }
 
 - (id)specifierForTitleCellWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
   selfCopy = self;
-  v40 = a2;
+  v39 = a2;
   stateCopy = state;
   descriptorStateCopy = descriptorState;
-  v37 = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUTitleCell"];
+  v36 = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUTitleCell"];
   presentingDescriptor = [(SUSUISoftwareUpdateController *)selfCopy presentingDescriptor];
-  if (!v37)
+  if (!v36)
   {
-    v37 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:-1 edit:0];
+    v36 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:-1 edit:0];
     MEMORY[0x277D82BD8](0);
-    [v37 setProperty:@"SUTitleCell" forKey:*MEMORY[0x277D3FFB8]];
+    [v36 setProperty:@"SUTitleCell" forKey:*MEMORY[0x277D3FFB8]];
     [(SUSUISoftwareUpdateController *)selfCopy setTitleCell:0];
   }
 
@@ -4436,14 +4401,14 @@ LABEL_25:
   MEMORY[0x277D82BD8](titleCell);
   if (!titleCell)
   {
-    v22 = objc_alloc(MEMORY[0x277D64AC8]);
+    v21 = objc_alloc(MEMORY[0x277D64AC8]);
     documentation = [presentingDescriptor documentation];
     iconImage = [documentation iconImage];
     documentation2 = [presentingDescriptor documentation];
     releaseNotes = [documentation2 releaseNotes];
-    v23 = [v22 initWithStyle:3 reuseIdentifier:0 specifier:0 updateIcon:iconImage showLearnMore:releaseNotes != 0 showSplomboNotes:objc_msgSend(presentingDescriptor delegate:{"isSplombo"), selfCopy}];
+    v22 = [v21 initWithStyle:3 reuseIdentifier:0 specifier:0 updateIcon:iconImage showLearnMore:releaseNotes != 0 showSplomboNotes:objc_msgSend(presentingDescriptor delegate:{"isSplombo"), selfCopy}];
     [(SUSUISoftwareUpdateController *)selfCopy setTitleCell:?];
-    MEMORY[0x277D82BD8](v23);
+    MEMORY[0x277D82BD8](v22);
     MEMORY[0x277D82BD8](releaseNotes);
     MEMORY[0x277D82BD8](documentation2);
     MEMORY[0x277D82BD8](iconImage);
@@ -4451,7 +4416,7 @@ LABEL_25:
   }
 
   titleCell2 = [(SUSUISoftwareUpdateController *)selfCopy titleCell];
-  [(SUSSoftwareUpdateTitleCell *)titleCell2 setSpecifier:v37];
+  [(SUSSoftwareUpdateTitleCell *)titleCell2 setSpecifier:v36];
   MEMORY[0x277D82BD8](titleCell2);
   titleCell3 = [(SUSUISoftwareUpdateController *)selfCopy titleCell];
   documentation3 = [presentingDescriptor documentation];
@@ -4475,36 +4440,35 @@ LABEL_25:
   MEMORY[0x277D82BD8](iconImage2);
   MEMORY[0x277D82BD8](documentation4);
   MEMORY[0x277D82BD8](titleCell6);
-  v21 = [v37 propertyForKey:*MEMORY[0x277D40148]];
-  MEMORY[0x277D82BD8](v21);
-  if (!v21)
+  v20 = [v36 propertyForKey:*MEMORY[0x277D40148]];
+  MEMORY[0x277D82BD8](v20);
+  if (!v20)
   {
     titleCell7 = [(SUSUISoftwareUpdateController *)selfCopy titleCell];
-    v4 = *MEMORY[0x277D40148];
-    [v37 setProperty:? forKey:?];
+    [v36 setProperty:? forKey:?];
     MEMORY[0x277D82BD8](titleCell7);
   }
 
-  [(SUSUISoftwareUpdateController *)selfCopy _setTitleCellSpecifierStatus:v37 descriptorState:descriptorStateCopy];
-  v7 = MEMORY[0x277D85CD0];
-  v5 = MEMORY[0x277D85CD0];
-  queue = v7;
-  v29 = MEMORY[0x277D85DD0];
-  v30 = -1073741824;
-  v31 = 0;
-  v32 = __94__SUSUISoftwareUpdateController_Specifiers__specifierForTitleCellWithUIState_descriptorState___block_invoke;
-  v33 = &unk_279CB9410;
-  v34 = MEMORY[0x277D82BE0](selfCopy);
-  v35 = MEMORY[0x277D82BE0](presentingDescriptor);
-  dispatch_async(queue, &v29);
+  [(SUSUISoftwareUpdateController *)selfCopy _setTitleCellSpecifierStatus:v36 descriptorState:descriptorStateCopy];
+  v6 = MEMORY[0x277D85CD0];
+  v4 = MEMORY[0x277D85CD0];
+  queue = v6;
+  v28 = MEMORY[0x277D85DD0];
+  v29 = -1073741824;
+  v30 = 0;
+  v31 = __94__SUSUISoftwareUpdateController_Specifiers__specifierForTitleCellWithUIState_descriptorState___block_invoke;
+  v32 = &unk_279CB9410;
+  v33 = MEMORY[0x277D82BE0](selfCopy);
+  v34 = MEMORY[0x277D82BE0](presentingDescriptor);
+  dispatch_async(queue, &v28);
   MEMORY[0x277D82BD8](queue);
-  v9 = MEMORY[0x277D82BE0](v37);
-  objc_storeStrong(&v35, 0);
+  v8 = MEMORY[0x277D82BE0](v36);
   objc_storeStrong(&v34, 0);
+  objc_storeStrong(&v33, 0);
   objc_storeStrong(&presentingDescriptor, 0);
-  objc_storeStrong(&v37, 0);
+  objc_storeStrong(&v36, 0);
 
-  return v9;
+  return v8;
 }
 
 uint64_t __94__SUSUISoftwareUpdateController_Specifiers__specifierForTitleCellWithUIState_descriptorState___block_invoke(uint64_t a1)
@@ -4526,7 +4490,7 @@ uint64_t __94__SUSUISoftwareUpdateController_Specifiers__specifierForTitleCellWi
 - (id)specifierForUpdateOptionsWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
   selfCopy = self;
-  v21 = a2;
+  v20 = a2;
   stateCopy = state;
   descriptorStateCopy = descriptorState;
   location = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUSpecifierUpdateOptionsCell"];
@@ -4543,9 +4507,9 @@ uint64_t __94__SUSUISoftwareUpdateController_Specifiers__specifierForTitleCellWi
   MEMORY[0x277D82BD8](updateOptionsCell);
   if (!updateOptionsCell)
   {
-    v12 = [objc_alloc(MEMORY[0x277D64AD0]) initWithStyle:0 reuseIdentifier:? specifier:?];
+    v11 = [objc_alloc(MEMORY[0x277D64AD0]) initWithStyle:0 reuseIdentifier:? specifier:?];
     [(SUSUISoftwareUpdateController *)selfCopy setUpdateOptionsCell:?];
-    MEMORY[0x277D82BD8](v12);
+    MEMORY[0x277D82BD8](v11);
     updateOptionsCell2 = [(SUSUISoftwareUpdateController *)selfCopy updateOptionsCell];
     [(SUSSoftwareUpdateUpdateOptionsCell *)updateOptionsCell2 setSpecifier:location];
     MEMORY[0x277D82BD8](updateOptionsCell2);
@@ -4555,26 +4519,25 @@ uint64_t __94__SUSUISoftwareUpdateController_Specifiers__specifierForTitleCellWi
   }
 
   updateOptionsCell4 = [(SUSUISoftwareUpdateController *)selfCopy updateOptionsCell];
-  v4 = *MEMORY[0x277D40148];
   [location setProperty:? forKey:?];
   MEMORY[0x277D82BD8](updateOptionsCell4);
-  v5 = [(SUSUISoftwareUpdateController *)selfCopy _setInstallButtonButtonSpecifierState:location forUIState:stateCopy descriptorState:descriptorStateCopy];
-  v6 = location;
-  location = v5;
-  MEMORY[0x277D82BD8](v6);
+  v4 = [(SUSUISoftwareUpdateController *)selfCopy _setInstallButtonButtonSpecifierState:location forUIState:stateCopy descriptorState:descriptorStateCopy];
+  v5 = location;
+  location = v4;
+  MEMORY[0x277D82BD8](v5);
   if (location)
   {
     updateOptionsCell5 = [(SUSUISoftwareUpdateController *)selfCopy updateOptionsCell];
-    v16 = 0;
+    v15 = 0;
     isSecondaryButtonHidden = 0;
     if (([(SUSSoftwareUpdateUpdateOptionsCell *)updateOptionsCell5 isPrimaryButtonHidden]& 1) != 0)
     {
       updateOptionsCell6 = [(SUSUISoftwareUpdateController *)selfCopy updateOptionsCell];
-      v16 = 1;
+      v15 = 1;
       isSecondaryButtonHidden = [(SUSSoftwareUpdateUpdateOptionsCell *)updateOptionsCell6 isSecondaryButtonHidden];
     }
 
-    if (v16)
+    if (v15)
     {
       MEMORY[0x277D82BD8](updateOptionsCell6);
     }
@@ -4582,7 +4545,7 @@ uint64_t __94__SUSUISoftwareUpdateController_Specifiers__specifierForTitleCellWi
     MEMORY[0x277D82BD8](updateOptionsCell5);
     if (isSecondaryButtonHidden)
     {
-      v23 = 0;
+      v22 = 0;
     }
 
     else
@@ -4592,35 +4555,35 @@ uint64_t __94__SUSUISoftwareUpdateController_Specifiers__specifierForTitleCellWi
         [(SUSUISoftwareUpdateController *)selfCopy setBusyWithActivityStyle:selfCopy->_currentActivityStyle];
       }
 
-      v23 = MEMORY[0x277D82BE0](location);
+      v22 = MEMORY[0x277D82BE0](location);
     }
   }
 
   else
   {
-    v23 = 0;
+    v22 = 0;
   }
 
   objc_storeStrong(&location, 0);
-  v7 = v23;
+  v6 = v22;
 
-  return v7;
+  return v6;
 }
 
 - (id)specifierForProactiveSuggestionCellWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v56 = a2;
+  v55 = a2;
   stateCopy = state;
   descriptorStateCopy = descriptorState;
-  v53 = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUProactiveSuggestionCell"];
-  if (!v53)
+  v52 = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUProactiveSuggestionCell"];
+  if (!v52)
   {
-    v53 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:-1 edit:0];
+    v52 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:-1 edit:0];
     MEMORY[0x277D82BD8](0);
-    [v53 setProperty:@"SUProactiveSuggestionCell" forKey:*MEMORY[0x277D3FFB8]];
-    [v53 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
+    [v52 setProperty:@"SUProactiveSuggestionCell" forKey:*MEMORY[0x277D3FFB8]];
+    [v52 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FD80]];
     [(SUSUISoftwareUpdateController *)selfCopy setProactiveSuggestionCell:0];
   }
 
@@ -4628,25 +4591,24 @@ uint64_t __94__SUSUISoftwareUpdateController_Specifiers__specifierForTitleCellWi
   MEMORY[0x277D82BD8](proactiveSuggestionCell);
   if (!proactiveSuggestionCell)
   {
-    v48 = [objc_alloc(MEMORY[0x277D64AA8]) initWithStyle:0 reuseIdentifier:@"SUProactiveSuggestionCell" specifier:v53];
+    v47 = [objc_alloc(MEMORY[0x277D64AA8]) initWithStyle:0 reuseIdentifier:@"SUProactiveSuggestionCell" specifier:v52];
     [(SUSUISoftwareUpdateController *)selfCopy setProactiveSuggestionCell:?];
-    MEMORY[0x277D82BD8](v48);
+    MEMORY[0x277D82BD8](v47);
     proactiveSuggestionCell2 = [(SUSUISoftwareUpdateController *)selfCopy proactiveSuggestionCell];
-    [(SUSSoftwareUpdateProactiveSuggestionCell *)proactiveSuggestionCell2 setSpecifier:v53];
+    [(SUSSoftwareUpdateProactiveSuggestionCell *)proactiveSuggestionCell2 setSpecifier:v52];
     MEMORY[0x277D82BD8](proactiveSuggestionCell2);
   }
 
-  v47 = [v53 propertyForKey:*MEMORY[0x277D40148]];
-  MEMORY[0x277D82BD8](v47);
-  if (!v47)
+  v46 = [v52 propertyForKey:*MEMORY[0x277D40148]];
+  MEMORY[0x277D82BD8](v46);
+  if (!v46)
   {
     proactiveSuggestionCell3 = [(SUSUISoftwareUpdateController *)selfCopy proactiveSuggestionCell];
-    v4 = *MEMORY[0x277D40148];
-    [v53 setProperty:? forKey:?];
+    [v52 setProperty:? forKey:?];
     MEMORY[0x277D82BD8](proactiveSuggestionCell3);
   }
 
-  v52 = [(SUSUISoftwareUpdateController *)selfCopy proactiveSuggestionTypeForUIState:stateCopy descriptorState:descriptorStateCopy];
+  v51 = [(SUSUISoftwareUpdateController *)selfCopy proactiveSuggestionTypeForUIState:stateCopy descriptorState:descriptorStateCopy];
   proactiveSuggestionCell4 = [(SUSUISoftwareUpdateController *)selfCopy proactiveSuggestionCell];
   [(SUSSoftwareUpdateProactiveSuggestionCell *)proactiveSuggestionCell4 setTitle:?];
   MEMORY[0x277D82BD8](proactiveSuggestionCell4);
@@ -4656,7 +4618,7 @@ uint64_t __94__SUSUISoftwareUpdateController_Specifiers__specifierForTitleCellWi
   proactiveSuggestionCell6 = [(SUSUISoftwareUpdateController *)selfCopy proactiveSuggestionCell];
   [(SUSSoftwareUpdateProactiveSuggestionCell *)proactiveSuggestionCell6 setAccessibilityIdentifier:@"SUProactiveSuggestionCell"];
   MEMORY[0x277D82BD8](proactiveSuggestionCell6);
-  switch(v52)
+  switch(v51)
   {
     case 1uLL:
       proactiveSuggestionCell7 = [(SUSUISoftwareUpdateController *)selfCopy proactiveSuggestionCell];
@@ -4669,9 +4631,9 @@ uint64_t __94__SUSUISoftwareUpdateController_Specifiers__specifierForTitleCellWi
       errorContextProvider = [(SUSettingsStatefulUIManager *)manager errorContextProvider];
       presentingDescriptorError = [(SUSUISoftwareUpdateController *)selfCopy presentingDescriptorError];
       presentingStatefulDescriptor = [(SUSUISoftwareUpdateController *)selfCopy presentingStatefulDescriptor];
-      v31 = [(SUSettingsStatefulErrorContextProvider *)errorContextProvider localizedTitleForError:presentingDescriptorError statefulDescriptor:?];
+      v30 = [(SUSettingsStatefulErrorContextProvider *)errorContextProvider localizedTitleForError:presentingDescriptorError statefulDescriptor:?];
       [(SUSSoftwareUpdateProactiveSuggestionCell *)proactiveSuggestionCell8 setTitle:?];
-      MEMORY[0x277D82BD8](v31);
+      MEMORY[0x277D82BD8](v30);
       MEMORY[0x277D82BD8](presentingStatefulDescriptor);
       MEMORY[0x277D82BD8](presentingDescriptorError);
       MEMORY[0x277D82BD8](errorContextProvider);
@@ -4682,9 +4644,9 @@ uint64_t __94__SUSUISoftwareUpdateController_Specifiers__specifierForTitleCellWi
       errorContextProvider2 = [(SUSettingsStatefulUIManager *)manager2 errorContextProvider];
       presentingDescriptorError2 = [(SUSUISoftwareUpdateController *)selfCopy presentingDescriptorError];
       presentingStatefulDescriptor2 = [(SUSUISoftwareUpdateController *)selfCopy presentingStatefulDescriptor];
-      v37 = [(SUSettingsStatefulErrorContextProvider *)errorContextProvider2 localizedDescriptionForError:presentingDescriptorError2 statefulDescriptor:?];
+      v36 = [(SUSettingsStatefulErrorContextProvider *)errorContextProvider2 localizedDescriptionForError:presentingDescriptorError2 statefulDescriptor:?];
       [(SUSSoftwareUpdateProactiveSuggestionCell *)proactiveSuggestionCell9 setContent:?];
-      MEMORY[0x277D82BD8](v37);
+      MEMORY[0x277D82BD8](v36);
       MEMORY[0x277D82BD8](presentingStatefulDescriptor2);
       MEMORY[0x277D82BD8](presentingDescriptorError2);
       MEMORY[0x277D82BD8](errorContextProvider2);
@@ -4698,20 +4660,20 @@ uint64_t __94__SUSUISoftwareUpdateController_Specifiers__specifierForTitleCellWi
       MEMORY[0x277D82BD8](tertiaryLabelColor);
       MEMORY[0x277D82BD8](proactiveSuggestionCell10);
       proactiveSuggestionCell11 = [(SUSUISoftwareUpdateController *)selfCopy proactiveSuggestionCell];
-      v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v22 = [v23 localizedStringForKey:@"AUTOMATIC_UPDATE_PROACTIVE_SUGGESTION_CELL_TITLE" value:? table:?];
+      v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v21 = [v22 localizedStringForKey:@"AUTOMATIC_UPDATE_PROACTIVE_SUGGESTION_CELL_TITLE" value:? table:?];
       [(SUSSoftwareUpdateProactiveSuggestionCell *)proactiveSuggestionCell11 setTitle:?];
+      MEMORY[0x277D82BD8](v21);
       MEMORY[0x277D82BD8](v22);
-      MEMORY[0x277D82BD8](v23);
       MEMORY[0x277D82BD8](proactiveSuggestionCell11);
       proactiveSuggestionCell12 = [(SUSUISoftwareUpdateController *)selfCopy proactiveSuggestionCell];
-      v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v26 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"AUTOMATIC_UPDATE_PROACTIVE_SUGGESTION_CELL_CONTENT"];
-      v25 = [v27 localizedStringForKey:? value:? table:?];
+      v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v25 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"AUTOMATIC_UPDATE_PROACTIVE_SUGGESTION_CELL_CONTENT"];
+      v24 = [v26 localizedStringForKey:? value:? table:?];
       [(SUSSoftwareUpdateProactiveSuggestionCell *)proactiveSuggestionCell12 setContent:?];
+      MEMORY[0x277D82BD8](v24);
       MEMORY[0x277D82BD8](v25);
       MEMORY[0x277D82BD8](v26);
-      MEMORY[0x277D82BD8](v27);
       MEMORY[0x277D82BD8](proactiveSuggestionCell12);
       break;
     case 3uLL:
@@ -4721,46 +4683,45 @@ uint64_t __94__SUSUISoftwareUpdateController_Specifiers__specifierForTitleCellWi
       MEMORY[0x277D82BD8](systemGreenColor);
       MEMORY[0x277D82BD8](proactiveSuggestionCell13);
       proactiveSuggestionCell14 = [(SUSUISoftwareUpdateController *)selfCopy proactiveSuggestionCell];
-      v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v9 = [v10 localizedStringForKey:@"UPDATE_SCHEDULED_TITLE" value:? table:?];
+      v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v8 = [v9 localizedStringForKey:@"UPDATE_SCHEDULED_TITLE" value:? table:?];
       [(SUSSoftwareUpdateProactiveSuggestionCell *)proactiveSuggestionCell14 setTitle:?];
+      MEMORY[0x277D82BD8](v8);
       MEMORY[0x277D82BD8](v9);
-      MEMORY[0x277D82BD8](v10);
       MEMORY[0x277D82BD8](proactiveSuggestionCell14);
       proactiveSuggestionCell15 = [(SUSUISoftwareUpdateController *)selfCopy proactiveSuggestionCell];
-      v12 = MEMORY[0x277CCACA8];
-      v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v17 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"UPDATE_SCHEDULED_CONTENT"];
-      v16 = [v18 localizedStringForKey:? value:? table:?];
+      v11 = MEMORY[0x277CCACA8];
+      v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v16 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"UPDATE_SCHEDULED_CONTENT"];
+      v15 = [v17 localizedStringForKey:? value:? table:?];
       presentingDescriptor = [(SUSUISoftwareUpdateController *)selfCopy presentingDescriptor];
       humanReadableUpdateName = [presentingDescriptor humanReadableUpdateName];
-      v13 = [v12 stringWithFormat:v16, humanReadableUpdateName];
+      v12 = [v11 stringWithFormat:v15, humanReadableUpdateName];
       [(SUSSoftwareUpdateProactiveSuggestionCell *)proactiveSuggestionCell15 setContent:?];
-      MEMORY[0x277D82BD8](v13);
+      MEMORY[0x277D82BD8](v12);
       MEMORY[0x277D82BD8](humanReadableUpdateName);
       MEMORY[0x277D82BD8](presentingDescriptor);
+      MEMORY[0x277D82BD8](v15);
       MEMORY[0x277D82BD8](v16);
       MEMORY[0x277D82BD8](v17);
-      MEMORY[0x277D82BD8](v18);
       MEMORY[0x277D82BD8](proactiveSuggestionCell15);
       break;
     default:
       location = _SUSUILoggingFacility();
       if (os_log_type_enabled(location, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_0_1_8_0(v58, v52);
-        _os_log_error_impl(&dword_26AC94000, location, OS_LOG_TYPE_ERROR, "SUSUIProactiveSuggestionType doesn't support proactive cell for: %lu", v58, 0xCu);
+        __os_log_helper_16_0_1_8_0(v57, v51);
+        _os_log_error_impl(&dword_26AC94000, location, OS_LOG_TYPE_ERROR, "SUSUIProactiveSuggestionType doesn't support proactive cell for: %lu", v57, 0xCu);
       }
 
       objc_storeStrong(&location, 0);
       break;
   }
 
-  v6 = MEMORY[0x277D82BE0](v53);
-  objc_storeStrong(&v53, 0);
-  *MEMORY[0x277D85DE8];
+  v5 = MEMORY[0x277D82BE0](v52);
+  objc_storeStrong(&v52, 0);
 
-  return v6;
+  return v5;
 }
 
 - (id)specifierForProactiveSuggestionGroupWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
@@ -4786,135 +4747,132 @@ uint64_t __94__SUSUISoftwareUpdateController_Specifiers__specifierForTitleCellWi
 
 - (id)specifierForProactiveSuggestionPrimaryButtonWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v26 = a2;
+  v25 = a2;
   stateCopy = state;
   descriptorStateCopy = descriptorState;
-  v23 = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUProactiveSuggestionPrimaryButtonCell"];
-  if (!v23)
+  v22 = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUProactiveSuggestionPrimaryButtonCell"];
+  if (!v22)
   {
-    v23 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:selfCopy set:0 get:0 detail:0 cell:13 edit:0];
+    v22 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:selfCopy set:0 get:0 detail:0 cell:13 edit:0];
     MEMORY[0x277D82BD8](0);
   }
 
-  v17 = [MEMORY[0x277CCABB0] numberWithInt:{-[SUSUISoftwareUpdateController isBusy](selfCopy, "isBusy") ^ 1}];
-  v4 = *MEMORY[0x277D3FF38];
-  [v23 setProperty:? forKey:?];
-  MEMORY[0x277D82BD8](v17);
-  [v23 setIdentifier:@"SUProactiveSuggestionPrimaryButtonCell"];
-  v22 = [(SUSUISoftwareUpdateController *)selfCopy proactiveSuggestionTypeForUIState:stateCopy descriptorState:descriptorStateCopy];
-  if (v22 != 1)
+  v16 = [MEMORY[0x277CCABB0] numberWithInt:{-[SUSUISoftwareUpdateController isBusy](selfCopy, "isBusy") ^ 1}];
+  [v22 setProperty:? forKey:?];
+  MEMORY[0x277D82BD8](v16);
+  [v22 setIdentifier:@"SUProactiveSuggestionPrimaryButtonCell"];
+  v21 = [(SUSUISoftwareUpdateController *)selfCopy proactiveSuggestionTypeForUIState:stateCopy descriptorState:descriptorStateCopy];
+  if (v21 != 1)
   {
-    if (v22 == 2)
+    if (v21 == 2)
     {
-      v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v9 = [v10 localizedStringForKey:@"INSTALL_ONCE_DOWNLOADED" value:&stru_287B79370 table:@"Software Update"];
-      [v23 setName:?];
+      v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v8 = [v9 localizedStringForKey:@"INSTALL_ONCE_DOWNLOADED" value:&stru_287B79370 table:@"Software Update"];
+      [v22 setName:?];
+      MEMORY[0x277D82BD8](v8);
       MEMORY[0x277D82BD8](v9);
-      MEMORY[0x277D82BD8](v10);
-      [v23 setButtonAction:sel_requestToPromoteTargetedUpdateToUserInitiatedStatus_];
-      [v23 setTarget:selfCopy];
+      [v22 setButtonAction:sel_requestToPromoteTargetedUpdateToUserInitiatedStatus_];
+      [v22 setTarget:selfCopy];
     }
 
-    else if (v22 == 3)
+    else if (v21 == 3)
     {
-      v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v7 = [v8 localizedStringForKey:@"UPDATE_NOW_INSTEAD_BUTTON" value:&stru_287B79370 table:@"Software Update"];
-      [v23 setName:?];
+      v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v6 = [v7 localizedStringForKey:@"UPDATE_NOW_INSTEAD_BUTTON" value:&stru_287B79370 table:@"Software Update"];
+      [v22 setName:?];
+      MEMORY[0x277D82BD8](v6);
       MEMORY[0x277D82BD8](v7);
-      MEMORY[0x277D82BD8](v8);
-      [v23 setButtonAction:sel_install_];
-      [v23 setTarget:selfCopy];
+      [v22 setButtonAction:sel_install_];
+      [v22 setTarget:selfCopy];
     }
 
     else
     {
-      v18 = _SUSUILoggingFacility();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v17 = _SUSUILoggingFacility();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_0_1_8_0(v29, v22);
-        _os_log_error_impl(&dword_26AC94000, v18, OS_LOG_TYPE_ERROR, "SUSUIProactiveSuggestionType doesn't support primary button for: %lu", v29, 0xCu);
+        __os_log_helper_16_0_1_8_0(v28, v21);
+        _os_log_error_impl(&dword_26AC94000, v17, OS_LOG_TYPE_ERROR, "SUSUIProactiveSuggestionType doesn't support primary button for: %lu", v28, 0xCu);
       }
 
-      objc_storeStrong(&v18, 0);
+      objc_storeStrong(&v17, 0);
     }
 
     goto LABEL_17;
   }
 
   presentingDescriptorError = [(SUSUISoftwareUpdateController *)selfCopy presentingDescriptorError];
-  v16 = [(SUSUISoftwareUpdateController *)selfCopy _errorIsInsufficientSpace:?];
+  v15 = [(SUSUISoftwareUpdateController *)selfCopy _errorIsInsufficientSpace:?];
   MEMORY[0x277D82BD8](presentingDescriptorError);
-  if (v16)
+  if (v15)
   {
-    v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v13 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"MANAGE_STORAGE_BUTTON"];
-    v12 = [v14 localizedStringForKey:? value:? table:?];
-    [v23 setName:?];
+    v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v12 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"MANAGE_STORAGE_BUTTON"];
+    v11 = [v13 localizedStringForKey:? value:? table:?];
+    [v22 setName:?];
+    MEMORY[0x277D82BD8](v11);
     MEMORY[0x277D82BD8](v12);
     MEMORY[0x277D82BD8](v13);
-    MEMORY[0x277D82BD8](v14);
-    [v23 setButtonAction:sel_openStorage];
-    [v23 setTarget:selfCopy];
+    [v22 setButtonAction:sel_openStorage];
+    [v22 setTarget:selfCopy];
 LABEL_17:
-    v28 = MEMORY[0x277D82BE0](v23);
-    v19 = 1;
+    v27 = MEMORY[0x277D82BE0](v22);
+    v18 = 1;
     goto LABEL_18;
   }
 
   location = _SUSUILoggingFacility();
-  v20 = OS_LOG_TYPE_DEFAULT;
+  v19 = OS_LOG_TYPE_DEFAULT;
   if (os_log_type_enabled(location, OS_LOG_TYPE_DEFAULT))
   {
     presentingDescriptorError2 = [(SUSUISoftwareUpdateController *)selfCopy presentingDescriptorError];
-    __os_log_helper_16_2_2_8_32_8_64(v30, "[SUSUISoftwareUpdateController(Specifiers) specifierForProactiveSuggestionPrimaryButtonWithUIState:descriptorState:]", presentingDescriptorError2);
-    _os_log_impl(&dword_26AC94000, location, v20, "%s: Can't create a button for an unknown error case: %@", v30, 0x16u);
+    __os_log_helper_16_2_2_8_32_8_64(v29, "[SUSUISoftwareUpdateController(Specifiers) specifierForProactiveSuggestionPrimaryButtonWithUIState:descriptorState:]", presentingDescriptorError2);
+    _os_log_impl(&dword_26AC94000, location, v19, "%s: Can't create a button for an unknown error case: %@", v29, 0x16u);
     MEMORY[0x277D82BD8](presentingDescriptorError2);
   }
 
   objc_storeStrong(&location, 0);
-  v28 = 0;
-  v19 = 1;
+  v27 = 0;
+  v18 = 1;
 LABEL_18:
-  objc_storeStrong(&v23, 0);
-  *MEMORY[0x277D85DE8];
-  v5 = v28;
+  objc_storeStrong(&v22, 0);
+  v4 = v27;
 
-  return v5;
+  return v4;
 }
 
 - (id)specifierForProactiveSuggestionSecondaryButtonWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v15 = a2;
+  v14 = a2;
   stateCopy = state;
   descriptorStateCopy = descriptorState;
-  v12 = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUProactiveSuggestionSecondaryButtonCell"];
-  v11 = [(SUSUISoftwareUpdateController *)selfCopy proactiveSuggestionTypeForUIState:stateCopy descriptorState:descriptorStateCopy];
-  if (!v12)
+  v11 = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUProactiveSuggestionSecondaryButtonCell"];
+  v10 = [(SUSUISoftwareUpdateController *)selfCopy proactiveSuggestionTypeForUIState:stateCopy descriptorState:descriptorStateCopy];
+  if (!v11)
   {
-    v12 = [MEMORY[0x277D3FAD8] deleteButtonSpecifierWithName:0 target:selfCopy action:?];
+    v11 = [MEMORY[0x277D3FAD8] deleteButtonSpecifierWithName:0 target:selfCopy action:?];
     MEMORY[0x277D82BD8](0);
-    [v12 setProperty:&unk_287B855E8 forKey:*MEMORY[0x277D3FD78]];
+    [v11 setProperty:&unk_287B855E8 forKey:*MEMORY[0x277D3FD78]];
   }
 
-  v9 = [MEMORY[0x277CCABB0] numberWithInt:{-[SUSUISoftwareUpdateController isBusy](selfCopy, "isBusy") ^ 1}];
-  v4 = *MEMORY[0x277D3FF38];
-  [v12 setProperty:? forKey:?];
-  MEMORY[0x277D82BD8](v9);
-  [v12 setIdentifier:@"SUProactiveSuggestionSecondaryButtonCell"];
-  if (v11 == 3)
+  v8 = [MEMORY[0x277CCABB0] numberWithInt:{-[SUSUISoftwareUpdateController isBusy](selfCopy, "isBusy") ^ 1}];
+  [v11 setProperty:? forKey:?];
+  MEMORY[0x277D82BD8](v8);
+  [v11 setIdentifier:@"SUProactiveSuggestionSecondaryButtonCell"];
+  if (v10 == 3)
   {
-    v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v7 = [v8 localizedStringForKey:@"CANCEL_UPDATE_BUTTON" value:&stru_287B79370 table:@"Software Update"];
-    [v12 setName:?];
+    v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v6 = [v7 localizedStringForKey:@"CANCEL_UPDATE_BUTTON" value:&stru_287B79370 table:@"Software Update"];
+    [v11 setName:?];
+    MEMORY[0x277D82BD8](v6);
     MEMORY[0x277D82BD8](v7);
-    MEMORY[0x277D82BD8](v8);
-    [v12 setButtonAction:sel_autoInstallCancelPrompt_];
-    [v12 setTarget:selfCopy];
-    [v12 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FE80]];
+    [v11 setButtonAction:sel_autoInstallCancelPrompt_];
+    [v11 setTarget:selfCopy];
+    [v11 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FE80]];
   }
 
   else
@@ -4922,63 +4880,61 @@ LABEL_18:
     location = _SUSUILoggingFacility();
     if (os_log_type_enabled(location, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_0_1_8_0(v17, v11);
-      _os_log_error_impl(&dword_26AC94000, location, OS_LOG_TYPE_ERROR, "SUSUIProactiveSuggestionType doesn't support primary button for: %lu", v17, 0xCu);
+      __os_log_helper_16_0_1_8_0(v16, v10);
+      _os_log_error_impl(&dword_26AC94000, location, OS_LOG_TYPE_ERROR, "SUSUIProactiveSuggestionType doesn't support primary button for: %lu", v16, 0xCu);
     }
 
     objc_storeStrong(&location, 0);
   }
 
-  v6 = MEMORY[0x277D82BE0](v12);
-  objc_storeStrong(&v12, 0);
-  *MEMORY[0x277D85DE8];
+  v5 = MEMORY[0x277D82BE0](v11);
+  objc_storeStrong(&v11, 0);
 
-  return v6;
+  return v5;
 }
 
 - (id)specifierForAlternateUpdateGroupWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
   selfCopy = self;
-  v11[3] = a2;
-  v11[2] = state;
-  v11[1] = descriptorState;
-  v11[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUAlternateUpdateGroup"];
-  if (!v11[0])
+  v10[3] = a2;
+  v10[2] = state;
+  v10[1] = descriptorState;
+  v10[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUAlternateUpdateGroup"];
+  if (!v10[0])
   {
-    v11[0] = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
+    v10[0] = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
     MEMORY[0x277D82BD8](0);
   }
 
   alsoAvailableGroupHeaderString = [(SUSUISoftwareUpdateController *)selfCopy alsoAvailableGroupHeaderString];
-  [v6 setName:?];
+  [v5 setName:?];
   MEMORY[0x277D82BD8](alsoAvailableGroupHeaderString);
-  [v11[0] setProperty:@"SUAlternateUpdateGroup" forKey:*MEMORY[0x277D3FFB8]];
-  v8 = v11[0];
+  [v10[0] setProperty:@"SUAlternateUpdateGroup" forKey:*MEMORY[0x277D3FFB8]];
+  v7 = v10[0];
   alternateUpdateFooterString = [(SUSUISoftwareUpdateController *)selfCopy alternateUpdateFooterString];
-  v4 = *MEMORY[0x277D3FF88];
-  [v8 setProperty:? forKey:?];
+  [v7 setProperty:? forKey:?];
   MEMORY[0x277D82BD8](alternateUpdateFooterString);
-  v10 = MEMORY[0x277D82BE0](v11[0]);
-  objc_storeStrong(v11, 0);
+  v9 = MEMORY[0x277D82BE0](v10[0]);
+  objc_storeStrong(v10, 0);
 
-  return v10;
+  return v9;
 }
 
 - (id)specifierForAlternateUpdateCellWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
   selfCopy = self;
-  v23[3] = a2;
-  v23[2] = state;
-  v23[1] = descriptorState;
-  v23[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUAlternateUpdateButton"];
+  v22[3] = a2;
+  v22[2] = state;
+  v22[1] = descriptorState;
+  v22[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUAlternateUpdateButton"];
   alternateUpdateButtonString = [(SUSUISoftwareUpdateController *)selfCopy alternateUpdateButtonString];
-  if (!v23[0])
+  if (!v22[0])
   {
-    v19 = MEMORY[0x277D3FAD8];
+    v18 = MEMORY[0x277D3FAD8];
     objc_opt_class();
-    v23[0] = [v19 preferenceSpecifierNamed:alternateUpdateButtonString target:selfCopy set:0 get:? detail:? cell:? edit:?];
+    v22[0] = [v18 preferenceSpecifierNamed:alternateUpdateButtonString target:selfCopy set:0 get:? detail:? cell:? edit:?];
     MEMORY[0x277D82BD8](0);
-    [v23[0] setProperty:@"SUAlternateUpdateButton" forKey:*MEMORY[0x277D3FFB8]];
+    [v22[0] setProperty:@"SUAlternateUpdateButton" forKey:*MEMORY[0x277D3FFB8]];
     [(SUSUISoftwareUpdateController *)selfCopy setAlternateUpdateCell:0];
   }
 
@@ -4986,9 +4942,9 @@ LABEL_18:
   MEMORY[0x277D82BD8](alternateUpdateCell);
   if (!alternateUpdateCell)
   {
-    v17 = [objc_alloc(MEMORY[0x277D3FB38]) initWithStyle:0 reuseIdentifier:@"SUAlternateUpdateButton" specifier:v23[0]];
+    v16 = [objc_alloc(MEMORY[0x277D3FB38]) initWithStyle:0 reuseIdentifier:@"SUAlternateUpdateButton" specifier:v22[0]];
     [(SUSUISoftwareUpdateController *)selfCopy setAlternateUpdateCell:?];
-    MEMORY[0x277D82BD8](v17);
+    MEMORY[0x277D82BD8](v16);
   }
 
   valueCellConfiguration = [MEMORY[0x277D756E0] valueCellConfiguration];
@@ -5017,27 +4973,26 @@ LABEL_18:
   alternateUpdateCell4 = [(SUSUISoftwareUpdateController *)selfCopy alternateUpdateCell];
   [(PSTableCell *)alternateUpdateCell4 setUserInteractionEnabled:[(SUSUISoftwareUpdateController *)selfCopy isBusy]^ 1];
   MEMORY[0x277D82BD8](alternateUpdateCell4);
-  [v23[0] setProperty:&unk_287B855B8 forKey:*MEMORY[0x277D3FD68]];
+  [v22[0] setProperty:&unk_287B855B8 forKey:*MEMORY[0x277D3FD68]];
   alternateUpdateCell5 = [(SUSUISoftwareUpdateController *)selfCopy alternateUpdateCell];
   [(PSTableCell *)alternateUpdateCell5 setAccessibilityIdentifier:@"SUAlternateUpdateButton"];
   MEMORY[0x277D82BD8](alternateUpdateCell5);
-  v12 = [v23[0] propertyForKey:*MEMORY[0x277D40148]];
-  MEMORY[0x277D82BD8](v12);
-  if (!v12)
+  v11 = [v22[0] propertyForKey:*MEMORY[0x277D40148]];
+  MEMORY[0x277D82BD8](v11);
+  if (!v11)
   {
     alternateUpdateCell6 = [(SUSUISoftwareUpdateController *)selfCopy alternateUpdateCell];
-    v4 = *MEMORY[0x277D40148];
-    [v23[0] setProperty:? forKey:?];
+    [v22[0] setProperty:? forKey:?];
     MEMORY[0x277D82BD8](alternateUpdateCell6);
   }
 
-  v6 = MEMORY[0x277D82BE0](v23[0]);
+  v5 = MEMORY[0x277D82BE0](v22[0]);
   objc_storeStrong(&location, 0);
   objc_storeStrong(&valueCellConfiguration, 0);
   objc_storeStrong(&alternateUpdateButtonString, 0);
-  objc_storeStrong(v23, 0);
+  objc_storeStrong(v22, 0);
 
-  return v6;
+  return v5;
 }
 
 - (id)specifierForNonPromotedPrimaryUpdateGroupWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
@@ -5066,17 +5021,17 @@ LABEL_18:
 - (id)specifierForNonPromotedPrimaryUpdateCellWithUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
 {
   selfCopy = self;
-  v22[3] = a2;
-  v22[2] = state;
-  v22[1] = descriptorState;
-  v22[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUNonPromotedUpdateButton"];
+  v21[3] = a2;
+  v21[2] = state;
+  v21[1] = descriptorState;
+  v21[0] = [(SUSUISoftwareUpdateController *)self specifierWithID:@"SUNonPromotedUpdateButton"];
   nonPromotedPreferredUpdateButtonString = [(SUSUISoftwareUpdateController *)selfCopy nonPromotedPreferredUpdateButtonString];
-  if (!v22[0])
+  if (!v21[0])
   {
-    v22[0] = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:nonPromotedPreferredUpdateButtonString target:selfCopy set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
+    v21[0] = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:nonPromotedPreferredUpdateButtonString target:selfCopy set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
     MEMORY[0x277D82BD8](0);
-    [v22[0] setIdentifier:?];
-    [v22[0] setProperty:@"SUNonPromotedUpdateButton" forKey:*MEMORY[0x277D3FFB8]];
+    [v21[0] setIdentifier:?];
+    [v21[0] setProperty:@"SUNonPromotedUpdateButton" forKey:*MEMORY[0x277D3FFB8]];
     [(SUSUISoftwareUpdateController *)selfCopy setNonPromotedUpdateCell:0];
   }
 
@@ -5084,9 +5039,9 @@ LABEL_18:
   MEMORY[0x277D82BD8](nonPromotedUpdateCell);
   if (!nonPromotedUpdateCell)
   {
-    v17 = [objc_alloc(MEMORY[0x277D3FB38]) initWithStyle:0 reuseIdentifier:@"SUNonPromotedUpdateButton" specifier:v22[0]];
+    v16 = [objc_alloc(MEMORY[0x277D3FB38]) initWithStyle:0 reuseIdentifier:@"SUNonPromotedUpdateButton" specifier:v21[0]];
     [(SUSUISoftwareUpdateController *)selfCopy setNonPromotedUpdateCell:?];
-    MEMORY[0x277D82BD8](v17);
+    MEMORY[0x277D82BD8](v16);
   }
 
   valueCellConfiguration = [MEMORY[0x277D756E0] valueCellConfiguration];
@@ -5115,27 +5070,26 @@ LABEL_18:
   nonPromotedUpdateCell4 = [(SUSUISoftwareUpdateController *)selfCopy nonPromotedUpdateCell];
   [(PSTableCell *)nonPromotedUpdateCell4 setUserInteractionEnabled:[(SUSUISoftwareUpdateController *)selfCopy isBusy]^ 1];
   MEMORY[0x277D82BD8](nonPromotedUpdateCell4);
-  [v22[0] setProperty:&unk_287B855B8 forKey:*MEMORY[0x277D3FD68]];
+  [v21[0] setProperty:&unk_287B855B8 forKey:*MEMORY[0x277D3FD68]];
   nonPromotedUpdateCell5 = [(SUSUISoftwareUpdateController *)selfCopy nonPromotedUpdateCell];
   [(PSTableCell *)nonPromotedUpdateCell5 setAccessibilityIdentifier:@"SUNonPromotedUpdateButton"];
   MEMORY[0x277D82BD8](nonPromotedUpdateCell5);
-  v12 = [v22[0] propertyForKey:*MEMORY[0x277D40148]];
-  MEMORY[0x277D82BD8](v12);
-  if (!v12)
+  v11 = [v21[0] propertyForKey:*MEMORY[0x277D40148]];
+  MEMORY[0x277D82BD8](v11);
+  if (!v11)
   {
     nonPromotedUpdateCell6 = [(SUSUISoftwareUpdateController *)selfCopy nonPromotedUpdateCell];
-    v4 = *MEMORY[0x277D40148];
-    [v22[0] setProperty:? forKey:?];
+    [v21[0] setProperty:? forKey:?];
     MEMORY[0x277D82BD8](nonPromotedUpdateCell6);
   }
 
-  v6 = MEMORY[0x277D82BE0](v22[0]);
+  v5 = MEMORY[0x277D82BE0](v21[0]);
   objc_storeStrong(&location, 0);
   objc_storeStrong(&valueCellConfiguration, 0);
   objc_storeStrong(&nonPromotedPreferredUpdateButtonString, 0);
-  objc_storeStrong(v22, 0);
+  objc_storeStrong(v21, 0);
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)shouldShowComingSoonSpecifierForUIState:(unint64_t)state descriptorState:(unint64_t)descriptorState
@@ -5940,7 +5894,6 @@ LABEL_14:
 
   objc_destroyWeak(&from);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __93__SUSUISoftwareUpdateController_Specifiers__setInstallButtonDownloadAndInstall_shouldRemove___block_invoke(id *a1)
@@ -7422,7 +7375,6 @@ LABEL_9:
   }
 
   objc_storeStrong(v14, 0);
-  *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -7532,7 +7484,6 @@ LABEL_9:
 
   objc_storeStrong(&specifiers, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v19;
 
   return v3;
@@ -7851,7 +7802,6 @@ LABEL_9:
   }
 
   objc_storeStrong(&v38, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -7980,127 +7930,122 @@ LABEL_9:
   }
 
   objc_storeStrong(&topViewController, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
-  v99 = &v121;
-  v94 = "[SUSUISoftwareUpdateController(UI) viewDidAppear:]";
-  v129 = *MEMORY[0x277D85DE8];
+  v94 = &v116;
+  v89 = "[SUSUISoftwareUpdateController(UI) viewDidAppear:]";
+  v124 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v125 = a2;
+  v120 = a2;
   appearCopy = appear;
-  v123.receiver = self;
-  v123.super_class = SUSUISoftwareUpdateController;
-  v101 = 1;
-  [(SUSUISoftwareUpdateController *)&v123 viewDidAppear:appear];
-  v96 = selfCopy;
-  v95 = MEMORY[0x277CCA8D8];
-  v98 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v97 = [v98 localizedStringForKey:@"SOFTWARE_UPDATE" value:&stru_287B79370 table:@"Software Update"];
-  [(PSListController *)v96 addNavigationEventForSystemSettings:?];
-  MEMORY[0x277D82BD8](v97);
-  MEMORY[0x277D82BD8](v98);
-  v100 = selfCopy;
+  v118.receiver = self;
+  v118.super_class = SUSUISoftwareUpdateController;
+  v96 = 1;
+  [(SUSUISoftwareUpdateController *)&v118 viewDidAppear:appear];
+  v91 = selfCopy;
+  v90 = MEMORY[0x277CCA8D8];
+  v93 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v92 = [v93 localizedStringForKey:@"SOFTWARE_UPDATE" value:&stru_287B79370 table:@"Software Update"];
+  [(PSListController *)v91 addNavigationEventForSystemSettings:?];
+  MEMORY[0x277D82BD8](v92);
+  MEMORY[0x277D82BD8](v93);
+  v95 = selfCopy;
   v3 = [(SUSUISoftwareUpdateController *)selfCopy isMemberOfClass:objc_opt_class()];
-  v122 = 0;
-  v120 = 0;
-  v102 = 0;
+  v117 = 0;
+  v115 = 0;
+  v97 = 0;
   if (v3)
   {
-    manager = [v99[7] manager];
-    v99[2] = manager;
-    v93 = 1;
-    v122 = 1;
+    manager = [v94[7] manager];
+    v94[2] = manager;
+    v88 = 1;
+    v117 = 1;
     delegate = [manager delegate];
-    v6 = v99;
-    *v99 = delegate;
-    v120 = 1;
-    v102 = delegate != v6[7];
+    v6 = v94;
+    *v94 = delegate;
+    v115 = 1;
+    v97 = delegate != v6[7];
   }
 
-  v92 = v102;
-  if (v120)
+  v87 = v97;
+  if (v115)
   {
-    MEMORY[0x277D82BD8](*v99);
+    MEMORY[0x277D82BD8](*v94);
   }
 
-  if (v122)
+  if (v117)
   {
-    MEMORY[0x277D82BD8](v99[2]);
+    MEMORY[0x277D82BD8](v94[2]);
   }
 
-  if (v92)
+  if (v87)
   {
     oslog = _SUSUILoggingFacility();
     type = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
       log = oslog;
-      *v65 = type;
-      v7 = v99[7];
-      v8 = objc_opt_class();
-      v83 = NSStringFromClass(v8);
-      v59 = MEMORY[0x277D82BE0](v83);
-      v90 = &v117;
-      v117 = v59;
-      v60 = v99[7];
-      v82 = SUSettingsUIStateToString([v99[7] currentUIState]);
-      v61 = MEMORY[0x277D82BE0](v82);
-      v89 = &v116;
-      v116 = v61;
-      currentUIState = [v99[7] currentUIState];
-      presentingStatefulDescriptor = [v99[7] presentingStatefulDescriptor];
-      presentingStatefulDescriptor2 = [v99[7] presentingStatefulDescriptor];
-      presentingAlternateStatefulDescriptor = [v99[7] presentingAlternateStatefulDescriptor];
-      v79 = presentingAlternateStatefulDescriptor;
-      presentingAlternateStatefulDescriptor2 = [v99[7] presentingAlternateStatefulDescriptor];
-      manager2 = [v99[7] manager];
+      *v60 = type;
+      v7 = objc_opt_class();
+      v78 = NSStringFromClass(v7);
+      v54 = MEMORY[0x277D82BE0](v78);
+      v85 = &v112;
+      v112 = v54;
+      v55 = v94[7];
+      v77 = SUSettingsUIStateToString([v94[7] currentUIState]);
+      v56 = MEMORY[0x277D82BE0](v77);
+      v84 = &v111;
+      v111 = v56;
+      currentUIState = [v94[7] currentUIState];
+      presentingStatefulDescriptor = [v94[7] presentingStatefulDescriptor];
+      presentingStatefulDescriptor2 = [v94[7] presentingStatefulDescriptor];
+      presentingAlternateStatefulDescriptor = [v94[7] presentingAlternateStatefulDescriptor];
+      v74 = presentingAlternateStatefulDescriptor;
+      presentingAlternateStatefulDescriptor2 = [v94[7] presentingAlternateStatefulDescriptor];
+      manager2 = [v94[7] manager];
       currentDownload = [manager2 currentDownload];
       descriptor = [currentDownload descriptor];
       humanReadableUpdateName = [descriptor humanReadableUpdateName];
-      v53 = MEMORY[0x277D82BE0](humanReadableUpdateName);
-      v88 = &v115;
-      v115 = v53;
-      manager3 = [v99[7] manager];
+      v48 = MEMORY[0x277D82BE0](humanReadableUpdateName);
+      v83 = &v110;
+      v110 = v48;
+      manager3 = [v94[7] manager];
       currentDownload2 = [manager3 currentDownload];
-      manager4 = [v99[7] manager];
+      manager4 = [v94[7] manager];
       isTargetedUpdateScheduledForAutoInstall = [manager4 isTargetedUpdateScheduledForAutoInstall];
-      v11 = "YES";
+      v10 = "YES";
       if ((isTargetedUpdateScheduledForAutoInstall & 1) == 0)
       {
-        v11 = "NO";
+        v10 = "NO";
       }
 
-      v54 = v11;
-      v12 = v99[7];
-      v13 = objc_opt_class();
-      v55 = MEMORY[0x277D82BE0](v13);
-      v87 = &v114;
-      v114 = v55;
-      v14 = v99[7];
-      v15 = objc_opt_class();
-      v56 = MEMORY[0x277D82BE0](v15);
-      v86 = &v113;
-      v113 = v56;
-      manager5 = [v99[7] manager];
+      v49 = v10;
+      v11 = objc_opt_class();
+      v50 = MEMORY[0x277D82BE0](v11);
+      v82 = &v109;
+      v109 = v50;
+      v12 = objc_opt_class();
+      v51 = MEMORY[0x277D82BE0](v12);
+      v81 = &v108;
+      v108 = v51;
+      manager5 = [v94[7] manager];
       delegate2 = [manager5 delegate];
-      manager6 = [v99[7] manager];
+      manager6 = [v94[7] manager];
       delegate3 = [manager6 delegate];
-      v16 = objc_opt_class();
-      v57 = MEMORY[0x277D82BE0](v16);
-      v85 = &v112;
-      v112 = v57;
-      v58 = v99[7];
-      v17 = v99[7];
-      v18 = objc_opt_class();
-      location = &v111;
-      v111 = MEMORY[0x277D82BE0](v18);
-      v63 = &v24;
-      buf = v128;
-      __os_log_helper_16_2_18_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34_8_66_8_66_8_0_8_66_8_0_8_66(v128, v94, v59, v60, v61, currentUIState, presentingStatefulDescriptor, presentingStatefulDescriptor2, presentingAlternateStatefulDescriptor, presentingAlternateStatefulDescriptor2, v53, currentDownload2, v54, v55, v56, delegate2, v57, v58, v111);
-      _os_log_impl(&dword_26AC94000, log, v65[0], "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\nThe Stateful UI manager's delegate is pointing to another, non %{public}@ controller. Grabbing the pointer back to %{public}@. \tCurrent Pointer: %p (%{public}@)\n\tAssigned Pointer: %p (%{public}@)", buf, 0xB6u);
+      v13 = objc_opt_class();
+      v52 = MEMORY[0x277D82BE0](v13);
+      v80 = &v107;
+      v107 = v52;
+      v53 = v94[7];
+      v14 = objc_opt_class();
+      location = &v106;
+      v106 = MEMORY[0x277D82BE0](v14);
+      v58 = &v19;
+      buf = v123;
+      __os_log_helper_16_2_18_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34_8_66_8_66_8_0_8_66_8_0_8_66(v123, v89, v54, v55, v56, currentUIState, presentingStatefulDescriptor, presentingStatefulDescriptor2, presentingAlternateStatefulDescriptor, presentingAlternateStatefulDescriptor2, v48, currentDownload2, v49, v50, v51, delegate2, v52, v53, v106);
+      _os_log_impl(&dword_26AC94000, log, v60[0], "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\nThe Stateful UI manager's delegate is pointing to another, non %{public}@ controller. Grabbing the pointer back to %{public}@. \tCurrent Pointer: %p (%{public}@)\n\tAssigned Pointer: %p (%{public}@)", buf, 0xB6u);
       MEMORY[0x277D82BD8](delegate3);
       MEMORY[0x277D82BD8](manager6);
       MEMORY[0x277D82BD8](delegate2);
@@ -8113,89 +8058,88 @@ LABEL_9:
       MEMORY[0x277D82BD8](currentDownload);
       MEMORY[0x277D82BD8](manager2);
       MEMORY[0x277D82BD8](presentingAlternateStatefulDescriptor2);
-      MEMORY[0x277D82BD8](v79);
+      MEMORY[0x277D82BD8](v74);
       MEMORY[0x277D82BD8](presentingStatefulDescriptor2);
       MEMORY[0x277D82BD8](presentingStatefulDescriptor);
-      MEMORY[0x277D82BD8](v82);
-      MEMORY[0x277D82BD8](v83);
+      MEMORY[0x277D82BD8](v77);
+      MEMORY[0x277D82BD8](v78);
       obj = 0;
       objc_storeStrong(location, 0);
+      objc_storeStrong(v80, obj);
+      objc_storeStrong(v81, obj);
+      objc_storeStrong(v82, obj);
+      objc_storeStrong(v83, obj);
+      objc_storeStrong(v84, obj);
       objc_storeStrong(v85, obj);
-      objc_storeStrong(v86, obj);
-      objc_storeStrong(v87, obj);
-      objc_storeStrong(v88, obj);
-      objc_storeStrong(v89, obj);
-      objc_storeStrong(v90, obj);
     }
 
     objc_storeStrong(&oslog, 0);
-    v51 = v99[7];
-    manager7 = [v99[7] manager];
-    [manager7 setDelegate:v51];
+    v46 = v94[7];
+    manager7 = [v94[7] manager];
+    [manager7 setDelegate:v46];
     MEMORY[0x277D82BD8](manager7);
-    [v99[7] refreshPane];
+    [v94[7] refreshPane];
   }
 
-  navigationController = [v99[7] navigationController];
+  navigationController = [v94[7] navigationController];
   topViewController = [navigationController topViewController];
   MEMORY[0x277D82BD8](navigationController);
-  v109 = _SUSUILoggingFacility();
-  v108 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
+  v104 = _SUSUILoggingFacility();
+  v103 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = v109;
-    *v30 = v108;
-    v19 = v99[7];
-    v20 = objc_opt_class();
-    v31 = NSStringFromClass(v20);
-    v32 = MEMORY[0x277D82BE0](v31);
-    v107 = v32;
-    v33 = v99[7];
-    v34 = SUSettingsUIStateToString([v99[7] currentUIState]);
-    v35 = MEMORY[0x277D82BE0](v34);
-    v106 = v35;
-    currentUIState2 = [v99[7] currentUIState];
-    presentingStatefulDescriptor3 = [v99[7] presentingStatefulDescriptor];
-    presentingStatefulDescriptor4 = [v99[7] presentingStatefulDescriptor];
-    presentingAlternateStatefulDescriptor3 = [v99[7] presentingAlternateStatefulDescriptor];
-    presentingAlternateStatefulDescriptor4 = [v99[7] presentingAlternateStatefulDescriptor];
-    manager8 = [v99[7] manager];
+    v24 = v104;
+    *v25 = v103;
+    v15 = objc_opt_class();
+    v26 = NSStringFromClass(v15);
+    v27 = MEMORY[0x277D82BE0](v26);
+    v102 = v27;
+    v28 = v94[7];
+    v29 = SUSettingsUIStateToString([v94[7] currentUIState]);
+    v30 = MEMORY[0x277D82BE0](v29);
+    v101 = v30;
+    currentUIState2 = [v94[7] currentUIState];
+    presentingStatefulDescriptor3 = [v94[7] presentingStatefulDescriptor];
+    presentingStatefulDescriptor4 = [v94[7] presentingStatefulDescriptor];
+    presentingAlternateStatefulDescriptor3 = [v94[7] presentingAlternateStatefulDescriptor];
+    presentingAlternateStatefulDescriptor4 = [v94[7] presentingAlternateStatefulDescriptor];
+    manager8 = [v94[7] manager];
     currentDownload3 = [manager8 currentDownload];
     descriptor2 = [currentDownload3 descriptor];
     humanReadableUpdateName2 = [descriptor2 humanReadableUpdateName];
-    v45 = MEMORY[0x277D82BE0](humanReadableUpdateName2);
-    v105 = v45;
-    manager9 = [v99[7] manager];
+    v40 = MEMORY[0x277D82BE0](humanReadableUpdateName2);
+    v100 = v40;
+    manager9 = [v94[7] manager];
     currentDownload4 = [manager9 currentDownload];
-    manager10 = [v99[7] manager];
+    manager10 = [v94[7] manager];
     isTargetedUpdateScheduledForAutoInstall2 = [manager10 isTargetedUpdateScheduledForAutoInstall];
-    v22 = "YES";
+    v17 = "YES";
     if ((isTargetedUpdateScheduledForAutoInstall2 & 1) == 0)
     {
-      v22 = "NO";
+      v17 = "NO";
     }
 
-    v49 = v22;
-    v103 = 0;
+    v44 = v17;
+    v98 = 0;
     if (topViewController)
     {
-      v23 = objc_opt_class();
-      v104 = NSStringFromClass(v23);
-      v103 = 1;
-      v28 = v104;
+      v18 = objc_opt_class();
+      v99 = NSStringFromClass(v18);
+      v98 = 1;
+      v23 = v99;
     }
 
     else
     {
-      v28 = @"N/A";
+      v23 = @"N/A";
     }
 
-    v27 = v127;
-    __os_log_helper_16_2_13_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34_8_64(v127, v94, v32, v33, v35, currentUIState2, presentingStatefulDescriptor3, presentingStatefulDescriptor4, presentingAlternateStatefulDescriptor3, presentingAlternateStatefulDescriptor4, v45, currentDownload4, v49, v28);
-    _os_log_impl(&dword_26AC94000, v29, v30[0], "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\nCurrent top view controller: %@", v27, 0x84u);
-    if (v103)
+    v22 = v122;
+    __os_log_helper_16_2_13_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34_8_64(v122, v89, v27, v28, v30, currentUIState2, presentingStatefulDescriptor3, presentingStatefulDescriptor4, presentingAlternateStatefulDescriptor3, presentingAlternateStatefulDescriptor4, v40, currentDownload4, v44, v23);
+    _os_log_impl(&dword_26AC94000, v24, v25[0], "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\nCurrent top view controller: %@", v22, 0x84u);
+    if (v98)
     {
-      MEMORY[0x277D82BD8](v104);
+      MEMORY[0x277D82BD8](v99);
     }
 
     MEMORY[0x277D82BD8](manager10);
@@ -8209,18 +8153,17 @@ LABEL_9:
     MEMORY[0x277D82BD8](presentingAlternateStatefulDescriptor3);
     MEMORY[0x277D82BD8](presentingStatefulDescriptor4);
     MEMORY[0x277D82BD8](presentingStatefulDescriptor3);
-    MEMORY[0x277D82BD8](v34);
-    MEMORY[0x277D82BD8](v31);
-    v26 = 0;
-    objc_storeStrong(&v105, 0);
-    objc_storeStrong(&v106, v26);
-    objc_storeStrong(&v107, v26);
+    MEMORY[0x277D82BD8](v29);
+    MEMORY[0x277D82BD8](v26);
+    v21 = 0;
+    objc_storeStrong(&v100, 0);
+    objc_storeStrong(&v101, v21);
+    objc_storeStrong(&v102, v21);
   }
 
-  v25 = 0;
-  objc_storeStrong(&v109, 0);
-  objc_storeStrong(&topViewController, v25);
-  *MEMORY[0x277D85DE8];
+  v20 = 0;
+  objc_storeStrong(&v104, 0);
+  objc_storeStrong(&topViewController, v20);
 }
 
 - (void)loadView
@@ -8289,7 +8232,6 @@ LABEL_9:
   objc_storeStrong(&v29, 0);
   [(SUSUISoftwareUpdateController *)selfCopy initUI];
   [*(&selfCopy->super.super.super.super.super.isa + *MEMORY[0x277D3FC60]) _setMarginWidth:15.0];
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)willEnterForeground
@@ -8312,47 +8254,47 @@ LABEL_9:
 
 uint64_t __56__SUSUISoftwareUpdateController_UI__willEnterForeground__block_invoke(id *a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v35[2] = a1;
-  v35[1] = a1;
-  v35[0] = _SUSUILoggingFacility();
-  v34 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v35[0], OS_LOG_TYPE_DEFAULT))
+  v36 = *MEMORY[0x277D85DE8];
+  v34[2] = a1;
+  v34[1] = a1;
+  v34[0] = _SUSUILoggingFacility();
+  v33 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v34[0], OS_LOG_TYPE_DEFAULT))
   {
-    log = v35[0];
-    type = v34;
-    v1 = a1[4];
-    v2 = objc_opt_class();
-    v29 = NSStringFromClass(v2);
-    v11 = MEMORY[0x277D82BE0](v29);
-    v33 = v11;
-    v12 = a1[4];
-    v28 = SUSettingsUIStateToString([v12 currentUIState]);
-    v13 = MEMORY[0x277D82BE0](v28);
-    v32 = v13;
-    v14 = [a1[4] currentUIState];
-    v27 = [a1[4] presentingStatefulDescriptor];
+    log = v34[0];
+    type = v33;
+    v1 = objc_opt_class();
+    v28 = NSStringFromClass(v1);
+    v10 = MEMORY[0x277D82BE0](v28);
+    v32 = v10;
+    v11 = a1[4];
+    v27 = SUSettingsUIStateToString([v11 currentUIState]);
+    v12 = MEMORY[0x277D82BE0](v27);
+    v31 = v12;
+    v13 = [a1[4] currentUIState];
     v26 = [a1[4] presentingStatefulDescriptor];
-    v25 = [a1[4] presentingAlternateStatefulDescriptor];
+    v25 = [a1[4] presentingStatefulDescriptor];
     v24 = [a1[4] presentingAlternateStatefulDescriptor];
-    v23 = [a1[4] manager];
-    v22 = [v23 currentDownload];
-    v21 = [v22 descriptor];
-    v20 = [v21 humanReadableUpdateName];
-    v10 = MEMORY[0x277D82BE0](v20);
-    v31 = v10;
-    v19 = [a1[4] manager];
-    v18 = [v19 currentDownload];
-    v17 = [a1[4] manager];
-    v3 = [v17 isTargetedUpdateScheduledForAutoInstall];
-    v4 = "YES";
-    if ((v3 & 1) == 0)
+    v23 = [a1[4] presentingAlternateStatefulDescriptor];
+    v22 = [a1[4] manager];
+    v21 = [v22 currentDownload];
+    v20 = [v21 descriptor];
+    v19 = [v20 humanReadableUpdateName];
+    v9 = MEMORY[0x277D82BE0](v19);
+    v30 = v9;
+    v18 = [a1[4] manager];
+    v17 = [v18 currentDownload];
+    v16 = [a1[4] manager];
+    v2 = [v16 isTargetedUpdateScheduledForAutoInstall];
+    v3 = "YES";
+    if ((v2 & 1) == 0)
     {
-      v4 = "NO";
+      v3 = "NO";
     }
 
-    __os_log_helper_16_2_12_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34(v36, "[SUSUISoftwareUpdateController(UI) willEnterForeground]_block_invoke", v11, v12, v13, v14, v27, v26, v25, v24, v10, v18, v4);
-    _os_log_impl(&dword_26AC94000, log, type, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\n", v36, 0x7Au);
+    __os_log_helper_16_2_12_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34(v35, "[SUSUISoftwareUpdateController(UI) willEnterForeground]_block_invoke", v10, v11, v12, v13, v26, v25, v24, v23, v9, v17, v3);
+    _os_log_impl(&dword_26AC94000, log, type, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\n", v35, 0x7Au);
+    MEMORY[0x277D82BD8](v16);
     MEMORY[0x277D82BD8](v17);
     MEMORY[0x277D82BD8](v18);
     MEMORY[0x277D82BD8](v19);
@@ -8365,24 +8307,21 @@ uint64_t __56__SUSUISoftwareUpdateController_UI__willEnterForeground__block_invo
     MEMORY[0x277D82BD8](v26);
     MEMORY[0x277D82BD8](v27);
     MEMORY[0x277D82BD8](v28);
-    MEMORY[0x277D82BD8](v29);
+    objc_storeStrong(&v30, 0);
     objc_storeStrong(&v31, 0);
     objc_storeStrong(&v32, 0);
-    objc_storeStrong(&v33, 0);
   }
 
-  objc_storeStrong(v35, 0);
-  v6 = a1[4];
-  v7 = [v6 updatedSpecifiersArray];
-  [v6 setSpecifiers:?];
-  MEMORY[0x277D82BD8](v7);
-  v8 = a1[4];
-  v9 = [v8 paneTitle];
-  [v8 setTitle:?];
-  MEMORY[0x277D82BD8](v9);
-  result = [a1[4] refreshPane];
-  *MEMORY[0x277D85DE8];
-  return result;
+  objc_storeStrong(v34, 0);
+  v5 = a1[4];
+  v6 = [v5 updatedSpecifiersArray];
+  [v5 setSpecifiers:?];
+  MEMORY[0x277D82BD8](v6);
+  v7 = a1[4];
+  v8 = [v7 paneTitle];
+  [v7 setTitle:?];
+  MEMORY[0x277D82BD8](v8);
+  return [a1[4] refreshPane];
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
@@ -8472,7 +8411,6 @@ uint64_t __56__SUSUISoftwareUpdateController_UI__willEnterForeground__block_invo
 
   objc_storeStrong(&v34, 0);
   objc_storeStrong(&topViewController, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
@@ -8562,7 +8500,6 @@ uint64_t __56__SUSUISoftwareUpdateController_UI__willEnterForeground__block_invo
 
   objc_storeStrong(&v34, 0);
   objc_storeStrong(&topViewController, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isTopViewController
@@ -8825,7 +8762,6 @@ uint64_t __56__SUSUISoftwareUpdateController_UI__willEnterForeground__block_invo
 
   objc_storeStrong(&v90, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __62__SUSUISoftwareUpdateController_UI__handleURL_withCompletion___block_invoke(id *a1)
@@ -8840,7 +8776,7 @@ void __62__SUSUISoftwareUpdateController_UI__handleURL_withCompletion___block_in
 
 void __62__SUSUISoftwareUpdateController_UI__handleURL_withCompletion___block_invoke_382(uint64_t a1, void *a2)
 {
-  v170 = *MEMORY[0x277D85DE8];
+  v168 = *MEMORY[0x277D85DE8];
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
@@ -8850,41 +8786,42 @@ void __62__SUSUISoftwareUpdateController_UI__handleURL_withCompletion___block_in
   if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_DEFAULT))
   {
     log = oslog[0];
-    v69 = type;
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
-    v83 = NSStringFromClass(v3);
-    v64 = MEMORY[0x277D82BE0](v83);
-    v146 = v64;
-    v65 = *(a1 + 32);
-    v82 = SUSettingsUIStateToString([v65 currentUIState]);
-    v66 = MEMORY[0x277D82BE0](v82);
-    v145 = v66;
-    v67 = [*(a1 + 32) currentUIState];
-    v81 = [*(a1 + 32) presentingStatefulDescriptor];
-    v80 = [*(a1 + 32) presentingStatefulDescriptor];
-    v79 = [*(a1 + 32) presentingAlternateStatefulDescriptor];
-    v78 = [*(a1 + 32) presentingAlternateStatefulDescriptor];
-    v77 = [*(a1 + 32) manager];
-    v76 = [v77 currentDownload];
-    v75 = [v76 descriptor];
-    v74 = [v75 humanReadableUpdateName];
-    v62 = MEMORY[0x277D82BE0](v74);
+    v67 = type;
+    v2 = objc_opt_class();
+    v81 = NSStringFromClass(v2);
+    v62 = MEMORY[0x277D82BE0](v81);
     v144 = v62;
-    v73 = [*(a1 + 32) manager];
-    v72 = [v73 currentDownload];
+    v63 = *(a1 + 32);
+    v80 = SUSettingsUIStateToString([v63 currentUIState]);
+    v64 = MEMORY[0x277D82BE0](v80);
+    v143 = v64;
+    v65 = [*(a1 + 32) currentUIState];
+    v79 = [*(a1 + 32) presentingStatefulDescriptor];
+    v78 = [*(a1 + 32) presentingStatefulDescriptor];
+    v77 = [*(a1 + 32) presentingAlternateStatefulDescriptor];
+    v76 = [*(a1 + 32) presentingAlternateStatefulDescriptor];
+    v75 = [*(a1 + 32) manager];
+    v74 = [v75 currentDownload];
+    v73 = [v74 descriptor];
+    v72 = [v73 humanReadableUpdateName];
+    v60 = MEMORY[0x277D82BE0](v72);
+    v142 = v60;
     v71 = [*(a1 + 32) manager];
-    v4 = [v71 isTargetedUpdateScheduledForAutoInstall];
-    v5 = "YES";
-    if ((v4 & 1) == 0)
+    v70 = [v71 currentDownload];
+    v69 = [*(a1 + 32) manager];
+    v3 = [v69 isTargetedUpdateScheduledForAutoInstall];
+    v4 = "YES";
+    if ((v3 & 1) == 0)
     {
-      v5 = "NO";
+      v4 = "NO";
     }
 
-    v63 = v5;
-    v70 = [*(a1 + 40) objectForKeyedSubscript:@"PerformAction"];
-    __os_log_helper_16_2_13_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34_8_66(v169, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v64, v65, v66, v67, v81, v80, v79, v78, v62, v72, v63, v70);
-    _os_log_impl(&dword_26AC94000, log, v69, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\nFinished to wait for an update scan to finish. Performing: %{public}@", v169, 0x84u);
+    v61 = v4;
+    v68 = [*(a1 + 40) objectForKeyedSubscript:@"PerformAction"];
+    __os_log_helper_16_2_13_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34_8_66(v167, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v62, v63, v64, v65, v79, v78, v77, v76, v60, v70, v61, v68);
+    _os_log_impl(&dword_26AC94000, log, v67, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\nFinished to wait for an update scan to finish. Performing: %{public}@", v167, 0x84u);
+    MEMORY[0x277D82BD8](v68);
+    MEMORY[0x277D82BD8](v69);
     MEMORY[0x277D82BD8](v70);
     MEMORY[0x277D82BD8](v71);
     MEMORY[0x277D82BD8](v72);
@@ -8897,11 +8834,9 @@ void __62__SUSUISoftwareUpdateController_UI__handleURL_withCompletion___block_in
     MEMORY[0x277D82BD8](v79);
     MEMORY[0x277D82BD8](v80);
     MEMORY[0x277D82BD8](v81);
-    MEMORY[0x277D82BD8](v82);
-    MEMORY[0x277D82BD8](v83);
+    objc_storeStrong(&v142, 0);
+    objc_storeStrong(&v143, 0);
     objc_storeStrong(&v144, 0);
-    objc_storeStrong(&v145, 0);
-    objc_storeStrong(&v146, 0);
   }
 
   objc_storeStrong(oslog, 0);
@@ -8909,81 +8844,82 @@ void __62__SUSUISoftwareUpdateController_UI__handleURL_withCompletion___block_in
   {
     if ([location[0] code] == 8)
     {
-      v143 = _SUSUILoggingFacility();
-      v142 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v143, OS_LOG_TYPE_DEFAULT))
-      {
-        __os_log_helper_16_2_2_8_32_8_66(v168, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", *(a1 + 48));
-        _os_log_impl(&dword_26AC94000, v143, v142, "%s: Timeout while performing scan for requested URL: %{public}@", v168, 0x16u);
-      }
-
-      objc_storeStrong(&v143, 0);
-    }
-
-    else
-    {
       v141 = _SUSUILoggingFacility();
       v140 = OS_LOG_TYPE_DEFAULT;
       if (os_log_type_enabled(v141, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_2_3_8_32_8_0_8_66(v167, "-[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", [location[0] code], *(a1 + 48));
-        _os_log_impl(&dword_26AC94000, v141, v140, "%s: Error (code: %ld) while performing scan for requested URL: %{public}@", v167, 0x20u);
+        __os_log_helper_16_2_2_8_32_8_66(v166, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", *(a1 + 48));
+        _os_log_impl(&dword_26AC94000, v141, v140, "%s: Timeout while performing scan for requested URL: %{public}@", v166, 0x16u);
       }
 
       objc_storeStrong(&v141, 0);
     }
 
-    v139 = 1;
+    else
+    {
+      v139 = _SUSUILoggingFacility();
+      v138 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v139, OS_LOG_TYPE_DEFAULT))
+      {
+        __os_log_helper_16_2_3_8_32_8_0_8_66(v165, "-[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", [location[0] code], *(a1 + 48));
+        _os_log_impl(&dword_26AC94000, v139, v138, "%s: Error (code: %ld) while performing scan for requested URL: %{public}@", v165, 0x20u);
+      }
+
+      objc_storeStrong(&v139, 0);
+    }
+
+    v137 = 1;
     goto LABEL_99;
   }
 
   if (*(a1 + 48) && ([*(a1 + 48) isEqualToString:@"SUBetaUpdatesButton"] & 1) != 0)
   {
-    v60 = [*(a1 + 32) manager];
-    v59 = [v60 seedingBetaManager];
-    v61 = [v59 canCurrentDeviceEnrollInBetaUpdates];
-    MEMORY[0x277D82BD8](v59);
-    MEMORY[0x277D82BD8](v60);
-    if ((v61 & 1) == 0)
+    v58 = [*(a1 + 32) manager];
+    v57 = [v58 seedingBetaManager];
+    v59 = [v57 canCurrentDeviceEnrollInBetaUpdates];
+    MEMORY[0x277D82BD8](v57);
+    MEMORY[0x277D82BD8](v58);
+    if ((v59 & 1) == 0)
     {
-      v138 = _SUSUILoggingFacility();
-      v137 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v138, OS_LOG_TYPE_DEFAULT))
+      v136 = _SUSUILoggingFacility();
+      v135 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
       {
-        v44 = v138;
-        v45 = v137;
-        v6 = *(a1 + 32);
-        v7 = objc_opt_class();
-        v58 = NSStringFromClass(v7);
-        v40 = MEMORY[0x277D82BE0](v58);
-        v136 = v40;
-        v41 = *(a1 + 32);
-        v57 = SUSettingsUIStateToString([v41 currentUIState]);
-        v42 = MEMORY[0x277D82BE0](v57);
-        v135 = v42;
-        v43 = [*(a1 + 32) currentUIState];
-        v56 = [*(a1 + 32) presentingStatefulDescriptor];
-        v55 = [*(a1 + 32) presentingStatefulDescriptor];
-        v54 = [*(a1 + 32) presentingAlternateStatefulDescriptor];
-        v53 = [*(a1 + 32) presentingAlternateStatefulDescriptor];
-        v52 = [*(a1 + 32) manager];
-        v51 = [v52 currentDownload];
-        v50 = [v51 descriptor];
-        v49 = [v50 humanReadableUpdateName];
-        v39 = MEMORY[0x277D82BE0](v49);
-        v134 = v39;
-        v48 = [*(a1 + 32) manager];
-        v47 = [v48 currentDownload];
+        v42 = v136;
+        v43 = v135;
+        v5 = objc_opt_class();
+        v56 = NSStringFromClass(v5);
+        v38 = MEMORY[0x277D82BE0](v56);
+        v134 = v38;
+        v39 = *(a1 + 32);
+        v55 = SUSettingsUIStateToString([v39 currentUIState]);
+        v40 = MEMORY[0x277D82BE0](v55);
+        v133 = v40;
+        v41 = [*(a1 + 32) currentUIState];
+        v54 = [*(a1 + 32) presentingStatefulDescriptor];
+        v53 = [*(a1 + 32) presentingStatefulDescriptor];
+        v52 = [*(a1 + 32) presentingAlternateStatefulDescriptor];
+        v51 = [*(a1 + 32) presentingAlternateStatefulDescriptor];
+        v50 = [*(a1 + 32) manager];
+        v49 = [v50 currentDownload];
+        v48 = [v49 descriptor];
+        v47 = [v48 humanReadableUpdateName];
+        v37 = MEMORY[0x277D82BE0](v47);
+        v132 = v37;
         v46 = [*(a1 + 32) manager];
-        v8 = [v46 isTargetedUpdateScheduledForAutoInstall];
-        v9 = "YES";
-        if ((v8 & 1) == 0)
+        v45 = [v46 currentDownload];
+        v44 = [*(a1 + 32) manager];
+        v6 = [v44 isTargetedUpdateScheduledForAutoInstall];
+        v7 = "YES";
+        if ((v6 & 1) == 0)
         {
-          v9 = "NO";
+          v7 = "NO";
         }
 
-        __os_log_helper_16_2_12_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34(v166, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v40, v41, v42, v43, v56, v55, v54, v53, v39, v47, v9);
-        _os_log_impl(&dword_26AC94000, v44, v45, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\nSeeding reports that the device is not enrolled to beta updates. Continue with the request anyway.", v166, 0x7Au);
+        __os_log_helper_16_2_12_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34(v164, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v38, v39, v40, v41, v54, v53, v52, v51, v37, v45, v7);
+        _os_log_impl(&dword_26AC94000, v42, v43, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\nSeeding reports that the device is not enrolled to beta updates. Continue with the request anyway.", v164, 0x7Au);
+        MEMORY[0x277D82BD8](v44);
+        MEMORY[0x277D82BD8](v45);
         MEMORY[0x277D82BD8](v46);
         MEMORY[0x277D82BD8](v47);
         MEMORY[0x277D82BD8](v48);
@@ -8995,219 +8931,217 @@ void __62__SUSUISoftwareUpdateController_UI__handleURL_withCompletion___block_in
         MEMORY[0x277D82BD8](v54);
         MEMORY[0x277D82BD8](v55);
         MEMORY[0x277D82BD8](v56);
-        MEMORY[0x277D82BD8](v57);
-        MEMORY[0x277D82BD8](v58);
+        objc_storeStrong(&v132, 0);
+        objc_storeStrong(&v133, 0);
         objc_storeStrong(&v134, 0);
-        objc_storeStrong(&v135, 0);
-        objc_storeStrong(&v136, 0);
       }
 
-      objc_storeStrong(&v138, 0);
+      objc_storeStrong(&v136, 0);
     }
 
     when = dispatch_time(0, 100000000);
-    v36 = MEMORY[0x277D85CD0];
-    v10 = MEMORY[0x277D85CD0];
-    queue = v36;
-    v128 = MEMORY[0x277D85DD0];
-    v129 = -1073741824;
-    v130 = 0;
-    v131 = __62__SUSUISoftwareUpdateController_UI__handleURL_withCompletion___block_invoke_383;
-    v132 = &unk_279CB93E8;
-    v133 = MEMORY[0x277D82BE0](*(a1 + 32));
-    dispatch_after(when, queue, &v128);
+    v34 = MEMORY[0x277D85CD0];
+    v8 = MEMORY[0x277D85CD0];
+    queue = v34;
+    v126 = MEMORY[0x277D85DD0];
+    v127 = -1073741824;
+    v128 = 0;
+    v129 = __62__SUSUISoftwareUpdateController_UI__handleURL_withCompletion___block_invoke_383;
+    v130 = &unk_279CB93E8;
+    v131 = MEMORY[0x277D82BE0](*(a1 + 32));
+    dispatch_after(when, queue, &v126);
     MEMORY[0x277D82BD8](queue);
-    v139 = 1;
-    objc_storeStrong(&v133, 0);
+    v137 = 1;
+    objc_storeStrong(&v131, 0);
     goto LABEL_99;
   }
 
   if (*(a1 + 48) && ([*(a1 + 48) isEqualToString:&stru_287B79370] & 1) == 0)
   {
-    v127 = _SUSUILoggingFacility();
-    v126 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
+    v125 = _SUSUILoggingFacility();
+    v124 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_2_2_8_32_8_66(v165, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke_2", *(a1 + 48));
-      _os_log_impl(&dword_26AC94000, v127, v126, "%s: Can't resolve URL: %{public}@", v165, 0x16u);
+      __os_log_helper_16_2_2_8_32_8_66(v163, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke_2", *(a1 + 48));
+      _os_log_impl(&dword_26AC94000, v125, v124, "%s: Can't resolve URL: %{public}@", v163, 0x16u);
     }
 
-    objc_storeStrong(&v127, 0);
-    v139 = 1;
+    objc_storeStrong(&v125, 0);
+    v137 = 1;
     goto LABEL_99;
   }
 
-  v35 = [*(a1 + 40) objectForKeyedSubscript:@"PerformAction"];
-  MEMORY[0x277D82BD8](v35);
-  if (v35)
+  v33 = [*(a1 + 40) objectForKeyedSubscript:@"PerformAction"];
+  MEMORY[0x277D82BD8](v33);
+  if (v33)
   {
-    v33 = [*(a1 + 40) objectForKeyedSubscript:@"PerformAction"];
+    v31 = [*(a1 + 40) objectForKeyedSubscript:@"PerformAction"];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    MEMORY[0x277D82BD8](v33);
+    MEMORY[0x277D82BD8](v31);
     if ((isKindOfClass & 1) == 0)
     {
-      v125 = _SUSUILoggingFacility();
-      v124 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
+      v123 = _SUSUILoggingFacility();
+      v122 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_2_1_8_32(v164, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke");
-        _os_log_impl(&dword_26AC94000, v125, v124, "%s: Can't resolve PerformAction because it's not an NSString.", v164, 0xCu);
+        __os_log_helper_16_2_1_8_32(v162, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke");
+        _os_log_impl(&dword_26AC94000, v123, v122, "%s: Can't resolve PerformAction because it's not an NSString.", v162, 0xCu);
       }
 
-      objc_storeStrong(&v125, 0);
+      objc_storeStrong(&v123, 0);
     }
 
-    v31 = [*(a1 + 40) objectForKeyedSubscript:@"PerformAction"];
-    v32 = [SUSUISoftwareUpdateController updateActionForString:?];
-    MEMORY[0x277D82BD8](v31);
-    v123 = v32;
-    v122 = _SUSUILoggingFacility();
-    v121 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
+    v29 = [*(a1 + 40) objectForKeyedSubscript:@"PerformAction"];
+    v30 = [SUSUISoftwareUpdateController updateActionForString:?];
+    MEMORY[0x277D82BD8](v29);
+    v121 = v30;
+    v120 = _SUSUILoggingFacility();
+    v119 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = [*(a1 + 40) objectForKeyedSubscript:@"PerformAction"];
-      __os_log_helper_16_2_3_8_32_8_66_8_0(v163, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v30, v123);
-      _os_log_impl(&dword_26AC94000, v122, v121, "%s: Resolving the PerformAction string '%{public}@' - %ld", v163, 0x20u);
-      MEMORY[0x277D82BD8](v30);
+      v28 = [*(a1 + 40) objectForKeyedSubscript:@"PerformAction"];
+      __os_log_helper_16_2_3_8_32_8_66_8_0(v161, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v28, v121);
+      _os_log_impl(&dword_26AC94000, v120, v119, "%s: Resolving the PerformAction string '%{public}@' - %ld", v161, 0x20u);
+      MEMORY[0x277D82BD8](v28);
     }
 
-    objc_storeStrong(&v122, 0);
-    [*(a1 + 32) performDeepLinkAction:v123];
-    v139 = 1;
+    objc_storeStrong(&v120, 0);
+    [*(a1 + 32) performDeepLinkAction:v121];
+    v137 = 1;
     goto LABEL_99;
   }
 
-  v120 = _SUSUILoggingFacility();
-  v119 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
+  v118 = _SUSUILoggingFacility();
+  v117 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
   {
-    __os_log_helper_16_2_1_8_32(v162, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke");
-    _os_log_impl(&dword_26AC94000, v120, v119, "%s: Attempting to show the update pane with the Default Audience asset", v162, 0xCu);
+    __os_log_helper_16_2_1_8_32(v160, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke");
+    _os_log_impl(&dword_26AC94000, v118, v117, "%s: Attempting to show the update pane with the Default Audience asset", v160, 0xCu);
   }
 
-  objc_storeStrong(&v120, 0);
-  v118 = [*(a1 + 32) currentUIState];
-  v117 = [*(a1 + 32) currentDescriptorState];
-  if (v118 == 3)
-  {
-    v116 = _SUSUILoggingFacility();
-    v115 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
-    {
-      __os_log_helper_16_2_1_8_32(v161, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke");
-      _os_log_impl(&dword_26AC94000, v116, v115, "%s: Manager reported no update was found. Nothing more to do.", v161, 0xCu);
-    }
-
-    objc_storeStrong(&v116, 0);
-    v139 = 1;
-    goto LABEL_99;
-  }
-
-  if (v118 == 2)
+  objc_storeStrong(&v118, 0);
+  v116 = [*(a1 + 32) currentUIState];
+  v115 = [*(a1 + 32) currentDescriptorState];
+  if (v116 == 3)
   {
     v114 = _SUSUILoggingFacility();
     v113 = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_2_1_8_32(v160, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke");
-      _os_log_impl(&dword_26AC94000, v114, v113, "%s: Manager couldn't find an update - scan failed. Nothing more to do.", v160, 0xCu);
+      __os_log_helper_16_2_1_8_32(v159, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke");
+      _os_log_impl(&dword_26AC94000, v114, v113, "%s: Manager reported no update was found. Nothing more to do.", v159, 0xCu);
     }
 
     objc_storeStrong(&v114, 0);
-    v139 = 1;
+    v137 = 1;
     goto LABEL_99;
   }
 
-  if (v117 >= 4)
+  if (v116 == 2)
   {
     v112 = _SUSUILoggingFacility();
     v111 = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_2_1_8_32(v159, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke");
-      _os_log_impl(&dword_26AC94000, v112, v111, "%s: The manager update state is past the ready to download phase (update already downloading/preparing/ready to install/installing). Nothing more to do.", v159, 0xCu);
+      __os_log_helper_16_2_1_8_32(v158, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke");
+      _os_log_impl(&dword_26AC94000, v112, v111, "%s: Manager couldn't find an update - scan failed. Nothing more to do.", v158, 0xCu);
     }
 
     objc_storeStrong(&v112, 0);
-    v139 = 1;
+    v137 = 1;
     goto LABEL_99;
   }
 
-  if (v118 == 4)
+  if (v115 >= 4)
   {
-    v110 = [*(a1 + 40) objectForKey:@"ShowLatestUpdatePane"];
-    if (v110 && ([v110 isEqualToString:@"YES"] & 1) != 0)
+    v110 = _SUSUILoggingFacility();
+    v109 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
     {
-      v109 = _SUSUILoggingFacility();
-      v108 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
+      __os_log_helper_16_2_1_8_32(v157, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke");
+      _os_log_impl(&dword_26AC94000, v110, v109, "%s: The manager update state is past the ready to download phase (update already downloading/preparing/ready to install/installing). Nothing more to do.", v157, 0xCu);
+    }
+
+    objc_storeStrong(&v110, 0);
+    v137 = 1;
+    goto LABEL_99;
+  }
+
+  if (v116 == 4)
+  {
+    v108 = [*(a1 + 40) objectForKey:@"ShowLatestUpdatePane"];
+    if (v108 && ([v108 isEqualToString:@"YES"] & 1) != 0)
+    {
+      v107 = _SUSUILoggingFacility();
+      v106 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = [*(a1 + 32) presentingDescriptor];
-        __os_log_helper_16_2_2_8_32_8_66(v158, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v29);
-        _os_log_impl(&dword_26AC94000, v109, v108, "%s: DefaultAudience descriptor: %{public}@\nShowLatestUpdatePane is YES, going to try use latestUpdate value from the scan result", v158, 0x16u);
-        MEMORY[0x277D82BD8](v29);
+        v27 = [*(a1 + 32) presentingDescriptor];
+        __os_log_helper_16_2_2_8_32_8_66(v156, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v27);
+        _os_log_impl(&dword_26AC94000, v107, v106, "%s: DefaultAudience descriptor: %{public}@\nShowLatestUpdatePane is YES, going to try use latestUpdate value from the scan result", v156, 0x16u);
+        MEMORY[0x277D82BD8](v27);
       }
 
-      objc_storeStrong(&v109, 0);
-      v27 = [*(a1 + 32) manager];
-      v28 = [v27 latestUpdateStatefulDescriptor];
-      MEMORY[0x277D82BD8](v28);
-      MEMORY[0x277D82BD8](v27);
-      if (v28)
+      objc_storeStrong(&v107, 0);
+      v25 = [*(a1 + 32) manager];
+      v26 = [v25 latestUpdateStatefulDescriptor];
+      MEMORY[0x277D82BD8](v26);
+      MEMORY[0x277D82BD8](v25);
+      if (v26)
       {
-        v25 = [*(a1 + 32) presentingAlternateStatefulDescriptor];
-        v26 = [v25 isLatestUpdate];
-        MEMORY[0x277D82BD8](v25);
-        if (v26)
-        {
-          v107 = _SUSUILoggingFacility();
-          v106 = OS_LOG_TYPE_DEFAULT;
-          if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
-          {
-            v24 = [*(a1 + 32) presentingAlternateDescriptor];
-            __os_log_helper_16_2_2_8_32_8_66(v157, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v24);
-            _os_log_impl(&dword_26AC94000, v107, v106, "%s: DefaultAudience descriptor: %{public}@\nattached to 'Also Availaible' pane.", v157, 0x16u);
-            MEMORY[0x277D82BD8](v24);
-          }
-
-          objc_storeStrong(&v107, 0);
-          [*(a1 + 32) showAlsoAvailaibleSUPane];
-          v139 = 1;
-        }
-
-        else
+        v23 = [*(a1 + 32) presentingAlternateStatefulDescriptor];
+        v24 = [v23 isLatestUpdate];
+        MEMORY[0x277D82BD8](v23);
+        if (v24)
         {
           v105 = _SUSUILoggingFacility();
           v104 = OS_LOG_TYPE_DEFAULT;
           if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
           {
-            v23 = [*(a1 + 32) presentingDescriptor];
-            __os_log_helper_16_2_2_8_32_8_66(v156, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v23);
-            _os_log_impl(&dword_26AC94000, v105, v104, "%s: DefaultAudience descriptor: %{public}@\nattached to primary pane. Nothing to do.", v156, 0x16u);
-            MEMORY[0x277D82BD8](v23);
+            v22 = [*(a1 + 32) presentingAlternateDescriptor];
+            __os_log_helper_16_2_2_8_32_8_66(v155, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v22);
+            _os_log_impl(&dword_26AC94000, v105, v104, "%s: DefaultAudience descriptor: %{public}@\nattached to 'Also Availaible' pane.", v155, 0x16u);
+            MEMORY[0x277D82BD8](v22);
           }
 
           objc_storeStrong(&v105, 0);
-          v139 = 1;
+          [*(a1 + 32) showAlsoAvailaibleSUPane];
+          v137 = 1;
+        }
+
+        else
+        {
+          v103 = _SUSUILoggingFacility();
+          v102 = OS_LOG_TYPE_DEFAULT;
+          if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+          {
+            v21 = [*(a1 + 32) presentingDescriptor];
+            __os_log_helper_16_2_2_8_32_8_66(v154, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v21);
+            _os_log_impl(&dword_26AC94000, v103, v102, "%s: DefaultAudience descriptor: %{public}@\nattached to primary pane. Nothing to do.", v154, 0x16u);
+            MEMORY[0x277D82BD8](v21);
+          }
+
+          objc_storeStrong(&v103, 0);
+          v137 = 1;
         }
 
 LABEL_95:
-        objc_storeStrong(&v110, 0);
+        objc_storeStrong(&v108, 0);
         goto LABEL_99;
       }
 
-      v103 = _SUSUILoggingFacility();
-      v102 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+      v101 = _SUSUILoggingFacility();
+      v100 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = [*(a1 + 32) presentingDescriptor];
-        __os_log_helper_16_2_2_8_32_8_66(v155, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v22);
-        _os_log_impl(&dword_26AC94000, v103, v102, "%s: DefaultAudience descriptor: %{public}@\nlatestUpdateStatefulDescriptor is nil. Unable to use it for the ShowLatestUpdatePane flag", v155, 0x16u);
-        MEMORY[0x277D82BD8](v22);
+        v20 = [*(a1 + 32) presentingDescriptor];
+        __os_log_helper_16_2_2_8_32_8_66(v153, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v20);
+        _os_log_impl(&dword_26AC94000, v101, v100, "%s: DefaultAudience descriptor: %{public}@\nlatestUpdateStatefulDescriptor is nil. Unable to use it for the ShowLatestUpdatePane flag", v153, 0x16u);
+        MEMORY[0x277D82BD8](v20);
       }
 
-      objc_storeStrong(&v103, 0);
+      objc_storeStrong(&v101, 0);
     }
 
     if (([*(a1 + 32) presentingStatefulDescriptorPromotedAsAlternate] & 1) == 0)
@@ -9215,119 +9149,119 @@ LABEL_95:
       goto LABEL_76;
     }
 
-    v101 = _SUSUILoggingFacility();
-    v100 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
+    v99 = _SUSUILoggingFacility();
+    v98 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_2_1_8_32(v154, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke");
-      _os_log_impl(&dword_26AC94000, v101, v100, "%s: presentingStatefulDescriptorPromotedAsAlternate reported true", v154, 0xCu);
+      __os_log_helper_16_2_1_8_32(v152, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke");
+      _os_log_impl(&dword_26AC94000, v99, v98, "%s: presentingStatefulDescriptorPromotedAsAlternate reported true", v152, 0xCu);
     }
 
-    objc_storeStrong(&v101, 0);
-    v20 = [*(a1 + 32) presentingDescriptor];
-    v98 = 0;
-    v21 = 0;
-    if (v20)
+    objc_storeStrong(&v99, 0);
+    v18 = [*(a1 + 32) presentingDescriptor];
+    v96 = 0;
+    v19 = 0;
+    if (v18)
     {
-      v99 = [*(a1 + 32) presentingDescriptor];
-      v98 = 1;
-      v21 = [v99 audienceType] == 1;
+      v97 = [*(a1 + 32) presentingDescriptor];
+      v96 = 1;
+      v19 = [v97 audienceType] == 1;
     }
 
-    if (v98)
+    if (v96)
     {
-      MEMORY[0x277D82BD8](v99);
+      MEMORY[0x277D82BD8](v97);
     }
 
-    MEMORY[0x277D82BD8](v20);
-    if (v21)
+    MEMORY[0x277D82BD8](v18);
+    if (v19)
     {
       [*(a1 + 32) showAlsoAvailaibleSUPane];
-      v139 = 1;
+      v137 = 1;
     }
 
     else
     {
 LABEL_76:
-      v18 = [*(a1 + 32) presentingDescriptor];
-      v96 = 0;
-      v19 = 0;
-      if (v18)
+      v16 = [*(a1 + 32) presentingDescriptor];
+      v94 = 0;
+      v17 = 0;
+      if (v16)
       {
-        v97 = [*(a1 + 32) presentingDescriptor];
-        v96 = 1;
-        v19 = [v97 audienceType] == 1;
+        v95 = [*(a1 + 32) presentingDescriptor];
+        v94 = 1;
+        v17 = [v95 audienceType] == 1;
       }
 
-      if (v96)
+      if (v94)
       {
-        MEMORY[0x277D82BD8](v97);
+        MEMORY[0x277D82BD8](v95);
       }
 
-      MEMORY[0x277D82BD8](v18);
-      if (v19)
+      MEMORY[0x277D82BD8](v16);
+      if (v17)
       {
-        v95 = _SUSUILoggingFacility();
-        v94 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+        v93 = _SUSUILoggingFacility();
+        v92 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = [*(a1 + 32) presentingDescriptor];
-          __os_log_helper_16_2_2_8_32_8_66(v153, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v17);
-          _os_log_impl(&dword_26AC94000, v95, v94, "%s: DefaultAudience descriptor: %{public}@\nattached to primary pane. Nothing to do.", v153, 0x16u);
-          MEMORY[0x277D82BD8](v17);
+          v15 = [*(a1 + 32) presentingDescriptor];
+          __os_log_helper_16_2_2_8_32_8_66(v151, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v15);
+          _os_log_impl(&dword_26AC94000, v93, v92, "%s: DefaultAudience descriptor: %{public}@\nattached to primary pane. Nothing to do.", v151, 0x16u);
+          MEMORY[0x277D82BD8](v15);
         }
 
-        objc_storeStrong(&v95, 0);
-        v139 = 1;
+        objc_storeStrong(&v93, 0);
+        v137 = 1;
       }
 
       else
       {
-        v15 = [*(a1 + 32) presentingAlternateDescriptor];
-        v92 = 0;
-        v16 = 0;
-        if (v15)
+        v13 = [*(a1 + 32) presentingAlternateDescriptor];
+        v90 = 0;
+        v14 = 0;
+        if (v13)
         {
-          v93 = [*(a1 + 32) presentingAlternateDescriptor];
-          v92 = 1;
-          v16 = [v93 audienceType] == 1;
+          v91 = [*(a1 + 32) presentingAlternateDescriptor];
+          v90 = 1;
+          v14 = [v91 audienceType] == 1;
         }
 
-        if (v92)
+        if (v90)
         {
-          MEMORY[0x277D82BD8](v93);
+          MEMORY[0x277D82BD8](v91);
         }
 
-        MEMORY[0x277D82BD8](v15);
-        if (v16)
-        {
-          v91 = _SUSUILoggingFacility();
-          v90 = OS_LOG_TYPE_DEFAULT;
-          if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
-          {
-            v14 = [*(a1 + 32) presentingAlternateDescriptor];
-            __os_log_helper_16_2_2_8_32_8_66(v152, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v14);
-            _os_log_impl(&dword_26AC94000, v91, v90, "%s: DefaultAudience descriptor: %{public}@\nattached to 'Also Availaible' pane.", v152, 0x16u);
-            MEMORY[0x277D82BD8](v14);
-          }
-
-          objc_storeStrong(&v91, 0);
-          [*(a1 + 32) showAlsoAvailaibleSUPane];
-          v139 = 1;
-        }
-
-        else
+        MEMORY[0x277D82BD8](v13);
+        if (v14)
         {
           v89 = _SUSUILoggingFacility();
           v88 = OS_LOG_TYPE_DEFAULT;
           if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
           {
-            __os_log_helper_16_2_1_8_32(v151, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke");
-            _os_log_impl(&dword_26AC94000, v89, v88, "%s: No DefaultAudience updates found. Nothing to do.", v151, 0xCu);
+            v12 = [*(a1 + 32) presentingAlternateDescriptor];
+            __os_log_helper_16_2_2_8_32_8_66(v150, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v12);
+            _os_log_impl(&dword_26AC94000, v89, v88, "%s: DefaultAudience descriptor: %{public}@\nattached to 'Also Availaible' pane.", v150, 0x16u);
+            MEMORY[0x277D82BD8](v12);
           }
 
           objc_storeStrong(&v89, 0);
-          v139 = 1;
+          [*(a1 + 32) showAlsoAvailaibleSUPane];
+          v137 = 1;
+        }
+
+        else
+        {
+          v87 = _SUSUILoggingFacility();
+          v86 = OS_LOG_TYPE_DEFAULT;
+          if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
+          {
+            __os_log_helper_16_2_1_8_32(v149, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke");
+            _os_log_impl(&dword_26AC94000, v87, v86, "%s: No DefaultAudience updates found. Nothing to do.", v149, 0xCu);
+          }
+
+          objc_storeStrong(&v87, 0);
+          v137 = 1;
         }
       }
     }
@@ -9335,25 +9269,24 @@ LABEL_76:
     goto LABEL_95;
   }
 
-  v87 = _SUSUILoggingFacility();
-  v86 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
+  v85 = _SUSUILoggingFacility();
+  v84 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = v87;
-    v12 = v86;
-    v13 = SUSettingsUIStateToString(v118);
-    v85 = MEMORY[0x277D82BE0](v13);
-    __os_log_helper_16_2_3_8_32_8_0_8_64(v150, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v118, v85);
-    _os_log_impl(&dword_26AC94000, v11, v12, "%s: The state %ld (%@) isn't associated with any special handler. Nothing more to do.", v150, 0x20u);
-    MEMORY[0x277D82BD8](v13);
-    objc_storeStrong(&v85, 0);
+    v9 = v85;
+    v10 = v84;
+    v11 = SUSettingsUIStateToString(v116);
+    v83 = MEMORY[0x277D82BE0](v11);
+    __os_log_helper_16_2_3_8_32_8_0_8_64(v148, "[SUSUISoftwareUpdateController(UI) handleURL:withCompletion:]_block_invoke", v116, v83);
+    _os_log_impl(&dword_26AC94000, v9, v10, "%s: The state %ld (%@) isn't associated with any special handler. Nothing more to do.", v148, 0x20u);
+    MEMORY[0x277D82BD8](v11);
+    objc_storeStrong(&v83, 0);
   }
 
-  objc_storeStrong(&v87, 0);
-  v139 = 0;
+  objc_storeStrong(&v85, 0);
+  v137 = 0;
 LABEL_99:
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __62__SUSUISoftwareUpdateController_UI__handleURL_withCompletion___block_invoke_383(id *a1)
@@ -9508,7 +9441,6 @@ void __62__SUSUISoftwareUpdateController_UI__handleURL_withCompletion___block_in
 
   objc_storeStrong(&location, 0);
   objc_storeStrong(&specifiers, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v19;
 
   return v3;
@@ -9854,7 +9786,6 @@ LABEL_9:
   objc_storeStrong(&v25, 0);
   objc_storeStrong(&v26, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -10239,7 +10170,6 @@ LABEL_9:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v13 = v125;
 
   return v13;
@@ -10314,7 +10244,6 @@ LABEL_9:
   [defaultWorkspace openSensitiveURL:v27 withOptions:0];
   MEMORY[0x277D82BD8](defaultWorkspace);
   objc_storeStrong(&v27, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)downloadOnly:(id)only
@@ -10456,7 +10385,6 @@ LABEL_9:
   objc_storeStrong(&v30, 0);
   [(SUSUISoftwareUpdateController *)selfCopy dismissViewControllerAnimated:1 completion:0];
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)performUpdateRescan:(id)rescan
@@ -10556,30 +10484,29 @@ LABEL_9:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)autoInstallCancelPrompt:(id)prompt
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, prompt);
-  v48 = _SUSUILoggingFacility();
-  v47 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+  v44 = _SUSUILoggingFacility();
+  v43 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
   {
-    log = v48;
-    type = v47;
+    log = v44;
+    type = v43;
     v3 = objc_opt_class();
-    v41 = NSStringFromClass(v3);
-    v23 = MEMORY[0x277D82BE0](v41);
-    v46 = v23;
-    v24 = selfCopy;
-    v40 = SUSettingsUIStateToString([(SUSUISoftwareUpdateController *)selfCopy currentUIState]);
-    v25 = MEMORY[0x277D82BE0](v40);
-    v45 = v25;
+    v37 = NSStringFromClass(v3);
+    v19 = MEMORY[0x277D82BE0](v37);
+    v42 = v19;
+    v20 = selfCopy;
+    v36 = SUSettingsUIStateToString([(SUSUISoftwareUpdateController *)selfCopy currentUIState]);
+    v21 = MEMORY[0x277D82BE0](v36);
+    v41 = v21;
     currentUIState = [(SUSUISoftwareUpdateController *)selfCopy currentUIState];
     presentingStatefulDescriptor = [(SUSUISoftwareUpdateController *)selfCopy presentingStatefulDescriptor];
     presentingStatefulDescriptor2 = [(SUSUISoftwareUpdateController *)selfCopy presentingStatefulDescriptor];
@@ -10589,8 +10516,8 @@ LABEL_9:
     currentDownload = [(SUSettingsStatefulUIManager *)manager currentDownload];
     descriptor = [(SUDownload *)currentDownload descriptor];
     humanReadableUpdateName = [(SUDescriptor *)descriptor humanReadableUpdateName];
-    v22 = MEMORY[0x277D82BE0](humanReadableUpdateName);
-    v44 = v22;
+    v18 = MEMORY[0x277D82BE0](humanReadableUpdateName);
+    v40 = v18;
     manager2 = [(SUSUISoftwareUpdateController *)selfCopy manager];
     currentDownload2 = [(SUSettingsStatefulUIManager *)manager2 currentDownload];
     manager3 = [(SUSUISoftwareUpdateController *)selfCopy manager];
@@ -10601,8 +10528,8 @@ LABEL_9:
       v5 = "NO";
     }
 
-    __os_log_helper_16_2_12_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34(v51, "[SUSUISoftwareUpdateController(UI) autoInstallCancelPrompt:]", v23, v24, v25, currentUIState, presentingStatefulDescriptor, presentingStatefulDescriptor2, presentingAlternateStatefulDescriptor, presentingAlternateStatefulDescriptor2, v22, currentDownload2, v5);
-    _os_log_impl(&dword_26AC94000, log, type, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\n", v51, 0x7Au);
+    __os_log_helper_16_2_12_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34(v47, "[SUSUISoftwareUpdateController(UI) autoInstallCancelPrompt:]", v19, v20, v21, currentUIState, presentingStatefulDescriptor, presentingStatefulDescriptor2, presentingAlternateStatefulDescriptor, presentingAlternateStatefulDescriptor2, v18, currentDownload2, v5);
+    _os_log_impl(&dword_26AC94000, log, type, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\n", v47, 0x7Au);
     MEMORY[0x277D82BD8](manager3);
     MEMORY[0x277D82BD8](currentDownload2);
     MEMORY[0x277D82BD8](manager2);
@@ -10614,53 +10541,48 @@ LABEL_9:
     MEMORY[0x277D82BD8](presentingAlternateStatefulDescriptor);
     MEMORY[0x277D82BD8](presentingStatefulDescriptor2);
     MEMORY[0x277D82BD8](presentingStatefulDescriptor);
-    MEMORY[0x277D82BD8](v40);
-    MEMORY[0x277D82BD8](v41);
-    objc_storeStrong(&v44, 0);
-    objc_storeStrong(&v45, 0);
-    objc_storeStrong(&v46, 0);
+    MEMORY[0x277D82BD8](v36);
+    MEMORY[0x277D82BD8](v37);
+    objc_storeStrong(&v40, 0);
+    objc_storeStrong(&v41, 0);
+    objc_storeStrong(&v42, 0);
   }
 
-  objc_storeStrong(&v48, 0);
-  v43 = [MEMORY[0x277D3F9C8] preferenceSpecifierNamed:0 target:? set:? get:? detail:? cell:? edit:?];
+  objc_storeStrong(&v44, 0);
+  v39 = [MEMORY[0x277D3F9C8] preferenceSpecifierNamed:0 target:? set:? get:? detail:? cell:? edit:?];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v10 = dictionary;
-  v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v11 = [v12 localizedStringForKey:@"AUTO_INSTALL_CONFIRM_CANCEL" value:&stru_287B79370 table:?];
-  v6 = *MEMORY[0x277D3FE78];
-  [v10 setObject:? forKey:?];
+  v6 = dictionary;
+  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v7 = [v8 localizedStringForKey:@"AUTO_INSTALL_CONFIRM_CANCEL" value:&stru_287B79370 table:?];
+  [v6 setObject:? forKey:?];
+  MEMORY[0x277D82BD8](v7);
+  MEMORY[0x277D82BD8](v8);
+  v9 = dictionary;
+  v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v10 = [v11 localizedStringForKey:@"AUTO_INSTALL_CONFIRM_OK" value:&stru_287B79370 table:@"Software Update"];
+  [v9 setObject:? forKey:?];
+  MEMORY[0x277D82BD8](v10);
   MEMORY[0x277D82BD8](v11);
-  MEMORY[0x277D82BD8](v12);
-  v13 = dictionary;
-  v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v14 = [v15 localizedStringForKey:@"AUTO_INSTALL_CONFIRM_OK" value:&stru_287B79370 table:@"Software Update"];
-  v7 = *MEMORY[0x277D3FE88];
-  [v13 setObject:? forKey:?];
+  v12 = dictionary;
+  v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v13 = [v14 localizedStringForKey:@"AUTO_INSTALL_CONFIRM_PROMPT" value:&stru_287B79370 table:@"Software Update"];
+  [v12 setObject:? forKey:?];
+  MEMORY[0x277D82BD8](v13);
   MEMORY[0x277D82BD8](v14);
-  MEMORY[0x277D82BD8](v15);
-  v16 = dictionary;
-  v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v17 = [v18 localizedStringForKey:@"AUTO_INSTALL_CONFIRM_PROMPT" value:&stru_287B79370 table:@"Software Update"];
-  v8 = *MEMORY[0x277D3FE90];
-  [v16 setObject:? forKey:?];
+  v15 = dictionary;
+  v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v16 = [v17 localizedStringForKey:@"AUTO_INSTALL_CONFIRM_TITLE" value:&stru_287B79370 table:@"Software Update"];
+  [v15 setObject:? forKey:?];
+  MEMORY[0x277D82BD8](v16);
   MEMORY[0x277D82BD8](v17);
-  MEMORY[0x277D82BD8](v18);
-  v19 = dictionary;
-  v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v20 = [v21 localizedStringForKey:@"AUTO_INSTALL_CONFIRM_TITLE" value:&stru_287B79370 table:@"Software Update"];
-  v9 = *MEMORY[0x277D3FE98];
-  [v19 setObject:? forKey:?];
-  MEMORY[0x277D82BD8](v20);
-  MEMORY[0x277D82BD8](v21);
-  [v43 setupWithDictionary:dictionary];
-  [v43 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FE80]];
-  [v43 setConfirmationAction:sel_autoInstallCancel_];
-  [v43 setTarget:selfCopy];
-  [(SUSUISoftwareUpdateController *)selfCopy presentConfimationSpecifier:v43];
+  [v39 setupWithDictionary:dictionary];
+  [v39 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FE80]];
+  [v39 setConfirmationAction:sel_autoInstallCancel_];
+  [v39 setTarget:selfCopy];
+  [(SUSUISoftwareUpdateController *)selfCopy presentConfimationSpecifier:v39];
   objc_storeStrong(&dictionary, 0);
-  objc_storeStrong(&v43, 0);
+  objc_storeStrong(&v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)presentConfimationSpecifier:(id)specifier
@@ -10746,7 +10668,6 @@ LABEL_9:
   MEMORY[0x277D82BD8](paneTitle);
   [(SUSUISoftwareUpdateController *)selfCopy refreshPane];
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -10820,7 +10741,6 @@ LABEL_9:
   MEMORY[0x277D82BD8](paneTitle);
   [(SUSUISoftwareUpdateController *)selfCopy refreshPane];
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)preferences:(id)preferences didChangePreference:(id)preference toValue:(id)value
@@ -10915,7 +10835,6 @@ LABEL_9:
   objc_storeStrong(&v32, 0);
   objc_destroyWeak(&v33);
   objc_destroyWeak(&v34);
-  *MEMORY[0x277D85DE8];
 }
 
 void __61__SUSUISoftwareUpdateController_UI__showAlsoAvailaibleSUPane__block_invoke(id *a1)
@@ -11033,7 +10952,6 @@ LABEL_24:
   }
 
   objc_storeStrong(v24, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForFontChanges
@@ -11129,8 +11047,6 @@ LABEL_24:
 
     objc_storeStrong(&v28, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)waitForScanCompletionWithTimeout:(unint64_t)timeout currentAttempt:(unint64_t)attempt completionHandler:(id)handler
@@ -11370,7 +11286,6 @@ LABEL_30:
   objc_storeStrong(&v89, 0);
 LABEL_31:
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 uint64_t __103__SUSUISoftwareUpdateController_UI__waitForScanCompletionWithTimeout_currentAttempt_completionHandler___block_invoke(uint64_t result)
@@ -11489,59 +11404,58 @@ uint64_t __103__SUSUISoftwareUpdateController_UI__waitForScanCompletionWithTimeo
   MEMORY[0x277D82BD8](presentingStatefulDescriptor3);
   MEMORY[0x277D82BD8](manager4);
   objc_storeStrong(&v37, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __72__SUSUISoftwareUpdateController_SoftwareUpdate__beginUpdateNowOperation__block_invoke(id *a1, char a2, id obj, void *a4)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v38 = a1;
-  v37 = a2;
+  v39 = *MEMORY[0x277D85DE8];
+  v37 = a1;
+  v36 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v35 = 0;
-  objc_storeStrong(&v35, a4);
-  v34[1] = a1;
+  v34 = 0;
+  objc_storeStrong(&v34, a4);
+  v33[1] = a1;
   *(a1[4] + 186) = 0;
   [a1[4] setBusyWithActivityStyle:*(a1[4] + 186)];
-  v34[0] = _SUSUILoggingFacility();
-  v33 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v34[0], OS_LOG_TYPE_DEFAULT))
+  v33[0] = _SUSUILoggingFacility();
+  v32 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v33[0], OS_LOG_TYPE_DEFAULT))
   {
-    log = v34[0];
-    type = v33;
-    v4 = a1[4];
-    v5 = objc_opt_class();
-    v27 = NSStringFromClass(v5);
-    v9 = MEMORY[0x277D82BE0](v27);
-    v32 = v9;
-    v10 = a1[4];
-    v26 = SUSettingsUIStateToString([v10 currentUIState]);
-    v11 = MEMORY[0x277D82BE0](v26);
-    v31 = v11;
-    v12 = [a1[4] currentUIState];
-    v25 = [a1[4] presentingStatefulDescriptor];
+    log = v33[0];
+    type = v32;
+    v4 = objc_opt_class();
+    v26 = NSStringFromClass(v4);
+    v8 = MEMORY[0x277D82BE0](v26);
+    v31 = v8;
+    v9 = a1[4];
+    v25 = SUSettingsUIStateToString([v9 currentUIState]);
+    v10 = MEMORY[0x277D82BE0](v25);
+    v30 = v10;
+    v11 = [a1[4] currentUIState];
     v24 = [a1[4] presentingStatefulDescriptor];
-    v23 = [a1[4] presentingAlternateStatefulDescriptor];
+    v23 = [a1[4] presentingStatefulDescriptor];
     v22 = [a1[4] presentingAlternateStatefulDescriptor];
-    v21 = [a1[4] manager];
-    v20 = [v21 currentDownload];
-    v19 = [v20 descriptor];
-    v18 = [v19 humanReadableUpdateName];
-    v8 = MEMORY[0x277D82BE0](v18);
-    v30 = v8;
-    v17 = [a1[4] manager];
-    v16 = [v17 currentDownload];
-    v15 = [a1[4] manager];
-    v6 = [v15 isTargetedUpdateScheduledForAutoInstall];
-    v7 = "YES";
-    if ((v6 & 1) == 0)
+    v21 = [a1[4] presentingAlternateStatefulDescriptor];
+    v20 = [a1[4] manager];
+    v19 = [v20 currentDownload];
+    v18 = [v19 descriptor];
+    v17 = [v18 humanReadableUpdateName];
+    v7 = MEMORY[0x277D82BE0](v17);
+    v29 = v7;
+    v16 = [a1[4] manager];
+    v15 = [v16 currentDownload];
+    v14 = [a1[4] manager];
+    v5 = [v14 isTargetedUpdateScheduledForAutoInstall];
+    v6 = "YES";
+    if ((v5 & 1) == 0)
     {
-      v7 = "NO";
+      v6 = "NO";
     }
 
-    __os_log_helper_16_2_12_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34(v39, "[SUSUISoftwareUpdateController(SoftwareUpdate) beginUpdateNowOperation]_block_invoke", v9, v10, v11, v12, v25, v24, v23, v22, v8, v16, v7);
-    _os_log_impl(&dword_26AC94000, log, type, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\n", v39, 0x7Au);
+    __os_log_helper_16_2_12_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34(v38, "[SUSUISoftwareUpdateController(SoftwareUpdate) beginUpdateNowOperation]_block_invoke", v8, v9, v10, v11, v24, v23, v22, v21, v7, v15, v6);
+    _os_log_impl(&dword_26AC94000, log, type, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\n", v38, 0x7Au);
+    MEMORY[0x277D82BD8](v14);
     MEMORY[0x277D82BD8](v15);
     MEMORY[0x277D82BD8](v16);
     MEMORY[0x277D82BD8](v17);
@@ -11554,16 +11468,14 @@ void __72__SUSUISoftwareUpdateController_SoftwareUpdate__beginUpdateNowOperation
     MEMORY[0x277D82BD8](v24);
     MEMORY[0x277D82BD8](v25);
     MEMORY[0x277D82BD8](v26);
-    MEMORY[0x277D82BD8](v27);
+    objc_storeStrong(&v29, 0);
     objc_storeStrong(&v30, 0);
     objc_storeStrong(&v31, 0);
-    objc_storeStrong(&v32, 0);
   }
 
-  objc_storeStrong(v34, 0);
-  objc_storeStrong(&v35, 0);
+  objc_storeStrong(v33, 0);
+  objc_storeStrong(&v34, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)beginUpdateDownloadOnlyOperation
@@ -11649,59 +11561,58 @@ void __72__SUSUISoftwareUpdateController_SoftwareUpdate__beginUpdateNowOperation
   MEMORY[0x277D82BD8](presentingStatefulDescriptor3);
   MEMORY[0x277D82BD8](manager4);
   objc_storeStrong(&v37, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __81__SUSUISoftwareUpdateController_SoftwareUpdate__beginUpdateDownloadOnlyOperation__block_invoke(id *a1, char a2, id obj, void *a4)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v38 = a1;
-  v37 = a2;
+  v39 = *MEMORY[0x277D85DE8];
+  v37 = a1;
+  v36 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v35 = 0;
-  objc_storeStrong(&v35, a4);
-  v34[1] = a1;
+  v34 = 0;
+  objc_storeStrong(&v34, a4);
+  v33[1] = a1;
   *(a1[4] + 186) = 0;
   [a1[4] setBusyWithActivityStyle:*(a1[4] + 186)];
-  v34[0] = _SUSUILoggingFacility();
-  v33 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v34[0], OS_LOG_TYPE_DEFAULT))
+  v33[0] = _SUSUILoggingFacility();
+  v32 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v33[0], OS_LOG_TYPE_DEFAULT))
   {
-    log = v34[0];
-    type = v33;
-    v4 = a1[4];
-    v5 = objc_opt_class();
-    v27 = NSStringFromClass(v5);
-    v9 = MEMORY[0x277D82BE0](v27);
-    v32 = v9;
-    v10 = a1[4];
-    v26 = SUSettingsUIStateToString([v10 currentUIState]);
-    v11 = MEMORY[0x277D82BE0](v26);
-    v31 = v11;
-    v12 = [a1[4] currentUIState];
-    v25 = [a1[4] presentingStatefulDescriptor];
+    log = v33[0];
+    type = v32;
+    v4 = objc_opt_class();
+    v26 = NSStringFromClass(v4);
+    v8 = MEMORY[0x277D82BE0](v26);
+    v31 = v8;
+    v9 = a1[4];
+    v25 = SUSettingsUIStateToString([v9 currentUIState]);
+    v10 = MEMORY[0x277D82BE0](v25);
+    v30 = v10;
+    v11 = [a1[4] currentUIState];
     v24 = [a1[4] presentingStatefulDescriptor];
-    v23 = [a1[4] presentingAlternateStatefulDescriptor];
+    v23 = [a1[4] presentingStatefulDescriptor];
     v22 = [a1[4] presentingAlternateStatefulDescriptor];
-    v21 = [a1[4] manager];
-    v20 = [v21 currentDownload];
-    v19 = [v20 descriptor];
-    v18 = [v19 humanReadableUpdateName];
-    v8 = MEMORY[0x277D82BE0](v18);
-    v30 = v8;
-    v17 = [a1[4] manager];
-    v16 = [v17 currentDownload];
-    v15 = [a1[4] manager];
-    v6 = [v15 isTargetedUpdateScheduledForAutoInstall];
-    v7 = "YES";
-    if ((v6 & 1) == 0)
+    v21 = [a1[4] presentingAlternateStatefulDescriptor];
+    v20 = [a1[4] manager];
+    v19 = [v20 currentDownload];
+    v18 = [v19 descriptor];
+    v17 = [v18 humanReadableUpdateName];
+    v7 = MEMORY[0x277D82BE0](v17);
+    v29 = v7;
+    v16 = [a1[4] manager];
+    v15 = [v16 currentDownload];
+    v14 = [a1[4] manager];
+    v5 = [v14 isTargetedUpdateScheduledForAutoInstall];
+    v6 = "YES";
+    if ((v5 & 1) == 0)
     {
-      v7 = "NO";
+      v6 = "NO";
     }
 
-    __os_log_helper_16_2_12_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34(v39, "[SUSUISoftwareUpdateController(SoftwareUpdate) beginUpdateDownloadOnlyOperation]_block_invoke", v9, v10, v11, v12, v25, v24, v23, v22, v8, v16, v7);
-    _os_log_impl(&dword_26AC94000, log, type, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\n", v39, 0x7Au);
+    __os_log_helper_16_2_12_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34(v38, "[SUSUISoftwareUpdateController(SoftwareUpdate) beginUpdateDownloadOnlyOperation]_block_invoke", v8, v9, v10, v11, v24, v23, v22, v21, v7, v15, v6);
+    _os_log_impl(&dword_26AC94000, log, type, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\n", v38, 0x7Au);
+    MEMORY[0x277D82BD8](v14);
     MEMORY[0x277D82BD8](v15);
     MEMORY[0x277D82BD8](v16);
     MEMORY[0x277D82BD8](v17);
@@ -11714,16 +11625,14 @@ void __81__SUSUISoftwareUpdateController_SoftwareUpdate__beginUpdateDownloadOnly
     MEMORY[0x277D82BD8](v24);
     MEMORY[0x277D82BD8](v25);
     MEMORY[0x277D82BD8](v26);
-    MEMORY[0x277D82BD8](v27);
+    objc_storeStrong(&v29, 0);
     objc_storeStrong(&v30, 0);
     objc_storeStrong(&v31, 0);
-    objc_storeStrong(&v32, 0);
   }
 
-  objc_storeStrong(v34, 0);
-  objc_storeStrong(&v35, 0);
+  objc_storeStrong(v33, 0);
+  objc_storeStrong(&v34, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)beginUpdateTonightOperation
@@ -11809,62 +11718,61 @@ void __81__SUSUISoftwareUpdateController_SoftwareUpdate__beginUpdateDownloadOnly
   MEMORY[0x277D82BD8](presentingStatefulDescriptor3);
   MEMORY[0x277D82BD8](manager4);
   objc_storeStrong(&v37, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __76__SUSUISoftwareUpdateController_SoftwareUpdate__beginUpdateTonightOperation__block_invoke(id *a1, char a2, id obj, char a4, void *a5, void *a6)
 {
-  v46 = *MEMORY[0x277D85DE8];
-  v44 = a1;
-  v43 = a2;
+  v45 = *MEMORY[0x277D85DE8];
+  v43 = a1;
+  v42 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v41 = a4;
-  v40 = 0;
-  objc_storeStrong(&v40, a5);
+  v40 = a4;
   v39 = 0;
-  objc_storeStrong(&v39, a6);
-  v38[1] = a1;
+  objc_storeStrong(&v39, a5);
+  v38 = 0;
+  objc_storeStrong(&v38, a6);
+  v37[1] = a1;
   *(a1[4] + 186) = 0;
   [a1[4] setBusyWithActivityStyle:*(a1[4] + 186)];
-  v38[0] = _SUSUILoggingFacility();
-  v37 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v38[0], OS_LOG_TYPE_DEFAULT))
+  v37[0] = _SUSUILoggingFacility();
+  v36 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v37[0], OS_LOG_TYPE_DEFAULT))
   {
-    log = v38[0];
-    type = v37;
-    v6 = a1[4];
-    v7 = objc_opt_class();
-    v29 = NSStringFromClass(v7);
-    v11 = MEMORY[0x277D82BE0](v29);
-    v36 = v11;
-    v12 = a1[4];
-    v28 = SUSettingsUIStateToString([v12 currentUIState]);
-    v13 = MEMORY[0x277D82BE0](v28);
-    v35 = v13;
-    v14 = [a1[4] currentUIState];
-    v27 = [a1[4] presentingStatefulDescriptor];
+    log = v37[0];
+    type = v36;
+    v6 = objc_opt_class();
+    v28 = NSStringFromClass(v6);
+    v10 = MEMORY[0x277D82BE0](v28);
+    v35 = v10;
+    v11 = a1[4];
+    v27 = SUSettingsUIStateToString([v11 currentUIState]);
+    v12 = MEMORY[0x277D82BE0](v27);
+    v34 = v12;
+    v13 = [a1[4] currentUIState];
     v26 = [a1[4] presentingStatefulDescriptor];
-    v25 = [a1[4] presentingAlternateStatefulDescriptor];
+    v25 = [a1[4] presentingStatefulDescriptor];
     v24 = [a1[4] presentingAlternateStatefulDescriptor];
-    v23 = [a1[4] manager];
-    v22 = [v23 currentDownload];
-    v21 = [v22 descriptor];
-    v20 = [v21 humanReadableUpdateName];
-    v10 = MEMORY[0x277D82BE0](v20);
-    v34 = v10;
-    v19 = [a1[4] manager];
-    v18 = [v19 currentDownload];
-    v17 = [a1[4] manager];
-    v8 = [v17 isTargetedUpdateScheduledForAutoInstall];
-    v9 = "YES";
-    if ((v8 & 1) == 0)
+    v23 = [a1[4] presentingAlternateStatefulDescriptor];
+    v22 = [a1[4] manager];
+    v21 = [v22 currentDownload];
+    v20 = [v21 descriptor];
+    v19 = [v20 humanReadableUpdateName];
+    v9 = MEMORY[0x277D82BE0](v19);
+    v33 = v9;
+    v18 = [a1[4] manager];
+    v17 = [v18 currentDownload];
+    v16 = [a1[4] manager];
+    v7 = [v16 isTargetedUpdateScheduledForAutoInstall];
+    v8 = "YES";
+    if ((v7 & 1) == 0)
     {
-      v9 = "NO";
+      v8 = "NO";
     }
 
-    __os_log_helper_16_2_12_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34(v45, "[SUSUISoftwareUpdateController(SoftwareUpdate) beginUpdateTonightOperation]_block_invoke", v11, v12, v13, v14, v27, v26, v25, v24, v10, v18, v9);
-    _os_log_impl(&dword_26AC94000, log, type, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\n", v45, 0x7Au);
+    __os_log_helper_16_2_12_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34(v44, "[SUSUISoftwareUpdateController(SoftwareUpdate) beginUpdateTonightOperation]_block_invoke", v10, v11, v12, v13, v26, v25, v24, v23, v9, v17, v8);
+    _os_log_impl(&dword_26AC94000, log, type, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\n", v44, 0x7Au);
+    MEMORY[0x277D82BD8](v16);
     MEMORY[0x277D82BD8](v17);
     MEMORY[0x277D82BD8](v18);
     MEMORY[0x277D82BD8](v19);
@@ -11877,17 +11785,15 @@ void __76__SUSUISoftwareUpdateController_SoftwareUpdate__beginUpdateTonightOpera
     MEMORY[0x277D82BD8](v26);
     MEMORY[0x277D82BD8](v27);
     MEMORY[0x277D82BD8](v28);
-    MEMORY[0x277D82BD8](v29);
+    objc_storeStrong(&v33, 0);
     objc_storeStrong(&v34, 0);
     objc_storeStrong(&v35, 0);
-    objc_storeStrong(&v36, 0);
   }
 
-  objc_storeStrong(v38, 0);
+  objc_storeStrong(v37, 0);
+  objc_storeStrong(&v38, 0);
   objc_storeStrong(&v39, 0);
-  objc_storeStrong(&v40, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)beginInstallOperation
@@ -11973,57 +11879,56 @@ void __76__SUSUISoftwareUpdateController_SoftwareUpdate__beginUpdateTonightOpera
   MEMORY[0x277D82BD8](presentingStatefulDescriptor3);
   MEMORY[0x277D82BD8](manager4);
   objc_storeStrong(&v37, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __70__SUSUISoftwareUpdateController_SoftwareUpdate__beginInstallOperation__block_invoke(id *a1, char a2, id obj)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v35 = a1;
-  v34 = a2;
+  v36 = *MEMORY[0x277D85DE8];
+  v34 = a1;
+  v33 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v32[1] = a1;
+  v31[1] = a1;
   *(a1[4] + 186) = 0;
   [a1[4] setBusyWithActivityStyle:*(a1[4] + 186)];
-  v32[0] = _SUSUILoggingFacility();
-  v31 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v32[0], OS_LOG_TYPE_DEFAULT))
+  v31[0] = _SUSUILoggingFacility();
+  v30 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v31[0], OS_LOG_TYPE_DEFAULT))
   {
-    log = v32[0];
-    type = v31;
-    v3 = a1[4];
-    v4 = objc_opt_class();
-    v26 = NSStringFromClass(v4);
-    v8 = MEMORY[0x277D82BE0](v26);
-    v30 = v8;
-    v9 = a1[4];
-    v25 = SUSettingsUIStateToString([v9 currentUIState]);
-    v10 = MEMORY[0x277D82BE0](v25);
-    v29 = v10;
-    v11 = [a1[4] currentUIState];
-    v24 = [a1[4] presentingStatefulDescriptor];
+    log = v31[0];
+    type = v30;
+    v3 = objc_opt_class();
+    v25 = NSStringFromClass(v3);
+    v7 = MEMORY[0x277D82BE0](v25);
+    v29 = v7;
+    v8 = a1[4];
+    v24 = SUSettingsUIStateToString([v8 currentUIState]);
+    v9 = MEMORY[0x277D82BE0](v24);
+    v28 = v9;
+    v10 = [a1[4] currentUIState];
     v23 = [a1[4] presentingStatefulDescriptor];
-    v22 = [a1[4] presentingAlternateStatefulDescriptor];
+    v22 = [a1[4] presentingStatefulDescriptor];
     v21 = [a1[4] presentingAlternateStatefulDescriptor];
-    v20 = [a1[4] manager];
-    v19 = [v20 currentDownload];
-    v18 = [v19 descriptor];
-    v17 = [v18 humanReadableUpdateName];
-    v7 = MEMORY[0x277D82BE0](v17);
-    v28 = v7;
-    v16 = [a1[4] manager];
-    v15 = [v16 currentDownload];
-    v14 = [a1[4] manager];
-    v5 = [v14 isTargetedUpdateScheduledForAutoInstall];
-    v6 = "YES";
-    if ((v5 & 1) == 0)
+    v20 = [a1[4] presentingAlternateStatefulDescriptor];
+    v19 = [a1[4] manager];
+    v18 = [v19 currentDownload];
+    v17 = [v18 descriptor];
+    v16 = [v17 humanReadableUpdateName];
+    v6 = MEMORY[0x277D82BE0](v16);
+    v27 = v6;
+    v15 = [a1[4] manager];
+    v14 = [v15 currentDownload];
+    v13 = [a1[4] manager];
+    v4 = [v13 isTargetedUpdateScheduledForAutoInstall];
+    v5 = "YES";
+    if ((v4 & 1) == 0)
     {
-      v6 = "NO";
+      v5 = "NO";
     }
 
-    __os_log_helper_16_2_12_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34(v36, "[SUSUISoftwareUpdateController(SoftwareUpdate) beginInstallOperation]_block_invoke", v8, v9, v10, v11, v24, v23, v22, v21, v7, v15, v6);
-    _os_log_impl(&dword_26AC94000, log, type, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\n", v36, 0x7Au);
+    __os_log_helper_16_2_12_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34(v35, "[SUSUISoftwareUpdateController(SoftwareUpdate) beginInstallOperation]_block_invoke", v7, v8, v9, v10, v23, v22, v21, v20, v6, v14, v5);
+    _os_log_impl(&dword_26AC94000, log, type, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\n", v35, 0x7Au);
+    MEMORY[0x277D82BD8](v13);
     MEMORY[0x277D82BD8](v14);
     MEMORY[0x277D82BD8](v15);
     MEMORY[0x277D82BD8](v16);
@@ -12036,15 +11941,13 @@ void __70__SUSUISoftwareUpdateController_SoftwareUpdate__beginInstallOperation__
     MEMORY[0x277D82BD8](v23);
     MEMORY[0x277D82BD8](v24);
     MEMORY[0x277D82BD8](v25);
-    MEMORY[0x277D82BD8](v26);
+    objc_storeStrong(&v27, 0);
     objc_storeStrong(&v28, 0);
     objc_storeStrong(&v29, 0);
-    objc_storeStrong(&v30, 0);
   }
 
-  objc_storeStrong(v32, 0);
+  objc_storeStrong(v31, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)beginInstallTonightOperation
@@ -12130,59 +12033,58 @@ void __70__SUSUISoftwareUpdateController_SoftwareUpdate__beginInstallOperation__
   MEMORY[0x277D82BD8](presentingStatefulDescriptor3);
   MEMORY[0x277D82BD8](manager4);
   objc_storeStrong(&v37, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __77__SUSUISoftwareUpdateController_SoftwareUpdate__beginInstallTonightOperation__block_invoke(id *a1, char a2, id obj, void *a4)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v38 = a1;
-  v37 = a2;
+  v39 = *MEMORY[0x277D85DE8];
+  v37 = a1;
+  v36 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v35 = 0;
-  objc_storeStrong(&v35, a4);
-  v34[1] = a1;
+  v34 = 0;
+  objc_storeStrong(&v34, a4);
+  v33[1] = a1;
   *(a1[4] + 186) = 0;
   [a1[4] setBusyWithActivityStyle:*(a1[4] + 186)];
-  v34[0] = _SUSUILoggingFacility();
-  v33 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v34[0], OS_LOG_TYPE_DEFAULT))
+  v33[0] = _SUSUILoggingFacility();
+  v32 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v33[0], OS_LOG_TYPE_DEFAULT))
   {
-    log = v34[0];
-    type = v33;
-    v4 = a1[4];
-    v5 = objc_opt_class();
-    v27 = NSStringFromClass(v5);
-    v9 = MEMORY[0x277D82BE0](v27);
-    v32 = v9;
-    v10 = a1[4];
-    v26 = SUSettingsUIStateToString([v10 currentUIState]);
-    v11 = MEMORY[0x277D82BE0](v26);
-    v31 = v11;
-    v12 = [a1[4] currentUIState];
-    v25 = [a1[4] presentingStatefulDescriptor];
+    log = v33[0];
+    type = v32;
+    v4 = objc_opt_class();
+    v26 = NSStringFromClass(v4);
+    v8 = MEMORY[0x277D82BE0](v26);
+    v31 = v8;
+    v9 = a1[4];
+    v25 = SUSettingsUIStateToString([v9 currentUIState]);
+    v10 = MEMORY[0x277D82BE0](v25);
+    v30 = v10;
+    v11 = [a1[4] currentUIState];
     v24 = [a1[4] presentingStatefulDescriptor];
-    v23 = [a1[4] presentingAlternateStatefulDescriptor];
+    v23 = [a1[4] presentingStatefulDescriptor];
     v22 = [a1[4] presentingAlternateStatefulDescriptor];
-    v21 = [a1[4] manager];
-    v20 = [v21 currentDownload];
-    v19 = [v20 descriptor];
-    v18 = [v19 humanReadableUpdateName];
-    v8 = MEMORY[0x277D82BE0](v18);
-    v30 = v8;
-    v17 = [a1[4] manager];
-    v16 = [v17 currentDownload];
-    v15 = [a1[4] manager];
-    v6 = [v15 isTargetedUpdateScheduledForAutoInstall];
-    v7 = "YES";
-    if ((v6 & 1) == 0)
+    v21 = [a1[4] presentingAlternateStatefulDescriptor];
+    v20 = [a1[4] manager];
+    v19 = [v20 currentDownload];
+    v18 = [v19 descriptor];
+    v17 = [v18 humanReadableUpdateName];
+    v7 = MEMORY[0x277D82BE0](v17);
+    v29 = v7;
+    v16 = [a1[4] manager];
+    v15 = [v16 currentDownload];
+    v14 = [a1[4] manager];
+    v5 = [v14 isTargetedUpdateScheduledForAutoInstall];
+    v6 = "YES";
+    if ((v5 & 1) == 0)
     {
-      v7 = "NO";
+      v6 = "NO";
     }
 
-    __os_log_helper_16_2_12_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34(v39, "[SUSUISoftwareUpdateController(SoftwareUpdate) beginInstallTonightOperation]_block_invoke", v9, v10, v11, v12, v25, v24, v23, v22, v8, v16, v7);
-    _os_log_impl(&dword_26AC94000, log, type, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\n", v39, 0x7Au);
+    __os_log_helper_16_2_12_8_32_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_34(v38, "[SUSUISoftwareUpdateController(SoftwareUpdate) beginInstallTonightOperation]_block_invoke", v8, v9, v10, v11, v24, v23, v22, v21, v7, v15, v6);
+    _os_log_impl(&dword_26AC94000, log, type, "%s: Controller Checkpoint\n\tCaller: %{public}@ (%p)\n\tmanager currentUIState: %{public}@ (%ld)\n\tpresentingStatefulDescriptor: %{public}@ (%p)\n\tpresentingAlternateStatefulDescriptor: %{public}@ (%p)\n\ttargetedUpdateDownload: %{public}@ (%p)\n\ttargetedUpdateScheduled: %{public}s\n\n", v38, 0x7Au);
+    MEMORY[0x277D82BD8](v14);
     MEMORY[0x277D82BD8](v15);
     MEMORY[0x277D82BD8](v16);
     MEMORY[0x277D82BD8](v17);
@@ -12195,16 +12097,14 @@ void __77__SUSUISoftwareUpdateController_SoftwareUpdate__beginInstallTonightOper
     MEMORY[0x277D82BD8](v24);
     MEMORY[0x277D82BD8](v25);
     MEMORY[0x277D82BD8](v26);
-    MEMORY[0x277D82BD8](v27);
+    objc_storeStrong(&v29, 0);
     objc_storeStrong(&v30, 0);
     objc_storeStrong(&v31, 0);
-    objc_storeStrong(&v32, 0);
   }
 
-  objc_storeStrong(v34, 0);
-  objc_storeStrong(&v35, 0);
+  objc_storeStrong(v33, 0);
+  objc_storeStrong(&v34, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)beginInstallNowOperation
@@ -12281,7 +12181,6 @@ void __77__SUSUISoftwareUpdateController_SoftwareUpdate__beginInstallTonightOper
   manager4 = [(SUSUISoftwareUpdateController *)selfCopy manager];
   [(SUSettingsStatefulUIManager *)manager4 promoteTargetedUpdateToUserInitiatedStatus];
   MEMORY[0x277D82BD8](manager4);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)unscheduleTargetedUpdateAutomaticInstallation
@@ -12351,7 +12250,6 @@ void __77__SUSUISoftwareUpdateController_SoftwareUpdate__beginInstallTonightOper
   manager4 = [(SUSUISoftwareUpdateController *)selfCopy manager];
   [(SUSettingsStatefulUIManager *)manager4 unscheduleTargetedUpdateAutomaticInstallation];
   MEMORY[0x277D82BD8](manager4);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldShowComingSoonTip
@@ -12367,8 +12265,8 @@ void __77__SUSUISoftwareUpdateController_SoftwareUpdate__beginInstallTonightOper
 {
   swift_getObjectType();
   MEMORY[0x277D82BE0](self);
-  sub_26AD9E570();
-  SUSUISoftwareUpdateController.shouldShowComingSoonTip.setter();
+  v4 = sub_26AD9E570();
+  SUSUISoftwareUpdateController.shouldShowComingSoonTip.setter(v4 & 1);
   MEMORY[0x277D82BD8](self);
 }
 

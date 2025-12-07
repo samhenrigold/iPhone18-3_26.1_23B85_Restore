@@ -113,17 +113,17 @@ id __125__HDPairedFeaturePropertiesSyncManager_initWithFeatureIdentifier_localFe
   sourceProviderCopy = sourceProvider;
   deviceProviderCopy = deviceProvider;
   sourceCopy = source;
-  v36.receiver = self;
-  v36.super_class = HDPairedFeaturePropertiesSyncManager;
-  v20 = [(HDPairedFeaturePropertiesSyncManager *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = HDPairedFeaturePropertiesSyncManager;
+  v20 = [(HDPairedFeaturePropertiesSyncManager *)&v35 init];
   if (v20)
   {
-    v35 = providerCopy;
-    v21 = [identifierCopy copy];
+    v34 = providerCopy;
+    v21 = objc_msgSend_copy(identifierCopy);
     featureIdentifier = v20->_featureIdentifier;
     v20->_featureIdentifier = v21;
 
-    v23 = [attributesCopy copy];
+    v23 = objc_msgSend_copy(attributesCopy);
     localFeatureAttributes = v20->_localFeatureAttributes;
     v20->_localFeatureAttributes = v23;
 
@@ -139,22 +139,21 @@ id __125__HDPairedFeaturePropertiesSyncManager_initWithFeatureIdentifier_localFe
     objc_storeStrong(&v20->_localWriteSource, source);
     v20->_nanoPreferencesSyncChangeNotificationToken = -1;
     objc_initWeak(&location, v20);
-    v29 = v20->_featureIdentifier;
-    v30 = HKFeaturePropertiesChangeNotificationForFeatureIdentifier();
-    uTF8String = [v30 UTF8String];
+    v29 = HKFeaturePropertiesChangeNotificationForFeatureIdentifier();
+    uTF8String = [v29 UTF8String];
+    v31 = MEMORY[0x277D85CD0];
     v32 = MEMORY[0x277D85CD0];
-    v33 = MEMORY[0x277D85CD0];
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __89__HDPairedFeaturePropertiesSyncManager__registerForNanoPreferencesSyncChangeNotification__block_invoke;
     handler[3] = &unk_278613BF0;
-    objc_copyWeak(&v38, &location);
-    notify_register_dispatch(uTF8String, &v20->_nanoPreferencesSyncChangeNotificationToken, v32, handler);
+    objc_copyWeak(&v37, &location);
+    notify_register_dispatch(uTF8String, &v20->_nanoPreferencesSyncChangeNotificationToken, v31, handler);
 
-    objc_destroyWeak(&v38);
+    objc_destroyWeak(&v37);
     objc_destroyWeak(&location);
     [(HDLocalCountrySetAvailabilityProvider *)v20->_localCountrySetAvailabilityProvider setDelegate:v20];
-    providerCopy = v35;
+    providerCopy = v34;
   }
 
   return v20;
@@ -178,23 +177,23 @@ id __125__HDPairedFeaturePropertiesSyncManager_initWithFeatureIdentifier_localFe
 
 - (void)synchronizeLocalProperties
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = NSDictionaryPreferencesSyncRepresentationForHKFeatureAttributes(self->_localFeatureAttributes);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __66__HDPairedFeaturePropertiesSyncManager_synchronizeLocalProperties__block_invoke;
-  v12[3] = &unk_278624E60;
-  v12[4] = self;
-  [v3 enumerateKeysAndObjectsUsingBlock:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __66__HDPairedFeaturePropertiesSyncManager_synchronizeLocalProperties__block_invoke;
+  v11[3] = &unk_278624E60;
+  v11[4] = self;
+  [v3 enumerateKeysAndObjectsUsingBlock:v11];
 
   countrySet = [(HDLocalCountrySetAvailabilityProvider *)self->_localCountrySetAvailabilityProvider countrySet];
   v5 = NSDictionaryPreferencesSyncRepresentationForHKCountrySet(countrySet);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __66__HDPairedFeaturePropertiesSyncManager_synchronizeLocalProperties__block_invoke_2;
-  v11[3] = &unk_278624E60;
-  v11[4] = self;
-  [v5 enumerateKeysAndObjectsUsingBlock:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __66__HDPairedFeaturePropertiesSyncManager_synchronizeLocalProperties__block_invoke_2;
+  v10[3] = &unk_278624E60;
+  v10[4] = self;
+  [v5 enumerateKeysAndObjectsUsingBlock:v10];
 
   _HKInitializeLogging();
   v6 = HKLogInfrastructure();
@@ -203,15 +202,14 @@ id __125__HDPairedFeaturePropertiesSyncManager_initWithFeatureIdentifier_localFe
     v7 = objc_opt_class();
     featureIdentifier = self->_featureIdentifier;
     *buf = 138543618;
-    v14 = v7;
-    v15 = 2114;
-    v16 = featureIdentifier;
+    v13 = v7;
+    v14 = 2114;
+    v15 = featureIdentifier;
     v9 = v7;
     _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Initiating NanoPreferencesSync of feature properties", buf, 0x16u);
   }
 
   [(HDFeaturePropertiesWriting *)self->_localWriteSource synchronize];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HKPairedFeatureAttributes)currentPairedFeatureAttributes
@@ -260,7 +258,7 @@ id __125__HDPairedFeaturePropertiesSyncManager_initWithFeatureIdentifier_localFe
 
 void __89__HDPairedFeaturePropertiesSyncManager__registerForNanoPreferencesSyncChangeNotification__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -271,9 +269,9 @@ void __89__HDPairedFeaturePropertiesSyncManager__registerForNanoPreferencesSyncC
       v2 = objc_opt_class();
       v3 = *(WeakRetained + 1);
       *buf = 138543618;
-      v9 = v2;
-      v10 = 2114;
-      v11 = v3;
+      v8 = v2;
+      v9 = 2114;
+      v10 = v3;
       v4 = v2;
       _os_log_impl(&dword_228986000, v1, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Notifying observers for received NPS change notification", buf, 0x16u);
     }
@@ -281,32 +279,28 @@ void __89__HDPairedFeaturePropertiesSyncManager__registerForNanoPreferencesSyncC
     v5 = objc_loadWeakRetained(WeakRetained + 8);
     [v5 allowedCountriesDataSourceDidUpdateActiveRemoteCountrySet:WeakRetained];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)regionAvailabilityProvidingDidUpdate:(id)update
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = HKLogInfrastructure();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
     featureIdentifier = self->_featureIdentifier;
-    v10 = 138543618;
-    v11 = v5;
-    v12 = 2114;
-    v13 = featureIdentifier;
+    v9 = 138543618;
+    v10 = v5;
+    v11 = 2114;
+    v12 = featureIdentifier;
     v7 = v5;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Notifying observers for local country set update", &v10, 0x16u);
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Notifying observers for local country set update", &v9, 0x16u);
   }
 
   [(HDPairedFeaturePropertiesSyncManager *)self synchronizeLocalProperties];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained allowedCountriesDataSourceDidUpdateLocalCountrySet:self];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (HDAllowedCountriesDataSourceObserver)delegate

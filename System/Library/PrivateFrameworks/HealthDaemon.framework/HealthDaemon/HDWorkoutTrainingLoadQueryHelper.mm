@@ -20,7 +20,7 @@
   if (v10)
   {
     objc_storeWeak(&v10->_profile, profileCopy);
-    v12 = [filterCopy copy];
+    v12 = objc_msgSend_copy(filterCopy);
     filter = v11->_filter;
     v11->_filter = v12;
 
@@ -35,11 +35,11 @@
   profileCopy = profile;
   componentsCopy = components;
   filterCopy = filter;
-  v15 = [date copy];
+  v15 = objc_msgSend_copy(date);
   anchorDate = self->_anchorDate;
   self->_anchorDate = v15;
 
-  v17 = [componentsCopy copy];
+  v17 = objc_msgSend_copy(componentsCopy);
   intervalComponents = self->_intervalComponents;
   self->_intervalComponents = v17;
 
@@ -49,65 +49,65 @@
 
 - (void)fetchTrainingLoadWithCompletion:(id)completion
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = [(HDWorkoutTrainingLoadQueryHelper *)self _calculatorWithIntervalCollection:0];
-  v34 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v33 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
   dataSource = self->_dataSource;
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __68__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadWithCompletion___block_invoke;
-  v39[3] = &unk_27861BFD0;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __68__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadWithCompletion___block_invoke;
+  v38[3] = &unk_27861BFD0;
   v9 = v5;
-  v40 = v9;
+  v39 = v9;
   selfCopy = self;
   selfCopy2 = self;
-  v33 = v7;
-  v42 = v33;
+  v32 = v7;
+  v41 = v32;
   v11 = v6;
-  v43 = v11;
-  if ([(HDWorkoutTrainingLoadDataSource *)dataSource samplesForCalculatorWithHandler:v39])
+  v42 = v11;
+  if ([(HDWorkoutTrainingLoadDataSource *)dataSource samplesForCalculatorWithHandler:v38])
   {
-    v31 = v9;
-    v32 = completionCopy;
+    v30 = v9;
+    v31 = completionCopy;
     currentStatistics = [v9 currentStatistics];
-    v30 = v11;
+    v29 = v11;
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v12 = v11;
-    v13 = [v12 countByEnumeratingWithState:&v35 objects:v44 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v34 objects:v43 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v36;
+      v15 = *v35;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v36 != v15)
+          if (*v35 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v35 + 1) + 8 * i);
+          v17 = *(*(&v34 + 1) + 8 * i);
           v18 = [v12 objectForKeyedSubscript:{v17, currentStatistics}];
           currentStatistics2 = [v18 currentStatistics];
-          v20 = [v33 objectForKeyedSubscript:v17];
+          v20 = [v32 objectForKeyedSubscript:v17];
           v21 = -[HDWorkoutTrainingLoadQueryHelper _trainingLoadFromStatistics:count:](selfCopy2, "_trainingLoadFromStatistics:count:", currentStatistics2, [v20 count]);
 
-          v22 = [v34 objectForKeyedSubscript:v17];
+          v22 = [v33 objectForKeyedSubscript:v17];
 
           if (!v22)
           {
-            [v34 setObject:v21 forKeyedSubscript:v17];
+            [v33 setObject:v21 forKeyedSubscript:v17];
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v35 objects:v44 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v34 objects:v43 count:16];
       }
 
       while (v14);
@@ -117,16 +117,16 @@
     {
       v23 = objc_alloc(MEMORY[0x277CCDCC8]);
       v24 = -[HDWorkoutTrainingLoadQueryHelper _trainingLoadFromStatistics:count:](selfCopy2, "_trainingLoadFromStatistics:count:", currentStatistics, [currentStatistics dataCount]);
-      v25 = [v23 initWithTotalTrainingLoad:v24 trainingloadByActivityType:v34];
+      v25 = [v23 initWithTotalTrainingLoad:v24 trainingloadByActivityType:v33];
 
-      completionCopy = v32;
+      completionCopy = v31;
     }
 
     else
     {
       _HKInitializeLogging();
       v27 = *MEMORY[0x277CCC330];
-      completionCopy = v32;
+      completionCopy = v31;
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
@@ -137,8 +137,8 @@
       v25 = 0;
     }
 
-    v11 = v30;
-    v9 = v31;
+    v11 = v29;
+    v9 = v30;
     completionCopy[2](completionCopy, v25, 0);
   }
 
@@ -150,15 +150,13 @@
     {
       *buf = 138543618;
       selfCopy3 = self;
-      v47 = 2114;
-      v48 = 0;
+      v46 = 2114;
+      v47 = 0;
       _os_log_error_impl(&dword_228986000, v26, OS_LOG_TYPE_ERROR, "%{public}@: Failed querying training load with error : %{public}@", buf, 0x16u);
     }
 
     completionCopy[2](completionCopy, 0, 0);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __68__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadWithCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, double a6, double a7, double a8)
@@ -190,7 +188,7 @@ uint64_t __68__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadWithCompletion_
 
 uint64_t __68__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadWithCompletion___block_invoke_2(uint64_t a1, uint64_t *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) addSampleValue:*(a1 + 96) startTime:a2 endTime:*(a1 + 72) sourceID:*(a1 + 80) error:*(a1 + 88)];
   if (*(*(a1 + 40) + 24) == 1)
   {
@@ -237,64 +235,63 @@ uint64_t __68__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadWithCompletion_
         v25 = v19;
         v26 = [v23 numberWithUnsignedInteger:v24];
         v27 = *a2;
-        v30 = 138544386;
-        v31 = v20;
-        v32 = 2048;
-        v33 = v21;
-        v34 = 2048;
-        v35 = v22;
-        v36 = 2114;
-        v37 = v26;
-        v38 = 2114;
-        v39 = v27;
-        _os_log_impl(&dword_228986000, v25, OS_LOG_TYPE_INFO, "%{public}@: Failed adding sample to load activity calculator with start date %f, end date %f and activityType %{public}@, error:%{public}@", &v30, 0x34u);
+        v29 = 138544386;
+        v30 = v20;
+        v31 = 2048;
+        v32 = v21;
+        v33 = 2048;
+        v34 = v22;
+        v35 = 2114;
+        v36 = v26;
+        v37 = 2114;
+        v38 = v27;
+        _os_log_impl(&dword_228986000, v25, OS_LOG_TYPE_INFO, "%{public}@: Failed adding sample to load activity calculator with start date %f, end date %f and activityType %{public}@, error:%{public}@", &v29, 0x34u);
       }
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (void)fetchTrainingLoadCollectionWithCompletion:(id)completion
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = [objc_alloc(MEMORY[0x277CCDD78]) initWithAnchorDate:self->_anchorDate intervalComponents:self->_intervalComponents];
   v6 = [(HDWorkoutTrainingLoadQueryHelper *)self _calculatorWithIntervalCollection:v5];
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__61;
-  v35 = __Block_byref_object_dispose__61;
-  v36 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__61;
+  v34 = __Block_byref_object_dispose__61;
+  v35 = 0;
   v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __78__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadCollectionWithCompletion___block_invoke;
-  v30[3] = &unk_27861BFF8;
-  v30[4] = self;
-  v30[5] = &v31;
-  [v6 setStatisticsHandler:v30];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __78__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadCollectionWithCompletion___block_invoke;
+  v29[3] = &unk_27861BFF8;
+  v29[4] = self;
+  v29[5] = &v30;
+  [v6 setStatisticsHandler:v29];
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
   dataSource = self->_dataSource;
-  v20 = MEMORY[0x277D85DD0];
-  v21 = 3221225472;
-  v22 = __78__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadCollectionWithCompletion___block_invoke_2;
-  v23 = &unk_27861C070;
+  v19 = MEMORY[0x277D85DD0];
+  v20 = 3221225472;
+  v21 = __78__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadCollectionWithCompletion___block_invoke_2;
+  v22 = &unk_27861C070;
   v11 = v6;
-  v24 = v11;
+  v23 = v11;
   selfCopy = self;
   v12 = v7;
-  v26 = v12;
+  v25 = v12;
   v13 = v8;
-  v27 = v13;
+  v26 = v13;
   v14 = v5;
-  v28 = v14;
+  v27 = v14;
   v15 = v9;
-  v29 = v15;
-  if (![(HDWorkoutTrainingLoadDataSource *)dataSource samplesForCalculatorWithHandler:&v20])
+  v28 = v15;
+  if (![(HDWorkoutTrainingLoadDataSource *)dataSource samplesForCalculatorWithHandler:&v19])
   {
     _HKInitializeLogging();
     v18 = *MEMORY[0x277CCC330];
@@ -302,15 +299,15 @@ uint64_t __68__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadWithCompletion_
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v39 = 2114;
-      v40 = 0;
+      v38 = 2114;
+      v39 = 0;
       _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "%{public}@: Failed querying training load with error : %{public}@", buf, 0x16u);
     }
 
     goto LABEL_6;
   }
 
-  if (!v32[5])
+  if (!v31[5])
   {
 LABEL_6:
     v17 = 0;
@@ -318,12 +315,11 @@ LABEL_6:
   }
 
   v16 = objc_alloc(MEMORY[0x277CCDCB8]);
-  v17 = [v16 initWithTotalTrainingLoadCollection:v32[5] collectionByActivityType:{v15, v20, v21, v22, v23, v24, selfCopy, v26, v27, v28}];
+  v17 = [v16 initWithTotalTrainingLoadCollection:v31[5] collectionByActivityType:{v15, v19, v20, v21, v22, v23, selfCopy, v25, v26, v27}];
 LABEL_7:
   completionCopy[2](completionCopy, v17, 0);
 
-  _Block_object_dispose(&v31, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
 }
 
 void __78__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadCollectionWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -379,7 +375,7 @@ uint64_t __78__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadCollectionWithC
 
 uint64_t __78__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadCollectionWithCompletion___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) addSampleValue:*(a1 + 112) startTime:a2 endTime:*(a1 + 88) sourceID:*(a1 + 96) error:*(a1 + 104)];
   if (*(*(a1 + 40) + 24) == 1)
   {
@@ -412,18 +408,18 @@ uint64_t __78__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadCollectionWithC
       [v16 setObject:v15 forKeyedSubscript:v17];
     }
 
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __78__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadCollectionWithCompletion___block_invoke_4;
-    v47[3] = &unk_27861C020;
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __78__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadCollectionWithCompletion___block_invoke_4;
+    v46[3] = &unk_27861C020;
     v18 = *(a1 + 48);
-    v47[4] = *(a1 + 40);
+    v46[4] = *(a1 + 40);
     v19 = v18;
     v20 = *(a1 + 120);
-    v48 = v19;
-    v50 = v20;
-    v49 = *(a1 + 80);
-    [v15 setStatisticsHandler:v47];
+    v47 = v19;
+    v49 = v20;
+    v48 = *(a1 + 80);
+    [v15 setStatisticsHandler:v46];
     _HKInitializeLogging();
     v21 = MEMORY[0x277CCC330];
     v22 = *MEMORY[0x277CCC330];
@@ -437,14 +433,14 @@ uint64_t __78__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadCollectionWithC
       v28 = v22;
       v29 = [v26 numberWithUnsignedInteger:v27];
       *buf = 138544130;
-      v52 = v23;
-      v53 = 2048;
-      v54 = v25;
-      v55 = 2048;
-      v56 = v24;
+      v51 = v23;
+      v52 = 2048;
+      v53 = v25;
+      v54 = 2048;
+      v55 = v24;
       v21 = MEMORY[0x277CCC330];
-      v57 = 2114;
-      v58 = v29;
+      v56 = 2114;
+      v57 = v29;
       _os_log_impl(&dword_228986000, v28, OS_LOG_TYPE_INFO, "%{public}@: Adding sample to activity calculator with start %f, end date %f and activityType : %{public}@", buf, 0x2Au);
     }
 
@@ -452,38 +448,37 @@ uint64_t __78__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadCollectionWithC
     v31 = *(a1 + 96);
     v32 = *(a1 + 104);
     v33 = *(a1 + 112);
-    v46 = 0;
-    v34 = [v15 addSampleValue:v33 startTime:&v46 endTime:v30 sourceID:v31 error:v32];
-    v35 = v46;
+    v45 = 0;
+    v34 = [v15 addSampleValue:v33 startTime:&v45 endTime:v30 sourceID:v31 error:v32];
+    v35 = v45;
     if ((v34 & 1) == 0)
     {
       _HKInitializeLogging();
       v36 = *v21;
       if (os_log_type_enabled(*v21, OS_LOG_TYPE_ERROR))
       {
-        v39 = *(a1 + 40);
-        v40 = *(a1 + 96);
-        v41 = *(a1 + 104);
-        v42 = MEMORY[0x277CCABB0];
-        v43 = *(a1 + 120);
-        v44 = v36;
-        v45 = [v42 numberWithUnsignedInteger:v43];
+        v38 = *(a1 + 40);
+        v39 = *(a1 + 96);
+        v40 = *(a1 + 104);
+        v41 = MEMORY[0x277CCABB0];
+        v42 = *(a1 + 120);
+        v43 = v36;
+        v44 = [v41 numberWithUnsignedInteger:v42];
         *buf = 138544386;
-        v52 = v39;
-        v53 = 2048;
-        v54 = v40;
-        v55 = 2048;
-        v56 = v41;
-        v57 = 2114;
-        v58 = v45;
-        v59 = 2114;
-        v60 = v35;
-        _os_log_error_impl(&dword_228986000, v44, OS_LOG_TYPE_ERROR, "%{public}@: Failed adding sample to activity calculator with start date %f, end date %f, activityType %{public}@ and error: %{public}@", buf, 0x34u);
+        v51 = v38;
+        v52 = 2048;
+        v53 = v39;
+        v54 = 2048;
+        v55 = v40;
+        v56 = 2114;
+        v57 = v44;
+        v58 = 2114;
+        v59 = v35;
+        _os_log_error_impl(&dword_228986000, v43, OS_LOG_TYPE_ERROR, "%{public}@: Failed adding sample to activity calculator with start date %f, end date %f, activityType %{public}@ and error: %{public}@", buf, 0x34u);
       }
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -515,7 +510,7 @@ void __78__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadCollectionWithCompl
 
 - (id)_trainingLoadFromStatistics:(id)statistics count:(int64_t)count
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   statisticsCopy = statistics;
   sumQuantity = [statisticsCopy sumQuantity];
   [sumQuantity _value];
@@ -527,9 +522,9 @@ void __78__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadCollectionWithCompl
     v10 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_INFO))
     {
-      v20 = 138543362;
+      v19 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_INFO, "%{public}@: No training load. Returning 0 value ", &v20, 0xCu);
+      _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_INFO, "%{public}@: No training load. Returning 0 value ", &v19, 0xCu);
     }
   }
 
@@ -542,7 +537,6 @@ void __78__HDWorkoutTrainingLoadQueryHelper_fetchTrainingLoadCollectionWithCompl
   sumQuantity2 = [statisticsCopy sumQuantity];
 
   v17 = [v15 initWithQuantity:sumQuantity2 dateInterval:v14 count:count];
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

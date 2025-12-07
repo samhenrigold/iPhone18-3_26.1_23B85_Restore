@@ -202,9 +202,9 @@ LABEL_23:
   return 0;
 }
 
-void sub_100002E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100002E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -218,6 +218,29 @@ void sub_100002E48(id a1)
   }
 
   exit(0);
+}
+
+void sub_100002EA0(id a1, int a2, NSString *a3, char *a4)
+{
+  v5 = *&a2;
+  v9 = a3;
+  v6 = MSPlatform();
+  v7 = [v6 shouldLogAtLevel:v5];
+
+  if (v7)
+  {
+    v8 = MSPlatform();
+    [v8 logFacility:0 level:v5 format:v9 args:a4];
+  }
+}
+
+BOOL sub_100002F34(id a1, int a2)
+{
+  v2 = *&a2;
+  v3 = MSPlatform();
+  LOBYTE(v2) = [v3 shouldLogAtLevel:v2];
+
+  return v2;
 }
 
 id sub_100003378(uint64_t a1)
@@ -250,11 +273,10 @@ uint64_t sub_10000368C(void *a1)
 
 void sub_100003748(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v4 = MSPathSubscribeDirForPersonID();
-  v2 = [v4 stringByAppendingPathComponent:@"powerBudget.plist"];
-  v3 = qword_10001DD38;
-  qword_10001DD38 = v2;
+  v3 = MSPathSubscribeDirForPersonID();
+  v1 = [v3 stringByAppendingPathComponent:@"powerBudget.plist"];
+  v2 = qword_10001DD38;
+  qword_10001DD38 = v1;
 }
 
 id sub_100005070(uint64_t a1)

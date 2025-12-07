@@ -204,7 +204,7 @@
 - (id)valueForMetricsField:(id)field
 {
   fieldCopy = field;
-  if ([fieldCopy isEqualToString:*MEMORY[0x277D6A498]])
+  if (objc_msgSend_isEqualToString_(fieldCopy))
   {
     v5 = &unk_286BBE190;
   }

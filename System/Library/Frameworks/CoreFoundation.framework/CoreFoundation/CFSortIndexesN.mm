@@ -14,7 +14,7 @@ uint64_t ____CFSortIndexesN_block_invoke(uint64_t *a1, unint64_t a2)
   return __CFSimpleMergeSort(a1[8] + 8 * a1[6] * a2, a1[v2], *(a1[9] + 8 * a2), a1[4]);
 }
 
-uint64_t *____CFSortIndexesN_block_invoke_2(uint64_t *a1, uint64_t a2)
+uint64_t *____CFSortIndexesN_block_invoke_2(void *a1, uint64_t a2)
 {
   v2 = a1[6];
   if (a2)

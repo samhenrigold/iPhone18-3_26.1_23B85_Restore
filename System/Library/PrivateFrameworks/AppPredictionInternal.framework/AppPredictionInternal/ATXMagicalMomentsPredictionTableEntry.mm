@@ -15,7 +15,7 @@
   predictionCopy = prediction;
   predicatesCopy = predicates;
   v8 = predicatesCopy;
-  if (predictionCopy && predicatesCopy && [predicatesCopy count])
+  if (predictionCopy && predicatesCopy && (predicatesCopy = [predicatesCopy count]) != 0)
   {
     v9 = [objc_opt_class() compoundPredicateFromPredicateArray:v8];
     self = [(ATXMagicalMomentsPredictionTableEntry *)self initWithPrediction:predictionCopy applicableCompoundPredicate:v9];
@@ -25,7 +25,7 @@
 
   else
   {
-    v11 = __atxlog_handle_default();
+    v11 = __atxlog_handle_default(predicatesCopy);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [ATXMagicalMomentsPredictionTableEntry initWithPrediction:applicablePredicates:];
@@ -60,7 +60,7 @@
 
   else
   {
-    v13 = __atxlog_handle_default();
+    v13 = __atxlog_handle_default(predicateCopy);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [ATXMagicalMomentsPredictionTableEntry initWithPrediction:applicableCompoundPredicate:];

@@ -133,9 +133,9 @@
 
 - (id)provideAtlasBacking:(id)backing
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   backingCopy = backing;
-  v4 = NUNIBundle();
+  v4 = NUNIBundle(backingCopy);
   v5 = [v4 pathForResource:backingCopy ofType:@"art"];
 
   v6 = NUNILoggingObjectForDomain(0);
@@ -144,11 +144,11 @@
   {
     if (v7)
     {
-      v11 = 138412546;
-      v12 = backingCopy;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_25B6D4000, v6, OS_LOG_TYPE_DEFAULT, "providing artwork for %@ at %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = backingCopy;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_25B6D4000, v6, OS_LOG_TYPE_DEFAULT, "providing artwork for %@ at %@", &v10, 0x16u);
     }
 
     v8 = [MEMORY[0x277CFA750] atlasBackingWithArt:v5 uuid:backingCopy];
@@ -158,15 +158,13 @@
   {
     if (v7)
     {
-      v11 = 138412290;
-      v12 = backingCopy;
-      _os_log_impl(&dword_25B6D4000, v6, OS_LOG_TYPE_DEFAULT, "missing artwork for %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = backingCopy;
+      _os_log_impl(&dword_25B6D4000, v6, OS_LOG_TYPE_DEFAULT, "missing artwork for %@", &v10, 0xCu);
     }
 
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

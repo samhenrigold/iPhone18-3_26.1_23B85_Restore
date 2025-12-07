@@ -133,15 +133,15 @@ uint64_t __26__FLDaemon_sharedInstance__block_invoke()
   [(FLDaemon *)&v3 dealloc];
 }
 
-uint64_t __22__FLDaemon_connection__block_invoke(uint64_t result)
+void *__22__FLDaemon_connection__block_invoke(void *result)
 {
-  v1 = result + 32;
-  if (*(*(*(result + 32) + 8) + 40))
+  v1 = result + 4;
+  if (*(*(result[4] + 8) + 40))
   {
-    v2 = _FLLogSystem();
+    v2 = _FLLogSystem(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __22__FLDaemon_connection__block_invoke_cold_1(v1);
+      __22__FLDaemon_connection__block_invoke_cold_1();
     }
 
     [*(*(*(*v1 + 8) + 40) + 16) lock];
@@ -156,15 +156,15 @@ uint64_t __22__FLDaemon_connection__block_invoke(uint64_t result)
   return result;
 }
 
-uint64_t __22__FLDaemon_connection__block_invoke_6(uint64_t result)
+void *__22__FLDaemon_connection__block_invoke_6(void *result)
 {
-  v1 = result + 32;
-  if (*(*(*(result + 32) + 8) + 40))
+  v1 = result + 4;
+  if (*(*(result[4] + 8) + 40))
   {
-    v2 = _FLLogSystem();
+    v2 = _FLLogSystem(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __22__FLDaemon_connection__block_invoke_6_cold_1(v1);
+      __22__FLDaemon_connection__block_invoke_6_cold_1();
     }
 
     [*(*(*(*v1 + 8) + 40) + 16) lock];
@@ -220,22 +220,20 @@ uint64_t __22__FLDaemon_connection__block_invoke_6(uint64_t result)
   return v6;
 }
 
-void __22__FLDaemon_connection__block_invoke_cold_1(uint64_t a1)
+void __22__FLDaemon_connection__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_0(a1, *MEMORY[0x277D85DE8]);
-  v4 = 138412290;
-  v5 = v1;
-  _os_log_error_impl(&dword_22E696000, v2, OS_LOG_TYPE_ERROR, "%@: Daemon connection interrupted", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(*MEMORY[0x277D85DE8]);
+  v2 = 138412290;
+  v3 = v0;
+  _os_log_error_impl(&dword_22E696000, v1, OS_LOG_TYPE_ERROR, "%@: Daemon connection interrupted", &v2, 0xCu);
 }
 
-void __22__FLDaemon_connection__block_invoke_6_cold_1(uint64_t a1)
+void __22__FLDaemon_connection__block_invoke_6_cold_1()
 {
-  OUTLINED_FUNCTION_0(a1, *MEMORY[0x277D85DE8]);
-  v4 = 138412290;
-  v5 = v1;
-  _os_log_error_impl(&dword_22E696000, v2, OS_LOG_TYPE_ERROR, "%@: Daemon connection invalidated", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(*MEMORY[0x277D85DE8]);
+  v2 = 138412290;
+  v3 = v0;
+  _os_log_error_impl(&dword_22E696000, v1, OS_LOG_TYPE_ERROR, "%@: Daemon connection invalidated", &v2, 0xCu);
 }
 
 @end

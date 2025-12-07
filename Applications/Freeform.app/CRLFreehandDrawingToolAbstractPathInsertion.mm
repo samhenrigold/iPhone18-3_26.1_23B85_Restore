@@ -100,7 +100,7 @@
         v32 = v31;
         if (v24)
         {
-          [v24 transformInRoot];
+          objc_msgSend_transformInRoot(v24);
         }
 
         else
@@ -336,7 +336,7 @@ LABEL_27:
   v11 = geometryInRoot;
   if (geometryInRoot)
   {
-    [geometryInRoot transform];
+    objc_msgSend_transform(geometryInRoot);
   }
 
   else
@@ -522,7 +522,7 @@ LABEL_15:
           v24 = geometry;
           if (geometry)
           {
-            [geometry transform];
+            objc_msgSend_transform(geometry);
           }
 
           else
@@ -799,12 +799,12 @@ LABEL_10:
               if (v31)
               {
                 v32 = [CRLCanvasInfoGeometry alloc];
-                [v31 fullTransformInRoot];
+                objc_msgSend_fullTransformInRoot(v31);
                 v33 = [(CRLCanvasInfoGeometry *)v32 initWithFullTransform:v63 widthValid:1 heightValid:1];
                 v34 = [CRLCanvasInfoGeometry alloc];
                 if (commandController2)
                 {
-                  [commandController2 fullTransformInRoot];
+                  objc_msgSend_fullTransformInRoot(commandController2);
                 }
 
                 else

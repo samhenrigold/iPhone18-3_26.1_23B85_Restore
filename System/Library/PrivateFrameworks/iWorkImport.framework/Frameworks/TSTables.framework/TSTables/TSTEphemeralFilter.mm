@@ -22,18 +22,18 @@
 - (TSTEphemeralFilter)initWithIndex:(unint64_t)index baseColumnIndex:(TSUModelColumnIndex)columnIndex rules:(id)rules
 {
   rulesCopy = rules;
-  v17.receiver = self;
-  v17.super_class = TSTEphemeralFilter;
-  v9 = [(TSTEphemeralFilter *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = TSTEphemeralFilter;
+  v9 = [(TSTEphemeralFilter *)&v16 init];
   v10 = v9;
   if (v9)
   {
     v9->_filterIndex = index;
     v9->_baseColumnIndex = columnIndex;
     v11 = objc_alloc(MEMORY[0x277CBEA60]);
-    v14 = objc_msgSend_initWithArray_copyItems_(v11, v12, rulesCopy, 1, v13);
+    v13 = objc_msgSend_initWithArray_copyItems_(v11, v12, rulesCopy, 1);
     rules = v10->_rules;
-    v10->_rules = v14;
+    v10->_rules = v13;
   }
 
   return v10;
@@ -42,31 +42,31 @@
 - (TSTEphemeralFilter)filterWithRule:(id)rule atIndex:(unint64_t)index
 {
   ruleCopy = rule;
-  v10 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEB18], v7, self->_rules, v8, v9);
-  objc_msgSend_setObject_atIndexedSubscript_(v10, v11, ruleCopy, index, v12);
-  v13 = objc_opt_class();
-  v15 = objc_msgSend_filterWithIndex_baseColumnIndex_rules_(v13, v14, self->_filterIndex, self->_baseColumnIndex._column, v10);
+  v9 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEB18], v7, self->_rules, v8);
+  objc_msgSend_setObject_atIndexedSubscript_(v9, v10, ruleCopy, index);
+  v11 = objc_opt_class();
+  v13 = objc_msgSend_filterWithIndex_baseColumnIndex_rules_(v11, v12, self->_filterIndex, self->_baseColumnIndex._column, v9);
 
-  return v15;
+  return v13;
 }
 
 - (id)filterByAddingRule:(id)rule
 {
-  v6 = objc_msgSend_arrayByAddingObject_(self->_rules, a2, rule, v3, v4);
-  v7 = objc_opt_class();
-  v9 = objc_msgSend_filterWithIndex_baseColumnIndex_rules_(v7, v8, self->_filterIndex, self->_baseColumnIndex._column, v6);
+  v5 = objc_msgSend_arrayByAddingObject_(self->_rules, a2, rule, v3);
+  v6 = objc_opt_class();
+  v8 = objc_msgSend_filterWithIndex_baseColumnIndex_rules_(v6, v7, self->_filterIndex, self->_baseColumnIndex._column, v5);
 
-  return v9;
+  return v8;
 }
 
 - (id)filterByRemovingRuleAtIndex:(unint64_t)index
 {
-  v7 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEB18], a2, self->_rules, v3, v4);
-  objc_msgSend_removeObjectAtIndex_(v7, v8, index, v9, v10);
-  v11 = objc_opt_class();
-  v13 = objc_msgSend_filterWithIndex_baseColumnIndex_rules_(v11, v12, self->_filterIndex, self->_baseColumnIndex._column, v7);
+  v6 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEB18], a2, self->_rules, v3);
+  objc_msgSend_removeObjectAtIndex_(v6, v7, index, v8);
+  v9 = objc_opt_class();
+  v11 = objc_msgSend_filterWithIndex_baseColumnIndex_rules_(v9, v10, self->_filterIndex, self->_baseColumnIndex._column, v6);
 
-  return v13;
+  return v11;
 }
 
 - (id)filterByClearingRules
@@ -84,9 +84,9 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v9 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@:%p index %lu baseCol %u rules %@", v7, v8, v5, self, self->_filterIndex, self->_baseColumnIndex._column, self->_rules);
+  v8 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@:%p index %lu baseCol %u rules %@", v7, v5, self, self->_filterIndex, self->_baseColumnIndex._column, self->_rules);
 
-  return v9;
+  return v8;
 }
 
 @end

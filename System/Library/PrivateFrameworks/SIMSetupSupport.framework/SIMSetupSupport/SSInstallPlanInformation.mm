@@ -213,7 +213,7 @@
 
 - (void)maybeUpdateTimeoutStatus
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (self->_installationEndTime <= 0.0)
   {
     self->_installationEndTime = CFAbsoluteTimeGetCurrent();
@@ -232,7 +232,7 @@
       v4 = 14;
 LABEL_10:
       self->_status = v4;
-      goto LABEL_25;
+      return;
     }
 
     if (status == 13)
@@ -245,21 +245,21 @@ LABEL_10:
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
-    if ((isKindOfClass & 1) != 0 && (v7 = self->_status, v7 <= 6) && ((1 << v7) & 0x43) != 0)
+    if ((isKindOfClass & 1) != 0 && (v8 = self->_status, v8 <= 6) && ((1 << v8) & 0x43) != 0)
     {
       self->_status = 10001;
-      v8 = _TSLogDomain();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = _TSLogDomain(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_15:
         identifier = [(SSInstallPlanInformation *)self identifier];
-        v15 = 138412546;
-        v16 = identifier;
-        v17 = 2080;
-        v18 = "[SSInstallPlanInformation maybeUpdateTimeoutStatus]";
-        v10 = "consent timeout, update %@ status to TimeoutNotConsented @%s";
+        v16 = 138412546;
+        v17 = identifier;
+        v18 = 2080;
+        v19 = "[SSInstallPlanInformation maybeUpdateTimeoutStatus]";
+        v11 = "consent timeout, update %@ status to TimeoutNotConsented @%s";
 LABEL_23:
-        _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, v10, &v15, 0x16u);
+        _os_log_impl(&dword_262AA8000, v9, OS_LOG_TYPE_DEFAULT, v11, &v16, 0x16u);
       }
     }
 
@@ -267,13 +267,13 @@ LABEL_23:
     {
       plan2 = [(CTDisplayPlan *)self->_displayPlan plan];
       objc_opt_class();
-      v12 = objc_opt_isKindOfClass();
+      v13 = objc_opt_isKindOfClass();
 
-      if ((v12 & 1) != 0 && ((v13 = self->_status, v13 == 6) || !v13))
+      if ((v13 & 1) != 0 && ((v15 = self->_status, v15 == 6) || !v15))
       {
         self->_status = 10001;
-        v8 = _TSLogDomain();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = _TSLogDomain(v14);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_15;
         }
@@ -282,23 +282,20 @@ LABEL_23:
       else
       {
         self->_status = 10002;
-        v8 = _TSLogDomain();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = _TSLogDomain(v14);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           identifier = [(SSInstallPlanInformation *)self identifier];
-          v15 = 138412546;
-          v16 = identifier;
-          v17 = 2080;
-          v18 = "[SSInstallPlanInformation maybeUpdateTimeoutStatus]";
-          v10 = "timeout, update %@ status to TimeoutInstallOngoing @%s";
+          v16 = 138412546;
+          v17 = identifier;
+          v18 = 2080;
+          v19 = "[SSInstallPlanInformation maybeUpdateTimeoutStatus]";
+          v11 = "timeout, update %@ status to TimeoutInstallOngoing @%s";
           goto LABEL_23;
         }
       }
     }
   }
-
-LABEL_25:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

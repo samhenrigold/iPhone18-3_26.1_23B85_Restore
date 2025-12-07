@@ -28,9 +28,8 @@ void __46__C2Logging_printToLog_withDescription_array___block_invoke(void *a1, v
   v5 = MEMORY[0x277CCACA8];
   v6 = a1[4];
   v7 = a2;
-  v9 = [v5 stringWithFormat:@"%@:%llu", v6, a3];
-  v8 = a1[6];
-  [objc_opt_class() printToLog:a1[5] withDescription:v9 object:v7];
+  v8 = [v5 stringWithFormat:@"%@:%llu", v6, a3];
+  [objc_opt_class() printToLog:a1[5] withDescription:v8 object:v7];
 }
 
 + (void)printToLog:(id)log withDescription:(id)description dictionary:(id)dictionary
@@ -54,14 +53,13 @@ void __51__C2Logging_printToLog_withDescription_dictionary___block_invoke(void *
   v5 = MEMORY[0x277CCACA8];
   v6 = a1[4];
   v7 = a3;
-  v9 = [v5 stringWithFormat:@"%@/%@", v6, a2];
-  v8 = a1[6];
-  [objc_opt_class() printToLog:a1[5] withDescription:v9 object:v7];
+  v8 = [v5 stringWithFormat:@"%@/%@", v6, a2];
+  [objc_opt_class() printToLog:a1[5] withDescription:v8 object:v7];
 }
 
 + (void)printToLog:(id)log withDescription:(id)description error:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   logCopy = log;
   descriptionCopy = description;
   errorCopy = error;
@@ -88,11 +86,11 @@ void __51__C2Logging_printToLog_withDescription_dictionary___block_invoke(void *
   if (os_log_type_enabled(logCopy, v12))
   {
     *buf = 138543874;
-    v22 = descriptionCopy;
-    v23 = 2114;
-    v24 = domain;
-    v25 = 2048;
-    v26 = code;
+    v21 = descriptionCopy;
+    v22 = 2114;
+    v23 = domain;
+    v24 = 2048;
+    v25 = code;
     _os_log_impl(&dword_242158000, logCopy, v12, "%{public}@ %{public}@/%ld", buf, 0x20u);
   }
 
@@ -143,13 +141,11 @@ void __51__C2Logging_printToLog_withDescription_dictionary___block_invoke(void *
     v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@, %@/%ld", descriptionCopy, domain, code];
     [objc_opt_class() printToLog:logCopy withDescription:v19 object:v18];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (void)printToLog:(id)log withDescription:(id)description object:(id)object
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   logCopy = log;
   descriptionCopy = description;
   objectCopy = object;
@@ -177,16 +173,14 @@ void __51__C2Logging_printToLog_withDescription_dictionary___block_invoke(void *
 
       else if (os_log_type_enabled(logCopy, OS_LOG_TYPE_INFO))
       {
-        v11 = 138543618;
-        v12 = descriptionCopy;
-        v13 = 2114;
-        v14 = objectCopy;
-        _os_log_impl(&dword_242158000, logCopy, OS_LOG_TYPE_INFO, "%{public}@ %{public}@", &v11, 0x16u);
+        v10 = 138543618;
+        v11 = descriptionCopy;
+        v12 = 2114;
+        v13 = objectCopy;
+        _os_log_impl(&dword_242158000, logCopy, OS_LOG_TYPE_INFO, "%{public}@ %{public}@", &v10, 0x16u);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

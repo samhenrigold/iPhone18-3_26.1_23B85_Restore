@@ -8,6 +8,7 @@
 - (void)configurePersonManagerWithZoneUUID:(id)d;
 - (void)handleUpdateSettingsMessage:(id)message;
 - (void)handleUpdatedSettingsModel:(id)model previousSettingsModel:(id)settingsModel message:(id)message;
+- (void)removeCloudDataDueToHomeGraphObjectRemoval:(BOOL)removal;
 - (void)removeCloudDataDueToHomeRemoval;
 @end
 
@@ -30,7 +31,7 @@
 
 - (void)handleUpdateSettingsMessage:(id)message
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomePersonDataManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -43,9 +44,9 @@
     v9 = HMFGetLogIdentifier();
     messagePayload = [messageCopy messagePayload];
     *buf = 138543618;
-    v37 = v9;
-    v38 = 2112;
-    v39 = messagePayload;
+    v36 = v9;
+    v37 = 2112;
+    v38 = messagePayload;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling update person manager settings message payload: %@", buf, 0x16u);
   }
 
@@ -54,29 +55,29 @@
   if (home)
   {
     v12 = *MEMORY[0x277CD04A8];
-    v35 = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+    v34 = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
     v14 = [messageCopy unarchivedObjectForKey:v12 ofClasses:v13];
 
     if (v14)
     {
       v15 = [(HMDHomePersonDataManager *)selfCopy updateSettingsModelWithSettings:v14];
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __56__HMDHomePersonDataManager_handleUpdateSettingsMessage___block_invoke;
-      v32[3] = &unk_279735918;
-      v33 = home;
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __56__HMDHomePersonDataManager_handleUpdateSettingsMessage___block_invoke;
+      v31[3] = &unk_279735918;
+      v32 = home;
       v16 = messageCopy;
-      v34 = v16;
-      v17 = [v15 addSuccessBlock:v32];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __56__HMDHomePersonDataManager_handleUpdateSettingsMessage___block_invoke_2;
-      v30[3] = &unk_2797359D8;
-      v31 = v16;
-      v18 = [v17 addFailureBlock:v30];
+      v33 = v16;
+      v17 = [v15 addSuccessBlock:v31];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __56__HMDHomePersonDataManager_handleUpdateSettingsMessage___block_invoke_2;
+      v29[3] = &unk_2797359D8;
+      v30 = v16;
+      v18 = [v17 addFailureBlock:v29];
 
-      v19 = v33;
+      v19 = v32;
     }
 
     else
@@ -89,9 +90,9 @@
         v27 = HMFGetLogIdentifier();
         messagePayload2 = [messageCopy messagePayload];
         *buf = 138543618;
-        v37 = v27;
-        v38 = 2112;
-        v39 = messagePayload2;
+        v36 = v27;
+        v37 = 2112;
+        v38 = messagePayload2;
         _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Could not find person manager settings in message payload: %@", buf, 0x16u);
       }
 
@@ -110,7 +111,7 @@
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v37 = v23;
+      v36 = v23;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Home reference is nil", buf, 0xCu);
     }
 
@@ -118,8 +119,6 @@
     v14 = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
     [messageCopy respondWithError:v14];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __56__HMDHomePersonDataManager_handleUpdateSettingsMessage___block_invoke(uint64_t a1)
@@ -134,13 +133,51 @@ void __56__HMDHomePersonDataManager_handleUpdateSettingsMessage___block_invoke(u
   [v8 setObject:v5 forKeyedSubscript:*MEMORY[0x277CD04C0]];
 
   v6 = *(a1 + 40);
-  v7 = [v8 copy];
+  v7 = objc_msgSend_copy(v8);
   [v6 respondWithPayload:v7];
+}
+
+- (void)removeCloudDataDueToHomeGraphObjectRemoval:(BOOL)removal
+{
+  removalCopy = removal;
+  v20 = *MEMORY[0x277D85DE8];
+  workQueue = [(HMDHomePersonDataManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  personManager = [(HMDHomePersonDataManager *)self personManager];
+
+  if (personManager)
+  {
+    v7 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v9 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      v10 = HMFGetLogIdentifier();
+      v18 = 138543362;
+      v19 = v10;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Removing home person cloud data", &v18, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v7);
+    personManager2 = [(HMDHomePersonDataManager *)selfCopy personManager];
+    v12 = objc_alloc_init(MEMORY[0x277CD1AB0]);
+    [personManager2 handleUpdatedSettings:v12];
+
+    personManager3 = [(HMDHomePersonDataManager *)selfCopy personManager];
+    v14 = [personManager3 removeAllAssociatedDataDueToHomeGraphObjectRemoval:removalCopy];
+
+    [(HMDHomePersonDataManager *)selfCopy setPersonManager:0];
+    home = [(HMDHomePersonDataManager *)selfCopy home];
+    currentUser = [home currentUser];
+    personSettingsManager = [currentUser personSettingsManager];
+    [personSettingsManager remove];
+  }
 }
 
 - (void)configurePersonManagerWithZoneUUID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
   workQueue = [(HMDHomePersonDataManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -160,11 +197,11 @@ void __56__HMDHomePersonDataManager_handleUpdateSettingsMessage___block_invoke(u
     {
       v13 = HMFGetLogIdentifier();
       personManager = [(HMDHomePersonDataManager *)selfCopy personManager];
-      v21 = 138543618;
-      v22 = v13;
-      v23 = 2112;
-      v24 = personManager;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Configuring home person manager: %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v13;
+      v22 = 2112;
+      v23 = personManager;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Configuring home person manager: %@", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -180,24 +217,22 @@ void __56__HMDHomePersonDataManager_handleUpdateSettingsMessage___block_invoke(u
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v19 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v19;
-      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Home reference is nil", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v19;
+      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Home reference is nil", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdatedSettingsModel:(id)model previousSettingsModel:(id)settingsModel message:(id)message
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   settingsModelCopy = settingsModel;
   messageCopy = message;
-  v11 = [settingsModelCopy copy];
+  v11 = objc_msgSend_copy(settingsModelCopy);
   v12 = v11;
   if (v11)
   {
@@ -220,9 +255,9 @@ void __56__HMDHomePersonDataManager_handleUpdateSettingsMessage___block_invoke(u
     v19 = HMFGetLogIdentifier();
     v20 = [v14 debugString:1];
     *buf = 138543618;
-    v60 = v19;
-    v61 = 2112;
-    v62 = v20;
+    v59 = v19;
+    v60 = 2112;
+    v61 = v20;
     _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Handling updated home person manager settings model: %@", buf, 0x16u);
   }
 
@@ -236,7 +271,7 @@ void __56__HMDHomePersonDataManager_handleUpdateSettingsMessage___block_invoke(u
       personManagerSettings = [home personManagerSettings];
       v24 = [personManagerSettings isEqual:createSettings];
 
-      v51 = createSettings;
+      v50 = createSettings;
       if ((v24 & 1) == 0)
       {
         context = objc_autoreleasePoolPush();
@@ -244,18 +279,18 @@ void __56__HMDHomePersonDataManager_handleUpdateSettingsMessage___block_invoke(u
         v26 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
-          v47 = HMFGetLogIdentifier();
+          v46 = HMFGetLogIdentifier();
           personManagerSettings2 = [home personManagerSettings];
           *buf = 138543874;
-          v60 = v47;
-          v61 = 2112;
-          v62 = personManagerSettings2;
+          v59 = v46;
+          v60 = 2112;
+          v61 = personManagerSettings2;
           v28 = personManagerSettings2;
-          v63 = 2112;
-          v64 = v51;
+          v62 = 2112;
+          v63 = v50;
           _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Updating home person manager settings from %@ to %@", buf, 0x20u);
 
-          createSettings = v51;
+          createSettings = v50;
         }
 
         objc_autoreleasePoolPop(context);
@@ -273,7 +308,7 @@ void __56__HMDHomePersonDataManager_handleUpdateSettingsMessage___block_invoke(u
         {
           [messageCopy respondWithSuccess];
           v33 = contexta;
-          v32 = v51;
+          v32 = v50;
 LABEL_23:
 
           goto LABEL_24;
@@ -288,19 +323,19 @@ LABEL_23:
         if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
         {
           HMFGetLogIdentifier();
-          v41 = v46 = messageCopy;
+          v41 = v45 = messageCopy;
           [home personManagerZoneUUID];
-          v42 = v48 = v38;
+          v42 = v47 = v38;
           *buf = 138543874;
-          v60 = v41;
-          v61 = 2112;
-          v62 = v42;
-          v63 = 2112;
-          v64 = zoneUUID;
+          v59 = v41;
+          v60 = 2112;
+          v61 = v42;
+          v62 = 2112;
+          v63 = zoneUUID;
           _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_INFO, "%{public}@Updating home person manager zone UUID from %@ to %@", buf, 0x20u);
 
-          v38 = v48;
-          messageCopy = v46;
+          v38 = v47;
+          messageCopy = v45;
         }
 
         objc_autoreleasePoolPop(v38);
@@ -315,14 +350,14 @@ LABEL_23:
       block[1] = 3221225472;
       block[2] = __85__HMDHomePersonDataManager_handleUpdatedSettingsModel_previousSettingsModel_message___block_invoke;
       block[3] = &unk_27972F208;
-      v53 = zoneUUID;
+      v52 = zoneUUID;
       v33 = contexta;
-      v54 = contexta;
-      v55 = selfCopy;
-      v56 = home;
-      v32 = v51;
-      v57 = v51;
-      v58 = messageCopy;
+      v53 = contexta;
+      v54 = selfCopy;
+      v55 = home;
+      v32 = v50;
+      v56 = v50;
+      v57 = messageCopy;
       dispatch_async(workQueue, block);
 
       goto LABEL_23;
@@ -340,7 +375,7 @@ LABEL_23:
     {
       v37 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v60 = v37;
+      v59 = v37;
       _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_DEFAULT, "%{public}@Home reference is nil", buf, 0xCu);
     }
 
@@ -348,42 +383,39 @@ LABEL_23:
   }
 
 LABEL_24:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __85__HMDHomePersonDataManager_handleUpdatedSettingsModel_previousSettingsModel_message___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 32))
   {
 LABEL_4:
     if (*(a1 + 40))
     {
-      v3 = objc_autoreleasePoolPush();
-      v4 = *(a1 + 48);
-      v5 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v2 = objc_autoreleasePoolPush();
+      v3 = *(a1 + 48);
+      v4 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v6 = HMFGetLogIdentifier();
-        v16 = 138543362;
-        v17 = v6;
-        _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Home person manager zone UUID is now nil. Removing home person manager", &v16, 0xCu);
+        v5 = HMFGetLogIdentifier();
+        v14 = 138543362;
+        v15 = v5;
+        _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Home person manager zone UUID is now nil. Removing home person manager", &v14, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v3);
+      objc_autoreleasePoolPop(v2);
       [*(a1 + 48) removeCloudDataDueToHomeGraphObjectRemoval:0];
-      goto LABEL_12;
+      return [*(a1 + 72) respondWithSuccess];
     }
 
 LABEL_8:
-    v7 = [*(a1 + 48) personManager];
-    [v7 handleUpdatedSettings:*(a1 + 64)];
+    v6 = [*(a1 + 48) personManager];
+    [v6 handleUpdatedSettings:*(a1 + 64)];
 
-    goto LABEL_12;
+    return [*(a1 + 72) respondWithSuccess];
   }
 
-  v2 = *(a1 + 40);
   if (HMFEqualObjects())
   {
     if (*(a1 + 32))
@@ -394,35 +426,32 @@ LABEL_8:
     goto LABEL_4;
   }
 
-  v8 = objc_autoreleasePoolPush();
-  v9 = *(a1 + 48);
-  v10 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v7 = objc_autoreleasePoolPush();
+  v8 = *(a1 + 48);
+  v9 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v11 = HMFGetLogIdentifier();
-    v12 = *(a1 + 40);
-    v13 = [*(a1 + 56) personManagerZoneUUID];
-    v16 = 138543874;
+    v10 = HMFGetLogIdentifier();
+    v11 = *(a1 + 40);
+    v12 = [*(a1 + 56) personManagerZoneUUID];
+    v14 = 138543874;
+    v15 = v10;
+    v16 = 2112;
     v17 = v11;
     v18 = 2112;
     v19 = v12;
-    v20 = 2112;
-    v21 = v13;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Home person manager zone UUID changed from %@ to %@. Configuring home person manager", &v16, 0x20u);
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Home person manager zone UUID changed from %@ to %@. Configuring home person manager", &v14, 0x20u);
   }
 
-  objc_autoreleasePoolPop(v8);
+  objc_autoreleasePoolPop(v7);
   [*(a1 + 48) removeCloudDataDueToHomeGraphObjectRemoval:0];
   [*(a1 + 48) configurePersonManagerWithZoneUUID:*(a1 + 32)];
-LABEL_12:
-  result = [*(a1 + 72) respondWithSuccess];
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 72) respondWithSuccess];
 }
 
 - (id)updateSettingsModelWithSettings:(id)settings
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   workQueue = [(HMDHomePersonDataManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -434,9 +463,9 @@ LABEL_12:
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v47 = v10;
-    v48 = 2112;
-    v49 = settingsCopy;
+    v46 = v10;
+    v47 = 2112;
+    v48 = settingsCopy;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Updating home person manager settings: %@", buf, 0x16u);
   }
 
@@ -461,9 +490,9 @@ LABEL_12:
         v31 = HMFGetLogIdentifier();
         zoneUUID = [v14 zoneUUID];
         *buf = 138543618;
-        v47 = v31;
-        v48 = 2112;
-        v49 = zoneUUID;
+        v46 = v31;
+        v47 = 2112;
+        v48 = zoneUUID;
         _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_INFO, "%{public}@Face Classification is now enabled. Updating settings with new home person manager zone UUID: %@", buf, 0x16u);
       }
 
@@ -483,7 +512,7 @@ LABEL_12:
         {
           v20 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v47 = v20;
+          v46 = v20;
           _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Face Classification is now disabled. Updating settings to remove zone UUID", buf, 0xCu);
         }
 
@@ -498,13 +527,13 @@ LABEL_12:
     allMessageDestinations = [MEMORY[0x277D0F820] allMessageDestinations];
     v37 = [v34 initWithName:v35 destination:allMessageDestinations payload:0];
 
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __60__HMDHomePersonDataManager_updateSettingsModelWithSettings___block_invoke;
-    v44[3] = &unk_279734E00;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __60__HMDHomePersonDataManager_updateSettingsModelWithSettings___block_invoke;
+    v43[3] = &unk_279734E00;
     v38 = v33;
-    v45 = v38;
-    [v37 setResponseHandler:v44];
+    v44 = v38;
+    [v37 setResponseHandler:v43];
     backingStore = [v12 backingStore];
     v40 = +[HMDBackingStoreTransactionOptions defaultXPCOptions];
     v41 = [backingStore transaction:@"Update home person manager settings" options:v40];
@@ -523,7 +552,7 @@ LABEL_12:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v47 = v24;
+      v46 = v24;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@Home reference is nil", buf, 0xCu);
     }
 
@@ -532,8 +561,6 @@ LABEL_12:
     v14 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:8];
     v26 = [v25 futureWithError:v14];
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -562,7 +589,7 @@ uint64_t __60__HMDHomePersonDataManager_updateSettingsModelWithSettings___block_
 
 - (void)configure
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   home = [(HMDHomePersonDataManager *)self home];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -576,11 +603,11 @@ uint64_t __60__HMDHomePersonDataManager_updateSettingsModelWithSettings___block_
       personManagerSettings = [home personManagerSettings];
       personManagerZoneUUID = [home personManagerZoneUUID];
       *buf = 138543874;
-      v26 = v8;
-      v27 = 2112;
-      v28 = personManagerSettings;
-      v29 = 2112;
-      v30 = personManagerZoneUUID;
+      v25 = v8;
+      v26 = 2112;
+      v27 = personManagerSettings;
+      v28 = 2112;
+      v29 = personManagerZoneUUID;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Initialized home person manager settings: %@, home person manager zone UUID: %@", buf, 0x20u);
     }
 
@@ -589,21 +616,21 @@ uint64_t __60__HMDHomePersonDataManager_updateSettingsModelWithSettings___block_
     administratorHandler = [home administratorHandler];
     v13 = *MEMORY[0x277CD0688];
     v14 = [HMDXPCMessagePolicy policyWithEntitlements:8197];
-    v24[0] = v14;
+    v23[0] = v14;
     v15 = [HMDConfigurationMessagePolicy policyWithOperationTypes:2];
-    v24[1] = v15;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+    v23[1] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
     [administratorHandler registerForMessage:v13 receiver:selfCopy policies:v16 selector:sel_handleUpdateSettingsMessage_];
 
     workQueue = [(HMDHomePersonDataManager *)selfCopy workQueue];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __37__HMDHomePersonDataManager_configure__block_invoke;
-    v21[3] = &unk_2797359B0;
-    v22 = personManagerZoneUUID2;
-    v23 = selfCopy;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __37__HMDHomePersonDataManager_configure__block_invoke;
+    v20[3] = &unk_2797359B0;
+    v21 = personManagerZoneUUID2;
+    v22 = selfCopy;
     v18 = personManagerZoneUUID2;
-    dispatch_async(workQueue, v21);
+    dispatch_async(workQueue, v20);
   }
 
   else
@@ -612,21 +639,19 @@ uint64_t __60__HMDHomePersonDataManager_updateSettingsModelWithSettings___block_
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v19;
+      v25 = v19;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Home reference is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __37__HMDHomePersonDataManager_configure__block_invoke(uint64_t result)
+id *__37__HMDHomePersonDataManager_configure__block_invoke(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(result + 40) configurePersonManagerWithZoneUUID:?];
+    return [result[5] configurePersonManagerWithZoneUUID:?];
   }
 
   return result;
@@ -647,12 +672,12 @@ uint64_t __37__HMDHomePersonDataManager_configure__block_invoke(uint64_t result)
   {
 LABEL_7:
     v15 = _HMFPreconditionFailure();
-    return __51__HMDHomePersonDataManager_initWithHome_workQueue___block_invoke(v15);
+    return __51__HMDHomePersonDataManager_initWithHome_workQueue___block_invoke(v15, v16, v17, v18);
   }
 
-  v16.receiver = self;
-  v16.super_class = HMDHomePersonDataManager;
-  v9 = [(HMDHomePersonDataManager *)&v16 init];
+  v19.receiver = self;
+  v19.super_class = HMDHomePersonDataManager;
+  v9 = [(HMDHomePersonDataManager *)&v19 init];
   v10 = v9;
   if (v9)
   {
@@ -693,12 +718,11 @@ HMDHomePersonManager *__51__HMDHomePersonDataManager_initWithHome_workQueue___bl
 
 uint64_t __39__HMDHomePersonDataManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v19_132667;
-  logCategory__hmf_once_v19_132667 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v19_132667;
+  logCategory__hmf_once_v19_132667 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

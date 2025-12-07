@@ -174,53 +174,50 @@
   objc_storeStrong(&v54, 0);
   objc_storeStrong(&v56, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v59;
 }
 
 void __44__AMDAppStoreEvent_saveEvent_forUser_error___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v11[2] = a1;
-  v11[1] = a1;
-  v3 = MEMORY[0x277CBE408];
-  v5 = +[AMDAppStoreEvent entity];
-  v4 = [v5 name];
-  v1 = *(a1 + 32);
-  v11[0] = [v3 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+  v12 = *MEMORY[0x277D85DE8];
+  v10[2] = a1;
+  v10[1] = a1;
+  v2 = MEMORY[0x277CBE408];
+  v4 = +[AMDAppStoreEvent entity];
+  v3 = [v4 name];
+  v10[0] = [v2 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+  MEMORY[0x277D82BD8](v3);
   MEMORY[0x277D82BD8](v4);
-  MEMORY[0x277D82BD8](v5);
-  [v11[0] setEventTimeMillis:{objc_msgSend(*(a1 + 40), "unsignedLongLongValue")}];
-  [v11[0] setAdamId:*(a1 + 48)];
-  [v11[0] setEventType:*(a1 + 104)];
-  [v11[0] setSourceSwoosh:*(a1 + 56)];
-  [v11[0] setUsecase:*(a1 + 64)];
-  [v11[0] setUserId:*(a1 + 72)];
-  v2 = *(a1 + 80);
+  [v10[0] setEventTimeMillis:{objc_msgSend(*(a1 + 40), "unsignedLongLongValue")}];
+  [v10[0] setAdamId:*(a1 + 48)];
+  [v10[0] setEventType:*(a1 + 104)];
+  [v10[0] setSourceSwoosh:*(a1 + 56)];
+  [v10[0] setUsecase:*(a1 + 64)];
+  [v10[0] setUserId:*(a1 + 72)];
+  v1 = *(a1 + 80);
   location = (*(*(a1 + 96) + 8) + 40);
-  v10 = *location;
-  [v2 save:&v10];
-  objc_storeStrong(location, v10);
+  v9 = *location;
+  [v1 save:&v9];
+  objc_storeStrong(location, v9);
   if (*(*(*(a1 + 96) + 8) + 40))
   {
-    v9 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v8 = MEMORY[0x277D82BE0](MEMORY[0x277D86220]);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v7 = MEMORY[0x277D82BE0](MEMORY[0x277D86220]);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      __os_log_helper_16_2_1_8_64(v12, *(a1 + 88));
-      _os_log_debug_impl(&dword_240CB9000, v8, OS_LOG_TYPE_DEBUG, "Saved event of type %@", v12, 0xCu);
+      __os_log_helper_16_2_1_8_64(v11, *(a1 + 88));
+      _os_log_debug_impl(&dword_240CB9000, v7, OS_LOG_TYPE_DEBUG, "Saved event of type %@", v11, 0xCu);
     }
 
-    objc_storeStrong(&v8, 0);
-    v9 = 0;
+    objc_storeStrong(&v7, 0);
+    v8 = 0;
   }
 
-  objc_storeStrong(v11, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(v10, 0);
 }
 
 + (id)retrieveEventsOfType:(id)type inPeriod:(id)period forUser:(id)user error:(id *)error
@@ -378,7 +375,6 @@ LABEL_10:
 LABEL_11:
   objc_storeStrong(&v31, 0);
   objc_storeStrong(v34, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (id)deleteEventsOlderThan:(unint64_t)than error:(id *)error

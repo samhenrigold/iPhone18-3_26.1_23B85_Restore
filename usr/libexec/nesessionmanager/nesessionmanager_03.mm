@@ -801,7 +801,7 @@ void sub_10004C9A8(void *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6
   sub_100033A90(v18, v38, v40);
 }
 
-void sub_10004CC7C(uint64_t a1, unsigned int *a2, void *a3, void *a4, void *a5)
+void sub_10004CC7C(void *a1, unsigned int *a2, void *a3, void *a4, void *a5)
 {
   v8 = a3;
   v72 = a4;
@@ -997,7 +997,7 @@ void sub_10004D368(void *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6
   sub_100033A90(v13, v18, Property);
 }
 
-void sub_10004D4B8(void *a1, uint64_t a2, void *a3, int a4, unsigned int a5, void *a6, void *a7, void *a8, void *a9, void *a10, void *a11, unsigned int a12)
+void sub_10004D4B8(void *a1, uint64_t a2, void *a3, int a4, int a5, void *a6, void *a7, void *a8, void *a9, void *a10, void *a11, unsigned int a12)
 {
   v18 = a3;
   v36 = a6;
@@ -1650,7 +1650,7 @@ void sub_10004E840(void *a1, unsigned int a2, void *a3, void *a4, void *a5, int 
     v53 = v18;
     if ([v19 count])
     {
-      sub_10004D4B8(v24, a2, v19, a6, 1u, v22, v57, v61, v59, v25, v58, a13);
+      sub_10004D4B8(v24, a2, v19, a6, 1, v22, v57, v61, v59, v25, v58, a13);
     }
 
     v56 = v25;
@@ -1964,7 +1964,7 @@ void sub_100050D2C(uint64_t a1, void *a2, void *a3)
 
   if (v11)
   {
-    v12 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [*(a1 + 48) type]);
+    v12 = [NSNumber numberWithInt:objc_msgSend_type(*(a1 + 48))];
     v13 = [v11 objectForKeyedSubscript:v12];
 
     v14 = *(a1 + 48);
@@ -1988,7 +1988,7 @@ void sub_100050D2C(uint64_t a1, void *a2, void *a3)
         v18 = *(a1 + 40);
         v17 = *(a1 + 48);
         v19 = *(a1 + 32);
-        v20 = [v17 type];
+        v20 = objc_msgSend_type(v17);
         v21 = *(a1 + 48);
         *buf = 138413314;
         v29 = v19;
@@ -2059,7 +2059,7 @@ void sub_100051104(id *a1)
 {
   v3 = a1[4];
   objc_sync_enter(v3);
-  if ([a1[5] type] != 3)
+  if (objc_msgSend_type(a1[5]) != 3)
   {
     v49 = a1[4];
     if (v49 && objc_getProperty(v49, v4, 176, 1))
@@ -2067,7 +2067,7 @@ void sub_100051104(id *a1)
       goto LABEL_42;
     }
 
-    v57 = [a1[5] type];
+    v57 = objc_msgSend_type(a1[5]);
     v58 = a1[5];
     if (v57 == 4)
     {
@@ -2157,7 +2157,7 @@ void sub_100051104(id *a1)
       goto LABEL_103;
     }
 
-    v81 = [v58 type];
+    v81 = objc_msgSend_type(v58);
     v82 = a1[5];
     if (v81 == 10)
     {
@@ -2220,7 +2220,7 @@ void sub_100051104(id *a1)
       goto LABEL_181;
     }
 
-    v102 = [v82 type];
+    v102 = objc_msgSend_type(v82);
     v103 = a1[5];
     if (v102 == 1)
     {
@@ -2657,7 +2657,7 @@ LABEL_180:
       goto LABEL_181;
     }
 
-    v129 = [v103 type];
+    v129 = objc_msgSend_type(v103);
     v130 = a1[5];
     if (v129 == 2)
     {
@@ -2712,7 +2712,7 @@ LABEL_180:
 
     else
     {
-      v136 = [v130 type];
+      v136 = objc_msgSend_type(v130);
       v137 = a1[5];
       if (v136 == 5)
       {
@@ -2741,7 +2741,7 @@ LABEL_180:
 
       else
       {
-        v167 = [v137 type];
+        v167 = objc_msgSend_type(v137);
         v168 = a1[5];
         if (v167 == 6)
         {
@@ -2810,7 +2810,7 @@ LABEL_180:
 
         else
         {
-          v194 = [v168 type];
+          v194 = objc_msgSend_type(v168);
           v195 = a1[5];
           if (v194 == 7)
           {
@@ -2839,7 +2839,7 @@ LABEL_180:
 
           else
           {
-            v239 = [v195 type];
+            v239 = objc_msgSend_type(v195);
             v240 = a1[5];
             if (v239 == 9)
             {
@@ -2868,7 +2868,7 @@ LABEL_180:
 
             else
             {
-              if ([v240 type] != 11 && objc_msgSend(a1[5], "type") != 12)
+              if (objc_msgSend_type(v240) != 11 && objc_msgSend_type(a1[5]) != 12)
               {
                 goto LABEL_42;
               }
@@ -3066,7 +3066,7 @@ LABEL_42:
   if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
   {
     v51 = a1[5];
-    v52 = [v51 type];
+    v52 = objc_msgSend_type(v51);
     v53 = [a1[5] configuration];
     v54 = [v53 grade];
     v55 = [a1[5] configuration];
@@ -3693,13 +3693,14 @@ LABEL_105:
   objc_sync_exit(v3);
 }
 
-void sub_1000538B0(void *a1, int a2)
+void sub_1000538B0(void *a1, uint64_t a2)
 {
   if (!a1)
   {
     return;
   }
 
+  v2 = a2;
   v3 = nwi_state_copy();
   if (v3)
   {
@@ -3757,7 +3758,7 @@ LABEL_11:
     nwi_state_release();
   }
 
-  if ([objc_getProperty(a1 v14] & (a2 ^ 1) & 1) != 0 || ((v13 ^ 1))
+  if ([objc_getProperty(a1 v14] & (v2 ^ 1) & 1) != 0 || ((v13 ^ 1))
   {
     goto LABEL_93;
   }
@@ -4128,7 +4129,6 @@ id sub_100054470(uint64_t a1)
           v7 = 8 * v4;
           do
           {
-            v8 = *&v3[v5];
             if (nwi_state_get_ifstate() && !nwi_ifstate_get_vpn_server())
             {
               if (!v6)
@@ -4136,14 +4136,14 @@ id sub_100054470(uint64_t a1)
                 v6 = +[NSMutableDictionary dictionary];
               }
 
-              v9 = [NSString stringWithUTF8String:nwi_ifstate_get_ifname()];
-              v10 = [v6 objectForKeyedSubscript:v9];
+              v8 = [NSString stringWithUTF8String:nwi_ifstate_get_ifname()];
+              v9 = [v6 objectForKeyedSubscript:v8];
 
-              if (!v10)
+              if (!v9)
               {
-                v11 = [NSNumber numberWithUnsignedLongLong:nwi_ifstate_get_flags()];
-                v12 = [NSString stringWithUTF8String:nwi_ifstate_get_ifname()];
-                [v6 setObject:v11 forKeyedSubscript:v12];
+                v10 = [NSNumber numberWithUnsignedLongLong:nwi_ifstate_get_flags()];
+                v11 = [NSString stringWithUTF8String:nwi_ifstate_get_ifname()];
+                [v6 setObject:v10 forKeyedSubscript:v11];
               }
             }
 
@@ -4154,9 +4154,9 @@ id sub_100054470(uint64_t a1)
           free(v3);
           if (v6)
           {
-            v13 = [[NSDictionary alloc] initWithDictionary:v6];
+            v12 = [[NSDictionary alloc] initWithDictionary:v6];
 
-            return v13;
+            return v12;
           }
         }
 
@@ -4649,9 +4649,9 @@ void sub_100055BB8(void *a1, void *a2)
   }
 }
 
-void sub_100055D14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100055D14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5479,7 +5479,7 @@ void sub_1000573A8(uint64_t a1, void *a2)
   }
 }
 
-id sub_10005750C()
+id sub_10005750C(uint64_t a1)
 {
   objc_opt_self();
   if (qword_1000FD540 != -1)
@@ -5487,9 +5487,9 @@ id sub_10005750C()
     dispatch_once(&qword_1000FD540, &stru_1000EA2F0);
   }
 
-  v0 = qword_1000FD538;
+  v1 = qword_1000FD538;
 
-  return v0;
+  return v1;
 }
 
 void sub_100057564(id a1)
@@ -5783,20 +5783,20 @@ void sub_100057BF4(uint64_t a1, xpc_object_t xdict)
   }
 }
 
-void sub_100057E5C(uint64_t a1, int a2)
+void sub_100057E5C(uint64_t a1, int a2, uint64_t a3)
 {
   if (a2 == 1)
   {
-    v4 = CNPluginMonitorEventCopyDisplayIDs();
+    v5 = CNPluginMonitorEventCopyDisplayIDs();
     Property = *(a1 + 32);
-    if (v4)
+    if (v5)
     {
       if (Property)
       {
-        Property = objc_getProperty(Property, v3, 80, 1);
+        Property = objc_getProperty(Property, v4, 80, 1);
       }
 
-      if ([Property isEqualToArray:v4])
+      if ([Property isEqualToArray:v5])
       {
         goto LABEL_34;
       }
@@ -5804,7 +5804,7 @@ void sub_100057E5C(uint64_t a1, int a2)
 
     else
     {
-      if (!Property || (v6 = objc_getProperty(Property, v3, 80, 1)) == 0)
+      if (!Property || (v7 = objc_getProperty(Property, v4, 80, 1)) == 0)
       {
 LABEL_34:
 
@@ -5812,107 +5812,107 @@ LABEL_34:
       }
     }
 
-    v7 = ne_log_obj();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = ne_log_obj();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v41 = "[NESMServer registerForCaptiveNetworkPluginChanges]_block_invoke";
-      v42 = 2112;
-      v43 = v4;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%s: CNPluginMonitor - got new apps %@", buf, 0x16u);
+      v42 = "[NESMServer registerForCaptiveNetworkPluginChanges]_block_invoke";
+      v43 = 2112;
+      v44 = v5;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%s: CNPluginMonitor - got new apps %@", buf, 0x16u);
     }
 
-    v9 = *(a1 + 32);
-    v27 = v4;
-    if (v9)
+    v10 = *(a1 + 32);
+    v28 = v5;
+    if (v10)
     {
-      objc_setProperty_atomic(v9, v8, v4, 80);
-      v9 = *(a1 + 32);
-      v34 = 0u;
+      objc_setProperty_atomic(v10, v9, v5, 80);
+      v10 = *(a1 + 32);
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      if (v9)
+      v38 = 0u;
+      if (v10)
       {
-        v9 = objc_getProperty(v9, v10, 120, 1);
+        v10 = objc_getProperty(v10, v11, 120, 1);
       }
     }
 
     else
     {
-      v36 = 0u;
       v37 = 0u;
-      v34 = 0u;
+      v38 = 0u;
       v35 = 0u;
+      v36 = 0u;
     }
 
-    obj = v9;
-    v11 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
-    if (v11)
+    obj = v10;
+    v12 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+    if (v12)
     {
-      v13 = v11;
-      v29 = *v35;
+      v14 = v12;
+      v30 = *v36;
       do
       {
-        for (i = 0; i != v13; i = i + 1)
+        for (i = 0; i != v14; i = i + 1)
         {
-          if (*v35 != v29)
+          if (*v36 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v34 + 1) + 8 * i);
-          v30 = 0u;
+          v16 = *(*(&v35 + 1) + 8 * i);
           v31 = 0u;
           v32 = 0u;
           v33 = 0u;
-          v16 = *(a1 + 32);
-          if (v16)
+          v34 = 0u;
+          v17 = *(a1 + 32);
+          if (v17)
           {
-            v16 = objc_getProperty(v16, v12, 120, 1);
+            v17 = objc_getProperty(v17, v13, 120, 1);
           }
 
-          v17 = [v16 objectForKeyedSubscript:v15];
-          v18 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
-          if (v18)
+          v18 = [v17 objectForKeyedSubscript:v16];
+          v19 = [v18 countByEnumeratingWithState:&v31 objects:v39 count:16];
+          if (v19)
           {
-            v20 = v18;
-            v21 = *v31;
+            v21 = v19;
+            v22 = *v32;
             do
             {
-              for (j = 0; j != v20; j = j + 1)
+              for (j = 0; j != v21; j = j + 1)
               {
-                if (*v31 != v21)
+                if (*v32 != v22)
                 {
-                  objc_enumerationMutation(v17);
+                  objc_enumerationMutation(v18);
                 }
 
-                v23 = *(*(&v30 + 1) + 8 * j);
-                v24 = *(a1 + 32);
-                if (v24)
+                v24 = *(*(&v31 + 1) + 8 * j);
+                v25 = *(a1 + 32);
+                if (v25)
                 {
-                  v24 = objc_getProperty(v24, v19, 120, 1);
+                  v25 = objc_getProperty(v25, v20, 120, 1);
                 }
 
-                v25 = [v24 objectForKeyedSubscript:v15];
-                v26 = [v25 objectForKeyedSubscript:v23];
-                [v26 handleCaptiveNetworkPluginsChanged];
+                v26 = [v25 objectForKeyedSubscript:v16];
+                v27 = [v26 objectForKeyedSubscript:v24];
+                [v27 handleCaptiveNetworkPluginsChanged];
               }
 
-              v20 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
+              v21 = [v18 countByEnumeratingWithState:&v31 objects:v39 count:16];
             }
 
-            while (v20);
+            while (v21);
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v14 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
-    v4 = v27;
+    v5 = v28;
     goto LABEL_34;
   }
 }
@@ -6312,9 +6312,9 @@ void sub_100058B2C(_BYTE *a1, void *a2, uint64_t a3, int a4)
   }
 }
 
-void sub_100058CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100058CD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6753,15 +6753,15 @@ void sub_1000598F0(uint64_t a1)
   }
 }
 
-void sub_100059904(uint64_t a1)
+void sub_100059904(NSObject *a1)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  isa = a1[4].isa;
+  if (isa)
   {
-    v3 = *(v2 + 320);
-    if (!v3 || (dispatch_source_cancel(v3), sub_1000598F0(*(a1 + 32)), (v2 = *(a1 + 32)) != 0))
+    v3 = *(isa + 40);
+    if (!v3 || (dispatch_source_cancel(v3), sub_1000598F0(a1[4].isa), (isa = a1[4].isa) != 0))
     {
-      if (*(v2 + 9))
+      if (*(isa + 9))
       {
         v4 = ne_log_obj();
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -6773,7 +6773,7 @@ void sub_100059904(uint64_t a1)
         return;
       }
 
-      *(v2 + 9) = 1;
+      *(isa + 9) = 1;
     }
   }
 
@@ -6789,10 +6789,10 @@ void sub_100059904(uint64_t a1)
   v8[1] = 3221225472;
   v8[2] = sub_100059A60;
   v8[3] = &unk_1000EA8F0;
-  v8[4] = *(a1 + 32);
+  v8[4] = a1[4].isa;
   [v6 iterateFileHandlesWithBlock:v8];
 
-  sub_100059530(*(a1 + 32), v7);
+  sub_100059530(a1[4].isa, v7);
 }
 
 uint64_t sub_100059A60(uint64_t a1, void *a2)
@@ -7341,25 +7341,24 @@ void sub_10005A7A8(uint64_t a1)
   v2 = sub_10005A1DC(*(a1 + 32), 1, 0);
   if (*(a1 + 40))
   {
-    v3 = *(a1 + 48);
     NEPolicyPersistDropAllFeature();
   }
 
-  v4 = ne_log_obj();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v3 = ne_log_obj();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = v2;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "applyIPDefaultDrop: Persistent IP Drop-All level <%ld>", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v2;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "applyIPDefaultDrop: Persistent IP Drop-All level <%ld>", &v6, 0xCu);
   }
 
-  v5 = sub_10005A1DC(*(a1 + 32), 0, v2);
-  v6 = ne_log_obj();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_10005A1DC(*(a1 + 32), 0, v2);
+  v5 = ne_log_obj();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = v5;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "applyIPDefaultDrop: non-Persistent IP Drop-All level <%ld>", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v4;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "applyIPDefaultDrop: non-Persistent IP Drop-All level <%ld>", &v6, 0xCu);
   }
 }
 

@@ -459,7 +459,7 @@ LABEL_109:
   }
 
   callStackSymbols = outputGeometry;
-  [outputGeometry extent];
+  objc_msgSend_extent(outputGeometry);
   NUPixelRectToCGRect();
   v13 = v12;
   v15 = v14;
@@ -638,7 +638,7 @@ LABEL_109:
             portraitLayout = [v266 portraitLayout];
             [portraitLayout visibleFrame];
             NURectNormalize();
-            [segmentationMatteImage4 extent];
+            objc_msgSend_extent(segmentationMatteImage4);
             NURectDenormalize();
             v81 = v80;
             v83 = v82;
@@ -686,7 +686,7 @@ LABEL_109:
               v259 = height / v101;
             }
 
-            [v88 extent];
+            objc_msgSend_extent(v88);
             v108 = v106 + v103 * v107;
             v111 = v109 + v105 * v110;
             v112 = v104 * v107;
@@ -707,7 +707,7 @@ LABEL_109:
             v117 = v288.size.height;
             v260 = [v263 computeHistogramFromMatte:r2_8];
             v118 = [PISegmentationHelper localConfidenceImage:r2_8];
-            [v118 extent];
+            objc_msgSend_extent(v118);
             v120 = v119;
             v122 = v121;
             v124 = v123;
@@ -747,7 +747,7 @@ LABEL_109:
             portraitLayout3 = [v59 portraitLayout];
             [portraitLayout3 visibleFrame];
             NURectNormalize();
-            [segmentationConfidenceMapImage2 extent];
+            objc_msgSend_extent(segmentationConfidenceMapImage2);
             NURectDenormalize();
             v138 = v137;
             v140 = v139;
@@ -1110,14 +1110,14 @@ LABEL_79:
     }
 
     v39 = v147;
-    [segmentationMatteImage extent];
+    objc_msgSend_extent(segmentationMatteImage);
     v42 = v40 + v35 * v41;
     v45 = v43 + v38 * v44;
     v46 = v37 * v41;
     v47 = v36 * v44;
     memset(buf, 0, sizeof(buf));
     context = [v34 context];
-    [PISegmentationHelper computeClockLayerOrderWithVisibleFrame:segmentationMatteImage segmentationMatte:configurationCopy layoutConfiguration:context context:0 interactive:v42, v45, v46, v47];
+    objc_msgSend_computeClockLayerOrderWithVisibleFrame_segmentationMatte_layoutConfiguration_context_interactive_(PISegmentationHelper, v42, v45, v46, v47);
 
     v49 = *buf;
     v50 = *&buf[8];
@@ -1436,9 +1436,9 @@ LABEL_100:
   v215 = y;
   if (imageCopy)
   {
-    [imageCopy extent];
+    objc_msgSend_extent(imageCopy);
     v37 = width / v36;
-    [imageCopy extent];
+    objc_msgSend_extent(imageCopy);
     CGAffineTransformMakeScale(&v246, v37, height / v38);
     v39 = [imageCopy imageByApplyingTransform:&v246];
 
@@ -1776,7 +1776,7 @@ LABEL_72:
     v222 = shouldConstrainLayoutToBounds;
     if ([(_PIPosterLayoutJob *)self headroomIsFeasible]&& v129 != 2)
     {
-      [imageCopy extent];
+      objc_msgSend_extent(imageCopy);
       v143 = v142;
       v145 = v144;
       v147 = v146;
@@ -1920,7 +1920,7 @@ LABEL_81:
         if (segmentationMatte)
         {
           segmentationConfidenceMap = [MEMORY[0x1E695F658] imageWithNUImageBuffer:segmentationMatte];
-          [segmentationConfidenceMap extent];
+          objc_msgSend_extent(segmentationConfidenceMap);
           v13 = @"Invalid segmentation matte size";
           if (v14 >= 1.0 && v12 >= 1.0)
           {
@@ -1953,7 +1953,7 @@ LABEL_14:
         if (segmentationConfidenceMap)
         {
           v16 = [MEMORY[0x1E695F658] imageWithNUImageBuffer:segmentationConfidenceMap];
-          [v16 extent];
+          objc_msgSend_extent(v16);
           v19 = fmin(v17, v18);
           v20 = v19 >= 1.0;
           if (v19 < 1.0)

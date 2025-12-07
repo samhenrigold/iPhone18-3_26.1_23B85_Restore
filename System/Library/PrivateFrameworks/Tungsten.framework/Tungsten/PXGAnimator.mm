@@ -154,12 +154,12 @@
   [activeGroupIndexes enumerateIndexesUsingBlock:v4];
 }
 
-uint64_t __33__PXGAnimator__stopAllAnimations__block_invoke(uint64_t a1, uint64_t a2)
+char *__33__PXGAnimator__stopAllAnimations__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(*(a1 + 32) + 8) groupInfos];
-  v4 = result + 76 * a2;
-  *(v4 + 8) = 0;
-  *(v4 + 16) = 0;
+  v4 = &result[76 * a2];
+  *(v4 + 1) = 0;
+  *(v4 + 2) = 0;
   return result;
 }
 
@@ -267,7 +267,7 @@ double __61__PXGAnimator_retargetAnimationsAfterStartTime_newStartTime___block_i
   _dequeueSpriteDataStore = [(PXGAnimator *)selfCopy _dequeueSpriteDataStore];
   if (storeCopy)
   {
-    [storeCopy sprites];
+    objc_msgSend_sprites(storeCopy);
   }
 
   else
@@ -301,12 +301,12 @@ double __61__PXGAnimator_retargetAnimationsAfterStartTime_newStartTime___block_i
     kdebug_trace();
     if (storeCopy)
     {
-      [storeCopy sprites];
+      objc_msgSend_sprites(storeCopy);
       v361 = v372;
       v362 = v373;
       v363 = v374;
       [dataStoreCopy setSprites:&v361];
-      [storeCopy sprites];
+      objc_msgSend_sprites(storeCopy);
     }
 
     else
@@ -1617,7 +1617,7 @@ void __217__PXGAnimator_computeAnimationStateForTime_inputSpriteDataStore_inputC
       v14 = *(a1 + 48);
       if (v14)
       {
-        [v14 sprites];
+        objc_msgSend_sprites(v14);
       }
 
       else
@@ -1675,7 +1675,7 @@ void __217__PXGAnimator_computeAnimationStateForTime_inputSpriteDataStore_inputC
       v27 = *(a1 + 48);
       if (v27)
       {
-        [v27 sprites];
+        objc_msgSend_sprites(v27);
       }
 
       else
@@ -2170,7 +2170,7 @@ float __217__PXGAnimator_computeAnimationStateForTime_inputSpriteDataStore_input
   return result;
 }
 
-uint64_t __217__PXGAnimator_computeAnimationStateForTime_inputSpriteDataStore_inputChangeDetails_inputLayout_viewportShift_animationPresentationSpriteDataStore_animationTargetSpriteDataStore_animationChangeDetails_animationLayout___block_invoke_11(uint64_t result, unsigned int a2, uint64_t a3)
+void *__217__PXGAnimator_computeAnimationStateForTime_inputSpriteDataStore_inputChangeDetails_inputLayout_viewportShift_animationPresentationSpriteDataStore_animationTargetSpriteDataStore_animationChangeDetails_animationLayout___block_invoke_11(void *result, unsigned int a2, uint64_t a3)
 {
   if (a3)
   {

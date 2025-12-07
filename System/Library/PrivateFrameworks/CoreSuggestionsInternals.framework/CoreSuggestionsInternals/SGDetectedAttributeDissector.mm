@@ -24,7 +24,7 @@
   v7 = [v6 rawValueForKey:@"DetailTypes"];
 
   v8 = regex2ForKey(@"DetailType");
-  v9 = [v7 count];
+  v9 = objc_msgSend_count(v7);
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v13[2] = __74__SGDetectedAttributeDissector_detailTypeFromPrefix_detectedLabelPointer___block_invoke;
@@ -48,20 +48,20 @@
   return v11;
 }
 
-uint64_t __74__SGDetectedAttributeDissector_detailTypeFromPrefix_detectedLabelPointer___block_invoke(uint64_t a1, _OWORD *a2)
+uint64_t __74__SGDetectedAttributeDissector_detailTypeFromPrefix_detectedLabelPointer___block_invoke(uint64_t a1, const char *a2)
 {
-  v4 = -1;
-  v5 = 24;
-  while ([*(a1 + 32) count] > ++v4)
+  v5 = -1;
+  v6 = 24;
+  while (objc_msgSend_count(*(a1 + 32)) > ++v5)
   {
-    v6 = *(a2 + v5);
-    v5 += 24;
-    if (v6 != 0x7FFFFFFFFFFFFFFFLL)
+    v7 = *&a2[v6];
+    v6 += 24;
+    if (v7 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v7 = [*(a1 + 32) objectAtIndexedSubscript:v4];
-      v8 = *(*(a1 + 40) + 8);
-      v9 = *(v8 + 40);
-      *(v8 + 40) = v7;
+      v8 = [*(a1 + 32) objectAtIndexedSubscript:v5];
+      v9 = *(*(a1 + 40) + 8);
+      v10 = *(v9 + 40);
+      *(v9 + 40) = v8;
 
       *(*(*(a1 + 48) + 8) + 32) = *a2;
       return 0;
@@ -104,10 +104,10 @@ uint64_t __74__SGDetectedAttributeDissector_detailTypeFromPrefix_detectedLabelPo
 
 - (void)_dissectMessage:(id)message entity:(id)entity
 {
-  v232 = *MEMORY[0x277D85DE8];
+  v230 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   entityCopy = entity;
-  v199 = messageCopy;
+  v197 = messageCopy;
   textContent = [messageCopy textContent];
   if (!textContent)
   {
@@ -132,8 +132,8 @@ LABEL_12:
   }
 
   plainTextSigRange = [entityCopy plainTextSigRange];
-  v197 = v9;
-  v198 = plainTextSigRange;
+  v195 = v9;
+  v196 = plainTextSigRange;
   detectedDataSignatureRange = [messageCopy detectedDataSignatureRange];
   tags = [entityCopy tags];
   if (tags)
@@ -150,12 +150,12 @@ LABEL_12:
         _os_log_debug_impl(&dword_231E60000, v13, OS_LOG_TYPE_DEBUG, "Skipping DetectedAttribute dissection: Inhuman sender.", &buf, 2u);
       }
 
-      [SGDetectedAttributeMetrics recordExtractionOutcome:*MEMORY[0x277D02248] forDetectionsInMessage:v199 signatureRange:v198 isDDSignature:v197, detectedDataSignatureRange != 0x7FFFFFFFFFFFFFFFLL];
+      [SGDetectedAttributeMetrics recordExtractionOutcome:*MEMORY[0x277D02248] forDetectionsInMessage:v197 signatureRange:v196 isDDSignature:v195, detectedDataSignatureRange != 0x7FFFFFFFFFFFFFFFLL];
       goto LABEL_200;
     }
   }
 
-  source = [v199 source];
+  source = [v197 source];
   v15 = [source isEqual:@"warmUpSuggestions"];
 
   if (v15)
@@ -176,7 +176,7 @@ LABEL_76:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v18 = v199;
+    v18 = v197;
     v19 = v18;
     if (v18)
     {
@@ -190,18 +190,18 @@ LABEL_76:
         v24 = [SGTextMessageItem alloc];
         plainTextDetectedData = [v19 plainTextDetectedData];
         v26 = [(SGTextMessageItem *)v24 initWithTextMessage:v19 detectedData:plainTextDetectedData];
-        v177 = [v23 addTextMessageItem:v26];
+        v175 = [v23 addTextMessageItem:v26];
 
         objc_autoreleasePoolPop(v22);
-        v176 = 0;
+        v174 = 0;
         v27 = 0;
       }
 
       else
       {
-        v176 = 0;
+        v174 = 0;
         v27 = 0;
-        v177 = 0;
+        v175 = 0;
       }
 
       goto LABEL_22;
@@ -219,11 +219,11 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v27 = v199;
+  v27 = v197;
   v19 = 0;
 LABEL_21:
-  v177 = 0;
-  v176 = 1;
+  v175 = 0;
+  v174 = 1;
 LABEL_22:
   if (([MEMORY[0x277D02098] detectContacts] & 1) == 0)
   {
@@ -237,7 +237,7 @@ LABEL_22:
     goto LABEL_198;
   }
 
-  author2 = [v199 author];
+  author2 = [v197 author];
   v29 = [SGIdentityKey keyForPersonHandle:author2];
 
   log = v29;
@@ -247,7 +247,7 @@ LABEL_22:
     goto LABEL_199;
   }
 
-  plainTextDetectedData2 = [v199 plainTextDetectedData];
+  plainTextDetectedData2 = [v197 plainTextDetectedData];
   if (v27)
   {
     quotedRegions = [v27 quotedRegions];
@@ -258,7 +258,7 @@ LABEL_22:
     quotedRegions = objc_opt_new();
   }
 
-  v184 = quotedRegions;
+  v182 = quotedRegions;
 
   [entityCopy releaseDissectorLock];
   v32 = sgLogHandle();
@@ -269,51 +269,51 @@ LABEL_22:
     _os_log_debug_impl(&dword_231E60000, v32, OS_LOG_TYPE_DEBUG, "Detections: %@", &buf, 0xCu);
   }
 
-  v165 = v27;
-  v190 = entityCopy;
+  v163 = v27;
+  v188 = entityCopy;
 
-  v220 = 0u;
-  v221 = 0u;
   v218 = 0u;
   v219 = 0u;
+  v216 = 0u;
+  v217 = 0u;
   v33 = plainTextDetectedData2;
-  v34 = [v33 countByEnumeratingWithState:&v218 objects:v231 count:16];
+  v34 = [v33 countByEnumeratingWithState:&v216 objects:v229 count:16];
   obj = v33;
   if (v34)
   {
     v35 = v34;
     v36 = 0;
-    v200 = 0;
-    v201 = 0;
+    v198 = 0;
+    v199 = 0;
     v37 = 0;
-    v38 = *v219;
+    v38 = *v217;
     do
     {
       for (i = 0; i != v35; ++i)
       {
-        if (*v219 != v38)
+        if (*v217 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v40 = *(*(&v218 + 1) + 8 * i);
-        v233.location = [v40 range];
-        v235.length = v197;
-        v235.location = v198;
-        length = NSIntersectionRange(v233, v235).length;
+        v40 = *(*(&v216 + 1) + 8 * i);
+        v231.location = [v40 range];
+        v233.length = v195;
+        v233.location = v196;
+        length = NSIntersectionRange(v231, v233).length;
         matchType = [v40 matchType];
         v43 = matchType == 0;
         if (matchType)
         {
-          v44 = v201;
+          v44 = v199;
         }
 
         else
         {
-          v44 = v201 + 1;
+          v44 = v199 + 1;
         }
 
-        v201 = v44;
+        v199 = v44;
         matchType2 = [v40 matchType];
         v46 = matchType2 == 1;
         if (matchType2 == 1)
@@ -331,38 +331,38 @@ LABEL_22:
           v47 = 0;
         }
 
-        LODWORD(v200) = v200 + v47;
+        LODWORD(v198) = v198 + v47;
         if (!length)
         {
           v46 = 0;
         }
 
-        HIDWORD(v200) += v46;
+        HIDWORD(v198) += v46;
         if ([v40 matchType] == 2)
         {
           ++v36;
         }
       }
 
-      v35 = [obj countByEnumeratingWithState:&v218 objects:v231 count:16];
+      v35 = [obj countByEnumeratingWithState:&v216 objects:v229 count:16];
     }
 
     while (v35);
 
-    if (v201 >= 6)
+    if (v199 >= 6)
     {
       v48 = sgLogHandle();
       if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
       {
         LODWORD(buf) = 67109376;
-        DWORD1(buf) = v201;
+        DWORD1(buf) = v199;
         WORD4(buf) = 1024;
         *(&buf + 10) = 5;
         _os_log_debug_impl(&dword_231E60000, v48, OS_LOG_TYPE_DEBUG, "Skipping DetectedAttribute dissection: too many phone numbers (%i, limit %i)", &buf, 0xEu);
       }
 
-      entityCopy = v190;
-      [v190 acquireDissectorLock];
+      entityCopy = v188;
+      [v188 acquireDissectorLock];
       goto LABEL_197;
     }
   }
@@ -371,19 +371,19 @@ LABEL_22:
   {
 
     v37 = 0;
-    v200 = 0;
-    v201 = 0;
+    v198 = 0;
+    v199 = 0;
     v36 = 0;
   }
 
-  if ((v176 & 1) == 0)
+  if ((v174 & 1) == 0)
   {
     v49 = objc_autoreleasePoolPush();
     v50 = sgSignpostHandle();
     ptr = 7;
     v51 = os_signpost_id_make_with_pointer(v50, &ptr);
 
-    if (!v201 && !v37 && !v36)
+    if (!v199 && !v37 && !v36)
     {
       if ([MEMORY[0x277D02098] useMLModelForContactSharing])
       {
@@ -399,7 +399,7 @@ LABEL_22:
           }
 
           ml = self->_ml;
-          likelyLanguage = [v177 likelyLanguage];
+          likelyLanguage = [v175 likelyLanguage];
           [(SGDetectedAttributeML *)ml handleTextMessageContactSharingWithNegativeSample:v19 andLanguage:likelyLanguage];
 
           v57 = sgSignpostHandle();
@@ -417,7 +417,7 @@ LABEL_22:
   }
 
   v59 = [MEMORY[0x277D02548] detectLanguageFromText:textContent];
-  v174 = v59;
+  v172 = v59;
   if (v59)
   {
     v60 = &OBJC_IVAR___SGDetectedAttributeDissector__hmmTrustedLanguages;
@@ -426,166 +426,165 @@ LABEL_22:
       v60 = &OBJC_IVAR___SGDetectedAttributeDissector__ddTrustedLanguages;
     }
 
-    v172 = [*(&self->super.super.isa + *v60) containsObject:v59];
+    v170 = [*(&self->super.super.isa + *v60) containsObject:v59];
   }
 
   else
   {
-    v172 = 0;
+    v170 = 0;
   }
 
-  v61 = v190;
-  v170 = v19;
-  v169 = objc_opt_new();
+  v61 = v188;
+  v168 = v19;
+  v167 = objc_opt_new();
+  v210 = 0u;
+  v211 = 0u;
   v212 = 0u;
   v213 = 0u;
-  v214 = 0u;
-  v215 = 0u;
-  v216 = xmmword_232106CE0;
+  v214 = xmmword_232106CE0;
   reverseObjectEnumerator = [obj reverseObjectEnumerator];
-  v189 = [reverseObjectEnumerator countByEnumeratingWithState:&v212 objects:v230 count:16];
-  if (!v189)
+  v187 = [reverseObjectEnumerator countByEnumeratingWithState:&v210 objects:v228 count:16];
+  if (!v187)
   {
-    v175 = 0;
+    v173 = 0;
     goto LABEL_172;
   }
 
-  v175 = 0;
-  v187 = *v213;
-  v171 = *MEMORY[0x277D02228];
-  v166 = *MEMORY[0x277D02250];
-  v62 = *MEMORY[0x277D02220];
-  v167 = *MEMORY[0x277D02220];
-  v168 = *MEMORY[0x277D02238];
-  v178 = *MEMORY[0x277D02240];
-  v173 = v37;
+  v173 = 0;
+  v185 = *v211;
+  v169 = *MEMORY[0x277D02228];
+  v164 = *MEMORY[0x277D02250];
+  v165 = *MEMORY[0x277D02220];
+  v166 = *MEMORY[0x277D02238];
+  v176 = *MEMORY[0x277D02240];
+  v171 = v37;
   do
   {
-    v63 = 0;
+    v62 = 0;
     do
     {
-      if (*v213 != v187)
+      if (*v211 != v185)
       {
         objc_enumerationMutation(reverseObjectEnumerator);
       }
 
-      v64 = *(*(&v212 + 1) + 8 * v63);
-      v65 = objc_autoreleasePoolPush();
-      if ([v64 matchType] == 1 || !objc_msgSend(v64, "matchType") || objc_msgSend(v64, "matchType") == 2 || objc_msgSend(v64, "matchType") == 3)
+      v63 = *(*(&v210 + 1) + 8 * v62);
+      v64 = objc_autoreleasePoolPush();
+      if ([v63 matchType] == 1 || !objc_msgSend(v63, "matchType") || objc_msgSend(v63, "matchType") == 2 || objc_msgSend(v63, "matchType") == 3)
       {
-        if (![v64 matchType])
+        if (![v63 matchType])
         {
-          range = [v64 range];
-          if (SGIsPhoneNumberWithRangeBlocked(textContent, range, v67))
+          range = [v63 range];
+          if (SGIsPhoneNumberWithRangeBlocked(textContent, range, v66))
           {
-            v68 = sgLogHandle();
-            if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
+            v67 = sgLogHandle();
+            if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
             {
               LOWORD(buf) = 0;
-              _os_log_debug_impl(&dword_231E60000, v68, OS_LOG_TYPE_DEBUG, "Ignoring DataDetector match: Blocked phone number.", &buf, 2u);
+              _os_log_debug_impl(&dword_231E60000, v67, OS_LOG_TYPE_DEBUG, "Ignoring DataDetector match: Blocked phone number.", &buf, 2u);
             }
 
             goto LABEL_160;
           }
         }
 
-        v195 = v65;
-        v234.location = [v64 range];
-        v236.length = v197;
-        v236.location = v198;
-        v69 = NSIntersectionRange(v234, v236).length;
-        range2 = [v64 range];
-        if ([v184 intersectsIndexesInRange:{range2, v71}])
+        v193 = v64;
+        v232.location = [v63 range];
+        v234.length = v195;
+        v234.location = v196;
+        v68 = NSIntersectionRange(v232, v234).length;
+        range2 = [v63 range];
+        if ([v182 intersectsIndexesInRange:{range2, v70}])
         {
-          v72 = objc_autoreleasePoolPush();
-          v73 = sgLogHandle();
-          if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
+          v71 = objc_autoreleasePoolPush();
+          v72 = sgLogHandle();
+          if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
           {
             LOWORD(buf) = 0;
-            _os_log_debug_impl(&dword_231E60000, v73, OS_LOG_TYPE_DEBUG, "Ignoring DataDetector match: Quoted region.", &buf, 2u);
+            _os_log_debug_impl(&dword_231E60000, v72, OS_LOG_TYPE_DEBUG, "Ignoring DataDetector match: Quoted region.", &buf, 2u);
           }
 
-          LOBYTE(v162) = 0;
-          [SGDetectedAttributeMetrics recordExtractionOutcome:v178 fromMessage:v199 foundInSignature:v69 != 0 isDDSignature:detectedDataSignatureRange != 0x7FFFFFFFFFFFFFFFLL match:v64 modelVersion:&unk_284749B48 isUnlikelyPhone:v162];
-          objc_autoreleasePoolPop(v72);
+          LOBYTE(v160) = 0;
+          [SGDetectedAttributeMetrics recordExtractionOutcome:v176 fromMessage:v197 foundInSignature:v68 != 0 isDDSignature:detectedDataSignatureRange != 0x7FFFFFFFFFFFFFFFLL match:v63 modelVersion:&unk_284749B48 isUnlikelyPhone:v160];
+          objc_autoreleasePoolPop(v71);
 LABEL_96:
-          v65 = v195;
+          v64 = v193;
           goto LABEL_160;
         }
 
-        if ([v64 matchType])
+        if ([v63 matchType])
         {
-          v74 = 0;
+          v73 = 0;
         }
 
         else
         {
-          valueString = [v64 valueString];
-          v74 = [valueString containsString:{@", "}];
+          valueString = [v63 valueString];
+          v73 = [valueString containsString:{@", "}];
         }
 
-        if (self->_filterWithAddressBook && ![v64 matchType])
+        if (self->_filterWithAddressBook && ![v63 matchType])
         {
           contactsHelper = self->_contactsHelper;
-          valueString2 = [v64 valueString];
-          v76 = ![(SGContactPipelineHelper *)contactsHelper numberMatchesContactsForm:valueString2];
+          valueString2 = [v63 valueString];
+          v75 = ![(SGContactPipelineHelper *)contactsHelper numberMatchesContactsForm:valueString2];
         }
 
         else
         {
-          v76 = 0;
+          v75 = 0;
         }
 
-        v77 = v74 | v76;
-        if (v77)
+        v76 = v73 | v75;
+        if (v76)
         {
-          v78 = vcvts_n_f32_u32(arc4random_uniform(0xFFFFFFFF), 0x20uLL);
+          v77 = vcvts_n_f32_u32(arc4random_uniform(0xFFFFFFFF), 0x20uLL);
           unlikelyPhoneSamplingRate = self->_unlikelyPhoneSamplingRate;
-          v80 = sgLogHandle();
-          v81 = os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG);
-          if (v78 >= unlikelyPhoneSamplingRate)
+          v79 = sgLogHandle();
+          v80 = os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG);
+          if (v77 >= unlikelyPhoneSamplingRate)
           {
-            if (v81)
+            if (v80)
             {
               LOWORD(buf) = 0;
-              _os_log_debug_impl(&dword_231E60000, v80, OS_LOG_TYPE_DEBUG, "Ignoring DataDetector match: Low quality phone number match.", &buf, 2u);
+              _os_log_debug_impl(&dword_231E60000, v79, OS_LOG_TYPE_DEBUG, "Ignoring DataDetector match: Low quality phone number match.", &buf, 2u);
             }
 
             goto LABEL_96;
           }
 
-          if (v81)
+          if (v80)
           {
             LOWORD(buf) = 0;
-            _os_log_debug_impl(&dword_231E60000, v80, OS_LOG_TYPE_DEBUG, "Processing low quality phone number match for ML supervision and metrics; detections to be discarded.", &buf, 2u);
+            _os_log_debug_impl(&dword_231E60000, v79, OS_LOG_TYPE_DEBUG, "Processing low quality phone number match for ML supervision and metrics; detections to be discarded.", &buf, 2u);
           }
         }
 
         *&buf = 261887;
-        HIDWORD(buf) = v200;
-        v227 = v201;
-        v228 = HIDWORD(v200);
-        v229 = v37;
-        BYTE4(buf) = [v64 matchType] == 0;
-        BYTE5(buf) = [v64 matchType] == 1;
-        range3 = [v64 range];
-        v83 = range3 / [textContent length];
-        *(&buf + 2) = v83;
-        v84 = [[SGContactDetailSupervision alloc] initWithMessage:v199 ddMatch:v64 isUnlikelyPhone:v77 & 1];
-        v85 = objc_autoreleasePoolPush();
-        v182 = v77;
-        if (v69)
+        HIDWORD(buf) = v198;
+        v225 = v199;
+        v226 = HIDWORD(v198);
+        v227 = v37;
+        BYTE4(buf) = [v63 matchType] == 0;
+        BYTE5(buf) = [v63 matchType] == 1;
+        range3 = [v63 range];
+        v82 = range3 / [textContent length];
+        *(&buf + 2) = v82;
+        v83 = [[SGContactDetailSupervision alloc] initWithMessage:v197 ddMatch:v63 isUnlikelyPhone:v76 & 1];
+        v84 = objc_autoreleasePoolPush();
+        v180 = v76;
+        if (v68)
         {
-          v86 = v199;
-          v87 = [SGDetectedAttributeDissector detectionFromSignatureDDMatch:"detectionFromSignatureDDMatch:message:detectedLabelRange:lastClaimedLabelRange:isUnlikelyPhone:" message:v64 detectedLabelRange:? lastClaimedLabelRange:? isUnlikelyPhone:?];
-          if (v87)
+          v85 = v197;
+          v86 = [SGDetectedAttributeDissector detectionFromSignatureDDMatch:"detectionFromSignatureDDMatch:message:detectedLabelRange:lastClaimedLabelRange:isUnlikelyPhone:" message:v63 detectedLabelRange:? lastClaimedLabelRange:? isUnlikelyPhone:?];
+          if (v86)
           {
-            v88 = v87;
-            v89 = sgLogHandle();
-            v191 = v88;
-            if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
+            v87 = v86;
+            v88 = sgLogHandle();
+            v189 = v87;
+            if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
             {
-              extraction = [v88 extraction];
-              *v224 = 138412290;
-              v225 = extraction;
+              extraction = [v87 extraction];
+              *v222 = 138412290;
+              v223 = extraction;
 @end

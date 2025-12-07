@@ -1,3943 +1,424 @@
-void sub_1E214EA20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14)
+void sub_1E20EE004(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10, uint64_t a11, id a12, id a13, uint64_t a14, id a15, uint64_t a16, id a17, uint64_t a18, id a19, uint64_t a20, char a21)
 {
-  v17 = v16;
-
-  v19 = *(v14 + 544);
-  if (v19)
+  if (a15)
   {
-    *(v14 + 552) = v19;
-    operator delete(v19);
   }
 
-  re::InsertionOrderedMap<unsigned long long,__CFString const*,std::hash<unsigned long long>,std::equal_to<unsigned long long>>::~InsertionOrderedMap(v14 + 480);
-  re::AudioSessionCache::~AudioSessionCache((v14 + 408));
-  std::__hash_table<std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,std::__unordered_map_hasher<REAudioServicesNotificationCallbackConfiguration,std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,REAudioServicesNotificationCallbackRegistry::ConfigHasher,std::equal_to<REAudioServicesNotificationCallbackConfiguration>,true>,std::__unordered_map_equal<REAudioServicesNotificationCallbackConfiguration,std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,std::equal_to<REAudioServicesNotificationCallbackConfiguration>,REAudioServicesNotificationCallbackRegistry::ConfigHasher,true>,std::allocator<std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>>>::~__hash_table(v14 + 368);
-  std::unique_ptr<re::AudioManager::PrivateData>::reset[abi:ne200100]((v14 + 360), 0);
-  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table(v14 + 272);
-  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table(v14 + 128);
-
-  std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>>>::~__hash_table(v15);
-  re::AudioService::~AudioService(v14);
-  _Unwind_Resume(a1);
-}
-
-void re::AudioManager::updateSharedAcousticPropertiesFromDefaults(re::AudioManager *this)
-{
-  v39 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E695E000] standardUserDefaults];
-  *(this + 83) = 1065353216;
-  v3 = [v2 objectForKey:@"com.apple.re.voiceGain_PHASE_dB"];
-  v4 = v3;
-  if (v3)
+  if (a19)
   {
-    [v3 floatValue];
-    v6 = fminf(v5, 10.0);
-    *(this + 81) = v6;
-    v7 = [v4 floatValue];
-    if (v6 != v8)
-    {
-      v9 = *re::audioLogObjects(v7);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-      {
-        [v4 floatValue];
-        v27 = *(this + 81);
-        v33 = 134218240;
-        v34 = v28;
-        v35 = 2048;
-        v36 = v27;
-        _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "Clamping provided PHASE voice level correction %f dB to %f dB", &v33, 0x16u);
-      }
-    }
   }
 
-  else
-  {
-    *(this + 81) = 0;
-  }
-
-  v10 = [v2 objectForKey:@"com.apple.re.sharedReverbSendLevel_PHASE_dB"];
-  v11 = v10;
-  if (v10)
-  {
-    [v10 floatValue];
-    v13 = fminf(v12, 20.0);
-    *(this + 82) = v13;
-    v14 = [v11 floatValue];
-    if (v13 != v15)
-    {
-      v16 = *re::audioLogObjects(v14);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-      {
-        [v11 floatValue];
-        v29 = *(this + 82);
-        v33 = 134218240;
-        v34 = v30;
-        v35 = 2048;
-        v36 = v29;
-        _os_log_error_impl(&dword_1E1C61000, v16, OS_LOG_TYPE_ERROR, "Clamping provided PHASE shared reverb send level %f dB to %f dB", &v33, 0x16u);
-      }
-    }
-  }
-
-  else if (_os_feature_enabled_impl())
-  {
-    *(this + 82) = 0;
-  }
-
-  else
-  {
-    *(this + 82) = -1046478848;
-  }
-
-  v17 = [v2 objectForKey:@"com.apple.re.sharedReferenceDistance"];
-  v18 = v17;
-  if (v17)
-  {
-    [v17 floatValue];
-    v20 = fmaxf(fminf(v19, 1.5), 0.2);
-    *(this + 83) = v20;
-    v17 = [v18 floatValue];
-    if (v20 != v21)
-    {
-      v22 = *re::audioLogObjects(v17);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-      {
-        [v18 floatValue];
-        v31 = *(this + 83);
-        v33 = 134218240;
-        v34 = v32;
-        v35 = 2048;
-        v36 = v31;
-        _os_log_error_impl(&dword_1E1C61000, v22, OS_LOG_TYPE_ERROR, "Clamping provided reference distance %f m to %f m", &v33, 0x16u);
-      }
-    }
-  }
-
-  v23 = *re::audioLogObjects(v17);
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
-  {
-    v24 = *(this + 82);
-    v25 = *(this + 81);
-    v26 = *(this + 83);
-    v33 = 134218496;
-    v34 = v24;
-    v35 = 2048;
-    v36 = v25;
-    v37 = 2048;
-    v38 = v26;
-    _os_log_impl(&dword_1E1C61000, v23, OS_LOG_TYPE_DEFAULT, "Applying %f dB reverb send for PHASE control path, %f dB voice gain for PHASE control path, and %f m reference distance", &v33, 0x20u);
-  }
-}
-
-void ___ZN2re12AudioManagerC2Ev_block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  v2 = [*(a1 + 32) isCancelled];
-  if (v2)
-  {
-    v3 = *re::audioLogObjects(v2);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-    {
-      *v4 = 0;
-      _os_log_debug_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_DEBUG, "Aborting callback since the engine was shut down.", v4, 2u);
-    }
-  }
-
-  else
-  {
-    re::AudioManager::updateSharedAcousticPropertiesFromDefaults(v1);
-    *(v1 + 340) = 1;
-  }
-}
-
-void re::AudioService::~AudioService(id *this)
-{
-  *this = &unk_1F5CCC398;
-  std::__hash_table<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>>>::~__hash_table((this + 2));
-}
-
-void re::AudioManager::~AudioManager(re::AudioManager *this)
-{
-  *this = &unk_1F5CCBEF8;
-  dispatch_sync(*(this + 71), &__block_literal_global_6);
-  for (i = *(this + 10); i; i = *i)
-  {
-    v3 = i[12];
-    if (v3)
-    {
-      CFRelease(v3);
-    }
-  }
-
-  v4 = *(this + 65);
-  v5 = *(this + 66);
-  while (v4 != v5)
-  {
-    v6 = std::__hash_table<std::__hash_value_type<unsigned long long,__CFString const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,__CFString const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,__CFString const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,__CFString const*>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(this + 60, *v4)[3];
-    if (v6)
-    {
-      CFRelease(v6);
-    }
-
-    ++v4;
-  }
-
-  v7 = *(this + 14);
-  if (v7)
-  {
-    CFRelease(v7);
-  }
-
-  for (j = (this + 144); ; CFRelease(j[3]))
-  {
-    j = *j;
-    if (!j)
-    {
-      break;
-    }
-  }
-
-  for (k = (this + 288); ; CFRelease(k[2]))
-  {
-    k = *k;
-    if (!k)
-    {
-      break;
-    }
-  }
-
-  notify_cancel(*(this + 84));
-
-  v10 = *(this + 68);
-  if (v10)
-  {
-    *(this + 69) = v10;
-    operator delete(v10);
-  }
-
-  v11 = *(this + 65);
-  if (v11)
-  {
-    *(this + 66) = v11;
-    operator delete(v11);
-  }
-
-  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table(this + 480);
-  re::HashTable<unsigned int,re::AudioSessionCache::CacheState,re::Hash<unsigned int>,re::EqualTo<unsigned int>,true,false>::deinit(this + 52);
-
-  std::__hash_table<std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,std::__unordered_map_hasher<REAudioServicesNotificationCallbackConfiguration,std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,REAudioServicesNotificationCallbackRegistry::ConfigHasher,std::equal_to<REAudioServicesNotificationCallbackConfiguration>,true>,std::__unordered_map_equal<REAudioServicesNotificationCallbackConfiguration,std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,std::equal_to<REAudioServicesNotificationCallbackConfiguration>,REAudioServicesNotificationCallbackRegistry::ConfigHasher,true>,std::allocator<std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>>>::~__hash_table(this + 368);
-  std::unique_ptr<re::AudioManager::PrivateData>::reset[abi:ne200100](this + 45, 0);
-  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table(this + 272);
-  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table(this + 128);
-
-  std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>>>::~__hash_table(this + 64);
-  *this = &unk_1F5CCC398;
-  std::__hash_table<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>>>::~__hash_table(this + 16);
-}
-
-void re::AudioManager::addServiceNotificationCallback(void *a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  v6 = a2;
-  v7 = a3;
-  v5 = a4;
-  REAudioServicesNotificationCallbackRegistry::registerCallback(a1 + 46, &v6, v5);
-  if (v6 <= 5uLL && ((0x37u >> v6) & 1) != 0 && BYTE1(v6) == 3)
-  {
-    (*(*a1 + 96))(a1, dword_1E30645CC[v6], v7);
-  }
-}
-
-uint64_t **re::AudioManager::removeServiceNotificationCallback(re::AudioManager *this, REAudioServicesNotificationCallbackConfiguration a2)
-{
-  v4 = a2;
-  result = REAudioServicesNotificationCallbackRegistry::unregisterCallback((this + 368), &v4);
-  if (v4.var0 <= 5uLL && ((0x37u >> v4.var0) & 1) != 0 && v4.var1 == 3)
-  {
-    return (*(*this + 104))(this, dword_1E30645CC[v4.var0], v4.var2);
-  }
-
-  return result;
-}
-
-void re::AudioManager::clearAllRenderingState(re::AudioManager *this)
-{
-  for (i = *(this + 10); i; i = *i)
-  {
-    v3 = i[12];
-    if (v3)
-    {
-      CFRelease(v3);
-    }
-  }
-
-  std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>>>::clear(this + 64);
-
-  re::AudioSessionCache::clear(this + 51);
-}
-
-void re::AudioManager::triggerServiceReset(re::AudioManager *this)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = *re::audioLogObjects(this);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    LODWORD(buf) = 134217984;
-    *(&buf + 4) = this;
-    _os_log_impl(&dword_1E1C61000, v2, OS_LOG_TYPE_DEFAULT, "AudioManager %p clearing state and triggering reset callbacks", &buf, 0xCu);
-  }
-
-  (*(*this + 952))(this);
-  (*(*this + 992))(this);
-  REAudioServicesNotificationCallbackRegistry::getCallbacksForType(this + 368, 3, &buf);
-  v4 = *(&buf + 1);
-  for (i = buf; i != v4; ++i)
-  {
-    v5 = _Block_copy(*i);
-    v5[2]();
-  }
-
-  p_buf = &buf;
-  std::vector<PHASESource * {__strong}>::__destroy_vector::operator()[abi:ne200100](&p_buf);
-}
-
-void sub_1E214F448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, char a11)
-{
-  a10 = &a11;
-  std::vector<PHASESource * {__strong}>::__destroy_vector::operator()[abi:ne200100](&a10);
-  _Unwind_Resume(a1);
-}
-
-void re::AudioManager::triggerServiceLost(re::AudioManager *this)
-{
-  REAudioServicesNotificationCallbackRegistry::getCallbacksForType(this + 368, 2, v4);
-  v1 = v4[0];
-  v2 = v4[1];
-  while (v1 != v2)
-  {
-    v3 = _Block_copy(*v1);
-    v3[2]();
-
-    ++v1;
-  }
-
-  v5 = v4;
-  std::vector<PHASESource * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v5);
-}
-
-void sub_1E214F4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
-{
-  a12 = &a9;
-  std::vector<PHASESource * {__strong}>::__destroy_vector::operator()[abi:ne200100](&a12);
-  _Unwind_Resume(a1);
-}
-
-void re::AudioManager::forceShutdown(id **this)
-{
-  [*this[45] cancel];
-
-  std::__hash_table<std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,std::__unordered_map_hasher<REAudioServicesNotificationCallbackConfiguration,std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,REAudioServicesNotificationCallbackRegistry::ConfigHasher,std::equal_to<REAudioServicesNotificationCallbackConfiguration>,true>,std::__unordered_map_equal<REAudioServicesNotificationCallbackConfiguration,std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,std::equal_to<REAudioServicesNotificationCallbackConfiguration>,REAudioServicesNotificationCallbackRegistry::ConfigHasher,true>,std::allocator<std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>>>::clear((this + 46));
-}
-
-void re::AudioManager::beforeFrameUpdate(re::AudioManager *this)
-{
-  for (i = *(this + 10); i; i = *i)
-  {
-    for (j = i[9]; j; j = *j)
-    {
-      std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::clear((j + 8));
-    }
-  }
-}
-
-void re::AudioManager::afterFrameUpdate(re::AudioManager *this, float a2)
-{
-  re::AudioManager::updateSTSStateAfterFrameUpdate(this);
-
-  re::AudioSessionCache::update((this + 408));
-}
-
-void re::AudioManager::updateSTSStateAfterFrameUpdate(re::AudioManager *this)
-{
-  v44 = *MEMORY[0x1E69E9840];
-  if (!*(this + 14))
-  {
-    if ((*(this + 576) & 1) == 0)
-    {
-      *(this + 576) = 1;
-
-      re::AudioManager::configureSTS(this);
-    }
-
-    return;
-  }
-
-  if (*(this + 256) == 1)
-  {
-    v30 = this + 176;
-    v2 = *(this + 37);
-  }
-
-  else
-  {
-    v2 = *(this + 37);
-    if (!v2)
-    {
-      goto LABEL_55;
-    }
-
-    v30 = 0;
-  }
-
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 1065353216;
-  std::__hash_table<std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>>>::__rehash<true>(&v34, v2);
-  v3 = *(this + 36);
-  if (!v3)
-  {
-    goto LABEL_30;
-  }
-
-  v31 = &v35;
-  do
-  {
-    v4 = v3[2];
-    v5 = *(v3 + 3);
-    *buf_8 = *(v3 + 2);
-    v41 = v5;
-    v6 = *(v3 + 5);
-    v42 = *(v3 + 4);
-    v43 = v6;
-    v7 = 0x9DDFEA08EB382D69 * ((8 * (v4 & 0x1FFFFFFF) + 8) ^ HIDWORD(v4));
-    v8 = 0x9DDFEA08EB382D69 * (HIDWORD(v4) ^ (v7 >> 47) ^ v7);
-    v9 = 0x9DDFEA08EB382D69 * (v8 ^ (v8 >> 47));
-    if (!*(&v34 + 1))
-    {
-      goto LABEL_28;
-    }
-
-    v10 = vcnt_s8(*(&v34 + 8));
-    v10.i16[0] = vaddlv_u8(v10);
-    if (v10.u32[0] > 1uLL)
-    {
-      v11 = 0x9DDFEA08EB382D69 * (v8 ^ (v8 >> 47));
-      if (v9 >= *(&v34 + 1))
-      {
-        v11 = v9 % *(&v34 + 1);
-      }
-    }
-
-    else
-    {
-      v11 = v9 & (*(&v34 + 1) - 1);
-    }
-
-    v12 = *(v34 + 8 * v11);
-    if (!v12 || (v13 = *v12) == 0)
-    {
-LABEL_28:
-      operator new();
-    }
-
-    while (1)
-    {
-      v14 = v13[1];
-      if (v14 == v9)
-      {
-        break;
-      }
-
-      if (v10.u32[0] > 1uLL)
-      {
-        if (v14 >= *(&v34 + 1))
-        {
-          v14 %= *(&v34 + 1);
-        }
-      }
-
-      else
-      {
-        v14 &= *(&v34 + 1) - 1;
-      }
-
-      if (v14 != v11)
-      {
-        goto LABEL_28;
-      }
-
-LABEL_27:
-      v13 = *v13;
-      if (!v13)
-      {
-        goto LABEL_28;
-      }
-    }
-
-    if (v13[2] != v4)
-    {
-      goto LABEL_27;
-    }
-
-    v3 = *v3;
-  }
-
-  while (v3);
-LABEL_30:
-  v15 = (this + 288);
-  if ((objc_opt_respondsToSelector() & 1) == 0)
-  {
-    v22 = *(this + 15);
-    v32 = 0;
-    [v22 updateGlobalState:v30 labelStates:&v34 error:&v32];
-    v21 = v32;
-    if (!v21)
-    {
-      goto LABEL_42;
-    }
-
-    goto LABEL_39;
-  }
-
-  v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v17 = *v15;
-  if (*v15)
-  {
-    do
-    {
-      if (*(v17 + 108))
-      {
-        v18 = &unk_1F5D429A8;
-      }
-
-      else
-      {
-        v18 = &unk_1F5D429C0;
-      }
-
-      v37 = @"STSAdditionalLabelInfoKey_DeferToSystemTuning";
-      v38 = v18;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:{1, v30, v31}];
-      [v16 setObject:v19 forKeyedSubscript:v17[2]];
-
-      v17 = *v17;
-    }
-
-    while (v17);
-  }
-
-  v20 = *(this + 15);
-  v33 = 0;
-  [v20 updateGlobalState:v30 labelStates:&v34 additionalLabelInfo:v16 error:{&v33, v30}];
-  v21 = v33;
-
-  if (v21)
-  {
-LABEL_39:
-    v23 = (*(*this + 112))(this);
-    if (v23)
-    {
-      v24 = *re::audioLogObjects(v23);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-      {
-        buf = 0;
-        _os_log_error_impl(&dword_1E1C61000, v24, OS_LOG_TYPE_ERROR, "[RE/STS] failed to update STS states", &buf, 2u);
-      }
-    }
-  }
-
-LABEL_42:
-  if (*(this + 256) == 1)
-  {
-    *(this + 256) = 0;
-  }
-
-  for (i = (this + 288); ; CFRelease(i[2]))
-  {
-    i = *i;
-    if (!i)
-    {
-      break;
-    }
-  }
-
-  if (*(this + 37))
-  {
-    v26 = *v15;
-    if (*v15)
-    {
-      do
-      {
-        v27 = *v26;
-        operator delete(v26);
-        v26 = v27;
-      }
-
-      while (v27);
-    }
-
-    *(this + 36) = 0;
-    v28 = *(this + 35);
-    if (v28)
-    {
-      for (j = 0; j != v28; ++j)
-      {
-        *(*(this + 34) + 8 * j) = 0;
-      }
-    }
-
-    *(this + 37) = 0;
-  }
-
-  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table(&v34);
-
-LABEL_55:
-  *(this + 340) = 0;
-}
-
-void sub_1E214FB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
-
-  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table(va);
-  _Unwind_Resume(a1);
-}
-
-void re::AudioManager::configureSTS(re::AudioManager *this)
-{
-  v2 = *(this + 14);
-  if (v2)
-  {
-    CFRelease(v2);
-    *(this + 14) = 0;
-  }
-
-  v3 = *(this + 15);
-  *(this + 15) = 0;
-
-  if (*(this + 104) == 1)
-  {
-    v5 = *re::audioLogObjects(v4);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(v9[0]) = 0;
-      _os_log_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_DEFAULT, "[RE/STS] Configuring STS controller remotely.", v9, 2u);
-    }
-
-    v6 = (*(*this + 640))(this);
-    v7 = *(this + 71);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3321888768;
-    v9[2] = ___ZN2re12AudioManager18configureSTSRemoteEv_block_invoke;
-    v9[3] = &__block_descriptor_40_ea8_32c51_ZTSKZN2re12AudioManager18configureSTSRemoteEvE3__0_e5_v8__0l;
-    v8 = v6;
-    v10 = v8;
-    dispatch_async(v7, v9);
-  }
-}
-
-BOOL re::AudioManager::setMixGroupEffectiveGain(uint64_t a1, unint64_t a2, unint64_t a3, const void **a4, uint64_t *a5)
-{
-  v21 = a3;
-  v22 = a2;
-  v23 = &v22;
-  v8 = std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 64), &v22);
-  v23 = &v21;
-  v9 = std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v8 + 7, a3);
-  v10 = std::__string_hash<char>::operator()[abi:ne200100]((v9 + 3), a4);
-  v11 = v10;
-  v12 = v9[4];
-  if (!*&v12)
-  {
-    goto LABEL_18;
-  }
-
-  v13 = vcnt_s8(v12);
-  v13.i16[0] = vaddlv_u8(v13);
-  v14 = v13.u32[0];
-  if (v13.u32[0] > 1uLL)
-  {
-    v15 = v10;
-    if (v10 >= *&v12)
-    {
-      v15 = v10 % *&v12;
-    }
-  }
-
-  else
-  {
-    v15 = (*&v12 - 1) & v10;
-  }
-
-  v16 = *(v9[3] + 8 * v15);
-  if (!v16 || (v17 = *v16) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
+  v23 = 184;
   while (1)
   {
-    v18 = v17[1];
-    if (v18 == v11)
+    v24 = *(&a21 + v23);
+    if (v24)
     {
-      break;
+
+      *(&a21 + v23) = 0;
     }
 
-    if (v14 > 1)
+    v23 -= 24;
+    if (v23 == -8)
     {
-      if (v18 >= *&v12)
-      {
-        v18 %= *&v12;
-      }
+
+      _Unwind_Resume(a1);
     }
-
-    else
-    {
-      v18 &= *&v12 - 1;
-    }
-
-    if (v18 != v15)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v17 = *v17;
-    if (!v17)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  result = std::equal_to<std::string>::operator()[abi:ne200100]((v9 + 3), v17 + 2, a4);
-  if (!result)
-  {
-    goto LABEL_17;
-  }
-
-  v20 = *a5;
-  *(v17 + 24) = *(a5 + 4);
-  v17[5] = v20;
-  return result;
-}
-
-void re::AudioManager::updateSourceState(int8x8_t *this, const re::AudioSourceState *a2)
-{
-  v98 = *MEMORY[0x1E69E9840];
-  (*(*this + 1000))(this);
-  if (*(a2 + 60) == -1)
-  {
-    *(a2 + 97) = 0;
-    return;
-  }
-
-  if (!*(a2 + 9) && *(a2 + 264) != 0)
-  {
-    if (this[40].i8[0] == 1)
-    {
-      *(a2 + 97) = *(a2 + 33);
-      v4 = *(*this + 1016);
-      v5 = this;
-      v6 = a2;
-
-LABEL_7:
-      v4(v5, v6);
-      return;
-    }
-
-    return;
-  }
-
-  v7 = *(a2 + 36);
-  if (v7)
-  {
-    v8 = v7 >> 1;
-  }
-
-  else
-  {
-    v8 = v7 >> 1;
-  }
-
-  if (!v8)
-  {
-    v4 = *(*this + 1008);
-    v5 = this;
-    v6 = a2;
-
-    goto LABEL_7;
-  }
-
-  if (this[14])
-  {
-    v9 = (a2 + 480);
-    v10 = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(&this[8], a2 + 60);
-    if (v10 && (v11 = *(v10 + 12)) != 0)
-    {
-      v12 = v11;
-    }
-
-    else
-    {
-      v13 = *re::audioLogObjects(v10);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-      {
-        v14 = *v9;
-        *buf = 134217984;
-        *&buf[4] = v14;
-        _os_log_impl(&dword_1E1C61000, v13, OS_LOG_TYPE_DEFAULT, "[RE/STS] Creating sts-label-count dictionary for scene %llu", buf, 0xCu);
-      }
-
-      Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 1, MEMORY[0x1E695E528], MEMORY[0x1E695E9E8]);
-      *buf = a2 + 480;
-      std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&this[8], a2 + 60)[12] = Mutable;
-      v12 = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(&this[8], a2 + 60)[12];
-      if (!v12)
-      {
-        v39 = *re::audioLogObjects(0);
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
-        {
-          v40 = *v9;
-          *buf = 134217984;
-          *&buf[4] = v40;
-          _os_log_error_impl(&dword_1E1C61000, v39, OS_LOG_TYPE_ERROR, "[RE/STS] Could not find sts-label-count dictionary for scene ID %llu", buf, 0xCu);
-        }
-
-        return;
-      }
-    }
-
-    v16 = *(a2 + 102);
-    if (!v16)
-    {
-      if (*(a2 + 36))
-      {
-        v17 = *(a2 + 37);
-      }
-
-      else
-      {
-        v17 = a2 + 289;
-      }
-
-      v18 = CFStringCreateWithCString(*MEMORY[0x1E695E480], v17, 0x8000100u);
-      *(a2 + 102) = v18;
-      if (!v18)
-      {
-        snprintf(buf, 0x64uLL, "badlabel%llu", *(a2 + 89));
-        std::string::basic_string[abi:ne200100]<0>(v90, buf);
-        v41 = re::audio::throttledLog(OS_LOG_TYPE_ERROR, v90);
-        v42 = v41;
-        if (v93 < 0)
-        {
-          operator delete(*v90);
-        }
-
-        if (v42)
-        {
-          v43 = *re::audioLogObjects(v41);
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
-          {
-            v74 = *(a2 + 89);
-            if (*(a2 + 36))
-            {
-              v75 = *(a2 + 37);
-            }
-
-            else
-            {
-              v75 = a2 + 289;
-            }
-
-            *v90 = 134218242;
-            *&v90[4] = v74;
-            v91 = 2080;
-            v92 = v75;
-            _os_log_error_impl(&dword_1E1C61000, v43, OS_LOG_TYPE_ERROR, "[RE/STS] AudioManager failed to create sts label for token %llu's introspected value %s", v90, 0x16u);
-          }
-        }
-
-        goto LABEL_103;
-      }
-
-      v16 = v18;
-      v19 = [v12 objectForKey:v16];
-      v20 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v19, "intValue") + 1}];
-      [v12 setValue:v20 forKey:v16];
-
-      v22 = *re::audioLogObjects(v21);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-      {
-        v23 = *(a2 + 89);
-        *buf = 138412546;
-        *&buf[4] = v16;
-        *&buf[12] = 2048;
-        *&buf[14] = v23;
-        _os_log_impl(&dword_1E1C61000, v22, OS_LOG_TYPE_DEFAULT, "[RE/STS] AudioManager Tracking STS label %@ with token: %llu", buf, 0x16u);
-      }
-    }
-
-    v24 = [v12 objectForKey:v16];
-    if ([v24 intValue] != 1 && (*(a2 + 824) & 1) == 0)
-    {
-LABEL_102:
-
-LABEL_103:
-      return;
-    }
-
-    if ([v24 intValue] == 1)
-    {
-      *(a2 + 824) = 1;
-    }
-
-    v96 = 0u;
-    v97 = 0u;
-    v95 = 0u;
-    memset(buf, 0, sizeof(buf));
-    if (*(a2 + 312))
-    {
-      v25 = 2;
-    }
-
-    else
-    {
-      v25 = *(a2 + 508);
-    }
-
-    if (v25 <= 2u)
-    {
-      LODWORD(v97) = dword_1E30645E4[v25];
-    }
-
-    ShouldConfigureTuningForSTSLabels = REAudioShouldConfigureTuningForSTSLabels();
-    v27 = ShouldConfigureTuningForSTSLabels;
-    if (*(a2 + 825) == 1 && *(a2 + 826) == v25)
-    {
-LABEL_75:
-      if (v25 == 2)
-      {
-        *buf = xmmword_1E3047670;
-        *&buf[16] = xmmword_1E3047680;
-        v95 = xmmword_1E30476A0;
-        if (*(a2 + 508) == 2)
-        {
-          v76 = *(a2 + 22);
-          v80 = *(a2 + 23);
-          *allocatorb = *(a2 + 24);
-          *cfb = *(a2 + 25);
-          (*(*this + 424))(this);
-          __asm { FMOV            V2.4S, #-1.0 }
-
-          v59 = vaddq_f32(vmlaq_f32(vmlaq_f32(vmlaq_f32(vmulq_f32(v76, 0), 0, v80), _Q2, *allocatorb), 0, *cfb), v58);
-        }
-
-        else
-        {
-          v59 = *(a2 + 25);
-        }
-
-        v96 = v59;
-      }
-
-      else if (!v25)
-      {
-        v51 = *(a2 + 23);
-        *buf = *(a2 + 22);
-        *&buf[16] = v51;
-        v52 = *(a2 + 25);
-        v95 = *(a2 + 24);
-        v96 = v52;
-      }
-
-      v60 = 1.0;
-      v61 = 1.0;
-      if (*(a2 + 168) == 1)
-      {
-        v62 = *(a2 + 60);
-        v63 = re::AudioSourceState::playbackHostConnectionIdentifier(a2);
-        if (*(a2 + 23))
-        {
-          v64 = *(a2 + 24);
-        }
-
-        else
-        {
-          v64 = a2 + 185;
-        }
-
-        std::string::basic_string[abi:ne200100]<0>(v90, v64);
-        v65 = re::AudioManager::mixGroupState(this, v62, v63, v90);
-        if (v93 < 0)
-        {
-          operator delete(*v90);
-        }
-
-        if (v65)
-        {
-          v61 = *(v65 + 1);
-        }
-      }
-
-      v66 = v27 ^ 1;
-      if (v25)
-      {
-        v66 = 1;
-      }
-
-      if ((v66 & 1) == 0)
-      {
-        v60 = *&this[41].i32[1];
-      }
-
-      *v87 = a2 + 480;
-      v67 = std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&this[8], a2 + 60);
-      v68 = 1.0;
-      v69 = 50.0;
-      if (v25 != 1 && v67[4] != -1)
-      {
-        v70 = *(a2 + 28);
-        v71 = v70 + (log10f(v60) * 20.0);
-        if (v71 > 20.0)
-        {
-          v71 = 20.0;
-        }
-
-        v72 = __exp10f(v71 / 20.0);
-        v73 = (v72 * v72) / ((v72 * v72) + 1.0);
-        v68 = 1.0 / sqrtf(1.0 - v73);
-        v69 = v73 * 100.0;
-      }
-
-      if (v25 != 1)
-      {
-        v68 = v68 / v60;
-      }
-
-      *(&v97 + 1) = log10f((v61 * *(a2 + 40)) * v68) * 20.0;
-      *(&v97 + 2) = v69;
-      BYTE12(v97) = *(a2 + 312);
-      re::AudioManager::storePendingStateForSTSLabel(this, *(a2 + 102), buf);
-      goto LABEL_102;
-    }
-
-    v28 = *re::audioLogObjects(ShouldConfigureTuningForSTSLabels);
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
-    {
-      v29 = *(a2 + 102);
-      *v90 = 138412546;
-      *&v90[4] = v29;
-      v91 = 1024;
-      LODWORD(v92) = v25;
-      _os_log_impl(&dword_1E1C61000, v28, OS_LOG_TYPE_DEFAULT, "[RE/STS] STSLabel %@ changed input mode to %d", v90, 0x12u);
-    }
-
-    if (!v27 || (v30 = *(a2 + 102)) == 0 || !*&this[14] || (v31 = REAudioShouldConfigureTuningForSTSLabels(), !v31))
-    {
-LABEL_72:
-      if ((*(a2 + 825) & 1) == 0)
-      {
-        *(a2 + 825) = 1;
-      }
-
-      *(a2 + 826) = v25;
-      goto LABEL_75;
-    }
-
-    v32 = *re::audioLogObjects(v31);
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
-    {
-      *v90 = 138412546;
-      *&v90[4] = v30;
-      v91 = 1024;
-      LODWORD(v92) = v25;
-      _os_log_impl(&dword_1E1C61000, v32, OS_LOG_TYPE_DEFAULT, "[RE/STS] updating distance attenuation model for STS label %@ based on input mode %d", v90, 0x12u);
-    }
-
-    *v87 = 0x447A00003F800000;
-    v88 = 1114636288;
-    *bytes = 2;
-    if (!v25)
-    {
-      v88 = 1114636288;
-      *bytes = 1;
-      v33 = *&this[41].i32[1] * 1000.0;
-      *v87 = this[41].i32[1];
-      *&v87[4] = v33;
-    }
-
-    HexCFStringForInt = re::AudioManager::getHexCFStringForInt(this, 3013);
-    allocator = *MEMORY[0x1E695E480];
-    cf = CFDataCreate(*MEMORY[0x1E695E480], bytes, 4);
-    v34 = this[14];
-    VTable = CMBaseObjectGetVTable();
-    v37 = *(VTable + 16);
-    v36 = (VTable + 16);
-    v38 = *(v37 + 24);
-    if (v38)
-    {
-      v36 = v38(*&v34, v30, HexCFStringForInt, cf);
-      v78 = v36;
-      if (!v36)
-      {
-        goto LABEL_65;
-      }
-    }
-
-    else
-    {
-      v78 = -12782;
-    }
-
-    v44 = *re::audioLogObjects(v36);
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
-    {
-      *v90 = 138412546;
-      *&v90[4] = v30;
-      v91 = 1024;
-      LODWORD(v92) = v78;
-      _os_log_error_impl(&dword_1E1C61000, v44, OS_LOG_TYPE_ERROR, "[RE/STS] FigSTSSetPropertyByLabel for label %@ attenuation curve error=%d", v90, 0x12u);
-    }
-
-LABEL_65:
-    CFRelease(cf);
-    v79 = re::AudioManager::getHexCFStringForInt(this, 3010);
-    cfa = CFDataCreate(allocator, v87, 12);
-    v45 = this[14];
-    v46 = CMBaseObjectGetVTable();
-    v48 = *(v46 + 16);
-    v47 = (v46 + 16);
-    v49 = *(v48 + 24);
-    if (v49)
-    {
-      v47 = v49(*&v45, v30, v79, cfa);
-      allocatora = v47;
-      if (!v47)
-      {
-LABEL_71:
-        CFRelease(cfa);
-        goto LABEL_72;
-      }
-    }
-
-    else
-    {
-      allocatora = -12782;
-    }
-
-    v50 = *re::audioLogObjects(v47);
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
-    {
-      *v90 = 138412546;
-      *&v90[4] = v30;
-      v91 = 1024;
-      LODWORD(v92) = allocatora;
-      _os_log_error_impl(&dword_1E1C61000, v50, OS_LOG_TYPE_ERROR, "[RE/STS] FigSTSSetPropertyByLabel for label %@ distance params error=%d", v90, 0x12u);
-    }
-
-    goto LABEL_71;
   }
 }
 
-uint64_t *re::AudioManager::mixGroupState(uint64_t a1, unint64_t a2, unint64_t a3, const void **a4)
-{
-  v18 = a3;
-  v19 = a2;
-  result = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>((a1 + 64), &v19);
-  if (result)
-  {
-    v7 = result;
-    v20 = &v18;
-    v8 = std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(result + 7, a3);
-    v9 = std::__string_hash<char>::operator()[abi:ne200100]((v8 + 3), a4);
-    v10 = v8[4];
-    if (!*&v10)
-    {
-      goto LABEL_19;
-    }
-
-    v11 = v9;
-    v12 = vcnt_s8(v10);
-    v12.i16[0] = vaddlv_u8(v12);
-    v13 = v12.u32[0];
-    if (v12.u32[0] > 1uLL)
-    {
-      v14 = v9;
-      if (v9 >= *&v10)
-      {
-        v14 = v9 % *&v10;
-      }
-    }
-
-    else
-    {
-      v14 = (*&v10 - 1) & v9;
-    }
-
-    v15 = *(v8[3] + 8 * v14);
-    if (v15)
-    {
-      for (i = *v15; i; i = *i)
-      {
-        v17 = i[1];
-        if (v17 == v11)
-        {
-          if (std::equal_to<std::string>::operator()[abi:ne200100]((v8 + 3), i + 2, a4))
-          {
-            break;
-          }
-        }
-
-        else
-        {
-          if (v13 > 1)
-          {
-            if (v17 >= *&v10)
-            {
-              v17 %= *&v10;
-            }
-          }
-
-          else
-          {
-            v17 &= *&v10 - 1;
-          }
-
-          if (v17 != v14)
-          {
-            goto LABEL_19;
-          }
-        }
-      }
-    }
-
-    else
-    {
-LABEL_19:
-      i = 0;
-    }
-
-    v20 = &v18;
-    std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v7 + 7, v18);
-    if (i)
-    {
-      return (i + 5);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-float re::AudioManager::mixGroupSignalPresent(uint64_t a1, unint64_t a2, unint64_t a3, const void **a4)
-{
-  v20 = a3;
-  v21 = a2;
-  v6 = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>((a1 + 64), &v21);
-  v7 = 0.0;
-  if (v6)
-  {
-    v8 = v6;
-    v22 = &v20;
-    v9 = std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v6 + 7, a3);
-    v10 = std::__string_hash<char>::operator()[abi:ne200100]((v9 + 8), a4);
-    v11 = v9[9];
-    if (!*&v11)
-    {
-      goto LABEL_19;
-    }
-
-    v12 = v10;
-    v13 = vcnt_s8(v11);
-    v13.i16[0] = vaddlv_u8(v13);
-    v14 = v13.u32[0];
-    if (v13.u32[0] > 1uLL)
-    {
-      v15 = v10;
-      if (v10 >= *&v11)
-      {
-        v15 = v10 % *&v11;
-      }
-    }
-
-    else
-    {
-      v15 = (*&v11 - 1) & v10;
-    }
-
-    v16 = *(v9[8] + 8 * v15);
-    if (v16)
-    {
-      for (i = *v16; i; i = *i)
-      {
-        v18 = i[1];
-        if (v18 == v12)
-        {
-          if (std::equal_to<std::string>::operator()[abi:ne200100]((v9 + 8), i + 2, a4))
-          {
-            break;
-          }
-        }
-
-        else
-        {
-          if (v14 > 1)
-          {
-            if (v18 >= *&v11)
-            {
-              v18 %= *&v11;
-            }
-          }
-
-          else
-          {
-            v18 &= *&v11 - 1;
-          }
-
-          if (v18 != v15)
-          {
-            goto LABEL_19;
-          }
-        }
-      }
-    }
-
-    else
-    {
-LABEL_19:
-      i = 0;
-    }
-
-    v22 = &v20;
-    std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v8 + 7, v20);
-    if (i)
-    {
-      return *(i + 10);
-    }
-  }
-
-  return v7;
-}
-
-unint64_t *re::AudioManager::createListenerInScene(uint64_t a1, unint64_t a2)
-{
-  v5 = a2;
-  for (__buf = 0; __buf < 0x3E8; v3 = __buf)
-  {
-    arc4random_buf(&__buf, 8uLL);
-  }
-
-  __buf = &v5;
-  std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 64), &v5)[3] = v3;
-  return v3;
-}
-
-uint64_t re::AudioManager::removeListenerFromScene(uint64_t this, uint64_t a2)
-{
-  for (i = *(this + 80); i; i = *i)
-  {
-    if (i[3] == a2)
-    {
-      i[3] = 0;
-    }
-  }
-
-  return this;
-}
-
-simd_float4 *re::AudioManager::setListenerTransformAndLevel(simd_float4 *this, unint64_t a2, const simd_float4x4 *a3, float a4, uint64_t a5)
-{
-  if (this[6].i8[8] == 1)
-  {
-    v5 = a3->columns[0];
-    v8 = a3->columns[1];
-    v6 = a3->columns[2];
-    v9 = a3->columns[3];
-    v7 = this[16].i8[0];
-    this[11].i64[0] = a5;
-    this[11].i64[1] = 0;
-    this[12] = v5;
-    this[13] = v8;
-    this[14] = v6;
-    this[15] = v9;
-    if ((v7 & 1) == 0)
-    {
-      this[16].i8[0] = 1;
-    }
-  }
-
-  return this;
-}
-
-void *re::AudioManager::sceneContainsSystemListener(re::AudioManager *this, unint64_t a2)
-{
-  v6 = a2;
-  result = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(this + 8, &v6);
-  if (result)
-  {
-    v4 = *(this + 39);
-    return (result[3] == v4 && v4 != 0);
-  }
-
-  return result;
-}
-
-void re::AudioManager::applyReverbParametersToScene(re::AudioManager *this, unint64_t a2)
-{
-  v30 = *MEMORY[0x1E69E9840];
-  v27 = a2;
-  if (!*(this + 14) || *(this + 104) != 1 || !(*(*this + 1032))(this) || !REAudioShouldConfigureTuningForSTSLabels())
-  {
-    return;
-  }
-
-  v3 = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(this + 8, &v27);
-  v4 = v3;
-  if (v3)
-  {
-    v5 = v3[4] != -1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  *bytes = v5;
-  HexCFStringForInt = re::AudioManager::getHexCFStringForInt(this, 1005);
-  v7 = *MEMORY[0x1E695E480];
-  v8 = CFDataCreate(*MEMORY[0x1E695E480], bytes, 4);
-  v9 = *(this + 14);
-  v10 = *MEMORY[0x1E69AF598];
-  VTable = CMBaseObjectGetVTable();
-  v13 = *(VTable + 16);
-  v12 = (VTable + 16);
-  v14 = *(v13 + 24);
-  if (v14)
-  {
-    v12 = v14(v9, v10, HexCFStringForInt, v8);
-    v15 = v12;
-    if (!v12)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  else
-  {
-    v15 = -12782;
-  }
-
-  v16 = *re::audioLogObjects(v12);
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 67109120;
-    v29 = v15;
-    _os_log_error_impl(&dword_1E1C61000, v16, OS_LOG_TYPE_ERROR, "[RE/STS] FigSTSSetPropertyByLabel reverb enabled error=%d", buf, 8u);
-  }
-
-LABEL_14:
-  CFRelease(v8);
-  if (*bytes && v4[4] != -1)
-  {
-    v25 = v4[4];
-    v17 = CFDataCreate(v7, &v25, 4);
-    v18 = *(this + 14);
-    v19 = CMBaseObjectGetVTable();
-    v21 = *(v19 + 16);
-    v20 = (v19 + 16);
-    v22 = *(v21 + 24);
-    if (v22)
-    {
-      v20 = v22(v18, v10, @"ReverbRoomType", v17);
-      v23 = v20;
-      if (!v20)
-      {
-LABEL_22:
-        CFRelease(v17);
-        return;
-      }
-    }
-
-    else
-    {
-      v23 = -12782;
-    }
-
-    v24 = *re::audioLogObjects(v20);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 67109120;
-      v29 = v23;
-      _os_log_error_impl(&dword_1E1C61000, v24, OS_LOG_TYPE_ERROR, "[RE/STS] FigSTSSetPropertyByLabel kSTSLabelProperty_ReverbRoomType error=%d", buf, 8u);
-    }
-
-    goto LABEL_22;
-  }
-}
-
-uint64_t re::AudioManager::getHexCFStringForInt(re::AudioManager *this, uint64_t a2)
-{
-  v2 = a2;
-  v12 = a2;
-  v4 = *(this + 17);
-  if (v4)
-  {
-    v5 = vcnt_s8(v4);
-    v5.i16[0] = vaddlv_u8(v5);
-    if (v5.u32[0] > 1uLL)
-    {
-      v6 = a2;
-      if (v4 <= a2)
-      {
-        v6 = a2 % v4;
-      }
-    }
-
-    else
-    {
-      v6 = (v4 - 1) & a2;
-    }
-
-    v7 = *(*(this + 16) + 8 * v6);
-    if (v7)
-    {
-      for (i = *v7; i; i = *i)
-      {
-        v9 = i[1];
-        if (v9 == a2)
-        {
-          if (*(i + 4) == a2)
-          {
-            goto LABEL_18;
-          }
-        }
-
-        else
-        {
-          if (v5.u32[0] > 1uLL)
-          {
-            if (v9 >= v4)
-            {
-              v9 %= v4;
-            }
-          }
-
-          else
-          {
-            v9 &= v4 - 1;
-          }
-
-          if (v9 != v6)
-          {
-            break;
-          }
-        }
-      }
-    }
-  }
-
-  v10 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%x", a2);
-  v13 = &v12;
-  std::__hash_table<std::__hash_value_type<unsigned int,__CFString const*>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CFString const*>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CFString const*>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CFString const*>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 16, v2)[3] = v10;
-  v2 = v12;
-LABEL_18:
-  v13 = &v12;
-  return std::__hash_table<std::__hash_value_type<unsigned int,__CFString const*>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CFString const*>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CFString const*>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CFString const*>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 16, v2)[3];
-}
-
-void *re::AudioManager::setSceneReverbPreset(void *a1, unint64_t a2, uint64_t a3, int a4)
+void re::anonymous namespace::copyDirectMeshPayload(size_t *a1, void *a2, uint64_t a3)
 {
   v10 = a2;
-  result = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(a1 + 8, &v10);
-  if (!result || (result[4] == a3 ? (v8 = *(result + 40) == a4) : (v8 = 0), !v8))
+  Length = DRMemoryResourceGetLength();
+  v5 = DRMemoryResourceCreate();
+  if (v5)
   {
-    v9 = v10;
-    v11 = &v10;
-    std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 8, &v10)[6] = v9;
-    v11 = &v10;
-    std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 8, &v10)[4] = a3;
-    v11 = &v10;
-    *(std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 8, &v10) + 40) = a4;
-    return (*(*a1 + 1024))(a1, v10);
-  }
-
-  return result;
-}
-
-uint64_t re::AudioManager::getSceneReverbPreset(int8x8_t *this, unint64_t a2)
-{
-  v2 = this[9];
-  if (v2)
-  {
-    v3 = vcnt_s8(v2);
-    v3.i16[0] = vaddlv_u8(v3);
-    if (v3.u32[0] > 1uLL)
+    if (DRMemoryResourceGetLength() < Length)
     {
-      v4 = a2;
-      if (*&v2 <= a2)
-      {
-        v4 = a2 % *&v2;
-      }
-    }
-
-    else
-    {
-      v4 = (*&v2 - 1) & a2;
-    }
-
-    v5 = *(*&this[8] + 8 * v4);
-    if (v5)
-    {
-      for (i = *v5; i; i = *i)
-      {
-        v7 = i[1];
-        if (v7 == a2)
-        {
-          if (i[2] == a2)
-          {
-            return i[4];
-          }
-        }
-
-        else
-        {
-          if (v3.u32[0] > 1uLL)
-          {
-            if (v7 >= *&v2)
-            {
-              v7 %= *&v2;
-            }
-          }
-
-          else
-          {
-            v7 &= *&v2 - 1;
-          }
-
-          if (v7 != v4)
-          {
-            return -1;
-          }
-        }
-      }
-    }
-  }
-
-  return -1;
-}
-
-void re::AudioManager::removeSourceFromSceneIfIncorrectlyConnected(re::AudioManager *this, const re::AudioSourceState *a2)
-{
-  v19 = *MEMORY[0x1E69E9840];
-  if (*(a2 + 60) == -1)
-  {
-    v4 = *(a2 + 102);
-    if (v4)
-    {
-      v5 = *(this + 10);
-      if (v5)
-      {
-        do
-        {
-          v6 = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(this + 8, v5 + 2);
-          if (v6)
-          {
-            v7 = v6[12];
-            if (v7)
-            {
-              v8 = v7;
-              v9 = *(a2 + 102);
-              v10 = [v8 objectForKey:v9];
-              if ([v10 intValue] < 2)
-              {
-                [v8 removeObjectForKey:v9];
-                v12 = *re::audioLogObjects([*(this + 15) cleanupLabel:*(a2 + 102)]);
-                if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-                {
-                  v13 = *(a2 + 89);
-                  *buf = 138412546;
-                  v16 = v9;
-                  v17 = 2048;
-                  v18 = v13;
-                  _os_log_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_DEFAULT, "[RE/STS] AudioManager is no longer tracking STSLabel %@ after removing last token %llu", buf, 0x16u);
-                }
-
-                for (i = *(this + 36); i; i = std::__hash_table<std::__hash_value_type<__CFString const*,re::AudioManager::RESTSPerLabelState>,std::__unordered_map_hasher<__CFString const*,std::__hash_value_type<__CFString const*,re::AudioManager::RESTSPerLabelState>,re::AudioManager::CFStringHash,re::AudioManager::CFStringEqual,true>,std::__unordered_map_equal<__CFString const*,std::__hash_value_type<__CFString const*,re::AudioManager::RESTSPerLabelState>,re::AudioManager::CFStringEqual,re::AudioManager::CFStringHash,true>,std::allocator<std::__hash_value_type<__CFString const*,re::AudioManager::RESTSPerLabelState>>>::erase(this + 34, i))
-                {
-                  while (CFStringCompare(*(i + 16), *(a2 + 102), 0))
-                  {
-                    i = *i;
-                    if (!i)
-                    {
-                      goto LABEL_15;
-                    }
-                  }
-
-                  CFRelease(*(i + 16));
-                }
-              }
-
-              else
-              {
-                v11 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v10, "intValue") - 1}];
-                [v8 setValue:v11 forKey:v9];
-              }
-
-LABEL_15:
-            }
-          }
-
-          v5 = *v5;
-        }
-
-        while (v5);
-        v4 = *(a2 + 102);
-      }
-
-      CFRelease(v4);
-      *(a2 + 102) = 0;
-      *(a2 + 824) = 0;
-    }
-  }
-}
-
-void re::AudioManager::addTrackedCALayerEntityId(re::AudioManager *this, unint64_t a2, CFStringRef theString)
-{
-  v35 = *MEMORY[0x1E69E9840];
-  if (*(this + 104) != 1)
-  {
-    return;
-  }
-
-  if (!theString)
-  {
-    v9 = *re::audioLogObjects(this);
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
+      re::internal::assertLog(4, v6, "assertion failure: '%s' (%s:line %i) ", "destBufferSize >= srcBufferSize", "copyDirectMeshPayload", 1194);
+      _os_crash("assertion failure: (destBufferSize >= srcBufferSize) ");
+      __break(1u);
       return;
     }
 
-    v29 = 134217984;
-    v30 = a2;
-    v10 = "[RE/STS] AudioManager has been requested to track an entity but no STS label has been provided - entityId=%llu will not be tracked.";
-    goto LABEL_23;
-  }
-
-  Copy = CFStringCreateCopy(*MEMORY[0x1E695E480], theString);
-  if (!Copy)
-  {
-    v9 = *re::audioLogObjects(0);
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    Bytes = DRMemoryResourceGetBytes();
+    v8 = DRMemoryResourceGetBytes();
+    memcpy(v8, Bytes, Length);
+    DRMemoryResourceDidUpdateBytes();
+    v9 = v5;
+    *a1 = Length;
+    a1[1] = v8;
+    a1[2] = v9;
+    if (v9)
     {
-      return;
-    }
-
-    v29 = 134217984;
-    v30 = a2;
-    v10 = "[RE/STS] failed to copy tracked CALayer's label, entityId=%llu will not be tracked";
-LABEL_23:
-    _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, v10, &v29, 0xCu);
-    return;
-  }
-
-  v6 = Copy;
-  v7 = *(this + 65);
-  v8 = *(this + 66);
-  if (v7 != v8)
-  {
-    while (*v7 != a2)
-    {
-      if (++v7 == v8)
-      {
-        goto LABEL_18;
-      }
-    }
-  }
-
-  if (v7 != v8)
-  {
-    v11 = *re::audioLogObjects(Copy);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      v28 = std::__hash_table<std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>>>::find<unsigned long long>(this + 60, *v7)[3];
-      v29 = 134218498;
-      v30 = a2;
-      v31 = 2112;
-      v32 = v28;
-      v33 = 2112;
-      v34 = v6;
-      _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "[RE/STS] AudioManager is overriding STS label for entityId=%llu. Was previously %@, is now %@.", &v29, 0x20u);
-    }
-
-    v12 = *v7;
-    if (std::__hash_table<std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>>>::find<unsigned long long>(this + 60, *v7)[3])
-    {
-      [*(this + 15) cleanupLabel:?];
-      v13 = std::__hash_table<std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>>>::find<unsigned long long>(this + 60, *v7);
-      CFRelease(v13[3]);
-      v12 = *v7;
-    }
-
-    std::__hash_table<std::__hash_value_type<unsigned long long,RESoundEventPreparingData>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,RESoundEventPreparingData>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,RESoundEventPreparingData>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,RESoundEventPreparingData>>>::__erase_unique<unsigned long long>(this + 60, v12);
-    v14 = *(this + 66);
-    v15 = v14 - (v7 + 1);
-    if (v14 != v7 + 1)
-    {
-      memmove(v7, v7 + 1, v14 - (v7 + 1));
-    }
-
-    v8 = (v7 + v15);
-    *(this + 66) = v7 + v15;
-  }
-
-LABEL_18:
-  v16 = (this + 520);
-  v17 = *(this + 488);
-  if (!*&v17)
-  {
-    goto LABEL_38;
-  }
-
-  v18 = vcnt_s8(v17);
-  v18.i16[0] = vaddlv_u8(v18);
-  if (v18.u32[0] > 1uLL)
-  {
-    v19 = a2;
-    if (*&v17 <= a2)
-    {
-      v19 = a2 % *&v17;
     }
   }
 
   else
   {
-    v19 = (*&v17 - 1) & a2;
-  }
-
-  v20 = *(*(this + 60) + 8 * v19);
-  if (!v20 || (v21 = *v20) == 0)
-  {
-LABEL_38:
-    operator new();
-  }
-
-  while (1)
-  {
-    v22 = v21[1];
-    if (v22 == a2)
-    {
-      break;
-    }
-
-    if (v18.u32[0] > 1uLL)
-    {
-      if (v22 >= *&v17)
-      {
-        v22 %= *&v17;
-      }
-    }
-
-    else
-    {
-      v22 &= *&v17 - 1;
-    }
-
-    if (v22 != v19)
-    {
-      goto LABEL_38;
-    }
-
-LABEL_37:
-    v21 = *v21;
-    if (!v21)
-    {
-      goto LABEL_38;
-    }
-  }
-
-  if (v21[2] != a2)
-  {
-    goto LABEL_37;
-  }
-
-  v25 = *v16;
-  if (*v16 != v8)
-  {
-    v26 = *v16;
-    while (*v26 != a2)
-    {
-      ++v26;
-      ++v25;
-      if (v26 == v8)
-      {
-        v25 = v8;
-        break;
-      }
-    }
-  }
-
-  v27 = v8 - (v25 + 1);
-  if (v8 != v25 + 1)
-  {
-    memmove(v25, v25 + 1, v8 - (v25 + 1));
-  }
-
-  *(this + 66) = v25 + v27;
-  std::vector<unsigned long long>::push_back[abi:ne200100](this + 65, v21 + 2);
-  v24 = *re::audioLogObjects(v23);
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-  {
-    v29 = 134218242;
-    v30 = a2;
-    v31 = 2112;
-    v32 = v6;
-    _os_log_impl(&dword_1E1C61000, v24, OS_LOG_TYPE_DEFAULT, "[RE/STS] AudioManager is now tracking CALayer entityId=%llu with STS label %@", &v29, 0x16u);
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
   }
 }
 
-void re::AudioManager::removeTrackedCALayerEntityId(re::AudioManager *this, uint64_t a2)
+void re::MeshPayload::dynamicCast(uint64_t *__return_ptr a1@<X8>, id *this@<X0>)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  if (*(this + 104) == 1)
+  v4 = *this;
+  if ([v4 conformsToProtocol:&unk_1F5D44AD8])
   {
-    v4 = *(this + 65);
-    v5 = *(this + 66);
-    if (v4 != v5)
-    {
-      while (*v4 != a2)
-      {
-        if (++v4 == v5)
-        {
-          goto LABEL_14;
-        }
-      }
-    }
+    v3 = v4;
+  }
 
-    if (v4 == v5)
-    {
-LABEL_14:
-      v12 = *re::audioLogObjects(this);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        v13 = 134217984;
-        v14 = a2;
-        _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "[RE/STS] can't remove unknown tracked CALayer entityId %llu", &v13, 0xCu);
-      }
-    }
+  else
+  {
+    v3 = 0;
+  }
 
-    else
-    {
-      v6 = *re::audioLogObjects(this);
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-      {
-        v7 = std::__hash_table<std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>>>::find<unsigned long long>(this + 60, *v4)[3];
-        v13 = 134218242;
-        v14 = a2;
-        v15 = 2112;
-        v16 = v7;
-        _os_log_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_DEFAULT, "[RE/STS] no longer tracking CALayer entityId %llu with label %@", &v13, 0x16u);
-      }
+  *a1 = v3;
+}
 
-      v8 = *v4;
-      if (std::__hash_table<std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>>>::find<unsigned long long>(this + 60, *v4)[3])
-      {
-        [*(this + 15) cleanupLabel:?];
-        v9 = std::__hash_table<std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>>>::find<unsigned long long>(this + 60, *v4);
-        CFRelease(v9[3]);
-        v8 = *v4;
-      }
+void re::MeshPayload::makeMeshPayloadBuffers(uint64_t *__return_ptr a1@<X8>, id *this@<X0>, id *a3@<X1>)
+{
+  v6 = *this;
+  v5 = *a3;
+  if (v6)
+  {
+    [v6 meshPayloadBuffersWithDevice:v5];
+  }
 
-      std::__hash_table<std::__hash_value_type<unsigned long long,RESoundEventPreparingData>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,RESoundEventPreparingData>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,RESoundEventPreparingData>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,RESoundEventPreparingData>>>::__erase_unique<unsigned long long>(this + 60, v8);
-      v10 = *(this + 66);
-      v11 = v10 - (v4 + 1);
-      if (v10 != v4 + 1)
-      {
-        memmove(v4, v4 + 1, v10 - (v4 + 1));
-      }
-
-      *(this + 66) = v4 + v11;
-    }
+  else
+  {
+    a1[24] = 0;
+    *(a1 + 10) = 0u;
+    *(a1 + 11) = 0u;
+    *(a1 + 8) = 0u;
+    *(a1 + 9) = 0u;
+    *(a1 + 6) = 0u;
+    *(a1 + 7) = 0u;
+    *(a1 + 4) = 0u;
+    *(a1 + 5) = 0u;
+    *(a1 + 2) = 0u;
+    *(a1 + 3) = 0u;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
   }
 }
 
-void re::AudioManager::updateTransformForTrackedCALayerEntities(int8x8_t *a1, uint64_t a2)
+void re::MeshPayload::payloadBufferSizes(uint64_t *__return_ptr a1@<X8>, id *this@<X0>)
 {
-  if (a1[13].i8[0] == 1)
+  v3 = *this;
+  v4 = v3;
+  if (v3)
   {
-    v19 = v2;
-    v20 = v3;
-    v5 = a1[65];
-    v6 = a1[66];
-    if (v5 != v6)
-    {
-      v8 = MEMORY[0x1E69E9B18];
-      do
-      {
-        v17 = v5;
-        v9 = std::__hash_table<std::__hash_value_type<unsigned long long,__CFString const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,__CFString const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,__CFString const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,__CFString const*>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&a1[60], *v5);
-        *&v13[0] = *v5;
-        (*(**(a2 + 32) + 16))(&v17);
-        if (v17 == 1)
-        {
-          v15 = 0;
-          v16 = 0x100000000;
-          v10 = v8[1];
-          v13[0] = *v8;
-          v13[1] = v10;
-          v11 = v8[3];
-          v13[2] = v8[2];
-          HIDWORD(v14) = HIDWORD(v11);
-          v12 = v18;
-          HIDWORD(v12) = HIDWORD(v14);
-          v14 = v12;
-          re::AudioManager::storePendingStateForSTSLabel(a1, v9[3], v13);
-        }
+    objc_msgSend_payloadBufferSizes(v3);
+  }
 
-        ++v5;
-      }
-
-      while (v5 != v6);
-    }
+  else
+  {
+    *(a1 + 2) = 0u;
+    *(a1 + 3) = 0u;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
   }
 }
 
-__n128 re::AudioManager::storePendingStateForSTSLabel(int8x8_t *a1, const __CFString *cf, uint64_t a3)
+BOOL re::anonymous namespace::validateBlendShapeConstants(unint64_t a1, unsigned int a2, int a3, unsigned int a4, unsigned int a5, uint64_t a6, unint64_t a7)
 {
-  if (cf)
+  v7 = 4 * (a1 & 0x3FFFFFFF);
+  if (a7 % v7)
   {
-    CFRetain(cf);
-    v6 = re::AudioManager::CFStringHash::operator()(cf);
-    v7 = a1[35];
-    if (v7)
-    {
-      v8 = v6;
-      v9 = vcnt_s8(v7);
-      v9.i16[0] = vaddlv_u8(v9);
-      v10 = v9.u32[0];
-      if (v9.u32[0] > 1uLL)
-      {
-        v11 = v6;
-        if (v6 >= *&v7)
-        {
-          v11 = v6 % *&v7;
-        }
-      }
-
-      else
-      {
-        v11 = (*&v7 - 1) & v6;
-      }
-
-      v15 = *(*&a1[34] + 8 * v11);
-      if (v15)
-      {
-        for (i = *v15; i; i = *i)
-        {
-          v17 = *(i + 8);
-          if (v17 == v8)
-          {
-            if (re::AudioManager::CFStringEqual::operator()(*(i + 16), cf))
-            {
-              CFRelease(*(i + 16));
-              std::__hash_table<std::__hash_value_type<__CFString const*,re::AudioManager::RESTSPerLabelState>,std::__unordered_map_hasher<__CFString const*,std::__hash_value_type<__CFString const*,re::AudioManager::RESTSPerLabelState>,re::AudioManager::CFStringHash,re::AudioManager::CFStringEqual,true>,std::__unordered_map_equal<__CFString const*,std::__hash_value_type<__CFString const*,re::AudioManager::RESTSPerLabelState>,re::AudioManager::CFStringEqual,re::AudioManager::CFStringHash,true>,std::allocator<std::__hash_value_type<__CFString const*,re::AudioManager::RESTSPerLabelState>>>::erase(&a1[34], i);
-              break;
-            }
-          }
-
-          else
-          {
-            if (v10 > 1)
-            {
-              if (v17 >= *&v7)
-              {
-                v17 %= *&v7;
-              }
-            }
-
-            else
-            {
-              v17 &= *&v7 - 1;
-            }
-
-            if (v17 != v11)
-            {
-              break;
-            }
-          }
-        }
-      }
-    }
-
-    v19 = re::AudioManager::CFStringHash::operator()(cf);
-    v20 = v19;
-    v21 = a1[35];
-    if (!*&v21)
-    {
-      goto LABEL_42;
-    }
-
-    v22 = vcnt_s8(v21);
-    v22.i16[0] = vaddlv_u8(v22);
-    v23 = v22.u32[0];
-    if (v22.u32[0] > 1uLL)
-    {
-      v24 = v19;
-      if (v19 >= *&v21)
-      {
-        v24 = v19 % *&v21;
-      }
-    }
-
-    else
-    {
-      v24 = (*&v21 - 1) & v19;
-    }
-
-    v25 = *(*&a1[34] + 8 * v24);
-    if (!v25 || (v26 = *v25) == 0)
-    {
-LABEL_42:
-      operator new();
-    }
-
-    while (1)
-    {
-      v27 = v26[1];
-      if (v27 == v20)
-      {
-        if (re::AudioManager::CFStringEqual::operator()(v26[2], cf))
-        {
-          *(v26 + 2) = *a3;
-          result = *(a3 + 16);
-          v28 = *(a3 + 32);
-          v29 = *(a3 + 64);
-          *(v26 + 5) = *(a3 + 48);
-          *(v26 + 6) = v29;
-          *(v26 + 3) = result;
-          *(v26 + 4) = v28;
-          return result;
-        }
-      }
-
-      else
-      {
-        if (v23 > 1)
-        {
-          if (v27 >= *&v21)
-          {
-            v27 %= *&v21;
-          }
-        }
-
-        else
-        {
-          v27 &= *&v21 - 1;
-        }
-
-        if (v27 != v24)
-        {
-          goto LABEL_42;
-        }
-      }
-
-      v26 = *v26;
-      if (!v26)
-      {
-        goto LABEL_42;
-      }
-    }
+    return 0;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(__p, "null_label");
-  v12 = re::audio::throttledLog(OS_LOG_TYPE_ERROR, __p);
-  v14 = v12;
-  if (v31 < 0)
+  result = 0;
+  v10 = v7 * a6;
+  v11 = 1;
+  if (a3)
   {
-    operator delete(__p[0]);
-    if (!v14)
+    v11 = 2;
+  }
+
+  if (v10 * (v11 + a4 + a5) <= a7)
+  {
+    v12 = HIDWORD(a1);
+    if (v12 <= a2)
     {
-      return result;
-    }
-  }
-
-  else if (!v12)
-  {
-    return result;
-  }
-
-  v18 = *re::audioLogObjects(v12);
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-  {
-    LOWORD(__p[0]) = 0;
-    _os_log_error_impl(&dword_1E1C61000, v18, OS_LOG_TYPE_ERROR, "[RE/STS] AudioManager storePendingStateForSTSLabel given null label", __p, 2u);
-  }
-
-  return result;
-}
-
-void sub_1E21525B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t re::AudioManager::enumerateTrackedCALayerEntities(uint64_t result, uint64_t a2)
-{
-  if (*(result + 104) == 1)
-  {
-    v2 = result;
-    v3 = *(result + 520);
-    for (i = *(result + 528); v3 != i; ++v3)
-    {
-      v6 = v2[61];
-      if (!*&v6)
-      {
-        goto LABEL_22;
-      }
-
-      v7 = *v3;
-      v8 = vcnt_s8(v6);
-      v8.i16[0] = vaddlv_u8(v8);
-      if (v8.u32[0] > 1uLL)
-      {
-        v9 = *v3;
-        if (*&v6 <= v7)
-        {
-          v9 = v7 % *&v6;
-        }
-      }
-
-      else
-      {
-        v9 = (*&v6 - 1) & v7;
-      }
-
-      v10 = *(*&v2[60] + 8 * v9);
-      if (!v10 || (v11 = *v10) == 0)
-      {
-LABEL_22:
-        std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
-      }
-
-      while (1)
-      {
-        v12 = v11[1];
-        if (v12 == v7)
-        {
-          break;
-        }
-
-        if (v8.u32[0] > 1uLL)
-        {
-          if (v12 >= *&v6)
-          {
-            v12 %= *&v6;
-          }
-        }
-
-        else
-        {
-          v12 &= *&v6 - 1;
-        }
-
-        if (v12 != v9)
-        {
-          goto LABEL_22;
-        }
-
-LABEL_18:
-        v11 = *v11;
-        if (!v11)
-        {
-          goto LABEL_22;
-        }
-      }
-
-      if (v11[2] != v7)
-      {
-        goto LABEL_18;
-      }
-
-      v13 = *v3;
-      result = (*(**(a2 + 32) + 16))(*(a2 + 32), &v13);
-    }
-  }
-
-  return result;
-}
-
-CFHashCode re::AudioManager::CFStringHash::operator()(const void *a1)
-{
-  if (!a1)
-  {
-    std::string::basic_string[abi:ne200100]<0>(__p, "null_hash_key");
-    v2 = re::audio::throttledLog(OS_LOG_TYPE_FAULT, __p);
-    v3 = v2;
-    if (v6 < 0)
-    {
-      operator delete(__p[0]);
-      if (!v3)
+      if (a2 != ((a2 + 3) & 0x1FFFFFFFCLL))
       {
         return 0;
       }
-    }
 
-    else if (!v2)
-    {
-      return 0;
-    }
-
-    v4 = *re::audioLogObjects(v2);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      LOWORD(__p[0]) = 0;
-      _os_log_fault_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_FAULT, "[RE/STS] hash key is null", __p, 2u);
-    }
-
-    return 0;
-  }
-
-  return CFHash(a1);
-}
-
-void sub_1E21527EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-BOOL re::AudioManager::CFStringEqual::operator()(const __CFString *a1, const __CFString *a2)
-{
-  if (!(a1 | a2))
-  {
-    std::string::basic_string[abi:ne200100]<0>(__p, "null_equal_keys");
-    v2 = re::audio::throttledLog(OS_LOG_TYPE_FAULT, __p);
-    v3 = v2;
-    if (v10 < 0)
-    {
-      operator delete(__p[0]);
-      if (!v3)
-      {
-        return 1;
-      }
-    }
-
-    else if (!v2)
-    {
-      return 1;
-    }
-
-    v7 = *re::audioLogObjects(v2);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
-    {
-      LOWORD(__p[0]) = 0;
-      _os_log_fault_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_FAULT, "[RE/STS] equal keys are null", __p, 2u);
-    }
-
-    return 1;
-  }
-
-  if (a1 && a2)
-  {
-    return CFStringCompare(a1, a2, 0) == kCFCompareEqualTo;
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(__p, "null_equal_key");
-  v5 = re::audio::throttledLog(OS_LOG_TYPE_FAULT, __p);
-  v6 = v5;
-  if (v10 < 0)
-  {
-    operator delete(__p[0]);
-    if (!v6)
-    {
-      return 0;
+      return v12 >= 3 * a6;
     }
   }
 
-  else if (!v5)
-  {
-    return 0;
-  }
-
-  v8 = *re::audioLogObjects(v5);
-  result = os_log_type_enabled(v8, OS_LOG_TYPE_FAULT);
-  if (!result)
-  {
-    return result;
-  }
-
-  LOWORD(__p[0]) = 0;
-  _os_log_fault_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_FAULT, "[RE/STS] one equal key is null", __p, 2u);
-  return 0;
-}
-
-void sub_1E2152958(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void re::AudioManager::setSTSControl(re::AudioManager *this, int a2)
-{
-  *(this + 104) = a2;
-  if ((((*(this + 14) == 0) ^ a2) & 1) == 0)
-  {
-    re::AudioManager::configureSTS(this);
-  }
-}
-
-void re::AudioManager::setSTSObjects(uint64_t a1, const void *a2, void *a3)
-{
-  v7 = a3;
-  v6 = *(a1 + 112);
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-
-  *(a1 + 112) = CFRetain(a2);
-  objc_storeStrong((a1 + 120), a3);
-  (*(*a1 + 552))(a1, 1);
-}
-
-void re::AudioManager::setSystemListenerID(re::AudioManager *this, uint64_t a2)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  if (*(this + 39) != a2)
-  {
-    v4 = *re::audioLogObjects(this);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-    {
-      v5 = *(this + 39);
-      v7 = 134218240;
-      v8 = v5;
-      v9 = 2048;
-      v10 = a2;
-      _os_log_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_INFO, "Changing RE's system listener ID from %llu to %llu", &v7, 0x16u);
-    }
-
-    *(this + 39) = a2;
-    for (i = *(this + 10); i; i = *i)
-    {
-      if (i[3] == a2)
-      {
-        (*(*this + 1024))(this, i[2]);
-      }
-    }
-  }
-}
-
-void ___ZN2re12AudioManager18configureSTSRemoteEv_block_invoke(uint64_t a1)
-{
-  v36 = *MEMORY[0x1E69E9840];
-  v2 = [*(a1 + 32) audioService];
-  if (!v2 || (v3 = v2, v2 = [*(a1 + 32) isCancelled], v2))
-  {
-    v4 = *re::audioLogObjects(v2);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      LOWORD(buf) = 0;
-      _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, "Engine cancelled, failed to configure STS Controller.", &buf, 2u);
-    }
-
-    return;
-  }
-
-  v5 = *re::audioLogObjects(v2);
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    LOWORD(buf) = 0;
-    _os_log_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_DEFAULT, "[RE/STS] Creating FigSTS object asynchronously in remote queue.", &buf, 2u);
-  }
-
-  v6 = *MEMORY[0x1E695E480];
-  v7 = FigSTSCreateRemote();
-  v8 = v7;
-  if (v7)
-  {
-    v9 = *re::audioLogObjects(v7);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      LODWORD(buf) = 67109120;
-      DWORD1(buf) = v8;
-      _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "[RE/STS] Failed to create FigSTS object error=%d", &buf, 8u);
-    }
-
-    v19 = 0;
-    goto LABEL_24;
-  }
-
-  v29 = 0;
-  v19 = [objc_alloc(MEMORY[0x1E695A890]) initWithSTSObject:0 error:&v29];
-  v10 = v29;
-  v11 = v10;
-  if (!v19)
-  {
-    v20 = *re::audioLogObjects(v10);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-    {
-      LODWORD(buf) = 138412290;
-      *(&buf + 4) = v11;
-      _os_log_error_impl(&dword_1E1C61000, v20, OS_LOG_TYPE_ERROR, "[RE/STS] Failed to create STSController object: %@", &buf, 0xCu);
-    }
-
-    goto LABEL_23;
-  }
-
-  if (REAudioShouldConfigureTuningForSTSLabels())
-  {
-    *bytes = 1;
-    HexCFStringForInt = re::AudioManager::getHexCFStringForInt(v3, 3109);
-    v13 = CFDataCreate(v6, bytes, 4);
-    VTable = CMBaseObjectGetVTable();
-    v16 = *(VTable + 16);
-    v15 = (VTable + 16);
-    v17 = *(v16 + 24);
-    if (v17)
-    {
-      v15 = v17(0, *MEMORY[0x1E69AF598], HexCFStringForInt, v13);
-      v18 = v15;
-      if (!v15)
-      {
-LABEL_21:
-        CFRelease(v13);
-        goto LABEL_22;
-      }
-    }
-
-    else
-    {
-      v18 = -12782;
-    }
-
-    v21 = *re::audioLogObjects(v15);
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-    {
-      LODWORD(buf) = 67109120;
-      DWORD1(buf) = v18;
-      _os_log_error_impl(&dword_1E1C61000, v21, OS_LOG_TYPE_ERROR, "[RE/STS] FigSTSSetPropertyByLabel propagation delay enabled error=%d", &buf, 8u);
-    }
-
-    goto LABEL_21;
-  }
-
-LABEL_22:
-  v22 = v19;
-LABEL_23:
-
-LABEL_24:
-  v23 = *re::audioLogObjects(0);
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
-  {
-    LOWORD(buf) = 0;
-    _os_log_impl(&dword_1E1C61000, v23, OS_LOG_TYPE_DEFAULT, "[RE/STS] Succesfully configured STS Controller asynchronously in remote queue.", &buf, 2u);
-  }
-
-  v24 = *(v3 + 1);
-  if (v24)
-  {
-    *&buf = MEMORY[0x1E69E9820];
-    *(&buf + 1) = 3321888768;
-    v31 = ___ZZN2re12AudioManager18configureSTSRemoteEvENK3__0clEv_block_invoke;
-    v32 = &__block_descriptor_56_ea8_32c64_ZTSKZZN2re12AudioManager18configureSTSRemoteEvENK3__0clEvEUlvE__e5_v8__0l;
-    v25 = *(a1 + 32);
-    v26 = v19;
-    v33 = v25;
-    v34 = 0;
-    v35 = v26;
-    v27 = v25;
-    dispatch_async(v24, &buf);
-  }
-}
-
-id __copy_helper_block_ea8_32c51_ZTSKZN2re12AudioManager18configureSTSRemoteEvE3__0(uint64_t a1, uint64_t a2)
-{
-  result = *(a2 + 32);
-  *(a1 + 32) = result;
   return result;
 }
 
-void re::AudioManager::createAudioGroupIfNecessary(os_unfair_lock_s *this, unint64_t a2, unsigned __int8 a3, uint64_t a4)
+uint64_t re::Slice<unsigned int>::last(uint64_t a1, uint64_t a2)
 {
-  v26 = a2;
-  os_unfair_lock_lock(this + 14);
-  if (std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(&this[4]._os_unfair_lock_opaque, &v26))
+  if (a2)
   {
-    goto LABEL_31;
+    return a1 + 4 * a2 - 4;
   }
 
-  v21 = a3;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 1065353216;
-  v25 = a4;
-  v7 = *&this[6]._os_unfair_lock_opaque;
-  if (!*&v7)
+  re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Array is empty.", "!isEmpty()", "last", 240, v2, v3);
+  result = _os_crash("assertion failure: (!isEmpty()) Array is empty.");
+  __break(1u);
+  return result;
+}
+
+uint64_t re::Slice<unsigned int>::operator[](uint64_t a1, unint64_t a2, unint64_t a3)
+{
+  if (a2 > a3)
   {
-    goto LABEL_19;
+    return a1 + 4 * a3;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  if (v8.u32[0] > 1uLL)
+  re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, a3, a2, v3, v4);
+  result = _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v6, v7);
+  __break(1u);
+  return result;
+}
+
+void re::AudioFileAssetLoader::~AudioFileAssetLoader(re::AudioFileAssetLoader *this)
+{
+  *(this + 1) = 0;
+}
+
+{
+  *(this + 1) = 0;
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t re::AudioFileAssetLoader::registerAsset(re *a1, uint64_t a2, uint64_t a3)
+{
+  if (a2)
   {
-    v9 = v26;
-    if (*&v7 <= v26)
+    v3 = *(a1 + 1);
+    if (v3)
     {
-      v9 = v26 % *&v7;
+      v4 = (*(*v3 + 24))(v3);
+      re::AudioAssetLoadStrategyFactory::getCurrentLoadStrategy(v4, v5);
     }
-  }
 
-  else
-  {
-    v9 = (*&v7 - 1) & v26;
-  }
-
-  v10 = *(*&this[4]._os_unfair_lock_opaque + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_19:
     operator new();
   }
 
-  while (1)
+  v6 = *re::audioLogObjects(a1);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v12 = v11[1];
-    if (v12 == v26)
+    *buf = 0;
+    _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "[CoreRE] [AudioFileAssetLoader] Cannot call resourceDidUpdate with a null audioFileAsset", buf, 2u);
+  }
+
+  return 2;
+}
+
+void re::AudioFileAssetLoader::unregisterAsset(re *a1, uint64_t a2)
+{
+  if (a2)
+  {
+    v2 = *(a1 + 1);
+    if (v2)
     {
-      break;
+      v3 = (*(*v2 + 24))(v2);
+      re::AudioAssetLoadStrategyFactory::getCurrentLoadStrategy(v3, v4);
     }
 
-    if (v8.u32[0] > 1uLL)
+    operator new();
+  }
+
+  v5 = *re::audioLogObjects(a1);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "[CoreRE] [AudioFileAssetLoader] Cannot unregister asset with a null audioFileAsset", buf, 2u);
+  }
+}
+
+BOOL re::AudioFileAssetLoader::serializeAssetBlob(int a1, void *a2, re::AudioFileAsset *this)
+{
+  if (!re::AudioFileAsset::shouldSkipCompressionOnExport(this) || !re::AudioFileAssetLoader::serializeAssetBlobWithoutCompression(a2, this))
+  {
+    v6 = re::AudioFileAsset::pcmBuffer(this);
+    if (v6 || (re::AudioFileAssetLoader::readAudioFileAssetIntoPCMBuffer(this, v7), (v6 = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      if (v12 >= *&v7)
+      v8 = v6;
+      v12[0] = v8;
+      v12[1] = a2;
+      v14 = 0;
+      v15 = 0;
+      __p = 0;
+      v9 = re::audio::AudioFileAssetWriter::writeToStreamWithDefaultCompression(v12);
+      if (__p)
       {
-        v12 %= *&v7;
+        v14 = __p;
+        operator delete(__p);
+      }
+
+      if (v9)
+      {
+        v5 = 1;
+LABEL_14:
+
+        return v5;
       }
     }
 
     else
     {
-      v12 &= *&v7 - 1;
+      v8 = 0;
     }
 
-    if (v12 != v9)
+    v10 = *re::audioLogObjects(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_19;
+      LOWORD(v12[0]) = 0;
+      _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "[CoreRE] [AudioFileAssetLoader] serializeAssetBlob failed to compress the asset and will serialize it as is.", v12, 2u);
     }
 
-LABEL_18:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_19;
-    }
+    v5 = re::AudioFileAssetLoader::serializeAssetBlobWithoutCompression(a2, this);
+    goto LABEL_14;
   }
 
-  if (v11[2] != v26)
-  {
-    goto LABEL_18;
-  }
+  return 1;
+}
 
-  *(v11 + 12) = v21;
-  if (v11 + 3 != &v21)
+void sub_1E20EF010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  re::audio::AudioFileAssetWriter::~AudioFileAssetWriter(&a9);
+
+  _Unwind_Resume(a1);
+}
+
+BOOL re::AudioFileAssetLoader::serializeAssetBlobWithoutCompression(void *a1, id **this)
+{
+  v44 = *MEMORY[0x1E69E9840];
+  v4 = re::AudioFileAssetLoader::readAudioFileAssetIntoPCMBuffer(this, this);
+  v5 = v4;
+  if (v4)
   {
-    *(v11 + 16) = v24;
-    v13 = v23;
-    v14 = v11[5];
-    if (!v14)
+    *&v38 = v4;
+    *(&v38 + 1) = a1;
+    v40 = 0;
+    v41 = 0;
+    v39 = 0;
+    v6 = re::AudioFileAssetLoader::serializeAssetBlobFromPCMBuffer(a1, v38);
+
+    if (v6)
     {
+      v11 = 1;
       goto LABEL_27;
     }
 
-    for (i = 0; i != v14; ++i)
+LABEL_8:
+    if ((*(this[1][6] + 8))(this[1] + 6, v7, v8, v9, v10))
     {
-      *(v11[4] + 8 * i) = 0;
-    }
-
-    v16 = v11[6];
-    v11[6] = 0;
-    v11[7] = 0;
-    if (v16)
-    {
-      while (v13)
+      (*(this[1][6] + 5))(this[1] + 6, v16, v17, v18, v19);
+      if ((*(this[1][6] + 7))(this[1] + 6, this[1][20], v20, v21, v22))
       {
-        v17 = v13[2];
-        v16[2] = v17;
-        v18 = *v16;
-        v16[1] = v17;
-        inserted = std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>>>::__node_insert_multi_prepare((v11 + 4), v17, v16 + 2);
-        std::__hash_table<std::__hash_value_type<unsigned long long,void({block_pointer} {__strong})(void)>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,void({block_pointer} {__strong})(void)>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,void({block_pointer} {__strong})(void)>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,void({block_pointer} {__strong})(void)>>>::__node_insert_multi_perform(v11 + 4, v16, inserted);
-        v13 = *v13;
-        v16 = v18;
-        if (!v18)
+        v23 = this[1];
+        v24 = v23[6];
+        *&v38 = &unk_1F5D0AE00;
+        *(&v38 + 1) = v23 + 6;
+        v39 = 0;
+        LODWORD(v40) = 0;
+        v41 = 0;
+        v42 = v24[5](v23 + 6);
+        v43 = 0;
+        v11 = re::AssetHelper::readerToWriterStream(&v38, a1);
+        (*(this[1][6] + 7))();
+        if (v40)
         {
-          goto LABEL_27;
-        }
-      }
-
-      do
-      {
-        v20 = *v16;
-        operator delete(v16);
-        v16 = v20;
-      }
-
-      while (v20);
-    }
-
-    else
-    {
-LABEL_27:
-      if (v13)
-      {
-        operator new();
-      }
-    }
-  }
-
-  v11[9] = v25;
-  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table(&v22);
-LABEL_31:
-  os_unfair_lock_unlock(this + 14);
-}
-
-void sub_1E2153648(_Unwind_Exception *a1)
-{
-  __cxa_end_catch();
-  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table(v2 + 8);
-  os_unfair_lock_unlock(v1 + 14);
-  _Unwind_Resume(a1);
-}
-
-void re::AudioManager::addPlaybackTokenToAudioGroup(os_unfair_lock_s *this, unint64_t a2, unint64_t a3)
-{
-  v13 = *MEMORY[0x1E69E9840];
-  v7 = a3;
-  v8 = a2;
-  os_unfair_lock_lock(this + 14);
-  v5 = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(&this[4]._os_unfair_lock_opaque, &v8);
-  if (v5)
-  {
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v5 + 4, &v7);
-  }
-
-  else
-  {
-    v6 = *re::audioLogObjects(0);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134218240;
-      v10 = a3;
-      v11 = 2048;
-      v12 = v8;
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "[AudioService] [addPlaybackTokenToAudioGroup] Cannot add token: %llu to unknown group: %llu", buf, 0x16u);
-    }
-  }
-
-  os_unfair_lock_unlock(this + 14);
-}
-
-void re::AudioManager::getAudioGroupsPendingRemoval(os_unfair_lock_s *this@<X0>, void *a2@<X8>)
-{
-  os_unfair_lock_lock(this + 14);
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v4 = *&this[136]._os_unfair_lock_opaque;
-  v5 = *&this[138]._os_unfair_lock_opaque;
-  if (v5 != v4)
-  {
-    std::vector<unsigned long long>::__vallocate[abi:ne200100](a2, (v5 - v4) >> 3);
-  }
-
-  *&this[138]._os_unfair_lock_opaque = v4;
-
-  os_unfair_lock_unlock(this + 14);
-}
-
-void sub_1E2153828(_Unwind_Exception *a1)
-{
-  v4 = *v2;
-  if (*v2)
-  {
-    *(v2 + 8) = v4;
-    operator delete(v4);
-  }
-
-  os_unfair_lock_unlock(v1 + 14);
-  _Unwind_Resume(a1);
-}
-
-void re::AudioManager::prepareCompletedAudioGroups(re::AudioManager *this)
-{
-  os_unfair_lock_lock(this + 14);
-  v10 = 0;
-  v11 = 0;
-  v12 = 0;
-  v2 = *(this + 4);
-  if (v2)
-  {
-    do
-    {
-      if (v2[7] == *(v2 + 24) && (*(v2 + 25) & 1) == 0)
-      {
-        memset(v8, 0, sizeof(v8));
-        v9 = *(v2 + 16);
-        std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>>>::__rehash<true>(v8, v2[5]);
-        for (i = v2[6]; i; i = *i)
-        {
-          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(v8, i + 2);
+          (*(**(&v38 + 1) + 24))(*(&v38 + 1));
         }
 
-        v4 = (*(*this + 200))(this, v8, v2[2], v2[9]);
-        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table(v8);
-        if (v4 == 2)
-        {
-          std::vector<unsigned long long>::push_back[abi:ne200100](&v10, v2 + 2);
-        }
-
-        else if (!v4)
-        {
-          *(v2 + 25) = 1;
-        }
-      }
-
-      v2 = *v2;
-    }
-
-    while (v2);
-    v5 = v10;
-    v6 = v11;
-    if (v10 != v11)
-    {
-      do
-      {
-        v7 = *v5;
-        std::__hash_table<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>>>::__erase_unique<unsigned long long>(this + 2, &v7);
-        std::vector<unsigned long long>::push_back[abi:ne200100](this + 68, &v7);
-        ++v5;
-      }
-
-      while (v5 != v6);
-      v5 = v10;
-    }
-
-    if (v5)
-    {
-      v11 = v5;
-      operator delete(v5);
-    }
-  }
-
-  os_unfair_lock_unlock(this + 14);
-}
-
-void sub_1E21539A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  os_unfair_lock_unlock(v17 + 14);
-  _Unwind_Resume(a1);
-}
-
-void std::vector<unsigned long long>::push_back[abi:ne200100](const void **a1, void *a2)
-{
-  v5 = a1[1];
-  v4 = a1[2];
-  if (v5 >= v4)
-  {
-    v7 = *a1;
-    v8 = v5 - *a1;
-    v9 = (v8 >> 3) + 1;
-    if (v9 >> 61)
-    {
-      std::vector<PHASESource * {__strong}>::__throw_length_error[abi:ne200100]();
-    }
-
-    v10 = v4 - v7;
-    if (v10 >> 2 > v9)
-    {
-      v9 = v10 >> 2;
-    }
-
-    v11 = v10 >= 0x7FFFFFFFFFFFFFF8;
-    v12 = 0x1FFFFFFFFFFFFFFFLL;
-    if (!v11)
-    {
-      v12 = v9;
-    }
-
-    if (v12)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long long>>(a1, v12);
-    }
-
-    v13 = (8 * (v8 >> 3));
-    *v13 = *a2;
-    v6 = v13 + 1;
-    memcpy(0, v7, v8);
-    v14 = *a1;
-    *a1 = 0;
-    a1[1] = v6;
-    a1[2] = 0;
-    if (v14)
-    {
-      operator delete(v14);
-    }
-  }
-
-  else
-  {
-    *v5 = *a2;
-    v6 = v5 + 1;
-  }
-
-  a1[1] = v6;
-}
-
-void re::AudioManager::removeAudioGroup(re::AudioManager *this, unint64_t a2)
-{
-  v3 = a2;
-  os_unfair_lock_lock(this + 14);
-  if (std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(this + 2, &v3))
-  {
-    std::__hash_table<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>>>::__erase_unique<unsigned long long>(this + 2, &v3);
-    std::vector<unsigned long long>::push_back[abi:ne200100](this + 68, &v3);
-  }
-
-  os_unfair_lock_unlock(this + 14);
-}
-
-void re::AudioManager::clearAudioGroups(os_unfair_lock_s *this)
-{
-  os_unfair_lock_lock(this + 14);
-  if (*&this[10]._os_unfair_lock_opaque)
-  {
-    std::__hash_table<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>>>::__deallocate_node(*&this[8]._os_unfair_lock_opaque);
-    *&this[8]._os_unfair_lock_opaque = 0;
-    v2 = *&this[6]._os_unfair_lock_opaque;
-    if (v2)
-    {
-      for (i = 0; i != v2; ++i)
-      {
-        *(*&this[4]._os_unfair_lock_opaque + 8 * i) = 0;
-      }
-    }
-
-    *&this[10]._os_unfair_lock_opaque = 0;
-  }
-
-  os_unfair_lock_unlock(this + 14);
-}
-
-uint64_t re::InsertionOrderedMap<unsigned long long,__CFString const*,std::hash<unsigned long long>,std::equal_to<unsigned long long>>::~InsertionOrderedMap(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  if (v2)
-  {
-    *(a1 + 48) = v2;
-    operator delete(v2);
-  }
-
-  return std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table(a1);
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,std::__unordered_map_hasher<REAudioServicesNotificationCallbackConfiguration,std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,REAudioServicesNotificationCallbackRegistry::ConfigHasher,std::equal_to<REAudioServicesNotificationCallbackConfiguration>,true>,std::__unordered_map_equal<REAudioServicesNotificationCallbackConfiguration,std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,std::equal_to<REAudioServicesNotificationCallbackConfiguration>,REAudioServicesNotificationCallbackRegistry::ConfigHasher,true>,std::allocator<std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>>>::~__hash_table(uint64_t a1)
-{
-  std::__hash_table<std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,std::__unordered_map_hasher<REAudioServicesNotificationCallbackConfiguration,std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,REAudioServicesNotificationCallbackRegistry::ConfigHasher,std::equal_to<REAudioServicesNotificationCallbackConfiguration>,true>,std::__unordered_map_equal<REAudioServicesNotificationCallbackConfiguration,std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,std::equal_to<REAudioServicesNotificationCallbackConfiguration>,REAudioServicesNotificationCallbackRegistry::ConfigHasher,true>,std::allocator<std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>>>::__deallocate_node(a1, *(a1 + 16));
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void std::__hash_table<std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,std::__unordered_map_hasher<REAudioServicesNotificationCallbackConfiguration,std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,REAudioServicesNotificationCallbackRegistry::ConfigHasher,std::equal_to<REAudioServicesNotificationCallbackConfiguration>,true>,std::__unordered_map_equal<REAudioServicesNotificationCallbackConfiguration,std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>,std::equal_to<REAudioServicesNotificationCallbackConfiguration>,REAudioServicesNotificationCallbackRegistry::ConfigHasher,true>,std::allocator<std::__hash_value_type<REAudioServicesNotificationCallbackConfiguration,void({block_pointer} {__strong})(void)>>>::__deallocate_node(uint64_t a1, id *a2)
-{
-  if (a2)
-  {
-    v2 = a2;
-    do
-    {
-      v3 = *v2;
-
-      operator delete(v2);
-      v2 = v3;
-    }
-
-    while (v3);
-  }
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>>>::~__hash_table(uint64_t a1)
-{
-  std::__hash_table<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>>>::__deallocate_node(*(a1 + 16));
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void std::__hash_table<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>>>::__deallocate_node(void *a1)
-{
-  if (a1)
-  {
-    v1 = a1;
-    do
-    {
-      v2 = *v1;
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table((v1 + 4));
-      operator delete(v1);
-      v1 = v2;
-    }
-
-    while (v2);
-  }
-}
-
-void ___ZZN2re12AudioManager18configureSTSRemoteEvENK3__0clEv_block_invoke(uint64_t a1)
-{
-  v2 = [*(a1 + 32) audioService];
-  if (v2 && (v3 = v2, v2 = [*(a1 + 32) isCancelled], !v2))
-  {
-    if (*(a1 + 40) && *(a1 + 48))
-    {
-      v6 = *re::audioLogObjects(v2);
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-      {
-        *v10 = 0;
-        _os_log_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_DEFAULT, "[RE/STS] Successfully configured STS Controller.", v10, 2u);
-      }
-
-      v7 = *(a1 + 48);
-      *(v3 + 14) = *(a1 + 40);
-      objc_storeStrong(v3 + 15, v7);
-      *(v3 + 576) = 0;
-      for (i = *(v3 + 10); i; i = *i)
-      {
-        (*(*v3 + 1024))(v3, i[2]);
-      }
-    }
-
-    else
-    {
-      v9 = *(v3 + 15);
-      *(v3 + 14) = 0;
-      *(v3 + 15) = 0;
-    }
-  }
-
-  else
-  {
-    v4 = *re::audioLogObjects(v2);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, "Engine cancelled, failed to configure STS Controller.", buf, 2u);
-    }
-
-    v5 = *(a1 + 40);
-    if (v5)
-    {
-      CFRelease(v5);
-    }
-  }
-}
-
-id __copy_helper_block_ea8_32c64_ZTSKZZN2re12AudioManager18configureSTSRemoteEvENK3__0clEvEUlvE_(void *a1, uint64_t a2)
-{
-  v4 = *(a2 + 32);
-  v5 = *(a2 + 40);
-  v6 = *(a2 + 48);
-  a1[4] = v4;
-  a1[5] = v5;
-  result = v6;
-  a1[6] = result;
-  return result;
-}
-
-void __destroy_helper_block_ea8_32c64_ZTSKZZN2re12AudioManager18configureSTSRemoteEvENK3__0clEvEUlvE_(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>>>::~__hash_table(uint64_t a1)
-{
-  std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>>>::__deallocate_node(a1, *(a1 + 16));
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>>>::__deallocate_node(uint64_t a1, void *a2)
-{
-  if (a2)
-  {
-    v2 = a2;
-    do
-    {
-      v3 = *v2;
-      std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>>>::~__hash_table((v2 + 7));
-      operator delete(v2);
-      v2 = v3;
-    }
-
-    while (v3);
-  }
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>>>::~__hash_table(uint64_t a1)
-{
-  std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>>>::__deallocate_node(a1, *(a1 + 16));
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>>>::__deallocate_node(uint64_t a1, void *a2)
-{
-  if (a2)
-  {
-    v2 = a2;
-    do
-    {
-      v3 = *v2;
-      std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table((v2 + 8));
-      std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table((v2 + 3));
-      operator delete(v2);
-      v2 = v3;
-    }
-
-    while (v3);
-  }
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(uint64_t a1)
-{
-  std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::__deallocate_node(a1, *(a1 + 16));
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-id **std::unique_ptr<re::AudioManager::PrivateData>::reset[abi:ne200100](id **result, id *a2)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-
-    JUMPOUT(0x1E6906520);
-  }
-
-  return result;
-}
-
-void *std::__hash_table<std::__hash_value_type<unsigned long long,__CFString const*>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,__CFString const*>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,__CFString const*>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,__CFString const*>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t a2)
-{
-  v2 = a1[1];
-  if (!*&v2)
-  {
-    goto LABEL_18;
-  }
-
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
-  {
-    v4 = a2;
-    if (*&v2 <= a2)
-    {
-      v4 = a2 % *&v2;
-    }
-  }
-
-  else
-  {
-    v4 = (*&v2 - 1) & a2;
-  }
-
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v7 = v6[1];
-    if (v7 == a2)
-    {
-      break;
-    }
-
-    if (v3.u32[0] > 1uLL)
-    {
-      if (v7 >= *&v2)
-      {
-        v7 %= *&v2;
-      }
-    }
-
-    else
-    {
-      v7 &= *&v2 - 1;
-    }
-
-    if (v7 != v4)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v6 = *v6;
-    if (!v6)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (v6[2] != a2)
-  {
-    goto LABEL_17;
-  }
-
-  return v6;
-}
-
-void std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>>>::clear(uint64_t a1)
-{
-  if (*(a1 + 24))
-  {
-    std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
-    if (v2)
-    {
-      for (i = 0; i != v2; ++i)
-      {
-        *(*a1 + 8 * i) = 0;
-      }
-    }
-
-    *(a1 + 24) = 0;
-  }
-}
-
-void *std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
-{
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
-  {
-    goto LABEL_18;
-  }
-
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
-  {
-    v5 = *a2;
-    if (v2 >= *&v3)
-    {
-      v5 = v2 % *&v3;
-    }
-  }
-
-  else
-  {
-    v5 = (*&v3 - 1) & v2;
-  }
-
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v8 = v7[1];
-    if (v8 == v2)
-    {
-      break;
-    }
-
-    if (v4.u32[0] > 1uLL)
-    {
-      if (v8 >= *&v3)
-      {
-        v8 %= *&v3;
-      }
-    }
-
-    else
-    {
-      v8 &= *&v3 - 1;
-    }
-
-    if (v8 != v5)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v7 = *v7;
-    if (!v7)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (v7[2] != v2)
-  {
-    goto LABEL_17;
-  }
-
-  return v7;
-}
-
-void sub_1E21548C0(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    if (*(a1 + 16) == 1)
-    {
-      std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>>>::~__hash_table(v2 + 56);
-    }
-
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void *std::__hash_table<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t a2)
-{
-  v2 = a1[1];
-  if (!*&v2)
-  {
-    goto LABEL_18;
-  }
-
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
-  {
-    v4 = a2;
-    if (*&v2 <= a2)
-    {
-      v4 = a2 % *&v2;
-    }
-  }
-
-  else
-  {
-    v4 = (*&v2 - 1) & a2;
-  }
-
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v7 = v6[1];
-    if (v7 == a2)
-    {
-      break;
-    }
-
-    if (v3.u32[0] > 1uLL)
-    {
-      if (v7 >= *&v2)
-      {
-        v7 %= *&v2;
-      }
-    }
-
-    else
-    {
-      v7 &= *&v2 - 1;
-    }
-
-    if (v7 != v4)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v6 = *v6;
-    if (!v6)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (v6[2] != a2)
-  {
-    goto LABEL_17;
-  }
-
-  return v6;
-}
-
-void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,re::AudioManager::AudioScene::PerConnectionState>,void *>>>::operator()[abi:ne200100](char a1, void *__p)
-{
-  if (a1)
-  {
-    std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(__p + 64);
-    std::__hash_table<std::__hash_value_type<std::string,float>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,float>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,float>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,float>>>::~__hash_table(__p + 24);
-  }
-
-  if (__p)
-  {
-
-    operator delete(__p);
-  }
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<__CFString const*,re::AudioManager::RESTSPerLabelState>,std::__unordered_map_hasher<__CFString const*,std::__hash_value_type<__CFString const*,re::AudioManager::RESTSPerLabelState>,re::AudioManager::CFStringHash,re::AudioManager::CFStringEqual,true>,std::__unordered_map_equal<__CFString const*,std::__hash_value_type<__CFString const*,re::AudioManager::RESTSPerLabelState>,re::AudioManager::CFStringEqual,re::AudioManager::CFStringHash,true>,std::allocator<std::__hash_value_type<__CFString const*,re::AudioManager::RESTSPerLabelState>>>::erase(void *a1, uint64_t *__p)
-{
-  v2 = a1[1];
-  v4 = *__p;
-  v3 = __p[1];
-  v5 = vcnt_s8(v2);
-  v5.i16[0] = vaddlv_u8(v5);
-  if (v5.u32[0] > 1uLL)
-  {
-    if (v3 >= *&v2)
-    {
-      v3 %= *&v2;
-    }
-  }
-
-  else
-  {
-    v3 &= *&v2 - 1;
-  }
-
-  v6 = *(*a1 + 8 * v3);
-  do
-  {
-    v7 = v6;
-    v6 = *v6;
-  }
-
-  while (v6 != __p);
-  if (v7 != a1 + 2)
-  {
-    v8 = v7[1];
-    if (v5.u32[0] > 1uLL)
-    {
-      if (v8 >= *&v2)
-      {
-        v8 %= *&v2;
-      }
-    }
-
-    else
-    {
-      v8 &= *&v2 - 1;
-    }
-
-    v9 = *__p;
-    if (v8 == v3)
-    {
-LABEL_20:
-      if (!v9)
-      {
         goto LABEL_27;
       }
 
-      goto LABEL_21;
-    }
-  }
-
-  if (!v4)
-  {
-    goto LABEL_19;
-  }
-
-  v10 = *(v4 + 8);
-  if (v5.u32[0] > 1uLL)
-  {
-    if (v10 >= *&v2)
-    {
-      v10 %= *&v2;
-    }
-  }
-
-  else
-  {
-    v10 &= *&v2 - 1;
-  }
-
-  v9 = *__p;
-  if (v10 != v3)
-  {
-LABEL_19:
-    *(*a1 + 8 * v3) = 0;
-    v9 = *__p;
-    goto LABEL_20;
-  }
-
-LABEL_21:
-  v11 = *(v9 + 8);
-  if (v5.u32[0] > 1uLL)
-  {
-    if (v11 >= *&v2)
-    {
-      v11 %= *&v2;
-    }
-  }
-
-  else
-  {
-    v11 &= *&v2 - 1;
-  }
-
-  if (v11 != v3)
-  {
-    *(*a1 + 8 * v11) = v7;
-    v9 = *__p;
-  }
-
-LABEL_27:
-  *v7 = v9;
-  *__p = 0;
-  --a1[3];
-  operator delete(__p);
-  return v4;
-}
-
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,__CFString const*>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CFString const*>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CFString const*>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CFString const*>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int a2)
-{
-  v2 = a1[1];
-  if (!v2)
-  {
-    goto LABEL_18;
-  }
-
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
-  {
-    v4 = a2;
-    if (v2 <= a2)
-    {
-      v4 = a2 % v2;
-    }
-  }
-
-  else
-  {
-    v4 = (v2 - 1) & a2;
-  }
-
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v7 = v6[1];
-    if (v7 == a2)
-    {
-      break;
+LABEL_12:
+      v11 = 0;
+      goto LABEL_27;
     }
 
-    if (v3.u32[0] > 1uLL)
+    v25 = *re::audioLogObjects(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      if (v7 >= v2)
+      v30 = (*(this[1][6] + 8))(this[1] + 6, v26, v27, v28, v29);
+      LODWORD(v38) = 134217984;
+      *(&v38 + 4) = v30;
+      _os_log_impl(&dword_1E1C61000, v25, OS_LOG_TYPE_DEFAULT, "[CoreRE] [AudioFileAssetLoader] Asset's mappedDataStream length (%zu) must be greater than 0. Attempting to serialize from an in memory pcm buffer.", &v38, 0xCu);
+    }
+
+    v31 = re::AudioFileAsset::pcmBuffer(this);
+    if (v31)
+    {
+      v32 = re::AudioFileAssetLoader::serializeAssetBlobFromPCMBuffer(a1, v31);
+      if (v32)
       {
-        v7 %= v2;
-      }
-    }
-
-    else
-    {
-      v7 &= v2 - 1;
-    }
-
-    if (v7 != v4)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v6 = *v6;
-    if (!v6)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (*(v6 + 4) != a2)
-  {
-    goto LABEL_17;
-  }
-
-  return v6;
-}
-
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    if (*(a1 + 16) == 1)
-    {
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned short>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned short>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned short>>>::~__hash_table(v2 + 32);
-    }
-
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>>>::__erase_unique<unsigned long long>(void *a1, unint64_t *a2)
-{
-  result = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(a1, a2);
-  if (result)
-  {
-    std::__hash_table<std::__hash_value_type<unsigned long long,re::PeerIDValidator::Entry>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::PeerIDValidator::Entry>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::PeerIDValidator::Entry>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::PeerIDValidator::Entry>>>::remove(a1, result, v4);
-    std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,re::audio::AudioGroup>,void *>>>>::~unique_ptr[abi:ne200100](v4);
-    return 1;
-  }
-
-  return result;
-}
-
-void ___ZN2re4ecs228AudioPlayerTelemetryReporterC2Ev_block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  if (!NSClassFromString(&cfstr_Xctest.isa))
-  {
-    v2 = *(v1 + 200) + 1;
-    *(v1 + 200) = v2;
-    *(v1 + 96) = 0u;
-    *(v1 + 112) = 0u;
-    *(v1 + 128) = 0u;
-    *(v1 + 144) = 0;
-    *(v1 + 152) = xmmword_1E30645F0;
-    *(v1 + 168) = xmmword_1E3064600;
-    *(v1 + 184) = xmmword_1E3064610;
-    v25[0] = 0;
-    v25[1] = v25;
-    v25[2] = 0x2020000000;
-    v26 = v2;
-    v3 = re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter;
-    os_unfair_lock_lock((re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter + 88));
-    v4 = *(v1 + 72);
-    if (v4)
-    {
-      v5 = 0;
-      v6 = *(v1 + 56);
-      while (1)
-      {
-        v7 = *v6;
-        v6 += 8;
-        if (v7 < 0)
-        {
-          break;
-        }
-
-        if (v4 == ++v5)
-        {
-          LODWORD(v5) = *(v1 + 72);
-          break;
-        }
-      }
-    }
-
-    else
-    {
-      LODWORD(v5) = 0;
-    }
-
-    if (v5 != v4)
-    {
-      while (1)
-      {
-        v8 = *(v1 + 56) + 32 * v5;
-        v23[0] = 0;
-        v23[1] = v23;
-        v23[2] = 0x2020000000;
-        v9 = *(v8 + 8);
-        v24 = v9;
-        if (v9)
-        {
-          break;
-        }
-
-LABEL_25:
-        _Block_object_dispose(v23, 8);
-        v21 = *(v1 + 72);
-        if (v21 <= v5 + 1)
-        {
-          v21 = v5 + 1;
-        }
-
-        while (v21 - 1 != v5)
-        {
-          LODWORD(v5) = v5 + 1;
-          if ((*(*(v1 + 56) + 32 * v5) & 0x80000000) != 0)
-          {
-            goto LABEL_31;
-          }
-        }
-
-        LODWORD(v5) = v21;
-LABEL_31:
-        if (v5 == v4)
-        {
-          goto LABEL_32;
-        }
-      }
-
-      v10 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v9 ^ (v9 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v9 ^ (v9 >> 30))) >> 27));
-      v11 = v10 ^ (v10 >> 31);
-      v12 = *(v1 + 232);
-      if (v12)
-      {
-        v13 = v11 % v12;
-        v14 = *(*(v1 + 216) + 4 * (v11 % v12));
-        if (v14 != 0x7FFFFFFF)
-        {
-          v15 = *(v1 + 224);
-          while (*(v15 + 24 * v14 + 16) != v9)
-          {
-            LODWORD(v14) = *(v15 + 24 * v14 + 8) & 0x7FFFFFFF;
-            if (v14 == 0x7FFFFFFF)
-            {
-              goto LABEL_18;
-            }
-          }
-
-          goto LABEL_24;
-        }
-      }
-
-      else
-      {
-        v13 = 0;
-      }
-
-LABEL_18:
-      v16 = *(v1 + 244);
-      if (v16 == 0x7FFFFFFF)
-      {
-        v16 = *(v1 + 240);
-        v17 = v16;
-        if (v16 == v12)
-        {
-          re::HashSetBase<re::ecs2::AudioPlayerSystem *,re::ecs2::AudioPlayerSystem *,re::internal::ValueAsKey<re::ecs2::AudioPlayerSystem *>,re::Hash<re::ecs2::AudioPlayerSystem *>,re::EqualTo<re::ecs2::AudioPlayerSystem *>,true,false>::setCapacity(v1 + 208, 2 * *(v1 + 236));
-          v13 = v11 % *(v1 + 232);
-          v17 = *(v1 + 240);
-          v9 = v24;
-        }
-
-        *(v1 + 240) = v17 + 1;
-        v18 = *(v1 + 224);
-        v19 = *(v18 + 24 * v16 + 8);
-      }
-
-      else
-      {
-        v18 = *(v1 + 224);
-        v19 = *(v18 + 24 * v16 + 8);
-        *(v1 + 244) = v19 & 0x7FFFFFFF;
-      }
-
-      *(v18 + 24 * v16 + 8) = v19 | 0x80000000;
-      *(*(v1 + 224) + 24 * v16 + 8) = *(*(v1 + 224) + 24 * v16 + 8) & 0x80000000 | *(*(v1 + 216) + 4 * v13);
-      *(*(v1 + 224) + 24 * v16) = v11;
-      *(*(v1 + 224) + 24 * v16 + 16) = v9;
-      *(*(v1 + 216) + 4 * v13) = v16;
-      ++*(v1 + 236);
-      ++*(v1 + 248);
+        v11 = 1;
 LABEL_24:
-      v20 = *(v8 + 16);
-      block[0] = MEMORY[0x1E69E9820];
-      block[1] = 3221225472;
-      block[2] = ___ZN2re4ecs228AudioPlayerTelemetryReporterC2Ev_block_invoke_2;
-      block[3] = &unk_1E871BC18;
-      block[4] = v23;
-      block[5] = v25;
-      block[6] = v1;
-      dispatch_async(v20, block);
-      goto LABEL_25;
-    }
 
-LABEL_32:
-    os_unfair_lock_unlock(v3 + 22);
-    _Block_object_dispose(v25, 8);
-  }
-}
-
-void sub_1E21556E8(_Unwind_Exception *a1, os_unfair_lock_s *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  os_unfair_lock_unlock(a2 + 22);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-void ___ZN2re4ecs228AudioPlayerTelemetryReporterC2Ev_block_invoke_2(uint64_t a1)
-{
-  v1 = a1;
-  v2 = re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter;
-  if (!re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter)
-  {
-    goto LABEL_14;
-  }
-
-  v3 = *(*(*(a1 + 32) + 8) + 24);
-  os_unfair_lock_lock((re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter + 88));
-  if (!re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter)
-  {
-    os_unfair_lock_unlock(v2 + 22);
-LABEL_14:
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3221225472;
-    block[2] = ___ZN2re4ecs228AudioPlayerTelemetryReporterC2Ev_block_invoke_2_3;
-    block[3] = &unk_1E871BBF0;
-    v40 = *(v1 + 32);
-    dispatch_async(re::ecs2::AudioPlayerTelemetryReporter::m_audioPlayerTelemetryQueue, block);
-    return;
-  }
-
-  v4 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v3 ^ (v3 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v3 ^ (v3 >> 30))) >> 27));
-  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::findEntry<void *>(&v42, re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter + 40, v3, v4 ^ (v4 >> 31));
-  v5 = HIDWORD(v43);
-  os_unfair_lock_unlock(v2 + 22);
-  if (v3)
-  {
-    v6 = v5 == 0x7FFFFFFF;
-  }
-
-  else
-  {
-    v6 = 1;
-  }
-
-  if (v6)
-  {
-    goto LABEL_14;
-  }
-
-  if (!*(v3 + 280))
-  {
-    goto LABEL_14;
-  }
-
-  v7 = *(v3 + 392);
-  if (!v7)
-  {
-    goto LABEL_14;
-  }
-
-  while (1)
-  {
-    v8 = (*(**(v3 + 280) + 16))(*(v3 + 280), v7[2]);
-    if (v8)
-    {
-      if (!(*(*v8 + 568))(v8))
-      {
-        break;
+        goto LABEL_27;
       }
+
+      v35 = *re::audioLogObjects(v32);
+      if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      {
+LABEL_23:
+        v11 = 0;
+        goto LABEL_24;
+      }
+
+      LOWORD(v38) = 0;
+      v36 = "[CoreRE] [AudioFileAssetLoader] Failed to serialize asset blob without compression.";
     }
 
-    v7 = *v7;
-    if (!v7)
+    else
     {
-      goto LABEL_14;
+      v35 = *re::audioLogObjects(0);
+      if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_23;
+      }
+
+      LOWORD(v38) = 0;
+      v36 = "[CoreRE] [AudioFileAssetLoader] Failed to serialize asset blob without compression. pcmBuffer is nil.";
     }
+
+    _os_log_error_impl(&dword_1E1C61000, v35, OS_LOG_TYPE_ERROR, v36, &v38, 2u);
+    goto LABEL_23;
   }
 
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x5812000000;
-  v45 = __Block_byref_object_copy__7;
-  v46 = __Block_byref_object_dispose__7;
-  v47 = "";
-  v9 = *(*(*(v1 + 32) + 8) + 24);
-  v48 = 0u;
-  v49 = 0u;
-  v50 = 0;
-  v10 = NSClassFromString(&cfstr_Xctest.isa);
-  if (v9)
+  v12 = this[1][4];
+
+  if (!v12)
   {
-    v11 = v10 == 0;
+    goto LABEL_8;
+  }
+
+  v13 = this[1][23];
+
+  if (v13)
+  {
+    v15 = *re::audioLogObjects(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v38) = 0;
+      _os_log_error_impl(&dword_1E1C61000, v15, OS_LOG_TYPE_ERROR, "[CoreRE] [AudioFileAssetLoader] Failed to serialize asset from url. dataWithContentsOfURL does not support query items.", &v38, 2u);
+    }
+
+    goto LABEL_12;
+  }
+
+  v33 = this[1][4];
+  if (v33)
+  {
+    v34 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v33];
+    v11 = (*(*a1 + 16))(a1, [v34 bytes], objc_msgSend(v34, "length")) != 0;
   }
 
   else
@@ -3945,823 +426,4178 @@ LABEL_14:
     v11 = 0;
   }
 
-  if (v11)
+LABEL_27:
+  return v11;
+}
+
+re::audio *re::AudioFileAssetLoader::readAudioFileAssetIntoPCMBuffer(id **this, const re::AudioFileAsset *a2)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v3 = re::AudioFileAsset::audioFormat(this);
+  v4 = *this[1];
+  v5 = v4;
+  if (!v3)
   {
-    *(&v48 + 4) = *(v9 + 328);
-    *(v9 + 328) = 0;
-    v12 = *(v9 + 392);
-    if (v12)
+    v12 = *re::audioLogObjects(v4);
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v37 = v1;
-      v13 = 0;
-      v14 = 0;
-      v15 = 0;
-      v16 = 0;
-      v17 = 0;
-      v18 = 0;
-      v19 = 0;
-      v20 = 0;
-      do
+LABEL_12:
+      v11 = 0;
+      goto LABEL_17;
+    }
+
+    *buf = 0;
+    v13 = "[CoreRE] [AudioFileAssetLoader] AudioFileAsset cannot be read into a buffer if it has no format.";
+LABEL_21:
+    _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, v13, buf, 2u);
+    goto LABEL_12;
+  }
+
+  if (!v4)
+  {
+    v12 = *re::audioLogObjects(0);
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_12;
+    }
+
+    *buf = 0;
+    v13 = "[CoreRE] [AudioFileAssetLoader] AudioFileAsset cannot be read into a buffer if it has no underlying AVAudioFile.";
+    goto LABEL_21;
+  }
+
+  if (re::internal::enableSignposts(0, 0))
+  {
+    kdebug_trace();
+  }
+
+  v6 = [objc_alloc(MEMORY[0x1E6958440]) initWithPCMFormat:v3 frameCapacity:*(this + 36)];
+  [(re *)v5 setFramePosition:0];
+  v16 = 0;
+  v7 = [(re *)v5 readIntoBuffer:v6 error:&v16];
+  v8 = v16;
+  v9 = re::internal::enableSignposts(0, 0);
+  if (v9)
+  {
+    [(re *)v5 length];
+    re::audio::pcmBufferSize(v6, v10);
+    v9 = kdebug_trace();
+  }
+
+  if (v7)
+  {
+    v11 = v6;
+  }
+
+  else
+  {
+    v14 = *re::audioLogObjects(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v18 = v8;
+      _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "[CoreRE] [AudioFileAssetLoader] AudioFileAsset could not be read into a buffer. %@", buf, 0xCu);
+    }
+
+    v11 = 0;
+  }
+
+LABEL_17:
+
+  return v11;
+}
+
+void re::audio::AudioFileAssetWriter::~AudioFileAssetWriter(re::audio::AudioFileAssetWriter *this)
+{
+  v2 = *(this + 2);
+  if (v2)
+  {
+    *(this + 3) = v2;
+    operator delete(v2);
+  }
+}
+
+BOOL re::AudioFileAssetLoader::serializeAssetBlobFromPCMBuffer(void *a1, void *a2)
+{
+  v3 = a2;
+  v11[0] = v3;
+  v11[1] = a1;
+  v13 = 0;
+  v14 = 0;
+  __p = 0;
+  v4 = [v3 format];
+  v5 = [v4 streamDescription];
+  v6 = *v5;
+  v7 = *(v5 + 16);
+  *&v10.mBitsPerChannel = *(v5 + 32);
+  *&v10.mSampleRate = v6;
+  *&v10.mBytesPerPacket = v7;
+
+  v10.mBytesPerFrame *= v10.mChannelsPerFrame;
+  v10.mFormatFlags &= ~0x20u;
+  v10.mBytesPerPacket *= v10.mChannelsPerFrame;
+  v8 = re::audio::AudioFileAssetWriter::writeToStreamWithCustomOutputDescription(v11, &v10, 0);
+  if (__p)
+  {
+    v13 = __p;
+    operator delete(__p);
+  }
+
+  return v8;
+}
+
+void sub_1E20EF8A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+
+  re::audio::AudioFileAssetWriter::~AudioFileAssetWriter(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t re::AudioFileAssetLoader::createRuntimeData(re *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (a2)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
+    {
+      v5 = (*(*v4 + 24))(v4);
+      re::AudioAssetLoadStrategyFactory::getCurrentLoadStrategy(v5, v6);
+    }
+
+    operator new();
+  }
+
+  v7 = *re::audioLogObjects(a1);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "[CoreRE] [AudioFileAssetLoader] Cannot create runtime data with a null audioFileAsset", buf, 2u);
+  }
+
+  return 0;
+}
+
+void re::AudioFileAssetLoader::allocateSampleAsset(re::AudioFileAssetLoader *this)
+{
+  v1 = re::globalAllocators(this);
+  v2 = (*(*v1[2] + 32))(v1[2], 176, 8);
+  re::AudioFileAsset::AudioFileAsset(v2);
+}
+
+void re::AudioFileAssetLoader::unloadAsset(re::AudioFileAssetLoader *this, re::AudioFileAsset *a2)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  v3 = re::audioLogObjects(this);
+  v4 = *v3;
+  if (a2)
+  {
+    v5 = v4;
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = *(*(a2 + 1) + 24);
+      v9 = 134217984;
+      v10 = v6;
+      _os_log_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_DEFAULT, "[CoreRE] [AudioFileAsset] Unloaded audio asset: %llu", &v9, 0xCu);
+    }
+
+    v8 = re::globalAllocators(v7)[2];
+    re::AudioFileAsset::~AudioFileAsset(a2);
+    (*(*v8 + 40))(v8, a2);
+  }
+
+  else if (os_log_type_enabled(*v3, OS_LOG_TYPE_ERROR))
+  {
+    LOWORD(v9) = 0;
+    _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, "[CoreRE] [AudioFileAssetLoader] Cannot unload asset with a null audioFileAsset", &v9, 2u);
+  }
+}
+
+BOOL re::AudioFileAssetLoader::isSupportedSourceExtension(re::AudioFileAssetLoader *this, const char *a2)
+{
+  re::AudioFileAsset::supportedExtensions(&v16);
+  v3 = strlen(a2);
+  if (v3 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  v4 = v3;
+  if (v3 >= 0x17)
+  {
+    operator new();
+  }
+
+  v15 = v3;
+  if (v3)
+  {
+    memcpy(__p, a2, v3);
+  }
+
+  *(__p + v4) = 0;
+  if ((v15 & 0x80u) == 0)
+  {
+    v5 = (__p + v15);
+  }
+
+  else
+  {
+    v5 = (__p[0] + __p[1]);
+  }
+
+  if ((v15 & 0x80u) == 0)
+  {
+    v6 = __p;
+  }
+
+  else
+  {
+    v6 = __p[0];
+  }
+
+  while (v6 != v5)
+  {
+    *v6 = __tolower(*v6);
+    v6 = (v6 + 1);
+  }
+
+  if (v17)
+  {
+    v7 = v18;
+    v8 = 8 * v17 - 8;
+    do
+    {
+      v9 = *v7++;
+      v10 = strcmp(a2, v9);
+      v11 = v10 == 0;
+      if (v10)
       {
-        v38 = v19;
-        v21 = v12[2];
-        v22 = re::ecs2::SceneComponentTable::get((v21 + 200), re::ecs2::ComponentImpl<re::ecs2::AudioPlayerComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType);
-        if (v22)
-        {
-          v23 = *(v22 + 384);
-          if (v23)
-          {
-            v24 = *(v22 + 400);
-            v25 = 8 * v23;
-            do
-            {
-              v26 = *v24++;
-              v20 += *(v26 + 360);
-              v17 += *(v26 + 364);
-              *(v26 + 360) = 0;
-              v25 -= 8;
-            }
-
-            while (v25);
-          }
-        }
-
-        v27 = re::ecs2::SceneComponentTable::get((v21 + 200), re::ecs2::ComponentImpl<re::ecs2::SpatialAudioComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
-        if (v27)
-        {
-          v28 = *(v27 + 384);
-          if (v28)
-          {
-            v29 = *(v27 + 400);
-            v30 = 8 * v28;
-            do
-            {
-              v31 = *(*v29 + 40);
-              switch(v31)
-              {
-                case 3:
-                  ++v15;
-                  break;
-                case 1:
-                  ++v14;
-                  break;
-                case 0:
-                  ++v13;
-                  break;
-              }
-
-              v29 += 8;
-              ++v16;
-              v30 -= 8;
-            }
-
-            while (v30);
-          }
-        }
-
-        v32 = re::ecs2::SceneComponentTable::get((v21 + 200), re::ecs2::ComponentImpl<re::ecs2::AmbientAudioComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
-        if (v32)
-        {
-          v33 = *(v32 + 384);
-        }
-
-        else
-        {
-          v33 = 0;
-        }
-
-        v34 = re::ecs2::SceneComponentTable::get((v21 + 200), re::ecs2::ComponentImpl<re::ecs2::ChannelAudioComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
-        if (v34)
-        {
-          v35 = *(v34 + 384);
-        }
-
-        else
-        {
-          v35 = 0;
-        }
-
-        v19 = v33 + v38;
-        v18 += v35;
-        v12 = *v12;
+        v12 = v8 == 0;
       }
 
-      while (v12);
-      HIDWORD(v48) = v17;
-      *&v49 = __PAIR64__(v16, v18);
-      DWORD2(v49) = v33 + v38;
-      v50 = __PAIR64__(v15, v14);
-      HIDWORD(v49) = v13;
-      v1 = v37;
+      else
+      {
+        v12 = 1;
+      }
+
+      v8 -= 8;
+    }
+
+    while (!v12);
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  if (v15 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (v16 && v18)
+  {
+    (*(*v16 + 40))();
+  }
+
+  return v11;
+}
+
+void sub_1E20EFF38(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
+{
+  if (a15)
+  {
+    if (a19)
+    {
+      (*(*a15 + 40))();
+    }
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void re::AudioFileAssetLoader::makeSharedResourcePayload(uint64_t a1@<X1>, void *a2@<X8>)
+{
+  if (*(a1 + 64) == 1)
+  {
+    if (*(a1 + 80))
+    {
+      v4 = *(a1 + 88);
     }
 
     else
     {
-      v20 = 0;
+      v4 = a1 + 81;
     }
 
-    LODWORD(v48) = v20;
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v4];
   }
 
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = ___ZN2re4ecs228AudioPlayerTelemetryReporterC2Ev_block_invoke_1;
-  v41[3] = &unk_1E871BBC8;
-  v36 = *(v1 + 40);
-  v41[4] = *(v1 + 32);
-  v41[5] = &v42;
-  v41[6] = v36;
-  dispatch_async(re::ecs2::AudioPlayerTelemetryReporter::m_audioPlayerTelemetryQueue, v41);
-  _Block_object_dispose(&v42, 8);
+  else
+  {
+    v5 = 0;
+  }
+
+  v6 = *(*(a1 + 8) + 200);
+
+  if (v6)
+  {
+    v7 = *(*(a1 + 8) + 200);
+    v8 = re::AudioFileAsset::audioFormat(a1);
+    HIDWORD(v29) = *(a1 + 136);
+    LODWORD(v29) = *(a1 + 116);
+    re::AudioPayload::makeBufferPayloadWithProperties(v7, v8, *(a1 + 144), *(a1 + 60), *(a1 + 104), v5, *(a1 + 108), *(a1 + 112), buf, *(a1 + 56), *(a1 + 120), v29, *(a1 + 140), *(*(a1 + 8) + 24));
+LABEL_9:
+    v9 = *buf;
+    *buf = 0;
+    *a2 = v9;
+
+    goto LABEL_12;
+  }
+
+  v10 = *(*(a1 + 8) + 32);
+
+  if (v10)
+  {
+    v31 = a2;
+    v33 = v5;
+    v32 = *(*(a1 + 8) + 32);
+    v11 = [v32 path];
+    v12 = *(a1 + 60);
+    v13 = *(a1 + 56);
+    v14 = *(a1 + 104);
+    v15 = *(a1 + 108);
+    v16 = *(a1 + 112);
+    v17 = *(a1 + 116);
+    v19 = *(a1 + 136);
+    v18 = *(a1 + 140);
+    v20 = *(a1 + 120);
+    v21 = *(a1 + 128);
+    v22 = *(a1 + 8);
+    v23 = *(v22 + 24);
+    v24 = *(v22 + 184);
+    v30 = v23;
+    v5 = v33;
+    re::AudioPayload::makeFilePayloadWithProperties(v11, v12, v14, v33, v15, v16, v17, v19, buf, v13, v20, v21, v18, v30, v24);
+    v25 = *buf;
+    *buf = 0;
+    *v31 = v25;
+
+    goto LABEL_12;
+  }
+
+  v26 = *(*(a1 + 8) + 208);
+
+  if (v26)
+  {
+    v7 = *(*(a1 + 8) + 208);
+    v8 = re::AudioFileAsset::audioFormat(a1);
+    re::AudioPayload::makeFileBufferPayloadWithProperties(v7, v8, *(a1 + 144), *(*(a1 + 8) + 40), *(a1 + 60), *(a1 + 104), v5, *(a1 + 108), buf, *(a1 + 56), *(a1 + 120), *(a1 + 112), HIDWORD(*(a1 + 112)), *(a1 + 136), *(a1 + 140), *(*(a1 + 8) + 24));
+    goto LABEL_9;
+  }
+
+  v28 = *re::audioLogObjects(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_error_impl(&dword_1E1C61000, v28, OS_LOG_TYPE_ERROR, "[CoreRE] [AudioFileAssetLoader] makeSharedResourcePayload was unexpectedly called on an asset without playback data.", buf, 2u);
+  }
+
+  *a2 = 0;
+LABEL_12:
 }
 
-__n128 __Block_byref_object_copy__7(uint64_t a1, uint64_t a2)
+uint64_t re::AudioFileAssetLoader::postInitializeAssetFromPayload(uint64_t a1, id *a2, uint64_t a3)
 {
-  result = *(a2 + 48);
-  v3 = *(a2 + 64);
-  *(a1 + 80) = *(a2 + 80);
-  *(a1 + 48) = result;
-  *(a1 + 64) = v3;
+  v132 = *MEMORY[0x1E69E9840];
+  re::AudioPayload::dynamicCast(a2, &v123);
+  if (!*a2 || !v123)
+  {
+    v48 = *re::audioLogObjects(v6);
+    if (!os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_28;
+    }
+
+    *buf = 0;
+    v51 = "[CoreRE] [AudioFileAssetLoader] Cannot make AudioFileAsset with bad payload.";
+LABEL_44:
+    _os_log_error_impl(&dword_1E1C61000, v48, OS_LOG_TYPE_ERROR, v51, buf, 2u);
+    goto LABEL_28;
+  }
+
+  if (!a3)
+  {
+    v48 = *re::audioLogObjects(v6);
+    if (!os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_28;
+    }
+
+    *buf = 0;
+    v51 = "[CoreRE] [AudioFileAssetLoader] Invalid asset pointer when initializing asset from payload.";
+    goto LABEL_44;
+  }
+
+  v7 = v123;
+  *(a3 + 60) = [v7 inputMode];
+
+  v8 = v123;
+  [v8 referenceLevel];
+  *(a3 + 56) = v9;
+
+  v10 = v123;
+  *(a3 + 104) = [v10 loopCount];
+
+  v11 = v123;
+  *(a3 + 108) = [v11 streaming];
+
+  v12 = v123;
+  *(a3 + 112) = [v12 normalizationMode];
+
+  v13 = v123;
+  *(a3 + 116) = [v13 calibrationMode];
+
+  v14 = v123;
+  [v14 calibrationLevel];
+  *(a3 + 120) = v15;
+
+  v16 = v123;
+  *(a3 + 136) = [v16 layoutTag];
+
+  v17 = v123;
+  [v17 targetLUFS];
+  *(a3 + 128) = v18;
+
+  v19 = v123;
+  *(*(a3 + 8) + 24) = [v19 audioAssetID];
+
+  v20 = [v123 taskToken];
+  v21 = mach_port_mod_refs(*MEMORY[0x1E69E9A60], v20, 0, 1);
+  v22 = v21;
+  if (v21)
+  {
+    v23 = *re::audioLogObjects(v21);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      v98 = mach_error_string(v22);
+      *buf = 136315138;
+      *v125 = v98;
+      _os_log_error_impl(&dword_1E1C61000, v23, OS_LOG_TYPE_ERROR, "[CoreRE] [AudioFileAssetLoader] Failed to increment the taskToken ref count, with KERN error: %s", buf, 0xCu);
+    }
+  }
+
+  *(a3 + 140) = v20;
+  v24 = [v123 mixGroupName];
+  v25 = v24 == 0;
+
+  if (!v25)
+  {
+    v26 = v123;
+    v27 = [v26 mixGroupName];
+    v28 = v27;
+    v29 = [v27 UTF8String];
+    buf[0] = 1;
+    *&v125[4] = *&v122[0];
+    *&v125[28] = *(&v122[1] + 1);
+    *&v125[12] = *(v122 + 8);
+    memset(v122, 0, sizeof(v122));
+    re::Optional<re::DynamicString>::operator=(a3 + 64, buf);
+    if (buf[0] == 1 && *&v125[4])
+    {
+      if (v125[12])
+      {
+        (*(**&v125[4] + 40))();
+      }
+
+      memset(&v125[4], 0, 32);
+    }
+
+    if (*&v122[0])
+    {
+      if (BYTE8(v122[0]))
+      {
+        (*(**&v122[0] + 40))();
+      }
+
+      memset(v122, 0, sizeof(v122));
+    }
+  }
+
+  v30 = [v123 pcmBuffer];
+  v31 = v30 == 0;
+
+  if (v31)
+  {
+    v52 = [v123 filePath];
+    v53 = v52 == 0;
+
+    if (v53)
+    {
+      v66 = [v123 fileBuffer];
+      v67 = v66 == 0;
+
+      if (!v67)
+      {
+        v69 = v123;
+        v70 = [v69 fileBuffer];
+        objc_storeStrong((*(a3 + 8) + 208), v70);
+
+        v71 = v123;
+        v72 = [v71 bufferSize];
+        *(*(a3 + 8) + 40) = [v72 unsignedLongLongValue];
+
+        v73 = v123;
+        v74 = [v73 length];
+        *(a3 + 144) = [v74 longLongValue];
+
+        v75 = v123;
+        v76 = [v75 format];
+        objc_storeStrong((*(a3 + 8) + 8), v76);
+
+        v39 = *re::audioLogObjects(v77);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        {
+          v120 = re::AudioFileAsset::sharableFileBuffer(a3);
+          v78 = *(*(a3 + 8) + 40);
+          v79 = re::AudioFileAsset::audioFormat(a3);
+          v80 = *(a3 + 144);
+          v81 = *(a3 + 60);
+          v82 = *(a3 + 56);
+          v83 = *(a3 + 104);
+          v84 = (a3 + 80);
+          if (!*(a3 + 64))
+          {
+            v84 = v122 + 8;
+          }
+
+          if (*v84)
+          {
+            if (*(a3 + 64))
+            {
+              v107 = (a3 + 88);
+            }
+
+            else
+            {
+              v107 = &v122[1];
+            }
+
+            v85 = *v107;
+          }
+
+          else if (*(a3 + 64))
+          {
+            v85 = (a3 + 81);
+          }
+
+          else
+          {
+            v85 = v122 + 9;
+          }
+
+          v108 = *(*(a3 + 8) + 24);
+          v109 = *(a3 + 136);
+          v111 = *(a3 + 120);
+          v110 = *(a3 + 128);
+          v113 = *(a3 + 112);
+          v112 = *(a3 + 116);
+          v114 = *(a3 + 108);
+          *buf = 138415874;
+          *v125 = v120;
+          *&v125[8] = 2048;
+          *&v125[10] = v78;
+          *&v125[18] = 2112;
+          *&v125[20] = v79;
+          *&v125[28] = 2048;
+          *&v125[30] = v80;
+          *&v125[38] = 1024;
+          *&v125[40] = v81;
+          *&v125[44] = 2048;
+          *v126 = v82;
+          *&v126[8] = 1024;
+          *&v126[10] = v83;
+          *v127 = 2080;
+          *&v127[2] = v85;
+          *&v127[10] = 1024;
+          *&v127[12] = v114;
+          *&v127[16] = 1024;
+          *&v127[18] = v113;
+          *&v127[22] = 1024;
+          *&v127[24] = v112;
+          *&v127[28] = 2048;
+          *&v127[30] = v111;
+          *&v127[38] = 1024;
+          *&v127[40] = v109;
+          v128 = 2048;
+          v129 = v110;
+          v130 = 2048;
+          v131 = v108;
+          _os_log_impl(&dword_1E1C61000, v39, OS_LOG_TYPE_DEFAULT, "[CoreRE] [AudioFileAssetLoader] Recovered file buffer asset with buffer=%@, bufferSize=%zu, format=%@, length=%llu, inputMode=%d, referenceLevel=%0.2f, loopCount=%d, mixGroupName=%s, streaming=%d, normalizationMode=%d, calibrationMode=%d, calibrationLevel=%0.2f, layoutTag=%u, targetLUFS=%0.2f, audioAssetID=%llu from audio payload.", buf, 0x80u);
+          if (*&v122[0] && (BYTE8(v122[0]) & 1) != 0)
+          {
+            (*(**&v122[0] + 40))();
+          }
+        }
+
+        goto LABEL_84;
+      }
+
+      v97 = *re::audioLogObjects(v68);
+      if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1E1C61000, v97, OS_LOG_TYPE_DEFAULT, "[CoreRE] [AudioFileAssetLoader] Cannot make asset from payload that contains neither buffer nor file path.", buf, 2u);
+      }
+    }
+
+    else
+    {
+      v54 = v123;
+      v39 = [v54 filePath];
+
+      v55 = v123;
+      v56 = [v55 urlQueryItems];
+
+      if (v56)
+      {
+        v57 = [v39 stringByAppendingFormat:@"?%@", v56];
+      }
+
+      else
+      {
+        v57 = v39;
+      }
+
+      v86 = v57;
+      v87 = v57;
+      v88 = re::AudioFileAsset::prepareToLoadFrom(a3, [v86 UTF8String], v56 != 0);
+      v89 = v88;
+      v90 = *re::audioLogObjects(v88);
+      v91 = v90;
+      if (v89)
+      {
+        if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+        {
+          v92 = re::AudioFileAsset::localFileURL(a3);
+          v93 = *(a3 + 60);
+          v94 = *(a3 + 56);
+          v121 = *(a3 + 104);
+          v95 = (a3 + 80);
+          if (!*(a3 + 64))
+          {
+            v95 = v122 + 8;
+          }
+
+          if (*v95)
+          {
+            if (*(a3 + 64))
+            {
+              v99 = (a3 + 88);
+            }
+
+            else
+            {
+              v99 = &v122[1];
+            }
+
+            v96 = *v99;
+          }
+
+          else if (*(a3 + 64))
+          {
+            v96 = (a3 + 81);
+          }
+
+          else
+          {
+            v96 = v122 + 9;
+          }
+
+          v100 = *(*(a3 + 8) + 24);
+          v101 = *(a3 + 136);
+          v103 = *(a3 + 120);
+          v102 = *(a3 + 128);
+          v105 = *(a3 + 112);
+          v104 = *(a3 + 116);
+          v106 = *(a3 + 108);
+          *buf = 138415106;
+          *v125 = v92;
+          *&v125[8] = 1024;
+          *&v125[10] = v93;
+          *&v125[14] = 2048;
+          *&v125[16] = v94;
+          *&v125[24] = 1024;
+          *&v125[26] = v121;
+          *&v125[30] = 2080;
+          *&v125[32] = v96;
+          *&v125[40] = 1024;
+          *&v125[42] = v106;
+          *v126 = 1024;
+          *&v126[2] = v105;
+          *&v126[6] = 1024;
+          *&v126[8] = v104;
+          *&v126[12] = 2048;
+          *v127 = v103;
+          *&v127[8] = 1024;
+          *&v127[10] = v101;
+          *&v127[14] = 2048;
+          *&v127[16] = v102;
+          *&v127[24] = 2048;
+          *&v127[26] = v100;
+          _os_log_impl(&dword_1E1C61000, v91, OS_LOG_TYPE_DEFAULT, "[CoreRE] [AudioFileAssetLoader] Recovered file asset with path=%@, inputMode=%d, referenceLevel=%0.2f, loopCount=%d, mixGroupName=%s, streaming=%d, normalizationMode=%d, calibrationMode=%d, calibrationLevel=%0.2f, layoutTag=%u, targetLUFS=%0.2f, audioAssetID=%llu from audio payload.", buf, 0x62u);
+          if (*&v122[0] && (BYTE8(v122[0]) & 1) != 0)
+          {
+            (*(**&v122[0] + 40))();
+          }
+        }
+
+        goto LABEL_84;
+      }
+
+      if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+      {
+        v118 = v86;
+        v119 = [v86 UTF8String];
+        *buf = 136315138;
+        *v125 = v119;
+        _os_log_error_impl(&dword_1E1C61000, v91, OS_LOG_TYPE_ERROR, "[CoreRE] [AudioFileAssetLoader] Failed to load audio file at '%s'", buf, 0xCu);
+      }
+    }
+
+LABEL_28:
+    v49 = 0;
+    goto LABEL_29;
+  }
+
+  v32 = v123;
+  v33 = [v32 pcmBuffer];
+  objc_storeStrong((*(a3 + 8) + 200), v33);
+
+  v34 = v123;
+  v35 = [v34 format];
+  objc_storeStrong((*(a3 + 8) + 8), v35);
+
+  v36 = v123;
+  v37 = [v36 length];
+  *(a3 + 144) = [v37 longLongValue];
+
+  v39 = *re::audioLogObjects(v38);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+  {
+    v40 = *(*(a3 + 8) + 200);
+    v41 = re::AudioFileAsset::audioFormat(a3);
+    v42 = *(a3 + 144);
+    v43 = *(a3 + 60);
+    v44 = *(a3 + 56);
+    v45 = *(a3 + 104);
+    v46 = (a3 + 80);
+    if (!*(a3 + 64))
+    {
+      v46 = v122 + 8;
+    }
+
+    if (*v46)
+    {
+      if (*(a3 + 64))
+      {
+        v58 = (a3 + 88);
+      }
+
+      else
+      {
+        v58 = &v122[1];
+      }
+
+      v47 = *v58;
+    }
+
+    else if (*(a3 + 64))
+    {
+      v47 = (a3 + 81);
+    }
+
+    else
+    {
+      v47 = v122 + 9;
+    }
+
+    v59 = *(*(a3 + 8) + 24);
+    v60 = *(a3 + 136);
+    v62 = *(a3 + 120);
+    v61 = *(a3 + 128);
+    v64 = *(a3 + 112);
+    v63 = *(a3 + 116);
+    v65 = *(a3 + 108);
+    *buf = 138415618;
+    *v125 = v40;
+    *&v125[8] = 2112;
+    *&v125[10] = v41;
+    *&v125[18] = 2048;
+    *&v125[20] = v42;
+    *&v125[28] = 1024;
+    *&v125[30] = v43;
+    *&v125[34] = 2048;
+    *&v125[36] = v44;
+    *&v125[44] = 1024;
+    *v126 = v45;
+    *&v126[4] = 2080;
+    *&v126[6] = v47;
+    *v127 = 1024;
+    *&v127[2] = v65;
+    *&v127[6] = 1024;
+    *&v127[8] = v64;
+    *&v127[12] = 1024;
+    *&v127[14] = v63;
+    *&v127[18] = 2048;
+    *&v127[20] = v62;
+    *&v127[28] = 1024;
+    *&v127[30] = v60;
+    *&v127[34] = 2048;
+    *&v127[36] = v61;
+    v128 = 2048;
+    v129 = v59;
+    _os_log_impl(&dword_1E1C61000, v39, OS_LOG_TYPE_DEFAULT, "[CoreRE] [AudioFileAssetLoader] Recovered pcm buffer asset with buffer=%@, format=%@, length=%llu, inputMode=%d, referenceLevel=%0.2f, loopCount=%d, mixGroupName=%s, streaming=%d, normalizationMode=%d, calibrationMode=%d, calibrationLevel=%0.2f, layoutTag=%u, targetLUFS=%0.2f, audioAssetID=%llu from audio payload.", buf, 0x76u);
+    if (*&v122[0] && (BYTE8(v122[0]) & 1) != 0)
+    {
+      (*(**&v122[0] + 40))();
+    }
+  }
+
+LABEL_84:
+
+  v115 = (*(**(a1 + 8) + 160))(*(a1 + 8), *(*(a3 + 8) + 24));
+  if (v115)
+  {
+    v116 = *re::audioLogObjects(v115);
+    if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
+    {
+      v117 = *(*(a3 + 8) + 24);
+      *buf = 134217984;
+      *v125 = v117;
+      _os_log_impl(&dword_1E1C61000, v116, OS_LOG_TYPE_DEFAULT, "Audio asset with ID %llu has already been registered in PHASE. Marking as completely loaded.", buf, 0xCu);
+    }
+
+    v49 = 1;
+    *(a3 + 161) = 1;
+  }
+
+  else
+  {
+    re::AudioFileAsset::completeLoad(a3, *(a1 + 8));
+    v49 = 1;
+  }
+
+LABEL_29:
+
+  return v49;
+}
+
+void re::AudioFileAssetLoader::resourceDidUpdate(re *a1, uint64_t a2, id *a3, uint64_t a4)
+{
+  if (a2 && *a3)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
+    {
+      v5 = (*(*v4 + 24))(v4);
+      re::AudioAssetLoadStrategyFactory::getCurrentLoadStrategy(v5, v6);
+    }
+
+    operator new();
+  }
+
+  v7 = *re::audioLogObjects(a1);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "[CoreRE] [AudioFileAssetLoader] Cannot update shared AudioFileAsset with bad arguments.", buf, 2u);
+  }
+}
+
+uint64_t re::AudioFileAssetLoader::introspectionType(re::AudioFileAssetLoader *this)
+{
+  {
+    re::introspect<re::AudioFileAsset>(BOOL)::info = re::introspect_AudioFileAsset(0, v2, v3, v4, v5, v6);
+  }
+
+  return re::introspect<re::AudioFileAsset>(BOOL)::info;
+}
+
+uint64_t re::AudioFileAssetLoader::assetNonIntrospectionNonSharedDataByteSize(re::AudioFileAssetLoader *this, void *a2)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v3 = *re::audioLogObjects(this);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = *(a2[1] + 24);
+    v5 = a2[21];
+    v7 = 134218240;
+    v8 = v4;
+    v9 = 2048;
+    v10 = v5;
+    _os_log_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_DEFAULT, "[CoreRE] [AudioFileAssetLoader] Asset: %llu has an in memory byte size of: %lu", &v7, 0x16u);
+  }
+
+  return a2[21];
+}
+
+void sub_1E20F14E0(_Unwind_Exception *a1)
+{
+  v4 = v3;
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E20F1640(_Unwind_Exception *a1)
+{
+  v5 = v4;
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E20F1C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  v13 = *(v11 - 80);
+  if (v13)
+  {
+
+    *(v11 - 80) = 0;
+  }
+
+  v14 = 56;
+  while (1)
+  {
+    v15 = *(&a9 + v14);
+    if (v15)
+    {
+
+      *(&a9 + v14) = 0;
+    }
+
+    v14 -= 8;
+    if (v14 == -8)
+    {
+
+      _Unwind_Resume(a1);
+    }
+  }
+}
+
+void sub_1E20F1F68(_Unwind_Exception *a1)
+{
+  v4 = v3;
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1E20F20C8(_Unwind_Exception *a1)
+{
+  v5 = v4;
+
+  _Unwind_Resume(a1);
+}
+
+void *re::DirectMeshPayload::connectionId(id *this)
+{
+  v2 = [*this clientObject];
+  v8 = v2;
+  ClientIdentifier = re::directMeshConnectionId(&v8, v3);
+
+  if (!ClientIdentifier)
+  {
+    ClientIdentifier = [*this directMesh];
+
+    if (ClientIdentifier)
+    {
+      v5 = [*this directMesh];
+      v6 = DRMeshAsResource();
+      ClientIdentifier = DRResourceGetClientIdentifier();
+    }
+  }
+
+  return ClientIdentifier;
+}
+
+void *re::DirectMeshPayload::directMesh(id *this)
+{
+  v1 = [*this directMesh];
+
+  return v1;
+}
+
+void re::DirectMeshPayload::make(uint64_t a1@<X0>, REDirectMeshPayload **a2@<X8>)
+{
+  v3 = [[REDirectMeshPayload alloc] initWithDirectMesh:a1];
+  *a2 = v3;
+}
+
+void re::DirectMeshPayload::dynamicCast(uint64_t *__return_ptr a1@<X8>, id *this@<X0>)
+{
+  v6 = *this;
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+  v4 = v6;
+  if (isKindOfClass)
+  {
+    v5 = v6;
+    v4 = v6;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  *a1 = v5;
+}
+
+uint64_t re::DirectTexturePayload::connectionId(id *this)
+{
+  v1 = [*this clientObject];
+  v5 = v1;
+  v3 = re::directMeshConnectionId(&v5, v2);
+
+  return v3;
+}
+
+void *re::DirectTexturePayload::directTexture(id *this)
+{
+  v1 = [*this directTexture];
+
+  return v1;
+}
+
+void re::DirectTexturePayload::make(uint64_t a1@<X0>, REDirectTexturePayload **a2@<X8>)
+{
+  v3 = [[REDirectTexturePayload alloc] initWithDirectTexture:a1];
+  *a2 = v3;
+}
+
+void re::DirectTexturePayload::dynamicCast(uint64_t *__return_ptr a1@<X8>, id *this@<X0>)
+{
+  v6 = *this;
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+  v4 = v6;
+  if (isKindOfClass)
+  {
+    v5 = v6;
+    v4 = v6;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  *a1 = v5;
+}
+
+uint64_t *re::TimelineAsset::assetType(re::TimelineAsset *this)
+{
+  {
+    re::TimelineAsset::assetType(void)::type = "Timeline";
+    qword_1EE1C7128 = 0;
+    re::AssetType::generateCompiledExtension(&re::TimelineAsset::assetType(void)::type);
+  }
+
+  return &re::TimelineAsset::assetType(void)::type;
+}
+
+void re::IntrospectionInfo<re::TimelineAssetData *>::get(uint64_t a1, BOOL a2, uint64_t a3, uint64_t a4, uint64_t a5, BOOL a6)
+{
+  if ((atomic_load_explicit(&qword_1EE19BAA0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19BAA0))
+  {
+    re::IntrospectionPointer::IntrospectionPointer(&qword_1EE19BAA8);
+    __cxa_guard_release(&qword_1EE19BAA0);
+  }
+
+  if ((_MergedGlobals_103 & 1) == 0)
+  {
+    _MergedGlobals_103 = 1;
+    v6 = re::introspect_TimelineAssetData(1, a2, a3, a4, a5, a6);
+    ArcSharedObject::ArcSharedObject(&qword_1EE19BAA8, 0);
+    qword_1EE19BAB8 = 0x800000001;
+    dword_1EE19BAC0 = 8;
+    word_1EE19BAC4 = 0;
+    *&xmmword_1EE19BAC8 = 0;
+    *(&xmmword_1EE19BAC8 + 1) = 0xFFFFFFFFLL;
+    qword_1EE19BAA8 = &unk_1F5CBD2C0;
+    qword_1EE19BAD8 = v6;
+    unk_1EE19BAE0 = 0;
+    re::IntrospectionRegistry::add(v7, v8);
+    re::getPrettyTypeName(&v13, &qword_1EE19BAA8);
+    if (BYTE8(v13))
+    {
+      v9 = v14;
+    }
+
+    else
+    {
+      v9 = &v13 + 9;
+    }
+
+    if (v13 && (BYTE8(v13) & 1) != 0)
+    {
+      (*(*v13 + 40))();
+    }
+
+    if (v15 >> 1 == 94623636 && (__s1 == "char*" || !strcmp(__s1, "char*")))
+    {
+      v11 = v13;
+    }
+
+    else
+    {
+      v13 = *(v6 + 32);
+      v11 = v12;
+    }
+
+    xmmword_1EE19BAC8 = v11;
+    if (v15)
+    {
+      if (v15)
+      {
+      }
+    }
+  }
+}
+
+void *re::allocInfo_TimelineAsset(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE19BA98, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19BA98))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE19BAE8, "TimelineAsset");
+    __cxa_guard_release(&qword_1EE19BA98);
+  }
+
+  return &unk_1EE19BAE8;
+}
+
+void re::initInfo_TimelineAsset(re *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
+{
+  v15[0] = 0x79041F6188FFAE1ELL;
+  v15[1] = "TimelineAsset";
+  if (v15[0])
+  {
+    if (v15[0])
+    {
+    }
+  }
+
+  *(this + 2) = v16;
+  if ((atomic_load_explicit(&qword_1EE19BA90, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19BA90))
+  {
+    v7 = re::introspectionAllocator();
+    re::IntrospectionInfo<re::TimelineAssetData *>::get(v7, v8, v9, v10, v11, v12);
+    v13 = (*(*v7 + 32))(v7, 72, 8);
+    *v13 = 1;
+    *(v13 + 8) = "m_timelineData";
+    *(v13 + 16) = &qword_1EE19BAA8;
+    *(v13 + 24) = 0;
+    *(v13 + 32) = 0x800000001;
+    *(v13 + 40) = 0;
+    *(v13 + 48) = 0;
+    *(v13 + 56) = 0;
+    *(v13 + 64) = 0;
+    qword_1EE19BA88 = v13;
+    __cxa_guard_release(&qword_1EE19BA90);
+  }
+
+  *(this + 2) = 0x1800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 1;
+  *(this + 14) = 1;
+  *(this + 8) = &qword_1EE19BA88;
+  *(this + 9) = re::internal::defaultConstruct<re::TimelineAsset>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::TimelineAsset>;
+  *(this + 13) = re::internal::defaultConstructV2<re::TimelineAsset>;
+  *(this + 14) = re::internal::defaultDestructV2<re::TimelineAsset>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v6);
+  v14 = v16;
+}
+
+uint64_t re::internal::defaultConstructV2<re::TimelineAsset>(uint64_t result)
+{
+  *(result + 8) = 0;
+  *(result + 16) = 0;
   return result;
 }
 
-void ___ZN2re4ecs228AudioPlayerTelemetryReporterC2Ev_block_invoke_1(void *a1)
+uint64_t re::TimelineAssetLoader::introspectionType(re::TimelineAssetLoader *this)
 {
-  v2 = re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter;
-  if (re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter)
+  v1 = &OBJC_IVAR___REMeshBlendShapeBufferDescriptor__blendShapeConstantsBuffer;
   {
-    v3 = *(*(a1[6] + 8) + 24);
-    if (*(re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter + 200) == v3)
+    v1 = &OBJC_IVAR___REMeshBlendShapeBufferDescriptor__blendShapeConstantsBuffer;
+    if (v3)
     {
-      v4 = *(a1[5] + 8);
-      v5 = *(a1[4] + 8);
-      v7 = *(v4 + 48);
-      v6 = *(v4 + 52);
-      v8 = *(re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter + 96);
-      if (v6 <= *(re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter + 100))
-      {
-        v6 = *(re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter + 100);
-      }
-
-      *(re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter + 100) = v6;
-      v9 = *(v4 + 56);
-      if (v9 <= *(v2 + 104))
-      {
-        v9 = *(v2 + 104);
-      }
-
-      *(v2 + 104) = v9;
-      v10 = *(v5 + 24);
-      *(v2 + 96) = v8 + v7;
-      *(v2 + 124) = vadd_s32(*(v2 + 124), *(v4 + 76));
-      *(v2 + 132) += *(v4 + 84);
-      *(v2 + 108) = vaddq_s32(*(v2 + 108), *(v4 + 60));
-      re::ecs2::AudioPlayerTelemetryReporter::removeSystemFromRemainingForCurrentReport(v2, v10, v3);
+      re::introspect<re::TimelineAsset>(BOOL)::info = re::internal::getOrCreateInfo("TimelineAsset", re::allocInfo_TimelineAsset, re::initInfo_TimelineAsset, &re::internal::introspectionInfoStorage<re::TimelineAsset>, 0);
+      v1 = &OBJC_IVAR___REMeshBlendShapeBufferDescriptor__blendShapeConstantsBuffer;
     }
   }
+
+  return *(v1 + 344);
 }
 
-void ___ZN2re4ecs228AudioPlayerTelemetryReporterC2Ev_block_invoke_2_3(uint64_t a1)
+uint64_t re::TimelineAssetLoader::registerAsset(re::TimelineAssetLoader *this, void *a2, const re::ExistingAssetInformation *a3)
 {
-  if (re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter)
+  v4 = re::globalAllocators(this);
+  v6 = *(a2 + 2);
+  if (!v6)
   {
-    re::ecs2::AudioPlayerTelemetryReporter::removeSystemFromRemainingForCurrentReport(re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter, *(*(*(a1 + 32) + 8) + 24), *(*(*(a1 + 40) + 8) + 24));
+    v6 = re::internal::convertToTimeline(*(a2 + 1), v4[2], v5);
+    *(a2 + 2) = v6;
+    *a2 = v6;
+  }
+
+  v7 = *(a2 + 1);
+
+  return re::internal::registerAndResolveTimelineDependencies(v7, v6, v5);
+}
+
+re **re::TimelineAssetLoader::allocateSampleAsset(re::TimelineAssetLoader *this)
+{
+  v1 = re::globalAllocators(this);
+  v2 = (*(*v1[2] + 32))(v1[2], 120, 8);
+  v3 = re::TimelineAssetData::TimelineAssetData(v2, 11);
+  *(v3 + 72) = 0;
+  *(v3 + 80) = 0x3FF0000000000000;
+  *(v3 + 88) = 0;
+  *(v3 + 96) = 0;
+  *(v3 + 104) = 0;
+  *(v3 + 112) = 0;
+  *v3 = &unk_1F5CC3530;
+  v4 = re::globalAllocators(v3);
+  v6 = re::internal::convertToTimeline(v2, v4[2], v5);
+  v7 = re::globalAllocators(v6);
+  result = (*(*v7[2] + 32))(v7[2], 24, 8);
+  *result = v6;
+  result[1] = v2;
+  result[2] = v6;
+  return result;
+}
+
+re *re::TimelineAssetLoader::unregisterAsset(re *this, void *a2, const re::ExistingAssetInformation *a3)
+{
+  if (a2[2])
+  {
+    v4 = re::globalAllocators(this);
+    this = re::internal::destroy(a2[2], v4[2], v5);
+    a2[2] = 0;
+  }
+
+  *a2 = 0;
+  return this;
+}
+
+uint64_t re::TimelineAssetLoader::unloadAsset(re::TimelineAssetLoader *this, void *a2)
+{
+  v3 = a2[1];
+  if (v3)
+  {
+    (**v3)(v3);
+  }
+
+  a2[1] = 0;
+  if (a2[2])
+  {
+    v5 = re::globalAllocators(v4);
+    v4 = re::internal::destroy(a2[2], v5[2], v6);
+    a2[2] = 0;
+    *a2 = 0;
+  }
+
+  v7 = *(*re::globalAllocators(v4)[2] + 40);
+
+  return v7();
+}
+
+uint64_t re::TimelineAssetLoader::findDependencies@<X0>(void *a1@<X1>, uint64_t a2@<X8>)
+{
+  result = a1[1];
+  *(a2 + 32) = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *a2 = 0;
+  *(a2 + 24) = 0;
+  if (result)
+  {
+    return (*(*result + 32))(result, a2);
+  }
+
+  return result;
+}
+
+uint64_t re::TimelineAssetLoader::internalFindAssetHandleFields@<X0>(void *a1@<X1>, uint64_t a2@<X8>)
+{
+  result = a1[1];
+  *(a2 + 32) = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *a2 = 0;
+  *(a2 + 24) = 0;
+  if (result)
+  {
+    return (*(*result + 40))(result, a2);
+  }
+
+  return result;
+}
+
+void re::MeshDeformationRuntimeData::update<re::MeshAsset>(_anonymous_namespace_ *this, uint64_t a2, uint64_t a3, uint64_t **a4, unint64_t a5, re::MeshNameMap *a6, uint64_t a7)
+{
+  if (*(this + 1))
+  {
+    v13 = *(this + 2);
+  }
+
+  else
+  {
+    v14 = *a4;
+    *this = a2;
+    if (!v14)
+    {
+    }
+
+    *(this + 1) = v14;
+    *(this + 1) = xmmword_1E3062D70;
+    v13 = -1;
+  }
+
+  if (v13 != a7)
+  {
+    re::MeshDeformationRuntimeData::clear(this);
+    re::MeshDeformationRuntimeData::rebuildRuntimeData<re::MeshAsset>(this, a3, a4, a5, a6);
+    *(this + 2) = a7;
   }
 }
 
-void re::ecs2::AudioPlayerTelemetryReporter::removeSystemFromRemainingForCurrentReport(re::ecs2::AudioPlayerTelemetryReporter *this, unint64_t a2, int a3)
+void *re::MeshDeformationRuntimeData::clear(re::MeshDeformationRuntimeData *this)
 {
-  v50[20] = *MEMORY[0x1E69E9840];
-  if (*(this + 50) == a3)
+  *(this + 2) = -1;
+  v2 = *(this + 5);
+  if (v2)
   {
-    v4 = *(this + 58);
-    if (v4)
+    v3 = 8 * v2;
+    v4 = (*(this + 6) + 4);
+    do
     {
-      v5 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30))) >> 27));
-      v6 = (v5 ^ (v5 >> 31)) % v4;
-      v7 = *(this + 27);
-      v8 = *(v7 + 4 * v6);
-      if (v8 != 0x7FFFFFFF)
+      if ((*v4 & 0xFFFFFF) != 0)
       {
-        v9 = *(this + 28);
-        if (*(v9 + 24 * v8 + 16) == a2)
+        (*(**this + 56))(*this, *(v4 - 1));
+      }
+
+      v4 += 2;
+      v3 -= 8;
+    }
+
+    while (v3);
+  }
+
+  re::FixedArray<CoreIKTransform>::deinit(this + 4);
+  re::FixedArray<CoreIKTransform>::deinit(this + 7);
+  re::FixedArray<CoreIKTransform>::deinit(this + 10);
+  re::FixedArray<CoreIKTransform>::deinit(this + 13);
+  result = re::FixedArray<re::MeshDeformationRuntimeData::DeformationMapping>::deinit(this + 16);
+  *(this + 3) = 0;
+  return result;
+}
+
+uint64_t re::MeshDeformationRuntimeData::rebuildRuntimeData<re::MeshAsset>(uint64_t *a1, uint64_t a2, unint64_t *a3, unint64_t a4, re::MeshNameMap *a5)
+{
+  v8 = a3;
+  v173 = *MEMORY[0x1E69E9840];
+  re::MeshDeformationAssetLoader::initializeUsedDeformers(a2, a3);
+  v10 = *(a5 + 27);
+  v11 = v10;
+  v148 = v10;
+  if (!v10)
+  {
+    goto LABEL_8;
+  }
+
+  v14 = 0;
+  v15 = 0;
+  do
+  {
+    v16 = a1[8];
+    if (v16 <= v14)
+    {
+      goto LABEL_173;
+    }
+
+    *(a1[9] + 4 * v14) = v15;
+    v17 = re::MeshNameMap::modelIndex(a5, v14);
+    v15 += *(re::MeshAssetBaseInfo::meshModel<re::MeshAsset>(a4, v17) + 56);
+    ++v14;
+  }
+
+  while (v11 != v14);
+  v19 = a1[8];
+  if (v19 <= v11)
+  {
+    goto LABEL_216;
+  }
+
+  *(a1[9] + 4 * v11) = v15;
+  if (HIDWORD(v15))
+  {
+    re::internal::assertLog(4, v18, "assertion failure: '%s' (%s:line %i) The total number of mesh parts for a mesh collection exceeds the maximum supported count.", "m_meshPartStartIndex[meshBaseCount] == meshPartCount", "rebuildRuntimeData", 194);
+    _os_crash("assertion failure: (m_meshPartStartIndex[meshBaseCount] == meshPartCount) The total number of mesh parts for a mesh collection exceeds the maximum supported count.");
+    __break(1u);
+LABEL_8:
+    if (a1[8] <= v11)
+    {
+      goto LABEL_215;
+    }
+
+    v15 = 0;
+    *(a1[9] + 4 * v11) = 0;
+  }
+
+  re::FixedArray<re::DataArrayHandle<re::DeformationStack>>::init<>(a1 + 4, a1[1], v8[2]);
+  v20 = re::FixedArray<unsigned long>::init<unsigned long const&>(a1 + 10, a1[1], v15, &re::MeshDeformationRuntimeData::kInvalidMeshDeformationHandle);
+  if (!v21)
+  {
+    goto LABEL_213;
+  }
+
+  v13 = v21;
+  bzero(v21, 0x558uLL);
+  v24 = 0;
+  do
+  {
+    v14 = &v13[v24];
+    v24 += 9;
+  }
+
+  while (v24 != 171);
+  v27 = v8[7];
+  v143 = v11;
+  v141 = v15;
+  if (v27)
+  {
+    v5 = v8[9];
+    v144 = &v5[6 * v27];
+    v15 = v156;
+    v142 = v8;
+    while (1)
+    {
+      v28 = *v5;
+      if (v28 == 1)
+      {
+        if (re::MeshNameMap::instanceIndex(a5, (v5 + 1)) == 0xFFFF)
         {
-          *(v7 + 4 * v6) = *(v9 + 24 * v8 + 8) & 0x7FFFFFFF;
-LABEL_9:
-          v11 = *(this + 28);
-          v12 = v11 + 24 * v8;
-          v15 = *(v12 + 8);
-          v14 = (v12 + 8);
-          v13 = v15;
-          if (v15 < 0)
+          goto LABEL_73;
+        }
+
+        v28 = *v5;
+      }
+
+      if (v28 != 2 || re::MeshNameMap::modelIndex(a5, (v5 + 1)) != 0xFFFF)
+      {
+        break;
+      }
+
+LABEL_73:
+      v5 += 6;
+      if (v5 == v144)
+      {
+        goto LABEL_74;
+      }
+    }
+
+    v29 = v5[5];
+    v16 = v8[2];
+    if (v16 <= v29)
+    {
+      goto LABEL_185;
+    }
+
+    v147 = v5[5];
+    re::DynamicArray<re::DeformationDefinition>::DynamicArray(v152, (v8[4] + 40 * v29));
+    if (!v153)
+    {
+      goto LABEL_72;
+    }
+
+    v30 = 0;
+    v149 = v5;
+LABEL_23:
+    v31 = v154 + 40 * v30;
+    v32 = (*(**a1 + 24))(&v151);
+    if ((v151 & 1) == 0)
+    {
+      v14 = *re::assetsLogObjects(v32);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        v41 = *(v31 + 8);
+        LODWORD(buf) = 136315138;
+        *(&buf + 4) = v41;
+        _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "Unknown deformer name specified in deformation stack: %s.", &buf, 0xCu);
+      }
+
+      goto LABEL_55;
+    }
+
+    re::MeshNameMap::meshInstancePartsForIdentifier(&buf, a5, v5);
+    *v156 = a4;
+    *&v156[8] = a5;
+    *&v156[16] = buf;
+    v159 = v170;
+    v160 = 0;
+    re::FunctionBase<24ul,re::MeshInstanceAndPartIndex ()(unsigned long)>::operator=<24ul>(&v156[24], &buf + 8);
+    re::FunctionBase<24ul,re::MeshInstanceAndPartIndex ()(unsigned long)>::destroyCallable(&buf + 8);
+    v5 = *&v156[16];
+    if (!*&v156[16])
+    {
+LABEL_44:
+      v15 = v156;
+      re::FunctionBase<24ul,re::MeshInstanceAndPartIndex ()(unsigned long)>::destroyCallable(&v156[24]);
+      ++v30;
+      v5 = v149;
+      goto LABEL_56;
+    }
+
+    v15 = 0;
+    while (1)
+    {
+      *&buf = v15;
+      v33 = (*(*v160 + 16))(v160, &buf);
+      v14 = re::MeshNameMap::modelIndex(*&v156[8], v33);
+      *&buf = v15;
+      v34 = (*(*v160 + 16))(v160, &buf);
+      v35 = re::MeshAssetBaseInfo::meshModel<re::MeshAsset>(a4, v14);
+      if (BYTE1(v151) > 5u)
+      {
+        if (BYTE1(v151) - 6 < 2)
+        {
+          v37 = HIDWORD(v34);
+          v11 = WORD2(v34);
+          v16 = *(v35 + 7);
+          if (v16 <= v37)
           {
-            *v14 = v13 & 0x7FFFFFFF;
-            v11 = *(this + 28);
-            v13 = *(v11 + 24 * v8 + 8);
+            goto LABEL_145;
           }
 
-          v16 = *(this + 62);
-          *(v11 + 24 * v8 + 8) = *(this + 61) | v13 & 0x80000000;
-          --*(this + 59);
-          *(this + 61) = v8;
-          *(this + 62) = v16 + 1;
+          if (!*(*(v35 + 8) + 544 * v11 + 516))
+          {
+            v14 = *re::assetsLogObjects(v35);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            {
+              LODWORD(buf) = 67109120;
+              DWORD1(buf) = v11;
+              v42 = v14;
+              v43 = "Invalid deformation stack - Mesh part does not have open subdiv data: %u";
+LABEL_53:
+              _os_log_error_impl(&dword_1E1C61000, v42, OS_LOG_TYPE_ERROR, v43, &buf, 8u);
+            }
+
+LABEL_54:
+            v15 = v156;
+            re::FunctionBase<24ul,re::MeshInstanceAndPartIndex ()(unsigned long)>::destroyCallable(&v156[24]);
+            v5 = v149;
+LABEL_55:
+            re::DynamicArray<re::DeformationDefinition>::removeStableAt(v152, v30);
+LABEL_56:
+            if (v30 >= v153)
+            {
+              v8 = v142;
+              v11 = v143;
+              if (v153)
+              {
+                v45 = (*(**a1 + 48))(*a1, v152);
+                v151 = v45;
+                if ((v45 & 0xFFFFFF00000000) != 0)
+                {
+                  v16 = a1[5];
+                  v46 = v147;
+                  if (v16 <= v147)
+                  {
+                    goto LABEL_197;
+                  }
+
+                  *(a1[6] + 8 * v147) = v45;
+                  re::MeshNameMap::meshInstancePartsForIdentifier(&buf, a5, v5);
+                  *v156 = a4;
+                  *&v156[8] = a5;
+                  *&v156[16] = buf;
+                  v159 = v170;
+                  v160 = 0;
+                  re::FunctionBase<24ul,re::MeshInstanceAndPartIndex ()(unsigned long)>::operator=<24ul>(&v156[24], &buf + 8);
+                  re::FunctionBase<24ul,re::MeshInstanceAndPartIndex ()(unsigned long)>::destroyCallable(&buf + 8);
+                  v145 = *&v156[16];
+                  if (*&v156[16])
+                  {
+                    v5 = 0;
+                    while (1)
+                    {
+                      *&buf = v5;
+                      v11 = (*(*v160 + 16))(v160, &buf);
+                      *&buf = v5;
+                      v15 = (*(*v160 + 16))(v160, &buf) >> 32;
+                      v14 = (*(**a1 + 72))(*a1, &v151);
+                      if (v14)
+                      {
+                        for (i = 0; i != v14; ++i)
+                        {
+                          v48 = (*(**a1 + 80))(*a1, &v151, i);
+                          v16 = v48;
+                          if (v48 >= 0x13)
+                          {
+                            goto LABEL_129;
+                          }
+
+                          re::MeshDeformationRuntimeData::DeformationMappingCounter::addToDeformationMapping(&v13[9 * v48], a5, v11, v15, i);
+                        }
+                      }
+
+                      re::MeshDeformationRuntimeData::DeformationMappingCounter::addToDeformationMapping((v13 + 162), a5, v11, v15, 255);
+                      v14 = v11;
+                      v16 = a1[8];
+                      if (v16 <= v11)
+                      {
+                        goto LABEL_165;
+                      }
+
+                      v14 = *(a1[9] + 4 * v11) + v15;
+                      v16 = a1[11];
+                      if (v16 <= v14)
+                      {
+                        break;
+                      }
+
+                      v49 = a1[12];
+                      v50 = a1[3];
+                      if (*(v49 + 8 * v14) == -1)
+                      {
+                        ++v50;
+                      }
+
+                      a1[3] = v50;
+                      *(v49 + 8 * v14) = v147;
+                      v5 = (v5 + 1);
+                      if (v5 == v145)
+                      {
+                        goto LABEL_71;
+                      }
+                    }
+
+LABEL_169:
+                    v155 = 0;
+                    v171 = 0u;
+                    v172 = 0u;
+                    v169 = 0u;
+                    v170 = 0u;
+                    buf = 0u;
+                    v101 = MEMORY[0x1E69E9C10];
+                    v102 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                    *v161 = 136315906;
+                    *&v161[4] = "operator[]";
+                    v162 = 1024;
+                    if (v102)
+                    {
+                      v103 = 3;
+                    }
+
+                    else
+                    {
+                      v103 = 2;
+                    }
+
+                    v163 = 468;
+                    v164 = 2048;
+                    v165 = v14;
+                    v166 = 2048;
+                    v167 = v16;
+                    _os_log_send_and_compose_impl(v103, &v155, &buf, 80, &dword_1E1C61000, v101, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v161, 38, v139, v140);
+                    _os_crash_msg();
+                    __break(1u);
+LABEL_173:
+                    v152[0] = 0;
+                    v171 = 0u;
+                    v172 = 0u;
+                    v169 = 0u;
+                    v170 = 0u;
+                    buf = 0u;
+                    v104 = MEMORY[0x1E69E9C10];
+                    v105 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                    *v156 = 136315906;
+                    *&v156[4] = "operator[]";
+                    *&v156[12] = 1024;
+                    if (v105)
+                    {
+                      v106 = 3;
+                    }
+
+                    else
+                    {
+                      v106 = 2;
+                    }
+
+                    *&v156[14] = 468;
+                    *&v156[18] = 2048;
+                    *&v156[20] = v14;
+                    v157 = 2048;
+                    v158 = v16;
+                    _os_log_send_and_compose_impl(v106, v152, &buf, 80, &dword_1E1C61000, v104, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+                    _os_crash_msg();
+                    __break(1u);
+LABEL_177:
+                    v152[0] = 0;
+                    v171 = 0u;
+                    v172 = 0u;
+                    v169 = 0u;
+                    v170 = 0u;
+                    buf = 0u;
+                    v107 = MEMORY[0x1E69E9C10];
+                    v108 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                    *v156 = 136315906;
+                    *&v156[4] = "operator[]";
+                    *&v156[12] = 1024;
+                    if (v108)
+                    {
+                      v109 = 3;
+                    }
+
+                    else
+                    {
+                      v109 = 2;
+                    }
+
+                    *&v156[14] = 476;
+                    *&v156[18] = 2048;
+                    *&v156[20] = v11;
+                    v157 = 2048;
+                    v158 = v16;
+                    _os_log_send_and_compose_impl(v109, v152, &buf, 80, &dword_1E1C61000, v107, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+                    _os_crash_msg();
+                    __break(1u);
+LABEL_181:
+                    v152[0] = 0;
+                    v171 = 0u;
+                    v172 = 0u;
+                    v169 = 0u;
+                    v170 = 0u;
+                    buf = 0u;
+                    v110 = MEMORY[0x1E69E9C10];
+                    v111 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                    *v156 = 136315906;
+                    *&v156[4] = "operator[]";
+                    *&v156[12] = 1024;
+                    if (v111)
+                    {
+                      v112 = 3;
+                    }
+
+                    else
+                    {
+                      v112 = 2;
+                    }
+
+                    *&v156[14] = 468;
+                    *&v156[18] = 2048;
+                    *&v156[20] = v15;
+                    v157 = 2048;
+                    v158 = v13;
+                    _os_log_send_and_compose_impl(v112, v152, &buf, 80, &dword_1E1C61000, v110, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+                    _os_crash_msg();
+                    __break(1u);
+LABEL_185:
+                    v152[0] = 0;
+                    v171 = 0u;
+                    v172 = 0u;
+                    v169 = 0u;
+                    v170 = 0u;
+                    buf = 0u;
+                    v113 = MEMORY[0x1E69E9C10];
+                    v114 = v29;
+                    v115 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                    *v156 = 136315906;
+                    *&v156[4] = "operator[]";
+                    *&v156[12] = 1024;
+                    if (v115)
+                    {
+                      v116 = 3;
+                    }
+
+                    else
+                    {
+                      v116 = 2;
+                    }
+
+                    *&v156[14] = 797;
+                    *&v156[18] = 2048;
+                    *&v156[20] = v114;
+                    v157 = 2048;
+                    v158 = v16;
+                    _os_log_send_and_compose_impl(v116, v152, &buf, 80, &dword_1E1C61000, v113, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+                    _os_crash_msg();
+                    __break(1u);
+LABEL_189:
+                    v152[0] = 0;
+                    v171 = 0u;
+                    v172 = 0u;
+                    v169 = 0u;
+                    v170 = 0u;
+                    buf = 0u;
+                    v117 = MEMORY[0x1E69E9C10];
+                    v118 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                    *v156 = 136315906;
+                    *&v156[4] = "operator[]";
+                    *&v156[12] = 1024;
+                    if (v118)
+                    {
+                      v119 = 3;
+                    }
+
+                    else
+                    {
+                      v119 = 2;
+                    }
+
+                    *&v156[14] = 468;
+                    *&v156[18] = 2048;
+                    *&v156[20] = v15;
+                    v157 = 2048;
+                    v158 = v16;
+                    _os_log_send_and_compose_impl(v119, v152, &buf, 80, &dword_1E1C61000, v117, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+                    _os_crash_msg();
+                    __break(1u);
+LABEL_193:
+                    v152[0] = 0;
+                    v171 = 0u;
+                    v172 = 0u;
+                    v169 = 0u;
+                    v170 = 0u;
+                    buf = 0u;
+                    v120 = MEMORY[0x1E69E9C10];
+                    v121 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                    *v156 = 136315906;
+                    *&v156[4] = "operator[]";
+                    *&v156[12] = 1024;
+                    if (v121)
+                    {
+                      v122 = 3;
+                    }
+
+                    else
+                    {
+                      v122 = 2;
+                    }
+
+                    *&v156[14] = 468;
+                    *&v156[18] = 2048;
+                    *&v156[20] = v14;
+                    v157 = 2048;
+                    v158 = v5;
+                    _os_log_send_and_compose_impl(v122, v152, &buf, 80, &dword_1E1C61000, v120, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+                    _os_crash_msg();
+                    __break(1u);
+LABEL_197:
+                    *v161 = 0;
+                    v171 = 0u;
+                    v172 = 0u;
+                    v169 = 0u;
+                    v170 = 0u;
+                    buf = 0u;
+                    v123 = MEMORY[0x1E69E9C10];
+                    v124 = v46;
+                    v125 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                    *v156 = 136315906;
+                    *&v156[4] = "operator[]";
+                    *&v156[12] = 1024;
+                    if (v125)
+                    {
+                      v126 = 3;
+                    }
+
+                    else
+                    {
+                      v126 = 2;
+                    }
+
+                    *&v156[14] = 468;
+                    *&v156[18] = 2048;
+                    *&v156[20] = v124;
+                    v157 = 2048;
+                    v158 = v16;
+                    _os_log_send_and_compose_impl(v126, v161, &buf, 80, &dword_1E1C61000, v123, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+                    _os_crash_msg();
+                    __break(1u);
+LABEL_201:
+                    v152[0] = 0;
+                    v171 = 0u;
+                    v172 = 0u;
+                    v169 = 0u;
+                    v170 = 0u;
+                    buf = 0u;
+                    v127 = MEMORY[0x1E69E9C10];
+                    v128 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                    *v156 = 136315906;
+                    *&v156[4] = "operator[]";
+                    *&v156[12] = 1024;
+                    if (v128)
+                    {
+                      v129 = 3;
+                    }
+
+                    else
+                    {
+                      v129 = 2;
+                    }
+
+                    *&v156[14] = 476;
+                    *&v156[18] = 2048;
+                    *&v156[20] = v16;
+                    v157 = 2048;
+                    v158 = v13;
+                    _os_log_send_and_compose_impl(v129, v152, &buf, 80, &dword_1E1C61000, v127, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+                    _os_crash_msg();
+                    __break(1u);
+LABEL_205:
+                    v152[0] = 0;
+                    v171 = 0u;
+                    v172 = 0u;
+                    v169 = 0u;
+                    v170 = 0u;
+                    buf = 0u;
+                    v130 = MEMORY[0x1E69E9C10];
+                    v131 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                    *v156 = 136315906;
+                    *&v156[4] = "operator[]";
+                    *&v156[12] = 1024;
+                    if (v131)
+                    {
+                      v132 = 3;
+                    }
+
+                    else
+                    {
+                      v132 = 2;
+                    }
+
+                    *&v156[14] = 476;
+                    *&v156[18] = 2048;
+                    *&v156[20] = v16;
+                    v157 = 2048;
+                    v158 = v11;
+                    _os_log_send_and_compose_impl(v132, v152, &buf, 80, &dword_1E1C61000, v130, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+                    _os_crash_msg();
+                    __break(1u);
+LABEL_209:
+                    v152[0] = 0;
+                    v171 = 0u;
+                    v172 = 0u;
+                    v169 = 0u;
+                    v170 = 0u;
+                    buf = 0u;
+                    v133 = MEMORY[0x1E69E9C10];
+                    v134 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                    *v156 = 136315906;
+                    *&v156[4] = "operator[]";
+                    *&v156[12] = 1024;
+                    if (v134)
+                    {
+                      v135 = 3;
+                    }
+
+                    else
+                    {
+                      v135 = 2;
+                    }
+
+                    *&v156[14] = 476;
+                    *&v156[18] = 2048;
+                    *&v156[20] = a4;
+                    v157 = 2048;
+                    v158 = v11;
+                    _os_log_send_and_compose_impl(v135, v152, &buf, 80, &dword_1E1C61000, v133, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+                    _os_crash_msg();
+                    __break(1u);
+LABEL_213:
+                    re::internal::assertLog(4, v22, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
+                    _os_crash("assertion failure: (m_data) Out of memory.");
+                    __break(1u);
+LABEL_214:
+                    re::internal::assertLog(4, v53, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
+                    _os_crash("assertion failure: (m_data) Out of memory.");
+                    __break(1u);
+LABEL_215:
+                    v19 = 0;
+LABEL_216:
+                    v152[0] = 0;
+                    v171 = 0u;
+                    v172 = 0u;
+                    v169 = 0u;
+                    v170 = 0u;
+                    buf = 0u;
+                    v136 = MEMORY[0x1E69E9C10];
+                    v137 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                    *v156 = 136315906;
+                    *&v156[4] = "operator[]";
+                    *&v156[12] = 1024;
+                    if (v137)
+                    {
+                      v138 = 3;
+                    }
+
+                    else
+                    {
+                      v138 = 2;
+                    }
+
+                    *&v156[14] = 468;
+                    *&v156[18] = 2048;
+                    *&v156[20] = v11;
+                    v157 = 2048;
+                    v158 = v19;
+                    _os_log_send_and_compose_impl(v138, v152, &buf, 80, &dword_1E1C61000, v136, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+                    _os_crash_msg();
+                    __break(1u);
+LABEL_220:
+                    re::internal::assertLog(4, v57, "assertion failure: '%s' (%s:line %i) Array is empty", "m_size > 0", "last", 454);
+                    _os_crash("assertion failure: (m_size > 0) Array is empty");
+                    __break(1u);
+                  }
+
+LABEL_71:
+                  v15 = v156;
+                  re::FunctionBase<24ul,re::MeshInstanceAndPartIndex ()(unsigned long)>::destroyCallable(&v156[24]);
+                  v8 = v142;
+                  v11 = v143;
+                  v5 = v149;
+                }
+              }
+
+LABEL_72:
+              re::DynamicArray<re::DeformationDefinition>::deinit(v152);
+              goto LABEL_73;
+            }
+
+            goto LABEL_23;
+          }
+        }
+      }
+
+      else if (BYTE1(v151))
+      {
+        if (BYTE1(v151) == 2 || BYTE1(v151) == 4)
+        {
+          v36 = *(v35 + 28);
+          if (!v36 || *(v36 + 8) <= WORD2(v34))
+          {
+            v14 = *re::assetsLogObjects(v35);
+            if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            {
+              goto LABEL_54;
+            }
+
+            LODWORD(buf) = 67109120;
+            DWORD1(buf) = WORD2(v34);
+            v42 = v14;
+            v43 = "Invalid deformation stack - Mesh part index is not skinned: %u.";
+            goto LABEL_53;
+          }
+        }
+      }
+
+      else
+      {
+        v38 = *(v35 + 18);
+        if (!v38 || ((v39 = *(v38 + 40), v39 > WORD2(v34)) ? (v40 = v39 > *(v35 + 7)) : (v40 = 1), v40 || *(*(v38 + 48) + 4 * WORD2(v34)) == -1))
+        {
+          v14 = *re::assetsLogObjects(v35);
+          if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_54;
+          }
+
+          LODWORD(buf) = 67109120;
+          DWORD1(buf) = WORD2(v34);
+          v42 = v14;
+          v43 = "Invalid deformation stack - Blend shape not specified for mesh part: %u.";
+          goto LABEL_53;
+        }
+      }
+
+      if (v5 == ++v15)
+      {
+        goto LABEL_44;
+      }
+    }
+  }
+
+LABEL_74:
+  v51 = a1[1];
+  a1[16] = v51;
+  a1[17] = 19;
+  v52 = (*(*v51 + 32))(v51, 1824, 8);
+  a1[18] = v52;
+  if (!v52)
+  {
+    goto LABEL_214;
+  }
+
+  bzero(v52, 0x720uLL);
+  v15 = 0;
+  v150 = v13;
+  do
+  {
+    v54 = &v13[9 * v15];
+    if (v148)
+    {
+      v55 = 0;
+      LODWORD(v56) = 0;
+      v14 = 0;
+      v16 = v54[1];
+      do
+      {
+        if (v16 == v55)
+        {
+          goto LABEL_149;
+        }
+
+        v14 = v14 + *(v54[2] + 2 * v55);
+        if (*(v54[2] + 2 * v55))
+        {
+          v56 = (v56 + 1);
         }
 
         else
         {
-          while (1)
+          v56 = v56;
+        }
+
+        ++v55;
+      }
+
+      while (v11 != v55);
+    }
+
+    else
+    {
+      v14 = 0;
+      v56 = 0;
+    }
+
+    v16 = a1[17];
+    if (v16 <= v15)
+    {
+      goto LABEL_189;
+    }
+
+    a4 = a1[18] + 96 * v15;
+    re::FixedArray<unsigned short>::init<>(a4, a1[1], v56);
+    re::FixedArray<int>::init<>((a4 + 24), a1[1], (v14 + 1));
+    re::FixedArray<unsigned short>::init<>((a4 + 48), a1[1], v14);
+    re::FixedArray<BOOL>::init<>((a4 + 72), a1[1], v14);
+    if (v148)
+    {
+      v146 = v15;
+      v11 = 0;
+      v16 = 0;
+      v5 = 0;
+      do
+      {
+        v15 = v11;
+        v14 = v54[1];
+        if (v14 <= v11)
+        {
+          goto LABEL_153;
+        }
+
+        if (*(v54[2] + 2 * v11))
+        {
+          v14 = v5;
+          v11 = *(a4 + 8);
+          if (v11 <= v5)
           {
-            v10 = v8;
-            LODWORD(v8) = *(v9 + 24 * v8 + 8) & 0x7FFFFFFF;
-            if (v8 == 0x7FFFFFFF)
+            goto LABEL_157;
+          }
+
+          *(*(a4 + 16) + 2 * v5) = v15;
+          v11 = *(a4 + 32);
+          if (v11 <= v5)
+          {
+            goto LABEL_161;
+          }
+
+          *(*(a4 + 40) + 4 * v5) = v16;
+          LODWORD(v14) = re::MeshNameMap::meshPartStartIndexForInstance(a5, v15);
+          v11 = (v15 + 1);
+          started = re::MeshNameMap::meshPartStartIndexForInstance(a5, v15 + 1);
+          if (v14 < started)
+          {
+            v59 = 0;
+            v14 = v14;
+            while (1)
             {
-              break;
+              v15 = v54[4];
+              if (v15 <= v14)
+              {
+                break;
+              }
+
+              if (*(v54[5] + v14) == 1)
+              {
+                v15 = v16;
+                v13 = *(a4 + 56);
+                if (v13 <= v16)
+                {
+                  goto LABEL_133;
+                }
+
+                *(*(a4 + 64) + 2 * v16) = v59;
+                v13 = v54[7];
+                if (v13 <= v14)
+                {
+                  goto LABEL_137;
+                }
+
+                v13 = *(a4 + 80);
+                if (v13 <= v16)
+                {
+                  goto LABEL_141;
+                }
+
+                *(*(a4 + 88) + v16) = *(v54[8] + v14);
+                v16 = (v16 + 1);
+                v13 = v150;
+              }
+
+              ++v14;
+              ++v59;
+              if (started == v14)
+              {
+                goto LABEL_101;
+              }
             }
 
-            if (*(v9 + 24 * v8 + 16) == a2)
+            v152[0] = 0;
+            v171 = 0u;
+            v172 = 0u;
+            v169 = 0u;
+            v170 = 0u;
+            buf = 0u;
+            v68 = MEMORY[0x1E69E9C10];
+            v69 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v156 = 136315906;
+            *&v156[4] = "operator[]";
+            *&v156[12] = 1024;
+            if (v69)
             {
-              *(v9 + 24 * v10 + 8) = *(v9 + 24 * v10 + 8) & 0x80000000 | *(v9 + 24 * v8 + 8) & 0x7FFFFFFF;
-              goto LABEL_9;
+              v70 = 3;
             }
+
+            else
+            {
+              v70 = 2;
+            }
+
+            *&v156[14] = 476;
+            *&v156[18] = 2048;
+            *&v156[20] = v14;
+            v157 = 2048;
+            v158 = v15;
+            _os_log_send_and_compose_impl(v70, v152, &buf, 80, &dword_1E1C61000, v68, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+            _os_crash_msg();
+            __break(1u);
+LABEL_129:
+            v155 = 0;
+            v171 = 0u;
+            v172 = 0u;
+            v169 = 0u;
+            v170 = 0u;
+            buf = 0u;
+            v71 = MEMORY[0x1E69E9C10];
+            v72 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v161 = 136315906;
+            *&v161[4] = "operator[]";
+            v162 = 1024;
+            if (v72)
+            {
+              v73 = 3;
+            }
+
+            else
+            {
+              v73 = 2;
+            }
+
+            v163 = 468;
+            v164 = 2048;
+            v165 = v16;
+            v166 = 2048;
+            v167 = 19;
+            _os_log_send_and_compose_impl(v73, &v155, &buf, 80, &dword_1E1C61000, v71, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v161, 38, v139, v140);
+            _os_crash_msg();
+            __break(1u);
+LABEL_133:
+            v152[0] = 0;
+            v171 = 0u;
+            v172 = 0u;
+            v169 = 0u;
+            v170 = 0u;
+            buf = 0u;
+            v74 = MEMORY[0x1E69E9C10];
+            v75 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v156 = 136315906;
+            *&v156[4] = "operator[]";
+            *&v156[12] = 1024;
+            if (v75)
+            {
+              v76 = 3;
+            }
+
+            else
+            {
+              v76 = 2;
+            }
+
+            *&v156[14] = 468;
+            *&v156[18] = 2048;
+            *&v156[20] = v15;
+            v157 = 2048;
+            v158 = v13;
+            _os_log_send_and_compose_impl(v76, v152, &buf, 80, &dword_1E1C61000, v74, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+            _os_crash_msg();
+            __break(1u);
+LABEL_137:
+            v152[0] = 0;
+            v171 = 0u;
+            v172 = 0u;
+            v169 = 0u;
+            v170 = 0u;
+            buf = 0u;
+            v77 = MEMORY[0x1E69E9C10];
+            v78 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v156 = 136315906;
+            *&v156[4] = "operator[]";
+            *&v156[12] = 1024;
+            if (v78)
+            {
+              v79 = 3;
+            }
+
+            else
+            {
+              v79 = 2;
+            }
+
+            *&v156[14] = 476;
+            *&v156[18] = 2048;
+            *&v156[20] = v14;
+            v157 = 2048;
+            v158 = v13;
+            _os_log_send_and_compose_impl(v79, v152, &buf, 80, &dword_1E1C61000, v77, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+            _os_crash_msg();
+            __break(1u);
+LABEL_141:
+            v152[0] = 0;
+            v171 = 0u;
+            v172 = 0u;
+            v169 = 0u;
+            v170 = 0u;
+            buf = 0u;
+            v80 = MEMORY[0x1E69E9C10];
+            v81 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v156 = 136315906;
+            *&v156[4] = "operator[]";
+            *&v156[12] = 1024;
+            if (v81)
+            {
+              v82 = 3;
+            }
+
+            else
+            {
+              v82 = 2;
+            }
+
+            *&v156[14] = 468;
+            *&v156[18] = 2048;
+            *&v156[20] = v15;
+            v157 = 2048;
+            v158 = v13;
+            _os_log_send_and_compose_impl(v82, v152, &buf, 80, &dword_1E1C61000, v80, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+            _os_crash_msg();
+            __break(1u);
+LABEL_145:
+            v155 = 0;
+            v171 = 0u;
+            v172 = 0u;
+            v169 = 0u;
+            v170 = 0u;
+            buf = 0u;
+            v83 = MEMORY[0x1E69E9C10];
+            v84 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v161 = 136315906;
+            *&v161[4] = "operator[]";
+            v162 = 1024;
+            if (v84)
+            {
+              v85 = 3;
+            }
+
+            else
+            {
+              v85 = 2;
+            }
+
+            v163 = 476;
+            v164 = 2048;
+            v165 = v11;
+            v166 = 2048;
+            v167 = v16;
+            _os_log_send_and_compose_impl(v85, &v155, &buf, 80, &dword_1E1C61000, v83, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v161, 38, v139, v140);
+            _os_crash_msg();
+            __break(1u);
+LABEL_149:
+            v152[0] = 0;
+            v171 = 0u;
+            v172 = 0u;
+            v169 = 0u;
+            v170 = 0u;
+            buf = 0u;
+            v86 = MEMORY[0x1E69E9C10];
+            v87 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v156 = 136315906;
+            *&v156[4] = "operator[]";
+            *&v156[12] = 1024;
+            if (v87)
+            {
+              v88 = 3;
+            }
+
+            else
+            {
+              v88 = 2;
+            }
+
+            *&v156[14] = 476;
+            *&v156[18] = 2048;
+            *&v156[20] = v16;
+            v157 = 2048;
+            v158 = v16;
+            _os_log_send_and_compose_impl(v88, v152, &buf, 80, &dword_1E1C61000, v86, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+            _os_crash_msg();
+            __break(1u);
+LABEL_153:
+            v152[0] = 0;
+            v171 = 0u;
+            v172 = 0u;
+            v169 = 0u;
+            v170 = 0u;
+            buf = 0u;
+            v89 = MEMORY[0x1E69E9C10];
+            v90 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v156 = 136315906;
+            *&v156[4] = "operator[]";
+            *&v156[12] = 1024;
+            if (v90)
+            {
+              v91 = 3;
+            }
+
+            else
+            {
+              v91 = 2;
+            }
+
+            *&v156[14] = 476;
+            *&v156[18] = 2048;
+            *&v156[20] = v15;
+            v157 = 2048;
+            v158 = v14;
+            _os_log_send_and_compose_impl(v91, v152, &buf, 80, &dword_1E1C61000, v89, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+            _os_crash_msg();
+            __break(1u);
+LABEL_157:
+            v152[0] = 0;
+            v171 = 0u;
+            v172 = 0u;
+            v169 = 0u;
+            v170 = 0u;
+            buf = 0u;
+            v92 = MEMORY[0x1E69E9C10];
+            v93 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v156 = 136315906;
+            *&v156[4] = "operator[]";
+            *&v156[12] = 1024;
+            if (v93)
+            {
+              v94 = 3;
+            }
+
+            else
+            {
+              v94 = 2;
+            }
+
+            *&v156[14] = 468;
+            *&v156[18] = 2048;
+            *&v156[20] = v14;
+            v157 = 2048;
+            v158 = v11;
+            _os_log_send_and_compose_impl(v94, v152, &buf, 80, &dword_1E1C61000, v92, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+            _os_crash_msg();
+            __break(1u);
+LABEL_161:
+            v152[0] = 0;
+            v171 = 0u;
+            v172 = 0u;
+            v169 = 0u;
+            v170 = 0u;
+            buf = 0u;
+            v95 = MEMORY[0x1E69E9C10];
+            v96 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v156 = 136315906;
+            *&v156[4] = "operator[]";
+            *&v156[12] = 1024;
+            if (v96)
+            {
+              v97 = 3;
+            }
+
+            else
+            {
+              v97 = 2;
+            }
+
+            *&v156[14] = 468;
+            *&v156[18] = 2048;
+            *&v156[20] = v14;
+            v157 = 2048;
+            v158 = v11;
+            _os_log_send_and_compose_impl(v97, v152, &buf, 80, &dword_1E1C61000, v95, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v156, 38, v139, v140);
+            _os_crash_msg();
+            __break(1u);
+LABEL_165:
+            v155 = 0;
+            v171 = 0u;
+            v172 = 0u;
+            v169 = 0u;
+            v170 = 0u;
+            buf = 0u;
+            v98 = MEMORY[0x1E69E9C10];
+            v99 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+            *v161 = 136315906;
+            *&v161[4] = "operator[]";
+            v162 = 1024;
+            if (v99)
+            {
+              v100 = 3;
+            }
+
+            else
+            {
+              v100 = 2;
+            }
+
+            v163 = 468;
+            v164 = 2048;
+            v165 = v14;
+            v166 = 2048;
+            v167 = v16;
+            _os_log_send_and_compose_impl(v100, &v155, &buf, 80, &dword_1E1C61000, v98, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v161, 38, v139, v140);
+            _os_crash_msg();
+            __break(1u);
+            goto LABEL_169;
           }
+
+LABEL_101:
+          v5 = (v5 + 1);
+        }
+
+        else
+        {
+          v11 = (v11 + 1);
         }
       }
+
+      while (v11 != v148);
+      v14 = v5;
+      v11 = v143;
+      v15 = v146;
     }
 
-    if (!*(this + 59))
+    else
     {
-      if (*(this + 35))
+      v14 = 0;
+      v16 = 0;
+    }
+
+    v5 = *(a4 + 32);
+    if (v5 <= v14)
+    {
+      goto LABEL_193;
+    }
+
+    *(*(a4 + 40) + 4 * v14) = v16;
+    ++v15;
+  }
+
+  while (v15 != 19);
+  v60 = a1[17];
+  if (!v60)
+  {
+    goto LABEL_220;
+  }
+
+  v14 = a1[18] + 96 * v60;
+  v5 = *(v14 - 88);
+  v61 = a1[1];
+  LODWORD(buf) = -1;
+  re::FixedArray<unsigned int>::init<unsigned int>(a1 + 13, v61, v141, &buf);
+  if (v5)
+  {
+    a4 = 0;
+    while (1)
+    {
+      v16 = a4;
+      v13 = *(v14 - 88);
+      if (v13 <= a4)
       {
-        v18 = *(this + 19);
-        v17 = *(this + 20);
-        v19 = *(this + 21);
+        goto LABEL_201;
       }
 
-      else
+      v62 = re::MeshNameMap::meshPartStartIndexForInstance(a5, *(*(v14 - 80) + 2 * a4));
+      v11 = *(v14 - 64);
+      if (v11 <= a4)
       {
-        v19 = -100.0;
-        v17 = -100.0;
-        v18 = -100.0;
+        goto LABEL_205;
       }
 
-      if (*(this + 36))
+      ++a4;
+      if (v11 <= v16 + 1)
       {
-        v20 = *(this + 22);
-        v21 = *(this + 20);
-        v22 = *(this + 24);
+        goto LABEL_209;
       }
 
-      else
+      v63 = *(v14 - 56);
+      v64 = *(v63 + 4 * v16);
+      v65 = *(v63 + 4 * a4);
+      if (v64 < v65)
       {
-        v22 = -100.0;
-        v21 = -100.0;
-        v20 = -100.0;
+        break;
       }
 
-      v49[0] = @"bundleId";
-      v48 = [MEMORY[0x1E696AAE8] mainBundle];
-      v23 = [v48 bundleIdentifier];
-      v24 = &stru_1F5D319D0;
-      v47 = v23;
-      if (v23)
+LABEL_121:
+      if (a4 == v5)
       {
-        v24 = v23;
-      }
-
-      v50[0] = v24;
-      v49[1] = @"play";
-      v46 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(this + 24)];
-      v50[1] = v46;
-      v49[2] = @"maxConcurrentPlayCount";
-      v45 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(this + 25)];
-      v50[2] = v45;
-      v49[3] = @"prepare";
-      v44 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(this + 27)];
-      v50[3] = v44;
-      v49[4] = @"maxConcurrentPrepareCount";
-      v43 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(this + 26)];
-      v50[4] = v43;
-      v49[5] = @"channelComponent";
-      v42 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(this + 28)];
-      v50[5] = v42;
-      v49[6] = @"ambientComponent";
-      v41 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(this + 30)];
-      v50[6] = v41;
-      v49[7] = @"spatialComponent";
-      v40 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(this + 29)];
-      v50[7] = v40;
-      v49[8] = @"spatialComponentOmniCount";
-      v39 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(this + 31)];
-      v50[8] = v39;
-      v49[9] = @"spatialComponentBeamDirectivityCount";
-      v38 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(this + 32)];
-      v50[9] = v38;
-      v49[10] = @"spatialComponentSphericalApproximationDirectivityCount";
-      v37 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(this + 33)];
-      v50[10] = v37;
-      v49[11] = @"calibrationModeNoneCount";
-      v36 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(this + 34)];
-      v50[11] = v36;
-      v49[12] = @"calibrationModeRelativeSplCount";
-      v25 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(this + 35)];
-      v50[12] = v25;
-      v49[13] = @"calibrationModeAbsoluteSplCount";
-      v26 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(this + 36)];
-      v50[13] = v26;
-      v49[14] = @"calibrationModeRelativeSplMinValue";
-      v27 = [MEMORY[0x1E696AB90] numberWithDouble:v18];
-      v50[14] = v27;
-      v49[15] = @"calibrationModeRelativeSplAverage";
-      v28 = [MEMORY[0x1E696AB90] numberWithDouble:v17];
-      v50[15] = v28;
-      v49[16] = @"calibrationModeRelativeSplMaxValue";
-      v29 = [MEMORY[0x1E696AB90] numberWithDouble:v19];
-      v50[16] = v29;
-      v49[17] = @"calibrationModeAbsoluteSplMinValue";
-      v30 = [MEMORY[0x1E696AB90] numberWithDouble:v20];
-      v50[17] = v30;
-      v49[18] = @"calibrationModeAbsoluteSplAverage";
-      v31 = [MEMORY[0x1E696AB90] numberWithDouble:v21];
-      v50[18] = v31;
-      v49[19] = @"calibrationModeAbsoluteSplMaxValue";
-      v32 = [MEMORY[0x1E696AB90] numberWithDouble:v22];
-      v50[19] = v32;
-      v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:20];
-
-      v34 = v33;
-      v35 = v34;
-      *(this + 6) = 0u;
-      *(this + 7) = 0u;
-      *(this + 8) = 0u;
-      *(this + 36) = 0;
-      *(this + 152) = xmmword_1E30645F0;
-      *(this + 168) = xmmword_1E3064600;
-      *(this + 184) = xmmword_1E3064610;
-      if (*this)
-      {
-        re::AudioTelemetryReporter::sendTelemetryReport(*this, @"app_usage", v34);
+        goto LABEL_122;
       }
     }
+
+    v16 = *(v14 - 40);
+    if (v16 <= v64)
+    {
+      v11 = v64;
+    }
+
+    else
+    {
+      v11 = *(v14 - 40);
+    }
+
+    while (v11 != v64)
+    {
+      v15 = v62 + *(*(v14 - 32) + 2 * v64);
+      v13 = a1[14];
+      if (v13 <= v15)
+      {
+        goto LABEL_181;
+      }
+
+      *(a1[15] + 4 * v15) = v64++;
+      if (v65 == v64)
+      {
+        goto LABEL_121;
+      }
+    }
+
+    goto LABEL_177;
+  }
+
+LABEL_122:
+  for (j = 0; j != 171; j += 9)
+  {
+    re::FixedArray<CoreIKTransform>::deinit(&v150[j + 6]);
+    re::FixedArray<CoreIKTransform>::deinit(&v150[j + 3]);
+    re::FixedArray<CoreIKTransform>::deinit(&v150[j]);
   }
 }
 
-uint64_t re::ecs2::AudioPlayerTelemetryReporter::getInstance(re::ecs2::AudioPlayerTelemetryReporter *this)
+void *re::FixedArray<re::MeshDeformationRuntimeData::DeformationMapping>::deinit(void *result)
 {
-  v1 = &qword_1EE1C5000;
+  if (*result)
   {
-    v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v4 = dispatch_queue_attr_make_with_qos_class(v3, QOS_CLASS_UTILITY, 0);
-    re::ecs2::AudioPlayerTelemetryReporter::getInstance(void)::onceQueue = dispatch_queue_create("AudioTelemetry", v4);
+    v1 = result;
+    v3 = result + 1;
+    v2 = result[1];
+    if (v2)
+    {
+      v4 = result[2];
+      v5 = 96 * v2;
+      do
+      {
+        re::FixedArray<CoreIKTransform>::deinit(v4 + 9);
+        re::FixedArray<CoreIKTransform>::deinit(v4 + 6);
+        re::FixedArray<CoreIKTransform>::deinit(v4 + 3);
+        re::FixedArray<CoreIKTransform>::deinit(v4);
+        v4 += 12;
+        v5 -= 96;
+      }
 
-    v1 = &qword_1EE1C5000;
-  }
+      while (v5);
+      result = (*(**v1 + 40))(*v1, v1[2]);
+      *v3 = 0;
+      v3[1] = 0;
+    }
 
-  objc_storeStrong(&re::ecs2::AudioPlayerTelemetryReporter::m_audioPlayerTelemetryQueue, v1[290]);
-  result = re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter;
-  if (!re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter)
-  {
-    dispatch_sync(re::ecs2::AudioPlayerTelemetryReporter::m_audioPlayerTelemetryQueue, &__block_literal_global_7);
-    return re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter;
+    *v1 = 0;
   }
 
   return result;
 }
 
-re *___ZN2re4ecs228AudioPlayerTelemetryReporter11getInstanceEv_block_invoke(re *result)
+uint64_t re::MeshDeformationRuntimeData::absoluteDeformedMeshPartIndex(re::MeshDeformationRuntimeData *this, unsigned int a2)
 {
-  v13[4] = *MEMORY[0x1E69E9840];
-  if (!re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter)
+  v18 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = *(this + 14);
+  if (v3 <= a2)
   {
-    v1 = re::globalAllocators(result);
-    v2 = (*(*v1[2] + 32))(v1[2], 256, 8);
-    *v2 = 0;
-    *(v2 + 32) = 0u;
-    v3 = (v2 + 32);
-    *(v2 + 48) = 0u;
-    *(v2 + 60) = 0u;
-    *(v2 + 76) = 0x7FFFFFFFLL;
-    *(v2 + 88) = 0;
-    *(v2 + 96) = 0u;
-    *(v2 + 112) = 0u;
-    *(v2 + 128) = 0u;
-    *(v2 + 144) = 0;
-    *(v2 + 152) = xmmword_1E30645F0;
-    *(v2 + 168) = xmmword_1E3064600;
-    *(v2 + 184) = xmmword_1E3064610;
-    *(v2 + 200) = 0;
-    *(v2 + 208) = 0u;
-    *(v2 + 224) = 0u;
-    *(v2 + 240) = 0;
-    *(v2 + 244) = 0x7FFFFFFFLL;
-    v4 = re::globalAllocators(v2);
-    v5 = (*(*v4[2] + 32))(v4[2], 56, 8);
-    v13[3] = v13;
-    v12 = v11;
-    v13[0] = &unk_1F5CCC7A8;
-    v10 = re::AudioTelemetryReporter::AudioTelemetryReporter(v5);
-    v11[0] = &unk_1F5CCC7A8;
-    std::__function::__value_func<void ()(re::AudioTelemetryReporter *)>::~__value_func[abi:ne200100](v13);
-    v6 = v10;
-    v10 = 0;
-    std::unique_ptr<re::AudioTelemetryReporter,std::function<void ()(re::AudioTelemetryReporter*)>>::reset[abi:ne200100](v2, v6);
-    v7 = *(v2 + 32);
-    *(v2 + 32) = 0;
-    if (v7 == v2 + 8)
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x1E69E9C10];
+    v9 = 136315906;
+    v10 = "operator[]";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      (*(*v7 + 32))(v7);
+      v6 = 3;
     }
 
-    else if (v7)
+    else
     {
-      (*(*v7 + 40))(v7);
+      v6 = 2;
     }
 
-    v8 = v12;
-    if (v12)
+    v12 = 476;
+    v13 = 2048;
+    v14 = v2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_1E1C61000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(*(this + 15) + 4 * a2);
+}
+
+uint64_t re::MeshDeformationRuntimeData::meshDeformationHandle(re::MeshDeformationRuntimeData *this, unsigned int a2, unsigned int a3)
+{
+  v32 = *MEMORY[0x1E69E9840];
+  v3 = a2 + 1;
+  v4 = *(this + 8);
+  if (v4 > v3)
+  {
+    v5 = a2;
+    if (v4 <= a2)
     {
-      if (v12 == v11)
+      v18 = 0;
+      v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
+      v27 = 0u;
+      v11 = MEMORY[0x1E69E9C10];
+      v19 = 136315906;
+      v20 = "operator[]";
+      v21 = 1024;
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        *v3 = v2 + 8;
-        (*(*v8 + 24))(v8, v2 + 8);
-        goto LABEL_11;
+        v12 = 3;
       }
 
-      *v3 = v12;
-      v3 = &v12;
+      else
+      {
+        v12 = 2;
+      }
+
+      v22 = 476;
+      v23 = 2048;
+      v24 = v5;
+      v25 = 2048;
+      v26 = v4;
+      _os_log_send_and_compose_impl(v12, &v18, &v27, 80, &dword_1E1C61000, v11, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v19, 38, v17);
+      _os_crash_msg();
+      __break(1u);
+      goto LABEL_12;
     }
 
-    *v3 = 0;
+    v6 = *(this + 9);
+    v7 = *(v6 + 4 * a2);
+    v8 = *(v6 + 4 * v3);
+    v9 = v7 + a3;
+    if (v9 < v8)
+    {
+      v4 = *(this + 11);
+      if (v4 > v9)
+      {
+        return *(*(this + 12) + 8 * v9);
+      }
+
+LABEL_12:
+      v18 = 0;
+      v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
+      v27 = 0u;
+      v13 = MEMORY[0x1E69E9C10];
+      v14 = v9;
+      v15 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v19 = 136315906;
+      v20 = "operator[]";
+      v21 = 1024;
+      if (v15)
+      {
+        v16 = 3;
+      }
+
+      else
+      {
+        v16 = 2;
+      }
+
+      v22 = 476;
+      v23 = 2048;
+      v24 = v14;
+      v25 = 2048;
+      v26 = v4;
+      _os_log_send_and_compose_impl(v16, &v18, &v27, 80, &dword_1E1C61000, v13, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v19, 38, v17);
+      _os_crash_msg();
+      __break(1u);
+    }
+  }
+
+  return -1;
+}
+
+uint64_t re::MeshDeformationRuntimeData::deformationStackHandle(re::MeshDeformationRuntimeData *this, unint64_t a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = *(this + 5);
+  if (v3 <= a2)
+  {
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x1E69E9C10];
+    v9 = 136315906;
+    v10 = "operator[]";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v12 = 476;
+    v13 = 2048;
+    v14 = a2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_1E1C61000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(*(this + 6) + 8 * a2);
+}
+
+uint64_t re::MeshDeformationRuntimeData::DeformationMappingCounter::addToDeformationMapping(re::MeshDeformationRuntimeData::DeformationMappingCounter *this, const re::MeshNameMap *a2, unint64_t a3, int a4, char a5)
+{
+  v8 = a3;
+  v37 = *MEMORY[0x1E69E9840];
+  result = re::MeshNameMap::meshPartStartIndexForInstance(a2, a3);
+  v11 = (result + a4);
+  v12 = *(this + 4);
+  if (v12 <= v11)
+  {
+    v23 = 0;
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v32 = 0u;
+    v14 = MEMORY[0x1E69E9C10];
+    v24 = 136315906;
+    v25 = "operator[]";
+    v26 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v15 = 3;
+    }
+
+    else
+    {
+      v15 = 2;
+    }
+
+    v27 = 468;
+    v28 = 2048;
+    v29 = v11;
+    v30 = 2048;
+    v31 = v12;
+    _os_log_send_and_compose_impl(v15, &v23, &v32, 80, &dword_1E1C61000, v14, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v24, 38, v22);
+    _os_crash_msg();
+    __break(1u);
 LABEL_11:
-    std::unique_ptr<re::AudioTelemetryReporter,std::function<void ()(re::AudioTelemetryReporter*)>>::reset[abi:ne200100](&v10, 0);
-    std::__function::__value_func<void ()(re::AudioTelemetryReporter *)>::~__value_func[abi:ne200100](v11);
-    *(v2 + 200) = 0;
-    v9 = *v2;
-    v10 = MEMORY[0x1E69E9820];
-    v11[0] = 3221225472;
-    v11[1] = ___ZN2re4ecs228AudioPlayerTelemetryReporterC2Ev_block_invoke;
-    v11[2] = &__block_descriptor_40_e5_v8__0l;
-    v12 = v2;
-    result = re::AudioTelemetryReporter::initializeTimerWith(v9, re::ecs2::AudioPlayerTelemetryReporter::m_audioPlayerTelemetryQueue, &v10, 300.0);
-    re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter = v2;
-  }
-
-  return result;
-}
-
-void sub_1E215670C(_Unwind_Exception *exception_object, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(exception_object);
-  }
-
-  __clang_call_terminate(exception_object);
-}
-
-void re::ecs2::AudioPlayerTelemetryReporter::initializeTimerWith(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = a2;
-  v6 = re::ecs2::AudioPlayerTelemetryReporter::m_audioPlayerTelemetryQueue;
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = ___ZN2re4ecs228AudioPlayerTelemetryReporter19initializeTimerWithEPU28objcproto17OS_dispatch_queue8NSObjectPNS0_17AudioPlayerSystemE_block_invoke;
-  block[3] = &unk_1E871BAC8;
-  v10 = a1;
-  v11 = a3;
-  v9 = v5;
-  v7 = v5;
-  dispatch_async(v6, block);
-}
-
-void ___ZN2re4ecs228AudioPlayerTelemetryReporter19initializeTimerWithEPU28objcproto17OS_dispatch_queue8NSObjectPNS0_17AudioPlayerSystemE_block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  v3 = re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter;
-  os_unfair_lock_lock((re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter + 88));
-  v7 = 0;
-  v8 = 0;
-  v9 = 0;
-  v4 = *(a1 + 48);
-  v5 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v4 ^ (v4 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v4 ^ (v4 >> 30))) >> 27));
-  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::findEntry<void *>(&v7, v2 + 40, v4, v5 ^ (v5 >> 31));
-  if (HIDWORD(v8) == 0x7FFFFFFF)
-  {
-    v6 = re::HashTable<re::ecs2::AudioPlayerSystem *,NSObject  {objcproto17OS_dispatch_queue}* {__strong},re::Hash<re::ecs2::AudioPlayerSystem *>,re::EqualTo<re::ecs2::AudioPlayerSystem *>,true,false>::allocEntry(v2 + 40, v8, v7);
-    *(v6 + 8) = *(a1 + 48);
-    *(v6 + 16) = *(a1 + 32);
-    ++*(v2 + 80);
-  }
-
-  os_unfair_lock_unlock(v3 + 22);
-}
-
-void re::ecs2::AudioPlayerTelemetryReporter::stopAndCleanupReporter(uint64_t a1)
-{
-  if (re::ecs2::AudioPlayerTelemetryReporter::m_audioPlayerTelemetryQueue)
-  {
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3221225472;
-    block[2] = ___ZN2re4ecs228AudioPlayerTelemetryReporter22stopAndCleanupReporterEPNS0_17AudioPlayerSystemE_block_invoke;
-    block[3] = &__block_descriptor_40_e5_v8__0l;
-    block[4] = a1;
-    dispatch_sync(re::ecs2::AudioPlayerTelemetryReporter::m_audioPlayerTelemetryQueue, block);
-  }
-}
-
-void ___ZN2re4ecs228AudioPlayerTelemetryReporter22stopAndCleanupReporterEPNS0_17AudioPlayerSystemE_block_invoke(uint64_t a1)
-{
-  if (re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter)
-  {
-    re::ecs2::AudioPlayerTelemetryReporter::removeSystemFromRemainingForCurrentReport(re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter, *(a1 + 32), *(re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter + 200));
-    v2 = re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter;
-    os_unfair_lock_lock((re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter + 88));
-    v3 = re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter;
-    v4 = *(a1 + 32);
-    v5 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v4 ^ (v4 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v4 ^ (v4 >> 30))) >> 27));
-    re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::findEntry<void *>(v17, re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter + 40, v4, v5 ^ (v5 >> 31));
-    v6 = v19;
-    if (v19 != 0x7FFFFFFF)
+    v23 = 0;
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v32 = 0u;
+    v16 = MEMORY[0x1E69E9C10];
+    v17 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v24 = 136315906;
+    v25 = "operator[]";
+    v26 = 1024;
+    if (v17)
     {
-      v7 = *(v3 + 56);
-      v8 = (v7 + 32 * v19);
-      v9 = *v8 & 0x7FFFFFFF;
-      if (v20 == 0x7FFFFFFF)
-      {
-        *(*(v3 + 48) + 4 * v18) = v9;
-      }
-
-      else
-      {
-        *(v7 + 32 * v20) = *(v7 + 32 * v20) & 0x80000000 | v9;
-      }
-
-      v10 = *v8;
-      v11 = v3;
-      if (*v8 < 0)
-      {
-        *v8 = v10 & 0x7FFFFFFF;
-
-        v7 = *(v3 + 56);
-        v10 = *(v7 + 32 * v6);
-        v11 = re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter;
-      }
-
-      v12 = *(v3 + 80);
-      *(v7 + 32 * v6) = *(v3 + 76) | v10 & 0x80000000;
-      --*(v3 + 68);
-      *(v3 + 76) = v6;
-      *(v3 + 80) = v12 + 1;
-      v3 = v11;
+      v18 = 3;
     }
 
-    v13 = *(v3 + 68);
-    os_unfair_lock_unlock(v2 + 22);
-    if (!v13)
+    else
     {
-      v15 = re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter;
-      if (re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter)
-      {
-        v16 = re::globalAllocators(v14)[2];
-        std::unique_ptr<re::AudioTelemetryReporter,std::function<void ()(re::AudioTelemetryReporter*)>>::reset[abi:ne200100](v15, 0);
-        re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v15 + 26);
-        re::HashTable<unsigned long long,re::sg::MaterialSource,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(v15 + 5);
-        std::unique_ptr<re::AudioTelemetryReporter,std::function<void ()(re::AudioTelemetryReporter*)>>::reset[abi:ne200100](v15, 0);
-        std::__function::__value_func<void ()(re::AudioTelemetryReporter *)>::~__value_func[abi:ne200100]((v15 + 1));
-        (*(*v16 + 40))(v16, v15);
-      }
-
-      re::ecs2::AudioPlayerTelemetryReporter::sharedAudioPlayerTelemetryReporter = 0;
+      v18 = 2;
     }
+
+    v27 = 468;
+    v28 = 2048;
+    v29 = v12;
+    v30 = 2048;
+    v31 = v5;
+    _os_log_send_and_compose_impl(v18, &v23, &v32, 80, &dword_1E1C61000, v16, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v24, 38, v22);
+    _os_crash_msg();
+    __break(1u);
+LABEL_15:
+    v23 = 0;
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v32 = 0u;
+    v19 = MEMORY[0x1E69E9C10];
+    v20 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v24 = 136315906;
+    v25 = "operator[]";
+    v26 = 1024;
+    if (v20)
+    {
+      v21 = 3;
+    }
+
+    else
+    {
+      v21 = 2;
+    }
+
+    v27 = 468;
+    v28 = 2048;
+    v29 = v11;
+    v30 = 2048;
+    v31 = v8;
+    _os_log_send_and_compose_impl(v21, &v23, &v32, 80, &dword_1E1C61000, v19, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v24, 38, v22);
+    _os_crash_msg();
+    __break(1u);
   }
-}
 
-uint64_t ___ZN2re4ecs228AudioPlayerTelemetryReporter11updateCountEjj_block_invoke(uint64_t result)
-{
-  v1 = *(result + 32);
-  *(v1 + 96) += *(result + 40);
-  *(v1 + 108) += *(result + 44);
-  return result;
-}
-
-void re::ecs2::AudioPlayerTelemetryReporter::updateCalibrationModeStatistics(uint64_t a1, int a2, double a3)
-{
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = ___ZN2re4ecs228AudioPlayerTelemetryReporter31updateCalibrationModeStatisticsE22REAudioCalibrationModed_block_invoke;
-  block[3] = &__block_descriptor_52_e5_v8__0l;
-  block[4] = a1;
-  v4 = a2;
-  *&block[5] = a3;
-  dispatch_async(re::ecs2::AudioPlayerTelemetryReporter::m_audioPlayerTelemetryQueue, block);
-}
-
-uint64_t ___ZN2re4ecs228AudioPlayerTelemetryReporter31updateCalibrationModeStatisticsE22REAudioCalibrationModed_block_invoke(uint64_t result)
-{
-  v1 = *(result + 32);
-  v2 = *(result + 48);
-  switch(v2)
+  v13 = *(this + 5);
+  if (*(v13 + v11))
   {
-    case 2:
-      v7 = *(v1 + 176);
-      v8 = *(v1 + 144) + 1;
-      *(v1 + 184) = *(v1 + 184) + (*(result + 40) - *(v1 + 184)) / v8;
-      *(v1 + 144) = v8;
-      v9 = *(result + 40);
-      if (v9 >= v7)
-      {
-        v9 = v7;
-      }
-
-      *(v1 + 176) = v9;
-      v10 = *(result + 40);
-      if (v10 <= *(v1 + 192))
-      {
-        v10 = *(v1 + 192);
-      }
-
-      *(v1 + 192) = v10;
-      break;
-    case 1:
-      v3 = *(v1 + 152);
-      v4 = *(v1 + 140) + 1;
-      *(v1 + 160) = *(v1 + 160) + (*(result + 40) - *(v1 + 160)) / v4;
-      *(v1 + 140) = v4;
-      v5 = *(result + 40);
-      if (v5 >= v3)
-      {
-        v5 = v3;
-      }
-
-      *(v1 + 152) = v5;
-      v6 = *(result + 40);
-      if (v6 <= *(v1 + 168))
-      {
-        v6 = *(v1 + 168);
-      }
-
-      *(v1 + 168) = v6;
-      break;
-    case 0:
-      ++*(v1 + 136);
-      break;
+    return result;
   }
 
+  *(v13 + v11) = 1;
+  v12 = v8;
+  v5 = *(this + 1);
+  if (v5 <= v8)
+  {
+    goto LABEL_11;
+  }
+
+  ++*(*(this + 2) + 2 * v8);
+  v8 = *(this + 7);
+  if (v8 <= v11)
+  {
+    goto LABEL_15;
+  }
+
+  *(*(this + 8) + v11) = a5;
   return result;
 }
 
-uint64_t *std::unique_ptr<re::AudioTelemetryReporter,std::function<void ()(re::AudioTelemetryReporter*)>>::reset[abi:ne200100](uint64_t *result, uint64_t a2)
+void *re::FixedArray<re::DataArrayHandle<re::DeformationStack>>::init<>(void *result, uint64_t a2, unint64_t a3)
 {
-  v2 = *result;
   *result = a2;
-  if (v2)
+  result[1] = a3;
+  if (!a3)
   {
-    v3 = result[4];
-    v4 = v2;
-    if (!v3)
-    {
-      std::__throw_bad_function_call[abi:ne200100]();
-    }
-
-    return (*(*v3 + 48))(v3, &v4);
+    return result;
   }
 
+  if (a3 >> 61)
+  {
+    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in FixedArray<T>::init(). Element size = %zu, count = %zu", "!overflow", "init", 324, 8, a3);
+    _os_crash("assertion failure: (!overflow) Size overflow in FixedArray<T>::init(). Element size = %zu, count = %zu", v7, v8);
+    __break(1u);
+    goto LABEL_9;
+  }
+
+  v4 = result;
+  result = (*(*a2 + 32))(a2, 8 * a3, 8);
+  v4[2] = result;
+  if (!result)
+  {
+LABEL_9:
+    re::internal::assertLog(4, v5, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
+    result = _os_crash("assertion failure: (m_data) Out of memory.");
+    __break(1u);
+    return result;
+  }
+
+  v6 = a3 - 1;
+  if (a3 != 1)
+  {
+    do
+    {
+      *result++ = 0xFFFFFFFFLL;
+      --v6;
+    }
+
+    while (v6);
+  }
+
+  *result = 0xFFFFFFFFLL;
   return result;
 }
 
-uint64_t std::__function::__value_func<void ()(re::AudioTelemetryReporter *)>::~__value_func[abi:ne200100](uint64_t a1)
+void re::DynamicArray<re::DeformationDefinition>::removeStableAt(uint64_t a1, unint64_t a2)
 {
-  v2 = *(a1 + 24);
-  if (v2 == a1)
+  v20 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 16);
+  if (v3 <= a2)
   {
-    (*(*v2 + 32))(v2);
+    v10 = 0;
+    memset(v19, 0, sizeof(v19));
+    v7 = MEMORY[0x1E69E9C10];
+    v11 = 136315906;
+    v12 = "removeStableAt";
+    v13 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v8 = 3;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+
+    v14 = 969;
+    v15 = 2048;
+    v16 = a2;
+    v17 = 2048;
+    v18 = v3;
+    _os_log_send_and_compose_impl(v8, &v10, v19, 80, &dword_1E1C61000, v7, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v11, 38, v9);
+    _os_crash_msg();
+    __break(1u);
   }
 
-  else if (v2)
+  if (v3 - 1 > a2)
   {
-    (*(*v2 + 40))(v2);
+    std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<re::DeformationDefinition *,re::DeformationDefinition *,re::DeformationDefinition *>(v19, (*(a1 + 32) + 40 * a2 + 40), (*(a1 + 32) + 40 * v3), (*(a1 + 32) + 40 * a2));
+    v3 = *(a1 + 16);
+  }
+
+  v5 = *(a1 + 32) + 40 * v3;
+  v6 = (v5 - 40);
+  re::FixedArray<CoreIKTransform>::deinit((v5 - 24));
+  re::StringID::destroyString(v6);
+  --*(a1 + 16);
+  ++*(a1 + 24);
+}
+
+void *re::FixedArray<unsigned int>::init<unsigned int>(void *result, uint64_t a2, unint64_t a3, int *a4)
+{
+  *result = a2;
+  result[1] = a3;
+  if (!a3)
+  {
+    return result;
+  }
+
+  if (a3 >> 62)
+  {
+    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in FixedArray<T>::init(). Element size = %zu, count = %zu", "!overflow", "init", 324, 4, a3);
+    _os_crash("assertion failure: (!overflow) Size overflow in FixedArray<T>::init(). Element size = %zu, count = %zu", v10, v11);
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  v6 = result;
+  result = (*(*a2 + 32))(a2, 4 * a3, 4);
+  v6[2] = result;
+  if (!result)
+  {
+LABEL_10:
+    re::internal::assertLog(4, v7, "assertion failure: '%s' (%s:line %i) Out of memory.", "m_data", "init", 327);
+    result = _os_crash("assertion failure: (m_data) Out of memory.");
+    __break(1u);
+    return result;
+  }
+
+  v8 = a3 - 1;
+  if (a3 != 1)
+  {
+    v9 = *a4;
+    do
+    {
+      *result = v9;
+      result = (result + 4);
+      --v8;
+    }
+
+    while (v8);
+  }
+
+  *result = *a4;
+  return result;
+}
+
+uint64_t re::DynamicArray<re::DeformationDefinition>::DynamicArray(uint64_t a1, uint64_t *a2)
+{
+  *(a1 + 32) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 24) = 0;
+  v3 = *a2;
+  if (*a2)
+  {
+    v5 = a2[2];
+    *a1 = v3;
+    re::DynamicArray<re::DeformationDefinition>::setCapacity(a1, v5);
+    ++*(a1 + 24);
+    re::DynamicArray<re::DeformationDefinition>::copy(a1, a2);
   }
 
   return a1;
 }
 
-uint64_t _ZNKSt3__110__function6__funcIZN2re20makeDefaultUniquePtrINS2_22AudioTelemetryReporterEJEEENS_10unique_ptrIT_NS_8functionIFvPS6_EEEEEDpOT0_EUlPS4_E_NS_9allocatorISG_EEFvSF_EE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
+void re::DynamicArray<re::DeformationDefinition>::copy(void *a1, uint64_t a2)
 {
+  v4 = *(a2 + 16);
+  if (v4 >= a1[2])
   {
-    return a1 + 8;
+    re::DynamicArray<re::DeformationDefinition>::setCapacity(a1, *(a2 + 16));
+    std::__copy_impl::operator()[abi:nn200100]<re::DeformationDefinition *,re::DeformationDefinition *,re::DeformationDefinition *>(&v14, *(a2 + 32), (*(a2 + 32) + 40 * a1[2]), a1[4]);
+    v8 = a1[2];
+    if (v8 != v4)
+    {
+      v9 = 5 * v8;
+      v10 = *(a2 + 32) + 8 * v9;
+      v11 = (a1[4] + 8 * v9);
+      v12 = 40 * v4 - 8 * v9;
+      do
+      {
+        re::StringID::StringID(v11, v10);
+        re::FixedArray<unsigned char>::FixedArray(v11 + 2, (v10 + 16));
+        v10 += 40;
+        v11 = (v11 + 40);
+        v12 -= 40;
+      }
+
+      while (v12);
+    }
   }
 
   else
   {
-    return 0;
+    std::__copy_impl::operator()[abi:nn200100]<re::DeformationDefinition *,re::DeformationDefinition *,re::DeformationDefinition *>(&v13, *(a2 + 32), (*(a2 + 32) + 40 * v4), a1[4]);
+    v5 = a1[2];
+    if (v4 != v5)
+    {
+      v6 = (a1[4] + 40 * v4);
+      v7 = 40 * v5 - 40 * v4;
+      do
+      {
+        re::FixedArray<CoreIKTransform>::deinit(v6 + 2);
+        re::StringID::destroyString(v6);
+        v6 += 5;
+        v7 -= 40;
+      }
+
+      while (v7);
+    }
+  }
+
+  a1[2] = v4;
+}
+
+uint64_t *std::__copy_impl::operator()[abi:nn200100]<re::DeformationDefinition *,re::DeformationDefinition *,re::DeformationDefinition *>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+{
+  v5 = a2;
+  if (a2 != a3)
+  {
+    do
+    {
+      re::StringID::operator=(a4, v5);
+      re::FixedArray<unsigned char>::operator=((a4 + 16), v5 + 2);
+      v5 += 5;
+      a4 += 40;
+    }
+
+    while (v5 != a3);
+    return a3;
+  }
+
+  return v5;
+}
+
+uint64_t *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<re::DeformationDefinition *,re::DeformationDefinition *,re::DeformationDefinition *>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
+{
+  v5 = a2;
+  if (a2 != a3)
+  {
+    do
+    {
+      re::StringID::operator=(a4, v5);
+      re::FixedArray<float>::operator=(a4 + 2, v5 + 2);
+      v5 += 5;
+      a4 += 5;
+    }
+
+    while (v5 != a3);
+    return a3;
+  }
+
+  return v5;
+}
+
+void re::AnimationLibraryMeshMapping::rebuildRuntimeData(void **this, const re::MeshAsset *a2, const re::AnimationLibraryAsset *a3)
+{
+  v4 = this;
+  v49 = *MEMORY[0x1E69E9840];
+  this[7] = -1;
+  if (*(this + 7))
+  {
+    v5 = *(this + 6);
+    if (v5)
+    {
+      memset_pattern16(this[1], &unk_1E304C660, 4 * v5);
+    }
+
+    if (*(v4 + 8))
+    {
+      v6 = 0;
+      v7 = 0;
+      do
+      {
+        this = re::HashTable<re::AssetHandle,re::DynamicArray<re::AnimationLibraryMeshMappingData>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::EntryBase::free(v4[2] + v6);
+        ++v7;
+        v6 += 80;
+      }
+
+      while (v7 < *(v4 + 8));
+    }
+
+    *(v4 + 7) = 0;
+    *(v4 + 8) = 0;
+    v8 = *(v4 + 10) + 1;
+    *(v4 + 9) = 0x7FFFFFFF;
+    *(v4 + 10) = v8;
+  }
+
+  if (!v4[6])
+  {
+    v4[7] = -1;
+  }
+
+  if (*(a3 + 2))
+  {
+    v9 = 0;
+    v10 = 0;
+    do
+    {
+      re::MeshNameMap::meshInstancePartsForIdentifier(&v38, a2 + 640, (*(a3 + 4) + 120 * v9));
+      v33 = *(a2 + 156);
+      if (v33)
+      {
+        v11 = 0;
+        v12 = 0;
+        while (1)
+        {
+          v13 = re::MeshAsset::skeletonAtIndex(a2, v11);
+          v14 = *(a3 + 2);
+          if (v14 <= v9)
+          {
+            goto LABEL_45;
+          }
+
+          if (re::StringID::operator==(v13, (*(a3 + 4) + 120 * v9 + 40)))
+          {
+            v15 = v38;
+            if (v38)
+            {
+              break;
+            }
+          }
+
+LABEL_38:
+          v11 = ++v12;
+          if (v33 <= v12)
+          {
+            goto LABEL_39;
+          }
+        }
+
+        v16 = 0;
+        while (1)
+        {
+          *&v44 = v16;
+          *v37 = __PAIR64__((*(*v40 + 16))(v40, &v44), v10);
+          *&v37[8] = v12;
+          v14 = *(a3 + 2);
+          if (v14 <= v9)
+          {
+            break;
+          }
+
+          re::AssetHandle::AssetHandle(&v35, (*(a3 + 4) + 120 * v9 + 72));
+          if (v36)
+          {
+            v17 = *(v36 + 792);
+          }
+
+          else
+          {
+            v17 = 0;
+          }
+
+          v18 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v36 ^ (v36 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v36 ^ (v36 >> 30))) >> 27));
+          re::HashTable<re::AssetHandle,re::DynamicArray<re::AnimationLibraryMeshMappingData>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::findEntry<re::AssetHandle>(&v44, v4, v36, v17 ^ (v18 >> 31) ^ v18);
+          if (HIDWORD(v44) == 0x7FFFFFFF)
+          {
+            *&v46 = 0;
+            *&v45 = 0;
+            v44 = 0uLL;
+            DWORD2(v45) = 0;
+            re::DynamicArray<re::AnimationLibraryMeshMappingData>::add(&v44, v37);
+            if (v36)
+            {
+              v19 = *(v36 + 792);
+            }
+
+            else
+            {
+              v19 = 0;
+            }
+
+            memset(v41, 0, 24);
+            v24 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v36 ^ (v36 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v36 ^ (v36 >> 30))) >> 27));
+            re::HashTable<re::AssetHandle,re::DynamicArray<re::AnimationLibraryMeshMappingData>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::findEntry<re::AssetHandle>(v41, v4, v36, v19 ^ (v24 >> 31) ^ v24);
+            if (*&v41[12] == 0x7FFFFFFF)
+            {
+              v25 = re::HashTable<re::AssetHandle,re::DynamicArray<re::AnimationLibraryMeshMappingData>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::allocEntry(v4, *&v41[8], *v41);
+              re::AssetHandle::AssetHandle((v25 + 8), &v35);
+              re::DynamicArray<re::AnimationLibraryMeshMappingData>::DynamicArray(v25 + 32, &v44);
+              ++*(v4 + 10);
+            }
+
+            if (v44)
+            {
+              if (v46)
+              {
+                (*(*v44 + 40))();
+              }
+            }
+          }
+
+          else
+          {
+            v20 = v4[2] + 80 * HIDWORD(v44);
+            v21 = v20[6];
+            if (v21)
+            {
+              v22 = 12 * v21;
+              v23 = (v20[8] + 4);
+              while (*(v23 - 1) != *v37 || *v23 != *&v37[4])
+              {
+                v23 = (v23 + 12);
+                v22 -= 12;
+                if (!v22)
+                {
+                  goto LABEL_30;
+                }
+              }
+            }
+
+            else
+            {
+LABEL_30:
+              re::DynamicArray<re::AnimationLibraryMeshMappingData>::add((v20 + 4), v37);
+            }
+          }
+
+          re::AssetHandle::~AssetHandle(&v35);
+          if (++v16 == v15)
+          {
+            goto LABEL_38;
+          }
+        }
+
+        v35 = 0;
+        v47 = 0u;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
+        v44 = 0u;
+        v26 = MEMORY[0x1E69E9C10];
+        v27 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        *v41 = 136315906;
+        *&v41[4] = "operator[]";
+        *&v41[12] = 1024;
+        if (v27)
+        {
+          v28 = 3;
+        }
+
+        else
+        {
+          v28 = 2;
+        }
+
+        *&v41[14] = 797;
+        *&v41[18] = 2048;
+        *&v41[20] = v9;
+        v42 = 2048;
+        v43 = v14;
+        _os_log_send_and_compose_impl(v28, &v35, &v44, 80, &dword_1E1C61000, v26, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v41, 38, v32, v33);
+        _os_crash_msg();
+        __break(1u);
+LABEL_45:
+        v35 = 0;
+        v47 = 0u;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
+        v44 = 0u;
+        v29 = MEMORY[0x1E69E9C10];
+        v30 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        *v41 = 136315906;
+        *&v41[4] = "operator[]";
+        *&v41[12] = 1024;
+        if (v30)
+        {
+          v31 = 3;
+        }
+
+        else
+        {
+          v31 = 2;
+        }
+
+        *&v41[14] = 797;
+        *&v41[18] = 2048;
+        *&v41[20] = v9;
+        v42 = 2048;
+        v43 = v14;
+        _os_log_send_and_compose_impl(v31, &v35, &v44, 80, &dword_1E1C61000, v29, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v41, 38, v32, v33);
+        _os_crash_msg();
+        __break(1u);
+      }
+
+LABEL_39:
+      re::FunctionBase<24ul,re::MeshInstanceAndPartIndex ()(unsigned long)>::destroyCallable(&v39);
+      v9 = ++v10;
+    }
+
+    while (*(a3 + 2) > v10);
   }
 }
 
-re *re::internal::destroyPersistent<re::AudioTelemetryReporter>(re *result, uint64_t a2, re::AudioTelemetryReporter *a3)
+_anonymous_namespace_ *re::DynamicArray<re::AnimationLibraryMeshMappingData>::add(_anonymous_namespace_ *this, uint64_t *a2)
 {
-  if (a3)
+  v3 = this;
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
   {
-    v4 = re::globalAllocators(result)[2];
-    re::AudioTelemetryReporter::~AudioTelemetryReporter(a3);
-    v5 = *(*v4 + 40);
+    this = re::DynamicArray<re::AnimationLibraryMeshMappingData>::growCapacity(this, v4 + 1);
+    v4 = *(v3 + 2);
+  }
 
-    return v5(v4, a3);
+  v5 = *(v3 + 4) + 12 * v4;
+  v6 = *a2;
+  *(v5 + 8) = *(a2 + 2);
+  *v5 = v6;
+  ++*(v3 + 2);
+  ++*(v3 + 6);
+  return this;
+}
+
+uint64_t re::AnimationLibraryMeshMapping::processSkeletalQueryEntry(int a1, uint64_t a2, _anonymous_namespace_ *this)
+{
+  v10 = 0;
+  memset(v8, 0, sizeof(v8));
+  v9 = 0;
+  v4 = *(a2 + 16);
+  if (v4)
+  {
+    v5 = *(a2 + 32);
+    v6 = 12 * v4;
+    do
+    {
+      re::DynamicArray<re::AnimationLibraryMeshMappingData>::add(v8, v5);
+      v5 = (v5 + 12);
+      v6 -= 12;
+    }
+
+    while (v6);
+  }
+
+  re::DynamicArray<re::SkeletalAnimationQueryEntry>::add(this, v8);
+  result = v8[0];
+  if (v8[0])
+  {
+    if (v10)
+    {
+      return (*(*v8[0] + 40))();
+    }
   }
 
   return result;
 }
 
-void re::HashSetBase<re::ecs2::AudioPlayerSystem *,re::ecs2::AudioPlayerSystem *,re::internal::ValueAsKey<re::ecs2::AudioPlayerSystem *>,re::Hash<re::ecs2::AudioPlayerSystem *>,re::EqualTo<re::ecs2::AudioPlayerSystem *>,true,false>::setCapacity(uint64_t a1, unsigned int a2)
+uint64_t re::DynamicArray<re::SkeletalAnimationQueryEntry>::add(_anonymous_namespace_ *this, uint64_t *a2)
 {
-  v4 = *a1;
-  if (*a1)
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
   {
-    if (a2 && *(a1 + 24) != a2 && *(a1 + 28) <= a2)
+    re::DynamicArray<re::DynamicArray<unsigned int>>::growCapacity(this, v4 + 1);
+    v4 = *(this + 2);
+  }
+
+  result = re::DynamicArray<re::AnimationLibraryMeshMappingData>::DynamicArray(*(this + 4) + 40 * v4, a2);
+  ++*(this + 2);
+  ++*(this + 6);
+  return result;
+}
+
+uint64_t re::AnimationLibraryMeshMapping::processForFirstSkeletalQueryEntry(int a1, uint64_t a2, uint64_t a3, _anonymous_namespace_ *this, _anonymous_namespace_ *a5)
+{
+  v50 = *MEMORY[0x1E69E9840];
+  v35 = 0;
+  v32[1] = 0;
+  v33 = 0;
+  v32[0] = 0;
+  v34 = 0;
+  v5 = *(a2 + 16);
+  if (!v5)
+  {
+    goto LABEL_34;
+  }
+
+  v7 = a3;
+  v8 = *(a2 + 32);
+  v30 = (v8 + 12 * v5);
+  do
+  {
+    v9 = *v8;
+    v10 = *(v7 + 16);
+    if (v10 <= v9)
     {
-      memset(v20, 0, 36);
-      *&v20[36] = 0x7FFFFFFFLL;
-      re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::init(v20, v4, a2);
-      v5 = *v20;
-      *v20 = *a1;
-      *a1 = v5;
-      v6 = *&v20[16];
-      v7 = *(a1 + 16);
-      *&v20[16] = v7;
-      *(a1 + 16) = v6;
-      v8 = *&v20[24];
-      *&v20[24] = *(a1 + 24);
-      DWORD2(v5) = *&v20[32];
-      *(a1 + 24) = v8;
-      v9 = DWORD2(v5);
-      if (DWORD2(v5))
+      v36 = 0;
+      v48 = 0u;
+      v49 = 0u;
+      *__s1 = 0u;
+      *v47 = 0u;
+      v45 = 0u;
+      v24 = MEMORY[0x1E69E9C10];
+      v25 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v37 = 136315906;
+      v38 = "operator[]";
+      v39 = 1024;
+      if (v25)
       {
-        v10 = DWORD1(v8);
-        v11 = (v7 + 16);
-        do
-        {
-          if ((*(v11 - 1) & 0x80000000) != 0)
-          {
-            v12 = *(v11 - 2);
-            v13 = *(a1 + 24);
-            v14 = v12 % v13;
-            v15 = *(a1 + 36);
-            if (v15 == 0x7FFFFFFF)
-            {
-              v15 = *(a1 + 32);
-              v16 = v15;
-              if (v15 == v13)
-              {
-                re::HashSetBase<re::ecs2::AudioPlayerSystem *,re::ecs2::AudioPlayerSystem *,re::internal::ValueAsKey<re::ecs2::AudioPlayerSystem *>,re::Hash<re::ecs2::AudioPlayerSystem *>,re::EqualTo<re::ecs2::AudioPlayerSystem *>,true,false>::setCapacity(a1, (2 * v10));
-                v14 = v12 % *(a1 + 24);
-                v16 = *(a1 + 32);
-              }
-
-              *(a1 + 32) = v16 + 1;
-              v17 = *(a1 + 16);
-              v18 = *(v17 + 24 * v15 + 8);
-            }
-
-            else
-            {
-              v17 = *(a1 + 16);
-              v18 = *(v17 + 24 * v15 + 8);
-              *(a1 + 36) = v18 & 0x7FFFFFFF;
-            }
-
-            *(v17 + 24 * v15 + 8) = v18 | 0x80000000;
-            *(*(a1 + 16) + 24 * v15 + 8) = *(*(a1 + 16) + 24 * v15 + 8) & 0x80000000 | *(*(a1 + 8) + 4 * v14);
-            *(*(a1 + 16) + 24 * v15) = v12;
-            *(*(a1 + 16) + 24 * v15 + 16) = *v11;
-            *(*(a1 + 8) + 4 * v14) = v15;
-            v10 = *(a1 + 28) + 1;
-            *(a1 + 28) = v10;
-          }
-
-          v11 += 3;
-          --v9;
-        }
-
-        while (v9);
+        v26 = 3;
       }
 
-      re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v20);
+      else
+      {
+        v26 = 2;
+      }
+
+      v40 = 797;
+      v41 = 2048;
+      v42 = v9;
+      v43 = 2048;
+      v44 = v10;
+      _os_log_send_and_compose_impl(v26, &v36, &v45, 80, &dword_1E1C61000, v24, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v37, 38, v27, a5);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+    v11 = (*(v7 + 32) + 120 * v9);
+    v12 = *(this + 2);
+    if (!v12)
+    {
+LABEL_28:
+      if (v12 >= *(this + 1))
+      {
+        re::DynamicArray<re::MeshIdentifierAsset>::growCapacity(this, v12 + 1);
+        v12 = *(this + 2);
+      }
+
+      v21 = (*(this + 4) + 40 * v12);
+      *v21 = *v11;
+      v22 = (v21 + 24);
+      re::StringID::StringID((v21 + 8), (v11 + 8));
+      re::StringID::StringID(v22, (v11 + 24));
+      ++*(this + 2);
+      ++*(this + 6);
+      re::DynamicArray<re::AnimationLibraryMeshMappingData>::add(v32, v8);
+      goto LABEL_31;
+    }
+
+    v31 = 0;
+    v13 = 40 * v12 - 40;
+    v14 = (*(this + 4) + 24);
+    do
+    {
+      LOBYTE(v45) = v14[-2].var1;
+      re::StringID::StringID((&v45 + 8), v14 - 1);
+      v15 = re::StringID::StringID(&__s1[1], v14);
+      if (v45 == *v11 && (*(v11 + 1) ^ *(&v45 + 1)) <= 1 && ((v15 = __s1[0], v16 = *(v11 + 2), __s1[0] == v16) || (v15 = strcmp(__s1[0], v16), !v15)) && (v17 = __s1[1], (*(v11 + 3) ^ __s1[1]) <= 1uLL) && ((v15 = v47[0], v18 = *(v11 + 4), v47[0] == v18) || (v15 = strcmp(v47[0], v18), !v15)))
+      {
+        v31 = 1;
+        v19 = 1;
+        if ((v17 & 1) == 0)
+        {
+          goto LABEL_16;
+        }
+      }
+
+      else
+      {
+        v19 = 0;
+        if ((__s1[1] & 1) == 0)
+        {
+          goto LABEL_16;
+        }
+      }
+
+      if (__s1[1])
+      {
+      }
+
+LABEL_16:
+      __s1[1] = 0;
+      v47[0] = &str_67;
+      if (BYTE8(v45))
+      {
+        if (BYTE8(v45))
+        {
+        }
+      }
+
+      if (v13)
+      {
+        v20 = v19;
+      }
+
+      else
+      {
+        v20 = 1;
+      }
+
+      v13 -= 40;
+      v14 = (v14 + 40);
+    }
+
+    while (v20 != 1);
+    v7 = a3;
+    if ((v31 & 1) == 0)
+    {
+      v12 = *(this + 2);
+      goto LABEL_28;
+    }
+
+LABEL_31:
+    v8 = (v8 + 12);
+  }
+
+  while (v8 != v30);
+  if (v33)
+  {
+    re::DynamicArray<re::SkeletalAnimationQueryEntry>::add(a5, v32);
+  }
+
+LABEL_34:
+  result = v32[0];
+  if (v32[0])
+  {
+    if (v35)
+    {
+      return (*(*v32[0] + 40))();
+    }
+  }
+
+  return result;
+}
+
+BOOL re::AnimationLibraryMeshMapping::getFirstSkeletalAnimation(uint64_t a1, uint64_t a2, _anonymous_namespace_ *a3)
+{
+  SkeletalQueryEntry = re::DynamicArray<re::DynamicArray<unsigned int>>::clear(a3);
+  v7 = *(a1 + 32);
+  if (v7)
+  {
+    v8 = 0;
+    v9 = *(a1 + 16);
+    while (1)
+    {
+      v10 = *v9;
+      v9 += 20;
+      if (v10 < 0)
+      {
+        break;
+      }
+
+      if (v7 == ++v8)
+      {
+        LODWORD(v8) = *(a1 + 32);
+        break;
+      }
     }
   }
 
   else
   {
-    if (a2)
+    LODWORD(v8) = 0;
+  }
+
+  v17 = 0;
+  memset(v15, 0, sizeof(v15));
+  v16 = 0;
+  if (v8 != v7)
+  {
+    do
     {
-      v19 = a2;
+      SkeletalQueryEntry = re::AnimationLibraryMeshMapping::processForFirstSkeletalQueryEntry(SkeletalQueryEntry, *(a1 + 16) + 80 * v8 + 32, a2, v15, a3);
+      v11 = *(a1 + 32);
+      if (v11 <= v8 + 1)
+      {
+        v12 = v8 + 1;
+      }
+
+      else
+      {
+        v12 = *(a1 + 32);
+      }
+
+      while (v12 - 1 != v8)
+      {
+        LODWORD(v8) = v8 + 1;
+        if ((*(*(a1 + 16) + 80 * v8) & 0x80000000) != 0)
+        {
+          goto LABEL_15;
+        }
+      }
+
+      LODWORD(v8) = v12;
+LABEL_15:
+      ;
+    }
+
+    while (v8 != v11);
+  }
+
+  v13 = *(a3 + 2) != 0;
+  re::DynamicArray<re::MeshIdentifierAsset>::deinit(v15);
+  return v13;
+}
+
+BOOL re::AnimationLibraryMeshMapping::getNamedSkeletalAnimation(uint64_t a1, void *a2, uint64_t a3, _anonymous_namespace_ *a4)
+{
+  re::DynamicArray<re::DynamicArray<unsigned int>>::clear(a4);
+  v8 = *(a1 + 32);
+  if (v8)
+  {
+    v9 = 0;
+    v10 = *(a1 + 16);
+    while (1)
+    {
+      v11 = *v10;
+      v10 += 20;
+      if (v11 < 0)
+      {
+        break;
+      }
+
+      if (v8 == ++v9)
+      {
+        LODWORD(v9) = *(a1 + 32);
+        break;
+      }
+    }
+  }
+
+  else
+  {
+    LODWORD(v9) = 0;
+  }
+
+  if (v9 != v8)
+  {
+    do
+    {
+      re::DynamicArray<re::AnimationLibraryMeshMappingData>::DynamicArray(v21, (*(a1 + 16) + 80 * v9 + 32));
+      if (v21[2] && (v13 = *v22, *(a3 + 16) > v13) && re::StringID::operator==((*(a3 + 32) + 120 * v13 + 56), a2))
+      {
+        v14 = re::DynamicArray<re::AnimationLibraryMeshMappingData>::DynamicArray(v18, (*(a1 + 16) + 80 * v9 + 32));
+        re::AnimationLibraryMeshMapping::processSkeletalQueryEntry(v14, v18, a4);
+        if (v18[0])
+        {
+          if (v20)
+          {
+            (*(*v18[0] + 40))();
+          }
+
+          v15 = 0;
+          v20 = 0;
+          memset(v18, 0, sizeof(v18));
+          ++v19;
+        }
+
+        else
+        {
+          v15 = 0;
+        }
+      }
+
+      else
+      {
+        v15 = 1;
+      }
+
+      if (v21[0] && v22)
+      {
+        (*(*v21[0] + 40))();
+      }
+
+      if (!v15)
+      {
+        break;
+      }
+
+      v16 = *(a1 + 32);
+      v17 = v16 <= v9 + 1 ? v9 + 1 : *(a1 + 32);
+      while (v17 - 1 != v9)
+      {
+        LODWORD(v9) = v9 + 1;
+        if ((*(*(a1 + 16) + 80 * v9) & 0x80000000) != 0)
+        {
+          goto LABEL_28;
+        }
+      }
+
+      LODWORD(v9) = v17;
+LABEL_28:
+      ;
+    }
+
+    while (v9 != v16);
+  }
+
+  return *(a4 + 2) != 0;
+}
+
+BOOL re::AnimationLibraryMeshMapping::getAllSkeletalAnimations(uint64_t a1, _anonymous_namespace_ *a2)
+{
+  re::DynamicArray<re::DynamicArray<unsigned int>>::clear(a2);
+  v4 = *(a1 + 32);
+  if (v4)
+  {
+    v5 = 0;
+    v6 = *(a1 + 16);
+    while (1)
+    {
+      v7 = *v6;
+      v6 += 20;
+      if (v7 < 0)
+      {
+        break;
+      }
+
+      if (v4 == ++v5)
+      {
+        LODWORD(v5) = *(a1 + 32);
+        break;
+      }
+    }
+  }
+
+  else
+  {
+    LODWORD(v5) = 0;
+  }
+
+  if (v5 != v4)
+  {
+    do
+    {
+      v8 = re::DynamicArray<re::AnimationLibraryMeshMappingData>::DynamicArray(v12, (*(a1 + 16) + 80 * v5 + 32));
+      re::AnimationLibraryMeshMapping::processSkeletalQueryEntry(v8, v12, a2);
+      if (v12[0])
+      {
+        if (v14)
+        {
+          (*(*v12[0] + 40))();
+        }
+
+        v14 = 0;
+        memset(v12, 0, sizeof(v12));
+        ++v13;
+      }
+
+      v9 = *(a1 + 32);
+      if (v9 <= v5 + 1)
+      {
+        v10 = v5 + 1;
+      }
+
+      else
+      {
+        v10 = *(a1 + 32);
+      }
+
+      while (v10 - 1 != v5)
+      {
+        LODWORD(v5) = v5 + 1;
+        if ((*(*(a1 + 16) + 80 * v5) & 0x80000000) != 0)
+        {
+          goto LABEL_19;
+        }
+      }
+
+      LODWORD(v5) = v10;
+LABEL_19:
+      ;
+    }
+
+    while (v5 != v9);
+  }
+
+  return *(a2 + 2) != 0;
+}
+
+_DWORD *re::HashTable<re::AssetHandle,re::DynamicArray<re::AnimationLibraryMeshMappingData>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::EntryBase::free(_DWORD *result)
+{
+  if ((*result & 0x80000000) != 0)
+  {
+    *result &= ~0x80000000;
+    v2 = result + 8;
+    re::AssetHandle::~AssetHandle((result + 2));
+
+    return re::DynamicArray<unsigned long>::deinit(v2);
+  }
+
+  return result;
+}
+
+uint64_t re::HashTable<re::AssetHandle,re::DynamicArray<re::AnimationLibraryMeshMappingData>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::findEntry<re::AssetHandle>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+{
+  v4 = *a2;
+  v5 = 0x7FFFFFFF;
+  if (!*a2)
+  {
+    goto LABEL_10;
+  }
+
+  v4 = a4 % *(a2 + 24);
+  v6 = *(*(a2 + 8) + 4 * v4);
+  if (v6 == 0x7FFFFFFF)
+  {
+    goto LABEL_10;
+  }
+
+  v7 = *(a2 + 16);
+  if (*(v7 + 80 * v6 + 16) == a3)
+  {
+    v5 = *(*(a2 + 8) + 4 * v4);
+LABEL_10:
+    v6 = 0x7FFFFFFF;
+    goto LABEL_11;
+  }
+
+  v8 = *(v7 + 80 * v6) & 0x7FFFFFFF;
+  v5 = 0x7FFFFFFF;
+  if (v8 != 0x7FFFFFFF)
+  {
+    v5 = 0x7FFFFFFF;
+    while (1)
+    {
+      v9 = v8;
+      if (*(v7 + 80 * v8 + 16) == a3)
+      {
+        break;
+      }
+
+      v8 = *(v7 + 80 * v8) & 0x7FFFFFFF;
+      v6 = v9;
+      if (v8 == 0x7FFFFFFF)
+      {
+        v6 = v9;
+        goto LABEL_11;
+      }
+    }
+
+    v5 = v8;
+  }
+
+LABEL_11:
+  *result = a4;
+  *(result + 8) = v4;
+  *(result + 12) = v5;
+  *(result + 16) = v6;
+  return result;
+}
+
+_anonymous_namespace_ *re::DynamicArray<re::AnimationLibraryMeshMappingData>::growCapacity(_anonymous_namespace_ *this, unint64_t a2)
+{
+  v2 = *(this + 1);
+  if (v2 < a2)
+  {
+    v3 = a2;
+    v4 = this;
+    if (*this)
+    {
+      v5 = 2 * v2;
+      v6 = v2 == 0;
+      v7 = 8;
+      if (!v6)
+      {
+        v7 = v5;
+      }
+
+      if (v7 > a2)
+      {
+        a2 = v7;
+      }
+
+      return re::DynamicArray<re::AnimationLibraryMeshMappingData>::setCapacity(this, a2);
     }
 
     else
     {
-      v19 = 3;
+      this = re::DynamicArray<re::AnimationLibraryMeshMappingData>::setCapacity(v4, v3);
+      ++*(v4 + 6);
     }
   }
+
+  return this;
 }
 
-uint64_t re::HashTable<re::ecs2::AudioPlayerSystem *,NSObject  {objcproto17OS_dispatch_queue}* {__strong},re::Hash<re::ecs2::AudioPlayerSystem *>,re::EqualTo<re::ecs2::AudioPlayerSystem *>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
+void *re::DynamicArray<re::AnimationLibraryMeshMappingData>::setCapacity(void *result, unint64_t a2)
+{
+  v3 = result[1];
+  if (v3 != a2)
+  {
+    v5 = result;
+    if (result[2] <= a2)
+    {
+      result = *result;
+      if (*v5)
+      {
+        if (!a2)
+        {
+          v7 = 0;
+          if (!v3)
+          {
+            goto LABEL_9;
+          }
+
+          goto LABEL_8;
+        }
+
+        if (is_mul_ok(a2, 0xCuLL))
+        {
+          v2 = 12 * a2;
+          result = (*(*result + 32))(result, 12 * a2, 4);
+          if (result)
+          {
+            v7 = result;
+            if (!v5[1])
+            {
+LABEL_9:
+              v5[4] = v7;
+              v5[1] = a2;
+              return result;
+            }
+
+LABEL_8:
+            memcpy(v7, v5[4], 12 * v5[2]);
+            result = (*(**v5 + 40))(*v5, v5[4]);
+            goto LABEL_9;
+          }
+        }
+
+        else
+        {
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 12, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v8, v10);
+          __break(1u);
+        }
+
+        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v9, v11);
+        __break(1u);
+      }
+
+      else
+      {
+        result = re::DynamicArray<re::AnimationLibraryMeshMappingData>::setCapacity(v5, a2);
+        ++*(v5 + 6);
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::HashTable<re::AssetHandle,re::DynamicArray<re::AnimationLibraryMeshMappingData>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
 {
   v5 = *(a1 + 36);
   if (v5 == 0x7FFFFFFF)
@@ -4787,44 +4623,74 @@ uint64_t re::HashTable<re::ecs2::AudioPlayerSystem *,NSObject  {objcproto17OS_di
 
         if (!v10 && (v7 & 0x80000000) == 0)
         {
-          memset(v26, 0, 36);
-          *&v26[36] = 0x7FFFFFFFLL;
-          re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v26, v9, v8);
-          v11 = *v26;
-          *v26 = *a1;
+          memset(v33, 0, 36);
+          *&v33[36] = 0x7FFFFFFFLL;
+          re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::init(v33, v9, v8);
+          v11 = *v33;
+          *v33 = *a1;
           *a1 = v11;
-          v12 = *&v26[16];
+          v12 = *&v33[16];
           v13 = *(a1 + 16);
-          *&v26[16] = v13;
+          *&v33[16] = v13;
           *(a1 + 16) = v12;
-          v15 = *&v26[24];
-          *&v26[24] = *(a1 + 24);
-          v14 = *&v26[32];
+          v15 = *&v33[24];
+          *&v33[24] = *(a1 + 24);
+          v14 = *&v33[32];
           *(a1 + 24) = v15;
-          ++*&v26[40];
+          ++*&v33[40];
           v16 = v14;
           if (v14)
           {
-            v17 = (v13 + 16);
+            v17 = 0;
+            v18 = 40;
             do
             {
-              if ((*(v17 - 2) & 0x80000000) != 0)
+              v19 = v13 + v18;
+              if ((*(v13 + v18 - 40) & 0x80000000) != 0)
               {
-                v18 = re::HashTable<re::ecs2::AudioPlayerSystem *,NSObject  {objcproto17OS_dispatch_queue}* {__strong},re::Hash<re::ecs2::AudioPlayerSystem *>,re::EqualTo<re::ecs2::AudioPlayerSystem *>,true,false>::allocEntry(a1, v17[1] % *(a1 + 24));
-                *(v18 + 8) = *(v17 - 1);
-                v19 = *v17;
-                *v17 = 0;
-                *(v18 + 16) = v19;
+                v20 = re::HashTable<re::AssetHandle,re::DynamicArray<re::AnimationLibraryMeshMappingData>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::allocEntry(a1, *(v19 + 32) % *(a1 + 24), *(v19 + 32));
+                *(v20 + 16) = 0;
+                *(v20 + 24) = 0;
+                *(v20 + 8) = 0;
+                *(v20 + 16) = *(v19 - 24);
+                *(v19 - 24) = 0;
+                v21 = *(v20 + 8);
+                *(v20 + 8) = 0;
+                *(v20 + 8) = *(v19 - 32);
+                *(v19 - 32) = v21;
+                v22 = *(v20 + 24);
+                *(v20 + 24) = *(v19 - 16);
+                *(v19 - 16) = v22;
+                v13 = *&v33[16];
+                v23 = *&v33[16] + v18;
+                *(v20 + 64) = 0;
+                *(v20 + 40) = 0;
+                *(v20 + 48) = 0;
+                *(v20 + 32) = 0;
+                *(v20 + 56) = 0;
+                v24 = *v23;
+                *(v20 + 32) = *(v23 - 8);
+                *(v20 + 40) = v24;
+                *(v23 - 8) = 0;
+                *v23 = 0;
+                v25 = *(v20 + 48);
+                *(v20 + 48) = *(v23 + 8);
+                *(v23 + 8) = v25;
+                v26 = *(v20 + 64);
+                *(v20 + 64) = *(v23 + 24);
+                *(v23 + 24) = v26;
+                ++*(v23 + 16);
+                ++*(v20 + 56);
               }
 
-              v17 += 4;
-              --v16;
+              ++v17;
+              v18 += 80;
             }
 
-            while (v16);
+            while (v17 < v16);
           }
 
-          re::HashTable<unsigned long long,re::sg::MaterialSource,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::deinit(v26);
+          re::HashTable<re::AssetHandle,re::DynamicArray<re::AnimationLibraryMeshMappingData>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::deinit(v33);
         }
       }
 
@@ -4832,12 +4698,12 @@ uint64_t re::HashTable<re::ecs2::AudioPlayerSystem *,NSObject  {objcproto17OS_di
       {
         if (v8)
         {
-          v22 = 2 * v7;
+          v29 = 2 * v7;
         }
 
         else
         {
-          v22 = 3;
+          v29 = 3;
         }
       }
 
@@ -4846,4082 +4712,2781 @@ uint64_t re::HashTable<re::ecs2::AudioPlayerSystem *,NSObject  {objcproto17OS_di
     }
 
     *(a1 + 32) = v6 + 1;
-    v20 = *(a1 + 16);
-    v21 = *(v20 + 32 * v5);
+    v27 = *(a1 + 16);
+    v28 = *(v27 + 80 * v5);
   }
 
   else
   {
-    v20 = *(a1 + 16);
-    v21 = *(v20 + 32 * v5);
-    *(a1 + 36) = v21 & 0x7FFFFFFF;
+    v27 = *(a1 + 16);
+    v28 = *(v27 + 80 * v5);
+    *(a1 + 36) = v28 & 0x7FFFFFFF;
   }
 
-  v23 = v20 + 32 * v5;
-  *v23 = v21 | 0x80000000;
-  v24 = *(a1 + 8);
-  *v23 = *(v24 + 4 * a2) | 0x80000000;
-  *(v23 + 24) = a3;
-  *(v24 + 4 * a2) = v5;
+  v30 = v27 + 80 * v5;
+  *v30 = v28 | 0x80000000;
+  v31 = *(a1 + 8);
+  *v30 = *(v31 + 4 * a2) | 0x80000000;
+  *(v31 + 4 * a2) = v5;
+  *(v30 + 72) = a3;
   ++*(a1 + 28);
-  return v20 + 32 * v5;
+  return v27 + 80 * v5;
 }
 
-void sub_1E2157434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
-{
-  std::vector<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>::__destroy_vector::operator()[abi:ne200100](&a9);
-  v12 = *v9;
-  *v9 = 0;
-  if (v12)
-  {
-    (*(*v12 + 32))(v12);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void re::AudioManager_PHASE_StateMachine::~AudioManager_PHASE_StateMachine(re::AudioManager_PHASE_StateMachine *this)
-{
-  v2 = *(this + 5);
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = ___ZN2re31AudioManager_PHASE_StateMachineD2Ev_block_invoke;
-  v4[3] = &__block_descriptor_40_e5_v8__0l;
-  v4[4] = this;
-  dispatch_sync(v2, v4);
-
-  v5 = (this + 16);
-  std::vector<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>::__destroy_vector::operator()[abi:ne200100](&v5);
-  v3 = *this;
-  *this = 0;
-  if (v3)
-  {
-    (*(*v3 + 32))(v3);
-  }
-}
-
-void *___ZN2re31AudioManager_PHASE_StateMachineD2Ev_block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  os_unfair_lock_lock(v1 + 2);
-  v2 = *v1;
-  *v1 = 0;
-  if (v2)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  os_unfair_lock_unlock(v1 + 2);
-  v4 = v1[2];
-  v5 = v1[3];
-  v3 = v1 + 2;
-  while (v4 != v5)
-  {
-    v6 = *v4;
-    *v4 = 0;
-    if (v6)
-    {
-      (*(*v6 + 8))(v6);
-    }
-
-    ++v4;
-  }
-
-  return std::vector<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>::clear[abi:ne200100](v3);
-}
-
-void *std::vector<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>::clear[abi:ne200100](void *result)
-{
-  v1 = result;
-  v2 = *result;
-  v3 = result[1];
-  while (v3 != v2)
-  {
-    v4 = *--v3;
-    result = v4;
-    *v3 = 0;
-    if (v4)
-    {
-      result = (*(*result + 8))(result);
-    }
-  }
-
-  v1[1] = v2;
-  return result;
-}
-
-void re::AudioManager_PHASE_StateMachine::handleStateChangeEvent(std::string *a1, int a2, unint64_t __val, uint64_t a4)
-{
-  v7 = a1;
-  v22 = *MEMORY[0x1E69E9840];
-  if (a4)
-  {
-    std::to_string(&v15, __val);
-    a1 = std::string::insert(&v15, 0, " for scene ");
-    v8 = *&a1->__r_.__value_.__l.__data_;
-    v17 = a1->__r_.__value_.__r.__words[2];
-    *__p = v8;
-    a1->__r_.__value_.__l.__size_ = 0;
-    a1->__r_.__value_.__r.__words[2] = 0;
-    a1->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v15.__r_.__value_.__l.__data_);
-    }
-  }
-
-  else
-  {
-    HIBYTE(v17) = 0;
-    LOBYTE(__p[0]) = 0;
-  }
-
-  v9 = *re::audioLogObjects(a1);
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-  {
-    re::nameForAudioManagerStateMachineEvent(a2, &v15);
-    if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v10 = &v15;
-    }
-
-    else
-    {
-      v10 = v15.__r_.__value_.__r.__words[0];
-    }
-
-    v11 = __p;
-    if (v17 < 0)
-    {
-      v11 = __p[0];
-    }
-
-    *buf = 136315394;
-    v19 = v10;
-    v20 = 2080;
-    v21 = v11;
-    _os_log_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_DEFAULT, "[RE/MediaServices] [EngineStateChange] Received state change event '%s'%s.", buf, 0x16u);
-    if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v15.__r_.__value_.__l.__data_);
-    }
-  }
-
-  v12 = v7[1].__r_.__value_.__r.__words[2];
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = ___ZN2re31AudioManager_PHASE_StateMachine22handleStateChangeEventENS_36AudioManager_PHASE_StateMachineEventENSt3__18optionalIyEE_block_invoke;
-  block[3] = &__block_descriptor_60_e5_v8__0l;
-  v14 = a2;
-  block[4] = v7;
-  block[5] = __val;
-  block[6] = a4;
-  dispatch_async(v12, block);
-  if (SHIBYTE(v17) < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_1E2157854(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
-{
-  if (a29 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void ___ZN2re31AudioManager_PHASE_StateMachine22handleStateChangeEventENS_36AudioManager_PHASE_StateMachineEventENSt3__18optionalIyEE_block_invoke(uint64_t a1)
-{
-  v33 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = (***&v1->_os_unfair_lock_opaque)(*&v1->_os_unfair_lock_opaque, *(a1 + 56), *(a1 + 40), *(a1 + 48));
-  if ((v2 & 0x100000000) != 0)
-  {
-    switch(v2)
-    {
-      case 2:
-        operator new();
-      case 1:
-        __src[1] = 0;
-        v25 = 0;
-        __src[0] = 0;
-        v3 = *&v1[4]._os_unfair_lock_opaque;
-        for (i = *&v1[6]._os_unfair_lock_opaque; v3 != i; v3 += 8)
-        {
-          (*(**v3 + 64))(buf);
-          v5 = __src[1];
-          if (__src[1] >= v25)
-          {
-            v8 = __src[0];
-            v9 = __src[1] - __src[0];
-            v10 = (__src[1] - __src[0]) >> 3;
-            v11 = v10 + 1;
-            if ((v10 + 1) >> 61)
-            {
-              std::vector<PHASESource * {__strong}>::__throw_length_error[abi:ne200100]();
-            }
-
-            v12 = v25 - __src[0];
-            if ((v25 - __src[0]) >> 2 > v11)
-            {
-              v11 = v12 >> 2;
-            }
-
-            if (v12 >= 0x7FFFFFFFFFFFFFF8)
-            {
-              v13 = 0x1FFFFFFFFFFFFFFFLL;
-            }
-
-            else
-            {
-              v13 = v11;
-            }
-
-            v29 = __src;
-            if (v13)
-            {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>>(__src, v13);
-            }
-
-            v14 = *buf;
-            *buf = 0;
-            *(8 * v10) = v14;
-            v7 = (8 * v10 + 8);
-            memcpy(0, v8, v9);
-            v15 = __src[0];
-            v16 = v25;
-            __src[0] = 0;
-            __src[1] = v7;
-            v25 = 0;
-            __p[0] = v15;
-            v27 = v15;
-            v28 = v16;
-            __p[1] = v15;
-            std::__split_buffer<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>::~__split_buffer(__p);
-          }
-
-          else
-          {
-            v6 = *buf;
-            *buf = 0;
-            *__src[1] = v6;
-            v7 = v5 + 8;
-          }
-
-          __src[1] = v7;
-          v17 = *buf;
-          *buf = 0;
-          if (v17)
-          {
-            (*(*v17 + 8))(v17);
-          }
-        }
-
-        operator new();
-      case 0:
-        operator new();
-    }
-
-    v18 = *re::audioLogObjects(v2);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-    {
-      (*(**&v1->_os_unfair_lock_opaque + 8))(__p);
-      v19 = SHIBYTE(v27);
-      v20 = __p[0];
-      (*(MEMORY[0] + 8))(__src, 0);
-      v21 = __p;
-      if (v19 < 0)
-      {
-        v21 = v20;
-      }
-
-      if (SHIBYTE(v25) >= 0)
-      {
-        v22 = __src;
-      }
-
-      else
-      {
-        v22 = __src[0];
-      }
-
-      *buf = 136315394;
-      *&buf[4] = v21;
-      v31 = 2080;
-      v32 = v22;
-      _os_log_impl(&dword_1E1C61000, v18, OS_LOG_TYPE_DEFAULT, "[RE/MediaServices] [EngineStateChange] State was changed from %s to %s", buf, 0x16u);
-      if (SHIBYTE(v25) < 0)
-      {
-        operator delete(__src[0]);
-      }
-
-      if (SHIBYTE(v27) < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    os_unfair_lock_lock(v1 + 2);
-    v23 = *&v1->_os_unfair_lock_opaque;
-    *&v1->_os_unfair_lock_opaque = 0;
-    if (v23)
-    {
-      (*(*v23 + 32))(v23);
-    }
-
-    os_unfair_lock_unlock(v1 + 2);
-  }
-}
-
-void sub_1E2157CDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t *a20)
-{
-  a20 = &a9;
-  std::vector<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>::__destroy_vector::operator()[abi:ne200100](&a20);
-  _Unwind_Resume(a1);
-}
-
-uint64_t re::AudioManager_PHASE_StateMachine::getCurrentStateType(os_unfair_lock_s *this)
-{
-  os_unfair_lock_lock(this + 2);
-  v2 = (*(**&this->_os_unfair_lock_opaque + 16))();
-  os_unfair_lock_unlock(this + 2);
-  return v2;
-}
-
-void ___ZN2re31AudioManager_PHASE_StateMachine28registerRequiredRecoveryStepENS_36AudioManager_PHASE_StateMachineEventEy_block_invoke(uint64_t a1)
-{
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 48);
-  v4 = *re::audioLogObjects(a1);
-  v5 = v4;
-  if (v3 > 4)
-  {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-    {
-      re::nameForAudioManagerStateMachineEvent(*(a1 + 48), __p);
-      v8 = v10 >= 0 ? __p : __p[0];
-      *buf = 136315138;
-      v12 = v8;
-      _os_log_debug_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_DEBUG, "[RE/MediaServices] [EngineState] Registered a recovery step for event %s", buf, 0xCu);
-      if (v10 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    v6 = *(*(v2 + 16) + 8 * *(a1 + 48));
-    (*(*v6 + 48))(v6, *(a1 + 40));
-  }
-
-  else
-  {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      re::nameForAudioManagerStateMachineEvent(*(a1 + 48), __p);
-      if (v10 >= 0)
-      {
-        v7 = __p;
-      }
-
-      else
-      {
-        v7 = __p[0];
-      }
-
-      *buf = 136315138;
-      v12 = v7;
-      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "[RE/MediaServices] [EngineState] Invalid recovery step registered for event %s", buf, 0xCu);
-      if (v10 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-  }
-}
-
-void ___ZN2re31AudioManager_PHASE_StateMachine30unregisterRequiredRecoveryStepENS_36AudioManager_PHASE_StateMachineEventEy_block_invoke(uint64_t a1)
-{
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 48);
-  v4 = *re::audioLogObjects(a1);
-  v5 = v4;
-  if (v3 > 4)
-  {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-    {
-      re::nameForAudioManagerStateMachineEvent(*(a1 + 48), __p);
-      v8 = v10 >= 0 ? __p : __p[0];
-      *buf = 136315138;
-      v12 = v8;
-      _os_log_debug_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_DEBUG, "[RE/MediaServices] [EngineState] Unregistered a recovery step for event %s", buf, 0xCu);
-      if (v10 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    v6 = *(v2[2] + 8 * *(a1 + 48));
-    (*(*v6 + 40))(v6, *(a1 + 40));
-    if ((*(**v2 + 16))() == 1)
-    {
-      (***v2)(*v2, *(a1 + 48), *(a1 + 40), 1);
-    }
-  }
-
-  else
-  {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      re::nameForAudioManagerStateMachineEvent(*(a1 + 48), __p);
-      if (v10 >= 0)
-      {
-        v7 = __p;
-      }
-
-      else
-      {
-        v7 = __p[0];
-      }
-
-      *buf = 136315138;
-      v12 = v7;
-      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "[RE/MediaServices] [EngineState] Invalid recovery step unregistered from event %s", buf, 0xCu);
-      if (v10 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-  }
-}
-
-uint64_t re::AudioManager_PHASE_StateMachine::isRecoveryStepCompleted(os_unfair_lock_s *a1, uint64_t a2)
-{
-  os_unfair_lock_lock(a1 + 2);
-  v4 = (*(**&a1->_os_unfair_lock_opaque + 40))(*&a1->_os_unfair_lock_opaque, a2);
-  os_unfair_lock_unlock(a1 + 2);
-  return v4;
-}
-
-void std::vector<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+double re::HashTable<re::AssetHandle,re::DynamicArray<re::AnimationLibraryMeshMappingData>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::deinit(uint64_t *a1)
 {
   v2 = *a1;
-  if (*v2)
-  {
-    std::vector<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>::clear[abi:ne200100](v2);
-    v3 = **a1;
-
-    operator delete(v3);
-  }
-}
-
-void std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>>(uint64_t a1, unint64_t a2)
-{
-  if (!(a2 >> 61))
-  {
-    operator new();
-  }
-
-  std::__throw_bad_array_new_length[abi:ne200100]();
-}
-
-uint64_t std::__split_buffer<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>::~__split_buffer(uint64_t a1)
-{
-  std::__split_buffer<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>::__destruct_at_end[abi:ne200100](a1, *(a1 + 8));
-  if (*a1)
-  {
-    operator delete(*a1);
-  }
-
-  return a1;
-}
-
-void *std::__split_buffer<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>::__destruct_at_end[abi:ne200100](void *result, void *a2)
-{
-  v2 = result[2];
-  if (v2 != a2)
-  {
-    v4 = result;
-    do
-    {
-      v5 = *--v2;
-      result = v5;
-      v4[2] = v2;
-      *v2 = 0;
-      if (v5)
-      {
-        result = (*(*result + 8))(result);
-        v2 = v4[2];
-      }
-    }
-
-    while (v2 != a2);
-  }
-
-  return result;
-}
-
-void re::audio::REPHASEAudioScene::destroy(re::audio::REPHASEAudioScene *this)
-{
-  v2 = *(this + 9);
-  *(this + 9) = 0;
-
-  std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::PersistedAssetData>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::PersistedAssetData>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::PersistedAssetData>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::PersistedAssetData>>>>::clear(this + 24);
-
-  std::__hash_table<std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>>>::clear(this + 88);
-}
-
-void re::audio::REPHASEAudioScene::fillOutDebugInformation(re::audio::REPHASEAudioScene *this, NSMutableDictionary *a2)
-{
-  v52 = a2;
-  os_unfair_lock_lock(this + 16);
-  v3 = *(this + 9);
-  if (v3)
-  {
-    v4 = [MEMORY[0x1E695DF90] dictionary];
-    [v3 transform];
-    v53 = v5;
-    v54 = v6;
-    v55 = v7;
-    v56 = v8;
-    v9 = re::audio::REPHASEAudioScene::fillOutDebugInformation(NSMutableDictionary *)::$_0::operator()(&v53);
-    [v4 setObject:v9 forKey:@"transform"];
-
-    [v3 worldTransform];
-    v53 = v10;
-    v54 = v11;
-    v55 = v12;
-    v56 = v13;
-    v14 = re::audio::REPHASEAudioScene::fillOutDebugInformation(NSMutableDictionary *)::$_0::operator()(&v53);
-    [v4 setObject:v14 forKey:@"worldTransform"];
-  }
-
-  os_unfair_lock_unlock(this + 16);
-  lock = (this + 16);
-  os_unfair_lock_lock(this + 4);
-  v15 = *(this + 5);
-  if (v15)
-  {
-    v16 = 0x1E695D000uLL;
-    do
-    {
-      v17 = v15[2];
-      v18 = v15[3];
-      v19 = v15[4];
-      if (v19)
-      {
-        atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      if (v18)
-      {
-        v20 = *(v18 + 24);
-        if (v20)
-        {
-          v21 = [*(v16 + 3984) dictionary];
-          v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v17];
-          [v21 setObject:v22 forKey:@"entityID"];
-
-          if (*(v18 + 32))
-          {
-            v23 = *(v18 + 32);
-          }
-
-          else
-          {
-            v23 = @"(null)";
-          }
-
-          [v21 setObject:v23 forKey:@"name"];
-          [v20 transform];
-          v53 = v24;
-          v54 = v25;
-          v55 = v26;
-          v56 = v27;
-          v28 = re::audio::REPHASEAudioScene::fillOutDebugInformation(NSMutableDictionary *)::$_0::operator()(&v53);
-          [v21 setObject:v28 forKey:@"transform"];
-
-          [v20 worldTransform];
-          v53 = v29;
-          v54 = v30;
-          v55 = v31;
-          v56 = v32;
-          v33 = re::audio::REPHASEAudioScene::fillOutDebugInformation(NSMutableDictionary *)::$_0::operator()(&v53);
-          [v21 setObject:v33 forKey:@"worldTransform"];
-
-          v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Occluder Entity-%llu", v17];
-          [(NSMutableDictionary *)v52 setObject:v21 forKey:v34];
-        }
-
-        v35 = *(v18 + 16);
-        if (v35)
-        {
-          v36 = v16;
-          v37 = [*(v16 + 3984) dictionary];
-          v38 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v17];
-          [v37 setObject:v38 forKey:@"entityID"];
-
-          if (*(v18 + 32))
-          {
-            v39 = *(v18 + 32);
-          }
-
-          else
-          {
-            v39 = @"(null)";
-          }
-
-          [v37 setObject:v39 forKey:@"name"];
-          [v35 transform];
-          v53 = v40;
-          v54 = v41;
-          v55 = v42;
-          v56 = v43;
-          v44 = re::audio::REPHASEAudioScene::fillOutDebugInformation(NSMutableDictionary *)::$_0::operator()(&v53);
-          [v37 setObject:v44 forKey:@"transform"];
-
-          [v35 worldTransform];
-          v53 = v45;
-          v54 = v46;
-          v55 = v47;
-          v56 = v48;
-          v49 = re::audio::REPHASEAudioScene::fillOutDebugInformation(NSMutableDictionary *)::$_0::operator()(&v53);
-          [v37 setObject:v49 forKey:@"worldTransform"];
-
-          v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Source Entity-%llu", v17];
-          [(NSMutableDictionary *)v52 setObject:v37 forKey:v50];
-
-          v16 = v36;
-        }
-      }
-
-      else
-      {
-        v20 = [MEMORY[0x1E695DF20] dictionary];
-        v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"null Entity-%llu", v17];
-        [(NSMutableDictionary *)v52 setObject:v20 forKey:v35];
-      }
-
-      if (v19)
-      {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v19);
-      }
-
-      v15 = *v15;
-    }
-
-    while (v15);
-  }
-
-  os_unfair_lock_unlock(lock);
-}
-
-void sub_1E21588A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, id a12)
-{
-  os_unfair_lock_unlock(v15);
-
-  _Unwind_Resume(a1);
-}
-
-id re::audio::REPHASEAudioScene::fillOutDebugInformation(NSMutableDictionary *)::$_0::operator()(_DWORD *a1)
-{
-  v43[4] = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E695DF70] array];
-  LODWORD(v3) = *a1;
-  v4 = [MEMORY[0x1E696AD98] numberWithFloat:v3];
-  v43[0] = v4;
-  LODWORD(v5) = a1[4];
-  v6 = [MEMORY[0x1E696AD98] numberWithFloat:v5];
-  v43[1] = v6;
-  LODWORD(v7) = a1[8];
-  v8 = [MEMORY[0x1E696AD98] numberWithFloat:v7];
-  v43[2] = v8;
-  LODWORD(v9) = a1[12];
-  v10 = [MEMORY[0x1E696AD98] numberWithFloat:v9];
-  v43[3] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:4];
-  [v2 addObject:v11];
-
-  LODWORD(v12) = a1[1];
-  v13 = [MEMORY[0x1E696AD98] numberWithFloat:v12];
-  v42[0] = v13;
-  LODWORD(v14) = a1[5];
-  v15 = [MEMORY[0x1E696AD98] numberWithFloat:v14];
-  v42[1] = v15;
-  LODWORD(v16) = a1[9];
-  v17 = [MEMORY[0x1E696AD98] numberWithFloat:v16];
-  v42[2] = v17;
-  LODWORD(v18) = a1[13];
-  v19 = [MEMORY[0x1E696AD98] numberWithFloat:v18];
-  v42[3] = v19;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:4];
-  [v2 addObject:v20];
-
-  LODWORD(v21) = a1[2];
-  v22 = [MEMORY[0x1E696AD98] numberWithFloat:v21];
-  v41[0] = v22;
-  LODWORD(v23) = a1[6];
-  v24 = [MEMORY[0x1E696AD98] numberWithFloat:v23];
-  v41[1] = v24;
-  LODWORD(v25) = a1[10];
-  v26 = [MEMORY[0x1E696AD98] numberWithFloat:v25];
-  v41[2] = v26;
-  LODWORD(v27) = a1[14];
-  v28 = [MEMORY[0x1E696AD98] numberWithFloat:v27];
-  v41[3] = v28;
-  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:4];
-  [v2 addObject:v29];
-
-  LODWORD(v30) = a1[3];
-  v31 = [MEMORY[0x1E696AD98] numberWithFloat:v30];
-  v40[0] = v31;
-  LODWORD(v32) = a1[7];
-  v33 = [MEMORY[0x1E696AD98] numberWithFloat:v32];
-  v40[1] = v33;
-  LODWORD(v34) = a1[11];
-  v35 = [MEMORY[0x1E696AD98] numberWithFloat:v34];
-  v40[2] = v35;
-  LODWORD(v36) = a1[15];
-  v37 = [MEMORY[0x1E696AD98] numberWithFloat:v36];
-  v40[3] = v37;
-  v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:4];
-  [v2 addObject:v38];
-
-  return v2;
-}
-
-void re::audio::REPHASEAudioScene::getOrCreateEntity(os_unfair_lock_s *this@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
-{
-  v7 = a2;
-  os_unfair_lock_lock(this + 4);
-  v5 = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(&this[6]._os_unfair_lock_opaque, &v7);
-  if (!v5)
-  {
-    operator new();
-  }
-
-  v6 = v5[4];
-  *a3 = v5[3];
-  a3[1] = v6;
-  if (v6)
-  {
-    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  os_unfair_lock_unlock(this + 4);
-}
-
-void sub_1E2158E94(_Unwind_Exception *a1)
-{
   if (v2)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
-  }
-
-  os_unfair_lock_unlock(v1 + 4);
-  _Unwind_Resume(a1);
-}
-
-void re::audio::REPHASEAudioScene::getOrCreateEntityWithIncrementedCount(os_unfair_lock_s *this@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
-{
-  v8 = a2;
-  os_unfair_lock_lock(this + 4);
-  v5 = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(&this[6]._os_unfair_lock_opaque, &v8);
-  if (!v5)
-  {
-    operator new();
-  }
-
-  v6 = v5[3];
-  ++*(v6 + 112);
-  v7 = v5[4];
-  *a3 = v6;
-  a3[1] = v7;
-  if (v7)
-  {
-    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  os_unfair_lock_unlock(this + 4);
-}
-
-void sub_1E2158FE8(_Unwind_Exception *a1)
-{
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
-  }
-
-  os_unfair_lock_unlock(v1 + 4);
-  _Unwind_Resume(a1);
-}
-
-void re::audio::REPHASEAudioScene::decrementOrDestroyEntityWithZeroCount(os_unfair_lock_s *this, uint64_t a2)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  os_unfair_lock_lock(this + 4);
-  *v11 = a2;
-  v4 = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(&this[6]._os_unfair_lock_opaque, v11);
-  if (v4)
-  {
-    v5 = *(v4 + 3);
-    v6 = *(v4 + 4);
-    if (v6)
+    if (*(a1 + 8))
     {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    if (v5)
-    {
-      v7 = *(v5 + 112);
-      v8 = __OFSUB__(v7--, 1);
-      *(v5 + 112) = v7;
-      if ((v7 < 0) ^ v8 | (v7 == 0))
+      v3 = 0;
+      v4 = 0;
+      do
       {
-        v9 = *re::audioLogObjects(v4);
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-        {
-          *v11 = 134217984;
-          *&v11[4] = a2;
-          _os_log_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_DEFAULT, "Removing PHASEEntity with ID: %llu", v11, 0xCu);
-        }
-
-        *v11 = a2;
-        std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>>>::__erase_unique<unsigned long long>(&this[6]._os_unfair_lock_opaque, v11);
+        re::HashTable<re::AssetHandle,re::DynamicArray<re::AnimationLibraryMeshMappingData>,re::Hash<re::AssetHandle>,re::EqualTo<re::AssetHandle>,true,false>::EntryBase::free((a1[2] + v3));
+        ++v4;
+        v3 += 80;
       }
 
-      goto LABEL_12;
-    }
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v10 = *re::audioLogObjects(v4);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    *v11 = 0;
-    _os_log_error_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_ERROR, "decrementOrDestroyEntityWithZeroCount: PHASEEntity is a nullptr", v11, 2u);
-    if (!v6)
-    {
-      goto LABEL_14;
+      while (v4 < *(a1 + 8));
+      v2 = *a1;
     }
 
-    goto LABEL_13;
-  }
-
-LABEL_12:
-  if (v6)
-  {
-LABEL_13:
-    std::__shared_weak_count::__release_shared[abi:nn200100](v6);
-  }
-
-LABEL_14:
-  os_unfair_lock_unlock(this + 4);
-}
-
-void sub_1E2159178(_Unwind_Exception *a1)
-{
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
-  }
-
-  os_unfair_lock_unlock(v1 + 4);
-  _Unwind_Resume(a1);
-}
-
-void *re::audio::REPHASEAudioScene::getEntityUnderLock@<X0>(re::audio::REPHASEAudioScene *this@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
-{
-  v6 = a2;
-  result = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(this + 3, &v6);
-  if (result)
-  {
-    v5 = result[4];
-    *a3 = result[3];
-    a3[1] = v5;
-    if (v5)
-    {
-      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-    }
-  }
-
-  else
-  {
-    *a3 = 0;
-    a3[1] = 0;
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
   }
 
   return result;
 }
 
-void re::audio::REPHASEAudioScene::getEntity(os_unfair_lock_s *this@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
+uint64_t re::DynamicArray<re::AnimationLibraryMeshMappingData>::DynamicArray(uint64_t a1, uint64_t *a2)
 {
-  os_unfair_lock_lock(this + 4);
-  re::audio::REPHASEAudioScene::getEntityUnderLock(this, a2, a3);
-
-  os_unfair_lock_unlock(this + 4);
-}
-
-void re::audio::REPHASEAudioScene::removeEntity(os_unfair_lock_s *this, unint64_t a2)
-{
-  v3 = a2;
-  os_unfair_lock_lock(this + 4);
-  std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>>>::__erase_unique<unsigned long long>(&this[6]._os_unfair_lock_opaque, &v3);
-  os_unfair_lock_unlock(this + 4);
-}
-
-void re::audio::REPHASEAudioScene::createListener(uint64_t a1, char a2)
-{
-  *(a1 + 144) = a2;
-  WeakRetained = objc_loadWeakRetained((a1 + 128));
-  v4 = [WeakRetained maybeEngine];
-
-  if (v4 && !*(a1 + 72))
-  {
-    v5 = objc_alloc(MEMORY[0x1E69781C8]);
-    v6 = objc_loadWeakRetained((a1 + 128));
-    v7 = [v6 engine];
-    v8 = [v5 initWithEngine:v7];
-
-    v9 = objc_loadWeakRetained((a1 + 128));
-    v10 = [v9 engine];
-    v11 = [v10 rootObject];
-    v14 = 0;
-    v12 = [v11 addChild:v8 error:&v14];
-    v13 = v14;
-
-    os_unfair_lock_lock((a1 + 64));
-    if (v12)
-    {
-      objc_storeStrong((a1 + 72), v8);
-    }
-
-    os_unfair_lock_unlock((a1 + 64));
-  }
-}
-
-void re::audio::REPHASEAudioScene::createListenerIfPending(re::audio::REPHASEAudioScene *this)
-{
-  if (!*(this + 9))
-  {
-    v1 = *(this + 144);
-    if (v1)
-    {
-
-      re::audio::REPHASEAudioScene::createListener(this, v1);
-    }
-
-    else
-    {
-      v2 = *re::audioLogObjects(this);
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
-      {
-        *v3 = 0;
-        _os_log_debug_impl(&dword_1E1C61000, v2, OS_LOG_TYPE_DEBUG, "Cannot create a listener without a valid listener type.", v3, 2u);
-      }
-    }
-  }
-}
-
-id re::audio::REPHASEAudioScene::getListener(re::audio::REPHASEAudioScene *this)
-{
-  os_unfair_lock_lock(this + 16);
-  v2 = *(this + 9);
-  os_unfair_lock_unlock(this + 16);
-
-  return v2;
-}
-
-void re::audio::REPHASEAudioScene::removeListener(os_unfair_lock_s *this)
-{
-  os_unfair_lock_lock(this + 16);
-  v2 = *&this[18]._os_unfair_lock_opaque;
-  *&this[18]._os_unfair_lock_opaque = 0;
-
-  os_unfair_lock_unlock(this + 16);
-}
-
-id re::audio::REPHASEAudioScene::getSessionRoot(os_unfair_lock_s *this, unint64_t a2)
-{
-  v6 = a2;
-  os_unfair_lock_lock(this + 20);
-  v3 = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(&this[22]._os_unfair_lock_opaque, &v6);
-  if (v3)
-  {
-    v4 = v3[3];
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  os_unfair_lock_unlock(this + 20);
-
-  return v4;
-}
-
-void re::audio::REPHASEAudioScene::removeSessionRoot(os_unfair_lock_s *this, unint64_t a2)
-{
-  v4 = a2;
-  os_unfair_lock_lock(this + 20);
-  v3 = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(&this[22]._os_unfair_lock_opaque, &v4);
-  if (v3)
-  {
-    [v3[3] setTransform:{*MEMORY[0x1E69E9B18], *(MEMORY[0x1E69E9B18] + 16), *(MEMORY[0x1E69E9B18] + 32), *(MEMORY[0x1E69E9B18] + 48)}];
-    std::__hash_table<std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>>>::__erase_unique<unsigned long long>(&this[22]._os_unfair_lock_opaque, &v4);
-  }
-
-  os_unfair_lock_unlock(this + 20);
-}
-
-void re::audio::REPHASEAudioScene::getSourceCount(os_unfair_lock_s *this, unsigned int *a2, unsigned int *a3)
-{
-  os_unfair_lock_lock(this + 4);
-  v6 = *&this[10]._os_unfair_lock_opaque;
-  if (v6)
-  {
-    v7 = 0;
-    do
-    {
-      v7 = vsub_s32(v7, vmovn_s64(vtstq_s64(*(v6[3] + 16), *(v6[3] + 16))));
-      v6 = *v6;
-    }
-
-    while (v6);
-    if (a2)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  else
-  {
-    v7 = 0;
-    if (a2)
-    {
-LABEL_5:
-      *a2 = v7.i32[0];
-    }
-  }
-
-  if (a3)
-  {
-    *a3 = v7.u32[1];
-  }
-
-  os_unfair_lock_unlock(this + 4);
-}
-
-void sub_1E215978C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
-{
-  a10 = 0;
-  if (v10)
-  {
-    std::default_delete<re::audio::REPHASEAudioScene>::operator()[abi:ne200100](&a10, v10);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__shared_ptr_pointer<re::audio::REPHASEAudioScene *,std::shared_ptr<re::audio::REPHASEAudioScene>::__shared_ptr_default_delete<re::audio::REPHASEAudioScene,re::audio::REPHASEAudioScene>,std::allocator<re::audio::REPHASEAudioScene>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
-{
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1E6906520);
-}
-
-uint64_t std::__shared_ptr_pointer<re::audio::REPHASEAudioScene *,std::shared_ptr<re::audio::REPHASEAudioScene>::__shared_ptr_default_delete<re::audio::REPHASEAudioScene,re::audio::REPHASEAudioScene>,std::allocator<re::audio::REPHASEAudioScene>>::__get_deleter(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::default_delete<re::audio::REPHASEAudioScene>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  if (a2)
-  {
-
-    objc_destroyWeak((a2 + 128));
-    std::__hash_table<std::__hash_value_type<unsigned long long,void({block_pointer} {__strong})(void)>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,void({block_pointer} {__strong})(void)>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,void({block_pointer} {__strong})(void)>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,void({block_pointer} {__strong})(void)>>>::~__hash_table(a2 + 88);
-
-    std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>>>::~__hash_table(a2 + 24);
-    v3 = *(a2 + 8);
-    if (v3)
-    {
-      std::__shared_weak_count::__release_weak(v3);
-    }
-
-    JUMPOUT(0x1E6906520);
-  }
-}
-
-void std::__hash_table<std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>>>::clear(uint64_t a1)
-{
-  if (*(a1 + 24))
-  {
-    std::__hash_table<std::__hash_value_type<unsigned long long,void({block_pointer} {__strong})(void)>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,void({block_pointer} {__strong})(void)>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,void({block_pointer} {__strong})(void)>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,void({block_pointer} {__strong})(void)>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
-    if (v2)
-    {
-      for (i = 0; i != v2; ++i)
-      {
-        *(*a1 + 8 * i) = 0;
-      }
-    }
-
-    *(a1 + 24) = 0;
-  }
-}
-
-void *std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
-{
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
-  {
-    goto LABEL_18;
-  }
-
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
-  {
-    v5 = *a2;
-    if (v2 >= *&v3)
-    {
-      v5 = v2 % *&v3;
-    }
-  }
-
-  else
-  {
-    v5 = (*&v3 - 1) & v2;
-  }
-
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v8 = v7[1];
-    if (v8 == v2)
-    {
-      break;
-    }
-
-    if (v4.u32[0] > 1uLL)
-    {
-      if (v8 >= *&v3)
-      {
-        v8 %= *&v3;
-      }
-    }
-
-    else
-    {
-      v8 &= *&v3 - 1;
-    }
-
-    if (v8 != v5)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v7 = *v7;
-    if (!v7)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (v7[2] != v2)
-  {
-    goto LABEL_17;
-  }
-
-  return v7;
-}
-
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>>>::__erase_unique<unsigned long long>(void *a1, unint64_t *a2)
-{
-  result = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(a1, a2);
-  if (result)
-  {
-    std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>>>::erase(a1, result);
-    return 1;
-  }
-
-  return result;
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASEEntity>>>>::erase(void *a1, uint64_t *a2)
-{
-  v2 = *a2;
-  std::__hash_table<std::__hash_value_type<unsigned long long,re::PeerIDValidator::Entry>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::PeerIDValidator::Entry>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::PeerIDValidator::Entry>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::PeerIDValidator::Entry>>>::remove(a1, a2, &__p);
-  v3 = __p;
-  __p = 0;
-  if (v3)
-  {
-    std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::shared_ptr<re::audio::REPHASESoundPrepareState>>,void *>>>::operator()[abi:ne200100](&v6, v3);
-  }
-
-  return v2;
-}
-
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>>>::__erase_unique<unsigned long long>(void *a1, unint64_t *a2)
-{
-  result = std::__hash_table<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::ProfilerProcessor *>>>::find<unsigned long long>(a1, a2);
-  if (result)
-  {
-    std::__hash_table<std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>>>::erase(a1, result);
-    return 1;
-  }
-
-  return result;
-}
-
-uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PHASEObject * {__strong}>>>::erase(void *a1, uint64_t *a2)
-{
-  v2 = *a2;
-  std::__hash_table<std::__hash_value_type<unsigned long long,re::PeerIDValidator::Entry>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,re::PeerIDValidator::Entry>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,re::PeerIDValidator::Entry>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,re::PeerIDValidator::Entry>>>::remove(a1, a2, &__p);
-  v3 = __p;
-  __p = 0;
-  if (v3)
-  {
-    if (v6 == 1)
-    {
-    }
-
-    operator delete(v3);
-  }
-
-  return v2;
-}
-
-uint64_t re::UserActiveStateNotificationManager::UserActiveStateNotificationManager(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = a2;
+  *(a1 + 32) = 0;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *a1 = 0;
   *(a1 + 24) = 0;
-  v6 = *a3;
-  v7 = *(a3 + 8);
-  if (v7)
+  v3 = *a2;
+  if (*a2)
   {
-    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
-    v8 = *(a1 + 8);
-    *a1 = v6;
-    *(a1 + 8) = v7;
-    if (v8)
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v8);
-      v6 = *a1;
-    }
+    v5 = a2[2];
+    *a1 = v3;
+    re::DynamicArray<re::AnimationLibraryMeshMappingData>::setCapacity(a1, v5);
+    ++*(a1 + 24);
+    re::DynamicArray<re::AnimationLibraryMeshMappingData>::copy(a1, a2);
   }
-
-  else
-  {
-    *a1 = v6;
-    *(a1 + 8) = 0;
-  }
-
-  re::AudioEngineRunnableManager::addReason(v6, 0);
 
   return a1;
 }
 
-void sub_1E2159EEC(_Unwind_Exception *a1)
+void **re::DynamicArray<re::AnimationLibraryMeshMappingData>::copy(void **result, uint64_t a2)
 {
-  if (*v2)
+  v3 = result;
+  v4 = *(a2 + 16);
+  if (v4 >= result[2])
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](*v2);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void re::UserActiveStateNotificationManager::~UserActiveStateNotificationManager(re::UserActiveStateNotificationManager *this)
-{
-  if (*(this + 2))
-  {
-    IOPMUnregisterNotification();
-  }
-
-  v2 = *(this + 1);
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v2);
-  }
-}
-
-id re::audio::SoundAssetRegistrar_Plain::registerSoundAssetWithAudioFileData(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
-{
-  v11 = [a2 registerSoundAssetWithAudioFileData:a11 identifier:? assetType:? fileTypeHint:? channelLayout:? normalizationMode:? error:?];
-
-  return v11;
-}
-
-id re::audio::SoundAssetRegistrar_Plain::registerSoundAssetAtURL(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
-{
-  v11 = [a2 registerSoundAssetAtURL:a3 identifier:a4 assetType:a5 channelLayout:a7 normalizationMode:a8 error:a11];
-
-  return v11;
-}
-
-id re::audio::SoundAssetRegistrar_Plain::registerSoundAssetWithData(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  v9 = [a2 registerSoundAssetWithData:a3 identifier:a4 format:a5 normalizationMode:a6 error:a9];
-
-  return v9;
-}
-
-uint64_t re::audio::phasePrivateReverbPresetFor(uint64_t a1)
-{
-  v1 = 1917742958;
-  if (a1 > 108)
-  {
-    if (a1 <= 1000)
-    {
-      v2 = 1917613682;
-      v8 = 1917547630;
-      v9 = 1916952948;
-      if (a1 != 209)
-      {
-        v9 = 1917742958;
-      }
-
-      if (a1 != 208)
-      {
-        v8 = v9;
-      }
-
-      if (a1 != 207)
-      {
-        v2 = v8;
-      }
-
-      v10 = 1917020526;
-      v11 = 1917612653;
-      if (a1 != 206)
-      {
-        v11 = 1917742958;
-      }
-
-      if (a1 != 205)
-      {
-        v10 = v11;
-      }
-
-      if (a1 <= 206)
-      {
-        v2 = v10;
-      }
-
-      v12 = 1917678445;
-      v13 = 1917604403;
-      v14 = 1917604404;
-      if (a1 != 204)
-      {
-        v14 = 1917742958;
-      }
-
-      if (a1 != 203)
-      {
-        v13 = v14;
-      }
-
-      if (a1 != 202)
-      {
-        v12 = v13;
-      }
-
-      if (a1 == 201)
-      {
-        v1 = 1917022062;
-      }
-
-      if (a1 == 109)
-      {
-        v1 = 1916952948;
-      }
-
-      if (a1 > 201)
-      {
-        v1 = v12;
-      }
-
-      v5 = a1 <= 204;
-    }
-
-    else if (a1 <= 1005)
-    {
-      v2 = 1917152819;
-      v22 = 1917152820;
-      v23 = 1917152821;
-      if (a1 != 1005)
-      {
-        v23 = 1917742958;
-      }
-
-      if (a1 != 1004)
-      {
-        v22 = v23;
-      }
-
-      if (a1 != 1003)
-      {
-        v2 = v22;
-      }
-
-      if (a1 == 1002)
-      {
-        v1 = 1917152818;
-      }
-
-      if (a1 == 1001)
-      {
-        v1 = 1917152817;
-      }
-
-      v5 = a1 <= 1002;
-    }
-
-    else
-    {
-      v2 = 1917152825;
-      v3 = 1917137200;
-      v4 = 1917137202;
-      if (a1 != 1012)
-      {
-        v4 = 1917742958;
-      }
-
-      if (a1 != 1010)
-      {
-        v3 = v4;
-      }
-
-      if (a1 != 1009)
-      {
-        v2 = v3;
-      }
-
-      if (a1 == 1008)
-      {
-        v1 = 1917152824;
-      }
-
-      if (a1 == 1007)
-      {
-        v1 = 1917152823;
-      }
-
-      if (a1 == 1006)
-      {
-        v1 = 1917152822;
-      }
-
-      v5 = a1 <= 1008;
-    }
-
-LABEL_95:
+    re::DynamicArray<re::AnimationLibraryMeshMappingData>::setCapacity(result, *(a2 + 16));
+    v5 = v3[2];
     if (v5)
     {
-      return v1;
+      memmove(v3[4], *(a2 + 32), 12 * v5);
+      v5 = v3[2];
     }
 
-    else
-    {
-      return v2;
-    }
+    result = memcpy(v3[4] + 12 * v5, (*(a2 + 32) + 12 * v5), 12 * (v4 - v5));
   }
 
-  if (a1 > 11)
+  else if (v4)
   {
-    v2 = 1917612653;
-    v15 = 1917613682;
-    v16 = 1917547630;
-    if (a1 != 108)
-    {
-      v16 = 1917742958;
-    }
-
-    if (a1 != 107)
-    {
-      v15 = v16;
-    }
-
-    if (a1 != 106)
-    {
-      v2 = v15;
-    }
-
-    v17 = 1917604404;
-    v18 = 1917020526;
-    if (a1 != 105)
-    {
-      v18 = 1917742958;
-    }
-
-    if (a1 != 104)
-    {
-      v17 = v18;
-    }
-
-    if (a1 <= 105)
-    {
-      v2 = v17;
-    }
-
-    v19 = 1917810036;
-    v20 = 1917678445;
-    v21 = 1917604403;
-    if (a1 != 103)
-    {
-      v21 = 1917742958;
-    }
-
-    if (a1 != 102)
-    {
-      v20 = v21;
-    }
-
-    if (a1 != 101)
-    {
-      v19 = v20;
-    }
-
-    if (a1 == 100)
-    {
-      v1 = 1916890725;
-    }
-
-    if (a1 == 12)
-    {
-      v1 = 1917601842;
-    }
-
-    if (a1 > 100)
-    {
-      v1 = v19;
-    }
-
-    v5 = a1 <= 103;
-    goto LABEL_95;
+    result = memmove(result[4], *(a2 + 32), 12 * v4);
   }
 
-  if (a1 > 6)
-  {
-    v2 = 1917604402;
-    v24 = 1917667378;
-    v25 = 1917667379;
-    if (a1 != 11)
-    {
-      v25 = 1917742958;
-    }
-
-    if (a1 != 10)
-    {
-      v24 = v25;
-    }
-
-    if (a1 != 9)
-    {
-      v2 = v24;
-    }
-
-    if (a1 == 8)
-    {
-      v1 = 1917023336;
-    }
-
-    if (a1 == 7)
-    {
-      v1 = 1917600616;
-    }
-
-    v5 = a1 <= 8;
-    goto LABEL_95;
-  }
-
-  if (a1 <= 3)
-  {
-    v7 = 1917669997;
-    if (a1 == 3)
-    {
-      v1 = 1917667377;
-    }
-
-    v6 = a1 == 1;
-    goto LABEL_102;
-  }
-
-  if (a1 == 4)
-  {
-    return 1917601841;
-  }
-
-  if (a1 != 5)
-  {
-    v6 = a1 == 6;
-    v7 = 1917666152;
-LABEL_102:
-    if (v6)
-    {
-      return v7;
-    }
-
-    else
-    {
-      return v1;
-    }
-  }
-
-  v26 = 1917600616;
-  v28 = *re::audioLogObjects(5);
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
-  {
-    *v29 = 0;
-    _os_log_error_impl(&dword_1E1C61000, v28, OS_LOG_TYPE_ERROR, "No PHASEPrivateReverbPreset matches kPlate", v29, 2u);
-  }
-
-  return v26;
+  v3[2] = v4;
+  return result;
 }
 
-const char *re::audio::phasePrivateReverbPresetName(uint64_t a1)
+void sub_1E20F75DC(_Unwind_Exception *a1)
 {
-  v1 = "None";
-  if (a1 <= 1917547629)
-  {
-    if (a1 > 1917152817)
-    {
-      if (a1 > 1917152821)
-      {
-        v2 = 1917152823;
-        v16 = "Environment09";
-        if (a1 != 1917152825)
-        {
-          v16 = "None";
-        }
-
-        if (a1 == 1917152824)
-        {
-          v4 = "Environment08";
-        }
-
-        else
-        {
-          v4 = v16;
-        }
-
-        v5 = "Environment06";
-        v6 = a1 == 1917152823;
-        v7 = "Environment07";
-        v11 = 28214;
-      }
-
-      else
-      {
-        v2 = 1917152819;
-        v10 = "Environment05";
-        if (a1 != 1917152821)
-        {
-          v10 = "None";
-        }
-
-        if (a1 == 1917152820)
-        {
-          v4 = "Environment04";
-        }
-
-        else
-        {
-          v4 = v10;
-        }
-
-        v5 = "Environment02";
-        v6 = a1 == 1917152819;
-        v7 = "Environment03";
-        v11 = 28210;
-      }
-    }
-
-    else
-    {
-      if (a1 <= 1917137199)
-      {
-        v2 = 1917022061;
-        v3 = "Cathedral";
-        if (a1 != 1917023336)
-        {
-          v3 = "None";
-        }
-
-        if (a1 == 1917022062)
-        {
-          v4 = "ConcertHall";
-        }
-
-        else
-        {
-          v4 = v3;
-        }
-
-        v5 = "VerySmallRoomBright";
-        v6 = a1 == 1917020526;
-        v7 = "MediumRoomDry";
-        v8 = 1916952948;
-        goto LABEL_58;
-      }
-
-      v2 = 1917137201;
-      v14 = "Environment01";
-      if (a1 != 1917152817)
-      {
-        v14 = "None";
-      }
-
-      if (a1 == 1917137202)
-      {
-        v4 = "Environment12";
-      }
-
-      else
-      {
-        v4 = v14;
-      }
-
-      v5 = "Environment10";
-      v6 = a1 == 1917137201;
-      v7 = "Environment11";
-      v11 = 12592;
-    }
-
-    v8 = v11 | 0x72450000u;
-    goto LABEL_58;
-  }
-
-  if (a1 <= 1917613681)
-  {
-    if (a1 <= 1917604401)
-    {
-      v2 = 1917601840;
-      v9 = "LargeHall2";
-      if (a1 != 1917601842)
-      {
-        v9 = "None";
-      }
-
-      if (a1 == 1917601841)
-      {
-        v4 = "LargeHall";
-      }
-
-      else
-      {
-        v4 = v9;
-      }
-
-      v5 = "SmallRoomBright";
-      v6 = a1 == 1917600616;
-      v7 = "LargeChamber";
-      v8 = 1917547630;
-      goto LABEL_58;
-    }
-
-    v2 = 1917604403;
-    v15 = "MediumRoomTreated";
-    if (a1 != 1917612653)
-    {
-      v15 = "None";
-    }
-
-    if (a1 == 1917604404)
-    {
-      v4 = "LargeRoomTreated";
-    }
-
-    else
-    {
-      v4 = v15;
-    }
-
-    v5 = "LargeRoom2";
-    v6 = a1 == 1917604403;
-    v7 = "LargeRoom";
-    v13 = 21042;
-LABEL_44:
-    v8 = v13 | 0x724C0000u;
-    goto LABEL_58;
-  }
-
-  if (a1 <= 1917667378)
-  {
-    v2 = 1917667376;
-    v12 = "MediumHall2";
-    if (a1 != 1917667378)
-    {
-      v12 = "None";
-    }
-
-    if (a1 == 1917667377)
-    {
-      v4 = "MediumHall";
-    }
-
-    else
-    {
-      v4 = v12;
-    }
-
-    v5 = "SmallRoom";
-    v6 = a1 == 1917666152;
-    v7 = "MediumChamber";
-    v13 = 30322;
-    goto LABEL_44;
-  }
-
-  v2 = 1917678444;
-  v17 = "Outside";
-  if (a1 != 1917810036)
-  {
-    v17 = "None";
-  }
-
-  if (a1 == 1917678445)
-  {
-    v4 = "VeryLargeRoom";
-  }
-
-  else
-  {
-    v4 = v17;
-  }
-
-  v5 = "MediumHall3";
-  v6 = a1 == 1917669997;
-  v7 = "MediumRoom";
-  v8 = 1917667379;
-LABEL_58:
-  if (v6)
-  {
-    v1 = v7;
-  }
-
-  if (a1 == v8)
-  {
-    v1 = v5;
-  }
-
-  if (a1 <= v2)
-  {
-    return v1;
-  }
-
-  else
-  {
-    return v4;
-  }
-}
-
-void sub_1E215ADFC(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v5 + 32));
-  objc_destroyWeak((v4 + 32));
-  objc_destroyWeak((v6 - 144));
+  __cxa_guard_abort(&qword_1EE19BB90);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1E215BC10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
+void re::anonymous namespace::validationError(void *a1, void *a2)
 {
-  v28 = v25;
-
-  objc_destroyWeak((v27 + 32));
-  objc_destroyWeak((v26 + 32));
-  objc_destroyWeak(&location);
-
-  _Unwind_Resume(a1);
-}
-
-_BYTE *re::audio::AudioFileAssetReader::init(_BYTE *this, re::SeekableInputStream *a2, char a3)
-{
-  v5 = this;
-  v6 = *this;
-  if (*this && this[8] == 1)
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v4 = *re::assetTypesLogObjects(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = re::globalAllocators(this)[2];
-    (**v6)(v6);
-    this = (*(*v7 + 40))(v7, v6);
-  }
-
-  *v5 = a2;
-  v5[8] = a3;
-  return this;
-}
-
-uint64_t re::audio::CanStreamAudioFiles(re::audio *this)
-{
-  if (qword_1EE19D120 != -1)
-  {
-    dispatch_once(&qword_1EE19D120, &__block_literal_global_8);
-  }
-
-  return _MergedGlobals_120;
-}
-
-uint64_t ___ZN2re5audio19CanStreamAudioFilesEv_block_invoke()
-{
-  result = [MEMORY[0x1E6958408] instancesRespondToSelector:sel_initForReadingFromExtAudioFile_error_];
-  _MergedGlobals_120 = result;
-  return result;
-}
-
-uint64_t re::audio::ConvertBufferFrameLength(re::audio *this, unsigned int a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
-{
-  v19 = *MEMORY[0x1E69E9840];
-  if (this)
-  {
-    v6 = a2;
-    v7 = a3 * a2;
-    if ((a3 * a2) >> 64 == v7 >> 63)
+    *v7 = 138543362;
+    *&v7[4] = v3;
+    _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, "Mesh payload validation error: %{public}@", v7, 0xCu);
+    if (!a1)
     {
-      v8 = 0;
-      *a4 = v7 / this;
-      return v8;
-    }
-
-    v8 = 1685348671;
-    v9 = *re::audioLogObjects(this);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      v15 = 134218240;
-      v16 = a3;
-      v17 = 2048;
-      v18 = v6;
-      v10 = "ConvertBufferFrameLength: frame length (%lld) * buffer sample rate (%lld) overflows SInt64";
-      v11 = v9;
-      v12 = 22;
-LABEL_7:
-      _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, v10, &v15, v12);
-    }
-  }
-
-  else
-  {
-    v8 = 1685348671;
-    v13 = *re::audioLogObjects(this);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      LOWORD(v15) = 0;
-      v10 = "ConvertBufferFrameLength: invalid file sample rate = 0";
-      v11 = v13;
-      v12 = 2;
-      goto LABEL_7;
-    }
-  }
-
-  return v8;
-}
-
-void re::audio::AudioFileAssetReader::~AudioFileAssetReader(re::audio::AudioFileAssetReader *this)
-{
-  v1 = this;
-  v2 = *this;
-  if (*this)
-  {
-    if (*(this + 8) == 1)
-    {
-      v3 = re::globalAllocators(this)[2];
-      (**v2)(v2);
-      this = (*(*v3 + 40))(v3, v2);
-    }
-
-    *v1 = 0;
-  }
-
-  v4 = *(v1 + 2);
-  if (v4)
-  {
-    v5 = re::globalAllocators(this)[2];
-    re::SeekableInputStreamBufferedReader::~SeekableInputStreamBufferedReader(v4);
-    (*(*v5 + 40))(v5, v4);
-    *(v1 + 2) = 0;
-  }
-
-  v6 = *(v1 + 3);
-  if (v6)
-  {
-    AudioFileClose(v6);
-    *(v1 + 3) = 0;
-  }
-
-  v7 = *(v1 + 4);
-  if (v7)
-  {
-    ExtAudioFileDispose(v7);
-    *(v1 + 4) = 0;
-  }
-
-  v8 = *(v1 + 6);
-  *(v1 + 6) = 0;
-}
-
-uint64_t re::audio::AudioFileAssetReader::createExtAudioFile(AudioFileID *this)
-{
-  v50 = *MEMORY[0x1E69E9840];
-  v2 = AudioFileOpenWithCallbacks(this, re::audio::AudioFileAssetReader::readProc, 0, re::audio::AudioFileAssetReader::getSizeProc, 0, 0x6D346166u, this + 3);
-  if (v2)
-  {
-    v3 = v2;
-    v4 = *re::audioLogObjects(v2);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 67109120;
-      *&buf[4] = v3;
-      _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, "Failed to read audio file, err = %d", buf, 8u);
-    }
-
-    return v3;
-  }
-
-  v5 = ExtAudioFileWrapAudioFileID(this[3], 0, this + 4);
-  if (v5)
-  {
-    v3 = v5;
-    v6 = *re::audioLogObjects(v5);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 67109120;
-      *&buf[4] = v3;
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Failed to read audio file, err = %d", buf, 8u);
-    }
-
-    AudioFileClose(this[3]);
-    return v3;
-  }
-
-  outSize = 0;
-  PropertyInfo = ExtAudioFileGetPropertyInfo(this[4], 0x66636C6Fu, &outSize, 0);
-  v3 = PropertyInfo;
-  if (PropertyInfo)
-  {
-    v8 = *re::audioLogObjects(PropertyInfo);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 67109120;
-      *&buf[4] = v3;
-      _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "Failed to get property info for file channel layout. err = %d", buf, 8u);
-    }
-
-    ExtAudioFileDispose(this[4]);
-    AudioFileClose(this[3]);
-    return v3;
-  }
-
-  v9 = malloc_type_malloc(outSize, 0x1000040E0EAB150uLL);
-  Property = ExtAudioFileGetProperty(this[4], 0x66636C6Fu, &outSize, v9);
-  v3 = Property;
-  if (!Property)
-  {
-    v12 = *v9;
-    if (*v9)
-    {
-LABEL_18:
-      *v45 = 0x96C70636DLL;
-      *buf = 48000.0;
-      v49 = 32;
-      v47 = 4 * v12;
-      v48 = v12;
-      *&v45[8] = 4 * v12;
-      v46 = 1;
-      ioPropertyDataSize = 40;
-      v13 = ExtAudioFileGetProperty(this[4], 0x66666D74u, &ioPropertyDataSize, outPropertyData);
-      v3 = v13;
-      if (v13)
-      {
-        v14 = *re::audioLogObjects(v13);
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-        {
-          *v40 = 67109120;
-          *&v40[4] = v3;
-          _os_log_error_impl(&dword_1E1C61000, v14, OS_LOG_TYPE_ERROR, "Failed to get file data format. err = %d", v40, 8u);
-        }
-
-LABEL_35:
-        ExtAudioFileDispose(this[4]);
-        AudioFileClose(this[3]);
-        goto LABEL_36;
-      }
-
-      v17 = ExtAudioFileSetProperty(this[4], 0x63666D74u, 0x28u, buf);
-      v3 = v17;
-      if (v17)
-      {
-        v18 = *re::audioLogObjects(v17);
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-        {
-          *v40 = 67109120;
-          *&v40[4] = v3;
-          _os_log_error_impl(&dword_1E1C61000, v18, OS_LOG_TYPE_ERROR, "Failed to set client memory format. err = %d", v40, 8u);
-        }
-
-        goto LABEL_35;
-      }
-
-      outSize = 8;
-      v20 = ExtAudioFileGetProperty(this[4], 0x2366726Du, &outSize, this + 5);
-      v3 = v20;
-      if (v20)
-      {
-        v22 = *re::audioLogObjects(v20);
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-        {
-          *v40 = 67109120;
-          *&v40[4] = v3;
-          _os_log_error_impl(&dword_1E1C61000, v22, OS_LOG_TYPE_ERROR, "Failed to get file length. err = %d", v40, 8u);
-        }
-
-        goto LABEL_35;
-      }
-
-      v28 = this[5];
-      if (v28 < 0)
-      {
-        v3 = 1685348671;
-        v31 = *re::audioLogObjects(v20);
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-        {
-          v35 = this[5];
-          *v40 = 134218240;
-          *&v40[4] = v35;
-          v41 = 1024;
-          v42 = 1685348671;
-          _os_log_error_impl(&dword_1E1C61000, v31, OS_LOG_TYPE_ERROR, "Invalid file length = %lld, err = %d (kAudioFileInvalidFileError)", v40, 0x12u);
-        }
-      }
-
-      else
-      {
-        *v40 = 0;
-        v29 = re::audio::ConvertBufferFrameLength(outPropertyData[0], *buf, v28, v40, v21);
-        v3 = v29;
-        if (!v29)
-        {
-          this[5] = *v40;
-          v47 = 4;
-          *&v45[4] = 0x400000029;
-          v32 = [objc_alloc(MEMORY[0x1E69583D0]) initWithLayout:v9];
-          v33 = [objc_alloc(MEMORY[0x1E6958418]) initWithStreamDescription:buf channelLayout:v32];
-          v34 = this[6];
-          this[6] = v33;
-
-          goto LABEL_36;
-        }
-
-        v30 = *re::audioLogObjects(v29);
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
-        {
-          *v38 = 67109120;
-          v39 = v3;
-          _os_log_error_impl(&dword_1E1C61000, v30, OS_LOG_TYPE_ERROR, "Failed to convert buffer frame length, err = %d", v38, 8u);
-        }
-      }
-
-      this[5] = 0;
-      ExtAudioFileDispose(this[4]);
-      AudioFileClose(this[3]);
-LABEL_36:
-      free(v9);
-      return v3;
-    }
-
-    *v40 = 40;
-    v15 = ExtAudioFileGetProperty(this[4], 0x66666D74u, v40, buf);
-    v3 = v15;
-    if (v15)
-    {
-      v16 = *re::audioLogObjects(v15);
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-      {
-LABEL_24:
-        ExtAudioFileDispose(this[4]);
-        AudioFileClose(this[3]);
-        goto LABEL_36;
-      }
-
-      LODWORD(outPropertyData[0]) = 67109120;
-      HIDWORD(outPropertyData[0]) = v3;
-      v25 = "Failed to get property for file data layout. err = %d";
-      v26 = v16;
-      v27 = 8;
-LABEL_51:
-      _os_log_error_impl(&dword_1E1C61000, v26, OS_LOG_TYPE_ERROR, v25, outPropertyData, v27);
-      goto LABEL_24;
-    }
-
-    v12 = v48;
-    if (v48 == 1)
-    {
-      v19 = 6553601;
-    }
-
-    else
-    {
-      if (v48 != 2)
-      {
-        v24 = *re::audioLogObjects(v15);
-        if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_24;
-        }
-
-        LOWORD(outPropertyData[0]) = 0;
-        v25 = "Loaded audio file with >2 channels is missing a layout tag.";
-        v26 = v24;
-        v27 = 2;
-        goto LABEL_51;
-      }
-
-      v19 = 6619138;
-    }
-
-    *v9 = v19;
-    goto LABEL_18;
-  }
-
-  v11 = *re::audioLogObjects(Property);
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 67109120;
-    *&buf[4] = v3;
-    _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Failed to get property for file channel layout. err = %d", buf, 8u);
-  }
-
-  ExtAudioFileDispose(this[4]);
-  AudioFileClose(this[3]);
-  if (v9)
-  {
-    goto LABEL_36;
-  }
-
-  return v3;
-}
-
-uint64_t re::audio::AudioFileAssetReader::readProc(re::audio::AudioFileAssetReader *this, unint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a5, unsigned int *a6)
-{
-  v8 = a3;
-  v11 = (*(**this + 64))(*this, a2, a3, a4, a5, a6);
-  if (v11 >= a2)
-  {
-    v12 = a2;
-  }
-
-  else
-  {
-    v12 = v11;
-  }
-
-  if (v11 >= v12 + v8)
-  {
-    v13 = v12 + v8;
-  }
-
-  else
-  {
-    v13 = v11;
-  }
-
-  if (v13 <= a2)
-  {
-    v17 = *re::audioLogObjects(v11);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-    {
-      *v18 = 0;
-      _os_log_error_impl(&dword_1E1C61000, v17, OS_LOG_TYPE_ERROR, "AudioFileAssetReader::readProc() invalid request.", v18, 2u);
-    }
-
-    result = 4294967256;
-    if (a5)
-    {
-      v15 = 0;
-      goto LABEL_14;
-    }
-  }
-
-  else
-  {
-    (*(**this + 56))(*this, v12);
-    v14 = (*(**this + 104))(*this, v13 - v12, a4);
-    if (a5)
-    {
-      v15 = v14;
-      result = 0;
-LABEL_14:
-      *a5 = v15;
-      return result;
-    }
-
-    return 0;
-  }
-
-  return result;
-}
-
-id re::audio::AudioFileAssetReader::readFromData(re::audio::AudioFileAssetReader *this)
-{
-  v37 = *MEMORY[0x1E69E9840];
-  ExtAudioFile = re::audio::AudioFileAssetReader::createExtAudioFile(this);
-  if (ExtAudioFile)
-  {
-    v3 = 0;
-    goto LABEL_32;
-  }
-
-  v4 = *re::audioLogObjects(ExtAudioFile);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-  {
-    v30 = *(this + 5);
-    ioData.mNumberBuffers = 134217984;
-    *(&ioData.mNumberBuffers + 1) = v30;
-    _os_log_debug_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEBUG, "About to read %lld samples into memory", &ioData, 0xCu);
-  }
-
-  v5 = [objc_alloc(MEMORY[0x1E6958440]) initWithPCMFormat:*(this + 6) frameCapacity:*(this + 10)];
-  [v5 setFrameLength:*(this + 10)];
-  v6 = [v5 mutableAudioBufferList];
-  v7 = *(this + 10);
-  ioNumberFrames = v7;
-  v8 = [*(this + 6) channelCount];
-  v9 = v8;
-  if (v8 == 1)
-  {
-    v10 = ExtAudioFileRead(*(this + 4), &ioNumberFrames, v6);
-    v11 = v10;
-    if (v10)
-    {
-      v12 = *re::audioLogObjects(v10);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        ioData.mNumberBuffers = 67109120;
-        *(&ioData.mNumberBuffers + 1) = v11;
-        _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Failed to read the audio samples. err = %d", &ioData, 8u);
-      }
-
-      v3 = 0;
-      goto LABEL_31;
-    }
-
-    [v5 setFrameLength:ioNumberFrames];
-  }
-
-  else
-  {
-    v31 = v5;
-    v13 = v8 << 12;
-    v14 = malloc_type_malloc(v8 << 12, 0x100004052888210uLL);
-    ioData.mNumberBuffers = 1;
-    ioData.mBuffers[0].mNumberChannels = v9;
-    ioData.mBuffers[0].mDataByteSize = v13;
-    ioData.mBuffers[0].mData = v14;
-    if (v7)
-    {
-      v15 = 0;
-      p_mData = &v6->mBuffers[0].mData;
-      v17 = v7;
-      while (1)
-      {
-        v18 = v17 >= 0x400 ? 1024 : v17;
-        v32 = v18;
-        v19 = ExtAudioFileRead(*(this + 4), &v32, &ioData);
-        v20 = v19;
-        if (v19)
-        {
-          break;
-        }
-
-        v21 = v32;
-        if (!v32)
-        {
-          [v31 setFrameLength:v7 - v17];
-          goto LABEL_29;
-        }
-
-        v22 = v32 + v15;
-        v23 = v14;
-        do
-        {
-          if (v9)
-          {
-            v24 = p_mData;
-            v25 = v9;
-            do
-            {
-              v27 = *v24;
-              v24 += 2;
-              v26 = v27;
-              LODWORD(v27) = *v23++;
-              v26[v15] = v27;
-              --v25;
-            }
-
-            while (v25);
-          }
-
-          ++v15;
-        }
-
-        while (v15 != v22);
-        v15 = v22;
-        v17 -= v21;
-        if (!v17)
-        {
-          goto LABEL_29;
-        }
-      }
-
-      v28 = *re::audioLogObjects(v19);
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 67109120;
-        v35 = v20;
-        _os_log_error_impl(&dword_1E1C61000, v28, OS_LOG_TYPE_ERROR, "Failed to read the audio samples. err = %d", buf, 8u);
-      }
-
-      free(v14);
-      v3 = 0;
-      v5 = v31;
-      goto LABEL_31;
-    }
-
-LABEL_29:
-    free(v14);
-    v5 = v31;
-  }
-
-  v3 = v5;
-LABEL_31:
-
-LABEL_32:
-
-  return v3;
-}
-
-BOOL re::audio::AudioFileAssetWriter::writeToStreamWithDefaultCompression(id *this)
-{
-  v2 = [*this format];
-  v3 = [v2 streamDescription];
-
-  inFormat.mSampleRate = 48000.0;
-  mChannelsPerFrame = v3->mChannelsPerFrame;
-  *&inFormat.mBitsPerChannel = 0;
-  inFormat.mBytesPerFrame = 0;
-  inFormat.mChannelsPerFrame = mChannelsPerFrame;
-  *&inFormat.mFormatID = xmmword_1E3064910;
-  return re::audio::AudioFileAssetWriter::writeToStream(this, v3, &inFormat, 0x6D346166u);
-}
-
-BOOL re::audio::AudioFileAssetWriter::writeToStream(id *this, const AudioStreamBasicDescription *a2, AudioStreamBasicDescription *inFormat, AudioFileTypeID inFileType)
-{
-  v36 = *MEMORY[0x1E69E9840];
-  outExtAudioFile = 0;
-  inFileID = 0;
-  v6 = AudioFileInitializeWithCallbacks(this, re::audio::AudioFileAssetWriter::readProc, re::audio::AudioFileAssetWriter::writeProc, re::audio::AudioFileAssetWriter::getSizeProc, re::audio::AudioFileAssetWriter::setSizeProc, inFileType, inFormat, 0, &inFileID);
-  v7 = v6;
-  if (!v6)
-  {
-    v10 = ExtAudioFileWrapAudioFileID(inFileID, 1u, &outExtAudioFile);
-    v11 = v10;
-    if (v10)
-    {
-      v12 = *re::audioLogObjects(v10);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 67109120;
-        v35 = v11;
-        _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, "Failed to open ExtAudioFile for writing. Err = %d", buf, 8u);
-      }
-
-      AudioFileClose(inFileID);
-      return 0;
-    }
-
-    v13 = [*this format];
-    v14 = [v13 channelLayout];
-    v15 = [v14 layout];
-
-    if (!v15)
-    {
-LABEL_36:
-      v23 = ExtAudioFileSetProperty(outExtAudioFile, 0x63666D74u, 0x28u, a2);
-      v24 = v23;
-      if (v23)
-      {
-        v25 = *re::audioLogObjects(v23);
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 67109120;
-          v35 = v24;
-          _os_log_error_impl(&dword_1E1C61000, v25, OS_LOG_TYPE_ERROR, "Failed to set client data format. Err = %d", buf, 8u);
-        }
-      }
-
-      else
-      {
-        v26 = ExtAudioFileSetProperty(outExtAudioFile, 0x63636C6Fu, 0x20u, v15);
-        v27 = v26;
-        if (v26)
-        {
-          v28 = *re::audioLogObjects(v26);
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 67109120;
-            v35 = v27;
-            _os_log_error_impl(&dword_1E1C61000, v28, OS_LOG_TYPE_ERROR, "Failed to set client channel layout. Err = %d", buf, 8u);
-          }
-        }
-
-        else
-        {
-          v29 = ExtAudioFileWrite(outExtAudioFile, [*this frameLength], objc_msgSend(*this, "audioBufferList"));
-          v30 = v29;
-          if (!v29)
-          {
-            ExtAudioFileDispose(outExtAudioFile);
-            AudioFileClose(inFileID);
-            (*(*this[1] + 16))(this[1], this[2], this[3] - this[2]);
-            return 1;
-          }
-
-          v31 = *re::audioLogObjects(v29);
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 67109120;
-            v35 = v30;
-            _os_log_error_impl(&dword_1E1C61000, v31, OS_LOG_TYPE_ERROR, "Failed to write audio buffer data. Err = %d", buf, 8u);
-          }
-        }
-      }
-
-      ExtAudioFileDispose(outExtAudioFile);
-      AudioFileClose(inFileID);
-      return 0;
-    }
-
-    v16 = *v15;
-    if (v16 <= 9240581)
-    {
-      if (v16 > 7864324)
-      {
-        if (v16 == 7864325 || v16 == 8126470)
-        {
-          goto LABEL_31;
-        }
-
-        v17 = 8323080;
-      }
-
-      else
-      {
-        if (v16 == 7077892 || v16 == 7471107)
-        {
-          goto LABEL_31;
-        }
-
-        v17 = 7602180;
-      }
-    }
-
-    else
-    {
-      if (v16 > 9437191)
-      {
-        if (v16 > 12058631)
-        {
-          if (v16 != 12058632)
-          {
-            if (v16 != 12386312)
-            {
-              goto LABEL_36;
-            }
-
-            v16 = 11993096;
-          }
-
-          goto LABEL_31;
-        }
-
-        if (v16 != 9437192)
-        {
-          v17 = 11993096;
-          goto LABEL_26;
-        }
-
-LABEL_31:
-        v18 = [objc_alloc(MEMORY[0x1E69583D0]) initWithLayoutTag:v16];
-        v19 = [v18 layout];
-        v20 = ExtAudioFileSetProperty(outExtAudioFile, 0x66636C6Fu, 0x20u, v19);
-        v21 = v20;
-        if (v20)
-        {
-          v22 = *re::audioLogObjects(v20);
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 67109120;
-            v35 = v21;
-            _os_log_error_impl(&dword_1E1C61000, v22, OS_LOG_TYPE_ERROR, "Failed to set file channel layout. Err = %d", buf, 8u);
-          }
-
-          ExtAudioFileDispose(outExtAudioFile);
-          AudioFileClose(inFileID);
-
-          return 0;
-        }
-
-        goto LABEL_36;
-      }
-
-      if (v16 == 9240582 || v16 == 9306119)
-      {
-        goto LABEL_31;
-      }
-
-      v17 = 9371655;
-    }
-
-LABEL_26:
-    if (v16 != v17)
-    {
-      goto LABEL_36;
-    }
-
-    goto LABEL_31;
-  }
-
-  v8 = *re::audioLogObjects(v6);
-  result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-  if (!result)
-  {
-    return result;
-  }
-
-  *buf = 67109120;
-  v35 = v7;
-  _os_log_error_impl(&dword_1E1C61000, v8, OS_LOG_TYPE_ERROR, "Failed to open AudioFile for writing. Err = %d", buf, 8u);
-  return 0;
-}
-
-BOOL re::audio::AudioFileAssetWriter::writeToStreamWithCustomOutputDescription(id *a1, AudioStreamBasicDescription *a2, uint64_t a3)
-{
-  v6 = [*a1 format];
-  v7 = [v6 streamDescription];
-
-  if ((a3 & 0x100000000) != 0)
-  {
-    v8 = a3;
-  }
-
-  else
-  {
-    v8 = 1667327590;
-  }
-
-  return re::audio::AudioFileAssetWriter::writeToStream(a1, v7, a2, v8);
-}
-
-uint64_t re::audio::AudioFileAssetWriter::readProc(re::audio::AudioFileAssetWriter *this, char *a2, int a3, void *__dst, int *a5, unsigned int *a6)
-{
-  v6 = *(this + 2);
-  v7 = (*(this + 3) - v6);
-  if (v7 <= a2)
-  {
-    return 4294967256;
-  }
-
-  if (v7 >= &a2[a3])
-  {
-    v7 = &a2[a3];
-  }
-
-  v9 = v7 - a2;
-  memcpy(__dst, &a2[v6], v7 - a2);
-  result = 0;
-  if (a5)
-  {
-    *a5 = v9;
-  }
-
-  return result;
-}
-
-uint64_t re::audio::AudioFileAssetWriter::writeProc(re::audio::AudioFileAssetWriter *this, char *a2, size_t __n, void *__src, _DWORD *a5, unsigned int *a6)
-{
-  v8 = __n;
-  v10 = __n;
-  v11 = *(this + 2);
-  v12 = (this + 16);
-  v13 = *(this + 3) - v11;
-  v14 = &a2[__n];
-  if (v14 > v13)
-  {
-    std::vector<unsigned char>::__append(this + 2, &v14[-v13]);
-    v11 = *v12;
-  }
-
-  memcpy(&a2[v11], __src, v10);
-  if (a5)
-  {
-    *a5 = v8;
-  }
-
-  return 0;
-}
-
-uint64_t re::audio::AudioFileAssetWriter::getSizeProc(re::audio::AudioFileAssetWriter *this, void *a2)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = *(this + 3) - *(this + 2);
-  v3 = *re::audioLogObjects(this);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-  {
-    v5 = 134217984;
-    v6 = v2;
-    _os_log_debug_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_DEBUG, "AudioFileAsset.writer.getSize() -> %lld", &v5, 0xCu);
-  }
-
-  return v2;
-}
-
-uint64_t re::audio::AudioFileAssetWriter::setSizeProc(char **this, char *a2)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = *re::audioLogObjects(this);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-  {
-    v8 = 134217984;
-    v9 = a2;
-    _os_log_debug_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEBUG, "AudioFileAsset.writer.setSize(%lld)", &v8, 0xCu);
-  }
-
-  v5 = this[2];
-  v6 = this[3] - v5;
-  if (a2 <= v6)
-  {
-    if (a2 < v6)
-    {
-      this[3] = &a2[v5];
-    }
-  }
-
-  else
-  {
-    std::vector<unsigned char>::__append(this + 2, &a2[-v6]);
-  }
-
-  return 0;
-}
-
-void std::vector<unsigned char>::__append(char **a1, size_t a2)
-{
-  v5 = a1[1];
-  v4 = a1[2];
-  if (v4 - v5 >= a2)
-  {
-    if (a2)
-    {
-      bzero(a1[1], a2);
-      v5 += a2;
-    }
-
-    a1[1] = v5;
-  }
-
-  else
-  {
-    v6 = *a1;
-    v7 = (v5 - *a1);
-    v8 = &v7[a2];
-    if (&v7[a2] < 0)
-    {
-      std::vector<PHASESource * {__strong}>::__throw_length_error[abi:ne200100]();
-    }
-
-    v9 = v4 - v6;
-    if (2 * v9 > v8)
-    {
-      v8 = 2 * v9;
-    }
-
-    if (v9 >= 0x3FFFFFFFFFFFFFFFLL)
-    {
-      v10 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v10 = v8;
-    }
-
-    if (v10)
-    {
-      operator new();
-    }
-
-    v11 = v5 - *a1;
-    bzero(v7, a2);
-    memcpy(&v7[v6 - v5], v6, v11);
-    *a1 = &v7[v6 - v5];
-    a1[1] = &v7[a2];
-    a1[2] = 0;
-    if (v6)
-    {
-
-      operator delete(v6);
-    }
-  }
-}
-
-void re::AudioManager_PHASE_State_Recovering::~AudioManager_PHASE_State_Recovering(re::AudioManager_PHASE_State_Recovering *this)
-{
-  *this = &unk_1F5CCC930;
-  v1 = (this + 8);
-  v2 = *(this + 1);
-  v3 = *(this + 2);
-  while (v2 != v3)
-  {
-    v4 = *v2;
-    *v2 = 0;
-    if (v4)
-    {
-      (*(*v4 + 8))(v4);
-    }
-
-    ++v2;
-  }
-
-  std::vector<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>::clear[abi:ne200100](v1);
-  v5 = v1;
-  std::vector<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>::__destroy_vector::operator()[abi:ne200100](&v5);
-}
-
-{
-  re::AudioManager_PHASE_State_Recovering::~AudioManager_PHASE_State_Recovering(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-uint64_t re::AudioManager_PHASE_State_Recovering::handleStateChangeEvent(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
-{
-  if (a2 - 2 < 8)
-  {
-    v5 = *(*(a1 + 8) + 8 * a2);
-    (*(*v5 + 16))(v5, a3, a4);
-LABEL_3:
-    v6 = *(a1 + 8);
-    v7 = *(a1 + 16);
-    if (v6 == v7)
-    {
-      v9 = 0x100000000;
-      v8 = 2;
-    }
-
-    else
-    {
-      v8 = 2;
-      while (((*(**v6 + 24))() & 1) != 0)
-      {
-        v6 += 8;
-        if (v6 == v7)
-        {
-          goto LABEL_14;
-        }
-      }
-
-      v9 = 0;
-      v8 = 0;
-    }
-
-    return v8 | v9;
-  }
-
-  if (a2)
-  {
-    if (a2 == 1)
-    {
-      v9 = 0x100000000;
-      v8 = 1;
-      return v8 | v9;
+      goto LABEL_4;
     }
 
     goto LABEL_3;
   }
 
-  v8 = 0;
-LABEL_14:
-  v9 = 0x100000000;
-  return v8 | v9;
+  if (a1)
+  {
+LABEL_3:
+    v5 = *MEMORY[0x1E696A278];
+    v6 = v3;
+    re::makeResourceSharingError(v7, 0x1F6, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v6 forKeys:&v5 count:1]);
+    *a1 = *v7;
+  }
+
+LABEL_4:
 }
 
-void re::AudioManager_PHASE_State_Recovering::stateDescription(re::AudioManager_PHASE_State_Recovering *this@<X0>, std::string *a2@<X8>)
+void sub_1E20F7BC4(_Unwind_Exception *a1)
 {
-  (*(**(*(this + 1) + 16) + 32))(&v61);
-  std::operator+<char>();
-  v4 = std::string::append(&v63, "), (");
-  v5 = *&v4->__r_.__value_.__l.__data_;
-  v64.__r_.__value_.__r.__words[2] = v4->__r_.__value_.__r.__words[2];
-  *&v64.__r_.__value_.__l.__data_ = v5;
-  v4->__r_.__value_.__l.__size_ = 0;
-  v4->__r_.__value_.__r.__words[2] = 0;
-  v4->__r_.__value_.__r.__words[0] = 0;
-  (*(**(*(this + 1) + 24) + 32))(v59);
-  if ((v60 & 0x80u) == 0)
-  {
-    v6 = v59;
-  }
-
-  else
-  {
-    v6 = v59[0];
-  }
-
-  if ((v60 & 0x80u) == 0)
-  {
-    v7 = v60;
-  }
-
-  else
-  {
-    v7 = v59[1];
-  }
-
-  v8 = std::string::append(&v64, v6, v7);
-  v9 = *&v8->__r_.__value_.__l.__data_;
-  v65.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-  *&v65.__r_.__value_.__l.__data_ = v9;
-  v8->__r_.__value_.__l.__size_ = 0;
-  v8->__r_.__value_.__r.__words[2] = 0;
-  v8->__r_.__value_.__r.__words[0] = 0;
-  v10 = std::string::append(&v65, "), (");
-  v11 = *&v10->__r_.__value_.__l.__data_;
-  v66.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
-  *&v66.__r_.__value_.__l.__data_ = v11;
-  v10->__r_.__value_.__l.__size_ = 0;
-  v10->__r_.__value_.__r.__words[2] = 0;
-  v10->__r_.__value_.__r.__words[0] = 0;
-  (*(**(*(this + 1) + 40) + 32))(v57);
-  if ((v58 & 0x80u) == 0)
-  {
-    v12 = v57;
-  }
-
-  else
-  {
-    v12 = v57[0];
-  }
-
-  if ((v58 & 0x80u) == 0)
-  {
-    v13 = v58;
-  }
-
-  else
-  {
-    v13 = v57[1];
-  }
-
-  v14 = std::string::append(&v66, v12, v13);
-  v15 = *&v14->__r_.__value_.__l.__data_;
-  v67.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
-  *&v67.__r_.__value_.__l.__data_ = v15;
-  v14->__r_.__value_.__l.__size_ = 0;
-  v14->__r_.__value_.__r.__words[2] = 0;
-  v14->__r_.__value_.__r.__words[0] = 0;
-  v16 = std::string::append(&v67, "), (");
-  v17 = *&v16->__r_.__value_.__l.__data_;
-  v68.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
-  *&v68.__r_.__value_.__l.__data_ = v17;
-  v16->__r_.__value_.__l.__size_ = 0;
-  v16->__r_.__value_.__r.__words[2] = 0;
-  v16->__r_.__value_.__r.__words[0] = 0;
-  (*(**(*(this + 1) + 48) + 32))(v55);
-  if ((v56 & 0x80u) == 0)
-  {
-    v18 = v55;
-  }
-
-  else
-  {
-    v18 = v55[0];
-  }
-
-  if ((v56 & 0x80u) == 0)
-  {
-    v19 = v56;
-  }
-
-  else
-  {
-    v19 = v55[1];
-  }
-
-  v20 = std::string::append(&v68, v18, v19);
-  v21 = *&v20->__r_.__value_.__l.__data_;
-  v69.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
-  *&v69.__r_.__value_.__l.__data_ = v21;
-  v20->__r_.__value_.__l.__size_ = 0;
-  v20->__r_.__value_.__r.__words[2] = 0;
-  v20->__r_.__value_.__r.__words[0] = 0;
-  v22 = std::string::append(&v69, "), (");
-  v23 = *&v22->__r_.__value_.__l.__data_;
-  v70.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
-  *&v70.__r_.__value_.__l.__data_ = v23;
-  v22->__r_.__value_.__l.__size_ = 0;
-  v22->__r_.__value_.__r.__words[2] = 0;
-  v22->__r_.__value_.__r.__words[0] = 0;
-  (*(**(*(this + 1) + 32) + 32))(v53);
-  if ((v54 & 0x80u) == 0)
-  {
-    v24 = v53;
-  }
-
-  else
-  {
-    v24 = v53[0];
-  }
-
-  if ((v54 & 0x80u) == 0)
-  {
-    v25 = v54;
-  }
-
-  else
-  {
-    v25 = v53[1];
-  }
-
-  v26 = std::string::append(&v70, v24, v25);
-  v27 = *&v26->__r_.__value_.__l.__data_;
-  v71.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
-  *&v71.__r_.__value_.__l.__data_ = v27;
-  v26->__r_.__value_.__l.__size_ = 0;
-  v26->__r_.__value_.__r.__words[2] = 0;
-  v26->__r_.__value_.__r.__words[0] = 0;
-  v28 = std::string::append(&v71, "), (");
-  v29 = *&v28->__r_.__value_.__l.__data_;
-  v72.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
-  *&v72.__r_.__value_.__l.__data_ = v29;
-  v28->__r_.__value_.__l.__size_ = 0;
-  v28->__r_.__value_.__r.__words[2] = 0;
-  v28->__r_.__value_.__r.__words[0] = 0;
-  (*(**(*(this + 1) + 56) + 32))(v51);
-  if ((v52 & 0x80u) == 0)
-  {
-    v30 = v51;
-  }
-
-  else
-  {
-    v30 = v51[0];
-  }
-
-  if ((v52 & 0x80u) == 0)
-  {
-    v31 = v52;
-  }
-
-  else
-  {
-    v31 = v51[1];
-  }
-
-  v32 = std::string::append(&v72, v30, v31);
-  v33 = *&v32->__r_.__value_.__l.__data_;
-  v73.__r_.__value_.__r.__words[2] = v32->__r_.__value_.__r.__words[2];
-  *&v73.__r_.__value_.__l.__data_ = v33;
-  v32->__r_.__value_.__l.__size_ = 0;
-  v32->__r_.__value_.__r.__words[2] = 0;
-  v32->__r_.__value_.__r.__words[0] = 0;
-  v34 = std::string::append(&v73, "), (");
-  v35 = *&v34->__r_.__value_.__l.__data_;
-  v74.__r_.__value_.__r.__words[2] = v34->__r_.__value_.__r.__words[2];
-  *&v74.__r_.__value_.__l.__data_ = v35;
-  v34->__r_.__value_.__l.__size_ = 0;
-  v34->__r_.__value_.__r.__words[2] = 0;
-  v34->__r_.__value_.__r.__words[0] = 0;
-  (*(**(*(this + 1) + 64) + 32))(v49);
-  if ((v50 & 0x80u) == 0)
-  {
-    v36 = v49;
-  }
-
-  else
-  {
-    v36 = v49[0];
-  }
-
-  if ((v50 & 0x80u) == 0)
-  {
-    v37 = v50;
-  }
-
-  else
-  {
-    v37 = v49[1];
-  }
-
-  v38 = std::string::append(&v74, v36, v37);
-  v39 = *&v38->__r_.__value_.__l.__data_;
-  v75.__r_.__value_.__r.__words[2] = v38->__r_.__value_.__r.__words[2];
-  *&v75.__r_.__value_.__l.__data_ = v39;
-  v38->__r_.__value_.__l.__size_ = 0;
-  v38->__r_.__value_.__r.__words[2] = 0;
-  v38->__r_.__value_.__r.__words[0] = 0;
-  v40 = std::string::append(&v75, "), (");
-  v41 = *&v40->__r_.__value_.__l.__data_;
-  v76.__r_.__value_.__r.__words[2] = v40->__r_.__value_.__r.__words[2];
-  *&v76.__r_.__value_.__l.__data_ = v41;
-  v40->__r_.__value_.__l.__size_ = 0;
-  v40->__r_.__value_.__r.__words[2] = 0;
-  v40->__r_.__value_.__r.__words[0] = 0;
-  (*(**(*(this + 1) + 72) + 32))(__p);
-  if ((v48 & 0x80u) == 0)
-  {
-    v42 = __p;
-  }
-
-  else
-  {
-    v42 = __p[0];
-  }
-
-  if ((v48 & 0x80u) == 0)
-  {
-    v43 = v48;
-  }
-
-  else
-  {
-    v43 = __p[1];
-  }
-
-  v44 = std::string::append(&v76, v42, v43);
-  v45 = *&v44->__r_.__value_.__l.__data_;
-  v77.__r_.__value_.__r.__words[2] = v44->__r_.__value_.__r.__words[2];
-  *&v77.__r_.__value_.__l.__data_ = v45;
-  v44->__r_.__value_.__l.__size_ = 0;
-  v44->__r_.__value_.__r.__words[2] = 0;
-  v44->__r_.__value_.__r.__words[0] = 0;
-  v46 = std::string::append(&v77, ").");
-  *a2 = *v46;
-  v46->__r_.__value_.__l.__size_ = 0;
-  v46->__r_.__value_.__r.__words[2] = 0;
-  v46->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v77.__r_.__value_.__l.__data_);
-  }
-
-  if (v48 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v76.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v75.__r_.__value_.__l.__data_);
-  }
-
-  if (v50 < 0)
-  {
-    operator delete(v49[0]);
-  }
-
-  if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v74.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v73.__r_.__value_.__l.__data_);
-  }
-
-  if (v52 < 0)
-  {
-    operator delete(v51[0]);
-  }
-
-  if (SHIBYTE(v72.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v72.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v71.__r_.__value_.__l.__data_);
-  }
-
-  if (v54 < 0)
-  {
-    operator delete(v53[0]);
-  }
-
-  if (SHIBYTE(v70.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v70.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v69.__r_.__value_.__l.__data_);
-  }
-
-  if (v56 < 0)
-  {
-    operator delete(v55[0]);
-  }
-
-  if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v68.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v67.__r_.__value_.__l.__data_);
-  }
-
-  if (v58 < 0)
-  {
-    operator delete(v57[0]);
-  }
-
-  if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v66.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v65.__r_.__value_.__l.__data_);
-  }
-
-  if (v60 < 0)
-  {
-    operator delete(v59[0]);
-  }
-
-  if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v64.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v63.__r_.__value_.__l.__data_);
-  }
-
-  if (v62 < 0)
-  {
-    operator delete(v61);
-  }
-}
-
-void sub_1E215E928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, void *a52, uint64_t a53, int a54, __int16 a55, char a56, char a57, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
-{
-  if (*(v84 - 57) < 0)
-  {
-    operator delete(*(v84 - 80));
-  }
-
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (*(v84 - 89) < 0)
-  {
-    operator delete(*(v84 - 112));
-  }
-
-  if (*(v84 - 121) < 0)
-  {
-    operator delete(*(v84 - 144));
-  }
-
-  if (a21 < 0)
-  {
-    operator delete(a16);
-  }
-
-  if (*(v84 - 153) < 0)
-  {
-    operator delete(*(v84 - 176));
-  }
-
-  if (*(v84 - 185) < 0)
-  {
-    operator delete(*(v84 - 208));
-  }
-
-  if (a27 < 0)
-  {
-    operator delete(a22);
-  }
-
-  if (*(v84 - 217) < 0)
-  {
-    operator delete(*(v84 - 240));
-  }
-
-  if (a84 < 0)
-  {
-    operator delete(a83);
-  }
-
-  if (a33 < 0)
-  {
-    operator delete(a28);
-  }
-
-  if (a82 < 0)
-  {
-    operator delete(a81);
-  }
-
-  if (a80 < 0)
-  {
-    operator delete(a79);
-  }
-
-  if (a39 < 0)
-  {
-    operator delete(a34);
-  }
-
-  if (a78 < 0)
-  {
-    operator delete(a77);
-  }
-
-  if (a76 < 0)
-  {
-    operator delete(a75);
-  }
-
-  if (a45 < 0)
-  {
-    operator delete(a40);
-  }
-
-  if (a74 < 0)
-  {
-    operator delete(a73);
-  }
-
-  if (a72 < 0)
-  {
-    operator delete(a71);
-  }
-
-  if (a51 < 0)
-  {
-    operator delete(a46);
-  }
-
-  if (a69 < 0)
-  {
-    operator delete(a64);
-  }
-
-  if (a63 < 0)
-  {
-    operator delete(a58);
-  }
-
-  if (a57 < 0)
-  {
-    operator delete(a52);
-  }
+  v6 = v5;
 
   _Unwind_Resume(a1);
 }
 
-void re::AudioManager_PHASE_State_Recovering::getInitialRequiredRecoverySteps(void *a1@<X8>)
+id re::anonymous namespace::extractAttributeWithName(void *a1, void *a2)
 {
-  *a1 = 0;
-  a1[1] = 0;
-  a1[2] = 0;
-  operator new();
-}
-
-void sub_1E215ED1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  std::vector<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>::__destroy_vector::operator()[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t *std::vector<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>::push_back[abi:ne200100](uint64_t *result, uint64_t *a2)
-{
-  v3 = result;
-  v5 = result[1];
-  v4 = result[2];
-  if (v5 >= v4)
+  v3 = a1;
+  v4 = a2;
+  v5 = [v3 objectForKeyedSubscript:v4];
+  if (v5)
   {
-    v8 = *result;
-    v9 = v5 - *result;
-    v10 = (v9 >> 3) + 1;
-    if (v10 >> 61)
-    {
-      std::vector<PHASESource * {__strong}>::__throw_length_error[abi:ne200100]();
-    }
-
-    v11 = v4 - v8;
-    if (v11 >> 2 > v10)
-    {
-      v10 = v11 >> 2;
-    }
-
-    v12 = v11 >= 0x7FFFFFFFFFFFFFF8;
-    v13 = 0x1FFFFFFFFFFFFFFFLL;
-    if (!v12)
-    {
-      v13 = v10;
-    }
-
-    v18[4] = result;
-    if (v13)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>>(result, v13);
-    }
-
-    v14 = (8 * (v9 >> 3));
-    v15 = *a2;
-    *a2 = 0;
-    *v14 = v15;
-    v7 = v14 + 1;
-    memcpy(0, v8, v9);
-    v16 = *v3;
-    *v3 = 0;
-    v3[1] = v7;
-    v17 = v3[2];
-    v3[2] = 0;
-    v18[2] = v16;
-    v18[3] = v17;
-    v18[0] = v16;
-    v18[1] = v16;
-    result = std::__split_buffer<std::unique_ptr<re::AudioManager_PHASE_StateMachine_RecoveryStep>>::~__split_buffer(v18);
+    [v3 removeObjectForKey:v4];
   }
-
-  else
-  {
-    v6 = *a2;
-    *a2 = 0;
-    *v5 = v6;
-    v7 = v5 + 1;
-  }
-
-  v3[1] = v7;
-  return result;
-}
-
-re::REPHASESpatialMixerDefinitionCache *re::REPHASESpatialMixerDefinitionCache::REPHASESpatialMixerDefinitionCache(re::REPHASESpatialMixerDefinitionCache *this)
-{
-  *this = 0;
-  *(this + 1) = 0;
-  v2 = (this + 8);
-  *(this + 2) = 0;
-  v3 = objc_alloc_init(MEMORY[0x1E695DEE0]);
-  v4 = *v2;
-  *v2 = v3;
-
-  [*v2 setTotalCostLimit:50];
-  v6 = re::REPHASESpatialMixerDefinitionCache::createSpatialPipeline(@"reverbSend", &cfstr_Directsend.isa, v5);
-  v7 = *(this + 2);
-  *(this + 2) = v6;
-
-  return this;
-}
-
-id re::REPHASESpatialMixerDefinitionCache::createSpatialPipeline(re::REPHASESpatialMixerDefinitionCache *this, NSString *a2, NSString *a3)
-{
-  v4 = this;
-  v5 = a2;
-  v6 = [objc_alloc(MEMORY[0x1E69781E0]) initWithValue:v4 minimum:1.0 maximum:0.0 identifier:10.0];
-  v7 = [objc_alloc(MEMORY[0x1E69781E0]) initWithValue:v5 minimum:1.0 maximum:0.0 identifier:1.0];
-  v8 = [objc_alloc(MEMORY[0x1E6978230]) initWithFlags:7];
-  v9 = [v8 entries];
-  v10 = [v9 objectForKeyedSubscript:*MEMORY[0x1E6978278]];
-  [v10 setSendLevelMetaParameterDefinition:v6];
-
-  v11 = [v8 entries];
-  v12 = [v11 objectForKeyedSubscript:*MEMORY[0x1E6978270]];
-  [v12 setSendLevelMetaParameterDefinition:v6];
-
-  v13 = [v8 entries];
-  v14 = [v13 objectForKeyedSubscript:*MEMORY[0x1E6978268]];
-  [v14 setSendLevelMetaParameterDefinition:v7];
-
-  return v8;
-}
-
-void sub_1E215F0DC(_Unwind_Exception *a1)
-{
-  v8 = v6;
-
-  _Unwind_Resume(a1);
-}
-
-id re::REPHASESpatialMixerDefinitionCache::getFromCacheOrCreateAndCache(uint64_t a1, void *a2, unsigned int a3, uint64_t a4)
-{
-  v7 = a2;
-  v8 = [*(a1 + 8) objectForKey:v7];
-  if (!v8)
-  {
-    v9 = *(a4 + 24);
-    if (!v9)
-    {
-      std::__throw_bad_function_call[abi:ne200100]();
-    }
-
-    v8 = (*(*v9 + 48))(v9);
-    if (v8)
-    {
-      [*(a1 + 8) setObject:v8 forKey:v7 cost:a3];
-    }
-  }
-
-  v10 = v8;
-
-  return v10;
-}
-
-id re::REPHASESpatialMixerDefinitionCache::getOmniSpatialMixerDefinition(uint64_t a1, uint64_t a2)
-{
-  v7[4] = *MEMORY[0x1E69E9840];
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %llu", @"Omnidirectional", *(*a2 + 24)];
-  v7[0] = &unk_1F5CCC998;
-  v7[1] = a1;
-  v7[2] = a2;
-  v7[3] = v7;
-  v5 = re::REPHASESpatialMixerDefinitionCache::getFromCacheOrCreateAndCache(a1, v4, 0, v7);
-  std::__function::__value_func<PHASESpatialMixerDefinition * ()(void)>::~__value_func[abi:ne200100](v7);
 
   return v5;
 }
 
-void sub_1E215F328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+BOOL validateMTLIndexType(re *a1, MTLIndexType *a2)
 {
-  va_start(va, a4);
-  std::__function::__value_func<PHASESpatialMixerDefinition * ()(void)>::~__value_func[abi:ne200100](va);
-
-  _Unwind_Resume(a1);
-}
-
-void re::REPHASESpatialMixerDefinitionCache::getSphericalSpatialMixerDefinition(double a1, double a2, uint64_t a3, uint64_t a4)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  [MEMORY[0x1E696AEC0] stringWithFormat:@"Spherical with radius %.2f and opening angle %.2f %llu", *&a1, *&a2, *(*a4 + 24), *&a2, *&a1];
-  objc_claimAutoreleasedReturnValue();
-  v4 = 0;
-  operator new();
-}
-
-void sub_1E215F460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
-{
-  va_start(va, a6);
-  std::__function::__value_func<PHASESpatialMixerDefinition * ()(void)>::~__value_func[abi:ne200100](va);
-
-  _Unwind_Resume(a1);
-}
-
-id re::REPHASESpatialMixerDefinitionCache::getBeamSpatialMixerDefinition(uint64_t a1, uint64_t *a2, double a3)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v8 = a3;
-  if (a3 > 0.0)
+  if (a1 > 1)
   {
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"Beam with focus: %.2f", *&a3];
-    objc_claimAutoreleasedReturnValue();
-    v9 = 0;
+    if (a2)
+    {
+      *a2 = -1;
+    }
+
+    v3 = *re::assetTypesLogObjects(a1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      *v5 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v3, OS_LOG_TYPE_ERROR, "Invalid MTLIndexType when decoding REMeshPartDescriptor", v5, 2u);
+    }
+  }
+
+  else if (a2)
+  {
+    *a2 = a1;
+  }
+
+  return a1 < 2;
+}
+
+BOOL validateMeshPartOptionalFlag(re *a1, char *a2)
+{
+  if (a1 >= 3)
+  {
+    v4 = *re::assetTypesLogObjects(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_ERROR, "Invalid MeshPartOptionalFlag when decoding REMeshAttributeDescriptor", v6, 2u);
+    }
+  }
+
+  else
+  {
+    if (a1 == 2)
+    {
+      v3 = 2;
+    }
+
+    else
+    {
+      if (a1 != 1)
+      {
+        *a2 = 0;
+        return a1 < 3;
+      }
+
+      v3 = 1;
+    }
+
+    *a2 = v3;
+  }
+
+  return a1 < 3;
+}
+
+void sub_1E20F9B44(_Unwind_Exception *a1)
+{
+  v4 = v3;
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t anonymous namespace::validateAttribute(void *a1, int a2, uint64_t a3, uint64_t a4)
+{
+  v7 = a1;
+  v8 = v7;
+  if (v7)
+  {
+    v9 = 48;
+    if (a2 == 1)
+    {
+      v9 = 0;
+    }
+
+    v10 = [v7 validateWithPayloadSize:*(a3 + v9) error:a4];
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  return v10;
+}
+
+void sub_1E20FC878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+
+  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1E20FCFC0(_Unwind_Exception *a1)
+{
+  v4 = v3;
+
+  _Unwind_Resume(a1);
+}
+
+void _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(const void **a1, unint64_t a2)
+{
+  v3 = *a1;
+  v4 = a1[1];
+  v5 = (v4 - *a1) >> 4;
+  if (a2 <= v5)
+  {
+    if (a2 >= v5)
+    {
+      return;
+    }
+
+    v11 = &v3[16 * a2];
+  }
+
+  else
+  {
+    v6 = a2 - v5;
+    v7 = a1[2];
+    if (v6 > (v7 - v4) >> 4)
+    {
+      if (!(a2 >> 60))
+      {
+        v8 = v7 - v3;
+        v9 = v8 >> 3;
+        if (v8 >> 3 <= a2)
+        {
+          v9 = a2;
+        }
+
+        if (v8 >= 0x7FFFFFFFFFFFFFF0)
+        {
+          v10 = 0xFFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v10 = v9;
+        }
+
+        _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIDv3_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(v10);
+      }
+
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    bzero(a1[1], 16 * v6);
+    v11 = &v4[16 * v6];
+  }
+
+  a1[1] = v11;
+}
+
+uint64_t validateLocalRestPoseFloat3(unint64_t a1, uint64_t a2, size_t a3, void **a4)
+{
+  if (a3 != 16 * a1)
+  {
+    return 0;
+  }
+
+  if (a1)
+  {
+    if (!(a1 >> 60))
+    {
+      _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIDv3_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(a1);
+    }
+
+    std::string::__throw_length_error[abi:nn200100]();
+  }
+
+  if (!a4)
+  {
+    return 1;
+  }
+
+  v6 = *a4;
+  if (*a4)
+  {
+    a4[1] = v6;
+    operator delete(v6);
+  }
+
+  *a4 = 0;
+  a4[1] = 0;
+  v5 = 1;
+  a4[2] = 0;
+  return v5;
+}
+
+void _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIDv3_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(unint64_t a1)
+{
+  if (!(a1 >> 60))
+  {
     operator new();
   }
 
-  v3 = a2[1];
-  v6 = *a2;
-  v7 = v3;
-  if (v3)
+  std::string::__throw_length_error[abi:nn200100]();
+}
+
+void std::__allocate_at_least[abi:nn200100]<std::allocator<simd_float4x4>>(unint64_t a1)
+{
+  if (!(a1 >> 58))
   {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+    operator new();
   }
 
-  v4 = re::REPHASESpatialMixerDefinitionCache::getOmniSpatialMixerDefinition(a1, &v6);
+  std::string::__throw_length_error[abi:nn200100]();
+}
+
+_anonymous_namespace_ *re::DynamicOverflowArray<unsigned long long,3ul>::setCapacity(_anonymous_namespace_ *result, unint64_t a2)
+{
+  v4 = result;
+  v5 = *result;
+  if (a2 && !v5)
+  {
+    result = re::DynamicOverflowArray<unsigned long long,3ul>::setCapacity(v4, a2);
+    v6 = *(v4 + 4) + 2;
+LABEL_4:
+    *(v4 + 4) = v6;
+    return result;
+  }
+
+  v7 = *(result + 4);
   if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v7);
-  }
-
-  return v4;
-}
-
-void sub_1E215F5D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
-{
-  va_start(va, a6);
-  std::__function::__value_func<PHASESpatialMixerDefinition * ()(void)>::~__value_func[abi:ne200100](va);
-
-  _Unwind_Resume(a1);
-}
-
-id re::REPHASESpatialMixerDefinitionCache::createBaseSpatialMixerDefinition(re::REPHASESpatialMixerDefinitionCache *this, NSString *a2, NSString *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"spatialMixer-%d", *this];
-  v9 = re::REPHASESpatialMixerDefinitionCache::createSpatialPipeline(v5, v6, v8);
-  v10 = [objc_alloc(MEMORY[0x1E6978228]) initWithSpatialPipeline:v9 identifier:v7];
-  v11 = objc_alloc_init(MEMORY[0x1E69781B8]);
-  [v10 setDistanceModelParameters:v11];
-
-  ++*this;
-
-  return v10;
-}
-
-uint64_t std::__function::__value_func<PHASESpatialMixerDefinition * ()(void)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-__n128 std::__function::__func<re::REPHASESpatialMixerDefinitionCache::getOmniSpatialMixerDefinition(std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0,std::allocator<re::REPHASESpatialMixerDefinitionCache::getOmniSpatialMixerDefinition(std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0>,PHASESpatialMixerDefinition * ()(void)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5CCC998;
-  result = *(a1 + 8);
-  *(a2 + 8) = result;
-  return result;
-}
-
-id std::__function::__func<re::REPHASESpatialMixerDefinitionCache::getOmniSpatialMixerDefinition(std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0,std::allocator<re::REPHASESpatialMixerDefinitionCache::getOmniSpatialMixerDefinition(std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0>,PHASESpatialMixerDefinition * ()(void)>::operator()(uint64_t a1)
-{
-  v1 = re::REPHASESpatialMixerDefinitionCache::createBaseSpatialMixerDefinition(*(a1 + 8), *(**(a1 + 16) + 336), *(**(a1 + 16) + 344));
-  v2 = *re::audioLogObjects([v1 setSourceDirectivityModelParameters:0]);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-  {
-    *v4 = 0;
-    _os_log_impl(&dword_1E1C61000, v2, OS_LOG_TYPE_INFO, "REPHASESpatialMixerDefinitionCache::getOmniSpatialMixerDefinition created and cached a new omnidirectional spatial mixer definition.", v4, 2u);
-  }
-
-  return v1;
-}
-
-uint64_t std::__function::__func<re::REPHASESpatialMixerDefinitionCache::getOmniSpatialMixerDefinition(std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0,std::allocator<re::REPHASESpatialMixerDefinitionCache::getOmniSpatialMixerDefinition(std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0>,PHASESpatialMixerDefinition * ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
+    v8 = 3;
   }
 
   else
   {
-    return 0;
-  }
-}
-
-__n128 std::__function::__func<re::REPHASESpatialMixerDefinitionCache::getSphericalSpatialMixerDefinition(double,double,std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0,std::allocator<re::REPHASESpatialMixerDefinitionCache::getSphericalSpatialMixerDefinition(double,double,std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0>,PHASESpatialMixerDefinition * ()(void)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5CCCA18;
-  result = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 8) = result;
-  return result;
-}
-
-id std::__function::__func<re::REPHASESpatialMixerDefinitionCache::getSphericalSpatialMixerDefinition(double,double,std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0,std::allocator<re::REPHASESpatialMixerDefinitionCache::getSphericalSpatialMixerDefinition(double,double,std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0>,PHASESpatialMixerDefinition * ()(void)>::operator()(uint64_t a1)
-{
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 24);
-  v3 = objc_alloc_init(MEMORY[0x1E6978238]);
-  [v3 setSphereRadius:**(a1 + 8)];
-  [v3 setCapOpeningAngle:**(a1 + 16)];
-  v4 = re::REPHASESpatialMixerDefinitionCache::createBaseSpatialMixerDefinition(v2, *(**(a1 + 32) + 336), *(**(a1 + 32) + 344));
-  v5 = *re::audioLogObjects([v4 setSourceDirectivityModelParameters:v3]);
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
-  {
-    v6 = **(a1 + 8);
-    v7 = **(a1 + 16);
-    v9 = 134218240;
-    v10 = v6;
-    v11 = 2048;
-    v12 = v7;
-    _os_log_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_INFO, "REPHASESpatialMixerDefinitionCache::getSphericalSpatialMixerDefinition created and cached a definition for radius %f and opening angle %f.", &v9, 0x16u);
+    v8 = *(result + 3);
   }
 
-  return v4;
-}
-
-uint64_t std::__function::__func<re::REPHASESpatialMixerDefinitionCache::getSphericalSpatialMixerDefinition(double,double,std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0,std::allocator<re::REPHASESpatialMixerDefinitionCache::getSphericalSpatialMixerDefinition(double,double,std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0>,PHASESpatialMixerDefinition * ()(void)>::target(uint64_t a1, uint64_t a2)
-{
+  if (v8 != a2)
   {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-id anonymous namespace::directivityModelParametersForBeamFocus(_anonymous_namespace_ *this, double a2)
-{
-  v12[3] = *MEMORY[0x1E69E9840];
-  v2 = 1.0;
-  if (a2 <= 1.0)
-  {
-    v2 = a2;
-  }
-
-  if (a2 >= 0.0)
-  {
-    v3 = v2;
-  }
-
-  else
-  {
-    v3 = 0.0;
-  }
-
-  v4 = objc_alloc_init(MEMORY[0x1E6978180]);
-  [v4 setFrequency:250.0];
-  [v4 setPattern:v3 * 0.25];
-  [v4 setSharpness:1.0];
-  v5 = objc_alloc_init(MEMORY[0x1E6978180]);
-  [v5 setFrequency:1000.0];
-  [v5 setPattern:v3 * 0.5];
-  [v5 setSharpness:1.0];
-  v6 = objc_alloc_init(MEMORY[0x1E6978180]);
-  [v6 setFrequency:4000.0];
-  if (v3 >= 0.5)
-  {
-    [v6 setPattern:?];
-    v7 = v3 + -0.5 + v3 + -0.5;
-    [v6 setSharpness:((1.0 - v7) + (v7 * 10.0))];
-  }
-
-  else
-  {
-    [v6 setPattern:v3];
-    [v6 setSharpness:1.0];
-  }
-
-  v8 = objc_alloc(MEMORY[0x1E6978178]);
-  v12[0] = v4;
-  v12[1] = v5;
-  v12[2] = v6;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
-  v10 = [v8 initWithSubbandParameters:v9];
-
-  return v10;
-}
-
-__n128 std::__function::__func<re::REPHASESpatialMixerDefinitionCache::getBeamSpatialMixerDefinition(double,std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0,std::allocator<re::REPHASESpatialMixerDefinitionCache::getBeamSpatialMixerDefinition(double,std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0>,PHASESpatialMixerDefinition * ()(void)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5CCCA98;
-  result = *(a1 + 8);
-  *(a2 + 24) = *(a1 + 24);
-  *(a2 + 8) = result;
-  return result;
-}
-
-_anonymous_namespace_ *std::__function::__func<re::REPHASESpatialMixerDefinitionCache::getBeamSpatialMixerDefinition(double,std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0,std::allocator<re::REPHASESpatialMixerDefinitionCache::getBeamSpatialMixerDefinition(double,std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0>,PHASESpatialMixerDefinition * ()(void)>::operator()(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = re::REPHASESpatialMixerDefinitionCache::createBaseSpatialMixerDefinition(*(a1 + 8), *(**(a1 + 16) + 336), *(**(a1 + 16) + 344));
-  v3 = objc_claimAutoreleasedReturnValue();
-  [(_anonymous_namespace_ *)v2 setSourceDirectivityModelParameters:v3];
-
-  v5 = *re::audioLogObjects(v4);
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
-  {
-    v6 = **(a1 + 24);
-    v8 = 134217984;
-    v9 = v6;
-    _os_log_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_INFO, "REPHASESpatialMixerDefinitionCache::getBeamSpatialMixerDefinition created and cached a definition with focus %f.", &v8, 0xCu);
-  }
-
-  return v2;
-}
-
-uint64_t std::__function::__func<re::REPHASESpatialMixerDefinitionCache::getBeamSpatialMixerDefinition(double,std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0,std::allocator<re::REPHASESpatialMixerDefinitionCache::getBeamSpatialMixerDefinition(double,std::shared_ptr<re::audio::REPHASESoundPrepareState>)::$_0>,PHASESpatialMixerDefinition * ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::shared_ptr<re::audio::REPHASEEntity>::shared_ptr[abi:ne200100]<re::audio::REPHASEEntity,0>(void *a1, uint64_t a2)
-{
-  *a1 = a2;
-  v2 = a2;
-  operator new();
-}
-
-void sub_1E2160088(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<re::audio::REPHASEEntity>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-id **std::unique_ptr<re::audio::REPHASEEntity>::~unique_ptr[abi:ne200100](id **a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    re::audio::REPHASEEntity::~REPHASEEntity(v2);
-    MEMORY[0x1E6906520]();
-  }
-
-  return a1;
-}
-
-void std::__shared_ptr_pointer<re::audio::REPHASEEntity *,std::shared_ptr<re::audio::REPHASEEntity>::__shared_ptr_default_delete<re::audio::REPHASEEntity,re::audio::REPHASEEntity>,std::allocator<re::audio::REPHASEEntity>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
-{
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x1E6906520);
-}
-
-id *std::__shared_ptr_pointer<re::audio::REPHASEEntity *,std::shared_ptr<re::audio::REPHASEEntity>::__shared_ptr_default_delete<re::audio::REPHASEEntity,re::audio::REPHASEEntity>,std::allocator<re::audio::REPHASEEntity>>::__on_zero_shared(uint64_t a1)
-{
-  result = *(a1 + 24);
-  if (result)
-  {
-    re::audio::REPHASEEntity::~REPHASEEntity(result);
-
-    JUMPOUT(0x1E6906520);
-  }
-
-  return result;
-}
-
-uint64_t std::__shared_ptr_pointer<re::audio::REPHASEEntity *,std::shared_ptr<re::audio::REPHASEEntity>::__shared_ptr_default_delete<re::audio::REPHASEEntity,re::audio::REPHASEEntity>,std::allocator<re::audio::REPHASEEntity>>::__get_deleter(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void re::audio::REPHASEEntity::~REPHASEEntity(id *this)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  if (*(this + 28) <= 0)
-  {
-    v4 = [this[2] parent];
-    [v4 removeChild:this[2]];
-
-    v5 = [this[3] parent];
-    [v5 removeChild:this[3]];
-  }
-
-  else
-  {
-    v2 = *re::audioLogObjects(this);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v9 = *(result + 1);
+    if (v9 <= a2 && (a2 > 3 || (v7 & 1) == 0))
     {
-      v3 = *(this + 28);
-      v7[0] = 67109120;
-      v7[1] = v3;
-      _os_log_impl(&dword_1E1C61000, v2, OS_LOG_TYPE_DEFAULT, "REPHASEEntity: Cannot destroy source and occluder from the engine. soundCount(%d) is greater than 0", v7, 8u);
-    }
-  }
-
-  v6 = this[1];
-  if (v6)
-  {
-    std::__shared_weak_count::__release_weak(v6);
-  }
-}
-
-void sub_1E21602B8(_Unwind_Exception *a1, int a2)
-{
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t re::AudioManager_PHASE_State_Ready::handleStateChangeEvent(re *a1, int a2)
-{
-  v18 = *MEMORY[0x1E69E9840];
-  if ((a2 - 1) >= 9)
-  {
-    if (!a2)
-    {
-      return 0x100000000;
-    }
-  }
-
-  else
-  {
-    v4 = *re::audioLogObjects(a1);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      (*(*a1 + 8))(v12, a1);
-      v5 = v13;
-      v6 = v12[0];
-      re::nameForAudioManagerStateMachineEvent(a2, __p);
-      v7 = v12;
-      if (v5 < 0)
+      if (a2 < 4)
       {
-        v7 = v6;
+        v14 = (result + 24);
+        v15 = *(v4 + 4);
+        if (v7)
+        {
+          v16 = v4 + 24;
+        }
+
+        else
+        {
+          v16 = *(v4 + 4);
+        }
+
+        memcpy(v14, v16, 8 * v9);
+        result = (*(*v5 + 40))(v5, v15);
+        v6 = *(v4 + 4) | 1;
+        goto LABEL_4;
       }
 
-      if (v11 >= 0)
+      if (a2 >> 61)
       {
-        v8 = __p;
+        re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicOverflowArray<T, N>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 646, 8, a2);
+        _os_crash("assertion failure: (!overflow) Size overflow in DynamicOverflowArray<T, N>::setCapacity(). Element size = %zu, capacity = %zu", v18, v20);
+        __break(1u);
       }
 
       else
       {
-        v8 = __p[0];
+        v2 = 8 * a2;
+        v10 = (*(*v5 + 32))(*result, 8 * a2, 8);
+        if (v10)
+        {
+          v12 = v10;
+          if (*(v4 + 16))
+          {
+            v13 = v4 + 24;
+          }
+
+          else
+          {
+            v13 = *(v4 + 4);
+          }
+
+          result = memcpy(v10, v13, 8 * *(v4 + 1));
+          v17 = *(v4 + 4);
+          if ((v17 & 1) == 0)
+          {
+            result = (*(**v4 + 40))(*v4, *(v4 + 4));
+            v17 = *(v4 + 4);
+          }
+
+          *(v4 + 4) = v17 & 0xFFFFFFFE;
+          *(v4 + 3) = a2;
+          *(v4 + 4) = v12;
+          return result;
+        }
       }
 
-      *buf = 136315394;
-      v15 = v7;
-      v16 = 2080;
-      v17 = v8;
-      _os_log_impl(&dword_1E1C61000, v4, OS_LOG_TYPE_DEFAULT, "[RE/MediaServices] [EngineStateChange] Invalid state change event. Current state : %s, event '%s'.", buf, 0x16u);
-      if (v11 < 0)
+      re::internal::assertLog(6, v11, "assertion failure: '%s' (%s:line %i) DynamicOverflowArray<T, N> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 650, v2, *(*v4 + 8));
+      result = _os_crash("assertion failure: (newData) DynamicOverflowArray<T, N> is out of memory (tried to allocate %zu bytes from allocator '%s').", v19, v21);
+      __break(1u);
+    }
+  }
+
+  return result;
+}
+
+_anonymous_namespace_ *re::DynamicOverflowArray<unsigned long long,3ul>::resize(_anonymous_namespace_ *result, unint64_t a2, void *a3)
+{
+  v4 = result;
+  v5 = *(result + 1);
+  if (v5 >= a2)
+  {
+    if (v5 <= a2)
+    {
+      return result;
+    }
+  }
+
+  else
+  {
+    result = re::DynamicOverflowArray<unsigned long long,3ul>::reserve(result, a2);
+    v7 = *(v4 + 1);
+    if (v7 < a2)
+    {
+      do
       {
-        operator delete(__p[0]);
+        v8 = v4 + 24;
+        if ((*(v4 + 16) & 1) == 0)
+        {
+          v8 = *(v4 + 4);
+        }
+
+        *&v8[8 * v7++] = *a3;
       }
 
-      if (v13 < 0)
-      {
-        operator delete(v12[0]);
-      }
+      while (a2 != v7);
+    }
+  }
+
+  *(v4 + 1) = a2;
+  *(v4 + 4) += 2;
+  return result;
+}
+
+_anonymous_namespace_ *re::DynamicOverflowArray<unsigned long long,3ul>::reserve(_anonymous_namespace_ *result, unint64_t a2)
+{
+  v3 = result;
+  if (*result)
+  {
+    if ((*(result + 4) & 1) == 0)
+    {
+LABEL_3:
+      v4 = *(v3 + 3);
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    result = re::DynamicOverflowArray<unsigned long long,3ul>::setCapacity(v3, a2);
+    v5 = *(v3 + 4) + 2;
+    *(v3 + 4) = v5;
+    if ((v5 & 1) == 0)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v4 = 3;
+LABEL_6:
+  if (v4 < a2)
+  {
+
+    return re::DynamicOverflowArray<unsigned long long,3ul>::setCapacity(v3, a2);
+  }
+
+  return result;
+}
+
+void *re::allocInfo_AudioFileGroupAsset(re *this)
+{
+  if ((atomic_load_explicit(&_MergedGlobals_105, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_105))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE19BBD8, "AudioFileGroupAsset");
+    __cxa_guard_release(&_MergedGlobals_105);
+  }
+
+  return &unk_1EE19BBD8;
+}
+
+void re::initInfo_AudioFileGroupAsset(re *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
+{
+  v12[0] = 0xFE91415CC2D84746;
+  v12[1] = "AudioFileGroupAsset";
+  if (v12[0])
+  {
+    if (v12[0])
+    {
+    }
+  }
+
+  *(this + 2) = v13;
+  if ((atomic_load_explicit(&qword_1EE19BBB8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19BBB8))
+  {
+    v7 = re::introspectionAllocator();
+    v9 = re::IntrospectionInfo<re::DynamicArray<re::AssetHandle>>::get(1, v8);
+    v10 = (*(*v7 + 32))(v7, 72, 8);
+    *v10 = 1;
+    *(v10 + 8) = "assets";
+    *(v10 + 16) = v9;
+    *(v10 + 24) = 0;
+    *(v10 + 32) = 0x800000001;
+    *(v10 + 40) = 0;
+    *(v10 + 48) = 0;
+    *(v10 + 56) = 0;
+    *(v10 + 64) = 0;
+    qword_1EE19BBB0 = v10;
+    __cxa_guard_release(&qword_1EE19BBB8);
+  }
+
+  *(this + 2) = 0x3800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 1;
+  *(this + 8) = &qword_1EE19BBB0;
+  *(this + 9) = re::internal::defaultConstruct<re::AudioFileGroupAsset>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::AudioFileGroupAsset>;
+  *(this + 13) = re::internal::defaultConstructV2<re::AudioFileGroupAsset>;
+  *(this + 14) = re::internal::defaultDestructV2<re::AudioFileGroupAsset>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v6);
+  v11 = v13;
+}
+
+re::AudioFileGroupAsset *re::AudioFileGroupAsset::AudioFileGroupAsset(re::AudioFileGroupAsset *this)
+{
+  *(this + 1) = 0;
+  *this = &unk_1F5CCA008;
+  *(this + 5) = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
+  *(this + 8) = 0;
+    ;
+  }
+
+  *(this + 6) = __buf;
+  return this;
+}
+
+void re::AudioFileGroupAsset::~AudioFileGroupAsset(re::AudioFileGroupAsset *this)
+{
+  re::DynamicArray<re::AssetHandle>::deinit(this + 8);
+}
+
+{
+  re::DynamicArray<re::AssetHandle>::deinit(this + 8);
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t *re::AudioFileGroupAsset::assetType(re::AudioFileGroupAsset *this)
+{
+  {
+    re::AudioFileGroupAsset::assetType(void)::type = "AudioFileGroup";
+    qword_1EE1C6C80 = 0;
+    re::AssetType::generateCompiledExtension(&re::AudioFileGroupAsset::assetType(void)::type);
+  }
+
+  return &re::AudioFileGroupAsset::assetType(void)::type;
+}
+
+uint64_t re::AudioFileGroupAsset::isCompletelyLoaded(uint64_t this)
+{
+  v1 = *(this + 24);
+  if (!v1)
+  {
+    return 1;
+  }
+
+  v2 = *(this + 40);
+  v3 = 24 * v1;
+  while (1)
+  {
+    v4 = *(v2 + 1);
+    if (!v4)
+    {
+      break;
+    }
+
+    v5 = atomic_load((v4 + 896));
+    if (v5 != 2)
+    {
+      break;
+    }
+
+    v6 = *(v2 + 1);
+    if (!v6)
+    {
+      re::AudioFileAsset::assetType(this);
+      return 0;
+    }
+
+    v7 = *(v6 + 280);
+    if (v7 != re::AudioFileAsset::assetType(this))
+    {
+      return 0;
+    }
+
+    this = re::AssetHandle::loadedAsset<re::AudioFileAsset>(v2);
+    if (!this)
+    {
+      return this;
+    }
+
+    if ((*(this + 161) & 1) == 0)
+    {
+      return 0;
+    }
+
+    v2 = (v2 + 24);
+    v3 -= 24;
+    if (!v3)
+    {
+      return 1;
     }
   }
 
   return 0;
 }
 
-void sub_1E2160428(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void re::AudioFileGroupAsset::completeLoad(re::AudioFileGroupAsset *this, AudioSceneService *a2)
 {
-  if (a17 < 0)
+  v2 = *(this + 3);
+  if (v2)
   {
-    operator delete(__p);
+    v4 = *(this + 5);
+    v5 = 24 * v2;
+    do
+    {
+      v6 = *(v4 + 1);
+      if (v6)
+      {
+        v7 = *(v6 + 280);
+        this = re::AudioFileAsset::assetType(this);
+        if (v7 == this)
+        {
+          ++*(*(v4 + 1) + 276);
+          this = re::AssetHandle::loadedAsset<re::AudioFileAsset>(v4);
+          if (this)
+          {
+            re::AudioFileAsset::completeLoad(this, a2);
+          }
+        }
+      }
+
+      else
+      {
+        this = re::AudioFileAsset::assetType(this);
+      }
+
+      v4 = (v4 + 24);
+      v5 -= 24;
+    }
+
+    while (v5);
+  }
+}
+
+void re::AudioFileGroupAssetLoader::~AudioFileGroupAssetLoader(re::AudioFileGroupAssetLoader *this)
+{
+  *(this + 3) = 0;
+}
+
+{
+  *(this + 3) = 0;
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t re::AudioFileGroupAssetLoader::unloadAsset(re::AudioFileGroupAssetLoader *this, void *a2)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  v3 = *(this + 3);
+  if (v3 && (v3 = (*(*v3 + 24))(v3)) != 0)
+  {
+    result = (*(*v3 + 920))(v3, a2[6]);
   }
 
-  _Unwind_Resume(a1);
-}
-
-void sub_1E2160668(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
-{
-  objc_destroyWeak((v16 + 32));
-  objc_destroyWeak(&location);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1E216086C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
-{
-  v10 = v9;
-  a9.receiver = v10;
-  a9.super_class = REAudioManagerNotificationListener;
-  [(_Unwind_Exception *)&a9 dealloc];
-  _Unwind_Resume(a1);
-}
-
-void sub_1E2160D68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
-{
-  *(v18 - 80) = &a17;
-  std::vector<PHASESource * {__strong}>::__destroy_vector::operator()[abi:ne200100]((v18 - 80));
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1E2161370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
-{
-  *(v18 - 80) = &a17;
-  std::vector<PHASESource * {__strong}>::__destroy_vector::operator()[abi:ne200100]((v18 - 80));
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1E21619D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
-{
-  *(v18 - 80) = &a17;
-  std::vector<PHASESource * {__strong}>::__destroy_vector::operator()[abi:ne200100]((v18 - 80));
-
-  _Unwind_Resume(a1);
-}
-
-void *re::audio::allocInfo_AudioSourceDirectivityConfiguration(re::audio *this)
-{
-  if ((atomic_load_explicit(&_MergedGlobals_121, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_121))
+  else
   {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE19D158, "AudioSourceDirectivityConfiguration");
-    __cxa_guard_release(&_MergedGlobals_121);
+    v5 = *re::audioLogObjects(v3);
+    result = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (result)
+    {
+      v7 = a2[6];
+      v8 = 134217984;
+      v9 = v7;
+      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "[CoreRE] [AudioFileGroupAssetLoader] Cannot unload audio file group asset data for assetID: %llu  without a valid audio service.", &v8, 0xCu);
+    }
+
+    else if (!a2)
+    {
+      return result;
+    }
   }
 
-  return &unk_1EE19D158;
+  v6 = re::globalAllocators(result)[2];
+  re::DynamicArray<re::AssetHandle>::deinit((a2 + 1));
+  return (*(*v6 + 40))(v6, a2);
 }
 
-void re::audio::initInfo_AudioSourceDirectivityConfiguration(re::audio *this, re::IntrospectionBase *a2)
+uint64_t re::AudioFileGroupAssetLoader::introspectionType(re::AudioFileGroupAssetLoader *this)
 {
-  v23[0] = 0xE5B34C3C52C3FC9ELL;
-  v23[1] = "AudioSourceDirectivityConfiguration";
+  if ((atomic_load_explicit(&qword_1EE19BBD0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19BBD0))
+  {
+    qword_1EE19BBC8 = re::internal::getOrCreateInfo("AudioFileGroupAsset", re::allocInfo_AudioFileGroupAsset, re::initInfo_AudioFileGroupAsset, &unk_1EE19BBC0, 0);
+    __cxa_guard_release(&qword_1EE19BBD0);
+  }
+
+  return qword_1EE19BBC8;
+}
+
+void re::AudioFileGroupAssetLoader::unregisterAsset(uint64_t a1, uint64_t a2)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  if (a2)
+  {
+    v3 = *(a1 + 24);
+    if (v3)
+    {
+      v4 = *(*v3 + 152);
+
+      v4();
+    }
+
+    else
+    {
+      v5 = *re::audioLogObjects(0);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        v6 = *(a2 + 48);
+        v7 = 134217984;
+        v8 = v6;
+        _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "[CoreRE] [AudioFileGroupAssetLoader] Cannot unregister asset %llu without a valid audio scene service.", &v7, 0xCu);
+      }
+    }
+  }
+}
+
+uint64_t *re::RenderGraphAsset::assetType(re::RenderGraphAsset *this)
+{
+  {
+    re::RenderGraphAsset::assetType(void)::type = "RenderGraph";
+    qword_1EE1C6F58 = 0;
+    re::AssetType::generateCompiledExtension(&re::RenderGraphAsset::assetType(void)::type);
+  }
+
+  return &re::RenderGraphAsset::assetType(void)::type;
+}
+
+uint64_t re::RenderGraphAssetLoader::introspectionType(re::RenderGraphAssetLoader *this)
+{
+  v1 = &unk_1EE187000;
+  {
+    v1 = &unk_1EE187000;
+    if (v3)
+    {
+      re::introspect<re::RenderGraphAsset>(BOOL)::info = re::internal::getOrCreateInfo("RenderGraphAsset", re::allocInfo_RenderGraphAsset, re::initInfo_RenderGraphAsset, &re::internal::introspectionInfoStorage<re::RenderGraphAsset>, 0);
+      v1 = &unk_1EE187000;
+    }
+  }
+
+  return v1[214];
+}
+
+re *re::internal::destroyPersistent<re::RenderGraphAsset>(re *result, uint64_t a2, void (***a3)(void))
+{
+  if (a3)
+  {
+    v4 = re::globalAllocators(result)[2];
+    (**a3)(a3);
+    v5 = *(*v4 + 40);
+
+    return v5(v4, a3);
+  }
+
+  return result;
+}
+
+uint64_t re::RenderGraphAssetLoader::registerAsset(re::StringID **this, char *a2, const re::ExistingAssetInformation *a3)
+{
+  v13 = *MEMORY[0x1E69E9840];
+  *(a2 + 46) = re::ServiceLocator::service<re::AssetService>(this[1]);
+  if (*(a3 + 13))
+  {
+    v6 = *(a3 + 14);
+  }
+
+  else
+  {
+    v6 = a3 + 105;
+  }
+
+  v11 = v6;
+  v12 = strlen(v6);
+  re::DynamicString::operator=((a2 + 376), &v11);
+  if (a2[384])
+  {
+    v7 = *(a2 + 49);
+  }
+
+  else
+  {
+    v7 = a2 + 385;
+  }
+
+  v8 = strlen(v7);
+  if (v8)
+  {
+    MurmurHash3_x64_128(v7, v8, 0, &v11);
+    v9 = (v12 + (v11 << 6) + (v11 >> 2) - 0x61C8864680B583E9) ^ v11;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  *(a2 + 51) = v9;
+  return re::AssetLoader::registerAsset(this, a2, a3);
+}
+
+uint64_t re::RenderGraphAssetLoader::createRuntimeData(uint64_t a1, uint64_t a2)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  if (*(a2 + 144) == *(a2 + 772))
+  {
+LABEL_2:
+    re::RenderGraphFile::initConnectionSourceDataList(a2 + 8);
+    return 1;
+  }
+
+  v4 = re::RenderGraphFile::calculateValidity((a2 + 8), v12);
+  if ((v12[0] & 1) == 0)
+  {
+    v6 = *re::assetTypesLogObjects(v4);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_13;
+    }
+
+    if (*(a2 + 24))
+    {
+      v8 = *(a2 + 32);
+    }
+
+    else
+    {
+      v8 = a2 + 25;
+    }
+
+    if (v14)
+    {
+      v9 = v16;
+    }
+
+    else
+    {
+      v9 = v15;
+    }
+
+    *buf = 136315394;
+    *v18 = v8;
+    *&v18[8] = 2080;
+    *&v18[10] = v9;
+    v10 = "Failed to calculate validity of render graph asset %s: %s";
+    goto LABEL_31;
+  }
+
+  re::RenderGraphFile::initRuntimeNodeSettings((a2 + 8), buf);
+  v5 = re::Result<re::Unit,re::DynamicString>::operator=(v12, buf);
+  if ((buf[0] & 1) == 0)
+  {
+    v5 = *&v18[4];
+    if (*&v18[4])
+    {
+      if (v18[12])
+      {
+        v5 = (*(**&v18[4] + 40))();
+      }
+    }
+  }
+
+  if (v12[0])
+  {
+    goto LABEL_2;
+  }
+
+  v6 = *re::assetTypesLogObjects(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  {
+    if (*(a2 + 24))
+    {
+      v7 = *(a2 + 32);
+    }
+
+    else
+    {
+      v7 = a2 + 25;
+    }
+
+    if (v14)
+    {
+      v11 = v16;
+    }
+
+    else
+    {
+      v11 = v15;
+    }
+
+    *buf = 136315394;
+    *v18 = v7;
+    *&v18[8] = 2080;
+    *&v18[10] = v11;
+    v10 = "Failed to initialize runtime node settings for render graph asset %s: %s";
+LABEL_31:
+    _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, v10, buf, 0x16u);
+  }
+
+LABEL_13:
+  if (v12[0] & 1) == 0 && v13 && (v14)
+  {
+    (*(*v13 + 40))();
+  }
+
+  return 0;
+}
+
+uint64_t re::Result<re::Unit,re::DynamicString>::operator=(uint64_t a1, uint64_t a2)
+{
+  if (*a1)
+  {
+    if ((*a2 & 1) == 0)
+    {
+      *(a1 + 8) = 0u;
+      *(a1 + 24) = 0u;
+      *(a1 + 32) = *(a2 + 32);
+      v3 = *(a2 + 16);
+      *(a1 + 8) = *(a2 + 8);
+      *(a2 + 8) = 0;
+      v4 = *(a2 + 24);
+      *(a2 + 32) = 0;
+      v6 = *(a1 + 16);
+      v5 = *(a1 + 24);
+      *(a1 + 16) = v3;
+      *(a1 + 24) = v4;
+      *a1 = 0;
+      *(a2 + 16) = v6;
+      *(a2 + 24) = v5;
+    }
+  }
+
+  else
+  {
+    v7 = (a1 + 8);
+    if (*a2)
+    {
+      re::DynamicString::deinit(v7);
+      *a1 = 1;
+    }
+
+    else
+    {
+      re::DynamicString::operator=(v7, (a2 + 8));
+    }
+  }
+
+  return a1;
+}
+
+void *re::allocInfo_RenderGraphAsset(re *this)
+{
+  if ((atomic_load_explicit(&_MergedGlobals_106, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_106))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE19BC80, "RenderGraphAsset");
+    __cxa_guard_release(&_MergedGlobals_106);
+  }
+
+  return &unk_1EE19BC80;
+}
+
+void re::initInfo_RenderGraphAsset(re *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
+{
+  v16[0] = 0xD47C10C081B17130;
+  v16[1] = "RenderGraphAsset";
+  if (v16[0])
+  {
+    if (v16[0])
+    {
+    }
+  }
+
+  *(this + 2) = v17;
+  if ((atomic_load_explicit(&qword_1EE19BC78, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19BC78))
+  {
+    v7 = re::introspectionAllocator();
+    v13 = re::introspect_RenderGraphFile(1, v8, v9, v10, v11, v12);
+    v14 = (*(*v7 + 32))(v7, 72, 8);
+    *v14 = 1;
+    *(v14 + 8) = "provider";
+    *(v14 + 16) = v13;
+    *(v14 + 24) = 0;
+    *(v14 + 32) = 0x800000001;
+    *(v14 + 40) = 0;
+    *(v14 + 48) = 0;
+    *(v14 + 56) = 0;
+    *(v14 + 64) = 0;
+    qword_1EE19BC70 = v14;
+    __cxa_guard_release(&qword_1EE19BC78);
+  }
+
+  *(this + 2) = 0x36800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 1;
+  *(this + 8) = &qword_1EE19BC70;
+  *(this + 9) = re::internal::defaultConstruct<re::RenderGraphAsset>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::RenderGraphAsset>;
+  *(this + 13) = re::internal::defaultConstructV2<re::RenderGraphAsset>;
+  *(this + 14) = re::internal::defaultDestructV2<re::RenderGraphAsset>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v6);
+  v15 = v17;
+}
+
+re::RenderGraphAsset *re::RenderGraphAsset::RenderGraphAsset(re::RenderGraphAsset *this)
+{
+  *this = &unk_1F5CCA328;
+  *(this + 1) = &unk_1F5CC5700;
+  *(this + 2) = 0u;
+  *(this + 1) = 0u;
+  v2 = (this + 16);
+  v3 = re::DynamicString::setCapacity(v2, 0);
+  *(this + 1) = &unk_1F5CC4EA8;
+  *(this + 6) = 0;
+  *(this + 56) = 0u;
+  *(this + 18) = 0;
+  *(this + 5) = 0u;
+  *(this + 6) = 0u;
+  *(this + 28) = 0;
+  *(this + 120) = 0u;
+  *(this + 136) = 0u;
+  *(this + 38) = 0;
+  *(this + 10) = 0u;
+  *(this + 11) = 0u;
+  *(this + 48) = 0;
+  *(this + 200) = 0u;
+  *(this + 216) = 0u;
+  *(this + 58) = 0;
+  *(this + 15) = 0u;
+  *(this + 16) = 0u;
+  *(this + 68) = 0;
+  *(this + 78) = 0;
+  *(this + 280) = 0u;
+  *(this + 296) = 0u;
+  *(this + 20) = 0u;
+  *(this + 21) = 0u;
+  *(this + 88) = 0;
+  *(this + 360) = 0u;
+  *(this + 376) = 0u;
+  *(this + 392) = 0u;
+  re::DynamicString::setCapacity(this + 47, 0);
+  *(this + 436) = 0u;
+  *(this + 408) = 0u;
+  *(this + 424) = 0u;
+  *(this + 452) = 0x7FFFFFFFLL;
+  *(this + 29) = 0u;
+  *(this + 30) = 0u;
+  *(this + 124) = 0;
+  *(this + 500) = 0x7FFFFFFFLL;
+  *(this + 32) = 0u;
+  *(this + 33) = 0u;
+  *(this + 136) = 0;
+  *(this + 548) = 0x7FFFFFFFLL;
+  *(this + 35) = 0u;
+  *(this + 36) = 0u;
+  *(this + 148) = 0;
+  *(this + 596) = 0x7FFFFFFFLL;
+  *(this + 160) = 0;
+  *(this + 38) = 0u;
+  *(this + 39) = 0u;
+  *(this + 644) = 0x7FFFFFFFLL;
+  *(this + 41) = 0u;
+  *(this + 42) = 0u;
+  *(this + 172) = 0;
+  *(this + 692) = 0x7FFFFFFFLL;
+  *(this + 88) = 0;
+  *(this + 712) = 1;
+  *(this + 45) = 0u;
+  *(this + 46) = 0u;
+  *(this + 47) = 0u;
+  *(this + 764) = 0u;
+  *(this + 780) = 0x7FFFFFFFLL;
+  *(this + 101) = 0;
+  *(this + 204) = 0;
+  *(this + 792) = 0u;
+  *(this + 108) = 0;
+  *(this + 214) = 0;
+  *(this + 824) = 0u;
+  *(this + 840) = 0u;
+  return this;
+}
+
+void re::RenderGraphAsset::~RenderGraphAsset(re::RenderGraphAsset *this)
+{
+  *this = &unk_1F5CCA328;
+  re::RenderGraphFile::~RenderGraphFile((this + 8));
+}
+
+{
+  *this = &unk_1F5CCA328;
+  re::RenderGraphFile::~RenderGraphFile((this + 8));
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t *re::AnimationLibraryAsset::assetType(re::AnimationLibraryAsset *this)
+{
+  {
+    re::AnimationLibraryAsset::assetType(void)::type = "AnimationLibraryAsset";
+    qword_1EE1C69A0 = 0;
+    re::AssetType::generateCompiledExtension(&re::AnimationLibraryAsset::assetType(void)::type);
+  }
+
+  return &re::AnimationLibraryAsset::assetType(void)::type;
+}
+
+uint64_t re::AnimationLibraryAsset::buildAsset(_anonymous_namespace_ *a1, uint64_t a2)
+{
+  v41 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 2);
+  if (v2)
+  {
+    v4 = a1;
+    v5 = 0;
+    v6 = 0;
+    v7 = 0;
+    while (1)
+    {
+      *&v25.var0 = 0;
+      v25.var1 = &str_67;
+      memset(v26, 0, sizeof(v26));
+      if (v2 <= v6)
+      {
+        break;
+      }
+
+      v8 = *(v4 + 4) + v5;
+      if (*(v8 + 8))
+      {
+        v9 = *(v8 + 16);
+      }
+
+      else
+      {
+        v9 = (v8 + 9);
+      }
+
+      *&v36.var0 = 0;
+      v36.var1 = &str_67;
+      v11 = v36;
+      *&v36.var0 = 0;
+      v36.var1 = &str_67;
+      var0 = v25.var0;
+      var1 = v25.var1;
+      v25 = v11;
+      if (var0)
+      {
+        if (*&v36.var0)
+        {
+          if (*&v36.var0)
+          {
+          }
+        }
+      }
+
+      v2 = *(a2 + 16);
+      if (v2 <= v6)
+      {
+        goto LABEL_28;
+      }
+
+      v14 = *(a2 + 32) + v5;
+      if (*(v14 + 8))
+      {
+        v15 = *(v14 + 16);
+      }
+
+      else
+      {
+        v15 = (v14 + 9);
+      }
+
+      if (!v7)
+      {
+        v17 = re::globalAllocators(v16);
+        v7 = (*(*v17[2] + 32))(v17[2], 224, 8);
+        *(v7 + 176) = 0u;
+        *(v7 + 192) = 0u;
+        *v7 = 0u;
+        *(v7 + 16) = 0u;
+        *(v7 + 32) = 0u;
+        *(v7 + 48) = 0u;
+        *(v7 + 64) = 0u;
+        *(v7 + 80) = 0u;
+        *(v7 + 96) = 0u;
+        *(v7 + 112) = 0u;
+        *(v7 + 128) = 0u;
+        *(v7 + 144) = 0u;
+        *(v7 + 160) = 0u;
+        *(v7 + 196) = 0x7FFFFFFF;
+        *(v7 + 208) = 0;
+        *(v7 + 216) = &str_67;
+        re::AnimationLibraryAsset::init(v7, 0);
+      }
+
+      re::DynamicArray<re::NamedAnimationLibraryEntry>::add((v7 + 40), &v25);
+      re::AssetHandle::~AssetHandle(v26);
+      if (*&v25.var0)
+      {
+        if (*&v25.var0)
+        {
+        }
+      }
+
+      ++v6;
+      v2 = *(v4 + 2);
+      v5 += 32;
+      if (v6 >= v2)
+      {
+        return v7;
+      }
+    }
+
+    v27 = 0;
+    v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v36 = 0;
+    v19 = MEMORY[0x1E69E9C10];
+    v20 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v28 = 136315906;
+    v29 = "operator[]";
+    v30 = 1024;
+    if (v20)
+    {
+      v21 = 3;
+    }
+
+    else
+    {
+      v21 = 2;
+    }
+
+    v31 = 797;
+    v32 = 2048;
+    v33 = v6;
+    v34 = 2048;
+    v35 = v2;
+    _os_log_send_and_compose_impl(v21, &v27, &v36, 80, &dword_1E1C61000, v19, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v28, 38, *&v25.var0, v25.var1);
+    _os_crash_msg();
+    __break(1u);
+LABEL_28:
+    v27 = 0;
+    v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v36 = 0;
+    v22 = MEMORY[0x1E69E9C10];
+    v23 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v28 = 136315906;
+    v29 = "operator[]";
+    v30 = 1024;
+    if (v23)
+    {
+      v24 = 3;
+    }
+
+    else
+    {
+      v24 = 2;
+    }
+
+    v31 = 797;
+    v32 = 2048;
+    v33 = v6;
+    v34 = 2048;
+    v35 = v2;
+    _os_log_send_and_compose_impl(v24, &v27, &v36, 80, &dword_1E1C61000, v22, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v28, 38, *&v25.var0, v25.var1);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return 0;
+}
+
+void re::AnimationLibraryAsset::init(re::AnimationLibraryAsset *this, re::Allocator *a2)
+{
+  v2 = a2;
+  if (!a2)
+  {
+  }
+
+  *this = v2;
+  re::DynamicArray<re::SkeletalAnimationLibraryEntry>::setCapacity(this, 0);
+  ++*(this + 6);
+  *(this + 5) = v2;
+  re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity(this + 5, 0);
+  *(this + 15) = v2;
+  v4 = this + 120;
+  ++*(v4 - 14);
+  re::DynamicArray<re::AssetHandle>::setCapacity(v4, 0);
+  ++*(v4 + 6);
+
+  re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init((v4 + 40), v2, 3);
+}
+
+re::AssetHandle *re::DynamicArray<re::NamedAnimationLibraryEntry>::add(_anonymous_namespace_ *this, StringID *a2)
+{
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
+  {
+    re::DynamicArray<re::NamedAnimationLibraryEntry>::growCapacity(this, v4 + 1);
+    v4 = *(this + 2);
+  }
+
+  v5 = re::StringID::StringID((*(this + 4) + 40 * v4), a2);
+  result = re::AssetHandle::AssetHandle((v5 + 16), &a2[1]);
+  ++*(this + 2);
+  ++*(this + 6);
+  return result;
+}
+
+_anonymous_namespace_ *re::DynamicArray<re::SkeletalAnimationLibraryEntry>::add(_anonymous_namespace_ *this, uint64_t a2)
+{
+  v3 = this;
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
+  {
+    this = re::DynamicArray<re::SkeletalAnimationLibraryEntry>::growCapacity(this, v4 + 1);
+    v4 = *(v3 + 2);
+  }
+
+  v5 = *(v3 + 4) + 120 * v4;
+  *v5 = *a2;
+  v6 = *(a2 + 8);
+  *(v5 + 8) = *(v5 + 8) & 0xFFFFFFFFFFFFFFFELL | v6 & 1;
+  *(v5 + 8) = *(a2 + 8) & 0xFFFFFFFFFFFFFFFELL | v6 & 1;
+  *(v5 + 16) = *(a2 + 16);
+  *(a2 + 8) = 0;
+  *(a2 + 16) = &str_67;
+  v7 = *(a2 + 24);
+  *(v5 + 24) = *(v5 + 24) & 0xFFFFFFFFFFFFFFFELL | v7 & 1;
+  *(v5 + 24) = *(a2 + 24) & 0xFFFFFFFFFFFFFFFELL | v7 & 1;
+  *(v5 + 32) = *(a2 + 32);
+  *(a2 + 24) = 0;
+  *(a2 + 32) = &str_67;
+  v8 = *(a2 + 40);
+  *(v5 + 40) = *(v5 + 40) & 0xFFFFFFFFFFFFFFFELL | v8 & 1;
+  *(v5 + 40) = *(a2 + 40) & 0xFFFFFFFFFFFFFFFELL | v8 & 1;
+  *(v5 + 48) = *(a2 + 48);
+  *(a2 + 40) = 0;
+  *(a2 + 48) = &str_67;
+  v9 = *(a2 + 56);
+  *(v5 + 56) = *(v5 + 56) & 0xFFFFFFFFFFFFFFFELL | v9 & 1;
+  *(v5 + 56) = *(a2 + 56) & 0xFFFFFFFFFFFFFFFELL | v9 & 1;
+  *(v5 + 64) = *(a2 + 64);
+  *(a2 + 56) = 0;
+  *(a2 + 64) = &str_67;
+  *(v5 + 72) = 0;
+  *(v5 + 80) = 0;
+  *(v5 + 88) = 0;
+  *(v5 + 80) = *(a2 + 80);
+  *(a2 + 80) = 0;
+  v10 = *(v5 + 72);
+  *(v5 + 72) = 0;
+  *(v5 + 72) = *(a2 + 72);
+  *(a2 + 72) = v10;
+  v11 = *(v5 + 88);
+  *(v5 + 88) = *(a2 + 88);
+  *(a2 + 88) = v11;
+  *(v5 + 96) = 0;
+  *(v5 + 104) = 0;
+  *(v5 + 112) = 0;
+  *(v5 + 104) = *(a2 + 104);
+  *(a2 + 104) = 0;
+  v12 = *(v5 + 96);
+  *(v5 + 96) = 0;
+  *(v5 + 96) = *(a2 + 96);
+  *(a2 + 96) = v12;
+  v13 = *(v5 + 112);
+  *(v5 + 112) = *(a2 + 112);
+  *(a2 + 112) = v13;
+  ++*(v3 + 2);
+  ++*(v3 + 6);
+  return this;
+}
+
+uint64_t re::AnimationLibraryAsset::buildAsset(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v77 = *MEMORY[0x1E69E9840];
+  v5 = *(a2 + 16);
+  if (!v5)
+  {
+    return 0;
+  }
+
+  v7 = 0;
+  v8 = 0;
+  v9 = &v62;
+  v57 = a4;
+  do
+  {
+    v55 = a1[2];
+    if (v55)
+    {
+      v10 = 0;
+      do
+      {
+        v11 = a1[2];
+        if (v11 <= v10)
+        {
+          goto LABEL_75;
+        }
+
+        v56 = v10;
+        v12 = (a1[4] + (v10 << 9));
+        v13 = v12[21];
+        if (v13)
+        {
+          v14 = 0;
+          v10 = 0;
+          v15 = 72;
+          v60 = v12[21];
+          while (1)
+          {
+            v16 = v12[21];
+            if (v16 <= v10)
+            {
+              break;
+            }
+
+            v16 = *(a4 + 16);
+            if (v16 <= v8)
+            {
+              goto LABEL_55;
+            }
+
+            v16 = *(v12[23] + v14);
+            if (*(*(a4 + 32) + 8 * v8) == v16 && a1[12] > v16)
+            {
+              *(&v62 + 1) = 0;
+              *&v63 = &str_67;
+              *(&v63 + 1) = 0;
+              *&v64 = &str_67;
+              *(&v64 + 1) = 0;
+              *&v65 = &str_67;
+              *(&v65 + 1) = 0;
+              *&v66[0] = &str_67;
+              *(v66 + 8) = 0u;
+              memset(&v66[1] + 8, 0, 32);
+              LOBYTE(v62) = 2;
+              re::StringID::operator=(&v62 + 1, v12);
+              v9 = v12[26];
+              if (v9 <= v10)
+              {
+                goto LABEL_59;
+              }
+
+              v18 = re::StringID::operator=(&v63 + 1, (v12[28] + v15));
+              v9 = *(a2 + 16);
+              if (v9 <= v8)
+              {
+                goto LABEL_63;
+              }
+
+              v19 = *(a2 + 32) + 32 * v8;
+              if (*(v19 + 8))
+              {
+                v20 = *(v19 + 16);
+              }
+
+              else
+              {
+                v20 = (v19 + 9);
+              }
+
+              v74[0] = 0;
+              v74[1] = &str_67;
+              v22 = v74[0];
+              v23 = v74[1];
+              v74[0] = 0;
+              v74[1] = &str_67;
+              v24 = BYTE8(v65);
+              *(&v65 + 1) = v22;
+              *&v66[0] = v23;
+              if (v24)
+              {
+                if (v74[0])
+                {
+                  if (v74[0])
+                  {
+                  }
+                }
+              }
+
+              v9 = a1[12];
+              if (v9 <= v16)
+              {
+                goto LABEL_67;
+              }
+
+              v26 = re::StringID::operator=(&v64 + 1, (a1[14] + 112 * v16));
+              v16 = *(a5 + 16);
+              if (v16 <= v8)
+              {
+                goto LABEL_71;
+              }
+
+              v27 = *(a5 + 32) + 32 * v8;
+              if (*(v27 + 8))
+              {
+                v28 = *(v27 + 16);
+              }
+
+              else
+              {
+                v28 = (v27 + 9);
+              }
+
+              v13 = v60;
+              if (!v7)
+              {
+                v30 = re::globalAllocators(v29);
+                v7 = (*(*v30[2] + 32))(v30[2], 224, 8);
+                *(v7 + 176) = 0u;
+                *(v7 + 192) = 0u;
+                *v7 = 0u;
+                *(v7 + 16) = 0u;
+                *(v7 + 32) = 0u;
+                *(v7 + 48) = 0u;
+                *(v7 + 64) = 0u;
+                *(v7 + 80) = 0u;
+                *(v7 + 96) = 0u;
+                *(v7 + 112) = 0u;
+                *(v7 + 128) = 0u;
+                *(v7 + 144) = 0u;
+                *(v7 + 160) = 0u;
+                *(v7 + 196) = 0x7FFFFFFF;
+                *(v7 + 208) = 0;
+                *(v7 + 216) = &str_67;
+                re::AnimationLibraryAsset::init(v7, 0);
+              }
+
+              re::DynamicArray<re::SkeletalAnimationLibraryEntry>::add(v7, &v62);
+              re::AssetHandle::~AssetHandle(&v66[2]);
+              re::AssetHandle::~AssetHandle((v66 + 8));
+              v9 = &v62;
+              if (BYTE8(v65))
+              {
+                if (BYTE8(v65))
+                {
+                }
+              }
+
+              *(&v65 + 1) = 0;
+              *&v66[0] = &str_67;
+              if (BYTE8(v64))
+              {
+                if (BYTE8(v64))
+                {
+                }
+              }
+
+              *(&v64 + 1) = 0;
+              *&v65 = &str_67;
+              if (BYTE8(v63))
+              {
+                if (BYTE8(v63))
+                {
+                }
+              }
+
+              *(&v63 + 1) = 0;
+              *&v64 = &str_67;
+              if (BYTE8(v62))
+              {
+                if (BYTE8(v62))
+                {
+                }
+              }
+
+              a4 = v57;
+            }
+
+            ++v10;
+            v15 += 256;
+            v14 += 144;
+            if (v13 == v10)
+            {
+              goto LABEL_45;
+            }
+          }
+
+          *v67 = 0;
+          v65 = 0u;
+          v66[0] = 0u;
+          v63 = 0u;
+          v64 = 0u;
+          v62 = 0u;
+          v33 = MEMORY[0x1E69E9C10];
+          v34 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          LODWORD(v74[0]) = 136315906;
+          *(v74 + 4) = "operator[]";
+          WORD2(v74[1]) = 1024;
+          if (v34)
+          {
+            v35 = 3;
+          }
+
+          else
+          {
+            v35 = 2;
+          }
+
+          *(&v74[1] + 6) = 797;
+          WORD1(v74[2]) = 2048;
+          *(&v74[2] + 4) = v10;
+          WORD2(v74[3]) = 2048;
+          *(&v74[3] + 6) = v16;
+          _os_log_send_and_compose_impl(v35, v67, &v62, 80, &dword_1E1C61000, v33, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v74, 38, v54, v55);
+          _os_crash_msg();
+          __break(1u);
+LABEL_55:
+          *v67 = 0;
+          v65 = 0u;
+          v66[0] = 0u;
+          v63 = 0u;
+          v64 = 0u;
+          v62 = 0u;
+          v36 = MEMORY[0x1E69E9C10];
+          v37 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          LODWORD(v74[0]) = 136315906;
+          *(v74 + 4) = "operator[]";
+          WORD2(v74[1]) = 1024;
+          if (v37)
+          {
+            v38 = 3;
+          }
+
+          else
+          {
+            v38 = 2;
+          }
+
+          *(&v74[1] + 6) = 797;
+          WORD1(v74[2]) = 2048;
+          *(&v74[2] + 4) = v8;
+          WORD2(v74[3]) = 2048;
+          *(&v74[3] + 6) = v16;
+          _os_log_send_and_compose_impl(v38, v67, &v62, 80, &dword_1E1C61000, v36, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v74, 38, v54, v55);
+          _os_crash_msg();
+          __break(1u);
+LABEL_59:
+          v61 = 0;
+          v75 = 0u;
+          v76 = 0u;
+          memset(v74, 0, sizeof(v74));
+          v39 = MEMORY[0x1E69E9C10];
+          v40 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          *v67 = 136315906;
+          *&v67[4] = "operator[]";
+          v68 = 1024;
+          if (v40)
+          {
+            v41 = 3;
+          }
+
+          else
+          {
+            v41 = 2;
+          }
+
+          v69 = 797;
+          v70 = 2048;
+          v71 = v10;
+          v72 = 2048;
+          v73 = v9;
+          _os_log_send_and_compose_impl(v41, &v61, v74, 80, &dword_1E1C61000, v39, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v67, 38, v54, v55);
+          _os_crash_msg();
+          __break(1u);
+LABEL_63:
+          v61 = 0;
+          v75 = 0u;
+          v76 = 0u;
+          memset(v74, 0, sizeof(v74));
+          v42 = MEMORY[0x1E69E9C10];
+          v43 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          *v67 = 136315906;
+          *&v67[4] = "operator[]";
+          v68 = 1024;
+          if (v43)
+          {
+            v44 = 3;
+          }
+
+          else
+          {
+            v44 = 2;
+          }
+
+          v69 = 797;
+          v70 = 2048;
+          v71 = v8;
+          v72 = 2048;
+          v73 = v9;
+          _os_log_send_and_compose_impl(v44, &v61, v74, 80, &dword_1E1C61000, v42, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v67, 38, v54, v55);
+          _os_crash_msg();
+          __break(1u);
+LABEL_67:
+          v61 = 0;
+          v75 = 0u;
+          v76 = 0u;
+          memset(v74, 0, sizeof(v74));
+          v45 = MEMORY[0x1E69E9C10];
+          v46 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          *v67 = 136315906;
+          *&v67[4] = "operator[]";
+          v68 = 1024;
+          if (v46)
+          {
+            v47 = 3;
+          }
+
+          else
+          {
+            v47 = 2;
+          }
+
+          v69 = 797;
+          v70 = 2048;
+          v71 = v16;
+          v72 = 2048;
+          v73 = v9;
+          _os_log_send_and_compose_impl(v47, &v61, v74, 80, &dword_1E1C61000, v45, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v67, 38, v54, v55);
+          _os_crash_msg();
+          __break(1u);
+LABEL_71:
+          v61 = 0;
+          v11 = v67;
+          v75 = 0u;
+          v76 = 0u;
+          memset(v74, 0, sizeof(v74));
+          v48 = MEMORY[0x1E69E9C10];
+          v49 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          *v67 = 136315906;
+          *&v67[4] = "operator[]";
+          v68 = 1024;
+          if (v49)
+          {
+            v50 = 3;
+          }
+
+          else
+          {
+            v50 = 2;
+          }
+
+          v69 = 797;
+          v70 = 2048;
+          v71 = v8;
+          v72 = 2048;
+          v73 = v16;
+          _os_log_send_and_compose_impl(v50, &v61, v74, 80, &dword_1E1C61000, v48, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v67, 38, v54, v55);
+          _os_crash_msg();
+          __break(1u);
+LABEL_75:
+          *v67 = 0;
+          v65 = 0u;
+          v66[0] = 0u;
+          v63 = 0u;
+          v64 = 0u;
+          v62 = 0u;
+          v51 = MEMORY[0x1E69E9C10];
+          v52 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          LODWORD(v74[0]) = 136315906;
+          *(v74 + 4) = "operator[]";
+          WORD2(v74[1]) = 1024;
+          if (v52)
+          {
+            v53 = 3;
+          }
+
+          else
+          {
+            v53 = 2;
+          }
+
+          *(&v74[1] + 6) = 797;
+          WORD1(v74[2]) = 2048;
+          *(&v74[2] + 4) = v10;
+          WORD2(v74[3]) = 2048;
+          *(&v74[3] + 6) = v11;
+          _os_log_send_and_compose_impl(v53, v67, &v62, 80, &dword_1E1C61000, v51, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v74, 38, v54, v55);
+          _os_crash_msg();
+          __break(1u);
+        }
+
+LABEL_45:
+        v10 = v56 + 1;
+      }
+
+      while (v56 + 1 != v55);
+      v5 = *(a2 + 16);
+    }
+
+    ++v8;
+  }
+
+  while (v8 < v5);
+  return v7;
+}
+
+uint64_t re::DynamicArray<re::SkeletalAnimationLibraryEntry>::deinit(uint64_t a1)
+{
+  result = *a1;
+  if (result)
+  {
+    v3 = *(a1 + 32);
+    if (v3)
+    {
+      v4 = *(a1 + 16);
+      if (v4)
+      {
+        v5 = 0;
+        v6 = 120 * v4;
+        do
+        {
+          re::AssetHandle::~AssetHandle((v3 + v5 + 96));
+          re::AssetHandle::~AssetHandle((v3 + v5 + 72));
+          re::StringID::destroyString((v3 + v5 + 56));
+          re::StringID::destroyString((v3 + v5 + 40));
+          re::StringID::destroyString((v3 + v5 + 24));
+          re::StringID::destroyString((v3 + v5 + 8));
+          v5 += 120;
+        }
+
+        while (v6 != v5);
+        result = *a1;
+        v3 = *(a1 + 32);
+      }
+
+      result = (*(*result + 40))(result, v3);
+    }
+
+    *(a1 + 32) = 0;
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+    *a1 = 0;
+    ++*(a1 + 24);
+  }
+
+  return result;
+}
+
+uint64_t re::DynamicArray<re::NamedAnimationLibraryEntry>::deinit(uint64_t a1)
+{
+  result = *a1;
+  if (result)
+  {
+    v3 = *(a1 + 32);
+    if (v3)
+    {
+      v4 = *(a1 + 16);
+      if (v4)
+      {
+        v5 = 40 * v4;
+        do
+        {
+          re::AssetHandle::~AssetHandle((v3 + 16));
+          re::StringID::destroyString(v3);
+          v3 += 40;
+          v5 -= 40;
+        }
+
+        while (v5);
+        result = *a1;
+        v3 = *(a1 + 32);
+      }
+
+      result = (*(*result + 40))(result, v3);
+    }
+
+    *(a1 + 32) = 0;
+    *(a1 + 8) = 0;
+    *(a1 + 16) = 0;
+    *a1 = 0;
+    ++*(a1 + 24);
+  }
+
+  return result;
+}
+
+void re::AnimationLibraryAsset::insertEntry(uint64_t a1, re::AssetHandle *a2, unint64_t a3)
+{
+  if (*(a1 + 136) <= a3)
+  {
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "entryIndex < animationLibraryEntries.size()", "insertEntry", 213);
+    _os_crash("assertion failure: (entryIndex < animationLibraryEntries.size()) ");
+    __break(1u);
+  }
+
+  else
+  {
+    re::DynamicArray<re::AssetHandle>::insert((a1 + 120), a3, a2);
+    v17 = 0;
+    memset(v16, 0, sizeof(v16));
+    v18 = 0x7FFFFFFFLL;
+    v5 = *(a1 + 192);
+    if (v5)
+    {
+      v6 = 0;
+      v7 = *(a1 + 176);
+      while (1)
+      {
+        v8 = *v7;
+        v7 += 8;
+        if (v8 < 0)
+        {
+          break;
+        }
+
+        if (v5 == ++v6)
+        {
+          LODWORD(v6) = *(a1 + 192);
+          break;
+        }
+      }
+    }
+
+    else
+    {
+      LODWORD(v6) = 0;
+    }
+
+LABEL_18:
+    while (v6 != v5)
+    {
+      v9 = *(a1 + 176) + 32 * v6;
+      v12 = *(v9 + 24);
+      v10 = (v9 + 24);
+      v11 = v12;
+      v13 = (v10 - 2);
+      if (v12 >= a3)
+      {
+        v15 = v11 + 1;
+        re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::add(v16, v13, &v15);
+      }
+
+      else
+      {
+        re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::add(v16, v13, v10);
+      }
+
+      v14 = *(a1 + 192);
+      if (v14 <= v6 + 1)
+      {
+        v14 = v6 + 1;
+      }
+
+      while (v14 - 1 != v6)
+      {
+        LODWORD(v6) = v6 + 1;
+        if ((*(*(a1 + 176) + 32 * v6) & 0x80000000) != 0)
+        {
+          goto LABEL_18;
+        }
+      }
+
+      LODWORD(v6) = v14;
+    }
+
+    re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::operator=(a1 + 160, v16);
+    re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(v16);
+  }
+}
+
+uint64_t re::DynamicArray<re::AssetHandle>::insert(_anonymous_namespace_ *this, unint64_t a2, re::AssetHandle *a3)
+{
+  v32 = *MEMORY[0x1E69E9840];
+  v4 = *(this + 2);
+  v5 = v4 + 1;
+  if (v4 + 1 <= a2)
+  {
+    v22 = 0;
+    memset(v31, 0, sizeof(v31));
+    v19 = MEMORY[0x1E69E9C10];
+    v23 = 136315906;
+    v24 = "insert";
+    v25 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v20 = 3;
+    }
+
+    else
+    {
+      v20 = 2;
+    }
+
+    v26 = 855;
+    v27 = 2048;
+    v28 = a2;
+    v29 = 2048;
+    v30 = v5;
+    _os_log_send_and_compose_impl(v20, &v22, v31, 80, &dword_1E1C61000, v19, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v23, 38, v21);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  if (v4 >= *(this + 1))
+  {
+    re::DynamicArray<re::AssetHandle>::growCapacity(this, v4 + 1);
+    v4 = *(this + 2);
+  }
+
+  v8 = (*(this + 4) + 24 * v4);
+  if (v4 <= a2)
+  {
+    result = re::AssetHandle::AssetHandle(v8, a3);
+  }
+
+  else
+  {
+    *v8 = *(v8 - 24);
+    *(v8 - 3) = 0;
+    *(v8 - 2) = 0;
+    *(v8 + 2) = *(v8 - 1);
+    *(v8 - 1) = 0;
+    v9 = *(this + 4);
+    v10 = *(this + 2);
+    v11 = v9 + 24 * v10 - 24;
+    if (v11 != v9 + 24 * a2)
+    {
+      v12 = 24 * a2 - 24 * v10 + 24;
+      v13 = v11;
+      do
+      {
+        v14 = *(v13 - 3);
+        v13 = (v13 - 24);
+        v15 = *(v11 - 16);
+        v16 = *(v11 - 8);
+        *v13 = *v11;
+        v17 = *(v11 + 16);
+        *(v11 + 8) = v15;
+        *(v11 + 16) = v16;
+        *(v11 - 8) = v17;
+        *v11 = v14;
+        v11 = v13;
+        v12 += 24;
+      }
+
+      while (v12);
+      v9 = *(this + 4);
+    }
+
+    result = re::AssetHandle::operator=(v9 + 24 * a2, a3);
+  }
+
+  ++*(this + 2);
+  ++*(this + 6);
+  return result;
+}
+
+uint64_t re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::operator=(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    if (*a1)
+    {
+      re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::clear(a1);
+      if (*a2)
+      {
+        v4 = *(a2 + 28);
+        if (*(a1 + 24) < v4)
+        {
+          re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::setCapacity(a1, v4);
+        }
+
+        re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::copy(a1, a2);
+        ++*(a1 + 40);
+      }
+    }
+
+    else
+    {
+      v5 = *a2;
+      if (*a2)
+      {
+        if (*(a2 + 28) <= 3u)
+        {
+          v6 = 3;
+        }
+
+        else
+        {
+          v6 = *(a2 + 28);
+        }
+
+        re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(a1, v5, v6);
+        re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::copy(a1, a2);
+      }
+    }
+  }
+
+  return a1;
+}
+
+double re::AnimationLibraryAsset::removeEntry(re::AnimationLibraryAsset *this, unint64_t a2)
+{
+  v25 = 0;
+  memset(v24, 0, sizeof(v24));
+  v26 = 0x7FFFFFFFLL;
+  v4 = *(this + 48);
+  if (v4)
+  {
+    v5 = 0;
+    v6 = *(this + 22);
+    while (1)
+    {
+      v7 = *v6;
+      v6 += 8;
+      if (v7 < 0)
+      {
+        break;
+      }
+
+      if (v4 == ++v5)
+      {
+        LODWORD(v5) = *(this + 48);
+        break;
+      }
+    }
+  }
+
+  else
+  {
+    LODWORD(v5) = 0;
+  }
+
+LABEL_19:
+  while (v5 != v4)
+  {
+    v8 = *(this + 22) + 32 * v5;
+    v11 = *(v8 + 24);
+    v9 = (v8 + 24);
+    v10 = v11;
+    v12 = (v9 - 2);
+    v13 = v11 > a2;
+    if (v11 >= a2)
+    {
+      if (v13)
+      {
+        v27 = v10 - 1;
+        re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::add(v24, v12, &v27);
+      }
+    }
+
+    else
+    {
+      re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::add(v24, v12, v9);
+    }
+
+    v14 = *(this + 48);
+    if (v14 <= v5 + 1)
+    {
+      v14 = v5 + 1;
+    }
+
+    while (v14 - 1 != v5)
+    {
+      LODWORD(v5) = v5 + 1;
+      if ((*(*(this + 22) + 32 * v5) & 0x80000000) != 0)
+      {
+        goto LABEL_19;
+      }
+    }
+
+    LODWORD(v5) = v14;
+  }
+
+  re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::operator=(this + 160, v24);
+  re::DynamicArray<re::AssetHandle>::removeStableAt(this + 120, a2);
+  v15 = *(this + 26);
+  if (v15 > 1 || (v16 = *(this + 27)) == 0 || *v16)
+  {
+    v17 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((v15 >> 31) ^ (v15 >> 1))) ^ ((0xBF58476D1CE4E5B9 * ((v15 >> 31) ^ (v15 >> 1))) >> 27));
+    re::HashTable<re::StringID,re::StateParameterInt *,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(this + 160, this + 26, v17 ^ (v17 >> 31), &v27);
+    if (HIDWORD(v28) == 0x7FFFFFFF)
+    {
+      v27 = 0;
+      v28 = &str_67;
+      v18 = re::StringID::operator=((this + 208), &v27);
+      if (v27)
+      {
+      }
+    }
+  }
+
+  return re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(v24);
+}
+
+void re::DynamicArray<re::AssetHandle>::removeStableAt(uint64_t a1, unint64_t a2)
+{
+  v24 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 16);
+  if (v3 <= a2)
+  {
+    v14 = 0;
+    memset(v23, 0, sizeof(v23));
+    v11 = MEMORY[0x1E69E9C10];
+    v15 = 136315906;
+    v16 = "removeStableAt";
+    v17 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v12 = 3;
+    }
+
+    else
+    {
+      v12 = 2;
+    }
+
+    v18 = 969;
+    v19 = 2048;
+    v20 = a2;
+    v21 = 2048;
+    v22 = v3;
+    _os_log_send_and_compose_impl(v12, &v14, v23, 80, &dword_1E1C61000, v11, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v15, 38, v13);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  if (v3 - 1 > a2)
+  {
+    v5 = *(a1 + 32);
+    v6 = v5 + 24 * a2 + 24;
+    if (v6 != v5 + 24 * v3)
+    {
+      v7 = 24 * v3 - 24 * a2 - 24;
+      do
+      {
+        v9 = *(v6 - 24);
+        v8 = *(v6 - 16);
+        *(v6 - 24) = *v6;
+        v10 = *(v6 - 8);
+        *(v6 - 8) = *(v6 + 16);
+        *v6 = v9;
+        *(v6 + 8) = v8;
+        *(v6 + 16) = v10;
+        v6 += 24;
+        v7 -= 24;
+      }
+
+      while (v7);
+    }
+  }
+
+  re::AssetHandle::~AssetHandle((*(a1 + 32) + 24 * v3 - 24));
+  --*(a1 + 16);
+  ++*(a1 + 24);
+}
+
+uint64_t re::AnimationLibraryAsset::setEntry(uint64_t a1, unint64_t a2, uint64_t *a3, __n128 a4)
+{
+  v6 = a1;
+  v34 = *MEMORY[0x1E69E9840];
+  v7 = *(a1 + 192);
+  if (v7)
+  {
+    v8 = 0;
+    v9 = *(a1 + 176);
+    while (1)
+    {
+      v10 = *v9;
+      v9 += 8;
+      if (v10 < 0)
+      {
+        break;
+      }
+
+      if (v7 == ++v8)
+      {
+        LODWORD(v8) = *(a1 + 192);
+        break;
+      }
+    }
+  }
+
+  else
+  {
+    LODWORD(v8) = 0;
+  }
+
+  if (v8 != v7)
+  {
+    a4.n128_u64[0] = 136315138;
+    v19 = a4;
+    do
+    {
+      v11 = *(v6 + 176) + 32 * v8;
+      if (*(v11 + 24) == a2)
+      {
+        v12 = *re::animationLogObjects(a1);
+        a1 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+        if (a1)
+        {
+          v13 = *(v11 + 16);
+          *buf = v19.n128_u32[0];
+          *&buf[4] = v13;
+          _os_log_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_DEFAULT, "Animation library asset - entry has an associated key. Changing they asset associated with key %s", buf, 0xCu);
+        }
+      }
+
+      v14 = *(v6 + 192);
+      if (v14 <= v8 + 1)
+      {
+        v14 = v8 + 1;
+      }
+
+      while (v14 - 1 != v8)
+      {
+        LODWORD(v8) = v8 + 1;
+        if ((*(*(v6 + 176) + 32 * v8) & 0x80000000) != 0)
+        {
+          goto LABEL_19;
+        }
+      }
+
+      LODWORD(v8) = v14;
+LABEL_19:
+      ;
+    }
+
+    while (v8 != v7);
+  }
+
+  v15 = *(v6 + 136);
+  if (v15 <= a2)
+  {
+    v20 = 0;
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    *buf = 0u;
+    v17 = MEMORY[0x1E69E9C10];
+    v21 = 136315906;
+    v22 = "operator[]";
+    v23 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v18 = 3;
+    }
+
+    else
+    {
+      v18 = 2;
+    }
+
+    v24 = 789;
+    v25 = 2048;
+    v26 = a2;
+    v27 = 2048;
+    v28 = v15;
+    _os_log_send_and_compose_impl(v18, &v20, buf, 80, &dword_1E1C61000, v17, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v21, 38, v19.n128_u64[0], v19.n128_u64[1]);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return re::AssetHandle::operator=(*(v6 + 152) + 24 * a2, a3);
+}
+
+re *re::internal::destroyPersistent<re::AnimationLibraryAsset>(re *result, uint64_t a2, uint64_t a3)
+{
+  if (a3)
+  {
+    v4 = re::globalAllocators(result)[2];
+    re::StringID::destroyString((a3 + 208));
+    re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit((a3 + 160));
+    re::DynamicArray<re::AssetHandle>::deinit(a3 + 120);
+    re::DynamicArray<re::NamedAnimationLibraryEntry>::deinit(a3 + 80);
+    re::DynamicArray<re::NamedAnimationLibraryEntry>::deinit(a3 + 40);
+    re::DynamicArray<re::SkeletalAnimationLibraryEntry>::deinit(a3);
+    v5 = *(*v4 + 40);
+
+    return v5(v4, a3);
+  }
+
+  return result;
+}
+
+uint64_t re::AnimationLibraryAssetLoader::introspectionType(re::AnimationLibraryAssetLoader *this)
+{
+  v1 = &OBJC_IVAR___REMeshBlendShapeBufferDescriptor__blendShapeConstantsBuffer;
+  {
+    v1 = &OBJC_IVAR___REMeshBlendShapeBufferDescriptor__blendShapeConstantsBuffer;
+    if (v3)
+    {
+      re::introspect<re::AnimationLibraryAsset>(BOOL)::info = re::internal::getOrCreateInfo("AnimationLibraryAsset", re::allocInfo_AnimationLibraryAsset, re::initInfo_AnimationLibraryAsset, &re::internal::introspectionInfoStorage<re::AnimationLibraryAsset>, 0);
+      v1 = &OBJC_IVAR___REMeshBlendShapeBufferDescriptor__blendShapeConstantsBuffer;
+    }
+  }
+
+  return *(v1 + 346);
+}
+
+void *re::allocInfo_TransformAnimationLibraryEntry(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE19BD18, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19BD18))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE19BED0, "TransformAnimationLibraryEntry");
+    __cxa_guard_release(&qword_1EE19BD18);
+  }
+
+  return &unk_1EE19BED0;
+}
+
+void re::initInfo_TransformAnimationLibraryEntry(re *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
+{
+  v16[0] = 0x72E8C42152E0C5ELL;
+  v16[1] = "TransformAnimationLibraryEntry";
+  if (v16[0])
+  {
+    if (v16[0])
+    {
+    }
+  }
+
+  *(this + 2) = v17;
+  if ((atomic_load_explicit(&qword_1EE19BD20, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19BD20))
+  {
+    v7 = re::introspectionAllocator();
+    v9 = re::IntrospectionInfo<re::StringID>::get(1, v8);
+    v10 = (*(*v7 + 32))(v7, 72, 8);
+    *v10 = 1;
+    *(v10 + 8) = "animationName";
+    *(v10 + 16) = v9;
+    *(v10 + 24) = 0;
+    *(v10 + 32) = 1;
+    *(v10 + 40) = 0;
+    *(v10 + 48) = 0;
+    *(v10 + 56) = 0;
+    *(v10 + 64) = 0;
+    qword_1EE19BD88 = v10;
+    v11 = re::introspectionAllocator();
+    v13 = re::introspect_AssetHandle(1, v12);
+    v14 = (*(*v11 + 32))(v11, 72, 8);
+    *v14 = 1;
+    *(v14 + 8) = "animationHandle";
+    *(v14 + 16) = v13;
+    *(v14 + 24) = 0;
+    *(v14 + 32) = 0x1000000002;
+    *(v14 + 40) = 0;
+    *(v14 + 48) = 0;
+    *(v14 + 56) = 0;
+    *(v14 + 64) = 0;
+    qword_1EE19BD90 = v14;
+    __cxa_guard_release(&qword_1EE19BD20);
+  }
+
+  *(this + 2) = 0x2800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 2;
+  *(this + 8) = &qword_1EE19BD88;
+  *(this + 9) = re::internal::defaultConstruct<re::TransformAnimationLibraryEntry>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::TransformAnimationLibraryEntry>;
+  *(this + 13) = re::internal::defaultConstructV2<re::TransformAnimationLibraryEntry>;
+  *(this + 14) = re::internal::defaultDestructV2<re::TransformAnimationLibraryEntry>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v6);
+  v15 = v17;
+}
+
+void re::internal::defaultConstruct<re::TransformAnimationLibraryEntry>(uint64_t a1, uint64_t a2, void *a3)
+{
+  *a3 = 0;
+  a3[1] = &str_67;
+  a3[3] = 0;
+  a3[4] = 0;
+  a3[2] = 0;
+}
+
+void re::internal::defaultDestruct<re::TransformAnimationLibraryEntry>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  re::AssetHandle::~AssetHandle((a3 + 16));
+
+  re::StringID::destroyString(a3);
+}
+
+void *re::internal::defaultConstructV2<re::TransformAnimationLibraryEntry>(void *result)
+{
+  *result = 0;
+  result[1] = &str_67;
+  result[3] = 0;
+  result[4] = 0;
+  result[2] = 0;
+  return result;
+}
+
+void re::internal::defaultDestructV2<re::TransformAnimationLibraryEntry>(uint64_t a1)
+{
+  re::AssetHandle::~AssetHandle((a1 + 16));
+
+  re::StringID::destroyString(a1);
+}
+
+void *re::allocInfo_SkeletalAnimationLibraryEntry(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE19BD30, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19BD30))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE19BF60, "SkeletalAnimationLibraryEntry");
+    __cxa_guard_release(&qword_1EE19BD30);
+  }
+
+  return &unk_1EE19BF60;
+}
+
+void re::initInfo_SkeletalAnimationLibraryEntry(re *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
+{
+  v28[0] = 0x893CCA30395019C4;
+  v28[1] = "SkeletalAnimationLibraryEntry";
+  if (v28[0])
+  {
+    if (v28[0])
+    {
+    }
+  }
+
+  *(this + 2) = v29;
+  if ((atomic_load_explicit(&qword_1EE19BD38, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19BD38))
+  {
+    v7 = re::introspectionAllocator();
+    v13 = re::introspect_MeshIdentifierAsset(1, v8, v9, v10, v11, v12);
+    v14 = (*(*v7 + 32))(v7, 72, 8);
+    *v14 = 1;
+    *(v14 + 8) = "meshIdentifier";
+    *(v14 + 16) = v13;
+    *(v14 + 24) = 0;
+    *(v14 + 32) = 1;
+    *(v14 + 40) = 0;
+    *(v14 + 48) = 0;
+    *(v14 + 56) = 0;
+    *(v14 + 64) = 0;
+    qword_1EE19BDB0 = v14;
+    v15 = re::introspectionAllocator();
+    v17 = re::IntrospectionInfo<re::StringID>::get(1, v16);
+    v18 = (*(*v15 + 32))(v15, 72, 8);
+    *v18 = 1;
+    *(v18 + 8) = "skeletonName";
+    *(v18 + 16) = v17;
+    *(v18 + 24) = 0;
+    *(v18 + 32) = 0x2800000002;
+    *(v18 + 40) = 0;
+    *(v18 + 48) = 0;
+    *(v18 + 56) = 0;
+    *(v18 + 64) = 0;
+    qword_1EE19BDB8 = v18;
+    v19 = re::introspectionAllocator();
+    v21 = re::IntrospectionInfo<re::StringID>::get(1, v20);
+    v22 = (*(*v19 + 32))(v19, 72, 8);
+    *v22 = 1;
+    *(v22 + 8) = "animationName";
+    *(v22 + 16) = v21;
+    *(v22 + 24) = 0;
+    *(v22 + 32) = 0x3800000003;
+    *(v22 + 40) = 0;
+    *(v22 + 48) = 0;
+    *(v22 + 56) = 0;
+    *(v22 + 64) = 0;
+    qword_1EE19BDC0 = v22;
+    v23 = re::introspectionAllocator();
+    v25 = re::introspect_AssetHandle(1, v24);
+    v26 = (*(*v23 + 32))(v23, 72, 8);
+    *v26 = 1;
+    *(v26 + 8) = "animationHandle";
+    *(v26 + 16) = v25;
+    *(v26 + 24) = 0;
+    *(v26 + 32) = 0x4800000004;
+    *(v26 + 40) = 0;
+    *(v26 + 48) = 0;
+    *(v26 + 56) = 0;
+    *(v26 + 64) = 0;
+    qword_1EE19BDC8 = v26;
+    __cxa_guard_release(&qword_1EE19BD38);
+  }
+
+  *(this + 2) = 0x7800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 4;
+  *(this + 8) = &qword_1EE19BDB0;
+  *(this + 9) = re::internal::defaultConstruct<re::SkeletalAnimationLibraryEntry>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::SkeletalAnimationLibraryEntry>;
+  *(this + 13) = re::internal::defaultConstructV2<re::SkeletalAnimationLibraryEntry>;
+  *(this + 14) = re::internal::defaultDestructV2<re::SkeletalAnimationLibraryEntry>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v6);
+  v27 = v29;
+}
+
+double re::internal::defaultConstruct<re::SkeletalAnimationLibraryEntry>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = &str_67;
+  *(a3 + 24) = 0;
+  *(a3 + 32) = &str_67;
+  *(a3 + 40) = 0;
+  *(a3 + 48) = &str_67;
+  *(a3 + 56) = 0;
+  *(a3 + 64) = &str_67;
+  result = 0.0;
+  *(a3 + 72) = 0u;
+  *(a3 + 88) = 0u;
+  *(a3 + 104) = 0u;
+  return result;
+}
+
+void re::internal::defaultDestruct<re::SkeletalAnimationLibraryEntry>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  re::AssetHandle::~AssetHandle((a3 + 96));
+  re::AssetHandle::~AssetHandle((a3 + 72));
+  re::StringID::destroyString((a3 + 56));
+  re::StringID::destroyString((a3 + 40));
+  re::StringID::destroyString((a3 + 24));
+
+  re::StringID::destroyString((a3 + 8));
+}
+
+double re::internal::defaultConstructV2<re::SkeletalAnimationLibraryEntry>(uint64_t a1)
+{
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = &str_67;
+  *(a1 + 24) = 0;
+  *(a1 + 32) = &str_67;
+  *(a1 + 40) = 0;
+  *(a1 + 48) = &str_67;
+  *(a1 + 56) = 0;
+  *(a1 + 64) = &str_67;
+  result = 0.0;
+  *(a1 + 72) = 0u;
+  *(a1 + 88) = 0u;
+  *(a1 + 104) = 0u;
+  return result;
+}
+
+void re::internal::defaultDestructV2<re::SkeletalAnimationLibraryEntry>(uint64_t a1)
+{
+  re::AssetHandle::~AssetHandle((a1 + 96));
+  re::AssetHandle::~AssetHandle((a1 + 72));
+  re::StringID::destroyString((a1 + 56));
+  re::StringID::destroyString((a1 + 40));
+  re::StringID::destroyString((a1 + 24));
+
+  re::StringID::destroyString((a1 + 8));
+}
+
+void *re::allocInfo_NamedAnimationLibraryEntry(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE19BD48, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19BD48))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE19BFF0, "NamedAnimationLibraryEntry");
+    __cxa_guard_release(&qword_1EE19BD48);
+  }
+
+  return &unk_1EE19BFF0;
+}
+
+void re::initInfo_NamedAnimationLibraryEntry(re *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
+{
+  v23[0] = 0x618480047777F904;
+  v23[1] = "NamedAnimationLibraryEntry";
   if (v23[0])
   {
     if (v23[0])
@@ -8930,815 +7495,2259 @@ void re::audio::initInfo_AudioSourceDirectivityConfiguration(re::audio *this, re
   }
 
   *(this + 2) = v24;
-  if ((atomic_load_explicit(&qword_1EE19D130, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(&qword_1EE19BD50, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19BD50))
   {
-    v5 = __cxa_guard_acquire(&qword_1EE19D130);
-    if (v5)
+    v7 = re::introspectionAllocator();
+    v9 = re::IntrospectionInfo<re::StringID>::get(1, v8);
+    v10 = (*(*v7 + 32))(v7, 72, 8);
+    *v10 = 1;
+    *(v10 + 8) = "animationName";
+    *(v10 + 16) = v9;
+    *(v10 + 24) = 0;
+    *(v10 + 32) = 1;
+    *(v10 + 40) = 0;
+    *(v10 + 48) = 0;
+    *(v10 + 56) = 0;
+    *(v10 + 64) = 0;
+    qword_1EE19BD98 = v10;
+    v11 = re::introspectionAllocator();
+    v13 = re::introspect_AssetHandle(1, v12);
+    v14 = (*(*v11 + 32))(v11, 72, 8);
+    *v14 = 1;
+    *(v14 + 8) = "animationHandle";
+    *(v14 + 16) = v13;
+    *(v14 + 24) = 0;
+    *(v14 + 32) = 0x1000000002;
+    *(v14 + 40) = 0;
+    *(v14 + 48) = 0;
+    *(v14 + 56) = 0;
+    *(v14 + 64) = 0;
+    qword_1EE19BDA0 = v14;
+    v15 = re::introspectionAllocator();
+    v16 = v15;
+    v17 = qword_1EE19BD28;
+    if (!qword_1EE19BD28)
     {
-      v6 = re::introspectionAllocator(v5);
-      v8 = re::introspect_float(1, v7);
-      v9 = (*(*v6 + 32))(v6, 72, 8);
-      *v9 = 1;
-      *(v9 + 8) = "directivityFocus";
-      *(v9 + 16) = v8;
-      *(v9 + 24) = 0;
-      *(v9 + 32) = 0x400000001;
-      *(v9 + 40) = 0;
-      *(v9 + 48) = 0;
-      *(v9 + 56) = 0;
-      *(v9 + 64) = 0;
-      qword_1EE19D138 = v9;
-      v10 = re::introspectionAllocator(v9);
-      v12 = introspect_REAudioSourceDirectivityMode(1, v11);
-      v13 = (*(*v10 + 32))(v10, 72, 8);
-      *v13 = 1;
-      *(v13 + 8) = "sourceDirectivityMode";
-      *(v13 + 16) = v12;
-      *(v13 + 24) = 0;
-      *(v13 + 32) = 2;
-      *(v13 + 40) = 0;
-      *(v13 + 48) = 0;
-      *(v13 + 56) = 0;
-      *(v13 + 64) = 0;
-      qword_1EE19D140 = v13;
-      v14 = re::introspectionAllocator(v13);
-      v16 = re::introspect_float(1, v15);
-      v17 = (*(*v14 + 32))(v14, 72, 8);
-      *v17 = 1;
-      *(v17 + 8) = "sphericalCapDiameter";
-      *(v17 + 16) = v16;
-      *(v17 + 24) = 0;
-      *(v17 + 32) = 0x800000003;
-      *(v17 + 40) = 0;
-      *(v17 + 48) = 0;
-      *(v17 + 56) = 0;
-      *(v17 + 64) = 0;
-      qword_1EE19D148 = v17;
-      v18 = re::introspectionAllocator(v17);
-      v20 = re::introspect_float(1, v19);
-      v21 = (*(*v18 + 32))(v18, 72, 8);
-      *v21 = 1;
-      *(v21 + 8) = "sphericalCapOpeningAngle";
-      *(v21 + 16) = v20;
-      *(v21 + 24) = 0;
-      *(v21 + 32) = 0xC00000004;
-      *(v21 + 40) = 0;
-      *(v21 + 48) = 0;
-      *(v21 + 56) = 0;
-      *(v21 + 64) = 0;
-      qword_1EE19D150 = v21;
-      __cxa_guard_release(&qword_1EE19D130);
+      v17 = re::allocInfo_TransformAnimationLibraryEntry(v15);
+      qword_1EE19BD28 = v17;
+      re::initInfo_TransformAnimationLibraryEntry(v17, v18, v19, v20);
     }
+
+    v21 = (*(*v16 + 32))(v16, 64, 8);
+    *v21 = 6;
+    *(v21 + 8) = 2;
+    *(v21 + 16) = v17;
+    *(v21 + 24) = 0;
+    *(v21 + 32) = re::TransformEntryUpgrade;
+    *(v21 + 40) = 0;
+    *(v21 + 48) = 0;
+    *(v21 + 56) = 0;
+    qword_1EE19BDA8 = v21;
+    __cxa_guard_release(&qword_1EE19BD50);
   }
 
-  *(this + 2) = 0x1000000008;
-  *(this + 6) = 4;
-  *(this + 14) = 1;
-  *(this + 14) = 4;
-  *(this + 8) = &qword_1EE19D138;
-  *(this + 9) = re::internal::defaultConstruct<re::audio::AudioSourceDirectivityConfiguration>;
+  *(this + 2) = 0x2800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 3;
+  *(this + 8) = &qword_1EE19BD98;
+  *(this + 9) = re::internal::defaultConstruct<re::NamedAnimationLibraryEntry>;
   *(this + 11) = 0;
   *(this + 12) = 0;
-  *(this + 10) = re::internal::defaultDestruct<re::audio::AudioSourceDirectivityConfiguration>;
-  *(this + 13) = re::internal::defaultConstructV2<re::audio::AudioSourceDirectivityConfiguration>;
-  *(this + 14) = re::internal::defaultDestructV2<re::audio::AudioSourceDirectivityConfiguration>;
+  *(this + 10) = re::internal::defaultDestruct<re::NamedAnimationLibraryEntry>;
+  *(this + 13) = re::internal::defaultConstructV2<re::NamedAnimationLibraryEntry>;
+  *(this + 14) = re::internal::defaultDestructV2<re::NamedAnimationLibraryEntry>;
   *(this + 15) = 0;
   *(this + 16) = 0;
   *(this + 17) = 0;
-  re::internal::prepare(this, v4);
+  re::internal::prepare(this, v6);
   v22 = v24;
 }
 
-double re::internal::defaultConstruct<re::audio::AudioSourceDirectivityConfiguration>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t re::TransformEntryUpgrade(uint64_t a1, uint64_t *a2, unint64_t *a3)
 {
-  *a3 = 1;
-  result = 6.14672757e-10;
-  *(a3 + 4) = 0x3E051EB800000000;
-  *(a3 + 12) = 1106247680;
+  v4 = re::StringID::operator=(a3, a2);
+  re::AssetHandle::operator=((v4 + 2), a2 + 2);
+  return 1;
+}
+
+void re::internal::defaultConstruct<re::NamedAnimationLibraryEntry>(uint64_t a1, uint64_t a2, void *a3)
+{
+  *a3 = 0;
+  a3[1] = &str_67;
+  a3[3] = 0;
+  a3[4] = 0;
+  a3[2] = 0;
+}
+
+void re::internal::defaultDestruct<re::NamedAnimationLibraryEntry>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  re::AssetHandle::~AssetHandle((a3 + 16));
+
+  re::StringID::destroyString(a3);
+}
+
+void *re::internal::defaultConstructV2<re::NamedAnimationLibraryEntry>(void *result)
+{
+  *result = 0;
+  result[1] = &str_67;
+  result[3] = 0;
+  result[4] = 0;
+  result[2] = 0;
   return result;
 }
 
-double re::internal::defaultConstructV2<re::audio::AudioSourceDirectivityConfiguration>(uint64_t a1)
+void re::internal::defaultDestructV2<re::NamedAnimationLibraryEntry>(uint64_t a1)
 {
-  *a1 = 1;
-  result = 6.14672757e-10;
-  *(a1 + 4) = 0x3E051EB800000000;
-  *(a1 + 12) = 1106247680;
-  return result;
+  re::AssetHandle::~AssetHandle((a1 + 16));
+
+  re::StringID::destroyString(a1);
 }
 
-void ___ZN2re29AudioManagerTelemetryReporterC2Ev_block_invoke(uint64_t a1)
+void *re::allocInfo_AnimationLibraryAsset(re *this)
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  if (NSClassFromString(&cfstr_Xctest.isa) || (LODWORD(v34) = 0, v32 = 0u, v33 = 0u, __s2 = 0u, v35 = xmmword_1E30645F0, v36 = xmmword_1E3064600, v37 = xmmword_1E3064610, !memcmp((v1 + 88), &__s2, 0x68uLL)))
+  if ((atomic_load_explicit(&qword_1EE19BD60, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19BD60))
   {
-    v2 = 0;
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE19C080, "AnimationLibraryAsset");
+    __cxa_guard_release(&qword_1EE19BD60);
   }
 
-  else
+  return &unk_1EE19C080;
+}
+
+void re::initInfo_AnimationLibraryAsset(re *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
+{
+  v25[0] = 0x72B9F762ED1258F2;
+  v25[1] = "AnimationLibraryAsset";
+  if (v25[0])
   {
-    if (*(v1 + 132))
+    if (v25[0])
     {
-      v4 = *(v1 + 144);
-      v3 = *(v1 + 152);
-      v5 = *(v1 + 160);
-    }
-
-    else
-    {
-      v5 = -100.0;
-      v3 = -100.0;
-      v4 = -100.0;
-    }
-
-    if (*(v1 + 136))
-    {
-      v6 = *(v1 + 168);
-      v7 = *(v1 + 152);
-      v8 = *(v1 + 184);
-    }
-
-    else
-    {
-      v8 = -100.0;
-      v7 = -100.0;
-      v6 = -100.0;
-    }
-
-    v30[0] = @"play";
-    *&__s2 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v1 + 88)];
-    v30[1] = @"maxConcurrentPlayCount";
-    v29 = __s2;
-    *(&__s2 + 1) = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v1 + 92)];
-    v30[2] = @"prepare";
-    v28 = *(&__s2 + 1);
-    *&v32 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v1 + 100)];
-    v30[3] = @"maxConcurrentPrepareCount";
-    v27 = v32;
-    v26 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v1 + 96)];
-    *(&v32 + 1) = v26;
-    v30[4] = @"channelComponent";
-    v25 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v1 + 104)];
-    *&v33 = v25;
-    v30[5] = @"ambientComponent";
-    v24 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v1 + 112)];
-    *(&v33 + 1) = v24;
-    v30[6] = @"spatialComponent";
-    v23 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v1 + 108)];
-    v34 = v23;
-    v30[7] = @"spatialComponentOmniCount";
-    v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v1 + 116)];
-    *&v35 = v22;
-    v30[8] = @"spatialComponentBeamDirectivityCount";
-    v21 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v1 + 120)];
-    *(&v35 + 1) = v21;
-    v30[9] = @"spatialComponentSphericalApproximationDirectivityCount";
-    v20 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v1 + 124)];
-    *&v36 = v20;
-    v30[10] = @"calibrationModeNoneCount";
-    v19 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v1 + 128)];
-    *(&v36 + 1) = v19;
-    v30[11] = @"calibrationModeRelativeSplCount";
-    v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v1 + 132)];
-    *&v37 = v18;
-    v30[12] = @"calibrationModeAbsoluteSplCount";
-    v17 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(v1 + 136)];
-    *(&v37 + 1) = v17;
-    v30[13] = @"calibrationModeRelativeSplMinValue";
-    v16 = [MEMORY[0x1E696AB90] numberWithDouble:v4];
-    v38 = v16;
-    v30[14] = @"calibrationModeRelativeSplAverage";
-    v9 = [MEMORY[0x1E696AB90] numberWithDouble:v3];
-    v39 = v9;
-    v30[15] = @"calibrationModeRelativeSplMaxValue";
-    v10 = [MEMORY[0x1E696AB90] numberWithDouble:v5];
-    v40 = v10;
-    v30[16] = @"calibrationModeAbsoluteSplMinValue";
-    v11 = [MEMORY[0x1E696AB90] numberWithDouble:v6];
-    v41 = v11;
-    v30[17] = @"calibrationModeAbsoluteSplAverage";
-    v12 = [MEMORY[0x1E696AB90] numberWithDouble:v7];
-    v42 = v12;
-    v30[18] = @"calibrationModeAbsoluteSplMaxValue";
-    v13 = [MEMORY[0x1E696AB90] numberWithDouble:v8];
-    v43 = v13;
-    v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&__s2 forKeys:v30 count:19];
-  }
-
-  *(v1 + 136) = 0;
-  *(v1 + 120) = 0u;
-  *(v1 + 104) = 0u;
-  *(v1 + 88) = 0u;
-  *(v1 + 144) = xmmword_1E30645F0;
-  *(v1 + 160) = xmmword_1E3064600;
-  *(v1 + 176) = xmmword_1E3064610;
-  v14 = v2;
-  v15 = v14;
-  if (re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter)
-  {
-    re::AudioTelemetryReporter::sendTelemetryReport(*(re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter + 32), @"system_usage", v14);
-  }
-}
-
-void re::AudioManagerTelemetryReporter::initializeTimerWith(uint64_t a1, uint64_t a2, void *a3)
-{
-  v5 = a3;
-  v6 = re::AudioManagerTelemetryReporter::m_audioManagerTelemetryQueue;
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = ___ZN2re29AudioManagerTelemetryReporter19initializeTimerWithEPKNS_18AudioManager_PHASEEPU28objcproto17OS_dispatch_queue8NSObject_block_invoke;
-  block[3] = &unk_1E871BAC8;
-  v10 = a1;
-  v11 = a2;
-  v9 = v5;
-  v7 = v5;
-  dispatch_async(v6, block);
-}
-
-void ___ZN2re29AudioManagerTelemetryReporter19initializeTimerWithEPKNS_18AudioManager_PHASEEPU28objcproto17OS_dispatch_queue8NSObject_block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  os_unfair_lock_lock((v2 + 80));
-  v3 = *(v2 + 32);
-  v4 = re::AudioManagerTelemetryReporter::m_audioManagerTelemetryQueue;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = ___ZN2re29AudioManagerTelemetryReporter19initializeTimerWithEPKNS_18AudioManager_PHASEEPU28objcproto17OS_dispatch_queue8NSObject_block_invoke_2;
-  v6[3] = &unk_1E871BAC8;
-  v5 = *(a1 + 48);
-  v6[5] = v2;
-  v6[6] = v5;
-  v6[4] = *(a1 + 32);
-  re::AudioTelemetryReporter::initializeTimerWith(v3, v4, v6, 600.0);
-  objc_claimAutoreleasedReturnValue();
-  memset(v7, 0, 24);
-  v7[7] = v7;
-  v8 = 0;
-  operator new();
-}
-
-void sub_1E2162DFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
-{
-  *(v21 - 80) = v20;
-  std::vector<PHASESource * {__strong}>::__destroy_vector::operator()[abi:ne200100]((v21 - 80));
-  operator delete(v17);
-  *(v21 - 80) = v19;
-  std::vector<PHASESource * {__strong}>::__destroy_vector::operator()[abi:ne200100]((v21 - 80));
-  *(v21 - 80) = &a16;
-  std::vector<PHASESource * {__strong}>::__destroy_vector::operator()[abi:ne200100]((v21 - 80));
-
-  os_unfair_lock_unlock(v18 + 20);
-  _Unwind_Resume(a1);
-}
-
-void ___ZN2re29AudioManagerTelemetryReporter19initializeTimerWithEPKNS_18AudioManager_PHASEEPU28objcproto17OS_dispatch_queue8NSObject_block_invoke_2(uint64_t a1)
-{
-  v1 = *(a1 + 48);
-  v2 = *(a1 + 32);
-  v5[0] = 0;
-  v5[1] = v5;
-  v5[2] = 0x4012000000;
-  v5[3] = __Block_byref_object_copy__8;
-  v5[4] = __Block_byref_object_dispose__8;
-  v5[5] = 512;
-  v6 = 0;
-  v7 = 0;
-  v4[0] = 0;
-  v4[1] = v4;
-  v4[2] = 0x2020000000;
-  v4[3] = -1;
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = ___ZN2re29AudioManagerTelemetryReporter22collectImmersionReportEPKNS_18AudioManager_PHASEEPU28objcproto17OS_dispatch_queue8NSObject_block_invoke;
-  block[3] = &unk_1E871BC18;
-  block[5] = v5;
-  block[6] = v1;
-  block[4] = v4;
-  dispatch_async(v2, block);
-  _Block_object_dispose(v4, 8);
-  _Block_object_dispose(v5, 8);
-}
-
-__n128 __Block_byref_object_copy__8(__n128 *a1, __n128 *a2)
-{
-  result = a2[3];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
-  a1[3] = result;
-  return result;
-}
-
-void __Block_byref_object_dispose__8(uint64_t a1)
-{
-  v2 = *(a1 + 48);
-}
-
-void ___ZN2re29AudioManagerTelemetryReporter22collectImmersionReportEPKNS_18AudioManager_PHASEEPU28objcproto17OS_dispatch_queue8NSObject_block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 48);
-  if (v2)
-  {
-    v3 = re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter;
-    os_unfair_lock_lock((re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter + 80));
-    if (re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter && std::__hash_table<std::__hash_value_type<re::AudioManager_PHASE const*,std::vector<NSObject  {objcproto18OS_dispatch_source}* {__strong}>>,std::__unordered_map_hasher<re::AudioManager_PHASE const*,std::__hash_value_type<re::AudioManager_PHASE const*,std::vector<NSObject  {objcproto18OS_dispatch_source}* {__strong}>>,std::hash<re::AudioManager_PHASE const*>,std::equal_to<re::AudioManager_PHASE const*>,true>,std::__unordered_map_equal<re::AudioManager_PHASE const*,std::__hash_value_type<re::AudioManager_PHASE const*,std::vector<NSObject  {objcproto18OS_dispatch_source}* {__strong}>>,std::equal_to<re::AudioManager_PHASE const*>,std::hash<re::AudioManager_PHASE const*>,true>,std::allocator<std::__hash_value_type<re::AudioManager_PHASE const*,std::vector<NSObject  {objcproto18OS_dispatch_source}* {__strong}>>>>::find<re::AudioManager_PHASE const*>((re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter + 40), v2))
-    {
-      os_unfair_lock_unlock(v3 + 20);
-      *(*(*(a1 + 32) + 8) + 24) = re::AudioManager_PHASE_Async::getReverbPreset(*(*(a1 + 48) + 648));
-    }
-
-    else
-    {
-      os_unfair_lock_unlock(v3 + 20);
     }
   }
 
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = ___ZN2re29AudioManagerTelemetryReporter22collectImmersionReportEPKNS_18AudioManager_PHASEEPU28objcproto17OS_dispatch_queue8NSObject_block_invoke_2;
-  v4[3] = &unk_1E871BBF0;
-  v5 = *(a1 + 32);
-  dispatch_async(re::AudioManagerTelemetryReporter::m_audioManagerTelemetryQueue, v4);
-}
-
-void ___ZN2re29AudioManagerTelemetryReporter22collectImmersionReportEPKNS_18AudioManager_PHASEEPU28objcproto17OS_dispatch_queue8NSObject_block_invoke_2(re *a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *re::audioLogObjects(a1);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  *(this + 2) = v26;
+  if ((atomic_load_explicit(&qword_1EE19BD68, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19BD68))
   {
-    v3 = *(*(*(a1 + 4) + 8) + 24);
-    v8 = 134217984;
-    v9 = v3;
-    _os_log_impl(&dword_1E1C61000, v2, OS_LOG_TYPE_DEFAULT, "[AudioManagerTelemetryReporter::immersion] - Report: reverbPreset: %lld", &v8, 0xCu);
+    v7 = re::introspectionAllocator();
+    re::IntrospectionInfo<re::DynamicArray<re::SkeletalAnimationLibraryEntry>>::get(v7);
+    v8 = (*(*v7 + 32))(v7, 72, 8);
+    *v8 = 1;
+    *(v8 + 8) = "skeletalAnimationLibrary";
+    *(v8 + 16) = &qword_1EE19BE00;
+    *(v8 + 24) = 0;
+    *(v8 + 32) = 1;
+    *(v8 + 40) = 0;
+    *(v8 + 48) = 0;
+    *(v8 + 56) = 0;
+    *(v8 + 64) = 0;
+    qword_1EE19BDD0 = v8;
+    v9 = re::introspectionAllocator();
+    re::IntrospectionInfo<re::DynamicArray<re::NamedAnimationLibraryEntry>>::get(v9);
+    v10 = (*(*v9 + 32))(v9, 72, 8);
+    *v10 = 1;
+    *(v10 + 8) = "transformAnimationLibrary";
+    *(v10 + 16) = &qword_1EE19BE40;
+    *(v10 + 24) = 0;
+    *(v10 + 32) = 0x2800000002;
+    *(v10 + 40) = 0;
+    *(v10 + 48) = 0;
+    *(v10 + 56) = 0;
+    *(v10 + 64) = 0;
+    qword_1EE19BDD8 = v10;
+    v11 = re::introspectionAllocator();
+    re::IntrospectionInfo<re::DynamicArray<re::NamedAnimationLibraryEntry>>::get(v11);
+    v12 = (*(*v11 + 32))(v11, 72, 8);
+    *v12 = 1;
+    *(v12 + 8) = "animationSceneLibrary";
+    *(v12 + 16) = &qword_1EE19BE40;
+    *(v12 + 24) = 0;
+    *(v12 + 32) = 0x5000000003;
+    *(v12 + 40) = 0;
+    *(v12 + 48) = 0;
+    *(v12 + 56) = 0;
+    *(v12 + 64) = 0;
+    qword_1EE19BDE0 = v12;
+    v13 = re::introspectionAllocator();
+    v15 = re::IntrospectionInfo<re::DynamicArray<re::AssetHandle>>::get(1, v14);
+    v16 = (*(*v13 + 32))(v13, 72, 8);
+    *v16 = 1;
+    *(v16 + 8) = "animationLibraryEntries";
+    *(v16 + 16) = v15;
+    *(v16 + 24) = 0;
+    *(v16 + 32) = 0x7800000004;
+    *(v16 + 40) = 0;
+    *(v16 + 48) = 0;
+    *(v16 + 56) = 0;
+    *(v16 + 64) = 0;
+    qword_1EE19BDE8 = v16;
+    v17 = re::introspectionAllocator();
+    re::IntrospectionInfo<re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>>::get(v17, v18);
+    v19 = (*(*v17 + 32))(v17, 72, 8);
+    *v19 = 1;
+    *(v19 + 8) = "entryKeyMap";
+    *(v19 + 16) = &qword_1EE19BE80;
+    *(v19 + 24) = 0;
+    *(v19 + 32) = 0xA000000005;
+    *(v19 + 40) = 0;
+    *(v19 + 48) = 0;
+    *(v19 + 56) = 0;
+    *(v19 + 64) = 0;
+    qword_1EE19BDF0 = v19;
+    v20 = re::introspectionAllocator();
+    v22 = re::IntrospectionInfo<re::StringID>::get(1, v21);
+    v23 = (*(*v20 + 32))(v20, 72, 8);
+    *v23 = 1;
+    *(v23 + 8) = "defaultEntryKey";
+    *(v23 + 16) = v22;
+    *(v23 + 24) = 0;
+    *(v23 + 32) = 0xD000000006;
+    *(v23 + 40) = 0;
+    *(v23 + 48) = 0;
+    *(v23 + 56) = 0;
+    *(v23 + 64) = 0;
+    qword_1EE19BDF8 = v23;
+    __cxa_guard_release(&qword_1EE19BD68);
   }
 
-  v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v5 = [MEMORY[0x1E696AD98] numberWithLongLong:*(*(*(a1 + 4) + 8) + 24)];
-  [v4 setObject:v5 forKey:@"reverbPreset"];
-
-  objc_storeStrong((*(*(a1 + 5) + 8) + 56), v4);
-  v6 = *(*(a1 + 5) + 8);
-  v7 = *(v6 + 48);
-  *(v6 + 48) = @"immersion";
-
-  if (re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter)
-  {
-    re::AudioTelemetryReporter::sendTelemetryReport(*(re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter + 32), *(*(*(a1 + 5) + 8) + 48), *(*(*(a1 + 5) + 8) + 56));
-  }
+  *(this + 2) = 0xE000000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 6;
+  *(this + 8) = &qword_1EE19BDD0;
+  *(this + 9) = re::internal::defaultConstruct<re::AnimationLibraryAsset>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::AnimationLibraryAsset>;
+  *(this + 13) = re::internal::defaultConstructV2<re::AnimationLibraryAsset>;
+  *(this + 14) = re::internal::defaultDestructV2<re::AnimationLibraryAsset>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v6);
+  v24 = v26;
 }
 
-void ___ZN2re29AudioManagerTelemetryReporter23mediaServicesResetEventEv_block_invoke(uint64_t a1)
+void re::IntrospectionInfo<re::DynamicArray<re::SkeletalAnimationLibraryEntry>>::get(re *a1)
 {
-  v15[2] = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = mach_absolute_time();
-  v3 = *(v1 + 16);
-  v4 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
+  if ((atomic_load_explicit(&qword_1EE19BD70, memory_order_acquire) & 1) == 0)
   {
-    if (mach_timebase_info(&v13))
+    a1 = __cxa_guard_acquire(&qword_1EE19BD70);
+    if (a1)
     {
-      v7 = NAN;
-      goto LABEL_6;
+      re::IntrospectionDynamicArrayBase::IntrospectionDynamicArrayBase(&qword_1EE19BE00);
+      qword_1EE19BE00 = &unk_1F5CCA4D0;
+      __cxa_guard_release(&qword_1EE19BD70);
     }
-
-    LODWORD(v5) = v13.numer;
-    LODWORD(v6) = v13.denom;
-    v4 = v5 / v6;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v4;
   }
 
-  v7 = v4 * (v2 - v3);
-LABEL_6:
-  v8 = mach_absolute_time();
-  v9 = v7 / 1000000.0;
-  *&v9 = v7 / 1000000.0;
-  *v1 = v8;
-  v14[0] = @"timeSinceLastReset";
-  v10 = [MEMORY[0x1E696AB90] numberWithFloat:v9];
-  v14[1] = @"resetType";
-  v15[0] = v10;
-  if (*(v1 + 8))
+  if ((_MergedGlobals_107 & 1) == 0)
   {
-    v11 = @"mediaServicesReset";
-  }
-
-  else
-  {
-    v11 = @"deviceReboot";
-  }
-
-  v15[1] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  *(v1 + 8) = 1;
-  re::AudioTelemetryReporter::sendTelemetryReport(*(v1 + 32), @"media_service_reset", v12);
-}
-
-void ___ZN2re29AudioManagerTelemetryReporter32spatialSceneChangeTelemetryEventENS_30SpatialSceneClassificationTypeES1__block_invoke(uint64_t a1)
-{
-  v23[3] = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = mach_absolute_time();
-  v4 = *(v2 + 16);
-  v5 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&info))
+    v1 = qword_1EE19BD40;
+    if (qword_1EE19BD40 || (v1 = re::allocInfo_SkeletalAnimationLibraryEntry(a1), qword_1EE19BD40 = v1, re::initInfo_SkeletalAnimationLibraryEntry(v1, v2, v3, v4), (_MergedGlobals_107 & 1) == 0))
     {
-      v8 = NAN;
-      goto LABEL_6;
-    }
-
-    LODWORD(v6) = info.numer;
-    LODWORD(v7) = info.denom;
-    v5 = v6 / v7;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v5;
-  }
-
-  v8 = v5 * (v3 - v4);
-LABEL_6:
-  *(v2 + 16) = v3;
-  v22[0] = @"oldSpatialScene";
-  v9 = MEMORY[0x1E696AEC0];
-  std::string::basic_string[abi:ne200100]<0>(&info, off_1E871BD88[*(a1 + 40)]);
-  if (v21 >= 0)
-  {
-    p_info = &info;
-  }
-
-  else
-  {
-    p_info = info;
-  }
-
-  v11 = [v9 stringWithUTF8String:p_info];
-  v23[0] = v11;
-  v22[1] = @"newSpatialScene";
-  v12 = MEMORY[0x1E696AEC0];
-  std::string::basic_string[abi:ne200100]<0>(__p, off_1E871BD88[*(a1 + 41)]);
-  if (v19 >= 0)
-  {
-    v13 = __p;
-  }
-
-  else
-  {
-    v13 = __p[0];
-  }
-
-  v14 = [v12 stringWithUTF8String:v13];
-  v15 = v8 / 1000000.0;
-  *&v15 = v8 / 1000000.0;
-  v23[1] = v14;
-  v22[2] = @"sinceLastChange";
-  v16 = [MEMORY[0x1E696AB90] numberWithFloat:v15];
-  v23[2] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
-
-  if (v19 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v21 < 0)
-  {
-    operator delete(*&info);
-  }
-
-  re::AudioTelemetryReporter::sendTelemetryReport(*(v2 + 32), @"location", v17);
-}
-
-void sub_1E216359C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a21 < 0)
-  {
-    operator delete(a16);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void re::AudioManagerTelemetryReporter::roomChangeTelemetryEvent(re::AudioManagerTelemetryReporter *this, NSUUID *a2, NSUUID *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  v7 = [(NSUUID *)v5 copy];
-  v8 = [(NSUUID *)v6 copy];
-  v9 = re::AudioManagerTelemetryReporter::m_audioManagerTelemetryQueue;
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = ___ZN2re29AudioManagerTelemetryReporter24roomChangeTelemetryEventEP6NSUUIDS2__block_invoke;
-  block[3] = &unk_1E871BD20;
-  v14 = v8;
-  v15 = this;
-  v13 = v7;
-  v10 = v8;
-  v11 = v7;
-  dispatch_async(v9, block);
-}
-
-void ___ZN2re29AudioManagerTelemetryReporter24roomChangeTelemetryEventEP6NSUUIDS2__block_invoke(uint64_t a1)
-{
-  v20[3] = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 48);
-  v3 = mach_absolute_time();
-  v4 = *(v2 + 24);
-  v5 = *&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale;
-  if (*&re::convertMachTimeToNanoSecs(unsigned long long)::tmscale < 0.0)
-  {
-    if (mach_timebase_info(&v18))
-    {
-      v8 = NAN;
-      goto LABEL_6;
-    }
-
-    LODWORD(v6) = v18.numer;
-    LODWORD(v7) = v18.denom;
-    v5 = v6 / v7;
-    re::convertMachTimeToNanoSecs(unsigned long long)::tmscale = *&v5;
-  }
-
-  v8 = v5 * (v3 - v4);
-LABEL_6:
-  *(v2 + 24) = v3;
-  v19[0] = @"oldRoomIdentifier";
-  v9 = [*(a1 + 32) UUIDString];
-  v10 = v9;
-  if (v9)
-  {
-    v11 = v9;
-  }
-
-  else
-  {
-    v11 = @"null";
-  }
-
-  v20[0] = v11;
-  v19[1] = @"newRoomIdentifier";
-  v12 = [*(a1 + 40) UUIDString];
-  v13 = v12;
-  v14 = v8 / 1000000.0;
-  if (v12)
-  {
-    v15 = v12;
-  }
-
-  else
-  {
-    v15 = @"null";
-  }
-
-  v20[1] = v15;
-  v19[2] = @"sinceLastChange";
-  *&v14 = v8 / 1000000.0;
-  v16 = [MEMORY[0x1E696AB90] numberWithFloat:v14];
-  v20[2] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
-
-  re::AudioTelemetryReporter::sendTelemetryReport(*(v2 + 32), @"location", v17);
-}
-
-uint64_t re::AudioManagerTelemetryReporter::getInstance(re::AudioManagerTelemetryReporter *this)
-{
-  v1 = &re::introspect_StateTransitionInterruptionType(BOOL)::isInitialized;
-  {
-    v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v4 = dispatch_queue_attr_make_with_qos_class(v3, QOS_CLASS_UTILITY, 0);
-    re::AudioManagerTelemetryReporter::getInstance(void)::onceQueue = dispatch_queue_create("AudioTelemetry", v4);
-
-    v1 = &re::introspect_StateTransitionInterruptionType(BOOL)::isInitialized;
-  }
-
-  objc_storeStrong(&re::AudioManagerTelemetryReporter::m_audioManagerTelemetryQueue, *(v1 + 63));
-  result = re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter;
-  if (!re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter)
-  {
-    dispatch_sync(re::AudioManagerTelemetryReporter::m_audioManagerTelemetryQueue, &__block_literal_global_9);
-    return re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter;
-  }
-
-  return result;
-}
-
-re *___ZN2re29AudioManagerTelemetryReporter11getInstanceEv_block_invoke(re *result)
-{
-  if (!re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter)
-  {
-    v1 = re::globalAllocators(result);
-    v2 = (*(*v1[2] + 32))(v1[2], 192, 8);
-    *v2 = 0;
-    *(v2 + 8) = 0;
-    *(v2 + 40) = 0u;
-    *(v2 + 56) = 0u;
-    *(v2 + 16) = 0;
-    *(v2 + 24) = 0;
-    *(v2 + 72) = 1065353216;
-    *(v2 + 80) = 0;
-    *(v2 + 88) = 0u;
-    *(v2 + 104) = 0u;
-    *(v2 + 120) = 0u;
-    *(v2 + 136) = 0;
-    *(v2 + 144) = xmmword_1E30645F0;
-    *(v2 + 160) = xmmword_1E3064600;
-    *(v2 + 176) = xmmword_1E3064610;
-    v3 = re::globalAllocators(v2);
-    v4 = (*(*v3[2] + 32))(v3[2], 56, 8);
-    v5 = re::AudioTelemetryReporter::AudioTelemetryReporter(v4);
-    *(v2 + 32) = v5;
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = ___ZN2re29AudioManagerTelemetryReporterC2Ev_block_invoke;
-    v7[3] = &__block_descriptor_40_e5_v8__0l;
-    v7[4] = v2;
-    v6 = re::AudioTelemetryReporter::initializeTimerWith(v5, re::AudioManagerTelemetryReporter::m_audioManagerTelemetryQueue, v7, 300.0);
-    result = mach_absolute_time();
-    *v2 = result;
-    re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter = v2;
-  }
-
-  return result;
-}
-
-void re::AudioManagerTelemetryReporter::stopAndCleanupReporter(re::AudioManagerTelemetryReporter *this, const re::AudioManager_PHASE *a2)
-{
-  if (re::AudioManagerTelemetryReporter::m_audioManagerTelemetryQueue)
-  {
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3221225472;
-    block[2] = ___ZN2re29AudioManagerTelemetryReporter22stopAndCleanupReporterEPKNS_18AudioManager_PHASEE_block_invoke;
-    block[3] = &__block_descriptor_40_e5_v8__0l;
-    block[4] = this;
-    dispatch_sync(re::AudioManagerTelemetryReporter::m_audioManagerTelemetryQueue, block);
-  }
-}
-
-void ___ZN2re29AudioManagerTelemetryReporter22stopAndCleanupReporterEPKNS_18AudioManager_PHASEE_block_invoke(uint64_t a1)
-{
-  v1 = re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter;
-  if (!re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter)
-  {
-    return;
-  }
-
-  os_unfair_lock_lock((re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter + 80));
-  v3 = re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter;
-  v4 = std::__hash_table<std::__hash_value_type<re::AudioManager_PHASE const*,std::vector<NSObject  {objcproto18OS_dispatch_source}* {__strong}>>,std::__unordered_map_hasher<re::AudioManager_PHASE const*,std::__hash_value_type<re::AudioManager_PHASE const*,std::vector<NSObject  {objcproto18OS_dispatch_source}* {__strong}>>,std::hash<re::AudioManager_PHASE const*>,std::equal_to<re::AudioManager_PHASE const*>,true>,std::__unordered_map_equal<re::AudioManager_PHASE const*,std::__hash_value_type<re::AudioManager_PHASE const*,std::vector<NSObject  {objcproto18OS_dispatch_source}* {__strong}>>,std::equal_to<re::AudioManager_PHASE const*>,std::hash<re::AudioManager_PHASE const*>,true>,std::allocator<std::__hash_value_type<re::AudioManager_PHASE const*,std::vector<NSObject  {objcproto18OS_dispatch_source}* {__strong}>>>>::find<re::AudioManager_PHASE const*>((re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter + 40), *(a1 + 32));
-  if (v4)
-  {
-    v5 = v4;
-    v7 = v4[3];
-    v8 = v4[4];
-    v6 = (v4 + 3);
-    if (v7 != v8)
-    {
-      do
+      _MergedGlobals_107 = 1;
+      v5 = *(v1 + 6);
+      ArcSharedObject::ArcSharedObject(&qword_1EE19BE00, 0);
+      qword_1EE19BE10 = 0x2800000003;
+      dword_1EE19BE18 = v5;
+      word_1EE19BE1C = 0;
+      *&xmmword_1EE19BE20 = 0;
+      *(&xmmword_1EE19BE20 + 1) = 0xFFFFFFFFLL;
+      qword_1EE19BE30 = v1;
+      unk_1EE19BE38 = 0;
+      qword_1EE19BE00 = &unk_1F5CCA4D0;
+      re::IntrospectionRegistry::add(v6, v7);
+      re::getPrettyTypeName(&v15, &qword_1EE19BE00);
+      if (v16)
       {
-        v9 = *v7;
-        re::AudioTelemetryReporter::stopTimer(*(re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter + 32), v9);
-
-        ++v7;
+        v8 = *&v17[7];
       }
 
-      while (v7 != v8);
-      v3 = re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter;
-    }
-
-    v10 = v3[6];
-    v11 = *v5;
-    v12 = v5[1];
-    v13 = vcnt_s8(v10);
-    v13.i16[0] = vaddlv_u8(v13);
-    if (v13.u32[0] > 1uLL)
-    {
-      if (v12 >= *&v10)
+      else
       {
-        v12 %= *&v10;
+        v8 = v17;
       }
-    }
 
-    else
-    {
-      v12 &= *&v10 - 1;
-    }
-
-    v14 = v3[5];
-    v15 = *(v14 + 8 * v12);
-    do
-    {
-      v16 = v15;
-      v15 = *v15;
-    }
-
-    while (v15 != v5);
-    if (v16 == v3 + 7)
-    {
-      goto LABEL_23;
-    }
-
-    v17 = v16[1];
-    if (v13.u32[0] > 1uLL)
-    {
-      if (v17 >= *&v10)
+      if (v15 && (v16 & 1) != 0)
       {
-        v17 %= *&v10;
+        (*(*v15 + 40))();
       }
-    }
 
-    else
-    {
-      v17 &= *&v10 - 1;
-    }
-
-    if (v17 != v12)
-    {
-LABEL_23:
-      if (v11)
+      v12 = *(v1 + 2);
+      if (v19)
       {
-        v18 = *(v11 + 8);
-        if (v13.u32[0] > 1uLL)
+        v11 = v19;
+      }
+
+      else
+      {
+        re::StackScratchAllocator::StackScratchAllocator(v18);
+        re::TypeBuilder::TypeBuilder(&v15, v18);
+        v14 = v12;
+        re::TypeBuilder::beginListType(&v15, &v13, 1, 0x28uLL, 8uLL, &v14);
+        re::TypeBuilder::setConstructor(&v15, re::TypeBuilderHelper::registerDynamicArray<re::SkeletalAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#1}::__invoke);
+        re::TypeBuilder::setDestructor(&v15, re::TypeBuilderHelper::registerDynamicArray<re::SkeletalAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#2}::__invoke);
+        re::TypeBuilder::setListUsesContiguousStorage(&v15, 1);
+        re::TypeBuilder::setListAccessors(&v15, re::TypeBuilderHelper::registerDynamicArray<re::SkeletalAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#1}::__invoke, re::TypeBuilderHelper::registerDynamicArray<re::SkeletalAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,unsigned long)#1}::__invoke);
+        re::TypeBuilder::setListIndexer(&v15, re::TypeBuilderHelper::registerDynamicArray<re::SkeletalAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,unsigned long)#1}::__invoke);
+        re::TypeBuilder::setListIterator(&v15, re::TypeBuilderHelper::registerDynamicArray<re::SkeletalAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#1}::__invoke, re::TypeBuilderHelper::registerDynamicArray<re::SkeletalAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#2}::__invoke, re::TypeBuilderHelper::registerDynamicArray<re::SkeletalAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#2}::__invoke);
+        re::TypeBuilder::~TypeBuilder(&v15, v10);
+        re::StackScratchAllocator::~StackScratchAllocator(v18);
+      }
+
+      xmmword_1EE19BE20 = v11;
+      if (v13)
+      {
+        if (v13)
         {
-          v19 = *(v11 + 8);
-          if (v18 >= *&v10)
+        }
+      }
+    }
+  }
+}
+
+void re::IntrospectionInfo<re::DynamicArray<re::NamedAnimationLibraryEntry>>::get(re *a1)
+{
+  if ((atomic_load_explicit(&qword_1EE19BD78, memory_order_acquire) & 1) == 0)
+  {
+    a1 = __cxa_guard_acquire(&qword_1EE19BD78);
+    if (a1)
+    {
+      re::IntrospectionDynamicArrayBase::IntrospectionDynamicArrayBase(&qword_1EE19BE40);
+      qword_1EE19BE40 = &unk_1F5CCA568;
+      __cxa_guard_release(&qword_1EE19BD78);
+    }
+  }
+
+  if ((byte_1EE19BD11 & 1) == 0)
+  {
+    v1 = qword_1EE19BD58;
+    if (qword_1EE19BD58 || (v1 = re::allocInfo_NamedAnimationLibraryEntry(a1), qword_1EE19BD58 = v1, re::initInfo_NamedAnimationLibraryEntry(v1, v2, v3, v4), (byte_1EE19BD11 & 1) == 0))
+    {
+      byte_1EE19BD11 = 1;
+      v5 = *(v1 + 6);
+      ArcSharedObject::ArcSharedObject(&qword_1EE19BE40, 0);
+      qword_1EE19BE50 = 0x2800000003;
+      dword_1EE19BE58 = v5;
+      word_1EE19BE5C = 0;
+      *&xmmword_1EE19BE60 = 0;
+      *(&xmmword_1EE19BE60 + 1) = 0xFFFFFFFFLL;
+      qword_1EE19BE70 = v1;
+      unk_1EE19BE78 = 0;
+      qword_1EE19BE40 = &unk_1F5CCA568;
+      re::IntrospectionRegistry::add(v6, v7);
+      re::getPrettyTypeName(&v15, &qword_1EE19BE40);
+      if (v16)
+      {
+        v8 = *&v17[7];
+      }
+
+      else
+      {
+        v8 = v17;
+      }
+
+      if (v15 && (v16 & 1) != 0)
+      {
+        (*(*v15 + 40))();
+      }
+
+      v12 = *(v1 + 2);
+      if (v19)
+      {
+        v11 = v19;
+      }
+
+      else
+      {
+        re::StackScratchAllocator::StackScratchAllocator(v18);
+        re::TypeBuilder::TypeBuilder(&v15, v18);
+        v14 = v12;
+        re::TypeBuilder::beginListType(&v15, &v13, 1, 0x28uLL, 8uLL, &v14);
+        re::TypeBuilder::setConstructor(&v15, re::TypeBuilderHelper::registerDynamicArray<re::NamedAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#1}::__invoke);
+        re::TypeBuilder::setDestructor(&v15, re::TypeBuilderHelper::registerDynamicArray<re::NamedAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#2}::__invoke);
+        re::TypeBuilder::setListUsesContiguousStorage(&v15, 1);
+        re::TypeBuilder::setListAccessors(&v15, re::TypeBuilderHelper::registerDynamicArray<re::NamedAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#1}::__invoke, re::TypeBuilderHelper::registerDynamicArray<re::NamedAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,unsigned long)#1}::__invoke);
+        re::TypeBuilder::setListIndexer(&v15, re::TypeBuilderHelper::registerDynamicArray<re::NamedAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,unsigned long)#1}::__invoke);
+        re::TypeBuilder::setListIterator(&v15, re::TypeBuilderHelper::registerDynamicArray<re::NamedAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#1}::__invoke, re::TypeBuilderHelper::registerDynamicArray<re::NamedAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#2}::__invoke, re::TypeBuilderHelper::registerDynamicArray<re::NamedAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#2}::__invoke);
+        re::TypeBuilder::~TypeBuilder(&v15, v10);
+        re::StackScratchAllocator::~StackScratchAllocator(v18);
+      }
+
+      xmmword_1EE19BE60 = v11;
+      if (v13)
+      {
+        if (v13)
+        {
+        }
+      }
+    }
+  }
+}
+
+void re::IntrospectionInfo<re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>>::get(uint64_t a1, const re::IntrospectionBase *a2)
+{
+  if ((atomic_load_explicit(&qword_1EE19BD80, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19BD80))
+  {
+    re::IntrospectionHashTableBase::IntrospectionHashTableBase(&qword_1EE19BE80);
+    qword_1EE19BE80 = &unk_1F5CCA600;
+    __cxa_guard_release(&qword_1EE19BD80);
+  }
+
+  if ((byte_1EE19BD12 & 1) == 0)
+  {
+    v2 = re::IntrospectionInfo<re::StringID>::get(1, a2);
+    v4 = re::introspect_size_t(1, v3);
+    if ((byte_1EE19BD12 & 1) == 0)
+    {
+      v5 = v4;
+      byte_1EE19BD12 = 1;
+      v6 = v4[6];
+      ArcSharedObject::ArcSharedObject(&qword_1EE19BE80, 0);
+      qword_1EE19BE90 = 0x3000000007;
+      dword_1EE19BE98 = v6;
+      word_1EE19BE9C = 0;
+      *&xmmword_1EE19BEA0 = 0;
+      *(&xmmword_1EE19BEA0 + 1) = 0xFFFFFFFFLL;
+      qword_1EE19BEB0 = v2;
+      unk_1EE19BEB8 = 0;
+      qword_1EE19BEC0 = v5;
+      unk_1EE19BEC8 = 0;
+      qword_1EE19BE80 = &unk_1F5CCA600;
+      re::IntrospectionRegistry::add(v7, v8);
+      re::getPrettyTypeName(&v23, &qword_1EE19BE80);
+      if (BYTE8(v23))
+      {
+        v9 = v24;
+      }
+
+      else
+      {
+        v9 = &v23 + 9;
+      }
+
+      if (v23 && (BYTE8(v23) & 1) != 0)
+      {
+        (*(*v23 + 40))();
+      }
+
+      v10 = v2[2];
+      v18 = *(v5 + 32);
+      v19 = v10;
+      if (v30)
+      {
+        v17 = v30;
+      }
+
+      else
+      {
+        *&v23 = 0x449AD97C4B77BED4;
+        *(&v23 + 1) = "_CompareFunc";
+        if (v23)
+        {
+          if (v23)
           {
-            v19 = v18 % *&v10;
+          }
+        }
+
+        if (!v29)
+        {
+          v25[0] = 0x449AD97C4B77BED4;
+          v25[1] = "_CompareFunc";
+          v29 = v23;
+          if (v25[0])
+          {
+            if (v25[0])
+            {
+            }
+          }
+        }
+
+        re::TypeInfo::TypeInfo(v28, &v23 + 8);
+        if (!v29 || (v14 = *v28[2], *&v23 = *(&v29 + 1), *(&v23 + 1) = v14, LODWORD(v24) = -1, (v15 = re::HashTable<re::internal::TypeAttributeKey,re::internal::TypeAttributeData,re::Hash<re::internal::TypeAttributeKey>,re::EqualTo<re::internal::TypeAttributeKey>,true,false>::tryGet(v28[0] + 768, &v23)) == 0) || !*v15)
+        {
+          v26 = v29;
+          v27 = v19;
+        }
+
+        re::StackScratchAllocator::StackScratchAllocator(v25);
+        re::TypeBuilder::TypeBuilder(&v23, v25);
+        v21 = v18;
+        v22 = v19;
+        re::TypeBuilder::beginDictionaryType(&v23, &v20, 1, 0x30uLL, 8uLL, &v22, &v21);
+        re::TypeBuilder::setConstructor(&v23, re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#1}::__invoke);
+        re::TypeBuilder::setDestructor(&v23, re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#2}::__invoke);
+        re::TypeBuilder::setDictionaryAccessors(&v23, re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *)#1}::__invoke, re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *)#1}::__invoke, re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#3}::__invoke, re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,void const*)#1}::__invoke);
+        re::TypeBuilder::setDictionaryIterator(&v23, re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#1}::__invoke, re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *)#2}::__invoke, re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *)#3}::__invoke, re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *)#4}::__invoke, re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#2}::__invoke);
+        re::TypeBuilder::~TypeBuilder(&v23, v16);
+        re::StackScratchAllocator::~StackScratchAllocator(v25);
+      }
+
+      xmmword_1EE19BEA0 = v17;
+      if (v20)
+      {
+        if (v20)
+        {
+        }
+      }
+    }
+  }
+}
+
+double re::internal::defaultConstruct<re::AnimationLibraryAsset>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 24) = 0;
+  *(a3 + 16) = 0;
+  *(a3 + 32) = 0u;
+  *(a3 + 48) = 0u;
+  *(a3 + 64) = 0;
+  *(a3 + 72) = 0u;
+  *(a3 + 88) = 0u;
+  *(a3 + 104) = 0;
+  *(a3 + 112) = 0u;
+  *(a3 + 128) = 0u;
+  *(a3 + 144) = 0;
+  *(a3 + 152) = 0u;
+  *(a3 + 168) = 0u;
+  *(a3 + 180) = 0u;
+  *&result = 0x7FFFFFFFLL;
+  *(a3 + 196) = 0x7FFFFFFFLL;
+  *(a3 + 208) = 0;
+  *(a3 + 216) = &str_67;
+  return result;
+}
+
+uint64_t re::internal::defaultDestruct<re::AnimationLibraryAsset>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  re::StringID::destroyString((a3 + 208));
+  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit((a3 + 160));
+  re::DynamicArray<re::AssetHandle>::deinit(a3 + 120);
+  re::DynamicArray<re::NamedAnimationLibraryEntry>::deinit(a3 + 80);
+  re::DynamicArray<re::NamedAnimationLibraryEntry>::deinit(a3 + 40);
+
+  return re::DynamicArray<re::SkeletalAnimationLibraryEntry>::deinit(a3);
+}
+
+double re::internal::defaultConstructV2<re::AnimationLibraryAsset>(uint64_t a1)
+{
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 24) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0;
+  *(a1 + 72) = 0u;
+  *(a1 + 88) = 0u;
+  *(a1 + 104) = 0;
+  *(a1 + 112) = 0u;
+  *(a1 + 128) = 0u;
+  *(a1 + 144) = 0;
+  *(a1 + 152) = 0u;
+  *(a1 + 168) = 0u;
+  *(a1 + 180) = 0u;
+  *&result = 0x7FFFFFFFLL;
+  *(a1 + 196) = 0x7FFFFFFFLL;
+  *(a1 + 208) = 0;
+  *(a1 + 216) = &str_67;
+  return result;
+}
+
+uint64_t re::internal::defaultDestructV2<re::AnimationLibraryAsset>(uint64_t a1)
+{
+  re::StringID::destroyString((a1 + 208));
+  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit((a1 + 160));
+  re::DynamicArray<re::AssetHandle>::deinit(a1 + 120);
+  re::DynamicArray<re::NamedAnimationLibraryEntry>::deinit(a1 + 80);
+  re::DynamicArray<re::NamedAnimationLibraryEntry>::deinit(a1 + 40);
+
+  return re::DynamicArray<re::SkeletalAnimationLibraryEntry>::deinit(a1);
+}
+
+_anonymous_namespace_ *re::DynamicArray<re::NamedAnimationLibraryEntry>::growCapacity(_anonymous_namespace_ *this, unint64_t a2)
+{
+  v2 = *(this + 1);
+  if (v2 < a2)
+  {
+    v3 = a2;
+    v4 = this;
+    if (*this)
+    {
+      v5 = 2 * v2;
+      v6 = v2 == 0;
+      v7 = 8;
+      if (!v6)
+      {
+        v7 = v5;
+      }
+
+      if (v7 > a2)
+      {
+        a2 = v7;
+      }
+
+      return re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity(this, a2);
+    }
+
+    else
+    {
+      this = re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity(v4, v3);
+      ++*(v4 + 6);
+    }
+  }
+
+  return this;
+}
+
+void *re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity(void *result, unint64_t a2)
+{
+  v3 = result[1];
+  if (v3 != a2)
+  {
+    v5 = result;
+    if (result[2] <= a2)
+    {
+      result = *result;
+      if (!*v5)
+      {
+        result = re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity(v5, a2);
+        ++*(v5 + 6);
+        return result;
+      }
+
+      if (a2)
+      {
+        if (is_mul_ok(a2, 0x28uLL))
+        {
+          v2 = 40 * a2;
+          result = (*(*result + 32))(result, 40 * a2, 8);
+          if (result)
+          {
+            v7 = result;
+            if (!v5[1])
+            {
+              goto LABEL_16;
+            }
+
+            goto LABEL_11;
           }
         }
 
         else
         {
-          v19 = v18 & (*&v10 - 1);
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 40, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v17, v19);
+          __break(1u);
         }
 
-        if (v19 == v12)
-        {
-          goto LABEL_27;
-        }
+        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v18, v20);
+        __break(1u);
+        return result;
       }
 
-      *(v14 + 8 * v12) = 0;
-      v11 = *v5;
-    }
-
-    if (!v11)
-    {
-LABEL_33:
-      *v16 = v11;
-      *v5 = 0;
-      --v3[8];
-      v24 = v6;
-      std::vector<PHASESource * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v24);
-      operator delete(v5);
-      v3 = re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter;
-      goto LABEL_34;
-    }
-
-    v18 = *(v11 + 8);
-LABEL_27:
-    if (v13.u32[0] > 1uLL)
-    {
-      if (v18 >= *&v10)
+      v7 = 0;
+      if (!v3)
       {
-        v18 %= *&v10;
+LABEL_16:
+        v5[4] = v7;
+        v5[1] = a2;
+        return result;
+      }
+
+LABEL_11:
+      v8 = v5[4];
+      v9 = v5[2];
+      if (v9)
+      {
+        v10 = (v8 + 40 * v9);
+        v11 = (v8 + 16);
+        v12 = v7;
+        do
+        {
+          v13 = *(v11 - 2);
+          *v12 = *v12 & 0xFFFFFFFFFFFFFFFELL | *(v11 - 2) & 1;
+          *v12 = *(v11 - 2) & 0xFFFFFFFFFFFFFFFELL | v13 & 1;
+          v12[1] = *(v11 - 1);
+          *(v11 - 1) = &str_67;
+          *(v11 - 2) = 0;
+          v12[2] = 0;
+          v12[3] = 0;
+          v12[4] = 0;
+          v12[3] = *(v11 + 1);
+          *(v11 + 1) = 0;
+          v14 = v12[2];
+          v12[2] = 0;
+          v12[2] = *v11;
+          *v11 = v14;
+          v15 = v12[4];
+          v12[4] = *(v11 + 2);
+          *(v11 + 2) = v15;
+          re::AssetHandle::~AssetHandle(v11);
+          re::StringID::destroyString((v11 - 16));
+          v12 += 5;
+          v16 = (v11 + 24);
+          v11 = (v11 + 40);
+        }
+
+        while (v16 != v10);
+        v8 = v5[4];
+      }
+
+      result = (*(**v5 + 40))(*v5, v8);
+      goto LABEL_16;
+    }
+  }
+
+  return result;
+}
+
+_anonymous_namespace_ *re::DynamicArray<re::SkeletalAnimationLibraryEntry>::growCapacity(_anonymous_namespace_ *this, unint64_t a2)
+{
+  v2 = *(this + 1);
+  if (v2 < a2)
+  {
+    v3 = a2;
+    v4 = this;
+    if (*this)
+    {
+      v5 = 2 * v2;
+      v6 = v2 == 0;
+      v7 = 8;
+      if (!v6)
+      {
+        v7 = v5;
+      }
+
+      if (v7 > a2)
+      {
+        a2 = v7;
+      }
+
+      return re::DynamicArray<re::SkeletalAnimationLibraryEntry>::setCapacity(this, a2);
+    }
+
+    else
+    {
+      this = re::DynamicArray<re::SkeletalAnimationLibraryEntry>::setCapacity(v4, v3);
+      ++*(v4 + 6);
+    }
+  }
+
+  return this;
+}
+
+void *re::DynamicArray<re::SkeletalAnimationLibraryEntry>::setCapacity(void *result, unint64_t a2)
+{
+  v3 = result[1];
+  if (v3 != a2)
+  {
+    v4 = a2;
+    v5 = result;
+    if (result[2] <= a2)
+    {
+      result = *result;
+      if (!*v5)
+      {
+        result = re::DynamicArray<re::SkeletalAnimationLibraryEntry>::setCapacity(v5, v4);
+        ++*(v5 + 6);
+        return result;
+      }
+
+      if (a2)
+      {
+        if (is_mul_ok(a2, 0x78uLL))
+        {
+          v2 = 120 * a2;
+          result = (*(*result + 32))(result, 120 * a2, 8);
+          if (result)
+          {
+            v7 = result;
+            if (!v5[1])
+            {
+              goto LABEL_16;
+            }
+
+            goto LABEL_11;
+          }
+        }
+
+        else
+        {
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 120, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v22, v24);
+          __break(1u);
+        }
+
+        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v23, v25);
+        __break(1u);
+        return result;
+      }
+
+      v7 = 0;
+      if (!v3)
+      {
+LABEL_16:
+        v5[4] = v7;
+        v5[1] = v4;
+        return result;
+      }
+
+LABEL_11:
+      v8 = v5[4];
+      v9 = v5[2];
+      if (v9)
+      {
+        v26 = v4;
+        v10 = (v8 + 120 * v9);
+        v11 = (v8 + 96);
+        v12 = v7;
+        do
+        {
+          *v12 = *(v11 - 96);
+          v13 = *(v11 - 11);
+          v12[1] = v12[1] & 0xFFFFFFFFFFFFFFFELL | *(v11 - 11) & 1;
+          v12[1] = *(v11 - 11) & 0xFFFFFFFFFFFFFFFELL | v13 & 1;
+          v12[2] = *(v11 - 10);
+          *(v11 - 10) = &str_67;
+          *(v11 - 11) = 0;
+          v14 = *(v11 - 9);
+          v12[3] = v12[3] & 0xFFFFFFFFFFFFFFFELL | *(v11 - 9) & 1;
+          v12[3] = *(v11 - 9) & 0xFFFFFFFFFFFFFFFELL | v14 & 1;
+          v12[4] = *(v11 - 8);
+          *(v11 - 8) = &str_67;
+          *(v11 - 9) = 0;
+          v15 = *(v11 - 7);
+          v12[5] = v12[5] & 0xFFFFFFFFFFFFFFFELL | *(v11 - 7) & 1;
+          v12[5] = *(v11 - 7) & 0xFFFFFFFFFFFFFFFELL | v15 & 1;
+          v12[6] = *(v11 - 6);
+          *(v11 - 6) = &str_67;
+          *(v11 - 7) = 0;
+          v16 = *(v11 - 5);
+          v12[7] = v12[7] & 0xFFFFFFFFFFFFFFFELL | *(v11 - 5) & 1;
+          v12[7] = *(v11 - 5) & 0xFFFFFFFFFFFFFFFELL | v16 & 1;
+          v12[8] = *(v11 - 4);
+          *(v11 - 4) = &str_67;
+          *(v11 - 5) = 0;
+          v12[9] = 0;
+          v12[10] = 0;
+          v12[11] = 0;
+          v12[10] = *(v11 - 2);
+          *(v11 - 2) = 0;
+          v17 = v12[9];
+          v12[9] = 0;
+          v12[9] = *(v11 - 3);
+          *(v11 - 3) = v17;
+          v18 = v12[11];
+          v12[11] = *(v11 - 1);
+          *(v11 - 1) = v18;
+          v12[12] = 0;
+          v12[13] = 0;
+          v12[14] = 0;
+          v12[13] = v11[1];
+          v11[1] = 0;
+          v19 = v12[12];
+          v12[12] = 0;
+          v12[12] = *v11;
+          *v11 = v19;
+          v20 = v12[14];
+          v12[14] = v11[2];
+          v11[2] = v20;
+          re::AssetHandle::~AssetHandle(v11);
+          re::AssetHandle::~AssetHandle((v11 - 3));
+          re::StringID::destroyString((v11 - 5));
+          re::StringID::destroyString((v11 - 7));
+          re::StringID::destroyString((v11 - 9));
+          re::StringID::destroyString((v11 - 11));
+          v12 += 15;
+          v21 = v11 + 3;
+          v11 += 15;
+        }
+
+        while (v21 != v10);
+        v8 = v5[4];
+        v4 = v26;
+      }
+
+      result = (*(**v5 + 40))(*v5, v8);
+      goto LABEL_16;
+    }
+  }
+
+  return result;
+}
+
+re::StringID *re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::copy(re::StringID *result, uint64_t a2)
+{
+  v2 = *(a2 + 32);
+  if (v2)
+  {
+    v4 = result;
+    v5 = 0;
+    v6 = 0;
+    v7 = *(a2 + 16);
+    do
+    {
+      if ((*(v7 + v5) & 0x80000000) != 0)
+      {
+        v8 = 0xBF58476D1CE4E5B9 * ((*(v7 + v5 + 8) >> 31) ^ (*(v7 + v5 + 8) >> 1));
+        v9 = (0x94D049BB133111EBLL * (v8 ^ (v8 >> 27))) ^ ((0x94D049BB133111EBLL * (v8 ^ (v8 >> 27))) >> 31);
+        v10 = re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::allocEntry(v4, v9 % *(v4 + 24), v9);
+        result = re::StringID::StringID((v10 + 8), (*(a2 + 16) + v5 + 8));
+        v7 = *(a2 + 16);
+        *(v10 + 24) = *(v7 + v5 + 24);
+        v2 = *(a2 + 32);
+      }
+
+      ++v6;
+      v5 += 32;
+    }
+
+    while (v6 < v2);
+  }
+
+  return result;
+}
+
+void *re::IntrospectionDynamicArray<re::SkeletalAnimationLibraryEntry>::~IntrospectionDynamicArray(void *a1)
+{
+  *a1 = &unk_1F5CADA48;
+  re::SerializedReference<re::IntrospectionBase const*>::reset((a1 + 6));
+  *a1 = &unk_1F5CCF868;
+  objc_destructInstance(a1 + 1);
+  return a1;
+}
+
+void re::IntrospectionDynamicArray<re::SkeletalAnimationLibraryEntry>::~IntrospectionDynamicArray(void *a1)
+{
+  *a1 = &unk_1F5CADA48;
+  re::SerializedReference<re::IntrospectionBase const*>::reset((a1 + 6));
+  *a1 = &unk_1F5CCF868;
+  objc_destructInstance(a1 + 1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::IntrospectionDynamicArray<re::SkeletalAnimationLibraryEntry>::construct(uint64_t a1, uint64_t a2)
+{
+  *(a2 + 32) = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *a2 = 0;
+  *(a2 + 24) = 0;
+}
+
+void *re::IntrospectionDynamicArray<re::SkeletalAnimationLibraryEntry>::init(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  re::DynamicArray<re::SkeletalAnimationLibraryEntry>::deinit(a2);
+  *a2 = a3;
+  result = re::DynamicArray<re::SkeletalAnimationLibraryEntry>::setCapacity(a2, 0);
+  ++*(a2 + 24);
+  return result;
+}
+
+void re::IntrospectionDynamicArray<re::SkeletalAnimationLibraryEntry>::resize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
+{
+  if (!*a4)
+  {
+    *a4 = a2;
+    re::DynamicArray<re::SkeletalAnimationLibraryEntry>::setCapacity(a4, a5);
+    ++*(a4 + 24);
+  }
+
+  re::DynamicArray<re::SkeletalAnimationLibraryEntry>::resize(a4, a5);
+}
+
+re::IntrospectionBase *re::IntrospectionDynamicArray<re::SkeletalAnimationLibraryEntry>::addElement(uint64_t a1, re *a2, int a3, _anonymous_namespace_ *this)
+{
+  v11 = 0;
+  v12 = 0;
+  v13 = &str_67;
+  v14 = 0;
+  v15 = &str_67;
+  v16 = 0;
+  v17 = &str_67;
+  v18 = 0;
+  v19 = &str_67;
+  memset(v20, 0, sizeof(v20));
+  re::DynamicArray<re::SkeletalAnimationLibraryEntry>::add(this, &v11);
+  re::AssetHandle::~AssetHandle((&v20[1] + 8));
+  re::AssetHandle::~AssetHandle(v20);
+  if (v18)
+  {
+    if (v18)
+    {
+    }
+  }
+
+  v18 = 0;
+  v19 = &str_67;
+  if (v16)
+  {
+    if (v16)
+    {
+    }
+  }
+
+  v16 = 0;
+  v17 = &str_67;
+  if (v14)
+  {
+    if (v14)
+    {
+    }
+  }
+
+  v14 = 0;
+  v15 = &str_67;
+  if (v12)
+  {
+    if (v12)
+    {
+    }
+  }
+
+  v9 = (*(this + 4) + 120 * *(this + 2) - 120);
+  re::introspectionInitElement(a2, a3, *(a1 + 48), v9);
+  return v9;
+}
+
+unint64_t re::IntrospectionDynamicArray<re::SkeletalAnimationLibraryEntry>::elementAt(uint64_t a1, uint64_t a2, unint64_t a3)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v4 = *(a2 + 16);
+  if (v4 <= a3)
+  {
+    v9 = 0;
+    memset(v18, 0, sizeof(v18));
+    v6 = MEMORY[0x1E69E9C10];
+    v10 = 136315906;
+    v11 = "operator[]";
+    v12 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    v13 = 789;
+    v14 = 2048;
+    v15 = a3;
+    v16 = 2048;
+    v17 = v4;
+    _os_log_send_and_compose_impl(v7, &v9, v18, 80, &dword_1E1C61000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v10, 38, v8);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(a2 + 32) + 120 * a3;
+}
+
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v4 = *(a2 + 16);
+  if (v4 <= a3)
+  {
+    v9 = 0;
+    memset(v18, 0, sizeof(v18));
+    v6 = MEMORY[0x1E69E9C10];
+    v10 = 136315906;
+    v11 = "operator[]";
+    v12 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    v13 = 797;
+    v14 = 2048;
+    v15 = a3;
+    v16 = 2048;
+    v17 = v4;
+    _os_log_send_and_compose_impl(v7, &v9, v18, 80, &dword_1E1C61000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v10, 38, v8);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(a2 + 32) + 120 * a3;
+}
+
+void re::DynamicArray<re::SkeletalAnimationLibraryEntry>::resize(void *result, unint64_t a2)
+{
+  v4 = result[2];
+  if (v4 >= a2)
+  {
+    if (v4 <= a2)
+    {
+      return;
+    }
+
+    v8 = 120 * a2 + 56;
+    v9 = a2;
+    do
+    {
+      v10 = result[4] + v8;
+      re::AssetHandle::~AssetHandle((v10 + 40));
+      re::AssetHandle::~AssetHandle((v10 + 16));
+      re::StringID::destroyString(v10);
+      re::StringID::destroyString((v10 - 16));
+      re::StringID::destroyString((v10 - 32));
+      re::StringID::destroyString((v10 - 48));
+      ++v9;
+      v8 += 120;
+    }
+
+    while (v9 < result[2]);
+  }
+
+  else
+  {
+    if (result[1] < a2)
+    {
+      re::DynamicArray<re::SkeletalAnimationLibraryEntry>::setCapacity(result, a2);
+      v4 = result[2];
+    }
+
+    v5 = a2 - v4;
+    if (a2 > v4)
+    {
+      v6 = 120 * v4 + 72;
+      do
+      {
+        v7 = (result[4] + v6);
+        *(v7 - 72) = 0;
+        *(v7 - 8) = 0;
+        *(v7 - 7) = &str_67;
+        *(v7 - 6) = 0;
+        *(v7 - 5) = &str_67;
+        *(v7 - 4) = 0;
+        *(v7 - 3) = &str_67;
+        *(v7 - 2) = 0;
+        *(v7 - 1) = &str_67;
+        *v7 = 0uLL;
+        v7[1] = 0uLL;
+        v6 += 120;
+        v7[2] = 0uLL;
+        --v5;
+      }
+
+      while (v5);
+    }
+  }
+
+  result[2] = a2;
+  ++*(result + 6);
+}
+
+void *re::TypeBuilderHelper::registerDynamicArray<re::SkeletalAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#1}::__invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *(a1 + 32) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  *a1 = a3;
+  result = re::DynamicArray<re::SkeletalAnimationLibraryEntry>::setCapacity(a1, 0);
+  ++*(a1 + 24);
+  return result;
+}
+
+void re::TypeBuilderHelper::registerDynamicArray<re::SkeletalAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,unsigned long)#1}::__invoke(uint64_t a1, void *a2, re::Allocator *a3, unint64_t a4)
+{
+  if (*a1 == a3)
+  {
+    v8 = *(a1 + 16);
+    *(a1 + 16) = 0;
+    if (v8)
+    {
+      v9 = 0;
+      v10 = *(a1 + 32);
+      v11 = 120 * v8;
+      do
+      {
+        re::AssetHandle::~AssetHandle((v10 + v9 + 96));
+        re::AssetHandle::~AssetHandle((v10 + v9 + 72));
+        re::StringID::destroyString((v10 + v9 + 56));
+        re::StringID::destroyString((v10 + v9 + 40));
+        re::StringID::destroyString((v10 + v9 + 24));
+        re::StringID::destroyString((v10 + v9 + 8));
+        v9 += 120;
+      }
+
+      while (v11 != v9);
+    }
+  }
+
+  else
+  {
+    re::DynamicArray<re::SkeletalAnimationLibraryEntry>::deinit(a1);
+    *a1 = a3;
+    re::DynamicArray<re::SkeletalAnimationLibraryEntry>::setCapacity(a1, a4);
+  }
+
+  ++*(a1 + 24);
+  re::DynamicArray<re::SkeletalAnimationLibraryEntry>::resize(a1, a4);
+  {
+    re::TypeRegistry::typeInfo(*a2, *(a2[2] + 80), &v17);
+    re::TypeInfo::TypeInfo(v16, &v18);
+    v13 = *(a1 + 16);
+    if (v13)
+    {
+      v14 = *(a1 + 32);
+      v15 = 120 * v13;
+      do
+      {
+        re::TypeInfo::destruct(v16, v14, a3, 0);
+        re::TypeInfo::construct(v16, v14, a3, 0);
+        v14 += 120;
+        v15 -= 120;
+      }
+
+      while (v15);
+    }
+  }
+}
+
+unint64_t re::TypeBuilderHelper::registerDynamicArray<re::SkeletalAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,unsigned long)#1}::__invoke(uint64_t a1, unint64_t a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 16);
+  if (v3 <= a2)
+  {
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x1E69E9C10];
+    v9 = 136315906;
+    v10 = "operator[]";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v12 = 789;
+    v13 = 2048;
+    v14 = a2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_1E1C61000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(a1 + 32) + 120 * a2;
+}
+
+uint64_t re::TypeBuilderHelper::registerDynamicArray<re::SkeletalAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#1}::__invoke(uint64_t a1, uint64_t a2)
+{
+  result = (*(*a2 + 32))(a2, 16, 8);
+  *result = a1;
+  *(result + 8) = *(a1 + 24);
+  *(result + 12) = -1;
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerDynamicArray<re::SkeletalAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#2}::__invoke(_DWORD *a1, uint64_t a2)
+{
+  v4 = *a1;
+  if (a1[2] == *(*a1 + 24))
+  {
+    v5 = a1[3];
+    v6 = *(v4 + 16);
+    if (v5 < v6)
+    {
+      a1[3] = ++v5;
+    }
+
+    if (v6 <= v5)
+    {
+      return 0;
+    }
+
+    else
+    {
+      return *(v4 + 32) + 120 * v5;
+    }
+  }
+
+  else
+  {
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) DynamicArray elements may not be added or removed during iteration.", "iter->originalVersion == iter->array->version()", "operator()", 316, v2, v3);
+    result = _os_crash("assertion failure: (iter->originalVersion == iter->array->version()) DynamicArray elements may not be added or removed during iteration.");
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerDynamicArray<re::SkeletalAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#2}::__invoke(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    return (*(*a2 + 40))(a2, result);
+  }
+
+  return result;
+}
+
+void *re::IntrospectionDynamicArray<re::NamedAnimationLibraryEntry>::~IntrospectionDynamicArray(void *a1)
+{
+  *a1 = &unk_1F5CADA48;
+  re::SerializedReference<re::IntrospectionBase const*>::reset((a1 + 6));
+  *a1 = &unk_1F5CCF868;
+  objc_destructInstance(a1 + 1);
+  return a1;
+}
+
+void re::IntrospectionDynamicArray<re::NamedAnimationLibraryEntry>::~IntrospectionDynamicArray(void *a1)
+{
+  *a1 = &unk_1F5CADA48;
+  re::SerializedReference<re::IntrospectionBase const*>::reset((a1 + 6));
+  *a1 = &unk_1F5CCF868;
+  objc_destructInstance(a1 + 1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::IntrospectionDynamicArray<re::NamedAnimationLibraryEntry>::construct(uint64_t a1, uint64_t a2)
+{
+  *(a2 + 32) = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *a2 = 0;
+  *(a2 + 24) = 0;
+}
+
+void *re::IntrospectionDynamicArray<re::NamedAnimationLibraryEntry>::init(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  re::DynamicArray<re::NamedAnimationLibraryEntry>::deinit(a2);
+  *a2 = a3;
+  result = re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity(a2, 0);
+  ++*(a2 + 24);
+  return result;
+}
+
+void re::IntrospectionDynamicArray<re::NamedAnimationLibraryEntry>::resize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
+{
+  if (!*a4)
+  {
+    *a4 = a2;
+    re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity(a4, a5);
+    ++*(a4 + 24);
+  }
+
+  re::DynamicArray<re::NamedAnimationLibraryEntry>::resize(a4, a5);
+}
+
+re::IntrospectionBase *re::IntrospectionDynamicArray<re::NamedAnimationLibraryEntry>::addElement(uint64_t a1, re *a2, int a3, _anonymous_namespace_ *this)
+{
+  v11[0] = 0;
+  v11[1] = &str_67;
+  memset(v12, 0, sizeof(v12));
+  re::DynamicArray<re::NamedAnimationLibraryEntry>::add(this, v11);
+  re::AssetHandle::~AssetHandle(v12);
+  if (v11[0])
+  {
+    if (v11[0])
+    {
+    }
+  }
+
+  v9 = (*(this + 4) + 40 * *(this + 2) - 40);
+  re::introspectionInitElement(a2, a3, *(a1 + 48), v9);
+  return v9;
+}
+
+unint64_t re::IntrospectionDynamicArray<re::NamedAnimationLibraryEntry>::elementAt(uint64_t a1, uint64_t a2, unint64_t a3)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v4 = *(a2 + 16);
+  if (v4 <= a3)
+  {
+    v9 = 0;
+    memset(v18, 0, sizeof(v18));
+    v6 = MEMORY[0x1E69E9C10];
+    v10 = 136315906;
+    v11 = "operator[]";
+    v12 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    v13 = 789;
+    v14 = 2048;
+    v15 = a3;
+    v16 = 2048;
+    v17 = v4;
+    _os_log_send_and_compose_impl(v7, &v9, v18, 80, &dword_1E1C61000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v10, 38, v8);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(a2 + 32) + 40 * a3;
+}
+
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v4 = *(a2 + 16);
+  if (v4 <= a3)
+  {
+    v9 = 0;
+    memset(v18, 0, sizeof(v18));
+    v6 = MEMORY[0x1E69E9C10];
+    v10 = 136315906;
+    v11 = "operator[]";
+    v12 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    v13 = 797;
+    v14 = 2048;
+    v15 = a3;
+    v16 = 2048;
+    v17 = v4;
+    _os_log_send_and_compose_impl(v7, &v9, v18, 80, &dword_1E1C61000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v10, 38, v8);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(a2 + 32) + 40 * a3;
+}
+
+void re::DynamicArray<re::NamedAnimationLibraryEntry>::resize(void *result, unint64_t a2)
+{
+  v4 = result[2];
+  if (v4 >= a2)
+  {
+    if (v4 <= a2)
+    {
+      return;
+    }
+
+    v8 = 40 * a2;
+    v9 = a2;
+    do
+    {
+      v10 = result[4] + v8;
+      re::AssetHandle::~AssetHandle((v10 + 16));
+      re::StringID::destroyString(v10);
+      ++v9;
+      v8 += 40;
+    }
+
+    while (v9 < result[2]);
+  }
+
+  else
+  {
+    if (result[1] < a2)
+    {
+      re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity(result, a2);
+      v4 = result[2];
+    }
+
+    v5 = a2 - v4;
+    if (a2 > v4)
+    {
+      v6 = 40 * v4;
+      do
+      {
+        v7 = (result[4] + v6);
+        *v7 = 0;
+        v7[1] = &str_67;
+        v7[3] = 0;
+        v7[4] = 0;
+        v7[2] = 0;
+        v6 += 40;
+        --v5;
+      }
+
+      while (v5);
+    }
+  }
+
+  result[2] = a2;
+  ++*(result + 6);
+}
+
+_anonymous_namespace_ *re::DynamicArray<re::NamedAnimationLibraryEntry>::add(_anonymous_namespace_ *this, uint64_t *a2)
+{
+  v3 = this;
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
+  {
+    this = re::DynamicArray<re::NamedAnimationLibraryEntry>::growCapacity(this, v4 + 1);
+    v4 = *(v3 + 2);
+  }
+
+  v5 = (*(v3 + 4) + 40 * v4);
+  v6 = *a2;
+  *v5 = *v5 & 0xFFFFFFFFFFFFFFFELL | *a2 & 1;
+  *v5 = *a2 & 0xFFFFFFFFFFFFFFFELL | v6 & 1;
+  v5[1] = a2[1];
+  *a2 = 0;
+  a2[1] = &str_67;
+  v5[2] = 0;
+  v5[3] = 0;
+  v5[4] = 0;
+  v5[3] = a2[3];
+  a2[3] = 0;
+  v7 = v5[2];
+  v5[2] = 0;
+  v5[2] = a2[2];
+  a2[2] = v7;
+  v8 = v5[4];
+  v5[4] = a2[4];
+  a2[4] = v8;
+  ++*(v3 + 2);
+  ++*(v3 + 6);
+  return this;
+}
+
+void *re::TypeBuilderHelper::registerDynamicArray<re::NamedAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#1}::__invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *(a1 + 32) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  *a1 = a3;
+  result = re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity(a1, 0);
+  ++*(a1 + 24);
+  return result;
+}
+
+void re::TypeBuilderHelper::registerDynamicArray<re::NamedAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,unsigned long)#1}::__invoke(uint64_t a1, void *a2, re::Allocator *a3, unint64_t a4)
+{
+  if (*a1 == a3)
+  {
+    re::DynamicArray<re::NamedAnimationLibraryEntry>::clear(a1);
+  }
+
+  else
+  {
+    re::DynamicArray<re::NamedAnimationLibraryEntry>::deinit(a1);
+    *a1 = a3;
+    re::DynamicArray<re::NamedAnimationLibraryEntry>::setCapacity(a1, a4);
+    ++*(a1 + 24);
+  }
+
+  re::DynamicArray<re::NamedAnimationLibraryEntry>::resize(a1, a4);
+  {
+    re::TypeRegistry::typeInfo(*a2, *(a2[2] + 80), &v13);
+    re::TypeInfo::TypeInfo(v12, &v14);
+    v9 = *(a1 + 16);
+    if (v9)
+    {
+      v10 = *(a1 + 32);
+      v11 = 40 * v9;
+      do
+      {
+        re::TypeInfo::destruct(v12, v10, a3, 0);
+        re::TypeInfo::construct(v12, v10, a3, 0);
+        v10 += 40;
+        v11 -= 40;
+      }
+
+      while (v11);
+    }
+  }
+}
+
+void re::DynamicArray<re::NamedAnimationLibraryEntry>::clear(uint64_t result)
+{
+  v2 = *(result + 16);
+  *(result + 16) = 0;
+  if (v2)
+  {
+    v3 = *(result + 32);
+    v4 = 40 * v2;
+    do
+    {
+      re::AssetHandle::~AssetHandle((v3 + 16));
+      re::StringID::destroyString(v3);
+      v3 += 40;
+      v4 -= 40;
+    }
+
+    while (v4);
+  }
+
+  ++*(result + 24);
+}
+
+unint64_t re::TypeBuilderHelper::registerDynamicArray<re::NamedAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,unsigned long)#1}::__invoke(uint64_t a1, unint64_t a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 16);
+  if (v3 <= a2)
+  {
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x1E69E9C10];
+    v9 = 136315906;
+    v10 = "operator[]";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v12 = 789;
+    v13 = 2048;
+    v14 = a2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_1E1C61000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(a1 + 32) + 40 * a2;
+}
+
+uint64_t re::TypeBuilderHelper::registerDynamicArray<re::NamedAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#1}::__invoke(uint64_t a1, uint64_t a2)
+{
+  result = (*(*a2 + 32))(a2, 16, 8);
+  *result = a1;
+  *(result + 8) = *(a1 + 24);
+  *(result + 12) = -1;
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerDynamicArray<re::NamedAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#2}::__invoke(_DWORD *a1, uint64_t a2)
+{
+  v4 = *a1;
+  if (a1[2] == *(*a1 + 24))
+  {
+    v5 = a1[3];
+    v6 = *(v4 + 16);
+    if (v5 < v6)
+    {
+      a1[3] = ++v5;
+    }
+
+    if (v6 <= v5)
+    {
+      return 0;
+    }
+
+    else
+    {
+      return *(v4 + 32) + 40 * v5;
+    }
+  }
+
+  else
+  {
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) DynamicArray elements may not be added or removed during iteration.", "iter->originalVersion == iter->array->version()", "operator()", 316, v2, v3);
+    result = _os_crash("assertion failure: (iter->originalVersion == iter->array->version()) DynamicArray elements may not be added or removed during iteration.");
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerDynamicArray<re::NamedAnimationLibraryEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#2}::__invoke(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    return (*(*a2 + 40))(a2, result);
+  }
+
+  return result;
+}
+
+void *re::IntrospectionHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::~IntrospectionHashTable(void *a1)
+{
+  *a1 = &unk_1F5CAE2E8;
+  v2 = a1 + 6;
+  re::SerializedReference<re::IntrospectionBase const*>::reset((a1 + 8));
+  re::SerializedReference<re::IntrospectionBase const*>::reset(v2);
+  *a1 = &unk_1F5CCF868;
+  objc_destructInstance(a1 + 1);
+  return a1;
+}
+
+void re::IntrospectionHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::~IntrospectionHashTable(void *a1)
+{
+  *a1 = &unk_1F5CAE2E8;
+  v2 = a1 + 6;
+  re::SerializedReference<re::IntrospectionBase const*>::reset((a1 + 8));
+  re::SerializedReference<re::IntrospectionBase const*>::reset(v2);
+  *a1 = &unk_1F5CCF868;
+  objc_destructInstance(a1 + 1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+double re::IntrospectionHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::construct(uint64_t a1, uint64_t a2)
+{
+  result = 0.0;
+  *(a2 + 16) = 0u;
+  *(a2 + 32) = 0u;
+  *a2 = 0u;
+  *(a2 + 36) = 0x7FFFFFFF;
+  return result;
+}
+
+void re::IntrospectionHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(uint64_t a1, uint64_t *a2, uint64_t a3, unsigned int a4)
+{
+  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a2);
+  if (a4 <= 3)
+  {
+    v7 = 3;
+  }
+
+  else
+  {
+    v7 = a4;
+  }
+
+  re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(a2, a3, v7);
+}
+
+re::IntrospectionBase *re::IntrospectionHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::addElement(uint64_t a1, re *a2, int a3, uint64_t a4, StringID *a5)
+{
+  v10 = 0;
+  v8 = re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::addOrReplace(a4, a5, &v10);
+  re::introspectionInitElement(a2, a3, *(a1 + 64), v8);
+  return v8;
+}
+
+uint64_t re::IntrospectionHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::iterate(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(a2 + 32);
+  if (v5)
+  {
+    v6 = 0;
+    v7 = *(a2 + 16);
+    while (1)
+    {
+      v8 = *v7;
+      v7 += 8;
+      if (v8 < 0)
+      {
+        break;
+      }
+
+      if (v5 == ++v6)
+      {
+        LODWORD(v6) = *(a2 + 32);
+        break;
+      }
+    }
+  }
+
+  else
+  {
+    LODWORD(v6) = 0;
+  }
+
+  if (v6 == v5)
+  {
+    return 1;
+  }
+
+  do
+  {
+    v10 = *(a2 + 16) + 32 * v6;
+    result = std::function<BOOL ()(void const*,void *)>::operator()(a3, v10 + 8, v10 + 24);
+    if (!result)
+    {
+      break;
+    }
+
+    v11 = *(a2 + 32);
+    if (v11 <= v6 + 1)
+    {
+      v11 = v6 + 1;
+    }
+
+    while (v11 - 1 != v6)
+    {
+      LODWORD(v6) = v6 + 1;
+      if ((*(*(a2 + 16) + 32 * v6) & 0x80000000) != 0)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    LODWORD(v6) = v11;
+LABEL_17:
+    ;
+  }
+
+  while (v6 != v5);
+  return result;
+}
+
+uint64_t re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::addOrReplace(uint64_t a1, StringID *a2, void *a3)
+{
+  v12 = 0;
+  v13 = 0;
+  v14 = 0;
+  v6 = 0xBF58476D1CE4E5B9 * ((*&a2->var0 >> 31) ^ (*&a2->var0 >> 1));
+  re::HashTable<re::StringID,re::StateParameterInt *,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(a1, a2, (0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) ^ ((0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) >> 31), &v12);
+  v7 = HIDWORD(v13);
+  if (HIDWORD(v13) == 0x7FFFFFFF)
+  {
+    v8 = re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::allocEntry(a1, v13, v12);
+    re::StringID::StringID((v8 + 8), a2);
+    *(v8 + 24) = *a3;
+    v9 = v8 + 24;
+    ++*(a1 + 40);
+  }
+
+  else
+  {
+    ++*(a1 + 40);
+    v10 = *(a1 + 16) + 32 * v7;
+    *(v10 + 24) = *a3;
+    return v10 + 24;
+  }
+
+  return v9;
+}
+
+void re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#1}::__invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *a1 = 0u;
+  *(a1 + 36) = 0x7FFFFFFF;
+  re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(a1, a3, 3);
+}
+
+double re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#2}::__invoke(uint64_t *a1)
+{
+  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1);
+
+  return re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1);
+}
+
+void re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *)#1}::__invoke(uint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  if (*a1 == a3)
+  {
+
+    re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::clear(a1);
+  }
+
+  else
+  {
+    re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(a1);
+
+    re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(a1, a3, 3);
+  }
+}
+
+uint64_t re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#3}::__invoke(uint64_t a1, void *a2, re::Allocator *a3, StringID *a4)
+{
+  re::TypeRegistry::typeInfo(*a2, *(a2[2] + 88), &v12);
+  re::TypeInfo::TypeInfo(v11, v13);
+  Instance = re::TypeInfo::createInstance(v11, a3, 0);
+  v9 = re::HashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::addOrReplace(a1, a4, Instance);
+  re::TypeRegistry::typeInfo(*a2, *(a2[2] + 88), &v12);
+  re::TypeInfo::TypeInfo(v11, v13);
+  re::TypeInfo::releaseInstance(v11, Instance, a3, 0);
+  return v9;
+}
+
+uint64_t re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,void const*)#1}::__invoke(uint64_t a1, void *a2)
+{
+  v3 = 0xBF58476D1CE4E5B9 * ((*a2 >> 31) ^ (*a2 >> 1));
+  re::HashTable<re::StringID,re::StateParameterInt *,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::findEntry<re::StringID>(a1, a2, (0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) ^ ((0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) >> 31), v5);
+  if (v6 == 0x7FFFFFFF)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(a1 + 16) + 32 * v6 + 24;
+  }
+}
+
+uint64_t re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#1}::__invoke(uint64_t a1, uint64_t a2)
+{
+  result = (*(*a2 + 32))(a2, 40, 8);
+  *result = a1;
+  *(result + 8) = *(a1 + 40);
+  *(result + 16) = 0;
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *)#2}::__invoke(uint64_t *a1, uint64_t a2)
+{
+  v2 = *a1;
+  if (*(a1 + 2) == *(*a1 + 40))
+  {
+    v3 = *(v2 + 32);
+    if (a1[2])
+    {
+      LODWORD(v4) = *(a1 + 8);
+      if (v4 == v3)
+      {
+        LODWORD(v4) = *(v2 + 32);
+      }
+
+      else
+      {
+        v7 = a1[3];
+        v8 = *(v7 + 32);
+        if (v8 <= v4 + 1)
+        {
+          v9 = v4 + 1;
+        }
+
+        else
+        {
+          v9 = *(v7 + 32);
+        }
+
+        while (1)
+        {
+          LODWORD(v4) = v4 + 1;
+          if (v4 >= v8)
+          {
+            break;
+          }
+
+          if ((*(*(v7 + 16) + 32 * v4) & 0x80000000) != 0)
+          {
+            goto LABEL_19;
+          }
+        }
+
+        LODWORD(v4) = v9;
+LABEL_19:
+        *(a1 + 8) = v4;
       }
     }
 
     else
     {
-      v18 &= *&v10 - 1;
+      if (v3)
+      {
+        v4 = 0;
+        v5 = *(v2 + 16);
+        while (1)
+        {
+          v6 = *v5;
+          v5 += 8;
+          if (v6 < 0)
+          {
+            break;
+          }
+
+          if (v3 == ++v4)
+          {
+            LODWORD(v4) = *(v2 + 32);
+            break;
+          }
+        }
+      }
+
+      else
+      {
+        LODWORD(v4) = 0;
+      }
+
+      *(a1 + 16) = 1;
+      a1[3] = v2;
+      *(a1 + 8) = v4;
+      LODWORD(v3) = *(v2 + 32);
     }
 
-    if (v18 != v12)
-    {
-      *(v3[5] + 8 * v18) = v16;
-      v11 = *v5;
-    }
-
-    goto LABEL_33;
+    return v4 != v3;
   }
 
-LABEL_34:
-  v20 = v3[8];
-  os_unfair_lock_unlock(v1 + 20);
-  if (!v20)
+  else
   {
-    v22 = re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter;
-    if (re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter)
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) HashTable entries may not be added or removed during iteration.", "iter->originalVersion == iter->hashTable->version()", "operator()", 589);
+    result = _os_crash("assertion failure: (iter->originalVersion == iter->hashTable->version()) HashTable entries may not be added or removed during iteration.");
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *)#3}::__invoke(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 8) == *(*a1 + 40))
+  {
+    return *(*(a1 + 24) + 16) + 32 * *(a1 + 32) + 8;
+  }
+
+  re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) HashTable entries may not be added or removed during iteration.", "iter->originalVersion == iter->hashTable->version()", "operator()", 604, v2, v3);
+  result = _os_crash("assertion failure: (iter->originalVersion == iter->hashTable->version()) HashTable entries may not be added or removed during iteration.");
+  __break(1u);
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *)#4}::__invoke(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 8) == *(*a1 + 40))
+  {
+    return *(*(a1 + 24) + 16) + 32 * *(a1 + 32) + 24;
+  }
+
+  re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) HashTable entries may not be added or removed during iteration.", "iter->originalVersion == iter->hashTable->version()", "operator()", 613, v2, v3);
+  result = _os_crash("assertion failure: (iter->originalVersion == iter->hashTable->version()) HashTable entries may not be added or removed during iteration.");
+  __break(1u);
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerHashTable<re::StringID,unsigned long,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#2}::__invoke(_DWORD *a1, uint64_t a2)
+{
+  if (a1[2] == *(*a1 + 40))
+  {
+    v4 = *(*a2 + 40);
+
+    return v4(a2, a1);
+  }
+
+  else
+  {
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) HashTable entries may not be added or removed during iteration.", "iter->originalVersion == iter->hashTable->version()", "operator()", 622, v2, v3);
+    result = _os_crash("assertion failure: (iter->originalVersion == iter->hashTable->version()) HashTable entries may not be added or removed during iteration.");
+    __break(1u);
+  }
+
+  return result;
+}
+
+void introspect_REMeshIdentifierType(BOOL a1, const re::IntrospectionBase *a2)
+{
+  if ((atomic_load_explicit(&qword_1EE19C118, memory_order_acquire) & 1) == 0)
+  {
+    goto LABEL_43;
+  }
+
+  while (1)
+  {
+    if ((atomic_load_explicit(&qword_1EE19C120, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE19C120))
     {
-      v23 = re::globalAllocators(v21)[2];
-      re::internal::destroyPersistent<re::AudioTelemetryReporter>("~AudioManagerTelemetryReporter", 37, *(v22 + 32));
-      *(v22 + 32) = 0;
-      std::__hash_table<std::__hash_value_type<re::AudioManager_PHASE const*,std::vector<NSObject  {objcproto18OS_dispatch_source}* {__strong}>>,std::__unordered_map_hasher<re::AudioManager_PHASE const*,std::__hash_value_type<re::AudioManager_PHASE const*,std::vector<NSObject  {objcproto18OS_dispatch_source}* {__strong}>>,std::hash<re::AudioManager_PHASE const*>,std::equal_to<re::AudioManager_PHASE const*>,true>,std::__unordered_map_equal<re::AudioManager_PHASE const*,std::__hash_value_type<re::AudioManager_PHASE const*,std::vector<NSObject  {objcproto18OS_dispatch_source}* {__strong}>>,std::equal_to<re::AudioManager_PHASE const*>,std::hash<re::AudioManager_PHASE const*>,true>,std::allocator<std::__hash_value_type<re::AudioManager_PHASE const*,std::vector<NSObject  {objcproto18OS_dispatch_source}* {__strong}>>>>::~__hash_table(v22 + 40);
-      (*(*v23 + 40))(v23, v22);
+      re::IntrospectionBasic::IntrospectionBasic(&qword_1EE19C170, "REMeshIdentifierType", 1, 1, 1, 1);
+      qword_1EE19C170 = &unk_1F5D0C658;
+      qword_1EE19C1B0 = &introspect_REMeshIdentifierType(BOOL)::enumTable;
+      dword_1EE19C180 = 9;
+      __cxa_guard_release(&qword_1EE19C120);
     }
 
-    re::AudioManagerTelemetryReporter::sharedAudioManagerTelemetryReporter = 0;
+    if (_MergedGlobals_108)
+    {
+      break;
+    }
+
+    _MergedGlobals_108 = 1;
+    re::IntrospectionRegistry::add(&qword_1EE19C170, a2);
+    v37 = 0xD5C6F6D094C2E4C6;
+    v38 = "REMeshIdentifierType";
+    v41 = 0x31CD534126;
+    v42 = "uint8_t";
+    v4 = v40[0];
+    v5 = v40[1];
+    if (v41)
+    {
+      if (v41)
+      {
+      }
+    }
+
+    if (v4)
+    {
+      v6 = qword_1EE19C1B0;
+      v41 = v4;
+      v42 = v5;
+      re::TypeBuilder::beginEnumType(v40, &v37, 1, 1, &v41);
+      v7 = *v6;
+      if (v7)
+      {
+        for (i = 0; i < v7; ++i)
+        {
+          v9 = *(*(v6 + 1) + 8 * i);
+          if (*v9 == 1)
+          {
+            v10 = *(v9 + 16);
+            if (v10)
+            {
+              v11 = *v10;
+              if (*v10)
+              {
+                v12 = v10[1];
+                if (v12)
+                {
+                  v13 = (v10 + 2);
+                  do
+                  {
+                    v11 = 31 * v11 + v12;
+                    v14 = *v13++;
+                    v12 = v14;
+                  }
+
+                  while (v14);
+                }
+              }
+            }
+
+            else
+            {
+              v11 = 0;
+            }
+
+            v15 = *(v9 + 8);
+            *&v39.var0 = 2 * v11;
+            v39.var1 = v10;
+            re::TypeBuilder::addEnumConstant(v40, v15, &v39);
+            if (*&v39.var0)
+            {
+              if (*&v39.var0)
+              {
+              }
+            }
+
+            v7 = *v6;
+          }
+        }
+
+        if (v7)
+        {
+          for (j = 0; j < v7; ++j)
+          {
+            v18 = *(*(v6 + 1) + 8 * j);
+            if (*v18 == 2)
+            {
+              v19 = *(v18 + 16);
+              if (v19)
+              {
+                v20 = *v19;
+                if (*v19)
+                {
+                  v21 = v19[1];
+                  if (v21)
+                  {
+                    v22 = (v19 + 2);
+                    do
+                    {
+                      v20 = 31 * v20 + v21;
+                      v23 = *v22++;
+                      v21 = v23;
+                    }
+
+                    while (v23);
+                  }
+                }
+              }
+
+              else
+              {
+                v20 = 0;
+              }
+
+              v24 = *(v18 + 8);
+              *&v39.var0 = 2 * v20;
+              v39.var1 = v19;
+              re::TypeBuilder::addEnumConstantRenaming(v40, v24, &v39);
+              if (*&v39.var0)
+              {
+                if (*&v39.var0)
+                {
+                }
+              }
+
+              v7 = *v6;
+            }
+          }
+        }
+      }
+
+      re::TypeBuilder::~TypeBuilder(v40, v26);
+      xmmword_1EE19C190 = v39;
+      if (v37)
+      {
+        if (v37)
+        {
+        }
+      }
+
+      return;
+    }
+
+    re::internal::assertLog(5, v3, "assertion failure: '%s' (%s:line %i) Failed to determine underlying type of enum %s.", "valueID.isValid()", "registerEnumType", 2930, v38);
+    _os_crash("assertion failure: (valueID.isValid()) Failed to determine underlying type of enum %s.", v36);
+    __break(1u);
+LABEL_43:
+    if (__cxa_guard_acquire(&qword_1EE19C118))
+    {
+      v28 = re::introspectionAllocator();
+      v29 = (*(*v28 + 32))(v28, 24, 8);
+      *v29 = 1;
+      *(v29 + 8) = 0;
+      *(v29 + 16) = "Invalid";
+      qword_1EE19C150 = v29;
+      v30 = re::introspectionAllocator();
+      v31 = (*(*v30 + 32))(v30, 24, 8);
+      *v31 = 1;
+      *(v31 + 8) = 1;
+      *(v31 + 16) = "Instance";
+      qword_1EE19C158 = v31;
+      v32 = re::introspectionAllocator();
+      v33 = (*(*v32 + 32))(v32, 24, 8);
+      *v33 = 1;
+      *(v33 + 8) = 2;
+      *(v33 + 16) = "Model";
+      qword_1EE19C160 = v33;
+      v34 = re::introspectionAllocator();
+      v35 = (*(*v34 + 32))(v34, 24, 8);
+      *v35 = 1;
+      *(v35 + 8) = 3;
+      *(v35 + 16) = "All";
+      qword_1EE19C168 = v35;
+      __cxa_guard_release(&qword_1EE19C118);
+    }
   }
+}
+
+uint64_t re::MeshIdentifierIteration<re::MeshAsset,re::MeshInstanceAndPartIndex>::MeshIdentifierIterator::meshModelIndex(void *a1)
+{
+  v2 = *a1;
+  v5 = a1[1];
+  v3 = (*(**(v2 + 56) + 16))(*(v2 + 56), &v5);
+  return re::MeshNameMap::modelIndex(*(*a1 + 8), v3);
 }

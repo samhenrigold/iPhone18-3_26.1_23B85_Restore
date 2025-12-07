@@ -13,9 +13,7 @@
   {
     [(NSMutableArray *)self->_sequence addObject:self->_target];
     [(NSMutableArray *)self->_sequence removeObjectAtIndex:0];
-    v5 = [NSNumber numberWithUnsignedLong:id];
-    target = self->_target;
-    self->_target = v5;
+    self->_target = [NSNumber numberWithUnsignedLong:id];
 
     _objc_release_x1();
   }
@@ -37,9 +35,7 @@
     while (v5 < [(NSMutableArray *)self->_sequence count]);
   }
 
-  v7 = [NSNumber numberWithUnsignedLong:s];
-  target = self->_target;
-  self->_target = v7;
+  self->_target = [NSNumber numberWithUnsignedLong:s];
 
   _objc_release_x1();
 }

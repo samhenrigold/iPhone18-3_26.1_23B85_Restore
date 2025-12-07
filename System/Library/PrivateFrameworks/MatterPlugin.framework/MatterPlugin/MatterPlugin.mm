@@ -5,13 +5,6 @@ void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-uint64_t OUTLINED_FUNCTION_4@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
-}
-
 void OUTLINED_FUNCTION_5(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
 {
   va_start(va, a4);
@@ -19,10 +12,11 @@ void OUTLINED_FUNCTION_5(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 uint64_t _MTRValidateUserInfo(void *a1)
@@ -33,26 +27,18 @@ uint64_t _MTRValidateUserInfo(void *a1)
   return v2;
 }
 
-void sub_25832117C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25832117C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *OUTLINED_FUNCTION_3_0@<X0>(void *result@<X0>, uint64_t a2@<X8>)
+void OUTLINED_FUNCTION_5_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = result[4];
-  v4 = result[5];
-  v5 = result[6];
-  return result;
-}
+  va_start(va, a8);
 
-void OUTLINED_FUNCTION_5_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 BOOL MTRPluginCheckProtocolContainsSelector(void *a1, const char *a2)
@@ -101,7 +87,7 @@ id MTRGetAssociatedHomeUUIDWithController(void *a1)
   return a1;
 }
 
-uint64_t MTRPluginForceRemoteControl()
+uint64_t MTRPluginForceRemoteControl(uint64_t a1, uint64_t a2)
 {
   if (MTRPluginForceRemoteControl_predicateNAME != -1)
   {
@@ -145,7 +131,7 @@ void __MTRPluginForceRemoteControl_block_invoke()
 LABEL_8:
 }
 
-uint64_t MTRPluginMaxActiveClientSessions()
+uint64_t MTRPluginMaxActiveClientSessions(uint64_t a1, uint64_t a2)
 {
   if (MTRPluginMaxActiveClientSessions_predicateNAME != -1)
   {
@@ -157,7 +143,7 @@ uint64_t MTRPluginMaxActiveClientSessions()
 
 void __MTRPluginMaxActiveClientSessions_block_invoke()
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v1 = [v0 objectForKey:@"MTRPluginMaxActiveClientSessions"];
   objc_opt_class();
@@ -172,14 +158,14 @@ void __MTRPluginMaxActiveClientSessions_block_invoke()
       v4 = matterPluginLog_default;
       if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 138412546;
-        v10 = @"MTRPluginMaxActiveClientSessions";
-        v11 = 2048;
-        v12 = MTRPluginMaxActiveClientSessions_maxAllowedSessions;
+        v8 = 138412546;
+        v9 = @"MTRPluginMaxActiveClientSessions";
+        v10 = 2048;
+        v11 = MTRPluginMaxActiveClientSessions_maxAllowedSessions;
         v5 = "%@ overridden to: %lu";
         v6 = v4;
 LABEL_9:
-        _os_log_impl(&dword_25830F000, v6, OS_LOG_TYPE_DEFAULT, v5, &v9, 0x16u);
+        _os_log_impl(&dword_25830F000, v6, OS_LOG_TYPE_DEFAULT, v5, &v8, 0x16u);
         goto LABEL_10;
       }
 
@@ -197,18 +183,16 @@ LABEL_9:
   v7 = matterPluginLog_default;
   if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = @"MTRPluginMaxActiveClientSessions";
-    v11 = 2048;
-    v12 = MTRPluginMaxActiveClientSessions_maxAllowedSessions;
+    v8 = 138412546;
+    v9 = @"MTRPluginMaxActiveClientSessions";
+    v10 = 2048;
+    v11 = MTRPluginMaxActiveClientSessions_maxAllowedSessions;
     v5 = "%@ set to default value of: %lu";
     v6 = v7;
     goto LABEL_9;
   }
 
 LABEL_10:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t MTRPluginEqualObjects(void *a1, void *a2)
@@ -264,7 +248,7 @@ uint64_t __MTRBufferedExecutionBlock_block_invoke(uint64_t a1)
 
 void MTRUpdateRunningModeForController(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 devices];
@@ -278,12 +262,12 @@ void MTRUpdateRunningModeForController(uint64_t a1, void *a2, void *a3)
       goto LABEL_5;
     }
 
-    *v16 = 138412802;
-    *&v16[4] = v6;
-    *&v16[12] = 2112;
-    *&v16[14] = v5;
-    *&v16[22] = 2048;
-    v17 = v8;
+    *v15 = 138412802;
+    *&v15[4] = v6;
+    *&v15[12] = 2112;
+    *&v15[14] = v5;
+    *&v15[22] = 2048;
+    v16 = v8;
     v10 = "%@ Setting running mode for controller: %@ to local (forced pairing mode), unsuspending controller (devices count %lu)";
     goto LABEL_4;
   }
@@ -292,17 +276,17 @@ void MTRUpdateRunningModeForController(uint64_t a1, void *a2, void *a3)
   {
     case 0:
       v9 = matterPluginLog_default;
-      v14 = os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT);
+      v13 = os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT);
       if (v8)
       {
-        if (v14)
+        if (v13)
         {
-          *v16 = 138412802;
-          *&v16[4] = v6;
-          *&v16[12] = 2112;
-          *&v16[14] = v5;
-          *&v16[22] = 2048;
-          v17 = v8;
+          *v15 = 138412802;
+          *&v15[4] = v6;
+          *&v15[12] = 2112;
+          *&v15[14] = v5;
+          *&v15[22] = 2048;
+          v16 = v8;
           v10 = "%@ Setting running mode for controller: %@ to unknown, resuming controller because we have active devices (devices count %lu)";
           goto LABEL_4;
         }
@@ -316,18 +300,18 @@ LABEL_5:
         goto LABEL_7;
       }
 
-      if (!v14)
+      if (!v13)
       {
         goto LABEL_26;
       }
 
-      *v16 = 138412802;
-      *&v16[4] = v6;
-      *&v16[12] = 2112;
-      *&v16[14] = v5;
-      *&v16[22] = 2048;
-      v17 = 0;
-      v13 = "%@ Setting running mode for controller: %@ to unknown, but no active devices, suspending controller (devices count %lu)";
+      *v15 = 138412802;
+      *&v15[4] = v6;
+      *&v15[12] = 2112;
+      *&v15[14] = v5;
+      *&v15[22] = 2048;
+      v16 = 0;
+      v12 = "%@ Setting running mode for controller: %@ to unknown, but no active devices, suspending controller (devices count %lu)";
       goto LABEL_25;
     case 1:
       v9 = matterPluginLog_default;
@@ -336,15 +320,15 @@ LABEL_5:
         goto LABEL_26;
       }
 
-      *v16 = 138412802;
-      *&v16[4] = v6;
-      *&v16[12] = 2112;
-      *&v16[14] = v5;
-      *&v16[22] = 2048;
-      v17 = v8;
-      v13 = "%@ Setting running mode for controller: %@ to remote, suspending controller (devices count %lu)";
+      *v15 = 138412802;
+      *&v15[4] = v6;
+      *&v15[12] = 2112;
+      *&v15[14] = v5;
+      *&v15[22] = 2048;
+      v16 = v8;
+      v12 = "%@ Setting running mode for controller: %@ to remote, suspending controller (devices count %lu)";
 LABEL_25:
-      _os_log_impl(&dword_25830F000, v9, OS_LOG_TYPE_DEFAULT, v13, v16, 0x20u);
+      _os_log_impl(&dword_25830F000, v9, OS_LOG_TYPE_DEFAULT, v12, v15, 0x20u);
 LABEL_26:
       if (([v5 isSuspended] & 1) == 0)
       {
@@ -354,60 +338,58 @@ LABEL_26:
       goto LABEL_7;
     case 2:
       v9 = matterPluginLog_default;
-      v12 = os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT);
+      v11 = os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT);
       if (v8)
       {
-        if (v12)
+        if (v11)
         {
-          *v16 = 138412802;
-          *&v16[4] = v6;
-          *&v16[12] = 2112;
-          *&v16[14] = v5;
-          *&v16[22] = 2048;
-          v17 = v8;
+          *v15 = 138412802;
+          *&v15[4] = v6;
+          *&v15[12] = 2112;
+          *&v15[14] = v5;
+          *&v15[22] = 2048;
+          v16 = v8;
           v10 = "%@ Setting running mode for controller: %@ to local, resuming controller because we have active devices (devices count %lu)";
 LABEL_4:
-          _os_log_impl(&dword_25830F000, v9, OS_LOG_TYPE_DEFAULT, v10, v16, 0x20u);
+          _os_log_impl(&dword_25830F000, v9, OS_LOG_TYPE_DEFAULT, v10, v15, 0x20u);
           goto LABEL_5;
         }
 
         goto LABEL_5;
       }
 
-      if (!v12)
+      if (!v11)
       {
         goto LABEL_26;
       }
 
-      *v16 = 138412802;
-      *&v16[4] = v6;
-      *&v16[12] = 2112;
-      *&v16[14] = v5;
-      *&v16[22] = 2048;
-      v17 = 0;
-      v13 = "%@ Setting running mode for controller: %@ to local, but no active devices, suspending controller (devices count %lu)";
+      *v15 = 138412802;
+      *&v15[4] = v6;
+      *&v15[12] = 2112;
+      *&v15[14] = v5;
+      *&v15[22] = 2048;
+      v16 = 0;
+      v12 = "%@ Setting running mode for controller: %@ to local, but no active devices, suspending controller (devices count %lu)";
       goto LABEL_25;
   }
 
-  v15 = matterPluginLog_default;
+  v14 = matterPluginLog_default;
   if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_ERROR))
   {
-    MTRUpdateRunningModeForController_cold_1(a1, v15);
+    MTRUpdateRunningModeForController_cold_1(a1, v14);
   }
 
 LABEL_7:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t MTRGetClientTypeForXPCConnection(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = v1;
   if (v1)
   {
-    [v1 auditToken];
+    objc_msgSend_auditToken(v1);
   }
 
   memset(&atoken, 0, sizeof(atoken));
@@ -493,7 +475,7 @@ uint64_t MTRGetClientTypeForXPCConnection(void *a1)
     {
       if (v2)
       {
-        [v2 auditToken];
+        objc_msgSend_auditToken(v2);
       }
 
       else
@@ -523,7 +505,6 @@ uint64_t MTRGetClientTypeForXPCConnection(void *a1)
     v14 = 2;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -560,7 +541,7 @@ __CFString *MTRPluginHomeRunnningModeAsString(unint64_t a1)
 
 void MTRSwizzleMethods(objc_class *a1, objc_class *a2, SEL name, const char *a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   InstanceMethod = class_getInstanceMethod(a1, name);
   v9 = class_getInstanceMethod(a2, a4);
   Implementation = method_getImplementation(InstanceMethod);
@@ -575,23 +556,21 @@ void MTRSwizzleMethods(objc_class *a1, objc_class *a2, SEL name, const char *a4)
     v15 = v14;
     v16 = NSStringFromSelector(name);
     v17 = NSStringFromSelector(a4);
-    v19 = 138413058;
-    v20 = a1;
-    v21 = 2112;
-    v22 = a2;
-    v23 = 2112;
-    v24 = v16;
-    v25 = 2112;
-    v26 = v17;
-    _os_log_impl(&dword_25830F000, v15, OS_LOG_TYPE_DEFAULT, "Swizzing method for orignal class %@, target class %@, original selector: %@, swizzledSelector: %@", &v19, 0x2Au);
+    v18 = 138413058;
+    v19 = a1;
+    v20 = 2112;
+    v21 = a2;
+    v22 = 2112;
+    v23 = v16;
+    v24 = 2112;
+    v25 = v17;
+    _os_log_impl(&dword_25830F000, v15, OS_LOG_TYPE_DEFAULT, "Swizzing method for orignal class %@, target class %@, original selector: %@, swizzledSelector: %@", &v18, 0x2Au);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void MTRSetPotentialPairing(void *a1, int a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = matterPluginLog_default;
   if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
@@ -603,19 +582,19 @@ void MTRSetPotentialPairing(void *a1, int a2)
     }
 
     *buf = 138412546;
-    v17 = v5;
-    v18 = 2112;
-    v19 = v3;
+    v16 = v5;
+    v17 = 2112;
+    v18 = v3;
     _os_log_impl(&dword_25830F000, v4, OS_LOG_TYPE_DEFAULT, "Starting potential pairing: %@   home: %@", buf, 0x16u);
   }
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __MTRSetPotentialPairing_block_invoke;
-  v14[3] = &unk_279893AA0;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __MTRSetPotentialPairing_block_invoke;
+  v13[3] = &unk_279893AA0;
   v6 = v3;
-  v15 = v6;
-  v7 = MEMORY[0x259C7D980](v14);
+  v14 = v6;
+  v7 = MEMORY[0x259C7D980](v13);
   v8 = sMTRPluginPairingStatusChangedSource;
   if (a2)
   {
@@ -639,8 +618,6 @@ void MTRSetPotentialPairing(void *a1, int a2)
     v11 = sMTRPluginPairingStatusChangedSource;
     sMTRPluginPairingStatusChangedSource = v12;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __MTRSetPotentialPairing_block_invoke(uint64_t a1)
@@ -1566,7 +1543,7 @@ LABEL_13:
 
 id commandValueFromCommandFields(void *a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v1 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1584,7 +1561,7 @@ id commandValueFromCommandFields(void *a1)
   if (v3)
   {
     v4 = *MEMORY[0x277CD5180];
-    v34 = *MEMORY[0x277CD5188];
+    v31 = *MEMORY[0x277CD5188];
     v5 = [v3 objectForKeyedSubscript:?];
     LODWORD(v4) = [v4 isEqual:v5];
 
@@ -1599,87 +1576,85 @@ id commandValueFromCommandFields(void *a1)
 
         if (v8)
         {
-          v31 = v6;
-          v32 = v3;
-          v39 = 0u;
-          v40 = 0u;
+          v28 = v6;
+          v29 = v3;
+          v36 = 0u;
           v37 = 0u;
-          v38 = 0u;
+          v34 = 0u;
+          v35 = 0u;
           v9 = v8;
-          v10 = [v9 countByEnumeratingWithState:&v37 objects:v41 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v34 objects:v38 count:16];
           if (!v10)
           {
             goto LABEL_32;
           }
 
           v11 = v10;
-          v12 = *v38;
+          v12 = *v35;
           v13 = *MEMORY[0x277CD50D0];
-          v36 = *MEMORY[0x277CD50D8];
-          v33 = *MEMORY[0x277CD5198];
-          v14 = 0x277CCA000uLL;
+          v33 = *MEMORY[0x277CD50D8];
+          v30 = *MEMORY[0x277CD5198];
           while (1)
           {
-            v15 = 0;
+            v14 = 0;
             do
             {
-              if (*v38 != v12)
+              if (*v35 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v16 = *(*(&v37 + 1) + 8 * v15);
+              v15 = *(*(&v34 + 1) + 8 * v14);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v17 = v16;
+                v16 = v15;
               }
 
               else
               {
-                v17 = 0;
+                v16 = 0;
               }
 
-              v18 = v17;
-              if (v18)
+              v17 = v16;
+              if (v17)
               {
-                v19 = v18;
-                v20 = [v18 objectForKeyedSubscript:v13];
-                v21 = *(v14 + 2992);
+                v18 = v17;
+                v19 = [v17 objectForKeyedSubscript:v13];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v22 = [v19 objectForKeyedSubscript:v13];
+                  v20 = [v18 objectForKeyedSubscript:v13];
 
-                  if (v22 && ![v22 unsignedIntValue])
+                  if (v20 && ![v20 unsignedIntValue])
                   {
-                    v23 = [v19 objectForKeyedSubscript:v36];
+                    v21 = [v18 objectForKeyedSubscript:v33];
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v20 = [v19 objectForKeyedSubscript:v36];
+                      v19 = [v18 objectForKeyedSubscript:v33];
 
-                      if (v20)
+                      if (v19)
                       {
-                        v24 = [v20 objectForKeyedSubscript:v34];
-                        v35 = [v24 isEqual:v33];
+                        v22 = [v19 objectForKeyedSubscript:v31];
+                        v32 = [v22 isEqual:v30];
 
-                        if (v35)
+                        if (v32)
                         {
-                          v29 = [v20 objectForKeyedSubscript:v31];
+                          v26 = [v19 objectForKeyedSubscript:v28];
                           objc_opt_class();
                           isKindOfClass = objc_opt_isKindOfClass();
                           if (isKindOfClass)
                           {
-                            v26 = [v20 objectForKeyedSubscript:v31];
+                            v24 = [v19 objectForKeyedSubscript:v28];
                           }
 
                           else
                           {
-                            v26 = 0;
+                            v24 = 0;
                           }
 
-                          v3 = v32;
+                          v3 = v29;
 
                           goto LABEL_35;
                         }
@@ -1689,33 +1664,32 @@ id commandValueFromCommandFields(void *a1)
                     else
                     {
 
-                      v20 = 0;
+                      v19 = 0;
                     }
 
-                    v14 = 0x277CCA000;
 LABEL_25:
                   }
 
                   goto LABEL_27;
                 }
 
-                v22 = 0;
+                v20 = 0;
                 goto LABEL_25;
               }
 
 LABEL_27:
-              ++v15;
+              ++v14;
             }
 
-            while (v11 != v15);
-            v25 = [v9 countByEnumeratingWithState:&v37 objects:v41 count:16];
-            v11 = v25;
-            if (!v25)
+            while (v11 != v14);
+            v23 = [v9 countByEnumeratingWithState:&v34 objects:v38 count:16];
+            v11 = v23;
+            if (!v23)
             {
 LABEL_32:
 
-              v26 = 0;
-              v3 = v32;
+              v24 = 0;
+              v3 = v29;
               goto LABEL_35;
             }
           }
@@ -1728,31 +1702,85 @@ LABEL_32:
     }
   }
 
-  v26 = 0;
+  v24 = 0;
 LABEL_35:
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v24;
 }
 
-void sub_258335408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_258333E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  va_start(va, a15);
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_258336528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_258334174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  va_start(va, a17);
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_258336804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2583344E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  va_start(va, a7);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_25833485C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_258334C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_258334FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_258335408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_258335B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_258335F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_258336528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_258336804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4941,7 +4969,7 @@ LABEL_30:
   return [a2 hasError] ^ 1;
 }
 
-void matterPluginLogInitialize()
+void matterPluginLogInitialize(uint64_t result, uint64_t a2)
 {
   if (matterPluginLogInitialize_onceToken != -1)
   {
@@ -4979,35 +5007,35 @@ void sub_258351ECC(_Unwind_Exception *exception_object, int a2)
 
 id clientConnectionForMessage(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v14 = a1;
-  v1 = [v14 homeIdentifier];
+  v19 = *MEMORY[0x277D85DE8];
+  v13 = a1;
+  v1 = [v13 homeIdentifier];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = +[MTRPluginServer sharedInstance];
   v3 = [v2 clientConnections];
 
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
+        v7 = *(*(&v14 + 1) + 8 * i);
         v8 = [v7 homeUUID];
         if ([v8 isEqual:v1])
         {
           v9 = [v7 sessionID];
-          v10 = [v14 sessionIdentifier];
+          v10 = [v13 sessionIdentifier];
           v11 = [v9 isEqual:v10];
 
           if (v11)
@@ -5022,15 +5050,13 @@ id clientConnectionForMessage(void *a1)
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
 
 LABEL_12:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -5065,9 +5091,16 @@ void sub_2583531E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void MTRUpdateRunningModeForController_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_25830F000, a2, OS_LOG_TYPE_ERROR, "Unknown running mode: %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_25830F000, a2, OS_LOG_TYPE_ERROR, "Unknown running mode: %ld", &v2, 0xCu);
+}
+
+objc_method_description protocol_getMethodDescription(Protocol *p, SEL aSel, BOOL isRequiredMethod, BOOL isInstanceMethod)
+{
+  v4 = MEMORY[0x2821F9A68](p, aSel, isRequiredMethod, isInstanceMethod);
+  result.types = v5;
+  result.name = v4;
+  return result;
 }

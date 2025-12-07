@@ -204,7 +204,7 @@ LABEL_10:
   *length = 128;
   if (getpeername(socket, addr, length) != -1)
   {
-    if (VTP_SetSourceDestinationWithIPPort(*d) != -1)
+    if (VTP_SetSourceDestinationWithIPPort(*d, addr) != -1)
     {
       result = 0;
       *usable = 1;
@@ -218,7 +218,7 @@ LABEL_10:
   *length = 16;
   *&addr->ss_len = 0;
   addr->__ss_align = 0;
-  if (VTP_SetSourceDestinationWithIPPort(*d) == -1)
+  if (VTP_SetSourceDestinationWithIPPort(*d, addr) == -1)
   {
     [VCTransportSessionSocket createVFD:realSocket:sockAddr:length:isUsable:];
     return v14;
@@ -237,90 +237,98 @@ LABEL_10:
 
 - (int)updateTransportStream:(OpaqueVCTransportStream *)stream
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  CMBaseObject = VCPacketFilterGetCMBaseObject(stream, a2);
-  v5 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v5)
+  v28 = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  VCPacketFilterGetCMBaseObject();
+  v6 = v5;
+  v7 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v7)
   {
-    v6 = v5(CMBaseObject, @"UnderlyingVFD", *MEMORY[0x1E695E480], &v13);
-    if (!v6)
+    v8 = v7(v6, @"UnderlyingVFD", *MEMORY[0x1E695E480], &v17);
+    if (!v8)
     {
-      intValue = [v13 intValue];
-      v12 = 0;
-      if (VTP_GetPktType(intValue, &v12) == -1)
+      intValue = [v17 intValue];
+      v10 = intValue;
+      v16 = 0;
+      if (VTP_GetPktType(intValue, &v16) == -1)
       {
         [VCTransportSessionSocket updateTransportStream:];
       }
 
       else
       {
-        if (VTP_SetSourceDestinationWithIPPort(intValue) != -1)
+        v11 = 248;
+        if ((v16 == 128 || v16 == 64) && !self->_isSharedSocket)
         {
-          v8 = 0;
-          goto LABEL_10;
+          v11 = 384;
+        }
+
+        if (VTP_SetSourceDestinationWithIPPort(v10, self + v11) != -1)
+        {
+          v12 = 0;
+          goto LABEL_14;
         }
 
         [VCTransportSessionSocket updateTransportStream:];
       }
 
-      v8 = *buf;
-      goto LABEL_10;
+      v12 = *buf;
+      goto LABEL_14;
     }
 
-    v8 = v6;
+    v12 = v8;
   }
 
   else
   {
-    v8 = -12782;
+    v12 = -12782;
   }
 
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    v9 = VRTraceErrorLogLevelToCSTR();
-    v10 = *MEMORY[0x1E6986650];
+    v13 = VRTraceErrorLogLevelToCSTR();
+    v14 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v15 = v9;
-      v16 = 2080;
-      v17 = "[VCTransportSessionSocket updateTransportStream:]";
-      v18 = 1024;
-      v19 = 149;
-      v20 = 2112;
-      v21 = @"UnderlyingVFD";
-      v22 = 2112;
+      v19 = v13;
+      v20 = 2080;
+      v21 = "[VCTransportSessionSocket updateTransportStream:]";
+      v22 = 1024;
+      v23 = 149;
+      v24 = 2112;
+      v25 = @"UnderlyingVFD";
+      v26 = 2112;
       streamCopy = stream;
-      _os_log_error_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_ERROR, " [%s] %s:%d Could not get property '%@' for transport stream '%@'", buf, 0x30u);
+      _os_log_error_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_ERROR, " [%s] %s:%d Could not get property '%@' for transport stream '%@'", buf, 0x30u);
     }
   }
 
-LABEL_10:
+LABEL_14:
 
-  return v8;
+  return v12;
 }
 
 - (int)connectSocket:(int)socket remoteAddress:(id)address storage:(sockaddr_storage *)storage
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (!address)
   {
     [VCTransportSessionSocket connectSocket:? remoteAddress:? storage:?];
-    return v8;
+    return v9;
   }
 
-  v7 = 128;
-  if ([address getSockaddrStorage:storage size:&v7])
+  v8 = 128;
+  if ([address getSockaddrStorage:storage size:&v8])
   {
     [VCTransportSessionSocket connectSocket:remoteAddress:storage:];
-    return v8;
+    return v9;
   }
 
-  if (VTP_SetSourceDestinationWithIPPort(socket) == -1)
+  if (VTP_SetSourceDestinationWithIPPort(socket, storage) == -1)
   {
     [VCTransportSessionSocket connectSocket:remoteAddress:storage:];
-    return v8;
+    return v9;
   }
 
   return 0;
@@ -1198,7 +1206,7 @@ id __50__VCTransportSessionSocket_removeNetworkAssertion__block_invoke(uint64_t 
   OUTLINED_FUNCTION_10_0();
 }
 
-- (void)setRemoteAddress:(uint64_t)a3 remoteRTCPPort:(uint64_t)a4 .cold.3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9, int a10, int a11, __int16 a12, uint64_t a13, __int128 a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
+- (void)setRemoteAddress:(uint64_t)a3 remoteRTCPPort:(uint64_t)a4 .cold.3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, int a11, __int16 a12, uint64_t a13, __int128 a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_37();
   a22 = v23;
@@ -1265,7 +1273,7 @@ id __50__VCTransportSessionSocket_removeNetworkAssertion__block_invoke(uint64_t 
   OUTLINED_FUNCTION_6_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d sourceDestinationInfo has not been set. streamType=%d", v3, v4, v5, 298);
 }
 
-- (void)createAndConfigureVFDForSocket:(uint64_t)a3 packetType:(uint64_t)a4 remoteIP:(uint64_t)a5 remoteIPLength:(uint64_t)a6 vfd:(uint64_t)a7 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+- (void)createAndConfigureVFDForSocket:(uint64_t)a3 packetType:(uint64_t)a4 remoteIP:(uint64_t)a5 remoteIPLength:(uint64_t)a6 vfd:(uint64_t)a7 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   OUTLINED_FUNCTION_37();
   a21 = v22;
@@ -1288,7 +1296,7 @@ id __50__VCTransportSessionSocket_removeNetworkAssertion__block_invoke(uint64_t 
   OUTLINED_FUNCTION_36();
 }
 
-- (void)createAndConfigureVFDForSocket:(uint64_t)a3 packetType:(uint64_t)a4 remoteIP:(uint64_t)a5 remoteIPLength:(uint64_t)a6 vfd:(uint64_t)a7 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+- (void)createAndConfigureVFDForSocket:(uint64_t)a3 packetType:(uint64_t)a4 remoteIP:(uint64_t)a5 remoteIPLength:(uint64_t)a6 vfd:(uint64_t)a7 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   OUTLINED_FUNCTION_37();
   a21 = v22;

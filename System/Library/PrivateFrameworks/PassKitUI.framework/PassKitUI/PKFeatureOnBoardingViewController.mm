@@ -63,16 +63,16 @@
 
 - (void)viewDidLoad
 {
-  v108.receiver = self;
-  v108.super_class = PKFeatureOnBoardingViewController;
-  [(PKOnBoardingViewController *)&v108 viewDidLoad];
+  v110.receiver = self;
+  v110.super_class = PKFeatureOnBoardingViewController;
+  [(PKOnBoardingViewController *)&v110 viewDidLoad];
   [(PKExplanationViewController *)self setShowDoneButton:0];
   navigationItem = [(PKFeatureOnBoardingViewController *)self navigationItem];
   [navigationItem setHidesBackButton:1];
   explanationView = [(PKExplanationViewController *)self explanationView];
   dockView = [explanationView dockView];
   footerView = [dockView footerView];
-  v106 = [PKApplyController preferredLanguageForFeatureIdentifier:self->_featureIdentifier account:0];
+  v108 = [PKApplyController preferredLanguageForFeatureIdentifier:self->_featureIdentifier account:0];
   currentPage = [(PKOnBoardingViewController *)self currentPage];
   provisioningController = [(PKOnBoardingViewController *)self provisioningController];
   associatedCredentials = [provisioningController associatedCredentials];
@@ -194,7 +194,7 @@ LABEL_24:
 LABEL_30:
   [(PKFeatureOnBoardingViewController *)self updateForHeroImage];
   title = [currentPage title];
-  v101 = title;
+  v103 = title;
   if ((title == 0) | isAccountCredential & 1)
   {
     v22 = self->_featureIdentifier;
@@ -237,7 +237,7 @@ LABEL_30:
 
 LABEL_39:
   subtitle = [currentPage subtitle];
-  v100 = subtitle;
+  v102 = subtitle;
   if ((subtitle == 0) | isAccountCredential & 1)
   {
     v25 = dockView;
@@ -255,9 +255,9 @@ LABEL_39:
   }
 
   body = [currentPage body];
-  v107 = explanationView;
-  v99 = body;
-  v104 = v25;
+  v109 = explanationView;
+  v101 = body;
+  v106 = v25;
   if (body)
   {
     v28 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:body];
@@ -273,74 +273,74 @@ LABEL_39:
       [v30 setAlignment:PKOBKTextAlignment()];
       v31 = objc_alloc_init(MEMORY[0x1E695DF90]);
       v32 = *MEMORY[0x1E69DDCF8];
-      v95 = *MEMORY[0x1E69DDC30];
+      v97 = *MEMORY[0x1E69DDC30];
       v33 = PKFontForDefaultDesign(*MEMORY[0x1E69DDCF8], *MEMORY[0x1E69DDC30]);
-      v93 = *MEMORY[0x1E69DB648];
+      v95 = *MEMORY[0x1E69DB648];
       [v31 setObject:v33 forKey:?];
 
-      v34 = PKOBKBodyTextColor();
-      v92 = *MEMORY[0x1E69DB650];
-      [v31 setObject:v34 forKey:?];
+      v35 = PKOBKBodyTextColor(v34);
+      v94 = *MEMORY[0x1E69DB650];
+      [v31 setObject:v35 forKey:?];
 
-      v91 = *MEMORY[0x1E69DB688];
+      v93 = *MEMORY[0x1E69DB688];
       [v31 setObject:v30 forKey:?];
       footnote = [currentPage footnote];
-      v36 = footnote;
+      v37 = footnote;
       if (footnote)
       {
-        v37 = footnote;
+        v38 = footnote;
       }
 
       else
       {
-        v37 = PKLocalizedApplyFeatureString();
+        v38 = PKLocalizedApplyFeatureString();
       }
 
-      v72 = v37;
+      v73 = v38;
 
-      v73 = MEMORY[0x1E696AEC0];
-      v74 = [v72 length];
-      v75 = @"\n";
-      if (!v74)
+      v74 = MEMORY[0x1E696AEC0];
+      v75 = [v73 length];
+      v76 = @"\n";
+      if (!v75)
       {
-        v75 = &stru_1F3BD7330;
+        v76 = &stru_1F3BD7330;
       }
 
-      v98 = v72;
-      v76 = [v73 stringWithFormat:@"%@%@", v75, v72];
-      v77 = v31;
-      v28 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v76 attributes:v31];
+      v100 = v73;
+      v77 = [v74 stringWithFormat:@"%@%@", v76, v73];
+      v78 = v31;
+      v28 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v77 attributes:v31];
       footnoteDisclosure = [currentPage footnoteDisclosure];
       if ([footnoteDisclosure length])
       {
-        v90 = v30;
-        v79 = objc_alloc_init(MEMORY[0x1E69DB7C8]);
-        [v79 setAlignment:PKOBKTextAlignment()];
-        v80 = objc_alloc_init(MEMORY[0x1E695DF90]);
-        v81 = PKFontForDefaultDesign(v32, v95);
-        [v80 setObject:v81 forKey:v93];
+        v92 = v30;
+        v80 = objc_alloc_init(MEMORY[0x1E69DB7C8]);
+        [v80 setAlignment:PKOBKTextAlignment()];
+        v81 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        v82 = PKFontForDefaultDesign(v32, v97);
+        [v81 setObject:v82 forKey:v95];
 
-        v82 = PKOBKBodyTextColor();
-        [v80 setObject:v82 forKey:v92];
+        v84 = PKOBKBodyTextColor(v83);
+        [v81 setObject:v84 forKey:v94];
 
-        [v80 setObject:v79 forKey:v91];
-        v83 = MEMORY[0x1E696AEC0];
-        v84 = [v76 length];
-        v85 = @"\n";
-        if (!v84)
+        [v81 setObject:v80 forKey:v93];
+        v85 = MEMORY[0x1E696AEC0];
+        v86 = [v77 length];
+        v87 = @"\n";
+        if (!v86)
         {
-          v85 = &stru_1F3BD7330;
+          v87 = &stru_1F3BD7330;
         }
 
-        v86 = [v83 stringWithFormat:@"%@%@", v85, footnoteDisclosure];
-        v87 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v86 attributes:v80];
-        [v28 appendAttributedString:v87];
+        v88 = [v85 stringWithFormat:@"%@%@", v87, footnoteDisclosure];
+        v89 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v88 attributes:v81];
+        [v28 appendAttributedString:v89];
 
-        v30 = v90;
+        v30 = v92;
       }
 
-      explanationView = v107;
-      v25 = v104;
+      explanationView = v109;
+      v25 = v106;
       goto LABEL_60;
     }
 
@@ -354,62 +354,61 @@ LABEL_59:
     goto LABEL_59;
   }
 
-  v38 = objc_alloc_init(MEMORY[0x1E69DB7C8]);
-  [v38 setAlignment:PKOBKTextAlignment()];
-  v39 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v94 = PKFontForDefaultDesign(*MEMORY[0x1E69DDCF8], *MEMORY[0x1E69DDC30]);
-  [v39 setObject:? forKey:?];
-  v40 = PKOBKBodyTextColor();
-  [v39 setObject:v40 forKey:*MEMORY[0x1E69DB650]];
+  v39 = objc_alloc_init(MEMORY[0x1E69DB7C8]);
+  [v39 setAlignment:PKOBKTextAlignment()];
+  v40 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v96 = PKFontForDefaultDesign(*MEMORY[0x1E69DDCF8], *MEMORY[0x1E69DDC30]);
+  v41 = PKOBKBodyTextColor([v40 setObject:? forKey:?]);
+  [v40 setObject:v41 forKey:*MEMORY[0x1E69DB650]];
 
-  v96 = v39;
-  v97 = v38;
-  [v39 setObject:v38 forKey:*MEMORY[0x1E69DB688]];
+  v98 = v40;
+  v99 = v39;
+  [v40 setObject:v39 forKey:*MEMORY[0x1E69DB688]];
   footnote2 = [currentPage footnote];
   if (!footnote2)
   {
-    v42 = objc_alloc_init(MEMORY[0x1E696ADA0]);
-    [v42 setNumberStyle:3];
-    [v42 setMinimumFractionDigits:2];
-    [v42 setMultiplier:&unk_1F3CC7640];
+    v43 = objc_alloc_init(MEMORY[0x1E696ADA0]);
+    [v43 setNumberStyle:3];
+    [v43 setMinimumFractionDigits:2];
+    [v43 setMultiplier:&unk_1F3CC7640];
     paymentSetupProduct = [(PKOnBoardingViewController *)self paymentSetupProduct];
     clientInfo = [paymentSetupProduct clientInfo];
-    v45 = [clientInfo objectForKey:*MEMORY[0x1E69BC260]];
+    v46 = [clientInfo objectForKey:*MEMORY[0x1E69BC260]];
 
-    v46 = PKLocalizedApplyFeatureString();
-    [explanationView setTitleText:v46];
+    v47 = PKLocalizedApplyFeatureString();
+    [explanationView setTitleText:v47];
 
     [explanationView setTitleAccessoriesEnabled:0];
     paymentSetupProduct2 = [(PKOnBoardingViewController *)self paymentSetupProduct];
     clientInfo2 = [paymentSetupProduct2 clientInfo];
-    v49 = [clientInfo2 objectForKey:*MEMORY[0x1E69BC2C0]];
+    v50 = [clientInfo2 objectForKey:*MEMORY[0x1E69BC2C0]];
 
     PKSavingsFDICSignageEnabled();
-    v50 = [v42 stringFromNumber:v45];
-    [v42 stringFromNumber:v49];
-    v89 = v88 = v50;
+    v51 = [v43 stringFromNumber:v46];
+    [v43 stringFromNumber:v50];
+    v91 = v90 = v51;
     footnote2 = PKLocalizedApplyFeatureString();
 
-    explanationView = v107;
+    explanationView = v109;
   }
 
-  v51 = MEMORY[0x1E696AEC0];
-  v52 = [footnote2 length];
-  v53 = @"\n";
-  if (!v52)
+  v52 = MEMORY[0x1E696AEC0];
+  v53 = [footnote2 length];
+  v54 = @"\n";
+  if (!v53)
   {
-    v53 = &stru_1F3BD7330;
+    v54 = &stru_1F3BD7330;
   }
 
-  v54 = [v51 stringWithFormat:@"%@%@", v53, footnote2];
-  v28 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v54 attributes:v96];
+  v55 = [v52 stringWithFormat:@"%@%@", v54, footnote2];
+  v28 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v55 attributes:v98];
 
 LABEL_60:
   if (self->_isMainFeatureOnboardingPage && self->_featureIdentifier == 5 && PKSavingsFDICSignageEnabled())
   {
     dockView2 = [explanationView dockView];
-    v56 = [[PKFDICSignageView alloc] initWithFeature:5 displayingBankName:0];
-    [dockView2 setAdditionalView:v56];
+    v57 = [[PKFDICSignageView alloc] initWithFeature:5 displayingBankName:0];
+    [dockView2 setAdditionalView:v57];
   }
 
   [explanationView setAttributedSecondaryBodyText:v28];
@@ -426,10 +425,10 @@ LABEL_60:
     [v25 setButtonExplanationText:disclosureTitle];
   }
 
-  v60 = currentPage;
+  v61 = currentPage;
   primaryActionTitle = [currentPage primaryActionTitle];
   primaryButton = [v25 primaryButton];
-  v63 = primaryButton;
+  v64 = primaryButton;
   if (primaryActionTitle)
   {
     [primaryButton setTitle:primaryActionTitle forState:0];
@@ -437,31 +436,31 @@ LABEL_60:
 
   else
   {
-    v64 = PKLocalizedApplyFeatureString();
-    [v63 setTitle:v64 forState:0];
+    v65 = PKLocalizedApplyFeatureString();
+    [v64 setTitle:v65 forState:0];
   }
 
-  secondaryActionItem = [v60 secondaryActionItem];
+  secondaryActionItem = [v61 secondaryActionItem];
   buttonTitle2 = [secondaryActionItem buttonTitle];
-  if (buttonTitle2 || ([v60 secondaryActionTitle], (buttonTitle2 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (buttonTitle2 || ([v61 secondaryActionTitle], (buttonTitle2 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v67 = buttonTitle2;
-    [v107 setForceShowSetupLaterButton:1];
+    v68 = buttonTitle2;
+    [v109 setForceShowSetupLaterButton:1];
     setUpLaterButton = [footerView setUpLaterButton];
-    [setUpLaterButton setTitle:v67 forState:0];
+    [setUpLaterButton setTitle:v68 forState:0];
   }
 
   else if (self->_isMainFeatureOnboardingPage && self->_featureIdentifier == 2)
   {
-    [v107 setForceShowSetupLaterButton:1];
+    [v109 setForceShowSetupLaterButton:1];
     setUpLaterButton2 = [footerView setUpLaterButton];
-    v71 = PKLocalizedApplyFeatureString();
-    [setUpLaterButton2 setTitle:v71 forState:0];
+    v72 = PKLocalizedApplyFeatureString();
+    [setUpLaterButton2 setTitle:v72 forState:0];
   }
 
   else
   {
-    [v107 setForceShowSetupLaterButton:0];
+    [v109 setForceShowSetupLaterButton:0];
   }
 
   if (self->_isMainFeatureOnboardingPage && self->_featureIdentifier == 2)
@@ -1064,34 +1063,34 @@ void __73__PKFeatureOnBoardingViewController__checkSecurityCapabilities_nextStep
   dispatch_async(MEMORY[0x1E69E96A0], v8);
 }
 
-void __73__PKFeatureOnBoardingViewController__checkSecurityCapabilities_nextStep___block_invoke_2(uint64_t a1)
+void __73__PKFeatureOnBoardingViewController__checkSecurityCapabilities_nextStep___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v14 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = PKSecurityCapabilitiesErrorToString(*(a1 + 56));
-    v4 = *(a1 + 32);
-    v9 = 138412546;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Finished checking security capabilities with upgrade error %@, error %@", &v9, 0x16u);
+    v4 = PKSecurityCapabilitiesErrorToString(*(a1 + 56));
+    v5 = *(a1 + 32);
+    v10 = 138412546;
+    v11 = v4;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Finished checking security capabilities with upgrade error %@, error %@", &v10, 0x16u);
   }
 
-  v5 = *(a1 + 56);
-  v6 = *(*(a1 + 48) + 16);
-  if (v5 != 3 && v5)
+  v6 = *(a1 + 56);
+  v7 = *(*(a1 + 48) + 16);
+  if (v6 != 3 && v6)
   {
-    v6();
-    v7 = [PKAccountFlowController displayableErrorForError:*(a1 + 32) featureIdentifier:*(*(a1 + 40) + 1136) genericErrorTitle:0 genericErrorMessage:0];
-    v8 = PKAlertForDisplayableErrorWithHandlers(v7, 0, 0, 0);
-    [*(a1 + 40) presentViewController:v8 animated:1 completion:0];
+    v7();
+    v8 = [PKAccountFlowController displayableErrorForError:*(a1 + 32) featureIdentifier:*(*(a1 + 40) + 1136) genericErrorTitle:0 genericErrorMessage:0];
+    v9 = PKAlertForDisplayableErrorWithHandlers(v8, 0, 0, 0);
+    [*(a1 + 40) presentViewController:v9 animated:1 completion:0];
   }
 
   else
   {
-    v6();
+    v7();
   }
 }
 

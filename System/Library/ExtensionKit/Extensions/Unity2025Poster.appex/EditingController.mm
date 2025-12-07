@@ -147,9 +147,9 @@
 - (_TtC15Unity2025Poster17EditingController)init
 {
   v3 = OBJC_IVAR____TtC15Unity2025Poster17EditingController_coordinators;
-  *(&self->super.isa + v3) = sub_100004024(_swiftEmptyArrayStorage);
+  *(&self->super.isa + v3) = sub_100004024(&_swiftEmptyArrayStorage);
   v4 = OBJC_IVAR____TtC15Unity2025Poster17EditingController_configurations;
-  *(&self->super.isa + v4) = sub_10000404C(_swiftEmptyArrayStorage);
+  *(&self->super.isa + v4) = sub_10000404C(&_swiftEmptyArrayStorage);
   v6.receiver = self;
   v6.super_class = type metadata accessor for EditingController();
   return [(EditingController *)&v6 init];

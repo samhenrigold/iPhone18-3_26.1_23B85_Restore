@@ -19,9 +19,11 @@
 
 uint64_t __27__LACDevice_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_6 = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_sharedInstance_6;
+  sharedInstance_sharedInstance_6 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)isDynamicIslandAvailable

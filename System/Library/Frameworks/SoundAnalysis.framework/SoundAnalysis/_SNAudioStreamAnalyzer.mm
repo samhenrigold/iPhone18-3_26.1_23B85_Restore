@@ -64,20 +64,22 @@ LABEL_3:
 LABEL_6:
   sub_1C97EB0B8(v12, v11);
 
-  sub_1C97DA1E0(v11, &unk_1EC3C5E60);
-  sub_1C97DA1E0(v12, &unk_1EC3C5E60);
+  sub_1C97DA1E0(v11, &unk_1EC3C5E60, qword_1C9A9AE10);
+  sub_1C97DA1E0(v12, &unk_1EC3C5E60, qword_1C9A9AE10);
   return 1;
 }
 
 - (BOOL)addRequest:(id)request completionHandler:(id)handler resultsHandler:(id)resultsHandler error:(id *)error
 {
-  v8 = _Block_copy(handler);
-  v9 = _Block_copy(resultsHandler);
-  *(swift_allocObject() + 16) = v8;
-  *(swift_allocObject() + 16) = v9;
+  v9 = _Block_copy(handler);
+  v10 = _Block_copy(resultsHandler);
+  v11 = swift_allocObject();
+  *(v11 + 16) = v9;
+  v12 = swift_allocObject();
+  *(v12 + 16) = v10;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1C97EB888();
+  sub_1C97EB888(request, sub_1C97F042C, v11, sub_1C97F0434, v12);
 
   swift_unknownObjectRelease();
   return 1;
@@ -101,7 +103,7 @@ LABEL_6:
 
   sub_1C97EC9E0(v6);
 
-  sub_1C97DA1E0(v6, &unk_1EC3C5E60);
+  sub_1C97DA1E0(v6, &unk_1EC3C5E60, qword_1C9A9AE10);
 }
 
 - (void)removeAllRequests
@@ -114,7 +116,7 @@ LABEL_6:
 {
   bufferCopy = buffer;
   selfCopy = self;
-  sub_1C97ED4E0(buffer);
+  sub_1C97ED4E0(buffer, position);
 }
 
 - (void)completeAnalysis

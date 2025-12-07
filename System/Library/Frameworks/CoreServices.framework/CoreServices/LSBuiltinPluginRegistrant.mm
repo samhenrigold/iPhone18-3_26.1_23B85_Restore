@@ -28,36 +28,36 @@
 
 - (void)runWithCompletion:(id)completion
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v23 = [(NSDictionary *)self->_miDict objectForKey:@"Path"];
-  if (v23)
+  v22 = [(NSDictionary *)self->_miDict objectForKey:@"Path"];
+  if (v22)
   {
-    v5 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v23 isDirectory:1];
-    v22 = [(NSDictionary *)self->_miDict objectForKey:*MEMORY[0x1E695E4F0]];
+    v5 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v22 isDirectory:1];
+    v21 = [(NSDictionary *)self->_miDict objectForKey:*MEMORY[0x1E695E4F0]];
     pathComponents = [v5 pathComponents];
     v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v8 = pathComponents;
-    v9 = [v8 countByEnumeratingWithState:&v31 objects:&v39 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v30 objects:&v38 count:16];
     v10 = v9;
     if (v9)
     {
-      v11 = *v32;
+      v11 = *v31;
       do
       {
         v12 = 0;
         do
         {
-          if (*v32 != v11)
+          if (*v31 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v31 + 1) + 8 * v12);
+          v13 = *(*(&v30 + 1) + 8 * v12);
           v9 = __47__LSBuiltinPluginRegistrant_runWithCompletion___block_invoke(v9, v13);
           if (v9)
           {
@@ -68,7 +68,7 @@
         }
 
         while (v10 != v12);
-        v9 = [v8 countByEnumeratingWithState:&v31 objects:&v39 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v30 objects:&v38 count:16];
         v10 = v9;
       }
 
@@ -78,56 +78,56 @@
     v14 = [v7 count] == 0;
     if (v14)
     {
-      v39 = 0;
-      v40 = &v39;
-      v41 = 0x3032000000;
-      v42 = __Block_byref_object_copy__49;
-      v43 = __Block_byref_object_dispose__49;
-      v44 = 0;
-      *&v31 = 0;
-      *(&v31 + 1) = &v31;
-      *&v32 = 0x3032000000;
-      *(&v32 + 1) = __Block_byref_object_copy__49;
-      *&v33 = __Block_byref_object_dispose__49;
-      *(&v33 + 1) = 0;
+      v38 = 0;
+      v39 = &v38;
+      v40 = 0x3032000000;
+      v41 = __Block_byref_object_copy__49;
+      v42 = __Block_byref_object_dispose__49;
+      v43 = 0;
+      *&v30 = 0;
+      *(&v30 + 1) = &v30;
+      *&v31 = 0x3032000000;
+      *(&v31 + 1) = __Block_byref_object_copy__49;
+      *&v32 = __Block_byref_object_dispose__49;
+      *(&v32 + 1) = 0;
       v17 = [FSNode alloc];
-      v18 = (v40 + 5);
-      obj = v40[5];
+      v18 = (v39 + 5);
+      obj = v39[5];
       v19 = [(FSNode *)v17 initWithURL:v5 flags:0 error:&obj];
       objc_storeStrong(v18, obj);
       if (v19)
       {
         [(LSRegistrantStrategy *)self->_strategy beginModificationOperation];
         strategy = self->_strategy;
-        v24[0] = MEMORY[0x1E69E9820];
-        v24[1] = 3221225472;
-        v24[2] = __47__LSBuiltinPluginRegistrant_runWithCompletion___block_invoke_2;
-        v24[3] = &unk_1E6A1E418;
-        v28 = &v39;
-        v24[4] = self;
-        v25 = v19;
-        v26 = v22;
-        v29 = &v31;
-        v27 = v5;
-        [(LSRegistrantStrategy *)strategy runSyncBlockInWriteContext:v24];
+        v23[0] = MEMORY[0x1E69E9820];
+        v23[1] = 3221225472;
+        v23[2] = __47__LSBuiltinPluginRegistrant_runWithCompletion___block_invoke_2;
+        v23[3] = &unk_1E6A1E418;
+        v27 = &v38;
+        v23[4] = self;
+        v24 = v19;
+        v25 = v21;
+        v28 = &v30;
+        v26 = v5;
+        [(LSRegistrantStrategy *)strategy runSyncBlockInWriteContext:v23];
         [(LSRegistrantStrategy *)self->_strategy endModificationOperation];
-        if (!*(*(&v31 + 1) + 40))
+        if (!*(*(&v30 + 1) + 40))
         {
           [(LSRegistrantStrategy *)self->_strategy flushModificationState];
         }
       }
 
-      completionCopy[2](completionCopy, *(*(&v31 + 1) + 40), v40[5]);
-      _Block_object_dispose(&v31, 8);
+      completionCopy[2](completionCopy, *(*(&v30 + 1) + 40), v39[5]);
+      _Block_object_dispose(&v30, 8);
 
-      _Block_object_dispose(&v39, 8);
+      _Block_object_dispose(&v38, 8);
     }
 
     else
     {
-      v35 = *MEMORY[0x1E696A278];
-      v36 = @"plugin is in an app";
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+      v34 = *MEMORY[0x1E696A278];
+      v35 = @"plugin is in an app";
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
       v16 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v15, "[LSBuiltinPluginRegistrant runWithCompletion:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/LSRegistrants.mm", 630);
       completionCopy[2](completionCopy, 0, v16);
     }
@@ -135,14 +135,12 @@
 
   else
   {
-    v37 = *MEMORY[0x1E696A278];
-    v38 = @"Missing path";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-    v22 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v5, "[LSBuiltinPluginRegistrant runWithCompletion:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/LSRegistrants.mm", 622);
+    v36 = *MEMORY[0x1E696A278];
+    v37 = @"Missing path";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+    v21 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v5, "[LSBuiltinPluginRegistrant runWithCompletion:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/LSRegistrants.mm", 622);
     (completionCopy[2])(completionCopy, 0);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __47__LSBuiltinPluginRegistrant_runWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -155,7 +153,7 @@ uint64_t __47__LSBuiltinPluginRegistrant_runWithCompletion___block_invoke(uint64
 
 void __47__LSBuiltinPluginRegistrant_runWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(*(a1 + 64) + 8);
   obj = *(v4 + 40);
@@ -177,14 +175,14 @@ void __47__LSBuiltinPluginRegistrant_runWithCompletion___block_invoke_2(uint64_t
       }
     }
 
-    v25 = *(a1 + 48);
-    v26[0] = v6;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *(a1 + 48);
+    v25[0] = v6;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v10 = *(a1 + 40);
     v11 = *(*(a1 + 64) + 8);
-    v23 = *(v11 + 40);
-    v12 = [v5 registerPluginNodeReinitializingContext:v10 installDictionary:v9 existingPlugin:v7 error:&v23];
-    objc_storeStrong((v11 + 40), v23);
+    v22 = *(v11 + 40);
+    v12 = [v5 registerPluginNodeReinitializingContext:v10 installDictionary:v9 existingPlugin:v7 error:&v22];
+    objc_storeStrong((v11 + 40), v22);
     if (v12)
     {
       v13 = [[_LSDModificationPendingSaveToken alloc] initWithUUID:*(*(a1 + 32) + 16)];
@@ -192,40 +190,38 @@ void __47__LSBuiltinPluginRegistrant_runWithCompletion___block_invoke_2(uint64_t
       v15 = *(v14 + 40);
       *(v14 + 40) = v13;
 
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __47__LSBuiltinPluginRegistrant_runWithCompletion___block_invoke_3;
-      v19[3] = &unk_1E6A1E350;
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __47__LSBuiltinPluginRegistrant_runWithCompletion___block_invoke_3;
+      v18[3] = &unk_1E6A1E350;
       v16 = *(a1 + 56);
-      v22 = v12;
+      v21 = v12;
       v17 = *(a1 + 72);
-      v20 = v16;
-      v21 = v17;
-      [v3 armSaveTimerIfNecessary:v19];
+      v19 = v16;
+      v20 = v17;
+      [v3 armSaveTimerIfNecessary:v18];
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __47__LSBuiltinPluginRegistrant_runWithCompletion___block_invoke_3(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = a4;
-  v7 = _LSInstallLog();
+  v7 = _LSInstallLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
     v9 = *(a1 + 48);
-    v14 = 138413058;
-    v15 = v8;
-    v16 = 2048;
-    v17 = v9;
-    v18 = 1024;
-    v19 = a2;
-    v20 = 2112;
-    v21 = v6;
-    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Save after registration for register builtin plugin url %@ (unit %llx) attempted: %d save error: %@", &v14, 0x26u);
+    v13 = 138413058;
+    v14 = v8;
+    v15 = 2048;
+    v16 = v9;
+    v17 = 1024;
+    v18 = a2;
+    v19 = 2112;
+    v20 = v6;
+    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Save after registration for register builtin plugin url %@ (unit %llx) attempted: %d save error: %@", &v13, 0x26u);
   }
 
   v10 = v6;
@@ -238,8 +234,6 @@ void __47__LSBuiltinPluginRegistrant_runWithCompletion___block_invoke_3(uint64_t
   }
 
   [*(*(*(a1 + 40) + 8) + 40) saveDidHappen:v11 == 0 error:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -10,6 +10,8 @@
 - (void)_interrupted;
 - (void)_invalidated;
 - (void)_performActivateSafeChange:(id)change;
+- (void)_sendToPeer:(id)peer type:(unsigned __int8)type data:(id)data;
+- (void)_sendToPeer:(id)peer type:(unsigned __int8)type unencryptedObject:(id)object;
 - (void)activateWithCompletion:(id)completion;
 - (void)clearEncryptionInfoForPeer:(id)peer;
 - (void)dealloc;
@@ -25,6 +27,7 @@
 - (void)serviceError:(id)error;
 - (void)servicePeerDisconnected:(id)disconnected error:(id)error;
 - (void)serviceReceivedEvent:(id)event;
+- (void)serviceReceivedFrameType:(unsigned __int8)type data:(id)data peer:(id)peer;
 - (void)serviceReceivedRequest:(id)request;
 - (void)serviceReceivedResponse:(id)response;
 - (void)serviceSessionFailed:(id)failed error:(id)error;
@@ -50,159 +53,228 @@
 
 - (id)description
 {
-  v31[1] = 0;
-  NSAppendPrintF();
-  v3 = 0;
+  v52 = 0;
+  NSAppendPrintF(&v52, "SFService");
+  v3 = v52;
   serviceType = self->_serviceType;
   if (self->_serviceType)
   {
-    v31[0] = v3;
+    v51 = v3;
     SFNearbyBLEServiceTypeToString(serviceType);
-    v5 = v31;
+    v5 = &v51;
+    NSAppendPrintF(&v51, "-%s");
   }
 
   else
   {
-    if (!self->_identifier)
+    identifier = self->_identifier;
+    if (!identifier)
     {
       goto LABEL_6;
     }
 
-    v30 = v3;
-    v5 = &v30;
+    v50 = v3;
+    v5 = &v50;
+    NSAppendPrintF(&v50, "-%@", identifier);
   }
 
-  NSAppendPrintF();
-  v6 = *v5;
+  v7 = *v5;
 
-  v3 = v6;
+  v3 = v7;
 LABEL_6:
   if (self->_invalidateCalled)
   {
-    NSAppendPrintF();
-    v7 = v3;
+    v49 = v3;
+    NSAppendPrintF(&v49, ", Invalidated");
+    v8 = v49;
 
-    v3 = v7;
+    v3 = v8;
   }
 
-  if (self->_advertiseRate)
+  advertiseRate = self->_advertiseRate;
+  if (advertiseRate)
   {
-    NSAppendPrintF();
-    v9 = v3;
+    v48 = v3;
+    if (advertiseRate <= 39)
+    {
+      switch(advertiseRate)
+      {
+        case 10:
+          v10 = "Infrequent";
+          goto LABEL_26;
+        case 20:
+          v10 = "LowBackground";
+          goto LABEL_26;
+        case 30:
+          v10 = "Background";
+          goto LABEL_26;
+      }
+    }
 
-    v3 = v9;
+    else if (advertiseRate > 59)
+    {
+      if (advertiseRate == 60)
+      {
+        v10 = "Aggressive";
+        goto LABEL_26;
+      }
+
+      if (advertiseRate == 70)
+      {
+        v10 = "Max";
+        goto LABEL_26;
+      }
+    }
+
+    else
+    {
+      if (advertiseRate == 40)
+      {
+        v10 = "Normal";
+        goto LABEL_26;
+      }
+
+      if (advertiseRate == 50)
+      {
+        v10 = "High";
+LABEL_26:
+        NSAppendPrintF(&v48, ", AdvertiseRate %s", v10);
+        v11 = v48;
+
+        v3 = v11;
+        goto LABEL_27;
+      }
+    }
+
+    v10 = "?";
+    goto LABEL_26;
   }
 
+LABEL_27:
   authTagOverride = self->_authTagOverride;
   if (authTagOverride)
   {
-    v26 = authTagOverride;
-    NSAppendPrintF();
-    v11 = v3;
-
-    v3 = v11;
-  }
-
-  if (self->_autoUnlockEnabled)
-  {
-    NSAppendPrintF();
-    v12 = v3;
-
-    v3 = v12;
-  }
-
-  if (self->_autoUnlockWatch)
-  {
-    NSAppendPrintF();
-    v13 = v3;
-
-    v3 = v13;
-  }
-
-  if (self->_deviceActionType)
-  {
-    SFDeviceActionTypeToString(self->_deviceActionType);
-    NSAppendPrintF();
-    v14 = v3;
+    v47 = v3;
+    v13 = authTagOverride;
+    NSAppendPrintF(&v47, ", ATO <%@>", v13);
+    v14 = v47;
 
     v3 = v14;
   }
 
-  if (self->_duetSync)
+  if (self->_autoUnlockEnabled)
   {
-    NSAppendPrintF();
-    v15 = v3;
+    v46 = v3;
+    NSAppendPrintF(&v46, ", AutoUnlockEnabled");
+    v15 = v46;
 
     v3 = v15;
   }
 
-  if (self->_needsAWDL)
+  if (self->_autoUnlockWatch)
   {
-    NSAppendPrintF();
-    v16 = v3;
+    v45 = v3;
+    NSAppendPrintF(&v45, ", AutoUnlockWatch");
+    v16 = v45;
 
     v3 = v16;
   }
 
-  if (self->_needsKeyboard)
+  deviceActionType = self->_deviceActionType;
+  if (self->_deviceActionType)
   {
-    NSAppendPrintF();
-    v17 = v3;
-
-    v3 = v17;
-  }
-
-  if (self->_needsSetup)
-  {
-    SFDeviceActionTypeToString(self->_deviceActionType);
-    NSAppendPrintF();
-    v18 = v3;
-
-    v3 = v18;
-  }
-
-  if (self->_overrideScreenOff)
-  {
-    NSAppendPrintF();
-    v19 = v3;
+    v44 = v3;
+    v18 = SFDeviceActionTypeToString(deviceActionType);
+    NSAppendPrintF(&v44, ", %s", v18);
+    v19 = v44;
 
     v3 = v19;
   }
 
-  if (self->_requestSSID)
+  if (self->_duetSync)
   {
-    requestSSID = self->_requestSSID;
-    NSAppendPrintF();
-    v20 = v3;
+    v43 = v3;
+    NSAppendPrintF(&v43, ", DuetSync");
+    v20 = v43;
 
     v3 = v20;
   }
 
-  if (self->_sessionFlags)
+  if (self->_needsAWDL)
   {
-    sessionFlags = self->_sessionFlags;
-    NSAppendPrintF();
-    v21 = v3;
+    v42 = v3;
+    NSAppendPrintF(&v42, ", NeedsAWDL");
+    v21 = v42;
 
     v3 = v21;
+  }
+
+  if (self->_needsKeyboard)
+  {
+    v41 = v3;
+    NSAppendPrintF(&v41, ", NeedsKeyboard");
+    v22 = v41;
+
+    v3 = v22;
+  }
+
+  if (self->_needsSetup)
+  {
+    v40 = v3;
+    v23 = SFDeviceActionTypeToString(self->_deviceActionType);
+    NSAppendPrintF(&v40, ", NeedsSetup-%s", v23);
+    v24 = v40;
+
+    v3 = v24;
+  }
+
+  if (self->_overrideScreenOff)
+  {
+    v39 = v3;
+    NSAppendPrintF(&v39, ", ScreenOff");
+    v25 = v39;
+
+    v3 = v25;
+  }
+
+  requestSSID = self->_requestSSID;
+  if (requestSSID)
+  {
+    v38 = v3;
+    NSAppendPrintF(&v38, ", SSID", requestSSID);
+    v27 = v38;
+
+    v3 = v27;
+  }
+
+  sessionFlags = self->_sessionFlags;
+  if (sessionFlags)
+  {
+    v37 = v3;
+    NSAppendPrintF(&v37, ", %#{flags}", sessionFlags, &unk_1A998FF40);
+    v29 = v37;
+
+    v3 = v29;
   }
 
   targetAuthTag = self->_targetAuthTag;
   if (targetAuthTag)
   {
-    v29 = targetAuthTag;
-    NSAppendPrintF();
-    v23 = v3;
+    v36 = v3;
+    v31 = targetAuthTag;
+    NSAppendPrintF(&v36, ", tATag <%@>", v31);
+    v32 = v36;
 
-    v3 = v23;
+    v3 = v32;
   }
 
   if (self->_watchLocked)
   {
-    NSAppendPrintF();
-    v24 = v3;
+    v35 = v3;
+    NSAppendPrintF(&v35, ", WatchLocked");
+    v33 = v35;
 
-    v3 = v24;
+    v3 = v33;
   }
 
   return v3;
@@ -210,176 +282,174 @@ LABEL_6:
 
 - (SFService)init
 {
-  v7.receiver = self;
-  v7.super_class = SFService;
-  v2 = [(SFService *)&v7 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = SFService;
+  v2 = [(SFService *)&v6 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
 
-    v3->_ucatCore = &gLogCategory_SFServiceCore;
-    v3->_ucatCrypto = &gLogCategory_SFServiceCrypto;
+    v2->_ucatCore = &gLogCategory_SFServiceCore;
+    v2->_ucatCrypto = &gLogCategory_SFServiceCrypto;
   }
 
-  return v3;
+  return v2;
 }
 
 - (SFService)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v26.receiver = self;
-  v26.super_class = SFService;
-  v5 = [(SFService *)&v26 init];
-  v6 = v5;
+  v25.receiver = self;
+  v25.super_class = SFService;
+  v5 = [(SFService *)&v25 init];
   if (v5)
   {
-    v7 = SFMainQueue(v5);
-    dispatchQueue = v6->_dispatchQueue;
-    v6->_dispatchQueue = v7;
+    v6 = SFMainQueue();
+    dispatchQueue = v5->_dispatchQueue;
+    v5->_dispatchQueue = v6;
 
-    v6->_ucatCore = &gLogCategory_SFServiceCore;
-    v6->_ucatCrypto = &gLogCategory_SFServiceCrypto;
+    v5->_ucatCore = &gLogCategory_SFServiceCore;
+    v5->_ucatCrypto = &gLogCategory_SFServiceCrypto;
     if ([coderCopy containsValueForKey:@"advR"])
     {
-      v6->_advertiseRate = [coderCopy decodeIntegerForKey:@"advR"];
+      v5->_advertiseRate = [coderCopy decodeIntegerForKey:@"advR"];
     }
 
-    v9 = coderCopy;
+    v8 = coderCopy;
     objc_opt_class();
     NSDecodeObjectIfPresent();
 
-    if ([v9 containsValueForKey:@"auE"])
+    if ([v8 containsValueForKey:@"auE"])
     {
-      v6->_autoUnlockEnabled = [v9 decodeBoolForKey:@"auE"];
+      v5->_autoUnlockEnabled = [v8 decodeBoolForKey:@"auE"];
     }
 
-    if ([v9 containsValueForKey:@"auW"])
+    if ([v8 containsValueForKey:@"auW"])
     {
-      v6->_autoUnlockWatch = [v9 decodeBoolForKey:@"auW"];
+      v5->_autoUnlockWatch = [v8 decodeBoolForKey:@"auW"];
     }
 
-    if ([v9 containsValueForKey:@"dat"])
+    if ([v8 containsValueForKey:@"dat"])
     {
-      v6->_deviceActionType = [v9 decodeIntegerForKey:@"dat"];
+      v5->_deviceActionType = [v8 decodeIntegerForKey:@"dat"];
     }
 
-    if ([v9 containsValueForKey:@"dp2"])
+    if ([v8 containsValueForKey:@"dp2"])
     {
-      v6->_payloadDovePeace2 = [v9 decodeIntForKey:@"dp2"];
+      v5->_payloadDovePeace2 = [v8 decodeIntForKey:@"dp2"];
     }
 
-    if ([v9 containsValueForKey:@"deviceClassCode"])
+    if ([v8 containsValueForKey:@"deviceClassCode"])
     {
-      v6->_deviceClassCode = [v9 decodeIntegerForKey:@"deviceClassCode"];
+      v5->_deviceClassCode = [v8 decodeIntegerForKey:@"deviceClassCode"];
     }
 
-    if ([v9 containsValueForKey:@"deviceColorCode"])
+    if ([v8 containsValueForKey:@"deviceColorCode"])
     {
-      v6->_deviceColorCode = [v9 decodeIntegerForKey:@"deviceColorCode"];
+      v5->_deviceColorCode = [v8 decodeIntegerForKey:@"deviceColorCode"];
     }
 
-    if ([v9 containsValueForKey:@"deviceModelCode"])
+    if ([v8 containsValueForKey:@"deviceModelCode"])
     {
-      v6->_deviceModelCode = [v9 decodeIntegerForKey:@"deviceModelCode"];
+      v5->_deviceModelCode = [v8 decodeIntegerForKey:@"deviceModelCode"];
     }
 
-    v10 = v9;
-    if ([v10 containsValueForKey:@"ds"])
+    v9 = v8;
+    if ([v9 containsValueForKey:@"ds"])
     {
-      v6->_duetSync = [v10 decodeBoolForKey:@"ds"];
+      v5->_duetSync = [v9 decodeBoolForKey:@"ds"];
     }
 
-    if ([v10 containsValueForKey:@"prob"])
+    if ([v9 containsValueForKey:@"prob"])
     {
-      v6->_hasProblem = [v10 decodeBoolForKey:@"prob"];
+      v5->_hasProblem = [v9 decodeBoolForKey:@"prob"];
     }
 
-    if ([v10 containsValueForKey:@"ident"])
+    if ([v9 containsValueForKey:@"ident"])
     {
-      v11 = [v10 decodeObjectOfClass:objc_opt_class() forKey:@"ident"];
-      identifier = v6->_identifier;
-      v6->_identifier = v11;
+      v10 = [v9 decodeObjectOfClass:objc_opt_class() forKey:@"ident"];
+      identifier = v5->_identifier;
+      v5->_identifier = v10;
     }
 
-    v13 = v10;
-    if ([v13 containsValueForKey:@"awdl"])
+    v12 = v9;
+    if ([v12 containsValueForKey:@"awdl"])
     {
-      v6->_needsAWDL = [v13 decodeBoolForKey:@"awdl"];
+      v5->_needsAWDL = [v12 decodeBoolForKey:@"awdl"];
     }
 
-    if ([v13 containsValueForKey:@"kb"])
+    if ([v12 containsValueForKey:@"kb"])
     {
-      v6->_needsKeyboard = [v13 decodeBoolForKey:@"kb"];
+      v5->_needsKeyboard = [v12 decodeBoolForKey:@"kb"];
     }
 
-    if ([v13 containsValueForKey:@"setup"])
+    if ([v12 containsValueForKey:@"setup"])
     {
-      v6->_needsSetup = [v13 decodeBoolForKey:@"setup"];
+      v5->_needsSetup = [v12 decodeBoolForKey:@"setup"];
+    }
+
+    v13 = v12;
+    if ([v13 containsValueForKey:@"oso"])
+    {
+      v5->_overrideScreenOff = [v13 decodeBoolForKey:@"oso"];
     }
 
     v14 = v13;
-    if ([v14 containsValueForKey:@"oso"])
+    if ([v14 containsValueForKey:@"pf"])
     {
-      v6->_overrideScreenOff = [v14 decodeBoolForKey:@"oso"];
+      v5->_problemFlags = [v14 decodeInt64ForKey:@"pf"];
     }
 
-    v15 = v14;
-    if ([v15 containsValueForKey:@"pf"])
+    if ([v14 containsValueForKey:@"st"])
     {
-      v6->_problemFlags = [v15 decodeInt64ForKey:@"pf"];
-    }
-
-    if ([v15 containsValueForKey:@"st"])
-    {
-      v16 = [v15 decodeIntegerForKey:@"st"];
-      v6->_serviceType = v16;
-      if (v16 >= 0x100)
+      v15 = [v14 decodeIntegerForKey:@"st"];
+      v5->_serviceType = v15;
+      if (v15 >= 0x100)
       {
-        v17 = MEMORY[0x1E695DF30];
-        v18 = *MEMORY[0x1E695D940];
-        v19 = _NSMethodExceptionProem();
-        [v17 raise:v18 format:{@"%@: service type out-of-range: %ld", v19, v16}];
+        v16 = MEMORY[0x1E695DF30];
+        v17 = *MEMORY[0x1E695D940];
+        v18 = _NSMethodExceptionProem();
+        [v16 raise:v17 format:{@"%@: service type out-of-range: %ld", v18, v15}];
       }
     }
 
-    v20 = v15;
+    v19 = v14;
     objc_opt_class();
     NSDecodeObjectIfPresent();
 
-    if ([v20 containsValueForKey:@"svid"])
+    if ([v19 containsValueForKey:@"svid"])
     {
-      v21 = [v20 decodeObjectOfClass:objc_opt_class() forKey:@"svid"];
-      serviceUUID = v6->_serviceUUID;
-      v6->_serviceUUID = v21;
+      v20 = [v19 decodeObjectOfClass:objc_opt_class() forKey:@"svid"];
+      serviceUUID = v5->_serviceUUID;
+      v5->_serviceUUID = v20;
     }
 
-    v27 = 0;
+    v26 = 0;
     if (NSDecodeSInt64RangedIfPresent())
     {
-      v6->_sessionFlags = v27;
+      v5->_sessionFlags = v26;
     }
 
-    if ([v20 containsValueForKey:@"wake"])
+    if ([v19 containsValueForKey:@"wake"])
     {
-      v6->_wakeDevice = [v20 decodeBoolForKey:@"wake"];
+      v5->_wakeDevice = [v19 decodeBoolForKey:@"wake"];
     }
 
-    v23 = v20;
+    v22 = v19;
     objc_opt_class();
     NSDecodeObjectIfPresent();
 
-    if ([v23 containsValueForKey:@"wl"])
+    if ([v22 containsValueForKey:@"wl"])
     {
-      v6->_watchLocked = [v23 decodeBoolForKey:@"wl"];
+      v5->_watchLocked = [v22 decodeBoolForKey:@"wl"];
     }
 
-    v24 = v6;
+    v23 = v5;
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -543,7 +613,7 @@ LABEL_6:
 {
   if (self->_activateCalled && !self->_invalidateCalled)
   {
-    v5 = [SFRemoteAutoFillService dealloc];
+    [SFRemoteAutoFillService dealloc];
     [(SFService *)v5 _cleanup];
   }
 
@@ -838,20 +908,20 @@ LABEL_6:
 
 - (void)_activateWithCompletion:(id)completion
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v7 = _os_activity_create(&dword_1A9662000, "Sharing/SFService/serviceActivate", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
-  v35 = 0;
-  var0 = self->_ucatCore->var0;
-  if (var0 <= 30)
+  v31 = 0;
+  ucatCore = self->_ucatCore;
+  if (ucatCore->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucatCore->var0 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(ucatCore, "[SFService _activateWithCompletion:]", 30, "Activate\n");
       goto LABEL_5;
     }
 
@@ -866,7 +936,7 @@ LABEL_5:
   if (self->_invalidateCalled)
   {
     v9 = 0;
-    v21 = 4294960572;
+    v20 = 4294960572;
   }
 
   else
@@ -881,18 +951,8 @@ LABEL_5:
         self->_serviceType = serviceType;
       }
 
-      if (self->_serviceUUID)
+      if (self->_serviceUUID || (SFServiceTypeToUUID(serviceType), v11 = objc_claimAutoreleasedReturnValue(), serviceUUID = self->_serviceUUID, self->_serviceUUID = v11, serviceUUID, self->_serviceUUID) || (SFServiceIdentifierToUUID(v9, &v31), v13 = objc_claimAutoreleasedReturnValue(), v14 = self->_serviceUUID, self->_serviceUUID = v13, v14, self->_serviceUUID))
       {
-        goto LABEL_35;
-      }
-
-      v11 = SFServiceTypeToUUID(serviceType);
-      serviceUUID = self->_serviceUUID;
-      self->_serviceUUID = v11;
-
-      if (self->_serviceUUID || (SFServiceIdentifierToUUID(v9, &v35), v13 = objc_claimAutoreleasedReturnValue(), v14 = self->_serviceUUID, self->_serviceUUID = v13, v14, self->_serviceUUID))
-      {
-LABEL_35:
         if (!self->_requestQueue)
         {
           v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -903,51 +963,50 @@ LABEL_35:
         [(SFService *)self _ensureXPCStarted];
         self->_activateInProgress = 1;
         xpcCnx = self->_xpcCnx;
-        v33[0] = MEMORY[0x1E69E9820];
-        v33[1] = 3221225472;
-        v33[2] = __37__SFService__activateWithCompletion___block_invoke;
-        v33[3] = &unk_1E788BF88;
-        v33[4] = self;
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = __37__SFService__activateWithCompletion___block_invoke;
+        v29[3] = &unk_1E788BF88;
+        v29[4] = self;
         v18 = completionCopy;
-        v34 = v18;
-        v19 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v33];
-        v31[0] = MEMORY[0x1E69E9820];
-        v31[1] = 3221225472;
-        v31[2] = __37__SFService__activateWithCompletion___block_invoke_2;
-        v31[3] = &unk_1E788BF88;
-        v31[4] = self;
-        v32 = v18;
-        [v19 serviceActivate:self completion:v31];
+        v30 = v18;
+        v19 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v29];
+        v27[0] = MEMORY[0x1E69E9820];
+        v27[1] = 3221225472;
+        v27[2] = __37__SFService__activateWithCompletion___block_invoke_2;
+        v27[3] = &unk_1E788BF88;
+        v27[4] = self;
+        v28 = v18;
+        [v19 serviceActivate:self completion:v27];
 
-        v35 = 0;
+        v31 = 0;
         goto LABEL_15;
       }
 
-      v21 = 4294960588;
+      v20 = 4294960588;
     }
 
     else
     {
-      v21 = 4294960551;
+      v20 = 4294960551;
     }
   }
 
-  v35 = v21;
-  v22 = self->_ucatCore->var0;
-  if (v22 <= 60)
+  v31 = v20;
+  v21 = self->_ucatCore;
+  if (v21->var0 <= 60)
   {
-    if (v22 != -1)
+    if (v21->var0 != -1)
     {
 LABEL_21:
-      v30 = v21;
-      LogPrintF();
+      LogPrintF(v21, "[SFService _activateWithCompletion:]", 60, "### Activate start failed: %#m\n", v20);
       goto LABEL_23;
     }
 
     if (_LogCategory_Initialize())
     {
-      v29 = self->_ucatCore;
-      v21 = v35;
+      v21 = self->_ucatCore;
+      v20 = v31;
       goto LABEL_21;
     }
   }
@@ -955,31 +1014,31 @@ LABEL_21:
 LABEL_23:
   if (completionCopy)
   {
-    v23 = v35;
-    if (v35)
+    v22 = v31;
+    if (v31)
     {
-      v24 = MEMORY[0x1E696ABC0];
-      v37 = *MEMORY[0x1E696A578];
-      v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
-      v3 = v25;
-      v26 = @"?";
-      if (v25)
+      v23 = MEMORY[0x1E696ABC0];
+      v33 = *MEMORY[0x1E696A578];
+      v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
+      v3 = v24;
+      v25 = @"?";
+      if (v24)
       {
-        v26 = v25;
+        v25 = v24;
       }
 
-      v38[0] = v26;
-      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:{1, v30}];
-      v27 = [v24 errorWithDomain:*MEMORY[0x1E696A768] code:v23 userInfo:v4];
+      v34[0] = v25;
+      v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+      v26 = [v23 errorWithDomain:*MEMORY[0x1E696A768] code:v22 userInfo:v4];
     }
 
     else
     {
-      v27 = 0;
+      v26 = 0;
     }
 
-    (*(completionCopy + 2))(completionCopy, v27);
-    if (v23)
+    (*(completionCopy + 2))(completionCopy, v26);
+    if (v22)
     {
     }
   }
@@ -987,7 +1046,6 @@ LABEL_23:
 LABEL_15:
 
   os_activity_scope_leave(&state);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __37__SFService__activateWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -997,23 +1055,23 @@ void __37__SFService__activateWithCompletion___block_invoke(uint64_t a1, void *a
   v4 = *(a1 + 32);
   if ((*(v4 + 11) & 1) == 0)
   {
-    v5 = **(v4 + 32);
-    if (v5 <= 60)
+    v5 = *(v4 + 32);
+    if (*v5 <= 60)
     {
-      v9 = v3;
-      if (v5 != -1)
+      v8 = v3;
+      if (*v5 != -1)
       {
 LABEL_4:
-        LogPrintF();
-        v3 = v9;
+        LogPrintF(v5, "[SFService _activateWithCompletion:]_block_invoke", 60, "### Activate XPC failed: %{error}\n", v3);
+        v3 = v8;
         goto LABEL_6;
       }
 
       v6 = _LogCategory_Initialize();
-      v3 = v9;
+      v3 = v8;
       if (v6)
       {
-        v8 = *(*(a1 + 32) + 32);
+        v5 = *(*(a1 + 32) + 32);
         goto LABEL_4;
       }
     }
@@ -1023,9 +1081,9 @@ LABEL_6:
   v7 = *(a1 + 40);
   if (v7)
   {
-    v10 = v3;
-    (*(v7 + 16))(v7);
-    v3 = v10;
+    v9 = v3;
+    (*(v7 + 16))();
+    v3 = v9;
   }
 }
 
@@ -1034,7 +1092,7 @@ void __37__SFService__activateWithCompletion___block_invoke_2(uint64_t a1, void 
   v3 = a2;
   *(*(a1 + 32) + 9) = 0;
   v4 = *(a1 + 32);
-  v9 = v3;
+  v8 = v3;
   if (!v3)
   {
     [v4 _activated];
@@ -1043,23 +1101,23 @@ void __37__SFService__activateWithCompletion___block_invoke_2(uint64_t a1, void 
 
   if ((*(v4 + 11) & 1) == 0)
   {
-    v5 = **(v4 + 32);
-    if (v5 <= 60)
+    v5 = *(v4 + 32);
+    if (*v5 <= 60)
     {
-      if (v5 != -1)
+      if (*v5 != -1)
       {
 LABEL_5:
-        LogPrintF();
+        LogPrintF(v5, "[SFService _activateWithCompletion:]_block_invoke_2", 60, "### Activate failed: %{error}\n", v3);
 LABEL_7:
-        v3 = v9;
+        v3 = v8;
         goto LABEL_8;
       }
 
       v7 = _LogCategory_Initialize();
-      v3 = v9;
+      v3 = v8;
       if (v7)
       {
-        v8 = *(*(a1 + 32) + 32);
+        v5 = *(*(a1 + 32) + 32);
         goto LABEL_5;
       }
     }
@@ -1069,18 +1127,18 @@ LABEL_8:
   v6 = *(a1 + 40);
   if (v6)
   {
-    (*(v6 + 16))(v6, v9);
-    v3 = v9;
+    (*(v6 + 16))(v6, v8);
+    v3 = v8;
   }
 }
 
 - (void)_activated
 {
   self->_activateCompleted = 1;
-  var0 = self->_ucatCore->var0;
-  if (var0 <= 30)
+  ucatCore = self->_ucatCore;
+  if (ucatCore->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucatCore->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -1090,7 +1148,7 @@ LABEL_8:
       ucatCore = self->_ucatCore;
     }
 
-    LogPrintF();
+    LogPrintF(ucatCore, "[SFService _activated]", 30, "Activated\n");
   }
 }
 
@@ -1110,29 +1168,29 @@ LABEL_8:
     [(NSXPCConnection *)self->_xpcCnx setExportedInterface:v7];
 
     [(NSXPCConnection *)self->_xpcCnx setExportedObject:self];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __30__SFService__ensureXPCStarted__block_invoke;
-    v12[3] = &unk_1E788B198;
-    v12[4] = self;
-    [(NSXPCConnection *)self->_xpcCnx setInterruptionHandler:v12];
     v11[0] = MEMORY[0x1E69E9820];
     v11[1] = 3221225472;
-    v11[2] = __30__SFService__ensureXPCStarted__block_invoke_2;
+    v11[2] = __30__SFService__ensureXPCStarted__block_invoke;
     v11[3] = &unk_1E788B198;
     v11[4] = self;
-    [(NSXPCConnection *)self->_xpcCnx setInvalidationHandler:v11];
+    [(NSXPCConnection *)self->_xpcCnx setInterruptionHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __30__SFService__ensureXPCStarted__block_invoke_2;
+    v10[3] = &unk_1E788B198;
+    v10[4] = self;
+    [(NSXPCConnection *)self->_xpcCnx setInvalidationHandler:v10];
     v8 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F1DAEF00];
     [(NSXPCConnection *)self->_xpcCnx setRemoteObjectInterface:v8];
 
     [(NSXPCConnection *)self->_xpcCnx resume];
-    var0 = self->_ucatCore->var0;
-    if (var0 <= 10)
+    ucatCore = self->_ucatCore;
+    if (ucatCore->var0 <= 10)
     {
-      if (var0 != -1)
+      if (ucatCore->var0 != -1)
       {
 LABEL_7:
-        LogPrintF();
+        LogPrintF(ucatCore, "[SFService _ensureXPCStarted]", 10, "XPC started\n");
         return;
       }
 
@@ -1148,13 +1206,13 @@ LABEL_7:
 - (void)_interrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  var0 = self->_ucatCore->var0;
-  if (var0 > 50)
+  ucatCore = self->_ucatCore;
+  if (ucatCore->var0 > 50)
   {
     goto LABEL_5;
   }
 
-  if (var0 != -1)
+  if (ucatCore->var0 != -1)
   {
     goto LABEL_3;
   }
@@ -1163,7 +1221,7 @@ LABEL_7:
   {
     ucatCore = self->_ucatCore;
 LABEL_3:
-    LogPrintF();
+    LogPrintF(ucatCore, "[SFService _interrupted]", 50, "### Interrupted\n");
   }
 
 LABEL_5:
@@ -1180,38 +1238,38 @@ LABEL_5:
     state.opaque[0] = 0;
     state.opaque[1] = 0;
     os_activity_scope_enter(v5, &state);
-    v6 = self->_ucatCore->var0;
-    if (v6 <= 50)
+    v6 = self->_ucatCore;
+    if (v6->var0 <= 50)
     {
-      if (v6 == -1)
+      if (v6->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_12;
         }
 
-        v10 = self->_ucatCore;
+        v6 = self->_ucatCore;
       }
 
-      LogPrintF();
+      LogPrintF(v6, "[SFService _interrupted]", 50, "Restarting after interruption\n");
     }
 
 LABEL_12:
     [(SFService *)self _ensureXPCStarted];
     self->_activateInProgress = 1;
     xpcCnx = self->_xpcCnx;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __25__SFService__interrupted__block_invoke;
-    v12[3] = &unk_1E788B238;
-    v12[4] = self;
-    v8 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v12];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __25__SFService__interrupted__block_invoke_2;
-    v11[3] = &unk_1E788B238;
-    v11[4] = self;
-    [v8 serviceActivate:self completion:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __25__SFService__interrupted__block_invoke;
+    v10[3] = &unk_1E788B238;
+    v10[4] = self;
+    v8 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __25__SFService__interrupted__block_invoke_2;
+    v9[3] = &unk_1E788B238;
+    v9[4] = self;
+    [v8 serviceActivate:self completion:v9];
 
     os_activity_scope_leave(&state);
   }
@@ -1223,23 +1281,23 @@ void __25__SFService__interrupted__block_invoke(uint64_t a1, void *a2)
   *(*(a1 + 32) + 9) = 0;
   if (v3)
   {
-    v4 = **(*(a1 + 32) + 32);
-    if (v4 <= 60)
+    v4 = *(*(a1 + 32) + 32);
+    if (*v4 <= 60)
     {
-      v7 = v3;
-      if (v4 != -1)
+      v6 = v3;
+      if (*v4 != -1)
       {
 LABEL_4:
-        LogPrintF();
-        v3 = v7;
+        LogPrintF(v4, "[SFService _interrupted]_block_invoke", 60, "### Restart failed: %{error}\n", v3);
+        v3 = v6;
         goto LABEL_6;
       }
 
       v5 = _LogCategory_Initialize();
-      v3 = v7;
+      v3 = v6;
       if (v5)
       {
-        v6 = *(*(a1 + 32) + 32);
+        v4 = *(*(a1 + 32) + 32);
         goto LABEL_4;
       }
     }
@@ -1255,32 +1313,32 @@ void __25__SFService__interrupted__block_invoke_2(uint64_t a1, void *a2)
   v4 = *(a1 + 32);
   if (!v3)
   {
-    v8 = 0;
+    v7 = 0;
     [v4 _activated];
     goto LABEL_6;
   }
 
-  v5 = *v4[4];
-  if (v5 > 60)
+  v5 = v4[4];
+  if (*v5 > 60)
   {
     goto LABEL_7;
   }
 
-  v8 = v3;
-  if (v5 != -1)
+  v7 = v3;
+  if (*v5 != -1)
   {
 LABEL_4:
-    LogPrintF();
+    LogPrintF(v5, "[SFService _interrupted]_block_invoke_2", 60, "### Restart failed: %{error}\n", v3);
 LABEL_6:
-    v3 = v8;
+    v3 = v7;
     goto LABEL_7;
   }
 
   v6 = _LogCategory_Initialize();
-  v3 = v8;
+  v3 = v7;
   if (v6)
   {
-    v7 = *(*(a1 + 32) + 32);
+    v5 = *(*(a1 + 32) + 32);
     goto LABEL_4;
   }
 
@@ -1308,23 +1366,22 @@ void __23__SFService_invalidate__block_invoke(uint64_t a1)
 
   *(v1 + 11) = 1;
   v3 = *(a1 + 32);
-  v4 = **(v3 + 32);
-  if (v4 <= 30)
+  v4 = *(v3 + 32);
+  if (*v4 <= 30)
   {
-    if (v4 != -1)
+    if (*v4 != -1)
     {
 LABEL_4:
-      LogPrintF();
+      LogPrintF(v4, "[SFService invalidate]_block_invoke", 30, "Invalidating\n");
       v3 = *(a1 + 32);
       goto LABEL_6;
     }
 
-    v5 = *(v3 + 32);
-    v6 = _LogCategory_Initialize();
+    v5 = _LogCategory_Initialize();
     v3 = *(a1 + 32);
-    if (v6)
+    if (v5)
     {
-      v9 = *(v3 + 32);
+      v4 = *(v3 + 32);
       goto LABEL_4;
     }
   }
@@ -1333,9 +1390,9 @@ LABEL_6:
   if (*(v3 + 80))
   {
     [*(v3 + 80) invalidate];
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 80);
-    *(v7 + 80) = 0;
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 80);
+    *(v6 + 80) = 0;
   }
 
   else
@@ -1355,13 +1412,13 @@ LABEL_6:
 
   if (!self->_invalidateCalled)
   {
-    var0 = self->_ucatCore->var0;
-    if (var0 <= 50)
+    ucatCore = self->_ucatCore;
+    if (ucatCore->var0 <= 50)
     {
-      if (var0 != -1)
+      if (ucatCore->var0 != -1)
       {
 LABEL_5:
-        LogPrintF();
+        LogPrintF(ucatCore, "[SFService _invalidated]", 50, "### Unexpectedly invalidated\n");
         goto LABEL_7;
       }
 
@@ -1380,12 +1437,12 @@ LABEL_7:
   self->_requestQueue = 0;
 
   sessions = self->_sessions;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __25__SFService__invalidated__block_invoke_2;
-  v11[3] = &unk_1E788F430;
-  v11[4] = self;
-  [(NSMutableDictionary *)sessions enumerateKeysAndObjectsUsingBlock:v11];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __25__SFService__invalidated__block_invoke_2;
+  v9[3] = &unk_1E788F430;
+  v9[4] = self;
+  [(NSMutableDictionary *)sessions enumerateKeysAndObjectsUsingBlock:v9];
   [(NSMutableDictionary *)self->_sessions removeAllObjects];
   v6 = self->_sessions;
   self->_sessions = 0;
@@ -1398,19 +1455,19 @@ LABEL_7:
 
   [(SFService *)self _cleanup];
   self->_invalidateDone = 1;
-  v8 = self->_ucatCore->var0;
-  if (v8 <= 30)
+  v8 = self->_ucatCore;
+  if (v8->var0 <= 30)
   {
-    if (v8 != -1)
+    if (v8->var0 != -1)
     {
 LABEL_11:
-      LogPrintF();
+      LogPrintF(v8, "[SFService _invalidated]", 30, "Invalidated\n");
       return;
     }
 
     if (_LogCategory_Initialize())
     {
-      v9 = self->_ucatCore;
+      v8 = self->_ucatCore;
       goto LABEL_11;
     }
   }
@@ -1418,7 +1475,7 @@ LABEL_11:
 
 void __25__SFService__invalidated__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v3 = a3;
   v4 = [v3 responseHandler];
 
@@ -1427,7 +1484,7 @@ void __25__SFService__invalidated__block_invoke(uint64_t a1, uint64_t a2, void *
     v5 = [v3 responseHandler];
     v6 = MEMORY[0x1E696ABC0];
     v7 = *MEMORY[0x1E696A768];
-    v14 = *MEMORY[0x1E696A578];
+    v13 = *MEMORY[0x1E696A578];
     v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
     v9 = v8;
     v10 = @"?";
@@ -1436,27 +1493,25 @@ void __25__SFService__invalidated__block_invoke(uint64_t a1, uint64_t a2, void *
       v10 = v8;
     }
 
-    v15[0] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v14[0] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v12 = [v6 errorWithDomain:v7 code:-6723 userInfo:v11];
     (v5)[2](v5, v12, 0);
   }
 
   [v3 invalidate];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __25__SFService__invalidated__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = *(*(a1 + 32) + 272);
   if (v5)
   {
     v6 = MEMORY[0x1E696ABC0];
     v7 = *MEMORY[0x1E696A768];
-    v14 = *MEMORY[0x1E696A578];
+    v13 = *MEMORY[0x1E696A578];
     v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
     v9 = v8;
     v10 = @"?";
@@ -1465,15 +1520,13 @@ void __25__SFService__invalidated__block_invoke_2(uint64_t a1, uint64_t a2, void
       v10 = v8;
     }
 
-    v15[0] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v14[0] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v12 = [v6 errorWithDomain:v7 code:-6723 userInfo:v11];
     (*(v5 + 16))(v5, v4, v12);
   }
 
   [v4 invalidate];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performActivateSafeChange:(id)change
@@ -1547,19 +1600,19 @@ void __23__SFService_sendEvent___block_invoke(uint64_t a1)
     return;
   }
 
-  v5 = **(v2 + 32);
-  if (v5 <= 60)
+  v5 = *(v2 + 32);
+  if (*v5 <= 60)
   {
-    if (v5 != -1)
+    if (*v5 != -1)
     {
 LABEL_5:
-      LogPrintF();
+      LogPrintF(v5, "[SFService sendEvent:]_block_invoke", 60, "### Send event failed: %#m\n", 4294960551);
       return;
     }
 
     if (_LogCategory_Initialize())
     {
-      v6 = *(*(a1 + 32) + 32);
+      v5 = *(*(a1 + 32) + 32);
       goto LABEL_5;
     }
   }
@@ -1601,19 +1654,19 @@ void __25__SFService_sendRequest___block_invoke(void *a1)
     return;
   }
 
-  v5 = **(v2 + 32);
-  if (v5 <= 60)
+  v5 = *(v2 + 32);
+  if (*v5 <= 60)
   {
-    if (v5 != -1)
+    if (*v5 != -1)
     {
 LABEL_5:
-      LogPrintF();
+      LogPrintF(v5, "[SFService sendRequest:]_block_invoke", 60, "### Send request failed: %#m\n", 4294960551);
       return;
     }
 
     if (_LogCategory_Initialize())
     {
-      v6 = *(a1[4] + 32);
+      v5 = *(a1[4] + 32);
       goto LABEL_5;
     }
   }
@@ -1639,7 +1692,7 @@ LABEL_5:
 
   else
   {
-    v8 = FatalErrorF();
+    v8 = FatalErrorF("Response without request identifier: %@", responseCopy);
     __26__SFService_sendResponse___block_invoke(v8);
   }
 }
@@ -1660,19 +1713,19 @@ void __26__SFService_sendResponse___block_invoke(uint64_t a1)
     return;
   }
 
-  v5 = **(v2 + 32);
-  if (v5 <= 60)
+  v5 = *(v2 + 32);
+  if (*v5 <= 60)
   {
-    if (v5 != -1)
+    if (*v5 != -1)
     {
 LABEL_5:
-      LogPrintF();
+      LogPrintF(v5, "[SFService sendResponse:]_block_invoke", 60, "### Send response failed: %#m\n", 4294960551);
       return;
     }
 
     if (_LogCategory_Initialize())
     {
-      v6 = *(*(a1 + 32) + 32);
+      v5 = *(*(a1 + 32) + 32);
       goto LABEL_5;
     }
   }
@@ -1712,7 +1765,7 @@ LABEL_5:
 
 void __37__SFService_sendToPeer_flags_object___block_invoke(void *a1)
 {
-  v2 = (a1 + 4);
+  v2 = a1 + 4;
   v3 = [*(a1[4] + 24) objectForKeyedSubscript:a1[5]];
   v4 = v3;
   if (v3)
@@ -1729,7 +1782,7 @@ void __37__SFService_sendToPeer_flags_object___block_invoke(void *a1)
 void __37__SFService_sendToPeer_flags_object___block_invoke_2(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 24) objectForKeyedSubscript:*(a1 + 40)];
-  v6 = v2;
+  v5 = v2;
   if (v2)
   {
     LOBYTE(v3) = [v2 sessionFlags];
@@ -1740,18 +1793,102 @@ void __37__SFService_sendToPeer_flags_object___block_invoke_2(uint64_t a1)
     v3 = *(*(a1 + 32) + 116);
   }
 
-  v4 = *(a1 + 32);
   if ((v3 & 2) != 0)
   {
-    v5 = 29;
+    v4 = 29;
   }
 
   else
   {
-    v5 = 5;
+    v4 = 5;
   }
 
-  [*(a1 + 32) _sendToPeer:*(a1 + 40) type:v5 unencryptedObject:*(a1 + 48)];
+  [*(a1 + 32) _sendToPeer:*(a1 + 40) type:v4 unencryptedObject:*(a1 + 48)];
+}
+
+- (void)_sendToPeer:(id)peer type:(unsigned __int8)type unencryptedObject:(id)object
+{
+  typeCopy = type;
+  peerCopy = peer;
+  objectCopy = object;
+  v21 = 0;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  DataMutable = OPACKEncoderCreateDataMutable();
+  if (!DataMutable)
+  {
+    [(SFService *)self _sendToPeer:peerCopy type:&state unencryptedObject:?];
+    v11 = state.opaque[0];
+    goto LABEL_17;
+  }
+
+  v11 = DataMutable;
+  if (typeCopy == 29)
+  {
+    v20 = 0;
+    v12 = NSDataCompress();
+    v13 = 0;
+
+    if (!v12)
+    {
+      [SFService _sendToPeer:type:unencryptedObject:];
+      v11 = 0;
+      goto LABEL_17;
+    }
+
+    v11 = v12;
+  }
+
+  if (self->_xpcCnx)
+  {
+    v14 = _os_activity_create(&dword_1A9662000, "Sharing/SFService/serviceSendFrameType", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    state.opaque[0] = 0;
+    state.opaque[1] = 0;
+    os_activity_scope_enter(v14, &state);
+    remoteObjectProxy = [(NSXPCConnection *)self->_xpcCnx remoteObjectProxy];
+    [remoteObjectProxy serviceSendFrameType:typeCopy data:v11 peer:peerCopy];
+
+    os_activity_scope_leave(&state);
+  }
+
+  else
+  {
+    sendFramePeerHandler = self->_sendFramePeerHandler;
+    if (sendFramePeerHandler)
+    {
+      sendFramePeerHandler[2](sendFramePeerHandler, typeCopy, v11, peerCopy);
+    }
+
+    else
+    {
+      ucatCore = self->_ucatCore;
+      if (ucatCore->var0 <= 60)
+      {
+        if (ucatCore->var0 == -1)
+        {
+          if (!_LogCategory_Initialize())
+          {
+            goto LABEL_17;
+          }
+
+          ucatCore = self->_ucatCore;
+        }
+
+        if (typeCopy > 0x41)
+        {
+          v18 = "?";
+        }
+
+        else
+        {
+          v18 = off_1E7890918[typeCopy];
+        }
+
+        LogPrintF(ucatCore, "[SFService _sendToPeer:type:unencryptedObject:]", 60, "### Send %s without connection\n", v18);
+      }
+    }
+  }
+
+LABEL_17:
 }
 
 - (void)sendToPeer:(id)peer type:(unsigned __int8)type data:(id)data
@@ -1770,6 +1907,56 @@ void __37__SFService_sendToPeer_flags_object___block_invoke_2(uint64_t a1)
   v11 = dataCopy;
   v12 = peerCopy;
   dispatch_async(dispatchQueue, v13);
+}
+
+- (void)_sendToPeer:(id)peer type:(unsigned __int8)type data:(id)data
+{
+  typeCopy = type;
+  peerCopy = peer;
+  dataCopy = data;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  if (self->_xpcCnx)
+  {
+    v10 = _os_activity_create(&dword_1A9662000, "Sharing/SFService/serviceSendFrameType", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    state.opaque[0] = 0;
+    state.opaque[1] = 0;
+    os_activity_scope_enter(v10, &state);
+    remoteObjectProxy = [(NSXPCConnection *)self->_xpcCnx remoteObjectProxy];
+    [remoteObjectProxy serviceSendFrameType:typeCopy data:dataCopy peer:peerCopy];
+
+    os_activity_scope_leave(&state);
+  }
+
+  else
+  {
+    ucatCore = self->_ucatCore;
+    if (ucatCore->var0 <= 60)
+    {
+      if (ucatCore->var0 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_11;
+        }
+
+        ucatCore = self->_ucatCore;
+      }
+
+      if (typeCopy > 0x41)
+      {
+        v13 = "?";
+      }
+
+      else
+      {
+        v13 = off_1E7890918[typeCopy];
+      }
+
+      LogPrintF(ucatCore, "-[SFService _sendToPeer:type:data:]", 60, "### Send frame %s, %ld bytes to %@ without connection\n", v13, [dataCopy length], peerCopy);
+    }
+  }
+
+LABEL_11:
 }
 
 - (void)pairSetupWithFlags:(unsigned int)flags peer:(id)peer
@@ -1822,7 +2009,7 @@ void __37__SFService_pairSetupWithFlags_peer___block_invoke(uint64_t a1)
 
 void __34__SFService_pairSetupTryPIN_peer___block_invoke(void *a1)
 {
-  v2 = (a1 + 4);
+  v2 = a1 + 4;
   v3 = [*(a1[4] + 24) objectForKeyedSubscript:a1[5]];
   v4 = v3;
   if (v3)
@@ -1864,28 +2051,25 @@ void __34__SFService_pairSetupTryPIN_peer___block_invoke(void *a1)
   }
 
   v8 = v7;
-  var0 = self->_ucatCore->var0;
-  if (var0 <= 30)
+  ucatCore = self->_ucatCore;
+  if (ucatCore->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucatCore->var0 == -1)
     {
-      ucatCore = self->_ucatCore;
       if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v12 = self->_ucatCore;
+      ucatCore = self->_ucatCore;
     }
 
-    v14 = SFNearbyBLEServiceTypeToString(self->_serviceType);
-    v15 = errorCopy;
-    v13 = disconnectedCopy;
-    LogPrintF();
+    v10 = SFNearbyBLEServiceTypeToString(self->_serviceType);
+    LogPrintF(ucatCore, "[SFService servicePeerDisconnected:error:]", 30, "Peer disconnected %@, service %s: %{error}\n", disconnectedCopy, v10, errorCopy);
   }
 
 LABEL_7:
-  [(NSMutableDictionary *)self->_sessions removeObjectForKey:disconnectedCopy, v13, v14, v15];
+  [(NSMutableDictionary *)self->_sessions removeObjectForKey:disconnectedCopy];
   [v8 invalidate];
   sessionEndedHandler = self->_sessionEndedHandler;
   if (sessionEndedHandler)
@@ -1899,19 +2083,21 @@ LABEL_10:
 - (void)serviceReceivedEvent:(id)event
 {
   eventCopy = event;
-  var0 = self->_ucatCore->var0;
-  if (var0 <= 10)
+  ucatCore = self->_ucatCore;
+  if (ucatCore->var0 <= 10)
   {
-    if (var0 != -1)
+    v5 = eventCopy;
+    if (ucatCore->var0 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(ucatCore, "[SFService serviceReceivedEvent:]", 10, "Received event: %@\n", v5);
       goto LABEL_5;
     }
 
     if (_LogCategory_Initialize())
     {
       ucatCore = self->_ucatCore;
+      v5 = eventCopy;
       goto LABEL_3;
     }
   }
@@ -1919,24 +2105,230 @@ LABEL_3:
 LABEL_5:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   eventMessageHandler = self->_eventMessageHandler;
-  v6 = eventCopy;
+  v7 = eventCopy;
   if (eventMessageHandler)
   {
     eventMessageHandler[2](eventMessageHandler, eventCopy);
-    v6 = eventCopy;
+    v7 = eventCopy;
   }
+}
+
+- (void)serviceReceivedFrameType:(unsigned __int8)type data:(id)data peer:(id)peer
+{
+  typeCopy = type;
+  dataCopy = data;
+  peerCopy = peer;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  v9 = [(NSMutableDictionary *)self->_sessions objectForKeyedSubscript:peerCopy];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = 0;
+    goto LABEL_16;
+  }
+
+  v12 = objc_alloc_init(SFDevice);
+  [(SFDevice *)v12 setIdentifier:peerCopy];
+  v10 = objc_alloc_init(SFServiceSession);
+  [(SFSession *)v10 setDispatchQueue:self->_dispatchQueue];
+  if (self->_label)
+  {
+    [(SFSession *)v10 setLabel:?];
+  }
+
+  [(SFSession *)v10 setPeer:peerCopy];
+  [(SFSession *)v10 setPeerDevice:v12];
+  [(SFServiceSession *)v10 setService:self];
+  [(SFSession *)v10 setServiceType:self->_serviceType];
+  [(SFSession *)v10 setSessionFlags:self->_sessionFlags];
+  sessions = self->_sessions;
+  if (!sessions)
+  {
+    v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v15 = self->_sessions;
+    self->_sessions = v14;
+
+    sessions = self->_sessions;
+  }
+
+  [(NSMutableDictionary *)sessions setObject:v10 forKeyedSubscript:peerCopy];
+  [(SFServiceSession *)v10 activate];
+  v11 = typeCopy == 23;
+  if (typeCopy == 23)
+  {
+    [(SFServiceSession *)v10 receivedStartRequest:dataCopy];
+  }
+
+  ucatCore = self->_ucatCore;
+  if (ucatCore->var0 <= 30)
+  {
+    if (ucatCore->var0 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_13;
+      }
+
+      ucatCore = self->_ucatCore;
+    }
+
+    sessionID = [(SFSession *)v10 sessionID];
+    v18 = SFNearbyBLEServiceTypeToString(self->_serviceType);
+    LogPrintF(ucatCore, "[SFService serviceReceivedFrameType:data:peer:]", 30, "Activate session 0x%08X from %@, service %s\n", sessionID, peerCopy, v18);
+  }
+
+LABEL_13:
+  sessionStartedHandler = self->_sessionStartedHandler;
+  if (sessionStartedHandler)
+  {
+    sessionStartedHandler[2](sessionStartedHandler, v10);
+  }
+
+LABEL_16:
+  [(SFSession *)v10 setHeartbeatLastTicks:mach_absolute_time()];
+  if (typeCopy <= 21)
+  {
+    if (typeCopy == 20)
+    {
+      [(SFServiceSession *)v10 setSendLastTicks:mach_absolute_time()];
+      selfCopy2 = self;
+      v22 = peerCopy;
+      v23 = 20;
+LABEL_32:
+      [(SFService *)selfCopy2 _sendToPeer:v22 type:v23 data:dataCopy];
+      goto LABEL_33;
+    }
+
+    if (typeCopy != 21)
+    {
+LABEL_29:
+      [(SFServiceSession *)v10 sessionReceivedFrameType:typeCopy data:dataCopy];
+      goto LABEL_33;
+    }
+
+    v20 = self->_ucatCore;
+    if (v20->var0 <= 50)
+    {
+      if (v20->var0 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_31;
+        }
+
+        v20 = self->_ucatCore;
+      }
+
+      LogPrintF(v20, "[SFService serviceReceivedFrameType:data:peer:]", 50, "Sending heartbeat ACK\n");
+    }
+
+LABEL_31:
+    [(SFServiceSession *)v10 setSendLastTicks:mach_absolute_time()];
+    selfCopy2 = self;
+    v22 = peerCopy;
+    v23 = 22;
+    goto LABEL_32;
+  }
+
+  if (typeCopy == 22)
+  {
+    goto LABEL_33;
+  }
+
+  if (typeCopy != 23)
+  {
+    if (typeCopy == 24)
+    {
+      goto LABEL_33;
+    }
+
+    goto LABEL_29;
+  }
+
+  if (!v11)
+  {
+    [(SFServiceSession *)v10 receivedStartRequest:dataCopy];
+  }
+
+LABEL_33:
+  [(SFServiceSession *)v10 sendLastTicks];
+  UpTicksToSecondsF();
+  if (v24 <= 15.0)
+  {
+    goto LABEL_41;
+  }
+
+  v25 = NSRandomData();
+  if (v25)
+  {
+    v26 = self->_ucatCore;
+    if (v26->var0 <= 50)
+    {
+      if (v26->var0 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_39;
+        }
+
+        v26 = self->_ucatCore;
+      }
+
+      LogPrintF(v26, "[SFService serviceReceivedFrameType:data:peer:]", 50, "Sending heartbeat alive\n");
+    }
+
+LABEL_39:
+    [(SFServiceSession *)v10 setSendLastTicks:mach_absolute_time()];
+    [(SFService *)self _sendToPeer:peerCopy type:30 data:v25];
+  }
+
+LABEL_41:
 }
 
 - (void)serviceReceivedRequest:(id)request
 {
   requestCopy = request;
-  var0 = self->_ucatCore->var0;
-  if (var0 <= 10)
+  ucatCore = self->_ucatCore;
+  if (ucatCore->var0 <= 10)
   {
-    if (var0 != -1)
+    v5 = requestCopy;
+    if (ucatCore->var0 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(ucatCore, "[SFService serviceReceivedRequest:]", 10, "Received request: %@\n", v5);
+      goto LABEL_5;
+    }
+
+    if (_LogCategory_Initialize())
+    {
+      ucatCore = self->_ucatCore;
+      v5 = requestCopy;
+      goto LABEL_3;
+    }
+  }
+
+LABEL_5:
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  requestMessageHandler = self->_requestMessageHandler;
+  v7 = requestCopy;
+  if (requestMessageHandler)
+  {
+    requestMessageHandler[2](requestMessageHandler, requestCopy);
+    v7 = requestCopy;
+  }
+}
+
+- (void)serviceReceivedResponse:(id)response
+{
+  responseCopy = response;
+  identifier = [responseCopy identifier];
+  ucatCore = self->_ucatCore;
+  if (ucatCore->var0 <= 10)
+  {
+    if (ucatCore->var0 != -1)
+    {
+LABEL_3:
+      LogPrintF(ucatCore, "[SFService serviceReceivedResponse:]", 10, "Received response: %@\n", responseCopy);
       goto LABEL_5;
     }
 
@@ -1949,56 +2341,33 @@ LABEL_3:
 
 LABEL_5:
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  requestMessageHandler = self->_requestMessageHandler;
-  v6 = requestCopy;
-  if (requestMessageHandler)
+  if (!identifier)
   {
-    requestMessageHandler[2](requestMessageHandler, requestCopy);
-    v6 = requestCopy;
-  }
-}
-
-- (void)serviceReceivedResponse:(id)response
-{
-  responseCopy = response;
-  identifier = [responseCopy identifier];
-  var0 = self->_ucatCore->var0;
-  if (var0 <= 10)
-  {
-    if (var0 == -1)
-    {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_5;
-      }
-
-      ucatCore = self->_ucatCore;
-    }
-
-    v11 = responseCopy;
-    LogPrintF();
+    v10 = 4294960588;
+LABEL_15:
+    [(SFService *)&self->_ucatCore serviceReceivedResponse:v10];
+    goto LABEL_10;
   }
 
-LABEL_5:
-  dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (identifier && ([(NSMutableDictionary *)self->_requestQueue objectForKeyedSubscript:identifier], (v6 = objc_claimAutoreleasedReturnValue()) != 0))
+  v6 = [(NSMutableDictionary *)self->_requestQueue objectForKeyedSubscript:identifier];
+  if (!v6)
   {
-    v7 = v6;
-    responseHandler = [v6 responseHandler];
-
-    if (responseHandler)
-    {
-      responseHandler2 = [v7 responseHandler];
-      (responseHandler2)[2](responseHandler2, 0, responseCopy);
-    }
-
-    [(NSMutableDictionary *)self->_requestQueue removeObjectForKey:identifier, v11];
+    v10 = 4294960569;
+    goto LABEL_15;
   }
 
-  else
+  v7 = v6;
+  responseHandler = [v6 responseHandler];
+
+  if (responseHandler)
   {
-    [SFService serviceReceivedResponse:?];
+    responseHandler2 = [v7 responseHandler];
+    (responseHandler2)[2](responseHandler2, 0, responseCopy);
   }
+
+  [(NSMutableDictionary *)self->_requestQueue removeObjectForKey:identifier];
+
+LABEL_10:
 }
 
 - (void)serviceSessionFailed:(id)failed error:(id)error
@@ -2007,23 +2376,20 @@ LABEL_5:
   errorCopy = error;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   peer = [failedCopy peer];
-  var0 = self->_ucatCore->var0;
-  if (var0 <= 30)
+  ucatCore = self->_ucatCore;
+  if (ucatCore->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucatCore->var0 != -1)
     {
 LABEL_3:
-      v13 = SFNearbyBLEServiceTypeToString(self->_serviceType);
-      v14 = errorCopy;
-      v12 = peer;
-      LogPrintF();
+      v9 = SFNearbyBLEServiceTypeToString(self->_serviceType);
+      LogPrintF(ucatCore, "[SFService serviceSessionFailed:error:]", 30, "### Session failed %@, service %s: %{error}\n", peer, v9, errorCopy);
       goto LABEL_5;
     }
 
-    ucatCore = self->_ucatCore;
     if (_LogCategory_Initialize())
     {
-      v11 = self->_ucatCore;
+      ucatCore = self->_ucatCore;
       goto LABEL_3;
     }
   }
@@ -2062,13 +2428,47 @@ LABEL_5:
 
 - (void)setLabel:(id)label
 {
+  v11 = 0;
+  v10 = 0;
   v4 = [label copy];
   label = self->_label;
   self->_label = v4;
 
-  var4 = self->_ucatCore->var4;
-  [(NSString *)self->_label UTF8String];
-  ASPrintF();
+  ASPrintF(&v10, "%s-%s", self->_ucatCore->var4, [(NSString *)self->_label UTF8String]);
+  if (v10)
+  {
+    v6 = OUTLINED_FUNCTION_6();
+    free(v10);
+    if (!v11)
+    {
+      ucatCore = self->_ucatCore;
+      if (ucatCore && (ucatCore->var3 & 0x40000) != 0)
+      {
+        LogCategory_Remove();
+      }
+
+      self->_ucatCore = v6;
+      ASPrintF(&v10, "%s-%s", self->_ucatCrypto->var4, [(NSString *)self->_label UTF8String]);
+      if (v10)
+      {
+        v8 = OUTLINED_FUNCTION_6();
+        free(v10);
+        if (!v11)
+        {
+          ucatCrypto = self->_ucatCrypto;
+          if (ucatCrypto)
+          {
+            if ((ucatCrypto->var3 & 0x40000) != 0)
+            {
+              LogCategory_Remove();
+            }
+          }
+
+          self->_ucatCrypto = v8;
+        }
+      }
+    }
+  }
 }
 
 uint64_t __37__SFService_sendToPeer_flags_object___block_invoke_cold_1(uint64_t a1)
@@ -2088,8 +2488,7 @@ uint64_t __37__SFService_sendToPeer_flags_object___block_invoke_cold_1(uint64_t 
       v7 = *(*v2 + 32);
     }
 
-    v8 = *v1;
-    return LogPrintF();
+    return LogPrintF(v7, "[SFService sendToPeer:flags:object:]_block_invoke", 60, "### Send encrypted object to %@ without session\n", *v1);
   }
 
   return result;
@@ -2098,7 +2497,7 @@ uint64_t __37__SFService_sendToPeer_flags_object___block_invoke_cold_1(uint64_t 
 - (void)_sendToPeer:type:unencryptedObject:.cold.1()
 {
   OUTLINED_FUNCTION_3_13();
-  OUTLINED_FUNCTION_2_17(*(v2 + 32));
+  OUTLINED_FUNCTION_2_17();
   if (v5 ^ v6 | v4)
   {
     if (v3 == -1)
@@ -2108,39 +2507,37 @@ uint64_t __37__SFService_sendToPeer_flags_object___block_invoke_cold_1(uint64_t 
         goto LABEL_6;
       }
 
-      v7 = *(v1 + 32);
+      v2 = *(v1 + 32);
     }
 
-    LogPrintF();
+    LogPrintF(v2, "[SFService _sendToPeer:type:unencryptedObject:]", 60, "### Unencrypted compress failed: %{error}\n", v0);
   }
 
 LABEL_6:
 }
 
-- (uint64_t)_sendToPeer:(uint64_t)a3 type:(void *)a4 unencryptedObject:.cold.2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+- (void)_sendToPeer:(uint64_t)a3 type:(void *)a4 unencryptedObject:.cold.2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  result = OUTLINED_FUNCTION_2_17(*(a1 + 32));
-  if (v10 ^ v11 | v9)
+  OUTLINED_FUNCTION_2_17();
+  if (v11 ^ v12 | v10)
   {
-    v12 = v7;
-    if (v8 == -1)
+    v13 = v8;
+    v14 = v7;
+    if (v9 == -1)
     {
-      result = _LogCategory_Initialize();
-      if (!result)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_6;
       }
 
-      v13 = *(a1 + 32);
+      v6 = *(a1 + 32);
     }
 
-    v14 = *v12;
-    result = LogPrintF();
+    LogPrintF(v6, "[SFService _sendToPeer:type:unencryptedObject:]", 60, "### Send unencrypted to %@ encode failed: %#m\n", v13, *v14);
   }
 
 LABEL_6:
   *a4 = 0;
-  return result;
 }
 
 uint64_t __37__SFService_pairSetupWithFlags_peer___block_invoke_cold_1(uint64_t a1)
@@ -2160,8 +2557,7 @@ uint64_t __37__SFService_pairSetupWithFlags_peer___block_invoke_cold_1(uint64_t 
       v7 = *(*v2 + 32);
     }
 
-    v8 = *v1;
-    return LogPrintF();
+    return LogPrintF(v7, "[SFService pairSetupWithFlags:peer:]_block_invoke", 60, "### Send encrypted object to %@ without session\n", *v1);
   }
 
   return result;
@@ -2184,28 +2580,27 @@ uint64_t __34__SFService_pairSetupTryPIN_peer___block_invoke_cold_1(uint64_t a1)
       v7 = *(*v2 + 32);
     }
 
-    v8 = *v1;
-    return LogPrintF();
+    return LogPrintF(v7, "[SFService pairSetupTryPIN:peer:]_block_invoke", 60, "### Send encrypted object to %@ without session\n", *v1);
   }
 
   return result;
 }
 
-- (int)serviceReceivedResponse:(int *)a1 .cold.1(int **a1)
+- (int)serviceReceivedResponse:(int *)a1 .cold.1(int **a1, uint64_t a2)
 {
   result = *a1;
   if (*result <= 50)
   {
     if (*result != -1)
     {
-      return LogPrintF();
+      return LogPrintF(result, "[SFService serviceReceivedResponse:]", 50, "### Receive response error: %#m\n", a2);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v3 = *a1;
-      return LogPrintF();
+      result = *a1;
+      return LogPrintF(result, "[SFService serviceReceivedResponse:]", 50, "### Receive response error: %#m\n", a2);
     }
   }
 

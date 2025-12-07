@@ -106,7 +106,7 @@
 
 - (unint64_t)compareTo:(id)to
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   toCopy = to;
   v5 = MEMORY[0x1E695DFA8];
   allUUIDs = [(TTVectorTimestamp *)self allUUIDs];
@@ -115,12 +115,12 @@
   allUUIDs2 = [toCopy allUUIDs];
   [v7 addObjectsFromArray:allUUIDs2];
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (!v10)
   {
 
@@ -131,18 +131,18 @@
   v11 = v10;
   v12 = 0;
   v13 = 0;
-  v14 = *v30;
+  v14 = *v29;
   obj = v9;
   while (2)
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v30 != v14)
+      if (*v29 != v14)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v29 + 1) + 8 * i);
+      v16 = *(*(&v28 + 1) + 8 * i);
       v17 = [(TTVectorTimestamp *)self clockElementForUUID:v16];
       v18 = [toCopy clockElementForUUID:v16];
       clock = [v17 clock];
@@ -177,7 +177,7 @@ LABEL_12:
     }
 
     v9 = obj;
-    v11 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v11 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v11)
     {
       continue;
@@ -202,34 +202,33 @@ LABEL_20:
   v25 = v24 | v23;
 LABEL_22:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
 - (void)mergeWithTimestamp:(id)timestamp
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   timestampCopy = timestamp;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = [timestampCopy allUUIDs];
-  v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = [(TTVectorTimestamp *)self clockElementForUUID:v9];
         v11 = [timestampCopy clockElementForUUID:v9];
         clock = [v10 clock];
@@ -246,55 +245,52 @@ LABEL_22:
         -[TTVectorTimestamp setClock:subclock:forUUID:](self, "setClock:subclock:forUUID:", [v13 clock], objc_msgSend(v13, "subclock"), v9);
       }
 
-      v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E696AD60]);
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   objc_msgSend(v3, "appendFormat:", @"<%@ %p>(\n"), v5, self;
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   sortedUUIDs = [(TTVectorTimestamp *)self sortedUUIDs];
-  v7 = [sortedUUIDs countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [sortedUUIDs countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(sortedUUIDs);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         v12 = [(TTVectorTimestamp *)self clockElementForUUID:v11];
         [v3 appendFormat:@"  %@:%lu.%lu\n", v11, objc_msgSend(v12, "clock"), objc_msgSend(v12, "subclock")];
       }
 
-      v8 = [sortedUUIDs countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [sortedUUIDs countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   [v3 appendString:@""]);
-  v13 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -320,27 +316,24 @@ LABEL_22:
 
 - (void)saveToArchive:(void *)archive
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v5 = [TTVectorMultiTimestamp alloc];
-  v9[0] = self;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = self;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v7 = [(TTVectorMultiTimestamp *)v5 initWithTimestamps:v6];
 
   [(TTVectorMultiTimestamp *)v7 saveToArchive:archive];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)serialize
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = [TTVectorMultiTimestamp alloc];
-  v9[0] = self;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = self;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v5 = [(TTVectorMultiTimestamp *)v3 initWithTimestamps:v4];
 
   serialize = [(TTVectorMultiTimestamp *)v5 serialize];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return serialize;
 }

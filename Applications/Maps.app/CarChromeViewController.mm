@@ -820,7 +820,7 @@ LABEL_24:
       if (mapControlsOverlay)
       {
         v5 = mapControlsOverlay;
-        [mapControlsOverlay configuration];
+        objc_msgSend_configuration(mapControlsOverlay);
         if (*buf == 2 || *&buf[8] == 2)
         {
 
@@ -984,7 +984,7 @@ LABEL_44:
     }
 
     v5 = mapControlsOverlay;
-    [mapControlsOverlay configuration];
+    objc_msgSend_configuration(mapControlsOverlay);
     if (*buf == 2 || *&buf[8] == 2)
     {
     }
@@ -1158,7 +1158,7 @@ LABEL_39:
   }
 
   v4 = mapControlsOverlay;
-  [mapControlsOverlay configuration];
+  objc_msgSend_configuration(mapControlsOverlay);
   if (*v24 == 2 || *&v24[8] == 2)
   {
 
@@ -3783,7 +3783,7 @@ LABEL_19:
   v6 = mapControlsOverlay;
   if (mapControlsOverlay)
   {
-    [mapControlsOverlay configuration];
+    objc_msgSend_configuration(mapControlsOverlay);
     if (v11 == 0)
     {
 
@@ -5040,7 +5040,7 @@ LABEL_3:
   v7 = mapView;
   if (mapView)
   {
-    [mapView _cartographicConfiguration];
+    objc_msgSend__cartographicConfiguration(mapView);
   }
 
   else
@@ -5834,7 +5834,7 @@ LABEL_4:
   v22 = 0u;
   if (mapView)
   {
-    [mapView _cartographicConfiguration];
+    objc_msgSend__cartographicConfiguration(mapView);
   }
 
   *(&v22 + 1) = 2;

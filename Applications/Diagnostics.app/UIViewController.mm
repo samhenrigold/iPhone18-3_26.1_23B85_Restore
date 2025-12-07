@@ -24,7 +24,7 @@
   selfCopy = self;
   sub_1000883C8(0, animatedCopy, v6, v7);
 
-  sub_10003C52C(v6);
+  sub_10003C52C(v6, v7);
 }
 
 - (void)scheduleModalPresentationWithPriority:(int64_t)priority animated:(BOOL)animated presentationCompletion:(id)completion
@@ -44,7 +44,7 @@
 
   selfCopy = self;
   sub_100126A54(priority, animated, v8, v9, 0);
-  sub_10003C52C(v8);
+  sub_10003C52C(v8, v9);
 }
 
 @end

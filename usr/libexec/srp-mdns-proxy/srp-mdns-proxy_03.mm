@@ -1,3 +1,1541 @@
+uint64_t getipaddr(char *a1, const char *a2)
+{
+  v4 = 2;
+  result = inet_pton(2, a2, a1 + 4);
+  if (result)
+  {
+    v6 = 16;
+  }
+
+  else
+  {
+    v4 = 30;
+    result = inet_pton(30, a2, a1 + 8);
+    if (!result)
+    {
+      return result;
+    }
+
+    v6 = 28;
+  }
+
+  a1[1] = v4;
+  *a1 = v6;
+  return result;
+}
+
+void ioloop_wakeup_release_(int *a1, char *a2, int a3)
+{
+  if (!a1)
+  {
+    return;
+  }
+
+  v6 = *a1;
+  if (!*a1)
+  {
+    v7 = global_os_log;
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_16;
+    }
+
+    v11 = 136447490;
+    v12 = "ioloop_wakeup_release_";
+    v13 = 1024;
+    *v14 = 0;
+    *&v14[4] = 2048;
+    *&v14[6] = a1;
+    *&v14[14] = 2080;
+    *&v14[16] = "wakeup";
+    *&v14[24] = 2080;
+    *&v14[26] = strrchr(a2, 47) + 1;
+    v15 = 1024;
+    v16 = a3;
+    v10 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
+    goto LABEL_15;
+  }
+
+  v7 = global_os_log;
+  if (v6 >= 10001)
+  {
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_16;
+    }
+
+    v11 = 136447490;
+    v12 = "ioloop_wakeup_release_";
+    v13 = 1024;
+    *v14 = v6;
+    *&v14[4] = 2048;
+    *&v14[6] = a1;
+    *&v14[14] = 2080;
+    *&v14[16] = "wakeup";
+    *&v14[24] = 2080;
+    *&v14[26] = strrchr(a2, 47) + 1;
+    v15 = 1024;
+    v16 = a3;
+    v10 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
+LABEL_15:
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_FAULT, v10, &v11, 0x36u);
+LABEL_16:
+    abort();
+  }
+
+  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 136447490;
+    v12 = "ioloop_wakeup_release_";
+    v13 = 1024;
+    *v14 = v6;
+    *&v14[4] = 2048;
+    *&v14[6] = a1;
+    *&v14[14] = 2080;
+    *&v14[16] = "wakeup";
+    *&v14[24] = 2080;
+    *&v14[26] = strrchr(a2, 47) + 1;
+    v15 = 1024;
+    v16 = a3;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", &v11, 0x36u);
+    v6 = *a1;
+  }
+
+  *a1 = v6 - 1;
+  if (v6 == 1)
+  {
+    v8 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = strrchr(a2, 47);
+      v11 = 136447234;
+      v12 = "ioloop_wakeup_release_";
+      v13 = 2048;
+      *v14 = a1;
+      *&v14[8] = 2080;
+      *&v14[10] = "wakeup";
+      *&v14[18] = 2080;
+      *&v14[20] = v9 + 1;
+      *&v14[28] = 1024;
+      *&v14[30] = a3;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", &v11, 0x30u);
+    }
+
+    ++wakeup_finalized;
+    wakeup_finalize(a1);
+  }
+}
+
+void wakeup_finalize(void *a1)
+{
+  if (!*a1)
+  {
+    v3 = a1[5];
+    if (v3)
+    {
+      dispatch_release(v3);
+      a1[5] = 0;
+    }
+
+    v4 = a1[2];
+    v5 = a1[4];
+    a1[4] = 0;
+    a1[2] = 0;
+    if (v5)
+    {
+      v6 = v4 == 0;
+    }
+
+    else
+    {
+      v6 = 1;
+    }
+
+    if (!v6)
+    {
+      v5();
+    }
+
+    free(a1);
+  }
+}
+
+int *ioloop_wakeup_create_(char *a1, int a2)
+{
+  v4 = malloc_type_calloc(1uLL, 0x30uLL, 0xB49424E9uLL);
+  v5 = global_os_log;
+  if (!v4)
+  {
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446722;
+      v14 = "ioloop_wakeup_create_";
+      v15 = 2048;
+      *v16 = 1;
+      *&v16[8] = 2048;
+      *&v16[10] = 48;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}s: strict_calloc(%zu, %zu) failed", buf, 0x20u);
+    }
+
+    __break(1u);
+  }
+
+  v6 = v4;
+  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = *v6;
+    *buf = 136447490;
+    v14 = "ioloop_wakeup_create_";
+    v15 = 1024;
+    *v16 = v7;
+    *&v16[4] = 2048;
+    *&v16[6] = v6;
+    *&v16[14] = 2080;
+    *&v16[16] = "ret";
+    v17 = 2080;
+    v18 = strrchr(a1, 47) + 1;
+    v19 = 1024;
+    v20 = a2;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+  }
+
+  if (*v6)
+  {
+    v8 = *v6 + 1;
+    *v6 = v8;
+    if (v8 >= 10001)
+    {
+      v12 = v8;
+      v9 = global_os_log;
+      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+      {
+        v10 = strrchr(a1, 47);
+        *buf = 136447490;
+        v14 = "ioloop_wakeup_create_";
+        v15 = 1024;
+        *v16 = v12;
+        *&v16[4] = 2048;
+        *&v16[6] = v6;
+        *&v16[14] = 2080;
+        *&v16[16] = "ret";
+        v17 = 2080;
+        v18 = v10 + 1;
+        v19 = 1024;
+        v20 = a2;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_FAULT, "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+      }
+
+      abort();
+    }
+  }
+
+  else
+  {
+    ++wakeup_created;
+    *v6 = 1;
+  }
+
+  return v6;
+}
+
+void ioloop_comm_retain_(uint64_t a1, char *a2, int a3)
+{
+  if (a1)
+  {
+    v6 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = *(a1 + 32);
+      *buf = 136447490;
+      v14 = "ioloop_comm_retain_";
+      v15 = 1024;
+      v16 = v7;
+      v17 = 2048;
+      v18 = a1;
+      v19 = 2080;
+      v20 = "comm";
+      v21 = 2080;
+      v22 = strrchr(a2, 47) + 1;
+      v23 = 1024;
+      v24 = a3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+    }
+
+    v8 = *(a1 + 32);
+    if (v8)
+    {
+      v9 = v8 + 1;
+      *(a1 + 32) = v9;
+      if (v9 >= 10001)
+      {
+        v12 = v9;
+        v10 = global_os_log;
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+        {
+          v11 = strrchr(a2, 47);
+          *buf = 136447490;
+          v14 = "ioloop_comm_retain_";
+          v15 = 1024;
+          v16 = v12;
+          v17 = 2048;
+          v18 = a1;
+          v19 = 2080;
+          v20 = "comm";
+          v21 = 2080;
+          v22 = v11 + 1;
+          v23 = 1024;
+          v24 = a3;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_FAULT, "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+        }
+
+        abort();
+      }
+    }
+
+    else
+    {
+      ++comm_created;
+      *(a1 + 32) = 1;
+    }
+  }
+}
+
+void ioloop_comm_release_(uint64_t a1, char *a2, int a3)
+{
+  if (!a1)
+  {
+    return;
+  }
+
+  v6 = *(a1 + 32);
+  if (!v6)
+  {
+    v7 = global_os_log;
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_16;
+    }
+
+    v11 = 136447490;
+    v12 = "ioloop_comm_release_";
+    v13 = 1024;
+    *v14 = 0;
+    *&v14[4] = 2048;
+    *&v14[6] = a1;
+    *&v14[14] = 2080;
+    *&v14[16] = "comm";
+    *&v14[24] = 2080;
+    *&v14[26] = strrchr(a2, 47) + 1;
+    v15 = 1024;
+    v16 = a3;
+    v10 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
+    goto LABEL_15;
+  }
+
+  v7 = global_os_log;
+  if (v6 >= 10001)
+  {
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_16;
+    }
+
+    v11 = 136447490;
+    v12 = "ioloop_comm_release_";
+    v13 = 1024;
+    *v14 = v6;
+    *&v14[4] = 2048;
+    *&v14[6] = a1;
+    *&v14[14] = 2080;
+    *&v14[16] = "comm";
+    *&v14[24] = 2080;
+    *&v14[26] = strrchr(a2, 47) + 1;
+    v15 = 1024;
+    v16 = a3;
+    v10 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
+LABEL_15:
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_FAULT, v10, &v11, 0x36u);
+LABEL_16:
+    abort();
+  }
+
+  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 136447490;
+    v12 = "ioloop_comm_release_";
+    v13 = 1024;
+    *v14 = v6;
+    *&v14[4] = 2048;
+    *&v14[6] = a1;
+    *&v14[14] = 2080;
+    *&v14[16] = "comm";
+    *&v14[24] = 2080;
+    *&v14[26] = strrchr(a2, 47) + 1;
+    v15 = 1024;
+    v16 = a3;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", &v11, 0x36u);
+    v6 = *(a1 + 32);
+  }
+
+  *(a1 + 32) = v6 - 1;
+  if (v6 == 1)
+  {
+    v8 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = strrchr(a2, 47);
+      v11 = 136447234;
+      v12 = "ioloop_comm_release_";
+      v13 = 2048;
+      *v14 = a1;
+      *&v14[8] = 2080;
+      *&v14[10] = "comm";
+      *&v14[18] = 2080;
+      *&v14[20] = v9 + 1;
+      *&v14[28] = 1024;
+      *&v14[30] = a3;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", &v11, 0x30u);
+    }
+
+    ++comm_finalized;
+    comm_finalize(a1);
+  }
+}
+
+void comm_finalize(uint64_t a1)
+{
+  v2 = global_os_log;
+  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+  {
+    v20 = 136446210;
+    v21 = "comm_finalize";
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "%{public}s: comm_finalize", &v20, 0xCu);
+  }
+
+  if (*a1)
+  {
+    nw_release(*a1);
+    ++nw_connection_finalized;
+    *a1 = 0;
+  }
+
+  v3 = *(a1 + 8);
+  if (v3)
+  {
+    nw_release(v3);
+    ++nw_listener_finalized;
+    *(a1 + 8) = 0;
+  }
+
+  v4 = *(a1 + 16);
+  if (v4)
+  {
+    nw_release(v4);
+    *(a1 + 16) = 0;
+  }
+
+  v5 = *(a1 + 48);
+  if (v5)
+  {
+    dispatch_release(v5);
+    *(a1 + 48) = 0;
+  }
+
+  v6 = *(a1 + 24);
+  if (v6)
+  {
+    v7 = *(v6 + 32);
+    if (!v7)
+    {
+      v17 = global_os_log;
+      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+      {
+        goto LABEL_47;
+      }
+
+      v20 = 136447490;
+      v21 = "comm_finalize";
+      v22 = 1024;
+      *v23 = 0;
+      *&v23[4] = 2048;
+      *&v23[6] = v6;
+      *&v23[14] = 2080;
+      *&v23[16] = "comm->listener_state";
+      *&v23[24] = 2080;
+      *&v23[26] = "macos-ioloop.c";
+      v24 = 1024;
+      v25 = 274;
+      v18 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
+      goto LABEL_42;
+    }
+
+    v8 = global_os_log;
+    if (v7 >= 10001)
+    {
+      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+      {
+        goto LABEL_47;
+      }
+
+      v20 = 136447490;
+      v21 = "comm_finalize";
+      v22 = 1024;
+      *v23 = v7;
+      *&v23[4] = 2048;
+      *&v23[6] = v6;
+      *&v23[14] = 2080;
+      *&v23[16] = "comm->listener_state";
+      *&v23[24] = 2080;
+      *&v23[26] = "macos-ioloop.c";
+      v24 = 1024;
+      v25 = 274;
+      v18 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
+      goto LABEL_45;
+    }
+
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = 136447490;
+      v21 = "comm_finalize";
+      v22 = 1024;
+      *v23 = v7;
+      *&v23[4] = 2048;
+      *&v23[6] = v6;
+      *&v23[14] = 2080;
+      *&v23[16] = "comm->listener_state";
+      *&v23[24] = 2080;
+      *&v23[26] = "macos-ioloop.c";
+      v24 = 1024;
+      v25 = 274;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", &v20, 0x36u);
+      v6 = *(a1 + 24);
+      v7 = *(v6 + 32);
+    }
+
+    *(v6 + 32) = v7 - 1;
+    if (v7 == 1)
+    {
+      v9 = global_os_log;
+      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+      {
+        v20 = 136447234;
+        v21 = "comm_finalize";
+        v22 = 2048;
+        *v23 = v6;
+        *&v23[8] = 2080;
+        *&v23[10] = "comm->listener_state";
+        *&v23[18] = 2080;
+        *&v23[20] = "macos-ioloop.c";
+        *&v23[28] = 1024;
+        *&v23[30] = 274;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", &v20, 0x30u);
+        v6 = *(a1 + 24);
+      }
+
+      ++listener_finalized;
+      listener_finalize(v6);
+    }
+
+    *(a1 + 24) = 0;
+  }
+
+  if (*(a1 + 32) > 0)
+  {
+    return;
+  }
+
+  v10 = *(a1 + 40);
+  if (v10)
+  {
+    ioloop_cancel_wake_event(v10);
+    v11 = *(a1 + 40);
+    if (v11)
+    {
+      v12 = *v11;
+      if (*v11)
+      {
+        v8 = global_os_log;
+        if (v12 < 10001)
+        {
+          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+          {
+            v20 = 136447490;
+            v21 = "comm_finalize";
+            v22 = 1024;
+            *v23 = v12;
+            *&v23[4] = 2048;
+            *&v23[6] = v11;
+            *&v23[14] = 2080;
+            *&v23[16] = "comm->idle_timer";
+            *&v23[24] = 2080;
+            *&v23[26] = "macos-ioloop.c";
+            v24 = 1024;
+            v25 = 293;
+            _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", &v20, 0x36u);
+            v11 = *(a1 + 40);
+            v12 = *v11;
+          }
+
+          *v11 = v12 - 1;
+          if (v12 == 1)
+          {
+            v13 = global_os_log;
+            if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+            {
+              v20 = 136447234;
+              v21 = "comm_finalize";
+              v22 = 2048;
+              *v23 = v11;
+              *&v23[8] = 2080;
+              *&v23[10] = "comm->idle_timer";
+              *&v23[18] = 2080;
+              *&v23[20] = "macos-ioloop.c";
+              *&v23[28] = 1024;
+              *&v23[30] = 293;
+              _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", &v20, 0x30u);
+              v11 = *(a1 + 40);
+            }
+
+            ++wakeup_finalized;
+            wakeup_finalize(v11);
+          }
+
+          goto LABEL_32;
+        }
+
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+        {
+          v20 = 136447490;
+          v21 = "comm_finalize";
+          v22 = 1024;
+          *v23 = v12;
+          *&v23[4] = 2048;
+          *&v23[6] = v11;
+          *&v23[14] = 2080;
+          *&v23[16] = "comm->idle_timer";
+          *&v23[24] = 2080;
+          *&v23[26] = "macos-ioloop.c";
+          v24 = 1024;
+          v25 = 293;
+          v18 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
+LABEL_45:
+          v19 = v8;
+          goto LABEL_46;
+        }
+
+LABEL_47:
+        abort();
+      }
+
+      v17 = global_os_log;
+      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+      {
+        goto LABEL_47;
+      }
+
+      v20 = 136447490;
+      v21 = "comm_finalize";
+      v22 = 1024;
+      *v23 = 0;
+      *&v23[4] = 2048;
+      *&v23[6] = v11;
+      *&v23[14] = 2080;
+      *&v23[16] = "comm->idle_timer";
+      *&v23[24] = 2080;
+      *&v23[26] = "macos-ioloop.c";
+      v24 = 1024;
+      v25 = 293;
+      v18 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
+LABEL_42:
+      v19 = v17;
+LABEL_46:
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_FAULT, v18, &v20, 0x36u);
+      goto LABEL_47;
+    }
+  }
+
+LABEL_32:
+  v14 = *(a1 + 192);
+  if (v14)
+  {
+    free(v14);
+    *(a1 + 192) = 0;
+  }
+
+  v15 = *(a1 + 408);
+  if (v15)
+  {
+    ifpermit_list_release_(v15, 298);
+  }
+
+  v16 = *(a1 + 240);
+  if (v16)
+  {
+    v16(*(a1 + 200));
+  }
+
+  free(a1);
+}
+
+void listener_finalize(void *a1)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    nw_release(v2);
+    ++nw_listener_finalized;
+    a1[1] = 0;
+  }
+
+  v3 = a1[24];
+  if (v3)
+  {
+    free(v3);
+    a1[24] = 0;
+  }
+
+  v4 = a1[2];
+  if (v4)
+  {
+    nw_release(v4);
+  }
+
+  v5 = a1[21];
+  if (v5)
+  {
+    free(v5);
+    a1[21] = 0;
+  }
+
+  v6 = a1[51];
+  if (v6)
+  {
+    ifpermit_list_release_(v6, 1128);
+  }
+
+  v7 = a1[30];
+  if (v7)
+  {
+    v7(a1[25]);
+  }
+
+  free(a1);
+}
+
+void ioloop_comm_cancel(uint64_t *a1)
+{
+  v1 = *(a1 + 212);
+  if ((v1 & 0x800) != 0)
+  {
+    v6 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446210;
+      v15 = "ioloop_comm_cancel";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%{public}s: already canceled", buf, 0xCu);
+    }
+  }
+
+  else
+  {
+    v3 = *a1;
+    if (*a1)
+    {
+      v4 = global_os_log;
+      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136446722;
+        v15 = "ioloop_comm_cancel";
+        v16 = 2048;
+        *v17 = a1;
+        *&v17[8] = 2048;
+        *&v17[10] = v3;
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: %p %p", buf, 0x20u);
+        v3 = *a1;
+      }
+
+      connection_cancel_(a1, v3, 330);
+      v1 = *(a1 + 212);
+    }
+
+    if ((v1 & 0x20) == 0 && !*a1 && *(a1 + 37) != -1)
+    {
+      ioloop_close((a1 + 7));
+      if (a1[31])
+      {
+        v7 = global_os_log;
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+        {
+          v8 = *(a1 + 8);
+          *buf = 136447490;
+          v15 = "ioloop_comm_cancel";
+          v16 = 1024;
+          *v17 = v8;
+          *&v17[4] = 2048;
+          *&v17[6] = a1;
+          *&v17[14] = 2080;
+          *&v17[16] = "connection";
+          v18 = 2080;
+          v19 = "macos-ioloop.c";
+          v20 = 1024;
+          v21 = 342;
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+        }
+
+        v9 = *(a1 + 8);
+        if (v9)
+        {
+          v10 = v9 + 1;
+          *(a1 + 8) = v10;
+          if (v10 >= 10001)
+          {
+            v12 = v10;
+            v11 = global_os_log;
+            if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+            {
+              *buf = 136447490;
+              v15 = "ioloop_comm_cancel";
+              v16 = 1024;
+              *v17 = v12;
+              *&v17[4] = 2048;
+              *&v17[6] = a1;
+              *&v17[14] = 2080;
+              *&v17[16] = "connection";
+              v18 = 2080;
+              v19 = "macos-ioloop.c";
+              v20 = 1024;
+              v21 = 342;
+              _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+            }
+
+            abort();
+          }
+        }
+
+        else
+        {
+          ++listener_created;
+          *(a1 + 8) = 1;
+        }
+
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 0x40000000;
+        block[2] = __ioloop_comm_cancel_block_invoke;
+        block[3] = &__block_descriptor_tmp_1413;
+        block[4] = a1;
+        dispatch_async(ioloop_main_queue, block);
+      }
+    }
+
+    v5 = a1[5];
+    if (v5)
+    {
+      ioloop_cancel_wake_event(v5);
+    }
+
+    *(a1 + 212) |= 0x800u;
+  }
+}
+
+void connection_cancel_(uint64_t a1, NSObject *a2, int a3)
+{
+  v6 = global_os_log;
+  v7 = os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT);
+  if (a2)
+  {
+    if (v7)
+    {
+      v8 = " (already canceled)";
+      v9 = *(a1 + 424);
+      v11 = "connection_cancel_";
+      v10 = 136447234;
+      v12 = 2048;
+      if ((v9 & 0x800) == 0)
+      {
+        v8 = "";
+      }
+
+      v13 = a2;
+      v14 = 2082;
+      v15 = v8;
+      v16 = 2082;
+      v17 = "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/macos-ioloop.c";
+      v18 = 1024;
+      v19 = a3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: %p: %{public}s %{public}s:%d", &v10, 0x30u);
+    }
+
+    if ((*(a1 + 424) & 0x800) == 0)
+    {
+      nw_connection_cancel(a2);
+    }
+  }
+
+  else if (v7)
+  {
+    v10 = 136446722;
+    v11 = "connection_cancel_";
+    v12 = 2082;
+    v13 = "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/macos-ioloop.c";
+    v14 = 1024;
+    LODWORD(v15) = a3;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: null connection at %{public}s:%d", &v10, 0x1Cu);
+  }
+}
+
+void ioloop_close(uint64_t a1)
+{
+  v2 = global_os_log;
+  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = *(a1 + 92);
+    v4 = *(a1 + 72);
+    v5 = *(a1 + 80);
+    v8 = 136447234;
+    v9 = "ioloop_close";
+    v10 = 2048;
+    v11 = a1;
+    v12 = 1024;
+    v13 = v3;
+    v14 = 2048;
+    v15 = v4;
+    v16 = 2048;
+    v17 = v5;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}s: io %p fd %d, read source %p, write_source %p", &v8, 0x30u);
+  }
+
+  v6 = *(a1 + 72);
+  if (v6)
+  {
+    dispatch_source_cancel(v6);
+  }
+
+  v7 = *(a1 + 80);
+  if (v7)
+  {
+    dispatch_source_cancel(v7);
+  }
+}
+
+void __ioloop_comm_cancel_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 248);
+  if (v3)
+  {
+    v3(*(a1 + 32), *(v2 + 200));
+    v2 = *(a1 + 32);
+    if (!v2)
+    {
+      return;
+    }
+  }
+
+  v4 = *(v2 + 32);
+  if (!v4)
+  {
+    v7 = global_os_log;
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_17;
+    }
+
+    v10 = 136447490;
+    v11 = "ioloop_comm_cancel_block_invoke";
+    v12 = 1024;
+    *v13 = 0;
+    *&v13[4] = 2048;
+    *&v13[6] = v2;
+    *&v13[14] = 2080;
+    *&v13[16] = "connection";
+    *&v13[24] = 2080;
+    *&v13[26] = "macos-ioloop.c";
+    v14 = 1024;
+    v15 = 347;
+    v8 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
+    v9 = v7;
+    goto LABEL_16;
+  }
+
+  v5 = global_os_log;
+  if (v4 >= 10001)
+  {
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_17;
+    }
+
+    v10 = 136447490;
+    v11 = "ioloop_comm_cancel_block_invoke";
+    v12 = 1024;
+    *v13 = v4;
+    *&v13[4] = 2048;
+    *&v13[6] = v2;
+    *&v13[14] = 2080;
+    *&v13[16] = "connection";
+    *&v13[24] = 2080;
+    *&v13[26] = "macos-ioloop.c";
+    v14 = 1024;
+    v15 = 347;
+    v8 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
+    v9 = v5;
+LABEL_16:
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_FAULT, v8, &v10, 0x36u);
+LABEL_17:
+    abort();
+  }
+
+  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = 136447490;
+    v11 = "ioloop_comm_cancel_block_invoke";
+    v12 = 1024;
+    *v13 = v4;
+    *&v13[4] = 2048;
+    *&v13[6] = v2;
+    *&v13[14] = 2080;
+    *&v13[16] = "connection";
+    *&v13[24] = 2080;
+    *&v13[26] = "macos-ioloop.c";
+    v14 = 1024;
+    v15 = 347;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", &v10, 0x36u);
+    v2 = *(a1 + 32);
+    v4 = *(v2 + 32);
+  }
+
+  *(v2 + 32) = v4 - 1;
+  if (v4 == 1)
+  {
+    v6 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = 136447234;
+      v11 = "ioloop_comm_cancel_block_invoke";
+      v12 = 2048;
+      *v13 = v2;
+      *&v13[8] = 2080;
+      *&v13[10] = "connection";
+      *&v13[18] = 2080;
+      *&v13[20] = "macos-ioloop.c";
+      *&v13[28] = 1024;
+      *&v13[30] = 347;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", &v10, 0x30u);
+      v2 = *(a1 + 32);
+    }
+
+    ++listener_finalized;
+    listener_finalize(v2);
+  }
+}
+
+void ioloop_message_retain_(int *a1, char *a2, int a3)
+{
+  if (a1)
+  {
+    v6 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = *a1;
+      *buf = 136447490;
+      v13 = "ioloop_message_retain_";
+      v14 = 1024;
+      v15 = v7;
+      v16 = 2048;
+      v17 = a1;
+      v18 = 2080;
+      v19 = "message";
+      v20 = 2080;
+      v21 = strrchr(a2, 47) + 1;
+      v22 = 1024;
+      v23 = a3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+    }
+
+    if (*a1)
+    {
+      v8 = *a1 + 1;
+      *a1 = v8;
+      if (v8 >= 10001)
+      {
+        v11 = v8;
+        v9 = global_os_log;
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+        {
+          v10 = strrchr(a2, 47);
+          *buf = 136447490;
+          v13 = "ioloop_message_retain_";
+          v14 = 1024;
+          v15 = v11;
+          v16 = 2048;
+          v17 = a1;
+          v18 = 2080;
+          v19 = "message";
+          v20 = 2080;
+          v21 = v10 + 1;
+          v22 = 1024;
+          v23 = a3;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_FAULT, "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+        }
+
+        abort();
+      }
+    }
+
+    else
+    {
+      ++message_created;
+      *a1 = 1;
+    }
+  }
+}
+
+void ioloop_message_release_(int *a1, char *a2, int a3)
+{
+  v6 = *a1;
+  if (!*a1)
+  {
+    v7 = global_os_log;
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_15;
+    }
+
+    v11 = 136447490;
+    v12 = "ioloop_message_release_";
+    v13 = 1024;
+    *v14 = 0;
+    *&v14[4] = 2048;
+    *&v14[6] = a1;
+    *&v14[14] = 2080;
+    *&v14[16] = "message";
+    *&v14[24] = 2080;
+    *&v14[26] = strrchr(a2, 47) + 1;
+    v15 = 1024;
+    v16 = a3;
+    v10 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
+    goto LABEL_14;
+  }
+
+  v7 = global_os_log;
+  if (v6 >= 10001)
+  {
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_15;
+    }
+
+    v11 = 136447490;
+    v12 = "ioloop_message_release_";
+    v13 = 1024;
+    *v14 = v6;
+    *&v14[4] = 2048;
+    *&v14[6] = a1;
+    *&v14[14] = 2080;
+    *&v14[16] = "message";
+    *&v14[24] = 2080;
+    *&v14[26] = strrchr(a2, 47) + 1;
+    v15 = 1024;
+    v16 = a3;
+    v10 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
+LABEL_14:
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_FAULT, v10, &v11, 0x36u);
+LABEL_15:
+    abort();
+  }
+
+  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 136447490;
+    v12 = "ioloop_message_release_";
+    v13 = 1024;
+    *v14 = v6;
+    *&v14[4] = 2048;
+    *&v14[6] = a1;
+    *&v14[14] = 2080;
+    *&v14[16] = "message";
+    *&v14[24] = 2080;
+    *&v14[26] = strrchr(a2, 47) + 1;
+    v15 = 1024;
+    v16 = a3;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", &v11, 0x36u);
+    v6 = *a1;
+  }
+
+  *a1 = v6 - 1;
+  if (v6 == 1)
+  {
+    v8 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = strrchr(a2, 47);
+      v11 = 136447234;
+      v12 = "ioloop_message_release_";
+      v13 = 2048;
+      *v14 = a1;
+      *&v14[8] = 2080;
+      *&v14[10] = "message";
+      *&v14[18] = 2080;
+      *&v14[20] = v9 + 1;
+      *&v14[28] = 1024;
+      *&v14[30] = a3;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", &v11, 0x30u);
+    }
+
+    ++message_finalized;
+    free(a1);
+  }
+}
+
+BOOL ioloop_send_message(uint64_t *a1, uint64_t a2, iovec *a3)
+{
+  v5 = *a1;
+  if ((a1[53] & 0x20) != 0)
+  {
+    if (!v5)
+    {
+      v19 = global_os_log;
+      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+      {
+        return 0;
+      }
+
+      *buf = 136446210;
+      v47 = "ioloop_send_message_inner";
+      v20 = "%{public}s: no connection";
+      goto LABEL_38;
+    }
+  }
+
+  else if (!v5)
+  {
+    if (*(a1 + 37) != -1)
+    {
+      v7 = (a2 + 4);
+      v8 = *(a2 + 60);
+      *&v45.msg_namelen = 0;
+      *(&v45.msg_iovlen + 1) = 0;
+      v45.msg_iov = a3;
+      v45.msg_iovlen = 1;
+      v45.msg_name = v7;
+      v45.msg_control = &buffer;
+      *&v45.msg_controllen = 0;
+      v9 = *(a2 + 33);
+      if (v9 == 30)
+      {
+        v45.msg_namelen = 28;
+        v45.msg_controllen = 32;
+        buffer = 0x2900000020;
+        v92 = 46;
+        v94 = v8;
+        v93 = *(a2 + 40);
+      }
+
+      else
+      {
+        if (v9 != 2)
+        {
+          v36 = global_os_log;
+          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 136446466;
+            v47 = "ioloop_udp_send_message";
+            v48 = 1024;
+            LODWORD(v49) = v9;
+            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "%{public}s: unknown family %d", buf, 0x12u);
+          }
+
+          abort();
+        }
+
+        v45.msg_namelen = 16;
+        v45.msg_controllen = 24;
+        buffer = 24;
+        v92 = 26;
+        LODWORD(v93) = v8;
+        DWORD1(v93) = *(a2 + 36);
+        DWORD2(v93) = DWORD1(v93);
+      }
+
+      iov_len = a3->iov_len;
+      v41 = 0;
+      v42 = 0;
+      v44 = 0;
+      v43 = 0;
+      v37 = 0;
+      v38 = 0;
+      v40 = 0;
+      v39 = 0;
+      ioloop_normalize_address(&v41, v7);
+      ioloop_normalize_address(&v37, (a2 + 32));
+      v22 = BYTE1(v41);
+      v23 = global_os_log;
+      v24 = os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT);
+      if (v22 == 2)
+      {
+        if (v24)
+        {
+          *buf = 136448771;
+          v47 = "ioloop_udp_send_message";
+          v48 = 2048;
+          v49 = iov_len;
+          v50 = 2160;
+          v51 = 1752392040;
+          v52 = 1041;
+          *v53 = 4;
+          *&v53[4] = 2097;
+          *&v53[6] = &v37 + 4;
+          v54 = 1024;
+          *v55 = bswap32(WORD1(v37)) >> 16;
+          *&v55[4] = 1024;
+          *&v55[6] = v8;
+          strcpy(&v56, "p\bhash");
+          HIBYTE(v56) = 0;
+          v57 = 0;
+          *v58 = 1041;
+          *&v58[2] = 4;
+          *v59 = 2097;
+          *&v59[2] = &v41 + 4;
+          LOWORD(v60) = 1024;
+          *(&v60 + 2) = bswap32(WORD1(v41)) >> 16;
+          v25 = "%{public}s: sending %zd byte UDP response from %{private, mask.hash, network:in_addr}.4P port %d index %d to %{private, mask.hash, network:in_addr}.4P#%d";
+          v26 = v23;
+          v27 = 92;
+LABEL_56:
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, v25, buf, v27);
+        }
+      }
+
+      else if (v24)
+      {
+        if ((v38 & 0xFE) == 0xFC)
+        {
+          v28 = "ULA: ";
+        }
+
+        else if (v38 == 254 && (BYTE1(v38) & 0xC0) == 0x80)
+        {
+          v28 = "LUA: ";
+        }
+
+        else if ((v38 & 0xE0) == 0x20)
+        {
+          v28 = "GUA: ";
+        }
+
+        else
+        {
+          v28 = "";
+        }
+
+        v30 = bswap32(WORD1(v37)) >> 16;
+        if ((v42 & 0xFE) == 0xFC)
+        {
+          v31 = "ULA: ";
+        }
+
+        else if (v42 == 254 && (BYTE1(v42) & 0xC0) == 0x80)
+        {
+          v31 = "LUA: ";
+        }
+
+        else if ((v42 & 0xE0) == 0x20)
+        {
+          v31 = "GUA: ";
+        }
+
+        else
+        {
+          v31 = "";
+        }
+
+        *buf = 136452355;
+        v47 = "ioloop_udp_send_message";
+        v48 = 2048;
+        v49 = iov_len;
+        v50 = 2082;
+        v51 = v28;
+        v52 = 2160;
+        *v53 = 1752392040;
+        *&v53[8] = 1041;
+        *&v53[10] = 6;
+        v54 = 2097;
+        *v55 = &v38;
+        *&v55[8] = 2160;
+        v56 = 1752392040;
+        v57 = 1042;
+        *v58 = 2;
+        *&v58[4] = 2098;
+        *v59 = &v38 + 6;
+        *&v59[8] = 2160;
+        v60 = 1752392040;
+        v61 = 1041;
+        v62 = 8;
+        v63 = 2097;
+        v64 = &v39;
+        v65 = 1024;
+        v66 = v30;
+        v67 = 1024;
+        v68 = v8;
+        v69 = 2082;
+        v70 = v31;
+        v71 = 2160;
+        v72 = 1752392040;
+        v73 = 1041;
+        v74 = 6;
+        v75 = 2097;
+        v76 = &v42;
+        v77 = 2160;
+        v78 = 1752392040;
+        v79 = 1042;
+        v80 = 2;
+        v81 = 2098;
+        v82 = &v42 + 6;
+        v83 = 2160;
+        v84 = 1752392040;
+        v85 = 1041;
+        v86 = 8;
+        v87 = 2097;
+        v88 = &v43;
+        v89 = 1024;
+        v90 = bswap32(WORD1(v41)) >> 16;
+        v25 = "%{public}s: sending %zd byte UDP response from {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P} port %d index %d to {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}#%d";
+        v26 = v23;
+        v27 = 216;
+        goto LABEL_56;
+      }
+
+      v32 = sendmsg(*(a1 + 37), &v45, 0);
+      v18 = v32 >= 0;
+      if (v32 < 0)
+      {
+        v33 = global_os_log;
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+        {
+          v34 = __error();
+          v35 = strerror(*v34);
+          *buf = 136446466;
+          v47 = "ioloop_udp_send_message";
+          v48 = 2080;
+          v49 = v35;
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "%{public}s: %s", buf, 0x16u);
+        }
+      }
+
+      return v18;
+    }
+
+    return 0;
+  }
+
+  v10 = dispatch_data_create(a3->iov_base, a3->iov_len, ioloop_main_queue, 0);
+  if (!v10)
+  {
+    v19 = global_os_log;
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+    {
+      return 0;
+    }
+
+    *buf = 136446210;
+    v47 = "ioloop_send_message_inner";
+    v20 = "%{public}s: ioloop_send_message: no memory.";
+LABEL_38:
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, v20, buf, 0xCu);
+    return 0;
+  }
+
+  v11 = v10;
+  LOWORD(buffer) = a3->iov_len;
+  if (!buffer)
+  {
+    dispatch_release(v10);
+    v19 = global_os_log;
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+    {
+      return 0;
+    }
+
+    *buf = 136446210;
+    v47 = "ioloop_send_message_inner";
+    v20 = "%{public}s: zero length";
+    goto LABEL_38;
+  }
+
+  if ((a1[53] & 0x20) == 0)
+  {
+    goto LABEL_13;
+  }
+
+  LOWORD(buffer) = bswap32(buffer) >> 16;
+  v12 = dispatch_data_create(&buffer, 2uLL, ioloop_main_queue, 0);
+  if (!v12)
+  {
+    dispatch_release(v11);
+    v19 = global_os_log;
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+    {
+      return 0;
+    }
+
+    *buf = 136446210;
+    v47 = "ioloop_send_message_inner";
+    v20 = "%{public}s: no memory for new_data";
+    goto LABEL_38;
+  }
+
+  v13 = v12;
+  concat = dispatch_data_create_concat(v12, v11);
+  dispatch_release(v11);
+  dispatch_release(v13);
+  v11 = concat;
+  if (!concat)
+  {
+    v19 = global_os_log;
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+    {
+      return 0;
+    }
+
+    *buf = 136446210;
+    v47 = "ioloop_send_message_inner";
+    v20 = "%{public}s: no memory for combined";
+    goto LABEL_38;
+  }
+
+LABEL_13:
+  if (a1[6])
+  {
+    v15 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+    {
+      v16 = a1[24];
+      if (!v16)
+      {
+        v16 = "<null>";
+      }
+
+      *buf = 136446723;
+      v47 = "ioloop_send_message_inner";
+      v48 = 2160;
+      v49 = 1752392040;
+      v50 = 2081;
+      v51 = v16;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}s: Dropping pending write on %{private, mask.hash}s", buf, 0x20u);
+    }
+  }
+
+  a1[6] = v11;
+  v17 = *(a1 + 212);
+  *(a1 + 212) = v17 & 0xFFF7;
+  if ((v17 & 4) != 0)
+  {
+    connection_write_now(a1);
+  }
+
+  return 1;
+}
+
 void connection_write_now(uint64_t a1)
 {
   ++*(a1 + 36);
@@ -2382,44 +3920,44 @@ LABEL_7:
   }
 }
 
-void ioloop_connection_state_changed(uint64_t a1, int a2, NSObject *a3)
+void ioloop_connection_state_changed(void *a1, int a2, NSObject *a3)
 {
-  connection_error_to_string(a3, v84);
+  connection_error_to_string(a3, v82);
   switch(a2)
   {
     case 3:
-      v6 = *(a1 + 424);
+      v6 = *(a1 + 212);
       if ((v6 & 0x800) == 0)
       {
         if ((v6 & 2) == 0)
         {
 LABEL_123:
-          v78 = global_os_log;
+          v76 = global_os_log;
           if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
           {
-            v79 = *(a1 + 192);
-            v80 = *a1;
-            if (!v79)
+            v77 = a1[24];
+            v78 = *a1;
+            if (!v77)
             {
-              v79 = "<no name>";
+              v77 = "<no name>";
             }
 
             *buf = 136447491;
-            v86 = "ioloop_connection_state_changed";
-            v87 = 2160;
-            *v88 = 1752392040;
-            *&v88[8] = 2081;
-            *&v88[10] = v79;
-            *&v88[18] = 2048;
-            *&v88[20] = a1;
-            *&v88[28] = 2048;
-            *&v88[30] = v80;
-            *&v88[38] = 2082;
-            *&v88[40] = v84;
-            _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "%{public}s: %{private, mask.hash}s (%p %p) state is ready; error = %{public}s", buf, 0x3Eu);
+            v84 = "ioloop_connection_state_changed";
+            v85 = 2160;
+            *v86 = 1752392040;
+            *&v86[8] = 2081;
+            *&v86[10] = v77;
+            *&v86[18] = 2048;
+            *&v86[20] = a1;
+            *&v86[28] = 2048;
+            *&v86[30] = v78;
+            *&v86[38] = 2082;
+            *&v86[40] = v82;
+            _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "%{public}s: %{private, mask.hash}s (%p %p) state is ready; error = %{public}s", buf, 0x3Eu);
           }
 
-          if ((*(a1 + 424) & 0x20) != 0)
+          if ((a1[53] & 0x20) != 0)
           {
             ioloop_tcp_input_start(a1);
           }
@@ -2429,73 +3967,73 @@ LABEL_123:
             ioloop_udp_input_start(a1);
           }
 
-          *(a1 + 424) |= 4u;
-          if (*(a1 + 48))
+          *(a1 + 212) |= 4u;
+          if (a1[6])
           {
             connection_write_now(a1);
           }
 
-          v81 = *(a1 + 224);
-          if (v81)
+          v79 = a1[28];
+          if (v79)
           {
-            v81(a1, *(a1 + 200));
+            v79(a1, a1[25]);
           }
 
           return;
         }
 
-        if (!*(a1 + 408))
+        if (!a1[51])
         {
 LABEL_58:
-          v39 = nw_connection_copy_endpoint(*a1);
-          v40 = v39;
-          if (!v39)
+          v38 = nw_connection_copy_endpoint(*a1);
+          v39 = v38;
+          if (!v38)
           {
             goto LABEL_93;
           }
 
-          type = nw_endpoint_get_type(v39);
+          type = nw_endpoint_get_type(v38);
           if (type != nw_endpoint_type_address)
           {
-            v53 = type;
-            v54 = *(a1 + 192);
-            if (!v54)
+            v52 = type;
+            v53 = a1[24];
+            if (!v53)
             {
-              v54 = nw_connection_copy_description(*a1);
-              *(a1 + 192) = v54;
+              v53 = nw_connection_copy_description(*a1);
+              a1[24] = v53;
             }
 
-            v55 = global_os_log;
+            v54 = global_os_log;
             if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
             {
               *buf = 136446979;
-              v86 = "ioloop_connection_set_name_from_endpoint";
-              v87 = 2160;
-              *v88 = 1752392040;
-              *&v88[8] = 2081;
-              *&v88[10] = v54;
-              *&v88[18] = 1024;
-              *&v88[20] = v53;
-              _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "%{public}s: incoming connection %{private, mask.hash}s is of unexpected type %d", buf, 0x26u);
+              v84 = "ioloop_connection_set_name_from_endpoint";
+              v85 = 2160;
+              *v86 = 1752392040;
+              *&v86[8] = 2081;
+              *&v86[10] = v53;
+              *&v86[18] = 1024;
+              *&v86[20] = v52;
+              _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "%{public}s: incoming connection %{private, mask.hash}s is of unexpected type %d", buf, 0x26u);
             }
 
             goto LABEL_92;
           }
 
-          v42 = nw_endpoint_copy_port_string(v40);
-          v43 = nw_endpoint_copy_address_string(v40);
-          v44 = v43;
-          if (!v42 || !v43)
+          v41 = nw_endpoint_copy_port_string(v39);
+          v42 = nw_endpoint_copy_address_string(v39);
+          v43 = v42;
+          if (!v41 || !v42)
           {
-            v56 = global_os_log;
+            v55 = global_os_log;
             if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
             {
               *buf = 136446210;
-              v86 = "ioloop_connection_set_name_from_endpoint";
-              _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "%{public}s: Unable to get description of new connection.", buf, 0xCu);
+              v84 = "ioloop_connection_set_name_from_endpoint";
+              _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "%{public}s: Unable to get description of new connection.", buf, 0xCu);
             }
 
-            if (!v42)
+            if (!v41)
             {
               goto LABEL_90;
             }
@@ -2503,120 +4041,120 @@ LABEL_58:
             goto LABEL_89;
           }
 
-          v45 = (a1 + 192);
-          v46 = *(a1 + 192);
-          v47 = "bogus";
-          if (v46)
+          v44 = (a1 + 24);
+          v45 = a1[24];
+          v46 = "bogus";
+          if (v45)
           {
-            v47 = *(a1 + 192);
+            v46 = a1[24];
           }
 
-          *v45 = 0;
-          asprintf(v45, "%s connection from %s/%s", v47, v44, v42);
-          if (v46)
+          *v44 = 0;
+          asprintf(v44, "%s connection from %s/%s", v46, v43, v41);
+          if (v45)
           {
-            free(v46);
+            free(v45);
           }
 
-          getipaddr((a1 + 288), v44);
-          v48 = *(a1 + 289);
-          v49 = global_os_log;
-          v50 = os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT);
-          if (v48 == 30)
+          getipaddr(a1 + 288, v43);
+          v47 = *(a1 + 289);
+          v48 = global_os_log;
+          v49 = os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT);
+          if (v47 == 30)
           {
-            if (v50)
+            if (v49)
             {
-              v51 = *(a1 + 296);
-              if ((v51 & 0xFE) == 0xFC)
+              v50 = *(a1 + 296);
+              if ((v50 & 0xFE) == 0xFC)
               {
-                v52 = "ULA: ";
+                v51 = "ULA: ";
               }
 
-              else if (v51 == 254 && (*(a1 + 297) & 0xC0) == 0x80)
+              else if (v50 == 254 && (*(a1 + 297) & 0xC0) == 0x80)
               {
-                v52 = "LUA: ";
+                v51 = "LUA: ";
               }
 
-              else if ((v51 & 0xE0) == 0x20)
+              else if ((v50 & 0xE0) == 0x20)
               {
-                v52 = "GUA: ";
+                v51 = "GUA: ";
               }
 
               else
               {
-                v52 = "";
+                v51 = "";
               }
 
               *buf = 136448771;
-              v86 = "ioloop_connection_set_name_from_endpoint";
-              v87 = 2082;
-              *v88 = v52;
-              *&v88[8] = 2160;
-              *&v88[10] = 1752392040;
-              *&v88[18] = 1041;
-              *&v88[20] = 6;
-              *&v88[24] = 2097;
-              *&v88[26] = a1 + 296;
-              *&v88[34] = 2160;
-              *&v88[36] = 1752392040;
-              *&v88[44] = 1042;
-              *&v88[46] = 2;
-              *&v88[50] = 2098;
-              *&v88[52] = a1 + 302;
-              v89 = 2160;
-              v90 = 1752392040;
-              v91 = 1041;
-              v92 = 8;
-              v93 = 2097;
-              v94 = a1 + 304;
-              v57 = "%{public}s: parsed connection remote IPv6 address is: {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}";
-              v58 = v49;
-              v59 = 100;
+              v84 = "ioloop_connection_set_name_from_endpoint";
+              v85 = 2082;
+              *v86 = v51;
+              *&v86[8] = 2160;
+              *&v86[10] = 1752392040;
+              *&v86[18] = 1041;
+              *&v86[20] = 6;
+              *&v86[24] = 2097;
+              *&v86[26] = a1 + 37;
+              *&v86[34] = 2160;
+              *&v86[36] = 1752392040;
+              *&v86[44] = 1042;
+              *&v86[46] = 2;
+              *&v86[50] = 2098;
+              *&v86[52] = a1 + 302;
+              v87 = 2160;
+              v88 = 1752392040;
+              v89 = 1041;
+              v90 = 8;
+              v91 = 2097;
+              v92 = a1 + 38;
+              v56 = "%{public}s: parsed connection remote IPv6 address is: {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}";
+              v57 = v48;
+              v58 = 100;
               goto LABEL_88;
             }
           }
 
-          else if (v50)
+          else if (v49)
           {
             *buf = 136446979;
-            v86 = "ioloop_connection_set_name_from_endpoint";
-            v87 = 2160;
-            *v88 = 1752392040;
-            *&v88[8] = 1041;
-            *&v88[10] = 4;
-            *&v88[14] = 2097;
-            *&v88[16] = a1 + 292;
-            v57 = "%{public}s: parsed connection remote IPv4 address is: %{private, mask.hash, network:in_addr}.4P";
-            v58 = v49;
-            v59 = 38;
+            v84 = "ioloop_connection_set_name_from_endpoint";
+            v85 = 2160;
+            *v86 = 1752392040;
+            *&v86[8] = 1041;
+            *&v86[10] = 4;
+            *&v86[14] = 2097;
+            *&v86[16] = a1 + 292;
+            v56 = "%{public}s: parsed connection remote IPv4 address is: %{private, mask.hash, network:in_addr}.4P";
+            v57 = v48;
+            v58 = 38;
 LABEL_88:
-            _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, v57, buf, v59);
+            _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, v56, buf, v58);
           }
 
 LABEL_89:
-          free(v42);
+          free(v41);
 LABEL_90:
-          if (v44)
+          if (v43)
           {
-            free(v44);
+            free(v43);
           }
 
 LABEL_92:
-          nw_release(v40);
+          nw_release(v39);
 LABEL_93:
-          v60 = *(a1 + 192);
-          v61 = global_os_log;
-          if (v60)
+          v59 = a1[24];
+          v60 = global_os_log;
+          if (v59)
           {
             if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136446723;
-              v86 = "ioloop_listener_connection_ready";
-              v87 = 2160;
-              *v88 = 1752392040;
-              *&v88[8] = 2081;
-              *&v88[10] = v60;
-              _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "%{public}s: Received connection from %{private, mask.hash}s", buf, 0x20u);
+              v84 = "ioloop_listener_connection_ready";
+              v85 = 2160;
+              *v86 = 1752392040;
+              *&v86[8] = 2081;
+              *&v86[10] = v59;
+              _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "%{public}s: Received connection from %{private, mask.hash}s", buf, 0x20u);
             }
           }
 
@@ -2625,169 +4163,167 @@ LABEL_93:
             if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
             {
               *buf = 136446210;
-              v86 = "ioloop_listener_connection_ready";
-              _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_ERROR, "%{public}s: Unable to get description of new connection.", buf, 0xCu);
+              v84 = "ioloop_listener_connection_ready";
+              _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_ERROR, "%{public}s: Unable to get description of new connection.", buf, 0xCu);
             }
 
-            v62 = strdup("unidentified");
-            if (!v62)
+            v61 = strdup("unidentified");
+            if (!v61)
             {
-              v82 = global_os_log;
+              v80 = global_os_log;
               if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136446210;
-                v86 = "strict_strdup";
-                _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_ERROR, "%{public}s: strdup() failed", buf, 0xCu);
+                v84 = "strict_strdup";
+                _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_ERROR, "%{public}s: strdup() failed", buf, 0xCu);
               }
 
               __break(1u);
             }
 
-            *(a1 + 192) = v62;
+            a1[24] = v61;
           }
 
-          v63 = *a1;
-          v64 = nw_connection_copy_connected_local_endpoint();
-          if (!v64)
+          v62 = nw_connection_copy_connected_local_endpoint();
+          if (!v62)
           {
             goto LABEL_121;
           }
 
-          v65 = v64;
-          if (nw_endpoint_get_type(v40) != nw_endpoint_type_address)
+          v63 = v62;
+          if (nw_endpoint_get_type(v39) != nw_endpoint_type_address)
           {
 LABEL_120:
-            nw_release(v65);
+            nw_release(v63);
 LABEL_121:
-            v77 = *(a1 + 224);
-            if (v77)
+            v75 = a1[28];
+            if (v75)
             {
-              v77(a1, *(a1 + 200));
+              v75(a1, a1[25]);
             }
 
             goto LABEL_123;
           }
 
-          v66 = nw_endpoint_copy_address_string(v40);
-          if (!v66)
+          v64 = nw_endpoint_copy_address_string(v39);
+          if (!v64)
           {
-            v73 = global_os_log;
+            v71 = global_os_log;
             if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
             {
               *buf = 136446210;
-              v86 = "ioloop_connection_get_address_from_endpoint";
-              _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "%{public}s: unable to get description of new connection.", buf, 0xCu);
+              v84 = "ioloop_connection_get_address_from_endpoint";
+              _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_ERROR, "%{public}s: unable to get description of new connection.", buf, 0xCu);
             }
 
             goto LABEL_120;
           }
 
-          v67 = v66;
-          getipaddr((a1 + 344), v66);
-          v68 = *(a1 + 345);
-          v69 = global_os_log;
-          v70 = os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT);
-          if (v68 == 30)
+          v65 = v64;
+          getipaddr(a1 + 344, v64);
+          v66 = *(a1 + 345);
+          v67 = global_os_log;
+          v68 = os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT);
+          if (v66 == 30)
           {
-            if (v70)
+            if (v68)
             {
-              v71 = *(a1 + 352);
-              if ((v71 & 0xFE) == 0xFC)
+              v69 = *(a1 + 352);
+              if ((v69 & 0xFE) == 0xFC)
               {
-                v72 = "ULA: ";
+                v70 = "ULA: ";
               }
 
-              else if (v71 == 254 && (*(a1 + 353) & 0xC0) == 0x80)
+              else if (v69 == 254 && (*(a1 + 353) & 0xC0) == 0x80)
               {
-                v72 = "LUA: ";
+                v70 = "LUA: ";
               }
 
-              else if ((v71 & 0xE0) == 0x20)
+              else if ((v69 & 0xE0) == 0x20)
               {
-                v72 = "GUA: ";
+                v70 = "GUA: ";
               }
 
               else
               {
-                v72 = "";
+                v70 = "";
               }
 
               *buf = 136448771;
-              v86 = "ioloop_connection_get_address_from_endpoint";
-              v87 = 2082;
-              *v88 = v72;
-              *&v88[8] = 2160;
-              *&v88[10] = 1752392040;
-              *&v88[18] = 1041;
-              *&v88[20] = 6;
-              *&v88[24] = 2097;
-              *&v88[26] = a1 + 352;
-              *&v88[34] = 2160;
-              *&v88[36] = 1752392040;
-              *&v88[44] = 1042;
-              *&v88[46] = 2;
-              *&v88[50] = 2098;
-              *&v88[52] = a1 + 358;
-              v89 = 2160;
-              v90 = 1752392040;
-              v91 = 1041;
-              v92 = 8;
-              v93 = 2097;
-              v94 = a1 + 360;
-              v74 = "%{public}s: parsed connection local IPv6 address is: {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}";
-              v75 = v69;
-              v76 = 100;
+              v84 = "ioloop_connection_get_address_from_endpoint";
+              v85 = 2082;
+              *v86 = v70;
+              *&v86[8] = 2160;
+              *&v86[10] = 1752392040;
+              *&v86[18] = 1041;
+              *&v86[20] = 6;
+              *&v86[24] = 2097;
+              *&v86[26] = a1 + 44;
+              *&v86[34] = 2160;
+              *&v86[36] = 1752392040;
+              *&v86[44] = 1042;
+              *&v86[46] = 2;
+              *&v86[50] = 2098;
+              *&v86[52] = a1 + 358;
+              v87 = 2160;
+              v88 = 1752392040;
+              v89 = 1041;
+              v90 = 8;
+              v91 = 2097;
+              v92 = a1 + 45;
+              v72 = "%{public}s: parsed connection local IPv6 address is: {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}";
+              v73 = v67;
+              v74 = 100;
               goto LABEL_118;
             }
           }
 
-          else if (v70)
+          else if (v68)
           {
             *buf = 136446979;
-            v86 = "ioloop_connection_get_address_from_endpoint";
-            v87 = 2160;
-            *v88 = 1752392040;
-            *&v88[8] = 1041;
-            *&v88[10] = 4;
-            *&v88[14] = 2097;
-            *&v88[16] = a1 + 348;
-            v74 = "%{public}s: parsed connection local IPv4 address is: %{private, mask.hash, network:in_addr}.4P";
-            v75 = v69;
-            v76 = 38;
+            v84 = "ioloop_connection_get_address_from_endpoint";
+            v85 = 2160;
+            *v86 = 1752392040;
+            *&v86[8] = 1041;
+            *&v86[10] = 4;
+            *&v86[14] = 2097;
+            *&v86[16] = a1 + 348;
+            v72 = "%{public}s: parsed connection local IPv4 address is: %{private, mask.hash, network:in_addr}.4P";
+            v73 = v67;
+            v74 = 38;
 LABEL_118:
-            _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, v74, buf, v76);
+            _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, v72, buf, v74);
           }
 
-          free(v67);
+          free(v65);
           goto LABEL_120;
         }
 
-        v7 = *a1;
-        v8 = nw_connection_copy_connected_path();
-        if (v8)
+        v7 = nw_connection_copy_connected_path();
+        if (v7)
         {
-          v9 = v8;
-          v10 = nw_path_copy_interface();
-          nw_release(v9);
-          if (v10)
+          v8 = v7;
+          v9 = nw_path_copy_interface();
+          nw_release(v8);
+          if (v9)
           {
-            index = nw_interface_get_index(v10);
-            v12 = *(a1 + 408);
-            if (v12 >= 2)
+            index = nw_interface_get_index(v9);
+            v11 = a1[51];
+            if (v11 >= 2)
             {
-              v34 = v12 + 8;
+              v33 = v11 + 8;
               while (1)
               {
-                v34 = *v34;
-                v13 = v34 != 0;
-                if (!v34)
+                v33 = *v33;
+                v12 = v33 != 0;
+                if (!v33)
                 {
                   break;
                 }
 
-                if (*(v34 + 16) == index)
+                if (*(v33 + 16) == index)
                 {
-                  v13 = 1;
+                  v12 = 1;
                   break;
                 }
               }
@@ -2795,40 +4331,40 @@ LABEL_118:
 
             else
             {
-              v13 = 0;
+              v12 = 0;
             }
 
-            v35 = nw_connection_copy_description(*a1);
-            name = nw_interface_get_name(v10);
-            v37 = global_os_log;
+            v34 = nw_connection_copy_description(*a1);
+            name = nw_interface_get_name(v9);
+            v36 = global_os_log;
             if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
             {
-              v86 = "ioloop_listener_connection_ready";
-              v87 = 2160;
-              v38 = "not ";
-              *v88 = 1752392040;
-              *&v88[8] = 2081;
+              v84 = "ioloop_listener_connection_ready";
+              v85 = 2160;
+              v37 = "not ";
+              *v86 = 1752392040;
+              *&v86[8] = 2081;
               *buf = 136447235;
-              if (v13)
+              if (v12)
               {
-                v38 = "";
+                v37 = "";
               }
 
-              *&v88[10] = v35;
-              *&v88[18] = 2082;
-              *&v88[20] = name;
-              *&v88[28] = 2082;
-              *&v88[30] = v38;
-              _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%{public}s: incoming connection from %{private, mask.hash}s is on %{public}s, which is %{public}spermitted.", buf, 0x34u);
+              *&v86[10] = v34;
+              *&v86[18] = 2082;
+              *&v86[20] = name;
+              *&v86[28] = 2082;
+              *&v86[30] = v37;
+              _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%{public}s: incoming connection from %{private, mask.hash}s is on %{public}s, which is %{public}spermitted.", buf, 0x34u);
             }
 
-            if (v35)
+            if (v34)
             {
-              free(v35);
+              free(v34);
             }
 
-            nw_release(v10);
-            if (v13)
+            nw_release(v9);
+            if (v12)
             {
               goto LABEL_58;
             }
@@ -2838,123 +4374,123 @@ LABEL_70:
             return;
           }
 
-          v32 = global_os_log;
+          v31 = global_os_log;
           if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_70;
           }
 
           *buf = 136446210;
-          v86 = "ioloop_listener_connection_ready";
-          v33 = "%{public}s: unable to get interface from local endpoint to check for excluded interface types.";
+          v84 = "ioloop_listener_connection_ready";
+          v32 = "%{public}s: unable to get interface from local endpoint to check for excluded interface types.";
         }
 
         else
         {
-          v32 = global_os_log;
+          v31 = global_os_log;
           if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_70;
           }
 
           *buf = 136446210;
-          v86 = "ioloop_listener_connection_ready";
-          v33 = "%{public}s: unable to get local endpoint to check for excluded interface types.";
+          v84 = "ioloop_listener_connection_ready";
+          v32 = "%{public}s: unable to get local endpoint to check for excluded interface types.";
         }
 
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, v33, buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, v32, buf, 0xCu);
         goto LABEL_70;
       }
 
-      v18 = global_os_log;
+      v17 = global_os_log;
       if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
       {
         return;
       }
 
       *buf = 136446210;
-      v86 = "ioloop_connection_state_changed";
-      v19 = "%{public}s: ready but canceled";
-      v20 = v18;
-      v21 = 12;
+      v84 = "ioloop_connection_state_changed";
+      v18 = "%{public}s: ready but canceled";
+      v19 = v17;
+      v20 = 12;
 LABEL_41:
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, v19, buf, v21);
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, v18, buf, v20);
       return;
     case 1:
       goto LABEL_12;
     case 5:
-      v22 = global_os_log;
+      v21 = global_os_log;
       if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = *(a1 + 192);
-        v24 = *a1;
-        if (!v23)
+        v22 = a1[24];
+        v23 = *a1;
+        if (!v22)
         {
-          v23 = "<no name>";
+          v22 = "<no name>";
         }
 
         *buf = 136447491;
-        v86 = "ioloop_connection_state_changed";
-        v87 = 2160;
-        *v88 = 1752392040;
-        *&v88[8] = 2081;
-        *&v88[10] = v23;
-        *&v88[18] = 2048;
-        *&v88[20] = a1;
-        *&v88[28] = 2048;
-        *&v88[30] = v24;
-        *&v88[38] = 2082;
-        *&v88[40] = v84;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%{public}s: %{private, mask.hash}s (%p %p) state is canceled; error = %{public}s", buf, 0x3Eu);
+        v84 = "ioloop_connection_state_changed";
+        v85 = 2160;
+        *v86 = 1752392040;
+        *&v86[8] = 2081;
+        *&v86[10] = v22;
+        *&v86[18] = 2048;
+        *&v86[20] = a1;
+        *&v86[28] = 2048;
+        *&v86[30] = v23;
+        *&v86[38] = 2082;
+        *&v86[40] = v82;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%{public}s: %{private, mask.hash}s (%p %p) state is canceled; error = %{public}s", buf, 0x3Eu);
       }
 
-      v25 = *(a1 + 232);
+      v24 = a1[29];
+      if (v24)
+      {
+        v24(a1, a1[25], 0);
+      }
+
+      v25 = *(a1 + 8);
       if (v25)
       {
-        v25(a1, *(a1 + 200), 0);
-      }
-
-      v26 = *(a1 + 32);
-      if (v26)
-      {
-        v27 = global_os_log;
-        if (v26 < 10001)
+        v26 = global_os_log;
+        if (v25 < 10001)
         {
           if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136447490;
-            v86 = "ioloop_connection_state_changed";
-            v87 = 1024;
-            *v88 = v26;
-            *&v88[4] = 2048;
-            *&v88[6] = a1;
-            *&v88[14] = 2080;
-            *&v88[16] = "connection";
-            *&v88[24] = 2080;
-            *&v88[26] = "macos-ioloop.c";
-            *&v88[34] = 1024;
-            *&v88[36] = 885;
-            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-            v26 = *(a1 + 32);
+            v84 = "ioloop_connection_state_changed";
+            v85 = 1024;
+            *v86 = v25;
+            *&v86[4] = 2048;
+            *&v86[6] = a1;
+            *&v86[14] = 2080;
+            *&v86[16] = "connection";
+            *&v86[24] = 2080;
+            *&v86[26] = "macos-ioloop.c";
+            *&v86[34] = 1024;
+            *&v86[36] = 885;
+            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+            v25 = *(a1 + 8);
           }
 
-          *(a1 + 32) = v26 - 1;
-          if (v26 == 1)
+          *(a1 + 8) = v25 - 1;
+          if (v25 == 1)
           {
-            v28 = global_os_log;
+            v27 = global_os_log;
             if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136447234;
-              v86 = "ioloop_connection_state_changed";
-              v87 = 2048;
-              *v88 = a1;
-              *&v88[8] = 2080;
-              *&v88[10] = "connection";
-              *&v88[18] = 2080;
-              *&v88[20] = "macos-ioloop.c";
-              *&v88[28] = 1024;
-              *&v88[30] = 885;
-              _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
+              v84 = "ioloop_connection_state_changed";
+              v85 = 2048;
+              *v86 = a1;
+              *&v86[8] = 2080;
+              *&v86[10] = "connection";
+              *&v86[18] = 2080;
+              *&v86[20] = "macos-ioloop.c";
+              *&v86[28] = 1024;
+              *&v86[30] = 885;
+              _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
             }
 
             ++comm_finalized;
@@ -2971,78 +4507,78 @@ LABEL_143:
         }
 
         *buf = 136447490;
-        v86 = "ioloop_connection_state_changed";
-        v87 = 1024;
-        *v88 = v26;
-        *&v88[4] = 2048;
-        *&v88[6] = a1;
-        *&v88[14] = 2080;
-        *&v88[16] = "connection";
-        *&v88[24] = 2080;
-        *&v88[26] = "macos-ioloop.c";
-        *&v88[34] = 1024;
-        *&v88[36] = 885;
-        v83 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
+        v84 = "ioloop_connection_state_changed";
+        v85 = 1024;
+        *v86 = v25;
+        *&v86[4] = 2048;
+        *&v86[6] = a1;
+        *&v86[14] = 2080;
+        *&v86[16] = "connection";
+        *&v86[24] = 2080;
+        *&v86[26] = "macos-ioloop.c";
+        *&v86[34] = 1024;
+        *&v86[36] = 885;
+        v81 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
       }
 
       else
       {
-        v27 = global_os_log;
+        v26 = global_os_log;
         if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
         {
           goto LABEL_143;
         }
 
         *buf = 136447490;
-        v86 = "ioloop_connection_state_changed";
-        v87 = 1024;
-        *v88 = 0;
-        *&v88[4] = 2048;
-        *&v88[6] = a1;
-        *&v88[14] = 2080;
-        *&v88[16] = "connection";
-        *&v88[24] = 2080;
-        *&v88[26] = "macos-ioloop.c";
-        *&v88[34] = 1024;
-        *&v88[36] = 885;
-        v83 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
+        v84 = "ioloop_connection_state_changed";
+        v85 = 1024;
+        *v86 = 0;
+        *&v86[4] = 2048;
+        *&v86[6] = a1;
+        *&v86[14] = 2080;
+        *&v86[16] = "connection";
+        *&v86[24] = 2080;
+        *&v86[26] = "macos-ioloop.c";
+        *&v86[34] = 1024;
+        *&v86[36] = 885;
+        v81 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
       }
 
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_FAULT, v83, buf, 0x36u);
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_FAULT, v81, buf, 0x36u);
       goto LABEL_143;
     case 4:
 LABEL_12:
-      v14 = global_os_log;
+      v13 = global_os_log;
       if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = *(a1 + 192);
-        v86 = "ioloop_connection_state_changed";
-        v87 = 2160;
-        if (!v15)
+        v14 = a1[24];
+        v84 = "ioloop_connection_state_changed";
+        v85 = 2160;
+        if (!v14)
         {
-          v15 = "<no name>";
+          v14 = "<no name>";
         }
 
-        *v88 = 1752392040;
-        v16 = "waiting";
-        v17 = *a1;
+        *v86 = 1752392040;
+        v15 = "waiting";
+        v16 = *a1;
         *buf = 136447747;
-        *&v88[8] = 2081;
+        *&v86[8] = 2081;
         if (a2 == 4)
         {
-          v16 = "failed";
+          v15 = "failed";
         }
 
-        *&v88[10] = v15;
-        *&v88[18] = 2048;
-        *&v88[20] = a1;
-        *&v88[28] = 2048;
-        *&v88[30] = v17;
-        *&v88[38] = 2082;
-        *&v88[40] = v16;
-        *&v88[48] = 2082;
-        *&v88[50] = v84;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: %{private, mask.hash}s (%p %p) state is %{public}s; error = %{public}s", buf, 0x48u);
+        *&v86[10] = v14;
+        *&v86[18] = 2048;
+        *&v86[20] = a1;
+        *&v86[28] = 2048;
+        *&v86[30] = v16;
+        *&v86[38] = 2082;
+        *&v86[40] = v15;
+        *&v86[48] = 2082;
+        *&v86[50] = v82;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: %{private, mask.hash}s (%p %p) state is %{public}s; error = %{public}s", buf, 0x48u);
       }
 
       connection_cancel_(a1, *a1, 877);
@@ -3054,33 +4590,33 @@ LABEL_12:
     connection_cancel_(a1, *a1, 889);
   }
 
-  v29 = global_os_log;
+  v28 = global_os_log;
   if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
   {
-    v30 = *(a1 + 192);
-    v31 = *a1;
-    if (!v30)
+    v29 = a1[24];
+    v30 = *a1;
+    if (!v29)
     {
-      v30 = "<no name>";
+      v29 = "<no name>";
     }
 
     *buf = 136447747;
-    v86 = "ioloop_connection_state_changed";
-    v87 = 2160;
-    *v88 = 1752392040;
-    *&v88[8] = 2081;
-    *&v88[10] = v30;
-    *&v88[18] = 2048;
-    *&v88[20] = a1;
-    *&v88[28] = 2048;
-    *&v88[30] = v31;
-    *&v88[38] = 1024;
-    *&v88[40] = a2;
-    *&v88[44] = 2082;
-    *&v88[46] = v84;
-    v19 = "%{public}s: %{private, mask.hash}s (%p %p) state is %d; error = %{public}s";
-    v20 = v29;
-    v21 = 68;
+    v84 = "ioloop_connection_state_changed";
+    v85 = 2160;
+    *v86 = 1752392040;
+    *&v86[8] = 2081;
+    *&v86[10] = v29;
+    *&v86[18] = 2048;
+    *&v86[20] = a1;
+    *&v86[28] = 2048;
+    *&v86[30] = v30;
+    *&v86[38] = 1024;
+    *&v86[40] = a2;
+    *&v86[44] = 2082;
+    *&v86[46] = v82;
+    v18 = "%{public}s: %{private, mask.hash}s (%p %p) state is %d; error = %{public}s";
+    v19 = v28;
+    v20 = 68;
     goto LABEL_41;
   }
 }
@@ -3223,7 +4759,7 @@ void ioloop_udp_input_start(uint64_t a1)
   nw_connection_receive_message(v7, completion);
 }
 
-void __ioloop_udp_input_start_block_invoke(uint64_t a1, NSObject *a2, uint64_t a3, int a4, NSObject *a5)
+void __ioloop_udp_input_start_block_invoke(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, NSObject *a5)
 {
   if ((ioloop_connection_input_badness_check(*(a1 + 32), a2, a4, a5) & 1) == 0)
   {
@@ -4597,7 +6133,6 @@ void *ioloop_dnssd_txn_add_(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, int
     v7 = *(a1 + 16);
     if (v7 < 0 || (*(a1 + 20) ^ v7) != 0x12345678)
     {
-      v12 = *(a1 + 16);
       syslog(4, "dnssd_clientstub DNSServiceRefSockFD called with invalid DNSServiceRef %p %08X %08X");
     }
 
@@ -4635,12 +6170,12 @@ void *ioloop_dnssd_txn_add_(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, int
             handler[4] = a1;
             dispatch_source_set_event_handler(v10, handler);
             v11 = *(a1 + 88);
-            v13[0] = _NSConcreteStackBlock;
-            v13[1] = 0x40000000;
-            v13[2] = __DNSServiceSetDispatchQueue_block_invoke_2;
-            v13[3] = &__block_descriptor_tmp_36;
-            v14 = v7;
-            dispatch_source_set_cancel_handler(v11, v13);
+            v12[0] = _NSConcreteStackBlock;
+            v12[1] = 0x40000000;
+            v12[2] = __DNSServiceSetDispatchQueue_block_invoke_2;
+            v12[3] = &__block_descriptor_tmp_36;
+            v13 = v7;
+            dispatch_source_set_cancel_handler(v11, v12);
             dispatch_resume(*(a1 + 88));
           }
 
@@ -6676,9 +8211,10 @@ LABEL_136:
         }
       }
 
+      *&__str[40] = 0;
       memset(__str, 0, 24);
       *&__str[24] = __str;
-      *&__str[32] = 0x14uLL;
+      *&__str[32] = 20;
       service_tracker_flags_accumulate(__str, *(j + 30), *(j + 25), "ncp");
       service_tracker_flags_accumulate(__str, *(j + 31), *(j + 25), "stable");
       service_tracker_flags_accumulate(__str, *(j + 29), *(j + 24), "user");
@@ -6760,7 +8296,7 @@ void service_tracker_callback_add(int *a1, uint64_t a2, uint64_t a3, uint64_t a4
     }
 
     v8 = *v8;
-    if (v9[3] == a4)
+    if (*(v9 + 3) == a4)
     {
       v10 = global_os_log;
       if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
@@ -7294,7 +8830,7 @@ void dso_state_cancel(uint64_t *a1)
   }
 }
 
-uint64_t **dso_find_activity(uint64_t a1, char *__s1, uint64_t *a3)
+uint64_t **dso_find_activity(uint64_t a1, char *__s1, unint64_t a3)
 {
   if (!(__s1 | a3))
   {
@@ -7866,17 +9402,17 @@ uint64_t dns_name_print_to_limit(uint64_t *a1, uint64_t *a2, uint64_t a3, unint6
       v7 = a1 + 9;
       do
       {
-        v8 = *(v7 + v6);
-        if ((*(v7 + v6) & 0x80) == 0)
+        v8 = v7[v6];
+        if ((v7[v6] & 0x80) == 0)
         {
           if (v8 == 32)
           {
             goto LABEL_11;
           }
 
-          if ((_DefaultRuneLocale.__runetype[*(v7 + v6)] & 0x40000) != 0)
+          if ((_DefaultRuneLocale.__runetype[v7[v6]] & 0x40000) != 0)
           {
-            if (v8 == 92 || *(v7 + v6) == 46)
+            if (v8 == 92 || v7[v6] == 46)
             {
               if (v4 + 3 >= a4)
               {
@@ -7884,7 +9420,7 @@ uint64_t dns_name_print_to_limit(uint64_t *a1, uint64_t *a2, uint64_t a3, unint6
               }
 
               *(a3 + v4++) = 92;
-              LOBYTE(v8) = *(v7 + v6);
+              LOBYTE(v8) = v7[v6];
             }
 
             else
@@ -7969,7 +9505,7 @@ LABEL_7:
   return 0;
 }
 
-uint64_t dns_names_equal(uint64_t *a1, uint64_t **a2)
+uint64_t dns_names_equal(uint64_t *a1, uint64_t ***a2)
 {
   while (1)
   {
@@ -8283,2238 +9819,4 @@ LABEL_35:
   }
 
   return result;
-}
-
-uint64_t *dns_name_subdomain_of(uint64_t *a1, uint64_t **a2)
-{
-  result = 0;
-  if (a1 && a2)
-  {
-    v4 = 0;
-    v5 = 1;
-    v6 = a2;
-    do
-    {
-      v7 = v4++;
-      v6 = *v6;
-      ++v5;
-    }
-
-    while (v6);
-    v8 = a1;
-    do
-    {
-      v9 = v6;
-      LODWORD(v6) = v6 + 1;
-      v8 = *v8;
-    }
-
-    while (v8);
-    if (v6 < v4)
-    {
-      return 0;
-    }
-
-    if (v9 != v7)
-    {
-      v10 = v5 - v6;
-      do
-      {
-        a1 = *a1;
-        if (a1)
-        {
-          v11 = v10 == 0;
-        }
-
-        else
-        {
-          v11 = 1;
-        }
-
-        ++v10;
-      }
-
-      while (!v11);
-      if (!a1)
-      {
-        return 0;
-      }
-    }
-
-    v12 = dns_names_equal(a1, a2);
-    result = a1;
-    if ((v12 & 1) == 0)
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-BOOL dns_keys_rdata_equal(uint64_t a1, uint64_t a2)
-{
-  result = 0;
-  if (*(a1 + 8) == 25 && *(a2 + 8) == 25 && *(a1 + 16) == *(a2 + 16) && *(a1 + 18) == *(a2 + 18) && *(a1 + 19) == *(a2 + 19))
-  {
-    v2 = *(a1 + 20);
-    if (v2 == *(a2 + 20) && !memcmp(*(a1 + 24), *(a2 + 24), v2))
-    {
-      return 1;
-    }
-  }
-
-  return result;
-}
-
-unint64_t dns_txt_data_print(unint64_t __str, unsigned int a2, uint64_t a3)
-{
-  v3 = __str + 1398;
-  *__str = 0;
-  if (__str + 1398 >= __str && a2 != 0)
-  {
-    v6 = __str;
-    v7 = 0;
-    v8 = 0;
-    v9 = 0;
-    v10 = "";
-    do
-    {
-      v11 = *(a3 + v8);
-      v12 = v8 + v11 + 1;
-      if (a2 < (v8 + v11 + 1))
-      {
-        break;
-      }
-
-      if ((v8 + v11 + 1) < v8 || &v6[v9] + 1 >= v3)
-      {
-        break;
-      }
-
-      if (*(a3 + v8))
-      {
-        if (v9 * 2)
-        {
-          __str = memcpy(v6, v10, v9 * 2);
-          LOBYTE(v6[v9]) = 0;
-          v6 = (v6 + v9 * 2);
-        }
-
-        v14 = (v7 + 1);
-        v15 = (v14 + v11);
-        do
-        {
-          v16 = *(a3 + v14);
-          if ((v16 & 0x8000000000000000) == 0 && (_DefaultRuneLocale.__runetype[v16] & 0x40000) != 0)
-          {
-            if (v6 + 1 < v3)
-            {
-              *v6 = v16;
-              v6 = (v6 + 1);
-            }
-          }
-
-          else if (v6 + 5 < v3)
-          {
-            __str = snprintf(v6, 5uLL, "%o", *(a3 + v14));
-            v6 = (v6 + __str);
-          }
-
-          ++v14;
-        }
-
-        while (v14 < v15);
-        v9 = 1;
-        v10 = ", ";
-      }
-
-      if (v6 >= v3)
-      {
-        break;
-      }
-
-      v7 = v12;
-      v8 = v12;
-    }
-
-    while (a2 > v12);
-  }
-
-  return __str;
-}
-
-void omr_watcher_finalize(void *a1)
-{
-  v2 = a1[7];
-  if (v2)
-  {
-    ioloop_cancel_wake_event(v2);
-    ioloop_wakeup_release_(a1[7], "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/omr-watcher.c", 240);
-    a1[7] = 0;
-  }
-
-  v3 = a1[8];
-  if (v3)
-  {
-    ioloop_cancel_wake_event(v3);
-    ioloop_wakeup_release_(a1[8], "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/omr-watcher.c", 246);
-    a1[8] = 0;
-  }
-
-  v4 = a1[9];
-  if (v4)
-  {
-    while (1)
-    {
-      v5 = *v4;
-      if (!*v4)
-      {
-        break;
-      }
-
-      v6 = global_os_log;
-      if (v5 >= 10001)
-      {
-        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-        {
-          *buf = 136447490;
-          v19 = "omr_watcher_finalize";
-          v20 = 1024;
-          *v21 = v5;
-          *&v21[4] = 2048;
-          *&v21[6] = v4;
-          *&v21[14] = 2080;
-          *&v21[16] = "prefix";
-          *&v21[24] = 2080;
-          *&v21[26] = "omr-watcher.c";
-          *&v21[34] = 1024;
-          *&v21[36] = 252;
-          v16 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
-          v17 = v6;
-LABEL_30:
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_FAULT, v16, buf, 0x36u);
-        }
-
-        goto LABEL_31;
-      }
-
-      v7 = *(v4 + 1);
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136447490;
-        v19 = "omr_watcher_finalize";
-        v20 = 1024;
-        *v21 = v5;
-        *&v21[4] = 2048;
-        *&v21[6] = v4;
-        *&v21[14] = 2080;
-        *&v21[16] = "prefix";
-        *&v21[24] = 2080;
-        *&v21[26] = "omr-watcher.c";
-        *&v21[34] = 1024;
-        *&v21[36] = 252;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-        v5 = *v4;
-      }
-
-      *v4 = v5 - 1;
-      if (v5 == 1)
-      {
-        v8 = global_os_log;
-        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136447234;
-          v19 = "omr_watcher_finalize";
-          v20 = 2048;
-          *v21 = v4;
-          *&v21[8] = 2080;
-          *&v21[10] = "prefix";
-          *&v21[18] = 2080;
-          *&v21[20] = "omr-watcher.c";
-          *&v21[28] = 1024;
-          *&v21[30] = 252;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
-        }
-
-        ++omr_prefix_finalized;
-        free(v4);
-      }
-
-      v4 = v7;
-      if (!v7)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    v15 = global_os_log;
-    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-    {
-      *buf = 136447490;
-      v19 = "omr_watcher_finalize";
-      v20 = 1024;
-      *v21 = 0;
-      *&v21[4] = 2048;
-      *&v21[6] = v4;
-      *&v21[14] = 2080;
-      *&v21[16] = "prefix";
-      *&v21[24] = 2080;
-      *&v21[26] = "omr-watcher.c";
-      *&v21[34] = 1024;
-      *&v21[36] = 252;
-      v16 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
-      v17 = v15;
-      goto LABEL_30;
-    }
-
-LABEL_31:
-    abort();
-  }
-
-LABEL_15:
-  v9 = a1;
-  v10 = a1[3];
-  if (v10)
-  {
-    v11 = global_os_log;
-    do
-    {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        v13 = v10[2];
-        v12 = v10[3];
-        if (*(v10 + 32))
-        {
-          v14 = "";
-        }
-
-        else
-        {
-          v14 = "not ";
-        }
-
-        *buf = 136447234;
-        v19 = "omr_watcher_finalize";
-        v20 = 2048;
-        *v21 = v10;
-        *&v21[8] = 2048;
-        *&v21[10] = v12;
-        *&v21[18] = 2048;
-        *&v21[20] = v13;
-        *&v21[28] = 2080;
-        *&v21[30] = v14;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}s: callback %p context %p context_release %p %scanceled", buf, 0x34u);
-        v11 = global_os_log;
-      }
-
-      v10 = *v10;
-    }
-
-    while (v10);
-    v9 = a1;
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
-    {
-      *buf = 136446210;
-      v19 = "omr_watcher_finalize";
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "%{public}s: not all callbacks were canceled prior to releasing omr_watcher.", buf, 0xCu);
-    }
-  }
-
-  free(v9);
-}
-
-void omr_watcher_netdata_mode_callback(uint64_t a1, int a2, int a3)
-{
-  if (!a3)
-  {
-    if (a2 == 1)
-    {
-      v10 = global_os_log;
-      if (*(a1 + 40))
-      {
-        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-        {
-          *buf = 136446210;
-          v28 = "omr_watcher_netdata_mode_callback";
-          v8 = "%{public}s: double callback";
-          v9 = v10;
-          goto LABEL_14;
-        }
-
-LABEL_18:
-        *(a1 + 104) = a2;
-        goto LABEL_19;
-      }
-
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136446210;
-        v28 = "omr_watcher_netdata_mode_callback";
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: old api", buf, 0xCu);
-      }
-
-      v22 = xpc_dictionary_create(0, 0, 0);
-      xpc_dictionary_set_string(v22, "interface", "org.wpantund.v1");
-      xpc_dictionary_set_string(v22, "path", "/org/wpantund/utun2");
-      xpc_dictionary_set_string(v22, "method", "PropGet");
-      xpc_dictionary_set_string(v22, "property_name", "IPv6:Routes");
-      v16 = setup_for_command((a1 + 40), "get_prefix_list", "IPv6:Routes", 0, v22, a1, omr_watcher_route_update_callback, cti_internal_prefix_reply_callback, 0, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/omr-watcher.c", 803);
-      if (v22)
-      {
-        xpc_release(v22);
-      }
-
-      v23 = global_os_log;
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-      {
-        v24 = *a1;
-        *buf = 136447490;
-        v28 = "omr_watcher_netdata_mode_callback";
-        v29 = 1024;
-        *v30 = v24;
-        *&v30[4] = 2048;
-        *&v30[6] = a1;
-        *&v30[14] = 2080;
-        *&v30[16] = "omw";
-        *&v30[24] = 2080;
-        *&v30[26] = "omr-watcher.c";
-        v31 = 1024;
-        v32 = 804;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-      }
-
-      v19 = *a1;
-      if (*a1)
-      {
-        v25 = v19 + 1;
-        *a1 = v19 + 1;
-        if (v19 + 1 >= 10001)
-        {
-          v14 = global_os_log;
-          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-          {
-            goto LABEL_55;
-          }
-
-          *buf = 136447490;
-          v28 = "omr_watcher_netdata_mode_callback";
-          v29 = 1024;
-          *v30 = v25;
-          *&v30[4] = 2048;
-          *&v30[6] = a1;
-          *&v30[14] = 2080;
-          *&v30[16] = "omw";
-          *&v30[24] = 2080;
-          *&v30[26] = "omr-watcher.c";
-          v31 = 1024;
-          v32 = 804;
-          v21 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
-          goto LABEL_54;
-        }
-
-        goto LABEL_47;
-      }
-    }
-
-    else
-    {
-      if (a2 != 2)
-      {
-        v12 = global_os_log;
-        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136446210;
-          v28 = "omr_watcher_netdata_mode_callback";
-          v8 = "%{public}s: cannot start omr_watcher without knowing the netdata API mode";
-          v9 = v12;
-          v11 = OS_LOG_TYPE_ERROR;
-          goto LABEL_17;
-        }
-
-        goto LABEL_18;
-      }
-
-      v7 = global_os_log;
-      if (*(a1 + 48))
-      {
-        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-        {
-          *buf = 136446210;
-          v28 = "omr_watcher_netdata_mode_callback";
-          v8 = "%{public}s: double callback";
-          v9 = v7;
-LABEL_14:
-          v11 = OS_LOG_TYPE_FAULT;
-LABEL_17:
-          _os_log_impl(&_mh_execute_header, v9, v11, v8, buf, 0xCu);
-          goto LABEL_18;
-        }
-
-        goto LABEL_18;
-      }
-
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136446210;
-        v28 = "omr_watcher_netdata_mode_callback";
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: new api", buf, 0xCu);
-      }
-
-      v16 = cti_track_network_data_((a1 + 48), a1, omr_watcher_netdata_callback, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/omr-watcher.c", 793);
-      v17 = global_os_log;
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-      {
-        v18 = *a1;
-        *buf = 136447490;
-        v28 = "omr_watcher_netdata_mode_callback";
-        v29 = 1024;
-        *v30 = v18;
-        *&v30[4] = 2048;
-        *&v30[6] = a1;
-        *&v30[14] = 2080;
-        *&v30[16] = "omw";
-        *&v30[24] = 2080;
-        *&v30[26] = "omr-watcher.c";
-        v31 = 1024;
-        v32 = 794;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-      }
-
-      v19 = *a1;
-      if (*a1)
-      {
-        v20 = v19 + 1;
-        *a1 = v19 + 1;
-        if (v19 + 1 >= 10001)
-        {
-          v14 = global_os_log;
-          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-          {
-            goto LABEL_55;
-          }
-
-          *buf = 136447490;
-          v28 = "omr_watcher_netdata_mode_callback";
-          v29 = 1024;
-          *v30 = v20;
-          *&v30[4] = 2048;
-          *&v30[6] = a1;
-          *&v30[14] = 2080;
-          *&v30[16] = "omw";
-          *&v30[24] = 2080;
-          *&v30[26] = "omr-watcher.c";
-          v31 = 1024;
-          v32 = 794;
-          v21 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
-          goto LABEL_54;
-        }
-
-        goto LABEL_47;
-      }
-    }
-
-    ++omr_watcher_created;
-    *a1 = v19 + 1;
-LABEL_47:
-    *(a1 + 104) = a2;
-    if (v16)
-    {
-      v26 = global_os_log;
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136446466;
-        v28 = "omr_watcher_netdata_mode_callback";
-        v29 = 1024;
-        *v30 = v16;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%{public}s: could not start a CTI request for getting Thread services, got status: %d", buf, 0x12u);
-      }
-    }
-
-LABEL_19:
-    v13 = *a1;
-    if (*a1)
-    {
-      v14 = global_os_log;
-      if (v13 < 10001)
-      {
-        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136447490;
-          v28 = "omr_watcher_netdata_mode_callback";
-          v29 = 1024;
-          *v30 = v13;
-          *&v30[4] = 2048;
-          *&v30[6] = a1;
-          *&v30[14] = 2080;
-          *&v30[16] = "omw";
-          *&v30[24] = 2080;
-          *&v30[26] = "omr-watcher.c";
-          v31 = 1024;
-          v32 = 820;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-          v13 = *a1;
-        }
-
-        *a1 = v13 - 1;
-        if (v13 == 1)
-        {
-          v15 = global_os_log;
-          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 136447234;
-            v28 = "omr_watcher_netdata_mode_callback";
-            v29 = 2048;
-            *v30 = a1;
-            *&v30[8] = 2080;
-            *&v30[10] = "omw";
-            *&v30[18] = 2080;
-            *&v30[20] = "omr-watcher.c";
-            *&v30[28] = 1024;
-            *&v30[30] = 820;
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
-          }
-
-          ++omr_watcher_finalized;
-          omr_watcher_finalize(a1);
-        }
-
-        return;
-      }
-
-      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-      {
-LABEL_55:
-        abort();
-      }
-
-      *buf = 136447490;
-      v28 = "omr_watcher_netdata_mode_callback";
-      v29 = 1024;
-      *v30 = v13;
-      *&v30[4] = 2048;
-      *&v30[6] = a1;
-      *&v30[14] = 2080;
-      *&v30[16] = "omw";
-      *&v30[24] = 2080;
-      *&v30[26] = "omr-watcher.c";
-      v31 = 1024;
-      v32 = 820;
-      v21 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
-    }
-
-    else
-    {
-      v14 = global_os_log;
-      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-      {
-        goto LABEL_55;
-      }
-
-      *buf = 136447490;
-      v28 = "omr_watcher_netdata_mode_callback";
-      v29 = 1024;
-      *v30 = 0;
-      *&v30[4] = 2048;
-      *&v30[6] = a1;
-      *&v30[14] = 2080;
-      *&v30[16] = "omw";
-      *&v30[24] = 2080;
-      *&v30[26] = "omr-watcher.c";
-      v31 = 1024;
-      v32 = 820;
-      v21 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
-    }
-
-LABEL_54:
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_FAULT, v21, buf, 0x36u);
-    goto LABEL_55;
-  }
-
-  v5 = global_os_log;
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 136446466;
-    v28 = "omr_watcher_netdata_mode_callback";
-    v29 = 1024;
-    *v30 = a3;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}s: got error status when getting netdata mode: %d", buf, 0x12u);
-  }
-
-  if (a1)
-  {
-    goto LABEL_19;
-  }
-}
-
-void omr_watcher_route_update_callback(void *a1, uint64_t a2, int a3)
-{
-  switch(a3)
-  {
-    case -65569:
-      goto LABEL_4;
-    case 0:
-      v7 = a1[4];
-      if (v7)
-      {
-        cti_events_discontinue(v7);
-        a1[4] = 0;
-        v8 = *a1;
-        if (!*a1)
-        {
-          v9 = global_os_log;
-          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-          {
-            goto LABEL_39;
-          }
-
-          v16 = 136447490;
-          v17 = "omr_watcher_route_update_callback";
-          v18 = 1024;
-          *v19 = 0;
-          *&v19[4] = 2048;
-          *&v19[6] = a1;
-          *&v19[14] = 2080;
-          *&v19[16] = "omw";
-          *&v19[24] = 2080;
-          *&v19[26] = "omr-watcher.c";
-          v20 = 1024;
-          v21 = 743;
-          v15 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
-          goto LABEL_38;
-        }
-
-        v9 = global_os_log;
-        if (v8 >= 10001)
-        {
-          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-          {
-            goto LABEL_39;
-          }
-
-          v16 = 136447490;
-          v17 = "omr_watcher_route_update_callback";
-          v18 = 1024;
-          *v19 = v8;
-          *&v19[4] = 2048;
-          *&v19[6] = a1;
-          *&v19[14] = 2080;
-          *&v19[16] = "omw";
-          *&v19[24] = 2080;
-          *&v19[26] = "omr-watcher.c";
-          v20 = 1024;
-          v21 = 743;
-          v15 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
-LABEL_38:
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_FAULT, v15, &v16, 0x36u);
-LABEL_39:
-          abort();
-        }
-
-        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-        {
-          v16 = 136447490;
-          v17 = "omr_watcher_route_update_callback";
-          v18 = 1024;
-          *v19 = v8;
-          *&v19[4] = 2048;
-          *&v19[6] = a1;
-          *&v19[14] = 2080;
-          *&v19[16] = "omw";
-          *&v19[24] = 2080;
-          *&v19[26] = "omr-watcher.c";
-          v20 = 1024;
-          v21 = 743;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", &v16, 0x36u);
-          v8 = *a1;
-        }
-
-        *a1 = v8 - 1;
-        if (v8 == 1)
-        {
-          v10 = global_os_log;
-          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-          {
-            v16 = 136447234;
-            v17 = "omr_watcher_route_update_callback";
-            v18 = 2048;
-            *v19 = a1;
-            *&v19[8] = 2080;
-            *&v19[10] = "omw";
-            *&v19[18] = 2080;
-            *&v19[20] = "omr-watcher.c";
-            *&v19[28] = 1024;
-            *&v19[30] = 743;
-            _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", &v16, 0x30u);
-          }
-
-          ++omr_watcher_finalized;
-          omr_watcher_finalize(a1);
-        }
-      }
-
-      omr_watcher_onmesh_prefix_list_fetch(a1);
-      return;
-    case -65563:
-LABEL_4:
-      v5 = global_os_log;
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-      {
-        v16 = 136446210;
-        v17 = "omr_watcher_route_update_callback";
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: disconnected", &v16, 0xCu);
-      }
-
-      v6 = a1[10];
-      if (v6)
-      {
-        v6(a1[2]);
-      }
-
-      break;
-    default:
-      v11 = global_os_log;
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-      {
-        v16 = 136446466;
-        v17 = "omr_watcher_route_update_callback";
-        v18 = 1024;
-        *v19 = a3;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}s: unhandled error %d", &v16, 0x12u);
-      }
-
-      break;
-  }
-
-  v12 = a1[5];
-  if (!v12)
-  {
-    return;
-  }
-
-  cti_events_discontinue(v12);
-  a1[5] = 0;
-  v13 = *a1;
-  if (!*a1)
-  {
-    v9 = global_os_log;
-    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-    {
-      goto LABEL_39;
-    }
-
-    v16 = 136447490;
-    v17 = "omr_watcher_route_update_callback";
-    v18 = 1024;
-    *v19 = 0;
-    *&v19[4] = 2048;
-    *&v19[6] = a1;
-    *&v19[14] = 2080;
-    *&v19[16] = "omw";
-    *&v19[24] = 2080;
-    *&v19[26] = "omr-watcher.c";
-    v20 = 1024;
-    v21 = 776;
-    v15 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
-    goto LABEL_38;
-  }
-
-  v9 = global_os_log;
-  if (v13 >= 10001)
-  {
-    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-    {
-      goto LABEL_39;
-    }
-
-    v16 = 136447490;
-    v17 = "omr_watcher_route_update_callback";
-    v18 = 1024;
-    *v19 = v13;
-    *&v19[4] = 2048;
-    *&v19[6] = a1;
-    *&v19[14] = 2080;
-    *&v19[16] = "omw";
-    *&v19[24] = 2080;
-    *&v19[26] = "omr-watcher.c";
-    v20 = 1024;
-    v21 = 776;
-    v15 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
-    goto LABEL_38;
-  }
-
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-  {
-    v16 = 136447490;
-    v17 = "omr_watcher_route_update_callback";
-    v18 = 1024;
-    *v19 = v13;
-    *&v19[4] = 2048;
-    *&v19[6] = a1;
-    *&v19[14] = 2080;
-    *&v19[16] = "omw";
-    *&v19[24] = 2080;
-    *&v19[26] = "omr-watcher.c";
-    v20 = 1024;
-    v21 = 776;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", &v16, 0x36u);
-    v13 = *a1;
-  }
-
-  *a1 = v13 - 1;
-  if (v13 == 1)
-  {
-    v14 = global_os_log;
-    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-    {
-      v16 = 136447234;
-      v17 = "omr_watcher_route_update_callback";
-      v18 = 2048;
-      *v19 = a1;
-      *&v19[8] = 2080;
-      *&v19[10] = "omw";
-      *&v19[18] = 2080;
-      *&v19[20] = "omr-watcher.c";
-      *&v19[28] = 1024;
-      *&v19[30] = 776;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", &v16, 0x30u);
-    }
-
-    ++omr_watcher_finalized;
-    omr_watcher_finalize(a1);
-  }
-}
-
-void omr_watcher_onmesh_prefix_list_fetch(uint64_t a1)
-{
-  if (*(a1 + 110) == 1)
-  {
-    v2 = *(a1 + 56);
-    if (v2)
-    {
-      ioloop_add_wake_event(v2, a1, omr_watcher_prefix_recheck_wakeup, omr_watcher_wakeup_release, 0x3A98u);
-      v3 = global_os_log;
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-      {
-        v4 = *a1;
-        *buf = 136447490;
-        v16 = "omr_watcher_onmesh_prefix_list_fetch";
-        v17 = 1024;
-        v18 = v4;
-        v19 = 2048;
-        v20 = a1;
-        v21 = 2080;
-        v22 = "watcher";
-        v23 = 2080;
-        v24 = "omr-watcher.c";
-        v25 = 1024;
-        v26 = 705;
-        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-      }
-
-      v5 = *a1;
-      if (*a1)
-      {
-        v6 = v5 + 1;
-        *a1 = v5 + 1;
-        if (v5 + 1 >= 10001)
-        {
-          v7 = global_os_log;
-          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-          {
-            goto LABEL_25;
-          }
-
-          *buf = 136447490;
-          v16 = "omr_watcher_onmesh_prefix_list_fetch";
-          v17 = 1024;
-          v18 = v6;
-          v19 = 2048;
-          v20 = a1;
-          v21 = 2080;
-          v22 = "watcher";
-          v23 = 2080;
-          v24 = "omr-watcher.c";
-          v25 = 1024;
-          v26 = 705;
-          goto LABEL_24;
-        }
-      }
-
-      else
-      {
-        ++omr_watcher_created;
-        *a1 = 1;
-      }
-
-      *(a1 + 110) = 1;
-    }
-  }
-
-  v8 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v8, "interface", "org.wpantund.v1");
-  xpc_dictionary_set_string(v8, "path", "/org/wpantund/utun2");
-  xpc_dictionary_set_string(v8, "method", "PropGet");
-  xpc_dictionary_set_string(v8, "property_name", "Thread:OnMeshPrefixes");
-  v9 = setup_for_command((a1 + 32), "get_onmesh_prefix_list", "Thread:OnMeshPrefixes", 0, v8, a1, omr_watcher_onmesh_prefix_list_callback, cti_internal_onmesh_prefix_reply_callback, 0, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/omr-watcher.c", 710);
-  v10 = global_os_log;
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 136446466;
-    v16 = "cti_get_onmesh_prefix_list_";
-    v17 = 1024;
-    v18 = v9;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: result %d", buf, 0x12u);
-  }
-
-  if (v8)
-  {
-    xpc_release(v8);
-  }
-
-  v11 = global_os_log;
-  if (v9)
-  {
-    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446466;
-      v16 = "omr_watcher_onmesh_prefix_list_fetch";
-      v17 = 1024;
-      v18 = v9;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}s: can't get onmesh prefix list: %d", buf, 0x12u);
-    }
-  }
-
-  else
-  {
-    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-    {
-      v12 = *a1;
-      *buf = 136447490;
-      v16 = "omr_watcher_onmesh_prefix_list_fetch";
-      v17 = 1024;
-      v18 = v12;
-      v19 = 2048;
-      v20 = a1;
-      v21 = 2080;
-      v22 = "watcher";
-      v23 = 2080;
-      v24 = "omr-watcher.c";
-      v25 = 1024;
-      v26 = 715;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-    }
-
-    v13 = *a1;
-    if (*a1)
-    {
-      v14 = v13 + 1;
-      *a1 = v13 + 1;
-      if (v13 + 1 >= 10001)
-      {
-        v7 = global_os_log;
-        if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-        {
-          goto LABEL_25;
-        }
-
-        *buf = 136447490;
-        v16 = "omr_watcher_onmesh_prefix_list_fetch";
-        v17 = 1024;
-        v18 = v14;
-        v19 = 2048;
-        v20 = a1;
-        v21 = 2080;
-        v22 = "watcher";
-        v23 = 2080;
-        v24 = "omr-watcher.c";
-        v25 = 1024;
-        v26 = 715;
-LABEL_24:
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_FAULT, "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-LABEL_25:
-        abort();
-      }
-    }
-
-    else
-    {
-      ++omr_watcher_created;
-      *a1 = 1;
-    }
-  }
-}
-
-void omr_watcher_onmesh_prefix_list_callback(void *a1, int *a2, int a3)
-{
-  v6 = global_os_log;
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-  {
-    v15 = 136446466;
-    v16 = "omr_watcher_onmesh_prefix_list_callback";
-    v17 = 1024;
-    *v18 = a3;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: status: %d", &v15, 0x12u);
-  }
-
-  switch(a3)
-  {
-    case -65569:
-      goto LABEL_6;
-    case 0:
-      omr_watcher_onmesh_prefixes_update(a1, a2);
-      break;
-    case -65563:
-LABEL_6:
-      v7 = global_os_log;
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-      {
-        v15 = 136446210;
-        v16 = "omr_watcher_onmesh_prefix_list_callback";
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: disconnected", &v15, 0xCu);
-      }
-
-      v8 = a1[10];
-      if (v8)
-      {
-        v8(a1[2]);
-      }
-
-      break;
-    default:
-      v9 = global_os_log;
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-      {
-        v15 = 136446466;
-        v16 = "omr_watcher_onmesh_prefix_list_callback";
-        v17 = 1024;
-        *v18 = a3;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}s: unhandled error %d", &v15, 0x12u);
-      }
-
-      break;
-  }
-
-  v10 = a1[4];
-  if (!v10)
-  {
-    return;
-  }
-
-  cti_events_discontinue(v10);
-  a1[4] = 0;
-  v11 = *a1;
-  if (!*a1)
-  {
-    v12 = global_os_log;
-    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-    {
-      goto LABEL_28;
-    }
-
-    v15 = 136447490;
-    v16 = "omr_watcher_onmesh_prefix_list_callback";
-    v17 = 1024;
-    *v18 = 0;
-    *&v18[4] = 2048;
-    *&v18[6] = a1;
-    *&v18[14] = 2080;
-    *&v18[16] = "omw";
-    *&v18[24] = 2080;
-    *&v18[26] = "omr-watcher.c";
-    v19 = 1024;
-    v20 = 489;
-    v14 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
-    goto LABEL_27;
-  }
-
-  v12 = global_os_log;
-  if (v11 >= 10001)
-  {
-    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-    {
-      goto LABEL_28;
-    }
-
-    v15 = 136447490;
-    v16 = "omr_watcher_onmesh_prefix_list_callback";
-    v17 = 1024;
-    *v18 = v11;
-    *&v18[4] = 2048;
-    *&v18[6] = a1;
-    *&v18[14] = 2080;
-    *&v18[16] = "omw";
-    *&v18[24] = 2080;
-    *&v18[26] = "omr-watcher.c";
-    v19 = 1024;
-    v20 = 489;
-    v14 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
-LABEL_27:
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_FAULT, v14, &v15, 0x36u);
-LABEL_28:
-    abort();
-  }
-
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-  {
-    v15 = 136447490;
-    v16 = "omr_watcher_onmesh_prefix_list_callback";
-    v17 = 1024;
-    *v18 = v11;
-    *&v18[4] = 2048;
-    *&v18[6] = a1;
-    *&v18[14] = 2080;
-    *&v18[16] = "omw";
-    *&v18[24] = 2080;
-    *&v18[26] = "omr-watcher.c";
-    v19 = 1024;
-    v20 = 489;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", &v15, 0x36u);
-    v11 = *a1;
-  }
-
-  *a1 = v11 - 1;
-  if (v11 == 1)
-  {
-    v13 = global_os_log;
-    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-    {
-      v15 = 136447234;
-      v16 = "omr_watcher_onmesh_prefix_list_callback";
-      v17 = 2048;
-      *v18 = a1;
-      *&v18[8] = 2080;
-      *&v18[10] = "omw";
-      *&v18[18] = 2080;
-      *&v18[20] = "omr-watcher.c";
-      *&v18[28] = 1024;
-      *&v18[30] = 489;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", &v15, 0x30u);
-    }
-
-    ++omr_watcher_finalized;
-    omr_watcher_finalize(a1);
-  }
-}
-
-void omr_watcher_onmesh_prefixes_update(uint64_t a1, int *a2)
-{
-  v4 = &unk_1000A9000;
-  v5 = global_os_log;
-  v6 = "omr_watcher_onmesh_prefixes_update";
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-  {
-    if (a2)
-    {
-      v7 = *a2;
-    }
-
-    else
-    {
-      v7 = -1;
-    }
-
-    *buf = 136446722;
-    v108 = "omr_watcher_onmesh_prefixes_update";
-    v109 = 2048;
-    *v110 = a2;
-    *&v110[8] = 1024;
-    *&v110[10] = v7;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: prefixes: %p  count: %d", buf, 0x1Cu);
-  }
-
-  v104 = a2;
-  v8 = *(a1 + 8);
-  v9 = *(v8 + 208);
-  if (v9)
-  {
-    v10 = *(v9 + 8);
-    if (v10)
-    {
-      v11 = global_os_log;
-      if (v10 < 10001)
-      {
-        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136447490;
-          v108 = "cti_prefix_vec_release_";
-          v109 = 1024;
-          *v110 = v10;
-          *&v110[4] = 2048;
-          *&v110[6] = v9;
-          *&v110[14] = 2080;
-          *&v110[16] = "prefixes";
-          *&v110[24] = 2080;
-          *&v110[26] = "omr-watcher.c";
-          v111 = 1024;
-          LODWORD(v112) = 322;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-          v10 = *(v9 + 8);
-        }
-
-        v54 = v10 == 1;
-        *(v9 + 8) = v10 - 1;
-        v6 = "omr_watcher_onmesh_prefixes_update";
-        if (v54)
-        {
-          v12 = global_os_log;
-          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 136447234;
-            v108 = "cti_prefix_vec_release_";
-            v109 = 2048;
-            *v110 = v9;
-            *&v110[8] = 2080;
-            *&v110[10] = "prefixes";
-            *&v110[18] = 2080;
-            *&v110[20] = "omr-watcher.c";
-            *&v110[28] = 1024;
-            *&v110[30] = 322;
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
-          }
-
-          ++cti_prefix_vec_finalized;
-          cti_prefix_vec_finalize(v9);
-        }
-
-        goto LABEL_16;
-      }
-
-      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-      {
-        goto LABEL_192;
-      }
-
-      *buf = 136447490;
-      v108 = "cti_prefix_vec_release_";
-      v109 = 1024;
-      *v110 = v10;
-      *&v110[4] = 2048;
-      *&v110[6] = v9;
-      *&v110[14] = 2080;
-      *&v110[16] = "prefixes";
-      *&v110[24] = 2080;
-      *&v110[26] = "omr-watcher.c";
-      v111 = 1024;
-      LODWORD(v112) = 322;
-      v19 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
-      v98 = v11;
-    }
-
-    else
-    {
-      v18 = global_os_log;
-      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-      {
-        goto LABEL_192;
-      }
-
-      *buf = 136447490;
-      v108 = "cti_prefix_vec_release_";
-      v109 = 1024;
-      *v110 = 0;
-      *&v110[4] = 2048;
-      *&v110[6] = v9;
-      *&v110[14] = 2080;
-      *&v110[16] = "prefixes";
-      *&v110[24] = 2080;
-      *&v110[26] = "omr-watcher.c";
-      v111 = 1024;
-      LODWORD(v112) = 322;
-      v19 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
-LABEL_190:
-      v98 = v18;
-    }
-
-LABEL_191:
-    _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_FAULT, v19, buf, 0x36u);
-    goto LABEL_192;
-  }
-
-LABEL_16:
-  *(v8 + 208) = a2;
-  v13 = a2;
-  if (a2)
-  {
-    v14 = global_os_log;
-    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-    {
-      v15 = a2[2];
-      *buf = 136447490;
-      v108 = "cti_prefix_vec_retain_";
-      v109 = 1024;
-      *v110 = v15;
-      *&v110[4] = 2048;
-      *&v110[6] = a2;
-      *&v110[14] = 2080;
-      *&v110[16] = "prefixes";
-      *&v110[24] = 2080;
-      *&v110[26] = "omr-watcher.c";
-      v111 = 1024;
-      LODWORD(v112) = 325;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-    }
-
-    v16 = a2[2];
-    if (v16)
-    {
-      v17 = v16 + 1;
-      a2[2] = v16 + 1;
-      if (v16 + 1 >= 10001)
-      {
-        v18 = global_os_log;
-        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-        {
-          *buf = 136447490;
-          v108 = "cti_prefix_vec_retain_";
-          v109 = 1024;
-          *v110 = v17;
-          *&v110[4] = 2048;
-          *&v110[6] = a2;
-          *&v110[14] = 2080;
-          *&v110[16] = "prefixes";
-          *&v110[24] = 2080;
-          *&v110[26] = "omr-watcher.c";
-          v111 = 1024;
-          LODWORD(v112) = 325;
-          v19 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
-          goto LABEL_190;
-        }
-
-        goto LABEL_192;
-      }
-    }
-
-    else
-    {
-      ++cti_prefix_vec_created;
-      a2[2] = 1;
-    }
-  }
-
-  v20 = (a1 + 72);
-  v21 = *(a1 + 72);
-  v22 = 0;
-  if (v21)
-  {
-    v23 = (a1 + 72);
-    while (1)
-    {
-      v24 = *v13;
-      if (*v13)
-      {
-        v25 = 0;
-        while (*(v21 + 16) != **(*(v13 + 2) + 8 * v25))
-        {
-          if (v24 == ++v25)
-          {
-            goto LABEL_33;
-          }
-        }
-      }
-
-      else
-      {
-        v25 = 0;
-      }
-
-      if (v25 == v24)
-      {
-LABEL_33:
-        for (i = *(a1 + 24); i; i = *i)
-        {
-          if ((i[4] & 1) == 0)
-          {
-            (i[1])(*(a1 + 8), i[3], 0, 0, v21);
-          }
-        }
-
-        v27 = v23;
-        *v23 = *(v21 + 8);
-        v28 = global_os_log;
-        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-        {
-          v29 = *(v21 + 16);
-          v30 = "ULA: ";
-          if ((v29 & 0xFE) != 0xFC)
-          {
-            if (v29 != 254 || (v30 = "LUA: ", (*(v21 + 17) & 0xC0) != 0x80))
-            {
-              v30 = "";
-              if ((v29 & 0xE0) == 0x20)
-              {
-                v30 = "GUA: ";
-              }
-            }
-          }
-
-          v31 = *(v21 + 32);
-          v32 = " (user)";
-          if (!*(v21 + 52))
-          {
-            v32 = "";
-          }
-
-          v33 = " (ncp)";
-          if (!*(v21 + 53))
-          {
-            v33 = "";
-          }
-
-          v34 = " (stable)";
-          if (!*(v21 + 54))
-          {
-            v34 = "";
-          }
-
-          *buf = 136449795;
-          v108 = "omr_watcher_onmesh_prefixes_update";
-          v109 = 2082;
-          *v110 = v30;
-          *&v110[8] = 2160;
-          *&v110[10] = 1752392040;
-          *&v110[18] = 1041;
-          *&v110[20] = 6;
-          *&v110[24] = 2097;
-          *&v110[26] = v21 + 16;
-          v111 = 2160;
-          v112 = 1752392040;
-          v113 = 1042;
-          v114 = 2;
-          v115 = 2098;
-          v116 = (v21 + 22);
-          v117 = 2160;
-          v118 = 1752392040;
-          v119 = 1041;
-          v120 = 8;
-          v121 = 2097;
-          v122 = (v21 + 24);
-          v123 = 1024;
-          v124 = v31;
-          v125 = 2082;
-          v126 = v32;
-          v127 = 2082;
-          v128 = v33;
-          v129 = 2082;
-          v130 = v34;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%{public}s: prefix {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}/%d went away%{public}s%{public}s%{public}s", buf, 0x88u);
-        }
-
-        v35 = *v21;
-        if (!*v21)
-        {
-          v18 = global_os_log;
-          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-          {
-            *buf = 136447490;
-            v108 = "omr_watcher_onmesh_prefixes_update";
-            v109 = 1024;
-            *v110 = 0;
-            *&v110[4] = 2048;
-            *&v110[6] = v21;
-            *&v110[14] = 2080;
-            *&v110[16] = "prefix";
-            *&v110[24] = 2080;
-            *&v110[26] = "omr-watcher.c";
-            v111 = 1024;
-            LODWORD(v112) = 347;
-            v19 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
-            goto LABEL_190;
-          }
-
-          goto LABEL_192;
-        }
-
-        v36 = global_os_log;
-        if (v35 >= 10001)
-        {
-          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-          {
-            goto LABEL_192;
-          }
-
-          *buf = 136447490;
-          v108 = "omr_watcher_onmesh_prefixes_update";
-          v109 = 1024;
-          *v110 = v35;
-          *&v110[4] = 2048;
-          *&v110[6] = v21;
-          *&v110[14] = 2080;
-          *&v110[16] = "prefix";
-          *&v110[24] = 2080;
-          *&v110[26] = "omr-watcher.c";
-          v111 = 1024;
-          LODWORD(v112) = 347;
-          v19 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
-          v98 = v36;
-          goto LABEL_191;
-        }
-
-        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136447490;
-          v108 = "omr_watcher_onmesh_prefixes_update";
-          v109 = 1024;
-          *v110 = v35;
-          *&v110[4] = 2048;
-          *&v110[6] = v21;
-          *&v110[14] = 2080;
-          *&v110[16] = "prefix";
-          *&v110[24] = 2080;
-          *&v110[26] = "omr-watcher.c";
-          v111 = 1024;
-          LODWORD(v112) = 347;
-          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-          v35 = *v21;
-        }
-
-        v23 = v27;
-        *v21 = v35 - 1;
-        if (v35 == 1)
-        {
-          v37 = global_os_log;
-          v13 = v104;
-          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 136447234;
-            v108 = "omr_watcher_onmesh_prefixes_update";
-            v109 = 2048;
-            *v110 = v21;
-            *&v110[8] = 2080;
-            *&v110[10] = "prefix";
-            *&v110[18] = 2080;
-            *&v110[20] = "omr-watcher.c";
-            *&v110[28] = 1024;
-            *&v110[30] = 347;
-            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
-          }
-
-          ++omr_prefix_finalized;
-          free(v21);
-          v23 = v27;
-          v22 = 1;
-        }
-
-        else
-        {
-          v22 = 1;
-          v13 = v104;
-        }
-      }
-
-      else
-      {
-        *(v21 + 59) = *(v21 + 52);
-        *(v21 + 60) = *(v21 + 53);
-        *(v21 + 52) = 0;
-        *(v21 + 54) = 0;
-        v23 = (v21 + 8);
-        *(v21 + 62) = 0;
-        *(v21 + 64) = 0;
-      }
-
-      v21 = *v23;
-      if (!*v23)
-      {
-        goto LABEL_63;
-      }
-    }
-  }
-
-  v23 = (a1 + 72);
-LABEL_63:
-  v99 = v22;
-  v101 = (a1 + 72);
-  if (*v13)
-  {
-    v38 = 0;
-    v100 = 0;
-    v102 = v23;
-    v103 = v23;
-    while (1)
-    {
-      v39 = *(*(v13 + 2) + 8 * v38);
-      v40 = v39[34];
-      v41 = *(v4 + 22);
-      v42 = os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT);
-      if (v40 == 1)
-      {
-        if (!v42)
-        {
-          goto LABEL_81;
-        }
-
-        v43 = *v39;
-        v44 = "ULA: ";
-        if ((v43 & 0xFE) != 0xFC)
-        {
-          if (v43 != 254 || (v44 = "LUA: ", (v39[1] & 0xC0) != 0x80))
-          {
-            v44 = "GUA: ";
-            if ((v43 & 0xE0) != 0x20)
-            {
-              v44 = "";
-            }
-          }
-        }
-
-        v45 = *(v39 + 4);
-        v46 = *(v39 + 18);
-        *buf = 136449283;
-        v108 = v6;
-        v109 = 2082;
-        *v110 = v44;
-        *&v110[8] = 2160;
-        *&v110[10] = 1752392040;
-        *&v110[18] = 1041;
-        *&v110[20] = 6;
-        *&v110[24] = 2097;
-        *&v110[26] = v39;
-        v111 = 2160;
-        v112 = 1752392040;
-        v113 = 1042;
-        v114 = 2;
-        v115 = 2098;
-        v116 = v39 + 6;
-        v117 = 2160;
-        v118 = 1752392040;
-        v119 = 1041;
-        v120 = 8;
-        v121 = 2097;
-        v122 = v39 + 8;
-        v123 = 1024;
-        v124 = v45;
-        v125 = 1024;
-        LODWORD(v126) = v46;
-        v47 = v41;
-        v48 = "%{public}s: prefix {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}/%d has 6LoWPAN context: id = %d";
-        v49 = 112;
-      }
-
-      else
-      {
-        if (!v42)
-        {
-          goto LABEL_81;
-        }
-
-        v50 = *v39;
-        v51 = "ULA: ";
-        if ((v50 & 0xFE) != 0xFC)
-        {
-          if (v50 != 254 || (v51 = "LUA: ", (v39[1] & 0xC0) != 0x80))
-          {
-            v51 = "GUA: ";
-            if ((v50 & 0xE0) != 0x20)
-            {
-              v51 = "";
-            }
-          }
-        }
-
-        v52 = *(v39 + 4);
-        *buf = 136449027;
-        v108 = v6;
-        v109 = 2082;
-        *v110 = v51;
-        *&v110[8] = 2160;
-        *&v110[10] = 1752392040;
-        *&v110[18] = 1041;
-        *&v110[20] = 6;
-        *&v110[24] = 2097;
-        *&v110[26] = v39;
-        v111 = 2160;
-        v112 = 1752392040;
-        v113 = 1042;
-        v114 = 2;
-        v115 = 2098;
-        v116 = v39 + 6;
-        v117 = 2160;
-        v118 = 1752392040;
-        v119 = 1041;
-        v120 = 8;
-        v121 = 2097;
-        v122 = v39 + 8;
-        v123 = 1024;
-        v124 = v52;
-        v47 = v41;
-        v48 = "%{public}s: prefix {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}/%d is in thread-supplied prefix list";
-        v49 = 106;
-      }
-
-      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, v48, buf, v49);
-LABEL_81:
-      v53 = *v20;
-      if (*v20)
-      {
-        while (1)
-        {
-          v54 = *(v53 + 2) == *v39 && *(v53 + 3) == *(v39 + 1);
-          if (v54)
-          {
-            break;
-          }
-
-          v53 = *(v53 + 1);
-          if (!v53)
-          {
-            goto LABEL_87;
-          }
-        }
-
-        v70 = *(v4 + 22);
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136446210;
-          v108 = v6;
-          _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "%{public}s: present", buf, 0xCu);
-        }
-
-LABEL_107:
-        v23 = v103;
-        if (v39[33] == 1)
-        {
-          v53[53] = 1;
-        }
-
-        else
-        {
-          v100 = 1;
-          v53[52] = 1;
-        }
-
-        if (v39[32] == 1)
-        {
-          v53[54] = 1;
-        }
-
-        goto LABEL_112;
-      }
-
-LABEL_87:
-      v55 = *(v4 + 22);
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136446210;
-        v108 = v6;
-        _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "%{public}s: not present", buf, 0xCu);
-      }
-
-      v56 = *(v39 + 6);
-      if ((v56 & 0x100) != 0)
-      {
-        v61 = v6;
-        v62 = *(v39 + 2);
-        v63 = *(v39 + 7);
-        v64 = v39[32];
-        v65 = v39[33];
-        v66 = malloc_type_calloc(1uLL, 0x48uLL, 0xBD121BEBuLL);
-        v67 = global_os_log;
-        if (!v66)
-        {
-          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 136446722;
-            v108 = "omr_prefix_create";
-            v109 = 2048;
-            *v110 = 1;
-            *&v110[8] = 2048;
-            *&v110[10] = 72;
-            _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "%{public}s: strict_calloc(%zu, %zu) failed", buf, 0x20u);
-          }
-
-          __break(1u);
-LABEL_188:
-          v18 = global_os_log;
-          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-          {
-            *buf = 136447490;
-            v108 = "omr_prefix_create";
-            v109 = 1024;
-            *v110 = v67;
-            *&v110[4] = 2048;
-            *&v110[6] = v53;
-            *&v110[14] = 2080;
-            *&v110[16] = "ret";
-            *&v110[24] = 2080;
-            *&v110[26] = "omr-watcher.c";
-            v111 = 1024;
-            LODWORD(v112) = 161;
-            v19 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
-            goto LABEL_190;
-          }
-
-LABEL_192:
-          abort();
-        }
-
-        v53 = v66;
-        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-        {
-          v68 = *v53;
-          *buf = 136447490;
-          v108 = "omr_prefix_create";
-          v109 = 1024;
-          *v110 = v68;
-          *&v110[4] = 2048;
-          *&v110[6] = v53;
-          *&v110[14] = 2080;
-          *&v110[16] = "ret";
-          *&v110[24] = 2080;
-          *&v110[26] = "omr-watcher.c";
-          v111 = 1024;
-          LODWORD(v112) = 161;
-          _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-        }
-
-        v69 = *v53;
-        if (*v53)
-        {
-          LODWORD(v67) = v69 + 1;
-          *v53 = v69 + 1;
-          if (v69 + 1 >= 10001)
-          {
-            goto LABEL_188;
-          }
-        }
-
-        else
-        {
-          ++omr_prefix_created;
-          *v53 = 1;
-        }
-
-        *(v53 + 1) = *v39;
-        *(v53 + 4) = v62;
-        *(v53 + 10) = v63;
-        *(v53 + 11) = v56;
-        v53[54] = v64;
-        v53[53] = v65;
-        v53[52] = v65 ^ 1;
-        v71 = vand_s8(vmovn_s32(vshlq_u32(vdupq_n_s32(v56), xmmword_100085ED0)), 0x1000100010001);
-        *(v53 + 55) = vuzp1_s8(v71, v71).u32[0];
-        *(v53 + 12) = dword_100085F00[v56 >> 14];
-        *v102 = v53;
-        v102 = v53 + 8;
-        v6 = v61;
-        v4 = &unk_1000A9000;
-        v20 = (a1 + 72);
-        v13 = v104;
-        goto LABEL_107;
-      }
-
-      v4 = &unk_1000A9000;
-      v57 = global_os_log;
-      v23 = v103;
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-      {
-        v58 = *v39;
-        v59 = "ULA: ";
-        if ((v58 & 0xFE) != 0xFC)
-        {
-          if (v58 != 254 || (v59 = "LUA: ", (v39[1] & 0xC0) != 0x80))
-          {
-            v59 = "GUA: ";
-            if ((v58 & 0xE0) != 0x20)
-            {
-              v59 = "";
-            }
-          }
-        }
-
-        v60 = *(v39 + 4);
-        *buf = 136449027;
-        v108 = v6;
-        v109 = 2082;
-        *v110 = v59;
-        *&v110[8] = 2160;
-        *&v110[10] = 1752392040;
-        *&v110[18] = 1041;
-        *&v110[20] = 6;
-        *&v110[24] = 2097;
-        *&v110[26] = v39;
-        v111 = 2160;
-        v112 = 1752392040;
-        v113 = 1042;
-        v114 = 2;
-        v115 = 2098;
-        v116 = v39 + 6;
-        v117 = 2160;
-        v118 = 1752392040;
-        v119 = 1041;
-        v120 = 8;
-        v121 = 2097;
-        v122 = v39 + 8;
-        v123 = 1024;
-        v124 = v60;
-        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "%{public}s: prefix {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}/%d is not on-mesh, skipping", buf, 0x6Au);
-      }
-
-LABEL_112:
-      if (++v38 >= *v13)
-      {
-        goto LABEL_115;
-      }
-    }
-  }
-
-  v100 = 0;
-LABEL_115:
-  v72 = *v20;
-  if (*v20)
-  {
-    v73 = &loc_100085000;
-    v74 = v99;
-    while (1)
-    {
-      v75 = *v23;
-      if (v72 == *v23)
-      {
-        break;
-      }
-
-      if (v72[52] != v72[59] || v72[53] != v72[60] || v72[61] != v72[54])
-      {
-        for (j = *(a1 + 24); j; j = *j)
-        {
-          if ((j[4] & 1) == 0)
-          {
-            (j[1])(*(a1 + 8), j[3], 1, 0, v72);
-          }
-        }
-
-        v74 = 1;
-      }
-
-      v72 = *(v72 + 1);
-      if (!v72)
-      {
-        goto LABEL_129;
-      }
-    }
-  }
-
-  else
-  {
-    v73 = &loc_100085000;
-    v74 = v99;
-LABEL_129:
-    v75 = *v23;
-  }
-
-  if (v75)
-  {
-    v105 = v73[508];
-    do
-    {
-      v77 = *(v4 + 22);
-      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
-      {
-        v78 = *(v75 + 16);
-        v79 = "ULA: ";
-        if ((v78 & 0xFE) != 0xFC)
-        {
-          if (v78 != 254 || (v79 = "LUA: ", (*(v75 + 17) & 0xC0) != 0x80))
-          {
-            v79 = "";
-            if ((v78 & 0xE0) == 0x20)
-            {
-              v79 = "GUA: ";
-            }
-          }
-        }
-
-        v80 = *(v75 + 32);
-        v81 = " (user)";
-        if (!*(v75 + 52))
-        {
-          v81 = "";
-        }
-
-        v82 = " (ncp)";
-        if (!*(v75 + 53))
-        {
-          v82 = "";
-        }
-
-        v83 = " (stable)";
-        if (!*(v75 + 54))
-        {
-          v83 = "";
-        }
-
-        *buf = v105;
-        v108 = v6;
-        v109 = 2082;
-        *v110 = v79;
-        *&v110[8] = 2160;
-        *&v110[10] = 1752392040;
-        *&v110[18] = 1041;
-        *&v110[20] = 6;
-        *&v110[24] = 2097;
-        *&v110[26] = v75 + 16;
-        v111 = 2160;
-        v112 = 1752392040;
-        v113 = 1042;
-        v114 = 2;
-        v115 = 2098;
-        v116 = (v75 + 22);
-        v117 = 2160;
-        v118 = 1752392040;
-        v119 = 1041;
-        v120 = 8;
-        v121 = 2097;
-        v122 = (v75 + 24);
-        v123 = 1024;
-        v124 = v80;
-        v125 = 2082;
-        v126 = v81;
-        v127 = 2082;
-        v128 = v82;
-        v129 = 2082;
-        v130 = v83;
-        _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "%{public}s: prefix {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}/%d showed up%{public}s%{public}s%{public}s", buf, 0x88u);
-      }
-
-      for (k = *(a1 + 24); k; k = *k)
-      {
-        if ((k[4] & 1) == 0)
-        {
-          (k[1])(*(a1 + 8), k[3], 2, 0, v75);
-        }
-      }
-
-      v75 = *(v75 + 8);
-    }
-
-    while (v75);
-    v74 = 1;
-    v73 = &loc_100085000;
-  }
-
-  v85 = *(v4 + 22);
-  v86 = os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT);
-  v87 = *v101;
-  if (v86)
-  {
-    *buf = 136446466;
-    v108 = v6;
-    v109 = 2048;
-    *v110 = v87;
-    _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "%{public}s: omw->prefixes = %p", buf, 0x16u);
-    v87 = *v101;
-  }
-
-  if (v87)
-  {
-    v88 = *(v4 + 22);
-    v106 = v73[508];
-    do
-    {
-      if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
-      {
-        v89 = *(v87 + 16);
-        v90 = "ULA: ";
-        if ((v89 & 0xFE) != 0xFC)
-        {
-          if (v89 != 254 || (v90 = "LUA: ", (*(v87 + 17) & 0xC0) != 0x80))
-          {
-            v90 = "";
-            if ((v89 & 0xE0) == 0x20)
-            {
-              v90 = "GUA: ";
-            }
-          }
-        }
-
-        v91 = *(v87 + 32);
-        v92 = " (user)";
-        if (!*(v87 + 52))
-        {
-          v92 = "";
-        }
-
-        v93 = " (ncp)";
-        if (!*(v87 + 53))
-        {
-          v93 = "";
-        }
-
-        v94 = " (stable)";
-        if (!*(v87 + 54))
-        {
-          v94 = "";
-        }
-
-        *buf = v106;
-        v108 = v6;
-        v109 = 2082;
-        *v110 = v90;
-        *&v110[8] = 2160;
-        *&v110[10] = 1752392040;
-        *&v110[18] = 1041;
-        *&v110[20] = 6;
-        *&v110[24] = 2097;
-        *&v110[26] = v87 + 16;
-        v111 = 2160;
-        v112 = 1752392040;
-        v113 = 1042;
-        v114 = 2;
-        v115 = 2098;
-        v116 = (v87 + 22);
-        v117 = 2160;
-        v118 = 1752392040;
-        v119 = 1041;
-        v120 = 8;
-        v121 = 2097;
-        v122 = (v87 + 24);
-        v123 = 1024;
-        v124 = v91;
-        v125 = 2082;
-        v126 = v92;
-        v127 = 2082;
-        v128 = v93;
-        v129 = 2082;
-        v130 = v94;
-        _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "%{public}s: prefix {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}/%d is currently in the list %{public}s%{public}s%{public}s", buf, 0x88u);
-        v88 = *(v4 + 22);
-      }
-
-      v87 = *(v87 + 8);
-    }
-
-    while (v87);
-  }
-
-  if ((v74 & 1) != 0 || *(a1 + 109) == 1)
-  {
-    v95 = *(a1 + 24);
-    if (v95)
-    {
-      v96 = *(a1 + 72);
-      do
-      {
-        if ((v95[4] & 1) == 0)
-        {
-          (v95[1])(*(a1 + 8), v95[3], 3, v96, 0);
-        }
-
-        v95 = *v95;
-      }
-
-      while (v95);
-    }
-
-    *(a1 + 109) = 0;
-  }
-
-  if ((v100 & 1) == 0)
-  {
-    v97 = *(a1 + 8);
-    if (*(v97 + 424) == 1)
-    {
-      *(v97 + 424) = 0;
-      adv_ctl_thread_shutdown_status_check(v97);
-    }
-  }
 }

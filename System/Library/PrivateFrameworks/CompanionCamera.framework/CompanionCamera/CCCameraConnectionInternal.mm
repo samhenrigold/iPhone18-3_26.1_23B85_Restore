@@ -5,6 +5,7 @@
 - (void)xpc_cancelCountdown;
 - (void)xpc_endBurstCaptureWithReply:(id)reply;
 - (void)xpc_ensureSwitchedToOneOfSupportedCaptureModes:(id)modes reply:(id)reply;
+- (void)xpc_fetchCurrentStateIncludingSupportedCaptureModes:(BOOL)modes reply:(id)reply;
 - (void)xpc_pauseCaptureWithReply:(id)reply;
 - (void)xpc_resumeCaptureWithReply:(id)reply;
 - (void)xpc_setCaptureDevice:(int64_t)device reply:(id)reply;
@@ -113,6 +114,14 @@
   pointCopy = point;
   WeakRetained = objc_loadWeakRetained(&self->_parent);
   [WeakRetained xpc_setFocusPoint:pointCopy];
+}
+
+- (void)xpc_fetchCurrentStateIncludingSupportedCaptureModes:(BOOL)modes reply:(id)reply
+{
+  modesCopy = modes;
+  replyCopy = reply;
+  WeakRetained = objc_loadWeakRetained(&self->_parent);
+  [WeakRetained xpc_fetchCurrentStateIncludingSupportedCaptureModes:modesCopy reply:replyCopy];
 }
 
 - (void)xpc_cancelCountdown

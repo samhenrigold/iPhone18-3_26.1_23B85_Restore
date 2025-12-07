@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (BOOL)configureWiFi:(id)fi password:(id)password;
 - (BOOL)connectTo:(id)to password:(id)password;
+- (BOOL)enableWiFi:(BOOL)fi;
 - (BOOL)isValidWiFiSettings:(id)settings;
 - (BOOL)saveWiFiSettingsToPreferences:(id)preferences;
 - (MSDWiFiHelper)init;
@@ -34,14 +35,55 @@
   return v3;
 }
 
+- (BOOL)enableWiFi:(BOOL)fi
+{
+  fiCopy = fi;
+  [(MSDWiFiHelper *)self waitForWiFiInterface];
+  [(MSDWiFiHelper *)self waitForWiFiDriver];
+  wifiInterface = [(MSDWiFiHelper *)self wifiInterface];
+  v13 = 0;
+  v6 = [wifiInterface setPower:fiCopy error:&v13];
+  v7 = v13;
+
+  if ((v6 & 1) == 0)
+  {
+    sub_1000E9460(v7);
+  }
+
+  v9 = sub_100063A54(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = "Failed";
+    if (v6)
+    {
+      v10 = "Succeeded";
+    }
+
+    v11 = "Enable";
+    if (!fiCopy)
+    {
+      v11 = "Disable";
+    }
+
+    *buf = 136446466;
+    v15 = v10;
+    v16 = 2082;
+    v17 = v11;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "enableWiFi - Operation %{public}s: %{public}s", buf, 0x16u);
+  }
+
+  return v6;
+}
+
 - (BOOL)configureWiFi:(id)fi password:(id)password
 {
   fiCopy = fi;
   passwordCopy = password;
-  if (![(MSDWiFiHelper *)self enableWiFi:1])
+  v8 = [(MSDWiFiHelper *)self enableWiFi:1];
+  if ((v8 & 1) == 0)
   {
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = sub_100063A54(v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_1000E9508();
     }
@@ -49,10 +91,11 @@
     goto LABEL_19;
   }
 
-  if (![(MSDWiFiHelper *)self connectTo:fiCopy password:passwordCopy])
+  v9 = [(MSDWiFiHelper *)self connectTo:fiCopy password:passwordCopy];
+  if ((v9 & 1) == 0)
   {
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = sub_100063A54(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_1000E9544();
     }
@@ -66,39 +109,40 @@
 
   if (!isContentFrozen)
   {
-    v15 = 1;
+    v19 = 1;
     goto LABEL_13;
   }
 
-  v10 = sub_100063A54();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100063A54(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Saving wifi ssid and password to demo volume.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Saving wifi ssid and password to demo volume.", buf, 2u);
   }
 
-  v11 = [NSMutableDictionary dictionaryWithObjectsAndKeys:fiCopy, @"SSID", 0];
-  if (!passwordCopy || (v12 = [(__CFString *)passwordCopy length], v13 = passwordCopy, !v12))
+  v14 = [NSMutableDictionary dictionaryWithObjectsAndKeys:fiCopy, @"SSID", 0];
+  if (!passwordCopy || (v15 = [(__CFString *)passwordCopy length], v16 = passwordCopy, !v15))
   {
-    v13 = &stru_10016D9D8;
+    v16 = &stru_10016D9D8;
   }
 
-  v14 = [(__CFString *)v13 dataUsingEncoding:4];
-  [v11 setObject:v14 forKey:@"Password"];
+  v17 = [(__CFString *)v16 dataUsingEncoding:4];
+  [v14 setObject:v17 forKey:@"Password"];
 
-  if (![(MSDWiFiHelper *)self saveWiFiSettingsToPreferences:v11])
+  v18 = [(MSDWiFiHelper *)self saveWiFiSettingsToPreferences:v14];
+  if ((v18 & 1) == 0)
   {
-    sub_1000E9580();
+    sub_1000E9580(v18);
 LABEL_19:
-    v15 = 0;
+    v19 = 0;
     goto LABEL_11;
   }
 
-  v15 = 1;
+  v19 = 1;
 LABEL_11:
 
 LABEL_13:
-  return v15;
+  return v19;
 }
 
 - (void)configureWiFiWithPersistentSettings
@@ -107,7 +151,7 @@ LABEL_13:
   v4 = loadWiFiSettingsFromPreferences;
   if (!loadWiFiSettingsFromPreferences)
   {
-    v9 = sub_100063A54();
+    v9 = sub_100063A54(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000E9698();
@@ -120,12 +164,12 @@ LABEL_13:
   }
 
   v5 = [loadWiFiSettingsFromPreferences objectForKey:@"SSID"];
-  v6 = sub_100063A54();
+  v6 = sub_100063A54(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543362;
-    v14 = v5;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Enforcing WiFi settings to AP with SSID - %{public}@", &v13, 0xCu);
+    v16 = 138543362;
+    v17 = v5;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Enforcing WiFi settings to AP with SSID - %{public}@", &v16, 0xCu);
   }
 
   v7 = [v4 objectForKey:@"Password"];
@@ -134,7 +178,7 @@ LABEL_13:
     v8 = [[NSString alloc] initWithData:v7 encoding:4];
     if (!v8)
     {
-      v9 = sub_100063A54();
+      v9 = sub_100063A54(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_1000E95E4();
@@ -143,11 +187,11 @@ LABEL_13:
       v8 = 0;
 LABEL_23:
 
-      device2 = sub_100063A54();
+      device2 = sub_100063A54(v15);
       if (os_log_type_enabled(device2, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v13) = 0;
-        _os_log_impl(&_mh_execute_header, device2, OS_LOG_TYPE_DEFAULT, "WiFi settings not enforced.", &v13, 2u);
+        LOWORD(v16) = 0;
+        _os_log_impl(&_mh_execute_header, device2, OS_LOG_TYPE_DEFAULT, "WiFi settings not enforced.", &v16, 2u);
       }
 
       goto LABEL_14;
@@ -159,9 +203,10 @@ LABEL_23:
     v8 = 0;
   }
 
-  if (![(MSDWiFiHelper *)self enableWiFi:1])
+  v10 = [(MSDWiFiHelper *)self enableWiFi:1];
+  if ((v10 & 1) == 0)
   {
-    v9 = sub_100063A54();
+    v9 = sub_100063A54(v10);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000E9620();
@@ -170,9 +215,10 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  if (![(MSDWiFiHelper *)self connectTo:v5 password:v8])
+  v11 = [(MSDWiFiHelper *)self connectTo:v5 password:v8];
+  if ((v11 & 1) == 0)
   {
-    v9 = sub_100063A54();
+    v9 = sub_100063A54(v11);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000E965C();
@@ -198,18 +244,18 @@ LABEL_14:
   v3 = objc_alloc_init(NSCondition);
   v4 = [NSDate dateWithTimeIntervalSinceNow:5.0];
   wifiInterface = [(MSDWiFiHelper *)self wifiInterface];
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_1000B39D4;
-  v16[3] = &unk_10016C448;
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_1000B39D4;
+  v18[3] = &unk_10016C448;
   v6 = v3;
-  v17 = v6;
-  [wifiInterface setEventHandler:v16];
+  v19 = v6;
+  [wifiInterface setEventHandler:v18];
 
   wifiInterface2 = [(MSDWiFiHelper *)self wifiInterface];
-  v15 = 0;
-  v8 = [wifiInterface2 startMonitoringEventType:6 error:&v15];
-  v9 = v15;
+  v17 = 0;
+  v8 = [wifiInterface2 startMonitoringEventType:6 error:&v17];
+  v9 = v17;
 
   if (v8)
   {
@@ -224,20 +270,21 @@ LABEL_14:
         break;
       }
 
-      v12 = sub_100063A54();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100063A54(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Current known wifi still returns nil.  Waiting for CWFEventTypeLinkChanged event.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Current known wifi still returns nil.  Waiting for CWFEventTypeLinkChanged event.", buf, 2u);
       }
 
-      if (([v6 waitUntilDate:v4] & 1) == 0)
+      v14 = [v6 waitUntilDate:v4];
+      if ((v14 & 1) == 0)
       {
-        v13 = sub_100063A54();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v15 = sub_100063A54(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Wait for current known wifi timed out after 5 seconds", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Wait for current known wifi timed out after 5 seconds", buf, 2u);
         }
 
         break;
@@ -265,17 +312,17 @@ LABEL_14:
 
   if (!currentKnownNetworkProfile)
   {
-    v7 = sub_100063A54();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100063A54(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Failed to get current known network profile, fetching last joined wifi network...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Failed to get current known network profile, fetching last joined wifi network...", buf, 2u);
     }
 
     lastJoinedWiFiNetworksProfile = [(MSDWiFiHelper *)self lastJoinedWiFiNetworksProfile];
     if (!lastJoinedWiFiNetworksProfile)
     {
-      currentKnownNetworkProfile = sub_100063A54();
+      currentKnownNetworkProfile = sub_100063A54(0);
       if (os_log_type_enabled(currentKnownNetworkProfile, OS_LOG_TYPE_ERROR))
       {
         sub_1000E9860();
@@ -290,35 +337,35 @@ LABEL_14:
   networkName = [currentKnownNetworkProfile networkName];
   if (networkName)
   {
-    v10 = networkName;
-    v11 = [NSMutableDictionary dictionaryWithObjectsAndKeys:networkName, @"SSID", 0];
+    v11 = networkName;
+    v12 = [NSMutableDictionary dictionaryWithObjectsAndKeys:networkName, @"SSID", 0];
     if (!settingsCopy)
     {
 LABEL_14:
-      v18 = [NSDictionary dictionaryWithDictionary:v11];
+      v20 = [NSDictionary dictionaryWithDictionary:v12];
 
       goto LABEL_15;
     }
 
     sSID = [currentKnownNetworkProfile SSID];
     Password = CWFSecItemQueryPassword();
-    v14 = 0;
+    v15 = 0;
 
     if (Password == -25300 || !Password)
     {
-      if (!v14 || (v15 = [(__CFString *)v14 length], v16 = v14, !v15))
+      if (!v15 || (v17 = [(__CFString *)v15 length], v18 = v15, !v17))
       {
-        v16 = &stru_10016D9D8;
+        v18 = &stru_10016D9D8;
       }
 
-      v17 = [(__CFString *)v16 dataUsingEncoding:4];
-      [v11 setObject:v17 forKey:@"Password"];
+      v19 = [(__CFString *)v18 dataUsingEncoding:4];
+      [v12 setObject:v19 forKey:@"Password"];
 
       goto LABEL_14;
     }
 
-    v20 = sub_100063A54();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = sub_100063A54(v16);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_1000E9788();
     }
@@ -326,14 +373,14 @@ LABEL_14:
 
   else
   {
-    sub_1000E97FC();
+    sub_1000E97FC(0);
   }
 
 LABEL_21:
-  v18 = 0;
+  v20 = 0;
 LABEL_15:
 
-  return v18;
+  return v20;
 }
 
 - (id)getPersistentWiFiSsid
@@ -348,7 +395,7 @@ LABEL_15:
       goto LABEL_3;
     }
 
-    v6 = sub_100063A54();
+    v6 = sub_100063A54(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1000E989C();
@@ -357,7 +404,7 @@ LABEL_15:
 
   else
   {
-    v6 = sub_100063A54();
+    v6 = sub_100063A54(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1000E991C();
@@ -419,13 +466,13 @@ LABEL_3:
   passwordCopy = password;
   v6 = objc_alloc_init(CWFScanParameters);
   [v6 setIncludeHiddenNetworks:1];
-  v51 = toCopy;
-  v7 = [NSArray arrayWithObjects:&v51 count:1];
+  v55 = toCopy;
+  v7 = [NSArray arrayWithObjects:&v55 count:1];
   [v6 setSSIDList:v7];
 
   [v6 setMinimumRSSI:-80];
   v8 = [NSSet setWithArray:&off_10017BFB8];
-  v40 = v6;
+  v44 = v6;
   [v6 setIncludeProperties:v8];
 
   v9 = 0;
@@ -434,16 +481,16 @@ LABEL_3:
   {
     v11 = v9;
     wifiInterface = [(MSDWiFiHelper *)self wifiInterface];
-    v47 = v9;
-    v13 = [wifiInterface performScanWithParameters:v40 error:&v47];
-    v9 = v47;
+    v51 = v9;
+    v13 = [wifiInterface performScanWithParameters:v44 error:&v51];
+    v9 = v51;
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     v14 = v13;
-    v15 = [v14 countByEnumeratingWithState:&v43 objects:v50 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v47 objects:v54 count:16];
     if (v15)
     {
       break;
@@ -456,32 +503,32 @@ LABEL_15:
 
     if (!--v10)
     {
-      v25 = sub_100063A54();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = sub_100063A54(v27);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         sub_1000E9A0C();
       }
 
-      v26 = 0;
-      v27 = passwordCopy;
+      v28 = 0;
+      v29 = passwordCopy;
       goto LABEL_29;
     }
   }
 
   v16 = v15;
   v17 = 0;
-  v18 = *v44;
+  v18 = *v48;
 LABEL_4:
   v19 = 0;
   v20 = v17;
   while (1)
   {
-    if (*v44 != v18)
+    if (*v48 != v18)
     {
       objc_enumerationMutation(v14);
     }
 
-    v17 = *(*(&v43 + 1) + 8 * v19);
+    v17 = *(*(&v47 + 1) + 8 * v19);
 
     networkName = [v17 networkName];
     v22 = [networkName isEqualToString:toCopy];
@@ -495,7 +542,7 @@ LABEL_4:
     v20 = v17;
     if (v16 == v19)
     {
-      v16 = [v14 countByEnumeratingWithState:&v43 objects:v50 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v47 objects:v54 count:16];
       if (v16)
       {
         goto LABEL_4;
@@ -505,71 +552,71 @@ LABEL_4:
     }
   }
 
-  v23 = sub_100063A54();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v24 = sub_100063A54(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     networkName2 = [v17 networkName];
     *buf = 138543362;
-    v49 = networkName2;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Found the wifi with ssid '%{public}@'", buf, 0xCu);
+    v53 = networkName2;
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Found the wifi with ssid '%{public}@'", buf, 0xCu);
   }
 
-  v25 = v17;
-  if (!v25)
+  v26 = v17;
+  if (!v26)
   {
     goto LABEL_15;
   }
 
-  v28 = objc_alloc_init(CWFAssocParameters);
-  [v28 setScanResult:v25];
-  [v28 setRememberUponSuccessfulAssociation:1];
-  v27 = passwordCopy;
-  [v28 setPassword:passwordCopy];
-  v29 = objc_alloc_init(CWFNetworkProfile);
-  [v28 setKnownNetworkProfile:v29];
+  v30 = objc_alloc_init(CWFAssocParameters);
+  [v30 setScanResult:v26];
+  [v30 setRememberUponSuccessfulAssociation:1];
+  v29 = passwordCopy;
+  [v30 setPassword:passwordCopy];
+  v31 = objc_alloc_init(CWFNetworkProfile);
+  [v30 setKnownNetworkProfile:v31];
 
-  knownNetworkProfile = [v28 knownNetworkProfile];
+  knownNetworkProfile = [v30 knownNetworkProfile];
   [knownNetworkProfile setHiddenState:1];
 
-  v31 = -3;
+  v33 = -3;
   while (1)
   {
-    v32 = v9;
+    v34 = v9;
     wifiInterface2 = [(MSDWiFiHelper *)self wifiInterface];
-    v42 = v9;
-    v34 = [wifiInterface2 associateWithParameters:v28 error:&v42];
-    v9 = v42;
+    v46 = v9;
+    v36 = [wifiInterface2 associateWithParameters:v30 error:&v46];
+    v9 = v46;
 
-    if (v34)
+    if (v36)
     {
       break;
     }
 
-    sleep(3u);
-    if (__CFADD__(v31++, 1))
+    v38 = sleep(3u);
+    if (__CFADD__(v33++, 1))
     {
-      v36 = sub_100063A54();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v40 = sub_100063A54(v38);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         sub_1000E999C();
       }
 
-      v26 = 0;
+      v28 = 0;
       goto LABEL_29;
     }
   }
 
-  v37 = sub_100063A54();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+  v41 = sub_100063A54(v37);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Connected to wifi.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Connected to wifi.", buf, 2u);
   }
 
-  v26 = 1;
+  v28 = 1;
 LABEL_29:
 
-  return v26;
+  return v28;
 }
 
 - (void)waitForWiFiInterface
@@ -577,18 +624,18 @@ LABEL_29:
   v3 = objc_alloc_init(NSCondition);
   v4 = [NSDate dateWithTimeIntervalSinceNow:5.0];
   wifiInterface = [(MSDWiFiHelper *)self wifiInterface];
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_1000B4524;
-  v17[3] = &unk_10016C448;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_1000B4524;
+  v20[3] = &unk_10016C448;
   v6 = v3;
-  v18 = v6;
-  [wifiInterface setEventHandler:v17];
+  v21 = v6;
+  [wifiInterface setEventHandler:v20];
 
   wifiInterface2 = [(MSDWiFiHelper *)self wifiInterface];
-  v16 = 0;
-  v8 = [wifiInterface2 startMonitoringEventType:10 error:&v16];
-  v9 = v16;
+  v19 = 0;
+  v8 = [wifiInterface2 startMonitoringEventType:10 error:&v19];
+  v9 = v19;
 
   if (v8)
   {
@@ -603,20 +650,21 @@ LABEL_29:
         break;
       }
 
-      v12 = sub_100063A54();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100063A54(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        *v15 = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Wifi interface is not intialized, waiting for CWFEventTypeInterfaceAdded event.", v15, 2u);
+        *v18 = 0;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Wifi interface is not intialized, waiting for CWFEventTypeInterfaceAdded event.", v18, 2u);
       }
 
-      if (([v6 waitUntilDate:v4] & 1) == 0)
+      v15 = [v6 waitUntilDate:v4];
+      if ((v15 & 1) == 0)
       {
-        v13 = sub_100063A54();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v16 = sub_100063A54(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          *v15 = 0;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Wait for wifi interface initialization timed out after 5 seconds", v15, 2u);
+          *v18 = 0;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Wait for wifi interface initialization timed out after 5 seconds", v18, 2u);
         }
 
         break;
@@ -630,7 +678,7 @@ LABEL_29:
 
   else
   {
-    wifiInterface4 = sub_100063A54();
+    wifiInterface4 = sub_100063A54(v10);
     if (os_log_type_enabled(wifiInterface4, OS_LOG_TYPE_ERROR))
     {
       sub_1000E9A88();
@@ -645,10 +693,11 @@ LABEL_29:
 
   notification = 0;
   v4 = IONotificationPortCreate(0);
-  if (IOServiceAddMatchingNotification(v4, "IOServiceMatched", &off_10017C0F8, sub_1000B3124, 0, &notification))
+  v5 = IOServiceAddMatchingNotification(v4, "IOServiceMatched", &off_10017C0F8, sub_1000B3124, 0, &notification);
+  if (v5)
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sub_100063A54(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1000E9AF8();
     }
@@ -656,7 +705,7 @@ LABEL_29:
 
   else
   {
-    if (sub_1000B3124(&notification) || (v5 = dispatch_time(0, 10000000000), [(MSDWiFiHelper *)self sem], v6 = objc_claimAutoreleasedReturnValue(), v7 = dispatch_semaphore_wait(v6, v5), v6, !v7))
+    if (sub_1000B3124(&notification) || (v6 = dispatch_time(0, 10000000000), [(MSDWiFiHelper *)self sem], v7 = objc_claimAutoreleasedReturnValue(), v8 = dispatch_semaphore_wait(v7, v6), v7, !v8))
     {
       if (!v4)
       {
@@ -666,8 +715,8 @@ LABEL_29:
       goto LABEL_5;
     }
 
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sub_100063A54(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1000E9B6C();
     }
@@ -685,57 +734,57 @@ LABEL_5:
 - (void)forgetAllKnownWiFiNetworksExcept:(id)except
 {
   exceptCopy = except;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(exceptCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v27 = exceptCopy;
+    v28 = exceptCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Forgetting all known WiFi networks except: '%{public}@'...", buf, 0xCu);
   }
 
   wifiInterface = [(MSDWiFiHelper *)self wifiInterface];
   v7 = [wifiInterface knownNetworkProfilesWithProperties:0];
 
-  v23 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
+  v23 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v23;
     while (2)
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v22 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
-        if (exceptCopy && ([*(*(&v21 + 1) + 8 * i) networkName], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isEqualToString:", exceptCopy), v14, v15))
+        v13 = *(*(&v22 + 1) + 8 * i);
+        if (exceptCopy && ([*(*(&v22 + 1) + 8 * i) networkName], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isEqualToString:", exceptCopy), v14, v15))
         {
-          v16 = sub_100063A54();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v17 = sub_100063A54(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Found known WiFi network with matching ssid!", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Found known WiFi network with matching ssid!", buf, 2u);
           }
         }
 
         else
         {
           wifiInterface2 = [(MSDWiFiHelper *)self wifiInterface];
-          v20 = 0;
-          v18 = [wifiInterface2 removeKnownNetworkProfile:v13 reason:0 error:&v20];
-          v16 = v20;
+          v21 = 0;
+          v19 = [wifiInterface2 removeKnownNetworkProfile:v13 reason:0 error:&v21];
+          v17 = v21;
 
-          if ((v18 & 1) == 0)
+          if ((v19 & 1) == 0)
           {
-            sub_1000E9BA8(v16);
+            sub_1000E9BA8(v17);
             goto LABEL_18;
           }
 
@@ -744,7 +793,7 @@ LABEL_5:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v10)
       {
         continue;
@@ -762,28 +811,28 @@ LABEL_18:
   wifiInterface = [(MSDWiFiHelper *)self wifiInterface];
   v3 = [wifiInterface knownNetworkProfilesWithProperties:0];
 
-  v21 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
+  v21 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v20;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v20 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
-        if (v7 || ([*(*(&v19 + 1) + 8 * i) lastJoinedAt], v15 = objc_claimAutoreleasedReturnValue(), v15, !v15))
+        v10 = *(*(&v20 + 1) + 8 * i);
+        if (v7 || ([*(*(&v20 + 1) + 8 * i) lastJoinedAt], v15 = objc_claimAutoreleasedReturnValue(), v15, !v15))
         {
           lastJoinedAt = [v10 lastJoinedAt];
           lastJoinedAt2 = [v7 lastJoinedAt];
@@ -803,7 +852,7 @@ LABEL_18:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v6);
@@ -814,13 +863,13 @@ LABEL_18:
     v7 = 0;
   }
 
-  v16 = sub_100063A54();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100063A54(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     networkName = [v7 networkName];
     *buf = 138543362;
-    v24 = networkName;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Last joined WiFi network SSID: %{public}@", buf, 0xCu);
+    v25 = networkName;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Last joined WiFi network SSID: %{public}@", buf, 0xCu);
   }
 
   return v7;
@@ -832,11 +881,11 @@ LABEL_18:
   v4 = settingsCopy;
   if (!settingsCopy)
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100063A54(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "No WiFi settings found.", v11, 2u);
+      *v10 = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "No WiFi settings found.", v10, 2u);
     }
 
     v6 = 0;
@@ -845,25 +894,25 @@ LABEL_18:
 
   v5 = [settingsCopy objectForKey:@"SSID"];
   v6 = v5;
-  if (!v5 || ![v5 length] || (objc_msgSend(v4, "objectForKey:", @"Password"), (v7 = objc_claimAutoreleasedReturnValue()) == 0))
+  if (!v5 || (v5 = [v5 length]) == 0 || (objc_msgSend(v4, "objectForKey:", @"Password"), (v5 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = sub_100063A54(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1000E9C5C();
     }
 
 LABEL_9:
 
+    v5 = 0;
     v7 = 0;
-    v8 = 0;
     goto LABEL_10;
   }
 
-  v8 = 1;
+  v7 = 1;
 LABEL_10:
 
-  return v8;
+  return v7;
 }
 
 - (MSDWiFiHelper)init
@@ -890,21 +939,25 @@ LABEL_10:
 
 - (void)saveCurrentWiFiSettings
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v9 = 0;
-    sub_1000B4D00(&_mh_execute_header, v3, v4, "Saving current wifi settings.", v9);
+    *v10 = 0;
+    sub_1000B4D00(&_mh_execute_header, v3, v4, "Saving current wifi settings.", v10);
   }
 
   v5 = [(MSDWiFiHelper *)self getCurrentWiFiSettings:1];
-  if (v5 && ![(MSDWiFiHelper *)self saveWiFiSettingsToPreferences:v5])
+  if (v5)
   {
-    v6 = sub_100063A54();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v6 = [(MSDWiFiHelper *)self saveWiFiSettingsToPreferences:v5];
+    if ((v6 & 1) == 0)
     {
-      *v8 = 0;
-      sub_1000B4CE8(&_mh_execute_header, v6, v7, "Failed to save wifi settings in our preferences file.", v8);
+      v7 = sub_100063A54(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        *v9 = 0;
+        sub_1000B4CE8(&_mh_execute_header, v7, v8, "Failed to save wifi settings in our preferences file.", v9);
+      }
     }
   }
 }
@@ -922,39 +975,38 @@ LABEL_10:
       goto LABEL_9;
     }
 
-    v6 = [v5 objectForKey:@"Password"];
-    v7 = +[MSDCryptoHandler sharedInstance];
-    v8 = [v7 performCryptoWithSecretKeyOnData:v6 isDecipher:1];
+    v7 = [v5 objectForKey:@"Password"];
+    v8 = +[MSDCryptoHandler sharedInstance];
+    v9 = [v8 performCryptoWithSecretKeyOnData:v7 isDecipher:1];
 
-    if (v8)
+    if (v9)
     {
-      [v5 setObject:v8 forKey:@"Password"];
-      v9 = sub_100063A54();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100063A54([v5 setObject:v9 forKey:@"Password"]);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 0;
-        sub_1000B4D00(&_mh_execute_header, v9, v10, "WiFi settings successfully loaded.", v14);
+        *v16 = 0;
+        sub_1000B4D00(&_mh_execute_header, v11, v12, "WiFi settings successfully loaded.", v16);
       }
     }
 
     else
     {
-      v8 = sub_100063A54();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = sub_100063A54(v10);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        *v15 = 0;
-        sub_1000B4CE8(&_mh_execute_header, v8, v13, "Failed to decrypt WiFi password.", v15);
+        *v17 = 0;
+        sub_1000B4CE8(&_mh_execute_header, v9, v15, "Failed to decrypt WiFi password.", v17);
       }
     }
   }
 
   else
   {
-    v6 = sub_100063A54();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100063A54(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      sub_1000B4D00(&_mh_execute_header, v6, v12, "Persistent WiFi settings does not exist", v16);
+      *v18 = 0;
+      sub_1000B4D00(&_mh_execute_header, v7, v14, "Persistent WiFi settings does not exist", v18);
     }
   }
 
@@ -972,13 +1024,13 @@ LABEL_9:
     v6 = [preferencesCopy objectForKey:@"Password"];
     v7 = [v5 performCryptoWithSecretKeyOnData:v6 isDecipher:0];
 
-    v8 = v7 != 0;
+    v9 = v7 != 0;
     if (v7)
     {
-      v9 = [preferencesCopy mutableCopy];
-      [v9 setObject:v7 forKey:@"Password"];
+      v10 = [preferencesCopy mutableCopy];
+      [v10 setObject:v7 forKey:@"Password"];
       device = [(MSDWiFiHelper *)self device];
-      [device setWifiSettings:v9];
+      [device setWifiSettings:v10];
 
       device2 = [(MSDWiFiHelper *)self device];
       isContentFrozen = [device2 isContentFrozen];
@@ -989,31 +1041,31 @@ LABEL_9:
         [device3 setShouldForgetKnownNetworkUponUnlock:0];
       }
 
-      v14 = sub_100063A54();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_100063A54(v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        *v18 = 0;
-        sub_1000B4D00(&_mh_execute_header, v14, v15, "WiFi settings successfully saved.", v18);
+        *v20 = 0;
+        sub_1000B4D00(&_mh_execute_header, v16, v17, "WiFi settings successfully saved.", v20);
       }
     }
 
     else
     {
-      v9 = sub_100063A54();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = sub_100063A54(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        *v19 = 0;
-        sub_1000B4CE8(&_mh_execute_header, v9, v17, "Failed to produce final password data.", v19);
+        *v21 = 0;
+        sub_1000B4CE8(&_mh_execute_header, v10, v19, "Failed to produce final password data.", v21);
       }
     }
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 @end

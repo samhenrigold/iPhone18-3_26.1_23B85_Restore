@@ -10,14 +10,11 @@
 
 - (NSString)pluginIdentifier
 {
-  v2 = (self + OBJC_IVAR____TtC15MedicalIDDaemon21MedicalIDDaemonPlugin_pluginIdentifier);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_22948549C();
+  v2 = sub_22948549C();
 
-  return v5;
+  return v2;
 }
 
 - (void)setPluginIdentifier:(id)identifier
@@ -26,7 +23,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR____TtC15MedicalIDDaemon21MedicalIDDaemonPlugin_pluginIdentifier);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }

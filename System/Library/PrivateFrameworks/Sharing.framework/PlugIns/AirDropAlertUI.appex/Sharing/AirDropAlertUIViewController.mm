@@ -5,6 +5,7 @@
 - (void)loadView;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)updatedTransfer:(id)transfer;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -117,6 +118,14 @@
       sub_100002990();
     }
   }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = AirDropAlertUIViewController;
+  [(AirDropAlertUIViewController *)&v4 viewDidDisappear:disappear];
+  [(AirDropAlertUIViewController *)self invalidate];
 }
 
 - (void)activateIfNeeded

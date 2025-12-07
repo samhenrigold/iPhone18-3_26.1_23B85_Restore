@@ -20,20 +20,20 @@
 
 - (AVAudioNotificationCenter)initWithServer:(id)server type:(int)type
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   serverCopy = server;
-  v19.receiver = self;
-  v19.super_class = AVAudioNotificationCenter;
-  v7 = [(AVAudioNotificationCenter *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = AVAudioNotificationCenter;
+  v7 = [(AVAudioNotificationCenter *)&v18 init];
   if (!v7)
   {
     goto LABEL_4;
   }
 
   v8 = objc_alloc_init(AVAudioNotificationCenterHandler);
-  v18 = 0;
-  v9 = [serverCopy addNotificationDelegate:v8 error:&v18];
-  v10 = v18;
+  v17 = 0;
+  v9 = [serverCopy addNotificationDelegate:v8 error:&v17];
+  v10 = v17;
   v11 = v10;
   if (v9)
   {
@@ -54,18 +54,17 @@ LABEL_4:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
-    v21 = "AVAudioNotificationCenter.mm";
-    v22 = 1024;
-    v23 = 184;
-    v24 = 2112;
-    v25 = v11;
+    v20 = "AVAudioNotificationCenter.mm";
+    v21 = 1024;
+    v22 = 184;
+    v23 = 2112;
+    v24 = v11;
     _os_log_impl(&dword_1AC8A4000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to configure notification center: %@", buf, 0x1Cu);
   }
 
   v14 = 0;
 LABEL_8:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -135,64 +134,62 @@ LABEL_8:
 
 - (void)unlocked_updateServerWithFilter:(id)filter
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   filterCopy = filter;
   WeakRetained = objc_loadWeakRetained(&self->_server);
   delegateID = self->_delegateID;
-  v11 = 0;
-  LOBYTE(self) = [WeakRetained updateDelegate:delegateID notificationFilter:filterCopy error:&v11];
+  v10 = 0;
+  LOBYTE(self) = [WeakRetained updateDelegate:delegateID notificationFilter:filterCopy error:&v10];
 
-  v7 = v11;
+  v7 = v10;
   if ((self & 1) == 0)
   {
     v9 = *avas::client::gSessionClientLog(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v13 = "AVAudioNotificationCenter.mm";
-      v14 = 1024;
-      v15 = 243;
-      v16 = 2112;
-      v17 = v7;
+      v12 = "AVAudioNotificationCenter.mm";
+      v13 = 1024;
+      v14 = 243;
+      v15 = 2112;
+      v16 = v7;
       _os_log_impl(&dword_1AC8A4000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to update notification center filter: %@", buf, 0x1Cu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)privateStartObservingNotifications:(id)notifications
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   notificationsCopy = notifications;
   v5 = objc_opt_new();
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = notificationsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        propertyName = [*(*(&v13 + 1) + 8 * v9) propertyName];
+        propertyName = [*(*(&v12 + 1) + 8 * v9) propertyName];
         [v5 addObject:propertyName];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -203,42 +200,40 @@ LABEL_8:
   locked_calculateFilter = [(AVAudioNotificationCenter *)self locked_calculateFilter];
   os_unfair_lock_unlock(&self->_mutex.m_lock);
   [(AVAudioNotificationCenter *)self unlocked_updateServerWithFilter:locked_calculateFilter];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)privateStopObservingNotifications:(id)notifications
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   notificationsCopy = notifications;
   v5 = objc_opt_new();
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = notificationsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        propertyName = [*(*(&v13 + 1) + 8 * v9) propertyName];
+        propertyName = [*(*(&v12 + 1) + 8 * v9) propertyName];
         [v5 addObject:propertyName];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -249,8 +244,6 @@ LABEL_8:
   locked_calculateFilter = [(AVAudioNotificationCenter *)self locked_calculateFilter];
   os_unfair_lock_unlock(&self->_mutex.m_lock);
   [(AVAudioNotificationCenter *)self unlocked_updateServerWithFilter:locked_calculateFilter];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)privateSetPropertyNotificationHandler:(id)handler

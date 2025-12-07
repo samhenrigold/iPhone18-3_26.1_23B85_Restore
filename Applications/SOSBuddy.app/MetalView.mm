@@ -18,7 +18,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000FF668();
+  sub_1000FF668(selfCopy, v2);
 }
 
 - (void)traitCollectionDidChange:(id)change

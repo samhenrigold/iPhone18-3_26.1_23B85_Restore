@@ -6,6 +6,7 @@
 - (void)attSiriAttendingTimeoutTriggered;
 - (void)attSiriDidDetectAttendingTrigger:(id)trigger;
 - (void)attSiriDidDetectContinuousConversation;
+- (void)attSiriDidStartAttending:(BOOL)attending useLegacyModel:(BOOL)model;
 - (void)dealloc;
 - (void)invalidate;
 - (void)startAttendingWithContext:(id)context;
@@ -18,6 +19,67 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
+- (void)attSiriDidStartAttending:(BOOL)attending useLegacyModel:(BOOL)model
+{
+  modelCopy = model;
+  attendingCopy = attending;
+  v24 = *MEMORY[0x277D85DE8];
+  v7 = MEMORY[0x277D015D8];
+  v8 = *MEMORY[0x277D015D8];
+  if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
+  {
+    v20 = 136315394;
+    v21 = "[CSAttSiriServiceClient attSiriDidStartAttending:useLegacyModel:]";
+    v22 = 1024;
+    v23 = attendingCopy;
+    _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_DEFAULT, "%s useGazeSignal:%u", &v20, 0x12u);
+  }
+
+  if (CSIsIOS())
+  {
+    if (attendingCopy)
+    {
+      v9 = *v7;
+      if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
+      {
+        v20 = 136315394;
+        v21 = "[CSAttSiriServiceClient attSiriDidStartAttending:useLegacyModel:]";
+        v22 = 1024;
+        v23 = modelCopy;
+        _os_log_impl(&dword_222E4D000, v9, OS_LOG_TYPE_DEFAULT, "%s useLegacyGazeModel:%u", &v20, 0x12u);
+      }
+    }
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  if (WeakRetained)
+  {
+    v11 = WeakRetained;
+    v12 = objc_loadWeakRetained(&self->_delegate);
+    v13 = objc_opt_respondsToSelector();
+
+    if (v13)
+    {
+      v14 = objc_loadWeakRetained(&self->_delegate);
+      [v14 attSiriDidStartAttending:modelCopy];
+    }
+  }
+
+  v15 = objc_loadWeakRetained(&self->_delegate);
+  if (v15)
+  {
+    v16 = v15;
+    v17 = objc_loadWeakRetained(&self->_delegate);
+    v18 = objc_opt_respondsToSelector();
+
+    if (v18)
+    {
+      v19 = objc_loadWeakRetained(&self->_delegate);
+      [v19 attSiriDidStartAttending];
+    }
+  }
 }
 
 - (void)attSiriDidDetectContinuousConversation
@@ -39,13 +101,13 @@
 
 - (void)attSiriAttendingFailed
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315138;
-    v11 = "[CSAttSiriServiceClient attSiriAttendingFailed]";
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[CSAttSiriServiceClient attSiriAttendingFailed]";
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v9, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -61,19 +123,17 @@
       [v8 attSiriAttendingFailed];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)attSiriAttendingTimeoutTriggered
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315138;
-    v11 = "[CSAttSiriServiceClient attSiriAttendingTimeoutTriggered]";
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[CSAttSiriServiceClient attSiriAttendingTimeoutTriggered]";
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v9, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -89,22 +149,20 @@
       [v8 attSiriAttendingTimeoutTriggered];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)attSiriDidDetectAttendingTrigger:(id)trigger
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   v5 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315394;
-    v13 = "[CSAttSiriServiceClient attSiriDidDetectAttendingTrigger:]";
-    v14 = 2112;
-    v15 = triggerCopy;
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEFAULT, "%s triggerInfo: %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[CSAttSiriServiceClient attSiriDidDetectAttendingTrigger:]";
+    v13 = 2112;
+    v14 = triggerCopy;
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEFAULT, "%s triggerInfo: %@", &v11, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -120,8 +178,6 @@
       [v10 attSiriDidDetectAttendingTrigger:triggerCopy];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupAttSiriSvcXpcConnection
@@ -160,41 +216,6 @@
 
 void __55__CSAttSiriServiceClient__setupAttSiriSvcXpcConnection__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = *MEMORY[0x277D015D8];
-  if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = v2;
-    v4 = [WeakRetained attSiriSvcConn];
-    v5 = [WeakRetained attSiriSvcConn];
-    v9 = 136315650;
-    v10 = "[CSAttSiriServiceClient _setupAttSiriSvcXpcConnection]_block_invoke";
-    v11 = 2114;
-    v12 = v4;
-    v13 = 1026;
-    v14 = [v5 processIdentifier];
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s Client Interruption Handler: %{public}@, client PID: %{public}d)", &v9, 0x1Cu);
-  }
-
-  if (WeakRetained)
-  {
-    v6 = [WeakRetained attSiriSvcConn];
-
-    if (v6)
-    {
-      v7 = [WeakRetained attSiriSvcConn];
-      [v7 invalidate];
-
-      [WeakRetained setAttSiriSvcConn:0];
-    }
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __55__CSAttSiriServiceClient__setupAttSiriSvcXpcConnection__block_invoke_72(uint64_t a1)
-{
   v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = *MEMORY[0x277D015D8];
@@ -209,7 +230,40 @@ void __55__CSAttSiriServiceClient__setupAttSiriSvcXpcConnection__block_invoke_72
     v11 = v4;
     v12 = 1026;
     v13 = [v5 processIdentifier];
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s Client Invalidation Handler: %{public}@, client PID: %{public}d exited", &v8, 0x1Cu);
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s Client Interruption Handler: %{public}@, client PID: %{public}d)", &v8, 0x1Cu);
+  }
+
+  if (WeakRetained)
+  {
+    v6 = [WeakRetained attSiriSvcConn];
+
+    if (v6)
+    {
+      v7 = [WeakRetained attSiriSvcConn];
+      [v7 invalidate];
+
+      [WeakRetained setAttSiriSvcConn:0];
+    }
+  }
+}
+
+void __55__CSAttSiriServiceClient__setupAttSiriSvcXpcConnection__block_invoke_72(uint64_t a1)
+{
+  v13 = *MEMORY[0x277D85DE8];
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = *MEMORY[0x277D015D8];
+  if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = v2;
+    v4 = [WeakRetained attSiriSvcConn];
+    v5 = [WeakRetained attSiriSvcConn];
+    v7 = 136315650;
+    v8 = "[CSAttSiriServiceClient _setupAttSiriSvcXpcConnection]_block_invoke";
+    v9 = 2114;
+    v10 = v4;
+    v11 = 1026;
+    v12 = [v5 processIdentifier];
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s Client Invalidation Handler: %{public}@, client PID: %{public}d exited", &v7, 0x1Cu);
   }
 
   if (WeakRetained)
@@ -221,8 +275,6 @@ void __55__CSAttSiriServiceClient__setupAttSiriSvcXpcConnection__block_invoke_72
       [WeakRetained setAttSiriSvcConn:0];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -242,30 +294,28 @@ void __55__CSAttSiriServiceClient__setupAttSiriSvcXpcConnection__block_invoke_72
 
 - (void)startAttendingWithContext:(id)context
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[CSAttSiriServiceClient startAttendingWithContext:]";
-    v9 = 2112;
-    v10 = contextCopy;
-    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEFAULT, "%s ctx=%@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSAttSiriServiceClient startAttendingWithContext:]";
+    v8 = 2112;
+    v9 = contextCopy;
+    _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEFAULT, "%s ctx=%@", &v6, 0x16u);
   }
 
   [self->_remoteSvcProxy startAttendingWithContext:contextCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (CSAttSiriServiceClient)init
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   CSLogInitIfNeeded();
-  v11.receiver = self;
-  v11.super_class = CSAttSiriServiceClient;
-  v3 = [(CSAttSiriServiceClient *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = CSAttSiriServiceClient;
+  v3 = [(CSAttSiriServiceClient *)&v10 init];
   v4 = v3;
   if (v3 && ([(CSAttSiriServiceClient *)v3 _setupAttSiriSvcXpcConnection], [(NSXPCConnection *)v4->_attSiriSvcConn synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_944], v5 = objc_claimAutoreleasedReturnValue(), remoteSvcProxy = v4->_remoteSvcProxy, v4->_remoteSvcProxy = v5, remoteSvcProxy, !v4->_remoteSvcProxy))
   {
@@ -273,7 +323,7 @@ void __55__CSAttSiriServiceClient__setupAttSiriSvcXpcConnection__block_invoke_72
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v13 = "[CSAttSiriServiceClient init]";
+      v12 = "[CSAttSiriServiceClient init]";
       _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, "%s _remoteSvcProxy is nil!", buf, 0xCu);
     }
 
@@ -285,25 +335,22 @@ void __55__CSAttSiriServiceClient__setupAttSiriSvcXpcConnection__block_invoke_72
     v7 = v4;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 void __30__CSAttSiriServiceClient_init__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[CSAttSiriServiceClient init]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s ERR: Failed to get remote proxy object for AttSiriXPC: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[CSAttSiriServiceClient init]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_222E4D000, v3, OS_LOG_TYPE_ERROR, "%s ERR: Failed to get remote proxy object for AttSiriXPC: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -9,6 +9,8 @@
 - (id)_accountTypeWithIdentifier:(id)identifier;
 - (id)_accountTypes;
 - (id)_accounts;
+- (id)_addAccountTypeWithIdentifier:(id)identifier displayName:(id)name visibility:(int)visibility supportedDataclasses:(id)dataclasses credentialType:(id)type supportsAuthentication:(BOOL)authentication supportsMultipleAccounts:(BOOL)accounts;
+- (id)_addAccountTypeWithIdentifier:(id)identifier displayName:(id)name visibility:(int)visibility supportedDataclasses:(id)dataclasses syncableDataclasses:(id)syncableDataclasses credentialType:(id)type supportsAuthentication:(BOOL)authentication supportsMultipleAccounts:(BOOL)self0 credentialProtectionPolicy:(id)self1;
 - (id)_dataclassWithName:(id)name;
 - (id)_dataclasses;
 - (id)_managedDataclassesSetForNames:(id)names;
@@ -194,7 +196,7 @@
 
 void __58__ACDDatabaseInitializer_updateDefaultContentIfNecessary___block_invoke(void *a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 4);
   v3 = [*(a1[4] + 8) version];
   v4 = v3;
@@ -208,29 +210,29 @@ void __58__ACDDatabaseInitializer_updateDefaultContentIfNecessary___block_invoke
     v5 = -1;
   }
 
-  v6 = _ACDLogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _ACDLogSystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [MEMORY[0x277CCABB0] numberWithInteger:v5];
-    v8 = @"not migrating";
+    v8 = [MEMORY[0x277CCABB0] numberWithInteger:v5];
+    v9 = @"not migrating";
     *buf = 138412802;
-    v27 = v7;
-    v29 = &unk_28353F108;
-    v28 = 2112;
+    v30 = v8;
+    v32 = &unk_28353F108;
+    v31 = 2112;
     if (v5 < 107)
     {
-      v8 = @"migrating";
+      v9 = @"migrating";
     }
 
-    v30 = 2112;
-    v31 = v8;
-    _os_log_impl(&dword_221D2F000, v6, OS_LOG_TYPE_DEFAULT, "Opened database at version %@, current config version %@, %@", buf, 0x20u);
+    v33 = 2112;
+    v34 = v9;
+    _os_log_impl(&dword_221D2F000, v7, OS_LOG_TYPE_DEFAULT, "Opened database at version %@, current config version %@, %@", buf, 0x20u);
   }
 
   if (v5 >= 108)
   {
-    v9 = _ACDLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = _ACDLogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __58__ACDDatabaseInitializer_updateDefaultContentIfNecessary___block_invoke_cold_1();
     }
@@ -465,7 +467,7 @@ LABEL_212:
                                                                                                                                                                                                     [*v2 _addDataclassNumberingToExistingDataclasses];
 LABEL_213:
                                                                                                                                                                                                     [*v2 _addDataclassWithName:*MEMORY[0x277CB8980]];
-                                                                                                                                                                                                    v10 = 1;
+                                                                                                                                                                                                    v12 = 1;
                                                                                                                                                                                                     goto LABEL_214;
                                                                                                                                                                                                   }
 
@@ -997,61 +999,59 @@ LABEL_117:
   }
 
 LABEL_13:
-  v10 = 0;
+  v12 = 0;
 LABEL_214:
-  v11 = [*v2 _ensureAllDataclassesExist];
-  v12 = [*v2 _ensureAllInternalAccountTypesExist:v11];
-  if ((v11 & 1) != 0 || (v10 & 1) != 0 || v12)
+  v13 = [*v2 _ensureAllDataclassesExist];
+  v14 = [*v2 _ensureAllInternalAccountTypesExist:v13];
+  if ((v13 & 1) != 0 || (v12 & 1) != 0 || v14)
   {
-    v13 = (a1 + 6);
-    v14 = *(a1[4] + 8);
-    v15 = *(a1[6] + 8);
-    obj = *(v15 + 40);
-    v16 = [v14 saveWithError:&obj];
-    objc_storeStrong((v15 + 40), obj);
-    *(*(a1[5] + 8) + 24) = v16;
+    v15 = a1 + 6;
+    v16 = *(a1[4] + 8);
+    v17 = *(a1[6] + 8);
+    obj = *(v17 + 40);
+    v18 = [v16 saveWithError:&obj];
+    objc_storeStrong((v17 + 40), obj);
+    *(*(a1[5] + 8) + 24) = v18;
     if (*(*(a1[5] + 8) + 24))
     {
       [*(a1[4] + 8) setVersion:&unk_28353F108];
-      v17 = *(a1[4] + 8);
-      v18 = *(a1[6] + 8);
-      v24 = *(v18 + 40);
-      v19 = [v17 saveWithError:&v24];
-      objc_storeStrong((v18 + 40), v24);
-      *(*(a1[5] + 8) + 24) = v19;
-      LOBYTE(v18) = *(*(a1[5] + 8) + 24);
-      v20 = _ACDLogSystem();
-      v21 = v20;
-      if (v18)
+      v20 = *(a1[4] + 8);
+      v21 = *(a1[6] + 8);
+      v27 = *(v21 + 40);
+      v22 = [v20 saveWithError:&v27];
+      objc_storeStrong((v21 + 40), v27);
+      *(*(a1[5] + 8) + 24) = v22;
+      LOBYTE(v21) = *(*(a1[5] + 8) + 24);
+      v24 = _ACDLogSystem(v23);
+      v25 = v24;
+      if (v21)
       {
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = [MEMORY[0x277CCABB0] numberWithInteger:v5];
+          v26 = [MEMORY[0x277CCABB0] numberWithInteger:v5];
           *buf = 138412546;
-          v27 = v22;
-          v28 = 2112;
-          v29 = &unk_28353F108;
-          _os_log_impl(&dword_221D2F000, v21, OS_LOG_TYPE_DEFAULT, "Updated database from version %@ to %@", buf, 0x16u);
+          v30 = v26;
+          v31 = 2112;
+          v32 = &unk_28353F108;
+          _os_log_impl(&dword_221D2F000, v25, OS_LOG_TYPE_DEFAULT, "Updated database from version %@ to %@", buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        __58__ACDDatabaseInitializer_updateDefaultContentIfNecessary___block_invoke_cold_2(v13);
+        __58__ACDDatabaseInitializer_updateDefaultContentIfNecessary___block_invoke_cold_2();
       }
     }
 
     else
     {
-      v21 = _ACDLogSystem();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v25 = _ACDLogSystem(v19);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        __58__ACDDatabaseInitializer_updateDefaultContentIfNecessary___block_invoke_cold_3(v5, v13, v21);
+        __58__ACDDatabaseInitializer_updateDefaultContentIfNecessary___block_invoke_cold_3(v5, v15, v25);
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_accounts
@@ -1116,27 +1116,27 @@ LABEL_214:
 
 - (id)_dataclassWithName:(id)name
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   nameCopy = name;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   _dataclasses = [(ACDDatabaseInitializer *)self _dataclasses];
-  v6 = [_dataclasses countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [_dataclasses countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(_dataclasses);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         name = [v9 name];
         v11 = [name isEqual:nameCopy];
 
@@ -1147,7 +1147,7 @@ LABEL_214:
         }
       }
 
-      v6 = [_dataclasses countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [_dataclasses countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -1159,34 +1159,32 @@ LABEL_214:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)_accountTypeWithIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   _accountTypes = [(ACDDatabaseInitializer *)self _accountTypes];
-  v6 = [_accountTypes countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [_accountTypes countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(_accountTypes);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
         v11 = [identifier isEqual:identifierCopy];
 
@@ -1197,7 +1195,7 @@ LABEL_11:
         }
       }
 
-      v6 = [_accountTypes countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [_accountTypes countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -1209,34 +1207,32 @@ LABEL_11:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)_accessKeyWithName:(id)name
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   nameCopy = name;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   _accessKeys = [(ACDDatabaseInitializer *)self _accessKeys];
-  v6 = [_accessKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [_accessKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(_accessKeys);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         name = [v9 name];
         v11 = [name isEqual:nameCopy];
 
@@ -1247,7 +1243,7 @@ LABEL_11:
         }
       }
 
-      v6 = [_accessKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [_accessKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -1259,9 +1255,90 @@ LABEL_11:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
+}
+
+- (id)_addAccountTypeWithIdentifier:(id)identifier displayName:(id)name visibility:(int)visibility supportedDataclasses:(id)dataclasses credentialType:(id)type supportsAuthentication:(BOOL)authentication supportsMultipleAccounts:(BOOL)accounts
+{
+  BYTE1(v10) = accounts;
+  LOBYTE(v10) = authentication;
+  return [(ACDDatabaseInitializer *)self _addAccountTypeWithIdentifier:identifier displayName:name visibility:*&visibility supportedDataclasses:dataclasses syncableDataclasses:0 credentialType:type supportsAuthentication:v10 supportsMultipleAccounts:?];
+}
+
+- (id)_addAccountTypeWithIdentifier:(id)identifier displayName:(id)name visibility:(int)visibility supportedDataclasses:(id)dataclasses syncableDataclasses:(id)syncableDataclasses credentialType:(id)type supportsAuthentication:(BOOL)authentication supportsMultipleAccounts:(BOOL)self0 credentialProtectionPolicy:(id)self1
+{
+  v14 = *&visibility;
+  v37 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  dataclassesCopy = dataclasses;
+  syncableDataclassesCopy = syncableDataclasses;
+  typeCopy = type;
+  policyCopy = policy;
+  nameCopy = name;
+  v23 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:identifierCopy];
+  if (v23)
+  {
+    v24 = v23;
+    v25 = _ACDLogSystem(v23);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v36 = identifierCopy;
+      _os_log_impl(&dword_221D2F000, v25, OS_LOG_TYPE_DEFAULT, "@Attempt to add account type %@ which already exists, will modify to match expected", buf, 0xCu);
+    }
+  }
+
+  else
+  {
+    v24 = [(ACDDatabaseConnection *)self->_databaseConnection insertNewObjectForEntityForName:@"AccountType"];
+  }
+
+  [v24 setIdentifier:identifierCopy];
+  [v24 setAccountTypeDescription:nameCopy];
+
+  v26 = [MEMORY[0x277CCABB0] numberWithInt:v14];
+  [v24 setVisibility:v26];
+
+  v27 = [MEMORY[0x277CCABB0] numberWithBool:authentication];
+  [v24 setSupportsAuthentication:v27];
+
+  v28 = [MEMORY[0x277CCABB0] numberWithBool:accounts];
+  [v24 setSupportsMultipleAccounts:v28];
+
+  if (dataclassesCopy)
+  {
+    [v24 setSupportedDataclasses:dataclassesCopy];
+  }
+
+  if (syncableDataclassesCopy)
+  {
+    [v24 setSyncableDataclasses:syncableDataclassesCopy];
+  }
+
+  if (typeCopy)
+  {
+    [v24 setCredentialType:typeCopy];
+  }
+
+  if (policyCopy)
+  {
+    v29 = v24;
+    v30 = policyCopy;
+  }
+
+  else
+  {
+    v30 = *MEMORY[0x277CDBEE0];
+    v29 = v24;
+  }
+
+  [v29 setCredentialProtectionPolicy:v30];
+  v31 = [(ACDDatabaseConnection *)self->_databaseConnection fetchObjectsForEntityNamed:@"AccountType"];
+  v32 = [v31 mutableCopy];
+  accountTypes = self->_accountTypes;
+  self->_accountTypes = v32;
+
+  return v24;
 }
 
 - (void)_addCredentialType:(id)type toAccountType:(id)accountType supportsAuthentication:(BOOL)authentication
@@ -1291,7 +1368,7 @@ LABEL_11:
 
     else
     {
-      v13 = _ACDLogSystem();
+      v13 = _ACDLogSystem(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [ACDDatabaseInitializer _addCredentialType:toAccountType:supportsAuthentication:];
@@ -1307,8 +1384,8 @@ LABEL_11:
 
   if (v5)
   {
-    v6 = _ACDLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _ACDLogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [ACDDatabaseInitializer _addDataclassWithName:];
     }
@@ -1316,30 +1393,30 @@ LABEL_11:
 
   else
   {
-    v6 = [(ACDDatabaseConnection *)self->_databaseConnection insertNewObjectForEntityForName:@"Dataclass"];
-    [v6 setName:nameCopy];
-    v7 = ACDataclassForACAccountDataclass();
-    if (v7 == 0xFFFF)
+    v7 = [(ACDDatabaseConnection *)self->_databaseConnection insertNewObjectForEntityForName:@"Dataclass"];
+    [v7 setName:nameCopy];
+    v8 = ACDataclassForACAccountDataclass();
+    if (v8 == 0xFFFF)
     {
-      v9 = _ACLogSystem();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = _ACLogSystem();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [ACDDatabaseInitializer _addDataclassWithName:];
       }
 
-      [v6 setEnumValue:&unk_28353F120];
+      [v7 setEnumValue:&unk_28353F120];
     }
 
     else
     {
-      v8 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v7];
-      [v6 setEnumValue:v8];
+      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v8];
+      [v7 setEnumValue:v9];
     }
 
-    v10 = [(ACDDatabaseConnection *)self->_databaseConnection fetchObjectsForEntityNamed:@"Dataclass"];
-    v11 = [v10 mutableCopy];
+    v11 = [(ACDDatabaseConnection *)self->_databaseConnection fetchObjectsForEntityNamed:@"Dataclass"];
+    v12 = [v11 mutableCopy];
     dataclasses = self->_dataclasses;
-    self->_dataclasses = v11;
+    self->_dataclasses = v12;
   }
 }
 
@@ -1350,8 +1427,8 @@ LABEL_11:
 
   if (v5)
   {
-    v6 = _ACDLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _ACDLogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [ACDDatabaseInitializer _addAccessKeyWithName:];
     }
@@ -1359,12 +1436,12 @@ LABEL_11:
 
   else
   {
-    v7 = [(ACDDatabaseConnection *)self->_databaseConnection insertNewObjectForEntityForName:@"AccessOptionsKey"];
-    [v7 setName:nameCopy];
-    v8 = [(ACDDatabaseConnection *)self->_databaseConnection fetchObjectsForEntityNamed:@"AccessOptionsKey"];
-    v9 = [v8 mutableCopy];
+    v8 = [(ACDDatabaseConnection *)self->_databaseConnection insertNewObjectForEntityForName:@"AccessOptionsKey"];
+    [v8 setName:nameCopy];
+    v9 = [(ACDDatabaseConnection *)self->_databaseConnection fetchObjectsForEntityNamed:@"AccessOptionsKey"];
+    v10 = [v9 mutableCopy];
     accessKeys = self->_accessKeys;
-    self->_accessKeys = v9;
+    self->_accessKeys = v10;
   }
 }
 
@@ -1538,36 +1615,36 @@ LABEL_11:
 
 - (void)_addSupportsAuthenticationAttributeToAccountTypes
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   _accountTypes = [(ACDDatabaseInitializer *)self _accountTypes];
-  v3 = [_accountTypes countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v3 = [_accountTypes countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v29;
+    v5 = *v28;
     v6 = *MEMORY[0x277CB8BB8];
     v7 = *MEMORY[0x277CB8C18];
-    v27 = *MEMORY[0x277CB8D28];
-    v24 = *MEMORY[0x277CB8D00];
-    v22 = *MEMORY[0x277CB8BC8];
-    v19 = *MEMORY[0x277CB8BD8];
-    v25 = _accountTypes;
-    v26 = *MEMORY[0x277CB8C18];
+    v26 = *MEMORY[0x277CB8D28];
+    v23 = *MEMORY[0x277CB8D00];
+    v21 = *MEMORY[0x277CB8BC8];
+    v18 = *MEMORY[0x277CB8BD8];
+    v24 = _accountTypes;
+    v25 = *MEMORY[0x277CB8C18];
     do
     {
       v8 = 0;
       do
       {
-        if (*v29 != v5)
+        if (*v28 != v5)
         {
           objc_enumerationMutation(_accountTypes);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * v8);
+        v9 = *(*(&v27 + 1) + 8 * v8);
         identifier = [v9 identifier];
         if ([identifier isEqual:v6])
         {
@@ -1582,26 +1659,26 @@ LABEL_11:
         }
 
         identifier3 = [v9 identifier];
-        if ([identifier3 isEqual:v27])
+        if ([identifier3 isEqual:v26])
         {
           goto LABEL_13;
         }
 
         identifier4 = [v9 identifier];
-        if ([identifier4 isEqual:v24])
+        if ([identifier4 isEqual:v23])
         {
           goto LABEL_12;
         }
 
         identifier5 = [v9 identifier];
-        if ([identifier5 isEqual:v22])
+        if ([identifier5 isEqual:v21])
         {
 
 LABEL_12:
-          _accountTypes = v25;
+          _accountTypes = v24;
 LABEL_13:
 
-          v7 = v26;
+          v7 = v25;
 LABEL_14:
 
           v6 = v11;
@@ -1613,12 +1690,12 @@ LABEL_16:
         }
 
         identifier6 = [v9 identifier];
-        v21 = [identifier6 isEqual:v19];
+        v20 = [identifier6 isEqual:v18];
 
-        _accountTypes = v25;
-        v7 = v26;
+        _accountTypes = v24;
+        v7 = v25;
         v6 = v11;
-        if (v21)
+        if (v20)
         {
           goto LABEL_16;
         }
@@ -1632,41 +1709,39 @@ LABEL_17:
       }
 
       while (v4 != v8);
-      v17 = [_accountTypes countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v17 = [_accountTypes countByEnumeratingWithState:&v27 objects:v31 count:16];
       v4 = v17;
     }
 
     while (v17);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addSupportsAuthenticationAttributeToAccounts
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   _accounts = [(ACDDatabaseInitializer *)self _accounts];
-  v3 = [_accounts countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [_accounts countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     v6 = *MEMORY[0x277CB8BC8];
     v7 = *MEMORY[0x277CB8BD8];
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(_accounts);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         accountType = [v9 accountType];
         identifier = [accountType identifier];
         if (([identifier isEqual:v6] & 1) != 0 || objc_msgSend(identifier, "isEqual:", v7))
@@ -1683,47 +1758,45 @@ LABEL_17:
         [v9 setSupportsAuthentication:supportsAuthentication];
       }
 
-      v4 = [_accounts countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [_accounts countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addMissingAccountTypes
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   _accountTypes = [(ACDDatabaseInitializer *)self _accountTypes];
-  v5 = [_accountTypes countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [_accountTypes countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(_accountTypes);
         }
 
-        identifier = [*(*(&v11 + 1) + 8 * v8) identifier];
+        identifier = [*(*(&v10 + 1) + 8 * v8) identifier];
         [v3 addObject:identifier];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [_accountTypes countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [_accountTypes countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
@@ -1783,8 +1856,6 @@ LABEL_17:
   {
     [(ACDDatabaseInitializer *)self _addYoukuAccountType];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addSyncableDataclassesToCardAndCalDAV
@@ -1812,28 +1883,28 @@ LABEL_17:
 
 - (void)_addSupportsMultipleAccountsAttributeToAccountTypes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   _accountTypes = [(ACDDatabaseInitializer *)self _accountTypes];
-  v3 = [_accountTypes countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [_accountTypes countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     v6 = *MEMORY[0x277CB8C18];
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(_accountTypes);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         identifier = [v8 identifier];
         v10 = [identifier isEqual:v6];
 
@@ -1841,13 +1912,11 @@ LABEL_17:
         [v8 setSupportsMultipleAccounts:v11];
       }
 
-      v4 = [_accountTypes countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [_accountTypes countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addFacebookAccessKeys
@@ -1860,32 +1929,28 @@ LABEL_17:
 
 - (void)_addAccessKeysAttributeToFacebookAccountType
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v3 = [(ACDDatabaseInitializer *)self _accessKeyWithName:*MEMORY[0x277CB8DD0]];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = [(ACDDatabaseInitializer *)self _accessKeyWithName:*MEMORY[0x277CB8DE0]];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
 
   v6 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:*MEMORY[0x277CB8C18]];
   v7 = [MEMORY[0x277CBEB98] setWithArray:v5];
   [v6 setAccessKeys:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addAccessKeysAttributeToLiverpoolAccountType
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = [(ACDDatabaseInitializer *)self _accessKeyWithName:*MEMORY[0x277CB8E10]];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
 
   v5 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:@"com.apple.account.Liverpool"];
   v6 = [MEMORY[0x277CBEB98] setWithArray:v4];
   [v5 setAccessKeys:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeFacebookPermissionGroupAccessKey
@@ -1912,19 +1977,17 @@ LABEL_17:
 
 - (void)_addFacebookAudienceAccessKeyToFacebookAccountType
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   v3 = [(ACDDatabaseInitializer *)self _accessKeyWithName:*MEMORY[0x277CB8DD0]];
   v4 = [(ACDDatabaseInitializer *)self _accessKeyWithName:*MEMORY[0x277CB8DE0], v3];
-  v10[1] = v4;
+  v9[1] = v4;
   v5 = [(ACDDatabaseInitializer *)self _accessKeyWithName:*MEMORY[0x277CB8DD8]];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
 
   v7 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:*MEMORY[0x277CB8C18]];
   v8 = [MEMORY[0x277CBEB98] setWithArray:v6];
   [v7 setAccessKeys:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addGmailAccountType
@@ -1981,18 +2044,16 @@ LABEL_17:
 
 - (void)_addAccessKeysAttributeToLinkedInAccountType
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v3 = [(ACDDatabaseInitializer *)self _accessKeyWithName:@"ACLinkedInAppIdKey"];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = [(ACDDatabaseInitializer *)self _accessKeyWithName:@"ACLinkedInPermissionsKey"];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
 
   v6 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:@"com.apple.linkedin"];
   v7 = [MEMORY[0x277CBEB98] setWithArray:v5];
   [v6 setAccessKeys:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_limitFlickrToOneAccount
@@ -2091,73 +2152,73 @@ LABEL_17:
 
 - (void)_ensureAccountTypeWithIdentifier:(id)identifier supportsDataclasses:(id)dataclasses syncsDataclasses:(id)syncsDataclasses
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dataclassesCopy = dataclasses;
   syncsDataclassesCopy = syncsDataclasses;
   v10 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:identifier];
   v11 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v12 = dataclassesCopy;
-  v13 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v35;
+    v15 = *v34;
     do
     {
       v16 = 0;
       do
       {
-        if (*v35 != v15)
+        if (*v34 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [(ACDDatabaseInitializer *)self _dataclassWithName:*(*(&v34 + 1) + 8 * v16)];
+        v17 = [(ACDDatabaseInitializer *)self _dataclassWithName:*(*(&v33 + 1) + 8 * v16)];
         [v11 addObject:v17];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v14);
   }
 
   v18 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v19 = syncsDataclassesCopy;
-  v20 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v31;
+    v22 = *v30;
     do
     {
       v23 = 0;
       do
       {
-        if (*v31 != v22)
+        if (*v30 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = [(ACDDatabaseInitializer *)self _dataclassWithName:*(*(&v30 + 1) + 8 * v23), v30];
+        v24 = [(ACDDatabaseInitializer *)self _dataclassWithName:*(*(&v29 + 1) + 8 * v23), v29];
         [v18 addObject:v24];
 
         ++v23;
       }
 
       while (v21 != v23);
-      v21 = [v19 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
     while (v21);
@@ -2178,43 +2239,41 @@ LABEL_17:
   {
     [v10 setSyncableDataclasses:v18];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_ensureMajorDataclassesExist
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = *MEMORY[0x277CB9178];
-  v18[0] = *MEMORY[0x277CB9150];
-  v18[1] = v3;
+  v17[0] = *MEMORY[0x277CB9150];
+  v17[1] = v3;
   v4 = *MEMORY[0x277CB90F0];
-  v18[2] = *MEMORY[0x277CB9108];
-  v18[3] = v4;
+  v17[2] = *MEMORY[0x277CB9108];
+  v17[3] = v4;
   v5 = *MEMORY[0x277CB9110];
-  v18[4] = *MEMORY[0x277CB9190];
-  v18[5] = v5;
-  v18[6] = *MEMORY[0x277CB90D0];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:{7, 0}];
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v17[4] = *MEMORY[0x277CB9190];
+  v17[5] = v5;
+  v17[6] = *MEMORY[0x277CB90D0];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:{7, 0}];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         v12 = [(ACDDatabaseInitializer *)self _dataclassWithName:v11];
 
         if (!v12)
@@ -2223,151 +2282,145 @@ LABEL_17:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_ensureProperAccountTypeDataclasses
 {
-  v63[2] = *MEMORY[0x277D85DE8];
+  v62[2] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CB8C18];
   v5 = *MEMORY[0x277CB90F0];
-  v63[0] = *MEMORY[0x277CB9108];
-  v4 = v63[0];
-  v63[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:2];
+  v62[0] = *MEMORY[0x277CB9108];
+  v4 = v62[0];
+  v62[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
   [(ACDDatabaseInitializer *)self _ensureAccountTypeWithIdentifier:v3 supportsDataclasses:v6 syncsDataclasses:0];
 
   v7 = *MEMORY[0x277CB8D10];
-  v62 = v5;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
   v61 = v5;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+  v60 = v5;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
   [(ACDDatabaseInitializer *)self _ensureAccountTypeWithIdentifier:v7 supportsDataclasses:v8 syncsDataclasses:v9];
 
   v10 = *MEMORY[0x277CB8BC8];
   v11 = *MEMORY[0x277CB9190];
-  v60[0] = v5;
-  v60[1] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
   v59[0] = v5;
   v59[1] = v11;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
+  v58[0] = v5;
+  v58[1] = v11;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
   [(ACDDatabaseInitializer *)self _ensureAccountTypeWithIdentifier:v10 supportsDataclasses:v12 syncsDataclasses:v13];
 
   v14 = *MEMORY[0x277CB8BD8];
   v15 = *MEMORY[0x277CB9110];
-  v58[0] = v4;
-  v58[1] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
   v57[0] = v4;
   v57[1] = v15;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+  v56[0] = v4;
+  v56[1] = v15;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
   [(ACDDatabaseInitializer *)self _ensureAccountTypeWithIdentifier:v14 supportsDataclasses:v16 syncsDataclasses:v17];
 
   v18 = *MEMORY[0x277CB8BC0];
-  v56 = *MEMORY[0x277CB90D0];
-  v19 = v56;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
-  v55 = v19;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
+  v55 = *MEMORY[0x277CB90D0];
+  v19 = v55;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
+  v54 = v19;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
   [(ACDDatabaseInitializer *)self _ensureAccountTypeWithIdentifier:v18 supportsDataclasses:v20 syncsDataclasses:v21];
 
   v22 = *MEMORY[0x277CB8C00];
   v24 = *MEMORY[0x277CB9178];
-  v54[0] = *MEMORY[0x277CB9150];
-  v23 = v54[0];
-  v54[1] = v24;
-  v54[2] = v4;
-  v54[3] = v5;
-  v54[4] = v11;
-  v54[5] = v15;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:6];
-  v53[0] = v23;
+  v53[0] = *MEMORY[0x277CB9150];
+  v23 = v53[0];
   v53[1] = v24;
   v53[2] = v4;
   v53[3] = v5;
   v53[4] = v11;
   v53[5] = v15;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:6];
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:6];
+  v52[0] = v23;
+  v52[1] = v24;
+  v52[2] = v4;
+  v52[3] = v5;
+  v52[4] = v11;
+  v52[5] = v15;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:6];
   [(ACDDatabaseInitializer *)self _ensureAccountTypeWithIdentifier:v22 supportsDataclasses:v25 syncsDataclasses:v26];
 
   v27 = *MEMORY[0x277CB8C50];
-  v52[0] = v23;
-  v52[1] = v4;
-  v52[2] = v5;
-  v52[3] = v11;
-  v52[4] = v15;
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:5];
   v51[0] = v23;
   v51[1] = v4;
   v51[2] = v5;
   v51[3] = v11;
   v51[4] = v15;
-  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:5];
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:5];
+  v50[0] = v23;
+  v50[1] = v4;
+  v50[2] = v5;
+  v50[3] = v11;
+  v50[4] = v15;
+  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:5];
   [(ACDDatabaseInitializer *)self _ensureAccountTypeWithIdentifier:v27 supportsDataclasses:v28 syncsDataclasses:v29];
 
   v30 = *MEMORY[0x277CB8C98];
-  v50 = v15;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
   v49 = v15;
-  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
+  v48 = v15;
+  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
   [(ACDDatabaseInitializer *)self _ensureAccountTypeWithIdentifier:v30 supportsDataclasses:v31 syncsDataclasses:v32];
 
   v33 = *MEMORY[0x277CB8C40];
-  v48[0] = v23;
-  v48[1] = v24;
-  v48[2] = v4;
-  v48[3] = v5;
-  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:4];
-  v47 = v23;
-  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
+  v47[0] = v23;
+  v47[1] = v24;
+  v47[2] = v4;
+  v47[3] = v5;
+  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:4];
+  v46 = v23;
+  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
   [(ACDDatabaseInitializer *)self _ensureAccountTypeWithIdentifier:v33 supportsDataclasses:v34 syncsDataclasses:v35];
 
   v36 = *MEMORY[0x277CB8D38];
-  v46[0] = v23;
-  v46[1] = v24;
-  v46[2] = v4;
-  v46[3] = v5;
-  v46[4] = v11;
-  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:5];
-  v45 = v23;
-  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+  v45[0] = v23;
+  v45[1] = v24;
+  v45[2] = v4;
+  v45[3] = v5;
+  v45[4] = v11;
+  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:5];
+  v44 = v23;
+  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
   [(ACDDatabaseInitializer *)self _ensureAccountTypeWithIdentifier:v36 supportsDataclasses:v37 syncsDataclasses:v38];
 
   v39 = *MEMORY[0x277CB8C70];
-  v44 = v24;
-  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
   v43 = v24;
-  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+  v42 = v24;
+  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
   [(ACDDatabaseInitializer *)self _ensureAccountTypeWithIdentifier:v39 supportsDataclasses:v40 syncsDataclasses:v41];
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_modernIMAPSupportedDataclasses
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CB9178];
-  v6[0] = *MEMORY[0x277CB9150];
-  v6[1] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = *MEMORY[0x277CB9150];
+  v5[1] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
 
   return v3;
 }
 
 - (id)_modernIMAPSyncableDataclasses
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CB9150];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CB9150];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -2386,10 +2439,9 @@ LABEL_17:
 
 - (id)_modernPOPSupportedAndSyncableDataclasses
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CB9150];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CB9150];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -2408,10 +2460,9 @@ LABEL_17:
 
 - (id)_modernIMAPMailSupportedAndSyncableDataclasses
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CB9150];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CB9150];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -2442,10 +2493,9 @@ LABEL_17:
 
 - (id)_modernDeviceLocatiorSupportedDataclasses
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CB9128];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CB9128];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -2477,33 +2527,33 @@ LABEL_17:
 
 - (void)_updateIdentityServicesAccountTypeToSupportAuthenticationAndMultipleAccounts
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CB8C78];
   v4 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:*MEMORY[0x277CB8C78]];
   v5 = MEMORY[0x277CBEC38];
   [v4 setSupportsAuthentication:MEMORY[0x277CBEC38]];
-  v16 = v4;
+  v15 = v4;
   [v4 setSupportsMultipleAccounts:v5];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   _accounts = [(ACDDatabaseInitializer *)self _accounts];
-  v7 = [_accounts countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [_accounts countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(_accounts);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         accountType = [v11 accountType];
         identifier = [accountType identifier];
         if ([identifier isEqual:v3])
@@ -2513,13 +2563,11 @@ LABEL_17:
         }
       }
 
-      v8 = [_accounts countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [_accounts countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateIdentityServicesAccountDescription
@@ -2548,10 +2596,9 @@ LABEL_17:
 
 - (id)_modernHolidayCalendarSupportedAndSyncableDataclasses
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CB90F0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CB90F0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -2581,27 +2628,27 @@ LABEL_17:
 
 - (void)_setOwningBundleIDForNativeAccountTypes
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   _accountTypes = [(ACDDatabaseInitializer *)self _accountTypes];
-  v3 = [_accountTypes countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [_accountTypes countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(_accountTypes);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         owningBundleID = [v7 owningBundleID];
 
         if (!owningBundleID)
@@ -2610,41 +2657,39 @@ LABEL_17:
         }
       }
 
-      v4 = [_accountTypes countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [_accountTypes countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createLiverpoolDataclasses
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:*MEMORY[0x277CB8BA0]];
   supportedDataclasses = [v3 supportedDataclasses];
   v5 = [supportedDataclasses mutableCopy];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
-  v6 = [&unk_28353F1E0 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v6 = [&unk_28353F1E0 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(&unk_28353F1E0);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         v11 = [(ACDDatabaseInitializer *)self _dataclassWithName:v10];
 
         if (!v11)
@@ -2659,15 +2704,13 @@ LABEL_17:
         }
       }
 
-      v7 = [&unk_28353F1E0 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [&unk_28353F1E0 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   [v3 setSupportedDataclasses:v5];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addCloudKitAccountType
@@ -2679,47 +2722,45 @@ LABEL_17:
 
 - (void)_addAccessKeysAttributeToCloudKitAccountType
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = [(ACDDatabaseInitializer *)self _accessKeyWithName:*MEMORY[0x277CB8E10]];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
 
   v5 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:*MEMORY[0x277CB8BE8]];
   v6 = [MEMORY[0x277CBEB98] setWithArray:v4];
   [v5 setAccessKeys:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeLiverpoolTypes
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:@"com.apple.account.Liverpool"];
   if (v3)
   {
     [(ACDDatabaseConnection *)self->_databaseConnection deleteObject:v3];
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
-  v4 = [&unk_28353F1F8 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v4 = [&unk_28353F1F8 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(&unk_28353F1F8);
         }
 
-        v8 = [(ACDDatabaseInitializer *)self _dataclassWithName:*(*(&v10 + 1) + 8 * v7)];
+        v8 = [(ACDDatabaseInitializer *)self _dataclassWithName:*(*(&v9 + 1) + 8 * v7)];
         if (v8)
         {
           [(ACDDatabaseConnection *)self->_databaseConnection deleteObject:v8];
@@ -2729,43 +2770,41 @@ LABEL_17:
       }
 
       while (v5 != v7);
-      v5 = [&unk_28353F1F8 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [&unk_28353F1F8 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addCloudKitDataclasses
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = *MEMORY[0x277CB90E0];
-  v23[0] = *MEMORY[0x277CB90D8];
-  v23[1] = v4;
-  v23[2] = *MEMORY[0x277CB90E8];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:{3, 0}];
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v22[0] = *MEMORY[0x277CB90D8];
+  v22[1] = v4;
+  v22[2] = *MEMORY[0x277CB90E8];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:{3, 0}];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [(ACDDatabaseInitializer *)self _dataclassWithName:v10];
 
         if (!v11)
@@ -2780,7 +2819,7 @@ LABEL_17:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v7);
@@ -2797,8 +2836,6 @@ LABEL_17:
   v17 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:*MEMORY[0x277CB8BE8]];
   [v17 setSupportedDataclasses:v3];
   [v17 setSyncableDataclasses:v3];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setCloudKitCredentialType
@@ -2809,7 +2846,7 @@ LABEL_17:
 
 - (void)_addAndConfigureAllOSXAccountTypes
 {
-  v3 = _ACDLogSystem();
+  v3 = _ACDLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [ACDDatabaseInitializer _addAndConfigureAllOSXAccountTypes];
@@ -2847,50 +2884,47 @@ LABEL_17:
 
 - (void)_addDocumentsAndVPNDataclass
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CB9168];
   [(ACDDatabaseInitializer *)self _addDataclassWithName:*MEMORY[0x277CB9168]];
   v4 = *MEMORY[0x277CB9198];
   [(ACDDatabaseInitializer *)self _addDataclassWithName:*MEMORY[0x277CB9198]];
-  v13 = *MEMORY[0x277CB8CC8];
+  v12 = *MEMORY[0x277CB8CC8];
   v6 = *MEMORY[0x277CB9190];
-  v15[0] = *MEMORY[0x277CB90F0];
-  v5 = v15[0];
-  v15[1] = v6;
-  v8 = *MEMORY[0x277CB9150];
-  v16 = *MEMORY[0x277CB9178];
-  v7 = v16;
-  v17 = v8;
-  v18 = *MEMORY[0x277CB9108];
-  v9 = v18;
-  v19 = v3;
-  v20 = v4;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:7];
-  v14[0] = v5;
+  v14[0] = *MEMORY[0x277CB90F0];
+  v5 = v14[0];
   v14[1] = v6;
-  v14[2] = v7;
-  v14[3] = v8;
-  v14[4] = v9;
-  v14[5] = v3;
-  v14[6] = v4;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:7];
-  [(ACDDatabaseInitializer *)self _ensureAccountTypeWithIdentifier:v13 supportsDataclasses:v10 syncsDataclasses:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277CB9150];
+  v15 = *MEMORY[0x277CB9178];
+  v7 = v15;
+  v16 = v8;
+  v17 = *MEMORY[0x277CB9108];
+  v9 = v17;
+  v18 = v3;
+  v19 = v4;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:7];
+  v13[0] = v5;
+  v13[1] = v6;
+  v13[2] = v7;
+  v13[3] = v8;
+  v13[4] = v9;
+  v13[5] = v3;
+  v13[6] = v4;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:7];
+  [(ACDDatabaseInitializer *)self _ensureAccountTypeWithIdentifier:v12 supportsDataclasses:v10 syncsDataclasses:v11];
 }
 
 - (id)_modernOnMyDeviceSupportedDataclasses
 {
-  v7[5] = *MEMORY[0x277D85DE8];
+  v6[5] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CB9108];
-  v7[0] = *MEMORY[0x277CB9150];
-  v7[1] = v2;
+  v6[0] = *MEMORY[0x277CB9150];
+  v6[1] = v2;
   v3 = *MEMORY[0x277CB90F0];
-  v7[2] = *MEMORY[0x277CB9178];
-  v7[3] = v3;
-  v7[4] = *MEMORY[0x277CB9190];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:5];
-  v5 = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277CB9178];
+  v6[3] = v3;
+  v6[4] = *MEMORY[0x277CB9190];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:5];
 
   return v4;
 }
@@ -2991,29 +3025,29 @@ LABEL_17:
 
 - (void)_removeMessengerFromYahooSupportedDataclasses
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:*MEMORY[0x277CB8D38]];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   supportedDataclasses = [v2 supportedDataclasses];
-  v4 = [supportedDataclasses countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [supportedDataclasses countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     v7 = *MEMORY[0x277CB9160];
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v17 != v6)
+      if (*v16 != v6)
       {
         objc_enumerationMutation(supportedDataclasses);
       }
 
-      v9 = *(*(&v16 + 1) + 8 * v8);
+      v9 = *(*(&v15 + 1) + 8 * v8);
       name = [v9 name];
       v11 = [name isEqualToString:v7];
 
@@ -3024,7 +3058,7 @@ LABEL_3:
 
       if (v5 == ++v8)
       {
-        v5 = [supportedDataclasses countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v5 = [supportedDataclasses countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -3053,33 +3087,32 @@ LABEL_3:
 LABEL_12:
 
 LABEL_13:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setYahooAccountsProvisionedDataclassesToSupportedOnes
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   _accounts = [(ACDDatabaseInitializer *)self _accounts];
-  v3 = [_accounts countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [_accounts countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     v6 = *MEMORY[0x277CB8D38];
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(_accounts);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         accountType = [v8 accountType];
         identifier = [accountType identifier];
 
@@ -3091,13 +3124,11 @@ LABEL_13:
         }
       }
 
-      v4 = [_accounts countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [_accounts countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setCloudKitAllowsMultipleAccounts
@@ -3108,30 +3139,30 @@ LABEL_13:
 
 - (void)_removeMessagesFromGoogleSupportedDataclasses
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CB8C40];
   [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:*MEMORY[0x277CB8C40]];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v30 = v38 = 0u;
-  supportedDataclasses = [v30 supportedDataclasses];
-  v5 = [supportedDataclasses countByEnumeratingWithState:&v35 objects:v42 count:16];
+  v29 = v37 = 0u;
+  supportedDataclasses = [v29 supportedDataclasses];
+  v5 = [supportedDataclasses countByEnumeratingWithState:&v34 objects:v41 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v36;
+    v7 = *v35;
     v8 = *MEMORY[0x277CB9160];
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v36 != v7)
+      if (*v35 != v7)
       {
         objc_enumerationMutation(supportedDataclasses);
       }
 
-      v10 = *(*(&v35 + 1) + 8 * v9);
+      v10 = *(*(&v34 + 1) + 8 * v9);
       name = [v10 name];
       v12 = [name isEqualToString:v8];
 
@@ -3142,7 +3173,7 @@ LABEL_3:
 
       if (v6 == ++v9)
       {
-        v6 = [supportedDataclasses countByEnumeratingWithState:&v35 objects:v42 count:16];
+        v6 = [supportedDataclasses countByEnumeratingWithState:&v34 objects:v41 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -3156,7 +3187,7 @@ LABEL_3:
 
     if (!v13)
     {
-      v28 = 0;
+      v27 = 0;
       goto LABEL_16;
     }
 
@@ -3167,11 +3198,11 @@ LABEL_3:
       _os_log_impl(&dword_221D2F000, v14, OS_LOG_TYPE_DEFAULT, "Removing Messages from google account type.", buf, 2u);
     }
 
-    supportedDataclasses2 = [v30 supportedDataclasses];
+    supportedDataclasses2 = [v29 supportedDataclasses];
     supportedDataclasses = [supportedDataclasses2 mutableCopy];
 
     [supportedDataclasses removeObject:v13];
-    [v30 setSupportedDataclasses:supportedDataclasses];
+    [v29 setSupportedDataclasses:supportedDataclasses];
   }
 
   else
@@ -3180,29 +3211,29 @@ LABEL_9:
     v13 = 0;
   }
 
-  v28 = v13;
+  v27 = v13;
 
 LABEL_16:
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   _accounts = [(ACDDatabaseInitializer *)self _accounts];
-  v17 = [_accounts countByEnumeratingWithState:&v31 objects:v41 count:16];
+  v17 = [_accounts countByEnumeratingWithState:&v30 objects:v40 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v32;
+    v19 = *v31;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v32 != v19)
+        if (*v31 != v19)
         {
           objc_enumerationMutation(_accounts);
         }
 
-        v21 = *(*(&v31 + 1) + 8 * i);
+        v21 = *(*(&v30 + 1) + 8 * i);
         accountType = [v21 accountType];
         identifier = [accountType identifier];
 
@@ -3212,7 +3243,7 @@ LABEL_16:
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v40 = v21;
+            v39 = v21;
             _os_log_impl(&dword_221D2F000, v24, OS_LOG_TYPE_DEFAULT, "Updating supported dataclass on account %@", buf, 0xCu);
           }
 
@@ -3222,41 +3253,39 @@ LABEL_16:
         }
       }
 
-      v18 = [_accounts countByEnumeratingWithState:&v31 objects:v41 count:16];
+      v18 = [_accounts countByEnumeratingWithState:&v30 objects:v40 count:16];
     }
 
     while (v18);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeAIMAccounts
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   _accounts = [(ACDDatabaseInitializer *)self _accounts];
-  v4 = [_accounts countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v4 = [_accounts countByEnumeratingWithState:&v17 objects:v23 count:16];
   v6 = *MEMORY[0x277CB8B90];
   if (v4)
   {
     v7 = v4;
-    v8 = *v19;
+    v8 = *v18;
     *&v5 = 138412290;
-    v17 = v5;
+    v16 = v5;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(_accounts);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         accountType = [v10 accountType];
         identifier = [accountType identifier];
 
@@ -3265,8 +3294,8 @@ LABEL_16:
           v13 = _ACLogSystem();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v17;
-            v23 = v10;
+            *buf = v16;
+            v22 = v10;
             _os_log_impl(&dword_221D2F000, v13, OS_LOG_TYPE_DEFAULT, "Removing AIM account %@", buf, 0xCu);
           }
 
@@ -3274,7 +3303,7 @@ LABEL_16:
         }
       }
 
-      v7 = [_accounts countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v7 = [_accounts countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v7);
@@ -3292,13 +3321,11 @@ LABEL_16:
 
     [(ACDDatabaseConnection *)self->_databaseConnection deleteObject:v14];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addFacebookAndDAVLegacyAccountTypes
 {
-  v34[3] = *MEMORY[0x277D85DE8];
+  v33[3] = *MEMORY[0x277D85DE8];
   v3 = _ACLogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -3314,15 +3341,15 @@ LABEL_16:
   v9 = [v4 setWithObjects:{v6, v8, 0}];
 
   v10 = *MEMORY[0x277CB8C20];
-  LOBYTE(v30) = 0;
-  v11 = [(ACDDatabaseInitializer *)self _addAccountTypeWithIdentifier:*MEMORY[0x277CB8C20] displayName:@"Facebook Legacy" visibility:0 supportedDataclasses:v9 credentialType:*MEMORY[0x277CB8D98] supportsAuthentication:1 supportsMultipleAccounts:v30];
+  LOBYTE(v29) = 0;
+  v11 = [(ACDDatabaseInitializer *)self _addAccountTypeWithIdentifier:*MEMORY[0x277CB8C20] displayName:@"Facebook Legacy" visibility:0 supportedDataclasses:v9 credentialType:*MEMORY[0x277CB8D98] supportsAuthentication:1 supportsMultipleAccounts:v29];
   v12 = [(ACDDatabaseInitializer *)self _accessKeyWithName:*MEMORY[0x277CB8DD0]];
-  v34[0] = v12;
+  v33[0] = v12;
   v13 = [(ACDDatabaseInitializer *)self _accessKeyWithName:*MEMORY[0x277CB8DE0]];
-  v34[1] = v13;
+  v33[1] = v13;
   v14 = [(ACDDatabaseInitializer *)self _accessKeyWithName:*MEMORY[0x277CB8DD8]];
-  v34[2] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:3];
+  v33[2] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:3];
 
   v16 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:v10];
   v17 = [MEMORY[0x277CBEB98] setWithArray:v15];
@@ -3334,22 +3361,20 @@ LABEL_16:
   v21 = [v18 setWithObjects:{v19, v20, 0}];
 
   v22 = *MEMORY[0x277CB8DA0];
-  LOWORD(v31) = 257;
-  v23 = [(ACDDatabaseInitializer *)self _addAccountTypeWithIdentifier:*MEMORY[0x277CB8BD0] displayName:@"CalDAV Legacy" visibility:0 supportedDataclasses:v21 syncableDataclasses:v21 credentialType:*MEMORY[0x277CB8DA0] supportsAuthentication:v31 supportsMultipleAccounts:?];
+  LOWORD(v30) = 257;
+  v23 = [(ACDDatabaseInitializer *)self _addAccountTypeWithIdentifier:*MEMORY[0x277CB8BD0] displayName:@"CalDAV Legacy" visibility:0 supportedDataclasses:v21 syncableDataclasses:v21 credentialType:*MEMORY[0x277CB8DA0] supportsAuthentication:v30 supportsMultipleAccounts:?];
   v24 = MEMORY[0x277CBEB98];
   v25 = [(ACDDatabaseInitializer *)self _dataclassWithName:v5];
   v26 = [(ACDDatabaseInitializer *)self _dataclassWithName:*MEMORY[0x277CB9110]];
   v27 = [v24 setWithObjects:{v25, v26, 0}];
 
-  LOWORD(v32) = 257;
-  v28 = [(ACDDatabaseInitializer *)self _addAccountTypeWithIdentifier:*MEMORY[0x277CB8BE0] displayName:@"CardDAV Legacy" visibility:0 supportedDataclasses:v27 syncableDataclasses:v27 credentialType:v22 supportsAuthentication:v32 supportsMultipleAccounts:?];
-
-  v29 = *MEMORY[0x277D85DE8];
+  LOWORD(v31) = 257;
+  v28 = [(ACDDatabaseInitializer *)self _addAccountTypeWithIdentifier:*MEMORY[0x277CB8BE0] displayName:@"CardDAV Legacy" visibility:0 supportedDataclasses:v27 syncableDataclasses:v27 credentialType:v22 supportsAuthentication:v31 supportsMultipleAccounts:?];
 }
 
 - (void)_changeFacebookAccountToLegacyAccountType
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = _ACLogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -3357,74 +3382,74 @@ LABEL_16:
     _os_log_impl(&dword_221D2F000, v3, OS_LOG_TYPE_DEFAULT, "Changing Facebook account types", buf, 2u);
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   obj = [(ACDDatabaseInitializer *)self _accounts];
-  v4 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
+  v4 = [obj countByEnumeratingWithState:&v40 objects:v47 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v42;
+    v6 = *v41;
     v7 = *MEMORY[0x277CB8C18];
-    v27 = *MEMORY[0x277CB8C20];
+    v26 = *MEMORY[0x277CB8C20];
     v8 = *MEMORY[0x277CB8BC8];
-    v36 = *MEMORY[0x277CB8BD8];
-    v34 = *MEMORY[0x277CB8BE0];
-    v35 = *MEMORY[0x277CB8BD0];
-    v28 = *MEMORY[0x277CB8C18];
-    v29 = *v42;
+    v35 = *MEMORY[0x277CB8BD8];
+    v33 = *MEMORY[0x277CB8BE0];
+    v34 = *MEMORY[0x277CB8BD0];
+    v27 = *MEMORY[0x277CB8C18];
+    v28 = *v41;
     do
     {
       v9 = 0;
-      v30 = v5;
+      v29 = v5;
       do
       {
-        if (*v42 != v6)
+        if (*v41 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v41 + 1) + 8 * v9);
+        v10 = *(*(&v40 + 1) + 8 * v9);
         accountType = [v10 accountType];
         identifier = [accountType identifier];
 
         if ([identifier isEqual:v7])
         {
-          v32 = identifier;
-          v33 = v9;
+          v31 = identifier;
+          v32 = v9;
           v13 = _ACLogSystem();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v47 = v10;
+            v46 = v10;
             _os_log_impl(&dword_221D2F000, v13, OS_LOG_TYPE_DEFAULT, "Changing account type of Facebook account %@", buf, 0xCu);
           }
 
-          v14 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:v27];
+          v14 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:v26];
           [v10 setAccountType:v14];
 
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
           v38 = 0u;
+          v39 = 0u;
+          v36 = 0u;
+          v37 = 0u;
           childAccounts = [v10 childAccounts];
-          v16 = [childAccounts countByEnumeratingWithState:&v37 objects:v45 count:16];
+          v16 = [childAccounts countByEnumeratingWithState:&v36 objects:v44 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v38;
+            v18 = *v37;
             do
             {
               for (i = 0; i != v17; ++i)
               {
-                if (*v38 != v18)
+                if (*v37 != v18)
                 {
                   objc_enumerationMutation(childAccounts);
                 }
 
-                v20 = *(*(&v37 + 1) + 8 * i);
+                v20 = *(*(&v36 + 1) + 8 * i);
                 accountType2 = [v20 accountType];
                 identifier2 = [accountType2 identifier];
 
@@ -3434,16 +3459,16 @@ LABEL_16:
                   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v47 = v20;
+                    v46 = v20;
                     _os_log_impl(&dword_221D2F000, v23, OS_LOG_TYPE_DEFAULT, "Changing account type of Facebook child CalDAV account %@", buf, 0xCu);
                   }
 
-                  v24 = v35;
+                  v24 = v34;
                 }
 
                 else
                 {
-                  if (![identifier2 isEqualToString:v36])
+                  if (![identifier2 isEqualToString:v35])
                   {
                     goto LABEL_25;
                   }
@@ -3452,11 +3477,11 @@ LABEL_16:
                   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v47 = v20;
+                    v46 = v20;
                     _os_log_impl(&dword_221D2F000, v23, OS_LOG_TYPE_DEFAULT, "Changing account type of Facebook child CardDAV account %@", buf, 0xCu);
                   }
 
-                  v24 = v34;
+                  v24 = v33;
                 }
 
                 v25 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:v24];
@@ -3465,35 +3490,33 @@ LABEL_16:
 LABEL_25:
               }
 
-              v17 = [childAccounts countByEnumeratingWithState:&v37 objects:v45 count:16];
+              v17 = [childAccounts countByEnumeratingWithState:&v36 objects:v44 count:16];
             }
 
             while (v17);
           }
 
-          v6 = v29;
-          v5 = v30;
-          v7 = v28;
-          identifier = v32;
-          v9 = v33;
+          v6 = v28;
+          v5 = v29;
+          v7 = v27;
+          identifier = v31;
+          v9 = v32;
         }
 
         ++v9;
       }
 
       while (v9 != v5);
-      v5 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
+      v5 = [obj countByEnumeratingWithState:&v40 objects:v47 count:16];
     }
 
     while (v5);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addObsoleteAttributeToAccountTypes
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = _ACLogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -3501,81 +3524,78 @@ LABEL_25:
     _os_log_impl(&dword_221D2F000, v3, OS_LOG_TYPE_DEFAULT, "Adding obsolete attribute to Account Types", buf, 2u);
   }
 
-  v4 = *MEMORY[0x277CB8D28];
-  v5 = [MEMORY[0x277CBEB98] setWithObjects:{*MEMORY[0x277CB8C18], *MEMORY[0x277CB8D28], *MEMORY[0x277CB8D00], *MEMORY[0x277CB8D18], @"com.apple.linkedin", *MEMORY[0x277CB8C30], *MEMORY[0x277CB8D30], *MEMORY[0x277CB8D20], *MEMORY[0x277CB8D50], 0}];
+  v4 = [MEMORY[0x277CBEB98] setWithObjects:{*MEMORY[0x277CB8C18], *MEMORY[0x277CB8D28], *MEMORY[0x277CB8D00], *MEMORY[0x277CB8D18], @"com.apple.linkedin", *MEMORY[0x277CB8C30], *MEMORY[0x277CB8D30], *MEMORY[0x277CB8D20], *MEMORY[0x277CB8D50], 0}];
+  v15 = 0u;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
   _accountTypes = [(ACDDatabaseInitializer *)self _accountTypes];
-  v7 = [_accountTypes countByEnumeratingWithState:&v17 objects:v23 count:16];
-  if (v7)
+  v6 = [_accountTypes countByEnumeratingWithState:&v15 objects:v21 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v18;
+    v7 = v6;
+    v8 = *v16;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v9)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(_accountTypes);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
-        identifier = [v11 identifier];
-        v13 = [v5 containsObject:identifier];
+        v10 = *(*(&v15 + 1) + 8 * i);
+        identifier = [v10 identifier];
+        v12 = [v4 containsObject:identifier];
 
-        if (v13)
+        if (v12)
         {
-          v14 = _ACLogSystem();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v13 = _ACLogSystem();
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v22 = v11;
-            _os_log_impl(&dword_221D2F000, v14, OS_LOG_TYPE_DEFAULT, "Marking account type %@ as obsolete", buf, 0xCu);
+            v20 = v10;
+            _os_log_impl(&dword_221D2F000, v13, OS_LOG_TYPE_DEFAULT, "Marking account type %@ as obsolete", buf, 0xCu);
           }
         }
 
-        v15 = [MEMORY[0x277CCABB0] numberWithBool:v13];
-        [v11 setObsolete:v15];
+        v14 = [MEMORY[0x277CCABB0] numberWithBool:v12];
+        [v10 setObsolete:v14];
       }
 
-      v8 = [_accountTypes countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v7 = [_accountTypes countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeMessagesFromAOLSupportedDataclasses
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CB8B98];
   [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:*MEMORY[0x277CB8B98]];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v30 = v38 = 0u;
-  supportedDataclasses = [v30 supportedDataclasses];
-  v5 = [supportedDataclasses countByEnumeratingWithState:&v35 objects:v42 count:16];
+  v29 = v37 = 0u;
+  supportedDataclasses = [v29 supportedDataclasses];
+  v5 = [supportedDataclasses countByEnumeratingWithState:&v34 objects:v41 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v36;
+    v7 = *v35;
     v8 = *MEMORY[0x277CB9160];
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v36 != v7)
+      if (*v35 != v7)
       {
         objc_enumerationMutation(supportedDataclasses);
       }
 
-      v10 = *(*(&v35 + 1) + 8 * v9);
+      v10 = *(*(&v34 + 1) + 8 * v9);
       name = [v10 name];
       v12 = [name isEqualToString:v8];
 
@@ -3586,7 +3606,7 @@ LABEL_3:
 
       if (v6 == ++v9)
       {
-        v6 = [supportedDataclasses countByEnumeratingWithState:&v35 objects:v42 count:16];
+        v6 = [supportedDataclasses countByEnumeratingWithState:&v34 objects:v41 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -3600,7 +3620,7 @@ LABEL_3:
 
     if (!v13)
     {
-      v28 = 0;
+      v27 = 0;
       goto LABEL_16;
     }
 
@@ -3611,11 +3631,11 @@ LABEL_3:
       _os_log_impl(&dword_221D2F000, v14, OS_LOG_TYPE_DEFAULT, "Removing Messages from AOL account type.", buf, 2u);
     }
 
-    supportedDataclasses2 = [v30 supportedDataclasses];
+    supportedDataclasses2 = [v29 supportedDataclasses];
     supportedDataclasses = [supportedDataclasses2 mutableCopy];
 
     [supportedDataclasses removeObject:v13];
-    [v30 setSupportedDataclasses:supportedDataclasses];
+    [v29 setSupportedDataclasses:supportedDataclasses];
   }
 
   else
@@ -3624,29 +3644,29 @@ LABEL_9:
     v13 = 0;
   }
 
-  v28 = v13;
+  v27 = v13;
 
 LABEL_16:
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   _accounts = [(ACDDatabaseInitializer *)self _accounts];
-  v17 = [_accounts countByEnumeratingWithState:&v31 objects:v41 count:16];
+  v17 = [_accounts countByEnumeratingWithState:&v30 objects:v40 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v32;
+    v19 = *v31;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v32 != v19)
+        if (*v31 != v19)
         {
           objc_enumerationMutation(_accounts);
         }
 
-        v21 = *(*(&v31 + 1) + 8 * i);
+        v21 = *(*(&v30 + 1) + 8 * i);
         accountType = [v21 accountType];
         identifier = [accountType identifier];
 
@@ -3656,7 +3676,7 @@ LABEL_16:
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v40 = v21;
+            v39 = v21;
             _os_log_impl(&dword_221D2F000, v24, OS_LOG_TYPE_DEFAULT, "Updating supported dataclass on account %@", buf, 0xCu);
           }
 
@@ -3666,13 +3686,11 @@ LABEL_16:
         }
       }
 
-      v18 = [_accounts countByEnumeratingWithState:&v31 objects:v41 count:16];
+      v18 = [_accounts countByEnumeratingWithState:&v30 objects:v40 count:16];
     }
 
     while (v18);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addiTunesStoreSandboxAccountType
@@ -3772,16 +3790,16 @@ LABEL_16:
 
 - (void)_removeRedundantDataclasses
 {
-  v174 = *MEMORY[0x277D85DE8];
+  v175 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v124 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v157 = 0u;
+  v125 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v158 = 0u;
   v159 = 0u;
   v160 = 0u;
+  v161 = 0u;
   obj = [(ACDDatabaseInitializer *)self _dataclasses];
-  v5 = [(NSArray *)obj countByEnumeratingWithState:&v157 objects:v173 count:16];
+  v5 = [(NSArray *)obj countByEnumeratingWithState:&v158 objects:v174 count:16];
   if (!v5)
   {
     goto LABEL_117;
@@ -3789,20 +3807,20 @@ LABEL_16:
 
   v6 = v5;
   v7 = 0;
-  v8 = *v158;
-  v112 = v3;
+  v8 = *v159;
+  v113 = v3;
   selfCopy = self;
   do
   {
     v9 = 0;
     do
     {
-      if (*v158 != v8)
+      if (*v159 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v157 + 1) + 8 * v9);
+      v10 = *(*(&v158 + 1) + 8 * v9);
       name = [v10 name];
       v12 = [v3 objectForKeyedSubscript:name];
 
@@ -3813,9 +3831,9 @@ LABEL_16:
         {
           name2 = [v10 name];
           *buf = 138412546;
-          v170 = name2;
-          v171 = 2112;
-          v172 = v10;
+          v171 = name2;
+          v172 = 2112;
+          v173 = v10;
           _os_log_impl(&dword_221D2F000, v13, OS_LOG_TYPE_DEFAULT, "Removing redundant dataclass of name %@ %@", buf, 0x16u);
         }
 
@@ -3823,7 +3841,7 @@ LABEL_16:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v170 = v12;
+          v171 = v12;
           _os_log_impl(&dword_221D2F000, v15, OS_LOG_TYPE_DEFAULT, "Replacing with canonical dataclass %@", buf, 0xCu);
         }
 
@@ -3840,7 +3858,7 @@ LABEL_16:
           [v12 addProvisionedAccounts:provisionedAccounts2];
 
           provisionedAccounts3 = [v10 provisionedAccounts];
-          [v124 unionSet:provisionedAccounts3];
+          [v125 unionSet:provisionedAccounts3];
         }
 
         enabledAccounts = [v10 enabledAccounts];
@@ -3852,7 +3870,7 @@ LABEL_16:
           [v12 addEnabledAccounts:enabledAccounts2];
 
           enabledAccounts3 = [v10 enabledAccounts];
-          [v124 unionSet:enabledAccounts3];
+          [v125 unionSet:enabledAccounts3];
         }
 
         supportedTypes = [v10 supportedTypes];
@@ -3864,7 +3882,7 @@ LABEL_16:
           [v12 addSupportedTypes:supportedTypes2];
 
           supportedTypes3 = [v10 supportedTypes];
-          [v124 unionSet:supportedTypes3];
+          [v125 unionSet:supportedTypes3];
         }
 
         syncableTypes = [v10 syncableTypes];
@@ -3876,7 +3894,7 @@ LABEL_16:
           [v12 addSyncableTypes:syncableTypes2];
 
           syncableTypes3 = [v10 syncableTypes];
-          [v124 unionSet:syncableTypes3];
+          [v125 unionSet:syncableTypes3];
           goto LABEL_19;
         }
 
@@ -3893,12 +3911,12 @@ LABEL_16:
         goto LABEL_31;
       }
 
-      v36 = _ACDLogSystem();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v37 = _ACDLogSystem(v35);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v170 = v10;
-        _os_log_error_impl(&dword_221D2F000, v36, OS_LOG_TYPE_ERROR, "@There was no name on the dataclass %@", buf, 0xCu);
+        v171 = v10;
+        _os_log_error_impl(&dword_221D2F000, v37, OS_LOG_TYPE_ERROR, "@There was no name on the dataclass %@", buf, 0xCu);
       }
 
       supportedTypes4 = [v10 supportedTypes];
@@ -3920,23 +3938,23 @@ LABEL_16:
       {
 
 LABEL_30:
-        v3 = v112;
+        v3 = v113;
         self = selfCopy;
         goto LABEL_31;
       }
 
       provisionedAccounts4 = [v10 provisionedAccounts];
-      v117 = [provisionedAccounts4 count];
+      v118 = [provisionedAccounts4 count];
 
-      v3 = v112;
+      v3 = v113;
       self = selfCopy;
-      if (!v117)
+      if (!v118)
       {
-        syncableTypes3 = _ACDLogSystem();
+        syncableTypes3 = _ACDLogSystem(v41);
         if (os_log_type_enabled(syncableTypes3, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v170 = v10;
+          v171 = v10;
           _os_log_error_impl(&dword_221D2F000, syncableTypes3, OS_LOG_TYPE_ERROR, "@Dataclass %@ has no types or accounts, deleting", buf, 0xCu);
         }
 
@@ -3953,349 +3971,347 @@ LABEL_31:
     }
 
     while (v6 != v9);
-    v40 = [(NSArray *)obj countByEnumeratingWithState:&v157 objects:v173 count:16];
-    v6 = v40;
+    v42 = [(NSArray *)obj countByEnumeratingWithState:&v158 objects:v174 count:16];
+    v6 = v42;
   }
 
-  while (v40);
+  while (v42);
 
   if (v7)
   {
-    v41 = [(ACDDatabaseConnection *)self->_databaseConnection fetchObjectsForEntityNamed:@"Dataclass"];
-    v42 = [v41 mutableCopy];
+    v43 = [(ACDDatabaseConnection *)self->_databaseConnection fetchObjectsForEntityNamed:@"Dataclass"];
+    v44 = [v43 mutableCopy];
     dataclasses = self->_dataclasses;
-    self->_dataclasses = v42;
+    self->_dataclasses = v44;
 
-    v44 = [(ACDDatabaseConnection *)self->_databaseConnection fetchObjectsForEntityNamed:@"Account"];
-    v45 = [v44 mutableCopy];
+    v46 = [(ACDDatabaseConnection *)self->_databaseConnection fetchObjectsForEntityNamed:@"Account"];
+    v47 = [v46 mutableCopy];
     accounts = self->_accounts;
-    self->_accounts = v45;
+    self->_accounts = v47;
 
-    v47 = [(ACDDatabaseConnection *)self->_databaseConnection fetchObjectsForEntityNamed:@"AccountType"];
-    v48 = [v47 mutableCopy];
+    v49 = [(ACDDatabaseConnection *)self->_databaseConnection fetchObjectsForEntityNamed:@"AccountType"];
+    v50 = [v49 mutableCopy];
     accountTypes = self->_accountTypes;
-    self->_accountTypes = v48;
+    self->_accountTypes = v50;
 
-    v155 = 0u;
     v156 = 0u;
-    v153 = 0u;
+    v157 = 0u;
     v154 = 0u;
-    v50 = v124;
-    v51 = [v50 countByEnumeratingWithState:&v153 objects:v168 count:16];
-    if (v51)
+    v155 = 0u;
+    v52 = v125;
+    v53 = [v52 countByEnumeratingWithState:&v154 objects:v169 count:16];
+    if (v53)
     {
-      v52 = v51;
-      v53 = *v154;
+      v54 = v53;
+      v55 = *v155;
       do
       {
-        for (i = 0; i != v52; ++i)
+        for (i = 0; i != v54; ++i)
         {
-          if (*v154 != v53)
+          if (*v155 != v55)
           {
-            objc_enumerationMutation(v50);
+            objc_enumerationMutation(v52);
           }
 
-          v55 = *(*(&v153 + 1) + 8 * i);
-          v56 = _ACLogSystem();
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+          v57 = *(*(&v154 + 1) + 8 * i);
+          v58 = _ACLogSystem();
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v170 = v55;
-            _os_log_impl(&dword_221D2F000, v56, OS_LOG_TYPE_DEFAULT, "Redundant dataclass removal affected %@", buf, 0xCu);
+            v171 = v57;
+            _os_log_impl(&dword_221D2F000, v58, OS_LOG_TYPE_DEFAULT, "Redundant dataclass removal affected %@", buf, 0xCu);
           }
         }
 
-        v52 = [v50 countByEnumeratingWithState:&v153 objects:v168 count:16];
+        v54 = [v52 countByEnumeratingWithState:&v154 objects:v169 count:16];
       }
 
-      while (v52);
+      while (v54);
     }
 
-    v151 = 0u;
     v152 = 0u;
-    v149 = 0u;
+    v153 = 0u;
     v150 = 0u;
-    v57 = selfCopy->_dataclasses;
-    v58 = [(NSArray *)v57 countByEnumeratingWithState:&v149 objects:v167 count:16];
-    if (v58)
+    v151 = 0u;
+    v59 = selfCopy->_dataclasses;
+    v60 = [(NSArray *)v59 countByEnumeratingWithState:&v150 objects:v168 count:16];
+    if (v60)
     {
-      v59 = v58;
-      v60 = *v150;
+      v61 = v60;
+      v62 = *v151;
       do
       {
-        for (j = 0; j != v59; ++j)
+        for (j = 0; j != v61; ++j)
         {
-          if (*v150 != v60)
+          if (*v151 != v62)
           {
-            objc_enumerationMutation(v57);
+            objc_enumerationMutation(v59);
           }
 
-          v62 = *(*(&v149 + 1) + 8 * j);
-          objectID2 = [v62 objectID];
+          v64 = *(*(&v150 + 1) + 8 * j);
+          objectID2 = [v64 objectID];
           uRIRepresentation2 = [objectID2 URIRepresentation];
-          v65 = [v4 containsObject:uRIRepresentation2];
+          v67 = [v4 containsObject:uRIRepresentation2];
 
-          if (v65)
+          if (v67)
           {
-            v66 = _ACLogSystem();
-            if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+            v68 = _ACLogSystem();
+            if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v170 = v62;
-              _os_log_error_impl(&dword_221D2F000, v66, OS_LOG_TYPE_ERROR, "Ostensibly removed dataclass still exists! %@", buf, 0xCu);
+              v171 = v64;
+              _os_log_error_impl(&dword_221D2F000, v68, OS_LOG_TYPE_ERROR, "Ostensibly removed dataclass still exists! %@", buf, 0xCu);
             }
           }
         }
 
-        v59 = [(NSArray *)v57 countByEnumeratingWithState:&v149 objects:v167 count:16];
+        v61 = [(NSArray *)v59 countByEnumeratingWithState:&v150 objects:v168 count:16];
       }
 
-      while (v59);
+      while (v61);
     }
 
-    v147 = 0u;
     v148 = 0u;
-    v145 = 0u;
+    v149 = 0u;
     v146 = 0u;
-    v115 = selfCopy->_accounts;
-    v120 = [(NSArray *)v115 countByEnumeratingWithState:&v145 objects:v166 count:16];
-    if (v120)
+    v147 = 0u;
+    v116 = selfCopy->_accounts;
+    v121 = [(NSArray *)v116 countByEnumeratingWithState:&v146 objects:v167 count:16];
+    if (v121)
     {
-      v118 = *v146;
+      v119 = *v147;
       do
       {
-        v67 = 0;
+        v69 = 0;
         do
         {
-          if (*v146 != v118)
+          if (*v147 != v119)
           {
-            objc_enumerationMutation(v115);
+            objc_enumerationMutation(v116);
           }
 
-          obja = v67;
-          v68 = *(*(&v145 + 1) + 8 * v67);
-          v141 = 0u;
+          obja = v69;
+          v70 = *(*(&v146 + 1) + 8 * v69);
           v142 = 0u;
           v143 = 0u;
           v144 = 0u;
-          provisionedDataclasses = [v68 provisionedDataclasses];
-          v70 = [provisionedDataclasses countByEnumeratingWithState:&v141 objects:v165 count:16];
-          if (v70)
+          v145 = 0u;
+          provisionedDataclasses = [v70 provisionedDataclasses];
+          v72 = [provisionedDataclasses countByEnumeratingWithState:&v142 objects:v166 count:16];
+          if (v72)
           {
-            v71 = v70;
-            v72 = *v142;
+            v73 = v72;
+            v74 = *v143;
             do
             {
-              for (k = 0; k != v71; ++k)
+              for (k = 0; k != v73; ++k)
               {
-                if (*v142 != v72)
+                if (*v143 != v74)
                 {
                   objc_enumerationMutation(provisionedDataclasses);
                 }
 
-                v74 = *(*(&v141 + 1) + 8 * k);
-                objectID3 = [v74 objectID];
+                v76 = *(*(&v142 + 1) + 8 * k);
+                objectID3 = [v76 objectID];
                 uRIRepresentation3 = [objectID3 URIRepresentation];
-                v77 = [v4 containsObject:uRIRepresentation3];
+                v79 = [v4 containsObject:uRIRepresentation3];
 
-                if (v77)
+                if (v79)
                 {
-                  v78 = _ACLogSystem();
-                  if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+                  v80 = _ACLogSystem();
+                  if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412546;
-                    v170 = v74;
-                    v171 = 2112;
-                    v172 = v68;
-                    _os_log_error_impl(&dword_221D2F000, v78, OS_LOG_TYPE_ERROR, "Ostensibly removed dataclass still among account.provisionedDataclasses! %@ %@", buf, 0x16u);
+                    v171 = v76;
+                    v172 = 2112;
+                    v173 = v70;
+                    _os_log_error_impl(&dword_221D2F000, v80, OS_LOG_TYPE_ERROR, "Ostensibly removed dataclass still among account.provisionedDataclasses! %@ %@", buf, 0x16u);
                   }
                 }
               }
 
-              v71 = [provisionedDataclasses countByEnumeratingWithState:&v141 objects:v165 count:16];
+              v73 = [provisionedDataclasses countByEnumeratingWithState:&v142 objects:v166 count:16];
             }
 
-            while (v71);
+            while (v73);
           }
 
-          v139 = 0u;
           v140 = 0u;
-          v137 = 0u;
+          v141 = 0u;
           v138 = 0u;
-          enabledDataclasses = [v68 enabledDataclasses];
-          v80 = [enabledDataclasses countByEnumeratingWithState:&v137 objects:v164 count:16];
-          if (v80)
+          v139 = 0u;
+          enabledDataclasses = [v70 enabledDataclasses];
+          v82 = [enabledDataclasses countByEnumeratingWithState:&v138 objects:v165 count:16];
+          if (v82)
           {
-            v81 = v80;
-            v82 = *v138;
+            v83 = v82;
+            v84 = *v139;
             do
             {
-              for (m = 0; m != v81; ++m)
+              for (m = 0; m != v83; ++m)
               {
-                if (*v138 != v82)
+                if (*v139 != v84)
                 {
                   objc_enumerationMutation(enabledDataclasses);
                 }
 
-                v84 = *(*(&v137 + 1) + 8 * m);
-                objectID4 = [v84 objectID];
+                v86 = *(*(&v138 + 1) + 8 * m);
+                objectID4 = [v86 objectID];
                 uRIRepresentation4 = [objectID4 URIRepresentation];
-                v87 = [v4 containsObject:uRIRepresentation4];
+                v89 = [v4 containsObject:uRIRepresentation4];
 
-                if (v87)
+                if (v89)
                 {
-                  v88 = _ACLogSystem();
-                  if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+                  v90 = _ACLogSystem();
+                  if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412546;
-                    v170 = v84;
-                    v171 = 2112;
-                    v172 = v68;
-                    _os_log_error_impl(&dword_221D2F000, v88, OS_LOG_TYPE_ERROR, "Ostensibly removed dataclass still among account.enabledDataclasses! %@ %@", buf, 0x16u);
+                    v171 = v86;
+                    v172 = 2112;
+                    v173 = v70;
+                    _os_log_error_impl(&dword_221D2F000, v90, OS_LOG_TYPE_ERROR, "Ostensibly removed dataclass still among account.enabledDataclasses! %@ %@", buf, 0x16u);
                   }
                 }
               }
 
-              v81 = [enabledDataclasses countByEnumeratingWithState:&v137 objects:v164 count:16];
+              v83 = [enabledDataclasses countByEnumeratingWithState:&v138 objects:v165 count:16];
             }
 
-            while (v81);
+            while (v83);
           }
 
-          v67 = obja + 1;
+          v69 = obja + 1;
         }
 
-        while (obja + 1 != v120);
-        v120 = [(NSArray *)v115 countByEnumeratingWithState:&v145 objects:v166 count:16];
+        while (obja + 1 != v121);
+        v121 = [(NSArray *)v116 countByEnumeratingWithState:&v146 objects:v167 count:16];
+      }
+
+      while (v121);
+    }
+
+    v136 = 0u;
+    v137 = 0u;
+    v134 = 0u;
+    v135 = 0u;
+    obj = selfCopy->_accountTypes;
+    v120 = [(NSArray *)obj countByEnumeratingWithState:&v134 objects:v164 count:16];
+    if (v120)
+    {
+      v117 = *v135;
+      do
+      {
+        v91 = 0;
+        do
+        {
+          if (*v135 != v117)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v122 = v91;
+          v92 = *(*(&v134 + 1) + 8 * v91);
+          v130 = 0u;
+          v131 = 0u;
+          v132 = 0u;
+          v133 = 0u;
+          supportedDataclasses = [v92 supportedDataclasses];
+          v94 = [supportedDataclasses countByEnumeratingWithState:&v130 objects:v163 count:16];
+          if (v94)
+          {
+            v95 = v94;
+            v96 = *v131;
+            do
+            {
+              for (n = 0; n != v95; ++n)
+              {
+                if (*v131 != v96)
+                {
+                  objc_enumerationMutation(supportedDataclasses);
+                }
+
+                v98 = *(*(&v130 + 1) + 8 * n);
+                objectID5 = [v98 objectID];
+                uRIRepresentation5 = [objectID5 URIRepresentation];
+                v101 = [v4 containsObject:uRIRepresentation5];
+
+                if (v101)
+                {
+                  v102 = _ACLogSystem();
+                  if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
+                  {
+                    *buf = 138412546;
+                    v171 = v98;
+                    v172 = 2112;
+                    v173 = v92;
+                    _os_log_error_impl(&dword_221D2F000, v102, OS_LOG_TYPE_ERROR, "Ostensibly removed dataclass still among accountType.supportedDataclasses! %@ %@", buf, 0x16u);
+                  }
+                }
+              }
+
+              v95 = [supportedDataclasses countByEnumeratingWithState:&v130 objects:v163 count:16];
+            }
+
+            while (v95);
+          }
+
+          v128 = 0u;
+          v129 = 0u;
+          v126 = 0u;
+          v127 = 0u;
+          syncableDataclasses = [v92 syncableDataclasses];
+          v104 = [syncableDataclasses countByEnumeratingWithState:&v126 objects:v162 count:16];
+          if (v104)
+          {
+            v105 = v104;
+            v106 = *v127;
+            do
+            {
+              for (ii = 0; ii != v105; ++ii)
+              {
+                if (*v127 != v106)
+                {
+                  objc_enumerationMutation(syncableDataclasses);
+                }
+
+                v108 = *(*(&v126 + 1) + 8 * ii);
+                objectID6 = [v108 objectID];
+                uRIRepresentation6 = [objectID6 URIRepresentation];
+                v111 = [v4 containsObject:uRIRepresentation6];
+
+                if (v111)
+                {
+                  v112 = _ACLogSystem();
+                  if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
+                  {
+                    *buf = 138412546;
+                    v171 = v108;
+                    v172 = 2112;
+                    v173 = v92;
+                    _os_log_error_impl(&dword_221D2F000, v112, OS_LOG_TYPE_ERROR, "Ostensibly removed dataclass still among accountType.syncableDataclasses! %@ %@", buf, 0x16u);
+                  }
+                }
+              }
+
+              v105 = [syncableDataclasses countByEnumeratingWithState:&v126 objects:v162 count:16];
+            }
+
+            while (v105);
+          }
+
+          v91 = v122 + 1;
+        }
+
+        while (v122 + 1 != v120);
+        v120 = [(NSArray *)obj countByEnumeratingWithState:&v134 objects:v164 count:16];
       }
 
       while (v120);
     }
 
-    v135 = 0u;
-    v136 = 0u;
-    v133 = 0u;
-    v134 = 0u;
-    obj = selfCopy->_accountTypes;
-    v119 = [(NSArray *)obj countByEnumeratingWithState:&v133 objects:v163 count:16];
-    if (v119)
-    {
-      v116 = *v134;
-      do
-      {
-        v89 = 0;
-        do
-        {
-          if (*v134 != v116)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          v121 = v89;
-          v90 = *(*(&v133 + 1) + 8 * v89);
-          v129 = 0u;
-          v130 = 0u;
-          v131 = 0u;
-          v132 = 0u;
-          supportedDataclasses = [v90 supportedDataclasses];
-          v92 = [supportedDataclasses countByEnumeratingWithState:&v129 objects:v162 count:16];
-          if (v92)
-          {
-            v93 = v92;
-            v94 = *v130;
-            do
-            {
-              for (n = 0; n != v93; ++n)
-              {
-                if (*v130 != v94)
-                {
-                  objc_enumerationMutation(supportedDataclasses);
-                }
-
-                v96 = *(*(&v129 + 1) + 8 * n);
-                objectID5 = [v96 objectID];
-                uRIRepresentation5 = [objectID5 URIRepresentation];
-                v99 = [v4 containsObject:uRIRepresentation5];
-
-                if (v99)
-                {
-                  v100 = _ACLogSystem();
-                  if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
-                  {
-                    *buf = 138412546;
-                    v170 = v96;
-                    v171 = 2112;
-                    v172 = v90;
-                    _os_log_error_impl(&dword_221D2F000, v100, OS_LOG_TYPE_ERROR, "Ostensibly removed dataclass still among accountType.supportedDataclasses! %@ %@", buf, 0x16u);
-                  }
-                }
-              }
-
-              v93 = [supportedDataclasses countByEnumeratingWithState:&v129 objects:v162 count:16];
-            }
-
-            while (v93);
-          }
-
-          v127 = 0u;
-          v128 = 0u;
-          v125 = 0u;
-          v126 = 0u;
-          syncableDataclasses = [v90 syncableDataclasses];
-          v102 = [syncableDataclasses countByEnumeratingWithState:&v125 objects:v161 count:16];
-          if (v102)
-          {
-            v103 = v102;
-            v104 = *v126;
-            do
-            {
-              for (ii = 0; ii != v103; ++ii)
-              {
-                if (*v126 != v104)
-                {
-                  objc_enumerationMutation(syncableDataclasses);
-                }
-
-                v106 = *(*(&v125 + 1) + 8 * ii);
-                objectID6 = [v106 objectID];
-                uRIRepresentation6 = [objectID6 URIRepresentation];
-                v109 = [v4 containsObject:uRIRepresentation6];
-
-                if (v109)
-                {
-                  v110 = _ACLogSystem();
-                  if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
-                  {
-                    *buf = 138412546;
-                    v170 = v106;
-                    v171 = 2112;
-                    v172 = v90;
-                    _os_log_error_impl(&dword_221D2F000, v110, OS_LOG_TYPE_ERROR, "Ostensibly removed dataclass still among accountType.syncableDataclasses! %@ %@", buf, 0x16u);
-                  }
-                }
-              }
-
-              v103 = [syncableDataclasses countByEnumeratingWithState:&v125 objects:v161 count:16];
-            }
-
-            while (v103);
-          }
-
-          v89 = v121 + 1;
-        }
-
-        while (v121 + 1 != v119);
-        v119 = [(NSArray *)obj countByEnumeratingWithState:&v133 objects:v163 count:16];
-      }
-
-      while (v119);
-    }
-
-    v3 = v112;
+    v3 = v113;
 LABEL_117:
   }
-
-  v111 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addDataclassNumberingToExistingDataclasses
@@ -4325,17 +4341,17 @@ LABEL_117:
 
 - (void)_removeRedundantAccountTypes
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v70 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v69 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
   selfCopy = self;
   _accountTypes = [(ACDDatabaseInitializer *)self _accountTypes];
-  v6 = [(NSArray *)_accountTypes countByEnumeratingWithState:&v83 objects:v94 count:16];
+  v6 = [(NSArray *)_accountTypes countByEnumeratingWithState:&v82 objects:v93 count:16];
   if (!v6)
   {
 LABEL_53:
@@ -4345,17 +4361,17 @@ LABEL_53:
 
   v7 = v6;
   v8 = 0;
-  v9 = *v84;
+  v9 = *v83;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v84 != v9)
+      if (*v83 != v9)
       {
         objc_enumerationMutation(_accountTypes);
       }
 
-      v11 = *(*(&v83 + 1) + 8 * i);
+      v11 = *(*(&v82 + 1) + 8 * i);
       identifier = [v11 identifier];
       v13 = [v3 objectForKeyedSubscript:identifier];
 
@@ -4366,9 +4382,9 @@ LABEL_53:
         {
           identifier2 = [v11 identifier];
           *buf = 138412546;
-          v91 = identifier2;
-          v92 = 2112;
-          v93 = v11;
+          v90 = identifier2;
+          v91 = 2112;
+          v92 = v11;
           _os_log_impl(&dword_221D2F000, v14, OS_LOG_TYPE_DEFAULT, "Removing redundant account type of name %@ %@", buf, 0x16u);
         }
 
@@ -4376,13 +4392,13 @@ LABEL_53:
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v91 = v13;
+          v90 = v13;
           _os_log_impl(&dword_221D2F000, v16, OS_LOG_TYPE_DEFAULT, "Replacing with canonical account type %@", buf, 0xCu);
         }
 
         objectID = [v11 objectID];
         uRIRepresentation = [objectID URIRepresentation];
-        [v70 addObject:uRIRepresentation];
+        [v69 addObject:uRIRepresentation];
 
         accounts = [v11 accounts];
 
@@ -4428,7 +4444,7 @@ LABEL_53:
       }
     }
 
-    v7 = [(NSArray *)_accountTypes countByEnumeratingWithState:&v83 objects:v94 count:16];
+    v7 = [(NSArray *)_accountTypes countByEnumeratingWithState:&v82 objects:v93 count:16];
   }
 
   while (v7);
@@ -4455,65 +4471,65 @@ LABEL_53:
     accessKeys = selfCopy->_accessKeys;
     selfCopy->_accessKeys = v39;
 
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
     v80 = 0u;
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
     v41 = v4;
-    v42 = [v41 countByEnumeratingWithState:&v79 objects:v89 count:16];
+    v42 = [v41 countByEnumeratingWithState:&v78 objects:v88 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v80;
+      v44 = *v79;
       do
       {
         for (j = 0; j != v43; ++j)
         {
-          if (*v80 != v44)
+          if (*v79 != v44)
           {
             objc_enumerationMutation(v41);
           }
 
-          v46 = *(*(&v79 + 1) + 8 * j);
+          v46 = *(*(&v78 + 1) + 8 * j);
           v47 = _ACLogSystem();
           if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v91 = v46;
+            v90 = v46;
             _os_log_impl(&dword_221D2F000, v47, OS_LOG_TYPE_DEFAULT, "Redundant account type removal affected %@", buf, 0xCu);
           }
         }
 
-        v43 = [v41 countByEnumeratingWithState:&v79 objects:v89 count:16];
+        v43 = [v41 countByEnumeratingWithState:&v78 objects:v88 count:16];
       }
 
       while (v43);
     }
 
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
     v76 = 0u;
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
     obj = selfCopy->_accounts;
-    v48 = [(NSArray *)obj countByEnumeratingWithState:&v75 objects:v88 count:16];
+    v48 = [(NSArray *)obj countByEnumeratingWithState:&v74 objects:v87 count:16];
     if (v48)
     {
       v49 = v48;
-      v50 = *v76;
+      v50 = *v75;
       do
       {
         for (k = 0; k != v49; ++k)
         {
-          if (*v76 != v50)
+          if (*v75 != v50)
           {
             objc_enumerationMutation(obj);
           }
 
-          v52 = *(*(&v75 + 1) + 8 * k);
+          v52 = *(*(&v74 + 1) + 8 * k);
           accountType = [v52 accountType];
           objectID2 = [accountType objectID];
           uRIRepresentation2 = [objectID2 URIRepresentation];
-          v56 = [v70 containsObject:uRIRepresentation2];
+          v56 = [v69 containsObject:uRIRepresentation2];
 
           if (v56)
           {
@@ -4522,40 +4538,40 @@ LABEL_53:
             {
               accountType2 = [v52 accountType];
               *buf = 138412546;
-              v91 = accountType2;
-              v92 = 2112;
-              v93 = v52;
+              v90 = accountType2;
+              v91 = 2112;
+              v92 = v52;
               _os_log_error_impl(&dword_221D2F000, v57, OS_LOG_TYPE_ERROR, "Ostensibly removed account type still set for account.accountType! %@ %@", buf, 0x16u);
             }
           }
         }
 
-        v49 = [(NSArray *)obj countByEnumeratingWithState:&v75 objects:v88 count:16];
+        v49 = [(NSArray *)obj countByEnumeratingWithState:&v74 objects:v87 count:16];
       }
 
       while (v49);
     }
 
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
     v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     _accountTypes = selfCopy->_accessKeys;
-    v59 = [(NSArray *)_accountTypes countByEnumeratingWithState:&v71 objects:v87 count:16];
+    v59 = [(NSArray *)_accountTypes countByEnumeratingWithState:&v70 objects:v86 count:16];
     if (v59)
     {
       v60 = v59;
-      v61 = *v72;
+      v61 = *v71;
       do
       {
         for (m = 0; m != v60; ++m)
         {
-          if (*v72 != v61)
+          if (*v71 != v61)
           {
             objc_enumerationMutation(_accountTypes);
           }
 
-          v63 = *(*(&v71 + 1) + 8 * m);
+          v63 = *(*(&v70 + 1) + 8 * m);
           owningAccountTypes = [v63 owningAccountTypes];
           v65 = [owningAccountTypes count];
 
@@ -4565,13 +4581,13 @@ LABEL_53:
             if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v91 = v63;
+              v90 = v63;
               _os_log_error_impl(&dword_221D2F000, v66, OS_LOG_TYPE_ERROR, "Unowned access key! %@", buf, 0xCu);
             }
           }
         }
 
-        v60 = [(NSArray *)_accountTypes countByEnumeratingWithState:&v71 objects:v87 count:16];
+        v60 = [(NSArray *)_accountTypes countByEnumeratingWithState:&v70 objects:v86 count:16];
       }
 
       while (v60);
@@ -4581,45 +4597,41 @@ LABEL_53:
   }
 
 LABEL_54:
-
-  v67 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_managedDataclassesSetForNames:(id)names
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   v5 = [MEMORY[0x277CBEB58] set];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = namesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(ACDDatabaseInitializer *)self _dataclassWithName:*(*(&v14 + 1) + 8 * i), v14];
+        v11 = [(ACDDatabaseInitializer *)self _dataclassWithName:*(*(&v13 + 1) + 8 * i), v13];
         [v5 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -4627,36 +4639,36 @@ LABEL_54:
 - (BOOL)_ensureAllInternalAccountTypesExist:(BOOL)exist
 {
   existCopy = exist;
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
-  v4 = _ACDLogSystem();
+  v4 = _ACDLogSystem(array);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [ACDDatabaseInitializer _ensureAllInternalAccountTypesExist:];
   }
 
   v5 = +[ACDDatabasePersistentConfiguration accountTypes];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = [v5 allKeys];
-  v40 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
-  if (v40)
+  v39 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+  if (v39)
   {
-    v6 = *v42;
-    v28 = *v42;
-    v29 = v5;
+    v6 = *v41;
+    v27 = *v41;
+    v28 = v5;
     do
     {
-      for (i = 0; i != v40; ++i)
+      for (i = 0; i != v39; ++i)
       {
-        if (*v42 != v6)
+        if (*v41 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v41 + 1) + 8 * i);
+        v8 = *(*(&v40 + 1) + 8 * i);
         v9 = [v5 objectForKeyedSubscript:v8];
         v10 = [(ACDDatabaseInitializer *)self _accountTypeWithIdentifier:v8];
 
@@ -4675,46 +4687,46 @@ LABEL_54:
         else
         {
           [array addObject:v8];
-          v37 = [v9 objectForKeyedSubscript:@"ACDAccountTypeDisplayName"];
-          v38 = [v9 objectForKeyedSubscript:@"ACDAccountTypeVisibility"];
-          unsignedIntValue = [v38 unsignedIntValue];
-          v39 = [v9 objectForKeyedSubscript:@"ACDAccountTypeSupportedDataclasses"];
-          v13 = [(ACDDatabaseInitializer *)self _managedDataclassesSetForNames:v39];
-          v36 = [v9 objectForKeyedSubscript:@"ACDAccountTypeSyncableDataclasses"];
-          v34 = [(ACDDatabaseInitializer *)self _managedDataclassesSetForNames:v36];
-          v33 = [v9 objectForKeyedSubscript:@"ACDAccountTypeCredentialType"];
+          v36 = [v9 objectForKeyedSubscript:@"ACDAccountTypeDisplayName"];
+          v37 = [v9 objectForKeyedSubscript:@"ACDAccountTypeVisibility"];
+          unsignedIntValue = [v37 unsignedIntValue];
+          v38 = [v9 objectForKeyedSubscript:@"ACDAccountTypeSupportedDataclasses"];
+          v13 = [(ACDDatabaseInitializer *)self _managedDataclassesSetForNames:v38];
+          v35 = [v9 objectForKeyedSubscript:@"ACDAccountTypeSyncableDataclasses"];
+          v33 = [(ACDDatabaseInitializer *)self _managedDataclassesSetForNames:v35];
+          v32 = [v9 objectForKeyedSubscript:@"ACDAccountTypeCredentialType"];
           v14 = [v9 objectForKeyedSubscript:@"ACDAccountTypeSupportsAuthentication"];
           selfCopy = self;
           bOOLValue = [v14 BOOLValue];
           v17 = [v9 objectForKeyedSubscript:@"ACDAccountTypeSupportsMultipleAccounts"];
           bOOLValue2 = [v17 BOOLValue];
           v19 = [v9 objectForKeyedSubscript:@"ACDAccountTypeCredentialProtectionPolicy"];
-          BYTE1(v27) = bOOLValue2;
-          LOBYTE(v27) = bOOLValue;
+          BYTE1(v26) = bOOLValue2;
+          LOBYTE(v26) = bOOLValue;
           self = selfCopy;
-          v11 = v37;
-          v20 = [(ACDDatabaseInitializer *)self _addAccountTypeWithIdentifier:v8 displayName:v37 visibility:unsignedIntValue supportedDataclasses:v13 syncableDataclasses:v34 credentialType:v33 supportsAuthentication:v27 supportsMultipleAccounts:v19 credentialProtectionPolicy:?];
+          v11 = v36;
+          v20 = [(ACDDatabaseInitializer *)self _addAccountTypeWithIdentifier:v8 displayName:v36 visibility:unsignedIntValue supportedDataclasses:v13 syncableDataclasses:v33 credentialType:v32 supportsAuthentication:v26 supportsMultipleAccounts:v19 credentialProtectionPolicy:?];
 
-          v12 = v38;
-          v5 = v29;
+          v12 = v37;
+          v5 = v28;
 
-          v6 = v28;
+          v6 = v27;
         }
 
 LABEL_13:
       }
 
-      v40 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v39 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
-    while (v40);
+    while (v39);
   }
 
   v21 = [array count];
   if (v21)
   {
     v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing account types: %@", array];
-    v23 = _ACDLogSystem();
+    v23 = _ACDLogSystem(v22);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [ACDDatabaseInitializer _ensureAllInternalAccountTypesExist:];
@@ -4724,14 +4736,13 @@ LABEL_13:
     [v24 simulateCrashWithMessage:v22];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v21 != 0;
 }
 
 - (BOOL)_ensureAllDataclassesExist
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v3 = _ACDLogSystem();
+  v26 = *MEMORY[0x277D85DE8];
+  v3 = _ACDLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [ACDDatabaseInitializer _ensureAllDataclassesExist];
@@ -4744,26 +4755,26 @@ LABEL_13:
   v8 = [v5 setWithArray:v7];
 
   array = [MEMORY[0x277CBEB18] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v10 = v4;
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v23;
+    v13 = *v22;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
+        v15 = *(*(&v21 + 1) + 8 * i);
         if (([v8 containsObject:v15] & 1) == 0)
         {
           [(ACDDatabaseInitializer *)self _addDataclassWithName:v15];
@@ -4771,7 +4782,7 @@ LABEL_13:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v12);
@@ -4781,7 +4792,7 @@ LABEL_13:
   if (v16)
   {
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing dataclasses: %@", array];
-    v18 = _ACDLogSystem();
+    v18 = _ACDLogSystem(v17);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ACDDatabaseInitializer _ensureAllInternalAccountTypesExist:];
@@ -4791,34 +4802,33 @@ LABEL_13:
     [v19 simulateCrashWithMessage:v17];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16 != 0;
 }
 
 - (void)_addWarmingUpAttributeToAccounts
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   _accounts = [(ACDDatabaseInitializer *)self _accounts];
-  v3 = [_accounts countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [_accounts countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(_accounts);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         v8 = [MEMORY[0x277CCABB0] numberWithBool:0];
         [v7 setWarmingUp:v8];
 
@@ -4826,13 +4836,11 @@ LABEL_13:
       }
 
       while (v4 != v6);
-      v4 = [_accounts countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [_accounts countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDatabaseConnection:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
@@ -4848,72 +4856,51 @@ void __58__ACDDatabaseInitializer_updateDefaultContentIfNecessary___block_invoke
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __58__ACDDatabaseInitializer_updateDefaultContentIfNecessary___block_invoke_cold_2(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(*(*a1 + 8) + 40);
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __58__ACDDatabaseInitializer_updateDefaultContentIfNecessary___block_invoke_cold_3(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v5 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
-  v6 = *(*(*a2 + 8) + 40);
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
   OUTLINED_FUNCTION_4();
-  v10 = 2112;
-  v11 = v7;
-  _os_log_error_impl(&dword_221D2F000, a3, OS_LOG_TYPE_ERROR, "Database initialization failed. Stuck at version %@. Error: %@", v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = 2112;
+  v8 = v5;
+  _os_log_error_impl(&dword_221D2F000, a3, OS_LOG_TYPE_ERROR, "Database initialization failed. Stuck at version %@. Error: %@", v6, 0x16u);
 }
 
 - (void)_addCredentialType:toAccountType:supportsAuthentication:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_221D2F000, v1, OS_LOG_TYPE_ERROR, "Could not find account type %@ to set credential type %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_221D2F000, v1, OS_LOG_TYPE_ERROR, "Could not find account type %@ to set credential type %@", v2, 0x16u);
 }
 
 - (void)_addDataclassWithName:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addDataclassWithName:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addAccessKeyWithName:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_ensureAllInternalAccountTypesExist:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -159,12 +159,9 @@
 
 - (NSString)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  roomName = self->_roomName;
-  zoneNames = self->_zoneNames;
-  v6 = [v3 initWithFormat:@"BMHomeKitClientAccessoryControlEvent event with base: %@, accessoryUniqueIdentifier: %@, accessoryStateString: %@, accessoryStateNumber: %@, accessoryStateData: %@, serviceUniqueIdentifier: %@, serviceType: %@, characteristicType: %@, serviceGroupUniqueIdentifier: %@, zoneUniqueIdentifiers: %@, roomUniqueIdentifier: %@, accessoryName: %@, serviceName: %@, roomName: %@, serviceGroupName: %@, zoneNames: %@, homeName: %@", self->_base, self->_accessoryUniqueIdentifier, self->_accessoryStateString, self->_accessoryStateNumber, self->_accessoryStateData, self->_serviceUniqueIdentifier, self->_serviceType, self->_characteristicType, self->_serviceGroupUniqueIdentifier, self->_zoneUniqueIdentifiers, self->_roomUniqueIdentifier, self->_accessoryName, self->_serviceName, roomName, self->_serviceGroupName, zoneNames, self->_homeName];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"BMHomeKitClientAccessoryControlEvent event with base: %@, accessoryUniqueIdentifier: %@, accessoryStateString: %@, accessoryStateNumber: %@, accessoryStateData: %@, serviceUniqueIdentifier: %@, serviceType: %@, characteristicType: %@, serviceGroupUniqueIdentifier: %@, zoneUniqueIdentifiers: %@, roomUniqueIdentifier: %@, accessoryName: %@, serviceName: %@, roomName: %@, serviceGroupName: %@, zoneNames: %@, homeName: %@", self->_base, self->_accessoryUniqueIdentifier, self->_accessoryStateString, self->_accessoryStateNumber, self->_accessoryStateData, self->_serviceUniqueIdentifier, self->_serviceType, self->_characteristicType, self->_serviceGroupUniqueIdentifier, self->_zoneUniqueIdentifiers, self->_roomUniqueIdentifier, self->_accessoryName, self->_serviceName, self->_roomName, self->_serviceGroupName, self->_zoneNames, self->_homeName];
 
-  return v6;
+  return v2;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version
@@ -337,7 +334,7 @@ LABEL_15:
     v20 = __biome_log_for_category();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      [BMHomeKitClientAccessoryControlEvent initWithProto:];
+      [BMHomeKitClientAccessoryControlEvent initWithProto:?];
     }
   }
 

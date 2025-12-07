@@ -9,122 +9,122 @@
 {
   v48 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphScatterAlongAxisOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphScatterOps.mm", __p);
+  mpsFileLoc(__p, "[MPSGraphScatterAlongAxisOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphScatterOps.mm");
   v12 = nameCopy;
   v47 = 260;
   v46[0] = __p;
   StringAttr = mlir::Builder::getStringAttr(builder, v46);
-  v15 = mlir::FileLineColLoc::get(StringAttr, 0x15Eu, 0);
+  v16 = mlir::FileLineColLoc::get(StringAttr, 0x15Eu, 0);
   if (v12)
   {
-    v16 = v12;
+    v17 = v12;
     uTF8String = [v12 UTF8String];
-    v18 = strlen(uTF8String);
-    if (v18 >= 0x7FFFFFFFFFFFFFF8)
+    v19 = strlen(uTF8String);
+    if (v19 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v19 = v18;
-    if (v18 >= 0x17)
+    v20 = v19;
+    if (v19 >= 0x17)
     {
       operator new();
     }
 
-    HIBYTE(v45) = v18;
-    if (v18)
+    *(&__dst[0].__r_.__value_.__s + 23) = v19;
+    if (v19)
     {
-      memmove(__dst, uTF8String, v18);
+      memmove(__dst, uTF8String, v19);
     }
 
-    v20 = &__dst[v19];
+    v21 = __dst + v20;
   }
 
   else
   {
-    HIBYTE(v45) = 22;
-    qmemcpy(__dst, "mps.scatter_along_axis", sizeof(__dst));
-    v20 = &v45;
+    *(&__dst[0].__r_.__value_.__s + 23) = 22;
+    qmemcpy(__dst, "mps.scatter_along_axis", 22);
+    v21 = &__dst[0].__r_.__value_.__s.__data_[22];
   }
 
-  *v20 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, __dst, v14, &v41);
-  v21 = v41.__r_.__value_.__r.__words[0];
-  if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  *v21 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, __dst, &v42, v14, v15);
+  v22 = v42.__r_.__value_.__r.__words[0];
+  if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v21 = &v41;
+    v22 = &v42;
   }
 
-  v22 = 1;
+  v23 = 1;
   HIBYTE(v47) = 1;
-  if (v21->__r_.__value_.__s.__data_[0])
+  if (v22->__r_.__value_.__s.__data_[0])
   {
-    v46[0] = v21;
-    v22 = 3;
+    v46[0] = v22;
+    v23 = 3;
   }
 
-  LOBYTE(v47) = v22;
-  v23 = mlir::Builder::getStringAttr(builder, v46);
-  v24 = mlir::NameLoc::get(v23, v15);
-  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+  LOBYTE(v47) = v23;
+  v24 = mlir::Builder::getStringAttr(builder, v46);
+  v25 = mlir::NameLoc::get(v24, v16);
+  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v41.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v45) & 0x80000000) == 0)
+    operator delete(v42.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(__dst[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
   }
 
-  else if ((SHIBYTE(v45) & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_16;
   }
 
-  operator delete(*__dst);
+  operator delete(__dst[0].__r_.__value_.__l.__data_);
 LABEL_16:
 
-  if (v37 < 0)
+  if (v38 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v25 = *values;
+  v26 = *values;
   if (*(values + 1) - *values < 0x20uLL)
   {
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
   mode = self->_mode;
-  v38 = v24;
-  Context = mlir::Attribute::getContext(&v38);
-  v28 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::ScatterAlongAxisOp,void>::id, Context);
-  if ((v29 & 1) == 0)
+  v39 = v25;
+  Context = mlir::Attribute::getContext(&v39);
+  v29 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::ScatterAlongAxisOp,void>::id, Context);
+  if ((v30 & 1) == 0)
   {
-    v43 = 1283;
-    v41.__r_.__value_.__r.__words[2] = "mps.scatter_along_axis";
-    v42 = 22;
-    v40 = 259;
-    llvm::operator+(&v41, &v39, __dst);
+    v44 = 1283;
+    v42.__r_.__value_.__r.__words[2] = "mps.scatter_along_axis";
+    v43 = 22;
+    v41 = 259;
+    llvm::operator+(&v42, &v40, __dst);
     llvm::report_fatal_error(__dst, 1);
   }
 
-  mlir::OperationState::OperationState(v46, v24, v28);
-  mlir::mps::ScatterAlongAxisOp::build(builder, v46, *v25, v25[1], v25[2], v25[3], mode);
-  v30 = mlir::OpBuilder::create(builder, v46);
-  v31 = *(*(v30 + 48) + 16);
+  mlir::OperationState::OperationState(v46, v25, v29);
+  mlir::mps::ScatterAlongAxisOp::build(builder, v46, *v26, v26[1], v26[2], v26[3], mode);
+  v31 = mlir::OpBuilder::create(builder, v46);
+  v32 = *(*(v31 + 6) + 16);
   mlir::OperationState::~OperationState(v46);
-  if (v31 == &mlir::detail::TypeIDResolver<mlir::mps::ScatterAlongAxisOp,void>::id)
+  if (v32 == &mlir::detail::TypeIDResolver<mlir::mps::ScatterAlongAxisOp,void>::id)
   {
-    v32 = v30;
+    v33 = v31;
   }
 
   else
   {
-    v32 = 0;
+    v33 = 0;
   }
 
-  v35 = v32 - 16;
-  DefiningOp = mlir::Value::getDefiningOp(&v35);
+  v36 = v33 - 16;
+  DefiningOp = mlir::Value::getDefiningOp(&v36);
 
   return DefiningOp;
 }

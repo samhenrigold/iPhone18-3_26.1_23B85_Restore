@@ -166,7 +166,7 @@ LABEL_9:
 
 - (void)setButtonsMode:(int)mode animated:(BOOL)animated
 {
-  v6 = sub_100004F84();
+  v6 = sub_100004F84(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;

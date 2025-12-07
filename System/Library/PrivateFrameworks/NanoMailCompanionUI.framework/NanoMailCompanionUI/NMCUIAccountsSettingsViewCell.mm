@@ -50,25 +50,26 @@
     v9 = [v8 systemFontOfSize:?];
     [(UILabel *)self->_warningLabel setFont:v9];
 
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
     v10 = getBPSBridgeTintColorSymbolLoc_ptr;
-    v18 = getBPSBridgeTintColorSymbolLoc_ptr;
+    v19 = getBPSBridgeTintColorSymbolLoc_ptr;
     if (!getBPSBridgeTintColorSymbolLoc_ptr)
     {
       v11 = BridgePreferencesLibrary();
-      v16[3] = dlsym(v11, "BPSBridgeTintColor");
-      getBPSBridgeTintColorSymbolLoc_ptr = v16[3];
-      v10 = v16[3];
+      v17[3] = dlsym(v11, "BPSBridgeTintColor");
+      getBPSBridgeTintColorSymbolLoc_ptr = v17[3];
+      v10 = v17[3];
     }
 
-    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v16, 8);
     if (!v10)
     {
-      v14 = soft_BPSCellHightlightColor_cold_1();
-      _Block_object_dispose(&v15, 8);
-      _Unwind_Resume(v14);
+      soft_BPSCellHightlightColor_cold_1();
+      v15 = v14;
+      _Block_object_dispose(&v16, 8);
+      _Unwind_Resume(v15);
     }
 
     v12 = v10();

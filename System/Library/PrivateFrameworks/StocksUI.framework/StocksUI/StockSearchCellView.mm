@@ -13,9 +13,9 @@
 - (BOOL)isAccessibilityElement
 {
   selfCopy = self;
-  v3 = sub_220787AB0();
+  v4 = sub_220787AB0(selfCopy, v3);
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (void)setIsAccessibilityElement:(BOOL)element
@@ -29,9 +29,9 @@
 - (unint64_t)accessibilityTraits
 {
   selfCopy = self;
-  v3 = sub_220787CD8();
+  v4 = sub_220787CD8(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setAccessibilityTraits:(unint64_t)traits
@@ -56,20 +56,20 @@
 - (NSArray)accessibilityCustomActions
 {
   selfCopy = self;
-  v3 = sub_220787FC0();
+  v4 = sub_220787FC0(selfCopy, v3);
 
-  if (v3)
+  if (v4)
   {
-    sub_22044D56C(0, &unk_281299868);
-    v4 = sub_2208916DC();
+    sub_22044D56C(0, &unk_281299868, 0x277D75088);
+    v5 = sub_2208916DC();
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)setAccessibilityCustomActions:(id)actions
@@ -77,7 +77,7 @@
   ObjectType = swift_getObjectType();
   if (actions)
   {
-    sub_22044D56C(0, &unk_281299868);
+    sub_22044D56C(0, &unk_281299868, 0x277D75088);
     sub_2208916EC();
     selfCopy = self;
     actions = sub_2208916DC();

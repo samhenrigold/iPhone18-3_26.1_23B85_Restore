@@ -104,10 +104,10 @@
 
 - (BOOL)analyticsSubmissionOnMaintenanceWorkCoordinator
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_122;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_122;
+  v6 = v5;
   os_unfair_lock_lock(&self->_analyticsSubmissionOnMaintenanceWorkCoordinator._loadLock);
   if (self->_analyticsSubmissionOnMaintenanceWorkCoordinator._hasLoaded)
   {
@@ -116,19 +116,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_analyticsSubmissionOnMaintenanceWorkCoordinator._value = value;
     self->_analyticsSubmissionOnMaintenanceWorkCoordinator._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_analyticsSubmissionOnMaintenanceWorkCoordinator._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -143,10 +142,10 @@
 
 - (BOOL)bloodPressureValidationsEnabled
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_8_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_8_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_bloodPressureValidationsEnabled._loadLock);
   if (self->_bloodPressureValidationsEnabled._hasLoaded)
   {
@@ -155,19 +154,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_bloodPressureValidationsEnabled._value = value;
     self->_bloodPressureValidationsEnabled._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_bloodPressureValidationsEnabled._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -182,10 +180,10 @@
 
 - (BOOL)coalesceCumulativeTypesInWorkoutSeries
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_11_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_11_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_coalesceCumulativeTypesInWorkoutSeries._loadLock);
   if (self->_coalesceCumulativeTypesInWorkoutSeries._hasLoaded)
   {
@@ -194,19 +192,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_coalesceCumulativeTypesInWorkoutSeries._value = value;
     self->_coalesceCumulativeTypesInWorkoutSeries._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_coalesceCumulativeTypesInWorkoutSeries._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -221,10 +218,10 @@
 
 - (BOOL)coalesceHeartRatesInWorkoutSeries
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_14;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_14;
+  v6 = v5;
   os_unfair_lock_lock(&self->_coalesceHeartRatesInWorkoutSeries._loadLock);
   if (self->_coalesceHeartRatesInWorkoutSeries._hasLoaded)
   {
@@ -233,19 +230,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_coalesceHeartRatesInWorkoutSeries._value = value;
     self->_coalesceHeartRatesInWorkoutSeries._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_coalesceHeartRatesInWorkoutSeries._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -260,10 +256,10 @@
 
 - (BOOL)condenseWorkoutSamplesFromNonWatchSources
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_17_1;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_17_1;
+  v6 = v5;
   os_unfair_lock_lock(&self->_condenseWorkoutSamplesFromNonWatchSources._loadLock);
   if (self->_condenseWorkoutSamplesFromNonWatchSources._hasLoaded)
   {
@@ -272,19 +268,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_condenseWorkoutSamplesFromNonWatchSources._value = value;
     self->_condenseWorkoutSamplesFromNonWatchSources._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_condenseWorkoutSamplesFromNonWatchSources._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -299,10 +294,10 @@
 
 - (BOOL)condenseFirstPartyiOSWorkouts
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_20;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_20;
+  v6 = v5;
   os_unfair_lock_lock(&self->_condenseFirstPartyiOSWorkouts._loadLock);
   if (self->_condenseFirstPartyiOSWorkouts._hasLoaded)
   {
@@ -311,19 +306,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_condenseFirstPartyiOSWorkouts._value = value;
     self->_condenseFirstPartyiOSWorkouts._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_condenseFirstPartyiOSWorkouts._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -338,10 +332,10 @@
 
 - (BOOL)pauseRings
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_23_2;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_23_2;
+  v6 = v5;
   os_unfair_lock_lock(&self->_pauseRings._loadLock);
   if (self->_pauseRings._hasLoaded)
   {
@@ -350,19 +344,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_pauseRings._value = value;
     self->_pauseRings._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_pauseRings._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -377,10 +370,10 @@
 
 - (BOOL)scheduledGoals
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_25_2;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_25_2;
+  v6 = v5;
   os_unfair_lock_lock(&self->_scheduledGoals._loadLock);
   if (self->_scheduledGoals._hasLoaded)
   {
@@ -389,19 +382,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_scheduledGoals._value = value;
     self->_scheduledGoals._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_scheduledGoals._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -416,10 +408,10 @@
 
 - (BOOL)coachingUpdates
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_27_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_27_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_coachingUpdates._loadLock);
   if (self->_coachingUpdates._hasLoaded)
   {
@@ -428,19 +420,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_coachingUpdates._value = value;
     self->_coachingUpdates._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_coachingUpdates._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -455,10 +446,10 @@
 
 - (BOOL)databasePruningTaskShouldUseRestrictionPredicates
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_31_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_31_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_databasePruningTaskShouldUseRestrictionPredicates._loadLock);
   if (self->_databasePruningTaskShouldUseRestrictionPredicates._hasLoaded)
   {
@@ -467,19 +458,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_databasePruningTaskShouldUseRestrictionPredicates._value = value;
     self->_databasePruningTaskShouldUseRestrictionPredicates._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_databasePruningTaskShouldUseRestrictionPredicates._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -494,10 +484,10 @@
 
 - (BOOL)bloodPressureTrends
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_34;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_34;
+  v6 = v5;
   os_unfair_lock_lock(&self->_bloodPressureTrends._loadLock);
   if (self->_bloodPressureTrends._hasLoaded)
   {
@@ -506,19 +496,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_bloodPressureTrends._value = value;
     self->_bloodPressureTrends._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_bloodPressureTrends._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -533,10 +522,10 @@
 
 - (BOOL)chamomile
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_38;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_38;
+  v6 = v5;
   os_unfair_lock_lock(&self->_chamomile._loadLock);
   if (self->_chamomile._hasLoaded)
   {
@@ -545,19 +534,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_chamomile._value = value;
     self->_chamomile._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_chamomile._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -572,10 +560,10 @@
 
 - (BOOL)databasePrioritySemaphore
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_41_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_41_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_databasePrioritySemaphore._loadLock);
   if (self->_databasePrioritySemaphore._hasLoaded)
   {
@@ -584,28 +572,27 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_databasePrioritySemaphore._value = value;
     self->_databasePrioritySemaphore._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_databasePrioritySemaphore._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
 - (BOOL)databaseSemaphoreLogging
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_44_2;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_44_2;
+  v6 = v5;
   os_unfair_lock_lock(&self->_databaseSemaphoreLogging._loadLock);
   if (self->_databaseSemaphoreLogging._hasLoaded)
   {
@@ -614,28 +601,27 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_databaseSemaphoreLogging._value = value;
     self->_databaseSemaphoreLogging._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_databaseSemaphoreLogging._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
 - (BOOL)databaseStateCacheTransactionScoped
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_47;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_47;
+  v6 = v5;
   os_unfair_lock_lock(&self->_databaseStateCacheTransactionScoped._loadLock);
   if (self->_databaseStateCacheTransactionScoped._hasLoaded)
   {
@@ -644,19 +630,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_databaseStateCacheTransactionScoped._value = value;
     self->_databaseStateCacheTransactionScoped._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_databaseStateCacheTransactionScoped._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -671,10 +656,10 @@
 
 - (BOOL)deprecateIRN1
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_50_2;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_50_2;
+  v6 = v5;
   os_unfair_lock_lock(&self->_deprecateIRN1._loadLock);
   if (self->_deprecateIRN1._hasLoaded)
   {
@@ -683,19 +668,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_deprecateIRN1._value = value;
     self->_deprecateIRN1._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_deprecateIRN1._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -710,10 +694,10 @@
 
 - (BOOL)simplifiedLogging
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_53_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_53_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_simplifiedLogging._loadLock);
   if (self->_simplifiedLogging._hasLoaded)
   {
@@ -722,19 +706,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_simplifiedLogging._value = value;
     self->_simplifiedLogging._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_simplifiedLogging._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -749,10 +732,10 @@
 
 - (BOOL)dbAvailablityAfterPrimaryMerge
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_56_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_56_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_dbAvailablityAfterPrimaryMerge._loadLock);
   if (self->_dbAvailablityAfterPrimaryMerge._hasLoaded)
   {
@@ -761,28 +744,27 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_dbAvailablityAfterPrimaryMerge._value = value;
     self->_dbAvailablityAfterPrimaryMerge._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_dbAvailablityAfterPrimaryMerge._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
 - (BOOL)extendedLocalWatchData
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_59_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_59_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_extendedLocalWatchData._loadLock);
   if (self->_extendedLocalWatchData._hasLoaded)
   {
@@ -791,19 +773,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_extendedLocalWatchData._value = value;
     self->_extendedLocalWatchData._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_extendedLocalWatchData._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -818,10 +799,10 @@
 
 - (BOOL)experimentalOrchestrationAdoption
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_62_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_62_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_experimentalOrchestrationAdoption._loadLock);
   if (self->_experimentalOrchestrationAdoption._hasLoaded)
   {
@@ -830,19 +811,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_experimentalOrchestrationAdoption._value = value;
     self->_experimentalOrchestrationAdoption._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_experimentalOrchestrationAdoption._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -857,10 +837,10 @@
 
 - (BOOL)heartRatePush
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_65_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_65_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_heartRatePush._loadLock);
   if (self->_heartRatePush._hasLoaded)
   {
@@ -869,19 +849,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_heartRatePush._value = value;
     self->_heartRatePush._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_heartRatePush._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -896,10 +875,10 @@
 
 - (BOOL)hermit
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_68;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_68;
+  v6 = v5;
   os_unfair_lock_lock(&self->_hermit._loadLock);
   if (self->_hermit._hasLoaded)
   {
@@ -908,19 +887,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_hermit._value = value;
     self->_hermit._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_hermit._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -935,10 +913,10 @@
 
 - (BOOL)isPinnedInBrowse
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_71;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_71;
+  v6 = v5;
   os_unfair_lock_lock(&self->_isPinnedInBrowse._loadLock);
   if (self->_isPinnedInBrowse._hasLoaded)
   {
@@ -947,19 +925,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_isPinnedInBrowse._value = value;
     self->_isPinnedInBrowse._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_isPinnedInBrowse._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -974,10 +951,10 @@
 
 - (BOOL)nebula
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_74;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_74;
+  v6 = v5;
   os_unfair_lock_lock(&self->_nebula._loadLock);
   if (self->_nebula._hasLoaded)
   {
@@ -986,19 +963,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_nebula._value = value;
     self->_nebula._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_nebula._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1013,10 +989,10 @@
 
 - (BOOL)newUnifiedTabBar
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_77_1;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_77_1;
+  v6 = v5;
   os_unfair_lock_lock(&self->_newUnifiedTabBar._loadLock);
   if (self->_newUnifiedTabBar._hasLoaded)
   {
@@ -1025,19 +1001,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_newUnifiedTabBar._value = value;
     self->_newUnifiedTabBar._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_newUnifiedTabBar._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1052,10 +1027,10 @@
 
 - (BOOL)sharedStoreXPC
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_80_1;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_80_1;
+  v6 = v5;
   os_unfair_lock_lock(&self->_sharedStoreXPC._loadLock);
   if (self->_sharedStoreXPC._hasLoaded)
   {
@@ -1064,19 +1039,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_sharedStoreXPC._value = value;
     self->_sharedStoreXPC._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_sharedStoreXPC._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1091,10 +1065,10 @@
 
 - (BOOL)sharingPlus
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_83_1;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_83_1;
+  v6 = v5;
   os_unfair_lock_lock(&self->_sharingPlus._loadLock);
   if (self->_sharingPlus._hasLoaded)
   {
@@ -1103,28 +1077,27 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_sharingPlus._value = value;
     self->_sharingPlus._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_sharingPlus._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
 - (BOOL)sleepCloudKitManatee
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_86_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_86_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_sleepCloudKitManatee._loadLock);
   if (self->_sleepCloudKitManatee._hasLoaded)
   {
@@ -1133,19 +1106,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_sleepCloudKitManatee._value = value;
     self->_sleepCloudKitManatee._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_sleepCloudKitManatee._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1160,10 +1132,10 @@
 
 - (BOOL)sleepCloudKitSync
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_89_1;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_89_1;
+  v6 = v5;
   os_unfair_lock_lock(&self->_sleepCloudKitSync._loadLock);
   if (self->_sleepCloudKitSync._hasLoaded)
   {
@@ -1172,19 +1144,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_sleepCloudKitSync._value = value;
     self->_sleepCloudKitSync._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_sleepCloudKitSync._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1199,10 +1170,10 @@
 
 - (BOOL)sleepDetails
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_92;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_92;
+  v6 = v5;
   os_unfair_lock_lock(&self->_sleepDetails._loadLock);
   if (self->_sleepDetails._hasLoaded)
   {
@@ -1211,19 +1182,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_sleepDetails._value = value;
     self->_sleepDetails._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_sleepDetails._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1238,10 +1208,10 @@
 
 - (BOOL)sleepOnIpad
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_95;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_95;
+  v6 = v5;
   os_unfair_lock_lock(&self->_sleepOnIpad._loadLock);
   if (self->_sleepOnIpad._hasLoaded)
   {
@@ -1250,19 +1220,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_sleepOnIpad._value = value;
     self->_sleepOnIpad._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_sleepOnIpad._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1277,10 +1246,10 @@
 
 - (BOOL)sleepOnMac
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_98_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_98_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_sleepOnMac._loadLock);
   if (self->_sleepOnMac._hasLoaded)
   {
@@ -1289,19 +1258,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_sleepOnMac._value = value;
     self->_sleepOnMac._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_sleepOnMac._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1316,10 +1284,10 @@
 
 - (BOOL)sleepResultsNotificationsOnWatch
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_101_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_101_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_sleepResultsNotificationsOnWatch._loadLock);
   if (self->_sleepResultsNotificationsOnWatch._hasLoaded)
   {
@@ -1328,19 +1296,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_sleepResultsNotificationsOnWatch._value = value;
     self->_sleepResultsNotificationsOnWatch._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_sleepResultsNotificationsOnWatch._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1355,10 +1322,10 @@
 
 - (BOOL)snidgetsTinker
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_104;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_104;
+  v6 = v5;
   os_unfair_lock_lock(&self->_snidgetsTinker._loadLock);
   if (self->_snidgetsTinker._hasLoaded)
   {
@@ -1367,19 +1334,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_snidgetsTinker._value = value;
     self->_snidgetsTinker._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_snidgetsTinker._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1394,10 +1360,10 @@
 
 - (BOOL)summaryGradient
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_107;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_107;
+  v6 = v5;
   os_unfair_lock_lock(&self->_summaryGradient._loadLock);
   if (self->_summaryGradient._hasLoaded)
   {
@@ -1406,19 +1372,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_summaryGradient._value = value;
     self->_summaryGradient._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_summaryGradient._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1433,10 +1398,10 @@
 
 - (BOOL)urgentNotificationDismiss
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_110;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_110;
+  v6 = v5;
   os_unfair_lock_lock(&self->_urgentNotificationDismiss._loadLock);
   if (self->_urgentNotificationDismiss._hasLoaded)
   {
@@ -1445,28 +1410,27 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_urgentNotificationDismiss._value = value;
     self->_urgentNotificationDismiss._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_urgentNotificationDismiss._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
 - (BOOL)timeInBedTracking
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_113_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_113_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_timeInBedTracking._loadLock);
   if (self->_timeInBedTracking._hasLoaded)
   {
@@ -1475,19 +1439,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_timeInBedTracking._value = value;
     self->_timeInBedTracking._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_timeInBedTracking._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1502,10 +1465,10 @@
 
 - (BOOL)vrx
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_116;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_116;
+  v6 = v5;
   os_unfair_lock_lock(&self->_vrx._loadLock);
   if (self->_vrx._hasLoaded)
   {
@@ -1514,19 +1477,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_vrx._value = value;
     self->_vrx._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_vrx._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1541,10 +1503,10 @@
 
 - (BOOL)workoutCondensationOnLocking
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_119;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_119;
+  v6 = v5;
   os_unfair_lock_lock(&self->_workoutCondensationOnLocking._loadLock);
   if (self->_workoutCondensationOnLocking._hasLoaded)
   {
@@ -1553,28 +1515,27 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_workoutCondensationOnLocking._value = value;
     self->_workoutCondensationOnLocking._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_workoutCondensationOnLocking._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
 - (BOOL)workoutSavingQueryPerf
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_122_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_122_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_workoutSavingQueryPerf._loadLock);
   if (self->_workoutSavingQueryPerf._hasLoaded)
   {
@@ -1583,28 +1544,27 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_workoutSavingQueryPerf._value = value;
     self->_workoutSavingQueryPerf._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_workoutSavingQueryPerf._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
 - (BOOL)workoutSeriesAggregation
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_125_1;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_125_1;
+  v6 = v5;
   os_unfair_lock_lock(&self->_workoutSeriesAggregation._loadLock);
   if (self->_workoutSeriesAggregation._hasLoaded)
   {
@@ -1613,19 +1573,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_workoutSeriesAggregation._value = value;
     self->_workoutSeriesAggregation._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_workoutSeriesAggregation._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1640,10 +1599,10 @@
 
 - (BOOL)workoutSeriesFirstPartyOnly
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_128_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_128_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_workoutSeriesFirstPartyOnly._loadLock);
   if (self->_workoutSeriesFirstPartyOnly._hasLoaded)
   {
@@ -1652,19 +1611,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_workoutSeriesFirstPartyOnly._value = value;
     self->_workoutSeriesFirstPartyOnly._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_workoutSeriesFirstPartyOnly._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1679,10 +1637,10 @@
 
 - (BOOL)workoutTempTableChanges
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_131;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_131;
+  v6 = v5;
   os_unfair_lock_lock(&self->_workoutSavingQueryPerf._loadLock);
   if (self->_workoutSavingQueryPerf._hasLoaded)
   {
@@ -1691,28 +1649,27 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_workoutSavingQueryPerf._value = value;
     self->_workoutSavingQueryPerf._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_workoutSavingQueryPerf._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
 - (BOOL)databasePerfTrace
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_134_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_134_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_databasePerfTrace._loadLock);
   if (self->_databasePerfTrace._hasLoaded)
   {
@@ -1721,28 +1678,27 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_databasePerfTrace._value = value;
     self->_databasePerfTrace._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_databasePerfTrace._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
 - (BOOL)xpcGatedSecondaryJournalMerge
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_137_1;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_137_1;
+  v6 = v5;
   os_unfair_lock_lock(&self->_xpcGatedSecondaryJournalMerge._loadLock);
   if (self->_xpcGatedSecondaryJournalMerge._hasLoaded)
   {
@@ -1751,28 +1707,27 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_xpcGatedSecondaryJournalMerge._value = value;
     self->_xpcGatedSecondaryJournalMerge._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_xpcGatedSecondaryJournalMerge._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
 - (BOOL)yodel
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_140;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_140;
+  v6 = v5;
   os_unfair_lock_lock(&self->_yodel._loadLock);
   if (self->_yodel._hasLoaded)
   {
@@ -1781,19 +1736,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_yodel._value = value;
     self->_yodel._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_yodel._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1808,10 +1762,10 @@
 
 - (BOOL)chutney
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_146_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_146_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_chutney._loadLock);
   if (self->_chutney._hasLoaded)
   {
@@ -1820,19 +1774,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_chutney._value = value;
     self->_chutney._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_chutney._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1847,10 +1800,10 @@
 
 - (BOOL)maritime
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_149_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_149_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_maritime._loadLock);
   if (self->_maritime._hasLoaded)
   {
@@ -1859,19 +1812,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_maritime._value = value;
     self->_maritime._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_maritime._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1886,10 +1838,10 @@
 
 - (BOOL)cmPedometerPush
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_153_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_153_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_cmPedometerPush._loadLock);
   if (self->_cmPedometerPush._hasLoaded)
   {
@@ -1898,19 +1850,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_cmPedometerPush._value = value;
     self->_cmPedometerPush._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_cmPedometerPush._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1925,10 +1876,10 @@
 
 - (BOOL)nanoMedicalIDSwift
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_157_1;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_157_1;
+  v6 = v5;
   os_unfair_lock_lock(&self->_nanoMedicalIDSwift._loadLock);
   if (self->_nanoMedicalIDSwift._hasLoaded)
   {
@@ -1937,19 +1888,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_nanoMedicalIDSwift._value = value;
     self->_nanoMedicalIDSwift._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_nanoMedicalIDSwift._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -1964,10 +1914,10 @@
 
 - (BOOL)HRCoordinator
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_160_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_160_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_HRCoordinator._loadLock);
   if (self->_HRCoordinator._hasLoaded)
   {
@@ -1976,19 +1926,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_HRCoordinator._value = value;
     self->_HRCoordinator._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_HRCoordinator._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -2003,10 +1952,10 @@
 
 - (BOOL)removeCKCascadeDelete
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_163;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_163;
+  v6 = v5;
   os_unfair_lock_lock(&self->_removeCKCascadeDelete._loadLock);
   if (self->_removeCKCascadeDelete._hasLoaded)
   {
@@ -2015,19 +1964,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_removeCKCascadeDelete._value = value;
     self->_removeCKCascadeDelete._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_removeCKCascadeDelete._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -2042,10 +1990,10 @@
 
 - (BOOL)unifiedCloudSync
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_166;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_166;
+  v6 = v5;
   os_unfair_lock_lock(&self->_unifiedCloudSync._loadLock);
   if (self->_unifiedCloudSync._hasLoaded)
   {
@@ -2054,19 +2002,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_unifiedCloudSync._value = value;
     self->_unifiedCloudSync._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_unifiedCloudSync._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 
@@ -2081,10 +2028,10 @@
 
 - (BOOL)newSleep6MonthView
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v6[0] = &unk_1F05F5708;
-  v6[1] = &__block_literal_global_169_0;
-  v7 = v6;
+  v7 = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F05F5708;
+  v5[1] = &__block_literal_global_169_0;
+  v6 = v5;
   os_unfair_lock_lock(&self->_newSleep6MonthView._loadLock);
   if (self->_newSleep6MonthView._hasLoaded)
   {
@@ -2093,19 +2040,18 @@
 
   else
   {
-    if (!v7)
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    value = (*(*v7 + 48))(v7);
+    value = (*(*v6 + 48))(v6);
     self->_newSleep6MonthView._value = value;
     self->_newSleep6MonthView._hasLoaded = 1;
   }
 
   os_unfair_lock_unlock(&self->_newSleep6MonthView._loadLock);
-  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](v5);
   return value & 1;
 }
 

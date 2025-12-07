@@ -625,32 +625,32 @@ LABEL_13:
 
 - (id)pruneVisitsWithDateInterval:(id)interval
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
   if (intervalCopy)
   {
     array = [MEMORY[0x1E695DF70] array];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     selfCopy = self;
     obj = [(RTLocationOfInterest *)self visits];
-    v4 = [obj countByEnumeratingWithState:&v38 objects:v52 count:16];
+    v4 = [obj countByEnumeratingWithState:&v37 objects:v51 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v39;
+      v6 = *v38;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v39 != v6)
+          if (*v38 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v38 + 1) + 8 * i);
+          v8 = *(*(&v37 + 1) + 8 * i);
           v9 = objc_autoreleasePoolPush();
           exitDate = [v8 exitDate];
           entryDate = [v8 entryDate];
@@ -667,15 +667,15 @@ LABEL_13:
               exitDate2 = [v8 exitDate];
               stringFromDate2 = [exitDate2 stringFromDate];
               *buf = 138740995;
-              v43 = identifier;
-              v44 = 2112;
-              v45 = stringFromDate;
-              v46 = 2112;
-              v47 = stringFromDate2;
-              v48 = 2080;
-              v49 = "[RTLocationOfInterest pruneVisitsWithDateInterval:]";
-              v50 = 1024;
-              v51 = 460;
+              v42 = identifier;
+              v43 = 2112;
+              v44 = stringFromDate;
+              v45 = 2112;
+              v46 = stringFromDate2;
+              v47 = 2080;
+              v48 = "[RTLocationOfInterest pruneVisitsWithDateInterval:]";
+              v49 = 1024;
+              v50 = 460;
               _os_log_error_impl(&dword_1BF1C4000, v13, OS_LOG_TYPE_ERROR, "location of interest visit, %{sensitive}@, has one or more malformed dates, entry, %@, exit, %@ (in %s:%d)", buf, 0x30u);
             }
           }
@@ -696,7 +696,7 @@ LABEL_13:
           objc_autoreleasePoolPop(v9);
         }
 
-        v5 = [obj countByEnumeratingWithState:&v38 objects:v52 count:16];
+        v5 = [obj countByEnumeratingWithState:&v37 objects:v51 count:16];
       }
 
       while (v5);
@@ -718,8 +718,6 @@ LABEL_13:
   {
     selfCopy2 = self;
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return selfCopy2;
 }

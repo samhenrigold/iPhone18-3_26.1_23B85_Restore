@@ -155,25 +155,23 @@ uint64_t __70__PSSpecifierContentConfigurationCellAccessibility_accessibilityLab
 
 - (id)_accessibilitySupplementaryFooterViews
 {
-  v10[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   v3 = [(PSSpecifierContentConfigurationCellAccessibility *)self _accessibilityFindSubviewDescendant:&__block_literal_global_335];
   v4 = v3;
   if (v3)
   {
-    v10[0] = v3;
-    _accessibilitySupplementaryFooterViews = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:1];
+    v9[0] = v3;
+    _accessibilitySupplementaryFooterViews = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
   }
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = PSSpecifierContentConfigurationCellAccessibility;
-    _accessibilitySupplementaryFooterViews = [(PSSpecifierContentConfigurationCellAccessibility *)&v9 _accessibilitySupplementaryFooterViews];
+    v8.receiver = self;
+    v8.super_class = PSSpecifierContentConfigurationCellAccessibility;
+    _accessibilitySupplementaryFooterViews = [(PSSpecifierContentConfigurationCellAccessibility *)&v8 _accessibilitySupplementaryFooterViews];
   }
 
   v6 = _accessibilitySupplementaryFooterViews;
-
-  v7 = *MEMORY[0x29EDCA608];
 
   return v6;
 }

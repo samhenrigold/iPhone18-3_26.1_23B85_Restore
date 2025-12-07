@@ -6,7 +6,7 @@
 
 + (id)pg_textFeatureForFeature:()PGTextFeature
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = v3;
   if (v3)
@@ -43,9 +43,9 @@
           if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
           {
             v9 = +[PGFeature stringForFeatureType:](PGFeature, "stringForFeatureType:", [v4 type]);
-            v18 = 138412290;
-            v19 = v9;
-            _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Cannot create a PHTextFeature from PGFeature type %@", &v18, 0xCu);
+            v17 = 138412290;
+            v18 = v9;
+            _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Cannot create a PHTextFeature from PGFeature type %@", &v17, 0xCu);
           }
 
           goto LABEL_7;
@@ -125,8 +125,6 @@
 LABEL_7:
     string = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return string;
 }

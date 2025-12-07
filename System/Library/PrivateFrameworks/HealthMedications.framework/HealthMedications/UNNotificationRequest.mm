@@ -93,29 +93,29 @@
 
 + (id)_timeZoneContent
 {
-  objc_opt_self();
-  v0 = objc_alloc_init(MEMORY[0x277CE1F60]);
-  v1 = [MEMORY[0x277CCACA8] localizedUserNotificationStringForKey:@"MEDICATIONS_NOTIFICATION_TIMEZONE_TITLE" arguments:0];
-  [v0 setTitle:v1];
+  v1 = objc_opt_self();
+  v2 = objc_alloc_init(MEMORY[0x277CE1F60]);
+  v3 = [MEMORY[0x277CCACA8] localizedUserNotificationStringForKey:@"MEDICATIONS_NOTIFICATION_TIMEZONE_TITLE" arguments:0];
+  [v2 setTitle:v3];
 
-  v2 = [MEMORY[0x277CCACA8] localizedUserNotificationStringForKey:@"MEDICATIONS_NOTIFICATION_TIMEZONE_BODY" arguments:0];
-  [v0 setBody:v2];
+  v4 = [MEMORY[0x277CCACA8] localizedUserNotificationStringForKey:@"MEDICATIONS_NOTIFICATION_TIMEZONE_BODY" arguments:0];
+  [v2 setBody:v4];
 
-  v3 = +[UNNotificationRequest _timeZoneUserInfo];
-  [v0 setUserInfo:v3];
+  v5 = +[(UNNotificationRequest *)v1];
+  [v2 setUserInfo:v5];
 
-  [v0 setCategoryIdentifier:@"MedicationsHealthAppPlugin.TimeZone"];
-  v4 = [MEMORY[0x277CE1FE0] soundWithAlertType:25];
-  [v0 setSound:v4];
+  [v2 setCategoryIdentifier:@"MedicationsHealthAppPlugin.TimeZone"];
+  v6 = [MEMORY[0x277CE1FE0] soundWithAlertType:25];
+  [v2 setSound:v6];
 
-  [v0 setInterruptionLevel:2];
+  [v2 setInterruptionLevel:2];
 
-  return v0;
+  return v2;
 }
 
 + (id)_bodyForCategory:(uint64_t)category argument:(void *)argument identifier:
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   argumentCopy = argument;
   objc_opt_self();
@@ -136,8 +136,8 @@ LABEL_3:
     v12 = [MEMORY[0x277CCA968] localizedStringFromDate:v11 dateStyle:0 timeStyle:1];
     v13 = [MEMORY[0x277CCA968] hm_localizableTimeStringKeyWithPrefix:@"MEDICATIONS_NOTIFICATION_BODY_NOT_MISSED" date:v11];
     v14 = MEMORY[0x277CCACA8];
-    v18[0] = v12;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v17[0] = v12;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
     v9 = [v14 localizedUserNotificationStringForKey:v13 arguments:v15];
   }
 
@@ -154,8 +154,6 @@ LABEL_3:
   }
 
 LABEL_9:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -180,12 +178,12 @@ LABEL_9:
 + (id)_timeZoneUserInfo
 {
   objc_opt_self();
-  v0 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:2];
-  [v0 setObject:@"x-apple-health://MedicationsHealthAppPlugin.healthplugin" forKeyedSubscript:*MEMORY[0x277CCE4E0]];
-  [v0 setObject:&unk_2863B6B98 forKeyedSubscript:*MEMORY[0x277CCE4D0]];
-  v1 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:v0];
+  v1 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:2];
+  [v1 setObject:@"x-apple-health://MedicationsHealthAppPlugin.healthplugin" forKeyedSubscript:*MEMORY[0x277CCE4E0]];
+  [v1 setObject:&unk_2863B6B98 forKeyedSubscript:*MEMORY[0x277CCE4D0]];
+  v2 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:v1];
 
-  return v1;
+  return v2;
 }
 
 @end

@@ -26,33 +26,43 @@
 {
   if (identifier)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v8 = v7;
+  }
+
+  else
+  {
+    v6 = 0;
+    v8 = 0;
   }
 
   serviceCopy = service;
   selfCopy = self;
-  CAFChargingStatusObservable.chargingStatusService(_:didUpdateChargingModeIdentifier:)();
+  CAFChargingStatusObservable.chargingStatusService(_:didUpdateChargingModeIdentifier:)(selfCopy, v6, v8);
 }
 
 - (void)chargingStatusService:(id)service didUpdateChargingState:(unsigned __int8)state
 {
+  stateCopy = state;
   serviceCopy = service;
   selfCopy = self;
-  CAFChargingStatusObservable.chargingStatusService(_:didUpdateChargingState:)(selfCopy, state);
+  CAFChargingStatusObservable.chargingStatusService(_:didUpdateChargingState:)(selfCopy, stateCopy);
 }
 
 - (void)chargingStatusService:(id)service didUpdateCableState:(unsigned __int8)state
 {
+  stateCopy = state;
   serviceCopy = service;
   selfCopy = self;
-  CAFChargingStatusObservable.chargingStatusService(_:didUpdateCableState:)(selfCopy, state);
+  CAFChargingStatusObservable.chargingStatusService(_:didUpdateCableState:)(selfCopy, stateCopy);
 }
 
 - (void)chargingStatusService:(id)service didUpdatePortSideIndicator:(unsigned __int8)indicator
 {
+  indicatorCopy = indicator;
   serviceCopy = service;
   selfCopy = self;
-  CAFChargingStatusObservable.chargingStatusService(_:didUpdatePortSideIndicator:)(selfCopy, indicator);
+  CAFChargingStatusObservable.chargingStatusService(_:didUpdatePortSideIndicator:)(selfCopy, indicatorCopy);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

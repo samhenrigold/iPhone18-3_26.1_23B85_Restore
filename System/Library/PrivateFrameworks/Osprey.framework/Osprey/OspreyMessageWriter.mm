@@ -7,23 +7,23 @@
 - (void)writeMessageData:(id)data toStream:(id)stream compressionEnabled:(BOOL)enabled error:(id *)error
 {
   enabledCopy = enabled;
-  v25[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   streamCopy = stream;
   if (enabledCopy)
   {
     v11 = [[OspreyZlibDataCompressor alloc] initWithOptions:31];
     _createDispatchData = [dataCopy _createDispatchData];
-    v23 = 0;
-    v13 = [(OspreyZlibDataCompressor *)v11 compressedDataForData:_createDispatchData error:&v23];
-    v14 = v23;
+    v27 = 0;
+    v13 = [(OspreyZlibDataCompressor *)v11 compressedDataForData:_createDispatchData error:&v27];
+    v14 = v27;
 
     if (v13)
     {
-      v15 = LengthPrefixedMessageFromData(v13, 1);
+      v17 = LengthPrefixedMessageFromData(v13, 1);
 
-      v14 = v15;
-      if (!v15)
+      v14 = v17;
+      if (!v17)
       {
         goto LABEL_18;
       }
@@ -31,11 +31,11 @@
       goto LABEL_6;
     }
 
-    OspreyLoggingInit();
-    v21 = OspreyLogContextGRPC;
+    OspreyLoggingInit(v15, v16);
+    v25 = OspreyLogContextGRPC;
     if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_ERROR))
     {
-      [OspreyMessageWriter writeMessageData:v21 toStream:v14 compressionEnabled:? error:?];
+      [OspreyMessageWriter writeMessageData:v25 toStream:v14 compressionEnabled:? error:?];
       if (!error)
       {
         goto LABEL_16;
@@ -50,7 +50,7 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    v22 = v14;
+    v26 = v14;
     *error = v14;
     goto LABEL_16;
   }
@@ -59,28 +59,29 @@ LABEL_17:
   if (v14)
   {
 LABEL_6:
-    if ([streamCopy write:objc_msgSend(v14 maxLength:{"bytes"), objc_msgSend(v14, "length")}] == -1 && (objc_msgSend(streamCopy, "streamError"), v17 = objc_claimAutoreleasedReturnValue(), v17, v17))
+    v18 = [streamCopy write:objc_msgSend(v14 maxLength:{"bytes"), objc_msgSend(v14, "length")}];
+    if (v18 == -1 && ([streamCopy streamError], v21 = objc_claimAutoreleasedReturnValue(), v21, v21))
     {
-      v24 = *MEMORY[0x277CCA7E8];
+      v28 = *MEMORY[0x277CCA7E8];
       streamError = [streamCopy streamError];
-      v25[0] = streamError;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v29[0] = streamError;
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
 
-      v20 = [MEMORY[0x277CCA9B8] errorWithDomain:@"OspreyMessageWriterErrorDomain" code:1 userInfo:v19];
+      v24 = [MEMORY[0x277CCA9B8] errorWithDomain:@"OspreyMessageWriterErrorDomain" code:1 userInfo:v23];
       if (error)
       {
-        v20 = v20;
-        *error = v20;
+        v24 = v24;
+        *error = v24;
       }
     }
 
     else
     {
-      OspreyLoggingInit();
-      v16 = OspreyLogContextGRPC;
+      OspreyLoggingInit(v18, v19);
+      v20 = OspreyLogContextGRPC;
       if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
       {
-        [OspreyMessageWriter writeMessageData:v16 toStream:v14 compressionEnabled:enabledCopy error:?];
+        [OspreyMessageWriter writeMessageData:v20 toStream:v14 compressionEnabled:enabledCopy error:?];
       }
     }
 

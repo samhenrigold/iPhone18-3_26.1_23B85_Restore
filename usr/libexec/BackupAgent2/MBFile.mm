@@ -65,9 +65,9 @@
 {
   decoderCopy = decoder;
   databaseCopy = database;
-  v38.receiver = self;
-  v38.super_class = MBFile;
-  v8 = [(MBFile *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = MBFile;
+  v8 = [(MBFile *)&v37 init];
   if (!v8)
   {
     goto LABEL_17;
@@ -76,10 +76,10 @@
   decodeString = [decoderCopy decodeString];
   if (!decodeString)
   {
-    v34 = [MBException alloc];
-    v35 = @"Domain name missing from file record";
+    v33 = [MBException alloc];
+    v34 = @"Domain name missing from file record";
 LABEL_20:
-    v36 = [v34 initWithCode:11 format:{v35, v37}];
+    v35 = [v33 initWithCode:11 format:{v34, v36}];
     goto LABEL_21;
   }
 
@@ -88,30 +88,29 @@ LABEL_20:
   nonRedirectedDomain = v8->_nonRedirectedDomain;
   v8->_nonRedirectedDomain = decodeString2;
 
-  v13 = v8->_nonRedirectedDomain;
   if ((MBIsValidRelativePath() & 1) == 0)
   {
-    v34 = [MBException alloc];
-    v35 = @"Invalid relative path in file record";
+    v33 = [MBException alloc];
+    v34 = @"Invalid relative path in file record";
     goto LABEL_20;
   }
 
   domainManager = [databaseCopy domainManager];
-  v15 = [domainManager domainForName:v10];
+  v14 = [domainManager domainForName:v10];
   domain = v8->_domain;
-  v8->_domain = v15;
+  v8->_domain = v14;
 
   if (!v8->_domain)
   {
-    v36 = [[MBException alloc] initWithCode:11 format:{@"Unknown domain name in file record: %@", v10}];
+    v35 = [[MBException alloc] initWithCode:11 format:{@"Unknown domain name in file record: %@", v10}];
 LABEL_21:
-    objc_exception_throw(v36);
+    objc_exception_throw(v35);
   }
 
   domainManager2 = [databaseCopy domainManager];
-  v18 = [domainManager2 redirectDomain:v8->_domain forRelativePath:v8->_nonRedirectedDomain];
+  v17 = [domainManager2 redirectDomain:v8->_domain forRelativePath:v8->_nonRedirectedDomain];
   snapshotID = v8->_snapshotID;
-  v8->_snapshotID = v18;
+  v8->_snapshotID = v17;
 
   decodeString3 = [decoderCopy decodeString];
   priority = v8->_priority;
@@ -128,15 +127,15 @@ LABEL_21:
   WORD2(v8->_mbNode.cloneID) = [decoderCopy decodeInt16];
   if (![(MBFile *)v8 isRegularFile]&& ![(MBFile *)v8 isDirectory]&& ![(MBFile *)v8 isSymbolicLink])
   {
-    v34 = [MBException alloc];
-    v35 = @"File type missing from file record mode";
+    v33 = [MBException alloc];
+    v34 = @"File type missing from file record mode";
     goto LABEL_20;
   }
 
   if ([(MBFile *)v8 isSymbolicLink]&& !v8->_priority)
   {
-    v34 = [MBException alloc];
-    v35 = @"Target required for symbolic links";
+    v33 = [MBException alloc];
+    v34 = @"Target required for symbolic links";
     goto LABEL_20;
   }
 
@@ -149,14 +148,14 @@ LABEL_21:
   v8->_mbNode.fileSize = [decoderCopy decodeInt64];
   if (![(MBFile *)v8 isRegularFile]&& v8->_mbNode.fileSize)
   {
-    v34 = [MBException alloc];
-    v35 = @"Non-zero size for a file record which is not a regular file";
+    v33 = [MBException alloc];
+    v34 = @"Non-zero size for a file record which is not a regular file";
     goto LABEL_20;
   }
 
   BYTE6(v8->_mbNode.cloneID) = [decoderCopy decodeInt8];
   decodeInt8 = [decoderCopy decodeInt8];
-  v27 = [NSMutableDictionary dictionaryWithCapacity:decodeInt8];
+  v26 = [NSMutableDictionary dictionaryWithCapacity:decodeInt8];
   if (decodeInt8 >= 1)
   {
     while (1)
@@ -164,20 +163,20 @@ LABEL_21:
       decodeString4 = [decoderCopy decodeString];
       if (!decodeString4)
       {
-        v34 = [MBException alloc];
-        v35 = @"Null key for a file record extended attribute";
+        v33 = [MBException alloc];
+        v34 = @"Null key for a file record extended attribute";
         goto LABEL_20;
       }
 
-      v29 = decodeString4;
+      v28 = decodeString4;
       decodeData3 = [decoderCopy decodeData];
       if (!decodeData3)
       {
         break;
       }
 
-      v31 = decodeData3;
-      [v27 setObject:decodeData3 forKeyedSubscript:v29];
+      v30 = decodeData3;
+      [v26 setObject:decodeData3 forKeyedSubscript:v28];
 
       if (!--decodeInt8)
       {
@@ -185,14 +184,14 @@ LABEL_21:
       }
     }
 
-    v34 = [MBException alloc];
-    v35 = @"Null value for a file record extended attribute";
+    v33 = [MBException alloc];
+    v34 = @"Null value for a file record extended attribute";
     goto LABEL_20;
   }
 
 LABEL_16:
   decryptedSize = v8->_decryptedSize;
-  v8->_decryptedSize = v27;
+  v8->_decryptedSize = v26;
 
 LABEL_17:
   return v8;
@@ -265,16 +264,16 @@ LABEL_6:
 {
   if ([self->_snapshotID hasRootPath])
   {
-    absolutePath = [(MBFile *)self absolutePath];
+    v3 = objc_msgSend_absolutePath(self);
   }
 
   else
   {
     name = [self->_snapshotID name];
-    absolutePath = [NSString stringWithFormat:@"%@:%@", name, self->_nonRedirectedDomain];
+    v3 = [NSString stringWithFormat:@"%@:%@", name, self->_nonRedirectedDomain];
   }
 
-  v5 = [NSString stringWithFormat:@"<%@: %p %@>", objc_opt_class(), self, absolutePath];;
+  v5 = [NSString stringWithFormat:@"<%@: %p %@>", objc_opt_class(), self, v3];;
 
   return v5;
 }
@@ -373,14 +372,14 @@ LABEL_6:
 {
   if (!*&self->_hasOverriddenModifiedDate)
   {
-    absolutePath = [(MBFile *)self absolutePath];
+    v3 = objc_msgSend_absolutePath(self);
 
-    if (absolutePath)
+    if (v3)
     {
-      MaximumSizeOfFileSystemRepresentation = CFStringGetMaximumSizeOfFileSystemRepresentation(absolutePath);
+      MaximumSizeOfFileSystemRepresentation = CFStringGetMaximumSizeOfFileSystemRepresentation(v3);
       v5 = malloc_type_malloc(MaximumSizeOfFileSystemRepresentation, 0x100004077774924uLL);
       *&self->_hasOverriddenModifiedDate = v5;
-      if (!CFStringGetFileSystemRepresentation(absolutePath, v5, MaximumSizeOfFileSystemRepresentation))
+      if (!CFStringGetFileSystemRepresentation(v3, v5, MaximumSizeOfFileSystemRepresentation))
       {
         sub_10009E620();
       }
@@ -605,7 +604,7 @@ LABEL_13:
         *buf = 138412290;
         v16 = v12;
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to serialize extended attributes: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to serialize extended attributes: %@", v12);
       }
     }
   }
@@ -617,9 +616,9 @@ LABEL_13:
 - (MBFile)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v22.receiver = self;
-  v22.super_class = MBFile;
-  v5 = [(MBFile *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = MBFile;
+  v5 = [(MBFile *)&v21 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"RelativePath"];
@@ -651,14 +650,14 @@ LABEL_13:
     if (!v14)
     {
 LABEL_11:
-      sub_10008E588(v5 + 8, [coderCopy decodeInt32ForKey:{@"Flags", v20}]);
+      sub_10008E588(v5 + 8, [coderCopy decodeInt32ForKey:@"Flags"]);
 
       goto LABEL_12;
     }
 
-    v21 = 0;
-    v15 = [NSPropertyListSerialization propertyListWithData:v14 options:0 format:0 error:&v21];
-    v16 = v21;
+    v20 = 0;
+    v15 = [NSPropertyListSerialization propertyListWithData:v14 options:0 format:0 error:&v20];
+    v16 = v20;
     if (!v16 || v15)
     {
       if (!v15)
@@ -679,10 +678,9 @@ LABEL_10:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v24 = v16;
+        v23 = v16;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to deserialize extended attributes: %@", buf, 0xCu);
-        v20 = v16;
-        _MBLog();
+        _MBLog(@"E ", "Failed to deserialize extended attributes: %@", v16);
       }
     }
 

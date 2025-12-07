@@ -103,7 +103,7 @@
 
 + (id)fetchMostRecentPastEventForStream:(id)stream
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   v4 = MEMORY[0x277CCAC30];
   date = [MEMORY[0x277CBEAA8] date];
@@ -112,19 +112,19 @@
   v7 = [MEMORY[0x277CFE260] startDateSortDescriptorAscending:0];
   v8 = objc_alloc_init(MEMORY[0x277CFE1E0]);
   [v8 setPredicate:v6];
-  v20[0] = streamCopy;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v19[0] = streamCopy;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   [v8 setEventStreams:v9];
 
-  v19 = v7;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+  v18 = v7;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
   [v8 setSortDescriptors:v10];
 
   [v8 setLimit:1];
   knowledgeStore = [MEMORY[0x277CFE208] knowledgeStore];
-  v18 = 0;
-  v12 = [knowledgeStore executeQuery:v8 error:&v18];
-  v13 = v18;
+  v17 = 0;
+  v12 = [knowledgeStore executeQuery:v8 error:&v17];
+  v13 = v17;
 
   if (v13)
   {
@@ -142,14 +142,12 @@
     firstObject = [v12 firstObject];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return firstObject;
 }
 
 - (BOOL)isFirstBacklightOn
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   queue = [(_DKMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -184,19 +182,18 @@
     knowledgeChannel = [MEMORY[0x277CFE0C8] knowledgeChannel];
     if (os_log_type_enabled(knowledgeChannel, OS_LOG_TYPE_DEBUG))
     {
-      v13 = [objc_opt_class() prettyPrintDateAsLocalTime:date];
+      v12 = [objc_opt_class() prettyPrintDateAsLocalTime:date];
       eligibleForNotification = self->eligibleForNotification;
-      v15 = 138412546;
-      v16 = v13;
-      v17 = 2112;
-      v18 = eligibleForNotification;
-      _os_log_debug_impl(&dword_22595A000, knowledgeChannel, OS_LOG_TYPE_DEBUG, "%@ is not in First wakeup of the Day Eligible notification period %@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = v12;
+      v16 = 2112;
+      v17 = eligibleForNotification;
+      _os_log_debug_impl(&dword_22595A000, knowledgeChannel, OS_LOG_TYPE_DEBUG, "%@ is not in First wakeup of the Day Eligible notification period %@", &v14, 0x16u);
     }
 
     LOBYTE(v9) = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -228,11 +225,20 @@
 
 - (void)setupNotificationEligiblityPeriod
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *self;
-  OUTLINED_FUNCTION_1_2();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  date = [MEMORY[0x277CBEAA8] date];
+  v4 = objc_alloc(MEMORY[0x277CBEA80]);
+  v5 = [v4 initWithCalendarIdentifier:*MEMORY[0x277CBE5C0]];
+  v6 = [v5 dateBySettingHour:3 minute:0 second:0 ofDate:date options:0];
+  v7 = [v5 dateBySettingHour:13 minute:0 second:0 ofDate:date options:0];
+  v8 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v6 endDate:v7];
+  eligibleForNotification = self->eligibleForNotification;
+  self->eligibleForNotification = v8;
+
+  knowledgeChannel = [MEMORY[0x277CFE0C8] knowledgeChannel];
+  if (os_log_type_enabled(knowledgeChannel, OS_LOG_TYPE_DEBUG))
+  {
+    [_DKUserIsFirstBacklightOnAfterWakeupMonitor setupNotificationEligiblityPeriod];
+  }
 }
 
 - (void)recordFirstWakeup:(id)wakeup
@@ -260,29 +266,29 @@
 {
   v23 = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v4 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.CoreDuet"];
-  [v4 synchronize];
+  v5 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.CoreDuet"];
+  [v5 synchronize];
   instrumentationChannel = [MEMORY[0x277CFE0C8] instrumentationChannel];
   if (os_log_type_enabled(instrumentationChannel, OS_LOG_TYPE_DEBUG))
   {
     [_DKUserIsFirstBacklightOnAfterWakeupMonitor isUINotificationEnabledForKey:];
   }
 
-  v6 = [v4 objectForKey:@"DKCFirstWakeUINotification"];
-  if (!v6)
+  v7 = [v5 objectForKey:@"DKCFirstWakeUINotification"];
+  if (!v7)
   {
     goto LABEL_11;
   }
 
-  v7 = MEMORY[0x277CBEB98];
-  v8 = objc_opt_class();
+  v8 = MEMORY[0x277CBEB98];
   v9 = objc_opt_class();
   v10 = objc_opt_class();
-  v11 = [v7 setWithObjects:{v8, v9, v10, objc_opt_class(), 0}];
+  v11 = objc_opt_class();
+  v12 = [v8 setWithObjects:{v9, v10, v11, objc_opt_class(), 0}];
   v22 = 0;
-  dictionary = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v11 fromData:v6 error:&v22];
-  v13 = v22;
-  if (v13 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  dictionary = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v12 fromData:v7 error:&v22];
+  v14 = v22;
+  if (v14 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     [_DKUserIsFirstBacklightOnAfterWakeupMonitor isUINotificationEnabledForKey:];
   }
@@ -292,7 +298,7 @@
     knowledgeChannel = [MEMORY[0x277CFE0C8] knowledgeChannel];
     if (os_log_type_enabled(knowledgeChannel, OS_LOG_TYPE_DEBUG))
     {
-      [_DKUserIsFirstBacklightOnAfterWakeupMonitor isUINotificationEnabledForKey:];
+      [_DKUserIsFirstBacklightOnAfterWakeupMonitor isUINotificationEnabledForKey:?];
     }
   }
 
@@ -303,7 +309,7 @@ LABEL_11:
     knowledgeChannel2 = [MEMORY[0x277CFE0C8] knowledgeChannel];
     if (os_log_type_enabled(knowledgeChannel2, OS_LOG_TYPE_DEBUG))
     {
-      [_DKUserIsFirstBacklightOnAfterWakeupMonitor isUINotificationEnabledForKey:];
+      [_DKUserIsFirstBacklightOnAfterWakeupMonitor isUINotificationEnabledForKey:?];
     }
 
     if (!dictionary)
@@ -312,21 +318,20 @@ LABEL_11:
     }
   }
 
-  v16 = [dictionary objectForKey:keyCopy];
-  v17 = v16 == 0;
+  v17 = [dictionary objectForKey:keyCopy];
+  v18 = v17 == 0;
 
-  if (v17)
+  if (v18)
   {
 LABEL_16:
     bOOLValue = 0;
     goto LABEL_17;
   }
 
-  v18 = [dictionary objectForKey:keyCopy];
-  bOOLValue = [v18 BOOLValue];
+  v19 = [dictionary objectForKey:keyCopy];
+  bOOLValue = [v19 BOOLValue];
 
 LABEL_17:
-  v20 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
@@ -581,7 +586,7 @@ LABEL_10:
 
 - (BOOL)didQualifyingScreenLockEndInEligibilityPeriod
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   queue = [(_DKMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -596,27 +601,27 @@ LABEL_10:
 
   v11 = objc_alloc_init(MEMORY[0x277CFE1E0]);
   v12 = MEMORY[0x277CCA920];
-  v37[0] = v7;
-  v37[1] = v10;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+  v36[0] = v7;
+  v36[1] = v10;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
   v14 = [v12 andPredicateWithSubpredicates:v13];
   [v11 setPredicate:v14];
 
   deviceIsLockedStream = [MEMORY[0x277CFE298] deviceIsLockedStream];
-  v36 = deviceIsLockedStream;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+  v35 = deviceIsLockedStream;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
   [v11 setEventStreams:v16];
 
   v17 = [MEMORY[0x277CFE260] startDateSortDescriptorAscending:1];
-  v35 = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+  v34 = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
   [v11 setSortDescriptors:v18];
 
   [v11 setResultType:2];
   knowledgeStore = [MEMORY[0x277CFE208] knowledgeStore];
-  v33 = 0;
-  v20 = [knowledgeStore executeQuery:v11 error:&v33];
-  v21 = v33;
+  v32 = 0;
+  v20 = [knowledgeStore executeQuery:v11 error:&v32];
+  v21 = v32;
 
   if (v21)
   {
@@ -631,25 +636,25 @@ LABEL_10:
 
   else
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     knowledgeChannel = v20;
-    v23 = [knowledgeChannel countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v23 = [knowledgeChannel countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v23)
     {
-      v24 = *v30;
+      v24 = *v29;
       while (2)
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v30 != v24)
+          if (*v29 != v24)
           {
             objc_enumerationMutation(knowledgeChannel);
           }
 
-          [*(*(&v29 + 1) + 8 * i) duration];
+          [*(*(&v28 + 1) + 8 * i) duration];
           if (v26 > 14400.0)
           {
             LOBYTE(v23) = 1;
@@ -657,7 +662,7 @@ LABEL_10:
           }
         }
 
-        v23 = [knowledgeChannel countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v23 = [knowledgeChannel countByEnumeratingWithState:&v28 objects:v33 count:16];
         if (v23)
         {
           continue;
@@ -670,7 +675,6 @@ LABEL_10:
 
 LABEL_15:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -710,13 +714,10 @@ LABEL_15:
 
 + (void)fetchMostRecentPastEventForStream:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 name];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_4();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isUINotificationEnabledForKey:.cold.1()
@@ -735,63 +736,49 @@ LABEL_15:
 
 - (void)isUINotificationEnabledForKey:.cold.3()
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(&dword_22595A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error unarchiving state: %@", v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22595A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error unarchiving state: %@", v0, 0xCu);
 }
 
-- (void)isUINotificationEnabledForKey:.cold.4()
+- (void)isUINotificationEnabledForKey:(uint64_t)a1 .cold.4(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-- (void)isUINotificationEnabledForKey:.cold.5()
+- (void)isUINotificationEnabledForKey:(uint64_t)a1 .cold.5(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 - (void)getNextSWUpdatePrediction
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [self description];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_4();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)fetchMostRecentlyStoredScreenLockEventOnlyIfValueIsUnlocked
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_1_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didQualifyingScreenLockEndInEligibilityPeriod
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_1_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -70,93 +70,93 @@
 
 - (id)stringByApplyingSentenceCaseToString:(id)string withLocale:(id)locale
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   localeCopy = locale;
   v7 = localeCopy;
   if (stringCopy)
   {
-    v24 = localeCopy;
-    v25 = stringCopy;
+    v23 = localeCopy;
+    v24 = stringCopy;
     v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{stringCopy, 0}];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v27 = [&unk_28509CBC0 countByEnumeratingWithState:&v38 objects:v43 count:16];
-    if (v27)
+    v26 = [&unk_28509CBC0 countByEnumeratingWithState:&v37 objects:v42 count:16];
+    if (v26)
     {
-      v26 = *v39;
+      v25 = *v38;
       do
       {
         v9 = 0;
         do
         {
-          if (*v39 != v26)
+          if (*v38 != v25)
           {
             objc_enumerationMutation(&unk_28509CBC0);
           }
 
-          v28 = v9;
-          v10 = *(*(&v38 + 1) + 8 * v9);
+          v27 = v9;
+          v10 = *(*(&v37 + 1) + 8 * v9);
+          v33 = 0u;
           v34 = 0u;
           v35 = 0u;
           v36 = 0u;
-          v37 = 0u;
           v11 = [v8 copy];
-          v12 = [v11 countByEnumeratingWithState:&v34 objects:v42 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v33 objects:v41 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v35;
+            v14 = *v34;
             do
             {
               for (i = 0; i != v13; ++i)
               {
-                if (*v35 != v14)
+                if (*v34 != v14)
                 {
                   objc_enumerationMutation(v11);
                 }
 
-                v16 = *(*(&v34 + 1) + 8 * i);
+                v16 = *(*(&v33 + 1) + 8 * i);
                 v17 = [v16 componentsSeparatedByString:v10];
-                v31[0] = MEMORY[0x277D85DD0];
-                v31[1] = 3221225472;
-                v31[2] = __77__WFChangeCaseIntentHandler_stringByApplyingSentenceCaseToString_withLocale___block_invoke;
-                v31[3] = &unk_278C1A1F0;
-                v32 = v17;
-                v33 = v10;
+                v30[0] = MEMORY[0x277D85DD0];
+                v30[1] = 3221225472;
+                v30[2] = __77__WFChangeCaseIntentHandler_stringByApplyingSentenceCaseToString_withLocale___block_invoke;
+                v30[3] = &unk_278C1A1F0;
+                v31 = v17;
+                v32 = v10;
                 v18 = v17;
-                v19 = [v18 if_map:v31];
+                v19 = [v18 if_map:v30];
                 [v8 replaceObjectsInRange:objc_msgSend(v8 withObjectsFromArray:{"indexOfObject:", v16), 1, v19}];
               }
 
-              v13 = [v11 countByEnumeratingWithState:&v34 objects:v42 count:16];
+              v13 = [v11 countByEnumeratingWithState:&v33 objects:v41 count:16];
             }
 
             while (v13);
           }
 
-          v9 = v28 + 1;
+          v9 = v27 + 1;
         }
 
-        while (v28 + 1 != v27);
-        v27 = [&unk_28509CBC0 countByEnumeratingWithState:&v38 objects:v43 count:16];
+        while (v27 + 1 != v26);
+        v26 = [&unk_28509CBC0 countByEnumeratingWithState:&v37 objects:v42 count:16];
       }
 
-      while (v27);
+      while (v26);
     }
 
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __77__WFChangeCaseIntentHandler_stringByApplyingSentenceCaseToString_withLocale___block_invoke_2;
-    v29[3] = &unk_278C20560;
-    v7 = v24;
-    v30 = v24;
-    v20 = [v8 if_map:v29];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __77__WFChangeCaseIntentHandler_stringByApplyingSentenceCaseToString_withLocale___block_invoke_2;
+    v28[3] = &unk_278C20560;
+    v7 = v23;
+    v29 = v23;
+    v20 = [v8 if_map:v28];
     v21 = [v20 componentsJoinedByString:&stru_2850323E8];
 
-    stringCopy = v25;
+    stringCopy = v24;
   }
 
   else
@@ -164,15 +164,13 @@
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
-id __77__WFChangeCaseIntentHandler_stringByApplyingSentenceCaseToString_withLocale___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+id __77__WFChangeCaseIntentHandler_stringByApplyingSentenceCaseToString_withLocale___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v5 = a2;
-  if ([*(a1 + 32) count] - 1 == a3)
+  if (([*(a1 + 32) count] - 1) == a3)
   {
     v6 = v5;
   }

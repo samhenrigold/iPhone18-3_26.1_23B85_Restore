@@ -54,14 +54,12 @@
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  start = self->_dayIndexRange.start;
-  duration = self->_dayIndexRange.duration;
-  v7 = NSStringFromHKDayIndexRange();
-  v8 = [(HKMHDomainSummary *)self->_mostUnpleasantDomains description];
-  v9 = [(HKMHDomainSummary *)self->_mostPleasantDomains description];
-  v10 = [v3 stringWithFormat:@"<%@:%p Day Index Range:%@ Unpleasant:%@ Pleasant:%@>", v4, self, v7, v8, v9];
+  v5 = NSStringFromHKDayIndexRange();
+  v6 = [(HKMHDomainSummary *)self->_mostUnpleasantDomains description];
+  v7 = [(HKMHDomainSummary *)self->_mostPleasantDomains description];
+  v8 = [v3 stringWithFormat:@"<%@:%p Day Index Range:%@ Unpleasant:%@ Pleasant:%@>", v4, self, v5, v6, v7];
 
-  return v10;
+  return v8;
 }
 
 - (HKMHMostPrevalentDomains)initWithCoder:(id)coder

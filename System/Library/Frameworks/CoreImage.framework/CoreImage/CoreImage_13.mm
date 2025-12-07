@@ -1,19 +1,30 @@
 void CI::GLContext::bind_arguments(void **this, const CI::ProgramNode *a2, const CGRect *a3, CI::TileTask *a4)
 {
-  *&v85[116] = *MEMORY[0x1E69E9840];
-  if (CI_VERBOSE_SIGNPOSTS())
+  *&v95[116] = *MEMORY[0x1E69E9840];
+  v6 = CI_VERBOSE_SIGNPOSTS();
+  if (v6)
   {
-    v6 = ci_signpost_log_render();
-    v7 = *(a2 + 9) | ((*(*this + 35))(this) << 32);
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+    v8 = ci_signpost_log_render(v6, v7);
+    v9 = *(a2 + 9) | ((*(*this + 35))(this) << 32);
+    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v7, "bind_arguments", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v9, "bind_arguments", &unk_19CFBCBAE, buf, 2u);
     }
   }
 
-  v8 = (*(*this + 35))(this);
-  TimerBase::TimerBase(v80, v8, *(a2 + 9), "bind_arguments", 11);
+  v10 = (*(*this + 35))(this);
+  TimerBase::TimerBase(&v90, v10, *(a2 + 9), "bind_arguments", 0xBu);
+  v80 = 0u;
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   v70 = 0u;
   v71 = 0u;
   v68 = 0u;
@@ -34,116 +45,108 @@ void CI::GLContext::bind_arguments(void **this, const CI::ProgramNode *a2, const
   v55 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
   *buf = 0u;
-  v41 = 0u;
-  GetMacroContext(this[49], buf);
+  v51 = 0u;
+  MacroContext = GetMacroContext(this[49], buf);
   if ((buf[0] & 1) == 0)
   {
-    v9 = ci_logger_render();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = ci_logger_render(MacroContext, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       ___ZN2CI16GLTextureManager19create_intermediateERKNS_22IntermediateDescriptorEP11__IOSurfaceiRK5IRectmb_block_invoke_cold_1();
     }
   }
 
-  v10 = CI::ProgramNode::mainProgram(a2);
-  if ((*(v10->isa + 2))(v10) == 79)
+  v14 = CI::ProgramNode::mainProgram(a2);
+  if ((*(v14->isa + 2))(v14) == 79)
   {
-    isa = v10[14].isa;
-    v12 = v10[15].isa;
-    v13 = v10[16].isa;
-    if (CI_VERBOSE_SIGNPOSTS())
+    isa = v14[14].isa;
+    v16 = v14[15].isa;
+    v17 = v14[16].isa;
+    v18 = CI_VERBOSE_SIGNPOSTS();
+    if (v18)
     {
-      v14 = ci_signpost_log_render();
-      v15 = *(a2 + 9) | ((*(*this + 35))(this) << 32);
-      if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+      v20 = ci_signpost_log_render(v18, v19);
+      v21 = *(a2 + 9) | ((*(*this + 35))(this) << 32);
+      if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
       {
-        *v82 = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v15, "render_node_arguments", &unk_19CFBCBAE, v82, 2u);
+        *v92 = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v21, "render_node_arguments", &unk_19CFBCBAE, v92, 2u);
       }
     }
 
-    v16 = (*(*this + 35))(this);
-    TimerBase::TimerBase(v82, v16, *(a2 + 9), "render_node_arguments", 0);
+    v22 = (*(*this + 35))(this);
+    TimerBase::TimerBase(v92, v22, *(a2 + 9), "render_node_arguments", 0);
     dispatch_sync(*(a2 + 13), &__block_literal_global_76_0);
-    v17 = *(a2 + 16);
-    if (CI_VERBOSE_SIGNPOSTS())
+    v23 = *(a2 + 16);
+    v24 = CI_VERBOSE_SIGNPOSTS();
+    if (v24)
     {
-      v18 = ci_signpost_log_render();
-      v19 = v83;
-      if ((v83 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+      v26 = ci_signpost_log_render(v24, v25);
+      v27 = v93;
+      if ((v93 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v20 = v18;
-        if (os_signpost_enabled(v18))
+        v28 = v26;
+        if (os_signpost_enabled(v26))
         {
-          LOWORD(v38.origin.x) = 0;
-          _os_signpost_emit_with_name_impl(&dword_19CC36000, v20, OS_SIGNPOST_INTERVAL_END, v19, "render_node_arguments", &unk_19CFBCBAE, &v38, 2u);
+          LOWORD(v48.origin.x) = 0;
+          _os_signpost_emit_with_name_impl(&dword_19CC36000, v28, OS_SIGNPOST_INTERVAL_END, v27, "render_node_arguments", &unk_19CFBCBAE, &v48, 2u);
         }
       }
     }
 
-    TimerBase::~TimerBase(v82);
-    if (v17 && isa == *v17 && isa)
+    TimerBase::~TimerBase(v92, v25);
+    if (v23 && isa == *v23 && isa)
     {
-      v21 = 0;
-      v34 = 0;
-      v22 = -80;
+      v29 = 0;
+      v44 = 0;
+      v30 = -80;
       while (2)
       {
-        if (v21 > 9)
+        if (v29 > 9)
         {
-          v23 = (*(v17 + 2) + v22);
+          v31 = (*(v23 + 2) + v30);
         }
 
         else
         {
-          v23 = &v17[2 * v21 + 6];
+          v31 = &v23[2 * v29 + 6];
         }
 
-        v24 = *(v13 + v21);
-        v25 = *v23;
-        switch(v24)
+        v32 = *(v17 + v29);
+        v33 = *v31;
+        switch(v32)
         {
           case 1:
           case 2:
           case 3:
           case 4:
-            if ((*(*v25 + 16))(v25) == 68)
+            if ((*(*v33 + 16))(v33) == 68)
             {
-              if (*(v12 + v21) != -1)
+              if (*(v16 + v29) != -1)
               {
-                CI::ProgramNode::roiKeys_of_child(a2, *a3, *(v25 + 8), v82);
-                CI::Context::bind_sampler(this, v25, *v82, v34, v24, a4);
-                v73(*&buf[8], *(v12 + v21), v34);
-                if (*v82)
+                CI::ProgramNode::roiKeys_of_child(v92, a2, *a3, *(v33 + 8));
+                CI::Context::bind_sampler(this, v33, *v92, v44, v32, a4);
+                v83(*&buf[8], *(v16 + v29), v44);
+                if (*v92)
                 {
-                  v83 = *v82;
-                  operator delete(*v82);
+                  v93 = *v92;
+                  operator delete(*v92);
                 }
               }
 
-              ++v34;
+              ++v44;
               goto LABEL_63;
             }
 
             break;
           case 5:
           case 12:
-            if ((*(*v25 + 16))(v25) == 66)
+            if ((*(*v33 + 16))(v33) == 66)
             {
-              if (*(v12 + v21) != -1)
+              if (*(v16 + v29) != -1)
               {
-                v72(*&buf[8], *(v25 + 7));
+                v82(*&buf[8], *(v33 + 7));
               }
 
               goto LABEL_63;
@@ -152,11 +155,11 @@ void CI::GLContext::bind_arguments(void **this, const CI::ProgramNode *a2, const
             break;
           case 6:
           case 13:
-            if ((*(*v25 + 16))(v25) == 66)
+            if ((*(*v33 + 16))(v33) == 66)
             {
-              if (*(v12 + v21) != -1)
+              if (*(v16 + v29) != -1)
               {
-                v74(*&buf[8], *(v25 + 7), *(v25 + 8));
+                v84(*&buf[8], *(v33 + 7), *(v33 + 8));
               }
 
               goto LABEL_63;
@@ -165,11 +168,11 @@ void CI::GLContext::bind_arguments(void **this, const CI::ProgramNode *a2, const
             break;
           case 7:
           case 14:
-            if ((*(*v25 + 16))(v25) == 66)
+            if ((*(*v33 + 16))(v33) == 66)
             {
-              if (*(v12 + v21) != -1)
+              if (*(v16 + v29) != -1)
               {
-                v75(*&buf[8], *(v25 + 7), *(v25 + 8), *(v25 + 9));
+                v85(*&buf[8], *(v33 + 7), *(v33 + 8), *(v33 + 9));
               }
 
               goto LABEL_63;
@@ -179,11 +182,11 @@ void CI::GLContext::bind_arguments(void **this, const CI::ProgramNode *a2, const
           case 8:
           case 15:
           case 27:
-            if ((*(*v25 + 16))(v25) == 66)
+            if ((*(*v33 + 16))(v33) == 66)
             {
-              if (*(v12 + v21) != -1)
+              if (*(v16 + v29) != -1)
               {
-                v76(*&buf[8], *(v25 + 7), *(v25 + 8), *(v25 + 9), *(v25 + 10));
+                v86(*&buf[8], *(v33 + 7), *(v33 + 8), *(v33 + 9), *(v33 + 10));
               }
 
               goto LABEL_63;
@@ -192,11 +195,11 @@ void CI::GLContext::bind_arguments(void **this, const CI::ProgramNode *a2, const
             break;
           case 9:
           case 16:
-            if ((*(*v25 + 16))(v25) == 66)
+            if ((*(*v33 + 16))(v33) == 66)
             {
-              if (*(v12 + v21) != -1)
+              if (*(v16 + v29) != -1)
               {
-                v77(*&buf[8]);
+                v87(*&buf[8]);
               }
 
               goto LABEL_63;
@@ -205,11 +208,11 @@ void CI::GLContext::bind_arguments(void **this, const CI::ProgramNode *a2, const
             break;
           case 10:
           case 17:
-            if ((*(*v25 + 16))(v25) == 66)
+            if ((*(*v33 + 16))(v33) == 66)
             {
-              if (*(v12 + v21) != -1)
+              if (*(v16 + v29) != -1)
               {
-                v78(*&buf[8]);
+                v88(*&buf[8]);
               }
 
               goto LABEL_63;
@@ -218,11 +221,11 @@ void CI::GLContext::bind_arguments(void **this, const CI::ProgramNode *a2, const
             break;
           case 11:
           case 18:
-            if ((*(*v25 + 16))(v25) == 66)
+            if ((*(*v33 + 16))(v33) == 66)
             {
-              if (*(v12 + v21) != -1)
+              if (*(v16 + v29) != -1)
               {
-                v79(*&buf[8]);
+                v89(*&buf[8]);
               }
 
               goto LABEL_63;
@@ -230,12 +233,12 @@ void CI::GLContext::bind_arguments(void **this, const CI::ProgramNode *a2, const
 
             break;
           case 19:
-            if ((*(*v25 + 16))(v25) == 66)
+            if ((*(*v33 + 16))(v33) == 66)
             {
-              v26 = *(v12 + v21);
-              if (v26 != -1)
+              v34 = *(v16 + v29);
+              if (v34 != -1)
               {
-                v73(*&buf[8], v26, *(v25 + 7));
+                v83(*&buf[8], v34, *(v33 + 7));
               }
 
               goto LABEL_63;
@@ -243,22 +246,22 @@ void CI::GLContext::bind_arguments(void **this, const CI::ProgramNode *a2, const
 
             break;
           case 40:
-            if ((*(*v25 + 16))(v25) == 68)
+            if ((*(*v33 + 16))(v33) == 68)
             {
-              if (*(v12 + v21) == -1)
+              if (*(v16 + v29) == -1)
               {
                 goto LABEL_63;
               }
 
-              memset(&v38, 0, sizeof(v38));
-              v38.origin.x = CI::Node::region_of_child(a2, *a3);
-              v38.origin.y = v28;
-              v38.size.width = v29;
-              v38.size.height = v30;
-              CI::TextureSampler::transform(v25, this, &v38, &v39);
-              CI::Vector::Vector(v82, &v39);
-              (v78)(*&buf[8], *(v12 + v21), 1, 0, v85);
-              v84 = &unk_1F1033F70;
+              memset(&v48, 0, sizeof(v48));
+              v48.origin.x = CI::Node::region_of_child(a2, *a3);
+              v48.origin.y = v36;
+              v48.size.width = v37;
+              v48.size.height = v38;
+              CI::TextureSampler::transform(&v49, v33, this, &v48);
+              CI::Vector::Vector(v92, &v49);
+              (v88)(*&buf[8], *(v16 + v29), 1, 0, v95);
+              v94 = &unk_1F1033F70;
               goto LABEL_61;
             }
 
@@ -270,35 +273,35 @@ void CI::GLContext::bind_arguments(void **this, const CI::ProgramNode *a2, const
           case 47:
             goto LABEL_63;
           case 44:
-            if ((*(*v25 + 16))(v25) != 66)
+            if ((*(*v33 + 16))(v33) != 66)
             {
               break;
             }
 
-            CI::Vector::affine(v25, v82);
-            CI::Affine::inverse(v82, &v38);
-            CI::Affine::inverse(&v38, &v37);
-            CI::Vector::Vector(v82, &v37);
-            v27 = *(v12 + v21);
-            if (v27 != -1)
+            CI::Vector::affine(v92, v33);
+            CI::Affine::inverse(&v48, v92);
+            CI::Affine::inverse(&v47, &v48);
+            CI::Vector::Vector(v92, &v47);
+            v35 = *(v16 + v29);
+            if (v35 != -1)
             {
-              (v78)(*&buf[8], v27, 1, 0, v85);
+              (v88)(*&buf[8], v35, 1, 0, v95);
             }
 
-            v84 = &unk_1F1033F70;
+            v94 = &unk_1F1033F70;
 LABEL_61:
-            atomic_fetch_add(&dword_1ED7C47BC[64], 0xFFFFFFFF);
+            atomic_fetch_add(&dword_1ED7C47D8[57], 0xFFFFFFFF);
 LABEL_63:
-            ++v21;
-            v22 += 8;
-            if (isa == v21)
+            ++v29;
+            v30 += 8;
+            if (isa == v29)
             {
               break;
             }
 
             continue;
           default:
-            x_log("Unhandled type: %d\n", *(v13 + v21));
+            x_log("Unhandled type: %d\n", *(v17 + v29));
             goto LABEL_63;
         }
 
@@ -307,25 +310,346 @@ LABEL_63:
     }
   }
 
-  if (CI_VERBOSE_SIGNPOSTS())
+  v39 = CI_VERBOSE_SIGNPOSTS();
+  if (v39)
   {
-    v31 = ci_signpost_log_render();
-    v32 = v81;
-    if (v81 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v41 = ci_signpost_log_render(v39, v40);
+    v42 = v91;
+    if (v91 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v33 = v31;
-      if (os_signpost_enabled(v31))
+      v43 = v41;
+      if (os_signpost_enabled(v41))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v33, OS_SIGNPOST_INTERVAL_END, v32, "bind_arguments", &unk_19CFBCBAE, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v43, OS_SIGNPOST_INTERVAL_END, v42, "bind_arguments", &unk_19CFBCBAE, buf, 2u);
       }
     }
   }
 
-  TimerBase::~TimerBase(v80);
+  TimerBase::~TimerBase(&v90, v40);
 }
 
 uint64_t ___ZN2CI9GLContext16render_root_nodeEPNS_8TileTaskERKNS_9parentROIEU13block_pointerFvvES7__block_invoke_38(void *a1)
+{
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  memset(v8, 0, sizeof(v8));
+  MacroContext = GetMacroContext(*(*(a1[5] + 8) + 24), v8);
+  if ((v8[0] & 1) == 0)
+  {
+    v4 = ci_logger_render(MacroContext, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      ___ZN2CI9GLContext16render_root_nodeEPNS_8TileTaskERKNS_9parentROIEU13block_pointerFvvES7__block_invoke_38_cold_1();
+    }
+  }
+
+  (v9)(*(&v8[0] + 1), a1[6], 0, -1);
+  (v14)(*(&v8[0] + 1), a1[6]);
+  v5 = a1[7];
+  *(v5 + 40) = CFAbsoluteTimeGetCurrent();
+  v6 = a1[7];
+  if (v6)
+  {
+    CI::Object::unref(v6);
+  }
+
+  return (*(a1[4] + 16))();
+}
+
+void CI::GLContext::render_intermediate_node(void **a1, CI::TileTask *a2, CI::parentROI *this, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v116 = *MEMORY[0x1E69E9840];
+  v11 = *this;
+  v12 = CI::parentROI::roi(this);
+  v83.origin.x = v12;
+  v83.origin.y = v13;
+  v83.size.width = v14;
+  v83.size.height = v15;
+  if (a4 && v11)
+  {
+    x = v12;
+    y = v13;
+    width = v14;
+    height = v15;
+    v20 = CI_VERBOSE_SIGNPOSTS();
+    if (v20)
+    {
+      v22 = ci_signpost_log_render(v20, v21);
+      v23 = *(v11 + 36) | ((*(*a1 + 35))(a1) << 32);
+      if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+      {
+        *buf = 68289026;
+        *&buf[4] = 256;
+        *&buf[8] = 2082;
+        *&buf[10] = CI::Context::programName(v11, v24);
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v23, "render_node", "%{public}.256s", buf, 0x12u);
+      }
+    }
+
+    v25 = (*(*a1 + 35))(a1);
+    TimerBase::TimerBase(&v81, v25, *(v11 + 36), "render_node", 0);
+    v117.origin.x = x;
+    v117.origin.y = y;
+    v117.size.width = width;
+    v117.size.height = height;
+    CI::TileTask::addROIForNode(a2, v11, v117);
+    v114 = 0u;
+    v115 = 0u;
+    v112 = 0u;
+    v113 = 0u;
+    v110 = 0u;
+    v111 = 0u;
+    v108 = 0u;
+    v109 = 0u;
+    v106 = 0u;
+    v107 = 0u;
+    v104 = 0u;
+    v105 = 0u;
+    v102 = 0u;
+    v103 = 0u;
+    v100 = 0u;
+    v101 = 0u;
+    v98 = 0u;
+    v99 = 0u;
+    v96 = 0u;
+    v97 = 0u;
+    v94 = 0u;
+    v95 = 0u;
+    v92 = 0u;
+    v93 = 0u;
+    v90 = 0u;
+    v91 = 0u;
+    v88 = 0u;
+    v89 = 0u;
+    v86 = 0u;
+    v87 = 0u;
+    memset(buf, 0, sizeof(buf));
+    MacroContext = GetMacroContext(a1[49], buf);
+    if ((buf[0] & 1) == 0)
+    {
+      v28 = ci_logger_render(MacroContext, v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      {
+        ___ZN2CI16GLTextureManager19create_intermediateERKNS_22IntermediateDescriptorEP11__IOSurfaceiRK5IRectmb_block_invoke_cold_1();
+      }
+    }
+
+    v29 = *(v11 + 48);
+    if ((*(*v29 + 16))(v29) < 47 || (*(*v29 + 16))(v29) > 49)
+    {
+      CI::GLContext::set_framebuffer(a1, *(a1 + 188));
+      v42 = v105;
+      v43 = *&buf[8];
+      (*(*a4 + 24))(&v84, a4);
+      v42(v43, 36160, 36064, 3553, LODWORD(v84.a), 0);
+      if (*(v11 + 149) == 1)
+      {
+        v118 = *(*(*a4 + 32))(a4);
+        MidY = CGRectGetMidY(v118);
+        v84.b = 0.0;
+        v84.c = 0.0;
+        v84.a = 1.0;
+        *&v84.d = xmmword_19CF25100;
+        v84.ty = MidY + MidY;
+        v119.origin.x = x;
+        v119.origin.y = y;
+        v119.size.width = width;
+        v119.size.height = height;
+        v120 = CGRectApplyAffineTransform(v119, &v84);
+        x = v120.origin.x;
+        y = v120.origin.y;
+        width = v120.size.width;
+        height = v120.size.height;
+      }
+
+      v45 = x - *(*(*a4 + 32))(a4);
+      v121.origin.y = y - *((*(*a4 + 32))(a4) + 8);
+      v121.origin.x = v45;
+      v121.size.width = width;
+      v121.size.height = height;
+      CI::GLContext::set_viewport(a1, v121);
+      CI::GLContext::set_blend(a1, 0);
+      v46 = CI_VERBOSE_SIGNPOSTS();
+      if (v46)
+      {
+        v48 = ci_signpost_log_render(v46, v47);
+        v49 = *(v11 + 36) | ((*(*a1 + 35))(a1) << 32);
+        if (v49 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
+        {
+          LOWORD(v84.a) = 0;
+          _os_signpost_emit_with_name_impl(&dword_19CC36000, v48, OS_SIGNPOST_INTERVAL_BEGIN, v49, "render_node_mainProgram", &unk_19CFBCBAE, &v84, 2u);
+        }
+      }
+
+      v50 = (*(*a1 + 35))(a1);
+      TimerBase::TimerBase(&v84, v50, *(v11 + 36), "render_node_mainProgram", 0);
+      v51 = CI::ProgramNode::mainProgram(v11);
+      if ((*(*v51 + 16))(v51) != 79)
+      {
+        v51 = 0;
+      }
+
+      v52 = CI_VERBOSE_SIGNPOSTS();
+      if (v52)
+      {
+        v54 = ci_signpost_log_render(v52, v53);
+        b = v84.b;
+        if ((*&v84.b - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+        {
+          v56 = v54;
+          if (os_signpost_enabled(v54))
+          {
+            *v77 = 0;
+            _os_signpost_emit_with_name_impl(&dword_19CC36000, v56, OS_SIGNPOST_INTERVAL_END, *&b, "render_node_mainProgram", &unk_19CFBCBAE, v77, 2u);
+          }
+        }
+      }
+
+      TimerBase::~TimerBase(&v84, v53);
+      v57 = v51[37];
+      if (v57 || ((*(*v51 + 80))(v51, *(v11 + 36)), v57 = v51[37], v57))
+      {
+        CI::GLContext::set_program(a1, v57);
+        CI::GLContext::bind_arguments(a1, v11, &v83, a2);
+        CI::GLContext::quad(a1, *(v11 + 36), *(v11 + 149), &v83, 0);
+      }
+    }
+
+    else
+    {
+      v30 = *(v11 + 48);
+      if (*(v30 + 243) == 1 && (*(*v30 + 40))(*(v11 + 48)) >= 1)
+      {
+        v31 = CI_VERBOSE_SIGNPOSTS();
+        if (v31)
+        {
+          log = ci_signpost_log_render(v31, v32);
+          v33 = *(v30 + 36) | ((*(*a1 + 35))(a1) << 32);
+          if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(log))
+          {
+            v34 = (*(*v30 + 24))(v30);
+            LODWORD(v84.a) = 138543362;
+            *(&v84.a + 4) = v34;
+            _os_signpost_emit_with_name_impl(&dword_19CC36000, log, OS_SIGNPOST_INTERVAL_BEGIN, v33, "processor_syncinputs", "%{public}@", &v84, 0xCu);
+          }
+        }
+
+        v35 = (*(*a1 + 35))(a1);
+        TimerBase::TimerBase(&v84, v35, *(v30 + 36), "processor_syncinputs", 0);
+        CI::GLContext::flush_render(a1);
+        v36 = CI_VERBOSE_SIGNPOSTS();
+        if (v36)
+        {
+          v38 = ci_signpost_log_render(v36, v37);
+          v39 = v84.b;
+          if ((*&v84.b - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+          {
+            v40 = v38;
+            if (os_signpost_enabled(v38))
+            {
+              *v77 = 0;
+              _os_signpost_emit_with_name_impl(&dword_19CC36000, v40, OS_SIGNPOST_INTERVAL_END, *&v39, "processor_syncinputs", &unk_19CFBCBAE, v77, 2u);
+            }
+          }
+        }
+
+        TimerBase::~TimerBase(&v84, v37);
+      }
+
+      v41 = (**a4)(a4);
+      CI::Context::render_processor_node(a1, a2, this, v41, 0);
+    }
+
+    v58 = CI_VERBOSE_SIGNPOSTS();
+    if (v58)
+    {
+      v60 = ci_signpost_log_render(v58, v59);
+      v61 = *(v11 + 36) | ((*(*a1 + 35))(a1) << 32);
+      if (v61 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v60))
+      {
+        LOWORD(v84.a) = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v60, OS_SIGNPOST_INTERVAL_BEGIN, v61, "after_render", &unk_19CFBCBAE, &v84, 2u);
+      }
+    }
+
+    v62 = (*(*a1 + 35))(a1);
+    TimerBase::TimerBase(&v84, v62, *(v11 + 36), "after_render", 8u);
+    *v77 = 0;
+    v78 = v77;
+    v79 = 0x2000000000;
+    v80 = a1[52];
+    inserted = CI::GLContext::insert_fence(a1);
+    v64 = CI::Context::render_completion_queue(inserted);
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 0x40000000;
+    block[2] = ___ZN2CI9GLContext24render_intermediate_nodeEPNS_8TileTaskERKNS_9parentROIEPNS_14intermediate_tEbU13block_pointerFvvE_block_invoke;
+    block[3] = &unk_1E75C4998;
+    block[5] = v77;
+    block[6] = inserted;
+    block[4] = a6;
+    dispatch_async(v64, block);
+    _Block_object_dispose(v77, 8);
+    v65 = CI_VERBOSE_SIGNPOSTS();
+    if (v65)
+    {
+      v67 = ci_signpost_log_render(v65, v66);
+      v68 = v84.b;
+      if ((*&v84.b - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+      {
+        v69 = v67;
+        if (os_signpost_enabled(v67))
+        {
+          *v77 = 0;
+          _os_signpost_emit_with_name_impl(&dword_19CC36000, v69, OS_SIGNPOST_INTERVAL_END, *&v68, "after_render", &unk_19CFBCBAE, v77, 2u);
+        }
+      }
+    }
+
+    TimerBase::~TimerBase(&v84, v66);
+    v70 = CI_VERBOSE_SIGNPOSTS();
+    if (v70)
+    {
+      v72 = ci_signpost_log_render(v70, v71);
+      v73 = v82;
+      if (v82 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+      {
+        v74 = v72;
+        if (os_signpost_enabled(v72))
+        {
+          *buf = 0;
+          _os_signpost_emit_with_name_impl(&dword_19CC36000, v74, OS_SIGNPOST_INTERVAL_END, v73, "render_node", &unk_19CFBCBAE, buf, 2u);
+        }
+      }
+    }
+
+    TimerBase::~TimerBase(&v81, v71);
+  }
+}
+
+uint64_t ___ZN2CI9GLContext24render_intermediate_nodeEPNS_8TileTaskERKNS_9parentROIEPNS_14intermediate_tEbU13block_pointerFvvE_block_invoke(void *a1)
 {
   v29 = 0u;
   v30 = 0u;
@@ -352,11 +676,11 @@ uint64_t ___ZN2CI9GLContext16render_root_nodeEPNS_8TileTaskERKNS_9parentROIEU13b
   v7 = 0u;
   v8 = 0u;
   memset(v6, 0, sizeof(v6));
-  GetMacroContext(*(*(a1[5] + 8) + 24), v6);
+  MacroContext = GetMacroContext(*(*(a1[5] + 8) + 24), v6);
   if ((v6[0] & 1) == 0)
   {
-    v2 = ci_logger_render();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v4 = ci_logger_render(MacroContext, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       ___ZN2CI9GLContext16render_root_nodeEPNS_8TileTaskERKNS_9parentROIEU13block_pointerFvvES7__block_invoke_38_cold_1();
     }
@@ -364,350 +688,38 @@ uint64_t ___ZN2CI9GLContext16render_root_nodeEPNS_8TileTaskERKNS_9parentROIEU13b
 
   (v7)(*(&v6[0] + 1), a1[6], 0, -1);
   (v12)(*(&v6[0] + 1), a1[6]);
-  v3 = a1[7];
-  *(v3 + 40) = CFAbsoluteTimeGetCurrent();
-  v4 = a1[7];
-  if (v4)
-  {
-    CI::Object::unref(v4);
-  }
-
   return (*(a1[4] + 16))();
 }
 
-void CI::GLContext::render_intermediate_node(CI::GLContext *a1, CI::TileTask *a2, CI::parentROI *this, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t CI::GLContext::pre_render(void **this, uint64_t a2)
 {
-  v98 = *MEMORY[0x1E69E9840];
-  v11 = *this;
-  v12 = CI::parentROI::roi(this);
-  v65.origin.x = v12;
-  v65.origin.y = v13;
-  v65.size.width = v14;
-  v65.size.height = v15;
-  if (a4 && v11)
+  v3 = *(this + 226);
+  v4 = CI_FORCE_GPU_PRIORITY(this, a2);
+  if (v4 > 0x4Bu)
   {
-    x = v12;
-    y = v13;
-    width = v14;
-    height = v15;
-    if (CI_VERBOSE_SIGNPOSTS())
+    if (v4 != 76)
     {
-      v20 = ci_signpost_log_render();
-      v21 = *(v11 + 36) | ((*(*a1 + 280))(a1) << 32);
-      if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+      if (v4 == 77)
       {
-        *buf = 68289026;
-        *&buf[4] = 256;
-        *&buf[8] = 2082;
-        *&buf[10] = CI::Context::programName(v11, v22);
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v21, "render_node", "%{public}.256s", buf, 0x12u);
-      }
-    }
-
-    v23 = (*(*a1 + 280))(a1);
-    TimerBase::TimerBase(v63, v23, *(v11 + 36), "render_node", 0);
-    v99.origin.x = x;
-    v99.origin.y = y;
-    v99.size.width = width;
-    v99.size.height = height;
-    CI::TileTask::addROIForNode(a2, v11, v99);
-    v96 = 0u;
-    v97 = 0u;
-    v94 = 0u;
-    v95 = 0u;
-    v92 = 0u;
-    v93 = 0u;
-    v90 = 0u;
-    v91 = 0u;
-    v88 = 0u;
-    v89 = 0u;
-    v86 = 0u;
-    v87 = 0u;
-    v84 = 0u;
-    v85 = 0u;
-    v82 = 0u;
-    v83 = 0u;
-    v80 = 0u;
-    v81 = 0u;
-    v78 = 0u;
-    v79 = 0u;
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
-    v71 = 0u;
-    v68 = 0u;
-    v69 = 0u;
-    memset(buf, 0, sizeof(buf));
-    GetMacroContext(*(a1 + 49), buf);
-    if ((buf[0] & 1) == 0)
-    {
-      v24 = ci_logger_render();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-      {
-        ___ZN2CI16GLTextureManager19create_intermediateERKNS_22IntermediateDescriptorEP11__IOSurfaceiRK5IRectmb_block_invoke_cold_1();
-      }
-    }
-
-    v25 = *(v11 + 48);
-    if ((*(*v25 + 16))(v25) < 47 || (*(*v25 + 16))(v25) > 49)
-    {
-      CI::GLContext::set_framebuffer(a1, *(a1 + 188));
-      v34 = v87;
-      v35 = *&buf[8];
-      (*(*a4 + 24))(&v66, a4);
-      v34(v35, 36160, 36064, 3553, LODWORD(v66.a), 0);
-      if (*(v11 + 149) == 1)
-      {
-        v100 = *(*(*a4 + 32))(a4);
-        MidY = CGRectGetMidY(v100);
-        v66.b = 0.0;
-        v66.c = 0.0;
-        v66.a = 1.0;
-        *&v66.d = xmmword_19CF25100;
-        v66.ty = MidY + MidY;
-        v101.origin.x = x;
-        v101.origin.y = y;
-        v101.size.width = width;
-        v101.size.height = height;
-        v102 = CGRectApplyAffineTransform(v101, &v66);
-        x = v102.origin.x;
-        y = v102.origin.y;
-        width = v102.size.width;
-        height = v102.size.height;
+        v3 = 4;
       }
 
-      v37 = x - *(*(*a4 + 32))(a4);
-      v103.origin.y = y - *((*(*a4 + 32))(a4) + 8);
-      v103.origin.x = v37;
-      v103.size.width = width;
-      v103.size.height = height;
-      CI::GLContext::set_viewport(a1, v103);
-      CI::GLContext::set_blend(a1, 0);
-      if (CI_VERBOSE_SIGNPOSTS())
+      else if (v4 == 78)
       {
-        v38 = ci_signpost_log_render();
-        v39 = *(v11 + 36) | ((*(*a1 + 280))(a1) << 32);
-        if (v39 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
-        {
-          LOWORD(v66.a) = 0;
-          _os_signpost_emit_with_name_impl(&dword_19CC36000, v38, OS_SIGNPOST_INTERVAL_BEGIN, v39, "render_node_mainProgram", &unk_19CFBCBAE, &v66, 2u);
-        }
-      }
-
-      v40 = (*(*a1 + 280))(a1);
-      TimerBase::TimerBase(&v66, v40, *(v11 + 36), "render_node_mainProgram", 0);
-      v41 = CI::ProgramNode::mainProgram(v11);
-      if ((*(*v41 + 16))(v41) != 79)
-      {
-        v41 = 0;
-      }
-
-      if (CI_VERBOSE_SIGNPOSTS())
-      {
-        v42 = ci_signpost_log_render();
-        b = v66.b;
-        if ((*&v66.b - 1) <= 0xFFFFFFFFFFFFFFFDLL)
-        {
-          v44 = v42;
-          if (os_signpost_enabled(v42))
-          {
-            *v59 = 0;
-            _os_signpost_emit_with_name_impl(&dword_19CC36000, v44, OS_SIGNPOST_INTERVAL_END, *&b, "render_node_mainProgram", &unk_19CFBCBAE, v59, 2u);
-          }
-        }
-      }
-
-      TimerBase::~TimerBase(&v66);
-      v45 = v41[37];
-      if (v45 || ((*(*v41 + 80))(v41, *(v11 + 36)), v45 = v41[37], v45))
-      {
-        CI::GLContext::set_program(a1, v45);
-        CI::GLContext::bind_arguments(a1, v11, &v65, a2);
-        CI::GLContext::quad(a1, *(v11 + 36), *(v11 + 149), &v65, 0);
-      }
-    }
-
-    else
-    {
-      v26 = *(v11 + 48);
-      if (*(v26 + 243) == 1 && (*(*v26 + 40))(*(v11 + 48)) >= 1)
-      {
-        if (CI_VERBOSE_SIGNPOSTS())
-        {
-          log = ci_signpost_log_render();
-          v27 = *(v26 + 36) | ((*(*a1 + 280))(a1) << 32);
-          if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(log))
-          {
-            v28 = (*(*v26 + 24))(v26);
-            LODWORD(v66.a) = 138543362;
-            *(&v66.a + 4) = v28;
-            _os_signpost_emit_with_name_impl(&dword_19CC36000, log, OS_SIGNPOST_INTERVAL_BEGIN, v27, "processor_syncinputs", "%{public}@", &v66, 0xCu);
-          }
-        }
-
-        v29 = (*(*a1 + 280))(a1);
-        TimerBase::TimerBase(&v66, v29, *(v26 + 36), "processor_syncinputs", 0);
-        CI::GLContext::flush_render(a1);
-        if (CI_VERBOSE_SIGNPOSTS())
-        {
-          v30 = ci_signpost_log_render();
-          v31 = v66.b;
-          if ((*&v66.b - 1) <= 0xFFFFFFFFFFFFFFFDLL)
-          {
-            v32 = v30;
-            if (os_signpost_enabled(v30))
-            {
-              *v59 = 0;
-              _os_signpost_emit_with_name_impl(&dword_19CC36000, v32, OS_SIGNPOST_INTERVAL_END, *&v31, "processor_syncinputs", &unk_19CFBCBAE, v59, 2u);
-            }
-          }
-        }
-
-        TimerBase::~TimerBase(&v66);
-      }
-
-      v33 = (**a4)(a4);
-      CI::Context::render_processor_node(a1, a2, this, v33, 0);
-    }
-
-    if (CI_VERBOSE_SIGNPOSTS())
-    {
-      v46 = ci_signpost_log_render();
-      v47 = *(v11 + 36) | ((*(*a1 + 280))(a1) << 32);
-      if (v47 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
-      {
-        LOWORD(v66.a) = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v46, OS_SIGNPOST_INTERVAL_BEGIN, v47, "after_render", &unk_19CFBCBAE, &v66, 2u);
-      }
-    }
-
-    v48 = (*(*a1 + 280))(a1);
-    TimerBase::TimerBase(&v66, v48, *(v11 + 36), "after_render", 8);
-    *v59 = 0;
-    v60 = v59;
-    v61 = 0x2000000000;
-    v62 = *(a1 + 52);
-    inserted = CI::GLContext::insert_fence(a1);
-    v50 = CI::Context::render_completion_queue(inserted);
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 0x40000000;
-    block[2] = ___ZN2CI9GLContext24render_intermediate_nodeEPNS_8TileTaskERKNS_9parentROIEPNS_14intermediate_tEbU13block_pointerFvvE_block_invoke;
-    block[3] = &unk_1E75C4998;
-    block[5] = v59;
-    block[6] = inserted;
-    block[4] = a6;
-    dispatch_async(v50, block);
-    _Block_object_dispose(v59, 8);
-    if (CI_VERBOSE_SIGNPOSTS())
-    {
-      v51 = ci_signpost_log_render();
-      v52 = v66.b;
-      if ((*&v66.b - 1) <= 0xFFFFFFFFFFFFFFFDLL)
-      {
-        v53 = v51;
-        if (os_signpost_enabled(v51))
-        {
-          *v59 = 0;
-          _os_signpost_emit_with_name_impl(&dword_19CC36000, v53, OS_SIGNPOST_INTERVAL_END, *&v52, "after_render", &unk_19CFBCBAE, v59, 2u);
-        }
-      }
-    }
-
-    TimerBase::~TimerBase(&v66);
-    if (CI_VERBOSE_SIGNPOSTS())
-    {
-      v54 = ci_signpost_log_render();
-      v55 = v64;
-      if (v64 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-      {
-        v56 = v54;
-        if (os_signpost_enabled(v54))
-        {
-          *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_19CC36000, v56, OS_SIGNPOST_INTERVAL_END, v55, "render_node", &unk_19CFBCBAE, buf, 2u);
-        }
-      }
-    }
-
-    TimerBase::~TimerBase(v63);
-  }
-}
-
-uint64_t ___ZN2CI9GLContext24render_intermediate_nodeEPNS_8TileTaskERKNS_9parentROIEPNS_14intermediate_tEbU13block_pointerFvvE_block_invoke(void *a1)
-{
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
-  v10 = 0u;
-  v7 = 0u;
-  v8 = 0u;
-  v5 = 0u;
-  v6 = 0u;
-  memset(v4, 0, sizeof(v4));
-  GetMacroContext(*(*(a1[5] + 8) + 24), v4);
-  if ((v4[0] & 1) == 0)
-  {
-    v2 = ci_logger_render();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
-    {
-      ___ZN2CI9GLContext16render_root_nodeEPNS_8TileTaskERKNS_9parentROIEU13block_pointerFvvES7__block_invoke_38_cold_1();
-    }
-  }
-
-  (v5)(*(&v4[0] + 1), a1[6], 0, -1);
-  (v10)(*(&v4[0] + 1), a1[6]);
-  return (*(a1[4] + 16))();
-}
-
-uint64_t CI::GLContext::pre_render(CI::GLContext *this)
-{
-  v2 = *(this + 226);
-  v3 = CI_FORCE_GPU_PRIORITY();
-  if (v3 > 0x4Bu)
-  {
-    if (v3 != 76)
-    {
-      if (v3 == 77)
-      {
-        v2 = 4;
-      }
-
-      else if (v3 == 78)
-      {
-        v2 = 1;
+        v3 = 1;
       }
 
       goto LABEL_13;
     }
 
 LABEL_12:
-    v2 = 2;
+    v3 = 2;
     goto LABEL_13;
   }
 
-  if (!v3)
+  if (!v4)
   {
-    if (!CI::originating_process_is_in_background(v3))
+    if (!CI::originating_process_is_in_background(v4))
     {
       goto LABEL_13;
     }
@@ -716,20 +728,20 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  if (v3 == 72)
+  if (v4 == 72)
   {
-    v2 = 0;
+    v3 = 0;
   }
 
 LABEL_13:
-  CIEAGLContextSetParameter(*(this + 49), 608, v2);
+  CIEAGLContextSetParameter(this[49], 608, v3);
   return 1;
 }
 
 void CI::GLContext::readback_bitmap(uint64_t a1, void *a2, int *a3)
 {
-  v72 = *MEMORY[0x1E69E9840];
-  v6 = ci_signpost_log_render();
+  v77 = *MEMORY[0x1E69E9840];
+  v6 = ci_signpost_log_render(a1, a2);
   v7 = (*(*a1 + 280))(a1) << 32;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
@@ -743,145 +755,147 @@ void CI::GLContext::readback_bitmap(uint64_t a1, void *a2, int *a3)
   }
 
   v10 = (*(*a1 + 280))(a1);
-  TimerBase::TimerBase(&v36, v10, 0, "readback_bitmap", 7);
+  v11 = TimerBase::TimerBase(&v41, v10, 0, "readback_bitmap", 7u);
   if (a2)
   {
     *buf = *a3;
     *&buf[4] = 0;
     API = CIEAGLContextGetAPI(*(a1 + 392));
-    v12 = CI::gl_format_info_for_format(buf, API);
-    v14 = v13;
-    v15 = *(a1 + 392);
-    v16 = *(a1 + 512);
-    v17 = *(a1 + 520);
-    v18 = a2[9];
-    v19 = a2[12];
-    v20 = CI::format_bytes_per_pixel(*a3);
-    v21 = v16 < 1 || v17 < 1;
-    v22 = v21 || v19 == 0;
-    if (!v22 && v20 != 0)
+    v14 = CI::gl_format_info_for_format(buf, API);
+    v16 = v15;
+    v17 = *(a1 + 392);
+    v18 = *(a1 + 512);
+    v19 = *(a1 + 520);
+    v20 = a2[9];
+    v21 = a2[12];
+    v11 = CI::format_bytes_per_pixel(*a3);
+    v22 = v11;
+    v23 = v18 < 1 || v19 < 1;
+    v24 = v23 || v21 == 0;
+    if (!v24 && v11 != 0)
     {
-      v68 = 0u;
+      v73 = 0u;
+      v74 = 0u;
+      v71 = 0u;
+      v72 = 0u;
       v69 = 0u;
-      v66 = 0u;
+      v70 = 0u;
       v67 = 0u;
-      v64 = 0u;
+      v68 = 0u;
       v65 = 0u;
-      v62 = 0u;
+      v66 = 0u;
       v63 = 0u;
-      v60 = 0u;
+      v64 = 0u;
       v61 = 0u;
-      v58 = 0u;
+      v62 = 0u;
       v59 = 0u;
-      v56 = 0u;
+      v60 = 0u;
       v57 = 0u;
-      v54 = 0u;
+      v58 = 0u;
       v55 = 0u;
-      v52 = 0u;
+      v56 = 0u;
       v53 = 0u;
-      v50 = 0u;
+      v54 = 0u;
       v51 = 0u;
-      v48 = 0u;
+      v52 = 0u;
       v49 = 0u;
-      v46 = 0u;
+      v50 = 0u;
       v47 = 0u;
-      v44 = 0u;
+      v48 = 0u;
       v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
-      v41 = 0u;
+      v46 = 0u;
       memset(buf, 0, sizeof(buf));
-      GetMacroContext(v15, buf);
+      MacroContext = GetMacroContext(v17, buf);
       if ((buf[0] & 1) == 0)
       {
-        v27 = ci_logger_render();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v32 = ci_logger_render(MacroContext, v31);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          CI::GLTextureManager::release_texture(v15, v27, v28, v29, v30, v31, v32, v33);
+          CI::GLTextureManager::release_texture(v17, v32, v33, v34, v35, v36, v37, v38);
         }
       }
 
-      v38 = 0;
-      (v63)(*&buf[8], 3333, &v38);
-      v34 = v20 * v16;
-      if (v20 * v16 == v19)
+      v43 = 0;
+      (v68)(*&buf[8], 3333, &v43);
+      v39 = v22 * v18;
+      if (v22 * v18 == v21)
       {
-        v71(*&buf[8], 0, 0, v16, v17, HIDWORD(v12), v14, v18);
+        v11 = v76(*&buf[8], 0, 0, v18, v19, HIDWORD(v14), v16, v20);
       }
 
       else
       {
-        if ((v18 & 1) != 0 || ((v34 + 1) & 0xFFFFFFFFFFFFFFFELL) != v19)
+        if ((v20 & 1) != 0 || ((v39 + 1) & 0xFFFFFFFFFFFFFFFELL) != v21)
         {
-          if ((v18 & 3) != 0 || ((v34 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v19)
+          if ((v20 & 3) != 0 || ((v39 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v21)
           {
-            if ((v18 & 7) != 0 || ((v34 + 7) & 0xFFFFFFFFFFFFFFF8) != v19)
+            if ((v20 & 7) != 0 || ((v39 + 7) & 0xFFFFFFFFFFFFFFF8) != v21)
             {
-              if (CIEAGLContextGetAPI(v15) < 3 || v19 % v20)
+              if (CIEAGLContextGetAPI(v17) < 3 || v21 % v22)
               {
-                v35 = 0;
+                v40 = 0;
                 do
                 {
-                  v71(*&buf[8], 0, v35++, v16, 1, HIDWORD(v12), v14, v18);
-                  v18 += v19;
+                  v11 = v76(*&buf[8], 0, v40++, v18, 1, HIDWORD(v14), v16, v20);
+                  v20 += v21;
                 }
 
-                while (v17 != v35);
+                while (v19 != v40);
               }
 
               else
               {
-                v70(*&buf[8], 3330, v19 / v20);
-                v71(*&buf[8], 0, 0, v16, v17, HIDWORD(v12), v14, v18);
-                v70(*&buf[8], 3330, 0);
+                v75(*&buf[8], 3330, v21 / v22);
+                v76(*&buf[8], 0, 0, v18, v19, HIDWORD(v14), v16, v20);
+                v11 = (v75)(*&buf[8], 3330, 0);
               }
 
               goto LABEL_16;
             }
 
-            v70(*&buf[8], 3333, 8uLL);
+            v75(*&buf[8], 3333, 8uLL);
           }
 
           else
           {
-            v70(*&buf[8], 3333, 4uLL);
+            v75(*&buf[8], 3333, 4uLL);
           }
         }
 
         else
         {
-          v70(*&buf[8], 3333, 2uLL);
+          v75(*&buf[8], 3333, 2uLL);
         }
 
-        v71(*&buf[8], 0, 0, v16, v17, HIDWORD(v12), v14, v18);
-        v70(*&buf[8], 3333, v38);
+        v76(*&buf[8], 0, 0, v18, v19, HIDWORD(v14), v16, v20);
+        v11 = (v75)(*&buf[8], 3333, v43);
       }
     }
   }
 
 LABEL_16:
-  v24 = ci_signpost_log_render();
-  v25 = v37;
-  if (v37 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v26 = ci_signpost_log_render(v11, v12);
+  v28 = v42;
+  if (v42 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v26 = v24;
-    if (os_signpost_enabled(v24))
+    v29 = v26;
+    if (os_signpost_enabled(v26))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v26, OS_SIGNPOST_INTERVAL_END, v25, "readback_bitmap", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v29, OS_SIGNPOST_INTERVAL_END, v28, "readback_bitmap", &unk_19CFBCBAE, buf, 2u);
     }
   }
 
-  TimerBase::~TimerBase(&v36);
+  TimerBase::~TimerBase(&v41, v27);
 }
 
-uint64_t CI::GLContext::format_is_directly_supported_for_input(uint64_t a1, int a2)
+uint64_t CI::GLContext::format_is_directly_supported_for_input(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (CI::format_is_ycc_biplanar(a2))
   {
-    v4 = CI::format_of_plane_old(a2, 0);
-    v5 = CI::format_of_plane_old(a2, 1);
+    v4 = CI::format_of_plane_old(v2, 0);
+    v5 = CI::format_of_plane_old(v2, 1);
     LODWORD(v4) = (*(*a1 + 432))(a1, v4);
     return v4 & (*(*a1 + 432))(a1, v5);
   }
@@ -890,11 +904,11 @@ uint64_t CI::GLContext::format_is_directly_supported_for_input(uint64_t a1, int 
   result = 0;
   v8 = API == 3;
   v9 = 1;
-  if (a2 <= 784)
+  if (v2 <= 784)
   {
-    if (((a2 - 257) > 0x14 || ((1 << (a2 - 1)) & 0x1802BD) == 0) && (a2 - 532) >= 2)
+    if (((v2 - 257) > 0x14 || ((1 << (v2 - 1)) & 0x1802BD) == 0) && (v2 - 532) >= 2)
     {
-      if (a2 != 784)
+      if (v2 != 784)
       {
         return result;
       }
@@ -905,14 +919,14 @@ uint64_t CI::GLContext::format_is_directly_supported_for_input(uint64_t a1, int 
     return v9;
   }
 
-  if (a2 <= 2308)
+  if (v2 <= 2308)
   {
-    if ((a2 - 2053) > 3 || a2 == 2055)
+    if ((v2 - 2053) > 3 || v2 == 2055)
     {
       v9 = v8;
-      if (a2 != 785)
+      if (v2 != 785)
       {
-        if (a2 != 1800)
+        if (v2 != 1800)
         {
           return result;
         }
@@ -924,18 +938,18 @@ uint64_t CI::GLContext::format_is_directly_supported_for_input(uint64_t a1, int 
     return v9;
   }
 
-  if ((a2 - 2309) < 2)
+  if ((v2 - 2309) < 2)
   {
     return v9;
   }
 
-  if (a2 == 2567)
+  if (v2 == 2567)
   {
     return *(a1 + 880) < 0;
   }
 
   v9 = v8;
-  if (a2 == 2312)
+  if (v2 == 2312)
   {
     return v9;
   }
@@ -1044,7 +1058,7 @@ uint64_t CI::GLContext::bind_cgimage(void ***a1, CGImage *a2, uint64_t a3, uint6
   return (v11)(a1, v10, 3553, a4, a5, a6);
 }
 
-BOOL CI::GLContext::bind_surface(uint64_t a1, IOSurfaceRef buffer, int *a3, char a4, int a5, int a6, char a7, int a8, int a9)
+BOOL CI::GLContext::bind_surface(uint64_t a1, IOSurfaceRef buffer, unsigned int *a3, char a4, int a5, int a6, char a7, int a8, int a9)
 {
   if (buffer)
   {
@@ -1126,6 +1140,8 @@ uint64_t CI::GLContext::bind_texture(uint64_t a1, uint64_t a2, int a3, int a4, i
   v7 = v6;
   if (v6)
   {
+    v48 = 0u;
+    v49 = 0u;
     v46 = 0u;
     v47 = 0u;
     v44 = 0u;
@@ -1156,44 +1172,42 @@ uint64_t CI::GLContext::bind_texture(uint64_t a1, uint64_t a2, int a3, int a4, i
     v21 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    GetMacroContext(*(a1 + 392), &v16);
-    if ((v16 & 1) == 0)
+    MacroContext = GetMacroContext(*(a1 + 392), &v18);
+    if ((v18 & 1) == 0)
     {
-      v12 = ci_logger_render();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = ci_logger_render(MacroContext, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         ___ZN2CI16GLTextureManager19create_intermediateERKNS_22IntermediateDescriptorEP11__IOSurfaceiRK5IRectmb_block_invoke_cold_1();
       }
     }
 
-    (v17)(*(&v16 + 1), (a6 + 33984));
-    (*(&v20 + 1))(*(&v16 + 1), 3553, a2);
+    (v19)(*(&v18 + 1), (a6 + 33984));
+    (*(&v22 + 1))(*(&v18 + 1), 3553, a2);
     if (a4)
     {
-      v13 = 9729;
+      v15 = 9729;
     }
 
     else
     {
-      v13 = 9728;
+      v15 = 9728;
     }
 
     if (a5)
     {
-      v14 = 33071;
+      v16 = 33071;
     }
 
     else
     {
-      v14 = 33069;
+      v16 = 33069;
     }
 
-    v48(*(&v16 + 1), 3553, 10240, v13);
-    v48(*(&v16 + 1), 3553, 10241, v13);
-    v48(*(&v16 + 1), 3553, 10242, v14);
-    v48(*(&v16 + 1), 3553, 10243, v14);
+    v50(*(&v18 + 1), 3553, 10240, v15);
+    v50(*(&v18 + 1), 3553, 10241, v15);
+    v50(*(&v18 + 1), 3553, 10242, v16);
+    v50(*(&v18 + 1), 3553, 10243, v16);
   }
 
   return v7;
@@ -1234,58 +1248,57 @@ LABEL_7:
 
 uint64_t CI::GLContext::blitSurface(void **a1, CI *a2, unsigned int *a3, uint64_t a4, unsigned int *a5, uint64_t a6)
 {
-  v75 = 0u;
   v76 = 0u;
-  v73 = 0u;
+  v77 = 0u;
   v74 = 0u;
-  v71 = 0u;
+  v75 = 0u;
   v72 = 0u;
-  v69 = 0u;
+  v73 = 0u;
   v70 = 0u;
-  v67 = 0u;
+  v71 = 0u;
   v68 = 0u;
-  v65 = 0u;
+  v69 = 0u;
   v66 = 0u;
-  v63 = 0u;
+  v67 = 0u;
   v64 = 0u;
-  v61 = 0u;
+  v65 = 0u;
   v62 = 0u;
-  v59 = 0u;
+  v63 = 0u;
   v60 = 0u;
-  v57 = 0u;
+  v61 = 0u;
   v58 = 0u;
-  v55 = 0u;
+  v59 = 0u;
   v56 = 0u;
-  v53 = 0u;
+  v57 = 0u;
   v54 = 0u;
-  v51 = 0u;
+  v55 = 0u;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
-  v48 = 0u;
-  memset(v47, 0, sizeof(v47));
-  GetMacroContext(a1[49], v47);
-  if ((v47[0] & 1) == 0)
+  v51 = 0u;
+  v49 = 0u;
+  memset(v48, 0, sizeof(v48));
+  MacroContext = GetMacroContext(a1[49], v48);
+  if ((v48[0] & 1) == 0)
   {
-    v13 = ci_logger_render();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = ci_logger_render(MacroContext, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       ___ZN2CI16GLTextureManager19create_intermediateERKNS_22IntermediateDescriptorEP11__IOSurfaceiRK5IRectmb_block_invoke_cold_1();
     }
   }
 
-  v14 = CI::format_from_IOSurface(a2, v12);
-  if (!(*(*a1 + 55))(a1, v14, 1))
+  v15 = CI::format_from_IOSurface(a2, v13);
+  if (!(*(*a1 + 55))(a1, v15, 1))
   {
     return 0;
   }
 
   API = CIEAGLContextGetAPI(a1[49]);
-  v16 = CI::gl_format_info_for_format(a6, API);
-  v17 = v16;
+  v17 = CI::gl_format_info_for_format(a6, API);
   v19 = v18;
-  v20 = HIDWORD(v16);
-  v21 = (v73)(*(&v47[0] + 1), 7936);
+  v20 = HIDWORD(v17);
+  v21 = (v74)(*(&v48[0] + 1), 7936);
   v22 = v19 == 5126 || v19 == 5131;
   if (v22 && v20 == 6403)
   {
@@ -1308,82 +1321,85 @@ LABEL_15:
   }
 
 LABEL_16:
+  v47 = 0;
   v46 = 0;
+  (v71)(*(&v48[0] + 1), 36006, &v47);
+  (v71)(*(&v48[0] + 1), 32873, &v46);
+  (*(&v68 + 1))(*(&v48[0] + 1), 1, &v47 + 4);
   v45 = 0;
-  (v70)(*(&v47[0] + 1), 36006, &v46);
-  (v70)(*(&v47[0] + 1), 32873, &v45);
-  (*(&v67 + 1))(*(&v47[0] + 1), 1, &v46 + 4);
-  v44 = 0;
-  v40 = a1[52];
-  (*(&v66 + 1))(*(&v47[0] + 1), 1, &v44);
-  (*(&v48 + 1))(*(&v47[0] + 1), 36160, v44);
-  v25 = v66;
-  v26 = *(&v47[0] + 1);
-  (*(*a4 + 24))(&v43, a4);
-  v25(v26, 36160, 36064, 3553, v43, 0);
+  v41 = a1[52];
+  (*(&v67 + 1))(*(&v48[0] + 1), 1, &v45);
+  (*(&v49 + 1))(*(&v48[0] + 1), 36160, v45);
+  v25 = v67;
+  v26 = *(&v48[0] + 1);
+  (*(*a4 + 24))(&v44, a4);
+  v25(v26, 36160, 36064, 3553, v44, 0);
   v27 = &off_19CF22000;
-  if ((v52)(*(&v47[0] + 1), 36160) == 36053)
+  if ((v53)(*(&v48[0] + 1), 36160) == 36053)
   {
-    v39 = a3;
-    (*(&v49 + 1))(*(&v47[0] + 1), 3553, HIDWORD(v46));
+    v40 = a3;
+    (*(&v50 + 1))(*(&v48[0] + 1), 3553, HIDWORD(v47));
     v28 = a1[49];
     Width = IOSurfaceGetWidth(a2);
     Height = IOSurfaceGetHeight(a2);
-    v38 = (v73)(*(&v47[0] + 1), 7936);
-    if (CIEAGLContextTexImageIOSurface(v28, 0xDE1u, Width, Height, v17, v20, v19, a2, 0))
+    v31 = (v74)(*(&v48[0] + 1), 7936);
+    LODWORD(v39) = 0;
+    if (CIEAGLContextTexImageIOSurface(v28, 3553, Width, Height, v17, v20, v19, a2, v39, v31))
     {
-      (*(&v49 + 1))(*(&v47[0] + 1), 3553, HIDWORD(v46));
-      (*(&v54 + 1))(*(&v47[0] + 1), 3553, 0, *v39, v39[1], *a5, a5[1], a5[2], *(a5 + 2), v38);
+      (*(&v50 + 1))(*(&v48[0] + 1), 3553, HIDWORD(v47));
+      (*(&v55 + 1))(*(&v48[0] + 1), 3553, 0, *v40, v40[1], *a5, a5[1], a5[2], *(a5 + 2));
       inserted = CI::GLContext::insert_fence(a1);
-      v32 = CI::Context::render_completion_queue(inserted);
+      v33 = CI::Context::render_completion_queue(inserted);
       block[0] = MEMORY[0x1E69E9820];
       v27 = &off_19CF22000;
       block[1] = 0x40000000;
       block[2] = ___ZNK2CI9GLContext11blitSurfaceEP11__IOSurface5IRectPNS_14intermediate_tES3_RKNS_17TextureDescriptorE_block_invoke;
       block[3] = &__block_descriptor_tmp_45;
       block[4] = a1;
-      v33 = v40;
-      block[5] = v40;
+      v34 = v41;
+      block[5] = v41;
       block[6] = inserted;
       block[7] = a4;
-      dispatch_async(v32, block);
-      v34 = 1;
+      dispatch_async(v33, block);
+      v35 = 1;
     }
 
     else
     {
-      v34 = 0;
+      v35 = 0;
       inserted = 0;
-      v33 = v40;
+      v34 = v41;
       v27 = &off_19CF22000;
     }
   }
 
   else
   {
-    v34 = 0;
+    v35 = 0;
     inserted = 0;
-    v33 = v40;
+    v34 = v41;
   }
 
-  (v56)(*(&v47[0] + 1), 1, &v44);
-  (*(&v58 + 1))(*(&v47[0] + 1), 1, &v46 + 4);
-  (*(&v48 + 1))(*(&v47[0] + 1), 36160, v46);
-  v35 = (*(&v49 + 1))(*(&v47[0] + 1), 3553, v45);
-  v36 = CI::Context::render_completion_queue(v35);
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = *(v27 + 438);
-  v41[2] = ___ZNK2CI9GLContext11blitSurfaceEP11__IOSurface5IRectPNS_14intermediate_tES3_RKNS_17TextureDescriptorE_block_invoke_46;
-  v41[3] = &__block_descriptor_tmp_47;
-  v41[4] = v33;
-  v41[5] = inserted;
-  dispatch_async(v36, v41);
-  return v34;
+  (v57)(*(&v48[0] + 1), 1, &v45);
+  (*(&v59 + 1))(*(&v48[0] + 1), 1, &v47 + 4);
+  (*(&v49 + 1))(*(&v48[0] + 1), 36160, v47);
+  v36 = (*(&v50 + 1))(*(&v48[0] + 1), 3553, v46);
+  v37 = CI::Context::render_completion_queue(v36);
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = *(v27 + 438);
+  v42[2] = ___ZNK2CI9GLContext11blitSurfaceEP11__IOSurface5IRectPNS_14intermediate_tES3_RKNS_17TextureDescriptorE_block_invoke_46;
+  v42[3] = &__block_descriptor_tmp_47;
+  v42[4] = v34;
+  v42[5] = inserted;
+  dispatch_async(v37, v42);
+  return v35;
 }
 
-void ___ZNK2CI9GLContext11blitSurfaceEP11__IOSurface5IRectPNS_14intermediate_tES3_RKNS_17TextureDescriptorE_block_invoke(uint64_t a1)
+void ___ZNK2CI9GLContext11blitSurfaceEP11__IOSurface5IRectPNS_14intermediate_tES3_RKNS_17TextureDescriptorE_block_invoke(void *a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
+  v30 = 0u;
+  v31 = 0u;
   v28 = 0u;
   v29 = 0u;
   v26 = 0u;
@@ -1406,26 +1422,26 @@ void ___ZNK2CI9GLContext11blitSurfaceEP11__IOSurface5IRectPNS_14intermediate_tES
   v11 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v6 = 0u;
-  v7 = 0u;
-  memset(v5, 0, sizeof(v5));
-  GetMacroContext(*(a1 + 40), v5);
-  if ((v5[0] & 1) == 0)
+  memset(v7, 0, sizeof(v7));
+  MacroContext = GetMacroContext(a1[5], v7);
+  if ((v7[0] & 1) == 0)
   {
-    v3 = ci_logger_render();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = ci_logger_render(MacroContext, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       ___ZN2CI16GLTextureManager19create_intermediateERKNS_22IntermediateDescriptorEP11__IOSurfaceiRK5IRectmb_block_invoke_cold_1();
     }
   }
 
-  (v6)(*(&v5[0] + 1), *(a1 + 48), 0, -1);
-  v4 = (*(*v2 + 112))(v2);
-  CI::TextureManager::complete_intermediate(v4, 60, *(a1 + 56));
+  (v8)(*(&v7[0] + 1), a1[6], 0, -1);
+  v6 = (*(*v2 + 112))(v2);
+  CI::TextureManager::complete_intermediate(v6, 60, a1[7]);
 }
 
 uint64_t ___ZNK2CI9GLContext11blitSurfaceEP11__IOSurface5IRectPNS_14intermediate_tES3_RKNS_17TextureDescriptorE_block_invoke_46(uint64_t a1)
 {
+  v24 = 0u;
+  v25 = 0u;
   v22 = 0u;
   v23 = 0u;
   v20 = 0u;
@@ -1442,21 +1458,19 @@ uint64_t ___ZNK2CI9GLContext11blitSurfaceEP11__IOSurface5IRectPNS_14intermediate
   v11 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v6 = 0u;
   v7 = 0u;
-  v5 = 0u;
-  memset(v4, 0, sizeof(v4));
-  GetMacroContext(*(a1 + 32), v4);
-  if ((v4[0] & 1) == 0)
+  memset(v6, 0, sizeof(v6));
+  MacroContext = GetMacroContext(*(a1 + 32), v6);
+  if ((v6[0] & 1) == 0)
   {
-    v2 = ci_logger_render();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v4 = ci_logger_render(MacroContext, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       ___ZN2CI16GLTextureManager19create_intermediateERKNS_22IntermediateDescriptorEP11__IOSurfaceiRK5IRectmb_block_invoke_cold_1();
     }
   }
 
-  return (v5)(*(&v4[0] + 1), *(a1 + 40));
+  return (v7)(*(&v6[0] + 1), *(a1 + 40));
 }
 
 const char *CI::GLContext::deviceName(CI::GLContext *this)
@@ -1486,7 +1500,7 @@ uint64_t CI::GLContext::max_render_load_bytes(CI::GLContext *this)
   }
 }
 
-uint64_t CI::GLContext::supports_sample_mode(uint64_t a1, int a2, int a3)
+uint64_t CI::GLContext::supports_sample_mode(uint64_t a1, int a2, uint64_t a3)
 {
   if (a2 == 1)
   {
@@ -1502,17 +1516,17 @@ uint64_t CI::GLContext::supports_sample_mode(uint64_t a1, int a2, int a3)
 double CI::GLContext::sampler_transform_for_extent@<D0>(const CGRect *a1@<X1>, double *a2@<X8>)
 {
   y = a1->origin.y;
-  v4 = 1.0 / a1->size.height;
-  v5 = a1->origin.x * -0.0 - y * v4 + 0.0;
-  v6 = 1.0 / a1->size.width;
-  v7 = y * -0.0 - a1->origin.x * v6;
-  *a2 = v6 + 0.0;
-  a2[1] = v4 * 0.0 + 0.0;
-  a2[2] = v6 * 0.0 + 0.0;
-  a2[3] = v4 + 0.0;
-  result = v7 + 0.0;
+  v3 = 1.0 / a1->size.height;
+  v4 = a1->origin.x * -0.0 - y * v3 + 0.0;
+  v5 = 1.0 / a1->size.width;
+  v6 = y * -0.0 - a1->origin.x * v5;
+  *a2 = v5 + 0.0;
+  a2[1] = v3 * 0.0 + 0.0;
+  a2[2] = v5 * 0.0 + 0.0;
+  a2[3] = v3 + 0.0;
+  result = v6 + 0.0;
   a2[4] = result;
-  a2[5] = v5;
+  a2[5] = v4;
   return result;
 }
 
@@ -1562,14 +1576,14 @@ void ___ZN2CIL18CI_SUBDIVIDE_QUADSEv_block_invoke()
 void *CI::InstanceCounted<(CI::Type)66>::~InstanceCounted(void *result)
 {
   *result = &unk_1F1033F70;
-  atomic_fetch_add(&dword_1ED7C47BC[64], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[57], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)66>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F1033F70;
-  atomic_fetch_add(&dword_1ED7C47BC[64], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[57], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -1614,97 +1628,97 @@ uint64_t std::list<CI::attached_surface_t *>::splice(uint64_t result, uint64_t *
 void *CI::InstanceCounted<(CI::Type)79>::~InstanceCounted(void *result)
 {
   *result = &unk_1F1033F98;
-  atomic_fetch_add(&dword_1ED7C47BC[77], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[70], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)79>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F1033F98;
-  atomic_fetch_add(&dword_1ED7C47BC[77], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[70], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
 void *CI::InstanceCounted<(CI::Type)84>::~InstanceCounted(void *result)
 {
   *result = &unk_1F1033FC0;
-  atomic_fetch_add(&dword_1ED7C47BC[82], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[75], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)84>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F1033FC0;
-  atomic_fetch_add(&dword_1ED7C47BC[82], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[75], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
 void ___ZN2CI19MetalTextureManagerC2EPNS_12MetalContextE_block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 32);
-  v5 = ci_signpost_log_render();
+  v5 = ci_signpost_log_render(a1, a2);
   v6 = *(a1 + 40);
   if (((v6 << 32) - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
     v7 = v5;
     if (os_signpost_enabled(v5))
     {
-      *buf = 0;
+      LOWORD(buf[0]) = 0;
       _os_signpost_emit_with_name_impl(&dword_19CC36000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v6 << 32, "release_surface_block", &unk_19CFBCBAE, buf, 2u);
       v6 = *(a1 + 40);
     }
   }
 
-  TimerBase::TimerBase(buf, v6, 0, "release_surface_block", 32);
-  v8 = *(v4 + 136);
-  v9 = *(v8 + 8);
-  while (v9 != v8)
+  TimerBase::TimerBase(buf, v6, 0, "release_surface_block", 0x20u);
+  v9 = *(v4 + 136);
+  v10 = *(v9 + 8);
+  while (v10 != v9)
   {
-    v10 = v9 + 8;
-    v9 = *(v9 + 8);
-    v13 = *(v10 + 8);
-    if ((**v13)(v13) == a2)
+    v11 = v10 + 8;
+    v10 = *(v10 + 8);
+    v14 = *(v11 + 8);
+    if ((**v14)(v14) == a2)
     {
-      v12 = *(v13 + 8);
-      (**v4)(v4, &v12);
-      v12 = 0uLL;
-      std::list<CI::attached_surface_t *>::remove(*(v4 + 136), &v13);
-      v11 = (**v13)(v13);
-      CFRelease(v11);
-      if (v13)
+      v13 = *(v14 + 8);
+      (**v4)(v4, &v13);
+      v13 = 0uLL;
+      std::list<CI::attached_surface_t *>::remove(*(v4 + 136), &v14);
+      v12 = (**v14)(v14);
+      CFRelease(v12);
+      if (v14)
       {
-        (*(*v13 + 48))(v13);
+        (*(*v14 + 48))(v14);
       }
     }
 
-    v8 = *(v4 + 136);
+    v9 = *(v4 + 136);
   }
 
-  _ZZZN2CI19MetalTextureManagerC1EPNS_12MetalContextEEUb_EN13SignpostTimerD1Ev(buf);
+  _ZZZN2CI19MetalTextureManagerC1EPNS_12MetalContextEEUb_EN13SignpostTimerD1Ev(buf, v8);
 }
 
-void sub_19CE4E214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_19CE4E214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  _ZZZN2CI19MetalTextureManagerC1EPNS_12MetalContextEEUb_EN13SignpostTimerD1Ev(va);
+  va_start(va, a9);
+  _ZZZN2CI19MetalTextureManagerC1EPNS_12MetalContextEEUb_EN13SignpostTimerD1Ev(va, a2);
   _Unwind_Resume(a1);
 }
 
-void _ZZZN2CI19MetalTextureManagerC1EPNS_12MetalContextEEUb_EN13SignpostTimerD1Ev(TimerBase *a1)
+void _ZZZN2CI19MetalTextureManagerC1EPNS_12MetalContextEEUb_EN13SignpostTimerD1Ev(TimerBase *a1, uint64_t a2)
 {
-  v2 = ci_signpost_log_render();
-  v3 = *(a1 + 1);
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v3 = ci_signpost_log_render(a1, a2);
+  v5 = *(a1 + 1);
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v4 = v2;
-    if (os_signpost_enabled(v2))
+    v6 = v3;
+    if (os_signpost_enabled(v3))
     {
-      *v5 = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "release_surface_block", &unk_19CFBCBAE, v5, 2u);
+      *v7 = 0;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_END, v5, "release_surface_block", &unk_19CFBCBAE, v7, 2u);
     }
   }
 
-  TimerBase::~TimerBase(a1);
+  TimerBase::~TimerBase(a1, v4);
 }
 
 void CI::MetalTextureManager::~MetalTextureManager(CI::MetalTextureManager *this)
@@ -1776,15 +1790,15 @@ uint64_t CI::MetalTextureManager::convert_to_sRGB(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t CI::MetalTextureManager::create_intermediate(uint64_t a1, unsigned __int8 *a2, CI *this, uint64_t a4, uint64_t a5, uint64_t a6, char a7)
+uint64_t CI::MetalTextureManager::create_intermediate(uint64_t a1, __IOSurface *a2, CI *this, uint64_t a4, __int128 *a5, uint64_t a6, char a7)
 {
   v13 = CI::format_from_IOSurface_ignore_values(this, a2);
   v14 = *(a1 + 168);
   v30 = *a5;
-  v31 = *(a5 + 16);
-  CI::Context::swizzler_for_output(v14, v13, &v30, 1, v33);
-  v15 = CIMetalFormatForFormat(v33[0], (a2[4] >> 1) & 1);
-  v16 = CIMetalFormatForFormat(v33[1], (a2[4] >> 1) & 1);
+  v31 = *(a5 + 2);
+  CI::Context::swizzler_for_output(v14, v13, &v30, 1, &v33);
+  v15 = CIMetalFormatForFormat(v33, (*(a2 + 4) >> 1) & 1);
+  v16 = CIMetalFormatForFormat(SHIDWORD(v33), (*(a2 + 4) >> 1) & 1);
   PixelFormat = IOSurfaceGetPixelFormat(this);
   v18 = PixelFormat >> 24;
   *&v30 = 0;
@@ -1867,7 +1881,7 @@ LABEL_30:
 LABEL_32:
     *cf = v25;
     v28 = v24;
-    CI::TextureManager::intermediate();
+    CI::TextureManager::intermediate(v2, &v29, 0, cf, 0, 1);
   }
 
   (*(**(*(*(a1 + 32) + 8) + 24) + 24))(cf);
@@ -1966,51 +1980,51 @@ uint64_t CI::MetalTextureManager::create_intermediate(uint64_t a1, uint64_t a2, 
   return v19;
 }
 
-uint64_t CI::MetalTextureManager::create_intermediate(void *a1, uint64_t a2, uint64_t a3, CGFloat *a4, uint64_t a5, uint64_t a6, char a7)
+uint64_t CI::MetalTextureManager::create_intermediate(void *a1, int *a2, uint64_t a3, CGFloat *a4, uint64_t a5, uint64_t a6, char a7)
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   v14 = *a4;
   v15 = a4[1];
   v16 = a4[2];
   v17 = a4[3];
-  v82.origin.x = *a4;
-  v82.origin.y = v15;
-  v82.size.width = v16;
-  v82.size.height = v17;
-  if (CGRectIsNull(v82))
+  v85.origin.x = *a4;
+  v85.origin.y = v15;
+  v85.size.width = v16;
+  v85.size.height = v17;
+  if (CGRectIsNull(v85))
   {
     return 0;
   }
 
-  v50 = a5;
-  v51 = a3;
-  v52 = a6;
-  v83.origin.x = v14;
-  v83.origin.y = v15;
-  v83.size.width = v16;
-  v83.size.height = v17;
-  if (CGRectIsInfinite(v83))
+  v53 = a5;
+  v54 = a3;
+  v55 = a6;
+  v86.origin.x = v14;
+  v86.origin.y = v15;
+  v86.size.width = v16;
+  v86.size.height = v17;
+  if (CGRectIsInfinite(v86))
   {
-    v78 = IRectInfinite;
+    v81 = IRectInfinite;
     height = 0xFFFFFFFFLL;
-    v79 = 0xFFFFFFFFLL;
+    v82 = 0xFFFFFFFFLL;
     width = 0xFFFFFFFFLL;
   }
 
   else
   {
-    v84.origin.x = v14;
-    v84.origin.y = v15;
-    v84.size.width = v16;
-    v84.size.height = v17;
-    v85 = CGRectInset(v84, 0.000001, 0.000001);
-    v86 = CGRectIntegral(v85);
-    width = v86.size.width;
-    height = v86.size.height;
-    LODWORD(v78) = v86.origin.x;
-    DWORD1(v78) = v86.origin.y;
-    *(&v78 + 1) = v86.size.width;
-    v79 = v86.size.height;
+    v87.origin.x = v14;
+    v87.origin.y = v15;
+    v87.size.width = v16;
+    v87.size.height = v17;
+    v88 = CGRectInset(v87, 0.000001, 0.000001);
+    v89 = CGRectIntegral(v88);
+    width = v89.size.width;
+    height = v89.size.height;
+    LODWORD(v81) = v89.origin.x;
+    DWORD1(v81) = v89.origin.y;
+    *(&v81 + 1) = v89.size.width;
+    v82 = v89.size.height;
   }
 
   if (!width || height == 0)
@@ -2019,7 +2033,7 @@ uint64_t CI::MetalTextureManager::create_intermediate(void *a1, uint64_t a2, uin
   }
 
   v23 = CIMetalFormatForFormat(*a2, (*(a2 + 4) >> 1) & 1);
-  v48 = v23;
+  v51 = v23;
   if ((*(a2 + 6) & 1) != 0 || CI::MetalContext::use_imageblocks_for_format(a1[21], *a2) && CI_ENABLE_METAL_IMAGEBLOCKS() == 2)
   {
     v24 = 7;
@@ -2035,118 +2049,122 @@ uint64_t CI::MetalTextureManager::create_intermediate(void *a1, uint64_t a2, uin
     if ((a7 & 1) == 0)
     {
       v25 = [*(a1[21] + 1880) newBufferForContextIntermediate:(((CI::format_bytes_per_row(*a2 usingHint:width) + 255) & 0xFFFFFFFFFFFFFF00) * height + 1023) & 0xFFFFFFFFFFFFFC00 identifier:{0, a3}];
-      return CI::MetalTextureManager::create_intermediate(a1, a2, v25, &v78, a6, 1);
+      return CI::MetalTextureManager::create_intermediate(a1, a2, v25, &v81, a6, 1);
     }
 
     return 0;
   }
 
-  v46 = a7;
-  v47 = v24;
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x2020000000;
+  v49 = a7;
+  v50 = v24;
   v77 = 0;
-  v70 = 0;
-  v71 = &v70;
-  v72 = 0x2020000000;
+  v78 = &v77;
+  v79 = 0x2020000000;
+  v80 = 0;
   v73 = 0;
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x2020000000;
+  v74 = &v73;
+  v75 = 0x2020000000;
+  v76 = 0;
   v69 = 0;
+  v70 = &v69;
+  v71 = 0x2020000000;
+  v72 = 0;
   is_packed = CI::format_is_packed(*a2);
   v27 = width > 0xF && height > 0xF;
   v28 = ((height * width) & 0xFFFFFFFFFFFF0000) != 0 && v27;
   v29 = *(a2 + 5);
   v30 = *(a2 + 6);
   v31 = *(a2 + 8);
-  v44 = (*(*a1[21] + 176))(a1[21]);
+  v47 = (*(*a1[21] + 176))(a1[21]);
   if (CI_PRINT_TREE_dump_intermediates() & 1) != 0 || (CI_PRINT_TREE_dump_raw_intermediates())
   {
-    v45 = 1;
+    v48 = 1;
   }
 
   else
   {
-    v45 = CI_PRINT_TREE_dump_bmtl_intermediates();
+    v48 = CI_PRINT_TREE_dump_bmtl_intermediates();
   }
 
   v32 = [*(a1[21] + 392) device];
-  v43 = CIMetalDeviceSupportsFamilyApple7(v32, v33);
+  v46 = CIMetalDeviceSupportsFamilyApple7(v32, v33);
   v34 = [*(a1[21] + 392) device];
   v36 = CIMetalDeviceSupportsFamilyApple8(v34, v35);
-  if ((v29 | v30) & ~v31 & 1 | (((is_packed | v28) & 1) == 0) | v45 & 1)
+  if ((v29 | v30) & ~v31 & 1 | (((is_packed | v28) & 1) == 0) | v48 & 1)
   {
-    v37 = 0;
     v38 = 0;
+    v39 = 0;
   }
 
   else
   {
-    v37 = (CI_LOSSY_COMPRESSED_INTERMEDIATES() != 0) & v36 & v44;
-    v38 = (CI_LOSSLESS_COMPRESSED_INTERMEDIATES() != 0) & v43;
+    v40 = v36;
+    v41 = CI_LOSSY_COMPRESSED_INTERMEDIATES();
+    v36 = CI_LOSSLESS_COMPRESSED_INTERMEDIATES();
+    v38 = (v41 != 0) & v40 & v47;
+    v39 = (v36 != 0) & v46;
   }
 
   if (is_packed)
   {
-    if ((v38 & 1) == 0)
+    if ((v39 & 1) == 0)
     {
-      v39 = ci_logger_render();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v42 = ci_logger_render(v36, v37);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
-        v40 = CI::name_for_format(*a2);
-        CI::MetalTextureManager::create_intermediate(v40, buf, v39);
+        v43 = CI::name_for_format(*a2);
+        CI::MetalTextureManager::create_intermediate(v43, buf, v42);
       }
     }
   }
 
-  v41 = a1[13];
+  v44 = a1[13];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = ___ZN2CI19MetalTextureManager19create_intermediateERKNS_22IntermediateDescriptorENS_17NodeContentDigestERK6CGRectmmb_block_invoke;
   block[3] = &unk_1E75C4AC8;
-  block[8] = v51;
+  block[8] = v54;
   block[9] = a2;
-  v63 = v38;
-  v64 = v37;
-  v65 = v46;
-  v54 = v78;
-  v55 = v79;
-  v56 = width;
-  v57 = height;
-  v58 = v50;
-  block[4] = &v74;
-  block[5] = &v66;
-  block[6] = &v70;
+  v66 = v39;
+  v67 = v38;
+  v68 = v49;
+  v57 = v81;
+  v58 = v82;
+  v59 = width;
+  v60 = height;
+  v61 = v53;
+  block[4] = &v77;
+  block[5] = &v69;
+  block[6] = &v73;
   block[7] = a1;
-  v59 = a4;
-  v60 = v52;
-  v61 = v48;
-  v62 = v47;
-  dispatch_sync(v41, block);
-  v42 = v75[3];
-  if (v42)
+  v62 = a4;
+  v63 = v55;
+  v64 = v51;
+  v65 = v50;
+  dispatch_sync(v44, block);
+  v45 = v78[3];
+  if (v45)
   {
-    v21 = (*(*a1 + 64))(a1, a2, v42, 0, &v78, v52, *(v67 + 24));
+    v21 = (*(*a1 + 64))(a1, a2, v45, 0, &v81, v55, *(v70 + 24));
   }
 
   else
   {
-    v21 = v71[3];
+    v21 = v74[3];
   }
 
-  _Block_object_dispose(&v66, 8);
-  _Block_object_dispose(&v70, 8);
-  _Block_object_dispose(&v74, 8);
+  _Block_object_dispose(&v69, 8);
+  _Block_object_dispose(&v73, 8);
+  _Block_object_dispose(&v77, 8);
   return v21;
 }
 
-void sub_19CE4F654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_19CE4F654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 240), 8);
-  _Block_object_dispose((v37 - 208), 8);
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 240), 8);
+  _Block_object_dispose((v36 - 208), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2469,7 +2487,7 @@ LABEL_93:
     }
 
     v14 = equivalent_uncompressed_format(v5);
-    LODWORD(v5) = v14;
+    v5 = v14;
     if (v14 > 1380411456)
     {
       if (v14 > 1882469427)
@@ -2480,7 +2498,7 @@ LABEL_93:
           {
             if (v14 == 1885746228)
             {
-              LODWORD(v5) = 762865204;
+              v5 = 762865204;
             }
 
             goto LABEL_133;
@@ -2495,7 +2513,7 @@ LABEL_93:
           {
             if (v14 == 1885745712)
             {
-              LODWORD(v5) = 762865200;
+              v5 = 762865200;
             }
 
             goto LABEL_133;
@@ -2504,7 +2522,7 @@ LABEL_93:
           v17 = 30260;
         }
 
-        LODWORD(v5) = v17 | 0x2D780000;
+        v5 = v17 | 0x2D780000u;
       }
 
       else
@@ -2513,12 +2531,12 @@ LABEL_93:
         {
           if (v14 == 1380411457)
           {
-            LODWORD(v5) = 760375361;
+            v5 = 760375361;
           }
 
           else if (v14 == 1751527984)
           {
-            LODWORD(v5) = 761816624;
+            v5 = 761816624;
           }
 
           goto LABEL_133;
@@ -2526,7 +2544,7 @@ LABEL_93:
 
         if (v14 == 1882468912)
         {
-          LODWORD(v5) = 762869296;
+          v5 = 762869296;
           goto LABEL_133;
         }
 
@@ -2534,7 +2552,7 @@ LABEL_93:
         {
           v16 = 762865202;
 LABEL_123:
-          LODWORD(v5) = v16 | 0x1000;
+          v5 = v16 | 0x1000u;
           goto LABEL_133;
         }
       }
@@ -2546,7 +2564,7 @@ LABEL_123:
     {
       if (v14 == 843264056)
       {
-        LODWORD(v5) = 758263864;
+        v5 = 758263864;
         goto LABEL_133;
       }
 
@@ -2554,7 +2572,7 @@ LABEL_123:
       {
         if (v14 == 875704422)
         {
-          LODWORD(v5) = 758670896;
+          v5 = 758670896;
         }
 
         goto LABEL_133;
@@ -2571,7 +2589,7 @@ LABEL_123:
         {
           if (v14 == 1111970369)
           {
-            LODWORD(v5) = 759318337;
+            v5 = 759318337;
           }
 
           goto LABEL_133;
@@ -2583,7 +2601,7 @@ LABEL_123:
 
       if (v14 == 1278226488)
       {
-        LODWORD(v5) = 759967800;
+        v5 = 759967800;
         goto LABEL_133;
       }
 
@@ -2642,7 +2660,7 @@ LABEL_133:
       v15 = 759967800;
     }
 
-    LODWORD(v5) = v15 + 48;
+    v5 = (v15 + 48);
     goto LABEL_133;
   }
 
@@ -2766,155 +2784,156 @@ LABEL_6:
   return std::__list_imp<CI::attached_surface_t *>::clear(v13);
 }
 
-void sub_19CE505E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_19CE505E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<CI::attached_surface_t *>::clear(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t CI::MetalTextureManager::remove_matching_texture(uint64_t a1, __int128 **a2)
 {
-  if ((isImageConversionServiceProcess() & 1) != 0 || (isMobileSlideShowOrCamera() & 1) != 0 || (result = isQuickLookSideCar(), result))
+  v4 = isImageConversionServiceProcess(a1, a2);
+  if (v4 & 1) != 0 || (v6 = isMobileSlideShowOrCamera(v4, v5), (v6) || (result = isQuickLookSideCar(v6, v7), result))
   {
-    memset(v11, 0, sizeof(v11));
-    v12 = 1065353216;
-    v6 = *a2;
-    v5 = a2[1];
-    while (v6 != v5)
+    memset(v15, 0, sizeof(v15));
+    v16 = 1065353216;
+    v10 = *a2;
+    v9 = a2[1];
+    while (v10 != v9)
     {
-      v10 = *v6;
-      std::__hash_table<void const*,std::hash<void const*>,std::equal_to<void const*>,std::allocator<void const*>>::__emplace_unique_key_args<void const*,void const* const&>(v11, &v10);
-      ++v6;
+      v14 = *v10;
+      std::__hash_table<void const*,std::hash<void const*>,std::equal_to<void const*>,std::allocator<void const*>>::__emplace_unique_key_args<void const*,void const* const&>(v15, &v14, &v14);
+      ++v10;
     }
 
-    v7 = *(a1 + 104);
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3321888768;
-    v8[2] = ___ZN2CI19MetalTextureManager23remove_matching_textureERKNSt3__16vectorINS_7TextureENS1_9allocatorIS3_EEEE_block_invoke;
-    v8[3] = &__block_descriptor_80_e8_40c83_ZTSNSt3__113unordered_setIPKvNS_4hashIS2_EENS_8equal_toIS2_EENS_9allocatorIS2_EEEE_e5_v8__0l;
-    v8[4] = a1;
-    std::unordered_set<void const*>::unordered_set(v9, v11);
-    dispatch_sync(v7, v8);
-    std::__hash_table<CI::Image const*,std::hash<CI::Image const*>,std::equal_to<CI::Image const*>,std::allocator<CI::Image const*>>::~__hash_table(v9);
-    return std::__hash_table<CI::Image const*,std::hash<CI::Image const*>,std::equal_to<CI::Image const*>,std::allocator<CI::Image const*>>::~__hash_table(v11);
+    v11 = *(a1 + 104);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3321888768;
+    v12[2] = ___ZN2CI19MetalTextureManager23remove_matching_textureERKNSt3__16vectorINS_7TextureENS1_9allocatorIS3_EEEE_block_invoke;
+    v12[3] = &__block_descriptor_80_e8_40c83_ZTSNSt3__113unordered_setIPKvNS_4hashIS2_EENS_8equal_toIS2_EENS_9allocatorIS2_EEEE_e5_v8__0l;
+    v12[4] = a1;
+    std::unordered_set<void const*>::unordered_set(v13, v15);
+    dispatch_sync(v11, v12);
+    std::__hash_table<CI::Image const*,std::hash<CI::Image const*>,std::equal_to<CI::Image const*>,std::allocator<CI::Image const*>>::~__hash_table(v13);
+    return std::__hash_table<CI::Image const*,std::hash<CI::Image const*>,std::equal_to<CI::Image const*>,std::allocator<CI::Image const*>>::~__hash_table(v15);
   }
 
   return result;
 }
 
-void ___ZN2CI19MetalTextureManager23remove_matching_textureERKNSt3__16vectorINS_7TextureENS1_9allocatorIS3_EEEE_block_invoke(uint64_t a1)
+void ___ZN2CI19MetalTextureManager23remove_matching_textureERKNSt3__16vectorINS_7TextureENS1_9allocatorIS3_EEEE_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
+  v2 = *(a1 + 32);
   __p = 0;
-  v18 = 0;
   v19 = 0;
-  v2 = *(v1 + 14);
-  if (v2 != (v1 + 120))
+  v20 = 0;
+  v3 = *(v2 + 14);
+  if (v3 != (v2 + 120))
   {
     do
     {
-      v5 = v2[4];
-      v4 = v2[5];
-      if ((CI::allowRemoval(v4) & 1) != 0 && std::__hash_table<void const*,std::hash<void const*>,std::equal_to<void const*>,std::allocator<void const*>>::find<void const*>((a1 + 40), v4))
+      v6 = v3[4];
+      v5 = v3[5];
+      if ((CI::allowRemoval(v5, a2) & 1) != 0 && std::__hash_table<void const*,std::hash<void const*>,std::equal_to<void const*>,std::allocator<void const*>>::find<void const*>((a1 + 40), v5))
       {
-        v6 = v18;
-        if (v18 >= v19)
+        v7 = v19;
+        if (v19 >= v20)
         {
-          v8 = (v18 - __p) >> 3;
-          if ((v8 + 1) >> 61)
+          v9 = (v19 - __p) >> 3;
+          if ((v9 + 1) >> 61)
           {
             std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
           }
 
-          v9 = (v19 - __p) >> 2;
-          if (v9 <= v8 + 1)
+          v10 = (v20 - __p) >> 2;
+          if (v10 <= v9 + 1)
           {
-            v9 = v8 + 1;
+            v10 = v9 + 1;
           }
 
-          if (v19 - __p >= 0x7FFFFFFFFFFFFFF8)
+          if (v20 - __p >= 0x7FFFFFFFFFFFFFF8)
           {
-            v10 = 0x1FFFFFFFFFFFFFFFLL;
+            v11 = 0x1FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v10 = v9;
+            v11 = v10;
           }
 
-          if (v10)
+          if (v11)
           {
-            std::__allocate_at_least[abi:nn200100]<std::allocator<NSString *>>(&__p, v10);
+            std::__allocate_at_least[abi:nn200100]<std::allocator<NSString *>>(&__p, v11);
           }
 
-          *(8 * v8) = v5;
-          v7 = 8 * v8 + 8;
-          v11 = (8 * v8 - (v18 - __p));
-          memcpy(v11, __p, v18 - __p);
-          v12 = __p;
-          __p = v11;
-          v18 = v7;
-          v19 = 0;
-          if (v12)
+          *(8 * v9) = v6;
+          v8 = 8 * v9 + 8;
+          v12 = (8 * v9 - (v19 - __p));
+          memcpy(v12, __p, v19 - __p);
+          v13 = __p;
+          __p = v12;
+          v19 = v8;
+          v20 = 0;
+          if (v13)
           {
-            operator delete(v12);
+            operator delete(v13);
           }
         }
 
         else
         {
-          *v18 = v5;
-          v7 = (v6 + 8);
+          *v19 = v6;
+          v8 = (v7 + 8);
         }
 
-        v18 = v7;
+        v19 = v8;
       }
 
-      v13 = v2[1];
-      if (v13)
+      v14 = v3[1];
+      if (v14)
       {
         do
         {
-          v14 = v13;
-          v13 = *v13;
+          v15 = v14;
+          v14 = *v14;
         }
 
-        while (v13);
+        while (v14);
       }
 
       else
       {
         do
         {
-          v14 = v2[2];
-          v15 = *v14 == v2;
-          v2 = v14;
+          v15 = v3[2];
+          v16 = *v15 == v3;
+          v3 = v15;
         }
 
-        while (!v15);
+        while (!v16);
       }
 
-      v2 = v14;
+      v3 = v15;
     }
 
-    while (v14 != (v1 + 120));
-    v16 = __p;
-    if (__p != v18)
+    while (v15 != (v2 + 120));
+    v17 = __p;
+    if (__p != v19)
     {
       do
       {
-        CI::TextureManager::remove_lru(v1, *v16++);
+        CI::TextureManager::remove_lru(v2, *v17++);
       }
 
-      while (v16 != v18);
-      v16 = __p;
+      while (v17 != v19);
+      v17 = __p;
     }
 
-    if (v16)
+    if (v17)
     {
-      v18 = v16;
-      operator delete(v16);
+      v19 = v17;
+      operator delete(v17);
     }
   }
 }
@@ -2929,51 +2948,53 @@ void sub_19CE508AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CI::allowRemoval(uint64_t result)
+uint64_t CI::allowRemoval(uint64_t result, uint64_t a2)
 {
   if (result)
   {
-    v1 = result;
+    v2 = result;
     if (*(result + 20))
     {
       if (*(result + 24) == 1)
       {
-        if (isImageConversionServiceProcess())
+        result = isImageConversionServiceProcess(result, a2);
+        if (result)
         {
-          v2 = 1;
+          v3 = 1;
         }
 
         else
         {
-          v2 = isMobileSlideShowOrCamera();
+          result = isMobileSlideShowOrCamera(result, a2);
+          v3 = result;
         }
       }
 
       else
       {
-        v2 = 0;
+        v3 = 0;
       }
 
-      if (*(v1 + 16) == 1)
+      if (*(v2 + 16) == 1)
       {
-        v4 = isQuickLookSideCar();
+        v5 = isQuickLookSideCar(result, a2);
       }
 
       else
       {
-        v4 = 0;
+        v5 = 0;
       }
 
-      return v4 | v2;
+      return v5 | v3;
     }
 
     else
     {
-      v3 = ci_logger_render();
-      result = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
+      v4 = ci_logger_render(result, a2);
+      result = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
       if (result)
       {
-        CI::allowRemoval(v1, v3);
+        CI::allowRemoval(v2, v4);
         return 0;
       }
     }
@@ -3049,11 +3070,11 @@ uint64_t CI::MetalTextureManager::lookup_texture(CI::MetalTextureManager *this, 
 uint64_t ___ZN2CI19MetalTextureManager14lookup_textureEPv_block_invoke(uint64_t a1)
 {
   *(*(*(a1 + 32) + 8) + 24) = CI::TextureManager::_lookup_texture(*(a1 + 40), *(a1 + 48));
-  result = CI::allowRemoval(*(*(*(a1 + 32) + 8) + 24));
+  result = CI::allowRemoval(*(*(*(a1 + 32) + 8) + 24), v2);
   if (result)
   {
-    v3 = *(*(*(a1 + 32) + 8) + 24);
-    ++*(v3 + 20);
+    v4 = *(*(*(a1 + 32) + 8) + 24);
+    ++*(v4 + 20);
   }
 
   return result;
@@ -3147,7 +3168,7 @@ void *CI::MetalTextureManager::texture_for_CGImage(void **a1, CGImage *a2, uint6
   return texture;
 }
 
-void *CI::MetalTextureManager::texture_for_IOSurface(uint64_t a1, IOSurfaceRef buffer, size_t a3, int *a4)
+void *CI::MetalTextureManager::texture_for_IOSurface(uint64_t a1, IOSurfaceRef buffer, size_t a3, unsigned int *a4)
 {
   if (IOSurfaceGetPlaneCount(buffer) == 2)
   {
@@ -3303,11 +3324,11 @@ LABEL_9:
   return result;
 }
 
-uint64_t CI::MetalMainProgram::MetalMainProgram(uint64_t a1, uint64_t a2, const char *a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+uint64_t CI::MetalMainProgram::MetalMainProgram(uint64_t a1, uint64_t a2, const char *a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9, uint64_t a10)
 {
   v14 = CI::MainProgram::MainProgram(a1, a3, a4, a5, a6);
   v14[13] = &unk_1F1034438;
-  atomic_fetch_add(&dword_1ED7C47BC[73], 1u);
+  atomic_fetch_add(&dword_1ED7C47D8[66], 1u);
   *v14 = &unk_1F10340A8;
   v14[13] = &unk_1F1034118;
   v14[15] = a7;
@@ -3384,7 +3405,7 @@ void CI::MetalMainProgram::~MetalMainProgram(CI::MetalMainProgram *this)
 
   *(this + 20) = 0;
   *(this + 13) = &unk_1F1034438;
-  atomic_fetch_add(&dword_1ED7C47BC[73], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[66], 0xFFFFFFFF);
   CI::MainProgram::~MainProgram(this);
 }
 
@@ -3397,7 +3418,7 @@ void CI::MetalMainProgram::~MetalMainProgram(CI::MetalMainProgram *this)
 void sub_19CE5161C(_Unwind_Exception *a1)
 {
   *(v1 + 13) = &unk_1F1034438;
-  atomic_fetch_add(&dword_1ED7C47BC[73], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[66], 0xFFFFFFFF);
   CI::MainProgram::~MainProgram(v1);
   _Unwind_Resume(a1);
 }
@@ -3425,63 +3446,65 @@ void non-virtual thunk toCI::MetalMainProgram::~MetalMainProgram(CI::MetalMainPr
   JUMPOUT(0x19EAF5590);
 }
 
-void CI::MetalMainProgram::compile(uint64_t a1, int a2)
+void CI::MetalMainProgram::compile(uint64_t a1, unsigned int a2)
 {
   dispatch_assert_queue_V2(*(a1 + 136));
-  if (CI_VERBOSE_SIGNPOSTS())
+  v4 = CI_VERBOSE_SIGNPOSTS();
+  if (v4)
   {
-    v4 = ci_signpost_log_compile();
-    v5 = a2 | (*(a1 + 48) << 32);
+    v6 = ci_signpost_log_compile(v4, v5);
+    v7 = a2 | (*(a1 + 48) << 32);
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v8 = v6;
+      if (os_signpost_enabled(v6))
+      {
+        LOWORD(v15[0]) = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v7, "compile_metal", &unk_19CFBCBAE, v15, 2u);
+      }
+    }
+  }
+
+  TimerBase::TimerBase(v15, *(a1 + 48), a2, "compile_metal", 0x19u);
+  v9.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
+  v10 = *(a1 + 144);
+  v11 = *(a1 + 160);
+  v13 = *(a1 + 56);
+  v12 = *(a1 + 64);
+  if (*(a1 + 152) == 1)
+  {
+    v14 = CIMetalRenderPipelineStateCreateFromSource(v10, v11, v12, v13, *(a1 + 16), *(a1 + 156));
+  }
+
+  else
+  {
+    v14 = CIMetalComputePipelineStateCreateFromSource(v10, v11, v12, v13);
+  }
+
+  *(a1 + 168) = v14;
+  atomic_store(COERCE_UNSIGNED_INT64((std::chrono::steady_clock::now().__d_.__rep_ - v9.__d_.__rep_) / 1000000000.0), (a1 + 24));
+  CI::MetalMainProgram::compile(CI::NodeIndex)::SignpostTimer::~SignpostTimer(v15);
+}
+
+void CI::MetalMainProgram::compile(CI::NodeIndex)::SignpostTimer::~SignpostTimer(TimerBase *a1)
+{
+  v2 = CI_VERBOSE_SIGNPOSTS();
+  if (v2)
+  {
+    v4 = ci_signpost_log_compile(v2, v3);
+    v5 = *(a1 + 1);
     if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
       v6 = v4;
       if (os_signpost_enabled(v4))
       {
-        *v13 = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v5, "compile_metal", &unk_19CFBCBAE, v13, 2u);
+        *v7 = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_END, v5, "compile_metal", &unk_19CFBCBAE, v7, 2u);
       }
     }
   }
 
-  TimerBase::TimerBase(v13, *(a1 + 48), a2, "compile_metal", 25);
-  v7.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
-  v8 = *(a1 + 144);
-  v9 = *(a1 + 160);
-  v11 = *(a1 + 56);
-  v10 = *(a1 + 64);
-  if (*(a1 + 152) == 1)
-  {
-    v12 = CIMetalRenderPipelineStateCreateFromSource(v8, v9, v10, v11, *(a1 + 16), *(a1 + 156));
-  }
-
-  else
-  {
-    v12 = CIMetalComputePipelineStateCreateFromSource(v8, v9, v10, v11);
-  }
-
-  *(a1 + 168) = v12;
-  atomic_store(COERCE_UNSIGNED_INT64((std::chrono::steady_clock::now().__d_.__rep_ - v7.__d_.__rep_) / 1000000000.0), (a1 + 24));
-  CI::MetalMainProgram::compile(CI::NodeIndex)::SignpostTimer::~SignpostTimer(v13);
-}
-
-void CI::MetalMainProgram::compile(CI::NodeIndex)::SignpostTimer::~SignpostTimer(TimerBase *a1)
-{
-  if (CI_VERBOSE_SIGNPOSTS())
-  {
-    v2 = ci_signpost_log_compile();
-    v3 = *(a1 + 1);
-    if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-    {
-      v4 = v2;
-      if (os_signpost_enabled(v2))
-      {
-        *v5 = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "compile_metal", &unk_19CFBCBAE, v5, 2u);
-      }
-    }
-  }
-
-  TimerBase::~TimerBase(a1);
+  TimerBase::~TimerBase(a1, v3);
 }
 
 void CI::MetalMainProgram::compileAsync(dispatch_queue_t *a1, int a2)
@@ -3675,7 +3698,7 @@ uint64_t CI::GLContext::MTLShadow(CI::GLContext *this)
   return CI::Object::ref(v1);
 }
 
-uint64_t CI::SWContext::MTLShadow(CI::SWContext *this)
+CI::MetalContext *CI::SWContext::MTLShadow(CI::SWContext *this)
 {
   if (!*(this + 44))
   {
@@ -3700,33 +3723,34 @@ void sub_19CE52280(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void CI::MetalContext::MetalContext(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, CFTypeRef a12, char a13, char a14)
+void CI::MetalContext::MetalContext(uint64_t a1, const void *a2, const char *a3, CGColorSpace *a4, CGColorSpace *a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, CFTypeRef a12, __int16 a13)
 {
+  v14 = a7;
   if (dyld_program_sdk_at_least())
   {
-    v20 = 2056;
+    v19 = 2056;
   }
 
   else
   {
-    v20 = 264;
+    v19 = 264;
   }
 
   if (a6)
   {
-    v21 = a6;
+    v20 = a6;
   }
 
   else
   {
-    v21 = v20;
+    v20 = v19;
   }
 
-  CI::Context::Context(a1, a4, a5, v21, a7, a8, a9, a10);
+  CI::Context::Context(a1, a4, a5, v20, v14, a8, a9, a10, a13, SHIBYTE(a13));
 }
 
 {
-  CI::MetalContext::MetalContext(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14);
+  CI::MetalContext::MetalContext(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
 }
 
 void sub_19CE52478(_Unwind_Exception *a1)
@@ -3744,79 +3768,80 @@ void sub_19CE52478(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t CI::MetalContext::load_archives(CI::MetalContext *this)
+void CI::MetalContext::load_archives(CI::MetalContext *this)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  result = CI_ARCHIVE_USAGE_MODE();
-  if (result)
+  v27 = *MEMORY[0x1E69E9840];
+  if (CI_ARCHIVE_USAGE_MODE())
   {
     if (CI::MetalContext::binaryArchiveCache(void)::onceToken != -1)
     {
       CI::MetalContext::load_archives();
     }
 
-    v3 = CI::MetalContext::binaryArchiveCache(void)::cache;
-    v19 = 0;
+    v2 = CI::MetalContext::binaryArchiveCache(void)::cache;
     v20 = 0;
     v21 = 0;
+    v22 = 0;
     objc_sync_enter(CI::MetalContext::binaryArchiveCache(void)::cache);
-    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v4 = [v3 countByEnumeratingWithState:&v15 objects:v25 count:16];
-    if (v4)
+    v19 = 0u;
+    v3 = [v2 countByEnumeratingWithState:&v16 objects:v26 count:16];
+    if (v3)
     {
-      v6 = *v16;
-      *&v5 = 67109378;
-      v13 = v5;
+      v5 = *v17;
+      *&v4 = 67109378;
+      v14 = v4;
       do
       {
-        for (i = 0; i != v4; ++i)
+        for (i = 0; i != v3; ++i)
         {
-          if (*v16 != v6)
+          if (*v17 != v5)
           {
-            objc_enumerationMutation(v3);
+            objc_enumerationMutation(v2);
           }
 
-          v8 = *(*(&v15 + 1) + 8 * i);
-          v9 = [v3 objectForKey:{v8, v13}];
-          v10 = v9;
-          if (v9 && [v9 count])
+          v7 = *(*(&v16 + 1) + 8 * i);
+          v8 = [v2 objectForKey:{v7, v14}];
+          v9 = v8;
+          if (v8)
           {
-            v11 = ci_logger_render();
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+            v10 = [v8 count];
+            if (v10)
             {
-              v12 = (*(*this + 280))(this);
-              *buf = v13;
-              *&buf[4] = v12;
-              v23 = 2114;
-              v24 = v8;
-              _os_log_impl(&dword_19CC36000, v11, OS_LOG_TYPE_INFO, "Context[%d] uses %{public}@ archive", buf, 0x12u);
-            }
+              v12 = ci_logger_render(v10, v11);
+              if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+              {
+                v13 = (*(*this + 280))(this);
+                *buf = v14;
+                *&buf[4] = v13;
+                v24 = 2114;
+                v25 = v7;
+                _os_log_impl(&dword_19CC36000, v12, OS_LOG_TYPE_INFO, "Context[%d] uses %{public}@ archive", buf, 0x12u);
+              }
 
-            *buf = [v10 objectForKeyedSubscript:@"bin"];
-            std::vector<void const*>::push_back[abi:nn200100](&v19, buf);
+              *buf = [v9 objectForKeyedSubscript:@"bin"];
+              std::vector<void const*>::push_back[abi:nn200100](&v20, buf);
+            }
           }
         }
 
-        v4 = [v3 countByEnumeratingWithState:&v15 objects:v25 count:16];
+        v3 = [v2 countByEnumeratingWithState:&v16 objects:v26 count:16];
       }
 
-      while (v4);
+      while (v3);
     }
 
-    objc_sync_exit(v3);
+    objc_sync_exit(v2);
     memset(__p, 0, sizeof(__p));
-    if (v20 != v19)
+    if (v21 != v20)
     {
-      std::vector<void const*>::__vallocate[abi:nn200100](__p, (v20 - v19) >> 3);
+      std::vector<void const*>::__vallocate[abi:nn200100](__p, (v21 - v20) >> 3);
     }
 
-    CI::new_kernel_archive();
+    CI::new_kernel_archive(__p);
   }
-
-  return result;
 }
 
 uint64_t CI::MetalContext::binaryArchiveCache(CI::MetalContext *this)
@@ -3829,7 +3854,7 @@ uint64_t CI::MetalContext::binaryArchiveCache(CI::MetalContext *this)
   return CI::MetalContext::binaryArchiveCache(void)::cache;
 }
 
-uint64_t ___ZN2CI12MetalContext18binaryArchiveCacheEv_block_invoke()
+uint64_t ___ZN2CI12MetalContext18binaryArchiveCacheEv_block_invoke(uint64_t a1, uint64_t a2)
 {
   result = objc_opt_new();
   CI::MetalContext::binaryArchiveCache(void)::cache = result;
@@ -3895,9 +3920,9 @@ void std::vector<void const*>::push_back[abi:nn200100](uint64_t a1, void *a2)
   *(a1 + 8) = v6;
 }
 
-void CI::MetalContext::add_archive(NSObject ***this, const __CFString *a2)
+void CI::MetalContext::add_archive(uint64_t (***this)(CI **), const __CFString *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (CI_ARCHIVE_USAGE_MODE())
   {
     if (CI::MetalContext::binaryArchiveCache(void)::onceToken != -1)
@@ -3909,36 +3934,40 @@ void CI::MetalContext::add_archive(NSObject ***this, const __CFString *a2)
     objc_sync_enter(CI::MetalContext::binaryArchiveCache(void)::cache);
     v5 = [v4 objectForKey:a2];
     objc_sync_exit(v4);
-    if (v5 && [v5 count])
+    if (v5)
     {
-      v6 = ci_logger_render();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v6 = [v5 count];
+      if (v6)
       {
-        v7 = ((*this)[35])(this);
-        *buf = 67109378;
-        *&buf[4] = v7;
-        LOWORD(v12) = 2114;
-        *(&v12 + 2) = a2;
-        _os_log_impl(&dword_19CC36000, v6, OS_LOG_TYPE_INFO, "Context[%d] uses %{public}@ archive", buf, 0x12u);
-      }
-
-      v8 = this[256];
-      if (!v8)
-      {
-        *buf = 0;
-        v12 = 0uLL;
-        v10 = [v5 objectForKeyedSubscript:@"bin"];
-        std::vector<void const*>::push_back[abi:nn200100](buf, &v10);
-        memset(__p, 0, sizeof(__p));
-        if (v12 != *buf)
+        v8 = ci_logger_render(v6, v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          std::vector<void const*>::__vallocate[abi:nn200100](__p, (v12 - *buf) >> 3);
+          v9 = (*this)[35](this);
+          *buf = 67109378;
+          *&buf[4] = v9;
+          LOWORD(v14) = 2114;
+          *(&v14 + 2) = a2;
+          _os_log_impl(&dword_19CC36000, v8, OS_LOG_TYPE_INFO, "Context[%d] uses %{public}@ archive", buf, 0x12u);
         }
 
-        CI::new_kernel_archive();
-      }
+        v10 = this[256];
+        if (!v10)
+        {
+          *buf = 0;
+          v14 = 0uLL;
+          v12 = [v5 objectForKeyedSubscript:@"bin"];
+          std::vector<void const*>::push_back[abi:nn200100](buf, &v12);
+          memset(__p, 0, sizeof(__p));
+          if (v14 != *buf)
+          {
+            std::vector<void const*>::__vallocate[abi:nn200100](__p, (v14 - *buf) >> 3);
+          }
 
-      CI::add_to_kernel_archive(v8, [v5 objectForKeyedSubscript:@"bin"]);
+          CI::new_kernel_archive(__p);
+        }
+
+        CI::add_to_kernel_archive(v10, [v5 objectForKeyedSubscript:@"bin"]);
+      }
     }
   }
 }
@@ -3953,107 +3982,107 @@ void sub_19CE52AD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void CI::MetalContext::~MetalContext(CI::MetalContext *this)
+void CI::MetalContext::~MetalContext(CI::MetalContext *this, CI::PrecompiledKernels *a2)
 {
   *this = &unk_1F1034140;
   *(this + 48) = &unk_1F10343D0;
   CI::delete_precompiled_kernels(*(this + 252));
   CI::delete_precompiled_kernels(*(this + 253));
-  CI::delete_precompiled_uber_functions(*(this + 254), v2);
-  CI::release_ci_dylib(*(this + 255), v3);
-  CI::release_kernel_archive(*(this + 256), v4);
+  CI::delete_precompiled_uber_functions(*(this + 254), v3);
+  CI::release_ci_dylib(*(this + 255), v4);
+  CI::release_kernel_archive(*(this + 256), v5);
   *(this + 256) = 0;
   *(this + 253) = 0;
   *(this + 254) = 0;
   *(this + 252) = 0;
-  v5 = *(this + 250);
-  if (v5)
+  v6 = *(this + 250);
+  if (v6)
   {
-    CFRelease(v5);
+    CFRelease(v6);
     *(this + 250) = 0;
   }
 
-  v6 = 0;
-  v7 = 1;
+  v7 = 0;
+  v8 = 1;
   do
   {
-    v8 = 0;
-    v9 = v7;
-    v10 = 1;
-    v11 = this + 32 * v6 + 1752;
+    v9 = 0;
+    v10 = v8;
+    v11 = 1;
+    v12 = this + 32 * v7 + 1752;
     do
     {
-      v12 = 0;
-      v13 = v10;
-      v14 = 1;
-      v15 = &v11[16 * v8];
+      v13 = 0;
+      v14 = v11;
+      v15 = 1;
+      v16 = &v12[16 * v9];
       do
       {
-        v16 = v14;
-        v17 = *&v15[8 * v12];
-        if (v17)
+        v17 = v15;
+        v18 = *&v16[8 * v13];
+        if (v18)
         {
-          CFRelease(v17);
-          *&v15[8 * v12] = 0;
+          CFRelease(v18);
+          *&v16[8 * v13] = 0;
         }
 
-        v14 = 0;
-        v12 = 1;
+        v15 = 0;
+        v13 = 1;
       }
 
-      while ((v16 & 1) != 0);
-      v10 = 0;
-      v8 = 1;
+      while ((v17 & 1) != 0);
+      v11 = 0;
+      v9 = 1;
     }
 
-    while ((v13 & 1) != 0);
-    v7 = 0;
-    v6 = 1;
+    while ((v14 & 1) != 0);
+    v8 = 0;
+    v7 = 1;
   }
 
-  while ((v9 & 1) != 0);
-  v18 = *(this + 235);
-  if (v18)
-  {
-    CFRelease(v18);
-  }
-
-  v19 = *(this + 49);
+  while ((v10 & 1) != 0);
+  v19 = *(this + 235);
   if (v19)
   {
     CFRelease(v19);
+  }
+
+  v20 = *(this + 49);
+  if (v20)
+  {
+    CFRelease(v20);
     *(this + 49) = 0;
   }
 
-  v20 = *(this + 236);
-  if (v20)
+  v21 = *(this + 236);
+  if (v21)
   {
-    (*(*v20 + 40))(v20);
+    (*(*v21 + 40))(v21);
   }
 
   *(this + 236) = 0;
-  v21 = *(this + 234);
-  if (v21)
+  v22 = *(this + 234);
+  if (v22)
   {
-    CFRelease(v21);
+    CFRelease(v22);
   }
 
   *(this + 234) = 0;
-  v22 = *(this + 237);
+  v23 = *(this + 237);
   *(this + 237) = 0;
-  if (v22)
+  if (v23)
   {
-    CI::Object::unref(v22);
+    CI::Object::unref(v23);
   }
 
   *(this + 48) = &unk_1F1034460;
-  atomic_fetch_add(&dword_1ED7C47BC[83], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[76], 0xFFFFFFFF);
 
   CI::Context::~Context(this);
 }
 
 {
-  CI::MetalContext::~MetalContext(this);
+  CI::MetalContext::~MetalContext(this, a2);
 
   JUMPOUT(0x19EAF5590);
 }
@@ -4068,18 +4097,18 @@ void sub_19CE52CF8(_Unwind_Exception *a1)
   }
 
   *(v1 + 384) = &unk_1F1034460;
-  atomic_fetch_add(&dword_1ED7C47BC[83], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[76], 0xFFFFFFFF);
   CI::Context::~Context(v1);
   _Unwind_Resume(a1);
 }
 
-void non-virtual thunk toCI::MetalContext::~MetalContext(CI::MetalContext *this)
+void non-virtual thunk toCI::MetalContext::~MetalContext(CI::MetalContext *this, CI::PrecompiledKernels *a2)
 {
-  CI::MetalContext::~MetalContext((this - 384));
+  CI::MetalContext::~MetalContext((this - 384), a2);
 }
 
 {
-  CI::MetalContext::~MetalContext((this - 384));
+  CI::MetalContext::~MetalContext((this - 384), a2);
 
   JUMPOUT(0x19EAF5590);
 }
@@ -4198,67 +4227,68 @@ void CI::MetalContext::waitForCompletion(CI::MetalContext *this)
   }
 }
 
-void CI::MetalContext::after_render(CI::TextureManager **this)
+void CI::MetalContext::after_render(CI::TextureManager **this, uint64_t a2)
 {
-  v2 = ci_signpost_log_render();
-  v3 = (*(*this + 35))(this) << 32;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
+  v3 = ci_signpost_log_render(this, a2);
+  v4 = (*(*this + 35))(this) << 32;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    *v7 = 0;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_BEGIN, v3, "after_render", &unk_19CFBCBAE, v7, 2u);
+    LOWORD(v9[0]) = 0;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_BEGIN, v4, "after_render", &unk_19CFBCBAE, v9, 2u);
   }
 
-  v4 = (*(*this + 35))(this);
-  TimerBase::TimerBase(v7, v4, 0, "after_render", 8);
+  v5 = (*(*this + 35))(this);
+  TimerBase::TimerBase(v9, v5, 0, "after_render", 8u);
   *(this + 231) = 0u;
   CI::TextureManager::remove_all(this[236]);
-  v5 = this[236];
+  v6 = this[236];
   if (CI_RECYCLE_METAL_TEXTURES())
   {
-    v6 = CI_INTERMEDIATE_CACHE_SIZE();
+    v7 = CI_INTERMEDIATE_CACHE_SIZE();
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  (*(*v5 + 80))(v5, v6);
-  CI::MetalContext::after_render(void)::SignpostTimer::~SignpostTimer(v7);
+  (*(*v6 + 80))(v6, v7);
+  CI::MetalContext::after_render(void)::SignpostTimer::~SignpostTimer(v9, v8);
 }
 
-void CI::MetalContext::after_render(void)::SignpostTimer::~SignpostTimer(TimerBase *a1)
+void CI::MetalContext::after_render(void)::SignpostTimer::~SignpostTimer(TimerBase *a1, uint64_t a2)
 {
-  v2 = ci_signpost_log_render();
-  v3 = *(a1 + 1);
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v3 = ci_signpost_log_render(a1, a2);
+  v5 = *(a1 + 1);
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v4 = v2;
-    if (os_signpost_enabled(v2))
+    v6 = v3;
+    if (os_signpost_enabled(v3))
     {
-      *v5 = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "after_render", &unk_19CFBCBAE, v5, 2u);
+      *v7 = 0;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_END, v5, "after_render", &unk_19CFBCBAE, v7, 2u);
     }
   }
 
-  TimerBase::~TimerBase(a1);
+  TimerBase::~TimerBase(a1, v4);
 }
 
-uint64_t CI::MetalContext::compute_quad(uint64_t a1, int a2, uint64_t a3, double *a4, void **a5, uint64_t a6, uint64_t a7, uint64_t a8, unint64_t a9, unsigned int a10, unint64_t a11, unsigned int a12)
+uint64_t CI::MetalContext::compute_quad(uint64_t a1, uint64_t a2, uint64_t a3, double *a4, void **a5, uint64_t a6, uint64_t a7, uint64_t a8, unint64_t a9, unsigned int a10, unint64_t a11, unsigned int a12)
 {
-  if (CI_VERBOSE_SIGNPOSTS())
+  v19 = CI_VERBOSE_SIGNPOSTS();
+  if (v19)
   {
-    v19 = ci_signpost_log_render();
-    v20 = a2 | ((*(*a1 + 280))(a1) << 32);
-    if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+    v21 = ci_signpost_log_render(v19, v20);
+    v22 = a2 | ((*(*a1 + 280))(a1) << 32);
+    if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
     {
-      *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v20, "compute_quad", &unk_19CFBCBAE, buf, 2u);
+      LOWORD(buf[0]) = 0;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v22, "compute_quad", &unk_19CFBCBAE, buf, 2u);
     }
   }
 
-  v21 = (*(*a1 + 280))(a1);
-  TimerBase::TimerBase(buf, v21, a2, "compute_quad", 14);
+  v23 = (*(*a1 + 280))(a1);
+  TimerBase::TimerBase(buf, v23, a2, "compute_quad", 0xEu);
   if (CI_NO_RENDER())
   {
     goto LABEL_6;
@@ -4277,29 +4307,29 @@ uint64_t CI::MetalContext::compute_quad(uint64_t a1, int a2, uint64_t a3, double
       goto LABEL_22;
     }
 
-    v24 = *((*(*a3 + 88))(a3) + 16);
+    v26 = *((*(*a3 + 88))(a3) + 16);
   }
 
   else
   {
-    v24 = 0;
+    v26 = 0;
   }
 
   if (!*a5)
   {
 LABEL_22:
-    v22 = 0;
+    v24 = 0;
     goto LABEL_23;
   }
 
-  v25 = *(a1 + 1744);
-  if (v25)
+  v27 = *(a1 + 1744);
+  if (v27)
   {
-    v26 = (a1 + 1488);
-    while (*(v26 - 32) && *v26)
+    v28 = (a1 + 1488);
+    while (*(v28 - 32) && *v28)
     {
-      ++v26;
-      if (!--v25)
+      ++v28;
+      if (!--v27)
       {
         goto LABEL_20;
       }
@@ -4311,86 +4341,94 @@ LABEL_22:
 LABEL_20:
   if (*(a3 + 152) == 1)
   {
-    v27 = (*(*a1 + 280))(a1);
-    CIMetalRenderToImageblocks(v27, a2, *(a1 + 1848), PipelineState, *(a1 + 1816), *a4, a4[1], a7, a5, *(a1 + 1744), a1 + 1232, a1 + 1488, *(a3 + 56));
+    v29 = (*(*a1 + 280))(a1);
+    CIMetalRenderToImageblocks(v29, a2, *(a1 + 1848), PipelineState, *(a1 + 1816), *a4, a4[1], a7, a5, *(a1 + 1744), a1 + 1232, a1 + 1488, *(a3 + 56));
   }
 
   else
   {
-    v42 = v24;
-    v44[0] = a11;
-    v44[1] = HIDWORD(a11);
-    v44[2] = a12;
-    v29 = (*(*a1 + 280))(a1);
-    v30 = *(a1 + 1848);
-    v31 = *(a1 + 1816);
-    v32 = *(a1 + 1824);
-    v33 = *(a1 + 1832);
-    v34 = *a4;
-    v35 = a4[1];
-    v36 = *(a1 + 1744);
-    v37 = *(a3 + 56);
-    v43[0] = a9;
-    v43[1] = HIDWORD(a9);
+    v44 = v26;
+    v46[0] = a11;
+    v46[1] = HIDWORD(a11);
+    v46[2] = a12;
+    v31 = (*(*a1 + 280))(a1);
+    v32 = *(a1 + 1848);
+    v33 = *(a1 + 1816);
+    v34 = *(a1 + 1824);
+    v35 = *(a1 + 1832);
+    v36 = *a4;
+    v37 = a4[1];
+    v38 = *(a1 + 1744);
+    v39 = *(a3 + 56);
+    v45[0] = a9;
+    v45[1] = HIDWORD(a9);
     if (HIDWORD(a11))
     {
-      v38 = a12 == 0;
+      v40 = a12 == 0;
     }
 
     else
     {
-      v38 = 1;
+      v40 = 1;
     }
 
-    v39 = v38 || a11 == 0;
-    v40 = v44;
-    if (v39)
+    v41 = v40 || a11 == 0;
+    v42 = v46;
+    if (v41)
     {
-      v40 = 0;
+      v42 = 0;
     }
 
-    v43[2] = a10;
-    CIMetalRenderToTextures(v29, a2, v30, PipelineState, v31, v32, v33, v42, v34, v35, a7, a5, a6, v36, a1 + 1232, a1 + 1488, v37, v43, v40);
+    v45[2] = a10;
+    CIMetalRenderToTextures(v31, a2, v32, PipelineState, v33, v34, v35, v44, v36, v37, a7, a5, a6, v38, a1 + 1232, a1 + 1488, v39, v45, v42);
   }
 
   if (!*(a1 + 1744))
   {
 LABEL_6:
-    v22 = 1;
+    v24 = 1;
     goto LABEL_23;
   }
 
-  v41 = 0;
+  v43 = 0;
   do
   {
-    CFRelease(*(a1 + 1232 + 8 * v41++));
-    v22 = 1;
+    CFRelease(*(a1 + 1232 + 8 * v43++));
+    v24 = 1;
   }
 
-  while (v41 < *(a1 + 1744));
+  while (v43 < *(a1 + 1744));
 LABEL_23:
   CI::MetalContext::compute_quad(CI::NodeIndex,CI::MetalMainProgram const*,CGSize const&,void const**,void const**,unsigned long,CI::Dimensions,CI::Dimensions)::SignpostTimer::~SignpostTimer(buf);
-  return v22;
+  return v24;
+}
+
+void sub_19CE535A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  CI::MetalContext::compute_quad(CI::NodeIndex,CI::MetalMainProgram const*,CGSize const&,void const**,void const**,unsigned long,CI::Dimensions,CI::Dimensions)::SignpostTimer::~SignpostTimer(va);
+  _Unwind_Resume(a1);
 }
 
 void CI::MetalContext::compute_quad(CI::NodeIndex,CI::MetalMainProgram const*,CGSize const&,void const**,void const**,unsigned long,CI::Dimensions,CI::Dimensions)::SignpostTimer::~SignpostTimer(TimerBase *a1)
 {
-  if (CI_VERBOSE_SIGNPOSTS())
+  v2 = CI_VERBOSE_SIGNPOSTS();
+  if (v2)
   {
-    v2 = ci_signpost_log_render();
-    v3 = *(a1 + 1);
-    if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v4 = ci_signpost_log_render(v2, v3);
+    v5 = *(a1 + 1);
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v4 = v2;
-      if (os_signpost_enabled(v2))
+      v6 = v4;
+      if (os_signpost_enabled(v4))
       {
-        *v5 = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "compute_quad", &unk_19CFBCBAE, v5, 2u);
+        *v7 = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_END, v5, "compute_quad", &unk_19CFBCBAE, v7, 2u);
       }
     }
   }
 
-  TimerBase::~TimerBase(a1);
+  TimerBase::~TimerBase(a1, v3);
 }
 
 BOOL CI::MetalContext::set_texture_destination(uint64_t a1, CFTypeRef *a2, _OWORD *a3)
@@ -4429,13 +4467,13 @@ BOOL CI::MetalContext::set_texture_destination(uint64_t a1, void *aBlock, _OWORD
   return aBlock != 0;
 }
 
-_WORD *CI::MetalContext::set_surface_destination(_WORD *result, __IOSurface *a2, __CVBuffer *a3, CGSize *a4, uint64_t a5)
+char *CI::MetalContext::set_surface_destination(char *result, __IOSurface *a2, __CVBuffer *a3, CGSize *a4, uint64_t a5)
 {
   v6 = *a5;
   if (*a5)
   {
     v10 = result;
-    result[996] = 257;
+    *(result + 996) = 257;
     v26 = 2;
     if (CI::MetalContext::use_imageblocks_for_format(result, v6))
     {
@@ -4464,7 +4502,7 @@ _WORD *CI::MetalContext::set_surface_destination(_WORD *result, __IOSurface *a2,
     }
 
     *(v10 + 480) = *a5;
-    *(v10 + 1924) = v12;
+    v10[1924] = v12;
     if (CVPixelBufferGetIOSurface(a3) != a2)
     {
       a3 = 0;
@@ -4475,7 +4513,7 @@ _WORD *CI::MetalContext::set_surface_destination(_WORD *result, __IOSurface *a2,
       v14 = CI::format_from_IOSurface(a2, v13);
       CI::format_is_ycc_biplanar(v14);
       v15 = 0;
-      v16 = v10 + 976;
+      v16 = v10 + 1952;
       v17 = 1;
       do
       {
@@ -4493,18 +4531,18 @@ _WORD *CI::MetalContext::set_surface_destination(_WORD *result, __IOSurface *a2,
         v22 = CI::texture_from_pixelbuffer_cache(v10, a3, v20, v15, v27);
         if (v22)
         {
-          *&v16[4 * v15] = v22;
+          *&v16[8 * v15] = v22;
           result = CVMetalTextureGetTexture(v22);
         }
 
         else
         {
-          *&v16[4 * v15] = 0;
+          *&v16[8 * v15] = 0;
           result = CIMetalTextureCreateFromIOSurface(*(v10 + 251), [*(v10 + 49) device], a2, v15, v20, v26);
         }
 
         v17 = 0;
-        *&v10[4 * v15 + 968] = result;
+        *&v10[8 * v15 + 1936] = result;
         v15 = 1;
       }
 
@@ -4600,7 +4638,7 @@ unint64_t CI::MetalContext::set_bitmap_destination(uint64_t a1, CI::Bitmap *a2, 
 
     *(a1 + 1920) = *a4;
     *(a1 + 1924) = v15;
-    if ((atomic_load_explicit(&qword_1ED7C4548, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_1ED7C4548, memory_order_acquire) & 1) == 0)
     {
       CI::MetalContext::set_bitmap_destination();
     }
@@ -4725,13 +4763,13 @@ double CI::MetalContext::unset_destination(CI::MetalContext *this)
   return result;
 }
 
-CFTypeRef CI::MetalContext::set_command_buffer(CFTypeRef this, CFTypeRef cf)
+void *CI::MetalContext::set_command_buffer(void *this, CFTypeRef cf)
 {
   if (cf)
   {
     v2 = this;
     this = CFRetain(cf);
-    *(v2 + 1864) = this;
+    v2[233] = this;
   }
 
   return this;
@@ -4739,13 +4777,13 @@ CFTypeRef CI::MetalContext::set_command_buffer(CFTypeRef this, CFTypeRef cf)
 
 uint64_t CI::MetalContext::render_node(CI::MetalContext *this, CI::TileTask *a2, const CI::parentROI *a3, const CGRect *a4, const void **a5, const void **a6, __IOSurface **a7, uint64_t a8)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v15 = *a3;
   v16 = CI::parentROI::roi(a3);
-  v60.origin.x = v16;
-  v60.origin.y = v17;
-  v60.size.width = v18;
-  v60.size.height = v19;
+  v62.origin.x = v16;
+  v62.origin.y = v17;
+  v62.size.width = v18;
+  v62.size.height = v19;
   if (!v15)
   {
     return 0;
@@ -4767,25 +4805,26 @@ uint64_t CI::MetalContext::render_node(CI::MetalContext *this, CI::TileTask *a2,
       return CI::Context::render_processor_node(this, a2, a3, [*a5 iosurface], *a5);
     }
 
-    if (CI_VERBOSE_SIGNPOSTS())
+    v26 = CI_VERBOSE_SIGNPOSTS();
+    if (v26)
     {
-      v26 = ci_signpost_log_render();
-      v27 = v25[9] | ((*(*this + 280))(this) << 32);
-      if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+      v28 = ci_signpost_log_render(v26, v27);
+      v29 = v25[9] | ((*(*this + 280))(this) << 32);
+      if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
       {
-        v28 = (*(*v25 + 24))(v25);
+        v30 = (*(*v25 + 24))(v25);
         LODWORD(buf.a) = 138543362;
-        *(&buf.a + 4) = v28;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v26, OS_SIGNPOST_INTERVAL_BEGIN, v27, "processor_syncinputs", "%{public}@", &buf, 0xCu);
+        *(&buf.a + 4) = v30;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v28, OS_SIGNPOST_INTERVAL_BEGIN, v29, "processor_syncinputs", "%{public}@", &buf, 0xCu);
       }
     }
 
-    v55 = (*(*this + 280))(this);
-    TimerBase::TimerBase(&buf, v55, v25[9], "processor_syncinputs", 0);
-    v56 = *(this + 232);
-    if (v56 != *(this + 233))
+    v57 = (*(*this + 280))(this);
+    TimerBase::TimerBase(&buf, v57, v25[9], "processor_syncinputs", 0);
+    v58 = *(this + 232);
+    if (v58 != *(this + 233))
     {
-      CIMetalCommandBufferWaitUntilCompleted(v56);
+      CIMetalCommandBufferWaitUntilCompleted(v58);
       CI::MetalContext::render_node(CI::TileTask *,CI::parentROI const&,CGRect const&,void const**,void const**,__IOSurface **,unsigned long)::SignpostTimer::~SignpostTimer(&buf);
       return CI::Context::render_processor_node(this, a2, a3, [*a5 iosurface], *a5);
     }
@@ -4794,21 +4833,21 @@ uint64_t CI::MetalContext::render_node(CI::MetalContext *this, CI::TileTask *a2,
     return 0;
   }
 
-  v29 = CI::ProgramNode::mainProgram(v15);
-  if ((*(*v29 + 16))(v29) < 75 || (*(*v29 + 16))(v29) > 77)
+  v31 = CI::ProgramNode::mainProgram(v15);
+  if ((*(*v31 + 16))(v31) < 75 || (*(*v31 + 16))(v31) > 77)
   {
     return 0;
   }
 
-  v63.origin.x = v20;
-  v63.origin.y = v21;
-  v63.size.width = v22;
-  v63.size.height = v23;
-  v64 = CGRectIntersection(v63, *a4);
-  v59.size.width = v64.size.width;
-  v59.size.height = v64.size.height;
-  height = v64.size.height;
-  v58 = vrndpq_f64(vdivq_f64(v64.size, vcvtq_f64_u64(*(v29 + 11))));
+  v65.origin.x = v20;
+  v65.origin.y = v21;
+  v65.size.width = v22;
+  v65.size.height = v23;
+  v66 = CGRectIntersection(v65, *a4);
+  v61.size.width = v66.size.width;
+  v61.size.height = v66.size.height;
+  height = v66.size.height;
+  v60 = vrndpq_f64(vdivq_f64(v66.size, vcvtq_f64_u64(*(v31 + 11))));
   if (*(v15 + 149) == 1)
   {
     MidY = CGRectGetMidY(*a4);
@@ -4817,293 +4856,297 @@ uint64_t CI::MetalContext::render_node(CI::MetalContext *this, CI::TileTask *a2,
     buf.a = 1.0;
     *&buf.d = xmmword_19CF25100;
     buf.ty = MidY + MidY;
-    v65.origin.x = v20;
-    v65.origin.y = v21;
-    v65.size.width = v22;
-    v65.size.height = v23;
-    v66 = CGRectApplyAffineTransform(v65, &buf);
-    v64 = CGRectIntersection(v66, *a4);
-    v59.size.width = v32;
-    v59.size.height = -v33;
+    v67.origin.x = v20;
+    v67.origin.y = v21;
+    v67.size.width = v22;
+    v67.size.height = v23;
+    v68 = CGRectApplyAffineTransform(v67, &buf);
+    v66 = CGRectIntersection(v68, *a4);
+    v61.size.width = v34;
+    v61.size.height = -v35;
   }
 
-  y = v64.origin.y;
-  v59.origin = vsubq_f64(v64.origin, a4->origin);
-  CI::MetalContext::bind_arguments(this, v15, &v60, &v59, &v58, a2);
+  y = v66.origin.y;
+  v61.origin = vsubq_f64(v66.origin, a4->origin);
+  CI::MetalContext::bind_arguments(this, v15, &v62, &v61, &v60, a2);
   if (CI_LIMIT_RENDER())
   {
     __asm { FMOV            V0.2D, #1.0 }
 
-    v58 = _Q0;
+    v60 = _Q0;
   }
 
-  v40 = *(v15 + 48);
-  if ((*(*v40 + 16))(v40) == 59)
+  v42 = *(v15 + 48);
+  if ((*(*v42 + 16))(v42) == 59)
   {
-    v46 = *(v40 + 136);
-    v42 = *(v40 + 144);
-    v43 = *(v40 + 148);
-    v44 = *(v40 + 156);
-    v45 = v46 & 0xFFFFFFFF00000000;
-    v46 = v46;
+    v48 = *(v42 + 136);
+    v44 = *(v42 + 144);
+    v45 = *(v42 + 148);
+    v46 = *(v42 + 156);
+    v47 = v48 & 0xFFFFFFFF00000000;
+    v48 = v48;
   }
 
   else
   {
-    v47 = *(v15 + 48);
-    if (!v47)
+    v49 = *(v15 + 48);
+    if (!v49)
     {
       goto LABEL_22;
     }
 
     while (1)
     {
-      v48 = (*(*v47 + 16))(v47);
-      v49 = *v47;
-      if (v48 == 55)
+      v50 = (*(*v49 + 16))(v49);
+      v51 = *v49;
+      if (v50 == 55)
       {
         break;
       }
 
-      v47 = (*(v49 + 48))(v47, 0);
-      if (!v47)
+      v49 = (*(v51 + 48))(v49, 0);
+      if (!v49)
       {
         goto LABEL_22;
       }
     }
 
-    if ((*(v49 + 424))(v47) == 59 || (*(*v47 + 424))(v47) == 57 || (*(*v47 + 424))(v47) == 60 || (*(*v47 + 424))(v47) == 58)
+    if ((*(v51 + 424))(v49) == 59 || (*(*v49 + 424))(v49) == 57 || (*(*v49 + 424))(v49) == 60 || (*(*v49 + 424))(v49) == 58)
     {
-      PipelineState = CI::MetalMainProgram::getPipelineState(v29, *(v15 + 36));
+      PipelineState = CI::MetalMainProgram::getPipelineState(v31, *(v15 + 36));
       if (([PipelineState threadExecutionWidth] & 0xF) == 0)
       {
         [PipelineState threadExecutionWidth];
       }
 
+      v46 = 0;
+      v45 = 0;
       v44 = 0;
-      v43 = 0;
-      v42 = 0;
-      v45 = 0x1000000000;
-      v46 = 16;
+      v47 = 0x1000000000;
+      v48 = 16;
     }
 
     else
     {
 LABEL_22:
-      v44 = 0;
-      v43 = 0;
-      v42 = 0;
-      v45 = 0;
       v46 = 0;
+      v45 = 0;
+      v44 = 0;
+      v47 = 0;
+      v48 = 0;
     }
   }
 
-  v51 = CI::MetalContext::compute_quad(this, *(v15 + 36), v29, &v58.width, a5, a6, a8, v41, v46 | v45, v42, v43, v44);
-  v52 = *(this + 227);
-  if (v52)
-  {
-    CFRelease(v52);
-    *(this + 227) = 0;
-  }
-
-  v53 = *(this + 228);
-  if (v53)
-  {
-    CFRelease(v53);
-    *(this + 228) = 0;
-  }
-
-  v54 = *(this + 229);
+  v53 = CI::MetalContext::compute_quad(this, *(v15 + 36), v31, &v60.width, a5, a6, a8, v43, v48 | v47, v44, v45, v46);
+  v54 = *(this + 227);
   if (v54)
   {
     CFRelease(v54);
+    *(this + 227) = 0;
+  }
+
+  v55 = *(this + 228);
+  if (v55)
+  {
+    CFRelease(v55);
+    *(this + 228) = 0;
+  }
+
+  v56 = *(this + 229);
+  if (v56)
+  {
+    CFRelease(v56);
     *(this + 229) = 0;
   }
 
-  return v51;
+  return v53;
 }
 
-void sub_19CE54434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_19CE54434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   CI::MetalContext::render_node(CI::TileTask *,CI::parentROI const&,CGRect const&,void const**,void const**,__IOSurface **,unsigned long)::SignpostTimer::~SignpostTimer(va);
   _Unwind_Resume(a1);
 }
 
 void CI::MetalContext::render_node(CI::TileTask *,CI::parentROI const&,CGRect const&,void const**,void const**,__IOSurface **,unsigned long)::SignpostTimer::~SignpostTimer(TimerBase *a1)
 {
-  if (CI_VERBOSE_SIGNPOSTS())
+  v2 = CI_VERBOSE_SIGNPOSTS();
+  if (v2)
   {
-    v2 = ci_signpost_log_render();
-    v3 = *(a1 + 1);
-    if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v4 = ci_signpost_log_render(v2, v3);
+    v5 = *(a1 + 1);
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v4 = v2;
-      if (os_signpost_enabled(v2))
+      v6 = v4;
+      if (os_signpost_enabled(v4))
       {
-        *v5 = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "processor_syncinputs", &unk_19CFBCBAE, v5, 2u);
+        *v7 = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_END, v5, "processor_syncinputs", &unk_19CFBCBAE, v7, 2u);
       }
     }
   }
 
-  TimerBase::~TimerBase(a1);
+  TimerBase::~TimerBase(a1, v3);
 }
 
 void CI::MetalContext::bind_arguments(CI::MetalContext *this, const CI::ProgramNode *a2, const CGRect *a3, const CGRect *a4, float64x2_t *a5, CI::TileTask *a6)
 {
-  v71 = *MEMORY[0x1E69E9840];
-  if (CI_VERBOSE_SIGNPOSTS())
+  v77 = *MEMORY[0x1E69E9840];
+  v10 = CI_VERBOSE_SIGNPOSTS();
+  if (v10)
   {
-    v10 = ci_signpost_log_render();
-    v11 = *(a2 + 9) | ((*(*this + 280))(this) << 32);
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v12 = ci_signpost_log_render(v10, v11);
+    v13 = *(a2 + 9) | ((*(*this + 280))(this) << 32);
+    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
     {
       LOWORD(buf.origin.x) = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v11, "bind_arguments", &unk_19CFBCBAE, &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v13, "bind_arguments", &unk_19CFBCBAE, &buf, 2u);
     }
   }
 
-  v12 = (*(*this + 280))(this);
-  TimerBase::TimerBase(v68, v12, *(a2 + 9), "bind_arguments", 11);
-  v13 = CI::ProgramNode::mainProgram(a2);
-  if ((*(v13->isa + 2))(v13) >= 75 && (*(v13->isa + 2))(v13) < 78)
+  v14 = (*(*this + 280))(this);
+  TimerBase::TimerBase(v74, v14, *(a2 + 9), "bind_arguments", 0xBu);
+  v15 = CI::ProgramNode::mainProgram(a2);
+  if ((*(v15->isa + 2))(v15) >= 75 && (*(v15->isa + 2))(v15) < 78)
   {
-    v14 = CIMetalBufferCreate(*(this + 251), [*(this + 49) device], (v13[14].isa + 15) & 0xFFFFFFFFFFFFFFF0);
-    *(this + 227) = v14;
-    if (v14)
+    v16 = CIMetalBufferCreate(*(this + 251), [*(this + 49) device], (v15[14].isa + 15) & 0xFFFFFFFFFFFFFFF0);
+    *(this + 227) = v16;
+    if (v16)
     {
-      v58 = [v14 contents];
-      if (v58)
+      v64 = [v16 contents];
+      if (v64)
       {
-        v15 = (*(v13->isa + 11))(v13);
-        v16 = v15;
-        if (v15)
+        v17 = (*(v15->isa + 11))(v15);
+        v18 = v17;
+        if (v17)
         {
-          v17 = v15[1];
-          v19 = *v17;
-          v18 = v17[1];
-          *(this + 228) = CIMetalBufferCreate(*(this + 251), [*(this + 49) device], (((*v15)[1] + ~**v15) & 0xFFFFFFFFFFFFFFF0) + 16);
-          v20 = CIMetalBufferCreate(*(this + 251), [*(this + 49) device], ((v18 + ~v19) & 0xFFFFFFFFFFFFFFF0) + 16);
-          *(this + 229) = v20;
+          v19 = v17[1];
+          v21 = *v19;
+          v20 = v19[1];
+          *(this + 228) = CIMetalBufferCreate(*(this + 251), [*(this + 49) device], (((*v17)[1] + ~**v17) & 0xFFFFFFFFFFFFFFF0) + 16);
+          v22 = CIMetalBufferCreate(*(this + 251), [*(this + 49) device], ((v20 + ~v21) & 0xFFFFFFFFFFFFFFF0) + 16);
+          *(this + 229) = v22;
           if (!*(this + 228))
           {
             goto LABEL_74;
           }
 
-          if (!v20)
-          {
-            goto LABEL_74;
-          }
-
-          v21 = [*(this + 228) contents];
-          v22 = [*(this + 229) contents];
-          if (!v21)
-          {
-            goto LABEL_74;
-          }
-
-          v23 = v22;
           if (!v22)
           {
             goto LABEL_74;
           }
 
-          memcpy(v21, **v16, (*v16)[1] - **v16);
-          memcpy(v23, *v16[1], v16[1][1] - *v16[1]);
+          v23 = [*(this + 228) contents];
+          v24 = [*(this + 229) contents];
+          if (!v23)
+          {
+            goto LABEL_74;
+          }
+
+          v25 = v24;
+          if (!v24)
+          {
+            goto LABEL_74;
+          }
+
+          memcpy(v23, **v18, (*v18)[1] - **v18);
+          memcpy(v25, *v18[1], v18[1][1] - *v18[1]);
         }
 
-        *v58 = vcvt_hight_f32_f64(vcvt_f32_f64(a4->origin), a4->size);
-        v24 = CI::MainProgram::num_arguments(v13);
-        if (CI_VERBOSE_SIGNPOSTS())
+        *v64 = vcvt_hight_f32_f64(vcvt_f32_f64(a4->origin), a4->size);
+        v26 = CI::MainProgram::num_arguments(v15);
+        v27 = CI_VERBOSE_SIGNPOSTS();
+        if (v27)
         {
-          v25 = ci_signpost_log_render();
-          v26 = *(a2 + 9) | ((*(*this + 280))(this) << 32);
-          if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+          v29 = ci_signpost_log_render(v27, v28);
+          v30 = *(a2 + 9) | ((*(*this + 280))(this) << 32);
+          if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
           {
             LOWORD(buf.origin.x) = 0;
-            _os_signpost_emit_with_name_impl(&dword_19CC36000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v26, "render_node_arguments", &unk_19CFBCBAE, &buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_19CC36000, v29, OS_SIGNPOST_INTERVAL_BEGIN, v30, "render_node_arguments", &unk_19CFBCBAE, &buf, 2u);
           }
         }
 
-        v27 = (*(*this + 280))(this);
-        TimerBase::TimerBase(&buf, v27, *(a2 + 9), "render_node_arguments", 0);
+        v31 = (*(*this + 280))(this);
+        TimerBase::TimerBase(&buf, v31, *(a2 + 9), "render_node_arguments", 0);
         dispatch_sync(*(a2 + 13), &__block_literal_global_61_0);
-        v56 = *(a2 + 16);
-        if (CI_VERBOSE_SIGNPOSTS())
+        v62 = *(a2 + 16);
+        v32 = CI_VERBOSE_SIGNPOSTS();
+        if (v32)
         {
-          v28 = ci_signpost_log_render();
+          v34 = ci_signpost_log_render(v32, v33);
           y = buf.origin.y;
           if ((*&buf.origin.y - 1) <= 0xFFFFFFFFFFFFFFFDLL)
           {
-            v30 = v28;
-            if (os_signpost_enabled(v28))
+            v36 = v34;
+            if (os_signpost_enabled(v34))
             {
-              LOWORD(v66.origin.x) = 0;
-              _os_signpost_emit_with_name_impl(&dword_19CC36000, v30, OS_SIGNPOST_INTERVAL_END, *&y, "render_node_arguments", &unk_19CFBCBAE, &v66, 2u);
+              LOWORD(v72.origin.x) = 0;
+              _os_signpost_emit_with_name_impl(&dword_19CC36000, v36, OS_SIGNPOST_INTERVAL_END, *&y, "render_node_arguments", &unk_19CFBCBAE, &v72, 2u);
             }
           }
         }
 
-        TimerBase::~TimerBase(&buf);
-        if (v56)
+        TimerBase::~TimerBase(&buf, v33);
+        if (v62)
         {
-          if (*v56 == v24)
+          if (*v62 == v26)
           {
             *(this + 218) = 0;
-            if (v24 >= 1)
+            if (v26 >= 1)
             {
-              v31 = 0;
-              v55 = v24;
-              v32 = -80;
-              v33 = -40;
+              v37 = 0;
+              v61 = v26;
+              v38 = -80;
+              v39 = -40;
               while (2)
               {
-                v34 = (*(v13->isa + 5))(v13, v31);
-                v35 = v34;
-                if (v31 > 9)
+                v40 = (*(v15->isa + 5))(v15, v37);
+                v41 = v40;
+                if (v37 > 9)
                 {
-                  v36 = (*(v56 + 16) + v32);
+                  v42 = (*(v62 + 16) + v38);
                 }
 
                 else
                 {
-                  v36 = (v56 + 24 + 8 * v31);
+                  v42 = (v62 + 24 + 8 * v37);
                 }
 
-                isa = v13[15].isa;
-                if (isa && v31 < *isa)
+                isa = v15[15].isa;
+                if (isa && v37 < *isa)
                 {
-                  if (v31 > 9)
+                  if (v37 > 9)
                   {
-                    v38 = (*(isa + 2) + v33);
+                    v44 = (*(isa + 2) + v39);
                   }
 
                   else
                   {
-                    v38 = &isa[v31 + 6];
+                    v44 = &isa[v37 + 6];
                   }
 
-                  v39 = *v38;
+                  v45 = *v44;
                 }
 
                 else
                 {
-                  v39 = -1;
+                  v45 = -1;
                 }
 
-                v57 = v39;
-                v40 = *v36;
-                switch(v34)
+                v63 = v45;
+                v46 = *v42;
+                switch(v40)
                 {
                   case 1:
                   case 2:
                   case 3:
                   case 4:
-                    if ((*(*v40 + 16))(v40) == 68)
+                    if ((*(*v46 + 16))(v46) == 68)
                     {
-                      CI::ProgramNode::roiKeys_of_child(a2, *a3, v40[8], &buf);
-                      if (CI::Context::bind_sampler(this, v40, *&buf.origin.x, *(this + 436), v35, a6))
+                      CI::ProgramNode::roiKeys_of_child(&buf, a2, *a3, v46[8]);
+                      if (CI::Context::bind_sampler(this, v46, *&buf.origin.x, *(this + 436), v41, a6))
                       {
                         ++*(this + 218);
                       }
@@ -5125,7 +5168,7 @@ void CI::MetalContext::bind_arguments(CI::MetalContext *this, const CI::ProgramN
                   case 9:
                   case 10:
                   case 11:
-                    if ((*(*v40 + 16))(v40) == 66)
+                    if ((*(*v46 + 16))(v46) == 66)
                     {
                       goto LABEL_39;
                     }
@@ -5138,65 +5181,65 @@ void CI::MetalContext::bind_arguments(CI::MetalContext *this, const CI::ProgramN
                   case 16:
                   case 17:
                   case 18:
-                    if ((*(*v40 + 16))(v40) == 66)
+                    if ((*(*v46 + 16))(v46) == 66)
                     {
-                      CI::Vector::copy_to(v40, (v58 + v57));
+                      CI::Vector::copy_to(v46, (v64 + v63));
                       goto LABEL_69;
                     }
 
                     break;
                   case 19:
                   case 23:
-                    if ((*(*v40 + 16))(v40) == 66)
+                    if ((*(*v46 + 16))(v46) == 66)
                     {
-                      *(v58->i32 + v57) = *(v40 + 7);
+                      *(v64->i32 + v63) = *(v46 + 7);
                       goto LABEL_69;
                     }
 
                     break;
                   case 20:
                   case 24:
-                    if ((*(*v40 + 16))(v40) == 66)
+                    if ((*(*v46 + 16))(v46) == 66)
                     {
-                      *(v58->f32 + v57) = vcvt_s32_f32(*(v40 + 7));
+                      *(v64->f32 + v63) = vcvt_s32_f32(*(v46 + 7));
                       goto LABEL_69;
                     }
 
                     break;
                   case 21:
                   case 25:
-                    if ((*(*v40 + 16))(v40) == 66)
+                    if ((*(*v46 + 16))(v46) == 66)
                     {
-                      v45 = (v58 + v57);
-                      *v45 = vcvt_s32_f32(*(v40 + 7));
-                      v45[1].i32[0] = *(v40 + 9);
+                      v51 = (v64 + v63);
+                      *v51 = vcvt_s32_f32(*(v46 + 7));
+                      v51[1].i32[0] = *(v46 + 9);
                       goto LABEL_69;
                     }
 
                     break;
                   case 22:
                   case 26:
-                    if ((*(*v40 + 16))(v40) == 66)
+                    if ((*(*v46 + 16))(v46) == 66)
                     {
-                      *(v58 + v57) = vcvtq_s32_f32(*(v40 + 7));
+                      *(v64 + v63) = vcvtq_s32_f32(*(v46 + 7));
                       goto LABEL_69;
                     }
 
                     break;
                   case 27:
-                    if ((*(*v40 + 16))(v40) == 66)
+                    if ((*(*v46 + 16))(v46) == 66)
                     {
 LABEL_39:
-                      CI::Vector::copy_to(v40, (v58->f32 + v57));
+                      CI::Vector::copy_to(v46, (v64->f32 + v63));
                       goto LABEL_69;
                     }
 
                     break;
                   case 28:
                   case 29:
-                    if ((*(*v40 + 16))(v40) == 65)
+                    if ((*(*v46 + 16))(v46) == 65)
                     {
-                      CI::Buffer::copy_to(v40, v58 + v57);
+                      CI::Buffer::copy_to(v46, v64 + v63);
                       goto LABEL_69;
                     }
 
@@ -5204,31 +5247,31 @@ LABEL_39:
                   case 37:
                   case 44:
                   case 45:
-                    if ((*(*v40 + 16))(v40) == 66)
+                    if ((*(*v46 + 16))(v46) == 66)
                     {
-                      CI::Vector::affine(v40, &v66.origin.x);
-                      v41 = a3->origin.x - a4->origin.x;
-                      v42 = a3->origin.y - a4->origin.y;
-                      v64 = v66;
-                      *&v65 = *&v67 + v66.origin.x * v41 + v66.size.width * v42;
-                      *(&v65 + 1) = *(&v67 + 1) + v66.origin.y * v41 + v66.size.height * v42;
-                      if (v35 == 37)
+                      CI::Vector::affine(&v72.origin.x, v46);
+                      v47 = a3->origin.x - a4->origin.x;
+                      v48 = a3->origin.y - a4->origin.y;
+                      v70 = v72;
+                      *&v71 = *&v73 + v72.origin.x * v47 + v72.size.width * v48;
+                      *(&v71 + 1) = *(&v73 + 1) + v72.origin.y * v47 + v72.size.height * v48;
+                      if (v41 == 37)
                       {
-                        CI::Affine::inverse(&v64, &buf);
-                        v64 = buf;
-                        v65 = v70;
+                        CI::Affine::inverse(&buf, &v70);
+                        v70 = buf;
+                        v71 = v76;
                       }
 
-                      *&v63.a = v64.origin;
-                      *&v63.c = v64.size;
-                      *&v63.tx = v65;
-                      v43 = CI::Vector::Vector(&buf, &v63);
-                      v44 = (v58 + v57);
-                      CI::Vector::copy_to(v43, (v58->f32 + v57));
-                      if (v35 != 44)
+                      *&v69.a = v70.origin;
+                      *&v69.c = v70.size;
+                      *&v69.tx = v71;
+                      v49 = CI::Vector::Vector(&buf, &v69);
+                      v50 = (v64 + v63);
+                      CI::Vector::copy_to(v49, (v64->f32 + v63));
+                      if (v41 != 44)
                       {
-                        v44[6] = vcvt_f32_f64(vcvtq_f64_u64(*&v13[11].isa));
-                        v44[7] = vcvt_f32_f64(*a5);
+                        v50[6] = vcvt_f32_f64(vcvtq_f64_u64(*&v15[11].isa));
+                        v50[7] = vcvt_f32_f64(*a5);
                       }
 
                       *&buf.size.width = &unk_1F1033F70;
@@ -5237,42 +5280,42 @@ LABEL_39:
 
                     break;
                   case 40:
-                    if ((*(*v40 + 16))(v40) == 68)
+                    if ((*(*v46 + 16))(v46) == 68)
                     {
-                      memset(&v66, 0, sizeof(v66));
-                      v66.origin.x = CI::Node::region_of_child(a2, *a3);
-                      v66.origin.y = v46;
-                      v66.size.width = v47;
-                      v66.size.height = v48;
-                      CI::TextureSampler::transform(v40, this, &v66, &v62);
-                      v49 = CI::Vector::Vector(&buf, &v62);
-                      CI::Vector::copy_to(v49, (v58->f32 + v57));
+                      memset(&v72, 0, sizeof(v72));
+                      v72.origin.x = CI::Node::region_of_child(a2, *a3);
+                      v72.origin.y = v52;
+                      v72.size.width = v53;
+                      v72.size.height = v54;
+                      CI::TextureSampler::transform(&v68, v46, this, &v72);
+                      v55 = CI::Vector::Vector(&buf, &v68);
+                      CI::Vector::copy_to(v55, (v64->f32 + v63));
                       goto LABEL_67;
                     }
 
                     break;
                   case 41:
-                    if ((*(*v40 + 16))(v40) == 68)
+                    if ((*(*v46 + 16))(v46) == 68)
                     {
-                      memset(&v64, 0, sizeof(v64));
-                      v64.origin.x = CI::Node::region_of_child(a2, *a3);
-                      v64.origin.y = v50;
-                      v64.size.width = v51;
-                      v64.size.height = v52;
-                      CI::TextureSampler::transform(v40, this, &v64, &v66);
-                      *&v61.a = v66.origin;
-                      *&v61.c = v66.size;
-                      *&v61.tx = v67;
-                      v53 = CI::Vector::Vector(&buf, &v61);
-                      CI::Vector::copy_to(v53, (v58->f32 + v57));
+                      memset(&v70, 0, sizeof(v70));
+                      v70.origin.x = CI::Node::region_of_child(a2, *a3);
+                      v70.origin.y = v56;
+                      v70.size.width = v57;
+                      v70.size.height = v58;
+                      CI::TextureSampler::transform(&v72, v46, this, &v70);
+                      *&v67.a = v72.origin;
+                      *&v67.c = v72.size;
+                      *&v67.tx = v73;
+                      v59 = CI::Vector::Vector(&buf, &v67);
+                      CI::Vector::copy_to(v59, (v64->f32 + v63));
                       *&buf.size.width = &unk_1F1033F70;
-                      atomic_fetch_add(&dword_1ED7C47BC[64], 0xFFFFFFFF);
-                      v54 = CI::Vector::Vector(&buf, *(v40 + 22));
-                      CI::Vector::copy_to(v54, (v58[3].f32 + v57));
+                      atomic_fetch_add(&dword_1ED7C47D8[57], 0xFFFFFFFF);
+                      v60 = CI::Vector::Vector(&buf, *(v46 + 22));
+                      CI::Vector::copy_to(v60, (v64[3].f32 + v63));
 LABEL_67:
                       *&buf.size.width = &unk_1F1033F70;
 LABEL_68:
-                      atomic_fetch_add(&dword_1ED7C47BC[64], 0xFFFFFFFF);
+                      atomic_fetch_add(&dword_1ED7C47D8[57], 0xFFFFFFFF);
                       goto LABEL_69;
                     }
 
@@ -5283,12 +5326,12 @@ LABEL_68:
                   case 47:
                     goto LABEL_69;
                   default:
-                    x_log("Unhandled type: %d\n", v34);
+                    x_log("Unhandled type: %d\n", v40);
 LABEL_69:
-                    ++v31;
-                    v32 += 8;
-                    v33 += 4;
-                    if (v55 == v31)
+                    ++v37;
+                    v38 += 8;
+                    v39 += 4;
+                    if (v61 == v37)
                     {
                       break;
                     }
@@ -5306,12 +5349,19 @@ LABEL_69:
   }
 
 LABEL_74:
-  CI::MetalContext::bind_arguments(CI::ProgramNode const*,CGRect const&,CGRect const&,CGSize const&,CI::TileTask *)::SignpostTimer::~SignpostTimer(v68);
+  CI::MetalContext::bind_arguments(CI::ProgramNode const*,CGRect const&,CGRect const&,CGSize const&,CI::TileTask *)::SignpostTimer::~SignpostTimer(v74);
+}
+
+void sub_19CE55020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, ...)
+{
+  va_start(va, a49);
+  CI::MetalContext::bind_arguments(CI::ProgramNode const*,CGRect const&,CGRect const&,CGSize const&,CI::TileTask *)::SignpostTimer::~SignpostTimer(va);
+  _Unwind_Resume(a1);
 }
 
 void CI::MetalContext::render_root_node(uint64_t a1, CI::TileTask *a2, CI::parentROI *this, uint64_t a4, uint64_t a5)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v10 = *this;
   v11 = CI::parentROI::roi(this);
   v13 = v12;
@@ -5320,34 +5370,35 @@ void CI::MetalContext::render_root_node(uint64_t a1, CI::TileTask *a2, CI::paren
   v18 = *(v10 + 48);
   if ((*(*v18 + 16))(v18) < 47 || (*(*v18 + 16))(v18) >= 50)
   {
-    if (CI_VERBOSE_SIGNPOSTS())
+    v21 = CI_VERBOSE_SIGNPOSTS();
+    if (v21)
     {
-      v21 = ci_signpost_log_render();
-      v22 = *(v10 + 36) | ((*(*a1 + 280))(a1) << 32);
-      if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+      v23 = ci_signpost_log_render(v21, v22);
+      v24 = *(v10 + 36) | ((*(*a1 + 280))(a1) << 32);
+      if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v22, "render_node_mainProgram", &unk_19CFBCBAE, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v24, "render_node_mainProgram", &unk_19CFBCBAE, buf, 2u);
       }
     }
 
-    v23 = (*(*a1 + 280))(a1);
-    TimerBase::TimerBase(buf, v23, *(v10 + 36), "render_node_mainProgram", 0);
+    v25 = (*(*a1 + 280))(a1);
+    TimerBase::TimerBase(buf, v25, *(v10 + 36), "render_node_mainProgram", 0);
     v19 = CI::ProgramNode::mainProgram(v10);
-    v25 = v24;
+    v27 = v26;
     (*(v19->isa + 2))(v19);
     if ((*(v19->isa + 2))(v19) >= 78)
     {
-      v26 = 0;
+      v28 = 0;
     }
 
     else
     {
-      v26 = v19;
+      v28 = v19;
     }
 
-    v20 = v25;
-    *&v26[4].isa = v25;
+    v20 = v27;
+    *&v28[4].isa = v27;
     CI::MetalContext::render_root_node(CI::TileTask *,CI::parentROI const&,void({block_pointer})(void),void({block_pointer})(void))::SignpostTimer::~SignpostTimer(buf);
   }
 
@@ -5357,53 +5408,54 @@ void CI::MetalContext::render_root_node(uint64_t a1, CI::TileTask *a2, CI::paren
     v20 = 0.0;
   }
 
-  if (CI_VERBOSE_SIGNPOSTS())
+  v29 = CI_VERBOSE_SIGNPOSTS();
+  if (v29)
   {
-    v27 = ci_signpost_log_render();
-    v28 = *(v10 + 36) | ((*(*a1 + 280))(a1) << 32);
-    if (v28 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+    v31 = ci_signpost_log_render(v29, v30);
+    v32 = *(v10 + 36) | ((*(*a1 + 280))(a1) << 32);
+    if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
     {
-      v30 = CI::Context::programName(v10, v29);
+      v34 = CI::Context::programName(v10, v33);
       *buf = 68289026;
-      v52 = 256;
-      v53 = 2082;
-      v54 = v30;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v28, "render_node", "%{public}.256s", buf, 0x12u);
+      v56 = 256;
+      v57 = 2082;
+      v58 = v34;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v31, OS_SIGNPOST_INTERVAL_BEGIN, v32, "render_node", "%{public}.256s", buf, 0x12u);
     }
   }
 
-  v31 = (*(*a1 + 280))(a1);
-  TimerBase::TimerBase(buf, v31, *(v10 + 36), "render_node", 0);
+  v35 = (*(*a1 + 280))(a1);
+  TimerBase::TimerBase(buf, v35, *(v10 + 36), "render_node", 0);
   *(a1 + 1856) = *(a1 + 1848);
-  v32 = *(v10 + 48);
-  v33 = (*(*v32 + 16))(v32) < 47 || (*(*v32 + 16))(v32) > 49;
-  if (!CI_ENABLE_METAL_DEBUG() || *(a1 + 1864) || (v45 = *(v10 + 48), (*(*v45 + 16))(v45) >= 47) && (*(*v45 + 16))(v45) < 50)
+  v36 = *(v10 + 48);
+  v37 = (*(*v36 + 16))(v36) < 47 || (*(*v36 + 16))(v36) > 49;
+  if (!CI_ENABLE_METAL_DEBUG() || *(a1 + 1864) || (v49 = *(v10 + 48), (*(*v49 + 16))(v49) >= 47) && (*(*v49 + 16))(v49) < 50)
   {
-    v35 = 0;
+    v39 = 0;
   }
 
   else
   {
-    v35 = v50;
-    v50[0] = MEMORY[0x1E69E9820];
-    v50[1] = 3221225472;
-    v50[2] = ___ZN2CI12MetalContext16render_root_nodeEPNS_8TileTaskERKNS_9parentROIEU13block_pointerFvvES7__block_invoke;
-    v50[3] = &__block_descriptor_48_e11_v24__0Q8Q16l;
-    v50[4] = a2;
-    v50[5] = v10;
+    v39 = v54;
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = ___ZN2CI12MetalContext16render_root_nodeEPNS_8TileTaskERKNS_9parentROIEU13block_pointerFvvES7__block_invoke;
+    v54[3] = &__block_descriptor_48_e11_v24__0Q8Q16l;
+    v54[4] = a2;
+    v54[5] = v10;
   }
 
-  v36 = *(a1 + 1864);
-  if (!v36)
+  v40 = *(a1 + 1864);
+  if (!v40)
   {
-    v36 = CIMetalCommandBufferCreate(*(a1 + 2008), *(a1 + 392), v33, v35);
+    v40 = CIMetalCommandBufferCreate(*(a1 + 2008), *(a1 + 392), v37, v39);
   }
 
-  *(a1 + 1848) = v36;
-  v37 = *(a1 + 1976);
-  if (v37)
+  *(a1 + 1848) = v40;
+  v41 = *(a1 + 1976);
+  if (v41)
   {
-    (*(v37 + 16))(&cf);
+    (*(v41 + 16))(&cf);
     x = cf.origin.x;
     if (*&cf.origin.x)
     {
@@ -5416,24 +5468,24 @@ void CI::MetalContext::render_root_node(uint64_t a1, CI::TileTask *a2, CI::paren
   cf.origin.x = 0.0;
   cf.origin.y = 0.0;
   cf.size = *(a1 + 1904);
-  *(a1 + 1984) = CI::MetalContext::render_node(a1, a2, this, &cf, (a1 + 1936), (a1 + 1952), v34, 2);
+  *(a1 + 1984) = CI::MetalContext::render_node(a1, a2, this, &cf, (a1 + 1936), (a1 + 1952), v38, 2);
   if (*(a1 + 1968))
   {
     [*(a1 + 1848) presentDrawable:?];
   }
 
-  v39 = *(a1 + 1848) == *(a1 + 1864);
-  v40 = CI::ProgramNode::program_name(v10);
-  v56.origin.x = v11;
-  v56.origin.y = v13;
-  v56.size.width = v15;
-  v56.size.height = v17;
-  CI::TileTask::addROIForNode(a2, v10, v56);
+  v43 = *(a1 + 1848) == *(a1 + 1864);
+  v44 = CI::ProgramNode::program_name(v10);
+  v60.origin.x = v11;
+  v60.origin.y = v13;
+  v60.size.width = v15;
+  v60.size.height = v17;
+  CI::TileTask::addROIForNode(a2, v10, v60);
   if (v19)
   {
     CI::TileTask::incrementCompileWaitTimeForNode(a2, v10, v20);
-    v41 = COERCE_DOUBLE(atomic_load(&v19[3]));
-    CI::TileTask::setCompileTimeForNode(a2, v10, *&v19[5].isa + v41);
+    v45 = COERCE_DOUBLE(atomic_load(&v19[3]));
+    CI::TileTask::setCompileTimeForNode(a2, v10, *&v19[5].isa + v45);
   }
 
   if (a2)
@@ -5448,77 +5500,86 @@ void CI::MetalContext::render_root_node(uint64_t a1, CI::TileTask *a2, CI::paren
 
   else
   {
-    v42 = *(a1 + 1848);
-    v48[0] = MEMORY[0x1E69E9820];
-    v48[1] = 3221225472;
-    v48[2] = ___ZN2CI12MetalContext16render_root_nodeEPNS_8TileTaskERKNS_9parentROIEU13block_pointerFvvES7__block_invoke_2;
-    v48[3] = &unk_1E75C35F0;
-    v48[4] = a4;
-    [v42 addScheduledHandler:v48];
+    v46 = *(a1 + 1848);
+    v52[0] = MEMORY[0x1E69E9820];
+    v52[1] = 3221225472;
+    v52[2] = ___ZN2CI12MetalContext16render_root_nodeEPNS_8TileTaskERKNS_9parentROIEU13block_pointerFvvES7__block_invoke_2;
+    v52[3] = &unk_1E75C35F0;
+    v52[4] = a4;
+    [v46 addScheduledHandler:v52];
   }
 
-  v43 = *(a1 + 1848);
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = ___ZN2CI12MetalContext16render_root_nodeEPNS_8TileTaskERKNS_9parentROIEU13block_pointerFvvES7__block_invoke_3;
-  v46[3] = &unk_1E75C4B58;
-  v47 = v39;
-  v46[6] = v40;
-  v46[7] = v10;
-  v46[4] = a5;
-  v46[5] = a2;
-  CIMetalCommandBufferAddCompletionHandler(v43, v46);
+  v47 = *(a1 + 1848);
+  v50[0] = MEMORY[0x1E69E9820];
+  v50[1] = 3221225472;
+  v50[2] = ___ZN2CI12MetalContext16render_root_nodeEPNS_8TileTaskERKNS_9parentROIEU13block_pointerFvvES7__block_invoke_3;
+  v50[3] = &unk_1E75C4B58;
+  v51 = v43;
+  v50[6] = v44;
+  v50[7] = v10;
+  v50[4] = a5;
+  v50[5] = a2;
+  CIMetalCommandBufferAddCompletionHandler(v47, v50);
   if ((*(a1 + 1992) & 1) == 0 && !*(a1 + 1928))
   {
-    CIMetalCommandBufferSynchronizeTexture(*(a1 + 1848), *(a1 + 1936));
+    CIMetalCommandBufferSynchronizeTexture();
   }
 
-  v44 = *(a1 + 1848);
-  if (v44 != *(a1 + 1864))
+  v48 = *(a1 + 1848);
+  if (v48 != *(a1 + 1864))
   {
-    CIMetalCommandBufferCommit(v44);
+    CIMetalCommandBufferCommit(v48);
   }
 
   CI::MetalContext::render_root_node(CI::TileTask *,CI::parentROI const&,void({block_pointer})(void),void({block_pointer})(void))::SignpostTimer::~SignpostTimer(buf);
 }
 
+void sub_19CE557F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  CI::MetalContext::render_root_node(CI::TileTask *,CI::parentROI const&,void({block_pointer})(void),void({block_pointer})(void))::SignpostTimer::~SignpostTimer(va);
+  _Unwind_Resume(a1);
+}
+
 void CI::MetalContext::render_root_node(CI::TileTask *,CI::parentROI const&,void({block_pointer})(void),void({block_pointer})(void))::SignpostTimer::~SignpostTimer(TimerBase *a1)
 {
-  if (CI_VERBOSE_SIGNPOSTS())
+  v2 = CI_VERBOSE_SIGNPOSTS();
+  if (v2)
   {
-    v2 = ci_signpost_log_render();
-    v3 = *(a1 + 1);
-    if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v4 = ci_signpost_log_render(v2, v3);
+    v5 = *(a1 + 1);
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v4 = v2;
-      if (os_signpost_enabled(v2))
+      v6 = v4;
+      if (os_signpost_enabled(v4))
       {
-        *v5 = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "render_node_mainProgram", &unk_19CFBCBAE, v5, 2u);
+        *v7 = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_END, v5, "render_node_mainProgram", &unk_19CFBCBAE, v7, 2u);
       }
     }
   }
 
-  TimerBase::~TimerBase(a1);
+  TimerBase::~TimerBase(a1, v3);
 }
 
 {
-  if (CI_VERBOSE_SIGNPOSTS())
+  v2 = CI_VERBOSE_SIGNPOSTS();
+  if (v2)
   {
-    v2 = ci_signpost_log_render();
-    v3 = *(a1 + 1);
-    if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v4 = ci_signpost_log_render(v2, v3);
+    v5 = *(a1 + 1);
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v4 = v2;
-      if (os_signpost_enabled(v2))
+      v6 = v4;
+      if (os_signpost_enabled(v4))
       {
-        *v5 = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "render_node", &unk_19CFBCBAE, v5, 2u);
+        *v7 = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_END, v5, "render_node", &unk_19CFBCBAE, v7, 2u);
       }
     }
   }
 
-  TimerBase::~TimerBase(a1);
+  TimerBase::~TimerBase(a1, v3);
 }
 
 void ___ZN2CI12MetalContext16render_root_nodeEPNS_8TileTaskERKNS_9parentROIEU13block_pointerFvvES7__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -5540,7 +5601,8 @@ uint64_t ___ZN2CI12MetalContext16render_root_nodeEPNS_8TileTaskERKNS_9parentROIE
 
   else
   {
-    if (!internalError(a2))
+    v6 = internalError(a2);
+    if (!v6)
     {
       goto LABEL_6;
     }
@@ -5551,7 +5613,7 @@ uint64_t ___ZN2CI12MetalContext16render_root_nodeEPNS_8TileTaskERKNS_9parentROIE
 
   CI::TileTask::setCommandBufferError(v4, v5);
 LABEL_6:
-  if ((CI_PRINT_TIME() & 0x100) != 0)
+  if ((CI_PRINT_TIME(v6, v7) & 0x100) != 0)
   {
     if (*(a1 + 64) == 1)
     {
@@ -5567,23 +5629,23 @@ LABEL_6:
   }
 
   CIMetalCommandBufferGetGPUTime(a2);
-  CI::TileTask::incrementTimeForNode(*(a1 + 40), *(a1 + 56), v6);
-  v7 = *(a1 + 40);
-  *(v7 + 40) = CFAbsoluteTimeGetCurrent();
-  v8 = *(a1 + 40);
-  if (v8)
+  CI::TileTask::incrementTimeForNode(*(a1 + 40), *(a1 + 56), v8);
+  v9 = *(a1 + 40);
+  *(v9 + 40) = CFAbsoluteTimeGetCurrent();
+  v10 = *(a1 + 40);
+  if (v10)
   {
-    CI::Object::unref(v8);
+    CI::Object::unref(v10);
   }
 
-  v9 = *(*(a1 + 32) + 16);
+  v11 = *(*(a1 + 32) + 16);
 
-  return v9();
+  return v11();
 }
 
 void CI::MetalContext::render_intermediate_node(CI::MetalContext *a1, CI::TileTask *a2, CI::parentROI *this, uint64_t a4, int a5, uint64_t a6)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v11 = *this;
   v12 = CI::parentROI::roi(this);
   v14 = v13;
@@ -5592,34 +5654,35 @@ void CI::MetalContext::render_intermediate_node(CI::MetalContext *a1, CI::TileTa
   v19 = *(v11 + 48);
   if ((*(*v19 + 16))(v19) < 47 || (*(*v19 + 16))(v19) >= 50)
   {
-    if (CI_VERBOSE_SIGNPOSTS())
+    v22 = CI_VERBOSE_SIGNPOSTS();
+    if (v22)
     {
-      v22 = ci_signpost_log_render();
-      v23 = *(v11 + 36) | ((*(*a1 + 280))(a1) << 32);
-      if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+      v24 = ci_signpost_log_render(v22, v23);
+      v25 = *(v11 + 36) | ((*(*a1 + 280))(a1) << 32);
+      if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v23, "render_node_mainProgram", &unk_19CFBCBAE, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v25, "render_node_mainProgram", &unk_19CFBCBAE, buf, 2u);
       }
     }
 
-    v24 = (*(*a1 + 280))(a1);
-    TimerBase::TimerBase(buf, v24, *(v11 + 36), "render_node_mainProgram", 0);
+    v26 = (*(*a1 + 280))(a1);
+    TimerBase::TimerBase(buf, v26, *(v11 + 36), "render_node_mainProgram", 0);
     v20 = CI::ProgramNode::mainProgram(v11);
-    v26 = v25;
+    v28 = v27;
     (*(v20->isa + 2))(v20);
     if ((*(v20->isa + 2))(v20) >= 78)
     {
-      v27 = 0;
+      v29 = 0;
     }
 
     else
     {
-      v27 = v20;
+      v29 = v20;
     }
 
-    v21 = v26;
-    *&v27[4].isa = v26;
+    v21 = v28;
+    *&v29[4].isa = v28;
     CI::MetalContext::render_intermediate_node(CI::TileTask *,CI::parentROI const&,CI::intermediate_t *,BOOL,void({block_pointer})(void))::SignpostTimer::~SignpostTimer(buf);
   }
 
@@ -5629,94 +5692,95 @@ void CI::MetalContext::render_intermediate_node(CI::MetalContext *a1, CI::TileTa
     v21 = 0.0;
   }
 
-  if (CI_VERBOSE_SIGNPOSTS())
+  v30 = CI_VERBOSE_SIGNPOSTS();
+  if (v30)
   {
-    v28 = ci_signpost_log_render();
-    v29 = *(v11 + 36) | ((*(*a1 + 280))(a1) << 32);
-    if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
+    v32 = ci_signpost_log_render(v30, v31);
+    v33 = *(v11 + 36) | ((*(*a1 + 280))(a1) << 32);
+    if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
     {
-      v31 = CI::Context::programName(v11, v30);
+      v35 = CI::Context::programName(v11, v34);
       *buf = 68289026;
-      v49 = 256;
-      v50 = 2082;
-      v51 = v31;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v28, OS_SIGNPOST_INTERVAL_BEGIN, v29, "render_node", "%{public}.256s", buf, 0x12u);
+      v53 = 256;
+      v54 = 2082;
+      v55 = v35;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v32, OS_SIGNPOST_INTERVAL_BEGIN, v33, "render_node", "%{public}.256s", buf, 0x12u);
     }
   }
 
-  v32 = (*(*a1 + 280))(a1);
-  TimerBase::TimerBase(buf, v32, *(v11 + 36), "render_node", 0);
+  v36 = (*(*a1 + 280))(a1);
+  TimerBase::TimerBase(buf, v36, *(v11 + 36), "render_node", 0);
   if (a4)
   {
     *(a1 + 232) = *(a1 + 231);
-    v33 = *(v11 + 48);
-    v34 = (*(*v33 + 16))(v33) < 47 || (*(*v33 + 16))(v33) > 49;
-    if (!CI_ENABLE_METAL_DEBUG() || *(a1 + 233) || (v38 = *(v11 + 48), (*(*v38 + 16))(v38) >= 47) && (*(*v38 + 16))(v38) < 50)
+    v37 = *(v11 + 48);
+    v38 = (*(*v37 + 16))(v37) < 47 || (*(*v37 + 16))(v37) > 49;
+    if (!CI_ENABLE_METAL_DEBUG() || *(a1 + 233) || (v42 = *(v11 + 48), (*(*v42 + 16))(v42) >= 47) && (*(*v42 + 16))(v42) < 50)
     {
-      v35 = 0;
+      v39 = 0;
     }
 
     else
     {
-      v35 = v45;
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 3221225472;
-      v45[2] = ___ZN2CI12MetalContext24render_intermediate_nodeEPNS_8TileTaskERKNS_9parentROIEPNS_14intermediate_tEbU13block_pointerFvvE_block_invoke;
-      v45[3] = &__block_descriptor_48_e11_v24__0Q8Q16l;
-      v45[4] = a2;
-      v45[5] = v11;
+      v39 = v49;
+      v49[0] = MEMORY[0x1E69E9820];
+      v49[1] = 3221225472;
+      v49[2] = ___ZN2CI12MetalContext24render_intermediate_nodeEPNS_8TileTaskERKNS_9parentROIEPNS_14intermediate_tEbU13block_pointerFvvE_block_invoke;
+      v49[3] = &__block_descriptor_48_e11_v24__0Q8Q16l;
+      v49[4] = a2;
+      v49[5] = v11;
     }
 
-    v36 = *(a1 + 233);
+    v40 = *(a1 + 233);
     if (a5)
     {
-      if (v36)
+      if (v40)
       {
-        v37 = [v36 commandQueue];
+        v41 = [v40 commandQueue];
       }
 
       else
       {
-        v37 = *(a1 + 49);
+        v41 = *(a1 + 49);
       }
 
-      v36 = CIMetalCommandBufferCreate(*(a1 + 251), v37, v34, v35);
+      v40 = CIMetalCommandBufferCreate(*(a1 + 251), v41, v38, v39);
     }
 
-    else if (!v36)
+    else if (!v40)
     {
-      v36 = CIMetalCommandBufferCreate(*(a1 + 251), *(a1 + 49), v34, v35);
+      v40 = CIMetalCommandBufferCreate(*(a1 + 251), *(a1 + 49), v38, v39);
     }
 
-    *(a1 + 231) = v36;
-    (*(*a4 + 24))(&v44, a4);
+    *(a1 + 231) = v40;
+    (*(*a4 + 24))(&v48, a4);
     (**a4)(a4);
-    v47 = v44;
-    v46[0] = 0;
-    v46[1] = 0;
-    v39 = (*(*a4 + 32))(a4);
-    if (*(&v44 + 1))
+    v51 = v48;
+    v50[0] = 0;
+    v50[1] = 0;
+    v43 = (*(*a4 + 32))(a4);
+    if (*(&v48 + 1))
     {
-      v41 = 2;
+      v45 = 2;
     }
 
     else
     {
-      v41 = 1;
+      v45 = 1;
     }
 
-    CI::MetalContext::render_node(a1, a2, this, v39, &v47, v46, v40, v41);
+    CI::MetalContext::render_node(a1, a2, this, v43, &v51, v50, v44, v45);
     CI::ProgramNode::program_name(v11);
-    v53.origin.x = v12;
-    v53.origin.y = v14;
-    v53.size.width = v16;
-    v53.size.height = v18;
-    CI::TileTask::addROIForNode(a2, v11, v53);
+    v57.origin.x = v12;
+    v57.origin.y = v14;
+    v57.size.width = v16;
+    v57.size.height = v18;
+    CI::TileTask::addROIForNode(a2, v11, v57);
     if (v20)
     {
       CI::TileTask::incrementCompileWaitTimeForNode(a2, v11, v21);
-      v42 = COERCE_DOUBLE(atomic_load(&v20[3]));
-      CI::TileTask::setCompileTimeForNode(a2, v11, *&v20[5].isa + v42);
+      v46 = COERCE_DOUBLE(atomic_load(&v20[3]));
+      CI::TileTask::setCompileTimeForNode(a2, v11, *&v20[5].isa + v46);
     }
 
     if (a2)
@@ -5730,43 +5794,52 @@ void CI::MetalContext::render_intermediate_node(CI::MetalContext *a1, CI::TileTa
   CI::MetalContext::render_intermediate_node(CI::TileTask *,CI::parentROI const&,CI::intermediate_t *,BOOL,void({block_pointer})(void))::SignpostTimer::~SignpostTimer(buf);
 }
 
+void sub_19CE56240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  CI::MetalContext::render_intermediate_node(CI::TileTask *,CI::parentROI const&,CI::intermediate_t *,BOOL,void({block_pointer})(void))::SignpostTimer::~SignpostTimer(va);
+  _Unwind_Resume(a1);
+}
+
 void CI::MetalContext::render_intermediate_node(CI::TileTask *,CI::parentROI const&,CI::intermediate_t *,BOOL,void({block_pointer})(void))::SignpostTimer::~SignpostTimer(TimerBase *a1)
 {
-  if (CI_VERBOSE_SIGNPOSTS())
+  v2 = CI_VERBOSE_SIGNPOSTS();
+  if (v2)
   {
-    v2 = ci_signpost_log_render();
-    v3 = *(a1 + 1);
-    if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v4 = ci_signpost_log_render(v2, v3);
+    v5 = *(a1 + 1);
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v4 = v2;
-      if (os_signpost_enabled(v2))
+      v6 = v4;
+      if (os_signpost_enabled(v4))
       {
-        *v5 = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "render_node_mainProgram", &unk_19CFBCBAE, v5, 2u);
+        *v7 = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_END, v5, "render_node_mainProgram", &unk_19CFBCBAE, v7, 2u);
       }
     }
   }
 
-  TimerBase::~TimerBase(a1);
+  TimerBase::~TimerBase(a1, v3);
 }
 
 {
-  if (CI_VERBOSE_SIGNPOSTS())
+  v2 = CI_VERBOSE_SIGNPOSTS();
+  if (v2)
   {
-    v2 = ci_signpost_log_render();
-    v3 = *(a1 + 1);
-    if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v4 = ci_signpost_log_render(v2, v3);
+    v5 = *(a1 + 1);
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v4 = v2;
-      if (os_signpost_enabled(v2))
+      v6 = v4;
+      if (os_signpost_enabled(v4))
       {
-        *v5 = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "render_node", &unk_19CFBCBAE, v5, 2u);
+        *v7 = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_END, v5, "render_node", &unk_19CFBCBAE, v7, 2u);
       }
     }
   }
 
-  TimerBase::~TimerBase(a1);
+  TimerBase::~TimerBase(a1, v3);
 }
 
 void ___ZN2CI12MetalContext24render_intermediate_nodeEPNS_8TileTaskERKNS_9parentROIEPNS_14intermediate_tEbU13block_pointerFvvE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -5789,7 +5862,8 @@ uint64_t ___ZN2CI12MetalContext24render_intermediate_nodeEPNS_8TileTaskERKNS_9pa
 
   else
   {
-    if (!internalError(a2))
+    v7 = internalError(a2);
+    if (!v7)
     {
       goto LABEL_6;
     }
@@ -5802,31 +5876,31 @@ uint64_t ___ZN2CI12MetalContext24render_intermediate_nodeEPNS_8TileTaskERKNS_9pa
 LABEL_6:
   if ((*(a1 + 80) & 1) == 0)
   {
-    if ((CI_PRINT_TIME() & 0x100) != 0)
+    if ((CI_PRINT_TIME(v7, v8) & 0x100) != 0)
     {
-      v7 = *(a1 + 56);
+      v9 = *(a1 + 56);
       CIMetalCommandBufferGetGPUTime(a2);
-      x_log("CI_PRINT_TIME [GPU] intermediate program (%s) = %.1f ms\n", v7, v8 * 1000.0);
+      x_log("CI_PRINT_TIME [GPU] intermediate program (%s) = %.1f ms\n", v9, v10 * 1000.0);
     }
 
     CIMetalCommandBufferGetGPUTime(a2);
-    CI::TileTask::incrementTimeForNode(*(a1 + 48), *(a1 + 64), v9);
+    CI::TileTask::incrementTimeForNode(*(a1 + 48), *(a1 + 64), v11);
   }
 
-  v10 = (*(*v4 + 112))(v4);
-  (*(*v10 + 88))(v10, *(a1 + 72));
-  v11 = *(a1 + 72);
-  if (v11)
+  v12 = (*(*v4 + 112))(v4);
+  (*(*v12 + 88))(v12, *(a1 + 72));
+  v13 = *(a1 + 72);
+  if (v13)
   {
-    v14 = *(a1 + 72);
-    std::vector<CI::Texture>::__destroy_vector::operator()[abi:nn200100](&v14);
-    MEMORY[0x19EAF5590](v11, 0x20C40960023A9);
+    v16 = *(a1 + 72);
+    std::vector<CI::Texture>::__destroy_vector::operator()[abi:nn200100](&v16);
+    MEMORY[0x19EAF5590](v13, 0x20C40960023A9);
   }
 
-  v12 = *(a1 + 48);
-  if (v12)
+  v14 = *(a1 + 48);
+  if (v14)
   {
-    CI::Object::unref(v12);
+    CI::Object::unref(v14);
   }
 
   return (*(*(a1 + 32) + 16))();
@@ -5834,26 +5908,26 @@ LABEL_6:
 
 void CI::MetalContext::readback_bitmap(uint64_t a1, uint64_t *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v4 = ci_signpost_log_render();
+  v15 = *MEMORY[0x1E69E9840];
+  v4 = ci_signpost_log_render(a1, a2);
   v5 = (*(*a1 + 280))(a1) << 32;
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     v6 = a2[10];
     v7 = a2[11];
-    v10 = 134218240;
-    v11 = v6;
-    v12 = 2048;
-    v13 = v7;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v5, "readback_bitmap", "[%zu %zu]", &v10, 0x16u);
+    v11 = 134218240;
+    v12 = v6;
+    v13 = 2048;
+    v14 = v7;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v5, "readback_bitmap", "[%zu %zu]", &v11, 0x16u);
   }
 
   v8 = (*(*a1 + 280))(a1);
-  TimerBase::TimerBase(&v10, v8, 0, "readback_bitmap", 7);
-  v9 = *(a1 + 1848);
-  if (v9 != *(a1 + 1864))
+  TimerBase::TimerBase(&v11, v8, 0, "readback_bitmap", 7u);
+  v10 = *(a1 + 1848);
+  if (v10 != *(a1 + 1864))
   {
-    CIMetalCommandBufferWaitUntilCompleted(v9);
+    CIMetalCommandBufferWaitUntilCompleted(v10);
     if (a2)
     {
       if (!*(a1 + 1928) && *(a1 + 1984) == 1)
@@ -5863,24 +5937,24 @@ void CI::MetalContext::readback_bitmap(uint64_t a1, uint64_t *a2)
     }
   }
 
-  CI::MetalContext::readback_bitmap(CI::Bitmap *,CI::output_swizzle_info)::SignpostTimer::~SignpostTimer(&v10);
+  CI::MetalContext::readback_bitmap(CI::Bitmap *,CI::output_swizzle_info)::SignpostTimer::~SignpostTimer(&v11, v9);
 }
 
-void CI::MetalContext::readback_bitmap(CI::Bitmap *,CI::output_swizzle_info)::SignpostTimer::~SignpostTimer(TimerBase *a1)
+void CI::MetalContext::readback_bitmap(CI::Bitmap *,CI::output_swizzle_info)::SignpostTimer::~SignpostTimer(TimerBase *a1, uint64_t a2)
 {
-  v2 = ci_signpost_log_render();
-  v3 = *(a1 + 1);
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v3 = ci_signpost_log_render(a1, a2);
+  v5 = *(a1 + 1);
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v4 = v2;
-    if (os_signpost_enabled(v2))
+    v6 = v3;
+    if (os_signpost_enabled(v3))
     {
-      *v5 = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "readback_bitmap", &unk_19CFBCBAE, v5, 2u);
+      *v7 = 0;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_END, v5, "readback_bitmap", &unk_19CFBCBAE, v7, 2u);
     }
   }
 
-  TimerBase::~TimerBase(a1);
+  TimerBase::~TimerBase(a1, v4);
 }
 
 BOOL CI::MetalContext::formatIsReadable(id *this, unsigned int a2)
@@ -5917,7 +5991,7 @@ BOOL CI::MetalContext::formatIsWritable(id *this, unsigned int a2)
   return v5 == 119;
 }
 
-uint64_t CI::MetalContext::format_is_directly_supported_for_input(id *a1, int a2)
+uint64_t CI::MetalContext::format_is_directly_supported_for_input(id *a1, uint64_t a2)
 {
   if (CI::format_is_ycc_biplanar(a2))
   {
@@ -6141,7 +6215,7 @@ uint64_t CI::MetalContext::bind_cgimage(void ***a1, CGImage *a2, uint64_t a3, ui
   return (v11)(a1, v10, a4, a5, 0, a6);
 }
 
-uint64_t CI::MetalContext::bind_surface(uint64_t *a1, __IOSurface *a2, int *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+uint64_t CI::MetalContext::bind_surface(uint64_t *a1, __IOSurface *a2, unsigned int *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
 {
   if (!a2)
   {
@@ -6180,22 +6254,23 @@ uint64_t CI::MetalContext::bind_texture(uint64_t a1, CFTypeRef cf, int a3, int a
 
 void CI::MetalContext::bind_arguments(CI::ProgramNode const*,CGRect const&,CGRect const&,CGSize const&,CI::TileTask *)::SignpostTimer::~SignpostTimer(TimerBase *a1)
 {
-  if (CI_VERBOSE_SIGNPOSTS())
+  v2 = CI_VERBOSE_SIGNPOSTS();
+  if (v2)
   {
-    v2 = ci_signpost_log_render();
-    v3 = *(a1 + 1);
-    if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v4 = ci_signpost_log_render(v2, v3);
+    v5 = *(a1 + 1);
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v4 = v2;
-      if (os_signpost_enabled(v2))
+      v6 = v4;
+      if (os_signpost_enabled(v4))
       {
-        *v5 = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "bind_arguments", &unk_19CFBCBAE, v5, 2u);
+        *v7 = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_END, v5, "bind_arguments", &unk_19CFBCBAE, v7, 2u);
       }
     }
   }
 
-  TimerBase::~TimerBase(a1);
+  TimerBase::~TimerBase(a1, v3);
 }
 
 BOOL CI::MetalContext::supports_sRGB_texture_for_format(id *this, int a2, int a3)
@@ -6355,7 +6430,7 @@ uint64_t CI::MetalContext::max_device_memory(CI::MetalContext *this)
   return result;
 }
 
-uint64_t CI::MetalContext::supports_sample_mode(uint64_t a1, int a2, int a3)
+uint64_t CI::MetalContext::supports_sample_mode(uint64_t a1, int a2, uint64_t a3)
 {
   if (a2 == 1)
   {
@@ -6396,17 +6471,17 @@ uint64_t CI::MetalContext::supported_compute_features(CI::MetalContext *this)
 double CI::MetalContext::sampler_transform_for_extent@<D0>(const CGRect *a1@<X1>, double *a2@<X8>)
 {
   y = a1->origin.y;
-  v4 = 1.0 / a1->size.height;
-  v5 = a1->origin.x * -0.0 - y * v4 + 0.0;
-  v6 = 1.0 / a1->size.width;
-  v7 = y * -0.0 - a1->origin.x * v6;
-  *a2 = v6 + 0.0;
-  a2[1] = v4 * 0.0 + 0.0;
-  a2[2] = v6 * 0.0 + 0.0;
-  a2[3] = v4 + 0.0;
-  result = v7 + 0.0;
+  v3 = 1.0 / a1->size.height;
+  v4 = a1->origin.x * -0.0 - y * v3 + 0.0;
+  v5 = 1.0 / a1->size.width;
+  v6 = y * -0.0 - a1->origin.x * v5;
+  *a2 = v5 + 0.0;
+  a2[1] = v3 * 0.0 + 0.0;
+  a2[2] = v5 * 0.0 + 0.0;
+  a2[3] = v3 + 0.0;
+  result = v6 + 0.0;
   a2[4] = result;
-  a2[5] = v5;
+  a2[5] = v4;
   return result;
 }
 
@@ -6420,7 +6495,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<void const*>>(uint64_
   std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
 }
 
-void std::vector<void const*>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<void const*>::__vallocate[abi:nn200100](void *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -6554,35 +6629,35 @@ void std::vector<CI::Texture>::__destroy_vector::operator()[abi:nn200100](void *
   }
 }
 
-void *std::__hash_table<void const*,std::hash<void const*>,std::equal_to<void const*>,std::allocator<void const*>>::__emplace_unique_key_args<void const*,void const* const&>(void *a1, void *a2)
+void *std::__hash_table<void const*,std::hash<void const*>,std::equal_to<void const*>,std::allocator<void const*>>::__emplace_unique_key_args<void const*,void const* const&>(void *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -6590,44 +6665,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
 void *std::__hash_table<void const*,std::hash<void const*>,std::equal_to<void const*>,std::allocator<void const*>>::find<void const*>(void *a1, void *a2)
@@ -6663,45 +6738,37 @@ void *std::__hash_table<void const*,std::hash<void const*>,std::equal_to<void co
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v5 == v10)
     {
-      v10 = result[1];
-      if (v5 == v10)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -6715,7 +6782,7 @@ uint64_t std::unordered_set<void const*>::unordered_set(uint64_t a1, uint64_t a2
   std::__hash_table<CI::Image const*,std::hash<CI::Image const*>,std::equal_to<CI::Image const*>,std::allocator<CI::Image const*>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<void const*,std::hash<void const*>,std::equal_to<void const*>,std::allocator<void const*>>::__emplace_unique_key_args<void const*,void const* const&>(a1, i + 2);
+    std::__hash_table<void const*,std::hash<void const*>,std::equal_to<void const*>,std::allocator<void const*>>::__emplace_unique_key_args<void const*,void const* const&>(a1, i + 2, i + 2);
   }
 
   return a1;
@@ -6724,28 +6791,28 @@ uint64_t std::unordered_set<void const*>::unordered_set(uint64_t a1, uint64_t a2
 void *CI::InstanceCounted<(CI::Type)75>::~InstanceCounted(void *result)
 {
   *result = &unk_1F1034438;
-  atomic_fetch_add(&dword_1ED7C47BC[73], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[66], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)75>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F1034438;
-  atomic_fetch_add(&dword_1ED7C47BC[73], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[66], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
 void *CI::InstanceCounted<(CI::Type)85>::~InstanceCounted(void *result)
 {
   *result = &unk_1F1034460;
-  atomic_fetch_add(&dword_1ED7C47BC[83], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[76], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)85>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F1034460;
-  atomic_fetch_add(&dword_1ED7C47BC[83], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[76], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -6816,7 +6883,7 @@ void CI::Context::Context(CI::Context *this, const CI::Context *a2)
   operator new();
 }
 
-void CI::Context::Context(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void CI::Context::Context(uint64_t a1, CGColorSpace *a2, CGColorSpace *a3, int a4, char a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9, char a10)
 {
   *(a1 + 8) = 1;
   *a1 = &unk_1F10344E8;
@@ -6824,16 +6891,16 @@ void CI::Context::Context(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_
   *(a1 + 36) = 0;
   *(a1 + 41) = 1;
   add = atomic_fetch_add(&CI::gContextCounter, 1u);
-  v10 = *MEMORY[0x1E695F050];
-  v9 = *(MEMORY[0x1E695F050] + 16);
+  v12 = *MEMORY[0x1E695F050];
+  v11 = *(MEMORY[0x1E695F050] + 16);
   *(a1 + 236) = 0u;
   *(a1 + 144) = add + 1;
   *(a1 + 152) = 0;
-  *(a1 + 160) = v10;
-  *(a1 + 176) = v9;
+  *(a1 + 160) = v12;
+  *(a1 + 176) = v11;
   *(a1 + 192) = 0;
-  *(a1 + 200) = v10;
-  *(a1 + 216) = v9;
+  *(a1 + 200) = v12;
+  *(a1 + 216) = v11;
   *(a1 + 232) = 1;
   *(a1 + 252) = 0u;
   *(a1 + 268) = 0u;
@@ -6943,11 +7010,11 @@ void CI::Context::clear_caches(CI::Context *this)
   RemoveCacheEntriesForContext(v5);
 }
 
-void CI::Context::setPriority(uint64_t a1, int a2)
+void CI::Context::setPriority(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v2 = ci_logger_render();
+    v2 = ci_logger_render(a1, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       *v3 = 0;
@@ -6956,14 +7023,14 @@ void CI::Context::setPriority(uint64_t a1, int a2)
   }
 }
 
-uint64_t CI::Context::createDestination(uint64_t a1, uint64_t a2, int *a3, int a4)
+uint64_t CI::Context::createDestination(uint64_t a1, uint64_t a2, int *a3, uint64_t a4)
 {
   v7 = *a3;
-  v41 = *(*a3 + 140);
-  v8 = v41;
-  if (!v41)
+  v45 = *(*a3 + 140);
+  v8 = v45;
+  if (!v45)
   {
-    LODWORD(v41) = a4;
+    LODWORD(v45) = a4;
     v8 = a4;
   }
 
@@ -7023,36 +7090,38 @@ LABEL_14:
   SurfaceMemorySize = CreateSurfaceMemorySize(v19, v20, 0x20uLL, v17);
   if (SurfaceMemorySize > (*(*a1 + 128))(a1))
   {
-    if (CI_VERBOSE_SIGNPOSTS())
+    v22 = CI_VERBOSE_SIGNPOSTS();
+    if (v22)
     {
-      v22 = ci_signpost_log_render();
-      v23 = *(*a3 + 36) | ((*(*a1 + 280))(a1) << 32);
-      if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+      v24 = ci_signpost_log_render(v22, v23);
+      v25 = *(*a3 + 36) | ((*(*a1 + 280))(a1) << 32);
+      if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
       {
-        LOWORD(v37) = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v23, "wait_for_cache", &unk_19CFBCBAE, &v37, 2u);
+        LOWORD(v41) = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v25, "wait_for_cache", &unk_19CFBCBAE, &v41, 2u);
       }
     }
 
-    v24 = (*(*a1 + 280))(a1);
-    TimerBase::TimerBase(&v37, v24, *(*a3 + 36), "wait_for_cache", 19);
+    v26 = (*(*a1 + 280))(a1);
+    TimerBase::TimerBase(&v41, v26, *(*a3 + 36), "wait_for_cache", 0x13u);
     (*(*a1 + 104))(a1);
-    if (CI_VERBOSE_SIGNPOSTS())
+    v27 = CI_VERBOSE_SIGNPOSTS();
+    if (v27)
     {
-      v25 = ci_signpost_log_render();
-      v26 = v38;
-      if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+      v29 = ci_signpost_log_render(v27, v28);
+      v30 = v42;
+      if (v42 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v27 = v25;
-        if (os_signpost_enabled(v25))
+        v31 = v29;
+        if (os_signpost_enabled(v29))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_19CC36000, v27, OS_SIGNPOST_INTERVAL_END, v26, "wait_for_cache", &unk_19CFBCBAE, buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_19CC36000, v31, OS_SIGNPOST_INTERVAL_END, v30, "wait_for_cache", &unk_19CFBCBAE, buf, 2u);
         }
       }
     }
 
-    TimerBase::~TimerBase(&v37);
+    TimerBase::~TimerBase(&v41, v28);
   }
 
   do
@@ -7062,25 +7131,25 @@ LABEL_14:
       break;
     }
 
-    v28 = (*(*a1 + 112))(a1);
+    v32 = (*(*a1 + 112))(a1);
   }
 
-  while (CI::TextureManager::releaseDeepIntermediate(v28));
-  v29 = CI::Node::rois(*a3);
-  v30 = (*(*v29 + 120 * a3[2] + 40) - *(*v29 + 120 * a3[2] + 32)) >> 4;
-  v31 = (*(**a3 + 400))(*a3);
-  v37 = CI::Node::roi(*a3, a3[2]);
-  v38 = v32;
-  v39 = v33;
-  v40 = v34;
-  v35 = (*(*a2 + 56))(a2, &v41, v31, &v37, v16, 0xAAAAAAAAAAAAAAABLL * v30 + 1, 0);
-  CI::TextureManager::add_intermediate_for_node(a2, a3, v35);
-  return v35;
+  while (CI::TextureManager::releaseDeepIntermediate(v32));
+  v33 = CI::Node::rois(*a3);
+  v34 = (*(*v33 + 120 * a3[2] + 40) - *(*v33 + 120 * a3[2] + 32)) >> 4;
+  v35 = (*(**a3 + 400))(*a3);
+  v41 = CI::Node::roi(*a3, a3[2]);
+  v42 = v36;
+  v43 = v37;
+  v44 = v38;
+  v39 = (*(*a2 + 56))(a2, &v45, v35, &v41, v16, 0xAAAAAAAAAAAAAAABLL * v34 + 1, 0);
+  CI::TextureManager::add_intermediate_for_node(a2, a3, v39);
+  return v39;
 }
 
-void CI::Context::recursive_render(_DWORD *a1, void *a2, uint64_t a3, uint64_t a4, unsigned int a5)
+void CI::Context::recursive_render(char *a1, CI::TileTask *a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
-  v152 = *MEMORY[0x1E69E9840];
+  v170 = *MEMORY[0x1E69E9840];
   v5 = *a3;
   if (!*a3)
   {
@@ -7097,10 +7166,10 @@ void CI::Context::recursive_render(_DWORD *a1, void *a2, uint64_t a3, uint64_t a
   rect.size.width = v12;
   rect.size.height = v14;
   v16 = (*(*a1 + 112))(a1);
-  v137 = *(v5 + 140);
-  if (!v137)
+  v155 = *(v5 + 140);
+  if (!v155)
   {
-    LODWORD(v137) = a1[8];
+    LODWORD(v155) = *(a1 + 8);
   }
 
   v17 = v6[2];
@@ -7109,13 +7178,13 @@ void CI::Context::recursive_render(_DWORD *a1, void *a2, uint64_t a3, uint64_t a
     goto LABEL_10;
   }
 
-  v153.origin.x = v9;
-  v153.origin.y = v11;
-  v153.size.width = v13;
-  v153.size.height = v15;
-  if (CGRectIsEmpty(v153))
+  v171.origin.x = v9;
+  v171.origin.y = v11;
+  v171.size.width = v13;
+  v171.size.height = v15;
+  if (CGRectIsEmpty(v171))
   {
-    if ((atomic_load_explicit(&qword_1ED7C4558, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_1ED7C4558, memory_order_acquire) & 1) == 0)
     {
       CI::Context::recursive_render(v16);
     }
@@ -7134,7 +7203,7 @@ LABEL_10:
   v19 = CI::Node::rois(v5);
   v20 = (*(*v19 + 120 * v17 + 40) - *(*v19 + 120 * v17 + 32)) >> 4;
   v21 = (*(*v5 + 400))(v5);
-  v18 = (*(*v16 + 56))(v16, &v137, v21, &rect, 1, 0xAAAAAAAAAAAAAAABLL * v20 + 1, 1);
+  v18 = (*(*v16 + 56))(v16, &v155, v21, &rect, 1, 0xAAAAAAAAAAAAAAABLL * v20 + 1, 1);
   if (v18)
   {
     *__p = v5;
@@ -7150,17 +7219,17 @@ LABEL_13:
     a5 |= v23;
   }
 
-  v24 = a2[3];
-  v136[0] = MEMORY[0x1E69E9820];
-  v136[1] = 0x40000000;
-  v136[2] = ___ZN2CI7Context16recursive_renderEPNS_8TileTaskERKNS_6roiKeyEPKNS_4NodeEb_block_invoke;
-  v136[3] = &__block_descriptor_tmp_9_1;
-  v94 = v24;
-  v136[4] = v24;
+  v24 = *(a2 + 3);
+  v154[0] = MEMORY[0x1E69E9820];
+  v154[1] = 0x40000000;
+  v154[2] = ___ZN2CI7Context16recursive_renderEPNS_8TileTaskERKNS_6roiKeyEPKNS_4NodeEb_block_invoke;
+  v154[3] = &__block_descriptor_tmp_9_1;
+  v112 = v24;
+  v154[4] = v24;
   v25 = CI::Node::rois(v5);
-  v135 = 0;
-  v133 = 0;
-  v134 = 0;
+  v153 = 0;
+  v151 = 0;
+  v152 = 0;
   if ((v17 & 0x80000000) == 0)
   {
     v26 = *v25 + 120 * v17;
@@ -7168,49 +7237,49 @@ LABEL_13:
     v28 = *(v26 + 16);
     *__p = *v26;
     *&__p[16] = v28;
-    CI::SerialRectArray::recurseSubdivide(__p, v27, &v133);
-    v29 = v133;
-    if (v134 != v133)
+    CI::SerialRectArray::recurseSubdivide(__p, v27, &v151);
+    v29 = v151;
+    if (v152 != v151)
     {
-      v109 = 0;
-      v97 = v18;
-      v98 = a1;
-      v95 = v18;
-      v103 = v6;
-      v104 = v5;
+      v127 = 0;
+      v115 = v18;
+      v116 = a1;
+      v113 = v18;
+      v121 = v6;
+      v122 = v5;
       v30 = v16;
-      v99 = a2;
-      v102 = v17;
+      v117 = a2;
+      v120 = v17;
       do
       {
-        v108 = 0;
+        v126 = 0;
         v31 = 0;
         do
         {
-          v107 = v31;
-          if (a4 || ((v134 - v133) >> 5) - 1 != v109)
+          v125 = v31;
+          if (a4 || ((v152 - v151) >> 5) - 1 != v127)
           {
             v32 = dispatch_group_create();
           }
 
           else
           {
-            dispatch_retain(a2[2]);
-            v32 = a2[2];
+            dispatch_retain(*(a2 + 2));
+            v32 = *(a2 + 2);
           }
 
-          v132[0] = MEMORY[0x1E69E9820];
-          v132[1] = 0x40000000;
-          v132[2] = ___ZN2CI7Context16recursive_renderEPNS_8TileTaskERKNS_6roiKeyEPKNS_4NodeEb_block_invoke_2;
-          v132[3] = &__block_descriptor_tmp_10_0;
+          v150[0] = MEMORY[0x1E69E9820];
+          v150[1] = 0x40000000;
+          v150[2] = ___ZN2CI7Context16recursive_renderEPNS_8TileTaskERKNS_6roiKeyEPKNS_4NodeEb_block_invoke_2;
+          v150[3] = &__block_descriptor_tmp_10_0;
           object = v32;
-          v132[4] = v32;
-          v131[0] = 0;
-          v131[1] = 0;
-          v130 = v131;
-          v129[0] = 0;
-          v129[1] = 0;
-          v128 = v129;
+          v150[4] = v32;
+          v149[0] = 0;
+          v149[1] = 0;
+          v148 = v149;
+          v147[0] = 0;
+          v147[1] = 0;
+          v146 = v147;
           v33 = (*(*v5 + 40))(v5);
           if (v33)
           {
@@ -7218,16 +7287,16 @@ LABEL_13:
             v35 = 0;
             do
             {
-              CI::ProgramNode::roiKeys_of_child(v5, *(v133 + v109), v35, __p);
-              v126 = (*&__p[8] - *__p) >> 4;
-              std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(&v128, &v126);
-              v36 = v107;
-              if ((*&__p[8] - *__p) >> 4 > v107)
+              CI::ProgramNode::roiKeys_of_child(__p, v5, *(v151 + v127), v35);
+              v144 = (*&__p[8] - *__p) >> 4;
+              std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(&v146, &v144, &v144);
+              v36 = v125;
+              if ((*&__p[8] - *__p) >> 4 > v125)
               {
                 v36 = (*&__p[8] - *__p) >> 4;
               }
 
-              v107 = v36;
+              v125 = v36;
               if (*__p)
               {
                 *&__p[8] = *__p;
@@ -7240,8 +7309,8 @@ LABEL_13:
             while (v34 != v35);
           }
 
-          v105 = (*(*v5 + 40))(v5);
-          if (v105)
+          v123 = (*(*v5 + 40))(v5);
+          if (v123)
           {
             v37 = 0;
             do
@@ -7249,25 +7318,25 @@ LABEL_13:
               v38 = v6[2];
               *__p = v5;
               *&__p[8] = v38;
-              *&__p[12] = v109;
+              *&__p[12] = v127;
               *&__p[16] = v37;
-              *&__p[20] = v108;
+              *&__p[20] = v126;
               *&__p[24] = 0;
-              *&v140 = 0;
-              DWORD2(v140) = 0;
-              CI::ProgramNode::roiKeys_of_child(v5, *(v133 + v109), v37, &v126);
-              v39 = v126;
-              v110 = v127;
-              if (v126 != v127)
+              *&v158 = 0;
+              DWORD2(v158) = 0;
+              CI::ProgramNode::roiKeys_of_child(&v144, v5, *(v151 + v127), v37);
+              v39 = v144;
+              v128 = v145;
+              if (v144 != v145)
               {
                 do
                 {
-                  *v120 = *v39;
-                  v40 = v120[0];
-                  v41 = CI::Node::rois(v120[0]);
-                  CI::SerialRectArray::restore(v41, v120[1], __p);
+                  *v138 = *v39;
+                  v40 = v138[0];
+                  v41 = CI::Node::rois(v138[0]);
+                  CI::SerialRectArray::restore(v41, v138[1], __p);
                   v42 = CI::Node::rois(v40);
-                  v43 = *v42 + 120 * SLODWORD(v120[1]);
+                  v43 = *v42 + 120 * SLODWORD(v138[1]);
                   v45 = *(v43 + 32);
                   v44 = *(v43 + 40);
                   while (v45 != v44)
@@ -7276,8 +7345,8 @@ LABEL_13:
                     v47 = *v45 == *__p && v46 == 0;
                     if (v47)
                     {
-                      *buf = v120[0];
-                      *&buf[8] = v120[1];
+                      *buf = v138[0];
+                      *&buf[8] = v138[1];
                       operator new();
                     }
 
@@ -7287,39 +7356,39 @@ LABEL_13:
                   ++v39;
                 }
 
-                while (v39 != v110);
-                v39 = v126;
+                while (v39 != v128);
+                v39 = v144;
               }
 
               if (v39)
               {
-                v127 = v39;
+                v145 = v39;
                 operator delete(v39);
               }
 
               v37 = (v37 + 1);
-              v6 = v103;
-              v5 = v104;
+              v6 = v121;
+              v5 = v122;
             }
 
-            while (v37 != v105);
+            while (v37 != v123);
           }
 
-          a2 = v99;
-          if (!v97)
+          a2 = v117;
+          if (!v115)
           {
-            v48 = v130;
-            if (v130 != v131)
+            v48 = v148;
+            if (v148 != v149)
             {
               do
               {
-                v154.origin.x = CI::Node::roi(v48[4], *(v48 + 10));
-                if (!CGRectIsEmpty(v154))
+                v172.origin.x = CI::Node::roi(v48[4], *(v48 + 10));
+                if (!CGRectIsEmpty(v172))
                 {
                   v49 = (*(*v48[4] + 16))(v48[4]);
                   if ((CI::is_image_type(v49) & 1) == 0 && !CI::TextureManager::get_intermediate_for_node(v16, (v48 + 4)))
                   {
-                    CI::Context::recursive_render(v98, v99, v48 + 4, v5, a5);
+                    CI::Context::recursive_render(v116, v117, (v48 + 4), v5, a5);
                   }
                 }
 
@@ -7350,15 +7419,16 @@ LABEL_13:
                 v48 = v51;
               }
 
-              while (v51 != v131);
+              while (v51 != v149);
             }
           }
 
-          if (CI_VERBOSE_SIGNPOSTS())
+          v52 = CI_VERBOSE_SIGNPOSTS();
+          if (v52)
           {
-            v52 = ci_signpost_log_render();
-            v53 = *(v5 + 9) | ((*(*v98 + 280))(v98) << 32);
-            if (v53 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v52))
+            v54 = ci_signpost_log_render(v52, v53);
+            v55 = *(v5 + 9) | ((*(*v116 + 280))(v116) << 32);
+            if (v55 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v54))
             {
               *__p = 134218752;
               *&__p[4] = rect.origin.x;
@@ -7366,47 +7436,48 @@ LABEL_13:
               *&__p[14] = rect.origin.y;
               *&__p[22] = 2048;
               *&__p[24] = rect.size.width;
-              LOWORD(v140) = 2048;
-              *(&v140 + 2) = rect.size.height;
-              _os_signpost_emit_with_name_impl(&dword_19CC36000, v52, OS_SIGNPOST_INTERVAL_BEGIN, v53, "render_quad", "[%g %g %g %g]", __p, 0x2Au);
+              LOWORD(v158) = 2048;
+              *(&v158 + 2) = rect.size.height;
+              _os_signpost_emit_with_name_impl(&dword_19CC36000, v54, OS_SIGNPOST_INTERVAL_BEGIN, v55, "render_quad", "[%g %g %g %g]", __p, 0x2Au);
             }
           }
 
-          v54 = (*(*v98 + 280))(v98);
-          TimerBase::TimerBase(&v126, v54, *(v5 + 9), "render_quad", 6);
-          v120[0] = v5;
-          v120[1] = __PAIR64__(v109, v102);
-          v121 = -1;
-          v122 = v108;
-          v123 = 0;
-          v124 = 0;
-          v125 = 0;
-          CI::Object::ref(v98);
-          v155.origin.x = CI::parentROI::roi(v120);
-          if (CGRectIsEmpty(v155))
+          v56 = (*(*v116 + 280))(v116);
+          TimerBase::TimerBase(&v144, v56, *(v5 + 9), "render_quad", 6u);
+          v138[0] = v5;
+          v138[1] = __PAIR64__(v127, v120);
+          v139 = -1;
+          v140 = v126;
+          v141 = 0;
+          v142 = 0;
+          v143 = 0;
+          CI::Object::ref(v116);
+          v173.origin.x = CI::parentROI::roi(v138);
+          IsEmpty = CGRectIsEmpty(v173);
+          if (IsEmpty)
           {
-            v55 = ci_logger_render();
-            if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+            v59 = ci_logger_render(IsEmpty, v58);
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
             {
               *__p = 0;
-              _os_log_impl(&dword_19CC36000, v55, OS_LOG_TYPE_INFO, "Skipping render as subdivision code computed an empty ROI", __p, 2u);
+              _os_log_impl(&dword_19CC36000, v59, OS_LOG_TYPE_INFO, "Skipping render as subdivision code computed an empty ROI", __p, 2u);
             }
 
-            v56 = object;
+            v60 = object;
             goto LABEL_122;
           }
 
           if (a4)
           {
-            v56 = object;
-            if ((atomic_load_explicit(&qword_1ED7C4568, memory_order_acquire) & 1) == 0)
+            v60 = object;
+            if ((atomic_load_explicit(byte_1ED7C4568, memory_order_acquire) & 1) == 0)
             {
               CI::Context::recursive_render(v16);
             }
 
-            CI::findProxyProgram(v6, &v118);
-            intermediate_for_node = v95;
-            if (v95)
+            CI::findProxyProgram(v6, &v136);
+            intermediate_for_node = v113;
+            if (v113)
             {
               goto LABEL_97;
             }
@@ -7420,98 +7491,103 @@ LABEL_13:
               }
 
 LABEL_97:
-              v95 = intermediate_for_node;
+              v113 = intermediate_for_node;
               if ((*(*intermediate_for_node + 8))(intermediate_for_node))
               {
-                if ((*(**(*v6 + 48) + 16))(*(*v6 + 48)) != 51 && !v99[23])
+                if ((*(**(*v6 + 48) + 16))(*(*v6 + 48)) != 51 && !*(v117 + 23))
                 {
-                  dispatch_retain(v56);
-                  dispatch_group_enter(v56);
-                  (*(*v98 + 48))(v98, v99, v120, v95, a5, v132);
+                  dispatch_retain(v60);
+                  dispatch_group_enter(v60);
+                  (*(*v116 + 48))(v116, v117, v138, v113, a5, v150);
                   if ((CI_PRINT_TREE_dump_intermediates() & 1) != 0 || (CI_PRINT_TREE_dump_raw_intermediates() & 1) != 0 || CI_PRINT_TREE_dump_bmtl_intermediates())
                   {
-                    v67 = (*(*v98 + 280))(v98);
-                    if (CI_PRINT_TREE_context(v67, (v98 + 236)) && (*(v98 + 152) == CI_PRINT_TREE_frame() || !CI_PRINT_TREE_frame()))
+                    v75 = (*(*v116 + 280))(v116);
+                    v76 = CI_PRINT_TREE_context(v75, v116 + 236);
+                    if (v76)
                     {
-                      v111 = *(v5 + 9);
-                      v68 = (*(*v95 + 32))(v95);
-                      v69 = *v68;
-                      v70 = v68[1];
-                      v71 = v68[2];
-                      v72 = v68[3];
-                      v73 = (**v95)(v95);
-                      RetainSurfaceFromCache(v73);
-                      RetainSurfaceFromCache(v73);
-                      if (CI::dump_intermediate_for_node(CI::ProgramNode const*,CI::intermediate_t const*,dispatch_group_s *)::onceToken != -1)
+                      v78 = CI_PRINT_TREE_frame(v76, v77);
+                      if (*(v116 + 19) == v78 || !CI_PRINT_TREE_frame(v78, v79))
                       {
-                        CI::Context::recursive_render();
-                      }
+                        v129 = *(v5 + 9);
+                        v80 = (*(*v113 + 32))(v113);
+                        v81 = *v80;
+                        v82 = v80[1];
+                        v83 = v80[2];
+                        v84 = v80[3];
+                        v85 = (**v113)(v113);
+                        RetainSurfaceFromCache(v85);
+                        RetainSurfaceFromCache(v85);
+                        if (CI::dump_intermediate_for_node(CI::ProgramNode const*,CI::intermediate_t const*,dispatch_group_s *)::onceToken != -1)
+                        {
+                          CI::Context::recursive_render();
+                        }
 
-                      is_deep = CI::format_is_deep(*(v5 + 35));
-                      v75 = CI::dump_intermediate_for_node(CI::ProgramNode const*,CI::intermediate_t const*,dispatch_group_s *)::sRGBLinear;
-                      v76 = CI::dump_intermediate_for_node(CI::ProgramNode const*,CI::intermediate_t const*,dispatch_group_s *)::sRGB;
-                      if (CI::ProgramNode::mainProgram(v5))
-                      {
-                        isa = CI::ProgramNode::mainProgram(v5)[7].isa;
-                      }
+                        is_deep = CI::format_is_deep(*(v5 + 35));
+                        v87 = CI::dump_intermediate_for_node(CI::ProgramNode const*,CI::intermediate_t const*,dispatch_group_s *)::sRGBLinear;
+                        v88 = CI::dump_intermediate_for_node(CI::ProgramNode const*,CI::intermediate_t const*,dispatch_group_s *)::sRGB;
+                        if (CI::ProgramNode::mainProgram(v5))
+                        {
+                          isa = CI::ProgramNode::mainProgram(v5)[7].isa;
+                        }
 
-                      else
-                      {
-                        isa = 0;
-                      }
+                        else
+                        {
+                          isa = 0;
+                        }
 
-                      *buf = 0;
-                      *&buf[8] = buf;
-                      v113 = 0x2000000000;
-                      if (isa)
-                      {
-                        v78 = isa;
-                      }
+                        *buf = 0;
+                        *&buf[8] = buf;
+                        v131 = 0x2000000000;
+                        if (isa)
+                        {
+                          v90 = isa;
+                        }
 
-                      else
-                      {
-                        v78 = "intermediate";
-                      }
+                        else
+                        {
+                          v90 = "intermediate";
+                        }
 
-                      v114 = strdup(v78);
-                      dispatch_retain(object);
-                      if (CI::Context::render_completion_queue(void)::onceToken != -1)
-                      {
-                        CI::Context::recursive_render();
-                      }
+                        v132 = strdup(v90);
+                        dispatch_retain(object);
+                        if (CI::Context::render_completion_queue(void)::onceToken != -1)
+                        {
+                          CI::Context::recursive_render();
+                        }
 
-                      if (is_deep)
-                      {
-                        v79 = v75;
-                      }
+                        if (is_deep)
+                        {
+                          v91 = v87;
+                        }
 
-                      else
-                      {
-                        v79 = v76;
-                      }
+                        else
+                        {
+                          v91 = v88;
+                        }
 
-                      *__p = MEMORY[0x1E69E9820];
-                      *&__p[8] = 0x40000000;
-                      *&__p[16] = ___ZN2CIL26dump_intermediate_for_nodeEPKNS_11ProgramNodeEPKNS_14intermediate_tEP16dispatch_group_s_block_invoke_2;
-                      *&__p[24] = &unk_1E75C4E28;
-                      v147 = v111;
-                      v148 = v69;
-                      v149 = v70;
-                      v150 = v71;
-                      v151 = v72;
-                      v141 = v73;
-                      v142 = v79;
-                      v143 = v69;
-                      v144 = v70;
-                      v145 = v71;
-                      v146 = v72;
-                      v56 = object;
-                      *(&v140 + 1) = object;
-                      *&v140 = buf;
-                      dispatch_async(CI::Context::render_completion_queue(void)::sRenderCompletionQueue, __p);
-                      _Block_object_dispose(buf, 8);
-                      v5 = v104;
-                      v16 = v30;
+                        *__p = MEMORY[0x1E69E9820];
+                        *&__p[8] = 0x40000000;
+                        *&__p[16] = ___ZN2CIL26dump_intermediate_for_nodeEPKNS_11ProgramNodeEPKNS_14intermediate_tEP16dispatch_group_s_block_invoke_2;
+                        *&__p[24] = &unk_1E75C4E28;
+                        v165 = v129;
+                        v166 = v81;
+                        v167 = v82;
+                        v168 = v83;
+                        v169 = v84;
+                        v159 = v85;
+                        v160 = v91;
+                        v161 = v81;
+                        v162 = v82;
+                        v163 = v83;
+                        v164 = v84;
+                        v60 = object;
+                        *(&v158 + 1) = object;
+                        *&v158 = buf;
+                        dispatch_async(CI::Context::render_completion_queue(void)::sRenderCompletionQueue, __p);
+                        _Block_object_dispose(buf, 8);
+                        v5 = v122;
+                        v16 = v30;
+                      }
                     }
                   }
                 }
@@ -7520,20 +7596,21 @@ LABEL_97:
 
             else
             {
-              if (CI_VERBOSE_SIGNPOSTS())
+              v62 = CI_VERBOSE_SIGNPOSTS();
+              if (v62)
               {
-                v58 = ci_signpost_log_render();
-                v59 = *(v5 + 9) | ((*(*v98 + 280))(v98) << 32);
-                if (v59 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v58))
+                v64 = ci_signpost_log_render(v62, v63);
+                v65 = *(v5 + 9) | ((*(*v116 + 280))(v116) << 32);
+                if (v65 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v64))
                 {
                   *__p = 0;
-                  _os_signpost_emit_with_name_impl(&dword_19CC36000, v58, OS_SIGNPOST_INTERVAL_BEGIN, v59, "create_intermediate", &unk_19CFBCBAE, __p, 2u);
+                  _os_signpost_emit_with_name_impl(&dword_19CC36000, v64, OS_SIGNPOST_INTERVAL_BEGIN, v65, "create_intermediate", &unk_19CFBCBAE, __p, 2u);
                 }
               }
 
-              v60 = (*(*v98 + 280))(v98);
-              TimerBase::TimerBase(__p, v60, *(v5 + 9), "create_intermediate", 9);
-              if (!CI::PixelFormatType_from_format(v137))
+              v66 = (*(*v116 + 280))(v116);
+              TimerBase::TimerBase(__p, v66, *(v5 + 9), "create_intermediate", 9u);
+              if (!CI::PixelFormatType_from_format(v155))
               {
                 CI::Context::recursive_render();
               }
@@ -7543,43 +7620,44 @@ LABEL_97:
                 CI::Context::recursive_render(&rect.size.width, &rect.size.height);
               }
 
-              v62 = v118;
-              v61 = v119;
-              if (v119 == v118)
+              v68 = v136;
+              v67 = v137;
+              if (v137 == v136)
               {
-                Destination = CI::Context::createDestination(v98, v16, v6, *(v98 + 32));
+                Destination = CI::Context::createDestination(v116, v16, v6, *(v116 + 8));
               }
 
               else
               {
                 do
                 {
-                  v63 = *v62++;
-                  *buf = v63;
-                  CI::Context::createDestination(v98, v16, buf, *(v98 + 32));
+                  v69 = *v68++;
+                  *buf = v69;
+                  CI::Context::createDestination(v116, v16, buf, *(v116 + 8));
                 }
 
-                while (v62 != v61);
+                while (v68 != v67);
                 Destination = qword_1ED7C4560;
               }
 
-              if (CI_VERBOSE_SIGNPOSTS())
+              v70 = CI_VERBOSE_SIGNPOSTS();
+              if (v70)
               {
-                v64 = ci_signpost_log_render();
-                v65 = *&__p[8];
+                v72 = ci_signpost_log_render(v70, v71);
+                v73 = *&__p[8];
                 if ((*&__p[8] - 1) <= 0xFFFFFFFFFFFFFFFDLL)
                 {
-                  v66 = v64;
-                  if (os_signpost_enabled(v64))
+                  v74 = v72;
+                  if (os_signpost_enabled(v72))
                   {
                     *buf = 0;
-                    _os_signpost_emit_with_name_impl(&dword_19CC36000, v66, OS_SIGNPOST_INTERVAL_END, v65, "create_intermediate", &unk_19CFBCBAE, buf, 2u);
+                    _os_signpost_emit_with_name_impl(&dword_19CC36000, v74, OS_SIGNPOST_INTERVAL_END, v73, "create_intermediate", &unk_19CFBCBAE, buf, 2u);
                   }
                 }
               }
 
-              TimerBase::~TimerBase(__p);
-              v56 = object;
+              TimerBase::~TimerBase(__p, v71);
+              v60 = object;
               intermediate_for_node = Destination;
               if (Destination)
               {
@@ -7593,32 +7671,32 @@ LABEL_94:
                 goto LABEL_97;
               }
 
-              CI::TileTask::setTaskError(v99, @"Render failed because of failure to allocate intermediate.");
-              v95 = 0;
+              CI::TileTask::setTaskError(v117, @"Render failed because of failure to allocate intermediate.");
+              v113 = 0;
             }
 
-            if (v118)
+            if (v136)
             {
-              v119 = v118;
-              operator delete(v118);
+              v137 = v136;
+              operator delete(v136);
             }
 
             goto LABEL_122;
           }
 
-          v56 = object;
-          if (!v99[23])
+          v60 = object;
+          if (!*(v117 + 23))
           {
             dispatch_retain(object);
             dispatch_group_enter(object);
-            dispatch_retain(v94);
-            v56 = object;
-            dispatch_group_enter(v94);
-            (*(*v98 + 40))(v98, v99, v120, v136, v132);
+            dispatch_retain(v112);
+            v60 = object;
+            dispatch_group_enter(v112);
+            (*(*v116 + 40))(v116, v117, v138, v154, v150);
           }
 
 LABEL_122:
-          dispatch_retain(v56);
+          dispatch_retain(v60);
           if (CI::Context::render_completion_queue(void)::onceToken != -1)
           {
             CI::Context::recursive_render();
@@ -7628,118 +7706,121 @@ LABEL_122:
           block[1] = 0x40000000;
           block[2] = ___ZN2CI7Context16recursive_renderEPNS_8TileTaskERKNS_6roiKeyEPKNS_4NodeEb_block_invoke_11;
           block[3] = &__block_descriptor_tmp_12_1;
-          block[4] = v56;
-          block[5] = v98;
+          block[4] = v60;
+          block[5] = v116;
           dispatch_async(CI::Context::render_completion_queue(void)::sRenderCompletionQueue, block);
-          if (CI_VERBOSE_SIGNPOSTS())
+          v92 = CI_VERBOSE_SIGNPOSTS();
+          if (v92)
           {
-            v80 = ci_signpost_log_render();
-            v81 = *(v5 + 9) | ((*(*v98 + 280))(v98) << 32);
-            if (v81 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v80))
+            v94 = ci_signpost_log_render(v92, v93);
+            v95 = *(v5 + 9) | ((*(*v116 + 280))(v116) << 32);
+            if (v95 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v94))
             {
               *__p = 0;
-              _os_signpost_emit_with_name_impl(&dword_19CC36000, v80, OS_SIGNPOST_INTERVAL_BEGIN, v81, "remove_parentROI", &unk_19CFBCBAE, __p, 2u);
+              _os_signpost_emit_with_name_impl(&dword_19CC36000, v94, OS_SIGNPOST_INTERVAL_BEGIN, v95, "remove_parentROI", &unk_19CFBCBAE, __p, 2u);
             }
           }
 
-          v82 = (*(*v98 + 280))(v98);
-          TimerBase::TimerBase(__p, v82, *(v5 + 9), "remove_parentROI", 0);
-          v83 = v130;
-          if (v130 != v131)
+          v96 = (*(*v116 + 280))(v116);
+          TimerBase::TimerBase(__p, v96, *(v5 + 9), "remove_parentROI", 0);
+          v97 = v148;
+          if (v148 != v149)
           {
             do
             {
-              CI::TextureManager::remove_from_pending(v16, (v83 + 4));
-              v84 = (*(*v5 + 48))(v5, *(v83 + 12));
-              v85 = *(v83 + 12);
+              CI::TextureManager::remove_from_pending(v16, (v97 + 4));
+              v98 = (*(*v5 + 48))(v5, *(v97 + 12));
+              v99 = *(v97 + 12);
               *buf = v5;
-              *&buf[8] = v102;
-              *&buf[12] = v109;
-              v113 = __PAIR64__(v108, v85);
-              v114 = 0;
-              v115 = 0;
-              v116 = 0;
-              CI::Node::remove_parentROI(v84, buf, (v83 + 4), v16, object);
-              v86 = v83[1];
-              if (v86)
+              *&buf[8] = v120;
+              *&buf[12] = v127;
+              v131 = __PAIR64__(v126, v99);
+              v132 = 0;
+              v133 = 0;
+              v134 = 0;
+              CI::Node::remove_parentROI(v98, buf, v97 + 4, v16, object);
+              v100 = v97[1];
+              if (v100)
               {
                 do
                 {
-                  v87 = v86;
-                  v86 = *v86;
+                  v101 = v100;
+                  v100 = *v100;
                 }
 
-                while (v86);
+                while (v100);
               }
 
               else
               {
                 do
                 {
-                  v87 = v83[2];
-                  v47 = *v87 == v83;
-                  v83 = v87;
+                  v101 = v97[2];
+                  v47 = *v101 == v97;
+                  v97 = v101;
                 }
 
                 while (!v47);
               }
 
-              v83 = v87;
+              v97 = v101;
             }
 
-            while (v87 != v131);
+            while (v101 != v149);
           }
 
-          if (CI_VERBOSE_SIGNPOSTS())
+          v102 = CI_VERBOSE_SIGNPOSTS();
+          if (v102)
           {
-            v88 = ci_signpost_log_render();
-            v89 = *&__p[8];
+            v104 = ci_signpost_log_render(v102, v103);
+            v105 = *&__p[8];
             if ((*&__p[8] - 1) <= 0xFFFFFFFFFFFFFFFDLL)
             {
-              v90 = v88;
-              if (os_signpost_enabled(v88))
+              v106 = v104;
+              if (os_signpost_enabled(v104))
               {
                 *buf = 0;
-                _os_signpost_emit_with_name_impl(&dword_19CC36000, v90, OS_SIGNPOST_INTERVAL_END, v89, "remove_parentROI", &unk_19CFBCBAE, buf, 2u);
+                _os_signpost_emit_with_name_impl(&dword_19CC36000, v106, OS_SIGNPOST_INTERVAL_END, v105, "remove_parentROI", &unk_19CFBCBAE, buf, 2u);
               }
             }
           }
 
-          TimerBase::~TimerBase(__p);
+          TimerBase::~TimerBase(__p, v103);
           dispatch_release(object);
-          if (CI_VERBOSE_SIGNPOSTS())
+          v107 = CI_VERBOSE_SIGNPOSTS();
+          if (v107)
           {
-            v91 = ci_signpost_log_render();
-            v92 = v127;
-            if (v127 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+            v109 = ci_signpost_log_render(v107, v108);
+            v110 = v145;
+            if (v145 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
             {
-              v93 = v91;
-              if (os_signpost_enabled(v91))
+              v111 = v109;
+              if (os_signpost_enabled(v109))
               {
                 *__p = 0;
-                _os_signpost_emit_with_name_impl(&dword_19CC36000, v93, OS_SIGNPOST_INTERVAL_END, v92, "render_quad", &unk_19CFBCBAE, __p, 2u);
+                _os_signpost_emit_with_name_impl(&dword_19CC36000, v111, OS_SIGNPOST_INTERVAL_END, v110, "render_quad", &unk_19CFBCBAE, __p, 2u);
               }
             }
           }
 
-          ++v108;
-          TimerBase::~TimerBase(&v126);
-          std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::destroy(&v128, v129[0]);
-          std::__tree<CI::Context::recursive_render(CI::TileTask *,CI::roiKey const&,CI::Node const*,BOOL)::childKey,CI::Context::recursive_render(CI::TileTask *,CI::roiKey const&,CI::Node const*,BOOL)::compareDepth,std::allocator<CI::Context::recursive_render(CI::TileTask *,CI::roiKey const&,CI::Node const*,BOOL)::childKey>>::destroy(v131[0]);
-          v31 = v107 - 1;
+          ++v126;
+          TimerBase::~TimerBase(&v144, v108);
+          std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::destroy(&v146, v147[0]);
+          std::__tree<CI::Context::recursive_render(CI::TileTask *,CI::roiKey const&,CI::Node const*,BOOL)::childKey,CI::Context::recursive_render(CI::TileTask *,CI::roiKey const&,CI::Node const*,BOOL)::compareDepth,std::allocator<CI::Context::recursive_render(CI::TileTask *,CI::roiKey const&,CI::Node const*,BOOL)::childKey>>::destroy(v149[0]);
+          v31 = v125 - 1;
         }
 
-        while (v107 > 1);
-        v29 = v133;
-        ++v109;
+        while (v125 > 1);
+        v29 = v151;
+        ++v127;
       }
 
-      while (v109 < (v134 - v133) >> 5);
+      while (v127 < (v152 - v151) >> 5);
     }
 
     if (v29)
     {
-      v134 = v29;
+      v152 = v29;
       operator delete(v29);
     }
   }
@@ -7993,7 +8074,7 @@ uint64_t CI::Context::render_processor_node(CI::Context *this, CI::TileTask *a2,
         v19 = (*(*this + 112))(this);
         v20 = (*(*this + 112))(this);
         empty_surface = CI::TextureManager::get_empty_surface(v20);
-        CI::TextureManager::intermediate(v19, empty_surface, MEMORY[0x1E695F050]);
+        CI::TextureManager::intermediate(v19, empty_surface, MEMORY[0x1E695F050], 0, 0, 0);
       }
     }
   }
@@ -8263,98 +8344,99 @@ LABEL_46:
   return SurfaceFromCache;
 }
 
-uint64_t CI::Context::bind_sampler(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, CI::TileTask *a6)
+__IOSurface *CI::Context::bind_sampler(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, CI::TileTask *a6)
 {
   v12 = (*(*a1 + 112))(a1);
   v13 = *(a2 + 24);
-  v73.origin.x = CI::Node::roi(*a3, *(a3 + 8));
-  v73.origin.y = v14;
-  v73.size.width = v15;
-  v73.size.height = v16;
-  v71 = 0.0;
-  v72 = 0;
-  if (CI_VERBOSE_SIGNPOSTS())
+  v77.origin.x = CI::Node::roi(*a3, *(a3 + 8));
+  v77.origin.y = v14;
+  v77.size.width = v15;
+  v77.size.height = v16;
+  v75 = 0.0;
+  v76 = 0;
+  v17 = CI_VERBOSE_SIGNPOSTS();
+  if (v17)
   {
-    v17 = ci_signpost_log_render();
-    v18 = *(v13 + 36) | ((*(*a1 + 280))(a1) << 32);
-    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+    v19 = ci_signpost_log_render(v17, v18);
+    v20 = *(v13 + 36) | ((*(*a1 + 280))(a1) << 32);
+    if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
     {
-      *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v18, "bind_sampler", &unk_19CFBCBAE, buf, 2u);
+      LOWORD(buf) = 0;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v20, "bind_sampler", &unk_19CFBCBAE, &buf, 2u);
     }
   }
 
-  v19 = (*(*a1 + 280))(a1);
-  TimerBase::TimerBase(buf, v19, *(v13 + 36), "bind_sampler", 0);
-  if (CGRectIsEmpty(v73))
+  v21 = (*(*a1 + 280))(a1);
+  TimerBase::TimerBase(&buf, v21, *(v13 + 36), "bind_sampler", 0);
+  if (CGRectIsEmpty(v77))
   {
     goto LABEL_70;
   }
 
-  v20 = (*(*v13 + 16))(v13);
-  v21 = 0;
-  if (v20 <= 53)
+  v22 = (*(*v13 + 16))(v13);
+  v23 = 0;
+  if (v22 <= 53)
   {
-    if (v20 != 35)
+    if (v22 != 35)
     {
-      if (v20 == 52)
+      if (v22 == 52)
       {
         if (CI::CI_ASSEMBLE_INPUT_TILES(void)::didCheck != -1)
         {
           CI::Context::bind_sampler();
         }
 
-        if (CI::CI_ASSEMBLE_INPUT_TILES(void)::v && ((v24 = *(v13 + 64), v23 = *(v13 + 72), v24 == v23) ? (v25 = 0, v28 = 0) : (v25 = 0xAAAAAAAAAAAAAAABLL * (v23 - v24), v27 = *v24, v26 = v24[1], v27 != v26) ? (v28 = 0xAAAAAAAAAAAAAAABLL * ((v26 - v27) >> 3)) : (v28 = 0), v28 * v25 >= 2))
+        if (CI::CI_ASSEMBLE_INPUT_TILES(void)::v && ((v26 = *(v13 + 64), v25 = *(v13 + 72), v26 == v25) ? (v27 = 0, v30 = 0) : (v27 = 0xAAAAAAAAAAAAAAABLL * (v25 - v26), v29 = *v26, v28 = v26[1], v29 != v28) ? (v30 = 0xAAAAAAAAAAAAAAABLL * ((v28 - v29) >> 3)) : (v30 = 0), v30 * v27 >= 2))
         {
-          x = v73.origin.x;
-          y = v73.origin.y;
-          width = v73.size.width;
-          height = v73.size.height;
-          if (CGRectIsNull(v73))
+          x = v77.origin.x;
+          y = v77.origin.y;
+          width = v77.size.width;
+          height = v77.size.height;
+          if (CGRectIsNull(v77))
           {
-            v68 = 0;
+            v72 = 0;
             *buffer = IRectNull;
           }
 
           else
           {
-            v75.origin.x = x;
-            v75.origin.y = y;
-            v75.size.width = width;
-            v75.size.height = height;
-            if (CGRectIsInfinite(v75))
+            v79.origin.x = x;
+            v79.origin.y = y;
+            v79.size.width = width;
+            v79.size.height = height;
+            if (CGRectIsInfinite(v79))
             {
               *buffer = IRectInfinite;
-              v68 = 0xFFFFFFFFLL;
+              v72 = 0xFFFFFFFFLL;
             }
 
             else
             {
-              v79.origin.x = x;
-              v79.origin.y = y;
-              v79.size.width = width;
-              v79.size.height = height;
-              v80 = CGRectInset(v79, 0.000001, 0.000001);
-              v81 = CGRectIntegral(v80);
-              LODWORD(buffer[0]) = v81.origin.x;
-              HIDWORD(buffer[0]) = v81.origin.y;
-              buffer[1] = v81.size.width;
-              v68 = v81.size.height;
+              v83.origin.x = x;
+              v83.origin.y = y;
+              v83.size.width = width;
+              v83.size.height = height;
+              v84 = CGRectInset(v83, 0.000001, 0.000001);
+              v85 = CGRectIntegral(v84);
+              LODWORD(buffer[0]) = v85.origin.x;
+              HIDWORD(buffer[0]) = v85.origin.y;
+              buffer[1] = v85.size.width;
+              v72 = v85.size.height;
             }
           }
 
-          v57 = (*(*v13 + 456))(v13, a1[19]);
-          v51 = CI::Context::assemble_leafTiles(a1, (v13 + 56), buffer, v57, v58, &v71);
           v59 = (*(*v13 + 456))(v13, a1[19]);
-          CI::TileTask::addAssembledIntermediate(a6, v13, v59, v73);
+          v53 = CI::Context::assemble_leafTiles(a1, (v13 + 56), buffer, v59, v60, &v75);
+          v61 = (*(*v13 + 456))(v13, a1[19]);
+          CI::TileTask::addAssembledIntermediate(a6, v13, v61, v77);
         }
 
         else
         {
-          v51 = CI::ProviderNode::surfaceForROI(v13, a1, &v73.origin.x, &v71);
+          v53 = CI::ProviderNode::surfaceForROI(v13, a1, &v77.origin.x, &v75);
         }
 
-        CI::TextureManager::intermediate(v12, v51, &v73);
+        CI::TextureManager::intermediate(v12, v53, &v77, 2uLL, 0, 1);
       }
 
       goto LABEL_69;
@@ -8365,95 +8447,95 @@ uint64_t CI::Context::bind_sampler(void *a1, uint64_t a2, uint64_t a3, uint64_t 
       CI::Context::bind_sampler();
     }
 
-    if (CI::CI_ASSEMBLE_INPUT_TILES(void)::v && ((v34 = *(v13 + 64), v33 = *(v13 + 72), v34 == v33) ? (v35 = 0, v38 = 0) : (v35 = 0xAAAAAAAAAAAAAAABLL * (v33 - v34), v37 = *v34, v36 = v34[1], v37 != v36) ? (v38 = 0xAAAAAAAAAAAAAAABLL * ((v36 - v37) >> 3)) : (v38 = 0), v38 * v35 >= 2 && ((v42 = v73.origin.x, v43 = v73.origin.y, v44 = v73.size.width, v45 = v73.size.height, !CGRectIsNull(v73)) ? ((v74.origin.x = v42, v74.origin.y = v43, v74.size.width = v44, v74.size.height = v45, !CGRectIsInfinite(v74)) ? (v76.origin.x = v42, v76.origin.y = v43, v76.size.width = v44, v76.size.height = v45, v77 = CGRectInset(v76, 0.000001, 0.000001), v78 = CGRectIntegral(v77), LODWORD(buffer[0]) = v78.origin.x, HIDWORD(buffer[0]) = v78.origin.y, buffer[1] = v78.size.width, v68 = v78.size.height) : (*buffer = IRectInfinite, v68 = 0xFFFFFFFFLL)) : (v68 = 0, *buffer = IRectNull), v52 = (*(*(v13 + 56) + 24))(v13 + 56, 0), (v54 = CI::Context::assemble_leafTiles(a1, (v13 + 56), buffer, v52, v53, &v71)) != 0)))
+    if (CI::CI_ASSEMBLE_INPUT_TILES(void)::v && ((v36 = *(v13 + 64), v35 = *(v13 + 72), v36 == v35) ? (v37 = 0, v40 = 0) : (v37 = 0xAAAAAAAAAAAAAAABLL * (v35 - v36), v39 = *v36, v38 = v36[1], v39 != v38) ? (v40 = 0xAAAAAAAAAAAAAAABLL * ((v38 - v39) >> 3)) : (v40 = 0), v40 * v37 >= 2 && ((v44 = v77.origin.x, v45 = v77.origin.y, v46 = v77.size.width, v47 = v77.size.height, !CGRectIsNull(v77)) ? ((v78.origin.x = v44, v78.origin.y = v45, v78.size.width = v46, v78.size.height = v47, !CGRectIsInfinite(v78)) ? (v80.origin.x = v44, v80.origin.y = v45, v80.size.width = v46, v80.size.height = v47, v81 = CGRectInset(v80, 0.000001, 0.000001), v82 = CGRectIntegral(v81), LODWORD(buffer[0]) = v82.origin.x, HIDWORD(buffer[0]) = v82.origin.y, buffer[1] = v82.size.width, v72 = v82.size.height) : (*buffer = IRectInfinite, v72 = 0xFFFFFFFFLL)) : (v72 = 0, *buffer = IRectNull), v54 = (*(*(v13 + 56) + 24))(v13 + 56, 0), (v56 = CI::Context::assemble_leafTiles(a1, (v13 + 56), buffer, v54, v55, &v75)) != 0)))
     {
-      v46 = v54;
-      CFRetain(v54);
-      v55 = (*(*(v13 + 56) + 24))(v13 + 56, 0);
-      CI::TileTask::addAssembledIntermediate(a6, v13, v55, v73);
+      v48 = v56;
+      CFRetain(v56);
+      v57 = (*(*(v13 + 56) + 24))(v13 + 56, 0);
+      CI::TileTask::addAssembledIntermediate(a6, v13, v57, v77);
     }
 
     else
     {
-      CI::CGNode::surfaceForROI(v13, a1, &v73.origin.x, &v71, buffer);
-      v46 = buffer[0];
+      CI::CGNode::surfaceForROI(v13, a1, &v77.origin.x, &v75, buffer);
+      v48 = buffer[0];
       if (!buffer[0])
       {
 LABEL_59:
-        CI::CGNode::cgImageForROI(v13, &v73, buffer);
-        v21 = (*(*a1 + 56))(a1, buffer[0], v13 + 48, *(a2 + 120), *(a2 + 124), a4);
-        v56 = buffer[0];
+        CI::CGNode::cgImageForROI(buffer, v13, &v77);
+        v23 = (*(*a1 + 56))(a1, buffer[0], v13 + 48, *(a2 + 120), *(a2 + 124), a4);
+        v58 = buffer[0];
         buffer[0] = 0;
-        if (v56)
+        if (v58)
         {
-          CFRelease(v56);
+          CFRelease(v58);
         }
 
-        if (!v46)
+        if (!v48)
         {
           goto LABEL_69;
         }
 
-        v40 = v46;
+        v42 = v48;
 LABEL_63:
-        CFRelease(v40);
+        CFRelease(v42);
         goto LABEL_69;
       }
     }
 
-    if (IOSurfaceGetPlaneCount(v46) <= 1)
+    if (IOSurfaceGetPlaneCount(v48) <= 1)
     {
-      CI::TextureManager::intermediate(v12, v46, &v73);
+      CI::TextureManager::intermediate(v12, v48, &v77, 2uLL, 0, 1);
     }
 
     goto LABEL_59;
   }
 
-  switch(v20)
+  switch(v22)
   {
     case '6':
       if (a5 == 3)
       {
-        v39 = 1;
+        v41 = 1;
       }
 
       else
       {
-        v39 = *(a2 + 124);
+        v41 = *(a2 + 124);
       }
 
-      CI::SurfaceNode::surfaceForROI(v13, a1, &v71, buffer, v73.origin.x, v73.origin.y, v73.size.width, v73.size.height);
-      v21 = (*(*a1 + 64))(a1, buffer[0], v13 + 48, *(v13 + 106), *(a2 + 120), v39, a5 == 4, a4, a5 == 3);
-      v40 = buffer[0];
+      CI::SurfaceNode::surfaceForROI(v13, a1, &v75, buffer, v77.origin.x, v77.origin.y, v77.size.width, v77.size.height);
+      v23 = (*(*a1 + 64))(a1, buffer[0], v13 + 48, *(v13 + 106), *(a2 + 120), v41, a5 == 4, a4, a5 == 3);
+      v42 = buffer[0];
       buffer[0] = 0;
-      if (!v40)
+      if (!v42)
       {
         break;
       }
 
       goto LABEL_63;
     case '8':
-      v29 = (*(*v13 + 440))(v13);
-      v30 = *v13;
-      if (v29)
+      v31 = (*(*v13 + 440))(v13);
+      v32 = *v13;
+      if (v31)
       {
-        v31 = (*(v30 + 440))(v13);
-        v32 = (*(*a1 + 72))(a1, v31, *(v13 + 52), *(a2 + 120), *(a2 + 124), a4);
+        v33 = (*(v32 + 440))(v13);
+        v34 = (*(*a1 + 72))(a1, v33, *(v13 + 52), *(a2 + 120), *(a2 + 124), a4);
       }
 
       else
       {
-        if (!(*(v30 + 448))(v13))
+        if (!(*(v32 + 448))(v13))
         {
-          v21 = 0;
+          v23 = 0;
           break;
         }
 
-        v41 = (*(*v13 + 448))(v13);
-        v32 = (*(*a1 + 80))(a1, v41, *(a2 + 120), *(a2 + 124), 0, a4);
+        v43 = (*(*v13 + 448))(v13);
+        v34 = (*(*a1 + 80))(a1, v43, *(a2 + 120), *(a2 + 124), 0, a4);
       }
 
-      v21 = v32;
+      v23 = v34;
       break;
     case '<':
       intermediate_for_node = CI::TextureManager::get_intermediate_for_node(v12, a3);
@@ -8462,16 +8544,16 @@ LABEL_63:
         (*(*v12 + 72))(v12, intermediate_for_node);
       }
 
-      (*(*intermediate_for_node + 24))(v66, intermediate_for_node);
-      v21 = (*(*a1 + 88))(a1, v66, *(a2 + 120), *(a2 + 124), a4);
-      v66[0] = 0;
-      v66[1] = 0;
+      (*(*intermediate_for_node + 24))(v70, intermediate_for_node);
+      v23 = (*(*a1 + 88))(a1, v70, *(a2 + 120), *(a2 + 124), a4);
+      v70[0] = 0;
+      v70[1] = 0;
       break;
   }
 
 LABEL_69:
-  CI::TileTask::incrementFillTimeForNode(a6, v13, v71);
-  CI::TileTask::incrementFillPixelsForNode(a6, v13, v72);
+  CI::TileTask::incrementFillTimeForNode(a6, v13, v75);
+  CI::TileTask::incrementFillPixelsForNode(a6, v13, v76);
   if (CI_LIMIT_SAMPLERS())
   {
 LABEL_70:
@@ -8479,26 +8561,27 @@ LABEL_70:
     PixelFormat = IOSurfaceGetPixelFormat(empty_surface);
     LODWORD(buffer[0]) = CI::format_from_PixelFormatType(PixelFormat);
     WORD2(buffer[0]) = 0;
-    v21 = (*(*a1 + 64))(a1, empty_surface, buffer, 0, *(a2 + 120), *(a2 + 124), 0, a4, 0);
+    v23 = (*(*a1 + 64))(a1, empty_surface, buffer, 0, *(a2 + 120), *(a2 + 124), 0, a4, 0);
   }
 
-  if (CI_VERBOSE_SIGNPOSTS())
+  v64 = CI_VERBOSE_SIGNPOSTS();
+  if (v64)
   {
-    v62 = ci_signpost_log_render();
-    v63 = v70;
-    if (v70 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v66 = ci_signpost_log_render(v64, v65);
+    v67 = v74;
+    if (v74 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v64 = v62;
-      if (os_signpost_enabled(v62))
+      v68 = v66;
+      if (os_signpost_enabled(v66))
       {
         LOWORD(buffer[0]) = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v64, OS_SIGNPOST_INTERVAL_END, v63, "bind_sampler", &unk_19CFBCBAE, buffer, 2u);
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v68, OS_SIGNPOST_INTERVAL_END, v67, "bind_sampler", &unk_19CFBCBAE, buffer, 2u);
       }
     }
   }
 
-  TimerBase::~TimerBase(buf);
-  return v21;
+  TimerBase::~TimerBase(&buf, v65);
+  return v23;
 }
 
 uint64_t CI::Context::kernel_argument_size(uint64_t a1, int a2)
@@ -8586,7 +8669,7 @@ BOOL CI::Context::format_is_supported_for_output(uint64_t a1, uint64_t a2, int a
   v9[4] = a1;
   v10 = a3;
   CI::format_swizzle_for_output(a2, &v11, v7, v9, v13);
-  return v13[0] != 0;
+  return LODWORD(v13[0]) != 0;
 }
 
 uint64_t CI::Context::swizzler_for_input(uint64_t a1, uint64_t a2)
@@ -8611,7 +8694,7 @@ BOOL CI::Context::converter_for_input(uint64_t a1, uint64_t a2, _DWORD *a3)
   return v4 != 0;
 }
 
-void CI::Context::swizzler_for_output(uint64_t a1@<X0>, uint64_t a2@<X1>, __int128 *a3@<X2>, int a4@<W3>, uint64_t a5@<X8>)
+void CI::Context::swizzler_for_output(uint64_t a1@<X0>, uint64_t a2@<X1>, __int128 *a3@<X2>, int a4@<W3>, void *a5@<X8>)
 {
   v12 = *a3;
   v13 = *(a3 + 2);
@@ -8711,16 +8794,16 @@ void CI::Context::updateWorkingSpace(CGColorSpaceRef *this, CGColorSpaceRef spac
   }
 }
 
-CGColorSpaceRef ___ZN2CI7Context19defaultWorkingSpaceEv_block_invoke()
+CGColorSpaceRef ___ZN2CI7Context19defaultWorkingSpaceEv_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = dyld_program_sdk_at_least();
-  v1 = MEMORY[0x1E695F108];
-  if (!v0)
+  v2 = dyld_program_sdk_at_least();
+  v3 = MEMORY[0x1E695F108];
+  if (!v2)
   {
-    v1 = MEMORY[0x1E695F1B0];
+    v3 = MEMORY[0x1E695F1B0];
   }
 
-  result = CGColorSpaceCreateWithName(*v1);
+  result = CGColorSpaceCreateWithName(*v3);
   CI::Context::defaultWorkingSpace(void)::space = result;
   return result;
 }
@@ -8838,8 +8921,8 @@ void CI::SerialRectArray::recurseSubdivide(double *a1, int a2, uint64_t a3)
       v25 = *a1;
       *(&v25 + 1) = v29 + *(&v25 + 1);
       *(&v26 + 1) = v9 - v29;
-      v13 = (a2 >> 1);
-      CI::SerialRectArray::recurseSubdivide(&v25, v13, a3);
+      v13 = a2 >> 1;
+      CI::SerialRectArray::recurseSubdivide(&v25, a2 >> 1, a3);
       v14 = &v27;
     }
 
@@ -8855,8 +8938,8 @@ void CI::SerialRectArray::recurseSubdivide(double *a1, int a2, uint64_t a3)
       *(&v26 + 1) = *(&v12 + 1);
       *&v25 = v28 + *&v25;
       *&v26 = v10 - v28;
-      v13 = (a2 >> 1);
-      CI::SerialRectArray::recurseSubdivide(&v27, v13, a3);
+      v13 = a2 >> 1;
+      CI::SerialRectArray::recurseSubdivide(&v27, a2 >> 1, a3);
       v14 = &v25;
     }
 
@@ -8897,7 +8980,7 @@ uint64_t ___ZN2CIL26dump_intermediate_for_nodeEPKNS_11ProgramNodeEPKNS_14interme
 
 void ___ZN2CIL26dump_intermediate_for_nodeEPKNS_11ProgramNodeEPKNS_14intermediate_tEP16dispatch_group_s_block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dispatch_group_wait(*(a1 + 40), 0xFFFFFFFFFFFFFFFFLL);
   dispatch_release(*(a1 + 40));
   if (CI::dump_intermediate_for_node(CI::ProgramNode const*,CI::intermediate_t const*,dispatch_group_s *)::dumpPngImages == 1)
@@ -8905,56 +8988,59 @@ void ___ZN2CIL26dump_intermediate_for_nodeEPKNS_11ProgramNodeEPKNS_14intermediat
     v2 = CI_TEMP_DIR();
     v3 = getpid();
     snprintf(__str, 0x100uLL, "%s/%d_intermediate_%d_%d_%d_%d_%d.png", v2, v3, *(a1 + 96), *(a1 + 100), *(a1 + 104), *(a1 + 108), *(a1 + 112));
-    if (SurfaceCroppedWriteToFile(*(a1 + 48), *(a1 + 56), __str, *(a1 + 80), *(a1 + 88)))
+    v4 = SurfaceCroppedWriteToFile(*(a1 + 48), *(a1 + 56), __str, *(a1 + 80), *(a1 + 88));
+    if (v4)
     {
-      v4 = ci_logger_render();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = ci_logger_render(v4, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v13 = __str;
-        _os_log_impl(&dword_19CC36000, v4, OS_LOG_TYPE_DEFAULT, "Dumped intermediate to: %{public}s\n", buf, 0xCu);
+        v19 = __str;
+        _os_log_impl(&dword_19CC36000, v6, OS_LOG_TYPE_DEFAULT, "Dumped intermediate to: %{public}s\n", buf, 0xCu);
       }
     }
   }
 
   if (CI::dump_intermediate_for_node(CI::ProgramNode const*,CI::intermediate_t const*,dispatch_group_s *)::dumpRawImages == 1)
   {
-    v5 = CI_TEMP_DIR();
-    v6 = getpid();
-    snprintf(__str, 0x100uLL, "%s/%d_intermediate_%d_%d_%d_%d_%d.raw", v5, v6, *(a1 + 96), *(a1 + 100), *(a1 + 104), *(a1 + 108), *(a1 + 112));
-    if (SurfaceCroppedWriteRawToFile(*(a1 + 48), __str, *(a1 + 80), *(a1 + 88)))
+    v7 = CI_TEMP_DIR();
+    v8 = getpid();
+    snprintf(__str, 0x100uLL, "%s/%d_intermediate_%d_%d_%d_%d_%d.raw", v7, v8, *(a1 + 96), *(a1 + 100), *(a1 + 104), *(a1 + 108), *(a1 + 112));
+    v9 = SurfaceCroppedWriteRawToFile(*(a1 + 48), __str, *(a1 + 80), *(a1 + 88));
+    if (v9)
     {
-      v7 = ci_logger_render();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v11 = ci_logger_render(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v13 = __str;
-        _os_log_impl(&dword_19CC36000, v7, OS_LOG_TYPE_DEFAULT, "Dumped raw intermediate to: %{public}s\n", buf, 0xCu);
+        v19 = __str;
+        _os_log_impl(&dword_19CC36000, v11, OS_LOG_TYPE_DEFAULT, "Dumped raw intermediate to: %{public}s\n", buf, 0xCu);
       }
     }
   }
 
   if (CI::dump_intermediate_for_node(CI::ProgramNode const*,CI::intermediate_t const*,dispatch_group_s *)::dumpBmtlImages == 1)
   {
-    v8 = CI_TEMP_DIR();
-    v9 = getpid();
-    snprintf(__str, 0x100uLL, "%s/%d_%s_%d_%d_%d_%d_%d.bmtl", v8, v9, *(*(*(a1 + 32) + 8) + 24), *(a1 + 96), *(a1 + 100), *(a1 + 104), *(a1 + 108), *(a1 + 112));
-    if (SurfaceCroppedWriteBmtlToFile(*(a1 + 48), __str, *(a1 + 80), *(a1 + 88)))
+    v12 = CI_TEMP_DIR();
+    v13 = getpid();
+    snprintf(__str, 0x100uLL, "%s/%d_%s_%d_%d_%d_%d_%d.bmtl", v12, v13, *(*(*(a1 + 32) + 8) + 24), *(a1 + 96), *(a1 + 100), *(a1 + 104), *(a1 + 108), *(a1 + 112));
+    v14 = SurfaceCroppedWriteBmtlToFile(*(a1 + 48), __str, *(a1 + 80), *(a1 + 88));
+    if (v14)
     {
-      v10 = ci_logger_render();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v16 = ci_logger_render(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v13 = __str;
-        _os_log_impl(&dword_19CC36000, v10, OS_LOG_TYPE_DEFAULT, "Dumped bmtl intermediate to: %{public}s\n", buf, 0xCu);
+        v19 = __str;
+        _os_log_impl(&dword_19CC36000, v16, OS_LOG_TYPE_DEFAULT, "Dumped bmtl intermediate to: %{public}s\n", buf, 0xCu);
       }
     }
   }
 
-  v11 = *(*(*(a1 + 32) + 8) + 24);
-  if (v11)
+  v17 = *(*(*(a1 + 32) + 8) + 24);
+  if (v17)
   {
-    free(v11);
+    free(v17);
     *(*(*(a1 + 32) + 8) + 24) = 0;
   }
 
@@ -8962,7 +9048,7 @@ void ___ZN2CIL26dump_intermediate_for_nodeEPKNS_11ProgramNodeEPKNS_14intermediat
   ReturnSurfaceToCache(*(a1 + 48));
 }
 
-void std::vector<CI::intermediate_t const*>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<CI::intermediate_t const*>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -9027,22 +9113,22 @@ uint64_t CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::~ObjectCache(
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::__unordered_map_hasher<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::hash<CI::ProgramDigest>,std::equal_to<CI::ProgramDigest>,true>,std::__unordered_map_equal<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::equal_to<CI::ProgramDigest>,std::hash<CI::ProgramDigest>,true>,std::allocator<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>>>::clear(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::__unordered_map_hasher<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::hash<CI::ProgramDigest>,std::equal_to<CI::ProgramDigest>,true>,std::__unordered_map_equal<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::equal_to<CI::ProgramDigest>,std::hash<CI::ProgramDigest>,true>,std::allocator<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::__unordered_map_hasher<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::hash<CI::ProgramDigest>,std::equal_to<CI::ProgramDigest>,true>,std::__unordered_map_equal<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::equal_to<CI::ProgramDigest>,std::hash<CI::ProgramDigest>,true>,std::allocator<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::__unordered_map_hasher<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::hash<CI::ProgramDigest>,std::equal_to<CI::ProgramDigest>,true>,std::__unordered_map_equal<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::equal_to<CI::ProgramDigest>,std::hash<CI::ProgramDigest>,true>,std::allocator<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -9054,7 +9140,7 @@ void std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<
     do
     {
       v3 = *v2;
-      CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry::~Entry((v2 + 3));
+      CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry::~Entry((v2 + 3), a2);
       operator delete(v2);
       v2 = v3;
     }
@@ -9063,24 +9149,24 @@ void std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<
   }
 }
 
-uint64_t CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry::~Entry(uint64_t a1)
+uint64_t CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry::~Entry(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 16) == 1)
   {
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 0x40000000;
-    v4[2] = ___ZN2CI11ObjectCacheINS_11MainProgramENS_13ProgramDigestELb0EE5EntryD2Ev_block_invoke;
-    v4[3] = &__block_descriptor_tmp_105;
-    v4[4] = a1;
-    CI::Object::performDeferredRoot(v4);
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 0x40000000;
+    v5[2] = ___ZN2CI11ObjectCacheINS_11MainProgramENS_13ProgramDigestELb0EE5EntryD2Ev_block_invoke;
+    v5[3] = &__block_descriptor_tmp_105;
+    v5[4] = a1;
+    CI::Object::performDeferredRoot(v5);
   }
 
   else
   {
-    v2 = *a1;
+    v3 = *a1;
     if (*a1)
     {
-      CI::Object::unref(v2);
+      CI::Object::unref(v3);
     }
   }
 
@@ -9123,22 +9209,22 @@ uint64_t CI::ObjectCache<CI::Node,unsigned long long,false>::~ObjectCache(uint64
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::Node,unsigned long long,false>::Entry>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::Node,unsigned long long,false>::Entry>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::Node,unsigned long long,false>::Entry>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::Node,unsigned long long,false>::Entry>>>::clear(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::Node,unsigned long long,false>::Entry>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::Node,unsigned long long,false>::Entry>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::Node,unsigned long long,false>::Entry>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::Node,unsigned long long,false>::Entry>>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::Node,unsigned long long,false>::Entry>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::Node,unsigned long long,false>::Entry>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::Node,unsigned long long,false>::Entry>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::Node,unsigned long long,false>::Entry>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::Node,unsigned long long,false>::Entry>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::Node,unsigned long long,false>::Entry>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::Node,unsigned long long,false>::Entry>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::Node,unsigned long long,false>::Entry>>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -9150,7 +9236,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,CI::ObjectCache
     do
     {
       v3 = *v2;
-      CI::ObjectCache<CI::Node,unsigned long long,false>::Entry::~Entry((v2 + 3));
+      CI::ObjectCache<CI::Node,unsigned long long,false>::Entry::~Entry((v2 + 3), a2);
       operator delete(v2);
       v2 = v3;
     }
@@ -9159,24 +9245,24 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,CI::ObjectCache
   }
 }
 
-uint64_t CI::ObjectCache<CI::Node,unsigned long long,false>::Entry::~Entry(uint64_t a1)
+uint64_t CI::ObjectCache<CI::Node,unsigned long long,false>::Entry::~Entry(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 16) == 1)
   {
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 0x40000000;
-    v4[2] = ___ZN2CI11ObjectCacheINS_4NodeEyLb0EE5EntryD2Ev_block_invoke;
-    v4[3] = &__block_descriptor_tmp_107;
-    v4[4] = a1;
-    CI::Object::performDeferredRoot(v4);
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 0x40000000;
+    v5[2] = ___ZN2CI11ObjectCacheINS_4NodeEyLb0EE5EntryD2Ev_block_invoke;
+    v5[3] = &__block_descriptor_tmp_107;
+    v5[4] = a1;
+    CI::Object::performDeferredRoot(v5);
   }
 
   else
   {
-    v2 = *a1;
+    v3 = *a1;
     if (*a1)
     {
-      CI::Object::unref(v2);
+      CI::Object::unref(v3);
     }
   }
 
@@ -9219,22 +9305,22 @@ uint64_t CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::~ObjectCache
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry>>>::clear(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry>>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry>>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -9246,7 +9332,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,CI::ObjectCache
     do
     {
       v3 = *v2;
-      CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry::~Entry((v2 + 3));
+      CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry::~Entry((v2 + 3), a2);
       operator delete(v2);
       v2 = v3;
     }
@@ -9255,24 +9341,24 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,CI::ObjectCache
   }
 }
 
-uint64_t CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry::~Entry(uint64_t a1)
+uint64_t CI::ObjectCache<CI::ProgramNode,unsigned long long,false>::Entry::~Entry(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 16) == 1)
   {
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 0x40000000;
-    v4[2] = ___ZN2CI11ObjectCacheINS_11ProgramNodeEyLb0EE5EntryD2Ev_block_invoke;
-    v4[3] = &__block_descriptor_tmp_109;
-    v4[4] = a1;
-    CI::Object::performDeferredRoot(v4);
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 0x40000000;
+    v5[2] = ___ZN2CI11ObjectCacheINS_11ProgramNodeEyLb0EE5EntryD2Ev_block_invoke;
+    v5[3] = &__block_descriptor_tmp_109;
+    v5[4] = a1;
+    CI::Object::performDeferredRoot(v5);
   }
 
   else
   {
-    v2 = *a1;
+    v3 = *a1;
     if (*a1)
     {
-      CI::Object::unref(v2);
+      CI::Object::unref(v3);
     }
   }
 
@@ -9333,41 +9419,41 @@ void std::__tree<CI::Context::recursive_render(CI::TileTask *,CI::roiKey const&,
   }
 }
 
-void *std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(uint64_t a1, unint64_t *a2)
+void *std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -9486,23 +9572,28 @@ void ___ZN2CI11ObjectCacheINS_11MainProgramENS_13ProgramDigestELb0EE6insertES2_P
 {
   v2 = a1[4];
   ++v2[1];
-  v3 = std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::__unordered_map_hasher<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::hash<CI::ProgramDigest>,std::equal_to<CI::ProgramDigest>,true>,std::__unordered_map_equal<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::equal_to<CI::ProgramDigest>,std::hash<CI::ProgramDigest>,true>,std::allocator<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>>>::find<CI::ProgramDigest>(v2 + 2, a1 + 5);
-  if (!v3)
+  v3 = (a1 + 5);
+  v4 = std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::__unordered_map_hasher<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::hash<CI::ProgramDigest>,std::equal_to<CI::ProgramDigest>,true>,std::__unordered_map_equal<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::equal_to<CI::ProgramDigest>,std::hash<CI::ProgramDigest>,true>,std::allocator<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>>>::find<CI::ProgramDigest>(v2 + 2, a1 + 5);
+  if (!v4)
   {
     if (v2[5] == *v2)
     {
       CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::evict(v2);
     }
 
-    std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::__unordered_map_hasher<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::hash<CI::ProgramDigest>,std::equal_to<CI::ProgramDigest>,true>,std::__unordered_map_equal<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::equal_to<CI::ProgramDigest>,std::hash<CI::ProgramDigest>,true>,std::allocator<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>>>::__emplace_unique_impl<std::piecewise_construct_t const&,std::tuple<CI::ProgramDigest const&>,std::tuple<CI::MainProgram* const&,unsigned long long &,unsigned int const&>>();
+    *&v6 = a1 + 6;
+    *(&v6 + 1) = v2 + 1;
+    v7 = a1 + 7;
+    v8 = v3;
+    std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::__unordered_map_hasher<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::hash<CI::ProgramDigest>,std::equal_to<CI::ProgramDigest>,true>,std::__unordered_map_equal<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::equal_to<CI::ProgramDigest>,std::hash<CI::ProgramDigest>,true>,std::allocator<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>>>::__emplace_unique_impl<std::piecewise_construct_t const&,std::tuple<CI::ProgramDigest const&>,std::tuple<CI::MainProgram* const&,unsigned long long &,unsigned int const&>>((v2 + 2), &std::piecewise_construct, &v8, &v6);
   }
 
-  v3[4] = v2[1];
-  v4 = a1[6];
-  if (v4)
+  v4[4] = v2[1];
+  v5 = a1[6];
+  if (v5)
   {
 
-    CI::Object::unref(v4);
+    CI::Object::unref(v5);
   }
 }
 
@@ -9525,8 +9616,8 @@ uint64_t CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::evict(uint64_
     while (v2);
   }
 
-  std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::__unordered_map_hasher<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::hash<CI::ProgramDigest>,std::equal_to<CI::ProgramDigest>,true>,std::__unordered_map_equal<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::equal_to<CI::ProgramDigest>,std::hash<CI::ProgramDigest>,true>,std::allocator<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>>>::remove((a1 + 16), v1, v4);
-  return std::unique_ptr<std::__hash_node<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,void *>>>>::~unique_ptr[abi:nn200100](v4);
+  std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::__unordered_map_hasher<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::hash<CI::ProgramDigest>,std::equal_to<CI::ProgramDigest>,true>,std::__unordered_map_equal<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::equal_to<CI::ProgramDigest>,std::hash<CI::ProgramDigest>,true>,std::allocator<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>>>::remove((a1 + 16), v1, v5);
+  return std::unique_ptr<std::__hash_node<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,void *>>>>::~unique_ptr[abi:nn200100](v5, v3);
 }
 
 void *std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::__unordered_map_hasher<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::hash<CI::ProgramDigest>,std::equal_to<CI::ProgramDigest>,true>,std::__unordered_map_equal<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::equal_to<CI::ProgramDigest>,std::hash<CI::ProgramDigest>,true>,std::allocator<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>>>::find<CI::ProgramDigest>(void *a1, unint64_t *a2)
@@ -9560,45 +9651,37 @@ void *std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -9712,54 +9795,4 @@ LABEL_19:
   *(a3 + 17) = 0;
   *(a3 + 20) = 0;
   return result;
-}
-
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,void *>>>>::~unique_ptr[abi:nn200100](uint64_t a1)
-{
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    if (*(a1 + 16) == 1)
-    {
-      CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry::~Entry(v2 + 24);
-    }
-
-    operator delete(v2);
-  }
-
-  return a1;
-}
-
-void *std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::__unordered_map_hasher<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::hash<CI::ProgramDigest>,std::equal_to<CI::ProgramDigest>,true>,std::__unordered_map_equal<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::equal_to<CI::ProgramDigest>,std::hash<CI::ProgramDigest>,true>,std::allocator<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>>>::__node_insert_unique(uint64_t *a1, void *a2)
-{
-  v2 = a2;
-  v5 = a2 + 2;
-  v4 = a2[2];
-  *(v5 - 1) = v4;
-  v6 = std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::__unordered_map_hasher<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::hash<CI::ProgramDigest>,std::equal_to<CI::ProgramDigest>,true>,std::__unordered_map_equal<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::equal_to<CI::ProgramDigest>,std::hash<CI::ProgramDigest>,true>,std::allocator<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>>>::__node_insert_unique_prepare[abi:nn200100](a1, v4, v5);
-  if (v6)
-  {
-    return v6;
-  }
-
-  std::__hash_table<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::__unordered_map_hasher<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::hash<CI::ProgramDigest>,std::equal_to<CI::ProgramDigest>,true>,std::__unordered_map_equal<CI::ProgramDigest,std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>,std::equal_to<CI::ProgramDigest>,std::hash<CI::ProgramDigest>,true>,std::allocator<std::__hash_value_type<CI::ProgramDigest,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>>>::__node_insert_unique_perform[abi:nn200100](a1, v2);
-  return v2;
-}
-
-uint64_t std::pair<CI::ProgramDigest const,CI::ObjectCache<CI::MainProgram,CI::ProgramDigest,false>::Entry>::pair[abi:nn200100]<CI::ProgramDigest const&,CI::MainProgram* const&,unsigned long long &,unsigned int const&,0ul,0ul,1ul,2ul>(uint64_t a1, void **a2, uint64_t a3)
-{
-  *a1 = **a2;
-  v4 = **a3;
-  v5 = **(a3 + 8);
-  v6 = **(a3 + 16);
-  if (v4)
-  {
-    v4 = CI::Object::ref(v4);
-  }
-
-  *(a1 + 8) = v4;
-  *(a1 + 16) = v5;
-  *(a1 + 24) = v6 > 0x40;
-  return a1;
 }

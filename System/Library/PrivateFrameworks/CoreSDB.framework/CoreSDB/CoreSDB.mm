@@ -63,11 +63,11 @@ UInt8 *CSDBCreateUTF8StringFromCFString(const __CFString *a1)
 
 sqlite3_stmt *CSDBSqlitePreparedStatement(sqlite3 *db, char *zSql, int a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   ppStmt = 0;
   if (!db)
   {
-    goto LABEL_30;
+    return 0;
   }
 
   do
@@ -83,7 +83,7 @@ sqlite3_stmt *CSDBSqlitePreparedStatement(sqlite3 *db, char *zSql, int a3)
     {
       if (!ppStmt)
       {
-        goto LABEL_31;
+        return v7;
       }
     }
 
@@ -96,36 +96,34 @@ sqlite3_stmt *CSDBSqlitePreparedStatement(sqlite3 *db, char *zSql, int a3)
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           v19 = sqlite3_extended_errcode(db);
-          v24 = 136315906;
-          *v25 = "warning: ";
-          *&v25[8] = 2080;
-          *&v25[10] = zSql;
-          *&v25[18] = 2080;
-          v26 = v17;
-          v27 = 1024;
-          v28 = v19;
-          _os_log_impl(&dword_24789E000, v18, OS_LOG_TYPE_INFO, "%s Could not compile statement %s: %s (%d)\n", &v24, 0x26u);
+          v23 = 136315906;
+          *v24 = "warning: ";
+          *&v24[8] = 2080;
+          *&v24[10] = zSql;
+          *&v24[18] = 2080;
+          v25 = v17;
+          v26 = 1024;
+          v27 = v19;
+          _os_log_impl(&dword_24789E000, v18, OS_LOG_TYPE_INFO, "%s Could not compile statement %s: %s (%d)\n", &v23, 0x26u);
         }
       }
 
       v7 = ppStmt;
       if (!ppStmt)
       {
-        goto LABEL_31;
+        return v7;
       }
     }
 
     sqlite3_finalize(v7);
-LABEL_30:
-    v7 = 0;
-    goto LABEL_31;
+    return 0;
   }
 
   if (byte_280BCAA08)
   {
     if (!dword_280BCA9C4)
     {
-      goto LABEL_31;
+      return v7;
     }
   }
 
@@ -142,24 +140,24 @@ LABEL_30:
     LOBYTE(dword_280BCA9C4) = (v8 | v9 | v10) != 0;
     if (!(v8 | v9 | v10))
     {
-      goto LABEL_31;
+      return v7;
     }
   }
 
-  *&v25[4] = zSql;
-  *&v25[12] = 2863311360;
-  *v25 = -1431655766;
-  v24 = dword_280BCA9C4;
+  *&v24[4] = zSql;
+  *&v24[12] = 2863311360;
+  *v24 = -1431655766;
+  v23 = dword_280BCA9C4;
   v11 = CFStringCreateWithFormat(0, 0, @"EXPLAIN QUERY PLAN %s", zSql);
   v12 = CSDBCreateUTF8StringFromCFString(v11);
-  sqlite3_exec(db, v12, sub_2478A82C8, &v24, 0);
+  sqlite3_exec(db, v12, sub_2478A82C8, &v23, 0);
   free(v12);
   if (v11)
   {
     CFRelease(v11);
   }
 
-  if (*&v25[16])
+  if (*&v24[16])
   {
     if (IMOSLoggingEnabled())
     {
@@ -171,7 +169,7 @@ LABEL_30:
       }
     }
 
-    v14 = (*&v25[16])--;
+    v14 = (*&v24[16])--;
     if (v14 >= 2)
     {
       do
@@ -187,33 +185,30 @@ LABEL_30:
         }
       }
 
-      while ((*&v25[16])-- > 1);
+      while ((*&v24[16])-- > 1);
     }
   }
 
-  v7 = ppStmt;
-LABEL_31:
-  v20 = *MEMORY[0x277D85DE8];
-  return v7;
+  return ppStmt;
 }
 
-uint64_t CSDBPerformLockedSectionForDatabase(uint64_t result, uint64_t a2)
+__CFString *CSDBPerformLockedSectionForDatabase(__CFString *result, uint64_t a2)
 {
   if (result)
   {
     if (a2)
     {
       v3 = result;
-      result = *(result + 8);
+      result = result->info;
       if (result)
       {
         result = CSDBRecordStoreGetDatabase(result);
         if (result)
         {
-          v4 = *(v3 + 8);
+          info = v3->info;
           v5 = *(a2 + 16);
 
-          return v5(a2, v4, result);
+          return v5(a2, info, result);
         }
       }
     }
@@ -222,31 +217,31 @@ uint64_t CSDBPerformLockedSectionForDatabase(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t CSDBRecordStoreGetDatabase(uint64_t a1)
+const __CFString *CSDBRecordStoreGetDatabase(const __CFString **a1)
 {
   if (!a1)
   {
     sub_2478AD384();
   }
 
-  result = *(a1 + 8);
+  result = a1[1];
   if (!result)
   {
     v3 = CSDBSqliteDatabaseCreateWithPath(*a1);
-    *(a1 + 8) = v3;
+    a1[1] = v3;
     if (!v3)
     {
       sub_2478AD358();
     }
 
     CSDBSqliteDatabaseSetSetupHandler(v3, sub_2478A59DC, a1);
-    return *(a1 + 8);
+    return a1[1];
   }
 
   return result;
 }
 
-uint64_t CSDBSqliteDatabaseFromThreadedRecordStoreRef(uint64_t a1)
+const __CFString *CSDBSqliteDatabaseFromThreadedRecordStoreRef(uint64_t a1)
 {
   if (a1 && (v1 = *(a1 + 8)) != 0)
   {
@@ -278,7 +273,7 @@ _DWORD *CSDBSqliteDatabaseStatementForWriting(uint64_t a1, const __CFString *a2)
   return v4;
 }
 
-uint64_t CSDBSqliteDatabaseConnectionForWritingWithOwnership(uint64_t result, char a2)
+uint64_t CSDBSqliteDatabaseConnectionForWritingWithOwnership(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -323,7 +318,7 @@ uint64_t CSDBSqliteDatabaseConnectionForWritingWithOwnership(uint64_t result, ch
 
 void CSDBSqliteBindInt64(uint64_t a1, sqlite3_int64 a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v3 = *(a1 + 8);
@@ -335,7 +330,7 @@ void CSDBSqliteBindInt64(uint64_t a1, sqlite3_int64 a2)
         sqlite3_bind_int64(v3, v5, a2);
 LABEL_12:
         ++*(a1 + 16);
-        goto LABEL_13;
+        return;
       }
     }
   }
@@ -357,11 +352,11 @@ LABEL_12:
         v8 = 0;
       }
 
-      v10 = 138412546;
-      v11 = v7;
-      v12 = 1024;
-      v13 = v8;
-      _os_log_impl(&dword_24789E000, v6, OS_LOG_TYPE_INFO, "Invalid parameters passed into CSDBSqliteBindInt64 s==NULL ? %@  bindIndex = %d", &v10, 0x12u);
+      v9 = 138412546;
+      v10 = v7;
+      v11 = 1024;
+      v12 = v8;
+      _os_log_impl(&dword_24789E000, v6, OS_LOG_TYPE_INFO, "Invalid parameters passed into CSDBSqliteBindInt64 s==NULL ? %@  bindIndex = %d", &v9, 0x12u);
     }
   }
 
@@ -369,12 +364,9 @@ LABEL_12:
   {
     goto LABEL_12;
   }
-
-LABEL_13:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void CSDBCheckResultWithStatement(void **a1, char *exc_buf, uint64_t a3, uint64_t a4, sqlite3_stmt *a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+void CSDBCheckResultWithStatement(id *a1, char *exc_buf, uint64_t a3, uint64_t a4, sqlite3_stmt *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   if (a3 > 25)
   {
@@ -395,7 +387,7 @@ LABEL_8:
       v30 = a4;
       v32 = exc_buf;
       v34 = a5;
-      objc_msgSend_UTF8String(*a1, exc_buf, a3);
+      objc_msgSend_UTF8String(*a1, exc_buf, a3, a4, a5, a6, a7, a8);
       v24 = _sqlite3_integrity_check();
       v25 = IMOSLoggingEnabled();
       if (!v24)
@@ -560,7 +552,7 @@ void CSDBRecordStoreRevert(uint64_t a1)
   }
 }
 
-uint64_t CSDBPerformLockedSectionForQueryForReading(uint64_t result, uint64_t a2, uint64_t a3)
+const __CFString **CSDBPerformLockedSectionForQueryForReading(const __CFString **result, void *a2, uint64_t a3)
 {
   if (result)
   {
@@ -569,7 +561,7 @@ uint64_t CSDBPerformLockedSectionForQueryForReading(uint64_t result, uint64_t a2
       if (a3)
       {
         v5 = result;
-        result = *(result + 8);
+        result = result[1];
         if (result)
         {
           result = CSDBRecordStoreGetDatabase(result);
@@ -580,9 +572,9 @@ uint64_t CSDBPerformLockedSectionForQueryForReading(uint64_t result, uint64_t a2
             if (result)
             {
               v7 = result;
-              if (*(result + 8))
+              if (result[1])
               {
-                (*(a3 + 16))(a3, *(v5 + 8), v6, result);
+                (*(a3 + 16))(a3, v5[1], v6, result);
 
                 return CSDBSqliteStatementReset(v7);
               }
@@ -630,7 +622,7 @@ UInt8 *CSDBSqliteBindTextFromCFString(UInt8 *result, const __CFString *a2)
   return result;
 }
 
-uint64_t CSDBRecordStoreProcessRecordStatementWithPropertyIndices(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, unint64_t a6, CFDictionaryRef theDict)
+uint64_t CSDBRecordStoreProcessRecordStatementWithPropertyIndices(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4, uint64_t a5, unint64_t a6, CFDictionaryRef theDict)
 {
   v23 = 0xAAAAAAAAAAAAAAAALL;
   *&v13 = 0xAAAAAAAAAAAAAAAALL;
@@ -878,7 +870,7 @@ const void *sub_2478A01A8(uint64_t a1, void *key)
   return Value;
 }
 
-uint64_t CSDBSqliteStatementSendResults(void *a1, unsigned int (*a2)(void *, uint64_t), uint64_t a3)
+uint64_t CSDBSqliteStatementSendResults(uint64_t *a1, unsigned int (*a2)(uint64_t *, uint64_t), uint64_t a3)
 {
   if (!a1 || !a1[1] || !*a1 || !*(*a1 + 8))
   {
@@ -948,7 +940,7 @@ void sub_2478A0370(int a1, void *a2)
   free(a2);
 }
 
-uint64_t CSDBPerformLockedSectionForQueryForWriting(uint64_t result, const __CFString *a2, uint64_t a3)
+const __CFString **CSDBPerformLockedSectionForQueryForWriting(const __CFString **result, const __CFString *a2, uint64_t a3)
 {
   if (result)
   {
@@ -957,7 +949,7 @@ uint64_t CSDBPerformLockedSectionForQueryForWriting(uint64_t result, const __CFS
       if (a3)
       {
         v5 = result;
-        result = *(result + 8);
+        result = result[1];
         if (result)
         {
           result = CSDBRecordStoreGetDatabase(result);
@@ -968,9 +960,9 @@ uint64_t CSDBPerformLockedSectionForQueryForWriting(uint64_t result, const __CFS
             if (result)
             {
               v7 = result;
-              if (*(result + 8))
+              if (result[1])
               {
-                (*(a3 + 16))(a3, *(v5 + 8), v6, result);
+                (*(a3 + 16))(a3, v5[1], v6, result);
 
                 return CSDBSqliteStatementReset(v7);
               }
@@ -984,7 +976,7 @@ uint64_t CSDBPerformLockedSectionForQueryForWriting(uint64_t result, const __CFS
   return result;
 }
 
-uint64_t CSDBSqliteStatementPerform(void *a1)
+uint64_t CSDBSqliteStatementPerform(uint64_t *a1)
 {
   if (a1 && (v1 = a1[1]) != 0)
   {
@@ -997,14 +989,14 @@ uint64_t CSDBSqliteStatementPerform(void *a1)
   }
 }
 
-sqlite3_int64 CSDBSqliteStatementInteger64Result(sqlite3_stmt **a1, int *a2)
+sqlite3_int64 CSDBSqliteStatementInteger64Result(uint64_t a1, int *a2)
 {
   if (!a1)
   {
     return 0;
   }
 
-  v4 = a1[1];
+  v4 = *(a1 + 8);
   if (!v4)
   {
     return 0;
@@ -1012,7 +1004,7 @@ sqlite3_int64 CSDBSqliteStatementInteger64Result(sqlite3_stmt **a1, int *a2)
 
   if (CSDBSqliteStepWithConnection(*a1, v4) == 100)
   {
-    v5 = sqlite3_column_int64(a1[1], 0);
+    v5 = sqlite3_column_int64(*(a1 + 8), 0);
   }
 
   else
@@ -1024,7 +1016,7 @@ sqlite3_int64 CSDBSqliteStatementInteger64Result(sqlite3_stmt **a1, int *a2)
   {
     if (a2)
     {
-      v7 = *(*a1 + 1);
+      v7 = *(*a1 + 8);
       if (v7)
       {
         *a2 = sqlite3_errcode(v7);
@@ -1147,7 +1139,7 @@ uint64_t CSDBPerformLockedSectionForRecordStore(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t CSDBRecordSaveStore(uint64_t a1)
+BOOL CSDBRecordSaveStore(uint64_t a1)
 {
   if (!a1)
   {
@@ -1155,8 +1147,8 @@ uint64_t CSDBRecordSaveStore(uint64_t a1)
   }
 
   err = 0;
-  v1 = CSDBRecordStoreSaveWithPreAndPostCallbacksAndTransactionType(a1, 0, 0, 0, 1u, &err);
-  if ((v1 & 1) == 0 && err)
+  v1 = CSDBRecordStoreSaveWithPreAndPostCallbacksAndTransactionType(a1, 0, 0, 0, 1, &err);
+  if (!v1 && err)
   {
     Domain = CFErrorGetDomain(err);
     if (Domain)
@@ -1192,8 +1184,9 @@ uint64_t CSDBRecordSaveStore(uint64_t a1)
   return v1;
 }
 
-uint64_t CSDBRecordStoreSaveWithPreAndPostCallbacksAndTransactionType(uint64_t a1, void (*a2)(uint64_t, uint64_t *), void (*a3)(uint64_t, uint64_t *), int a4, unsigned int a5, CFErrorRef *a6)
+BOOL CSDBRecordStoreSaveWithPreAndPostCallbacksAndTransactionType(uint64_t a1, void (*a2)(uint64_t, uint64_t), void (*a3)(uint64_t, uint64_t), int a4, uint64_t a5, CFErrorRef *a6)
 {
+  v7 = a5;
   if (a1 && !a2 && !a3 && !*(a1 + 24) && !*(a1 + 32) && !*(a1 + 40) && !*(a1 + 80) && !*(a1 + 16))
   {
     return 1;
@@ -1214,7 +1207,7 @@ uint64_t CSDBRecordStoreSaveWithPreAndPostCallbacksAndTransactionType(uint64_t a
   }
 
   v14 = v13;
-  CSDBSqliteConnectionBeginTransactionType(v13, a5);
+  CSDBSqliteConnectionBeginTransactionType(v13, v7);
   v15 = CSDBSqliteConnectionIntegerForProperty(v14, @"__CSDBRecordSequenceNumber");
   if (!a1)
   {
@@ -1291,7 +1284,7 @@ uint64_t CSDBRecordStoreSaveWithPreAndPostCallbacksAndTransactionType(uint64_t a
     a3(a1, v14);
   }
 
-  if (a5 == 0xFFFF)
+  if (v7 == 0xFFFF)
   {
     v26 = 101;
   }
@@ -1316,81 +1309,81 @@ LABEL_19:
 
 void CSDBSqliteDatabaseClose(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 8))
   {
     goto LABEL_2;
   }
 
-  v4 = CSDBSqliteDatabaseConnectionForWritingWithOwnership(a1, 1);
-  v5 = sub_24789EE28(v4, @"PRAGMA page_count", 0);
-  v6 = sub_24789EE28(v4, @"PRAGMA freelist_count", 0);
-  v24 = 0;
-  v7 = CSDBSqliteStatementInteger64Result(v5, &v24);
-  if (v24 && v24 != 100)
+  v3 = CSDBSqliteDatabaseConnectionForWritingWithOwnership(a1, 1);
+  v4 = sub_24789EE28(v3, @"PRAGMA page_count", 0);
+  v5 = sub_24789EE28(v3, @"PRAGMA freelist_count", 0);
+  v23 = 0;
+  v6 = CSDBSqliteStatementInteger64Result(v4, &v23);
+  if (v23 && v23 != 100)
   {
     if (IMOSLoggingEnabled())
     {
-      v19 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v18 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
-        v26 = v24;
-        v20 = "SQLite error %d while attempting to get page_count.  Bailing on the incremental vacuum.";
+        v25 = v23;
+        v19 = "SQLite error %d while attempting to get page_count.  Bailing on the incremental vacuum.";
 LABEL_25:
-        _os_log_impl(&dword_24789E000, v19, OS_LOG_TYPE_INFO, v20, buf, 8u);
+        _os_log_impl(&dword_24789E000, v18, OS_LOG_TYPE_INFO, v19, buf, 8u);
       }
     }
   }
 
   else
   {
-    v24 = 0;
-    v8 = CSDBSqliteStatementInteger64Result(v6, &v24);
-    if (!v24 || v24 == 100)
+    v23 = 0;
+    v7 = CSDBSqliteStatementInteger64Result(v5, &v23);
+    if (!v23 || v23 == 100)
     {
-      v9 = (v7 - v8) / v7;
-      if (v9 > 0.85 && v8 < 512)
+      v8 = (v6 - v7) / v6;
+      if (v8 > 0.85 && v7 < 512)
       {
         goto LABEL_34;
       }
 
-      v10 = v8 - (v7 - v8);
-      if (v9 >= 0.4)
+      v9 = v7 - (v6 - v7);
+      if (v8 >= 0.4)
       {
-        v10 = (v8 * 0.2);
+        v9 = (v7 * 0.2);
       }
 
-      if (v10 < 1)
+      if (v9 < 1)
       {
         goto LABEL_34;
       }
 
       errmsg = 0;
-      v11 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"PRAGMA incremental_vacuum(%lld)", v10);
-      CStringPtr = CFStringGetCStringPtr(v11, 0x8000100u);
-      v13 = sqlite3_exec(*(*(a1 + 8) + 8), CStringPtr, 0, 0, &errmsg);
-      v14 = v13;
-      if (v13 && v13 != 101)
+      v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"PRAGMA incremental_vacuum(%lld)", v9);
+      CStringPtr = CFStringGetCStringPtr(v10, 0x8000100u);
+      v12 = sqlite3_exec(*(*(a1 + 8) + 8), CStringPtr, 0, 0, &errmsg);
+      v13 = v12;
+      if (v12 && v12 != 101)
       {
         if (!IMOSLoggingEnabled())
         {
           goto LABEL_30;
         }
 
-        v21 = OSLogHandleForIMFoundationCategory();
-        if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v20 = OSLogHandleForIMFoundationCategory();
+        if (!os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
           goto LABEL_30;
         }
 
         *buf = 67109378;
-        v26 = v14;
-        v27 = 2080;
-        v28 = errmsg;
-        v16 = "Unable to incrementally vacuum database. SQLiteResult: %d Error Message: %s";
-        v17 = v21;
-        v18 = 18;
+        v25 = v13;
+        v26 = 2080;
+        v27 = errmsg;
+        v15 = "Unable to incrementally vacuum database. SQLiteResult: %d Error Message: %s";
+        v16 = v20;
+        v17 = 18;
       }
 
       else
@@ -1400,28 +1393,28 @@ LABEL_25:
           goto LABEL_30;
         }
 
-        v15 = OSLogHandleForIMFoundationCategory();
-        if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+        v14 = OSLogHandleForIMFoundationCategory();
+        if (!os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           goto LABEL_30;
         }
 
         *buf = 0;
-        v16 = "Incremental vacuum was successful.";
-        v17 = v15;
-        v18 = 2;
+        v15 = "Incremental vacuum was successful.";
+        v16 = v14;
+        v17 = 2;
       }
 
-      _os_log_impl(&dword_24789E000, v17, OS_LOG_TYPE_INFO, v16, buf, v18);
+      _os_log_impl(&dword_24789E000, v16, OS_LOG_TYPE_INFO, v15, buf, v17);
 LABEL_30:
       if (errmsg)
       {
         free(errmsg);
       }
 
-      if (v11)
+      if (v10)
       {
-        CFRelease(v11);
+        CFRelease(v10);
       }
 
       goto LABEL_34;
@@ -1429,22 +1422,22 @@ LABEL_30:
 
     if (IMOSLoggingEnabled())
     {
-      v19 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v18 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
-        v26 = v24;
-        v20 = "SQLite error %d while attempting to get freelist_count.  Bailing on the incremental vacuum.";
+        v25 = v23;
+        v19 = "SQLite error %d while attempting to get freelist_count.  Bailing on the incremental vacuum.";
         goto LABEL_25;
       }
     }
   }
 
 LABEL_34:
-  v22 = *(a1 + 8);
-  if (v22)
+  v21 = *(a1 + 8);
+  if (v21)
   {
-    sub_2478A473C(v22);
+    sub_2478A473C(v21);
     *(a1 + 8) = 0;
   }
 
@@ -1457,7 +1450,6 @@ LABEL_2:
   }
 
   free(a1);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void CSDBRecordStoreDestroy(void *a1)
@@ -1592,14 +1584,14 @@ uint64_t sub_2478A1044(uint64_t a1, const __CFString *a2, int *a3, BOOL *a4)
   return v8;
 }
 
-uint64_t CSDBSqliteStatementIntegerResult(sqlite3_stmt **a1, int *a2)
+uint64_t CSDBSqliteStatementIntegerResult(uint64_t a1, int *a2)
 {
   if (!a1)
   {
     return 0;
   }
 
-  v4 = a1[1];
+  v4 = *(a1 + 8);
   if (!v4)
   {
     return 0;
@@ -1607,7 +1599,7 @@ uint64_t CSDBSqliteStatementIntegerResult(sqlite3_stmt **a1, int *a2)
 
   if (CSDBSqliteStepWithConnection(*a1, v4) == 100)
   {
-    v5 = sqlite3_column_int(a1[1], 0);
+    v5 = sqlite3_column_int(*(a1 + 8), 0);
     if (!a2)
     {
       return v5;
@@ -1620,7 +1612,7 @@ uint64_t CSDBSqliteStatementIntegerResult(sqlite3_stmt **a1, int *a2)
   if (a2)
   {
 LABEL_8:
-    *a2 = sqlite3_errcode(*(*a1 + 1));
+    *a2 = sqlite3_errcode(*(*a1 + 8));
   }
 
   return v5;
@@ -1668,7 +1660,7 @@ void *CSDBGenerateInClauseForCount(int a1, const char *a2)
   return v4;
 }
 
-const void *sub_2478A129C(uint64_t a1, void *a2, int a3)
+uint64_t sub_2478A129C(uint64_t a1, void *a2, int a3)
 {
   v6 = sub_2478A01A8(a1, a2);
   if (!v6)
@@ -1699,76 +1691,76 @@ const void *sub_2478A129C(uint64_t a1, void *a2, int a3)
   return v9;
 }
 
-void *sub_2478A131C(uint64_t a1, const char *a2, _BYTE *a3, char a4)
+sqlite3 **sub_2478A131C(uint64_t a1, const char *a2, _BYTE *a3, uint64_t a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   result = sub_2478AA048(a1, a2, a4);
-  v26 = result;
+  v25 = result;
   if (result)
   {
-    v9 = result;
-    v25 = 0;
-    v10 = *(a1 + 80);
+    v8 = result;
+    v24 = 0;
+    v9 = *(a1 + 80);
     if (sub_24789EE28(result, @"SELECT value FROM _SqliteDatabaseProperties WHERE key = ?;", 1))
     {
       if (*(a1 + 84))
       {
         buf[0] = 0;
-        v14 = sub_2478A1044(v9, @"_ClientVersion", 0, buf);
+        v13 = sub_2478A1044(v8, @"_ClientVersion", 0, buf);
         if (buf[0])
         {
-          v15 = v14;
+          v14 = v13;
         }
 
         else
         {
-          v15 = 0;
+          v14 = 0;
         }
 
-        sub_2478A1798(&v26, &v25);
-        v16 = v26;
-        if (v26 && v15 != *(a1 + 80))
+        sub_2478A1798(&v25, &v24);
+        v15 = v25;
+        if (v25 && v14 != *(a1 + 80))
         {
           if (IMOSLoggingEnabled())
           {
-            v17 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+            v16 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
             {
-              v18 = *(a1 + 80);
+              v17 = *(a1 + 80);
               *buf = 67109376;
-              v28 = v18;
-              v29 = 1024;
-              v30 = v15;
-              _os_log_impl(&dword_24789E000, v17, OS_LOG_TYPE_INFO, "version conflict: expected %d, got %d", buf, 0xEu);
+              v27 = v17;
+              v28 = 1024;
+              v29 = v14;
+              _os_log_impl(&dword_24789E000, v16, OS_LOG_TYPE_INFO, "version conflict: expected %d, got %d", buf, 0xEu);
             }
           }
 
-          CSDBSqliteConnectionBeginTransactionType(v16, 0);
-          sub_2478A1798(&v26, &v25);
-          if (v26)
+          CSDBSqliteConnectionBeginTransactionType(v15, 0);
+          sub_2478A1798(&v25, &v24);
+          if (v25)
           {
-            v24 = 0;
-            v15 = sub_2478A1044(v26, @"_ClientVersion", &v24, 0);
+            v23 = 0;
+            v14 = sub_2478A1044(v25, @"_ClientVersion", &v23, 0);
             if (IMOSLoggingEnabled())
             {
-              v19 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+              v18 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
               {
                 *buf = 67109376;
-                v28 = v15;
-                v29 = 1024;
-                v30 = v24;
-                _os_log_impl(&dword_24789E000, v19, OS_LOG_TYPE_INFO, "read schema version: %d error: %d", buf, 0xEu);
+                v27 = v14;
+                v28 = 1024;
+                v29 = v23;
+                _os_log_impl(&dword_24789E000, v18, OS_LOG_TYPE_INFO, "read schema version: %d error: %d", buf, 0xEu);
               }
             }
 
-            sub_2478A1798(&v26, &v25);
-            if (v26)
+            sub_2478A1798(&v25, &v24);
+            if (v25)
             {
-              if (v24 == 17)
+              if (v23 == 17)
               {
-                sub_2478A473C(v26);
-                v26 = 0;
+                sub_2478A473C(v25);
+                v25 = 0;
                 if (a3)
                 {
                   *a3 = 1;
@@ -1777,143 +1769,140 @@ void *sub_2478A131C(uint64_t a1, const char *a2, _BYTE *a3, char a4)
 
               else
               {
-                if (*(a1 + 80) == v15)
+                if (*(a1 + 80) == v14)
                 {
                   if (IMOSLoggingEnabled())
                   {
-                    v20 = OSLogHandleForIMFoundationCategory();
-                    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+                    v19 = OSLogHandleForIMFoundationCategory();
+                    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
                     {
                       *buf = 0;
-                      _os_log_impl(&dword_24789E000, v20, OS_LOG_TYPE_INFO, "version conflict resolved externally", buf, 2u);
+                      _os_log_impl(&dword_24789E000, v19, OS_LOG_TYPE_INFO, "version conflict resolved externally", buf, 2u);
                     }
                   }
 
-                  sub_2478AA46C(a1, a2, &v26);
+                  sub_2478AA46C(a1, a2, &v25);
                 }
 
                 else
                 {
                   if (*(a1 + 64) == 1)
                   {
-                    v21 = sub_2478AA4E8(a1, a2, &v26);
+                    v20 = sub_2478AA4E8(a1, a2, &v25);
                   }
 
                   else
                   {
-                    v21 = sub_2478AA6C4(a1, a2, v15, &v26);
+                    v20 = sub_2478AA6C4(a1, a2, v14, &v25);
                   }
 
-                  v25 = v21;
+                  v24 = v20;
                 }
 
-                if (v26)
+                if (v25)
                 {
-                  CSDBSqliteConnectionCommit(v26);
+                  CSDBSqliteConnectionCommit(v25);
                 }
               }
             }
           }
         }
 
-        v11 = 0;
-LABEL_40:
+        v10 = 0;
+LABEL_39:
         if (*(a1 + 64) == 1)
         {
-          if (v25)
+          if (v24)
           {
             if (!IMOSLoggingEnabled())
             {
-              goto LABEL_50;
+              goto LABEL_49;
             }
 
-            v22 = OSLogHandleForIMFoundationCategory();
-            if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+            v21 = OSLogHandleForIMFoundationCategory();
+            if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
             {
-              goto LABEL_50;
+              goto LABEL_49;
             }
 
             *buf = 0;
-            v23 = "DataMigrator did not work -- we are being forced to delete the database and create it ourselves.";
+            v22 = "DataMigrator did not work -- we are being forced to delete the database and create it ourselves.";
+LABEL_48:
+            _os_log_impl(&dword_24789E000, v21, OS_LOG_TYPE_INFO, v22, buf, 2u);
 LABEL_49:
-            _os_log_impl(&dword_24789E000, v22, OS_LOG_TYPE_INFO, v23, buf, 2u);
-LABEL_50:
-            sub_2478AAA54(a1, a2, v10, v15, &v26);
-LABEL_52:
-            sub_2478AB338(a1, a2, v26);
+            sub_2478AAA54(a1, a2, v9, v14, &v25);
+LABEL_51:
+            sub_2478AB338(a1, a2, v25);
           }
         }
 
         else
         {
-          if (v25)
+          if (v24)
           {
             if (!IMOSLoggingEnabled())
             {
-              goto LABEL_50;
+              goto LABEL_49;
             }
 
-            v22 = OSLogHandleForIMFoundationCategory();
-            if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+            v21 = OSLogHandleForIMFoundationCategory();
+            if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
             {
-              goto LABEL_50;
+              goto LABEL_49;
             }
 
             *buf = 0;
-            v23 = "Migrating the database failed. We must delete this database and start fresh";
-            goto LABEL_49;
+            v22 = "Migrating the database failed. We must delete this database and start fresh";
+            goto LABEL_48;
           }
 
-          if (v11)
+          if (v10)
           {
-            goto LABEL_52;
+            goto LABEL_51;
           }
         }
 
-        result = v26;
-        goto LABEL_2;
+        return v25;
       }
 
-      v11 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v12 = *(a1 + 64);
-      sub_2478A1798(&v26, &v25);
-      if (v12)
+      v11 = *(a1 + 64);
+      sub_2478A1798(&v25, &v24);
+      if (v11)
       {
-        if ((v25 & 1) != 0 || (v11 = v26, v26))
+        if ((v24 & 1) != 0 || (v10 = v25, v25))
         {
-          v13 = sub_2478AA4E8(a1, a2, &v26);
-          v11 = 0;
-          v25 = v13;
+          v12 = sub_2478AA4E8(a1, a2, &v25);
+          v10 = 0;
+          v24 = v12;
         }
       }
 
       else
       {
-        v11 = v26 != 0;
+        v10 = v25 != 0;
       }
     }
 
-    v15 = 0xFFFFFFFFLL;
-    goto LABEL_40;
+    v14 = 0xFFFFFFFFLL;
+    goto LABEL_39;
   }
 
-LABEL_2:
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2478A1798(void ****a1, _BYTE *a2)
+void sub_2478A1798(id ***a1, _BYTE *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = sqlite3_errcode((*a1)[1]);
   if (v4)
   {
     v8 = v4;
-    CSDBCheckResultWithStatement(**a1, (*a1)[1], v4, "checkConnectionStatus", 0, v5, v6, v7, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26);
+    CSDBCheckResultWithStatement(**a1, (*a1)[1], v4, "checkConnectionStatus", 0, v5, v6, v7, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25);
     if ((v8 - 5) > 1)
     {
       if (v8 != 1)
@@ -1935,13 +1924,13 @@ void sub_2478A1798(void ****a1, _BYTE *a2)
           {
             v10 = sqlite3_extended_errcode((*a1)[1]);
             v11 = sqlite3_errmsg((*a1)[1]);
-            LODWORD(v13) = 67109634;
-            HIDWORD(v13) = v8;
-            LOWORD(v14) = 1024;
-            *(&v14 + 2) = v10;
-            HIWORD(v14) = 2080;
-            v15 = v11;
-            _os_log_impl(&dword_24789E000, v9, OS_LOG_TYPE_INFO, "Encountered SQLite error %d (%d): %s", &v13, 0x18u);
+            LODWORD(v12) = 67109634;
+            HIDWORD(v12) = v8;
+            LOWORD(v13) = 1024;
+            *(&v13 + 2) = v10;
+            HIWORD(v13) = 2080;
+            v14 = v11;
+            _os_log_impl(&dword_24789E000, v9, OS_LOG_TYPE_INFO, "Encountered SQLite error %d (%d): %s", &v12, 0x18u);
           }
         }
       }
@@ -1953,8 +1942,6 @@ void sub_2478A1798(void ****a1, _BYTE *a2)
       *a1 = 0;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t CSDBSqliteConnectionBeginTransactionType(uint64_t a1, unsigned int a2)
@@ -2012,39 +1999,32 @@ uint64_t *CSDBSqliteDatabaseReleaseSqliteConnection(uint64_t *result)
 
 uint64_t CSDBSqliteConnectionCheckNoConnectionError(uint64_t a1, int a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ((a2 - 100) < 2 || a2 == 0)
   {
-    v4 = 0;
+    return 0;
   }
 
-  else
+  v7 = *(a1 + 8);
+  if (!IMOSLoggingEnabled())
   {
-    v8 = *(a1 + 8);
-    if (IMOSLoggingEnabled())
-    {
-      v10 = OSLogHandleForIMFoundationCategory();
-      v4 = 1;
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-      {
-        v11 = 136315650;
-        v12 = a3;
-        v13 = 2080;
-        v14 = sqlite3_errmsg(v8);
-        v15 = 1024;
-        v16 = sqlite3_extended_errcode(v8);
-        v4 = 1;
-        _os_log_impl(&dword_24789E000, v10, OS_LOG_TYPE_INFO, "sqlite3 error in %s: %s (%d)\n", &v11, 0x1Cu);
-      }
-    }
-
-    else
-    {
-      v4 = 1;
-    }
+    return 1;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = OSLogHandleForIMFoundationCategory();
+  v4 = 1;
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    v10 = 136315650;
+    v11 = a3;
+    v12 = 2080;
+    v13 = sqlite3_errmsg(v7);
+    v14 = 1024;
+    v15 = sqlite3_extended_errcode(v7);
+    v4 = 1;
+    _os_log_impl(&dword_24789E000, v9, OS_LOG_TYPE_INFO, "sqlite3 error in %s: %s (%d)\n", &v10, 0x1Cu);
+  }
+
   return v4;
 }
 
@@ -2179,21 +2159,21 @@ void sub_2478A1D6C(void *a1)
   }
 }
 
-void CSDBSqliteBindInt(uint64_t a1, int a2)
+void CSDBSqliteBindInt(sqlite3_stmt *a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v3 = *(a1 + 8);
+    v3 = *(a1 + 1);
     if (v3)
     {
-      v5 = *(a1 + 16);
+      v5 = *(a1 + 4);
       if (v5 >= 1)
       {
         sqlite3_bind_int(v3, v5, a2);
 LABEL_12:
-        ++*(a1 + 16);
-        goto LABEL_13;
+        ++*(a1 + 4);
+        return;
       }
     }
   }
@@ -2206,7 +2186,7 @@ LABEL_12:
       v7 = @"YES";
       if (a1)
       {
-        v8 = *(a1 + 16);
+        v8 = *(a1 + 4);
       }
 
       else
@@ -2215,11 +2195,11 @@ LABEL_12:
         v8 = 0;
       }
 
-      v10 = 138412546;
-      v11 = v7;
-      v12 = 1024;
-      v13 = v8;
-      _os_log_impl(&dword_24789E000, v6, OS_LOG_TYPE_INFO, "Invalid parameters passed into CSDBSqliteBindInt s==NULL ? %@  bindIndex = %d", &v10, 0x12u);
+      v9 = 138412546;
+      v10 = v7;
+      v11 = 1024;
+      v12 = v8;
+      _os_log_impl(&dword_24789E000, v6, OS_LOG_TYPE_INFO, "Invalid parameters passed into CSDBSqliteBindInt s==NULL ? %@  bindIndex = %d", &v9, 0x12u);
     }
   }
 
@@ -2227,9 +2207,6 @@ LABEL_12:
   {
     goto LABEL_12;
   }
-
-LABEL_13:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t CSDBRecordCopyProperty(uint64_t a1, uint64_t a2)
@@ -2277,7 +2254,7 @@ void CSDBRecordInvalidateRecord(uint64_t a1)
   *(a1 + 36) = -1;
 }
 
-uint64_t CSDBRecordUnloadProperty(uint64_t a1, int a2)
+const void *CSDBRecordUnloadProperty(uint64_t a1, int a2)
 {
   LODWORD(v2) = a2;
   v4 = *(a1 + 40);
@@ -2400,7 +2377,7 @@ void CSDBRecordDestroy(void *context)
   }
 }
 
-const void *sub_2478A2220(uint64_t a1)
+uint64_t sub_2478A2220(uint64_t a1)
 {
   if (!a1)
   {
@@ -2462,7 +2439,7 @@ const void *sub_2478A2220(uint64_t a1)
   return v3;
 }
 
-const __CFDictionary *CSDBRecordGetProperty(uint64_t a1, uint64_t a2)
+uint64_t CSDBRecordGetProperty(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -2481,19 +2458,19 @@ const __CFDictionary *CSDBRecordGetProperty(uint64_t a1, uint64_t a2)
     }
 
     v7 = v6;
-    v5 = v6[v4];
+    v5 = *(v6 + 8 * v4);
     if (v5)
     {
       goto LABEL_9;
     }
 
-    v5 = *(*(*(v6[3] + 10) + 40 * v3 + 16) + 24);
+    v5 = *(*(*(*(v6 + 24) + 80) + 40 * v3 + 16) + 24);
     if (!v5)
     {
       goto LABEL_9;
     }
 
-    v8 = v6[5];
+    v8 = *(v6 + 40);
     if (v8 && CFDictionaryContainsKey(v8, v3))
     {
 LABEL_8:
@@ -2502,7 +2479,7 @@ LABEL_8:
 
     else
     {
-      v10 = v7[2];
+      v10 = *(v7 + 16);
       if (v10)
       {
         v11 = sub_2478A2CA0(v10);
@@ -2513,13 +2490,13 @@ LABEL_8:
         v11 = 0;
       }
 
-      (*(*(*(v7[3] + 10) + 40 * v3 + 16) + 24))(v7, a2, v11);
+      (*(*(*(*(v7 + 24) + 80) + 40 * v3 + 16) + 24))(v7, a2, v11);
       if (v11)
       {
         CSDBSqliteDatabaseReleaseSqliteConnection(v11);
       }
 
-      v5 = v7[v4];
+      v5 = *(v7 + 8 * v4);
     }
   }
 
@@ -2554,9 +2531,9 @@ uint64_t CSDBRecordStoreGetSequenceNumber(uint64_t a1)
   return v3;
 }
 
-uint64_t sub_2478A2454(uint64_t a1, uint64_t a2)
+uint64_t sub_2478A2454(uint64_t a1, uint64_t *a2)
 {
-  if (!*(a2 + 16))
+  if (!a2[2])
   {
     return 0;
   }
@@ -2573,7 +2550,7 @@ uint64_t sub_2478A2454(uint64_t a1, uint64_t a2)
   v16 = *(*a2 + 40);
   if (v16)
   {
-    Value = CFDictionaryGetValue(v16, *(a2 + 8));
+    Value = CFDictionaryGetValue(v16, a2[1]);
     if (Value)
     {
       if (CFDictionaryContainsKey(Value, RecordIDForRowid))
@@ -2584,10 +2561,10 @@ uint64_t sub_2478A2454(uint64_t a1, uint64_t a2)
   }
 
 LABEL_4:
-  v6 = *(a2 + 48);
+  v6 = a2[6];
   if (v6)
   {
-    v7 = v6(a1, *(a2 + 64));
+    v7 = v6(a1, a2[8]);
     v8 = v7 & 1;
     if ((v7 & 2) == 0)
     {
@@ -2602,13 +2579,13 @@ LABEL_4:
 
   if (v4 != 5)
   {
-    v10 = CFDictionaryGetValue(*(a2 + 16), RecordIDForRowid);
+    v10 = CFDictionaryGetValue(a2[2], RecordIDForRowid);
     if (v10)
     {
       v9 = v10;
       if (v10[56] == 1)
       {
-        CSDBSqliteStatementApplyValuesFromRecordWithNullValue(a1, *(a2 + 24), *(a2 + 40), v10, *MEMORY[0x277CBEEE8]);
+        CSDBSqliteStatementApplyValuesFromRecordWithNullValue(a1, a2[3], *(a2 + 10), v10, *MEMORY[0x277CBEEE8]);
         *(v9 + 56) = 0;
         *(v9 + 36) = CSDBRecordStoreGetSequenceNumber(*(v9 + 16));
       }
@@ -2616,16 +2593,16 @@ LABEL_4:
 
     else
     {
-      v9 = sub_2478A29CC(*(a2 + 8), RecordIDForRowid);
-      CSDBSqliteStatementApplyValuesFromRecordWithNullValue(a1, *(a2 + 24), *(a2 + 40), v9, *MEMORY[0x277CBEEE8]);
+      v9 = sub_2478A29CC(a2[1], RecordIDForRowid);
+      CSDBSqliteStatementApplyValuesFromRecordWithNullValue(a1, a2[3], *(a2 + 10), v9, *MEMORY[0x277CBEEE8]);
       if (!v9)
       {
-        CFDictionarySetValue(*(a2 + 16), RecordIDForRowid, 0);
+        CFDictionarySetValue(a2[2], RecordIDForRowid, 0);
         goto LABEL_19;
       }
 
       *(v9 + 16) = *a2;
-      CFDictionarySetValue(*(a2 + 16), RecordIDForRowid, v9);
+      CFDictionarySetValue(a2[2], RecordIDForRowid, v9);
       CFRelease(v9);
     }
 
@@ -2636,11 +2613,11 @@ LABEL_4:
 
     else
     {
-      SequenceNumber = *(a2 + 44);
+      SequenceNumber = *(a2 + 11);
       if (SequenceNumber < 0)
       {
         SequenceNumber = CSDBRecordStoreGetSequenceNumber(*a2);
-        *(a2 + 44) = SequenceNumber;
+        *(a2 + 11) = SequenceNumber;
       }
     }
 
@@ -2651,10 +2628,10 @@ LABEL_4:
 
   v9 = *MEMORY[0x277CBEEE8];
 LABEL_19:
-  v12 = *(a2 + 56);
+  v12 = a2[7];
   if (v12)
   {
-    if (v12(a1, v9, *(a2 + 64)))
+    if (v12(a1, v9, a2[8]))
     {
       v8 = 1;
     }
@@ -2665,7 +2642,7 @@ LABEL_19:
     }
   }
 
-  v13 = *(a2 + 32);
+  v13 = a2[4];
   if (v13)
   {
     CFArrayAppendValue(v13, v9);
@@ -3116,7 +3093,7 @@ LABEL_18:
 
       v9 = v8;
       v10 = CSDBSqliteConnectionStatementForSQL(v8, v7);
-      if (!v10 || (v11 = v10, !*(v10 + 1)))
+      if (!v10 || (v11 = v10, !v10[1]))
       {
         ValueAtIndex = 0;
         goto LABEL_17;
@@ -3412,7 +3389,7 @@ void CSDBRecordSetProperty(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v7 = v6;
-  v8 = v6[3];
+  v8 = *(v6 + 24);
   if ((*(v8 + 56) & 4) != 0 && *(v8 + 136) >= 3)
   {
     v9 = *(v8 + 144);
@@ -3455,14 +3432,14 @@ void CSDBRecordSetProperty(uint64_t a1, uint64_t a2, uint64_t a3)
           v15 = *MEMORY[0x277CBEEE8];
         }
 
-        v24 = *(v7 + 48);
-        if (!v24)
+        v23 = *(v7 + 48);
+        if (!v23)
         {
-          v24 = CFDictionaryCreateMutable(0, 0, 0, 0);
-          *(v7 + 48) = v24;
+          v23 = CFDictionaryCreateMutable(0, 0, 0, 0);
+          *(v7 + 48) = v23;
         }
 
-        CFDictionaryAddValue(v24, a2, v15);
+        CFDictionaryAddValue(v23, a2, v15);
         CFSetRemoveValue(*(v7 + 64), a2);
         if (!a3)
         {
@@ -3482,18 +3459,17 @@ void CSDBRecordSetProperty(uint64_t a1, uint64_t a2, uint64_t a3)
   if (!a3)
   {
 LABEL_19:
-    v17 = *MEMORY[0x277CBEEE8];
     if (a3)
     {
-      v18 = a3;
+      v17 = a3;
     }
 
     else
     {
-      v18 = *MEMORY[0x277CBEEE8];
+      v17 = *MEMORY[0x277CBEEE8];
     }
 
-    sub_2478A2A74(v7, a2, v18);
+    sub_2478A2A74(v7, a2, v17);
     goto LABEL_23;
   }
 
@@ -3505,46 +3481,46 @@ LABEL_18:
 
 LABEL_23:
   CSDBRecordMarkPropertyChanged(v7, a2);
-  v19 = *(v7 + 16);
-  if (!v19)
+  v18 = *(v7 + 16);
+  if (!v18)
   {
     return;
   }
 
-  v20 = *(v19 + 24);
-  if (v20)
+  v19 = *(v18 + 24);
+  if (v19)
   {
-    if (CFDictionaryContainsKey(v20, v7))
+    if (CFDictionaryContainsKey(v19, v7))
     {
       return;
     }
 
-    v19 = *(v7 + 16);
+    v18 = *(v7 + 16);
   }
 
-  v21 = *(v19 + 40);
-  if (!v21 || (Value = CFDictionaryGetValue(v21, *(v7 + 24))) == 0 || !CFDictionaryContainsKey(Value, *(v7 + 32)))
+  v20 = *(v18 + 40);
+  if (!v20 || (Value = CFDictionaryGetValue(v20, *(v7 + 24))) == 0 || !CFDictionaryContainsKey(Value, *(v7 + 32)))
   {
-    v23 = 2;
+    v22 = 2;
     if (*(*(v7 + 16) + 57))
     {
       if (*(*(*(v7 + 24) + 80) + 40 * v11 + 25))
       {
-        v23 = 2;
+        v22 = 2;
       }
 
       else
       {
-        v23 = 3;
+        v22 = 3;
       }
     }
 
     if ((*(*(v7 + 16) + 57) & 2) != 0)
     {
-      v23 = ((*(*(*(v7 + 24) + 80) + 40 * v11 + 24) >> 6) & 4 | v23) ^ 4;
+      v22 = ((*(*(*(v7 + 24) + 80) + 40 * v11 + 24) >> 6) & 4 | v22) ^ 4;
     }
 
-    sub_2478A4D30(v7, v23);
+    sub_2478A4D30(v7, v22);
   }
 }
 
@@ -3864,7 +3840,7 @@ LABEL_34:
 
 void CSDBSqliteBindBlobFromCFData(uint64_t a1, CFDataRef theData)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (a1 && theData && *(a1 + 8) && *(a1 + 16) >= 1)
   {
     BytePtr = CFDataGetBytePtr(theData);
@@ -3872,7 +3848,7 @@ void CSDBSqliteBindBlobFromCFData(uint64_t a1, CFDataRef theData)
     sqlite3_bind_blob(*(a1 + 8), *(a1 + 16), BytePtr, Length, 0);
 LABEL_18:
     ++*(a1 + 16);
-    goto LABEL_19;
+    return;
   }
 
   if (IMOSLoggingEnabled())
@@ -3906,13 +3882,13 @@ LABEL_18:
         v7 = @"YES";
       }
 
-      v11 = 138412802;
-      v12 = v8;
-      v13 = 1024;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v7;
-      _os_log_impl(&dword_24789E000, v6, OS_LOG_TYPE_INFO, "Invalid parameters passed into CSDBSqliteBindBlobFromCFData s==NULL ? %@  bindIndex = %d  data == NULL ? %@", &v11, 0x1Cu);
+      v10 = 138412802;
+      v11 = v8;
+      v12 = 1024;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_impl(&dword_24789E000, v6, OS_LOG_TYPE_INFO, "Invalid parameters passed into CSDBSqliteBindBlobFromCFData s==NULL ? %@  bindIndex = %d  data == NULL ? %@", &v10, 0x1Cu);
     }
   }
 
@@ -3920,9 +3896,6 @@ LABEL_18:
   {
     goto LABEL_18;
   }
-
-LABEL_19:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 char *sub_2478A3D48(uint64_t a1, int *a2, int a3)
@@ -4222,7 +4195,7 @@ LABEL_39:
   else
   {
     CSDBSqliteBindInt64(v25, a3);
-    if (v26[1])
+    if (*(v26 + 1))
     {
       v27 = v32;
       do
@@ -4236,7 +4209,7 @@ LABEL_39:
     }
   }
 
-  v29 = v26[1];
+  v29 = *(v26 + 1);
   if (v29)
   {
     v11 = CSDBSqliteStepWithConnection(*v26, v29);
@@ -4258,9 +4231,9 @@ LABEL_39:
   return v11;
 }
 
-void CSDBSqliteBindColumnValue(uint64_t a1, uint64_t a2)
+void CSDBSqliteBindColumnValue(sqlite3_stmt *a1, uint64_t a2)
 {
-  if (!a1 || !*(a1 + 8))
+  if (!a1 || !*(a1 + 1))
   {
     return;
   }
@@ -4370,21 +4343,21 @@ LABEL_39:
   }
 }
 
-void CSDBSqliteBindNull(uint64_t a1)
+void CSDBSqliteBindNull(sqlite3_stmt *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v2 = *(a1 + 8);
+    v2 = *(a1 + 1);
     if (v2)
     {
-      v3 = *(a1 + 16);
+      v3 = *(a1 + 4);
       if (v3 >= 1)
       {
         sqlite3_bind_null(v2, v3);
 LABEL_12:
-        ++*(a1 + 16);
-        goto LABEL_13;
+        ++*(a1 + 4);
+        return;
       }
     }
   }
@@ -4397,7 +4370,7 @@ LABEL_12:
       v5 = @"YES";
       if (a1)
       {
-        v6 = *(a1 + 16);
+        v6 = *(a1 + 4);
       }
 
       else
@@ -4406,11 +4379,11 @@ LABEL_12:
         v6 = 0;
       }
 
-      v8 = 138412546;
-      v9 = v5;
-      v10 = 1024;
-      v11 = v6;
-      _os_log_impl(&dword_24789E000, v4, OS_LOG_TYPE_INFO, "Invalid parameters passed into CSDBSqliteBindNull s==NULL ? %@  bindIndex = %d", &v8, 0x12u);
+      v7 = 138412546;
+      v8 = v5;
+      v9 = 1024;
+      v10 = v6;
+      _os_log_impl(&dword_24789E000, v4, OS_LOG_TYPE_INFO, "Invalid parameters passed into CSDBSqliteBindNull s==NULL ? %@  bindIndex = %d", &v7, 0x12u);
     }
   }
 
@@ -4418,9 +4391,6 @@ LABEL_12:
   {
     goto LABEL_12;
   }
-
-LABEL_13:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 sqlite3_int64 CSDBSqliteConnectionRowidOfLastInsert(uint64_t a1)
@@ -4641,7 +4611,7 @@ void sub_2478A49C0(uint64_t a1, uint64_t a2, uint64_t a3)
   if (v9)
   {
     v10 = v9;
-    if (*(v9 + 1))
+    if (v9[1])
     {
       v11 = *a3;
       if (*a3)
@@ -4734,7 +4704,7 @@ LABEL_12:
 
 void *sub_2478A4C58(void *a1, const char *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_UTF8String(a1, a2, a3);
   memset(md, 170, sizeof(md));
   v4 = strlen(v3);
@@ -4746,7 +4716,6 @@ void *sub_2478A4C58(void *a1, const char *a2, uint64_t a3)
     objc_msgSend_appendFormat_(v8, v7, @"%02x", md[i], *md, *&md[8]);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -4780,7 +4749,7 @@ void sub_2478A4D30(void *key, int a2)
   CFDictionarySetValue(v7, key, v6);
 }
 
-void sub_2478A4DE8(uint64_t a1, char a2, uint64_t *a3)
+void sub_2478A4DE8(uint64_t a1, char a2, void *a3)
 {
   if (!a1 || !a3 || !a3[1])
   {
@@ -4933,7 +4902,7 @@ uint64_t CSDBSqliteConnectionUpdateRecord(uint64_t a1, const __CFString *a2, sql
 
   while (v14);
   CSDBSqliteBindInt64(v16, a3);
-  v17 = v16[1];
+  v17 = *(v16 + 1);
   if (v17)
   {
     v5 = CSDBSqliteStepWithConnection(*v16, v17);
@@ -4954,7 +4923,6 @@ uint64_t sub_2478A51B0(int a1, uint64_t a2, uint64_t *a3)
   v5 = *(*(*(*(*a3 + 24) + 80) + 40 * a1 + 16) + 32);
   if (v5)
   {
-    v6 = a3[1];
     return v5();
   }
 
@@ -5046,7 +5014,6 @@ uint64_t CSDBRecordInitializeProperty(uint64_t result, int a2, uint64_t a3)
 {
   if (result && (!a3 || *(result + 8 * a2 + 72) != a3))
   {
-    v3 = *MEMORY[0x277CBEEE8];
     if (!a3)
     {
       a3 = *MEMORY[0x277CBEEE8];
@@ -5087,84 +5054,81 @@ CFArrayRef CSDBRecordCopyChangedProperties(uint64_t a1)
 
 uint64_t CSDBRecordShow(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = a1[3];
   v3 = *(v2 + 40);
   if (v3)
   {
-    v4 = *MEMORY[0x277D85DE8];
 
     return v3();
   }
 
   else
   {
-    v6 = *(v2 + 72);
-    v7 = MEMORY[0x277D85DF8];
+    v5 = *(v2 + 72);
+    v6 = MEMORY[0x277D85DF8];
     result = fprintf(*MEMORY[0x277D85DF8], "CSDBRecord/%s instance %p:\n", *v2, a1);
-    if (v6 >= 1)
+    if (v5 >= 1)
     {
+      v7 = 0;
       v8 = 0;
-      v9 = 0;
       do
       {
-        Property = CSDBRecordGetProperty(a1, v9);
-        fprintf(*v7, " %s (%d) = ", *(*(a1[3] + 80) + v8), v9);
-        v11 = *(a1[3] + 80);
-        if (Property && (v12 = *(*(v11 + v8 + 16) + 16)) != 0)
+        Property = CSDBRecordGetProperty(a1, v8);
+        fprintf(*v6, " %s (%d) = ", *(*(a1[3] + 80) + v7), v8);
+        v10 = *(a1[3] + 80);
+        if (Property && (v11 = *(*(v10 + v7 + 16) + 16)) != 0)
         {
-          v12(Property);
+          v11(Property);
         }
 
         else
         {
-          v13 = *(v11 + v8 + 8);
-          if (v13 == 1)
+          v12 = *(v10 + v7 + 8);
+          if (v12 == 1)
           {
-            v14 = CFStringCreateWithFormat(0, 0, @"%@", Property);
-            if (v14)
+            v13 = CFStringCreateWithFormat(0, 0, @"%@", Property);
+            if (v13)
             {
-              v15 = v14;
+              v14 = v13;
               memset(__b, 170, sizeof(__b));
-              CFStringGetCString(v15, __b, 2048, 0x8000100u);
-              fputs(__b, *v7);
-              CFRelease(v15);
+              CFStringGetCString(v14, __b, 2048, 0x8000100u);
+              fputs(__b, *v6);
+              CFRelease(v14);
             }
 
             else
             {
-              fwrite("(nil)", 5uLL, 1uLL, *v7);
+              fwrite("(nil)", 5uLL, 1uLL, *v6);
             }
           }
 
-          else if (v13)
+          else if (v12)
           {
-            fprintf(*v7, "%p");
+            fprintf(*v6, "%p");
           }
 
           else
           {
-            fprintf(*v7, "%d");
+            fprintf(*v6, "%d");
           }
         }
 
-        result = fputc(10, *v7);
-        v9 = (v9 + 1);
-        v8 += 40;
+        result = fputc(10, *v6);
+        v8 = (v8 + 1);
+        v7 += 40;
       }
 
-      while (40 * v6 != v8);
+      while (40 * v5 != v7);
     }
-
-    v16 = *MEMORY[0x277D85DE8];
   }
 
   return result;
 }
 
-uint64_t CSDBRecordGetPropertyDescriptor(uint64_t a1, unsigned int a2)
+uint64_t CSDBRecordGetPropertyDescriptor(uint64_t a1, signed int a2)
 {
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     return 0;
   }
@@ -5240,28 +5204,27 @@ void CSDBRecordStoreSetValueForProperty(uint64_t a1, void *key, const void *a3)
     }
   }
 
-  v7 = *MEMORY[0x277CBEEE8];
   if (a3)
   {
-    v8 = a3;
+    v7 = a3;
   }
 
   else
   {
-    v8 = *MEMORY[0x277CBEEE8];
+    v7 = *MEMORY[0x277CBEEE8];
   }
 
-  CFDictionarySetValue(Mutable, key, v8);
+  CFDictionarySetValue(Mutable, key, v7);
 }
 
-CFStringRef CSDBRecordStoreCopyValueForProperty(uint64_t a1, const __CFString *key)
+CFStringRef CSDBRecordStoreCopyValueForProperty(const __CFString **a1, const __CFString *key)
 {
   if (!a1)
   {
     sub_2478AD32C();
   }
 
-  v4 = *(a1 + 80);
+  v4 = a1[10];
   if (v4)
   {
     Value = CFDictionaryGetValue(v4, key);
@@ -5295,7 +5258,7 @@ LABEL_7:
   return v6;
 }
 
-uint64_t CSDBRecordIndexOfPropertyNamed(const char **a1, int a2, char *__s1)
+uint64_t CSDBRecordIndexOfPropertyNamed(const char **a1, unsigned int a2, char *__s1)
 {
   if (a2 < 1)
   {
@@ -5374,7 +5337,7 @@ void sub_2478A59DC(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t CSDBRecordStoreLogChanges(uint64_t result, char a2)
+uint64_t CSDBRecordStoreLogChanges(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
@@ -5385,7 +5348,7 @@ uint64_t CSDBRecordStoreLogChanges(uint64_t result, char a2)
   return result;
 }
 
-uint64_t CSDBRecordStoreLogBasicChanges(uint64_t result, int a2)
+uint64_t CSDBRecordStoreLogBasicChanges(uint64_t result, uint64_t a2)
 {
   if (!result)
   {
@@ -5406,7 +5369,7 @@ uint64_t CSDBRecordStoreLogBasicChanges(uint64_t result, int a2)
   return result;
 }
 
-uint64_t CSDBRecordStoreIsLoggingChanges(uint64_t a1)
+uint64_t CSDBRecordStoreIsLoggingChanges(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -6359,7 +6322,7 @@ uint64_t CSDBSqliteDatabaseSetConnectionInitializer(uint64_t result, uint64_t a2
 
 uint64_t CSDBSqliteDatabaseVacuum(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     errmsg = 0;
@@ -6373,9 +6336,9 @@ uint64_t CSDBSqliteDatabaseVacuum(uint64_t a1)
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v13 = v2;
-          v14 = 2080;
-          v15 = errmsg;
+          v12 = v2;
+          v13 = 2080;
+          v14 = errmsg;
           v4 = "Unable to vacuum database. SQLiteResult: %d error message: %s";
           v5 = v8;
           v6 = 18;
@@ -6403,33 +6366,28 @@ LABEL_13:
       free(errmsg);
     }
 
-    goto LABEL_17;
+    return v2;
   }
 
-  if (IMOSLoggingEnabled())
+  if (!IMOSLoggingEnabled())
   {
-    v7 = OSLogHandleForIMFoundationCategory();
-    v2 = 1;
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_24789E000, v7, OS_LOG_TYPE_INFO, "Unable to vaccum db, NULL connection.", buf, 2u);
-    }
+    return 1;
   }
 
-  else
+  v7 = OSLogHandleForIMFoundationCategory();
+  v2 = 1;
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v2 = 1;
+    *buf = 0;
+    _os_log_impl(&dword_24789E000, v7, OS_LOG_TYPE_INFO, "Unable to vaccum db, NULL connection.", buf, 2u);
   }
 
-LABEL_17:
-  v9 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 uint64_t CSDBSqliteDatabaseCheckpointAndVacuum(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     errmsg = 0;
@@ -6443,9 +6401,9 @@ uint64_t CSDBSqliteDatabaseCheckpointAndVacuum(uint64_t a1)
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v21 = v3;
-          v22 = 2080;
-          v23 = errmsg;
+          v20 = v3;
+          v21 = 2080;
+          v22 = errmsg;
           v5 = "Unable to vacuum database. SQLiteResult: %d error message: %s";
           v6 = v10;
           v7 = 18;
@@ -6478,9 +6436,9 @@ LABEL_13:
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v21 = v9;
-          v22 = 2080;
-          v23 = errmsg;
+          v20 = v9;
+          v21 = 2080;
+          v22 = errmsg;
           v13 = "Unable to wal_checkpoint database. SQLiteResult: %d error message: %s";
           v14 = v16;
           v15 = 18;
@@ -6508,27 +6466,22 @@ LABEL_22:
       free(errmsg);
     }
 
-    goto LABEL_26;
+    return v9;
   }
 
-  if (IMOSLoggingEnabled())
+  if (!IMOSLoggingEnabled())
   {
-    v8 = OSLogHandleForIMFoundationCategory();
-    v9 = 1;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_24789E000, v8, OS_LOG_TYPE_INFO, "Unable to vaccum db, NULL connection.", buf, 2u);
-    }
+    return 1;
   }
 
-  else
+  v8 = OSLogHandleForIMFoundationCategory();
+  v9 = 1;
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v9 = 1;
+    *buf = 0;
+    _os_log_impl(&dword_24789E000, v8, OS_LOG_TYPE_INFO, "Unable to vaccum db, NULL connection.", buf, 2u);
   }
 
-LABEL_26:
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -6556,7 +6509,7 @@ void CSDBSqliteDatabaseCloseAllConnections(uint64_t a1)
 
 void CSDBSqliteDeleteDatabase(void *a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v2 = objc_alloc(MEMORY[0x277CCACA8]);
@@ -6571,7 +6524,7 @@ void CSDBSqliteDeleteDatabase(void *a1)
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v22 = a1;
+        v21 = a1;
         _os_log_impl(&dword_24789E000, v13, OS_LOG_TYPE_INFO, "Unlinking the source database %@.", buf, 0xCu);
       }
     }
@@ -6596,13 +6549,11 @@ void CSDBSqliteDeleteDatabase(void *a1)
       unlink(v19);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void CSDBSqliteBackupDatabase(uint64_t a1, const __CFString *a2)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v4 = OSLogHandleForIMFoundationCategory();
@@ -6623,9 +6574,9 @@ void CSDBSqliteBackupDatabase(uint64_t a1, const __CFString *a2)
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v52 = 138412290;
-      *v53 = a2;
-      _os_log_impl(&dword_24789E000, v5, OS_LOG_TYPE_INFO, "Destination path: %@", v52, 0xCu);
+      *v51 = 138412290;
+      *v52 = a2;
+      _os_log_impl(&dword_24789E000, v5, OS_LOG_TYPE_INFO, "Destination path: %@", v51, 0xCu);
     }
   }
 
@@ -6635,9 +6586,9 @@ void CSDBSqliteBackupDatabase(uint64_t a1, const __CFString *a2)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = *a1;
-      *v52 = 138412290;
-      *v53 = v7;
-      _os_log_impl(&dword_24789E000, v6, OS_LOG_TYPE_INFO, "Source path: %@", v52, 0xCu);
+      *v51 = 138412290;
+      *v52 = v7;
+      _os_log_impl(&dword_24789E000, v6, OS_LOG_TYPE_INFO, "Source path: %@", v51, 0xCu);
     }
   }
 
@@ -6673,8 +6624,8 @@ void CSDBSqliteBackupDatabase(uint64_t a1, const __CFString *a2)
       v12 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        *v52 = 0;
-        _os_log_impl(&dword_24789E000, v12, OS_LOG_TYPE_INFO, "Opened the source database to force WAL journal mode.", v52, 2u);
+        *v51 = 0;
+        _os_log_impl(&dword_24789E000, v12, OS_LOG_TYPE_INFO, "Opened the source database to force WAL journal mode.", v51, 2u);
       }
     }
 
@@ -6684,8 +6635,8 @@ void CSDBSqliteBackupDatabase(uint64_t a1, const __CFString *a2)
       v13 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        *v52 = 0;
-        _os_log_impl(&dword_24789E000, v13, OS_LOG_TYPE_INFO, "Closing the source database to clean up any support files.", v52, 2u);
+        *v51 = 0;
+        _os_log_impl(&dword_24789E000, v13, OS_LOG_TYPE_INFO, "Closing the source database to clean up any support files.", v51, 2u);
       }
     }
 
@@ -6696,190 +6647,190 @@ void CSDBSqliteBackupDatabase(uint64_t a1, const __CFString *a2)
     {
       if (IMOSLoggingEnabled())
       {
-        v20 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        v19 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
-          *v52 = 0;
-          _os_log_impl(&dword_24789E000, v20, OS_LOG_TYPE_INFO, "Opened the source database.", v52, 2u);
+          *v51 = 0;
+          _os_log_impl(&dword_24789E000, v19, OS_LOG_TYPE_INFO, "Opened the source database.", v51, 2u);
         }
       }
 
-      v21 = *(a1 + 184);
-      v22 = 4194310;
-      if (!v21)
+      v20 = *(a1 + 184);
+      v21 = 4194310;
+      if (!v20)
       {
-        v22 = 3145734;
+        v21 = 3145734;
       }
 
-      if (v21 == 1)
+      if (v20 == 1)
       {
-        v23 = 1048582;
+        v22 = 1048582;
       }
 
       else
       {
-        v23 = v22;
+        v22 = v21;
       }
 
-      v50 = 0;
-      v24 = sqlite3_open_v2(buf, &v50, v23, 0);
-      v25 = IMOSLoggingEnabled();
-      if (v24)
+      v49 = 0;
+      v23 = sqlite3_open_v2(buf, &v49, v22, 0);
+      v24 = IMOSLoggingEnabled();
+      if (v23)
       {
-        if (!v25)
+        if (!v24)
         {
-          goto LABEL_29;
+          return;
         }
 
-        v26 = OSLogHandleForIMFoundationCategory();
-        if (!os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+        v25 = OSLogHandleForIMFoundationCategory();
+        if (!os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
-          goto LABEL_29;
+          return;
         }
 
-        v27 = sqlite3_errmsg(v50);
-        *v52 = 67109378;
-        *v53 = v24;
-        *&v53[4] = 2080;
-        *&v53[6] = v27;
+        v26 = sqlite3_errmsg(v49);
+        *v51 = 67109378;
+        *v52 = v23;
+        *&v52[4] = 2080;
+        *&v52[6] = v26;
         v16 = "Unable to open the destination database. SQLite error: [%d] %s";
         goto LABEL_65;
       }
 
-      if (v25)
+      if (v24)
       {
-        v28 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+        v27 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
-          *v52 = 0;
-          _os_log_impl(&dword_24789E000, v28, OS_LOG_TYPE_INFO, "Opened the destination database.", v52, 2u);
+          *v51 = 0;
+          _os_log_impl(&dword_24789E000, v27, OS_LOG_TYPE_INFO, "Opened the destination database.", v51, 2u);
         }
       }
 
-      v29 = sqlite3_file_control(v50, 0, 102, ppDb);
-      v30 = IMOSLoggingEnabled();
-      if (v29)
+      v28 = sqlite3_file_control(v49, 0, 102, ppDb);
+      v29 = IMOSLoggingEnabled();
+      if (v28)
       {
-        if (v30)
+        if (v29)
         {
-          v31 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+          v30 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
           {
-            v32 = sqlite3_errmsg(v50);
-            v33 = sqlite3_errmsg(ppDb);
-            *v52 = 67109634;
-            *v53 = v29;
-            *&v53[4] = 2080;
-            *&v53[6] = v32;
-            v54 = 2080;
-            v55 = v33;
-            v34 = "Replacing messages database from restore failed. SQLite error: [%d] Destination: %s Source: %s";
-            v35 = v31;
-            v36 = 28;
+            v31 = sqlite3_errmsg(v49);
+            v32 = sqlite3_errmsg(ppDb);
+            *v51 = 67109634;
+            *v52 = v28;
+            *&v52[4] = 2080;
+            *&v52[6] = v31;
+            v53 = 2080;
+            v54 = v32;
+            v33 = "Replacing messages database from restore failed. SQLite error: [%d] Destination: %s Source: %s";
+            v34 = v30;
+            v35 = 28;
 LABEL_52:
-            _os_log_impl(&dword_24789E000, v35, OS_LOG_TYPE_INFO, v34, v52, v36);
+            _os_log_impl(&dword_24789E000, v34, OS_LOG_TYPE_INFO, v33, v51, v35);
           }
         }
       }
 
-      else if (v30)
+      else if (v29)
       {
-        v37 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+        v36 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
         {
-          *v52 = 0;
-          v34 = "Database replacement was successful.";
-          v35 = v37;
-          v36 = 2;
+          *v51 = 0;
+          v33 = "Database replacement was successful.";
+          v34 = v36;
+          v35 = 2;
           goto LABEL_52;
         }
       }
 
-      v38 = sqlite3_close(v50);
-      v39 = IMOSLoggingEnabled();
-      if (v38)
+      v37 = sqlite3_close(v49);
+      v38 = IMOSLoggingEnabled();
+      if (v37)
       {
-        if (!v39)
+        if (!v38)
         {
           goto LABEL_61;
         }
 
-        v40 = OSLogHandleForIMFoundationCategory();
-        if (!os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+        v39 = OSLogHandleForIMFoundationCategory();
+        if (!os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
         {
           goto LABEL_61;
         }
 
-        v41 = sqlite3_errmsg(v50);
-        *v52 = 67109378;
-        *v53 = v38;
-        *&v53[4] = 2080;
-        *&v53[6] = v41;
-        v42 = "Unable to close the destination database. SQLite error: [%d] %s";
-        v43 = v40;
-        v44 = 18;
+        v40 = sqlite3_errmsg(v49);
+        *v51 = 67109378;
+        *v52 = v37;
+        *&v52[4] = 2080;
+        *&v52[6] = v40;
+        v41 = "Unable to close the destination database. SQLite error: [%d] %s";
+        v42 = v39;
+        v43 = 18;
       }
 
       else
       {
-        if (!v39)
+        if (!v38)
         {
           goto LABEL_61;
         }
 
-        v45 = OSLogHandleForIMFoundationCategory();
-        if (!os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+        v44 = OSLogHandleForIMFoundationCategory();
+        if (!os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
         {
           goto LABEL_61;
         }
 
-        *v52 = 0;
-        v42 = "Closed the destination database.";
-        v43 = v45;
-        v44 = 2;
+        *v51 = 0;
+        v41 = "Closed the destination database.";
+        v42 = v44;
+        v43 = 2;
       }
 
-      _os_log_impl(&dword_24789E000, v43, OS_LOG_TYPE_INFO, v42, v52, v44);
+      _os_log_impl(&dword_24789E000, v42, OS_LOG_TYPE_INFO, v41, v51, v43);
 LABEL_61:
-      v46 = sqlite3_close(ppDb);
-      v47 = IMOSLoggingEnabled();
-      if (!v46)
+      v45 = sqlite3_close(ppDb);
+      v46 = IMOSLoggingEnabled();
+      if (!v45)
       {
-        if (v47)
+        if (v46)
         {
-          v49 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+          v48 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
           {
-            *v52 = 0;
+            *v51 = 0;
             v16 = "Closed the source database.";
-            v17 = v49;
+            v17 = v48;
             v18 = 2;
             goto LABEL_28;
           }
         }
 
-        goto LABEL_29;
+        return;
       }
 
-      if (!v47)
+      if (!v46)
       {
-        goto LABEL_29;
+        return;
       }
 
-      v26 = OSLogHandleForIMFoundationCategory();
-      if (!os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v25 = OSLogHandleForIMFoundationCategory();
+      if (!os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
-        goto LABEL_29;
+        return;
       }
 
-      v48 = sqlite3_errmsg(ppDb);
-      *v52 = 67109378;
-      *v53 = v46;
-      *&v53[4] = 2080;
-      *&v53[6] = v48;
+      v47 = sqlite3_errmsg(ppDb);
+      *v51 = 67109378;
+      *v52 = v45;
+      *&v52[4] = 2080;
+      *&v52[6] = v47;
       v16 = "Unable to close the source database. SQLite error: [%d] %s";
 LABEL_65:
-      v17 = v26;
+      v17 = v25;
       goto LABEL_27;
     }
   }
@@ -6890,21 +6841,18 @@ LABEL_65:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = sqlite3_errmsg(ppDb);
-      *v52 = 67109378;
-      *v53 = v11;
-      *&v53[4] = 2080;
-      *&v53[6] = v15;
+      *v51 = 67109378;
+      *v52 = v11;
+      *&v52[4] = 2080;
+      *&v52[6] = v15;
       v16 = "Unable to open the source database. SQLite error: [%d] %s";
       v17 = v14;
 LABEL_27:
       v18 = 18;
 LABEL_28:
-      _os_log_impl(&dword_24789E000, v17, OS_LOG_TYPE_INFO, v16, v52, v18);
+      _os_log_impl(&dword_24789E000, v17, OS_LOG_TYPE_INFO, v16, v51, v18);
     }
   }
-
-LABEL_29:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2478A7BEC(_Unwind_Exception *a1, int a2)
@@ -7036,7 +6984,7 @@ uint64_t CSDBSqliteConnectionSetValueForProperty(void *a1, const __CFString *a2,
         CSDBSqliteBindNull(v8);
       }
 
-      v9 = *(v8 + 8);
+      v9 = *(v8 + 1);
       if (v9)
       {
         CSDBSqliteStepWithConnection(*v8, v9);
@@ -7060,7 +7008,7 @@ uint64_t CSDBSqliteConnectionSetValueForProperty(void *a1, const __CFString *a2,
             CSDBSqliteBindNull(v12);
           }
 
-          v13 = *(v12 + 8);
+          v13 = *(v12 + 1);
           if (v13)
           {
             CSDBSqliteStepWithConnection(*v12, v13);
@@ -7146,9 +7094,9 @@ BOOL sub_2478A8128()
   return (sub_2478AB63C() | v0) != 0;
 }
 
-uint64_t sub_2478A8174(int a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t sub_2478A8174(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a1 == 2)
   {
     if (a4)
@@ -7159,17 +7107,16 @@ uint64_t sub_2478A8174(int a1, uint64_t a2, uint64_t a3, uint64_t *a4)
         v6 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
         {
-          v9 = 136315394;
-          v10 = a3;
-          v11 = 2048;
-          v12 = v5 >> 20;
-          _os_log_impl(&dword_24789E000, v6, OS_LOG_TYPE_INFO, "==\nCSDBSqlite: %s\nTime: %llu ms\n", &v9, 0x16u);
+          v8 = 136315394;
+          v9 = a3;
+          v10 = 2048;
+          v11 = v5 >> 20;
+          _os_log_impl(&dword_24789E000, v6, OS_LOG_TYPE_INFO, "==\nCSDBSqlite: %s\nTime: %llu ms\n", &v8, 0x16u);
         }
       }
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -7185,9 +7132,9 @@ uint64_t CSDBSqliteSetupLoggingForDatabaseHandle(sqlite3 *a1)
   return result;
 }
 
-uint64_t sub_2478A82C8(uint64_t a1, int a2, char **a3, const char **a4)
+uint64_t sub_2478A82C8(uint64_t a1, unsigned int a2, char **a3, const char **a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (*(a1 + 16))
   {
     v8 = 0;
@@ -7201,9 +7148,9 @@ uint64_t sub_2478A82C8(uint64_t a1, int a2, char **a3, const char **a4)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = *(a1 + 8);
-        v22 = 136315138;
-        v23 = v10;
-        _os_log_impl(&dword_24789E000, v9, OS_LOG_TYPE_INFO, "----- Explaining Query -----\n%s\n", &v22, 0xCu);
+        v21 = 136315138;
+        v22 = v10;
+        _os_log_impl(&dword_24789E000, v9, OS_LOG_TYPE_INFO, "----- Explaining Query -----\n%s\n", &v21, 0xCu);
       }
     }
 
@@ -7226,7 +7173,7 @@ uint64_t sub_2478A82C8(uint64_t a1, int a2, char **a3, const char **a4)
       ++a4;
       if (!--v11)
       {
-        goto LABEL_26;
+        return 0;
       }
     }
 
@@ -7245,7 +7192,7 @@ uint64_t sub_2478A82C8(uint64_t a1, int a2, char **a3, const char **a4)
 
       if (v13)
       {
-        goto LABEL_26;
+        return 0;
       }
 
       v14 = 0;
@@ -7265,13 +7212,13 @@ uint64_t sub_2478A82C8(uint64_t a1, int a2, char **a3, const char **a4)
         {
           if (IMOSLoggingEnabled())
           {
-            v20 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+            v19 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
             {
-              v21 = *(a1 + 8);
-              v22 = 136315138;
-              v23 = v21;
-              _os_log_impl(&dword_24789E000, v20, OS_LOG_TYPE_INFO, "--------------------------\n !!!!! NOT INDEXED !!!!!\n--------------------------\n%s\n--------------------------\n", &v22, 0xCu);
+              v20 = *(a1 + 8);
+              v21 = 136315138;
+              v22 = v20;
+              _os_log_impl(&dword_24789E000, v19, OS_LOG_TYPE_INFO, "--------------------------\n !!!!! NOT INDEXED !!!!!\n--------------------------\n%s\n--------------------------\n", &v21, 0xCu);
             }
           }
 
@@ -7294,36 +7241,32 @@ uint64_t sub_2478A82C8(uint64_t a1, int a2, char **a3, const char **a4)
           v16 = " ***** NO INDEX *****";
         }
 
-        v22 = 136315394;
-        v23 = v16;
-        v24 = 2080;
-        v25 = v17;
-        _os_log_impl(&dword_24789E000, v15, OS_LOG_TYPE_INFO, " ==>>%s %s\n", &v22, 0x16u);
+        v21 = 136315394;
+        v22 = v16;
+        v23 = 2080;
+        v24 = v17;
+        _os_log_impl(&dword_24789E000, v15, OS_LOG_TYPE_INFO, " ==>>%s %s\n", &v21, 0x16u);
       }
     }
   }
 
-LABEL_26:
-  v18 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-void CSDBSqliteConnectionSetBusyTimeout(double a1)
+void CSDBSqliteConnectionSetBusyTimeout(uint64_t a1, double a2)
 {
   v6 = *MEMORY[0x277D85DE8];
-  qword_27EE54A98 = *&a1;
+  qword_27EE54A98 = *&a2;
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = 134217984;
-      v5 = a1;
-      _os_log_impl(&dword_24789E000, v2, OS_LOG_TYPE_INFO, "Set Busy timeout to %f", &v4, 0xCu);
+      v5 = a2;
+      _os_log_impl(&dword_24789E000, v3, OS_LOG_TYPE_INFO, "Set Busy timeout to %f", &v4, 0xCu);
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t CSDBSqliteConnectionRollback(uint64_t a1)
@@ -7338,11 +7281,11 @@ uint64_t CSDBSqliteConnectionRollback(uint64_t a1)
   return result;
 }
 
-void CSDBSqliteStatementBindValuesForColumns(uint64_t a1, uint64_t a2, unsigned int a3)
+void CSDBSqliteStatementBindValuesForColumns(sqlite3_stmt *a1, uint64_t a2, unsigned int a3)
 {
   if (a1)
   {
-    if (*(a1 + 8))
+    if (*(a1 + 1))
     {
       v4 = a3 == 0;
     }
@@ -7367,9 +7310,9 @@ void CSDBSqliteStatementBindValuesForColumns(uint64_t a1, uint64_t a2, unsigned 
   }
 }
 
-UInt8 *CSDBSqliteConnectionCopyValuesForPropertiesLike(UInt8 *result, const __CFString *a2, __CFArray **a3, __CFArray **a4)
+UInt8 *CSDBSqliteConnectionCopyValuesForPropertiesLike(UInt8 *result, const __CFString *a2, unint64_t a3, unint64_t a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (result)
   {
     if (*result)
@@ -7377,22 +7320,22 @@ UInt8 *CSDBSqliteConnectionCopyValuesForPropertiesLike(UInt8 *result, const __CF
       result = sub_24789EE28(result, @"SELECT key, value FROM _SqliteDatabaseProperties WHERE key LIKE ?;", 0);
       if (result)
       {
-        v8 = result;
+        v7 = result;
         CSDBSqliteBindTextFromCFString(result, a2);
-        v9 = v8[1];
-        if (v9)
+        v8 = *(v7 + 1);
+        if (v8)
         {
           Mutable = 0;
-          v11 = 0;
-          v12 = *MEMORY[0x277CBECE8];
-          v13 = *MEMORY[0x277CBEEE8];
-          v14 = MEMORY[0x277CBF128];
+          v10 = 0;
+          v11 = *MEMORY[0x277CBECE8];
+          v12 = *MEMORY[0x277CBEEE8];
+          v13 = MEMORY[0x277CBF128];
           while (1)
           {
-            v15 = CSDBSqliteStepWithConnection(*v8, v9);
-            if (v15 != 100)
+            v14 = CSDBSqliteStepWithConnection(*v7, v8);
+            if (v14 != 100)
             {
-              if (v15 == 101)
+              if (v14 == 101)
               {
                 goto LABEL_40;
               }
@@ -7405,16 +7348,16 @@ UInt8 *CSDBSqliteConnectionCopyValuesForPropertiesLike(UInt8 *result, const __CF
               goto LABEL_20;
             }
 
-            v16 = sqlite3_column_text(v8[1], 0);
-            v17 = v16 ? CFStringCreateWithCString(v12, v16, 0x8000100u) : 0;
-            if (a4 | v17)
+            v15 = sqlite3_column_text(*(v7 + 1), 0);
+            v16 = v15 ? CFStringCreateWithCString(v11, v15, 0x8000100u) : 0;
+            if (a4 | v16)
             {
               break;
             }
 
 LABEL_32:
-            v9 = v8[1];
-            if (!v9)
+            v8 = *(v7 + 1);
+            if (!v8)
             {
               goto LABEL_37;
             }
@@ -7422,51 +7365,51 @@ LABEL_32:
 
           if (!Mutable)
           {
-            Mutable = CFArrayCreateMutable(v12, 0, v14);
+            Mutable = CFArrayCreateMutable(v11, 0, v13);
           }
 
-          if (v17)
+          if (v16)
           {
-            v18 = v17;
+            v17 = v16;
           }
 
           else
           {
-            v18 = v13;
+            v17 = v12;
           }
 
-          CFArrayAppendValue(Mutable, v18);
-          if (v17)
+          CFArrayAppendValue(Mutable, v17);
+          if (v16)
           {
-            CFRelease(v17);
+            CFRelease(v16);
           }
 
 LABEL_20:
           if (a4)
           {
-            v19 = sqlite3_column_text(v8[1], 1);
-            v20 = v19 ? CFStringCreateWithCString(v12, v19, 0x8000100u) : 0;
-            if (a3 | v20)
+            v18 = sqlite3_column_text(*(v7 + 1), 1);
+            v19 = v18 ? CFStringCreateWithCString(v11, v18, 0x8000100u) : 0;
+            if (a3 | v19)
             {
-              if (!v11)
+              if (!v10)
               {
-                v11 = CFArrayCreateMutable(v12, 0, v14);
+                v10 = CFArrayCreateMutable(v11, 0, v13);
               }
 
-              if (v20)
+              if (v19)
               {
-                v21 = v20;
+                v20 = v19;
               }
 
               else
               {
-                v21 = v13;
+                v20 = v12;
               }
 
-              CFArrayAppendValue(v11, v21);
-              if (v20)
+              CFArrayAppendValue(v10, v20);
+              if (v19)
               {
-                CFRelease(v20);
+                CFRelease(v19);
               }
             }
           }
@@ -7474,42 +7417,44 @@ LABEL_20:
           goto LABEL_32;
         }
 
-        v11 = 0;
+        v10 = 0;
         Mutable = 0;
 LABEL_37:
         if (IMOSLoggingEnabled())
         {
-          v22 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+          v21 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
-            v23 = sqlite3_errmsg(*(*v8 + 1));
-            v24 = sqlite3_extended_errcode(*(*v8 + 1));
-            v25 = 136315650;
-            v26 = "CSDBSqliteConnectionCopyValuesForPropertiesLike";
-            v27 = 2080;
-            v28 = v23;
-            v29 = 1024;
-            v30 = v24;
-            _os_log_impl(&dword_24789E000, v22, OS_LOG_TYPE_INFO, "%s: %s (%d)\n", &v25, 0x1Cu);
+            v22 = sqlite3_errmsg(*(*v7 + 8));
+            v23 = sqlite3_extended_errcode(*(*v7 + 8));
+            v24 = 136315650;
+            v25 = "CSDBSqliteConnectionCopyValuesForPropertiesLike";
+            v26 = 2080;
+            v27 = v22;
+            v28 = 1024;
+            v29 = v23;
+            _os_log_impl(&dword_24789E000, v21, OS_LOG_TYPE_INFO, "%s: %s (%d)\n", &v24, 0x1Cu);
           }
         }
 
 LABEL_40:
-        result = CSDBSqliteStatementReset(v8);
+        result = CSDBSqliteStatementReset(v7);
         if (a3 && Mutable)
         {
           *a3 = Mutable;
         }
 
-        if (a4 && v11)
+        if (a4)
         {
-          *a4 = v11;
+          if (v10)
+          {
+            *a4 = v10;
+          }
         }
       }
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7597,7 +7542,7 @@ void CSDBSetCorruptedDatabaseHandler(uint64_t a1)
 void CSDBSetAsideInPlaceCorruptedDatabaseHandler(void **a1, char *a2, uint64_t a3, uint64_t a4, sqlite3_stmt *a5)
 {
   v7 = a3;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v10 = *a1;
@@ -7613,7 +7558,7 @@ void CSDBSetAsideInPlaceCorruptedDatabaseHandler(void **a1, char *a2, uint64_t a
   v14 = objc_msgSend_mutableCopy(v11, v12, v13);
   objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x277CBEAA8], v15, v16);
   v18 = v17;
-  v35 = objc_msgSend_pathExtension(v10, v19, v20);
+  v34 = objc_msgSend_pathExtension(v10, v19, v20);
   objc_msgSend_appendFormat_(v14, v21, @"-corrupted-(%f).%@");
   if (IMOSLoggingEnabled())
   {
@@ -7634,7 +7579,7 @@ void CSDBSetAsideInPlaceCorruptedDatabaseHandler(void **a1, char *a2, uint64_t a
 
   if (a5)
   {
-    sub_2478A9494(a2, a4, a5, v24, v25, v26, v27, v28, v18, v35, v36, ppDb, *buf, *&buf[8], *&buf[16], *&buf[24], *&buf[32], v39, v40, v41, v42, v43);
+    sub_2478A9494(a2, a4, a5, v24, v25, v26, v27, v28, v18, v34, v35, ppDb, *buf, *&buf[8], *&buf[16], *&buf[24], *&buf[32], v38, v39, v40, v41, v42);
   }
 
   v30 = objc_msgSend_UTF8String(v14, v22, v23);
@@ -7644,21 +7589,18 @@ void CSDBSetAsideInPlaceCorruptedDatabaseHandler(void **a1, char *a2, uint64_t a
     ppDb = 0;
     if (!sqlite3_open(v30, &ppDb))
     {
-      if (!sqlite3_file_control(ppDb, 0, 102, a2))
+      if (!sqlite3_file_control(ppDb, 0, 102, a2) && IMOSLoggingEnabled())
       {
-        if (IMOSLoggingEnabled())
+        v32 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
-          v32 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
-          {
-            *buf = 138412802;
-            *&buf[4] = v10;
-            *&buf[12] = 2080;
-            *&buf[14] = v31;
-            *&buf[22] = 2080;
-            *&buf[24] = a4;
-            _os_log_impl(&dword_24789E000, v32, OS_LOG_TYPE_INFO, "Database at path %@ is corrupt. Copying it to %s for further investigation. Called from: %s.", buf, 0x20u);
-          }
+          *buf = 138412802;
+          *&buf[4] = v10;
+          *&buf[12] = 2080;
+          *&buf[14] = v31;
+          *&buf[22] = 2080;
+          *&buf[24] = a4;
+          _os_log_impl(&dword_24789E000, v32, OS_LOG_TYPE_INFO, "Database at path %@ is corrupt. Copying it to %s for further investigation. Called from: %s.", buf, 0x20u);
         }
       }
 
@@ -7682,42 +7624,40 @@ void CSDBSetAsideInPlaceCorruptedDatabaseHandler(void **a1, char *a2, uint64_t a
       _os_log_impl(&dword_24789E000, v33, OS_LOG_TYPE_INFO, "SQLITE_CORRUPT handling code is unable to set aside the corrupt database because the path is unknown.  db=%p, path=%@. Called from: %s.", buf, 0x20u);
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
-void *CSDBGetCorruptDatabaseHandler()
+void (*CSDBGetCorruptDatabaseHandler(uint64_t a1))(void **a1, void *a2, int a3, uint64_t a4, uint64_t a5)
 {
   if (qword_27EE54AA8 != -1)
   {
     sub_2478ADA20();
   }
 
-  v0 = CSDBDefaultCorruptedDatabaseHandler;
+  v1 = CSDBDefaultCorruptedDatabaseHandler;
   if (byte_27EE54AA0 == 1)
   {
-    v0 = qword_280BCA940;
+    v1 = qword_280BCA940;
     if (!qword_280BCA940)
     {
       if (IMOSLoggingEnabled())
       {
-        v1 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+        v2 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
         {
-          *v3 = 0;
-          _os_log_impl(&dword_24789E000, v1, OS_LOG_TYPE_INFO, "No database corruption handler found - resetting to default handler", v3, 2u);
+          *v4 = 0;
+          _os_log_impl(&dword_24789E000, v2, OS_LOG_TYPE_INFO, "No database corruption handler found - resetting to default handler", v4, 2u);
         }
       }
 
-      v0 = CSDBSetAsideInPlaceCorruptedDatabaseHandler;
+      v1 = CSDBSetAsideInPlaceCorruptedDatabaseHandler;
       qword_280BCA940 = CSDBSetAsideInPlaceCorruptedDatabaseHandler;
     }
   }
 
-  return v0;
+  return v1;
 }
 
-uint64_t sub_2478A9024(uint64_t a1, const char *a2, uint64_t a3)
+void *sub_2478A9024(uint64_t a1, const char *a2, uint64_t a3)
 {
   v3 = objc_msgSend_sharedInstance(MEMORY[0x277D19268], a2, a3);
   result = objc_msgSend_isInternalInstall(v3, v4, v5);
@@ -7725,9 +7665,9 @@ uint64_t sub_2478A9024(uint64_t a1, const char *a2, uint64_t a3)
   return result;
 }
 
-void CSDBDefaultCorruptedDatabaseHandler(const __CFString **a1, sqlite3 *a2, int a3, uint64_t a4, sqlite3_stmt *a5)
+void CSDBDefaultCorruptedDatabaseHandler(__CFString **a1, sqlite3 *a2, int a3, uint64_t a4, sqlite3_stmt *a5)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     v10 = 0;
@@ -7761,7 +7701,7 @@ LABEL_6:
 
   if (a5)
   {
-    sub_2478A9494(a2, a4, a5, v12, v13, v14, v15, v16, v34, v35, v36, ppDb, *buf, *&buf[8], *&buf[16], *&buf[24], *&buf[32], v39, v40, v41, v42, v43);
+    sub_2478A9494(a2, a4, a5, v12, v13, v14, v15, v16, v33, v34, v35, ppDb, *buf, *&buf[8], *&buf[16], *&buf[24], *&buf[32], v38, v39, v40, v41, v42);
   }
 
   if (v11)
@@ -7832,21 +7772,18 @@ LABEL_6:
 
     if (!sqlite3_open(v19, &ppDb))
     {
-      if (!sqlite3_file_control(ppDb, 0, 102, a2))
+      if (!sqlite3_file_control(ppDb, 0, 102, a2) && IMOSLoggingEnabled())
       {
-        if (IMOSLoggingEnabled())
+        v31 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
-          v31 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
-          {
-            *buf = 136315650;
-            *&buf[4] = v11;
-            *&buf[12] = 2080;
-            *&buf[14] = v19;
-            *&buf[22] = 2080;
-            *&buf[24] = a4;
-            _os_log_impl(&dword_24789E000, v31, OS_LOG_TYPE_INFO, "Database at path %s is corrupt. Copied it to %s for further investigation. Called from: %s.", buf, 0x20u);
-          }
+          *buf = 136315650;
+          *&buf[4] = v11;
+          *&buf[12] = 2080;
+          *&buf[14] = v19;
+          *&buf[22] = 2080;
+          *&buf[24] = a4;
+          _os_log_impl(&dword_24789E000, v31, OS_LOG_TYPE_INFO, "Database at path %s is corrupt. Copied it to %s for further investigation. Called from: %s.", buf, 0x20u);
         }
       }
 
@@ -7873,13 +7810,11 @@ LABEL_6:
       _os_log_impl(&dword_24789E000, v32, OS_LOG_TYPE_INFO, "SQLITE_CORRUPT handling code is unable to delete the corrupt database because the path is unknown.  db=%p, path=%s. Called from: %s", buf, 0x20u);
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2478A9494(sqlite3 *exc_buf, uint64_t a2, sqlite3_stmt *a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     if (IMOSLoggingEnabled())
@@ -7887,24 +7822,21 @@ void sub_2478A9494(sqlite3 *exc_buf, uint64_t a2, sqlite3_stmt *a3, int a4, int 
       v25 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
-        v28 = 136315906;
-        v29 = a2;
+        v26 = 136315906;
+        v27 = a2;
+        v28 = 2080;
+        v29 = sqlite3_errmsg(exc_buf);
         v30 = 2080;
-        v31 = sqlite3_errmsg(exc_buf);
-        v32 = 2080;
-        v33 = sqlite3_sql(a3);
-        v34 = 1024;
-        v35 = sqlite3_extended_errcode(exc_buf);
-        _os_log_impl(&dword_24789E000, v25, OS_LOG_TYPE_INFO, "SQLite error in function: %s message: %s sql: %s (%d)", &v28, 0x26u);
+        v31 = sqlite3_sql(a3);
+        v32 = 1024;
+        v33 = sqlite3_extended_errcode(exc_buf);
+        _os_log_impl(&dword_24789E000, v25, OS_LOG_TYPE_INFO, "SQLite error in function: %s message: %s sql: %s (%d)", &v26, 0x26u);
       }
     }
-
-    v26 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v27 = *MEMORY[0x277D85DE8];
 
     sub_2478A9C80(exc_buf, a2);
   }
@@ -7912,20 +7844,20 @@ void sub_2478A9494(sqlite3 *exc_buf, uint64_t a2, sqlite3_stmt *a3, int a4, int 
 
 BOOL sub_2478A9638(sqlite3 *a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v4 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      *v19 = a2;
+      *v18 = a2;
       _os_log_impl(&dword_24789E000, v4, OS_LOG_TYPE_INFO, "Cleaning up corrupt database: %@", buf, 0xCu);
     }
   }
 
-  v17 = 189;
-  v5 = sqlite3_file_control(a1, 0, 101, &v17);
+  v16 = 189;
+  v5 = sqlite3_file_control(a1, 0, 101, &v16);
   if (v5)
   {
     if (IMOSLoggingEnabled())
@@ -7936,11 +7868,11 @@ BOOL sub_2478A9638(sqlite3 *a1, void *a2)
         v7 = sqlite3_extended_errcode(a1);
         v8 = sqlite3_errmsg(a1);
         *buf = 67109634;
-        *v19 = v5;
-        *&v19[4] = 1024;
-        *&v19[6] = v7;
-        v20 = 2080;
-        v21 = v8;
+        *v18 = v5;
+        *&v18[4] = 1024;
+        *&v18[6] = v7;
+        v19 = 2080;
+        v20 = v8;
         _os_log_impl(&dword_24789E000, v6, OS_LOG_TYPE_INFO, "_CSDBSqliteDatabaseCloseAndDelete unable to truncate database: %d (%d); %s", buf, 0x18u);
       }
     }
@@ -7958,15 +7890,15 @@ BOOL sub_2478A9638(sqlite3 *a1, void *a2)
         v12 = sqlite3_extended_errcode(a1);
         v13 = sqlite3_errmsg(a1);
         *buf = 67109634;
-        *v19 = v9;
-        *&v19[4] = 1024;
-        *&v19[6] = v12;
-        v20 = 2080;
-        v21 = v13;
+        *v18 = v9;
+        *&v18[4] = 1024;
+        *&v18[6] = v12;
+        v19 = 2080;
+        v20 = v13;
         _os_log_impl(&dword_24789E000, v11, OS_LOG_TYPE_INFO, "_CSDBSqliteDatabaseCloseAndDelete unable to close the source database. SQLite error: [%d] (%d) %s", buf, 0x18u);
         if (!v5)
         {
-          goto LABEL_18;
+          return v5 == 0;
         }
 
         goto LABEL_17;
@@ -7990,10 +7922,7 @@ LABEL_17:
     CSDBSqliteDeleteDatabase(a2);
   }
 
-LABEL_18:
-  result = v5 == 0;
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 == 0;
 }
 
 void sub_2478A98A0(_Unwind_Exception *a1, int a2)
@@ -8052,10 +7981,10 @@ BOOL CSDBDatabasePassesIntegrityCheckAtPath(void *a1, const char *a2, uint64_t a
   return v12 == 101 || v12 == 0;
 }
 
-void sub_2478A99BC(uint64_t a1, sqlite3 *a2, uint64_t a3, uint64_t a4, sqlite3_stmt *a5)
+void sub_2478A99BC(void **a1, sqlite3 *a2, uint64_t a3, uint64_t a4, sqlite3_stmt *a5)
 {
   v37 = *MEMORY[0x277D85DE8];
-  v10 = CSDBGetCorruptDatabaseHandler();
+  v10 = CSDBGetCorruptDatabaseHandler(a1);
   if (v10)
   {
     v10(a1, a2, a3, a4, a5);
@@ -8105,21 +8034,21 @@ uint64_t sub_2478A9B24()
   return result;
 }
 
-void CSDBSqliteBindDouble(uint64_t a1, double a2)
+void CSDBSqliteBindDouble(sqlite3_stmt *a1, double a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v3 = *(a1 + 8);
+    v3 = *(a1 + 1);
     if (v3)
     {
-      v4 = *(a1 + 16);
+      v4 = *(a1 + 4);
       if (v4 >= 1)
       {
         sqlite3_bind_double(v3, v4, a2);
 LABEL_12:
-        ++*(a1 + 16);
-        goto LABEL_13;
+        ++*(a1 + 4);
+        return;
       }
     }
   }
@@ -8132,7 +8061,7 @@ LABEL_12:
       v6 = @"YES";
       if (a1)
       {
-        v7 = *(a1 + 16);
+        v7 = *(a1 + 4);
       }
 
       else
@@ -8141,11 +8070,11 @@ LABEL_12:
         v7 = 0;
       }
 
-      v9 = 138412546;
-      v10 = v6;
-      v11 = 1024;
-      v12 = v7;
-      _os_log_impl(&dword_24789E000, v5, OS_LOG_TYPE_INFO, "Invalid parameters passed into CSDBSqliteBindDouble s==NULL ? %@  bindIndex = %d", &v9, 0x12u);
+      v8 = 138412546;
+      v9 = v6;
+      v10 = 1024;
+      v11 = v7;
+      _os_log_impl(&dword_24789E000, v5, OS_LOG_TYPE_INFO, "Invalid parameters passed into CSDBSqliteBindDouble s==NULL ? %@  bindIndex = %d", &v8, 0x12u);
     }
   }
 
@@ -8153,30 +8082,25 @@ LABEL_12:
   {
     goto LABEL_12;
   }
-
-LABEL_13:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2478A9C80(sqlite3 *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v4 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v6 = 136315650;
-      v7 = a2;
-      v8 = 2080;
-      v9 = sqlite3_errmsg(a1);
-      v10 = 1024;
-      v11 = sqlite3_extended_errcode(a1);
-      _os_log_impl(&dword_24789E000, v4, OS_LOG_TYPE_INFO, "SQLite error in function: %s for handle: %s (%d)", &v6, 0x1Cu);
+      v5 = 136315650;
+      v6 = a2;
+      v7 = 2080;
+      v8 = sqlite3_errmsg(a1);
+      v9 = 1024;
+      v10 = sqlite3_extended_errcode(a1);
+      _os_log_impl(&dword_24789E000, v4, OS_LOG_TYPE_INFO, "SQLite error in function: %s for handle: %s (%d)", &v5, 0x1Cu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t CSDBSqliteUtilitiesGetSchemaVersionAtPathWithProtection(const __CFString *a1)
@@ -8254,7 +8178,7 @@ uint64_t CSDBSqliteSetDefaultPageCacheSize(uint64_t result)
   return result;
 }
 
-void *CSDBSqliteStep(void *result)
+uint64_t *CSDBSqliteStep(uint64_t *result)
 {
   if (result)
   {
@@ -8309,7 +8233,7 @@ uint64_t CSDBDeregisterReconnectBlockWithIdentifier(uint64_t a1)
 
 sqlite3 **sub_2478AA048(uint64_t *a1, const char *a2, char a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v6 = malloc_type_calloc(1uLL, 0x38uLL, 0x10A004033174AE8uLL);
   if (strcmp(a2, ":memory:"))
   {
@@ -8317,18 +8241,18 @@ sqlite3 **sub_2478AA048(uint64_t *a1, const char *a2, char a3)
     {
       v7.tv_sec = 0xAAAAAAAAAAAAAAAALL;
       v7.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-      *v31.st_qspare = v7;
-      *&v31.st_size = v7;
-      *&v31.st_blksize = v7;
-      v31.st_ctimespec = v7;
-      v31.st_birthtimespec = v7;
-      v31.st_atimespec = v7;
-      v31.st_mtimespec = v7;
-      *&v31.st_dev = v7;
-      *&v31.st_uid = v7;
-      if (!stat(a2, &v31))
+      *v30.st_qspare = v7;
+      *&v30.st_size = v7;
+      *&v30.st_blksize = v7;
+      v30.st_ctimespec = v7;
+      v30.st_birthtimespec = v7;
+      v30.st_atimespec = v7;
+      v30.st_mtimespec = v7;
+      *&v30.st_dev = v7;
+      *&v30.st_uid = v7;
+      if (!stat(a2, &v30))
       {
-        st_uid = v31.st_uid;
+        st_uid = v30.st_uid;
         if (st_uid == geteuid())
         {
           if (IMOSLoggingEnabled())
@@ -8336,9 +8260,9 @@ sqlite3 **sub_2478AA048(uint64_t *a1, const char *a2, char a3)
             v9 = OSLogHandleForIMFoundationCategory();
             if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
             {
-              v31.st_dev = 136315138;
-              *&v31.st_mode = a2;
-              _os_log_impl(&dword_24789E000, v9, OS_LOG_TYPE_INFO, "Fixing permissions on %s", &v31, 0xCu);
+              v30.st_dev = 136315138;
+              *&v30.st_mode = a2;
+              _os_log_impl(&dword_24789E000, v9, OS_LOG_TYPE_INFO, "Fixing permissions on %s", &v30, 0xCu);
             }
           }
 
@@ -8351,11 +8275,11 @@ sqlite3 **sub_2478AA048(uint64_t *a1, const char *a2, char a3)
               {
                 v11 = __error();
                 v12 = strerror(*v11);
-                v31.st_dev = 136315394;
-                *&v31.st_mode = v12;
-                WORD2(v31.st_ino) = 2080;
-                *(&v31.st_ino + 6) = a2;
-                _os_log_impl(&dword_24789E000, v10, OS_LOG_TYPE_INFO, "Error %s setting permissions on %s", &v31, 0x16u);
+                v30.st_dev = 136315394;
+                *&v30.st_mode = v12;
+                WORD2(v30.st_ino) = 2080;
+                *(&v30.st_ino + 6) = a2;
+                _os_log_impl(&dword_24789E000, v10, OS_LOG_TYPE_INFO, "Error %s setting permissions on %s", &v30, 0x16u);
               }
             }
           }
@@ -8410,15 +8334,15 @@ sqlite3 **sub_2478AA048(uint64_t *a1, const char *a2, char a3)
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           v23 = *a1;
-          v31.st_dev = 67109890;
-          *&v31.st_mode = v21;
-          LOWORD(v31.st_ino) = 1024;
-          *(&v31.st_ino + 2) = v20;
-          HIWORD(v31.st_ino) = 1024;
-          v31.st_uid = v19;
-          LOWORD(v31.st_gid) = 2112;
-          *(&v31.st_gid + 2) = v23;
-          _os_log_impl(&dword_24789E000, v22, OS_LOG_TYPE_DEFAULT, "sqlite3_db_config lookaside set {result: %d, size: %d, count: %d, path: %@}", &v31, 0x1Eu);
+          v30.st_dev = 67109890;
+          *&v30.st_mode = v21;
+          LOWORD(v30.st_ino) = 1024;
+          *(&v30.st_ino + 2) = v20;
+          HIWORD(v30.st_ino) = 1024;
+          v30.st_uid = v19;
+          LOWORD(v30.st_gid) = 2112;
+          *(&v30.st_gid + 2) = v23;
+          _os_log_impl(&dword_24789E000, v22, OS_LOG_TYPE_DEFAULT, "sqlite3_db_config lookaside set {result: %d, size: %d, count: %d, path: %@}", &v30, 0x1Eu);
         }
       }
     }
@@ -8444,29 +8368,29 @@ sqlite3 **sub_2478AA048(uint64_t *a1, const char *a2, char a3)
     }
 
     free(v6);
-    v6 = 0;
+    return 0;
   }
 
   else
   {
     *v6 = a1;
     *(v6 + 10) = 0xFFFF;
-    v30 = 1;
-    sqlite3_file_control(v24, 0, 10, &v30);
+    v29 = 1;
+    sqlite3_file_control(v24, 0, 10, &v29);
     if (dword_280BCA948 >= 10)
     {
       v25.tv_sec = 0xAAAAAAAAAAAAAAAALL;
       v25.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-      *&v31.st_size = v25;
-      *&v31.st_blksize = v25;
-      v31.st_ctimespec = v25;
-      v31.st_birthtimespec = v25;
-      v31.st_atimespec = v25;
-      v31.st_mtimespec = v25;
-      *&v31.st_dev = v25;
-      *&v31.st_uid = v25;
-      snprintf(&v31, 0x80uLL, "PRAGMA cache_size=%d;", dword_280BCA948);
-      sqlite3_exec(v6[1], &v31, 0, 0, 0);
+      *&v30.st_size = v25;
+      *&v30.st_blksize = v25;
+      v30.st_ctimespec = v25;
+      v30.st_birthtimespec = v25;
+      v30.st_atimespec = v25;
+      v30.st_mtimespec = v25;
+      *&v30.st_dev = v25;
+      *&v30.st_uid = v25;
+      snprintf(&v30, 0x80uLL, "PRAGMA cache_size=%d;", dword_280BCA948);
+      sqlite3_exec(v6[1], &v30, 0, 0, 0);
     }
 
     v26 = a1[20];
@@ -8488,7 +8412,6 @@ sqlite3 **sub_2478AA048(uint64_t *a1, const char *a2, char a3)
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -8511,7 +8434,7 @@ sqlite3 **sub_2478AA46C(uint64_t *a1, const char *a2, sqlite3 ***a3)
   return result;
 }
 
-uint64_t sub_2478AA4E8(uint64_t a1, const char *a2, uint64_t *a3)
+uint64_t sub_2478AA4E8(uint64_t a1, const char *a2, sqlite3 ***a3)
 {
   if ((*(a1 + 64) & 1) == 0)
   {
@@ -8601,7 +8524,7 @@ LABEL_17:
 
 uint64_t sub_2478AA6C4(uint64_t a1, const char *a2, uint64_t a3, sqlite3 ***a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     sub_2478ADA74();
@@ -8612,21 +8535,21 @@ uint64_t sub_2478AA6C4(uint64_t a1, const char *a2, uint64_t a3, sqlite3 ***a4)
   {
     if (!IMOSLoggingEnabled())
     {
-      goto LABEL_37;
+      return 1;
     }
 
     v14 = OSLogHandleForIMFoundationCategory();
     v13 = 1;
     if (!os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_38;
+      return v13;
     }
 
     *buf = 0;
     v15 = "Incompatible versions detected, but no migration handlers provided: moving-aside database file";
 LABEL_18:
     _os_log_impl(&dword_24789E000, v14, OS_LOG_TYPE_INFO, v15, buf, 2u);
-    goto LABEL_38;
+    return v13;
   }
 
   v9 = v5(a1, *a4, a3, *(a1 + 72));
@@ -8635,14 +8558,14 @@ LABEL_18:
   {
     if (!v10)
     {
-      goto LABEL_37;
+      return 1;
     }
 
     v14 = OSLogHandleForIMFoundationCategory();
     v13 = 1;
     if (!os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_38;
+      return v13;
     }
 
     *buf = 0;
@@ -8680,7 +8603,7 @@ LABEL_18:
 
         if (!*a4)
         {
-          goto LABEL_32;
+          return 0;
         }
 
         sub_2478A473C(*a4);
@@ -8688,7 +8611,7 @@ LABEL_18:
         *a4 = 0;
       }
 
-      goto LABEL_38;
+      return v13;
     }
 
     if (IMOSLoggingEnabled())
@@ -8697,7 +8620,7 @@ LABEL_18:
       v13 = 1;
       if (!os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        goto LABEL_38;
+        return v13;
       }
 
       *buf = 0;
@@ -8705,9 +8628,7 @@ LABEL_18:
       goto LABEL_18;
     }
 
-LABEL_37:
-    v13 = 1;
-    goto LABEL_38;
+    return 1;
   }
 
   if (!v12)
@@ -8720,9 +8641,9 @@ LABEL_37:
       {
         v18 = *(a1 + 80);
         v19 = *a4;
-        v24 = 0;
-        v20 = sub_2478A1044(v19, @"_ClientVersion", 0, &v24);
-        if (v24)
+        v23 = 0;
+        v20 = sub_2478A1044(v19, @"_ClientVersion", 0, &v23);
+        if (v23)
         {
           v21 = v20;
         }
@@ -8733,25 +8654,22 @@ LABEL_37:
         }
 
         *buf = 67109376;
-        v26 = v18;
-        v27 = 1024;
-        v28 = v21;
+        v25 = v18;
+        v26 = 1024;
+        v27 = v21;
         _os_log_impl(&dword_24789E000, v17, OS_LOG_TYPE_INFO, "set schema version %d (Read: %d)", buf, 0xEu);
       }
     }
 
-    goto LABEL_32;
+    return 0;
   }
 
   if (v12 == 1)
   {
     sub_2478AA46C(a1, a2, a4);
-LABEL_32:
-    v13 = 0;
+    return 0;
   }
 
-LABEL_38:
-  v22 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -8789,9 +8707,9 @@ sqlite3 **sub_2478AAA54(uint64_t a1, const char *a2, int a3, uint64_t a4, sqlite
     v13 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      *v65 = 138412290;
-      *v66 = v12;
-      _os_log_impl(&dword_24789E000, v13, OS_LOG_TYPE_INFO, "Destination path: %@", v65, 0xCu);
+      *v64 = 138412290;
+      *v65 = v12;
+      _os_log_impl(&dword_24789E000, v13, OS_LOG_TYPE_INFO, "Destination path: %@", v64, 0xCu);
     }
   }
 
@@ -8801,9 +8719,9 @@ sqlite3 **sub_2478AAA54(uint64_t a1, const char *a2, int a3, uint64_t a4, sqlite
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = *a1;
-      *v65 = 138412290;
-      *v66 = v15;
-      _os_log_impl(&dword_24789E000, v14, OS_LOG_TYPE_INFO, "Source path: %@", v65, 0xCu);
+      *v64 = 138412290;
+      *v65 = v15;
+      _os_log_impl(&dword_24789E000, v14, OS_LOG_TYPE_INFO, "Source path: %@", v64, 0xCu);
     }
   }
 
@@ -8842,8 +8760,8 @@ sqlite3 **sub_2478AAA54(uint64_t a1, const char *a2, int a3, uint64_t a4, sqlite
     v20 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      *v65 = 0;
-      _os_log_impl(&dword_24789E000, v20, OS_LOG_TYPE_INFO, "Opened the source database to force WAL journal mode.", v65, 2u);
+      *v64 = 0;
+      _os_log_impl(&dword_24789E000, v20, OS_LOG_TYPE_INFO, "Opened the source database to force WAL journal mode.", v64, 2u);
     }
   }
 
@@ -8853,8 +8771,8 @@ sqlite3 **sub_2478AAA54(uint64_t a1, const char *a2, int a3, uint64_t a4, sqlite
     v21 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      *v65 = 0;
-      _os_log_impl(&dword_24789E000, v21, OS_LOG_TYPE_INFO, "Closing the source database to clean up any support files.", v65, 2u);
+      *v64 = 0;
+      _os_log_impl(&dword_24789E000, v21, OS_LOG_TYPE_INFO, "Closing the source database to clean up any support files.", v64, 2u);
     }
   }
 
@@ -8871,18 +8789,18 @@ LABEL_76:
       {
         v23 = sqlite3_extended_errcode(ppDb);
         v24 = sqlite3_errmsg(ppDb);
-        *v65 = 67109634;
-        *v66 = v19;
-        *&v66[4] = 1024;
-        *&v66[6] = v23;
-        v67 = 2080;
-        *v68 = v24;
+        *v64 = 67109634;
+        *v65 = v19;
+        *&v65[4] = 1024;
+        *&v65[6] = v23;
+        v66 = 2080;
+        *v67 = v24;
         v25 = "Unable to open the source database. SQLite error: [%d] (%d) %s";
         v26 = v22;
 LABEL_30:
         v27 = 24;
 LABEL_31:
-        _os_log_impl(&dword_24789E000, v26, OS_LOG_TYPE_INFO, v25, v65, v27);
+        _os_log_impl(&dword_24789E000, v26, OS_LOG_TYPE_INFO, v25, v64, v27);
         goto LABEL_32;
       }
     }
@@ -8892,186 +8810,186 @@ LABEL_31:
 
   if (IMOSLoggingEnabled())
   {
-    v30 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    v29 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
-      *v65 = 0;
-      _os_log_impl(&dword_24789E000, v30, OS_LOG_TYPE_INFO, "Opened the source database.", v65, 2u);
+      *v64 = 0;
+      _os_log_impl(&dword_24789E000, v29, OS_LOG_TYPE_INFO, "Opened the source database.", v64, 2u);
     }
   }
 
-  v31 = *(a1 + 184);
-  v32 = 4194310;
-  if (!v31)
+  v30 = *(a1 + 184);
+  v31 = 4194310;
+  if (!v30)
   {
-    v32 = 3145734;
+    v31 = 3145734;
   }
 
-  if (v31 == 1)
+  if (v30 == 1)
   {
-    v33 = 1048582;
+    v32 = 1048582;
   }
 
   else
   {
-    v33 = v32;
+    v32 = v31;
   }
 
   db = 0;
-  v34 = sqlite3_open_v2(buf, &db, v33, 0);
-  v35 = IMOSLoggingEnabled();
-  if (!v34)
+  v33 = sqlite3_open_v2(buf, &db, v32, 0);
+  v34 = IMOSLoggingEnabled();
+  if (!v33)
   {
-    if (v35)
+    if (v34)
     {
-      v39 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+      v38 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
-        *v65 = 0;
-        _os_log_impl(&dword_24789E000, v39, OS_LOG_TYPE_INFO, "Opened the destination database.", v65, 2u);
+        *v64 = 0;
+        _os_log_impl(&dword_24789E000, v38, OS_LOG_TYPE_INFO, "Opened the destination database.", v64, 2u);
       }
     }
 
-    v40 = sqlite3_file_control(db, 0, 102, ppDb);
-    v41 = IMOSLoggingEnabled();
-    if (v40)
+    v39 = sqlite3_file_control(db, 0, 102, ppDb);
+    v40 = IMOSLoggingEnabled();
+    if (v39)
     {
-      if (v41)
+      if (v40)
       {
-        v42 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+        v41 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
         {
-          v43 = sqlite3_extended_errcode(ppDb);
-          v44 = sqlite3_extended_errcode(db);
-          v45 = sqlite3_errmsg(db);
-          v46 = sqlite3_errmsg(ppDb);
-          *v65 = 67110146;
-          *v66 = v40;
-          *&v66[4] = 1024;
-          *&v66[6] = v43;
-          v67 = 1024;
-          *v68 = v44;
-          *&v68[4] = 2080;
-          *&v68[6] = v45;
-          v69 = 2080;
-          v70 = v46;
-          v47 = "Replacing messages database from restore failed. SQLite error: [%d] (source: %d, dest: %d) Destination: %s Source: %s";
-          v48 = v42;
-          v49 = 40;
+          v42 = sqlite3_extended_errcode(ppDb);
+          v43 = sqlite3_extended_errcode(db);
+          v44 = sqlite3_errmsg(db);
+          v45 = sqlite3_errmsg(ppDb);
+          *v64 = 67110146;
+          *v65 = v39;
+          *&v65[4] = 1024;
+          *&v65[6] = v42;
+          v66 = 1024;
+          *v67 = v43;
+          *&v67[4] = 2080;
+          *&v67[6] = v44;
+          v68 = 2080;
+          v69 = v45;
+          v46 = "Replacing messages database from restore failed. SQLite error: [%d] (source: %d, dest: %d) Destination: %s Source: %s";
+          v47 = v41;
+          v48 = 40;
 LABEL_57:
-          _os_log_impl(&dword_24789E000, v48, OS_LOG_TYPE_INFO, v47, v65, v49);
+          _os_log_impl(&dword_24789E000, v47, OS_LOG_TYPE_INFO, v46, v64, v48);
         }
       }
     }
 
-    else if (v41)
+    else if (v40)
     {
-      v50 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+      v49 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
       {
-        *v65 = 0;
-        v47 = "Database replacement was successful.";
-        v48 = v50;
-        v49 = 2;
+        *v64 = 0;
+        v46 = "Database replacement was successful.";
+        v47 = v49;
+        v48 = 2;
         goto LABEL_57;
       }
     }
 
-    v51 = sqlite3_close(db);
-    v52 = IMOSLoggingEnabled();
-    if (v51)
+    v50 = sqlite3_close(db);
+    v51 = IMOSLoggingEnabled();
+    if (v50)
     {
-      if (v52)
+      if (v51)
       {
-        v53 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+        v52 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
         {
-          v54 = sqlite3_extended_errcode(db);
-          v55 = sqlite3_errmsg(db);
-          *v65 = 67109634;
-          *v66 = v51;
-          *&v66[4] = 1024;
-          *&v66[6] = v54;
-          v67 = 2080;
-          *v68 = v55;
-          v56 = "Unable to close the destination database. SQLite error: [%d] (%d) %s";
-          v57 = v53;
-          v58 = 24;
+          v53 = sqlite3_extended_errcode(db);
+          v54 = sqlite3_errmsg(db);
+          *v64 = 67109634;
+          *v65 = v50;
+          *&v65[4] = 1024;
+          *&v65[6] = v53;
+          v66 = 2080;
+          *v67 = v54;
+          v55 = "Unable to close the destination database. SQLite error: [%d] (%d) %s";
+          v56 = v52;
+          v57 = 24;
 LABEL_65:
-          _os_log_impl(&dword_24789E000, v57, OS_LOG_TYPE_INFO, v56, v65, v58);
+          _os_log_impl(&dword_24789E000, v56, OS_LOG_TYPE_INFO, v55, v64, v57);
         }
       }
     }
 
-    else if (v52)
+    else if (v51)
     {
-      v59 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+      v58 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
       {
-        *v65 = 0;
-        v56 = "Closed the destination database.";
-        v57 = v59;
-        v58 = 2;
+        *v64 = 0;
+        v55 = "Closed the destination database.";
+        v56 = v58;
+        v57 = 2;
         goto LABEL_65;
       }
     }
 
-    v60 = sub_2478A9638(ppDb, *a1);
-    v61 = IMOSLoggingEnabled();
-    if (v60)
+    v59 = sub_2478A9638(ppDb, *a1);
+    v60 = IMOSLoggingEnabled();
+    if (v59)
     {
-      if (!v61)
+      if (!v60)
       {
         goto LABEL_32;
       }
 
-      v62 = OSLogHandleForIMFoundationCategory();
-      if (!os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+      v61 = OSLogHandleForIMFoundationCategory();
+      if (!os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
       {
         goto LABEL_32;
       }
 
-      *v65 = 0;
+      *v64 = 0;
       v25 = "Cleaned up the source database.";
     }
 
     else
     {
-      if (!v61)
+      if (!v60)
       {
         goto LABEL_32;
       }
 
-      v62 = OSLogHandleForIMFoundationCategory();
-      if (!os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+      v61 = OSLogHandleForIMFoundationCategory();
+      if (!os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
       {
         goto LABEL_32;
       }
 
-      *v65 = 0;
+      *v64 = 0;
       v25 = "Unable to cleanup corrupt source database.";
     }
 
-    v26 = v62;
+    v26 = v61;
     v27 = 2;
     goto LABEL_31;
   }
 
-  if (v35)
+  if (v34)
   {
-    v36 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+    v35 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
-      v37 = sqlite3_extended_errcode(db);
-      v38 = sqlite3_errmsg(db);
-      *v65 = 67109634;
-      *v66 = v34;
-      *&v66[4] = 1024;
-      *&v66[6] = v37;
-      v67 = 2080;
-      *v68 = v38;
+      v36 = sqlite3_extended_errcode(db);
+      v37 = sqlite3_errmsg(db);
+      *v64 = 67109634;
+      *v65 = v33;
+      *&v65[4] = 1024;
+      *&v65[6] = v36;
+      v66 = 2080;
+      *v67 = v37;
       v25 = "Unable to open the destination database. SQLite error: [%d] (%d) %s";
-      v26 = v36;
+      v26 = v35;
       goto LABEL_30;
     }
   }
@@ -9084,9 +9002,7 @@ LABEL_32:
 
   *(a1 + 84) |= 1u;
   *(a1 + 80) = a3;
-  result = sub_2478AA46C(a1, a2, a5);
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
+  return sub_2478AA46C(a1, a2, a5);
 }
 
 void sub_2478AB248(_Unwind_Exception *a1, int a2)
@@ -9103,7 +9019,7 @@ void sub_2478AB248(_Unwind_Exception *a1, int a2)
 
 void sub_2478AB338(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v6 = IMOSLoggingEnabled();
   if (a3)
   {
@@ -9112,15 +9028,15 @@ void sub_2478AB338(uint64_t a1, const char *a2, uint64_t a3)
       v7 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        LODWORD(v41) = 136315138;
-        *(&v41 + 4) = a2;
-        _os_log_impl(&dword_24789E000, v7, OS_LOG_TYPE_INFO, "Setting up a new database at path %s.", &v41, 0xCu);
+        LODWORD(v40) = 136315138;
+        *(&v40 + 4) = a2;
+        _os_log_impl(&dword_24789E000, v7, OS_LOG_TYPE_INFO, "Setting up a new database at path %s.", &v40, 0xCu);
       }
     }
 
     CSDBSqliteConnectionBeginTransactionType(a3, 0);
     v8 = sqlite3_exec(*(a3 + 8), "pragma legacy_file_format = 0;", 0, 0, 0);
-    CSDBCheckResultWithStatement(a1, *(a3 + 8), v8, "CSDBSqliteDatabaseSetNewFileFormatPragma", 0, v9, v10, v11, v33, v35, v37, v39, v41, *(&v41 + 1), v42, v43, v44, v45, v46, v47, v48, v49);
+    CSDBCheckResultWithStatement(a1, *(a3 + 8), v8, "CSDBSqliteDatabaseSetNewFileFormatPragma", 0, v9, v10, v11, v32, v34, v36, v38, v40, *(&v40 + 1), v41, v42, v43, v44, v45, v46, v47, v48);
     v12 = *(a1 + 24);
     if (v12)
     {
@@ -9128,7 +9044,7 @@ void sub_2478AB338(uint64_t a1, const char *a2, uint64_t a3)
     }
 
     v13 = sqlite3_exec(*(a3 + 8), "CREATE TABLE IF NOT EXISTS _SqliteDatabaseProperties (key TEXT, value TEXT, UNIQUE(key));", 0, 0, 0);
-    CSDBCheckResultWithStatement(a1, *(a3 + 8), v13, "createAndSetupNewDatabase", 0, v14, v15, v16, v34, v36, v38, v40, v41, *(&v41 + 1), v42, v43, v44, v45, v46, v47, v48, v49);
+    CSDBCheckResultWithStatement(a1, *(a3 + 8), v13, "createAndSetupNewDatabase", 0, v14, v15, v16, v33, v35, v37, v39, v40, *(&v40 + 1), v41, v42, v43, v44, v45, v46, v47, v48);
     if (v13)
     {
       v17 = sqlite3_extended_errcode(*(a3 + 8));
@@ -9173,12 +9089,10 @@ void sub_2478AB338(uint64_t a1, const char *a2, uint64_t a3)
     v19 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v41) = 0;
-      _os_log_impl(&dword_24789E000, v19, OS_LOG_TYPE_INFO, "Could not set up new messages database -- unable to create database connection", &v41, 2u);
+      LOWORD(v40) = 0;
+      _os_log_impl(&dword_24789E000, v19, OS_LOG_TYPE_INFO, "Could not set up new messages database -- unable to create database connection", &v40, 2u);
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_2478AB63C()
@@ -9197,7 +9111,7 @@ uint64_t sub_2478AB63C()
 
 void *sub_2478AB69C(uint64_t a1, const char *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_first(a3, a2, a3);
   result = objc_msgSend_second(a3, v7, v8);
   if (result)
@@ -9214,94 +9128,90 @@ void *sub_2478AB69C(uint64_t a1, const char *a2, void *a3)
           v12 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
           {
-            v14 = 138412290;
-            v15 = a2;
-            _os_log_impl(&dword_24789E000, v12, OS_LOG_TYPE_INFO, "Calling reconnect block for identifier: %@", &v14, 0xCu);
+            v13 = 138412290;
+            v14 = a2;
+            _os_log_impl(&dword_24789E000, v12, OS_LOG_TYPE_INFO, "Calling reconnect block for identifier: %@", &v13, 0xCu);
           }
         }
 
-        result = (*(v6 + 16))(v6);
+        return (*(v6 + 16))(v6);
       }
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t CSDBCreateDirectoriesToPathWithOwnership(const char *a1, uid_t a2, gid_t a3, int a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v8.tv_sec = 0xAAAAAAAAAAAAAAAALL;
   v8.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  *&v15.st_blksize = v8;
-  *v15.st_qspare = v8;
-  v15.st_birthtimespec = v8;
-  *&v15.st_size = v8;
-  v15.st_mtimespec = v8;
-  v15.st_ctimespec = v8;
-  *&v15.st_uid = v8;
-  v15.st_atimespec = v8;
-  *&v15.st_dev = v8;
-  result = stat(a1, &v15);
+  *&v14.st_blksize = v8;
+  *v14.st_qspare = v8;
+  v14.st_birthtimespec = v8;
+  *&v14.st_size = v8;
+  v14.st_mtimespec = v8;
+  v14.st_ctimespec = v8;
+  *&v14.st_uid = v8;
+  v14.st_atimespec = v8;
+  *&v14.st_dev = v8;
+  result = stat(a1, &v14);
   if (result)
   {
-    bzero(v16, 0x400uLL);
+    bzero(v15, 0x400uLL);
     v10 = *a1;
-    if (*a1)
+    if (!*a1)
     {
-      v11 = 0;
-      v12 = a1 + 1;
-      while (1)
-      {
-        v16[v11] = v10;
-        if (v10 == 47 && stat(v16, &v15))
-        {
-          if (mkdir(v16, 0x1FFu))
-          {
-            result = *__error();
-            goto LABEL_16;
-          }
-
-          if (a4)
-          {
-            chown(v16, a2, a3);
-            v13 = 448;
-          }
-
-          else
-          {
-            v13 = 511;
-          }
-
-          chmod(v16, v13);
-        }
-
-        result = 0;
-        if (v11 <= 0x3FD)
-        {
-          v10 = v12[v11++];
-          if (v10)
-          {
-            continue;
-          }
-        }
-
-        goto LABEL_16;
-      }
+      return 0;
     }
 
-    result = 0;
+    v11 = 0;
+    v12 = a1 + 1;
+    while (1)
+    {
+      v15[v11] = v10;
+      if (v10 == 47 && stat(v15, &v14))
+      {
+        if (mkdir(v15, 0x1FFu))
+        {
+          return *__error();
+        }
+
+        if (a4)
+        {
+          chown(v15, a2, a3);
+          v13 = 448;
+        }
+
+        else
+        {
+          v13 = 511;
+        }
+
+        chmod(v15, v13);
+      }
+
+      result = 0;
+      if (v11 <= 0x3FD)
+      {
+        v10 = v12[v11++];
+        if (v10)
+        {
+          continue;
+        }
+      }
+
+      return result;
+    }
   }
 
-LABEL_16:
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void sub_2478AB8F0()
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x24C1AC500]();
   qword_280BCA9E8 = v0;
   if (v0)
@@ -9309,8 +9219,8 @@ void sub_2478AB8F0()
     *&v1 = 0xAAAAAAAAAAAAAAAALL;
     *(&v1 + 1) = 0xAAAAAAAAAAAAAAAALL;
     *buffer = v1;
-    v15 = v1;
-    v13 = 32;
+    v14 = v1;
+    v12 = 32;
     CFRetain(v0);
     v2 = CFCopyHomeDirectoryURLForUser();
     v3 = MEMORY[0x277CBECE8];
@@ -9329,7 +9239,7 @@ void sub_2478AB8F0()
     }
 
     v7 = *v3;
-    v8 = sub_2478ABA84(*v3, qword_280BCA9E8, buffer, &v13);
+    v8 = sub_2478ABA84(*v3, qword_280BCA9E8, buffer, &v12);
     if (v8)
     {
       v9 = v8;
@@ -9347,11 +9257,9 @@ void sub_2478AB8F0()
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-const char *sub_2478ABA84(uint64_t a1, CFStringRef theString, char *buffer, CFIndex *a4)
+UInt8 *sub_2478ABA84(uint64_t a1, CFStringRef theString, char *buffer, CFIndex *a4)
 {
   v4 = buffer;
   v12 = 0;
@@ -9539,20 +9447,20 @@ uint64_t CSDBPerformUnlocked(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t CSDBPerformUnlockedSectionForDatabase(uint64_t result, uint64_t a2)
+const __CFString **CSDBPerformUnlockedSectionForDatabase(const __CFString **result, uint64_t a2)
 {
   if (result)
   {
     if (a2)
     {
       v3 = result;
-      result = *(result + 8);
+      result = result[1];
       if (result)
       {
         result = CSDBRecordStoreGetDatabase(result);
         if (result)
         {
-          v4 = *(v3 + 8);
+          v4 = v3[1];
           v5 = *(a2 + 16);
 
           return v5(a2, v4, result);
@@ -9624,7 +9532,7 @@ uint64_t *CSDBPerformUnlockedSectionForConnectionForWriting(uint64_t *result, ui
   return result;
 }
 
-uint64_t CSDBPerformUnlockedSectionForQueryForReading(uint64_t result, uint64_t a2, uint64_t a3)
+const __CFString **CSDBPerformUnlockedSectionForQueryForReading(const __CFString **result, void *a2, uint64_t a3)
 {
   if (result)
   {
@@ -9633,7 +9541,7 @@ uint64_t CSDBPerformUnlockedSectionForQueryForReading(uint64_t result, uint64_t 
       if (a3)
       {
         v5 = result;
-        result = *(result + 8);
+        result = result[1];
         if (result)
         {
           result = CSDBRecordStoreGetDatabase(result);
@@ -9644,9 +9552,9 @@ uint64_t CSDBPerformUnlockedSectionForQueryForReading(uint64_t result, uint64_t 
             if (result)
             {
               v7 = result;
-              if (*(result + 8))
+              if (result[1])
               {
-                (*(a3 + 16))(a3, *(v5 + 8), v6, result);
+                (*(a3 + 16))(a3, v5[1], v6, result);
 
                 return CSDBSqliteStatementReset(v7);
               }
@@ -9658,4 +9566,49 @@ uint64_t CSDBPerformUnlockedSectionForQueryForReading(uint64_t result, uint64_t 
   }
 
   return result;
+}
+
+const __CFString **CSDBPerformUnlockedSectionForQueryForWriting(const __CFString **result, const __CFString *a2, uint64_t a3)
+{
+  if (result)
+  {
+    if (a2)
+    {
+      if (a3)
+      {
+        v5 = result;
+        result = result[1];
+        if (result)
+        {
+          result = CSDBRecordStoreGetDatabase(result);
+          if (result)
+          {
+            v6 = result;
+            result = CSDBSqliteDatabaseStatementForWriting(result, a2);
+            if (result)
+            {
+              v7 = result;
+              if (result[1])
+              {
+                (*(a3 + 16))(a3, v5[1], v6, result);
+
+                return CSDBSqliteStatementReset(v7);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+void CSDBRecordStoreInvalidateCaches(uint64_t a1)
+{
+  v1 = *(a1 + 8);
+  if (v1)
+  {
+    CSDBRecordStoreInvalidateCachesWithStore(v1);
+  }
 }

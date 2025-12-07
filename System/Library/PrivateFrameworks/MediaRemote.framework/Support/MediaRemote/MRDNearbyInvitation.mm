@@ -10,45 +10,43 @@
 
 - (NSData)invitationData
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC12mediaremoted19MRDNearbyInvitation_nearbyInvitation);
   selfCopy = self;
-  v4 = dispatch thunk of NearbyInvitation.invitationData.getter();
-  v6 = v5;
+  v3 = dispatch thunk of NearbyInvitation.invitationData.getter();
+  v5 = v4;
 
-  v7.super.isa = Data._bridgeToObjectiveC()().super.isa;
-  sub_1001C4034(v4, v6);
+  v6.super.isa = Data._bridgeToObjectiveC()().super.isa;
+  sub_1001C4034(v3, v5);
 
-  return v7.super.isa;
+  return v6.super.isa;
 }
 
 + (void)createWithNearbyGroup:(_TtC12mediaremoted14MRDNearbyGroup *)group displayName:(NSString *)name routeType:(unsigned __int8)type completion:(id)completion
 {
   v11 = sub_1001BC5A8(&qword_100521B60, &qword_10044F1A0);
-  v12 = *(*(v11 - 8) + 64);
   __chkstk_darwin(v11 - 8);
-  v14 = &v22 - v13;
-  v15 = _Block_copy(completion);
-  v16 = swift_allocObject();
-  *(v16 + 16) = group;
-  *(v16 + 24) = name;
-  *(v16 + 32) = type;
-  *(v16 + 40) = v15;
-  *(v16 + 48) = self;
-  v17 = type metadata accessor for TaskPriority();
-  (*(*(v17 - 8) + 56))(v14, 1, 1, v17);
+  v13 = &v21 - v12;
+  v14 = _Block_copy(completion);
+  v15 = swift_allocObject();
+  *(v15 + 16) = group;
+  *(v15 + 24) = name;
+  *(v15 + 32) = type;
+  *(v15 + 40) = v14;
+  *(v15 + 48) = self;
+  v16 = type metadata accessor for TaskPriority();
+  (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
+  v17 = swift_allocObject();
+  v17[2] = 0;
+  v17[3] = 0;
+  v17[4] = &unk_10044F2A8;
+  v17[5] = v15;
   v18 = swift_allocObject();
   v18[2] = 0;
   v18[3] = 0;
-  v18[4] = &unk_10044F2A8;
-  v18[5] = v16;
-  v19 = swift_allocObject();
-  v19[2] = 0;
-  v19[3] = 0;
-  v19[4] = &unk_10044F2B8;
-  v19[5] = v18;
+  v18[4] = &unk_10044F2B8;
+  v18[5] = v17;
   groupCopy = group;
   nameCopy = name;
-  sub_1001D34BC(0, 0, v14, &unk_10044F2C8, v19);
+  sub_1001D34BC(0, 0, v13, &unk_10044F2C8, v18);
 }
 
 - (NSString)description
@@ -76,17 +74,16 @@
 - (void)markAsUsed
 {
   v3 = sub_1001BC5A8(&qword_100521B60, &qword_10044F1A0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v10 - v5;
-  v7 = type metadata accessor for TaskPriority();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
-  v8 = swift_allocObject();
-  v8[2] = 0;
-  v8[3] = 0;
-  v8[4] = self;
+  v5 = &v9 - v4;
+  v6 = type metadata accessor for TaskPriority();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
+  v7 = swift_allocObject();
+  v7[2] = 0;
+  v7[3] = 0;
+  v7[4] = self;
   selfCopy = self;
-  sub_1001CB290(0, 0, v6, &unk_10044F298, v8);
+  sub_1001CB290(0, 0, v5, &unk_10044F298, v7);
 }
 
 - (_TtC12mediaremoted19MRDNearbyInvitation)init

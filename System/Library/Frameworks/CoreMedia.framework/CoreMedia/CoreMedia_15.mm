@@ -106,24 +106,25 @@ uint64_t fcs_setDictionaryFromPropertyCFType(__CFDictionary *a1, const void *a2,
 
 uint64_t fcs_setDictionaryFromPropertyFontFamily(__CFDictionary *a1, const void *a2, uint64_t a3)
 {
+  cf = 0;
   if (!a1)
   {
-    fcs_setDictionaryFromPropertyFontFamily_cold_5(&v24);
-LABEL_20:
+    fcs_setDictionaryFromPropertyFontFamily_cold_5(&v26);
+LABEL_24:
     Mutable = 0;
-    goto LABEL_16;
+    goto LABEL_20;
   }
 
   if (!a2)
   {
-    fcs_setDictionaryFromPropertyFontFamily_cold_4(&v24);
-    goto LABEL_20;
+    fcs_setDictionaryFromPropertyFontFamily_cold_4(&v26);
+    goto LABEL_24;
   }
 
   if (!a3)
   {
-    fcs_setDictionaryFromPropertyFontFamily_cold_3(&v24);
-    goto LABEL_20;
+    fcs_setDictionaryFromPropertyFontFamily_cold_3(&v26);
+    goto LABEL_24;
   }
 
   v6 = *MEMORY[0x1E695E480];
@@ -134,10 +135,10 @@ LABEL_20:
     Count = FigCaptionFontFamilyNameListGetCount(a3);
     if (!Count)
     {
-LABEL_10:
+LABEL_12:
       CFDictionarySetValue(v23, a2, Mutable);
       v21 = 0;
-      goto LABEL_11;
+      goto LABEL_13;
     }
 
     v9 = Count;
@@ -146,11 +147,18 @@ LABEL_10:
     v12 = MEMORY[0x1E695E9E8];
     while (1)
     {
-      v13 = FigCaptionFontFamilyNameListCopyFamilyKindAndNameAtIndex(a3, v10);
+      v24 = 0;
+      if (cf)
+      {
+        CFRelease(cf);
+        cf = 0;
+      }
+
+      v13 = FigCaptionFontFamilyNameListCopyFamilyKindAndNameAtIndex(a3, v10, &v24, &cf);
       if (v13)
       {
         v21 = v13;
-        goto LABEL_11;
+        goto LABEL_13;
       }
 
       v14 = CFDictionaryCreateMutable(v6, 0, v11, v12);
@@ -160,27 +168,32 @@ LABEL_10:
       }
 
       v20 = v14;
-      FigCFDictionarySetInt32(v14, @"FontFamilyKind", 0, v15, v16, v17, v18, v19);
-      FigCFDictionarySetValue(v20, @"FontFamilyName", 0);
+      FigCFDictionarySetInt32(v14, @"FontFamilyKind", v24, v15, v16, v17, v18, v19);
+      FigCFDictionarySetValue(v20, @"FontFamilyName", cf);
       CFArrayAppendValue(Mutable, v20);
       CFRelease(v20);
       if (v9 == ++v10)
       {
-        goto LABEL_10;
+        goto LABEL_12;
       }
     }
 
-    fcs_setDictionaryFromPropertyFontFamily_cold_1(&v24);
+    fcs_setDictionaryFromPropertyFontFamily_cold_1(&v26);
   }
 
   else
   {
-    fcs_setDictionaryFromPropertyFontFamily_cold_2(&v24);
+    fcs_setDictionaryFromPropertyFontFamily_cold_2(&v26);
   }
 
-LABEL_16:
-  v21 = v24;
-LABEL_11:
+LABEL_20:
+  v21 = v26;
+LABEL_13:
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
   if (Mutable)
   {
     CFRelease(Mutable);
@@ -245,35 +258,35 @@ size_t fcs_setDictionaryFromPropertyTextEmphasis(__CFDictionary *a1, const void 
 {
   if (!a1)
   {
-    fcs_setDictionaryFromPropertyTextEmphasis_cold_5(&v27);
-    return v27;
+    fcs_setDictionaryFromPropertyTextEmphasis_cold_5(&v28);
+    return v28;
   }
 
   if (!a2)
   {
-    fcs_setDictionaryFromPropertyTextEmphasis_cold_4(&v27);
-    return v27;
+    fcs_setDictionaryFromPropertyTextEmphasis_cold_4(&v28);
+    return v28;
   }
 
   if (!cf)
   {
-    fcs_setDictionaryFromPropertyTextEmphasis_cold_3(&v27);
-    return v27;
+    fcs_setDictionaryFromPropertyTextEmphasis_cold_3(&v28);
+    return v28;
   }
 
   v7 = CFGetTypeID(cf);
   if (v7 != FigCaptionTextEmphasisGetTypeID())
   {
-    fcs_setDictionaryFromPropertyTextEmphasis_cold_1(&v27);
-    return v27;
+    fcs_setDictionaryFromPropertyTextEmphasis_cold_1(&v28);
+    return v28;
   }
 
   v8 = *MEMORY[0x1E695E480];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (!Mutable)
   {
-    fcs_setDictionaryFromPropertyTextEmphasis_cold_2(&v27);
-    return v27;
+    fcs_setDictionaryFromPropertyTextEmphasis_cold_2(&v28);
+    return v28;
   }
 
   v10 = Mutable;
@@ -365,7 +378,7 @@ LABEL_24:
   }
 
   emitter = fig_log_get_emitter("com.apple.coremedia", "");
-  v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBAF0uLL, "<< FigCaptionSerializer >>", 0x1A2, v3, v18, v19);
+  v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFBAF0uLL, "<< FigCaptionSerializer >>", 0x1A2, v3, v18, v19, v27);
 LABEL_33:
   CFRelease(v10);
   return v20;
@@ -874,7 +887,7 @@ LABEL_49:
 
 void fcs_deserializeCaptionStyleApplier(__CFString *a1, CFArrayRef theArray, uint64_t a3)
 {
-  v37 = 0;
+  v36 = 0;
   cf = 0;
   Count = CFArrayGetCount(theArray);
   if (!Count)
@@ -889,14 +902,13 @@ void fcs_deserializeCaptionStyleApplier(__CFString *a1, CFArrayRef theArray, uin
   {
     ValueAtIndex = CFArrayGetValueAtIndex(theArray, v8);
     Value = CFDictionaryGetValue(ValueAtIndex, @"PropertyRange");
+    v38 = 0;
     v39 = 0;
-    v40 = 0;
     if (Value && (v11 = Value, v12 = CFGetTypeID(Value), v12 == CFDictionaryGetTypeID()))
     {
-      FigCFDictionaryGetCFIndexIfPresent(v11, @"RangeLocation", &v39, v13, v14, v15, v16, v17, v37, cf, v39, v40, v41, v42, v43, v44, v45, v46);
-      if (v23)
+      if (FigCFDictionaryGetCFIndexIfPresent(v11, @"RangeLocation", &v38, v13, v14, v15, v16, v17, v36, cf, v38, v39, v40, v41, v42, v43, v44, v45))
       {
-        FigCFDictionaryGetCFIndexIfPresent(v11, @"RangeLength", &v40, v18, v19, v20, v21, v22, v37, cf, v39, v40, v41, v42, v43, v44, v45, v46);
+        FigCFDictionaryGetCFIndexIfPresent(v11, @"RangeLength", &v39, v18, v19, v20, v21, v22, v36, cf, v38, v39, v40, v41, v42, v43, v44, v45);
       }
     }
 
@@ -905,9 +917,9 @@ void fcs_deserializeCaptionStyleApplier(__CFString *a1, CFArrayRef theArray, uin
       fcs_deserializeCaptionStyleApplier_cold_1();
     }
 
-    v25 = v39;
-    v24 = v40;
-    v26 = CFDictionaryGetValue(ValueAtIndex, @"DynamicStyleValue");
+    v24 = v38;
+    v23 = v39;
+    v25 = CFDictionaryGetValue(ValueAtIndex, @"DynamicStyleValue");
     if (!CFEqual(a1, @"Ruby"))
     {
       break;
@@ -919,81 +931,81 @@ void fcs_deserializeCaptionStyleApplier(__CFString *a1, CFArrayRef theArray, uin
       cf = 0;
     }
 
-    v27 = CFArrayGetValueAtIndex(v26, 0);
-    v28 = fcs_deserializeAndCreateFigCaptionData(v27, &cf);
-    if (v28)
+    v26 = CFArrayGetValueAtIndex(v25, 0);
+    v27 = fcs_deserializeAndCreateFigCaptionData(v26, &cf);
+    if (v27)
     {
       goto LABEL_25;
     }
 
-    v29 = *(a3 + 8);
-    v30 = cf;
-    v31 = *(*(CMBaseObjectGetVTable(v29) + 16) + 32);
-    if (!v31)
+    v28 = *(a3 + 8);
+    v29 = cf;
+    v30 = *(*(CMBaseObjectGetVTable(v28) + 16) + 32);
+    if (!v30)
     {
 LABEL_24:
-      v28 = -12782;
+      v27 = -12782;
       goto LABEL_25;
     }
 
-    v32 = v29;
-    v33 = @"Ruby";
+    v31 = v28;
+    v32 = @"Ruby";
 LABEL_19:
-    v28 = v31(v32, v33, v30, v25, v24);
-    if (v28)
+    v27 = v30(v31, v32, v29, v24, v23);
+    if (v27)
     {
       goto LABEL_25;
     }
 
     if (v7 == ++v8)
     {
-      v28 = 0;
+      v27 = 0;
       goto LABEL_25;
     }
   }
 
-  if (v37)
+  if (v36)
   {
-    CFRelease(v37);
-    v37 = 0;
+    CFRelease(v36);
+    v36 = 0;
   }
 
   FigThreadRunOnce(&fcs_getPListableToCaptionInfoMappingDictionary_sInitializePListableToCaptionPropertyMappingOnce, fcs_initializePListableToCaptionPropertyMappingDictionary);
-  v34 = CFDictionaryGetValue(sPListableToCaptionInfoMappingDictionary, @"StyleProperty");
-  if (v34)
+  v33 = CFDictionaryGetValue(sPListableToCaptionInfoMappingDictionary, @"StyleProperty");
+  if (v33)
   {
-    v28 = fcs_createDynamicStyleFromPListable(a1, v26, v34, &v37);
-    if (v28)
+    v27 = fcs_createDynamicStyleFromPListable(a1, v25, v33, &v36);
+    if (v27)
     {
       goto LABEL_25;
     }
 
-    v35 = *(a3 + 8);
-    v30 = v37;
-    v31 = *(*(CMBaseObjectGetVTable(v35) + 16) + 32);
-    if (!v31)
+    v34 = *(a3 + 8);
+    v29 = v36;
+    v30 = *(*(CMBaseObjectGetVTable(v34) + 16) + 32);
+    if (!v30)
     {
       goto LABEL_24;
     }
 
-    v32 = v35;
-    v33 = a1;
+    v31 = v34;
+    v32 = a1;
     goto LABEL_19;
   }
 
-  fcs_deserializeCaptionStyleApplier_cold_2(&v39);
-  v28 = v39;
+  fcs_deserializeCaptionStyleApplier_cold_2(&v38);
+  v27 = v38;
 LABEL_25:
-  v36 = cf;
-  *a3 = v28;
+  v35 = cf;
+  *a3 = v27;
+  if (v35)
+  {
+    CFRelease(v35);
+  }
+
   if (v36)
   {
     CFRelease(v36);
-  }
-
-  if (v37)
-  {
-    CFRelease(v37);
   }
 }
 
@@ -1032,29 +1044,29 @@ size_t fcs_deserializeAndSetRegionProperty(const __CFDictionary *a1, CFTypeRef *
 
 uint64_t fcs_createDynamicStyleFromPListable(const void *a1, CFArrayRef theArray, const __CFDictionary *a3, void *a4)
 {
-  v25 = 0;
+  v24 = 0;
   cf = 0;
   if (!a1)
   {
-    fcs_createDynamicStyleFromPListable_cold_6(v27 + 1);
+    fcs_createDynamicStyleFromPListable_cold_6(v26 + 1);
     goto LABEL_17;
   }
 
   if (!theArray)
   {
-    fcs_createDynamicStyleFromPListable_cold_5(v27 + 1);
+    fcs_createDynamicStyleFromPListable_cold_5(v26 + 1);
     goto LABEL_17;
   }
 
   if (!a3)
   {
-    fcs_createDynamicStyleFromPListable_cold_4(v27 + 1);
+    fcs_createDynamicStyleFromPListable_cold_4(v26 + 1);
     goto LABEL_17;
   }
 
   if (!a4)
   {
-    fcs_createDynamicStyleFromPListable_cold_3(v27 + 1);
+    fcs_createDynamicStyleFromPListable_cold_3(v26 + 1);
     goto LABEL_17;
   }
 
@@ -1062,16 +1074,16 @@ uint64_t fcs_createDynamicStyleFromPListable(const void *a1, CFArrayRef theArray
   Value = CFDictionaryGetValue(a3, a1);
   if (!Value)
   {
-    fcs_createDynamicStyleFromPListable_cold_7(v27 + 1);
+    fcs_createDynamicStyleFromPListable_cold_7(v26 + 1);
 LABEL_17:
-    v22 = HIDWORD(v27[0]);
+    v21 = HIDWORD(v26[0]);
 LABEL_18:
     if (cf)
     {
       CFRelease(cf);
     }
 
-    return v22;
+    return v21;
   }
 
   if (Count)
@@ -1081,42 +1093,41 @@ LABEL_18:
     while (1)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(theArray, v11);
-      FigCFDictionaryGetDoubleIfPresent(ValueAtIndex, @"RelativeTime", &v25, v13, v14, v15, v16, v17, v24, v25, cf, v27[0], v27[1], v27[2], v27[3], v27[4], v27[5], v27[6]);
+      if (!FigCFDictionaryGetDoubleIfPresent(ValueAtIndex, @"RelativeTime", &v24, v13, v14, v15, v16, v17, v23, v24, cf, v26[0], v26[1], v26[2], v26[3], v26[4], v26[5], v26[6]))
+      {
+        fcs_createDynamicStyleFromPListable_cold_2(v26 + 1);
+        goto LABEL_17;
+      }
+
+      v18 = CFDictionaryGetValue(ValueAtIndex, @"PropertyValue");
       if (!v18)
       {
-        fcs_createDynamicStyleFromPListable_cold_2(v27 + 1);
+        fcs_createDynamicStyleFromPListable_cold_1(v26 + 1);
         goto LABEL_17;
       }
 
-      v19 = CFDictionaryGetValue(ValueAtIndex, @"PropertyValue");
-      if (!v19)
-      {
-        fcs_createDynamicStyleFromPListable_cold_1(v27 + 1);
-        goto LABEL_17;
-      }
-
-      v20 = v10(v19, &cf, *&v25);
-      if (v20)
+      v19 = v10(v18, &cf, *&v24);
+      if (v19)
       {
         break;
       }
 
       if (Count == ++v11)
       {
-        v21 = cf;
+        v20 = cf;
         goto LABEL_14;
       }
     }
 
-    v22 = v20;
+    v21 = v19;
     goto LABEL_18;
   }
 
-  v21 = 0;
+  v20 = 0;
 LABEL_14:
-  v22 = 0;
-  *a4 = v21;
-  return v22;
+  v21 = 0;
+  *a4 = v20;
+  return v21;
 }
 
 uint64_t fcs_createDynamicStyleFromPListCFType(const void *a1, uint64_t *a2, double a3)
@@ -1241,32 +1252,33 @@ uint64_t FigCPECryptorStartServer()
   return v0;
 }
 
-size_t __FigCPECryptorStartServer_block_invoke(uint64_t a1)
+size_t __FigCPECryptorStartServer_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7[0] = 2;
-  v7[1] = cryptorServer_HandleRemoteSyncMessage;
-  v7[2] = cryptorServer_HandleRemoteAsyncMessage;
-  v7[3] = 0;
-  v7[4] = cryptorServer_NoteEnqueueDecisionFunction;
-  v7[5] = 0;
-  if (FigServer_IsMediaparserd())
+  v14 = 2;
+  v15 = cryptorServer_HandleRemoteSyncMessage;
+  v16 = cryptorServer_HandleRemoteAsyncMessage;
+  v17 = 0;
+  v18 = cryptorServer_NoteEnqueueDecisionFunction;
+  v19 = 0;
+  IsMediaparserd = FigServer_IsMediaparserd(a1, a2);
+  if (IsMediaparserd)
   {
-    result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CF20, 0xFFFFC0E9uLL, "<<< FigCPECryptorServer >>>", 0x2B7, v1, v3, v4);
+    result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CF20, 0xFFFFC0E9uLL, "<<< FigCPECryptorServer >>>", 0x2B7, v2, v6, v7, v14, v15, v16, v17, v18, v19);
   }
 
   else
   {
-    if (FigServer_IsMediaplaybackd())
+    if (FigServer_IsMediaplaybackd(IsMediaparserd, v5))
     {
-      v6 = "com.apple.coremedia.mediaplaybackd.figcpecryptor.xpc";
+      v13 = "com.apple.coremedia.mediaplaybackd.figcpecryptor.xpc";
     }
 
     else
     {
-      v6 = "com.apple.coremedia.figcpecryptor";
+      v13 = "com.apple.coremedia.figcpecryptor";
     }
 
-    result = FigXPCServerStart(v6, v7, 0, &gFigCPECryptorServer);
+    result = FigXPCServerStart(v13, &v14, 0, &gFigCPECryptorServer, v9, v10, v11, v12);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1294,7 +1306,7 @@ uint64_t cryptorServer_NoteEnqueueDecisionFunction(const void *a1)
   return result;
 }
 
-uint64_t FigCPECryptorServerGetIDForCryptorByAssociatingWithClientPID(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigCPECryptorServerGetIDForCryptorByAssociatingWithClientPID(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1)
   {
@@ -1328,7 +1340,7 @@ uint64_t FigCPECryptorServerGetIDForCryptorByAssociatingWithClientPID(uint64_t a
   }
 }
 
-size_t FigCPECryptorServerDisassociateCryptorWithClientPID(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigCPECryptorServerDisassociateCryptorWithClientPID(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1)
   {
@@ -1353,7 +1365,7 @@ size_t FigCPECryptorServerDisassociateCryptorWithClientPID(uint64_t a1, void *a2
   }
 }
 
-size_t FigCPECryptorServerDisassociateCryptorWithClientConnection(uint64_t a1, _xpc_connection_s *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t FigCPECryptorServerDisassociateCryptorWithClientConnection(uint64_t a1, _xpc_connection_s *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1)
   {
@@ -1378,11 +1390,11 @@ size_t FigCPECryptorServerDisassociateCryptorWithClientConnection(uint64_t a1, _
   }
 }
 
-uint64_t FigCPECryptorServerCopyCryptorForID(void *a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigCPECryptorServerCopyCryptorForID(uint64_t a1, CFTypeRef *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, uint64_t a8)
 {
   if (gFigCPECryptorServer)
   {
-    v9 = FigXPCServerRetainNeighborObjectFromID(gFigCPECryptorServer, a1, a2);
+    v9 = FigXPCServerRetainNeighborObjectFromID(gFigCPECryptorServer, a1, a2, a4, a5, a6, a7, a8);
     if (v9)
     {
       v18 = v9;
@@ -1494,7 +1506,7 @@ uint64_t FigSandboxRegisterURLWithProcessAndCopyRegistration(const __CFURL *a1, 
   return result;
 }
 
-uint64_t FigSandboxAssertionGetTypeID()
+uint64_t FigSandboxAssertionGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (sRegisterFigSandboxAssertionTypeOnce != -1)
   {
@@ -1511,8 +1523,9 @@ uint64_t RegisterFigSandboxAssertionType()
   return result;
 }
 
-size_t FigSandboxAssertionCreateForPID(int a1, uint64_t a2, uint64_t *a3)
+size_t FigSandboxAssertionCreateForPID(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
+  v6 = a1;
   if (sRegisterFigSandboxAssertionTypeOnce != -1)
   {
     FigSandboxAssertionGetTypeID_cold_1();
@@ -1522,16 +1535,16 @@ size_t FigSandboxAssertionCreateForPID(int a1, uint64_t a2, uint64_t *a3)
   v8 = Instance;
   if (Instance)
   {
-    *(Instance + 16) = a1;
+    *(Instance + 16) = v6;
     *(Instance + 24) = a2;
-    FigSandboxServerXPC_AddAssertionForPID(a1, a2);
+    FigSandboxServerXPC_AddAssertionForPID(v6, a2);
     result = 0;
   }
 
   else
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE0EuLL, "<<<< FIGSANDBOX >>>>", 0x332, v3, v11, v12);
+    result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE0EuLL, "<<<< FIGSANDBOX >>>>", 0x332, v3, v11, v12, v13);
   }
 
   *a3 = v8;
@@ -1900,7 +1913,7 @@ __CFString *figSandboxAssertionCopyDebugDesc(uint64_t a1)
   return Mutable;
 }
 
-uint64_t CM8021ASClockGetTypeID()
+uint64_t CM8021ASClockGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (qword_1ED4CCF10 != -1)
   {
@@ -1945,9 +1958,9 @@ LABEL_6:
   return result;
 }
 
-size_t CM8021ASClockCreate(const __CFAllocator *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+size_t CM8021ASClockCreate(const __CFAllocator *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   if (qword_1ED4CCF20 != -1)
   {
     CM8021ASClockCreate_cold_1();
@@ -1955,11 +1968,12 @@ size_t CM8021ASClockCreate(const __CFAllocator *a1, uint64_t *a2, uint64_t a3, u
 
   if (dword_1EAF1CF48)
   {
-    v56 = 0;
-    type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v56, &type);
-    v12 = v56;
-    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
+    HIDWORD(v54) = 0;
+    BYTE3(v54) = 0;
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v54 + 1, &v54 + 3);
+    v12 = HIDWORD(v54);
+    v13 = BYTE3(v54);
+    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, BYTE3(v54)))
     {
       v14 = v12;
     }
@@ -1971,10 +1985,10 @@ size_t CM8021ASClockCreate(const __CFAllocator *a1, uint64_t *a2, uint64_t a3, u
 
     if (v14)
     {
-      v57 = 136315138;
-      v58 = "CM8021ASClockCreate";
-      v15 = _os_log_send_and_compose_impl();
-      LOBYTE(v12) = v56;
+      v55 = 136315138;
+      v56 = "CM8021ASClockCreate";
+      v15 = _os_log_send_and_compose_impl(v14, 0, v63, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v13, "<<<< 8021ASClock >>>> %s: called", &v55);
+      LOBYTE(v12) = BYTE4(v54);
     }
 
     else
@@ -1982,7 +1996,7 @@ size_t CM8021ASClockCreate(const __CFAllocator *a1, uint64_t *a2, uint64_t a3, u
       v15 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1u, 1, v15, v15 != v65, v12, 0, v13);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1, 1, v15, v15 != v63, v12);
   }
 
   if (!a2)
@@ -2001,7 +2015,7 @@ size_t CM8021ASClockCreate(const __CFAllocator *a1, uint64_t *a2, uint64_t a3, u
     v18 = 4294951236;
     v19 = 602;
 LABEL_13:
-    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v16, v18, "<<<< 8021ASClock >>>>", v19, v17, a7, a8);
+    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v16, v18, "<<<< 8021ASClock >>>>", v19, v17, a7, a8, v51);
     Instance = 0;
     if (v20)
     {
@@ -2035,54 +2049,52 @@ LABEL_13:
     }
 
     *(Instance + 24) = FigCFWeakReferenceHolderCreateWithReferencedObject(Instance);
-    v27 = FigReadWriteLockCreate(0);
-    *(Instance + 16) = v27;
-    v29 = (*(qword_1ED4CD068 + 88))(v27, v28);
-    if (v29 == **qword_1ED4CD068)
+    *(Instance + 16) = FigReadWriteLockCreate(0);
+    if ((*(qword_1ED4CD068 + 88))() == **qword_1ED4CD068)
     {
-      v31 = qword_1EAF1CF40;
-      v32 = v8;
-      v33 = 4294951236;
-      v34 = 630;
+      v27 = qword_1EAF1CF40;
+      v28 = v8;
+      v29 = 4294951236;
+      v30 = 630;
       goto LABEL_31;
     }
 
-    v35 = (*(qword_1ED4CD068 + 32))(v29, v30);
-    *(Instance + 48) = v35;
-    if (v35)
+    v31 = (*(qword_1ED4CD068 + 32))();
+    *(Instance + 48) = v31;
+    if (v31)
     {
       FigSimpleMutexLock(*(Instance + 32));
       (*(qword_1ED4CD068 + 104))(*(Instance + 48), fig8021ASClock_GrandmasterDidChange, *(Instance + 24));
       (*(qword_1ED4CD068 + 96))(*(Instance + 48), fig8021ASClock_LockStateDidChange, *(Instance + 24));
-      v36 = (*(qword_1ED4CD068 + 72))(*(Instance + 48));
-      *(Instance + 40) = v36;
-      if (v36 == 2)
+      v32 = (*(qword_1ED4CD068 + 72))(*(Instance + 48));
+      *(Instance + 40) = v32;
+      if (v32 == 2)
       {
-        v37 = (*(qword_1ED4CD068 + 80))(*(Instance + 48));
+        v33 = (*(qword_1ED4CD068 + 80))(*(Instance + 48));
       }
 
       else
       {
-        v37 = **(qword_1ED4CD068 + 8);
+        v33 = **(qword_1ED4CD068 + 8);
       }
 
-      *(Instance + 56) = v37;
+      *(Instance + 56) = v33;
       FigSimpleMutexUnlock(*(Instance + 32));
       Mutable = CFDictionaryCreateMutable(a1, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
       *(Instance + 72) = Mutable;
       if (Mutable)
       {
-        v39 = CFDictionaryCreateMutable(a1, 0, MEMORY[0x1E695E9D8], &sFig8021ASClockPortsDictionaryValueCallBacks);
-        *(Instance + 80) = v39;
-        if (v39)
+        v35 = CFDictionaryCreateMutable(a1, 0, MEMORY[0x1E695E9D8], &sFig8021ASClockPortsDictionaryValueCallBacks);
+        *(Instance + 80) = v35;
+        if (v35)
         {
-          v40 = CFSetCreateMutable(a1, 0, MEMORY[0x1E695E9F8]);
-          *(Instance + 88) = v40;
-          if (v40)
+          v36 = CFSetCreateMutable(a1, 0, MEMORY[0x1E695E9F8]);
+          *(Instance + 88) = v36;
+          if (v36)
           {
-            v41 = CFDictionaryCreateMutable(a1, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-            *(Instance + 104) = v41;
-            if (v41)
+            v37 = CFDictionaryCreateMutable(a1, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+            *(Instance + 104) = v37;
+            if (v37)
             {
               if (!dword_1EAF1CF48)
               {
@@ -2092,80 +2104,83 @@ LABEL_56:
                 return v20;
               }
 
-              v56 = 0;
-              type = OS_LOG_TYPE_DEFAULT;
-              v42 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v56, &type);
-              v43 = v56;
-              if (os_log_type_enabled(v42, type))
+              HIDWORD(v54) = 0;
+              BYTE3(v54) = 0;
+              v38 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v54 + 1, &v54 + 3);
+              v39 = HIDWORD(v54);
+              v40 = BYTE3(v54);
+              if (os_log_type_enabled(v38, BYTE3(v54)))
               {
-                v45 = v43;
+                v41 = v39;
               }
 
               else
               {
-                v45 = v43 & 0xFFFFFFFE;
+                v41 = v39 & 0xFFFFFFFE;
               }
 
-              if (v45)
+              if (v41)
               {
-                v46 = "not locked";
-                v47 = *(Instance + 56);
+                v42 = "not locked";
+                v43 = *(Instance + 56);
                 if (*(Instance + 40) == 2)
                 {
-                  v46 = "locked";
+                  v42 = "locked";
                 }
 
-                v57 = 136315906;
-                v58 = "CM8021ASClockCreate";
-                v59 = 2048;
-                v60 = Instance;
-                v61 = 2080;
-                v62 = v46;
-                v63 = 2048;
-                v64 = v47;
-                v48 = _os_log_send_and_compose_impl();
-                LOBYTE(v43) = v56;
+                v55 = 136315906;
+                v56 = "CM8021ASClockCreate";
+                v57 = 2048;
+                v58 = Instance;
+                v59 = 2080;
+                v60 = v42;
+                v61 = 2048;
+                v62 = v43;
+                v44 = _os_log_send_and_compose_impl(v41, 0, v63, 128, &dword_196FA7000, v38, v40, "<<<< 8021ASClock >>>> %s: clock <%p> initially %s to GM 0x%016llx", &v55, 42, v53, v54);
+                LOBYTE(v39) = BYTE4(v54);
               }
 
               else
               {
-                v48 = 0;
+                v44 = 0;
               }
 
-              fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1u, 1, v48, v48 != v65, v43, 0, v44);
+              fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1, 1, v44, v44 != v63, v39);
 LABEL_48:
               if (dword_1EAF1CF48)
               {
-                v56 = 0;
-                type = OS_LOG_TYPE_DEFAULT;
-                v49 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v56, &type);
-                v50 = v56;
-                if (os_log_type_enabled(v49, type))
+                HIDWORD(v54) = 0;
+                BYTE3(v54) = 0;
+                v45 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v54 + 1, &v54 + 3);
+                v46 = HIDWORD(v54);
+                v47 = BYTE3(v54);
+                if (os_log_type_enabled(v45, BYTE3(v54)))
                 {
-                  v52 = v50;
+                  v48 = v46;
                 }
 
                 else
                 {
-                  v52 = v50 & 0xFFFFFFFE;
+                  v48 = v46 & 0xFFFFFFFE;
                 }
 
-                if (v52)
+                if (v48)
                 {
-                  v57 = 136315394;
-                  v58 = "CM8021ASClockCreate";
-                  v59 = 2048;
-                  v60 = Instance;
-                  v53 = _os_log_send_and_compose_impl();
-                  LOBYTE(v50) = v56;
+                  v55 = 136315394;
+                  v56 = "CM8021ASClockCreate";
+                  v57 = 2048;
+                  v58 = Instance;
+                  LODWORD(v52) = 22;
+                  v49 = _os_log_send_and_compose_impl(v48, 0, v63, 128, &dword_196FA7000, v45, v47, "<<<< 8021ASClock >>>> %s: clock <%p> created\n", &v55, v52);
+                  LOBYTE(v46) = BYTE4(v54);
                 }
 
                 else
                 {
-                  v53 = 0;
+                  v49 = 0;
                 }
 
-                fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1u, 1, v53, v53 != v65, v50, 0, v51);
+                fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1, 1, v49, v49 != v63, v46);
               }
 
               goto LABEL_56;
@@ -2179,22 +2194,22 @@ LABEL_58:
       goto LABEL_15;
     }
 
-    v31 = qword_1EAF1CF40;
-    v32 = v8;
-    v33 = 4294951236;
-    v34 = 636;
+    v27 = qword_1EAF1CF40;
+    v28 = v8;
+    v29 = 4294951236;
+    v30 = 636;
   }
 
   else
   {
-    v31 = qword_1EAF1CF40;
-    v32 = v8;
-    v33 = 4294951233;
-    v34 = 608;
+    v27 = qword_1EAF1CF40;
+    v28 = v8;
+    v29 = 4294951233;
+    v30 = 608;
   }
 
 LABEL_31:
-  v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v31, v33, "<<<< 8021ASClock >>>>", v34, v32, v22, v23);
+  v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v27, v29, "<<<< 8021ASClock >>>>", v30, v28, v22, v23, v51);
   if (!v20)
   {
     goto LABEL_48;
@@ -2210,380 +2225,380 @@ LABEL_15:
   return v20;
 }
 
-void *LoadTimeSyncFunctions_2()
+void *LoadTimeSyncFunctions_2(uint64_t a1, uint64_t a2)
 {
-  v0 = FigNote_AllowInternalDefaultLogs() != 0;
-  fig_note_initialize_category_with_default_work_cf(&gFig8021ASClockTrace[1], @"8021as_trace", @"com.apple.coremedia", "", "com.apple.coremedia", v0, 0, gFig8021ASClockTrace);
+  v2 = FigNote_AllowInternalDefaultLogs(a1, a2) != 0;
+  fig_note_initialize_category_with_default_work_cf(&gFig8021ASClockTrace[1], @"8021as_trace", @"com.apple.coremedia", "", "com.apple.coremedia", v2, 0, gFig8021ASClockTrace);
   fig_note_initialize_category_with_default_work_cf(&dword_1EAF1CF48, @"8021as_trace", @"com.apple.coremedia", "", "com.apple.coremedia", 1u, 0, &qword_1EAF1CF40);
   qword_1ED4CD048 = timesyncLogMeanIntervalApplier_doesTimeDomainConformToSyncInterval;
   qword_1ED4CD068 = &qword_1ED4CCF58;
   qword_1ED4CCF28 = FigSimpleMutexCreate();
-  v8 = dlopen("/System/Library/PrivateFrameworks/TimeSync.framework/TimeSync", 4);
-  v9 = 430;
-  if (v8 && qword_1ED4CCF28)
+  v10 = dlopen("/System/Library/PrivateFrameworks/TimeSync.framework/TimeSync", 4);
+  v11 = 430;
+  if (v10 && qword_1ED4CCF28)
   {
-    qword_1ED4CCF58 = dlsym(v8, "TSNullClockIdentifier");
+    qword_1ED4CCF58 = dlsym(v10, "TSNullClockIdentifier");
     if (qword_1ED4CCF58)
     {
-      qword_1ED4CCF60 = dlsym(v8, "TSNullgPTPClockIdentity");
+      qword_1ED4CCF60 = dlsym(v10, "TSNullgPTPClockIdentity");
       if (qword_1ED4CCF60)
       {
-        v10 = dlsym(v8, "TimeSyncAddgPTPServicesSync");
-        v11 = &qword_1ED4CCF68;
-        if (v10)
+        v12 = dlsym(v10, "TimeSyncAddgPTPServicesSync");
+        v13 = &qword_1ED4CCF68;
+        if (v12)
         {
-          qword_1ED4CCF68 = v10;
-          v12 = dlsym(v8, "TimeSyncRemovegPTPServices");
-          v11 = &qword_1ED4CCF70;
-          if (v12)
+          qword_1ED4CCF68 = v12;
+          v14 = dlsym(v10, "TimeSyncRemovegPTPServices");
+          v13 = &qword_1ED4CCF70;
+          if (v14)
           {
-            qword_1ED4CCF70 = v12;
-            v13 = dlsym(v8, "TimeSyncClockCreateWithClockIdentifer");
-            v11 = &qword_1ED4CCF78;
-            if (v13)
+            qword_1ED4CCF70 = v14;
+            v15 = dlsym(v10, "TimeSyncClockCreateWithClockIdentifer");
+            v13 = &qword_1ED4CCF78;
+            if (v15)
             {
-              qword_1ED4CCF78 = v13;
-              v14 = dlsym(v8, "TimeSyncClockDispose");
-              v11 = &qword_1ED4CCF80;
-              if (v14)
+              qword_1ED4CCF78 = v15;
+              v16 = dlsym(v10, "TimeSyncClockDispose");
+              v13 = &qword_1ED4CCF80;
+              if (v16)
               {
-                qword_1ED4CCF80 = v14;
-                v15 = dlsym(v8, "TimeSyncClockGetHostTimeAndGrandmasterIdentityForClockTime");
-                v11 = &qword_1ED4CCF88;
-                if (v15)
+                qword_1ED4CCF80 = v16;
+                v17 = dlsym(v10, "TimeSyncClockGetHostTimeAndGrandmasterIdentityForClockTime");
+                v13 = &qword_1ED4CCF88;
+                if (v17)
                 {
-                  qword_1ED4CCF88 = v15;
-                  v16 = dlsym(v8, "TimeSyncClockGetClockTimeAndGrandmasterIdentityForHostTime");
-                  v11 = &qword_1ED4CCF90;
-                  if (v16)
+                  qword_1ED4CCF88 = v17;
+                  v18 = dlsym(v10, "TimeSyncClockGetClockTimeAndGrandmasterIdentityForHostTime");
+                  v13 = &qword_1ED4CCF90;
+                  if (v18)
                   {
-                    qword_1ED4CCF90 = v16;
-                    v17 = dlsym(v8, "TimeSyncClockGetClockRate");
-                    v11 = &qword_1ED4CCF98;
-                    if (v17)
+                    qword_1ED4CCF90 = v18;
+                    v19 = dlsym(v10, "TimeSyncClockGetClockRate");
+                    v13 = &qword_1ED4CCF98;
+                    if (v19)
                     {
-                      qword_1ED4CCF98 = v17;
-                      v18 = dlsym(v8, "TimeSyncClockGetLockState");
-                      v11 = &qword_1ED4CCFA0;
-                      if (v18)
+                      qword_1ED4CCF98 = v19;
+                      v20 = dlsym(v10, "TimeSyncClockGetLockState");
+                      v13 = &qword_1ED4CCFA0;
+                      if (v20)
                       {
-                        qword_1ED4CCFA0 = v18;
-                        v19 = dlsym(v8, "TimeSyncClockGetgPTPGrandmasterIdentity");
-                        v11 = &qword_1ED4CCFA8;
-                        if (v19)
+                        qword_1ED4CCFA0 = v20;
+                        v21 = dlsym(v10, "TimeSyncClockGetgPTPGrandmasterIdentity");
+                        v13 = &qword_1ED4CCFA8;
+                        if (v21)
                         {
-                          qword_1ED4CCFA8 = v19;
-                          v20 = dlsym(v8, "TimeSyncSystemDomainClockIdentifier");
-                          v11 = &qword_1ED4CCFB0;
-                          if (v20)
+                          qword_1ED4CCFA8 = v21;
+                          v22 = dlsym(v10, "TimeSyncSystemDomainClockIdentifier");
+                          v13 = &qword_1ED4CCFB0;
+                          if (v22)
                           {
-                            qword_1ED4CCFB0 = v20;
-                            v21 = dlsym(v8, "TimeSyncClockSetLockStateChangeCallback");
-                            v11 = &qword_1ED4CCFB8;
-                            if (v21)
+                            qword_1ED4CCFB0 = v22;
+                            v23 = dlsym(v10, "TimeSyncClockSetLockStateChangeCallback");
+                            v13 = &qword_1ED4CCFB8;
+                            if (v23)
                             {
-                              qword_1ED4CCFB8 = v21;
-                              v22 = dlsym(v8, "TimeSyncClockSetgPTPGrandmasterChangeCallback");
-                              v11 = &qword_1ED4CCFC0;
-                              if (v22)
+                              qword_1ED4CCFB8 = v23;
+                              v24 = dlsym(v10, "TimeSyncClockSetgPTPGrandmasterChangeCallback");
+                              v13 = &qword_1ED4CCFC0;
+                              if (v24)
                               {
-                                qword_1ED4CCFC0 = v22;
-                                v23 = dlsym(v8, "TimeSyncClockAddUDPv4EndToEndPort");
-                                v11 = &qword_1ED4CCFC8;
-                                if (v23)
+                                qword_1ED4CCFC0 = v24;
+                                v25 = dlsym(v10, "TimeSyncClockAddUDPv4EndToEndPort");
+                                v13 = &qword_1ED4CCFC8;
+                                if (v25)
                                 {
-                                  qword_1ED4CCFC8 = v23;
-                                  v24 = dlsym(v8, "TimeSyncClockAddUDPv4EndToEndPortAndGetIdentity");
-                                  v11 = &qword_1ED4CCFD0;
-                                  if (v24)
+                                  qword_1ED4CCFC8 = v25;
+                                  v26 = dlsym(v10, "TimeSyncClockAddUDPv4EndToEndPortAndGetIdentity");
+                                  v13 = &qword_1ED4CCFD0;
+                                  if (v26)
                                   {
-                                    qword_1ED4CCFD0 = v24;
-                                    v25 = dlsym(v8, "TimeSyncClockRemoveUDPv4EndToEndPort");
-                                    v11 = &qword_1ED4CCFD8;
-                                    if (v25)
+                                    qword_1ED4CCFD0 = v26;
+                                    v27 = dlsym(v10, "TimeSyncClockRemoveUDPv4EndToEndPort");
+                                    v13 = &qword_1ED4CCFD8;
+                                    if (v27)
                                     {
-                                      qword_1ED4CCFD8 = v25;
-                                      v26 = dlsym(v8, "TimeSyncClockAddUDPv6EndToEndPort");
-                                      v11 = &qword_1ED4CCFE0;
-                                      if (v26)
+                                      qword_1ED4CCFD8 = v27;
+                                      v28 = dlsym(v10, "TimeSyncClockAddUDPv6EndToEndPort");
+                                      v13 = &qword_1ED4CCFE0;
+                                      if (v28)
                                       {
-                                        qword_1ED4CCFE0 = v26;
-                                        v27 = dlsym(v8, "TimeSyncClockAddUDPv6EndToEndPortAndGetIdentity");
-                                        v11 = &qword_1ED4CCFE8;
-                                        if (v27)
+                                        qword_1ED4CCFE0 = v28;
+                                        v29 = dlsym(v10, "TimeSyncClockAddUDPv6EndToEndPortAndGetIdentity");
+                                        v13 = &qword_1ED4CCFE8;
+                                        if (v29)
                                         {
-                                          qword_1ED4CCFE8 = v27;
-                                          v28 = dlsym(v8, "TimeSyncClockRemoveUDPv6EndToEndPort");
-                                          v11 = &qword_1ED4CCFF0;
-                                          if (v28)
+                                          qword_1ED4CCFE8 = v29;
+                                          v30 = dlsym(v10, "TimeSyncClockRemoveUDPv6EndToEndPort");
+                                          v13 = &qword_1ED4CCFF0;
+                                          if (v30)
                                           {
-                                            qword_1ED4CCFF0 = v28;
-                                            v29 = dlsym(v8, "TimeSyncClockAddAWDLPort");
-                                            v11 = &qword_1ED4CCFF8;
-                                            if (v29)
+                                            qword_1ED4CCFF0 = v30;
+                                            v31 = dlsym(v10, "TimeSyncClockAddAWDLPort");
+                                            v13 = &qword_1ED4CCFF8;
+                                            if (v31)
                                             {
-                                              qword_1ED4CCFF8 = v29;
-                                              v30 = dlsym(v8, "TimeSyncClockRemoveAWDLPort");
-                                              v11 = &qword_1ED4CD000;
-                                              if (v30)
+                                              qword_1ED4CCFF8 = v31;
+                                              v32 = dlsym(v10, "TimeSyncClockRemoveAWDLPort");
+                                              v13 = &qword_1ED4CD000;
+                                              if (v32)
                                               {
-                                                qword_1ED4CD000 = v30;
-                                                v31 = dlsym(v8, "TimeSyncClockOverridePortReceiveMatching");
-                                                v11 = &qword_1ED4CD008;
-                                                if (v31)
+                                                qword_1ED4CD000 = v32;
+                                                v33 = dlsym(v10, "TimeSyncClockOverridePortReceiveMatching");
+                                                v13 = &qword_1ED4CD008;
+                                                if (v33)
                                                 {
-                                                  qword_1ED4CD008 = v31;
-                                                  v32 = dlsym(v8, "TimeSyncClockRestorePortReceiveMatching");
-                                                  v11 = &qword_1ED4CD010;
-                                                  if (v32)
+                                                  qword_1ED4CD008 = v33;
+                                                  v34 = dlsym(v10, "TimeSyncClockRestorePortReceiveMatching");
+                                                  v13 = &qword_1ED4CD010;
+                                                  if (v34)
                                                   {
-                                                    qword_1ED4CD010 = v32;
-                                                    v33 = dlsym(v8, "TimeSyncPortCreateFromClock");
-                                                    v11 = &qword_1ED4CD018;
-                                                    if (v33)
+                                                    qword_1ED4CD010 = v34;
+                                                    v35 = dlsym(v10, "TimeSyncPortCreateFromClock");
+                                                    v13 = &qword_1ED4CD018;
+                                                    if (v35)
                                                     {
-                                                      qword_1ED4CD018 = v33;
-                                                      v34 = dlsym(v8, "TimeSyncPortDispose");
-                                                      v11 = &qword_1ED4CD020;
-                                                      if (v34)
+                                                      qword_1ED4CD018 = v35;
+                                                      v36 = dlsym(v10, "TimeSyncPortDispose");
+                                                      v13 = &qword_1ED4CD020;
+                                                      if (v36)
                                                       {
-                                                        qword_1ED4CD020 = v34;
-                                                        v35 = dlsym(v8, "TimeSyncPortEnable");
-                                                        v11 = &qword_1ED4CD028;
-                                                        if (v35)
+                                                        qword_1ED4CD020 = v36;
+                                                        v37 = dlsym(v10, "TimeSyncPortEnable");
+                                                        v13 = &qword_1ED4CD028;
+                                                        if (v37)
                                                         {
-                                                          qword_1ED4CD028 = v35;
-                                                          v36 = dlsym(v8, "TimeSyncPortDisable");
-                                                          v11 = &qword_1ED4CD030;
-                                                          if (v36)
+                                                          qword_1ED4CD028 = v37;
+                                                          v38 = dlsym(v10, "TimeSyncPortDisable");
+                                                          v13 = &qword_1ED4CD030;
+                                                          if (v38)
                                                           {
-                                                            qword_1ED4CD030 = v36;
-                                                            v37 = dlsym(v8, "TimeSyncPortSetRemoteSyncMessageIntervals");
-                                                            v11 = &qword_1ED4CD050;
-                                                            if (v37)
+                                                            qword_1ED4CD030 = v38;
+                                                            v39 = dlsym(v10, "TimeSyncPortSetRemoteSyncMessageIntervals");
+                                                            v13 = &qword_1ED4CD050;
+                                                            if (v39)
                                                             {
-                                                              qword_1ED4CD050 = v37;
-                                                              v38 = dlsym(v8, "TimeSyncClockGetClockRateAnchorsAndGrandmasterIdentity");
-                                                              v11 = &qword_1ED4CD038;
-                                                              if (v38)
+                                                              qword_1ED4CD050 = v39;
+                                                              v40 = dlsym(v10, "TimeSyncClockGetClockRateAnchorsAndGrandmasterIdentity");
+                                                              v13 = &qword_1ED4CD038;
+                                                              if (v40)
                                                               {
-                                                                qword_1ED4CD038 = v38;
-                                                                v39 = dlsym(v8, "TimeSyncClockSetAllPortRemoteSyncMessageIntervals");
-                                                                v11 = &qword_1ED4CD040;
-                                                                if (v39)
+                                                                qword_1ED4CD038 = v40;
+                                                                v41 = dlsym(v10, "TimeSyncClockSetAllPortRemoteSyncMessageIntervals");
+                                                                v13 = &qword_1ED4CD040;
+                                                                if (v41)
                                                                 {
-                                                                  qword_1ED4CD040 = v39;
-                                                                  v40 = dlsym(v8, "TimeSyncGetClockMetricsWithSize");
-                                                                  v11 = &qword_1ED4CD058;
-                                                                  if (v40)
+                                                                  qword_1ED4CD040 = v41;
+                                                                  v42 = dlsym(v10, "TimeSyncGetClockMetricsWithSize");
+                                                                  v13 = &qword_1ED4CD058;
+                                                                  if (v42)
                                                                   {
-                                                                    qword_1ED4CD058 = v40;
-                                                                    result = dlsym(v8, "TimeSyncGetPortMetricsWithSize");
-                                                                    v11 = &qword_1ED4CD060;
+                                                                    qword_1ED4CD058 = v42;
+                                                                    result = dlsym(v10, "TimeSyncGetPortMetricsWithSize");
+                                                                    v13 = &qword_1ED4CD060;
                                                                     if (result)
                                                                     {
                                                                       qword_1ED4CD060 = result;
                                                                       return result;
                                                                     }
 
-                                                                    v9 = 424;
+                                                                    v11 = 424;
                                                                   }
 
                                                                   else
                                                                   {
-                                                                    v9 = 423;
+                                                                    v11 = 423;
                                                                   }
                                                                 }
 
                                                                 else
                                                                 {
-                                                                  v9 = 420;
+                                                                  v11 = 420;
                                                                 }
                                                               }
 
                                                               else
                                                               {
-                                                                v9 = 418;
+                                                                v11 = 418;
                                                               }
                                                             }
 
                                                             else
                                                             {
-                                                              v9 = 415;
+                                                              v11 = 415;
                                                             }
                                                           }
 
                                                           else
                                                           {
-                                                            v9 = 414;
+                                                            v11 = 414;
                                                           }
                                                         }
 
                                                         else
                                                         {
-                                                          v9 = 413;
+                                                          v11 = 413;
                                                         }
                                                       }
 
                                                       else
                                                       {
-                                                        v9 = 412;
+                                                        v11 = 412;
                                                       }
                                                     }
 
                                                     else
                                                     {
-                                                      v9 = 411;
+                                                      v11 = 411;
                                                     }
                                                   }
 
                                                   else
                                                   {
-                                                    v9 = 408;
+                                                    v11 = 408;
                                                   }
                                                 }
 
                                                 else
                                                 {
-                                                  v9 = 407;
+                                                  v11 = 407;
                                                 }
                                               }
 
                                               else
                                               {
-                                                v9 = 405;
+                                                v11 = 405;
                                               }
                                             }
 
                                             else
                                             {
-                                              v9 = 404;
+                                              v11 = 404;
                                             }
                                           }
 
                                           else
                                           {
-                                            v9 = 403;
+                                            v11 = 403;
                                           }
                                         }
 
                                         else
                                         {
-                                          v9 = 402;
+                                          v11 = 402;
                                         }
                                       }
 
                                       else
                                       {
-                                        v9 = 401;
+                                        v11 = 401;
                                       }
                                     }
 
                                     else
                                     {
-                                      v9 = 400;
+                                      v11 = 400;
                                     }
                                   }
 
                                   else
                                   {
-                                    v9 = 399;
+                                    v11 = 399;
                                   }
                                 }
 
                                 else
                                 {
-                                  v9 = 398;
+                                  v11 = 398;
                                 }
                               }
 
                               else
                               {
-                                v9 = 396;
+                                v11 = 396;
                               }
                             }
 
                             else
                             {
-                              v9 = 395;
+                              v11 = 395;
                             }
                           }
 
                           else
                           {
-                            v9 = 393;
+                            v11 = 393;
                           }
                         }
 
                         else
                         {
-                          v9 = 392;
+                          v11 = 392;
                         }
                       }
 
                       else
                       {
-                        v9 = 391;
+                        v11 = 391;
                       }
                     }
 
                     else
                     {
-                      v9 = 390;
+                      v11 = 390;
                     }
                   }
 
                   else
                   {
-                    v9 = 389;
+                    v11 = 389;
                   }
                 }
 
                 else
                 {
-                  v9 = 388;
+                  v11 = 388;
                 }
               }
 
               else
               {
-                v9 = 387;
+                v11 = 387;
               }
             }
 
             else
             {
-              v9 = 386;
+              v11 = 386;
             }
           }
 
           else
           {
-            v9 = 385;
+            v11 = 385;
           }
         }
 
         else
         {
-          v9 = 384;
+          v11 = 384;
         }
 
-        *v11 = 0;
+        *v13 = 0;
       }
 
       else
       {
-        v9 = 383;
+        v11 = 383;
       }
     }
 
     else
     {
-      v9 = 382;
+      v11 = 382;
     }
   }
 
-  return LoadTimeSyncFunctions_cold_1_2(v9, v1, v2, v3, v4, v5, v6, v7);
+  return LoadTimeSyncFunctions_cold_1_2(v11, v3, v4, v5, v6, v7, v8, v9, v44);
 }
 
 void fig8021ASClock_GrandmasterDidChange(uint64_t a1, id *a2)
@@ -2612,7 +2627,7 @@ void fig8021ASClock_GrandmasterDidChange(uint64_t a1, id *a2)
   dispatch_async(global_queue, block);
 }
 
-uint64_t CM8021ASClockAddIPv4Port(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t CM8021ASClockAddIPv4Port(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (!a1)
   {
@@ -2649,7 +2664,7 @@ LABEL_10:
   }
 }
 
-uint64_t CM8021ASClockAddIPv6Port(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t CM8021ASClockAddIPv6Port(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   v13 = a3;
   v14 = a4;
@@ -2685,7 +2700,7 @@ LABEL_11:
   }
 }
 
-uint64_t CM8021ASClockAddAWDLPort(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t CM8021ASClockAddAWDLPort(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (!a1)
   {
@@ -2712,7 +2727,7 @@ LABEL_6:
   }
 }
 
-uint64_t CM8021ASClockRemoveAWDLPort(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t CM8021ASClockRemoveAWDLPort(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (!a1)
   {
@@ -2739,7 +2754,7 @@ LABEL_6:
   }
 }
 
-uint64_t CM8021ASClockOverridePortReceiveMatching(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t CM8021ASClockOverridePortReceiveMatching(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (!a1)
   {
@@ -2768,7 +2783,7 @@ LABEL_8:
   }
 }
 
-uint64_t CM8021ASClockRestorePortReceiveMatching(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t CM8021ASClockRestorePortReceiveMatching(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (!a1)
   {
@@ -2799,7 +2814,7 @@ LABEL_8:
 
 uint64_t CM8021ASClockEnablePort(uint64_t a1, int a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   UInt16 = FigCFNumberCreateUInt16(*MEMORY[0x1E695E480], a2);
   v4 = (a1 + 64);
   FigSimpleMutexLock(*(a1 + 64));
@@ -2825,10 +2840,11 @@ uint64_t CM8021ASClockEnablePort(uint64_t a1, int a2)
         v19 = Value;
         if (dword_1EAF1CF48)
         {
-          v29[0] = 0;
+          v29 = 0;
           type = OS_LOG_TYPE_DEFAULT;
-          os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, v29, &type);
-          v21 = v29[0];
+          os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v29, &type);
+          v21 = v29;
+          v22 = type;
           if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
           {
             v23 = v21;
@@ -2841,10 +2857,10 @@ uint64_t CM8021ASClockEnablePort(uint64_t a1, int a2)
 
           if (v23)
           {
-            v29[1] = 136315138;
-            v30 = "CM8021ASClockEnablePort";
-            v24 = _os_log_send_and_compose_impl();
-            LOBYTE(v21) = v29[0];
+            v30 = 136315138;
+            v31 = "CM8021ASClockEnablePort";
+            v24 = _os_log_send_and_compose_impl(v23, 0, v32, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v22, "<<<< 8021ASClock >>>> %s: Calling TimeSyncPortEnable", &v30);
+            LOBYTE(v21) = v29;
           }
 
           else
@@ -2852,7 +2868,7 @@ uint64_t CM8021ASClockEnablePort(uint64_t a1, int a2)
             v24 = 0;
           }
 
-          fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1u, 1, v24, v24 != v31, v21, 0, v22);
+          fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1, 1, v24, v24 != v32, v21);
         }
 
         v25 = (*(qword_1ED4CD068 + 208))(v19);
@@ -2864,8 +2880,8 @@ uint64_t CM8021ASClockEnablePort(uint64_t a1, int a2)
 
       else
       {
-        CM8021ASClockEnablePort_cold_3(v31, v12, v13, v14, v15, v16, v17, v18);
-        v25 = v31[0];
+        CM8021ASClockEnablePort_cold_3(v32, v12, v13, v14, v15, v16, v17, v18);
+        v25 = v32[0];
       }
     }
 
@@ -2879,8 +2895,8 @@ uint64_t CM8021ASClockEnablePort(uint64_t a1, int a2)
 
   else
   {
-    v27 = CM8021ASClockEnablePort_cold_2((a1 + 64), UInt16, v31, v5, v6, v7, v8, v9);
-    v25 = v31[0];
+    v27 = CM8021ASClockEnablePort_cold_2((a1 + 64), UInt16, v32, v5, v6, v7, v8, v9);
+    v25 = v32[0];
     if (v27)
     {
       return v25;
@@ -2893,7 +2909,7 @@ uint64_t CM8021ASClockEnablePort(uint64_t a1, int a2)
 
 uint64_t CM8021ASClockDisablePort(uint64_t a1, int a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   UInt16 = FigCFNumberCreateUInt16(*MEMORY[0x1E695E480], a2);
   v4 = (a1 + 64);
   FigSimpleMutexLock(*(a1 + 64));
@@ -2925,10 +2941,11 @@ uint64_t CM8021ASClockDisablePort(uint64_t a1, int a2)
         CFSetAddValue(*(a1 + 88), UInt16);
         if (dword_1EAF1CF48)
         {
-          v29[0] = 0;
+          v29 = 0;
           type = OS_LOG_TYPE_DEFAULT;
-          os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, v29, &type);
-          v21 = v29[0];
+          os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v29, &type);
+          v21 = v29;
+          v22 = type;
           if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
           {
             v23 = v21;
@@ -2941,10 +2958,10 @@ uint64_t CM8021ASClockDisablePort(uint64_t a1, int a2)
 
           if (v23)
           {
-            v29[1] = 136315138;
-            v30 = "CM8021ASClockDisablePort";
-            v24 = _os_log_send_and_compose_impl();
-            LOBYTE(v21) = v29[0];
+            v30 = 136315138;
+            v31 = "CM8021ASClockDisablePort";
+            v24 = _os_log_send_and_compose_impl(v23, 0, v32, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v22, "<<<< 8021ASClock >>>> %s: Calling TimeSyncPortDisable", &v30);
+            LOBYTE(v21) = v29;
           }
 
           else
@@ -2952,7 +2969,7 @@ uint64_t CM8021ASClockDisablePort(uint64_t a1, int a2)
             v24 = 0;
           }
 
-          fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1u, 1, v24, v24 != v31, v21, 0, v22);
+          fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1, 1, v24, v24 != v32, v21);
         }
 
         v25 = (*(qword_1ED4CD068 + 216))(v19);
@@ -2964,8 +2981,8 @@ uint64_t CM8021ASClockDisablePort(uint64_t a1, int a2)
 
       else
       {
-        CM8021ASClockDisablePort_cold_3(v31, v12, v13, v14, v15, v16, v17, v18);
-        v25 = v31[0];
+        CM8021ASClockDisablePort_cold_3(v32, v12, v13, v14, v15, v16, v17, v18);
+        v25 = v32[0];
       }
     }
 
@@ -2974,8 +2991,8 @@ uint64_t CM8021ASClockDisablePort(uint64_t a1, int a2)
 
   else
   {
-    v27 = CM8021ASClockDisablePort_cold_2((a1 + 64), UInt16, v31, v5, v6, v7, v8, v9);
-    v25 = v31[0];
+    v27 = CM8021ASClockDisablePort_cold_2((a1 + 64), UInt16, v32, v5, v6, v7, v8, v9);
+    v25 = v32[0];
     if (v27)
     {
       return v25;
@@ -2988,7 +3005,7 @@ uint64_t CM8021ASClockDisablePort(uint64_t a1, int a2)
 
 uint64_t CM8021ASClockSetAllPortRemoteSyncMessageIntervals(uint64_t a1, CMTime *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   time = *a2;
   Seconds = CMTimeGetSeconds(&time);
   v12 = log10(Seconds);
@@ -3019,10 +3036,11 @@ LABEL_20:
 
   if (dword_1EAF1CF48)
   {
-    v22 = 0;
+    v24 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v22, &type);
-    v16 = v22;
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v24, &type);
+    v16 = v24;
+    v17 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v18 = v16;
@@ -3040,9 +3058,10 @@ LABEL_20:
       LOWORD(time1.flags) = 2048;
       *(&time1.flags + 2) = a1;
       HIWORD(time1.epoch) = 1024;
-      v24 = (v13 / 0.301029996);
-      v19 = _os_log_send_and_compose_impl();
-      LOBYTE(v16) = v22;
+      v26 = (v13 / 0.301029996);
+      LODWORD(v21) = 28;
+      v19 = _os_log_send_and_compose_impl(v18, 0, &time, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v17, "<<<< 8021ASClock >>>> %s: clock <%p> port remote sync interval request 2^%d", &time1, v21, v22);
+      LOBYTE(v16) = v24;
     }
 
     else
@@ -3050,7 +3069,7 @@ LABEL_20:
       v19 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1u, 1, v19, v19 != &time, v16, 0, v17);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1, 1, v19, v19 != &time, v16);
   }
 
   FigSimpleMutexLock(*(a1 + 64));
@@ -3069,15 +3088,15 @@ LABEL_20:
   time.value = MEMORY[0x1E69E9820];
   *&time.timescale = 0x40000000;
   time.epoch = __timesyncLogMeanIntervalApplier_setIntervalAndApplyIfDifferent_block_invoke;
-  v26 = &__block_descriptor_tmp_138;
-  v27 = (v13 / 0.301029996);
+  v28 = &__block_descriptor_tmp_138;
+  v29 = (v13 / 0.301029996);
   dispatch_async(qword_1ED4CCF30, &time);
   return 0;
 }
 
 uint64_t CM8021ASClockSetPortRemoteSyncMessageIntervals(uint64_t a1, int a2, CMTime *a3)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   time = *a3;
   Seconds = CMTimeGetSeconds(&time);
   v7 = log10(Seconds);
@@ -3117,11 +3136,12 @@ uint64_t CM8021ASClockSetPortRemoteSyncMessageIntervals(uint64_t a1, int a2, CMT
   {
     if (dword_1EAF1CF48)
     {
-      v41 = 0;
-      type = OS_LOG_TYPE_DEFAULT;
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v41, &type);
-      v19 = v41;
-      if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
+      v43 = 0;
+      HIBYTE(v42) = 0;
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v43, &v42 + 3);
+      v19 = v43;
+      v20 = HIBYTE(v42);
+      if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, HIBYTE(v42)))
       {
         v21 = v19;
       }
@@ -3138,11 +3158,12 @@ uint64_t CM8021ASClockSetPortRemoteSyncMessageIntervals(uint64_t a1, int a2, CMT
         LOWORD(time1.flags) = 2048;
         *(&time1.flags + 2) = a1;
         HIWORD(time1.epoch) = 1024;
-        v43 = a2;
-        v44 = 1024;
-        v45 = (v7 / 0.301029996);
-        v22 = _os_log_send_and_compose_impl();
-        LOBYTE(v19) = v41;
+        v45 = a2;
+        v46 = 1024;
+        v47 = (v7 / 0.301029996);
+        LODWORD(v40) = 34;
+        v22 = _os_log_send_and_compose_impl(v21, 0, &time, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v20, "<<<< 8021ASClock >>>> %s: clock <%p> port <%u> remote sync interval request 2^%d", &time1, v40, v41, v42);
+        LOBYTE(v19) = v43;
       }
 
       else
@@ -3150,7 +3171,7 @@ uint64_t CM8021ASClockSetPortRemoteSyncMessageIntervals(uint64_t a1, int a2, CMT
         v22 = 0;
       }
 
-      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1u, 1, v22, v22 != &time, v19, 0, v20);
+      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1, 1, v22, v22 != &time, v19);
     }
 
     if (*(a1 + 96))
@@ -3166,11 +3187,12 @@ uint64_t CM8021ASClockSetPortRemoteSyncMessageIntervals(uint64_t a1, int a2, CMT
         v31 = Value;
         if (dword_1EAF1CF48)
         {
-          v41 = 0;
-          type = OS_LOG_TYPE_DEFAULT;
-          v32 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v41, &type);
-          v33 = v41;
-          if (os_log_type_enabled(v32, type))
+          v43 = 0;
+          HIBYTE(v42) = 0;
+          v32 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v43, &v42 + 3);
+          v33 = v43;
+          v34 = HIBYTE(v42);
+          if (os_log_type_enabled(v32, HIBYTE(v42)))
           {
             v35 = v33;
           }
@@ -3184,8 +3206,8 @@ uint64_t CM8021ASClockSetPortRemoteSyncMessageIntervals(uint64_t a1, int a2, CMT
           {
             LODWORD(time1.value) = 136315138;
             *(&time1.value + 4) = "CM8021ASClockSetPortRemoteSyncMessageIntervals";
-            v36 = _os_log_send_and_compose_impl();
-            LOBYTE(v33) = v41;
+            v36 = _os_log_send_and_compose_impl(v35, 0, &time, 128, &dword_196FA7000, v32, v34, "<<<< 8021ASClock >>>> %s: Calling TimeSyncPortSetRemoteSyncMessageIntervals", &time1);
+            LOBYTE(v33) = v43;
           }
 
           else
@@ -3193,7 +3215,7 @@ uint64_t CM8021ASClockSetPortRemoteSyncMessageIntervals(uint64_t a1, int a2, CMT
             v36 = 0;
           }
 
-          fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1u, 1, v36, v36 != &time, v33, 0, v34);
+          fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1, 1, v36, v36 != &time, v33);
         }
 
         value_low = (*(qword_1ED4CD068 + 248))(v31, (v7 / 0.301029996));
@@ -3212,12 +3234,12 @@ LABEL_27:
   return value_low;
 }
 
-void CM8021ASClockGetClockTimeForHostTime(const void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, CMBlockBufferFlags a7@<W6>, CMBlockBufferRef *a8@<X7>, CMTime *a9@<X8>)
+void CM8021ASClockGetClockTimeForHostTime(const void *a1@<X0>, uint64_t a2@<X1>, double *a3@<X2>, CMTime *a4@<X8>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, size_t a8@<X6>, CMBlockBufferFlags a9@<W7>)
 {
   v41 = *MEMORY[0x1E69E9840];
   v29 = **(qword_1ED4CD068 + 8);
-  *&a9->value = *&kCMTimeInvalid.value;
-  a9->epoch = 0;
+  *&a4->value = *&kCMTimeInvalid.value;
+  a4->epoch = 0;
   if (!a1)
   {
     goto LABEL_19;
@@ -3244,9 +3266,9 @@ void CM8021ASClockGetClockTimeForHostTime(const void *a1@<X0>, uint64_t a2@<X1>,
       v18 = v29;
       v19 = *(v12 + 7);
       FigSimpleMutexUnlock(*(v12 + 4));
-      if (v18 == v19 && v17 != -1)
+      if (*&v18 == v19 && v17 != -1)
       {
-        CMTimeMake(a9, v17, 1000000000);
+        CMTimeMake(a4, v17, 1000000000);
         if (a3)
         {
           *a3 = v29;
@@ -3255,11 +3277,12 @@ void CM8021ASClockGetClockTimeForHostTime(const void *a1@<X0>, uint64_t a2@<X1>,
 
       if (dword_1EAF1CF48 >= 2)
       {
-        v28 = 0;
-        type = OS_LOG_TYPE_DEFAULT;
-        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v28, &type);
-        v21 = v28;
-        if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
+        HIDWORD(v28) = 0;
+        BYTE3(v28) = 0;
+        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v28 + 1, &v28 + 3);
+        v21 = HIDWORD(v28);
+        v22 = BYTE3(v28);
+        if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, BYTE3(v28)))
         {
           v23 = v21;
         }
@@ -3273,7 +3296,7 @@ void CM8021ASClockGetClockTimeForHostTime(const void *a1@<X0>, uint64_t a2@<X1>,
         {
           hostTime = *a2;
           Seconds = CMTimeGetSeconds(&hostTime);
-          hostTime = *a9;
+          hostTime = *a4;
           v25 = CMTimeGetSeconds(&hostTime);
           v30 = 136316162;
           v31 = "CM8021ASClockGetClockTimeForHostTime";
@@ -3285,8 +3308,8 @@ void CM8021ASClockGetClockTimeForHostTime(const void *a1@<X0>, uint64_t a2@<X1>,
           v37 = v25;
           v38 = 2048;
           v39 = v29;
-          v26 = _os_log_send_and_compose_impl();
-          LOBYTE(v21) = v28;
+          v26 = _os_log_send_and_compose_impl(v23, 0, &hostTime, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v22, "<<<< 8021ASClock >>>> %s: clock <%p> converted hosttime %g to clocktime %g using GM 0x%016llx", &v30, 52, v28, v29);
+          LOBYTE(v21) = BYTE4(v28);
         }
 
         else
@@ -3294,31 +3317,31 @@ void CM8021ASClockGetClockTimeForHostTime(const void *a1@<X0>, uint64_t a2@<X1>,
           v26 = 0;
         }
 
-        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1u, 1, v26, v26 != &hostTime, v21, 0, v22);
+        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1, 1, v26, v26 != &hostTime, v21);
       }
     }
 
     else
     {
-      CM8021ASClockGetClockTimeForHostTime_cold_2(a1, a2, a3, a4, a5, a6, a7, a8);
+      CM8021ASClockGetClockTimeForHostTime_cold_2(a1, a2, a3, a5, a6, a7, a8, a9, v27);
     }
   }
 
   else
   {
 LABEL_19:
-    CM8021ASClockGetClockTimeForHostTime_cold_3(a1, a2, a3, a4, a5, a6, a7, a8);
+    CM8021ASClockGetClockTimeForHostTime_cold_3(a1, a2, a3, a5, a6, a7, a8, a9, v27);
   }
 }
 
-size_t CM8021ASClockGetHostTimeForClockTime@<X0>(const void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, CMBlockBufferFlags a7@<W6>, CMBlockBufferRef *a8@<X7>, CMTime *a9@<X8>)
+uint64_t CM8021ASClockGetHostTimeForClockTime@<X0>(const void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, CMTime *a4@<X8>, uint64_t a5@<X3>, uint64_t a6@<X4>, uint64_t a7@<X5>, size_t a8@<X6>, CMBlockBufferFlags a9@<W7>)
 {
   v22 = **(qword_1ED4CD068 + 8);
-  *&a9->value = *&kCMTimeInvalid.value;
-  a9->epoch = 0;
+  *&a4->value = *&kCMTimeInvalid.value;
+  a4->epoch = 0;
   if (!a1)
   {
-    return CM8021ASClockGetHostTimeForClockTime_cold_3(a1, a2, a3, a4, a5, a6, a7, a8);
+    return CM8021ASClockGetHostTimeForClockTime_cold_3(a1, a2, a3, a5, a6, a7, a8, a9, v21.value);
   }
 
   v12 = a1;
@@ -3331,12 +3354,12 @@ size_t CM8021ASClockGetHostTimeForClockTime@<X0>(const void *a1@<X0>, uint64_t a
 
   if (v13 != qword_1ED4CCF18)
   {
-    return CM8021ASClockGetHostTimeForClockTime_cold_3(a1, a2, a3, a4, a5, a6, a7, a8);
+    return CM8021ASClockGetHostTimeForClockTime_cold_3(a1, a2, a3, a5, a6, a7, a8, a9, v21.value);
   }
 
   if ((*(a2 + 12) & 1) == 0)
   {
-    return CM8021ASClockGetHostTimeForClockTime_cold_2(a1, a2, a3, a4, a5, a6, a7, a8);
+    return CM8021ASClockGetHostTimeForClockTime_cold_2(a1, a2, a3, a5, a6, a7, a8, a9, v21.value);
   }
 
   v14 = *(qword_1ED4CD068 + 48);
@@ -3350,7 +3373,7 @@ size_t CM8021ASClockGetHostTimeForClockTime@<X0>(const void *a1@<X0>, uint64_t a
   result = FigSimpleMutexUnlock(*(v12 + 4));
   if (v18 == v19 && v17 != -1)
   {
-    result = CMClockMakeHostTimeFromSystemUnits(a9, v17);
+    result = CMClockMakeHostTimeFromSystemUnits(a4, v17);
     if (a3)
     {
       *a3 = v22;
@@ -3386,13 +3409,14 @@ double fig8021ASClock_Init(uint64_t a1)
 
 const __CFAllocator *fig8021ASClock_Finalize(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (dword_1EAF1CF48)
   {
-    v19[0] = 0;
+    v19 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, v19, &type);
-    v3 = v19[0];
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v19, &type);
+    v3 = v19;
+    v4 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v5 = v3;
@@ -3405,12 +3429,12 @@ const __CFAllocator *fig8021ASClock_Finalize(uint64_t a1)
 
     if (v5)
     {
-      v19[1] = 136315394;
-      v20 = "fig8021ASClock_Finalize";
-      v21 = 2048;
-      v22 = a1;
-      v6 = _os_log_send_and_compose_impl();
-      LOBYTE(v3) = v19[0];
+      v20 = 136315394;
+      v21 = "fig8021ASClock_Finalize";
+      v22 = 2048;
+      v23 = a1;
+      v6 = _os_log_send_and_compose_impl(v5, 0, v24, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v4, "<<<< 8021ASClock >>>> %s: clock <%p>", &v20, 22);
+      LOBYTE(v3) = v19;
     }
 
     else
@@ -3418,7 +3442,7 @@ const __CFAllocator *fig8021ASClock_Finalize(uint64_t a1)
       v6 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1u, 1, v6, v6 != &v23, v3, 0, v4);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1, 1, v6, v6 != v24, v3);
   }
 
   v7 = *(a1 + 48);
@@ -3533,7 +3557,7 @@ CFStringRef fig8021ASClock_CopyDesc(uint64_t a1)
 uint64_t timesyncLogMeanIntervalApplier_doesTimeDomainConformToSyncInterval(uint64_t a1, int a2)
 {
   v3 = v2;
-  v55 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   iterator = 0;
   MEMORY[0x19A8D8680](a1, "IOService", &iterator);
   if (iterator)
@@ -3541,34 +3565,37 @@ uint64_t timesyncLogMeanIntervalApplier_doesTimeDomainConformToSyncInterval(uint
     v6 = IOIteratorNext(iterator);
     if (v6)
     {
-      v7 = v6;
-      v8 = 1;
-      v9 = *MEMORY[0x1E695E480];
+      v8 = v6;
+      v9 = 1;
+      v10 = *MEMORY[0x1E695E480];
+      *&v7 = 136315906;
+      v45 = v7;
+      v46 = 136315650;
       while (1)
       {
-        if (!IOObjectConformsTo(v7, "IOTimeSyncUnicastUDPv4EtEPort") && !IOObjectConformsTo(v7, "IOTimeSyncUnicastUDPv6EtEPort"))
+        if (!IOObjectConformsTo(v8, "IOTimeSyncUnicastUDPv4EtEPort") && !IOObjectConformsTo(v8, "IOTimeSyncUnicastUDPv6EtEPort"))
         {
           goto LABEL_60;
         }
 
         valuePtr = 0;
-        CFProperty = IORegistryEntryCreateCFProperty(v7, @"PortRole", v9, 0);
+        CFProperty = IORegistryEntryCreateCFProperty(v8, @"PortRole", v10, 0);
         if (CFProperty)
         {
           break;
         }
 
-        FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CF40, 0xFFFFCE2CuLL, "<<<< 8021ASClock >>>>", 0x503, v3, v11, v12);
-        v8 = 0;
+        FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CF40, 0xFFFFCE2CuLL, "<<<< 8021ASClock >>>>", 0x503, v3, v12, v13, v43);
+        v9 = 0;
 LABEL_61:
-        v7 = IOIteratorNext(iterator);
-        if (!v7)
+        v8 = IOIteratorNext(iterator);
+        if (!v8)
         {
           goto LABEL_65;
         }
       }
 
-      v13 = CFProperty;
+      v14 = CFProperty;
       CFNumberGetValue(CFProperty, kCFNumberIntType, &valuePtr);
       if ((valuePtr - 1) > 1)
       {
@@ -3576,44 +3603,46 @@ LABEL_61:
         {
           if (dword_1EAF1CF48)
           {
-            v42 = 0;
-            v43 = OS_LOG_TYPE_DEFAULT;
-            os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v42, &v43);
-            v21 = v42;
-            if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v43))
+            v49 = 0;
+            v50 = OS_LOG_TYPE_DEFAULT;
+            os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v49, &v50);
+            v23 = v49;
+            v24 = v50;
+            if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v50))
             {
-              v23 = v21;
+              v25 = v23;
             }
 
             else
             {
-              v23 = v21 & 0xFFFFFFFE;
+              v25 = v23 & 0xFFFFFFFE;
             }
 
-            if (v23)
+            if (v25)
             {
-              v24 = "disabled";
+              v26 = "disabled";
               if (valuePtr == 3)
               {
-                v24 = "master";
+                v26 = "master";
               }
 
-              v46 = 136315650;
-              v47 = "timesyncLogMeanIntervalApplier_doesTimeDomainConformToSyncInterval";
-              v48 = 2048;
-              v49 = qword_1ED4CCF48;
-              v50 = 2080;
-              *v51 = v24;
-              v25 = _os_log_send_and_compose_impl();
-              LOBYTE(v21) = v42;
+              v53 = v46;
+              v54 = "timesyncLogMeanIntervalApplier_doesTimeDomainConformToSyncInterval";
+              v55 = 2048;
+              v56 = qword_1ED4CCF48;
+              v57 = 2080;
+              *v58 = v26;
+              LODWORD(v44) = 32;
+              v27 = _os_log_send_and_compose_impl(v25, 0, v61, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v24, "<<<< 8021ASClock >>>> %s: clock <%p>: found port %s and that conforms a priori.", &v53, v44, v45);
+              LOBYTE(v23) = v49;
             }
 
             else
             {
-              v25 = 0;
+              v27 = 0;
             }
 
-            fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1u, 1, v25, v25 != v54, v21, 0, v22);
+            fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1, 1, v27, v27 != v61, v23);
           }
 
           goto LABEL_59;
@@ -3622,48 +3651,51 @@ LABEL_61:
 
       else
       {
-        v14 = IORegistryEntryCreateCFProperty(v7, @"RemoteSyncLogMeanInterval", v9, 0);
-        if (v14)
+        v15 = IORegistryEntryCreateCFProperty(v8, @"RemoteSyncLogMeanInterval", v10, 0);
+        if (v15)
         {
-          v15 = v14;
-          v43 = OS_LOG_TYPE_DEFAULT;
-          CFNumberGetValue(v14, kCFNumberCharType, &v43);
-          if (v43 == a2)
+          v16 = v15;
+          v50 = OS_LOG_TYPE_DEFAULT;
+          CFNumberGetValue(v15, kCFNumberCharType, &v50);
+          if (v50 == a2)
           {
             if (dword_1EAF1CF48)
             {
-              v42 = 0;
+              v49 = 0;
               type = OS_LOG_TYPE_DEFAULT;
-              v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v42, &type);
-              v17 = v42;
-              if (os_log_type_enabled(v16, type))
+              v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v49, &type);
+              v18 = v49;
+              v19 = type;
+              if (os_log_type_enabled(v17, type))
               {
-                v19 = v17;
+                v20 = v18;
               }
 
               else
               {
-                v19 = v17 & 0xFFFFFFFE;
+                v20 = v18 & 0xFFFFFFFE;
               }
 
-              if (v19)
+              if (v20)
               {
-                v46 = 136316162;
-                v47 = "timesyncLogMeanIntervalApplier_doesTimeDomainConformToSyncInterval";
-                v48 = 2048;
-                v49 = qword_1ED4CCF48;
-                v50 = 1024;
-                *v51 = v7;
-                *&v51[4] = 1024;
-                *&v51[6] = valuePtr;
-                v52 = 1024;
-                v53 = a2;
+                v53 = 136316162;
+                v54 = "timesyncLogMeanIntervalApplier_doesTimeDomainConformToSyncInterval";
+                v55 = 2048;
+                v56 = qword_1ED4CCF48;
+                v57 = 1024;
+                *v58 = v8;
+                *&v58[4] = 1024;
+                *&v58[6] = valuePtr;
+                v59 = 1024;
+                v60 = a2;
+                LODWORD(v44) = 40;
+                v21 = _os_log_send_and_compose_impl(v20, 0, v61, 128, &dword_196FA7000, v17, v19, "<<<< 8021ASClock >>>> %s: clock <%p>, port <%u> in role [%d] found a remote GM that is syncing at desired interval 2^%d", &v53, v44);
 LABEL_42:
-                v33 = _os_log_send_and_compose_impl();
-                LOBYTE(v17) = v42;
+                v36 = v21;
+                LOBYTE(v18) = v49;
 LABEL_52:
                 v3 = v2;
-                fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1u, 1, v33, v33 != v54, v17, 0, v18);
+                fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1, 1, v36, v36 != v61, v18);
                 goto LABEL_58;
               }
 
@@ -3673,51 +3705,53 @@ LABEL_52:
 
           else
           {
-            if (v43 > a2 || v43 <= OS_LOG_TYPE_DEBUG)
+            if (v50 > a2 || v50 <= OS_LOG_TYPE_DEBUG)
             {
               if (dword_1EAF1CF48)
               {
-                v42 = 0;
+                v49 = 0;
                 type = OS_LOG_TYPE_DEFAULT;
-                v34 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v42, &type);
-                v35 = v42;
-                if (os_log_type_enabled(v34, type))
+                v37 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v49, &type);
+                v38 = v49;
+                v39 = type;
+                if (os_log_type_enabled(v37, type))
                 {
-                  v37 = v35;
+                  v40 = v38;
                 }
 
                 else
                 {
-                  v37 = v35 & 0xFFFFFFFE;
+                  v40 = v38 & 0xFFFFFFFE;
                 }
 
-                if (v37)
+                if (v40)
                 {
-                  v46 = 136315906;
-                  v47 = "timesyncLogMeanIntervalApplier_doesTimeDomainConformToSyncInterval";
-                  v48 = 2048;
-                  v49 = qword_1ED4CCF48;
-                  v50 = 1024;
-                  *v51 = v43;
-                  *&v51[4] = 1024;
-                  *&v51[6] = a2;
-                  v38 = _os_log_send_and_compose_impl();
-                  LOBYTE(v35) = v42;
+                  v53 = v45;
+                  v54 = "timesyncLogMeanIntervalApplier_doesTimeDomainConformToSyncInterval";
+                  v55 = 2048;
+                  v56 = qword_1ED4CCF48;
+                  v57 = 1024;
+                  *v58 = v50;
+                  *&v58[4] = 1024;
+                  *&v58[6] = a2;
+                  LODWORD(v44) = 34;
+                  v41 = _os_log_send_and_compose_impl(v40, 0, v61, 128, &dword_196FA7000, v37, v39, "<<<< 8021ASClock >>>> %s: clock <%p>: found port with interval 2^%d needs interval 2^%d", &v53, v44, v45, DWORD2(v45));
+                  LOBYTE(v38) = v49;
                 }
 
                 else
                 {
-                  v38 = 0;
+                  v41 = 0;
                 }
 
                 v3 = v2;
-                fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1u, 1, v38, v38 != v54, v35, 0, v36);
-                v8 = 0;
+                fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1, 1, v41, v41 != v61, v38);
+                v9 = 0;
               }
 
               else
               {
-                v8 = 0;
+                v9 = 0;
               }
 
               goto LABEL_58;
@@ -3725,109 +3759,114 @@ LABEL_52:
 
             if (dword_1EAF1CF48)
             {
-              v42 = 0;
+              v49 = 0;
               type = OS_LOG_TYPE_DEFAULT;
-              v31 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v42, &type);
-              v17 = v42;
-              if (os_log_type_enabled(v31, type))
+              v33 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v49, &type);
+              v18 = v49;
+              v34 = type;
+              if (os_log_type_enabled(v33, type))
               {
-                v32 = v17;
+                v35 = v18;
               }
 
               else
               {
-                v32 = v17 & 0xFFFFFFFE;
+                v35 = v18 & 0xFFFFFFFE;
               }
 
-              if (v32)
+              if (v35)
               {
-                v46 = 136316162;
-                v47 = "timesyncLogMeanIntervalApplier_doesTimeDomainConformToSyncInterval";
-                v48 = 2048;
-                v49 = qword_1ED4CCF48;
-                v50 = 1024;
-                *v51 = v7;
-                *&v51[4] = 1024;
-                *&v51[6] = valuePtr;
-                v52 = 1024;
-                v53 = 3;
+                v53 = 136316162;
+                v54 = "timesyncLogMeanIntervalApplier_doesTimeDomainConformToSyncInterval";
+                v55 = 2048;
+                v56 = qword_1ED4CCF48;
+                v57 = 1024;
+                *v58 = v8;
+                *&v58[4] = 1024;
+                *&v58[6] = valuePtr;
+                v59 = 1024;
+                v60 = 3;
+                LODWORD(v44) = 40;
+                v21 = _os_log_send_and_compose_impl(v35, 0, v61, 128, &dword_196FA7000, v33, v34, "<<<< 8021ASClock >>>> %s: clock <%p>, port <%u> in role [%d] remote GM is syncing at interval 2^%d", &v53, v44);
                 goto LABEL_42;
               }
 
 LABEL_51:
-              v33 = 0;
+              v36 = 0;
               goto LABEL_52;
             }
           }
 
 LABEL_58:
-          CFRelease(v15);
+          CFRelease(v16);
           goto LABEL_59;
         }
 
         if (dword_1EAF1CF48)
         {
-          v42 = 0;
-          v43 = OS_LOG_TYPE_DEFAULT;
-          v26 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v42, &v43);
-          v27 = v42;
-          if (os_log_type_enabled(v26, v43))
+          v49 = 0;
+          v50 = OS_LOG_TYPE_DEFAULT;
+          v28 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v49, &v50);
+          v29 = v49;
+          v30 = v50;
+          if (os_log_type_enabled(v28, v50))
           {
-            v29 = v27;
+            v31 = v29;
           }
 
           else
           {
-            v29 = v27 & 0xFFFFFFFE;
+            v31 = v29 & 0xFFFFFFFE;
           }
 
-          if (v29)
+          if (v31)
           {
-            v46 = 136316162;
-            v47 = "timesyncLogMeanIntervalApplier_doesTimeDomainConformToSyncInterval";
-            v48 = 2048;
-            v49 = qword_1ED4CCF48;
-            v50 = 1024;
-            *v51 = v7;
-            *&v51[4] = 1024;
-            *&v51[6] = valuePtr;
-            v52 = 1024;
-            v53 = a2;
-            v30 = _os_log_send_and_compose_impl();
-            LOBYTE(v27) = v42;
+            v53 = 136316162;
+            v54 = "timesyncLogMeanIntervalApplier_doesTimeDomainConformToSyncInterval";
+            v55 = 2048;
+            v56 = qword_1ED4CCF48;
+            v57 = 1024;
+            *v58 = v8;
+            *&v58[4] = 1024;
+            *&v58[6] = valuePtr;
+            v59 = 1024;
+            v60 = a2;
+            LODWORD(v44) = 40;
+            v32 = _os_log_send_and_compose_impl(v31, 0, v61, 128, &dword_196FA7000, v28, v30, "<<<< 8021ASClock >>>> %s: clock <%p>, port <%u> in role [%d] found no port interval. Port needs interval 2^%d", &v53, v44, v45, DWORD2(v45), v46);
+            LOBYTE(v29) = v49;
           }
 
           else
           {
-            v30 = 0;
+            v32 = 0;
           }
 
-          fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1u, 1, v30, v30 != v54, v27, 0, v28);
-          v8 = 0;
+          fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1, 1, v32, v32 != v61, v29);
+          v9 = 0;
           goto LABEL_59;
         }
       }
 
-      v8 = 0;
+      v9 = 0;
 LABEL_59:
-      CFRelease(v13);
+      CFRelease(v14);
 LABEL_60:
-      IOObjectRelease(v7);
+      IOObjectRelease(v8);
       goto LABEL_61;
     }
 
-    v8 = 1;
+    v9 = 1;
 LABEL_65:
     IOObjectRelease(iterator);
   }
 
   else
   {
-    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CF40, 0xFFFFCE2CuLL, "<<<< 8021ASClock >>>>", 0x537, v2, v4, v5);
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EAF1CF40, 0xFFFFCE2CuLL, "<<<< 8021ASClock >>>>", 0x537, v2, v4, v5, v43);
     return 0;
   }
 
-  return v8;
+  return v9;
 }
 
 void timesyncLogMeanIntervalApplier_lockStateChangedCallback(uint64_t a1, uint64_t a2, int a3)
@@ -3844,15 +3883,16 @@ void timesyncLogMeanIntervalApplier_lockStateChangedCallback(uint64_t a1, uint64
 
 void timesyncLogMeanIntervalApplier_restartIntervalApplierInternal()
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (word_1ED4CCF50 <= 0)
   {
     if (dword_1EAF1CF48 >= 2)
     {
-      v6[0] = 0;
+      v6 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, v6, &type);
-      v1 = v6[0];
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1EAF1CF40, 1, &v6, &type);
+      v1 = v6;
+      v2 = type;
       if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
       {
         v3 = v1;
@@ -3865,10 +3905,10 @@ void timesyncLogMeanIntervalApplier_restartIntervalApplierInternal()
 
       if (v3)
       {
-        v6[1] = 136315138;
-        v7 = "timesyncLogMeanIntervalApplier_restartIntervalApplierInternal";
-        v4 = _os_log_send_and_compose_impl();
-        LOBYTE(v1) = v6[0];
+        v7 = 136315138;
+        v8 = "timesyncLogMeanIntervalApplier_restartIntervalApplierInternal";
+        v4 = _os_log_send_and_compose_impl(v3, 0, v9, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v2, "<<<< 8021ASClock >>>> %s: LogMeanIntervalApplier task is starting", &v7);
+        LOBYTE(v1) = v6;
       }
 
       else
@@ -3876,7 +3916,7 @@ void timesyncLogMeanIntervalApplier_restartIntervalApplierInternal()
         v4 = 0;
       }
 
-      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1u, 1, v4, v4 != &v8, v1, 0, v2);
+      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1EAF1CF40, 1, 1, v4, v4 != v9, v1);
     }
 
     dispatch_async_f(qword_1ED4CCF30, 0, timesyncLogMeanIntervalApplier_applyIntervalInternal);
@@ -3958,22 +3998,23 @@ uint64_t OUTLINED_FUNCTION_26_8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
   return fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(v19, 1, &a17, &a16);
 }
 
-void OUTLINED_FUNCTION_27_8(uint64_t *a1, unsigned __int16 a2, char a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void OUTLINED_FUNCTION_27_8(uint64_t *a1, uint64_t a2, int a3, char *a4, uint64_t a5)
 {
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(a1, a2, a3, a4, a5, v8, 0, a8);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(a1, a2, a3, a4, a5, v5);
 }
 
-uint64_t OUTLINED_FUNCTION_28_8@<X0>(UInt8 *bytes@<X1>, int a2@<W8>, uint64_t a3, CFDataRef a4)
+uint64_t OUTLINED_FUNCTION_28_8@<X0>(UInt8 *bytes@<X1>, int a2@<W8>, uint64_t a9, ...)
 {
+  va_start(va, a9);
 
-  return fig8021ASClock_copyCFTypeRepresentationOfAddress(bytes, a2, &a4);
+  return fig8021ASClock_copyCFTypeRepresentationOfAddress(bytes, a2, va);
 }
 
-uint64_t OUTLINED_FUNCTION_29_6()
+uint64_t OUTLINED_FUNCTION_29_6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, const char *a8)
 {
 
-  return _os_log_send_and_compose_impl();
+  return _os_log_send_and_compose_impl(a1, a2, a3, a4, a5, v8, v9, a8);
 }
 
 uint64_t OUTLINED_FUNCTION_33_6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, int a26)
@@ -3983,13 +4024,13 @@ uint64_t OUTLINED_FUNCTION_33_6(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
   return fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(v28, 1, &a26, &a25);
 }
 
-void OUTLINED_FUNCTION_34_4(uint64_t *a1, unsigned __int16 a2, char a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void OUTLINED_FUNCTION_34_4(uint64_t *a1, uint64_t a2, int a3, char *a4, uint64_t a5)
 {
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(a1, a2, a3, a4, a5, v8, 0, a8);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(a1, a2, a3, a4, a5, v5);
 }
 
-uint64_t FigTransportDiscoveryGetTypeID()
+uint64_t FigTransportDiscoveryGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (FigTransportDiscoveryGetTypeID_sFigTransportDiscoveryInitOnce != -1)
   {
@@ -4006,7 +4047,7 @@ uint64_t __FigTransportDiscoveryGetTypeID_block_invoke()
   return result;
 }
 
-uint64_t FigTransportDiscoveryGetSharedDiscovery()
+uint64_t FigTransportDiscoveryGetSharedDiscovery(uint64_t a1, uint64_t a2)
 {
   if (FigTransportDiscoveryGetSharedDiscovery_sCreateSharedDiscoveryOnce != -1)
   {
@@ -4016,7 +4057,7 @@ uint64_t FigTransportDiscoveryGetSharedDiscovery()
   return FigTransportDiscoveryGetSharedDiscovery_sSharedDiscovery;
 }
 
-CFMutableArrayRef __FigTransportDiscoveryGetSharedDiscovery_block_invoke()
+CFMutableArrayRef __FigTransportDiscoveryGetSharedDiscovery_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (FigTransportDiscoveryGetTypeID_sFigTransportDiscoveryInitOnce != -1)
   {
@@ -4129,15 +4170,16 @@ void FigTransportDiscoveryStart(void *a1)
 
 void __FigTransportDiscoveryStart_block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 24);
   if (v3 < 1)
   {
-    v15[0] = 0;
+    v15 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, v15, &type);
-    v5 = v15[0];
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v15, &type);
+    v5 = v15;
+    v6 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v7 = v5;
@@ -4150,10 +4192,10 @@ void __FigTransportDiscoveryStart_block_invoke(uint64_t a1)
 
     if (v7)
     {
-      v15[1] = 136315138;
-      v16 = "ftd_Start";
-      v8 = _os_log_send_and_compose_impl();
-      LOBYTE(v5) = v15[0];
+      v16 = 136315138;
+      v17 = "ftd_Start";
+      v8 = _os_log_send_and_compose_impl(v7, 0, v18, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v6, "<<< discovery >>> %s: Starting discovery", &v16);
+      LOBYTE(v5) = v15;
     }
 
     else
@@ -4161,7 +4203,7 @@ void __FigTransportDiscoveryStart_block_invoke(uint64_t a1)
       v8 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v8, v8 != &v17, v5, 0, v6);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v8, v8 != v18, v5);
     v9 = IOServiceMatching("IOUSBInterface");
     if (v9)
     {
@@ -4216,11 +4258,12 @@ void __FigTransportDiscoveryStop_block_invoke(uint64_t a1)
 
 void ftd_Stop(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v13[0] = 0;
+  v17 = *MEMORY[0x1E69E9840];
+  v13 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, v13, &type);
-  v3 = v13[0];
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v13, &type);
+  v3 = v13;
+  v4 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v5 = v3;
@@ -4233,10 +4276,10 @@ void ftd_Stop(uint64_t a1)
 
   if (v5)
   {
-    v13[1] = 136315138;
-    v14 = "ftd_Stop";
-    v6 = _os_log_send_and_compose_impl();
-    LOBYTE(v3) = v13[0];
+    v14 = 136315138;
+    v15 = "ftd_Stop";
+    v6 = _os_log_send_and_compose_impl(v5, 0, v16, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v4, "<<< discovery >>> %s: Stopping discovery", &v14);
+    LOBYTE(v3) = v13;
   }
 
   else
@@ -4244,7 +4287,7 @@ void ftd_Stop(uint64_t a1)
     v6 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v6, v6 != &v15, v3, 0, v4);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v6, v6 != v16, v3);
   v7 = *(a1 + 24);
   v8 = __OFSUB__(v7--, 1);
   *(a1 + 24) = v7;
@@ -4398,23 +4441,24 @@ LABEL_19:
   return result;
 }
 
-CFIndex ftd_PostEventOnAllHandlers(CFArrayRef *a1, int a2, uint64_t a3)
+CFIndex ftd_PostEventOnAllHandlers(CFArrayRef *a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v6 = a1 + 4;
   result = CFArrayGetCount(a1[4]);
   if (result >= 1)
   {
-    return ftd_PostEventOnAllHandlers_cold_1(v6, a1, a2, a3);
+    return ftd_PostEventOnAllHandlers_cold_1(v6, a1, v4, a3);
   }
 
   return result;
 }
 
-void ftd_Detached(uint64_t a1, uint64_t a2, int a3)
+void ftd_Detached(uint64_t result, uint64_t a2, int a3)
 {
   if (a3 == -536870896)
   {
-    v4 = (*(a1 + 8) + 56);
+    v4 = (*(result + 8) + 56);
     while (1)
     {
       v5 = v4;
@@ -4424,12 +4468,12 @@ void ftd_Detached(uint64_t a1, uint64_t a2, int a3)
         break;
       }
 
-      if (v4 == a1)
+      if (v4 == result)
       {
         *v5 = *v4;
-        ftd_PostEventOnAllHandlers(*(a1 + 8), 2, a1);
+        ftd_PostEventOnAllHandlers(*(result + 8), 2, result);
 
-        ftd_FreeDevice(a1);
+        ftd_FreeDevice(result);
         return;
       }
     }
@@ -4471,7 +4515,7 @@ void ftd_FreeDevice(void *a1)
   }
 }
 
-uint64_t FigEndpointStreamGetClassID()
+uint64_t FigEndpointStreamGetClassID(uint64_t a1, uint64_t a2)
 {
   if (_MergedGlobals_60 != -1)
   {
@@ -4481,30 +4525,30 @@ uint64_t FigEndpointStreamGetClassID()
   return qword_1ED4CD078;
 }
 
-size_t stream_getClassID_0(void *a1)
+size_t stream_getClassID_0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   ClassID = CMBaseGetClassID();
 
-  return FigBaseClassRegisterClass(&stream_getClassID_sFigEndpointStreamClassDesc, ClassID, 1, a1, v3, v4, v5, v6);
+  return FigBaseClassRegisterClass(&stream_getClassID_sFigEndpointStreamClassDesc, ClassID, 1, a1, v11, v12, v13, v14, a9);
 }
 
-uint64_t FigEndpointStreamGetTypeID()
+uint64_t FigEndpointStreamGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (_MergedGlobals_60 != -1)
   {
     FigEndpointStreamGetClassID_cold_1();
   }
 
-  v1 = qword_1ED4CD078;
+  v3 = qword_1ED4CD078;
 
-  return CMBaseClassGetCFTypeID(v1);
+  return CMBaseClassGetCFTypeID(v3);
 }
 
-size_t RegisterFigFairPlayCPECryptorType()
+size_t RegisterFigFairPlayCPECryptorType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   ClassID = FigCPECryptorGetClassID();
 
-  return FigBaseClassRegisterClass(&sFigCPEFairPlayCryptorClassDesc, ClassID, 0, &sFigCPEFairPlayCryptorClassID, v1, v2, v3, v4);
+  return FigBaseClassRegisterClass(&sFigCPEFairPlayCryptorClassDesc, ClassID, 0, &sFigCPEFairPlayCryptorClassID, v10, v11, v12, v13, a9);
 }
 
 void FigIOSurfaceByteStreamFinalize(uint64_t a1)
@@ -4540,32 +4584,32 @@ void FigIOSurfaceByteStreamFinalize(uint64_t a1)
   }
 }
 
-size_t FigIOSurfaceByteStreamCopyProperty(uint64_t a1, const void *a2, uint64_t a3, void *a4)
+size_t FigIOSurfaceByteStreamCopyProperty(uint64_t a1, const void *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
   if (CFEqual(a2, @"FBS_EntireLength") || CFEqual(a2, @"FBS_AvailableLength"))
   {
     SInt64 = FigCFNumberCreateSInt64(*MEMORY[0x1E695E480], *(DerivedStorage + 8));
 LABEL_4:
-    v9 = SInt64;
+    v14 = SInt64;
 LABEL_5:
     result = 0;
-    *a4 = v9;
+    *a4 = v14;
     return result;
   }
 
   if (CFEqual(a2, @"FBS_EntireLengthAvailableOnDemand"))
   {
-    v11 = *MEMORY[0x1E695E4D0];
+    v16 = *MEMORY[0x1E695E4D0];
 LABEL_8:
-    SInt64 = CFRetain(v11);
+    SInt64 = CFRetain(v16);
     goto LABEL_4;
   }
 
   if (CFEqual(a2, @"FBS_URL"))
   {
-    v11 = *(DerivedStorage + 24);
-    if (v11)
+    v16 = *(DerivedStorage + 24);
+    if (v16)
     {
       goto LABEL_8;
     }
@@ -4575,8 +4619,8 @@ LABEL_8:
 
   if (CFEqual(a2, @"FBS_FileType"))
   {
-    v11 = *(DerivedStorage + 40);
-    if (v11)
+    v16 = *(DerivedStorage + 40);
+    if (v16)
     {
       goto LABEL_8;
     }
@@ -4586,8 +4630,8 @@ LABEL_8:
 
   if (CFEqual(a2, @"FBS_MIMEType"))
   {
-    v11 = *(DerivedStorage + 32);
-    if (v11)
+    v16 = *(DerivedStorage + 32);
+    if (v16)
     {
       goto LABEL_8;
     }
@@ -4597,60 +4641,60 @@ LABEL_8:
 
   if (CFEqual(a2, @"FBS_ReadSupported"))
   {
-    v12 = MEMORY[0x1E695E4D0];
+    v17 = MEMORY[0x1E695E4D0];
     goto LABEL_23;
   }
 
   if (CFEqual(a2, @"FBS_WriteSupported"))
   {
-    v12 = MEMORY[0x1E695E4D0];
+    v17 = MEMORY[0x1E695E4D0];
     if (!*(DerivedStorage + 16))
     {
-      v12 = MEMORY[0x1E695E4C0];
+      v17 = MEMORY[0x1E695E4C0];
     }
 
 LABEL_23:
-    v11 = *v12;
-    if (!*v12)
+    v16 = *v17;
+    if (!*v17)
     {
-      v9 = 0;
+      v14 = 0;
       goto LABEL_5;
     }
 
     goto LABEL_8;
   }
 
-  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE10uLL, "(Fig)", 0xD2, v4, v13, v14);
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE10uLL, "(Fig)", 0xD2, v9, v18, v19, a9);
 }
 
-size_t FigIOSurfaceByteStreamSetProperty(const void *a1, const void *a2, const __CFString *a3)
+size_t FigIOSurfaceByteStreamSetProperty(const void *a1, const void *a2, const __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
   if (CFEqual(a2, @"FBS_URL"))
   {
     if (a3)
     {
-      v8 = CFGetTypeID(a3);
-      if (v8 == CFURLGetTypeID())
+      v14 = CFGetTypeID(a3);
+      if (v14 == CFURLGetTypeID())
       {
-        v9 = DerivedStorage[3];
+        v15 = DerivedStorage[3];
         DerivedStorage[3] = a3;
         goto LABEL_9;
       }
 
-      FigIOSurfaceByteStreamSetProperty_cold_1(&v18);
-      return v18;
+      FigIOSurfaceByteStreamSetProperty_cold_1(&v24);
+      return v24;
     }
 
-    v9 = DerivedStorage[3];
+    v15 = DerivedStorage[3];
     DerivedStorage[3] = 0;
-    if (!v9)
+    if (!v15)
     {
       return 0;
     }
 
 LABEL_21:
-    CFRelease(v9);
+    CFRelease(v15);
     return 0;
   }
 
@@ -4658,19 +4702,19 @@ LABEL_21:
   {
     if (CFEqual(a2, @"FBS_MIMEType"))
     {
-      if (!a3 || (v13 = CFGetTypeID(a3), v13 == CFStringGetTypeID()))
+      if (!a3 || (v19 = CFGetTypeID(a3), v19 == CFStringGetTypeID()))
       {
-        v14 = DerivedStorage[4];
-        if (v14)
+        v20 = DerivedStorage[4];
+        if (v20)
         {
-          CFRelease(v14);
+          CFRelease(v20);
           DerivedStorage[4] = 0;
         }
 
         if (a3)
         {
-          v15 = CFGetAllocator(a1);
-          Copy = CFStringCreateCopy(v15, a3);
+          v21 = CFGetAllocator(a1);
+          Copy = CFStringCreateCopy(v21, a3);
           result = 0;
           DerivedStorage[4] = Copy;
           return result;
@@ -4679,22 +4723,22 @@ LABEL_21:
         return 0;
       }
 
-      FigIOSurfaceByteStreamSetProperty_cold_3(&v20);
-      return v20;
+      FigIOSurfaceByteStreamSetProperty_cold_3(&v26);
+      return v26;
     }
 
     else
     {
 
-      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE10uLL, "(Fig)", 0xEF, v3, v11, v12);
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0xFFFFCE10uLL, "(Fig)", 0xEF, v9, v17, v18, a9);
     }
   }
 
   if (!a3)
   {
-    v9 = DerivedStorage[5];
+    v15 = DerivedStorage[5];
     DerivedStorage[5] = 0;
-    if (!v9)
+    if (!v15)
     {
       return 0;
     }
@@ -4702,14 +4746,14 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v10 = CFGetTypeID(a3);
-  if (v10 == CFNumberGetTypeID())
+  v16 = CFGetTypeID(a3);
+  if (v16 == CFNumberGetTypeID())
   {
-    v9 = DerivedStorage[5];
+    v15 = DerivedStorage[5];
     DerivedStorage[5] = a3;
 LABEL_9:
     CFRetain(a3);
-    if (!v9)
+    if (!v15)
     {
       return 0;
     }
@@ -4717,14 +4761,14 @@ LABEL_9:
     goto LABEL_21;
   }
 
-  FigIOSurfaceByteStreamSetProperty_cold_2(&v19);
-  return v19;
+  FigIOSurfaceByteStreamSetProperty_cold_2(&v25);
+  return v25;
 }
 
 uint64_t FigIOSurfaceByteStreamGetAvailableLengthAtOffset(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  CMBaseObject = CMByteStreamGetCMBaseObject(a1);
-  DerivedStorage = CMBaseObjectGetDerivedStorage(CMBaseObject);
+  CMByteStreamGetCMBaseObject();
+  DerivedStorage = CMBaseObjectGetDerivedStorage(v5);
   if (a3)
   {
     v7 = DerivedStorage;
@@ -4748,7 +4792,7 @@ uint64_t FigIOSurfaceByteStreamReadAndCreateBlockBuffer(const void *a1, size_t a
   return CMCreateContiguousBlockBufferFromStream(a1, v10, a2, a3, a4, a5);
 }
 
-uint64_t FigHALAudioPluginGetClassID()
+uint64_t FigHALAudioPluginGetClassID(uint64_t a1, uint64_t a2)
 {
   if (FigHALAudioPluginGetClassID_sRegisterFigHALAudioPluginClassOnce != -1)
   {
@@ -4758,11 +4802,11 @@ uint64_t FigHALAudioPluginGetClassID()
   return FigHALAudioPluginGetClassID_sFigHALAudioPluginClassID;
 }
 
-size_t __FigHALAudioPluginGetClassID_block_invoke()
+size_t __FigHALAudioPluginGetClassID_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
-  ClassID = FigHALAudioObjectGetClassID();
+  ClassID = FigHALAudioObjectGetClassID(a1, a2);
 
-  return FigBaseClassRegisterClass(&FigHALAudioPluginGetClassID_sFigHALAudioPluginClassDesc, ClassID, 0, &FigHALAudioPluginGetClassID_sFigHALAudioPluginClassID, v1, v2, v3, v4);
+  return FigBaseClassRegisterClass(&FigHALAudioPluginGetClassID_sFigHALAudioPluginClassDesc, ClassID, 0, &FigHALAudioPluginGetClassID_sFigHALAudioPluginClassID, v10, v11, v12, v13, a9);
 }
 
 uint64_t RegisterFigCaptionPositionType()
@@ -4772,18 +4816,18 @@ uint64_t RegisterFigCaptionPositionType()
   return result;
 }
 
-uint64_t FigCaptionPositionGetHorizontalEdgeReference(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigCaptionPositionGetHorizontalEdgeReference(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1)
   {
     return *(a1 + 16);
   }
 
-  FigCaptionPositionGetHorizontalEdgeReference_cold_1(a1, a2, a3, a4, a5, a6, a7, a8);
+  FigCaptionPositionGetHorizontalEdgeReference_cold_1(a1, a2, a3, a4, a5, a6, a7, a8, v8);
   return 1701999215;
 }
 
-uint64_t FigCaptionPositionGetHorizontalEdgeOffset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigCaptionPositionGetHorizontalEdgeOffset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1)
   {
@@ -4792,25 +4836,25 @@ uint64_t FigCaptionPositionGetHorizontalEdgeOffset(uint64_t a1, uint64_t a2, uin
 
   else
   {
-    FigCaptionPositionGetHorizontalEdgeOffset_cold_1(0, a2, a3, a4, a5, a6, a7, a8);
+    FigCaptionPositionGetHorizontalEdgeOffset_cold_1(0, a2, a3, a4, a5, a6, a7, a8, vars0);
     v8 = &kFigGeometryDimensionInvalid;
   }
 
   return *v8;
 }
 
-uint64_t FigCaptionPositionGetVerticalEdgeReference(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigCaptionPositionGetVerticalEdgeReference(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1)
   {
     return *(a1 + 20);
   }
 
-  FigCaptionPositionGetVerticalEdgeReference_cold_1(a1, a2, a3, a4, a5, a6, a7, a8);
+  FigCaptionPositionGetVerticalEdgeReference_cold_1(a1, a2, a3, a4, a5, a6, a7, a8, v8);
   return 1701999215;
 }
 
-uint64_t FigCaptionPositionGetVerticalEdgeOffset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigCaptionPositionGetVerticalEdgeOffset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1)
   {
@@ -4819,25 +4863,25 @@ uint64_t FigCaptionPositionGetVerticalEdgeOffset(uint64_t a1, uint64_t a2, uint6
 
   else
   {
-    FigCaptionPositionGetVerticalEdgeOffset_cold_1(0, a2, a3, a4, a5, a6, a7, a8);
+    FigCaptionPositionGetVerticalEdgeOffset_cold_1(0, a2, a3, a4, a5, a6, a7, a8, vars0);
     v8 = &kFigGeometryDimensionInvalid;
   }
 
   return *v8;
 }
 
-uint64_t FigCaptionPositionGetEffectiveHorizontalEdgeReference(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigCaptionPositionGetEffectiveHorizontalEdgeReference(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1)
   {
     return *(a1 + 56);
   }
 
-  FigCaptionPositionGetEffectiveHorizontalEdgeReference_cold_1(a1, a2, a3, a4, a5, a6, a7, a8);
+  FigCaptionPositionGetEffectiveHorizontalEdgeReference_cold_1(a1, a2, a3, a4, a5, a6, a7, a8, v8);
   return 1701999215;
 }
 
-uint64_t FigCaptionPositionGetEffectiveHorizontalEdgeOffset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigCaptionPositionGetEffectiveHorizontalEdgeOffset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1)
   {
@@ -4846,25 +4890,25 @@ uint64_t FigCaptionPositionGetEffectiveHorizontalEdgeOffset(uint64_t a1, uint64_
 
   else
   {
-    FigCaptionPositionGetEffectiveHorizontalEdgeOffset_cold_1(0, a2, a3, a4, a5, a6, a7, a8);
+    FigCaptionPositionGetEffectiveHorizontalEdgeOffset_cold_1(0, a2, a3, a4, a5, a6, a7, a8, vars0);
     v8 = &kFigGeometryDimensionInvalid;
   }
 
   return *v8;
 }
 
-uint64_t FigCaptionPositionGetEffectiveVerticalEdgeReference(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigCaptionPositionGetEffectiveVerticalEdgeReference(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1)
   {
     return *(a1 + 60);
   }
 
-  FigCaptionPositionGetEffectiveVerticalEdgeReference_cold_1(a1, a2, a3, a4, a5, a6, a7, a8);
+  FigCaptionPositionGetEffectiveVerticalEdgeReference_cold_1(a1, a2, a3, a4, a5, a6, a7, a8, v8);
   return 1701999215;
 }
 
-uint64_t FigCaptionPositionGetEffectiveVerticalEdgeOffset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigCaptionPositionGetEffectiveVerticalEdgeOffset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
   if (a1)
   {
@@ -4873,7 +4917,7 @@ uint64_t FigCaptionPositionGetEffectiveVerticalEdgeOffset(uint64_t a1, uint64_t 
 
   else
   {
-    FigCaptionPositionGetEffectiveVerticalEdgeOffset_cold_1(0, a2, a3, a4, a5, a6, a7, a8);
+    FigCaptionPositionGetEffectiveVerticalEdgeOffset_cold_1(0, a2, a3, a4, a5, a6, a7, a8, vars0);
     v8 = &kFigGeometryDimensionInvalid;
   }
 
@@ -4969,7 +5013,7 @@ LABEL_17:
   return v4;
 }
 
-uint64_t FigCaptionPositionCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8)
+uint64_t FigCaptionPositionCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, uint64_t *a8)
 {
   if (a8)
   {
@@ -5410,14 +5454,14 @@ LABEL_26:
       goto LABEL_107;
     }
 
-    FigCaptionPositionCreate_cold_1(0, v16, v17, v18, v19, v20, v21, v22);
+    FigCaptionPositionCreate_cold_1(0, v16, v17, v18, v19, v20, v21, v22, v56);
     return 0;
   }
 
   else
   {
-    FigCaptionPositionCreate_cold_2(&v56, a2, a3, a4, a5, a6, a7, 0);
-    return v56;
+    FigCaptionPositionCreate_cold_2(&v57, a2, a3, a4, a5, a6, a7, 0);
+    return v57;
   }
 }
 
@@ -5701,13 +5745,13 @@ void __remoteXPCEndpointPlaybackSessionClient_handleCompletionCallback_block_inv
   }
 }
 
-void __remoteXPCEndpointPlaybackSessionClient_eventHandlerCallback_block_invoke(uint64_t a1)
+void __remoteXPCEndpointPlaybackSessionClient_eventHandlerCallback_block_invoke(void *a1)
 {
-  if (*(*(a1 + 32) + 40))
+  if (*(a1[4] + 40))
   {
     cf = 0;
-    FigXPCMessageCopyCFDictionary(*(a1 + 40), "EventInfo", &cf);
-    (*(*(a1 + 32) + 40))(*(a1 + 48), cf, *(*(a1 + 32) + 32), *(*(a1 + 32) + 48));
+    FigXPCMessageCopyCFDictionary(a1[5], "EventInfo", &cf);
+    (*(a1[4] + 40))(a1[6], cf, *(a1[4] + 32), *(a1[4] + 48));
     if (cf)
     {
       CFRelease(cf);
@@ -5721,7 +5765,7 @@ __n128 remoteXPCEndpointPlaybackSession_cloneCompletionCallback(uint64_t a1, __n
   v4 = a2[1].n128_u64[0];
   result = *a2;
   *v3 = *a2;
-  *(v3 + 16) = v4;
+  v3[1].n128_u64[0] = v4;
   return result;
 }
 
@@ -6263,7 +6307,7 @@ void FigEndpointPlaybackSessionRemoteXPC_sendMessageSynchronouslyExpectingComple
     }
   }
 
-  FigXPCRemoteClientKillServerOnTimeout(gFigEndpointPlaybackSessionRemoteClient, v10, "FigEndpointPlaybackSessionRemoteXPC_sendMessageSynchronouslyExpectingCompletionCallback", 0);
+  FigXPCRemoteClientKillServerOnTimeout();
   _Block_object_dispose(&v16, 8);
   _Block_object_dispose(&v20, 8);
 }
@@ -6320,112 +6364,110 @@ uint64_t figHALDriver_Initialize(uint64_t a1, uint64_t a2)
   return v4(v3, a2);
 }
 
-uint64_t figHALDriver_DoIOOperation(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t figHALDriver_DoIOOperation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  cf = 0;
-  v13 = driver_CopyObjectForID(a1, a3, &cf);
+  v13 = driver_CopyObjectForID(a1, a3, &cf, a4, a5, a6, a7, a8, 0);
   if (v13 == 560947818)
   {
-    v14 = 561214578;
+    v15 = 561214578;
   }
 
   else
   {
-    v14 = v13;
+    v15 = v13;
   }
 
-  if (v14)
+  if (v15)
   {
-    v16 = cf;
+    v17 = cf;
   }
 
   else
   {
-    ClassID = FigHALAudioStreamGetClassID();
-    v16 = cf;
+    ClassID = FigHALAudioStreamGetClassID(v13, v14);
+    v17 = cf;
     if (ClassID == CMBaseObjectGetClassID(cf))
     {
       goto LABEL_6;
     }
 
-    figHALDriver_DoIOOperation_cold_1(&v20);
-    v14 = v20;
+    figHALDriver_DoIOOperation_cold_1(&v21);
+    v15 = v21;
   }
 
-  if (v16)
-  {
-    CFRelease(v16);
-  }
-
-  if (v14)
-  {
-    return v14;
-  }
-
-  v16 = 0;
-LABEL_6:
-  v17 = *(*(CMBaseObjectGetVTable(v16) + 32) + 8);
   if (v17)
   {
-    v14 = v17(v16, a5, a6, a7, a8, a9);
-    if (!v16)
+    CFRelease(v17);
+  }
+
+  if (v15)
+  {
+    return v15;
+  }
+
+  v17 = 0;
+LABEL_6:
+  v18 = *(*(CMBaseObjectGetVTable(v17) + 32) + 8);
+  if (v18)
+  {
+    v15 = v18(v17, a5, a6, a7, a8, a9);
+    if (!v17)
     {
-      return v14;
+      return v15;
     }
 
     goto LABEL_10;
   }
 
-  v14 = 4294954514;
-  if (v16)
+  v15 = 4294954514;
+  if (v17)
   {
 LABEL_10:
-    CFRelease(v16);
+    CFRelease(v17);
   }
 
-  return v14;
+  return v15;
 }
 
-uint64_t driver_CopyDeviceForID(uint64_t a1, unsigned int a2, void *a3)
+uint64_t driver_CopyDeviceForID(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  cf = 0;
-  v4 = driver_CopyObjectForID(a1, a2, &cf);
-  if (v4 == 560947818)
+  v9 = driver_CopyObjectForID(a1, a2, &cf, a4, a5, a6, a7, a8, 0);
+  if (v9 == 560947818)
   {
-    v5 = 560227702;
+    v11 = 560227702;
   }
 
   else
   {
-    v5 = v4;
+    v11 = v9;
   }
 
-  if (v5)
+  if (v11)
   {
-    v7 = cf;
+    v13 = cf;
   }
 
   else
   {
-    ClassID = FigHALAudioDeviceGetClassID();
-    v7 = cf;
+    ClassID = FigHALAudioDeviceGetClassID(v9, v10);
+    v13 = cf;
     if (ClassID == CMBaseObjectGetClassID(cf))
     {
-      v5 = 0;
-      *a3 = v7;
-      return v5;
+      v11 = 0;
+      *a3 = v13;
+      return v11;
     }
 
-    driver_CopyDeviceForID_cold_1(&v10);
-    v5 = v10;
+    driver_CopyDeviceForID_cold_1(&v16);
+    v11 = v16;
   }
 
-  if (v7)
+  if (v13)
   {
-    CFRelease(v7);
+    CFRelease(v13);
   }
 
-  return v5;
+  return v11;
 }
 
 CFArrayRef FigCopyProcessNamesForGatheringDiagnosticsWithCoreMediaDiagnosticExtension()
@@ -6437,7 +6479,7 @@ CFArrayRef FigCopyProcessNamesForGatheringDiagnosticsWithCoreMediaDiagnosticExte
   return CFArrayCreate(*MEMORY[0x1E695E480], v1, 6, MEMORY[0x1E695E9C0]);
 }
 
-uint64_t FigTimeRangeSetGetTypeID(uint64_t a1)
+uint64_t FigTimeRangeSetGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (qword_1ED4CD088 != -1)
   {
@@ -6584,17 +6626,17 @@ CMTime *OUTLINED_FUNCTION_2_40(int a1, int a2, int a3, int a4, int a5, int a6, i
   return CMTimeAdd(&a12, &lhsa, &a9);
 }
 
-uint64_t OUTLINED_FUNCTION_4_31(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, CMTimeRange *otherRange, CMTimeRange *range, double a7, __n128 a8, __n128 a9, __n128 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int128 otherRangea, __int128 otherRange_16, __int128 otherRange_32, __n128 rangea, __n128 range_16, __n128 range_32)
+uint64_t OUTLINED_FUNCTION_4_31(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, CMTimeRange *otherRange, CMTimeRange *range, double a7, __n128 a8, __n128 a9, __n128 a10, uint64_t a11, uint64_t a12, __n128 rangea, __n128 range_16, __n128 range_32, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int128 otherRangea, __int128 otherRange_16, __int128 otherRange_32, __n128 rangeb, __n128 range_16a, __n128 range_32a)
 {
-  range_16 = a8;
-  range_32 = a9;
-  v24 = v22[1];
-  otherRangea = *v22;
-  otherRange_16 = v24;
-  otherRange_32 = v22[2];
-  rangea = a10;
+  range_16a = a8;
+  range_32a = a9;
+  v27 = v25[1];
+  otherRangea = *v25;
+  otherRange_16 = v27;
+  otherRange_32 = v25[2];
+  rangeb = a10;
 
-  return CMTimeRangeContainsTimeRange(&rangea, &otherRangea);
+  return CMTimeRangeContainsTimeRange(&rangeb, &otherRangea);
 }
 
 __n128 OUTLINED_FUNCTION_5_32()
@@ -6612,11 +6654,11 @@ __n128 OUTLINED_FUNCTION_8_20@<Q0>(__n128 *a1@<X8>)
   return result;
 }
 
-__n128 OUTLINED_FUNCTION_10_16(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __n128 a13, uint64_t a14)
+__n128 OUTLINED_FUNCTION_10_16(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a13, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __n128 a14, uint64_t a15)
 {
-  result = a13;
-  *(v14 + 24) = a13;
-  *(v14 + 40) = a14;
+  result = a14;
+  *(v15 + 24) = a14;
+  *(v15 + 40) = a15;
   return result;
 }
 
@@ -6664,32 +6706,32 @@ __n128 OUTLINED_FUNCTION_21_12(uint64_t a1)
   return result;
 }
 
-__n128 OUTLINED_FUNCTION_22_10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, __int128 a33, __int128 a34, __n128 a35)
+__n128 OUTLINED_FUNCTION_22_10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a35, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, __int128 a33, __int128 a34, __n128 a36)
 {
-  *v35 = a33;
-  v35[1] = a34;
-  result = a35;
-  v35[2] = a35;
+  *v36 = a33;
+  v36[1] = a34;
+  result = a36;
+  v36[2] = a36;
   return result;
 }
 
-__n128 OUTLINED_FUNCTION_23_10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __n128 a17, uint64_t a18)
+__n128 OUTLINED_FUNCTION_23_10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a17, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __n128 a18, uint64_t a19)
 {
-  result = a17;
-  *(v18 + 24) = a17;
-  *(v18 + 40) = a18;
+  result = a18;
+  *(v19 + 24) = a18;
+  *(v19 + 40) = a19;
   return result;
 }
 
-__n128 OUTLINED_FUNCTION_27_9(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a9, uint64_t a10)
+__n128 OUTLINED_FUNCTION_27_9(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a9, __n128 a10, uint64_t a11)
 {
-  result = a9;
-  *(v10 + 24) = a9;
-  *(v10 + 40) = a10;
+  result = a10;
+  *(v11 + 24) = a10;
+  *(v11 + 40) = a11;
   return result;
 }
 
-uint64_t FigEndpointStreamAudioFormatDescriptionGetTypeID()
+uint64_t FigEndpointStreamAudioFormatDescriptionGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (_MergedGlobals_62 != -1)
   {
@@ -6956,7 +6998,7 @@ __n128 remoteXPCEndpointRemoteControlSession_cloneCompletionCallback(uint64_t a1
   v4 = a2[1].n128_u64[0];
   result = *a2;
   *v3 = *a2;
-  *(v3 + 16) = v4;
+  v3[1].n128_u64[0] = v4;
   return result;
 }
 
@@ -7004,8 +7046,8 @@ LABEL_3:
     return v9;
   }
 
-  ClassID = NeroTransportConnectionGetClassID();
-  v9 = CMDerivedObjectCreate(a1, &kFigTransportConnectionUSBVTable_0, ClassID, &cf, v5, v6, v7, v8);
+  ClassID = NeroTransportConnectionGetClassID(a1, a2);
+  v9 = CMDerivedObjectCreate(a1, kFigTransportConnectionUSBVTable_0, ClassID, &cf, v5, v6, v7, v8, cf);
   if (v9)
   {
     goto LABEL_3;
@@ -7667,12 +7709,13 @@ uint64_t tcp_serverThreadMain(const void *a1)
 size_t OUTLINED_FUNCTION_1_56(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, int a8)
 {
 
-  return FigThreadCreate(v8, v9, 0x1Cu, 1, v11, v10, a7, a8);
+  return FigThreadCreate(v8, v9, 28, 1, v11, v10, a7, a8);
 }
 
-dispatch_queue_t FigDispatchQueueCreateWithPriority(const char *a1, NSObject *a2, int a3)
+dispatch_queue_t FigDispatchQueueCreateWithPriority(const char *a1, NSObject *a2, uint64_t a3)
 {
-  if (FigGetQualityOfServiceClassForFigThreadPriority(a3))
+  QualityOfServiceClassForFigThreadPriority = FigGetQualityOfServiceClassForFigThreadPriority(a3);
+  if (QualityOfServiceClassForFigThreadPriority)
   {
     if (a2 != MEMORY[0x1E69E96A8])
     {
@@ -7691,18 +7734,18 @@ dispatch_queue_t FigDispatchQueueCreateWithPriority(const char *a1, NSObject *a2
         FigDispatchQueueCreateWithPriority_cold_1();
       }
 
-      IsServerProcess = _MergedGlobals_63;
+      QualityOfServiceClassForFigThreadPriority = _MergedGlobals_63;
       goto LABEL_17;
     }
 
     if (a3 == 4)
     {
-      IsServerProcess = 1;
+      QualityOfServiceClassForFigThreadPriority = 1;
       goto LABEL_17;
     }
 
 LABEL_16:
-    IsServerProcess = 0;
+    QualityOfServiceClassForFigThreadPriority = 0;
     goto LABEL_17;
   }
 
@@ -7710,25 +7753,25 @@ LABEL_16:
   {
     if (a3 == 44)
     {
-      IsServerProcess = FigServer_IsServerProcess();
+      QualityOfServiceClassForFigThreadPriority = FigServer_IsServerProcess(QualityOfServiceClassForFigThreadPriority, v7);
       goto LABEL_17;
     }
 
     goto LABEL_16;
   }
 
-  IsServerProcess = _os_feature_enabled_impl();
-  if (IsServerProcess)
+  QualityOfServiceClassForFigThreadPriority = _os_feature_enabled_impl();
+  if (QualityOfServiceClassForFigThreadPriority)
   {
     getpid();
-    IsServerProcess = sandbox_check() == 0;
+    QualityOfServiceClassForFigThreadPriority = sandbox_check() == 0;
   }
 
 LABEL_17:
   if (a2 == MEMORY[0x1E69E96A8])
   {
 LABEL_22:
-    FigDebugIsInternalBuild();
+    FigDebugIsInternalBuild(QualityOfServiceClassForFigThreadPriority, v7);
 LABEL_23:
     if (a3 == 39)
     {
@@ -7743,7 +7786,7 @@ LABEL_23:
     }
   }
 
-  if (!IsServerProcess)
+  if (!QualityOfServiceClassForFigThreadPriority)
   {
     goto LABEL_23;
   }
@@ -7800,13 +7843,14 @@ uint64_t FigGetQualityOfServiceClassForFigThreadPriority(int a1)
   return result;
 }
 
-NSObject *FigDispatchQueueCreateTargetingPThreadRootQueueWithPriority(const char *a1, NSObject *a2, unsigned int a3)
+NSObject *FigDispatchQueueCreateTargetingPThreadRootQueueWithPriority(const char *a1, NSObject *a2, uint64_t a3)
 {
+  v3 = a3;
   RootQueueWithPriority = figDispatch_getRootQueueWithPriority(a3);
   v7 = dispatch_queue_create(a1, a2);
   if (gGMFigKTraceEnabled == 1)
   {
-    FigThreadGetMachThreadPriorityValue(a3);
+    FigThreadGetMachThreadPriorityValue(v3);
     kdebug_trace();
   }
 
@@ -7818,23 +7862,24 @@ NSObject *FigDispatchQueueCreateTargetingPThreadRootQueueWithPriority(const char
   return v7;
 }
 
-NSObject *FigDispatchQueueCreateStandardDispatchQueue(const char *a1, dispatch_queue_attr_t attr, int a3, dispatch_qos_class_t a4)
+NSObject *FigDispatchQueueCreateStandardDispatchQueue(const char *a1, dispatch_queue_attr_t attr, uint64_t a3, dispatch_qos_class_t a4)
 {
+  v5 = a3;
   initially_inactive = dispatch_queue_attr_make_initially_inactive(attr);
-  v8 = dispatch_queue_create(a1, initially_inactive);
-  if (v8)
+  v15 = dispatch_queue_create(a1, initially_inactive);
+  if (v15)
   {
-    if (a3)
+    if (v5)
     {
       dispatch_set_qos_class_fallback();
     }
 
     if (a4)
     {
-      dispatch_set_qos_class_floor(v8, a4, 0);
+      dispatch_set_qos_class_floor(v15, a4, 0);
     }
 
-    dispatch_activate(v8);
+    dispatch_activate(v15);
     if (gGMFigKTraceEnabled == 1)
     {
       kdebug_trace();
@@ -7843,15 +7888,15 @@ NSObject *FigDispatchQueueCreateStandardDispatchQueue(const char *a1, dispatch_q
 
   else
   {
-    FigDispatchQueueCreateStandardDispatchQueue_cold_1();
+    FigDispatchQueueCreateStandardDispatchQueue_cold_1(0, v8, v9, v10, v11, v12, v13, v14, v17);
   }
 
-  return v8;
+  return v15;
 }
 
 NSObject *figDispatch_copyRootQueueWithPriorityAndClientPID(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (figDispatch_copyRootQueueWithPriorityAndClientPID_initQueuesDictOnce != -1)
   {
     figDispatch_copyRootQueueWithPriorityAndClientPID_cold_1();
@@ -7881,7 +7926,13 @@ NSObject *figDispatch_copyRootQueueWithPriorityAndClientPID(uint64_t a1, uint64_
     QualityOfServiceClassForFigThreadPriority = FigGetQualityOfServiceClassForFigThreadPriority(a1);
     MachThreadPriorityValue = FigThreadGetMachThreadPriorityValue(a1);
     snprintf(__str, 0x40uLL, "com.apple.coremedia.rootQueueForPID.%d_%02d", a2, a1);
-    RootQueueWithMachPriority = figDispatch_createRootQueueWithMachPriority(__str, MachThreadPriorityValue, QualityOfServiceClassForFigThreadPriority);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 0x40000000;
+    v13[2] = __figDispatch_copyRootQueueWithPriorityAndClientPID_block_invoke_2;
+    v13[3] = &__block_descriptor_tmp_14_7;
+    v14 = MachThreadPriorityValue;
+    v15 = a2;
+    RootQueueWithMachPriority = figDispatch_createRootQueueWithMachPriority(__str, MachThreadPriorityValue, QualityOfServiceClassForFigThreadPriority, v13);
     if (RootQueueWithMachPriority)
     {
       CFRetain(v4);
@@ -7907,7 +7958,7 @@ LABEL_8:
   return RootQueueWithMachPriority;
 }
 
-uint64_t figDispatch_getRootQueueWithPriority(unsigned int a1)
+dispatch_once_t figDispatch_getRootQueueWithPriority(unsigned int a1)
 {
   v1 = &sRootQueuesIndexedByFigThreadPriority[2 * a1];
   block[0] = MEMORY[0x1E69E9820];
@@ -8100,7 +8151,7 @@ intptr_t FigDispatchAsyncAndWaitWithTimeout_f(NSObject *a1, uint64_t a2, uint64_
   return v7;
 }
 
-uint64_t FigDispatchQueueHolderGetTypeID()
+uint64_t FigDispatchQueueHolderGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (FigDispatchQueueHolderGetTypeID_sRegisterFigDispatchQueueHolderTypeOnce != -1)
   {
@@ -8225,7 +8276,7 @@ void __figDispatch_getRootQueueWithPriority_block_invoke(uint64_t a1)
   }
 }
 
-size_t __figDispatch_getRootQueueWithPriority_block_invoke_2(uint64_t a1)
+uint64_t __figDispatch_getRootQueueWithPriority_block_invoke_2(uint64_t a1)
 {
   v2 = pthread_self();
   v3 = pthread_mach_thread_np(v2);
@@ -8234,7 +8285,7 @@ size_t __figDispatch_getRootQueueWithPriority_block_invoke_2(uint64_t a1)
   return figSetMachThreadPriority(v3, v4);
 }
 
-size_t __figDispatch_getSharedPerMachPriorityRootQueueWithPriority_block_invoke_2(uint64_t a1)
+uint64_t __figDispatch_getSharedPerMachPriorityRootQueueWithPriority_block_invoke_2(uint64_t a1)
 {
   v2 = pthread_self();
   v3 = pthread_mach_thread_np(v2);
@@ -8331,19 +8382,19 @@ uint64_t figProcessStateMonitor_updateLastPurgeEventIfNecessary(uint64_t a1)
   return FigReentrantMutexUnlock(v2);
 }
 
-uint64_t FigProcessStateMonitorRemoteAssociateObject(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigProcessStateMonitorRemoteAssociateObject(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    FigProcessStateMonitorRemoteAssociateObject_cold_2(v23, a2, a3, a4, a5, a6, a7, a8);
-    return v23[0];
+    FigProcessStateMonitorRemoteAssociateObject_cold_2(v24, a2, a3, a4, a5, a6, a7, a8);
+    return v24[0];
   }
 
   if (!a2)
   {
-    FigProcessStateMonitorRemoteAssociateObject_cold_1(v23, 0, a3, a4, a5, a6, a7, a8);
-    return v23[0];
+    FigProcessStateMonitorRemoteAssociateObject_cold_1(v24, 0, a3, a4, a5, a6, a7, a8);
+    return v24[0];
   }
 
   FigReentrantMutexLock(qword_1ED4CDA20);
@@ -8353,10 +8404,11 @@ uint64_t FigProcessStateMonitorRemoteAssociateObject(uint64_t a1, const void *a2
     CFSetAddValue(*(a1 + 96), a2);
     if (dword_1ED4CC380 >= 2)
     {
-      v17[0] = 0;
+      v17 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1ED4CC378, 1, v17, &type);
-      v11 = v17[0];
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1ED4CC378, 1, &v17, &type);
+      v11 = v17;
+      v12 = type;
       if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
       {
         v13 = v11;
@@ -8369,14 +8421,14 @@ uint64_t FigProcessStateMonitorRemoteAssociateObject(uint64_t a1, const void *a2
 
       if (v13)
       {
-        v17[1] = 136315650;
-        v18 = "FigProcessStateMonitorRemoteAssociateObject";
-        v19 = 2114;
-        v20 = a1;
-        v21 = 2048;
-        v22 = a2;
-        v14 = _os_log_send_and_compose_impl();
-        LOBYTE(v11) = v17[0];
+        v18 = 136315650;
+        v19 = "FigProcessStateMonitorRemoteAssociateObject";
+        v20 = 2114;
+        v21 = a1;
+        v22 = 2048;
+        v23 = a2;
+        v14 = _os_log_send_and_compose_impl(v13, 0, v24, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v12, "<<<< FigProcessStateMonitorRemote >>>> %s: FigProcessStateMonitor %{public}@ associated with object ID %llu", &v18, 32);
+        LOBYTE(v11) = v17;
       }
 
       else
@@ -8384,7 +8436,7 @@ uint64_t FigProcessStateMonitorRemoteAssociateObject(uint64_t a1, const void *a2
         v14 = 0;
       }
 
-      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1ED4CC378, 1u, 1, v14, v14 != v23, v11, 0, v12);
+      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1ED4CC378, 1, 1, v14, v14 != v24, v11);
     }
   }
 
@@ -8392,17 +8444,17 @@ uint64_t FigProcessStateMonitorRemoteAssociateObject(uint64_t a1, const void *a2
   return 0;
 }
 
-uint64_t FigProcessStateMonitorRemoteDisassociateObject(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, CMBlockBufferFlags a7, CMBlockBufferRef *a8)
+uint64_t FigProcessStateMonitorRemoteDisassociateObject(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, size_t a7, CMBlockBufferFlags a8)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    return FigProcessStateMonitorRemoteDisassociateObject_cold_2(0, a2, a3, a4, a5, a6, a7, a8);
+    return FigProcessStateMonitorRemoteDisassociateObject_cold_2(0, a2, a3, a4, a5, a6, a7, a8, v24);
   }
 
   if (!a2)
   {
-    return FigProcessStateMonitorRemoteDisassociateObject_cold_1(a1, 0, a3, a4, a5, a6, a7, a8);
+    return FigProcessStateMonitorRemoteDisassociateObject_cold_1(a1, 0, a3, a4, a5, a6, a7, a8, v24);
   }
 
   FigReentrantMutexLock(qword_1ED4CDA20);
@@ -8420,10 +8472,11 @@ uint64_t FigProcessStateMonitorRemoteDisassociateObject(uint64_t a1, const void 
       CFSetRemoveValue(*(a1 + 96), a2);
       if (dword_1ED4CC380 >= 2)
       {
-        v25[0] = 0;
+        v26 = 0;
         type = OS_LOG_TYPE_DEFAULT;
-        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1ED4CC378, 1, v25, &type);
-        v19 = v25[0];
+        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1ED4CC378, 1, &v26, &type);
+        v19 = v26;
+        v20 = type;
         if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
         {
           v21 = v19;
@@ -8436,14 +8489,14 @@ uint64_t FigProcessStateMonitorRemoteDisassociateObject(uint64_t a1, const void 
 
         if (v21)
         {
-          v25[1] = 136315650;
-          v26 = "FigProcessStateMonitorRemoteDisassociateObject";
-          v27 = 2114;
-          v28 = a1;
-          v29 = 2048;
-          v30 = a2;
-          v22 = _os_log_send_and_compose_impl();
-          LOBYTE(v19) = v25[0];
+          v27 = 136315650;
+          v28 = "FigProcessStateMonitorRemoteDisassociateObject";
+          v29 = 2114;
+          v30 = a1;
+          v31 = 2048;
+          v32 = a2;
+          v22 = _os_log_send_and_compose_impl(v21, 0, v33, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v20, "<<<< FigProcessStateMonitorRemote >>>> %s: FigProcessStateMonitor %{public}@ no longer associated with object ID %llu", &v27, 32);
+          LOBYTE(v19) = v26;
         }
 
         else
@@ -8451,7 +8504,7 @@ uint64_t FigProcessStateMonitorRemoteDisassociateObject(uint64_t a1, const void 
           v22 = 0;
         }
 
-        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1ED4CC378, 1u, 1, v22, v22 != &v31, v19, 0, v20);
+        fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1ED4CC378, 1, 1, v22, v22 != v33, v19);
       }
     }
   }
@@ -8461,14 +8514,15 @@ uint64_t FigProcessStateMonitorRemoteDisassociateObject(uint64_t a1, const void 
 
 void figProcessStateMonitorRemote_deadConnectionCallback(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   *(a1 + 24) = 1;
   if (dword_1ED4CC380)
   {
-    v8[0] = 0;
+    v8 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1ED4CC378, 1, v8, &type);
-    v3 = v8[0];
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1ED4CC378, 1, &v8, &type);
+    v3 = v8;
+    v4 = type;
     if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
     {
       v5 = v3;
@@ -8481,12 +8535,12 @@ void figProcessStateMonitorRemote_deadConnectionCallback(uint64_t a1)
 
     if (v5)
     {
-      v8[1] = 136315394;
-      v9 = "figProcessStateMonitorRemote_deadConnectionCallback";
-      v10 = 2114;
-      v11 = a1;
-      v6 = _os_log_send_and_compose_impl();
-      LOBYTE(v3) = v8[0];
+      v9 = 136315394;
+      v10 = "figProcessStateMonitorRemote_deadConnectionCallback";
+      v11 = 2114;
+      v12 = a1;
+      v6 = _os_log_send_and_compose_impl(v5, 0, v13, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v4, "<<<< FigProcessStateMonitorRemote >>>> %s: Got dead connection callback monitor: %{public}@", &v9, 22);
+      LOBYTE(v3) = v8;
     }
 
     else
@@ -8494,23 +8548,24 @@ void figProcessStateMonitorRemote_deadConnectionCallback(uint64_t a1)
       v6 = 0;
     }
 
-    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1ED4CC378, 1u, 1, v6, v6 != &v12, v3, 0, v4);
+    fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1ED4CC378, 1, 1, v6, v6 != v13, v3);
   }
 }
 
 uint64_t figProcessStateMonitorRemote_propagateMediaServicesDeathNotificationCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   FigReentrantMutexLock(qword_1ED4CDA20);
   FigStopMonitoringMediaServicesProcessDeath(a2, v7, v8, v9, v10, v11, v12, v13);
   if (!*(a2 + 104) || CFSetGetCount(*(a2 + 96)) >= 1)
   {
     if (dword_1ED4CC380 >= 2)
     {
-      v21[0] = 0;
+      v21 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1ED4CC378, 1, v21, &type);
-      v15 = v21[0];
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(qword_1ED4CC378, 1, &v21, &type);
+      v15 = v21;
+      v16 = type;
       if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
       {
         v17 = v15;
@@ -8523,14 +8578,14 @@ uint64_t figProcessStateMonitorRemote_propagateMediaServicesDeathNotificationCal
 
       if (v17)
       {
-        v21[1] = 136315650;
-        v22 = "figProcessStateMonitorRemote_propagateMediaServicesDeathNotificationCallback";
-        v23 = 2112;
-        v24 = a2;
-        v25 = 2112;
-        v26 = a5;
-        v18 = _os_log_send_and_compose_impl();
-        LOBYTE(v15) = v21[0];
+        v22 = 136315650;
+        v23 = "figProcessStateMonitorRemote_propagateMediaServicesDeathNotificationCallback";
+        v24 = 2112;
+        v25 = a2;
+        v26 = 2112;
+        v27 = a5;
+        v18 = _os_log_send_and_compose_impl(v17, 0, v28, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v16, "<<<< FigProcessStateMonitorRemote >>>> %s: %@ -> Hijacking payload %@ for death notification", &v22, 32);
+        LOBYTE(v15) = v21;
       }
 
       else
@@ -8538,7 +8593,7 @@ uint64_t figProcessStateMonitorRemote_propagateMediaServicesDeathNotificationCal
         v18 = 0;
       }
 
-      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1ED4CC378, 1u, 1, v18, v18 != &v27, v15, 0, v16);
+      fig_log_call_emit_and_clean_up_after_send_and_compose(qword_1ED4CC378, 1, 1, v18, v18 != v28, v15);
     }
 
     FigProcessStateMonitorInformRemotesOfIndirectDependencyDeath(a5);
@@ -8614,9 +8669,9 @@ uint64_t OUTLINED_FUNCTION_14_15(int a1)
   }
 }
 
-uint64_t OUTLINED_FUNCTION_17_12(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+uint64_t OUTLINED_FUNCTION_17_12(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a5);
+  va_start(va, a10);
 
   return FigXPCCreateBasicMessage(0x63726574u, 0, va);
 }
@@ -8645,7 +8700,7 @@ void OUTLINED_FUNCTION_21_13(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   FigXPCRelease(a16);
 }
 
-uint64_t FigEndpointManagerGetClassID()
+uint64_t FigEndpointManagerGetClassID(uint64_t a1, uint64_t a2)
 {
   if (_MergedGlobals_65 != -1)
   {
@@ -8655,26 +8710,26 @@ uint64_t FigEndpointManagerGetClassID()
   return qword_1ED4CDA58;
 }
 
-size_t manager_getClassID(void *a1)
+size_t manager_getClassID(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   ClassID = CMBaseGetClassID();
 
-  return FigBaseClassRegisterClass(&manager_getClassID_sFigEndpointManagerClassDesc, ClassID, 1, a1, v3, v4, v5, v6);
+  return FigBaseClassRegisterClass(&manager_getClassID_sFigEndpointManagerClassDesc, ClassID, 1, a1, v11, v12, v13, v14, a9);
 }
 
-uint64_t FigEndpointManagerGetTypeID()
+uint64_t FigEndpointManagerGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (_MergedGlobals_65 != -1)
   {
     FigEndpointManagerGetClassID_cold_1();
   }
 
-  v1 = qword_1ED4CDA58;
+  v3 = qword_1ED4CDA58;
 
-  return CMBaseClassGetCFTypeID(v1);
+  return CMBaseClassGetCFTypeID(v3);
 }
 
-uint64_t NeroTransportConnectionGetClassID()
+uint64_t NeroTransportConnectionGetClassID(uint64_t a1, uint64_t a2)
 {
   if (NeroTransportConnectionGetClassID_sRegisterFigTransportConnectionBaseTypeOnce != -1)
   {
@@ -8684,23 +8739,23 @@ uint64_t NeroTransportConnectionGetClassID()
   return NeroTransportConnectionGetClassID_sFigTransportConnectionClassID;
 }
 
-size_t __NeroTransportConnectionGetClassID_block_invoke()
+size_t __NeroTransportConnectionGetClassID_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, CMBlockBufferRef *a9)
 {
   ClassID = CMBaseGetClassID();
 
-  return FigBaseClassRegisterClass(&NeroTransportConnectionGetClassID_sFigTransportConnectionClassDesc, ClassID, 1, &NeroTransportConnectionGetClassID_sFigTransportConnectionClassID, v1, v2, v3, v4);
+  return FigBaseClassRegisterClass(&NeroTransportConnectionGetClassID_sFigTransportConnectionClassDesc, ClassID, 1, &NeroTransportConnectionGetClassID_sFigTransportConnectionClassID, v10, v11, v12, v13, a9);
 }
 
-uint64_t NeroTransportConnectionGetTypeID()
+uint64_t NeroTransportConnectionGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (NeroTransportConnectionGetClassID_sRegisterFigTransportConnectionBaseTypeOnce != -1)
   {
     NeroTransportConnectionGetClassID_cold_1();
   }
 
-  v1 = NeroTransportConnectionGetClassID_sFigTransportConnectionClassID;
+  v3 = NeroTransportConnectionGetClassID_sFigTransportConnectionClassID;
 
-  return CMBaseClassGetCFTypeID(v1);
+  return CMBaseClassGetCFTypeID(v3);
 }
 
 uint64_t flipSceneDescriptionData(int8x8_t *a1, unint64_t a2)
@@ -9122,7 +9177,7 @@ size_t FigBridgeExtractCommonEncryptionTrackEncryptionExtension(const __CFAlloca
   if (a3 && (v14 = CFDataCreate(a1, v19, v18), (*(a3 + 8 * *a4) = v14) == 0))
   {
     emitter = fig_log_get_emitter("com.apple.coremedia", "");
-    result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE57uLL, "<<< FormatDescriptionBridge_Common >>>", 0xAE, v6, v16, v17);
+    result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE57uLL, "<<< FormatDescriptionBridge_Common >>>", 0xAE, v6, v16, v17, v18);
   }
 
   else
@@ -9163,30 +9218,30 @@ __CFString *usb_CopyDebugDescription(uint64_t a1)
 _opaque_pthread_t *usb_stopMessageSendingAndReceivingThreads(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
-  v2 = DerivedStorage;
+  v8 = DerivedStorage;
   *(DerivedStorage + 24) = 1;
-  v3 = (DerivedStorage + 192);
+  v9 = (DerivedStorage + 192);
   if (*(DerivedStorage + 192))
   {
     dispatch_semaphore_signal(*(DerivedStorage + 200));
-    FigThreadJoin(*(v2 + 192), 0);
-    dispatch_sync(*(v2 + 16), &__block_literal_global_58);
-    dispatch_release(*(v2 + 200));
-    *v3 = 0;
-    v3[1] = 0;
+    FigThreadJoin(*(v8 + 192), 0, v10, v11, v12, v13, v14, v15, v17);
+    dispatch_sync(*(v8 + 16), &__block_literal_global_58);
+    dispatch_release(*(v8 + 200));
+    *v9 = 0;
+    v9[1] = 0;
   }
 
-  result = *(v2 + 128);
+  result = *(v8 + 128);
   if (result)
   {
-    if (*(v2 + 136))
+    if (*(v8 + 136))
     {
-      CFRunLoopStop(*(v2 + 136));
-      result = *(v2 + 128);
+      CFRunLoopStop(*(v8 + 136));
+      result = *(v8 + 128);
     }
 
-    result = FigThreadJoin(result, 0);
-    *(v2 + 128) = 0;
+    result = FigThreadJoin(result, 0, v2, v3, v4, v5, v6, v7, v17);
+    *(v8 + 128) = 0;
   }
 
   return result;
@@ -9512,12 +9567,13 @@ void __usb_sendMemoryBlockViaUSB_block_invoke(uint64_t a1)
 
 uint64_t usb_setDisconnected(const void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   DerivedStorage = CMBaseObjectGetDerivedStorage(a1);
-  v12[0] = 0;
+  v12 = 0;
   type = OS_LOG_TYPE_DEFAULT;
-  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, v12, &type);
-  v4 = v12[0];
+  os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type(0, 1, &v12, &type);
+  v4 = v12;
+  v5 = type;
   if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
   {
     v6 = v4;
@@ -9530,10 +9586,10 @@ uint64_t usb_setDisconnected(const void *a1)
 
   if (v6)
   {
-    v12[1] = 136315138;
-    v13 = "usb_setDisconnected";
-    v7 = _os_log_send_and_compose_impl();
-    LOBYTE(v4) = v12[0];
+    v13 = 136315138;
+    v14 = "usb_setDisconnected";
+    v7 = _os_log_send_and_compose_impl(v6, 0, v15, 128, &dword_196FA7000, os_log_and_send_and_compose_flags_and_os_log_type, v5, "<<< transportusb >>> %s: Called", &v13);
+    LOBYTE(v4) = v12;
   }
 
   else
@@ -9541,7 +9597,7 @@ uint64_t usb_setDisconnected(const void *a1)
     v7 = 0;
   }
 
-  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1u, 1, v7, v7 != &v14, v4, 0, v5);
+  fig_log_call_emit_and_clean_up_after_send_and_compose(0, 1, 1, v7, v7 != v15, v4);
   *(DerivedStorage + 25) = 0;
   if (!*DerivedStorage)
   {

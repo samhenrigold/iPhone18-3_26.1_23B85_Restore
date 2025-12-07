@@ -31,7 +31,7 @@
 - (void)run
 {
   selfCopy = self;
-  v194 = *MEMORY[0x277D85DE8];
+  v192 = *MEMORY[0x277D85DE8];
   context = [(ISBiometricSignatureOperation *)self context];
   accountIdentifier = [context accountIdentifier];
 
@@ -41,8 +41,8 @@
   biometricStore = [(ISBiometricSignatureOperation *)selfCopy biometricStore];
   v7 = [biometricStore biometricAvailabilityForAccountIdentifier:accountIdentifier];
   v8 = v7;
-  v184 = biometricStore;
-  v185 = selfCopy;
+  v182 = biometricStore;
+  v183 = selfCopy;
   if (v7 > 3)
   {
     switch(v7)
@@ -57,26 +57,35 @@
         shouldLog = [mEMORY[0x277D69B38] shouldLog];
         if ([mEMORY[0x277D69B38] shouldLogToDisk])
         {
-          v22 = shouldLog | 2;
+          LODWORD(v24) = shouldLog | 2;
         }
 
         else
         {
-          v22 = shouldLog;
+          LODWORD(v24) = shouldLog;
         }
 
         oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-        if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
         {
-          v22 &= 2u;
+          v24 = v24;
         }
 
-        if (!v22)
+        else
         {
-          goto LABEL_81;
+          v24 &= 2u;
         }
 
-        break;
+        if (!v24)
+        {
+          goto LABEL_89;
+        }
+
+        v188 = 138543362;
+        v189 = objc_opt_class();
+        v13 = v189;
+        v14 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: BiometricAvailability - Invalid for no account", &v188, 12);
+        goto LABEL_87;
       case 5:
         mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
         if (!mEMORY[0x277D69B38])
@@ -87,26 +96,35 @@
         shouldLog2 = [mEMORY[0x277D69B38] shouldLog];
         if ([mEMORY[0x277D69B38] shouldLogToDisk])
         {
-          v40 = shouldLog2 | 2;
+          LODWORD(v42) = shouldLog2 | 2;
         }
 
         else
         {
-          v40 = shouldLog2;
+          LODWORD(v42) = shouldLog2;
         }
 
         oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-        if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
         {
-          v40 &= 2u;
+          v42 = v42;
         }
 
-        if (!v40)
+        else
         {
-          goto LABEL_81;
+          v42 &= 2u;
         }
 
-        break;
+        if (!v42)
+        {
+          goto LABEL_89;
+        }
+
+        v188 = 138543362;
+        v189 = objc_opt_class();
+        v13 = v189;
+        v14 = _os_log_send_and_compose_impl(v42, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: BiometricAvailability - Invalid for invalid account", &v188, 12);
+        goto LABEL_87;
       case 6:
         mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
         if (!mEMORY[0x277D69B38])
@@ -117,52 +135,38 @@
         shouldLog3 = [mEMORY[0x277D69B38] shouldLog];
         if ([mEMORY[0x277D69B38] shouldLogToDisk])
         {
-          v14 = shouldLog3 | 2;
+          LODWORD(v16) = shouldLog3 | 2;
         }
 
         else
         {
-          v14 = shouldLog3;
+          LODWORD(v16) = shouldLog3;
         }
 
         oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-        if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
         {
-          v14 &= 2u;
+          v16 = v16;
         }
 
-        if (!v14)
+        else
         {
-          goto LABEL_81;
+          v16 &= 2u;
         }
 
-        break;
-      default:
-        goto LABEL_96;
+        if (!v16)
+        {
+          goto LABEL_89;
+        }
+
+        v188 = 138543362;
+        v189 = objc_opt_class();
+        v13 = v189;
+        v14 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: BiometricAvailability - Invalid for unknown", &v188, 12);
+        goto LABEL_87;
     }
 
-LABEL_79:
-    v190 = 138543362;
-    v191 = objc_opt_class();
-    v41 = v191;
-    LODWORD(v174) = 12;
-    v168 = &v190;
-    v42 = _os_log_send_and_compose_impl();
-
-    if (!v42)
-    {
-LABEL_82:
-
-      goto LABEL_97;
-    }
-
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v42 encoding:{4, &v190, v174}];
-    free(v42);
-    v168 = oSLogObject;
-    SSFileLog();
-LABEL_81:
-
-    goto LABEL_82;
+    goto LABEL_105;
   }
 
   if (!v7)
@@ -176,43 +180,46 @@ LABEL_81:
     shouldLog4 = [mEMORY[0x277D69B38]2 shouldLog];
     if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
     {
-      v17 = shouldLog4 | 2;
+      LODWORD(v19) = shouldLog4 | 2;
     }
 
     else
     {
-      v17 = shouldLog4;
+      LODWORD(v19) = shouldLog4;
     }
 
     oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
     {
-      v17 &= 2u;
+      v19 = v19;
     }
 
-    if (v17)
+    else
     {
-      v190 = 138543362;
-      v191 = objc_opt_class();
-      v19 = v191;
-      LODWORD(v174) = 12;
-      v168 = &v190;
-      v20 = _os_log_send_and_compose_impl();
+      v19 &= 2u;
+    }
 
-      if (!v20)
+    if (v19)
+    {
+      v188 = 138543362;
+      v189 = objc_opt_class();
+      v21 = v189;
+      v22 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_275BC3000, oSLogObject2, 2, "%{public}@: BiometricAvailability - Available", &v188, 12);
+
+      if (!v22)
       {
-LABEL_37:
+LABEL_40:
 
-        goto LABEL_128;
+        goto LABEL_139;
       }
 
-      oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v20 encoding:{4, &v190, v174}];
-      free(v20);
-      v168 = oSLogObject2;
+      oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v22 encoding:4];
+      free(v22);
+      v166 = oSLogObject2;
       SSFileLog();
     }
 
-    goto LABEL_37;
+    goto LABEL_40;
   }
 
   if (v7 != 2)
@@ -228,29 +235,54 @@ LABEL_37:
       shouldLog5 = [mEMORY[0x277D69B38] shouldLog];
       if ([mEMORY[0x277D69B38] shouldLogToDisk])
       {
-        v11 = shouldLog5 | 2;
+        LODWORD(v11) = shouldLog5 | 2;
       }
 
       else
       {
-        v11 = shouldLog5;
+        LODWORD(v11) = shouldLog5;
       }
 
       oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v11 = v11;
+      }
+
+      else
       {
         v11 &= 2u;
       }
 
       if (!v11)
       {
-        goto LABEL_81;
+        goto LABEL_89;
       }
 
-      goto LABEL_79;
+      v188 = 138543362;
+      v189 = objc_opt_class();
+      v13 = v189;
+      v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: BiometricAvailability - Invalid for no identities", &v188, 12);
+LABEL_87:
+      v43 = v14;
+
+      if (!v43)
+      {
+LABEL_90:
+
+        goto LABEL_106;
+      }
+
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v43 encoding:4];
+      free(v43);
+      v166 = oSLogObject;
+      SSFileLog();
+LABEL_89:
+
+      goto LABEL_90;
     }
 
-    goto LABEL_96;
+    goto LABEL_105;
   }
 
   mEMORY[0x277D69B38]3 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -262,41 +294,44 @@ LABEL_37:
   shouldLog6 = [mEMORY[0x277D69B38]3 shouldLog];
   if ([mEMORY[0x277D69B38]3 shouldLogToDisk])
   {
-    v25 = shouldLog6 | 2;
+    LODWORD(v27) = shouldLog6 | 2;
   }
 
   else
   {
-    v25 = shouldLog6;
+    LODWORD(v27) = shouldLog6;
   }
 
   oSLogObject3 = [mEMORY[0x277D69B38]3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
   {
-    v25 &= 2u;
+    v27 = v27;
   }
 
-  if (v25)
+  else
   {
-    v190 = 138543362;
-    v191 = objc_opt_class();
-    v27 = v191;
-    LODWORD(v174) = 12;
-    v168 = &v190;
-    v28 = _os_log_send_and_compose_impl();
+    v27 &= 2u;
+  }
 
-    if (!v28)
+  if (v27)
+  {
+    v188 = 138543362;
+    v189 = objc_opt_class();
+    v29 = v189;
+    v30 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &dword_275BC3000, oSLogObject3, 16, "%{public}@: BiometricAvailability - Invalid for identity map change", &v188, 12);
+
+    if (!v30)
     {
-      goto LABEL_58;
+      goto LABEL_63;
     }
 
-    oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v28 encoding:{4, &v190, v174}];
-    free(v28);
-    v168 = oSLogObject3;
+    oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v30 encoding:4];
+    free(v30);
+    v166 = oSLogObject3;
     SSFileLog();
   }
 
-LABEL_58:
+LABEL_63:
   mEMORY[0x277D69B38]4 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
   if (!mEMORY[0x277D69B38]4)
   {
@@ -306,42 +341,46 @@ LABEL_58:
   shouldLog7 = [mEMORY[0x277D69B38]4 shouldLog];
   if ([mEMORY[0x277D69B38]4 shouldLogToDisk])
   {
-    v31 = shouldLog7 | 2;
+    LODWORD(v33) = shouldLog7 | 2;
   }
 
   else
   {
-    v31 = shouldLog7;
+    LODWORD(v33) = shouldLog7;
   }
 
   oSLogObject4 = [mEMORY[0x277D69B38]4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
   {
-    v31 &= 2u;
+    v33 = v33;
   }
 
-  if (v31)
+  else
   {
-    v33 = objc_opt_class();
-    v190 = 138543362;
-    v191 = v33;
-    v34 = v33;
-    LODWORD(v174) = 12;
-    v168 = &v190;
-    v35 = _os_log_send_and_compose_impl();
+    v33 &= 2u;
+  }
 
-    if (!v35)
+  if (v33)
+  {
+    v35 = objc_opt_class();
+    v188 = 138543362;
+    v189 = v35;
+    v36 = v35;
+    LODWORD(v172) = 12;
+    v37 = _os_log_send_and_compose_impl(v33, 0, 0, 0, &dword_275BC3000, oSLogObject4, 0, "%{public}@: Prompting for auth due to biometric identity change", &v188, v172);
+
+    if (!v37)
     {
-      goto LABEL_69;
+      goto LABEL_75;
     }
 
-    oSLogObject4 = [MEMORY[0x277CCACA8] stringWithCString:v35 encoding:{4, &v190, v174}];
-    free(v35);
-    v168 = oSLogObject4;
+    oSLogObject4 = [MEMORY[0x277CCACA8] stringWithCString:v37 encoding:4];
+    free(v37);
+    v166 = oSLogObject4;
     SSFileLog();
   }
 
-LABEL_69:
+LABEL_75:
   context3 = [(ISBiometricSignatureOperation *)selfCopy context];
   accountName = [context3 accountName];
 
@@ -359,33 +398,37 @@ LABEL_69:
     shouldLog8 = [mEMORY[0x277D69B38]5 shouldLog];
     if ([mEMORY[0x277D69B38]5 shouldLogToDisk])
     {
-      v46 = shouldLog8 | 2;
+      LODWORD(v47) = shouldLog8 | 2;
     }
 
     else
     {
-      v46 = shouldLog8;
+      LODWORD(v47) = shouldLog8;
     }
 
     oSLogObject5 = [mEMORY[0x277D69B38]5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
     {
-      v46 &= 2u;
+      v47 = v47;
     }
 
-    if (v46)
+    else
     {
-      v48 = objc_opt_class();
-      v190 = 138543362;
-      v191 = v48;
-      v49 = v48;
-      LODWORD(v174) = 12;
-      v168 = &v190;
-      v50 = _os_log_send_and_compose_impl();
+      v47 &= 2u;
+    }
 
-      if (!v50)
+    if (v47)
+    {
+      v49 = objc_opt_class();
+      v188 = 138543362;
+      v189 = v49;
+      v50 = v49;
+      LODWORD(v172) = 12;
+      v51 = _os_log_send_and_compose_impl(v47, 0, 0, 0, &dword_275BC3000, oSLogObject5, 0, "%{public}@: Removing merchant session for invalid identity map", &v188, v172);
+
+      if (!v51)
       {
-LABEL_94:
+LABEL_103:
 
         touchIDDialog = [(ISBiometricSignatureOperation *)selfCopy touchIDDialog];
         paymentSheet = [touchIDDialog paymentSheet];
@@ -396,28 +439,28 @@ LABEL_94:
         [paymentSheet2 setApplePayClassic:0];
 
         v8 = 2;
-        goto LABEL_95;
+        goto LABEL_104;
       }
 
-      oSLogObject5 = [MEMORY[0x277CCACA8] stringWithCString:v50 encoding:{4, &v190, v174}];
-      free(v50);
-      v168 = oSLogObject5;
+      oSLogObject5 = [MEMORY[0x277CCACA8] stringWithCString:v51 encoding:4];
+      free(v51);
+      v166 = oSLogObject5;
       SSFileLog();
     }
 
-    goto LABEL_94;
+    goto LABEL_103;
   }
 
-  v38 = +[ISBiometricStore sharedInstance];
-  [v38 saveIdentityMapForAccountIdentifier:accountIdentifier];
+  v40 = +[ISBiometricStore sharedInstance];
+  [v40 saveIdentityMapForAccountIdentifier:accountIdentifier];
 
   v8 = [biometricStore biometricAvailabilityForAccountIdentifier:accountIdentifier];
-LABEL_95:
+LABEL_104:
 
-LABEL_96:
+LABEL_105:
   if (v8)
   {
-LABEL_97:
+LABEL_106:
     mEMORY[0x277D69B38]6 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
     if (!mEMORY[0x277D69B38]6)
     {
@@ -427,38 +470,42 @@ LABEL_97:
     shouldLog9 = [mEMORY[0x277D69B38]6 shouldLog];
     if ([mEMORY[0x277D69B38]6 shouldLogToDisk])
     {
-      v57 = shouldLog9 | 2;
+      LODWORD(v58) = shouldLog9 | 2;
     }
 
     else
     {
-      v57 = shouldLog9;
+      LODWORD(v58) = shouldLog9;
     }
 
     oSLogObject6 = [mEMORY[0x277D69B38]6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_ERROR))
     {
-      v57 &= 2u;
+      v58 = v58;
     }
 
-    if (v57)
+    else
     {
-      v59 = objc_opt_class();
-      v60 = MEMORY[0x277CCABB0];
-      v61 = v59;
-      v62 = [v60 numberWithInteger:v8];
-      v190 = 138543618;
-      v191 = v59;
-      v192 = 2114;
-      v193 = v62;
-      LODWORD(v174) = 22;
-      v169 = &v190;
-      v63 = _os_log_send_and_compose_impl();
+      v58 &= 2u;
+    }
 
-      selfCopy = v185;
-      if (!v63)
+    if (v58)
+    {
+      v60 = objc_opt_class();
+      v61 = MEMORY[0x277CCABB0];
+      v62 = v60;
+      v63 = [v61 numberWithInteger:v8];
+      v188 = 138543618;
+      v189 = v60;
+      v190 = 2114;
+      v191 = v63;
+      LODWORD(v172) = 22;
+      v64 = _os_log_send_and_compose_impl(v58, 0, 0, 0, &dword_275BC3000, oSLogObject6, 16, "%{public}@: Challenge signature failed with unavailable biometrics: %{public}@", &v188, v172);
+
+      selfCopy = v183;
+      if (!v64)
       {
-LABEL_108:
+LABEL_118:
 
         touchIDDialog3 = [(ISBiometricSignatureOperation *)selfCopy touchIDDialog];
         paymentSheet3 = [touchIDDialog3 paymentSheet];
@@ -473,21 +520,19 @@ LABEL_108:
 
         if (isExtendedAction)
         {
-          v69 = *MEMORY[0x277D6A110];
           oSLogObject7 = SSError();
-          v71 = *MEMORY[0x277D6A100];
           mEMORY[0x277D69B38]7 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
-          v73 = SSErrorBySettingUserInfoValue();
-LABEL_123:
+          v72 = SSErrorBySettingUserInfoValue();
+LABEL_134:
 
           fpanID = 0;
           paymentTokenData = 0;
-          v81 = 0;
-LABEL_124:
+          v80 = 0;
+LABEL_135:
 
-          v82 = v73;
-          selfCopy = v185;
-          goto LABEL_125;
+          v81 = v72;
+          selfCopy = v183;
+          goto LABEL_136;
         }
 
         mEMORY[0x277D69B38]7 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -499,70 +544,74 @@ LABEL_124:
         shouldLog10 = [mEMORY[0x277D69B38]7 shouldLog];
         if ([mEMORY[0x277D69B38]7 shouldLogToDisk])
         {
-          v75 = shouldLog10 | 2;
+          LODWORD(v74) = shouldLog10 | 2;
         }
 
         else
         {
-          v75 = shouldLog10;
+          LODWORD(v74) = shouldLog10;
         }
 
         oSLogObject7 = [mEMORY[0x277D69B38]7 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
         {
-          v75 &= 2u;
+          v74 = v74;
         }
 
-        if (!v75)
+        else
         {
-LABEL_122:
-          v73 = 0;
-          goto LABEL_123;
+          v74 &= 2u;
         }
 
-        v76 = objc_opt_class();
-        v190 = 138543362;
-        v191 = v76;
-        v77 = v76;
-        LODWORD(v174) = 12;
-        v170 = &v190;
-        v78 = _os_log_send_and_compose_impl();
-
-        if (v78)
+        if (!v74)
         {
-          oSLogObject7 = [MEMORY[0x277CCACA8] stringWithCString:v78 encoding:{4, &v190, v174}];
-          free(v78);
-          v170 = oSLogObject7;
+LABEL_133:
+          v72 = 0;
+          goto LABEL_134;
+        }
+
+        v75 = objc_opt_class();
+        v188 = 138543362;
+        v189 = v75;
+        v76 = v75;
+        LODWORD(v172) = 12;
+        v77 = _os_log_send_and_compose_impl(v74, 0, 0, 0, &dword_275BC3000, oSLogObject7, 0, "%{public}@: Attempting to fallback to password payment", &v188, v172);
+
+        if (v77)
+        {
+          oSLogObject7 = [MEMORY[0x277CCACA8] stringWithCString:v77 encoding:4];
+          free(v77);
+          v168 = oSLogObject7;
           SSFileLog();
-          goto LABEL_122;
+          goto LABEL_133;
         }
 
-LABEL_199:
+LABEL_215:
         fpanID = 0;
         paymentTokenData = 0;
-        v81 = 0;
-        v73 = 0;
-        goto LABEL_124;
+        v80 = 0;
+        v72 = 0;
+        goto LABEL_135;
       }
 
-      oSLogObject6 = [MEMORY[0x277CCACA8] stringWithCString:v63 encoding:{4, &v190, v174}];
-      free(v63);
-      v169 = oSLogObject6;
+      oSLogObject6 = [MEMORY[0x277CCACA8] stringWithCString:v64 encoding:4];
+      free(v64);
+      v167 = oSLogObject6;
       SSFileLog();
     }
 
-    goto LABEL_108;
+    goto LABEL_118;
   }
 
-LABEL_128:
+LABEL_139:
   context7 = [(ISBiometricSignatureOperation *)selfCopy context];
   isExtendedAction2 = [context7 isExtendedAction];
-  v88 = isExtendedAction2;
-  v89 = isExtendedAction2;
+  v86 = isExtendedAction2;
+  v87 = isExtendedAction2;
 
-  if (v88)
+  if (v86)
   {
-    goto LABEL_146;
+    goto LABEL_158;
   }
 
   touchIDDialog4 = [(ISBiometricSignatureOperation *)selfCopy touchIDDialog];
@@ -577,60 +626,64 @@ LABEL_128:
   shouldLog11 = [mEMORY[0x277D69B38]8 shouldLog];
   if ([mEMORY[0x277D69B38]8 shouldLogToDisk])
   {
-    v94 = shouldLog11 | 2;
+    LODWORD(v92) = shouldLog11 | 2;
   }
 
   else
   {
-    v94 = shouldLog11;
+    LODWORD(v92) = shouldLog11;
   }
 
   oSLogObject8 = [mEMORY[0x277D69B38]8 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_DEFAULT))
   {
-    v94 &= 2u;
+    v92 = v92;
   }
 
-  if (v94)
+  else
   {
-    v96 = objc_opt_class();
-    v97 = MEMORY[0x277CCABB0];
-    v98 = v96;
-    v99 = [v97 numberWithBool:isDualAction];
-    v190 = 138543618;
-    v191 = v96;
-    v192 = 2114;
-    v193 = v99;
-    LODWORD(v174) = 22;
-    v171 = &v190;
-    v100 = _os_log_send_and_compose_impl();
+    v92 &= 2u;
+  }
 
-    selfCopy = v185;
-    if (!v100)
+  if (v92)
+  {
+    v94 = objc_opt_class();
+    v95 = MEMORY[0x277CCABB0];
+    v96 = v94;
+    v97 = [v95 numberWithBool:isDualAction];
+    v188 = 138543618;
+    v189 = v94;
+    v190 = 2114;
+    v191 = v97;
+    LODWORD(v172) = 22;
+    v98 = _os_log_send_and_compose_impl(v92, 0, 0, 0, &dword_275BC3000, oSLogObject8, 0, "%{public}@: Evaluating ACL capabilities for dual-action buy: %{public}@", &v188, v172);
+
+    selfCopy = v183;
+    if (!v98)
     {
-      goto LABEL_140;
+      goto LABEL_152;
     }
 
-    oSLogObject8 = [MEMORY[0x277CCACA8] stringWithCString:v100 encoding:{4, &v190, v174}];
-    free(v100);
-    v171 = oSLogObject8;
+    oSLogObject8 = [MEMORY[0x277CCACA8] stringWithCString:v98 encoding:4];
+    free(v98);
+    v169 = oSLogObject8;
     SSFileLog();
   }
 
-LABEL_140:
+LABEL_152:
   if (!isDualAction)
   {
-    goto LABEL_146;
+    goto LABEL_158;
   }
 
   if (!+[ISBiometricStore shouldUseApplePayClassic])
   {
     if (+[ISBiometricStore shouldUseAutoEnrollment])
     {
-      goto LABEL_145;
+      goto LABEL_157;
     }
 
-LABEL_146:
+LABEL_158:
     mEMORY[0x277D69B38]9 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
     if (!mEMORY[0x277D69B38]9)
     {
@@ -640,71 +693,75 @@ LABEL_146:
     shouldLog12 = [mEMORY[0x277D69B38]9 shouldLog];
     if ([mEMORY[0x277D69B38]9 shouldLogToDisk])
     {
-      v107 = shouldLog12 | 2;
+      LODWORD(v105) = shouldLog12 | 2;
     }
 
     else
     {
-      v107 = shouldLog12;
+      LODWORD(v105) = shouldLog12;
     }
 
     oSLogObject9 = [mEMORY[0x277D69B38]9 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject9, OS_LOG_TYPE_DEFAULT))
     {
-      v107 &= 2u;
+      v105 = v105;
     }
 
-    if (v107)
+    else
     {
-      v109 = objc_opt_class();
-      v110 = MEMORY[0x277CCABB0];
-      v111 = v109;
-      v112 = [v110 numberWithInteger:v89];
-      v190 = 138543618;
-      v191 = v109;
-      v192 = 2114;
-      v193 = v112;
-      LODWORD(v174) = 22;
-      v171 = &v190;
-      v113 = _os_log_send_and_compose_impl();
+      v105 &= 2u;
+    }
 
-      selfCopy = v185;
-      if (!v113)
+    if (v105)
+    {
+      v107 = objc_opt_class();
+      v108 = MEMORY[0x277CCABB0];
+      v109 = v107;
+      v110 = [v108 numberWithInteger:v87];
+      v188 = 138543618;
+      v189 = v107;
+      v190 = 2114;
+      v191 = v110;
+      LODWORD(v172) = 22;
+      v111 = _os_log_send_and_compose_impl(v105, 0, 0, 0, &dword_275BC3000, oSLogObject9, 0, "%{public}@: Evaluating ACL capabilities for purpose: %{public}@", &v188, v172);
+
+      selfCopy = v183;
+      if (!v111)
       {
-LABEL_157:
+LABEL_170:
 
-        if (v89)
+        if (v87)
         {
-          goto LABEL_161;
+          goto LABEL_174;
         }
 
         context8 = [(ISBiometricSignatureOperation *)selfCopy context];
-        v104 = 1;
-        goto LABEL_159;
+        v102 = 1;
+        goto LABEL_172;
       }
 
-      oSLogObject9 = [MEMORY[0x277CCACA8] stringWithCString:v113 encoding:{4, &v190, v174}];
-      free(v113);
-      v171 = oSLogObject9;
+      oSLogObject9 = [MEMORY[0x277CCACA8] stringWithCString:v111 encoding:4];
+      free(v111);
+      v169 = oSLogObject9;
       SSFileLog();
     }
 
-    goto LABEL_157;
+    goto LABEL_170;
   }
 
   context9 = [(ISBiometricSignatureOperation *)selfCopy context];
-  v171 = [ISBiometricStore isActionSupported:3 withBiometricAuthenticationContext:context9];
+  v169 = [ISBiometricStore isActionSupported:3 withBiometricAuthenticationContext:context9];
 
   if (+[ISBiometricStore shouldUseAutoEnrollment])
   {
-LABEL_145:
+LABEL_157:
     context8 = [(ISBiometricSignatureOperation *)selfCopy context];
-    v104 = 4;
-LABEL_159:
-    v171 = [ISBiometricStore isActionSupported:v104 withBiometricAuthenticationContext:context8, v171];
+    v102 = 4;
+LABEL_172:
+    v169 = [ISBiometricStore isActionSupported:v102 withBiometricAuthenticationContext:context8, v169];
   }
 
-  if (!v171)
+  if (!v169)
   {
     mEMORY[0x277D69B38]10 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
     if (!mEMORY[0x277D69B38]10)
@@ -715,42 +772,46 @@ LABEL_159:
     shouldLog13 = [mEMORY[0x277D69B38]10 shouldLog];
     if ([mEMORY[0x277D69B38]10 shouldLogToDisk])
     {
-      v136 = shouldLog13 | 2;
+      LODWORD(v134) = shouldLog13 | 2;
     }
 
     else
     {
-      v136 = shouldLog13;
+      LODWORD(v134) = shouldLog13;
     }
 
     oSLogObject10 = [mEMORY[0x277D69B38]10 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject10, OS_LOG_TYPE_DEFAULT))
     {
-      v136 &= 2u;
+      v134 = v134;
     }
 
-    if (v136)
+    else
     {
-      v138 = objc_opt_class();
-      v190 = 138543362;
-      v191 = v138;
-      v139 = v138;
-      LODWORD(v174) = 12;
-      v173 = &v190;
-      v140 = _os_log_send_and_compose_impl();
+      v134 &= 2u;
+    }
 
-      if (!v140)
+    if (v134)
+    {
+      v136 = objc_opt_class();
+      v188 = 138543362;
+      v189 = v136;
+      v137 = v136;
+      LODWORD(v172) = 12;
+      v138 = _os_log_send_and_compose_impl(v134, 0, 0, 0, &dword_275BC3000, oSLogObject10, 0, "%{public}@: Aborting signature attempt due to bad ACL version", &v188, v172);
+
+      if (!v138)
       {
-        goto LABEL_187;
+        goto LABEL_202;
       }
 
-      oSLogObject10 = [MEMORY[0x277CCACA8] stringWithCString:v140 encoding:{4, &v190, v174}];
-      free(v140);
-      v173 = oSLogObject10;
+      oSLogObject10 = [MEMORY[0x277CCACA8] stringWithCString:v138 encoding:4];
+      free(v138);
+      v171 = oSLogObject10;
       SSFileLog();
     }
 
-LABEL_187:
+LABEL_202:
     mEMORY[0x277D69B38]11 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
     if (!mEMORY[0x277D69B38]11)
     {
@@ -760,53 +821,58 @@ LABEL_187:
     shouldLog14 = [mEMORY[0x277D69B38]11 shouldLog];
     if ([mEMORY[0x277D69B38]11 shouldLogToDisk])
     {
-      v143 = shouldLog14 | 2;
+      LODWORD(v141) = shouldLog14 | 2;
     }
 
     else
     {
-      v143 = shouldLog14;
+      LODWORD(v141) = shouldLog14;
     }
 
     oSLogObject11 = [mEMORY[0x277D69B38]11 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject11, OS_LOG_TYPE_ERROR))
     {
-      v143 &= 2u;
+      v141 = v141;
     }
 
-    if (v143)
+    else
     {
-      v145 = objc_opt_class();
-      v190 = 138543618;
-      v191 = v145;
-      v192 = 2114;
-      v193 = @"Incorrect ACL version";
-      v146 = v145;
-      LODWORD(v174) = 22;
-      v147 = _os_log_send_and_compose_impl();
+      v141 &= 2u;
+    }
 
-      if (!v147)
+    if (v141)
+    {
+      v143 = objc_opt_class();
+      v188 = 138543618;
+      v189 = v143;
+      v190 = 2114;
+      v191 = @"Incorrect ACL version";
+      v144 = v143;
+      LODWORD(v172) = 22;
+      v145 = _os_log_send_and_compose_impl(v141, 0, 0, 0, &dword_275BC3000, oSLogObject11, 16, "%{public}@: Challenge signature failed: %{public}@", &v188, v172);
+
+      if (!v145)
       {
-LABEL_198:
+LABEL_214:
 
         touchIDDialog3 = [MEMORY[0x277CCACA8] stringWithFormat:@"mt-tid-%@", accountIdentifier];
-        v188 = *MEMORY[0x277CCA240];
-        v189 = touchIDDialog3;
-        paymentSheet3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v189 forKeys:&v188 count:1];
+        v186 = *MEMORY[0x277CCA240];
+        v187 = touchIDDialog3;
+        paymentSheet3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v187 forKeys:&v186 count:1];
         mEMORY[0x277D69B38]7 = [MEMORY[0x277D69CB8] sharedStorage];
         [mEMORY[0x277D69B38]7 removeCookiesWithProperties:paymentSheet3];
-        goto LABEL_199;
+        goto LABEL_215;
       }
 
-      oSLogObject11 = [MEMORY[0x277CCACA8] stringWithCString:v147 encoding:{4, &v190, v174}];
-      free(v147);
+      oSLogObject11 = [MEMORY[0x277CCACA8] stringWithCString:v145 encoding:4];
+      free(v145);
       SSFileLog();
     }
 
-    goto LABEL_198;
+    goto LABEL_214;
   }
 
-LABEL_161:
+LABEL_174:
   mEMORY[0x277D69B38]12 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
   if (!mEMORY[0x277D69B38]12)
   {
@@ -816,113 +882,176 @@ LABEL_161:
   shouldLog15 = [mEMORY[0x277D69B38]12 shouldLog];
   if ([mEMORY[0x277D69B38]12 shouldLogToDisk])
   {
-    v116 = shouldLog15 | 2;
+    LODWORD(v114) = shouldLog15 | 2;
   }
 
   else
   {
-    v116 = shouldLog15;
+    LODWORD(v114) = shouldLog15;
   }
 
   oSLogObject12 = [mEMORY[0x277D69B38]12 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject12, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject12, OS_LOG_TYPE_DEFAULT))
   {
-    v116 &= 2u;
+    v114 = v114;
   }
 
-  if (v116)
+  else
   {
-    v118 = objc_opt_class();
-    v190 = 138543362;
-    v191 = v118;
-    v119 = v118;
-    LODWORD(v174) = 12;
-    v172 = &v190;
-    v120 = _os_log_send_and_compose_impl();
+    v114 &= 2u;
+  }
 
-    if (!v120)
+  if (v114)
+  {
+    v116 = objc_opt_class();
+    v188 = 138543362;
+    v189 = v116;
+    v117 = v116;
+    LODWORD(v172) = 12;
+    v118 = _os_log_send_and_compose_impl(v114, 0, 0, 0, &dword_275BC3000, oSLogObject12, 0, "%{public}@: Device key count is correct, will attempt to sign challenge", &v188, v172);
+
+    if (!v118)
     {
-      goto LABEL_172;
+      goto LABEL_186;
     }
 
-    oSLogObject12 = [MEMORY[0x277CCACA8] stringWithCString:v120 encoding:{4, &v190, v174}];
-    free(v120);
-    v172 = oSLogObject12;
+    oSLogObject12 = [MEMORY[0x277CCACA8] stringWithCString:v118 encoding:4];
+    free(v118);
+    v170 = oSLogObject12;
     SSFileLog();
   }
 
-LABEL_172:
-  v187 = 0;
-  touchIDDialog3 = [biometricStore publicKeyDataForAccountIdentifier:accountIdentifier purpose:v89 error:&v187];
-  v82 = v187;
+LABEL_186:
+  v185 = 0;
+  touchIDDialog3 = [biometricStore publicKeyDataForAccountIdentifier:accountIdentifier purpose:v87 error:&v185];
+  v81 = v185;
   if (touchIDDialog3)
   {
     paymentSheet3 = ISCopyEncodedBase64([touchIDDialog3 bytes], objc_msgSend(touchIDDialog3, "length"));
     mEMORY[0x277D69B38]7 = [challenge stringByAppendingString:paymentSheet3];
-    v182 = [mEMORY[0x277D69B38]7 dataUsingEncoding:4];
+    v180 = [mEMORY[0x277D69B38]7 dataUsingEncoding:4];
     touchIDDialog5 = [(ISBiometricSignatureOperation *)selfCopy touchIDDialog];
-    v122 = touchIDDialog5;
-    v179 = accountIdentifier;
+    v120 = touchIDDialog5;
+    v177 = accountIdentifier;
     if (touchIDDialog5)
     {
-      v123 = MEMORY[0x277D69BE8];
+      v121 = MEMORY[0x277D69BE8];
       body = [touchIDDialog5 body];
       context10 = [(ISBiometricSignatureOperation *)selfCopy context];
       [context10 accountName];
-      v127 = v126 = v122;
-      v181 = [v123 stringWithFormattedUsernameForString:body username:v127];
+      v125 = v124 = v120;
+      v179 = [v121 stringWithFormattedUsernameForString:body username:v125];
 
-      v122 = v126;
-      v128 = [v126 buttonForButtonType:0];
-      title = [v128 title];
+      v120 = v124;
+      v126 = [v124 buttonForButtonType:0];
+      title = [v126 title];
 
-      title2 = [v126 title];
-      paymentSheet4 = [v126 paymentSheet];
+      title2 = [v124 title];
+      paymentSheet4 = [v124 paymentSheet];
 
       if (!paymentSheet4)
       {
-        biometricStore = v184;
-        selfCopy = v185;
-        goto LABEL_213;
+        biometricStore = v182;
+        selfCopy = v183;
+        goto LABEL_230;
       }
 
-      selfCopy = v185;
-      context11 = [(ISBiometricSignatureOperation *)v185 context];
-      [v126 paymentSheet];
-      v133 = v132 = title;
-      [context11 setPaymentSheet:v133];
+      selfCopy = v183;
+      context11 = [(ISBiometricSignatureOperation *)v183 context];
+      [v124 paymentSheet];
+      v131 = v130 = title;
+      [context11 setPaymentSheet:v131];
 
-      title = v132;
-      biometricStore = v184;
+      title = v130;
+      biometricStore = v182;
     }
 
     else
     {
       context11 = [(ISBiometricSignatureOperation *)selfCopy context];
       [context11 accountName];
-      v181 = title2 = 0;
+      v179 = title2 = 0;
       title = 0;
     }
 
-LABEL_213:
-    v151 = objc_alloc_init(MEMORY[0x277D69A78]);
-    [v151 setCancelLabel:title];
-    [v151 setReason:v181];
-    [v151 setTitle:title2];
+LABEL_230:
+    v149 = objc_alloc_init(MEMORY[0x277D69A78]);
+    [v149 setCancelLabel:title];
+    [v149 setReason:v179];
+    [v149 setTitle:title2];
     context12 = [(ISBiometricSignatureOperation *)selfCopy context];
-    v175 = v151;
-    [context12 setConsolidatedDialog:v151];
+    v173 = v149;
+    [context12 setConsolidatedDialog:v149];
 
     context13 = [(ISBiometricSignatureOperation *)selfCopy context];
-    v186 = v82;
-    v154 = [biometricStore signData:v182 context:context13 error:&v186];
-    v73 = v186;
+    v184 = v81;
+    v152 = [biometricStore signData:v180 context:context13 error:&v184];
+    v72 = v184;
 
-    v177 = v122;
-    v178 = v154;
-    v176 = title;
-    if (!v154 || v73)
+    v175 = v120;
+    v176 = v152;
+    v174 = title;
+    if (!v152 || v72)
     {
+      mEMORY[0x277D69B38]13 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
+      if (!mEMORY[0x277D69B38]13)
+      {
+        mEMORY[0x277D69B38]13 = [MEMORY[0x277D69B38] sharedConfig];
+      }
+
+      LODWORD(v161) = [mEMORY[0x277D69B38]13 shouldLog];
+      if ([mEMORY[0x277D69B38]13 shouldLogToDisk])
+      {
+        LODWORD(v161) = v161 | 2;
+      }
+
+      oSLogObject13 = [mEMORY[0x277D69B38]13 OSLogObject];
+      if (os_log_type_enabled(oSLogObject13, OS_LOG_TYPE_ERROR))
+      {
+        v161 = v161;
+      }
+
+      else
+      {
+        v161 &= 2u;
+      }
+
+      v157 = v173;
+      if (!v161)
+      {
+        v80 = 0;
+        goto LABEL_254;
+      }
+
+      v162 = objc_opt_class();
+      v188 = 138543618;
+      v189 = v162;
+      v190 = 2114;
+      v191 = v72;
+      v163 = v162;
+      LODWORD(v172) = 22;
+      v160 = _os_log_send_and_compose_impl(v161, 0, 0, 0, &dword_275BC3000, oSLogObject13, 16, "%{public}@: Challenge signature failed with error: %{public}@", &v188, v172);
+
+      v80 = 0;
+      if (!v160)
+      {
+LABEL_255:
+
+        context14 = [(ISBiometricSignatureOperation *)v183 context];
+        paymentTokenData = [context14 paymentTokenData];
+
+        context15 = [(ISBiometricSignatureOperation *)v183 context];
+        fpanID = [context15 fpanID];
+
+        accountIdentifier = v177;
+        goto LABEL_135;
+      }
+    }
+
+    else
+    {
+      v80 = ISCopyEncodedBase64([v152 bytes], objc_msgSend(v152, "length"));
+      [biometricStore saveIdentityMapForAccountIdentifier:v177];
       mEMORY[0x277D69B38]13 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
       if (!mEMORY[0x277D69B38]13)
       {
@@ -932,102 +1061,51 @@ LABEL_213:
       shouldLog16 = [mEMORY[0x277D69B38]13 shouldLog];
       if ([mEMORY[0x277D69B38]13 shouldLogToDisk])
       {
-        shouldLog16 |= 2u;
-      }
-
-      oSLogObject13 = [mEMORY[0x277D69B38]13 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject13, OS_LOG_TYPE_ERROR))
-      {
-        shouldLog16 &= 2u;
-      }
-
-      v159 = v175;
-      if (!shouldLog16)
-      {
-        v81 = 0;
-        goto LABEL_235;
-      }
-
-      v164 = objc_opt_class();
-      v190 = 138543618;
-      v191 = v164;
-      v192 = 2114;
-      v193 = v73;
-      v165 = v164;
-      LODWORD(v174) = 22;
-      v170 = &v190;
-      v162 = _os_log_send_and_compose_impl();
-
-      v81 = 0;
-      if (!v162)
-      {
-LABEL_236:
-
-        context14 = [(ISBiometricSignatureOperation *)v185 context];
-        paymentTokenData = [context14 paymentTokenData];
-
-        context15 = [(ISBiometricSignatureOperation *)v185 context];
-        fpanID = [context15 fpanID];
-
-        accountIdentifier = v179;
-        goto LABEL_124;
-      }
-    }
-
-    else
-    {
-      v81 = ISCopyEncodedBase64([v154 bytes], objc_msgSend(v154, "length"));
-      [biometricStore saveIdentityMapForAccountIdentifier:v179];
-      mEMORY[0x277D69B38]13 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
-      if (!mEMORY[0x277D69B38]13)
-      {
-        mEMORY[0x277D69B38]13 = [MEMORY[0x277D69B38] sharedConfig];
-      }
-
-      shouldLog17 = [mEMORY[0x277D69B38]13 shouldLog];
-      if ([mEMORY[0x277D69B38]13 shouldLogToDisk])
-      {
-        v157 = shouldLog17 | 2;
+        LODWORD(v155) = shouldLog16 | 2;
       }
 
       else
       {
-        v157 = shouldLog17;
+        LODWORD(v155) = shouldLog16;
       }
 
       oSLogObject13 = [mEMORY[0x277D69B38]13 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject13, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(oSLogObject13, OS_LOG_TYPE_DEBUG))
       {
-        v157 &= 2u;
+        v155 = v155;
       }
 
-      v159 = v175;
-      if (!v157)
+      else
       {
-        goto LABEL_235;
+        v155 &= 2u;
       }
 
-      v160 = objc_opt_class();
-      v190 = 138543362;
-      v191 = v160;
-      v161 = v160;
-      LODWORD(v174) = 12;
-      v170 = &v190;
-      v162 = _os_log_send_and_compose_impl();
-
-      if (!v162)
+      v157 = v173;
+      if (!v155)
       {
-        goto LABEL_236;
+        goto LABEL_254;
+      }
+
+      v158 = objc_opt_class();
+      v188 = 138543362;
+      v189 = v158;
+      v159 = v158;
+      LODWORD(v172) = 12;
+      v160 = _os_log_send_and_compose_impl(v155, 0, 0, 0, &dword_275BC3000, oSLogObject13, 2, "%{public}@: Challenge signature generated", &v188, v172);
+
+      if (!v160)
+      {
+        goto LABEL_255;
       }
     }
 
-    oSLogObject13 = [MEMORY[0x277CCACA8] stringWithCString:v162 encoding:{4, &v190, v174}];
-    free(v162);
-    v170 = oSLogObject13;
+    oSLogObject13 = [MEMORY[0x277CCACA8] stringWithCString:v160 encoding:4];
+    free(v160);
+    v168 = oSLogObject13;
     SSFileLog();
-LABEL_235:
+LABEL_254:
 
-    goto LABEL_236;
+    goto LABEL_255;
   }
 
   paymentSheet3 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -1036,61 +1114,63 @@ LABEL_235:
     paymentSheet3 = [MEMORY[0x277D69B38] sharedConfig];
   }
 
-  shouldLog18 = [paymentSheet3 shouldLog];
+  LODWORD(v146) = [paymentSheet3 shouldLog];
   if ([paymentSheet3 shouldLogToDisk])
   {
-    shouldLog18 |= 2u;
+    LODWORD(v146) = v146 | 2;
   }
 
   mEMORY[0x277D69B38]7 = [paymentSheet3 OSLogObject];
-  if (!os_log_type_enabled(mEMORY[0x277D69B38]7, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(mEMORY[0x277D69B38]7, OS_LOG_TYPE_ERROR))
   {
-    shouldLog18 &= 2u;
+    v146 = v146;
   }
 
-  if (!shouldLog18)
+  else
   {
-LABEL_209:
+    v146 &= 2u;
+  }
+
+  if (!v146)
+  {
+LABEL_226:
     fpanID = 0;
     paymentTokenData = 0;
-    v81 = 0;
-    v73 = v82;
-    goto LABEL_124;
+    v80 = 0;
+    v72 = v81;
+    goto LABEL_135;
   }
 
-  v149 = objc_opt_class();
-  v190 = 138543618;
-  v191 = v149;
-  v192 = 2114;
-  v193 = v82;
-  v150 = v149;
-  LODWORD(v174) = 22;
-  v170 = &v190;
-  v81 = _os_log_send_and_compose_impl();
+  v147 = objc_opt_class();
+  v188 = 138543618;
+  v189 = v147;
+  v190 = 2114;
+  v191 = v81;
+  v148 = v147;
+  LODWORD(v172) = 22;
+  v80 = _os_log_send_and_compose_impl(v146, 0, 0, 0, &dword_275BC3000, mEMORY[0x277D69B38]7, 16, "%{public}@: Public key copy failed with error: %{public}@", &v188, v172);
 
-  if (v81)
+  if (v80)
   {
-    mEMORY[0x277D69B38]7 = [MEMORY[0x277CCACA8] stringWithCString:v81 encoding:{4, &v190, v174}];
-    free(v81);
-    v170 = mEMORY[0x277D69B38]7;
+    mEMORY[0x277D69B38]7 = [MEMORY[0x277CCACA8] stringWithCString:v80 encoding:4];
+    free(v80);
+    v168 = mEMORY[0x277D69B38]7;
     SSFileLog();
-    goto LABEL_209;
+    goto LABEL_226;
   }
 
   fpanID = 0;
   paymentTokenData = 0;
-LABEL_125:
+LABEL_136:
 
-  [(ISOperation *)selfCopy setError:v82];
-  [(ISOperation *)selfCopy setSuccess:v81 != 0, v170];
+  [(ISOperation *)selfCopy setError:v81];
+  [(ISOperation *)selfCopy setSuccess:v80 != 0, v168];
   outputBlock = [(ISBiometricSignatureOperation *)selfCopy outputBlock];
-  v84 = outputBlock;
+  v83 = outputBlock;
   if (outputBlock)
   {
-    (*(outputBlock + 16))(outputBlock, v81, paymentTokenData, fpanID, v82);
+    (*(outputBlock + 16))(outputBlock, v80, paymentTokenData, fpanID, v81);
   }
-
-  v85 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_promptUserToAuthenticateForIdentityMapChangeWithAccountIdentifier:(id)identifier accountName:(id)name
@@ -1129,7 +1209,7 @@ LABEL_9:
       nameCopy = [v11 stringWithFormat:v17, nameCopy];
 
 LABEL_22:
-      goto LABEL_36;
+      goto LABEL_37;
     }
 
     mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -1162,10 +1242,14 @@ LABEL_22:
 
     if (!v23)
     {
-      goto LABEL_34;
+      goto LABEL_35;
     }
 
-    goto LABEL_32;
+    v66 = 138543362;
+    v67 = objc_opt_class();
+    v24 = v67;
+    v25 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: Could not determine biometric style with account name", &v66, 12);
+    goto LABEL_33;
   }
 
   if (deviceBiometricStyle == 3)
@@ -1195,72 +1279,71 @@ LABEL_21:
   shouldLog2 = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v25 = shouldLog2 | 2;
+    v27 = shouldLog2 | 2;
   }
 
   else
   {
-    v25 = shouldLog2;
+    v27 = shouldLog2;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
   if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
   {
-    v26 = v25;
+    v28 = v27;
   }
 
   else
   {
-    v26 = v25 & 2;
+    v28 = v27 & 2;
   }
 
-  if (!v26)
+  if (!v28)
   {
-    goto LABEL_34;
+    goto LABEL_35;
   }
 
-LABEL_32:
   v66 = 138543362;
   v67 = objc_opt_class();
-  v27 = v67;
-  LODWORD(v61) = 12;
-  v59 = &v66;
-  v28 = _os_log_send_and_compose_impl();
+  v24 = v67;
+  v25 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &dword_275BC3000, oSLogObject, 16, "%{public}@: Could not determine biometric style", &v66, 12);
+LABEL_33:
+  v29 = v25;
 
-  if (v28)
+  if (v29)
   {
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v28 encoding:{4, &v66, v61}];
-    free(v28);
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v29 encoding:4];
+    free(v29);
     v59 = oSLogObject;
     SSFileLog();
-LABEL_34:
+LABEL_35:
   }
 
   nameCopy = 0;
-LABEL_36:
+LABEL_37:
   [v10 setReasonDescription:{nameCopy, v59}];
-  v29 = dispatch_semaphore_create(0);
-  v30 = objc_alloc_init(ISServerAuthenticationOperation);
-  [(ISServerAuthenticationOperation *)v30 setAuthenticationContext:v10];
+  v30 = dispatch_semaphore_create(0);
+  v31 = objc_alloc_init(ISServerAuthenticationOperation);
+  [(ISServerAuthenticationOperation *)v31 setAuthenticationContext:v10];
   fallbackDialog = [(ISBiometricSignatureOperation *)self fallbackDialog];
-  [(ISServerAuthenticationOperation *)v30 setDialog:fallbackDialog];
+  [(ISServerAuthenticationOperation *)v31 setDialog:fallbackDialog];
 
-  [(ISServerAuthenticationOperation *)v30 setPerformsButtonAction:0];
+  [(ISServerAuthenticationOperation *)v31 setPerformsButtonAction:0];
   v64[0] = MEMORY[0x277D85DD0];
   v64[1] = 3221225472;
   v64[2] = __112__ISBiometricSignatureOperation__promptUserToAuthenticateForIdentityMapChangeWithAccountIdentifier_accountName___block_invoke;
   v64[3] = &unk_27A670868;
   v64[4] = self;
-  v32 = v29;
-  v65 = v32;
-  [(ISServerAuthenticationOperation *)v30 setCompletionBlock:v64];
-  v33 = +[ISOperationQueue mainQueue];
-  [v33 addOperation:v30];
+  v33 = v30;
+  v65 = v33;
+  [(ISServerAuthenticationOperation *)v31 setCompletionBlock:v64];
+  v34 = +[ISOperationQueue mainQueue];
+  [v34 addOperation:v31];
 
-  v34 = dispatch_time(0, 30000000000);
-  if (!dispatch_semaphore_wait(v32, v34))
+  v35 = dispatch_time(0, 30000000000);
+  if (!dispatch_semaphore_wait(v33, v35))
   {
-    goto LABEL_50;
+    goto LABEL_51;
   }
 
   mEMORY[0x277D69B38]2 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -1272,50 +1355,49 @@ LABEL_36:
   shouldLog3 = [mEMORY[0x277D69B38]2 shouldLog];
   if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
   {
-    v37 = shouldLog3 | 2;
+    v38 = shouldLog3 | 2;
   }
 
   else
   {
-    v37 = shouldLog3;
+    v38 = shouldLog3;
   }
 
   oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
   if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
   {
-    v39 = v37;
+    v40 = v38;
   }
 
   else
   {
-    v39 = v37 & 2;
+    v40 = v38 & 2;
   }
 
-  if (!v39)
+  if (!v40)
   {
-    goto LABEL_48;
+    goto LABEL_49;
   }
 
-  v40 = objc_opt_class();
+  v41 = objc_opt_class();
   v66 = 138543362;
-  v67 = v40;
-  v41 = v40;
+  v67 = v41;
+  v42 = v41;
   LODWORD(v61) = 12;
-  v60 = &v66;
-  v42 = _os_log_send_and_compose_impl();
+  v43 = _os_log_send_and_compose_impl(v40, 0, 0, 0, &dword_275BC3000, oSLogObject2, 16, "%{public}@: Authentication challenge for invalid identity map timed out", &v66, v61);
 
-  if (v42)
+  if (v43)
   {
-    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v42 encoding:{4, &v66, v61}];
-    free(v42);
+    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v43 encoding:4];
+    free(v43);
     v60 = oSLogObject2;
     SSFileLog();
-LABEL_48:
+LABEL_49:
   }
 
-LABEL_50:
-  success = [(ISOperation *)v30 success];
-  error = [(ISOperation *)v30 error];
+LABEL_51:
+  success = [(ISOperation *)v31 success];
+  error = [(ISOperation *)v31 error];
 
   if (error)
   {
@@ -1328,70 +1410,69 @@ LABEL_50:
     shouldLog4 = [mEMORY[0x277D69B38]3 shouldLog];
     if ([mEMORY[0x277D69B38]3 shouldLogToDisk])
     {
-      v47 = shouldLog4 | 2;
+      v48 = shouldLog4 | 2;
     }
 
     else
     {
-      v47 = shouldLog4;
+      v48 = shouldLog4;
     }
 
     oSLogObject3 = [mEMORY[0x277D69B38]3 OSLogObject];
     if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
     {
-      v49 = v47;
+      v50 = v48;
     }
 
     else
     {
-      v49 = v47 & 2;
+      v50 = v48 & 2;
     }
 
-    if (v49)
+    if (v50)
     {
-      v50 = objc_opt_class();
-      v62 = v50;
-      [(ISOperation *)v30 error];
-      v51 = v32;
-      v52 = success;
-      v53 = v10;
-      v55 = v54 = nameCopy;
+      v51 = objc_opt_class();
+      v62 = v51;
+      [(ISOperation *)v31 error];
+      v52 = v33;
+      v53 = success;
+      v54 = v10;
+      v56 = v55 = nameCopy;
       v66 = 138543618;
-      v67 = v50;
+      v67 = v51;
       v68 = 2114;
-      v69 = v55;
+      v69 = v56;
       LODWORD(v61) = 22;
-      v56 = _os_log_send_and_compose_impl();
+      v57 = _os_log_send_and_compose_impl(v50, 0, 0, 0, &dword_275BC3000, oSLogObject3, 16, "%{public}@: Authentication challenge for invalid identity map failed with error: %{public}@", &v66, v61);
 
-      nameCopy = v54;
-      v10 = v53;
-      success = v52;
-      v32 = v51;
+      nameCopy = v55;
+      v10 = v54;
+      success = v53;
+      v33 = v52;
 
-      if (!v56)
+      if (!v57)
       {
-LABEL_63:
+LABEL_64:
 
-        goto LABEL_64;
+        goto LABEL_65;
       }
 
-      oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v56 encoding:{4, &v66, v61}];
-      free(v56);
+      oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v57 encoding:4];
+      free(v57);
       SSFileLog();
     }
 
-    goto LABEL_63;
+    goto LABEL_64;
   }
 
-LABEL_64:
+LABEL_65:
 
-  v57 = *MEMORY[0x277D85DE8];
   return success;
 }
 
 intptr_t __112__ISBiometricSignatureOperation__promptUserToAuthenticateForIdentityMapChangeWithAccountIdentifier_accountName___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
   if (!v2)
   {
@@ -1401,43 +1482,44 @@ intptr_t __112__ISBiometricSignatureOperation__promptUserToAuthenticateForIdenti
   v3 = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = v3 | 2;
+    LODWORD(v4) = v3 | 2;
   }
 
   else
   {
-    v4 = v3;
+    LODWORD(v4) = v3;
   }
 
   v5 = [v2 OSLogObject];
-  if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (!v4)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  v6 = *(a1 + 32);
-  LODWORD(v12) = 138543362;
-  *(&v12 + 4) = objc_opt_class();
-  v7 = *(&v12 + 4);
-  LODWORD(v11) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v9 = 138543362;
+  v10 = objc_opt_class();
+  v6 = v10;
+  v7 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_275BC3000, v5, 0, "%{public}@: Authentication challenge for invalid identity map did complete", &v9, 12);
 
-  if (v8)
+  if (v7)
   {
-    v5 = [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:{4, &v12, v11, v12}];
-    free(v8);
+    v5 = [MEMORY[0x277CCACA8] stringWithCString:v7 encoding:4];
+    free(v7);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 40));
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 40));
 }
 
 @end

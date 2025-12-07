@@ -15,22 +15,20 @@
 
 + (id)indices
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D10B40]);
   v3 = objc_opt_class();
-  v14 = @"start_date";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v13 = @"start_date";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
   v5 = [v2 initWithEntity:v3 name:@"start" columns:v4];
-  v15[0] = v5;
+  v14[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D10B40]);
   v7 = objc_opt_class();
-  v13 = @"end_date";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v12 = @"end_date";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
   v9 = [v6 initWithEntity:v7 name:@"end" columns:v8];
-  v15[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v14[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
 
   return v10;
 }
@@ -101,29 +99,29 @@ void __75__HDHeadphoneAudioExposureStatisticsEntity_insertBucket_transaction_err
 
 + (BOOL)insertBuckets:(id)buckets transaction:(id)transaction error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   bucketsCopy = buckets;
   transactionCopy = transaction;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v10 = bucketsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [self insertBucket:*(*(&v19 + 1) + 8 * i) transaction:transactionCopy error:{error, v19}];
+        v15 = [self insertBucket:*(*(&v18 + 1) + 8 * i) transaction:transactionCopy error:{error, v18}];
 
         if (!v15)
         {
@@ -132,7 +130,7 @@ void __75__HDHeadphoneAudioExposureStatisticsEntity_insertBucket_transaction_err
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v12)
       {
         continue;
@@ -145,7 +143,6 @@ void __75__HDHeadphoneAudioExposureStatisticsEntity_insertBucket_transaction_err
   v16 = 1;
 LABEL_11:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -189,63 +186,62 @@ LABEL_11:
 uint64_t __82__HDHeadphoneAudioExposureStatisticsEntity__pruneWithNowDate_limit_profile_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
-  v6 = *(a1 + 32);
-  v7 = HDSampleEntityPredicateForEndDate();
-  v8 = *(a1 + 56);
-  v9 = [*(a1 + 40) database];
-  v29 = 0;
-  v10 = [v8 countOfObjectsWithPredicate:v7 healthDatabase:v9 error:&v29];
-  v11 = v29;
+  v6 = HDSampleEntityPredicateForEndDate();
+  v7 = *(a1 + 56);
+  v8 = [*(a1 + 40) database];
+  v28 = 0;
+  v9 = [v7 countOfObjectsWithPredicate:v6 healthDatabase:v8 error:&v28];
+  v10 = v28;
 
-  v12 = v11;
-  if (v12)
+  v11 = v10;
+  if (v11)
   {
     if (a3)
     {
-      v13 = v12;
-      v14 = 0;
-      *a3 = v12;
+      v12 = v11;
+      v13 = 0;
+      *a3 = v11;
     }
 
     else
     {
       _HKLogDroppedError();
-      v14 = 0;
+      v13 = 0;
     }
 
-    v19 = v12;
+    v18 = v11;
   }
 
   else
   {
-    if (v10 < 2)
+    if (v9 < 2)
     {
-      v14 = 1;
+      v13 = 1;
       goto LABEL_9;
     }
 
-    v15 = [v5 databaseForEntityClass:*(a1 + 56)];
-    v16 = *(a1 + 56);
-    v17 = *(a1 + 64);
-    v18 = [v16 _sortOrderingTerms];
-    v19 = [v16 queryWithDatabase:v15 predicate:v7 limit:v17 orderingTerms:v18 groupBy:0];
+    v14 = [v5 databaseForEntityClass:*(a1 + 56)];
+    v15 = *(a1 + 56);
+    v16 = *(a1 + 64);
+    v17 = [v15 _sortOrderingTerms];
+    v18 = [v15 queryWithDatabase:v14 predicate:v6 limit:v16 orderingTerms:v17 groupBy:0];
 
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __82__HDHeadphoneAudioExposureStatisticsEntity__pruneWithNowDate_limit_profile_error___block_invoke_2;
-    v24[3] = &unk_2796C65C0;
-    v20 = *(a1 + 48);
-    v21 = *(a1 + 56);
-    v27 = v10;
-    v28 = v21;
-    v25 = v15;
-    v26 = v20;
-    v22 = v15;
-    v14 = [v19 enumeratePersistentIDsAndProperties:0 error:a3 enumerationHandler:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __82__HDHeadphoneAudioExposureStatisticsEntity__pruneWithNowDate_limit_profile_error___block_invoke_2;
+    v23[3] = &unk_2796C65C0;
+    v19 = *(a1 + 48);
+    v20 = *(a1 + 56);
+    v26 = v9;
+    v27 = v20;
+    v24 = v14;
+    v25 = v19;
+    v21 = v14;
+    v13 = [v18 enumeratePersistentIDsAndProperties:0 error:a3 enumerationHandler:v23];
   }
 
 LABEL_9:
-  return v14;
+  return v13;
 }
 
 uint64_t __82__HDHeadphoneAudioExposureStatisticsEntity__pruneWithNowDate_limit_profile_error___block_invoke_2(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -255,15 +251,14 @@ uint64_t __82__HDHeadphoneAudioExposureStatisticsEntity__pruneWithNowDate_limit_
     return 1;
   }
 
-  v7 = a1[7];
-  v8 = [objc_alloc(objc_opt_class()) initWithPersistentID:a2];
-  v9 = [v8 deleteFromDatabase:a1[4] error:a5];
-  if (v9)
+  v7 = [objc_alloc(objc_opt_class()) initWithPersistentID:a2];
+  v8 = [v7 deleteFromDatabase:a1[4] error:a5];
+  if (v8)
   {
     ++*(*(a1[5] + 8) + 24);
   }
 
-  return v9;
+  return v8;
 }
 
 + (id)_loadBucketsFromProfile:(id)profile error:(id *)error
@@ -413,28 +408,25 @@ BOOL __69__HDHeadphoneAudioExposureStatisticsEntity__bucketWithProfile_error___b
 
 void __69__HDHeadphoneAudioExposureStatisticsEntity__bucketWithProfile_error___block_invoke_2(void *a1, uint64_t a2, uint64_t a3)
 {
-  v5 = a1[4];
-  v6 = objc_opt_class();
-  v7 = a1[5];
-  v8 = *(a1[7] + 8);
-  obj = *(v8 + 40);
-  v9 = [v6 _bucketFromAllPropertiesRow:a3 profile:v7 error:&obj];
-  objc_storeStrong((v8 + 40), obj);
-  v10 = *(a1[6] + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v9;
+  v5 = objc_opt_class();
+  v6 = a1[5];
+  v7 = *(a1[7] + 8);
+  obj = *(v7 + 40);
+  v8 = [v5 _bucketFromAllPropertiesRow:a3 profile:v6 error:&obj];
+  objc_storeStrong((v7 + 40), obj);
+  v9 = *(a1[6] + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v8;
 }
 
 + (id)_sortOrderingTerms
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"end_date" entityClass:self ascending:1];
-  v8[0] = v3;
+  v7[0] = v3;
   v4 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"start_date" entityClass:self ascending:1];
-  v8[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
 
   return v5;
 }

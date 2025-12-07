@@ -46,19 +46,17 @@
 
 - (void)validateOperation
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"No content result operation must have a completion handler"];
-  v2 = 136315906;
-  v3 = "[NTNoContentTodayResultOperation validateOperation]";
-  v4 = 2080;
-  v5 = "NTNoContentTodayResultOperation.m";
-  v6 = 1024;
-  v7 = 27;
-  v8 = 2114;
-  v9 = v0;
-  _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v2, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = 136315906;
+  v2 = "[NTNoContentTodayResultOperation validateOperation]";
+  v3 = 2080;
+  v4 = "NTNoContentTodayResultOperation.m";
+  v5 = 1024;
+  v6 = 27;
+  v7 = 2114;
+  v8 = v0;
+  _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v1, 0x26u);
 }
 
 @end

@@ -33,11 +33,11 @@
 
 - (id)additionalRequestHeaders
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CF0168]);
-  v9 = 0;
-  v3 = [v2 anisetteDataWithError:&v9];
-  v4 = v9;
+  v8 = 0;
+  v3 = [v2 anisetteDataWithError:&v8];
+  v4 = v8;
   if (v3)
   {
     v5 = [MEMORY[0x277CCAB70] ak_anisetteHeadersWithData:v3];
@@ -49,14 +49,12 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = v4;
+      v10 = v4;
       _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "Failed to get anisette data: %@", buf, 0xCu);
     }
 
     v5 = MEMORY[0x277CBEC10];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -109,14 +107,14 @@
 - (id)handleResponse:(id)response body:(id)body
 {
   bodyCopy = body;
-  v6 = [bodyCopy objectForKeyedSubscript:@"needsTemporaryStorage"];
+  v6 = objc_msgSend_objectForKeyedSubscript_(bodyCopy);
   self->_needsTemporaryStorage = [v6 BOOLValue];
 
-  v7 = [bodyCopy objectForKeyedSubscript:@"durationInDays"];
+  v7 = objc_msgSend_objectForKeyedSubscript_(bodyCopy);
   daysUntilExpiration = self->_daysUntilExpiration;
   self->_daysUntilExpiration = v7;
 
-  v9 = [bodyCopy objectForKeyedSubscript:@"backupStatus"];
+  v9 = objc_msgSend_objectForKeyedSubscript_(bodyCopy);
 
   if ((self->_needsTemporaryStorage || v9) && ([v9 isEqualToString:@"ALLOWED"] & 1) == 0)
   {

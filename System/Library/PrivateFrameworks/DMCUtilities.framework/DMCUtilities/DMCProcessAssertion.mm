@@ -33,7 +33,7 @@
 
 - (void)_createAssertion
 {
-  v3 = _assertionQueue();
+  v3 = _assertionQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __39__DMCProcessAssertion__createAssertion__block_invoke;
@@ -42,31 +42,29 @@
   dispatch_sync(v3, block);
 }
 
-void __39__DMCProcessAssertion__createAssertion__block_invoke(uint64_t a1)
+void __39__DMCProcessAssertion__createAssertion__block_invoke(uint64_t a1, uint64_t a2)
 {
   v11 = *MEMORY[0x1E69E9840];
-  v2 = DMCLogObjects()[2];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = DMCLogObjects(a1, a2)[2];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
     v9 = 138543362;
-    v10 = v3;
-    _os_log_impl(&dword_1B1630000, v2, OS_LOG_TYPE_INFO, "Creating process assertion with reason: %{public}@", &v9, 0xCu);
+    v10 = v4;
+    _os_log_impl(&dword_1B1630000, v3, OS_LOG_TYPE_INFO, "Creating process assertion with reason: %{public}@", &v9, 0xCu);
   }
 
-  v4 = [@"com.apple.ManagedConfiguration." stringByAppendingString:*(*(a1 + 32) + 16)];
-  [v4 UTF8String];
-  v5 = os_transaction_create();
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 8);
-  *(v6 + 8) = v5;
-
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = [@"com.apple.ManagedConfiguration." stringByAppendingString:*(*(a1 + 32) + 16)];
+  [v5 UTF8String];
+  v6 = os_transaction_create();
+  v7 = *(a1 + 32);
+  v8 = *(v7 + 8);
+  *(v7 + 8) = v6;
 }
 
 - (void)_releaseAssertion
 {
-  v3 = _assertionQueue();
+  v3 = _assertionQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __40__DMCProcessAssertion__releaseAssertion__block_invoke;
@@ -75,23 +73,21 @@ void __39__DMCProcessAssertion__createAssertion__block_invoke(uint64_t a1)
   dispatch_sync(v3, block);
 }
 
-void __40__DMCProcessAssertion__releaseAssertion__block_invoke(uint64_t a1)
+void __40__DMCProcessAssertion__releaseAssertion__block_invoke(uint64_t a1, uint64_t a2)
 {
   v9 = *MEMORY[0x1E69E9840];
-  v2 = DMCLogObjects()[2];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = DMCLogObjects(a1, a2)[2];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
     v7 = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_1B1630000, v2, OS_LOG_TYPE_INFO, "Releasing process assertion with reason: %{public}@", &v7, 0xCu);
+    v8 = v4;
+    _os_log_impl(&dword_1B1630000, v3, OS_LOG_TYPE_INFO, "Releasing process assertion with reason: %{public}@", &v7, 0xCu);
   }
 
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 8);
-  *(v4 + 8) = 0;
-
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 8);
+  *(v5 + 8) = 0;
 }
 
 @end

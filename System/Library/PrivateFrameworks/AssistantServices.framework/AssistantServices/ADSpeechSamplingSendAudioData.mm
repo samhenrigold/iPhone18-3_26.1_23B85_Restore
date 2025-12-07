@@ -392,7 +392,7 @@ LABEL_11:
   v14 = [pathCopy stringByAppendingPathComponent:nameCopy];
   v15 = [dictCopy valueForKey:@"language"];
   [v12 setLanguage:v15];
-  v16 = [dictCopy objectForKey:@"samplingRate"];
+  v16 = objc_msgSend_objectForKey_(dictCopy);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -682,7 +682,7 @@ LABEL_24:
   if (!siriDataSharingOptInStatus2 || v15)
   {
     firstObject = [v14 firstObject];
-    v17 = [firstObject objectForKey:kAFSiriDataSharingOptInStatusHistoryNewOptInStatusKey];
+    v17 = objc_msgSend_objectForKey_(firstObject);
 
     if (AFSiriDataSharingOptInStatusGetFromName() == siriDataSharingOptInStatus2)
     {

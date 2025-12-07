@@ -21,6 +21,8 @@
 - (void)setFingerprintName:(id)name;
 - (void)setupDTOController;
 - (void)updateDeleteFingerGroupEnablementStatus:(id)status deleteButtonSpecifier:(id)specifier;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PABSFingerprintController
@@ -56,6 +58,23 @@
   [(PABSFingerprintController *)&v5 dealloc];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = PABSFingerprintController;
+  [(PABSFingerprintController *)&v9 viewWillAppear:appear];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  v5 = *MEMORY[0x277D25CA0];
+  mainQueue = [MEMORY[0x277CCABD8] mainQueue];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __44__PABSFingerprintController_viewWillAppear___block_invoke;
+  v8[3] = &unk_279A033D0;
+  v8[4] = self;
+  v7 = [defaultCenter addObserverForName:v5 object:0 queue:mainQueue usingBlock:v8];
+  [(PABSFingerprintController *)self setEffectiveSettingsChangedNotificationObserver:v7];
+}
+
 void __44__PABSFingerprintController_viewWillAppear___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) navigationController];
@@ -81,6 +100,18 @@ void __44__PABSFingerprintController_viewWillAppear___block_invoke(uint64_t a1)
   }
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = PABSFingerprintController;
+  [(PABSFingerprintController *)&v6 viewDidDisappear:disappear];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  effectiveSettingsChangedNotificationObserver = [(PABSFingerprintController *)self effectiveSettingsChangedNotificationObserver];
+  [defaultCenter removeObserver:effectiveSettingsChangedNotificationObserver];
+
+  [(PABSFingerprintController *)self setEffectiveSettingsChangedNotificationObserver:0];
+}
+
 - (id)representedBiometricIdentity
 {
   specifier = [(PABSFingerprintController *)self specifier];
@@ -91,7 +122,7 @@ void __44__PABSFingerprintController_viewWillAppear___block_invoke(uint64_t a1)
 
 - (void)presentAlertIfNeededBeforeDeletingFingerPrint:(id)print
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   printCopy = print;
   specifier = [(PABSFingerprintController *)self specifier];
   v6 = [specifier propertyForKey:@"BIOMETRIC_TEMPLATE_BINDING"];
@@ -100,11 +131,11 @@ void __44__PABSFingerprintController_viewWillAppear___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [printCopy propertyForKey:@"FingerprintIdentity"];
-    v13 = 138412546;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v6;
-    _os_log_impl(&dword_25E0E9000, v7, OS_LOG_TYPE_DEFAULT, "GovernmentID binding status for biometric: %@ is %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v6;
+    _os_log_impl(&dword_25E0E9000, v7, OS_LOG_TYPE_DEFAULT, "GovernmentID binding status for biometric: %@ is %@", &v12, 0x16u);
   }
 
   if (v6)
@@ -119,8 +150,8 @@ void __44__PABSFingerprintController_viewWillAppear___block_invoke(uint64_t a1)
       v11 = PABSLogForCategory(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v13) = 0;
-        _os_log_impl(&dword_25E0E9000, v11, OS_LOG_TYPE_DEFAULT, "Biometic is not bound to government ID, delete fingerprint directly", &v13, 2u);
+        LOWORD(v12) = 0;
+        _os_log_impl(&dword_25E0E9000, v11, OS_LOG_TYPE_DEFAULT, "Biometic is not bound to government ID, delete fingerprint directly", &v12, 2u);
       }
 
       [(PABSFingerprintController *)self deleteFingerprint:printCopy];
@@ -133,16 +164,14 @@ void __44__PABSFingerprintController_viewWillAppear___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [printCopy propertyForKey:@"FingerprintIdentity"];
-      v13 = 138412290;
-      v14 = v10;
-      _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "Have not determined biometric binding identity for biometric: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v10;
+      _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "Have not determined biometric binding identity for biometric: %@", &v12, 0xCu);
     }
 
     [(PSListController *)self configureSpin:1 ofCellForSpecifier:printCopy setEnabled:0];
     [(PABSFingerprintController *)self fetchBiometricTemplateForCurrentBiometricIdentity:printCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchBiometricTemplateForCurrentBiometricIdentity:(id)identity
@@ -187,7 +216,7 @@ void __79__PABSFingerprintController_fetchBiometricTemplateForCurrentBiometricId
 
 void __79__PABSFingerprintController_fetchBiometricTemplateForCurrentBiometricIdentity___block_invoke_2(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
 
   if (WeakRetained)
@@ -212,32 +241,32 @@ void __79__PABSFingerprintController_fetchBiometricTemplateForCurrentBiometricId
       {
         v7 = *(a1 + 48);
         *buf = 138412290;
-        v27 = v7;
+        v26 = v7;
         _os_log_impl(&dword_25E0E9000, v6, OS_LOG_TYPE_DEFAULT, "Fetched biometric template UUIDs: %@", buf, 0xCu);
       }
 
       if ([*(a1 + 48) count] && *(a1 + 48))
       {
         v8 = [*(a1 + 56) representedBiometricIdentity];
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
         v9 = *(a1 + 48);
-        v10 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v10)
         {
-          v11 = *v23;
+          v11 = *v22;
           while (2)
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v23 != v11)
+              if (*v22 != v11)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v13 = *(*(&v22 + 1) + 8 * i);
+              v13 = *(*(&v21 + 1) + 8 * i);
               v14 = [v8 uuid];
               v15 = [v13 isEqual:v14];
 
@@ -247,9 +276,9 @@ void __79__PABSFingerprintController_fetchBiometricTemplateForCurrentBiometricId
                 if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412546;
-                  v27 = v13;
-                  v28 = 2112;
-                  v29 = v8;
+                  v26 = v13;
+                  v27 = 2112;
+                  v28 = v8;
                   _os_log_impl(&dword_25E0E9000, v16, OS_LOG_TYPE_DEFAULT, "UUID: %@ matched with biometric identity: %@", buf, 0x16u);
                 }
 
@@ -258,7 +287,7 @@ void __79__PABSFingerprintController_fetchBiometricTemplateForCurrentBiometricId
               }
             }
 
-            v10 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v10 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
             if (v10)
             {
               continue;
@@ -289,8 +318,6 @@ LABEL_23:
       [v3 presentAlertIfNeededBeforeDeletingFingerPrint:*(a1 + 40)];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentAlertSheetForFingerprintBindingToGovernmentID:(id)d
@@ -543,7 +570,7 @@ void __48__PABSFingerprintController_replaceFingerprint___block_invoke_311(uint6
 
 void __48__PABSFingerprintController_replaceFingerprint___block_invoke_2_312(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (*(a1 + 32))
   {
@@ -557,34 +584,34 @@ void __48__PABSFingerprintController_replaceFingerprint___block_invoke_2_312(uin
   else
   {
     v3 = [*(a1 + 40) representedBiometricIdentity];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v4 = *(a1 + 48);
-    v5 = [v4 countByEnumeratingWithState:&v18 objects:v26 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v17 objects:v25 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
+          v10 = *(*(&v17 + 1) + 8 * i);
           v11 = [v3 uuid];
           LOBYTE(v10) = [v11 isEqual:v10];
 
           v7 |= v10;
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v17 objects:v25 count:16];
       }
 
       while (v6);
@@ -600,9 +627,9 @@ void __48__PABSFingerprintController_replaceFingerprint___block_invoke_2_312(uin
     {
       v13 = *(a1 + 48);
       *buf = 138412546;
-      v23 = v13;
-      v24 = 1024;
-      v25 = v7 & 1;
+      v22 = v13;
+      v23 = 1024;
+      v24 = v7 & 1;
       _os_log_impl(&dword_25E0E9000, v12, OS_LOG_TYPE_DEFAULT, "Replaced biometric identity with new UUIDs: %@, current identity binding status: %d", buf, 0x12u);
     }
 
@@ -613,8 +640,6 @@ void __48__PABSFingerprintController_replaceFingerprint___block_invoke_2_312(uin
     v16 = [*(a1 + 40) parentController];
     [v16 updateWithReplacedUUIDs:*(a1 + 48)];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteFingerprint:(id)fingerprint
@@ -724,7 +749,7 @@ void __47__PABSFingerprintController_deleteFingerprint___block_invoke_314(uint64
 
 void __61__PABSFingerprintController_proceedWithDeleteFingerprintFor___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = PABSLogForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -732,17 +757,16 @@ void __61__PABSFingerprintController_proceedWithDeleteFingerprintFor___block_inv
     v7 = [*(a1 + 32) identifier];
     v8 = [MEMORY[0x277CCABB0] numberWithBool:a2];
     v9 = [v5 description];
-    v11 = 138412802;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v9;
-    _os_log_impl(&dword_25E0E9000, v6, OS_LOG_TYPE_DEFAULT, "%@: Remove Identity: Result [%@] Error [%@] - Reloading Pane -", &v11, 0x20u);
+    v10 = 138412802;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v9;
+    _os_log_impl(&dword_25E0E9000, v6, OS_LOG_TYPE_DEFAULT, "%@: Remove Identity: Result [%@] Error [%@] - Reloading Pane -", &v10, 0x20u);
   }
 
   [*(a1 + 40) reloadSpecifiers];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fingerprintName
@@ -833,7 +857,7 @@ void __48__PABSFingerprintController_setFingerprintName___block_invoke_2()
 
 - (void)refreshDeleteFingerprintGroup
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = [(PABSFingerprintController *)self specifierForID:@"DELETE_FINGERPRINT"];
   v4 = [(PABSFingerprintController *)self getGroupSpecifierForSpecifier:v3];
   [(PABSFingerprintController *)self updateDeleteFingerGroupEnablementStatus:v3 deleteButtonSpecifier:v4];
@@ -841,13 +865,12 @@ void __48__PABSFingerprintController_setFingerprintName___block_invoke_2()
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [v4 identifier];
-    v8 = 138412290;
-    v9 = identifier;
-    _os_log_impl(&dword_25E0E9000, v5, OS_LOG_TYPE_DEFAULT, "%@: - Reloading -", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = identifier;
+    _os_log_impl(&dword_25E0E9000, v5, OS_LOG_TYPE_DEFAULT, "%@: - Reloading -", &v7, 0xCu);
   }
 
   [(PABSFingerprintController *)self reloadSpecifier:v4];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)mustDisableDeleteFingerprintButton
@@ -1004,22 +1027,20 @@ void __51__PABSFingerprintController_handleDTOStatusChanged__block_invoke(uint64
 
 void __79__PABSFingerprintController_fetchBiometricTemplateForCurrentBiometricIdentity___block_invoke_2_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_25E0E9000, a2, OS_LOG_TYPE_ERROR, "Failed fetching biometric template UUIDs with error: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_25E0E9000, a2, OS_LOG_TYPE_ERROR, "Failed fetching biometric template UUIDs with error: %@", &v3, 0xCu);
 }
 
 void __48__PABSFingerprintController_replaceFingerprint___block_invoke_2_312_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_25E0E9000, a2, OS_LOG_TYPE_ERROR, "Error replacing biometric identity: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_25E0E9000, a2, OS_LOG_TYPE_ERROR, "Error replacing biometric identity: %@", &v3, 0xCu);
 }
 
 @end

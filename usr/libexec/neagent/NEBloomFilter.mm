@@ -1,9 +1,12 @@
 @interface NEBloomFilter
++ (BOOL)containsWithBitmap:(char *)bitmap numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes murmurSeed:(unsigned int)seed value:(const char *)value;
 + (BOOL)mmapFromFile:(const char *)file bloomFilter:(ne_bloom_filter *)filter;
 + (char)mmapToFile:(const char *)file data:(char *)data dataLength:(unsigned int)length numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes murmurSeed:(unsigned int)seed tag:(id)tag;
 + (double)getFalsePositiveProbability:(unsigned int)probability numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes;
++ (void)insertWithBitmap:(char *)bitmap numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes murmurSeed:(unsigned int)seed value:(const char *)value;
 - (BOOL)contains:(id)contains;
 - (NEBloomFilter)initWithData:(id)data numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes murmurSeed:(unsigned int)seed mmapFilename:(id)filename tag:(id)tag;
+- (NEBloomFilter)initWithNumberOfItems:(unsigned int)items falsePositiveTolerance:(double)tolerance;
 - (id)getFilterTag;
 - (id)initFromFile:(id)file;
 - (void)insert:(id)insert;
@@ -42,6 +45,48 @@
   uTF8String = [insertCopy UTF8String];
 
   [NEBloomFilter insertWithBitmap:bytes numberOfBits:numberOfBits numberOfHashes:numberOfHashes murmurSeed:murmurSeed value:uTF8String];
+}
+
+- (NEBloomFilter)initWithNumberOfItems:(unsigned int)items falsePositiveTolerance:(double)tolerance
+{
+  v5 = *&items;
+  v15.receiver = self;
+  v15.super_class = NEBloomFilter;
+  v6 = [(NEBloomFilter *)&v15 init];
+  v7 = v6;
+  if (v6)
+  {
+    v8 = tolerance >= 1.0 || v5 == 0;
+    if (v8 || tolerance <= 0.0)
+    {
+      p_super = ne_log_obj();
+      if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v17 = v7;
+        _os_log_error_impl(&_mh_execute_header, p_super, OS_LOG_TYPE_ERROR, "%@ - initWithNumberOfItems: Invalid params", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v6->_numberOfItems = v5;
+      v6->_falsePositiveTolerance = tolerance;
+      v9 = [NEBloomFilter getNumberOfBits:v5 falsePositiveTolerance:tolerance];
+      v7->_numberOfBits = v9;
+      v7->_numberOfHashes = [NEBloomFilter getNumberOfHashes:v7->_numberOfItems numberOfBits:v9];
+      v7->_murmurSeed = arc4random();
+      v10 = [NSMutableData dataWithLength:[NEBitVector getByteCount:v7->_numberOfBits]];
+      bitVectorBuffer = v7->_bitVectorBuffer;
+      v7->_bitVectorBuffer = v10;
+
+      v12 = [[NEBitVector alloc] initWithBitMap:[(NSData *)v7->_bitVectorBuffer bytes] bitmapSize:[(NSData *)v7->_bitVectorBuffer length] bitCount:v7->_numberOfBits];
+      p_super = &v7->_bitVector->super;
+      v7->_bitVector = v12;
+    }
+  }
+
+  return v7;
 }
 
 - (id)initFromFile:(id)file
@@ -821,6 +866,66 @@ LABEL_31:
 
 LABEL_12:
   return v22;
+}
+
++ (BOOL)containsWithBitmap:(char *)bitmap numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes murmurSeed:(unsigned int)seed value:(const char *)value
+{
+  v8 = *&seed;
+  v10 = *&bits;
+  v12 = [NEFNVHash hashWithString:value];
+  v13 = [NEMurmurHash3 hashWithString:value seed:v8];
+  if (hashes)
+  {
+    v14 = v13;
+    v15 = [NEBitVector getBitAtIndexWithBitmap:bitmap bitCount:v10 index:v12 % v10];
+    if (v15)
+    {
+      v16 = v14 + v12;
+      v17 = 1;
+      while (hashes != v17)
+      {
+        v18 = [NEBitVector getBitAtIndexWithBitmap:bitmap bitCount:v10 index:v16 % v10];
+        ++v17;
+        v16 += v14;
+        if ((v18 & 1) == 0)
+        {
+          hashesCopy = v17 - 1;
+          goto LABEL_9;
+        }
+      }
+
+      hashesCopy = hashes;
+LABEL_9:
+      LOBYTE(v15) = hashesCopy >= hashes;
+    }
+  }
+
+  else
+  {
+    LOBYTE(v15) = 1;
+  }
+
+  return v15;
+}
+
++ (void)insertWithBitmap:(char *)bitmap numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes murmurSeed:(unsigned int)seed value:(const char *)value
+{
+  v8 = *&seed;
+  v10 = *&bits;
+  v12 = [NEFNVHash hashWithString:value];
+  v13 = [NEMurmurHash3 hashWithString:value seed:v8];
+  if (hashes)
+  {
+    v14 = v13;
+    do
+    {
+      [NEBitVector setBitAtIndexWithBitmap:bitmap bitCount:v10 index:v12 % v10 toValue:1];
+      v12 += v14;
+      --hashes;
+    }
+
+    while (hashes);
+  }
 }
 
 + (double)getFalsePositiveProbability:(unsigned int)probability numberOfBits:(unsigned int)bits numberOfHashes:(unsigned int)hashes

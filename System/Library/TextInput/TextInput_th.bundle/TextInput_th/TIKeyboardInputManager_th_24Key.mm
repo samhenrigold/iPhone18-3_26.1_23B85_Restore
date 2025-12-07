@@ -10,7 +10,6 @@
 - (id)rawInputString;
 - (id)wordCharacters;
 - (unint64_t)initialSelectedIndex;
-- (void)initializeKeyLayoutMaps;
 - (void)updateComposedText;
 @end
 
@@ -213,13 +212,6 @@ LABEL_8:
   }
 
   return candidate;
-}
-
-- (void)initializeKeyLayoutMaps
-{
-  keyLayoutMap = self->_keyLayoutMap;
-  self->_keyLayoutMap = &unk_2A252E458;
-  MEMORY[0x2A1C71028]();
 }
 
 - (NSDictionary)keyLayoutMap

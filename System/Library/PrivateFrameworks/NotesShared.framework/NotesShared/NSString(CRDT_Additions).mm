@@ -1,11 +1,11 @@
 @interface NSString(CRDT_Additions)
 - (uint64_t)initWithICCRCoder:()CRDT_Additions;
-- (uint64_t)mergeWith:()CRDT_Additions;
+- (void)mergeWith:()CRDT_Additions;
 @end
 
 @implementation NSString(CRDT_Additions)
 
-- (uint64_t)mergeWith:()CRDT_Additions
+- (void)mergeWith:()CRDT_Additions
 {
   result = [self isEqual:?];
   if ((result & 1) == 0)

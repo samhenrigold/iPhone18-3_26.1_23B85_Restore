@@ -48,6 +48,7 @@
 - (void)addTable:(id)table;
 - (void)dealloc;
 - (void)serialize:(id)serialize;
+- (void)setLogOperations:(BOOL)operations;
 - (void)updateLastUsedDate;
 @end
 
@@ -122,21 +123,8 @@
   {
     isFirstInstanceInProcess = objc_msgSend_isFirstInstanceInProcess(self, v5, v6);
     v26 = objc_msgSend_date(MEMORY[0x1E695DF00], v8, v9);
-    if (isFirstInstanceInProcess)
+    if ((isFirstInstanceInProcess & 1) != 0 || ((objc_msgSend_lastUsed(self, v10, v11), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_opt_class(), objc_msgSend_expirationTime(v13, v14, v15), v17 <= 0.0) ? (v18 = 86400.0) : (v18 = v17 * 0.05), objc_msgSend_timeIntervalSinceDate_(v26, v16, v12), v20 = v19, v12, v20 > v18))
     {
-      goto LABEL_7;
-    }
-
-    v12 = objc_msgSend_lastUsed(self, v10, v11);
-    v13 = objc_opt_class();
-    objc_msgSend_expirationTime(v13, v14, v15);
-    v18 = v17 <= 0.0 ? 86400.0 : v17 * 0.05;
-    objc_msgSend_timeIntervalSinceDate_(v26, v16, v12);
-    v20 = v19;
-
-    if (v20 > v18)
-    {
-LABEL_7:
       objc_msgSend_setLastUsed_(self, v10, v26);
       v23 = objc_msgSend_tocTableGroupTable(self, v21, v22);
       v25 = objc_msgSend_updateLastUsedDate_(v23, v24, self);
@@ -371,7 +359,7 @@ LABEL_10:
 
 + (id)purgeGroup:(id)group
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   groupCopy = group;
   v6 = objc_msgSend_tocTableGroupTable(groupCopy, v4, v5);
   v8 = objc_msgSend_invalidateGroup_(v6, v7, groupCopy);
@@ -392,16 +380,14 @@ LABEL_10:
     v12 = v11;
     v15 = objc_msgSend_name(groupCopy, v13, v14);
     v18 = objc_msgSend_groupID(groupCopy, v16, v17);
-    v21 = 138543874;
-    v22 = v15;
-    v23 = 2112;
-    v24 = v18;
-    v25 = 2114;
-    v26 = v8;
-    _os_log_impl(&dword_1883EA000, v12, OS_LOG_TYPE_INFO, "Purge of table group instance: %{public}@, groupID = %@, error = %{public}@", &v21, 0x20u);
+    v20 = 138543874;
+    v21 = v15;
+    v22 = 2112;
+    v23 = v18;
+    v24 = 2114;
+    v25 = v8;
+    _os_log_impl(&dword_1883EA000, v12, OS_LOG_TYPE_INFO, "Purge of table group instance: %{public}@, groupID = %@, error = %{public}@", &v20, 0x20u);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -434,39 +420,39 @@ LABEL_10:
 
 + (void)enumerateGroupEntriesInDatabase:(id)database block:(id)block
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   blockCopy = block;
-  v27 = databaseCopy;
+  v26 = databaseCopy;
   v10 = objc_msgSend_tocTableGroup(databaseCopy, v8, v9);
   v13 = objc_msgSend_tocTableGroupTable(v10, v11, v12);
   v14 = NSStringFromClass(self);
   v16 = objc_msgSend_tableGroupsWithClass_(v13, v15, v14);
 
-  v32 = 0;
+  v31 = 0;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v17 = v16;
-  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v28, v33, 16);
+  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v27, v32, 16);
   if (v19)
   {
     v20 = v19;
-    v21 = *v29;
+    v21 = *v28;
 LABEL_3:
     v22 = 0;
     while (1)
     {
-      if (*v29 != v21)
+      if (*v28 != v21)
       {
         objc_enumerationMutation(v17);
       }
 
-      v23 = *(*(&v28 + 1) + 8 * v22);
+      v23 = *(*(&v27 + 1) + 8 * v22);
       v24 = objc_autoreleasePoolPush();
-      blockCopy[2](blockCopy, v23, &v32);
-      LOBYTE(v23) = v32;
+      blockCopy[2](blockCopy, v23, &v31);
+      LOBYTE(v23) = v31;
       objc_autoreleasePoolPop(v24);
       if (v23)
       {
@@ -475,7 +461,7 @@ LABEL_3:
 
       if (v20 == ++v22)
       {
-        v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v25, &v28, v33, 16);
+        v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v25, &v27, v32, 16);
         if (v20)
         {
           goto LABEL_3;
@@ -485,8 +471,6 @@ LABEL_3:
       }
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 + (void)enumerateGroupsInDatabase:(id)database block:(id)block
@@ -792,6 +776,41 @@ LABEL_8:
   return hasFlag_database;
 }
 
+- (void)setLogOperations:(BOOL)operations
+{
+  operationsCopy = operations;
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v4 = objc_msgSend_allTables(self, a2, operations, 0);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v11, v15, 16);
+  if (v6)
+  {
+    v8 = v6;
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        objc_msgSend_setLogOperations_(*(*(&v11 + 1) + 8 * v10++), v7, operationsCopy);
+      }
+
+      while (v8 != v10);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v11, v15, 16);
+    }
+
+    while (v8);
+  }
+}
+
 - (BOOL)isFirstInstanceSinceBoot
 {
   if (self->_isNew)
@@ -809,36 +828,36 @@ LABEL_8:
 
 + (void)groupWillExpire:(id)expire
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = objc_msgSend_objectForKey_(expire, a2, CKSQLiteTableGroupExpiryFileRemovalKey);
   if (objc_msgSend_count(v3, v4, v5))
   {
     v8 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v6, v7);
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v20 = v3;
+    v19 = v3;
     v9 = v3;
-    v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v22, v30, 16);
+    v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v21, v29, 16);
     if (v11)
     {
       v13 = v11;
-      v14 = *v23;
+      v14 = *v22;
       do
       {
         v15 = 0;
         do
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(v9);
           }
 
-          v16 = *(*(&v22 + 1) + 8 * v15);
-          v21 = 0;
-          objc_msgSend_removeItemAtPath_error_(v8, v12, v16, &v21);
-          v17 = v21;
+          v16 = *(*(&v21 + 1) + 8 * v15);
+          v20 = 0;
+          objc_msgSend_removeItemAtPath_error_(v8, v12, v16, &v20);
+          v17 = v20;
           if (v17)
           {
             if (ck_log_initialization_predicate != -1)
@@ -850,9 +869,9 @@ LABEL_8:
             if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v27 = v16;
-              v28 = 2114;
-              v29 = v17;
+              v26 = v16;
+              v27 = 2114;
+              v28 = v17;
               _os_log_error_impl(&dword_1883EA000, v18, OS_LOG_TYPE_ERROR, "failed to remove at path: %{public}@ error=%{public}@", buf, 0x16u);
             }
           }
@@ -861,21 +880,19 @@ LABEL_8:
         }
 
         while (v13 != v15);
-        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v22, v30, 16);
+        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v21, v29, 16);
       }
 
       while (v13);
     }
 
-    v3 = v20;
+    v3 = v19;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 + (void)expireGroup:(id)group reason:(id)reason database:(id)database
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   groupCopy = group;
   reasonCopy = reason;
   databaseCopy = database;
@@ -889,11 +906,11 @@ LABEL_8:
   {
     v14 = v11;
     v17 = objc_msgSend_name(groupCopy, v15, v16);
-    v30 = 138543618;
-    v31 = v17;
-    v32 = 2114;
-    v33 = reasonCopy;
-    _os_log_impl(&dword_1883EA000, v14, OS_LOG_TYPE_INFO, "Table group: %{public}@ expired due to: %{public}@", &v30, 0x16u);
+    v29 = 138543618;
+    v30 = v17;
+    v31 = 2114;
+    v32 = reasonCopy;
+    _os_log_impl(&dword_1883EA000, v14, OS_LOG_TYPE_INFO, "Table group: %{public}@ expired due to: %{public}@", &v29, 0x16u);
   }
 
   v20 = objc_msgSend_groupData(groupCopy, v12, v13);
@@ -916,11 +933,11 @@ LABEL_8:
     {
       v25 = v23;
       v26 = NSStringFromClass(v22);
-      v30 = 138543618;
-      v31 = v26;
-      v32 = 2114;
-      v33 = v20;
-      _os_log_impl(&dword_1883EA000, v25, OS_LOG_TYPE_INFO, "Notifying class %{public}@ of group expiry. groupData = %{public}@", &v30, 0x16u);
+      v29 = 138543618;
+      v30 = v26;
+      v31 = 2114;
+      v32 = v20;
+      _os_log_impl(&dword_1883EA000, v25, OS_LOG_TYPE_INFO, "Notifying class %{public}@ of group expiry. groupData = %{public}@", &v29, 0x16u);
     }
 
     objc_msgSend_groupWillExpire_(v22, v24, v20);
@@ -928,8 +945,6 @@ LABEL_8:
 
   v27 = objc_msgSend_name(groupCopy, v18, v19);
   objc_msgSend_purgeGroupWithName_inDatabase_(self, v28, v27, databaseCopy);
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (id)prepareNewTables
@@ -1038,30 +1053,14 @@ LABEL_8:
 
 - (id)prepareExistingTables:(id)tables
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   tablesCopy = tables;
   v7 = objc_msgSend_tocTable(self, v5, v6);
   v11 = objc_msgSend_groupID(self, v8, v9);
   if (tablesCopy)
   {
-    v52 = 0;
-    obj = objc_msgSend_validationTocEntriesWithGroupID_error_(v7, v10, v11, &v52);
-    v12 = v52;
-
-    if (v12)
-    {
-      goto LABEL_19;
-    }
-
-    v43 = v7;
-    v46 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v45 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  }
-
-  else
-  {
     v51 = 0;
-    obj = objc_msgSend_tocEntriesWithGroupID_error_(v7, v10, v11, &v51);
+    obj = objc_msgSend_validationTocEntriesWithGroupID_error_(v7, v10, v11, &v51);
     v12 = v51;
 
     if (v12)
@@ -1069,33 +1068,49 @@ LABEL_8:
       goto LABEL_19;
     }
 
-    v43 = v7;
-    v45 = 0;
-    v46 = 0;
+    v42 = v7;
+    v45 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v44 = objc_alloc_init(MEMORY[0x1E695DF90]);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
+  else
+  {
+    v50 = 0;
+    obj = objc_msgSend_tocEntriesWithGroupID_error_(v7, v10, v11, &v50);
+    v12 = v50;
+
+    if (v12)
+    {
+      goto LABEL_19;
+    }
+
+    v42 = v7;
+    v44 = 0;
+    v45 = 0;
+  }
+
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   obj = obj;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v13, &v47, v53, 16);
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v13, &v46, v52, 16);
   if (v14)
   {
     v17 = v14;
-    v18 = *v48;
+    v18 = *v47;
     do
     {
       for (i = 0; i != v17; ++i)
       {
         v20 = tablesCopy;
-        if (*v48 != v18)
+        if (*v47 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v47 + 1) + 8 * i);
-        v22 = objc_msgSend_logicalTableName(v21, v15, v16, v43);
+        v21 = *(*(&v46 + 1) + 8 * i);
+        v22 = objc_msgSend_logicalTableName(v21, v15, v16, v42);
         v24 = objc_msgSend_objectForKey_(self->_tablesByName, v23, v22);
         v27 = objc_msgSend_dbTableName(v21, v25, v26);
         objc_msgSend_setDbTableName_(v24, v28, v27);
@@ -1105,12 +1120,12 @@ LABEL_8:
         tablesCopy = v20;
         if (v20)
         {
-          objc_msgSend_addObject_(v46, v33, v22);
-          objc_msgSend_setObject_forKey_(v45, v34, v21, v22);
+          objc_msgSend_addObject_(v45, v33, v22);
+          objc_msgSend_setObject_forKey_(v44, v34, v21, v22);
         }
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v47, v53, 16);
+      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v46, v52, 16);
     }
 
     while (v17);
@@ -1119,24 +1134,23 @@ LABEL_8:
   if (tablesCopy)
   {
     v37 = objc_msgSend_allKeys(self->_tablesByName, v35, v36);
-    v38 = v46;
-    objc_msgSend_addObjectsFromArray_(v46, v39, v37);
+    v38 = v45;
+    objc_msgSend_addObjectsFromArray_(v45, v39, v37);
 
-    v40 = v45;
-    v12 = tablesCopy[2](tablesCopy, v46, v45);
-    v7 = v43;
+    v40 = v44;
+    v12 = tablesCopy[2](tablesCopy, v45, v44);
+    v7 = v42;
   }
 
   else
   {
     v12 = 0;
-    v7 = v43;
-    v40 = v45;
-    v38 = v46;
+    v7 = v42;
+    v40 = v44;
+    v38 = v45;
   }
 
 LABEL_19:
-  v41 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1173,68 +1187,68 @@ LABEL_19:
 
 - (id)migrateDataFromGroup:(id)group
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   groupCopy = group;
-  v69 = 0;
-  v70 = &v69;
-  v71 = 0x3032000000;
-  v72 = sub_1883EE21C;
-  v73 = sub_1883EF7B4;
-  v74 = 0;
+  v68 = 0;
+  v69 = &v68;
+  v70 = 0x3032000000;
+  v71 = sub_1883EE21C;
+  v72 = sub_1883EF7B4;
+  v73 = 0;
   v7 = objc_msgSend_allTables(self, v5, v6);
   v10 = objc_msgSend_allTables(groupCopy, v8, v9);
   v11 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v67 = 0u;
-  v68 = 0u;
   v66 = 0u;
+  v67 = 0u;
   v65 = 0u;
+  v64 = 0u;
   v12 = v7;
-  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v65, v84, 16);
+  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v64, v83, 16);
   if (v16)
   {
-    v17 = *v66;
+    v17 = *v65;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v66 != v17)
+        if (*v65 != v17)
         {
           objc_enumerationMutation(v12);
         }
 
-        v19 = objc_msgSend_logicalTableName(*(*(&v65 + 1) + 8 * i), v14, v15);
+        v19 = objc_msgSend_logicalTableName(*(*(&v64 + 1) + 8 * i), v14, v15);
         objc_msgSend_addObject_(v11, v20, v19);
       }
 
-      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v14, &v65, v84, 16);
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v14, &v64, v83, 16);
     }
 
     while (v16);
   }
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v21 = v10;
-  v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v61, v83, 16);
+  v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v60, v82, 16);
   if (v25)
   {
-    v26 = *v62;
+    v26 = *v61;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v62 != v26)
+        if (*v61 != v26)
         {
           objc_enumerationMutation(v21);
         }
 
-        v28 = objc_msgSend_logicalTableName(*(*(&v61 + 1) + 8 * j), v23, v24);
+        v28 = objc_msgSend_logicalTableName(*(*(&v60 + 1) + 8 * j), v23, v24);
         objc_msgSend_addObject_(v11, v29, v28);
       }
 
-      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v23, &v61, v83, 16);
+      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v23, &v60, v82, 16);
     }
 
     while (v25);
@@ -1244,16 +1258,16 @@ LABEL_19:
   if (v32 == objc_msgSend_count(v12, v33, v34) && v32 == objc_msgSend_count(v11, v35, v36))
   {
     v39 = objc_msgSend_db(self, v37, v38);
-    v57[0] = MEMORY[0x1E69E9820];
-    v57[1] = 3221225472;
-    v57[2] = sub_18868F2C4;
-    v57[3] = &unk_1E70BC0C0;
-    v58 = v21;
+    v56[0] = MEMORY[0x1E69E9820];
+    v56[1] = 3221225472;
+    v56[2] = sub_18868F2C4;
+    v56[3] = &unk_1E70BC0C0;
+    v57 = v21;
     selfCopy = self;
-    v60 = &v69;
-    v41 = objc_msgSend_performDatabaseTransaction_(v39, v40, v57);
+    v59 = &v68;
+    v41 = objc_msgSend_performDatabaseTransaction_(v39, v40, v56);
 
-    if (v70[5])
+    if (v69[5])
     {
       if (ck_log_initialization_predicate != -1)
       {
@@ -1263,17 +1277,17 @@ LABEL_19:
       v42 = ck_log_facility_sql;
       if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
-        v47 = objc_opt_class();
-        v48 = NSStringFromClass(v47);
-        v51 = objc_msgSend_name(self, v49, v50);
+        v46 = objc_opt_class();
+        v47 = NSStringFromClass(v46);
+        v50 = objc_msgSend_name(self, v48, v49);
         *buf = 138544130;
-        v76 = v48;
-        v77 = 2048;
+        v75 = v47;
+        v76 = 2048;
         selfCopy3 = self;
-        v79 = 2114;
-        v80 = v51;
-        v81 = 2114;
-        v82 = v41;
+        v78 = 2114;
+        v79 = v50;
+        v80 = 2114;
+        v81 = v41;
         _os_log_error_impl(&dword_1883EA000, v42, OS_LOG_TYPE_ERROR, "%{public}@(%p): Data migration failed for group: %{public}@: %{public}@", buf, 0x2Au);
       }
     }
@@ -1288,17 +1302,17 @@ LABEL_19:
       v43 = ck_log_facility_sql;
       if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        v52 = objc_opt_class();
-        v53 = NSStringFromClass(v52);
-        v56 = objc_msgSend_name(self, v54, v55);
+        v51 = objc_opt_class();
+        v52 = NSStringFromClass(v51);
+        v55 = objc_msgSend_name(self, v53, v54);
         *buf = 138544130;
-        v76 = v53;
-        v77 = 2048;
+        v75 = v52;
+        v76 = 2048;
         selfCopy3 = self;
-        v79 = 2114;
-        v80 = v56;
-        v81 = 2114;
-        v82 = v41;
+        v78 = 2114;
+        v79 = v55;
+        v80 = 2114;
+        v81 = v41;
         _os_log_error_impl(&dword_1883EA000, v43, OS_LOG_TYPE_ERROR, "%{public}@(%p): Data migration dropped data for group: %{public}@: %{public}@", buf, 0x2Au);
       }
 
@@ -1306,10 +1320,9 @@ LABEL_19:
     }
   }
 
-  v44 = v70[5];
+  v44 = v69[5];
 
-  _Block_object_dispose(&v69, 8);
-  v45 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v68, 8);
 
   return v44;
 }
@@ -1391,15 +1404,15 @@ LABEL_19:
 
 - (id)performDataMigration
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   if (objc_msgSend_shouldMigrateData(v3, v4, v5))
   {
     v8 = objc_msgSend_db(self, v6, v7);
     v11 = objc_msgSend_name(self, v9, v10);
-    v51 = 0;
-    v13 = objc_msgSend_tableGroupInDatabase_withName_error_(CKSQLiteGenericTableGroup, v12, v8, v11, &v51);
-    v14 = v51;
+    v50 = 0;
+    v13 = objc_msgSend_tableGroupInDatabase_withName_error_(CKSQLiteGenericTableGroup, v12, v8, v11, &v50);
+    v14 = v50;
 
     if (v14)
     {
@@ -1408,34 +1421,34 @@ LABEL_19:
 
     else
     {
-      v50 = 0;
-      v16 = objc_msgSend_copyOfTableGroup_options_error_(CKSQLiteGenericTableGroup, v15, v13, 0, &v50);
-      v18 = v50;
+      v49 = 0;
+      v16 = objc_msgSend_copyOfTableGroup_options_error_(CKSQLiteGenericTableGroup, v15, v13, 0, &v49);
+      v18 = v49;
       if (v18)
       {
         goto LABEL_6;
       }
 
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
       v47 = 0u;
+      v48 = 0u;
+      v45 = 0u;
+      v46 = 0u;
       v21 = objc_msgSend_allTables(v13, v19, v20);
-      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v46, v56, 16);
+      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v45, v55, 16);
       if (v23)
       {
         v26 = v23;
-        v27 = *v47;
+        v27 = *v46;
         while (2)
         {
           for (i = 0; i != v26; ++i)
           {
-            if (*v47 != v27)
+            if (*v46 != v27)
             {
               objc_enumerationMutation(v21);
             }
 
-            v29 = objc_msgSend_dbTableName(*(*(&v46 + 1) + 8 * i), v24, v25);
+            v29 = objc_msgSend_dbTableName(*(*(&v45 + 1) + 8 * i), v24, v25);
             v14 = objc_msgSend_dropTable_(v8, v30, v29);
 
             if (v14)
@@ -1445,7 +1458,7 @@ LABEL_19:
             }
           }
 
-          v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v46, v56, 16);
+          v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v24, &v45, v55, 16);
           if (v26)
           {
             continue;
@@ -1494,9 +1507,9 @@ LABEL_19:
       v37 = v36;
       v40 = objc_msgSend_name(self, v38, v39);
       *buf = 138543618;
-      v53 = v40;
-      v54 = 2114;
-      v55 = v14;
+      v52 = v40;
+      v53 = 2114;
+      v54 = v14;
       _os_log_error_impl(&dword_1883EA000, v37, OS_LOG_TYPE_ERROR, "Data migration for %{public}@ failed: %{public}@", buf, 0x16u);
 LABEL_29:
     }
@@ -1515,13 +1528,11 @@ LABEL_29:
       v37 = v41;
       v40 = objc_msgSend_name(self, v42, v43);
       *buf = 138543362;
-      v53 = v40;
+      v52 = v40;
       _os_log_impl(&dword_1883EA000, v37, OS_LOG_TYPE_INFO, "Data migration succeeded for %{public}@", buf, 0xCu);
       goto LABEL_29;
     }
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -1604,15 +1615,15 @@ LABEL_9:
 
 - (id)validateGroup:(id)group matches:(id)matches
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   groupCopy = group;
   matchesCopy = matches;
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   v8 = groupCopy;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v45, v49, 16);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v44, v48, 16);
   if (!v10)
   {
     v34 = 0;
@@ -1620,17 +1631,17 @@ LABEL_9:
   }
 
   v12 = v10;
-  v13 = *v46;
+  v13 = *v45;
   while (2)
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v46 != v13)
+      if (*v45 != v13)
       {
         objc_enumerationMutation(v8);
       }
 
-      v15 = *(*(&v45 + 1) + 8 * i);
+      v15 = *(*(&v44 + 1) + 8 * i);
       v16 = objc_msgSend_objectForKey_(self->_tablesByName, v11, v15);
       if (!v16)
       {
@@ -1663,13 +1674,13 @@ LABEL_16:
         v38 = v31;
         v36 = objc_msgSend_name(self, v32, v33);
         v41 = objc_msgSend_logicalTableName(v19, v39, v40);
-        v34 = objc_msgSend_validationErrorWithMessage_(CKPrettyError, v42, @"Table group %@ failed validation - version changed table %@ (%d vs %d)", v36, v41, v27, v38, v45);
+        v34 = objc_msgSend_validationErrorWithMessage_(CKPrettyError, v42, @"Table group %@ failed validation - version changed table %@ (%d vs %d)", v36, v41, v27, v38, v44);
 
         goto LABEL_16;
       }
     }
 
-    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v45, v49, 16);
+    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v44, v48, 16);
     v34 = 0;
     if (v12)
     {
@@ -1680,8 +1691,6 @@ LABEL_16:
   }
 
 LABEL_18:
-
-  v43 = *MEMORY[0x1E69E9840];
 
   return v34;
 }

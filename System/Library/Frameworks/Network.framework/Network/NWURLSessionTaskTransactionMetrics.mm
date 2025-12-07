@@ -76,7 +76,7 @@
     v10 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_connection_metadata_used_tfo";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s metadata must be http_connection", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -155,7 +155,7 @@ LABEL_29:
   *&buf[16] = __nw_http_connection_metadata_used_tfo_block_invoke;
   v24 = &unk_1E6A3A858;
   v25 = type;
-  if (_nw_protocol_metadata_get_handle(v6))
+  if (_nw_protocol_metadata_get_handle())
   {
     (*&buf[16])(buf);
   }
@@ -199,7 +199,7 @@ LABEL_12:
     v10 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_connection_metadata_is_unlisted_tracker";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s metadata must be http_connection", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -278,7 +278,7 @@ LABEL_29:
   *&buf[16] = __nw_http_connection_metadata_is_unlisted_tracker_block_invoke;
   v24 = &unk_1E6A3A858;
   v25 = type;
-  if (_nw_protocol_metadata_get_handle(v6))
+  if (_nw_protocol_metadata_get_handle())
   {
     (*&buf[16])(buf);
   }
@@ -391,7 +391,7 @@ LABEL_12:
     v10 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_connection_metadata_get_interface_name";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s metadata must be http_connection", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v23 = 0;
@@ -469,7 +469,7 @@ LABEL_27:
   v20 = __nw_http_connection_metadata_get_interface_name_block_invoke;
   v21 = &unk_1E6A3A858;
   v22 = buf;
-  if (_nw_protocol_metadata_get_handle(v6))
+  if (_nw_protocol_metadata_get_handle())
   {
     (v20)(v19);
   }
@@ -555,7 +555,7 @@ LABEL_31:
     v10 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_connection_metadata_is_multipath";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s metadata must be http_connection", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -634,7 +634,7 @@ LABEL_29:
   *&buf[16] = __nw_http_connection_metadata_is_multipath_block_invoke;
   v24 = &unk_1E6A3A858;
   v25 = type;
-  if (_nw_protocol_metadata_get_handle(v6))
+  if (_nw_protocol_metadata_get_handle())
   {
     (*&buf[16])(buf);
   }
@@ -678,7 +678,7 @@ LABEL_12:
     v10 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_connection_metadata_get_is_constrained";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s metadata must be http_connection", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -757,7 +757,7 @@ LABEL_29:
   *&buf[16] = __nw_http_connection_metadata_get_is_constrained_block_invoke;
   v24 = &unk_1E6A3A858;
   v25 = type;
-  if (_nw_protocol_metadata_get_handle(v6))
+  if (_nw_protocol_metadata_get_handle())
   {
     (*&buf[16])(buf);
   }
@@ -801,7 +801,7 @@ LABEL_12:
     v10 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_connection_metadata_get_is_expensive";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s metadata must be http_connection", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -880,7 +880,7 @@ LABEL_29:
   *&buf[16] = __nw_http_connection_metadata_get_is_expensive_block_invoke;
   v24 = &unk_1E6A3A858;
   v25 = type;
-  if (_nw_protocol_metadata_get_handle(v6))
+  if (_nw_protocol_metadata_get_handle())
   {
     (*&buf[16])(buf);
   }
@@ -924,7 +924,7 @@ LABEL_12:
     v10 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_connection_metadata_get_is_cellular";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s metadata must be http_connection", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -1003,7 +1003,7 @@ LABEL_29:
   *&buf[16] = __nw_http_connection_metadata_get_is_cellular_block_invoke;
   v24 = &unk_1E6A3A858;
   v25 = type;
-  if (_nw_protocol_metadata_get_handle(v6))
+  if (_nw_protocol_metadata_get_handle())
   {
     (*&buf[16])(buf);
   }
@@ -1047,7 +1047,7 @@ LABEL_12:
     v11 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_connection_metadata_get_tls_ciphersuite";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s metadata must be http_connection", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v27 = 0;
@@ -1125,7 +1125,7 @@ LABEL_27:
   v24 = __nw_http_connection_metadata_get_tls_ciphersuite_block_invoke;
   v25 = &unk_1E6A3A858;
   v26 = buf;
-  if (_nw_protocol_metadata_get_handle(v7))
+  if (_nw_protocol_metadata_get_handle())
   {
     (v24)(v23);
   }
@@ -1198,7 +1198,7 @@ LABEL_36:
     v11 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_connection_metadata_get_tls_protocol_version";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s metadata must be http_connection", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v27 = 0;
@@ -1276,7 +1276,7 @@ LABEL_27:
   v24 = __nw_http_connection_metadata_get_tls_protocol_version_block_invoke;
   v25 = &unk_1E6A3A858;
   v26 = buf;
-  if (_nw_protocol_metadata_get_handle(v7))
+  if (_nw_protocol_metadata_get_handle())
   {
     (v24)(v23);
   }
@@ -1341,11 +1341,11 @@ LABEL_36:
 
 - (id)remoteEndpoint
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (self)
   {
     connection_metadata = nw_http_transaction_metadata_get_connection_metadata(*(self + 104));
-    v2 = connection_metadata;
+    v3 = connection_metadata;
     if (!connection_metadata)
     {
       goto LABEL_6;
@@ -1353,23 +1353,23 @@ LABEL_36:
 
     if (nw_http_connection_metadata_get_privacy_stance(connection_metadata) == 2)
     {
-      establishment_report = nw_http_connection_metadata_get_establishment_report(v2);
+      establishment_report = nw_http_connection_metadata_get_establishment_report(v3);
       if (establishment_report)
       {
-        v4 = establishment_report;
+        v5 = establishment_report;
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v27 = __Block_byref_object_copy__28965;
-        v28 = __Block_byref_object_dispose__28966;
-        v29 = 0;
-        v19[0] = MEMORY[0x1E69E9820];
-        v19[1] = 3221225472;
-        v19[2] = __52__NWURLSessionTaskTransactionMetrics_remoteEndpoint__block_invoke;
-        v19[3] = &unk_1E6A2FF20;
-        v19[4] = buf;
-        nw_establishment_report_enumerate_proxied_next_hop_endpoints(establishment_report, v19);
-        v5 = *(*&buf[8] + 40);
+        v28 = __Block_byref_object_copy__28965;
+        v29 = __Block_byref_object_dispose__28966;
+        v30 = 0;
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __52__NWURLSessionTaskTransactionMetrics_remoteEndpoint__block_invoke;
+        v20[3] = &unk_1E6A2FF20;
+        v20[4] = buf;
+        nw_establishment_report_enumerate_proxied_next_hop_endpoints(establishment_report, v20);
+        v6 = *(*&buf[8] + 40);
         _Block_object_dispose(buf, 8);
 
 LABEL_14:
@@ -1377,122 +1377,122 @@ LABEL_14:
       }
 
 LABEL_6:
-      v5 = 0;
+      v6 = 0;
       goto LABEL_14;
     }
 
-    v6 = v2;
-    v7 = nw_protocol_copy_http_connection_definition_onceToken;
-    v8 = v6;
-    if (v7 != -1)
+    v7 = v3;
+    v8 = nw_protocol_copy_http_connection_definition_onceToken;
+    v9 = v7;
+    if (v8 != -1)
     {
       dispatch_once(&nw_protocol_copy_http_connection_definition_onceToken, &__block_literal_global_106);
     }
 
-    v9 = nw_protocol_metadata_matches_definition(v8, nw_protocol_copy_http_connection_definition_definition);
+    v10 = nw_protocol_metadata_matches_definition(v9, nw_protocol_copy_http_connection_definition_definition);
 
-    if (v9)
+    if (v10)
     {
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v27 = __Block_byref_object_copy__75915;
-      v28 = __Block_byref_object_dispose__75916;
-      v29 = 0;
+      v28 = __Block_byref_object_copy__75915;
+      v29 = __Block_byref_object_dispose__75916;
+      v30 = 0;
       *type = MEMORY[0x1E69E9820];
-      v21 = 3221225472;
-      v22 = __nw_http_connection_metadata_get_remote_endpoint_block_invoke;
-      v23 = &unk_1E6A3A858;
-      v24 = buf;
-      if (_nw_protocol_metadata_get_handle(v8))
+      v22 = 3221225472;
+      v23 = __nw_http_connection_metadata_get_remote_endpoint_block_invoke;
+      v24 = &unk_1E6A3A858;
+      v25 = buf;
+      if (_nw_protocol_metadata_get_handle())
       {
-        (v22)(type);
+        (v23)(type);
       }
 
-      v5 = *(*&buf[8] + 40);
+      v6 = *(*&buf[8] + 40);
       _Block_object_dispose(buf, 8);
 
 LABEL_13:
       goto LABEL_14;
     }
 
-    v11 = __nwlog_obj();
+    v12 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_connection_metadata_get_remote_endpoint";
-    v12 = _os_log_send_and_compose_impl();
+    v13 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s metadata must be http_connection", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
-    v25 = 0;
-    if (__nwlog_fault(v12, type, &v25))
+    v26 = 0;
+    if (__nwlog_fault(v13, type, &v26))
     {
       if (type[0] == OS_LOG_TYPE_FAULT)
       {
-        v13 = __nwlog_obj();
-        v14 = type[0];
-        if (os_log_type_enabled(v13, type[0]))
+        v14 = __nwlog_obj();
+        v15 = type[0];
+        if (os_log_type_enabled(v14, type[0]))
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_connection_metadata_get_remote_endpoint";
-          _os_log_impl(&dword_181A37000, v13, v14, "%{public}s metadata must be http_connection", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v14, v15, "%{public}s metadata must be http_connection", buf, 0xCu);
         }
       }
 
-      else if (v25 == 1)
+      else if (v26 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
-        v13 = __nwlog_obj();
-        v16 = type[0];
-        v17 = os_log_type_enabled(v13, type[0]);
+        v14 = __nwlog_obj();
+        v17 = type[0];
+        v18 = os_log_type_enabled(v14, type[0]);
         if (backtrace_string)
         {
-          if (v17)
+          if (v18)
           {
             *buf = 136446466;
             *&buf[4] = "nw_http_connection_metadata_get_remote_endpoint";
             *&buf[12] = 2082;
             *&buf[14] = backtrace_string;
-            _os_log_impl(&dword_181A37000, v13, v16, "%{public}s metadata must be http_connection, dumping backtrace:%{public}s", buf, 0x16u);
+            _os_log_impl(&dword_181A37000, v14, v17, "%{public}s metadata must be http_connection, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
           free(backtrace_string);
           goto LABEL_34;
         }
 
-        if (v17)
+        if (v18)
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_connection_metadata_get_remote_endpoint";
-          _os_log_impl(&dword_181A37000, v13, v16, "%{public}s metadata must be http_connection, no backtrace", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v14, v17, "%{public}s metadata must be http_connection, no backtrace", buf, 0xCu);
         }
       }
 
       else
       {
-        v13 = __nwlog_obj();
-        v18 = type[0];
-        if (os_log_type_enabled(v13, type[0]))
+        v14 = __nwlog_obj();
+        v19 = type[0];
+        if (os_log_type_enabled(v14, type[0]))
         {
           *buf = 136446210;
           *&buf[4] = "nw_http_connection_metadata_get_remote_endpoint";
-          _os_log_impl(&dword_181A37000, v13, v18, "%{public}s metadata must be http_connection, backtrace limit exceeded", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v14, v19, "%{public}s metadata must be http_connection, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
 
 LABEL_34:
-    if (v12)
+    if (v13)
     {
-      free(v12);
+      free(v13);
     }
 
-    v5 = 0;
+    v6 = 0;
     goto LABEL_13;
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_15:
 
-  return v5;
+  return v6;
 }
 
 - (NSString)remoteAddress
@@ -1734,7 +1734,7 @@ LABEL_8:
     v11 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_connection_metadata_get_alpn";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s metadata must be http_connection", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v29 = 0;
@@ -1812,7 +1812,7 @@ LABEL_27:
   v26 = __nw_http_connection_metadata_get_alpn_block_invoke;
   v27 = &unk_1E6A3A858;
   v28 = buf;
-  if (_nw_protocol_metadata_get_handle(v7))
+  if (_nw_protocol_metadata_get_handle())
   {
     (v26)(v25);
   }
@@ -2009,11 +2009,11 @@ LABEL_40:
 
 - (void)computeConnectionTiming
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (self && (*(self + 97) & 1) == 0)
   {
     connection_metadata = nw_http_transaction_metadata_get_connection_metadata(*(self + 104));
-    v3 = connection_metadata;
+    v4 = connection_metadata;
     if (!connection_metadata)
     {
 LABEL_20:
@@ -2022,7 +2022,7 @@ LABEL_20:
     }
 
     establishment_report = nw_http_connection_metadata_get_establishment_report(connection_metadata);
-    v5 = establishment_report;
+    v6 = establishment_report;
     if (!establishment_report)
     {
 LABEL_19:
@@ -2031,8 +2031,8 @@ LABEL_19:
     }
 
     attempt_started_after_milliseconds = nw_establishment_report_get_attempt_started_after_milliseconds(establishment_report);
-    resolution_started_after_milliseconds = nw_establishment_report_get_resolution_started_after_milliseconds(v5);
-    flow_started_after_milliseconds = nw_establishment_report_get_flow_started_after_milliseconds(v5);
+    resolution_started_after_milliseconds = nw_establishment_report_get_resolution_started_after_milliseconds(v6);
+    flow_started_after_milliseconds = nw_establishment_report_get_flow_started_after_milliseconds(v6);
     *(self + 56) = resolution_started_after_milliseconds + attempt_started_after_milliseconds;
     *(self + 72) = flow_started_after_milliseconds + attempt_started_after_milliseconds;
     enumerate_block[0] = MEMORY[0x1E69E9820];
@@ -2040,42 +2040,42 @@ LABEL_19:
     enumerate_block[2] = __61__NWURLSessionTaskTransactionMetrics_computeConnectionTiming__block_invoke;
     enumerate_block[3] = &unk_1E6A2FED0;
     enumerate_block[4] = self;
-    nw_establishment_report_enumerate_resolution_reports(v5, enumerate_block);
+    nw_establishment_report_enumerate_resolution_reports(v6, enumerate_block);
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy__28965;
+    v28 = __Block_byref_object_dispose__28966;
+    v29 = 0;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
     v23 = 0;
-    v24 = &v23;
-    v25 = 0x3032000000;
-    v26 = __Block_byref_object_copy__28965;
-    v27 = __Block_byref_object_dispose__28966;
-    v28 = 0;
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
-    v22 = 0;
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __61__NWURLSessionTaskTransactionMetrics_computeConnectionTiming__block_invoke_1;
-    v18[3] = &unk_1E6A2FEF8;
-    v18[4] = &v23;
-    v18[5] = &v19;
-    nw_establishment_report_enumerate_protocols(v5, v18);
-    v9 = v24[5];
-    if (v9)
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __61__NWURLSessionTaskTransactionMetrics_computeConnectionTiming__block_invoke_1;
+    v19[3] = &unk_1E6A2FEF8;
+    v19[4] = &v24;
+    v19[5] = &v20;
+    nw_establishment_report_enumerate_protocols(v6, v19);
+    v10 = v25[5];
+    if (v10)
     {
-      v10 = nw_protocol_boringssl_copy_definition();
-      if (nw_protocol_definition_is_equal(v9, v10))
+      v11 = nw_protocol_boringssl_copy_definition();
+      if (nw_protocol_definition_is_equal(v10, v11))
       {
       }
 
       else
       {
-        v11 = v24[5];
+        v12 = v25[5];
         if (nw_protocol_copy_quic_connection_definition_onceToken != -1)
         {
           dispatch_once(&nw_protocol_copy_quic_connection_definition_onceToken, &__block_literal_global_30937);
         }
 
-        v12 = nw_protocol_copy_quic_connection_definition_quic_definition;
-        is_equal = nw_protocol_definition_is_equal(v11, v12);
+        v13 = nw_protocol_copy_quic_connection_definition_quic_definition;
+        is_equal = nw_protocol_definition_is_equal(v12, v13);
 
         if (!is_equal)
         {
@@ -2083,38 +2083,38 @@ LABEL_19:
         }
       }
 
-      *(self + 88) = v20[3];
+      *(self + 88) = v21[3];
       *(self + 96) = 1;
     }
 
 LABEL_12:
-    v14 = nw_establishment_report_get_duration_milliseconds(v5) - *(self + 72);
-    *(self + 80) = v14;
-    if (*(self + 88) > v14)
+    v15 = nw_establishment_report_get_duration_milliseconds(v6) - *(self + 72);
+    *(self + 80) = v15;
+    if (*(self + 88) > v15)
     {
       if (__nwlog_url_log::onceToken != -1)
       {
         dispatch_once(&__nwlog_url_log::onceToken, &__block_literal_global_72);
       }
 
-      v15 = gurlLogObj;
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v16 = gurlLogObj;
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v16 = *(self + 80);
-        v17 = *(self + 88);
+        v17 = *(self + 80);
+        v18 = *(self + 88);
         *buf = 134218240;
-        v31 = v17;
-        v32 = 2048;
-        v33 = v16;
-        _os_log_impl(&dword_181A37000, v15, OS_LOG_TYPE_INFO, "TLS (%llu ms) took longer than connect (%llu ms)", buf, 0x16u);
+        v32 = v18;
+        v33 = 2048;
+        v34 = v17;
+        _os_log_impl(&dword_181A37000, v16, OS_LOG_TYPE_INFO, "TLS (%llu ms) took longer than connect (%llu ms)", buf, 0x16u);
       }
 
       *(self + 88) = *(self + 80);
     }
 
     *(self + 97) = 1;
-    _Block_object_dispose(&v19, 8);
-    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v24, 8);
 
     goto LABEL_19;
   }
@@ -2310,7 +2310,7 @@ uint64_t __61__NWURLSessionTaskTransactionMetrics_computeConnectionTiming__block
         v36 = __nw_http_transaction_metadata_get_converted_url_response_block_invoke;
         v37 = &unk_1E6A3A858;
         v38 = buf;
-        if (_nw_protocol_metadata_get_handle(v5))
+        if (_nw_protocol_metadata_get_handle())
         {
           (v36)(v35);
         }
@@ -2329,7 +2329,7 @@ uint64_t __61__NWURLSessionTaskTransactionMetrics_computeConnectionTiming__block
       v19 = __nwlog_obj();
       *buf = 136446210;
       *&buf[4] = "nw_http_transaction_metadata_get_converted_url_response";
-      v20 = _os_log_send_and_compose_impl();
+      v20 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s metadata must be http_transaction", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v39 = 0;
@@ -2407,7 +2407,7 @@ LABEL_9:
   v27 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "nw_http_transaction_metadata_get_converted_url_response";
-  v28 = _os_log_send_and_compose_impl();
+  v28 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v27, 16, "%{public}s called with null metadata", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v39 = 0;
@@ -2559,7 +2559,7 @@ LABEL_24:
     v22 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_client_metadata_get_initial_request";
-    v23 = _os_log_send_and_compose_impl();
+    v23 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v22, 16, "%{public}s called with null metadata", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v34 = 0;
@@ -2644,7 +2644,7 @@ LABEL_53:
     v14 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_client_metadata_get_initial_request";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s metadata must be http_client", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v34 = 0;
@@ -2723,7 +2723,7 @@ LABEL_34:
   v31 = __nw_http_client_metadata_get_initial_request_block_invoke;
   v32 = &unk_1E6A3A858;
   v33 = buf;
-  if (_nw_protocol_metadata_get_handle(v11))
+  if (_nw_protocol_metadata_get_handle())
   {
     (v31)(v30);
   }

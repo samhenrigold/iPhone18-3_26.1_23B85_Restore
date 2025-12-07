@@ -1,3 +1,1382 @@
+void non-virtual thunk todi_log::logger<di_log::log_printer<392ul>>::~logger(uint64_t a1)
+{
+  v1 = a1 - 360;
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<392ul>>::~logger_buf(v1);
+
+  JUMPOUT(0x24C1ED6A0);
+}
+
+{
+  v2 = a1 - 360;
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<392ul>>::~logger_buf(v2);
+  MEMORY[0x24C1ED6A0](a1 + 8);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+void virtual thunk todi_log::logger<di_log::log_printer<392ul>>::~logger(void *a1)
+{
+  v1 = a1 + *(*a1 - 24);
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<392ul>>::~logger_buf(v1);
+
+  JUMPOUT(0x24C1ED6A0);
+}
+
+{
+  v1 = a1 + *(*a1 - 24);
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<392ul>>::~logger_buf(v1);
+  MEMORY[0x24C1ED6A0](v1 + 368);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+void di_log::logger<di_log::log_printer<392ul>>::~logger(uint64_t a1)
+{
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<392ul>>::~logger_buf(a1);
+  MEMORY[0x24C1ED6A0](a1 + 368);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<392ul>>::xsputn(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (*(a1 + 64) == 1)
+  {
+    std::ostream::write();
+  }
+
+  return a3;
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<392ul>>::overflow(_BYTE *a1, int a2)
+{
+  v2 = a2;
+  if (a1[64] == 1)
+  {
+    if (a2 == -1)
+    {
+      (*(*a1 + 48))(a1);
+    }
+
+    else
+    {
+      std::ostream::put();
+    }
+  }
+
+  return v2;
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<392ul>>::~logger_buf(uint64_t a1)
+{
+  *a1 = &unk_285BFB328;
+  di_log::logger_buf<di_log::log_printer<392ul>>::_sync(a1);
+  v2 = MEMORY[0x277D82828];
+  v3 = *MEMORY[0x277D82828];
+  *(a1 + 96) = *MEMORY[0x277D82828];
+  *(a1 + 96 + *(v3 - 24)) = *(v2 + 24);
+  *(a1 + 104) = MEMORY[0x277D82878] + 16;
+  if (*(a1 + 191) < 0)
+  {
+    operator delete(*(a1 + 168));
+  }
+
+  *(a1 + 104) = MEMORY[0x277D82868] + 16;
+  std::locale::~locale((a1 + 112));
+  std::ostream::~ostream();
+  MEMORY[0x24C1ED6A0](a1 + 208);
+  *a1 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale((a1 + 8));
+  return a1;
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<392ul>>::_sync(uint64_t a1)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 64) == 1)
+  {
+    v2 = (a1 + 96);
+    v3 = a1 + 96 + *(*(a1 + 96) - 24);
+    if ((*(v3 + 32) & 5) == 0)
+    {
+      (*(**(v3 + 40) + 32))(__p);
+      if (v7 >= 1)
+      {
+        std::stringbuf::str[abi:ne200100](a1 + 104, __p);
+        di_log::log_printer<392ul>::log((a1 + 72), __p);
+        if (v6 < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        std::ios_base::clear((v2 + *(*v2 - 24)), 0);
+        std::string::basic_string[abi:ne200100]<0>(__p, "");
+        std::stringbuf::str[abi:ne200100](a1 + 104, __p);
+        if (v6 < 0)
+        {
+          operator delete(__p[0]);
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+
+void sub_248F475DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void di_log::logger_buf<di_log::log_printer<392ul>>::~logger_buf(uint64_t a1)
+{
+  di_log::logger_buf<di_log::log_printer<392ul>>::~logger_buf(a1);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+int *di_log::log_printer<392ul>::log(uint64_t *a1, uint64_t *a2)
+{
+  v29 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 2);
+  v5 = *__error();
+  v6 = DIForwardLogs();
+  if (v6)
+  {
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
+    {
+      v10 = 3;
+    }
+
+    else
+    {
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
+    }
+
+    *buf = 68158466;
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 392;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
+    {
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
+    }
+  }
+
+  else
+  {
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
+    {
+      v17 = *a1;
+      if (*(a2 + 23) >= 0)
+      {
+        v18 = a2;
+      }
+
+      else
+      {
+        v18 = *a2;
+      }
+
+      *buf = 68158466;
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 392;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
+    }
+  }
+
+  result = __error();
+  *result = v5;
+  return result;
+}
+
+void non-virtual thunk todi_log::logger<di_log::log_printer<400ul>>::~logger(uint64_t a1)
+{
+  v1 = a1 - 360;
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<400ul>>::~logger_buf(v1);
+
+  JUMPOUT(0x24C1ED6A0);
+}
+
+{
+  v2 = a1 - 360;
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<400ul>>::~logger_buf(v2);
+  MEMORY[0x24C1ED6A0](a1 + 8);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+void virtual thunk todi_log::logger<di_log::log_printer<400ul>>::~logger(void *a1)
+{
+  v1 = a1 + *(*a1 - 24);
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<400ul>>::~logger_buf(v1);
+
+  JUMPOUT(0x24C1ED6A0);
+}
+
+{
+  v1 = a1 + *(*a1 - 24);
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<400ul>>::~logger_buf(v1);
+  MEMORY[0x24C1ED6A0](v1 + 368);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+void di_log::logger<di_log::log_printer<400ul>>::~logger(uint64_t a1)
+{
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<400ul>>::~logger_buf(a1);
+  MEMORY[0x24C1ED6A0](a1 + 368);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<400ul>>::xsputn(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (*(a1 + 64) == 1)
+  {
+    std::ostream::write();
+  }
+
+  return a3;
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<400ul>>::overflow(_BYTE *a1, int a2)
+{
+  v2 = a2;
+  if (a1[64] == 1)
+  {
+    if (a2 == -1)
+    {
+      (*(*a1 + 48))(a1);
+    }
+
+    else
+    {
+      std::ostream::put();
+    }
+  }
+
+  return v2;
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<400ul>>::~logger_buf(uint64_t a1)
+{
+  *a1 = &unk_285BFB548;
+  di_log::logger_buf<di_log::log_printer<400ul>>::_sync(a1);
+  v2 = MEMORY[0x277D82828];
+  v3 = *MEMORY[0x277D82828];
+  *(a1 + 96) = *MEMORY[0x277D82828];
+  *(a1 + 96 + *(v3 - 24)) = *(v2 + 24);
+  *(a1 + 104) = MEMORY[0x277D82878] + 16;
+  if (*(a1 + 191) < 0)
+  {
+    operator delete(*(a1 + 168));
+  }
+
+  *(a1 + 104) = MEMORY[0x277D82868] + 16;
+  std::locale::~locale((a1 + 112));
+  std::ostream::~ostream();
+  MEMORY[0x24C1ED6A0](a1 + 208);
+  *a1 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale((a1 + 8));
+  return a1;
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<400ul>>::_sync(uint64_t a1)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 64) == 1)
+  {
+    v2 = (a1 + 96);
+    v3 = a1 + 96 + *(*(a1 + 96) - 24);
+    if ((*(v3 + 32) & 5) == 0)
+    {
+      (*(**(v3 + 40) + 32))(__p);
+      if (v7 >= 1)
+      {
+        std::stringbuf::str[abi:ne200100](a1 + 104, __p);
+        di_log::log_printer<400ul>::log((a1 + 72), __p);
+        if (v6 < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        std::ios_base::clear((v2 + *(*v2 - 24)), 0);
+        std::string::basic_string[abi:ne200100]<0>(__p, "");
+        std::stringbuf::str[abi:ne200100](a1 + 104, __p);
+        if (v6 < 0)
+        {
+          operator delete(__p[0]);
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+
+void sub_248F47D74(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void di_log::logger_buf<di_log::log_printer<400ul>>::~logger_buf(uint64_t a1)
+{
+  di_log::logger_buf<di_log::log_printer<400ul>>::~logger_buf(a1);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+int *di_log::log_printer<400ul>::log(uint64_t *a1, uint64_t *a2)
+{
+  v29 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 2);
+  v5 = *__error();
+  v6 = DIForwardLogs();
+  if (v6)
+  {
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
+    {
+      v10 = 3;
+    }
+
+    else
+    {
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
+    }
+
+    *buf = 68158466;
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 400;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
+    {
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
+    }
+  }
+
+  else
+  {
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
+    {
+      v17 = *a1;
+      if (*(a2 + 23) >= 0)
+      {
+        v18 = a2;
+      }
+
+      else
+      {
+        v18 = *a2;
+      }
+
+      *buf = 68158466;
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 400;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
+    }
+  }
+
+  result = __error();
+  *result = v5;
+  return result;
+}
+
+void non-virtual thunk todi_log::logger<di_log::log_printer<409ul>>::~logger(uint64_t a1)
+{
+  v1 = a1 - 360;
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<409ul>>::~logger_buf(v1);
+
+  JUMPOUT(0x24C1ED6A0);
+}
+
+{
+  v2 = a1 - 360;
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<409ul>>::~logger_buf(v2);
+  MEMORY[0x24C1ED6A0](a1 + 8);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+void virtual thunk todi_log::logger<di_log::log_printer<409ul>>::~logger(void *a1)
+{
+  v1 = a1 + *(*a1 - 24);
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<409ul>>::~logger_buf(v1);
+
+  JUMPOUT(0x24C1ED6A0);
+}
+
+{
+  v1 = a1 + *(*a1 - 24);
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<409ul>>::~logger_buf(v1);
+  MEMORY[0x24C1ED6A0](v1 + 368);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+void di_log::logger<di_log::log_printer<409ul>>::~logger(uint64_t a1)
+{
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<409ul>>::~logger_buf(a1);
+  MEMORY[0x24C1ED6A0](a1 + 368);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<409ul>>::xsputn(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (*(a1 + 64) == 1)
+  {
+    std::ostream::write();
+  }
+
+  return a3;
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<409ul>>::overflow(_BYTE *a1, int a2)
+{
+  v2 = a2;
+  if (a1[64] == 1)
+  {
+    if (a2 == -1)
+    {
+      (*(*a1 + 48))(a1);
+    }
+
+    else
+    {
+      std::ostream::put();
+    }
+  }
+
+  return v2;
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<409ul>>::~logger_buf(uint64_t a1)
+{
+  *a1 = &unk_285BFB768;
+  di_log::logger_buf<di_log::log_printer<409ul>>::_sync(a1);
+  v2 = MEMORY[0x277D82828];
+  v3 = *MEMORY[0x277D82828];
+  *(a1 + 96) = *MEMORY[0x277D82828];
+  *(a1 + 96 + *(v3 - 24)) = *(v2 + 24);
+  *(a1 + 104) = MEMORY[0x277D82878] + 16;
+  if (*(a1 + 191) < 0)
+  {
+    operator delete(*(a1 + 168));
+  }
+
+  *(a1 + 104) = MEMORY[0x277D82868] + 16;
+  std::locale::~locale((a1 + 112));
+  std::ostream::~ostream();
+  MEMORY[0x24C1ED6A0](a1 + 208);
+  *a1 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale((a1 + 8));
+  return a1;
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<409ul>>::_sync(uint64_t a1)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 64) == 1)
+  {
+    v2 = (a1 + 96);
+    v3 = a1 + 96 + *(*(a1 + 96) - 24);
+    if ((*(v3 + 32) & 5) == 0)
+    {
+      (*(**(v3 + 40) + 32))(__p);
+      if (v7 >= 1)
+      {
+        std::stringbuf::str[abi:ne200100](a1 + 104, __p);
+        di_log::log_printer<409ul>::log((a1 + 72), __p);
+        if (v6 < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        std::ios_base::clear((v2 + *(*v2 - 24)), 0);
+        std::string::basic_string[abi:ne200100]<0>(__p, "");
+        std::stringbuf::str[abi:ne200100](a1 + 104, __p);
+        if (v6 < 0)
+        {
+          operator delete(__p[0]);
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+
+void sub_248F4850C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void di_log::logger_buf<di_log::log_printer<409ul>>::~logger_buf(uint64_t a1)
+{
+  di_log::logger_buf<di_log::log_printer<409ul>>::~logger_buf(a1);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+int *di_log::log_printer<409ul>::log(uint64_t *a1, uint64_t *a2)
+{
+  v29 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 2);
+  v5 = *__error();
+  v6 = DIForwardLogs();
+  if (v6)
+  {
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
+    {
+      v10 = 3;
+    }
+
+    else
+    {
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
+    }
+
+    *buf = 68158466;
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 409;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
+    {
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
+    }
+  }
+
+  else
+  {
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
+    {
+      v17 = *a1;
+      if (*(a2 + 23) >= 0)
+      {
+        v18 = a2;
+      }
+
+      else
+      {
+        v18 = *a2;
+      }
+
+      *buf = 68158466;
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 409;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
+    }
+  }
+
+  result = __error();
+  *result = v5;
+  return result;
+}
+
+void non-virtual thunk todi_log::logger<di_log::log_printer<416ul>>::~logger(uint64_t a1)
+{
+  v1 = a1 - 360;
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<416ul>>::~logger_buf(v1);
+
+  JUMPOUT(0x24C1ED6A0);
+}
+
+{
+  v2 = a1 - 360;
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<416ul>>::~logger_buf(v2);
+  MEMORY[0x24C1ED6A0](a1 + 8);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+void virtual thunk todi_log::logger<di_log::log_printer<416ul>>::~logger(void *a1)
+{
+  v1 = a1 + *(*a1 - 24);
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<416ul>>::~logger_buf(v1);
+
+  JUMPOUT(0x24C1ED6A0);
+}
+
+{
+  v1 = a1 + *(*a1 - 24);
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<416ul>>::~logger_buf(v1);
+  MEMORY[0x24C1ED6A0](v1 + 368);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+void di_log::logger<di_log::log_printer<416ul>>::~logger(uint64_t a1)
+{
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<416ul>>::~logger_buf(a1);
+  MEMORY[0x24C1ED6A0](a1 + 368);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<416ul>>::xsputn(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (*(a1 + 64) == 1)
+  {
+    std::ostream::write();
+  }
+
+  return a3;
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<416ul>>::overflow(_BYTE *a1, int a2)
+{
+  v2 = a2;
+  if (a1[64] == 1)
+  {
+    if (a2 == -1)
+    {
+      (*(*a1 + 48))(a1);
+    }
+
+    else
+    {
+      std::ostream::put();
+    }
+  }
+
+  return v2;
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<416ul>>::~logger_buf(uint64_t a1)
+{
+  *a1 = &unk_285BFB988;
+  di_log::logger_buf<di_log::log_printer<416ul>>::_sync(a1);
+  v2 = MEMORY[0x277D82828];
+  v3 = *MEMORY[0x277D82828];
+  *(a1 + 96) = *MEMORY[0x277D82828];
+  *(a1 + 96 + *(v3 - 24)) = *(v2 + 24);
+  *(a1 + 104) = MEMORY[0x277D82878] + 16;
+  if (*(a1 + 191) < 0)
+  {
+    operator delete(*(a1 + 168));
+  }
+
+  *(a1 + 104) = MEMORY[0x277D82868] + 16;
+  std::locale::~locale((a1 + 112));
+  std::ostream::~ostream();
+  MEMORY[0x24C1ED6A0](a1 + 208);
+  *a1 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale((a1 + 8));
+  return a1;
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<416ul>>::_sync(uint64_t a1)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 64) == 1)
+  {
+    v2 = (a1 + 96);
+    v3 = a1 + 96 + *(*(a1 + 96) - 24);
+    if ((*(v3 + 32) & 5) == 0)
+    {
+      (*(**(v3 + 40) + 32))(__p);
+      if (v7 >= 1)
+      {
+        std::stringbuf::str[abi:ne200100](a1 + 104, __p);
+        di_log::log_printer<416ul>::log((a1 + 72), __p);
+        if (v6 < 0)
+        {
+          operator delete(__p[0]);
+        }
+
+        std::ios_base::clear((v2 + *(*v2 - 24)), 0);
+        std::string::basic_string[abi:ne200100]<0>(__p, "");
+        std::stringbuf::str[abi:ne200100](a1 + 104, __p);
+        if (v6 < 0)
+        {
+          operator delete(__p[0]);
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+
+void sub_248F48CA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void di_log::logger_buf<di_log::log_printer<416ul>>::~logger_buf(uint64_t a1)
+{
+  di_log::logger_buf<di_log::log_printer<416ul>>::~logger_buf(a1);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+int *di_log::log_printer<416ul>::log(uint64_t *a1, uint64_t *a2)
+{
+  v29 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 2);
+  v5 = *__error();
+  v6 = DIForwardLogs();
+  if (v6)
+  {
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
+    {
+      v10 = 3;
+    }
+
+    else
+    {
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
+    }
+
+    *buf = 68158466;
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 416;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
+    {
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
+    }
+  }
+
+  else
+  {
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
+    {
+      v17 = *a1;
+      if (*(a2 + 23) >= 0)
+      {
+        v18 = a2;
+      }
+
+      else
+      {
+        v18 = *a2;
+      }
+
+      *buf = 68158466;
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 416;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
+    }
+  }
+
+  result = __error();
+  *result = v5;
+  return result;
+}
+
+void sparse_bundles::Band::ContextBand::~ContextBand(sparse_bundles::Band::ContextBand *this)
+{
+  *this = &unk_285BFBA08;
+  v1 = *(this + 3);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+{
+  *this = &unk_285BFBA08;
+  v1 = *(this + 3);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x24C1ED730);
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<47ul>>::logger_buf(uint64_t a1, __int128 *a2)
+{
+  *a1 = MEMORY[0x277D82868] + 16;
+  MEMORY[0x24C1ED600](a1 + 8);
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 16) = 0u;
+  *a1 = &unk_285BF99A8;
+  if (*(a2 + 4) == 2)
+  {
+    v4 = DIDebugLogsEnabled();
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  *(a1 + 64) = v4;
+  v5 = *a2;
+  *(a1 + 88) = *(a2 + 2);
+  *(a1 + 72) = v5;
+  std::ostringstream::basic_ostringstream[abi:ne200100]((a1 + 96));
+  return a1;
+}
+
+void sub_248F49054(_Unwind_Exception *a1)
+{
+  v1->__locale_ = v2;
+  std::locale::~locale(v1 + 1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<56ul>>::logger_buf(uint64_t a1, __int128 *a2)
+{
+  *a1 = MEMORY[0x277D82868] + 16;
+  MEMORY[0x24C1ED600](a1 + 8);
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 16) = 0u;
+  *a1 = &unk_285BF9BC8;
+  if (*(a2 + 4) == 2)
+  {
+    v4 = DIDebugLogsEnabled();
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  *(a1 + 64) = v4;
+  v5 = *a2;
+  *(a1 + 88) = *(a2 + 2);
+  *(a1 + 72) = v5;
+  std::ostringstream::basic_ostringstream[abi:ne200100]((a1 + 96));
+  return a1;
+}
+
+void sub_248F4911C(_Unwind_Exception *a1)
+{
+  v1->__locale_ = v2;
+  std::locale::~locale(v1 + 1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<63ul>>::logger_buf(uint64_t a1, __int128 *a2)
+{
+  *a1 = MEMORY[0x277D82868] + 16;
+  MEMORY[0x24C1ED600](a1 + 8);
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 16) = 0u;
+  *a1 = &unk_285BF9DE8;
+  if (*(a2 + 4) == 2)
+  {
+    v4 = DIDebugLogsEnabled();
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  *(a1 + 64) = v4;
+  v5 = *a2;
+  *(a1 + 88) = *(a2 + 2);
+  *(a1 + 72) = v5;
+  std::ostringstream::basic_ostringstream[abi:ne200100]((a1 + 96));
+  return a1;
+}
+
+void sub_248F491E4(_Unwind_Exception *a1)
+{
+  v1->__locale_ = v2;
+  std::locale::~locale(v1 + 1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<74ul>>::logger_buf(uint64_t a1, __int128 *a2)
+{
+  *a1 = MEMORY[0x277D82868] + 16;
+  MEMORY[0x24C1ED600](a1 + 8);
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 16) = 0u;
+  *a1 = &unk_285BFA008;
+  if (*(a2 + 4) == 2)
+  {
+    v4 = DIDebugLogsEnabled();
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  *(a1 + 64) = v4;
+  v5 = *a2;
+  *(a1 + 88) = *(a2 + 2);
+  *(a1 + 72) = v5;
+  std::ostringstream::basic_ostringstream[abi:ne200100]((a1 + 96));
+  return a1;
+}
+
+void sub_248F492AC(_Unwind_Exception *a1)
+{
+  v1->__locale_ = v2;
+  std::locale::~locale(v1 + 1);
+  _Unwind_Resume(a1);
+}
+
+void std::__shared_ptr_emplace<FileLocal>::__shared_ptr_emplace[abi:ne200100]<int,std::string,int &,std::allocator<FileLocal>,0>(void *a1, unsigned int *a2, const char *a3, int *a4)
+{
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = &unk_285BD6C38;
+  v5 = *a4;
+  v6 = FileDescriptorWrapper::open_from(*a2, a3, *a4 | 0x2000u);
+  FileLocal::FileLocal((a1 + 3), v6, (v5 & 3) != 0, 0);
+}
+
+void *std::__shared_ptr_emplace<crypto_format_backend>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<FileLocal> &,std::shared_ptr<crypto::format> const&,unsigned int,std::allocator<crypto_format_backend>,0>(void *a1, uint64_t *a2, void *a3, unsigned int *a4)
+{
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = &unk_285BD6E08;
+  std::construct_at[abi:ne200100]<crypto_format_backend,std::shared_ptr<FileLocal> &,std::shared_ptr<crypto::format> const&,unsigned int,crypto_format_backend*>((a1 + 3), a2, a3, a4);
+  return a1;
+}
+
+uint64_t std::construct_at[abi:ne200100]<crypto_format_backend,std::shared_ptr<FileLocal> &,std::shared_ptr<crypto::format> const&,unsigned int,crypto_format_backend*>(uint64_t a1, uint64_t *a2, void *a3, unsigned int *a4)
+{
+  v6 = a2[1];
+  v9 = *a2;
+  v10 = v6;
+  if (v6)
+  {
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  crypto_format_backend::header_ignore_fields_t::header_ignore_fields_t(&v8, *a4);
+  crypto_format_backend::crypto_format_backend(a1, &v9, a3, &v8);
+  if (v10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+  }
+
+  return a1;
+}
+
+void sub_248F49554(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
+{
+  if (a12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+_DWORD *crypto_format_backend::header_ignore_fields_t::header_ignore_fields_t(_DWORD *this, int a2)
+{
+  *this = a2;
+  if ((a2 & 0xFFFFFFFC) != 0)
+  {
+    v2 = a2 & 0xFFFFFFFC;
+    exception = __cxa_allocate_exception(0x28uLL);
+    exception[1] = "header_ignore_fields_t";
+    exception[2] = "invalid flags";
+    exception[3] = "flags validator";
+    *exception = &unk_285BD5790;
+    *(exception + 8) = v2;
+  }
+
+  return this;
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<124ul>>::logger_buf(uint64_t a1, __int128 *a2)
+{
+  *a1 = MEMORY[0x277D82868] + 16;
+  MEMORY[0x24C1ED600](a1 + 8);
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 16) = 0u;
+  *a1 = &unk_285BFA228;
+  if (*(a2 + 4) == 2)
+  {
+    v4 = DIDebugLogsEnabled();
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  *(a1 + 64) = v4;
+  v5 = *a2;
+  *(a1 + 88) = *(a2 + 2);
+  *(a1 + 72) = v5;
+  std::ostringstream::basic_ostringstream[abi:ne200100]((a1 + 96));
+  return a1;
+}
+
+void sub_248F496A4(_Unwind_Exception *a1)
+{
+  v1->__locale_ = v2;
+  std::locale::~locale(v1 + 1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<126ul>>::logger_buf(uint64_t a1, __int128 *a2)
+{
+  *a1 = MEMORY[0x277D82868] + 16;
+  MEMORY[0x24C1ED600](a1 + 8);
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 16) = 0u;
+  *a1 = &unk_285BFA448;
+  if (*(a2 + 4) == 2)
+  {
+    v4 = DIDebugLogsEnabled();
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  *(a1 + 64) = v4;
+  v5 = *a2;
+  *(a1 + 88) = *(a2 + 2);
+  *(a1 + 72) = v5;
+  std::ostringstream::basic_ostringstream[abi:ne200100]((a1 + 96));
+  return a1;
+}
+
+void sub_248F4976C(_Unwind_Exception *a1)
+{
+  v1->__locale_ = v2;
+  std::locale::~locale(v1 + 1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<162ul>>::logger_buf(uint64_t a1, __int128 *a2)
+{
+  *a1 = MEMORY[0x277D82868] + 16;
+  MEMORY[0x24C1ED600](a1 + 8);
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 16) = 0u;
+  *a1 = &unk_285BFA668;
+  if (*(a2 + 4) == 2)
+  {
+    v4 = DIDebugLogsEnabled();
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  *(a1 + 64) = v4;
+  v5 = *a2;
+  *(a1 + 88) = *(a2 + 2);
+  *(a1 + 72) = v5;
+  std::ostringstream::basic_ostringstream[abi:ne200100]((a1 + 96));
+  return a1;
+}
+
+void sub_248F49834(_Unwind_Exception *a1)
+{
+  v1->__locale_ = v2;
+  std::locale::~locale(v1 + 1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t di_log::logger_buf<di_log::log_printer<164ul>>::logger_buf(uint64_t a1, __int128 *a2)
+{
+  *a1 = MEMORY[0x277D82868] + 16;
+  MEMORY[0x24C1ED600](a1 + 8);
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 16) = 0u;
+  *a1 = &unk_285BFA888;
+  if (*(a2 + 4) == 2)
+  {
+    v4 = DIDebugLogsEnabled();
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  *(a1 + 64) = v4;
+  v5 = *a2;
+  *(a1 + 88) = *(a2 + 2);
+  *(a1 + 72) = v5;
+  std::ostringstream::basic_ostringstream[abi:ne200100]((a1 + 96));
+  return a1;
+}
+
+void sub_248F498FC(_Unwind_Exception *a1)
+{
+  v1->__locale_ = v2;
+  std::locale::~locale(v1 + 1);
+  _Unwind_Resume(a1);
+}
+
+void sub_248F4997C(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    DiskImage::extents_t::extents_t(v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::__shared_ptr_pointer<sparse_bundles::Band::ContextBand *,std::shared_ptr<sparse_bundles::Band::ContextBand>::__shared_ptr_default_delete<sparse_bundles::Band::ContextBand,sparse_bundles::Band::ContextBand>,std::allocator<sparse_bundles::Band::ContextBand>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x24C1ED730);
+}
+
+uint64_t std::__shared_ptr_pointer<sparse_bundles::Band::ContextBand *,std::shared_ptr<sparse_bundles::Band::ContextBand>::__shared_ptr_default_delete<sparse_bundles::Band::ContextBand,sparse_bundles::Band::ContextBand>,std::allocator<sparse_bundles::Band::ContextBand>>::__on_zero_shared(uint64_t a1)
+{
+  result = *(a1 + 24);
+  if (result)
+  {
+    return (*(*result + 40))();
+  }
+
+  return result;
+}
+
+uint64_t std::__shared_ptr_pointer<sparse_bundles::Band::ContextBand *,std::shared_ptr<sparse_bundles::Band::ContextBand>::__shared_ptr_default_delete<sparse_bundles::Band::ContextBand,sparse_bundles::Band::ContextBand>,std::allocator<sparse_bundles::Band::ContextBand>>::__get_deleter(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void std::__call_once_proxy[abi:ne200100]<std::tuple<sparse_bundles::Band::get_mapped_blocks(void)::$_0 &&>>(uint64_t ***a1)
+{
+  v1 = ***a1;
+  if (DIDebugLogsEnabled())
+  {
+    *&v3 = "sparse_bundles::Band::get_mapped_blocks()::(anonymous class)::operator()() const";
+    *(&v3 + 1) = 72;
+    LODWORD(v4) = 2;
+    di_log::logger<di_log::log_printer<229ul>>::logger(v7, &v3);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, "Opening mapped blocks for ", 26);
+    sparse_bundles::operator<<(&v8);
+    std::ostream::~ostream();
+    di_log::logger_buf<di_log::log_printer<229ul>>::~logger_buf(v7);
+    MEMORY[0x24C1ED6A0](&v9);
+  }
+
+  v2 = *(v1 + 40);
+  *&v3 = MEMORY[0x277D85DD0];
+  *(&v3 + 1) = 0x40000000;
+  v4 = ___ZZN14sparse_bundles4Band17get_mapped_blocksEvENK3__0clEv_block_invoke;
+  v5 = &__block_descriptor_tmp_814;
+  v6 = v1;
+  sparse_bundles::bundle_commons_t::run_in_high_tier(v2, &v3);
+}
+
+void *di_log::logger<di_log::log_printer<229ul>>::logger(void *a1, __int128 *a2)
+{
+  v3 = (a1 + 46);
+  a1[52] = 0;
+  a1[46] = MEMORY[0x277D828C0] + 16;
+  di_log::logger_buf<di_log::log_printer<229ul>>::logger_buf(a1, a2);
+  *a1 = &unk_285BFBAE0;
+  a1[45] = &unk_285BFBBE0;
+  a1[46] = &unk_285BFBC08;
+  std::ios_base::init(v3, a1);
+  a1[63] = 0;
+  *(a1 + 128) = -1;
+  *a1 = &unk_285BFBAE0;
+  a1[45] = &unk_285BFBB68;
+  a1[46] = &unk_285BFBB90;
+  return a1;
+}
+
+void sub_248F49CDC(_Unwind_Exception *a1)
+{
+  di_log::logger_buf<di_log::log_printer<229ul>>::~logger_buf(v1);
+  MEMORY[0x24C1ED6A0](v2);
+  _Unwind_Resume(a1);
+}
+
+uint64_t di_log::logger<di_log::log_printer<229ul>>::~logger(uint64_t a1)
+{
+  std::ostream::~ostream();
+  di_log::logger_buf<di_log::log_printer<229ul>>::~logger_buf(a1);
+  MEMORY[0x24C1ED6A0](a1 + 368);
+  return a1;
+}
+
+void sub_248F49E00(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
 void *di_log::logger<di_log::log_printer<236ul>>::logger(void *a1, __int128 *a2)
 {
   v3 = (a1 + 46);
@@ -170,7 +1549,7 @@ void di_log::logger_buf<di_log::log_printer<229ul>>::~logger_buf(uint64_t a1)
 
 uint64_t di_log::logger_buf<di_log::log_printer<229ul>>::_sync(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     v2 = (a1 + 96);
@@ -178,11 +1557,11 @@ uint64_t di_log::logger_buf<di_log::log_printer<229ul>>::_sync(uint64_t a1)
     if ((*(v3 + 32) & 5) == 0)
     {
       (*(**(v3 + 40) + 32))(__p);
-      if (v8 >= 1)
+      if (v7 >= 1)
       {
         std::stringbuf::str[abi:ne200100](a1 + 104, __p);
         di_log::log_printer<229ul>::log((a1 + 72), __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -190,7 +1569,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<229ul>>::_sync(uint64_t a1)
         std::ios_base::clear((v2 + *(*v2 - 24)), 0);
         std::string::basic_string[abi:ne200100]<0>(__p, "");
         std::stringbuf::str[abi:ne200100](a1 + 104, __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -198,7 +1577,6 @@ uint64_t di_log::logger_buf<di_log::log_printer<229ul>>::_sync(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -214,73 +1592,84 @@ void sub_248F4A5F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 int *di_log::log_printer<229ul>::log(uint64_t *a1, uint64_t *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 2);
   v5 = *__error();
-  if (DIForwardLogs())
+  v6 = DIForwardLogs();
+  if (v6)
   {
-    DIOSLog = getDIOSLog();
-    os_log_type_enabled(DIOSLog, *(a1 + 16));
-    v7 = *a1;
-    if (*(a2 + 23) >= 0)
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
     {
-      v8 = a2;
+      v10 = 3;
     }
 
     else
     {
-      v8 = *a2;
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
     }
 
     *buf = 68158466;
-    v18 = v4;
-    v19 = 2080;
-    v20 = v7;
-    v21 = 2048;
-    v22 = 229;
-    v23 = 2082;
-    v24 = v8;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 229;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
     {
-      v10 = v9;
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-      free(v10);
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
     }
   }
 
   else
   {
-    v11 = getDIOSLog();
-    v12 = *(a1 + 4);
-    if (os_log_type_enabled(v11, v12))
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
     {
-      v13 = *a1;
+      v17 = *a1;
       if (*(a2 + 23) >= 0)
       {
-        v14 = a2;
+        v18 = a2;
       }
 
       else
       {
-        v14 = *a2;
+        v18 = *a2;
       }
 
       *buf = 68158466;
-      v18 = v4;
-      v19 = 2080;
-      v20 = v13;
-      v21 = 2048;
-      v22 = 229;
-      v23 = 2082;
-      v24 = v14;
-      _os_log_impl(&dword_248DE0000, v11, v12, "%.*s: <%lu> %{public}s", buf, 0x26u);
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 229;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
     }
   }
 
   result = __error();
   *result = v5;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -423,7 +1812,7 @@ void di_log::logger_buf<di_log::log_printer<236ul>>::~logger_buf(uint64_t a1)
 
 uint64_t di_log::logger_buf<di_log::log_printer<236ul>>::_sync(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     v2 = (a1 + 96);
@@ -431,11 +1820,11 @@ uint64_t di_log::logger_buf<di_log::log_printer<236ul>>::_sync(uint64_t a1)
     if ((*(v3 + 32) & 5) == 0)
     {
       (*(**(v3 + 40) + 32))(__p);
-      if (v8 >= 1)
+      if (v7 >= 1)
       {
         std::stringbuf::str[abi:ne200100](a1 + 104, __p);
         di_log::log_printer<236ul>::log((a1 + 72), __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -443,7 +1832,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<236ul>>::_sync(uint64_t a1)
         std::ios_base::clear((v2 + *(*v2 - 24)), 0);
         std::string::basic_string[abi:ne200100]<0>(__p, "");
         std::stringbuf::str[abi:ne200100](a1 + 104, __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -451,7 +1840,6 @@ uint64_t di_log::logger_buf<di_log::log_printer<236ul>>::_sync(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -467,73 +1855,84 @@ void sub_248F4AE58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 int *di_log::log_printer<236ul>::log(uint64_t *a1, uint64_t *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 2);
   v5 = *__error();
-  if (DIForwardLogs())
+  v6 = DIForwardLogs();
+  if (v6)
   {
-    DIOSLog = getDIOSLog();
-    os_log_type_enabled(DIOSLog, *(a1 + 16));
-    v7 = *a1;
-    if (*(a2 + 23) >= 0)
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
     {
-      v8 = a2;
+      v10 = 3;
     }
 
     else
     {
-      v8 = *a2;
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
     }
 
     *buf = 68158466;
-    v18 = v4;
-    v19 = 2080;
-    v20 = v7;
-    v21 = 2048;
-    v22 = 236;
-    v23 = 2082;
-    v24 = v8;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 236;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
     {
-      v10 = v9;
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-      free(v10);
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
     }
   }
 
   else
   {
-    v11 = getDIOSLog();
-    v12 = *(a1 + 4);
-    if (os_log_type_enabled(v11, v12))
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
     {
-      v13 = *a1;
+      v17 = *a1;
       if (*(a2 + 23) >= 0)
       {
-        v14 = a2;
+        v18 = a2;
       }
 
       else
       {
-        v14 = *a2;
+        v18 = *a2;
       }
 
       *buf = 68158466;
-      v18 = v4;
-      v19 = 2080;
-      v20 = v13;
-      v21 = 2048;
-      v22 = 236;
-      v23 = 2082;
-      v24 = v14;
-      _os_log_impl(&dword_248DE0000, v11, v12, "%.*s: <%lu> %{public}s", buf, 0x26u);
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 236;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
     }
   }
 
   result = __error();
   *result = v5;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -846,14 +2245,14 @@ void sparse_bundles::eviction_t::complete_flush(sparse_bundles::eviction_t *this
   }
 }
 
-uint64_t sparse_bundles::open_bands_t::insert(sparse_bundles::open_bands_t *this, unint64_t a2)
+uint64_t sparse_bundles::open_bands_t::insert(char **this, unint64_t a2)
 {
   v19 = a2;
-  __lk.__m_ = (this + 24);
+  __lk.__m_ = (this + 3);
   __lk.__owns_ = 1;
-  std::mutex::lock((this + 24));
+  std::mutex::lock((this + 3));
   LOBYTE(v15[0]) = 0;
-  std::__tree<std::__value_type<unsigned long long,BOOL>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,BOOL>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,BOOL>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,BOOL>(this, &v19);
+  std::__tree<std::__value_type<unsigned long long,BOOL>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,BOOL>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,BOOL>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,BOOL>(this, &v19, &v19, v15);
   v4 = v3;
   if ((v3 & 1) == 0)
   {
@@ -873,8 +2272,8 @@ uint64_t sparse_bundles::open_bands_t::insert(sparse_bundles::open_bands_t *this
       MEMORY[0x24C1ED6A0](v17);
     }
 
-    v7 = *(this + 1);
-    v6 = this + 8;
+    v7 = this[1];
+    v6 = this + 1;
     v5 = v7;
     if (v7)
     {
@@ -900,17 +2299,17 @@ uint64_t sparse_bundles::open_bands_t::insert(sparse_bundles::open_bands_t *this
           break;
         }
 
-        if (v19 < *(v8 + 4))
+        if (v19 < v8[4])
         {
           break;
         }
 
-        if (v8[40])
+        if (v8[5])
         {
           break;
         }
 
-        std::condition_variable::wait((v6 + 80), &__lk);
+        std::condition_variable::wait((v6 + 10), &__lk);
         v5 = *v6;
       }
 
@@ -1130,53 +2529,51 @@ void sub_248F4C088(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sparse_bundles::bundle_commons_t::run_in_high_tier(uint64_t a1, uint64_t a2)
 {
-  v19[18] = *MEMORY[0x277D85DE8];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x4802000000;
-  v13 = __Block_byref_object_copy__8;
-  v14 = __Block_byref_object_dispose__8;
+  v18[18] = *MEMORY[0x277D85DE8];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x4802000000;
+  v12 = __Block_byref_object_copy__8;
+  v13 = __Block_byref_object_dispose__8;
   __p = 0;
+  v15 = 0;
   v16 = 0;
   v17 = 0;
-  v18 = 0;
-  workqueue::workqueue::create_transaction((a1 + 328), 0, v19);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 0x40000000;
-  v9[2] = ___ZN14sparse_bundles16bundle_commons_t16run_in_high_tierEU13block_pointerFvvE_block_invoke;
-  v9[3] = &unk_278F814B8;
-  v9[4] = a2;
-  v9[5] = &v10;
-  workqueue::transaction::add(v19, v9);
-  workqueue::transaction::~transaction(v19);
-  if (*(v11 + 16))
+  workqueue::workqueue::create_transaction(v18, (a1 + 328), 0);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 0x40000000;
+  v8[2] = ___ZN14sparse_bundles16bundle_commons_t16run_in_high_tierEU13block_pointerFvvE_block_invoke;
+  v8[3] = &unk_278F814B8;
+  v8[4] = a2;
+  v8[5] = &v9;
+  workqueue::transaction::add(v18, v8);
+  workqueue::transaction::~transaction(v18);
+  if (*(v10 + 16))
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    v5 = v11;
-    v6 = *(v11 + 16);
+    v4 = v10;
+    v5 = *(v10 + 16);
     *exception = &unk_285BF4E60;
-    v7 = std::generic_category();
-    *(exception + 1) = v6;
-    *(exception + 2) = v7;
-    v8 = v5[7];
-    *(exception + 24) = *(v5 + 5);
-    *(exception + 5) = v8;
-    v5[6] = 0;
-    v5[7] = 0;
-    v5[5] = 0;
+    v6 = std::generic_category();
+    *(exception + 1) = v5;
+    *(exception + 2) = v6;
+    v7 = v4[7];
+    *(exception + 24) = *(v4 + 5);
+    *(exception + 5) = v7;
+    v4[6] = 0;
+    v4[7] = 0;
+    v4[5] = 0;
     exception[48] = 1;
   }
 
-  _Block_object_dispose(&v10, 8);
-  if (SHIBYTE(v17) < 0)
+  _Block_object_dispose(&v9, 8);
+  if (SHIBYTE(v16) < 0)
   {
     operator delete(__p);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-void sub_248F4C340(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, char a27)
+void sub_248F4C340(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, char a27)
 {
   _Block_object_dispose(&a15, 8);
   if (a25 < 0)
@@ -1207,12 +2604,12 @@ void __Block_byref_object_dispose__8(uint64_t a1)
   }
 }
 
-uint64_t sparse_bundles::band_to_filename@<X0>(sparse_bundles *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *sparse_bundles::band_to_filename@<X0>(uint64_t *__return_ptr a1@<X8>, sparse_bundles *this@<X0>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v5);
   *(&v5 + *(v5 - 24) + 8) = *(&v5 + *(v5 - 24) + 8) & 0xFFFFFFB5 | 8;
   MEMORY[0x24C1ED3E0](&v5, this);
-  std::ostringstream::str[abi:ne200100](&v5, a2);
+  std::ostringstream::str[abi:ne200100](&v5, a1);
   v5 = *MEMORY[0x277D82828];
   *(&v5 + *(v5 - 24)) = *(MEMORY[0x277D82828] + 24);
   v6 = MEMORY[0x277D82878] + 16;
@@ -1227,11 +2624,11 @@ uint64_t sparse_bundles::band_to_filename@<X0>(sparse_bundles *this@<X0>, _BYTE 
   return MEMORY[0x24C1ED6A0](&v9);
 }
 
-void sub_248F4C650(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248F4C650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va, MEMORY[0x277D82828]);
-  MEMORY[0x24C1ED6A0](v2 + 112);
+  MEMORY[0x24C1ED6A0](v3 + 112);
   _Unwind_Resume(a1);
 }
 
@@ -1334,7 +2731,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<79ul>>::~logger_buf(uint64_t a1)
 
 uint64_t di_log::logger_buf<di_log::log_printer<79ul>>::_sync(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     v2 = a1 + 96;
@@ -1342,11 +2739,11 @@ uint64_t di_log::logger_buf<di_log::log_printer<79ul>>::_sync(uint64_t a1)
     if ((*(v3 + 32) & 5) == 0)
     {
       (*(**(v3 + 40) + 32))(__p);
-      if (v8 >= 1)
+      if (v7 >= 1)
       {
         std::ostringstream::str[abi:ne200100](v2, __p);
         di_log::log_printer<79ul>::log((a1 + 72), __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -1354,7 +2751,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<79ul>>::_sync(uint64_t a1)
         std::ios_base::clear((v2 + *(*(a1 + 96) - 24)), 0);
         std::string::basic_string[abi:ne200100]<0>(__p, "");
         std::stringbuf::str[abi:ne200100](a1 + 104, __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -1362,7 +2759,6 @@ uint64_t di_log::logger_buf<di_log::log_printer<79ul>>::_sync(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1385,73 +2781,84 @@ void di_log::logger_buf<di_log::log_printer<79ul>>::~logger_buf(uint64_t a1)
 
 int *di_log::log_printer<79ul>::log(uint64_t *a1, uint64_t *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 2);
   v5 = *__error();
-  if (DIForwardLogs())
+  v6 = DIForwardLogs();
+  if (v6)
   {
-    DIOSLog = getDIOSLog();
-    os_log_type_enabled(DIOSLog, *(a1 + 16));
-    v7 = *a1;
-    if (*(a2 + 23) >= 0)
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
     {
-      v8 = a2;
+      v10 = 3;
     }
 
     else
     {
-      v8 = *a2;
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
     }
 
     *buf = 68158466;
-    v18 = v4;
-    v19 = 2080;
-    v20 = v7;
-    v21 = 2048;
-    v22 = 79;
-    v23 = 2082;
-    v24 = v8;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 79;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
     {
-      v10 = v9;
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-      free(v10);
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
     }
   }
 
   else
   {
-    v11 = getDIOSLog();
-    v12 = *(a1 + 4);
-    if (os_log_type_enabled(v11, v12))
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
     {
-      v13 = *a1;
+      v17 = *a1;
       if (*(a2 + 23) >= 0)
       {
-        v14 = a2;
+        v18 = a2;
       }
 
       else
       {
-        v14 = *a2;
+        v18 = *a2;
       }
 
       *buf = 68158466;
-      v18 = v4;
-      v19 = 2080;
-      v20 = v13;
-      v21 = 2048;
-      v22 = 79;
-      v23 = 2082;
-      v24 = v14;
-      _os_log_impl(&dword_248DE0000, v11, v12, "%.*s: <%lu> %{public}s", buf, 0x26u);
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 79;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
     }
   }
 
   result = __error();
   *result = v5;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1554,7 +2961,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<98ul>>::~logger_buf(uint64_t a1)
 
 uint64_t di_log::logger_buf<di_log::log_printer<98ul>>::_sync(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     v2 = a1 + 96;
@@ -1562,11 +2969,11 @@ uint64_t di_log::logger_buf<di_log::log_printer<98ul>>::_sync(uint64_t a1)
     if ((*(v3 + 32) & 5) == 0)
     {
       (*(**(v3 + 40) + 32))(__p);
-      if (v8 >= 1)
+      if (v7 >= 1)
       {
         std::ostringstream::str[abi:ne200100](v2, __p);
         di_log::log_printer<98ul>::log((a1 + 72), __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -1574,7 +2981,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<98ul>>::_sync(uint64_t a1)
         std::ios_base::clear((v2 + *(*(a1 + 96) - 24)), 0);
         std::string::basic_string[abi:ne200100]<0>(__p, "");
         std::stringbuf::str[abi:ne200100](a1 + 104, __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -1582,7 +2989,6 @@ uint64_t di_log::logger_buf<di_log::log_printer<98ul>>::_sync(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1605,73 +3011,84 @@ void di_log::logger_buf<di_log::log_printer<98ul>>::~logger_buf(uint64_t a1)
 
 int *di_log::log_printer<98ul>::log(uint64_t *a1, uint64_t *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 2);
   v5 = *__error();
-  if (DIForwardLogs())
+  v6 = DIForwardLogs();
+  if (v6)
   {
-    DIOSLog = getDIOSLog();
-    os_log_type_enabled(DIOSLog, *(a1 + 16));
-    v7 = *a1;
-    if (*(a2 + 23) >= 0)
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
     {
-      v8 = a2;
+      v10 = 3;
     }
 
     else
     {
-      v8 = *a2;
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
     }
 
     *buf = 68158466;
-    v18 = v4;
-    v19 = 2080;
-    v20 = v7;
-    v21 = 2048;
-    v22 = 98;
-    v23 = 2082;
-    v24 = v8;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 98;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
     {
-      v10 = v9;
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-      free(v10);
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
     }
   }
 
   else
   {
-    v11 = getDIOSLog();
-    v12 = *(a1 + 4);
-    if (os_log_type_enabled(v11, v12))
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
     {
-      v13 = *a1;
+      v17 = *a1;
       if (*(a2 + 23) >= 0)
       {
-        v14 = a2;
+        v18 = a2;
       }
 
       else
       {
-        v14 = *a2;
+        v18 = *a2;
       }
 
       *buf = 68158466;
-      v18 = v4;
-      v19 = 2080;
-      v20 = v13;
-      v21 = 2048;
-      v22 = 98;
-      v23 = 2082;
-      v24 = v14;
-      _os_log_impl(&dword_248DE0000, v11, v12, "%.*s: <%lu> %{public}s", buf, 0x26u);
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 98;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
     }
   }
 
   result = __error();
   *result = v5;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1738,41 +3155,41 @@ std::string *__cdecl std::string::__assign_external(std::string *this, const std
   return std::string::__assign_external(this, __s, v4);
 }
 
-void *std::__tree<std::__value_type<unsigned long long,BOOL>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,BOOL>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,BOOL>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,BOOL>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<unsigned long long,BOOL>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,BOOL>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,BOOL>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,BOOL>(uint64_t a1, unint64_t *a2, void *a3, _BYTE *a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -1874,7 +3291,6 @@ void AEA_backend::AEA_backend(Backend *a1, uint64_t *a2, uint64_t *a3)
 
   (*(*v6 + 192))(v6);
   v8 = a3[1];
-  v9 = *a3;
   if (v8)
   {
     atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
@@ -1919,23 +3335,23 @@ void AEA_backend::create_streams(std::mutex **this, int a2)
   std::allocate_shared[abi:ne200100]<AEAwrapper::DecryptionStream,std::allocator<AEAwrapper::DecryptionStream>,AEAwrapper::ByteStream,AEAwrapper::Context,AEAwrapper::ByteStream,0>();
 }
 
-void sub_248F4DD40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_248F4DD40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v6 = va_arg(va1, AAByteStream);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v8 = va_arg(va1, AAByteStream);
   va_copy(va2, va1);
-  v8 = va_arg(va2, AEAContext);
+  v10 = va_arg(va2, AEAContext);
   AEAwrapper::ByteStream::~ByteStream(va);
-  if (v4)
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
   AEAwrapper::Context::~Context(va1);
   AEAwrapper::ByteStream::~ByteStream(va2);
-  std::mutex::unlock(v3);
+  std::mutex::unlock(v5);
   _Unwind_Resume(a1);
 }
 
@@ -2085,9 +3501,9 @@ void std::shared_ptr<AEA_backend::shared_state_t>::shared_ptr[abi:ne200100]<AEA_
   operator new();
 }
 
-void sub_248F4E200(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248F4E200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<AEA_backend::shared_state_t>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2297,57 +3713,57 @@ uint64_t Backend::read(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_248F4EA5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_248F4EA5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
-  if (a4)
+  va_start(va, a23);
+  if (a11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a11);
   }
 
   crypto::PerIOCrypto::sw_decryptable_sg_entry::~sw_decryptable_sg_entry(va);
   _Unwind_Resume(a1);
 }
 
-void get_sink_backend(uint64_t a1@<X0>, char ***a2@<X8>)
+void get_sink_backend(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   {
-    v7 = *(a1 + 8);
+    v6 = *(a1 + 8);
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v7 = *(v5 + 4);
+    v9[0] = *(v5 + 3);
+    v9[1] = v7;
     if (v7)
     {
       atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v8 = *(v6 + 4);
-    v10[0] = *(v6 + 3);
-    v10[1] = v8;
-    if (v8)
-    {
-      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    get_sink_backend(v10);
-    if (v8)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
-    }
-
+    get_sink_backend(v9, a2);
     if (v7)
     {
-
       std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    }
+
+    if (v6)
+    {
+
+      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
     }
   }
 
   else
   {
-    v9 = *(a1 + 8);
+    v8 = *(a1 + 8);
     *a2 = v4;
-    a2[1] = v9;
-    if (v9)
+    a2[1] = v8;
+    if (v8)
     {
-      atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
     }
   }
 }
@@ -2367,7 +3783,7 @@ void sub_248F4EBC0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t replace_internal_backend(uint64_t a1, char ***a2, uint64_t *a3)
+uint64_t replace_internal_backend(uint64_t a1, const void **a2, uint64_t *a3)
 {
   v4 = *a1;
   if (v4 == *a2)
@@ -2380,46 +3796,45 @@ uint64_t replace_internal_backend(uint64_t a1, char ***a2, uint64_t *a3)
     return 4294967294;
   }
 
-  v7 = **v4;
-  if (!v8)
+  if (!v7)
   {
     return 4294967294;
   }
 
-  v9 = *(a1 + 8);
-  if (v9)
+  v8 = *(a1 + 8);
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v10 = *(v8 + 3);
-  v11 = *(v8 + 4);
-  v17[0] = v10;
-  v17[1] = v11;
-  if (v11)
+  v9 = *(v7 + 3);
+  v10 = *(v7 + 4);
+  v16[0] = v9;
+  v16[1] = v10;
+  if (v10)
   {
-    atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  if (v10 == *a2)
+  if (v9 == *a2)
   {
-    v15 = *a3;
-    v14 = a3[1];
-    if (v14)
+    v14 = *a3;
+    v13 = a3[1];
+    if (v13)
     {
-      atomic_fetch_add_explicit((v14 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v16 = *(v8 + 4);
-    *(v8 + 3) = v15;
-    *(v8 + 4) = v14;
-    if (v16)
+    v15 = *(v7 + 4);
+    *(v7 + 3) = v14;
+    *(v7 + 4) = v13;
+    if (v15)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
     }
 
-    v12 = 0;
-    if (!v11)
+    v11 = 0;
+    if (!v10)
     {
       goto LABEL_11;
     }
@@ -2427,21 +3842,21 @@ uint64_t replace_internal_backend(uint64_t a1, char ***a2, uint64_t *a3)
 
   else
   {
-    v12 = replace_internal_backend(v17, a2, a3);
-    if (!v11)
+    v11 = replace_internal_backend(v16, a2, a3);
+    if (!v10)
     {
       goto LABEL_11;
     }
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v10);
 LABEL_11:
-  if (v9)
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  return v12;
+  return v11;
 }
 
 void sub_248F4ED20(_Unwind_Exception *exception_object)
@@ -2459,56 +3874,56 @@ void sub_248F4ED20(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void get_next_backend_in_graph(uint64_t a1@<X0>, char ***a2@<X8>)
+void get_next_backend_in_graph(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   {
-    v7 = v6;
-    v8 = *(a1 + 8);
-    if (v8)
+    v6 = v5;
+    v7 = *(a1 + 8);
+    if (v7)
     {
-      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v10 = v7[3];
-    v9 = v7[4];
-    *a2 = v10;
-    a2[1] = v9;
-    if (v9)
-    {
-      atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
-    }
-
+    v9 = v6[3];
+    v8 = v6[4];
+    *a2 = v9;
+    a2[1] = v8;
     if (v8)
     {
+      atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    }
 
-      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    if (v7)
+    {
+
+      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
     }
   }
 
   else
   {
-    v11 = *(a1 + 8);
+    v10 = *(a1 + 8);
     *a2 = v4;
-    a2[1] = v11;
-    if (v11)
+    a2[1] = v10;
+    if (v10)
     {
-      atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
     }
   }
 }
 
-void BackendSG::BackendSG(void *a1, void *a2, uint64_t a3)
+void BackendSG::BackendSG(void *a1, void *a2, uint64_t a3, uint64_t a4, char a5)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_285BD4DB0;
-  v3 = a2[1];
+  v5 = a2[1];
   a1[3] = *a2;
-  a1[4] = v3;
-  if (v3)
+  a1[4] = v5;
+  if (v5)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
   }
 
   *a1 = &unk_285BFC630;
@@ -2516,14 +3931,14 @@ void BackendSG::BackendSG(void *a1, void *a2, uint64_t a3)
   std::allocate_shared[abi:ne200100]<BufferAllocator,std::allocator<BufferAllocator>,unsigned long &,int,unsigned long &,0>();
 }
 
-void sub_248F4F09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_248F4F09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   di_log::logger<di_log::log_printer<146ul>>::~logger(va);
-  v6 = *(v4 - 40);
-  if (v6)
+  v9 = *(v7 - 40);
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
   _Unwind_Resume(a1);
@@ -2805,14 +4220,14 @@ LABEL_8:
   return v7;
 }
 
-void sub_248F4FB84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_248F4FB84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   di_log::logger<di_log::log_printer<218ul>>::~logger(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t BufferedWriteBackend::write(uint64_t a1, uint64_t a2)
+unint64_t BufferedWriteBackend::write(uint64_t a1, uint64_t a2)
 {
   if (*(a2 + 104) != 1 || *(a2 + 48) == 0)
   {
@@ -3222,7 +4637,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<146ul>>::~logger_buf(uint64_t a1
 
 uint64_t di_log::logger_buf<di_log::log_printer<146ul>>::_sync(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     v2 = a1 + 96;
@@ -3230,11 +4645,11 @@ uint64_t di_log::logger_buf<di_log::log_printer<146ul>>::_sync(uint64_t a1)
     if ((*(v3 + 32) & 5) == 0)
     {
       (*(**(v3 + 40) + 32))(__p);
-      if (v8 >= 1)
+      if (v7 >= 1)
       {
         std::ostringstream::str[abi:ne200100](v2, __p);
         di_log::log_printer<146ul>::log((a1 + 72), __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -3242,7 +4657,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<146ul>>::_sync(uint64_t a1)
         std::ios_base::clear((v2 + *(*(a1 + 96) - 24)), 0);
         std::string::basic_string[abi:ne200100]<0>(__p, "");
         std::stringbuf::str[abi:ne200100](a1 + 104, __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -3250,7 +4665,6 @@ uint64_t di_log::logger_buf<di_log::log_printer<146ul>>::_sync(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -3273,73 +4687,84 @@ void di_log::logger_buf<di_log::log_printer<146ul>>::~logger_buf(uint64_t a1)
 
 int *di_log::log_printer<146ul>::log(uint64_t *a1, uint64_t *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 2);
   v5 = *__error();
-  if (DIForwardLogs())
+  v6 = DIForwardLogs();
+  if (v6)
   {
-    DIOSLog = getDIOSLog();
-    os_log_type_enabled(DIOSLog, *(a1 + 16));
-    v7 = *a1;
-    if (*(a2 + 23) >= 0)
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
     {
-      v8 = a2;
+      v10 = 3;
     }
 
     else
     {
-      v8 = *a2;
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
     }
 
     *buf = 68158466;
-    v18 = v4;
-    v19 = 2080;
-    v20 = v7;
-    v21 = 2048;
-    v22 = 146;
-    v23 = 2082;
-    v24 = v8;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 146;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
     {
-      v10 = v9;
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-      free(v10);
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
     }
   }
 
   else
   {
-    v11 = getDIOSLog();
-    v12 = *(a1 + 4);
-    if (os_log_type_enabled(v11, v12))
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
     {
-      v13 = *a1;
+      v17 = *a1;
       if (*(a2 + 23) >= 0)
       {
-        v14 = a2;
+        v18 = a2;
       }
 
       else
       {
-        v14 = *a2;
+        v18 = *a2;
       }
 
       *buf = 68158466;
-      v18 = v4;
-      v19 = 2080;
-      v20 = v13;
-      v21 = 2048;
-      v22 = 146;
-      v23 = 2082;
-      v24 = v14;
-      _os_log_impl(&dword_248DE0000, v11, v12, "%.*s: <%lu> %{public}s", buf, 0x26u);
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 146;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
     }
   }
 
   result = __error();
   *result = v5;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3442,7 +4867,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<163ul>>::~logger_buf(uint64_t a1
 
 uint64_t di_log::logger_buf<di_log::log_printer<163ul>>::_sync(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     v2 = a1 + 96;
@@ -3450,11 +4875,11 @@ uint64_t di_log::logger_buf<di_log::log_printer<163ul>>::_sync(uint64_t a1)
     if ((*(v3 + 32) & 5) == 0)
     {
       (*(**(v3 + 40) + 32))(__p);
-      if (v8 >= 1)
+      if (v7 >= 1)
       {
         std::ostringstream::str[abi:ne200100](v2, __p);
         di_log::log_printer<163ul>::log((a1 + 72), __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -3462,7 +4887,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<163ul>>::_sync(uint64_t a1)
         std::ios_base::clear((v2 + *(*(a1 + 96) - 24)), 0);
         std::string::basic_string[abi:ne200100]<0>(__p, "");
         std::stringbuf::str[abi:ne200100](a1 + 104, __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -3470,7 +4895,6 @@ uint64_t di_log::logger_buf<di_log::log_printer<163ul>>::_sync(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -3493,73 +4917,84 @@ void di_log::logger_buf<di_log::log_printer<163ul>>::~logger_buf(uint64_t a1)
 
 int *di_log::log_printer<163ul>::log(uint64_t *a1, uint64_t *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 2);
   v5 = *__error();
-  if (DIForwardLogs())
+  v6 = DIForwardLogs();
+  if (v6)
   {
-    DIOSLog = getDIOSLog();
-    os_log_type_enabled(DIOSLog, *(a1 + 16));
-    v7 = *a1;
-    if (*(a2 + 23) >= 0)
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
     {
-      v8 = a2;
+      v10 = 3;
     }
 
     else
     {
-      v8 = *a2;
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
     }
 
     *buf = 68158466;
-    v18 = v4;
-    v19 = 2080;
-    v20 = v7;
-    v21 = 2048;
-    v22 = 163;
-    v23 = 2082;
-    v24 = v8;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 163;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
     {
-      v10 = v9;
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-      free(v10);
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
     }
   }
 
   else
   {
-    v11 = getDIOSLog();
-    v12 = *(a1 + 4);
-    if (os_log_type_enabled(v11, v12))
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
     {
-      v13 = *a1;
+      v17 = *a1;
       if (*(a2 + 23) >= 0)
       {
-        v14 = a2;
+        v18 = a2;
       }
 
       else
       {
-        v14 = *a2;
+        v18 = *a2;
       }
 
       *buf = 68158466;
-      v18 = v4;
-      v19 = 2080;
-      v20 = v13;
-      v21 = 2048;
-      v22 = 163;
-      v23 = 2082;
-      v24 = v14;
-      _os_log_impl(&dword_248DE0000, v11, v12, "%.*s: <%lu> %{public}s", buf, 0x26u);
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 163;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
     }
   }
 
   result = __error();
   *result = v5;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3662,7 +5097,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<185ul>>::~logger_buf(uint64_t a1
 
 uint64_t di_log::logger_buf<di_log::log_printer<185ul>>::_sync(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     v2 = a1 + 96;
@@ -3670,11 +5105,11 @@ uint64_t di_log::logger_buf<di_log::log_printer<185ul>>::_sync(uint64_t a1)
     if ((*(v3 + 32) & 5) == 0)
     {
       (*(**(v3 + 40) + 32))(__p);
-      if (v8 >= 1)
+      if (v7 >= 1)
       {
         std::ostringstream::str[abi:ne200100](v2, __p);
         di_log::log_printer<185ul>::log((a1 + 72), __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -3682,7 +5117,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<185ul>>::_sync(uint64_t a1)
         std::ios_base::clear((v2 + *(*(a1 + 96) - 24)), 0);
         std::string::basic_string[abi:ne200100]<0>(__p, "");
         std::stringbuf::str[abi:ne200100](a1 + 104, __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -3690,7 +5125,6 @@ uint64_t di_log::logger_buf<di_log::log_printer<185ul>>::_sync(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -3713,73 +5147,84 @@ void di_log::logger_buf<di_log::log_printer<185ul>>::~logger_buf(uint64_t a1)
 
 int *di_log::log_printer<185ul>::log(uint64_t *a1, uint64_t *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 2);
   v5 = *__error();
-  if (DIForwardLogs())
+  v6 = DIForwardLogs();
+  if (v6)
   {
-    DIOSLog = getDIOSLog();
-    os_log_type_enabled(DIOSLog, *(a1 + 16));
-    v7 = *a1;
-    if (*(a2 + 23) >= 0)
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
     {
-      v8 = a2;
+      v10 = 3;
     }
 
     else
     {
-      v8 = *a2;
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
     }
 
     *buf = 68158466;
-    v18 = v4;
-    v19 = 2080;
-    v20 = v7;
-    v21 = 2048;
-    v22 = 185;
-    v23 = 2082;
-    v24 = v8;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 185;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
     {
-      v10 = v9;
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-      free(v10);
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
     }
   }
 
   else
   {
-    v11 = getDIOSLog();
-    v12 = *(a1 + 4);
-    if (os_log_type_enabled(v11, v12))
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
     {
-      v13 = *a1;
+      v17 = *a1;
       if (*(a2 + 23) >= 0)
       {
-        v14 = a2;
+        v18 = a2;
       }
 
       else
       {
-        v14 = *a2;
+        v18 = *a2;
       }
 
       *buf = 68158466;
-      v18 = v4;
-      v19 = 2080;
-      v20 = v13;
-      v21 = 2048;
-      v22 = 185;
-      v23 = 2082;
-      v24 = v14;
-      _os_log_impl(&dword_248DE0000, v11, v12, "%.*s: <%lu> %{public}s", buf, 0x26u);
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 185;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
     }
   }
 
   result = __error();
   *result = v5;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3882,7 +5327,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<233ul>>::~logger_buf(uint64_t a1
 
 uint64_t di_log::logger_buf<di_log::log_printer<233ul>>::_sync(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     v2 = a1 + 96;
@@ -3890,11 +5335,11 @@ uint64_t di_log::logger_buf<di_log::log_printer<233ul>>::_sync(uint64_t a1)
     if ((*(v3 + 32) & 5) == 0)
     {
       (*(**(v3 + 40) + 32))(__p);
-      if (v8 >= 1)
+      if (v7 >= 1)
       {
         std::ostringstream::str[abi:ne200100](v2, __p);
         di_log::log_printer<233ul>::log((a1 + 72), __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -3902,7 +5347,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<233ul>>::_sync(uint64_t a1)
         std::ios_base::clear((v2 + *(*(a1 + 96) - 24)), 0);
         std::string::basic_string[abi:ne200100]<0>(__p, "");
         std::stringbuf::str[abi:ne200100](a1 + 104, __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -3910,7 +5355,6 @@ uint64_t di_log::logger_buf<di_log::log_printer<233ul>>::_sync(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -3933,73 +5377,84 @@ void di_log::logger_buf<di_log::log_printer<233ul>>::~logger_buf(uint64_t a1)
 
 int *di_log::log_printer<233ul>::log(uint64_t *a1, uint64_t *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 2);
   v5 = *__error();
-  if (DIForwardLogs())
+  v6 = DIForwardLogs();
+  if (v6)
   {
-    DIOSLog = getDIOSLog();
-    os_log_type_enabled(DIOSLog, *(a1 + 16));
-    v7 = *a1;
-    if (*(a2 + 23) >= 0)
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
     {
-      v8 = a2;
+      v10 = 3;
     }
 
     else
     {
-      v8 = *a2;
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
     }
 
     *buf = 68158466;
-    v18 = v4;
-    v19 = 2080;
-    v20 = v7;
-    v21 = 2048;
-    v22 = 233;
-    v23 = 2082;
-    v24 = v8;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 233;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
     {
-      v10 = v9;
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-      free(v10);
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
     }
   }
 
   else
   {
-    v11 = getDIOSLog();
-    v12 = *(a1 + 4);
-    if (os_log_type_enabled(v11, v12))
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
     {
-      v13 = *a1;
+      v17 = *a1;
       if (*(a2 + 23) >= 0)
       {
-        v14 = a2;
+        v18 = a2;
       }
 
       else
       {
-        v14 = *a2;
+        v18 = *a2;
       }
 
       *buf = 68158466;
-      v18 = v4;
-      v19 = 2080;
-      v20 = v13;
-      v21 = 2048;
-      v22 = 233;
-      v23 = 2082;
-      v24 = v14;
-      _os_log_impl(&dword_248DE0000, v11, v12, "%.*s: <%lu> %{public}s", buf, 0x26u);
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 233;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
     }
   }
 
   result = __error();
   *result = v5;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4171,7 +5626,7 @@ void CompressedBackend::make_backend(uint64_t a1, _DWORD *a2)
   std::allocate_shared[abi:ne200100]<StandardCompressedBackend,std::allocator<StandardCompressedBackend>,std::shared_ptr<Backend> const&,CompressedBackend::algo_t &,unsigned long &,0>();
 }
 
-void CompressedBackend::CompressedBackend(Backend *a1, void *a2, _DWORD *a3, uint64_t a4)
+void CompressedBackend::CompressedBackend(Backend *a1, void *a2, _DWORD *a3, size_t a4)
 {
   BackendInternalBackend::BackendInternalBackend(a1, a2);
   *v6 = &unk_285BFD118;
@@ -4288,14 +5743,14 @@ uint64_t CompressedBackend::read(uint64_t a1, uint64_t a2)
   return v9;
 }
 
-void sub_248F52C68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_248F52C68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   di_log::logger<di_log::log_printer<62ul>>::~logger(va);
-  v7 = *(v5 - 160);
-  if (v7)
+  v11 = *(v9 - 160);
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 
   _Unwind_Resume(a1);
@@ -4512,18 +5967,18 @@ void CompressedBackend::run_futures(CompressedBackend *this)
   if (v3)
   {
     v4 = 152 * v3;
-    v5 = (*(this + 9) + 112);
+    v5 = *(this + 9) + 112;
     while (1)
     {
-      LODWORD(v6) = lw_future<int>::get((v5 + 1), v2);
+      LODWORD(v6) = lw_future<int>::get((v5 + 8), v2);
       if ((v6 & 0x80000000) == 0)
       {
-        if (*(v5 - 12) > v6)
+        if (*(v5 - 96) > v6)
         {
           goto LABEL_7;
         }
 
-        v6 = (*(*this + 208))(this, v5 - 14, v5[4]);
+        v6 = (*(*this + 208))(this, v5 - 112, *(v5 + 32));
         if (!v6)
         {
           break;
@@ -4535,7 +5990,7 @@ LABEL_8:
       *v8 = v6;
       *(v8 + 4) = 1;
       lw_promise<int>::notify_future(v5, v7);
-      v5 += 19;
+      v5 += 152;
       v4 -= 152;
       if (!v4)
       {
@@ -4561,9 +6016,9 @@ LABEL_9:
   boost::container::vector<CompressedBackend::promise_io_t,boost::container::small_vector_allocator<CompressedBackend::promise_io_t,boost::container::new_allocator<void>,void>,void>::priv_destroy_all(this + 9);
 }
 
-void sub_248F532D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_248F532D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   di_log::logger<di_log::log_printer<107ul>>::~logger(va);
   _Unwind_Resume(a1);
 }
@@ -4738,9 +6193,9 @@ uint64_t BZIPCompressedBackend::decompress(uint64_t a1, uint64_t a2, char *a3)
   return 0;
 }
 
-void sub_248F539F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_248F539F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   di_log::logger<di_log::log_printer<264ul>>::~logger(va);
   _Unwind_Resume(a1);
 }
@@ -4811,9 +6266,9 @@ uint64_t BZIPCompressedBackend::compress(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-void sub_248F53C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_248F53C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   di_log::logger<di_log::log_printer<287ul>>::~logger(va);
   _Unwind_Resume(a1);
 }
@@ -5017,7 +6472,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<62ul>>::~logger_buf(uint64_t a1)
 
 uint64_t di_log::logger_buf<di_log::log_printer<62ul>>::_sync(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     v2 = a1 + 96;
@@ -5025,11 +6480,11 @@ uint64_t di_log::logger_buf<di_log::log_printer<62ul>>::_sync(uint64_t a1)
     if ((*(v3 + 32) & 5) == 0)
     {
       (*(**(v3 + 40) + 32))(__p);
-      if (v8 >= 1)
+      if (v7 >= 1)
       {
         std::ostringstream::str[abi:ne200100](v2, __p);
         di_log::log_printer<62ul>::log((a1 + 72), __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -5037,7 +6492,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<62ul>>::_sync(uint64_t a1)
         std::ios_base::clear((v2 + *(*(a1 + 96) - 24)), 0);
         std::string::basic_string[abi:ne200100]<0>(__p, "");
         std::stringbuf::str[abi:ne200100](a1 + 104, __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -5045,7 +6500,6 @@ uint64_t di_log::logger_buf<di_log::log_printer<62ul>>::_sync(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -5068,73 +6522,84 @@ void di_log::logger_buf<di_log::log_printer<62ul>>::~logger_buf(uint64_t a1)
 
 int *di_log::log_printer<62ul>::log(uint64_t *a1, uint64_t *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 2);
   v5 = *__error();
-  if (DIForwardLogs())
+  v6 = DIForwardLogs();
+  if (v6)
   {
-    DIOSLog = getDIOSLog();
-    os_log_type_enabled(DIOSLog, *(a1 + 16));
-    v7 = *a1;
-    if (*(a2 + 23) >= 0)
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
     {
-      v8 = a2;
+      v10 = 3;
     }
 
     else
     {
-      v8 = *a2;
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
     }
 
     *buf = 68158466;
-    v18 = v4;
-    v19 = 2080;
-    v20 = v7;
-    v21 = 2048;
-    v22 = 62;
-    v23 = 2082;
-    v24 = v8;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 62;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
     {
-      v10 = v9;
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-      free(v10);
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
     }
   }
 
   else
   {
-    v11 = getDIOSLog();
-    v12 = *(a1 + 4);
-    if (os_log_type_enabled(v11, v12))
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
     {
-      v13 = *a1;
+      v17 = *a1;
       if (*(a2 + 23) >= 0)
       {
-        v14 = a2;
+        v18 = a2;
       }
 
       else
       {
-        v14 = *a2;
+        v18 = *a2;
       }
 
       *buf = 68158466;
-      v18 = v4;
-      v19 = 2080;
-      v20 = v13;
-      v21 = 2048;
-      v22 = 62;
-      v23 = 2082;
-      v24 = v14;
-      _os_log_impl(&dword_248DE0000, v11, v12, "%.*s: <%lu> %{public}s", buf, 0x26u);
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 62;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
     }
   }
 
   result = __error();
   *result = v5;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5161,9 +6626,9 @@ _DWORD *StandardCompressedBackend::pimpl::pimpl(_DWORD *a1, int *a2)
   return a1;
 }
 
-void sub_248F54870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_248F54870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   di_log::logger<di_log::log_printer<195ul>>::~logger(va);
   _Unwind_Resume(a1);
 }
@@ -5340,7 +6805,7 @@ void di_log::logger_buf<di_log::log_printer<195ul>>::~logger_buf(uint64_t a1)
 
 uint64_t di_log::logger_buf<di_log::log_printer<195ul>>::_sync(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     v2 = a1 + 96;
@@ -5348,11 +6813,11 @@ uint64_t di_log::logger_buf<di_log::log_printer<195ul>>::_sync(uint64_t a1)
     if ((*(v3 + 32) & 5) == 0)
     {
       (*(**(v3 + 40) + 32))(__p);
-      if (v8 >= 1)
+      if (v7 >= 1)
       {
         std::ostringstream::str[abi:ne200100](v2, __p);
         di_log::log_printer<195ul>::log((a1 + 72), __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -5360,7 +6825,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<195ul>>::_sync(uint64_t a1)
         std::ios_base::clear((v2 + *(*(a1 + 96) - 24)), 0);
         std::string::basic_string[abi:ne200100]<0>(__p, "");
         std::stringbuf::str[abi:ne200100](a1 + 104, __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -5368,7 +6833,6 @@ uint64_t di_log::logger_buf<di_log::log_printer<195ul>>::_sync(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -5384,73 +6848,84 @@ void sub_248F55044(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 int *di_log::log_printer<195ul>::log(uint64_t *a1, uint64_t *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 2);
   v5 = *__error();
-  if (DIForwardLogs())
+  v6 = DIForwardLogs();
+  if (v6)
   {
-    DIOSLog = getDIOSLog();
-    os_log_type_enabled(DIOSLog, *(a1 + 16));
-    v7 = *a1;
-    if (*(a2 + 23) >= 0)
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
     {
-      v8 = a2;
+      v10 = 3;
     }
 
     else
     {
-      v8 = *a2;
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
     }
 
     *buf = 68158466;
-    v18 = v4;
-    v19 = 2080;
-    v20 = v7;
-    v21 = 2048;
-    v22 = 195;
-    v23 = 2082;
-    v24 = v8;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 195;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
     {
-      v10 = v9;
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-      free(v10);
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
     }
   }
 
   else
   {
-    v11 = getDIOSLog();
-    v12 = *(a1 + 4);
-    if (os_log_type_enabled(v11, v12))
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
     {
-      v13 = *a1;
+      v17 = *a1;
       if (*(a2 + 23) >= 0)
       {
-        v14 = a2;
+        v18 = a2;
       }
 
       else
       {
-        v14 = *a2;
+        v18 = *a2;
       }
 
       *buf = 68158466;
-      v18 = v4;
-      v19 = 2080;
-      v20 = v13;
-      v21 = 2048;
-      v22 = 195;
-      v23 = 2082;
-      v24 = v14;
-      _os_log_impl(&dword_248DE0000, v11, v12, "%.*s: <%lu> %{public}s", buf, 0x26u);
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 195;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
     }
   }
 
   result = __error();
   *result = v5;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5553,7 +7028,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<264ul>>::~logger_buf(uint64_t a1
 
 uint64_t di_log::logger_buf<di_log::log_printer<264ul>>::_sync(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     v2 = a1 + 96;
@@ -5561,11 +7036,11 @@ uint64_t di_log::logger_buf<di_log::log_printer<264ul>>::_sync(uint64_t a1)
     if ((*(v3 + 32) & 5) == 0)
     {
       (*(**(v3 + 40) + 32))(__p);
-      if (v8 >= 1)
+      if (v7 >= 1)
       {
         std::ostringstream::str[abi:ne200100](v2, __p);
         di_log::log_printer<264ul>::log((a1 + 72), __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -5573,7 +7048,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<264ul>>::_sync(uint64_t a1)
         std::ios_base::clear((v2 + *(*(a1 + 96) - 24)), 0);
         std::string::basic_string[abi:ne200100]<0>(__p, "");
         std::stringbuf::str[abi:ne200100](a1 + 104, __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -5581,7 +7056,6 @@ uint64_t di_log::logger_buf<di_log::log_printer<264ul>>::_sync(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -5604,73 +7078,84 @@ void di_log::logger_buf<di_log::log_printer<264ul>>::~logger_buf(uint64_t a1)
 
 int *di_log::log_printer<264ul>::log(uint64_t *a1, uint64_t *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 2);
   v5 = *__error();
-  if (DIForwardLogs())
+  v6 = DIForwardLogs();
+  if (v6)
   {
-    DIOSLog = getDIOSLog();
-    os_log_type_enabled(DIOSLog, *(a1 + 16));
-    v7 = *a1;
-    if (*(a2 + 23) >= 0)
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
     {
-      v8 = a2;
+      v10 = 3;
     }
 
     else
     {
-      v8 = *a2;
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
     }
 
     *buf = 68158466;
-    v18 = v4;
-    v19 = 2080;
-    v20 = v7;
-    v21 = 2048;
-    v22 = 264;
-    v23 = 2082;
-    v24 = v8;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 264;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
     {
-      v10 = v9;
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-      free(v10);
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
     }
   }
 
   else
   {
-    v11 = getDIOSLog();
-    v12 = *(a1 + 4);
-    if (os_log_type_enabled(v11, v12))
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
     {
-      v13 = *a1;
+      v17 = *a1;
       if (*(a2 + 23) >= 0)
       {
-        v14 = a2;
+        v18 = a2;
       }
 
       else
       {
-        v14 = *a2;
+        v18 = *a2;
       }
 
       *buf = 68158466;
-      v18 = v4;
-      v19 = 2080;
-      v20 = v13;
-      v21 = 2048;
-      v22 = 264;
-      v23 = 2082;
-      v24 = v14;
-      _os_log_impl(&dword_248DE0000, v11, v12, "%.*s: <%lu> %{public}s", buf, 0x26u);
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 264;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
     }
   }
 
   result = __error();
   *result = v5;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5773,7 +7258,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<287ul>>::~logger_buf(uint64_t a1
 
 uint64_t di_log::logger_buf<di_log::log_printer<287ul>>::_sync(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     v2 = a1 + 96;
@@ -5781,11 +7266,11 @@ uint64_t di_log::logger_buf<di_log::log_printer<287ul>>::_sync(uint64_t a1)
     if ((*(v3 + 32) & 5) == 0)
     {
       (*(**(v3 + 40) + 32))(__p);
-      if (v8 >= 1)
+      if (v7 >= 1)
       {
         std::ostringstream::str[abi:ne200100](v2, __p);
         di_log::log_printer<287ul>::log((a1 + 72), __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -5793,7 +7278,7 @@ uint64_t di_log::logger_buf<di_log::log_printer<287ul>>::_sync(uint64_t a1)
         std::ios_base::clear((v2 + *(*(a1 + 96) - 24)), 0);
         std::string::basic_string[abi:ne200100]<0>(__p, "");
         std::stringbuf::str[abi:ne200100](a1 + 104, __p);
-        if (v7 < 0)
+        if (v6 < 0)
         {
           operator delete(__p[0]);
         }
@@ -5801,7 +7286,6 @@ uint64_t di_log::logger_buf<di_log::log_printer<287ul>>::_sync(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -5824,84 +7308,95 @@ void di_log::logger_buf<di_log::log_printer<287ul>>::~logger_buf(uint64_t a1)
 
 int *di_log::log_printer<287ul>::log(uint64_t *a1, uint64_t *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 2);
   v5 = *__error();
-  if (DIForwardLogs())
+  v6 = DIForwardLogs();
+  if (v6)
   {
-    DIOSLog = getDIOSLog();
-    os_log_type_enabled(DIOSLog, *(a1 + 16));
-    v7 = *a1;
-    if (*(a2 + 23) >= 0)
+    v20 = 0;
+    DIOSLog = getDIOSLog(v6, v7);
+    v9 = *(a1 + 16);
+    if (os_log_type_enabled(DIOSLog, *(a1 + 16)))
     {
-      v8 = a2;
+      v10 = 3;
     }
 
     else
     {
-      v8 = *a2;
+      v10 = 2;
+    }
+
+    v11 = *a1;
+    if (*(a2 + 23) >= 0)
+    {
+      v12 = a2;
+    }
+
+    else
+    {
+      v12 = *a2;
     }
 
     *buf = 68158466;
-    v18 = v4;
-    v19 = 2080;
-    v20 = v7;
-    v21 = 2048;
-    v22 = 287;
-    v23 = 2082;
-    v24 = v8;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v22 = v4;
+    v23 = 2080;
+    v24 = v11;
+    v25 = 2048;
+    v26 = 287;
+    v27 = 2082;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v10, &v20, 0, 0, &dword_248DE0000, DIOSLog, v9, "%.*s: <%lu> %{public}s", buf, 38);
+    if (v13)
     {
-      v10 = v9;
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-      free(v10);
+      v14 = v13;
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+      free(v14);
     }
   }
 
   else
   {
-    v11 = getDIOSLog();
-    v12 = *(a1 + 4);
-    if (os_log_type_enabled(v11, v12))
+    v15 = getDIOSLog(v6, v7);
+    v16 = *(a1 + 4);
+    if (os_log_type_enabled(v15, v16))
     {
-      v13 = *a1;
+      v17 = *a1;
       if (*(a2 + 23) >= 0)
       {
-        v14 = a2;
+        v18 = a2;
       }
 
       else
       {
-        v14 = *a2;
+        v18 = *a2;
       }
 
       *buf = 68158466;
-      v18 = v4;
-      v19 = 2080;
-      v20 = v13;
-      v21 = 2048;
-      v22 = 287;
-      v23 = 2082;
-      v24 = v14;
-      _os_log_impl(&dword_248DE0000, v11, v12, "%.*s: <%lu> %{public}s", buf, 0x26u);
+      v22 = v4;
+      v23 = 2080;
+      v24 = v17;
+      v25 = 2048;
+      v26 = 287;
+      v27 = 2082;
+      v28 = v18;
+      _os_log_impl(&dword_248DE0000, v15, v16, "%.*s: <%lu> %{public}s", buf, 0x26u);
     }
   }
 
   result = __error();
   *result = v5;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void std::__shared_ptr_emplace<BZIPCompressedBackend>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<Backend> const&,unsigned long &,std::allocator<BZIPCompressedBackend>,0>(uint64_t a1, void *a2, uint64_t *a3)
+void std::__shared_ptr_emplace<BZIPCompressedBackend>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<Backend> const&,unsigned long &,std::allocator<BZIPCompressedBackend>,0>(void *a1, void *a2, size_t *a3)
 {
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   *a1 = &unk_285BFDC98;
   v3 = *a3;
   v4 = 4;
-  CompressedBackend::CompressedBackend((a1 + 24), a2, &v4, v3);
+  CompressedBackend::CompressedBackend((a1 + 3), a2, &v4, v3);
 }
 
 void std::__shared_ptr_emplace<BZIPCompressedBackend>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -5912,13 +7407,13 @@ void std::__shared_ptr_emplace<BZIPCompressedBackend>::~__shared_ptr_emplace(std
   JUMPOUT(0x24C1ED730);
 }
 
-void std::__shared_ptr_emplace<StandardCompressedBackend>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<Backend> const&,CompressedBackend::algo_t &,unsigned long &,std::allocator<StandardCompressedBackend>,0>(uint64_t a1, void *a2, int *a3, uint64_t *a4)
+void std::__shared_ptr_emplace<StandardCompressedBackend>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<Backend> const&,CompressedBackend::algo_t &,unsigned long &,std::allocator<StandardCompressedBackend>,0>(void *a1, void *a2, int *a3, size_t *a4)
 {
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   *a1 = &unk_285BFDCE8;
   v4 = *a3;
-  StandardCompressedBackend::StandardCompressedBackend((a1 + 24), a2, &v4, *a4);
+  StandardCompressedBackend::StandardCompressedBackend((a1 + 3), a2, &v4, *a4);
 }
 
 void std::__shared_ptr_emplace<StandardCompressedBackend>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -5962,7 +7457,7 @@ void sub_248F56594(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void boost::container::vector<CompressedBackend::promise_io_t,boost::container::small_vector_allocator<CompressedBackend::promise_io_t,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<CompressedBackend::promise_io_t,boost::container::new_allocator<void>,void>,CompressedBackend::promise_io_t*,CompressedBackend::promise_io_t>>(uint64_t *a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+void boost::container::vector<CompressedBackend::promise_io_t,boost::container::small_vector_allocator<CompressedBackend::promise_io_t,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<CompressedBackend::promise_io_t,boost::container::new_allocator<void>,void>,CompressedBackend::promise_io_t*,CompressedBackend::promise_io_t>>(void **a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
   v10 = *a1;
   v11 = boost::container::vector_alloc_holder<boost::container::small_vector_allocator<CompressedBackend::promise_io_t,boost::container::new_allocator<void>,void>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(a1, a3);
@@ -5977,7 +7472,7 @@ void boost::container::vector<CompressedBackend::promise_io_t,boost::container::
   *a5 = *a1 + a2 - v10;
 }
 
-unint64_t boost::container::vector_alloc_holder<boost::container::small_vector_allocator<CompressedBackend::promise_io_t,boost::container::new_allocator<void>,void>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(uint64_t a1, const char *a2)
+const char *boost::container::vector_alloc_holder<boost::container::small_vector_allocator<CompressedBackend::promise_io_t,boost::container::new_allocator<void>,void>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(uint64_t a1, const char *a2)
 {
   v2 = 0xD79435E50D7943;
   v3 = *(a1 + 8);
@@ -6022,7 +7517,7 @@ unint64_t boost::container::vector_alloc_holder<boost::container::small_vector_a
   }
 }
 
-void boost::container::vector<CompressedBackend::promise_io_t,boost::container::small_vector_allocator<CompressedBackend::promise_io_t,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_new_allocation<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<CompressedBackend::promise_io_t,boost::container::new_allocator<void>,void>,CompressedBackend::promise_io_t*,CompressedBackend::promise_io_t>>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void boost::container::vector<CompressedBackend::promise_io_t,boost::container::small_vector_allocator<CompressedBackend::promise_io_t,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_new_allocation<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<CompressedBackend::promise_io_t,boost::container::new_allocator<void>,void>,CompressedBackend::promise_io_t*,CompressedBackend::promise_io_t>>(void **a1, char *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v10 = *a1;
   boost::container::uninitialized_move_and_insert_alloc<boost::container::small_vector_allocator<CompressedBackend::promise_io_t,boost::container::new_allocator<void>,void>,CompressedBackend::promise_io_t*,CompressedBackend::promise_io_t*,boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<CompressedBackend::promise_io_t,boost::container::new_allocator<void>,void>,CompressedBackend::promise_io_t*,CompressedBackend::promise_io_t>>(a1, *a1, a4, *a1 + 152 * a1[1], a2, a5, a6);
@@ -6039,7 +7534,7 @@ void boost::container::vector<CompressedBackend::promise_io_t,boost::container::
           *(*v12 + 16) = 0;
         }
 
-        v13 = *(v12 - 104);
+        v13 = *(v12 - 13);
         if (v13)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v13);
@@ -6110,9 +7605,9 @@ uint64_t *boost::container::uninitialized_move_and_insert_alloc<boost::container
   return boost::container::dtl::scoped_destructor_range<boost::container::small_vector_allocator<CompressedBackend::promise_io_t,boost::container::new_allocator<void>,void>>::~scoped_destructor_range(&v15);
 }
 
-void sub_248F568B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248F568B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   boost::container::dtl::scoped_destructor_range<boost::container::small_vector_allocator<CompressedBackend::promise_io_t,boost::container::new_allocator<void>,void>>::~scoped_destructor_range(va);
   _Unwind_Resume(a1);
 }
@@ -6224,12 +7719,12 @@ void boost::container::vector<CompressedBackend::promise_io_t,boost::container::
   a1[1] = 0;
 }
 
-void std::__shared_ptr_emplace<StandardCompressedBackend>::__shared_ptr_emplace[abi:ne200100]<StandardCompressedBackend&,std::shared_ptr<Backend> const&,std::allocator<StandardCompressedBackend>,0>(uint64_t a1, uint64_t a2, void *a3)
+void std::__shared_ptr_emplace<StandardCompressedBackend>::__shared_ptr_emplace[abi:ne200100]<StandardCompressedBackend&,std::shared_ptr<Backend> const&,std::allocator<StandardCompressedBackend>,0>(void *a1, uint64_t a2, void *a3)
 {
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   *a1 = &unk_285BFDCE8;
-  StandardCompressedBackend::StandardCompressedBackend((a1 + 24), a2, a3);
+  StandardCompressedBackend::StandardCompressedBackend((a1 + 3), a2, a3);
 }
 
 uint64_t di_log::logger_buf<di_log::log_printer<264ul>>::logger_buf(uint64_t a1, __int128 *a2)
@@ -6298,19 +7793,19 @@ void sub_248F56CF4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::__shared_ptr_emplace<BZIPCompressedBackend>::__shared_ptr_emplace[abi:ne200100]<BZIPCompressedBackend&,std::shared_ptr<Backend> const&,std::allocator<BZIPCompressedBackend>,0>(uint64_t a1, uint64_t a2, void *a3)
+void std::__shared_ptr_emplace<BZIPCompressedBackend>::__shared_ptr_emplace[abi:ne200100]<BZIPCompressedBackend&,std::shared_ptr<Backend> const&,std::allocator<BZIPCompressedBackend>,0>(void *a1, uint64_t a2, void *a3)
 {
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   *a1 = &unk_285BFDC98;
-  CompressedBackend::CompressedBackend((a1 + 24), a2, a3);
+  CompressedBackend::CompressedBackend((a1 + 3), a2, a3);
 }
 
-uint64_t FileDescriptorWrapper::handle_open_from_error_message@<X0>(int a1@<W0>, uint64_t a2@<X1>, int a3@<W3>, _BYTE *a4@<X8>)
+uint64_t FileDescriptorWrapper::handle_open_from_error_message@<X0>(int a1@<W0>, const char *a2@<X1>, int a3@<W3>, void *a4@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v39);
   v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40, "Couldn't open ", 14);
-  v9 = *(a2 + 23);
+  v9 = a2[23];
   if (v9 >= 0)
   {
     v10 = a2;
@@ -6328,7 +7823,7 @@ uint64_t FileDescriptorWrapper::handle_open_from_error_message@<X0>(int a1@<W0>,
 
   else
   {
-    v11 = *(a2 + 8);
+    v11 = *(a2 + 1);
   }
 
   v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v10, v11);
@@ -6340,7 +7835,7 @@ uint64_t FileDescriptorWrapper::handle_open_from_error_message@<X0>(int a1@<W0>,
   *(v15 + *(*v15 - 24) + 8) = *(v15 + *(*v15 - 24) + 8) & 0xFFFFFFB5 | 2;
   if (a3 == 13)
   {
-    if (*(a2 + 23) >= 0)
+    if (a2[23] >= 0)
     {
       v16 = a2;
     }
@@ -6503,11 +7998,11 @@ uint64_t di_log::logger<di_log::log_printer<67ul>>::~logger(uint64_t a1)
   return a1;
 }
 
-uint64_t FileDescriptorWrapper::open_file(uint64_t a1, uint64_t a2)
+uint64_t FileDescriptorWrapper::open_file(const char *a1, uint64_t a2)
 {
   v3 = a1;
-  v33[19] = *MEMORY[0x277D85DE8];
-  if (*(a1 + 23) < 0)
+  v35[19] = *MEMORY[0x277D85DE8];
+  if (a1[23] < 0)
   {
     a1 = *a1;
   }
@@ -6515,79 +8010,89 @@ uint64_t FileDescriptorWrapper::open_file(uint64_t a1, uint64_t a2)
   v4 = open(a1, a2, 438);
   if (v4 == -1)
   {
-    v13 = *__error();
-    if (DIForwardLogs())
+    v12 = *__error();
+    v13 = DIForwardLogs();
+    if (v13)
     {
-      *&v23 = 0;
-      DIOSLog = getDIOSLog();
-      os_log_type_enabled(DIOSLog, OS_LOG_TYPE_ERROR);
-      if (*(v3 + 23) < 0)
+      *&v25 = 0;
+      DIOSLog = getDIOSLog(v13, v14);
+      if (os_log_type_enabled(DIOSLog, OS_LOG_TYPE_ERROR))
+      {
+        v16 = 3;
+      }
+
+      else
+      {
+        v16 = 2;
+      }
+
+      if (v3[23] < 0)
       {
         v3 = *v3;
       }
 
-      v15 = *__error();
+      v17 = *__error();
       *buf = 68158467;
       *&buf[4] = 69;
-      v26 = 2080;
-      v27 = "static int FileDescriptorWrapper::open_file(const std::string &, int)";
-      v28 = 2081;
-      v29 = v3;
-      v30 = 1024;
-      v31 = v15;
-      v16 = _os_log_send_and_compose_impl();
-      if (v16)
+      v28 = 2080;
+      v29 = "static int FileDescriptorWrapper::open_file(const std::string &, int)";
+      v30 = 2081;
+      v31 = v3;
+      v32 = 1024;
+      v33 = v17;
+      v18 = _os_log_send_and_compose_impl(v16, &v25, 0, 0, &dword_248DE0000, DIOSLog, 16, "%.*s: Failed opening %{private}s, errno %d", buf, 34);
+      if (v18)
       {
-        v17 = v16;
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v16);
-        free(v17);
+        v19 = v18;
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v18);
+        free(v19);
       }
     }
 
     else
     {
-      v18 = getDIOSLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = getDIOSLog(v13, v14);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        if (*(v3 + 23) < 0)
+        if (v3[23] < 0)
         {
           v3 = *v3;
         }
 
-        v19 = *__error();
+        v21 = *__error();
         *buf = 68158467;
         *&buf[4] = 69;
-        v26 = 2080;
-        v27 = "static int FileDescriptorWrapper::open_file(const std::string &, int)";
-        v28 = 2081;
-        v29 = v3;
-        v30 = 1024;
-        v31 = v19;
-        _os_log_impl(&dword_248DE0000, v18, OS_LOG_TYPE_ERROR, "%.*s: Failed opening %{private}s, errno %d", buf, 0x22u);
+        v28 = 2080;
+        v29 = "static int FileDescriptorWrapper::open_file(const std::string &, int)";
+        v30 = 2081;
+        v31 = v3;
+        v32 = 1024;
+        v33 = v21;
+        _os_log_impl(&dword_248DE0000, v20, OS_LOG_TYPE_ERROR, "%.*s: Failed opening %{private}s, errno %d", buf, 0x22u);
       }
     }
 
-    *__error() = v13;
+    *__error() = v12;
     exception = __cxa_allocate_exception(0x40uLL);
     std::ostringstream::basic_ostringstream[abi:ne200100](buf);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "Couldn't open file with flags ", 30);
-    v21 = *buf;
+    v23 = *buf;
     *&buf[*(*buf - 24) + 8] = *&buf[*(*buf - 24) + 8] & 0xFFFFFFB5 | 8;
-    *&buf[*(v21 - 24) + 8] |= 0x200u;
+    *&buf[*(v23 - 24) + 8] |= 0x200u;
     MEMORY[0x24C1ED390](buf, a2);
-    v22 = __error();
-    DiskImagesRuntimeException::DiskImagesRuntimeException(exception, buf, *v22);
+    v24 = __error();
+    DiskImagesRuntimeException::DiskImagesRuntimeException(exception, buf, *v24);
   }
 
   v5 = v4;
   if (DIDebugLogsEnabled())
   {
-    *&v23 = "int FileDescriptorWrapper::open_file(const std::string &, int)";
-    *(&v23 + 1) = 36;
-    v24 = 2;
-    di_log::logger<di_log::log_printer<79ul>>::logger(buf, &v23);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v32, "'", 1);
-    v6 = *(v3 + 23);
+    *&v25 = "int FileDescriptorWrapper::open_file(const std::string &, int)";
+    *(&v25 + 1) = 36;
+    v26 = 2;
+    di_log::logger<di_log::log_printer<79ul>>::logger(buf, &v25);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "'", 1);
+    v6 = v3[23];
     if (v6 >= 0)
     {
       v7 = v3;
@@ -6605,40 +8110,39 @@ uint64_t FileDescriptorWrapper::open_file(uint64_t a1, uint64_t a2)
 
     else
     {
-      v8 = *(v3 + 8);
+      v8 = *(v3 + 1);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v32, v7, v8);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v32, "' opened successfully with flags ", 33);
-    v9 = v32;
-    *(v33 + *(v32 - 24)) = *(v33 + *(v32 - 24)) & 0xFFFFFFB5 | 8;
-    *(v33 + *(v9 - 24)) |= 0x200u;
-    MEMORY[0x24C1ED390](&v32, a2);
-    v10 = v32;
-    *(v33 + *(v32 - 24)) &= ~0x200u;
-    *(v33 + *(v10 - 24)) = *(v33 + *(v10 - 24)) & 0xFFFFFFB5 | 2;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v32, ", fd=", 5);
-    MEMORY[0x24C1ED390](&v32, v5);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, v7, v8);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, "' opened successfully with flags ", 33);
+    v9 = v34;
+    *(v35 + *(v34 - 24)) = *(v35 + *(v34 - 24)) & 0xFFFFFFB5 | 8;
+    *(v35 + *(v9 - 24)) |= 0x200u;
+    MEMORY[0x24C1ED390](&v34, a2);
+    v10 = v34;
+    *(v35 + *(v34 - 24)) &= ~0x200u;
+    *(v35 + *(v10 - 24)) = *(v35 + *(v10 - 24)) & 0xFFFFFFB5 | 2;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34, ", fd=", 5);
+    MEMORY[0x24C1ED390](&v34, v5);
     std::ostream::~ostream();
     di_log::logger_buf<di_log::log_printer<79ul>>::~logger_buf(buf);
-    MEMORY[0x24C1ED6A0](v33);
+    MEMORY[0x24C1ED6A0](v35);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-void sub_248F57960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248F57960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t FileDescriptorWrapper::open_from(int a1, uint64_t a2, int a3)
+uint64_t FileDescriptorWrapper::open_from(int a1, const char *a2, int a3)
 {
   v5 = a3 | 0x100u;
-  if (*(a2 + 23) >= 0)
+  if (a2[23] >= 0)
   {
     v6 = a2;
   }
@@ -6691,7 +8195,7 @@ uint64_t FileDescriptorWrapper::open_from(int a1, uint64_t a2, int a3)
     v24 = 2;
     di_log::logger<di_log::log_printer<96ul>>::logger(v20, &v23);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, "'", 1);
-    v9 = *(a2 + 23);
+    v9 = a2[23];
     if (v9 >= 0)
     {
       v10 = a2;
@@ -6709,7 +8213,7 @@ uint64_t FileDescriptorWrapper::open_from(int a1, uint64_t a2, int a3)
 
     else
     {
-      v11 = *(a2 + 8);
+      v11 = *(a2 + 1);
     }
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, v10, v11);
@@ -6731,14 +8235,14 @@ uint64_t FileDescriptorWrapper::open_from(int a1, uint64_t a2, int a3)
   return v8;
 }
 
-void sub_248F57C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_248F57C5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  if (*(v5 - 65) < 0)
+  va_start(va, a5);
+  if (*(v7 - 65) < 0)
   {
-    operator delete(*(v5 - 88));
+    operator delete(*(v7 - 88));
     std::ostringstream::~ostringstream(va);
-    if ((v4 & 1) == 0)
+    if ((v6 & 1) == 0)
     {
 LABEL_6:
       _Unwind_Resume(a1);
@@ -6748,13 +8252,13 @@ LABEL_6:
   else
   {
     std::ostringstream::~ostringstream(va);
-    if (!v4)
+    if (!v6)
     {
       goto LABEL_6;
     }
   }
 
-  __cxa_free_exception(v3);
+  __cxa_free_exception(v5);
   goto LABEL_6;
 }
 
@@ -6865,10 +8369,10 @@ void FileDescriptor::FileDescriptor(FileDescriptor *this, int a2, char a3)
 
 uint64_t FileDescriptor::update_info(FileDescriptor *this)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  memset(&v23, 0, sizeof(v23));
-  FileDescriptor::get_stat(this, &v23);
-  v2 = v23.st_mode & 0xF000;
+  v28 = *MEMORY[0x277D85DE8];
+  memset(&v22, 0, sizeof(v22));
+  FileDescriptor::get_stat(this, &v22);
+  v2 = v22.st_mode & 0xF000;
   if (v2 == 0x2000)
   {
     v3 = 2;
@@ -6882,81 +8386,80 @@ uint64_t FileDescriptor::update_info(FileDescriptor *this)
   *(this + 7) = v3;
   if (!v3)
   {
-    *(this + 2) = v23.st_size;
+    *(this + 2) = v22.st_size;
     goto LABEL_17;
   }
 
-  bzero(v28, 0x400uLL);
+  bzero(v27, 0x400uLL);
   bzero(&__big, 0x400uLL);
-  if (fcntl(*(this + 2), 50, v28) < 0)
+  if (fcntl(*(this + 2), 50, v27) < 0)
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    v11 = __error();
-    DiskImagesRuntimeException::DiskImagesRuntimeException(exception, "get path failed", *v11);
+    v10 = __error();
+    DiskImagesRuntimeException::DiskImagesRuntimeException(exception, "get path failed", *v10);
   }
 
-  if (!basename_r(v28, &__big))
+  if (!basename_r(v27, &__big))
   {
-    v13 = __cxa_allocate_exception(0x40uLL);
-    v14 = __error();
-    DiskImagesRuntimeException::DiskImagesRuntimeException(v13, "basename_r failed", *v14);
+    v12 = __cxa_allocate_exception(0x40uLL);
+    v13 = __error();
+    DiskImagesRuntimeException::DiskImagesRuntimeException(v12, "basename_r failed", *v13);
   }
 
   if (strnstr(&__big, "rdisk", 5uLL) == &__big)
   {
-    memmove(&__big, v27, 0x3FFuLL);
+    memmove(&__big, v26, 0x3FFuLL);
   }
 
-  add_create_expected<iokit_utils::di_io_obj_t>::create<char (&)[1024]>(&__big, v21);
-  unwrap_expected<iokit_utils::di_io_obj_t,std::error_code>(v21, "device not found in registry", &object);
+  add_create_expected<iokit_utils::di_io_obj_t>::create<char (&)[1024]>(v20, &__big);
+  unwrap_expected<iokit_utils::di_io_obj_t,std::error_code>(v20, "device not found in registry", &object);
   valuePtr[0] = &object;
   valuePtr[1] = &cf;
   cf = @"Size";
-  wrap_exception<std::expected<CFAutoRelease<__CFNumber const*>,std::error_code> iokit_utils::di_io_obj_t::get_cf_ref<__CFNumber const*>(__CFString const*)::{lambda(void)#1}>(valuePtr, v18);
-  unwrap_expected<CFAutoRelease<__CFNumber const*>,std::error_code>(v18, "device size not found in registry", &cf);
+  wrap_exception<std::expected<CFAutoRelease<__CFNumber const*>,std::error_code> iokit_utils::di_io_obj_t::get_cf_ref<__CFNumber const*>(__CFString const*)::{lambda(void)#1}>(v17, valuePtr);
+  unwrap_expected<CFAutoRelease<__CFNumber const*>,std::error_code>(v17, "device size not found in registry", &cf);
   if (!cf || (v4 = CFGetTypeID(cf), v4 != CFNumberGetTypeID()))
   {
-    v8 = "device size not found in registry";
-    v9 = 19;
+    v7 = "device size not found in registry";
+    v8 = 19;
     goto LABEL_22;
   }
 
   valuePtr[0] = 0;
   if (!CFNumberGetValue(cf, kCFNumberLongLongType, valuePtr))
   {
-    v8 = "Failed converting CFNumber to longlong";
-    v9 = 22;
+    v7 = "Failed converting CFNumber to longlong";
+    v8 = 22;
 LABEL_22:
-    v16 = __cxa_allocate_exception(0x40uLL);
-    *v16 = &unk_285BF4E60;
-    v17 = std::generic_category();
-    v16[1] = v9;
-    v16[2] = v17;
-    *(v16 + 24) = 0;
-    *(v16 + 48) = 0;
-    v16[7] = v8;
+    v15 = __cxa_allocate_exception(0x40uLL);
+    *v15 = &unk_285BF4E60;
+    v16 = std::generic_category();
+    v15[1] = v8;
+    v15[2] = v16;
+    *(v15 + 24) = 0;
+    *(v15 + 48) = 0;
+    v15[7] = v7;
   }
 
   *(this + 2) = valuePtr[0];
   CFAutoRelease<__CFNumber const*>::~CFAutoRelease(&cf);
-  if (v19 == 1)
+  if (v18 == 1)
   {
-    CFAutoRelease<__CFNumber const*>::~CFAutoRelease(v18);
+    CFAutoRelease<__CFNumber const*>::~CFAutoRelease(v17);
   }
 
   IOObjectRelease(object);
-  if (v22 == 1)
+  if (v21 == 1)
   {
-    IOObjectRelease(v21[0]);
+    IOObjectRelease(v20[0]);
   }
 
 LABEL_17:
   result = FileDescriptor::fetch_physical_block_size(this);
   *(this + 6) = result;
-  st_ino = v23.st_ino;
-  *(this + 4) = v23.st_dev;
+  st_ino = v22.st_ino;
+  *(this + 4) = v22.st_dev;
   *(this + 5) = st_ino;
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7010,18 +8513,18 @@ uint64_t FileDescriptor::get_device_type(FileDescriptor *this, const stat *a2)
   }
 }
 
-uint64_t FileDescriptor::get_mounted_on_fs(FileDescriptor *this)
+uint64_t *FileDescriptor::get_mounted_on_fs(FileDescriptor *this)
 {
   v1 = MEMORY[0x28223BE20](this);
   v3 = v2;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   FileDescriptor::get_statfs(v1, &__src);
   memcpy(__dst, &__src, sizeof(__dst));
   std::string::basic_string[abi:ne200100]<0>(v3, &__dst[72]);
-  *&v9 = "FileDescriptor::get_mounted_on_fs() const";
-  *(&v9 + 1) = 33;
-  v10 = 2;
-  di_log::logger<di_log::log_printer<162ul>>::logger(&__src, &v9);
+  *&v8 = "FileDescriptor::get_mounted_on_fs() const";
+  *(&v8 + 1) = 33;
+  v9 = 2;
+  di_log::logger<di_log::log_printer<162ul>>::logger(&__src, &v8);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__src.f_mntonname[272], "File system is ", 15);
   v4 = *(v3 + 23);
   if (v4 >= 0)
@@ -7047,9 +8550,7 @@ uint64_t FileDescriptor::get_mounted_on_fs(FileDescriptor *this)
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__src.f_mntonname[272], v5, v6);
   std::ostream::~ostream();
   di_log::logger_buf<di_log::log_printer<162ul>>::~logger_buf(&__src);
-  result = MEMORY[0x24C1ED6A0](&__src.f_mntonname[280]);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x24C1ED6A0](&__src.f_mntonname[280]);
 }
 
 void sub_248F58704(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
@@ -7113,14 +8614,14 @@ LABEL_29:
     memmove(&__big, &__big + 1, 0x3FFuLL);
   }
 
-  add_create_expected<iokit_utils::di_io_obj_t>::create<char (&)[1024]>(&__big, v35);
+  add_create_expected<iokit_utils::di_io_obj_t>::create<char (&)[1024]>(v35, &__big);
   unwrap_expected<iokit_utils::di_io_obj_t,std::error_code>(v35, "device not found in registry", &v34);
   iokit_utils::di_io_obj_view::di_io_obj_view(v33, 3, &v34);
   iokit_utils::di_io_obj_view::begin(v33, v31);
-  iokit_utils::di_io_obj_view::end(v33, &v30);
+  iokit_utils::di_io_obj_view::end(&v30, v33);
   while (iokit_utils::di_io_obj_iterator::operator!=(v31, &v30))
   {
-    v4 = iokit_utils::di_io_obj_iterator::operator*(v31);
+    iokit_utils::di_io_obj_iterator::operator*();
     iokit_utils::di_io_obj_base_t<unsigned int>::di_io_obj_base_t(object, v4);
     v5 = IOObjectConformsTo(object[0], "IOBlockStorageDriver");
     IOObjectRelease(object[0]);
@@ -7138,7 +8639,7 @@ LABEL_29:
   IOObjectRelease(v30);
   IOObjectRelease(v31[1]);
   IOObjectRelease(v31[0]);
-  iokit_utils::di_io_obj_view::end(v33, object);
+  iokit_utils::di_io_obj_view::end(object, v33);
   v6 = iokit_utils::di_io_obj_iterator::operator==(v32, object);
   IOObjectRelease(object[1]);
   IOObjectRelease(object[0]);
@@ -7154,13 +8655,13 @@ LABEL_29:
     v18[7] = "IOBlockStorageDriver device not found in registry iteration";
   }
 
-  v7 = iokit_utils::di_io_obj_iterator::operator*(v32);
+  iokit_utils::di_io_obj_iterator::operator*();
   iokit_utils::di_io_obj_view::di_io_obj_view(v29, 1, v7);
   iokit_utils::di_io_obj_view::begin(v29, v27);
-  iokit_utils::di_io_obj_view::end(v29, &v26);
+  iokit_utils::di_io_obj_view::end(&v26, v29);
   while (iokit_utils::di_io_obj_iterator::operator!=(v27, &v26))
   {
-    v8 = iokit_utils::di_io_obj_iterator::operator*(v27);
+    iokit_utils::di_io_obj_iterator::operator*();
     iokit_utils::di_io_obj_base_t<unsigned int>::di_io_obj_base_t(object, v8);
     v9 = IOObjectConformsTo(object[0], "IOMedia");
     IOObjectRelease(object[0]);
@@ -7178,7 +8679,7 @@ LABEL_29:
   IOObjectRelease(v26);
   IOObjectRelease(v27[1]);
   IOObjectRelease(v27[0]);
-  iokit_utils::di_io_obj_view::end(v29, object);
+  iokit_utils::di_io_obj_view::end(object, v29);
   v10 = iokit_utils::di_io_obj_iterator::operator==(v28, object);
   IOObjectRelease(object[1]);
   IOObjectRelease(object[0]);
@@ -7194,10 +8695,11 @@ LABEL_29:
     v20[7] = "IOMedia device not found in registry iteration";
   }
 
-  valuePtr[0] = iokit_utils::di_io_obj_iterator::operator*(v28);
+  iokit_utils::di_io_obj_iterator::operator*();
+  valuePtr[0] = v11;
   valuePtr[1] = &number;
   number = @"Preferred Block Size";
-  wrap_exception<std::expected<CFAutoRelease<__CFNumber const*>,std::error_code> iokit_utils::di_io_obj_t::get_cf_ref<__CFNumber const*>(__CFString const*)::{lambda(void)#1}>(valuePtr, object);
+  wrap_exception<std::expected<CFAutoRelease<__CFNumber const*>,std::error_code> iokit_utils::di_io_obj_t::get_cf_ref<__CFNumber const*>(__CFString const*)::{lambda(void)#1}>(object, valuePtr);
   unwrap_expected<CFAutoRelease<__CFNumber const*>,std::error_code>(object, "Unable to get IOMedia preferred block size", &number);
   valuePtr[0] = 0;
   if (!CFNumberGetValue(number, kCFNumberLongLongType, valuePtr))
@@ -7243,7 +8745,6 @@ LABEL_24:
     MEMORY[0x24C1ED6A0](&v41.f_mntonname[280]);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return f_bsize;
 }
 
@@ -7264,12 +8765,12 @@ void sub_248F58FBC()
   JUMPOUT(0x248F58ECCLL);
 }
 
-uint64_t add_create_expected<iokit_utils::di_io_obj_t>::create<char (&)[1024]>@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
+uint64_t *add_create_expected<iokit_utils::di_io_obj_t>::create<char (&)[1024]>@<X0>(uint64_t *__return_ptr a1@<X8>, char *a2@<X0>)
 {
-  iokit_utils::di_io_obj_t::di_io_obj_t(&v4, a1);
-  *a2 = v4;
+  iokit_utils::di_io_obj_t::di_io_obj_t(&v4, a2);
+  *a1 = v4;
   v4 = 0;
-  *(a2 + 16) = 1;
+  *(a1 + 16) = 1;
   return IOObjectRelease(0);
 }
 
@@ -7327,14 +8828,12 @@ uint64_t di_log::logger<di_log::log_printer<209ul>>::~logger(uint64_t a1)
 
 BOOL FileDescriptor::mounted_on_same_fs(FileDescriptor *this, const FileDescriptor *a2, const FileDescriptor *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  FileDescriptor::get_statfs(this, &v9);
-  v4 = v9.f_fsid.val[0];
-  v5 = v9.f_fsid.val[1];
-  FileDescriptor::get_statfs(a2, &v9);
-  result = v4 == v9.f_fsid.val[0] && v5 == v9.f_fsid.val[1];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  v9 = *MEMORY[0x277D85DE8];
+  FileDescriptor::get_statfs(this, &v8);
+  v4 = v8.f_fsid.val[0];
+  v5 = v8.f_fsid.val[1];
+  FileDescriptor::get_statfs(a2, &v8);
+  return v4 == v8.f_fsid.val[0] && v5 == v8.f_fsid.val[1];
 }
 
 uint64_t details::file_operations_t::flush(int a1, int a2, int a3)
@@ -7387,55 +8886,52 @@ ssize_t details::rdevice_operations_t::_pread(details::rdevice_operations_t *thi
 
 ssize_t details::rdevice_operations_t::_preadv(details::rdevice_operations_t *this, int a2, const iovec *a3, int a4, unint64_t a5)
 {
-  v19[32] = *MEMORY[0x277D85DE8];
+  v16[32] = *MEMORY[0x277D85DE8];
   if (a4 < 1)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = 0;
-    v7 = a4;
+    v5 = 0;
+    v6 = a4;
     p_iov_len = &a3->iov_len;
     do
     {
-      v9 = *p_iov_len;
+      v8 = *p_iov_len;
       p_iov_len += 2;
-      v6 += v9;
-      --v7;
+      v5 += v8;
+      --v6;
     }
 
-    while (v7);
+    while (v6);
   }
 
-  v10 = *(this + 1);
-  v11 = a5 % v10 + v6;
-  if (a5 % v10)
+  v9 = *(this + 1);
+  v10 = a5 % v9 + v5;
+  if (a5 % v9)
   {
-    v12 = (v11 % v10 != 0) + 1;
+    v11 = (v10 % v9 != 0) + 1;
   }
 
   else
   {
-    v12 = v11 % v10 != 0;
+    v11 = v10 % v9 != 0;
   }
 
-  if (v12)
+  if (v11)
   {
-    v17 = v19;
-    *v18 = xmmword_248F9D670;
-    v15 = (v12 + a4);
-    if (v15 >= 0x11)
+    v14 = v16;
+    *v15 = xmmword_248F9D670;
+    v13 = (v11 + a4);
+    if (v13 >= 0x11)
     {
-      boost::container::vector<iovec,boost::container::small_vector_allocator<iovec,boost::container::new_allocator<void>,void>,void>::priv_move_to_new_buffer(&v17, v15);
-      v16 = *(this + 1);
+      boost::container::vector<iovec,boost::container::small_vector_allocator<iovec,boost::container::new_allocator<void>,void>,void>::priv_move_to_new_buffer(&v14, v13);
     }
 
     operator new[]();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return preadv(a2, a3, a4, a5);
 }
@@ -7453,21 +8949,21 @@ void sub_248F59698(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void boost::container::vector<iovec,boost::container::small_vector_allocator<iovec,boost::container::new_allocator<void>,void>,void>::push_back(uint64_t a1, _OWORD *a2)
+void boost::container::vector<iovec,boost::container::small_vector_allocator<iovec,boost::container::new_allocator<void>,void>,void>::push_back(char **result, _OWORD *a2)
 {
-  v5 = *(a1 + 8);
-  v6 = (*a1 + 16 * v5);
-  if (v5 == *(a1 + 16))
+  v5 = result[1];
+  v6 = &(*result)[16 * v5];
+  if (v5 == result[2])
   {
     v7[1] = v2;
     v7[2] = v3;
-    boost::container::vector<std::pair<std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>,unsigned long>,boost::container::small_vector_allocator<std::pair<std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>,unsigned long>,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<std::pair<std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>,unsigned long>,boost::container::new_allocator<void>,void>,std::pair<std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>,unsigned long>*,std::pair<std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>,unsigned long>>>(a1, v6, 1, a2, v7);
+    boost::container::vector<std::pair<std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>,unsigned long>,boost::container::small_vector_allocator<std::pair<std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>,unsigned long>,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<std::pair<std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>,unsigned long>,boost::container::new_allocator<void>,void>,std::pair<std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>,unsigned long>*,std::pair<std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>,unsigned long>>>(result, v6, v7, 1, a2);
   }
 
   else
   {
     *v6 = *a2;
-    ++*(a1 + 8);
+    ++result[1];
   }
 }
 
@@ -7553,9 +9049,9 @@ uint64_t FileLocal::disable_file_zero_padding(FileLocal *this)
   }
 }
 
-void sub_248F5997C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_248F5997C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   di_log::logger<di_log::log_printer<412ul>>::~logger(va);
   _Unwind_Resume(a1);
 }
@@ -7673,10 +9169,10 @@ void FileLocal::shared_state_t::init_unmap_zeros(FileLocal::shared_state_t *this
 
 void FileLocal::shared_state_t::create_ops(FileLocal::shared_state_t *this)
 {
-  v1 = *(this + 7);
-  if (v1 != 2)
+  v2 = *(this + 7);
+  if (v2 != 2)
   {
-    if (v1 == 1)
+    if (v2 == 1)
     {
       operator new();
     }
@@ -7710,10 +9206,10 @@ uint64_t FileLocal::unlink_from(int a1, uint64_t *a2)
   }
 }
 
-off_t FileLocal::get_file_size_from(int a1, uint64_t a2)
+off_t FileLocal::get_file_size_from(int a1, const char *a2)
 {
   v2 = a2;
-  if (*(a2 + 23) < 0)
+  if (a2[23] < 0)
   {
     a2 = *a2;
   }
@@ -7728,7 +9224,7 @@ off_t FileLocal::get_file_size_from(int a1, uint64_t a2)
     exception = __cxa_allocate_exception(0x40uLL);
     std::ostringstream::basic_ostringstream[abi:ne200100](v9);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "Cannot stat ", 12);
-    v5 = *(v2 + 23);
+    v5 = v2[23];
     if (v5 >= 0)
     {
       v6 = v2;
@@ -7746,7 +9242,7 @@ off_t FileLocal::get_file_size_from(int a1, uint64_t a2)
 
     else
     {
-      v7 = *(v2 + 8);
+      v7 = *(v2 + 1);
     }
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, v6, v7);
@@ -7757,14 +9253,14 @@ off_t FileLocal::get_file_size_from(int a1, uint64_t a2)
   return v10.st_size;
 }
 
-void sub_248F5A10C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248F5A10C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t FileLocal::_write(uint64_t a1, uint64_t a2)
+ssize_t FileLocal::_write(uint64_t a1, uint64_t a2)
 {
   v4 = pwrite(**(a1 + 56), *a2, *(a2 + 16), *(a2 + 24));
   v5 = v4;
@@ -7821,9 +9317,9 @@ uint64_t FileLocal::_write(uint64_t a1, uint64_t a2)
   return v5;
 }
 
-void sub_248F5A2EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_248F5A2EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   di_log::logger<di_log::log_printer<494ul>>::~logger(va);
   _Unwind_Resume(a1);
 }
@@ -7895,9 +9391,9 @@ uint64_t FileLocal::_read(uint64_t a1, void *a2)
   return v4;
 }
 
-void sub_248F5A5C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_248F5A5C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   di_log::logger<di_log::log_printer<509ul>>::~logger(va);
   _Unwind_Resume(a1);
 }
@@ -8021,9 +9517,9 @@ LABEL_12:
   return -*__error();
 }
 
-void sub_248F5A9F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_248F5A9F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   di_log::logger<di_log::log_printer<540ul>>::~logger(va);
   _Unwind_Resume(a1);
 }
@@ -8229,9 +9725,9 @@ LABEL_5:
   return v5;
 }
 
-void sub_248F5B224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_248F5B224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   di_log::logger<di_log::log_printer<563ul>>::~logger(va);
   _Unwind_Resume(a1);
 }
@@ -8350,1516 +9846,5 @@ void *di_log::logger<di_log::log_printer<580ul>>::logger(void *a1, __int128 *a2)
   *a1 = &unk_285C00158;
   a1[45] = &unk_285C001E0;
   a1[46] = &unk_285C00208;
-  return a1;
-}
-
-void sub_248F5B7B0(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<580ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<580ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<580ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-uint64_t FileLocal::unmap_range(FileLocal *this, unint64_t a2, unint64_t a3)
-{
-  v6 = *(this + 5);
-  FileLocal::shared_state_t::init_unmap_zeros(v6);
-  v7 = *(v6 + 80);
-  v8 = *(v6 + 96);
-  v9 = *(this + 5);
-  FileLocal::shared_state_t::init_unmap_zeros(v9);
-  if ((v8 & 1) == 0 || (*(v9 + 144) & 1) == 0)
-  {
-    *&v29 = "int FileLocal::unmap_range(uint64_t, uint64_t)";
-    *(&v29 + 1) = 26;
-    LODWORD(v30) = 0;
-    di_log::logger<di_log::log_printer<593ul>>::logger(&v31, &v29);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "fd block size retrieval failed (err code ", 41);
-    MEMORY[0x24C1ED390](&v39, v7);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, ")", 1);
-    std::ostream::~ostream();
-    di_log::logger_buf<di_log::log_printer<593ul>>::~logger_buf(&v31);
-    goto LABEL_14;
-  }
-
-  v10 = *(v9 + 104);
-  v11 = (a2 + v7 - 1) / v7 * v7;
-  v12 = a3 + a2;
-  if (a2 <= v11 && v11 < v12)
-  {
-    v14 = a2 - v11 + a3;
-    v15 = v14 / v7 * v7;
-    v16 = v14 == v14 % v7 ? 0 : (a2 + v7 - 1) / v7 * v7;
-    if (v14 != v14 % v7)
-    {
-      *&v29 = 0;
-      *(&v29 + 1) = v16;
-      v30 = v14 / v7 * v7;
-      v20 = fcntl(**(this + 7), 99, &v29);
-      if (!v20)
-      {
-        if (v16 != a2)
-        {
-          v22 = *(details::get_dummy_shared_ptr() + 1);
-          v31 = v10;
-          v32 = v22;
-          if (v22)
-          {
-            atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
-
-          v33 = v16 - a2;
-          v34 = a2;
-          v35 = v16 - a2;
-          v36 = 0;
-          v37 = 0;
-          v38 = 0;
-          v7 = (*(*this + 120))(this, &v31);
-          if (v32)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v32);
-          }
-
-          if ((v7 & 0x80000000) != 0)
-          {
-            *&v27 = "int FileLocal::unmap_range(uint64_t, uint64_t)";
-            *(&v27 + 1) = 26;
-            v28 = 16;
-            di_log::logger<di_log::log_printer<614ul>>::logger(&v31, &v27);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "Write zeros to unmap unaligned start region failed (err code", 60);
-            v26 = __error();
-            MEMORY[0x24C1ED390](&v39, *v26);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, ")", 1);
-            di_log::logger<di_log::log_printer<614ul>>::~logger(&v31);
-            return v7;
-          }
-        }
-
-        if (v15 + v16 < v12)
-        {
-          v23 = a3 - v15 - (v16 - a2);
-          v24 = *(details::get_dummy_shared_ptr() + 1);
-          v31 = v10;
-          v32 = v24;
-          if (v24)
-          {
-            atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
-
-          v33 = v23;
-          v34 = v15 + v16;
-          v35 = v23;
-          v36 = 0;
-          v37 = 0;
-          v38 = 0;
-          v7 = (*(*this + 120))(this, &v31);
-          if (v32)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v32);
-          }
-
-          if ((v7 & 0x80000000) != 0)
-          {
-            *&v27 = "int FileLocal::unmap_range(uint64_t, uint64_t)";
-            *(&v27 + 1) = 26;
-            v28 = 16;
-            di_log::logger<di_log::log_printer<623ul>>::logger(&v31, &v27);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "Write zeros to unmap unaligned end region failed (err code", 58);
-            v25 = __error();
-            MEMORY[0x24C1ED390](&v39, *v25);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, ")", 1);
-            di_log::logger<di_log::log_printer<623ul>>::~logger(&v31);
-            return v7;
-          }
-        }
-
-        return 0;
-      }
-
-      v7 = v20;
-      *&v27 = "int FileLocal::unmap_range(uint64_t, uint64_t)";
-      *(&v27 + 1) = 26;
-      v28 = 0;
-      di_log::logger<di_log::log_printer<606ul>>::logger(&v31, &v27);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "Punch hole is not supported (err code ", 38);
-      v21 = __error();
-      MEMORY[0x24C1ED390](&v39, *v21);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, ")", 1);
-      std::ostream::~ostream();
-      di_log::logger_buf<di_log::log_printer<606ul>>::~logger_buf(&v31);
-LABEL_14:
-      MEMORY[0x24C1ED6A0](v40);
-      return v7;
-    }
-  }
-
-  v17 = FileLocal::write_zeros(this, a2, a3, v7, v10);
-  if (v17 == a3)
-  {
-    return 0;
-  }
-
-  v7 = v17;
-  *&v29 = "int FileLocal::unmap_range(uint64_t, uint64_t)";
-  *(&v29 + 1) = 26;
-  LODWORD(v30) = 16;
-  di_log::logger<di_log::log_printer<631ul>>::logger(&v31, &v29);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "Write zeros to unmap region failed (err code", 44);
-  v18 = __error();
-  MEMORY[0x24C1ED390](&v39, *v18);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, ")", 1);
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<631ul>>::~logger_buf(&v31);
-  MEMORY[0x24C1ED6A0](v40);
-  if ((v7 & 0x8000000000000000) == 0)
-  {
-    return 4294967291;
-  }
-
-  else
-  {
-    return v7;
-  }
-}
-
-void sub_248F5BC94(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, std::__shared_weak_count *a17)
-{
-  if (a17)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a17);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *di_log::logger<di_log::log_printer<593ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<593ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285C00378;
-  a1[45] = &unk_285C00478;
-  a1[46] = &unk_285C004A0;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285C00378;
-  a1[45] = &unk_285C00400;
-  a1[46] = &unk_285C00428;
-  return a1;
-}
-
-void sub_248F5BE08(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<593ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<593ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<593ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-void *di_log::logger<di_log::log_printer<606ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<606ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285C00598;
-  a1[45] = &unk_285C00698;
-  a1[46] = &unk_285C006C0;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285C00598;
-  a1[45] = &unk_285C00620;
-  a1[46] = &unk_285C00648;
-  return a1;
-}
-
-void sub_248F5BF74(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<606ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<606ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<606ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-void *di_log::logger<di_log::log_printer<614ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<614ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285C007B8;
-  a1[45] = &unk_285C008B8;
-  a1[46] = &unk_285C008E0;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285C007B8;
-  a1[45] = &unk_285C00840;
-  a1[46] = &unk_285C00868;
-  return a1;
-}
-
-void sub_248F5C0E0(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<614ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<614ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<614ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-void *di_log::logger<di_log::log_printer<623ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<623ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285C009D8;
-  a1[45] = &unk_285C00AD8;
-  a1[46] = &unk_285C00B00;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285C009D8;
-  a1[45] = &unk_285C00A60;
-  a1[46] = &unk_285C00A88;
-  return a1;
-}
-
-void sub_248F5C24C(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<623ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<623ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<623ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-ssize_t FileLocal::write_zeros(FileLocal *this, off_t a2, unint64_t a3, unint64_t a4, char *a5)
-{
-  v7 = a3;
-  __p = 0;
-  v21 = 0;
-  v22 = 0;
-  std::vector<iovec>::reserve(&__p, (a3 + a4 - 1) / a4 * a4);
-  if (v7)
-  {
-    v10 = v21;
-    do
-    {
-      if (v7 >= a4)
-      {
-        v11 = a4;
-      }
-
-      else
-      {
-        v11 = v7;
-      }
-
-      if (v10 >= v22)
-      {
-        v12 = (v10 - __p) >> 4;
-        if ((v12 + 1) >> 60)
-        {
-          std::vector<iovec>::__throw_length_error[abi:ne200100]();
-        }
-
-        v13 = (v22 - __p) >> 3;
-        if (v13 <= v12 + 1)
-        {
-          v13 = v12 + 1;
-        }
-
-        if (v22 - __p >= 0x7FFFFFFFFFFFFFF0)
-        {
-          v14 = 0xFFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v14 = v13;
-        }
-
-        if (v14)
-        {
-          std::allocator<iovec>::allocate_at_least[abi:ne200100](&__p, v14);
-        }
-
-        v15 = (16 * v12);
-        *v15 = a5;
-        v15[1] = v11;
-        v10 = (16 * v12 + 16);
-        v16 = (16 * v12 - (v21 - __p));
-        memcpy(v15 - (v21 - __p), __p, v21 - __p);
-        v17 = __p;
-        __p = v16;
-        v21 = v10;
-        v22 = 0;
-        if (v17)
-        {
-          operator delete(v17);
-        }
-      }
-
-      else
-      {
-        *v10 = a5;
-        *(v10 + 1) = v11;
-        v10 += 16;
-      }
-
-      v21 = v10;
-      v7 -= v11;
-    }
-
-    while (v7);
-  }
-
-  else
-  {
-    v10 = v21;
-  }
-
-  v18 = pwritev(**(this + 7), __p, (v10 - __p) >> 4, a2);
-  if (__p)
-  {
-    v21 = __p;
-    operator delete(__p);
-  }
-
-  return v18;
-}
-
-void sub_248F5C428(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *di_log::logger<di_log::log_printer<631ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<631ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285C00BF8;
-  a1[45] = &unk_285C00CF8;
-  a1[46] = &unk_285C00D20;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285C00BF8;
-  a1[45] = &unk_285C00C80;
-  a1[46] = &unk_285C00CA8;
-  return a1;
-}
-
-void sub_248F5C550(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<631ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<631ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<631ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-void *std::vector<iovec>::reserve(void *result, unint64_t a2)
-{
-  if (a2 > (result[2] - *result) >> 4)
-  {
-    if (!(a2 >> 60))
-    {
-      v2 = result[1] - *result;
-      std::allocator<iovec>::allocate_at_least[abi:ne200100](result, a2);
-    }
-
-    std::vector<iovec>::__throw_length_error[abi:ne200100]();
-  }
-
-  return result;
-}
-
-uint64_t FileLocal::lock(FileLocal *this)
-{
-  v1 = *(this + 5);
-  if ((*(v1 + 48) & 1) != 0 || ((*(*this + 48))(this) & 1) == 0 && FileDescriptor::is_mounted_on_smb(*(this + 5)))
-  {
-    return 0;
-  }
-
-  v4 = (*(*this + 48))(this);
-  if (v4)
-  {
-    v5 = 6;
-  }
-
-  else
-  {
-    v5 = 5;
-  }
-
-  if (!flock(**(this + 7), v5))
-  {
-    *&v10 = "int FileLocal::lock()";
-    *(&v10 + 1) = 19;
-    v11 = 0;
-    di_log::logger<di_log::log_printer<667ul>>::logger(v12, &v10);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, "File (fd ", 9);
-    MEMORY[0x24C1ED390](&v13, **(this + 7));
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, ") is locked", 11);
-    std::ostream::~ostream();
-    di_log::logger_buf<di_log::log_printer<667ul>>::~logger_buf(v12);
-    MEMORY[0x24C1ED6A0](v14);
-    result = 0;
-    *(v1 + 48) = 1;
-    return result;
-  }
-
-  if (*__error() != 35)
-  {
-    *&v10 = "int FileLocal::lock()";
-    *(&v10 + 1) = 19;
-    v11 = 0;
-    di_log::logger<di_log::log_printer<674ul>>::logger(v12, &v10);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, "flock returned errno ", 21);
-    v9 = __error();
-    MEMORY[0x24C1ED390](&v13, *v9);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, ", keeping file unlocked", 23);
-    std::ostream::~ostream();
-    di_log::logger_buf<di_log::log_printer<674ul>>::~logger_buf(v12);
-    MEMORY[0x24C1ED6A0](v14);
-    return 0;
-  }
-
-  *&v10 = "int FileLocal::lock()";
-  *(&v10 + 1) = 19;
-  v11 = 16;
-  di_log::logger<di_log::log_printer<671ul>>::logger(v12, &v10);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, "Cannot acquire ", 15);
-  if (v4)
-  {
-    v6 = "exclusive";
-  }
-
-  else
-  {
-    v6 = "shared";
-  }
-
-  if (v4)
-  {
-    v7 = 9;
-  }
-
-  else
-  {
-    v7 = 6;
-  }
-
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, v6, v7);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, " lock, errno ", 13);
-  v8 = __error();
-  MEMORY[0x24C1ED390](&v13, *v8);
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<671ul>>::~logger_buf(v12);
-  MEMORY[0x24C1ED6A0](v14);
-  return -*__error();
-}
-
-void sub_248F5C8F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  di_log::logger<di_log::log_printer<671ul>>::~logger(va);
-  _Unwind_Resume(a1);
-}
-
-void *di_log::logger<di_log::log_printer<671ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<671ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285C00E18;
-  a1[45] = &unk_285C00F18;
-  a1[46] = &unk_285C00F40;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285C00E18;
-  a1[45] = &unk_285C00EA0;
-  a1[46] = &unk_285C00EC8;
-  return a1;
-}
-
-void sub_248F5CA34(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<671ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<671ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<671ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-uint64_t FileLocal::unlock_all(FileLocal *this)
-{
-  v1 = *(this + 5);
-  if (*(v1 + 48) != 1)
-  {
-    return 0;
-  }
-
-  if (flock(**(this + 7), 8))
-  {
-    *&v5 = "int FileLocal::unlock_all()";
-    *(&v5 + 1) = 25;
-    v6 = 16;
-    di_log::logger<di_log::log_printer<684ul>>::logger(v7, &v5);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, "Failed unlocking file with fd ", 30);
-    MEMORY[0x24C1ED390](&v8, **(this + 7));
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, ", errno ", 8);
-    v3 = __error();
-    MEMORY[0x24C1ED390](&v8, *v3);
-    std::ostream::~ostream();
-    di_log::logger_buf<di_log::log_printer<684ul>>::~logger_buf(v7);
-    MEMORY[0x24C1ED6A0](v9);
-    return -*__error();
-  }
-
-  else
-  {
-    *&v5 = "int FileLocal::unlock_all()";
-    *(&v5 + 1) = 25;
-    v6 = 0;
-    di_log::logger<di_log::log_printer<687ul>>::logger(v7, &v5);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, "File (fd ", 9);
-    MEMORY[0x24C1ED390](&v8, **(this + 7));
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, ") is unlocked", 13);
-    std::ostream::~ostream();
-    di_log::logger_buf<di_log::log_printer<687ul>>::~logger_buf(v7);
-    MEMORY[0x24C1ED6A0](v9);
-    result = 0;
-    *(v1 + 48) = 0;
-  }
-
-  return result;
-}
-
-void sub_248F5CC20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  di_log::logger<di_log::log_printer<687ul>>::~logger(va);
-  _Unwind_Resume(a1);
-}
-
-void *di_log::logger<di_log::log_printer<684ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<684ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285C01038;
-  a1[45] = &unk_285C01138;
-  a1[46] = &unk_285C01160;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285C01038;
-  a1[45] = &unk_285C010C0;
-  a1[46] = &unk_285C010E8;
-  return a1;
-}
-
-void sub_248F5CD48(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<684ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<684ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<684ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-uint64_t FileLocal::remove_lock_ownership(FileLocal *this)
-{
-  v1 = *(this + 5);
-  result = *(v1 + 48);
-  *(v1 + 48) = 0;
-  return result;
-}
-
-void FileLocal::run_futures(FileLocal *this, const void *a2)
-{
-  v127 = *MEMORY[0x277D85DE8];
-  v2 = *(this + 9);
-  v3 = *(this + 10);
-  if (v3 == v2)
-  {
-    goto LABEL_165;
-  }
-
-  v4 = this;
-  v5 = *(this + 12);
-  v6 = &v2[v5 >> 5];
-  v7 = *v6 + 128 * (v5 & 0x1F);
-  if (v7 == *(v2 + (((*(this + 13) + v5) >> 2) & 0x3FFFFFFFFFFFFFF8)) + 128 * ((*(this + 13) + v5) & 0x1F))
-  {
-    goto LABEL_165;
-  }
-
-  v8 = *(this + 5);
-  v87 = *(v8 + 49);
-  v88 = *(v8 + 72);
-  while (v3 == v2)
-  {
-    if (!v7)
-    {
-      goto LABEL_158;
-    }
-
-    v9 = 0;
-LABEL_9:
-    if (v9 == v7)
-    {
-      v13 = v6;
-      v14 = v7;
-    }
-
-    else
-    {
-      v10 = (v7 - *v6) >> 7;
-      if (v10 < 0)
-      {
-        v15 = 30 - v10;
-        v11 = ~v15;
-        v12 = &v6[-(v15 >> 5)];
-      }
-
-      else
-      {
-        v11 = v10 + 1;
-        v12 = &v6[(v10 + 1) >> 5];
-      }
-
-      v16 = *v12 + 128 * (v11 & 0x1F);
-      v14 = v7;
-      v13 = v6;
-      if (v16 != v9)
-      {
-        v13 = v6;
-        v14 = v7;
-        do
-        {
-          v17 = v16;
-          v18 = v12;
-          if (*(v14 + 112) != *(v16 + 112))
-          {
-            break;
-          }
-
-          a2 = *(v14 + 24);
-          v19 = a2 + *(v14 + 16);
-          if (v19 != *(v16 + 24))
-          {
-            break;
-          }
-
-          if (*(v14 + 104) == 1)
-          {
-            v20 = *(v14 + 48);
-            if (*(v16 + 104))
-            {
-              if ((v20 != 0) == (*(v16 + 48) == 0))
-              {
-                break;
-              }
-
-              if (v20)
-              {
-                sg_per_io_crypto::clone_with_offset((v14 + 48), a2, v19, &v103);
-                if (!sg_per_io_crypto::operator==(&v103, v17 + 48))
-                {
-                  break;
-                }
-              }
-            }
-
-            else if (v20)
-            {
-              break;
-            }
-          }
-
-          else
-          {
-            v21 = *(v16 + 48);
-            if (*(v17 + 104) == 1 && v21 != 0)
-            {
-              break;
-            }
-          }
-
-          v16 = v17 + 128;
-          v12 = v18;
-          if (v17 + 128 - *v18 == 4096)
-          {
-            v12 = v18 + 1;
-            v16 = v18[1];
-          }
-
-          v13 = v18;
-          v14 = v17;
-        }
-
-        while (v16 != v9);
-      }
-    }
-
-    v23 = (v14 - *v13) >> 7;
-    if (v23 < 0)
-    {
-      v26 = 30 - v23;
-      v93 = &v13[-(v26 >> 5)];
-      v25 = *v93 + 128 * (~v26 & 0x1F);
-    }
-
-    else
-    {
-      v24 = v23 + 1;
-      v93 = &v13[v24 >> 5];
-      v25 = *v93 + 128 * (v24 & 0x1F);
-    }
-
-    if (v7[104] == 1 && *(v7 + 12))
-    {
-      (*(*v4 + 80))(&v100, v4);
-      v27 = *(v7 + 28) == 0;
-      v28 = *(v7 + 12);
-      if (v28 == 3)
-      {
-        crypto::context::aes_xts_ans_kdf2::aes_xts_ans_kdf2(&v103, v27, v7 + 56, *(v7 + 22));
-        crypto::context::aes_xts_ans_kdf2::aes_xts_ans_kdf2(v115);
-        v116 = 2;
-        crypto::context::aes_xts_ans_kdf2::~aes_xts_ans_kdf2(&v103);
-      }
-
-      else if (v28 == 2)
-      {
-        crypto::context::aes_xts::aes_xts(&v103, v27, v7 + 56, v7 + 72, *(v7 + 22));
-        crypto::context::aes_xts::aes_xts(v115, &v103);
-        v116 = 1;
-        v103 = &unk_285BD82F8;
-        std::unique_ptr<ccxts_ctx [],crypto::context::aes::cc_mode_deleter<ccxts_ctx,ccmode_xts>>::reset[abi:ne200100](&v106);
-        v103 = &unk_285BD3848;
-        if (*(&v104 + 1))
-        {
-          v105[0] = *(&v104 + 1);
-          operator delete(*(&v104 + 1));
-        }
-      }
-
-      else
-      {
-        crypto::context::aes_iv::aes_iv(v113, v7 + 72);
-        crypto::context::aes_cbc::aes_cbc(&v103, v27, v7 + 56, v113, *(v7 + 22));
-        crypto::context::aes_cbc::aes_cbc(v115, &v103);
-        v116 = 0;
-        v103 = &unk_285BD82D0;
-        std::unique_ptr<cccbc_ctx [],crypto::context::aes::cc_mode_deleter<cccbc_ctx,ccmode_cbc>>::reset[abi:ne200100](&v107);
-        v43 = v106;
-        v106 = 0;
-        if (v43)
-        {
-          MEMORY[0x24C1ED710](v43, 0x1000C8015230203);
-        }
-
-        v103 = &unk_285BD3848;
-        if (*(&v104 + 1))
-        {
-          v105[0] = *(&v104 + 1);
-          operator delete(*(&v104 + 1));
-        }
-
-        v44 = *&v113[0];
-        *&v113[0] = 0;
-        if (v44)
-        {
-          MEMORY[0x24C1ED710](v44, 0x1000C8015230203);
-        }
-      }
-
-      v45 = *(v7 + 22);
-      v46 = *(v7 + 12) - *(v7 + 3);
-      v99[0] = v6;
-      v99[1] = v7;
-      v99[2] = v93;
-      v99[3] = v25;
-      v97 = v46;
-      v98 = v99;
-      std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<crypto::context::aes_cbc,crypto::context::aes_xts,crypto::context::aes_xts_ans_kdf2>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v113, v115);
-      v114 = v45;
-      v91 = v100;
-      v47 = *v98;
-      v48 = v98[1];
-      *&v95 = &v97;
-      *(&v95 + 1) = v47;
-      v96 = v48;
-      v49 = v98[3];
-      v94 = v98[2];
-      v50 = *(v7 + 28);
-      v51 = *MEMORY[0x277D85FA0];
-      crypto::details::buffer_aligner::backend_op_to_different_buffer_fn(v50, v120);
-      v89 = v46;
-      v92 = v50;
-      if (v48 == v49)
-      {
-        v52 = 0;
-        goto LABEL_99;
-      }
-
-      std::ranges::transform_view[abi:llvm18_nua]<std::ranges::ref_view<container_it<std::__deque_iterator<FileLocal::promise_io_t,FileLocal::promise_io_t*,FileLocal::promise_io_t&,FileLocal::promise_io_t**,long,32l>>>,FileLocal::run_futures(void)::$_0>::__iterator<false>::operator*[abi:ne200100](&v95, v125);
-      sg_entry::sg_entry(&v117, v125);
-      if (v126)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v126);
-      }
-
-      v101 = v95;
-      v53 = v96;
-      v102 = v96;
-      if (v96 == v49)
-      {
-        v52 = 0;
-LABEL_97:
-        if (v118)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v118);
-        }
-
-LABEL_99:
-        crypto::details::sg_allocator::sg_allocator(&v103, v52, *MEMORY[0x277D85FA0]);
-        std::__function::__value_func<BOOL ()(sg_entry const&)>::~__value_func[abi:ne200100](v120);
-        v108 = v113;
-        v109 = v91;
-        v110 = v92;
-        v111 = -v89;
-        if (v48 == v49)
-        {
-          v62 = 0;
-        }
-
-        else
-        {
-          v62 = 0;
-          v63 = *v47;
-          do
-          {
-            v48 += 16;
-            if (v48 - v63 == 4096)
-            {
-              v64 = v47[1];
-              ++v47;
-              v63 = v64;
-              v48 = v64;
-            }
-
-            ++v62;
-          }
-
-          while (v48 != v49);
-        }
-
-        v112 = v62;
-        is_mul_ok(3 * v62, 0x18uLL);
-        operator new[]();
-      }
-
-      v52 = 0;
-      v54 = v119 / v51 * v51;
-      v55 = *(&v101 + 1);
-      while (2)
-      {
-        std::ranges::transform_view[abi:llvm18_nua]<std::ranges::ref_view<container_it<std::__deque_iterator<FileLocal::promise_io_t,FileLocal::promise_io_t*,FileLocal::promise_io_t&,FileLocal::promise_io_t**,long,32l>>>,FileLocal::run_futures(void)::$_0>::__iterator<false>::operator*[abi:ne200100](&v101, v125);
-        sg_entry::sg_entry(&v122, v125);
-        if (!v121)
-        {
-          std::__throw_bad_function_call[abi:ne200100]();
-        }
-
-        if ((*(*v121 + 48))(v121, &v122))
-        {
-          v56 = v123 + v124 - v54;
-          if (v56 % v51)
-          {
-            v57 = v51 - v56 % v51;
-          }
-
-          else
-          {
-            v57 = 0;
-          }
-
-          v58 = v57 + v56;
-          v52 += v58;
-          v54 += v58;
-        }
-
-        else
-        {
-          v59 = v51;
-          if (!(v124 % v45))
-          {
-            if (!(v123 % v45))
-            {
-              v54 = v123 + v124;
-              goto LABEL_87;
-            }
-
-            v59 = 0;
-          }
-
-          v60 = v59 + v52;
-          if ((v123 + v124) % v45)
-          {
-            v61 = v51;
-          }
-
-          else
-          {
-            v61 = 0;
-          }
-
-          v52 = v60 + v61;
-          v54 = (v45 - 1 + v123 + v124) / v45 * v45;
-        }
-
-LABEL_87:
-        if (*(&v122 + 1))
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v122 + 1));
-        }
-
-        if (v126)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v126);
-        }
-
-        v53 += 16;
-        v102 = v53;
-        if ((v53 - *v55) == 4096)
-        {
-          *(&v101 + 1) = v55 + 1;
-          v53 = v55[1];
-          v102 = v53;
-          ++v55;
-        }
-
-        if (v53 == v49)
-        {
-          goto LABEL_97;
-        }
-
-        continue;
-      }
-    }
-
-    v103 = v105;
-    v104 = xmmword_248F9D670;
-    v115[0] = &v103;
-    if (v7 == v25)
-    {
-      v33 = 0;
-    }
-
-    else
-    {
-      v29 = v7;
-      v30 = v6;
-      do
-      {
-        v31 = *(v29 + 2);
-        *&v113[0] = *v29;
-        *(&v113[0] + 1) = v31;
-        std::back_insert_iterator<boost::container::small_vector<iovec,16ul,void,void>>::operator=[abi:ne200100](v115, v113);
-        v29 += 128;
-        if (v29 - *v30 == 4096)
-        {
-          v32 = v30[1];
-          ++v30;
-          v29 = v32;
-        }
-      }
-
-      while (v29 != v25);
-      v33 = v104 == 1;
-    }
-
-    v34 = *(v7 + 28);
-    if (v34 == 1)
-    {
-      v37 = *(v7 + 3);
-      v38 = **(v4 + 7);
-      if (v33)
-      {
-        v39 = pwrite(v38, v103->iov_base, v103->iov_len, *(v7 + 3));
-      }
-
-      else
-      {
-        if (v7 == v25)
-        {
-          v42 = 0;
-        }
-
-        else
-        {
-          v42 = ((v25 - *v93) >> 7) + 4 * (v93 - v6) - ((v7 - *v6) >> 7);
-        }
-
-        v39 = pwritev(v38, v103, v42, *(v7 + 3));
-      }
-
-      v40 = v39;
-      if (v39 >= 1)
-      {
-        v66 = v39 + v37;
-        v67 = (*(v4 + 5) + 64);
-        v68 = atomic_load(v67);
-        if (v68 >= v39 + v37)
-        {
-          goto LABEL_136;
-        }
-
-        v69 = v68;
-        do
-        {
-          atomic_compare_exchange_strong(v67, &v69, v66);
-          if (v69 == v68)
-          {
-            break;
-          }
-
-          v68 = v69;
-        }
-
-        while (v69 < v66);
-      }
-    }
-
-    else
-    {
-      if (v34)
-      {
-        v40 = 0;
-        goto LABEL_136;
-      }
-
-      v35 = *(v7 + 3);
-      if (v33)
-      {
-        v36 = (**v88)(v88, **(this + 7), v103->iov_base, v103->iov_len, *(v7 + 3));
-      }
-
-      else
-      {
-        if (v87)
-        {
-          if (v7 == v25)
-          {
-            v41 = 0;
-          }
-
-          else
-          {
-            v41 = 16 * (((v25 - *v93) >> 7) + 4 * (v93 - v6) - ((v7 - *v6) >> 7));
-          }
-
-          v70 = v103;
-          v72 = *(this + 5);
-          v71 = *(this + 6);
-          if (v71)
-          {
-            atomic_fetch_add_explicit(&v71->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
-
-          v40 = 0;
-          if (v41)
-          {
-            p_iov_len = &v70->iov_len;
-            do
-            {
-              if ((v40 & 0x8000000000000000) == 0)
-              {
-                v74 = (***(v72 + 72))(*(v72 + 72), *(v72 + 8), *(p_iov_len - 1), *p_iov_len, v40 + v35);
-                if (v74 == *p_iov_len)
-                {
-                  v40 += v74;
-                }
-
-                else if (v74 == -1)
-                {
-                  v40 = -1;
-                }
-
-                else
-                {
-                  v40 = -5;
-                }
-              }
-
-              p_iov_len += 2;
-              v41 -= 16;
-            }
-
-            while (v41);
-          }
-
-          if (v71)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v71);
-          }
-
-          v4 = this;
-          goto LABEL_134;
-        }
-
-        if (v7 == v25)
-        {
-          v65 = 0;
-        }
-
-        else
-        {
-          v65 = ((v25 - *v93) >> 7) + 4 * (v93 - v6) - ((v7 - *v6) >> 7);
-        }
-
-        v36 = (*(*v88 + 8))(v88, **(this + 7), v103, v65, *(v7 + 3));
-      }
-
-      v40 = v36;
-      v4 = this;
-    }
-
-LABEL_134:
-    if (v40 == -1)
-    {
-      v40 = -*__error();
-    }
-
-    do
-    {
-LABEL_136:
-      v75 = v40;
-      if (v40 >= 1)
-      {
-        if (*(v7 + 2) >= v40)
-        {
-          v75 = v40;
-        }
-
-        else
-        {
-          v75 = *(v7 + 2);
-        }
-      }
-
-      v76 = *(v7 + 15);
-      *v76 = v75;
-      *(v76 + 4) = 1;
-      lw_promise<int>::notify_future(v7 + 15, a2);
-      v7 += 128;
-      if (v7 - *v6 == 4096)
-      {
-        v77 = v6[1];
-        ++v6;
-        v7 = v77;
-      }
-
-      v40 -= v75 & ~(v75 >> 63);
-    }
-
-    while (v6 < v13 || v6 == v13 && v7 <= v14);
-    if (*(&v104 + 1) && v105 != v103)
-    {
-      operator delete(v103);
-    }
-
-    v5 = *(v4 + 12);
-    v2 = *(v4 + 9);
-    v3 = *(v4 + 10);
-  }
-
-  v9 = *(v2 + (((v5 + *(v4 + 13)) >> 2) & 0x3FFFFFFFFFFFFFF8)) + 128 * ((v5 + *(v4 + 13)) & 0x1F);
-  if (v7 != v9)
-  {
-    goto LABEL_9;
-  }
-
-  v78 = &v2[v5 >> 5];
-  v79 = *v78 + 128 * (v5 & 0x1F);
-  if (v79 != v7)
-  {
-    do
-    {
-      v80 = *(v79 + 15);
-      if (v80)
-      {
-        *(v80 + 16) = 0;
-      }
-
-      v81 = *(v79 + 1);
-      if (v81)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v81);
-      }
-
-      v79 += 128;
-      if (v79 - *v78 == 4096)
-      {
-        v82 = v78[1];
-        ++v78;
-        v79 = v82;
-      }
-    }
-
-    while (v79 != v7);
-    v2 = *(v4 + 9);
-    v3 = *(v4 + 10);
-  }
-
-LABEL_158:
-  *(v4 + 13) = 0;
-  v83 = v3 - v2;
-  if (v83 >= 3)
-  {
-    do
-    {
-      operator delete(*v2);
-      v84 = *(v4 + 10);
-      v2 = (*(v4 + 9) + 8);
-      *(v4 + 9) = v2;
-      v83 = (v84 - v2) >> 3;
-    }
-
-    while (v83 > 2);
-  }
-
-  if (v83 == 1)
-  {
-    v85 = 16;
-LABEL_164:
-    *(v4 + 12) = v85;
-  }
-
-  else if (v83 == 2)
-  {
-    v85 = 32;
-    goto LABEL_164;
-  }
-
-LABEL_165:
-  v86 = *MEMORY[0x277D85DE8];
-}
-
-void sub_248F5DD84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, std::__shared_weak_count *a36, uint64_t a37, uint64_t a38, uint64_t a39, void *__p)
-{
-  crypto::context::aes_xts_ans_kdf2::~aes_xts_ans_kdf2(&__p);
-  if (a36)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a36);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void crypto::crypt_op::crypt_consecutive_vector_with_futures<std::ranges::transform_view[abi:llvm18_nua]<std::ranges::ref_view<container_it<std::__deque_iterator<FileLocal::promise_io_t,FileLocal::promise_io_t*,FileLocal::promise_io_t&,FileLocal::promise_io_t**,long,32l>>>,FileLocal::run_futures(void)::$_0>::__iterator<false>>::~crypt_consecutive_vector_with_futures(uint64_t a1, const void *a2)
-{
-  crypto::crypt_op::crypt_consecutive_vector::reset(a1, a2);
-  (*(**(a1 + 224) + 152))(*(a1 + 224));
-  crypto::details::unset_futures_errors_reporter<std::ranges::transform_view[abi:llvm18_nua]<std::ranges::ref_view<container_it<std::__deque_iterator<FileLocal::promise_io_t,FileLocal::promise_io_t*,FileLocal::promise_io_t&,FileLocal::promise_io_t**,long,32l>>>,FileLocal::run_futures(void)::$_0>::__iterator<false>>::report_errors(a1 + 224, *(a1 + 304));
-
-  crypto::crypt_op::crypt_consecutive_vector::~crypt_consecutive_vector(a1);
-}
-
-void PurgeableFileBackend::~PurgeableFileBackend(PurgeableFileBackend *this)
-{
-  *this = &unk_285BFDD98;
-  *(this + 3) = &unk_285BFDE88;
-  *(this + 4) = &unk_285BFDEC0;
-  v12 = 66053;
-  if (ffsctl(**(this + 7), 0xC0084A44uLL, &v12, 0))
-  {
-    *&v7 = "PurgeableFileBackend::~PurgeableFileBackend()";
-    *(&v7 + 1) = 43;
-    v8 = 0;
-    di_log::logger<di_log::log_printer<844ul>>::logger(v9, &v7);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "mark purgeable failed on ", 25);
-    operator<<(&v10, this);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ", errno ", 8);
-    v2 = __error();
-    MEMORY[0x24C1ED390](&v10, *v2);
-    std::ostream::~ostream();
-    di_log::logger_buf<di_log::log_printer<844ul>>::~logger_buf(v9);
-  }
-
-  else
-  {
-    *&v7 = "PurgeableFileBackend::~PurgeableFileBackend()";
-    *(&v7 + 1) = 43;
-    v8 = 0;
-    di_log::logger<di_log::log_printer<847ul>>::logger(v9, &v7);
-    operator<<(&v10, this);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, " marked as purgeable", 20);
-    std::ostream::~ostream();
-    di_log::logger_buf<di_log::log_printer<847ul>>::~logger_buf(v9);
-  }
-
-  MEMORY[0x24C1ED6A0](v11);
-  v3 = (*(*this + 192))(this);
-  if (futimes(v3, 0))
-  {
-    *&v7 = "PurgeableFileBackend::~PurgeableFileBackend()";
-    *(&v7 + 1) = 43;
-    v8 = 16;
-    di_log::logger<di_log::log_printer<851ul>>::logger(v9, &v7);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "futimes failed on ", 18);
-    operator<<(&v10, this);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ", errno ", 8);
-    v4 = __error();
-    MEMORY[0x24C1ED390](&v10, *v4);
-    std::ostream::~ostream();
-    di_log::logger_buf<di_log::log_printer<851ul>>::~logger_buf(v9);
-    MEMORY[0x24C1ED6A0](v11);
-  }
-
-  *this = &unk_285BFDF58;
-  *(this + 3) = &unk_285BFE048;
-  *(this + 4) = &unk_285BFE080;
-  std::deque<FileLocal::promise_io_t>::~deque[abi:ne200100](this + 8);
-  v5 = *(this + 6);
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  v6 = *(this + 2);
-  if (v6)
-  {
-    std::__shared_weak_count::__release_weak(v6);
-  }
-}
-
-{
-  PurgeableFileBackend::~PurgeableFileBackend(this);
-
-  JUMPOUT(0x24C1ED730);
-}
-
-void *di_log::logger<di_log::log_printer<844ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<844ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285C01258;
-  a1[45] = &unk_285C01358;
-  a1[46] = &unk_285C01380;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285C01258;
-  a1[45] = &unk_285C012E0;
-  a1[46] = &unk_285C01308;
-  return a1;
-}
-
-void sub_248F5E47C(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<844ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<844ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<844ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-void *di_log::logger<di_log::log_printer<847ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<847ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285C01478;
-  a1[45] = &unk_285C01578;
-  a1[46] = &unk_285C015A0;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285C01478;
-  a1[45] = &unk_285C01500;
-  a1[46] = &unk_285C01528;
   return a1;
 }

@@ -8,7 +8,7 @@
 - (int64_t)accessHistoricHFDWithError:(id *)error block:(id)block;
 - (int64_t)defaultProtectionClass;
 - (int64_t)migrateOrCreateSchemaWithError:(id *)error;
-- (uint64_t)_createDataTablesInDatabase:(uint64_t)database entityClasses:(void *)classes requiredPrefix:(void *)prefix error:(void *)error;
+- (uint64_t)_createDataTablesInDatabase:(void *)database entityClasses:(void *)classes requiredPrefix:(uint64_t)prefix error:;
 - (uint64_t)_migrateOrCreateSchemaWithEntityClasses:(void *)classes error:;
 - (void)_enableIncrementalAutovacuumIfNeeded;
 - (void)_presentRollbackAlertForSchema:(void *)schema protectionClass:(uint64_t)class foundVersion:(uint64_t)version currentVersion:(uint64_t)currentVersion;
@@ -31,7 +31,7 @@
   {
     objc_storeStrong(&v15->_unprotectedDatabase, database);
     objc_storeStrong(&v16->_protectedDatabase, protectedDatabase);
-    v17 = [providersCopy copy];
+    v17 = objc_msgSend_copy(providersCopy);
     schemaProviders = v16->_schemaProviders;
     v16->_schemaProviders = v17;
 
@@ -183,7 +183,7 @@ LABEL_6:
 
 - (uint64_t)_migrateOrCreateSchemaWithEntityClasses:(void *)classes error:
 {
-  v176 = *MEMORY[0x277D85DE8];
+  v175 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (!self)
   {
@@ -209,7 +209,7 @@ LABEL_6:
     defaultProtectionClass = [v61 defaultProtectionClass];
     if (isProtectedMigration)
     {
-      v154 = v61;
+      v153 = v61;
       if (![v62 isWriter])
       {
         v67 = 4;
@@ -217,9 +217,9 @@ LABEL_6:
       }
 
       unprotectedDatabase = [v61 unprotectedDatabase];
-      *&v161 = 0;
-      classes = [(HDKeyValueEntity *)HDUnprotectedKeyValueEntity retrieveDatabaseIdentifierFromDatabase:unprotectedDatabase error:&v161];
-      v65 = v161;
+      *&v160 = 0;
+      classes = [(HDKeyValueEntity *)HDUnprotectedKeyValueEntity retrieveDatabaseIdentifierFromDatabase:unprotectedDatabase error:&v160];
+      v65 = v160;
 
       if (classes)
       {
@@ -227,9 +227,9 @@ LABEL_6:
         v66 = *MEMORY[0x277CCC2A0];
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
         {
-          *v166 = 138543362;
-          *&v166[4] = classes;
-          _os_log_error_impl(&dword_228986000, v66, OS_LOG_TYPE_ERROR, "Fatal: Found identifier %{public}@ in unprotected database when creating protected database", v166, 0xCu);
+          *v165 = 138543362;
+          *&v165[4] = classes;
+          _os_log_error_impl(&dword_228986000, v66, OS_LOG_TYPE_ERROR, "Fatal: Found identifier %{public}@ in unprotected database when creating protected database", v165, 0xCu);
         }
 
         [MEMORY[0x277CCA9B8] hk_assignError:classesCopy code:100 format:{@"Found identifier %@ in unprotected database when creating protected database", classes}];
@@ -238,7 +238,7 @@ LABEL_6:
       }
 
       classes = classesCopy;
-      v61 = v154;
+      v61 = v153;
       if (v65)
       {
         if (classesCopy)
@@ -265,11 +265,11 @@ LABEL_6:
     *&buf[32] = defaultProtectionClass;
     v90 = [v59 hk_filter:buf];
     classesCopy2 = classes;
-    v92 = [HDDatabaseMigrationTransaction _createDataTablesInDatabase:v61 entityClasses:v62 requiredPrefix:v90 error:0];
+    v92 = [(HDDatabaseMigrationTransaction *)v61 _createDataTablesInDatabase:v62 entityClasses:v90 requiredPrefix:0 error:classes];
 
     if (v92)
     {
-      v154 = v61;
+      v153 = v61;
       behavior = [v61 behavior];
       futureMigrationsEnabled = [behavior futureMigrationsEnabled];
       v95 = 100003;
@@ -305,16 +305,16 @@ LABEL_6:
         goto LABEL_175;
       }
 
-      v149 = defaultDatabase;
+      v148 = defaultDatabase;
       v65 = +[HDKeyValueEntity generateNewDatabaseIdentifier];
       _HKInitializeLogging();
       v98 = MEMORY[0x277CCC2A0];
       v99 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
       {
-        *v166 = 138543362;
-        *&v166[4] = v65;
-        _os_log_impl(&dword_228986000, v99, OS_LOG_TYPE_DEFAULT, "Inserting identifier %{public}@ in unprotected db", v166, 0xCu);
+        *v165 = 138543362;
+        *&v165[4] = v65;
+        _os_log_impl(&dword_228986000, v99, OS_LOG_TYPE_DEFAULT, "Inserting identifier %{public}@ in unprotected db", v165, 0xCu);
       }
 
       v100 = +[HDSyncIdentity legacySyncIdentity];
@@ -324,7 +324,7 @@ LABEL_6:
       if (!v102)
       {
         v116 = 0;
-        defaultDatabase = v149;
+        defaultDatabase = v148;
         classes = classesCopy;
 LABEL_173:
 
@@ -332,14 +332,14 @@ LABEL_173:
         goto LABEL_174;
       }
 
-      v146 = v5;
+      v145 = v5;
       entity = [v102 entity];
       persistentID = [entity persistentID];
 
       unprotectedDatabase3 = [v61 unprotectedDatabase];
-      *v173 = 0;
-      v106 = [(HDKeyValueEntity *)HDUnprotectedKeyValueEntity persistDatabaseIdentifier:v65 syncIdentity:persistentID database:unprotectedDatabase3 error:v173];
-      v107 = *v173;
+      *v172 = 0;
+      v106 = [(HDKeyValueEntity *)HDUnprotectedKeyValueEntity persistDatabaseIdentifier:v65 syncIdentity:persistentID database:unprotectedDatabase3 error:v172];
+      v107 = *v172;
 
       _HKInitializeLogging();
       v108 = *v98;
@@ -348,24 +348,24 @@ LABEL_173:
       {
         if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
         {
-          *v166 = 138543362;
-          *&v166[4] = v65;
-          _os_log_impl(&dword_228986000, v108, OS_LOG_TYPE_DEFAULT, "Inserting identifier %{public}@ in protected db", v166, 0xCu);
+          *v165 = 138543362;
+          *&v165[4] = v65;
+          _os_log_impl(&dword_228986000, v108, OS_LOG_TYPE_DEFAULT, "Inserting identifier %{public}@ in protected db", v165, 0xCu);
         }
 
-        protectedDatabase = [v154 protectedDatabase];
-        *v170 = v107;
-        v111 = [(HDKeyValueEntity *)HDProtectedKeyValueEntity persistDatabaseIdentifier:v65 syncIdentity:persistentID database:protectedDatabase error:v170];
-        v112 = *v170;
+        protectedDatabase = [v153 protectedDatabase];
+        *v169 = v107;
+        v111 = [(HDKeyValueEntity *)HDProtectedKeyValueEntity persistDatabaseIdentifier:v65 syncIdentity:persistentID database:protectedDatabase error:v169];
+        v112 = *v169;
 
         if (v111)
         {
 
-          classes = [v154 delegate];
-          [classes migrationTransaction:v154 didCreateDatabasesWithIdentifier:v65];
+          classes = [v153 delegate];
+          [classes migrationTransaction:v153 didCreateDatabasesWithIdentifier:v65];
           v67 = 0;
-          v5 = v146;
-          defaultDatabase = v149;
+          v5 = v145;
+          defaultDatabase = v148;
 LABEL_134:
 
           classes = classesCopy;
@@ -378,7 +378,7 @@ LABEL_175:
           }
 
           v7 = [defaultDatabase userVersionWithDatabaseName:0 error:classes];
-          self = v154;
+          self = v153;
           if ((v7 & 0x8000000000000000) == 0)
           {
             goto LABEL_4;
@@ -391,18 +391,18 @@ LABEL_177:
 
         _HKInitializeLogging();
         v120 = *v98;
-        v5 = v146;
+        v5 = v145;
         if (os_log_type_enabled(*v98, OS_LOG_TYPE_ERROR))
         {
-          *v166 = 138543618;
-          *&v166[4] = v65;
-          v167 = 2114;
-          v168 = v112;
-          _os_log_error_impl(&dword_228986000, v120, OS_LOG_TYPE_ERROR, "Failed inserting protected identifier %{public}@: %{public}@", v166, 0x16u);
+          *v165 = 138543618;
+          *&v165[4] = v65;
+          v166 = 2114;
+          v167 = v112;
+          _os_log_error_impl(&dword_228986000, v120, OS_LOG_TYPE_ERROR, "Failed inserting protected identifier %{public}@: %{public}@", v165, 0x16u);
         }
 
         v116 = v112;
-        defaultDatabase = v149;
+        defaultDatabase = v148;
         if (!v116)
         {
           classes = classesCopy;
@@ -420,16 +420,16 @@ LABEL_177:
       {
         if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
         {
-          *v166 = 138543618;
-          *&v166[4] = v65;
-          v167 = 2114;
-          v168 = v107;
-          _os_log_error_impl(&dword_228986000, v108, OS_LOG_TYPE_ERROR, "Failed inserting unprotected identifier %{public}@: %{public}@", v166, 0x16u);
+          *v165 = 138543618;
+          *&v165[4] = v65;
+          v166 = 2114;
+          v167 = v107;
+          _os_log_error_impl(&dword_228986000, v108, OS_LOG_TYPE_ERROR, "Failed inserting unprotected identifier %{public}@: %{public}@", v165, 0x16u);
         }
 
         v116 = v107;
-        v5 = v146;
-        defaultDatabase = v149;
+        v5 = v145;
+        defaultDatabase = v148;
         classes = classesCopy;
         if (!v116)
         {
@@ -458,7 +458,7 @@ LABEL_116:
   }
 
 LABEL_4:
-  v155 = v7;
+  v154 = v7;
   v8 = v5;
   isProtectedMigration2 = [self isProtectedMigration];
   defaultDatabase2 = [self defaultDatabase];
@@ -476,14 +476,14 @@ LABEL_4:
     v14 = 19102;
   }
 
-  v152 = v14;
+  v151 = v14;
 
   v15 = [[HDDatabaseMigrator alloc] initWithTransaction:self];
   schemaProviders = [self schemaProviders];
-  v165 = 0;
-  v156 = v15;
-  v17 = [HDDatabaseMigrationTransaction _migrationRequiredForProtectionClass:defaultProtectionClass2 migrator:v15 schemaProviders:schemaProviders error:&v165];
-  v18 = v165;
+  v164 = 0;
+  v155 = v15;
+  v17 = [HDDatabaseMigrationTransaction _migrationRequiredForProtectionClass:defaultProtectionClass2 migrator:v15 schemaProviders:schemaProviders error:&v164];
+  v18 = v164;
 
   if (!v17)
   {
@@ -515,18 +515,18 @@ LABEL_4:
     goto LABEL_151;
   }
 
-  v144 = isProtectedMigration2;
-  v143 = defaultDatabase2;
-  v148 = defaultDatabase;
+  v143 = isProtectedMigration2;
+  v142 = defaultDatabase2;
+  v147 = defaultDatabase;
   if ([MEMORY[0x277CCDD30] isAppleInternalInstall])
   {
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
     [standardUserDefaults setBool:0 forKey:@"HDHasPresentedRollbackWarningDialog"];
   }
 
-  v145 = v8;
-  v147 = v18;
-  v150 = v17;
+  v144 = v8;
+  v146 = v18;
+  v149 = v17;
   _HKInitializeLogging();
   v20 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
@@ -547,25 +547,25 @@ LABEL_4:
     *buf = 136315906;
     *&buf[4] = v21;
     *&buf[12] = 2048;
-    *&buf[14] = v155;
+    *&buf[14] = v154;
     *&buf[22] = 2048;
-    *&buf[24] = v152;
+    *&buf[24] = v151;
     *&buf[32] = 2114;
     *&buf[34] = currentOSBuild;
     _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_DEFAULT, "Will migrate %s database from version %ld to %ld (build version %{public}@)", buf, 0x2Au);
   }
 
-  v163 = 0u;
-  v164 = 0u;
-  v161 = 0u;
   v162 = 0u;
+  v163 = 0u;
+  v160 = 0u;
+  v161 = 0u;
   selfCopy = self;
   schemaProviders2 = [self schemaProviders];
-  v26 = [schemaProviders2 countByEnumeratingWithState:&v161 objects:v166 count:16];
+  v26 = [schemaProviders2 countByEnumeratingWithState:&v160 objects:v165 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v162;
+    v28 = *v161;
     if (isProtectedMigration2)
     {
       v29 = "protected";
@@ -580,13 +580,13 @@ LABEL_4:
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v162 != v28)
+        if (*v161 != v28)
         {
           objc_enumerationMutation(schemaProviders2);
         }
 
-        v31 = *(*(&v161 + 1) + 8 * i);
-        schemaManager = [(HDDatabaseMigrator *)v156 schemaManager];
+        v31 = *(*(&v160 + 1) + 8 * i);
+        schemaManager = [(HDDatabaseMigrator *)v155 schemaManager];
         schemaName = [v31 schemaName];
         v34 = [schemaManager currentVersionForSchema:schemaName protectionClass:defaultProtectionClass2 error:classesCopy];
 
@@ -594,14 +594,14 @@ LABEL_4:
         {
 
           v67 = 1;
-          v5 = v145;
-          defaultDatabase = v148;
+          v5 = v144;
+          defaultDatabase = v147;
           classes = classesCopy;
           self = selfCopy;
 LABEL_130:
-          v17 = v150;
-          defaultDatabase2 = v143;
-          v18 = v147;
+          v17 = v149;
+          defaultDatabase2 = v142;
+          v18 = v146;
           goto LABEL_151;
         }
 
@@ -628,49 +628,49 @@ LABEL_130:
         }
       }
 
-      v27 = [schemaProviders2 countByEnumeratingWithState:&v161 objects:v166 count:16];
+      v27 = [schemaProviders2 countByEnumeratingWithState:&v160 objects:v165 count:16];
     }
 
     while (v27);
   }
 
-  [(HDDatabaseMigrator *)v156 addPrimaryMigrationSteps];
+  [(HDDatabaseMigrator *)v155 addPrimaryMigrationSteps];
   self = selfCopy;
   schemaProviders3 = [selfCopy schemaProviders];
-  v41 = v156;
-  v157 = v41;
+  v41 = v155;
+  v156 = v41;
   if (![schemaProviders3 count])
   {
 
     goto LABEL_66;
   }
 
-  v141 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  memset(v170, 0, sizeof(v170));
+  v140 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  memset(v169, 0, sizeof(v169));
+  v170 = 0u;
   v171 = 0u;
-  v172 = 0u;
   obj = schemaProviders3;
-  v42 = [obj countByEnumeratingWithState:v170 objects:buf count:16];
+  v42 = [obj countByEnumeratingWithState:v169 objects:buf count:16];
   if (!v42)
   {
     goto LABEL_50;
   }
 
   v43 = v42;
-  v140 = **&v170[16];
-  v138 = schemaProviders3;
+  v139 = **&v169[16];
+  v137 = schemaProviders3;
   while (2)
   {
     v44 = 0;
     classes = classesCopy;
     do
     {
-      if (**&v170[16] != v140)
+      if (**&v169[16] != v139)
       {
         objc_enumerationMutation(obj);
       }
 
-      v45 = *(*&v170[8] + 8 * v44);
+      v45 = *(*&v169[8] + 8 * v44);
       schemaName3 = [v45 schemaName];
       if (!schemaName3)
       {
@@ -678,20 +678,20 @@ LABEL_130:
 LABEL_129:
 
         v67 = 1;
-        v5 = v145;
-        defaultDatabase = v148;
+        v5 = v144;
+        defaultDatabase = v147;
         goto LABEL_130;
       }
 
-      v47 = [v141 objectForKeyedSubscript:schemaName3];
+      v47 = [v140 objectForKeyedSubscript:schemaName3];
 
       if (v47)
       {
         v118 = MEMORY[0x277CCA9B8];
-        v119 = [v141 objectForKeyedSubscript:schemaName3];
+        v119 = [v140 objectForKeyedSubscript:schemaName3];
         [v118 hk_assignError:classes code:3 format:{@"Schema '%@' provided by both %@ and %@.", schemaName3, v45, v119}];
 
-        v41 = v157;
+        v41 = v156;
         goto LABEL_129;
       }
 
@@ -722,20 +722,20 @@ LABEL_129:
           [selfCopy unprotectedDatabase];
         }
         v52 = ;
-        *v173 = MEMORY[0x277D85DD0];
-        *&v173[8] = 3221225472;
-        *&v173[16] = __106__HDDatabaseMigrationTransaction_Schema___createEntitiesForSchemaProvider_protectionClass_migrator_error___block_invoke;
-        *&v173[24] = &unk_27861AF08;
+        *v172 = MEMORY[0x277D85DD0];
+        *&v172[8] = 3221225472;
+        *&v172[16] = __106__HDDatabaseMigrationTransaction_Schema___createEntitiesForSchemaProvider_protectionClass_migrator_error___block_invoke;
+        *&v172[24] = &unk_27861AF08;
         v53 = v50;
-        *(&v175 + 1) = defaultProtectionClass2;
-        *&v174 = v53;
-        *(&v174 + 1) = selfCopy;
+        *(&v174 + 1) = defaultProtectionClass2;
+        *&v173 = v53;
+        *(&v173 + 1) = selfCopy;
         v54 = v51;
-        *&v175 = v54;
-        v55 = [v52 performTransactionWithType:1 error:classesCopy usingBlock:v173];
+        *&v174 = v54;
+        v55 = [v52 performTransactionWithType:1 error:classesCopy usingBlock:v172];
 
         classes = classesCopy;
-        v41 = v157;
+        v41 = v156;
         if (!v55)
         {
           goto LABEL_129;
@@ -747,11 +747,11 @@ LABEL_129:
         {
           v57 = v56;
           v58 = [v53 currentSchemaVersionForProtectionClass:defaultProtectionClass2];
-          *v173 = 138543618;
-          *&v173[4] = schemaName3;
-          *&v173[12] = 2048;
-          *&v173[14] = v58;
-          _os_log_impl(&dword_228986000, v57, OS_LOG_TYPE_DEFAULT, "Created entities for '%{public}@' at version %ld", v173, 0x16u);
+          *v172 = 138543618;
+          *&v172[4] = schemaName3;
+          *&v172[12] = 2048;
+          *&v172[14] = v58;
+          _os_log_impl(&dword_228986000, v57, OS_LOG_TYPE_DEFAULT, "Created entities for '%{public}@' at version %ld", v172, 0x16u);
         }
       }
 
@@ -759,8 +759,8 @@ LABEL_129:
     }
 
     while (v43 != v44);
-    schemaProviders3 = v138;
-    v43 = [obj countByEnumeratingWithState:v170 objects:buf count:16];
+    schemaProviders3 = v137;
+    v43 = [obj countByEnumeratingWithState:v169 objects:buf count:16];
     if (v43)
     {
       continue;
@@ -774,29 +774,29 @@ LABEL_50:
 LABEL_66:
   v69 = 0;
   v67 = 3;
-  defaultDatabase = v148;
+  defaultDatabase = v147;
 LABEL_67:
   v70 = v69;
   classes = classesCopy;
-  v17 = v150;
-  v18 = v147;
+  v17 = v149;
+  v18 = v146;
   while (v67 == 3)
   {
-    v160 = v70;
-    v67 = [(HDDatabaseMigrator *)v157 migrateFromVersion:v155 toVersion:v152 error:&v160];
-    v69 = v160;
+    v159 = v70;
+    v67 = [(HDDatabaseMigrator *)v156 migrateFromVersion:v154 toVersion:v151 error:&v159];
+    v69 = v159;
 
     v70 = v69;
     if (!v67)
     {
 
       schemaProviders4 = [selfCopy schemaProviders];
-      v159 = 0;
-      v72 = [HDDatabaseMigrationTransaction _migrationRequiredForProtectionClass:defaultProtectionClass2 migrator:v157 schemaProviders:schemaProviders4 error:&v159];
-      v147 = v159;
+      v158 = 0;
+      v72 = [HDDatabaseMigrationTransaction _migrationRequiredForProtectionClass:defaultProtectionClass2 migrator:v156 schemaProviders:schemaProviders4 error:&v158];
+      v146 = v158;
 
       v67 = 0;
-      if (!v72 && v147)
+      if (!v72 && v146)
       {
         _HKInitializeLogging();
         v73 = *MEMORY[0x277CCC2A0];
@@ -813,11 +813,11 @@ LABEL_67:
     }
   }
 
-  v142 = v70;
+  v141 = v70;
   if (v67)
   {
     v113 = v70;
-    v5 = v145;
+    v5 = v144;
     v114 = MEMORY[0x277CCC2A0];
     if (v113)
     {
@@ -840,9 +840,9 @@ LABEL_67:
       *buf = 67109890;
       *&buf[4] = v67;
       *&buf[8] = 2048;
-      *&buf[10] = v155;
+      *&buf[10] = v154;
       *&buf[18] = 2048;
-      *&buf[20] = v152;
+      *&buf[20] = v151;
       *&buf[28] = 2114;
       *&buf[30] = v113;
       _os_log_error_impl(&dword_228986000, v121, OS_LOG_TYPE_ERROR, "Migrator returned %d for migration from %ld to %ld: %{public}@", buf, 0x26u);
@@ -853,7 +853,7 @@ LABEL_67:
     if (os_log_type_enabled(*v114, OS_LOG_TYPE_INFO))
     {
       v123 = "unprotected";
-      if (v144)
+      if (v143)
       {
         v123 = "protected";
       }
@@ -868,10 +868,10 @@ LABEL_67:
 
   else
   {
-    v74 = [v143 userVersionWithDatabaseName:0 error:classesCopy];
+    v74 = [v142 userVersionWithDatabaseName:0 error:classesCopy];
     _HKInitializeLogging();
     v75 = *MEMORY[0x277CCC2A0];
-    v5 = v145;
+    v5 = v144;
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
@@ -886,41 +886,41 @@ LABEL_67:
 
     else
     {
-      if (v74 != v152)
+      if (v74 != v151)
       {
         _HKInitializeLogging();
         v76 = *MEMORY[0x277CCC2A0];
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
         {
           *buf = 134218240;
-          *&buf[4] = v152;
+          *&buf[4] = v151;
           *&buf[12] = 2048;
           *&buf[14] = v74;
           _os_log_fault_impl(&dword_228986000, v76, OS_LOG_TYPE_FAULT, "Database migration returned success but failed to update user version to current version (expected %ld but final version is %ld)", buf, 0x16u);
         }
       }
 
+      v173 = 0u;
       v174 = 0u;
-      v175 = 0u;
-      memset(v173, 0, sizeof(v173));
+      memset(v172, 0, sizeof(v172));
       schemaProviders5 = [selfCopy schemaProviders];
-      v78 = [schemaProviders5 countByEnumeratingWithState:v173 objects:buf count:16];
+      v78 = [schemaProviders5 countByEnumeratingWithState:v172 objects:buf count:16];
       if (v78)
       {
         v79 = v78;
         v67 = 0;
-        v80 = **&v173[16];
+        v80 = **&v172[16];
         do
         {
           for (j = 0; j != v79; ++j)
           {
-            if (**&v173[16] != v80)
+            if (**&v172[16] != v80)
             {
               objc_enumerationMutation(schemaProviders5);
             }
 
-            v82 = *(*&v173[8] + 8 * j);
-            schemaManager3 = [(HDDatabaseMigrator *)v157 schemaManager];
+            v82 = *(*&v172[8] + 8 * j);
+            schemaManager3 = [(HDDatabaseMigrator *)v156 schemaManager];
             schemaName4 = [v82 schemaName];
             v85 = [schemaManager3 currentVersionForSchema:schemaName4 protectionClass:defaultProtectionClass2 error:classes];
 
@@ -937,18 +937,18 @@ LABEL_67:
               v88 = *MEMORY[0x277CCC2A0];
               if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
               {
-                *v170 = 134218240;
-                *&v170[4] = v87;
-                *&v170[12] = 2048;
-                *&v170[14] = v85;
-                _os_log_fault_impl(&dword_228986000, v88, OS_LOG_TYPE_FAULT, "Database migration returned success but failed to update user version to current version (expected %ld but final version is %ld)", v170, 0x16u);
+                *v169 = 134218240;
+                *&v169[4] = v87;
+                *&v169[12] = 2048;
+                *&v169[14] = v85;
+                _os_log_fault_impl(&dword_228986000, v88, OS_LOG_TYPE_FAULT, "Database migration returned success but failed to update user version to current version (expected %ld but final version is %ld)", v169, 0x16u);
               }
             }
 
             classes = classesCopy;
           }
 
-          v79 = [schemaProviders5 countByEnumeratingWithState:v173 objects:buf count:16];
+          v79 = [schemaProviders5 countByEnumeratingWithState:v172 objects:buf count:16];
         }
 
         while (v79);
@@ -959,16 +959,16 @@ LABEL_67:
         v67 = 0;
       }
 
-      v5 = v145;
-      v18 = v147;
-      defaultDatabase = v148;
+      v5 = v144;
+      v18 = v146;
+      defaultDatabase = v147;
       self = selfCopy;
-      v17 = v150;
+      v17 = v149;
     }
   }
 
-  defaultDatabase2 = v143;
-  [(HDDatabaseMigrator *)v157 invalidate];
+  defaultDatabase2 = v142;
+  [(HDDatabaseMigrator *)v156 invalidate];
 
 LABEL_151:
   if (![self isProtectedMigration] || v67)
@@ -993,9 +993,9 @@ LABEL_160:
 
   selfCopy2 = self;
   protectedDatabase3 = [self protectedDatabase];
-  *v166 = 0;
-  v128 = [(HDKeyValueEntity *)HDProtectedKeyValueEntity retrieveDatabaseIdentifierFromDatabase:protectedDatabase3 error:v166];
-  v129 = *v166;
+  *v165 = 0;
+  v128 = [(HDKeyValueEntity *)HDProtectedKeyValueEntity retrieveDatabaseIdentifierFromDatabase:protectedDatabase3 error:v165];
+  v129 = *v165;
 
   if (!v128 && v129)
   {
@@ -1014,18 +1014,18 @@ LABEL_160:
     goto LABEL_170;
   }
 
-  v151 = v17;
+  v150 = v17;
   unprotectedDatabase4 = [selfCopy2 unprotectedDatabase];
-  *v173 = v129;
-  v131 = [(HDKeyValueEntity *)HDUnprotectedKeyValueEntity retrieveDatabaseIdentifierFromDatabase:unprotectedDatabase4 error:v173];
-  v133 = *v173;
+  *v172 = v129;
+  v131 = [(HDKeyValueEntity *)HDUnprotectedKeyValueEntity retrieveDatabaseIdentifierFromDatabase:unprotectedDatabase4 error:v172];
+  v133 = *v172;
 
   if (v128 && v131 && ([v128 isEqualToData:v131] & 1) != 0)
   {
 
     v67 = 0;
     self = selfCopy2;
-    if (!v151)
+    if (!v150)
     {
       goto LABEL_178;
     }
@@ -1057,17 +1057,16 @@ LABEL_170:
 LABEL_178:
 LABEL_179:
 
-  v136 = *MEMORY[0x277D85DE8];
   return v67;
 }
 
 - (void)_enableIncrementalAutovacuumIfNeeded
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   defaultDatabase = [self defaultDatabase];
-  v6 = 0;
-  v2 = [defaultDatabase enableIncrementalAutovacuumForDatabaseWithName:0 error:&v6];
-  v3 = v6;
+  v5 = 0;
+  v2 = [defaultDatabase enableIncrementalAutovacuumForDatabaseWithName:0 error:&v5];
+  v3 = v5;
 
   if ((v2 & 1) == 0)
   {
@@ -1076,55 +1075,52 @@ LABEL_179:
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v8 = v3;
+      v7 = v3;
       _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "Failed to enable autovacuum for database: %{public}@", buf, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)_createDataTablesInDatabase:(uint64_t)database entityClasses:(void *)classes requiredPrefix:(void *)prefix error:(void *)error
+- (uint64_t)_createDataTablesInDatabase:(void *)database entityClasses:(void *)classes requiredPrefix:(uint64_t)prefix error:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v8 = a2;
+  databaseCopy = database;
   classesCopy = classes;
-  prefixCopy = prefix;
-  errorCopy = error;
-  if (database)
+  if (self)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
-    obj = prefixCopy;
-    v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v10)
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    obj = databaseCopy;
+    v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v23;
+      v12 = v11;
+      v13 = *v22;
       while (2)
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v23 != v12)
+          if (*v22 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v22 + 1) + 8 * i);
-          v19 = errorCopy;
-          v20 = classesCopy;
-          v14 = HKWithAutoreleasePool();
+          v19 = classesCopy;
+          v20 = v8;
+          v15 = HKWithAutoreleasePool();
 
-          if (!v14)
+          if (!v15)
           {
-            v15 = 0;
+            v16 = 0;
             goto LABEL_13;
           }
         }
 
-        v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
-        if (v11)
+        v12 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        if (v12)
         {
           continue;
         }
@@ -1132,12 +1128,12 @@ LABEL_179:
         break;
       }
 
-      v15 = 1;
+      v16 = 1;
     }
 
     else
     {
-      v15 = 1;
+      v16 = 1;
     }
 
 LABEL_13:
@@ -1145,36 +1141,34 @@ LABEL_13:
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v16;
 }
 
-uint64_t __105__HDDatabaseMigrationTransaction_Schema___createDataTablesInDatabase_entityClasses_requiredPrefix_error___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __105__HDDatabaseMigrationTransaction_Schema___createDataTablesInDatabase_entityClasses_requiredPrefix_error___block_invoke(id *a1, uint64_t a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 56);
-  v5 = [*(a1 + 32) behavior];
+  v43 = *MEMORY[0x277D85DE8];
+  v4 = a1[7];
+  v5 = [a1[4] behavior];
   v6 = [v4 createTableSQLWithBehavior:v5];
 
   if (v6)
   {
-    if (*(a1 + 40))
+    if (a1[5])
     {
-      v7 = [*(a1 + 56) databaseTable];
-      v8 = [v7 hasPrefix:*(a1 + 40)];
+      v7 = [a1[7] databaseTable];
+      v8 = [v7 hasPrefix:a1[5]];
 
       if ((v8 & 1) == 0)
       {
-        v32 = *(a1 + 56);
-        [MEMORY[0x277CCA9B8] hk_assignError:a2 code:3 format:{@"Entity '%@' missing required prefix '%@'", v32, *(a1 + 40)}];
+        [MEMORY[0x277CCA9B8] hk_assignError:a2 code:3 format:{@"Entity '%@' missing required prefix '%@'", a1[7], a1[5]}];
         goto LABEL_26;
       }
     }
 
-    if (![*(a1 + 48) executeUncachedSQL:v6 error:a2 bindingHandler:0 enumerationHandler:0])
+    if (![a1[6] executeUncachedSQL:v6 error:a2 bindingHandler:0 enumerationHandler:0])
     {
 LABEL_26:
       v31 = 0;
@@ -1182,33 +1176,33 @@ LABEL_26:
     }
   }
 
-  v41 = 0u;
-  v42 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v9 = *(a1 + 56);
-  v10 = [*(a1 + 32) behavior];
+  v37 = 0u;
+  v38 = 0u;
+  v9 = a1[7];
+  v10 = [a1[4] behavior];
   v11 = [v9 indicesWithBehavior:v10];
 
-  v12 = [v11 countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v40;
+    v14 = *v38;
 LABEL_7:
     v15 = 0;
     while (1)
     {
-      if (*v40 != v14)
+      if (*v38 != v14)
       {
         objc_enumerationMutation(v11);
       }
 
-      v16 = *(*(&v39 + 1) + 8 * v15);
-      if ([v16 entityClass] == *(a1 + 56))
+      v16 = *(*(&v37 + 1) + 8 * v15);
+      if ([v16 entityClass] == a1[7])
       {
         v17 = [v16 creationSQL];
-        v18 = [*(a1 + 48) executeUncachedSQL:v17 error:a2 bindingHandler:0 enumerationHandler:0];
+        v18 = [a1[6] executeUncachedSQL:v17 error:a2 bindingHandler:0 enumerationHandler:0];
 
         if (!v18)
         {
@@ -1218,7 +1212,7 @@ LABEL_7:
 
       if (v13 == ++v15)
       {
-        v13 = [v11 countByEnumeratingWithState:&v39 objects:v44 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v37 objects:v42 count:16];
         if (v13)
         {
           goto LABEL_7;
@@ -1229,33 +1223,33 @@ LABEL_7:
     }
   }
 
-  v37 = 0u;
-  v38 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v19 = *(a1 + 56);
-  v20 = [*(a1 + 32) behavior];
+  v33 = 0u;
+  v34 = 0u;
+  v19 = a1[7];
+  v20 = [a1[4] behavior];
   v11 = [v19 triggersWithBehavior:v20];
 
-  v21 = [v11 countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v21 = [v11 countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v36;
+    v23 = *v34;
 LABEL_16:
     v24 = 0;
     while (1)
     {
-      if (*v36 != v23)
+      if (*v34 != v23)
       {
         objc_enumerationMutation(v11);
       }
 
-      v25 = *(*(&v35 + 1) + 8 * v24);
-      if ([v25 entityClass] == *(a1 + 56))
+      v25 = *(*(&v33 + 1) + 8 * v24);
+      if ([v25 entityClass] == a1[7])
       {
         v26 = [v25 creationSQL];
-        v27 = [*(a1 + 48) executeUncachedSQL:v26 error:a2];
+        v27 = [a1[6] executeUncachedSQL:v26 error:a2];
 
         if (!v27)
         {
@@ -1265,7 +1259,7 @@ LABEL_16:
 
       if (v22 == ++v24)
       {
-        v22 = [v11 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v22 = [v11 countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (v22)
         {
           goto LABEL_16;
@@ -1282,13 +1276,12 @@ LABEL_24:
 
 LABEL_23:
 
-  v28 = *(a1 + 32);
-  v29 = *(a1 + 48);
-  v30 = [*(a1 + 56) privateSubEntities];
-  v31 = [(HDDatabaseMigrationTransaction *)v28 _createDataTablesInDatabase:v29 entityClasses:v30 requiredPrefix:*(a1 + 40) error:a2];
+  v28 = a1[4];
+  v29 = a1[6];
+  v30 = [a1[7] privateSubEntities];
+  v31 = [(HDDatabaseMigrationTransaction *)v28 _createDataTablesInDatabase:v29 entityClasses:v30 requiredPrefix:a1[5] error:a2];
 
 LABEL_27:
-  v33 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -1300,7 +1293,7 @@ uint64_t __106__HDDatabaseMigrationTransaction_Schema___createEntitiesForSchemaP
   v8 = [v5 databaseEntitiesForProtectionClass:v6];
   v9 = *(a1 + 40);
   v10 = [*(a1 + 32) schemaName];
-  LODWORD(v9) = [HDDatabaseMigrationTransaction _createDataTablesInDatabase:v9 entityClasses:v7 requiredPrefix:v8 error:v10];
+  LODWORD(v9) = [(HDDatabaseMigrationTransaction *)v9 _createDataTablesInDatabase:v7 entityClasses:v8 requiredPrefix:v10 error:a3];
 
   if (v9)
   {
@@ -1320,33 +1313,33 @@ uint64_t __106__HDDatabaseMigrationTransaction_Schema___createEntitiesForSchemaP
 
 - (void)_presentRollbackAlertForSchema:(void *)schema protectionClass:(uint64_t)class foundVersion:(uint64_t)version currentVersion:(uint64_t)currentVersion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   schemaCopy = schema;
   _HKInitializeLogging();
   v8 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
   {
-    v12 = "main";
+    v11 = "main";
     if (class == 2)
     {
-      v12 = "protected";
+      v11 = "protected";
     }
 
-    *v14 = 136315906;
-    *&v14[4] = v12;
-    v13 = @"<primary>";
-    *&v14[12] = 2114;
+    *v13 = 136315906;
+    *&v13[4] = v11;
+    v12 = @"<primary>";
+    *&v13[12] = 2114;
     if (schemaCopy)
     {
-      v13 = schemaCopy;
+      v12 = schemaCopy;
     }
 
-    *&v14[14] = v13;
-    v15 = 2048;
+    *&v13[14] = v12;
+    v14 = 2048;
     versionCopy = version;
-    v17 = 2048;
+    v16 = 2048;
     currentVersionCopy = currentVersion;
-    _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "Detected attempt to rollback %s database (schema: %{public}@) from a newer build (Found version %ld but current version is %ld); failing migration.", v14, 0x2Au);
+    _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "Detected attempt to rollback %s database (schema: %{public}@) from a newer build (Found version %ld but current version is %ld); failing migration.", v13, 0x2Au);
   }
 
   if ([MEMORY[0x277CCDD30] isAppleInternalInstall] && (_presentRollbackAlertForSchema_protectionClass_foundVersion_currentVersion__isPresenting & 1) == 0)
@@ -1374,8 +1367,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __117__HDDatabaseMigrationTransaction_Schema___presentRollbackAlertForSchema_protectionClass_foundVersion_currentVersion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -1390,7 +1381,7 @@ void __117__HDDatabaseMigrationTransaction_Schema___presentRollbackAlertForSchem
 
 - (BOOL)_migrationRequiredForProtectionClass:(uint64_t)class migrator:(void *)migrator schemaProviders:(void *)providers error:(void *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   migratorCopy = migrator;
   providersCopy = providers;
   schemaManager = [migratorCopy schemaManager];
@@ -1444,28 +1435,28 @@ LABEL_26:
 
   if (v10 >= v14)
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = providersCopy;
-    v18 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v18 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v36;
-      v33 = providersCopy;
+      v20 = *v35;
+      v32 = providersCopy;
       while (2)
       {
         v21 = 0;
         do
         {
-          if (*v36 != v20)
+          if (*v35 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v35 + 1) + 8 * v21);
+          v22 = *(*(&v34 + 1) + 8 * v21);
           schemaManager2 = [migratorCopy schemaManager];
           schemaName = [v22 schemaName];
           v25 = [schemaManager2 currentVersionForSchema:schemaName protectionClass:class error:error];
@@ -1479,13 +1470,13 @@ LABEL_26:
           v26 = [v22 currentSchemaVersionForProtectionClass:class];
           if (v25 > v26)
           {
-            v29 = v26;
+            v28 = v26;
             hk_databaseSchemaRolledBackError2 = [MEMORY[0x277CCA9B8] hk_databaseSchemaRolledBackError];
             if (hk_databaseSchemaRolledBackError2)
             {
               if (error)
               {
-                v31 = hk_databaseSchemaRolledBackError2;
+                v30 = hk_databaseSchemaRolledBackError2;
                 *error = hk_databaseSchemaRolledBackError2;
               }
 
@@ -1496,12 +1487,12 @@ LABEL_26:
             }
 
             schemaName2 = [v22 schemaName];
-            [HDDatabaseMigrationTransaction _presentRollbackAlertForSchema:schemaName2 protectionClass:class foundVersion:v25 currentVersion:v29];
+            [HDDatabaseMigrationTransaction _presentRollbackAlertForSchema:schemaName2 protectionClass:class foundVersion:v25 currentVersion:v28];
 
             v17 = 0;
 LABEL_33:
 
-            providersCopy = v33;
+            providersCopy = v32;
             goto LABEL_27;
           }
 
@@ -1514,8 +1505,8 @@ LABEL_33:
         }
 
         while (v19 != v21);
-        v19 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
-        providersCopy = v33;
+        v19 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+        providersCopy = v32;
         if (v19)
         {
           continue;
@@ -1531,7 +1522,6 @@ LABEL_33:
   v17 = 1;
 LABEL_27:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

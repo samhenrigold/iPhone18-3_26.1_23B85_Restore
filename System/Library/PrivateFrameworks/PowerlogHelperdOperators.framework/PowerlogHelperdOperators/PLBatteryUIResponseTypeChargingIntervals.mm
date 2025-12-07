@@ -8,7 +8,7 @@
 
 - (void)configure:(id)configure
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   configureCopy = configure;
   v5 = [configureCopy objectForKeyedSubscript:@"start"];
   [v5 doubleValue];
@@ -39,33 +39,29 @@
   v22 = [objc_alloc(MEMORY[0x277D3F260]) initWithKey:@"Level" withValue:&unk_287145C10 withComparisonOperation:3];
   v23 = [(PLOperator *)PLBatteryAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"BatteryUI"];
   responderService = [(PLBatteryUIResponseTypeChargingIntervals *)self responderService];
-  storage = [responderService storage];
-  v32[0] = v21;
-  v32[1] = v22;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
-  v27 = [storage lastEntryForKey:v23 withComparisons:v26 isSingleton:0];
+  v25 = objc_msgSend_storage(responderService);
+  v31[0] = v21;
+  v31[1] = v22;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+  v27 = [v25 lastEntryForKey:v23 withComparisons:v26 isSingleton:0];
   [(PLBatteryUIResponseTypeChargingIntervals *)self setLastBattEntry:v27];
 
   responderService2 = [(PLBatteryUIResponseTypeChargingIntervals *)self responderService];
-  storage2 = [responderService2 storage];
-  v30 = [storage2 entriesForKey:v23 inTimeRange:0 withFilters:{v16, v18}];
+  v29 = objc_msgSend_storage(responderService2);
+  v30 = [v29 entriesForKey:v23 inTimeRange:0 withFilters:{v16, v18}];
   [(PLBatteryUIResponseTypeChargingIntervals *)self setBattEntries:v30];
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)run
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = [self objectAtIndexedSubscript:0];
   v5 = [self objectAtIndexedSubscript:1];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_25EE51000, a2, OS_LOG_TYPE_DEBUG, "Capped open charging interval: [%@ %@]", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_25EE51000, a2, OS_LOG_TYPE_DEBUG, "Capped open charging interval: [%@ %@]", &v6, 0x16u);
 }
 
 - (id)result

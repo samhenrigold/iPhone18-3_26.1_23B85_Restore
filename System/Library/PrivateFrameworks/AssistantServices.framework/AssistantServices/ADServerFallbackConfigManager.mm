@@ -151,7 +151,7 @@
   if (bOOLeanValue)
   {
 LABEL_18:
-    v14 = +[ADPreferences sharedPreferences];
+    v14 = [ADPreferences sharedPreferences:*v15];
     [v14 setIsSyncDisabledForFullUoDDevices:1];
   }
 

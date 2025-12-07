@@ -252,35 +252,35 @@ void *__54__HFAbstractBaseActionSetBuilder_matterActionBuilders__block_invoke(ui
 
 - (id)existingActionBuilder:(id)builder inSet:(id)set
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   builderCopy = builder;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   setCopy = set;
-  v7 = [setCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [setCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(setCopy);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
-        if ([v10 canUpdateWithActionBuilder:{builderCopy, v13}])
+        v10 = *(*(&v12 + 1) + 8 * i);
+        if ([v10 canUpdateWithActionBuilder:{builderCopy, v12}])
         {
           v7 = v10;
           goto LABEL_11;
         }
       }
 
-      v7 = [setCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [setCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -292,14 +292,12 @@ void *__54__HFAbstractBaseActionSetBuilder_matterActionBuilders__block_invoke(ui
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (BOOL)_updateActionBuildersForLightColorAction:(id)action
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   actionBuilders = [(HFAbstractBaseActionSetBuilder *)self actionBuilders];
   toSet = [actionBuilders toSet];
@@ -341,9 +339,9 @@ LABEL_11:
     }
 
     v23 = *MEMORY[0x277CCF8D8];
-    v67[0] = *MEMORY[0x277CCFA30];
-    v67[1] = v23;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
+    v64[0] = *MEMORY[0x277CCFA30];
+    v64[1] = v23;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:2];
     characteristic = [v13 characteristic];
     characteristicType = [characteristic characteristicType];
 
@@ -361,111 +359,107 @@ LABEL_11:
         goto LABEL_25;
       }
 
-      v66 = v26;
-      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+      v63 = v26;
+      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
     }
 
     v28 = v27;
 LABEL_25:
-    v29 = 0x277DEF000uLL;
     if ([v28 count])
     {
-      v52 = v11;
-      v53 = v28;
-      v48 = characteristicType;
-      v49 = v22;
-      v50 = v7;
-      v57 = 0u;
-      v58 = 0u;
+      v49 = v11;
+      v50 = v28;
+      v45 = characteristicType;
+      v46 = v22;
+      v47 = v7;
+      v54 = 0u;
       v55 = 0u;
-      v56 = 0u;
-      v30 = v7;
-      v31 = [v30 countByEnumeratingWithState:&v55 objects:v65 count:16];
-      if (v31)
+      v52 = 0u;
+      v53 = 0u;
+      v29 = v7;
+      v30 = [v29 countByEnumeratingWithState:&v52 objects:v62 count:16];
+      if (v30)
       {
-        v32 = v31;
-        v33 = *v56;
-        v54 = 1;
+        v31 = v30;
+        v32 = *v53;
+        v51 = 1;
         do
         {
-          for (i = 0; i != v32; ++i)
+          for (i = 0; i != v31; ++i)
           {
-            if (*v56 != v33)
+            if (*v53 != v32)
             {
-              objc_enumerationMutation(v30);
+              objc_enumerationMutation(v29);
             }
 
-            v35 = *(*(&v55 + 1) + 8 * i);
-            if ([v35 hasSameTargetAsActionBuilder:v13])
+            v34 = *(*(&v52 + 1) + 8 * i);
+            if ([v34 hasSameTargetAsActionBuilder:v13])
             {
-              v36 = *(v29 + 3592);
               objc_opt_class();
-              v37 = v35;
+              v35 = v34;
               if (objc_opt_isKindOfClass())
               {
-                v38 = v37;
+                v36 = v35;
               }
 
               else
               {
-                v38 = 0;
+                v36 = 0;
               }
 
-              v39 = v38;
+              v37 = v36;
 
               objc_opt_class();
-              v40 = v37;
+              v38 = v35;
               if (objc_opt_isKindOfClass())
               {
-                v41 = v40;
+                v39 = v38;
               }
 
               else
               {
-                v41 = 0;
+                v39 = 0;
               }
 
-              v42 = v41;
+              v40 = v39;
 
-              if ([v39 naturalLightEnabled])
+              if ([v37 naturalLightEnabled])
               {
-                v54 = 0;
+                v51 = 0;
               }
 
-              else if (v42)
+              else if (v40)
               {
-                characteristic2 = [v42 characteristic];
+                characteristic2 = [v40 characteristic];
                 characteristicType2 = [characteristic2 characteristicType];
 
-                if ([v53 containsObject:characteristicType2])
+                if ([v50 containsObject:characteristicType2])
                 {
                   actionBuilders2 = [(HFAbstractBaseActionSetBuilder *)self actionBuilders];
-                  [actionBuilders2 deleteObject:v42];
+                  [actionBuilders2 deleteObject:v40];
                 }
-
-                v29 = 0x277DEF000;
               }
             }
           }
 
-          v32 = [v30 countByEnumeratingWithState:&v55 objects:v65 count:16];
+          v31 = [v29 countByEnumeratingWithState:&v52 objects:v62 count:16];
         }
 
-        while (v32);
+        while (v31);
       }
 
       else
       {
-        v54 = 1;
+        v51 = 1;
       }
 
       v10 = 0;
-      v7 = v50;
-      v11 = v52;
-      v28 = v53;
-      characteristicType = v48;
-      v22 = v49;
-      v21 = v54;
+      v7 = v47;
+      v11 = v49;
+      v28 = v50;
+      characteristicType = v45;
+      v22 = v46;
+      v21 = v51;
     }
 
     else
@@ -478,45 +472,45 @@ LABEL_25:
 
   if ([v10 naturalLightEnabled])
   {
-    v51 = v11;
-    v63[0] = MEMORY[0x277D85DD0];
-    v63[1] = 3221225472;
-    v63[2] = __75__HFAbstractBaseActionSetBuilder__updateActionBuildersForLightColorAction___block_invoke;
-    v63[3] = &unk_277DF4998;
-    v64 = v10;
-    v14 = [v7 na_filter:v63];
+    v48 = v11;
+    v60[0] = MEMORY[0x277D85DD0];
+    v60[1] = 3221225472;
+    v60[2] = __75__HFAbstractBaseActionSetBuilder__updateActionBuildersForLightColorAction___block_invoke;
+    v60[3] = &unk_277DF4998;
+    v61 = v10;
+    v14 = [v7 na_filter:v60];
+    v56 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v62 = 0u;
-    v15 = [v14 countByEnumeratingWithState:&v59 objects:v68 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v56 objects:v65 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v60;
+      v17 = *v57;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v60 != v17)
+          if (*v57 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v59 + 1) + 8 * j);
+          v19 = *(*(&v56 + 1) + 8 * j);
           actionBuilders3 = [(HFAbstractBaseActionSetBuilder *)self actionBuilders];
           [actionBuilders3 deleteObject:v19];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v59 objects:v68 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v56 objects:v65 count:16];
       }
 
       while (v16);
     }
 
     v21 = 1;
-    v22 = v64;
-    v11 = v51;
+    v22 = v61;
+    v11 = v48;
 LABEL_52:
 
     goto LABEL_53;
@@ -526,21 +520,20 @@ LABEL_20:
   v21 = 1;
 LABEL_53:
 
-  v46 = *MEMORY[0x277D85DE8];
   return v21 & 1;
 }
 
 uint64_t __75__HFAbstractBaseActionSetBuilder__updateActionBuildersForLightColorAction___block_invoke(uint64_t a1, void *a2)
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 hasSameTargetAsActionBuilder:*(a1 + 32)])
   {
     v4 = *MEMORY[0x277CCF7D8];
-    v14[0] = *MEMORY[0x277CCFA30];
-    v14[1] = v4;
-    v14[2] = *MEMORY[0x277CCF8D8];
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+    v13[0] = *MEMORY[0x277CCFA30];
+    v13[1] = v4;
+    v13[2] = *MEMORY[0x277CCF8D8];
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
     objc_opt_class();
     v6 = v3;
     if (objc_opt_isKindOfClass())
@@ -566,7 +559,6 @@ uint64_t __75__HFAbstractBaseActionSetBuilder__updateActionBuildersForLightColor
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -580,13 +572,13 @@ uint64_t __75__HFAbstractBaseActionSetBuilder__updateActionBuildersForLightColor
 
 - (id)createActionSetBuilder
 {
-  home = [(HFItemBuilder *)self home];
-  areAutomationBuildersSupported = [home areAutomationBuildersSupported];
+  v3 = objc_msgSend_home(self, a2);
+  areAutomationBuildersSupported = [v3 areAutomationBuildersSupported];
 
   if (areAutomationBuildersSupported)
   {
-    home2 = [(HFItemBuilder *)self home];
-    newActionSetBuilder = [home2 newActionSetBuilder];
+    v5 = objc_msgSend_home(self);
+    newActionSetBuilder = [v5 newActionSetBuilder];
 
     [(HFAbstractBaseActionSetBuilder *)self updateActionsInBuilder:newActionSetBuilder];
     v7 = [MEMORY[0x277D2C900] futureWithResult:newActionSetBuilder];
@@ -707,43 +699,39 @@ void __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_2(ui
 
 void __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_3(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) action];
     v4 = [*(a1 + 40) actionSet];
     v5 = [v4 hf_prettyDescription];
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Added action: %@ to action set:%@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Added action: %@ to action set:%@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_32(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) action];
-    v7 = [*(a1 + 40) actionSet];
-    v8 = [v7 hf_prettyDescription];
-    v9 = 138412802;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to add action: %@ to action set: %@. Error: %@", &v9, 0x20u);
+    v5 = [*(a1 + 32) action];
+    v6 = [*(a1 + 40) actionSet];
+    v7 = [v6 hf_prettyDescription];
+    v8 = 138412802;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to add action: %@ to action set: %@. Error: %@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 id __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_35(uint64_t a1, void *a2)
@@ -791,43 +779,39 @@ void __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_2_36
 
 void __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_3_37(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) action];
     v4 = [*(a1 + 40) actionSet];
     v5 = [v4 hf_prettyDescription];
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Removed action: %@ from action set:%@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Removed action: %@ from action set:%@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_38(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) action];
-    v7 = [*(a1 + 40) actionSet];
-    v8 = [v7 hf_prettyDescription];
-    v9 = 138412802;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to remove action: %@ from action set: %@. Error: %@", &v9, 0x20u);
+    v5 = [*(a1 + 32) action];
+    v6 = [*(a1 + 40) actionSet];
+    v7 = [v6 hf_prettyDescription];
+    v8 = 138412802;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to remove action: %@ from action set: %@. Error: %@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_39(void *a1, void *a2)
@@ -849,7 +833,7 @@ void __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_39(v
 
 void __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_2_40(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   if (!v5)
@@ -859,7 +843,7 @@ void __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_2_40
     {
       v15 = [*(a1 + 32) actionBuilders];
       *buf = 138412290;
-      v22 = v15;
+      v21 = v15;
       _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "Update actionBuilders: %@", buf, 0xCu);
     }
 
@@ -877,13 +861,13 @@ void __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_2_40
   v9 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v19 = [*(a1 + 32) actionBuilders];
+    v18 = [*(a1 + 32) actionBuilders];
     *buf = 138412802;
-    v22 = v19;
-    v23 = 2112;
-    v24 = v8;
-    v25 = 2112;
-    v26 = v5;
+    v21 = v18;
+    v22 = 2112;
+    v23 = v8;
+    v24 = 2112;
+    v25 = v5;
     _os_log_error_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "Failed to update actionBuilders: %@, successful changes: %@. Error: %@", buf, 0x20u);
   }
 
@@ -899,15 +883,14 @@ LABEL_9:
   }
 
   v17 = +[HFHomeKitDispatcher sharedDispatcher];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_42;
-  v20[3] = &unk_277DF2CB8;
-  v20[4] = *(a1 + 32);
-  [v17 dispatchHomeObserverMessage:v20 sender:0];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_42;
+  v19[3] = &unk_277DF2CB8;
+  v19[4] = *(a1 + 32);
+  [v17 dispatchHomeObserverMessage:v19 sender:0];
 
   [*(a1 + 40) finishWithResult:v6 error:v5];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_42(uint64_t a1, void *a2)
@@ -915,7 +898,7 @@ void __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_42(u
   v5 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v3 = [*(a1 + 32) home];
+    v3 = objc_msgSend_home(*(a1 + 32));
     v4 = [*(a1 + 32) actionSet];
     [v5 home:v3 didUpdateActionsForActionSet:v4];
   }
@@ -955,8 +938,8 @@ void __53__HFAbstractBaseActionSetBuilder_lazilyUpdateActions__block_invoke_42(u
 {
   v5 = objc_alloc(objc_opt_class());
   actionSet = [(HFAbstractBaseActionSetBuilder *)self actionSet];
-  home = [(HFItemBuilder *)self home];
-  v8 = [v5 initWithExistingObject:actionSet inHome:home];
+  v7 = objc_msgSend_home(self);
+  v8 = [v5 initWithExistingObject:actionSet inHome:v7];
 
   actionBuilders = [(HFAbstractBaseActionSetBuilder *)self actionBuilders];
   v10 = [actionBuilders mutableCopyWithZone:zone];

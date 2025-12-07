@@ -31,7 +31,7 @@
 
 - (void)indicateNotificationFromServer:(id)server notifyType:(unint64_t)type withDictionary:(id)dictionary
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   dictionaryCopy = dictionary;
   v10 = serverCopy;
@@ -67,8 +67,8 @@
               v17 = HMFGetLogIdentifier();
               nodeID = [targetServer nodeID];
               *buf = 138543618;
-              v42 = v17;
-              v43 = 2112;
+              v41 = v17;
+              v42 = 2112;
               typeCopy = nodeID;
               _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_INFO, "%{public}@Accessory server with nodeID %@ became reachable", buf, 0x16u);
             }
@@ -83,7 +83,7 @@
               block[1] = 3221225472;
               block[2] = __95__HMMTRAccessoryReachabilityObserver_indicateNotificationFromServer_notifyType_withDictionary___block_invoke;
               block[3] = &unk_2786EF878;
-              v40 = completionBlock;
+              v39 = completionBlock;
               dispatch_async(workQueue, block);
             }
 
@@ -98,8 +98,8 @@
             v33 = HMFGetLogIdentifier();
             nodeID2 = [targetServer nodeID];
             *buf = 138543618;
-            v42 = v33;
-            v43 = 2112;
+            v41 = v33;
+            v42 = 2112;
             typeCopy = nodeID2;
             _os_log_impl(&dword_22AEAE000, v32, OS_LOG_TYPE_INFO, "%{public}@Accessory server with nodeID %@ is currently unreachable, still waiting for reachable notification", buf, 0x16u);
 
@@ -124,11 +124,11 @@ LABEL_31:
 
         v33 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v42 = v33;
-        v43 = 2112;
+        v41 = v33;
+        v42 = 2112;
         typeCopy = targetServer;
-        v45 = 2112;
-        v46 = v12;
+        v44 = 2112;
+        v45 = v12;
         v34 = "%{public}@Expecting notification for accessory server %@, received notification for accessory server %@, ignoring";
         v35 = v32;
         v36 = 32;
@@ -146,8 +146,8 @@ LABEL_31:
 
         v33 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v42 = v33;
-        v43 = 2112;
+        v41 = v33;
+        v42 = 2112;
         typeCopy = v12;
         v34 = "%{public}@Not expected any notification for any server, but received notification for accessory server %@, ignoring";
         v35 = v32;
@@ -167,11 +167,11 @@ LABEL_29:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v42 = v29;
-      v43 = 2048;
+      v41 = v29;
+      v42 = 2048;
       typeCopy = type;
-      v45 = 2112;
-      v46 = v12;
+      v44 = 2112;
+      v45 = v12;
       _os_log_impl(&dword_22AEAE000, v28, OS_LOG_TYPE_ERROR, "%{public}@Received unexpected notification %lu accessory server, ignoring %@", buf, 0x20u);
     }
 
@@ -187,8 +187,8 @@ LABEL_29:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v42 = v24;
-      v43 = 2112;
+      v41 = v24;
+      v42 = 2112;
       typeCopy = v10;
       _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_ERROR, "%{public}@Received notification for a non-matter accessory server, ignoring %@", buf, 0x16u);
     }
@@ -198,8 +198,6 @@ LABEL_29:
 
   objc_autoreleasePoolPop(v25);
 LABEL_32:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopObservingReachabilityWithError:(id)error
@@ -252,7 +250,7 @@ void __73__HMMTRAccessoryReachabilityObserver_stopObservingReachabilityWithError
 
 - (void)startObservingReachabilityForAccessoryServer:(id)server completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   completionCopy = completion;
   completionBlock = [(HMMTRAccessoryReachabilityObserver *)self completionBlock];
@@ -266,7 +264,7 @@ void __73__HMMTRAccessoryReachabilityObserver_stopObservingReachabilityWithError
     block[1] = 3221225472;
     block[2] = __94__HMMTRAccessoryReachabilityObserver_startObservingReachabilityForAccessoryServer_completion___block_invoke;
     block[3] = &unk_2786EF878;
-    v26 = completionBlock2;
+    v25 = completionBlock2;
     v11 = completionBlock2;
     dispatch_async(workQueue, block);
   }
@@ -279,9 +277,9 @@ void __73__HMMTRAccessoryReachabilityObserver_stopObservingReachabilityWithError
     v15 = HMFGetLogIdentifier();
     nodeID = [serverCopy nodeID];
     *buf = 138543618;
-    v28 = v15;
-    v29 = 2112;
-    v30 = nodeID;
+    v27 = v15;
+    v28 = 2112;
+    v29 = nodeID;
     _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_INFO, "%{public}@Starting reachability observation for accessory server with nodeID %@", buf, 0x16u);
   }
 
@@ -299,9 +297,9 @@ void __73__HMMTRAccessoryReachabilityObserver_stopObservingReachabilityWithError
       v22 = HMFGetLogIdentifier();
       nodeID2 = [serverCopy nodeID];
       *buf = 138543618;
-      v28 = v22;
-      v29 = 2112;
-      v30 = nodeID2;
+      v27 = v22;
+      v28 = 2112;
+      v29 = nodeID2;
       _os_log_impl(&dword_22AEAE000, v21, OS_LOG_TYPE_INFO, "%{public}@Accessory server with nodeID %@ was already reachable, replying immediately", buf, 0x16u);
     }
 
@@ -315,8 +313,6 @@ void __73__HMMTRAccessoryReachabilityObserver_stopObservingReachabilityWithError
     [(HMMTRAccessoryReachabilityObserver *)selfCopy setCompletionBlock:completionCopy];
     [serverCopy registerForNotifications:selfCopy];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __94__HMMTRAccessoryReachabilityObserver_startObservingReachabilityForAccessoryServer_completion___block_invoke(uint64_t a1)
@@ -358,12 +354,11 @@ void __94__HMMTRAccessoryReachabilityObserver_startObservingReachabilityForAcces
 
 uint64_t __49__HMMTRAccessoryReachabilityObserver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v10;
-  logCategory__hmf_once_v10 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v10;
+  logCategory__hmf_once_v10 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

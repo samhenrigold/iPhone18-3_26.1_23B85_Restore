@@ -22,14 +22,13 @@
 {
   v4 = sub_22F73F470();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22F73F430();
-  v9 = sub_22F1A1FCC(v8);
-  (*(v5 + 8))(v8, v4);
+  v8 = sub_22F1A1FCC(v7);
+  (*(v5 + 8))(v7, v4);
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)removeAllWithProgressReporter:(id)reporter error:(id *)error
@@ -76,13 +75,12 @@
 
 - (id)statusAndReturnError:(id *)error
 {
-  v3 = *(&self->super.isa + OBJC_IVAR___PGMusicCache_managedObjectContext);
   selfCopy = self;
   sub_22F7417A0();
 
-  v5 = sub_22F740DF0();
+  v4 = sub_22F740DF0();
 
-  return v5;
+  return v4;
 }
 
 @end

@@ -62,7 +62,7 @@
 
 id __80__STDataAccessStatusDomainDisplayNameTransformer_transformedDataForData_domain___block_invoke_2(uint64_t a1, void *a2)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 dataAccessType];
   v5 = v4;
@@ -166,18 +166,16 @@ LABEL_8:
   v31 = STSystemStatusLogDataIntegrity();
   if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
   {
-    v50 = STDescriptionForDataAccessType();
-    v51 = 134349314;
-    v52 = v5;
-    v53 = 2114;
-    v54 = v50;
-    _os_log_error_impl(&dword_26C4AD000, v31, OS_LOG_TYPE_ERROR, "transformer encountered data access attribution of invalid type: %{public}lu (%{public}@)", &v51, 0x16u);
+    v49 = STDescriptionForDataAccessType();
+    v50 = 134349314;
+    v51 = v5;
+    v52 = 2114;
+    v53 = v49;
+    _os_log_error_impl(&dword_26C4AD000, v31, OS_LOG_TYPE_ERROR, "transformer encountered data access attribution of invalid type: %{public}lu (%{public}@)", &v50, 0x16u);
   }
 
   v21 = 0;
 LABEL_16:
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

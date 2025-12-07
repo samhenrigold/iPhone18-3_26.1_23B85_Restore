@@ -211,12 +211,11 @@ LABEL_11:
 
 - (void)pixelFormatType
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v1 = *self;
-  v3[0] = 67109120;
-  v3[1] = v1;
-  _os_log_error_impl(&dword_1C1BCE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Image pixel type %d is not supported.", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = v1;
+  _os_log_error_impl(&dword_1C1BCE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Image pixel type %d is not supported.", v2, 8u);
 }
 
 @end

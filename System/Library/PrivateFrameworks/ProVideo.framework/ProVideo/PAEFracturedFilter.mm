@@ -96,7 +96,7 @@
   {
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input, a2, output, input, info, v5, v6);
     }
 
     else
@@ -113,7 +113,7 @@
 
   else
   {
-    ReadyEffect = FracturedUtils::getReadyEffect(&self->_fxPool.__begin_, self->_fxPoolLock);
+    ReadyEffect = FracturedUtils::getReadyEffect(&self->_fxPool, self->_fxPoolLock);
     v13 = *&FracturedUtils::_lastTouchY;
     fxParams = self->_fxParams;
     fxParams->var26[0] = -(*&FracturedUtils::_lastTouchX + -0.5);

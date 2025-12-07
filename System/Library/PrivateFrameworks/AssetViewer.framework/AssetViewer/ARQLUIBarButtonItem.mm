@@ -11,11 +11,12 @@
   v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC11AssetViewer19ARQLUIBarButtonItem_onPressed);
   if (v2)
   {
+    v3 = *(&self->super.super._hasCustomizableInstanceAppearanceModifications + OBJC_IVAR____TtC11AssetViewer19ARQLUIBarButtonItem_onPressed);
     selfCopy = self;
-    v4 = sub_24124AD38(v2);
-    v2(v4);
+    v5 = sub_24124AD38(v2, v3);
+    v2(v5);
 
-    sub_2412186FC(v2);
+    sub_2412186FC(v2, v3);
   }
 }
 

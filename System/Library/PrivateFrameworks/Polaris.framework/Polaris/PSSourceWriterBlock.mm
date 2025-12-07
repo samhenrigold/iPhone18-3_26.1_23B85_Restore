@@ -85,7 +85,7 @@
 
 - (void)setupResultsWithContext:(id)context device:(id)device
 {
-  v252 = *MEMORY[0x277D85DE8];
+  v260 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   deviceCopy = device;
   WeakRetained = objc_loadWeakRetained(&self->_sourceTask);
@@ -96,34 +96,34 @@
   v8 = malloc_type_calloc(1uLL, 0x100uLL, 0x102004027845E25uLL);
   v8->var4 = self->_synchronizer;
   self->_sourceTaskData = v8;
-  v222 = v8;
+  v230 = v8;
   v8->var3 = 0;
-  v215 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v240 = 0u;
-  v241 = 0u;
-  v242 = 0u;
-  v243 = 0u;
+  v223 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v248 = 0u;
+  v249 = 0u;
+  v250 = 0u;
+  v251 = 0u;
   selfCopy = self;
   v9 = objc_loadWeakRetained(&self->_sourceTask);
   outputs2 = [v9 outputs];
 
-  v230 = outputs2;
-  v11 = [outputs2 countByEnumeratingWithState:&v240 objects:v251 count:16];
+  v238 = outputs2;
+  v11 = [outputs2 countByEnumeratingWithState:&v248 objects:v259 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v241;
+    v13 = *v249;
     do
     {
       v14 = 0;
       do
       {
-        if (*v241 != v13)
+        if (*v249 != v13)
         {
-          objc_enumerationMutation(v230);
+          objc_enumerationMutation(v238);
         }
 
-        resourceKey = [*(*(&v240 + 1) + 8 * v14) resourceKey];
+        resourceKey = [*(*(&v248 + 1) + 8 * v14) resourceKey];
         v16 = [contextCopy resourceStreamForKey:resourceKey];
 
         resourceClass = [v16 resourceClass];
@@ -142,29 +142,29 @@
           v19 = &unk_2870CAD70;
         }
 
-        [v215 addObject:v19];
+        [v223 addObject:v19];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v20 = [v230 countByEnumeratingWithState:&v240 objects:v251 count:16];
+      v20 = [v238 countByEnumeratingWithState:&v248 objects:v259 count:16];
       v12 = v20;
     }
 
     while (v20);
   }
 
-  firstObject = [v215 firstObject];
+  firstObject = [v223 firstObject];
   bOOLValue = [firstObject BOOLValue];
 
   v22 = selfCopy;
-  if ([v215 count])
+  if ([v223 count])
   {
     v23 = 0;
     do
     {
-      v24 = [v215 objectAtIndexedSubscript:v23];
+      v24 = [v223 objectAtIndexedSubscript:v23];
       bOOLValue2 = [v24 BOOLValue];
 
       if (bOOLValue != bOOLValue2)
@@ -175,50 +175,48 @@
       ++v23;
     }
 
-    while ([v215 count] > v23);
+    while ([v223 count] > v23);
   }
 
-  v238 = 0u;
-  v239 = 0u;
-  v236 = 0u;
-  v237 = 0u;
+  v246 = 0u;
+  v247 = 0u;
+  v244 = 0u;
+  v245 = 0u;
   v26 = objc_loadWeakRetained(&selfCopy->_sourceTask);
   outputs3 = [v26 outputs];
 
-  v208 = outputs3;
-  v213 = [outputs3 countByEnumeratingWithState:&v236 objects:v250 count:16];
-  if (v213)
+  v216 = outputs3;
+  v221 = [outputs3 countByEnumeratingWithState:&v244 objects:v258 count:16];
+  if (v221)
   {
-    var2 = v222->var2;
-    var1 = v222->var1;
-    v211 = *v237;
+    var2 = v230->var2;
+    var1 = v230->var1;
+    v219 = *v245;
     *&v28 = 136315138;
-    v209 = v28;
+    v217 = v28;
     *&v28 = 134217984;
-    v204 = v28;
+    v212 = v28;
     *&v28 = 67109632;
-    v203 = v28;
+    v211 = v28;
     *&v28 = 136315394;
-    v205 = v28;
+    v213 = v28;
     do
     {
       v29 = 0;
       do
       {
-        if (*v237 != v211)
+        if (*v245 != v219)
         {
-          objc_enumerationMutation(v208);
+          objc_enumerationMutation(v216);
         }
 
-        v224 = v29;
-        v30 = *(*(&v236 + 1) + 8 * v29);
+        v232 = v29;
+        v30 = *(*(&v244 + 1) + 8 * v29);
         resourceKey2 = [v30 resourceKey];
         provider = [contextCopy resourceStreamForKey:resourceKey2];
 
-        outputs = v22->_outputs;
-        var3 = v222->var3;
         resource = ps_resource_array_get_resource();
-        v229 = v30;
+        v237 = v30;
         resourceKey3 = [v30 resourceKey];
         MEMORY[0x25F8C9510](resource, [resourceKey3 UTF8String]);
 
@@ -226,51 +224,51 @@
         MEMORY[0x25F8C93F0](resource, [provider resourceClass]);
         if ([provider resourceClass] == 9)
         {
-          v37 = 4;
+          v35 = 4;
         }
 
         else if ([provider resourceClass] == 11)
         {
-          v37 = 4;
+          v35 = 4;
         }
 
         else
         {
-          v37 = 1;
+          v35 = 1;
         }
 
-        v223 = v37;
+        v231 = v35;
         MEMORY[0x25F8C94A0](resource, 1);
-        v228 = provider;
+        v236 = provider;
         if ((bOOLValue & 1) == 0)
         {
-          v43 = ps_prm_opts_create();
-          v44 = v229;
-          resourceKey4 = [v229 resourceKey];
-          capacity = [v44 capacity];
-          v47 = objc_loadWeakRetained(&selfCopy->_transitionManager);
-          executionSession = [v47 executionSession];
-          v49 = [executionSession gsm];
-          v50 = capacity;
+          v41 = ps_prm_opts_create();
+          v42 = v237;
+          resourceKey4 = [v237 resourceKey];
+          capacity = [v42 capacity];
+          v45 = objc_loadWeakRetained(&selfCopy->_transitionManager);
+          executionSession = [v45 executionSession];
+          v47 = [executionSession gsm];
+          v48 = capacity;
           v22 = selfCopy;
-          [PSGraphCompiler populateWriterOpts:v43 forKey:resourceKey4 withCapacity:v50 forGraph:0 withResStream:v228 withContext:contextCopy retainedBufferIndexers:0 withGSM:v49];
+          [PSGraphCompiler populateWriterOpts:v41 forKey:resourceKey4 withCapacity:v48 forGraph:0 withResStream:v236 withContext:contextCopy retainedBufferIndexers:0 withGSM:v47];
 
-          writer_instance = ps_prm_create_writer_instance(v22->_prm_mgr, v43);
-          ps_prm_opts_destroy(v43);
+          writer_instance = ps_prm_create_writer_instance(v22->_prm_mgr, v41);
+          ps_prm_opts_destroy(v41);
           frameIDs = v22->_frameIDs;
-          resourceKey5 = [v44 resourceKey];
+          resourceKey5 = [v42 resourceKey];
           [(NSMutableDictionary *)frameIDs setObject:&unk_2870CAD88 forKeyedSubscript:resourceKey5];
 
-          v54 = [MEMORY[0x277CCAE60] valueWithPointer:writer_instance];
+          v52 = [MEMORY[0x277CCAE60] valueWithPointer:writer_instance];
           writerInsts = v22->_writerInsts;
-          resourceKey6 = [v44 resourceKey];
-          [(NSMutableDictionary *)writerInsts setObject:v54 forKeyedSubscript:resourceKey6];
+          resourceKey6 = [v42 resourceKey];
+          [(NSMutableDictionary *)writerInsts setObject:v52 forKeyedSubscript:resourceKey6];
 
-          provider = v228;
+          provider = v236;
           [provider provider];
           if (ps_resource_stream_provider_has_iosurface_metadata())
           {
-            v57 = 1;
+            v55 = 1;
           }
 
           else
@@ -278,7 +276,7 @@
             [provider provider];
             if (ps_resource_stream_provider_has_cfdata_metadata())
             {
-              v57 = 0;
+              v55 = 0;
             }
 
             else
@@ -289,44 +287,44 @@
                 goto LABEL_175;
               }
 
-              v57 = 2;
+              v55 = 2;
             }
           }
 
-          MEMORY[0x25F8C9520](resource, v57);
-          resourceKey7 = [v229 resourceKey];
+          MEMORY[0x25F8C9520](resource, v55);
+          resourceKey7 = [v237 resourceKey];
           [(PSSourceWriterBlock *)v22 acquireOutputBuffer:resource key:resourceKey7];
 
           goto LABEL_142;
         }
 
-        v38 = v229;
-        resourceKey8 = [v229 resourceKey];
-        v216 = [PSRCConstants resourceIDForKey:resourceKey8];
+        v36 = v237;
+        resourceKey8 = [v237 resourceKey];
+        v224 = [PSRCConstants resourceIDForKey:resourceKey8];
 
-        resourceKey9 = [v38 resourceKey];
-        v41 = [deviceCopy propertiesForKey:resourceKey9];
-        syncedKey = [v41 syncedKey];
+        resourceKey9 = [v36 resourceKey];
+        v39 = [deviceCopy propertiesForKey:resourceKey9];
+        syncedKey = [v39 syncedKey];
 
-        v219 = syncedKey;
+        v227 = syncedKey;
         if (syncedKey)
         {
-          v221 = [PSRCConstants resourceIDForKey:syncedKey];
+          v229 = [PSRCConstants resourceIDForKey:syncedKey];
         }
 
         else
         {
-          v221 = 0;
+          v229 = 0;
         }
 
-        resourceKey10 = [v229 resourceKey];
-        v59 = [deviceCopy propertiesForKey:resourceKey10];
+        resourceKey10 = [v237 resourceKey];
+        v57 = [deviceCopy propertiesForKey:resourceKey10];
 
-        v60 = v216;
-        v218 = v59;
-        if (v59)
+        v58 = v224;
+        v226 = v57;
+        if (v57)
         {
-          sensorFrameRate = [v59 sensorFrameRate];
+          sensorFrameRate = [v57 sensorFrameRate];
         }
 
         else
@@ -335,25 +333,25 @@
         }
 
         resourceClass2 = [provider resourceClass];
-        v63 = resourceClass2;
+        v61 = resourceClass2;
         if (resourceClass2 > 8)
         {
           if (resourceClass2 == 9)
           {
-            v64 = __PLSLogSharedInstance();
-            if (!os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+            v62 = __PLSLogSharedInstance(9);
+            if (!os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
             {
               goto LABEL_60;
             }
 
-            v65 = v228;
-            [v228 key];
-            v67 = v66 = 9;
-            uTF8String = [v67 UTF8String];
-            v245 = v209;
-            *v246 = uTF8String;
-            v69 = v64;
-            v70 = "Received a data buffer stream for %s";
+            v63 = v236;
+            [v236 key];
+            v65 = v64 = 9;
+            uTF8String = [v65 UTF8String];
+            v253 = v217;
+            *v254 = uTF8String;
+            v67 = v62;
+            v68 = "Received a data buffer stream for %s";
           }
 
           else
@@ -363,41 +361,41 @@
               goto LABEL_174;
             }
 
-            v64 = __PLSLogSharedInstance();
-            if (!os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+            v62 = __PLSLogSharedInstance(11);
+            if (!os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
             {
 LABEL_60:
-              v65 = v228;
+              v63 = v236;
               goto LABEL_61;
             }
 
-            v65 = v228;
-            [v228 key];
-            v67 = v66 = 11;
-            uTF8String2 = [v67 UTF8String];
-            v245 = v209;
-            *v246 = uTF8String2;
-            v69 = v64;
-            v70 = "Received a pearl buffer stream for %s";
+            v63 = v236;
+            [v236 key];
+            v65 = v64 = 11;
+            uTF8String2 = [v65 UTF8String];
+            v253 = v217;
+            *v254 = uTF8String2;
+            v67 = v62;
+            v68 = "Received a pearl buffer stream for %s";
           }
         }
 
         else if (resourceClass2 == 7)
         {
-          v64 = __PLSLogSharedInstance();
-          if (!os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+          v62 = __PLSLogSharedInstance(7);
+          if (!os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_60;
           }
 
-          v65 = v228;
-          [v228 key];
-          v67 = v66 = 7;
-          uTF8String3 = [v67 UTF8String];
-          v245 = v209;
-          *v246 = uTF8String3;
-          v69 = v64;
-          v70 = "Received a pixel buffer stream for %s";
+          v63 = v236;
+          [v236 key];
+          v65 = v64 = 7;
+          uTF8String3 = [v65 UTF8String];
+          v253 = v217;
+          *v254 = uTF8String3;
+          v67 = v62;
+          v68 = "Received a pixel buffer stream for %s";
         }
 
         else
@@ -407,37 +405,37 @@ LABEL_60:
             goto LABEL_174;
           }
 
-          v64 = __PLSLogSharedInstance();
-          if (!os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+          v62 = __PLSLogSharedInstance(8);
+          if (!os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_60;
           }
 
-          v65 = v228;
-          [v228 key];
-          v67 = v66 = 8;
-          uTF8String4 = [v67 UTF8String];
-          v245 = v209;
-          *v246 = uTF8String4;
-          v69 = v64;
-          v70 = "Received a jasper buffer stream for %s";
+          v63 = v236;
+          [v236 key];
+          v65 = v64 = 8;
+          uTF8String4 = [v65 UTF8String];
+          v253 = v217;
+          *v254 = uTF8String4;
+          v67 = v62;
+          v68 = "Received a jasper buffer stream for %s";
         }
 
-        _os_log_impl(&dword_25EA3A000, v69, OS_LOG_TYPE_DEBUG, v70, &v245, 0xCu);
+        _os_log_impl(&dword_25EA3A000, v67, OS_LOG_TYPE_DEBUG, v68, &v253, 0xCu);
 
-        v63 = v66;
+        v61 = v64;
 LABEL_61:
 
-        provider = [v65 provider];
-        v217 = v63;
-        MEMORY[0x25F8C93F0](resource, v63);
-        MEMORY[0x25F8C94A0](resource, 1);
-        v75 = __PLSLogSharedInstance();
-        if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
+        provider = [v63 provider];
+        v225 = v61;
+        MEMORY[0x25F8C93F0](resource, v61);
+        v73 = MEMORY[0x25F8C94A0](resource, 1);
+        v74 = __PLSLogSharedInstance(v73);
+        if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
         {
-          v245 = v204;
-          *v246 = provider;
-          _os_log_impl(&dword_25EA3A000, v75, OS_LOG_TYPE_DEBUG, "Stream provider: %lu", &v245, 0xCu);
+          v253 = v212;
+          *v254 = provider;
+          _os_log_impl(&dword_25EA3A000, v74, OS_LOG_TYPE_DEBUG, "Stream provider: %lu", &v253, 0xCu);
         }
 
         if (provider >= 9)
@@ -445,77 +443,77 @@ LABEL_61:
           goto LABEL_157;
         }
 
-        v76 = dword_25EB77230[provider];
-        v77 = (provider - 6) > 2;
-        v210 = provider - 6;
-        MEMORY[0x25F8C9520](resource, (provider - 6) < 3);
-        v78 = __PLSLogSharedInstance();
+        v75 = dword_25EB77230[provider];
+        v76 = (provider - 6) > 2;
+        v218 = provider - 6;
+        v77 = MEMORY[0x25F8C9520](resource, (provider - 6) < 3);
+        v78 = __PLSLogSharedInstance(v77);
         if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
         {
-          v245 = v203;
-          *v246 = provider;
-          *&v246[4] = 1024;
-          *&v246[6] = v76;
-          *v247 = 1024;
-          *&v247[2] = (provider - 6) > 2;
-          _os_log_impl(&dword_25EA3A000, v78, OS_LOG_TYPE_DEBUG, "Converted the stream provider type: %u into buffer writer provider type: %d with metadata type: %d", &v245, 0x14u);
+          v253 = v211;
+          *v254 = provider;
+          *&v254[4] = 1024;
+          *&v254[6] = v75;
+          *v255 = 1024;
+          *&v255[2] = (provider - 6) > 2;
+          _os_log_impl(&dword_25EA3A000, v78, OS_LOG_TYPE_DEBUG, "Converted the stream provider type: %u into buffer writer provider type: %d with metadata type: %d", &v253, 0x14u);
         }
 
         v79 = objc_loadWeakRetained(&v22->_transitionManager);
         executionSession2 = [v79 executionSession];
         v81 = ps_buffer_writer_init(0, [executionSession2 gsm]);
 
-        resourceKey11 = [v229 resourceKey];
-        [resourceKey11 UTF8String];
-        ps_buffer_writer_setkey();
+        resourceKey11 = [v237 resourceKey];
+        ps_buffer_writer_setkey(v81, [resourceKey11 UTF8String]);
 
-        v225 = v81;
+        v233 = v81;
         cam_stream_attr = ps_buffer_writer_get_cam_stream_attr(v81);
-        cam_stream_attr[5].i32[3] = v76;
-        cam_stream_attr[1].i64[0] = v217;
+        v84 = cam_stream_attr;
+        cam_stream_attr[5].i32[3] = v75;
+        cam_stream_attr[1].i64[0] = v225;
         if (provider == 1)
         {
-          v84 = objc_loadWeakRetained(&v22->_sourceTask);
-          bufferPool = [v84 bufferPool];
+          v85 = objc_loadWeakRetained(&v22->_sourceTask);
+          bufferPool = [v85 bufferPool];
 
           if (!bufferPool)
           {
-            [PSSourceWriterBlock setupResultsWithContext:v228 device:?];
+            [PSSourceWriterBlock setupResultsWithContext:v236 device:?];
 LABEL_168:
-            v235 = 0;
-            v191 = v229;
-            resourceKey12 = [v229 resourceKey];
+            v243 = 0;
+            v197 = v237;
+            resourceKey12 = [v237 resourceKey];
             uTF8String5 = [resourceKey12 UTF8String];
-            asprintf(&v235, "Wrong number of surfaces receieved for (%s). Should be %u. Recevied %lu", uTF8String5, v22, [provider count]);
+            asprintf(&v243, "Wrong number of surfaces receieved for (%s). Should be %u. Recevied %lu", uTF8String5, v22, [provider count]);
 
-            v193 = __PLSLogSharedInstance();
-            if (os_log_type_enabled(v193, OS_LOG_TYPE_FAULT))
+            v200 = __PLSLogSharedInstance(v199);
+            if (os_log_type_enabled(v200, OS_LOG_TYPE_FAULT))
             {
-              uTF8String5 = [v191 resourceKey];
-              v88UTF8String = [uTF8String5 UTF8String];
-              v195 = [provider count];
-              v245 = 136316162;
-              *v246 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
-              *&v246[8] = 1024;
-              *v247 = 472;
-              *&v247[4] = 2080;
-              *&v247[6] = v88UTF8String;
-              *&v247[14] = 1024;
-              *&v247[16] = v22;
-              v248 = 2048;
-              v249 = v195;
-              _os_log_impl(&dword_25EA3A000, v193, OS_LOG_TYPE_FAULT, "%s:%d Wrong number of surfaces receieved for (%s). Should be %u. Recevied %lu", &v245, 0x2Cu);
+              uTF8String5 = [v197 resourceKey];
+              v89UTF8String = [uTF8String5 UTF8String];
+              v202 = [provider count];
+              v253 = 136316162;
+              *v254 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
+              *&v254[8] = 1024;
+              *v255 = 472;
+              *&v255[4] = 2080;
+              *&v255[6] = v89UTF8String;
+              *&v255[14] = 1024;
+              *&v255[16] = v22;
+              v256 = 2048;
+              v257 = v202;
+              _os_log_impl(&dword_25EA3A000, v200, OS_LOG_TYPE_FAULT, "%s:%d Wrong number of surfaces receieved for (%s). Should be %u. Recevied %lu", &v253, 0x2Cu);
             }
 
-            v196 = OSLogFlushBuffers();
-            if (!v196)
+            v203 = OSLogFlushBuffers();
+            if (!v203)
             {
               goto LABEL_151;
             }
 
-            uTF8String5 = v196;
-            v180 = __PLSLogSharedInstance();
-            if (!os_log_type_enabled(v180, OS_LOG_TYPE_ERROR))
+            uTF8String5 = v203;
+            v184 = __PLSLogSharedInstance(v203);
+            if (!os_log_type_enabled(v184, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_154;
             }
@@ -523,11 +521,11 @@ LABEL_168:
             while (1)
             {
 LABEL_153:
-              v245 = v205;
-              *v246 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
-              *&v246[8] = 1024;
-              *v247 = uTF8String5;
-              _os_log_impl(&dword_25EA3A000, v180, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v245, 0x12u);
+              v253 = v213;
+              *v254 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
+              *&v254[8] = 1024;
+              *v255 = uTF8String5;
+              _os_log_impl(&dword_25EA3A000, v184, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v253, 0x12u);
               do
               {
 LABEL_154:
@@ -538,29 +536,29 @@ LABEL_154:
 LABEL_156:
                   [PSSourceWriterBlock setupResultsWithContext:uTF8String5 device:?];
 LABEL_157:
-                  v235 = 0;
-                  uTF8String5 = v228;
-                  v181 = [v228 key];
-                  asprintf(&v235, "Unrecognized provider type was provided: %d for key: %s", provider, [v181 UTF8String]);
+                  v243 = 0;
+                  uTF8String5 = v236;
+                  v185 = [v236 key];
+                  asprintf(&v243, "Unrecognized provider type was provided: %d for key: %s", provider, [v185 UTF8String]);
 
-                  v182 = __PLSLogSharedInstance();
-                  if (os_log_type_enabled(v182, OS_LOG_TYPE_FAULT))
+                  v187 = __PLSLogSharedInstance(v186);
+                  if (os_log_type_enabled(v187, OS_LOG_TYPE_FAULT))
                   {
                     uTF8String5 = [uTF8String5 key];
-                    v88UTF8String2 = [uTF8String5 UTF8String];
-                    v245 = 136315906;
-                    *v246 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
-                    *&v246[8] = 1024;
-                    *v247 = 315;
-                    *&v247[4] = 1024;
-                    *&v247[6] = provider;
-                    *&v247[10] = 2080;
-                    *&v247[12] = v88UTF8String2;
-                    _os_log_impl(&dword_25EA3A000, v182, OS_LOG_TYPE_FAULT, "%s:%d Unrecognized provider type was provided: %d for key: %s", &v245, 0x22u);
+                    v89UTF8String2 = [uTF8String5 UTF8String];
+                    v253 = 136315906;
+                    *v254 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
+                    *&v254[8] = 1024;
+                    *v255 = 315;
+                    *&v255[4] = 1024;
+                    *&v255[6] = provider;
+                    *&v255[10] = 2080;
+                    *&v255[12] = v89UTF8String2;
+                    _os_log_impl(&dword_25EA3A000, v187, OS_LOG_TYPE_FAULT, "%s:%d Unrecognized provider type was provided: %d for key: %s", &v253, 0x22u);
                   }
 
-                  v184 = OSLogFlushBuffers();
-                  if (v184)
+                  v189 = OSLogFlushBuffers();
+                  if (v189)
                   {
                     break;
                   }
@@ -569,60 +567,61 @@ LABEL_151:
                   usleep(0x1E8480u);
                 }
 
-                uTF8String5 = v184;
-                v180 = __PLSLogSharedInstance();
+                uTF8String5 = v189;
+                v184 = __PLSLogSharedInstance(v189);
               }
 
-              while (!os_log_type_enabled(v180, OS_LOG_TYPE_ERROR));
+              while (!os_log_type_enabled(v184, OS_LOG_TYPE_ERROR));
             }
           }
         }
 
-        v226 = cam_stream_attr;
-        v86 = __PLSLogSharedInstance();
-        v87 = os_log_type_enabled(v86, OS_LOG_TYPE_DEBUG);
-        uTF8String5 = v228;
-        if (v87)
+        v234 = v84;
+        v87 = __PLSLogSharedInstance(cam_stream_attr);
+        v88 = os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG);
+        uTF8String5 = v236;
+        if (v88)
         {
-          v89 = [v228 key];
-          uTF8String6 = [v89 UTF8String];
-          v245 = v209;
-          *v246 = uTF8String6;
-          _os_log_impl(&dword_25EA3A000, v86, OS_LOG_TYPE_DEBUG, "Setting up camera view counts for stream: %s", &v245, 0xCu);
+          v90 = [v236 key];
+          uTF8String6 = [v90 UTF8String];
+          v253 = v217;
+          *v254 = uTF8String6;
+          _os_log_impl(&dword_25EA3A000, v87, OS_LOG_TYPE_DEBUG, "Setting up camera view counts for stream: %s", &v253, 0xCu);
         }
 
         provider = PSTransitionMonitor;
-        v91 = [uTF8String5 key];
-        v92 = [PSRCConstants getCameraDepthForKey:v91];
-        v93 = v226;
-        v226->i32[0] = v92;
-
-        v94 = [uTF8String5 key];
-        v93->i32[1] = [PSRCConstants getWriterDepthForKey:v94];
+        v92 = [uTF8String5 key];
+        v93 = [PSRCConstants getCameraDepthForKey:v92];
+        v94 = v234;
+        v234->i32[0] = v93;
 
         v95 = [uTF8String5 key];
-        v93->i32[2] = [PSRCConstants getReaderDepthForKey:v95];
+        v94->i32[1] = [PSRCConstants getWriterDepthForKey:v95];
+
+        v96 = [uTF8String5 key];
+        v94->i32[2] = [PSRCConstants getReaderDepthForKey:v96];
 
         if (![uTF8String5 retainedISPRCCount])
         {
           goto LABEL_156;
         }
 
-        v93->i32[3] = [uTF8String5 retainedISPRCCount];
-        rcFrameID = [v218 rcFrameID];
-        v97 = __PLSLogSharedInstance();
-        v98 = os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG);
-        if (rcFrameID)
+        v94->i32[3] = [uTF8String5 retainedISPRCCount];
+        rcFrameID = [v226 rcFrameID];
+        v98 = rcFrameID;
+        v99 = __PLSLogSharedInstance(rcFrameID);
+        v100 = os_log_type_enabled(v99, OS_LOG_TYPE_DEBUG);
+        if (v98)
         {
-          if (v98)
+          if (v100)
           {
-            resourceKey13 = [v229 resourceKey];
+            resourceKey13 = [v237 resourceKey];
             uTF8String7 = [resourceKey13 UTF8String];
-            v245 = v205;
-            *v246 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
-            *&v246[8] = 2080;
-            *v247 = uTF8String7;
-            _os_log_impl(&dword_25EA3A000, v97, OS_LOG_TYPE_DEBUG, "%s this camera %s has frameid delivered by RC ", &v245, 0x16u);
+            v253 = v213;
+            *v254 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
+            *&v254[8] = 2080;
+            *v255 = uTF8String7;
+            _os_log_impl(&dword_25EA3A000, v99, OS_LOG_TYPE_DEBUG, "%s this camera %s has frameid delivered by RC ", &v253, 0x16u);
           }
 
           synchronizer = 0;
@@ -630,25 +629,25 @@ LABEL_151:
 
         else
         {
-          if (v98)
+          if (v100)
           {
-            resourceKey14 = [v229 resourceKey];
+            resourceKey14 = [v237 resourceKey];
             uTF8String8 = [resourceKey14 UTF8String];
-            v245 = v205;
-            *v246 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
-            *&v246[8] = 2080;
-            *v247 = uTF8String8;
-            _os_log_impl(&dword_25EA3A000, v97, OS_LOG_TYPE_DEBUG, "%s this camera %s has frameid set by Polaris ", &v245, 0x16u);
+            v253 = v213;
+            *v254 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
+            *&v254[8] = 2080;
+            *v255 = uTF8String8;
+            _os_log_impl(&dword_25EA3A000, v99, OS_LOG_TYPE_DEBUG, "%s this camera %s has frameid set by Polaris ", &v253, 0x16u);
           }
 
           synchronizer = v22->_synchronizer;
         }
 
-        v93[1].i64[1] = synchronizer;
-        provider = v228;
-        if (v60)
+        v94[1].i64[1] = synchronizer;
+        provider = v236;
+        if (v58)
         {
-          unsignedLongValue = [v60 unsignedLongValue];
+          unsignedLongValue = [v58 unsignedLongValue];
         }
 
         else
@@ -656,10 +655,10 @@ LABEL_151:
           unsignedLongValue = 156;
         }
 
-        v93[2].i64[0] = unsignedLongValue;
-        if (v221)
+        v94[2].i64[0] = unsignedLongValue;
+        if (v229)
         {
-          unsignedLongValue2 = [v221 unsignedLongValue];
+          unsignedLongValue2 = [v229 unsignedLongValue];
         }
 
         else
@@ -667,79 +666,79 @@ LABEL_151:
           unsignedLongValue2 = 156;
         }
 
-        v93[3].i64[0] = unsignedLongValue2;
-        v106 = v229;
-        resourceKey15 = [v229 resourceKey];
-        v93[3].i64[1] = ps_telemetry_create_string_id([resourceKey15 UTF8String]);
+        v94[3].i64[0] = unsignedLongValue2;
+        v108 = v237;
+        resourceKey15 = [v237 resourceKey];
+        v94[3].i64[1] = ps_telemetry_create_string_id([resourceKey15 UTF8String]);
 
-        resourceKey16 = [v106 resourceKey];
-        v109 = [PLSDevice getAriadneID:resourceKey16];
-        v226[4].i64[0] = v109;
+        resourceKey16 = [v108 resourceKey];
+        v111 = [PLSDevice getAriadneID:resourceKey16];
+        v234[4].i64[0] = v111;
 
-        v110 = v226;
-        v111 = [PLSDevice getAriadneID:v219];
-        v112 = v223;
-        v110[4].i64[1] = v111;
-        v110[5].i64[0] = v112;
-        v110[2].i64[1] = sensorFrameRate;
-        v110[5].i32[2] = v77;
-        ps_buffer_writer_create_resource(v225);
-        v113 = objc_loadWeakRetained(&v22->_sourceTask);
-        bufferPool2 = [v113 bufferPool];
+        v112 = v234;
+        v113 = [PLSDevice getAriadneID:v227];
+        v114 = v231;
+        v112[4].i64[1] = v113;
+        v112[5].i64[0] = v114;
+        v112[2].i64[1] = sensorFrameRate;
+        v112[5].i32[2] = v76;
+        ps_buffer_writer_create_resource(v233);
+        v115 = objc_loadWeakRetained(&v22->_sourceTask);
+        bufferPool2 = [v115 bufferPool];
 
         if (bufferPool2)
         {
-          v115 = __PLSLogSharedInstance();
-          if (os_log_type_enabled(v115, OS_LOG_TYPE_DEBUG))
+          v118 = __PLSLogSharedInstance(v117);
+          if (os_log_type_enabled(v118, OS_LOG_TYPE_DEBUG))
           {
-            v116 = [provider key];
-            uTF8String9 = [v116 UTF8String];
-            v245 = v209;
-            *v246 = uTF8String9;
-            _os_log_impl(&dword_25EA3A000, v115, OS_LOG_TYPE_DEBUG, "Received a pixel buffer stream for %s", &v245, 0xCu);
+            v119 = [provider key];
+            uTF8String9 = [v119 UTF8String];
+            v253 = v217;
+            *v254 = uTF8String9;
+            _os_log_impl(&dword_25EA3A000, v118, OS_LOG_TYPE_DEBUG, "Received a pixel buffer stream for %s", &v253, 0xCu);
           }
 
-          v118 = objc_loadWeakRetained(&v22->_sourceTask);
-          provider = [v118 bufferPool];
+          v121 = objc_loadWeakRetained(&v22->_sourceTask);
+          provider = [v121 bufferPool];
 
-          v119 = v110->i32[3] + v110->i32[0] + (v110->i32[2] + v110->i32[1]) * v223;
-          v120 = [provider count];
-          if (v120 != v119)
+          v122 = v112->i32[3] + v112->i32[0] + (v112->i32[2] + v112->i32[1]) * v231;
+          v123 = [provider count];
+          if (v123 != v122)
           {
-            v235 = 0;
-            v185 = v229;
-            resourceKey17 = [v229 resourceKey];
+            v243 = 0;
+            v190 = v237;
+            resourceKey17 = [v237 resourceKey];
             uTF8String5 = [resourceKey17 UTF8String];
-            asprintf(&v235, "Wrong number of surfaces receieved for (%s). Should be %u. Recevied %lu", uTF8String5, v119, [provider count]);
+            asprintf(&v243, "Wrong number of surfaces receieved for (%s). Should be %u. Recevied %lu", uTF8String5, v122, [provider count]);
 
-            v187 = __PLSLogSharedInstance();
-            if (os_log_type_enabled(v187, OS_LOG_TYPE_FAULT))
+            v193 = __PLSLogSharedInstance(v192);
+            if (os_log_type_enabled(v193, OS_LOG_TYPE_FAULT))
             {
-              uTF8String5 = [v185 resourceKey];
-              v88UTF8String3 = [uTF8String5 UTF8String];
-              v189 = [provider count];
-              v245 = 136316162;
-              *v246 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
-              *&v246[8] = 1024;
-              *v247 = 408;
-              *&v247[4] = 2080;
-              *&v247[6] = v88UTF8String3;
-              *&v247[14] = 1024;
-              *&v247[16] = v119;
-              v248 = 2048;
-              v249 = v189;
-              _os_log_impl(&dword_25EA3A000, v187, OS_LOG_TYPE_FAULT, "%s:%d Wrong number of surfaces receieved for (%s). Should be %u. Recevied %lu", &v245, 0x2Cu);
+              uTF8String5 = [v190 resourceKey];
+              v89UTF8String3 = [uTF8String5 UTF8String];
+              v195 = [provider count];
+              v253 = 136316162;
+              *v254 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
+              *&v254[8] = 1024;
+              *v255 = 408;
+              *&v255[4] = 2080;
+              *&v255[6] = v89UTF8String3;
+              *&v255[14] = 1024;
+              *&v255[16] = v122;
+              v256 = 2048;
+              v257 = v195;
+              _os_log_impl(&dword_25EA3A000, v193, OS_LOG_TYPE_FAULT, "%s:%d Wrong number of surfaces receieved for (%s). Should be %u. Recevied %lu", &v253, 0x2Cu);
             }
 
-            v190 = OSLogFlushBuffers();
-            if (!v190)
+            v196 = OSLogFlushBuffers();
+            if (!v196)
             {
               goto LABEL_151;
             }
 
-            uTF8String5 = v190;
-            v180 = __PLSLogSharedInstance();
-            if (!os_log_type_enabled(v180, OS_LOG_TYPE_ERROR))
+            uTF8String5 = v196;
+            v184 = __PLSLogSharedInstance(v196);
+            if (!os_log_type_enabled(v184, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_154;
             }
@@ -747,144 +746,144 @@ LABEL_151:
             goto LABEL_153;
           }
 
-          v121 = v120;
-          v122 = v202 - ((8 * v120 + 15) & 0xFFFFFFFFFFFFFFF0);
-          if ((8 * v120) >= 0x200)
+          v124 = v123;
+          v125 = v210 - ((8 * v123 + 15) & 0xFFFFFFFFFFFFFFF0);
+          if ((8 * v123) >= 0x200)
           {
-            v123 = 512;
+            v126 = 512;
           }
 
           else
           {
-            v123 = 8 * v120;
+            v126 = 8 * v123;
           }
 
-          bzero(v202 - ((8 * v120 + 15) & 0xFFFFFFFFFFFFFFF0), v123);
-          if (v119)
+          bzero(v210 - ((8 * v123 + 15) & 0xFFFFFFFFFFFFFFF0), v126);
+          if (v122)
           {
-            v124 = 0;
+            v127 = 0;
             do
             {
-              *&v122[8 * v124] = [provider objectAtIndex:v124];
-              ++v124;
+              *&v125[8 * v127] = [provider objectAtIndex:v127];
+              ++v127;
             }
 
-            while (v121 != v124);
+            while (v124 != v127);
           }
 
-          v125 = v225;
-          ps_buffer_writer_camerastream_install_bufferpool(v225, v122);
+          v128 = v233;
+          ps_buffer_writer_camerastream_install_bufferpool(v233, v125);
 
           v22 = selfCopy;
-          provider = v228;
+          provider = v236;
         }
 
         else
         {
-          v126 = objc_loadWeakRetained(&v22->_sourceTask);
-          pearlBufferPools = [v126 pearlBufferPools];
+          v129 = objc_loadWeakRetained(&v22->_sourceTask);
+          pearlBufferPools = [v129 pearlBufferPools];
 
-          v128 = __PLSLogSharedInstance();
-          v129 = os_log_type_enabled(v128, OS_LOG_TYPE_DEBUG);
+          v132 = __PLSLogSharedInstance(v131);
+          v133 = os_log_type_enabled(v132, OS_LOG_TYPE_DEBUG);
           if (pearlBufferPools)
           {
-            if (v129)
+            if (v133)
             {
-              v130 = [provider key];
-              uTF8String10 = [v130 UTF8String];
-              v245 = v209;
-              *v246 = uTF8String10;
-              _os_log_impl(&dword_25EA3A000, v128, OS_LOG_TYPE_DEBUG, "Received a pearl buffer stream for %s", &v245, 0xCu);
+              v134 = [provider key];
+              uTF8String10 = [v134 UTF8String];
+              v253 = v217;
+              *v254 = uTF8String10;
+              _os_log_impl(&dword_25EA3A000, v132, OS_LOG_TYPE_DEBUG, "Received a pearl buffer stream for %s", &v253, 0xCu);
             }
 
-            v132 = objc_loadWeakRetained(&v22->_sourceTask);
-            pearlBufferPools2 = [v132 pearlBufferPools];
-            v134 = [pearlBufferPools2 count];
+            v136 = objc_loadWeakRetained(&v22->_sourceTask);
+            pearlBufferPools2 = [v136 pearlBufferPools];
+            v138 = [pearlBufferPools2 count];
 
-            if (v134 != 4)
+            if (v138 != 4)
             {
               [PSSourceWriterBlock setupResultsWithContext:&v22->_sourceTask device:?];
 LABEL_181:
               [PSSourceWriterBlock setupResultsWithContext:&v22->_sourceTask device:?];
             }
 
-            v202[1] = v202;
-            v135 = vaddvq_s32(*v110);
-            v136 = v22;
-            v137 = v135;
-            v138 = &v202[-4 * v135];
-            if (8 * (4 * v135) >= 0x200)
+            v210[1] = v210;
+            v139 = vaddvq_s32(*v112);
+            v140 = v22;
+            v141 = v139;
+            v142 = &v210[-4 * v139];
+            if (8 * (4 * v139) >= 0x200)
             {
-              v139 = 512;
+              v143 = 512;
             }
 
             else
             {
-              v139 = 32 * v135;
+              v143 = 32 * v139;
             }
 
-            bzero(&v202[-4 * v135], v139);
-            v233 = 0u;
-            v234 = 0u;
-            v231 = 0u;
-            v232 = 0u;
-            v140 = objc_loadWeakRetained(&v136->_sourceTask);
-            pearlBufferPools3 = [v140 pearlBufferPools];
+            bzero(&v210[-4 * v139], v143);
+            v241 = 0u;
+            v242 = 0u;
+            v239 = 0u;
+            v240 = 0u;
+            v144 = objc_loadWeakRetained(&v140->_sourceTask);
+            pearlBufferPools3 = [v144 pearlBufferPools];
 
-            v230 = pearlBufferPools3;
-            v142 = [pearlBufferPools3 countByEnumeratingWithState:&v231 objects:v244 count:16];
-            if (v142)
+            v238 = pearlBufferPools3;
+            v146 = [pearlBufferPools3 countByEnumeratingWithState:&v239 objects:v252 count:16];
+            if (v146)
             {
-              v143 = v142;
-              v144 = 0;
-              v145 = *v232;
+              v147 = v146;
+              v148 = 0;
+              v149 = *v240;
               do
               {
-                for (i = 0; i != v143; ++i)
+                for (i = 0; i != v147; ++i)
                 {
-                  if (*v232 != v145)
+                  if (*v240 != v149)
                   {
-                    objc_enumerationMutation(v230);
+                    objc_enumerationMutation(v238);
                   }
 
-                  v147 = *(*(&v231 + 1) + 8 * i);
-                  if ([v147 count] != v137)
+                  v151 = *(*(&v239 + 1) + 8 * i);
+                  if ([v151 count] != v141)
                   {
-                    v235 = 0;
-                    v174 = v229;
-                    resourceKey18 = [v229 resourceKey];
+                    v243 = 0;
+                    v177 = v237;
+                    resourceKey18 = [v237 resourceKey];
                     uTF8String5 = [resourceKey18 UTF8String];
-                    asprintf(&v235, "Wrong number of surfaces recieved one of the buffer pools for %s. Should have been %u, received %lu", uTF8String5, v137, [v147 count]);
+                    asprintf(&v243, "Wrong number of surfaces recieved one of the buffer pools for %s. Should have been %u, received %lu", uTF8String5, v141, [v151 count]);
 
-                    v176 = __PLSLogSharedInstance();
-                    provider = &v245;
-                    if (os_log_type_enabled(v176, OS_LOG_TYPE_FAULT))
+                    v180 = __PLSLogSharedInstance(v179);
+                    provider = &v253;
+                    if (os_log_type_enabled(v180, OS_LOG_TYPE_FAULT))
                     {
-                      uTF8String5 = [v174 resourceKey];
-                      v88UTF8String4 = [uTF8String5 UTF8String];
-                      v178 = [v147 count];
-                      v245 = 136316162;
-                      *v246 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
-                      *&v246[8] = 1024;
-                      *v247 = 437;
-                      *&v247[4] = 2080;
-                      *&v247[6] = v88UTF8String4;
-                      *&v247[14] = 1024;
-                      *&v247[16] = v137;
-                      v248 = 2048;
-                      v249 = v178;
-                      _os_log_impl(&dword_25EA3A000, v176, OS_LOG_TYPE_FAULT, "%s:%d Wrong number of surfaces recieved one of the buffer pools for %s. Should have been %u, received %lu", &v245, 0x2Cu);
+                      uTF8String5 = [v177 resourceKey];
+                      v89UTF8String4 = [uTF8String5 UTF8String];
+                      v182 = [v151 count];
+                      v253 = 136316162;
+                      *v254 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
+                      *&v254[8] = 1024;
+                      *v255 = 437;
+                      *&v255[4] = 2080;
+                      *&v255[6] = v89UTF8String4;
+                      *&v255[14] = 1024;
+                      *&v255[16] = v141;
+                      v256 = 2048;
+                      v257 = v182;
+                      _os_log_impl(&dword_25EA3A000, v180, OS_LOG_TYPE_FAULT, "%s:%d Wrong number of surfaces recieved one of the buffer pools for %s. Should have been %u, received %lu", &v253, 0x2Cu);
                     }
 
-                    v179 = OSLogFlushBuffers();
-                    if (!v179)
+                    v183 = OSLogFlushBuffers();
+                    if (!v183)
                     {
                       goto LABEL_151;
                     }
 
-                    uTF8String5 = v179;
-                    v180 = __PLSLogSharedInstance();
-                    if (!os_log_type_enabled(v180, OS_LOG_TYPE_ERROR))
+                    uTF8String5 = v183;
+                    v184 = __PLSLogSharedInstance(v183);
+                    if (!os_log_type_enabled(v184, OS_LOG_TYPE_ERROR))
                     {
                       goto LABEL_154;
                     }
@@ -892,85 +891,85 @@ LABEL_181:
                     goto LABEL_153;
                   }
 
-                  if (v137)
+                  if (v141)
                   {
-                    for (j = 0; j != v137; ++j)
+                    for (j = 0; j != v141; ++j)
                     {
-                      v138[(v144 + j)] = [v147 objectAtIndex:j];
+                      v142[(v148 + j)] = [v151 objectAtIndex:j];
                     }
 
-                    v144 += j;
+                    v148 += j;
                   }
                 }
 
-                v143 = [v230 countByEnumeratingWithState:&v231 objects:v244 count:16];
+                v147 = [v238 countByEnumeratingWithState:&v239 objects:v252 count:16];
               }
 
-              while (v143);
+              while (v147);
             }
 
-            v125 = v225;
-            ps_buffer_writer_camerastream_install_bufferpool(v225, v138);
+            v128 = v233;
+            ps_buffer_writer_camerastream_install_bufferpool(v233, v142);
             v22 = selfCopy;
-            provider = v228;
-            v60 = v216;
+            provider = v236;
+            v58 = v224;
           }
 
           else
           {
-            if (v129)
+            if (v133)
             {
-              LOWORD(v245) = 0;
-              _os_log_impl(&dword_25EA3A000, v128, OS_LOG_TYPE_DEBUG, "No buffers were found to install", &v245, 2u);
+              LOWORD(v253) = 0;
+              _os_log_impl(&dword_25EA3A000, v132, OS_LOG_TYPE_DEBUG, "No buffers were found to install", &v253, 2u);
             }
 
-            v125 = v225;
-            ps_buffer_writer_camerastream_install_bufferpool(v225, 0);
+            v128 = v233;
+            ps_buffer_writer_camerastream_install_bufferpool(v233, 0);
           }
         }
 
-        if (v210 <= 2)
+        if (v218 <= 2)
         {
-          v149 = objc_loadWeakRetained(&v22->_sourceTask);
-          metadataBufferPool = [v149 metadataBufferPool];
+          v153 = objc_loadWeakRetained(&v22->_sourceTask);
+          metadataBufferPool = [v153 metadataBufferPool];
 
           if (!metadataBufferPool)
           {
             [PSSourceWriterBlock setupResultsWithContext:? device:?];
 LABEL_174:
-            [PSSourceWriterBlock setupResultsWithContext:v229 device:?];
+            [PSSourceWriterBlock setupResultsWithContext:v237 device:?];
 LABEL_175:
-            v235 = 0;
-            resourceKey19 = [v229 resourceKey];
+            v243 = 0;
+            resourceKey19 = [v237 resourceKey];
             uTF8String5 = [resourceKey19 UTF8String];
-            asprintf(&v235, "Metadata ill-defined for key %s, provider type %d", uTF8String5, [provider provider]);
+            asprintf(&v243, "Metadata ill-defined for key %s, provider type %d", uTF8String5, [provider provider]);
 
-            v198 = __PLSLogSharedInstance();
-            if (os_log_type_enabled(v198, OS_LOG_TYPE_FAULT))
+            v206 = __PLSLogSharedInstance(v205);
+            if (os_log_type_enabled(v206, OS_LOG_TYPE_FAULT))
             {
-              uTF8String5 = [v229 resourceKey];
-              v88UTF8String5 = [uTF8String5 UTF8String];
-              provider2 = [v228 provider];
-              v245 = 136315906;
-              *v246 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
-              *&v246[8] = 1024;
-              *v247 = 245;
-              *&v247[4] = 2080;
-              *&v247[6] = v88UTF8String5;
-              *&v247[14] = 1024;
-              *&v247[16] = provider2;
-              _os_log_impl(&dword_25EA3A000, v198, OS_LOG_TYPE_FAULT, "%s:%d Metadata ill-defined for key %s, provider type %d", &v245, 0x22u);
+              uTF8String5 = [v237 resourceKey];
+              v89UTF8String5 = [uTF8String5 UTF8String];
+              provider2 = [v236 provider];
+              v253 = 136315906;
+              *v254 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
+              *&v254[8] = 1024;
+              *v255 = 245;
+              *&v255[4] = 2080;
+              *&v255[6] = v89UTF8String5;
+              *&v255[14] = 1024;
+              *&v255[16] = provider2;
+              _os_log_impl(&dword_25EA3A000, v206, OS_LOG_TYPE_FAULT, "%s:%d Metadata ill-defined for key %s, provider type %d", &v253, 0x22u);
             }
 
-            v201 = OSLogFlushBuffers();
-            if (!v201)
+            v209 = OSLogFlushBuffers();
+            if (!v209)
             {
               goto LABEL_151;
             }
 
-            uTF8String5 = v201;
-            v180 = __PLSLogSharedInstance();
-            if (!os_log_type_enabled(v180, OS_LOG_TYPE_ERROR))
+            uTF8String5 = v209;
+            v184 = __PLSLogSharedInstance(v209);
+            if (!os_log_type_enabled(v184, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_154;
             }
@@ -978,64 +977,64 @@ LABEL_175:
             goto LABEL_153;
           }
 
-          v151 = objc_loadWeakRetained(&v22->_sourceTask);
-          provider = [v151 metadataBufferPool];
+          v155 = objc_loadWeakRetained(&v22->_sourceTask);
+          provider = [v155 metadataBufferPool];
 
-          v152 = v226->i32[1];
-          v153 = v226->i32[3] + v226->i32[0];
-          if (v217 == 11)
+          v156 = v234->i32[1];
+          v157 = v234->i32[3] + v234->i32[0];
+          if (v225 == 11)
           {
-            LODWORD(v22) = v153 + v152 + v226->i32[2];
+            LODWORD(v22) = v157 + v156 + v234->i32[2];
           }
 
           else
           {
-            LODWORD(v22) = v153 + (v226->i32[2] + v152) * v223;
+            LODWORD(v22) = v157 + (v234->i32[2] + v156) * v231;
           }
 
-          v154 = [provider count];
-          if (v154 != v22)
+          v158 = [provider count];
+          if (v158 != v22)
           {
             goto LABEL_168;
           }
 
-          v155 = v154;
-          v156 = v202 - ((8 * v154 + 15) & 0xFFFFFFFFFFFFFFF0);
-          if ((8 * v154) >= 0x200)
+          v159 = v158;
+          v160 = v210 - ((8 * v158 + 15) & 0xFFFFFFFFFFFFFFF0);
+          if ((8 * v158) >= 0x200)
           {
-            v157 = 512;
+            v161 = 512;
           }
 
           else
           {
-            v157 = 8 * v154;
+            v161 = 8 * v158;
           }
 
-          bzero(v202 - ((8 * v154 + 15) & 0xFFFFFFFFFFFFFFF0), v157);
+          bzero(v210 - ((8 * v158 + 15) & 0xFFFFFFFFFFFFFFF0), v161);
           if (v22)
           {
-            v158 = 0;
+            v162 = 0;
             do
             {
-              *&v156[8 * v158] = [provider objectAtIndex:v158];
-              ++v158;
+              *&v160[8 * v162] = [provider objectAtIndex:v162];
+              ++v162;
             }
 
-            while (v155 != v158);
+            while (v159 != v162);
           }
 
-          v125 = v225;
-          ps_buffer_writer_camerastream_install_metadata_bufferpool(v225, v156);
+          v128 = v233;
+          ps_buffer_writer_camerastream_install_metadata_bufferpool(v233, v160);
 
           v22 = selfCopy;
-          provider = v228;
+          provider = v236;
         }
 
         if (v22->_synchronizer)
         {
-          if (v60)
+          if (v58)
           {
-            unsignedLongValue3 = [v60 unsignedLongValue];
+            unsignedLongValue3 = [v58 unsignedLongValue];
           }
 
           else
@@ -1043,9 +1042,9 @@ LABEL_175:
             unsignedLongValue3 = 156;
           }
 
-          if (v221)
+          if (v229)
           {
-            unsignedLongValue4 = [v221 unsignedLongValue];
+            unsignedLongValue4 = [v229 unsignedLongValue];
           }
 
           else
@@ -1053,74 +1052,72 @@ LABEL_175:
             unsignedLongValue4 = 156;
           }
 
-          v125 = v225;
-          if (*(*(v225 + 21) + 24))
+          v128 = v233;
+          if (*(*(v233 + 21) + 24))
           {
-            ps_synchronizer_register_writer(v22->_synchronizer, v225, unsignedLongValue3, unsignedLongValue4);
+            ps_synchronizer_register_writer(v22->_synchronizer, v233, unsignedLongValue3, unsignedLongValue4);
           }
 
-          v161 = v222->var3;
-          v162 = var2;
-          var1[v161] = unsignedLongValue3;
-          *&v162[8 * v161] = unsignedLongValue4;
+          var3 = v230->var3;
+          v166 = var2;
+          var1[var3] = unsignedLongValue3;
+          *&v166[8 * var3] = unsignedLongValue4;
         }
 
-        v163 = v222;
-        v164 = v222->var3;
-        v222->var0[v164] = v125;
-        v163->var3 = v164 + 1;
+        v167 = v230;
+        v168 = v230->var3;
+        v230->var0[v168] = v128;
+        v167->var3 = v168 + 1;
 LABEL_142:
 
-        v29 = v224 + 1;
+        v29 = v232 + 1;
       }
 
-      while (v224 + 1 != v213);
-      v213 = [v208 countByEnumeratingWithState:&v236 objects:v250 count:16];
+      while (v232 + 1 != v221);
+      v221 = [v216 countByEnumeratingWithState:&v244 objects:v258 count:16];
     }
 
-    while (v213);
+    while (v221);
   }
 
   if (bOOLValue)
   {
-    v165 = objc_loadWeakRetained(&v22->_sourceTask);
-    [v165 setSourceTaskData:v222];
+    v169 = objc_loadWeakRetained(&v22->_sourceTask);
+    [v169 setSourceTaskData:v230];
 
-    v166 = objc_loadWeakRetained(&v22->_sourceTask);
-    [v166 setResources:v22->_outputs];
+    v170 = objc_loadWeakRetained(&v22->_sourceTask);
+    [v170 setResources:v22->_outputs];
 
-    v167 = objc_loadWeakRetained(&v22->_sourceTask);
-    [v167 setSourceTaskFunction:source_writer_func];
+    v171 = objc_loadWeakRetained(&v22->_sourceTask);
+    [v171 setSourceTaskFunction:source_writer_func];
 
-    v168 = deviceCopy;
+    v172 = deviceCopy;
   }
 
   else
   {
-    v169 = malloc_type_calloc(1uLL, 0x10uLL, 0x80040803F642BuLL);
-    v22->_localSourceTaskData = v169;
-    objc_storeWeak(v169, v22);
-    v168 = deviceCopy;
-    objc_storeWeak(v169 + 1, deviceCopy);
-    v170 = objc_loadWeakRetained(&v22->_sourceTask);
-    [v170 setSourceTaskData:v169];
+    v173 = malloc_type_calloc(1uLL, 0x10uLL, 0x80040803F642BuLL);
+    v22->_localSourceTaskData = v173;
+    objc_storeWeak(v173, v22);
+    v172 = deviceCopy;
+    objc_storeWeak(v173 + 1, deviceCopy);
+    v174 = objc_loadWeakRetained(&v22->_sourceTask);
+    [v174 setSourceTaskData:v173];
 
-    v171 = objc_loadWeakRetained(&v22->_sourceTask);
-    [v171 setResources:v22->_outputs];
+    v175 = objc_loadWeakRetained(&v22->_sourceTask);
+    [v175 setResources:v22->_outputs];
 
-    v172 = objc_loadWeakRetained(&v22->_sourceTask);
-    [v172 setSourceTaskFunction:local_source_writer_func];
+    v176 = objc_loadWeakRetained(&v22->_sourceTask);
+    [v176 setSourceTaskFunction:local_source_writer_func];
 
     v22->_sourceTaskData = 0;
-    free(v222);
+    free(v230);
   }
-
-  v173 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   sourceTaskData = self->_sourceTaskData;
   if (sourceTaskData)
   {
@@ -1153,31 +1150,31 @@ LABEL_142:
 
   if (self->_localSourceTaskData)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v7 = self->_writerInsts;
-    v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v25;
+      v10 = *v24;
       do
       {
         v11 = 0;
         do
         {
-          if (*v25 != v10)
+          if (*v24 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [(PSSourceWriterBlock *)self releaseOutputBufferForKey:*(*(&v24 + 1) + 8 * v11++)];
+          [(PSSourceWriterBlock *)self releaseOutputBufferForKey:*(*(&v23 + 1) + 8 * v11++)];
         }
 
         while (v9 != v11);
-        v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v9);
@@ -1197,31 +1194,31 @@ LABEL_142:
   writerInsts = self->_writerInsts;
   if (writerInsts)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v13 = writerInsts;
-    v14 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v14 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v21;
+      v16 = *v20;
       do
       {
         v17 = 0;
         do
         {
-          if (*v21 != v16)
+          if (*v20 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          ps_prm_delete_writer_instance(self->_prm_mgr, [(PSSourceWriterBlock *)self getWriterInstForKey:*(*(&v20 + 1) + 8 * v17++), v20]);
+          ps_prm_delete_writer_instance(self->_prm_mgr, [(PSSourceWriterBlock *)self getWriterInstForKey:*(*(&v19 + 1) + 8 * v17++), v19]);
         }
 
         while (v15 != v17);
-        v15 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v15 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
       while (v15);
@@ -1230,8 +1227,6 @@ LABEL_142:
     v18 = self->_writerInsts;
     self->_writerInsts = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (PSSourceTask)sourceTask
@@ -1250,59 +1245,24 @@ LABEL_142:
 
 - (uint64_t)getWriterInstForKey:(char *)a1 .cold.1(char **a1, id a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v5 = a2;
-  asprintf(a1, "Could not find writer instance for key %s", [a2 UTF8String]);
-  v6 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v6))
+  v6 = asprintf(a1, "Could not find writer instance for key %s", [a2 UTF8String]);
+  v7 = __PLSLogSharedInstance(v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
     [a2 UTF8String];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Could not find writer instance for key %s", v9, v10, v11, v12, v23, v24, 2u);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Could not find writer instance for key %s", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24, buf);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v20 = OUTLINED_FUNCTION_0();
-  return [PSSourceWriterBlock setupResultsWithContext:v20 device:v21];
-}
-
-- (uint64_t)setupResultsWithContext:(char *)a1 device:(id *)location .cold.1(char **a1, id *location)
-{
-  v27 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  WeakRetained = objc_loadWeakRetained(location);
-  v5 = [WeakRetained name];
-  asprintf(a1, "A mix of RC and non-RC outputs was found for source task %s", [v5 UTF8String]);
-
-  v6 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v6))
-  {
-    v7 = objc_loadWeakRetained(location);
-    v8 = [v7 name];
-    [v8 UTF8String];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v9, v10, "%s:%d A mix of RC and non-RC outputs was found for source task %s", v11, v12, v13, v14, v25, v26, 2u);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v15 = __PLSLogSharedInstance();
+    v15 = __PLSLogSharedInstance(v14);
     if (OUTLINED_FUNCTION_6(v15))
     {
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26, 2u);
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26);
     }
   }
 
@@ -1315,29 +1275,136 @@ LABEL_142:
   return [PSSourceWriterBlock setupResultsWithContext:v22 device:v23];
 }
 
+- (uint64_t)setupResultsWithContext:(char *)a1 device:(id *)location .cold.1(char **a1, id *location)
+{
+  *a1 = 0;
+  WeakRetained = objc_loadWeakRetained(location);
+  v5 = [WeakRetained name];
+  asprintf(a1, "A mix of RC and non-RC outputs was found for source task %s", [v5 UTF8String]);
+
+  v7 = __PLSLogSharedInstance(v6);
+  if (OUTLINED_FUNCTION_5(v7))
+  {
+    v8 = objc_loadWeakRetained(location);
+    v9 = [v8 name];
+    [v9 UTF8String];
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v10, v11, "%s:%d A mix of RC and non-RC outputs was found for source task %s", v12, v13, v14, v15, v27, v28);
+  }
+
+  v16 = OSLogFlushBuffers();
+  if (v16)
+  {
+    v17 = __PLSLogSharedInstance(v16);
+    if (OUTLINED_FUNCTION_6(v17))
+    {
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v18, v19, "%s() failed to flush buffers with error code: %d", v20, v21, v22, v23, v27, v28);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v24 = OUTLINED_FUNCTION_0();
+  return [PSSourceWriterBlock setupResultsWithContext:v24 device:v25];
+}
+
 - (uint64_t)setupResultsWithContext:(char *)a1 device:(id *)location .cold.2(char **a1, id *location)
 {
-  v26 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   WeakRetained = objc_loadWeakRetained(location);
   v5 = [WeakRetained pearlBufferPools];
   asprintf(a1, "An incorrect number of pearl buffer pools were provided. Polaris is expecting three (dx, dy, score, depth). %lu were provided", [v5 count]);
 
-  v6 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v6))
+  v7 = __PLSLogSharedInstance(v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
-    v7 = objc_loadWeakRetained(location);
-    v8 = [v7 pearlBufferPools];
-    [v8 count];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v9, v10, "%s:%d An incorrect number of pearl buffer pools were provided. Polaris is expecting three (dx, dy, score, depth). %lu were provided", v11, v12, v13, v14, v24, v25, 2u);
+    v8 = objc_loadWeakRetained(location);
+    v9 = [v8 pearlBufferPools];
+    [v9 count];
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v10, v11, "%s:%d An incorrect number of pearl buffer pools were provided. Polaris is expecting three (dx, dy, score, depth). %lu were provided", v12, v13, v14, v15, v26, v27);
   }
 
-  if (OSLogFlushBuffers())
+  v16 = OSLogFlushBuffers();
+  if (v16)
   {
-    v15 = __PLSLogSharedInstance();
+    v17 = __PLSLogSharedInstance(v16);
+    if (OUTLINED_FUNCTION_6(v17))
+    {
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v18, v19, "%s() failed to flush buffers with error code: %d", v20, v21, v22, v23, v26, v27);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v24 = OUTLINED_FUNCTION_0();
+  return [PSSourceWriterBlock setupResultsWithContext:v24 device:?];
+}
+
+- (uint64_t)setupResultsWithContext:(char *)a1 device:.cold.3(char **a1)
+{
+  *a1 = 0;
+  v2 = asprintf(a1, "Got nil metadata buffer pool");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    *v23 = 136315394;
+    *&v23[4] = "[PSSourceWriterBlock setupResultsWithContext:device:]";
+    *&v23[12] = 1024;
+    *&v23[14] = 453;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Got nil metadata buffer pool", v6, v7, v8, v9, *v23, *&v23[8], *&v23[16]);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v11 = v10;
+    v12 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      *v22 = 136315394;
+      *&v22[4] = "[PSSourceWriterBlock setupResultsWithContext:device:]";
+      *&v22[12] = 1024;
+      *&v22[14] = v11;
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, *v22, *&v22[8], *&v22[16]);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return [PSSourceWriterBlock setupResultsWithContext:v19 device:v20];
+}
+
+- (uint64_t)setupResultsWithContext:(char *)a1 device:(void *)a2 .cold.4(char **a1, void *a2)
+{
+  *a1 = 0;
+  v4 = [a2 key];
+  asprintf(a1, "retainedISPRCCount = 0 in the resourcestream for stream: %s. Did RC forget to set retainedISPRCCount?", [v4 UTF8String]);
+
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
+  {
+    v7 = [a2 key];
+    [v7 UTF8String];
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d retainedISPRCCount = 0 in the resourcestream for stream: %s. Did RC forget to set retainedISPRCCount?", v10, v11, v12, v13, v25, v26);
+  }
+
+  v14 = OSLogFlushBuffers();
+  if (v14)
+  {
+    v15 = __PLSLogSharedInstance(v14);
     if (OUTLINED_FUNCTION_6(v15))
     {
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v24, v25, 2u);
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26);
     }
   }
 
@@ -1347,26 +1414,73 @@ LABEL_142:
   }
 
   v22 = OUTLINED_FUNCTION_0();
-  return [PSSourceWriterBlock setupResultsWithContext:v22 device:?];
+  return [PSSourceWriterBlock setupResultsWithContext:v22 device:v23];
 }
 
-- (uint64_t)setupResultsWithContext:(char *)a1 device:.cold.3(char **a1)
+- (uint64_t)setupResultsWithContext:(char *)a1 device:(void *)a2 .cold.5(char **a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Got nil metadata buffer pool");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v4 = [a2 key];
+  asprintf(a1, "Cannot install null buffer pool for streaming codec stream: %s", [v4 UTF8String]);
+
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v3, v4, "%s:%d Got nil metadata buffer pool", v5, v6, v7, v8, 2u);
+    v7 = [a2 key];
+    [v7 UTF8String];
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Cannot install null buffer pool for streaming codec stream: %s", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v9 = __PLSLogSharedInstance();
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
+    {
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v22 = OUTLINED_FUNCTION_0();
+  return [PSSourceWriterBlock setupResultsWithContext:v22 device:v23];
+}
+
+- (uint64_t)setupResultsWithContext:(char *)a1 device:(void *)a2 .cold.6(char **a1, void *a2)
+{
+  v28 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  v4 = [a2 resourceKey];
+  asprintf(a1, "(%s): Unsupported resource class for resource key (%s)", "[PSSourceWriterBlock setupResultsWithContext:device:]", [v4 UTF8String]);
+
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
+  {
+    v7 = [a2 resourceKey];
+    *buf = 136315906;
+    v21 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
+    v22 = 1024;
+    v23 = 484;
+    v24 = 2080;
+    v25 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
+    v26 = 2080;
+    v27 = [v7 UTF8String];
+    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_FAULT, "%s:%d (%s): Unsupported resource class for resource key (%s)", buf, 0x26u);
+  }
+
+  v8 = OSLogFlushBuffers();
+  if (v8)
+  {
+    v9 = __PLSLogSharedInstance(v8);
     if (OUTLINED_FUNCTION_6(v9))
     {
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, 2u);
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18, v19);
     }
   }
 
@@ -1376,116 +1490,7 @@ LABEL_142:
   }
 
   v16 = OUTLINED_FUNCTION_0();
-  return [PSSourceWriterBlock setupResultsWithContext:v16 device:?];
-}
-
-- (uint64_t)setupResultsWithContext:(char *)a1 device:(void *)a2 .cold.4(char **a1, void *a2)
-{
-  v25 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  v4 = [a2 key];
-  asprintf(a1, "retainedISPRCCount = 0 in the resourcestream for stream: %s. Did RC forget to set retainedISPRCCount?", [v4 UTF8String]);
-
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
-  {
-    v6 = [a2 key];
-    [v6 UTF8String];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d retainedISPRCCount = 0 in the resourcestream for stream: %s. Did RC forget to set retainedISPRCCount?", v9, v10, v11, v12, v22, v23, 2u);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, buf);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v20 = OUTLINED_FUNCTION_0();
-  return [PSSourceWriterBlock setupResultsWithContext:v20 device:?];
-}
-
-- (uint64_t)setupResultsWithContext:(char *)a1 device:(void *)a2 .cold.5(char **a1, void *a2)
-{
-  v25 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  v4 = [a2 key];
-  asprintf(a1, "Cannot install null buffer pool for streaming codec stream: %s", [v4 UTF8String]);
-
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
-  {
-    v6 = [a2 key];
-    [v6 UTF8String];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Cannot install null buffer pool for streaming codec stream: %s", v9, v10, v11, v12, v22, v23, 2u);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, buf);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v20 = OUTLINED_FUNCTION_0();
-  return [PSSourceWriterBlock setupResultsWithContext:v20 device:?];
-}
-
-- (__uint64_t)setupResultsWithContext:(char *)a1 device:(void *)a2 .cold.6(char **a1, void *a2)
-{
-  v26 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  v4 = [a2 resourceKey];
-  asprintf(a1, "(%s): Unsupported resource class for resource key (%s)", "[PSSourceWriterBlock setupResultsWithContext:device:]", [v4 UTF8String]);
-
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
-  {
-    v6 = [a2 resourceKey];
-    *buf = 136315906;
-    v19 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
-    v20 = 1024;
-    v21 = 484;
-    v22 = 2080;
-    v23 = "[PSSourceWriterBlock setupResultsWithContext:device:]";
-    v24 = 2080;
-    v25 = [v6 UTF8String];
-    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_FAULT, "%s:%d (%s): Unsupported resource class for resource key (%s)", buf, 0x26u);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v7 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v7))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v8, v9, "%s() failed to flush buffers with error code: %d", v10, v11, v12, v13, v16, v17, buf[0]);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v14 = OUTLINED_FUNCTION_0();
-  return ps_exec_block_create_cold_1(v14);
+  return ps_exec_block_create_cold_1(v16);
 }
 
 @end

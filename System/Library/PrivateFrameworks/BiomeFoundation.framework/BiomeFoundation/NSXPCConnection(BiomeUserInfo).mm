@@ -6,7 +6,7 @@
 
 - (id)bm_userInfo
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   userInfo = [self userInfo];
   userInfo2 = [self userInfo];
 
@@ -18,8 +18,8 @@
       v4 = __biome_log_for_category(0);
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v13 = 0x2020000000;
-      v14 = 16;
+      v12 = 0x2020000000;
+      v13 = 16;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __45__NSXPCConnection_BiomeUserInfo__bm_userInfo__block_invoke;
@@ -52,8 +52,6 @@
     [self setUserInfo:v8];
     userInfo = v8;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return userInfo;
 }

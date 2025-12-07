@@ -66,39 +66,38 @@
 
 - (id)predictionsForAnchorEvent
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [(ATXAnchorModelDataStoreWrapperProtocol *)self->_dataStoreWrapper trainingResultsForAnchor:self->_anchor];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v4 = v19 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v4 = v18 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = objc_autoreleasePoolPush();
         v11 = [(ATXAnchorModelAnchorEventHandler *)self predictionForCandidateFromTrainingResult:v9];
         if ([v11 shouldPredictCandidate])
         {
           v12 = [(ATXAnchorModelAnchorEventHandler *)self anchorModelPredictionFromTrainingResult:v9 classificationResult:v11];
-          [v3 addObject:v12];
-          v13 = __atxlog_handle_anchor();
+          v13 = __atxlog_handle_anchor([v3 addObject:v12]);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v21 = v12;
+            v20 = v12;
             _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "Inference: Will predict candidate: %@", buf, 0xCu);
           }
         }
@@ -106,14 +105,13 @@
         objc_autoreleasePoolPop(v10);
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v6);
   }
 
   [(ATXAnchorModelAnchorEventHandler *)self _logPhaseFilteredMetricFromTrainingResults:v4 anchorModelPredictions:v3];
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -168,20 +166,19 @@
   v14 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   v4 = objc_opt_new();
-  [v4 scoreForTrainingResult:resultCopy];
-  v6 = v5;
-  v7 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v5 = [v4 scoreForTrainingResult:resultCopy];
+  v7 = v6;
+  v8 = __atxlog_handle_anchor(v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 134218242;
-    v11 = v6;
+    v11 = v7;
     v12 = 2112;
     v13 = resultCopy;
-    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "Score for training result: %.2f, training result: %@", &v10, 0x16u);
+    _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "Score for training result: %.2f, training result: %@", &v10, 0x16u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v7;
 }
 
 - (BOOL)predictionIsHighConfidence:(id)confidence
@@ -333,8 +330,7 @@ LABEL_10:
     abGroup = [(ATXAnchorModelHyperParameters *)self->_hyperParameters abGroup];
     [v10 setAbGroup:abGroup];
 
-    [(ATXPETEventTracker2Protocol *)self->_tracker logMessage:v10];
-    v14 = __atxlog_handle_metrics();
+    v14 = __atxlog_handle_metrics([(ATXPETEventTracker2Protocol *)self->_tracker logMessage:v10]);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       [(ATXAnchorModelAnchorEventHandler *)self _logPhaseFilteredMetricFromTrainingResults:v10 anchorModelPredictions:v14];
@@ -344,26 +340,24 @@ LABEL_10:
 
 - (void)_logPhaseFilteredMetricFromTrainingResults:(NSObject *)a3 anchorModelPredictions:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   v7 = [a2 numStartingCandidates];
   v8 = [a2 numEndingCandidates];
   v9 = [a2 anchorType];
   v10 = [a2 abGroup];
-  v12 = 138413314;
-  v13 = v6;
-  v14 = 1024;
-  v15 = v7;
-  v16 = 1024;
-  v17 = v8;
-  v18 = 2112;
-  v19 = v9;
-  v20 = 2112;
-  v21 = v10;
-  _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBAnchorModelPhaseFilterTracker for phase 2 with starting candidates: %u ending candidates: %u, anchorType: %@ abGroup: %@", &v12, 0x2Cu);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = 138413314;
+  v12 = v6;
+  v13 = 1024;
+  v14 = v7;
+  v15 = 1024;
+  v16 = v8;
+  v17 = 2112;
+  v18 = v9;
+  v19 = 2112;
+  v20 = v10;
+  _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBAnchorModelPhaseFilterTracker for phase 2 with starting candidates: %u ending candidates: %u, anchorType: %@ abGroup: %@", &v11, 0x2Cu);
 }
 
 @end

@@ -147,7 +147,7 @@ LABEL_4:
 
 - (id)contextCodeIdentifierWithSectionBundleIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (identifierCopy)
   {
@@ -162,28 +162,28 @@ LABEL_4:
 
       if (++v5 == 43)
       {
-        v6 = __atxlog_handle_zkw_hide();
+        v6 = __atxlog_handle_zkw_hide(v7);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = 138412290;
-          v11 = identifierCopy;
-          _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "ATXSpotlightContextAdapter contextCodeIdentifierWithSectionBundleIdentifier:%@ returns nil", &v10, 0xCu);
+          v11 = 138412290;
+          v12 = identifierCopy;
+          _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "ATXSpotlightContextAdapter contextCodeIdentifierWithSectionBundleIdentifier:%@ returns nil", &v11, 0xCu);
         }
 
-        v7 = 0;
+        v8 = 0;
         goto LABEL_12;
       }
     }
 
-    v7 = stringForATXSuggestionPredictionReasonCode();
-    v8 = __atxlog_handle_zkw_hide();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v8 = stringForATXSuggestionPredictionReasonCode();
+    v9 = __atxlog_handle_zkw_hide(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412546;
-      v11 = identifierCopy;
-      v12 = 2112;
-      v13 = v7;
-      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "ATXSpotlightContextAdapter contextCodeIdentifierWithSectionBundleIdentifier:%@ returns  %@", &v10, 0x16u);
+      v11 = 138412546;
+      v12 = identifierCopy;
+      v13 = 2112;
+      v14 = v8;
+      _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "ATXSpotlightContextAdapter contextCodeIdentifierWithSectionBundleIdentifier:%@ returns  %@", &v11, 0x16u);
     }
 
 LABEL_12:
@@ -191,10 +191,10 @@ LABEL_12:
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)contextTitleWithSuggestion:(id)suggestion eventTitle:(id)title
@@ -226,35 +226,35 @@ void __68__ATXSpotlightContextAdapter_contextTitleWithSuggestion_eventTitle___bl
 {
   if (a2 == 22)
   {
-    v16 = [*(a1 + 32) contextEndDate];
+    v18 = [*(a1 + 32) contextEndDate];
 
-    if (!v16)
+    if (!v18)
     {
       return;
     }
 
-    v17 = [*(a1 + 32) contextEndDate];
-    [v17 timeIntervalSinceDate:*(*(a1 + 40) + 8)];
-    v19 = v18;
-    v20 = -v18;
+    v19 = [*(a1 + 32) contextEndDate];
+    [v19 timeIntervalSinceDate:*(*(a1 + 40) + 8)];
+    v21 = v20;
+    v22 = -v20;
 
-    if (v19 < 0.0)
+    if (v21 < 0.0)
     {
-      v7 = *(a1 + 40);
-      if (v19 >= -3600.0)
+      v8 = *(a1 + 40);
+      if (v21 >= -3600.0)
       {
-        v32 = [v7 _stringWithInterval:v20];
-        v8 = MEMORY[0x1E696AEC0];
-        v9 = *(a1 + 64);
-        v10 = @"CONTEXT_RECENT_EVENT_RELATIVE";
+        v35 = [v8 _stringWithInterval:v22];
+        v9 = MEMORY[0x1E696AEC0];
+        v10 = *(a1 + 64);
+        v11 = @"CONTEXT_RECENT_EVENT_RELATIVE";
         goto LABEL_27;
       }
 
       goto LABEL_15;
     }
 
-    v24 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v27 = __atxlog_handle_blending(v23);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
     {
       __68__ATXSpotlightContextAdapter_contextTitleWithSuggestion_eventTitle___block_invoke_cold_1((a1 + 32));
     }
@@ -282,19 +282,19 @@ void __68__ATXSpotlightContextAdapter_contextTitleWithSuggestion_eventTitle___bl
 
     if (v6 > 0.0)
     {
-      v7 = *(a1 + 40);
+      v8 = *(a1 + 40);
       if (v6 <= 3600.0)
       {
-        v32 = [v7 _stringWithInterval:v6];
-        v8 = MEMORY[0x1E696AEC0];
-        v9 = *(a1 + 64);
-        v10 = @"CONTEXT_UPCOMING_EVENT_RELATIVE";
+        v35 = [v8 _stringWithInterval:v6];
+        v9 = MEMORY[0x1E696AEC0];
+        v10 = *(a1 + 64);
+        v11 = @"CONTEXT_UPCOMING_EVENT_RELATIVE";
 LABEL_27:
-        v28 = [v9 localizedStringForKey:v10 value:&stru_1F3E050C8 table:0];
-        v29 = [v8 localizedStringWithFormat:v28, *(a1 + 56), v32];
-        v30 = *(*(a1 + 72) + 8);
-        v31 = *(v30 + 40);
-        *(v30 + 40) = v29;
+        v31 = [v10 localizedStringForKey:v11 value:&stru_1F3E050C8 table:0];
+        v32 = [v9 localizedStringWithFormat:v31, *(a1 + 56), v35];
+        v33 = *(*(a1 + 72) + 8);
+        v34 = *(v33 + 40);
+        *(v33 + 40) = v32;
 
         return;
       }
@@ -302,38 +302,38 @@ LABEL_27:
       goto LABEL_15;
     }
 
-    v24 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v27 = __atxlog_handle_blending(v7);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
     {
       __68__ATXSpotlightContextAdapter_contextTitleWithSuggestion_eventTitle___block_invoke_cold_3((a1 + 32));
     }
 
 LABEL_24:
 
-    v25 = [*(a1 + 40) _absoluteDateContextTitleWithSuggestion:*(a1 + 48) eventTitle:*(a1 + 56)];
-    v26 = *(*(a1 + 72) + 8);
-    v27 = *(v26 + 40);
-    *(v26 + 40) = v25;
+    v28 = [*(a1 + 40) _absoluteDateContextTitleWithSuggestion:*(a1 + 48) eventTitle:*(a1 + 56)];
+    v29 = *(*(a1 + 72) + 8);
+    v30 = *(v29 + 40);
+    *(v29 + 40) = v28;
 
-    return;
-  }
-
-  v11 = [*(a1 + 32) contextStartDate];
-
-  if (!v11)
-  {
     return;
   }
 
   v12 = [*(a1 + 32) contextStartDate];
-  [v12 timeIntervalSinceDate:*(*(a1 + 40) + 8)];
-  v14 = v13;
-  v15 = -v13;
 
-  if (v14 >= 0.0)
+  if (!v12)
   {
-    v24 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    return;
+  }
+
+  v13 = [*(a1 + 32) contextStartDate];
+  [v13 timeIntervalSinceDate:*(*(a1 + 40) + 8)];
+  v15 = v14;
+  v16 = -v14;
+
+  if (v15 >= 0.0)
+  {
+    v27 = __atxlog_handle_blending(v17);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
     {
       __68__ATXSpotlightContextAdapter_contextTitleWithSuggestion_eventTitle___block_invoke_cold_2((a1 + 32));
     }
@@ -341,23 +341,23 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v7 = *(a1 + 40);
-  if (v14 >= -3600.0)
+  v8 = *(a1 + 40);
+  if (v15 >= -3600.0)
   {
-    v32 = [v7 _stringWithInterval:v15];
-    v8 = MEMORY[0x1E696AEC0];
-    v9 = *(a1 + 64);
-    v10 = @"CONTEXT_ONGOING_EVENT_RELATIVE";
+    v35 = [v8 _stringWithInterval:v16];
+    v9 = MEMORY[0x1E696AEC0];
+    v10 = *(a1 + 64);
+    v11 = @"CONTEXT_ONGOING_EVENT_RELATIVE";
     goto LABEL_27;
   }
 
 LABEL_15:
-  v21 = [v7 _absoluteDateContextTitleWithSuggestion:*(a1 + 48) eventTitle:*(a1 + 56)];
-  v22 = *(*(a1 + 72) + 8);
-  v23 = *(v22 + 40);
-  *(v22 + 40) = v21;
+  v24 = [v8 _absoluteDateContextTitleWithSuggestion:*(a1 + 48) eventTitle:*(a1 + 56)];
+  v25 = *(*(a1 + 72) + 8);
+  v26 = *(v25 + 40);
+  *(v25 + 40) = v24;
 
-  MEMORY[0x1EEE66BB8](v21, v23);
+  MEMORY[0x1EEE66BB8](v24, v26);
 }
 
 - (id)_stringWithInterval:(double)interval
@@ -384,7 +384,7 @@ LABEL_15:
   predictionReasons = [uiSpecification predictionReasons];
   contextStartDate = [uiSpecification contextStartDate];
   contextEndDate = [uiSpecification contextEndDate];
-  v11 = __atxlog_handle_context_heuristic();
+  v11 = __atxlog_handle_context_heuristic(contextEndDate);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446978;
@@ -475,21 +475,21 @@ void __68__ATXSpotlightContextAdapter_contextTitleWithSuggestion_eventTitle___bl
 {
   v1 = [*a1 contextEndDate];
   OUTLINED_FUNCTION_0_16();
-  OUTLINED_FUNCTION_1_13(&dword_1BF549000, v2, v3, "ATXSpotlightContextAdapter contextTitleWithSuggestion: interval since end date to now = %fs. Using absolute end date %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_13(&dword_1BF549000, v2, v3, "ATXSpotlightContextAdapter contextTitleWithSuggestion: interval since end date to now = %fs. Using absolute end date %@", v4, v5, v6, v7);
 }
 
 void __68__ATXSpotlightContextAdapter_contextTitleWithSuggestion_eventTitle___block_invoke_cold_2(id *a1)
 {
   v1 = [*a1 contextStartDate];
   OUTLINED_FUNCTION_0_16();
-  OUTLINED_FUNCTION_1_13(&dword_1BF549000, v2, v3, "ATXSpotlightContextAdapter contextTitleWithSuggestion: interval since start date to now = %fs. Using absolute start date %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_13(&dword_1BF549000, v2, v3, "ATXSpotlightContextAdapter contextTitleWithSuggestion: interval since start date to now = %fs. Using absolute start date %@", v4, v5, v6, v7);
 }
 
 void __68__ATXSpotlightContextAdapter_contextTitleWithSuggestion_eventTitle___block_invoke_cold_3(id *a1)
 {
   v1 = [*a1 contextStartDate];
   OUTLINED_FUNCTION_0_16();
-  OUTLINED_FUNCTION_1_13(&dword_1BF549000, v2, v3, "ATXSpotlightContextAdapter contextTitleWithSuggestion: interval to start date from now = %fs. Using absolute start date %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_13(&dword_1BF549000, v2, v3, "ATXSpotlightContextAdapter contextTitleWithSuggestion: interval to start date from now = %fs. Using absolute start date %@", v4, v5, v6, v7);
 }
 
 @end

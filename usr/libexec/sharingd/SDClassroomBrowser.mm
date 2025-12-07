@@ -566,7 +566,7 @@ LABEL_8:
     v14 = v6;
     v15 = 9;
 LABEL_9:
-    [v14 airDropClient:0 event:v15 withResults:{v8, *v23}];
+    [v14 airDropClient:0 event:v15 withResults:{v8, *v23, *&v23[8]}];
     goto LABEL_10;
   }
 
@@ -677,8 +677,7 @@ LABEL_10:
   SFNodeAddKind();
   if (([nodeCopy isGroup] & 1) == 0 && !objc_msgSend(nodeCopy, "isCourse"))
   {
-    v16 = &kSFNodeKindPerson;
-    goto LABEL_17;
+    goto LABEL_15;
   }
 
   if ([nodeCopy isGroup])
@@ -688,16 +687,14 @@ LABEL_10:
 
   if ([nodeCopy isCourse])
   {
-    v16 = &kSFNodeKindClassroomCourse;
-LABEL_17:
-    v17 = *v16;
+LABEL_15:
     SFNodeAddKind();
   }
 
   valuePtr = 705;
-  v18 = CFNumberCreate(0, kCFNumberLongType, &valuePtr);
+  v16 = CFNumberCreate(0, kCFNumberLongType, &valuePtr);
   SFNodeSetFlags();
-  CFRelease(v18);
+  CFRelease(v16);
 
   return v7;
 }
@@ -721,67 +718,65 @@ LABEL_17:
   v6 = browser_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    sub_100073A48();
+    sub_100073A48(targetsCopy);
   }
 
-  p_nodes = &self->_nodes;
-  v8 = [NSMutableArray arrayWithArray:self->_nodes];
+  v7 = [NSMutableArray arrayWithArray:self->_nodes];
+  v24 = 0u;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v9 = targetsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v26 objects:v32 count:16];
-  if (v10)
+  v8 = targetsCopy;
+  v9 = [v8 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  if (v9)
   {
-    v11 = v10;
-    v12 = *v27;
+    v10 = v9;
+    v11 = *v25;
     do
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v10; i = i + 1)
       {
-        if (*v27 != v12)
+        if (*v25 != v11)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * i);
+        v13 = *(*(&v24 + 1) + 8 * i);
         personIDToShareTarget = self->_personIDToShareTarget;
-        identifier = [v14 identifier];
-        [(NSMutableDictionary *)personIDToShareTarget setObject:v14 forKeyedSubscript:identifier];
+        identifier = [v13 identifier];
+        [(NSMutableDictionary *)personIDToShareTarget setObject:v13 forKeyedSubscript:identifier];
 
-        v17 = [(SDClassroomBrowser *)self convertShareTargetToNode:v14];
-        [v8 addObject:v17];
+        v16 = [(SDClassroomBrowser *)self convertShareTargetToNode:v13];
+        [v7 addObject:v16];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
-    while (v11);
+    while (v10);
   }
 
-  objc_storeStrong(&self->_nodes, v8);
-  v18 = [(NSArray *)self->_nodes count];
+  objc_storeStrong(&self->_nodes, v7);
+  v17 = [(NSArray *)self->_nodes count];
   allKeys = [(NSMutableDictionary *)self->_personIDToShareTarget allKeys];
-  v20 = [allKeys count];
+  v19 = [allKeys count];
 
-  if (v18 != v20)
+  if (v17 != v19)
   {
     sub_100073AD4(a2, self);
   }
 
-  v21 = browser_log();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v20 = browser_log();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = *p_nodes;
-    v23 = SFCompactStringFromCollection();
+    v21 = SFCompactStringFromCollection();
     *buf = 138412290;
-    v31 = v23;
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "SDClassroomBrowser shareTargetBrowser:didFindTargets: nodes %@", buf, 0xCu);
+    v29 = v21;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "SDClassroomBrowser shareTargetBrowser:didFindTargets: nodes %@", buf, 0xCu);
   }
 
-  v24 = +[NSNotificationCenter defaultCenter];
-  [v24 postNotificationName:@"com.apple.sharingd.ClassroomChanged" object:0 userInfo:0];
+  v22 = +[NSNotificationCenter defaultCenter];
+  [v22 postNotificationName:@"com.apple.sharingd.ClassroomChanged" object:0 userInfo:0];
 }
 
 - (void)shareTargetBrowser:(id)browser didRemoveTargets:(id)targets
@@ -790,51 +785,51 @@ LABEL_17:
   v6 = browser_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    sub_100073B38();
+    sub_100073B38(targetsCopy);
   }
 
   selfCopy = self;
   location = &self->_nodes;
-  v30 = [NSMutableArray arrayWithArray:self->_nodes];
+  v29 = [NSMutableArray arrayWithArray:self->_nodes];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = targetsCopy;
-  v33 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
-  if (v33)
+  v32 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+  if (v32)
   {
-    v31 = *v39;
+    v30 = *v38;
     do
     {
-      for (i = 0; i != v33; i = i + 1)
+      for (i = 0; i != v32; i = i + 1)
       {
-        if (*v39 != v31)
+        if (*v38 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v38 + 1) + 8 * i);
+        v8 = *(*(&v37 + 1) + 8 * i);
+        v33 = 0u;
         v34 = 0u;
         v35 = 0u;
         v36 = 0u;
-        v37 = 0u;
         v9 = *location;
-        v10 = [v9 countByEnumeratingWithState:&v34 objects:v44 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v33 objects:v43 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v35;
+          v12 = *v34;
           while (2)
           {
             for (j = 0; j != v11; j = j + 1)
             {
-              if (*v35 != v12)
+              if (*v34 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = *(*(&v34 + 1) + 8 * j);
+              v14 = *(*(&v33 + 1) + 8 * j);
               v15 = SFNodeCopyRealName();
               identifier = [v8 identifier];
               v17 = [identifier isEqual:v15];
@@ -845,12 +840,12 @@ LABEL_17:
                 identifier2 = [v8 identifier];
                 [(NSMutableDictionary *)personIDToShareTarget removeObjectForKey:identifier2];
 
-                [v30 removeObject:v14];
+                [v29 removeObject:v14];
                 goto LABEL_18;
               }
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v34 objects:v44 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v33 objects:v43 count:16];
             if (v11)
             {
               continue;
@@ -863,13 +858,13 @@ LABEL_17:
 LABEL_18:
       }
 
-      v33 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
+      v32 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
 
-  objc_storeStrong(location, v30);
+  objc_storeStrong(location, v29);
   v20 = [(NSArray *)selfCopy->_nodes count];
   allKeys = [(NSMutableDictionary *)selfCopy->_personIDToShareTarget allKeys];
   v22 = [allKeys count];
@@ -882,15 +877,14 @@ LABEL_18:
   v23 = browser_log();
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = *location;
-    v25 = SFCompactStringFromCollection();
+    v24 = SFCompactStringFromCollection();
     *buf = 138412290;
-    v43 = v25;
+    v42 = v24;
     _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "SDClassroomBrowser shareTargetBrowser:didRemoveTargets: nodes %@", buf, 0xCu);
   }
 
-  v26 = +[NSNotificationCenter defaultCenter];
-  [v26 postNotificationName:@"com.apple.sharingd.ClassroomChanged" object:0 userInfo:0];
+  v25 = +[NSNotificationCenter defaultCenter];
+  [v25 postNotificationName:@"com.apple.sharingd.ClassroomChanged" object:0 userInfo:0];
 }
 
 @end

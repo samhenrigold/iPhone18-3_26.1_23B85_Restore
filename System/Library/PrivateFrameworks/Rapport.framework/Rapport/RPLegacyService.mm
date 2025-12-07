@@ -4,8 +4,6 @@
 - (int)_bonjourUpdateService;
 - (int)_bonjourUpdateTXT;
 - (int)_tcpStart;
-- (uint64_t)_bonjourUpdateService;
-- (uint64_t)_tcpStart;
 - (void)_activateWithCompletion:(id)completion;
 - (void)_bonjourUpdateTXT;
 - (void)_cleanup;
@@ -81,9 +79,11 @@
 
 - (id)description
 {
-  NSAppendPrintF();
+  v4 = 0;
+  NSAppendPrintF(&v4, "RPLegacyService %{ptr}", self);
+  v2 = v4;
 
-  return 0;
+  return v2;
 }
 
 - (void)activateWithCompletion:(id)completion
@@ -103,67 +103,89 @@
 - (void)_activateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  if (gLogCategory_RPLegacySupport <= 30 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
+  v20 = completionCopy;
+  if (gLogCategory_RPLegacySupport <= 30)
   {
-    [RPLegacyService _activateWithCompletion:];
+    if (gLogCategory_RPLegacySupport != -1 || (completionCopy = _LogCategory_Initialize(), completionCopy))
+    {
+      [(RPLegacyService *)completionCopy _activateWithCompletion:v5, v6];
+    }
   }
 
   if (self->_invalidateCalled)
   {
-    goto LABEL_14;
+    _bonjourUpdateService = 4294960572;
+LABEL_15:
+    if (gLogCategory_RPLegacySupport <= 60 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
+    {
+      [RPLegacyService _activateWithCompletion:_bonjourUpdateService];
+    }
+
+    goto LABEL_20;
   }
 
   if (self->_activateCalled)
   {
-    goto LABEL_14;
+    _bonjourUpdateService = 4294960575;
+    goto LABEL_15;
   }
 
   serviceType = self->_serviceType;
   if (!serviceType)
   {
-    goto LABEL_14;
+    _bonjourUpdateService = 4294896129;
+    goto LABEL_15;
   }
 
   self->_activateCalled = 1;
   if (*[(NSString *)serviceType UTF8String]== 95)
   {
-    if (![(RPLegacyService *)self _tcpStart]&& ![(RPLegacyService *)self _bonjourUpdateService])
+    _tcpStart = [(RPLegacyService *)self _tcpStart];
+    if (_tcpStart)
     {
-      goto LABEL_20;
+      _bonjourUpdateService = _tcpStart;
     }
 
-    goto LABEL_14;
+    else
+    {
+      _bonjourUpdateService = [(RPLegacyService *)self _bonjourUpdateService];
+      if (!_bonjourUpdateService)
+      {
+        goto LABEL_22;
+      }
+    }
+
+    goto LABEL_15;
   }
 
   if (gLogCategory_RPLegacySupport <= 90)
   {
     if (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize())
     {
-      [RPLegacyService _activateWithCompletion:?];
-    }
-
-LABEL_14:
-    if (gLogCategory_RPLegacySupport <= 60 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
-    {
       [RPLegacyService _activateWithCompletion:];
     }
+
+    _bonjourUpdateService = 4294960561;
+    goto LABEL_15;
   }
 
+  _bonjourUpdateService = 4294960561;
+LABEL_20:
   errorHandler = self->_errorHandler;
   if (errorHandler)
   {
-    v6 = RPErrorF();
-    errorHandler[2](errorHandler, v6);
+    v16 = RPErrorF(_bonjourUpdateService, "Activate failed", v6, v7, v8, v9, v10, v11, v19);
+    errorHandler[2](errorHandler, v16);
   }
 
-LABEL_20:
-  v7 = completionCopy;
-  if (completionCopy)
+LABEL_22:
+  v17 = v20;
+  if (v20)
   {
-    v8 = RPErrorF();
-    (*(completionCopy + 2))(completionCopy, v8);
+    v18 = RPErrorF(_bonjourUpdateService, "Activate failed", v6, v7, v8, v9, v10, v11, v19);
+    (*(v20 + 2))(v20, v18);
 
-    v7 = completionCopy;
+    v17 = v20;
   }
 }
 
@@ -184,9 +206,12 @@ LABEL_20:
   if (!self->_invalidateCalled)
   {
     self->_invalidateCalled = 1;
-    if (gLogCategory_RPLegacySupport <= 30 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPLegacySupport <= 30)
     {
-      [RPLegacyService _invalidate];
+      if (gLogCategory_RPLegacySupport != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(RPLegacyService *)v3 _invalidate];
+      }
     }
 
     if (self->_bonjourAdvertiser)
@@ -225,9 +250,12 @@ LABEL_20:
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_RPLegacySupport <= 60 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
+    if (!self->_invalidateCalled && gLogCategory_RPLegacySupport <= 60)
     {
-      [RPLegacyService _invalidated];
+      if (gLogCategory_RPLegacySupport != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(RPLegacyService *)v3 _invalidated];
+      }
     }
 
     if (!self->_bonjourAdvertiser)
@@ -238,11 +266,14 @@ LABEL_20:
         invalidationHandler[2]();
       }
 
-      [(RPLegacyService *)self _cleanup];
+      _cleanup = [(RPLegacyService *)self _cleanup];
       self->_invalidateDone = 1;
-      if (gLogCategory_RPLegacySupport <= 30 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_RPLegacySupport <= 30)
       {
-        [RPLegacyService _invalidated];
+        if (gLogCategory_RPLegacySupport != -1 || (_cleanup = _LogCategory_Initialize(), _cleanup))
+        {
+          [(RPLegacyService *)_cleanup _invalidated];
+        }
       }
     }
   }
@@ -270,7 +301,7 @@ LABEL_20:
 
 void __53__RPLegacyService_registerRequestID_options_handler___block_invoke(uint64_t a1)
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   if (!*(*(a1 + 32) + 16))
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -279,22 +310,20 @@ void __53__RPLegacyService_registerRequestID_options_handler___block_invoke(uint
     *(v3 + 16) = v2;
   }
 
-  v10[0] = @"handler";
+  v9[0] = @"handler";
   v5 = _Block_copy(*(a1 + 56));
   v6 = v5;
-  v10[1] = @"options";
+  v9[1] = @"options";
   v7 = *(a1 + 48);
   if (!v7)
   {
     v7 = MEMORY[0x1E695E0F8];
   }
 
-  v11[0] = v5;
-  v11[1] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[0] = v5;
+  v10[1] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   [*(*(a1 + 32) + 16) setObject:v8 forKeyedSubscript:*(a1 + 40)];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (int)_bonjourUpdateService
@@ -310,8 +339,7 @@ void __53__RPLegacyService_registerRequestID_options_handler___block_invoke(uint
     _bonjourUpdateTXT = [(RPLegacyService *)self _bonjourUpdateTXT];
     if (!_bonjourUpdateTXT)
     {
-      v5 = *p_bonjourAdvertiser;
-      v6 = BonjourAdvertiserUpdate();
+      v5 = BonjourAdvertiserUpdate();
       goto LABEL_7;
     }
   }
@@ -336,25 +364,19 @@ void __53__RPLegacyService_registerRequestID_options_handler___block_invoke(uint
     _bonjourUpdateTXT = BonjourAdvertiserCreate();
     if (!_bonjourUpdateTXT)
     {
-      bonjourAdvertiser = self->_bonjourAdvertiser;
-      dispatchQueue = self->_dispatchQueue;
       BonjourAdvertiserSetDispatchQueue();
-      v10 = self->_bonjourAdvertiser;
-      listenerPort = self->_listenerPort;
       BonjourAdvertiserSetPort();
-      v12 = self->_bonjourAdvertiser;
       [(NSString *)self->_serviceType UTF8String];
       BonjourAdvertiserSetServiceType();
       _bonjourUpdateTXT = [(RPLegacyService *)self _bonjourUpdateTXT];
       if (!_bonjourUpdateTXT)
       {
-        v14 = *p_bonjourAdvertiser;
-        v6 = BonjourAdvertiserStart();
+        v5 = BonjourAdvertiserStart();
 LABEL_7:
-        v7 = v6;
-        if (!v6)
+        v6 = v5;
+        if (!v5)
         {
-          return v7;
+          return v6;
         }
 
         goto LABEL_17;
@@ -362,44 +384,44 @@ LABEL_7:
     }
   }
 
-  v7 = _bonjourUpdateTXT;
+  v6 = _bonjourUpdateTXT;
 LABEL_17:
   if (gLogCategory_RPLegacySupport <= 60 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
   {
-    [RPLegacyService _bonjourUpdateService];
+    [(RPLegacyService *)v6 _bonjourUpdateService];
   }
 
-  return v7;
+  return v6;
 }
 
 - (int)_bonjourUpdateTXT
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   txtRecord = 0uLL;
   TXTRecordCreate(&txtRecord, 0x100u, buffer);
-  v29 = 0u;
-  v30 = 0u;
+  v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v3 = self->_txtDictionary;
-  v4 = [(NSDictionary *)v3 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v4 = [(NSDictionary *)v3 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (!v4)
   {
     goto LABEL_15;
   }
 
   v5 = v4;
-  v6 = *v28;
+  v6 = *v25;
   while (2)
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v28 != v6)
+      if (*v25 != v6)
       {
         objc_enumerationMutation(v3);
       }
 
-      v8 = *(*(&v27 + 1) + 8 * i);
+      v8 = *(*(&v24 + 1) + 8 * i);
       v9 = [(NSDictionary *)self->_txtDictionary objectForKeyedSubscript:v8];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -445,14 +467,14 @@ LABEL_12:
         v17 = &unk_1EB97A000;
         if (gLogCategory_RPLegacySupport <= 90 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_RPLegacySupport, "[RPLegacyService _bonjourUpdateTXT]", 90, "### Bad TXT item '%@ = %@': %#m\n", v8, v9, v16);
         }
 
         goto LABEL_35;
       }
     }
 
-    v5 = [(NSDictionary *)v3 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v5 = [(NSDictionary *)v3 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v5)
     {
       continue;
@@ -468,11 +490,10 @@ LABEL_15:
     goto LABEL_20;
   }
 
-  deviceActionType = self->_deviceActionType;
-  v14 = SNPrintF();
+  v14 = SNPrintF(value, 256, "%u", self->_deviceActionType);
   if (v14 > 255)
   {
-    v16 = -6743;
+    v16 = 4294960553;
 LABEL_19:
     v17 = &unk_1EB97A000;
     goto LABEL_38;
@@ -492,10 +513,10 @@ LABEL_20:
     goto LABEL_24;
   }
 
-  v18 = SNPrintF();
+  v18 = SNPrintF(value, 256, "0x%llX", 1);
   if (v18 > 255)
   {
-    v16 = -6743;
+    v16 = 4294960553;
     goto LABEL_38;
   }
 
@@ -509,33 +530,29 @@ LABEL_20:
 LABEL_24:
   if (!self->_bonjourAdvertiser)
   {
-    v16 = -6762;
+    v16 = 4294960534;
     goto LABEL_38;
   }
 
-  TXTRecordGetBytesPtr(&txtRecord);
-  TXTRecordGetLength(&txtRecord);
+  BytesPtr = TXTRecordGetBytesPtr(&txtRecord);
+  Length = TXTRecordGetLength(&txtRecord);
   if (gLogCategory_RPLegacySupport <= 20 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
   {
-    serviceType = self->_serviceType;
-    LogPrintF();
+    LogPrintF(&gLogCategory_RPLegacySupport, "[RPLegacyService _bonjourUpdateTXT]", 20, "Bonjour update TXT %@: %#{txt}\n", self->_serviceType, BytesPtr, Length);
   }
 
-  bonjourAdvertiser = self->_bonjourAdvertiser;
   v16 = BonjourAdvertiserSetTXTRecord();
   if (v16)
   {
 LABEL_38:
-    v21 = v17[852];
-    if (v21 <= 60 && (v21 != -1 || _LogCategory_Initialize()))
+    v22 = v17[852];
+    if (v22 <= 60 && (v22 != -1 || _LogCategory_Initialize()))
     {
-      v26 = self->_serviceType;
-      LogPrintF();
+      LogPrintF(&gLogCategory_RPLegacySupport, "[RPLegacyService _bonjourUpdateTXT]", 60, "### Bonjour update TXT %@ failed: %#m\n", self->_serviceType, v16);
     }
   }
 
   TXTRecordDeallocate(&txtRecord);
-  v22 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -548,7 +565,7 @@ LABEL_38:
 
   if ((self->_tcpSockV4 & 0x80000000) == 0 || (self->_tcpSockV6 & 0x80000000) == 0)
   {
-    v3 = -6721;
+    v3 = 4294960575;
     goto LABEL_7;
   }
 
@@ -558,8 +575,7 @@ LABEL_38:
 LABEL_7:
     if (gLogCategory_RPLegacySupport <= 60 && (gLogCategory_RPLegacySupport != -1 || _LogCategory_Initialize()))
     {
-      serviceType = self->_serviceType;
-      LogPrintF();
+      LogPrintF(&gLogCategory_RPLegacySupport, "[RPLegacyService _tcpStart]", 60, "### TCP start service %@ failed: %#m\n", self->_serviceType, v3);
     }
 
     return v3;
@@ -570,14 +586,8 @@ LABEL_7:
     [(RPLegacyService *)self _tcpStart];
   }
 
-  return 0;
-}
-
-- (uint64_t)_bonjourUpdateService
-{
-  v2 = *(self + 72);
-  v3 = *(self + 32);
-  return LogPrintF();
+  LODWORD(v3) = 0;
+  return v3;
 }
 
 - (void)_bonjourUpdateTXT
@@ -585,20 +595,13 @@ LABEL_7:
   if (gLogCategory_RPLegacySupport <= 90)
   {
     OUTLINED_FUNCTION_6();
-    if (!v3 || _LogCategory_Initialize())
+    if (!v4 || _LogCategory_Initialize())
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_RPLegacySupport, "[RPLegacyService _bonjourUpdateTXT]", 90, "### Bad TXT key type '%@'\n", v2);
     }
   }
 
   *a2 = -6743;
-}
-
-- (uint64_t)_tcpStart
-{
-  v3 = *(self + 72);
-  v4 = *a2;
-  return LogPrintF();
 }
 
 @end

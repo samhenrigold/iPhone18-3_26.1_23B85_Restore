@@ -54,7 +54,7 @@ uint64_t MeasureUnitsGetSystemDefault()
   return v1;
 }
 
-__n128 computeTriangulation(uint64_t a1, uint64_t a2)
+__n128 computeTriangulation(uint64_t a1, unint64_t a2)
 {
   v4 = a2 >> 2;
   v20[0] = 0;
@@ -147,7 +147,7 @@ uint64_t cva::MatrixData<double,0ul,0ul,false>::allocate(void **a1, uint64_t a2)
   return result;
 }
 
-uint64_t cva::SVD<cva::Matrix<double,0u,0u,false>,true>::SVD<cva::Matrix<double,0u,0u,false>>(uint64_t a1, _DWORD *a2, char a3, int a4)
+uint64_t cva::SVD<cva::Matrix<double,0u,0u,false>,true>::SVD<cva::Matrix<double,0u,0u,false>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   *(a1 + 64) = 0;
   *(a1 + 32) = 0u;
@@ -168,10 +168,10 @@ void sub_258378C34(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decompose<cva::Matrix<double,0u,0u,false> const&>(uint64_t a1, _DWORD *a2, char a3, int a4)
+void cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decompose<cva::Matrix<double,0u,0u,false> const&>(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v5 = a2[4];
-  v6 = a2[5];
+  v5 = *(a2 + 16);
+  v6 = *(a2 + 20);
   *(a1 + 72) = v5;
   *(a1 + 76) = v6;
   if (!(v5 | v6))
@@ -213,8 +213,9 @@ LABEL_8:
   }
 }
 
-void cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeDirect<cva::Matrix<double,0u,0u,false>>(uint64_t a1, uint64_t a2, char a3)
+void cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeDirect<cva::Matrix<double,0u,0u,false>>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = (*(a2 + 20) * *(a2 + 16));
   __dst[0] = 0;
   __dst[1] = 0;
@@ -225,38 +226,38 @@ void cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeDirect<cva::Matrix
   }
 
   __dst[2] = *(a2 + 16);
-  cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeDirect<0u,0u>(a1, __dst, a3);
+  cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeDirect<0u,0u>(a1, __dst, v3);
   free(__dst[0]);
 }
 
-void cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeRectangular<cva::Matrix<double,0u,0u,false>>(uint64_t a1, _DWORD *a2, int a3)
+void cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeRectangular<cva::Matrix<double,0u,0u,false>>(uint64_t *a1, void **a2, int a3)
 {
   v3 = a3;
-  v47 = *MEMORY[0x277D85DE8];
-  if (a2[5] >= a2[4])
+  v49 = *MEMORY[0x277D85DE8];
+  if (*(a2 + 5) >= *(a2 + 4))
   {
-    v40 = a2;
-    v43 = a2;
-    v44 = &v40;
-    cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::Matrix<double,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false> const>>>(a1, &v43, a3 != 0);
+    v42 = a2;
+    v45 = a2;
+    v46 = &v42;
+    cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::Matrix<double,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false> const>>>(a1, &v45, a3 != 0);
     if (*(a1 + 80) != 1)
     {
       return;
     }
 
-    v12 = *(a1 + 64);
-    if (v12)
+    v14 = *(a1 + 16);
+    if (v14)
     {
-      v13 = *(a1 + 48);
-      v14 = 8 * v12;
+      v15 = a1[6];
+      v16 = 8 * v14;
       do
       {
-        *v13 = sqrt(*v13);
-        ++v13;
-        v14 -= 8;
+        *v15 = sqrt(*v15);
+        ++v15;
+        v16 -= 8;
       }
 
-      while (v14);
+      while (v16);
     }
 
     if ((v3 & 2) == 0)
@@ -264,53 +265,53 @@ void cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeRectangular<cva::M
       return;
     }
 
-    v33 = cva::SVD<cva::Matrix<double,0u,0u,false>,true>::S(a1);
-    v34 = v15;
-    v35 = &v33;
-    v36 = 0x3E112E0BE826D695;
-    v37 = a1;
-    if (*(a1 + 20) != v33)
+    v35 = cva::SVD<cva::Matrix<double,0u,0u,false>,true>::S(a1, v13);
+    v36 = v17;
+    v37 = &v35;
+    v38 = 0x3E112E0BE826D695;
+    v39 = a1;
+    if (*(a1 + 5) != v35)
     {
       cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeRectangular<cva::Matrix<double,0u,0u,false>>();
     }
 
-    v38 = &v35;
-    v39 = &v37;
-    if (*(a1 + 16) != a2[4])
+    v40 = &v37;
+    v41 = &v39;
+    if (*(a1 + 4) != *(a2 + 4))
     {
       cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeRectangular<cva::Matrix<double,0u,0u,false>>();
     }
 
-    v16 = HIDWORD(v33);
-    if (__PAIR64__(a2[5], HIDWORD(v33)) == *(a1 + 40))
+    v18 = HIDWORD(v35);
+    if (__PAIR64__(*(a2 + 5), HIDWORD(v35)) == a1[5])
     {
-      v44 = &v38;
-      v45 = a2;
+      v46 = &v40;
+      v47 = a2;
 LABEL_30:
-      v46 = 0x3FF0000000000000;
-      cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>>,cva::Matrix<double,0u,0u,false>>(a1 + 24, &v43);
+      v48 = 0x3FF0000000000000;
+      cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>>,cva::Matrix<double,0u,0u,false>>((a1 + 3), &v45);
       return;
     }
 
-    v20 = *(a1 + 24);
-    if (*v15 == v20)
+    v22 = a1[3];
+    if (*v17 == v22)
     {
-      v21 = a2[5];
+      v23 = *(a2 + 5);
     }
 
     else
     {
-      v21 = a2[5];
-      if (*a1 != v20 && *a2 != v20)
+      v23 = *(a2 + 5);
+      if (*a1 != v22 && *a2 != v22)
       {
-        *(a1 + 40) = HIDWORD(v33);
-        *(a1 + 44) = v21;
-        cva::MatrixData<double,0ul,0ul,false>::reserve(a1 + 24, (v21 * v16));
-        v22 = a2[4];
-        v23 = *(*v39 + 4);
-        v44 = &v38;
-        v45 = a2;
-        if (v23 != v22)
+        *(a1 + 10) = HIDWORD(v35);
+        *(a1 + 11) = v23;
+        cva::MatrixData<double,0ul,0ul,false>::reserve((a1 + 3), (v23 * v18));
+        v24 = *(a2 + 4);
+        v25 = *(*v41 + 4);
+        v46 = &v40;
+        v47 = a2;
+        if (v25 != v24)
         {
           cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeRectangular<cva::Matrix<double,0u,0u,false>>();
         }
@@ -319,99 +320,99 @@ LABEL_30:
       }
     }
 
-    v40 = 0;
-    v41 = 0;
-    cva::MatrixData<double,0ul,0ul,false>::allocate(&v40, (v21 * HIDWORD(v33)));
-    v30 = a2[4];
-    v29 = a2[5];
-    LODWORD(v42) = *(*v38 + 1);
-    HIDWORD(v42) = v29;
-    v44 = &v38;
-    v45 = a2;
-    if (*(*v39 + 4) != v30)
+    v42 = 0;
+    v43 = 0;
+    cva::MatrixData<double,0ul,0ul,false>::allocate(&v42, (v23 * HIDWORD(v35)));
+    v32 = *(a2 + 4);
+    v31 = *(a2 + 5);
+    LODWORD(v44) = *(*v40 + 1);
+    HIDWORD(v44) = v31;
+    v46 = &v40;
+    v47 = a2;
+    if (*(*v41 + 4) != v32)
     {
       __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
     }
 
-    v46 = 0x3FF0000000000000;
-    cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>>,cva::Matrix<double,0u,0u,false>>(&v40, &v43);
-    v26 = *(a1 + 24);
-    v31 = *(a1 + 32);
-    v32 = v41;
-    *(a1 + 24) = v40;
-    *(a1 + 32) = v32;
-    v40 = v26;
-    v41 = v31;
-    *(a1 + 40) = v42;
+    v48 = 0x3FF0000000000000;
+    cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>>,cva::Matrix<double,0u,0u,false>>(&v42, &v45);
+    v28 = a1[3];
+    v33 = a1[4];
+    v34 = v43;
+    a1[3] = v42;
+    a1[4] = v34;
+    v42 = v28;
+    v43 = v33;
+    a1[5] = v44;
 LABEL_36:
-    v42 = 0;
-    free(v26);
+    v44 = 0;
+    free(v28);
     return;
   }
 
-  v40 = a2;
-  v43 = &v40;
-  v44 = a2;
-  cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false> const>,cva::Matrix<double,0u,0u,false>>>(a1, &v43, 2 * (a3 != 0));
+  v42 = a2;
+  v45 = &v42;
+  v46 = a2;
+  cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false> const>,cva::Matrix<double,0u,0u,false>>>(a1, &v45, 2 * (a3 != 0));
   if (*(a1 + 80) == 1)
   {
-    v6 = *(a1 + 64);
-    if (v6)
+    v7 = *(a1 + 16);
+    if (v7)
     {
-      v7 = *(a1 + 48);
-      v8 = 8 * v6;
+      v8 = a1[6];
+      v9 = 8 * v7;
       do
       {
-        *v7 = sqrt(*v7);
-        ++v7;
-        v8 -= 8;
+        *v8 = sqrt(*v8);
+        ++v8;
+        v9 -= 8;
       }
 
-      while (v8);
+      while (v9);
     }
 
     if (v3)
     {
-      v37 = a1 + 24;
-      v9 = cva::SVD<cva::Matrix<double,0u,0u,false>,true>::S(a1);
-      v33 = v9;
-      v34 = v10;
-      v35 = &v33;
-      v36 = 0x3E112E0BE826D695;
-      if (*(a1 + 40) != HIDWORD(v9))
+      v39 = a1 + 3;
+      v10 = cva::SVD<cva::Matrix<double,0u,0u,false>,true>::S(a1, v6);
+      v35 = v10;
+      v36 = v11;
+      v37 = &v35;
+      v38 = 0x3E112E0BE826D695;
+      if (*(a1 + 10) != HIDWORD(v10))
       {
         cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeRectangular<cva::Matrix<double,0u,0u,false>>();
       }
 
-      v38 = &v37;
-      v39 = &v35;
-      if (a2[5] != *(a1 + 44))
+      v40 = &v39;
+      v41 = &v37;
+      if (*(a2 + 5) != *(a1 + 11))
       {
         cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeRectangular<cva::Matrix<double,0u,0u,false>>();
       }
 
-      v11 = a2[4];
-      if (v11 == *(a1 + 16) && *(a1 + 20) == v9)
+      v12 = *(a2 + 4);
+      if (v12 == *(a1 + 4) && *(a1 + 5) == v10)
       {
-        v44 = a2;
-        v45 = &v38;
+        v46 = a2;
+        v47 = &v40;
 LABEL_25:
-        v46 = 0x3FF0000000000000;
-        cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::Matrix<double,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>>>(a1, &v43);
+        v48 = 0x3FF0000000000000;
+        cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::Matrix<double,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>>>(a1, &v45);
         return;
       }
 
-      v17 = *a1;
-      if (*a2 != *a1 && *(a1 + 24) != v17 && *v10 != v17)
+      v19 = *a1;
+      if (*a2 != *a1 && a1[3] != v19 && *v11 != v19)
       {
-        *(a1 + 16) = v11;
-        *(a1 + 20) = v9;
-        cva::MatrixData<double,0ul,0ul,false>::reserve(a1, (v11 * v9));
-        v18 = a2[5];
-        v19 = *(*v38 + 5);
-        v44 = a2;
-        v45 = &v38;
-        if (v18 != v19)
+        *(a1 + 4) = v12;
+        *(a1 + 5) = v10;
+        cva::MatrixData<double,0ul,0ul,false>::reserve(a1, (v12 * v10));
+        v20 = *(a2 + 5);
+        v21 = *(*v40 + 5);
+        v46 = a2;
+        v47 = &v40;
+        if (v20 != v21)
         {
           cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeRectangular<cva::Matrix<double,0u,0u,false>>();
         }
@@ -419,39 +420,39 @@ LABEL_25:
         goto LABEL_25;
       }
 
-      v40 = 0;
-      v41 = 0;
-      cva::MatrixData<double,0ul,0ul,false>::allocate(&v40, (v11 * v9));
-      v24 = **v39;
-      v25 = a2[5];
-      LODWORD(v42) = a2[4];
-      HIDWORD(v42) = v24;
-      v44 = a2;
-      v45 = &v38;
-      if (v25 != *(*v38 + 5))
+      v42 = 0;
+      v43 = 0;
+      cva::MatrixData<double,0ul,0ul,false>::allocate(&v42, (v12 * v10));
+      v26 = **v41;
+      v27 = *(a2 + 5);
+      LODWORD(v44) = *(a2 + 4);
+      HIDWORD(v44) = v26;
+      v46 = a2;
+      v47 = &v40;
+      if (v27 != *(*v40 + 5))
       {
         __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
 
-      v46 = 0x3FF0000000000000;
-      cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::Matrix<double,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>>>(&v40, &v43);
-      v26 = *a1;
-      v27 = *(a1 + 8);
-      v28 = v41;
-      *a1 = v40;
-      *(a1 + 8) = v28;
-      v40 = v26;
-      v41 = v27;
-      *(a1 + 16) = v42;
+      v48 = 0x3FF0000000000000;
+      cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::Matrix<double,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>>>(&v42, &v45);
+      v28 = *a1;
+      v29 = a1[1];
+      v30 = v43;
+      *a1 = v42;
+      a1[1] = v30;
+      v42 = v28;
+      v43 = v29;
+      a1[2] = v44;
       goto LABEL_36;
     }
   }
 }
 
-void cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeDirect<0u,0u>(uint64_t a1, uint64_t a2, char a3)
+void cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeDirect<0u,0u>(uint64_t a1, void *a2, char a3)
 {
-  v5 = *(a2 + 16);
-  v6 = *(a2 + 20);
+  v5 = *(a2 + 4);
+  v6 = *(a2 + 5);
   if (v6 >= v5)
   {
     v7 = v5;
@@ -498,27 +499,27 @@ LABEL_6:
   *(a1 + 24) = 0;
   free(v9);
 LABEL_9:
+  v15 = 0;
   v14 = 0;
-  v13 = 0;
   cva::vecLib::gesvd<double>();
-  v11[0] = 0;
-  v11[1] = 0;
-  cva::MatrixData<double,0ul,0ul,false>::allocate(v11, 0.0);
-  v12 = 0.0;
+  v12[0] = 0;
+  v12[1] = 0;
+  cva::MatrixData<double,0ul,0ul,false>::allocate(v12, 0.0);
+  v13 = 0.0;
   v10 = cva::vecLib::gesvd<double>();
-  if (v13 < 0)
+  if (v14 < 0)
   {
     __assert_rtn("decomposeDirect", "matrixsvd.h", 439, "(info >= 0) || cva::detail::assertMessage(gesvd() compute SVD failed!)");
   }
 
-  if (v13)
+  if (v14)
   {
-    cva::Logger::instance(v10);
-    cva::Logger::logInCategory();
+    v11 = cva::Logger::instance(v10);
+    cva::Logger::logInCategory(v11, 2, *MEMORY[0x277CFD380], "%s\n", "gesvd() DBDSQR did not converge!");
   }
 
-  free(v11[0]);
-  *(a1 + 80) = v13 == 0;
+  free(v12[0]);
+  *(a1 + 80) = v14 == 0;
 }
 
 void cva::MatrixData<double,0ul,0ul,false>::reserve(uint64_t a1, unint64_t a2)
@@ -545,7 +546,7 @@ void cva::MatrixData<double,0ul,0ul,false>::reserve(uint64_t a1, unint64_t a2)
 void cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false> const>,cva::Matrix<double,0u,0u,false>>>(uint64_t a1, uint64_t **a2, char a3)
 {
   v19 = *MEMORY[0x277D85DE8];
-  v6 = (a2 + 1);
+  v6 = a2 + 1;
   v7 = (*(a2[1] + 5) * *(**a2 + 20));
   v12[0] = 0;
   v12[1] = 0;
@@ -554,8 +555,8 @@ void cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeDirect<cva::Matrix
   v9 = **a2;
   v10 = *v6;
   v13 = *(v9 + 20);
-  v11 = *(v10 + 16);
-  v14 = *(v10 + 20);
+  v11 = *(v10 + 4);
+  v14 = *(v10 + 5);
   v16 = v8;
   v17 = v10;
   if (*(v9 + 16) != v11)
@@ -569,26 +570,26 @@ void cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeDirect<cva::Matrix
   free(v12[0]);
 }
 
-uint64_t cva::SVD<cva::Matrix<double,0u,0u,false>,true>::S(_DWORD *a1)
+uint64_t cva::SVD<cva::Matrix<double,0u,0u,false>,true>::S(_DWORD *a1, uint64_t a2)
 {
-  v2 = a1[18];
-  LODWORD(v1) = a1[19];
-  if (v1 >= v2)
+  v3 = a1[18];
+  LODWORD(v2) = a1[19];
+  if (v2 >= v3)
   {
-    v1 = v2;
+    v2 = v3;
   }
 
   else
   {
-    v1 = v1;
+    v2 = v2;
   }
 
-  if (v1 > a1[16])
+  if (v2 > a1[16])
   {
     cva::SVD<cva::Matrix<double,0u,0u,false>,true>::S();
   }
 
-  return v1 | (v1 << 32);
+  return v2 | (v2 << 32);
 }
 
 void cva::SVD<cva::Matrix<double,0u,0u,false>,true>::decomposeDirect<cva::MatrixMultExpr<cva::Matrix<double,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false> const>>>(uint64_t a1, void **a2, char a3)
@@ -624,24 +625,24 @@ void cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixTranspos
   v5 = **(a2 + 8);
   if (*v5 == *a1 || *v4 == *a1)
   {
-    v8 = (*(v4 + 20) * *(v5 + 20));
-    v14 = 0;
+    v9 = (*(v4 + 20) * *(v5 + 20));
     v15 = 0;
-    cva::MatrixData<double,0ul,0ul,false>::allocate(&v14, v8);
-    v9 = *(*(a2 + 16) + 20);
-    LODWORD(v16) = *(**(a2 + 8) + 20);
-    HIDWORD(v16) = v9;
-    cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false> const>,cva::Matrix<double,0u,0u,false>>(&v14, a2);
-    v10 = *a1;
-    v11 = *(a1 + 8);
-    v12 = v15;
-    *a1 = v14;
-    *(a1 + 8) = v12;
-    v14 = v10;
-    v15 = v11;
-    *(a1 + 16) = v16;
     v16 = 0;
-    free(v10);
+    cva::MatrixData<double,0ul,0ul,false>::allocate(&v15, v9);
+    v10 = *(*(a2 + 16) + 20);
+    LODWORD(v17) = *(**(a2 + 8) + 20);
+    HIDWORD(v17) = v10;
+    cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false> const>,cva::Matrix<double,0u,0u,false>>(&v15, a2);
+    v11 = *a1;
+    v12 = *(a1 + 8);
+    v13 = v16;
+    *a1 = v15;
+    *(a1 + 8) = v13;
+    v15 = v11;
+    v16 = v12;
+    *(a1 + 16) = v17;
+    v17 = 0;
+    free(v11);
   }
 
   else
@@ -649,8 +650,8 @@ void cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixTranspos
     v6 = *(a1 + 16);
     if (v6 != *(v5 + 20) || (v7 = *(a1 + 20), v7 != *(v4 + 20)))
     {
-      cva::Logger::instance(a1);
-      cva::Logger::logInCategory();
+      v8 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v8, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 16), *(a1 + 20), *(**(a2 + 8) + 20), *(*(a2 + 16) + 20));
       v6 = *(a1 + 16);
       v5 = **(a2 + 8);
       if (v6 != *(v5 + 20) || (v4 = *(a2 + 16), v7 = *(v4 + 20), *(a1 + 20) != v7))
@@ -666,9 +667,9 @@ void cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixTranspos
 
     if (v6 * v7)
     {
-      v13 = *a1;
+      v14 = *a1;
 
-      bzero(v13, 8 * (v6 * v7));
+      bzero(v14, 8 * (v6 * v7));
     }
   }
 }
@@ -678,24 +679,24 @@ void cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::Matrix<double,
   v4 = *(a2 + 8);
   if (*v4 == *a1)
   {
-    v12 = (***(*(a2 + 16) + 8) * *(v4 + 16));
-    v17 = 0;
+    v13 = (***(*(a2 + 16) + 8) * *(v4 + 16));
     v18 = 0;
-    cva::MatrixData<double,0ul,0ul,false>::allocate(&v17, v12);
-    v13 = ***(*(a2 + 16) + 8);
-    LODWORD(v19) = *(*(a2 + 8) + 16);
-    HIDWORD(v19) = v13;
-    cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::Matrix<double,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>>>(&v17, a2);
-    v14 = *a1;
-    v15 = *(a1 + 8);
-    v16 = v18;
-    *a1 = v17;
-    *(a1 + 8) = v16;
-    v17 = v14;
-    v18 = v15;
-    *(a1 + 16) = v19;
     v19 = 0;
-    free(v14);
+    cva::MatrixData<double,0ul,0ul,false>::allocate(&v18, v13);
+    v14 = ***(*(a2 + 16) + 8);
+    LODWORD(v20) = *(*(a2 + 8) + 16);
+    HIDWORD(v20) = v14;
+    cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::Matrix<double,0u,0u,false>,cva::MatrixMultExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>>>(&v18, a2);
+    v15 = *a1;
+    v16 = *(a1 + 8);
+    v17 = v19;
+    *a1 = v18;
+    *(a1 + 8) = v17;
+    v18 = v15;
+    v19 = v16;
+    *(a1 + 16) = v20;
+    v20 = 0;
+    free(v15);
   }
 
   else
@@ -703,8 +704,8 @@ void cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::Matrix<double,
     v5 = *(a1 + 16);
     if (v5 != *(v4 + 16) || (v6 = *(a1 + 20), v7 = *(a2 + 16), v6 != **v7[1]))
     {
-      cva::Logger::instance(a1);
-      cva::Logger::logInCategory();
+      v8 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v8, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 16), *(a1 + 20), *(*(a2 + 8) + 16), ***(*(a2 + 16) + 8));
       v5 = *(a1 + 16);
       v4 = *(a2 + 8);
       if (v5 != *(v4 + 16) || (v7 = *(a2 + 16), v6 = **v7[1], *(a1 + 20) != v6))
@@ -715,40 +716,40 @@ void cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::Matrix<double,
 
     if (*(v4 + 20) * v5)
     {
-      v8 = (v6 * *(**v7 + 20));
-      if (v8)
+      v9 = (v6 * *(**v7 + 20));
+      if (v9)
       {
-        v17 = 0;
         v18 = 0;
-        cva::MatrixData<double,0ul,0ul,false>::allocate(&v17, v8);
-        v9 = **v7[1];
-        LODWORD(v19) = *(**v7 + 20);
-        HIDWORD(v19) = v9;
-        cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>>(&v17, v7);
+        v19 = 0;
+        cva::MatrixData<double,0ul,0ul,false>::allocate(&v18, v9);
+        v10 = **v7[1];
+        LODWORD(v20) = *(**v7 + 20);
+        HIDWORD(v20) = v10;
+        cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>>(&v18, v7);
         cva::VecLib<double>::gemm();
       }
     }
 
-    v10 = v5 * v6;
-    if (v10)
+    v11 = v5 * v6;
+    if (v11)
     {
-      v11 = *a1;
+      v12 = *a1;
 
-      bzero(v11, 8 * v10);
+      bzero(v12, 8 * v11);
     }
   }
 }
 
 void cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>>(cva::Logger *a1, uint64_t **a2)
 {
-  v32[3] = *MEMORY[0x277D85DE8];
+  v33[3] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 4);
   v5 = *a2;
   v6 = **a2;
   if (v4 != *(v6 + 20) || (v7 = *(a1 + 5), v8 = a2[1], v9 = *v8, v7 != **v8))
   {
-    cva::Logger::instance(a1);
-    cva::Logger::logInCategory();
+    v10 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v10, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 4), *(a1 + 5), *(**a2 + 20), **a2[1]);
     v4 = *(a1 + 4);
     v5 = *a2;
     v6 = **a2;
@@ -758,7 +759,7 @@ void cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixTranspos
     }
   }
 
-  v31 = v8;
+  v32 = v8;
   if (v7 >= v9[1])
   {
     v7 = v9[1];
@@ -769,133 +770,133 @@ void cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixTranspos
     cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>>();
   }
 
-  v28[0] = v4;
-  v28[1] = v7;
-  v29 = v5;
-  v30 = 0;
-  v23 = &v31;
-  v27 = &v23;
-  v32[0] = v28;
-  v32[1] = &v24;
-  v10 = *a1;
-  v25 = v4;
-  v26 = v7;
-  v19[0] = v4;
-  v19[1] = v7;
-  v20 = v10;
-  v21 = v4;
-  v22 = 0;
-  cva::MatrixRef<double,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v19, v32);
-  v11 = *(*v5 + 16);
-  v12 = *(a1 + 5) - v11;
-  if (*(a1 + 5) > v11)
+  v29[0] = v4;
+  v29[1] = v7;
+  v30 = v5;
+  v31 = 0;
+  v24 = &v32;
+  v28 = &v24;
+  v33[0] = v29;
+  v33[1] = &v25;
+  v11 = *a1;
+  v26 = v4;
+  v27 = v7;
+  v20[0] = v4;
+  v20[1] = v7;
+  v21 = v11;
+  v22 = v4;
+  v23 = 0;
+  cva::MatrixRef<double,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v20, v33);
+  v12 = *(*v5 + 16);
+  v13 = *(a1 + 5) - v12;
+  if (*(a1 + 5) > v12)
   {
-    v13 = *(a1 + 4);
-    v14 = *a1 + 8 * v13 * v11;
-    v15 = v13 * v12;
-    v16 = v15 == 0;
-    if (v15)
+    v14 = *(a1 + 4);
+    v15 = *a1 + 8 * v14 * v12;
+    v16 = v14 * v13;
+    v17 = v16 == 0;
+    if (v16)
     {
-      v17 = v14;
+      v18 = v15;
     }
 
     else
     {
-      v17 = 0;
-    }
-
-    v18 = (v14 + 8 * v15);
-    if (v16)
-    {
       v18 = 0;
     }
 
-    if (v17 != v18)
+    v19 = (v15 + 8 * v16);
+    if (v17)
     {
-      bzero(v17, ((v18 - v17 - 8) & 0xFFFFFFFFFFFFFFF8) + 8);
+      v19 = 0;
+    }
+
+    if (v18 != v19)
+    {
+      bzero(v18, ((v19 - v18 - 8) & 0xFFFFFFFFFFFFFFF8) + 8);
     }
   }
 }
 
-uint64_t cva::MatrixRef<double,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(uint64_t a1, void *a2)
+int *cva::MatrixRef<double,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(int *a1, void *a2)
 {
-  v4 = *(a1 + 8) - 8 * *(a1 + 20);
+  v4 = *(a1 + 1) - 8 * a1[5];
   if (***(*a2 + 8) == v4 || **(****(a2[1] + 16) + 8) == v4)
   {
     v5 = *a1;
-    v6 = *(a1 + 4);
-    v21[0] = 0;
-    v21[1] = 0;
-    cva::MatrixData<double,0ul,0ul,false>::allocate(v21, (v6 * v5));
-    v22 = v5;
-    v23 = v6;
-    cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v21, a2);
+    v6 = a1[1];
+    v22[0] = 0;
+    v22[1] = 0;
+    cva::MatrixData<double,0ul,0ul,false>::allocate(v22, (v6 * v5));
+    v23 = v5;
+    v24 = v6;
+    cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v22, a2);
     v8 = *a1;
-    if (*a1 != v22 || (v9 = *(a1 + 4), v9 != v23))
+    if (*a1 != v23 || (v9 = a1[1], v9 != v24))
     {
-      cva::Logger::instance(v7);
-      cva::Logger::logInCategory();
+      v10 = cva::Logger::instance(v7);
+      cva::Logger::logInCategory(v10, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, a1[1], v23, v24);
       v8 = *a1;
-      if (*a1 != v22 || (v9 = *(a1 + 4), v9 != v23))
+      if (*a1 != v23 || (v9 = a1[1], v9 != v24))
       {
         __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
     }
 
-    v10 = *(a1 + 16);
-    v11 = v8 * v9 == 0;
+    v11 = a1[4];
+    v12 = v8 * v9 == 0;
     if (v8 * v9)
     {
-      v12 = *(a1 + 8);
+      v13 = *(a1 + 1);
     }
 
     else
     {
-      v12 = 0;
-    }
-
-    v13 = *(a1 + 8) + 8 * (v10 * v9);
-    if (v11)
-    {
       v13 = 0;
     }
 
-    v14 = v21[0];
-    if (v12 != v13)
+    v14 = *(a1 + 1) + 8 * (v11 * v9);
+    if (v12)
     {
-      v15 = 0;
-      v16 = v10 - v8;
-      v17 = v21[0];
+      v14 = 0;
+    }
+
+    v15 = v22[0];
+    if (v13 != v14)
+    {
+      v16 = 0;
+      v17 = v11 - v8;
+      v18 = v22[0];
       do
       {
-        v18 = *v17++;
-        *v12 = v18;
-        if (v15 + 1 >= v8)
+        v19 = *v18++;
+        *v13 = v19;
+        if (v16 + 1 >= v8)
         {
-          v19 = v16;
+          v20 = v17;
         }
 
         else
         {
-          v19 = 0;
+          v20 = 0;
         }
 
-        v12 += v19 + 1;
-        if (v15 + 1 < v8)
+        v13 += v20 + 1;
+        if (v16 + 1 < v8)
         {
-          ++v15;
+          ++v16;
         }
 
         else
         {
-          v15 = 0;
+          v16 = 0;
         }
       }
 
-      while (v12 != v13);
+      while (v13 != v14);
     }
 
-    free(v14);
+    free(v15);
   }
 
   else
@@ -906,14 +907,14 @@ uint64_t cva::MatrixRef<double,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva
   return a1;
 }
 
-void cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(cva::Logger *a1, void *a2)
+void cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(cva::Logger *a1, uint64_t a2)
 {
   v4 = *(a1 + 4);
   v5 = *a2;
   if (v4 != **a2 || (v6 = *(a1 + 5), v6 != v5[1]))
   {
-    cva::Logger::instance(a1);
-    cva::Logger::logInCategory();
+    v7 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v7, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 4), *(a1 + 5), **a2, *(*a2 + 4));
     v4 = *(a1 + 4);
     v5 = *a2;
     if (v4 != **a2 || (v6 = *(a1 + 5), v6 != v5[1]))
@@ -922,171 +923,171 @@ void cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinar
     }
   }
 
-  v7 = v6 * v4;
-  if (v7)
+  v8 = v6 * v4;
+  if (v8)
   {
-    v8 = 0;
     v9 = 0;
-    v10 = a2[1];
-    v11 = *a1;
-    v12 = 8 * v7;
+    v10 = 0;
+    v11 = *(a2 + 8);
+    v12 = *a1;
+    v13 = 8 * v8;
     do
     {
-      if (v4 <= v9 || v5[1] <= HIDWORD(v9))
+      if (v4 <= v10 || v5[1] <= HIDWORD(v10))
       {
         cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v13 = v5[5] + HIDWORD(v9);
-      v14 = **(v5 + 1);
-      v15 = *(v14 + 16);
-      if (v15 <= v13 || (v16 = v5[4] + v9, v16 >= *(v14 + 20)))
+      v14 = v5[5] + HIDWORD(v10);
+      v15 = **(v5 + 1);
+      v16 = *(v15 + 16);
+      if (v16 <= v14 || (v17 = v5[4] + v10, v17 >= *(v15 + 20)))
       {
         cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v17 = *(*v14 + 8 * (v13 + v15 * v16));
-      *v11++ = v17 * cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>::operator()(v10, v8, HIDWORD(v8));
-      v18 = (v9 + 1);
+      v18 = *(*v15 + 8 * (v14 + v16 * v17));
+      *v12++ = v18 * cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>::operator()(v11, v9, HIDWORD(v9));
+      v19 = (v10 + 1);
       v4 = *v5;
-      if (*v5 <= v18)
+      if (*v5 <= v19)
+      {
+        v10 = (v10 & 0xFFFFFFFF00000000) + 0x100000000;
+      }
+
+      else
+      {
+        v10 = v10 & 0xFFFFFFFF00000000 | v19;
+      }
+
+      v20 = (v9 + 1);
+      if (*(v11 + 4) <= v20)
       {
         v9 = (v9 & 0xFFFFFFFF00000000) + 0x100000000;
       }
 
       else
       {
-        v9 = v9 & 0xFFFFFFFF00000000 | v18;
+        v9 = v9 & 0xFFFFFFFF00000000 | v20;
       }
 
-      v19 = (v8 + 1);
-      if (*(v10 + 4) <= v19)
-      {
-        v8 = (v8 & 0xFFFFFFFF00000000) + 0x100000000;
-      }
-
-      else
-      {
-        v8 = v8 & 0xFFFFFFFF00000000 | v19;
-      }
-
-      v12 -= 8;
+      v13 -= 8;
     }
 
-    while (v12);
+    while (v13);
   }
 }
 
-void cva::detail::assignNoAlias<cva::MatrixRef<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(uint64_t a1, void *a2)
+void cva::detail::assignNoAlias<cva::MatrixRef<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(double **a1, uint64_t a2)
 {
   v4 = *a1;
   v5 = *a2;
-  if (*a1 != **a2 || (v6 = *(a1 + 4), v6 != v5[1]))
+  if (*a1 != **a2 || (v6 = *(a1 + 1), v6 != v5[1]))
   {
-    cva::Logger::instance(a1);
-    cva::Logger::logInCategory();
+    v7 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v7, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, *(a1 + 1), **a2, *(*a2 + 4));
     v4 = *a1;
     v5 = *a2;
-    if (*a1 != **a2 || (v6 = *(a1 + 4), v6 != v5[1]))
+    if (*a1 != **a2 || (v6 = *(a1 + 1), v6 != v5[1]))
     {
       cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false> const>,cva::Matrix<double,0u,0u,false>>();
     }
   }
 
-  v7 = v6 * v4;
-  v8 = *(a1 + 16);
+  v8 = v6 * v4;
+  v9 = *(a1 + 4);
   if (v6 * v4)
   {
-    v9 = *(a1 + 8);
+    v10 = a1[1];
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10 = *(a1 + 8) + 8 * (v8 * v6);
-  if (v7)
+  v11 = &a1[1][v9 * v6];
+  if (v8)
   {
-    v11 = v10;
+    v12 = v11;
   }
 
   else
-  {
-    v11 = 0;
-  }
-
-  if (v9 != v11)
   {
     v12 = 0;
+  }
+
+  if (v10 != v12)
+  {
     v13 = 0;
     v14 = 0;
-    v15 = a2[1];
-    v16 = v8 - v4;
-    v17 = v4;
+    v15 = 0;
+    v16 = *(a2 + 8);
+    v17 = v9 - v4;
+    v18 = v4;
     do
     {
-      if (v17 <= v13 || v5[1] <= HIDWORD(v13))
+      if (v18 <= v14 || v5[1] <= HIDWORD(v14))
       {
         cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v18 = v5[5] + HIDWORD(v13);
-      v19 = **(v5 + 1);
-      v20 = *(v19 + 16);
-      if (v20 <= v18 || (v21 = v5[4] + v13, v21 >= *(v19 + 20)))
+      v19 = v5[5] + HIDWORD(v14);
+      v20 = **(v5 + 1);
+      v21 = *(v20 + 16);
+      if (v21 <= v19 || (v22 = v5[4] + v14, v22 >= *(v20 + 20)))
       {
         cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v22 = *(*v19 + 8 * (v18 + v20 * v21));
-      *v9 = v22 * cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>::operator()(v15, v12, HIDWORD(v12));
-      v23 = (v13 + 1);
-      v17 = *v5;
-      if (*v5 <= v23)
+      v23 = *(*v20 + 8 * (v19 + v21 * v22));
+      *v10 = v23 * cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>::operator()(v16, v13, HIDWORD(v13));
+      v24 = (v14 + 1);
+      v18 = *v5;
+      if (*v5 <= v24)
+      {
+        v14 = (v14 & 0xFFFFFFFF00000000) + 0x100000000;
+      }
+
+      else
+      {
+        v14 = v14 & 0xFFFFFFFF00000000 | v24;
+      }
+
+      v25 = (v13 + 1);
+      if (*(v16 + 4) <= v25)
       {
         v13 = (v13 & 0xFFFFFFFF00000000) + 0x100000000;
       }
 
       else
       {
-        v13 = v13 & 0xFFFFFFFF00000000 | v23;
+        v13 = v13 & 0xFFFFFFFF00000000 | v25;
       }
 
-      v24 = (v12 + 1);
-      if (*(v15 + 4) <= v24)
+      if (v15 + 1 >= v4)
       {
-        v12 = (v12 & 0xFFFFFFFF00000000) + 0x100000000;
-      }
-
-      else
-      {
-        v12 = v12 & 0xFFFFFFFF00000000 | v24;
-      }
-
-      if (v14 + 1 >= v4)
-      {
-        v25 = v16;
+        v26 = v17;
       }
 
       else
       {
-        v25 = 0;
+        v26 = 0;
       }
 
-      v9 += v25 + 1;
-      if (v14 + 1 < v4)
+      v10 += v26 + 1;
+      if (v15 + 1 < v4)
       {
-        ++v14;
+        ++v15;
       }
 
       else
       {
-        v14 = 0;
+        v15 = 0;
       }
     }
 
-    while (v9 != v11);
+    while (v10 != v12);
   }
 }
 
@@ -1128,24 +1129,24 @@ void cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::Matrix<double,
   v5 = **(a2 + 16);
   if (*v4 == *a1 || *v5 == *a1)
   {
-    v8 = (*(v5 + 16) * *(v4 + 16));
-    v14 = 0;
+    v9 = (*(v5 + 16) * *(v4 + 16));
     v15 = 0;
-    cva::MatrixData<double,0ul,0ul,false>::allocate(&v14, v8);
-    v9 = *(**(a2 + 16) + 16);
-    LODWORD(v16) = *(*(a2 + 8) + 16);
-    HIDWORD(v16) = v9;
-    cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::Matrix<double,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false> const>>(&v14, a2);
-    v10 = *a1;
-    v11 = *(a1 + 8);
-    v12 = v15;
-    *a1 = v14;
-    *(a1 + 8) = v12;
-    v14 = v10;
-    v15 = v11;
-    *(a1 + 16) = v16;
     v16 = 0;
-    free(v10);
+    cva::MatrixData<double,0ul,0ul,false>::allocate(&v15, v9);
+    v10 = *(**(a2 + 16) + 16);
+    LODWORD(v17) = *(*(a2 + 8) + 16);
+    HIDWORD(v17) = v10;
+    cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::Matrix<double,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false> const>>(&v15, a2);
+    v11 = *a1;
+    v12 = *(a1 + 8);
+    v13 = v16;
+    *a1 = v15;
+    *(a1 + 8) = v13;
+    v15 = v11;
+    v16 = v12;
+    *(a1 + 16) = v17;
+    v17 = 0;
+    free(v11);
   }
 
   else
@@ -1153,8 +1154,8 @@ void cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::Matrix<double,
     v6 = *(a1 + 16);
     if (v6 != *(v4 + 16) || (v7 = *(a1 + 20), v7 != *(v5 + 16)))
     {
-      cva::Logger::instance(a1);
-      cva::Logger::logInCategory();
+      v8 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v8, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 16), *(a1 + 20), *(*(a2 + 8) + 16), *(**(a2 + 16) + 16));
       v6 = *(a1 + 16);
       v4 = *(a2 + 8);
       if (v6 != *(v4 + 16) || (v5 = **(a2 + 16), v7 = *(v5 + 16), *(a1 + 20) != v7))
@@ -1170,9 +1171,9 @@ void cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::Matrix<double,
 
     if (v6 * v7)
     {
-      v13 = *a1;
+      v14 = *a1;
 
-      bzero(v13, 8 * (v6 * v7));
+      bzero(v14, 8 * (v6 * v7));
     }
   }
 }
@@ -1182,250 +1183,250 @@ void cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixMultExpr
   v4 = *(a2 + 16);
   if (*v4 == *a1)
   {
-    v12 = (*(v4 + 20) * *(***(a2 + 8) + 4));
-    v17 = 0;
+    v13 = (*(v4 + 20) * *(***(a2 + 8) + 4));
     v18 = 0;
-    cva::MatrixData<double,0ul,0ul,false>::allocate(&v17, v12);
-    v13 = *(*(a2 + 16) + 20);
-    LODWORD(v19) = *(***(a2 + 8) + 4);
-    HIDWORD(v19) = v13;
-    cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>>,cva::Matrix<double,0u,0u,false>>(&v17, a2);
-    v14 = *a1;
-    v15 = *(a1 + 8);
-    v16 = v18;
-    *a1 = v17;
-    *(a1 + 8) = v16;
-    v17 = v14;
-    v18 = v15;
-    *(a1 + 16) = v19;
     v19 = 0;
-    free(v14);
+    cva::MatrixData<double,0ul,0ul,false>::allocate(&v18, v13);
+    v14 = *(*(a2 + 16) + 20);
+    LODWORD(v20) = *(***(a2 + 8) + 4);
+    HIDWORD(v20) = v14;
+    cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixMultExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>>,cva::Matrix<double,0u,0u,false>>(&v18, a2);
+    v15 = *a1;
+    v16 = *(a1 + 8);
+    v17 = v19;
+    *a1 = v18;
+    *(a1 + 8) = v17;
+    v18 = v15;
+    v19 = v16;
+    *(a1 + 16) = v20;
+    v20 = 0;
+    free(v15);
   }
 
   else
   {
     v5 = *(a1 + 16);
     v6 = *(a2 + 8);
-    if (v5 != *(**v6 + 4) || (v7 = *(a1 + 20), v7 != *(v4 + 20)))
+    if (v5 != (**v6)[1] || (v7 = *(a1 + 20), v7 != *(v4 + 20)))
     {
-      cva::Logger::instance(a1);
-      cva::Logger::logInCategory();
+      v8 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v8, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 16), *(a1 + 20), *(***(a2 + 8) + 4), *(*(a2 + 16) + 20));
       v5 = *(a1 + 16);
       v6 = *(a2 + 8);
-      if (v5 != *(**v6 + 4) || (v4 = *(a2 + 16), v7 = *(v4 + 20), *(a1 + 20) != v7))
+      if (v5 != (**v6)[1] || (v4 = *(a2 + 16), v7 = *(v4 + 20), *(a1 + 20) != v7))
       {
         cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false> const>,cva::Matrix<double,0u,0u,false>>();
       }
     }
 
-    v8 = (*(*v6[1] + 16) * v5);
-    if (v8 && v7 * *(v4 + 16))
+    v9 = (*v6[1])[4] * v5;
+    if (v9 && v7 * *(v4 + 16))
     {
-      v17 = 0;
       v18 = 0;
-      cva::MatrixData<double,0ul,0ul,false>::allocate(&v17, v8);
-      v9 = *(*v6[1] + 16);
-      LODWORD(v19) = *(**v6 + 4);
-      HIDWORD(v19) = v9;
-      cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>>(&v17, v6);
+      v19 = 0;
+      cva::MatrixData<double,0ul,0ul,false>::allocate(&v18, v9);
+      v10 = (*v6[1])[4];
+      LODWORD(v20) = (**v6)[1];
+      HIDWORD(v20) = v10;
+      cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>>(&v18, v6);
       cva::VecLib<double>::gemm();
     }
 
-    v10 = v5 * v7;
-    if (v10)
+    v11 = v5 * v7;
+    if (v11)
     {
-      v11 = *a1;
+      v12 = *a1;
 
-      bzero(v11, 8 * v10);
+      bzero(v12, 8 * v11);
     }
   }
 }
 
-uint64_t cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>>(cva::Logger *a1, uint64_t a2)
+int *cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>>(cva::Logger *a1, unsigned int ***a2)
 {
-  v35[3] = *MEMORY[0x277D85DE8];
+  v36[3] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 4);
   v5 = *a2;
   v6 = **a2;
-  if (v4 != v6[1] || (v7 = *(a1 + 5), v8 = *(a2 + 8), v9 = *v8, v7 != *(*v8 + 16)))
+  if (v4 != v6[1] || (v7 = *(a1 + 5), v8 = a2[1], v9 = *v8, v7 != (*v8)[4]))
   {
-    cva::Logger::instance(a1);
-    cva::Logger::logInCategory();
+    v10 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v10, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 4), *(a1 + 5), (**a2)[1], (*a2[1])[4]);
     v4 = *(a1 + 4);
     v5 = *a2;
     v6 = **a2;
-    if (v4 != v6[1] || (v8 = *(a2 + 8), v9 = *v8, v7 = *(*v8 + 16), *(a1 + 5) != v7))
+    if (v4 != v6[1] || (v8 = a2[1], v9 = *v8, v7 = (*v8)[4], *(a1 + 5) != v7))
     {
       cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false> const>,cva::Matrix<double,0u,0u,false>>();
     }
   }
 
-  v34 = v5;
-  v10 = *v6;
+  v35 = v5;
+  v11 = *v6;
   if (*v6 >= v4)
   {
-    v10 = v4;
+    v11 = v4;
   }
 
-  if (v10 > *(v9 + 20))
+  if (v11 > v9[5])
   {
     cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>>,cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>>>();
   }
 
-  v31[0] = v10;
-  v31[1] = v7;
-  v32 = v8;
-  v33 = 0;
-  v28 = v10;
-  v29 = v7;
-  v30 = &v34;
-  v35[0] = v31;
-  v35[1] = &v27;
-  v11 = *a1;
-  v23[0] = v10;
-  v23[1] = v7;
-  v24 = v11;
-  v25 = v4;
-  v26 = 0;
-  result = cva::MatrixRef<double,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(v23, v35);
-  v13 = *(*v8 + 20);
-  v14 = *(a1 + 4);
-  if (v14 > v13)
+  v32[0] = v11;
+  v32[1] = v7;
+  v33 = v8;
+  v34 = 0;
+  v29 = v11;
+  v30 = v7;
+  v31 = &v35;
+  v36[0] = v32;
+  v36[1] = &v28;
+  v12 = *a1;
+  v24[0] = v11;
+  v24[1] = v7;
+  v25 = v12;
+  v26 = v4;
+  v27 = 0;
+  result = cva::MatrixRef<double,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(v24, v36);
+  v14 = (*v8)[5];
+  v15 = *(a1 + 4);
+  if (v15 > v14)
   {
-    v15 = v14 - v13;
-    v16 = *(a1 + 5);
-    v17 = v16 * (v14 - v13);
-    v18 = v17 == 0;
-    if (v17)
+    v16 = v15 - v14;
+    v17 = *(a1 + 5);
+    v18 = v17 * (v15 - v14);
+    v19 = v18 == 0;
+    if (v18)
     {
-      v19 = (*a1 + 8 * v13);
+      v20 = (*a1 + 8 * v14);
     }
 
     else
     {
-      v19 = 0;
-    }
-
-    v20 = *a1 + 8 * v13 + 8 * v16 * v14;
-    if (v18)
-    {
       v20 = 0;
     }
 
-    if (v19 != v20)
+    v21 = *a1 + 8 * v14 + 8 * v17 * v15;
+    if (v19)
     {
       v21 = 0;
+    }
+
+    if (v20 != v21)
+    {
+      v22 = 0;
       do
       {
-        *v19 = 0;
-        if (v21 + 1 >= v15)
+        *v20 = 0;
+        if (v22 + 1 >= v16)
         {
-          v22 = v13;
+          v23 = v14;
+        }
+
+        else
+        {
+          v23 = 0;
+        }
+
+        v20 += v23 + 1;
+        if (v22 + 1 < v16)
+        {
+          ++v22;
         }
 
         else
         {
           v22 = 0;
         }
-
-        v19 += v22 + 1;
-        if (v21 + 1 < v15)
-        {
-          ++v21;
-        }
-
-        else
-        {
-          v21 = 0;
-        }
       }
 
-      while (v19 != v20);
+      while (v20 != v21);
     }
   }
 
   return result;
 }
 
-uint64_t cva::MatrixRef<double,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(uint64_t a1, void *a2)
+int *cva::MatrixRef<double,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(int *a1, void *a2)
 {
-  v4 = *(a1 + 8) - 8 * *(a1 + 20);
+  v4 = *(a1 + 1) - 8 * a1[5];
   if (***(*a2 + 8) == v4 || **(***(a2[1] + 16) + 8) == v4)
   {
     v5 = *a1;
-    v6 = *(a1 + 4);
-    v21[0] = 0;
-    v21[1] = 0;
-    cva::MatrixData<double,0ul,0ul,false>::allocate(v21, (v6 * v5));
-    v22 = v5;
-    v23 = v6;
-    cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(v21, a2);
+    v6 = a1[1];
+    v22[0] = 0;
+    v22[1] = 0;
+    cva::MatrixData<double,0ul,0ul,false>::allocate(v22, (v6 * v5));
+    v23 = v5;
+    v24 = v6;
+    cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(v22, a2);
     v8 = *a1;
-    if (*a1 != v22 || (v9 = *(a1 + 4), v9 != v23))
+    if (*a1 != v23 || (v9 = a1[1], v9 != v24))
     {
-      cva::Logger::instance(v7);
-      cva::Logger::logInCategory();
+      v10 = cva::Logger::instance(v7);
+      cva::Logger::logInCategory(v10, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, a1[1], v23, v24);
       v8 = *a1;
-      if (*a1 != v22 || (v9 = *(a1 + 4), v9 != v23))
+      if (*a1 != v23 || (v9 = a1[1], v9 != v24))
       {
         __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
     }
 
-    v10 = *(a1 + 16);
-    v11 = v8 * v9 == 0;
+    v11 = a1[4];
+    v12 = v8 * v9 == 0;
     if (v8 * v9)
     {
-      v12 = *(a1 + 8);
+      v13 = *(a1 + 1);
     }
 
     else
     {
-      v12 = 0;
-    }
-
-    v13 = *(a1 + 8) + 8 * (v10 * v9);
-    if (v11)
-    {
       v13 = 0;
     }
 
-    v14 = v21[0];
-    if (v12 != v13)
+    v14 = *(a1 + 1) + 8 * (v11 * v9);
+    if (v12)
     {
-      v15 = 0;
-      v16 = v10 - v8;
-      v17 = v21[0];
+      v14 = 0;
+    }
+
+    v15 = v22[0];
+    if (v13 != v14)
+    {
+      v16 = 0;
+      v17 = v11 - v8;
+      v18 = v22[0];
       do
       {
-        v18 = *v17++;
-        *v12 = v18;
-        if (v15 + 1 >= v8)
+        v19 = *v18++;
+        *v13 = v19;
+        if (v16 + 1 >= v8)
         {
-          v19 = v16;
+          v20 = v17;
         }
 
         else
         {
-          v19 = 0;
+          v20 = 0;
         }
 
-        v12 += v19 + 1;
-        if (v15 + 1 < v8)
+        v13 += v20 + 1;
+        if (v16 + 1 < v8)
         {
-          ++v15;
+          ++v16;
         }
 
         else
         {
-          v15 = 0;
+          v16 = 0;
         }
       }
 
-      while (v12 != v13);
+      while (v13 != v14);
     }
 
-    free(v14);
+    free(v15);
   }
 
   else
@@ -1436,14 +1437,14 @@ uint64_t cva::MatrixRef<double,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva
   return a1;
 }
 
-void cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(cva::Logger *a1, void *a2)
+void cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(cva::Logger *a1, uint64_t a2)
 {
   v4 = *(a1 + 4);
   v5 = *a2;
   if (v4 != **a2 || (v6 = *(a1 + 5), v6 != v5[1]))
   {
-    cva::Logger::instance(a1);
-    cva::Logger::logInCategory();
+    v7 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v7, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 4), *(a1 + 5), **a2, *(*a2 + 4));
     v4 = *(a1 + 4);
     v5 = *a2;
     if (v4 != **a2 || (v6 = *(a1 + 5), v6 != v5[1]))
@@ -1452,171 +1453,171 @@ void cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinar
     }
   }
 
-  v7 = v6 * v4;
-  if (v7)
+  v8 = v6 * v4;
+  if (v8)
   {
-    v8 = 0;
     v9 = 0;
-    v10 = a2[1];
-    v11 = *a1;
-    v12 = 8 * v7;
+    v10 = 0;
+    v11 = *(a2 + 8);
+    v12 = *a1;
+    v13 = 8 * v8;
     do
     {
-      if (v4 <= v9 || v5[1] <= HIDWORD(v9))
+      if (v4 <= v10 || v5[1] <= HIDWORD(v10))
       {
         cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v13 = v5[5] + HIDWORD(v9);
-      v14 = **(v5 + 1);
-      v15 = *(v14 + 16);
-      if (v15 <= v13 || (v16 = v5[4] + v9, v16 >= *(v14 + 20)))
+      v14 = v5[5] + HIDWORD(v10);
+      v15 = **(v5 + 1);
+      v16 = *(v15 + 16);
+      if (v16 <= v14 || (v17 = v5[4] + v10, v17 >= *(v15 + 20)))
       {
         cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v17 = *(*v14 + 8 * (v13 + v15 * v16));
-      *v11++ = v17 * cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const>,1u,0u>::operator()(v10, v8, HIDWORD(v8));
-      v18 = (v9 + 1);
+      v18 = *(*v15 + 8 * (v14 + v16 * v17));
+      *v12++ = v18 * cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const>,1u,0u>::operator()(v11, v9, HIDWORD(v9));
+      v19 = (v10 + 1);
       v4 = *v5;
-      if (*v5 <= v18)
+      if (*v5 <= v19)
+      {
+        v10 = (v10 & 0xFFFFFFFF00000000) + 0x100000000;
+      }
+
+      else
+      {
+        v10 = v10 & 0xFFFFFFFF00000000 | v19;
+      }
+
+      v20 = (v9 + 1);
+      if (*(v11 + 4) <= v20)
       {
         v9 = (v9 & 0xFFFFFFFF00000000) + 0x100000000;
       }
 
       else
       {
-        v9 = v9 & 0xFFFFFFFF00000000 | v18;
+        v9 = v9 & 0xFFFFFFFF00000000 | v20;
       }
 
-      v19 = (v8 + 1);
-      if (*(v10 + 4) <= v19)
-      {
-        v8 = (v8 & 0xFFFFFFFF00000000) + 0x100000000;
-      }
-
-      else
-      {
-        v8 = v8 & 0xFFFFFFFF00000000 | v19;
-      }
-
-      v12 -= 8;
+      v13 -= 8;
     }
 
-    while (v12);
+    while (v13);
   }
 }
 
-void cva::detail::assignNoAlias<cva::MatrixRef<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(uint64_t a1, void *a2)
+void cva::detail::assignNoAlias<cva::MatrixRef<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const>,1u,0u>,cva::detail::MulOp>>(double **a1, uint64_t a2)
 {
   v4 = *a1;
   v5 = *a2;
-  if (*a1 != **a2 || (v6 = *(a1 + 4), v6 != v5[1]))
+  if (*a1 != **a2 || (v6 = *(a1 + 1), v6 != v5[1]))
   {
-    cva::Logger::instance(a1);
-    cva::Logger::logInCategory();
+    v7 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v7, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, *(a1 + 1), **a2, *(*a2 + 4));
     v4 = *a1;
     v5 = *a2;
-    if (*a1 != **a2 || (v6 = *(a1 + 4), v6 != v5[1]))
+    if (*a1 != **a2 || (v6 = *(a1 + 1), v6 != v5[1]))
     {
       cva::assign<false,false,cva::Matrix<double,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false> const>,cva::Matrix<double,0u,0u,false>>();
     }
   }
 
-  v7 = v6 * v4;
-  v8 = *(a1 + 16);
+  v8 = v6 * v4;
+  v9 = *(a1 + 4);
   if (v6 * v4)
   {
-    v9 = *(a1 + 8);
+    v10 = a1[1];
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10 = *(a1 + 8) + 8 * (v8 * v6);
-  if (v7)
+  v11 = &a1[1][v9 * v6];
+  if (v8)
   {
-    v11 = v10;
+    v12 = v11;
   }
 
   else
-  {
-    v11 = 0;
-  }
-
-  if (v9 != v11)
   {
     v12 = 0;
+  }
+
+  if (v10 != v12)
+  {
     v13 = 0;
     v14 = 0;
-    v15 = a2[1];
-    v16 = v8 - v4;
-    v17 = v4;
+    v15 = 0;
+    v16 = *(a2 + 8);
+    v17 = v9 - v4;
+    v18 = v4;
     do
     {
-      if (v17 <= v13 || v5[1] <= HIDWORD(v13))
+      if (v18 <= v14 || v5[1] <= HIDWORD(v14))
       {
         cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v18 = v5[5] + HIDWORD(v13);
-      v19 = **(v5 + 1);
-      v20 = *(v19 + 16);
-      if (v20 <= v18 || (v21 = v5[4] + v13, v21 >= *(v19 + 20)))
+      v19 = v5[5] + HIDWORD(v14);
+      v20 = **(v5 + 1);
+      v21 = *(v20 + 16);
+      if (v21 <= v19 || (v22 = v5[4] + v14, v22 >= *(v20 + 20)))
       {
         cva::detail::assignNoAlias<cva::Matrix<double,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<double,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      v22 = *(*v19 + 8 * (v18 + v20 * v21));
-      *v9 = v22 * cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const>,1u,0u>::operator()(v15, v12, HIDWORD(v12));
-      v23 = (v13 + 1);
-      v17 = *v5;
-      if (*v5 <= v23)
+      v23 = *(*v20 + 8 * (v19 + v21 * v22));
+      *v10 = v23 * cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<double,0u,1u,false>,0u,0u>> const>,1u,0u>::operator()(v16, v13, HIDWORD(v13));
+      v24 = (v14 + 1);
+      v18 = *v5;
+      if (*v5 <= v24)
+      {
+        v14 = (v14 & 0xFFFFFFFF00000000) + 0x100000000;
+      }
+
+      else
+      {
+        v14 = v14 & 0xFFFFFFFF00000000 | v24;
+      }
+
+      v25 = (v13 + 1);
+      if (*(v16 + 4) <= v25)
       {
         v13 = (v13 & 0xFFFFFFFF00000000) + 0x100000000;
       }
 
       else
       {
-        v13 = v13 & 0xFFFFFFFF00000000 | v23;
+        v13 = v13 & 0xFFFFFFFF00000000 | v25;
       }
 
-      v24 = (v12 + 1);
-      if (*(v15 + 4) <= v24)
+      if (v15 + 1 >= v4)
       {
-        v12 = (v12 & 0xFFFFFFFF00000000) + 0x100000000;
-      }
-
-      else
-      {
-        v12 = v12 & 0xFFFFFFFF00000000 | v24;
-      }
-
-      if (v14 + 1 >= v4)
-      {
-        v25 = v16;
+        v26 = v17;
       }
 
       else
       {
-        v25 = 0;
+        v26 = 0;
       }
 
-      v9 += v25 + 1;
-      if (v14 + 1 < v4)
+      v10 += v26 + 1;
+      if (v15 + 1 < v4)
       {
-        ++v14;
+        ++v15;
       }
 
       else
       {
-        v14 = 0;
+        v15 = 0;
       }
     }
 
-    while (v9 != v11);
+    while (v10 != v12);
   }
 }
 
@@ -1654,91 +1655,102 @@ double cva::MatrixRepeatExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseE
 
 uint64_t zip<A, B, C, D>(_:_:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
-  v69 = a3;
-  v70 = a4;
-  v65 = a1;
-  v66 = a2;
-  v71 = a9;
-  v74 = a8;
-  v68 = *(a8 - 8);
-  v75 = a12;
-  v76 = a13;
-  (MEMORY[0x28223BE20])();
-  v67 = v49 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v72 = a3;
+  v73 = a4;
+  v68 = a1;
+  v69 = a2;
+  v74 = a9;
+  v77 = a8;
+  v71 = *(a8 - 8);
+  v78 = a12;
+  v79 = a13;
+  MEMORY[0x28223BE20](a1);
+  v70 = v52 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v17 = (MEMORY[0x28223BE20])();
-  v64 = v49 - v18;
-  v63 = *(a7 - 8);
+  v17 = MEMORY[0x28223BE20](AssociatedTypeWitness);
+  v67 = v52 - v18;
+  v66 = *(a7 - 8);
   MEMORY[0x28223BE20](v17);
-  v62 = v49 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v51 = a7;
-  v72 = swift_getAssociatedTypeWitness();
-  v20 = MEMORY[0x28223BE20](v72);
-  v61 = v49 - v21;
-  v60 = *(a6 - 8);
+  v65 = v52 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v54 = a7;
+  v75 = swift_getAssociatedTypeWitness();
+  v20 = MEMORY[0x28223BE20](v75);
+  v64 = v52 - v21;
+  v63 = *(a6 - 8);
   MEMORY[0x28223BE20](v20);
-  v59 = v49 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v52 = a11;
-  v49[0] = a6;
+  v62 = v52 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v55 = a11;
+  v52[0] = a6;
   v23 = swift_getAssociatedTypeWitness();
   v24 = MEMORY[0x28223BE20](v23);
-  v58 = v49 - v25;
-  v57 = *(a5 - 8);
+  v61 = v52 - v25;
+  v60 = *(a5 - 8);
   MEMORY[0x28223BE20](v24);
-  v27 = v49 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v49[1] = a10;
+  v27 = v52 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v52[1] = a10;
   v28 = a5;
   v29 = swift_getAssociatedTypeWitness();
   MEMORY[0x28223BE20](v29);
-  v50 = v49 - v30;
+  v53 = v52 - v30;
   v32 = v31;
-  v55 = v31;
+  v58 = v31;
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v54 = AssociatedConformanceWitness;
+  v57 = AssociatedConformanceWitness;
   v34 = v23;
-  v56 = v23;
+  v59 = v23;
   v35 = swift_getAssociatedConformanceWitness();
-  v53 = v35;
-  v36 = v72;
+  v56 = v35;
+  v36 = v75;
   v37 = swift_getAssociatedConformanceWitness();
   v38 = AssociatedTypeWitness;
   v39 = swift_getAssociatedConformanceWitness();
-  v77 = v32;
-  v78 = v34;
-  v79 = v36;
-  v80 = v38;
-  v81 = AssociatedConformanceWitness;
-  v82 = v35;
-  v83 = v37;
-  v84 = v39;
-  v40 = type metadata accessor for Zip4Generator();
-  MEMORY[0x28223BE20](v40);
-  v42 = v49 - v41;
-  (*(v57 + 16))(v27, v65, v28);
-  v43 = v50;
+  v80[0] = v32;
+  v80[1] = v34;
+  v80[2] = v36;
+  v80[3] = v38;
+  v80[4] = AssociatedConformanceWitness;
+  v80[5] = v35;
+  v80[6] = v37;
+  v80[7] = v39;
+  v40 = v37;
+  v41 = v39;
+  v42 = type metadata accessor for Zip4Generator(0, v80);
+  MEMORY[0x28223BE20](v42);
+  v44 = v52 - v43;
+  (*(v60 + 16))(v27, v68, v28);
+  v45 = v53;
   sub_258428790();
-  (*(v60 + 16))(v59, v66, v49[0]);
-  v44 = v58;
+  (*(v63 + 16))(v62, v69, v52[0]);
+  v46 = v61;
   sub_258428790();
-  (*(v63 + 16))(v62, v69, v51);
-  v45 = v61;
+  (*(v66 + 16))(v65, v72, v54);
+  v47 = v64;
   sub_258428790();
-  (*(v68 + 16))(v67, v70, v74);
-  v46 = v64;
+  (*(v71 + 16))(v70, v73, v77);
+  v48 = v67;
   sub_258428790();
-  Zip4Generator.init(_:_:_:_:)(v43, v44, v45, v46, v55, v56, v72, AssociatedTypeWitness, v42);
+  *(&v51 + 1) = v56;
+  *&v51 = v57;
+  Zip4Generator.init(_:_:_:_:)(v45, v46, v47, v48, v58, v59, v75, AssociatedTypeWitness, v44, v51, v40, v41);
   WitnessTable = swift_getWitnessTable();
-  return MEMORY[0x259C7E9F0](v42, v40, WitnessTable);
+  return MEMORY[0x259C7E9F0](v44, v42, WitnessTable);
 }
 
-uint64_t Zip4Generator.init(_:_:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
+uint64_t Zip4Generator.init(_:_:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, __int128 a10, uint64_t a11, uint64_t a12)
 {
-  v18 = type metadata accessor for Zip4Generator();
-  *(a9 + v18[24]) = 0;
+  v23[0] = a5;
+  v23[1] = a6;
+  v23[2] = a7;
+  v23[3] = a8;
+  v24 = a10;
+  v25 = a11;
+  v26 = a12;
+  v21 = type metadata accessor for Zip4Generator(0, v23);
+  *(a9 + v21[24]) = 0;
   (*(*(a5 - 8) + 32))(a9, a1, a5);
-  (*(*(a6 - 8) + 32))(a9 + v18[21], a2, a6);
-  (*(*(a7 - 8) + 32))(a9 + v18[22], a3, a7);
-  return (*(*(a8 - 8) + 32))(a9 + v18[23], a4, a8);
+  (*(*(a6 - 8) + 32))(a9 + v21[21], a2, a6);
+  (*(*(a7 - 8) + 32))(a9 + v21[22], a3, a7);
+  return (*(*(a8 - 8) + 32))(a9 + v21[23], a4, a8);
 }
 
 uint64_t Zip4Generator.next()@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
@@ -1920,7 +1932,7 @@ uint64_t variable initialization expression of UncertainValue._confidence@<X0>(u
   v19 = *(v7 + 8);
   v19(v10, a1);
   v19(v13, a1);
-  return Clamped.init(min:max:)(v17, v18, a1, v22);
+  return Clamped.init(min:max:)(v17, v18, a1, v23, v22);
 }
 
 _DWORD *variable initialization expression of Synchronized.lock()
@@ -1930,12 +1942,12 @@ _DWORD *variable initialization expression of Synchronized.lock()
   return result;
 }
 
-uint64_t sub_25837C440@<X0>(uint64_t a1@<X8>)
+uint64_t sub_25837C440@<X0>(uint64_t a2@<X8>)
 {
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v3 = *(*(TupleTypeMetadata2 - 8) + 56);
+  v4 = *(*(TupleTypeMetadata2 - 8) + 56);
 
-  return v3(a1, 1, 1, TupleTypeMetadata2);
+  return v4(a2, 1, 1, TupleTypeMetadata2);
 }
 
 double variable initialization expression of Transformer.$__lazy_storage_$_clipToView@<D0>(uint64_t a1@<X8>)
@@ -1950,7 +1962,7 @@ double variable initialization expression of Transformer.$__lazy_storage_$_clipT
 
 unint64_t variable initialization expression of ImageProcessor.bufferOptions()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927B70);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927B70, &qword_25842BFE0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_25842BFA0;
   *(inited + 32) = sub_258428660();
@@ -1961,12 +1973,12 @@ unint64_t variable initialization expression of ImageProcessor.bufferOptions()
   *(inited + 72) = [objc_allocWithZone(MEMORY[0x277CCABB0]) initWithBool_];
   v3 = sub_258389488(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927B78);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927B78, &qword_25842BFE8);
   swift_arrayDestroy();
   return v3;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -2032,7 +2044,7 @@ double variable initialization expression of PatchTracker.$__lazy_storage_$_embo
 
 double variable initialization expression of PatchTracker.threePointOffsets()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(qword_27F927B80);
+  __swift_instantiateConcreteTypeFromMangledNameV2(qword_27F927B80, &qword_25842BFF0);
   v0 = swift_allocObject();
   v0[1] = xmmword_25842BFB0;
   v0[2] = xmmword_25842BFC0;
@@ -2254,7 +2266,7 @@ BOOL sub_25837D9FC(void *a1, uint64_t *a2)
   return v4 != v3;
 }
 
-uint64_t sub_25837DAF8()
+uint64_t sub_25837DAF8(uint64_t a1, uint64_t a2)
 {
   sub_2584293C0();
   swift_getWitnessTable();
@@ -2270,7 +2282,7 @@ uint64_t sub_25837DB8C()
   return v1;
 }
 
-uint64_t sub_25837DBC8()
+uint64_t sub_25837DBC8(uint64_t a1)
 {
   sub_258428660();
   sub_2584286C0();
@@ -2300,16 +2312,16 @@ uint64_t sub_25837DD08(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_25837DD88@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_25837DD88@<X0>(uint64_t *a2@<X8>)
 {
   sub_258428660();
-  v2 = sub_258428630();
+  v3 = sub_258428630();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
-uint64_t sub_25837DDD8()
+uint64_t sub_25837DDD8(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   swift_getWitnessTable();
 
@@ -2347,37 +2359,37 @@ uint64_t *sub_25837DEA8@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_25837DF70()
+uint64_t sub_25837DF70(void *a1, uint64_t *a2)
 {
-  v0 = sub_258428660();
-  v2 = v1;
-  if (v0 == sub_258428660() && v2 == v3)
+  v2 = sub_258428660();
+  v4 = v3;
+  if (v2 == sub_258428660() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = sub_258429310();
+    v7 = sub_258429310();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
 uint64_t sub_25837DFF8(uint64_t a1)
 {
-  v2 = sub_25837EFD0(&qword_27F927DA0, type metadata accessor for FileAttributeKey);
-  v3 = sub_25837EFD0(&qword_27F927DA8, type metadata accessor for FileAttributeKey);
+  v2 = sub_25837EFD0(&qword_27F927DA0, type metadata accessor for FileAttributeKey, &unk_25842CA10);
+  v3 = sub_25837EFD0(&qword_27F927DA8, type metadata accessor for FileAttributeKey, &unk_25842C964);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
 }
 
-uint64_t sub_25837E0B4@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_25837E0B4@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = sub_2583B8D44();
+  v3 = sub_2583B8D44();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
@@ -2391,25 +2403,25 @@ uint64_t sub_25837E0F8@<X0>(uint64_t *a1@<X8>)
 
 uint64_t sub_25837E124(uint64_t a1)
 {
-  v2 = sub_25837EFD0(&qword_27F927D50, type metadata accessor for URLResourceKey);
-  v3 = sub_25837EFD0(&qword_27F927D58, type metadata accessor for URLResourceKey);
+  v2 = sub_25837EFD0(&qword_27F927D50, type metadata accessor for URLResourceKey, &unk_25842C4E8);
+  v3 = sub_25837EFD0(&qword_27F927D58, type metadata accessor for URLResourceKey, &unk_25842C488);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
 }
 
-uint64_t sub_25837E1E0@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_25837E1E0@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = sub_258428630();
+  v3 = sub_258428630();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
 uint64_t sub_25837E228(uint64_t a1)
 {
-  v2 = sub_25837EFD0(&qword_27F927DB0, type metadata accessor for NSKeyValueChangeKey);
-  v3 = sub_25837EFD0(&qword_27F927DB8, type metadata accessor for NSKeyValueChangeKey);
+  v2 = sub_25837EFD0(&qword_27F927DB0, type metadata accessor for NSKeyValueChangeKey, &unk_25842CA54);
+  v3 = sub_25837EFD0(&qword_27F927DB8, type metadata accessor for NSKeyValueChangeKey, &unk_25842C850);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
@@ -2441,19 +2453,19 @@ uint64_t sub_25837E2F8(uint64_t a1)
   return result;
 }
 
-uint64_t sub_25837E358()
+uint64_t sub_25837E358(void *a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_checkMetadataState();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = swift_checkMetadataState();
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         result = swift_checkMetadataState();
-        if (v4 <= 0x3F)
+        if (v5 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
           return 0;
@@ -2600,7 +2612,7 @@ LABEL_26:
   {
     v31 = *(v5 + 48);
 
-    return v31();
+    return v31(a1);
   }
 
   else
@@ -3156,7 +3168,7 @@ uint64_t sub_25837EE9C(uint64_t result, int a2, int a3)
   return result;
 }
 
-uint64_t sub_25837EFD0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_25837EFD0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3169,12 +3181,12 @@ uint64_t sub_25837EFD0(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-void sub_25837F238(uint64_t a1, unint64_t *a2)
+void sub_25837F238(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -3221,7 +3233,7 @@ id sub_25837F674@<X0>(uint64_t a1@<X8>)
   sub_2584282D0();
   v6 = [objc_opt_self() defaultManager];
   v7 = sub_258428300();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927EE0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927EE0, &qword_25842CA98);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_25842BFA0;
   v9 = *MEMORY[0x277CCA160];
@@ -3239,7 +3251,7 @@ id sub_25837F674@<X0>(uint64_t a1@<X8>)
   v13 = v11;
   sub_258388AE4(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927EE8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927EE8, &qword_25842CAA0);
   swift_arrayDestroy();
   type metadata accessor for FileAttributeKey(0);
   sub_25837F950();
@@ -3901,41 +3913,40 @@ CGAffineTransform *ADTransformer.adToView.getter@<X0>(_OWORD *a1@<X8>)
   return result;
 }
 
-CGAffineTransform *ADTransformer.adToClip.getter@<X0>(_OWORD *a1@<X8>)
+void ADTransformer.adToClip.getter(_OWORD *a1@<X8>)
 {
   v3 = (v1 + 1320);
   if (*(v1 + 1368))
   {
-    ADTransformer.adToView.getter(v13);
-    v4 = v14;
-    v5 = v15;
-    Transformer.viewToClip.getter(&v16);
-    *&t1.a = v13[0];
-    *&t1.c = v13[1];
+    ADTransformer.adToView.getter(v12);
+    v4 = v13;
+    v5 = v14;
+    Transformer.viewToClip.getter(&v15);
+    *&t1.a = v12[0];
+    *&t1.c = v12[1];
     t1.tx = v4;
     t1.ty = v5;
-    t2 = v16;
-    result = CGAffineTransformConcat(&v10, &t1, &t2);
-    v8 = *&v10.a;
-    v7 = *&v10.c;
-    v9 = *&v10.tx;
-    *v3 = *&v10.a;
-    *(v1 + 1336) = v7;
-    *(v1 + 1352) = v9;
+    t2 = v15;
+    CGAffineTransformConcat(&v9, &t1, &t2);
+    v7 = *&v9.a;
+    v6 = *&v9.c;
+    v8 = *&v9.tx;
+    *v3 = *&v9.a;
+    *(v1 + 1336) = v6;
+    *(v1 + 1352) = v8;
     *(v1 + 1368) = 0;
   }
 
   else
   {
-    v7 = *(v1 + 1336);
-    v9 = *(v1 + 1352);
-    v8 = *v3;
+    v6 = *(v1 + 1336);
+    v8 = *(v1 + 1352);
+    v7 = *v3;
   }
 
-  *a1 = v8;
-  a1[1] = v7;
-  a1[2] = v9;
-  return result;
+  *a1 = v7;
+  a1[1] = v6;
+  a1[2] = v8;
 }
 
 CGAffineTransform *ADTransformer.clipToAD.getter@<X0>(_OWORD *a1@<X8>)
@@ -4037,7 +4048,7 @@ uint64_t sub_258380DAC()
 {
 }
 
-uint64_t ADTransformer.deinit()
+void *ADTransformer.deinit()
 {
 
   return v0;
@@ -4308,7 +4319,7 @@ uint64_t sub_2583811FC(void *a1, uint64_t a2, uint64_t a3)
   }
 
   v17 = *(v3 + v16);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F927EF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F927EF0, &unk_25842CBB0);
   result = swift_allocObject();
   *(result + 16) = xmmword_25842CB00;
   *(result + 32) = -v11;
@@ -4398,15 +4409,15 @@ LABEL_21:
   return sub_2583A6EB4(a1, a2, v7, v8);
 }
 
-__n128 ARFrame.getHitRay(cameraPoint:)()
+__n128 ARFrame.getHitRay(cameraPoint:)(double a1)
 {
-  v1 = [v0 camera];
+  v2 = [v1 camera];
+  v7 = 1;
+  memset(v5, 0, sizeof(v5));
   v6 = 1;
-  memset(v4, 0, sizeof(v4));
-  v5 = 1;
-  v3 = _sSo7ARFrameC17MeasureFoundationE9getHitRay11cameraPoint0G00G18CorrectedTransforms5SIMD3VySfG6origin_AJ9directionts5SIMD2VySfG_So8ARCameraCSo13simd_float4x4aSgtFZ_0(v1, v4);
+  v4 = _sSo7ARFrameC17MeasureFoundationE9getHitRay11cameraPoint0G00G18CorrectedTransforms5SIMD3VySfG6origin_AJ9directionts5SIMD2VySfG_So8ARCameraCSo13simd_float4x4aSgtFZ_0(v2, v5);
 
-  return v3;
+  return v4;
 }
 
 __n128 ARFrame.getHitRay()()
@@ -4420,33 +4431,33 @@ __n128 ARFrame.getHitRay()()
   return v3;
 }
 
-double ARFrame.viewToCamera(screenPoint:sceneView:orientation:)(double a1, double a2, uint64_t a3, uint64_t a4)
+double ARFrame.viewToCamera(screenPoint:sceneView:orientation:)(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
 {
-  v8 = [v4 camera];
+  v9 = [v5 camera];
   ObjectType = swift_getObjectType();
-  v10 = (*(a4 + 24))(ObjectType, a4, a1, a2);
-  v12 = v11;
-  (*(a4 + 8))(ObjectType, a4);
-  [v8 imageResolution];
+  v11 = (*(a2 + 24))(ObjectType, a2, a4, a5);
+  v13 = v12;
+  (*(a2 + 8))(ObjectType, a2);
+  [v9 imageResolution];
   ARViewToCameraImageTransform();
-  v16.x = v10;
-  v16.y = v12;
-  *&v13 = *&CGPointApplyAffineTransform(v16, &v15);
+  v17.x = v11;
+  v17.y = v13;
+  *&v14 = *&CGPointApplyAffineTransform(v17, &v16);
 
-  return v13;
+  return v14;
 }
 
-void static ARFrame.viewToCamera(screenPoint:sceneView:camera:orientation:)(double a1, double a2, uint64_t a3, uint64_t a4, void *a5)
+void static ARFrame.viewToCamera(screenPoint:sceneView:camera:orientation:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, double a5, double a6)
 {
   ObjectType = swift_getObjectType();
-  v10 = (*(a4 + 24))(ObjectType, a4, a1, a2);
-  v12 = v11;
-  (*(a4 + 8))(ObjectType, a4);
-  [a5 imageResolution];
+  v11 = (*(a2 + 24))(ObjectType, a2, a5, a6);
+  v13 = v12;
+  (*(a2 + 8))(ObjectType, a2);
+  [a3 imageResolution];
   ARViewToCameraImageTransform();
-  v14.x = v10;
-  v14.y = v12;
-  CGPointApplyAffineTransform(v14, &v13);
+  v15.x = v11;
+  v15.y = v13;
+  CGPointApplyAffineTransform(v15, &v14);
 }
 
 Swift::Bool __swiftcall ARFrame.isVIOTrackingUnacceptable()()
@@ -4904,33 +4915,33 @@ void sub_258382708(uint64_t **a1, char a2)
   free(v2);
 }
 
-uint64_t Clamped.init(min:max:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t Clamped.init(min:max:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v8 = type metadata accessor for Clamped();
-  v12 = *(a3 - 8);
-  (*(v12 + 56))(a4 + *(v8 + 40), 1, 1, a3);
-  v11 = *(v12 + 32);
-  v11(a4, a1, a3);
-  v9 = a4 + *(v8 + 36);
+  v9 = type metadata accessor for Clamped(0, a3, a4, a4);
+  v13 = *(a3 - 8);
+  (*(v13 + 56))(a5 + *(v9 + 40), 1, 1, a3);
+  v12 = *(v13 + 32);
+  v12(a5, a1, a3);
+  v10 = a5 + *(v9 + 36);
 
-  return (v11)(v9, a2, a3);
+  return (v12)(v10, a2, a3);
 }
 
-uint64_t Clamped.init(wrappedValue:min:max:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+uint64_t Clamped.init(wrappedValue:min:max:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  v10 = type metadata accessor for Clamped();
-  v11 = *(v10 + 40);
-  v12 = *(a4 - 8);
-  v16 = *(v12 + 56);
-  v16(a5 + v11, 1, 1, a4);
-  v13 = *(v12 + 32);
-  v13(a5, a2, a4);
-  v13(a5 + *(v10 + 36), a3, a4);
-  v14 = sub_258428DA0();
-  (*(*(v14 - 8) + 8))(a5 + v11, v14);
-  v13(a5 + v11, a1, a4);
+  v11 = type metadata accessor for Clamped(0, a4, a5, a4);
+  v12 = *(v11 + 40);
+  v13 = *(a4 - 8);
+  v17 = *(v13 + 56);
+  v17(a6 + v12, 1, 1, a4);
+  v14 = *(v13 + 32);
+  v14(a6, a2, a4);
+  v14(a6 + *(v11 + 36), a3, a4);
+  v15 = sub_258428DA0();
+  (*(*(v15 - 8) + 8))(a6 + v12, v15);
+  v14(a6 + v12, a1, a4);
 
-  return (v16)(a5 + v11, 0, 1, a4);
+  return (v17)(a6 + v12, 0, 1, a4);
 }
 
 uint64_t sub_258382A9C(uint64_t a1, uint64_t a2)
@@ -4945,13 +4956,13 @@ uint64_t sub_258382A9C(uint64_t a1, uint64_t a2)
   return (*(v7 + 40))(v2 + *(a2 + 40), v9, v6);
 }
 
-uint64_t sub_258382BF8()
+uint64_t sub_258382BF8(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = sub_258428DA0();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -5329,7 +5340,7 @@ Swift::String __swiftcall benchmarkFormat(seconds:)(Swift::Double seconds)
 {
   if (seconds >= 1.0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927F90);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927F90, &qword_25842DDD0);
     v4 = swift_allocObject();
     *(v4 + 16) = xmmword_25842CCB0;
     v5 = MEMORY[0x277D83A80];
@@ -5348,7 +5359,7 @@ Swift::String __swiftcall benchmarkFormat(seconds:)(Swift::Double seconds)
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927F90);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927F90, &qword_25842DDD0);
     v2 = swift_allocObject();
     *(v2 + 16) = xmmword_25842CCB0;
     v3 = MEMORY[0x277D83A80];
@@ -5377,14 +5388,14 @@ Swift::Void __swiftcall BenchmarkStats.prettyPrint(_:)(Swift::String a1)
   v5 = *algn_27F92F408;
   sub_258428FC0();
 
-  v57 = countAndFlagsBits;
+  v63 = countAndFlagsBits;
   MEMORY[0x259C7DFF0](0x676172657641093ALL, 0xEC000000202D2065);
   v7 = *(v1 + 40);
   v8 = benchmarkFormat(seconds:)(v7)._countAndFlagsBits;
   MEMORY[0x259C7DFF0](v8);
 
   v9 = countAndFlagsBits;
-  sub_258428C50();
+  v61 = sub_258428C50();
   v10 = qword_27F927A30;
 
   if (v10 != -1)
@@ -5411,7 +5422,7 @@ Swift::Void __swiftcall BenchmarkStats.prettyPrint(_:)(Swift::String a1)
   else
   {
     swift_endAccess();
-    sub_258385DB0(0, &qword_27F927F98);
+    sub_258385DB0(0, &qword_27F927F98, 0x277D86200);
     if (qword_27F927A28 != -1)
     {
       swift_once();
@@ -5421,238 +5432,240 @@ Swift::Void __swiftcall BenchmarkStats.prettyPrint(_:)(Swift::String a1)
     swift_beginAccess();
     v16 = v17;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v58 = off_27F928850;
+    v64 = off_27F928850;
     off_27F928850 = 0x8000000000000000;
     sub_258384C94(v16, v6, v5, isUniquelyReferenced_nonNull_native);
 
-    off_27F928850 = v58;
+    off_27F928850 = v64;
     swift_endAccess();
   }
 
   os_unfair_lock_unlock(v11);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927F90);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927F90, &qword_25842DDD0);
   v19 = swift_allocObject();
   *(v19 + 16) = xmmword_25842CCB0;
   *(v19 + 56) = MEMORY[0x277D837D0];
-  v56 = sub_258385D08();
-  *(v19 + 64) = v56;
+  v62 = sub_258385D08();
+  *(v19 + 64) = v62;
   *(v19 + 32) = v9;
   *(v19 + 40) = object;
 
-  sub_258428440();
+  sub_258428440("%{public}@", 10, 2, &dword_258376000, v16, v61, v19);
 
   MEMORY[0x259C7DFF0](0x202D2078614D093ALL, 0xE800000000000000);
   v20 = benchmarkFormat(seconds:)(*(v2 + 32))._countAndFlagsBits;
   MEMORY[0x259C7DFF0](v20);
 
-  sub_258428C50();
+  v21 = sub_258428C50();
 
   os_unfair_lock_lock(v11);
   swift_beginAccess();
-  v21 = off_27F928850;
-  if (*(off_27F928850 + 2) && (v22 = sub_258384364(v6, v5), (v23 & 1) != 0))
+  v22 = off_27F928850;
+  if (*(off_27F928850 + 2) && (v23 = sub_258384364(v6, v5), (v24 & 1) != 0))
   {
-    v24 = *(v21[7] + 8 * v22);
+    v25 = *(v22[7] + 8 * v23);
     swift_endAccess();
-    v25 = v24;
+    v26 = v25;
   }
 
   else
   {
     swift_endAccess();
-    sub_258385DB0(0, &qword_27F927F98);
+    sub_258385DB0(0, &qword_27F927F98, 0x277D86200);
     if (qword_27F927A28 != -1)
     {
       swift_once();
     }
 
-    v26 = sub_258428D90();
+    v27 = sub_258428D90();
     swift_beginAccess();
-    v25 = v26;
-    v27 = swift_isUniquelyReferenced_nonNull_native();
-    v59 = off_27F928850;
+    v26 = v27;
+    v28 = swift_isUniquelyReferenced_nonNull_native();
+    v65 = off_27F928850;
     off_27F928850 = 0x8000000000000000;
-    sub_258384C94(v25, v6, v5, v27);
+    sub_258384C94(v26, v6, v5, v28);
 
-    off_27F928850 = v59;
+    off_27F928850 = v65;
     swift_endAccess();
   }
 
   os_unfair_lock_unlock(v11);
-  v28 = swift_allocObject();
-  *(v28 + 16) = xmmword_25842CCB0;
-  *(v28 + 56) = MEMORY[0x277D837D0];
-  *(v28 + 64) = v56;
-  *(v28 + 32) = v57;
-  *(v28 + 40) = object;
+  v29 = swift_allocObject();
+  *(v29 + 16) = xmmword_25842CCB0;
+  *(v29 + 56) = MEMORY[0x277D837D0];
+  *(v29 + 64) = v62;
+  *(v29 + 32) = v63;
+  *(v29 + 40) = object;
 
-  sub_258428440();
+  sub_258428440("%{public}@", 10, 2, &dword_258376000, v26, v21, v29);
 
   sub_258428FC0();
 
   MEMORY[0x259C7DFF0](0xD000000000000013, 0x8000000258434050);
-  v29 = benchmarkFormat(seconds:)(v7)._countAndFlagsBits;
-  MEMORY[0x259C7DFF0](v29);
+  v30 = benchmarkFormat(seconds:)(v7)._countAndFlagsBits;
+  MEMORY[0x259C7DFF0](v30);
 
-  sub_258428C50();
+  v31 = sub_258428C50();
 
   os_unfair_lock_lock(v11);
   swift_beginAccess();
-  v30 = off_27F928850;
-  if (*(off_27F928850 + 2) && (v31 = sub_258384364(v6, v5), (v32 & 1) != 0))
+  v32 = off_27F928850;
+  if (*(off_27F928850 + 2) && (v33 = sub_258384364(v6, v5), (v34 & 1) != 0))
   {
-    v33 = *(v30[7] + 8 * v31);
+    v35 = *(v32[7] + 8 * v33);
     swift_endAccess();
-    v34 = v33;
+    v36 = v35;
   }
 
   else
   {
     swift_endAccess();
-    sub_258385DB0(0, &qword_27F927F98);
+    sub_258385DB0(0, &qword_27F927F98, 0x277D86200);
     if (qword_27F927A28 != -1)
     {
       swift_once();
     }
 
-    v35 = sub_258428D90();
+    v37 = sub_258428D90();
     swift_beginAccess();
-    v34 = v35;
-    v36 = swift_isUniquelyReferenced_nonNull_native();
-    v60 = off_27F928850;
+    v36 = v37;
+    v38 = swift_isUniquelyReferenced_nonNull_native();
+    v66 = off_27F928850;
     off_27F928850 = 0x8000000000000000;
-    sub_258384C94(v34, v6, v5, v36);
+    sub_258384C94(v36, v6, v5, v38);
 
-    off_27F928850 = v60;
+    off_27F928850 = v66;
     swift_endAccess();
   }
 
   os_unfair_lock_unlock(v11);
-  v37 = swift_allocObject();
-  *(v37 + 16) = xmmword_25842CCB0;
-  *(v37 + 56) = MEMORY[0x277D837D0];
-  *(v37 + 64) = v56;
-  *(v37 + 32) = v57;
-  *(v37 + 40) = object;
+  v39 = swift_allocObject();
+  *(v39 + 16) = xmmword_25842CCB0;
+  *(v39 + 56) = MEMORY[0x277D837D0];
+  *(v39 + 64) = v62;
+  *(v39 + 32) = v63;
+  *(v39 + 40) = object;
 
-  sub_258428440();
+  sub_258428440("%{public}@", 10, 2, &dword_258376000, v36, v31, v39);
 
   sub_258428FC0();
 
   MEMORY[0x259C7DFF0](0x6C61626F6C47093ALL, 0xEF202D2078614D20);
-  v38 = benchmarkFormat(seconds:)(*(v2 + 48))._countAndFlagsBits;
-  MEMORY[0x259C7DFF0](v38);
+  v40 = benchmarkFormat(seconds:)(*(v2 + 48))._countAndFlagsBits;
+  MEMORY[0x259C7DFF0](v40);
 
-  sub_258428C50();
+  v41 = sub_258428C50();
 
   os_unfair_lock_lock(v11);
   swift_beginAccess();
-  v39 = off_27F928850;
-  if (*(off_27F928850 + 2) && (v40 = sub_258384364(v6, v5), (v41 & 1) != 0))
+  v42 = off_27F928850;
+  if (*(off_27F928850 + 2) && (v43 = sub_258384364(v6, v5), (v44 & 1) != 0))
   {
-    v42 = *(v39[7] + 8 * v40);
+    v45 = *(v42[7] + 8 * v43);
     swift_endAccess();
-    v43 = v42;
+    v46 = v45;
   }
 
   else
   {
     swift_endAccess();
-    sub_258385DB0(0, &qword_27F927F98);
+    sub_258385DB0(0, &qword_27F927F98, 0x277D86200);
     if (qword_27F927A28 != -1)
     {
       swift_once();
     }
 
-    v44 = sub_258428D90();
+    v47 = sub_258428D90();
     swift_beginAccess();
-    v43 = v44;
-    v45 = swift_isUniquelyReferenced_nonNull_native();
-    v61 = off_27F928850;
+    v46 = v47;
+    v48 = swift_isUniquelyReferenced_nonNull_native();
+    v67 = off_27F928850;
     off_27F928850 = 0x8000000000000000;
-    sub_258384C94(v43, v6, v5, v45);
+    sub_258384C94(v46, v6, v5, v48);
 
-    off_27F928850 = v61;
+    off_27F928850 = v67;
     swift_endAccess();
   }
 
   os_unfair_lock_unlock(v11);
-  v46 = swift_allocObject();
-  *(v46 + 16) = xmmword_25842CCB0;
-  *(v46 + 56) = MEMORY[0x277D837D0];
-  *(v46 + 64) = v56;
-  *(v46 + 32) = v57;
-  *(v46 + 40) = object;
+  v49 = swift_allocObject();
+  *(v49 + 16) = xmmword_25842CCB0;
+  *(v49 + 56) = MEMORY[0x277D837D0];
+  *(v49 + 64) = v62;
+  *(v49 + 32) = v63;
+  *(v49 + 40) = object;
 
-  sub_258428440();
+  sub_258428440("%{public}@", 10, 2, &dword_258376000, v46, v41, v49);
 
   sub_258428FC0();
 
   MEMORY[0x259C7DFF0](0xD000000000000011, 0x8000000258434070);
   sub_258385D5C();
-  v47 = sub_258428E10();
-  MEMORY[0x259C7DFF0](v47);
+  v50 = sub_258428E10();
+  MEMORY[0x259C7DFF0](v50);
 
-  sub_258428C50();
+  v51 = object;
+  v52 = sub_258428C50();
 
   os_unfair_lock_lock(v11);
   swift_beginAccess();
-  v48 = off_27F928850;
-  if (*(off_27F928850 + 2) && (v49 = sub_258384364(v6, v5), (v50 & 1) != 0))
+  v53 = off_27F928850;
+  if (*(off_27F928850 + 2) && (v54 = sub_258384364(v6, v5), (v55 & 1) != 0))
   {
-    v51 = *(v48[7] + 8 * v49);
+    v56 = *(v53[7] + 8 * v54);
     swift_endAccess();
-    v52 = v51;
+    v57 = v56;
   }
 
   else
   {
     swift_endAccess();
-    sub_258385DB0(0, &qword_27F927F98);
+    sub_258385DB0(0, &qword_27F927F98, 0x277D86200);
     if (qword_27F927A28 != -1)
     {
       swift_once();
     }
 
-    v53 = sub_258428D90();
+    v58 = sub_258428D90();
     swift_beginAccess();
-    v52 = v53;
-    v54 = swift_isUniquelyReferenced_nonNull_native();
-    v62 = off_27F928850;
+    v57 = v58;
+    v59 = swift_isUniquelyReferenced_nonNull_native();
+    v68 = off_27F928850;
     off_27F928850 = 0x8000000000000000;
-    sub_258384C94(v52, v6, v5, v54);
+    sub_258384C94(v57, v6, v5, v59);
 
-    off_27F928850 = v62;
+    off_27F928850 = v68;
     swift_endAccess();
   }
 
   os_unfair_lock_unlock(v11);
-  v55 = swift_allocObject();
-  *(v55 + 16) = xmmword_25842CCB0;
-  *(v55 + 56) = MEMORY[0x277D837D0];
-  *(v55 + 64) = v56;
-  *(v55 + 32) = v57;
-  *(v55 + 40) = object;
+  v60 = swift_allocObject();
+  *(v60 + 16) = xmmword_25842CCB0;
+  *(v60 + 56) = MEMORY[0x277D837D0];
+  *(v60 + 64) = v62;
+  *(v60 + 32) = v63;
+  *(v60 + 40) = v51;
 
-  sub_258428440();
+  sub_258428440("%{public}@", 10, 2, &dword_258376000, v57, v52, v60);
 }
 
 unint64_t sub_258384260(uint64_t a1)
 {
   sub_2584283F0();
-  sub_258385DF8(&qword_27F927FC8, MEMORY[0x277CC95F0]);
+  sub_258385DF8(&qword_27F927FC8, MEMORY[0x277CC95F0], MEMORY[0x277CC9600]);
   v2 = sub_258428580();
 
   return sub_2583845F4(a1, v2);
 }
 
-unint64_t sub_2583842F8(unsigned __int8 a1)
+unint64_t sub_2583842F8(uint64_t a1)
 {
+  v1 = a1;
   sub_2584293C0();
   sub_2584293E0();
   v2 = sub_2584293F0();
 
-  return sub_2583847B4(a1, v2);
+  return sub_2583847B4(v1, v2);
 }
 
 unint64_t sub_258384364(uint64_t a1, uint64_t a2)
@@ -5668,7 +5681,7 @@ unint64_t sub_2583843DC(uint64_t a1)
 {
   sub_2584293C0();
   type metadata accessor for CFString(0);
-  sub_258385DF8(&qword_27F927FC0, type metadata accessor for CFString);
+  sub_258385DF8(&qword_27F927FC0, type metadata accessor for CFString, &unk_25842C3E8);
   sub_258428420();
   v2 = sub_2584293F0();
 
@@ -5727,7 +5740,7 @@ unint64_t sub_2583845F4(uint64_t a1, uint64_t a2)
     do
     {
       v11(v7, *(v20 + 48) + v14 * v9, v4);
-      sub_258385DF8(&qword_27F927FD0, MEMORY[0x277CC95F0]);
+      sub_258385DF8(&qword_27F927FD0, MEMORY[0x277CC95F0], MEMORY[0x277CC9610]);
       v15 = sub_258428600();
       (*(v12 - 8))(v7, v4);
       if (v15)
@@ -5804,7 +5817,7 @@ unint64_t sub_2583848DC(uint64_t a1, uint64_t a2)
   {
     v5 = ~v3;
     type metadata accessor for CFString(0);
-    sub_258385DF8(&qword_27F927FC0, type metadata accessor for CFString);
+    sub_258385DF8(&qword_27F927FC0, type metadata accessor for CFString, &unk_25842C3E8);
     do
     {
       v6 = *(*(v2 + 48) + 8 * v4);
@@ -5877,7 +5890,7 @@ unint64_t sub_258384ABC(uint64_t a1, uint64_t a2)
   if ((*(v2 + 64 + ((v4 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v4))
   {
     v5 = ~v3;
-    sub_258385DB0(0, &qword_27F927FB8);
+    sub_258385DB0(0, &qword_27F927FB8, 0x277CE5318);
     do
     {
       v6 = *(*(v2 + 48) + 8 * v4);
@@ -6183,7 +6196,7 @@ LABEL_8:
     *(v27 + 160) = v13;
     *(v27 + 168) = v14;
     *(v27 + 176) = v15;
-    return sub_258385E40(v46, &qword_27F927FE0);
+    return sub_258385E40(v46, &qword_27F927FE0, &qword_25842EC00);
   }
 
   else
@@ -6209,7 +6222,7 @@ LABEL_8:
   }
 }
 
-unint64_t sub_258385280(char a1, char a2, float a3)
+uint64_t sub_258385280(uint64_t a1, char a2, float a3)
 {
   v4 = v3;
   v8 = *v3;
@@ -6263,17 +6276,17 @@ LABEL_8:
   return result;
 }
 
-id sub_258385394(uint64_t a1, void *a2, char a3)
+id sub_258385394(uint64_t *a1, void *a2, char a3)
 {
   v4 = v3;
   v7 = *a1;
-  v6 = *(a1 + 8);
-  v8 = *(a1 + 16);
-  v9 = *(a1 + 24);
-  v11 = *(a1 + 32);
-  v10 = *(a1 + 40);
-  v12 = *(a1 + 48);
-  v13 = *(a1 + 56);
+  v6 = a1[1];
+  v8 = a1[2];
+  v9 = *(a1 + 6);
+  v11 = a1[4];
+  v10 = a1[5];
+  v12 = a1[6];
+  v13 = *(a1 + 14);
   v14 = *v3;
   v15 = sub_258384520(a2);
   v17 = *(v14 + 16);
@@ -6303,7 +6316,7 @@ id sub_258385394(uint64_t a1, void *a2, char a3)
     if ((v21 & 1) != (v24 & 1))
     {
 LABEL_14:
-      sub_258385DB0(0, &qword_27F927FB8);
+      sub_258385DB0(0, &qword_27F927FB8, 0x277CE5318);
       result = sub_258429390();
       __break(1u);
       return result;
@@ -6329,7 +6342,7 @@ LABEL_8:
     *(v25 + 40) = v10;
     *(v25 + 48) = v12;
     *(v25 + 56) = v13;
-    return sub_258385E40(v32, &qword_27F927FB0);
+    return sub_258385E40(v32, &qword_27F927FB0, &unk_25842CCC0);
   }
 
   else
@@ -6349,7 +6362,7 @@ LABEL_8:
   }
 }
 
-unint64_t sub_258385560(uint64_t a1, char a2, char a3)
+unint64_t sub_258385560(uint64_t a1, uint64_t a2, char a3)
 {
   v4 = v3;
   v8 = *v3;
@@ -6401,9 +6414,10 @@ LABEL_8:
   }
 }
 
-uint64_t sub_258385684(char a1, uint64_t a2, char a3, float a4)
+uint64_t sub_258385684(uint64_t a1, uint64_t a2, char a3, float a4)
 {
   v5 = v4;
+  v9 = a1;
   v10 = sub_2584283F0();
   v11 = *(v10 - 8);
   MEMORY[0x28223BE20](v10);
@@ -6430,7 +6444,7 @@ LABEL_7:
       {
 LABEL_8:
         v23 = v22[7] + 8 * v16;
-        *v23 = a1;
+        *v23 = v9;
         *(v23 + 4) = a4;
         return result;
       }
@@ -6457,7 +6471,7 @@ LABEL_8:
 
 LABEL_11:
       (*(v11 + 16))(v13, a2, v10);
-      return sub_2583E8AE0(v16, v13, a1, v22, a4);
+      return sub_2583E8AE0(v16, v13, v9, v22, a4);
     }
   }
 
@@ -6466,44 +6480,44 @@ LABEL_11:
   return result;
 }
 
-unint64_t sub_258385838(uint64_t a1, char a2, double a3)
+unint64_t sub_258385838(uint64_t *a1, char a2, double a3)
 {
   v4 = v3;
   v7 = *a1;
-  v8 = *(a1 + 16);
-  v29 = *(a1 + 32);
-  v30 = *(a1 + 48);
-  v31 = *(a1 + 64);
-  v32 = *(a1 + 80);
-  v33 = *(a1 + 96);
-  v34 = *(a1 + 112);
-  v35 = *(a1 + 128);
-  v36 = *(a1 + 144);
-  v37 = *(a1 + 160);
-  v38 = *(a1 + 176);
-  v39 = *(a1 + 192);
-  v40 = *(a1 + 208);
-  v41 = *(a1 + 224);
-  v42 = *(a1 + 240);
-  v43 = *(a1 + 256);
-  v44 = *(a1 + 272);
-  v10 = *(a1 + 288);
-  v9 = *(a1 + 296);
-  v12 = *(a1 + 304);
-  v11 = *(a1 + 312);
-  v45 = *(a1 + 320);
-  v46 = *(a1 + 336);
-  v47 = *(a1 + 352);
-  v48 = *(a1 + 368);
-  v13 = *(a1 + 384);
-  v14 = *(a1 + 388);
-  v53 = *(a1 + 432);
-  v54 = *(a1 + 448);
+  v8 = a1[2];
+  v29 = *(a1 + 2);
+  v30 = *(a1 + 3);
+  v31 = *(a1 + 4);
+  v32 = *(a1 + 5);
+  v33 = *(a1 + 6);
+  v34 = *(a1 + 7);
+  v35 = *(a1 + 8);
+  v36 = *(a1 + 9);
+  v37 = *(a1 + 10);
+  v38 = *(a1 + 11);
+  v39 = *(a1 + 12);
+  v40 = *(a1 + 13);
+  v41 = *(a1 + 14);
+  v42 = *(a1 + 15);
+  v43 = *(a1 + 16);
+  v44 = *(a1 + 17);
+  v10 = a1[36];
+  v9 = a1[37];
+  v12 = a1[38];
+  v11 = a1[39];
+  v45 = *(a1 + 20);
+  v46 = *(a1 + 21);
+  v47 = *(a1 + 22);
+  v48 = *(a1 + 23);
+  v13 = *(a1 + 96);
+  v14 = *(a1 + 97);
+  v53 = *(a1 + 27);
+  v54 = *(a1 + 28);
   v15 = *v3;
-  v49 = *(a1 + 400);
-  v50 = *(a1 + 464);
-  v51 = *(a1 + 416);
-  v52 = *(a1 + 480);
+  v49 = *(a1 + 25);
+  v50 = *(a1 + 29);
+  v51 = *(a1 + 26);
+  v52 = *(a1 + 30);
   v16 = sub_258384490(a3);
   v18 = *(v15 + 16);
   v19 = (v17 & 1) == 0;
@@ -6579,7 +6593,7 @@ LABEL_8:
     *(v26 + 28) = v54;
     *(v26 + 29) = v50;
     *(v26 + 30) = v52;
-    return sub_258385E40(__dst, &qword_27F927FD8);
+    return sub_258385E40(__dst, &qword_27F927FD8, &qword_25842D270);
   }
 
   else
@@ -6708,7 +6722,7 @@ unint64_t sub_258385D5C()
   return result;
 }
 
-uint64_t sub_258385DB0(uint64_t a1, unint64_t *a2)
+uint64_t sub_258385DB0(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -6721,7 +6735,7 @@ uint64_t sub_258385DB0(uint64_t a1, unint64_t *a2)
   return result;
 }
 
-uint64_t sub_258385DF8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_258385DF8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6734,10 +6748,10 @@ uint64_t sub_258385DF8(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_258385E40(uint64_t a1, uint64_t *a2)
+uint64_t sub_258385E40(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -6810,7 +6824,7 @@ uint64_t MetalNode.isActive.setter(char a1)
   return result;
 }
 
-void (*MetalNode.isActive.modify(uint64_t *a1))(uint64_t a1)
+void (*MetalNode.isActive.modify(uint64_t *a1))(uint64_t a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -6830,21 +6844,21 @@ void (*MetalNode.isActive.modify(uint64_t *a1))(uint64_t a1)
   return sub_258386228;
 }
 
-void sub_258386228(uint64_t a1)
+void sub_258386228(uint64_t a1, char a2)
 {
-  v1 = *a1;
-  v2 = *(*a1 + 120);
-  v3 = *(*a1 + 128);
+  v2 = *a1;
+  v3 = *(*a1 + 120);
+  v4 = *(*a1 + 128);
   swift_beginAccess();
-  *(v2 + 32) = v3;
+  *(v3 + 32) = v4;
   swift_beginAccess();
-  *(v2 + 33) = v3;
-  *(v1[15] + 34) = v3;
+  *(v3 + 33) = v4;
+  *(v2[15] + 34) = v4;
 
-  free(v1);
+  free(v2);
 }
 
-uint64_t MetalNode.addChild(_:at:)(unint64_t a1, uint64_t a2, char a3)
+uint64_t MetalNode.addChild(_:at:)(uint64_t a1, uint64_t a2, char a3)
 {
   swift_beginAccess();
   v7 = *(v3 + 24);
@@ -7223,7 +7237,7 @@ BOOL sub_258386BA4(uint64_t *a1, uint64_t *a2)
   return v4 == *(v3 + 16);
 }
 
-uint64_t sub_258386C38(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t sub_258386C38(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v11 = a2 - a1;
   if (__OFSUB__(a2, a1))
@@ -7320,7 +7334,7 @@ LABEL_17:
   return result;
 }
 
-uint64_t sub_258386D54(uint64_t a1, uint64_t a2, unint64_t a3)
+uint64_t sub_258386D54(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1 < 0)
   {
@@ -7329,14 +7343,14 @@ uint64_t sub_258386D54(uint64_t a1, uint64_t a2, unint64_t a3)
 
   else
   {
-    v3 = a3;
-    v5 = a2;
-    v6 = a1;
-    v7 = *v4;
-    v8 = *v4 >> 62;
-    if (!v8)
+    v4 = a3;
+    v6 = a2;
+    v7 = a1;
+    v8 = *v5;
+    v9 = *v5 >> 62;
+    if (!v9)
     {
-      result = *((*v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      result = *((*v5 & 0xFFFFFFFFFFFFFF8) + 0x10);
       if (result >= a2)
       {
         goto LABEL_4;
@@ -7349,22 +7363,22 @@ LABEL_15:
   }
 
   result = sub_258428F10();
-  if (result < v5)
+  if (result < v6)
   {
     goto LABEL_15;
   }
 
 LABEL_4:
-  v10 = v5 - v6;
-  if (__OFSUB__(v5, v6))
+  v11 = v6 - v7;
+  if (__OFSUB__(v6, v7))
   {
 LABEL_16:
     __break(1u);
     goto LABEL_17;
   }
 
-  v11 = 1 - v10;
-  if (__OFSUB__(1, v10))
+  v12 = 1 - v11;
+  if (__OFSUB__(1, v11))
   {
 LABEL_17:
     __break(1u);
@@ -7373,26 +7387,26 @@ LABEL_18:
     return result;
   }
 
-  if (v8)
+  if (v9)
   {
-    v12 = sub_258428F10();
+    v13 = sub_258428F10();
   }
 
   else
   {
-    v12 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v13 = *((v8 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v13 = __OFADD__(v12, v11);
-  result = v12 + v11;
-  if (v13)
+  v14 = __OFADD__(v13, v12);
+  result = v13 + v12;
+  if (v14)
   {
     goto LABEL_18;
   }
 
-  sub_2583C7AF0(result, 1);
+  sub_2583C7AF0();
 
-  return sub_258386C38(v6, v5, 1, v3);
+  return sub_258386C38(v7, v6, 1, v4);
 }
 
 uint64_t sub_258386E40@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
@@ -7754,13 +7768,13 @@ uint64_t sub_258387370(uint64_t a1, uint64_t a2)
 
   else
   {
-    v2 = a2;
-    v4 = a1;
-    v5 = *v3;
-    v6 = *v3 >> 62;
-    if (!v6)
+    v3 = a2;
+    v5 = a1;
+    v6 = *v4;
+    v7 = *v4 >> 62;
+    if (!v7)
     {
-      result = *((*v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      result = *((*v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
       if (result >= a2)
       {
         goto LABEL_4;
@@ -7773,21 +7787,21 @@ LABEL_15:
   }
 
   result = sub_258428F10();
-  if (result < v2)
+  if (result < v3)
   {
     goto LABEL_15;
   }
 
 LABEL_4:
-  if (__OFSUB__(v2, v4))
+  if (__OFSUB__(v3, v5))
   {
 LABEL_16:
     __break(1u);
     goto LABEL_17;
   }
 
-  v8 = v4 - v2;
-  if (__OFSUB__(0, v2 - v4))
+  v9 = v5 - v3;
+  if (__OFSUB__(0, v3 - v5))
   {
 LABEL_17:
     __break(1u);
@@ -7796,26 +7810,26 @@ LABEL_18:
     return result;
   }
 
-  if (v6)
+  if (v7)
   {
-    v9 = sub_258428F10();
+    v10 = sub_258428F10();
   }
 
   else
   {
-    v9 = *((v5 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v10 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v10 = __OFADD__(v9, v8);
-  result = v9 + v8;
-  if (v10)
+  v11 = __OFADD__(v10, v9);
+  result = v10 + v9;
+  if (v11)
   {
     goto LABEL_18;
   }
 
-  sub_2583C7AF0(result, 1);
+  sub_2583C7AF0();
 
-  return sub_258387270(v4, v2, 0);
+  return sub_258387270(v5, v3, 0);
 }
 
 Swift::Void __swiftcall CALayer.pauseAnimations()()
@@ -7992,26 +8006,26 @@ CGPoint __swiftcall CGPoint.floor()()
   return result;
 }
 
-double CGPoint.lerped<A>(newValue:t:)(uint64_t a1, uint64_t a2, double a3, double a4, double a5)
+double CGPoint.lerped<A>(newValue:t:)(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5, double a6)
 {
-  v18 = a1;
+  v19 = a1;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v10 = MEMORY[0x28223BE20](AssociatedTypeWitness);
-  v11 = *(a2 - 8);
-  v12 = MEMORY[0x28223BE20](v10);
-  v14 = &v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  (*(v11 + 16))(&v18 - v15, a1, a2);
+  v11 = MEMORY[0x28223BE20](AssociatedTypeWitness);
+  v12 = *(a2 - 8);
+  v13 = MEMORY[0x28223BE20](v11);
+  v15 = &v19 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v13);
+  (*(v12 + 16))(&v19 - v16, a1, a2);
   sub_258387AE4();
   sub_2584284F0();
-  v16 = v20 * a3;
+  v17 = v21 * a4;
   swift_getAssociatedConformanceWitness();
   sub_258429350();
   sub_2584292E0();
   sub_258429130();
-  (*(v11 + 8))(v14, a2);
+  (*(v12 + 8))(v15, a2);
   sub_2584284F0();
-  return v16 + v19 * a5;
+  return v17 + v20 * a6;
 }
 
 unint64_t sub_258387AE4()
@@ -8258,7 +8272,7 @@ uint64_t makeIOSurfaceTexture(device:width:height:pixelFormat:usage:)(void *a1, 
   }
 
   AlignedBytesPerRow = CGBitmapGetAlignedBytesPerRow();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F9287D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F9287D0, &qword_25842D8E0);
   result = swift_initStackObject();
   *(result + 16) = xmmword_25842CDA0;
   v17 = *MEMORY[0x277CD2B88];
@@ -8293,7 +8307,7 @@ LABEL_11:
   v29 = v23;
   sub_2583890FC(v24);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927FF8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927FF8, &qword_25842CDB0);
   swift_arrayDestroy();
   type metadata accessor for CFString(0);
   sub_2583891E8();
@@ -8431,7 +8445,7 @@ IOSurface_optional __swiftcall makeIOSurfaceOfFirstPlane(from:)(CVBufferRef from
   }
 
   BytesPerRow = CVPixelBufferGetBytesPerRow(from);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F9287D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F9287D0, &qword_25842D8E0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_25842CDA0;
   v10 = *MEMORY[0x277CD2B88];
@@ -8468,7 +8482,7 @@ LABEL_8:
   v22 = v16;
   sub_2583890FC(v17);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927FF8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927FF8, &qword_25842CDB0);
   swift_arrayDestroy();
   type metadata accessor for CFString(0);
   sub_2583891E8();
@@ -8647,15 +8661,15 @@ unint64_t sub_258388AE4(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928080);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928080, &qword_25842CE18);
     v3 = sub_2584291C0();
     v4 = a1 + 32;
 
     while (1)
     {
-      sub_258389808(v4, &v11, &qword_27F927EE8);
+      sub_258389808(v4, &v11, &qword_27F927EE8, &qword_25842CAA0);
       v5 = v11;
-      result = sub_258385EA0(v11);
+      result = sub_258385EA0();
       if (v7)
       {
         break;
@@ -8696,14 +8710,14 @@ LABEL_10:
 
 unint64_t sub_258388C0C(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928030);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928030, &qword_25842CDE0);
   v3 = *(v2 - 8);
   MEMORY[0x28223BE20](v2);
   v5 = &v21 - v4;
   v6 = *(a1 + 16);
   if (v6)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928038);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928038, &unk_25842D250);
     v7 = sub_2584291C0();
     v8 = &v5[*(v2 + 48)];
     v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
@@ -8711,7 +8725,7 @@ unint64_t sub_258388C0C(uint64_t a1)
 
     while (1)
     {
-      sub_258389808(v9, v5, &qword_27F928030);
+      sub_258389808(v9, v5, &qword_27F928030, &qword_25842CDE0);
       result = sub_258384260(v5);
       if (v12)
       {
@@ -8765,9 +8779,9 @@ void *sub_258388E04(uint64_t a1)
     return MEMORY[0x277D84F98];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928028);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928028, &qword_25842CDD8);
   v3 = sub_2584291C0();
-  v4 = *(a1 + 32);
+  LOBYTE(v4) = *(a1 + 32);
   v5 = *(a1 + 40);
   v6 = sub_2583842F8(v4);
   if (v7)
@@ -8820,14 +8834,14 @@ LABEL_8:
 
 unint64_t sub_258388F14(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928018);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928018, &qword_25842CDD0);
   v3 = *(v2 - 8);
   MEMORY[0x28223BE20](v2);
   v5 = &v19 - v4;
   v6 = *(a1 + 16);
   if (v6)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928020);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928020, &qword_25842D260);
     v7 = sub_2584291C0();
     v8 = *(v2 + 48);
     v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
@@ -8835,7 +8849,7 @@ unint64_t sub_258388F14(uint64_t a1)
 
     while (1)
     {
-      sub_258389808(v9, v5, &qword_27F928018);
+      sub_258389808(v9, v5, &qword_27F928018, &qword_25842CDD0);
       result = sub_258384260(v5);
       if (v12)
       {
@@ -8883,7 +8897,7 @@ unint64_t sub_2583890FC(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928088);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928088, &qword_25842CE20);
     v3 = sub_2584291C0();
 
     for (i = (a1 + 40); ; i += 2)
@@ -8946,13 +8960,13 @@ unint64_t sub_258389248(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928070);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928070, &qword_25842D2D0);
     v3 = sub_2584291C0();
     v4 = a1 + 32;
 
     while (1)
     {
-      sub_258389808(v4, &v13, &qword_27F928078);
+      sub_258389808(v4, &v13, &qword_27F928078, &qword_25842CE10);
       v5 = v13;
       v6 = v14;
       result = sub_258384364(v13, v14);
@@ -9001,7 +9015,7 @@ unint64_t sub_258389378(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928058);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928058, &unk_25842D2A0);
     v3 = sub_2584291C0();
 
     for (i = (a1 + 48); ; i += 3)
@@ -9055,7 +9069,7 @@ unint64_t sub_258389488(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928068);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928068, &qword_25842CE08);
     v3 = sub_2584291C0();
 
     for (i = (a1 + 48); ; i += 3)
@@ -9105,44 +9119,44 @@ LABEL_10:
   return result;
 }
 
-unint64_t sub_2583895DC(uint64_t a1, uint64_t *a2)
+unint64_t sub_2583895DC(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v2 = *(a1 + 16);
-  if (v2)
+  v3 = *(a1 + 16);
+  if (v3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-    v4 = sub_2584291C0();
+    __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+    v5 = sub_2584291C0();
 
     for (i = (a1 + 48); ; i += 3)
     {
-      v6 = *(i - 2);
-      v7 = *(i - 1);
-      v8 = *i;
+      v7 = *(i - 2);
+      v8 = *(i - 1);
+      v9 = *i;
 
-      result = sub_258384364(v6, v7);
-      if (v10)
+      result = sub_258384364(v7, v8);
+      if (v11)
       {
         break;
       }
 
-      *(v4 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v11 = (v4[6] + 16 * result);
-      *v11 = v6;
-      v11[1] = v7;
-      *(v4[7] + 8 * result) = v8;
-      v12 = v4[2];
-      v13 = __OFADD__(v12, 1);
-      v14 = v12 + 1;
-      if (v13)
+      *(v5 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v12 = (v5[6] + 16 * result);
+      *v12 = v7;
+      v12[1] = v8;
+      *(v5[7] + 8 * result) = v9;
+      v13 = v5[2];
+      v14 = __OFADD__(v13, 1);
+      v15 = v13 + 1;
+      if (v14)
       {
         goto LABEL_10;
       }
 
-      v4[2] = v14;
-      if (!--v2)
+      v5[2] = v15;
+      if (!--v3)
       {
 
-        return v4;
+        return v5;
       }
     }
 
@@ -9164,13 +9178,13 @@ unint64_t sub_2583896D0(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928000);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F928000, &qword_25842CDB8);
     v3 = sub_2584291C0();
     v4 = a1 + 32;
 
     while (1)
     {
-      sub_258389808(v4, &v11, &qword_27F928008);
+      sub_258389808(v4, &v11, &qword_27F928008, &qword_25842CDC0);
       v5 = v11;
       result = sub_2583843DC(v11);
       if (v7)
@@ -9219,10 +9233,10 @@ _OWORD *sub_2583897F8(_OWORD *a1, _OWORD *a2)
   return a2;
 }
 
-uint64_t sub_258389808(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_258389808(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
@@ -9323,7 +9337,7 @@ float64x2_t static CGSize.-= infix(_:_:)(float64x2_t *a1, float64x2_t a2, float6
 BOOL Optional.exists.getter(uint64_t a1)
 {
   v2 = *(a1 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](a1);
   v4 = &v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v2 + 16))(v4);
   v5 = (*(*(*(a1 + 16) - 8) + 48))(v4, 1);
@@ -9698,16 +9712,17 @@ Swift::Void __swiftcall logCVError(_:label:)(Swift::Int32 _, Swift::String label
     v6 = sub_2584292B0();
     MEMORY[0x259C7DFF0](v6);
 
-    v7 = countAndFlagsBits;
-    sub_258428C50();
-    v8 = qword_27F927A30;
+    v8 = countAndFlagsBits;
+    v7 = object;
+    v9 = sub_258428C50();
+    v10 = qword_27F927A30;
 
-    if (v8 != -1)
+    if (v10 != -1)
     {
       swift_once();
     }
 
-    v9 = qword_27F928848;
+    v11 = qword_27F928848;
     os_unfair_lock_lock(qword_27F928848);
     if (qword_27F927A38 != -1)
     {
@@ -9715,12 +9730,12 @@ Swift::Void __swiftcall logCVError(_:label:)(Swift::Int32 _, Swift::String label
     }
 
     swift_beginAccess();
-    v10 = off_27F928850;
-    if (*(off_27F928850 + 2) && (v11 = sub_258384364(v5, v4), (v12 & 1) != 0))
+    v12 = off_27F928850;
+    if (*(off_27F928850 + 2) && (v13 = sub_258384364(v5, v4), (v14 & 1) != 0))
     {
-      v13 = *(v10[7] + 8 * v11);
+      v15 = *(v12[7] + 8 * v13);
       swift_endAccess();
-      v14 = v13;
+      v16 = v15;
     }
 
     else
@@ -9732,28 +9747,28 @@ Swift::Void __swiftcall logCVError(_:label:)(Swift::Int32 _, Swift::String label
         swift_once();
       }
 
-      v15 = sub_258428D90();
+      v17 = sub_258428D90();
       swift_beginAccess();
-      v14 = v15;
+      v16 = v17;
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v18 = off_27F928850;
+      v20 = off_27F928850;
       off_27F928850 = 0x8000000000000000;
-      sub_258384C94(v14, v5, v4, isUniquelyReferenced_nonNull_native);
+      sub_258384C94(v16, v5, v4, isUniquelyReferenced_nonNull_native);
 
-      off_27F928850 = v18;
+      off_27F928850 = v20;
       swift_endAccess();
     }
 
-    os_unfair_lock_unlock(v9);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927F90);
-    v17 = swift_allocObject();
-    *(v17 + 16) = xmmword_25842CCB0;
-    *(v17 + 56) = MEMORY[0x277D837D0];
-    *(v17 + 64) = sub_258385D08();
-    *(v17 + 32) = v7;
-    *(v17 + 40) = object;
+    os_unfair_lock_unlock(v11);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927F90, &qword_25842DDD0);
+    v19 = swift_allocObject();
+    *(v19 + 16) = xmmword_25842CCB0;
+    *(v19 + 56) = MEMORY[0x277D837D0];
+    *(v19 + 64) = sub_258385D08();
+    *(v19 + 32) = v8;
+    *(v19 + 40) = v7;
 
-    sub_258428440();
+    sub_258428440("%{public}@", 10, 2, &dword_258376000, v16, v9, v19);
   }
 }
 
@@ -9776,15 +9791,15 @@ Swift::Bool __swiftcall checkCVSuccess(_:label:)(Swift::Int32 _, Swift::String l
     v7 = sub_2584292B0();
     MEMORY[0x259C7DFF0](v7);
 
-    sub_258428C50();
-    v8 = qword_27F927A30;
+    v8 = sub_258428C50();
+    v9 = qword_27F927A30;
 
-    if (v8 != -1)
+    if (v9 != -1)
     {
       swift_once();
     }
 
-    v9 = qword_27F928848;
+    v10 = qword_27F928848;
     os_unfair_lock_lock(qword_27F928848);
     if (qword_27F927A38 != -1)
     {
@@ -9792,12 +9807,12 @@ Swift::Bool __swiftcall checkCVSuccess(_:label:)(Swift::Int32 _, Swift::String l
     }
 
     swift_beginAccess();
-    v10 = off_27F928850;
-    if (*(off_27F928850 + 2) && (v11 = sub_258384364(v6, v5), (v12 & 1) != 0))
+    v11 = off_27F928850;
+    if (*(off_27F928850 + 2) && (v12 = sub_258384364(v6, v5), (v13 & 1) != 0))
     {
-      v13 = *(v10[7] + 8 * v11);
+      v14 = *(v11[7] + 8 * v12);
       swift_endAccess();
-      v14 = v13;
+      v15 = v14;
     }
 
     else
@@ -9809,28 +9824,28 @@ Swift::Bool __swiftcall checkCVSuccess(_:label:)(Swift::Int32 _, Swift::String l
         swift_once();
       }
 
-      v15 = sub_258428D90();
+      v16 = sub_258428D90();
       swift_beginAccess();
-      v14 = v15;
+      v15 = v16;
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v19 = off_27F928850;
+      v20 = off_27F928850;
       off_27F928850 = 0x8000000000000000;
-      sub_258384C94(v14, v6, v5, isUniquelyReferenced_nonNull_native);
+      sub_258384C94(v15, v6, v5, isUniquelyReferenced_nonNull_native);
 
-      off_27F928850 = v19;
+      off_27F928850 = v20;
       swift_endAccess();
     }
 
-    os_unfair_lock_unlock(v9);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927F90);
-    v17 = swift_allocObject();
-    *(v17 + 16) = xmmword_25842CCB0;
-    *(v17 + 56) = MEMORY[0x277D837D0];
-    *(v17 + 64) = sub_258385D08();
-    *(v17 + 32) = countAndFlagsBits;
-    *(v17 + 40) = object;
+    os_unfair_lock_unlock(v10);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F927F90, &qword_25842DDD0);
+    v18 = swift_allocObject();
+    *(v18 + 16) = xmmword_25842CCB0;
+    *(v18 + 56) = MEMORY[0x277D837D0];
+    *(v18 + 64) = sub_258385D08();
+    *(v18 + 32) = countAndFlagsBits;
+    *(v18 + 40) = object;
 
-    sub_258428440();
+    sub_258428440("%{public}@", 10, 2, &dword_258376000, v15, v8, v18);
   }
 
   return _ == 0;

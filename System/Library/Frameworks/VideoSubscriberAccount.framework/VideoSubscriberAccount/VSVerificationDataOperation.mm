@@ -39,7 +39,7 @@
 - (void)_finishWithError:(id)error
 {
   errorCopy = error;
-  v5 = VSErrorLogObject();
+  v5 = VSErrorLogObject(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(VSVerificationDataOperation *)errorCopy _finishWithError:v5];

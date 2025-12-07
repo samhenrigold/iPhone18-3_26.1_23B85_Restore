@@ -1218,16 +1218,8 @@ LABEL_146:
 {
   accountCopy = account;
   v9 = accountCopy;
-  if (only)
+  if (only || ([accountCopy identifier], v10 = objc_claimAutoreleasedReturnValue(), v10, !v10) || (objc_msgSend(v9, "identifier"), v11 = objc_claimAutoreleasedReturnValue(), -[AMSDCookieService _cachedCookiePropertiesForIdentifier:](self, "_cachedCookiePropertiesForIdentifier:", v11), v12 = objc_claimAutoreleasedReturnValue(), v11, !v12))
   {
-    goto LABEL_9;
-  }
-
-  identifier = [accountCopy identifier];
-
-  if (!identifier || ([v9 identifier], v11 = objc_claimAutoreleasedReturnValue(), -[AMSDCookieService _cachedCookiePropertiesForIdentifier:](self, "_cachedCookiePropertiesForIdentifier:", v11), v12 = objc_claimAutoreleasedReturnValue(), v11, !v12))
-  {
-LABEL_9:
     v19 = [(AMSDCookieService *)self _cookieDatabaseForAccount:v9 error:error];
     v13 = v19;
     if (v19)
@@ -1242,67 +1234,67 @@ LABEL_9:
           goto LABEL_37;
         }
 
-        v30 = [v9 accountPropertyForKey:@"cookies"];
-        if (v30)
+        v28 = [v9 accountPropertyForKey:@"cookies"];
+        if (v28)
         {
-          v31 = +[AMSLogConfig sharedAccountsCookiesConfig];
-          if (!v31)
+          v29 = +[AMSLogConfig sharedAccountsCookiesConfig];
+          if (!v29)
           {
-            v31 = +[AMSLogConfig sharedConfig];
+            v29 = +[AMSLogConfig sharedConfig];
           }
 
-          oSLogObject = [v31 OSLogObject];
+          oSLogObject = [v29 OSLogObject];
           if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
           {
-            v33 = objc_opt_class();
-            v34 = AMSLogKey();
+            v31 = objc_opt_class();
+            v32 = AMSLogKey();
             *buf = 138543618;
-            v57 = v33;
-            v58 = 2114;
-            v59 = v34;
+            v55 = v31;
+            v56 = 2114;
+            v57 = v32;
             _os_log_impl(&_mh_execute_header, oSLogObject, OS_LOG_TYPE_DEBUG, "%{public}@: [%{public}@] Account has unexpected cookies in Accounts database. Cookies should be in coookie database instead. These cookies will migrated on next account save.", buf, 0x16u);
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            oSLogObject4 = v30;
+            oSLogObject4 = v28;
 LABEL_36:
 
 LABEL_37:
             if ([oSLogObject4 count])
             {
-              v39 = [NSHTTPCookie ams_cookiesByMergingProperties:oSLogObject4 intoProperties:v21];
-              v40 = [NSHTTPCookie ams_propertiesForCookies:v39];
+              v37 = [NSHTTPCookie ams_cookiesByMergingProperties:oSLogObject4 intoProperties:v21];
+              v38 = [NSHTTPCookie ams_propertiesForCookies:v37];
 
-              v41 = +[AMSLogConfig sharedAccountsCookiesConfig];
-              if (!v41)
+              v39 = +[AMSLogConfig sharedAccountsCookiesConfig];
+              if (!v39)
               {
-                v41 = +[AMSLogConfig sharedConfig];
+                v39 = +[AMSLogConfig sharedConfig];
               }
 
-              oSLogObject2 = [v41 OSLogObject];
+              oSLogObject2 = [v39 OSLogObject];
               if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
               {
-                v53 = objc_opt_class();
+                v51 = objc_opt_class();
                 AMSLogKey();
-                v43 = v55 = self;
-                v52 = [v40 count];
-                v44 = [oSLogObject4 count];
-                v45 = [v39 count];
+                v41 = v53 = self;
+                v50 = [v38 count];
+                v42 = [oSLogObject4 count];
+                v43 = [v37 count];
                 *buf = 138544386;
-                v57 = v53;
-                v58 = 2114;
-                v59 = v43;
+                v55 = v51;
+                v56 = 2114;
+                v57 = v41;
+                v58 = 2048;
+                v59 = v50;
                 v60 = 2048;
-                v61 = v52;
+                v61 = v42;
                 v62 = 2048;
-                v63 = v44;
-                v64 = 2048;
-                v65 = v45;
+                v63 = v43;
                 _os_log_impl(&_mh_execute_header, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Loaded %lu cookie property dictionaries from database, %lu from Accounts. Parsed and merged into %lu total cookies.", buf, 0x34u);
 
-                self = v55;
+                self = v53;
               }
 
               if (only)
@@ -1313,45 +1305,45 @@ LABEL_37:
 
             else
             {
-              v40 = v21;
+              v38 = v21;
               if (only)
               {
 LABEL_47:
-                oSLogObject5 = v40;
+                oSLogObject5 = v38;
                 v12 = oSLogObject5;
                 goto LABEL_48;
               }
             }
 
-            identifier2 = [v9 identifier];
+            identifier = [v9 identifier];
 
-            if (identifier2)
+            if (identifier)
             {
-              identifier3 = [v9 identifier];
-              [(AMSDCookieService *)self _cacheCookieProperties:v40 forIdentifier:identifier3];
+              identifier2 = [v9 identifier];
+              [(AMSDCookieService *)self _cacheCookieProperties:v38 forIdentifier:identifier2];
             }
 
             goto LABEL_47;
           }
 
-          v35 = +[AMSLogConfig sharedAccountsCookiesConfig];
-          if (!v35)
+          v33 = +[AMSLogConfig sharedAccountsCookiesConfig];
+          if (!v33)
           {
-            v35 = +[AMSLogConfig sharedConfig];
+            v33 = +[AMSLogConfig sharedConfig];
           }
 
-          oSLogObject3 = [v35 OSLogObject];
+          oSLogObject3 = [v33 OSLogObject];
           if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
           {
-            v54 = objc_opt_class();
-            v37 = AMSLogKey();
-            v38 = AMSHashIfNeeded();
+            v52 = objc_opt_class();
+            v35 = AMSLogKey();
+            v36 = AMSHashIfNeeded();
             *buf = 138543874;
-            v57 = v54;
+            v55 = v52;
+            v56 = 2114;
+            v57 = v35;
             v58 = 2114;
-            v59 = v37;
-            v60 = 2114;
-            v61 = v38;
+            v59 = v36;
             _os_log_impl(&_mh_execute_header, oSLogObject3, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Unexpected value in Accounts database for cookies: %{public}@", buf, 0x20u);
           }
         }
@@ -1376,17 +1368,16 @@ LABEL_48:
         goto LABEL_49;
       }
 
-      v28 = objc_opt_class();
+      v27 = objc_opt_class();
       v24 = AMSLogKey();
-      v29 = *error;
-      v26 = AMSLogableError();
+      v25 = AMSLogableError();
       *buf = 138543874;
-      v57 = v28;
+      v55 = v27;
+      v56 = 2114;
+      v57 = v24;
       v58 = 2114;
-      v59 = v24;
-      v60 = 2114;
-      v61 = v26;
-      v27 = "%{public}@: [%{public}@] Error getting cookie properties: %{public}@";
+      v59 = v25;
+      v26 = "%{public}@: [%{public}@] Error getting cookie properties: %{public}@";
     }
 
     else
@@ -1405,18 +1396,17 @@ LABEL_48:
 
       v23 = objc_opt_class();
       v24 = AMSLogKey();
-      v25 = *error;
-      v26 = AMSLogableError();
+      v25 = AMSLogableError();
       *buf = 138543874;
-      v57 = v23;
+      v55 = v23;
+      v56 = 2114;
+      v57 = v24;
       v58 = 2114;
-      v59 = v24;
-      v60 = 2114;
-      v61 = v26;
-      v27 = "%{public}@: [%{public}@] Error getting cookie database: %{public}@";
+      v59 = v25;
+      v26 = "%{public}@: [%{public}@] Error getting cookie database: %{public}@";
     }
 
-    _os_log_impl(&_mh_execute_header, oSLogObject4, OS_LOG_TYPE_ERROR, v27, buf, 0x20u);
+    _os_log_impl(&_mh_execute_header, oSLogObject4, OS_LOG_TYPE_ERROR, v26, buf, 0x20u);
 
     goto LABEL_22;
   }
@@ -1444,15 +1434,15 @@ LABEL_48:
       [NSString stringWithFormat:@"%@: ", v16];
     }
     selfCopy = ;
+    v47 = AMSHashIfNeeded();
+    identifier3 = [v9 identifier];
     v49 = AMSHashIfNeeded();
-    identifier4 = [v9 identifier];
-    v51 = AMSHashIfNeeded();
     *buf = 138543874;
-    v57 = selfCopy;
+    v55 = selfCopy;
+    v56 = 2114;
+    v57 = v47;
     v58 = 2114;
     v59 = v49;
-    v60 = 2114;
-    v61 = v51;
     _os_log_impl(&_mh_execute_header, oSLogObject5, OS_LOG_TYPE_DEBUG, "%{public}@Found cached cookie properties. cookieProperties = %{public}@ | identifier = %{public}@", buf, 0x20u);
 
     if (v15)

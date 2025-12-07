@@ -356,10 +356,10 @@ void __79__TVRUIUpNextController__remoteFetchUpNextInfosWithPaginationToken_comp
     v4 = *(a1 + 64);
     if (v4)
     {
-      (*(v4 + 16))(v4, 0, MEMORY[0x277CBEBF8], *(a1 + 32));
+      v4 = (*(v4 + 16))(v4, 0, MEMORY[0x277CBEBF8], *(a1 + 32));
     }
 
-    v27 = _TVRUINowPlayingLog();
+    v27 = _TVRUINowPlayingLog(v4);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       __79__TVRUIUpNextController__remoteFetchUpNextInfosWithPaginationToken_completion___block_invoke_2_cold_1((a1 + 32), v27);
@@ -417,7 +417,7 @@ void __79__TVRUIUpNextController__remoteFetchUpNextInfosWithPaginationToken_comp
 
             else
             {
-              v17 = _TVRUINowPlayingLog();
+              v17 = _TVRUINowPlayingLog(v14);
               if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
@@ -503,10 +503,11 @@ void __79__TVRUIUpNextController__remoteFetchUpNextInfosWithPaginationToken_comp
 void __70__TVRUIUpNextController__remoteAddItemWithMediaIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _TVRUINowPlayingLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _TVRUINowPlayingLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __70__TVRUIUpNextController__remoteAddItemWithMediaIdentifier_completion___block_invoke_cold_1();
     }
@@ -516,13 +517,13 @@ void __70__TVRUIUpNextController__remoteAddItemWithMediaIdentifier_completion___
   block[1] = 3221225472;
   block[2] = __70__TVRUIUpNextController__remoteAddItemWithMediaIdentifier_completion___block_invoke_29;
   block[3] = &unk_279D87948;
-  v5 = *(a1 + 40);
-  v8 = v3;
-  v9 = v5;
-  v6 = v3;
-  objc_copyWeak(&v10, (a1 + 48));
+  v6 = *(a1 + 40);
+  v9 = v4;
+  v10 = v6;
+  v7 = v4;
+  objc_copyWeak(&v11, (a1 + 48));
   dispatch_async(MEMORY[0x277D85CD0], block);
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v11);
 }
 
 void __70__TVRUIUpNextController__remoteAddItemWithMediaIdentifier_completion___block_invoke_29(uint64_t a1)
@@ -561,10 +562,11 @@ void __70__TVRUIUpNextController__remoteAddItemWithMediaIdentifier_completion___
 void __76__TVRUIUpNextController__remoteMarkAsWatchedWithMediaIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _TVRUINowPlayingLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _TVRUINowPlayingLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __76__TVRUIUpNextController__remoteMarkAsWatchedWithMediaIdentifier_completion___block_invoke_cold_1();
     }
@@ -574,13 +576,13 @@ void __76__TVRUIUpNextController__remoteMarkAsWatchedWithMediaIdentifier_complet
   block[1] = 3221225472;
   block[2] = __76__TVRUIUpNextController__remoteMarkAsWatchedWithMediaIdentifier_completion___block_invoke_33;
   block[3] = &unk_279D87948;
-  v5 = *(a1 + 40);
-  v8 = v3;
-  v9 = v5;
-  v6 = v3;
-  objc_copyWeak(&v10, (a1 + 48));
+  v6 = *(a1 + 40);
+  v9 = v4;
+  v10 = v6;
+  v7 = v4;
+  objc_copyWeak(&v11, (a1 + 48));
   dispatch_async(MEMORY[0x277D85CD0], block);
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v11);
 }
 
 void __76__TVRUIUpNextController__remoteMarkAsWatchedWithMediaIdentifier_completion___block_invoke_33(uint64_t a1)
@@ -619,10 +621,11 @@ void __76__TVRUIUpNextController__remoteMarkAsWatchedWithMediaIdentifier_complet
 void __73__TVRUIUpNextController__remoteRemoveItemWithMediaIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _TVRUINowPlayingLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _TVRUINowPlayingLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __73__TVRUIUpNextController__remoteRemoveItemWithMediaIdentifier_completion___block_invoke_cold_1();
     }
@@ -632,13 +635,13 @@ void __73__TVRUIUpNextController__remoteRemoveItemWithMediaIdentifier_completion
   block[1] = 3221225472;
   block[2] = __73__TVRUIUpNextController__remoteRemoveItemWithMediaIdentifier_completion___block_invoke_36;
   block[3] = &unk_279D87948;
-  v5 = *(a1 + 40);
-  v8 = v3;
-  v9 = v5;
-  v6 = v3;
-  objc_copyWeak(&v10, (a1 + 48));
+  v6 = *(a1 + 40);
+  v9 = v4;
+  v10 = v6;
+  v7 = v4;
+  objc_copyWeak(&v11, (a1 + 48));
   dispatch_async(MEMORY[0x277D85CD0], block);
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v11);
 }
 
 void __73__TVRUIUpNextController__remoteRemoveItemWithMediaIdentifier_completion___block_invoke_36(uint64_t a1)
@@ -671,24 +674,25 @@ void __73__TVRUIUpNextController__remoteRemoveItemWithMediaIdentifier_completion
 void __52__TVRUIUpNextController__remotePlayItem_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _TVRUINowPlayingLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _TVRUINowPlayingLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __52__TVRUIUpNextController__remotePlayItem_completion___block_invoke_cold_1();
     }
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __52__TVRUIUpNextController__remotePlayItem_completion___block_invoke_39;
-  v7[3] = &unk_279D87998;
-  v5 = *(a1 + 40);
-  v8 = v3;
-  v9 = v5;
-  v6 = v3;
-  dispatch_async(MEMORY[0x277D85CD0], v7);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __52__TVRUIUpNextController__remotePlayItem_completion___block_invoke_39;
+  v8[3] = &unk_279D87998;
+  v6 = *(a1 + 40);
+  v9 = v4;
+  v10 = v6;
+  v7 = v4;
+  dispatch_async(MEMORY[0x277D85CD0], v8);
 }
 
 - (void)_prewarmImagesAsNeeded

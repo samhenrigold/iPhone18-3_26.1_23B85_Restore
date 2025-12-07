@@ -36,7 +36,7 @@
 
 - (void)noteRecievedNotification:(uint64_t)notification
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (notification)
   {
     name = [a2 name];
@@ -87,15 +87,15 @@
     {
       v10 = atomic_load((notification + 8));
       *buf = 136316162;
-      v23 = "[PFCloudKitThrottledNotificationObserver noteRecievedNotification:]";
-      v24 = 1024;
-      v25 = 50;
-      v26 = 2112;
+      v22 = "[PFCloudKitThrottledNotificationObserver noteRecievedNotification:]";
+      v23 = 1024;
+      v24 = 50;
+      v25 = 2112;
       notificationCopy2 = notification;
-      v28 = 2112;
-      v29 = name;
-      v30 = 1024;
-      v31 = v10;
+      v27 = 2112;
+      v28 = name;
+      v29 = 1024;
+      v30 = v10;
       _os_log_impl(&dword_18565F000, v6, v9, "CoreData+CloudKit: %s(%d): %@: Got: %@ - %d", buf, 0x2Cu);
     }
 
@@ -134,15 +134,15 @@
       {
         v16 = atomic_load((notification + 8));
         *buf = 136316162;
-        v23 = "[PFCloudKitThrottledNotificationObserver noteRecievedNotification:]";
-        v24 = 1024;
-        v25 = 68;
-        v26 = 2112;
+        v22 = "[PFCloudKitThrottledNotificationObserver noteRecievedNotification:]";
+        v23 = 1024;
+        v24 = 68;
+        v25 = 2112;
         notificationCopy2 = notification;
-        v28 = 2112;
-        v29 = name;
-        v30 = 1024;
-        v31 = v16;
+        v27 = 2112;
+        v28 = name;
+        v29 = 1024;
+        v30 = v16;
         _os_log_impl(&dword_18565F000, v13, v15, "CoreData+CloudKit: %s(%d): %@ - Already scheduled a block to respond to '%@', %d notifications since.", buf, 0x2Cu);
       }
 
@@ -164,13 +164,11 @@
       dispatch_after(v18, global_queue, block);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __68__PFCloudKitThrottledNotificationObserver_noteRecievedNotification___block_invoke(void *a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = atomic_exchange((a1[4] + 8), 0);
   v3 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
@@ -220,19 +218,19 @@ uint64_t __68__PFCloudKitThrottledNotificationObserver_noteRecievedNotification_
     v9 = a1[4];
     v10 = a1[5];
     v11 = *(v9 + 24);
-    v19 = 136316418;
-    v20 = "[PFCloudKitThrottledNotificationObserver noteRecievedNotification:]_block_invoke";
-    v21 = 1024;
-    v22 = 56;
-    v23 = 2112;
-    v24 = v9;
-    v25 = 2112;
-    v26 = v11;
-    v27 = 2112;
-    v28 = v10;
-    v29 = 1024;
-    v30 = v2;
-    _os_log_impl(&dword_18565F000, v5, v8, "CoreData+CloudKit: %s(%d): %@: Executing '%@' block for '%@' clearing %d iterations.", &v19, 0x36u);
+    v18 = 136316418;
+    v19 = "[PFCloudKitThrottledNotificationObserver noteRecievedNotification:]_block_invoke";
+    v20 = 1024;
+    v21 = 56;
+    v22 = 2112;
+    v23 = v9;
+    v24 = 2112;
+    v25 = v11;
+    v26 = 2112;
+    v27 = v10;
+    v28 = 1024;
+    v29 = v2;
+    _os_log_impl(&dword_18565F000, v5, v8, "CoreData+CloudKit: %s(%d): %@: Executing '%@' block for '%@' clearing %d iterations.", &v18, 0x36u);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -247,25 +245,23 @@ uint64_t __68__PFCloudKitThrottledNotificationObserver_noteRecievedNotification_
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
-      v17 = a1[5];
-      v19 = 138412290;
-      v20 = v17;
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: No notification handler block specified. Dropping: %@\n", &v19, 0xCu);
+      v16 = a1[5];
+      v18 = 138412290;
+      v19 = v16;
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: No notification handler block specified. Dropping: %@\n", &v18, 0xCu);
     }
 
     v14 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      v18 = a1[5];
-      v19 = 138412290;
-      v20 = v18;
-      _os_log_fault_impl(&dword_18565F000, v14, OS_LOG_TYPE_FAULT, "CoreData: No notification handler block specified. Dropping: %@", &v19, 0xCu);
+      v17 = a1[5];
+      v18 = 138412290;
+      v19 = v17;
+      _os_log_fault_impl(&dword_18565F000, v14, OS_LOG_TYPE_FAULT, "CoreData: No notification handler block specified. Dropping: %@", &v18, 0xCu);
     }
   }
 
-  result = [_PFClassicBackgroundRuntimeVoucher _endPowerAssertionWithVoucher:a1[6]];
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return [_PFClassicBackgroundRuntimeVoucher _endPowerAssertionWithVoucher:a1[6]];
 }
 
 @end

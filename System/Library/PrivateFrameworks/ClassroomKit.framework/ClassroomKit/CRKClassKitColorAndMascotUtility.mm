@@ -61,10 +61,10 @@
 
     else
     {
-      v9 = _CRKLogASM_10();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = _CRKLogASM_10(v7);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [(CRKClassKitColorAndMascotUtility *)identifierCopy mascotTypeForMascotIdentifier:v9];
+        [(CRKClassKitColorAndMascotUtility *)identifierCopy mascotTypeForMascotIdentifier:v10];
       }
 
       integerValue = [self defaultMascot];
@@ -183,10 +183,10 @@ void __65__CRKClassKitColorAndMascotUtility_mascotTypesByMascotIdentifier__block
 
   else
   {
-    v8 = _CRKLogASM_10();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _CRKLogASM_10(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(CRKClassKitColorAndMascotUtility *)identifierCopy colorTypeForColorIdentifier:v8];
+      [(CRKClassKitColorAndMascotUtility *)identifierCopy colorTypeForColorIdentifier:v9];
     }
 
     integerValue = 4;
@@ -257,7 +257,7 @@ void __63__CRKClassKitColorAndMascotUtility_colorTypesByColorIdentifier__block_i
 
   else
   {
-    v9 = _CRKLogASM_10();
+    v9 = _CRKLogASM_10(classThemeColors);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [CRKClassKitColorAndMascotUtility classColorFromClassName:v9];

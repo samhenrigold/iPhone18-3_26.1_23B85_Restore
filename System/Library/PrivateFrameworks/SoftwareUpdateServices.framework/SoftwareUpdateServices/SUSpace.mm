@@ -1,5 +1,7 @@
 @interface SUSpace
 + (BOOL)_isOffloadUnusedAppsOn;
++ (id)_checkPurgeResultForPhase:(id)phase neededBytes:(unint64_t)bytes haveEnoushSpace:(BOOL)space availableBytes:(unint64_t)availableBytes error:(id)error;
++ (id)_processForPhase:(id)phase results:(id)results neededBytes:(unint64_t)bytes haveEnoushSpace:(BOOL)space availableBytes:(unint64_t)availableBytes error:(id)error;
 + (id)hasSufficientSpaceWithOptions:(id)options error:(id *)error;
 + (unint64_t)currentFreeSpaceForVolume:(id)volume;
 + (unint64_t)maxPreSUStagingOptionalSpaceForUpdate:(id)update;
@@ -7,6 +9,7 @@
 + (void)_checkPurgeableCacheDelete:(id)delete results:(id)results completion:(id)completion;
 + (void)_checkPurgeableMASuspend:(id)suspend results:(id)results completion:(id)completion;
 + (void)_purgeAppOffloadIfNeeded:(BOOL)needed neededBytes:(unint64_t)bytes urgency:(int64_t)urgency completion:(id)completion;
++ (void)_purgeCacheDeleteIfNeeded:(BOOL)needed neededBytes:(unint64_t)bytes urgency:(int)urgency completion:(id)completion;
 + (void)_purgeMASuspendIfNeeded:(BOOL)needed neededBytes:(unint64_t)bytes completion:(id)completion;
 + (void)_runGetOffTestingIfNecessary:(BOOL)necessary handler:(id)handler;
 + (void)_showPurgingAlertIfNecessary:(id)necessary results:(id)results completion:(id)completion;
@@ -16,6 +19,80 @@
 @end
 
 @implementation SUSpace
+
++ (id)_processForPhase:(id)phase results:(id)results neededBytes:(unint64_t)bytes haveEnoushSpace:(BOOL)space availableBytes:(unint64_t)availableBytes error:(id)error
+{
+  spaceCopy = space;
+  v57[1] = *MEMORY[0x277D85DE8];
+  phaseCopy = phase;
+  resultsCopy = results;
+  errorCopy = error;
+  if ([errorCopy isSUCoreInsufficientSpace])
+  {
+
+    goto LABEL_5;
+  }
+
+  if (!errorCopy)
+  {
+LABEL_5:
+    v23 = bytes - availableBytes;
+    if (bytes > availableBytes != spaceCopy)
+    {
+      phaseCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"needs%@", phaseCopy];
+      [resultsCopy setValue:MEMORY[0x277CBEC38] forKey:phaseCopy];
+
+      if (spaceCopy)
+      {
+        phaseCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] Have enough space", phaseCopy];
+        SULogInfo(@"[SPACE] %s: %@", v25, v26, v27, v28, v29, v30, v31, "+[SUSpace _processForPhase:results:neededBytes:haveEnoushSpace:availableBytes:error:]");
+
+        [resultsCopy setHasSufficientFreeSpace:1];
+        v32 = resultsCopy;
+        v33 = 0;
+      }
+
+      else
+      {
+        phaseCopy3 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] No enough space", phaseCopy];
+        SULogInfo(@"[SPACE] %s: %@", v44, v45, v46, v47, v48, v49, v50, "+[SUSpace _processForPhase:results:neededBytes:haveEnoushSpace:availableBytes:error:]");
+
+        [resultsCopy setHasSufficientFreeSpace:0];
+        v32 = resultsCopy;
+        v33 = v23;
+      }
+
+      [v32 setAdditionalBytesRequired:v33];
+      errorCopy = 0;
+    }
+
+    else
+    {
+      availableBytes = [MEMORY[0x277CCACA8] stringWithFormat:@"[PURGEABLE] [%@ - Bug!] haveEnoughSpace = %d, neededBytes = %llu, availableBytes = %llu", phaseCopy, spaceCopy, bytes, availableBytes];
+      v54 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", availableBytes];
+      SULogError(@"[SPACE] %s: %@", v35, v36, v37, v38, v39, v40, v41, "+[SUSpace _processForPhase:results:neededBytes:haveEnoushSpace:availableBytes:error:]");
+
+      [resultsCopy setHasSufficientFreeSpace:0];
+      [resultsCopy setAdditionalBytesRequired:bytes];
+      v42 = MEMORY[0x277CCA9B8];
+      v56 = *MEMORY[0x277CCA450];
+      v57[0] = availableBytes;
+      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:&v56 count:1];
+      errorCopy = [v42 errorWithDomain:@"com.apple.softwareupdateservices.errors" code:-1 userInfo:v43];
+    }
+
+    goto LABEL_11;
+  }
+
+  errorCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] operation failed: haveEnoughSpace: %d, availableBytes: %llu, error: %@", phaseCopy, spaceCopy, availableBytes, errorCopy];
+  SULogError(@"[SPACE] %s: %@", v16, v17, v18, v19, v20, v21, v22, "+[SUSpace _processForPhase:results:neededBytes:haveEnoushSpace:availableBytes:error:]");
+
+  [resultsCopy setHasSufficientFreeSpace:0];
+  [resultsCopy setAdditionalBytesRequired:bytes];
+LABEL_11:
+
+  return errorCopy;
+}
 
 + (void)_checkPurgeableCacheDelete:(id)delete results:(id)results completion:(id)completion
 {
@@ -365,29 +442,28 @@ void __56__SUSpace_hasSufficientSpaceWithOptions_withCompletion___block_invoke_3
   v3 = a2;
   if (v3 || [*(a1 + 32) hasSufficientFreeSpace])
   {
-    v4 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 
   else
   {
     [*(a1 + 40) setNeededBytes:{objc_msgSend(*(a1 + 32), "additionalBytesRequired")}];
-    v5 = *(a1 + 56);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __56__SUSpace_hasSufficientSpaceWithOptions_withCompletion___block_invoke_4;
-    v12[3] = &unk_279CAB0C0;
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 48);
-    v9 = *(a1 + 40);
+    v4 = *(a1 + 56);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __56__SUSpace_hasSufficientSpaceWithOptions_withCompletion___block_invoke_4;
+    v11[3] = &unk_279CAB0C0;
+    v5 = *(a1 + 40);
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 48);
+    v8 = *(a1 + 40);
+    *&v9 = v6;
+    *(&v9 + 1) = v8;
     *&v10 = v7;
-    *(&v10 + 1) = v9;
-    *&v11 = v8;
-    *(&v11 + 1) = *(a1 + 56);
+    *(&v10 + 1) = *(a1 + 56);
+    v12 = v9;
     v13 = v10;
-    v14 = v11;
-    [v5 _checkPurgeableAppOffload:v6 results:v7 completion:v12];
+    [v4 _checkPurgeableAppOffload:v5 results:v6 completion:v11];
   }
 }
 
@@ -396,23 +472,22 @@ void __56__SUSpace_hasSufficientSpaceWithOptions_withCompletion___block_invoke_4
   v3 = a2;
   if (v3 || [*(a1 + 32) hasSufficientFreeSpace])
   {
-    v4 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 
   else
   {
     [*(a1 + 40) setNeededBytes:{objc_msgSend(*(a1 + 32), "additionalBytesRequired")}];
-    v6 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __56__SUSpace_hasSufficientSpaceWithOptions_withCompletion___block_invoke_5;
-    v8[3] = &unk_279CAB098;
-    v7 = *(a1 + 56);
-    v10 = *(a1 + 48);
-    v9 = *(a1 + 32);
-    [v7 _checkPurgeableMASuspend:v5 results:v6 completion:v8];
+    v5 = *(a1 + 32);
+    v4 = *(a1 + 40);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __56__SUSpace_hasSufficientSpaceWithOptions_withCompletion___block_invoke_5;
+    v7[3] = &unk_279CAB098;
+    v6 = *(a1 + 56);
+    v9 = *(a1 + 48);
+    v8 = *(a1 + 32);
+    [v6 _checkPurgeableMASuspend:v4 results:v5 completion:v7];
   }
 }
 
@@ -531,25 +606,91 @@ void __47__SUSpace_hasSufficientSpaceWithOptions_error___block_invoke(uint64_t a
 
 void __59__SUSpace__showPurgingAlertIfNecessary_results_completion___block_invoke(uint64_t a1, int a2)
 {
-  v3 = *(a1 + 32);
   if (a2 == 1)
   {
-    v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Offload %@ accepted by user", *(a1 + 32)];
-    SULogInfo(@"[SPACE] %s: %@", v4, v5, v6, v7, v8, v9, v10, "+[SUSpace _showPurgingAlertIfNecessary:results:completion:]_block_invoke");
+    v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Offload %@ accepted by user", *(a1 + 32)];
+    SULogInfo(@"[SPACE] %s: %@", v3, v4, v5, v6, v7, v8, v9, "+[SUSpace _showPurgingAlertIfNecessary:results:completion:]_block_invoke");
 
-    v11 = *(*(a1 + 40) + 16);
+    v10 = *(*(a1 + 40) + 16);
 
-    v11();
+    v10();
   }
 
   else
   {
-    v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"Offload %@ declined by user", *(a1 + 32)];
-    SULogInfo(@"[SPACE] %s: %@", v12, v13, v14, v15, v16, v17, v18, "+[SUSpace _showPurgingAlertIfNecessary:results:completion:]_block_invoke");
+    v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Offload %@ declined by user", *(a1 + 32)];
+    SULogInfo(@"[SPACE] %s: %@", v11, v12, v13, v14, v15, v16, v17, "+[SUSpace _showPurgingAlertIfNecessary:results:completion:]_block_invoke");
 
-    v19 = *(a1 + 40);
-    v22 = [SUUtility errorWithCode:44];
-    (*(v19 + 16))(v19, v22);
+    v18 = *(a1 + 40);
+    v21 = [SUUtility errorWithCode:44];
+    (*(v18 + 16))(v18, v21);
+  }
+}
+
++ (id)_checkPurgeResultForPhase:(id)phase neededBytes:(unint64_t)bytes haveEnoushSpace:(BOOL)space availableBytes:(unint64_t)availableBytes error:(id)error
+{
+  spaceCopy = space;
+  v33[1] = *MEMORY[0x277D85DE8];
+  phaseCopy = phase;
+  errorCopy = error;
+  if ([errorCopy isSUCoreInsufficientSpace])
+  {
+  }
+
+  else if (errorCopy)
+  {
+    errorCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] operation failed: haveEnoughSpace: %d, availableBytes: %llu, error: %@", phaseCopy, spaceCopy, availableBytes, errorCopy];
+    SULogError(@"[SPACE] %s: %@", v14, v15, v16, v17, v18, v19, v20, "+[SUSpace _checkPurgeResultForPhase:neededBytes:haveEnoushSpace:availableBytes:error:]");
+    goto LABEL_8;
+  }
+
+  if (bytes > availableBytes != spaceCopy)
+  {
+    errorCopy = 0;
+    goto LABEL_9;
+  }
+
+  errorCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"[Purge] [%@ - Bug!] haveEnoughSpace = %d, neededBytes = %llu, availableBytes = %llu", phaseCopy, spaceCopy, bytes, availableBytes];
+  v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", errorCopy];
+  SULogError(@"[SPACE] %s: %@", v21, v22, v23, v24, v25, v26, v27, "+[SUSpace _checkPurgeResultForPhase:neededBytes:haveEnoushSpace:availableBytes:error:]");
+
+  v28 = MEMORY[0x277CCA9B8];
+  v32 = *MEMORY[0x277CCA450];
+  v33[0] = errorCopy;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+  errorCopy = [v28 errorWithDomain:@"com.apple.softwareupdateservices.errors" code:-1 userInfo:v29];
+
+LABEL_8:
+LABEL_9:
+
+  return errorCopy;
+}
+
++ (void)_purgeCacheDeleteIfNeeded:(BOOL)needed neededBytes:(unint64_t)bytes urgency:(int)urgency completion:(id)completion
+{
+  v6 = *&urgency;
+  neededCopy = needed;
+  completionCopy = completion;
+  v11 = completionCopy;
+  if (neededCopy)
+  {
+    v12 = MEMORY[0x277D641E8];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __68__SUSpace__purgeCacheDeleteIfNeeded_neededBytes_urgency_completion___block_invoke;
+    v21[3] = &unk_279CAB138;
+    selfCopy = self;
+    bytesCopy = bytes;
+    v22 = completionCopy;
+    [v12 cacheDeletePurge:bytes cacheDeleteUrgency:v6 withCompletionQueue:0 completion:v21];
+  }
+
+  else
+  {
+    v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] Purge: not needed", @"CacheDelete"];
+    SULogInfo(@"[SPACE] %s: %@", v13, v14, v15, v16, v17, v18, v19, "+[SUSpace _purgeCacheDeleteIfNeeded:neededBytes:urgency:completion:]");
+
+    (v11)[2](v11, bytes == 0, 0, 0);
   }
 }
 
@@ -700,22 +841,21 @@ void __48__SUSpace__runGetOffTestingIfNecessary_handler___block_invoke(uint64_t 
     v5 = +[SUAlertPresentationManager sharedInstance];
     [v5 dismissAlertsOfClass:objc_opt_class() animated:1];
     v6 = [SUGetOffTestingAlertItem alloc];
-    v10 = MEMORY[0x277D85DD0];
-    v11 = 3221225472;
-    v12 = __48__SUSpace__runGetOffTestingIfNecessary_handler___block_invoke_2;
-    v13 = &unk_279CAB1A8;
-    v15 = a3;
-    v14 = *(a1 + 32);
-    v7 = [(SUGetOffTestingAlertItem *)v6 initWithHandler:&v10];
-    [v5 presentAlert:v7 animated:{1, v10, v11, v12, v13}];
+    v9 = MEMORY[0x277D85DD0];
+    v10 = 3221225472;
+    v11 = __48__SUSpace__runGetOffTestingIfNecessary_handler___block_invoke_2;
+    v12 = &unk_279CAB1A8;
+    v14 = a3;
+    v13 = *(a1 + 32);
+    v7 = [(SUGetOffTestingAlertItem *)v6 initWithHandler:&v9];
+    [v5 presentAlert:v7 animated:{1, v9, v10, v11, v12}];
   }
 
   else
   {
-    v8 = *(a1 + 32);
-    v9 = *(*(a1 + 32) + 16);
+    v8 = *(*(a1 + 32) + 16);
 
-    v9();
+    v8();
   }
 }
 
@@ -984,10 +1124,9 @@ void __40__SUSpace_makeRoomForUpdate_completion___block_invoke_6(uint64_t a1, in
   *(*(*(a1 + 56) + 8) + 24) = 1;
   if (a4 || a2)
   {
-    v11 = *(a1 + 48);
-    v12 = *(*(a1 + 48) + 16);
+    v11 = *(*(a1 + 48) + 16);
 
-    v12();
+    v11();
   }
 
   else
@@ -997,17 +1136,17 @@ void __40__SUSpace_makeRoomForUpdate_completion___block_invoke_6(uint64_t a1, in
     v6 = [*(a1 + 32) needsAppOffload];
     v7 = *(*(*(a1 + 64) + 8) + 24);
     v8 = [*(a1 + 40) appOffloadUrgency];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __40__SUSpace_makeRoomForUpdate_completion___block_invoke_7;
-    v14[3] = &unk_279CAB270;
-    v13 = *(a1 + 48);
-    v9 = v13;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __40__SUSpace_makeRoomForUpdate_completion___block_invoke_7;
+    v13[3] = &unk_279CAB270;
+    v12 = *(a1 + 48);
+    v9 = v12;
     v10 = *(a1 + 64);
-    v16 = v13;
-    v17 = v10;
-    v15 = *(a1 + 32);
-    [v5 _purgeAppOffloadIfNeeded:v6 neededBytes:v7 urgency:v8 completion:v14];
+    v15 = v12;
+    v16 = v10;
+    v14 = *(a1 + 32);
+    [v5 _purgeAppOffloadIfNeeded:v6 neededBytes:v7 urgency:v8 completion:v13];
   }
 }
 
@@ -1016,10 +1155,9 @@ void __40__SUSpace_makeRoomForUpdate_completion___block_invoke_7(uint64_t a1, in
   *(*(*(a1 + 48) + 8) + 24) = 2;
   if (a4 || a2)
   {
-    v9 = *(a1 + 40);
-    v10 = *(*(a1 + 40) + 16);
+    v9 = *(*(a1 + 40) + 16);
 
-    v10();
+    v9();
   }
 
   else
@@ -1028,14 +1166,14 @@ void __40__SUSpace_makeRoomForUpdate_completion___block_invoke_7(uint64_t a1, in
     v5 = *(a1 + 64);
     v6 = [*(a1 + 32) needsMobileAssetSuspend];
     v7 = *(*(*(a1 + 56) + 8) + 24);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __40__SUSpace_makeRoomForUpdate_completion___block_invoke_8;
-    v12[3] = &unk_279CAB248;
-    v11 = *(a1 + 40);
-    v8 = v11;
-    v13 = v11;
-    [v5 _purgeMASuspendIfNeeded:v6 neededBytes:v7 completion:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __40__SUSpace_makeRoomForUpdate_completion___block_invoke_8;
+    v11[3] = &unk_279CAB248;
+    v10 = *(a1 + 40);
+    v8 = v10;
+    v12 = v10;
+    [v5 _purgeMASuspendIfNeeded:v6 neededBytes:v7 completion:v11];
   }
 }
 

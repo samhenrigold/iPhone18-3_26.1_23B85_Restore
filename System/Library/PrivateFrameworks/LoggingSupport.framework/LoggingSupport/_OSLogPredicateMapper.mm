@@ -36,19 +36,32 @@
 
 - (void)visitPredicateExpression:(id)expression
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   expressionCopy = expression;
   if (self->_pass != 1)
   {
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v8 = 0;
+    memset(v11, 0, sizeof(v11));
+    v5 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v9 = 134217984;
+    v10 = 0;
+    _os_log_send_and_compose_impl(v6, &v8, v11, 80, &dword_22E01A000, v5, 16, "assertion failure: _pass == MAPPER_PASS_VALIDATE -> %llu", &v9);
     _os_crash_msg();
     __break(1u);
   }
 
-  v6 = expressionCopy;
+  v7 = expressionCopy;
   [(_OSLogPredicateMapper *)self validateExpression:expressionCopy];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)visitPredicateOperator:(id)operator
@@ -60,7 +73,7 @@
 
 - (void)validateExpression:(id)expression
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   expressionCopy = expression;
   expressionType = [expressionCopy expressionType];
   if (expressionType <= 0xE)
@@ -78,9 +91,9 @@
       if (expressionType2 == 1)
       {
         arguments = [expressionCopy arguments];
-        v9 = [arguments count];
+        v8 = [arguments count];
 
-        if (v9 == 1)
+        if (v8 == 1)
         {
           [(_OSLogPredicateMapper *)self validateKeyPath:expressionCopy];
           goto LABEL_3;
@@ -89,14 +102,50 @@
 
       else
       {
-        os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
+        v16 = 0;
+        v22 = 0u;
+        v23 = 0u;
+        v20 = 0u;
+        v21 = 0u;
+        v19 = 0u;
+        v11 = MEMORY[0x277D86220];
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          v12 = 3;
+        }
+
+        else
+        {
+          v12 = 2;
+        }
+
+        v17 = 134217984;
+        v18 = 0;
+        _os_log_send_and_compose_impl(v12, &v16, &v19, 80, &dword_22E01A000, v11, 16, "assertion failure: expression.operand.expressionType == NSEvaluatedObjectExpressionType -> %llu", &v17);
         _os_crash_msg();
         __break(1u);
       }
 
-      os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
+      v16 = 0;
+      v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
+      v19 = 0u;
+      v13 = MEMORY[0x277D86220];
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        v14 = 3;
+      }
+
+      else
+      {
+        v14 = 2;
+      }
+
+      v17 = 134217984;
+      v18 = 0;
+      _os_log_send_and_compose_impl(v14, &v16, &v19, 80, &dword_22E01A000, v13, 16, "assertion failure: expression.arguments.count == 1 -> %llu", &v17);
       _os_crash_msg();
       __break(1u);
     }
@@ -107,12 +156,11 @@
   [(NSMutableArray *)validationErrors addObject:expressionCopy];
 
 LABEL_3:
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateKeyPath:(id)path
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   validKeyPaths = [(_OSLogPredicateMapper *)self validKeyPaths];
   keyPath = [pathCopy keyPath];
@@ -120,26 +168,26 @@ LABEL_3:
 
   if ((v7 & 1) == 0)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     keyPath3 = self->_validKeyPathPrefixes;
-    v9 = [(NSMutableArray *)keyPath3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [(NSMutableArray *)keyPath3 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
 LABEL_4:
       v12 = 0;
       while (1)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(keyPath3);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * v12);
+        v13 = *(*(&v18 + 1) + 8 * v12);
         keyPath2 = [pathCopy keyPath];
         LOBYTE(v13) = [keyPath2 hasPrefix:v13];
 
@@ -150,7 +198,7 @@ LABEL_4:
 
         if (v10 == ++v12)
         {
-          v10 = [(NSMutableArray *)keyPath3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v10 = [(NSMutableArray *)keyPath3 countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (v10)
           {
             goto LABEL_4;
@@ -172,8 +220,6 @@ LABEL_10:
       [(NSMutableArray *)validationErrors addObject:v17];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processCompoundPredicate:(id)predicate

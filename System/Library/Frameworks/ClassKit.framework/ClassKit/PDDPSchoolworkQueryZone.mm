@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)zoneInfoAsString:(int)string;
 - (int)StringAsZoneInfo:(id)info;
 - (int)zoneInfo;
 - (unint64_t)hash;
@@ -63,6 +64,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)zoneInfoAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100204450 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsZoneInfo:(id)info
@@ -164,30 +180,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_zoneName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_offset)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    limit = self->_limit;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_zoneIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -265,7 +280,6 @@
     goto LABEL_18;
   }
 
-  v5 = *(equalCopy + 48);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 48) & 2) == 0 || self->_zoneInfo != *(equalCopy + 8))
@@ -277,7 +291,7 @@
   else if ((*(equalCopy + 48) & 2) != 0)
   {
 LABEL_18:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_19;
   }
 
@@ -296,7 +310,6 @@ LABEL_18:
     }
   }
 
-  v8 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_limit != *(equalCopy + 2))
@@ -313,17 +326,17 @@ LABEL_18:
   zoneIdentifier = self->_zoneIdentifier;
   if (zoneIdentifier | *(equalCopy + 3))
   {
-    v10 = [(PDDPZoneIdentifier *)zoneIdentifier isEqual:?];
+    v8 = [(PDDPZoneIdentifier *)zoneIdentifier isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_19:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

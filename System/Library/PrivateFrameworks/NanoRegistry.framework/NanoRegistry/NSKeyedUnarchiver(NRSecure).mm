@@ -7,7 +7,7 @@
 
 + (id)nr_secureUnarchiveObjectOfClasses:()NRSecure withFile:
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -15,9 +15,9 @@
 
   if (v9)
   {
-    v19 = 0;
-    v10 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v7 options:0 error:&v19];
-    v11 = v19;
+    v18 = 0;
+    v10 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v7 options:0 error:&v18];
+    v11 = v18;
     if (v11)
     {
       v12 = nr_framework_log();
@@ -30,9 +30,9 @@
         {
           nr_safeDescription = [v11 nr_safeDescription];
           *buf = 138543618;
-          v21 = v7;
-          v22 = 2114;
-          v23 = nr_safeDescription;
+          v20 = v7;
+          v21 = 2114;
+          v22 = nr_safeDescription;
           _os_log_error_impl(&dword_1E0ADF000, v14, OS_LOG_TYPE_ERROR, "Failed to read data from file %{public}@ with error %{public}@", buf, 0x16u);
         }
       }
@@ -51,19 +51,17 @@
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 + (id)nr_secureUnarchiveObjectOfClasses:()NRSecure withData:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
-  v18 = 0;
-  v8 = [[self alloc] initForReadingFromData:v7 error:&v18];
-  v9 = v18;
+  v17 = 0;
+  v8 = [[self alloc] initForReadingFromData:v7 error:&v17];
+  v9 = v17;
   v10 = [v8 decodeObjectOfClasses:v6 forKey:*MEMORY[0x1E696A508]];
   [v8 finishDecoding];
   if (v9)
@@ -78,17 +76,15 @@
       {
         nr_safeDescription = [v9 nr_safeDescription];
         *buf = 138543618;
-        v20 = v6;
-        v21 = 2114;
-        v22 = nr_safeDescription;
+        v19 = v6;
+        v20 = 2114;
+        v21 = nr_safeDescription;
         _os_log_error_impl(&dword_1E0ADF000, v13, OS_LOG_TYPE_ERROR, "Failed to unarchive data of type %{public}@ with error %{public}@", buf, 0x16u);
       }
     }
   }
 
   v14 = v10;
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

@@ -1,6 +1,6 @@
-uint64_t mlir::arith::XOrIOp::verifyInvariantsImpl(mlir::Operation **this)
+BOOL mlir::arith::XOrIOp::verifyInvariantsImpl(mlir::Operation **this)
 {
-  if ((mlir::arith::__mlir_ods_local_type_constraint_ArithOps2(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0 || (mlir::arith::__mlir_ods_local_type_constraint_ArithOps2(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u) & 1) == 0)
+  if (!mlir::arith::__mlir_ods_local_type_constraint_ArithOps2(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) || !mlir::arith::__mlir_ods_local_type_constraint_ArithOps2(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u))
   {
     return 0;
   }
@@ -16,7 +16,7 @@ uint64_t mlir::arith::XOrIOp::verifyInvariantsImpl(mlir::Operation **this)
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
-  return mlir::arith::__mlir_ods_local_type_constraint_ArithOps2(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+  return mlir::arith::__mlir_ods_local_type_constraint_ArithOps2(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
 }
 
 uint64_t mlir::arith::XOrIOp::parse(mlir::arith::XOrIOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
@@ -176,7 +176,7 @@ void mlir::arith::SelectOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
   mlir::ValueRange::ValueRange(&v15, *(a2 + 16), *(a2 + 24));
   Context = mlir::Attribute::getContext(a2);
   mlir::NamedAttrList::getDictionary((a2 + 112), Context);
-  mlir::RegionRange::RegionRange(&v14, *(a2 + 224), *(a2 + 232));
+  mlir::RegionRange::RegionRange(v14, *(a2 + 224), *(a2 + 232));
   v19 = v15;
   if (v17 != 1)
   {
@@ -241,7 +241,7 @@ uint64_t mlir::arith::SelectOp::inferReturnTypes(uint64_t a1, uint64_t a2, uint6
   return 1;
 }
 
-unint64_t mlir::arith::SelectOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t mlir::arith::SelectOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v15 = a6;
   v16 = a5;
@@ -273,7 +273,7 @@ unint64_t mlir::arith::SelectOp::build(uint64_t a1, uint64_t a2, uint64_t a3, ui
   return result;
 }
 
-unint64_t mlir::arith::SelectOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::arith::SelectOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -336,7 +336,7 @@ void mlir::arith::SelectOp::build(uint64_t a1, uint64_t a2, uint64_t a3, unint64
   v19 = 0x200000000;
   Context = mlir::Attribute::getContext(a2);
   mlir::NamedAttrList::getDictionary((a2 + 112), Context);
-  mlir::RegionRange::RegionRange(&v17, *(a2 + 224), *(a2 + 232));
+  mlir::RegionRange::RegionRange(v17, *(a2 + 224), *(a2 + 232));
   v21[0] = a3;
   v21[1] = a4;
   if (v19 != 1)
@@ -381,7 +381,7 @@ BOOL mlir::arith::SelectOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v110 = *MEMORY[0x277D85DE8];
   v2 = 0;
-  if ((mlir::arith::__mlir_ods_local_type_constraint_ArithOps3(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0)
+  if (!mlir::arith::__mlir_ods_local_type_constraint_ArithOps3(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
   {
     return v2;
   }
@@ -404,7 +404,7 @@ BOOL mlir::arith::SelectOp::verifyInvariantsImpl(mlir::Operation **this)
   {
     v98 = "failed to verify that all of {true_value, false_value, result} have same type";
     v100 = 259;
-    mlir::OpState::emitOpError(this, &v98, v101);
+    mlir::OpState::emitOpError(v101, this, &v98);
     v2 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v101);
     if (v101[0])
     {
@@ -581,8 +581,8 @@ LABEL_63:
   v38 = *v37;
   {
     v39 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v40 = v38[1];
-    v41 = *(v38 + 4);
+    v40 = *(v38 + 8);
+    v41 = *(v38 + 16);
     if (v41)
     {
       goto LABEL_52;
@@ -599,8 +599,8 @@ LABEL_60:
   mlir::mps::serialization::ExtractOp::inferReturnTypes();
   v37 = v92;
   v39 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-  v40 = v91[1];
-  v41 = *(v91 + 4);
+  v40 = *(v91 + 8);
+  v41 = *(v91 + 16);
   if (!v41)
   {
     goto LABEL_60;
@@ -815,7 +815,7 @@ LABEL_99:
 LABEL_100:
   v98 = "failed to verify that condition is signless i1 or has matching shape";
   v100 = 259;
-  mlir::OpState::emitOpError(this, &v98, v101);
+  mlir::OpState::emitOpError(v101, this, &v98);
   v2 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v101);
   if (v101[0])
   {
@@ -1532,9 +1532,9 @@ uint64_t mlir::arith::AtomicRMWKindAttr::classof(uint64_t a1)
   return result;
 }
 
-uint64_t mlir::arith::AtomicRMWKindAttr::get(uint64_t *a1, unint64_t a2)
+uint64_t mlir::arith::AtomicRMWKindAttr::get(uint64_t *a1, uint64_t a2)
 {
-  v3 = mlir::IntegerType::get(a1, 64, 0);
+  v3 = mlir::IntegerType::get(a1, 0x40u, 0);
 
   return mlir::IntegerAttr::get(v3, a2);
 }
@@ -1949,7 +1949,7 @@ uint64_t mlir::detail::constant_int_range_predicate_matcher::match(uint64_t (**t
     if (v7 && mlir::detail::constant_int_value_binder::match(&v21, v12))
     {
       v8 = *this;
-      mlir::ConstantIntRanges::constant(&v22, &v12);
+      mlir::ConstantIntRanges::constant(&v12, &v22);
       v9 = v8(&v12);
       if (v19 < 0x41)
       {
@@ -2047,12 +2047,12 @@ uint64_t mlir::detail::infer_int_range_op_binder::match(mlir::detail::infer_int_
     v24 = 0x100000000;
     if (v7 >= 2)
     {
-      llvm::SmallVectorTemplateBase<mlir::IntegerValueRange,false>::grow();
+      llvm::SmallVectorTemplateBase<mlir::IntegerValueRange,false>::grow(&v23, v7);
     }
 
     if (v7)
     {
-      v7 = 1;
+      LODWORD(v7) = 1;
       v8 = v25;
       v9 = (v6 + 24);
       v10 = 1;
@@ -2079,7 +2079,7 @@ uint64_t mlir::detail::infer_int_range_op_binder::match(mlir::detail::infer_int_
 
   else
   {
-    v7 = 0;
+    LODWORD(v7) = 0;
     v12 = 0;
     v13 = v25;
     v23 = v25;
@@ -2091,7 +2091,7 @@ uint64_t mlir::detail::infer_int_range_op_binder::match(mlir::detail::infer_int_
   v18[0] = &v22;
   v18[1] = this;
   v18[2] = &v19;
-  mlir::InferIntRangeInterface::inferResultRangesFromOptional(&v20, v13, v12 + v7, llvm::function_ref<void ()(mlir::Value,mlir::IntegerValueRange const&)>::callback_fn<mlir::detail::infer_int_range_op_binder::match(mlir::Operation *)::{lambda(mlir::Value,mlir::IntegerValueRange const&)#1}>, v18);
+  mlir::InferIntRangeInterface::inferResultRangesFromOptional(&v20, v13, (v12 + v7), llvm::function_ref<void ()(mlir::Value,mlir::IntegerValueRange const&)>::callback_fn<mlir::detail::infer_int_range_op_binder::match(mlir::Operation *)::{lambda(mlir::Value,mlir::IntegerValueRange const&)#1}>, v18);
   v5 = v19;
   v14 = v23;
   if (v24)
@@ -2130,7 +2130,7 @@ unsigned int *llvm::function_ref<void ()(mlir::Value,mlir::IntegerValueRange con
 
 BOOL mlir::m_IntRangeWithoutZeroU(void)::{lambda(mlir::ConstantIntRanges const&)#1}::__invoke(mlir::ConstantIntRanges *a1)
 {
-  v1 = mlir::ConstantIntRanges::umin(a1);
+  mlir::ConstantIntRanges::umin(a1);
   v2 = v1;
   v3 = v1[2];
   if (v3 >= 0x41)
@@ -2212,7 +2212,7 @@ LABEL_12:
   return v10 >> 63;
 }
 
-BOOL mlir::m_IntRangeWithoutNegOneS(void)::{lambda(mlir::ConstantIntRanges const&)#1}::operator()(int a1, mlir::ConstantIntRanges *this)
+uint64_t mlir::m_IntRangeWithoutNegOneS(void)::{lambda(mlir::ConstantIntRanges const&)#1}::operator()(int a1, mlir::ConstantIntRanges *this)
 {
   v3 = mlir::ConstantIntRanges::smin(this);
   v4 = *(v3 + 2);
@@ -2374,60 +2374,60 @@ BOOL mlir::m_PosInfFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke(uint6
   return 0;
 }
 
-BOOL mlir::m_OneFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke(void *a1)
+BOOL mlir::m_OneFloat(void)::{lambda(llvm::APFloat const&)#1}::__invoke(llvm::APFloatBase *a1)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
-  v1 = (a1 + 1);
-  v2 = a1[1];
-  v3 = llvm::APFloatBase::PPCDoubleDouble(a1);
-  if (v3 == v2)
+  v9[3] = *MEMORY[0x277D85DE8];
+  v1 = (a1 + 8);
+  v2 = *(a1 + 1);
+  v4 = llvm::APFloatBase::PPCDoubleDouble(a1);
+  if (v4 == v2)
   {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(v6, v2);
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(v9, v2, 1);
   }
 
-  llvm::detail::IEEEFloat::IEEEFloat(v6, v2, 1);
-  if (v3 == v6[0])
+  llvm::detail::IEEEFloat::IEEEFloat(v9, v2, 1, v3);
+  if (v4 == v9[0])
   {
-    v4 = llvm::detail::DoubleAPFloat::compare(v6, v1);
-    if (v3 != v6[0])
+    v7 = llvm::detail::DoubleAPFloat::compare(v9, v1, v5, v6);
+    if (v4 != v9[0])
     {
       goto LABEL_4;
     }
 
 LABEL_7:
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v6);
-    return v4 == 1;
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v9);
+    return v7 == 1;
   }
 
-  v4 = llvm::detail::IEEEFloat::compare(v6, v1);
-  if (v3 == v6[0])
+  v7 = llvm::detail::IEEEFloat::compare(v9, v1, v5, v6);
+  if (v4 == v9[0])
   {
     goto LABEL_7;
   }
 
 LABEL_4:
-  llvm::detail::IEEEFloat::~IEEEFloat(v6);
-  return v4 == 1;
+  llvm::detail::IEEEFloat::~IEEEFloat(v9);
+  return v7 == 1;
 }
 
-BOOL llvm::APFloat::operator==(void *a1, uint64_t a2)
+BOOL llvm::APFloat::operator==(llvm::APFloatBase *a1, uint64_t a2)
 {
-  v3 = (a1 + 1);
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 1);
   v5 = llvm::APFloatBase::PPCDoubleDouble(a1);
-  v6 = (a2 + 8);
+  v8 = (a2 + 8);
   if (v5 == v4)
   {
-    return llvm::detail::DoubleAPFloat::compare(v3, v6) == 1;
+    return llvm::detail::DoubleAPFloat::compare(v3, v8, v6, v7) == 1;
   }
 
   else
   {
-    return llvm::detail::IEEEFloat::compare(v3, v6) == 1;
+    return llvm::detail::IEEEFloat::compare(v3, v8, v6, v7) == 1;
   }
 }
 
-uint64_t getTypeIfLikeOrMemRef<mlir::IntegerType,mlir::IndexType>(void *a1)
+void *getTypeIfLikeOrMemRef<mlir::IntegerType,mlir::IndexType>(uint64_t *a1)
 {
   v1 = *a1;
   {
@@ -2595,7 +2595,7 @@ LABEL_23:
     v18 = v23;
   }
 
-  v19 = v4[57];
+  v19 = *(v4 + 57);
   v20 = *(*v17 + 104);
 
   return v20(v17, v19, v18);
@@ -2605,42 +2605,42 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::arith::__mlir_ods_local_attr_constraint_ArithOps2(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::arith::__mlir_ods_local_attr_constraint_ArithOps3(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::arith::__mlir_ods_local_attr_constraint_ArithOps4(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::arith::__mlir_ods_local_attr_constraint_ArithOps5(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::arith::__mlir_ods_local_attr_constraint_ArithOps6(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 uint64_t mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::AddIOp::fold(mlir::arith::AddIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::AddIOp::fold(mlir::arith::AddIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t a1, const llvm::APInt *a2, uint64_t **a3)
@@ -2763,10 +2763,10 @@ llvm::APInt *llvm::SmallVectorTemplateBase<llvm::APInt,false>::push_back(uint64_
   {
     if (v4 > a2 || v4 + 16 * v3 <= a2)
     {
-      llvm::SmallVectorTemplateBase<llvm::APInt,false>::grow();
+      llvm::SmallVectorTemplateBase<llvm::APInt,false>::grow(a1, v3 + 1);
     }
 
-    llvm::SmallVectorTemplateBase<llvm::APInt,false>::grow();
+    llvm::SmallVectorTemplateBase<llvm::APInt,false>::grow(a1, v3 + 1);
   }
 
   result = (v4 + 16 * *(a1 + 8));
@@ -2919,7 +2919,7 @@ uint64_t anonymous namespace::static_dag_matcher_2(uint64_t a1, uint64_t a2, voi
   }
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::AddIOp,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+char *mlir::OpBuilder::create<mlir::arith::AddIOp,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v18[5] = *MEMORY[0x277D85DE8];
   v15 = a2;
@@ -2934,7 +2934,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::AddIOp,llvm::SmallVector<mlir::Val
   v11 = mlir::ValueRange::ValueRange(v18, *a3, *(a3 + 8));
   mlir::arith::AddIOp::build(v11, v17, v18[0], v18[1], *a4, *(a4 + 8));
   v12 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v12 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::AddIOp,void>::id)
+  if (*(*(v12 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::AddIOp,void>::id)
   {
     v13 = v12;
   }
@@ -3091,7 +3091,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
   return result;
 }
 
-__n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous namespace::__mlir_ods_local_attr_constraint_ArithCanonicalization1(mlir::PatternRewriter &,mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(void ****a1, uint64_t a2)
+__n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous namespace::__mlir_ods_local_attr_constraint_ArithCanonicalization1(mlir::PatternRewriter &,mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(const char ***a1, uint64_t a2)
 {
   v3 = **a1;
   v2 = (*a1)[1];
@@ -3541,7 +3541,7 @@ LABEL_10:
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::SubIOp,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+char *mlir::OpBuilder::create<mlir::arith::SubIOp,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v18[5] = *MEMORY[0x277D85DE8];
   v15 = a2;
@@ -3556,7 +3556,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::SubIOp,llvm::SmallVector<mlir::Val
   v11 = mlir::ValueRange::ValueRange(v18, *a3, *(a3 + 8));
   mlir::arith::SubIOp::build(v11, v17, v18[0], v18[1], *a4, *(a4 + 8));
   v12 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v12 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::SubIOp,void>::id)
+  if (*(*(v12 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::SubIOp,void>::id)
   {
     v13 = v12;
   }
@@ -4376,7 +4376,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
   return result;
 }
 
-uint64_t mlir::constFoldBinaryOpConditional<mlir::IntegerAttr,llvm::APInt,void,mlir::Attribute mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,void,llvm::APInt (&)(llvm::APInt const&,llvm::APInt const&)>(llvm::ArrayRef<mlir::Attribute>,mlir::Type,llvm::APInt (&)(llvm::APInt const&,llvm::APInt const&) &&)::{lambda(llvm::APInt,llvm::APInt)#1}>(uint64_t *a1, uint64_t a2, void *a3, void (**a4)(unsigned int **__return_ptr, uint64_t *, uint64_t *))
+uint64_t mlir::constFoldBinaryOpConditional<mlir::IntegerAttr,llvm::APInt,void,mlir::Attribute mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,void,llvm::APInt (&)(llvm::APInt const&,llvm::APInt const&)>(llvm::ArrayRef<mlir::Attribute>,mlir::Type,llvm::APInt (&)(llvm::APInt const&,llvm::APInt const&) &&)::{lambda(llvm::APInt,llvm::APInt)#1}>(uint64_t **a1, uint64_t a2, void *a3, void (**a4)(char **__return_ptr, uint64_t *, uint64_t *))
 {
   v99 = *MEMORY[0x277D85DE8];
   v93 = a3;
@@ -4391,7 +4391,7 @@ uint64_t mlir::constFoldBinaryOpConditional<mlir::IntegerAttr,llvm::APInt,void,m
     return 0;
   }
 
-  v6 = a1 + 1;
+  v6 = (a1 + 1);
   v5 = a1[1];
   if (!v5)
   {
@@ -4655,8 +4655,8 @@ LABEL_62:
         v50 = BYTE1(v71) ? 0 : v49;
         if (v71 == 1)
         {
-          v51 = (v72 + 16 * v50);
-          v64 = *(v51 + 2);
+          v51 = v72 + 16 * v50;
+          v64 = *(v51 + 8);
           if (v64 > 0x40)
           {
             llvm::APInt::initSlowCase(&v63, v51);
@@ -4673,8 +4673,8 @@ LABEL_62:
         v52 = HIBYTE(v68) ? 0 : v70;
         if (v68 == 1)
         {
-          v53 = (v69 + 16 * v52);
-          v62 = *(v53 + 2);
+          v53 = v69 + 16 * v52;
+          v62 = *(v53 + 8);
           if (v62 > 0x40)
           {
             llvm::APInt::initSlowCase(&v61, v53);
@@ -5788,7 +5788,7 @@ LABEL_41:
   return 0;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::MulIOp,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+char *mlir::OpBuilder::create<mlir::arith::MulIOp,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v18[5] = *MEMORY[0x277D85DE8];
   v15 = a2;
@@ -5803,7 +5803,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::MulIOp,llvm::SmallVector<mlir::Val
   v11 = mlir::ValueRange::ValueRange(v18, *a3, *(a3 + 8));
   mlir::arith::MulIOp::build(v11, v17, v18[0], v18[1], *a4, *(a4 + 8));
   v12 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v12 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::MulIOp,void>::id)
+  if (*(*(v12 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::MulIOp,void>::id)
   {
     v13 = v12;
   }
@@ -6213,7 +6213,7 @@ LABEL_19:
   return 0;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::CmpIOp,mlir::arith::CmpIPredicateAttr,mlir::Value &,mlir::Value &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
+char *mlir::OpBuilder::create<mlir::arith::CmpIOp,mlir::arith::CmpIPredicateAttr,mlir::Value &,mlir::Value &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
 {
   v19[38] = *MEMORY[0x277D85DE8];
   v16 = a2;
@@ -6227,7 +6227,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::CmpIOp,mlir::arith::CmpIPredicateA
   mlir::OperationState::OperationState(v19, a2, v11);
   mlir::arith::CmpIOp::build(a1, v19, *a3, *a4, *a5);
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::CmpIOp,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::CmpIOp,void>::id)
   {
     v14 = v13;
   }
@@ -6241,7 +6241,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::CmpIOp,mlir::arith::CmpIPredicateA
   return v14;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::ExtSIOp,llvm::SmallVector<mlir::Type,4u> &,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+char *mlir::OpBuilder::create<mlir::arith::ExtSIOp,llvm::SmallVector<mlir::Type,4u> &,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v20[5] = *MEMORY[0x277D85DE8];
   v17 = a2;
@@ -6257,7 +6257,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::ExtSIOp,llvm::SmallVector<mlir::Ty
   v13 = mlir::ValueRange::ValueRange(v19, *a4, *(a4 + 8));
   mlir::arith::ExtSIOp::build(v13, v18, v20[0], v20[1], v19[0], v19[1], *a5, *(a5 + 8));
   v14 = mlir::OpBuilder::create(a1, v18);
-  if (*(*(v14 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::ExtSIOp,void>::id)
+  if (*(*(v14 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::ExtSIOp,void>::id)
   {
     v15 = v14;
   }
@@ -6402,7 +6402,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
   return result;
 }
 
-void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::DivUIOp::fold(mlir::arith::DivUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::DivUIOp::fold(mlir::arith::DivUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t a1, _BYTE **a2, llvm::APInt *a3, llvm::APInt *a4)
+void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::DivUIOp::fold(mlir::arith::DivUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::DivUIOp::fold(mlir::arith::DivUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t *result, _BYTE **a2, llvm::APInt *a3, llvm::APInt *a4)
 {
   v12 = *(a3 + 2);
   if (v12 > 0x40)
@@ -6428,9 +6428,9 @@ void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,
 LABEL_12:
     *v6 = 1;
     v10 = v11;
-    *(a1 + 8) = v12;
-    *a1 = v10;
-    *(a1 + 16) = 1;
+    *(result + 2) = v12;
+    *result = v10;
+    *(result + 16) = 1;
     return;
   }
 
@@ -6440,13 +6440,13 @@ LABEL_12:
   }
 
 LABEL_7:
-  llvm::APInt::udiv(&v11, a4, &v13);
+  llvm::APInt::udiv(&v13, &v11, a4);
   v8 = v13;
   v9 = v12;
-  *(a1 + 8) = v14;
-  *a1 = v8;
+  *(result + 2) = v14;
+  *result = v8;
   v14 = 0;
-  *(a1 + 16) = 1;
+  *(result + 16) = 1;
   if (v9 >= 0x41)
   {
     if (v11)
@@ -6456,7 +6456,7 @@ LABEL_7:
   }
 }
 
-void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::DivSIOp::fold(mlir::arith::DivSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::DivSIOp::fold(mlir::arith::DivSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t a1, BOOL **a2, llvm::APInt *a3, llvm::APInt *a4)
+void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::DivSIOp::fold(mlir::arith::DivSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::DivSIOp::fold(mlir::arith::DivSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t *result, BOOL **a2, llvm::APInt *a3, llvm::APInt *a4)
 {
   v12 = *(a3 + 2);
   if (v12 > 0x40)
@@ -6482,9 +6482,9 @@ void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,
 LABEL_12:
     *v6 = 1;
     v10 = v11;
-    *(a1 + 8) = v12;
-    *a1 = v10;
-    *(a1 + 16) = 1;
+    *(result + 2) = v12;
+    *result = v10;
+    *(result + 16) = 1;
     return;
   }
 
@@ -6494,13 +6494,13 @@ LABEL_12:
   }
 
 LABEL_7:
-  llvm::APInt::sdiv_ov(&v11, a4, v6, &v13);
+  llvm::APInt::sdiv_ov(&v13, &v11, a4, v6);
   v8 = v13;
   v9 = v12;
-  *(a1 + 8) = v14;
-  *a1 = v8;
+  *(result + 2) = v14;
+  *result = v8;
   v14 = 0;
-  *(a1 + 16) = 1;
+  *(result + 16) = 1;
   if (v9 >= 0x41)
   {
     if (v11)
@@ -6510,7 +6510,7 @@ LABEL_7:
   }
 }
 
-void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::CeilDivUIOp::fold(mlir::arith::CeilDivUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::CeilDivUIOp::fold(mlir::arith::CeilDivUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t a1, BOOL **a2, llvm::APInt *a3, llvm::APInt *a4)
+void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::CeilDivUIOp::fold(mlir::arith::CeilDivUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::CeilDivUIOp::fold(mlir::arith::CeilDivUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t *result, BOOL **a2, llvm::APInt *a3, llvm::APInt *a4)
 {
   v15 = *(a3 + 2);
   if (v15 > 0x40)
@@ -6536,9 +6536,9 @@ void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,
 LABEL_12:
     *v7 = 1;
     v10 = v14;
-    *(a1 + 8) = v15;
-    *a1 = v10;
-    *(a1 + 16) = 1;
+    *(result + 2) = v15;
+    *result = v10;
+    *(result + 16) = 1;
     return;
   }
 
@@ -6548,8 +6548,8 @@ LABEL_12:
   }
 
 LABEL_7:
-  llvm::APInt::udiv(&v14, a4, &v20);
-  llvm::APInt::urem(&v14, a4, &v18);
+  llvm::APInt::udiv(&v20, &v14, a4);
+  llvm::APInt::urem(&v18, &v14, a4);
   v9 = v19;
   if (v19 > 0x40)
   {
@@ -6571,11 +6571,11 @@ LABEL_9:
     v19 = v15;
     if (v15 > 0x40)
     {
-      llvm::APInt::initSlowCase(&v18);
+      llvm::APInt::initSlowCase(&v18, 1, 1);
     }
 
     v18 = v15 != 0;
-    llvm::APInt::uadd_ov(&v20, &v18, *a2, &v16);
+    llvm::APInt::uadd_ov(&v16, &v20, &v18, *a2);
     if (v19 >= 0x41 && v18)
     {
       MEMORY[0x259C63150](v18, 0x1000C8000313F17);
@@ -6594,10 +6594,10 @@ LABEL_9:
 LABEL_25:
   v12 = v16;
   v13 = v15;
-  *(a1 + 8) = v17;
-  *a1 = v12;
+  *(result + 2) = v17;
+  *result = v12;
   v17 = 0;
-  *(a1 + 16) = 1;
+  *(result + 16) = 1;
   if (v13 >= 0x41)
   {
     if (v14)
@@ -6650,7 +6650,7 @@ LABEL_7:
   if (!v15)
   {
 LABEL_11:
-    *(v6 + 8) = v9;
+    *(v6 + 2) = v9;
     *v6 = v10;
     *(v6 + 16) = 1;
     return result;
@@ -6667,9 +6667,9 @@ LABEL_11:
     {
       if (v11 > 0 || v12 < 1)
       {
-        llvm::APInt::ssub_ov(&v24, this, &v23[2], &v21);
-        llvm::APInt::sdiv_ov(&v15, &v21, &v23[1], v19);
-        result = llvm::APInt::ssub_ov(&v24, v19, v23, &v17);
+        llvm::APInt::ssub_ov(&v21, &v24, this, &v23[2]);
+        llvm::APInt::sdiv_ov(v19, &v15, &v21, &v23[1]);
+        result = llvm::APInt::ssub_ov(&v17, &v24, v19, v23);
         if (v23[2])
         {
           goto LABEL_27;
@@ -6678,9 +6678,9 @@ LABEL_11:
 
       else
       {
-        llvm::APInt::ssub_ov(&v24, &v15, &v23[3], &v21);
-        llvm::APInt::sdiv_ov(&v21, this, &v23[1], v19);
-        result = llvm::APInt::ssub_ov(&v24, v19, v23, &v17);
+        llvm::APInt::ssub_ov(&v21, &v24, &v15, &v23[3]);
+        llvm::APInt::sdiv_ov(v19, &v21, this, &v23[1]);
+        result = llvm::APInt::ssub_ov(&v17, &v24, v19, v23);
         if (v23[3])
         {
           goto LABEL_27;
@@ -6716,8 +6716,8 @@ LABEL_30:
 
     else
     {
-      llvm::APInt::ssub_ov(&v24, &v15, &v23[3], &v21);
-      llvm::APInt::ssub_ov(&v24, this, &v23[2], v19);
+      llvm::APInt::ssub_ov(&v21, &v24, &v15, &v23[3]);
+      llvm::APInt::ssub_ov(v19, &v24, this, &v23[2]);
       result = signedCeilNonnegInputs(&v17, &v21, v19, &v23[1]);
       if (!v23[3] && !v23[2])
       {
@@ -6754,7 +6754,7 @@ LABEL_33:
 
   v13 = v17;
   v14 = v16;
-  *(v6 + 8) = v18;
+  *(v6 + 2) = v18;
   *v6 = v13;
   v18 = 0;
   *(v6 + 16) = 1;
@@ -6776,18 +6776,18 @@ uint64_t *signedCeilNonnegInputs(const llvm::APInt *a1, const llvm::APInt *this,
   v14 = v7;
   if (v7 > 0x40)
   {
-    llvm::APInt::initSlowCase(&v13);
+    llvm::APInt::initSlowCase(&v13, 1, 1);
   }
 
   v13 = v7 != 0;
-  llvm::APInt::ssub_ov(this, &v13, a4, &v9);
-  llvm::APInt::sdiv_ov(&v9, a3, a4, &v11);
+  llvm::APInt::ssub_ov(&v9, this, &v13, a4);
+  llvm::APInt::sdiv_ov(&v11, &v9, a3, a4);
   if (v10 >= 0x41 && v9)
   {
     MEMORY[0x259C63150](v9, 0x1000C8000313F17);
   }
 
-  result = llvm::APInt::sadd_ov(&v11, &v13, a4, a1);
+  result = llvm::APInt::sadd_ov(a1, &v11, &v13, a4);
   if (v12 >= 0x41)
   {
     result = v11;
@@ -6809,7 +6809,7 @@ uint64_t *signedCeilNonnegInputs(const llvm::APInt *a1, const llvm::APInt *this,
   return result;
 }
 
-void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::FloorDivSIOp::fold(mlir::arith::FloorDivSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::FloorDivSIOp::fold(mlir::arith::FloorDivSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t a1, BOOL **a2, llvm::APInt *a3, llvm::APInt *this)
+void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::FloorDivSIOp::fold(mlir::arith::FloorDivSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::FloorDivSIOp::fold(mlir::arith::FloorDivSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t *result, BOOL **a2, llvm::APInt *a3, llvm::APInt *this)
 {
   v12 = *(a3 + 2);
   if (v12 > 0x40)
@@ -6832,19 +6832,19 @@ void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,
 LABEL_4:
     **a2 = 1;
     v8 = v11;
-    *(a1 + 8) = v12;
-    *a1 = v8;
-    *(a1 + 16) = 1;
+    *(result + 2) = v12;
+    *result = v8;
+    *(result + 16) = 1;
     return;
   }
 
-  llvm::APInt::sfloordiv_ov(&v11, this, *a2, &v13);
+  llvm::APInt::sfloordiv_ov(&v13, &v11, this, *a2);
   v9 = v13;
   v10 = v12;
-  *(a1 + 8) = v14;
-  *a1 = v9;
+  *(result + 2) = v14;
+  *result = v9;
   v14 = 0;
-  *(a1 + 16) = 1;
+  *(result + 16) = 1;
   if (v10 >= 0x41)
   {
     if (v11)
@@ -6854,7 +6854,7 @@ LABEL_4:
   }
 }
 
-void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::RemUIOp::fold(mlir::arith::RemUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemUIOp::fold(mlir::arith::RemUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t a1, _BYTE **a2, llvm::APInt *a3, llvm::APInt *a4)
+void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::RemUIOp::fold(mlir::arith::RemUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemUIOp::fold(mlir::arith::RemUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t *result, _BYTE **a2, llvm::APInt *a3, llvm::APInt *a4)
 {
   v12 = *(a3 + 2);
   if (v12 > 0x40)
@@ -6880,9 +6880,9 @@ void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,
 LABEL_12:
     *v6 = 1;
     v10 = v11;
-    *(a1 + 8) = v12;
-    *a1 = v10;
-    *(a1 + 16) = 1;
+    *(result + 2) = v12;
+    *result = v10;
+    *(result + 16) = 1;
     return;
   }
 
@@ -6892,13 +6892,13 @@ LABEL_12:
   }
 
 LABEL_7:
-  llvm::APInt::urem(&v11, a4, &v13);
+  llvm::APInt::urem(&v13, &v11, a4);
   v8 = v13;
   v9 = v12;
-  *(a1 + 8) = v14;
-  *a1 = v8;
+  *(result + 2) = v14;
+  *result = v8;
   v14 = 0;
-  *(a1 + 16) = 1;
+  *(result + 16) = 1;
   if (v9 >= 0x41)
   {
     if (v11)
@@ -6908,7 +6908,7 @@ LABEL_7:
   }
 }
 
-void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::RemSIOp::fold(mlir::arith::RemSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemSIOp::fold(mlir::arith::RemSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t a1, _BYTE **a2, llvm::APInt *a3, llvm::APInt *a4)
+void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::RemSIOp::fold(mlir::arith::RemSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemSIOp::fold(mlir::arith::RemSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t *result, _BYTE **a2, llvm::APInt *a3, llvm::APInt *a4)
 {
   v12 = *(a3 + 2);
   if (v12 > 0x40)
@@ -6934,9 +6934,9 @@ void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,
 LABEL_12:
     *v6 = 1;
     v10 = v11;
-    *(a1 + 8) = v12;
-    *a1 = v10;
-    *(a1 + 16) = 1;
+    *(result + 2) = v12;
+    *result = v10;
+    *(result + 16) = 1;
     return;
   }
 
@@ -6946,13 +6946,13 @@ LABEL_12:
   }
 
 LABEL_7:
-  llvm::APInt::srem(&v11, a4, &v13);
+  llvm::APInt::srem(&v13, &v11, a4);
   v8 = v13;
   v9 = v12;
-  *(a1 + 8) = v14;
-  *a1 = v8;
+  *(result + 2) = v14;
+  *result = v8;
   v14 = 0;
-  *(a1 + 16) = 1;
+  *(result + 16) = 1;
   if (v9 >= 0x41)
   {
     if (v11)
@@ -6962,7 +6962,7 @@ LABEL_7:
   }
 }
 
-uint64_t mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::AndIOp::fold(mlir::arith::AndIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::AndIOp::fold(mlir::arith::AndIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t result, const llvm::APInt *a2, void *a3)
+uint64_t mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::AndIOp::fold(mlir::arith::AndIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::AndIOp::fold(mlir::arith::AndIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t result, const llvm::APInt *a2, const llvm::APInt *a3)
 {
   v3 = *(a2 + 2);
   v6 = v3;
@@ -6978,7 +6978,7 @@ uint64_t mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonA
   return result;
 }
 
-uint64_t mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::OrIOp::fold(mlir::arith::OrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::OrIOp::fold(mlir::arith::OrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t result, const llvm::APInt *a2, void *a3)
+uint64_t mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::OrIOp::fold(mlir::arith::OrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::OrIOp::fold(mlir::arith::OrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t result, const llvm::APInt *a2, const llvm::APInt *a3)
 {
   v3 = *(a2 + 2);
   v6 = v3;
@@ -6994,7 +6994,7 @@ uint64_t mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonA
   return result;
 }
 
-uint64_t mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::XOrIOp::fold(mlir::arith::XOrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::XOrIOp::fold(mlir::arith::XOrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t result, const llvm::APInt *a2, void *a3)
+uint64_t mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::XOrIOp::fold(mlir::arith::XOrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::XOrIOp::fold(mlir::arith::XOrIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t result, const llvm::APInt *a2, const llvm::APInt *a3)
 {
   v3 = *(a2 + 2);
   v6 = v3;
@@ -7175,7 +7175,7 @@ uint64_t anonymous namespace::static_dag_matcher_12(uint64_t a1, uint64_t a2)
     v12[0] = "operand 0 of native code call '::mlir::success(::mlir::matchPattern($_self->getResult(0), ::mlir::m_Constant(&$0)))' failed to satisfy constraint: 'constant attribute 1'";
     v12[1] = 169;
     IntegerType = mlir::Builder::getIntegerType((a1 + 8), 1);
-    if (mlir::Builder::getIntegerAttr(a1 + 8, IntegerType, 1uLL) == v5)
+    if (mlir::Builder::getIntegerAttr(a1 + 8, IntegerType, 1) == v5)
     {
       return 1;
     }
@@ -7206,7 +7206,7 @@ uint64_t anonymous namespace::static_dag_matcher_12(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::CmpIOp,llvm::SmallVector<mlir::Type,4u> &,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+char *mlir::OpBuilder::create<mlir::arith::CmpIOp,llvm::SmallVector<mlir::Type,4u> &,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v20[5] = *MEMORY[0x277D85DE8];
   v17 = a2;
@@ -7222,7 +7222,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::CmpIOp,llvm::SmallVector<mlir::Typ
   v13 = mlir::ValueRange::ValueRange(v19, *a4, *(a4 + 8));
   mlir::arith::CmpIOp::build(v13, v18, v20[0], v20[1], v19[0], v19[1], *a5, *(a5 + 8));
   v14 = mlir::OpBuilder::create(a1, v18);
-  if (*(*(v14 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::CmpIOp,void>::id)
+  if (*(*(v14 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::CmpIOp,void>::id)
   {
     v15 = v14;
   }
@@ -7361,7 +7361,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
   return result;
 }
 
-__n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous namespace::__mlir_ods_local_attr_constraint_ArithCanonicalization4(mlir::PatternRewriter &,mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(void ****a1, uint64_t a2)
+__n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous namespace::__mlir_ods_local_attr_constraint_ArithCanonicalization4(mlir::PatternRewriter &,mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(const char ***a1, uint64_t a2)
 {
   v3 = **a1;
   v2 = (*a1)[1];
@@ -7570,7 +7570,7 @@ LABEL_13:
   return 0;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::XOrIOp,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+char *mlir::OpBuilder::create<mlir::arith::XOrIOp,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v18[5] = *MEMORY[0x277D85DE8];
   v15 = a2;
@@ -7585,7 +7585,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::XOrIOp,llvm::SmallVector<mlir::Val
   v11 = mlir::ValueRange::ValueRange(v18, *a3, *(a3 + 8));
   mlir::arith::XOrIOp::build(v11, v17, v18[0], v18[1], *a4, *(a4 + 8));
   v12 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v12 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::XOrIOp,void>::id)
+  if (*(*(v12 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::XOrIOp,void>::id)
   {
     v13 = v12;
   }
@@ -7599,7 +7599,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::XOrIOp,llvm::SmallVector<mlir::Val
   return v13;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::ExtUIOp,llvm::SmallVector<mlir::Type,4u> &,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+char *mlir::OpBuilder::create<mlir::arith::ExtUIOp,llvm::SmallVector<mlir::Type,4u> &,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v20[5] = *MEMORY[0x277D85DE8];
   v17 = a2;
@@ -7615,7 +7615,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::ExtUIOp,llvm::SmallVector<mlir::Ty
   v13 = mlir::ValueRange::ValueRange(v19, *a4, *(a4 + 8));
   mlir::arith::ExtUIOp::build(v13, v18, v20[0], v20[1], v19[0], v19[1], *a5, *(a5 + 8));
   v14 = mlir::OpBuilder::create(a1, v18);
-  if (*(*(v14 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::ExtUIOp,void>::id)
+  if (*(*(v14 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::ExtUIOp,void>::id)
   {
     v15 = v14;
   }
@@ -8057,7 +8057,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
   return result;
 }
 
-void mlir::constFoldUnaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::NegFOp::fold(mlir::arith::NegFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::NegFOp::fold(mlir::arith::NegFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat)#1}::operator()(_BYTE *a1, uint64_t a2)
+void mlir::constFoldUnaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::NegFOp::fold(mlir::arith::NegFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::NegFOp::fold(mlir::arith::NegFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat)#1}::operator()(llvm::APFloatBase *a1, uint64_t a2)
 {
   v8 = *MEMORY[0x277D85DE8];
   v3 = (a2 + 8);
@@ -8078,7 +8078,7 @@ LABEL_3:
 
 LABEL_9:
       llvm::detail::DoubleAPFloat::DoubleAPFloat(v6, &v7);
-      a1[32] = 1;
+      *(a1 + 32) = 1;
       if (v5 != v7.n128_u64[0])
       {
         goto LABEL_5;
@@ -8108,7 +8108,7 @@ LABEL_10:
 
 LABEL_4:
   llvm::detail::IEEEFloat::IEEEFloat(v6, &v7);
-  a1[32] = 1;
+  *(a1 + 32) = 1;
   if (v5 == v7.n128_u64[0])
   {
     goto LABEL_10;
@@ -8120,38 +8120,38 @@ LABEL_5:
 
 uint64_t mlir::detail::constant_float_predicate_matcher::match(llvm::APFloatBase *a1, uint64_t a2)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   v4 = llvm::APFloatBase::Bogus(a1);
-  v5 = llvm::APFloatBase::PPCDoubleDouble(v4);
-  if (v5 == v4)
+  v7 = llvm::APFloatBase::PPCDoubleDouble(v4);
+  if (v7 == v4)
   {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(v10, v4);
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(v12, v4);
   }
 
-  llvm::detail::IEEEFloat::IEEEFloat(v10, v4);
-  v8 = v9;
-  if (!mlir::detail::constant_float_value_binder::match(&v8, a2))
+  llvm::detail::IEEEFloat::IEEEFloat(v12, v4, v5, v6);
+  v10 = v11;
+  if (!mlir::detail::constant_float_value_binder::match(&v10, a2))
   {
-    v6 = 0;
-    if (v5 != v10[0])
+    v8 = 0;
+    if (v7 != v12[0])
     {
       goto LABEL_4;
     }
 
 LABEL_8:
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v10);
-    return v6;
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(v12);
+    return v8;
   }
 
-  v6 = (*a1)(v9);
-  if (v5 == v10[0])
+  v8 = (*a1)(v11);
+  if (v7 == v12[0])
   {
     goto LABEL_8;
   }
 
 LABEL_4:
-  llvm::detail::IEEEFloat::~IEEEFloat(v10);
-  return v6;
+  llvm::detail::IEEEFloat::~IEEEFloat(v12);
+  return v8;
 }
 
 llvm::APFloatBase *llvm::APFloat::APFloat(llvm::APFloatBase *a1, void *a2)
@@ -8161,7 +8161,7 @@ llvm::APFloatBase *llvm::APFloat::APFloat(llvm::APFloatBase *a1, void *a2)
     llvm::detail::DoubleAPFloat::DoubleAPFloat(a1 + 1, a2);
   }
 
-  llvm::detail::IEEEFloat::IEEEFloat(a1 + 8, a2);
+  llvm::detail::IEEEFloat::IEEEFloat(a1 + 1, a2, v4, v5);
   return a1;
 }
 
@@ -8184,7 +8184,7 @@ uint64_t mlir::detail::constant_float_value_binder::match(uint64_t *a1, uint64_t
   v19[0] = v5;
   if (v4)
   {
-    mlir::FloatAttr::getValue(v19, &v20);
+    mlir::FloatAttr::getValue(&v20, v19);
     v15 = llvm::APFloat::Storage::operator=((v2 + 8), v21);
     v16 = v21[0].n128_u64[0];
     if (llvm::APFloatBase::PPCDoubleDouble(v15) == v16)
@@ -8242,7 +8242,7 @@ uint64_t mlir::detail::constant_float_value_binder::match(uint64_t *a1, uint64_t
         v19[0] = v12;
         if (v11)
         {
-          mlir::FloatAttr::getValue(v19, &v20);
+          mlir::FloatAttr::getValue(&v20, v19);
           v13 = llvm::APFloat::Storage::operator=((v2 + 8), v21);
           v14 = v21[0].n128_u64[0];
           if (llvm::APFloatBase::PPCDoubleDouble(v13) == v14)
@@ -8264,136 +8264,136 @@ uint64_t mlir::detail::constant_float_value_binder::match(uint64_t *a1, uint64_t
   }
 }
 
-void mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::AddFOp::fold(mlir::arith::AddFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::AddFOp::fold(mlir::arith::AddFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(_BYTE *a1, uint64_t a2, uint64_t a3)
+void mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::AddFOp::fold(mlir::arith::AddFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::AddFOp::fold(mlir::arith::AddFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = (a2 + 8);
   v6 = *(a2 + 8);
   v7 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v7 == v6)
   {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v10, v5);
-    v8 = (a3 + 8);
-    if (v7 != v10.n128_u64[0])
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v11, v5);
+    v9 = (a3 + 8);
+    if (v7 != v11.n128_u64[0])
     {
 LABEL_3:
-      llvm::detail::IEEEFloat::add(&v10, v8, 1);
-      v9 = (a1 + 8);
-      if (v7 != v10.n128_u64[0])
+      llvm::detail::IEEEFloat::add(&v11, v9, 1, v8);
+      v10 = (a1 + 8);
+      if (v7 != v11.n128_u64[0])
       {
         goto LABEL_4;
       }
 
 LABEL_9:
-      llvm::detail::DoubleAPFloat::DoubleAPFloat(v9, &v10);
-      a1[32] = 1;
-      if (v7 != v10.n128_u64[0])
+      llvm::detail::DoubleAPFloat::DoubleAPFloat(v10, &v11);
+      *(a1 + 32) = 1;
+      if (v7 != v11.n128_u64[0])
       {
         goto LABEL_5;
       }
 
 LABEL_10:
-      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v10);
+      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v11);
       return;
     }
   }
 
   else
   {
-    llvm::detail::IEEEFloat::IEEEFloat(&v10, v5);
-    v8 = (a3 + 8);
-    if (v7 != v10.n128_u64[0])
+    llvm::detail::IEEEFloat::IEEEFloat(&v11, v5);
+    v9 = (a3 + 8);
+    if (v7 != v11.n128_u64[0])
     {
       goto LABEL_3;
     }
   }
 
-  llvm::detail::DoubleAPFloat::add(&v10, v8, 1);
-  v9 = (a1 + 8);
-  if (v7 == v10.n128_u64[0])
+  llvm::detail::DoubleAPFloat::add(&v11, v9, 1);
+  v10 = (a1 + 8);
+  if (v7 == v11.n128_u64[0])
   {
     goto LABEL_9;
   }
 
 LABEL_4:
-  llvm::detail::IEEEFloat::IEEEFloat(v9, &v10);
-  a1[32] = 1;
-  if (v7 == v10.n128_u64[0])
+  llvm::detail::IEEEFloat::IEEEFloat(v10, &v11);
+  *(a1 + 32) = 1;
+  if (v7 == v11.n128_u64[0])
   {
     goto LABEL_10;
   }
 
 LABEL_5:
-  llvm::detail::IEEEFloat::~IEEEFloat(&v10);
+  llvm::detail::IEEEFloat::~IEEEFloat(&v11);
 }
 
-void mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::SubFOp::fold(mlir::arith::SubFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::SubFOp::fold(mlir::arith::SubFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(_BYTE *a1, uint64_t a2, uint64_t a3)
+void mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::SubFOp::fold(mlir::arith::SubFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::SubFOp::fold(mlir::arith::SubFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = (a2 + 8);
   v6 = *(a2 + 8);
   v7 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v7 == v6)
   {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v10, v5);
-    v8 = (a3 + 8);
-    if (v7 != v10.n128_u64[0])
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v11, v5);
+    v9 = (a3 + 8);
+    if (v7 != v11.n128_u64[0])
     {
 LABEL_3:
-      llvm::detail::IEEEFloat::subtract(&v10, v8, 1);
-      v9 = (a1 + 8);
-      if (v7 != v10.n128_u64[0])
+      llvm::detail::IEEEFloat::subtract(&v11, v9, 1, v8);
+      v10 = (a1 + 8);
+      if (v7 != v11.n128_u64[0])
       {
         goto LABEL_4;
       }
 
 LABEL_9:
-      llvm::detail::DoubleAPFloat::DoubleAPFloat(v9, &v10);
-      a1[32] = 1;
-      if (v7 != v10.n128_u64[0])
+      llvm::detail::DoubleAPFloat::DoubleAPFloat(v10, &v11);
+      *(a1 + 32) = 1;
+      if (v7 != v11.n128_u64[0])
       {
         goto LABEL_5;
       }
 
 LABEL_10:
-      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v10);
+      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v11);
       return;
     }
   }
 
   else
   {
-    llvm::detail::IEEEFloat::IEEEFloat(&v10, v5);
-    v8 = (a3 + 8);
-    if (v7 != v10.n128_u64[0])
+    llvm::detail::IEEEFloat::IEEEFloat(&v11, v5);
+    v9 = (a3 + 8);
+    if (v7 != v11.n128_u64[0])
     {
       goto LABEL_3;
     }
   }
 
-  llvm::detail::DoubleAPFloat::subtract(&v10, v8, 1);
-  v9 = (a1 + 8);
-  if (v7 == v10.n128_u64[0])
+  llvm::detail::DoubleAPFloat::subtract(&v11, v9, 1);
+  v10 = (a1 + 8);
+  if (v7 == v11.n128_u64[0])
   {
     goto LABEL_9;
   }
 
 LABEL_4:
-  llvm::detail::IEEEFloat::IEEEFloat(v9, &v10);
-  a1[32] = 1;
-  if (v7 == v10.n128_u64[0])
+  llvm::detail::IEEEFloat::IEEEFloat(v10, &v11);
+  *(a1 + 32) = 1;
+  if (v7 == v11.n128_u64[0])
   {
     goto LABEL_10;
   }
 
 LABEL_5:
-  llvm::detail::IEEEFloat::~IEEEFloat(&v10);
+  llvm::detail::IEEEFloat::~IEEEFloat(&v11);
 }
 
 void mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MaximumFOp::fold(mlir::arith::MaximumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MaximumFOp::fold(mlir::arith::MaximumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(uint64_t a1, llvm *this, llvm::APFloat *a3)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v4 = llvm::maximum(this, a3, v7);
+  v4 = llvm::maximum(&v7, this, a3);
   v5 = v8.n128_u64[0];
   v6 = llvm::APFloatBase::PPCDoubleDouble(v4);
   if (v6 == v5)
@@ -8421,70 +8421,70 @@ LABEL_3:
   llvm::detail::IEEEFloat::~IEEEFloat(&v8);
 }
 
-void *llvm::maximum@<X0>(llvm *this@<X0>, const llvm::APFloat *a2@<X1>, uint64_t a3@<X8>)
+uint64_t *llvm::maximum@<X0>(uint64_t *__return_ptr a1@<X8>, llvm *this@<X0>, const llvm::APFloat *a3@<X1>)
 {
-  v7 = (this + 8);
-  v8 = *(this + 1);
-  v9 = llvm::APFloatBase::PPCDoubleDouble(this);
-  if (v9 == v8)
+  v6 = (this + 8);
+  v7 = *(this + 1);
+  v8 = llvm::APFloatBase::PPCDoubleDouble(this);
+  if (v8 == v7)
   {
     if ((*(*(this + 2) + 28) & 7) == 1)
     {
-      v13 = (a3 + 8);
-      v11 = v7;
+      v14 = a1 + 1;
+      v12 = v6;
 
-      return llvm::detail::DoubleAPFloat::DoubleAPFloat(v13, v11);
+      return llvm::detail::DoubleAPFloat::DoubleAPFloat(v14, v12);
     }
   }
 
   else if ((*(this + 28) & 7) == 1)
   {
-    v10 = (a3 + 8);
-    v11 = v7;
+    v11 = (a1 + 1);
+    v12 = v6;
 
-    return llvm::detail::IEEEFloat::IEEEFloat(v10, v11);
+    return llvm::detail::IEEEFloat::IEEEFloat(v11, v12);
   }
 
-  v11 = (a2 + 8);
-  v14 = *(a2 + 1);
-  if (v9 != v14)
+  v12 = (a3 + 8);
+  v15 = *(a3 + 1);
+  if (v8 != v15)
   {
-    if ((*(a2 + 28) & 7) == 1)
+    if ((*(a3 + 28) & 7) == 1)
     {
 LABEL_39:
-      v10 = (a3 + 8);
+      v11 = (a1 + 1);
 
-      return llvm::detail::IEEEFloat::IEEEFloat(v10, v11);
+      return llvm::detail::IEEEFloat::IEEEFloat(v11, v12);
     }
 
     goto LABEL_14;
   }
 
-  if ((*(*(a2 + 2) + 28) & 7) != 1)
+  if ((*(*(a3 + 2) + 28) & 7) != 1)
   {
 LABEL_14:
-    v15 = *(this + 2);
-    if (v9 != v8)
+    v16 = *(this + 2);
+    if (v8 != v7)
     {
-      v15 = this;
+      v16 = this;
     }
 
-    v16 = *(v15 + 28);
-    if ((v16 & 7) == 3 && (v9 != v14 ? (v17 = a2) : (v17 = *(a2 + 2)), (v18 = *(v17 + 28), (v18 & 7) == 3) && ((v16 >> 3) & 1) != (v18 & 8) >> 3))
+    v17 = *(v16 + 28);
+    if ((v17 & 7) == 3 && (v8 != v15 ? (v18 = a3) : (v18 = *(a3 + 2)), (v19 = *(v18 + 28), (v19 & 7) == 3) && ((v17 >> 3) & 1) != (v19 & 8) >> 3))
     {
-      if ((v16 & 8) != 0)
+      if ((v17 & 8) != 0)
       {
-        v19 = a2;
+        v20 = a3;
       }
 
       else
       {
-        v19 = this;
+        v20 = this;
       }
 
-      v20 = *(v19 + 1);
-      v11 = (v19 + 8);
-      if (v9 != v20)
+      v21 = *(v20 + 1);
+      v12 = (v20 + 8);
+      if (v8 != v21)
       {
         goto LABEL_39;
       }
@@ -8492,22 +8492,22 @@ LABEL_14:
 
     else
     {
-      v21 = v9;
-      if (v9 == v8)
+      v22 = v8;
+      if (v8 == v7)
       {
-        if (llvm::detail::DoubleAPFloat::compare(v7, v11))
+        if (llvm::detail::DoubleAPFloat::compare(v6, v12, v9, v10))
         {
-          v24 = this;
+          v25 = this;
         }
 
         else
         {
-          v24 = a2;
+          v25 = a3;
         }
 
-        v25 = *(v24 + 1);
-        v11 = (v24 + 8);
-        if (v21 != v25)
+        v26 = *(v25 + 1);
+        v12 = (v25 + 8);
+        if (v22 != v26)
         {
           goto LABEL_39;
         }
@@ -8515,19 +8515,19 @@ LABEL_14:
 
       else
       {
-        if (llvm::detail::IEEEFloat::compare(v7, v11))
+        if (llvm::detail::IEEEFloat::compare(v6, v12, v9, v10))
         {
-          v22 = this;
+          v23 = this;
         }
 
         else
         {
-          v22 = a2;
+          v23 = a3;
         }
 
-        v23 = *(v22 + 1);
-        v11 = (v22 + 8);
-        if (v21 != v23)
+        v24 = *(v23 + 1);
+        v12 = (v23 + 8);
+        if (v22 != v24)
         {
           goto LABEL_39;
         }
@@ -8535,25 +8535,25 @@ LABEL_14:
     }
   }
 
-  v13 = (a3 + 8);
+  v14 = a1 + 1;
 
-  return llvm::detail::DoubleAPFloat::DoubleAPFloat(v13, v11);
+  return llvm::detail::DoubleAPFloat::DoubleAPFloat(v14, v12);
 }
 
-BOOL llvm::APFloat::operator<(void *a1, uint64_t a2)
+BOOL llvm::APFloat::operator<(llvm::APFloatBase *a1, uint64_t a2)
 {
-  v3 = (a1 + 1);
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 1);
   v5 = llvm::APFloatBase::PPCDoubleDouble(a1);
-  v6 = (a2 + 8);
+  v8 = (a2 + 8);
   if (v5 == v4)
   {
-    return llvm::detail::DoubleAPFloat::compare(v3, v6) == 0;
+    return llvm::detail::DoubleAPFloat::compare(v3, v8, v6, v7) == 0;
   }
 
   else
   {
-    return llvm::detail::IEEEFloat::compare(v3, v6) == 0;
+    return llvm::detail::IEEEFloat::compare(v3, v8, v6, v7) == 0;
   }
 }
 
@@ -8614,7 +8614,7 @@ uint64_t mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonA
 void mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MinimumFOp::fold(mlir::arith::MinimumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MinimumFOp::fold(mlir::arith::MinimumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(uint64_t a1, llvm *this, llvm::APFloat *a3)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v4 = llvm::minimum(this, a3, v7);
+  v4 = llvm::minimum(&v7, this, a3);
   v5 = v8.n128_u64[0];
   v6 = llvm::APFloatBase::PPCDoubleDouble(v4);
   if (v6 == v5)
@@ -8642,82 +8642,82 @@ LABEL_3:
   llvm::detail::IEEEFloat::~IEEEFloat(&v8);
 }
 
-void *llvm::minimum@<X0>(llvm *this@<X0>, const llvm::APFloat *a2@<X1>, uint64_t a3@<X8>)
+uint64_t *llvm::minimum@<X0>(uint64_t *__return_ptr a1@<X8>, llvm *this@<X0>, const llvm::APFloat *a3@<X1>)
 {
-  v7 = (this + 8);
-  v8 = *(this + 1);
-  v9 = llvm::APFloatBase::PPCDoubleDouble(this);
-  if (v9 == v8)
+  v6 = (this + 8);
+  v7 = *(this + 1);
+  v8 = llvm::APFloatBase::PPCDoubleDouble(this);
+  if (v8 == v7)
   {
     if ((*(*(this + 2) + 28) & 7) == 1)
     {
-      v13 = (a3 + 8);
-      v11 = v7;
+      v14 = a1 + 1;
+      v12 = v6;
 
-      return llvm::detail::DoubleAPFloat::DoubleAPFloat(v13, v11);
+      return llvm::detail::DoubleAPFloat::DoubleAPFloat(v14, v12);
     }
   }
 
   else if ((*(this + 28) & 7) == 1)
   {
-    v10 = (a3 + 8);
-    v11 = v7;
+    v11 = (a1 + 1);
+    v12 = v6;
 
-    return llvm::detail::IEEEFloat::IEEEFloat(v10, v11);
+    return llvm::detail::IEEEFloat::IEEEFloat(v11, v12);
   }
 
-  v11 = (a2 + 8);
-  v14 = *(a2 + 1);
-  if (v9 != v14)
+  v12 = (a3 + 8);
+  v15 = *(a3 + 1);
+  if (v8 != v15)
   {
-    if ((*(a2 + 28) & 7) == 1)
+    if ((*(a3 + 28) & 7) == 1)
     {
 LABEL_38:
-      v10 = (a3 + 8);
+      v11 = (a1 + 1);
 
-      return llvm::detail::IEEEFloat::IEEEFloat(v10, v11);
+      return llvm::detail::IEEEFloat::IEEEFloat(v11, v12);
     }
 
     goto LABEL_14;
   }
 
-  if ((*(*(a2 + 2) + 28) & 7) != 1)
+  if ((*(*(a3 + 2) + 28) & 7) != 1)
   {
 LABEL_14:
-    v15 = *(this + 2);
-    if (v9 != v8)
+    v16 = *(this + 2);
+    if (v8 != v7)
     {
-      v15 = this;
+      v16 = this;
     }
 
-    v16 = *(v15 + 28);
-    if ((v16 & 7) != 3)
+    v17 = *(v16 + 28);
+    if ((v17 & 7) != 3)
     {
       goto LABEL_28;
     }
 
-    v17 = *(a2 + 2);
-    if (v9 != v14)
+    v18 = *(a3 + 2);
+    if (v8 != v15)
     {
-      v17 = a2;
+      v18 = a3;
     }
 
-    v18 = *(v17 + 28);
-    if ((v18 & 7) == 3 && ((v16 >> 3) & 1) != (v18 & 8) >> 3)
+    v19 = *(v18 + 28);
+    if ((v19 & 7) == 3 && ((v17 >> 3) & 1) != (v19 & 8) >> 3)
     {
-      if ((v16 & 8) != 0)
+      if ((v17 & 8) != 0)
       {
-        v19 = this;
+        v20 = this;
       }
 
       else
       {
-        v19 = a2;
+        v20 = a3;
       }
 
-      v20 = *(v19 + 1);
-      v11 = (v19 + 8);
-      if (v9 != v20)
+      v21 = *(v20 + 1);
+      v12 = (v20 + 8);
+      if (v8 != v21)
       {
         goto LABEL_38;
       }
@@ -8726,22 +8726,22 @@ LABEL_14:
     else
     {
 LABEL_28:
-      v21 = v9;
-      if (v9 == v14)
+      v22 = v8;
+      if (v8 == v15)
       {
-        if (llvm::detail::DoubleAPFloat::compare((a2 + 8), v7))
+        if (llvm::detail::DoubleAPFloat::compare((a3 + 8), v6, v9, v10))
         {
-          v24 = this;
+          v25 = this;
         }
 
         else
         {
-          v24 = a2;
+          v25 = a3;
         }
 
-        v25 = *(v24 + 1);
-        v11 = (v24 + 8);
-        if (v21 != v25)
+        v26 = *(v25 + 1);
+        v12 = (v25 + 8);
+        if (v22 != v26)
         {
           goto LABEL_38;
         }
@@ -8749,19 +8749,19 @@ LABEL_28:
 
       else
       {
-        if (llvm::detail::IEEEFloat::compare((a2 + 8), v7))
+        if (llvm::detail::IEEEFloat::compare((a3 + 8), v6, v9, v10))
         {
-          v22 = this;
+          v23 = this;
         }
 
         else
         {
-          v22 = a2;
+          v23 = a3;
         }
 
-        v23 = *(v22 + 1);
-        v11 = (v22 + 8);
-        if (v21 != v23)
+        v24 = *(v23 + 1);
+        v12 = (v23 + 8);
+        if (v22 != v24)
         {
           goto LABEL_38;
         }
@@ -8769,15 +8769,15 @@ LABEL_28:
     }
   }
 
-  v13 = (a3 + 8);
+  v14 = a1 + 1;
 
-  return llvm::detail::DoubleAPFloat::DoubleAPFloat(v13, v11);
+  return llvm::detail::DoubleAPFloat::DoubleAPFloat(v14, v12);
 }
 
 void mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MinNumFOp::fold(mlir::arith::MinNumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MinNumFOp::fold(mlir::arith::MinNumFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(uint64_t a1, llvm *this, llvm::APFloat *a3)
 {
   v9 = *MEMORY[0x277D85DE8];
-  v4 = llvm::minnum(this, a3, v7);
+  v4 = llvm::minnum(&v7, this, a3);
   v5 = v8.n128_u64[0];
   v6 = llvm::APFloatBase::PPCDoubleDouble(v4);
   if (v6 == v5)
@@ -8805,88 +8805,88 @@ LABEL_3:
   llvm::detail::IEEEFloat::~IEEEFloat(&v8);
 }
 
-void *llvm::minnum@<X0>(llvm *this@<X0>, const llvm::APFloat *a2@<X1>, uint64_t a3@<X8>)
+uint64_t *llvm::minnum@<X0>(uint64_t *__return_ptr a1@<X8>, llvm *this@<X0>, const llvm::APFloat *a3@<X1>)
 {
-  v7 = (this + 8);
-  v8 = *(this + 1);
-  v9 = llvm::APFloatBase::PPCDoubleDouble(this);
-  v10 = *(this + 2);
-  if (v9 != v8)
+  v6 = (this + 8);
+  v7 = *(this + 1);
+  v8 = llvm::APFloatBase::PPCDoubleDouble(this);
+  v11 = *(this + 2);
+  if (v8 != v7)
   {
-    v10 = this;
+    v11 = this;
   }
 
-  v11 = *(v10 + 28);
-  if ((v11 & 7) == 1)
+  v12 = *(v11 + 28);
+  if ((v12 & 7) == 1)
   {
-    v13 = *(a2 + 1);
-    v12 = (a2 + 8);
-    if (v9 != v13)
+    v14 = *(a3 + 1);
+    v13 = (a3 + 8);
+    if (v8 != v14)
     {
-      v14 = (a3 + 8);
-      v15 = v12;
+      v15 = (a1 + 1);
+      v16 = v13;
 
-      return llvm::detail::IEEEFloat::IEEEFloat(v14, v15);
+      return llvm::detail::IEEEFloat::IEEEFloat(v15, v16);
     }
 
-    v23 = (a3 + 8);
-    v15 = v12;
+    v24 = a1 + 1;
+    v16 = v13;
 
-    return llvm::detail::DoubleAPFloat::DoubleAPFloat(v23, v15);
+    return llvm::detail::DoubleAPFloat::DoubleAPFloat(v24, v16);
   }
 
-  v17 = *(a2 + 1);
-  v18 = *(a2 + 2);
-  if (v9 != v17)
+  v18 = *(a3 + 1);
+  v19 = *(a3 + 2);
+  if (v8 != v18)
   {
-    v18 = a2;
+    v19 = a3;
   }
 
-  v19 = *(v18 + 28);
-  if ((v19 & 7) != 1)
+  v20 = *(v19 + 28);
+  if ((v20 & 7) != 1)
   {
-    v20 = (v11 & 7) == 3 && (v19 & 7) == 3;
-    if (v20 && ((v11 >> 3) & 1) != (v19 & 8) >> 3)
+    v21 = (v12 & 7) == 3 && (v20 & 7) == 3;
+    if (v21 && ((v12 >> 3) & 1) != (v20 & 8) >> 3)
     {
-      if ((v11 & 8) != 0)
+      if ((v12 & 8) != 0)
       {
-        v21 = this;
+        v22 = this;
       }
 
       else
       {
-        v21 = a2;
+        v22 = a3;
       }
 
-      v22 = *(v21 + 1);
-      v15 = (v21 + 8);
-      if (v9 == v22)
+      v23 = *(v22 + 1);
+      v16 = (v22 + 8);
+      if (v8 == v23)
       {
         goto LABEL_25;
       }
 
 LABEL_44:
-      v14 = (a3 + 8);
+      v15 = (a1 + 1);
 
-      return llvm::detail::IEEEFloat::IEEEFloat(v14, v15);
+      return llvm::detail::IEEEFloat::IEEEFloat(v15, v16);
     }
 
-    v24 = v9;
-    if (v9 == v17)
+    v25 = v8;
+    if (v8 == v18)
     {
-      if (llvm::detail::DoubleAPFloat::compare((a2 + 8), v7))
+      if (llvm::detail::DoubleAPFloat::compare((a3 + 8), v6, v9, v10))
       {
-        v27 = this;
+        v28 = this;
       }
 
       else
       {
-        v27 = a2;
+        v28 = a3;
       }
 
-      v28 = *(v27 + 1);
-      v15 = (v27 + 8);
-      if (v24 != v28)
+      v29 = *(v28 + 1);
+      v16 = (v28 + 8);
+      if (v25 != v29)
       {
         goto LABEL_44;
       }
@@ -8894,42 +8894,42 @@ LABEL_44:
 
     else
     {
-      if (llvm::detail::IEEEFloat::compare((a2 + 8), v7))
+      if (llvm::detail::IEEEFloat::compare((a3 + 8), v6, v9, v10))
       {
-        v25 = this;
+        v26 = this;
       }
 
       else
       {
-        v25 = a2;
+        v26 = a3;
       }
 
-      v26 = *(v25 + 1);
-      v15 = (v25 + 8);
-      if (v24 != v26)
+      v27 = *(v26 + 1);
+      v16 = (v26 + 8);
+      if (v25 != v27)
       {
         goto LABEL_44;
       }
     }
 
 LABEL_25:
-    v23 = (a3 + 8);
+    v24 = a1 + 1;
 
-    return llvm::detail::DoubleAPFloat::DoubleAPFloat(v23, v15);
+    return llvm::detail::DoubleAPFloat::DoubleAPFloat(v24, v16);
   }
 
-  if (v9 != v8)
+  if (v8 != v7)
   {
-    v14 = (a3 + 8);
-    v15 = v7;
+    v15 = (a1 + 1);
+    v16 = v6;
 
-    return llvm::detail::IEEEFloat::IEEEFloat(v14, v15);
+    return llvm::detail::IEEEFloat::IEEEFloat(v15, v16);
   }
 
-  v23 = (a3 + 8);
-  v15 = v7;
+  v24 = a1 + 1;
+  v16 = v6;
 
-  return llvm::detail::DoubleAPFloat::DoubleAPFloat(v23, v15);
+  return llvm::detail::DoubleAPFloat::DoubleAPFloat(v24, v16);
 }
 
 uint64_t mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::MinSIOp::fold(mlir::arith::MinSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MinSIOp::fold(mlir::arith::MinSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t a1, llvm::APInt *this, llvm::APInt *a3)
@@ -8986,67 +8986,67 @@ uint64_t mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonA
   return result;
 }
 
-void mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MulFOp::fold(mlir::arith::MulFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MulFOp::fold(mlir::arith::MulFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(_BYTE *a1, uint64_t a2, uint64_t a3)
+void mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::MulFOp::fold(mlir::arith::MulFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::MulFOp::fold(mlir::arith::MulFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = (a2 + 8);
   v6 = *(a2 + 8);
   v7 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v7 == v6)
   {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v10, v5);
-    v8 = (a3 + 8);
-    if (v7 != v10.n128_u64[0])
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v11, v5);
+    v9 = (a3 + 8);
+    if (v7 != v11.n128_u64[0])
     {
 LABEL_3:
-      llvm::detail::IEEEFloat::multiply(&v10, v8, 1);
-      v9 = (a1 + 8);
-      if (v7 != v10.n128_u64[0])
+      llvm::detail::IEEEFloat::multiply(&v11, v9, 1, v8);
+      v10 = (a1 + 8);
+      if (v7 != v11.n128_u64[0])
       {
         goto LABEL_4;
       }
 
 LABEL_9:
-      llvm::detail::DoubleAPFloat::DoubleAPFloat(v9, &v10);
-      a1[32] = 1;
-      if (v7 != v10.n128_u64[0])
+      llvm::detail::DoubleAPFloat::DoubleAPFloat(v10, &v11);
+      *(a1 + 32) = 1;
+      if (v7 != v11.n128_u64[0])
       {
         goto LABEL_5;
       }
 
 LABEL_10:
-      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v10);
+      llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v11);
       return;
     }
   }
 
   else
   {
-    llvm::detail::IEEEFloat::IEEEFloat(&v10, v5);
-    v8 = (a3 + 8);
-    if (v7 != v10.n128_u64[0])
+    llvm::detail::IEEEFloat::IEEEFloat(&v11, v5);
+    v9 = (a3 + 8);
+    if (v7 != v11.n128_u64[0])
     {
       goto LABEL_3;
     }
   }
 
-  llvm::detail::DoubleAPFloat::multiply(&v10, v8, 1u);
-  v9 = (a1 + 8);
-  if (v7 == v10.n128_u64[0])
+  llvm::detail::DoubleAPFloat::multiply(&v11, v9, 1, v8);
+  v10 = (a1 + 8);
+  if (v7 == v11.n128_u64[0])
   {
     goto LABEL_9;
   }
 
 LABEL_4:
-  llvm::detail::IEEEFloat::IEEEFloat(v9, &v10);
-  a1[32] = 1;
-  if (v7 == v10.n128_u64[0])
+  llvm::detail::IEEEFloat::IEEEFloat(v10, &v11);
+  *(a1 + 32) = 1;
+  if (v7 == v11.n128_u64[0])
   {
     goto LABEL_10;
   }
 
 LABEL_5:
-  llvm::detail::IEEEFloat::~IEEEFloat(&v10);
+  llvm::detail::IEEEFloat::~IEEEFloat(&v11);
 }
 
 void anonymous namespace::MulFOfNegF::~MulFOfNegF(_anonymous_namespace_::MulFOfNegF *this)
@@ -9082,84 +9082,88 @@ void anonymous namespace::MulFOfNegF::~MulFOfNegF(_anonymous_namespace_::MulFOfN
 
 uint64_t anonymous namespace::MulFOfNegF::matchAndRewrite(_anonymous_namespace_::MulFOfNegF *this, mlir::Operation *a2, mlir::PatternRewriter *a3)
 {
-  v24[4] = *MEMORY[0x277D85DE8];
+  v25[4] = *MEMORY[0x277D85DE8];
   if ((*(a2 + 46) & 0x80) != 0)
   {
     v5 = *(a2 + 9);
+    v6 = *(a2 + 17);
   }
 
   else
   {
     v5 = 0;
+    v6 = 0;
   }
 
-  v20 = v5;
-  v19 = v5;
-  v22 = v24;
-  v24[0] = a2;
-  v23 = 0x400000001;
+  v21[0] = v5;
+  v21[1] = v6;
+  v20[0] = v5;
+  v20[1] = v6;
+  v23 = v25;
+  v25[0] = a2;
+  v24 = 0x400000001;
   if (*(*(a2 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::MulFOp,void>::id)
   {
-    v6 = a2;
+    v7 = a2;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v21[0] = *(*(v6 + 9) + 24);
-  DefiningOp = mlir::Value::getDefiningOp(v21);
+  v22[0] = *(*(v7 + 9) + 24);
+  DefiningOp = mlir::Value::getDefiningOp(v22);
   if (!DefiningOp)
   {
-    v14 = *(a3 + 2);
-    if (!v14 || !mlir::RewriterBase::Listener::classof(*(a3 + 2)))
+    v15 = *(a3 + 2);
+    if (!v15 || !mlir::RewriterBase::Listener::classof(*(a3 + 2)))
     {
       goto LABEL_27;
     }
 
-    v15 = *(v6 + 3);
+    v16 = *(v7 + 3);
 LABEL_26:
-    (*(*v14 + 88))(v14, v15, v16, v21);
+    (*(*v15 + 88))(v15, v16, v17, v22);
     goto LABEL_27;
   }
 
-  v8 = DefiningOp;
+  v9 = DefiningOp;
   {
     goto LABEL_27;
   }
 
-  if (v23 >= HIDWORD(v23))
+  if (v24 >= HIDWORD(v24))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  v22[v23] = v8;
-  LODWORD(v23) = v23 + 1;
-  v21[0] = *(*(v6 + 9) + 56);
-  v9 = mlir::Value::getDefiningOp(v21);
-  if (!v9)
+  v23[v24] = v9;
+  LODWORD(v24) = v24 + 1;
+  v22[0] = *(*(v7 + 9) + 56);
+  v10 = mlir::Value::getDefiningOp(v22);
+  if (!v10)
   {
-    v14 = *(a3 + 2);
-    if (!v14 || !mlir::RewriterBase::Listener::classof(*(a3 + 2)))
+    v15 = *(a3 + 2);
+    if (!v15 || !mlir::RewriterBase::Listener::classof(*(a3 + 2)))
     {
       goto LABEL_27;
     }
 
-    v15 = *(v6 + 3);
+    v16 = *(v7 + 3);
     goto LABEL_26;
   }
 
-  v10 = v9;
+  v11 = v10;
   {
-    if (v23 >= HIDWORD(v23))
+    if (v24 >= HIDWORD(v24))
     {
       llvm::SmallVectorBase<unsigned int>::grow_pod();
     }
 
-    v22[v23] = v10;
-    LODWORD(v23) = v23 + 1;
-    if (!*(a2 + 47) || (InherentAttr = mlir::Operation::getInherentAttr(a2, "fastmath", 8), (v12 & 1) == 0))
+    v23[v24] = v11;
+    LODWORD(v24) = v24 + 1;
+    if (!*(a2 + 47) || (InherentAttr = mlir::Operation::getInherentAttr(a2, "fastmath", 8), (v13 & 1) == 0))
     {
       InherentAttr = mlir::DictionaryAttr::get(a2 + 56, "fastmath", 8uLL);
     }
@@ -9169,41 +9173,41 @@ LABEL_26:
       mlir::arith::FastMathFlagsAttr::get(*(a3 + 1), 0);
     }
 
-    if ((*(*(v20 + 24) + 8) ^ *(*(v19 + 24) + 8)) < 8)
+    if ((*(*(v21[0] + 24) + 8) ^ *(*(v20[0] + 24) + 8)) < 8)
     {
-      v13 = *(v22[1] + 24);
-      v21[0] = *(*v22 + 24);
-      v21[1] = v13;
-      v21[2] = *(v22[2] + 24);
-      mlir::Builder::getFusedLoc(a3 + 1, v21, 3, 0);
+      v14 = *(v23[1] + 24);
+      v22[0] = *(*v23 + 24);
+      v22[1] = v14;
+      v22[2] = *(v23[2] + 24);
+      mlir::Builder::getFusedLoc(a3 + 1, v22, 3, 0);
     }
 
-    v18 = *(a3 + 2);
-    if (v18 && mlir::RewriterBase::Listener::classof(v18))
+    v19 = *(a3 + 2);
+    if (v19 && mlir::RewriterBase::Listener::classof(v19))
     {
     }
   }
 
 LABEL_27:
-  if (v22 != v24)
+  if (v23 != v25)
   {
-    free(v22);
+    free(v23);
   }
 
   return 0;
 }
 
-uint64_t anonymous namespace::static_dag_matcher_10(uint64_t a1, uint64_t a2)
+uint64_t anonymous namespace::static_dag_matcher_10(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2 && *(*(a2 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::NegFOp,void>::id)
   {
-    return v5[1];
+    return v6[1];
   }
 
   else
   {
-    v3 = *(a1 + 16);
-    if (v3)
+    v4 = *(a1 + 16);
+    if (v4)
     {
       if (mlir::RewriterBase::Listener::classof(*(a1 + 16)))
       {
@@ -9214,17 +9218,17 @@ uint64_t anonymous namespace::static_dag_matcher_10(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t anonymous namespace::static_dag_matcher_11(uint64_t a1, uint64_t a2)
+uint64_t anonymous namespace::static_dag_matcher_11(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2 && *(*(a2 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::NegFOp,void>::id)
   {
-    return v5[1];
+    return v6[1];
   }
 
   else
   {
-    v3 = *(a1 + 16);
-    if (v3)
+    v4 = *(a1 + 16);
+    if (v4)
     {
       if (mlir::RewriterBase::Listener::classof(*(a1 + 16)))
       {
@@ -9235,7 +9239,7 @@ uint64_t anonymous namespace::static_dag_matcher_11(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::MulFOp,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+char *mlir::OpBuilder::create<mlir::arith::MulFOp,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v18[5] = *MEMORY[0x277D85DE8];
   v15 = a2;
@@ -9250,7 +9254,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::MulFOp,llvm::SmallVector<mlir::Val
   v11 = mlir::ValueRange::ValueRange(v18, *a3, *(a3 + 8));
   mlir::arith::MulFOp::build(v11, v17, v18[0], v18[1], *a4, *(a4 + 8));
   v12 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v12 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::MulFOp,void>::id)
+  if (*(*(v12 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::MulFOp,void>::id)
   {
     v13 = v12;
   }
@@ -9389,58 +9393,58 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
   return result;
 }
 
-void mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::DivFOp::fold(mlir::arith::DivFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::DivFOp::fold(mlir::arith::DivFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(_BYTE *a1, uint64_t a2, uint64_t a3)
+void mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::DivFOp::fold(mlir::arith::DivFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::DivFOp::fold(mlir::arith::DivFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = (a2 + 8);
   v6 = *(a2 + 8);
   v7 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v7 != v6)
   {
-    llvm::detail::IEEEFloat::IEEEFloat(&v10, v5);
-    v8 = (a3 + 8);
-    if (v7 != v10.n128_u64[0])
+    llvm::detail::IEEEFloat::IEEEFloat(&v11, v5);
+    v9 = (a3 + 8);
+    if (v7 != v11.n128_u64[0])
     {
       goto LABEL_3;
     }
 
 LABEL_8:
-    llvm::detail::DoubleAPFloat::divide(&v10, v8, 1);
+    llvm::detail::DoubleAPFloat::divide(&v11, v9, 1, v8);
   }
 
-  llvm::detail::DoubleAPFloat::DoubleAPFloat(&v10, v5);
-  v8 = (a3 + 8);
-  if (v7 == v10.n128_u64[0])
+  llvm::detail::DoubleAPFloat::DoubleAPFloat(&v11, v5);
+  v9 = (a3 + 8);
+  if (v7 == v11.n128_u64[0])
   {
     goto LABEL_8;
   }
 
 LABEL_3:
-  llvm::detail::IEEEFloat::divide(&v10, v8, 1);
-  v9 = (a1 + 8);
-  if (v7 == v10.n128_u64[0])
+  llvm::detail::IEEEFloat::divide(&v11, v9, 1, v8);
+  v10 = (a1 + 8);
+  if (v7 == v11.n128_u64[0])
   {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(v9, &v10);
-    a1[32] = 1;
-    if (v7 != v10.n128_u64[0])
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(v10, &v11);
+    *(a1 + 32) = 1;
+    if (v7 != v11.n128_u64[0])
     {
       goto LABEL_5;
     }
 
 LABEL_10:
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v10);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v11);
     return;
   }
 
-  llvm::detail::IEEEFloat::IEEEFloat(v9, &v10);
-  a1[32] = 1;
-  if (v7 == v10.n128_u64[0])
+  llvm::detail::IEEEFloat::IEEEFloat(v10, &v11);
+  *(a1 + 32) = 1;
+  if (v7 == v11.n128_u64[0])
   {
     goto LABEL_10;
   }
 
 LABEL_5:
-  llvm::detail::IEEEFloat::~IEEEFloat(&v10);
+  llvm::detail::IEEEFloat::~IEEEFloat(&v11);
 }
 
 void anonymous namespace::DivFOfNegF::~DivFOfNegF(_anonymous_namespace_::DivFOfNegF *this)
@@ -9476,84 +9480,88 @@ void anonymous namespace::DivFOfNegF::~DivFOfNegF(_anonymous_namespace_::DivFOfN
 
 uint64_t anonymous namespace::DivFOfNegF::matchAndRewrite(_anonymous_namespace_::DivFOfNegF *this, mlir::Operation *a2, mlir::PatternRewriter *a3)
 {
-  v24[4] = *MEMORY[0x277D85DE8];
+  v25[4] = *MEMORY[0x277D85DE8];
   if ((*(a2 + 46) & 0x80) != 0)
   {
     v5 = *(a2 + 9);
+    v6 = *(a2 + 17);
   }
 
   else
   {
     v5 = 0;
+    v6 = 0;
   }
 
-  v20 = v5;
-  v19 = v5;
-  v22 = v24;
-  v24[0] = a2;
-  v23 = 0x400000001;
+  v21[0] = v5;
+  v21[1] = v6;
+  v20[0] = v5;
+  v20[1] = v6;
+  v23 = v25;
+  v25[0] = a2;
+  v24 = 0x400000001;
   if (*(*(a2 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::DivFOp,void>::id)
   {
-    v6 = a2;
+    v7 = a2;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v21[0] = *(*(v6 + 9) + 24);
-  DefiningOp = mlir::Value::getDefiningOp(v21);
+  v22[0] = *(*(v7 + 9) + 24);
+  DefiningOp = mlir::Value::getDefiningOp(v22);
   if (!DefiningOp)
   {
-    v14 = *(a3 + 2);
-    if (!v14 || !mlir::RewriterBase::Listener::classof(*(a3 + 2)))
+    v15 = *(a3 + 2);
+    if (!v15 || !mlir::RewriterBase::Listener::classof(*(a3 + 2)))
     {
       goto LABEL_27;
     }
 
-    v15 = *(v6 + 3);
+    v16 = *(v7 + 3);
 LABEL_26:
-    (*(*v14 + 88))(v14, v15, v16, v21);
+    (*(*v15 + 88))(v15, v16, v17, v22);
     goto LABEL_27;
   }
 
-  v8 = DefiningOp;
+  v9 = DefiningOp;
   {
     goto LABEL_27;
   }
 
-  if (v23 >= HIDWORD(v23))
+  if (v24 >= HIDWORD(v24))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  v22[v23] = v8;
-  LODWORD(v23) = v23 + 1;
-  v21[0] = *(*(v6 + 9) + 56);
-  v9 = mlir::Value::getDefiningOp(v21);
-  if (!v9)
+  v23[v24] = v9;
+  LODWORD(v24) = v24 + 1;
+  v22[0] = *(*(v7 + 9) + 56);
+  v10 = mlir::Value::getDefiningOp(v22);
+  if (!v10)
   {
-    v14 = *(a3 + 2);
-    if (!v14 || !mlir::RewriterBase::Listener::classof(*(a3 + 2)))
+    v15 = *(a3 + 2);
+    if (!v15 || !mlir::RewriterBase::Listener::classof(*(a3 + 2)))
     {
       goto LABEL_27;
     }
 
-    v15 = *(v6 + 3);
+    v16 = *(v7 + 3);
     goto LABEL_26;
   }
 
-  v10 = v9;
+  v11 = v10;
   {
-    if (v23 >= HIDWORD(v23))
+    if (v24 >= HIDWORD(v24))
     {
       llvm::SmallVectorBase<unsigned int>::grow_pod();
     }
 
-    v22[v23] = v10;
-    LODWORD(v23) = v23 + 1;
-    if (!*(a2 + 47) || (InherentAttr = mlir::Operation::getInherentAttr(a2, "fastmath", 8), (v12 & 1) == 0))
+    v23[v24] = v11;
+    LODWORD(v24) = v24 + 1;
+    if (!*(a2 + 47) || (InherentAttr = mlir::Operation::getInherentAttr(a2, "fastmath", 8), (v13 & 1) == 0))
     {
       InherentAttr = mlir::DictionaryAttr::get(a2 + 56, "fastmath", 8uLL);
     }
@@ -9563,31 +9571,31 @@ LABEL_26:
       mlir::arith::FastMathFlagsAttr::get(*(a3 + 1), 0);
     }
 
-    if ((*(*(v20 + 24) + 8) ^ *(*(v19 + 24) + 8)) < 8)
+    if ((*(*(v21[0] + 24) + 8) ^ *(*(v20[0] + 24) + 8)) < 8)
     {
-      v13 = *(v22[1] + 24);
-      v21[0] = *(*v22 + 24);
-      v21[1] = v13;
-      v21[2] = *(v22[2] + 24);
-      mlir::Builder::getFusedLoc(a3 + 1, v21, 3, 0);
+      v14 = *(v23[1] + 24);
+      v22[0] = *(*v23 + 24);
+      v22[1] = v14;
+      v22[2] = *(v23[2] + 24);
+      mlir::Builder::getFusedLoc(a3 + 1, v22, 3, 0);
     }
 
-    v18 = *(a3 + 2);
-    if (v18 && mlir::RewriterBase::Listener::classof(v18))
+    v19 = *(a3 + 2);
+    if (v19 && mlir::RewriterBase::Listener::classof(v19))
     {
     }
   }
 
 LABEL_27:
-  if (v22 != v24)
+  if (v23 != v25)
   {
-    free(v22);
+    free(v23);
   }
 
   return 0;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::DivFOp,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+char *mlir::OpBuilder::create<mlir::arith::DivFOp,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v18[5] = *MEMORY[0x277D85DE8];
   v15 = a2;
@@ -9602,7 +9610,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::DivFOp,llvm::SmallVector<mlir::Val
   v11 = mlir::ValueRange::ValueRange(v18, *a3, *(a3 + 8));
   mlir::arith::DivFOp::build(v11, v17, v18[0], v18[1], *a4, *(a4 + 8));
   v12 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v12 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::DivFOp,void>::id)
+  if (*(*(v12 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::DivFOp,void>::id)
   {
     v13 = v12;
   }
@@ -9691,61 +9699,61 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
   return result;
 }
 
-void mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::RemFOp::fold(mlir::arith::RemFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemFOp::fold(mlir::arith::RemFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(_BYTE *a1, uint64_t a2, uint64_t a3)
+void mlir::constFoldBinaryOp<mlir::FloatAttr,llvm::APFloat,mlir::ub::PoisonAttr,mlir::arith::RemFOp::fold(mlir::arith::RemFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::RemFOp::fold(mlir::arith::RemFOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APFloat,llvm::APFloat)#1}::operator()(llvm::APFloatBase *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = (a2 + 8);
   v6 = *(a2 + 8);
   v7 = llvm::APFloatBase::PPCDoubleDouble(a1);
   if (v7 != v6)
   {
-    llvm::detail::IEEEFloat::IEEEFloat(&v10, v5);
-    v8 = (a3 + 8);
-    if (v7 != v10.n128_u64[0])
+    llvm::detail::IEEEFloat::IEEEFloat(&v12, v5);
+    v10 = (a3 + 8);
+    if (v7 != v12.n128_u64[0])
     {
       goto LABEL_3;
     }
 
 LABEL_8:
-    llvm::detail::DoubleAPFloat::mod(&v10, v8);
+    llvm::detail::DoubleAPFloat::mod(&v12, v10, v8, v9);
   }
 
-  llvm::detail::DoubleAPFloat::DoubleAPFloat(&v10, v5);
-  v8 = (a3 + 8);
-  if (v7 == v10.n128_u64[0])
+  llvm::detail::DoubleAPFloat::DoubleAPFloat(&v12, v5);
+  v10 = (a3 + 8);
+  if (v7 == v12.n128_u64[0])
   {
     goto LABEL_8;
   }
 
 LABEL_3:
-  llvm::detail::IEEEFloat::mod(&v10, v8);
-  v9 = (a1 + 8);
-  if (v7 == v10.n128_u64[0])
+  llvm::detail::IEEEFloat::mod(&v12, v10, v8, v9);
+  v11 = (a1 + 8);
+  if (v7 == v12.n128_u64[0])
   {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(v9, &v10);
-    a1[32] = 1;
-    if (v7 != v10.n128_u64[0])
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(v11, &v12);
+    *(a1 + 32) = 1;
+    if (v7 != v12.n128_u64[0])
     {
       goto LABEL_5;
     }
 
 LABEL_10:
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v10);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v12);
     return;
   }
 
-  llvm::detail::IEEEFloat::IEEEFloat(v9, &v10);
-  a1[32] = 1;
-  if (v7 == v10.n128_u64[0])
+  llvm::detail::IEEEFloat::IEEEFloat(v11, &v12);
+  *(a1 + 32) = 1;
+  if (v7 == v12.n128_u64[0])
   {
     goto LABEL_10;
   }
 
 LABEL_5:
-  llvm::detail::IEEEFloat::~IEEEFloat(&v10);
+  llvm::detail::IEEEFloat::~IEEEFloat(&v12);
 }
 
-uint64_t getTypeIfLike<mlir::IntegerType>(void *a1)
+void *getTypeIfLike<mlir::IntegerType>(uint64_t *a1)
 {
   v1 = *a1;
   {

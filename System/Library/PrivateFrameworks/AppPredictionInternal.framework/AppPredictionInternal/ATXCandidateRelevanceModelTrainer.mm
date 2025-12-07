@@ -23,77 +23,77 @@
 
 - (void)generateAndSaveDatasetWithFilename:(id)filename
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   filenameCopy = filename;
   datasetGenerator = [(ATXCandidateRelevanceModelConfig *)self->_config datasetGenerator];
   v6 = objc_opt_new();
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __72__ATXCandidateRelevanceModelTrainer_generateAndSaveDatasetWithFilename___block_invoke;
-  v58[3] = &unk_27859D328;
-  v58[4] = self;
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __72__ATXCandidateRelevanceModelTrainer_generateAndSaveDatasetWithFilename___block_invoke;
+  v57[3] = &unk_27859D328;
+  v57[4] = self;
   v7 = v6;
-  v59 = v7;
-  [datasetGenerator receiveDataPoint:v58 completion:&__block_literal_global_116];
+  v58 = v7;
+  [datasetGenerator receiveDataPoint:v57 completion:&__block_literal_global_116];
   v8 = [ATXCandidateRelevanceModelFeaturizationManager alloc];
   selfCopy = self;
   featurizers = [(ATXCandidateRelevanceModelConfig *)self->_config featurizers];
   v10 = [(ATXCandidateRelevanceModelFeaturizationManager *)v8 initWithFeaturizers:featurizers];
 
   appPredictionDirectory = [MEMORY[0x277CEBCB0] appPredictionDirectory];
-  v43 = filenameCopy;
+  v42 = filenameCopy;
   v12 = [appPredictionDirectory stringByAppendingPathComponent:filenameCopy];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   [defaultManager createFileAtPath:v12 contents:0 attributes:0];
 
-  v42 = v12;
+  v41 = v12;
   v14 = [MEMORY[0x277CCA9F8] fileHandleForWritingAtPath:v12];
   v15 = objc_opt_new();
-  v47 = v10;
+  v46 = v10;
   featureNames = [(ATXCandidateRelevanceModelFeaturizationManager *)v10 featureNames];
   [v15 addObject:@"Candidate"];
   [v15 addObject:@"CandidateIdentifier"];
   [v15 addObject:@"CandidateType"];
   [v15 addObject:@"SessionId"];
   [v15 addObject:@"Engaged"];
-  v40 = featureNames;
+  v39 = featureNames;
   [v15 addObjectsFromArray:featureNames];
-  v51 = v14;
-  v41 = v15;
+  v50 = v14;
+  v40 = v15;
   [v14 writeCommaSeparatedValues:v15];
   v17 = objc_opt_new();
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = __72__ATXCandidateRelevanceModelTrainer_generateAndSaveDatasetWithFilename___block_invoke_3;
-  v56[3] = &unk_27859D350;
-  v46 = v17;
-  v57 = v46;
-  v48 = datasetGenerator;
-  [datasetGenerator receiveDatasetSession:v56 completion:&__block_literal_global_48_0];
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = __72__ATXCandidateRelevanceModelTrainer_generateAndSaveDatasetWithFilename___block_invoke_3;
+  v55[3] = &unk_27859D350;
+  v45 = v17;
+  v56 = v45;
+  v47 = datasetGenerator;
+  [datasetGenerator receiveDatasetSession:v55 completion:&__block_literal_global_48_0];
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = v7;
-  v49 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
-  if (v49)
+  v48 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
+  if (v48)
   {
-    v45 = *v53;
+    v44 = *v52;
     do
     {
       v18 = 0;
       do
       {
-        if (*v53 != v45)
+        if (*v52 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v50 = v18;
-        v19 = *(*(&v52 + 1) + 8 * v18);
-        v20 = [objc_opt_class() candidateDataPointsForSessions:v46 candidate:v19];
-        v21 = [(ATXCandidateRelevanceModelFeaturizationManager *)v47 sparseFeatureMatrixFromDataPoints:v20];
+        v49 = v18;
+        v19 = *(*(&v51 + 1) + 8 * v18);
+        v20 = [objc_opt_class() candidateDataPointsForSessions:v45 candidate:v19];
+        v21 = [(ATXCandidateRelevanceModelFeaturizationManager *)v46 sparseFeatureMatrixFromDataPoints:v20];
         v22 = [objc_opt_class() labelsFromDataPoints:v20];
         numberOfRows = [v21 numberOfRows];
         if (numberOfRows != [v22 count])
@@ -141,7 +141,7 @@
               while ([v21 numberOfColumns] > v34);
             }
 
-            [v51 writeCommaSeparatedValues:v25];
+            [v50 writeCommaSeparatedValues:v25];
 
             ++v24;
           }
@@ -149,45 +149,44 @@
           while ([v21 numberOfRows] > v24);
         }
 
-        v18 = v50 + 1;
+        v18 = v49 + 1;
       }
 
-      while (v50 + 1 != v49);
-      v49 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
+      while (v49 + 1 != v48);
+      v48 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
     }
 
-    while (v49);
+    while (v48);
   }
 
-  [v51 closeFile];
-  v37 = *MEMORY[0x277D85DE8];
+  [v50 closeFile];
 }
 
 void __72__ATXCandidateRelevanceModelTrainer_generateAndSaveDatasetWithFilename___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = [*(*(a1 + 32) + 8) featurizers];
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       v8 = 0;
       do
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * v8);
+        v9 = *(*(&v14 + 1) + 8 * v8);
         v10 = [v3 context];
         v11 = [v3 candidate];
         [v9 observeContext:v10 candidate:v11];
@@ -196,7 +195,7 @@ void __72__ATXCandidateRelevanceModelTrainer_generateAndSaveDatasetWithFilename_
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -205,170 +204,170 @@ void __72__ATXCandidateRelevanceModelTrainer_generateAndSaveDatasetWithFilename_
   v12 = *(a1 + 40);
   v13 = [v3 candidate];
   [v12 addObject:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)trainWithXPCActivity:(id)activity disregardDatasetMetadataRequirements:(BOOL)requirements
 {
-  v143 = *MEMORY[0x277D85DE8];
+  v149 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
-  if ([(ATXCandidateRelevanceModelConfig *)self->_config isEnabled])
+  isEnabled = [(ATXCandidateRelevanceModelConfig *)self->_config isEnabled];
+  if (isEnabled)
   {
-    v6 = +[ATXCandidateRelevanceModelGlobals sharedInstance];
-    isPipelineEnabled = [v6 isPipelineEnabled];
+    v7 = +[ATXCandidateRelevanceModelGlobals sharedInstance];
+    isPipelineEnabled = [v7 isPipelineEnabled];
 
     if (isPipelineEnabled)
     {
-      v8 = __atxlog_handle_relevance_model();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = __atxlog_handle_relevance_model(isEnabled);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
         clientModel = [(ATXCandidateRelevanceModelConfig *)self->_config clientModel];
         clientModelId = [clientModel clientModelId];
         *buf = 138412546;
-        v138 = v10;
-        v139 = 2112;
-        v140 = clientModelId;
-        _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "%@ - Beginning model training for config with client model name: %@.", buf, 0x16u);
+        v144 = v11;
+        v145 = 2112;
+        v146 = clientModelId;
+        _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "%@ - Beginning model training for config with client model name: %@.", buf, 0x16u);
       }
 
       datastore = [(ATXCandidateRelevanceModelConfig *)self->_config datastore];
       clientModel2 = [(ATXCandidateRelevanceModelConfig *)self->_config clientModel];
       clientModelId2 = [clientModel2 clientModelId];
-      v16 = [MEMORY[0x277CBEAA8] now];
-      v17 = [v16 dateByAddingTimeInterval:-86400.0];
-      v18 = [datastore cachedCandidatesForModelId:clientModelId2 earliestDate:v17];
+      v17 = [MEMORY[0x277CBEAA8] now];
+      v18 = [v17 dateByAddingTimeInterval:-86400.0];
+      v19 = [datastore cachedCandidatesForModelId:clientModelId2 earliestDate:v18];
 
-      v19 = v18;
-      candidates = [v18 candidates];
-      featurizationManager = [v18 featurizationManager];
+      v20 = v19;
+      candidates = [v19 candidates];
+      featurizationManager = [v19 featurizationManager];
       datasetGenerator = [(ATXCandidateRelevanceModelConfig *)self->_config datasetGenerator];
-      v113 = datasetGenerator;
+      v23 = datasetGenerator;
+      v119 = datasetGenerator;
       selfCopy = self;
-      if (v18)
+      if (v19)
       {
-        v22 = __atxlog_handle_relevance_model();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v24 = __atxlog_handle_relevance_model(datasetGenerator);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = objc_opt_class();
-          NSStringFromClass(v23);
-          v25 = v24 = candidates;
+          v25 = objc_opt_class();
+          NSStringFromClass(v25);
+          v27 = v26 = candidates;
           *buf = 138412290;
-          v138 = v25;
-          _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEFAULT, "%@ - Using cached candidates since a deferral must have occurred.", buf, 0xCu);
+          v144 = v27;
+          _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "%@ - Using cached candidates since a deferral must have occurred.", buf, 0xCu);
 
-          candidates = v24;
+          candidates = v26;
         }
       }
 
       else
       {
-        v30 = candidates;
-        v31 = objc_opt_new();
-        v32 = objc_opt_new();
-        v133[0] = MEMORY[0x277D85DD0];
-        v133[1] = 3221225472;
-        v133[2] = __95__ATXCandidateRelevanceModelTrainer_trainWithXPCActivity_disregardDatasetMetadataRequirements___block_invoke;
-        v133[3] = &unk_27859D378;
-        v133[4] = self;
-        v33 = v32;
-        v134 = v33;
-        v34 = v31;
-        v135 = v34;
-        [datasetGenerator receiveDataPoint:v133 completion:&__block_literal_global_62];
-        currentMetadata = [v33 currentMetadata];
-        v35 = __atxlog_handle_relevance_model();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v33 = candidates;
+        v34 = objc_opt_new();
+        v35 = objc_opt_new();
+        v139[0] = MEMORY[0x277D85DD0];
+        v139[1] = 3221225472;
+        v139[2] = __95__ATXCandidateRelevanceModelTrainer_trainWithXPCActivity_disregardDatasetMetadataRequirements___block_invoke;
+        v139[3] = &unk_27859D378;
+        v139[4] = self;
+        v36 = v35;
+        v140 = v36;
+        v37 = v34;
+        v141 = v37;
+        [v23 receiveDataPoint:v139 completion:&__block_literal_global_62];
+        currentMetadata = [v36 currentMetadata];
+        v38 = __atxlog_handle_relevance_model(currentMetadata);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
-          v36 = objc_opt_class();
-          v37 = NSStringFromClass(v36);
+          v39 = objc_opt_class();
+          v40 = NSStringFromClass(v39);
           [(ATXCandidateRelevanceModelConfig *)self->_config clientModel];
-          v39 = v38 = activityCopy;
-          clientModelId3 = [v39 clientModelId];
+          v42 = v41 = activityCopy;
+          clientModelId3 = [v42 clientModelId];
           *buf = 138412802;
-          v138 = v37;
-          v139 = 2112;
-          v140 = clientModelId3;
-          v141 = 2112;
-          v142 = currentMetadata;
-          _os_log_impl(&dword_2263AA000, v35, OS_LOG_TYPE_DEFAULT, "%@ - Overall dataset metadata for config with client model name %@:\n%@", buf, 0x20u);
+          v144 = v40;
+          v145 = 2112;
+          v146 = clientModelId3;
+          v147 = 2112;
+          v148 = currentMetadata;
+          _os_log_impl(&dword_2263AA000, v38, OS_LOG_TYPE_DEFAULT, "%@ - Overall dataset metadata for config with client model name %@:\n%@", buf, 0x20u);
 
-          activityCopy = v38;
+          activityCopy = v41;
         }
 
-        if (requirements || [(ATXCandidateRelevanceModelConfig *)self->_config shouldTrainModelWithOverallDatasetMetadata:currentMetadata])
+        if (requirements || (v44 = [(ATXCandidateRelevanceModelConfig *)self->_config shouldTrainModelWithOverallDatasetMetadata:currentMetadata], (v44 & 1) != 0))
         {
-          allKeys = [v34 allKeys];
-          v131[0] = MEMORY[0x277D85DD0];
-          v131[1] = 3221225472;
-          v131[2] = __95__ATXCandidateRelevanceModelTrainer_trainWithXPCActivity_disregardDatasetMetadataRequirements___block_invoke_63;
-          v131[3] = &unk_27859D3A0;
-          v42 = v34;
-          v132 = v42;
-          [allKeys sortedArrayUsingComparator:v131];
-          v44 = v43 = activityCopy;
+          allKeys = [v37 allKeys];
+          v137[0] = MEMORY[0x277D85DD0];
+          v137[1] = 3221225472;
+          v137[2] = __95__ATXCandidateRelevanceModelTrainer_trainWithXPCActivity_disregardDatasetMetadataRequirements___block_invoke_63;
+          v137[3] = &unk_27859D3A0;
+          v46 = v37;
+          v138 = v46;
+          [allKeys sortedArrayUsingComparator:v137];
+          v48 = v47 = activityCopy;
 
-          v45 = [v44 count];
+          v49 = [v48 count];
           maximumNumberOfTrainedCandidates = [(ATXCandidateRelevanceModelConfig *)selfCopy->_config maximumNumberOfTrainedCandidates];
-          if (v45 >= maximumNumberOfTrainedCandidates)
+          if (v49 >= maximumNumberOfTrainedCandidates)
           {
-            v47 = maximumNumberOfTrainedCandidates;
+            v51 = maximumNumberOfTrainedCandidates;
           }
 
           else
           {
-            v47 = v45;
+            v51 = v49;
           }
 
-          v48 = [v44 subarrayWithRange:{0, v47}];
+          v52 = [v48 subarrayWithRange:{0, v51}];
 
-          v127[0] = MEMORY[0x277D85DD0];
-          v127[1] = 3221225472;
-          v127[2] = __95__ATXCandidateRelevanceModelTrainer_trainWithXPCActivity_disregardDatasetMetadataRequirements___block_invoke_2_65;
-          v127[3] = &unk_27859D3C8;
-          v128 = v42;
-          v129 = selfCopy;
+          v133[0] = MEMORY[0x277D85DD0];
+          v133[1] = 3221225472;
+          v133[2] = __95__ATXCandidateRelevanceModelTrainer_trainWithXPCActivity_disregardDatasetMetadataRequirements___block_invoke_2_65;
+          v133[3] = &unk_27859D3C8;
+          v134 = v46;
+          v135 = selfCopy;
           requirementsCopy = requirements;
-          v49 = [v48 _pas_filteredArrayWithTest:v127];
+          v53 = [v52 _pas_filteredArrayWithTest:v133];
 
-          v50 = [ATXCandidateRelevanceModelFeaturizationManager alloc];
+          v54 = [ATXCandidateRelevanceModelFeaturizationManager alloc];
           featurizers = [(ATXCandidateRelevanceModelConfig *)selfCopy->_config featurizers];
-          v52 = [(ATXCandidateRelevanceModelFeaturizationManager *)v50 initWithFeaturizers:featurizers];
+          v56 = [(ATXCandidateRelevanceModelFeaturizationManager *)v54 initWithFeaturizers:featurizers];
 
           datastore2 = [(ATXCandidateRelevanceModelConfig *)selfCopy->_config datastore];
           clientModel3 = [(ATXCandidateRelevanceModelConfig *)selfCopy->_config clientModel];
           clientModelId4 = [clientModel3 clientModelId];
-          v30 = v49;
-          [datastore2 cacheSelectedCandidates:v49 featurizationManager:v52 modelId:clientModelId4];
+          v33 = v53;
+          [datastore2 cacheSelectedCandidates:v53 featurizationManager:v56 modelId:clientModelId4];
 
-          v56 = 1;
-          v57 = v132;
-          featurizationManager = v52;
-          activityCopy = v43;
+          v60 = 1;
+          v61 = v138;
+          featurizationManager = v56;
+          activityCopy = v47;
           self = selfCopy;
         }
 
         else
         {
-          v57 = __atxlog_handle_relevance_model();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+          v61 = __atxlog_handle_relevance_model(v44);
+          if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
           {
-            v58 = objc_opt_class();
-            v59 = NSStringFromClass(v58);
+            v62 = objc_opt_class();
+            v63 = NSStringFromClass(v62);
             *buf = 138412290;
-            v138 = v59;
-            _os_log_impl(&dword_2263AA000, v57, OS_LOG_TYPE_DEFAULT, "%@ - Config specifies we shouldn't begin training yet given the overall dataset metadata. Skipping model training for all candidates.", buf, 0xCu);
+            v144 = v63;
+            _os_log_impl(&dword_2263AA000, v61, OS_LOG_TYPE_DEFAULT, "%@ - Config specifies we shouldn't begin training yet given the overall dataset metadata. Skipping model training for all candidates.", buf, 0xCu);
           }
 
-          v56 = 0;
+          v60 = 0;
         }
 
-        v19 = 0;
-        datasetGenerator = v113;
-        candidates = v30;
-        if ((v56 & 1) == 0)
+        v20 = 0;
+        v23 = v119;
+        candidates = v33;
+        if ((v60 & 1) == 0)
         {
           goto LABEL_56;
         }
@@ -376,174 +375,175 @@ void __72__ATXCandidateRelevanceModelTrainer_generateAndSaveDatasetWithFilename_
 
       if (candidates && featurizationManager)
       {
-        if (![activityCopy didDefer])
+        didDefer = [activityCopy didDefer];
+        if (!didDefer)
         {
-          v109 = activityCopy;
-          v112 = objc_opt_new();
-          v123 = 0u;
-          v124 = 0u;
-          v125 = 0u;
-          v126 = 0u;
+          v115 = activityCopy;
+          v118 = objc_opt_new();
+          v129 = 0u;
+          v130 = 0u;
+          v131 = 0u;
+          v132 = 0u;
           obj = candidates;
-          v116 = [obj countByEnumeratingWithState:&v123 objects:v136 count:16];
-          v110 = v19;
-          v108 = candidates;
-          if (v116)
+          v122 = [obj countByEnumeratingWithState:&v129 objects:v142 count:16];
+          v116 = v20;
+          v114 = candidates;
+          if (v122)
           {
-            v119 = 0;
-            v115 = *v124;
+            v125 = 0;
+            v121 = *v130;
             do
             {
-              v64 = 0;
+              v69 = 0;
               do
               {
-                if (*v124 != v115)
+                if (*v130 != v121)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v65 = *(*(&v123 + 1) + 8 * v64);
-                v66 = objc_autoreleasePoolPush();
-                v67 = __atxlog_handle_relevance_model();
-                if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+                v70 = *(*(&v129 + 1) + 8 * v69);
+                v71 = objc_autoreleasePoolPush();
+                v72 = __atxlog_handle_relevance_model(v71);
+                if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
                 {
-                  v68 = objc_opt_class();
-                  v69 = NSStringFromClass(v68);
-                  identifier = [v65 identifier];
+                  v73 = objc_opt_class();
+                  v74 = NSStringFromClass(v73);
+                  identifier = [v70 identifier];
                   *buf = 138412546;
-                  v138 = v69;
-                  v139 = 2112;
-                  v140 = identifier;
-                  _os_log_impl(&dword_2263AA000, v67, OS_LOG_TYPE_DEFAULT, "%@ - Setting up dataset for candidate with identifier: %@", buf, 0x16u);
+                  v144 = v74;
+                  v145 = 2112;
+                  v146 = identifier;
+                  _os_log_impl(&dword_2263AA000, v72, OS_LOG_TYPE_DEFAULT, "%@ - Setting up dataset for candidate with identifier: %@", buf, 0x16u);
                 }
 
-                v71 = objc_opt_new();
-                v121[0] = MEMORY[0x277D85DD0];
-                v121[1] = 3221225472;
-                v121[2] = __95__ATXCandidateRelevanceModelTrainer_trainWithXPCActivity_disregardDatasetMetadataRequirements___block_invoke_68;
-                v121[3] = &unk_27859D3F0;
-                v72 = v71;
-                v122 = v72;
-                [datasetGenerator receiveCandidateDataPoint:v121 completion:&__block_literal_global_71_0 candidate:v65];
-                v73 = [ATXCandidateRelevanceModelDataStoreDatasetMetadata datasetMetadataForDataPoints:v72];
-                v74 = __atxlog_handle_relevance_model();
-                if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+                v76 = objc_opt_new();
+                v127[0] = MEMORY[0x277D85DD0];
+                v127[1] = 3221225472;
+                v127[2] = __95__ATXCandidateRelevanceModelTrainer_trainWithXPCActivity_disregardDatasetMetadataRequirements___block_invoke_68;
+                v127[3] = &unk_27859D3F0;
+                v77 = v76;
+                v128 = v77;
+                [v23 receiveCandidateDataPoint:v127 completion:&__block_literal_global_71_0 candidate:v70];
+                v78 = [ATXCandidateRelevanceModelDataStoreDatasetMetadata datasetMetadataForDataPoints:v77];
+                v79 = __atxlog_handle_relevance_model(v78);
+                if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
                 {
-                  v75 = objc_opt_class();
-                  v76 = NSStringFromClass(v75);
-                  identifier2 = [v65 identifier];
+                  v80 = objc_opt_class();
+                  v81 = NSStringFromClass(v80);
+                  identifier2 = [v70 identifier];
                   *buf = 138412802;
-                  v138 = v76;
-                  v139 = 2112;
-                  v140 = identifier2;
-                  v141 = 2112;
-                  v142 = v73;
-                  _os_log_impl(&dword_2263AA000, v74, OS_LOG_TYPE_DEFAULT, "%@ - Candidate dataset metadata for candidate identifier %@:\n%@", buf, 0x20u);
+                  v144 = v81;
+                  v145 = 2112;
+                  v146 = identifier2;
+                  v147 = 2112;
+                  v148 = v78;
+                  _os_log_impl(&dword_2263AA000, v79, OS_LOG_TYPE_DEFAULT, "%@ - Candidate dataset metadata for candidate identifier %@:\n%@", buf, 0x20u);
                 }
 
-                if (requirements || [(ATXCandidateRelevanceModelConfig *)self->_config shouldTrainModelWithCandidateDatasetMetadata:v73])
+                if (requirements || (v83 = [(ATXCandidateRelevanceModelConfig *)self->_config shouldTrainModelWithCandidateDatasetMetadata:v78], (v83 & 1) != 0))
                 {
-                  v78 = __atxlog_handle_relevance_model();
-                  if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
-                  {
-                    v79 = objc_opt_class();
-                    v80 = NSStringFromClass(v79);
-                    identifier3 = [v65 identifier];
-                    *buf = 138412546;
-                    v138 = v80;
-                    v139 = 2112;
-                    v140 = identifier3;
-                    _os_log_impl(&dword_2263AA000, v78, OS_LOG_TYPE_DEFAULT, "%@ - Training model for candidate with identifier: %@", buf, 0x16u);
-                  }
-
-                  modelTrainingPlan = [(ATXCandidateRelevanceModelConfig *)self->_config modelTrainingPlan];
-                  v83 = [modelTrainingPlan trainModelForDataPoints:v72 candidate:v65 featurizationManager:featurizationManager];
-
-                  v84 = __atxlog_handle_relevance_model();
+                  v84 = __atxlog_handle_relevance_model(v83);
                   if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
                   {
                     v85 = objc_opt_class();
                     v86 = NSStringFromClass(v85);
-                    identifier4 = [v65 identifier];
+                    identifier3 = [v70 identifier];
                     *buf = 138412546;
-                    v138 = v86;
-                    v139 = 2112;
-                    v140 = identifier4;
-                    _os_log_impl(&dword_2263AA000, v84, OS_LOG_TYPE_DEFAULT, "%@ - Writing model to datastore for candidate with identifier: %@", buf, 0x16u);
+                    v144 = v86;
+                    v145 = 2112;
+                    v146 = identifier3;
+                    _os_log_impl(&dword_2263AA000, v84, OS_LOG_TYPE_DEFAULT, "%@ - Training model for candidate with identifier: %@", buf, 0x16u);
                   }
 
-                  v88 = [ATXCandidateRelevanceModelDataStoreTrainingResult alloc];
+                  modelTrainingPlan = [(ATXCandidateRelevanceModelConfig *)self->_config modelTrainingPlan];
+                  v89 = [modelTrainingPlan trainModelForDataPoints:v77 candidate:v70 featurizationManager:featurizationManager];
+
+                  v91 = __atxlog_handle_relevance_model(v90);
+                  if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
+                  {
+                    v92 = objc_opt_class();
+                    v93 = NSStringFromClass(v92);
+                    identifier4 = [v70 identifier];
+                    *buf = 138412546;
+                    v144 = v93;
+                    v145 = 2112;
+                    v146 = identifier4;
+                    _os_log_impl(&dword_2263AA000, v91, OS_LOG_TYPE_DEFAULT, "%@ - Writing model to datastore for candidate with identifier: %@", buf, 0x16u);
+                  }
+
+                  v95 = [ATXCandidateRelevanceModelDataStoreTrainingResult alloc];
                   clientModel4 = [(ATXCandidateRelevanceModelConfig *)self->_config clientModel];
                   clientModelId5 = [clientModel4 clientModelId];
-                  v91 = [MEMORY[0x277CBEAA8] now];
-                  LOBYTE(v107) = 0;
-                  v92 = [(ATXCandidateRelevanceModelDataStoreTrainingResult *)v88 initWithModel:v83 candidate:v65 featurizationManager:featurizationManager modelUUID:v112 datasetMetadata:v73 clientModelName:clientModelId5 trainDate:v91 isVerified:v107];
+                  v98 = [MEMORY[0x277CBEAA8] now];
+                  LOBYTE(v113) = 0;
+                  v99 = [(ATXCandidateRelevanceModelDataStoreTrainingResult *)v95 initWithModel:v89 candidate:v70 featurizationManager:featurizationManager modelUUID:v118 datasetMetadata:v78 clientModelName:clientModelId5 trainDate:v98 isVerified:v113];
 
                   self = selfCopy;
                   datastore3 = [(ATXCandidateRelevanceModelConfig *)selfCopy->_config datastore];
-                  [datastore3 writeTrainingResult:v92];
+                  [datastore3 writeTrainingResult:v99];
 
-                  ++v119;
-                  datasetGenerator = v113;
+                  ++v125;
+                  v23 = v119;
                 }
 
                 else
                 {
-                  v83 = __atxlog_handle_relevance_model();
-                  if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+                  v89 = __atxlog_handle_relevance_model(v83);
+                  if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
                   {
-                    v94 = objc_opt_class();
-                    v95 = NSStringFromClass(v94);
-                    identifier5 = [v65 identifier];
+                    v101 = objc_opt_class();
+                    v102 = NSStringFromClass(v101);
+                    identifier5 = [v70 identifier];
                     *buf = 138412546;
-                    v138 = v95;
-                    v139 = 2112;
-                    v140 = identifier5;
-                    _os_log_impl(&dword_2263AA000, v83, OS_LOG_TYPE_DEFAULT, "%@ - Config specifies we shouldn't train a model given the candidate dataset metadata. Skipping model training for candidate with identifier: %@", buf, 0x16u);
+                    v144 = v102;
+                    v145 = 2112;
+                    v146 = identifier5;
+                    _os_log_impl(&dword_2263AA000, v89, OS_LOG_TYPE_DEFAULT, "%@ - Config specifies we shouldn't train a model given the candidate dataset metadata. Skipping model training for candidate with identifier: %@", buf, 0x16u);
                   }
                 }
 
-                objc_autoreleasePoolPop(v66);
-                ++v64;
+                objc_autoreleasePoolPop(v71);
+                ++v69;
               }
 
-              while (v116 != v64);
-              v97 = [obj countByEnumeratingWithState:&v123 objects:v136 count:16];
-              v116 = v97;
+              while (v122 != v69);
+              v104 = [obj countByEnumeratingWithState:&v129 objects:v142 count:16];
+              v122 = v104;
             }
 
-            while (v97);
+            while (v104);
           }
 
           else
           {
-            v119 = 0;
+            v125 = 0;
           }
 
           datastore4 = [(ATXCandidateRelevanceModelConfig *)self->_config datastore];
           clientModel5 = [(ATXCandidateRelevanceModelConfig *)self->_config clientModel];
           clientModelId6 = [clientModel5 clientModelId];
-          v60 = v112;
-          [datastore4 writeVerificationStatusForModelUUID:v112 clientModelName:clientModelId6 expectedNumberOfModels:v119];
+          v65 = v118;
+          [datastore4 writeVerificationStatusForModelUUID:v118 clientModelName:clientModelId6 expectedNumberOfModels:v125];
 
-          v101 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-1209600.0];
+          v108 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-1209600.0];
           datastore5 = [(ATXCandidateRelevanceModelConfig *)self->_config datastore];
           clientModel6 = [(ATXCandidateRelevanceModelConfig *)self->_config clientModel];
           clientModelId7 = [clientModel6 clientModelId];
           [datastore5 deleteCachedCandidatesForModelId:clientModelId7];
 
-          datasetGenerator = v113;
+          v23 = v119;
           datastore6 = [(ATXCandidateRelevanceModelConfig *)self->_config datastore];
-          [datastore6 deleteTrainedModelsWithTrainDateOlderThanDate:v101];
+          [datastore6 deleteTrainedModelsWithTrainDateOlderThanDate:v108];
 
-          activityCopy = v109;
-          v19 = v110;
-          candidates = v108;
+          activityCopy = v115;
+          v20 = v116;
+          candidates = v114;
           goto LABEL_55;
         }
 
-        v60 = __atxlog_handle_relevance_model();
-        if (!os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+        v65 = __atxlog_handle_relevance_model(didDefer);
+        if (!os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
         {
 LABEL_55:
 
@@ -551,80 +551,78 @@ LABEL_56:
           goto LABEL_57;
         }
 
-        v61 = objc_opt_class();
-        v62 = NSStringFromClass(v61);
+        v66 = objc_opt_class();
+        v67 = NSStringFromClass(v66);
         *buf = 138412290;
-        v138 = v62;
-        _os_log_impl(&dword_2263AA000, v60, OS_LOG_TYPE_DEFAULT, "%@ - Stopping model training early due to deferral.", buf, 0xCu);
+        v144 = v67;
+        _os_log_impl(&dword_2263AA000, v65, OS_LOG_TYPE_DEFAULT, "%@ - Stopping model training early due to deferral.", buf, 0xCu);
       }
 
       else
       {
-        v60 = __atxlog_handle_relevance_model();
-        if (!os_log_type_enabled(v60, OS_LOG_TYPE_FAULT))
+        v65 = __atxlog_handle_relevance_model(v28);
+        if (!os_log_type_enabled(v65, OS_LOG_TYPE_FAULT))
         {
           goto LABEL_55;
         }
 
-        v63 = objc_opt_class();
-        v62 = NSStringFromClass(v63);
+        v68 = objc_opt_class();
+        v67 = NSStringFromClass(v68);
         *buf = 138412802;
-        v138 = v62;
-        v139 = 2112;
-        v140 = candidates;
-        v141 = 2112;
-        v142 = featurizationManager;
-        _os_log_fault_impl(&dword_2263AA000, v60, OS_LOG_TYPE_FAULT, "%@ - Programmer error: Either the candidates list (%@) or featurizationManager is nil (%@).", buf, 0x20u);
+        v144 = v67;
+        v145 = 2112;
+        v146 = candidates;
+        v147 = 2112;
+        v148 = featurizationManager;
+        _os_log_fault_impl(&dword_2263AA000, v65, OS_LOG_TYPE_FAULT, "%@ - Programmer error: Either the candidates list (%@) or featurizationManager is nil (%@).", buf, 0x20u);
       }
 
       goto LABEL_55;
     }
   }
 
-  v19 = __atxlog_handle_relevance_model();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = __atxlog_handle_relevance_model(isEnabled);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = objc_opt_class();
-    v27 = NSStringFromClass(v26);
+    v29 = objc_opt_class();
+    v30 = NSStringFromClass(v29);
     clientModel7 = [(ATXCandidateRelevanceModelConfig *)self->_config clientModel];
     clientModelId8 = [clientModel7 clientModelId];
     *buf = 138412546;
-    v138 = v27;
-    v139 = 2112;
-    v140 = clientModelId8;
-    _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_DEFAULT, "%@ - Config with client model name %@ is not enabled or the pipeline is disabled. Skipping training.", buf, 0x16u);
+    v144 = v30;
+    v145 = 2112;
+    v146 = clientModelId8;
+    _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEFAULT, "%@ - Config with client model name %@ is not enabled or the pipeline is disabled. Skipping training.", buf, 0x16u);
   }
 
 LABEL_57:
-
-  v106 = *MEMORY[0x277D85DE8];
 }
 
 void __95__ATXCandidateRelevanceModelTrainer_trainWithXPCActivity_disregardDatasetMetadataRequirements___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v4 = [*(*(a1 + 32) + 8) featurizers];
-  v5 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       v8 = 0;
       do
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * v8);
+        v9 = *(*(&v21 + 1) + 8 * v8);
         v10 = [v3 context];
         v11 = [v3 candidate];
         [v9 observeContext:v10 candidate:v11];
@@ -633,7 +631,7 @@ void __95__ATXCandidateRelevanceModelTrainer_trainWithXPCActivity_disregardDatas
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v6);
@@ -656,8 +654,6 @@ void __95__ATXCandidateRelevanceModelTrainer_trainWithXPCActivity_disregardDatas
   v19 = [v3 candidate];
   v20 = [v18 objectForKeyedSubscript:v19];
   [v20 observeDataPoint:v3];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __95__ATXCandidateRelevanceModelTrainer_trainWithXPCActivity_disregardDatasetMetadataRequirements___block_invoke_63(uint64_t a1, uint64_t a2, void *a3)
@@ -677,53 +673,50 @@ uint64_t __95__ATXCandidateRelevanceModelTrainer_trainWithXPCActivity_disregardD
 
 uint64_t __95__ATXCandidateRelevanceModelTrainer_trainWithXPCActivity_disregardDatasetMetadataRequirements___block_invoke_2_65(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) objectForKeyedSubscript:v3];
   v5 = [v4 currentMetadata];
 
-  v6 = __atxlog_handle_relevance_model();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = __atxlog_handle_relevance_model(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 40);
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
     v10 = [v3 identifier];
-    v19 = 138412802;
-    v20 = v9;
-    v21 = 2112;
-    v22 = v10;
-    v23 = 2112;
-    v24 = v5;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "%@ - Candidate dataset metadata (positive only) for candidate identifier %@:\n%@", &v19, 0x20u);
+    v18 = 138412802;
+    v19 = v9;
+    v20 = 2112;
+    v21 = v10;
+    v22 = 2112;
+    v23 = v5;
+    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%@ - Candidate dataset metadata (positive only) for candidate identifier %@:\n%@", &v18, 0x20u);
   }
 
-  if (*(a1 + 48) & 1) != 0 || ([*(*(a1 + 40) + 8) shouldTrainModelWithPositiveCandidateDatasetMetadata:v5])
+  if (*(a1 + 48) & 1) != 0 || (v11 = [*(*(a1 + 40) + 8) shouldTrainModelWithPositiveCandidateDatasetMetadata:v5], (v11))
   {
-    v11 = 1;
+    v12 = 1;
   }
 
   else
   {
-    v12 = __atxlog_handle_relevance_model();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = __atxlog_handle_relevance_model(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 40);
       v14 = objc_opt_class();
       v15 = NSStringFromClass(v14);
       v16 = [v3 identifier];
-      v19 = 138412546;
-      v20 = v15;
-      v21 = 2112;
-      v22 = v16;
-      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "%@ - Config specifies we shouldn't train a model given the candidate dataset metadata (positive only). Skipping model training for candidate with identifier: %@", &v19, 0x16u);
+      v18 = 138412546;
+      v19 = v15;
+      v20 = 2112;
+      v21 = v16;
+      _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "%@ - Config specifies we shouldn't train a model given the candidate dataset metadata (positive only). Skipping model training for candidate with identifier: %@", &v18, 0x16u);
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (void)generateAndSaveDatasetWithFilename:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

@@ -10,16 +10,16 @@
 {
   v4 = sub_10007AE28();
   v5 = *(v4 - 8);
-  __chkstk_darwin();
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4, v6);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10007AE08();
-  v8 = self + OBJC_IVAR____TtC9IntentsUI26VoicemailDelegateDecorator_lastTask;
+  v9 = self + OBJC_IVAR____TtC9IntentsUI26VoicemailDelegateDecorator_lastTask;
   selfCopy = self;
-  os_unfair_lock_lock(v8);
-  sub_10002FE4C(v8 + 1, selfCopy, v7);
-  os_unfair_lock_unlock(v8);
+  os_unfair_lock_lock(v9);
+  sub_10002FE4C(v9 + 1, selfCopy, v8);
+  os_unfair_lock_unlock(v9);
 
-  (*(v5 + 8))(v7, v4);
+  (*(v5 + 8))(v8, v4);
 }
 
 - (_TtC9IntentsUI26VoicemailDelegateDecorator)init
@@ -34,7 +34,7 @@
   v6 = self + OBJC_IVAR____TtC9IntentsUI26VoicemailDelegateDecorator_lastTask;
   selfCopy = self;
   os_unfair_lock_lock(v6);
-  sub_10003078C(v6 + 1, selfCopy, v7, "VoicemailDelegateDecorator: received voicemailsDidChange");
+  sub_10003078C(v6 + 1, selfCopy, v7, "VoicemailDelegateDecorator: received voicemailsDidChange", &unk_1000B25B8, &unk_1000A14D8);
   os_unfair_lock_unlock(v6);
 }
 

@@ -6,11 +6,11 @@
 
 - (HMDCameraClipImportVideoSegmentMetadata)initWithVideoSegmentMetadata:(id)metadata
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
-  v30.receiver = self;
-  v30.super_class = HMDCameraClipImportVideoSegmentMetadata;
-  v5 = [(HMDCameraClipImportVideoSegmentMetadata *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = HMDCameraClipImportVideoSegmentMetadata;
+  v5 = [(HMDCameraClipImportVideoSegmentMetadata *)&v29 init];
   if (!v5)
   {
     goto LABEL_6;
@@ -26,9 +26,9 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v19;
-      v33 = 2112;
-      v34 = metadataCopy;
+      v31 = v19;
+      v32 = 2112;
+      v33 = metadataCopy;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Could not find resourcePath in video segment metadata: %@", buf, 0x16u);
     }
 
@@ -47,9 +47,9 @@
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v23;
-      v33 = 2112;
-      v34 = metadataCopy;
+      v31 = v23;
+      v32 = 2112;
+      v33 = metadataCopy;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Could not find isHeader in video segment metadata: %@", buf, 0x16u);
     }
 
@@ -68,9 +68,9 @@
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v27;
-      v33 = 2112;
-      v34 = metadataCopy;
+      v31 = v27;
+      v32 = 2112;
+      v33 = metadataCopy;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Could not find duration in video segment metadata: %@", buf, 0x16u);
     }
 
@@ -83,7 +83,7 @@ LABEL_17:
   }
 
   v11 = v10;
-  v12 = [v7 copy];
+  v12 = objc_msgSend_copy(v7);
   resourcePath = v5->_resourcePath;
   v5->_resourcePath = v12;
 
@@ -95,7 +95,6 @@ LABEL_6:
   v15 = v5;
 LABEL_18:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

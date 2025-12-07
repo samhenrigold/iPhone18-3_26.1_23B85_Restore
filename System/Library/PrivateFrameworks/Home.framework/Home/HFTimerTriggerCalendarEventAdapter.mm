@@ -58,9 +58,8 @@ BOOL __72__HFTimerTriggerCalendarEventAdapter_hasWeekdayRecurrenceInRecurrences_
   return v16;
 }
 
-id __81__HFTimerTriggerCalendarEventAdapter_createTriggerWithName_timeZone_recurrences___block_invoke(uint64_t a1)
+id __81__HFTimerTriggerCalendarEventAdapter_createTriggerWithName_timeZone_recurrences___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   v3 = [objc_opt_class() hasWeekdayRecurrenceInRecurrences:*(a1 + 40)];
   v4 = objc_alloc(MEMORY[0x277CD1EB0]);
   v5 = *(a1 + 48);
@@ -85,7 +84,7 @@ id __81__HFTimerTriggerCalendarEventAdapter_createTriggerWithName_timeZone_recur
 
 void __81__HFTimerTriggerCalendarEventAdapter_createTriggerWithName_timeZone_recurrences___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -93,41 +92,37 @@ void __81__HFTimerTriggerCalendarEventAdapter_createTriggerWithName_timeZone_rec
     v4 = [*(a1 + 40) eventBuilder];
     v5 = [v4 fireDate];
     v6 = *(a1 + 48);
-    v8 = 138412802;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Created timer trigger with name:%@ fireDate:%@ recurrence:%@", &v8, 0x20u);
+    v7 = 138412802;
+    v8 = v3;
+    v9 = 2112;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Created timer trigger with name:%@ fireDate:%@ recurrence:%@", &v7, 0x20u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __81__HFTimerTriggerCalendarEventAdapter_createTriggerWithName_timeZone_recurrences___block_invoke_44(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = [*(a1 + 40) eventBuilder];
-    v8 = [v7 fireDate];
-    v9 = *(a1 + 48);
-    v10 = 138413058;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to create timer trigger with name:%@ fireDate:%@ recurrence:%@. Error: %@", &v10, 0x2Au);
+    v5 = *(a1 + 32);
+    v6 = [*(a1 + 40) eventBuilder];
+    v7 = [v6 fireDate];
+    v8 = *(a1 + 48);
+    v9 = 138413058;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to create timer trigger with name:%@ fireDate:%@ recurrence:%@. Error: %@", &v9, 0x2Au);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTriggerBuilder:(id)builder recurrences:(id)recurrences inHome:(id)home
@@ -221,43 +216,39 @@ id __52__HFTimerTriggerCalendarEventAdapter_updateTrigger___block_invoke_2(uint6
 
 void __52__HFTimerTriggerCalendarEventAdapter_updateTrigger___block_invoke_3(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) eventBuilder];
     v4 = [v3 effectiveFireDate];
     v5 = [*(a1 + 40) name];
-    v7 = 138412546;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Updated execution time: %@ for trigger with name: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v4;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Updated execution time: %@ for trigger with name: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HFTimerTriggerCalendarEventAdapter_updateTrigger___block_invoke_46(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) eventBuilder];
-    v7 = [v6 effectiveFireDate];
-    v8 = [*(a1 + 40) name];
-    v9 = 138412802;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to update execution time: %@ for trigger with name: %@. Error: %@", &v9, 0x20u);
+    v5 = [*(a1 + 32) eventBuilder];
+    v6 = [v5 effectiveFireDate];
+    v7 = [*(a1 + 40) name];
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to update execution time: %@ for trigger with name: %@. Error: %@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -30,7 +30,7 @@ void __56__AFSiriActivationRequest_performRequestWithCompletion___block_invoke(u
 
 - (void)performRequestWithResultHandler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   *keys = xmmword_1E73486C8;
   values[0] = xpc_int64_create(6);
@@ -40,13 +40,13 @@ void __56__AFSiriActivationRequest_performRequestWithCompletion___block_invoke(u
   v7 = v6;
   if (v5 && v6)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __59__AFSiriActivationRequest_performRequestWithResultHandler___block_invoke;
-    v11[3] = &unk_1E7348638;
-    v13 = handlerCopy;
-    v12 = v7;
-    xpc_connection_send_message_with_reply(v12, v5, 0, v11);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __59__AFSiriActivationRequest_performRequestWithResultHandler___block_invoke;
+    v10[3] = &unk_1E7348638;
+    v12 = handlerCopy;
+    v11 = v7;
+    xpc_connection_send_message_with_reply(v11, v5, 0, v10);
   }
 
   else
@@ -66,8 +66,6 @@ void __56__AFSiriActivationRequest_performRequestWithCompletion___block_invoke(u
   for (i = 1; i != -1; --i)
   {
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __59__AFSiriActivationRequest_performRequestWithResultHandler___block_invoke(uint64_t a1, xpc_object_t xdict)

@@ -6,30 +6,30 @@
 
 + (id)queryStringForRadioRequestParameters:()RadioRequestAdditions protocolVersion:error:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v21 = [MEMORY[0x277CCAB68] stringWithFormat:@"?version=%i", a4];
+  v20 = [MEMORY[0x277CCAB68] stringWithFormat:@"?version=%i", a4];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   allKeys = [v5 allKeys];
-  v7 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       v10 = 0;
       do
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * v10);
+        v11 = *(*(&v21 + 1) + 8 * v10);
         v12 = [v5 objectForKey:v11];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -74,22 +74,21 @@ LABEL_14:
         }
 
         v16 = [(__CFString *)v15 stringByAddingPercentEncodingWithAllowedCharacters:queryStringForRadioRequestParameters_protocolVersion_error__sQueryStringAllowedCharacterSet];
-        [v21 appendFormat:@"&%@=%@", v11, v16];
+        [v20 appendFormat:@"&%@=%@", v11, v16];
 
 LABEL_17:
         ++v10;
       }
 
       while (v8 != v10);
-      v17 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v17 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
       v8 = v17;
     }
 
     while (v17);
   }
 
-  v18 = [v21 copy];
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = [v20 copy];
 
   return v18;
 }

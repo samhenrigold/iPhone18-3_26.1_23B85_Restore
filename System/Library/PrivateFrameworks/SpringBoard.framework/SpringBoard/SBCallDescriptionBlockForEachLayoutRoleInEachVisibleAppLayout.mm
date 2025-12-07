@@ -8,7 +8,7 @@ void ___SBCallDescriptionBlockForEachLayoutRoleInEachVisibleAppLayout_block_invo
   v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v22 = v5;
-  if ([*(a1 + 32) containsObject:v5])
+  if (objc_msgSend_containsObject_(*(a1 + 32)))
   {
     v20 = 0u;
     v21 = 0u;

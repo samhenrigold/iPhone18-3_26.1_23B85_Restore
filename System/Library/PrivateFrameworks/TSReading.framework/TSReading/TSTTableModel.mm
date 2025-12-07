@@ -89,11 +89,11 @@
   return +[TSTTableModel unnamedTableString]::sUnnamedTableString;
 }
 
-uint64_t __35__TSTTableModel_unnamedTableString__block_invoke()
+void *__35__TSTTableModel_unnamedTableString__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = [TSTBundle() localizedStringForKey:@"Table %@" value:&stru_287D36338 table:@"TSTables"];
-  v1 = [MEMORY[0x277CCABB8] localizedStringFromNumber:&unk_287DDDF80 numberStyle:1];
-  result = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v0, v1];
+  v2 = [TSTBundle(a1 a2)];
+  v3 = [MEMORY[0x277CCABB8] localizedStringFromNumber:&unk_287DDDF80 numberStyle:1];
+  result = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v2, v3];
   +[TSTTableModel unnamedTableString]::sUnnamedTableString = result;
   return result;
 }
@@ -549,14 +549,14 @@ LABEL_46:
                 v61 = *(&v38->mPrivate.mCellFormats.mCurrentCellFormat.var0.mMultipleChoiceListFormatStruct + 29);
                 if (v38->mPrivate.mCellFormats.mCurrentCellFormat.mFormatType == 266)
                 {
-                  v69 = 266;
-                  v70 = v41;
-                  v71 = mCustomFormatID;
-                  v72 = v43;
-                  v73 = mDisplayFormatType;
-                  v74 = v45;
-                  v75 = v61;
-                  v76 = v63;
+                  LODWORD(v69) = 266;
+                  DWORD1(v69) = v41;
+                  *(&v69 + 1) = mCustomFormatID;
+                  v70 = v43;
+                  v71 = mDisplayFormatType;
+                  v72 = v45;
+                  v73 = v61;
+                  v74 = v63;
                   TSTCellSetFormatClearingID(v38, &v69, 1);
                 }
 
@@ -565,32 +565,32 @@ LABEL_46:
                   mMultipleChoiceListFormatRef = v38->mPrivate.mCellFormats.mMultipleChoiceListFormatRef;
                   if (mMultipleChoiceListFormatRef)
                   {
-                    [(TSUFormatReferenceObject *)mMultipleChoiceListFormatRef getFormatStruct];
-                    v47 = v71;
-                    v48 = v72;
-                    v62 = v75;
-                    v64 = v76;
+                    objc_msgSend_getFormatStruct(mMultipleChoiceListFormatRef, *&v43);
+                    v47 = DWORD2(v69);
+                    v48 = v70;
+                    v62 = v73;
+                    v64 = v74;
                     if (v69 == 266)
                     {
                       v49 = v68;
                       if (v68)
                       {
                         v50 = v68->mPrivate.mCellFormats.mMultipleChoiceListFormatRef;
-                        v60 = v70;
-                        v58 = v73;
-                        v55 = v74;
-                        if (!v50 || ([(TSUFormatReferenceObject *)v50 getFormatStruct], v69 != 266) || v71 != v47)
+                        v60 = DWORD1(v69);
+                        v58 = v71;
+                        v55 = v72;
+                        if (!v50 || (objc_msgSend_getFormatStruct(v50), v69 != 266) || *(&v69 + 1) != v47)
                         {
 
                           v51 = objc_alloc(MEMORY[0x277D6C2F0]);
-                          v69 = 266;
-                          v70 = v60;
-                          v71 = v47;
-                          v72 = v48;
-                          v73 = v58;
-                          v74 = v55;
-                          v75 = v62;
-                          v76 = v64;
+                          LODWORD(v69) = 266;
+                          DWORD1(v69) = v60;
+                          *(&v69 + 1) = v47;
+                          v70 = v48;
+                          v71 = v58;
+                          v72 = v55;
+                          v73 = v62;
+                          v74 = v64;
                           v49->mPrivate.mCellFormats.mMultipleChoiceListFormatRef = [v51 initWithTSUFormatFormatStruct:&v69];
                           v49->mPrivate.mCellFormats.mMultipleChoiceListFormatID = 0;
                         }
@@ -1097,7 +1097,7 @@ LABEL_12:
   [widths enumerateObjectsUsingBlock:v3];
 }
 
-uint64_t __33__TSTTableModel_setColumnWidths___block_invoke(uint64_t a1, void *a2, unsigned __int8 a3)
+double *__33__TSTTableModel_setColumnWidths___block_invoke(uint64_t a1, void *a2, unsigned __int8 a3)
 {
   v4 = *(a1 + 32);
   [a2 tsu_CGFloatValue];
@@ -1115,7 +1115,7 @@ uint64_t __33__TSTTableModel_setColumnWidths___block_invoke(uint64_t a1, void *a
   [heights enumerateObjectsUsingBlock:v3];
 }
 
-uint64_t __31__TSTTableModel_setRowHeights___block_invoke(uint64_t a1, void *a2, unsigned __int16 a3)
+double *__31__TSTTableModel_setRowHeights___block_invoke(uint64_t a1, void *a2, unsigned __int16 a3)
 {
   v4 = *(a1 + 32);
   [a2 tsu_CGFloatValue];
@@ -2057,7 +2057,7 @@ LABEL_16:
     while ((TSTCellIteratorGetNextCell(v7, v30) & 1) != 0);
   }
 
-  TSTTableSetCellsWithCellMapIgnoringFormulas(self, v29);
+  TSTTableSetCellsWithCellMapIgnoringFormulas(self, v29, 0, 0, 0);
 
   if ([(TSTTableModel *)self numberOfRows])
   {
@@ -2157,18 +2157,18 @@ LABEL_16:
 
   mNumberOfFooterRows = self->mNumberOfFooterRows;
   v7 = [[TSTCellIterator alloc] initWithTableModel:self range:(mNumberOfColumns | (mNumberOfRows << 16)) << 32 flags:33];
-  if (TSTCellIteratorGetNextCell(v7, v24))
+  if (TSTCellIteratorGetNextCell(v7, v25))
   {
     while (1)
     {
-      v8 = v27;
-      if (!v27)
+      v9 = v28;
+      if (!v28)
       {
         goto LABEL_21;
       }
 
-      mPrivate = v27->mPrivate;
-      mFormatType = v27->mPrivate.mCellFormats.mCurrentCellFormat.mFormatType;
+      mPrivate = v28->mPrivate;
+      mFormatType = v28->mPrivate.mCellFormats.mCurrentCellFormat.mFormatType;
       if (mFormatType == 267 && BYTE1(mPrivate) == 2)
       {
         break;
@@ -2184,28 +2184,28 @@ LABEL_16:
         goto LABEL_20;
       }
 
-      v13 = v27;
+      v14 = v28;
 LABEL_23:
-      v14 = NSStringFromNativeTSTCell(v13);
-      if (v14 && [(__CFString *)v14 length])
+      v15 = NSStringFromNativeTSTCell(v14, v8);
+      if (v15 && [(__CFString *)v15 length])
       {
 LABEL_25:
-        v15 = v25;
         v16 = v26;
-        if (v28 != 0xFFFF)
+        v17 = v27;
+        if (v29 != 0xFFFF)
         {
-          v17 = HIWORD(v28);
-          v18 = (v28 & 0xFF0000) == 0xFF0000 || v17 == 0;
-          if (!v18 && (v28 & 0xFFFF00000000) != 0)
+          v18 = HIWORD(v29);
+          v19 = (v29 & 0xFF0000) == 0xFF0000 || v18 == 0;
+          if (!v19 && (v29 & 0xFFFF00000000) != 0)
           {
-            v16 = ((v28 + ((v28 >> 16) & 0xFF0000) + 16711680) >> 16);
-            v15 = v28 + 0xFFFF + v17;
+            v17 = ((v29 + ((v29 >> 16) & 0xFF0000) + 16711680) >> 16);
+            v16 = v29 + 0xFFFF + v18;
           }
         }
 
-        if (v15 >= v2 && ~mNumberOfFooterRows + mNumberOfRows >= v15)
+        if (v16 >= v2 && ~mNumberOfFooterRows + mNumberOfRows >= v16)
         {
-          v2 = (v15 + 1);
+          v2 = (v16 + 1);
         }
 
         else
@@ -2213,46 +2213,46 @@ LABEL_25:
           v2 = v2;
         }
 
-        if (v16 >= v3)
+        if (v17 >= v3)
         {
-          v3 = v16 + 1;
+          v3 = v17 + 1;
         }
       }
 
 LABEL_43:
-      if ((TSTCellIteratorGetNextCell(v7, v24) & 1) == 0)
+      if ((TSTCellIteratorGetNextCell(v7, v25) & 1) == 0)
       {
         goto LABEL_44;
       }
     }
 
-    if ((*&v27->mPrivate & 0xFB00) != 0x200)
+    if ((*&v28->mPrivate & 0xFB00) != 0x200)
     {
       currentHandler = [MEMORY[0x277D6C290] currentHandler];
-      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"double TSTCellDoubleValue(TSTCell *)"];
-      [currentHandler handleFailureInFunction:v22 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 897, @"can't get value from non-value cell: %p", v8}];
+      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"double TSTCellDoubleValue(TSTCell *)"];
+      [currentHandler handleFailureInFunction:v23 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"), 897, @"can't get value from non-value cell: %p", v9}];
       goto LABEL_43;
     }
 
 LABEL_19:
-    if (v27->mPrivate.mValue.mDouble == 0.0)
+    if (v28->mPrivate.mValue.mDouble == 0.0)
     {
       goto LABEL_43;
     }
 
 LABEL_20:
-    if (*(&v27->mPrivate + 1))
+    if (*(&v28->mPrivate + 1))
     {
       goto LABEL_25;
     }
 
 LABEL_21:
-    if (TSTCellIteratorCellHasCommentStorage(v24))
+    if (TSTCellIteratorCellHasCommentStorage(v25))
     {
       goto LABEL_25;
     }
 
-    v13 = v27;
+    v14 = v28;
     goto LABEL_23;
   }
 
@@ -2331,7 +2331,7 @@ LABEL_44:
 
 LABEL_11:
 
-  TSTTableSetCellAtCellIDIgnoringFormula(self, cell, *&d);
+  TSTTableSetCellAtCellIDIgnoringFormula(self, cell, *&d, 0, 0);
 }
 
 - (void)transformStrokes:(CGAffineTransform *)strokes transformedObjects:(id)objects inBounds:(CGRect)bounds
@@ -2413,171 +2413,171 @@ LABEL_11:
     v5 = [v4 initWithCapacity:{-[TSTTableModel numberOfColumns](self, "numberOfColumns") * -[TSTTableModel numberOfRows](self, "numberOfRows")}];
     v6 = [[TSTCellIterator alloc] initWithTableModel:self flags:289];
     v7 = objc_alloc_init(TSTCell);
-    TSTCellClear(v7);
-    if (TSTCellIteratorGetNextCell(v6, v54))
+    TSTCellClear(v7, v8);
+    if (TSTCellIteratorGetNextCell(v6, v55))
     {
       p_mValue = &v7->mPrivate.mValue;
       p_mTextStyleID = &v7->mPrivate.mTextStyleID;
-      v8 = &OBJC_IVAR___TSTCell_mPrivate;
-      v46 = v5;
+      v9 = &OBJC_IVAR___TSTCell_mPrivate;
+      v47 = v5;
       do
       {
-        v9 = objc_autoreleasePoolPush();
-        if (*(&v54[0] + 1) && *(*(&v54[0] + 1) + *v8 + 1) << 8 == 1024)
+        v10 = objc_autoreleasePoolPush();
+        if (*(&v55[0] + 1) && *(*(&v55[0] + 1) + *v9 + 1) << 8 == 1024)
         {
-          v10 = v8;
-          TSTCellCopy(*(&v54[0] + 1), v7);
-          v48 = v48 & 0xFFFFFFFF00000000 | DWORD1(v54[0]);
-          v11 = [TSWPStorage rangeForCellID:"rangeForCellID:includingBreak:" includingBreak:?];
-          if (v12)
+          v11 = v9;
+          TSTCellCopy(*(&v55[0] + 1), v7);
+          v49 = v49 & 0xFFFFFFFF00000000 | DWORD1(v55[0]);
+          v12 = [TSWPStorage rangeForCellID:"rangeForCellID:includingBreak:" includingBreak:?];
+          if (v13)
           {
-            v13 = v11;
             v14 = v12;
-            v47 = v4;
-            v15 = [(TSWPStorage *)self->mDeprecatedProvider newSubstorageWithRange:v11 context:v12 flags:[(TSPObject *)self context] kind:0, 5];
-            if ([v15 canBeStoredInAStringValueCell])
+            v15 = v13;
+            v48 = v4;
+            v16 = [(TSWPStorage *)self->mDeprecatedProvider newSubstorageWithRange:v12 context:v13 flags:[(TSPObject *)self context] kind:0, 5];
+            if ([v16 canBeStoredInAStringValueCell])
             {
               TSTCellClearValue(v7);
-              v8 = v10;
-              *(&v7->super.isa + *v10 + 1) = 3;
-              stringValue = [v15 stringValue];
-              v17 = *v10;
-              v18 = *(&v7->super.isa + v17);
-              if ((v18 & 0xFF00) == 0)
+              v9 = v11;
+              *(&v7->super.isa + *v11 + 1) = 3;
+              stringValue = [v16 stringValue];
+              v18 = *v11;
+              v19 = *(&v7->super.isa + v18);
+              if ((v19 & 0xFF00) == 0)
               {
                 TSTCellClearValue(v7);
-                *(&v7->super.isa + *v10 + 1) = 3;
-                v17 = *v10;
-                v18 = *(&v7->super.isa + v17);
+                *(&v7->super.isa + *v11 + 1) = 3;
+                v18 = *v11;
+                v19 = *(&v7->super.isa + v18);
               }
 
-              if ((v18 & 0xFF00) == 0x300)
+              if ((v19 & 0xFF00) == 0x300)
               {
-                v19 = *(&p_mValue->mDate + v17);
-                if (v19 != stringValue)
+                v20 = *(&p_mValue->mDate + v18);
+                if (v20 != stringValue)
                 {
 
-                  *(&p_mValue->mDate + *v10) = stringValue;
-                  v20 = HIWORD(*(&v7->super.isa + *v10));
-                  v21 = [stringValue rangeOfCharacterFromSet:{objc_msgSend(MEMORY[0x277CCA900], "newlineCharacterSet")}];
-                  v22 = v20 | 1;
-                  if (v21 == 0x7FFFFFFFFFFFFFFFLL)
+                  *(&p_mValue->mDate + *v11) = stringValue;
+                  v21 = HIWORD(*(&v7->super.isa + *v11));
+                  v22 = [stringValue rangeOfCharacterFromSet:{objc_msgSend(MEMORY[0x277CCA900], "newlineCharacterSet")}];
+                  v23 = v21 | 1;
+                  if (v22 == 0x7FFFFFFFFFFFFFFFLL)
                   {
-                    v22 = v20 & 0xFFFE;
+                    v23 = v21 & 0xFFFE;
                   }
 
-                  *(&v7->super.isa + *v10 + 2) = v22;
-                  *(&v7->mPrivate + *v10) = 0;
+                  *(&v7->super.isa + *v11 + 2) = v23;
+                  *(&v7->mPrivate + *v11) = 0;
                 }
               }
 
               else
               {
                 currentHandler = [MEMORY[0x277D6C290] currentHandler];
-                v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellSetStringValueClearingID(TSTCell *, NSString *, BOOL)"}];
-                v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"];
-                v28 = v26;
-                v8 = v10;
-                [currentHandler handleFailureInFunction:v28 file:v27 lineNumber:1003 description:{@"can't set string on non-string cell: %p", v7}];
+                v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTCellSetStringValueClearingID(TSTCell *, NSString *, BOOL)"}];
+                v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCell.h"];
+                v29 = v27;
+                v9 = v11;
+                [currentHandler handleFailureInFunction:v29 file:v28 lineNumber:1003 description:{@"can't set string on non-string cell: %p", v7}];
               }
 
-              v29 = [v15 paragraphStyleAtCharIndex:0 effectiveRange:0];
-              if (v29)
+              v30 = [v16 paragraphStyleAtCharIndex:0 effectiveRange:0];
+              if (v30)
               {
-                propertyMap = [v29 propertyMap];
-                v31 = [(TSTTableModel *)self defaultTextStyleForTableArea:[(TSTTableModel *)self tableAreaForCellID:DWORD1(v54[0])]];
+                propertyMap = [v30 propertyMap];
+                v32 = [(TSTTableModel *)self defaultTextStyleForTableArea:[(TSTTableModel *)self tableAreaForCellID:DWORD1(v55[0])]];
                 stylesheet = [(TSKDocumentRoot *)[(TSTTableModel *)self documentRoot] stylesheet];
-                v33 = v31;
-                v8 = v10;
-                v34 = [(TSSStylesheet *)stylesheet variationOfStyle:v33 propertyMap:propertyMap];
-                v35 = *(p_mTextStyleID + *v10);
-                if (v35 != v34)
+                v34 = v32;
+                v9 = v11;
+                v35 = [(TSSStylesheet *)stylesheet variationOfStyle:v34 propertyMap:propertyMap];
+                v36 = *(p_mTextStyleID + *v11);
+                if (v36 != v35)
                 {
-                  v36 = v34;
+                  v37 = v35;
 
-                  *(p_mTextStyleID + *v10) = v36;
-                  *(&v7->mPrivate.mCellStyle + *v10) = 0;
+                  *(p_mTextStyleID + *v11) = v37;
+                  *(&v7->mPrivate.mCellStyle + *v11) = 0;
                 }
               }
             }
 
             else
             {
-              v23 = [(TSWPStorage *)self->mDeprecatedProvider newSubstorageWithRange:v13 context:v14 flags:[(TSPObject *)self context] kind:0, 5];
-              [v23 willBeAddedToDocumentRoot:-[TSTTableModel documentRoot](self dolcContext:{"documentRoot"), 0}];
-              [v23 wasAddedToDocumentRoot:-[TSTTableModel documentRoot](self dolcContext:{"documentRoot"), 0}];
-              v24 = [[TSTRichTextPayload alloc] initWithStorage:v23];
+              v24 = [(TSWPStorage *)self->mDeprecatedProvider newSubstorageWithRange:v14 context:v15 flags:[(TSPObject *)self context] kind:0, 5];
+              [v24 willBeAddedToDocumentRoot:-[TSTTableModel documentRoot](self dolcContext:{"documentRoot"), 0}];
+              [v24 wasAddedToDocumentRoot:-[TSTTableModel documentRoot](self dolcContext:{"documentRoot"), 0}];
+              v25 = [[TSTRichTextPayload alloc] initWithStorage:v24];
               TSTCellClearValue(v7);
-              v8 = v10;
-              *(&v7->super.isa + *v10 + 1) = 9;
-              TSTCellSetRichTextPayloadClearingIDConvertToPlaintext(v7, v24, 1, 1);
+              v9 = v11;
+              *(&v7->super.isa + *v11 + 1) = 9;
+              TSTCellSetRichTextPayloadClearingIDConvertToPlaintext(v7, v25, 1, 1);
             }
 
-            LODWORD(v49) = 260;
-            TSTCellSetExplicitFormat(v7, &v49);
-            v5 = v46;
-            v4 = v47;
+            v50[0] = 260;
+            TSTCellSetExplicitFormat(v7, v50);
+            v5 = v47;
+            v4 = v48;
           }
 
           else
           {
             TSTCellClearValue(v7);
             TSTCellClearValue(v7);
-            *(&v7->super.isa + *v8) &= 0xFFFF00FF;
+            *(&v7->super.isa + *v9) &= 0xFFFF00FF;
           }
 
-          v4 = v4 & 0xFFFFFFFF00000000 | DWORD1(v54[0]);
+          v4 = v4 & 0xFFFFFFFF00000000 | DWORD1(v55[0]);
           [(TSTEphemeralCellMap *)v5 addCell:v7 andCellID:v4];
         }
 
-        objc_autoreleasePoolPop(v9);
+        objc_autoreleasePoolPop(v10);
       }
 
-      while ((TSTCellIteratorGetNextCell(v6, v54) & 1) != 0);
+      while ((TSTCellIteratorGetNextCell(v6, v55) & 1) != 0);
     }
 
-    TSTTableSetCellsWithCellMapIgnoringFormulas(self, v5);
+    TSTTableSetCellsWithCellMapIgnoringFormulas(self, v5, 0, 0, 0);
     self->mDeprecatedProvider = 0;
   }
 
   else
   {
     stylesheet2 = [(TSKDocumentRoot *)[(TSTTableModel *)self documentRoot] stylesheet];
-    v38 = [TSTTableStyleNetwork networkFromTableModel:self];
-    v39 = [[TSTCellIterator alloc] initWithTableModel:self flags:48];
-    if ([(TSTCellIterator *)v39 getNext:v54])
+    v39 = [TSTTableStyleNetwork networkFromTableModel:self];
+    v40 = [[TSTCellIterator alloc] initWithTableModel:self flags:48];
+    if ([(TSTCellIterator *)v40 getNext:v55])
     {
       do
       {
-        if (*(&v54[0] + 1))
+        if (*(&v55[0] + 1))
         {
-          v40 = *(*(&v54[0] + 1) + 72);
-          if (v40)
+          v41 = *(*(&v55[0] + 1) + 72);
+          if (v41)
           {
-            storage = [v40 storage];
+            storage = [v41 storage];
             range = [storage range];
-            v50[0] = MEMORY[0x277D85DD0];
-            v50[1] = 3221225472;
-            v50[2] = __34__TSTTableModel_upgradeFromPreUFF__block_invoke;
-            v50[3] = &unk_279D4A700;
-            v50[4] = stylesheet2;
-            v50[5] = v38;
-            v51 = v54[0];
-            v52 = v54[1];
-            v53 = v55;
-            v50[6] = self;
-            v50[7] = storage;
-            [storage enumerateWithAttributeKind:0 inRange:range usingBlock:{v43, v50}];
+            v51[0] = MEMORY[0x277D85DD0];
+            v51[1] = 3221225472;
+            v51[2] = __34__TSTTableModel_upgradeFromPreUFF__block_invoke;
+            v51[3] = &unk_279D4A700;
+            v51[4] = stylesheet2;
+            v51[5] = v39;
+            v52 = v55[0];
+            v53 = v55[1];
+            v54 = v56;
+            v51[6] = self;
+            v51[7] = storage;
+            [storage enumerateWithAttributeKind:0 inRange:range usingBlock:{v44, v51}];
           }
         }
       }
 
-      while ([(TSTCellIterator *)v39 getNext:v54]);
+      while ([(TSTCellIterator *)v40 getNext:v55]);
     }
   }
 }
 
-uint64_t __34__TSTTableModel_upgradeFromPreUFF__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *__34__TSTTableModel_upgradeFromPreUFF__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   if (![a2 stylesheet] || (result = objc_msgSend(a2, "stylesheet"), result == *(a1 + 32)) && (result = objc_msgSend(a2, "parent")) == 0)
   {

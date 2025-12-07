@@ -9,7 +9,7 @@
 + (id)transformationWithSortMethod:(int64_t)method
 {
   v3 = 0;
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (method <= 1)
   {
     if (method > 1)
@@ -31,23 +31,22 @@ LABEL_9:
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"this sort method needs a personalizer, please use the +transformationWithSortMethod:personalizer: variant"];
-      v7 = 136315906;
-      v8 = "+[FCFeedTransformationSort transformationWithSortMethod:]";
-      v9 = 2080;
-      v10 = "FCFeedTransformationSort.m";
-      v11 = 1024;
-      v12 = 43;
-      v13 = 2114;
-      v14 = v6;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v7, 0x26u);
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"this sort method needs a personalizer, please use the +transformationWithSortMethod:personalizer: variant"];
+      v6 = 136315906;
+      v7 = "+[FCFeedTransformationSort transformationWithSortMethod:]";
+      v8 = 2080;
+      v9 = "FCFeedTransformationSort.m";
+      v10 = 1024;
+      v11 = 43;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
     }
 
     v3 = 0;
   }
 
 LABEL_10:
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

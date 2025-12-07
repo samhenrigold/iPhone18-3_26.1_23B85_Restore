@@ -27,7 +27,7 @@
 
 - (void)startMonitoring:(id)monitoring
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   monitoringCopy = monitoring;
   queue = [(ULEventMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -54,19 +54,17 @@
       v12 = @"YES";
     }
 
-    v14 = 138412546;
-    v15 = monitoringCopy;
-    v16 = 2112;
-    v17 = v12;
-    _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "Start monitoring: %@, locationServicesEnabled: %@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = monitoringCopy;
+    v15 = 2112;
+    v16 = v12;
+    _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "Start monitoring: %@, locationServicesEnabled: %@", &v13, 0x16u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMonitoring:(id)monitoring
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   monitoringCopy = monitoring;
   queue = [(ULEventMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -79,15 +77,13 @@
   v6 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = monitoringCopy;
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = monitoringCopy;
+    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v7, 0xCu);
   }
 
   [(ULPrivacyMonitor *)self setLocationManager:0];
   [(ULPrivacyMonitor *)self setLocationServicesEnabled:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)latestEventAfterAddingObserverForEventName:(id)name
@@ -115,7 +111,7 @@
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   queue = [(ULEventMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -132,9 +128,9 @@
   {
     v8 = v7;
     v9 = [(ULPrivacyMonitor *)self _locationAuthorizationStatusToString:authorizationStatus];
-    v13 = 138412290;
-    v14 = v9;
-    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "location manager did change auth status: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v9;
+    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "location manager did change auth status: %@", &v12, 0xCu);
   }
 
   v10 = [(ULPrivacyMonitor *)self _checkLocationServicesEnabledForAuthorizationStatus:authorizationStatus];
@@ -145,13 +141,11 @@
     [(ULPrivacyMonitorEventLocationServices *)v11 setLocationServicesEnabled:v10];
     [(ULEventMonitor *)self postEvent:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   queue = [(ULEventMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -164,12 +158,10 @@
   v7 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138412290;
-    v10 = errorCopy;
-    _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_ERROR, "Location manager failed with error: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = errorCopy;
+    _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_ERROR, "Location manager failed with error: %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_locationAuthorizationStatusToString:(int)string

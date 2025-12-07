@@ -15,19 +15,19 @@ void DirectSyncAligner::DirectSyncAligner(DirectSyncAligner *this, __int16 a2, u
   v9[1] = a6;
 }
 
-uint64_t DirectSyncAligner::getSyncAlignmentParamsForDirection(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t DirectSyncAligner::getSyncAlignmentParamsForDirection(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v64 = *MEMORY[0x277D85DE8];
-  v6 = a2[5];
+  v59 = *MEMORY[0x277D85DE8];
+  v6 = *(a2 + 40);
   v7 = *v6;
   v8 = v6[1];
   v9 = ((v8 >> 10) | (*v6 << 6)) * WORD2(v8) + __PAIR128__((*v6 >> 58) * WORD2(v8), WORD1(v8));
-  v10 = a2[2];
-  v11 = a2[3];
+  v10 = *(a2 + 16);
+  v11 = *(a2 + 24);
   v12 = (__PAIR128__(v11, v10) * WORD2(v8)) >> 64;
   v13 = v10 * WORD2(v8);
   v14 = __PAIR128__(v11, v10) < 1;
-  v15 = *(a2 + 13);
+  v15 = *(a2 + 52);
   v16 = -v13;
   v17 = -__PAIR128__(v3, v13) >> 64;
   if (v15 == 1)
@@ -37,7 +37,7 @@ uint64_t DirectSyncAligner::getSyncAlignmentParamsForDirection(uint64_t a1, uint
 
   else
   {
-    v18 = *(a2 + 13);
+    v18 = *(a2 + 52);
   }
 
   if (v15 == 1)
@@ -60,10 +60,10 @@ uint64_t DirectSyncAligner::getSyncAlignmentParamsForDirection(uint64_t a1, uint
 
   else
   {
-    v20 = *(a2 + 13);
+    v20 = *(a2 + 52);
   }
 
-  v57 = v20;
+  v52 = v20;
   if (v19)
   {
     v21 = v13;
@@ -87,159 +87,154 @@ uint64_t DirectSyncAligner::getSyncAlignmentParamsForDirection(uint64_t a1, uint
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316162;
-    v59 = "getSyncAlignmentParamsForDirection";
-    v60 = 2048;
-    *v61 = v7;
-    *&v61[8] = 1024;
-    *&v61[10] = v8 >> 10;
-    *&v61[14] = 1024;
-    *&v61[16] = WORD1(v8);
-    v62 = 1024;
-    v63 = WORD2(v8);
+    v54 = "getSyncAlignmentParamsForDirection";
+    v55 = 2048;
+    *v56 = v7;
+    *&v56[8] = 1024;
+    *&v56[10] = v8 >> 10;
+    *&v56[14] = 1024;
+    *&v56[16] = WORD1(v8);
+    v57 = 1024;
+    v58 = WORD2(v8);
     _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "SyncAligner::%s: Target: %llu.%hu.%hu/%hu\n", buf, 0x28u);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v23 = a2[2];
+    v23 = *(a2 + 16);
     *buf = 136315394;
-    v59 = "getSyncAlignmentParamsForDirection";
-    v60 = 2048;
-    *v61 = v23;
+    v54 = "getSyncAlignmentParamsForDirection";
+    v55 = 2048;
+    *v56 = v23;
     _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "SyncAligner::%s: Phase diff: %lld\n", buf, 0x16u);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v24 = *(a2 + 13);
+    v24 = *(a2 + 52);
     *buf = 136315650;
-    v59 = "getSyncAlignmentParamsForDirection";
-    v60 = 1024;
-    *v61 = v24;
-    *&v61[4] = 2048;
-    *&v61[6] = v21;
+    v54 = "getSyncAlignmentParamsForDirection";
+    v55 = 1024;
+    *v56 = v24;
+    *&v56[4] = 2048;
+    *&v56[6] = v21;
     _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "SyncAligner::%s: For direction %d, abs phase diff: %lld\n", buf, 0x1Cu);
   }
 
-  v25 = *a2;
-  v26 = a2[1];
-  v27 = __divti3() + 1;
-  v28 = *(a2 + 24);
-  if (v27 % v28)
+  v25 = __divti3() + 1;
+  v26 = *(a2 + 48);
+  if (v25 % v26)
   {
-    v29 = v27 + v28 - v27 % v28;
-    *(a3 + 16) = v29;
-    v30 = v9 * v29 + __PAIR128__(v22, v21) * v57;
-    v31 = (*(a2[5] + 12) * v29) >> 64;
-    v32 = *(a2[5] + 12) * v29;
-    v33 = __divti3();
-    v36 = (v30 - __PAIR128__(v34, v33) * __PAIR128__(v31, v32)) >> 64;
-    v35 = v30 - v33 * v32;
-    if (__PAIR128__(v31, v32) < 0x10000)
+    v27 = v25 + v26 - v25 % v26;
+    *(a3 + 16) = v27;
+    v28 = v9 * v27 + __PAIR128__(v22, v21) * v52;
+    v29 = (*(*(a2 + 40) + 12) * v27) >> 64;
+    v30 = *(*(a2 + 40) + 12) * v27;
+    v31 = __divti3();
+    v34 = (v28 - __PAIR128__(v32, v31) * __PAIR128__(v29, v30)) >> 64;
+    v33 = v28 - v31 * v30;
+    if (__PAIR128__(v29, v30) < 0x10000)
     {
-      v38 = v32;
-      v39 = v31;
+      v36 = v30;
+      v37 = v29;
     }
 
     else
     {
       do
       {
-        *(&v37 + 1) = v36;
-        *&v37 = v35;
-        v35 = v37 >> 1;
-        *(&v37 + 1) = v31;
-        *&v37 = v32;
-        v38 = v37 >> 1;
-        v39 = v31 >> 1;
-        v40 = v31 | (v32 >> 17);
-        v32 = v38;
-        v31 >>= 1;
-        v36 >>= 1;
+        *(&v35 + 1) = v34;
+        *&v35 = v33;
+        v33 = v35 >> 1;
+        *(&v35 + 1) = v29;
+        *&v35 = v30;
+        v36 = v35 >> 1;
+        v37 = v29 >> 1;
+        v38 = v29 | (v30 >> 17);
+        v30 = v36;
+        v29 >>= 1;
+        v34 >>= 1;
       }
 
-      while (v40);
+      while (v38);
     }
 
-    v41 = v33 + (v36 >> 63);
-    *(&v43 + 1) = (v36 >> 63) + __CFADD__(v33, v36 >> 63) + v34;
-    *&v43 = v41;
-    v42 = v43 >> 6;
-    v44 = v38 & (v36 >> 63);
-    v45 = __CFADD__(v44, v35);
-    v46 = v44 + v35;
-    if (v46 ^ v38 | (v36 + v45 + (v39 & (v36 >> 63))) ^ v39)
+    v39 = v31 + (v34 >> 63);
+    *(&v41 + 1) = (v34 >> 63) + __CFADD__(v31, v34 >> 63) + v32;
+    *&v41 = v39;
+    v40 = v41 >> 6;
+    v42 = v36 & (v34 >> 63);
+    v43 = __CFADD__(v42, v33);
+    v44 = v42 + v33;
+    if (v44 ^ v36 | (v34 + v43 + (v37 & (v34 >> 63))) ^ v37)
     {
-      v47 = v46 << 16;
+      v45 = v44 << 16;
     }
 
     else
     {
-      v47 = (v46 << 16) - 0x10000;
+      v45 = (v44 << 16) - 0x10000;
     }
 
-    *(a3 + 24) = v42;
-    *(a3 + 32) = v47 & 0xFFFF03FF | ((v41 & 0x3F) << 10) | (v38 << 32);
+    *(a3 + 24) = v40;
+    *(a3 + 32) = v45 & 0xFFFF03FF | ((v39 & 0x3F) << 10) | (v36 << 32);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316162;
-      v59 = "getSyncAlignmentParamsForDirection";
-      v60 = 2048;
-      *v61 = v42;
-      *&v61[8] = 1024;
-      *&v61[10] = v41 & 0x3F;
-      *&v61[14] = 1024;
-      *&v61[16] = HIWORD(v47);
-      v62 = 1024;
-      v63 = v38;
+      v54 = "getSyncAlignmentParamsForDirection";
+      v55 = 2048;
+      *v56 = v40;
+      *&v56[8] = 1024;
+      *&v56[10] = v39 & 0x3F;
+      *&v56[14] = 1024;
+      *&v56[16] = HIWORD(v45);
+      v57 = 1024;
+      v58 = v36;
       _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "SyncAligner::%s: Intermediate frame duration: %llu.%hu.%hu/%hu\n", buf, 0x28u);
     }
   }
 
   else
   {
-    *(a3 + 16) = v27;
-    *(a3 + 24) = *a2[4];
+    *(a3 + 16) = v25;
+    *(a3 + 24) = **(a2 + 32);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v48 = *(a3 + 16);
+    v46 = *(a3 + 16);
     *buf = 136315650;
-    v59 = "getSyncAlignmentParamsForDirection";
-    v60 = 2048;
-    *v61 = v27;
-    *&v61[8] = 2048;
-    *&v61[10] = v48;
+    v54 = "getSyncAlignmentParamsForDirection";
+    v55 = 2048;
+    *v56 = v25;
+    *&v56[8] = 2048;
+    *&v56[10] = v46;
     _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "SyncAligner::%s: Number of frames to reach alignment, original: %llu, adjusted: %llu\n", buf, 0x20u);
   }
 
-  v49 = *(a2 + 25);
-  v50 = *(a3 + 36);
-  v51 = *(a3 + 34);
-  if (((v49 * v50) & 0xFFFF0000) != 0)
+  v47 = *(a2 + 50);
+  v48 = *(a3 + 36);
+  v49 = *(a3 + 34);
+  if (((v47 * v48) & 0xFFFF0000) != 0)
   {
     do
     {
-      v51 = v51 >> 1;
-      v50 = v50 >> 1;
+      v49 = v49 >> 1;
+      v48 = v48 >> 1;
     }
 
-    while (((v49 * v50) & 0x7FFF0000) != 0);
-    *(a3 + 34) = v51;
-    *(a3 + 36) = v50;
+    while (((v47 * v48) & 0x7FFF0000) != 0);
+    *(a3 + 34) = v49;
+    *(a3 + 36) = v48;
   }
 
-  if (v51 == v50)
+  if (v49 == v48)
   {
-    *(a3 + 34) = v51 - 1;
+    *(a3 + 34) = v49 - 1;
   }
 
-  v52 = (*(a3 + 32) >> 10) | (*(a3 + 24) << 6);
-  v53 = *(a2[5] + 12);
   *a3 = __divti3();
-  *(a3 + 8) = v54;
-  v55 = *MEMORY[0x277D85DE8];
+  *(a3 + 8) = v50;
   return 0;
 }
 
@@ -252,30 +247,30 @@ uint64_t load_current_status(void)
   return result;
 }
 
-uint64_t makeDirectoriesAndOpen(std::string *a1)
+uint64_t makeDirectoriesAndOpen(std::string *a1, uint64_t a2)
 {
   v26[19] = *MEMORY[0x277D85DE8];
   v26[6] = 0;
-  v2 = MEMORY[0x277D82860] + 64;
+  v3 = MEMORY[0x277D82860] + 64;
   v26[0] = MEMORY[0x277D82860] + 64;
-  v3 = MEMORY[0x277D82810];
-  v4 = *(MEMORY[0x277D82810] + 16);
+  v4 = MEMORY[0x277D82810];
+  v5 = *(MEMORY[0x277D82810] + 16);
   v24 = *(MEMORY[0x277D82810] + 8);
-  *&v25[*(v24 - 24) - 8] = v4;
-  v5 = &v25[*(v24 - 24) - 8];
-  std::ios_base::init(v5, v25);
-  v6 = MEMORY[0x277D82860] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
-  v24 = v6;
-  v26[0] = v2;
+  *&v25[*(v24 - 24) - 8] = v5;
+  v6 = &v25[*(v24 - 24) - 8];
+  std::ios_base::init(v6, v25);
+  v7 = MEMORY[0x277D82860] + 24;
+  v6[1].__vftable = 0;
+  v6[1].__fmtflags_ = -1;
+  v24 = v7;
+  v26[0] = v3;
   MEMORY[0x259C696F0](v25);
   v13.__val_ = 0;
   v13.__cat_ = std::system_category();
   std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&v12, a1);
   std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(&__p, a1);
   std::__fs::filesystem::path::remove_filename[abi:ne200100](&__p);
-  v7 = std::__fs::filesystem::__create_directories(&__p, &v13);
+  v8 = std::__fs::filesystem::__create_directories(&__p, &v13);
   val = v13.__val_;
   if (v13.__val_)
   {
@@ -298,7 +293,7 @@ uint64_t makeDirectoriesAndOpen(std::string *a1)
 
   else
   {
-    if (!v7)
+    if (!v8)
     {
       makeDirectoriesAndOpen();
     }
@@ -317,12 +312,11 @@ uint64_t makeDirectoriesAndOpen(std::string *a1)
     operator delete(v12.__r_.__value_.__l.__data_);
   }
 
-  v24 = *v3;
-  *&v25[*(v24 - 24) - 8] = v3[3];
+  v24 = *v4;
+  *&v25[*(v24 - 24) - 8] = v4[3];
   MEMORY[0x259C69700](v25);
   std::ostream::~ostream();
   MEMORY[0x259C69950](v26);
-  v9 = *MEMORY[0x277D85DE8];
   return val;
 }
 
@@ -376,28 +370,28 @@ void *std::ofstream::~ofstream(void *a1)
 
 uint64_t asyncThreadWorkload(void)
 {
-  v12[19] = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  v12[6] = 0;
+  v11[19] = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  v11[6] = 0;
   v0 = MEMORY[0x277D82860] + 64;
-  v12[0] = MEMORY[0x277D82860] + 64;
+  v11[0] = MEMORY[0x277D82860] + 64;
   v1 = MEMORY[0x277D82810];
   v2 = *(MEMORY[0x277D82810] + 16);
-  v10 = *(MEMORY[0x277D82810] + 8);
-  *&v11[*(v10 - 24) - 8] = v2;
-  v3 = &v11[*(v10 - 24) - 8];
-  std::ios_base::init(v3, v11);
+  v9 = *(MEMORY[0x277D82810] + 8);
+  *&v10[*(v9 - 24) - 8] = v2;
+  v3 = &v10[*(v9 - 24) - 8];
+  std::ios_base::init(v3, v10);
   v4 = MEMORY[0x277D82860] + 24;
   v3[1].__vftable = 0;
   v3[1].__fmtflags_ = -1;
-  v10 = v4;
-  v12[0] = v0;
-  MEMORY[0x259C696F0](v11);
+  v9 = v4;
+  v11[0] = v0;
+  MEMORY[0x259C696F0](v10);
   if (std::future<AppleMSG::gtb_full_time_t>::get((gState + 8)))
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, "/tmp/com.apple.externalsyncd/launchDaemons.txt");
-    DirectoriesAndOpen = makeDirectoriesAndOpen(&__p);
-    v9 = DirectoriesAndOpen;
+    DirectoriesAndOpen = makeDirectoriesAndOpen(&__p, &v9);
+    v8 = DirectoriesAndOpen;
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -410,10 +404,10 @@ uint64_t asyncThreadWorkload(void)
 
     else
     {
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "Ready!\n", 7);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, "Ready!\n", 7);
       if (!std::filebuf::close())
       {
-        std::ios_base::clear(&v11[*(v10 - 24) - 8], *&v11[*(v10 - 24) + 24] | 4);
+        std::ios_base::clear(&v10[*(v9 - 24) - 8], *&v10[*(v9 - 24) + 24] | 4);
       }
 
       puts("Finished signalling launch of unloaded Daemons, continuing fine alignment.");
@@ -427,17 +421,15 @@ uint64_t asyncThreadWorkload(void)
 
   else
   {
-    v9 = -536870184;
+    v8 = -536870184;
   }
 
-  std::promise<int>::set_value(gState, &v9);
-  v10 = *v1;
-  *&v11[*(v10 - 24) - 8] = v1[3];
-  MEMORY[0x259C69700](v11);
+  std::promise<int>::set_value(gState, &v8);
+  v9 = *v1;
+  *&v10[*(v9 - 24) - 8] = v1[3];
+  MEMORY[0x259C69700](v10);
   std::ostream::~ostream();
-  result = MEMORY[0x259C69950](v12);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x259C69950](v11);
 }
 
 uint64_t std::future<AppleMSG::gtb_full_time_t>::get(std::__assoc_sub_state **a1)
@@ -464,7 +456,7 @@ void sub_25799A7A0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -478,13 +470,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -501,61 +493,55 @@ void std::promise<int>::set_value(uint64_t *a1, int *a2)
 
 uint64_t plotEventTriggers(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-LABEL_7:
-    v7 = 0;
-    goto LABEL_8;
+    return 0;
   }
 
   v3 = *a1;
-  v4 = (a3 + 16);
-  while (1)
+  for (i = (a3 + 16); ; i += 3)
   {
-    v5 = *v4;
-    if (*v4 > a1[800002])
+    v5 = *i;
+    if (*i > a1[800002])
     {
       break;
     }
 
 LABEL_6:
-    v4 += 3;
     if (!--a2)
     {
-      goto LABEL_7;
+      return 0;
     }
   }
 
-  *v10 = *(v4 - 1);
+  *v9 = *(i - 1);
   a1[800002] = v5;
   if (v3 >> 5 < 0xC35)
   {
     v6 = &a1[3 * v3++ + 1];
     *a1 = v3;
-    *v6 = *v10;
-    *(v6 + 16) = v5;
+    *v6 = *v9;
+    v6[2] = v5;
     goto LABEL_6;
   }
 
   v7 = 3758097115;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    *v10 = 136316162;
-    *&v10[4] = "retcode == 0 ";
-    *&v10[12] = 2080;
-    *&v10[14] = &unk_2579A8E96;
-    v11 = 2080;
-    v12 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGExternalSync/MSGExternalSync.cpp";
-    v13 = 1024;
-    v14 = 243;
-    v15 = 2048;
-    v16 = -536870181;
-    _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v10, 0x30u);
+    *v9 = 136316162;
+    *&v9[4] = "retcode == 0 ";
+    *&v9[12] = 2080;
+    *&v9[14] = &unk_2579A8E96;
+    v10 = 2080;
+    v11 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGExternalSync/MSGExternalSync.cpp";
+    v12 = 1024;
+    v13 = 243;
+    v14 = 2048;
+    v15 = -536870181;
+    _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v9, 0x30u);
   }
 
-LABEL_8:
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -585,42 +571,34 @@ LABEL_7:
   return 0;
 }
 
-uint64_t scheduleSyncPulseAdjustment(int a1, MSGController *this, int a3, MSGController *a4, __int128 *a5, uint64_t a6, uint64_t a7, int a8, int a9)
+uint64_t scheduleSyncPulseAdjustment(uint64_t a1, MSGController *this, uint64_t a3, MSGController *a4, __int128 *a5, uint64_t a6, uint64_t a7, int a8, int a9)
 {
   if (a7)
   {
     v11 = a7;
-    v12 = (a6 + 8);
+    v12 = a6 + 8;
     v13 = a5;
     v14 = a7;
     do
     {
-      v27 = *v13;
-      v28 = v13[1];
-      v31 = v13[2];
-      v15 = *(v12 - 1);
-      v16 = *v12;
+      v21 = *v13;
       if (MSGController::MasterSyncConfig())
       {
         scheduleSyncPulseAdjustment();
-        return v27;
+        return v21;
       }
 
       if ((a9 & 0xFFFFFFFE) == 2)
       {
-        v27 = *v13;
-        v29 = v13[1];
-        v32 = v13[2];
-        v17 = *(v12 - 1);
-        v18 = *v12;
+        v21 = *v13;
         if (MSGController::MasterSyncConfig())
         {
           scheduleSyncPulseAdjustment();
-          return v27;
+          return v21;
         }
       }
 
-      v12 += 2;
+      v12 += 16;
       v13 += 3;
       --v14;
     }
@@ -628,32 +606,28 @@ uint64_t scheduleSyncPulseAdjustment(int a1, MSGController *this, int a3, MSGCon
     while (v14);
     if (a9 == 3 && v11 >= 1)
     {
-      v19 = 2 * v11;
-      v20 = (a6 + 16 * v11 + 8);
-      v21 = &a5[3 * v11];
+      v15 = 2 * v11;
+      v16 = a6 + 16 * v11 + 8;
+      v17 = &a5[3 * v11];
       while (1)
       {
-        v27 = *v21;
-        v30 = v21[1];
-        v33 = v21[2];
-        v22 = *(v20 - 1);
-        v23 = *v20;
+        v21 = *v17;
         if (MSGController::MasterSyncConfig())
         {
           break;
         }
 
-        v20 += 2;
+        v16 += 16;
         ++v11;
-        v21 += 3;
-        if (v11 >= v19)
+        v17 += 3;
+        if (v11 >= v15)
         {
           goto LABEL_12;
         }
       }
 
       scheduleSyncPulseAdjustment();
-      return v27;
+      return v21;
     }
   }
 
@@ -661,7 +635,7 @@ LABEL_12:
   if (MSGController::DispatchConfigQueue(this))
   {
     scheduleSyncPulseAdjustment();
-    return v27;
+    return v21;
   }
 
   if ((a9 & 0xFFFFFFFE) != 2)
@@ -673,7 +647,7 @@ LABEL_12:
   if (result)
   {
     scheduleSyncPulseAdjustment();
-    return v27;
+    return v21;
   }
 
   return result;
@@ -788,24 +762,22 @@ void sub_25799AFE4(_Unwind_Exception *a1)
 
 void *std::operator<<[abi:ne200100]<char,std::char_traits<char>>(void *a1, uint64_t *a2)
 {
-  MEMORY[0x259C69730](v10, a1);
-  if (v10[0] == 1)
+  MEMORY[0x259C69730](v8, a1);
+  if (v8[0] == 1)
   {
     std::ios_base::getloc((a1 + *(*a1 - 24)));
-    std::locale::use_facet(&v11, MEMORY[0x277D826D0]);
-    std::locale::~locale(&v11);
+    std::locale::use_facet(&v9, MEMORY[0x277D826D0]);
+    std::locale::~locale(&v9);
     v4 = (a1 + *(*a1 - 24));
-    rdbuf = v4->__rdbuf_;
     if (v4[1].__fmtflags_ == -1)
     {
       std::ios_base::getloc(v4);
-      v6 = std::locale::use_facet(&v11, MEMORY[0x277D82680]);
-      v7 = (v6->__vftable[2].~facet_0)(v6, 32);
-      std::locale::~locale(&v11);
-      v4[1].__fmtflags_ = v7;
+      v5 = std::locale::use_facet(&v9, MEMORY[0x277D82680]);
+      v6 = (v5->__vftable[2].~facet_0)(v5, 32);
+      std::locale::~locale(&v9);
+      v4[1].__fmtflags_ = v6;
     }
 
-    v8 = *a2;
     strlen(a2[1]);
     if (!std::time_put<char,std::ostreambuf_iterator<char>>::put())
     {
@@ -813,13 +785,13 @@ void *std::operator<<[abi:ne200100]<char,std::char_traits<char>>(void *a1, uint6
     }
   }
 
-  MEMORY[0x259C69740](v10);
+  MEMORY[0x259C69740](v8);
   return a1;
 }
 
-void sub_25799B180(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_25799B180(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x259C69740](&a10);
+  MEMORY[0x259C69740](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -828,7 +800,7 @@ void sub_25799B180(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
 
 uint64_t simulateTargetFrequencyAndPhase(void **a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v10 = mach_continuous_time();
   *a5 = 1;
   v13 = a1;
@@ -839,7 +811,6 @@ uint64_t simulateTargetFrequencyAndPhase(void **a1, uint64_t a2, uint64_t a3, ui
     v16 = 0;
     v11.n128_u64[0] = 0;
 LABEL_17:
-    v23 = *MEMORY[0x277D85DE8];
 
     return MEMORY[0x282140640](a2, v16, 108264, a4, a3, v11);
   }
@@ -895,16 +866,15 @@ LABEL_13:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     v20 = *v12;
-    v24 = 136315650;
-    v25 = "simulateTargetFrequencyAndPhase";
+    v22 = 136315650;
+    v23 = "simulateTargetFrequencyAndPhase";
+    v24 = 2048;
+    v25 = v15;
     v26 = 2048;
-    v27 = v15;
-    v28 = 2048;
-    v29 = v20;
-    _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGExternalSync::%s: Current time: %llu; Simulation start time: %llu\n", &v24, 0x20u);
+    v27 = v20;
+    _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGExternalSync::%s: Current time: %llu; Simulation start time: %llu\n", &v22, 0x20u);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return 3758097112;
 }
 
@@ -1116,46 +1086,46 @@ uint64_t splitLineToNCells(std::string *a1, unint64_t a2, uint64_t a3, uint64_t 
 
 uint64_t loadSimulatedPenroseData(uint64_t a1, const void **a2)
 {
-  v61[19] = *MEMORY[0x277D85DE8];
-  v61[6] = 0;
+  v60[19] = *MEMORY[0x277D85DE8];
+  v60[6] = 0;
   v3 = MEMORY[0x277D82858] + 64;
-  v61[0] = MEMORY[0x277D82858] + 64;
+  v60[0] = MEMORY[0x277D82858] + 64;
   v4 = *(MEMORY[0x277D82808] + 16);
-  v59[0] = *(MEMORY[0x277D82808] + 8);
-  *(v59 + *(v59[0] - 24)) = v4;
-  v59[1] = 0;
-  v5 = (v59 + *(v59[0] - 24));
-  std::ios_base::init(v5, v60);
+  v58[0] = *(MEMORY[0x277D82808] + 8);
+  *(v58 + *(v58[0] - 24)) = v4;
+  v58[1] = 0;
+  v5 = (v58 + *(v58[0] - 24));
+  std::ios_base::init(v5, v59);
   v6 = MEMORY[0x277D82858] + 24;
   v5[1].__vftable = 0;
   v5[1].__fmtflags_ = -1;
-  v59[0] = v6;
-  v61[0] = v3;
-  MEMORY[0x259C696F0](v60);
-  std::string::basic_string[abi:ne200100]<0>(v48, "penrose_last_peak_time");
-  std::string::basic_string[abi:ne200100]<0>(v46, "penrose_frequency");
-  memset(&v45, 0, sizeof(v45));
+  v58[0] = v6;
+  v60[0] = v3;
+  MEMORY[0x259C696F0](v59);
+  std::string::basic_string[abi:ne200100]<0>(v47, "penrose_last_peak_time");
+  std::string::basic_string[abi:ne200100]<0>(v45, "penrose_frequency");
+  memset(&v44, 0, sizeof(v44));
   memset(&__str, 0, sizeof(__str));
-  memset(&v43, 0, sizeof(v43));
+  memset(&v42, 0, sizeof(v42));
   __p[0] = 0;
   __p[1] = 0;
-  v42 = 0;
+  v41 = 0;
   std::ifstream::open();
-  v7 = (v59 + *(v59[0] - 24));
+  v7 = (v58 + *(v58[0] - 24));
   if ((v7->__rdstate_ & 5) != 0)
   {
     loadSimulatedPenroseData();
 LABEL_59:
-    v36 = *v50;
+    v36 = *v49;
     goto LABEL_47;
   }
 
   std::ios_base::getloc(v7);
-  v8 = std::locale::use_facet(v50, MEMORY[0x277D82680]);
+  v8 = std::locale::use_facet(v49, MEMORY[0x277D82680]);
   v9 = (v8->__vftable[2].~facet_0)(v8, 10);
-  std::locale::~locale(v50);
-  std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v59, &v45, v9);
-  if (splitLineToNCells(&v45, 2uLL, &__str, &v43, __p, __p))
+  std::locale::~locale(v49);
+  std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v58, &v44, v9);
+  if (splitLineToNCells(&v44, 2uLL, &__str, &v42, __p, __p))
   {
     loadSimulatedPenroseData();
     goto LABEL_59;
@@ -1171,61 +1141,61 @@ LABEL_59:
     size = __str.__r_.__value_.__l.__size_;
   }
 
-  v11 = v49;
-  if ((v49 & 0x80u) != 0)
+  v11 = v48;
+  if ((v48 & 0x80u) != 0)
   {
-    v11 = v48[1];
+    v11 = v47[1];
   }
 
-  if (size != v11 || ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (p_str = &__str) : (p_str = __str.__r_.__value_.__r.__words[0]), (v49 & 0x80u) == 0 ? (v13 = v48) : (v13 = v48[0]), memcmp(p_str, v13, size)))
+  if (size != v11 || ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (p_str = &__str) : (p_str = __str.__r_.__value_.__r.__words[0]), (v48 & 0x80u) == 0 ? (v13 = v47) : (v13 = v47[0]), memcmp(p_str, v13, size)))
   {
     loadSimulatedPenroseData();
     goto LABEL_59;
   }
 
-  v14 = HIBYTE(v43.__r_.__value_.__r.__words[2]);
-  if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v14 = HIBYTE(v42.__r_.__value_.__r.__words[2]);
+  if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v15 = HIBYTE(v43.__r_.__value_.__r.__words[2]);
+    v15 = HIBYTE(v42.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v15 = v43.__r_.__value_.__l.__size_;
+    v15 = v42.__r_.__value_.__l.__size_;
   }
 
-  v16 = v47;
-  if ((v47 & 0x80u) != 0)
+  v16 = v46;
+  if ((v46 & 0x80u) != 0)
   {
-    v16 = v46[1];
+    v16 = v45[1];
   }
 
-  if (v15 == v16 && ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v17 = &v43) : (v17 = v43.__r_.__value_.__r.__words[0]), (v47 & 0x80u) == 0 ? (v18 = v46) : (v18 = v46[0]), !memcmp(v17, v18, v15)))
+  if (v15 == v16 && ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v17 = &v42) : (v17 = v42.__r_.__value_.__r.__words[0]), (v46 & 0x80u) == 0 ? (v18 = v45) : (v18 = v45[0]), !memcmp(v17, v18, v15)))
   {
-    v19 = (v59 + *(v59[0] - 24));
+    v19 = (v58 + *(v58[0] - 24));
     if ((v19->__rdstate_ & 2) == 0)
     {
       v20 = MEMORY[0x277D82680];
       do
       {
         std::ios_base::getloc(v19);
-        v21 = std::locale::use_facet(v50, v20);
+        v21 = std::locale::use_facet(v49, v20);
         v22 = (v21->__vftable[2].~facet_0)(v21, 10);
-        std::locale::~locale(v50);
-        std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v59, &v45, v22);
-        if ((v60[*(v59[0] - 24) + 16] & 2) != 0)
+        std::locale::~locale(v49);
+        std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v58, &v44, v22);
+        if ((v59[*(v58[0] - 24) + 16] & 2) != 0)
         {
           break;
         }
 
-        if (splitLineToNCells(&v45, 2uLL, &__str, &v43, __p, __p))
+        if (splitLineToNCells(&v44, 2uLL, &__str, &v42, __p, __p))
         {
           loadSimulatedPenroseData();
           goto LABEL_59;
         }
 
         v23 = std::stod(&__str, 0);
-        v24 = std::stod(&v43, 0);
+        v24 = std::stod(&v42, 0);
         v26 = a2[1];
         v25 = a2[2];
         if (v26 >= v25)
@@ -1283,7 +1253,7 @@ LABEL_59:
         }
 
         a2[1] = v27;
-        v19 = (v59 + *(v59[0] - 24));
+        v19 = (v58 + *(v58[0] - 24));
       }
 
       while ((v19->__rdstate_ & 2) == 0);
@@ -1296,59 +1266,59 @@ LABEL_59:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v50 = 136316162;
-      *&v50[4] = "cell1 == COLUMN1_LABEL";
-      v51 = 2080;
-      v52 = &unk_2579A8E96;
-      v53 = 2080;
-      v54 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGExternalSync/MSGExternalSync.cpp";
-      v55 = 1024;
-      v56 = 454;
-      v57 = 2048;
-      v58 = 0;
-      _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v50, 0x30u);
-      v14 = HIBYTE(v43.__r_.__value_.__r.__words[2]);
+      *v49 = 136316162;
+      *&v49[4] = "cell1 == COLUMN1_LABEL";
+      v50 = 2080;
+      v51 = &unk_2579A8E96;
+      v52 = 2080;
+      v53 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGExternalSync/MSGExternalSync.cpp";
+      v54 = 1024;
+      v55 = 454;
+      v56 = 2048;
+      v57 = 0;
+      _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v49, 0x30u);
+      v14 = HIBYTE(v42.__r_.__value_.__r.__words[2]);
     }
 
     v36 = 3758097098;
     if (v14 >= 0)
     {
-      v39 = &v43;
+      v38 = &v42;
     }
 
     else
     {
-      v39 = v43.__r_.__value_.__r.__words[0];
+      v38 = v42.__r_.__value_.__r.__words[0];
     }
 
-    printf("Expecting second column to be penrose_frequency, was %s instead\n\n", v39);
+    printf("Expecting second column to be penrose_frequency, was %s instead\n\n", v38);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v40 = &v43;
+        v39 = &v42;
       }
 
       else
       {
-        v40 = v43.__r_.__value_.__r.__words[0];
+        v39 = v42.__r_.__value_.__r.__words[0];
       }
 
-      *v50 = 136315138;
-      *&v50[4] = v40;
-      _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Expecting second column to be penrose_frequency, was %s instead\n\n", v50, 0xCu);
+      *v49 = 136315138;
+      *&v49[4] = v39;
+      _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Expecting second column to be penrose_frequency, was %s instead\n\n", v49, 0xCu);
     }
   }
 
 LABEL_47:
-  if (SHIBYTE(v42) < 0)
+  if (SHIBYTE(v41) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v43.__r_.__value_.__l.__data_);
+    operator delete(v42.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -1356,22 +1326,21 @@ LABEL_47:
     operator delete(__str.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v45.__r_.__value_.__l.__data_);
+    operator delete(v44.__r_.__value_.__l.__data_);
   }
 
-  if (v47 < 0)
+  if (v46 < 0)
   {
-    operator delete(v46[0]);
+    operator delete(v45[0]);
   }
 
-  v59[0] = *MEMORY[0x277D82808];
-  *(v59 + *(v59[0] - 24)) = *(MEMORY[0x277D82808] + 24);
-  MEMORY[0x259C69700](v60);
+  v58[0] = *MEMORY[0x277D82808];
+  *(v58 + *(v58[0] - 24)) = *(MEMORY[0x277D82808] + 24);
+  MEMORY[0x259C69700](v59);
   std::istream::~istream();
-  MEMORY[0x259C69950](v61);
-  v37 = *MEMORY[0x277D85DE8];
+  MEMORY[0x259C69950](v60);
   return v36;
 }
 
@@ -1389,47 +1358,47 @@ void *std::ifstream::~ifstream(void *a1)
 
 uint64_t loadSimulatedRampData(uint64_t a1, const void **a2)
 {
-  v85[19] = *MEMORY[0x277D85DE8];
-  v85[6] = 0;
+  v84[19] = *MEMORY[0x277D85DE8];
+  v84[6] = 0;
   v3 = MEMORY[0x277D82858] + 64;
-  v85[0] = MEMORY[0x277D82858] + 64;
+  v84[0] = MEMORY[0x277D82858] + 64;
   v4 = *(MEMORY[0x277D82808] + 16);
-  v83[0] = *(MEMORY[0x277D82808] + 8);
-  *(v83 + *(v83[0] - 24)) = v4;
-  v83[1] = 0;
-  v5 = (v83 + *(v83[0] - 24));
-  std::ios_base::init(v5, v84);
+  v82[0] = *(MEMORY[0x277D82808] + 8);
+  *(v82 + *(v82[0] - 24)) = v4;
+  v82[1] = 0;
+  v5 = (v82 + *(v82[0] - 24));
+  std::ios_base::init(v5, v83);
   v6 = MEMORY[0x277D82858] + 24;
   v5[1].__vftable = 0;
   v5[1].__fmtflags_ = -1;
-  v83[0] = v6;
-  v85[0] = v3;
-  MEMORY[0x259C696F0](v84);
-  std::string::basic_string[abi:ne200100]<0>(v72, "t_now");
-  std::string::basic_string[abi:ne200100]<0>(v70, "t_apply");
-  std::string::basic_string[abi:ne200100]<0>(v68, "ramp_speed");
-  std::string::basic_string[abi:ne200100]<0>(v66, "phase_target_offset");
+  v82[0] = v6;
+  v84[0] = v3;
+  MEMORY[0x259C696F0](v83);
+  std::string::basic_string[abi:ne200100]<0>(v71, "t_now");
+  std::string::basic_string[abi:ne200100]<0>(v69, "t_apply");
+  std::string::basic_string[abi:ne200100]<0>(v67, "ramp_speed");
+  std::string::basic_string[abi:ne200100]<0>(v65, "phase_target_offset");
   memset(&__p, 0, sizeof(__p));
   memset(&__str, 0, sizeof(__str));
-  memset(&v63, 0, sizeof(v63));
   memset(&v62, 0, sizeof(v62));
   memset(&v61, 0, sizeof(v61));
+  memset(&v60, 0, sizeof(v60));
   std::ifstream::open();
-  v7 = (v83 + *(v83[0] - 24));
+  v7 = (v82 + *(v82[0] - 24));
   if ((v7->__rdstate_ & 5) != 0)
   {
     loadSimulatedRampData();
 LABEL_92:
-    v48 = *v74;
+    v48 = *v73;
     goto LABEL_72;
   }
 
   std::ios_base::getloc(v7);
-  v8 = std::locale::use_facet(v74, MEMORY[0x277D82680]);
+  v8 = std::locale::use_facet(v73, MEMORY[0x277D82680]);
   v9 = (v8->__vftable[2].~facet_0)(v8, 10);
-  std::locale::~locale(v74);
-  std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v83, &__p, v9);
-  if (splitLineToNCells(&__p, 4uLL, &__str, &v63, &v62, &v61))
+  std::locale::~locale(v73);
+  std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v82, &__p, v9);
+  if (splitLineToNCells(&__p, 4uLL, &__str, &v62, &v61, &v60))
   {
     loadSimulatedRampData();
     goto LABEL_92;
@@ -1445,300 +1414,300 @@ LABEL_92:
     size = __str.__r_.__value_.__l.__size_;
   }
 
-  v11 = v73;
-  v12 = v73;
-  if ((v73 & 0x80u) != 0)
+  v11 = v72;
+  v12 = v72;
+  if ((v72 & 0x80u) != 0)
   {
-    v11 = v72[1];
+    v11 = v71[1];
   }
 
-  if (size != v11 || ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (p_str = &__str) : (p_str = __str.__r_.__value_.__r.__words[0]), (v73 & 0x80u) == 0 ? (v14 = v72) : (v14 = v72[0]), memcmp(p_str, v14, size)))
+  if (size != v11 || ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (p_str = &__str) : (p_str = __str.__r_.__value_.__r.__words[0]), (v72 & 0x80u) == 0 ? (v14 = v71) : (v14 = v71[0]), memcmp(p_str, v14, size)))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v74 = 136316162;
-      *&v74[4] = "cell0 == COLUMN0_LABEL";
-      v75 = 2080;
-      v76 = &unk_2579A8E96;
-      v77 = 2080;
-      v78 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGExternalSync/MSGExternalSync.cpp";
-      v79 = 1024;
-      v80 = 497;
-      v81 = 2048;
-      v82 = 0;
-      _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v74, 0x30u);
-      v12 = v73;
+      *v73 = 136316162;
+      *&v73[4] = "cell0 == COLUMN0_LABEL";
+      v74 = 2080;
+      v75 = &unk_2579A8E96;
+      v76 = 2080;
+      v77 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGExternalSync/MSGExternalSync.cpp";
+      v78 = 1024;
+      v79 = 497;
+      v80 = 2048;
+      v81 = 0;
+      _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v73, 0x30u);
+      v12 = v72;
     }
 
     v48 = 3758097098;
     if ((v12 & 0x80u) == 0)
     {
-      v51 = v72;
+      v50 = v71;
     }
 
     else
     {
-      v51 = v72[0];
+      v50 = v71[0];
     }
 
-    printf("Expecting first column to be %s\n\n", v51);
+    printf("Expecting first column to be %s\n\n", v50);
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_72;
     }
 
-    if ((v73 & 0x80u) == 0)
+    if ((v72 & 0x80u) == 0)
     {
-      v52 = v72;
+      v51 = v71;
     }
 
     else
     {
-      v52 = v72[0];
+      v51 = v71[0];
     }
 
-    *v74 = 136315138;
-    *&v74[4] = v52;
-    v53 = MEMORY[0x277D86220];
-    v54 = "Expecting first column to be %s\n\n";
+    *v73 = 136315138;
+    *&v73[4] = v51;
+    v52 = MEMORY[0x277D86220];
+    v53 = "Expecting first column to be %s\n\n";
 LABEL_135:
-    _os_log_impl(&dword_257999000, v53, OS_LOG_TYPE_DEFAULT, v54, v74, 0xCu);
+    _os_log_impl(&dword_257999000, v52, OS_LOG_TYPE_DEFAULT, v53, v73, 0xCu);
     goto LABEL_72;
   }
 
-  if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v15 = HIBYTE(v63.__r_.__value_.__r.__words[2]);
+    v15 = HIBYTE(v62.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v15 = v63.__r_.__value_.__l.__size_;
+    v15 = v62.__r_.__value_.__l.__size_;
   }
 
-  v16 = v71;
-  v17 = v71;
-  if ((v71 & 0x80u) != 0)
+  v16 = v70;
+  v17 = v70;
+  if ((v70 & 0x80u) != 0)
   {
-    v16 = v70[1];
+    v16 = v69[1];
   }
 
-  if (v15 != v16 || ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v18 = &v63) : (v18 = v63.__r_.__value_.__r.__words[0]), (v71 & 0x80u) == 0 ? (v19 = v70) : (v19 = v70[0]), memcmp(v18, v19, v15)))
+  if (v15 != v16 || ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v18 = &v62) : (v18 = v62.__r_.__value_.__r.__words[0]), (v70 & 0x80u) == 0 ? (v19 = v69) : (v19 = v69[0]), memcmp(v18, v19, v15)))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v74 = 136316162;
-      *&v74[4] = "cell1 == COLUMN1_LABEL";
-      v75 = 2080;
-      v76 = &unk_2579A8E96;
-      v77 = 2080;
-      v78 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGExternalSync/MSGExternalSync.cpp";
-      v79 = 1024;
-      v80 = 501;
-      v81 = 2048;
-      v82 = 0;
-      _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v74, 0x30u);
-      v17 = v71;
+      *v73 = 136316162;
+      *&v73[4] = "cell1 == COLUMN1_LABEL";
+      v74 = 2080;
+      v75 = &unk_2579A8E96;
+      v76 = 2080;
+      v77 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGExternalSync/MSGExternalSync.cpp";
+      v78 = 1024;
+      v79 = 501;
+      v80 = 2048;
+      v81 = 0;
+      _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v73, 0x30u);
+      v17 = v70;
     }
 
     v48 = 3758097098;
     if ((v17 & 0x80u) == 0)
     {
-      v55 = v70;
+      v54 = v69;
     }
 
     else
     {
-      v55 = v70[0];
+      v54 = v69[0];
     }
 
-    printf("Expecting second column to be %s\n\n", v55);
+    printf("Expecting second column to be %s\n\n", v54);
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_72;
     }
 
-    if ((v71 & 0x80u) == 0)
+    if ((v70 & 0x80u) == 0)
     {
-      v56 = v70;
+      v55 = v69;
     }
 
     else
     {
-      v56 = v70[0];
+      v55 = v69[0];
     }
 
-    *v74 = 136315138;
-    *&v74[4] = v56;
-    v53 = MEMORY[0x277D86220];
-    v54 = "Expecting second column to be %s\n\n";
-    goto LABEL_135;
-  }
-
-  if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v20 = HIBYTE(v62.__r_.__value_.__r.__words[2]);
-  }
-
-  else
-  {
-    v20 = v62.__r_.__value_.__l.__size_;
-  }
-
-  v21 = v69;
-  v22 = v69;
-  if ((v69 & 0x80u) != 0)
-  {
-    v21 = v68[1];
-  }
-
-  if (v20 != v21 || ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v23 = &v62) : (v23 = v62.__r_.__value_.__r.__words[0]), (v69 & 0x80u) == 0 ? (v24 = v68) : (v24 = v68[0]), memcmp(v23, v24, v20)))
-  {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      *v74 = 136316162;
-      *&v74[4] = "cell2 == COLUMN2_LABEL";
-      v75 = 2080;
-      v76 = &unk_2579A8E96;
-      v77 = 2080;
-      v78 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGExternalSync/MSGExternalSync.cpp";
-      v79 = 1024;
-      v80 = 505;
-      v81 = 2048;
-      v82 = 0;
-      _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v74, 0x30u);
-      v22 = v69;
-    }
-
-    v48 = 3758097098;
-    if ((v22 & 0x80u) == 0)
-    {
-      v57 = v68;
-    }
-
-    else
-    {
-      v57 = v68[0];
-    }
-
-    printf("Expecting third column to be %s\n\n", v57);
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_72;
-    }
-
-    if ((v69 & 0x80u) == 0)
-    {
-      v58 = v68;
-    }
-
-    else
-    {
-      v58 = v68[0];
-    }
-
-    *v74 = 136315138;
-    *&v74[4] = v58;
-    v53 = MEMORY[0x277D86220];
-    v54 = "Expecting third column to be %s\n\n";
+    *v73 = 136315138;
+    *&v73[4] = v55;
+    v52 = MEMORY[0x277D86220];
+    v53 = "Expecting second column to be %s\n\n";
     goto LABEL_135;
   }
 
   if ((v61.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v25 = HIBYTE(v61.__r_.__value_.__r.__words[2]);
+    v20 = HIBYTE(v61.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v25 = v61.__r_.__value_.__l.__size_;
+    v20 = v61.__r_.__value_.__l.__size_;
   }
 
-  v26 = v67;
-  v27 = v67;
-  if ((v67 & 0x80u) != 0)
+  v21 = v68;
+  v22 = v68;
+  if ((v68 & 0x80u) != 0)
   {
-    v26 = v66[1];
+    v21 = v67[1];
   }
 
-  if (v25 != v26 || ((v61.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v28 = &v61) : (v28 = v61.__r_.__value_.__r.__words[0]), (v67 & 0x80u) == 0 ? (v29 = v66) : (v29 = v66[0]), memcmp(v28, v29, v25)))
+  if (v20 != v21 || ((v61.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v23 = &v61) : (v23 = v61.__r_.__value_.__r.__words[0]), (v68 & 0x80u) == 0 ? (v24 = v67) : (v24 = v67[0]), memcmp(v23, v24, v20)))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v74 = 136316162;
-      *&v74[4] = "cell3 == COLUMN3_LABEL";
-      v75 = 2080;
-      v76 = &unk_2579A8E96;
-      v77 = 2080;
-      v78 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGExternalSync/MSGExternalSync.cpp";
-      v79 = 1024;
-      v80 = 509;
-      v81 = 2048;
-      v82 = 0;
-      _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v74, 0x30u);
-      v27 = v67;
+      *v73 = 136316162;
+      *&v73[4] = "cell2 == COLUMN2_LABEL";
+      v74 = 2080;
+      v75 = &unk_2579A8E96;
+      v76 = 2080;
+      v77 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGExternalSync/MSGExternalSync.cpp";
+      v78 = 1024;
+      v79 = 505;
+      v80 = 2048;
+      v81 = 0;
+      _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v73, 0x30u);
+      v22 = v68;
     }
 
     v48 = 3758097098;
-    if ((v27 & 0x80u) == 0)
+    if ((v22 & 0x80u) == 0)
     {
-      v59 = v66;
+      v56 = v67;
     }
 
     else
     {
-      v59 = v66[0];
+      v56 = v67[0];
     }
 
-    printf("Expecting fourth column to be %s\n\n", v59);
+    printf("Expecting third column to be %s\n\n", v56);
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_72;
     }
 
-    if ((v67 & 0x80u) == 0)
+    if ((v68 & 0x80u) == 0)
     {
-      v60 = v66;
+      v57 = v67;
     }
 
     else
     {
-      v60 = v66[0];
+      v57 = v67[0];
     }
 
-    *v74 = 136315138;
-    *&v74[4] = v60;
-    v53 = MEMORY[0x277D86220];
-    v54 = "Expecting fourth column to be %s\n\n";
+    *v73 = 136315138;
+    *&v73[4] = v57;
+    v52 = MEMORY[0x277D86220];
+    v53 = "Expecting third column to be %s\n\n";
     goto LABEL_135;
   }
 
-  v30 = (v83 + *(v83[0] - 24));
+  if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v25 = HIBYTE(v60.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v25 = v60.__r_.__value_.__l.__size_;
+  }
+
+  v26 = v66;
+  v27 = v66;
+  if ((v66 & 0x80u) != 0)
+  {
+    v26 = v65[1];
+  }
+
+  if (v25 != v26 || ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v28 = &v60) : (v28 = v60.__r_.__value_.__r.__words[0]), (v66 & 0x80u) == 0 ? (v29 = v65) : (v29 = v65[0]), memcmp(v28, v29, v25)))
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      *v73 = 136316162;
+      *&v73[4] = "cell3 == COLUMN3_LABEL";
+      v74 = 2080;
+      v75 = &unk_2579A8E96;
+      v76 = 2080;
+      v77 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGExternalSync/MSGExternalSync.cpp";
+      v78 = 1024;
+      v79 = 509;
+      v80 = 2048;
+      v81 = 0;
+      _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v73, 0x30u);
+      v27 = v66;
+    }
+
+    v48 = 3758097098;
+    if ((v27 & 0x80u) == 0)
+    {
+      v58 = v65;
+    }
+
+    else
+    {
+      v58 = v65[0];
+    }
+
+    printf("Expecting fourth column to be %s\n\n", v58);
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_72;
+    }
+
+    if ((v66 & 0x80u) == 0)
+    {
+      v59 = v65;
+    }
+
+    else
+    {
+      v59 = v65[0];
+    }
+
+    *v73 = 136315138;
+    *&v73[4] = v59;
+    v52 = MEMORY[0x277D86220];
+    v53 = "Expecting fourth column to be %s\n\n";
+    goto LABEL_135;
+  }
+
+  v30 = (v82 + *(v82[0] - 24));
   if ((v30->__rdstate_ & 2) == 0)
   {
     v31 = MEMORY[0x277D82680];
     do
     {
       std::ios_base::getloc(v30);
-      v32 = std::locale::use_facet(v74, v31);
+      v32 = std::locale::use_facet(v73, v31);
       v33 = (v32->__vftable[2].~facet_0)(v32, 10);
-      std::locale::~locale(v74);
-      std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v83, &__p, v33);
-      if ((v84[*(v83[0] - 24) + 16] & 2) != 0)
+      std::locale::~locale(v73);
+      std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v82, &__p, v33);
+      if ((v83[*(v82[0] - 24) + 16] & 2) != 0)
       {
         break;
       }
 
-      if (splitLineToNCells(&__p, 4uLL, &__str, &v63, &v62, &v61))
+      if (splitLineToNCells(&__p, 4uLL, &__str, &v62, &v61, &v60))
       {
         loadSimulatedRampData();
         goto LABEL_92;
       }
 
       v34 = std::stod(&__str, 0);
-      v35 = std::stod(&v63, 0);
-      v36 = std::stod(&v62, 0);
-      v37 = std::stod(&v61, 0);
+      v35 = std::stod(&v62, 0);
+      v36 = std::stod(&v61, 0);
+      v37 = std::stod(&v60, 0);
       v38 = a2[1];
       v39 = a2[2];
       if (v38 >= v39)
@@ -1795,7 +1764,7 @@ LABEL_135:
       }
 
       a2[1] = v40;
-      v30 = (v83 + *(v83[0] - 24));
+      v30 = (v82 + *(v82[0] - 24));
     }
 
     while ((v30->__rdstate_ & 2) == 0);
@@ -1803,6 +1772,11 @@ LABEL_135:
 
   v48 = 0;
 LABEL_72:
+  if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v60.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v61.__r_.__value_.__l.__data_);
@@ -1811,11 +1785,6 @@ LABEL_72:
   if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v62.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v63.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -1828,32 +1797,31 @@ LABEL_72:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (v67 < 0)
+  if (v66 < 0)
   {
-    operator delete(v66[0]);
+    operator delete(v65[0]);
   }
 
-  if (v69 < 0)
+  if (v68 < 0)
   {
-    operator delete(v68[0]);
+    operator delete(v67[0]);
   }
 
-  if (v71 < 0)
+  if (v70 < 0)
   {
-    operator delete(v70[0]);
+    operator delete(v69[0]);
   }
 
-  if (v73 < 0)
+  if (v72 < 0)
   {
-    operator delete(v72[0]);
+    operator delete(v71[0]);
   }
 
-  v83[0] = *MEMORY[0x277D82808];
-  *(v83 + *(v83[0] - 24)) = *(MEMORY[0x277D82808] + 24);
-  MEMORY[0x259C69700](v84);
+  v82[0] = *MEMORY[0x277D82808];
+  *(v82 + *(v82[0] - 24)) = *(MEMORY[0x277D82808] + 24);
+  MEMORY[0x259C69700](v83);
   std::istream::~istream();
-  MEMORY[0x259C69950](v85);
-  v49 = *MEMORY[0x277D85DE8];
+  MEMORY[0x259C69950](v84);
   return v48;
 }
 
@@ -1939,197 +1907,37 @@ uint64_t getOutputSyncsLayout(uint64_t a1)
   return 2;
 }
 
-void alignToExternalSync()
+void alignToExternalSync(unsigned int *a1, uint64_t a2)
 {
   _X24 = 0;
   _X25 = 0;
-  v7 = *MEMORY[0x277D85DE8];
   __asm { CASPAL          X24, X25, X24, X25, [X23] }
 
   operator new();
 }
 
+void std::vector<PenroseSimulateData>::reserve(void *a1, unint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_10();
-    OUTLINED_FUNCTION_6_0();
-    OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
-  }
-
-  OUTLINED_FUNCTION_12(0x2D1u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v7 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_10();
-    OUTLINED_FUNCTION_6_0();
-    OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
-  }
-
-  OUTLINED_FUNCTION_12(0x2E4u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v7 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_10();
-    OUTLINED_FUNCTION_6_0();
-    OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
-  }
-
-  OUTLINED_FUNCTION_12(0x2C9u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    OUTLINED_FUNCTION_3_0();
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_6_0();
-    OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
-  }
-
-  OUTLINED_FUNCTION_17();
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    OUTLINED_FUNCTION_3_0();
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_6_0();
-    OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
-  }
-
-  OUTLINED_FUNCTION_14();
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v7 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_10();
-    OUTLINED_FUNCTION_6_0();
-    OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
-  }
-
-  OUTLINED_FUNCTION_8_0(0x2E0u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    OUTLINED_FUNCTION_3_0();
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_6_0();
-    OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
-  }
-
-  OUTLINED_FUNCTION_14();
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    OUTLINED_FUNCTION_3_0();
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_6_0();
-    OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
-  }
-
-  OUTLINED_FUNCTION_14();
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    OUTLINED_FUNCTION_3_0();
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_6_0();
-    OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
-  }
-
-  OUTLINED_FUNCTION_14();
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_10();
-    OUTLINED_FUNCTION_6_0();
-    OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
-  }
-
-  OUTLINED_FUNCTION_16();
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void *std::vector<PenroseSimulateData>::reserve(void *result, unint64_t a2)
-{
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<PenroseData>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<PenroseData>>(a1, a2);
     }
 
     std::vector<PenroseData>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-uint64_t std::future<int>::get(atomic_ullong **a1)
+uint64_t std::future<int>::get(std::__assoc_sub_state **a1)
 {
   v1 = *a1;
   *a1 = 0;
   std::__assoc_state<int>::move(v1);
   v3 = v2;
-  if (v1 && !atomic_fetch_add(v1 + 1, 0xFFFFFFFFFFFFFFFFLL))
+  if (v1 && !atomic_fetch_add(&v1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*v1 + 16))(v1);
+    (v1->__on_zero_shared)(v1);
   }
 
   return v3;
@@ -2145,12 +1953,119 @@ void sub_2579A1824(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t alignToPhaseRamps(int a1, int a2, int a3, int a4, MSGController *this, uint64_t a6)
+uint64_t TimingPlotter::dumpDataToCSVFile(unint64_t *a1, std::string *a2)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v26[19] = *MEMORY[0x277D85DE8];
+  v26[6] = 0;
+  v4 = MEMORY[0x277D82860] + 64;
+  v26[0] = MEMORY[0x277D82860] + 64;
+  v5 = MEMORY[0x277D82810];
+  v6 = *(MEMORY[0x277D82810] + 16);
+  v24 = *(MEMORY[0x277D82810] + 8);
+  *&v25[*(v24 - 24) - 8] = v6;
+  v7 = &v25[*(v24 - 24) - 8];
+  std::ios_base::init(v7, v25);
+  v8 = MEMORY[0x277D82860] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  v24 = v8;
+  v26[0] = v4;
+  MEMORY[0x259C696F0](v25);
+  if (makeDirectoriesAndOpen(a2, &v24))
+  {
+    TimingPlotter::dumpDataToCSVFile();
+    v21 = v23;
+  }
+
+  else
+  {
+    *&v25[*(v24 - 24) + 8] = 64;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "Event Trigger Frame ID", 22);
+    if (*a1)
+    {
+      v9 = 0;
+      v10 = 3;
+      do
+      {
+        v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, ",", 1);
+        MEMORY[0x259C69770](v11, a1[v10]);
+        ++v9;
+        v10 += 3;
+      }
+
+      while (v9 < *a1);
+    }
+
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "\nEvent Trigger TS", 17);
+    if (*a1)
+    {
+      v12 = 0;
+      v13 = (a1 + 2);
+      do
+      {
+        v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, ",", 1);
+        MEMORY[0x259C69760](v14, vcvtd_n_f64_u32(*v13 >> 10, 6uLL) + *(v13 - 1));
+        ++v12;
+        v13 += 3;
+      }
+
+      while (v12 < *a1);
+    }
+
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "\nSync Pulse Segment Start TS", 28);
+    if (a1[300001])
+    {
+      v15 = 0;
+      v16 = (a1 + 300006);
+      do
+      {
+        v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, ",", 1);
+        MEMORY[0x259C69760](v17, vcvtd_n_f64_u32(*v16 >> 10, 6uLL) + *(v16 - 1));
+        ++v15;
+        v16 += 5;
+      }
+
+      while (v15 < a1[300001]);
+    }
+
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "\nSync Pulse Segment Slope", 25);
+    if (a1[300001])
+    {
+      v18 = 0;
+      v19 = (a1 + 300004);
+      do
+      {
+        v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, ",", 1);
+        MEMORY[0x259C69760](v20, (((*v19 >> 10) | (*(v19 - 1) << 6)) * WORD2(*v19) + __PAIR128__((*(v19 - 1) >> 58) * WORD2(*v19), WORD1(*v19))) / ((*v19 >> 26) & 0x3FFFC0));
+        ++v18;
+        v19 += 5;
+      }
+
+      while (v18 < a1[300001]);
+    }
+
+    if (!std::filebuf::close())
+    {
+      std::ios_base::clear(&v25[*(v24 - 24) - 8], *&v25[*(v24 - 24) + 24] | 4);
+    }
+
+    v21 = 0;
+  }
+
+  v24 = *v5;
+  *&v25[*(v24 - 24) - 8] = v5[3];
+  MEMORY[0x259C69700](v25);
+  std::ostream::~ostream();
+  MEMORY[0x259C69950](v26);
+  return v21;
+}
+
+uint64_t alignToPhaseRamps(int a1, int a2, int a3, unsigned int a4, MSGController *this, uint64_t a6)
+{
+  v59 = *MEMORY[0x277D85DE8];
+  v46 = 0;
   v47 = 0;
   v48 = 0;
-  v49 = 0;
   atomic_store(1u, &shouldRun);
   if (!a4)
   {
@@ -2183,7 +2098,7 @@ uint64_t alignToPhaseRamps(int a1, int a2, int a3, int a4, MSGController *this, 
           _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Loading ramp data\n\n", buf, 2u);
         }
 
-        if (!loadSimulatedRampData(a6, &v47))
+        if (!loadSimulatedRampData(a6, &v46))
         {
           v12 = atomic_load(&shouldRun);
           if (v12)
@@ -2193,9 +2108,9 @@ uint64_t alignToPhaseRamps(int a1, int a2, int a3, int a4, MSGController *this, 
             v15 = MEMORY[0x277D86220];
             while (1)
             {
-              if (v48 != v47)
+              if (v47 != v46)
               {
-                v42 = v14;
+                v41 = v14;
                 v16 = 0;
                 v17 = 0;
                 v8 &= 0xFFFFFFFFFFFF0000;
@@ -2221,35 +2136,35 @@ uint64_t alignToPhaseRamps(int a1, int a2, int a3, int a4, MSGController *this, 
                     goto LABEL_56;
                   }
 
-                  v44 = (v46 + &v44[-v46] / v45 * v45);
+                  v43 = (v45 + &v43[-v45] / v44 * v44);
                   v18 = mach_continuous_time();
-                  if (v17 >= (v48 - v47) >> 5)
+                  if (v17 >= (v47 - v46) >> 5)
                   {
                     goto LABEL_78;
                   }
 
-                  v19 = &v47[v16];
+                  v19 = &v46[v16];
                   v20 = v18 + ((v19[1] - *v19) * 24000000.0);
-                  v21 = v44;
-                  v22 = v20 > v44;
-                  v23 = v20 - v44;
+                  v21 = v43;
+                  v22 = v20 > v43;
+                  v23 = v20 - v43;
                   if (v22)
                   {
-                    v21 = &v44[(v23 / v45 + 2) * v45];
-                    v44 = v21;
+                    v21 = &v43[(v23 / v44 + 2) * v44];
+                    v43 = v21;
                   }
 
                   v24 = v19[2];
-                  v25 = (v46 + v19[3]);
+                  v25 = (v45 + v19[3]);
                   printf("t_apply:%llu\tramp_speed:%lld\tref_timestamp:%llu\n", v21, v24, v25);
                   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 134218496;
-                    v51 = v21;
-                    v52 = 2048;
-                    v53 = v24;
-                    v54 = 2048;
-                    v55 = v25;
+                    v50 = v21;
+                    v51 = 2048;
+                    v52 = v24;
+                    v53 = 2048;
+                    v54 = v25;
                     _os_log_impl(&dword_257999000, v15, OS_LOG_TYPE_DEFAULT, "t_apply:%llu\tramp_speed:%lld\tref_timestamp:%llu\n", buf, 0x20u);
                   }
 
@@ -2298,23 +2213,23 @@ LABEL_55:
                   }
 
                   ++v17;
-                  v30 = v48 - v47;
-                  if (v17 < (v48 - v47) >> 5)
+                  v30 = v47 - v46;
+                  if (v17 < (v47 - v46) >> 5)
                   {
                     v31 = mach_absolute_time();
-                    if (v17 >= (v48 - v47) >> 5)
+                    if (v17 >= (v47 - v46) >> 5)
                     {
 LABEL_78:
                       std::vector<RampCSVData>::__throw_out_of_range[abi:ne200100]();
                     }
 
-                    v32 = mach_wait_until(v31 + ((*&v47[v16 + 32] - *&v47[v16]) * 24000000.0));
+                    v32 = mach_wait_until(v31 + ((*&v46[v16 + 32] - *&v46[v16]) * 24000000.0));
                     v13 = v32;
                     if (v32 == 14)
                     {
                       v13 = 0;
 LABEL_45:
-                      v14 = v42;
+                      v14 = v41;
                       break;
                     }
 
@@ -2323,22 +2238,22 @@ LABEL_45:
                       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                       {
                         *buf = 136316162;
-                        v51 = "retcode == 0 ";
-                        v52 = 2080;
-                        v53 = &unk_2579A8E96;
-                        v54 = 2080;
-                        v55 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGExternalSync/MSGExternalSync.cpp";
-                        v56 = 1024;
-                        v57 = 1379;
-                        v58 = 2048;
-                        v59 = v13;
+                        v50 = "retcode == 0 ";
+                        v51 = 2080;
+                        v52 = &unk_2579A8E96;
+                        v53 = 2080;
+                        v54 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGExternalSync/MSGExternalSync.cpp";
+                        v55 = 1024;
+                        v56 = 1379;
+                        v57 = 2048;
+                        v58 = v13;
                         _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", buf, 0x30u);
                       }
 
                       goto LABEL_57;
                     }
 
-                    v30 = v48 - v47;
+                    v30 = v47 - v46;
                   }
 
                   v16 += 32;
@@ -2358,7 +2273,7 @@ LABEL_45:
                 if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 67109120;
-                  LODWORD(v51) = v14;
+                  LODWORD(v50) = v14;
                   v34 = v15;
                   v35 = "\nFinished iteration %u. Looping the simulation data.\n\n";
                   v36 = 8;
@@ -2410,15 +2325,15 @@ LABEL_58:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136316162;
-        v51 = "bailRetcode == 0 ";
-        v52 = 2080;
-        v53 = &unk_2579A8E96;
-        v54 = 2080;
-        v55 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGExternalSync/MSGExternalSync.cpp";
-        v56 = 1024;
-        v57 = 1402;
-        v58 = 2048;
-        v59 = v38;
+        v50 = "bailRetcode == 0 ";
+        v51 = 2080;
+        v52 = &unk_2579A8E96;
+        v53 = 2080;
+        v54 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGExternalSync/MSGExternalSync.cpp";
+        v55 = 1024;
+        v56 = 1402;
+        v57 = 2048;
+        v58 = v38;
         _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", buf, 0x30u);
       }
 
@@ -2426,7 +2341,7 @@ LABEL_58:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v51) = v38;
+        LODWORD(v50) = v38;
         _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unable to deinit phase aligner: %#x\n\n", buf, 8u);
       }
     }
@@ -2444,13 +2359,12 @@ LABEL_57:
   }
 
 LABEL_59:
-  if (v47)
+  if (v46)
   {
-    v48 = v47;
-    operator delete(v47);
+    v47 = v46;
+    operator delete(v46);
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -2548,7 +2462,7 @@ void std::__assoc_state<int>::~__assoc_state(uint64_t a1)
   JUMPOUT(0x259C69990);
 }
 
-uint64_t std::vector<PenroseSimulateData>::emplace_back<PenroseSimulateData const&>(uint64_t a1, _OWORD *a2)
+_OWORD *std::vector<PenroseSimulateData>::emplace_back<PenroseSimulateData const&>(uint64_t a1, _OWORD *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -2605,10 +2519,10 @@ uint64_t std::vector<PenroseSimulateData>::emplace_back<PenroseSimulateData cons
   }
 
   *(a1 + 8) = v6;
-  return v6 - 16;
+  return (v6 - 16);
 }
 
-uint64_t std::vector<PenroseSimulateData>::__init_with_size[abi:ne200100]<PenroseSimulateData*,PenroseSimulateData*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<PenroseSimulateData>::__init_with_size[abi:ne200100]<PenroseSimulateData*,PenroseSimulateData*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2630,7 +2544,7 @@ void sub_2579A2A2C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<PenroseSimulateData>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<PenroseSimulateData>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -2686,8 +2600,7 @@ uint64_t std::__make_exception_ptr_explicit[abi:ne200100]<std::future_error>(con
 
 std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(std::string *a1, std::string *a2)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   v3 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
   size = a2->__r_.__value_.__l.__size_;
@@ -2822,7 +2735,7 @@ void sub_2579A2E00(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -2835,14 +2748,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYT
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -2853,24 +2766,19 @@ void std::__assoc_state<AppleMSG::gtb_full_time_t>::move(std::__assoc_sub_state 
   std::mutex::lock(&a1->__mut_);
   std::__assoc_sub_state::__sub_wait(a1, &__lk);
   ptr = a1->__exception_.__ptr_;
-  v7.__ptr_ = 0;
-  std::exception_ptr::~exception_ptr(&v7);
+  v5.__ptr_ = 0;
+  std::exception_ptr::~exception_ptr(&v5);
   if (ptr)
   {
-    std::exception_ptr::exception_ptr(&v6, &a1->__exception_);
-    v5.__ptr_ = &v6;
-    std::rethrow_exception(v5);
+    std::exception_ptr::exception_ptr(&v4, &a1->__exception_);
+    v3.__ptr_ = &v4;
+    std::rethrow_exception(v3);
     __break(1u);
   }
 
-  else
+  else if (__lk.__owns_)
   {
-    v4 = a1[1].__vftable;
-    shared_owners = a1[1].__shared_owners_;
-    if (__lk.__owns_)
-    {
-      std::mutex::unlock(__lk.__m_);
-    }
+    std::mutex::unlock(__lk.__m_);
   }
 }
 
@@ -2891,16 +2799,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -2923,9 +2831,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_2579A30DC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_2579A30DC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x259C69740](&a10);
+  MEMORY[0x259C69740](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -3286,14 +3194,14 @@ void std::__assoc_sub_state::__attach_future[abi:ne200100](uint64_t a1)
   std::mutex::unlock((a1 + 24));
 }
 
-void sub_2579A3B1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2579A3B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,void (*)(void)>>(uint64_t *a1)
+uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,void (*)(void)>>(const void **a1)
 {
   v6 = a1;
   v2 = std::__thread_local_data();
@@ -3305,9 +3213,9 @@ uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thr
   return 0;
 }
 
-void sub_2579A3BAC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2579A3BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,void (*)(void)>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3433,30 +3341,26 @@ LABEL_26:
   return v13;
 }
 
-void std::__assoc_state<int>::move(uint64_t a1)
+void std::__assoc_state<int>::move(std::__assoc_sub_state *a1)
 {
-  __lk.__m_ = (a1 + 24);
+  __lk.__m_ = &a1->__mut_;
   __lk.__owns_ = 1;
-  std::mutex::lock((a1 + 24));
+  std::mutex::lock(&a1->__mut_);
   std::__assoc_sub_state::__sub_wait(a1, &__lk);
-  v2 = *(a1 + 16);
-  v6.__ptr_ = 0;
-  std::exception_ptr::~exception_ptr(&v6);
-  if (v2)
+  ptr = a1->__exception_.__ptr_;
+  v5.__ptr_ = 0;
+  std::exception_ptr::~exception_ptr(&v5);
+  if (ptr)
   {
-    std::exception_ptr::exception_ptr(&v5, (a1 + 16));
-    v4.__ptr_ = &v5;
-    std::rethrow_exception(v4);
+    std::exception_ptr::exception_ptr(&v4, &a1->__exception_);
+    v3.__ptr_ = &v4;
+    std::rethrow_exception(v3);
     __break(1u);
   }
 
-  else
+  else if (__lk.__owns_)
   {
-    v3 = *(a1 + 140);
-    if (__lk.__owns_)
-    {
-      std::mutex::unlock(__lk.__m_);
-    }
+    std::mutex::unlock(__lk.__m_);
   }
 }
 
@@ -3485,23 +3389,18 @@ void std::__assoc_state<AppleMSG::gtb_full_time_t>::set_value<AppleMSG::gtb_full
   std::mutex::unlock((a1 + 24));
 }
 
-void OUTLINED_FUNCTION_9_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_9_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x30u);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x30u);
 }
 
-void OUTLINED_FUNCTION_12(unsigned __int16 a1@<W8>)
+void OUTLINED_FUNCTION_15(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *v2 = a1 | 0xE0000000;
-  *v1 = 6;
-  v4 = *(v3 - 24);
-}
+  va_start(va, a8);
 
-void OUTLINED_FUNCTION_15(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, &a9, 2u);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, va, 2u);
 }
 
 void SyncAligner::SyncAligner(SyncAligner *this, __int16 a2, uint64_t a3)
@@ -3517,33 +3416,32 @@ void SyncAligner::SyncAligner(SyncAligner *this, __int16 a2, uint64_t a3)
   *(this + 3) = a3;
 }
 
-uint64_t SyncAligner::getPhaseDifference(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
+uint64_t SyncAligner::getPhaseDifference(uint64_t a1, uint64_t a2, unsigned __int16 a3, uint64_t a4, unint64_t a5, uint64_t a6, unsigned __int16 a7)
 {
-  v5 = WORD2(a5);
-  v22 = HIDWORD(a5);
-  v6 = *(a1 + 24);
-  v7 = __divti3();
-  v9 = v7;
+  v7 = WORD2(a5);
+  v23 = HIDWORD(a5);
+  v8 = __divti3();
   v10 = v8;
-  if (__CFADD__(v7, v8 >> 63))
+  v11 = v9;
+  if (__CFADD__(v8, v9 >> 63))
   {
-    v11 = v8 + 1;
+    v12 = v9 + 1;
   }
 
   else
   {
-    v11 = v8;
+    v12 = v9;
   }
 
-  v12 = v11 >> 1;
-  *(&v13 + 1) = v11;
-  *&v13 = v7 + (v8 >> 63);
-  v14 = __modti3();
-  v16 = __PAIR128__(v15, v14) - __PAIR128__(v12, v13 >> 1) + __PAIR128__(v10 & (v15 >> 63), v9 & (v15 >> 63));
-  v17 = __divti3();
-  v19 = ((v16 - __PAIR128__(v18, v17) * v5) >> 31) + __PAIR128__(v18, v17);
-  v20 = (((v19 << 10) + 1024) & 0xFC00) == 0 && ((v22 & ((v16 - v17 * v5) >> 31)) + v16 - v17 * v5) >= (v5 + 1) >> 1;
-  return v20 + (v19 >> 6);
+  v13 = v12 >> 1;
+  *(&v14 + 1) = v12;
+  *&v14 = v8 + (v9 >> 63);
+  v15 = __modti3();
+  v17 = __PAIR128__(v16, v15) - __PAIR128__(v13, v14 >> 1) + __PAIR128__(v11 & (v16 >> 63), v10 & (v16 >> 63));
+  v18 = __divti3();
+  v20 = ((v17 - __PAIR128__(v19, v18) * v7) >> 31) + __PAIR128__(v19, v18);
+  v21 = (((v20 << 10) + 1024) & 0xFC00) == 0 && ((v23 & ((v17 - v18 * v7) >> 31)) + v17 - v18 * v7) >= (v7 + 1) >> 1;
+  return v21 + (v20 >> 6);
 }
 
 __n128 SyncAligner::populateConfigForDriftCorrection(_OWORD *a1, __n128 *a2, unsigned int a3, uint64_t a4)
@@ -3633,7 +3531,7 @@ uint64_t SyncAligner::populateConfigForFinalAlignment(uint64_t result, unsigned 
   return result;
 }
 
-unint64_t SyncAligner::getClampedScheduledTimeExploded(SyncAligner *this, __int128 a2, uint64_t a3, uint64_t a4)
+uint64_t SyncAligner::getClampedScheduledTimeExploded(SyncAligner *this, __int128 a2, uint64_t a3, uint64_t a4)
 {
   v4 = *(this + 1);
   v5 = a3 - v4;
@@ -3689,7 +3587,7 @@ unint64_t SyncAligner::getClampedScheduledTimeExploded(SyncAligner *this, __int1
   }
 }
 
-uint64_t SyncAligner::populateScheduledTimesForStepAlignment(uint64_t result, uint64_t a2, unsigned int a3, uint64_t *a4, uint64_t a5, uint64_t *a6, unint64_t a7, unint64_t a8, uint64_t a9)
+unint64_t SyncAligner::populateScheduledTimesForStepAlignment(unint64_t result, uint64_t a2, unsigned int a3, uint64_t *a4, uint64_t a5, uint64_t *a6, unint64_t a7, unint64_t a8, uint64_t a9)
 {
   v9 = a4[2];
   v10 = *(a4 + 12) >> 10;
@@ -3838,196 +3736,188 @@ uint64_t SyncAligner::populateScheduledTimesForStepAlignment(uint64_t result, ui
 
 uint64_t DirectSyncAligner::getSyncAlignmentParams(void *a1, uint64_t a2, uint64_t a3)
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   if (*(a2 + 160) != 1)
   {
-    v14 = 3758097097;
+    v12 = 3758097097;
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_23;
+      return v12;
     }
 
     OUTLINED_FUNCTION_8();
     *&buf[14] = &unk_2579A8E96;
-    *&buf[22] = v44;
-    v67 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGManager/SyncAlignment/DirectSyncAligner.cpp";
-    LOWORD(v68) = 1024;
+    *&buf[22] = v37;
+    v60 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGManager/SyncAlignment/DirectSyncAligner.cpp";
+    LOWORD(v61) = 1024;
     OUTLINED_FUNCTION_7(104);
-    v45 = MEMORY[0x277D86220];
+    v38 = MEMORY[0x277D86220];
 LABEL_28:
-    _os_log_impl(&dword_257999000, v45, OS_LOG_TYPE_ERROR, "SyncAligner: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", buf, 0x30u);
-    goto LABEL_23;
+    _os_log_impl(&dword_257999000, v38, OS_LOG_TYPE_ERROR, "SyncAligner: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", buf, 0x30u);
+    return v12;
   }
 
   if (*(a2 + 162) != 1)
   {
-    v14 = 3758097097;
+    v12 = 3758097097;
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_23;
+      return v12;
     }
 
     OUTLINED_FUNCTION_8();
     *&buf[14] = &unk_2579A8E96;
-    *&buf[22] = v46;
-    v67 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGManager/SyncAlignment/DirectSyncAligner.cpp";
-    LOWORD(v68) = 1024;
+    *&buf[22] = v39;
+    v60 = "/Library/Caches/com.apple.xbs/Sources/AppleMSG/MSGManager/SyncAlignment/DirectSyncAligner.cpp";
+    LOWORD(v61) = 1024;
     OUTLINED_FUNCTION_7(105);
-    v45 = MEMORY[0x277D86220];
+    v38 = MEMORY[0x277D86220];
     goto LABEL_28;
   }
 
-  v6 = a2 + 64;
-  v5 = *(a2 + 64);
-  v51 = *(a2 + 88);
-  v54 = *(a2 + 80);
-  v7 = HIDWORD(*(a2 + 72));
-  v8 = a1[3];
-  v9 = __divti3();
-  v11 = a1[5];
-  v63 = a1[4];
-  v64 = 0;
-  v65 = v7;
-  v60 = v11;
-  v61 = 0;
-  v62 = v7;
-  v12 = (v63 << 6) * v7 + __PAIR128__((v63 >> 58) * v7, 0);
-  v13 = (v11 << 6) * v7 + __PAIR128__((v11 >> 58) * v7, 0);
-  v14 = 3758097104;
-  if (__PAIR128__(v10, v9) >= v12)
+  v5 = a2 + 64;
+  v44 = *(a2 + 88);
+  v47 = *(a2 + 80);
+  v6 = HIDWORD(*(a2 + 72));
+  v7 = __divti3();
+  v9 = a1[5];
+  v56 = a1[4];
+  v57 = 0;
+  v58 = v6;
+  v53 = v9;
+  v54 = 0;
+  v55 = v6;
+  v10 = (v56 << 6) * v6 + __PAIR128__((v56 >> 58) * v6, 0);
+  v11 = (v9 << 6) * v6 + __PAIR128__((v9 >> 58) * v6, 0);
+  v12 = 3758097104;
+  if (__PAIR128__(v8, v7) >= v10)
   {
-    v15 = v9;
-    v16 = v10;
-    if (v13 >= __PAIR128__(v10, v9))
+    v13 = v7;
+    v14 = v8;
+    if (v11 >= __PAIR128__(v8, v7))
     {
-      v47 = v51 >> 10;
-      v17 = __divti3();
-      v50 = v18;
-      v52 = v17;
-      v48 = v13 - v15;
-      v19 = v13 - __PAIR128__(v16, v15);
-      v49 = v15 - (v63 << 6) * v7;
-      v20 = __PAIR128__(v16, v15) - v12;
+      v40 = v44 >> 10;
+      v15 = __divti3();
+      v43 = v16;
+      v45 = v15;
+      v41 = v11 - v13;
+      v17 = v11 - __PAIR128__(v14, v13);
+      v42 = v13 - (v56 << 6) * v6;
+      v18 = __PAIR128__(v14, v13) - v10;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        v21 = *(a2 + 168);
+        v19 = *(a2 + 168);
         *buf = 136315394;
         *&buf[4] = "getSyncAlignmentParams";
         *&buf[12] = 2048;
-        *&buf[14] = v21;
+        *&buf[14] = v19;
         _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "SyncAligner::%s: Sync count: %zu\n", buf, 0x16u);
       }
 
-      v22 = v54 >> 58;
-      v23 = v47 | (v54 << 6);
+      v20 = v47 >> 58;
+      v21 = v40 | (v47 << 6);
       if (*(a2 + 168))
       {
-        v24 = a2 + 162;
-        v25 = 1;
-        v26 = 1;
+        v22 = 1;
+        v23 = 1;
         do
         {
-          v27 = *(v24 - 2);
           OUTLINED_FUNCTION_9();
-          v26 *= v28;
-          v30 = *v29;
+          v23 *= v24;
           OUTLINED_FUNCTION_9();
-          v25 *= v31;
+          v22 *= v25;
         }
 
-        while (v32 != 1);
+        while (v26 != 1);
       }
 
       else
       {
-        v26 = 1;
-        v25 = 1;
+        v23 = 1;
+        v22 = 1;
       }
 
-      v33 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
-      if (v33)
+      v27 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
+      if (v27)
       {
         *buf = 136315650;
         *&buf[4] = "getSyncAlignmentParams";
         *&buf[12] = 1024;
-        *&buf[14] = v26;
+        *&buf[14] = v23;
         *&buf[18] = 1024;
-        *&buf[20] = v25;
+        *&buf[20] = v22;
         _os_log_impl(&dword_257999000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "SyncAligner::%s: Common ratio: %hu/%hu\n", buf, 0x18u);
       }
 
-      *buf = v48;
-      *&buf[8] = *(&v19 + 1);
-      *&buf[16] = v47 | (v54 << 6);
-      v67 = v54 >> 58;
-      v68 = &v60;
-      v69 = v6;
-      v70 = v26;
-      v71 = v25;
-      v72 = 1;
-      SyncAlignmentParamsForDirection = DirectSyncAligner::getSyncAlignmentParamsForDirection(v33, buf, &v55);
-      v36 = v56;
-      v35 = v57;
-      v59 = v58;
-      v37 = v55;
-      *buf = v49;
-      *&buf[8] = *(&v20 + 1);
-      *&buf[16] = v47 | (v54 << 6);
-      v67 = v54 >> 58;
-      v68 = &v63;
-      v69 = v6;
-      v70 = v26;
-      v71 = v25;
-      v72 = -1;
-      DirectSyncAligner::getSyncAlignmentParamsForDirection(SyncAlignmentParamsForDirection, buf, &v55);
-      v39 = v56;
-      v38 = v57;
-      v40 = v55;
-      if ((__PAIR128__(v22, v23) < 1 || __PAIR128__(v22, v23) >= __PAIR128__(v50, v52)) && (-__PAIR128__(v50, v52) < __PAIR128__(v22, v23) ? (v41 = v54 < 0) : (v41 = 0), v41 || v35 > v57))
+      *buf = v41;
+      *&buf[8] = *(&v17 + 1);
+      *&buf[16] = v40 | (v47 << 6);
+      v60 = v47 >> 58;
+      v61 = &v53;
+      v62 = v5;
+      v63 = v23;
+      v64 = v22;
+      v65 = 1;
+      SyncAlignmentParamsForDirection = DirectSyncAligner::getSyncAlignmentParamsForDirection(v27, buf, &v48);
+      v30 = v49;
+      v29 = v50;
+      v52 = v51;
+      v31 = v48;
+      *buf = v42;
+      *&buf[8] = *(&v18 + 1);
+      *&buf[16] = v40 | (v47 << 6);
+      v60 = v47 >> 58;
+      v61 = &v56;
+      v62 = v5;
+      v63 = v23;
+      v64 = v22;
+      v65 = -1;
+      DirectSyncAligner::getSyncAlignmentParamsForDirection(SyncAlignmentParamsForDirection, buf, &v48);
+      v33 = v49;
+      v32 = v50;
+      v34 = v48;
+      if ((__PAIR128__(v20, v21) < 1 || __PAIR128__(v20, v21) >= __PAIR128__(v43, v45)) && (-__PAIR128__(v43, v45) < __PAIR128__(v20, v21) ? (v35 = v47 < 0) : (v35 = 0), v35 || v29 > v50))
       {
-        v14 = 0;
-        *(a3 + 16) = v58;
-        *a3 = v40;
-        *(a3 + 8) = v39;
-        *(a3 + 32) = v38;
+        v12 = 0;
+        *(a3 + 16) = v51;
+        *a3 = v34;
+        *(a3 + 8) = v33;
+        *(a3 + 32) = v32;
       }
 
       else
       {
-        v14 = 0;
-        *(a3 + 16) = v59;
-        *a3 = v37;
-        *(a3 + 8) = v36;
-        *(a3 + 32) = v35;
+        v12 = 0;
+        *(a3 + 16) = v52;
+        *a3 = v31;
+        *(a3 + 8) = v30;
+        *(a3 + 32) = v29;
       }
     }
   }
 
-LABEL_23:
-  v42 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v12;
 }
 
-uint64_t DirectSyncAligner::planSyncPulseAdjustment(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t DirectSyncAligner::planSyncPulseAdjustment(unint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v127 = *MEMORY[0x277D85DE8];
+  v126 = *MEMORY[0x277D85DE8];
   v4 = (a1 + 32);
   v3 = *(a1 + 32);
-  v120 = v3;
-  v120.n128_u16[6] = *(a2 + 76);
-  v118 = 0u;
-  v119 = 0u;
+  v119 = v3;
+  v119.n128_u16[6] = *(a2 + 76);
   v117 = 0u;
+  v118 = 0u;
+  v116 = 0u;
   if (*(a2 + 136) < 2uLL)
   {
-    goto LABEL_50;
+    return 3758097097;
   }
 
   v5 = a3;
   if (*(a3 + 400) != 3)
   {
-    v88 = 3758097115;
-    goto LABEL_47;
+    return 3758097115;
   }
 
   v7 = *(a2 + 64);
@@ -4036,7 +3926,7 @@ uint64_t DirectSyncAligner::planSyncPulseAdjustment(uint64_t a1, uint64_t a2, ui
     v88 = 3758097090;
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_47;
+      return v88;
     }
 
     goto LABEL_53;
@@ -4048,7 +3938,7 @@ uint64_t DirectSyncAligner::planSyncPulseAdjustment(uint64_t a1, uint64_t a2, ui
     v88 = 3758097090;
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_47;
+      return v88;
     }
 
 LABEL_53:
@@ -4063,73 +3953,73 @@ LABEL_68:
 
   v10 = *(a2 + 80);
   v11 = *(a2 + 88);
-  SyncAlignmentParams = DirectSyncAligner::getSyncAlignmentParams(a1, a2, &v117);
+  SyncAlignmentParams = DirectSyncAligner::getSyncAlignmentParams(a1, a2, &v116);
   if (SyncAlignmentParams)
   {
     v88 = SyncAlignmentParams;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v121 = 136316162;
-      *&v121[4] = "retcode == 0 ";
-      *&v121[12] = 2080;
-      *&v121[14] = &unk_2579A8E96;
-      *&v121[22] = 2080;
+      *v120 = 136316162;
+      *&v120[4] = "retcode == 0 ";
+      *&v120[12] = 2080;
+      *&v120[14] = &unk_2579A8E96;
+      *&v120[22] = 2080;
       OUTLINED_FUNCTION_2();
-      v124 = 239;
-      v125 = 2048;
-      v126 = v98;
+      v123 = 239;
+      v124 = 2048;
+      v125 = v97;
       OUTLINED_FUNCTION_6();
-      _os_log_impl(v99, v100, v101, v102, v103, v104);
+      _os_log_impl(v98, v99, v100, v101, v102, v103);
     }
 
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_47;
+      return v88;
     }
 
-    *v121 = 136315394;
-    *&v121[4] = "planSyncPulseAdjustment";
-    *&v121[12] = 1024;
-    *&v121[14] = v88;
-    v105 = &dword_257999000;
-    v106 = MEMORY[0x277D86220];
-    v107 = "SyncAligner::%s: getSyncAlignmentParams failed with error : 0x%x\n";
-    v108 = v121;
-    v109 = OS_LOG_TYPE_ERROR;
-    v110 = 18;
+    *v120 = 136315394;
+    *&v120[4] = "planSyncPulseAdjustment";
+    *&v120[12] = 1024;
+    *&v120[14] = v88;
+    v104 = &dword_257999000;
+    v105 = MEMORY[0x277D86220];
+    v106 = "SyncAligner::%s: getSyncAlignmentParams failed with error : 0x%x\n";
+    v107 = v120;
+    v108 = OS_LOG_TYPE_ERROR;
+    v109 = 18;
 LABEL_69:
-    _os_log_impl(v105, v106, v109, v107, v108, v110);
-    goto LABEL_47;
+    _os_log_impl(v104, v105, v108, v106, v107, v109);
+    return v88;
   }
 
-  if (v118 < *v4)
+  if (v117 < *v4)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_50;
+      return 3758097097;
     }
 
     goto LABEL_49;
   }
 
-  if (v118 > *v9)
+  if (v117 > *v9)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_50;
+      return 3758097097;
     }
 
     goto LABEL_49;
   }
 
   v13 = *(a2 + 160);
-  v113 = a2 + 160;
+  v112 = a2 + 160;
   if (v13 != *(a2 + 162))
   {
     v88 = 3758097095;
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_47;
+      return v88;
     }
 
     goto LABEL_67;
@@ -4140,7 +4030,7 @@ LABEL_69:
     v88 = 3758097095;
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_47;
+      return v88;
     }
 
 LABEL_67:
@@ -4151,17 +4041,17 @@ LABEL_67:
     goto LABEL_68;
   }
 
-  if (v119 <= *(a1 + 16))
+  if (v118 <= *(a1 + 16))
   {
-    if (v119 < 2)
+    if (v118 < 2)
     {
       v41 = v10 >> 58;
       v42 = *(a2 + 104);
-      *v121 = *(a2 + 96);
-      *&v121[8] = 0;
+      *v120 = *(a2 + 96);
+      *&v120[8] = 0;
       v43 = (v11 >> 10) | (v10 << 6);
-      *&v121[16] = v42;
-      *v122 = 0;
+      *&v120[16] = v42;
+      *v121 = 0;
       v44 = OUTLINED_FUNCTION_5();
       SyncAligner::populateConfigForDriftCorrection(v44, v45, v46, v47);
       SyncAligner::populateConfigForFinalAlignment(a2, 1u, v5);
@@ -4188,14 +4078,14 @@ LABEL_67:
 
       *(v5 + 80) = *v50;
       v51 = OUTLINED_FUNCTION_3();
-      SyncAligner::populateScheduledTimesForStepAlignment(v51, v52, v53, v54, v55, v56, v43, v41, v111);
+      SyncAligner::populateScheduledTimesForStepAlignment(v51, v52, v53, v54, v55, v56, v43, v41, v110);
     }
 
     else
     {
       v25 = OUTLINED_FUNCTION_5();
       SyncAligner::populateConfigForContinuousStepAlignment(v25, v26, v27, v28);
-      if (v119 == 2)
+      if (v118 == 2)
       {
         *(v5 + 32) -= *(a2 + 152);
         *(v5 + 4) = 0;
@@ -4216,22 +4106,22 @@ LABEL_67:
         while (*(a2 + 168) > v29);
       }
 
-      SyncAligner::populateConfigForDriftCorrection(a2, &v120, 1u, v5);
-      v31 = (v119 - 1);
-      v32 = WORD5(v118) * v31 / WORD6(v118) + (WORD4(v118) >> 10) * v31;
-      v33 = *(a2 + 104) + v31 * v118;
-      v123 = 0;
-      *&v122[2] = 0;
+      SyncAligner::populateConfigForDriftCorrection(a2, &v119, 1u, v5);
+      v31 = (v118 - 1);
+      v32 = WORD5(v117) * v31 / WORD6(v117) + (WORD4(v117) >> 10) * v31;
+      v33 = *(a2 + 104) + v31 * v117;
+      v122 = 0;
+      *&v121[2] = 0;
       v34 = *(v5 + 32);
-      *v121 = v33 + (v32 >> 6);
-      *&v121[8] = (v32 << 10) & 0xFC00;
-      *&v121[16] = *v121 + v34;
-      *v122 = (v32 << 10);
+      *v120 = v33 + (v32 >> 6);
+      *&v120[8] = (v32 << 10) & 0xFC00;
+      *&v120[16] = *v120 + v34;
+      *v121 = (v32 << 10);
       SyncAligner::populateConfigForFinalAlignment(a2, 2u, v5);
       v35 = *(a2 + 80) >> 58;
       v36 = (*(a2 + 88) >> 10) | (*(a2 + 80) << 6);
       v37 = __divti3();
-      SyncAligner::populateScheduledTimesForStepAlignment(a1, a2, 1u, v121, 3, (v5 + 32), v36 + v37, (__PAIR128__(v35, v36) + __PAIR128__(v38, v37)) >> 64, v5);
+      SyncAligner::populateScheduledTimesForStepAlignment(a1, a2, 1u, v120, 3, (v5 + 32), v36 + v37, (__PAIR128__(v35, v36) + __PAIR128__(v38, v37)) >> 64, v5);
       if ((*(v5 + 4) & 1) == 0)
       {
         v39 = *(a2 + 168);
@@ -4249,33 +4139,33 @@ LABEL_67:
         }
       }
 
-      v116 = 3;
+      v115 = 3;
     }
   }
 
   else
   {
     v14 = *(a2 + 104);
-    *v121 = *(a2 + 96);
-    *&v121[8] = 0;
-    *&v121[16] = v14;
-    *v122 = 0;
+    *v120 = *(a2 + 96);
+    *&v120[8] = 0;
+    *&v120[16] = v14;
+    *v121 = 0;
     v15 = OUTLINED_FUNCTION_5();
     SyncAligner::populateConfigForDriftCorrection(v15, v16, v17, v18);
     v19 = OUTLINED_FUNCTION_3();
-    SyncAligner::populateScheduledTimesForStepAlignment(v19, v20, v21, v22, v23, v24, 0, 0, v111);
-    SyncAligner::populateConfigForContinuousStepAlignment(a2, &v117, 1u, v5);
+    SyncAligner::populateScheduledTimesForStepAlignment(v19, v20, v21, v22, v23, v24, 0, 0, v110);
+    SyncAligner::populateConfigForContinuousStepAlignment(a2, &v116, 1u, v5);
   }
 
   if (*(a2 + 168) >= 2uLL)
   {
     v57 = 1;
-    v112 = a2;
+    v111 = a2;
 LABEL_32:
     v58 = 0;
-    v59 = (v113 + 4 * v57);
-    v114 = v57;
-    v115 = v57 * v116;
+    v59 = (v112 + 4 * v57);
+    v113 = v57;
+    v114 = v57 * v115;
     while (1)
     {
       v60 = v5 + 48 * v58;
@@ -4337,17 +4227,17 @@ LABEL_32:
       }
 
       v5 = v65;
-      v87 = v65 + 48 * (v58 + v115);
+      v87 = v65 + 48 * (v58 + v114);
       *v87 = v67;
       *(v87 + 4) = v61;
       *(v87 + 5) = *(v60 + 5);
       *(v87 + 16) = *(v60 + 16);
       *(v87 + 32) = v81;
       *(v87 + 40) = (v63 << 32) | ((v80 & 0x3F) << 10) | v86;
-      if (++v58 == v116)
+      if (++v58 == v115)
       {
-        v57 = v114 + 1;
-        if (*(v112 + 168) > (v114 + 1))
+        v57 = v113 + 1;
+        if (*(v111 + 168) > (v113 + 1))
         {
           goto LABEL_32;
         }
@@ -4358,7 +4248,7 @@ LABEL_32:
 
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_50;
+      return 3758097097;
     }
 
 LABEL_49:
@@ -4367,55 +4257,46 @@ LABEL_49:
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_6();
-    _os_log_impl(v92, v93, v94, v95, v96, v97);
-LABEL_50:
-    v88 = 3758097097;
-    goto LABEL_47;
+    _os_log_impl(v91, v92, v93, v94, v95, v96);
+    return 3758097097;
   }
 
 LABEL_46:
   v88 = 0;
-  *(v5 + 400) = v116;
-  *(v5 + 384) = *(v5 + 16 * v116 + 272);
-LABEL_47:
-  v89 = *MEMORY[0x277D85DE8];
+  *(v5 + 400) = v115;
+  *(v5 + 384) = *(v5 + 16 * v115 + 272);
   return v88;
 }
 
 void makeDirectoriesAndOpen()
 {
-  v12 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v11);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   puts("madeFolders = false;");
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_15(&dword_257999000, MEMORY[0x277D86220], v5, "madeFolders = false;\n", v6, v7, v8, v9, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_15(&dword_257999000, MEMORY[0x277D86220], v5, "madeFolders = false;\n", v6, v7, v8, v9, v10);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void asyncThreadWorkload()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_5_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 atomic_ullong *std::future<AppleMSG::gtb_full_time_t>::get(atomic_ullong *result)
@@ -4431,577 +4312,668 @@ atomic_ullong *std::future<AppleMSG::gtb_full_time_t>::get(atomic_ullong *result
 void scheduleSyncPulseAdjustment()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v5 = 136316162;
     OUTLINED_FUNCTION_3_0();
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_14();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v5 = 136316162;
     OUTLINED_FUNCTION_3_0();
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_14();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v5 = 136316162;
     OUTLINED_FUNCTION_3_0();
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_14();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_16();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_16();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void getNextCellInLine()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_8_0(0x2C2u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void splitLineToNCells()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_16();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_16();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_16();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_16();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_17();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_17();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_17();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_17();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void loadSimulatedPenroseData()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_8_0(0x2CAu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_16();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_8_0(0x2CAu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v5 = 136316162;
     OUTLINED_FUNCTION_3_0();
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_14();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void loadSimulatedRampData()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_8_0(0x2CAu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_16();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v5 = 136316162;
     OUTLINED_FUNCTION_3_0();
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_14();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void getMCT_MAT_Delta()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_5_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void alignToExternalSync(uint64_t a1, int a2, _DWORD *a3, _DWORD *a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_5_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v7, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v8, v9, v10, v11, v13);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v7, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v8, v9, v10, v11);
   }
 
   *a4 = a2;
   *a3 = 6;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void alignToExternalSync(int a1, _DWORD *a2, _DWORD *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    LODWORD(v11) = 136316162;
+    *(&v11 + 4) = "retcode == 0 ";
+    WORD6(v11) = 2080;
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v6, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v7, v8, v9, v10, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v6, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v7, v8, v9, v10, v11);
   }
 
   *a3 = a1;
   *a2 = 6;
-  v11 = *MEMORY[0x277D85DE8];
+}
+
+void alignToExternalSync()
+{
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_10();
+    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_1_0();
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
+  }
+
+  OUTLINED_FUNCTION_12(0x2D1u);
+}
+
+{
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_10();
+    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_1_0();
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
+  }
+
+  OUTLINED_FUNCTION_12(0x2E4u);
+}
+
+{
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_10();
+    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_1_0();
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
+  }
+
+  OUTLINED_FUNCTION_12(0x2C9u);
+}
+
+{
+  OUTLINED_FUNCTION_13();
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 136316162;
+    OUTLINED_FUNCTION_3_0();
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_2_0();
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
+  }
+
+  OUTLINED_FUNCTION_17();
+}
+
+{
+  OUTLINED_FUNCTION_13();
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 136316162;
+    OUTLINED_FUNCTION_3_0();
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_2_0();
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
+  }
+
+  OUTLINED_FUNCTION_14();
+}
+
+{
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_10();
+    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_1_0();
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
+  }
+
+  OUTLINED_FUNCTION_8_0(0x2E0u);
+}
+
+{
+  OUTLINED_FUNCTION_13();
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 136316162;
+    OUTLINED_FUNCTION_3_0();
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_2_0();
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
+  }
+
+  OUTLINED_FUNCTION_14();
+}
+
+{
+  OUTLINED_FUNCTION_13();
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 136316162;
+    OUTLINED_FUNCTION_3_0();
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_2_0();
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
+  }
+
+  OUTLINED_FUNCTION_14();
+}
+
+{
+  OUTLINED_FUNCTION_13();
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 136316162;
+    OUTLINED_FUNCTION_3_0();
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_2_0();
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v5);
+  }
+
+  OUTLINED_FUNCTION_14();
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    OUTLINED_FUNCTION_0_0();
+    OUTLINED_FUNCTION_10();
+    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_4_0();
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
+  }
+
+  OUTLINED_FUNCTION_16();
 }
 
 void TimingPlotter::dumpDataToCSVFile()
 {
   OUTLINED_FUNCTION_7_0();
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_16();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void alignToPhaseRamps()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_8_0(0x2C7u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_7_0();
-  v12 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v11);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   puts("Error initializing sync gen phase aligner\n");
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_15(&dword_257999000, MEMORY[0x277D86220], v5, "Error initializing sync gen phase aligner\n\n", v6, v7, v8, v9, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_15(&dword_257999000, MEMORY[0x277D86220], v5, "Error initializing sync gen phase aligner\n\n", v6, v7, v8, v9, v10);
   }
 
   OUTLINED_FUNCTION_16();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_7_0();
-  v12 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_4_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v11);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   puts("Error fetching ramp data from CSV\n");
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_15(&dword_257999000, MEMORY[0x277D86220], v5, "Error fetching ramp data from CSV\n\n", v6, v7, v8, v9, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_15(&dword_257999000, MEMORY[0x277D86220], v5, "Error fetching ramp data from CSV\n\n", v6, v7, v8, v9, v10);
   }
 
   OUTLINED_FUNCTION_16();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v11 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v11 = 136316162;
     OUTLINED_FUNCTION_3_0();
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v11);
   }
 
   puts("Error fetching current tracking info");
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_15(&dword_257999000, MEMORY[0x277D86220], v5, "Error fetching current tracking info\n", v6, v7, v8, v9, 0);
+    LOWORD(v10) = 0;
+    OUTLINED_FUNCTION_15(&dword_257999000, MEMORY[0x277D86220], v5, "Error fetching current tracking info\n", v6, v7, v8, v9, v10);
   }
 
   OUTLINED_FUNCTION_14();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v11 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v11 = 136316162;
     OUTLINED_FUNCTION_3_0();
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v11);
   }
 
   puts("Error fetching current config\n");
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_15(&dword_257999000, MEMORY[0x277D86220], v5, "Error fetching current config\n\n", v6, v7, v8, v9, 0);
+    LOWORD(v10) = 0;
+    OUTLINED_FUNCTION_15(&dword_257999000, MEMORY[0x277D86220], v5, "Error fetching current config\n\n", v6, v7, v8, v9, v10);
   }
 
   OUTLINED_FUNCTION_14();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v11 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v11 = 136316162;
     OUTLINED_FUNCTION_3_0();
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v11);
   }
 
   puts("Error fetching earliest new timestamp");
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_15(&dword_257999000, MEMORY[0x277D86220], v5, "Error fetching earliest new timestamp\n", v6, v7, v8, v9, 0);
+    LOWORD(v10) = 0;
+    OUTLINED_FUNCTION_15(&dword_257999000, MEMORY[0x277D86220], v5, "Error fetching earliest new timestamp\n", v6, v7, v8, v9, v10);
   }
 
   OUTLINED_FUNCTION_14();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_13();
-  v11 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
+    v11 = 136316162;
     OUTLINED_FUNCTION_3_0();
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v11);
   }
 
   puts("Failed to apply new ramp target");
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_15(&dword_257999000, MEMORY[0x277D86220], v5, "Failed to apply new ramp target\n", v6, v7, v8, v9, 0);
+    LOWORD(v10) = 0;
+    OUTLINED_FUNCTION_15(&dword_257999000, MEMORY[0x277D86220], v5, "Failed to apply new ramp target\n", v6, v7, v8, v9, v10);
   }
 
   OUTLINED_FUNCTION_14();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_8_0(0x2C2u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6_0();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4, v6);
+    OUTLINED_FUNCTION_9_0(&dword_257999000, MEMORY[0x277D86220], v0, "MSGExternalSync: AssertMacros: %s, %s file: %s, line: %d, value: %ld\n\n", v1, v2, v3, v4);
   }
 
   OUTLINED_FUNCTION_8_0(0x2C2u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void alignToPhaseRamps(_DWORD *a1)
@@ -5009,7 +4981,8 @@ void alignToPhaseRamps(_DWORD *a1)
   puts("Got signal to exit before completing simulation data.");
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_15(&dword_257999000, MEMORY[0x277D86220], v2, "Got signal to exit before completing simulation data.\n", v3, v4, v5, v6, 0);
+    v7 = 0;
+    OUTLINED_FUNCTION_15(&dword_257999000, MEMORY[0x277D86220], v2, "Got signal to exit before completing simulation data.\n", v3, v4, v5, v6, v7);
   }
 
   *a1 = -536870165;

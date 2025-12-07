@@ -30,7 +30,7 @@
   sub_2371963BC();
   viewCopy = view;
   selfCopy = self;
-  sub_2371808D4();
+  sub_2371808D4(v10);
 
   (*(v7 + 8))(v10, v6);
 }

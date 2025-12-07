@@ -91,11 +91,11 @@
   v5 = *MEMORY[0x1E69644C8];
   v6 = *MEMORY[0x1E69649F8];
   textCopy = text;
-  textCopy = [v4 stringWithFormat:@"(%@ == \"%@\"", v5, MEMORY[0x1E695E110], v6, textCopy];
+  textCopy = [v4 stringWithFormat:@"(%@ == %@", v5, MEMORY[0x1E695E110], v6, textCopy];
   v9 = *MEMORY[0x1E6964B58];
   v10 = MEMORY[0x1E695E118];
-  textCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@ == \"%@\"", v5, MEMORY[0x1E695E118], *MEMORY[0x1E6964B58], textCopy];
-  v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@ == \"%@\"", v5, v10, v6, textCopy, v9];
+  textCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@ == %@", v5, MEMORY[0x1E695E118], *MEMORY[0x1E6964B58], textCopy];
+  v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@ == %@", v5, v10, v6, textCopy, v9];
 
   v13 = [(CKConversationQueryController *)self _appendRecencyToRankingQuery:textCopy hours:24];
   v14 = [(CKConversationQueryController *)self _appendRecencyToRankingQuery:textCopy2 hours:24];

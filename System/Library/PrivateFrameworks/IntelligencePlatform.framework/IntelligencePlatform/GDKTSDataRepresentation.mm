@@ -11,49 +11,40 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [objc_opt_class() allocWithZone:zone];
-  v5 = *&self->_expectedDurationInSecondsNoTraffic;
-  v6 = *&self->_timeSpentAtSpeedBuckets;
-  v7 = *&self->_timePerRoadType;
-  v8 = *&self->_timePerTerrainType;
-  LODWORD(v10) = self->_numHighSpeedEvents;
-  return [v4 initWithStartTime:self->_startTime endTime:self->_endTime distanceInMeters:self->_distanceInMeters elevationGainInMeters:self->_elevationGainInMeters distanceBuckets:self->_distanceBuckets durationInSeconds:self->_durationInSeconds expectedDurationInSecondsNoTraffic:self->_score distanceSpentInTrafficBuckets:self->_expectedDurationInSecondsNoTraffic timeSpentInTrafficBuckets:self->_distanceSpentInTrafficBuckets distanceSpentAtSpeedBuckets:self->_timeSpentInTrafficBuckets timeSpentAtSpeedBuckets:self->_distanceSpentAtSpeedBuckets distanceSpentAtRelativeSpeeds:self->_timeSpentAtSpeedBuckets timeSpentAtRelativeSpeeds:self->_distanceSpentAtRelativeSpeeds distancePerRoadType:self->_timeSpentAtRelativeSpeeds timePerRoadType:self->_distancePerRoadType distancePerWeatherType:self->_timePerRoadType timePerWeatherType:self->_distancePerWeatherType distancePerTerrainType:self->_timePerWeatherType timePerTerrainType:self->_distancePerTerrainType averageSpeedInMetersPerSecond:self->_timePerTerrainType score:self->_averageSpeedInMetersPerSecond usageKwh:self->_usageKwh optimalUsageKwh:self->_optimalUsageKwh numBrakingEvents:*&self->_numBrakingEvents numAccelEvents:v10 numHighSpeedEvents:self->_roadDistancesInMeters roadDistancesInMeters:self->_roadSpeedBuckets roadSpeedBuckets:*&self->_roadRelativeSpeedBuckets roadRelativeSpeedBuckets:self->_route roadTimes:self->_lifeEventIds route:self->_ktsSegmentIds lifeEventIds:? ktsSegmentIds:?];
+  LODWORD(v6) = self->_numHighSpeedEvents;
+  return [v4 initWithStartTime:self->_startTime endTime:self->_endTime distanceInMeters:self->_distanceInMeters elevationGainInMeters:self->_elevationGainInMeters distanceBuckets:self->_distanceBuckets durationInSeconds:self->_durationInSeconds expectedDurationInSecondsNoTraffic:self->_score distanceSpentInTrafficBuckets:self->_expectedDurationInSecondsNoTraffic timeSpentInTrafficBuckets:self->_distanceSpentInTrafficBuckets distanceSpentAtSpeedBuckets:self->_timeSpentInTrafficBuckets timeSpentAtSpeedBuckets:self->_distanceSpentAtSpeedBuckets distanceSpentAtRelativeSpeeds:self->_timeSpentAtSpeedBuckets timeSpentAtRelativeSpeeds:self->_distanceSpentAtRelativeSpeeds distancePerRoadType:self->_timeSpentAtRelativeSpeeds timePerRoadType:self->_distancePerRoadType distancePerWeatherType:self->_timePerRoadType timePerWeatherType:self->_distancePerWeatherType distancePerTerrainType:self->_timePerWeatherType timePerTerrainType:self->_distancePerTerrainType averageSpeedInMetersPerSecond:self->_timePerTerrainType score:self->_averageSpeedInMetersPerSecond usageKwh:self->_usageKwh optimalUsageKwh:self->_optimalUsageKwh numBrakingEvents:*&self->_numBrakingEvents numAccelEvents:v6 numHighSpeedEvents:self->_roadDistancesInMeters roadDistancesInMeters:self->_roadSpeedBuckets roadSpeedBuckets:*&self->_roadRelativeSpeedBuckets roadRelativeSpeedBuckets:self->_route roadTimes:self->_lifeEventIds route:self->_ktsSegmentIds lifeEventIds:? ktsSegmentIds:?];
 }
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v4 = *&self->_startTime;
-  v5 = *&self->_distanceBuckets;
-  distanceSpentAtSpeedBuckets = self->_distanceSpentAtSpeedBuckets;
-  v7 = *&self->_roadRelativeSpeedBuckets;
-  v8 = [v3 initWithFormat:@"GDKTSDataRepresentation<startTime: %@, endTime: %@, totalDistance: %@, elevationGain: %@, distanceBuckets: %@, totalDuration: %@, expectedDuration: %@, distanceInTrafficBuckets: %@, distanceAtSpeedBuckets: %@, distanceAtRelativeSpeeds: %@, timeInTrafficBuckets: %@, timeAtSpeedBuckets: %@, timeAtRelativeSpeeds: %@, averageSpeed: %@, distancePerRoadType: %@, timePerRoadType: %@, distancePerWeatherType: %@, timePerWeatherType: %@, distancePerTerrainType: %@, timePerTerrainType: %@, score: %f, usageKwh: %@, optimalUsageKwh: %@, numBrakingEvents: %d, numAccelEvents: %d, numHighSpeedEvents: %d, roadDistancesInMeters: %@ roadSpeedBuckets: %@ roadRelativeSpeeds: %@, roadTimes: %@, route: %@, lifeEventIds: %@, ktsSegmentIds: %@>", self->_startTime, self->_endTime, self->_distanceInMeters, self->_elevationGainInMeters, self->_distanceBuckets, self->_durationInSeconds, self->_expectedDurationInSecondsNoTraffic, self->_distanceSpentInTrafficBuckets, distanceSpentAtSpeedBuckets, self->_distanceSpentAtRelativeSpeeds, self->_timeSpentInTrafficBuckets, self->_timeSpentAtSpeedBuckets, self->_timeSpentAtRelativeSpeeds, self->_averageSpeedInMetersPerSecond, self->_distancePerRoadType, self->_timePerRoadType, self->_distancePerWeatherType, self->_timePerWeatherType, self->_distancePerTerrainType, self->_timePerTerrainType, *&self->_score, self->_usageKwh, self->_optimalUsageKwh, self->_numBrakingEvents, self->_numAccelEvents, self->_numHighSpeedEvents, self->_roadDistancesInMeters, self->_roadSpeedBuckets, v7, *&self->_route, self->_ktsSegmentIds];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"GDKTSDataRepresentation<startTime: %@, endTime: %@, totalDistance: %@, elevationGain: %@, distanceBuckets: %@, totalDuration: %@, expectedDuration: %@, distanceInTrafficBuckets: %@, distanceAtSpeedBuckets: %@, distanceAtRelativeSpeeds: %@, timeInTrafficBuckets: %@, timeAtSpeedBuckets: %@, timeAtRelativeSpeeds: %@, averageSpeed: %@, distancePerRoadType: %@, timePerRoadType: %@, distancePerWeatherType: %@, timePerWeatherType: %@, distancePerTerrainType: %@, timePerTerrainType: %@, score: %f, usageKwh: %@, optimalUsageKwh: %@, numBrakingEvents: %d, numAccelEvents: %d, numHighSpeedEvents: %d, roadDistancesInMeters: %@ roadSpeedBuckets: %@ roadRelativeSpeeds: %@, roadTimes: %@, route: %@, lifeEventIds: %@, ktsSegmentIds: %@>", self->_startTime, self->_endTime, self->_distanceInMeters, self->_elevationGainInMeters, self->_distanceBuckets, self->_durationInSeconds, self->_expectedDurationInSecondsNoTraffic, self->_distanceSpentInTrafficBuckets, self->_distanceSpentAtSpeedBuckets, self->_distanceSpentAtRelativeSpeeds, self->_timeSpentInTrafficBuckets, self->_timeSpentAtSpeedBuckets, self->_timeSpentAtRelativeSpeeds, self->_averageSpeedInMetersPerSecond, self->_distancePerRoadType, self->_timePerRoadType, self->_distancePerWeatherType, self->_timePerWeatherType, self->_distancePerTerrainType, self->_timePerTerrainType, *&self->_score, self->_usageKwh, self->_optimalUsageKwh, self->_numBrakingEvents, self->_numAccelEvents, self->_numHighSpeedEvents, *&self->_roadDistancesInMeters, *&self->_roadRelativeSpeedBuckets, *&self->_route, self->_ktsSegmentIds];
 
-  return v8;
+  return v2;
 }
 
 - (GDKTSDataRepresentation)initWithCoder:(id)coder
 {
-  v212[2] = *MEMORY[0x1E69E9840];
+  v211[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v4 = objc_opt_class();
   v5 = NSStringFromSelector(sel_startTime);
-  v205 = [coderCopy decodeObjectOfClass:v4 forKey:v5];
+  v204 = [coderCopy decodeObjectOfClass:v4 forKey:v5];
 
   v6 = objc_opt_class();
   v7 = NSStringFromSelector(sel_endTime);
-  v203 = [coderCopy decodeObjectOfClass:v6 forKey:v7];
+  v202 = [coderCopy decodeObjectOfClass:v6 forKey:v7];
 
   v8 = MEMORY[0x1E695DFD8];
   v9 = objc_opt_class();
   v10 = [v8 setWithObjects:{v9, objc_opt_class(), 0}];
   v11 = NSStringFromSelector(sel_distanceInMeters);
-  v202 = [coderCopy decodeObjectOfClasses:v10 forKey:v11];
+  v201 = [coderCopy decodeObjectOfClasses:v10 forKey:v11];
 
   v12 = MEMORY[0x1E695DFD8];
   v13 = objc_opt_class();
   v14 = [v12 setWithObjects:{v13, objc_opt_class(), 0}];
   v15 = NSStringFromSelector(sel_elevationGainInMeters);
-  v201 = [coderCopy decodeObjectOfClasses:v14 forKey:v15];
+  v200 = [coderCopy decodeObjectOfClasses:v14 forKey:v15];
 
   v16 = MEMORY[0x1E695DFD8];
   v17 = objc_opt_class();
@@ -61,19 +52,19 @@
   v19 = objc_opt_class();
   v20 = [v16 setWithObjects:{v17, v18, v19, objc_opt_class(), 0}];
   v21 = NSStringFromSelector(sel_distanceBuckets);
-  v200 = [coderCopy decodeObjectOfClasses:v20 forKey:v21];
+  v199 = [coderCopy decodeObjectOfClasses:v20 forKey:v21];
 
   v22 = MEMORY[0x1E695DFD8];
   v23 = objc_opt_class();
   v24 = [v22 setWithObjects:{v23, objc_opt_class(), 0}];
   v25 = NSStringFromSelector(sel_durationInSeconds);
-  v199 = [coderCopy decodeObjectOfClasses:v24 forKey:v25];
+  v198 = [coderCopy decodeObjectOfClasses:v24 forKey:v25];
 
   v26 = MEMORY[0x1E695DFD8];
   v27 = objc_opt_class();
   v28 = [v26 setWithObjects:{v27, objc_opt_class(), 0}];
   v29 = NSStringFromSelector(sel_expectedDurationInSecondsNoTraffic);
-  v198 = [coderCopy decodeObjectOfClasses:v28 forKey:v29];
+  v197 = [coderCopy decodeObjectOfClasses:v28 forKey:v29];
 
   v30 = MEMORY[0x1E695DFD8];
   v31 = objc_opt_class();
@@ -81,7 +72,7 @@
   v33 = objc_opt_class();
   v34 = [v30 setWithObjects:{v31, v32, v33, objc_opt_class(), 0}];
   v35 = NSStringFromSelector(sel_timeSpentInTrafficBuckets);
-  v197 = [coderCopy decodeObjectOfClasses:v34 forKey:v35];
+  v196 = [coderCopy decodeObjectOfClasses:v34 forKey:v35];
 
   v36 = MEMORY[0x1E695DFD8];
   v37 = objc_opt_class();
@@ -89,7 +80,7 @@
   v39 = objc_opt_class();
   v40 = [v36 setWithObjects:{v37, v38, v39, objc_opt_class(), 0}];
   v41 = NSStringFromSelector(sel_distanceSpentInTrafficBuckets);
-  v196 = [coderCopy decodeObjectOfClasses:v40 forKey:v41];
+  v195 = [coderCopy decodeObjectOfClasses:v40 forKey:v41];
 
   v42 = MEMORY[0x1E695DFD8];
   v43 = objc_opt_class();
@@ -97,7 +88,7 @@
   v45 = objc_opt_class();
   v46 = [v42 setWithObjects:{v43, v44, v45, objc_opt_class(), 0}];
   v47 = NSStringFromSelector(sel_timeSpentAtSpeedBuckets);
-  v195 = [coderCopy decodeObjectOfClasses:v46 forKey:v47];
+  v194 = [coderCopy decodeObjectOfClasses:v46 forKey:v47];
 
   v48 = MEMORY[0x1E695DFD8];
   v49 = objc_opt_class();
@@ -105,7 +96,7 @@
   v51 = objc_opt_class();
   v52 = [v48 setWithObjects:{v49, v50, v51, objc_opt_class(), 0}];
   v53 = NSStringFromSelector(sel_distanceSpentAtSpeedBuckets);
-  v194 = [coderCopy decodeObjectOfClasses:v52 forKey:v53];
+  v193 = [coderCopy decodeObjectOfClasses:v52 forKey:v53];
 
   v54 = MEMORY[0x1E695DFD8];
   v55 = objc_opt_class();
@@ -113,7 +104,7 @@
   v57 = objc_opt_class();
   v58 = [v54 setWithObjects:{v55, v56, v57, objc_opt_class(), 0}];
   v59 = NSStringFromSelector(sel_timeSpentAtRelativeSpeeds);
-  v193 = [coderCopy decodeObjectOfClasses:v58 forKey:v59];
+  v192 = [coderCopy decodeObjectOfClasses:v58 forKey:v59];
 
   v60 = MEMORY[0x1E695DFD8];
   v61 = objc_opt_class();
@@ -121,13 +112,13 @@
   v63 = objc_opt_class();
   v64 = [v60 setWithObjects:{v61, v62, v63, objc_opt_class(), 0}];
   v65 = NSStringFromSelector(sel_distanceSpentAtRelativeSpeeds);
-  v192 = [coderCopy decodeObjectOfClasses:v64 forKey:v65];
+  v191 = [coderCopy decodeObjectOfClasses:v64 forKey:v65];
 
   v66 = MEMORY[0x1E695DFD8];
   v67 = objc_opt_class();
   v68 = [v66 setWithObjects:{v67, objc_opt_class(), 0}];
   v69 = NSStringFromSelector(sel_averageSpeedInMetersPerSecond);
-  v191 = [coderCopy decodeObjectOfClasses:v68 forKey:v69];
+  v190 = [coderCopy decodeObjectOfClasses:v68 forKey:v69];
 
   v70 = objc_opt_class();
   v71 = NSStringFromSelector(sel_score);
@@ -139,13 +130,13 @@
   v76 = objc_opt_class();
   v77 = [v75 setWithObjects:{v76, objc_opt_class(), 0}];
   v78 = NSStringFromSelector(sel_usageKwh);
-  v190 = [coderCopy decodeObjectOfClasses:v77 forKey:v78];
+  v189 = [coderCopy decodeObjectOfClasses:v77 forKey:v78];
 
   v79 = MEMORY[0x1E695DFD8];
   v80 = objc_opt_class();
   v81 = [v79 setWithObjects:{v80, objc_opt_class(), 0}];
   v82 = NSStringFromSelector(sel_optimalUsageKwh);
-  v189 = [coderCopy decodeObjectOfClasses:v81 forKey:v82];
+  v188 = [coderCopy decodeObjectOfClasses:v81 forKey:v82];
 
   v83 = objc_opt_class();
   v84 = NSStringFromSelector(sel_numBrakingEvents);
@@ -167,22 +158,22 @@
   v94 = objc_opt_class();
   v95 = [v92 setWithObjects:{v93, v94, objc_opt_class(), 0}];
   v96 = NSStringFromSelector(sel_roadDistancesInMeters);
-  v188 = [coderCopy decodeObjectOfClasses:v95 forKey:v96];
+  v187 = [coderCopy decodeObjectOfClasses:v95 forKey:v96];
 
   v97 = objc_opt_class();
   v98 = NSStringFromSelector(sel_roadSpeedBuckets);
-  v187 = [coderCopy decodeObjectOfClass:v97 forKey:v98];
+  v186 = [coderCopy decodeObjectOfClass:v97 forKey:v98];
 
   v99 = objc_opt_class();
   v100 = NSStringFromSelector(sel_roadRelativeSpeedBuckets);
-  v186 = [coderCopy decodeObjectOfClass:v99 forKey:v100];
+  v185 = [coderCopy decodeObjectOfClass:v99 forKey:v100];
 
   v101 = MEMORY[0x1E695DFD8];
   v102 = objc_opt_class();
   v103 = objc_opt_class();
   v104 = [v101 setWithObjects:{v102, v103, objc_opt_class(), 0}];
   v105 = NSStringFromSelector(sel_roadTimes);
-  v185 = [coderCopy decodeObjectOfClasses:v104 forKey:v105];
+  v184 = [coderCopy decodeObjectOfClasses:v104 forKey:v105];
 
   v106 = MEMORY[0x1E695DFD8];
   v107 = objc_opt_class();
@@ -190,7 +181,7 @@
   v109 = objc_opt_class();
   v110 = [v106 setWithObjects:{v107, v108, v109, objc_opt_class(), 0}];
   v111 = NSStringFromSelector(sel_distancePerRoadType);
-  v184 = [coderCopy decodeObjectOfClasses:v110 forKey:v111];
+  v183 = [coderCopy decodeObjectOfClasses:v110 forKey:v111];
 
   v112 = MEMORY[0x1E695DFD8];
   v113 = objc_opt_class();
@@ -198,7 +189,7 @@
   v115 = objc_opt_class();
   v116 = [v112 setWithObjects:{v113, v114, v115, objc_opt_class(), 0}];
   v117 = NSStringFromSelector(sel_distancePerWeatherType);
-  v183 = [coderCopy decodeObjectOfClasses:v116 forKey:v117];
+  v182 = [coderCopy decodeObjectOfClasses:v116 forKey:v117];
 
   v118 = MEMORY[0x1E695DFD8];
   v119 = objc_opt_class();
@@ -206,7 +197,7 @@
   v121 = objc_opt_class();
   v122 = [v118 setWithObjects:{v119, v120, v121, objc_opt_class(), 0}];
   v123 = NSStringFromSelector(sel_distancePerTerrainType);
-  v182 = [coderCopy decodeObjectOfClasses:v122 forKey:v123];
+  v181 = [coderCopy decodeObjectOfClasses:v122 forKey:v123];
 
   v124 = MEMORY[0x1E695DFD8];
   v125 = objc_opt_class();
@@ -214,7 +205,7 @@
   v127 = objc_opt_class();
   v128 = [v124 setWithObjects:{v125, v126, v127, objc_opt_class(), 0}];
   v129 = NSStringFromSelector(sel_timePerRoadType);
-  v181 = [coderCopy decodeObjectOfClasses:v128 forKey:v129];
+  v180 = [coderCopy decodeObjectOfClasses:v128 forKey:v129];
 
   v130 = MEMORY[0x1E695DFD8];
   v131 = objc_opt_class();
@@ -222,7 +213,7 @@
   v133 = objc_opt_class();
   v134 = [v130 setWithObjects:{v131, v132, v133, objc_opt_class(), 0}];
   v135 = NSStringFromSelector(sel_timePerWeatherType);
-  v180 = [coderCopy decodeObjectOfClasses:v134 forKey:v135];
+  v179 = [coderCopy decodeObjectOfClasses:v134 forKey:v135];
 
   v136 = MEMORY[0x1E695DFD8];
   v137 = objc_opt_class();
@@ -230,66 +221,66 @@
   v139 = objc_opt_class();
   v140 = [v136 setWithObjects:{v137, v138, v139, objc_opt_class(), 0}];
   v141 = NSStringFromSelector(sel_timePerTerrainType);
-  v179 = [coderCopy decodeObjectOfClasses:v140 forKey:v141];
+  v178 = [coderCopy decodeObjectOfClasses:v140 forKey:v141];
 
   v142 = MEMORY[0x1E695DFD8];
-  v212[0] = objc_opt_class();
-  v212[1] = objc_opt_class();
-  v143 = [MEMORY[0x1E695DEC8] arrayWithObjects:v212 count:2];
+  v211[0] = objc_opt_class();
+  v211[1] = objc_opt_class();
+  v143 = [MEMORY[0x1E695DEC8] arrayWithObjects:v211 count:2];
   v144 = [v142 setWithArray:v143];
   v145 = NSStringFromSelector(sel_route);
   v146 = [coderCopy decodeObjectOfClasses:v144 forKey:v145];
 
   v147 = MEMORY[0x1E695DFD8];
-  v211[0] = objc_opt_class();
-  v211[1] = objc_opt_class();
-  v148 = [MEMORY[0x1E695DEC8] arrayWithObjects:v211 count:2];
+  v210[0] = objc_opt_class();
+  v210[1] = objc_opt_class();
+  v148 = [MEMORY[0x1E695DEC8] arrayWithObjects:v210 count:2];
   v149 = [v147 setWithArray:v148];
   v150 = NSStringFromSelector(sel_lifeEventIds);
   v151 = [coderCopy decodeObjectOfClasses:v149 forKey:v150];
 
   v152 = MEMORY[0x1E695DFD8];
-  v210[0] = objc_opt_class();
-  v210[1] = objc_opt_class();
-  v153 = [MEMORY[0x1E695DEC8] arrayWithObjects:v210 count:2];
+  v209[0] = objc_opt_class();
+  v209[1] = objc_opt_class();
+  v153 = [MEMORY[0x1E695DEC8] arrayWithObjects:v209 count:2];
   v154 = [v152 setWithArray:v153];
   v155 = NSStringFromSelector(sel_ktsSegmentIds);
   v156 = [coderCopy decodeObjectOfClasses:v154 forKey:v155];
 
-  v178 = coderCopy;
-  if (v205)
+  v177 = coderCopy;
+  if (v204)
   {
-    if (v203)
+    if (v202)
     {
-      v157 = v185;
-      LODWORD(v173) = intValue3;
-      v159 = v179;
-      v158 = v180;
-      v160 = v182;
-      v161 = v183;
-      v162 = v181;
-      v163 = v184;
-      self = [(GDKTSDataRepresentation *)self initWithStartTime:v205 endTime:v203 distanceInMeters:v202 elevationGainInMeters:v201 distanceBuckets:v200 durationInSeconds:v199 expectedDurationInSecondsNoTraffic:v74 distanceSpentInTrafficBuckets:v198 timeSpentInTrafficBuckets:v196 distanceSpentAtSpeedBuckets:v197 timeSpentAtSpeedBuckets:v194 distanceSpentAtRelativeSpeeds:v195 timeSpentAtRelativeSpeeds:v192 distancePerRoadType:v193 timePerRoadType:v184 distancePerWeatherType:v181 timePerWeatherType:v183 distancePerTerrainType:v180 timePerTerrainType:v182 averageSpeedInMetersPerSecond:v179 score:v191 usageKwh:v190 optimalUsageKwh:v189 numBrakingEvents:__PAIR64__(intValue2 numAccelEvents:intValue) numHighSpeedEvents:v173 roadDistancesInMeters:v188 roadSpeedBuckets:v187 roadRelativeSpeedBuckets:v186 roadTimes:v185 route:v146 lifeEventIds:v151 ktsSegmentIds:v156];
+      v157 = v184;
+      LODWORD(v172) = intValue3;
+      v159 = v178;
+      v158 = v179;
+      v160 = v181;
+      v161 = v182;
+      v162 = v180;
+      v163 = v183;
+      self = [(GDKTSDataRepresentation *)self initWithStartTime:v204 endTime:v202 distanceInMeters:v201 elevationGainInMeters:v200 distanceBuckets:v199 durationInSeconds:v198 expectedDurationInSecondsNoTraffic:v74 distanceSpentInTrafficBuckets:v197 timeSpentInTrafficBuckets:v195 distanceSpentAtSpeedBuckets:v196 timeSpentAtSpeedBuckets:v193 distanceSpentAtRelativeSpeeds:v194 timeSpentAtRelativeSpeeds:v191 distancePerRoadType:v192 timePerRoadType:v183 distancePerWeatherType:v180 timePerWeatherType:v182 distancePerTerrainType:v179 timePerTerrainType:v181 averageSpeedInMetersPerSecond:v178 score:v190 usageKwh:v189 optimalUsageKwh:v188 numBrakingEvents:__PAIR64__(intValue2 numAccelEvents:intValue) numHighSpeedEvents:v172 roadDistancesInMeters:v187 roadSpeedBuckets:v186 roadRelativeSpeedBuckets:v185 roadTimes:v184 route:v146 lifeEventIds:v151 ktsSegmentIds:v156];
       selfCopy = self;
     }
 
     else
     {
       v168 = MEMORY[0x1E696ABC0];
-      v206 = *MEMORY[0x1E696A578];
-      v207 = @"Required parameter endTime is nil";
-      v169 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v207 forKeys:&v206 count:1];
+      v205 = *MEMORY[0x1E696A578];
+      v206 = @"Required parameter endTime is nil";
+      v169 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v206 forKeys:&v205 count:1];
       v170 = [v168 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v169];
       [coderCopy failWithError:v170];
 
       selfCopy = 0;
-      v163 = v184;
-      v157 = v185;
-      v160 = v182;
-      v161 = v183;
-      v158 = v180;
-      v162 = v181;
-      v159 = v179;
+      v163 = v183;
+      v157 = v184;
+      v160 = v181;
+      v161 = v182;
+      v158 = v179;
+      v162 = v180;
+      v159 = v178;
     }
   }
 
@@ -300,24 +291,23 @@
     if (!error)
     {
       v165 = MEMORY[0x1E696ABC0];
-      v208 = *MEMORY[0x1E696A578];
-      v209 = @"Required parameter startTime is nil";
-      v166 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v209 forKeys:&v208 count:1];
+      v207 = *MEMORY[0x1E696A578];
+      v208 = @"Required parameter startTime is nil";
+      v166 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v208 forKeys:&v207 count:1];
       v167 = [v165 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v166];
       [coderCopy failWithError:v167];
     }
 
     selfCopy = 0;
-    v163 = v184;
-    v157 = v185;
-    v160 = v182;
-    v161 = v183;
-    v158 = v180;
-    v162 = v181;
-    v159 = v179;
+    v163 = v183;
+    v157 = v184;
+    v160 = v181;
+    v161 = v182;
+    v158 = v179;
+    v162 = v180;
+    v159 = v178;
   }
 
-  v171 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

@@ -97,12 +97,9 @@
 
 - (void)writeTo:(id)to
 {
-  ciphertext = self->_ciphertext;
   toCopy = to;
   PBDataWriterWriteDataField();
-  authenticationCode = self->_authenticationCode;
   PBDataWriterWriteDataField();
-  initializationVector = self->_initializationVector;
   PBDataWriterWriteDataField();
 }
 

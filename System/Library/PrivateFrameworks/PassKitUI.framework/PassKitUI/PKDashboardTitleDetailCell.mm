@@ -222,12 +222,12 @@ LABEL_16:
   [(PKDashboardCollectionViewCell *)&v4 layoutSubviews];
   contentView = [(PKDashboardTitleDetailCell *)self contentView];
   [contentView bounds];
-  [(PKDashboardTitleDetailCell *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKDashboardTitleDetailCell *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;
@@ -239,14 +239,14 @@ LABEL_16:
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  v75.receiver = self;
-  v75.super_class = PKDashboardTitleDetailCell;
-  [(PKDashboardCollectionViewCell *)&v75 layoutSubviews];
+  v105.receiver = self;
+  v105.super_class = PKDashboardTitleDetailCell;
+  [(PKDashboardCollectionViewCell *)&v105 layoutSubviews];
   v10 = x + 12.0;
   v11 = y + 12.0;
-  v69 = width;
+  v99 = width;
   v12 = width + -24.0;
-  memset(&v74, 0, sizeof(v74));
+  memset(&v104, 0, sizeof(v104));
   remainder.origin.x = v10;
   remainder.origin.y = y + 12.0;
   v13 = height + -24.0;
@@ -281,21 +281,21 @@ LABEL_16:
   v24 = fmax(v20, v23);
   v25 = MEMORY[0x1E695F058];
   v26 = *(MEMORY[0x1E695F058] + 8);
-  v70 = *MEMORY[0x1E695F058];
+  v100 = *MEMORY[0x1E695F058];
   if (v22 <= 0.0)
   {
-    v43 = *(MEMORY[0x1E695F058] + 16);
-    v45 = *(MEMORY[0x1E695F058] + 24);
-    v62 = v43;
-    v64 = v45;
-    v58 = *MEMORY[0x1E695F058];
-    v60 = *(MEMORY[0x1E695F058] + 8);
-    v31 = v24;
+    v51 = *(MEMORY[0x1E695F058] + 16);
+    v53 = *(MEMORY[0x1E695F058] + 24);
+    v92 = v51;
+    v94 = v53;
+    v88 = *MEMORY[0x1E695F058];
+    v90 = *(MEMORY[0x1E695F058] + 8);
+    v37 = v24;
   }
 
   else
   {
-    v67 = v24;
+    *&v97 = v24;
     v27 = *(MEMORY[0x1E695F058] + 16);
     slice.origin = *MEMORY[0x1E695F058];
     slice.size = v27;
@@ -304,69 +304,91 @@ LABEL_16:
     v29 = v12;
     v30 = v13;
     CGRectDivide(*(&v27 - 8), &slice, &remainder, v22, v16);
-    CGRectDivide(remainder, &v74, &remainder, 11.0, v16);
-    PKContentAlignmentMake();
-    v31 = v67;
-    PKSizeAlignedInRect();
-    slice.origin.x = v32;
-    slice.origin.y = v33;
-    slice.size.width = v34;
-    slice.size.height = v35;
+    CGRectDivide(remainder, &v104, &remainder, 11.0, v16);
+    v31 = PKContentAlignmentMake();
+    v32.n128_u64[0] = *&slice.origin.x;
+    v33.n128_u64[0] = *&slice.origin.y;
+    v34.n128_u64[0] = *&slice.size.width;
+    v35.n128_u64[0] = *&slice.size.height;
+    v36.n128_f64[0] = v22;
+    v37 = *&v97;
+    v38.n128_u64[0] = v97;
+    PKSizeAlignedInRect(v31, v36, v38, v32, v33, v34, v35, v39);
+    slice.origin.x = v40;
+    slice.origin.y = v41;
+    slice.size.width = v42;
+    slice.size.height = v43;
     PKRectCenteredIntegralRect();
-    v58 = v36;
-    v60 = v37;
-    v62 = v38;
-    v64 = v39;
+    v88 = v44;
+    v90 = v45;
+    v92 = v46;
+    v94 = v47;
     PKRectCenteredIntegralRect();
-    v70 = v40;
-    v26 = v41;
-    v43 = v42;
-    v45 = v44;
+    v100 = v48;
+    v26 = v49;
+    v51 = v50;
+    v53 = v52;
     v12 = remainder.size.width;
   }
 
-  [(UILabel *)self->_subtitleLabel sizeThatFits:v12 * 0.5, 3.40282347e38, v58, v60, *&v62, *&v64];
-  v66 = *(v25 + 16);
-  v68 = *v25;
+  [(UILabel *)self->_subtitleLabel sizeThatFits:v12 * 0.5, 3.40282347e38, v88, v90, *&v92, *&v94];
+  v55 = *&v54;
+  v57 = v56;
+  v96 = *(v25 + 16);
+  v98 = *v25;
   slice.origin = *v25;
-  slice.size = v66;
-  if (v46 > 0.0)
+  slice.size = v96;
+  if (v54 > 0.0)
   {
-    CGRectDivide(remainder, &slice, &remainder, v46, v16);
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
-    slice.origin.x = v47;
-    slice.origin.y = v48;
-    slice.size.width = v49;
-    slice.size.height = v50;
+    CGRectDivide(remainder, &slice, &remainder, v54, v16);
+    v58 = PKContentAlignmentMake();
+    v59.n128_u64[0] = *&slice.origin.x;
+    v60.n128_u64[0] = *&slice.origin.y;
+    v61.n128_u64[0] = *&slice.size.width;
+    v62.n128_u64[0] = *&slice.size.height;
+    v63.n128_u64[0] = v55;
+    v64.n128_u64[0] = v57;
+    PKSizeAlignedInRect(v58, v63, v64, v59, v60, v61, v62, v65);
+    slice.origin.x = v66;
+    slice.origin.y = v67;
+    slice.size.width = v68;
+    slice.size.height = v69;
   }
 
   [(UILabel *)self->_titleLabel sizeThatFits:remainder.size.width, 3.40282347e38];
-  v71.origin = v68;
-  v71.size = v66;
-  if (v51 > 0.0)
+  v72 = *&v70;
+  v101.origin = v98;
+  v101.size = v96;
+  if (v70 > 0.0)
   {
-    CGRectDivide(remainder, &v71, &remainder, v51, v15);
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
-    v71.origin.x = v52;
-    v71.origin.y = v53;
-    v71.size.width = v54;
-    v71.size.height = v55;
+    v73 = v71;
+    CGRectDivide(remainder, &v101, &remainder, v70, v15);
+    v74 = PKContentAlignmentMake();
+    v75.n128_u64[0] = *&v101.origin.x;
+    v76.n128_u64[0] = *&v101.origin.y;
+    v77.n128_u64[0] = *&v101.size.width;
+    v78.n128_u64[0] = *&v101.size.height;
+    v79.n128_u64[0] = v72;
+    v80.n128_u64[0] = v73;
+    PKSizeAlignedInRect(v74, v79, v80, v75, v76, v77, v78, v81);
+    v101.origin.x = v82;
+    v101.origin.y = v83;
+    v101.size.width = v84;
+    v101.size.height = v85;
   }
 
   if (!layout)
   {
-    [(UILabel *)self->_titleLabel setFrame:v71.origin.x, v71.origin.y, v71.size.width, v71.size.height];
+    [(UILabel *)self->_titleLabel setFrame:v101.origin.x, v101.origin.y, v101.size.width, v101.size.height];
     [(UILabel *)self->_subtitleLabel setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
-    [(UIActivityIndicatorView *)self->_spinnerView setFrame:v70, v26, v43, v45];
-    [(UIImageView *)self->_disclosureView setFrame:v59, v61, v63, v65];
+    [(UIActivityIndicatorView *)self->_spinnerView setFrame:v100, v26, v51, v53];
+    [(UIImageView *)self->_disclosureView setFrame:v89, v91, v93, v95];
   }
 
-  v56 = fmax(v71.size.height, fmax(slice.size.height, v31)) + 24.0;
-  v57 = v69;
-  result.height = v56;
-  result.width = v57;
+  v86 = fmax(v101.size.height, fmax(slice.size.height, v37)) + 24.0;
+  v87 = v99;
+  result.height = v86;
+  result.width = v87;
   return result;
 }
 

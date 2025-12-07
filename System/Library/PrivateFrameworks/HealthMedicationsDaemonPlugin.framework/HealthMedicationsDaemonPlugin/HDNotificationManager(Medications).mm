@@ -6,7 +6,7 @@
 
 - (void)removeDeliveredNotificationsForScheduleItemIdentifiers:()Medications
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = HKLogMedication();
@@ -14,21 +14,19 @@
   {
     *buf = 134218242;
     selfCopy = self;
-    v12 = 2112;
-    v13 = v4;
+    v11 = 2112;
+    v12 = v4;
     _os_log_impl(&dword_25181C000, v5, OS_LOG_TYPE_DEFAULT, "[%public@] Removing delivered notifications for scheduleItems: %@", buf, 0x16u);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __93__HDNotificationManager_Medications__removeDeliveredNotificationsForScheduleItemIdentifiers___block_invoke;
-  v8[3] = &unk_2796CE828;
-  v8[4] = self;
-  v9 = v4;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __93__HDNotificationManager_Medications__removeDeliveredNotificationsForScheduleItemIdentifiers___block_invoke;
+  v7[3] = &unk_2796CE828;
+  v7[4] = self;
+  v8 = v4;
   v6 = v4;
-  [self getDeliveredNotificationsWithCompletionHandler:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [self getDeliveredNotificationsWithCompletionHandler:v7];
 }
 
 @end

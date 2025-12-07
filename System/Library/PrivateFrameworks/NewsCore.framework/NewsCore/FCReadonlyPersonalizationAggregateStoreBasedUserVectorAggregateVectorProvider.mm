@@ -24,34 +24,34 @@
 
 - (id)aggregateVectorForTags:(id)tags
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   tagsCopy = tags;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v6 = tagsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v37;
+    v9 = *v36;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v37 != v9)
+        if (*v36 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v36 + 1) + 8 * i);
+        v11 = *(*(&v35 + 1) + 8 * i);
         v12 = [[FCTagIDFeature alloc] initWithTagID:v11];
         [v5 setObject:v12 forKeyedSubscript:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v8);
@@ -71,21 +71,19 @@
   v22 = v21;
 
   [v15 personalizationValueWithBaseline:0 decayRate:v22];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __104__FCReadonlyPersonalizationAggregateStoreBasedUserVectorAggregateVectorProvider_aggregateVectorForTags___block_invoke;
-  v30[3] = &unk_1E7C3FDE8;
-  v31 = v18;
-  v32 = v5;
-  v33 = v15;
-  v34 = v22;
-  v35 = v23;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __104__FCReadonlyPersonalizationAggregateStoreBasedUserVectorAggregateVectorProvider_aggregateVectorForTags___block_invoke;
+  v29[3] = &unk_1E7C3FDE8;
+  v30 = v18;
+  v31 = v5;
+  v32 = v15;
+  v33 = v22;
+  v34 = v23;
   v24 = v15;
   v25 = v5;
   v26 = v18;
-  v27 = [v6 fc_arrayByTransformingWithBlock:v30];
-
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = [v6 fc_arrayByTransformingWithBlock:v29];
 
   return v27;
 }

@@ -50,7 +50,7 @@
 - (void)updateConstraints
 {
   selfCopy = self;
-  sub_10014E1B4();
+  sub_10014E1B4(selfCopy);
 }
 
 @end

@@ -12,9 +12,9 @@
 - (_PBFPosterGalleryAssetState)initWithPreview:(id)preview
 {
   previewCopy = preview;
-  v26.receiver = self;
-  v26.super_class = _PBFPosterGalleryAssetState;
-  v6 = [(_PBFPosterGalleryAssetState *)&v26 init];
+  v27.receiver = self;
+  v27.super_class = _PBFPosterGalleryAssetState;
+  v6 = [(_PBFPosterGalleryAssetState *)&v27 init];
   v7 = v6;
   if (v6)
   {
@@ -41,13 +41,14 @@
       else
       {
         processInfo = [MEMORY[0x277CCAC38] processInfo];
-        if (([processInfo isLowPowerModeEnabled] & 1) != 0 || objc_msgSend(processInfo, "thermalState") >= 3)
+        isLowPowerModeEnabled = [processInfo isLowPowerModeEnabled];
+        if ((isLowPowerModeEnabled & 1) != 0 || (isLowPowerModeEnabled = [processInfo thermalState], isLowPowerModeEnabled >= 3))
         {
-          v18 = PBFLogAssetHelper();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v19 = PBFLogAssetHelper(isLowPowerModeEnabled);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21B526000, v18, OS_LOG_TYPE_DEFAULT, "low power mode enabled/ thermal state is critical - forbidding live previews", buf, 2u);
+            _os_log_impl(&dword_21B526000, v19, OS_LOG_TYPE_DEFAULT, "low power mode enabled/ thermal state is critical - forbidding live previews", buf, 2u);
           }
         }
 
@@ -59,20 +60,20 @@
         else
         {
           v7->_willUseLivePreview = 1;
-          v24 = [v15 stringByAppendingString:@".live"];
+          v25 = [v15 stringByAppendingString:@".live"];
 
-          v15 = v24;
+          v15 = v25;
         }
       }
     }
 
-    v19 = objc_opt_new();
+    v20 = objc_opt_new();
     asset = v7->_asset;
-    v7->_asset = v19;
+    v7->_asset = v20;
 
-    v21 = [[PBFPosterSnapshotCollection alloc] initWithUniqueIdentifier:v15];
+    v22 = [[PBFPosterSnapshotCollection alloc] initWithUniqueIdentifier:v15];
     snapshotCollection = v7->_snapshotCollection;
-    v7->_snapshotCollection = v21;
+    v7->_snapshotCollection = v22;
   }
 
   return v7;

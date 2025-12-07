@@ -9,7 +9,10 @@
 - (void)passcodeInput:(id)input enteredPasscode:(id)passcode;
 - (void)setPasscodeInputView:(id)view;
 - (void)shakePasscodeEntry;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -17,7 +20,7 @@
 
 - (void)setPasscodeInputView:(id)view
 {
-  v41[3] = *MEMORY[0x1E69E9840];
+  v40[3] = *MEMORY[0x1E69E9840];
   viewCopy = view;
   passcodeInputView = [(OBPasscodeViewController *)self passcodeInputView];
   objc_storeStrong(&self->_passcodeInputView, view);
@@ -33,12 +36,12 @@
     if ([passcodeInputView isFirstResponder])
     {
       v9 = MEMORY[0x1E69DD250];
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __49__OBPasscodeViewController_setPasscodeInputView___block_invoke;
-      v39[3] = &unk_1E7C15590;
-      v40 = viewCopy;
-      [v9 performWithoutAnimation:v39];
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __49__OBPasscodeViewController_setPasscodeInputView___block_invoke;
+      v38[3] = &unk_1E7C15590;
+      v39 = viewCopy;
+      [v9 performWithoutAnimation:v38];
     }
 
     else
@@ -104,15 +107,13 @@
   v33 = [leadingAnchor3 constraintEqualToAnchor:v32];
 
   v34 = MEMORY[0x1E696ACD8];
-  v41[0] = v33;
+  v40[0] = v33;
   contentViewTopConstraint3 = [(OBPasscodeViewController *)self contentViewTopConstraint];
-  v41[1] = contentViewTopConstraint3;
+  v40[1] = contentViewTopConstraint3;
   contentViewBottomConstraint = [(OBPasscodeViewController *)self contentViewBottomConstraint];
-  v41[2] = contentViewBottomConstraint;
-  v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:3];
+  v40[2] = contentViewBottomConstraint;
+  v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:3];
   [v34 activateConstraints:v37];
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)configureForPasscodeEntry:(unint64_t)entry length:(int64_t)length
@@ -194,6 +195,42 @@ LABEL_8:
   [(OBWelcomeController *)&v3 viewDidLoad];
   [(OBWelcomeController *)self setShouldAdjustScrollViewInsetForKeyboard:1];
   [(OBWelcomeController *)self setShouldAdjustButtonTrayForKeyboard:1];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = OBPasscodeViewController;
+  [(OBWelcomeController *)&v8 viewWillAppear:appear];
+  presentedViewController = [(OBPasscodeViewController *)self presentedViewController];
+
+  if (!presentedViewController)
+  {
+    passcodeInputView = [(OBPasscodeViewController *)self passcodeInputView];
+    [passcodeInputView becomeFirstResponder];
+  }
+
+  passcodeInputView2 = [(OBPasscodeViewController *)self passcodeInputView];
+  passcode = [passcodeInputView2 passcode];
+  [(OBPasscodeViewController *)self _updateCompletionButtonEnabledStateForPasscode:passcode];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = OBPasscodeViewController;
+  [(OBWelcomeController *)&v5 viewWillDisappear:disappear];
+  passcodeInputView = [(OBPasscodeViewController *)self passcodeInputView];
+  [passcodeInputView resignFirstResponder];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = OBPasscodeViewController;
+  [(OBWelcomeController *)&v5 viewDidDisappear:disappear];
+  passcodeInputView = [(OBPasscodeViewController *)self passcodeInputView];
+  [passcodeInputView resignFirstResponder];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator

@@ -49,7 +49,7 @@
 - (void)minimizeBehaviorDidChange
 {
   selfCopy = self;
-  sub_188B79E64();
+  sub_188B79E64(v2);
 }
 
 - (void)_shim_setAccessoryView:(id)view
@@ -71,13 +71,13 @@
   toCopy = to;
   if (to)
   {
-    sub_188A34624(0, &qword_1EA9306B0);
+    sub_188A34624(0, &qword_1EA9306B0, off_1E70EA8F0);
     toCopy = sub_18A4A7548();
   }
 
   if (items)
   {
-    sub_188A34624(0, &qword_1EA9306B0);
+    sub_188A34624(0, &qword_1EA9306B0, off_1E70EA8F0);
     sub_18A4A7548();
   }
 
@@ -98,7 +98,7 @@
 - (void)prepare
 {
   selfCopy = self;
-  sub_188B7B9CC();
+  sub_188B7B9CC(selfCopy, v2);
 }
 
 - (CGSize)intrinsicContentSizeGivenSize:(CGSize)size
@@ -227,7 +227,7 @@
   selfCopy = self;
   sub_188F5563C(itemCopy, withItemCopy);
 
-  sub_188A34624(0, &qword_1EA9306B0);
+  sub_188A34624(0, &qword_1EA9306B0, off_1E70EA8F0);
   v9 = sub_18A4A7518();
 
   return v9;
@@ -348,7 +348,7 @@
   selfCopy = self;
   sub_188F56AC0(target);
 
-  sub_188A34624(0, &qword_1ED48F680);
+  sub_188A34624(0, &qword_1ED48F680, off_1E70EAD78);
   v5 = sub_18A4A7518();
 
   return v5;
@@ -375,7 +375,7 @@
 
   if (v3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA937A90);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA937A90, &qword_18A653938);
     v4 = sub_18A4A7518();
   }
 
@@ -404,7 +404,8 @@
 {
   beginCopy = begin;
   selfCopy = self;
-  LOBYTE(self) = sub_188F581E8(beginCopy);
+  sub_188F581E8(beginCopy);
+  LOBYTE(self) = v6;
 
   return self & 1;
 }

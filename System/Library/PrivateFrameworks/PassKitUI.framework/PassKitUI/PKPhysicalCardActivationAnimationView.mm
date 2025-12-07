@@ -126,9 +126,9 @@ LABEL_10:
 
 - (void)layoutSubviews
 {
-  v20.receiver = self;
-  v20.super_class = PKPhysicalCardActivationAnimationView;
-  [(PKPhysicalCardActivationAnimationView *)&v20 layoutSubviews];
+  v26.receiver = self;
+  v26.super_class = PKPhysicalCardActivationAnimationView;
+  [(PKPhysicalCardActivationAnimationView *)&v26 layoutSubviews];
   [(PKPhysicalCardActivationAnimationView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -146,12 +146,15 @@ LABEL_10:
     [font lineHeight];
     v14 = v13;
 
-    PKFloatRoundToPixel();
-    v16 = v15;
-    PKFloatRoundToPixel();
-    v18 = v17 - v14;
-    PKFloatRoundToPixel();
-    [(UILabel *)self->_nameOnCardLabel setFrame:v16, v18, v19 - v16, v14];
+    v15.n128_f64[0] = v8 * 0.3;
+    PKFloatRoundToPixel(v15, v16);
+    v18 = v17;
+    v19.n128_f64[0] = v10 * 0.52;
+    PKFloatRoundToPixel(v19, v20);
+    v22 = v21 - v14;
+    v23.n128_f64[0] = v8 * 0.6;
+    PKFloatRoundToPixel(v23, v24);
+    [(UILabel *)self->_nameOnCardLabel setFrame:v18, v22, v25 - v18, v14];
   }
 }
 

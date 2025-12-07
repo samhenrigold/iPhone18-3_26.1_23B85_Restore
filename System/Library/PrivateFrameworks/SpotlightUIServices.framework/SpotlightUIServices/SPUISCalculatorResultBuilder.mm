@@ -115,14 +115,14 @@
 
 - (id)buildInlineCardSections
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   v4 = [SPUISUtilities localizedStringForKey:@"INLINE_EQUATION_FORMAT"];
   formattedInput = [(SPUISCalculatorResultBuilder *)self formattedInput];
   v6 = [v3 stringWithFormat:v4, formattedInput];
 
   v7 = objc_opt_new();
-  [v7 setTitle:v6];
+  objc_msgSend_setTitle_(v7);
   output = [(SPUISCalculatorResultBuilder *)self output];
   [v7 setSubtitle:output];
 
@@ -146,8 +146,8 @@
     [v7 setSeparatorStyle:1];
     v15 = objc_opt_new();
     v16 = [objc_opt_class() currencyConversionAttributionImageWithSize:{78.0, 12.0}];
-    v26[0] = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+    v25[0] = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
     [v15 setIcons:v17];
 
     buildCommand2 = [(SPUISCalculatorResultBuilder *)self buildCommand];
@@ -158,51 +158,47 @@
     command = [v7 command];
     [v19 setCommand:command];
 
-    v25[0] = v7;
-    v25[1] = v19;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+    v24[0] = v7;
+    v24[1] = v19;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
   }
 
   else
   {
-    v24 = v7;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+    v23 = v7;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
 
 - (id)buildCompactCardSection
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = [SPUISUtilities localizedStringForKey:@"COMPACT_EQUATION_FORMAT"];
   v4 = MEMORY[0x277CCACA8];
   formattedInput = [(SPUISCalculatorResultBuilder *)self formattedInput];
   output = [(SPUISCalculatorResultBuilder *)self output];
   v7 = [v4 stringWithFormat:v3, formattedInput, output];
 
-  v16.receiver = self;
-  v16.super_class = SPUISCalculatorResultBuilder;
-  buildCompactCardSection = [(SPUISResultBuilder *)&v16 buildCompactCardSection];
+  v15.receiver = self;
+  v15.super_class = SPUISCalculatorResultBuilder;
+  buildCompactCardSection = [(SPUISResultBuilder *)&v15 buildCompactCardSection];
   v9 = [MEMORY[0x277D4C598] textWithString:v7];
-  [buildCompactCardSection setTitle:v9];
+  objc_msgSend_setTitle_(buildCompactCardSection);
 
   if ([(SPUISCalculatorResultBuilder *)self isCurrencyConversion])
   {
     v10 = [MEMORY[0x277D4C598] textWithString:@" "];
     v11 = [objc_opt_class() currencyConversionAttributionImageWithSize:{91.0, 15.0}];
-    v18[0] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v17[0] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
     [v10 setIcons:v12];
 
-    v17 = v10;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    v16 = v10;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
     [buildCompactCardSection setDescriptions:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return buildCompactCardSection;
 }
@@ -238,7 +234,7 @@
 
 - (id)buildButtonItems
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   output = [(SPUISCalculatorResultBuilder *)self output];
   [v3 setCopyableString:output];
@@ -247,10 +243,8 @@
   [v5 setCopyableItem:v3];
   v6 = objc_opt_new();
   [v6 setCommand:v5];
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v7;
 }

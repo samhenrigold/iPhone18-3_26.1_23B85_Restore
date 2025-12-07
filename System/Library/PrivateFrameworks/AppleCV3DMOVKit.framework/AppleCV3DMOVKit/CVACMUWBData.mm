@@ -95,14 +95,14 @@
 
 - (id)dictionary
 {
-  v23[7] = *MEMORY[0x277D85DE8];
-  v16 = @"uuid";
+  v22[7] = *MEMORY[0x277D85DE8];
+  v15 = @"uuid";
   uuid = self->_uuid;
   if (uuid)
   {
     uUIDString = [(NSUUID *)self->_uuid UUIDString];
-    v23[0] = uUIDString;
-    v17 = @"blePeerId";
+    v22[0] = uUIDString;
+    v16 = @"blePeerId";
     blePeerId = self->_blePeerId;
     if (blePeerId)
     {
@@ -115,8 +115,8 @@ LABEL_3:
   else
   {
     uUIDString = @"000000-0000-0000-0000-000000000000";
-    v23[0] = @"000000-0000-0000-0000-000000000000";
-    v17 = @"blePeerId";
+    v22[0] = @"000000-0000-0000-0000-000000000000";
+    v16 = @"blePeerId";
     blePeerId = self->_blePeerId;
     if (blePeerId)
     {
@@ -126,24 +126,24 @@ LABEL_3:
 
   uUIDString2 = @"000000-0000-0000-0000-000000000000";
 LABEL_6:
-  v23[1] = uUIDString2;
-  v18 = @"range";
+  v22[1] = uUIDString2;
+  v17 = @"range";
   *&v2 = self->_range;
   v8 = [MEMORY[0x277CCABB0] numberWithFloat:v2];
-  v23[2] = v8;
-  v19 = @"model";
+  v22[2] = v8;
+  v18 = @"model";
   v9 = [MEMORY[0x277CCABB0] numberWithInteger:self->_model];
-  v23[3] = v9;
-  v20 = @"quality";
+  v22[3] = v9;
+  v19 = @"quality";
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:self->_quality];
-  v23[4] = v10;
-  v21 = @"sampleTimestamp";
+  v22[4] = v10;
+  v20 = @"sampleTimestamp";
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:self->_sampleTimestamp];
-  v23[5] = v11;
-  v22 = @"timestamp";
+  v22[5] = v11;
+  v21 = @"timestamp";
   v12 = [MEMORY[0x277CCABB0] numberWithDouble:self->_timestamp];
-  v23[6] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v16 count:7];
+  v22[6] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v15 count:7];
 
   if (blePeerId)
   {
@@ -152,8 +152,6 @@ LABEL_6:
   if (uuid)
   {
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

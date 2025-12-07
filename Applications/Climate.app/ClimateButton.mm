@@ -44,7 +44,7 @@
 - (BOOL)isHighlighted
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ClimateButton();
+  v3.super_class = type metadata accessor for ClimateButton(0);
   return [(ClimateButton *)&v3 isHighlighted];
 }
 
@@ -61,7 +61,7 @@
   y = rect.origin.y;
   x = rect.origin.x;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for ClimateButton();
+  v8.super_class = type metadata accessor for ClimateButton(0);
   v7 = v8.receiver;
   [(ClimateButton *)&v8 drawRect:x, y, width, height];
   ClimateButton.createEdgeInsets()();
@@ -76,7 +76,7 @@
 - (void)didUpdateFocusInContext:(id)context withAnimationCoordinator:(id)coordinator
 {
   v10.receiver = self;
-  v10.super_class = type metadata accessor for ClimateButton();
+  v10.super_class = type metadata accessor for ClimateButton(0);
   contextCopy = context;
   coordinatorCopy = coordinator;
   v8 = v10.receiver;
@@ -94,7 +94,7 @@
 - (void)didMoveToSuperview
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ClimateButton();
+  v3.super_class = type metadata accessor for ClimateButton(0);
   v2 = v3.receiver;
   [(ClimateButton *)&v3 didMoveToSuperview];
   sub_1000946A8();

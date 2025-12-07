@@ -39,9 +39,7 @@
 
 - (void)setCommandCriterion:(id)criterion
 {
-  v4 = [criterion copy];
-  criterion = self->_criterion;
-  self->_criterion = v4;
+  self->_criterion = [criterion copy];
 
   MEMORY[0x1EEE66BB8]();
 }

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)keystoreAsString:(int)string;
 - (int)StringAsKeystore:(id)keystore;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -11,6 +12,21 @@
 @end
 
 @implementation NGMPBP256Key
+
+- (id)keystoreAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2786FDF48[string - 1];
+  }
+
+  return v4;
+}
 
 - (int)StringAsKeystore:(id)keystore
 {
@@ -95,7 +111,6 @@
     PBDataWriterWriteStringField();
   }
 
-  keystore = self->_keystore;
   PBDataWriterWriteInt32Field();
   if (self->_keyData)
   {

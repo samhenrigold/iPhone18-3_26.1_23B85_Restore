@@ -36,7 +36,7 @@
     os_unfair_lock_lock(&self->_mostRecentTimestampsLock);
     objc_opt_class();
     objc_opt_isKindOfClass();
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     v6 = v5;
     lastObject = [(ARCircularArray *)self->_mostRecentTimestamps lastObject];
     if (lastObject)
@@ -117,7 +117,7 @@ LABEL_16:
   mostRecentTimestamps = self->_mostRecentTimestamps;
   v7 = MEMORY[0x1E696AD98];
   imageData = [contextCopy imageData];
-  [imageData timestamp];
+  objc_msgSend_timestamp(imageData);
   v9 = [v7 numberWithDouble:?];
   LOBYTE(mostRecentTimestamps) = [(ARCircularArray *)mostRecentTimestamps containsObject:v9];
 

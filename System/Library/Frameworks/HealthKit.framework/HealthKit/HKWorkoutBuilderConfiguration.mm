@@ -12,28 +12,7 @@
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_17;
-  }
-
-  device = self->_device;
-  v6 = equalCopy[2];
-  if (device != v6 && (!v6 || ![(HKDevice *)device isEqual:?]))
-  {
-    goto LABEL_17;
-  }
-
-  if (((workoutConfiguration = self->_workoutConfiguration, v8 = equalCopy[3], workoutConfiguration == v8) || v8 && [(HKWorkoutConfiguration *)workoutConfiguration isEqual:?]) && self->_goalType == equalCopy[4] && ((goal = self->_goal, v10 = equalCopy[5], goal == v10) || v10 && [(HKQuantity *)goal isEqual:?]) && self->_shouldCollectWorkoutEvents == *(equalCopy + 8) && ((associatedSessionUUID = self->_associatedSessionUUID, v12 = equalCopy[6], associatedSessionUUID == v12) || v12 && [(NSUUID *)associatedSessionUUID isEqual:?]))
-  {
-    v13 = self->_requiresRecovery == *(equalCopy + 9);
-  }
-
-  else
-  {
-LABEL_17:
-    v13 = 0;
-  }
+  v13 = (objc_opt_isKindOfClass() & 1) != 0 && ((device = self->_device, v6 = equalCopy[2], device == v6) || v6 && [(HKDevice *)device isEqual:?]) && ((workoutConfiguration = self->_workoutConfiguration, v8 = equalCopy[3], workoutConfiguration == v8) || v8 && [(HKWorkoutConfiguration *)workoutConfiguration isEqual:?]) && self->_goalType == equalCopy[4] && ((goal = self->_goal, v10 = equalCopy[5], goal == v10) || v10 && [(HKQuantity *)goal isEqual:?]) && self->_shouldCollectWorkoutEvents == *(equalCopy + 8) && ((associatedSessionUUID = self->_associatedSessionUUID, v12 = equalCopy[6], associatedSessionUUID == v12) || v12 && [(NSUUID *)associatedSessionUUID isEqual:?]) && self->_requiresRecovery == *(equalCopy + 9);
 
   return v13;
 }

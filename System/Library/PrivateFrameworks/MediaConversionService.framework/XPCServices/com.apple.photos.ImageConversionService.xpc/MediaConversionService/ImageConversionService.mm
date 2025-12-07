@@ -10,6 +10,7 @@
 - (BOOL)validateRequestOptions:(id)options error:(id *)error;
 - (ImageConversionService)init;
 - (id)adjustmentInformationForCropAdjustmentInformation:(id)information sourceURLCollection:(id)collection error:(id *)error;
+- (id)performPhotosPortraitAdjustmentsCalculationForURL:(id)l contentType:(id)type orientation:(unsigned int)orientation error:(id *)error;
 - (id)urlCollectionForBookmarkDictionaryKey:(id)key inOptions:(id)options removeExistingEmptyFiles:(BOOL)files error:(id *)error;
 - (int64_t)incrementPendingRequestCountWithRequestIdentifier:(id)identifier;
 - (void)conversionQueue:(id)queue processNextEntry:(id)entry;
@@ -407,6 +408,55 @@ LABEL_22:
 LABEL_26:
 
 LABEL_27:
+
+  return v14;
+}
+
+- (id)performPhotosPortraitAdjustmentsCalculationForURL:(id)l contentType:(id)type orientation:(unsigned int)orientation error:(id *)error
+{
+  v7 = *&orientation;
+  lCopy = l;
+  typeCopy = type;
+  v13 = typeCopy;
+  if (lCopy)
+  {
+    if (typeCopy)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_8:
+    v17 = +[NSAssertionHandler currentHandler];
+    [v17 handleFailureInMethod:a2 object:self file:@"ImageConversionService.m" lineNumber:561 description:{@"Invalid parameter not satisfying: %@", @"contentType"}];
+
+    if (v7)
+    {
+      goto LABEL_4;
+    }
+
+    goto LABEL_9;
+  }
+
+  v16 = +[NSAssertionHandler currentHandler];
+  [v16 handleFailureInMethod:a2 object:self file:@"ImageConversionService.m" lineNumber:560 description:{@"Invalid parameter not satisfying: %@", @"sourceURL"}];
+
+  if (!v13)
+  {
+    goto LABEL_8;
+  }
+
+LABEL_3:
+  if (v7)
+  {
+    goto LABEL_4;
+  }
+
+LABEL_9:
+  v18 = +[NSAssertionHandler currentHandler];
+  [v18 handleFailureInMethod:a2 object:self file:@"ImageConversionService.m" lineNumber:562 description:{@"Invalid parameter not satisfying: %@", @"orientation"}];
+
+LABEL_4:
+  v14 = [PAMediaConversionServiceSharedUtilitiesServiceSide generatePortraitAdjustmentForURL:lCopy contentType:v13 orientation:v7 error:error];
 
   return v14;
 }
@@ -897,25 +947,8 @@ LABEL_111:
       [v103 blastDoorMainSourceProperties];
       v105 = v104 = v55;
 
-      if (!v105)
+      if (!v105 || (-[PAMediaConversionServiceImageConversionJob sourceResourceURLCollection](v104, "sourceResourceURLCollection"), v106 = objc_claimAutoreleasedReturnValue(), [v106 blastDoorMainSourceProperties], v107 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "setObject:forKeyedSubscript:", v107, @"PAMediaConversionServiceBlastDoorSourcePropertiesKey"), v107, v106, -[PAMediaConversionServiceImageConversionJob sourceResourceURLCollection](v104, "sourceResourceURLCollection"), v108 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v108, "blastDoorVideoComplementProperties"), v109 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "setObject:forKeyedSubscript:", v109, @"PAMediaConversionServiceBlastDoorVideoComplementSourcePropertiesKey"), v109, v108, -[PAMediaConversionServiceImageConversionJob sourceResourceURLCollection](v104, "sourceResourceURLCollection"), v110 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v110, "blastDoorSourceURL"), v111 = objc_claimAutoreleasedReturnValue(), v111, v110, !v111))
       {
-        goto LABEL_109;
-      }
-
-      sourceResourceURLCollection3 = [(PAMediaConversionServiceImageConversionJob *)v104 sourceResourceURLCollection];
-      blastDoorMainSourceProperties = [sourceResourceURLCollection3 blastDoorMainSourceProperties];
-      [v27 setObject:blastDoorMainSourceProperties forKeyedSubscript:@"PAMediaConversionServiceBlastDoorSourcePropertiesKey"];
-
-      sourceResourceURLCollection4 = [(PAMediaConversionServiceImageConversionJob *)v104 sourceResourceURLCollection];
-      blastDoorVideoComplementProperties = [sourceResourceURLCollection4 blastDoorVideoComplementProperties];
-      [v27 setObject:blastDoorVideoComplementProperties forKeyedSubscript:@"PAMediaConversionServiceBlastDoorVideoComplementSourcePropertiesKey"];
-
-      sourceResourceURLCollection5 = [(PAMediaConversionServiceImageConversionJob *)v104 sourceResourceURLCollection];
-      blastDoorSourceURL = [sourceResourceURLCollection5 blastDoorSourceURL];
-
-      if (!blastDoorSourceURL)
-      {
-LABEL_109:
         blastDoorError = 0;
         LODWORD(adjustmentInformation) = 1;
         v93 = 1;
@@ -926,10 +959,10 @@ LABEL_109:
       v125 = destinationData2;
       v112 = +[NSFileManager defaultManager];
       v113 = v104;
-      sourceResourceURLCollection6 = [(PAMediaConversionServiceImageConversionJob *)v104 sourceResourceURLCollection];
-      blastDoorSourceURL2 = [sourceResourceURLCollection6 blastDoorSourceURL];
+      sourceResourceURLCollection3 = [(PAMediaConversionServiceImageConversionJob *)v104 sourceResourceURLCollection];
+      blastDoorSourceURL = [sourceResourceURLCollection3 blastDoorSourceURL];
       v138 = 0;
-      v116 = [v112 removeItemAtURL:blastDoorSourceURL2 error:&v138];
+      v116 = [v112 removeItemAtURL:blastDoorSourceURL error:&v138];
       v123 = v138;
 
       if (v116)

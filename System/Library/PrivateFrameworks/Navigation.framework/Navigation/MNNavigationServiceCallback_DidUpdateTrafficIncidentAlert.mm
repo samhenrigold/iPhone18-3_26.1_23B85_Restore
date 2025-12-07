@@ -18,7 +18,6 @@
     }
 
 LABEL_12:
-    v6 = *(&self->super.super.isa + OBJC_IVAR____TtC10Navigation57MNNavigationServiceCallback_DidUpdateTrafficIncidentAlert_updateType);
     selfCopy = self;
     result = sub_1D3277900();
     __break(1u);

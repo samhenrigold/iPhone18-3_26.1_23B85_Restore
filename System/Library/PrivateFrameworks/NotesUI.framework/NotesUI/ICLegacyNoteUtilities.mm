@@ -134,7 +134,7 @@ void __97__ICLegacyNoteUtilities_importLegacyNote_temporaryTextStorage_toNote_at
         v8 = [v7 contentID];
         if (v8)
         {
-          v9 = [*(a1 + 40) objectForKeyedSubscript:v8];
+          v9 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 40));
 
           if (v9)
           {
@@ -200,7 +200,7 @@ void __97__ICLegacyNoteUtilities_importLegacyNote_temporaryTextStorage_toNote_at
 
       else
       {
-        v20 = [v17 objectForKeyedSubscript:v15];
+        v20 = objc_msgSend_objectForKeyedSubscript_(v17);
         v21 = v28[5];
         v28[5] = v20;
       }

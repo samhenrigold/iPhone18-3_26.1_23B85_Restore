@@ -1,4 +1,4 @@
-void TelephonyBasebandWatchdogStartWithStackshot(NSObject **a1, unsigned int a2, uint64_t a3)
+void TelephonyBasebandWatchdogStartWithStackshot(NSObject **a1, uint64_t a2, uint64_t a3)
 {
   v3[0] = MEMORY[0x29EDCA5F8];
   v3[1] = 0x40000000;
@@ -109,85 +109,71 @@ void TelephonySystemTrace::~TelephonySystemTrace(TelephonySystemTrace *this)
 
 uint64_t TelephonySystemTrace::stopTrace_sync(TelephonySystemTrace *this)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  if (*(this + 56) != 1)
+  if (*(this + 56) == 1)
   {
-    goto LABEL_5;
-  }
+    if (TelephonyUtilRunCommand())
+    {
+      return 0;
+    }
 
-  if (!TelephonyUtilRunCommand())
-  {
     *(this + 56) = 0;
-LABEL_5:
-    result = 1;
-    goto LABEL_6;
   }
 
-  result = 0;
-LABEL_6:
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
+  return 1;
 }
 
 BOOL TelephonySystemTrace::startTrace_sync(TelephonySystemTrace *this)
 {
-  v4 = *MEMORY[0x29EDCA608];
   if (*(this + 56))
   {
-    result = 1;
+    return 1;
   }
 
-  else
+  result = TelephonySystemTrace::setTraceBuffer(this);
+  if (result)
   {
-    result = TelephonySystemTrace::setTraceBuffer(this);
-    if (result)
+    if (TelephonyUtilRunCommand())
     {
-      if (TelephonyUtilRunCommand())
-      {
-        result = 0;
-      }
+      return 0;
+    }
 
-      else
-      {
-        result = 1;
-        *(this + 56) = 1;
-      }
+    else
+    {
+      result = 1;
+      *(this + 56) = 1;
     }
   }
 
-  v3 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 BOOL TelephonySystemTrace::setTraceBuffer(TelephonySystemTrace *this)
 {
-  v11 = *MEMORY[0x29EDCA608];
-  memset(&v5, 170, sizeof(v5));
-  std::to_string(&v5, *this);
-  v6 = "trace";
-  v7 = "-i";
-  if ((v5.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v10 = *MEMORY[0x29EDCA608];
+  memset(&v4, 170, sizeof(v4));
+  std::to_string(&v4, *this);
+  v5 = "trace";
+  v6 = "-i";
+  if ((v4.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v1 = &v5;
+    v1 = &v4;
   }
 
   else
   {
-    v1 = v5.__r_.__value_.__r.__words[0];
+    v1 = v4.__r_.__value_.__r.__words[0];
   }
 
-  v8 = "-b";
-  v9 = v1;
-  v10 = 0;
+  v7 = "-b";
+  v8 = v1;
+  v9 = 0;
   v2 = TelephonyUtilRunCommand();
-  if (SHIBYTE(v5.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v4.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v5.__r_.__value_.__l.__data_);
+    operator delete(v4.__r_.__value_.__l.__data_);
   }
 
-  result = v2 == 0;
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
+  return v2 == 0;
 }
 
 void sub_298242C94(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -200,24 +186,9 @@ void sub_298242C94(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL TelephonySystemTrace::enableTrace(TelephonySystemTrace *this)
+void TelephonySystemTrace::watchdogStart(uint64_t a1, uint64_t a2, uint64_t a3, void **a4, void **a5)
 {
-  v3 = *MEMORY[0x29EDCA608];
-  result = TelephonyUtilRunCommand() == 0;
-  v2 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-BOOL TelephonySystemTrace::disableTrace(TelephonySystemTrace *this)
-{
-  v3 = *MEMORY[0x29EDCA608];
-  result = TelephonyUtilRunCommand() == 0;
-  v2 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-void TelephonySystemTrace::watchdogStart(uint64_t a1, int a2, uint64_t a3, void **a4, void **a5)
-{
+  v8 = a2;
   if (TelephonyUtilTraceAllowed())
   {
     v10 = _Block_copy(&__block_literal_global);
@@ -250,7 +221,7 @@ void TelephonySystemTrace::watchdogStart(uint64_t a1, int a2, uint64_t a3, void 
       __p = *a3;
     }
 
-    v21 = a2;
+    v21 = v8;
     v12 = *a4;
     if (*a4)
     {
@@ -260,7 +231,7 @@ void TelephonySystemTrace::watchdogStart(uint64_t a1, int a2, uint64_t a3, void 
     v20 = v12;
     v13 = _Block_copy(aBlock);
     v22 = v13;
-    TelephonySystemTrace::watchdogStartInternal(a1, a2, &v22);
+    TelephonySystemTrace::watchdogStartInternal(a1, v8, &v22);
     if (v13)
     {
       _Block_release(v13);
@@ -373,64 +344,64 @@ void TelephonySystemTrace::watchdogStartInternal(uint64_t a1, int a2, void **a3)
 
 uint64_t ___ZN20TelephonySystemTrace13watchdogStartEjNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEN8dispatch5blockIU13block_pointerFvvEEESB__block_invoke_3(uint64_t a1)
 {
-  v44 = *MEMORY[0x29EDCA608];
+  v43 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 32);
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v33 = 0xAAAAAAAAAAAAAAAALL;
-  v29 = 0xAAAAAAAAAAAAAAAALL;
-  v40 = v3;
+  v32 = 0xAAAAAAAAAAAAAAAALL;
+  v28 = 0xAAAAAAAAAAAAAAAALL;
   v39 = v3;
   v38 = v3;
   v37 = v3;
   v36 = v3;
   v35 = v3;
-  v32 = v3;
+  v34 = v3;
   v31 = v3;
-  v28 = v3;
-  v26 = v3;
-  *__p = v3;
-  v24 = v3;
+  v30 = v3;
+  v27 = v3;
   v25 = v3;
+  *__p = v3;
   v23 = v3;
-  v34 = 0;
+  v24 = v3;
+  v22 = v3;
+  v33 = 0;
   v4 = MEMORY[0x29EDC95A8] + 64;
-  v30 = MEMORY[0x29EDC95A8] + 64;
+  v29 = MEMORY[0x29EDC95A8] + 64;
   v5 = MEMORY[0x29EDC9538];
   v6 = *(MEMORY[0x29EDC9538] + 16);
-  v22 = *(MEMORY[0x29EDC9538] + 8);
-  *(&v22 + *(v22 - 24)) = v6;
-  v7 = (&v22 + *(v22 - 24));
-  std::ios_base::init(v7, &v23);
+  v21 = *(MEMORY[0x29EDC9538] + 8);
+  *(&v21 + *(v21 - 24)) = v6;
+  v7 = (&v21 + *(v21 - 24));
+  std::ios_base::init(v7, &v22);
   v8 = MEMORY[0x29EDC95A8] + 24;
   v7[1].__vftable = 0;
   v7[1].__fmtflags_ = -1;
-  v22 = v8;
-  v30 = v4;
+  v21 = v8;
+  v29 = v4;
   v9 = MEMORY[0x29EDC9568] + 16;
-  *&v23 = MEMORY[0x29EDC9568] + 16;
-  MEMORY[0x29C2844D0](&v23 + 8);
-  v25 = 0u;
-  v26 = 0u;
+  *&v22 = MEMORY[0x29EDC9568] + 16;
+  MEMORY[0x29C2844D0](&v22 + 8);
   v24 = 0u;
+  v25 = 0u;
+  v23 = 0u;
   v10 = MEMORY[0x29EDC9570] + 16;
-  *&v23 = MEMORY[0x29EDC9570] + 16;
+  *&v22 = MEMORY[0x29EDC9570] + 16;
   __p[0] = 0;
   __p[1] = 0;
-  *&v28 = 0;
-  *(&v28 + 1) = __p;
-  LODWORD(v29) = 16;
+  *&v27 = 0;
+  *(&v27 + 1) = __p;
+  LODWORD(v28) = 16;
   std::string::resize(__p, 0x16uLL, 0);
-  v11 = BYTE7(v28);
-  if (SBYTE7(v28) < 0)
+  v11 = BYTE7(v27);
+  if (SBYTE7(v27) < 0)
   {
     v11 = __p[1];
   }
 
-  *(&v25 + 1) = __p;
-  *&v26 = __p;
-  *(&v26 + 1) = __p + v11;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v22, "operation timeout at ", 21);
+  *(&v24 + 1) = __p;
+  *&v25 = __p;
+  *(&v25 + 1) = __p + v11;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, "operation timeout at ", 21);
   v12 = *(a1 + 63);
   if (v12 >= 0)
   {
@@ -452,11 +423,11 @@ uint64_t ___ZN20TelephonySystemTrace13watchdogStartEjNSt3__112basic_stringIcNS0_
     v14 = *(a1 + 48);
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v22, v13, v14);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v22, ", timeout ", 10);
-  MEMORY[0x29C2844C0](&v22, *(a1 + 72));
-  std::ostringstream::str[abi:ne200100](&__dst, &v22);
-  if (v43 >= 0)
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, v13, v14);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, ", timeout ", 10);
+  MEMORY[0x29C2844C0](&v21, *(a1 + 72));
+  std::ostringstream::str[abi:ne200100](&__dst, &v21);
+  if (v42 >= 0)
   {
     p_dst = &__dst;
   }
@@ -467,26 +438,26 @@ uint64_t ___ZN20TelephonySystemTrace13watchdogStartEjNSt3__112basic_stringIcNS0_
   }
 
   syslog(5, "Watchdog fired: %s\n", p_dst);
-  if (SHIBYTE(v43) < 0)
+  if (SHIBYTE(v42) < 0)
   {
     operator delete(__dst);
   }
 
   __dst = "trace";
-  v42 = "-d";
-  v43 = 0;
+  v41 = "-d";
+  v42 = 0;
   TelephonyUtilRunCommand();
-  std::ostringstream::str[abi:ne200100](&__dst, &v22);
+  std::ostringstream::str[abi:ne200100](&__dst, &v21);
   TelephonyUtilWriteStackshot();
-  if (SHIBYTE(v43) < 0)
+  if (SHIBYTE(v42) < 0)
   {
     operator delete(__dst);
   }
 
   TelephonySystemTrace::writeTraceBuffer(v2);
   __dst = "trace";
-  v42 = "-e";
-  v43 = 0;
+  v41 = "-e";
+  v42 = 0;
   TelephonyUtilRunCommand();
   v16 = *(v2 + 9);
   block[0] = MEMORY[0x29EDCA5F8];
@@ -506,20 +477,18 @@ uint64_t ___ZN20TelephonySystemTrace13watchdogStartEjNSt3__112basic_stringIcNS0_
     _Block_release(aBlock);
   }
 
-  v22 = *v5;
-  *(&v22 + *(v22 - 24)) = v5[3];
-  *&v23 = v10;
-  if (SBYTE7(v28) < 0)
+  v21 = *v5;
+  *(&v21 + *(v21 - 24)) = v5[3];
+  *&v22 = v10;
+  if (SBYTE7(v27) < 0)
   {
     operator delete(__p[0]);
   }
 
-  *&v23 = v9;
-  std::locale::~locale(&v23 + 1);
+  *&v22 = v9;
+  std::locale::~locale(&v22 + 1);
   std::ostream::~ostream();
-  result = MEMORY[0x29C284520](&v30);
-  v19 = *MEMORY[0x29EDCA608];
-  return result;
+  return MEMORY[0x29C284520](&v29);
 }
 
 void sub_2982436B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -605,14 +574,14 @@ LABEL_17:
 
 BOOL TelephonySystemTrace::writeTraceBuffer(TelephonySystemTrace *this)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v2 = this + 32;
   if (*(this + 55) < 0)
   {
     v2 = *v2;
   }
 
-  TelephonySystemTrace::generateFileName(v2, &v15);
+  TelephonySystemTrace::generateFileName(&v14, v2);
   v3 = *(this + 31);
   if (v3 >= 0)
   {
@@ -634,19 +603,19 @@ BOOL TelephonySystemTrace::writeTraceBuffer(TelephonySystemTrace *this)
     v5 = *(this + 2);
   }
 
-  v6 = std::string::insert(&v15, 0, v4, v5);
+  v6 = std::string::insert(&v14, 0, v4, v5);
   v7 = *&v6->__r_.__value_.__l.__data_;
-  v14 = v6->__r_.__value_.__r.__words[2];
+  v13 = v6->__r_.__value_.__r.__words[2];
   *__p = v7;
   v6->__r_.__value_.__l.__size_ = 0;
   v6->__r_.__value_.__r.__words[2] = 0;
   v6->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v15.__r_.__value_.__l.__data_);
+    operator delete(v14.__r_.__value_.__l.__data_);
   }
 
-  if (v14 >= 0)
+  if (v13 >= 0)
   {
     v8 = __p;
   }
@@ -657,9 +626,9 @@ BOOL TelephonySystemTrace::writeTraceBuffer(TelephonySystemTrace *this)
   }
 
   syslog(5, "Writing system trace at %s\n", v8);
-  v15.__r_.__value_.__r.__words[0] = "trace";
-  v15.__r_.__value_.__l.__size_ = "-l";
-  if (v14 >= 0)
+  v14.__r_.__value_.__r.__words[0] = "trace";
+  v14.__r_.__value_.__l.__size_ = "-l";
+  if (v13 >= 0)
   {
     v9 = __p;
   }
@@ -669,17 +638,15 @@ BOOL TelephonySystemTrace::writeTraceBuffer(TelephonySystemTrace *this)
     v9 = __p[0];
   }
 
-  v15.__r_.__value_.__r.__words[2] = v9;
-  v16 = 0;
+  v14.__r_.__value_.__r.__words[2] = v9;
+  v15 = 0;
   v10 = TelephonyUtilRunCommand();
-  if (SHIBYTE(v14) < 0)
+  if (SHIBYTE(v13) < 0)
   {
     operator delete(__p[0]);
   }
 
-  result = v10 == 0;
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  return v10 == 0;
 }
 
 void sub_29824394C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -799,70 +766,69 @@ void ___ZN20TelephonySystemTrace12watchdogStopEbN8dispatch5blockIU13block_pointe
   }
 }
 
-unint64_t TelephonySystemTrace::generateFileName@<X0>(const char *a1@<X1>, void *a2@<X8>)
+unint64_t TelephonySystemTrace::generateFileName@<X0>(uint64_t *__return_ptr a1@<X8>, const char *a2@<X1>)
 {
-  v29 = *MEMORY[0x29EDCA608];
-  memset(&v12, 0, sizeof(v12));
-  v11 = time(0);
-  localtime_r(&v11, &v12);
-  *&v5 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v27 = v5;
-  v28 = v5;
-  v25 = v5;
-  v26 = v5;
-  v23 = v5;
-  v24 = v5;
-  v21 = v5;
-  v22 = v5;
-  v19 = v5;
-  v20 = v5;
-  v17 = v5;
-  v18 = v5;
-  v15 = v5;
-  v16 = v5;
-  *__str = v5;
-  v14 = v5;
-  snprintf(__str, 0x100uLL, "%s%04u-%02u-%02u-%02u-%02u-%02u-systemtrace.raw", a1, v12.tm_year + 1900, v12.tm_mon + 1, v12.tm_mday, v12.tm_hour, v12.tm_min, v12.tm_sec);
+  v27 = *MEMORY[0x29EDCA608];
+  memset(&v10, 0, sizeof(v10));
+  v9 = time(0);
+  localtime_r(&v9, &v10);
+  *&v4 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v25 = v4;
+  v26 = v4;
+  v23 = v4;
+  v24 = v4;
+  v21 = v4;
+  v22 = v4;
+  v19 = v4;
+  v20 = v4;
+  v17 = v4;
+  v18 = v4;
+  v15 = v4;
+  v16 = v4;
+  v13 = v4;
+  v14 = v4;
+  *__str = v4;
+  v12 = v4;
+  snprintf(__str, 0x100uLL, "%s%04u-%02u-%02u-%02u-%02u-%02u-systemtrace.raw", a2, v10.tm_year + 1900, v10.tm_mon + 1, v10.tm_mday, v10.tm_hour, v10.tm_min, v10.tm_sec);
   result = strlen(__str);
   if (result >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v7 = result;
+  v6 = result;
   if (result >= 0x17)
   {
     if ((result | 7) == 0x17)
     {
-      v8 = 25;
+      v7 = 25;
     }
 
     else
     {
-      v8 = (result | 7) + 1;
+      v7 = (result | 7) + 1;
     }
 
-    v9 = operator new(v8);
-    a2[1] = v7;
-    a2[2] = v8 | 0x8000000000000000;
-    *a2 = v9;
-    a2 = v9;
+    v8 = operator new(v7);
+    a1[1] = v6;
+    a1[2] = v7 | 0x8000000000000000;
+    *a1 = v8;
+    a1 = v8;
   }
 
   else
   {
-    *(a2 + 23) = result;
+    *(a1 + 23) = result;
     if (!result)
     {
       goto LABEL_10;
     }
   }
 
-  result = memcpy(a2, __str, v7);
+  result = memcpy(a1, __str, v6);
 LABEL_10:
-  *(a2 + v7) = 0;
-  v10 = *MEMORY[0x29EDCA608];
+  *(a1 + v6) = 0;
   return result;
 }
 
@@ -1032,14 +998,14 @@ LABEL_30:
   return a1;
 }
 
-void sub_29824425C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_29824425C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (a17 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x29C2844A0](&a10);
+  MEMORY[0x29C2844A0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v17 + *(*v17 - 24)));
   __cxa_end_catch();
@@ -1048,35 +1014,33 @@ void sub_29824425C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
 
 void __TelephonyBasebandWatchdogStartWithStackshot_block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   *&v1 = 0xAAAAAAAAAAAAAAAALL;
   *(&v1 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v19 = v1;
-  v20 = v1;
-  v17 = v1;
   v18 = v1;
-  v15 = v1;
+  v19 = v1;
   v16 = v1;
-  v13 = v1;
+  v17 = v1;
   v14 = v1;
-  v11 = v1;
+  v15 = v1;
   v12 = v1;
-  v9 = v1;
+  v13 = v1;
   v10 = v1;
-  v7 = v1;
+  v11 = v1;
   v8 = v1;
-  *__str = v1;
+  v9 = v1;
   v6 = v1;
+  v7 = v1;
+  *__str = v1;
+  v5 = v1;
   snprintf(__str, 0x100uLL, "Telephony operation timeout at '%s', timeout %u\n", *(a1 + 32), *(a1 + 40));
-  _TelephonyUtilDebugPrint();
+  _TelephonyUtilDebugPrint("TelephonyBasebandWatchdogStartWithStackshot_block_invoke", "Telephony watchdog fired: %s\n", __str);
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v4 = __str;
+    v3 = __str;
     _os_log_error_impl(&dword_298242000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Telephony watchdog fired: %s\n", buf, 0xCu);
   }
-
-  v2 = *MEMORY[0x29EDCA608];
 }
 
 void operator delete(void *__p)

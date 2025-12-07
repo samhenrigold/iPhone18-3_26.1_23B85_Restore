@@ -125,9 +125,11 @@ void __36__PGCABackdropLayerView_blurFilters__block_invoke()
 
 uint64_t __49__PGCABackdropLayerView_reducedTransparencyColor__block_invoke()
 {
-  reducedTransparencyColor_reducedTransparencyColor = [MEMORY[0x1E69DC888] colorWithRed:0.168627451 green:0.180392157 blue:0.188235294 alpha:1.0];
+  v0 = [MEMORY[0x1E69DC888] colorWithRed:0.168627451 green:0.180392157 blue:0.188235294 alpha:1.0];
+  v1 = reducedTransparencyColor_reducedTransparencyColor;
+  reducedTransparencyColor_reducedTransparencyColor = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (PGCABackdropLayerView)initWithFrame:(CGRect)frame captureOnly:(BOOL)only
@@ -187,16 +189,19 @@ uint64_t __49__PGCABackdropLayerView_reducedTransparencyColor__block_invoke()
 - (void)setCustomBackgroundColor:(id)color
 {
   colorCopy = color;
-  if (([(UIColor *)self->_customBackgroundColor isEqual:colorCopy]& 1) == 0 && self->_customBackgroundColor != colorCopy)
+  updateEffects = [(UIColor *)self->_customBackgroundColor isEqual:colorCopy];
+  v5 = colorCopy;
+  if ((updateEffects & 1) == 0 && self->_customBackgroundColor != colorCopy)
   {
-    v4 = [(UIColor *)colorCopy copy];
+    v6 = [(UIColor *)colorCopy copy];
     customBackgroundColor = self->_customBackgroundColor;
-    self->_customBackgroundColor = v4;
+    self->_customBackgroundColor = v6;
 
-    [(PGCABackdropLayerView *)self updateEffects];
+    updateEffects = [(PGCABackdropLayerView *)self updateEffects];
+    v5 = colorCopy;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](updateEffects, v5);
 }
 
 - (void)setWantsBlur:(BOOL)blur
@@ -454,7 +459,7 @@ LABEL_6:
   return v2;
 }
 
-uint64_t __63__PGCABackdropLayerView__hasAnyDependentsThatWantsCapturedBlur__block_invoke(uint64_t a1, void *a2)
+void *__63__PGCABackdropLayerView__hasAnyDependentsThatWantsCapturedBlur__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 _wantsCapturedBlur];
   if (result)
@@ -483,9 +488,11 @@ uint64_t __63__PGCABackdropLayerView__hasAnyDependentsThatWantsCapturedBlur__blo
 {
   if (!self->_dependents)
   {
-    self->_dependents = [MEMORY[0x1E696AC70] weakObjectsHashTable];
+    weakObjectsHashTable = [MEMORY[0x1E696AC70] weakObjectsHashTable];
+    dependents = self->_dependents;
+    self->_dependents = weakObjectsHashTable;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](weakObjectsHashTable, dependents);
   }
 }
 

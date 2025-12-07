@@ -20,28 +20,26 @@
 
 - (id)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   serverIdentifier = [(HMDAccessoryTransportInformation *)self serverIdentifier];
   v5 = [v3 initWithName:@"Server ID" value:serverIdentifier];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   instanceID = [(HMDAccessoryTransportInformation *)self instanceID];
   v8 = [v6 initWithName:@"Instance ID" value:instanceID];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDAccessoryTransportInformation *)self linkType];
   v10 = HAPLinkTypeDescription();
   v11 = [v9 initWithName:@"Link Type" value:v10];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDAccessoryTransportInformation *)self isReachable];
   v13 = HMFBooleanToString();
   v14 = [v12 initWithName:@"Reachable" value:v13];
-  v18[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
 
   return v15;
 }
@@ -60,7 +58,7 @@
 
 - (HMDAccessoryTransportInformation)initWithCoder:(id)coder
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HM.serverIdentifier"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HM.instanceID"];
@@ -84,15 +82,15 @@
     {
       v12 = HMFGetLogIdentifier();
       v13 = HAPLinkTypeDescription();
-      v18 = 138544130;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v6;
-      v24 = 2112;
-      v25 = v13;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Cannot decode from serverIdentifier: %@ instanceID: %@ linkType: %@", &v18, 0x2Au);
+      v17 = 138544130;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v5;
+      v21 = 2112;
+      v22 = v6;
+      v23 = 2112;
+      v24 = v13;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Cannot decode from serverIdentifier: %@ instanceID: %@ linkType: %@", &v17, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -105,7 +103,6 @@
     v15 = selfCopy;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -141,19 +138,17 @@
 
 - (NSDictionary)transportInfoDictionary
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"HM.serverIdentifier";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"HM.serverIdentifier";
   serverIdentifier = [(HMDAccessoryTransportInformation *)self serverIdentifier];
-  v10[0] = serverIdentifier;
-  v9[1] = @"HM.instanceID";
+  v9[0] = serverIdentifier;
+  v8[1] = @"HM.instanceID";
   instanceID = [(HMDAccessoryTransportInformation *)self instanceID];
-  v10[1] = instanceID;
-  v9[2] = @"linkType";
+  v9[1] = instanceID;
+  v8[2] = @"linkType";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDAccessoryTransportInformation linkType](self, "linkType")}];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
@@ -190,7 +185,7 @@
 {
   versionCopy = version;
   os_unfair_lock_lock_with_options();
-  v4 = [versionCopy copy];
+  v4 = objc_msgSend_copy(versionCopy);
   protocolVersion = self->_protocolVersion;
   self->_protocolVersion = v4;
 
@@ -252,22 +247,7 @@
   }
 
   v6 = v5;
-  if (!v6)
-  {
-    goto LABEL_8;
-  }
-
-  linkType = [(HMDAccessoryTransportInformation *)self linkType];
-  if (linkType != [v6 linkType])
-  {
-    goto LABEL_8;
-  }
-
-  serverIdentifier = [(HMDAccessoryTransportInformation *)self serverIdentifier];
-  serverIdentifier2 = [v6 serverIdentifier];
-  v10 = HMFEqualObjects();
-
-  if (v10)
+  if (v6 && (v7 = -[HMDAccessoryTransportInformation linkType](self, "linkType"), v7 == [v6 linkType]) && (-[HMDAccessoryTransportInformation serverIdentifier](self, "serverIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "serverIdentifier"), v9 = objc_claimAutoreleasedReturnValue(), v10 = HMFEqualObjects(), v9, v8, v10))
   {
     instanceID = [(HMDAccessoryTransportInformation *)self instanceID];
     instanceID2 = [v6 instanceID];
@@ -276,7 +256,6 @@
 
   else
   {
-LABEL_8:
     v13 = 0;
   }
 
@@ -313,11 +292,11 @@ LABEL_9:
   v11 = [(HMDAccessoryTransportInformation *)&v19 init];
   if (v11)
   {
-    v12 = [identifierCopy copy];
+    v12 = objc_msgSend_copy(identifierCopy);
     serverIdentifier = v11->_serverIdentifier;
     v11->_serverIdentifier = v12;
 
-    v14 = [v10 copy];
+    v14 = objc_msgSend_copy(v10);
     instanceID = v11->_instanceID;
     v11->_instanceID = v14;
 

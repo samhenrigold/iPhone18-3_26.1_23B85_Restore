@@ -65,11 +65,11 @@
 
 - (SGBloomFilterChunkMmap)initWithPath:(id)path
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v20.receiver = self;
-  v20.super_class = SGBloomFilterChunkMmap;
-  v7 = [(SGBloomFilterChunkMmap *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = SGBloomFilterChunkMmap;
+  v7 = [(SGBloomFilterChunkMmap *)&v19 init];
   v8 = v7;
   if (!v7)
   {
@@ -102,9 +102,9 @@ LABEL_6:
     v13 = sgLogHandle();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v18 = *__error();
+      v17 = *__error();
       *buf = 67109120;
-      v22 = v18;
+      v21 = v17;
       _os_log_error_impl(&dword_231E60000, v13, OS_LOG_TYPE_ERROR, "Could not open Bloom filter file. errno = %i", buf, 8u);
     }
 
@@ -127,9 +127,9 @@ LABEL_9:
     v14 = sgLogHandle();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v19 = *__error();
+      v18 = *__error();
       *buf = 67109120;
-      v22 = v19;
+      v21 = v18;
       _os_log_error_impl(&dword_231E60000, v14, OS_LOG_TYPE_ERROR, "Could not mmap Bloom filter file. errno = %i", buf, 8u);
     }
 
@@ -140,7 +140,6 @@ LABEL_9:
 
 LABEL_19:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

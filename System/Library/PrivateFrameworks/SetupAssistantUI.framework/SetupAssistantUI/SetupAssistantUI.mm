@@ -10,9 +10,9 @@ uint64_t sub_265AC6B18()
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
 
-void sub_265AC95C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_265AC95C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -41,9 +41,9 @@ id getCAMediaTimingFunctionClass()
   return v1;
 }
 
-void sub_265AC96A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_265AC96A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -115,7 +115,7 @@ uint64_t QuartzCoreLibrary()
   v1 = v3[0];
   if (!QuartzCoreLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -128,7 +128,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __QuartzCoreLibraryCore_block_invoke()
+uint64_t __QuartzCoreLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   QuartzCoreLibraryCore_frameworkLibrary = result;
@@ -206,9 +206,9 @@ id getPKSetupAssistantContextClass()
   return v1;
 }
 
-void sub_265ACAE14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_265ACAE14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -237,9 +237,9 @@ id getPKPaymentSetupAssistantControllerClass()
   return v1;
 }
 
-void sub_265ACAEF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_265ACAEF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -279,7 +279,7 @@ void PassKitUILibrary()
   v0 = v1[0];
   if (!PassKitUILibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -290,7 +290,7 @@ LABEL_7:
   }
 }
 
-uint64_t __PassKitUILibraryCore_block_invoke()
+uint64_t __PassKitUILibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   PassKitUILibraryCore_frameworkLibrary = result;
@@ -377,9 +377,9 @@ id getBKUIPearlEnrollControllerClass()
   return v1;
 }
 
-void sub_265AD1B6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_265AD1B6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -458,7 +458,7 @@ uint64_t BiometricKitUILibrary()
   v1 = v3[0];
   if (!BiometricKitUILibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -471,7 +471,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __BiometricKitUILibraryCore_block_invoke()
+uint64_t __BiometricKitUILibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   BiometricKitUILibraryCore_frameworkLibrary = result;
@@ -513,7 +513,7 @@ void BiometricKitLibrary()
   v0 = v1[0];
   if (!BiometricKitLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -524,7 +524,7 @@ LABEL_7:
   }
 }
 
-uint64_t __BiometricKitLibraryCore_block_invoke()
+uint64_t __BiometricKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   BiometricKitLibraryCore_frameworkLibrary = result;
@@ -597,16 +597,16 @@ void *__getBKUIPearlEnrollErrorDomainSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_265AD40DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_265AD40DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_265AD4568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_265AD4568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -636,7 +636,7 @@ Class __getVTUIEnrollTrainingViewControllerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -654,7 +654,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __VoiceTriggerUILibraryCore_block_invoke()
+uint64_t __VoiceTriggerUILibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   VoiceTriggerUILibraryCore_frameworkLibrary = result;
@@ -686,7 +686,7 @@ Class __getOBPrivacyPresenterClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -704,7 +704,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __OnBoardingKitLibraryCore_block_invoke()
+uint64_t __OnBoardingKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   OnBoardingKitLibraryCore_frameworkLibrary = result;
@@ -1027,9 +1027,9 @@ double _CGFloatByIdiom(void *a1, double a2, double a3, double a4)
   return a4;
 }
 
-void sub_265ADAB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_265ADAB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1048,9 +1048,9 @@ void sub_265ADB450(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_265ADC65C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_265ADC65C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1062,9 +1062,16 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_265ADD56C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_265ADD3A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  va_start(va, a7);
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_265ADD56C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1094,7 +1101,7 @@ Class __getBiometricKitUIClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1112,7 +1119,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __BiometricKitUILibraryCore_block_invoke_0()
+uint64_t __BiometricKitUILibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   BiometricKitUILibraryCore_frameworkLibrary_0 = result;
@@ -1144,7 +1151,7 @@ Class __getBiometricKitClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1162,7 +1169,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __BiometricKitLibraryCore_block_invoke_0()
+uint64_t __BiometricKitLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   BiometricKitLibraryCore_frameworkLibrary_0 = result;
@@ -1194,7 +1201,7 @@ Class __getPABSBiometricControllerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1212,7 +1219,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __PasscodeAndBiometricsSettingsLibraryCore_block_invoke()
+uint64_t __PasscodeAndBiometricsSettingsLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   PasscodeAndBiometricsSettingsLibraryCore_frameworkLibrary = result;
@@ -1233,7 +1240,7 @@ void sub_265AE28EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t isDeviceXL()
+uint64_t isDeviceXL(uint64_t a1, uint64_t a2)
 {
   if (isDeviceXL_onceToken != -1)
   {
@@ -1243,13 +1250,13 @@ uint64_t isDeviceXL()
   return isDeviceXL__isDeviceXL;
 }
 
-void __isDeviceXL_block_invoke()
+void __isDeviceXL_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (BFFIsiPad())
   {
-    v1 = [MEMORY[0x277D759A0] mainScreen];
-    [v1 _referenceBounds];
-    isDeviceXL__isDeviceXL = v0 > 834.0;
+    v3 = [MEMORY[0x277D759A0] mainScreen];
+    [v3 _referenceBounds];
+    isDeviceXL__isDeviceXL = v2 > 834.0;
   }
 
   else
@@ -1303,11 +1310,11 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_265AE3DB4(uint64_t a1, uint64_t *a2)
+uint64_t sub_265AE3DB4(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = sub_265AE7D70();
-  __swift_allocate_value_buffer(v3, a2);
-  __swift_project_value_buffer(v3, a2);
+  v5 = sub_265AE7D70();
+  __swift_allocate_value_buffer(v5, a2);
+  __swift_project_value_buffer(v5, a2);
   return sub_265AE7D60();
 }
 
@@ -1371,7 +1378,7 @@ uint64_t sub_265AE3F4C()
 
   else
   {
-    sub_265AE7718(v6, &qword_2800342A8);
+    sub_265AE7718(v6, &qword_2800342A8, &qword_265AEBEC8);
     return 0;
   }
 }
@@ -1404,7 +1411,7 @@ void sub_265AE40C8(void *a1, uint64_t a2, unint64_t a3)
       v34 = swift_slowAlloc();
       aBlock[0] = v34;
       *v33 = 136315650;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280034340);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280034340, &qword_265AEBEE0);
       v35 = sub_265AE7F30();
       v37 = sub_265AE6C20(v35, v36, aBlock);
 
@@ -1441,7 +1448,7 @@ void sub_265AE40C8(void *a1, uint64_t a2, unint64_t a3)
 
     if (v72)
     {
-      sub_265AE7778(0, &qword_280034298);
+      sub_265AE7778(0, &qword_280034298, 0x277D75D28);
       if (sub_265AE7E80())
       {
         if (qword_280034150 != -1)
@@ -1557,7 +1564,7 @@ LABEL_26:
     v67 = swift_slowAlloc();
     aBlock[0] = v67;
     *v41 = 136315394;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280034340);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280034340, &qword_265AEBEE0);
     v42 = sub_265AE7F30();
     v44 = v16;
     v45 = a2;
@@ -1575,7 +1582,7 @@ LABEL_26:
     MEMORY[0x266769D90](v41, -1, -1);
   }
 
-  sub_265AE7778(0, &qword_2800342B0);
+  sub_265AE7778(0, &qword_2800342B0, 0x277D85C78);
   v48 = sub_265AE7E60();
   v49 = swift_allocObject();
   v50 = v69;
@@ -1595,7 +1602,7 @@ LABEL_26:
   sub_265AE7D90();
   aBlock[0] = MEMORY[0x277D84F90];
   sub_265AE77E4();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280034330);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280034330, &qword_265AEBED8);
   sub_265AE783C();
   sub_265AE7EA0();
   MEMORY[0x266769420](0, v14, v10, v51);
@@ -1605,11 +1612,11 @@ LABEL_26:
   v71[1](v14, v72);
 }
 
-void sub_265AE4B50(uint64_t a1, uint64_t a2)
+void sub_265AE4B50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v4 = sub_265AE7DD0();
-  [ObjCClassFromMetadata startAnimatingSpinnerFor:a2 identifier:v4];
+  v6 = sub_265AE7DD0();
+  [ObjCClassFromMetadata startAnimatingSpinnerFor:a2 identifier:v6];
 }
 
 uint64_t sub_265AE4BCC(uint64_t a1)
@@ -1663,7 +1670,7 @@ void sub_265AE4C90(uint64_t a1, uint64_t a2)
       v32 = v8;
       aBlock[0] = v31;
       *v18 = 136315394;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280034340);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280034340, &qword_265AEBEE0);
       v19 = sub_265AE7F30();
       v21 = v11;
       v22 = a1;
@@ -1687,7 +1694,7 @@ void sub_265AE4C90(uint64_t a1, uint64_t a2)
     {
     }
 
-    sub_265AE7778(0, &qword_2800342B0);
+    sub_265AE7778(0, &qword_2800342B0, 0x277D85C78);
     v26 = sub_265AE7E60();
     v27 = swift_allocObject();
     v27[2] = v34;
@@ -1704,7 +1711,7 @@ void sub_265AE4C90(uint64_t a1, uint64_t a2)
     sub_265AE7D90();
     aBlock[0] = MEMORY[0x277D84F90];
     sub_265AE77E4();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280034330);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280034330, &qword_265AEBED8);
     sub_265AE783C();
     sub_265AE7EA0();
     MEMORY[0x266769420](0, v11, v7, v28);
@@ -1715,10 +1722,10 @@ void sub_265AE4C90(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_265AE5194()
+void sub_265AE5194(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v1 = sub_265AE7DD0();
+  v4 = sub_265AE7DD0();
   [ObjCClassFromMetadata stopAnimatingSpinnerFor_];
 }
 
@@ -1729,7 +1736,7 @@ void sub_265AE5270(void *a1, uint64_t a2, unint64_t a3)
   v10 = *(v9 - 1);
   MEMORY[0x28223BE20]();
   v12 = (&v59 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  sub_265AE7778(0, &qword_2800342B0);
+  sub_265AE7778(0, &qword_2800342B0, 0x277D85C78);
   *v12 = sub_265AE7E60();
   (*(v10 + 104))(v12, *MEMORY[0x277D85200], v9);
   v13 = sub_265AE7DC0();
@@ -1766,7 +1773,7 @@ void sub_265AE5270(void *a1, uint64_t a2, unint64_t a3)
     v18 = [v17 buttonTray];
     v19 = [v18 allButtons];
 
-    sub_265AE7778(0, &qword_280034320);
+    sub_265AE7778(0, &qword_280034320, 0x277D37690);
     v20 = sub_265AE7E10();
 
     if (!(v20 >> 62))
@@ -1850,7 +1857,7 @@ LABEL_13:
       *(v27 + 14) = sub_265AE6C20(a2, a3, &v60);
       swift_unknownObjectRelease();
       _os_log_impl(&dword_265AC5000, v25, v34, "Showing second party spinner for view controller %@ with identifier %s.", v27, 0x16u);
-      sub_265AE7718(v35, &qword_280034318);
+      sub_265AE7718(v35, &qword_280034318, &qword_265AEBED0);
       v37 = v35;
 LABEL_24:
       MEMORY[0x266769D90](v37, -1, -1);
@@ -1985,7 +1992,7 @@ LABEL_25:
     v31 = "Showing legacy spinner for view controller %@ with identifier %s without navigationController.";
 LABEL_23:
     _os_log_impl(&dword_265AC5000, v25, v26, v31, v27, 0x16u);
-    sub_265AE7718(v28, &qword_280034318);
+    sub_265AE7718(v28, &qword_280034318, &qword_265AEBED0);
     v37 = v28;
     goto LABEL_24;
   }
@@ -2039,7 +2046,7 @@ void sub_265AE5D68(uint64_t a1, unint64_t a2)
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20]();
   v9 = (v67 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  sub_265AE7778(0, &qword_2800342B0);
+  sub_265AE7778(0, &qword_2800342B0, 0x277D85C78);
   *v9 = sub_265AE7E60();
   (*(v7 + 104))(v9, *MEMORY[0x277D85200], v6);
   v10 = sub_265AE7DC0();
@@ -2183,7 +2190,7 @@ LABEL_34:
         v64 = v60;
         *(v50 + 14) = sub_265AE6C20(a1, a2, &v68);
         _os_log_impl(&dword_265AC5000, v48, v61, "Stopped legacy spinner for view controller %@ with identifier %s.", v50, 0x16u);
-        sub_265AE7718(v62, &qword_280034318);
+        sub_265AE7718(v62, &qword_280034318, &qword_265AEBED0);
         MEMORY[0x266769D90](v62, -1, -1);
         __swift_destroy_boxed_opaque_existential_0(v63);
         v55 = v63;
@@ -2200,7 +2207,7 @@ LABEL_21:
     v32 = [v17 buttonTray];
     v33 = [v32 allButtons];
 
-    sub_265AE7778(0, &qword_280034320);
+    sub_265AE7778(0, &qword_280034320, 0x277D37690);
     v34 = sub_265AE7E10();
 
     if (v34 >> 62)
@@ -2246,7 +2253,7 @@ LABEL_21:
         v45 = v38;
         *(v41 + 14) = sub_265AE6C20(v67[0], a2, &v68);
         _os_log_impl(&dword_265AC5000, v39, v40, "Stopped OnBoardingKit button spinner for view controller %@ with identifier %s", v41, 0x16u);
-        sub_265AE7718(v42, &qword_280034318);
+        sub_265AE7718(v42, &qword_280034318, &qword_265AEBED0);
         MEMORY[0x266769D90](v42, -1, -1);
         __swift_destroy_boxed_opaque_existential_0(v44);
         MEMORY[0x266769D90](v44, -1, -1);
@@ -2305,7 +2312,7 @@ LABEL_30:
   *(v50 + 14) = sub_265AE6C20(v67[0], a2, &v68);
   swift_unknownObjectRelease();
   _os_log_impl(&dword_265AC5000, v48, v49, "Stopped second party spinner for view controller %@ with identifier %s.", v50, 0x16u);
-  sub_265AE7718(v51, &qword_280034318);
+  sub_265AE7718(v51, &qword_280034318, &qword_265AEBED0);
   MEMORY[0x266769D90](v51, -1, -1);
   __swift_destroy_boxed_opaque_existential_0(v53);
   v55 = v53;
@@ -2489,14 +2496,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_265AE6DF8(uint64_t a1, unint64_t a2)
+void *sub_265AE6DF8(uint64_t a1, unint64_t a2)
 {
   v3 = sub_265AE6E44(a1, a2);
   sub_265AE6F74(&unk_287761E08);
   return v3;
 }
 
-uint64_t sub_265AE6E44(uint64_t a1, unint64_t a2)
+void *sub_265AE6E44(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -2677,7 +2684,7 @@ void *sub_265AE7060(uint64_t a1, uint64_t a2)
     return MEMORY[0x277D84F90];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2800342A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2800342A0, &qword_265AEBEC0);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -2727,7 +2734,7 @@ char *sub_265AE70D4(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2800342A0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2800342A0, &qword_265AEBEC0);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -2764,7 +2771,7 @@ void sub_265AE71C8(void *a1, uint64_t a2)
   v3 = v2;
   [v3 setNavigationUserInteractionWithEnabled_];
   v6 = [a1 viewControllers];
-  v7 = sub_265AE7778(0, &qword_280034298);
+  v7 = sub_265AE7778(0, &qword_280034298, 0x277D75D28);
   v8 = sub_265AE7E10();
 
   if (v8 >> 62)
@@ -2855,7 +2862,7 @@ uint64_t sub_265AE74A8(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280034348);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280034348, &qword_265AEBEE8);
     v3 = sub_265AE7EB0();
     v4 = 0;
     v5 = v3 + 56;
@@ -2924,9 +2931,9 @@ LABEL_4:
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -2945,7 +2952,7 @@ uint64_t sub_265AE7670(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -2957,14 +2964,14 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
   return result;
 }
 
-uint64_t sub_265AE7718(uint64_t a1, uint64_t *a2)
+uint64_t sub_265AE7718(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
-uint64_t sub_265AE7778(uint64_t a1, unint64_t *a2)
+uint64_t sub_265AE7778(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -3002,7 +3009,7 @@ unint64_t sub_265AE783C()
   result = qword_280034338;
   if (!qword_280034338)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_280034330);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_280034330, &qword_265AEBED8);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280034338);
   }
@@ -3010,7 +3017,7 @@ unint64_t sub_265AE783C()
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -3024,9 +3031,9 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
 
 uint64_t getkCAFillModeBackwards_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return __getCASpringAnimationClass_block_invoke_cold_1(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  return __getCASpringAnimationClass_block_invoke_cold_1();
 }
 
 CGRect CGRectUnion(CGRect r1, CGRect r2)

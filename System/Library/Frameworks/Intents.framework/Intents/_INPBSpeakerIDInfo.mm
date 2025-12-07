@@ -3,6 +3,7 @@
 - (_INPBSpeakerIDInfo)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)speakerIDConfidenceAsString:(int)string;
 - (int)StringAsSpeakerIDConfidence:(id)confidence;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -158,7 +159,6 @@ LABEL_10:
 
   if ([(_INPBSpeakerIDInfo *)self hasSpeakerIDConfidence])
   {
-    speakerIDConfidence = self->_speakerIDConfidence;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -199,6 +199,21 @@ LABEL_10:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)speakerIDConfidenceAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7287A38 + string);
   }
 
   return v4;

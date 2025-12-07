@@ -17,7 +17,7 @@
   selfCopy = self;
   sub_1CF92A904();
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for FPFSSearchEnumerator();
+  v3.super_class = type metadata accessor for FPFSSearchEnumerator(0);
   [(FPFSSearchEnumerator *)&v3 dealloc];
 }
 
@@ -51,24 +51,22 @@
 - (void)enumerateItemsFromPage:(id)page suggestedPageSize:(int64_t)size upTo:(int64_t)to reply:(id)reply
 {
   v7 = sub_1CF9E5248();
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v9 = sub_1CF9E5268();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = _Block_copy(reply);
+  v8 = sub_1CF9E5268();
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(reply);
   sub_1CF9E5108();
   sub_1CF4C5FCC(MEMORY[0x1E69E7CC0]);
-  sub_1CF01C4BC(&qword_1EDEAB450, MEMORY[0x1E6967E98]);
+  sub_1CF01C4BC(&qword_1EDEAB450, MEMORY[0x1E6967E98], MEMORY[0x1E6967E90]);
   sub_1CF9E57D8();
-  v15 = sub_1CF9E50D8();
-  (*(v10 + 8))(v13, v9);
-  v16 = sub_1CF9E57E8();
-  v14[2](v14, 0, v16);
+  v13 = sub_1CF9E50D8();
+  (*(v9 + 8))(v11, v8);
+  v14 = sub_1CF9E57E8();
+  v12[2](v12, 0, v14);
 
-  _Block_release(v14);
+  _Block_release(v12);
 }
 
 - (void)enumerateChangesFromToken:(id)token suggestedBatchSize:(int64_t)size reply:(id)reply
@@ -97,17 +95,19 @@
   *v6 = sub_1CF92C334;
   v6[1] = v5;
   selfCopy = self;
-  sub_1CF045404(v7);
+  sub_1CF045404(v7, v8);
 }
 
 - (NSString)description
 {
   selfCopy = self;
   sub_1CF92C078();
+  v4 = v3;
 
-  v3 = sub_1CF9E6888();
+  v5 = sub_1CF9E6888();
+  v4, v6, v7, v8, v9, v10, v11, v12;
 
-  return v3;
+  return v5;
 }
 
 - (_TtC18FileProviderDaemon20FPFSSearchEnumerator)init

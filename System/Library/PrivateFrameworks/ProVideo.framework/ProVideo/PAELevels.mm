@@ -135,7 +135,7 @@ LABEL_18:
     {
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input);
       }
 
       v19 = HGObject::operator new(0x1A0uLL);

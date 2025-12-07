@@ -23,7 +23,7 @@
   }
 
   v5 = v4;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v4);
   v7 = (v15 - ((v6 + 17) & 0xFFFFFFFFFFFFFFF0));
   [v3 getCharacters:v7 range:{0, v5}];
   v8 = 0;

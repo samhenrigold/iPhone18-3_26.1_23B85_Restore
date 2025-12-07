@@ -15,7 +15,7 @@ void __67___UIStatusBarVisualProvider_DynamicSplit_trailingItemCutoffWidths__blo
   qword_1ED49A998 = &unk_1EFE2D318;
 }
 
-uint64_t __87___UIStatusBarVisualProvider_DynamicSplit_updateDisplayItem_toDynamicallyHidden_scale___block_invoke(uint64_t a1)
+void *__87___UIStatusBarVisualProvider_DynamicSplit_updateDisplayItem_toDynamicallyHidden_scale___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 56);
   v3 = [MEMORY[0x1E6979318] animationWithKeyPath:@"filters.gaussianBlur.inputRadius"];
@@ -220,7 +220,7 @@ void __70___UIStatusBarVisualProvider_LegacyPhone__updateLowerRegionsWithData___
   *(v7 + 24) = v8;
 }
 
-uint64_t __71___UIStatusBarVisualProvider_LegacyPhone__updateExpandedTrailingRegion__block_invoke(uint64_t a1)
+void *__71___UIStatusBarVisualProvider_LegacyPhone__updateExpandedTrailingRegion__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) expandedBaselineOffset];
   v3 = v2;
@@ -585,7 +585,7 @@ void __72___UIStatusBarVisualProvider_Split__additionAnimationForBatteryCharging
   v10 = *(a1 + 32);
   if (v10)
   {
-    [v10 _collapseChargingBoltTransformForDisplayItem:v8];
+    objc_msgSend__collapseChargingBoltTransformForDisplayItem_(v10);
   }
 
   else
@@ -624,26 +624,26 @@ void __72___UIStatusBarVisualProvider_Split__additionAnimationForBatteryCharging
   [v7 addTimeout:v14 withHandler:0.6];
 }
 
-uint64_t __72___UIStatusBarVisualProvider_Split__additionAnimationForBatteryCharging__block_invoke_2(uint64_t a1)
+uint64_t __72___UIStatusBarVisualProvider_Split__additionAnimationForBatteryCharging__block_invoke_2(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 40);
-  if (v2)
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    [v2 _expandedChargingBoltTransformForDisplayItem:*(a1 + 32)];
+    objc_msgSend__expandedChargingBoltTransformForDisplayItem_(v3, a2, *(a1 + 32));
   }
 
   else
   {
-    v7 = 0u;
     v8 = 0u;
-    v6 = 0u;
+    v9 = 0u;
+    v7 = 0u;
   }
 
-  v3 = *(a1 + 32);
-  v5[0] = v6;
-  v5[1] = v7;
-  v5[2] = v8;
-  [v3 setTransform:v5];
+  v4 = *(a1 + 32);
+  v6[0] = v7;
+  v6[1] = v8;
+  v6[2] = v9;
+  [v4 setTransform:v6];
   return [*(a1 + 32) setAlpha:1.0];
 }
 
@@ -706,7 +706,7 @@ void __72___UIStatusBarVisualProvider_Split__additionAnimationForBatteryCharging
   v30 = v29;
   if (v8)
   {
-    [v8 transform];
+    objc_msgSend_transform(v8);
   }
 
   else
@@ -818,26 +818,26 @@ void __71___UIStatusBarVisualProvider_Split__removalAnimationForBatteryCharging_
   [v14 addTimeout:v18 withHandler:0.6];
 }
 
-uint64_t __71___UIStatusBarVisualProvider_Split__removalAnimationForBatteryCharging__block_invoke_2(uint64_t a1)
+uint64_t __71___UIStatusBarVisualProvider_Split__removalAnimationForBatteryCharging__block_invoke_2(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 40);
-  if (v2)
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    [v2 _collapseChargingBoltTransformForDisplayItem:*(a1 + 32)];
+    objc_msgSend__collapseChargingBoltTransformForDisplayItem_(v3, a2, *(a1 + 32));
   }
 
   else
   {
-    v7 = 0u;
     v8 = 0u;
-    v6 = 0u;
+    v9 = 0u;
+    v7 = 0u;
   }
 
-  v3 = *(a1 + 32);
-  v5[0] = v6;
-  v5[1] = v7;
-  v5[2] = v8;
-  [v3 setTransform:v5];
+  v4 = *(a1 + 32);
+  v6[0] = v7;
+  v6[1] = v8;
+  v6[2] = v9;
+  [v4 setTransform:v6];
   return [*(a1 + 32) setAlpha:0.0];
 }
 
@@ -853,7 +853,7 @@ uint64_t __71___UIStatusBarVisualProvider_Split__removalAnimationForBatteryCharg
   return v2();
 }
 
-uint64_t __71___UIStatusBarVisualProvider_Split__removalAnimationForBatteryCharging__block_invoke_4(uint64_t a1)
+void *__71___UIStatusBarVisualProvider_Split__removalAnimationForBatteryCharging__block_invoke_4(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 136) isEnabled];
   if (result)
@@ -1518,7 +1518,7 @@ void __58___UIStatusBarVisualProvider_iOS_animationForAirplaneMode__block_invoke
   [UIView animateWithDuration:v46 delay:v57 options:v7 animations:v53 completion:0.0];
 }
 
-uint64_t __58___UIStatusBarVisualProvider_iOS_animationForAirplaneMode__block_invoke_2(uint64_t a1)
+void *__58___UIStatusBarVisualProvider_iOS_animationForAirplaneMode__block_invoke_2(uint64_t a1)
 {
   if (*(*(*(a1 + 48) + 8) + 24) == 1)
   {
@@ -1570,9 +1570,9 @@ void __58___UIStatusBarVisualProvider_iOS_animationForAirplaneMode__block_invoke
   v9 = a4;
   v10 = [v8 region];
   v11 = [v10 identifier];
-  v12 = [v11 isEqual:*(*(*(a1 + 40) + 8) + 40)];
+  isEqual = objc_msgSend_isEqual_(v11);
 
-  if (!v12)
+  if (!isEqual)
   {
     v9[2](v9, 1);
     goto LABEL_18;
@@ -1805,7 +1805,7 @@ void __58___UIStatusBarVisualProvider_iOS_animationForAirplaneMode__block_invoke
 {
   v5 = a2;
   v3 = +[(_UIStatusBarItem *)_UIStatusBarIndicatorAirplaneModeItem];
-  if ([v5 isEqual:v3])
+  if (objc_msgSend_isEqual_(v5))
   {
   }
 

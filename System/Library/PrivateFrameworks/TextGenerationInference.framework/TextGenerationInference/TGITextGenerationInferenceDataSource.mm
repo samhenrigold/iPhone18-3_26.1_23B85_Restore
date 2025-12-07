@@ -10,19 +10,19 @@
   configurationCopy = configuration;
   if (configurationCopy)
   {
-    [configurationCopy modelConfiguration];
+    objc_msgSend_modelConfiguration(configurationCopy);
   }
 
   else
   {
-    v9 = 0;
-    v7 = 0u;
+    v8 = 0;
+    v6 = 0u;
     *__p = 0u;
+    *v4 = 0u;
     *v5 = 0u;
-    *v6 = 0u;
   }
 
-  TGITextGenerationInferenceModel::createWithConfiguration(v5, v4);
+  TGITextGenerationInferenceModel::createWithConfiguration(v4);
 }
 
 - (id)createInferenceRunnerWithQueue:(id)queue executionUUID:(id)d operation:(id)operation session:(id)session

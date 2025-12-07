@@ -75,7 +75,7 @@
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate memory for WRM info", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate memory for WRM info", v2, v3, v4, v5);
 }
 
 - (void)startWithMetricsConfig:(id)config
@@ -318,19 +318,19 @@ uint64_t __53__VCNetworkFeedbackController_requestWRMNotification__block_invoke(
   dispatch_async(wrmClientQueue, v5);
 }
 
-uint64_t __62__VCNetworkFeedbackController_reportImmediateWRMMetric_value___block_invoke(uint64_t result)
+void *__62__VCNetworkFeedbackController_reportImmediateWRMMetric_value___block_invoke(void *result)
 {
   v1 = result;
-  v2 = *(result + 32);
+  v2 = result[4];
   if (*(v2 + 270) == 1)
   {
-    result = [*(v2 + 24) reportImmediateMetric:*(result + 48) value:*(result + 40)];
+    result = [*(v2 + 24) reportImmediateMetric:*(result + 12) value:result[5]];
   }
 
-  if (!*(v1 + 48))
+  if (!*(v1 + 12))
   {
-    v3 = *(v1 + 40) != 0;
-    v4 = *(*(v1 + 32) + 32);
+    v3 = v1[5] != 0;
+    v4 = *(v1[4] + 32);
 
     return [v4 setIsVideoDegraded:v3];
   }
@@ -363,12 +363,12 @@ uint64_t __62__VCNetworkFeedbackController_reportImmediateWRMMetric_value___bloc
   }
 }
 
-uint64_t __48__VCNetworkFeedbackController_reportWRMMetrics___block_invoke(uint64_t result)
+void *__48__VCNetworkFeedbackController_reportWRMMetrics___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 270) == 1)
   {
-    return [*(v1 + 24) reportMetricsFaceTimeCalling:result + 40];
+    return [*(v1 + 24) reportMetricsFaceTimeCalling:result + 5];
   }
 
   return result;
@@ -795,14 +795,14 @@ void __47__VCNetworkFeedbackController_cleanupWRMClient__block_invoke_2(uint64_t
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d WRM status update cannot be null", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d WRM status update cannot be null", v2, v3, v4, v5);
 }
 
 - (void)reportWRMMetrics:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d WRM metric report cannot be null", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d WRM metric report cannot be null", v2, v3, v4, v5);
 }
 
 @end

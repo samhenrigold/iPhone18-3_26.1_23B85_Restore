@@ -40,20 +40,20 @@
 
 - (id)messageReceived:(id)received
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   receivedCopy = received;
   selfCopy = self;
-  v97.receiver = self;
-  v97.super_class = DTKTraceTapMessageHandler;
-  v4 = [(DTTapMessageHandler *)&v97 messageReceived:?];
+  v96.receiver = self;
+  v96.super_class = DTKTraceTapMessageHandler;
+  v4 = [(DTTapMessageHandler *)&v96 messageReceived:?];
   v5 = v4;
   if (receivedCopy && !v4)
   {
     if (self->_canUseRawKtrace)
     {
-      v90 = 0;
+      v89 = 0;
       v6 = receivedCopy;
-      v7 = [receivedCopy getBufferWithReturnedLength:&v90];
+      v7 = [receivedCopy getBufferWithReturnedLength:&v89];
       if (v7)
       {
         selfCopy3 = self;
@@ -72,14 +72,14 @@
           selfCopy3 = self;
         }
 
-        if (v90)
+        if (v89)
         {
           v14 = selfCopy3->_openFile;
           v15 = objc_alloc(MEMORY[0x277CBEA90]);
-          v16 = [v15 initWithBytesNoCopy:v7 length:v90 deallocator:&unk_285A18810];
-          v96 = 0;
-          [(NSFileHandle *)v14 writeData:v16 error:&v96];
-          v17 = v96;
+          v16 = [v15 initWithBytesNoCopy:v7 length:v89 deallocator:&unk_285A18810];
+          v95 = 0;
+          [(NSFileHandle *)v14 writeData:v16 error:&v95];
+          v17 = v95;
 
           if (v17)
           {
@@ -104,7 +104,7 @@ LABEL_12:
     }
 
     v19 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-    v74 = [receivedCopy objectWithAllowedClasses:v19];
+    v73 = [receivedCopy objectWithAllowedClasses:v19];
 
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -116,7 +116,7 @@ LABEL_65:
     }
 
     config = [(DTTapMessageHandler *)self config];
-    kind = [v74 kind];
+    kind = [v73 kind];
     v5 = 0;
     if (kind <= 6)
     {
@@ -126,15 +126,15 @@ LABEL_65:
         {
           if ((kind - 1) < 4)
           {
-            sub_24802E78C(v74);
+            sub_24802E78C(v73);
           }
         }
 
         else
         {
-          self->_triggerCount = [v74 triggerCount];
-          self->_coreCount = [v74 coreCount];
-          tapVersion = [v74 tapVersion];
+          self->_triggerCount = [v73 triggerCount];
+          self->_coreCount = [v73 coreCount];
+          tapVersion = [v73 tapVersion];
           v5 = 0;
           if (tapVersion)
           {
@@ -176,46 +176,46 @@ LABEL_65:
 
       else
       {
+        v85 = 0u;
         v86 = 0u;
         v87 = 0u;
         v88 = 0u;
-        v89 = 0u;
         v21 = self->_rawMessages;
-        v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v86 objects:v98 count:16];
+        v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v85 objects:v97 count:16];
         if (v22)
         {
-          v23 = *v87;
+          v23 = *v86;
           do
           {
             for (i = 0; i != v22; ++i)
             {
-              if (*v87 != v23)
+              if (*v86 != v23)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v90 = 0;
-              v91 = &v90;
-              v92 = 0x3032000000;
-              v93 = sub_247FAEB44;
-              v94 = sub_247FAEB54;
-              firstObject = *(*(&v86 + 1) + 8 * i);
+              v89 = 0;
+              v90 = &v89;
+              v91 = 0x3032000000;
+              v92 = sub_247FAEB44;
+              v93 = sub_247FAEB54;
+              firstObject = *(*(&v85 + 1) + 8 * i);
               size = 0;
-              v25 = [v91[5] getBufferWithReturnedLength:&size];
+              v25 = [v90[5] getBufferWithReturnedLength:&size];
               if (size)
               {
                 v26 = v25;
                 v27 = selfCopy->_datastream;
                 v28 = objc_alloc(MEMORY[0x277CBEA90]);
-                v84[0] = MEMORY[0x277D85DD0];
-                v84[1] = 3221225472;
-                v84[2] = sub_247FAEB5C;
-                v84[3] = &unk_278EF2B80;
-                v84[4] = &v90;
-                v29 = [v28 initWithBytesNoCopy:v26 length:size deallocator:v84];
-                v83 = 0;
-                [(DVTInputStream *)v27 write:v29 error:&v83];
-                v30 = v83;
+                v83[0] = MEMORY[0x277D85DD0];
+                v83[1] = 3221225472;
+                v83[2] = sub_247FAEB5C;
+                v83[3] = &unk_278EF2B80;
+                v83[4] = &v89;
+                v29 = [v28 initWithBytesNoCopy:v26 length:size deallocator:v83];
+                v82 = 0;
+                [(DVTInputStream *)v27 write:v29 error:&v82];
+                v30 = v82;
 
                 if (v30)
                 {
@@ -223,10 +223,10 @@ LABEL_65:
                 }
               }
 
-              _Block_object_dispose(&v90, 8);
+              _Block_object_dispose(&v89, 8);
             }
 
-            v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v86 objects:v98 count:16];
+            v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v85 objects:v97 count:16];
           }
 
           while (v22);
@@ -256,9 +256,9 @@ LABEL_65:
 
         [v5 setDatastream:?];
         v35 = selfCopy->_datastream;
-        v82 = 0;
-        v36 = [(DVTInputStream *)v35 createNextStream:&v82];
-        v37 = v82;
+        v81 = 0;
+        v36 = [(DVTInputStream *)v35 createNextStream:&v81];
+        v37 = v81;
         v38 = selfCopy->_datastream;
         selfCopy->_datastream = v36;
 
@@ -281,7 +281,7 @@ LABEL_65:
           self->_triggerIDs = 0;
         }
 
-        sessionMetadata = [v74 sessionMetadata];
+        sessionMetadata = [v73 sessionMetadata];
         v53 = [sessionMetadata objectForKeyedSubscript:@"triggerIDs"];
         v54 = [sessionMetadata objectForKeyedSubscript:@"triggerUUIDs"];
         if ([v53 count])
@@ -298,21 +298,21 @@ LABEL_65:
               memset(v57, 255, 4 * v58);
             }
 
-            v90 = 0;
-            v91 = &v90;
-            v92 = 0x2020000000;
-            LODWORD(v93) = 0;
-            v77[0] = MEMORY[0x277D85DD0];
-            v77[1] = 3221225472;
-            v77[2] = sub_247FAEB84;
-            v77[3] = &unk_278EF2BA8;
+            v89 = 0;
+            v90 = &v89;
+            v91 = 0x2020000000;
+            LODWORD(v92) = 0;
+            v76[0] = MEMORY[0x277D85DD0];
+            v76[1] = 3221225472;
+            v76[2] = sub_247FAEB84;
+            v76[3] = &unk_278EF2BA8;
             v59 = v56;
-            v78 = v59;
+            v77 = v59;
             selfCopy6 = self;
-            v80 = &v90;
-            [config enumerateTriggerConfigs:v77];
+            v79 = &v89;
+            [config enumerateTriggerConfigs:v76];
 
-            _Block_object_dispose(&v90, 8);
+            _Block_object_dispose(&v89, 8);
           }
         }
 
@@ -320,14 +320,14 @@ LABEL_65:
 
         break;
       case 1024:
-        v90 = 0;
-        v91 = &v90;
-        v92 = 0x3032000000;
-        v93 = sub_247FAEB44;
-        v94 = sub_247FAEB54;
+        v89 = 0;
+        v90 = &v89;
+        v91 = 0x3032000000;
+        v92 = sub_247FAEB44;
+        v93 = sub_247FAEB54;
         firstObject = [(NSMutableArray *)self->_rawMessages firstObject];
         size = 0;
-        v60 = [v91[5] getBufferWithReturnedLength:&size];
+        v60 = [v90[5] getBufferWithReturnedLength:&size];
         selfCopy8 = self;
         if (size)
         {
@@ -335,7 +335,7 @@ LABEL_65:
           destructor[1] = 3221225472;
           destructor[2] = sub_247FAEB70;
           destructor[3] = &unk_278EF1D40;
-          destructor[4] = &v90;
+          destructor[4] = &v89;
           v62 = dispatch_data_create(v60, size, 0, destructor);
           v63 = xpc_data_create_with_dispatch_data(v62);
           v5 = objc_opt_new();
@@ -352,16 +352,16 @@ LABEL_65:
         }
 
         [(NSMutableArray *)selfCopy8->_rawMessages removeAllObjects];
-        _Block_object_dispose(&v90, 8);
+        _Block_object_dispose(&v89, 8);
 
         goto LABEL_64;
       case 1025:
-        localFilePath = [v74 localFilePath];
+        localFilePath = [v73 localFilePath];
 
         if (localFilePath)
         {
           v40 = objc_alloc(MEMORY[0x277CBEBC0]);
-          localFilePath2 = [v74 localFilePath];
+          localFilePath2 = [v73 localFilePath];
           v42 = [v40 initWithString:localFilePath2];
           v43 = self->_openFileURL;
           self->_openFileURL = v42;
@@ -415,8 +415,6 @@ LABEL_64:
   }
 
 LABEL_66:
-
-  v71 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

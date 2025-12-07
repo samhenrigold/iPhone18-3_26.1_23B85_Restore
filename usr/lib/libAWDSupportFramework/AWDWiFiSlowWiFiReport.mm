@@ -57,7 +57,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   if (*&self->_has)
   {
@@ -73,29 +73,29 @@
   if ([(NSMutableArray *)self->_linkQualSamples count])
   {
     v5 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_linkQualSamples, "count")}];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     linkQualSamples = self->_linkQualSamples;
-    v7 = [(NSMutableArray *)linkQualSamples countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v7 = [(NSMutableArray *)linkQualSamples countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v24;
+      v9 = *v23;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(linkQualSamples);
           }
 
-          [v5 addObject:{objc_msgSend(*(*(&v23 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v5 addObject:{objc_msgSend(*(*(&v22 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v8 = [(NSMutableArray *)linkQualSamples countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v8 = [(NSMutableArray *)linkQualSamples countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v8);
@@ -107,29 +107,29 @@
   if ([(NSMutableArray *)self->_usbEvents count])
   {
     v11 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_usbEvents, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     usbEvents = self->_usbEvents;
-    v13 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v13 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v20;
+      v15 = *v19;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v20 != v15)
+          if (*v19 != v15)
           {
             objc_enumerationMutation(usbEvents);
           }
 
-          [v11 addObject:{objc_msgSend(*(*(&v19 + 1) + 8 * j), "dictionaryRepresentation")}];
+          [v11 addObject:{objc_msgSend(*(*(&v18 + 1) + 8 * j), "dictionaryRepresentation")}];
         }
 
-        v14 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v14 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v18 objects:v26 count:16];
       }
 
       while (v14);
@@ -138,16 +138,14 @@
     [dictionary setObject:v11 forKey:@"usbEvent"];
   }
 
-  v17 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -156,65 +154,61 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  linkQualSamples = self->_linkQualSamples;
-  v6 = [(NSMutableArray *)linkQualSamples countByEnumeratingWithState:&v22 objects:v27 count:16];
-  if (v6)
-  {
-    v7 = v6;
-    v8 = *v23;
-    do
-    {
-      for (i = 0; i != v7; ++i)
-      {
-        if (*v23 != v8)
-        {
-          objc_enumerationMutation(linkQualSamples);
-        }
-
-        v10 = *(*(&v22 + 1) + 8 * i);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v7 = [(NSMutableArray *)linkQualSamples countByEnumeratingWithState:&v22 objects:v27 count:16];
-    }
-
-    while (v7);
-  }
-
   v20 = 0u;
   v21 = 0u;
   v18 = 0u;
   v19 = 0u;
-  usbEvents = self->_usbEvents;
-  v12 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v18 objects:v26 count:16];
-  if (v12)
+  linkQualSamples = self->_linkQualSamples;
+  v5 = [(NSMutableArray *)linkQualSamples countByEnumeratingWithState:&v18 objects:v23 count:16];
+  if (v5)
   {
-    v13 = v12;
-    v14 = *v19;
+    v6 = v5;
+    v7 = *v19;
     do
     {
-      for (j = 0; j != v13; ++j)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v14)
+        if (*v19 != v7)
+        {
+          objc_enumerationMutation(linkQualSamples);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v6 = [(NSMutableArray *)linkQualSamples countByEnumeratingWithState:&v18 objects:v23 count:16];
+    }
+
+    while (v6);
+  }
+
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  usbEvents = self->_usbEvents;
+  v10 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v14 objects:v22 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v15;
+    do
+    {
+      for (j = 0; j != v11; ++j)
+      {
+        if (*v15 != v12)
         {
           objc_enumerationMutation(usbEvents);
         }
 
-        v16 = *(*(&v18 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v13 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v11 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
-    while (v13);
+    while (v11);
   }
-
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -261,7 +255,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -271,65 +265,64 @@
   }
 
   v6[3] = [(AWDSlowWiFiNotification *)self->_slowNotice copyWithZone:zone];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   linkQualSamples = self->_linkQualSamples;
-  v8 = [(NSMutableArray *)linkQualSamples countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v8 = [(NSMutableArray *)linkQualSamples countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(linkQualSamples);
         }
 
-        v12 = [*(*(&v25 + 1) + 8 * i) copyWithZone:zone];
+        v12 = [*(*(&v24 + 1) + 8 * i) copyWithZone:zone];
         [v6 addLinkQualSample:v12];
       }
 
-      v9 = [(NSMutableArray *)linkQualSamples countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v9 = [(NSMutableArray *)linkQualSamples countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v9);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   usbEvents = self->_usbEvents;
-  v14 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v14 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(usbEvents);
         }
 
-        v18 = [*(*(&v21 + 1) + 8 * j) copyWithZone:zone];
+        v18 = [*(*(&v20 + 1) + 8 * j) copyWithZone:zone];
         [v6 addUsbEvent:v18];
       }
 
-      v15 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v15 = [(NSMutableArray *)usbEvents countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v15);
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -338,7 +331,6 @@
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 40);
     if (*&self->_has)
     {
       if ((*(equal + 40) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -397,7 +389,7 @@ LABEL_13:
 
 - (void)mergeFrom:(id)from
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   if (*(from + 40))
   {
     self->_timestamp = *(from + 1);
@@ -419,63 +411,61 @@ LABEL_13:
     [(AWDWiFiSlowWiFiReport *)self setSlowNotice:?];
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v7 = *(from + 2);
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(AWDWiFiSlowWiFiReport *)self addLinkQualSample:*(*(&v22 + 1) + 8 * i)];
+        [(AWDWiFiSlowWiFiReport *)self addLinkQualSample:*(*(&v21 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v9);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v12 = *(from + 4);
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(AWDWiFiSlowWiFiReport *)self addUsbEvent:*(*(&v18 + 1) + 8 * j)];
+        [(AWDWiFiSlowWiFiReport *)self addUsbEvent:*(*(&v17 + 1) + 8 * j)];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 @end

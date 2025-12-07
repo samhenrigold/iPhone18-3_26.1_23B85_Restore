@@ -1,20 +1,20 @@
 uint64_t sub_26607E960(uint64_t a1)
 {
-  v2 = sub_26607A5AC(&qword_280059E48);
+  v2 = sub_26607A5AC(&qword_280059E48, &protocol conformance descriptor for SCPError);
 
   return MEMORY[0x28211C020](a1, v2);
 }
 
 uint64_t sub_26607E9B8(uint64_t a1)
 {
-  v2 = sub_26607A5AC(&qword_280059E48);
+  v2 = sub_26607A5AC(&qword_280059E48, &protocol conformance descriptor for SCPError);
 
   return MEMORY[0x28211C018](a1, v2);
 }
 
 uint64_t sub_26607EA34(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_26607A5AC(&qword_280059E48);
+  v4 = sub_26607A5AC(&qword_280059E48, &protocol conformance descriptor for SCPError);
 
   return MEMORY[0x28211C008](a1, a2, v4);
 }
@@ -92,7 +92,7 @@ unint64_t sub_26607EC88()
   return result;
 }
 
-char *sub_26607ECDC(char *a1, int64_t a2, char a3)
+char *sub_26607ECDC(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_26607ECFC(a1, a2, a3, *v3);
   *v3 = result;
@@ -180,7 +180,7 @@ char *sub_26607ECFC(char *result, int64_t a2, char a3, char *a4)
 
 uint64_t sub_26607EE08(_BYTE *__src, _BYTE *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2 - __src;
   if (__src)
   {
@@ -206,16 +206,18 @@ LABEL_11:
 
   result = 0;
   __dst = 0;
-  v10 = v3;
-  v9 = 0;
+  v9 = v3;
   v8 = 0;
-  if (__src && a2 != __src)
+  v7 = 0;
+  if (__src)
   {
-    memcpy(&__dst, __src, v2);
-    result = __dst;
+    if (a2 != __src)
+    {
+      memcpy(&__dst, __src, v2);
+      return __dst;
+    }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -243,7 +245,7 @@ unint64_t sub_26607EFB8()
   return result;
 }
 
-uint64_t type metadata accessor for SignalEncoder()
+uint64_t type metadata accessor for SignalEncoder(uint64_t a1)
 {
   result = qword_280059EE0;
   if (!qword_280059EE0)
@@ -254,12 +256,11 @@ uint64_t type metadata accessor for SignalEncoder()
   return result;
 }
 
-uint64_t sub_26607F094()
+uint64_t sub_26607F094(uint64_t a1)
 {
   result = sub_26607FAC8();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -593,17 +594,16 @@ uint64_t sub_26607F4F4(uint64_t result, unsigned int a2, unsigned int a3)
 
 void gcl::motion::DecoderImpl::handleCompressedFrame(uint64_t a1, _BYTE *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 1120);
-    v6 = 134217984;
-    v7 = v4;
-    _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCDec %llu First Frame Decoded", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v4;
+    _os_log_impl(&dword_26606F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "MSCDec %llu First Frame Decoded", &v5, 0xCu);
   }
 
   *a2 = 0;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void operator delete(void *__p)

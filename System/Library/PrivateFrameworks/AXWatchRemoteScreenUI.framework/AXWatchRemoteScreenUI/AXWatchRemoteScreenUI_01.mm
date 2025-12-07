@@ -1,269 +1,43 @@
-Swift::Void __swiftcall AXTwiceCompanionRootViewController.doubleCrownButtonPressed()()
-{
-  v1 = v0;
-  v2 = sub_23D6EE620();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  v6 = (&v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = sub_23D6EE670();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_23D6EE330();
-  v12 = sub_23D6EE660();
-  v13 = sub_23D6EE810();
-  if (os_log_type_enabled(v12, v13))
-  {
-    v14 = swift_slowAlloc();
-    v20 = v1;
-    v15 = v14;
-    v16 = swift_slowAlloc();
-    v21 = v16;
-    *v15 = 136315138;
-    *(v15 + 4) = sub_23D6D3C38(0xD00000000000001ALL, 0x800000023D6F1590, &v21);
-    _os_log_impl(&dword_23D6CB000, v12, v13, "[TWICE] %s", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v16);
-    MEMORY[0x23EEE9940](v16, -1, -1);
-    MEMORY[0x23EEE9940](v15, -1, -1);
-  }
-
-  (*(v8 + 8))(v11, v7);
-  v17 = [objc_opt_self() buttonRepresentationWithType_];
-  if (v17)
-  {
-    *v6 = v17;
-    v18 = v17;
-    (*(v3 + 104))(v6, *MEMORY[0x277CE7008], v2);
-    v19 = v18;
-    sub_23D6DF5FC(v6);
-
-    (*(v3 + 8))(v6, v2);
-  }
-}
-
-Swift::Void __swiftcall AXTwiceCompanionRootViewController.tripleCrownButtonPressed()()
-{
-  v1 = v0;
-  v2 = sub_23D6EE620();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  v6 = (&v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = sub_23D6EE670();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_23D6EE330();
-  v12 = sub_23D6EE660();
-  v13 = sub_23D6EE810();
-  if (os_log_type_enabled(v12, v13))
-  {
-    v14 = swift_slowAlloc();
-    v20 = v1;
-    v15 = v14;
-    v16 = swift_slowAlloc();
-    v21 = v16;
-    *v15 = 136315138;
-    *(v15 + 4) = sub_23D6D3C38(0xD00000000000001ALL, 0x800000023D6F15B0, &v21);
-    _os_log_impl(&dword_23D6CB000, v12, v13, "[TWICE] %s", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v16);
-    MEMORY[0x23EEE9940](v16, -1, -1);
-    MEMORY[0x23EEE9940](v15, -1, -1);
-  }
-
-  (*(v8 + 8))(v11, v7);
-  v17 = [objc_opt_self() buttonRepresentationWithType_];
-  if (v17)
-  {
-    *v6 = v17;
-    v18 = v17;
-    (*(v3 + 104))(v6, *MEMORY[0x277CE7008], v2);
-    v19 = v18;
-    sub_23D6DF5FC(v6);
-
-    (*(v3 + 8))(v6, v2);
-  }
-}
-
-Swift::Void __swiftcall AXTwiceCompanionRootViewController.crownButtonScrollUp()()
-{
-  v1 = v0;
-  v2 = sub_23D6EE620();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  v6 = (&v26 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = sub_23D6EE670();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v26 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_23D6EE330();
-  v12 = sub_23D6EE660();
-  v13 = sub_23D6EE810();
-  if (os_log_type_enabled(v12, v13))
-  {
-    v14 = swift_slowAlloc();
-    v26 = v2;
-    v15 = v1;
-    v16 = v14;
-    v17 = swift_slowAlloc();
-    v27 = v17;
-    *v16 = 136315138;
-    *(v16 + 4) = sub_23D6D3C38(0xD000000000000015, 0x800000023D6F15D0, &v27);
-    _os_log_impl(&dword_23D6CB000, v12, v13, "[TWICE] %s", v16, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v17);
-    MEMORY[0x23EEE9940](v17, -1, -1);
-    v18 = v16;
-    v1 = v15;
-    v2 = v26;
-    MEMORY[0x23EEE9940](v18, -1, -1);
-  }
-
-  (*(v8 + 8))(v11, v7);
-  v19 = [objc_opt_self() buttonRepresentationWithType_];
-  if (v19)
-  {
-    v20 = v19;
-    v21 = *(v1 + OBJC_IVAR____TtC21AXWatchRemoteScreenUI34AXTwiceCompanionRootViewController_mainVC);
-    v22 = sub_23D6CE998();
-
-    v23 = OBJC_IVAR____TtC21AXWatchRemoteScreenUI25AXTwiceCompanionWatchView_isCrownOrientationOnRightSide;
-    swift_beginAccess();
-    LODWORD(v23) = v22[v23];
-
-    if (v23)
-    {
-      v24 = 100;
-    }
-
-    else
-    {
-      v24 = -100;
-    }
-
-    [v20 setScrollAmount_];
-    *v6 = v20;
-    (*(v3 + 104))(v6, *MEMORY[0x277CE7008], v2);
-    v25 = v20;
-    sub_23D6DF5FC(v6);
-
-    (*(v3 + 8))(v6, v2);
-  }
-}
-
-Swift::Void __swiftcall AXTwiceCompanionRootViewController.crownButtonScrollDown()()
-{
-  v1 = v0;
-  v2 = sub_23D6EE620();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  v6 = (&v26 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = sub_23D6EE670();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v26 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_23D6EE330();
-  v12 = sub_23D6EE660();
-  v13 = sub_23D6EE810();
-  if (os_log_type_enabled(v12, v13))
-  {
-    v14 = swift_slowAlloc();
-    v26 = v2;
-    v15 = v1;
-    v16 = v14;
-    v17 = swift_slowAlloc();
-    v27 = v17;
-    *v16 = 136315138;
-    *(v16 + 4) = sub_23D6D3C38(0xD000000000000017, 0x800000023D6F15F0, &v27);
-    _os_log_impl(&dword_23D6CB000, v12, v13, "[TWICE] %s", v16, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v17);
-    MEMORY[0x23EEE9940](v17, -1, -1);
-    v18 = v16;
-    v1 = v15;
-    v2 = v26;
-    MEMORY[0x23EEE9940](v18, -1, -1);
-  }
-
-  (*(v8 + 8))(v11, v7);
-  v19 = [objc_opt_self() buttonRepresentationWithType_];
-  if (v19)
-  {
-    v20 = v19;
-    v21 = *(v1 + OBJC_IVAR____TtC21AXWatchRemoteScreenUI34AXTwiceCompanionRootViewController_mainVC);
-    v22 = sub_23D6CE998();
-
-    v23 = OBJC_IVAR____TtC21AXWatchRemoteScreenUI25AXTwiceCompanionWatchView_isCrownOrientationOnRightSide;
-    swift_beginAccess();
-    LODWORD(v23) = v22[v23];
-
-    if (v23)
-    {
-      v24 = -100;
-    }
-
-    else
-    {
-      v24 = 100;
-    }
-
-    [v20 setScrollAmount_];
-    *v6 = v20;
-    (*(v3 + 104))(v6, *MEMORY[0x277CE7008], v2);
-    v25 = v20;
-    sub_23D6DF5FC(v6);
-
-    (*(v3 + 8))(v6, v2);
-  }
-}
-
 Swift::Void __swiftcall AXTwiceCompanionRootViewController.crownButtonLongPressed()()
 {
   v1 = v0;
   v2 = sub_23D6EE620();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = (&v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = sub_23D6EE670();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = (&v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = sub_23D6EE670();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23D6EE330();
-  v12 = sub_23D6EE660();
-  v13 = sub_23D6EE810();
-  if (os_log_type_enabled(v12, v13))
+  v10 = sub_23D6EE660();
+  v11 = sub_23D6EE810();
+  if (os_log_type_enabled(v10, v11))
   {
+    v12 = swift_slowAlloc();
+    v18 = v1;
+    v13 = v12;
     v14 = swift_slowAlloc();
-    v20 = v1;
-    v15 = v14;
-    v16 = swift_slowAlloc();
-    v21 = v16;
-    *v15 = 136315138;
-    *(v15 + 4) = sub_23D6D3C38(0xD000000000000018, 0x800000023D6F1610, &v21);
-    _os_log_impl(&dword_23D6CB000, v12, v13, "[TWICE] %s", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v16);
-    MEMORY[0x23EEE9940](v16, -1, -1);
-    MEMORY[0x23EEE9940](v15, -1, -1);
+    v19 = v14;
+    *v13 = 136315138;
+    *(v13 + 4) = sub_23D6D3C38(0xD000000000000018, 0x800000023D6F1610, &v19);
+    _os_log_impl(&dword_23D6CB000, v10, v11, "[TWICE] %s", v13, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v14);
+    MEMORY[0x23EEE9940](v14, -1, -1);
+    MEMORY[0x23EEE9940](v13, -1, -1);
   }
 
-  (*(v8 + 8))(v11, v7);
-  v17 = [objc_opt_self() buttonRepresentationWithType_];
-  if (v17)
+  (*(v7 + 8))(v9, v6);
+  v15 = [objc_opt_self() buttonRepresentationWithType_];
+  if (v15)
   {
-    *v6 = v17;
-    v18 = v17;
-    (*(v3 + 104))(v6, *MEMORY[0x277CE7008], v2);
-    v19 = v18;
-    sub_23D6DF5FC(v6);
+    *v5 = v15;
+    v16 = v15;
+    (*(v3 + 104))(v5, *MEMORY[0x277CE7008], v2);
+    v17 = v16;
+    sub_23D6DF5FC(v5);
 
-    (*(v3 + 8))(v6, v2);
+    (*(v3 + 8))(v5, v2);
   }
 }
 
@@ -272,43 +46,41 @@ Swift::Void __swiftcall AXTwiceCompanionRootViewController.sideButtonPressed()()
   v1 = v0;
   v2 = sub_23D6EE620();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = (&v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = sub_23D6EE670();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = (&v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = sub_23D6EE670();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23D6EE330();
-  v12 = sub_23D6EE660();
-  v13 = sub_23D6EE810();
-  if (os_log_type_enabled(v12, v13))
+  v10 = sub_23D6EE660();
+  v11 = sub_23D6EE810();
+  if (os_log_type_enabled(v10, v11))
   {
+    v12 = swift_slowAlloc();
+    v18 = v1;
+    v13 = v12;
     v14 = swift_slowAlloc();
-    v20 = v1;
-    v15 = v14;
-    v16 = swift_slowAlloc();
-    v21 = v16;
-    *v15 = 136315138;
-    *(v15 + 4) = sub_23D6D3C38(0xD000000000000013, 0x800000023D6F1630, &v21);
-    _os_log_impl(&dword_23D6CB000, v12, v13, "[TWICE] %s", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v16);
-    MEMORY[0x23EEE9940](v16, -1, -1);
-    MEMORY[0x23EEE9940](v15, -1, -1);
+    v19 = v14;
+    *v13 = 136315138;
+    *(v13 + 4) = sub_23D6D3C38(0xD000000000000013, 0x800000023D6F1630, &v19);
+    _os_log_impl(&dword_23D6CB000, v10, v11, "[TWICE] %s", v13, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v14);
+    MEMORY[0x23EEE9940](v14, -1, -1);
+    MEMORY[0x23EEE9940](v13, -1, -1);
   }
 
-  (*(v8 + 8))(v11, v7);
-  v17 = [objc_opt_self() buttonRepresentationWithType_];
-  if (v17)
+  (*(v7 + 8))(v9, v6);
+  v15 = [objc_opt_self() buttonRepresentationWithType_];
+  if (v15)
   {
-    *v6 = v17;
-    v18 = v17;
-    (*(v3 + 104))(v6, *MEMORY[0x277CE7008], v2);
-    v19 = v18;
-    sub_23D6DF5FC(v6);
+    *v5 = v15;
+    v16 = v15;
+    (*(v3 + 104))(v5, *MEMORY[0x277CE7008], v2);
+    v17 = v16;
+    sub_23D6DF5FC(v5);
 
-    (*(v3 + 8))(v6, v2);
+    (*(v3 + 8))(v5, v2);
   }
 }
 
@@ -317,92 +89,88 @@ Swift::Void __swiftcall AXTwiceCompanionRootViewController.sideButtonLongPressed
   v1 = v0;
   v2 = sub_23D6EE620();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = (&v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = sub_23D6EE670();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = (&v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = sub_23D6EE670();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23D6EE330();
-  v12 = sub_23D6EE660();
-  v13 = sub_23D6EE810();
-  if (os_log_type_enabled(v12, v13))
+  v10 = sub_23D6EE660();
+  v11 = sub_23D6EE810();
+  if (os_log_type_enabled(v10, v11))
   {
+    v12 = swift_slowAlloc();
+    v18 = v1;
+    v13 = v12;
     v14 = swift_slowAlloc();
-    v20 = v1;
-    v15 = v14;
-    v16 = swift_slowAlloc();
-    v21 = v16;
-    *v15 = 136315138;
-    *(v15 + 4) = sub_23D6D3C38(0xD000000000000017, 0x800000023D6F1650, &v21);
-    _os_log_impl(&dword_23D6CB000, v12, v13, "[TWICE] %s", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v16);
-    MEMORY[0x23EEE9940](v16, -1, -1);
-    MEMORY[0x23EEE9940](v15, -1, -1);
+    v19 = v14;
+    *v13 = 136315138;
+    *(v13 + 4) = sub_23D6D3C38(0xD000000000000017, 0x800000023D6F1650, &v19);
+    _os_log_impl(&dword_23D6CB000, v10, v11, "[TWICE] %s", v13, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v14);
+    MEMORY[0x23EEE9940](v14, -1, -1);
+    MEMORY[0x23EEE9940](v13, -1, -1);
   }
 
-  (*(v8 + 8))(v11, v7);
-  v17 = [objc_opt_self() buttonRepresentationWithType_];
-  if (v17)
+  (*(v7 + 8))(v9, v6);
+  v15 = [objc_opt_self() buttonRepresentationWithType_];
+  if (v15)
   {
-    *v6 = v17;
-    v18 = v17;
-    (*(v3 + 104))(v6, *MEMORY[0x277CE7008], v2);
-    v19 = v18;
-    sub_23D6DF5FC(v6);
+    *v5 = v15;
+    v16 = v15;
+    (*(v3 + 104))(v5, *MEMORY[0x277CE7008], v2);
+    v17 = v16;
+    sub_23D6DF5FC(v5);
 
-    (*(v3 + 8))(v6, v2);
+    (*(v3 + 8))(v5, v2);
   }
 }
 
 uint64_t AXTwiceCompanionRootViewController.axActionPerform(action:value:bridgeElement:)(int a1, uint64_t a2, void *a3)
 {
   v4 = v3;
-  v29 = a2;
-  v28 = a1;
+  v27 = a2;
+  v26 = a1;
   v6 = sub_23D6EE620();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = sub_23D6EE670();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  v15 = &v25 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = sub_23D6EE670();
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23D6EE330();
-  v16 = sub_23D6EE660();
-  v17 = sub_23D6EE810();
-  if (os_log_type_enabled(v16, v17))
+  v14 = sub_23D6EE660();
+  v15 = sub_23D6EE810();
+  if (os_log_type_enabled(v14, v15))
   {
+    v16 = swift_slowAlloc();
+    v25 = v4;
+    v17 = v16;
     v18 = swift_slowAlloc();
-    v27 = v4;
+    v24 = a3;
     v19 = v18;
-    v20 = swift_slowAlloc();
-    v26 = a3;
-    v21 = v20;
-    v30 = v20;
-    *v19 = 136315138;
-    *(v19 + 4) = sub_23D6D3C38(0xD00000000000002CLL, 0x800000023D6F1670, &v30);
-    _os_log_impl(&dword_23D6CB000, v16, v17, "[TWICE] %s", v19, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v21);
-    v22 = v21;
-    a3 = v26;
-    MEMORY[0x23EEE9940](v22, -1, -1);
-    MEMORY[0x23EEE9940](v19, -1, -1);
+    v28 = v18;
+    *v17 = 136315138;
+    *(v17 + 4) = sub_23D6D3C38(0xD00000000000002CLL, 0x800000023D6F1670, &v28);
+    _os_log_impl(&dword_23D6CB000, v14, v15, "[TWICE] %s", v17, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v19);
+    v20 = v19;
+    a3 = v24;
+    MEMORY[0x23EEE9940](v20, -1, -1);
+    MEMORY[0x23EEE9940](v17, -1, -1);
   }
 
-  (*(v12 + 8))(v15, v11);
-  *v10 = v28;
-  sub_23D6EDF00(v29, (v10 + 8), &qword_27E2E2B60, qword_23D6EFE00);
-  *(v10 + 8) = sub_23D6D1D74(0, &unk_27E2E2B68, 0x277D73FF0);
-  *(v10 + 5) = a3;
-  (*(v7 + 104))(v10, *MEMORY[0x277CE7018], v6);
-  v23 = a3;
-  sub_23D6DF5FC(v10);
-  return (*(v7 + 8))(v10, v6);
+  (*(v11 + 8))(v13, v10);
+  *v9 = v26;
+  sub_23D6EDF00(v27, (v9 + 8), &qword_27E2E2B60, qword_23D6EFE00);
+  *(v9 + 8) = sub_23D6D1D74(0, &unk_27E2E2B68, 0x277D73FF0);
+  *(v9 + 5) = a3;
+  (*(v7 + 104))(v9, *MEMORY[0x277CE7018], v6);
+  v21 = a3;
+  sub_23D6DF5FC(v9);
+  return (*(v7 + 8))(v9, v6);
 }
 
 Swift::Void __swiftcall AXTwiceCompanionRootViewController.pullToDismissViewController()()
@@ -410,36 +178,34 @@ Swift::Void __swiftcall AXTwiceCompanionRootViewController.pullToDismissViewCont
   v1 = v0;
   v2 = sub_23D6EE620();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_23D6EE670();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v15 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_23D6EE670();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23D6EE330();
-  v12 = sub_23D6EE660();
-  v13 = sub_23D6EE810();
-  if (os_log_type_enabled(v12, v13))
+  v10 = sub_23D6EE660();
+  v11 = sub_23D6EE810();
+  if (os_log_type_enabled(v10, v11))
   {
+    v12 = swift_slowAlloc();
+    v15 = v1;
+    v13 = v12;
     v14 = swift_slowAlloc();
-    v17 = v1;
-    v15 = v14;
-    v16 = swift_slowAlloc();
-    v18 = v16;
-    *v15 = 136315138;
-    *(v15 + 4) = sub_23D6D3C38(0xD00000000000001DLL, 0x800000023D6F16A0, &v18);
-    _os_log_impl(&dword_23D6CB000, v12, v13, "[TWICE] %s", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v16);
-    MEMORY[0x23EEE9940](v16, -1, -1);
-    MEMORY[0x23EEE9940](v15, -1, -1);
+    v16 = v14;
+    *v13 = 136315138;
+    *(v13 + 4) = sub_23D6D3C38(0xD00000000000001DLL, 0x800000023D6F16A0, &v16);
+    _os_log_impl(&dword_23D6CB000, v10, v11, "[TWICE] %s", v13, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v14);
+    MEMORY[0x23EEE9940](v14, -1, -1);
+    MEMORY[0x23EEE9940](v13, -1, -1);
   }
 
-  (*(v8 + 8))(v11, v7);
-  (*(v3 + 104))(v6, *MEMORY[0x277CE7058], v2);
-  sub_23D6DF5FC(v6);
-  (*(v3 + 8))(v6, v2);
+  (*(v7 + 8))(v9, v6);
+  (*(v3 + 104))(v5, *MEMORY[0x277CE7058], v2);
+  sub_23D6DF5FC(v5);
+  (*(v3 + 8))(v5, v2);
 }
 
 Swift::Void __swiftcall AXTwiceCompanionRootViewController.stingButtonPressed()()
@@ -447,43 +213,41 @@ Swift::Void __swiftcall AXTwiceCompanionRootViewController.stingButtonPressed()(
   v1 = v0;
   v2 = sub_23D6EE620();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = (&v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = sub_23D6EE670();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = (&v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = sub_23D6EE670();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23D6EE330();
-  v12 = sub_23D6EE660();
-  v13 = sub_23D6EE810();
-  if (os_log_type_enabled(v12, v13))
+  v10 = sub_23D6EE660();
+  v11 = sub_23D6EE810();
+  if (os_log_type_enabled(v10, v11))
   {
+    v12 = swift_slowAlloc();
+    v18 = v1;
+    v13 = v12;
     v14 = swift_slowAlloc();
-    v20 = v1;
-    v15 = v14;
-    v16 = swift_slowAlloc();
-    v21 = v16;
-    *v15 = 136315138;
-    *(v15 + 4) = sub_23D6D3C38(0xD000000000000014, 0x800000023D6F16C0, &v21);
-    _os_log_impl(&dword_23D6CB000, v12, v13, "[TWICE] %s", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v16);
-    MEMORY[0x23EEE9940](v16, -1, -1);
-    MEMORY[0x23EEE9940](v15, -1, -1);
+    v19 = v14;
+    *v13 = 136315138;
+    *(v13 + 4) = sub_23D6D3C38(0xD000000000000014, 0x800000023D6F16C0, &v19);
+    _os_log_impl(&dword_23D6CB000, v10, v11, "[TWICE] %s", v13, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v14);
+    MEMORY[0x23EEE9940](v14, -1, -1);
+    MEMORY[0x23EEE9940](v13, -1, -1);
   }
 
-  (*(v8 + 8))(v11, v7);
-  v17 = [objc_opt_self() buttonRepresentationWithType_];
-  if (v17)
+  (*(v7 + 8))(v9, v6);
+  v15 = [objc_opt_self() buttonRepresentationWithType_];
+  if (v15)
   {
-    *v6 = v17;
-    v18 = v17;
-    (*(v3 + 104))(v6, *MEMORY[0x277CE7008], v2);
-    v19 = v18;
-    sub_23D6DF5FC(v6);
+    *v5 = v15;
+    v16 = v15;
+    (*(v3 + 104))(v5, *MEMORY[0x277CE7008], v2);
+    v17 = v16;
+    sub_23D6DF5FC(v5);
 
-    (*(v3 + 8))(v6, v2);
+    (*(v3 + 8))(v5, v2);
   }
 }
 
@@ -492,43 +256,41 @@ Swift::Void __swiftcall AXTwiceCompanionRootViewController.stingButtonLongPresse
   v1 = v0;
   v2 = sub_23D6EE620();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = (&v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = sub_23D6EE670();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = (&v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = sub_23D6EE670();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23D6EE330();
-  v12 = sub_23D6EE660();
-  v13 = sub_23D6EE810();
-  if (os_log_type_enabled(v12, v13))
+  v10 = sub_23D6EE660();
+  v11 = sub_23D6EE810();
+  if (os_log_type_enabled(v10, v11))
   {
+    v12 = swift_slowAlloc();
+    v18 = v1;
+    v13 = v12;
     v14 = swift_slowAlloc();
-    v20 = v1;
-    v15 = v14;
-    v16 = swift_slowAlloc();
-    v21 = v16;
-    *v15 = 136315138;
-    *(v15 + 4) = sub_23D6D3C38(0xD000000000000018, 0x800000023D6F16E0, &v21);
-    _os_log_impl(&dword_23D6CB000, v12, v13, "[TWICE] %s", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v16);
-    MEMORY[0x23EEE9940](v16, -1, -1);
-    MEMORY[0x23EEE9940](v15, -1, -1);
+    v19 = v14;
+    *v13 = 136315138;
+    *(v13 + 4) = sub_23D6D3C38(0xD000000000000018, 0x800000023D6F16E0, &v19);
+    _os_log_impl(&dword_23D6CB000, v10, v11, "[TWICE] %s", v13, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v14);
+    MEMORY[0x23EEE9940](v14, -1, -1);
+    MEMORY[0x23EEE9940](v13, -1, -1);
   }
 
-  (*(v8 + 8))(v11, v7);
-  v17 = [objc_opt_self() buttonRepresentationWithType_];
-  if (v17)
+  (*(v7 + 8))(v9, v6);
+  v15 = [objc_opt_self() buttonRepresentationWithType_];
+  if (v15)
   {
-    *v6 = v17;
-    v18 = v17;
-    (*(v3 + 104))(v6, *MEMORY[0x277CE7008], v2);
-    v19 = v18;
-    sub_23D6DF5FC(v6);
+    *v5 = v15;
+    v16 = v15;
+    (*(v3 + 104))(v5, *MEMORY[0x277CE7008], v2);
+    v17 = v16;
+    sub_23D6DF5FC(v5);
 
-    (*(v3 + 8))(v6, v2);
+    (*(v3 + 8))(v5, v2);
   }
 }
 
@@ -537,101 +299,95 @@ Swift::Void __swiftcall AXTwiceCompanionRootViewController.stingButtonKeycord()(
   v1 = v0;
   v2 = sub_23D6EE620();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = (&v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = sub_23D6EE670();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = (&v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = sub_23D6EE670();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23D6EE330();
-  v12 = sub_23D6EE660();
-  v13 = sub_23D6EE810();
-  if (os_log_type_enabled(v12, v13))
+  v10 = sub_23D6EE660();
+  v11 = sub_23D6EE810();
+  if (os_log_type_enabled(v10, v11))
   {
+    v12 = swift_slowAlloc();
+    v18 = v1;
+    v13 = v12;
     v14 = swift_slowAlloc();
-    v20 = v1;
-    v15 = v14;
-    v16 = swift_slowAlloc();
-    v21 = v16;
-    *v15 = 136315138;
-    *(v15 + 4) = sub_23D6D3C38(0xD000000000000014, 0x800000023D6F1700, &v21);
-    _os_log_impl(&dword_23D6CB000, v12, v13, "[TWICE] %s", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v16);
-    MEMORY[0x23EEE9940](v16, -1, -1);
-    MEMORY[0x23EEE9940](v15, -1, -1);
+    v19 = v14;
+    *v13 = 136315138;
+    *(v13 + 4) = sub_23D6D3C38(0xD000000000000014, 0x800000023D6F1700, &v19);
+    _os_log_impl(&dword_23D6CB000, v10, v11, "[TWICE] %s", v13, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v14);
+    MEMORY[0x23EEE9940](v14, -1, -1);
+    MEMORY[0x23EEE9940](v13, -1, -1);
   }
 
-  (*(v8 + 8))(v11, v7);
-  v17 = [objc_opt_self() buttonRepresentationWithType_];
-  if (v17)
+  (*(v7 + 8))(v9, v6);
+  v15 = [objc_opt_self() buttonRepresentationWithType_];
+  if (v15)
   {
-    *v6 = v17;
-    v18 = v17;
-    (*(v3 + 104))(v6, *MEMORY[0x277CE7008], v2);
-    v19 = v18;
-    sub_23D6DF5FC(v6);
+    *v5 = v15;
+    v16 = v15;
+    (*(v3 + 104))(v5, *MEMORY[0x277CE7008], v2);
+    v17 = v16;
+    sub_23D6DF5FC(v5);
 
-    (*(v3 + 8))(v6, v2);
+    (*(v3 + 8))(v5, v2);
   }
 }
 
-id sub_23D6EC3C4(uint64_t a1, uint64_t *a2, uint64_t a3, unint64_t a4)
+id sub_23D6EC3C4(uint64_t a1, void *a2, uint64_t a3, unint64_t a4)
 {
   v8 = a2[3];
   if (v8)
   {
     v10 = __swift_project_boxed_opaque_existential_0(a2, a2[3]);
     v11 = *(v8 - 8);
-    v12 = *(v11 + 64);
     MEMORY[0x28223BE20](v10);
-    v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v11 + 16))(v14);
-    v15 = sub_23D6EE9F0();
-    (*(v11 + 8))(v14, v8);
+    v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v11 + 16))(v13);
+    v14 = sub_23D6EE9F0();
+    (*(v11 + 8))(v13, v8);
     __swift_destroy_boxed_opaque_existential_0(a2);
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
   if (a4 >> 60 == 15)
   {
-    v16 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v16 = sub_23D6EE2E0();
+    v15 = sub_23D6EE2E0();
     sub_23D6EDF68(a3, a4);
   }
 
-  v17 = [v4 initWithAxAction:a1 withValue:v15 forElementRefData:v16];
+  v16 = [v4 initWithAxAction:a1 withValue:v14 forElementRefData:v15];
   swift_unknownObjectRelease();
 
-  return v17;
+  return v16;
 }
 
 unint64_t sub_23D6EC554(uint64_t a1)
 {
-  v2 = v1;
-  v4 = *(v2 + 40);
-  v5 = sub_23D6EE8C0();
+  v2 = sub_23D6EE8C0();
 
-  return sub_23D6EC610(a1, v5);
+  return sub_23D6EC610(a1, v2);
 }
 
 unint64_t sub_23D6EC598(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_23D6EEA20();
   sub_23D6EE750();
-  v6 = sub_23D6EEA30();
+  v4 = sub_23D6EEA30();
 
-  return sub_23D6EC6D8(a1, a2, v6);
+  return sub_23D6EC6D8(a1, a2, v4);
 }
 
 unint64_t sub_23D6EC610(uint64_t a1, uint64_t a2)
@@ -689,150 +445,144 @@ unint64_t sub_23D6EC6D8(uint64_t a1, uint64_t a2, uint64_t a3)
   return v5;
 }
 
-uint64_t sub_23D6EC790(uint64_t a1, char a2)
+uint64_t sub_23D6EC790(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E2CD0, &qword_23D6F0120);
-  v36 = a2;
+  v33 = v4;
   result = sub_23D6EE9C0();
-  v8 = result;
+  v7 = result;
   if (*(v5 + 16))
   {
-    v35 = v3;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
     {
-      v18 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v21 = v18 | (v9 << 6);
-      v22 = (*(v5 + 48) + 16 * v21);
-      v23 = *v22;
-      v24 = v22[1];
-      v25 = (*(v5 + 56) + 32 * v21);
-      if (v36)
+      v17 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v20 = v17 | (v8 << 6);
+      v21 = (*(v5 + 48) + 16 * v20);
+      v22 = *v21;
+      v23 = v21[1];
+      v24 = (*(v5 + 56) + 32 * v20);
+      if (v33)
       {
-        sub_23D6D43BC(v25, v37);
+        sub_23D6D43BC(v24, v34);
       }
 
       else
       {
-        sub_23D6D42F0(v25, v37);
+        sub_23D6D42F0(v24, v34);
       }
 
-      v26 = *(v8 + 40);
       sub_23D6EEA20();
       sub_23D6EE750();
       result = sub_23D6EEA30();
-      v27 = -1 << *(v8 + 32);
-      v28 = result & ~v27;
-      v29 = v28 >> 6;
-      if (((-1 << v28) & ~*(v15 + 8 * (v28 >> 6))) == 0)
+      v25 = -1 << *(v7 + 32);
+      v26 = result & ~v25;
+      v27 = v26 >> 6;
+      if (((-1 << v26) & ~*(v14 + 8 * (v26 >> 6))) == 0)
       {
-        v30 = 0;
-        v31 = (63 - v27) >> 6;
-        while (++v29 != v31 || (v30 & 1) == 0)
+        v28 = 0;
+        v29 = (63 - v25) >> 6;
+        while (++v27 != v29 || (v28 & 1) == 0)
         {
-          v32 = v29 == v31;
-          if (v29 == v31)
+          v30 = v27 == v29;
+          if (v27 == v29)
           {
-            v29 = 0;
+            v27 = 0;
           }
 
-          v30 |= v32;
-          v33 = *(v15 + 8 * v29);
-          if (v33 != -1)
+          v28 |= v30;
+          v31 = *(v14 + 8 * v27);
+          if (v31 != -1)
           {
-            v16 = __clz(__rbit64(~v33)) + (v29 << 6);
-            goto LABEL_9;
+            v15 = __clz(__rbit64(~v31)) + (v27 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_38:
+LABEL_36:
         __break(1u);
         return result;
       }
 
-      v16 = __clz(__rbit64((-1 << v28) & ~*(v15 + 8 * (v28 >> 6)))) | v28 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      v17 = (*(v8 + 48) + 16 * v16);
-      *v17 = v23;
-      v17[1] = v24;
-      result = sub_23D6D43BC(v37, (*(v8 + 56) + 32 * v16));
-      ++*(v8 + 16);
+      v15 = __clz(__rbit64((-1 << v26) & ~*(v14 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      v16 = (*(v7 + 48) + 16 * v15);
+      *v16 = v22;
+      v16[1] = v23;
+      result = sub_23D6D43BC(v34, (*(v7 + 56) + 32 * v15));
+      ++*(v7 + 16);
     }
 
-    v19 = v9;
+    v18 = v8;
     while (1)
     {
-      v9 = v19 + 1;
-      if (__OFADD__(v19, 1))
+      v8 = v18 + 1;
+      if (__OFADD__(v18, 1))
       {
         __break(1u);
-        goto LABEL_38;
+        goto LABEL_36;
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v20 = v10[v9];
-      ++v19;
-      if (v20)
+      v19 = v9[v8];
+      ++v18;
+      if (v19)
       {
-        v18 = __clz(__rbit64(v20));
-        v13 = (v20 - 1) & v20;
-        goto LABEL_17;
+        v17 = __clz(__rbit64(v19));
+        v12 = (v19 - 1) & v19;
+        goto LABEL_15;
       }
     }
 
-    if ((v36 & 1) == 0)
+    if ((v33 & 1) == 0)
     {
 
-      v3 = v35;
-      goto LABEL_36;
+      v3 = v2;
+      goto LABEL_34;
     }
 
-    v34 = 1 << *(v5 + 32);
-    v3 = v35;
-    if (v34 >= 64)
+    v32 = 1 << *(v5 + 32);
+    v3 = v2;
+    if (v32 >= 64)
     {
-      bzero((v5 + 64), ((v34 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero((v5 + 64), ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v10 = -1 << v34;
+      *v9 = -1 << v32;
     }
 
     *(v5 + 16) = 0;
   }
 
-LABEL_36:
-  *v3 = v8;
+LABEL_34:
+  *v3 = v7;
   return result;
 }
 
@@ -841,7 +591,7 @@ _OWORD *sub_23D6ECA48(_OWORD *a1, uint64_t a2, uint64_t a3, char a4)
   v5 = v4;
   v10 = *v4;
   v11 = sub_23D6EC598(a2, a3);
-  v13 = *(v10 + 16);
+  v13 = v10[2];
   v14 = (v12 & 1) == 0;
   v15 = __OFADD__(v13, v14);
   v16 = v13 + v14;
@@ -852,7 +602,7 @@ _OWORD *sub_23D6ECA48(_OWORD *a1, uint64_t a2, uint64_t a3, char a4)
   }
 
   v17 = v12;
-  v18 = *(v10 + 24);
+  v18 = v10[3];
   if (v18 < v16 || (a4 & 1) == 0)
   {
     if (v18 >= v16 && (a4 & 1) == 0)
@@ -864,9 +614,8 @@ _OWORD *sub_23D6ECA48(_OWORD *a1, uint64_t a2, uint64_t a3, char a4)
     }
 
     sub_23D6EC790(v16, a4 & 1);
-    v20 = *v5;
     v11 = sub_23D6EC598(a2, a3);
-    if ((v17 & 1) != (v21 & 1))
+    if ((v17 & 1) != (v20 & 1))
     {
 LABEL_16:
       result = sub_23D6EEA10();
@@ -876,18 +625,18 @@ LABEL_16:
   }
 
 LABEL_8:
-  v22 = *v5;
+  v21 = *v5;
   if (v17)
   {
-    v23 = (v22[7] + 32 * v11);
-    __swift_destroy_boxed_opaque_existential_0(v23);
+    v22 = (v21[7] + 32 * v11);
+    __swift_destroy_boxed_opaque_existential_0(v22);
 
-    return sub_23D6D43BC(a1, v23);
+    return sub_23D6D43BC(a1, v22);
   }
 
   else
   {
-    sub_23D6ECB98(v11, a2, a3, a1, v22);
+    sub_23D6ECB98(v11, a2, a3, a1, v21);
   }
 }
 
@@ -1040,47 +789,47 @@ double sub_23D6ECDA8()
   return sqrt((0.0 - v14) * (0.0 - v14) + (0.0 - v4 / Height) * (0.0 - v4 / Height));
 }
 
-uint64_t sub_23D6ECEE0(unint64_t a1, unint64_t a2)
+double sub_23D6ECEE0(unint64_t a1, unint64_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v7[0] = 0;
-  result = mach_timebase_info(v7);
-  if (!result)
+  v8[1] = *MEMORY[0x277D85DE8];
+  v8[0] = 0;
+  v4 = mach_timebase_info(v8);
+  result = -1.0;
+  if (!v4)
   {
-    v5 = a2 - a1;
+    v6 = a2 - a1;
     if (a2 < a1)
     {
       __break(1u);
     }
 
-    else if ((v5 & 0x8000000000000000) == 0)
+    else if ((v6 & 0x8000000000000000) == 0)
     {
-      if ((v5 * v7[0].numer) >> 64 == (v5 * v7[0].numer) >> 63)
+      v7 = v6 * v8[0].numer;
+      if ((v6 * v8[0].numer) >> 64 == v7 >> 63)
       {
-        if (v7[0].denom)
+        if (v8[0].denom)
         {
-          goto LABEL_6;
+          return (v7 / v8[0].denom) / 1000000.0;
         }
 
-LABEL_10:
+LABEL_11:
         __break(1u);
       }
 
-LABEL_9:
+LABEL_10:
       __break(1u);
-      goto LABEL_10;
+      goto LABEL_11;
     }
 
     __break(1u);
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-LABEL_6:
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t type metadata accessor for AXTwiceCompanionRootViewController()
+uint64_t type metadata accessor for AXTwiceCompanionRootViewController(uint64_t a1)
 {
   result = qword_27E2E2B78;
   if (!qword_27E2E2B78)
@@ -1111,52 +860,50 @@ uint64_t sub_23D6ED040(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_23D6ED10C(uint64_t a1, unint64_t a2)
+uint64_t sub_23D6ED10C(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t sub_23D6ED160(uint64_t a1, unint64_t a2)
+uint64_t sub_23D6ED160(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-void sub_23D6ED1BC()
+void sub_23D6ED1BC(uint64_t a1)
 {
-  v0 = sub_23D6EE640();
+  sub_23D6EE640();
   if (v1 <= 0x3F)
   {
-    v4 = *(v0 - 8) + 64;
-    sub_23D6ED310();
-    if (v3 <= 0x3F)
+    sub_23D6ED310(319);
+    if (v2 <= 0x3F)
     {
-      v5 = *(v2 - 8) + 64;
       swift_updateClassMetadata2();
     }
   }
 }
 
-void sub_23D6ED310()
+void sub_23D6ED310(uint64_t a1)
 {
   if (!qword_27E2E2B88)
   {
     sub_23D6EE320();
-    v0 = sub_23D6EE890();
-    if (!v1)
+    v1 = sub_23D6EE890();
+    if (!v2)
     {
-      atomic_store(v0, &qword_27E2E2B88);
+      atomic_store(v1, &qword_27E2E2B88);
     }
   }
 }
@@ -1216,43 +963,41 @@ void sub_23D6ED3DC(void *a1)
 {
   v2 = sub_23D6EE620();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_23D6EE670();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = [objc_opt_self() server];
-  if (v12)
+  v5 = &v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_23D6EE670();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = [objc_opt_self() server];
+  if (v10)
   {
-    v13 = v12;
-    v14 = [v12 isScreenLockedWithPasscode_];
+    v11 = v10;
+    v12 = [v10 isScreenLockedWithPasscode_];
 
-    if (v14)
+    if (v12)
     {
       sub_23D6EE330();
-      v15 = sub_23D6EE660();
-      v16 = sub_23D6EE810();
-      if (os_log_type_enabled(v15, v16))
+      v13 = sub_23D6EE660();
+      v14 = sub_23D6EE810();
+      if (os_log_type_enabled(v13, v14))
       {
-        v17 = swift_slowAlloc();
-        *v17 = 0;
-        _os_log_impl(&dword_23D6CB000, v15, v16, "[TWICE] Device is locked. Dismissing Twice VC!", v17, 2u);
-        MEMORY[0x23EEE9940](v17, -1, -1);
+        v15 = swift_slowAlloc();
+        *v15 = 0;
+        _os_log_impl(&dword_23D6CB000, v13, v14, "[TWICE] Device is locked. Dismissing Twice VC!", v15, 2u);
+        MEMORY[0x23EEE9940](v15, -1, -1);
       }
 
-      (*(v8 + 8))(v11, v7);
+      (*(v7 + 8))(v9, v6);
       if (a1)
       {
-        v18 = *MEMORY[0x277CE7058];
-        v19 = *(v3 + 104);
-        v20 = a1;
-        v19(v6, v18, v2);
-        sub_23D6DF5FC(v6);
+        v16 = *MEMORY[0x277CE7058];
+        v17 = *(v3 + 104);
+        v18 = a1;
+        v17(v5, v16, v2);
+        sub_23D6DF5FC(v5);
 
-        (*(v3 + 8))(v6, v2);
+        (*(v3 + 8))(v5, v2);
       }
 
       else
@@ -1437,36 +1182,34 @@ uint64_t sub_23D6ED9C8()
   v1 = v0;
   v2 = sub_23D6EE620();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_23D6EE670();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_23D6EE670();
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23D6EE330();
-  v12 = sub_23D6EE660();
-  v13 = sub_23D6EE810();
-  if (os_log_type_enabled(v12, v13))
+  v10 = sub_23D6EE660();
+  v11 = sub_23D6EE810();
+  if (os_log_type_enabled(v10, v11))
   {
+    v12 = swift_slowAlloc();
+    v16 = v1;
+    v13 = v12;
     v14 = swift_slowAlloc();
-    v18 = v1;
-    v15 = v14;
-    v16 = swift_slowAlloc();
-    v19 = v16;
-    *v15 = 136315138;
-    *(v15 + 4) = sub_23D6D3C38(0xD00000000000001CLL, 0x800000023D6F1990, &v19);
-    _os_log_impl(&dword_23D6CB000, v12, v13, "[TWICE] %s", v15, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v16);
-    MEMORY[0x23EEE9940](v16, -1, -1);
-    MEMORY[0x23EEE9940](v15, -1, -1);
+    v17 = v14;
+    *v13 = 136315138;
+    *(v13 + 4) = sub_23D6D3C38(0xD00000000000001CLL, 0x800000023D6F1990, &v17);
+    _os_log_impl(&dword_23D6CB000, v10, v11, "[TWICE] %s", v13, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v14);
+    MEMORY[0x23EEE9940](v14, -1, -1);
+    MEMORY[0x23EEE9940](v13, -1, -1);
   }
 
-  (*(v8 + 8))(v11, v7);
-  (*(v3 + 104))(v6, *MEMORY[0x277CE7058], v2);
-  sub_23D6DF5FC(v6);
-  return (*(v3 + 8))(v6, v2);
+  (*(v7 + 8))(v9, v6);
+  (*(v3 + 104))(v5, *MEMORY[0x277CE7058], v2);
+  sub_23D6DF5FC(v5);
+  return (*(v3 + 8))(v5, v2);
 }
 
 void sub_23D6EDC38(id a1)
@@ -1484,13 +1227,6 @@ id sub_23D6EDC48(id result)
   }
 
   return result;
-}
-
-uint64_t sub_23D6EDC58(uint64_t a1)
-{
-  v2 = *(v1 + 16);
-  AXTwiceCompanionRootViewController.handleHIDEvent(_:)(a1);
-  return v3 & 1;
 }
 
 uint64_t sub_23D6EDC88(unint64_t *a1, uint64_t *a2, uint64_t *a3)
@@ -1520,7 +1256,6 @@ uint64_t sub_23D6EDD78()
   v3 = *(v2 + 80);
   v4 = (v3 + 24) & ~v3;
   v5 = *(v2 + 64);
-  v6 = *(v0 + 16);
 
   (*(v2 + 8))(v0 + v4, v1);
 
@@ -1550,14 +1285,14 @@ uint64_t sub_23D6EDF00(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
   return a2;
 }
 
-uint64_t sub_23D6EDF68(uint64_t a1, unint64_t a2)
+uint64_t sub_23D6EDF68(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return sub_23D6ED160(a1, a2);
+    return sub_23D6ED160(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t sub_23D6EDF7C()
@@ -1567,14 +1302,7 @@ uint64_t sub_23D6EDF7C()
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
 
-void sub_23D6EDFBC()
-{
-  v1 = v0[3];
-  v2 = v0[4];
-  sub_23D6E6DF0(v0[2]);
-}
-
-uint64_t sub_23D6EDFC8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_23D6EDFC8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)

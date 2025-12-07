@@ -35,95 +35,95 @@
 + (void)isInFailForward:(id)forward
 {
   forwardCopy = forward;
-  v5 = pk_ui_log();
+  v5 = pk_ui_log(forwardCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_ui_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_ui_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Requested check if SE is in fail forward mode", buf, 2u);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Requested check if SE is in fail forward mode", buf, 2u);
     }
   }
 
   [self _initVariables];
-  v8 = _inFailForwardQueue;
+  v9 = _inFailForwardQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __36__NPKSecureElement_isInFailForward___block_invoke;
   block[3] = &unk_279945198;
-  v11 = forwardCopy;
-  v9 = forwardCopy;
-  dispatch_async(v8, block);
+  v12 = forwardCopy;
+  v10 = forwardCopy;
+  dispatch_async(v9, block);
 }
 
-uint64_t __36__NPKSecureElement_isInFailForward___block_invoke(uint64_t a1)
+uint64_t __36__NPKSecureElement_isInFailForward___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = pk_ui_log();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+  v3 = pk_ui_log(a1);
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
-  if (v3)
+  if (v4)
   {
-    v4 = pk_ui_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_ui_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Start check if SE is in fail forward mode", buf, 2u);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Start check if SE is in fail forward mode", buf, 2u);
     }
   }
 
-  v5 = [MEMORY[0x277D38248] isInFailForward];
-  v6 = pk_ui_log();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = [MEMORY[0x277D38248] isInFailForward];
+  v8 = pk_ui_log(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-  if (v5)
+  if (v7)
   {
-    if (!v7)
+    if (!v9)
     {
-      v9 = 1;
+      v12 = 1;
       goto LABEL_17;
     }
 
-    v8 = pk_ui_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_ui_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: SE is in fail forward mode", v12, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: SE is in fail forward mode", v15, 2u);
     }
 
-    v9 = 1;
+    v12 = 1;
   }
 
   else
   {
-    if (!v7)
+    if (!v9)
     {
-      v9 = 2;
+      v12 = 2;
       goto LABEL_17;
     }
 
-    v8 = pk_ui_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_ui_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      v9 = 2;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: SE is Not in fail forward mode", v11, 2u);
+      *v14 = 0;
+      v12 = 2;
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: SE is Not in fail forward mode", v14, 2u);
     }
 
     else
     {
-      v9 = 2;
+      v12 = 2;
     }
   }
 
 LABEL_17:
-  atomic_store(v9, &_atomicIsInFailForward);
+  atomic_store(v12, &_atomicIsInFailForward);
   result = *(a1 + 32);
   if (result)
   {
-    return (*(result + 16))(result, v5);
+    return (*(result + 16))(result, v7);
   }
 
   return result;
@@ -214,48 +214,47 @@ void __34__NPKSecureElement_sharedInstance__block_invoke()
 uint64_t __39__NPKSecureElement_isInRestrictedMode___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) supportState] != 2)
+  v2 = [*(a1 + 32) supportState];
+  if (v2 == 2)
   {
-    v7 = pk_General_log();
+    v3 = [*(a1 + 32) hardwareManager];
+    v4 = [v3 isInRestrictedMode];
+
+    [*(a1 + 32) _secureElementDidUpdateRestrictedModeState:v4];
+    result = *(a1 + 40);
+    if (result)
+    {
+      v6 = *(result + 16);
+
+      return v6();
+    }
+  }
+
+  else
+  {
+    v7 = pk_General_log(v2);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
     if (v8)
     {
-      v9 = pk_General_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = pk_General_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = [*(a1 + 32) supportState];
+        v11 = [*(a1 + 32) supportState];
         v12[0] = 67109120;
-        v12[1] = v10;
-        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Warning: Won't use APIs since hw support state is %d", v12, 8u);
+        v12[1] = v11;
+        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Warning: Won't use APIs since hw support state is %d", v12, 8u);
       }
     }
 
     result = *(a1 + 40);
     if (result)
     {
-      result = (*(result + 16))(result, 0);
+      return (*(result + 16))(result, 0);
     }
-
-    goto LABEL_12;
   }
 
-  v2 = [*(a1 + 32) hardwareManager];
-  v3 = [v2 isInRestrictedMode];
-
-  [*(a1 + 32) _secureElementDidUpdateRestrictedModeState:v3];
-  result = *(a1 + 40);
-  if (!result)
-  {
-LABEL_12:
-    v11 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v5 = *(result + 16);
-  v6 = *MEMORY[0x277D85DE8];
-
-  return v5();
+  return result;
 }
 
 - (void)registerObserver:(id)observer
@@ -306,16 +305,16 @@ uint64_t __45__NPKSecureElement_applicationIsAtForeground__block_invoke(uint64_t
   supportState = self->_supportState;
   if (supportState == 4)
   {
-    v7 = pk_General_log();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v8 = pk_General_log(v6);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-    if (v8)
+    if (v9)
     {
-      v9 = pk_General_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = pk_General_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Warning: Found NFHardwareSupportStateUnSupported.", v11, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Warning: Found NFHardwareSupportStateUnSupported.", v13, 2u);
       }
     }
 
@@ -354,74 +353,71 @@ uint64_t __45__NPKSecureElement_applicationIsAtForeground__block_invoke(uint64_t
 
 void __34__NPKSecureElement__fetchNFCState__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) supportState] == 2)
+  v21 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) supportState];
+  if (v2 == 2)
   {
-    v15 = 0;
-    v2 = [*(a1 + 32) hardwareManager];
-    v3 = [v2 getRadioEnabledState:&v15];
+    v18 = 0;
+    v3 = [*(a1 + 32) hardwareManager];
+    v4 = [v3 getRadioEnabledState:&v18];
 
-    if (v3)
+    if (v4)
     {
-      v4 = pk_General_log();
-      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+      v6 = pk_General_log(v5);
+      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-      if (v5)
+      if (v7)
       {
-        v6 = pk_General_log();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v8 = pk_General_log(v5);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v17 = v3;
-          _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Fetch NFC status error: %@", buf, 0xCu);
+          v20 = v4;
+          _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Fetch NFC status error: %@", buf, 0xCu);
         }
       }
     }
 
     else
     {
-      atomic_store(v15 != 1, (*(a1 + 32) + 17));
+      atomic_store(v18 != 1, (*(a1 + 32) + 17));
     }
 
-    v10 = pk_General_log();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    v13 = pk_General_log(v5);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-    if (v11)
+    if (v14)
     {
-      v12 = pk_General_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v16 = pk_General_log(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = atomic_load((*(a1 + 32) + 17));
+        v17 = atomic_load((*(a1 + 32) + 17));
         *buf = 67109120;
-        LODWORD(v17) = v13 & 1;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: NFC: retrieved nfcDisabled state: %d.", buf, 8u);
+        LODWORD(v20) = v17 & 1;
+        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: NFC: retrieved nfcDisabled state: %d.", buf, 8u);
       }
     }
-
-LABEL_15:
-
-    goto LABEL_16;
   }
 
-  v7 = pk_General_log();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-
-  if (v8)
+  else
   {
-    v3 = pk_General_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_General_log(v2);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+
+    if (!v10)
     {
-      v9 = [*(a1 + 32) supportState];
-      *buf = 67109120;
-      LODWORD(v17) = v9;
-      _os_log_impl(&dword_25B300000, v3, OS_LOG_TYPE_DEFAULT, "Warning: Will not use APIs since hw support state is %d", buf, 8u);
+      return;
     }
 
-    goto LABEL_15;
+    v4 = pk_General_log(v11);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = [*(a1 + 32) supportState];
+      *buf = 67109120;
+      LODWORD(v20) = v12;
+      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Warning: Will not use APIs since hw support state is %d", buf, 8u);
+    }
   }
-
-LABEL_16:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_secureElementDidUpdateRestrictedModeState:(BOOL)state
@@ -463,22 +459,21 @@ void __63__NPKSecureElement__secureElementDidUpdateRestrictedModeState___block_i
 {
   stateCopy = state;
   v10 = *MEMORY[0x277D85DE8];
-  v5 = pk_General_log();
+  v5 = pk_General_log(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9[0] = 67109120;
       v9[1] = stateCopy;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NFHardwareEventListener received nfc radio enabled %d", v9, 8u);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NFHardwareEventListener received nfc radio enabled %d", v9, 8u);
     }
   }
 
   atomic_store(!stateCopy, &self->_atomicIsNfcDisabled);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hardwareStateDidChange

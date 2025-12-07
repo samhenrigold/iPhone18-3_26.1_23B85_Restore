@@ -1,8 +1,15 @@
 @interface SUCoreActivity
 + (id)_predicateForKeyPath:(id)path equalToValue:(id)value;
++ (id)backlightOnPredicate:(BOOL)predicate;
 + (id)batteryLevelPredicateGreaterThan:(id)than;
 + (id)batteryLevelPredicateLessThan:(id)than;
++ (id)carplayPredicate:(BOOL)predicate;
++ (id)mediaPlayingPredicate:(BOOL)predicate;
++ (id)networkPredicate:(BOOL)predicate;
++ (id)phoneCallPredicate:(BOOL)predicate;
++ (id)pluggedInPredicate:(BOOL)predicate;
 + (id)systemDatePredicate:(id)predicate;
++ (id)wifiAvailablePredicate:(BOOL)predicate;
 - (BOOL)_BOOLForTriState:(int)state defaultValue:(BOOL)value;
 - (BOOL)_mustWake;
 - (BOOL)isEqual:(id)equal;
@@ -162,7 +169,7 @@
 
 - (id)createContextualPredicate
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   runDate = [(SUCoreActivity *)self runDate];
 
@@ -247,13 +254,11 @@
 
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = 138543362;
+      v26 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "Failed to create _CDContextualPredicate for SUActivity: %{public}@", &v27, 0xCu);
+      _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "Failed to create _CDContextualPredicate for SUActivity: %{public}@", &v26, 0xCu);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -380,6 +385,134 @@
   return v29;
 }
 
++ (id)pluggedInPredicate:(BOOL)predicate
+{
+  v3 = [MEMORY[0x277CFE330] predicateForPluginStatus:predicate];
+  v4 = v3;
+  if (v3)
+  {
+    v5 = v3;
+  }
+
+  else
+  {
+    mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
+    oslog = [mEMORY[0x277D64460] oslog];
+
+    if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
+    {
+      *v9 = 0;
+      _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "Failed to create plugged in _CDContextualPredicate", v9, 2u);
+    }
+  }
+
+  return v4;
+}
+
++ (id)networkPredicate:(BOOL)predicate
+{
+  predicateCopy = predicate;
+  v14[2] = *MEMORY[0x277D85DE8];
+  v4 = [MEMORY[0x277CFE330] predicateForCellConnectionAvailability:?];
+  v5 = [MEMORY[0x277CFE330] predicateForWiFiConnectionAvailability:predicateCopy];
+  v6 = MEMORY[0x277CFE368];
+  v14[0] = v4;
+  v14[1] = v5;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v8 = [v6 orPredicateWithSubpredicates:v7];
+
+  if (v8)
+  {
+    v9 = v8;
+  }
+
+  else
+  {
+    mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
+    oslog = [mEMORY[0x277D64460] oslog];
+
+    if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
+    {
+      *v13 = 0;
+      _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "Failed to create network available _CDContextualPredicate", v13, 2u);
+    }
+  }
+
+  return v8;
+}
+
++ (id)wifiAvailablePredicate:(BOOL)predicate
+{
+  v3 = [MEMORY[0x277CFE330] predicateForWiFiConnectionAvailability:predicate];
+  v4 = v3;
+  if (v3)
+  {
+    v5 = v3;
+  }
+
+  else
+  {
+    mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
+    oslog = [mEMORY[0x277D64460] oslog];
+
+    if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
+    {
+      *v9 = 0;
+      _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "Failed to create wifi available _CDContextualPredicate", v9, 2u);
+    }
+  }
+
+  return v4;
+}
+
++ (id)backlightOnPredicate:(BOOL)predicate
+{
+  predicateCopy = predicate;
+  keyPathForBacklightOnStatus = [MEMORY[0x277CFE330] keyPathForBacklightOnStatus];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:predicateCopy];
+  v7 = [self _predicateForKeyPath:keyPathForBacklightOnStatus equalToValue:v6];
+
+  return v7;
+}
+
++ (id)phoneCallPredicate:(BOOL)predicate
+{
+  predicateCopy = predicate;
+  v19[2] = *MEMORY[0x277D85DE8];
+  keyPathForCallInProgressStatus = [MEMORY[0x277CFE330] keyPathForCallInProgressStatus];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:predicateCopy];
+  v7 = [self _predicateForKeyPath:keyPathForCallInProgressStatus equalToValue:v6];
+
+  keyPathForCallInProgressStatus2 = [MEMORY[0x277CFE330] keyPathForCallInProgressStatus];
+  null = [MEMORY[0x277CBEB68] null];
+  v10 = [self _predicateForKeyPath:keyPathForCallInProgressStatus2 equalToValue:null];
+
+  v11 = MEMORY[0x277CFE368];
+  v19[0] = v7;
+  v19[1] = v10;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v13 = [v11 orPredicateWithSubpredicates:v12];
+
+  if (v13)
+  {
+    v14 = v13;
+  }
+
+  else
+  {
+    mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
+    oslog = [mEMORY[0x277D64460] oslog];
+
+    if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
+    {
+      *v18 = 0;
+      _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "Failed to create call in progress _CDContextualPredicate", v18, 2u);
+    }
+  }
+
+  return v13;
+}
+
 + (id)batteryLevelPredicateGreaterThan:(id)than
 {
   v3 = MEMORY[0x277CFE368];
@@ -438,6 +571,16 @@
   return thanCopy;
 }
 
++ (id)carplayPredicate:(BOOL)predicate
+{
+  predicateCopy = predicate;
+  keyPathForCarplayConnectedStatus = [MEMORY[0x277CFE330] keyPathForCarplayConnectedStatus];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:predicateCopy];
+  v7 = [self _predicateForKeyPath:keyPathForCarplayConnectedStatus equalToValue:v6];
+
+  return v7;
+}
+
 + (id)systemDatePredicate:(id)predicate
 {
   v3 = [MEMORY[0x277CFE330] predicateForSystemTime:predicate];
@@ -462,9 +605,19 @@
   return v4;
 }
 
++ (id)mediaPlayingPredicate:(BOOL)predicate
+{
+  predicateCopy = predicate;
+  keyPathForMediaPlayingStatus = [MEMORY[0x277CFE330] keyPathForMediaPlayingStatus];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:predicateCopy];
+  v7 = [self _predicateForKeyPath:keyPathForMediaPlayingStatus equalToValue:v6];
+
+  return v7;
+}
+
 + (id)_predicateForKeyPath:(id)path equalToValue:(id)value
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v6 = [MEMORY[0x277CFE368] predicateForKeyPath:pathCopy equalToValue:value];
   v7 = v6;
@@ -481,13 +634,11 @@
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
       v11 = [pathCopy description];
-      v14 = 138543362;
-      v15 = v11;
-      _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "Failed to create _CDContextualPredicate for keyPath: %{public}@", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "Failed to create _CDContextualPredicate for keyPath: %{public}@", &v13, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

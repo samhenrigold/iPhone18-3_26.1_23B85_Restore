@@ -8,12 +8,12 @@
 
 - (ASDDSPGraphInfo)initWithDictionary:(id)dictionary resourcePath:(id)path
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   pathCopy = path;
-  v57.receiver = self;
-  v57.super_class = ASDDSPGraphInfo;
-  v8 = [(ASDDSPGraphInfo *)&v57 init];
+  v54.receiver = self;
+  v54.super_class = ASDDSPGraphInfo;
+  v8 = [(ASDDSPGraphInfo *)&v54 init];
   if (v8)
   {
     v9 = [dictionaryCopy objectForKeyedSubscript:@"Path"];
@@ -32,42 +32,41 @@
       objc_storeStrong(&v8->_text, v12);
     }
 
-    v48 = v12;
+    v45 = v12;
     v13 = [dictionaryCopy objectForKeyedSubscript:@"IncludePaths"];
     objc_opt_class();
     obj = v13;
     if (objc_opt_isKindOfClass())
     {
-      v55 = 0u;
-      v56 = 0u;
+      v52 = 0u;
       v53 = 0u;
-      v54 = 0u;
+      v50 = 0u;
+      v51 = 0u;
       v14 = v13;
-      v15 = [v14 countByEnumeratingWithState:&v53 objects:v59 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v50 objects:v56 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v54;
+        v17 = *v51;
         while (2)
         {
           v18 = 0;
           do
           {
-            if (*v54 != v17)
+            if (*v51 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v19 = *(*(&v53 + 1) + 8 * v18);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
 
-              v20 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+              v19 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
               v13 = obj;
-              if (v20)
+              if (v19)
               {
-                [(ASDDSPGraphInfo *)v20 initWithDictionary:v21 resourcePath:v22, v23, v24, v25, v26, v27];
+                [(ASDDSPGraphInfo *)v19 initWithDictionary:v20 resourcePath:v21, v22, v23, v24, v25, v26];
               }
 
               goto LABEL_18;
@@ -77,7 +76,7 @@
           }
 
           while (v16 != v18);
-          v16 = [v14 countByEnumeratingWithState:&v53 objects:v59 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v50 objects:v56 count:16];
           if (v16)
           {
             continue;
@@ -92,56 +91,55 @@
     }
 
 LABEL_18:
-    v28 = [dictionaryCopy objectForKeyedSubscript:@"Substitutions"];
+    v27 = [dictionaryCopy objectForKeyedSubscript:@"Substitutions"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v46 = v9;
-      v51 = 0u;
-      v52 = 0u;
+      v43 = v9;
+      v48 = 0u;
       v49 = 0u;
-      v50 = 0u;
-      v29 = v28;
-      v30 = [v29 countByEnumeratingWithState:&v49 objects:v58 count:16];
-      if (v30)
+      v46 = 0u;
+      v47 = 0u;
+      v28 = v27;
+      v29 = [v28 countByEnumeratingWithState:&v46 objects:v55 count:16];
+      if (v29)
       {
-        v31 = v30;
-        v32 = *v50;
+        v30 = v29;
+        v31 = *v47;
         while (2)
         {
-          v33 = pathCopy;
-          v34 = 0;
+          v32 = pathCopy;
+          v33 = 0;
           do
           {
-            if (*v50 != v32)
+            if (*v47 != v31)
             {
-              objc_enumerationMutation(v29);
+              objc_enumerationMutation(v28);
             }
 
-            v35 = *(*(&v49 + 1) + 8 * v34);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
 
-              v36 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-              pathCopy = v33;
-              v9 = v46;
+              v34 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+              pathCopy = v32;
+              v9 = v43;
               v13 = obj;
-              if (v36)
+              if (v34)
               {
-                [(ASDDSPGraphInfo *)v36 initWithDictionary:v37 resourcePath:v38, v39, v40, v41, v42, v43];
+                [(ASDDSPGraphInfo *)v34 initWithDictionary:v35 resourcePath:v36, v37, v38, v39, v40, v41];
               }
 
               goto LABEL_30;
             }
 
-            ++v34;
+            ++v33;
           }
 
-          while (v31 != v34);
-          v31 = [v29 countByEnumeratingWithState:&v49 objects:v58 count:16];
-          pathCopy = v33;
-          if (v31)
+          while (v30 != v33);
+          v30 = [v28 countByEnumeratingWithState:&v46 objects:v55 count:16];
+          pathCopy = v32;
+          if (v30)
           {
             continue;
           }
@@ -150,15 +148,14 @@ LABEL_18:
         }
       }
 
-      objc_storeStrong(&v8->_substitutions, v28);
-      v9 = v46;
+      objc_storeStrong(&v8->_substitutions, v27);
+      v9 = v43;
       v13 = obj;
     }
 
 LABEL_30:
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

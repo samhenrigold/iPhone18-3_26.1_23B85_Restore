@@ -24,51 +24,51 @@
 
 - (void)updateWithConcreteTransactions:(id)transactions ephemeralTransaction:(id)transaction updatedPassTransitItems:(id)items paymentApplication:(id)application
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   transactionsCopy = transactions;
   transactionCopy = transaction;
   itemsCopy = items;
   applicationCopy = application;
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x3032000000;
-  v58 = __Block_byref_object_copy__7;
-  v59 = __Block_byref_object_dispose__7;
-  v60 = 0;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x2020000000;
-  v54 = 0;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = __Block_byref_object_copy__7;
-  v49 = __Block_byref_object_dispose__7;
-  v50 = 0;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
-  v44 = 0;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x3032000000;
+  v60 = __Block_byref_object_copy__7;
+  v61 = __Block_byref_object_dispose__7;
+  v62 = 0;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x2020000000;
+  v56 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__7;
+  v51 = __Block_byref_object_dispose__7;
+  v52 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 0;
   v14 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_10];
   v15 = [itemsCopy filteredArrayUsingPredicate:v14];
 
-  v16 = pk_General_log();
-  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+  v17 = pk_General_log(v16);
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
-  if (v17)
+  if (v18)
   {
-    v18 = pk_General_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = pk_General_log(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413058;
-      *v62 = transactionsCopy;
-      *&v62[8] = 2112;
-      *&v62[10] = transactionCopy;
-      *&v62[18] = 2112;
-      *&v62[20] = itemsCopy;
-      *&v62[28] = 2112;
-      *&v62[30] = applicationCopy;
-      _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: NPKPaymentView: updateWithConcreteTransactions:%@ ephemeralTransaction:%@ updatedPassTransitItems:%@ paymentApplication:%@", buf, 0x2Au);
+      *v64 = transactionsCopy;
+      *&v64[8] = 2112;
+      *&v64[10] = transactionCopy;
+      *&v64[18] = 2112;
+      *&v64[20] = itemsCopy;
+      *&v64[28] = 2112;
+      *&v64[30] = applicationCopy;
+      _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: NPKPaymentView: updateWithConcreteTransactions:%@ ephemeralTransaction:%@ updatedPassTransitItems:%@ paymentApplication:%@", buf, 0x2Au);
     }
   }
 
@@ -76,67 +76,64 @@
   aBlock[1] = 3221225472;
   aBlock[2] = __152__NPKContactlessPaymentSessionManagerTransactionContext_updateWithConcreteTransactions_ephemeralTransaction_updatedPassTransitItems_paymentApplication___block_invoke_384;
   aBlock[3] = &unk_279946D90;
-  v37 = &v51;
-  v38 = &v41;
-  v39 = &v45;
-  v19 = applicationCopy;
-  v36 = v19;
-  v40 = &v55;
-  v20 = _Block_copy(aBlock);
-  v21 = v20;
+  v39 = &v53;
+  v40 = &v43;
+  v41 = &v47;
+  v21 = applicationCopy;
+  v38 = v21;
+  v42 = &v57;
+  v22 = _Block_copy(aBlock);
+  v23 = v22;
   if (transactionCopy)
   {
-    (*(v20 + 2))(v20, transactionCopy);
+    (*(v22 + 2))(v22, transactionCopy);
   }
 
   else
   {
-    v30 = MEMORY[0x277D85DD0];
-    v31 = 3221225472;
-    v32 = __152__NPKContactlessPaymentSessionManagerTransactionContext_updateWithConcreteTransactions_ephemeralTransaction_updatedPassTransitItems_paymentApplication___block_invoke_402;
-    v33 = &unk_279946DB8;
-    v34 = v20;
-    [transactionsCopy enumerateObjectsUsingBlock:&v30];
+    v32 = MEMORY[0x277D85DD0];
+    v33 = 3221225472;
+    v34 = __152__NPKContactlessPaymentSessionManagerTransactionContext_updateWithConcreteTransactions_ephemeralTransaction_updatedPassTransitItems_paymentApplication___block_invoke_402;
+    v35 = &unk_279946DB8;
+    v36 = v22;
+    [transactionsCopy enumerateObjectsUsingBlock:&v32];
   }
 
-  [(NPKContactlessPaymentSessionManagerTransactionContext *)self setPaymentTransaction:v56[5], v30, v31, v32, v33];
-  [(NPKContactlessPaymentSessionManagerTransactionContext *)self setTransactionType:v52[3]];
-  [(NPKContactlessPaymentSessionManagerTransactionContext *)self setTransactionDescription:v46[5]];
+  [(NPKContactlessPaymentSessionManagerTransactionContext *)self setPaymentTransaction:v58[5], v32, v33, v34, v35];
+  [(NPKContactlessPaymentSessionManagerTransactionContext *)self setTransactionType:v54[3]];
+  [(NPKContactlessPaymentSessionManagerTransactionContext *)self setTransactionDescription:v48[5]];
   [(NPKContactlessPaymentSessionManagerTransactionContext *)self setDisplayablePassItems:v15];
-  [(NPKContactlessPaymentSessionManagerTransactionContext *)self setAction:v42[3]];
-  v22 = pk_Payment_log();
-  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+  v24 = pk_Payment_log([(NPKContactlessPaymentSessionManagerTransactionContext *)self setAction:v44[3]]);
+  v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
 
-  if (v23)
+  if (v25)
   {
-    v24 = pk_Payment_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v27 = pk_Payment_log(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = *(v52 + 6);
-      v26 = [objc_opt_class() _NPKTransactionContextActionDescriptionForNPKTransactionContextAction:v42[3]];
-      v27 = v46[5];
-      v28 = v56[5];
+      v28 = *(v54 + 6);
+      v29 = [objc_opt_class() _NPKTransactionContextActionDescriptionForNPKTransactionContextAction:v44[3]];
+      v30 = v48[5];
+      v31 = v58[5];
       *buf = 67110146;
-      *v62 = v25;
-      *&v62[4] = 2112;
-      *&v62[6] = v15;
-      *&v62[14] = 2112;
-      *&v62[16] = v26;
-      *&v62[24] = 2112;
-      *&v62[26] = v27;
-      *&v62[34] = 2112;
-      *&v62[36] = v28;
-      _os_log_impl(&dword_25B300000, v24, OS_LOG_TYPE_DEFAULT, "Notice: Transaction complete context: got transaction type %d displayable pass Items %@ action %@ transactionDescription:%@ transactions:%@", buf, 0x30u);
+      *v64 = v28;
+      *&v64[4] = 2112;
+      *&v64[6] = v15;
+      *&v64[14] = 2112;
+      *&v64[16] = v29;
+      *&v64[24] = 2112;
+      *&v64[26] = v30;
+      *&v64[34] = 2112;
+      *&v64[36] = v31;
+      _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_DEFAULT, "Notice: Transaction complete context: got transaction type %d displayable pass Items %@ action %@ transactionDescription:%@ transactions:%@", buf, 0x30u);
     }
   }
 
-  _Block_object_dispose(&v41, 8);
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v47, 8);
 
-  _Block_object_dispose(&v51, 8);
-  _Block_object_dispose(&v55, 8);
-
-  v29 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v57, 8);
 }
 
 uint64_t __152__NPKContactlessPaymentSessionManagerTransactionContext_updateWithConcreteTransactions_ephemeralTransaction_updatedPassTransitItems_paymentApplication___block_invoke(uint64_t a1, void *a2)
@@ -164,73 +161,73 @@ void __152__NPKContactlessPaymentSessionManagerTransactionContext_updateWithConc
 {
   v40 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  v5 = pk_ui_log();
+  v5 = pk_ui_log(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_ui_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_ui_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [v4 transitType];
       v9 = [v4 transitType];
-      v10 = [v4 amount];
-      v11 = [v4 amounts];
+      v10 = [v4 transitType];
+      v11 = [v4 amount];
+      v12 = [v4 amounts];
       v30 = 138413314;
       v31 = v4;
       v32 = 2048;
-      v33 = v8;
+      v33 = v9;
       v34 = 2048;
-      v35 = v9;
+      v35 = v10;
       v36 = 2112;
-      v37 = v10;
+      v37 = v11;
       v38 = 2112;
-      v39 = v11;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKPaymentView: Evaluate transaction %@ with type:%ld transitSubtype:%ld amount:%@ amounts: %@ ", &v30, 0x34u);
+      v39 = v12;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKPaymentView: Evaluate transaction %@ with type:%ld transitSubtype:%ld amount:%@ amounts: %@ ", &v30, 0x34u);
     }
   }
 
   if ([v4 transactionType] == 2)
   {
-    v12 = [v4 transitType];
-    v13 = *(*(a1 + 40) + 8);
-    if (v12 == 1025)
+    v13 = [v4 transitType];
+    v14 = *(*(a1 + 40) + 8);
+    if (v13 == 1025)
     {
-      *(v13 + 24) = 1;
+      *(v14 + 24) = 1;
       if (([v4 enRoute] & 1) == 0)
       {
         *(*(*(a1 + 48) + 8) + 24) = 2;
       }
 
-      v14 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.NanoPassKitUI"];
-      v15 = v14;
-      v16 = @"TRANSIT_TRANSACTION_TITLE_GREEN_CAR";
+      v15 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.NanoPassKitUI"];
+      v16 = v15;
+      v17 = @"TRANSIT_TRANSACTION_TITLE_GREEN_CAR";
       goto LABEL_14;
     }
 
-    if (v12 == 257)
+    if (v13 == 257)
     {
-      *(v13 + 24) = 2;
+      *(v14 + 24) = 2;
       if (([v4 enRoute] & 1) == 0)
       {
         *(*(*(a1 + 48) + 8) + 24) = 2;
       }
 
-      v14 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.NanoPassKitUI"];
-      v15 = v14;
-      v16 = @"TRANSIT_TRANSACTION_TITLE_SHINKANSEN";
+      v15 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.NanoPassKitUI"];
+      v16 = v15;
+      v17 = @"TRANSIT_TRANSACTION_TITLE_SHINKANSEN";
 LABEL_14:
-      v17 = [v14 localizedStringForKey:v16 value:&stru_286C934F8 table:@"NanoPassKitUI-Transit"];
-      v18 = *(*(a1 + 56) + 8);
-      v19 = *(v18 + 40);
-      *(v18 + 40) = v17;
+      v18 = [v15 localizedStringForKey:v17 value:&stru_286C934F8 table:@"NanoPassKitUI-Transit"];
+      v19 = *(*(a1 + 56) + 8);
+      v20 = *(v19 + 40);
+      *(v19 + 40) = v18;
 
       goto LABEL_15;
     }
 
-    if (!*(v13 + 24))
+    if (!*(v14 + 24))
     {
-      *(v13 + 24) = 3;
+      *(v14 + 24) = 3;
     }
 
     v21 = [v4 amount];
@@ -289,24 +286,22 @@ LABEL_28:
   }
 
 LABEL_15:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forceToTransitTypeTransactionWithTransactionStatus:(unint64_t)status
 {
   v11 = *MEMORY[0x277D85DE8];
-  v5 = pk_General_log();
+  v5 = pk_General_log(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 134217984;
       statusCopy = status;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Requested forceToTransitTypeTransactionWithTransactionStatus:%lu", &v9, 0xCu);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Requested forceToTransitTypeTransactionWithTransactionStatus:%lu", &v9, 0xCu);
     }
   }
 
@@ -314,8 +309,6 @@ LABEL_15:
   {
     [(NPKContactlessPaymentSessionManagerTransactionContext *)self setTransactionStatus:qword_25B59A938[status]];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_NPKTransactionContextActionDescriptionForNPKTransactionContextAction:(unint64_t)action

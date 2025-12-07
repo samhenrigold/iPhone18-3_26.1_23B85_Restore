@@ -105,7 +105,7 @@
   v8 = v10;
   if (!v7)
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not create capture device input: %@");
   }
 
   return v7;
@@ -150,7 +150,7 @@
 
   else
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not create capture video data output with pixel format type: %@");
 
     v10 = 0;
   }
@@ -162,103 +162,117 @@
 {
   v3 = [(SCATCameraInputSource *)self _captureSessionWithPreset:AVCaptureSessionPreset640x480];
   v4 = [(SCATCameraInputSource *)self _captureDeviceInputWithPreset:AVCaptureSessionPreset640x480];
-  if ([v3 canAddInput:v4])
+  v5 = [v3 canAddInput:v4];
+  if (v5)
   {
     [v3 addInput:v4];
-    v5 = dispatch_queue_create("CaptureOutputQueue", 0);
-    [(SCATCameraInputSource *)self setCaptureOutputQueue:v5];
-    v6 = [(SCATCameraInputSource *)self _captureVideoDataOutputWithDelegate:self queue:v5 format:&off_1001E5538];
-    if ([v3 canAddOutput:v6])
+    v6 = dispatch_queue_create("CaptureOutputQueue", 0);
+    [(SCATCameraInputSource *)self setCaptureOutputQueue:v6];
+    v7 = [(SCATCameraInputSource *)self _captureVideoDataOutputWithDelegate:self queue:v6 format:&off_1001E5538];
+    v8 = [v3 canAddOutput:v7];
+    if (v8)
     {
-      [v3 addOutput:v6];
-      v7 = [v6 connectionWithMediaType:AVMediaTypeVideo];
-      if ([v7 isCameraIntrinsicMatrixDeliverySupported])
+      [v3 addOutput:v7];
+      v9 = [v7 connectionWithMediaType:AVMediaTypeVideo];
+      isCameraIntrinsicMatrixDeliverySupported = [v9 isCameraIntrinsicMatrixDeliverySupported];
+      if (isCameraIntrinsicMatrixDeliverySupported)
       {
-        [v7 setCameraIntrinsicMatrixDeliveryEnabled:1];
+        [v9 setCameraIntrinsicMatrixDeliveryEnabled:1];
       }
 
       else
       {
-        v30 = @"Camera intrinsics delivery is not supported";
-        LOBYTE(v29) = 1;
-        _AXLogWithFacility();
+        _AXLogWithFacility(isCameraIntrinsicMatrixDeliverySupported, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Camera intrinsics delivery is not supported");
       }
 
-      v8 = [(SCATCameraInputSource *)self _captureMetadataOutputWithDelegate:self queue:v5, v29, v30];
-      if ([v3 canAddOutput:v8] && (objc_msgSend(v3, "addOutput:", v8), objc_msgSend(v8, "availableMetadataObjectTypes"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "containsObject:", AVMetadataObjectTypeFace), v9, v10))
+      v11 = [(SCATCameraInputSource *)self _captureMetadataOutputWithDelegate:self queue:v6];
+      v12 = [v3 canAddOutput:v11];
+      if (v12)
       {
-        v33 = AVMetadataObjectTypeFace;
-        v11 = [NSArray arrayWithObjects:&v33 count:1];
-        [v8 setMetadataObjectTypes:v11];
+        [v3 addOutput:v11];
+        availableMetadataObjectTypes = [v11 availableMetadataObjectTypes];
+        v14 = [availableMetadataObjectTypes containsObject:AVMetadataObjectTypeFace];
 
-        [(SCATCameraInputSource *)self setCaptureSession:v3];
-        v12 = +[AXSettings sharedInstance];
-        assistiveTouchCameraSwitchPreviewEnabled = [v12 assistiveTouchCameraSwitchPreviewEnabled];
-
-        if (assistiveTouchCameraSwitchPreviewEnabled)
+        if (v14)
         {
-          v14 = [[UIView alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
-          v15 = +[UIColor magentaColor];
-          [v14 setBackgroundColor:v15];
+          v35 = AVMetadataObjectTypeFace;
+          v15 = [NSArray arrayWithObjects:&v35 count:1];
+          [v11 setMetadataObjectTypes:v15];
 
-          v16 = +[UIColor magentaColor];
-          v31 = v7;
-          cGColor = [v16 CGColor];
-          layer = [v14 layer];
-          v19 = cGColor;
-          v7 = v31;
-          [layer setBorderColor:v19];
+          [(SCATCameraInputSource *)self setCaptureSession:v3];
+          v16 = +[AXSettings sharedInstance];
+          assistiveTouchCameraSwitchPreviewEnabled = [v16 assistiveTouchCameraSwitchPreviewEnabled];
 
-          layer2 = [v14 layer];
-          [layer2 setBorderWidth:2.0];
+          if (assistiveTouchCameraSwitchPreviewEnabled)
+          {
+            v18 = [[UIView alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
+            v19 = +[UIColor magentaColor];
+            [v18 setBackgroundColor:v19];
 
-          layer3 = [v14 layer];
-          [layer3 setCornerRadius:5.0];
+            v20 = +[UIColor magentaColor];
+            v33 = v9;
+            cGColor = [v20 CGColor];
+            layer = [v18 layer];
+            v23 = cGColor;
+            v9 = v33;
+            [layer setBorderColor:v23];
 
-          layer4 = [v14 layer];
-          [layer4 setMasksToBounds:1];
+            layer2 = [v18 layer];
+            [layer2 setBorderWidth:2.0];
 
-          [v14 setTranslatesAutoresizingMaskIntoConstraints:0];
-          v32 = v14;
-          [(SCATCameraInputSource *)self setCaptureOutputPreview:v14];
-          v23 = [AVCaptureVideoPreviewLayer layerWithSession:v3];
-          [v23 setFrame:{0.0, 0.0, 120.0, 160.0}];
-          [(SCATCameraInputSource *)self setCaptureVideoPreviewLayer:v23];
-          layer5 = [v14 layer];
-          [layer5 addSublayer:v23];
+            layer3 = [v18 layer];
+            [layer3 setCornerRadius:5.0];
 
-          v25 = +[CALayer layer];
-          v26 = +[UIColor cyanColor];
-          [v25 setBorderColor:{objc_msgSend(v26, "CGColor")}];
+            layer4 = [v18 layer];
+            [layer4 setMasksToBounds:1];
 
-          [v25 setBorderWidth:2.0];
-          [v25 setCornerRadius:5.0];
-          [v25 setFrame:{0.0, 0.0, 120.0, 160.0}];
-          [v25 setHidden:1];
-          [(SCATCameraInputSource *)self setFaceLayer:v25];
-          layer6 = [v32 layer];
-          [layer6 addSublayer:v25];
+            [v18 setTranslatesAutoresizingMaskIntoConstraints:0];
+            v34 = v18;
+            [(SCATCameraInputSource *)self setCaptureOutputPreview:v18];
+            v27 = [AVCaptureVideoPreviewLayer layerWithSession:v3];
+            [v27 setFrame:{0.0, 0.0, 120.0, 160.0}];
+            [(SCATCameraInputSource *)self setCaptureVideoPreviewLayer:v27];
+            layer5 = [v18 layer];
+            [layer5 addSublayer:v27];
 
-          v28 = v32;
-          AXPerformBlockSynchronouslyOnMainThread();
+            v29 = +[CALayer layer];
+            v30 = +[UIColor cyanColor];
+            [v29 setBorderColor:{objc_msgSend(v30, "CGColor")}];
+
+            [v29 setBorderWidth:2.0];
+            [v29 setCornerRadius:5.0];
+            [v29 setFrame:{0.0, 0.0, 120.0, 160.0}];
+            [v29 setHidden:1];
+            [(SCATCameraInputSource *)self setFaceLayer:v29];
+            layer6 = [v34 layer];
+            [layer6 addSublayer:v29];
+
+            v32 = v34;
+            AXPerformBlockSynchronouslyOnMainThread();
+          }
+        }
+
+        else
+        {
+          _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not create capture session with metadata object type unavailable: %@");
         }
       }
 
       else
       {
-        _AXLogWithFacility();
+        _AXLogWithFacility(v12, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not add capture metadata output: %@, to capture session: %@");
       }
     }
 
     else
     {
-      _AXLogWithFacility();
+      _AXLogWithFacility(v8, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not add capture video data output: %@, to capture session: %@");
     }
   }
 
   else
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(v5, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not add capture device input: %@, to capture session: %@");
   }
 }
 
@@ -503,7 +517,7 @@ LABEL_10:
 
   else
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not lookup action with nil actions");
     v8 = 0;
   }
 

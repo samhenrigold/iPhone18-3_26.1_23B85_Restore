@@ -16,7 +16,7 @@
 {
   if (dword_27E3830F8 <= 800 && (dword_27E3830F8 != -1 || sub_23EB74AC8(&dword_27E3830F8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E3830F8, "[NetTopoAirPortDeviceLayer initNetTopoAirPortDeviceLayerCommonWithStyle:andOwningView:]", 800, "%@\n", v4, v5, v6, v7, self);
+    sub_23EB75374(&dword_27E3830F8, "[NetTopoAirPortDeviceLayer initNetTopoAirPortDeviceLayerCommonWithStyle:andOwningView:]", 800, "%@\n", self);
   }
 }
 
@@ -39,46 +39,46 @@
 {
   if (dword_27E3830F8 <= 800 && (dword_27E3830F8 != -1 || sub_23EB74AC8(&dword_27E3830F8, 0x320u)))
   {
-    sub_23EB75374(&dword_27E3830F8, "[NetTopoAirPortDeviceLayer dealloc]", 800, "%@\n", v2, v3, v4, v5, self);
+    sub_23EB75374(&dword_27E3830F8, "[NetTopoAirPortDeviceLayer dealloc]", 800, "%@\n", self);
   }
 
-  v7.receiver = self;
-  v7.super_class = NetTopoAirPortDeviceLayer;
-  [(NetTopoObjectLayer *)&v7 dealloc];
+  v3.receiver = self;
+  v3.super_class = NetTopoAirPortDeviceLayer;
+  [(NetTopoObjectLayer *)&v3 dealloc];
 }
 
 - (id)description
 {
-  v4 = objc_msgSend_associatedNode(self, a2, v2);
-  v7 = objc_msgSend_info(v4, v5, v6);
-  v9 = objc_msgSend_stringWithString_(MEMORY[0x277CCAB68], v8, &stru_285145FE8);
-  v10 = objc_opt_class();
-  Name = class_getName(v10);
-  v14 = objc_msgSend_retainCount(self, v12, v13);
-  v16 = objc_msgSend_objectForKey_(v7, v15, @"name");
-  v19 = objc_msgSend_row(self, v17, v18);
-  v22 = objc_msgSend_column(self, v20, v21);
-  objc_msgSend_appendFormat_(v9, v23, @"<%s: %p retains %d> ('%@' row=%d col=%d)", Name, self, v14, v16, v19, v22);
-  return v9;
+  v5 = objc_msgSend_associatedNode(self, a2, v2, v3);
+  v9 = objc_msgSend_info(v5, v6, v7, v8);
+  v12 = objc_msgSend_stringWithString_(MEMORY[0x277CCAB68], v10, &stru_285145FE8, v11);
+  v13 = objc_opt_class();
+  Name = class_getName(v13);
+  v18 = objc_msgSend_retainCount(self, v15, v16, v17);
+  v21 = objc_msgSend_objectForKey_(v9, v19, @"name", v20);
+  v25 = objc_msgSend_row(self, v22, v23, v24);
+  v29 = objc_msgSend_column(self, v26, v27, v28);
+  objc_msgSend_appendFormat_(v12, v30, @"<%s: %p retains %d> ('%@' row=%d col=%d)", v31, Name, self, v18, v21, v25, v29);
+  return v12;
 }
 
 - (id)debugDescription
 {
-  v4 = objc_msgSend_description(self, a2, v2);
-  if (objc_msgSend_parent(self, v5, v6))
+  v5 = objc_msgSend_description(self, a2, v2, v3);
+  if (objc_msgSend_parent(self, v6, v7, v8))
   {
-    v9 = objc_msgSend_parent(self, v7, v8);
-    objc_msgSend_appendFormat_(v4, v10, @" connected upstream through %@", v9);
-    v13 = objc_msgSend_parent(self, v11, v12);
-    if (objc_msgSend_parent(v13, v14, v15))
+    v12 = objc_msgSend_parent(self, v9, v10, v11);
+    objc_msgSend_appendFormat_(v5, v13, @" connected upstream through %@", v14, v12);
+    v18 = objc_msgSend_parent(self, v15, v16, v17);
+    if (objc_msgSend_parent(v18, v19, v20, v21))
     {
-      v18 = objc_msgSend_parent(self, v16, v17);
-      v21 = objc_msgSend_parent(v18, v19, v20);
-      objc_msgSend_appendFormat_(v4, v22, @" to device %@\n", v21);
+      v25 = objc_msgSend_parent(self, v22, v23, v24);
+      v29 = objc_msgSend_parent(v25, v26, v27, v28);
+      objc_msgSend_appendFormat_(v5, v30, @" to device %@\n", v31, v29);
     }
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)layoutSublayers
@@ -92,19 +92,19 @@
 {
   if (!self->super._topoStyle)
   {
-    v6 = objc_msgSend_associatedNode(self, a2, v3);
-    v9 = objc_msgSend_info(v6, v7, v8);
-    v17 = sub_23EB6A2C0(v9, v10, v11, v12, v13, v14, v15, v16);
-    v25 = sub_23EB6B128(v9, v18, v19, v20, v21, v22, v23, v24);
-    v33 = sub_23EB6A294(v9, v26, v27, v28, v29, v30, v31, v32);
-    v35 = objc_msgSend_imageForBaseStationWithProductID_subProductID_deviceKind_small_cropped_threeDee_(ImageStore, v34, v17, v25, v33, 0, 1, 1);
-    v37 = objc_msgSend_cgImageFromImage_forContentsScale_(ImageStore, v36, v35, scale);
-    objc_msgSend_setObjectImage_(self, v38, v37);
+    v7 = objc_msgSend_associatedNode(self, a2, v3, v4);
+    v11 = objc_msgSend_info(v7, v8, v9, v10);
+    v12 = sub_23EB6A2C0(v11);
+    v13 = sub_23EB6B128(v11);
+    v14 = sub_23EB6A294(v11);
+    v16 = objc_msgSend_imageForBaseStationWithProductID_subProductID_deviceKind_small_cropped_threeDee_(ImageStore, v15, v12, v13, v14, 0, 1, 1);
+    v19 = objc_msgSend_cgImageFromImage_forContentsScale_(ImageStore, v17, v16, v18, scale);
+    objc_msgSend_setObjectImage_(self, v20, v19, v21);
   }
 
-  v39.receiver = self;
-  v39.super_class = NetTopoAirPortDeviceLayer;
-  [(NetTopoObjectLayer *)&v39 pickCorrectImagesForContentsScale:scale];
+  v22.receiver = self;
+  v22.super_class = NetTopoAirPortDeviceLayer;
+  [(NetTopoObjectLayer *)&v22 pickCorrectImagesForContentsScale:scale];
 }
 
 - (void)setAssociatedNode:(id)node
@@ -118,35 +118,35 @@
 
   if (node)
   {
-    v6 = MEMORY[0x277CCACA8];
-    v7 = objc_msgSend_info(node, a2, node);
-    v9 = objc_msgSend_objectForKey_(v7, v8, @"name");
-    v11 = objc_msgSend_stringWithFormat_(v6, v10, @"%@", v9);
-    objc_msgSend_setLabel_(self, v12, v11);
-    if (objc_msgSend_configReadStatus(node, v13, v14) != 1)
+    v7 = MEMORY[0x277CCACA8];
+    v8 = objc_msgSend_info(node, a2, node, v3);
+    v11 = objc_msgSend_objectForKey_(v8, v9, @"name", v10);
+    v14 = objc_msgSend_stringWithFormat_(v7, v12, @"%@", v13, v11);
+    objc_msgSend_setLabel_(self, v15, v14, v16);
+    if (objc_msgSend_configReadStatus(node, v17, v18, v19) != 1)
     {
-      v17 = objc_msgSend_info(node, v15, v16);
-      v19 = objc_msgSend_objectForKey_(v17, v18, @"syAP");
-      v22 = objc_msgSend_integerValue(v19, v20, v21);
-      v25 = objc_msgSend_info(node, v23, v24);
-      v33 = sub_23EB6A294(v25, v26, v27, v28, v29, v30, v31, v32);
-      v34 = sub_23EB6CEE0(v22, v33, 0);
-      objc_msgSend_setSecondaryLabel_(self, v35, v34);
+      v23 = objc_msgSend_info(node, v20, v21, v22);
+      v26 = objc_msgSend_objectForKey_(v23, v24, @"syAP", v25);
+      v30 = objc_msgSend_integerValue(v26, v27, v28, v29);
+      v34 = objc_msgSend_info(node, v31, v32, v33);
+      v35 = sub_23EB6A294(v34);
+      v36 = sub_23EB6CEE0(v30, v35, 0);
+      objc_msgSend_setSecondaryLabel_(self, v37, v36, v38);
     }
 
-    objc_msgSend_contentsScale(self, v15, v16);
-    objc_msgSend_pickCorrectImagesForContentsScale_(self, v36, v37);
+    objc_msgSend_contentsScale(self, v20, v21, v22);
+    objc_msgSend_pickCorrectImagesForContentsScale_(self, v39, v40, v41);
   }
 
-  objc_msgSend_setNeedsLayout(self, a2, node);
+  objc_msgSend_setNeedsLayout(self, a2, node, v3);
 }
 
 - ($E32549A47AE6FE03C4AA404FAEB37148)getConnectionAttachmentLocations
 {
-  objc_msgSend_layoutSublayers(self, a3, v3);
-  v6.receiver = self;
-  v6.super_class = NetTopoAirPortDeviceLayer;
-  return [($E32549A47AE6FE03C4AA404FAEB37148 *)&v6 getConnectionAttachmentLocations];
+  objc_msgSend_layoutSublayers(self, a3, v3, v4);
+  v7.receiver = self;
+  v7.super_class = NetTopoAirPortDeviceLayer;
+  return [($E32549A47AE6FE03C4AA404FAEB37148 *)&v7 getConnectionAttachmentLocations];
 }
 
 @end

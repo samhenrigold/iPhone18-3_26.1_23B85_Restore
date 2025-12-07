@@ -16,6 +16,7 @@
 + (id)sharedPersistentContainerForModel:(id)model storeLocation:(id)location;
 + (id)sharedPersistentContainerForStoreLocation:(id)location;
 + (id)storeFileURLForLocation:(id)location;
++ (void)createModel;
 + (void)tagDatabaseAsSafeForProductionInContainer:(id)container;
 - (BOOL)createStoreDirectoryIfNeeded:(id *)needed;
 - (BOOL)performWorkWithManagedObjectContext:(id)context error:(id *)error;
@@ -290,7 +291,7 @@ uint64_t __67__CNContactPosterDataPersistentStoreManager_initWithStoreLocation__
 {
   v1 = [self description];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Failed to setup store: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Failed to setup store: %@", v4, v5, v6, v7);
 }
 
 void __58__CNContactPosterDataPersistentStoreManager_setupIfNeeded__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -732,32 +733,39 @@ LABEL_26:
   return v2;
 }
 
++ (void)createModel
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"CNContactMetadata";
+  OUTLINED_FUNCTION_2_1(&dword_1954A0000, self, a3, "Could not find model named %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __58__CNContactPosterDataPersistentStoreManager_setupIfNeeded__block_invoke_cold_1(void *a1)
 {
   v1 = [a1 description];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Failed to load persistent stores: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Failed to load persistent stores: %@", v4, v5, v6, v7);
 }
 
 + (void)performLightweightMigrationIfNeededWithStoreLocation:(void *)a1 error:.cold.1(void *a1)
 {
   v1 = [a1 description];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Did not perform migration, failed to load persistent stores: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Did not perform migration, failed to load persistent stores: %@", v4, v5, v6, v7);
 }
 
 + (void)performLightweightMigrationIfNeededWithStoreLocation:(void *)a1 error:.cold.2(void *a1)
 {
   v1 = [a1 description];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Failed to load persistent stores in a new empty database: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Failed to load persistent stores in a new empty database: %@", v4, v5, v6, v7);
 }
 
 + (void)performLightweightMigrationIfNeededWithStoreLocation:(void *)a1 error:.cold.4(void *a1)
 {
   v1 = [a1 description];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Did not perform migration, no store metadata found, %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_1954A0000, v2, v3, "Did not perform migration, no store metadata found, %@", v4, v5, v6, v7);
 }
 
 @end

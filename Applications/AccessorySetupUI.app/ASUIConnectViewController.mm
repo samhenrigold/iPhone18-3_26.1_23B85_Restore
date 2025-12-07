@@ -26,9 +26,9 @@
 - (_TtC16AccessorySetupUI25ASUIConnectViewController)initWithContentView:(id)view
 {
   viewCopy = view;
-  v5 = sub_100042FF4(view);
+  v6 = sub_100042FF4(view, v5);
 
-  return v5;
+  return v6;
 }
 
 - (void)presentationControllerWillDismiss:(id)dismiss

@@ -2,6 +2,7 @@
 - (BOOL)BOOLForKey:(id)key;
 - (BOOL)accessWithBlock:(id)block error:(id *)error;
 - (BOOL)mutateWithBlock:(id)block error:(id *)error;
+- (BOOL)setBool:(BOOL)bool forKey:(id)key;
 - (BOOL)setDouble:(double)double forKey:(id)key;
 - (BOOL)setFloat:(float)float forKey:(id)key;
 - (BOOL)setInteger:(int64_t)integer forKey:(id)key;
@@ -282,22 +283,22 @@ uint64_t __47__PFSQLiteKeyedArchiver_mutateWithBlock_error___block_invoke(uint64
   v15 = 0;
   v10 = [(PFSQLiteKeyedArchiver *)self mutateWithBlock:v16 error:&v15];
   v11 = v15;
+  v12 = v11;
   if (v11)
   {
-    v12 = PFLogCommon();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = PFLogCommon(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
       v20 = v8;
       v21 = 2114;
       v22 = v9;
       v23 = 2114;
-      v24 = v11;
-      _os_log_impl(&dword_1C269D000, v12, OS_LOG_TYPE_DEFAULT, "Unable to set value '%@' for key %{public}@ becasue error: %{public}@", buf, 0x20u);
+      v24 = v12;
+      _os_log_impl(&dword_1C269D000, v13, OS_LOG_TYPE_DEFAULT, "Unable to set value '%@' for key %{public}@ becasue error: %{public}@", buf, 0x20u);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -469,6 +470,22 @@ uint64_t __47__PFSQLiteKeyedArchiver_mutateWithBlock_error___block_invoke(uint64
 
   objc_sync_exit(selfCopy);
   return v8;
+}
+
+- (BOOL)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v8 = [_PFSQLiteKeyedArchiverTransaction alloc];
+  sqliteArchiver = selfCopy->_sqliteArchiver;
+  archiver = [(PFSQLiteKeyedArchiver *)selfCopy archiver];
+  v11 = [(_PFSQLiteKeyedArchiverTransaction *)v8 initWithPFSQLiteMutator:sqliteArchiver archiver:archiver];
+  LOBYTE(boolCopy) = [(_PFSQLiteKeyedArchiverTransaction *)v11 setBool:boolCopy forKey:keyCopy];
+
+  objc_sync_exit(selfCopy);
+  return boolCopy;
 }
 
 - (BOOL)setURL:(id)l forKey:(id)key

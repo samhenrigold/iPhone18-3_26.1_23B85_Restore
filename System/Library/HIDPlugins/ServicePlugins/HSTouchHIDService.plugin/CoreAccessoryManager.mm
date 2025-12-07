@@ -46,7 +46,7 @@
 
 - (void)dealloc
 {
-  v3 = MTLoggingPlugin();
+  v3 = MTLoggingPlugin(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -81,19 +81,19 @@
 
       if (queue)
       {
-        v5 = MTLoggingPlugin();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+        v7 = MTLoggingPlugin(v5, v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
           serialNumber2 = [(CoreAccessoryManager *)self serialNumber];
           *buf = 136315906;
-          v24 = "[Debug] ";
-          v25 = 2080;
-          v26 = "";
-          v27 = 2080;
-          v28 = "[CoreAccessoryManager registerForDeviceManagementMatching]";
-          v29 = 2114;
-          v30 = serialNumber2;
-          _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s [%{public}@] Registering for device mangement matching notifications", buf, 0x2Au);
+          v29 = "[Debug] ";
+          v30 = 2080;
+          v31 = "";
+          v32 = 2080;
+          v33 = "[CoreAccessoryManager registerForDeviceManagementMatching]";
+          v34 = 2114;
+          v35 = serialNumber2;
+          _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s [%{public}@] Registering for device mangement matching notifications", buf, 0x2Au);
         }
 
         p_dmMatchedIterator = &self->_dmMatchedIterator;
@@ -102,41 +102,42 @@
           [(CoreAccessoryManager *)self deregisterForDeviceManagementMatching];
         }
 
-        v37[0] = @"IOPropertyMatch";
-        v35 = @"SerialNumber";
+        v42[0] = @"IOPropertyMatch";
+        v40 = @"SerialNumber";
         serialNumber3 = [(CoreAccessoryManager *)self serialNumber];
-        v36 = serialNumber3;
-        v9 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-        v37[1] = @"IONameMatch";
-        v38[0] = v9;
-        v38[1] = @"AppleDeviceManagementHIDEventService";
-        v10 = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:2];
+        v41 = serialNumber3;
+        v11 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+        v42[1] = @"IONameMatch";
+        v43[0] = v11;
+        v43[1] = @"AppleDeviceManagementHIDEventService";
+        v12 = [NSDictionary dictionaryWithObjects:v43 forKeys:v42 count:2];
 
-        v11 = IONotificationPortCreate(kIOMainPortDefault);
-        self->_dmMatchedNotifierPortRef = v11;
-        if (v11)
+        v14 = IONotificationPortCreate(kIOMainPortDefault);
+        self->_dmMatchedNotifierPortRef = v14;
+        if (v14)
         {
-          v12 = IOServiceAddMatchingNotification(v11, "IOServiceFirstMatch", v10, _dmMatchedCallback, self, &self->_dmMatchedIterator);
-          if (v12 || !*p_dmMatchedIterator)
+          v15 = IOServiceAddMatchingNotification(v14, "IOServiceFirstMatch", v12, _dmMatchedCallback, self, &self->_dmMatchedIterator);
+          v17 = v15;
+          if (v15 || !*p_dmMatchedIterator)
           {
-            v13 = MTLoggingPlugin();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+            v18 = MTLoggingPlugin(v15, v16);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               serialNumber4 = [(CoreAccessoryManager *)self serialNumber];
-              v15 = *p_dmMatchedIterator;
+              v20 = *p_dmMatchedIterator;
               *buf = 136316418;
-              v24 = "[Error] ";
-              v25 = 2080;
-              v26 = "";
-              v27 = 2080;
-              v28 = "[CoreAccessoryManager registerForDeviceManagementMatching]";
-              v29 = 2114;
-              v30 = serialNumber4;
-              v31 = 1024;
-              v32 = v12;
-              v33 = 2048;
-              v34 = v15;
-              _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [%{public}@] Failed to create notification port: 0x%08x (deviceIterator: 0x%08jx)", buf, 0x3Au);
+              v29 = "[Error] ";
+              v30 = 2080;
+              v31 = "";
+              v32 = 2080;
+              v33 = "[CoreAccessoryManager registerForDeviceManagementMatching]";
+              v34 = 2114;
+              v35 = serialNumber4;
+              v36 = 1024;
+              v37 = v17;
+              v38 = 2048;
+              v39 = v20;
+              _os_log_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [%{public}@] Failed to create notification port: 0x%08x (deviceIterator: 0x%08jx)", buf, 0x3Au);
             }
 
             IONotificationPortDestroy(self->_dmMatchedNotifierPortRef);
@@ -145,19 +146,19 @@
 
           else
           {
-            v18 = MTLoggingPlugin();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+            v23 = MTLoggingPlugin(v15, v16);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
             {
               serialNumber5 = [(CoreAccessoryManager *)self serialNumber];
               *buf = 136315906;
-              v24 = "[Debug] ";
-              v25 = 2080;
-              v26 = "";
-              v27 = 2080;
-              v28 = "[CoreAccessoryManager registerForDeviceManagementMatching]";
-              v29 = 2114;
-              v30 = serialNumber5;
-              _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s [%{public}@] Successfully registered for device mangement matching notifications", buf, 0x2Au);
+              v29 = "[Debug] ";
+              v30 = 2080;
+              v31 = "";
+              v32 = 2080;
+              v33 = "[CoreAccessoryManager registerForDeviceManagementMatching]";
+              v34 = 2114;
+              v35 = serialNumber5;
+              _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s [%{public}@] Successfully registered for device mangement matching notifications", buf, 0x2Au);
             }
 
             [(CoreAccessoryManager *)self handleDeviceManagementMatching:self->_dmMatchedIterator];
@@ -169,19 +170,19 @@
 
         else
         {
-          v16 = MTLoggingPlugin();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v21 = MTLoggingPlugin(0, v13);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             serialNumber6 = [(CoreAccessoryManager *)self serialNumber];
             *buf = 136315906;
-            v24 = "[Error] ";
-            v25 = 2080;
-            v26 = "";
-            v27 = 2080;
-            v28 = "[CoreAccessoryManager registerForDeviceManagementMatching]";
-            v29 = 2114;
-            v30 = serialNumber6;
-            _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [%{public}@] Failed to create notification port for device", buf, 0x2Au);
+            v29 = "[Error] ";
+            v30 = 2080;
+            v31 = "";
+            v32 = 2080;
+            v33 = "[CoreAccessoryManager registerForDeviceManagementMatching]";
+            v34 = 2114;
+            v35 = serialNumber6;
+            _os_log_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [%{public}@] Failed to create notification port for device", buf, 0x2Au);
           }
         }
       }
@@ -195,7 +196,7 @@
 
 - (void)deregisterForDeviceManagementMatching
 {
-  v3 = MTLoggingPlugin();
+  v3 = MTLoggingPlugin(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     serialNumber = [(CoreAccessoryManager *)self serialNumber];
@@ -230,46 +231,46 @@
   v5 = IOIteratorNext(matching);
   if (v5)
   {
-    v6 = v5;
-    v7 = 0;
+    v7 = v5;
+    v8 = 0;
     do
     {
-      if (v7 >= 2)
+      if (v8 >= 2)
       {
-        v8 = MTLoggingPlugin();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v9 = MTLoggingPlugin(v5, v6);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           serialNumber = [(CoreAccessoryManager *)self serialNumber];
           *buf = 136315906;
-          v16 = "[Error] ";
-          v17 = 2080;
-          v18 = "";
+          v18 = "[Error] ";
           v19 = 2080;
-          v20 = "[CoreAccessoryManager handleDeviceManagementMatching:]";
-          v21 = 2114;
-          v22 = serialNumber;
-          _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [%{public}@] Found multiple device management services expected only one", buf, 0x2Au);
+          v20 = "";
+          v21 = 2080;
+          v22 = "[CoreAccessoryManager handleDeviceManagementMatching:]";
+          v23 = 2114;
+          v24 = serialNumber;
+          _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [%{public}@] Found multiple device management services expected only one", buf, 0x2Au);
         }
       }
 
       properties = 0xAAAAAAAAAAAAAAAALL;
-      v10 = IORegistryEntryCreateCFProperties(v6, &properties, kCFAllocatorDefault, 0);
-      v11 = properties;
-      if (v10 || !properties)
+      v11 = IORegistryEntryCreateCFProperties(v7, &properties, kCFAllocatorDefault, 0);
+      v13 = properties;
+      if (v11 || !properties)
       {
-        v12 = MTLoggingPlugin();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v14 = MTLoggingPlugin(v11, v12);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           serialNumber2 = [(CoreAccessoryManager *)self serialNumber];
           *buf = 136315906;
-          v16 = "[Error] ";
-          v17 = 2080;
-          v18 = "";
+          v18 = "[Error] ";
           v19 = 2080;
-          v20 = "[CoreAccessoryManager handleDeviceManagementMatching:]";
-          v21 = 2114;
-          v22 = serialNumber2;
-          _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [%{public}@] Failed to retrieve the properties from device management service", buf, 0x2Au);
+          v20 = "";
+          v21 = 2080;
+          v22 = "[CoreAccessoryManager handleDeviceManagementMatching:]";
+          v23 = 2114;
+          v24 = serialNumber2;
+          _os_log_impl(&dword_0, v14, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [%{public}@] Failed to retrieve the properties from device management service", buf, 0x2Au);
         }
       }
 
@@ -278,123 +279,125 @@
         [(CoreAccessoryManager *)self publishCoreAccessoryService:properties];
       }
 
-      IOObjectRelease(v6);
+      IOObjectRelease(v7);
 
-      v6 = IOIteratorNext(matching);
-      ++v7;
+      v5 = IOIteratorNext(matching);
+      v7 = v5;
+      ++v8;
     }
 
-    while (v6);
+    while (v5);
   }
 }
 
 - (void)publishCoreAccessoryService:(id)service
 {
   serviceCopy = service;
+  v6 = serviceCopy;
   if (self->_connectionUUID)
   {
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = MTLoggingPlugin(serviceCopy, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       serialNumber = [(CoreAccessoryManager *)self serialNumber];
       *buf = 136315906;
-      v27 = "[Debug] ";
-      v28 = 2080;
-      v29 = "";
-      v30 = 2080;
-      v31 = "[CoreAccessoryManager publishCoreAccessoryService:]";
-      v32 = 2114;
-      v33 = serialNumber;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s [%{public}@] Existing device has already been published - Unpublishing previous device first", buf, 0x2Au);
+      v35 = "[Debug] ";
+      v36 = 2080;
+      v37 = "";
+      v38 = 2080;
+      v39 = "[CoreAccessoryManager publishCoreAccessoryService:]";
+      v40 = 2114;
+      v41 = serialNumber;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s [%{public}@] Existing device has already been published - Unpublishing previous device first", buf, 0x2Au);
     }
 
     [(CoreAccessoryManager *)self unpublishCoreAccessoryService];
   }
 
-  v24 = -1431655766;
-  v25 = -1431655766;
-  v7 = [serviceCopy objectForKeyedSubscript:@"Transport"];
-  [(CoreAccessoryManager *)self accessoryConnectionInfoFromTransport:v7 connection:&v25 transport:&v24];
+  v32 = -1431655766;
+  v33 = -1431655766;
+  v9 = [v6 objectForKeyedSubscript:@"Transport"];
+  [(CoreAccessoryManager *)self accessoryConnectionInfoFromTransport:v9 connection:&v33 transport:&v32];
 
-  v8 = +[ACCTransportClient sharedClient];
-  v9 = v25;
+  v10 = +[ACCTransportClient sharedClient];
+  v11 = v33;
   serialNumber2 = [(CoreAccessoryManager *)self serialNumber];
-  v11 = [v8 createConnectionWithType:v9 andIdentifier:serialNumber2];
+  v13 = [v10 createConnectionWithType:v11 andIdentifier:serialNumber2];
 
-  if (v11)
+  if (v13)
   {
-    v12 = +[ACCTransportClient sharedClient];
-    v13 = [v12 createEndpointWithTransportType:v24 andProtocol:1 andIdentifier:0 andDataOutHandler:0 forConnectionWithUUID:v11 publishConnection:0];
+    v16 = +[ACCTransportClient sharedClient];
+    v17 = [v16 createEndpointWithTransportType:v32 andProtocol:1 andIdentifier:0 andDataOutHandler:0 forConnectionWithUUID:v13 publishConnection:0];
 
-    if (v13)
+    if (v17)
     {
-      v14 = [(CoreAccessoryManager *)self coreAccessoryServiceInfoFromProperties:serviceCopy];
-      v15 = +[ACCTransportClient sharedClient];
-      [v15 setAccessoryInfo:v14 forEndpointWithUUID:v13];
+      v20 = [(CoreAccessoryManager *)self coreAccessoryServiceInfoFromProperties:v6];
+      v21 = +[ACCTransportClient sharedClient];
+      [v21 setAccessoryInfo:v20 forEndpointWithUUID:v17];
 
-      v16 = +[ACCTransportClient sharedClient];
-      [v16 publishConnectionWithUUID:v11];
+      v22 = +[ACCTransportClient sharedClient];
+      [v22 publishConnectionWithUUID:v13];
 
-      v17 = [v14 copy];
+      v23 = [v20 copy];
       publishedAccessoryInfo = self->_publishedAccessoryInfo;
-      self->_publishedAccessoryInfo = v17;
+      self->_publishedAccessoryInfo = v23;
 
-      objc_storeStrong(&self->_connectionUUID, v11);
-      v19 = MTLoggingPlugin();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      objc_storeStrong(&self->_connectionUUID, v13);
+      v27 = MTLoggingPlugin(v25, v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         serialNumber3 = [(CoreAccessoryManager *)self serialNumber];
-        v21 = [v14 objectForKeyedSubscript:kACCInfo_Name];
+        v29 = [v20 objectForKeyedSubscript:kACCInfo_Name];
         *buf = 136316418;
-        v27 = "";
-        v28 = 2080;
-        v29 = "";
-        v30 = 2080;
-        v31 = "[CoreAccessoryManager publishCoreAccessoryService:]";
-        v32 = 2114;
-        v33 = serialNumber3;
-        v34 = 2114;
-        v35 = v21;
-        v36 = 2114;
-        v37 = v11;
-        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s [%{public}@] Published device %{public}@ with connection UUID %{public}@", buf, 0x3Eu);
+        v35 = "";
+        v36 = 2080;
+        v37 = "";
+        v38 = 2080;
+        v39 = "[CoreAccessoryManager publishCoreAccessoryService:]";
+        v40 = 2114;
+        v41 = serialNumber3;
+        v42 = 2114;
+        v43 = v29;
+        v44 = 2114;
+        v45 = v13;
+        _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s [%{public}@] Published device %{public}@ with connection UUID %{public}@", buf, 0x3Eu);
       }
     }
 
     else
     {
-      v14 = MTLoggingPlugin();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v20 = MTLoggingPlugin(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         serialNumber4 = [(CoreAccessoryManager *)self serialNumber];
         *buf = 136315906;
-        v27 = "[Error] ";
-        v28 = 2080;
-        v29 = "";
-        v30 = 2080;
-        v31 = "[CoreAccessoryManager publishCoreAccessoryService:]";
-        v32 = 2114;
-        v33 = serialNumber4;
-        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [%{public}@] Could not create CoreAccessory endpoint", buf, 0x2Au);
+        v35 = "[Error] ";
+        v36 = 2080;
+        v37 = "";
+        v38 = 2080;
+        v39 = "[CoreAccessoryManager publishCoreAccessoryService:]";
+        v40 = 2114;
+        v41 = serialNumber4;
+        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [%{public}@] Could not create CoreAccessory endpoint", buf, 0x2Au);
       }
     }
   }
 
   else
   {
-    v13 = MTLoggingPlugin();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v17 = MTLoggingPlugin(v14, v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       serialNumber5 = [(CoreAccessoryManager *)self serialNumber];
       *buf = 136315906;
-      v27 = "[Error] ";
-      v28 = 2080;
-      v29 = "";
-      v30 = 2080;
-      v31 = "[CoreAccessoryManager publishCoreAccessoryService:]";
-      v32 = 2114;
-      v33 = serialNumber5;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [%{public}@] Could not create CoreAccessory connection", buf, 0x2Au);
+      v35 = "[Error] ";
+      v36 = 2080;
+      v37 = "";
+      v38 = 2080;
+      v39 = "[CoreAccessoryManager publishCoreAccessoryService:]";
+      v40 = 2114;
+      v41 = serialNumber5;
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [%{public}@] Could not create CoreAccessory connection", buf, 0x2Au);
     }
   }
 }
@@ -403,7 +406,7 @@
 {
   if (self->_connectionUUID)
   {
-    v3 = MTLoggingPlugin();
+    v3 = MTLoggingPlugin(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       serialNumber = [(CoreAccessoryManager *)self serialNumber];
@@ -433,8 +436,8 @@
 {
   propertiesCopy = properties;
   v4 = [propertiesCopy mutableCopy];
-  v23 = [v4 objectForKeyedSubscript:@"MTFW Version"];
-  if (!v23 || ![v23 intValue])
+  v25 = [v4 objectForKeyedSubscript:@"MTFW Version"];
+  if (!v25 || ![v25 intValue])
   {
     driverFirmwareVersion = [(CoreAccessoryManager *)self driverFirmwareVersion];
 
@@ -446,110 +449,110 @@
 
     else
     {
-      v7 = MTLoggingPlugin();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = MTLoggingPlugin(v6, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         serialNumber = [(CoreAccessoryManager *)self serialNumber];
         *buf = 136315906;
-        v36 = "[Error] ";
-        v37 = 2080;
-        v38 = "";
+        v38 = "[Error] ";
         v39 = 2080;
-        v40 = "[CoreAccessoryManager coreAccessoryServiceInfoFromProperties:]";
-        v41 = 2114;
-        v42 = serialNumber;
-        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [%{public}@] Failed to determine MTFW version", buf, 0x2Au);
+        v40 = "";
+        v41 = 2080;
+        v42 = "[CoreAccessoryManager coreAccessoryServiceInfoFromProperties:]";
+        v43 = 2114;
+        v44 = serialNumber;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [%{public}@] Failed to determine MTFW version", buf, 0x2Au);
       }
 
       [v4 setObject:&off_112470 forKeyedSubscript:@"MTFW Version"];
     }
   }
 
-  v24 = [v4 objectForKeyedSubscript:@"SerialNumber"];
-  v25 = [v4 objectForKeyedSubscript:@"Product"];
-  v26 = [v4 objectForKeyedSubscript:@"Manufacturer"];
-  v9 = [v4 objectForKeyedSubscript:@"HardwareID"];
-  v22 = v9;
-  if (v9)
+  v26 = [v4 objectForKeyedSubscript:@"SerialNumber"];
+  v27 = [v4 objectForKeyedSubscript:@"Product"];
+  v28 = [v4 objectForKeyedSubscript:@"Manufacturer"];
+  v11 = [v4 objectForKeyedSubscript:@"HardwareID"];
+  v24 = v11;
+  if (v11)
   {
-    v27 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%04X", [v9 unsignedIntegerValue]);
+    v29 = [NSString stringWithFormat:@"%04X", objc_msgSend_unsignedIntegerValue(v11)];
   }
 
   else
   {
-    v27 = &stru_10DCA8;
+    v29 = &stru_10DCA8;
   }
 
-  v10 = [NSMutableString stringWithCapacity:20];
+  v12 = [NSMutableString stringWithCapacity:20];
+  v32 = 0u;
+  v33 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v11 = [&off_112BF8 countByEnumeratingWithState:&v28 objects:v34 count:16];
-  if (v11)
+  v13 = [&off_112BF8 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  if (v13)
   {
-    v12 = *v29;
+    v14 = *v31;
     do
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v13; i = i + 1)
       {
-        if (*v29 != v12)
+        if (*v31 != v14)
         {
           objc_enumerationMutation(&off_112BF8);
         }
 
-        v14 = [v4 objectForKeyedSubscript:*(*(&v28 + 1) + 8 * i)];
-        if (v14)
+        v16 = [v4 objectForKeyedSubscript:*(*(&v30 + 1) + 8 * i)];
+        if (v16)
         {
-          if ([v10 length])
+          if ([v12 length])
           {
-            [v10 appendString:@"."];
+            [v12 appendString:@"."];
           }
 
-          v15 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%04X", [v14 unsignedIntegerValue]);
-          [v10 appendString:v15];
+          v17 = [NSString stringWithFormat:@"%04X", objc_msgSend_unsignedIntegerValue(v16)];
+          [v12 appendString:v17];
         }
       }
 
-      v11 = [&off_112BF8 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v13 = [&off_112BF8 countByEnumeratingWithState:&v30 objects:v36 count:16];
     }
 
-    while (v11);
+    while (v13);
   }
 
-  v16 = v25;
-  if (!v25)
-  {
-    v16 = &stru_10DCA8;
-  }
-
-  v32[0] = kACCInfo_Name;
-  v32[1] = kACCInfo_Manufacturer;
-  v17 = @"Apple Inc.";
-  if (v26)
-  {
-    v17 = v26;
-  }
-
-  v33[0] = v16;
-  v33[1] = v17;
-  v18 = v24;
-  if (!v24)
+  v18 = v27;
+  if (!v27)
   {
     v18 = &stru_10DCA8;
   }
 
-  v32[2] = kACCInfo_SerialNumber;
-  v32[3] = kACCInfo_FirmwareVersionActive;
-  v33[2] = v18;
-  v33[3] = v10;
-  v32[4] = kACCInfo_HardwareVersion;
-  v32[5] = kACCInfo_Model;
-  v33[4] = v27;
-  v33[5] = &stru_10DCA8;
-  v19 = [NSDictionary dictionaryWithObjects:v33 forKeys:v32 count:6];
+  v34[0] = kACCInfo_Name;
+  v34[1] = kACCInfo_Manufacturer;
+  v19 = @"Apple Inc.";
+  if (v28)
+  {
+    v19 = v28;
+  }
 
-  return v19;
+  v35[0] = v18;
+  v35[1] = v19;
+  v20 = v26;
+  if (!v26)
+  {
+    v20 = &stru_10DCA8;
+  }
+
+  v34[2] = kACCInfo_SerialNumber;
+  v34[3] = kACCInfo_FirmwareVersionActive;
+  v35[2] = v20;
+  v35[3] = v12;
+  v34[4] = kACCInfo_HardwareVersion;
+  v34[5] = kACCInfo_Model;
+  v35[4] = v29;
+  v35[5] = &stru_10DCA8;
+  v21 = [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:6];
+
+  return v21;
 }
 
 - (void)accessoryConnectionInfoFromTransport:(id)transport connection:(int *)connection transport:(int *)a5

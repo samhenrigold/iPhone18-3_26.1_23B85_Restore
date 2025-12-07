@@ -26,7 +26,7 @@
     if (v6)
     {
       v8 = [NUImageGeometry alloc];
-      [(NUImageGeometry *)v7 extent];
+      objc_msgSend_extent(v7);
       v20.origin.x = v9;
       v20.origin.y = v10;
       v20.size.width = v11;

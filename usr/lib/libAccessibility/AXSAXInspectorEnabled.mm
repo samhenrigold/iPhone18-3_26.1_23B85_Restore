@@ -3,7 +3,7 @@
 
 @implementation AXSAXInspectorEnabled
 
-uint64_t ___AXSAXInspectorEnabled_block_invoke()
+void *___AXSAXInspectorEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

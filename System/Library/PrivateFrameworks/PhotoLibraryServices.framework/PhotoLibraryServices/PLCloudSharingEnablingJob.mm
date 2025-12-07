@@ -181,13 +181,13 @@ void __42__PLCloudSharingEnablingJob_runDaemonSide__block_invoke(uint64_t a1)
   managedObjectContext = [libraryCopy managedObjectContext];
   v11 = [(PLShare *)PLCollectionShare sharesWithPredicate:v9 fetchLimit:0 inManagedObjectContext:managedObjectContext];
 
-  if ([v11 count])
+  if (objc_msgSend_count(v11))
   {
     v12 = PLPhotoSharingGetLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v39 = [v11 count];
+      v39 = objc_msgSend_count(v11);
       _os_log_impl(&dword_19BF1F000, v12, OS_LOG_TYPE_DEFAULT, "PLCloudSharingEnablingJob will delete all %lu sharedstream collection shares", buf, 0xCu);
     }
 
@@ -215,12 +215,12 @@ void __42__PLCloudSharingEnablingJob_runDaemonSide__block_invoke(uint64_t a1)
   }
 
   v18 = [PLCloudSharedAlbum allCloudSharedAlbumsInLibrary:libraryCopy];
-  if ([v18 count])
+  if (objc_msgSend_count(v18))
   {
     v19 = PLPhotoSharingGetLog();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = [v18 count];
+      v20 = objc_msgSend_count(v18);
       *buf = 134217984;
       v39 = v20;
       _os_log_impl(&dword_19BF1F000, v19, OS_LOG_TYPE_DEFAULT, "PLCloudSharingEnablingJob will delete all %lu shared albums", buf, 0xCu);
@@ -250,12 +250,12 @@ void __42__PLCloudSharingEnablingJob_runDaemonSide__block_invoke(uint64_t a1)
   }
 
   v26 = [PLManagedAsset allCloudSharedAssetsInLibrary:libraryCopy];
-  if ([v26 count])
+  if (objc_msgSend_count(v26))
   {
     v27 = PLPhotoSharingGetLog();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = [v26 count];
+      v28 = objc_msgSend_count(v26);
       *buf = 134217984;
       v39 = v28;
       _os_log_impl(&dword_19BF1F000, v27, OS_LOG_TYPE_DEFAULT, "PLCloudSharingEnablingJob will delete all %lu orphaned shared assets", buf, 0xCu);
@@ -444,17 +444,17 @@ void __94__PLCloudSharingEnablingJob_deleteAllLocalSharedAlbumsInLibrary_keepPen
   [(PLCloudFeedEntriesManager *)v33 rebuildAllEntries:0];
 }
 
-void __75__PLCloudSharingEnablingJob_disableCloudSharingWithLibraryServicesManager___block_invoke(uint64_t a1)
+void __75__PLCloudSharingEnablingJob_disableCloudSharingWithLibraryServicesManager___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PLPhotoSharingGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PLPhotoSharingGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "PLCloudSharingEnablingJob deleting all shared albums and assets while disabling", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "PLCloudSharingEnablingJob deleting all shared albums and assets while disabling", v5, 2u);
   }
 
-  v3 = [PLAssetTransactionReason transactionReason:@"[PLCloudSharingEnablingJob]Deleting all shared albums and assets while disabling"];
-  [PLCloudSharingEnablingJob deleteAllLocalSharedAlbumsInLibrary:*(a1 + 32) keepPendingAlbums:0 withReason:v3];
+  v4 = [PLAssetTransactionReason transactionReason:@"[PLCloudSharingEnablingJob]Deleting all shared albums and assets while disabling"];
+  [PLCloudSharingEnablingJob deleteAllLocalSharedAlbumsInLibrary:*(a1 + 32) keepPendingAlbums:0 withReason:v4];
 }
 
 + (void)enableCloudSharing:(BOOL)sharing withPathManager:(id)manager

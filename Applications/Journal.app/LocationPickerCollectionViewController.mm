@@ -29,7 +29,7 @@
 - (void)viewIsAppearing:(BOOL)appearing
 {
   selfCopy = self;
-  sub_1006DD318(appearing);
+  sub_1006DD318(appearing, v4);
 }
 
 - (void)viewDidAppear:(BOOL)appear

@@ -45,16 +45,16 @@
 
 + (void)storeFollowUpDismissalWithDeviceSerial:(id)serial
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   serialCopy = serial;
-  v5 = _NDOLogSystem();
+  v5 = _NDOLogSystem(serialCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136446467;
-    v17 = "+[NDOFollowUpDismissalTracker storeFollowUpDismissalWithDeviceSerial:]";
-    v18 = 2113;
-    v19 = serialCopy;
-    _os_log_impl(&dword_25BD52000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s - Storing follow up dismissal by user %{private}@ ", &v16, 0x16u);
+    v15 = 136446467;
+    v16 = "+[NDOFollowUpDismissalTracker storeFollowUpDismissalWithDeviceSerial:]";
+    v17 = 2113;
+    v18 = serialCopy;
+    _os_log_impl(&dword_25BD52000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s - Storing follow up dismissal by user %{private}@ ", &v15, 0x16u);
   }
 
   _dismissedSerialNumberHashes = [self _dismissedSerialNumberHashes];
@@ -73,20 +73,18 @@
   standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   date = [MEMORY[0x277CBEAA8] date];
   [standardUserDefaults2 setObject:date forKey:v12];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)eraseFollowUpDismissalForDeviceSerial:(id)serial
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   serialCopy = serial;
-  v5 = _NDOLogSystem();
+  v5 = _NDOLogSystem(serialCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136446210;
-    v16 = "+[NDOFollowUpDismissalTracker eraseFollowUpDismissalForDeviceSerial:]";
-    _os_log_impl(&dword_25BD52000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s - Erasing follow up dismissal for device", &v15, 0xCu);
+    v14 = 136446210;
+    v15 = "+[NDOFollowUpDismissalTracker eraseFollowUpDismissalForDeviceSerial:]";
+    _os_log_impl(&dword_25BD52000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s - Erasing follow up dismissal for device", &v14, 0xCu);
   }
 
   _dismissedSerialNumberHashes = [self _dismissedSerialNumberHashes];
@@ -105,25 +103,21 @@
 
   standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   [standardUserDefaults2 removeObjectForKey:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (void)eraseAllFollowUpDismissals
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = _NDOLogSystem();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = _NDOLogSystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446210;
-    v6 = "+[NDOFollowUpDismissalTracker eraseAllFollowUpDismissals]";
-    _os_log_impl(&dword_25BD52000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s - Erasing all follow up dismissals", &v5, 0xCu);
+    v4 = 136446210;
+    v5 = "+[NDOFollowUpDismissalTracker eraseAllFollowUpDismissals]";
+    _os_log_impl(&dword_25BD52000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s - Erasing all follow up dismissals", &v4, 0xCu);
   }
 
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   [standardUserDefaults removeObjectForKey:@"FollowupDismissedSerialNumberHashes"];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)followUpIsDismissedForSerial:(id)serial
@@ -134,17 +128,16 @@
   sha256Hash = [serialCopy sha256Hash];
 
   v7 = [_dismissedSerialNumberHashes containsObject:sha256Hash];
-  v8 = _NDOLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _NDOLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 136446466;
     v12 = "+[NDOFollowUpDismissalTracker followUpIsDismissedForSerial:]";
     v13 = 1024;
     v14 = v7;
-    _os_log_impl(&dword_25BD52000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s - isDismissedByUser: %d", &v11, 0x12u);
+    _os_log_impl(&dword_25BD52000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s - isDismissedByUser: %d", &v11, 0x12u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

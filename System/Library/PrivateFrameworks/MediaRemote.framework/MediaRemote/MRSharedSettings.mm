@@ -98,7 +98,7 @@ void __35__MRSharedSettings_currentSettings__block_invoke()
   if (v2)
   {
 
-    LOBYTE(v2) = MRSupportsSystemUIActivities();
+    LOBYTE(v2) = MRSupportsSystemUIActivities(v2, v3);
   }
 
   return v2;

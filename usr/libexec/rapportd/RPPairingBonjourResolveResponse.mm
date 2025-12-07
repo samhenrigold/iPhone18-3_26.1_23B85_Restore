@@ -22,14 +22,13 @@
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, self + OBJC_IVAR____TtC8rapportd31RPPairingBonjourResolveResponse_bonjourServiceID, v3);
-  v8.super.isa = UUID._bridgeToObjectiveC()().super.isa;
-  (*(v4 + 8))(v7, v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6, self + OBJC_IVAR____TtC8rapportd31RPPairingBonjourResolveResponse_bonjourServiceID, v3);
+  v7.super.isa = UUID._bridgeToObjectiveC()().super.isa;
+  (*(v4 + 8))(v6, v3);
 
-  return v8.super.isa;
+  return v7.super.isa;
 }
 
 - (_TtC8rapportd31RPPairingBonjourResolveResponse)initWithServerPublicKey:(id)key bonjourServiceID:(id)d
@@ -37,24 +36,23 @@
   ObjectType = swift_getObjectType();
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   keyCopy = key;
   dCopy = d;
-  v15 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v17 = v16;
+  v14 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v16 = v15;
 
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v18 = (self + OBJC_IVAR____TtC8rapportd31RPPairingBonjourResolveResponse_serverPublicKey);
-  *v18 = v15;
-  v18[1] = v17;
-  (*(v9 + 16))(self + OBJC_IVAR____TtC8rapportd31RPPairingBonjourResolveResponse_bonjourServiceID, v12, v8);
-  v21.receiver = self;
-  v21.super_class = ObjectType;
-  v19 = [(RPPairingBonjourResolveResponse *)&v21 init];
-  (*(v9 + 8))(v12, v8);
-  return v19;
+  v17 = (self + OBJC_IVAR____TtC8rapportd31RPPairingBonjourResolveResponse_serverPublicKey);
+  *v17 = v14;
+  v17[1] = v16;
+  (*(v9 + 16))(self + OBJC_IVAR____TtC8rapportd31RPPairingBonjourResolveResponse_bonjourServiceID, v11, v8);
+  v20.receiver = self;
+  v20.super_class = ObjectType;
+  v18 = [(RPPairingBonjourResolveResponse *)&v20 init];
+  (*(v9 + 8))(v11, v8);
+  return v18;
 }
 
 - (_TtC8rapportd31RPPairingBonjourResolveResponse)init

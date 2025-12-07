@@ -212,14 +212,13 @@
 {
   impl = self->_impl;
   v3 = dispatch_get_global_queue(0, 0);
-  v4 = impl[5];
-  v5 = impl[6];
-  if (v5)
+  v4 = impl[6];
+  if (v4)
   {
-    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6 = v3;
+  v5 = v3;
   operator new();
 }
 

@@ -230,35 +230,35 @@ uint64_t __44__MUPlaceRibbonView__visibleRibbonItemViews__block_invoke(uint64_t 
 
 - (void)_updateAppearance
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   self->_totalContentWidth = 40.0;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = self->_viewModels;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     v7 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(MUPlaceRibbonItemView *)self->_sizingView setViewModel:*(*(&v15 + 1) + 8 * i), v15];
+        [(MUPlaceRibbonItemView *)self->_sizingView setViewModel:*(*(&v14 + 1) + 8 * i), v14];
         [(UIView *)self->_sizingView _mapsui_fittingSize];
         v7 = fmax(v9, v7);
         self->_totalContentWidth = self->_totalContentWidth + v10;
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v5);
@@ -275,16 +275,14 @@ uint64_t __44__MUPlaceRibbonView__visibleRibbonItemViews__block_invoke(uint64_t 
     self->_totalContentWidth = self->_totalContentWidth + v11 * ([(NSArray *)self->_viewModels count]- 1);
   }
 
-  [(NSLayoutConstraint *)self->_heightConstraint setConstant:v7, v15];
+  [(NSLayoutConstraint *)self->_heightConstraint setConstant:v7, v14];
   v12 = objc_alloc_init(MEMORY[0x1E69955A0]);
-  v19 = @"PlaceRibbonSection";
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
+  v18 = @"PlaceRibbonSection";
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
   [v12 appendSectionsWithIdentifiers:v13];
 
   [v12 appendItemsWithIdentifiers:self->_viewModels intoSectionWithIdentifier:@"PlaceRibbonSection"];
   [(UICollectionViewDiffableDataSource *)self->_diffableDataSource applySnapshot:v12 animatingDifferences:0];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setViewModels:(id)models
@@ -302,7 +300,7 @@ uint64_t __44__MUPlaceRibbonView__visibleRibbonItemViews__block_invoke(uint64_t 
 
 - (void)_setupCollectionView
 {
-  v42[5] = *MEMORY[0x1E69E9840];
+  v41[5] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   viewModels = self->_viewModels;
   self->_viewModels = v3;
@@ -314,10 +312,10 @@ uint64_t __44__MUPlaceRibbonView__visibleRibbonItemViews__block_invoke(uint64_t 
   [(UICollectionViewFlowLayout *)v5 setMinimumInteritemSpacing:0.0];
   flowLayout = self->_flowLayout;
   self->_flowLayout = v5;
-  v41 = v5;
+  v40 = v5;
 
   v7 = objc_alloc(MEMORY[0x1E69DC7F0]);
-  v8 = [v7 initWithFrame:v41 collectionViewLayout:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+  v8 = [v7 initWithFrame:v40 collectionViewLayout:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
   contentCollectionView = self->_contentCollectionView;
   self->_contentCollectionView = v8;
 
@@ -349,29 +347,27 @@ uint64_t __44__MUPlaceRibbonView__visibleRibbonItemViews__block_invoke(uint64_t 
   heightConstraint = self->_heightConstraint;
   self->_heightConstraint = v23;
 
-  v35 = MEMORY[0x1E696ACD8];
+  v34 = MEMORY[0x1E696ACD8];
   leadingAnchor = [(UICollectionView *)v21 leadingAnchor];
   leadingAnchor2 = [(MUPlaceRibbonView *)self leadingAnchor];
-  v38 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v42[0] = v38;
+  v37 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v41[0] = v37;
   trailingAnchor = [(UICollectionView *)v21 trailingAnchor];
   trailingAnchor2 = [(MUPlaceRibbonView *)self trailingAnchor];
   v25 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v42[1] = v25;
+  v41[1] = v25;
   topAnchor = [(UICollectionView *)v21 topAnchor];
   topAnchor2 = [(MUPlaceRibbonView *)self topAnchor];
   v28 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v42[2] = v28;
+  v41[2] = v28;
   bottomAnchor = [(UICollectionView *)v21 bottomAnchor];
   bottomAnchor2 = [(MUPlaceRibbonView *)self bottomAnchor];
   v31 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
   v32 = self->_heightConstraint;
-  v42[3] = v31;
-  v42[4] = v32;
-  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:5];
-  [v35 activateConstraints:v33];
-
-  v34 = *MEMORY[0x1E69E9840];
+  v41[3] = v31;
+  v41[4] = v32;
+  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:5];
+  [v34 activateConstraints:v33];
 }
 
 - (MUPlaceRibbonView)initWithFrame:(CGRect)frame

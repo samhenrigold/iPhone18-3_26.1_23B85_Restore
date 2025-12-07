@@ -2300,9 +2300,11 @@ void __137__PHAssetExportRequest_handleResultWithFileURLs_cancelled_withError_fo
 
 uint64_t __38__PHAssetExportRequest_assetExportLog__block_invoke()
 {
-  assetExportLog_assetExportLog = os_log_create("com.apple.photos", "PHAssetExportRequest");
+  v0 = os_log_create("com.apple.photos", "PHAssetExportRequest");
+  v1 = assetExportLog_assetExportLog;
+  assetExportLog_assetExportLog = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (BOOL)errorIsLowDiskSpaceRelated:(id)related

@@ -12,7 +12,7 @@
 
 - (TestTelemetry)initWithInfo:(id)info
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = infoCopy;
   if (infoCopy)
@@ -29,9 +29,9 @@
 
       if (v9 | v11 && ([v9 intValue] || objc_msgSend(v11, "intValue")))
       {
-        v22.receiver = self;
-        v22.super_class = TestTelemetry;
-        v12 = [(TestTelemetry *)&v22 init];
+        v21.receiver = self;
+        v21.super_class = TestTelemetry;
+        v12 = [(TestTelemetry *)&v21 init];
         if (v12)
         {
           if (v9)
@@ -55,9 +55,9 @@
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v24 = v12;
-          v25 = 2112;
-          v26 = v5;
+          v23 = v12;
+          v24 = 2112;
+          v25 = v5;
           _os_log_impl(&dword_1BA7F1000, v17, OS_LOG_TYPE_DEFAULT, "initialized TestTelemetry: %@, info: %@", buf, 0x16u);
         }
 
@@ -71,7 +71,7 @@
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v24 = v5;
+          v23 = v5;
           _os_log_error_impl(&dword_1BA7F1000, v19, OS_LOG_TYPE_ERROR, "Invalid test parameters: %@", buf, 0xCu);
         }
 
@@ -85,7 +85,7 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v24 = "[TestTelemetry initWithInfo:]";
+        v23 = "[TestTelemetry initWithInfo:]";
         _os_log_error_impl(&dword_1BA7F1000, v9, OS_LOG_TYPE_ERROR, "[%s] no test parameters in info", buf, 0xCu);
       }
 
@@ -98,7 +98,6 @@
     selfCopy = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -194,7 +193,7 @@ uint64_t __28__TestTelemetry_addDeletes___block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __24__TestTelemetry_deletes__block_invoke(uint64_t a1)
+void *__24__TestTelemetry_deletes__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) files_deleted];
   *(*(*(a1 + 40) + 8) + 24) = result;

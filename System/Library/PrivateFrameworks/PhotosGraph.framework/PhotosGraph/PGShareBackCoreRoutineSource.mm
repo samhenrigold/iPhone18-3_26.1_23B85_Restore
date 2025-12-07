@@ -58,32 +58,32 @@ LABEL_6:
 
 - (id)suggesterResultsForInputs:(id)inputs momentNodes:(id)nodes inGraph:(id)graph error:(id *)error
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   inputsCopy = inputs;
   nodesCopy = nodes;
   selfCopy = self;
   loggingConnection = [(PGShareBackSource *)self loggingConnection];
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
   v11 = inputsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v64 objects:v74 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v63 objects:v73 count:16];
   oslog = loggingConnection;
   if (v12)
   {
     v13 = v12;
-    v14 = *v65;
+    v14 = *v64;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v65 != v14)
+        if (*v64 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v64 + 1) + 8 * i);
+        v16 = *(*(&v63 + 1) + 8 * i);
         asset = [v16 asset];
         v18 = asset;
         if (asset)
@@ -96,7 +96,7 @@ LABEL_6:
             if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138477827;
-              v69 = v16;
+              v68 = v16;
               _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[PGShareBackCoreRoutineSource] Suggester input %{private}@ previously matched with CoreRoutine visit", buf, 0xCu);
             }
 
@@ -111,7 +111,7 @@ LABEL_6:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v64 objects:v74 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v63 objects:v73 count:16];
       if (v13)
       {
         continue;
@@ -132,53 +132,53 @@ LABEL_6:
       v24 = [(CLSRoutineService *)selfCopy->_routineService locationOfInterestVisitsInDateInterval:v23];
       if ([v24 count])
       {
-        v62 = 0u;
-        v63 = 0u;
-        v60 = 0u;
         v61 = 0u;
+        v62 = 0u;
+        v59 = 0u;
+        v60 = 0u;
         v25 = v24;
-        v46 = [v25 countByEnumeratingWithState:&v60 objects:v73 count:16];
-        if (v46)
+        v45 = [v25 countByEnumeratingWithState:&v59 objects:v72 count:16];
+        if (v45)
         {
-          v26 = *v61;
-          v51 = v22;
-          v52 = nodesCopy;
-          v49 = v24;
-          v50 = v23;
-          v48 = v25;
-          v45 = *v61;
+          v26 = *v60;
+          v50 = v22;
+          v51 = nodesCopy;
+          v48 = v24;
+          v49 = v23;
+          v47 = v25;
+          v44 = *v60;
           do
           {
             v27 = 0;
             do
             {
-              if (*v61 != v26)
+              if (*v60 != v26)
               {
                 objc_enumerationMutation(v25);
               }
 
-              v47 = v27;
-              v28 = *(*(&v60 + 1) + 8 * v27);
+              v46 = v27;
+              v28 = *(*(&v59 + 1) + 8 * v27);
+              v55 = 0u;
               v56 = 0u;
               v57 = 0u;
               v58 = 0u;
-              v59 = 0u;
               obj = v22;
-              v29 = [obj countByEnumeratingWithState:&v56 objects:v72 count:16];
+              v29 = [obj countByEnumeratingWithState:&v55 objects:v71 count:16];
               if (v29)
               {
                 v30 = v29;
-                v31 = *v57;
+                v31 = *v56;
                 while (2)
                 {
                   for (j = 0; j != v30; ++j)
                   {
-                    if (*v57 != v31)
+                    if (*v56 != v31)
                     {
                       objc_enumerationMutation(obj);
                     }
 
-                    v33 = *(*(&v56 + 1) + 8 * j);
+                    v33 = *(*(&v55 + 1) + 8 * j);
                     locationOfInterest = [v28 locationOfInterest];
                     location = [locationOfInterest location];
                     visitInterval = [v28 visitInterval];
@@ -186,27 +186,27 @@ LABEL_6:
 
                     if (v37)
                     {
-                      v23 = v50;
+                      v23 = v49;
                       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
                       {
                         *buf = 138478083;
-                        v69 = v33;
-                        v70 = 2113;
-                        v71 = v28;
+                        v68 = v33;
+                        v69 = 2113;
+                        v70 = v28;
                         _os_log_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_DEFAULT, "[PGShareBackCoreRoutineSource] Suggester input %{private}@ matched with CoreRoutine visit %{private}@", buf, 0x16u);
                       }
 
-                      nodesCopy = v52;
-                      v42 = [[PGShareBackSuggesterResult alloc] initWithInputs:v11 processingValue:1024 momentNodes:v52];
+                      nodesCopy = v51;
+                      v42 = [[PGShareBackSuggesterResult alloc] initWithInputs:v11 processingValue:1024 momentNodes:v51];
                       v41 = [MEMORY[0x277CBEA60] arrayWithObject:v42];
 
-                      v22 = v51;
-                      v24 = v49;
+                      v22 = v50;
+                      v24 = v48;
                       goto LABEL_44;
                     }
                   }
 
-                  v30 = [obj countByEnumeratingWithState:&v56 objects:v72 count:16];
+                  v30 = [obj countByEnumeratingWithState:&v55 objects:v71 count:16];
                   if (v30)
                   {
                     continue;
@@ -216,27 +216,27 @@ LABEL_6:
                 }
               }
 
-              v27 = v47 + 1;
-              v22 = v51;
-              nodesCopy = v52;
-              v24 = v49;
-              v23 = v50;
-              v25 = v48;
-              v26 = v45;
+              v27 = v46 + 1;
+              v22 = v50;
+              nodesCopy = v51;
+              v24 = v48;
+              v23 = v49;
+              v25 = v47;
+              v26 = v44;
             }
 
-            while (v47 + 1 != v46);
-            v46 = [v48 countByEnumeratingWithState:&v60 objects:v73 count:16];
+            while (v46 + 1 != v45);
+            v45 = [v47 countByEnumeratingWithState:&v59 objects:v72 count:16];
           }
 
-          while (v46);
+          while (v45);
         }
       }
 
       else if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v69 = v23;
+        v68 = v23;
         _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[PGShareBackCoreRoutineSource] Can't find core routine visits in date interval: %@", buf, 0xCu);
       }
 
@@ -268,8 +268,6 @@ LABEL_44:
   }
 
 LABEL_46:
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return v41;
 }

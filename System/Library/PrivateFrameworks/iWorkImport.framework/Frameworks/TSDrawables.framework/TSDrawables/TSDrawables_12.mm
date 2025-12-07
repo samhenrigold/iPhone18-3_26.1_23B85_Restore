@@ -1,3 +1,45 @@
+void Shape::MakePointData(Shape *this, int a2)
+{
+  v3 = *(this + 13);
+  if (a2)
+  {
+    if ((v3 & 4) == 0)
+    {
+      *(this + 13) = v3 | 4;
+      v4 = *(this + 11);
+      if (v4)
+      {
+        free(v4);
+      }
+
+      v5 = malloc_type_calloc(*(this + 5), 0x30uLL, 0x102004023ED6C3AuLL);
+      *(this + 11) = v5;
+      if (!v5)
+      {
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::MakePointData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 66);
+        v6 = MEMORY[0x277D81150];
+        v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "void Shape::MakePointData(BOOL)");
+        v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v8, v10, 66, 1, "Unable to allocate memory.");
+
+        TSUCrashBreakpoint();
+        abort();
+      }
+    }
+  }
+
+  else if ((v3 & 4) != 0)
+  {
+    *(this + 13) = v3 & 0xFFFFFFFB;
+    v12 = *(this + 11);
+    if (v12)
+    {
+      free(v12);
+      *(this + 11) = 0;
+    }
+  }
+}
+
 void Shape::MakeEdgeData(Shape *this, int a2)
 {
   v3 = *(this + 13);
@@ -16,9 +58,9 @@ void Shape::MakeEdgeData(Shape *this, int a2)
       *(this + 7) = v5;
       if (!v5)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::MakeEdgeData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 87);
         v6 = MEMORY[0x277D81150];
-        v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "void Shape::MakeEdgeData(BOOL)", "void Shape::MakeEdgeData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 87);
+        v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "void Shape::MakeEdgeData(BOOL)");
         v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v8, v10, 87, 1, "Unable to allocate memory.");
 
@@ -58,9 +100,9 @@ void Shape::MakeRasterData(Shape *this, int a2)
       *(this + 10) = v5;
       if (!v5)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::MakeRasterData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 108);
         v6 = MEMORY[0x277D81150];
-        v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "void Shape::MakeRasterData(BOOL)", "void Shape::MakeRasterData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 108);
+        v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "void Shape::MakeRasterData(BOOL)");
         v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v8, v10, 108, 1, "Unable to allocate memory.");
 
@@ -100,9 +142,9 @@ void Shape::MakeQuickRasterData(Shape *this, int a2)
       *(this + 16) = v5;
       if (!v5)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::MakeQuickRasterData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 129);
         v6 = MEMORY[0x277D81150];
-        v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "void Shape::MakeQuickRasterData(BOOL)", "void Shape::MakeQuickRasterData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 129);
+        v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "void Shape::MakeQuickRasterData(BOOL)");
         v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v8, v10, 129, 1, "Unable to allocate memory.");
 
@@ -142,9 +184,9 @@ void Shape::MakeSweepSrcData(Shape *this, int a2)
       *(this + 8) = v5;
       if (!v5)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::MakeSweepSrcData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 150);
         v6 = MEMORY[0x277D81150];
-        v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "void Shape::MakeSweepSrcData(BOOL)", "void Shape::MakeSweepSrcData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 150);
+        v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "void Shape::MakeSweepSrcData(BOOL)");
         v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v8, v10, 150, 1, "Unable to allocate memory.");
 
@@ -184,9 +226,9 @@ void Shape::MakeSweepDestData(Shape *this, int a2)
       *(this + 9) = v5;
       if (!v5)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::MakeSweepDestData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 171);
         v6 = MEMORY[0x277D81150];
-        v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "void Shape::MakeSweepDestData(BOOL)", "void Shape::MakeSweepDestData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 171);
+        v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "void Shape::MakeSweepDestData(BOOL)");
         v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v8, v10, 171, 1, "Unable to allocate memory.");
 
@@ -226,9 +268,9 @@ void Shape::MakeBackData(Shape *this, int a2)
       *(this + 12) = v5;
       if (!v5)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::MakeBackData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 192);
         v6 = MEMORY[0x277D81150];
-        v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "void Shape::MakeBackData(BOOL)", "void Shape::MakeBackData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 192);
+        v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "void Shape::MakeBackData(BOOL)");
         v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v8, v10, 192, 1, "Unable to allocate memory.");
 
@@ -274,9 +316,9 @@ void Shape::MakeVoronoiData(Shape *this, int a2)
       *(this + 13) = v6;
       if (!v6)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::MakeVoronoiData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 214);
         v16 = MEMORY[0x277D81150];
-        v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "void Shape::MakeVoronoiData(BOOL)", "void Shape::MakeVoronoiData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 214);
+        v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "void Shape::MakeVoronoiData(BOOL)");
         v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v19, v10, v12, 214, 1, "Unable to allocate memory.");
 LABEL_17:
@@ -289,9 +331,9 @@ LABEL_17:
       *(this + 14) = v7;
       if (!v7)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::MakeVoronoiData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 216);
         v8 = MEMORY[0x277D81150];
-        v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "void Shape::MakeVoronoiData(BOOL)", "void Shape::MakeVoronoiData(BOOL)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 216);
+        v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "void Shape::MakeVoronoiData(BOOL)");
         v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v10, v12, 216, 1, "Unable to allocate memory.");
         goto LABEL_17;
@@ -318,126 +360,126 @@ LABEL_17:
   }
 }
 
-void Shape::Copy(Shape *this, Shape *a2)
+void Shape::Copy(Shape *this, Shape *a2, int a3)
 {
   if (a2)
   {
-    v4 = *(this + 13);
-    if ((v4 & 4) != 0)
+    v5 = *(this + 13);
+    if ((v5 & 4) != 0)
     {
-      v4 &= ~4u;
-      *(this + 13) = v4;
-      v5 = *(this + 11);
-      if (v5)
-      {
-        free(v5);
-        *(this + 11) = 0;
-        v4 = *(this + 13);
-      }
-    }
-
-    if ((v4 & 8) != 0)
-    {
-      v4 &= ~8u;
-      *(this + 13) = v4;
-      v6 = *(this + 7);
+      v5 &= ~4u;
+      *(this + 13) = v5;
+      v6 = *(this + 11);
       if (v6)
       {
         free(v6);
-        *(this + 7) = 0;
-        v4 = *(this + 13);
+        *(this + 11) = 0;
+        v5 = *(this + 13);
       }
     }
 
-    if ((v4 & 0x10) != 0)
+    if ((v5 & 8) != 0)
     {
-      v4 &= ~0x10u;
-      *(this + 13) = v4;
-      v7 = *(this + 8);
+      v5 &= ~8u;
+      *(this + 13) = v5;
+      v7 = *(this + 7);
       if (v7)
       {
         free(v7);
-        *(this + 8) = 0;
-        v4 = *(this + 13);
+        *(this + 7) = 0;
+        v5 = *(this + 13);
       }
     }
 
-    if ((v4 & 0x20) != 0)
+    if ((v5 & 0x10) != 0)
     {
-      v4 &= ~0x20u;
-      *(this + 13) = v4;
-      v8 = *(this + 9);
+      v5 &= ~0x10u;
+      *(this + 13) = v5;
+      v8 = *(this + 8);
       if (v8)
       {
         free(v8);
-        *(this + 9) = 0;
-        v4 = *(this + 13);
+        *(this + 8) = 0;
+        v5 = *(this + 13);
       }
     }
 
-    if ((v4 & 0x80) != 0)
+    if ((v5 & 0x20) != 0)
     {
-      v4 &= ~0x80u;
-      *(this + 13) = v4;
-      v9 = *(this + 10);
+      v5 &= ~0x20u;
+      *(this + 13) = v5;
+      v9 = *(this + 9);
       if (v9)
       {
         free(v9);
-        *(this + 10) = 0;
-        v4 = *(this + 13);
+        *(this + 9) = 0;
+        v5 = *(this + 13);
       }
     }
 
-    if ((v4 & 0x100) != 0)
+    if ((v5 & 0x80) != 0)
     {
-      v4 &= ~0x100u;
-      *(this + 13) = v4;
-      v10 = *(this + 16);
+      v5 &= ~0x80u;
+      *(this + 13) = v5;
+      v10 = *(this + 10);
       if (v10)
       {
         free(v10);
-        *(this + 16) = 0;
-        v4 = *(this + 13);
+        *(this + 10) = 0;
+        v5 = *(this + 13);
       }
     }
 
-    if ((v4 & 0x200) != 0)
+    if ((v5 & 0x100) != 0)
     {
-      v4 &= ~0x200u;
-      *(this + 13) = v4;
-      v11 = *(this + 12);
+      v5 &= ~0x100u;
+      *(this + 13) = v5;
+      v11 = *(this + 16);
       if (v11)
       {
         free(v11);
-        *(this + 12) = 0;
-        v4 = *(this + 13);
+        *(this + 16) = 0;
+        v5 = *(this + 13);
       }
     }
 
-    if ((v4 & 0x40) != 0)
+    if ((v5 & 0x200) != 0)
+    {
+      v5 &= ~0x200u;
+      *(this + 13) = v5;
+      v12 = *(this + 12);
+      if (v12)
+      {
+        free(v12);
+        *(this + 12) = 0;
+        v5 = *(this + 13);
+      }
+    }
+
+    if ((v5 & 0x40) != 0)
     {
       sub_2767C4644(this + 21);
       sub_2767C4038(this + 24);
-      v12 = *(this + 13);
-      if ((v12 & 0x40) != 0)
+      v13 = *(this + 13);
+      if ((v13 & 0x40) != 0)
       {
-        *(this + 13) = v12 & 0xFFFFFFBF;
+        *(this + 13) = v13 & 0xFFFFFFBF;
       }
     }
 
     Shape::Reset(this, *(a2 + 4));
-    v13 = *(a2 + 4);
-    *(this + 4) = v13;
+    v14 = *(a2 + 4);
+    *(this + 4) = v14;
     *(this + 8) = *(a2 + 8);
-    v14 = *(a2 + 13) & 3;
+    v15 = *(a2 + 13) & 3;
     *(this + 12) = *(a2 + 12);
-    *(this + 13) = v14;
-    memcpy(*(this + 3), *(a2 + 3), 28 * v13);
-    v15 = *(this + 5);
-    v16 = *(a2 + 5);
-    v17 = 32 * *(this + 8);
+    *(this + 13) = v15;
+    memcpy(*(this + 3), *(a2 + 3), 28 * v14);
+    v16 = *(this + 5);
+    v17 = *(a2 + 5);
+    v18 = 32 * *(this + 8);
 
-    memcpy(v15, v16, v17);
+    memcpy(v16, v17, v18);
   }
 
   else
@@ -573,9 +615,9 @@ void Shape::reallocDestData(void **this, int a2)
   this[9] = v4;
   if (!v4)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::reallocDestData(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 269);
     v9 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocDestData(int)", "void Shape::reallocDestData(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 269);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocDestData(int)");
     v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v11, v13, 269, 1, "Unable to allocate memory.");
 
@@ -600,9 +642,9 @@ void Shape::reallocPointsArray(void **this, int a2)
   this[3] = v4;
   if (!v4)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::reallocPointsArray(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 278);
     v9 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocPointsArray(int)", "void Shape::reallocPointsArray(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 278);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocPointsArray(int)");
     v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v11, v13, 278, 1, "Unable to allocate memory.");
 
@@ -627,9 +669,9 @@ void Shape::reallocPointsData(void **this, int a2)
   this[11] = v4;
   if (!v4)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::reallocPointsData(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 287);
     v9 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocPointsData(int)", "void Shape::reallocPointsData(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 287);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocPointsData(int)");
     v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v11, v13, 287, 1, "Unable to allocate memory.");
 
@@ -654,9 +696,9 @@ void Shape::reallocVoronoiPointData(void **this, int a2)
   this[13] = v4;
   if (!v4)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::reallocVoronoiPointData(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 296);
     v9 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocVoronoiPointData(int)", "void Shape::reallocVoronoiPointData(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 296);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocVoronoiPointData(int)");
     v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v11, v13, 296, 1, "Unable to allocate memory.");
 
@@ -681,9 +723,9 @@ void Shape::reallocVoronoiEdgeData(void **this, int a2)
   this[14] = v4;
   if (!v4)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::reallocVoronoiEdgeData(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 305);
     v9 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocVoronoiEdgeData(int)", "void Shape::reallocVoronoiEdgeData(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 305);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocVoronoiEdgeData(int)");
     v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v11, v13, 305, 1, "Unable to allocate memory.");
 
@@ -708,9 +750,9 @@ void Shape::reallocAretesArray(void **this, int a2)
   this[5] = v4;
   if (!v4)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::reallocAretesArray(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 314);
     v9 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocAretesArray(int)", "void Shape::reallocAretesArray(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 314);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocAretesArray(int)");
     v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v11, v13, 314, 1, "Unable to allocate memory.");
 
@@ -735,9 +777,9 @@ void Shape::reallocEdgesData(void **this, int a2)
   this[7] = v4;
   if (!v4)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::reallocEdgesData(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 323);
     v9 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocEdgesData(int)", "void Shape::reallocEdgesData(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 323);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocEdgesData(int)");
     v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v11, v13, 323, 1, "Unable to allocate memory.");
 
@@ -762,9 +804,9 @@ void Shape::reallocSweepSrcData(void **this, int a2)
   this[8] = v4;
   if (!v4)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::reallocSweepSrcData(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 332);
     v9 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocSweepSrcData(int)", "void Shape::reallocSweepSrcData(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 332);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocSweepSrcData(int)");
     v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v11, v13, 332, 1, "Unable to allocate memory.");
 
@@ -789,9 +831,9 @@ void Shape::reallocBackData(void **this, int a2)
   this[12] = v4;
   if (!v4)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::reallocBackData(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 341);
     v9 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocBackData(int)", "void Shape::reallocBackData(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 341);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocBackData(int)");
     v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v11, v13, 341, 1, "Unable to allocate memory.");
 
@@ -816,9 +858,9 @@ void Shape::reallocRasterData(void **this, int a2)
   this[10] = v4;
   if (!v4)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::reallocRasterData(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 349);
     v9 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocRasterData(int)", "void Shape::reallocRasterData(int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 349);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "void Shape::reallocRasterData(int)");
     v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v11, v13, 349, 1, "Unable to allocate memory.");
 
@@ -1894,10 +1936,10 @@ LABEL_37:
   return this;
 }
 
-uint64_t Shape::AddEdge(Shape *this, unsigned int a2, unsigned int a3)
+uint64_t Shape::AddEdge(Shape *this, int a2, int a3)
 {
   v3 = 0xFFFFFFFFLL;
-  if (a2 == a3 || ((a3 | a2) & 0x80000000) != 0)
+  if (a2 == a3 || (a3 | a2) < 0)
   {
     return v3;
   }
@@ -2056,20 +2098,20 @@ LABEL_16:
   return v3;
 }
 
-uint64_t Shape::ConnectStart(uint64_t this, int a2, int a3)
+void *Shape::ConnectStart(void *this, int a2, int a3)
 {
   v5 = this;
-  v6 = *(this + 40);
+  v6 = this[5];
   v7 = a3;
   if ((*(v6 + 32 * a3 + 8) & 0x80000000) == 0)
   {
     this = Shape::DisconnectStart(this, a3);
-    v6 = *(v5 + 40);
+    v6 = v5[5];
   }
 
   v8 = (v6 + 32 * v7);
   v8[2] = a2;
-  v9 = *(v5 + 24);
+  v9 = v5[3];
   v10 = v9 + 28 * a2;
   v13 = *(v10 + 20);
   v11 = (v10 + 20);
@@ -2111,20 +2153,20 @@ LABEL_9:
   return this;
 }
 
-uint64_t Shape::ConnectEnd(uint64_t this, int a2, int a3)
+void *Shape::ConnectEnd(void *this, int a2, int a3)
 {
   v5 = this;
-  v6 = *(this + 40);
+  v6 = this[5];
   v7 = a3;
   if ((*(v6 + 32 * a3 + 12) & 0x80000000) == 0)
   {
     this = Shape::DisconnectEnd(this, a3);
-    v6 = *(v5 + 40);
+    v6 = v5[5];
   }
 
   v8 = (v6 + 32 * v7);
   v8[3] = a2;
-  v9 = *(v5 + 24);
+  v9 = v5[3];
   v10 = v9 + 28 * a2;
   v13 = *(v10 + 20);
   v11 = (v10 + 20);
@@ -3079,9 +3121,9 @@ void Shape::SortEdges(Shape *this)
     v3 = malloc_type_malloc(16 * *(this + 8), 0x1000040A517B1A3uLL);
     if (!v3)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::SortEdges()", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 1192);
       v27 = MEMORY[0x277D81150];
-      v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "void Shape::SortEdges()", "void Shape::SortEdges()", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm", 1192);
+      v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "void Shape::SortEdges()");
       v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/Shape.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v27, v32, v29, v31, 1192, 1, "Unable to allocate memory.");
 
@@ -3852,14 +3894,14 @@ id sub_2767AD2B8(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5, void *a
   return v34;
 }
 
-void sub_2767AD4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2767AD4D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_2767AD4E8(uint64_t a1, void *a2, uint64_t a3)
+void *sub_2767AD4E8(uint64_t a1, void *a2, uint64_t a3)
 {
   v4 = objc_msgSend_range(a2, a2, a3);
   result = objc_msgSend_setAttributes_range_(*(a1 + 32), v5, *(a1 + 40), v4 - *(a1 + 56) * *(*(*(a1 + 48) + 8) + 24), &v5[-*(a1 + 56)]);
@@ -3890,9 +3932,9 @@ void sub_2767AE760(uint64_t a1, void *a2)
   (*(v2 + 16))(v2, v3);
 }
 
-void sub_2767AE890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2767AE890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3943,7 +3985,7 @@ void sub_2767B0C18(uint64_t a1, const char *a2)
   qword_280A4CA98 = v2;
 }
 
-uint64_t sub_2767B1348(uint64_t a1, void *a2, uint64_t a3)
+void *sub_2767B1348(uint64_t a1, void *a2, uint64_t a3)
 {
   objc_msgSend_minimumSize(a2, a2, a3);
   v5 = v4;
@@ -4094,7 +4136,7 @@ CGPath *sub_2767B1F28(const CGPath *a1, const CGPath *a2, uint64_t a3, uint64_t 
   return MutableCopy;
 }
 
-CGMutablePathRef sub_2767B2030()
+CGMutablePathRef sub_2767B2030(uint64_t a1, uint64_t a2)
 {
   Mutable = CGPathCreateMutable();
   CGPathAddPathSafe();
@@ -4183,59 +4225,59 @@ LABEL_7:
 
   CGPathGetCurrentPoint(path);
   TSURectWithOriginAndSize();
+  v67 = 0u;
+  v68 = 0;
+  v66 = 0u;
+  v65 = 0u;
+  v25 = a4 * 0.5;
+  v64 = 0u;
   v63 = 0u;
-  v64 = 0;
   v62 = 0u;
   v61 = 0u;
-  v25 = a4 * 0.5;
   v60 = 0u;
   v59 = 0u;
   v58 = 0u;
   v57 = 0u;
   v56 = 0u;
-  v55 = 0u;
   v54 = 0u;
   v53 = 0u;
-  v52 = 0u;
-  v50 = 0u;
-  v49 = 0u;
-  v51 = *MEMORY[0x277CBF348];
-  v30 = v51;
-  v50 = v51;
-  v47 = v26;
-  v48 = v25;
+  v55 = *MEMORY[0x277CBF348];
+  v34 = v55;
+  v54 = v55;
+  v51 = v26;
+  v52 = v25;
   info = v27;
-  v45 = v28;
-  v46 = v29;
-  LODWORD(v49) = a3;
-  *(&v49 + 1) = a5;
+  v49 = v28;
+  v50 = v29;
+  LODWORD(v53) = a3;
+  *(&v53 + 1) = a5;
   CGPathApply(path, &info, sub_2767B2438);
   if (v15)
   {
-    v34 = 0;
-    v43 = 0;
+    v38 = 0;
+    v47 = 0;
+    v46 = 0u;
+    v45 = 0u;
+    v44 = 0u;
+    v43 = 0u;
     v42 = 0u;
     v41 = 0u;
     v40 = 0u;
     v39 = 0u;
-    v38 = 0u;
-    v37 = 0u;
-    v36 = 0u;
-    v35 = 0u;
-    v32 = v30;
-    v33 = v30;
-    v31[3] = v47;
-    *&v31[4] = v25;
-    v31[0] = info;
-    v31[1] = v45;
-    v31[2] = v46;
-    v31[5] = v15;
-    CGPathApply(path, v31, sub_2767B25E8);
-    sub_2767B27A8(v31);
+    v36 = v34;
+    v37 = v34;
+    v35[3] = v51;
+    *&v35[4] = v25;
+    v35[0] = info;
+    v35[1] = v49;
+    v35[2] = v50;
+    v35[5] = v15;
+    CGPathApply(path, v35, sub_2767B25E8);
+    sub_2767B27A8(v35, v30, v31, v32, v33);
   }
 }
 
-void sub_2767B2438(uint64_t a1, uint64_t a2)
+void sub_2767B2438(uint64_t a1, int *a2)
 {
   v4 = *a2;
   if ((*a2 - 1) >= 3)
@@ -4245,21 +4287,22 @@ void sub_2767B2438(uint64_t a1, uint64_t a2)
       if (*(a1 + 88))
       {
         TSUDistanceSquared();
-        if (v14 > 0.00000001)
+        v20 = 0.00000001;
+        if (v17 > 0.00000001)
         {
-          v17 = a1 + 56;
-          v16 = 1;
-          sub_2767B2F34(a1, &v16);
+          v23 = a1 + 56;
+          v22 = 1;
+          sub_2767B2F34(a1, &v22, v17, 0.00000001, v18, v19);
         }
 
-        v15 = *(a1 + 232);
-        v17 = a1 + 240;
-        v16 = v15;
-        sub_2767B2F34(a1, &v16);
+        v21 = *(a1 + 232);
+        v23 = a1 + 240;
+        v22 = v21;
+        sub_2767B2F34(a1, &v22, v17, v20, v18, v19);
       }
 
       *(a1 + 88) = 0;
-      v13 = *(a1 + 56);
+      v16 = *(a1 + 56);
     }
 
     else
@@ -4270,12 +4313,12 @@ void sub_2767B2438(uint64_t a1, uint64_t a2)
       }
 
       *(a1 + 88) = 0;
-      v12 = *(a2 + 8);
-      *(a1 + 56) = *v12;
-      v13 = *v12;
+      v15 = *(a2 + 1);
+      *(a1 + 56) = *v15;
+      v16 = *v15;
     }
 
-    *(a1 + 72) = v13;
+    *(a1 + 72) = v16;
   }
 
   else
@@ -4296,7 +4339,7 @@ void sub_2767B2438(uint64_t a1, uint64_t a2)
     v7 = 16 * v6;
     do
     {
-      *(a1 + 240 + v5) = *(*(a2 + 8) + v5);
+      *(a1 + 240 + v5) = *(*(a2 + 1) + v5);
       v5 += 16;
     }
 
@@ -4316,7 +4359,7 @@ LABEL_8:
         v9 = v8;
       }
 
-      for (i = *(a2 + 8) + 8; ; i += 16)
+      for (i = *(a2 + 1) + 8; ; i += 16)
       {
         TSUDistanceSquared();
         if (v11 > 0.00000001)
@@ -4330,56 +4373,56 @@ LABEL_8:
         }
       }
 
-      sub_2767B2F34(a1, a2);
+      sub_2767B2F34(a1, a2, v11, v12, v13, v14);
     }
   }
 }
 
-void sub_2767B25E8(uint64_t a1, int *a2)
+void sub_2767B25E8(uint64_t a1, int *a2, double a3, double a4, __n128 a5, __n128 a6)
 {
-  v4 = *a2;
+  v8 = *a2;
   if ((*a2 - 1) >= 3)
   {
-    if (v4 == 4)
+    if (v8 == 4)
     {
       *(a1 + 80) = 0;
       *(a1 + 64) = *(a1 + 48);
     }
 
-    else if (!v4)
+    else if (!v8)
     {
-      sub_2767B27A8(a1);
+      sub_2767B27A8(a1, a3, a4, a5, a6);
       *(a1 + 80) = 0;
-      v10 = *(a2 + 1);
-      *(a1 + 64) = *v10;
-      *(a1 + 48) = *v10;
+      v14 = *(a2 + 1);
+      *(a1 + 64) = *v14;
+      *(a1 + 48) = *v14;
     }
   }
 
   else
   {
-    v5 = (a1 + 64);
+    v9 = (a1 + 64);
     *(a1 + 81) = 1;
-    v6 = dword_27682D108[v4];
-    if (v6 <= 1)
+    v10 = dword_27682D108[v8];
+    if (v10 <= 1)
     {
-      v7 = 1;
+      v11 = 1;
     }
 
     else
     {
-      v7 = v6;
+      v11 = v10;
     }
 
     for (i = *(a2 + 1) + 8; ; i += 16)
     {
       TSUDistanceSquared();
-      if (v9 > 0.00000001)
+      if (v13 > 0.00000001)
       {
         break;
       }
 
-      if (!--v7)
+      if (!--v11)
       {
         return;
       }
@@ -4388,110 +4431,110 @@ void sub_2767B25E8(uint64_t a1, int *a2)
     if ((*(a1 + 80) & 1) == 0)
     {
       *(a1 + 80) = 1;
-      *(a1 + 84) = v4;
-      *(a1 + 88) = *v5;
-      v11 = *a2;
-      if (v11 == 4)
+      *(a1 + 84) = v8;
+      *(a1 + 88) = *v9;
+      v15 = *a2;
+      if (v15 == 4)
       {
-        v4 = 4;
+        v8 = 4;
       }
 
       else
       {
-        v12 = 0;
-        v13 = dword_27682D108[v11];
-        if (v13 <= 1)
+        v16 = 0;
+        v17 = dword_27682D108[v15];
+        if (v17 <= 1)
         {
-          v13 = 1;
+          v17 = 1;
         }
 
-        v14 = 16 * v13;
+        v18 = 16 * v17;
         do
         {
-          *(a1 + 104 + v12) = *(*(a2 + 1) + v12);
-          v12 += 16;
+          *(a1 + 104 + v16) = *(*(a2 + 1) + v16);
+          v16 += 16;
         }
 
-        while (v14 != v12);
-        v4 = *a2;
+        while (v18 != v16);
+        v8 = *a2;
       }
     }
 
-    *(a1 + 152) = v4;
-    *(a1 + 160) = *v5;
-    v15 = *a2;
-    v16 = dword_27682D108[v15];
-    if (v15 != 4)
+    *(a1 + 152) = v8;
+    *(a1 + 160) = *v9;
+    v19 = *a2;
+    v20 = dword_27682D108[v19];
+    if (v19 != 4)
     {
-      v17 = 0;
-      if (v16 <= 1)
+      v21 = 0;
+      if (v20 <= 1)
       {
-        v16 = 1;
+        v20 = 1;
       }
 
-      v18 = 16 * v16;
+      v22 = 16 * v20;
       do
       {
-        *(a1 + 176 + v17) = *(*(a2 + 1) + v17);
-        v17 += 16;
+        *(a1 + 176 + v21) = *(*(a2 + 1) + v21);
+        v21 += 16;
       }
 
-      while (v18 != v17);
-      v16 = dword_27682D108[*a2];
+      while (v22 != v21);
+      v20 = dword_27682D108[*a2];
     }
 
-    *v5 = *(*(a2 + 1) + 16 * v16 - 16);
+    *v9 = *(*(a2 + 1) + 16 * v20 - 16);
   }
 }
 
-void sub_2767B27A8(uint64_t a1)
+void sub_2767B27A8(uint64_t a1, double a2, double a3, __n128 a4, __n128 a5)
 {
   if (*(a1 + 80) == 1)
   {
-    v2 = *(a1 + 40);
-    if (v2 == 1)
+    v6 = *(a1 + 40);
+    if (v6 == 1)
     {
       TSURectWithCenterAndSize();
-      v48.origin.x = v13;
-      v48.origin.y = v14;
-      v48.size.width = v15;
-      v48.size.height = v16;
-      v47 = CGRectUnion(*a1, v48);
-      x = v47.origin.x;
-      y = v47.origin.y;
-      width = v47.size.width;
-      height = v47.size.height;
-      *a1 = v47;
+      v52.origin.x = v17;
+      v52.origin.y = v18;
+      v52.size.width = v19;
+      v52.size.height = v20;
+      v51 = CGRectUnion(*a1, v52);
+      x = v51.origin.x;
+      y = v51.origin.y;
+      width = v51.size.width;
+      height = v51.size.height;
+      *a1 = v51;
       TSURectWithCenterAndSize();
-      v22 = v21;
-      v24 = v23;
       v26 = v25;
       v28 = v27;
-      v29 = x;
-      v30 = y;
-      v31 = width;
-      v32 = height;
+      v30 = v29;
+      v32 = v31;
+      v33 = x;
+      v34 = y;
+      v35 = width;
+      v36 = height;
 LABEL_21:
-      *&v39 = CGRectUnion(*&v29, *&v22);
+      *&v43 = CGRectUnion(*&v33, *&v26);
       goto LABEL_22;
     }
 
-    if (v2 != 2)
+    if (v6 != 2)
     {
       return;
     }
 
-    v3 = sub_2767B35E0(*(a1 + 84), a1 + 88).f64[0];
-    v5 = *MEMORY[0x277CBF348];
-    v6 = *(MEMORY[0x277CBF348] + 8);
-    if (v3 == *MEMORY[0x277CBF348] && v4 == v6)
+    v7 = sub_2767B35E0(*(a1 + 84), a1 + 88, 0.0, a3, a4, a5).f64[0];
+    v9 = *MEMORY[0x277CBF348];
+    v10 = *(MEMORY[0x277CBF348] + 8);
+    if (v7 == *MEMORY[0x277CBF348] && v8 == v10)
     {
       TSURectWithCenterAndSize();
-      v49.origin.x = v33;
-      v49.origin.y = v34;
-      v49.size.width = v35;
-      v49.size.height = v36;
-      *&v8 = CGRectUnion(*a1, v49);
+      v53.origin.x = v37;
+      v53.origin.y = v38;
+      v53.size.width = v39;
+      v53.size.height = v40;
+      *&v12 = CGRectUnion(*a1, v53);
     }
 
     else
@@ -4505,11 +4548,11 @@ LABEL_21:
       TSUGrowRectToPoint();
     }
 
-    *a1 = v8;
-    *(a1 + 8) = v9;
-    *(a1 + 16) = v10;
-    *(a1 + 24) = v11;
-    if (sub_2767B35E0(*(a1 + 152), a1 + 160).f64[0] != v5 || v37 != v6)
+    *a1 = v12;
+    *(a1 + 8) = v13;
+    *(a1 + 16) = v14.n128_u64[0];
+    *(a1 + 24) = v15.n128_u64[0];
+    if (sub_2767B35E0(*(a1 + 152), a1 + 160, 1.0, v13, v14, v15).f64[0] != v9 || v41 != v10)
     {
       TSUMultiplyPointScalar();
       TSUAddPoints();
@@ -4519,30 +4562,30 @@ LABEL_21:
       TSUSubtractPoints();
       TSUGrowRectToPoint();
 LABEL_22:
-      *a1 = v39;
-      *(a1 + 8) = v40;
-      *(a1 + 16) = v41;
-      *(a1 + 24) = v42;
+      *a1 = v43;
+      *(a1 + 8) = v44;
+      *(a1 + 16) = v45;
+      *(a1 + 24) = v46;
       return;
     }
 
 LABEL_20:
     TSURectWithCenterAndSize();
-    v22 = v43;
-    v24 = v44;
-    v26 = v45;
-    v28 = v46;
-    v29 = *a1;
-    v30 = *(a1 + 8);
-    v31 = *(a1 + 16);
-    v32 = *(a1 + 24);
+    v26 = v47;
+    v28 = v48;
+    v30 = v49;
+    v32 = v50;
+    v33 = *a1;
+    v34 = *(a1 + 8);
+    v35 = *(a1 + 16);
+    v36 = *(a1 + 24);
     goto LABEL_21;
   }
 
   if (*(a1 + 81) == 1)
   {
-    v12 = *(a1 + 40);
-    if (v12 == 1 || v12 == 2)
+    v16 = *(a1 + 40);
+    if (v16 == 1 || v16 == 2)
     {
       goto LABEL_20;
     }
@@ -4649,7 +4692,7 @@ void sub_2767B2D8C(const CGPath *a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void sub_2767B2DE8(uint64_t a1, uint64_t a2)
+void sub_2767B2DE8(uint64_t a1, int *a2)
 {
   v3 = *a2;
   if ((*a2 - 1) >= 3)
@@ -4679,7 +4722,7 @@ void sub_2767B2DE8(uint64_t a1, uint64_t a2)
       }
 
       *(a1 + 48) = 0;
-      v4 = *(a2 + 8);
+      v4 = *(a2 + 1);
       *(a1 + 16) = *v4;
       v5 = *v4;
     }
@@ -4711,144 +4754,146 @@ const CGPath *sub_2767B2EB8(const CGPath *result)
   return result;
 }
 
-void sub_2767B2F34(uint64_t a1, int *a2)
+void sub_2767B2F34(uint64_t a1, int *a2, double a3, double a4, __n128 a5, __n128 a6)
 {
-  v58 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 88);
-  if (v4)
+  v73 = *MEMORY[0x277D85DE8];
+  v8 = *(a1 + 88);
+  if (v8)
   {
-    v5 = *(a1 + 160);
-    *(a1 + 92) = v5;
-    memmove((a1 + 96), (a1 + 168), 16 * (dword_27682D108[v5] & ~(dword_27682D108[v5] >> 31)) + 16);
+    v9 = *(a1 + 160);
+    *(a1 + 92) = v9;
+    memmove((a1 + 96), (a1 + 168), 16 * (dword_27682D108[v9] & ~(dword_27682D108[v9] >> 31)) + 16);
   }
 
-  v6 = *a2;
+  v10 = *a2;
   *(a1 + 160) = *a2;
   *(a1 + 168) = *(a1 + 72);
-  v7 = *a2;
-  v8 = dword_27682D108[v7];
-  if (v7 != 4)
+  v11 = *a2;
+  v12 = dword_27682D108[v11];
+  if (v11 != 4)
   {
-    v9 = 0;
-    if (v8 <= 1)
+    v13 = 0;
+    if (v12 <= 1)
     {
-      v8 = 1;
+      v12 = 1;
     }
 
-    v10 = 16 * v8;
+    v14 = 16 * v12;
     do
     {
-      *(a1 + 184 + v9) = *(*(a2 + 1) + v9);
-      v9 += 16;
+      *(a1 + 184 + v13) = *(*(a2 + 1) + v13);
+      v13 += 16;
     }
 
-    while (v10 != v9);
-    v8 = dword_27682D108[*a2];
+    while (v14 != v13);
+    v12 = dword_27682D108[*a2];
   }
 
-  *(a1 + 72) = *(*(a2 + 1) + 16 * v8 - 16);
-  *(a1 + 88) = v4 + 1;
-  if (v6 == 1)
+  *(a1 + 72) = *(*(a2 + 1) + 16 * v12 - 16);
+  *(a1 + 88) = v8 + 1;
+  if (v10 == 1)
   {
-    sub_2767B33D0(a1, 1, (a1 + 168), 0.0);
-    sub_2767B33D0(a1, 1, (a1 + 168), 1.0);
+    sub_2767B33D0(a1, 1, (a1 + 168), 0.0, a4, a5, a6);
+    sub_2767B33D0(a1, 1, (a1 + 168), 1.0, v15, v16, v17);
   }
 
-  v11 = *(a1 + 160);
-  if ((v11 & 0xFFFFFFFE) == 2)
+  v18 = *(a1 + 160);
+  if ((v18 & 0xFFFFFFFE) == 2)
   {
-    v13 = *(a1 + 168);
-    v12 = *(a1 + 176);
-    v15 = *(a1 + 72);
-    v14 = *(a1 + 80);
-    v17 = *(a1 + 184);
-    v16 = *(a1 + 192);
-    if (v11 == 3)
+    v20 = *(a1 + 168);
+    v19 = *(a1 + 176);
+    v22 = *(a1 + 72);
+    v21 = *(a1 + 80);
+    v24 = *(a1 + 184);
+    v23 = *(a1 + 192);
+    if (v18 == 3)
     {
-      v19 = *(a1 + 200);
-      v18 = *(a1 + 208);
+      v26 = *(a1 + 200);
+      v25 = *(a1 + 208);
     }
 
     else
     {
-      v19 = v17 + (v15 - v17) / 3.0;
-      v17 = v13 + (v17 - v13 + v17 - v13) / 3.0;
-      v18 = v16 + (v14 - v16) / 3.0;
-      v16 = v12 + (v16 - v12 + v16 - v12) / 3.0;
+      a4 = 3.0;
+      v26 = v24 + (v22 - v24) / 3.0;
+      v24 = v20 + (v24 - v20 + v24 - v20) / 3.0;
+      a5.n128_f64[0] = (v21 - v23) / 3.0;
+      v25 = v23 + a5.n128_f64[0];
+      v23 = v19 + (v23 - v19 + v23 - v19) / 3.0;
     }
 
-    sub_2767B33D0(a1, v11, (a1 + 168), 0.0);
-    sub_2767B33D0(a1, *(a1 + 160), (a1 + 168), 1.0);
-    v56 = 0;
-    v57 = 0;
-    v20 = sub_2767B2074(&v56, v13, v17, v19, v15);
-    if (v20)
+    sub_2767B33D0(a1, v18, (a1 + 168), 0.0, a4, a5, a6);
+    sub_2767B33D0(a1, *(a1 + 160), (a1 + 168), 1.0, v27, v28, v29);
+    v71 = 0;
+    v72 = 0;
+    v30 = sub_2767B2074(&v71, v20, v24, v26, v22);
+    if (v30)
     {
-      v21 = v20;
-      v22 = &v56;
+      v34 = v30;
+      v35 = &v71;
       do
       {
-        v23 = *v22++;
-        sub_2767B33D0(a1, *(a1 + 160), (a1 + 168), v23);
-        --v21;
+        v36 = *v35++;
+        sub_2767B33D0(a1, *(a1 + 160), (a1 + 168), v36, v31, v32, v33);
+        --v34;
       }
 
-      while (v21);
+      while (v34);
     }
 
-    v56 = 0;
-    v57 = 0;
-    v24 = sub_2767B2074(&v56, v12, v16, v18, v14);
-    if (v24)
+    v71 = 0;
+    v72 = 0;
+    v37 = sub_2767B2074(&v71, v19, v23, v25, v21);
+    if (v37)
     {
-      v25 = v24;
-      v26 = &v56;
+      v38 = v37;
+      v39 = &v71;
       do
       {
-        v27 = *v26++;
-        sub_2767B33D0(a1, *(a1 + 160), (a1 + 168), v27);
-        --v25;
+        v40 = *v39++;
+        sub_2767B33D0(a1, *(a1 + 160), (a1 + 168), v40, a4, a5, a6);
+        --v38;
       }
 
-      while (v25);
+      while (v38);
     }
   }
 
-  v28 = *(a1 + 40);
-  if (v28 != 2 && *(a1 + 88) >= 2u)
+  v41 = *(a1 + 40);
+  if (v41 != 2 && *(a1 + 88) >= 2u)
   {
-    if (v28 == 1)
+    if (v41 == 1)
     {
       TSURectWithCenterAndSize();
-      v60.origin.x = v44;
-      v60.origin.y = v45;
-      v60.size.width = v46;
-      v60.size.height = v47;
-      *&v40 = CGRectUnion(*a1, v60);
+      v75.origin.x = v59;
+      v75.origin.y = v60;
+      v75.size.width = v61;
+      v75.size.height = v62;
+      *&v55 = CGRectUnion(*a1, v75);
 LABEL_36:
-      *a1 = v40;
-      *(a1 + 8) = v41;
-      *(a1 + 16) = v42;
-      *(a1 + 24) = v43;
+      *a1 = v55;
+      *(a1 + 8) = v56;
+      *(a1 + 16) = v57;
+      *(a1 + 24) = v58;
       return;
     }
 
-    if (v28)
+    if (v41)
     {
       return;
     }
 
-    v29 = sub_2767B35E0(*(a1 + 92), a1 + 96).f64[0];
-    v31 = v30;
-    *&v33 = *&sub_2767B35E0(*(a1 + 160), a1 + 168);
-    v35 = v34;
-    v36 = *(MEMORY[0x277CBF348] + 8);
-    if ((v29 != *MEMORY[0x277CBF348] || v31 != v36) && (v33 != *MEMORY[0x277CBF348] || v35 != v36))
+    v42 = sub_2767B35E0(*(a1 + 92), a1 + 96, 1.0, a4, a5, a6).f64[0];
+    v44 = v43;
+    *&v48 = *&sub_2767B35E0(*(a1 + 160), a1 + 168, 0.0, v43, v45, v46);
+    v50 = v49;
+    v51 = *(MEMORY[0x277CBF348] + 8);
+    if ((v42 != *MEMORY[0x277CBF348] || v44 != v51) && (v48 != *MEMORY[0x277CBF348] || v50 != v51))
     {
       TSUSubtractPoints();
       TSUNormalizePoint();
       TSUCrossPoints();
-      if (-1.0 / v39 * (-1.0 / v39) >= *(a1 + 48) * *(a1 + 48))
+      if (-1.0 / v54 * (-1.0 / v54) >= *(a1 + 48) * *(a1 + 48))
       {
         return;
       }
@@ -4861,18 +4906,18 @@ LABEL_36:
       goto LABEL_36;
     }
 
-    v48 = MEMORY[0x277D81150];
-    v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "void TSDPathBoundsApplierProcessSegment(TSDPathBoundsApplierState *, const CGPathElement *)");
-    v51 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v50, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/CGPathAdditions.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v48, v52, v49, v51, 480, 0, "Couldn't get a gradient for this join, but this should have been caught upstream by skipping no-op segments.");
+    v63 = MEMORY[0x277D81150];
+    v64 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "void TSDPathBoundsApplierProcessSegment(TSDPathBoundsApplierState *, const CGPathElement *)");
+    v66 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v65, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/CGPathAdditions.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v63, v67, v64, v66, 480, 0, "Couldn't get a gradient for this join, but this should have been caught upstream by skipping no-op segments.");
 
-    v55 = MEMORY[0x277D81150];
+    v70 = MEMORY[0x277D81150];
 
-    objc_msgSend_logBacktraceThrottled(v55, v53, v54);
+    objc_msgSend_logBacktraceThrottled(v70, v68, v69);
   }
 }
 
-void sub_2767B33D0(void *a1, const char *a2, float64x2_t *a3, double a4)
+void sub_2767B33D0(void *a1, void *a2, float64x2_t *a3, double a4, double a5, __n128 a6, __n128 a7)
 {
   switch(a2)
   {
@@ -4882,7 +4927,7 @@ void sub_2767B33D0(void *a1, const char *a2, float64x2_t *a3, double a4)
     case 2:
       sub_276667300(a3, a4);
 LABEL_7:
-      if (sub_2767B35E0(a2, a3).f64[0] != *MEMORY[0x277CBF348] || v7 != *(MEMORY[0x277CBF348] + 8))
+      if (sub_2767B35E0(a2, a3, a4, a5, a6, a7).f64[0] != *MEMORY[0x277CBF348] || v11 != *(MEMORY[0x277CBF348] + 8))
       {
         TSURotatePoint90Degrees();
         TSUMultiplyPointScalar();
@@ -4890,10 +4935,10 @@ LABEL_7:
         TSUGrowRectToPoint();
         TSUSubtractPoints();
         TSUGrowRectToPoint();
-        *a1 = v9;
-        a1[1] = v10;
-        a1[2] = v11;
-        a1[3] = v12;
+        *a1 = v13;
+        a1[1] = v14;
+        a1[2] = v15;
+        a1[3] = v16;
       }
 
       return;
@@ -4901,32 +4946,32 @@ LABEL_7:
       goto LABEL_7;
   }
 
-  v13 = MEMORY[0x277D81150];
-  v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "void TSDGrowPathBoundsAtTFromTypeAndPoints(TSDPathBoundsApplierState *, CGFloat, CGPathElementType, CGPoint *)");
-  v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/CGPathAdditions.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v17, v14, v16, 373, 0, "Invalid element type %d", a2);
+  v17 = MEMORY[0x277D81150];
+  v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "void TSDGrowPathBoundsAtTFromTypeAndPoints(TSDPathBoundsApplierState *, CGFloat, CGPathElementType, CGPoint *)");
+  v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/CGPathAdditions.m");
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v21, v18, v20, 373, 0, "Invalid element type %d", a2);
 
-  v20 = MEMORY[0x277D81150];
+  v24 = MEMORY[0x277D81150];
 
-  objc_msgSend_logBacktraceThrottled(v20, v18, v19);
+  objc_msgSend_logBacktraceThrottled(v24, v22, v23);
 }
 
-float64x2_t sub_2767B35E0(int a1, uint64_t a2)
+float64x2_t sub_2767B35E0(void *a1, uint64_t a2, double a3, double a4, __n128 a5, __n128 a6)
 {
-  v3 = *MEMORY[0x277CBF348];
+  v7 = *MEMORY[0x277CBF348];
   if (a1 <= 1)
   {
     if (!a1)
     {
-      v19 = MEMORY[0x277D81150];
-      v27 = *MEMORY[0x277CBF348];
-      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "CGPoint gradientAtTFromTypeAndPoints(CGFloat, CGPathElementType, CGPoint *)");
-      v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/CGPathAdditions.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v23, v20, v22, 217, 0, "path gradient can't handle moveTo element");
+      v23 = MEMORY[0x277D81150];
+      v31 = *MEMORY[0x277CBF348];
+      v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "CGPoint gradientAtTFromTypeAndPoints(CGFloat, CGPathElementType, CGPoint *)", a3);
+      v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/CGPathAdditions.m");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v27, v24, v26, 217, 0, "path gradient can't handle moveTo element");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25);
-      v3 = v27;
-      result = v27;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29);
+      v7 = v31;
+      result = v31;
       goto LABEL_13;
     }
 
@@ -4941,29 +4986,29 @@ float64x2_t sub_2767B35E0(int a1, uint64_t a2)
 
   if (a1 == 2)
   {
-    v26 = *MEMORY[0x277CBF348];
+    v30 = *MEMORY[0x277CBF348];
     TSUClamp();
-    v7 = v6;
-    v8 = vmlaq_n_f64(vmulq_n_f64(vaddq_f64(*(a2 + 16), *(a2 + 16)), v6 * -2.0 + 1.0), vaddq_f64(*a2, *a2), v6 + -1.0);
-    v9 = vaddq_f64(*(a2 + 32), *(a2 + 32));
+    v11 = v10;
+    v12 = vmlaq_n_f64(vmulq_n_f64(vaddq_f64(*(a2 + 16), *(a2 + 16)), v10 * -2.0 + 1.0), vaddq_f64(*a2, *a2), v10 + -1.0);
+    v13 = vaddq_f64(*(a2 + 32), *(a2 + 32));
 LABEL_11:
-    result = vmlaq_n_f64(v8, v9, v7);
+    result = vmlaq_n_f64(v12, v13, v11);
     goto LABEL_12;
   }
 
   if (a1 == 3)
   {
-    v26 = *MEMORY[0x277CBF348];
+    v30 = *MEMORY[0x277CBF348];
     TSUClamp();
-    v7 = v10;
+    v11 = v14;
     __asm
     {
       FMOV            V4.2D, #-3.0
       FMOV            V5.2D, #3.0
     }
 
-    v8 = vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(vmulq_f64(*(a2 + 16), _Q5), v10 * -4.0 + 1.0 + v7 * 3.0 * v7), vmulq_n_f64(vmulq_f64(*a2, _Q4), v10 + -1.0), v10 + -1.0), vmulq_n_f64(vmulq_f64(*(a2 + 32), _Q5), v7), v10 * -3.0 + 2.0);
-    v9 = vmulq_n_f64(vmulq_f64(*(a2 + 48), _Q5), v7);
+    v12 = vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(vmulq_f64(*(a2 + 16), _Q5), v14 * -4.0 + 1.0 + v11 * 3.0 * v11), vmulq_n_f64(vmulq_f64(*a2, _Q4), v14 + -1.0), v14 + -1.0), vmulq_n_f64(vmulq_f64(*(a2 + 32), _Q5), v11), v14 * -3.0 + 2.0);
+    v13 = vmulq_n_f64(vmulq_f64(*(a2 + 48), _Q5), v11);
     goto LABEL_11;
   }
 
@@ -4971,19 +5016,19 @@ LABEL_11:
   if (a1 == 4)
   {
 LABEL_8:
-    v26 = *MEMORY[0x277CBF348];
+    v30 = *MEMORY[0x277CBF348];
     TSUSubtractPoints();
-    *&result.f64[1] = v5;
+    result.f64[1] = v9;
 LABEL_12:
-    v3 = v26;
+    v7 = v30;
   }
 
 LABEL_13:
-  v17 = vmovn_s64(vceqq_f64(result, v3));
-  if ((v17.i32[0] & v17.i32[1] & 1) == 0)
+  v21 = vmovn_s64(vceqq_f64(result, v7));
+  if ((v21.i32[0] & v21.i32[1] & 1) == 0)
   {
     TSUNormalizePoint();
-    *&result.f64[1] = v18;
+    result.f64[1] = v22;
   }
 
   return result;
@@ -5503,7 +5548,7 @@ LABEL_25:
   Shape::MakeSweepDestData(this, 0);
 }
 
-uint64_t Shape::AddContour(Shape *this, Path *a2, int a3, Path **a4, signed int a5)
+uint64_t Shape::AddContour(Shape *this, Path *a2, int a3, Path **a4, unsigned int a5)
 {
   v5 = a5;
   v10 = (*(this + 3) + 28 * *(*(this + 5) + 32 * a5 + 8));
@@ -5624,9 +5669,9 @@ uint64_t Shape::MakeOffset(uint64_t a1, uint64_t a2, int a3, float a4, float a5)
       *(a1 + 24) = v11;
       if (!v11)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "int Shape::MakeOffset(Shape *, float, JoinType, float)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm", 250);
         v48 = MEMORY[0x277D81150];
-        v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "int Shape::MakeOffset(Shape *, float, JoinType, float)", "int Shape::MakeOffset(Shape *, float, JoinType, float)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm", 250);
+        v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "int Shape::MakeOffset(Shape *, float, JoinType, float)");
         v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v51, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v48, v53, v50, v52, 250, 1, "Unable to allocate memory.");
         goto LABEL_57;
@@ -5638,9 +5683,9 @@ uint64_t Shape::MakeOffset(uint64_t a1, uint64_t a2, int a3, float a4, float a5)
         *(a1 + 88) = v12;
         if (!v12)
         {
-          TSUSetCrashReporterInfo();
+          TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "int Shape::MakeOffset(Shape *, float, JoinType, float)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm", 254);
           v58 = MEMORY[0x277D81150];
-          v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, "int Shape::MakeOffset(Shape *, float, JoinType, float)", "int Shape::MakeOffset(Shape *, float, JoinType, float)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm", 254);
+          v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, "int Shape::MakeOffset(Shape *, float, JoinType, float)");
           v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v60, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm");
           objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v58, v61, v50, v52, 254, 1, "Unable to allocate memory.");
           goto LABEL_57;
@@ -5663,9 +5708,9 @@ LABEL_19:
     *(a1 + 40) = v14;
     if (!v14)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "int Shape::MakeOffset(Shape *, float, JoinType, float)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm", 263);
       v54 = MEMORY[0x277D81150];
-      v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v55, "int Shape::MakeOffset(Shape *, float, JoinType, float)", "int Shape::MakeOffset(Shape *, float, JoinType, float)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm", 263);
+      v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v55, "int Shape::MakeOffset(Shape *, float, JoinType, float)");
       v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v56, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v54, v57, v50, v52, 263, 1, "Unable to allocate memory.");
       goto LABEL_57;
@@ -5678,9 +5723,9 @@ LABEL_19:
       *(a1 + 56) = v16;
       if (!v16)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "int Shape::MakeOffset(Shape *, float, JoinType, float)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm", 267);
         v62 = MEMORY[0x277D81150];
-        v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v63, "int Shape::MakeOffset(Shape *, float, JoinType, float)", "int Shape::MakeOffset(Shape *, float, JoinType, float)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm", 267);
+        v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v63, "int Shape::MakeOffset(Shape *, float, JoinType, float)");
         v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v64, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v62, v65, v50, v52, 267, 1, "Unable to allocate memory.");
         goto LABEL_57;
@@ -5695,9 +5740,9 @@ LABEL_19:
       *(a1 + 64) = v17;
       if (!v17)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "int Shape::MakeOffset(Shape *, float, JoinType, float)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm", 272);
         v66 = MEMORY[0x277D81150];
-        v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v67, "int Shape::MakeOffset(Shape *, float, JoinType, float)", "int Shape::MakeOffset(Shape *, float, JoinType, float)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm", 272);
+        v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v67, "int Shape::MakeOffset(Shape *, float, JoinType, float)");
         v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v68, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v66, v69, v50, v52, 272, 1, "Unable to allocate memory.");
         goto LABEL_57;
@@ -5712,9 +5757,9 @@ LABEL_19:
       *(a1 + 72) = v18;
       if (!v18)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "int Shape::MakeOffset(Shape *, float, JoinType, float)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm", 277);
         v70 = MEMORY[0x277D81150];
-        v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v71, "int Shape::MakeOffset(Shape *, float, JoinType, float)", "int Shape::MakeOffset(Shape *, float, JoinType, float)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm", 277);
+        v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v71, "int Shape::MakeOffset(Shape *, float, JoinType, float)");
         v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v72, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v70, v73, v50, v52, 277, 1, "Unable to allocate memory.");
         goto LABEL_57;
@@ -5735,9 +5780,9 @@ LABEL_19:
       goto LABEL_19;
     }
 
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "int Shape::MakeOffset(Shape *, float, JoinType, float)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm", 282);
     v74 = MEMORY[0x277D81150];
-    v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v75, "int Shape::MakeOffset(Shape *, float, JoinType, float)", "int Shape::MakeOffset(Shape *, float, JoinType, float)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm", 282);
+    v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v75, "int Shape::MakeOffset(Shape *, float, JoinType, float)");
     v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v76, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeMisc.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v74, v77, v50, v52, 282, 1, "Unable to allocate memory.");
 LABEL_57:
@@ -6570,7 +6615,7 @@ void sub_2767B9428(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2767B974C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_2767B974C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -6632,9 +6677,9 @@ uint64_t Shape::Reoriente(void **this, Shape *a2)
     this[3] = v5;
     if (!v5)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "int Shape::Reoriente(Shape *)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm", 50);
       v41 = MEMORY[0x277D81150];
-      v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "int Shape::Reoriente(Shape *)", "int Shape::Reoriente(Shape *)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm", 50);
+      v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "int Shape::Reoriente(Shape *)");
       v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v44, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v41, v46, v43, v45, 50, 1, "Unable to allocate memory.");
       goto LABEL_62;
@@ -6646,9 +6691,9 @@ uint64_t Shape::Reoriente(void **this, Shape *a2)
       this[11] = v6;
       if (!v6)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "int Shape::Reoriente(Shape *)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm", 54);
         v51 = MEMORY[0x277D81150];
-        v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v52, "int Shape::Reoriente(Shape *)", "int Shape::Reoriente(Shape *)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm", 54);
+        v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v52, "int Shape::Reoriente(Shape *)");
         v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v51, v54, v43, v45, 54, 1, "Unable to allocate memory.");
         goto LABEL_62;
@@ -6666,9 +6711,9 @@ uint64_t Shape::Reoriente(void **this, Shape *a2)
     this[5] = v8;
     if (!v8)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "int Shape::Reoriente(Shape *)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm", 63);
       v47 = MEMORY[0x277D81150];
-      v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v48, "int Shape::Reoriente(Shape *)", "int Shape::Reoriente(Shape *)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm", 63);
+      v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v48, "int Shape::Reoriente(Shape *)");
       v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v47, v50, v43, v45, 63, 1, "Unable to allocate memory.");
       goto LABEL_62;
@@ -6681,9 +6726,9 @@ uint64_t Shape::Reoriente(void **this, Shape *a2)
       this[7] = v10;
       if (!v10)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "int Shape::Reoriente(Shape *)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm", 67);
         v55 = MEMORY[0x277D81150];
-        v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v56, "int Shape::Reoriente(Shape *)", "int Shape::Reoriente(Shape *)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm", 67);
+        v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v56, "int Shape::Reoriente(Shape *)");
         v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v55, v58, v43, v45, 67, 1, "Unable to allocate memory.");
         goto LABEL_62;
@@ -6698,9 +6743,9 @@ uint64_t Shape::Reoriente(void **this, Shape *a2)
       this[8] = v11;
       if (!v11)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "int Shape::Reoriente(Shape *)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm", 72);
         v59 = MEMORY[0x277D81150];
-        v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v60, "int Shape::Reoriente(Shape *)", "int Shape::Reoriente(Shape *)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm", 72);
+        v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v60, "int Shape::Reoriente(Shape *)");
         v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v61, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v59, v62, v43, v45, 72, 1, "Unable to allocate memory.");
         goto LABEL_62;
@@ -6715,9 +6760,9 @@ uint64_t Shape::Reoriente(void **this, Shape *a2)
       this[9] = v12;
       if (!v12)
       {
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "int Shape::Reoriente(Shape *)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm", 77);
         v63 = MEMORY[0x277D81150];
-        v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v64, "int Shape::Reoriente(Shape *)", "int Shape::Reoriente(Shape *)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm", 77);
+        v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v64, "int Shape::Reoriente(Shape *)");
         v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v65, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v63, v66, v43, v45, 77, 1, "Unable to allocate memory.");
         goto LABEL_62;
@@ -6738,9 +6783,9 @@ uint64_t Shape::Reoriente(void **this, Shape *a2)
       goto LABEL_21;
     }
 
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "int Shape::Reoriente(Shape *)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm", 82);
     v67 = MEMORY[0x277D81150];
-    v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v68, "int Shape::Reoriente(Shape *)", "int Shape::Reoriente(Shape *)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm", 82);
+    v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v68, "int Shape::Reoriente(Shape *)");
     v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v69, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v67, v70, v43, v45, 82, 1, "Unable to allocate memory.");
 LABEL_62:
@@ -6817,7 +6862,7 @@ LABEL_21:
     for (i = 0; i < *(this + 8); ++i)
     {
       v32 = this[9] + 32 * i;
-      v34 = *(v32 + 16);
+      v34 = *(v32 + 4);
       v33 = (v32 + 16);
       v35 = v34 & 1;
       if (v34 >= 0)
@@ -8900,13 +8945,15 @@ LABEL_81:
   return this;
 }
 
-void Shape::CheckEdges(uint64_t a1, signed int a2, int a3, uint64_t a4, Shape *a5, uint64_t a6)
+void Shape::CheckEdges(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, Shape *a5, uint64_t a6)
 {
-  v6 = *(a1 + 136);
+  v6 = *(result + 136);
   if (v6 >= 1)
   {
     v7 = a6;
-    v12 = (*(a1 + 144) + 8);
+    v9 = a3;
+    v10 = a2;
+    v12 = (*(result + 144) + 8);
     do
     {
       if (!*(v12 - 2))
@@ -8922,21 +8969,21 @@ void Shape::CheckEdges(uint64_t a1, signed int a2, int a3, uint64_t a4, Shape *a
     v13 = 0;
     do
     {
-      v14 = *(a1 + 144);
+      v14 = *(result + 144);
       v15 = v14 + 72 * v13;
       v16 = *(v15 + 8);
       if (v16)
       {
-        Shape::Avance(a1, a2, a3, v16, *(v15 + 16), a6, a5, v7);
-        v14 = *(a1 + 144);
+        Shape::Avance(result, v10, v9, v16, *(v15 + 16), a6, a5, v7);
+        v14 = *(result + 144);
       }
 
       v17 = v14 + 72 * v13;
       v18 = *(v17 + 24);
       if (v18)
       {
-        Shape::Avance(a1, a2, a3, v18, *(v17 + 32), a6, a5, v7);
-        v14 = *(a1 + 144);
+        Shape::Avance(result, v10, v9, v18, *(v17 + 32), a6, a5, v7);
+        v14 = *(result + 144);
       }
 
       v19 = v14 + 72 * v13;
@@ -8944,12 +8991,12 @@ void Shape::CheckEdges(uint64_t a1, signed int a2, int a3, uint64_t a4, Shape *a
       if (v20)
       {
         v21 = *(v19 + 48);
-        if (*(*(v20 + 8) + 56 * v21 + 24) >= a3)
+        if (*(*(v20 + 8) + 56 * v21 + 24) >= v9)
         {
           v22 = v21;
           do
           {
-            Shape::Avance(a1, a2, a3, v20, v21, a6, a5, v7);
+            Shape::Avance(result, v10, v9, v20, v21, a6, a5, v7);
             v23 = *(*(v20 + 8) + 56 * v22);
             if (!v23)
             {
@@ -8967,8 +9014,8 @@ void Shape::CheckEdges(uint64_t a1, signed int a2, int a3, uint64_t a4, Shape *a
             v22 = v21;
           }
 
-          while (*(*(v20 + 8) + 56 * v21 + 24) >= a3);
-          v14 = *(a1 + 144);
+          while (*(*(v20 + 8) + 56 * v21 + 24) >= v9);
+          v14 = *(result + 144);
         }
       }
 
@@ -8977,12 +9024,12 @@ void Shape::CheckEdges(uint64_t a1, signed int a2, int a3, uint64_t a4, Shape *a
       if (v26)
       {
         v27 = *(v25 + 64);
-        if (*(*(v26 + 8) + 56 * v27 + 28) >= a3)
+        if (*(*(v26 + 8) + 56 * v27 + 28) >= v9)
         {
           v28 = v27;
           do
           {
-            Shape::Avance(a1, a2, a3, v26, v27, a6, a5, v7);
+            Shape::Avance(result, v10, v9, v26, v27, a6, a5, v7);
             v29 = *(*(v26 + 8) + 56 * v28);
             if (!v29)
             {
@@ -9000,14 +9047,14 @@ void Shape::CheckEdges(uint64_t a1, signed int a2, int a3, uint64_t a4, Shape *a
             v28 = v27;
           }
 
-          while (*(*(v26 + 8) + 56 * v27 + 28) >= a3);
+          while (*(*(v26 + 8) + 56 * v27 + 28) >= v9);
         }
       }
 
       ++v13;
     }
 
-    while (v13 < *(a1 + 136));
+    while (v13 < *(result + 136));
   }
 }
 
@@ -9022,9 +9069,9 @@ void *Shape::AddChgt(Shape *this, int a2, int a3, Shape **a4, int *a5, int a6, S
     *(this + 18) = result;
     if (!result)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unable to allocate memory.", "void Shape::AddChgt(int, int, Shape *&, int &, int, Shape *, int, Shape *, int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm", 2358);
       v54 = MEMORY[0x277D81150];
-      v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v55, "void Shape::AddChgt(int, int, Shape *&, int &, int, Shape *, int, Shape *, int)", "void Shape::AddChgt(int, int, Shape *&, int &, int, Shape *, int, Shape *, int)", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm", 2358);
+      v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v55, "void Shape::AddChgt(int, int, Shape *&, int &, int, Shape *, int, Shape *, int)");
       v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/drawables/nlivarot/ShapeSweep.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v54, v59, v56, v58, 2358, 1, "Unable to allocate memory.");
 
@@ -9045,9 +9092,9 @@ void *Shape::AddChgt(Shape *this, int a2, int a3, Shape **a4, int *a5, int a6, S
   v22 = &result[9 * v18];
   *v22 = a6;
   *(v22 + 1) = a2;
-  *(v22 + 1) = a7;
+  v22[1] = a7;
   *(v22 + 4) = a8;
-  *(v22 + 3) = a9;
+  v22[3] = a9;
   *(v22 + 8) = a10;
   if (a7)
   {
@@ -9179,7 +9226,7 @@ LABEL_33:
   return result;
 }
 
-uint64_t Shape::TesteIntersection(uint64_t result, uint64_t *a2, int a3, char a4, double a5, double a6, double a7, int32x4_t a8, int32x4_t a9)
+uint64_t Shape::TesteIntersection(uint64_t result, uint64_t *a2, int a3, uint64_t a4, double a5, double a6, double a7, int32x4_t a8, int32x4_t a9)
 {
   v10 = result;
   if (a3)

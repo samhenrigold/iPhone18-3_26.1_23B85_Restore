@@ -156,7 +156,7 @@
 {
   versionsCopy = versions;
   updatedCopy = updated;
-  v11 = BCCloudKitLog();
+  v11 = BCCloudKitLog(updatedCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -308,15 +308,16 @@ LABEL_20:
   typeCopy = [NSPredicate predicateWithFormat:@"dataType == %@", typeCopy];
   [v7 setPredicate:typeCopy];
 
-  v14 = 0;
-  v9 = [contextCopy executeFetchRequest:v7 error:&v14];
-  v10 = v14;
+  v15 = 0;
+  v9 = [contextCopy executeFetchRequest:v7 error:&v15];
+  v10 = v15;
+  v11 = v10;
   if (v10)
   {
-    v11 = BCCloudKitLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = BCCloudKitLog(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_1EB1DC(v10, v11);
+      sub_1EB1DC(v11, v12);
     }
   }
 

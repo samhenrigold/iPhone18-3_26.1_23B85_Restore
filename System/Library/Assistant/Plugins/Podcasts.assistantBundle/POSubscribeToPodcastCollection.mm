@@ -8,7 +8,7 @@
 
 - (void)performWithCompletion:(id)completion serviceHelper:(id)helper
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v10 = objc_msgSend__validate(self, v6, v7, v8, v9);
   v15 = v10;
@@ -20,7 +20,7 @@
 
   else
   {
-    POLogInitIfNeeded();
+    POLogInitIfNeeded(0, v11);
     if (POLogContextCommand)
     {
       v17 = POLogContextCommand;
@@ -36,7 +36,7 @@
       v22 = v17;
       v27 = objc_msgSend__subscribeRequestIdentifier(self, v23, v24, v25, v26);
       *buf = 138412290;
-      v58 = v27;
+      v57 = v27;
       _os_log_impl(&dword_23352D000, v22, OS_LOG_TYPE_INFO, "Subscribing to Podcast with adamId: %@", buf, 0xCu);
     }
 
@@ -44,8 +44,8 @@
     if (v32)
     {
       v33 = objc_msgSend_hashedRouteUID(self, v28, v29, v30, v31);
-      v56 = v33;
-      v36 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v34, &v56, 1, v35);
+      v55 = v33;
+      v36 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v34, &v55, 1, v35);
     }
 
     else
@@ -56,15 +56,13 @@
     v41 = objc_msgSend__subscribeRequestIdentifier(self, v37, v38, v39, v40);
     v46 = objc_msgSend_assetInfo(self, v42, v43, v44, v45);
     v51 = objc_msgSend_refId(self, v47, v48, v49, v50);
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = sub_233532814;
-    v54[3] = &unk_2789DE2C0;
-    v55 = completionCopy;
-    objc_msgSend_performPodcastsPlaybackRequestWithIdentifier_assetInfo_hashedRouteUIDs_startPlaying_requesterSharedUserId_sharedUserIdFromPlayableITunesAccount_context_allowsFallback_completion_(POUtilities, v52, v41, v46, v36, 0, 0, 0, v51, 0, v54);
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = sub_233532814;
+    v53[3] = &unk_2789DE2C0;
+    v54 = completionCopy;
+    objc_msgSend_performPodcastsPlaybackRequestWithIdentifier_assetInfo_hashedRouteUIDs_startPlaying_requesterSharedUserId_sharedUserIdFromPlayableITunesAccount_context_allowsFallback_completion_(POUtilities, v52, v41, v46, v36, 0, 0, 0, v51, 0, v53);
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_subscribeRequestIdentifier
@@ -88,9 +86,9 @@
 
     if (v18)
     {
-      v19 = objc_alloc(MEMORY[0x277D47208]);
-      v23 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v20, @"MediaRemote error code %ld", v21, v22, v18);
-      v27 = objc_msgSend_initWithReason_(v19, v24, v23, v25, v26);
+      v21 = objc_alloc(MEMORY[0x277D47208]);
+      v25 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v22, @"MediaRemote error code %ld", v23, v24, v18);
+      v29 = objc_msgSend_initWithReason_(v21, v26, v25, v27, v28);
 
       goto LABEL_29;
     }
@@ -100,49 +98,49 @@
   {
   }
 
-  POLogInitIfNeeded();
+  POLogInitIfNeeded(v19, v20);
   if (POLogContextCommand)
   {
-    v28 = POLogContextCommand;
+    v30 = POLogContextCommand;
   }
 
   else
   {
-    v28 = MEMORY[0x277D86220];
+    v30 = MEMORY[0x277D86220];
   }
 
   if (status > 1)
   {
     if (status == 2)
     {
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
-        *v41 = 0;
-        _os_log_impl(&dword_23352D000, v28, OS_LOG_TYPE_INFO, "Subscribe command failed because user was already subscribed", v41, 2u);
+        *v43 = 0;
+        _os_log_impl(&dword_23352D000, v30, OS_LOG_TYPE_INFO, "Subscribe command failed because user was already subscribed", v43, 2u);
       }
 
-      v35 = objc_alloc(MEMORY[0x277D47208]);
-      v33 = objc_msgSend_initWithErrorCode_(v35, v36, *MEMORY[0x277D48598], v37, v38);
+      v37 = objc_alloc(MEMORY[0x277D47208]);
+      v35 = objc_msgSend_initWithErrorCode_(v37, v38, *MEMORY[0x277D48598], v39, v40);
       goto LABEL_28;
     }
 
     if (status == 10)
     {
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_23352D000, v28, OS_LOG_TYPE_INFO, "Subscribe command failed because it is not subscribeable", buf, 2u);
+        _os_log_impl(&dword_23352D000, v30, OS_LOG_TYPE_INFO, "Subscribe command failed because it is not subscribeable", buf, 2u);
       }
 
-      v29 = objc_alloc(MEMORY[0x277D47208]);
-      v33 = objc_msgSend_initWithErrorCode_(v29, v30, *MEMORY[0x277D486E0], v31, v32);
+      v31 = objc_alloc(MEMORY[0x277D47208]);
+      v35 = objc_msgSend_initWithErrorCode_(v31, v32, *MEMORY[0x277D486E0], v33, v34);
       goto LABEL_28;
     }
 
 LABEL_18:
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      sub_2335382B4(status, v28);
+      sub_2335382B4(status, v30);
     }
 
     goto LABEL_20;
@@ -150,13 +148,13 @@ LABEL_18:
 
   if (!status)
   {
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
-      *v42 = 0;
-      _os_log_impl(&dword_23352D000, v28, OS_LOG_TYPE_INFO, "Subscribe command succeeded", v42, 2u);
+      *v44 = 0;
+      _os_log_impl(&dword_23352D000, v30, OS_LOG_TYPE_INFO, "Subscribe command succeeded", v44, 2u);
     }
 
-    v34 = MEMORY[0x277D47218];
+    v36 = MEMORY[0x277D47218];
     goto LABEL_24;
   }
 
@@ -165,20 +163,20 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
-    sub_233538270(v28);
+    sub_233538270(v30);
   }
 
 LABEL_20:
-  v34 = MEMORY[0x277D47208];
+  v36 = MEMORY[0x277D47208];
 LABEL_24:
-  v33 = objc_alloc_init(v34);
+  v35 = objc_alloc_init(v36);
 LABEL_28:
-  v27 = v33;
+  v29 = v35;
 LABEL_29:
 
-  return v27;
+  return v29;
 }
 
 @end

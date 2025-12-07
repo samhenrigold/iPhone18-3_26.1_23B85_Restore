@@ -9,11 +9,11 @@
 - (id)item
 {
   v3 = sub_257ECCB70();
-  MEMORY[0x28223BE20](v3);
-  (*(v5 + 16))(&v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), self + OBJC_IVAR____TtC16MagnifierSupport18MFSnapshotProvider_url, v3);
-  v6 = sub_257ED06A0();
+  v8 = MEMORY[0x28223BE20](v3, v4, v5, v6, v7);
+  (*(v10 + 16))(&v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0), self + OBJC_IVAR____TtC16MagnifierSupport18MFSnapshotProvider_url, v3, v8);
+  v11 = sub_257ED06A0();
 
-  return v6;
+  return v11;
 }
 
 - (id)activityViewControllerLinkMetadata:(id)metadata

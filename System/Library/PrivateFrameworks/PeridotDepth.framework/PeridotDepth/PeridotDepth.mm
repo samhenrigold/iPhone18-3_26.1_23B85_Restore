@@ -61,7 +61,7 @@ CFMutableDataRef PDPeridotCalibCreateWithBinaryRepresentation(const __CFData *a1
   return CFDataCreateMutableCopy(v2, 402528, a1);
 }
 
-void SparseMatrix::SparseMatrix(SparseMatrix *this, int a2, int a3, const int *a4, int a5, int a6)
+void SparseMatrix::SparseMatrix(SparseMatrix *this, int a2, int a3, int *a4, int a5, int a6)
 {
   *(this + 10) = a2;
   *(this + 11) = a6;
@@ -70,7 +70,7 @@ void SparseMatrix::SparseMatrix(SparseMatrix *this, int a2, int a3, const int *a
   operator new[]();
 }
 
-void SparseMatrix::SparseMatrix(SparseMatrix *a1, int a2, int a3, const int **a4, int a5)
+void SparseMatrix::SparseMatrix(SparseMatrix *a1, int a2, int a3, int **a4, int a5)
 {
   v7 = *a4;
   v8 = a4[1];
@@ -348,7 +348,7 @@ uint64_t *SparseMatrix::operator=(uint64_t *a1, _OWORD *a2)
   return a1;
 }
 
-uint64_t SparseMatrix::AddValue(uint64_t this, int a2, int a3, double a4)
+uint64_t SparseMatrix::AddValue(uint64_t this, int a2, int a3, __n128 a4)
 {
   v4 = 4 * a3;
   v5 = *(this + 24);
@@ -370,13 +370,13 @@ uint64_t SparseMatrix::AddValue(uint64_t this, int a2, int a3, double a4)
   }
 
   v9 = *(this + 8);
-  *(*this + 8 * v7) = a4;
+  *(*this + 8 * v7) = a4.n128_u64[0];
   *(v9 + 4 * v7) = a2;
   ++*(v5 + 4 * a3);
   return this;
 }
 
-uint64_t SparseMatrix::Expand(uint64_t this, int a2, unint64_t a3)
+uint64_t SparseMatrix::Expand(uint64_t this, uint64_t a2, unint64_t a3)
 {
   v3 = *(this + 44);
   if (v3 < a3)
@@ -435,22 +435,22 @@ double SparseMatrix::operator()(uint64_t a1, int a2, int a3)
   return result;
 }
 
-uint64_t SparseMatrix::MultATagxB@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t SparseMatrix::MultATagxB@<X0>(uint64_t *a1@<X0>, uint64_t a3@<X8>)
 {
-  v2 = *(a1 + 36);
-  *a2 = &unk_283809BF8;
-  if (v2)
+  v3 = *(a1 + 9);
+  *a3 = &unk_283809BF8;
+  if (v3)
   {
     operator new[]();
   }
 
   result = 0;
-  *(a2 + 16) = 1;
-  *(a2 + 20) = 0;
-  *(a2 + 24) = 0;
-  *(a2 + 32) = 0;
-  *a2 = &unk_283809C28;
-  *(a2 + 8) = 0;
+  *(a3 + 16) = 1;
+  *(a3 + 20) = 0;
+  *(a3 + 24) = 0;
+  *(a3 + 32) = 0;
+  *a3 = &unk_283809C28;
+  *(a3 + 8) = 0;
   return result;
 }
 
@@ -705,59 +705,69 @@ LABEL_3:
 
 void SparseMatrix::Serialize(uint64_t a1, uint64_t a2, char a3, int a4)
 {
-  v40[19] = *MEMORY[0x277D85DE8];
+  v41[19] = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v34, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v35, *a2, *(a2 + 8));
   }
 
   else
   {
-    v34 = *a2;
+    v35 = *a2;
   }
 
-  std::ofstream::basic_ofstream(&v38);
-  v8 = *(a1 + 36);
-  v9 = *(a1 + 40);
-  v28 = &unk_283809BF8;
-  if (v8 * v9)
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v8 = &v35;
+  }
+
+  else
+  {
+    v8 = v35.__r_.__value_.__r.__words[0];
+  }
+
+  std::ofstream::basic_ofstream(&v39, v8, 4);
+  v9 = *(a1 + 36);
+  v10 = *(a1 + 40);
+  v29 = &unk_283809BF8;
+  if (v9 * v10)
   {
     operator new[]();
   }
 
-  v29 = 0;
-  v30 = v9;
-  v31 = v8;
-  v32 = 0;
-  v33 = 8 * v9 * v8;
+  v30 = 0;
+  v31 = v10;
+  v32 = v9;
+  v33 = 0;
+  v34 = 8 * v10 * v9;
   bzero(0, 0);
-  if (v8 >= 1)
+  if (v9 >= 1)
   {
-    v10 = 0;
-    v11 = *(a1 + 16);
-    v12 = *(a1 + 24);
+    v11 = 0;
+    v12 = *(a1 + 16);
+    v13 = *(a1 + 24);
     do
     {
-      v13 = *(v12 + 4 * v10);
-      if (v13 >= 1)
+      v14 = *(v13 + 4 * v11);
+      if (v14 >= 1)
       {
-        if (v10 < v8)
+        if (v11 < v9)
         {
-          v14 = *(v11 + 4 * v10);
-          v15 = v13 + v14;
-          v16 = *(a1 + 8);
+          v15 = *(v12 + 4 * v11);
+          v16 = v14 + v15;
+          v17 = *(a1 + 8);
           while (1)
           {
-            v17 = *(v16 + 4 * v14);
-            if (v9 <= v17)
+            v18 = *(v17 + 4 * v15);
+            if (v10 <= v18)
             {
               break;
             }
 
-            *(v29 + 8 * v10 + 8 * v17 * v8) = *(*a1 + 8 * v14++);
-            if (v14 >= v15)
+            *(v30 + 8 * v11 + 8 * v18 * v9) = *(*a1 + 8 * v15++);
+            if (v15 >= v16)
             {
-              goto LABEL_8;
+              goto LABEL_11;
             }
           }
         }
@@ -765,127 +775,127 @@ void SparseMatrix::Serialize(uint64_t a1, uint64_t a2, char a3, int a4)
         __assert_rtn("operator()", "Matrix.hpp", 120, "row < m_rows && col < m_cols");
       }
 
-LABEL_8:
-      ++v10;
+LABEL_11:
+      ++v11;
     }
 
-    while (v10 != (v8 & ~(v8 >> 31)));
+    while (v11 != (v9 & ~(v9 >> 31)));
   }
 
-  if ((a3 & 1) != 0 && v9 && v8)
+  if ((a3 & 1) != 0 && v10 && v9)
   {
-    v18 = 0;
-    v19 = 1;
+    v19 = 0;
+    v20 = 1;
     do
     {
-      if (v19)
+      if (v20)
       {
-        v20 = 0;
+        v21 = 0;
         do
         {
           std::ostream::write();
-          ++v20;
-          v19 = v30;
+          ++v21;
+          v20 = v31;
         }
 
-        while (v20 < v30);
-        LODWORD(v8) = v31;
+        while (v21 < v31);
+        LODWORD(v9) = v32;
       }
 
-      ++v18;
+      ++v19;
     }
 
-    while (v18 < v8);
+    while (v19 < v9);
   }
 
   if (!std::filebuf::close())
   {
-    std::ios_base::clear(&v39[*(v38 - 24) - 8], *&v39[*(v38 - 24) + 24] | 4);
+    std::ios_base::clear(&v40[*(v39 - 24) - 8], *&v40[*(v39 - 24) + 24] | 4);
   }
 
   if (a4)
   {
-    v21 = *(a2 + 23);
-    if (v21 >= 0)
+    v22 = *(a2 + 23);
+    if (v22 >= 0)
     {
-      v22 = *(a2 + 23);
+      v23 = *(a2 + 23);
     }
 
     else
     {
-      v22 = *(a2 + 8);
+      v23 = *(a2 + 8);
     }
 
-    if (v22 + 5 >= 0x7FFFFFFFFFFFFFF8)
+    if (v23 + 5 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    if (v22 + 5 >= 0x17)
+    if (v23 + 5 >= 0x17)
     {
       operator new();
     }
 
     __p[1] = 0;
-    v27 = 0;
+    v28 = 0;
     __p[0] = 0;
-    HIBYTE(v27) = v22 + 5;
-    if (v22)
+    HIBYTE(v28) = v23 + 5;
+    if (v23)
     {
-      if ((v21 & 0x80u) == 0)
+      if ((v22 & 0x80u) == 0)
       {
-        v23 = a2;
+        v24 = a2;
       }
 
       else
       {
-        v23 = *a2;
+        v24 = *a2;
       }
 
-      memmove(__p, v23, v22);
+      memmove(__p, v24, v23);
     }
 
-    strcpy(__p + v22, ".meta");
-    std::ofstream::basic_ofstream(&v35);
-    if (SHIBYTE(v27) < 0)
+    strcpy(__p + v23, ".meta");
+    std::ofstream::basic_ofstream(&v36, __p, 16);
+    if (SHIBYTE(v28) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v24 = MEMORY[0x22AA53010](&v35, *(a1 + 36));
-    std::ios_base::getloc((v24 + *(*v24 - 24)));
-    v25 = std::locale::use_facet(__p, MEMORY[0x277D82680]);
-    (v25->__vftable[2].~facet_0)(v25, 10);
+    v25 = MEMORY[0x22AA53010](&v36, *(a1 + 36));
+    std::ios_base::getloc((v25 + *(*v25 - 24)));
+    v26 = std::locale::use_facet(__p, MEMORY[0x277D82680]);
+    (v26->__vftable[2].~facet_0)(v26, 10);
     std::locale::~locale(__p);
     std::ostream::put();
     std::ostream::flush();
-    MEMORY[0x22AA53010](v24, *(a1 + 40));
+    MEMORY[0x22AA53010](v25, *(a1 + 40));
     if (!std::filebuf::close())
     {
-      std::ios_base::clear(&v36[*(v35 - 24) - 8], *&v36[*(v35 - 24) + 24] | 4);
+      std::ios_base::clear(&v37[*(v36 - 24) - 8], *&v37[*(v36 - 24) + 24] | 4);
     }
 
-    v35 = *MEMORY[0x277D82810];
-    *&v36[*(v35 - 24) - 8] = *(MEMORY[0x277D82810] + 24);
-    MEMORY[0x22AA52F40](v36);
+    v36 = *MEMORY[0x277D82810];
+    *&v37[*(v36 - 24) - 8] = *(MEMORY[0x277D82810] + 24);
+    MEMORY[0x22AA52F40](v37);
     std::ostream::~ostream();
-    MEMORY[0x22AA53140](&v37);
+    MEMORY[0x22AA53140](&v38);
   }
 
-  v28 = &unk_283809BF8;
-  if (v29 && v32 == 1)
+  v29 = &unk_283809BF8;
+  if (v30 && v33 == 1)
   {
     MEMORY[0x22AA53170]();
   }
 
-  v38 = *MEMORY[0x277D82810];
-  *&v39[*(v38 - 24) - 8] = *(MEMORY[0x277D82810] + 24);
-  MEMORY[0x22AA52F40](v39);
+  v39 = *MEMORY[0x277D82810];
+  *&v40[*(v39 - 24) - 8] = *(MEMORY[0x277D82810] + 24);
+  MEMORY[0x22AA52F40](v40);
   std::ostream::~ostream();
-  MEMORY[0x22AA53140](v40);
-  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+  MEMORY[0x22AA53140](v41);
+  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v34.__r_.__value_.__l.__data_);
+    operator delete(v35.__r_.__value_.__l.__data_);
   }
 }
 
@@ -905,7 +915,7 @@ void sub_22466AC80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   v29 = *MEMORY[0x277D82810];
   STACK[0x2A8] = *MEMORY[0x277D82810];
   *(&STACK[0x2A8] + *(v29 - 24)) = *(v28 + 24);
-  MEMORY[0x22AA52F40](&STACK[0x2B0]);
+  MEMORY[0x22AA52F40](&STACK[0x2B0], a2, a3, a4, a5, a6, a7, a8);
   std::ostream::~ostream();
   MEMORY[0x22AA53140](&STACK[0x448]);
   if (a27 < 0)
@@ -916,46 +926,22 @@ void sub_22466AC80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::ofstream::basic_ofstream(uint64_t *a1)
+uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t a2, int a3)
 {
   a1[58] = 0;
-  v2 = MEMORY[0x277D82860] + 64;
+  v4 = MEMORY[0x277D82860] + 64;
   a1[52] = MEMORY[0x277D82860] + 64;
-  v3 = *(MEMORY[0x277D82810] + 16);
-  v4 = *(MEMORY[0x277D82810] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 1);
-  v6 = MEMORY[0x277D82860] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
+  v5 = *(MEMORY[0x277D82810] + 16);
+  v6 = *(MEMORY[0x277D82810] + 8);
   *a1 = v6;
-  a1[52] = v2;
-  MEMORY[0x22AA52F30](a1 + 1);
-  if (!std::filebuf::open())
-  {
-    std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
-  }
-
-  return a1;
-}
-
-{
-  a1[58] = 0;
-  v2 = MEMORY[0x277D82860] + 64;
-  a1[52] = MEMORY[0x277D82860] + 64;
-  v3 = *(MEMORY[0x277D82810] + 16);
-  v4 = *(MEMORY[0x277D82810] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 1);
-  v6 = MEMORY[0x277D82860] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
-  *a1 = v6;
-  a1[52] = v2;
+  *(a1 + *(v6 - 24)) = v5;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 1);
+  v8 = MEMORY[0x277D82860] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[52] = v4;
   MEMORY[0x22AA52F30](a1 + 1);
   if (!std::filebuf::open())
   {
@@ -970,6 +956,31 @@ void sub_22466AF58(_Unwind_Exception *a1)
   std::ostream::~ostream();
   MEMORY[0x22AA53140](v1);
   _Unwind_Resume(a1);
+}
+
+uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2, int a3)
+{
+  a1[58] = 0;
+  v4 = MEMORY[0x277D82860] + 64;
+  a1[52] = MEMORY[0x277D82860] + 64;
+  v5 = *(MEMORY[0x277D82810] + 16);
+  v6 = *(MEMORY[0x277D82810] + 8);
+  *a1 = v6;
+  *(a1 + *(v6 - 24)) = v5;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 1);
+  v8 = MEMORY[0x277D82860] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[52] = v4;
+  MEMORY[0x22AA52F30](a1 + 1);
+  if (!std::filebuf::open())
+  {
+    std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
+  }
+
+  return a1;
 }
 
 void sub_22466B130(_Unwind_Exception *a1)
@@ -1231,7 +1242,7 @@ LABEL_5:
   return this;
 }
 
-uint64_t SparseVector::AddWithFactor(uint64_t this, const SparseVector *a2, double a3)
+uint64_t SparseVector::AddWithFactor(uint64_t this, const SparseVector *a2, __n128 a3)
 {
   if ((*(this + 28) & 1) == 0)
   {
@@ -1273,7 +1284,7 @@ uint64_t SparseVector::AddWithFactor(uint64_t this, const SparseVector *a2, doub
           SparseVector::AddWithFactor();
         }
 
-        v24 = *v8 * a3;
+        v24 = *v8 * a3.n128_f64[0];
         v25 = *(this + 40);
         *(*(this + 48) + 4 * v11) = v16;
         v26 = *(this + 32);
@@ -1322,7 +1333,7 @@ LABEL_22:
     }
 
     v17 = *v13++;
-    v18 = v17 + a3 * *v8;
+    v18 = v17 + a3.n128_f64[0] * *v8;
     v19 = *(this + 40);
     *(*(this + 48) + 4 * v11) = v15;
     v20 = *(this + 32);
@@ -1374,7 +1385,7 @@ LABEL_27:
       v31 = *(this + 40);
       *(*(this + 48) + 4 * v11) = *v9;
       v32 = *(this + 32);
-      *(v31 + 8 * v32) = v30 * a3;
+      *(v31 + 8 * v32) = v30 * a3.n128_f64[0];
       v11 = v32 + 1;
       *(this + 32) = v11;
       ++v9;
@@ -1390,10 +1401,10 @@ LABEL_27:
   return this;
 }
 
-void SparseVector::operator-(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void SparseVector::operator-(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
-  v3 = *(a1 + 24);
-  *(a3 + 16) = (*(a2 + 20) + *(a1 + 20));
+  v3 = *(a1 + 6);
+  *(a3 + 16) = (*(a2 + 5) + *(a1 + 5));
   *(a3 + 24) = v3;
   *(a3 + 28) = 1;
   *(a3 + 32) = 0;
@@ -1424,8 +1435,9 @@ double operator+=(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t SparseVector::Serialize(uint64_t a1, uint64_t a2, char a3)
+uint64_t SparseVector::Serialize(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = *(a1 + 24);
   v14 = &unk_283809BF8;
   if (v6)
@@ -1467,7 +1479,7 @@ uint64_t SparseVector::Serialize(uint64_t a1, uint64_t a2, char a3)
     __p = *a2;
   }
 
-  Matrix<double>::Serialize(&v14, &__p, a3, 0);
+  Matrix<double>::Serialize(&v14, &__p, v3, 0);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -1486,9 +1498,9 @@ uint64_t SparseVector::Serialize(uint64_t a1, uint64_t a2, char a3)
   return result;
 }
 
-void sub_22466C160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22466C160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   MatrixNxPts<1u,double>::~MatrixNxPts(va);
   _Unwind_Resume(a1);
 }
@@ -1504,7 +1516,7 @@ void sub_22466C174(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-double SparseVector::GetAsDenseVector@<D0>(SparseVector *this@<X0>, uint64_t a2@<X8>)
+double SparseVector::GetAsDenseVector@<D0>(double **this@<X0>, uint64_t a2@<X8>)
 {
   v4 = *(this + 6);
   *a2 = &unk_283809BF8;
@@ -1524,12 +1536,13 @@ double SparseVector::GetAsDenseVector@<D0>(SparseVector *this@<X0>, uint64_t a2@
   if (v6 >= 1)
   {
     v7 = *this;
-    v8 = *(this + 1);
+    v8 = this[1];
     do
     {
       v9 = *v7++;
       result = v9;
-      LODWORD(v9) = *v8++;
+      LODWORD(v9) = *v8;
+      v8 = (v8 + 4);
       *(*(a2 + 8) + 8 * LODWORD(v9)) = result;
       --v6;
     }
@@ -1542,64 +1555,74 @@ double SparseVector::GetAsDenseVector@<D0>(SparseVector *this@<X0>, uint64_t a2@
 
 void Matrix<double>::Serialize(uint64_t a1, uint64_t a2, char a3, char a4)
 {
-  v32[19] = *MEMORY[0x277D85DE8];
+  v33[19] = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v26, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v27, *a2, *(a2 + 8));
   }
 
   else
   {
-    v26 = *a2;
+    v27 = *a2;
   }
 
-  std::ofstream::basic_ofstream(&v30);
+  if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v8 = &v27;
+  }
+
+  else
+  {
+    v8 = v27.__r_.__value_.__r.__words[0];
+  }
+
+  std::ofstream::basic_ofstream(&v31, v8, 4);
   if (a3)
   {
-    v8 = *(a1 + 20);
-    if (v8 && *(a1 + 16))
+    v9 = *(a1 + 20);
+    if (v9 && *(a1 + 16))
     {
-      v9 = 0;
-      v10 = 1;
+      v10 = 0;
+      v11 = 1;
       do
       {
-        if (v10)
+        if (v11)
         {
-          for (i = 0; i < v10; ++i)
+          for (i = 0; i < v11; ++i)
           {
-            if (*(a1 + 20) <= v9)
+            if (*(a1 + 20) <= v10)
             {
               __assert_rtn("operator()", "Matrix.hpp", 126, "row < m_rows && col < m_cols");
             }
 
             std::ostream::write();
-            v10 = *(a1 + 16);
+            v11 = *(a1 + 16);
           }
 
-          v8 = *(a1 + 20);
+          v9 = *(a1 + 20);
         }
 
-        ++v9;
+        ++v10;
       }
 
-      while (v9 < v8);
+      while (v10 < v9);
     }
   }
 
   else
   {
-    v12 = *(a1 + 16);
-    if (v12)
+    v13 = *(a1 + 16);
+    if (v13)
     {
-      LODWORD(v13) = *(a1 + 20);
-      if (v13)
+      LODWORD(v14) = *(a1 + 20);
+      if (v14)
       {
-        for (j = 0; j < v12; ++j)
+        for (j = 0; j < v13; ++j)
         {
-          if (v13)
+          if (v14)
           {
-            v15 = 0;
             v16 = 0;
+            v17 = 0;
             do
             {
               if (j >= *(a1 + 16))
@@ -1608,13 +1631,13 @@ void Matrix<double>::Serialize(uint64_t a1, uint64_t a2, char a3, char a4)
               }
 
               std::ostream::write();
-              ++v16;
-              v13 = *(a1 + 20);
-              v15 += 8;
+              ++v17;
+              v14 = *(a1 + 20);
+              v16 += 8;
             }
 
-            while (v16 < v13);
-            v12 = *(a1 + 16);
+            while (v17 < v14);
+            v13 = *(a1 + 16);
           }
         }
       }
@@ -1623,94 +1646,94 @@ void Matrix<double>::Serialize(uint64_t a1, uint64_t a2, char a3, char a4)
 
   if (!std::filebuf::close())
   {
-    std::ios_base::clear(&v31[*(v30 - 24) - 8], *&v31[*(v30 - 24) + 24] | 4);
+    std::ios_base::clear(&v32[*(v31 - 24) - 8], *&v32[*(v31 - 24) + 24] | 4);
   }
 
   if (a4)
   {
-    v17 = *(a2 + 23);
-    if (v17 >= 0)
+    v18 = *(a2 + 23);
+    if (v18 >= 0)
     {
-      v18 = *(a2 + 23);
+      v19 = *(a2 + 23);
     }
 
     else
     {
-      v18 = *(a2 + 8);
+      v19 = *(a2 + 8);
     }
 
-    if (v18 + 5 >= 0x7FFFFFFFFFFFFFF8)
+    if (v19 + 5 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    if (v18 + 5 >= 0x17)
+    if (v19 + 5 >= 0x17)
     {
       operator new();
     }
 
     __p[1] = 0;
-    v25 = 0;
+    v26 = 0;
     __p[0] = 0;
-    HIBYTE(v25) = v18 + 5;
-    if (v18)
+    HIBYTE(v26) = v19 + 5;
+    if (v19)
     {
-      if ((v17 & 0x80u) == 0)
+      if ((v18 & 0x80u) == 0)
       {
-        v21 = a2;
+        v22 = a2;
       }
 
       else
       {
-        v21 = *a2;
+        v22 = *a2;
       }
 
-      memmove(__p, v21, v18);
+      memmove(__p, v22, v19);
     }
 
-    strcpy(__p + v18, ".meta");
-    std::ofstream::basic_ofstream(&v27);
-    if (SHIBYTE(v25) < 0)
+    strcpy(__p + v19, ".meta");
+    std::ofstream::basic_ofstream(&v28, __p, 16);
+    if (SHIBYTE(v26) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v22 = MEMORY[0x22AA53000](&v27, *(a1 + 20));
-    std::ios_base::getloc((v22 + *(*v22 - 24)));
-    v23 = std::locale::use_facet(__p, MEMORY[0x277D82680]);
-    (v23->__vftable[2].~facet_0)(v23, 10);
+    v23 = MEMORY[0x22AA53000](&v28, *(a1 + 20));
+    std::ios_base::getloc((v23 + *(*v23 - 24)));
+    v24 = std::locale::use_facet(__p, MEMORY[0x277D82680]);
+    (v24->__vftable[2].~facet_0)(v24, 10);
     std::locale::~locale(__p);
     std::ostream::put();
     std::ostream::flush();
-    MEMORY[0x22AA53000](v22, *(a1 + 16));
+    MEMORY[0x22AA53000](v23, *(a1 + 16));
     if (!std::filebuf::close())
     {
-      std::ios_base::clear(&v28[*(v27 - 24) - 8], *&v28[*(v27 - 24) + 24] | 4);
+      std::ios_base::clear(&v29[*(v28 - 24) - 8], *&v29[*(v28 - 24) + 24] | 4);
     }
 
-    v19 = *MEMORY[0x277D82810];
-    v27 = *MEMORY[0x277D82810];
-    v20 = *(MEMORY[0x277D82810] + 24);
-    *&v28[*(v27 - 24) - 8] = v20;
-    MEMORY[0x22AA52F40](v28);
+    v20 = *MEMORY[0x277D82810];
+    v28 = *MEMORY[0x277D82810];
+    v21 = *(MEMORY[0x277D82810] + 24);
+    *&v29[*(v28 - 24) - 8] = v21;
+    MEMORY[0x22AA52F40](v29);
     std::ostream::~ostream();
-    MEMORY[0x22AA53140](&v29);
+    MEMORY[0x22AA53140](&v30);
   }
 
   else
   {
-    v19 = *MEMORY[0x277D82810];
-    v20 = *(MEMORY[0x277D82810] + 24);
+    v20 = *MEMORY[0x277D82810];
+    v21 = *(MEMORY[0x277D82810] + 24);
   }
 
-  v30 = v19;
-  *&v31[*(v19 - 24) - 8] = v20;
-  MEMORY[0x22AA52F40](v31);
+  v31 = v20;
+  *&v32[*(v20 - 24) - 8] = v21;
+  MEMORY[0x22AA52F40](v32);
   std::ostream::~ostream();
-  MEMORY[0x22AA53140](v32);
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
+  MEMORY[0x22AA53140](v33);
+  if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v26.__r_.__value_.__l.__data_);
+    operator delete(v27.__r_.__value_.__l.__data_);
   }
 }
 
@@ -1725,7 +1748,7 @@ void sub_22466C7D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   v23 = *MEMORY[0x277D82810];
   STACK[0x270] = *MEMORY[0x277D82810];
   *(&STACK[0x270] + *(v23 - 24)) = *(v22 + 24);
-  MEMORY[0x22AA52F40](&STACK[0x278]);
+  MEMORY[0x22AA52F40](&STACK[0x278], a2, a3, a4, a5, a6, a7, a8);
   std::ostream::~ostream();
   MEMORY[0x22AA53140](&STACK[0x410]);
   if (a21 < 0)
@@ -2346,8 +2369,18 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-void GeomUtils::FindSpots(uint64_t a1, uint64_t a2, uint64_t a3)
+void GeomUtils::FindSpots(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, Algo *a7, Algo *a8, double a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
+  v32 = 0;
+  v33 = 1;
+  v34 = 0;
+  v35 = 0;
+  v31 = &unk_283809C28;
+  v27 = 0;
+  v28 = 1;
+  v29 = 0;
+  v30 = 0;
+  v26 = &unk_283809C28;
   v22 = 0;
   v23 = 1;
   v24 = 0;
@@ -2358,30 +2391,20 @@ void GeomUtils::FindSpots(uint64_t a1, uint64_t a2, uint64_t a3)
   v19 = 0;
   v20 = 0;
   v16 = &unk_283809C28;
-  v12 = 0;
-  v13 = 1;
+  v13[6] = 0;
+  v13[7] = 1;
   v14 = 0;
   v15 = 0;
-  v11 = &unk_283809C28;
-  v7 = 0;
-  v8 = 1;
-  v9 = 0;
-  v10 = 0;
-  v6 = &unk_283809C28;
-  v3[6] = 0;
-  v3[7] = 1;
-  v4 = 0;
-  v5 = 0;
-  v3[5] = &unk_283809C28;
-  Matrix<double>::Matrix(v3, a3, 0, -1);
+  v13[5] = &unk_283809C28;
+  Matrix<double>::Matrix(v13, a3, 0, -1);
 }
 
-void sub_22466F924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_22466F924(_Unwind_Exception *a1)
 {
-  MatrixNxPts<1u,double>::~MatrixNxPts(v64 - 256);
-  MatrixNxPts<1u,double>::~MatrixNxPts(v64 - 216);
-  MatrixNxPts<1u,double>::~MatrixNxPts(v64 - 176);
-  Matrix<double>::~Matrix(&a64);
+  MatrixNxPts<1u,double>::~MatrixNxPts(v1 - 256);
+  MatrixNxPts<1u,double>::~MatrixNxPts(v1 - 216);
+  MatrixNxPts<1u,double>::~MatrixNxPts(v1 - 176);
+  Matrix<double>::~Matrix();
   MatrixNxPts<1u,double>::~MatrixNxPts(&STACK[0x280]);
   MatrixNxPts<1u,double>::~MatrixNxPts(&STACK[0x2A8]);
   MatrixNxPts<1u,double>::~MatrixNxPts(&STACK[0x2D0]);
@@ -2390,10 +2413,10 @@ void sub_22466F924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void GeomUtils::ImTxTy2AlphaBeta<double>(int a1, uint64_t a2, int a3, int a4, int a5, Algo *this, Algo *a7, int a8, double a9, double a10, double a11, double a12, double a13, uint64_t a14, uint64_t a15)
+void GeomUtils::ImTxTy2AlphaBeta<double>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, Algo *this, Algo *a7, uint64_t a8, double a9, double a10, double a11, double a12, double a13, uint64_t a14, uint64_t a15)
 {
   v16 = this;
-  Algo::LinearSpace(this, a10, a11, &v58);
+  Algo::LinearSpace(&v58, this, a10, a11);
   v19 = v60;
   v20 = v61;
   v21 = *(a14 + 8);
@@ -2419,7 +2442,7 @@ void GeomUtils::ImTxTy2AlphaBeta<double>(int a1, uint64_t a2, int a3, int a4, in
     MEMORY[0x22AA53170]();
   }
 
-  Algo::LinearSpace(a7, a12, a13, &v58);
+  Algo::LinearSpace(&v58, a7, a12, a13);
   v22 = v60;
   v23 = v61;
   v24 = *(a15 + 8);
@@ -2511,42 +2534,43 @@ void GeomUtils::ImTxTy2AlphaBeta<double>(int a1, uint64_t a2, int a3, int a4, in
   Matrix<double>::Matrix(v32, a2, 0, -1);
 }
 
-void sub_224670434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
+void sub_224670434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
 {
-  MatrixNxPts<1u,double>::~MatrixNxPts(&a55);
-  Matrix<double>::~Matrix(v55 - 200);
-  Matrix<double>::~Matrix(v55 - 160);
+  va_start(va, a54);
+  MatrixNxPts<1u,double>::~MatrixNxPts(va);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
   _Unwind_Resume(a1);
 }
 
-void sub_2246704FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, char a60)
+void sub_2246704FC(_Unwind_Exception *a1)
 {
-  Matrix<double>::~Matrix(&a60);
-  Matrix<double>::~Matrix(v60 - 240);
-  Matrix<double>::~Matrix(v60 - 200);
-  Matrix<double>::~Matrix(v60 - 160);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
   _Unwind_Resume(a1);
 }
 
-void sub_22467160C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62, uint64_t a63)
+void sub_22467160C(_Unwind_Exception *a1)
 {
-  Matrix<double>::~Matrix(&a27);
-  Matrix<double>::~Matrix(&a32);
-  Matrix<double>::~Matrix(&a37);
-  Matrix<double>::~Matrix(&a42);
-  Matrix<double>::~Matrix(&a47);
-  Matrix<double>::~Matrix(&a52);
-  Matrix<double>::~Matrix(&a57);
-  Matrix<double>::~Matrix(&a62);
-  Matrix<double>::~Matrix(&a67);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
   MatrixNxPts<3u,double>::~MatrixNxPts(&STACK[0x200]);
   MatrixNxPts<3u,double>::~MatrixNxPts(&STACK[0x228]);
-  Matrix<double>::~Matrix(&STACK[0x250]);
-  Matrix<double>::~Matrix(&STACK[0x278]);
-  Matrix<double>::~Matrix(&STACK[0x2A0]);
-  Matrix<double>::~Matrix(&STACK[0x2C8]);
-  MatrixNxPts<3u,double>::~MatrixNxPts(v67 - 192);
-  Matrix<double>::~Matrix(v67 - 152);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  MatrixNxPts<3u,double>::~MatrixNxPts(v1 - 192);
+  Matrix<double>::~Matrix();
   _Unwind_Resume(a1);
 }
 
@@ -2692,23 +2716,30 @@ LABEL_12:
     }
 
     v41 = v5 - v30 + v31;
-    v42[0] = &unk_283809BF8;
+    v49[0] = &unk_283809BF8;
     if (2 * v30)
     {
       operator new[]();
     }
 
-    v43 = 2;
-    v44 = v20 - v21 + 1;
-    v45 = 0;
-    v46 = 16 * v44;
-    v42[0] = &unk_283809D28;
-    v42[1] = 0;
+    v50 = 2;
+    v51 = v20 - v21 + 1;
+    v52 = 0;
+    v53 = 16 * v51;
+    v49[0] = &unk_283809D28;
+    v49[1] = 0;
+    v43 = &unk_283809BF8;
     if (2 * v41)
     {
       operator new[]();
     }
 
+    v45 = 2;
+    v46 = v5 - v30 + v31;
+    v47 = 0;
+    v48 = 16 * v46;
+    v43 = &unk_283809D28;
+    __dst = 0;
     v32 = *(a1 + 8);
     v37 = 8 * v21;
     memcpy(0, &v32[v37], 8 * v30);
@@ -2730,7 +2761,8 @@ LABEL_12:
     }
 
     memcpy(&v35[v39 - v33], &v32[v39], v36);
-    GeomUtils::ApproxPolyDP(v42);
+    memset(__p, 0, sizeof(__p));
+    GeomUtils::ApproxPolyDP(v49, __p, v8);
   }
 
   v21 = 0;
@@ -2747,8 +2779,9 @@ LABEL_20:
   return result;
 }
 
-void sub_224671DE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, char a24)
+void sub_224671DE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, ...)
 {
+  va_start(va, a23);
   if (__p)
   {
     operator delete(__p);
@@ -2759,12 +2792,12 @@ void sub_224671DE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a21);
   }
 
-  MatrixNxPts<2u,double>::~MatrixNxPts(&a24);
-  MatrixNxPts<2u,double>::~MatrixNxPts(v24 - 144);
+  MatrixNxPts<2u,double>::~MatrixNxPts(va);
+  MatrixNxPts<2u,double>::~MatrixNxPts(v23 - 144);
   _Unwind_Resume(a1);
 }
 
-void GeomUtils::ApproxPolyDP(uint64_t a1)
+void GeomUtils::ApproxPolyDP(uint64_t a1, void *a2, double a3)
 {
   if (*(a1 + 20))
   {
@@ -2774,277 +2807,289 @@ void GeomUtils::ApproxPolyDP(uint64_t a1)
   operator new();
 }
 
-void GeomUtils::AlgebricCameraCalibration(uint64_t *a1, uint64_t *a2)
+void GeomUtils::AlgebricCameraCalibration(uint64_t *a1, uint64_t *a2, double *a3, double *a4, double *a5, uint64_t a6)
 {
-  v2 = *a1;
-  v3 = *a2;
+  v6 = *a1;
+  v7 = *a2;
   if (-858993459 * ((a1[1] - *a1) >> 3))
   {
-    v4 = &unk_283809BF8;
-    v8 = 0;
-    v5 = 0;
-    v6 = 0;
-    v7 = 0;
-    GeomUtils::ComputeHomography(v3, v2);
+    v11 = &unk_283809BF8;
+    v15 = 0;
+    v12 = 0;
+    v13 = 0;
+    v14 = 0;
+    GeomUtils::ComputeHomography(v7, v6, &v11);
   }
 
-  v4 = &unk_283809BF8;
-  v5 = 0;
-  v6 = 0x400000000;
-  v7 = 0;
-  v8 = 0;
-  Matrix<double>::Svd0LowestSingularVector(&v4);
+  v11 = &unk_283809BF8;
+  v12 = 0;
+  v13 = 0x400000000;
+  v14 = 0;
+  v15 = 0;
+  v8[2] = 1;
+  v9 = 0;
+  v10 = 0;
+  v8[0] = &unk_283809C28;
+  v8[1] = 0;
+  Matrix<double>::Svd0LowestSingularVector(&v11, v8);
 }
 
-void sub_224672A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_224672A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void *);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, char *);
   v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   std::vector<Matrix<double>>::~vector[abi:ne200100](va);
   std::vector<Matrix<double>>::~vector[abi:ne200100](va1);
   _Unwind_Resume(a1);
 }
 
-void sub_224672AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, char a26)
+void sub_224672AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  Matrix<double>::~Matrix(&a26);
-  Matrix<double>::~Matrix(v26 - 144);
-  Matrix<double>::~Matrix(&a18);
-  std::vector<Matrix<double>>::~vector[abi:ne200100](&a23);
-  _Unwind_Resume(a1);
-}
-
-void sub_224672B64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  Matrix<double>::~Matrix(v15 - 144);
+  va_start(va, a22);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
   std::vector<Matrix<double>>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void GeomUtils::ComputeHomography(uint64_t a1, uint64_t a2)
+void sub_224672B64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  v2 = *(a2 + 20);
-  v9[0] = &unk_283809BF8;
-  if (v2)
-  {
-    operator new[]();
-  }
+  va_start(va, a22);
+  Matrix<double>::~Matrix();
+  std::vector<Matrix<double>>::~vector[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
 
-  v10 = 3;
-  v11 = 0;
-  v12 = 0;
-  v13 = 24 * v2;
-  v9[0] = &unk_283809CF0;
-  v9[1] = 0;
-  v3 = *(a1 + 20);
-  v4[0] = &unk_283809BF8;
+void GeomUtils::ComputeHomography(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a2 + 20);
+  v10[0] = &unk_283809BF8;
   if (v3)
   {
     operator new[]();
   }
 
-  v5 = 3;
-  v6 = 0;
-  v7 = 0;
-  v8 = 24 * v3;
-  v4[0] = &unk_283809CF0;
-  v4[1] = 0;
-  GeomUtils::ComputeHomography(v4, v9);
-}
-
-{
-  v69 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 20);
-  v5 = *(a2 + 8);
-  v6 = *(a2 + 20);
-  v47 = 1;
-  v48 = v6;
-  v49 = 0;
-  v50 = 8 * v6;
-  v46[0] = &unk_283809C28;
-  v46[1] = v5;
-  v42 = 1;
-  v43 = v6;
-  v44 = 0;
-  v45 = 8 * v6;
-  v40 = &unk_283809C28;
-  v41 = &v5[v6];
-  v60 = 0.0;
-  vDSPMeanv<double>(v5, 1, &v60, v6);
-  v7 = v60;
-  v60 = 0.0;
-  vDSPMeanv<double>(v41, 1, &v60, v43);
-  v8 = v60;
-  MatrixNxPts<1u,double>::operator-(v46, &v51, v7);
-  MatrixNxPts<1u,double>::Abs(&v51, &v60);
-  v37[0] = 0.0;
-  vDSPMeanv<double>(v61, 1, v37, HIDWORD(v62) * LODWORD(v62));
-  v9 = v37[0];
-  v60 = COERCE_DOUBLE(&unk_283809BF8);
-  if (v61 && v63 == 1)
-  {
-    MEMORY[0x22AA53170](v61);
-    v61 = 0;
-    v64 = 0.0;
-    LOBYTE(v63) = 0;
-  }
-
-  v62 = 0.0;
-  v51 = COERCE_DOUBLE(&unk_283809BF8);
-  if (v52 && v54 == 1)
-  {
-    MEMORY[0x22AA53170](v52);
-  }
-
-  MatrixNxPts<1u,double>::operator-(&v40, &v51, v8);
-  MatrixNxPts<1u,double>::Abs(&v51, &v60);
-  v37[0] = 0.0;
-  vDSPMeanv<double>(v61, 1, v37, HIDWORD(v62) * LODWORD(v62));
-  v10 = v37[0];
-  v60 = COERCE_DOUBLE(&unk_283809BF8);
-  if (v61 && v63 == 1)
-  {
-    MEMORY[0x22AA53170](v61);
-    v61 = 0;
-    v64 = 0.0;
-    LOBYTE(v63) = 0;
-  }
-
-  v62 = 0.0;
-  v51 = COERCE_DOUBLE(&unk_283809BF8);
-  if (v52 && v54 == 1)
-  {
-    MEMORY[0x22AA53170](v52);
-  }
-
-  v60 = 1.0 / v9;
-  v61 = 0;
-  v62 = -v7 / v9;
-  v63 = 0;
-  v64 = 1.0 / v10;
-  v65 = -v8 / v10;
-  v66 = 0;
-  v67 = 0;
-  v68 = 0x3FF0000000000000;
-  v51 = v9;
-  v52 = 0;
-  v53 = v7;
-  v54 = 0;
-  v55 = v10;
-  v56 = v8;
-  v57 = 0;
-  v58 = 0;
-  v59 = 0x3FF0000000000000;
-  *&v37[0] = &unk_283809BF8;
-  *&v37[1] = &v60;
-  *&v37[2] = 0x300000003;
-  v38 = 0;
-  v39 = 72;
-  v32 = &unk_283809BF8;
-  v33 = &v51;
-  v34 = 0x300000003;
-  v35 = 0;
-  v36 = 72;
-  v11 = *(a2 + 20);
-  v20 = &unk_283809BF8;
-  if (v11)
-  {
-    operator new[]();
-  }
-
-  v21 = 0;
-  v22 = 3;
-  v23 = 0;
-  v24 = 0;
-  v25 = 24 * v11;
-  Matrix<double>::MultAxBToC(v37, a2, &v20);
-  v28 = 3;
-  v29 = v23;
-  v30 = v24;
-  v31 = v25;
-  v26 = &unk_283809CF0;
-  v27 = v21;
-  v20 = &unk_283809BF8;
-  if (18 * v4)
-  {
-    operator new[]();
-  }
-
+  v11 = 3;
   v12 = 0;
-  v21 = 0;
-  v22 = 2 * v4;
-  v23 = 9;
-  v24 = 0;
-  v25 = 144 * v4;
+  v13 = 0;
+  v14 = 24 * v3;
+  v10[0] = &unk_283809CF0;
+  v10[1] = 0;
+  v4 = *(a1 + 20);
+  v5[0] = &unk_283809BF8;
   if (v4)
   {
-    v13 = v27;
-    v14 = *(a1 + 8);
-    v15 = v4;
+    operator new[]();
+  }
+
+  v6 = 3;
+  v7 = 0;
+  v8 = 0;
+  v9 = 24 * v4;
+  v5[0] = &unk_283809CF0;
+  v5[1] = 0;
+  GeomUtils::ComputeHomography(v5, v10, a3);
+}
+
+{
+  v73 = *MEMORY[0x277D85DE8];
+  v5 = *(a1 + 20);
+  v6 = *(a2 + 8);
+  v7 = *(a2 + 20);
+  v51 = 1;
+  v52 = v7;
+  v53 = 0;
+  v54 = 8 * v7;
+  v50[0] = &unk_283809C28;
+  v50[1] = v6;
+  v46 = 1;
+  v47 = v7;
+  v48 = 0;
+  v49 = 8 * v7;
+  v44 = &unk_283809C28;
+  v45 = &v6[v7];
+  v64 = 0.0;
+  vDSPMeanv<double>(v6, 1, &v64, v7);
+  v8 = v64;
+  v64 = 0.0;
+  vDSPMeanv<double>(v45, 1, &v64, v47);
+  v9 = v64;
+  MatrixNxPts<1u,double>::operator-(v50, &v55, v8);
+  MatrixNxPts<1u,double>::Abs(&v55, &v64);
+  v41[0] = 0.0;
+  vDSPMeanv<double>(v65, 1, v41, HIDWORD(v66) * LODWORD(v66));
+  v10 = v41[0];
+  v64 = COERCE_DOUBLE(&unk_283809BF8);
+  if (v65 && v67 == 1)
+  {
+    MEMORY[0x22AA53170](v65);
+    v65 = 0;
+    v68 = 0.0;
+    LOBYTE(v67) = 0;
+  }
+
+  v66 = 0.0;
+  v55 = COERCE_DOUBLE(&unk_283809BF8);
+  if (v56 && v58 == 1)
+  {
+    MEMORY[0x22AA53170](v56);
+  }
+
+  MatrixNxPts<1u,double>::operator-(&v44, &v55, v9);
+  MatrixNxPts<1u,double>::Abs(&v55, &v64);
+  v41[0] = 0.0;
+  vDSPMeanv<double>(v65, 1, v41, HIDWORD(v66) * LODWORD(v66));
+  v11 = v41[0];
+  v64 = COERCE_DOUBLE(&unk_283809BF8);
+  if (v65 && v67 == 1)
+  {
+    MEMORY[0x22AA53170](v65);
+    v65 = 0;
+    v68 = 0.0;
+    LOBYTE(v67) = 0;
+  }
+
+  v66 = 0.0;
+  v55 = COERCE_DOUBLE(&unk_283809BF8);
+  if (v56 && v58 == 1)
+  {
+    MEMORY[0x22AA53170](v56);
+  }
+
+  v64 = 1.0 / v10;
+  v65 = 0;
+  v66 = -v8 / v10;
+  v67 = 0;
+  v68 = 1.0 / v11;
+  v69 = -v9 / v11;
+  v70 = 0;
+  v71 = 0;
+  v72 = 0x3FF0000000000000;
+  v55 = v10;
+  v56 = 0;
+  v57 = v8;
+  v58 = 0;
+  v59 = v11;
+  v60 = v9;
+  v61 = 0;
+  v62 = 0;
+  v63 = 0x3FF0000000000000;
+  *&v41[0] = &unk_283809BF8;
+  *&v41[1] = &v64;
+  *&v41[2] = 0x300000003;
+  v42 = 0;
+  v43 = 72;
+  v36 = &unk_283809BF8;
+  v37 = &v55;
+  v38 = 0x300000003;
+  v39 = 0;
+  v40 = 72;
+  v12 = *(a2 + 20);
+  v24 = &unk_283809BF8;
+  if (v12)
+  {
+    operator new[]();
+  }
+
+  v25 = 0;
+  v26 = 3;
+  v27 = 0;
+  v28 = 0;
+  v29 = 24 * v12;
+  Matrix<double>::MultAxBToC(v41, a2, &v24);
+  v32 = 3;
+  v33 = v27;
+  v34 = v28;
+  v35 = v29;
+  v30 = &unk_283809CF0;
+  v31 = v25;
+  v24 = &unk_283809BF8;
+  if (18 * v5)
+  {
+    operator new[]();
+  }
+
+  v13 = 0;
+  v25 = 0;
+  v26 = 2 * v5;
+  v27 = 9;
+  v28 = 0;
+  v29 = 144 * v5;
+  if (v5)
+  {
+    v14 = v31;
+    v15 = *(a1 + 8);
+    v16 = v5;
     do
     {
-      v16 = *v14;
-      v17 = v14[v4];
-      v18 = *v13;
-      v19 = v13[v4];
-      *v12 = *v14;
-      *(v12 + 8) = v17;
-      *(v12 + 16) = 0x3FF0000000000000;
-      *(v12 + 24) = 0;
-      *(v12 + 32) = 0;
-      *(v12 + 40) = 0;
-      *(v12 + 48) = -(v18 * v16);
-      *(v12 + 56) = -(v18 * v17);
-      *(v12 + 64) = -v18;
-      *(v12 + 80) = 0;
-      *(v12 + 88) = 0;
-      *(v12 + 72) = 0;
-      *(v12 + 96) = v16;
-      *(v12 + 104) = v17;
-      *(v12 + 112) = 0x3FF0000000000000;
-      *(v12 + 120) = -(v19 * v16);
-      *(v12 + 128) = -(v19 * v17);
-      *(v12 + 136) = -v19;
-      v12 += 144;
+      v17 = *v15;
+      v18 = v15[v5];
+      v19 = *v14;
+      v20 = v14[v5];
+      *v13 = *v15;
+      *(v13 + 8) = v18;
+      *(v13 + 16) = 0x3FF0000000000000;
+      *(v13 + 24) = 0;
+      *(v13 + 32) = 0;
+      *(v13 + 40) = 0;
+      *(v13 + 48) = -(v19 * v17);
+      *(v13 + 56) = -(v19 * v18);
+      *(v13 + 64) = -v19;
+      *(v13 + 80) = 0;
+      *(v13 + 88) = 0;
+      *(v13 + 72) = 0;
+      *(v13 + 96) = v17;
+      *(v13 + 104) = v18;
+      *(v13 + 112) = 0x3FF0000000000000;
+      *(v13 + 120) = -(v20 * v17);
+      *(v13 + 128) = -(v20 * v18);
+      *(v13 + 136) = -v20;
+      v13 += 144;
+      ++v15;
       ++v14;
-      ++v13;
-      --v15;
+      --v16;
     }
 
-    while (v15);
-    if (v4 > 4)
+    while (v16);
+    if (v5 > 4)
     {
-      Matrix<double>::Transpose(&v20);
+      Matrix<double>::Transpose(&v24);
     }
   }
 
-  Matrix<double>::Svd0LowestSingularVector(&v20);
+  v21[2] = 1;
+  v22 = 0;
+  v23 = 0;
+  v21[0] = &unk_283809C28;
+  v21[1] = 0;
+  Matrix<double>::Svd0LowestSingularVector(&v24, v21);
 }
 
-void sub_224672DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_224672DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   MatrixNxPts<3u,double>::~MatrixNxPts(va);
   _Unwind_Resume(a1);
 }
 
-void sub_224672E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+void sub_224672E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
+  va_start(va, a13);
   MatrixNxPts<3u,double>::~MatrixNxPts(&a9);
-  MatrixNxPts<3u,double>::~MatrixNxPts(&a14);
+  MatrixNxPts<3u,double>::~MatrixNxPts(va);
   _Unwind_Resume(a1);
 }
 
-void **std::vector<Matrix<double>>::~vector[abi:ne200100](void **a1)
+char **std::vector<Matrix<double>>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -3055,11 +3100,11 @@ void **std::vector<Matrix<double>>::~vector[abi:ne200100](void **a1)
     {
       v5 = v3 - 40;
       v6 = v3 - 40;
-      v7 = v3 - 40;
+      v7 = (v3 - 40);
       do
       {
         v8 = *v7;
-        v7 -= 40;
+        v7 -= 5;
         (*v8)(v6);
         v5 -= 40;
         v9 = v6 == v2;
@@ -3077,234 +3122,235 @@ void **std::vector<Matrix<double>>::~vector[abi:ne200100](void **a1)
   return a1;
 }
 
-void sub_22467343C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_22467343C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  Matrix<double>::~Matrix(&a9);
-  Matrix<double>::~Matrix(&a14);
+  va_start(va, a28);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
   MatrixNxPts<1u,double>::~MatrixNxPts(&a19);
-  Matrix<double>::~Matrix(&a24);
-  MatrixNxPts<1u,double>::~MatrixNxPts(&a29);
-  MatrixNxPts<1u,double>::~MatrixNxPts(v29 - 184);
-  MatrixNxPts<1u,double>::~MatrixNxPts(v29 - 144);
-  Matrix<double>::~Matrix(v29 - 104);
+  Matrix<double>::~Matrix();
+  MatrixNxPts<1u,double>::~MatrixNxPts(va);
+  MatrixNxPts<1u,double>::~MatrixNxPts(v28 - 184);
+  MatrixNxPts<1u,double>::~MatrixNxPts(v28 - 144);
+  Matrix<double>::~Matrix();
   _Unwind_Resume(a1);
 }
 
-uint64_t GeomUtils::DistortRadialLiteInternal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6)
+uint64_t GeomUtils::DistortRadialLiteInternal(uint64_t a1, uint64_t a2, uint64_t a3, char a4, int a5, int a6, double a7)
 {
   if (*(a1 + 16) != 2)
   {
     GeomUtils::DistortRadialLiteInternal();
   }
 
-  v9 = *(a2 + 32);
+  v10 = *(a2 + 32);
   if (a5)
   {
-    v10 = *(a2 + 32);
+    v11 = *(a2 + 32);
   }
 
   else
+  {
+    v11 = *(a2 + 40);
+  }
+
+  if (a5)
   {
     v10 = *(a2 + 40);
   }
 
-  if (a5)
-  {
-    v9 = *(a2 + 40);
-  }
-
-  v11 = *(a2 + 24);
-  v63 = v9;
-  v64 = 1;
-  v65 = v11;
-  v66 = 0;
-  v67 = 8 * v11;
-  v61 = 8 * v11;
-  v62 = &unk_283809C28;
-  v58 = 1;
-  v59 = v11;
-  v60 = 0;
-  v56 = &unk_283809C28;
-  v57 = v10;
-  v12 = *(a1 + 20);
-  v50 = &unk_283809BF8;
-  if (v12)
+  v12 = *(a2 + 24);
+  v64 = v10;
+  v65 = 1;
+  v66 = v12;
+  v67 = 0;
+  v68 = 8 * v12;
+  v62 = 8 * v12;
+  v63 = &unk_283809C28;
+  v59 = 1;
+  v60 = v12;
+  v61 = 0;
+  v57 = &unk_283809C28;
+  v58 = v11;
+  v13 = *(a1 + 20);
+  v51 = &unk_283809BF8;
+  if (v13)
   {
     operator new[]();
   }
 
-  v52 = 1;
-  v53 = 0;
+  v53 = 1;
   v54 = 0;
   v55 = 0;
-  v50 = &unk_283809C28;
-  v51 = 0;
-  v46 = 1;
-  v47 = 0;
+  v56 = 0;
+  v51 = &unk_283809C28;
+  v52 = 0;
+  v47 = 1;
   v48 = 0;
   v49 = 0;
-  v44 = &unk_283809C28;
-  v45 = 0;
-  v38 = &unk_283809BF8;
-  v39 = 0;
-  v40 = 2;
-  v41 = 0;
+  v50 = 0;
+  v45 = &unk_283809C28;
+  v46 = 0;
+  v39 = &unk_283809BF8;
+  v40 = 0;
+  v41 = 2;
   v42 = 0;
   v43 = 0;
-  v13 = *(a1 + 20);
+  v44 = 0;
+  v14 = *(a1 + 20);
   if (a5)
   {
-    if (v13)
+    if (v14)
     {
       if (*(a1 + 16))
       {
-        v29 = 120;
+        v30 = 120;
       }
 
       else
       {
-        v29 = 126;
+        v30 = 126;
       }
 
-      __assert_rtn("operator()", "Matrix.hpp", v29, "row < m_rows && col < m_cols");
+      __assert_rtn("operator()", "Matrix.hpp", v30, "row < m_rows && col < m_cols");
     }
   }
 
-  else if (v13)
+  else if (v14)
   {
     if (*(a1 + 16))
     {
-      v30 = 120;
+      v31 = 120;
     }
 
     else
     {
-      v30 = 126;
+      v31 = 126;
     }
 
-    __assert_rtn("operator()", "Matrix.hpp", v30, "row < m_rows && col < m_cols");
+    __assert_rtn("operator()", "Matrix.hpp", v31, "row < m_rows && col < m_cols");
   }
 
-  Matrix<double>::DotMult<double>(&v38, &v38, v36);
+  Matrix<double>::DotMult<double>(&v39, &v39, v37);
   if (a6)
   {
-    Interp1SortedWithExtrap<double,LinearInterpolator<double>>(&v62, &v56, &v50, &v44);
+    Interp1SortedWithExtrap<double,LinearInterpolator<double>>(&v63, &v57, &v51, &v45);
   }
 
   else
   {
-    if (!v53)
+    if (!v54)
     {
       __assert_rtn("Interp1WithExtrap", "Algo.hpp", 1355, "xq.GetNumOfPoints() > 0");
     }
 
-    Interp1WithExtrap<double,LinearInterpolator<double>>(&v62, &v56, &v50, &v44, 0);
+    Interp1WithExtrap<double,LinearInterpolator<double>>(&v63, &v57, &v51, &v45, 0);
   }
 
-  Matrix<double>::DotDiv(&v44, &v50, v68);
-  v16 = v71;
-  v34 = v69;
+  Matrix<double>::DotDiv(&v45, &v51, v69);
+  v17 = v72;
   v35 = v70;
-  v17 = v53;
-  if (v53 >= 1)
+  v36 = v71;
+  v18 = v54;
+  if (v54 >= 1)
   {
-    if (!v52)
+    if (!v53)
     {
       goto LABEL_28;
     }
 
-    v18 = 0;
+    v19 = 0;
     do
     {
-      if (*(v51 + 8 * v18) == 0.0)
+      if (*(v52 + 8 * v19) == 0.0)
       {
-        if (v18 >= v35)
+        if (v19 >= v36)
         {
           goto LABEL_28;
         }
 
-        v34[v18] = 1.0;
+        v35[v19] = 1.0;
       }
 
-      ++v18;
+      ++v19;
     }
 
-    while (v17 != v18);
-    if (!v40)
+    while (v18 != v19);
+    if (!v41)
     {
 LABEL_28:
       __assert_rtn("operator()", "Matrix.hpp", 120, "row < m_rows && col < m_cols");
     }
 
-    v19 = v41;
-    if (v40 == 1)
+    v20 = v42;
+    if (v41 == 1)
     {
-      if (!v41 || !v35 || !*(a3 + 16) || !*(a3 + 20))
+      if (!v42 || !v36 || !*(a3 + 16) || !*(a3 + 20))
       {
         goto LABEL_28;
       }
 
-      v31 = *(a3 + 8);
-      v32 = *v39 * *v34;
+      v32 = *(a3 + 8);
+      v33 = *v40 * *v35;
       goto LABEL_78;
     }
 
-    v20 = 0;
+    v21 = 0;
     do
     {
-      if (v19 == v20)
+      if (v20 == v21)
       {
         goto LABEL_28;
       }
 
-      if (v20 >= v35)
+      if (v21 >= v36)
       {
         goto LABEL_28;
       }
 
-      v21 = *(a3 + 16);
-      if (!v21)
+      v22 = *(a3 + 16);
+      if (!v22)
       {
         goto LABEL_28;
       }
 
-      v22 = *(a3 + 20);
-      if (v20 >= v22)
+      v23 = *(a3 + 20);
+      if (v21 >= v23)
       {
         goto LABEL_28;
       }
 
-      *(*(a3 + 8) + 8 * v20) = v39[v20] * v34[v20];
-      if (v21 == 1)
+      *(*(a3 + 8) + 8 * v21) = v40[v21] * v35[v21];
+      if (v22 == 1)
       {
         goto LABEL_28;
       }
 
-      *(*(a3 + 8) + 8 * v22 + 8 * v20) = v34[v20] * v39[v19 + v20];
-      ++v20;
+      *(*(a3 + 8) + 8 * v23 + 8 * v21) = v35[v21] * v40[v20 + v21];
+      ++v21;
     }
 
-    while (v17 != v20);
+    while (v18 != v21);
     if (a5)
     {
-      v23 = *(a3 + 16);
-      if (!v23)
+      v24 = *(a3 + 16);
+      if (!v24)
       {
         goto LABEL_28;
       }
 
-      v24 = *(a3 + 20);
-      if (v23 != 1)
+      v25 = *(a3 + 20);
+      if (v24 != 1)
       {
-        v25 = 0;
-        v26 = 8 * v24;
-        v27 = 8 * v17;
-        while (v26 != v25)
+        v26 = 0;
+        v27 = 8 * v25;
+        v28 = 8 * v18;
+        while (v27 != v26)
         {
-          *(*(a3 + 8) + v25) = *(*(a3 + 8) + v25) + *(a2 + 216) * *a2;
-          *(*(a3 + 8) + v26 + v25) = *(*(a3 + 8) + v26 + v25) + *(a2 + 224) * *a2;
-          v25 += 8;
-          if (v27 == v25)
+          *(*(a3 + 8) + v26) = *(*(a3 + 8) + v26) + *(a2 + 216) * *a2;
+          *(*(a3 + 8) + v27 + v26) = *(*(a3 + 8) + v27 + v26) + *(a2 + 224) * *a2;
+          v26 += 8;
+          if (v28 == v26)
           {
             goto LABEL_43;
           }
@@ -3313,57 +3359,57 @@ LABEL_28:
         goto LABEL_28;
       }
 
-      if (!v24)
+      if (!v25)
       {
         goto LABEL_28;
       }
 
-      v31 = *(a3 + 8);
-      v32 = *v31 + *(a2 + 216) * *a2;
+      v32 = *(a3 + 8);
+      v33 = *v32 + *(a2 + 216) * *a2;
 LABEL_78:
-      *v31 = v32;
+      *v32 = v33;
       goto LABEL_28;
     }
   }
 
 LABEL_43:
-  if (v34 && v16)
+  if (v35 && v17)
   {
     MEMORY[0x22AA53170]();
   }
 
-  v36[0] = &unk_283809BF8;
-  if (v36[1] && v37 == 1)
+  v37[0] = &unk_283809BF8;
+  if (v37[1] && v38 == 1)
   {
     MEMORY[0x22AA53170]();
   }
 
-  v38 = &unk_283809BF8;
-  if (v39 && v42 == 1)
+  v39 = &unk_283809BF8;
+  if (v40 && v43 == 1)
   {
     MEMORY[0x22AA53170]();
   }
 
-  v44 = &unk_283809BF8;
-  if (v45 && v48 == 1)
+  v45 = &unk_283809BF8;
+  if (v46 && v49 == 1)
   {
     MEMORY[0x22AA53170]();
   }
 
-  v50 = &unk_283809BF8;
-  if (v51 && v54 == 1)
+  v51 = &unk_283809BF8;
+  if (v52 && v55 == 1)
   {
     MEMORY[0x22AA53170]();
   }
 
-  v56 = &unk_283809BF8;
-  if (v57 && v60 == 1)
+  v57 = &unk_283809BF8;
+  if (v58 && v61 == 1)
   {
     MEMORY[0x22AA53170]();
   }
 
-  v62 = &unk_283809BF8;
-  if (v63 && v66 == 1)
+  v63 = &unk_283809BF8;
+  if (v64 && v67 == 1)
   {
     MEMORY[0x22AA53170]();
   }
@@ -3371,12 +3417,13 @@ LABEL_43:
   return 0;
 }
 
-void sub_224673DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_224673DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
   MatrixNxPts<1u,double>::~MatrixNxPts(&a29);
-  MatrixNxPts<1u,double>::~MatrixNxPts(&a34);
-  MatrixNxPts<1u,double>::~MatrixNxPts(v34 - 224);
-  MatrixNxPts<1u,double>::~MatrixNxPts(v34 - 184);
+  MatrixNxPts<1u,double>::~MatrixNxPts(va);
+  MatrixNxPts<1u,double>::~MatrixNxPts(v33 - 224);
+  MatrixNxPts<1u,double>::~MatrixNxPts(v33 - 184);
   _Unwind_Resume(a1);
 }
 
@@ -3410,17 +3457,6 @@ void Matrix<double>::DotMult<double>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_
   *(a3 + 24) = 0;
   *(a3 + 32) = 8 * v3 * v4;
   vDSPVmul<double,double>(*(a1 + 8), 1, *(a2 + 8), 1, 0, 1, 0);
-}
-
-uint64_t GeomUtils::DistortRadialLite<double>(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5)
-{
-  GeomUtils::DistortRadialLiteInternal(a1, a2, a3, 0, a4, a5);
-  return 0;
-}
-
-{
-  GeomUtils::DistortRadialLiteInternal(a1, a2, a3, 1, a4, a5);
-  return 0;
 }
 
 void GeomUtils::ToHomg(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -3665,14 +3701,14 @@ LABEL_7:
   return result;
 }
 
-void sub_224674F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50)
+void sub_224674F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50)
 {
-  Matrix<double>::~Matrix(&a20);
-  Matrix<double>::~Matrix(&a15);
-  Matrix<double>::~Matrix(&a25);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
   MatrixNxPts<3u,double>::~MatrixNxPts(&a30);
-  Matrix<double>::~Matrix(&a35);
-  Matrix<double>::~Matrix(&a40);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
   MatrixNxPts<1u,double>::~MatrixNxPts(&a45);
   MatrixNxPts<1u,double>::~MatrixNxPts(&a50);
   _Unwind_Resume(a1);
@@ -3715,269 +3751,269 @@ void MatrixNxPts<1u,double>::Abs(uint64_t a1@<X0>, uint64_t a2@<X8>)
   *(a2 + 8) = 0;
 }
 
-void sub_224675270(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2246753B0(_Unwind_Exception *a1)
 {
-  va_start(va, a2);
-  Matrix<double>::~Matrix(va);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
   _Unwind_Resume(a1);
 }
 
-void sub_22467539C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_2246753B0(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  Matrix<double>::~Matrix(v2);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void Matrix<double>::Svd0LowestSingularVector(uint64_t a1)
-{
-  v9 = 0;
-  v7[1] = 0;
-  v7[2] = 0;
-  v6 = 0;
-  v7[0] = &unk_283809BF8;
-  v8 = 0;
-  v4[1] = 0;
-  v4[2] = 0;
-  v3 = 0;
-  v4[0] = &unk_283809BF8;
-  v5 = 0;
-  v1[2] = 1;
-  v2 = 0;
-  v1[0] = &unk_283809C28;
-  v1[1] = 0;
-  Matrix<double>::Svd(a1, v7, v1, v4);
-}
-
-void sub_2246755C8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
-  v14 = va_arg(va2, void);
-  MatrixNxPts<1u,double>::~MatrixNxPts(va);
-  Matrix<double>::~Matrix(va1);
-  Matrix<double>::~Matrix(va2);
-  _Unwind_Resume(a1);
-}
-
-void GeomUtils::homography2d(void *a1@<X8>)
+void Matrix<double>::Svd0LowestSingularVector(uint64_t a1, uint64_t a2)
 {
   v10 = 0;
+  v8[1] = 0;
+  v8[2] = 0;
+  v7 = 0;
+  v8[0] = &unk_283809BF8;
+  v9 = 0;
+  v5[1] = 0;
+  v5[2] = 0;
+  v4 = 0;
+  v5[0] = &unk_283809BF8;
+  v6 = 0;
+  v2[2] = 1;
+  v3 = 0;
+  v2[0] = &unk_283809C28;
+  v2[1] = 0;
+  Matrix<double>::Svd(a1, v8, v2, v5);
+}
+
+void sub_2246755C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  MatrixNxPts<1u,double>::~MatrixNxPts(va);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  _Unwind_Resume(a1);
+}
+
+void GeomUtils::homography2d(void *a3@<X8>)
+{
+  v12 = 0;
+  v10 = 0u;
+  v11 = 0u;
   v8 = 0u;
   v9 = 0u;
+  v7 = 0;
+  v5 = 0u;
   v6 = 0u;
-  v7 = 0u;
-  v5 = 0;
   v3 = 0u;
   v4 = 0u;
-  v1 = 0u;
-  v2 = 0u;
-  *a1 = &unk_283809BF8;
+  *a3 = &unk_283809BF8;
   operator new[]();
 }
 
-void sub_224675C10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_224675C10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  Matrix<double>::~Matrix(&a14);
-  Matrix<double>::~Matrix(&a9);
-  MatrixNxPts<3u,double>::~MatrixNxPts(&a19);
-  MatrixNxPts<3u,double>::~MatrixNxPts(&a24);
-  Matrix<double>::~Matrix(&a29);
-  Matrix<double>::~Matrix(&a34);
-  Matrix<double>::~Matrix(v34);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  MatrixNxPts<3u,double>::~MatrixNxPts(va);
+  MatrixNxPts<3u,double>::~MatrixNxPts(va1);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
   _Unwind_Resume(a1);
 }
 
-void GeomUtils::ransacComputeHomography(uint64_t a1, uint64_t a2)
+void GeomUtils::ransacComputeHomography(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int *a5, uint64_t a6)
 {
-  if (*(a1 + 20))
+  v18 = 0;
+  memset(v17, 0, sizeof(v17));
+  v16 = 0;
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = *(a1 + 20);
+  v7[0] = &unk_283809BF8;
+  if (v6)
   {
     operator new[]();
   }
 
+  v8 = 3;
+  v9 = 0;
+  v10 = 0;
+  v11 = 24 * v6;
+  v7[0] = &unk_283809CF0;
+  v7[1] = 0;
   if (*(a2 + 20))
   {
     operator new[]();
   }
 
-  Algo::Normalize2DPts();
+  Algo::Normalize2DPts(a1, v7, v17);
 }
 
 {
-  v3 = *(a1 + 20);
-  v11 = &unk_283809BF8;
-  if (v3)
+  v7 = *(a1 + 20);
+  v15 = &unk_283809BF8;
+  if (v7)
   {
     operator new[]();
   }
 
-  v13 = 3;
-  v14 = 0;
-  v15 = 0;
-  v16 = 24 * v3;
-  v11 = &unk_283809CF0;
-  v12 = 0;
-  v4 = *(a2 + 20);
-  v5 = &unk_283809BF8;
-  if (v4)
+  v17 = 3;
+  v18 = 0;
+  v19 = 0;
+  v20 = 24 * v7;
+  v15 = &unk_283809CF0;
+  v16 = 0;
+  v8 = *(a2 + 20);
+  v9 = &unk_283809BF8;
+  if (v8)
   {
     operator new[]();
   }
 
   __dst = 0;
-  v7 = 3;
-  v8 = 0;
-  v9 = 0;
-  v10 = 24 * v4;
-  v5 = &unk_283809CF0;
+  v11 = 3;
+  v12 = 0;
+  v13 = 0;
+  v14 = 24 * v8;
+  v9 = &unk_283809CF0;
   memcpy(0, *(a1 + 8), 8 * (*(a1 + 20) * *(a1 + 16)));
   memcpy(0, *(a2 + 8), 8 * (*(a2 + 20) * *(a2 + 16)));
   __assert_rtn("operator()", "Matrix.hpp", 120, "row < m_rows && col < m_cols");
 }
 
-void sub_22467747C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52)
+void sub_22467747C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, ...)
 {
-  Matrix<double>::~Matrix(&a21);
-  Matrix<double>::~Matrix(&a16);
-  Matrix<double>::~Matrix(&a26);
-  Matrix<double>::~Matrix(&a31);
+  va_start(va, a51);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
   MatrixNxPts<3u,double>::~MatrixNxPts(&a37);
   MatrixNxPts<3u,double>::~MatrixNxPts(&a42);
   MatrixNxPts<3u,double>::~MatrixNxPts(&a47);
-  MatrixNxPts<3u,double>::~MatrixNxPts(&a52);
-  _Unwind_Resume(a1);
-}
-
-void sub_224677814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
   MatrixNxPts<3u,double>::~MatrixNxPts(va);
   _Unwind_Resume(a1);
 }
 
-void sub_224677828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_224677814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va, a15);
+  MatrixNxPts<3u,double>::~MatrixNxPts(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_224677828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
   MatrixNxPts<3u,double>::~MatrixNxPts(va);
   MatrixNxPts<3u,double>::~MatrixNxPts(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t GeomUtils::ransacFitPlane(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, unsigned int *a5, _DWORD *a6)
+uint64_t GeomUtils::ransacFitPlane(uint64_t a1, void *a2, double *a3, uint64_t a4, unsigned int *a5, _DWORD *a6, double a7)
 {
-  result = Algo::RansacPlane(a1, 3, 10, 50, 1u, a4, a5, a6);
-  v11 = *a5;
+  result = Algo::RansacPlane(a1, 3u, 0xAu, 0x32u, 1u, a4, a5, a6, a7);
+  v12 = *a5;
   if (*a5 > 2)
   {
-    if (v11 == 3)
+    if (v12 == 3)
     {
-      v12 = 4;
+      v13 = 4;
     }
 
     else
     {
-      v12 = v11;
+      v13 = v12;
     }
 
-    v24 = &unk_283809BF8;
-    if (4 * v12)
+    v28 = &unk_283809BF8;
+    if (4 * v13)
     {
       operator new[]();
     }
 
-    v25 = 0;
-    v26 = v12;
-    v27 = 4;
-    v28 = 0;
-    v29 = 32 * v12;
-    if (!v11)
+    v29 = 0;
+    v30 = v13;
+    v31 = 4;
+    v32 = 0;
+    v33 = 32 * v13;
+    if (!v12)
     {
       goto LABEL_21;
     }
 
-    v14 = *(a1 + 16);
-    v13 = *(a1 + 20);
-    if (v14)
+    v15 = *(a1 + 16);
+    v14 = *(a1 + 20);
+    if (v15)
     {
-      if (v14 == 1)
+      if (v15 == 1)
       {
-        v21 = **(a4 + 8);
-        if (v13 > v21)
+        v22 = **(a4 + 8);
+        if (v14 > v22)
         {
-          MEMORY[0] = *(*(a1 + 8) + 8 * v21);
+          MEMORY[0] = *(*(a1 + 8) + 8 * v22);
         }
       }
 
       else
       {
-        if (v14 >= 3)
+        if (v15 >= 3)
         {
-          v15 = 0;
+          v16 = 0;
           do
           {
-            v16 = *(*(a4 + 8) + v15);
-            if (v13 <= v16 || 4 * v12 == v15)
+            v17 = *(*(a4 + 8) + v16);
+            if (v14 <= v17 || 4 * v13 == v16)
             {
               goto LABEL_26;
             }
 
-            v18 = 8 * v16;
-            v19 = (8 * v15) & 0x7FFFFFFE0;
-            *(v25 + v19) = *(*(a1 + 8) + v18);
-            *(v25 + v19 + 8) = *(*(a1 + 8) + v18 + 8 * v13);
-            *(v25 + v19 + 16) = *(*(a1 + 8) + v18 + 8 * (2 * v13));
-            *(v25 + v19 + 24) = 0x3FF0000000000000;
-            v15 += 4;
+            v19 = 8 * v17;
+            v20 = (8 * v16) & 0x7FFFFFFE0;
+            *(v29 + v20) = *(*(a1 + 8) + v19);
+            *(v29 + v20 + 8) = *(*(a1 + 8) + v19 + 8 * v14);
+            *(v29 + v20 + 16) = *(*(a1 + 8) + v19 + 8 * (2 * v14));
+            *(v29 + v20 + 24) = 0x3FF0000000000000;
+            v16 += 4;
           }
 
-          while (4 * v11 != v15);
-          if (v11 == 3)
+          while (4 * v12 != v16);
+          if (v12 == 3)
           {
-            if (v12 <= 3)
+            if (v13 <= 3)
             {
               __assert_rtn("operator()", "Matrix.hpp", 120, "row < m_rows && col < m_cols");
             }
 
-            v20 = v25;
-            *(v25 + 96) = 0u;
-            *(v20 + 112) = 0u;
+            v21 = v29;
+            *(v29 + 96) = 0u;
+            *(v21 + 112) = 0u;
           }
 
 LABEL_21:
-          Matrix<double>::Svd0LowestSingularVector(&v24);
+          v25[2] = 1;
+          v26 = 0;
+          v27 = 0;
+          v25[0] = &unk_283809C28;
+          v25[1] = 0;
+          Matrix<double>::Svd0LowestSingularVector(&v28, v25);
         }
 
-        v22 = **(a4 + 8);
-        if (v13 > v22)
+        v23 = **(a4 + 8);
+        if (v14 > v23)
         {
-          v23 = (*(a1 + 8) + 8 * v22);
-          MEMORY[0] = *v23;
-          MEMORY[8] = v23[v13];
+          v24 = (*(a1 + 8) + 8 * v23);
+          MEMORY[0] = *v24;
+          MEMORY[8] = v24[v14];
         }
       }
     }
@@ -3987,73 +4023,46 @@ LABEL_26:
   }
 
   *a5 = 0;
-  *a3 = 0x4197D78400000000;
+  *a3 = 100000000.0;
   return result;
 }
 
-void sub_224677D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
+void sub_224677D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
 {
   MatrixNxPts<1u,double>::~MatrixNxPts(&a9);
   MatrixNxPts<1u,double>::~MatrixNxPts(&a14);
-  Matrix<double>::~Matrix(&a19);
-  _Unwind_Resume(a1);
-}
-
-void sub_224677D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  Matrix<double>::~Matrix(va);
+  Matrix<double>::~Matrix();
   _Unwind_Resume(a1);
 }
 
 void GeomUtils::estimateBestRotMat(uint64_t a1)
 {
+  v10 = 0;
+  v8[1] = 0;
+  v8[2] = 0;
+  v8[0] = &unk_283809BF8;
   v9 = 0;
-  v7[1] = 0;
-  v7[2] = 0;
-  v7[0] = &unk_283809BF8;
-  v8 = 0;
+  v7 = 0;
+  v5[1] = 0;
+  v5[2] = 0;
+  v4 = 0;
+  v5[0] = &unk_283809BF8;
   v6 = 0;
-  v4[1] = 0;
-  v4[2] = 0;
+  v2[2] = 1;
   v3 = 0;
-  v4[0] = &unk_283809BF8;
-  v5 = 0;
-  v1[2] = 1;
-  v2 = 0;
-  v1[0] = &unk_283809C28;
-  v1[1] = 0;
-  Matrix<double>::Svd(a1, v7, v1, v4);
+  v2[0] = &unk_283809C28;
+  v2[1] = 0;
+  Matrix<double>::Svd(a1, v8, v2, v5);
 }
 
-void sub_224678020(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_224678020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  va_copy(va2, va1);
-  v10 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
-  v14 = va_arg(va2, void);
-  v15 = va_arg(va2, void);
-  va_copy(va3, va2);
-  v16 = va_arg(va3, void);
-  v18 = va_arg(va3, void);
-  v19 = va_arg(va3, void);
-  v20 = va_arg(va3, void);
-  v21 = va_arg(va3, void);
-  Matrix<double>::~Matrix(va);
-  Matrix<double>::~Matrix(va1);
-  MatrixNxPts<1u,double>::~MatrixNxPts(va2);
-  Matrix<double>::~Matrix(va3);
-  Matrix<double>::~Matrix(v2 - 104);
+  va_start(va, a19);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  MatrixNxPts<1u,double>::~MatrixNxPts(va);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
   _Unwind_Resume(a1);
 }
 
@@ -4130,49 +4139,7 @@ void Matrix<double>::Svd(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   operator new[]();
 }
 
-void sub_224678434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_224678448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467845C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_224678470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_224678484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_224678498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t GeomUtils::CalcRotTrans(uint64_t a1, double *a2, double *a3, uint64_t a4, double *a5, float64x2_t *a6)
+uint64_t GeomUtils::CalcRotTrans(__int128 *a1, double *a2, double *a3, uint64_t a4, double *a5, float64x2_t *a6)
 {
   dgesvd_NEWLAPACK();
   v44 = malloc_type_malloc(8 * 0.0, 0x100004000313F17uLL);
@@ -4612,13 +4579,27 @@ LABEL_51:
   return result;
 }
 
-void sub_2246794B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_2246794B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  MatrixNxPts<3u,double>::~MatrixNxPts(&a18);
-  MatrixNxPts<2u,double>::~MatrixNxPts(&a13);
-  MatrixNxPts<1u,double>::~MatrixNxPts(&a23);
-  Matrix<double>::~Matrix(&a28);
-  MatrixNxPts<3u,double>::~MatrixNxPts(v28 - 144);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v11 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  va_copy(va2, va1);
+  v17 = va_arg(va2, void);
+  v19 = va_arg(va2, void);
+  v20 = va_arg(va2, void);
+  v21 = va_arg(va2, void);
+  v22 = va_arg(va2, void);
+  MatrixNxPts<3u,double>::~MatrixNxPts(va1);
+  MatrixNxPts<2u,double>::~MatrixNxPts(va);
+  MatrixNxPts<1u,double>::~MatrixNxPts(va2);
+  Matrix<double>::~Matrix();
+  MatrixNxPts<3u,double>::~MatrixNxPts(v9 - 144);
   _Unwind_Resume(a1);
 }
 
@@ -4795,7 +4776,7 @@ void Matrix<unsigned short>::~Matrix(uint64_t a1)
   JUMPOUT(0x22AA531A0);
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<ImageUtils::Blob>,ImageUtils::Blob*,ImageUtils::Blob*,ImageUtils::Blob*>(uint64_t a1, void *a2, void *a3, void *a4)
+void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<ImageUtils::Blob>,ImageUtils::Blob*,ImageUtils::Blob*,ImageUtils::Blob*>(void *a1, void *a2, void *a3, void *a4)
 {
   if (a2 != a3)
   {
@@ -5001,9 +4982,9 @@ void sub_224679EE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
+void std::vector<BOOL>::reserve(uint64_t a1, unint64_t a2)
 {
-  if (a2 > *(result + 16) << 6)
+  if (a2 > *(a1 + 16) << 6)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -5012,8 +4993,6 @@ uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
 
     std::vector<std::string>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__throw_out_of_range[abi:ne200100](const char *a1)
@@ -5460,7 +5439,7 @@ LABEL_39:
         v36 = *(a1 + 20);
         if (v35 + 1 < v36 && *(*(a1 + 8) + 8 * (v35 + 1)) <= v30)
         {
-          ++v35;
+          v35 = (v35 + 1);
         }
 
         v37 = ((v31 - v22) / v27);
@@ -5484,19 +5463,21 @@ LABEL_39:
   return 0;
 }
 
-double CubicInterpolator<double>::operator()(uint64_t a1, double *a2, double *a3, double *a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, double a9, double a10)
+double CubicInterpolator<double>::operator()(uint64_t a1, double *a2, double *a3, double *a4, uint64_t a5, unsigned int a6, uint64_t a7, unsigned int a8, double a9, double a10)
 {
+  v10 = a7;
+  v13 = a5;
   if (a6 < 4)
   {
     if (a6 == 3)
     {
       v21 = CubicInterpolator<double>::operator()(a9, a1, a2, a4, a5, a7);
-      v30 = CubicInterpolator<double>::operator()(a9, a1, a2, &a4[a5], a5, a7);
+      v30 = CubicInterpolator<double>::operator()(a9, a1, a2, &a4[v13], v13, v10);
       v22 = v30;
       if (!a8)
       {
         v39 = -(v30 - v21 * 2.0);
-        v24 = CubicInterpolator<double>::operator()(a9, a1, a2, &a4[2 * a5], a5, a7);
+        v24 = CubicInterpolator<double>::operator()(a9, a1, a2, &a4[2 * v13], v13, v10);
         v36 = (a10 - *a3) / (a3[1] - *a3);
         v25 = v22;
         v22 = v21;
@@ -5504,7 +5485,7 @@ double CubicInterpolator<double>::operator()(uint64_t a1, double *a2, double *a3
         return v22 + v36 * (v36 * (v21 + v22 * -2.5 + v25 * 2.0 + v24 * -0.5)) + v36 * (v36 * ((v22 - v25) * 1.5 + (v24 - v21) * 0.5)) * v36 + (v25 - v21) * 0.5 * v36;
       }
 
-      v25 = CubicInterpolator<double>::operator()(a9, a1, a2, &a4[2 * a5], a5, a7);
+      v25 = CubicInterpolator<double>::operator()(a9, a1, a2, &a4[2 * v13], v13, v10);
       v24 = -(v22 - v25 * 2.0);
       v31 = a3[1];
       v32 = a10 - v31;
@@ -5513,7 +5494,7 @@ double CubicInterpolator<double>::operator()(uint64_t a1, double *a2, double *a3
     }
 
     v22 = CubicInterpolator<double>::operator()(a9, a1, a2, a4, a5, a7);
-    v25 = CubicInterpolator<double>::operator()(a9, a1, a2, &a4[a5], a5, a7);
+    v25 = CubicInterpolator<double>::operator()(a9, a1, a2, &a4[v13], v13, v10);
     v21 = -(v25 - v22 * 2.0);
     v24 = -(v22 - v25 * 2.0);
 LABEL_12:
@@ -5529,8 +5510,8 @@ LABEL_13:
   {
     v34 = &a4[(a6 - 3) * a5];
     v21 = CubicInterpolator<double>::operator()(a9, a1, a2, v34, a5, a7);
-    v22 = CubicInterpolator<double>::operator()(a9, a1, a2, &v34[a5], a5, a7);
-    v25 = CubicInterpolator<double>::operator()(a9, a1, a2, &v34[2 * a5], a5, a7);
+    v22 = CubicInterpolator<double>::operator()(a9, a1, a2, &v34[v13], v13, v10);
+    v25 = CubicInterpolator<double>::operator()(a9, a1, a2, &v34[2 * v13], v13, v10);
     v24 = -(v22 - v25 * 2.0);
     v26 = a3[v18];
     v27 = a10 - v26;
@@ -5541,18 +5522,18 @@ LABEL_13:
   if (!a8)
   {
     v22 = CubicInterpolator<double>::operator()(a9, a1, a2, a4, a5, a7);
-    v37 = CubicInterpolator<double>::operator()(a9, a1, a2, &a4[a5], a5, a7);
+    v37 = CubicInterpolator<double>::operator()(a9, a1, a2, &a4[v13], v13, v10);
     v21 = -(v37 - v22 * 2.0);
-    v24 = CubicInterpolator<double>::operator()(a9, a1, a2, &a4[2 * a5], a5, a7);
+    v24 = CubicInterpolator<double>::operator()(a9, a1, a2, &a4[2 * v13], v13, v10);
     v25 = v37;
     goto LABEL_12;
   }
 
   v19 = &a4[(a8 - 1) * a5];
   v21 = CubicInterpolator<double>::operator()(a9, a1, a2, v19, a5, a7);
-  v22 = CubicInterpolator<double>::operator()(a9, a1, a2, &v19[a5], a5, a7);
-  v23 = CubicInterpolator<double>::operator()(a9, a1, a2, &v19[2 * a5], a5, a7);
-  v24 = CubicInterpolator<double>::operator()(a9, a1, a2, &v19[3 * a5], a5, a7);
+  v22 = CubicInterpolator<double>::operator()(a9, a1, a2, &v19[v13], v13, v10);
+  v23 = CubicInterpolator<double>::operator()(a9, a1, a2, &v19[2 * v13], v13, v10);
+  v24 = CubicInterpolator<double>::operator()(a9, a1, a2, &v19[3 * v13], v13, v10);
   v25 = v23;
   v26 = a3[a8];
   v27 = a10 - v26;
@@ -5642,13 +5623,6 @@ void Matrix<double>::Matrix(uint64_t a1, uint64_t a2, int a3, int a4)
   *(a1 + 16) = v5;
   *(a1 + 20) = v4;
   operator new[]();
-}
-
-void sub_22467AD5C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
 }
 
 uint64_t Interp1<double,LinearInterpolator<double>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5)
@@ -5886,16 +5860,17 @@ uint64_t GeomUtils::CalcRotationMatrix<double>(uint64_t a1, double a2, long doub
   return 0;
 }
 
-void sub_22467BB84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_22467BB84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  MatrixNxPts<2u,double>::~MatrixNxPts(&a24);
-  Matrix<double>::~Matrix(&a29);
-  Matrix<double>::~Matrix(&a34);
-  Matrix<double>::~Matrix(&a39);
-  Matrix<double>::~Matrix(v39 - 248);
-  Matrix<double>::~Matrix(v39 - 208);
-  Matrix<double>::~Matrix(v39 - 168);
-  Matrix<double>::~Matrix(v39 - 128);
+  va_start(va, a23);
+  MatrixNxPts<2u,double>::~MatrixNxPts(va);
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
+  Matrix<double>::~Matrix();
   _Unwind_Resume(a1);
 }
 
@@ -6012,7 +5987,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t DistortRadialLiteInternal<double>(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6, int a7, int a8, char a9)
+uint64_t DistortRadialLiteInternal<double>(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, char a6, int a7, int a8, double a9, char a10)
 {
   if (*(a1 + 16) != 2)
   {
@@ -6021,207 +5996,207 @@ uint64_t DistortRadialLiteInternal<double>(uint64_t a1, uint64_t a2, uint64_t a3
 
   if (a7)
   {
-    v12 = a2;
+    v13 = a2;
   }
 
   else
-  {
-    v12 = a3;
-  }
-
-  if (a7)
   {
     v13 = a3;
   }
 
-  else
+  if (a7)
   {
-    v13 = a2;
+    v14 = a3;
   }
 
-  v50 = 1;
-  v51 = a4;
-  v52 = 0;
-  v53 = 8 * a4;
-  v48 = &unk_283809C28;
-  v49 = v12;
-  v44 = 1;
-  v45 = a4;
-  v46 = 0;
-  v47 = v53;
-  v42 = &unk_283809C28;
-  v43 = v13;
-  v14 = *(a1 + 20);
-  v36 = &unk_283809BF8;
-  if (v14)
+  else
+  {
+    v14 = a2;
+  }
+
+  v51 = 1;
+  v52 = a4;
+  v53 = 0;
+  v54 = 8 * a4;
+  v49 = &unk_283809C28;
+  v50 = v13;
+  v45 = 1;
+  v46 = a4;
+  v47 = 0;
+  v48 = v54;
+  v43 = &unk_283809C28;
+  v44 = v14;
+  v15 = *(a1 + 20);
+  v37 = &unk_283809BF8;
+  if (v15)
   {
     operator new[]();
   }
 
-  v38 = 1;
-  v39 = 0;
+  v39 = 1;
   v40 = 0;
   v41 = 0;
-  v36 = &unk_283809C28;
-  v37 = 0;
-  v32 = 1;
-  v33 = 0;
+  v42 = 0;
+  v37 = &unk_283809C28;
+  v38 = 0;
+  v33 = 1;
   v34 = 0;
   v35 = 0;
-  v30 = &unk_283809C28;
-  v31 = 0;
-  Matrix<double>::DotMult<double>(a1, a1, v28);
+  v36 = 0;
+  v31 = &unk_283809C28;
+  v32 = 0;
+  Matrix<double>::DotMult<double>(a1, a1, v29);
   if (a8)
   {
-    Interp1SortedWithExtrap<double,LinearInterpolator<double>>(&v48, &v42, &v36, &v30);
+    Interp1SortedWithExtrap<double,LinearInterpolator<double>>(&v49, &v43, &v37, &v31);
   }
 
   else
   {
-    if (!v39)
+    if (!v40)
     {
       __assert_rtn("Interp1WithExtrap", "Algo.hpp", 1355, "xq.GetNumOfPoints() > 0");
     }
 
-    Interp1WithExtrap<double,LinearInterpolator<double>>(&v48, &v42, &v36, &v30, a9);
+    Interp1WithExtrap<double,LinearInterpolator<double>>(&v49, &v43, &v37, &v31, a10);
   }
 
-  Matrix<double>::DotDiv(&v30, &v36, v54);
-  v15 = v57;
-  v26 = v55;
+  Matrix<double>::DotDiv(&v31, &v37, v55);
+  v16 = v58;
   v27 = v56;
-  v16 = v39;
-  if (v39 >= 1)
+  v28 = v57;
+  v17 = v40;
+  if (v40 >= 1)
   {
-    if (!v38)
+    if (!v39)
     {
 LABEL_49:
       __assert_rtn("operator()", "Matrix.hpp", 120, "row < m_rows && col < m_cols");
     }
 
-    v17 = 0;
+    v18 = 0;
     do
     {
-      if (*(v37 + 8 * v17) == 0.0)
+      if (*(v38 + 8 * v18) == 0.0)
       {
-        if (v17 >= v27)
+        if (v18 >= v28)
         {
           goto LABEL_49;
         }
 
-        v26[v17] = 1.0;
+        v27[v18] = 1.0;
       }
 
-      ++v17;
+      ++v18;
     }
 
-    while (v16 != v17);
-    v18 = *(a1 + 16);
-    if (!v18)
+    while (v17 != v18);
+    v19 = *(a1 + 16);
+    if (!v19)
     {
       goto LABEL_60;
     }
 
-    v19 = *(a1 + 20);
-    if (v18 != 1)
+    v20 = *(a1 + 20);
+    if (v19 != 1)
     {
-      v20 = 0;
+      v21 = 0;
       while (1)
       {
-        if (v19 == v20)
+        if (v20 == v21)
         {
           goto LABEL_60;
         }
 
-        if (v20 >= v27)
+        if (v21 >= v28)
         {
           goto LABEL_59;
         }
 
-        v21 = *(a5 + 16);
-        if (!v21)
+        v22 = *(a5 + 16);
+        if (!v22)
         {
           goto LABEL_59;
         }
 
-        v22 = *(a5 + 20);
-        if (v20 >= v22)
+        v23 = *(a5 + 20);
+        if (v21 >= v23)
         {
           goto LABEL_59;
         }
 
-        *(*(a5 + 8) + 8 * v20) = *(*(a1 + 8) + 8 * v20) * v26[v20];
-        if (v21 == 1)
+        *(*(a5 + 8) + 8 * v21) = *(*(a1 + 8) + 8 * v21) * v27[v21];
+        if (v22 == 1)
         {
           break;
         }
 
-        *(*(a5 + 8) + 8 * v22 + 8 * v20) = v26[v20] * *(*(a1 + 8) + 8 * v19 + 8 * v20);
-        if (v16 == ++v20)
+        *(*(a5 + 8) + 8 * v23 + 8 * v21) = v27[v21] * *(*(a1 + 8) + 8 * v20 + 8 * v21);
+        if (v17 == ++v21)
         {
           goto LABEL_30;
         }
       }
 
-      v24 = 120;
+      v25 = 120;
 LABEL_51:
-      __assert_rtn("operator()", "Matrix.hpp", v24, "row < m_rows && col < m_cols");
+      __assert_rtn("operator()", "Matrix.hpp", v25, "row < m_rows && col < m_cols");
     }
 
-    if (v19)
+    if (v20)
     {
-      if (v27 && *(a5 + 16) && *(a5 + 20))
+      if (v28 && *(a5 + 16) && *(a5 + 20))
       {
-        **(a5 + 8) = **(a1 + 8) * *v26;
-        v24 = 126;
+        **(a5 + 8) = **(a1 + 8) * *v27;
+        v25 = 126;
         goto LABEL_51;
       }
 
 LABEL_59:
-      v25 = 120;
+      v26 = 120;
     }
 
     else
     {
 LABEL_60:
-      v25 = 126;
+      v26 = 126;
     }
 
-    __assert_rtn("operator()", "Matrix.hpp", v25, "row < m_rows && col < m_cols");
+    __assert_rtn("operator()", "Matrix.hpp", v26, "row < m_rows && col < m_cols");
   }
 
 LABEL_30:
-  if (v26 && v15)
+  if (v27 && v16)
   {
     MEMORY[0x22AA53170]();
   }
 
-  v28[0] = &unk_283809BF8;
-  if (v28[1] && v29 == 1)
+  v29[0] = &unk_283809BF8;
+  if (v29[1] && v30 == 1)
   {
     MEMORY[0x22AA53170]();
   }
 
-  v30 = &unk_283809BF8;
-  if (v31 && v34 == 1)
+  v31 = &unk_283809BF8;
+  if (v32 && v35 == 1)
   {
     MEMORY[0x22AA53170]();
   }
 
-  v36 = &unk_283809BF8;
-  if (v37 && v40 == 1)
+  v37 = &unk_283809BF8;
+  if (v38 && v41 == 1)
   {
     MEMORY[0x22AA53170]();
   }
 
-  v42 = &unk_283809BF8;
-  if (v43 && v46 == 1)
+  v43 = &unk_283809BF8;
+  if (v44 && v47 == 1)
   {
     MEMORY[0x22AA53170]();
   }
 
-  v48 = &unk_283809BF8;
-  if (v49 && v52 == 1)
+  v49 = &unk_283809BF8;
+  if (v50 && v53 == 1)
   {
     MEMORY[0x22AA53170]();
   }
@@ -6229,15 +6204,16 @@ LABEL_30:
   return 0;
 }
 
-void sub_22467C598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_22467C598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   MatrixNxPts<1u,double>::~MatrixNxPts(&a26);
-  MatrixNxPts<1u,double>::~MatrixNxPts(&a31);
-  MatrixNxPts<1u,double>::~MatrixNxPts(v31 - 184);
+  MatrixNxPts<1u,double>::~MatrixNxPts(va);
+  MatrixNxPts<1u,double>::~MatrixNxPts(v30 - 184);
   _Unwind_Resume(a1);
 }
 
-void std::vector<Matrix<double>>::__emplace_back_slow_path<Matrix<double> const&>(void *a1, uint64_t a2)
+void std::vector<Matrix<double>>::__emplace_back_slow_path<Matrix<double> const&>(uint64_t *a1, uint64_t a2)
 {
   v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3) + 1;
   if (v2 <= 0x666666666666666)
@@ -6273,19 +6249,19 @@ void std::vector<Matrix<double>>::__emplace_back_slow_path<Matrix<double> const&
   std::vector<std::string>::__throw_length_error[abi:ne200100]();
 }
 
-void sub_22467C7C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22467C7C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<Matrix<double>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_22467C7D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22467C7D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (v4)
+  va_start(va, a3);
+  if (v5)
   {
-    std::vector<Matrix<double>>::__emplace_back_slow_path<Matrix<double> const&>(v3, v2);
+    std::vector<Matrix<double>>::__emplace_back_slow_path<Matrix<double> const&>(v4, v3);
   }
 
   std::__split_buffer<Matrix<double>>::~__split_buffer(va);
@@ -6420,34 +6396,6 @@ LABEL_27:
 LABEL_28:
   LODWORD(v14) = *(a1 + 20);
   vDSPMmul<double>(*(a1 + 8), 1, *(a2 + 8), 1, *(a3 + 8), 1, *(a1 + 16), *(a3 + 20), v14);
-}
-
-void sub_22467CBF4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467CC08(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467CC1C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467CC30(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
 }
 
 uint64_t Interp1SortedWithExtrap<double,LinearInterpolator<double>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -7026,7 +6974,7 @@ double *ImageUtils::IntegralImage<float>(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t ImageUtils::AdaptiveThreshold<double>(uint64_t a1, unsigned int a2, int a3, uint64_t a4, double a5)
+uint64_t ImageUtils::AdaptiveThreshold<double>(uint64_t a1, uint64_t a2, int a3, uint64_t a4, double a5)
 {
   if (a3)
   {
@@ -7675,104 +7623,6 @@ LABEL_91:
   return 0;
 }
 
-void sub_22467E718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467E72C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467E740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467E754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467E768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467E77C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467E790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467E7A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467E7B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467E7CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467E7E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467E7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467E808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467E81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
 uint64_t AdaptiveThreshold<double,false>(uint64_t a1, unsigned int a2, uint64_t a3, double a4)
 {
   v4 = *(a1 + 20);
@@ -8409,105 +8259,7 @@ LABEL_91:
   return 0;
 }
 
-void sub_22467F688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467F69C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467F6B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467F6C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467F6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467F6EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467F700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467F714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467F728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467F73C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467F750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467F764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467F778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_22467F78C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  Matrix<double>::~Matrix(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t ImageUtils::TraceOuterBoundaries(int32x2_t *a1, unsigned int a2, uint64_t a3)
+uint64_t ImageUtils::TraceOuterBoundaries(int32x2_t *a1, unsigned int a2, void ***a3)
 {
   v123 = *MEMORY[0x277D85DE8];
   v106 = 0;
@@ -8699,24 +8451,24 @@ LABEL_30:
     v100 = 0;
     v101 = 0;
     v41 = v25;
-    v42 = *(v20 + 8);
-    v43 = 0xAAAAAAAAAAAAAAABLL * ((v42 - *v20) >> 3);
+    v42 = v20[1];
+    v43 = 0xAAAAAAAAAAAAAAABLL * (v42 - *v20);
     if (v41 <= v43)
     {
       if (v41 < v43)
       {
-        v44 = *v20 + 24 * v41;
+        v44 = &(*v20)[3 * v41];
         if (v42 != v44)
         {
-          v45 = *(v20 + 8);
+          v45 = v20[1];
           do
           {
-            v47 = *(v45 - 24);
-            v45 -= 24;
+            v47 = *(v45 - 3);
+            v45 -= 3;
             v46 = v47;
             if (v47)
             {
-              *(v42 - 16) = v46;
+              *(v42 - 2) = v46;
               operator delete(v46);
             }
 
@@ -8726,7 +8478,7 @@ LABEL_30:
           while (v45 != v44);
         }
 
-        *(v20 + 8) = v44;
+        v20[1] = v44;
       }
     }
 
@@ -8755,12 +8507,12 @@ LABEL_30:
           if (v54)
           {
             v55 = (v53 - 1);
-            if (0xAAAAAAAAAAAAAAABLL * ((*(v20 + 8) - *v20) >> 3) <= v55)
+            if (0xAAAAAAAAAAAAAAABLL * (v20[1] - *v20) <= v55)
             {
               std::vector<float>::__throw_out_of_range[abi:ne200100]();
             }
 
-            v56 = *v20 + 24 * v55;
+            v56 = &(*v20)[3 * v55];
             v57 = *(v56 + 8);
             if (v57 == *v56)
             {
@@ -8974,14 +8726,15 @@ LABEL_90:
   return result;
 }
 
-void sub_22467FF18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, uint64_t a27, char a28)
+void sub_22467FF18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   if (__p)
   {
     operator delete(__p);
   }
 
-  peridot::sMatrixOversized<unsigned short,3u,27u>::~sMatrixOversized(&a28);
+  peridot::sMatrixOversized<unsigned short,3u,27u>::~sMatrixOversized(va);
   _Unwind_Resume(a1);
 }
 
@@ -9591,9 +9344,9 @@ uint64_t ImageUtils::CloseRect2x2(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_224680A80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_224680A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   MatrixNxPts<1u,BOOL>::~MatrixNxPts(va);
   _Unwind_Resume(a1);
 }
@@ -9620,9 +9373,9 @@ uint64_t ImageUtils::CloseRect3x3(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_224680B2C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_224680B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   MatrixNxPts<1u,BOOL>::~MatrixNxPts(va);
   _Unwind_Resume(a1);
 }
@@ -9902,6 +9655,287 @@ uint64_t Scale<double>(uint64_t a1, int a2, uint64_t a3, double a4, double a5)
   v65 = &unk_283809BF8;
   result = v66;
   if (v66 && v69 == 1)
+  {
+    return MEMORY[0x22AA53170]();
+  }
+
+  return result;
+}
+
+void sub_2246814DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+{
+  va_start(va, a17);
+  MatrixNxPts<1u,double>::~MatrixNxPts(va);
+  Matrix<double>::~Matrix();
+  _Unwind_Resume(a1);
+}
+
+uint64_t Scale<unsigned short>(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
+{
+  v8 = *(a1 + 16);
+  v9 = vcvtpd_u64_f64(v8 * a4);
+  LODWORD(v5) = vcvtpd_u64_f64(*(a1 + 20) * a5);
+  v63 = &unk_283809BF8;
+  if (v8 * v5)
+  {
+    operator new[]();
+  }
+
+  v64 = 0;
+  v65 = v8;
+  v66 = v5;
+  v67 = 0;
+  v68 = 8 * v8 * v5;
+  if (*(a3 + 32) < 8 * v9 * v5)
+  {
+    if (*(a3 + 8))
+    {
+      if (*(a3 + 24) == 1)
+      {
+        MEMORY[0x22AA53170]();
+      }
+    }
+
+    operator new[]();
+  }
+
+  *(a3 + 16) = v9;
+  *(a3 + 20) = v5;
+  v10 = a5 < 1.0;
+  if ((v10 & a2) != 0)
+  {
+    v11 = a5;
+  }
+
+  else
+  {
+    v11 = 1.0;
+  }
+
+  if ((v10 & a2) != 0)
+  {
+    v12 = 4.0 / a5;
+  }
+
+  else
+  {
+    v12 = 4.0;
+  }
+
+  v13 = vcvtpd_u64_f64(v12);
+  v14 = a4 < 1.0;
+  if ((v14 & a2) != 0)
+  {
+    v15 = 4.0 / a4;
+  }
+
+  else
+  {
+    v15 = 4.0;
+  }
+
+  if ((v14 & a2) != 0)
+  {
+    v16 = a4;
+  }
+
+  else
+  {
+    v16 = 1.0;
+  }
+
+  v17 = vcvtpd_u64_f64(v15);
+  if (v17 <= v13)
+  {
+    v18 = v13;
+  }
+
+  else
+  {
+    v18 = v17;
+  }
+
+  v57 = &unk_283809BF8;
+  if (v18 != -4)
+  {
+    operator new[]();
+  }
+
+  v59 = 1;
+  v60 = 0;
+  v61 = 0;
+  v62 = 0;
+  v57 = &unk_283809C28;
+  v58 = 0;
+  if (v5)
+  {
+    v19 = 0;
+    do
+    {
+      v56 = 0;
+      CalculateWeightsForScale<double>(&v57, v13, &v56 + 1, &v56, v12, (v19++ + 0.5) / a5 + -0.5, v11);
+    }
+
+    while (v19 != v5);
+  }
+
+  if (v9)
+  {
+    v20 = 0;
+    v21 = *(a3 + 8);
+    v22 = 8 * v5;
+    do
+    {
+      v56 = 0;
+      CalculateWeightsForScale<double>(&v57, v17, &v56 + 1, &v56, v15, (v20 + 0.5) / a4 + -0.5, v16);
+      if (v56 >= v8)
+      {
+        v23 = v8 - 1;
+      }
+
+      else
+      {
+        v23 = v56;
+      }
+
+      if (v56 >= v8)
+      {
+        v24 = v56 - v8 + 1;
+      }
+
+      else
+      {
+        v24 = 0;
+      }
+
+      if (v5)
+      {
+        v25 = &v21[v5];
+        v26 = (v64 + 8 * (HIDWORD(v56) & ~(SHIDWORD(v56) >> 31)) * v5);
+        v27 = v64 + 8 * (v23 * v5);
+        v28 = (SHIDWORD(v56) >> 31) & -HIDWORD(v56);
+        if (v28)
+        {
+          do
+          {
+            v39 = 0;
+            v40 = v58;
+            v41 = *v26;
+            v42 = 0.0;
+            do
+            {
+              v43 = *v40++;
+              v42 = v42 + v43 * v41;
+              ++v39;
+            }
+
+            while (v39 < v28);
+            v44 = v26;
+            if (v26 < v27)
+            {
+              do
+              {
+                v45 = *v40++;
+                v42 = v42 + v45 * *v44;
+                v44 = (v44 + v22);
+              }
+
+              while (v44 < v27);
+              v41 = *v44;
+            }
+
+            v46 = v42 + *v40 * v41;
+            if (v24)
+            {
+              v47 = v40 + 1;
+              v48 = v24;
+              do
+              {
+                v49 = *v47++;
+                v46 = v46 + v49 * v41;
+                --v48;
+              }
+
+              while (v48);
+            }
+
+            *v21++ = v46;
+            ++v26;
+            v27 += 8;
+          }
+
+          while (v21 < v25);
+        }
+
+        else if (v24)
+        {
+          do
+          {
+            v29 = v58;
+            v30 = 0.0;
+            for (i = v26; i < v27; i = (i + v22))
+            {
+              v32 = *v29++;
+              v30 = v30 + v32 * *i;
+            }
+
+            v34 = *v29;
+            v33 = v29 + 1;
+            v35 = *i;
+            v36 = v30 + v34 * *i;
+            v37 = v24;
+            do
+            {
+              v38 = *v33++;
+              v36 = v36 + v38 * v35;
+              --v37;
+            }
+
+            while (v37);
+            *v21++ = v36;
+            ++v26;
+            v27 += 8;
+          }
+
+          while (v21 < v25);
+        }
+
+        else
+        {
+          do
+          {
+            v50 = v58;
+            v51 = 0.0;
+            for (j = v26; j < v27; j = (j + v22))
+            {
+              v53 = *v50++;
+              v51 = v51 + v53 * *j;
+            }
+
+            *v21++ = v51 + *v50 * *j;
+            ++v26;
+            v27 += 8;
+          }
+
+          while (v21 < v25);
+        }
+      }
+
+      ++v20;
+    }
+
+    while (v20 != v9);
+  }
+
+  v57 = &unk_283809BF8;
+  if (v58 && v61 == 1)
+  {
+    MEMORY[0x22AA53170]();
+  }
+
+  v63 = &unk_283809BF8;
+  result = v64;
+  if (v64 && v67 == 1)
   {
     return MEMORY[0x22AA53170]();
   }

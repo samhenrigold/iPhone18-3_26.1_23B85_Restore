@@ -11,8 +11,10 @@
 + (id)serviceDetailsWithServiceSpecifier:(id)specifier limit:(unint64_t)limit auditToken:(id *)token error:(id *)error;
 + (id)serviceDetailsWithServiceSpecifier:(id)specifier limit:(unint64_t)limit error:(id *)error;
 + (void)setAdditionalServiceDetailsForApplicationIdentifiers:(id)identifiers usingContentsOfDictionary:(id)dictionary completionHandler:(id)handler;
++ (void)setDeveloperModeEnabled:(BOOL)enabled completionHandler:(id)handler;
 + (void)synchronizeWithCompletionHandler:(id)handler;
 - (BOOL)isEqual:(id)equal;
+- (BOOL)setUserApprovalState:(unsigned __int8)state error:(id *)error;
 - (NSNumber)isEnabledByDefault;
 - (_SWCServiceDetails)initWithCoder:(id)coder;
 - (char)modeOfOperation;
@@ -165,6 +167,48 @@
   return v7;
 }
 
+- (BOOL)setUserApprovalState:(unsigned __int8)state error:(id *)error
+{
+  stateCopy = state;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__1;
+  v19 = __Block_byref_object_dispose__1;
+  v20 = 0;
+  v7 = _SWCGetServerConnection();
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __69___SWCServiceDetails_SWCServiceApproval__setUserApprovalState_error___block_invoke;
+  v14[3] = &unk_279BBDE70;
+  v14[4] = &v15;
+  v8 = [v7 synchronousRemoteObjectProxyWithErrorHandler:v14];
+  serviceSpecifier = self->_serviceSpecifier;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __69___SWCServiceDetails_SWCServiceApproval__setUserApprovalState_error___block_invoke_2;
+  v12[3] = &unk_279BBDFD8;
+  v12[5] = &v21;
+  v12[6] = &v15;
+  v12[4] = self;
+  v13 = stateCopy;
+  [v8 setUserApprovalState:stateCopy forServiceWithServiceSpecifier:serviceSpecifier completionHandler:v12];
+  v10 = *(v22 + 24);
+  if (error && (v22[3] & 1) == 0)
+  {
+    *error = v16[5];
+    v10 = *(v22 + 24);
+  }
+
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v21, 8);
+  return v10 & 1;
+}
+
 - (unsigned)siteApprovalState
 {
   fields = self->_fields;
@@ -306,7 +350,7 @@
 
 + (void)setAdditionalServiceDetailsForApplicationIdentifiers:(id)identifiers usingContentsOfDictionary:(id)dictionary completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   dictionaryCopy = dictionary;
   handlerCopy = handler;
@@ -334,26 +378,26 @@
 
 LABEL_3:
   v11 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
-  v35 = 0u;
-  v36 = 0u;
   v34 = 0u;
+  v35 = 0u;
   v33 = 0u;
+  v32 = 0u;
   v12 = identifiersCopy;
-  v13 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v13)
   {
-    v14 = *v34;
+    v14 = *v33;
     do
     {
       v15 = 0;
       do
       {
-        if (*v34 != v14)
+        if (*v33 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = [[_SWCApplicationIdentifier alloc] initWithString:*(*(&v33 + 1) + 8 * v15)];
+        v16 = [[_SWCApplicationIdentifier alloc] initWithString:*(*(&v32 + 1) + 8 * v15)];
         if (v16)
         {
           [v11 addObject:v16];
@@ -363,37 +407,35 @@ LABEL_3:
       }
 
       while (v13 != v15);
-      v13 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v13);
   }
 
   v17 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(dictionaryCopy, "count")}];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __136___SWCServiceDetails_Synchronization__setAdditionalServiceDetailsForApplicationIdentifiers_usingContentsOfDictionary_completionHandler___block_invoke;
-  v31[3] = &unk_279BBE028;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __136___SWCServiceDetails_Synchronization__setAdditionalServiceDetailsForApplicationIdentifiers_usingContentsOfDictionary_completionHandler___block_invoke;
+  v30[3] = &unk_279BBE028;
   v18 = v17;
-  v32 = v18;
-  [dictionaryCopy enumerateKeysAndObjectsUsingBlock:v31];
+  v31 = v18;
+  [dictionaryCopy enumerateKeysAndObjectsUsingBlock:v30];
   v19 = _SWCGetServerConnection();
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __136___SWCServiceDetails_Synchronization__setAdditionalServiceDetailsForApplicationIdentifiers_usingContentsOfDictionary_completionHandler___block_invoke_2;
-  v29[3] = &unk_279BBE000;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __136___SWCServiceDetails_Synchronization__setAdditionalServiceDetailsForApplicationIdentifiers_usingContentsOfDictionary_completionHandler___block_invoke_2;
+  v28[3] = &unk_279BBE000;
   v20 = handlerCopy;
-  v30 = v20;
-  v21 = [v19 remoteObjectProxyWithErrorHandler:v29];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __136___SWCServiceDetails_Synchronization__setAdditionalServiceDetailsForApplicationIdentifiers_usingContentsOfDictionary_completionHandler___block_invoke_3;
-  v27[3] = &unk_279BBE050;
+  v29 = v20;
+  v21 = [v19 remoteObjectProxyWithErrorHandler:v28];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __136___SWCServiceDetails_Synchronization__setAdditionalServiceDetailsForApplicationIdentifiers_usingContentsOfDictionary_completionHandler___block_invoke_3;
+  v26[3] = &unk_279BBE050;
   v22 = v20;
-  v28 = v22;
-  [v21 setAdditionalServiceDetailsForApplicationIdentifiers:v11 usingContentsOfDictionary:v18 completionHandler:v27];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v27 = v22;
+  [v21 setAdditionalServiceDetailsForApplicationIdentifiers:v11 usingContentsOfDictionary:v18 completionHandler:v26];
 }
 
 + (void)synchronizeWithCompletionHandler:(id)handler
@@ -434,6 +476,27 @@ LABEL_3:
 
   _Block_object_dispose(&v7, 8);
   return v4;
+}
+
++ (void)setDeveloperModeEnabled:(BOOL)enabled completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  v6 = _SWCGetServerConnection();
+  v7 = &__block_literal_global_144;
+  if (handlerCopy)
+  {
+    v7 = handlerCopy;
+  }
+
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __79___SWCServiceDetails_DeveloperMode__setDeveloperModeEnabled_completionHandler___block_invoke_2;
+  v10[3] = &unk_279BBE000;
+  v8 = v7;
+  v11 = v8;
+  v9 = [v6 remoteObjectProxyWithErrorHandler:v10];
+  [v9 setDeveloperModeEnabled:enabledCopy completionHandler:v8];
 }
 
 + (id)_serviceDetailsWithServiceSpecifier:(id)specifier URLComponents:(id)components limit:(unint64_t)limit callerAuditToken:(id *)token error:(id *)error

@@ -5,6 +5,8 @@
 - (PDURootViewControllerDelegate)delegate;
 - (void)_presentWelcomeViewIfNeeded;
 - (void)_showWelcomeViewIfNeeded;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)welcomeViewController:(id)controller didDismissWithUserResponse:(unint64_t)response;
 @end
 
@@ -54,7 +56,7 @@
 
 - (void)_showWelcomeViewIfNeeded
 {
-  v26[4] = *MEMORY[0x277D85DE8];
+  v25[4] = *MEMORY[0x277D85DE8];
   if (!self->_welcomeViewController)
   {
     v3 = PDUWelcomeViewControllerForApplicationWithConsentStore(self->_applicationIdentity, self, self->_consentStore);
@@ -68,32 +70,30 @@
 
     [(UIViewController *)self->_welcomeViewController didMoveToParentViewController:self];
     [view setTranslatesAutoresizingMaskIntoConstraints:0];
-    v18 = MEMORY[0x277CCAAD0];
+    v17 = MEMORY[0x277CCAAD0];
     topAnchor = [view topAnchor];
     view3 = [(PDURootViewController *)self view];
     topAnchor2 = [view3 topAnchor];
-    v22 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v26[0] = v22;
+    v21 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v25[0] = v21;
     bottomAnchor = [view bottomAnchor];
     view4 = [(PDURootViewController *)self view];
     bottomAnchor2 = [view4 bottomAnchor];
-    v17 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v26[1] = v17;
+    v16 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v25[1] = v16;
     leadingAnchor = [view leadingAnchor];
     view5 = [(PDURootViewController *)self view];
     leadingAnchor2 = [view5 leadingAnchor];
     v10 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v26[2] = v10;
+    v25[2] = v10;
     trailingAnchor = [view trailingAnchor];
     view6 = [(PDURootViewController *)self view];
     trailingAnchor2 = [view6 trailingAnchor];
     v14 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v26[3] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:4];
-    [v18 activateConstraints:v15];
+    v25[3] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
+    [v17 activateConstraints:v15];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)deviceIsPad
@@ -150,6 +150,26 @@ uint64_t __36__PDURootViewController_deviceIsPad__block_invoke()
 
     [(PDURootViewController *)self presentViewController:v6 animated:0 completion:0];
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(PDURootViewController *)self _presentWelcomeViewIfNeeded];
+  v5.receiver = self;
+  v5.super_class = PDURootViewController;
+  [(PDURootViewController *)&v5 viewDidAppear:appearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  delegate = [(PDURootViewController *)self delegate];
+  [delegate rootViewController:self didDismissWithUserResponse:3];
+
+  v6.receiver = self;
+  v6.super_class = PDURootViewController;
+  [(PDURootViewController *)&v6 viewWillDisappear:disappearCopy];
 }
 
 - (PDURootViewControllerDelegate)delegate

@@ -102,27 +102,25 @@ LABEL_11:
 
 - (NSDictionary)shortcutsDictionaryRepresentation
 {
-  v9[3] = *MEMORY[0x1E69E9840];
+  v8[3] = *MEMORY[0x1E69E9840];
   encodeAsProtoBuf = [(HMActionSet *)self encodeAsProtoBuf];
   v3 = encodeAsProtoBuf;
   if (encodeAsProtoBuf)
   {
     data = [encodeAsProtoBuf data];
-    v8[0] = @"HMActionSetSerializedDictionaryVersion";
-    v8[1] = @"HMActionSetSerializedDictionaryProtocol";
-    v9[0] = @"1.0";
-    v9[1] = @"ProtoBuf";
-    v8[2] = @"HMActionSetSerializedData";
-    v9[2] = data;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
+    v7[0] = @"HMActionSetSerializedDictionaryVersion";
+    v7[1] = @"HMActionSetSerializedDictionaryProtocol";
+    v8[0] = @"1.0";
+    v8[1] = @"ProtoBuf";
+    v7[2] = @"HMActionSetSerializedData";
+    v8[2] = data;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -148,40 +146,40 @@ LABEL_11:
 
 + (HMActionSet)_shortcutsComponentActionSetWithHome:(void *)home actions:
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v4 = a2;
   homeCopy = home;
-  v36 = objc_opt_self();
+  v35 = objc_opt_self();
   v6 = [HMActionSet alloc];
   uUID = [MEMORY[0x1E696AFB0] UUID];
   uUIDString = [uUID UUIDString];
   uUID2 = [MEMORY[0x1E696AFB0] UUID];
   v10 = [(HMActionSet *)v6 initWithName:uUIDString type:@"HMActionSetTypeShortcutsComponent" uuid:uUID2];
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v11 = homeCopy;
-  v12 = [v11 countByEnumeratingWithState:&v38 objects:v48 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v37 objects:v47 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v39;
+    v14 = *v38;
 LABEL_3:
     v15 = v4;
     v16 = 0;
     while (1)
     {
-      if (*v39 != v14)
+      if (*v38 != v14)
       {
         objc_enumerationMutation(v11);
       }
 
-      v17 = *(*(&v38 + 1) + 8 * v16);
-      v37 = 0;
-      v18 = [v17 isValidWithError:{&v37, v36}];
-      v19 = v37;
+      v17 = *(*(&v37 + 1) + 8 * v16);
+      v36 = 0;
+      v18 = [v17 isValidWithError:{&v36, v35}];
+      v19 = v36;
       if ((v18 & 1) == 0)
       {
         break;
@@ -192,16 +190,16 @@ LABEL_3:
       if (actionSet)
       {
         v25 = objc_autoreleasePoolPush();
-        v26 = v36;
-        v33 = v36;
+        v26 = v35;
+        v33 = v35;
         v28 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           v29 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v43 = v29;
-          v44 = 2112;
-          v45 = v17;
+          v42 = v29;
+          v43 = 2112;
+          v44 = v17;
           v30 = "%{public}@Action is in another action set: %@";
           v31 = v28;
           v32 = 22;
@@ -220,7 +218,7 @@ LABEL_15:
 
       if (v13 == ++v16)
       {
-        v13 = [v11 countByEnumeratingWithState:&v38 objects:v48 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v37 objects:v47 count:16];
         v4 = v15;
         if (v13)
         {
@@ -232,18 +230,18 @@ LABEL_15:
     }
 
     v25 = objc_autoreleasePoolPush();
-    v26 = v36;
-    v27 = v36;
+    v26 = v35;
+    v27 = v35;
     v28 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v43 = v29;
-      v44 = 2112;
-      v45 = v17;
-      v46 = 2112;
-      v47 = v19;
+      v42 = v29;
+      v43 = 2112;
+      v44 = v17;
+      v45 = 2112;
+      v46 = v19;
       v30 = "%{public}@Invalid action %@: %@";
       v31 = v28;
       v32 = 32;
@@ -266,14 +264,12 @@ LABEL_10:
   v24 = v10;
 LABEL_17:
 
-  v34 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
 - (void)updateWithBuilder:(id)builder completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   builderCopy = builder;
   handlerCopy = handler;
   context = [(HMActionSet *)self context];
@@ -281,33 +277,33 @@ LABEL_17:
   v10 = home;
   if (context)
   {
-    v31 = 0;
-    v11 = [home validateBuilder:builderCopy error:&v31];
-    v12 = v31;
+    v30 = 0;
+    v11 = [home validateBuilder:builderCopy error:&v30];
+    v12 = v30;
     v13 = v12;
     if (v11)
     {
       v14 = MEMORY[0x1E695DF90];
-      v30 = v12;
-      v15 = [v10 encodeActionSetBuilder:builderCopy error:&v30];
-      v16 = v30;
+      v29 = v12;
+      v15 = [v10 encodeActionSetBuilder:builderCopy error:&v29];
+      v16 = v29;
 
       delegateCaller2 = [v14 dictionaryWithDictionary:v15];
 
       if (delegateCaller2)
       {
         uuid = [(HMActionSet *)self uuid];
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __69__HMActionSet_ActionSetBuilder__updateWithBuilder_completionHandler___block_invoke;
-        v25[3] = &unk_1E754D030;
-        v26 = context;
-        v29 = handlerCopy;
-        v27 = v10;
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = __69__HMActionSet_ActionSetBuilder__updateWithBuilder_completionHandler___block_invoke;
+        v24[3] = &unk_1E754D030;
+        v25 = context;
+        v28 = handlerCopy;
+        v26 = v10;
         selfCopy = self;
-        [(_HMContext *)v26 sendMessage:uuid target:delegateCaller2 payload:v25 responseHandler:?];
+        [(_HMContext *)v25 sendMessage:uuid target:delegateCaller2 payload:v24 responseHandler:?];
 
-        delegateCaller = v26;
+        delegateCaller = v25;
       }
 
       else
@@ -334,16 +330,14 @@ LABEL_17:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v23;
-      v34 = 2080;
-      v35 = "[HMActionSet(ActionSetBuilder) updateWithBuilder:completionHandler:]";
+      v32 = v23;
+      v33 = 2080;
+      v34 = "[HMActionSet(ActionSetBuilder) updateWithBuilder:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v20);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __69__HMActionSet_ActionSetBuilder__updateWithBuilder_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -385,7 +379,7 @@ void __69__HMActionSet_ActionSetBuilder__updateWithBuilder_completionHandler___b
 
 - (id)encodeAsProtoBuf
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   home = [(HMActionSet *)self home];
   if (home)
   {
@@ -412,26 +406,26 @@ void __69__HMActionSet_ActionSetBuilder__updateWithBuilder_completionHandler___b
       v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
       [(HMPBActionSet *)v4 setActions:v13];
 
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       actions = [(HMActionSet *)self actions];
-      v15 = [actions countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v15 = [actions countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v28;
+        v17 = *v27;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v28 != v17)
+            if (*v27 != v17)
             {
               objc_enumerationMutation(actions);
             }
 
-            encodeAsProtoBuf = [*(*(&v27 + 1) + 8 * i) encodeAsProtoBuf];
+            encodeAsProtoBuf = [*(*(&v26 + 1) + 8 * i) encodeAsProtoBuf];
             if (encodeAsProtoBuf)
             {
               actions2 = [(HMPBActionSet *)v4 actions];
@@ -439,7 +433,7 @@ void __69__HMActionSet_ActionSetBuilder__updateWithBuilder_completionHandler___b
             }
           }
 
-          v16 = [actions countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v16 = [actions countByEnumeratingWithState:&v26 objects:v30 count:16];
         }
 
         while (v16);
@@ -456,7 +450,7 @@ void __69__HMActionSet_ActionSetBuilder__updateWithBuilder_completionHandler___b
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v24;
+      v32 = v24;
       _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@home is nil while encoding ActionSet", buf, 0xCu);
     }
 
@@ -464,14 +458,12 @@ void __69__HMActionSet_ActionSetBuilder__updateWithBuilder_completionHandler___b
     v4 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (BOOL)mergeFromNewObjectForBuilderUpdates:(id)updates
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   updatesCopy = updates;
   v5 = [HMObjectMergeCollection alloc];
   currentActions = [(HMActionSet *)self currentActions];
@@ -481,20 +473,20 @@ void __69__HMActionSet_ActionSetBuilder__updateWithBuilder_completionHandler___b
   v10 = [(HMObjectMergeCollection *)v5 initWithCurrentObjects:array newObjects:array2];
 
   removedObjects = [(HMObjectMergeCollection *)v10 removedObjects];
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __51__HMActionSet_mergeFromNewObjectForBuilderUpdates___block_invoke;
-  v34[3] = &unk_1E754D0A8;
-  v34[4] = self;
-  [removedObjects hmf_enumerateWithAutoreleasePoolUsingBlock:v34];
-
-  selfCopy = [(HMObjectMergeCollection *)v10 addedObjects];
   v33[0] = MEMORY[0x1E69E9820];
   v33[1] = 3221225472;
-  v33[2] = __51__HMActionSet_mergeFromNewObjectForBuilderUpdates___block_invoke_282;
+  v33[2] = __51__HMActionSet_mergeFromNewObjectForBuilderUpdates___block_invoke;
   v33[3] = &unk_1E754D0A8;
   v33[4] = self;
-  [(HMActionSet *)selfCopy hmf_enumerateWithAutoreleasePoolUsingBlock:v33];
+  [removedObjects hmf_enumerateWithAutoreleasePoolUsingBlock:v33];
+
+  selfCopy = [(HMObjectMergeCollection *)v10 addedObjects];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __51__HMActionSet_mergeFromNewObjectForBuilderUpdates___block_invoke_282;
+  v32[3] = &unk_1E754D0A8;
+  v32[4] = self;
+  [(HMActionSet *)selfCopy hmf_enumerateWithAutoreleasePoolUsingBlock:v32];
 
   [(HMObjectMergeCollection *)v10 mergeCommonObjects];
   LODWORD(selfCopy) = [(HMObjectMergeCollection *)v10 isModified];
@@ -519,9 +511,9 @@ void __69__HMActionSet_ActionSetBuilder__updateWithBuilder_completionHandler___b
       v20 = HMFGetLogIdentifier();
       applicationData = [updatesCopy applicationData];
       *buf = 138543618;
-      v36 = v20;
-      v37 = 2112;
-      v38 = applicationData;
+      v35 = v20;
+      v36 = 2112;
+      v37 = applicationData;
       _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_INFO, "%{public}@Updated name via merge: %@", buf, 0x16u);
     }
 
@@ -546,9 +538,9 @@ void __69__HMActionSet_ActionSetBuilder__updateWithBuilder_completionHandler___b
       v29 = HMFGetLogIdentifier();
       applicationData4 = [updatesCopy applicationData];
       *buf = 138543618;
-      v36 = v29;
-      v37 = 2112;
-      v38 = applicationData4;
+      v35 = v29;
+      v36 = 2112;
+      v37 = applicationData4;
       _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_INFO, "%{public}@Updated application data via merge: %@", buf, 0x16u);
     }
 
@@ -559,11 +551,31 @@ void __69__HMActionSet_ActionSetBuilder__updateWithBuilder_completionHandler___b
     LOBYTE(selfCopy) = 1;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 void __51__HMActionSet_mergeFromNewObjectForBuilderUpdates___block_invoke(uint64_t a1, void *a2)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v4 = objc_autoreleasePoolPush();
+  v5 = *(a1 + 32);
+  v6 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    v7 = HMFGetLogIdentifier();
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed action via merge: %@", &v8, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v4);
+  [v3 _unconfigure];
+}
+
+void __51__HMActionSet_mergeFromNewObjectForBuilderUpdates___block_invoke_282(uint64_t a1, void *a2)
 {
   v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -577,37 +589,12 @@ void __51__HMActionSet_mergeFromNewObjectForBuilderUpdates___block_invoke(uint64
     v10 = v7;
     v11 = 2112;
     v12 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed action via merge: %@", &v9, 0x16u);
-  }
-
-  objc_autoreleasePoolPop(v4);
-  [v3 _unconfigure];
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __51__HMActionSet_mergeFromNewObjectForBuilderUpdates___block_invoke_282(uint64_t a1, void *a2)
-{
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = objc_autoreleasePoolPush();
-  v5 = *(a1 + 32);
-  v6 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-  {
-    v7 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added action via merge: %@", &v10, 0x16u);
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added action via merge: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   v8 = [*(a1 + 32) context];
   [v3 __configureWithContext:v8 actionSet:*(a1 + 32)];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)mergeFromNewObject:(id)object
@@ -733,6 +720,27 @@ void __51__HMActionSet_mergeFromNewObjectForBuilderUpdates___block_invoke_282(ui
 
 void __34__HMActionSet_mergeFromNewObject___block_invoke(uint64_t a1, void *a2)
 {
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v4 = objc_autoreleasePoolPush();
+  v5 = *(a1 + 32);
+  v6 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    v7 = HMFGetLogIdentifier();
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed action via merge: %@", &v8, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v4);
+  [v3 _unconfigure];
+}
+
+void __34__HMActionSet_mergeFromNewObject___block_invoke_280(uint64_t a1, void *a2)
+{
   v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
@@ -745,37 +753,12 @@ void __34__HMActionSet_mergeFromNewObject___block_invoke(uint64_t a1, void *a2)
     v10 = v7;
     v11 = 2112;
     v12 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed action via merge: %@", &v9, 0x16u);
-  }
-
-  objc_autoreleasePoolPop(v4);
-  [v3 _unconfigure];
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __34__HMActionSet_mergeFromNewObject___block_invoke_280(uint64_t a1, void *a2)
-{
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = objc_autoreleasePoolPush();
-  v5 = *(a1 + 32);
-  v6 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-  {
-    v7 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added action via merge: %@", &v10, 0x16u);
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added action via merge: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   v8 = [*(a1 + 32) context];
   [v3 __configureWithContext:v8 actionSet:*(a1 + 32)];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __34__HMActionSet_mergeFromNewObject___block_invoke_281(id *a1)
@@ -854,7 +837,7 @@ void __34__HMActionSet_mergeFromNewObject___block_invoke_3(id *a1)
 
 - (void)didUpdateIsExecuting:(BOOL)executing
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   home = [(HMActionSet *)self home];
   v6 = home;
   if (home)
@@ -876,15 +859,15 @@ void __34__HMActionSet_mergeFromNewObject___block_invoke_3(id *a1)
     {
       context = [(HMActionSet *)self context];
       queue = [context queue];
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __36__HMActionSet_didUpdateIsExecuting___block_invoke;
-      v17[3] = &unk_1E754D080;
-      v17[4] = self;
-      v18 = v9;
-      v19 = v6;
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __36__HMActionSet_didUpdateIsExecuting___block_invoke;
+      v16[3] = &unk_1E754D080;
+      v16[4] = self;
+      v17 = v9;
+      v18 = v6;
       executingCopy = executing;
-      dispatch_async(queue, v17);
+      dispatch_async(queue, v16);
     }
   }
 
@@ -897,14 +880,12 @@ void __34__HMActionSet_mergeFromNewObject___block_invoke_3(id *a1)
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v15;
+      v21 = v15;
       _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_ERROR, "%{public}@Can't fire delegate because home is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __36__HMActionSet_didUpdateIsExecuting___block_invoke(uint64_t a1)
@@ -926,7 +907,7 @@ void __36__HMActionSet_didUpdateIsExecuting___block_invoke(uint64_t a1)
 
 - (void)_handleActionSetExecutedNotification:(id)notification
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   v5 = [notificationCopy dateForKey:@"kActionSetLastexecutionDate"];
   if (v5)
@@ -947,17 +928,15 @@ void __36__HMActionSet_didUpdateIsExecuting___block_invoke(uint64_t a1)
     {
       v10 = HMFGetLogIdentifier();
       shortDescription = [notificationCopy shortDescription];
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = shortDescription;
-      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Received action set executed message without a last execution date: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = shortDescription;
+      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Received action set executed message without a last execution date: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleActionSetStartExecutionNotification:(id)notification
@@ -996,7 +975,7 @@ void __36__HMActionSet_didUpdateIsExecuting___block_invoke(uint64_t a1)
 
 - (BOOL)_handleActionSetRenameFromPayload:(id)payload completion:(id)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   completionCopy = completion;
   v8 = [payloadCopy hmf_stringForKey:@"kActionSetName"];
@@ -1021,14 +1000,14 @@ void __36__HMActionSet_didUpdateIsExecuting___block_invoke(uint64_t a1)
       {
         context2 = [(HMActionSet *)self context];
         delegateCaller2 = [context2 delegateCaller];
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __60__HMActionSet__handleActionSetRenameFromPayload_completion___block_invoke;
-        v23[3] = &unk_1E754E5E8;
-        v24 = delegate;
-        v25 = home;
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __60__HMActionSet__handleActionSetRenameFromPayload_completion___block_invoke;
+        v22[3] = &unk_1E754E5E8;
+        v23 = delegate;
+        v24 = home;
         selfCopy = self;
-        [delegateCaller2 invokeBlock:v23];
+        [delegateCaller2 invokeBlock:v22];
       }
 
       v11 = v18 ^ 1;
@@ -1044,9 +1023,9 @@ void __36__HMActionSet_didUpdateIsExecuting___block_invoke(uint64_t a1)
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v15;
-      v29 = 2112;
-      v30 = 0;
+      v27 = v15;
+      v28 = 2112;
+      v29 = 0;
       _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Received a new action set without a new name %@", buf, 0x16u);
     }
 
@@ -1054,13 +1033,12 @@ void __36__HMActionSet_didUpdateIsExecuting___block_invoke(uint64_t a1)
     v11 = 1;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v11 & 1;
 }
 
 - (BOOL)_handleActionUpdatedFromResponse:(id)response completion:(id)completion
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   completionCopy = completion;
   v8 = [responseCopy hmf_UUIDForKey:@"kActionUUID"];
@@ -1088,22 +1066,22 @@ void __36__HMActionSet_didUpdateIsExecuting___block_invoke(uint64_t a1)
         {
           home = [(HMActionSet *)self home];
           delegate = [home delegate];
-          v31 = objc_opt_respondsToSelector();
-          if (v31)
+          v30 = objc_opt_respondsToSelector();
+          if (v30)
           {
             context2 = [(HMActionSet *)self context];
             delegateCaller2 = [context2 delegateCaller];
-            v34[0] = MEMORY[0x1E69E9820];
-            v34[1] = 3221225472;
-            v34[2] = __59__HMActionSet__handleActionUpdatedFromResponse_completion___block_invoke;
-            v34[3] = &unk_1E754E5E8;
-            v35 = delegate;
-            v36 = home;
+            v33[0] = MEMORY[0x1E69E9820];
+            v33[1] = 3221225472;
+            v33[2] = __59__HMActionSet__handleActionUpdatedFromResponse_completion___block_invoke;
+            v33[3] = &unk_1E754E5E8;
+            v34 = delegate;
+            v35 = home;
             selfCopy = self;
-            [delegateCaller2 invokeBlock:v34];
+            [delegateCaller2 invokeBlock:v33];
           }
 
-          v15 = v31 ^ 1;
+          v15 = v30 ^ 1;
         }
 
         goto LABEL_16;
@@ -1116,11 +1094,11 @@ void __36__HMActionSet_didUpdateIsExecuting___block_invoke(uint64_t a1)
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v39 = v23;
-        v40 = 2112;
-        v41 = v12;
-        v42 = 2112;
-        v43 = v10;
+        v38 = v23;
+        v39 = 2112;
+        v40 = v12;
+        v41 = 2112;
+        v42 = v10;
         v24 = "%{public}@Could not update action (%@) with info (%@)";
         v25 = v22;
         v26 = 32;
@@ -1137,7 +1115,7 @@ void __36__HMActionSet_didUpdateIsExecuting___block_invoke(uint64_t a1)
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v39 = v23;
+        v38 = v23;
         v24 = "%{public}@Unable to update action.";
         v25 = v22;
         v26 = 12;
@@ -1160,11 +1138,11 @@ LABEL_16:
   {
     v19 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v39 = v19;
-    v40 = 2112;
-    v41 = v8;
-    v42 = 2112;
-    v43 = v10;
+    v38 = v19;
+    v39 = 2112;
+    v40 = v8;
+    v41 = 2112;
+    v42 = v10;
     _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unable to update action. Either UUID (%@) or info (%@) is invalid", buf, 0x20u);
   }
 
@@ -1172,13 +1150,12 @@ LABEL_16:
   v15 = 1;
 LABEL_17:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v15 & 1;
 }
 
 - (BOOL)_handleActionRemovedFromPayload:(id)payload completion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   completionCopy = completion;
   v8 = [payloadCopy hmf_UUIDForKey:@"kActionUUID"];
@@ -1195,24 +1172,23 @@ LABEL_17:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2112;
-      v19 = payloadCopy;
-      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Invalid action UUID : %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2112;
+      v18 = payloadCopy;
+      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Invalid action UUID : %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = 1;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (BOOL)_doRemoveActionWithUUID:(id)d completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dCopy = d;
   handlerCopy = handler;
   currentActions = [(HMActionSet *)self currentActions];
@@ -1242,14 +1218,14 @@ LABEL_17:
       {
         context2 = [(HMActionSet *)self context];
         delegateCaller2 = [context2 delegateCaller];
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __57__HMActionSet__doRemoveActionWithUUID_completionHandler___block_invoke;
-        v25[3] = &unk_1E754E5E8;
-        v26 = delegate;
-        v27 = home;
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = __57__HMActionSet__doRemoveActionWithUUID_completionHandler___block_invoke;
+        v24[3] = &unk_1E754E5E8;
+        v25 = delegate;
+        v26 = home;
         selfCopy = self;
-        [delegateCaller2 invokeBlock:v25];
+        [delegateCaller2 invokeBlock:v24];
       }
 
       v13 = v20 ^ 1;
@@ -1265,7 +1241,7 @@ LABEL_17:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v30 = v17;
+      v29 = v17;
       _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@The action does not belong to actionset", buf, 0xCu);
     }
 
@@ -1273,35 +1249,34 @@ LABEL_17:
     v13 = 1;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
 - (void)_removeActionsForAccessory:(id)accessory
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   accessoryCopy = accessory;
   array = [MEMORY[0x1E695DF70] array];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = [(HMActionSet *)self actions];
-  v4 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v4 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v29;
+    v6 = *v28;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v29 != v6)
+        if (*v28 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v28 + 1) + 8 * i);
+        v8 = *(*(&v27 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1334,7 +1309,7 @@ LABEL_17:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v5);
@@ -1350,16 +1325,14 @@ LABEL_17:
   {
     context = [(HMActionSet *)self context];
     delegateCaller = [context delegateCaller];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __42__HMActionSet__removeActionsForAccessory___block_invoke;
-    v25[3] = &unk_1E754E5C0;
-    v26 = delegate;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __42__HMActionSet__removeActionsForAccessory___block_invoke;
+    v24[3] = &unk_1E754E5C0;
+    v25 = delegate;
     selfCopy = self;
-    [delegateCaller invokeBlock:v25];
+    [delegateCaller invokeBlock:v24];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __42__HMActionSet__removeActionsForAccessory___block_invoke(uint64_t a1)
@@ -1371,7 +1344,7 @@ void __42__HMActionSet__removeActionsForAccessory___block_invoke(uint64_t a1)
 
 - (void)_doAddAction:(id)action uuid:(id)uuid
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   uuidCopy = uuid;
   currentActions = [(HMActionSet *)self currentActions];
@@ -1386,19 +1359,19 @@ void __42__HMActionSet__removeActionsForAccessory___block_invoke(uint64_t a1)
     {
       v13 = HMFGetLogIdentifier();
       uniqueIdentifier = [actionCopy uniqueIdentifier];
-      v18 = 138544130;
-      v19 = v13;
-      v20 = 2112;
-      v21 = uniqueIdentifier;
-      v22 = 2112;
-      v23 = actionCopy;
-      v24 = 2112;
-      v25 = v9;
-      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Action %@ being added has already appeared, making %@ a proxy for existing configured instance %@", &v18, 0x2Au);
+      v17 = 138544130;
+      v18 = v13;
+      v19 = 2112;
+      v20 = uniqueIdentifier;
+      v21 = 2112;
+      v22 = actionCopy;
+      v23 = 2112;
+      v24 = v9;
+      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Action %@ being added has already appeared, making %@ a proxy for existing configured instance %@", &v17, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v10);
-    HMProxify(actionCopy);
+    HMProxify(actionCopy, v9);
   }
 
   else
@@ -1410,36 +1383,34 @@ void __42__HMActionSet__removeActionsForAccessory___block_invoke(uint64_t a1)
     currentActions2 = [(HMActionSet *)self currentActions];
     [currentActions2 addObject:actionCopy];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateAction:(id)action changes:(id)changes completionHandler:(id)handler
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   changesCopy = changes;
   handlerCopy = handler;
   context = [(HMActionSet *)self context];
   if (!handlerCopy)
   {
-    v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMActionSet _updateAction:changes:completionHandler:]", @"completion"];
-    v36 = objc_autoreleasePoolPush();
+    v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMActionSet _updateAction:changes:completionHandler:]", @"completion"];
+    v35 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v38 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v37 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      v39 = HMFGetLogIdentifier();
+      v38 = HMFGetLogIdentifier();
       *location = 138543618;
-      *&location[4] = v39;
-      v48 = 2112;
-      v49 = v35;
-      _os_log_impl(&dword_19BB39000, v38, OS_LOG_TYPE_ERROR, "%{public}@%@", location, 0x16u);
+      *&location[4] = v38;
+      v47 = 2112;
+      v48 = v34;
+      _os_log_impl(&dword_19BB39000, v37, OS_LOG_TYPE_ERROR, "%{public}@%@", location, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v36);
-    v40 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v35 userInfo:0];
-    objc_exception_throw(v40);
+    objc_autoreleasePoolPop(v35);
+    v39 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v34 userInfo:0];
+    objc_exception_throw(v39);
   }
 
   v12 = context;
@@ -1457,30 +1428,30 @@ void __42__HMActionSet__removeActionsForAccessory___block_invoke(uint64_t a1)
         {
           v16 = objc_alloc(MEMORY[0x1E69A2A00]);
           uuid = [(HMActionSet *)self uuid];
-          v41 = [v16 initWithTarget:uuid];
+          v40 = [v16 initWithTarget:uuid];
 
           v18 = MEMORY[0x1E69A2A10];
-          v45[0] = @"kActionUUID";
+          v44[0] = @"kActionUUID";
           uuid2 = [actionCopy uuid];
           uUIDString = [uuid2 UUIDString];
-          v45[1] = @"kActionInfo";
-          v46[0] = uUIDString;
-          v46[1] = changesCopy;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:v45 count:2];
-          v22 = [v18 messageWithName:@"kReplaceActionValueKey" destination:v41 payload:v21];
+          v44[1] = @"kActionInfo";
+          v45[0] = uUIDString;
+          v45[1] = changesCopy;
+          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:2];
+          v22 = [v18 messageWithName:@"kReplaceActionValueKey" destination:v40 payload:v21];
 
           objc_initWeak(location, self);
-          v42[0] = MEMORY[0x1E69E9820];
-          v42[1] = 3221225472;
-          v42[2] = __55__HMActionSet__updateAction_changes_completionHandler___block_invoke;
-          v42[3] = &unk_1E754CFF8;
-          objc_copyWeak(&v44, location);
-          v43 = handlerCopy;
-          [v22 setResponseHandler:v42];
+          v41[0] = MEMORY[0x1E69E9820];
+          v41[1] = 3221225472;
+          v41[2] = __55__HMActionSet__updateAction_changes_completionHandler___block_invoke;
+          v41[3] = &unk_1E754CFF8;
+          objc_copyWeak(&v43, location);
+          v42 = handlerCopy;
+          [v22 setResponseHandler:v41];
           messageDispatcher = [v12 messageDispatcher];
           [messageDispatcher sendMessage:v22 completionHandler:0];
 
-          objc_destroyWeak(&v44);
+          objc_destroyWeak(&v43);
           objc_destroyWeak(location);
 
 LABEL_15:
@@ -1518,8 +1489,8 @@ LABEL_15:
       v27 = HMFGetLogIdentifier();
       *location = 138543618;
       *&location[4] = v27;
-      v48 = 2080;
-      v49 = "[HMActionSet _updateAction:changes:completionHandler:]";
+      v47 = 2080;
+      v48 = "[HMActionSet _updateAction:changes:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", location, 0x16u);
     }
 
@@ -1529,13 +1500,11 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __55__HMActionSet__updateAction_changes_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1546,15 +1515,15 @@ void __55__HMActionSet__updateAction_changes_completionHandler___block_invoke(ui
   {
     v11 = HMFGetLogIdentifier();
     v12 = _Block_copy(*(a1 + 32));
-    v16 = 138544130;
-    v17 = v11;
-    v18 = 2112;
-    v19 = v6;
-    v20 = 2112;
-    v21 = v12;
-    v22 = 2112;
-    v23 = v5;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Replace action value response : %@, completionHandler: %@ error %@", &v16, 0x2Au);
+    v15 = 138544130;
+    v16 = v11;
+    v17 = 2112;
+    v18 = v6;
+    v19 = 2112;
+    v20 = v12;
+    v21 = 2112;
+    v22 = v5;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Replace action value response : %@, completionHandler: %@ error %@", &v15, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -1564,35 +1533,33 @@ void __55__HMActionSet__updateAction_changes_completionHandler___block_invoke(ui
     v14 = [v13 delegateCaller];
     [v14 callCompletion:*(a1 + 32) error:v5];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeAction:(id)action completionHandler:(id)handler
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   handlerCopy = handler;
   context = [(HMActionSet *)self context];
   if (!handlerCopy)
   {
-    v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMActionSet _removeAction:completionHandler:]", @"completion"];
-    v36 = objc_autoreleasePoolPush();
+    v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMActionSet _removeAction:completionHandler:]", @"completion"];
+    v35 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v38 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v37 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      v39 = HMFGetLogIdentifier();
+      v38 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v49 = v39;
-      v50 = 2112;
-      v51 = v35;
-      _os_log_impl(&dword_19BB39000, v38, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v48 = v38;
+      v49 = 2112;
+      v50 = v34;
+      _os_log_impl(&dword_19BB39000, v37, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v36);
-    v40 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v35 userInfo:0];
-    objc_exception_throw(v40);
+    objc_autoreleasePoolPop(v35);
+    v39 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v34 userInfo:0];
+    objc_exception_throw(v39);
   }
 
   v9 = context;
@@ -1605,9 +1572,9 @@ void __55__HMActionSet__updateAction_changes_completionHandler___block_invoke(ui
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v49 = v18;
-      v50 = 2080;
-      v51 = "[HMActionSet _removeAction:completionHandler:]";
+      v48 = v18;
+      v49 = 2080;
+      v50 = "[HMActionSet _removeAction:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -1654,48 +1621,47 @@ LABEL_13:
   home = [(HMActionSet *)self home];
   if (home)
   {
-    v23 = MEMORY[0x1E69A2A10];
-    v24 = objc_alloc(MEMORY[0x1E69A2A00]);
+    v22 = MEMORY[0x1E69A2A10];
+    v23 = objc_alloc(MEMORY[0x1E69A2A00]);
     uuid = [(HMActionSet *)self uuid];
-    v26 = [v24 initWithTarget:uuid];
-    v46 = @"kActionUUID";
+    v25 = [v23 initWithTarget:uuid];
+    v45 = @"kActionUUID";
     uuid2 = [actionCopy uuid];
     uUIDString = [uuid2 UUIDString];
-    v47 = uUIDString;
-    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
-    v30 = [v23 messageWithName:@"kRemoveActionRequestKey" destination:v26 payload:v29];
+    v46 = uUIDString;
+    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+    v29 = [v22 messageWithName:@"kRemoveActionRequestKey" destination:v25 payload:v28];
 
     objc_initWeak(buf, self);
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __47__HMActionSet__removeAction_completionHandler___block_invoke;
-    v42[3] = &unk_1E754D058;
-    objc_copyWeak(&v45, buf);
-    v44 = handlerCopy;
-    v31 = v9;
-    v43 = v31;
-    [v30 setResponseHandler:v42];
-    messageDispatcher = [v31 messageDispatcher];
-    [messageDispatcher sendMessage:v30 completionHandler:0];
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __47__HMActionSet__removeAction_completionHandler___block_invoke;
+    v41[3] = &unk_1E754D058;
+    objc_copyWeak(&v44, buf);
+    v43 = handlerCopy;
+    v30 = v9;
+    v42 = v30;
+    [v29 setResponseHandler:v41];
+    messageDispatcher = [v30 messageDispatcher];
+    [messageDispatcher sendMessage:v29 completionHandler:0];
 
-    objc_destroyWeak(&v45);
+    objc_destroyWeak(&v44);
     objc_destroyWeak(buf);
   }
 
   else
   {
     delegateCaller2 = [v9 delegateCaller];
-    v34 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
-    [delegateCaller2 callCompletion:handlerCopy error:v34];
+    v33 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
+    [delegateCaller2 callCompletion:handlerCopy error:v33];
   }
 
 LABEL_14:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __47__HMActionSet__removeAction_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -1706,15 +1672,15 @@ void __47__HMActionSet__removeAction_completionHandler___block_invoke(uint64_t a
   {
     v11 = HMFGetLogIdentifier();
     v12 = _Block_copy(*(a1 + 40));
-    v15 = 138544130;
-    v16 = v11;
-    v17 = 2112;
-    v18 = v6;
-    v19 = 2112;
-    v20 = v12;
-    v21 = 2112;
-    v22 = v5;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Remove action response : %@, completionHandler: %@ error %@", &v15, 0x2Au);
+    v14 = 138544130;
+    v15 = v11;
+    v16 = 2112;
+    v17 = v6;
+    v18 = 2112;
+    v19 = v12;
+    v20 = 2112;
+    v21 = v5;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Remove action response : %@, completionHandler: %@ error %@", &v14, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -1723,35 +1689,33 @@ void __47__HMActionSet__removeAction_completionHandler___block_invoke(uint64_t a
     v13 = [*(a1 + 32) delegateCaller];
     [v13 callCompletion:*(a1 + 40) error:v5];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAction:(HMAction *)action completionHandler:(HMErrorBlock)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = action;
   v7 = completion;
   context = [(HMActionSet *)self context];
   if (!v7)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMActionSet removeAction:completionHandler:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMActionSet removeAction:completionHandler:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -1763,8 +1727,8 @@ void __47__HMActionSet__removeAction_completionHandler___block_invoke(uint64_t a
     block[2] = __46__HMActionSet_removeAction_completionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v24 = v6;
-    v25 = v7;
+    v23 = v6;
+    v24 = v7;
     dispatch_async(queue, block);
   }
 
@@ -1777,9 +1741,9 @@ void __47__HMActionSet__removeAction_completionHandler___block_invoke(uint64_t a
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMActionSet removeAction:completionHandler:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMActionSet removeAction:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -1787,13 +1751,11 @@ void __47__HMActionSet__removeAction_completionHandler___block_invoke(uint64_t a
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v7 + 2))(v7, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addAction:(id)action completionHandler:(id)handler
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   handlerCopy = handler;
   context = [(HMActionSet *)self context];
@@ -1802,9 +1764,9 @@ void __47__HMActionSet__removeAction_completionHandler___block_invoke(uint64_t a
   {
     if (actionCopy)
     {
-      v41 = 0;
-      v10 = [actionCopy isValidWithError:&v41];
-      delegateCaller5 = v41;
+      v40 = 0;
+      v10 = [actionCopy isValidWithError:&v40];
+      delegateCaller5 = v40;
       if (v10)
       {
         actions = [(HMActionSet *)self actions];
@@ -1833,9 +1795,9 @@ LABEL_17:
         }
 
         actionSetType = [(HMActionSet *)self actionSetType];
-        v28 = [actionSetType isEqualToString:@"HMActionSetTypeShortcutsComponent"];
+        v27 = [actionSetType isEqualToString:@"HMActionSetTypeShortcutsComponent"];
 
-        if (!v28)
+        if (!v27)
         {
           delegateCaller = [(HMActionSet *)self home];
           if (delegateCaller)
@@ -1845,25 +1807,25 @@ LABEL_17:
             {
               delegateCaller3 = _serializeForAdd;
               uuid = [(HMActionSet *)self uuid];
-              v42 = @"kActionInfo";
-              v43 = delegateCaller3;
-              v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
-              v37[0] = MEMORY[0x1E69E9820];
-              v37[1] = 3221225472;
-              v37[2] = __44__HMActionSet__addAction_completionHandler___block_invoke;
-              v37[3] = &unk_1E754D030;
-              v37[4] = self;
-              v38 = v9;
-              v40 = handlerCopy;
-              v39 = actionCopy;
-              [(_HMContext *)v38 sendMessage:uuid target:v33 payload:v37 responseHandler:?];
+              v41 = @"kActionInfo";
+              v42 = delegateCaller3;
+              v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+              v36[0] = MEMORY[0x1E69E9820];
+              v36[1] = 3221225472;
+              v36[2] = __44__HMActionSet__addAction_completionHandler___block_invoke;
+              v36[3] = &unk_1E754D030;
+              v36[4] = self;
+              v37 = v9;
+              v39 = handlerCopy;
+              v38 = actionCopy;
+              [(_HMContext *)v37 sendMessage:uuid target:v32 payload:v36 responseHandler:?];
             }
 
             else
             {
               delegateCaller2 = [v9 delegateCaller];
-              v36 = [MEMORY[0x1E696ABC0] hmErrorWithCode:3];
-              [delegateCaller2 callCompletion:handlerCopy error:v36];
+              v35 = [MEMORY[0x1E696ABC0] hmErrorWithCode:3];
+              [delegateCaller2 callCompletion:handlerCopy error:v35];
 
               delegateCaller3 = 0;
             }
@@ -1872,8 +1834,8 @@ LABEL_17:
           else
           {
             delegateCaller3 = [v9 delegateCaller];
-            v34 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
-            [delegateCaller3 callCompletion:handlerCopy error:v34];
+            v33 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
+            [delegateCaller3 callCompletion:handlerCopy error:v33];
           }
 
           goto LABEL_18;
@@ -1926,9 +1888,9 @@ LABEL_18:
   {
     v20 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v45 = v20;
-    v46 = 2080;
-    v47 = "[HMActionSet _addAction:completionHandler:]";
+    v44 = v20;
+    v45 = 2080;
+    v46 = "[HMActionSet _addAction:completionHandler:]";
     _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
   }
 
@@ -1939,13 +1901,11 @@ LABEL_18:
     (*(handlerCopy + 2))(handlerCopy, delegateCaller5);
 LABEL_19:
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __44__HMActionSet__addAction_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -1957,11 +1917,11 @@ void __44__HMActionSet__addAction_completionHandler___block_invoke(uint64_t a1, 
     if (v10)
     {
       v11 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v5;
-      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Add action error: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v5;
+      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Add action error: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1974,11 +1934,11 @@ void __44__HMActionSet__addAction_completionHandler___block_invoke(uint64_t a1, 
     if (v10)
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v6;
-      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Add action response: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v6;
+      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Add action response: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1987,35 +1947,33 @@ void __44__HMActionSet__addAction_completionHandler___block_invoke(uint64_t a1, 
     v14 = [*(a1 + 40) delegateCaller];
     [v14 callCompletion:*(a1 + 56) error:0];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addAction:(HMAction *)action completionHandler:(HMErrorBlock)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = action;
   v7 = completion;
   context = [(HMActionSet *)self context];
   if (!v7)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMActionSet addAction:completionHandler:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMActionSet addAction:completionHandler:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -2027,8 +1985,8 @@ void __44__HMActionSet__addAction_completionHandler___block_invoke(uint64_t a1, 
     block[2] = __43__HMActionSet_addAction_completionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v24 = v6;
-    v25 = v7;
+    v23 = v6;
+    v24 = v7;
     dispatch_async(queue, block);
   }
 
@@ -2041,9 +1999,9 @@ void __44__HMActionSet__addAction_completionHandler___block_invoke(uint64_t a1, 
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMActionSet addAction:completionHandler:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMActionSet addAction:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -2051,35 +2009,33 @@ void __44__HMActionSet__addAction_completionHandler___block_invoke(uint64_t a1, 
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v7 + 2))(v7, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateName:(id)name completionHandler:(id)handler
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   handlerCopy = handler;
   context = [(HMActionSet *)self context];
   if (!handlerCopy)
   {
-    v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMActionSet _updateName:completionHandler:]", @"completion"];
-    v37 = objc_autoreleasePoolPush();
+    v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMActionSet _updateName:completionHandler:]", @"completion"];
+    v36 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v39 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v38 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      v40 = HMFGetLogIdentifier();
+      v39 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v48 = v40;
-      v49 = 2112;
-      v50 = v36;
-      _os_log_impl(&dword_19BB39000, v39, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v47 = v39;
+      v48 = 2112;
+      v49 = v35;
+      _os_log_impl(&dword_19BB39000, v38, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v37);
-    v41 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v36 userInfo:0];
-    objc_exception_throw(v41);
+    objc_autoreleasePoolPop(v36);
+    v40 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v35 userInfo:0];
+    objc_exception_throw(v40);
   }
 
   v9 = context;
@@ -2110,9 +2066,9 @@ void __44__HMActionSet__addAction_completionHandler___block_invoke(uint64_t a1, 
         {
           if (nameCopy)
           {
-            v45 = @"kActionSetName";
-            v46 = nameCopy;
-            v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+            v44 = @"kActionSetName";
+            v45 = nameCopy;
+            v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
           }
 
           else
@@ -2127,17 +2083,17 @@ void __44__HMActionSet__addAction_completionHandler___block_invoke(uint64_t a1, 
           v33 = [v29 messageWithName:@"kRenameActionSetRequestKey" destination:v32 payload:v28];
 
           objc_initWeak(buf, self);
-          v42[0] = MEMORY[0x1E69E9820];
-          v42[1] = 3221225472;
-          v42[2] = __45__HMActionSet__updateName_completionHandler___block_invoke;
-          v42[3] = &unk_1E754CFF8;
-          objc_copyWeak(&v44, buf);
-          v43 = handlerCopy;
-          [v33 setResponseHandler:v42];
+          v41[0] = MEMORY[0x1E69E9820];
+          v41[1] = 3221225472;
+          v41[2] = __45__HMActionSet__updateName_completionHandler___block_invoke;
+          v41[3] = &unk_1E754CFF8;
+          objc_copyWeak(&v43, buf);
+          v42 = handlerCopy;
+          [v33 setResponseHandler:v41];
           messageDispatcher = [v9 messageDispatcher];
           [messageDispatcher sendMessage:v33 completionHandler:0];
 
-          objc_destroyWeak(&v44);
+          objc_destroyWeak(&v43);
           objc_destroyWeak(buf);
         }
       }
@@ -2162,7 +2118,7 @@ void __44__HMActionSet__addAction_completionHandler___block_invoke(uint64_t a1, 
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v48 = v14;
+        v47 = v14;
         _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@New name is longer than the pre-defined max length", buf, 0xCu);
       }
 
@@ -2182,9 +2138,9 @@ void __44__HMActionSet__addAction_completionHandler___block_invoke(uint64_t a1, 
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v48 = v20;
-      v49 = 2080;
-      v50 = "[HMActionSet _updateName:completionHandler:]";
+      v47 = v20;
+      v48 = 2080;
+      v49 = "[HMActionSet _updateName:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -2192,13 +2148,11 @@ void __44__HMActionSet__addAction_completionHandler___block_invoke(uint64_t a1, 
     home = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(handlerCopy + 2))(handlerCopy, home);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __45__HMActionSet__updateName_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -2209,15 +2163,15 @@ void __45__HMActionSet__updateName_completionHandler___block_invoke(uint64_t a1,
   {
     v11 = HMFGetLogIdentifier();
     v12 = _Block_copy(*(a1 + 32));
-    v16 = 138544130;
-    v17 = v11;
-    v18 = 2112;
-    v19 = v6;
-    v20 = 2112;
-    v21 = v12;
-    v22 = 2112;
-    v23 = v5;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Rename actionSet response : %@, completionHandler: %@ error %@", &v16, 0x2Au);
+    v15 = 138544130;
+    v16 = v11;
+    v17 = 2112;
+    v18 = v6;
+    v19 = 2112;
+    v20 = v12;
+    v21 = 2112;
+    v22 = v5;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Rename actionSet response : %@, completionHandler: %@ error %@", &v15, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -2227,35 +2181,33 @@ void __45__HMActionSet__updateName_completionHandler___block_invoke(uint64_t a1,
     v14 = [v13 delegateCaller];
     [v14 callCompletion:*(a1 + 32) error:v5];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateName:(NSString *)name completionHandler:(HMErrorBlock)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = name;
   v7 = completion;
   context = [(HMActionSet *)self context];
   if (!v7)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMActionSet updateName:completionHandler:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMActionSet updateName:completionHandler:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -2267,8 +2219,8 @@ void __45__HMActionSet__updateName_completionHandler___block_invoke(uint64_t a1,
     block[2] = __44__HMActionSet_updateName_completionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v25 = v7;
-    v24 = v6;
+    v24 = v7;
+    v23 = v6;
     dispatch_async(queue, block);
   }
 
@@ -2281,9 +2233,9 @@ void __45__HMActionSet__updateName_completionHandler___block_invoke(uint64_t a1,
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMActionSet updateName:completionHandler:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMActionSet updateName:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -2291,8 +2243,6 @@ void __45__HMActionSet__updateName_completionHandler___block_invoke(uint64_t a1,
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v7 + 2))(v7, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __44__HMActionSet_updateName_completionHandler___block_invoke(uint64_t a1)
@@ -2302,8 +2252,8 @@ void __44__HMActionSet_updateName_completionHandler___block_invoke(uint64_t a1)
   {
 
 LABEL_4:
-    v11 = [*(a1 + 32) context];
-    v5 = [v11 delegateCaller];
+    v10 = [*(a1 + 32) context];
+    v5 = [v10 delegateCaller];
     v6 = *(a1 + 48);
     v7 = [MEMORY[0x1E696ABC0] hmErrorWithCode:48];
 LABEL_5:
@@ -2324,42 +2274,40 @@ LABEL_5:
   v9 = *(a1 + 32);
   if (!*(a1 + 40))
   {
-    v11 = [v9 context];
-    v5 = [v11 delegateCaller];
+    v10 = [v9 context];
+    v5 = [v10 delegateCaller];
     v6 = *(a1 + 48);
     v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"HMErrorDomain" code:20 userInfo:0];
     goto LABEL_5;
   }
-
-  v10 = *(a1 + 48);
 
   [v9 _updateName:? completionHandler:?];
 }
 
 - (void)resetNameWithCompletionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(HMActionSet *)self context];
   if (!handlerCopy)
   {
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMActionSet resetNameWithCompletionHandler:]", @"completion"];
-    v15 = objc_autoreleasePoolPush();
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMActionSet resetNameWithCompletionHandler:]", @"completion"];
+    v14 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v17 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = HMFGetLogIdentifier();
+      v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v18;
-      v24 = 2112;
-      v25 = v14;
-      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v22 = v17;
+      v23 = 2112;
+      v24 = v13;
+      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v15);
-    v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v14 userInfo:0];
-    objc_exception_throw(v19);
+    objc_autoreleasePoolPop(v14);
+    v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v13 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   v6 = context;
@@ -2371,7 +2319,7 @@ LABEL_5:
     block[2] = __46__HMActionSet_resetNameWithCompletionHandler___block_invoke;
     block[3] = &unk_1E754E458;
     block[4] = self;
-    v21 = handlerCopy;
+    v20 = handlerCopy;
     dispatch_async(queue, block);
   }
 
@@ -2384,9 +2332,9 @@ LABEL_5:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v11;
-      v24 = 2080;
-      v25 = "[HMActionSet resetNameWithCompletionHandler:]";
+      v22 = v11;
+      v23 = 2080;
+      v24 = "[HMActionSet resetNameWithCompletionHandler:]";
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -2394,8 +2342,6 @@ LABEL_5:
     v12 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(handlerCopy + 2))(handlerCopy, v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __46__HMActionSet_resetNameWithCompletionHandler___block_invoke(uint64_t a1)
@@ -2512,7 +2458,7 @@ void __46__HMActionSet_resetNameWithCompletionHandler___block_invoke(uint64_t a1
   return actions;
 }
 
-uint64_t __35__HMActionSet_requiresDeviceUnlock__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__35__HMActionSet_requiresDeviceUnlock__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 requiresDeviceUnlock];
   if (result)
@@ -2583,36 +2529,36 @@ uint64_t __35__HMActionSet_requiresDeviceUnlock__block_invoke(uint64_t a1, void 
 
 - (void)__configureWithContext:(id)context home:(id)home
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   homeCopy = home;
   [(HMActionSet *)self setContext:contextCopy];
   [(HMActionSet *)self setHome:homeCopy];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   actions = [(HMActionSet *)self actions];
-  v9 = [actions countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [actions countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       v12 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(actions);
         }
 
-        [*(*(&v16 + 1) + 8 * v12++) __configureWithContext:contextCopy actionSet:self];
+        [*(*(&v15 + 1) + 8 * v12++) __configureWithContext:contextCopy actionSet:self];
       }
 
       while (v10 != v12);
-      v10 = [actions countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [actions countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -2625,13 +2571,11 @@ uint64_t __35__HMActionSet_requiresDeviceUnlock__block_invoke(uint64_t a1, void 
   {
     [(HMActionSet *)self _registerNotificationHandlers];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unconfigure
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   context = self->_context;
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -2643,36 +2587,36 @@ uint64_t __35__HMActionSet_requiresDeviceUnlock__block_invoke(uint64_t a1, void 
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v8;
+      v25 = v8;
       _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring actionSet and actions", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     actions = [(HMActionSet *)selfCopy actions];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v10 = [actions countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [actions countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         v13 = 0;
         do
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(actions);
           }
 
-          [*(*(&v20 + 1) + 8 * v13++) _unconfigure];
+          [*(*(&v19 + 1) + 8 * v13++) _unconfigure];
         }
 
         while (v11 != v13);
-        v11 = [actions countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [actions countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v11);
@@ -2697,14 +2641,12 @@ uint64_t __35__HMActionSet_requiresDeviceUnlock__block_invoke(uint64_t a1, void 
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v18;
+      v25 = v18;
       _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unconfigureContext
@@ -2718,12 +2660,12 @@ uint64_t __35__HMActionSet_requiresDeviceUnlock__block_invoke(uint64_t a1, void 
 
 - (HMActionSet)initWithDictionary:(id)dictionary home:(id)home
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   homeCopy = home;
-  v52.receiver = self;
-  v52.super_class = HMActionSet;
-  v8 = [(HMActionSet *)&v52 init];
+  v51.receiver = self;
+  v51.super_class = HMActionSet;
+  v8 = [(HMActionSet *)&v51 init];
   if (!v8)
   {
 LABEL_15:
@@ -2745,9 +2687,9 @@ LABEL_15:
     v39 = HMFGetLogIdentifier();
     v40 = objc_opt_class();
     *buf = 138543618;
-    v55 = v39;
-    v56 = 2112;
-    v57 = v40;
+    v54 = v39;
+    v55 = 2112;
+    v56 = v40;
     v41 = "%{public}@Unable to decode %@, missing uuid";
     goto LABEL_21;
   }
@@ -2762,7 +2704,7 @@ LABEL_15:
 
   if (v8->_name)
   {
-    v47 = v9;
+    v46 = v9;
     v14 = [dictionaryCopy hmf_stringForKey:@"kActionSetType"];
     v15 = v14;
     v16 = @"HMActionSetTypeUserDefined";
@@ -2773,34 +2715,34 @@ LABEL_15:
 
     v17 = v16;
 
-    v46 = v17;
+    v45 = v17;
     v18 = [MEMORY[0x1E69A2A20] hmf_cachedInstanceForString:v17];
     actionSetType = v8->_actionSetType;
     v8->_actionSetType = v18;
 
     v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
     v21 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
     v22 = [dictionaryCopy hmf_arrayForKey:@"kActionSetActions" ofClasses:v21];
 
-    v23 = [v22 countByEnumeratingWithState:&v48 objects:v53 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v47 objects:v52 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v49;
+      v25 = *v48;
       while (2)
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v49 != v25)
+          if (*v48 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = [[HMAction alloc] initWithDictionary:*(*(&v48 + 1) + 8 * i) home:homeCopy];
+          v27 = [[HMAction alloc] initWithDictionary:*(*(&v47 + 1) + 8 * i) home:homeCopy];
           if (!v27)
           {
 
@@ -2811,7 +2753,7 @@ LABEL_15:
           [v20 addObject:v27];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v48 objects:v53 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v47 objects:v52 count:16];
         if (v24)
         {
           continue;
@@ -2842,9 +2784,9 @@ LABEL_15:
     v39 = HMFGetLogIdentifier();
     v43 = objc_opt_class();
     *buf = 138543618;
-    v55 = v39;
-    v56 = 2112;
-    v57 = v43;
+    v54 = v39;
+    v55 = 2112;
+    v56 = v43;
     v41 = "%{public}@Unable to decode %@, missing name";
 LABEL_21:
     _os_log_impl(&dword_19BB39000, v38, OS_LOG_TYPE_ERROR, v41, buf, 0x16u);
@@ -2857,7 +2799,6 @@ LABEL_23:
   v35 = 0;
 LABEL_24:
 
-  v44 = *MEMORY[0x1E69E9840];
   return v35;
 }
 
@@ -2923,7 +2864,7 @@ LABEL_24:
 
 + (id)actionSetFromProtoBuf:(id)buf home:(id)home
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   bufCopy = buf;
   homeCopy = home;
   v8 = MEMORY[0x1E696AFB0];
@@ -2939,7 +2880,7 @@ LABEL_24:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v71 = v29;
+      v70 = v29;
       v30 = "%{public}@Couldn't decode ActionSet UUID";
 LABEL_15:
       _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_ERROR, v30, buf, 0xCu);
@@ -2961,7 +2902,7 @@ LABEL_16:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v71 = v29;
+      v70 = v29;
       v30 = "%{public}@homeUUID not set while decoding ActionSet";
       goto LABEL_15;
     }
@@ -2997,11 +2938,11 @@ LABEL_16:
             v23 = HMFGetLogIdentifier();
             formattedText = [bufCopy formattedText];
             *buf = 138543874;
-            v71 = v23;
-            v72 = 2112;
-            v73 = v10;
-            v74 = 2112;
-            v75 = formattedText;
+            v70 = v23;
+            v71 = 2112;
+            v72 = v10;
+            v73 = 2112;
+            v74 = formattedText;
             _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@actionSetFromProtoBuf found actionSet (%@) in home and actions in proto - ignoring proto: %@", buf, 0x20u);
           }
 
@@ -3014,40 +2955,40 @@ LABEL_46:
         goto LABEL_47;
       }
 
-      v62 = v13;
+      v61 = v13;
       v39 = [HMActionSet alloc];
       name = [bufCopy name];
       actionSetType = [bufCopy actionSetType];
-      v63 = v10;
+      v62 = v10;
       v42 = [(HMActionSet *)v39 initWithName:name type:actionSetType uuid:v10];
 
-      v61 = v42;
+      v60 = v42;
       [(HMActionSet *)v42 setHome:homeCopy];
       v43 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v64 = 0u;
       v65 = 0u;
       v66 = 0u;
       v67 = 0u;
-      v68 = 0u;
-      v64 = bufCopy;
+      v63 = bufCopy;
       actions2 = [bufCopy actions];
-      v45 = [actions2 countByEnumeratingWithState:&v65 objects:v69 count:16];
+      v45 = [actions2 countByEnumeratingWithState:&v64 objects:v68 count:16];
       if (!v45)
       {
         goto LABEL_45;
       }
 
       v46 = v45;
-      v47 = *v66;
+      v47 = *v65;
 LABEL_26:
       v48 = 0;
       while (1)
       {
-        if (*v66 != v47)
+        if (*v65 != v47)
         {
           objc_enumerationMutation(actions2);
         }
 
-        v49 = *(*(&v65 + 1) + 8 * v48);
+        v49 = *(*(&v64 + 1) + 8 * v48);
         type = [v49 type];
         if (type > 2)
         {
@@ -3098,9 +3039,9 @@ LABEL_40:
           {
             v57 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v71 = v57;
-            v72 = 2112;
-            v73 = v49;
+            v70 = v57;
+            v71 = 2112;
+            v72 = v49;
             _os_log_impl(&dword_19BB39000, v56, OS_LOG_TYPE_ERROR, "%{public}@Failed to create action with proto buf: %@", buf, 0x16u);
           }
 
@@ -3113,18 +3054,18 @@ LABEL_40:
 LABEL_43:
         if (v46 == ++v48)
         {
-          v46 = [actions2 countByEnumeratingWithState:&v65 objects:v69 count:16];
+          v46 = [actions2 countByEnumeratingWithState:&v64 objects:v68 count:16];
           if (!v46)
           {
 LABEL_45:
 
-            currentActions = [(HMActionSet *)v61 currentActions];
+            currentActions = [(HMActionSet *)v60 currentActions];
             [currentActions addObjectsFromArray:v43];
 
-            v25 = v61;
-            v10 = v63;
-            bufCopy = v64;
-            v13 = v62;
+            v25 = v60;
+            v10 = v62;
+            bufCopy = v63;
+            v13 = v61;
             goto LABEL_46;
           }
 
@@ -3141,11 +3082,11 @@ LABEL_45:
       v37 = HMFGetLogIdentifier();
       uuid3 = [homeCopy uuid];
       *buf = 138543874;
-      v71 = v37;
-      v72 = 2112;
-      v73 = v13;
-      v74 = 2112;
-      v75 = uuid3;
+      v70 = v37;
+      v71 = 2112;
+      v72 = v13;
+      v73 = 2112;
+      v74 = uuid3;
       _os_log_impl(&dword_19BB39000, v36, OS_LOG_TYPE_ERROR, "%{public}@Trying to deserialize HMActionSet with a different home %@ %@", buf, 0x20u);
     }
   }
@@ -3159,7 +3100,7 @@ LABEL_45:
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v71 = v34;
+      v70 = v34;
       _os_log_impl(&dword_19BB39000, v33, OS_LOG_TYPE_ERROR, "%{public}@Couldn't decode Home UUID", buf, 0xCu);
     }
   }
@@ -3169,26 +3110,23 @@ LABEL_45:
 LABEL_47:
 
 LABEL_48:
-  v59 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
 
 + (id)allowedActionClasses
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
+  v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
   v12 = objc_opt_class();
-  v13 = objc_opt_class();
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:7];
-  v4 = [v2 setWithArray:{v3, v7, v8, v9, v10, v11, v12}];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:7];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11}];
 
   return v4;
 }

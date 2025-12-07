@@ -23,9 +23,9 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     buf = 134218240;
-    v112 = [itemsCopy count];
+    v112 = objc_msgSend_count(itemsCopy);
     v113 = 2048;
-    v114 = [listsCopy count];
+    v114 = objc_msgSend_count(listsCopy);
     _os_log_impl(&dword_19BF1F000, v13, OS_LOG_TYPE_INFO, "[HighlightCluster] Clustering %lu highlight items with existing lists (%lu)", &buf, 0x16u);
   }
 
@@ -50,19 +50,19 @@
   v20 = [itemsCopy sortedArrayUsingDescriptors:v19];
   v21 = [v20 mutableCopy];
 
-  if (![v21 count])
+  if (!objc_msgSend_count(v21))
   {
     goto LABEL_61;
   }
 
   v80 = itemsCopy;
-  v22 = [v21 count];
+  v22 = objc_msgSend_count(v21);
   firstObject = [v17 firstObject];
   v94 = listsCopy;
   v95 = v10;
   v96 = v21;
   v97 = v17;
-  if (![v21 count])
+  if (!objc_msgSend_count(v21))
   {
     v25 = 0.0;
 LABEL_39:
@@ -70,13 +70,13 @@ LABEL_39:
     [v17 sortUsingDescriptors:v60];
 
     array2 = [MEMORY[0x1E695DF70] array];
-    if ([v17 count])
+    if (objc_msgSend_count(v17))
     {
       v61 = 0;
       v102 = firstObject;
       while (1)
       {
-        if (v61 >= [v17 count] - 1)
+        if (v61 >= objc_msgSend_count(v17) - 1)
         {
           goto LABEL_60;
         }
@@ -120,7 +120,7 @@ LABEL_58:
         ++v61;
 LABEL_59:
 
-        if (![v17 count])
+        if (!objc_msgSend_count(v17))
         {
           goto LABEL_60;
         }
@@ -258,7 +258,7 @@ LABEL_34:
     }
 
     objc_autoreleasePoolPop(v103);
-    if (![v21 count])
+    if (!objc_msgSend_count(v21))
     {
       goto LABEL_39;
     }
@@ -457,14 +457,14 @@ LABEL_63:
   array = [MEMORY[0x1E695DF70] array];
   v52 = readerCopy;
   v17 = [readerCopy fetchParentHighlightItemsForHighlightItems:v14];
-  if ([v17 count])
+  if (objc_msgSend_count(v17))
   {
     v45 = v15;
     v46 = highlightItemsCopy;
     v47 = itemsCopy;
     v44 = v17;
     v18 = [MEMORY[0x1E695DFD8] setWithArray:v17];
-    v19 = [v18 count];
+    v19 = objc_msgSend_count(v18);
     v63 = 0u;
     v64 = 0u;
     v65 = 0u;
@@ -597,8 +597,8 @@ LABEL_63:
   if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
   {
     v40 = v15;
-    v41 = [array count];
-    v42 = [itemsCopy count];
+    v41 = objc_msgSend_count(array);
+    v42 = objc_msgSend_count(itemsCopy);
     buf = 134218240;
     v68 = v41;
     v15 = v40;

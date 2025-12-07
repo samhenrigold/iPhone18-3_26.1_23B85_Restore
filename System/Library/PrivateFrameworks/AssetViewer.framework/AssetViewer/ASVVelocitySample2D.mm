@@ -1,6 +1,6 @@
 @interface ASVVelocitySample2D
 - (ASVVelocitySample2D)initWithStart:(ASVVelocitySample2D *)self end:(SEL)end deltaTime:(double)time;
-- (uint64_t)velocity;
+- (void)velocity;
 @end
 
 @implementation ASVVelocitySample2D
@@ -22,7 +22,7 @@
   return result;
 }
 
-- (uint64_t)velocity
+- (void)velocity
 {
   result = [self deltaTime];
   if (v3 >= 0.00000011920929)

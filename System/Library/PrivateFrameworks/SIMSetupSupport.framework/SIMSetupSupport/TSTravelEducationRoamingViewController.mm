@@ -83,12 +83,13 @@
   v13 = 0;
   v7 = [v2 openSensitiveURL:v6 withOptions:0 error:&v13];
   v8 = v13;
+  v9 = v8;
   if (v8)
   {
-    v9 = _TSLogDomain();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _TSLogDomain(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      localizedDescription = [v8 localizedDescription];
+      localizedDescription = [v9 localizedDescription];
       uTF8String = [localizedDescription UTF8String];
       *buf = 136315650;
       v15 = uTF8String;
@@ -96,11 +97,9 @@
       v17 = v7;
       v18 = 2080;
       v19 = "[TSTravelEducationRoamingViewController _openRoamingSettings]";
-      _os_log_impl(&dword_262AA8000, v9, OS_LOG_TYPE_DEFAULT, "launching data roaming settings failed with error: %s, isOpened:%d\n @%s", buf, 0x1Cu);
+      _os_log_impl(&dword_262AA8000, v10, OS_LOG_TYPE_DEFAULT, "launching data roaming settings failed with error: %s, isOpened:%d\n @%s", buf, 0x1Cu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (TSSIMSetupFlowDelegate)delegate

@@ -94,35 +94,33 @@ LABEL_3:
 
 void __77__WFShowDefinitionActionUIKitUserInterface_showWithString_completionHandler___block_invoke(uint64_t a1)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D75910] dictionaryHasDefinitionForTerm:*(a1 + 32)])
   {
-    v12 = [(UIReferenceLibraryViewController *)[WFReferenceLibraryViewController alloc] initWithTerm:*(a1 + 32)];
-    [(WFReferenceLibraryViewController *)v12 setDelegate:*(a1 + 40)];
-    [(WFReferenceLibraryViewController *)v12 setModalPresentationStyle:1];
+    v10 = [(UIReferenceLibraryViewController *)[WFReferenceLibraryViewController alloc] initWithTerm:*(a1 + 32)];
+    [(WFReferenceLibraryViewController *)v10 setDelegate:*(a1 + 40)];
+    [(WFReferenceLibraryViewController *)v10 setModalPresentationStyle:1];
     v2 = *(a1 + 40);
-    v3 = [(WFReferenceLibraryViewController *)v12 presentationController];
+    v3 = [(WFReferenceLibraryViewController *)v10 presentationController];
     [v3 setDelegate:v2];
 
-    [*(a1 + 40) presentContent:v12];
-    v4 = *MEMORY[0x277D85DE8];
+    [*(a1 + 40) presentContent:v10];
   }
 
   else
   {
-    v5 = MEMORY[0x277CCA9B8];
-    v6 = *MEMORY[0x277D7CB30];
-    v13[0] = *MEMORY[0x277CCA470];
-    v7 = WFLocalizedString(@"A definition could not be found for that term.");
-    v14[0] = v7;
-    v13[1] = *MEMORY[0x277CCA450];
-    v8 = WFLocalizedString(@"This may happen if no dictionaries are installed. To manage your dictionaries, select a word in any app and choose “Look Up”. Then, tap “Manage”.");
-    v14[1] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-    v10 = [v5 errorWithDomain:v6 code:6 userInfo:v9];
+    v4 = MEMORY[0x277CCA9B8];
+    v5 = *MEMORY[0x277D7CB30];
+    v11[0] = *MEMORY[0x277CCA470];
+    v6 = WFLocalizedString(@"A definition could not be found for that term.");
+    v12[0] = v6;
+    v11[1] = *MEMORY[0x277CCA450];
+    v7 = WFLocalizedString(@"This may happen if no dictionaries are installed. To manage your dictionaries, select a word in any app and choose “Look Up”. Then, tap “Manage”.");
+    v12[1] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+    v9 = [v4 errorWithDomain:v5 code:6 userInfo:v8];
 
-    [*(a1 + 40) finishWithError:v10];
-    v11 = *MEMORY[0x277D85DE8];
+    [*(a1 + 40) finishWithError:v9];
   }
 }
 

@@ -283,11 +283,11 @@ LABEL_8:
   }
 }
 
-uint64_t __78__VideosExtrasCarouselViewController_collectionView_didSelectItemAtIndexPath___block_invoke(uint64_t result, int a2)
+id *__78__VideosExtrasCarouselViewController_collectionView_didSelectItemAtIndexPath___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) deselectItemAtIndexPath:*(result + 40) animated:1];
+    return [result[4] deselectItemAtIndexPath:result[5] animated:1];
   }
 
   return result;

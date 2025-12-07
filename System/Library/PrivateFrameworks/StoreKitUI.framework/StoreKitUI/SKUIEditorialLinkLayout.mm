@@ -16,9 +16,9 @@
     [SKUIEditorialLinkLayout initWithLayoutRequest:];
   }
 
-  v43.receiver = self;
-  v43.super_class = SKUIEditorialLinkLayout;
-  v5 = [(SKUIEditorialLinkLayout *)&v43 init];
+  v45.receiver = self;
+  v45.super_class = SKUIEditorialLinkLayout;
+  v5 = [(SKUIEditorialLinkLayout *)&v45 init];
   if (v5)
   {
     [requestCopy width];
@@ -40,64 +40,64 @@
         v14 = [MEMORY[0x277D74300] systemFontOfSize:12.0];
         [v13 setObject:v14 forKey:*MEMORY[0x277D740A8]];
 
-        v15 = SKUIBundle();
+        v17 = SKUIBundle(v15, v16);
         blackColor = [MEMORY[0x277D75348] blackColor];
-        v17 = SKUILinkArrowImage(v15, blackColor);
+        v19 = SKUILinkArrowImage(v17, blackColor);
 
-        [v17 size];
-        v19 = v18;
+        [v19 size];
         v21 = v20;
-        v22 = 0;
-        v23 = 0;
-        v24 = 0.0;
+        v23 = v22;
+        v24 = 0;
+        v25 = 0;
+        v26 = 0.0;
         do
         {
-          v25 = [(NSArray *)v5->_links objectAtIndex:v23];
-          title = [v25 title];
+          v27 = [(NSArray *)v5->_links objectAtIndex:v25];
+          title = [v27 title];
           [title sizeWithAttributes:v13];
-          v28 = v27;
           v30 = v29;
+          v32 = v31;
 
-          v31 = v30;
-          v32 = ceilf(v31);
-          if (v21 >= v32)
+          v33 = v32;
+          v34 = ceilf(v33);
+          if (v23 >= v34)
           {
-            v32 = v21;
+            v34 = v23;
           }
 
-          p_width = &v5->_sizes[v22].width;
-          v34 = v19 + v28 + 3.0;
-          *p_width = ceilf(v34);
-          p_width[1] = v32;
-          if (v24 < v32)
+          p_width = &v5->_sizes[v24].width;
+          v36 = v21 + v30 + 3.0;
+          *p_width = ceilf(v36);
+          p_width[1] = v34;
+          if (v26 < v34)
           {
-            v24 = v32;
+            v26 = v34;
           }
 
-          ++v23;
-          ++v22;
+          ++v25;
+          ++v24;
         }
 
-        while (v11 != v23);
-        v39 = 0;
-        v40 = &v39;
-        v41 = 0x2020000000;
-        v42 = 0;
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __49__SKUIEditorialLinkLayout_initWithLayoutRequest___block_invoke;
-        v38[3] = &unk_2781FB018;
-        v38[4] = &v39;
-        [(SKUIEditorialLinkLayout *)v5 enumerateLinesUsingBlock:v38];
-        v35 = v40[3];
-        v36 = v24 * v35;
-        if (v35 >= 2)
+        while (v11 != v25);
+        v41 = 0;
+        v42 = &v41;
+        v43 = 0x2020000000;
+        v44 = 0;
+        v40[0] = MEMORY[0x277D85DD0];
+        v40[1] = 3221225472;
+        v40[2] = __49__SKUIEditorialLinkLayout_initWithLayoutRequest___block_invoke;
+        v40[3] = &unk_2781FB018;
+        v40[4] = &v41;
+        [(SKUIEditorialLinkLayout *)v5 enumerateLinesUsingBlock:v40];
+        v37 = v42[3];
+        v38 = v26 * v37;
+        if (v37 >= 2)
         {
-          v36 = v36 + ((v35 - 1) * 8.0);
+          v38 = v38 + ((v37 - 1) * 8.0);
         }
 
-        v5->_totalSize.height = v36;
-        _Block_object_dispose(&v39, 8);
+        v5->_totalSize.height = v38;
+        _Block_object_dispose(&v41, 8);
       }
     }
   }

@@ -22,7 +22,7 @@
 
 - (id)queryWithStartDate:(id)date endDate:(id)endDate
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   queryType = [(EDQueryCreator *)self queryType];
@@ -32,9 +32,9 @@
     v13 = [MEMORY[0x1E699ADA0] predicateForSendLaterMessagesWithStartDate:dateCopy endDate:endDateCopy];
     v14 = [MEMORY[0x1E699ADA0] predicateForExcludingMessagesInMailboxesWithTypes:&unk_1F45E6F40];
     v15 = MEMORY[0x1E696AB28];
-    v25[0] = v13;
-    v25[1] = v14;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+    v24[0] = v13;
+    v24[1] = v14;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
     v12 = [v15 andPredicateWithSubpredicates:v16];
 
     if (v12)
@@ -65,11 +65,9 @@ LABEL_7:
   v17 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:v10 ascending:1];
   v18 = objc_alloc(MEMORY[0x1E699AE28]);
   v19 = objc_opt_class();
-  v24 = v17;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+  v23 = v17;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
   v21 = [v18 initWithTargetClass:v19 predicate:v12 sortDescriptors:v20];
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }

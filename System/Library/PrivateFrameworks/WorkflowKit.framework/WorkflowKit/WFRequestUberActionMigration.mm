@@ -23,35 +23,35 @@
 
 - (void)migrateWorkflow
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = [(WFWorkflowMigration *)self actions];
-  v3 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v3 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = @"UberShowEstimate";
-    v6 = *v35;
-    v31 = *v35;
+    v6 = *v34;
+    v30 = *v34;
     do
     {
       v7 = 0;
-      v32 = v4;
+      v31 = v4;
       do
       {
-        if (*v35 != v6)
+        if (*v34 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v34 + 1) + 8 * v7);
+        v8 = *(*(&v33 + 1) + 8 * v7);
         actionIdentifierKey = [(WFWorkflowMigration *)self actionIdentifierKey];
         v10 = [v8 objectForKey:actionIdentifierKey];
 
-        if ([v10 isEqualToString:@"com.ubercab.UberClient.requestuber"])
+        if (objc_msgSend_isEqualToString_(v10))
         {
           actionParametersKey = [(WFWorkflowMigration *)self actionParametersKey];
           v12 = [v8 objectForKeyedSubscript:actionParametersKey];
@@ -142,14 +142,14 @@
 
           v26 = v25;
 
-          if ([v26 isEqualToString:@"Current Location"])
+          if (objc_msgSend_isEqualToString_(v26))
           {
             initWithCurrentLocation = [[WFLocationValue alloc] initWithCurrentLocation];
             serializedRepresentation = [(WFLocationValue *)initWithCurrentLocation serializedRepresentation];
             [v12 setValue:serializedRepresentation forKey:@"PickupLocation"];
           }
 
-          else if ([v26 isEqualToString:@"Custom Location"])
+          else if (objc_msgSend_isEqualToString_(v26))
           {
             [v12 removeObjectForKey:@"UberCustomLocation"];
           }
@@ -158,22 +158,21 @@
           [v8 setObject:@"is.workflow.actions.ride.requestride" forKeyedSubscript:actionIdentifierKey2];
 
           v5 = v14;
-          v6 = v31;
-          v4 = v32;
+          v6 = v30;
+          v4 = v31;
         }
 
         ++v7;
       }
 
       while (v4 != v7);
-      v4 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v4 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v4);
   }
 
   [(WFWorkflowMigration *)self finish];
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 @end

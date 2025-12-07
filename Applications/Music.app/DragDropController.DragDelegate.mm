@@ -11,20 +11,21 @@
   v4 = *(&self->super.isa + OBJC_IVAR____TtCC5Music18DragDropControllerP33_A2D93B940709760920FE5612D029DD8B12DragDelegate_dragItemsProvider);
   if (v4)
   {
+    v7 = *&self->dragItemsProvider[OBJC_IVAR____TtCC5Music18DragDropControllerP33_A2D93B940709760920FE5612D029DD8B12DragDelegate_dragItemsProvider];
     interactionCopy = interaction;
     swift_unknownObjectRetain();
     selfCopy = self;
-    sub_100030444(v4);
+    sub_100030444(v4, v7);
     v4(session);
-    sub_100020438(v4);
+    sub_100020438(v4, v7);
 
     swift_unknownObjectRelease();
   }
 
-  sub_100009F78(0, &qword_10118B920);
-  v9.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  sub_100009F78(0, &qword_10118B920, UIDragItem_ptr);
+  v10.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v9.super.isa;
+  return v10.super.isa;
 }
 
 - (id)dragInteraction:(id)interaction itemsForAddingToSession:(id)session withTouchAtPoint:(CGPoint)point
@@ -32,20 +33,21 @@
   v5 = *(&self->super.isa + OBJC_IVAR____TtCC5Music18DragDropControllerP33_A2D93B940709760920FE5612D029DD8B12DragDelegate_dragItemsProvider);
   if (v5)
   {
+    v8 = *&self->dragItemsProvider[OBJC_IVAR____TtCC5Music18DragDropControllerP33_A2D93B940709760920FE5612D029DD8B12DragDelegate_dragItemsProvider];
     interactionCopy = interaction;
     swift_unknownObjectRetain();
     selfCopy = self;
-    sub_100030444(v5);
+    sub_100030444(v5, v8);
     v5(session);
-    sub_100020438(v5);
+    sub_100020438(v5, v8);
 
     swift_unknownObjectRelease();
   }
 
-  sub_100009F78(0, &qword_10118B920);
-  v10.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  sub_100009F78(0, &qword_10118B920, UIDragItem_ptr);
+  v11.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v10.super.isa;
+  return v11.super.isa;
 }
 
 - (void)dragInteraction:(id)interaction session:(id)session didEndWithOperation:(unint64_t)operation
@@ -53,13 +55,14 @@
   v5 = *(&self->super.isa + OBJC_IVAR____TtCC5Music18DragDropControllerP33_A2D93B940709760920FE5612D029DD8B12DragDelegate_onDragSessionDidEnd);
   if (v5)
   {
+    v8 = *&self->dragItemsProvider[OBJC_IVAR____TtCC5Music18DragDropControllerP33_A2D93B940709760920FE5612D029DD8B12DragDelegate_onDragSessionDidEnd];
     swift_unknownObjectRetain();
     selfCopy = self;
-    sub_100030444(v5);
+    sub_100030444(v5, v8);
     v5(session);
     swift_unknownObjectRelease();
 
-    sub_100020438(v5);
+    sub_100020438(v5, v8);
   }
 }
 

@@ -14,7 +14,7 @@
     v4 = __nwlog_obj();
     *cStr = 136446210;
     *&cStr[4] = "nw_socks5_server_copy_description";
-    v5 = _os_log_send_and_compose_impl();
+    v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null server", cStr, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v12 = 0;
@@ -120,15 +120,15 @@ LABEL_25:
 
 - (void)dealloc
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
   networkd_settings_init();
   v3 = gLogObj;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 136446466;
-    v27 = "[NWConcrete_nw_socks5_server dealloc]";
-    v28 = 2114;
+    v25 = "[NWConcrete_nw_socks5_server dealloc]";
+    v26 = 2114;
     selfCopy2 = self;
     _os_log_impl(&dword_181A37000, v3, OS_LOG_TYPE_INFO, "%{public}s %{public}@", buf, 0x16u);
   }
@@ -156,14 +156,14 @@ LABEL_25:
       }
 
       v10 = nw_delta_nanos(ss_assertion_toggle_mach_time, v9);
-      v27 = "[NWConcrete_nw_socks5_server dealloc]";
-      v28 = 2112;
+      v25 = "[NWConcrete_nw_socks5_server dealloc]";
+      v26 = 2112;
       *buf = 136446978;
       selfCopy2 = self;
-      v30 = 1024;
-      v31 = v6;
-      v32 = 2048;
-      v33 = v10 / 0x3B9ACA00;
+      v28 = 1024;
+      v29 = v6;
+      v30 = 2048;
+      v31 = v10 / 0x3B9ACA00;
       _os_log_impl(&dword_181A37000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s %@ released power assertion: %u after %llus", buf, 0x26u);
     }
 
@@ -176,14 +176,12 @@ LABEL_25:
     networkd_settings_init();
     v11 = gLogObj;
     *buf = 136446210;
-    v27 = "[NWConcrete_nw_socks5_server dealloc]";
-    v22 = 12;
-    v21 = buf;
-    v12 = _os_log_send_and_compose_impl();
+    v25 = "[NWConcrete_nw_socks5_server dealloc]";
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s over-release of nw_socks5_server. Object should not be internally retained while deallocating", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v24 = 0;
-    if (__nwlog_fault(v12, &type, &v24))
+    v22 = 0;
+    if (__nwlog_fault(v12, &type, &v22))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
@@ -197,7 +195,7 @@ LABEL_25:
         }
 
         *buf = 136446210;
-        v27 = "[NWConcrete_nw_socks5_server dealloc]";
+        v25 = "[NWConcrete_nw_socks5_server dealloc]";
         v15 = "%{public}s over-release of nw_socks5_server. Object should not be internally retained while deallocating";
 LABEL_25:
         v19 = v13;
@@ -205,7 +203,7 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      if (v24 != 1)
+      if (v22 != 1)
       {
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
@@ -217,7 +215,7 @@ LABEL_25:
         }
 
         *buf = 136446210;
-        v27 = "[NWConcrete_nw_socks5_server dealloc]";
+        v25 = "[NWConcrete_nw_socks5_server dealloc]";
         v15 = "%{public}s over-release of nw_socks5_server. Object should not be internally retained while deallocating, backtrace limit exceeded";
         goto LABEL_25;
       }
@@ -243,7 +241,7 @@ LABEL_27:
         }
 
         *buf = 136446210;
-        v27 = "[NWConcrete_nw_socks5_server dealloc]";
+        v25 = "[NWConcrete_nw_socks5_server dealloc]";
         v15 = "%{public}s over-release of nw_socks5_server. Object should not be internally retained while deallocating, no backtrace";
         v19 = v13;
         v20 = v17;
@@ -255,8 +253,8 @@ LABEL_26:
       if (v18)
       {
         *buf = 136446466;
-        v27 = "[NWConcrete_nw_socks5_server dealloc]";
-        v28 = 2082;
+        v25 = "[NWConcrete_nw_socks5_server dealloc]";
+        v26 = 2082;
         selfCopy2 = backtrace_string;
         _os_log_impl(&dword_181A37000, v13, v17, "%{public}s over-release of nw_socks5_server. Object should not be internally retained while deallocating, dumping backtrace:%{public}s", buf, 0x16u);
       }
@@ -272,9 +270,9 @@ LABEL_21:
   }
 
 LABEL_22:
-  v23.receiver = self;
-  v23.super_class = NWConcrete_nw_socks5_server;
-  [(NWConcrete_nw_socks5_server *)&v23 dealloc:v21];
+  v21.receiver = self;
+  v21.super_class = NWConcrete_nw_socks5_server;
+  [(NWConcrete_nw_socks5_server *)&v21 dealloc];
 }
 
 - (id)initWithParameters:(void *)parameters clientQueue:
@@ -297,7 +295,7 @@ LABEL_106:
     v50 = __nwlog_obj();
     *label = 136446210;
     *&label[4] = "[NWConcrete_nw_socks5_server initWithParameters:clientQueue:]";
-    v51 = _os_log_send_and_compose_impl();
+    v51 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v50, 16, "%{public}s [super init] failed", label, 12);
 
     buf[0] = 16;
     type = OS_LOG_TYPE_DEFAULT;
@@ -396,7 +394,7 @@ LABEL_104:
       _nw_parameters_set_fast_open_force_enable(v13, 1);
       if (v5)
       {
-        v14 = _nw_parameters_copy(v5);
+        v14 = _nw_parameters_copy();
         v15 = *(v8 + 5);
         *(v8 + 5) = v14;
 
@@ -407,7 +405,7 @@ LABEL_104:
           v44 = gLogObj;
           *buf = 136446210;
           v61 = "[NWConcrete_nw_socks5_server initWithParameters:clientQueue:]";
-          v30 = _os_log_send_and_compose_impl();
+          v30 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v44, 16, "%{public}s nw_parameters_copy failed", buf, 12);
 
           type = OS_LOG_TYPE_ERROR;
           v57 = 0;
@@ -502,12 +500,12 @@ LABEL_104:
 
         if (_nw_parameters_get_always_open_listener_socket(v5))
         {
-          _nw_parameters_set_always_open_listener_socket(v13, 1);
+          _nw_parameters_set_always_open_listener_socket();
         }
 
         if (_nw_parameters_get_use_awdl(v5))
         {
-          _nw_parameters_set_use_awdl(v13, 1);
+          _nw_parameters_set_use_awdl();
         }
       }
 
@@ -533,7 +531,7 @@ LABEL_69:
       v41 = gLogObj;
       *buf = 136446210;
       v61 = "[NWConcrete_nw_socks5_server initWithParameters:clientQueue:]";
-      v30 = _os_log_send_and_compose_impl();
+      v30 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v41, 16, "%{public}s nw_listener_create failed", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v57 = 0;
@@ -623,7 +621,7 @@ LABEL_67:
       v29 = gLogObj;
       *buf = 136446210;
       v61 = "[NWConcrete_nw_socks5_server initWithParameters:clientQueue:]";
-      v30 = _os_log_send_and_compose_impl();
+      v30 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v29, 16, "%{public}s nw_parameters_create failed", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v57 = 0;
@@ -723,7 +721,7 @@ LABEL_80:
   v24 = gLogObj;
   *buf = 136446210;
   v61 = "[NWConcrete_nw_socks5_server initWithParameters:clientQueue:]";
-  v25 = _os_log_send_and_compose_impl();
+  v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v24, 16, "%{public}s dispatch_queue_create failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v57 = 0;

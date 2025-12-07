@@ -1,5 +1,6 @@
 @interface STUIStatusBarCellularItemAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
+- (BOOL)_updateSignalView:(id)view withUpdate:(id)update entry:(id)entry forceShowingDisabledSignalBars:(BOOL)bars;
 - (STUIStatusBarCellularItemAccessibility)init;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axAnnotateDataNetworkViewWithEntry:(void *)entry;
@@ -52,10 +53,7 @@
 
 uint64_t __84__STUIStatusBarCellularItemAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) entryForDisplayItemWithIdentifier:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) entryForDisplayItemWithIdentifier:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -82,6 +80,23 @@ uint64_t __84__STUIStatusBarCellularItemAccessibility__accessibilityLoadAccessib
     v3 = [entry safeValueForKey:@"networkTypeView"];
     [v3 setAccessibilityLabel:v4];
   }
+}
+
+- (BOOL)_updateSignalView:(id)view withUpdate:(id)update entry:(id)entry forceShowingDisabledSignalBars:(BOOL)bars
+{
+  barsCopy = bars;
+  v14.receiver = self;
+  v14.super_class = STUIStatusBarCellularItemAccessibility;
+  entryCopy = entry;
+  viewCopy = view;
+  LOBYTE(barsCopy) = [(STUIStatusBarCellularItemAccessibility *)&v14 _updateSignalView:viewCopy withUpdate:update entry:entryCopy forceShowingDisabledSignalBars:barsCopy];
+  v12 = [entryCopy safeStringForKey:{@"string", v14.receiver, v14.super_class}];
+  [viewCopy _accessibilitySetRetainedValue:v12 forKey:@"AXStatusBarSignalViewServiceKey"];
+
+  [viewCopy _accessibilitySetRetainedValue:@"status.signal.bars" forKey:@"AccessibilityStatusBarSignalViewLabelKey"];
+  [(STUIStatusBarCellularItemAccessibility *)self _axAnnotateDataNetworkViewWithEntry:entryCopy];
+
+  return barsCopy;
 }
 
 @end

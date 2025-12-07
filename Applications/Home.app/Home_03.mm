@@ -1,372 +1,3 @@
-void *sub_100077314(SEL *a1, unint64_t *a2, uint64_t *a3)
-{
-  v6 = [v3 *a1];
-  v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-
-  v8 = sub_1000771F4(v7, a2, a3);
-
-  if (v8)
-  {
-    return v8;
-  }
-
-  else
-  {
-    return _swiftEmptyArrayStorage;
-  }
-}
-
-uint64_t sub_1000773E4(uint64_t a1, unint64_t *a2, uint64_t *a3)
-{
-  v6 = a1 & 0xC000000000000001;
-  if ((a1 & 0xC000000000000001) != 0)
-  {
-    v7 = __CocoaSet.startIndex.getter();
-    v9 = v8;
-    v10 = __CocoaSet.endIndex.getter();
-    v12 = v11;
-    v13 = static __CocoaSet.Index.== infix(_:_:)();
-    sub_10005B9CC(v10, v12, 1);
-    if (v13)
-    {
-LABEL_3:
-      sub_10005B9CC(v7, v9, v6 != 0);
-      return 0;
-    }
-  }
-
-  else
-  {
-    v15 = -1 << *(a1 + 32);
-    v7 = _HashTable.startBucket.getter();
-    v9 = *(a1 + 36);
-    if (v7 == 1 << *(a1 + 32))
-    {
-      goto LABEL_3;
-    }
-  }
-
-  sub_10007CCC4(v7, v9, v6 != 0, a1, a2, a3);
-  v17 = v16;
-  sub_10005B9CC(v7, v9, v6 != 0);
-  return v17;
-}
-
-id sub_100077518(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
-{
-  ObjectType = swift_getObjectType();
-  if (a5)
-  {
-    v8 = String._bridgeToObjectiveC()();
-    [a5 disableExternalUpdatesWithReason:v8];
-  }
-
-  v9 = [objc_allocWithZone(NAFuture) init];
-  v10 = objc_opt_self();
-  if (![v10 isRecapAvailable])
-  {
-    v49 = 0x6F69746172657469;
-    v50 = 0xEA0000000000736ELL;
-    AnyHashable.init<A>(_:)();
-    if (*(a4 + 16))
-    {
-      v29 = sub_10007C3AC(&aBlock);
-      if (v30)
-      {
-        sub_10005A46C(*(a4 + 56) + 32 * v29, v51);
-        sub_10005A088(&aBlock);
-        if ((swift_dynamicCast() & 1) == 0)
-        {
-          goto LABEL_15;
-        }
-
-        v31 = v49;
-        v49 = 0x74736566666FLL;
-        v50 = 0xE600000000000000;
-        AnyHashable.init<A>(_:)();
-        if (*(a4 + 16))
-        {
-          v32 = sub_10007C3AC(&aBlock);
-          if (v33)
-          {
-            sub_10005A46C(*(a4 + 56) + 32 * v32, v51);
-            sub_10005A088(&aBlock);
-            if (swift_dynamicCast())
-            {
-              v34 = *&v49;
-              v35 = [objc_allocWithZone(UIScrollTestParameters) init];
-              v36 = String._bridgeToObjectiveC()();
-              [v35 setTestName:v36];
-
-              [v35 setIterations:v31];
-              [v35 setDelta:v34];
-              v37 = swift_allocObject();
-              *(v37 + 16) = v9;
-              v47 = sub_10005A6E4;
-              v48 = v37;
-              aBlock = _NSConcreteStackBlock;
-              v44 = 1107296256;
-              v45 = sub_1000799C8;
-              v46 = &unk_1000C78D8;
-              v38 = _Block_copy(&aBlock);
-              v39 = v9;
-              v40 = v35;
-
-              [a3 _performScrollTestWithParameters:v40 completionBlock:v38];
-              _Block_release(v38);
-
-              if (a5)
-              {
-                goto LABEL_5;
-              }
-
-              return v9;
-            }
-
-LABEL_15:
-            sub_100057794();
-            swift_allocError();
-            *v41 = a4;
-            *(v41 + 8) = &off_1000C45F0;
-            *(v41 + 48) = 1;
-            swift_willThrow();
-
-            return v9;
-          }
-        }
-      }
-    }
-
-    sub_10005A088(&aBlock);
-    goto LABEL_15;
-  }
-
-  v11 = swift_allocObject();
-  *(v11 + 16) = v9;
-  v12 = objc_allocWithZone(RPTScrollViewTestParameters);
-  v13 = v9;
-
-  v14 = a3;
-  v15 = String._bridgeToObjectiveC()();
-
-  v47 = sub_10005A6E4;
-  v48 = v11;
-  aBlock = _NSConcreteStackBlock;
-  v44 = 1107296256;
-  v45 = sub_100077B44;
-  v46 = &unk_1000C79C8;
-  v16 = _Block_copy(&aBlock);
-
-  v17 = [v12 initWithTestName:v15 scrollView:v14 completionHandler:v16];
-  _Block_release(v16);
-
-  [v10 runTestWithParameters:v17];
-  if (a5)
-  {
-LABEL_5:
-    v18 = swift_allocObject();
-    *(v18 + 16) = a5;
-    *(v18 + 24) = ObjectType;
-    v47 = sub_10007E720;
-    v48 = v18;
-    aBlock = _NSConcreteStackBlock;
-    v44 = 1107296256;
-    v45 = sub_100077BF0;
-    v46 = &unk_1000C7928;
-    v19 = _Block_copy(&aBlock);
-    v20 = a5;
-    v21 = v9;
-    v22 = v20;
-
-    v23 = [v21 flatMap:v19];
-    _Block_release(v19);
-    v24 = swift_allocObject();
-    *(v24 + 16) = v22;
-    *(v24 + 24) = ObjectType;
-    v47 = sub_10007E728;
-    v48 = v24;
-    aBlock = _NSConcreteStackBlock;
-    v44 = 1107296256;
-    v45 = sub_10007A04C;
-    v46 = &unk_1000C7978;
-    v25 = _Block_copy(&aBlock);
-    v26 = v22;
-
-    v27 = [v23 recover:v25];
-
-    _Block_release(v25);
-    return v27;
-  }
-
-  return v9;
-}
-
-uint64_t sub_100077B44(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-
-  v1(v3);
-}
-
-void sub_100077B88(uint64_t a1, void *a2)
-{
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
-
-  v5 = a2;
-  v4();
-}
-
-id sub_100077BF0(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-
-  v3 = swift_unknownObjectRetain();
-  v4 = v2(v3);
-
-  swift_unknownObjectRelease();
-
-  return v4;
-}
-
-void *sub_100077C5C(uint64_t (*a1)(id *), uint64_t a2, unint64_t a3)
-{
-  if (a3 >> 62)
-  {
-    goto LABEL_16;
-  }
-
-  for (i = *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = _CocoaArrayWrapper.endIndex.getter())
-  {
-    for (j = 0; ; ++j)
-    {
-      if ((a3 & 0xC000000000000001) != 0)
-      {
-        v7 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-      }
-
-      else
-      {
-        if (j >= *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10))
-        {
-          goto LABEL_15;
-        }
-
-        v7 = *(a3 + 8 * j + 32);
-      }
-
-      v8 = v7;
-      v9 = j + 1;
-      if (__OFADD__(j, 1))
-      {
-        break;
-      }
-
-      v13 = v7;
-      v10 = a1(&v13);
-      if (v3)
-      {
-
-        return v8;
-      }
-
-      if (v10)
-      {
-        return v8;
-      }
-
-      if (v9 == i)
-      {
-        return 0;
-      }
-    }
-
-    __break(1u);
-LABEL_15:
-    __break(1u);
-LABEL_16:
-    ;
-  }
-
-  return 0;
-}
-
-uint64_t sub_100077D70(uint64_t (*a1)(id *), uint64_t a2, unint64_t a3)
-{
-  if (a3 >> 62)
-  {
-    goto LABEL_15;
-  }
-
-  v4 = *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (v4)
-  {
-    do
-    {
-      v5 = 0;
-      v15 = a3 & 0xC000000000000001;
-      v6 = a3 & 0xFFFFFFFFFFFFFF8;
-      while (1)
-      {
-        if (v15)
-        {
-          v7 = a3;
-          v8 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-        }
-
-        else
-        {
-          if (v5 >= *(v6 + 16))
-          {
-            goto LABEL_14;
-          }
-
-          v7 = a3;
-          v8 = *(a3 + 8 * v5 + 32);
-        }
-
-        v9 = v8;
-        v10 = v5 + 1;
-        if (__OFADD__(v5, 1))
-        {
-          break;
-        }
-
-        v17 = v8;
-        v11 = a1(&v17);
-
-        if (!v3 && (v11 & 1) == 0)
-        {
-          ++v5;
-          a3 = v7;
-          if (v10 != v4)
-          {
-            continue;
-          }
-        }
-
-        return v11 & 1;
-      }
-
-      __break(1u);
-LABEL_14:
-      __break(1u);
-LABEL_15:
-      v12 = a3;
-      v13 = _CocoaArrayWrapper.endIndex.getter();
-      a3 = v12;
-      v4 = v13;
-    }
-
-    while (v13);
-  }
-
-  v11 = 0;
-  return v11 & 1;
-}
-
 void sub_100077E98(uint64_t (*a1)(id *), uint64_t a2, uint64_t a3)
 {
   v4 = v3;
@@ -378,11 +9,11 @@ void sub_100077E98(uint64_t (*a1)(id *), uint64_t a2, uint64_t a3)
     sub_10005B9DC(0, &unk_1000DA2C0, HMAccessory_ptr);
     sub_100057D7C(&qword_1000D9E70, &unk_1000DA2C0, HMAccessory_ptr);
     Set.Iterator.init(_cocoa:)();
-    v5 = v21;
-    v6 = v22;
-    v7 = v23;
-    v8 = v24;
-    v9 = v25;
+    v5 = v22;
+    v6 = v23;
+    v7 = v24;
+    v8 = v25;
+    v9 = v26;
   }
 
   else
@@ -406,7 +37,7 @@ void sub_100077E98(uint64_t (*a1)(id *), uint64_t a2, uint64_t a3)
     v8 = 0;
   }
 
-  v20 = v5;
+  v21 = v5;
   if (v5 < 0)
   {
     goto LABEL_14;
@@ -423,17 +54,18 @@ LABEL_12:
     v17 = *(*(v5 + 48) + ((v15 << 9) | (8 * __clz(__rbit64(v14)))));
     if (v17)
     {
-      do
+      while (1)
       {
-        v26 = v17;
-        v18 = a1(&v26);
+        v27 = v17;
+        v18 = a1(&v27);
 
         if (v4)
         {
-          break;
+          v19 = v21;
+          goto LABEL_24;
         }
 
-        v5 = v20;
+        v5 = v21;
         if (v18)
         {
           break;
@@ -441,7 +73,7 @@ LABEL_12:
 
         v8 = v15;
         v9 = v16;
-        if ((v20 & 0x8000000000000000) == 0)
+        if ((v21 & 0x8000000000000000) == 0)
         {
           goto LABEL_8;
         }
@@ -449,21 +81,32 @@ LABEL_12:
 LABEL_14:
         if (!__CocoaSet.Iterator.next()())
         {
-          break;
+          goto LABEL_20;
         }
 
         sub_10005B9DC(0, &unk_1000DA2C0, HMAccessory_ptr);
         swift_dynamicCast();
-        v17 = v26;
+        v17 = v27;
         v15 = v8;
         v16 = v9;
+        if (!v27)
+        {
+          goto LABEL_21;
+        }
       }
 
-      while (v26);
+      v19 = v21;
+LABEL_24:
+      sub_100059150(v19);
     }
 
+    else
+    {
+LABEL_21:
+      v5 = v21;
 LABEL_20:
-    sub_100059150();
+      sub_100059150(v5);
+    }
   }
 
   else
@@ -596,30 +239,29 @@ id HOAppDelegate.appNavigator.getter()
 
 uint64_t HOAppDelegate.findPreferredAccessory(itemManager:accessoryID:with:)(void *a1, uint64_t a2, uint64_t (*a3)(id, id), uint64_t a4)
 {
-  v43 = a2;
-  v39 = a3;
-  v40 = a4;
+  v42 = a2;
+  v38 = a3;
+  v39 = a4;
   v5 = sub_1000578B4(&unk_1000D9E30, &qword_1000933F0);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = &v38 - v7;
-  v47[0] = _swiftEmptyArrayStorage;
-  v42 = a1;
+  __chkstk_darwin(v5 - 8, v6);
+  v8 = &v37 - v7;
+  v46[0] = _swiftEmptyArrayStorage;
+  v41 = a1;
   v9 = [a1 allDisplayedItems];
   v10 = sub_10005B9DC(0, &qword_1000DA818, HFItem_ptr);
   v11 = sub_100057D7C(&unk_1000DA820, &qword_1000DA818, HFItem_ptr);
   v12 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v41 = v10;
+  v40 = v10;
   if ((v12 & 0xC000000000000001) != 0)
   {
     __CocoaSet.makeIterator()();
     Set.Iterator.init(_cocoa:)();
-    v12 = v47[1];
-    v13 = v47[2];
-    v14 = v47[3];
-    v15 = v47[4];
-    v16 = v47[5];
+    v12 = v46[1];
+    v13 = v46[2];
+    v14 = v46[3];
+    v15 = v46[4];
+    v16 = v46[5];
   }
 
   else
@@ -642,7 +284,7 @@ uint64_t HOAppDelegate.findPreferredAccessory(itemManager:accessoryID:with:)(voi
     v16 = v19 & *(v12 + 56);
   }
 
-  v38 = v14;
+  v37 = v14;
   v20 = (v14 + 64) >> 6;
   while ((v12 & 0x8000000000000000) == 0)
   {
@@ -685,7 +327,7 @@ LABEL_15:
     }
 
 LABEL_19:
-    sub_10007E198(v43, v8);
+    sub_10007E198(v42, v8);
     v26 = type metadata accessor for UUID();
     v27 = *(v26 - 8);
     isa = 0;
@@ -695,15 +337,14 @@ LABEL_19:
       (*(v27 + 8))(v8, v26);
     }
 
-    v29 = [v44 serviceLikeItemWithItem:v11 itemManager:v42 withID:{isa, v38, v39, v40, v41}];
+    v29 = [v43 serviceLikeItemWithItem:v11 itemManager:v41 withID:{isa, v37, v38, v39, v40}];
 
     if (v29)
     {
       v30 = v29;
       specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-      if (*((v47[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v47[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (*((v46[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v46[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
-        v31 = *((v47[0] & 0xFFFFFFFFFFFFFF8) + 0x10);
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
@@ -717,34 +358,34 @@ LABEL_19:
   v25 = __CocoaSet.Iterator.next()();
   if (v25)
   {
-    v45 = v25;
+    v44 = v25;
     swift_dynamicCast();
-    v11 = v46;
+    v11 = v45;
     v23 = v15;
     v24 = v16;
-    if (v46)
+    if (v45)
     {
       goto LABEL_19;
     }
   }
 
 LABEL_24:
-  sub_100059150();
-  sub_10007E108(v47, v39);
-  v11 = v47[0];
-  if (!(v47[0] >> 62))
+  sub_100059150(v12);
+  sub_10007E108(v46, v38);
+  v11 = v46[0];
+  if (!(v46[0] >> 62))
   {
-    result = *((v47[0] & 0xFFFFFFFFFFFFFF8) + 0x10);
+    result = *((v46[0] & 0xFFFFFFFFFFFFFF8) + 0x10);
     if (result)
     {
       goto LABEL_26;
     }
 
 LABEL_32:
-    v37 = 0;
+    v36 = 0;
 LABEL_33:
 
-    return v37;
+    return v36;
   }
 
 LABEL_31:
@@ -757,23 +398,23 @@ LABEL_31:
 LABEL_26:
   if ((v11 & 0xC000000000000001) != 0)
   {
-    v33 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+    v32 = specialized _ArrayBuffer._getElementSlowPath(_:)();
     goto LABEL_29;
   }
 
   if (*((v11 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
-    v33 = *(v11 + 32);
+    v32 = *(v11 + 32);
 LABEL_29:
-    v34 = v33;
+    v33 = v32;
 
-    v35 = [v34 accessories];
+    v34 = [v33 accessories];
 
     sub_10005B9DC(0, &unk_1000DA2C0, HMAccessory_ptr);
     sub_100057D7C(&qword_1000D9E70, &unk_1000DA2C0, HMAccessory_ptr);
-    v36 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+    v35 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v37 = sub_1000773E4(v36, &unk_1000DA2C0, HMAccessory_ptr);
+    v36 = sub_1000773E4(v35, &unk_1000DA2C0, HMAccessory_ptr);
     goto LABEL_33;
   }
 
@@ -805,8 +446,7 @@ void HOAppDelegate.findAccessory(itemManager:accessoryID:testBlock:)(void *a1, u
   v35 = a3;
   v36 = a4;
   v5 = sub_1000578B4(&unk_1000D9E30, &qword_1000933F0);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
+  __chkstk_darwin(v5 - 8, v6);
   v41 = &v33 - v7;
   v38 = a1;
   v8 = [a1 allDisplayedItems];
@@ -855,7 +495,7 @@ void HOAppDelegate.findAccessory(itemManager:accessoryID:testBlock:)(void *a1, u
     if (!v23 || (v44 = v23, swift_dynamicCast(), v22 = v45, v20 = v12, v21 = v13, !v45))
     {
 LABEL_24:
-      sub_100059150();
+      sub_100059150(v9);
       return;
     }
 
@@ -889,7 +529,7 @@ LABEL_19:
         v32 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
         sub_1000773E4(v32, &unk_1000DA2C0, HMAccessory_ptr);
-        sub_100059150();
+        sub_100059150(v9);
 
         return;
       }
@@ -977,19 +617,18 @@ uint64_t HOAppDelegate.homeKitObjectID(from:userDefaultsEnabled:)@<X0>(uint64_t 
 
 uint64_t sub_1000799C8(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v2 = *(a1 + 32);
   if (a2)
   {
-    v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+    v3 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  v3(v4);
+  v2(v3);
 }
 
 id sub_100079A58(uint64_t a1, void *a2, uint64_t a3)
@@ -1096,24 +735,23 @@ uint64_t sub_100079E80(void *a1, void *a2, uint64_t a3, uint64_t a4)
   return swift_unknownObjectRelease();
 }
 
-void sub_100079FA8(void *a1, void *a2)
+void sub_100079FA8(void *a1, void *a2, uint64_t a3)
 {
-  v4 = String._bridgeToObjectiveC()();
-  [a1 endDisableExternalUpdatesWithReason:v4];
+  v5 = String._bridgeToObjectiveC()();
+  [a1 endDisableExternalUpdatesWithReason:v5];
 
-  v5 = _convertErrorToNSError(_:)();
-  [a2 finishWithError:v5];
+  v6 = _convertErrorToNSError(_:)();
+  [a2 finishWithError:v6];
 }
 
 id sub_10007A054(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v6 = v4();
+  v4 = a2;
+  v5 = v3();
 
-  return v6;
+  return v5;
 }
 
 id sub_10007A0C8(void *a1)
@@ -1148,19 +786,18 @@ LABEL_6:
   return v8;
 }
 
-uint64_t sub_10007A200(id *a1)
+uint64_t sub_10007A200(id *a1, uint64_t a2)
 {
-  v2 = type metadata accessor for UUID();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2);
-  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = [*a1 uniqueIdentifier];
+  v3 = type metadata accessor for UUID();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3, v5);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = [*a1 uniqueIdentifier];
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v8 = static UUID.== infix(_:_:)();
-  (*(v3 + 8))(v6, v2);
-  return v8 & 1;
+  v9 = static UUID.== infix(_:_:)();
+  (*(v4 + 8))(v7, v3);
+  return v9 & 1;
 }
 
 uint64_t sub_10007A30C(id *a1, void **a2)
@@ -1210,6 +847,134 @@ LABEL_9:
   }
 
   return 0;
+}
+
+uint64_t sub_10007A4C0()
+{
+  sub_10007EA34(v0, &v28);
+  v1 = v28;
+  v2 = v29;
+  if (v33 > 2u)
+  {
+    v14 = v31;
+    if (v33 == 3)
+    {
+      v20 = v32;
+      sub_1000583AC(&v28, v27);
+      _StringGuts.grow(_:)(41);
+      v21._countAndFlagsBits = 0xD000000000000024;
+      v21._object = 0x800000010009B550;
+      String.append(_:)(v21);
+      _print_unlocked<A, B>(_:_:)();
+      v22._countAndFlagsBits = 46;
+      v22._object = 0xE100000000000000;
+      String.append(_:)(v22);
+      v23._countAndFlagsBits = v14;
+      v23._object = v20;
+      String.append(_:)(v23);
+
+      v1 = 0;
+      sub_1000578FC(v27);
+    }
+
+    else if (v33 != 4)
+    {
+      if (v31 | v29 | v28 | v32 | v30 | *(&v28 + 1))
+      {
+        v26 = v31 | v29 | v32 | v30 | *(&v28 + 1);
+        if (v28 != 1 || v26)
+        {
+          if (v28 != 2 || v26)
+          {
+            return 0xD000000000000032;
+          }
+
+          else
+          {
+            return 0xD000000000000012;
+          }
+        }
+
+        else
+        {
+          return 0xD00000000000002FLL;
+        }
+      }
+
+      else
+      {
+        return 0xD000000000000016;
+      }
+    }
+  }
+
+  else
+  {
+    if (v33)
+    {
+      if (v33 == 1)
+      {
+        *&v27[0] = 0;
+        *(&v27[0] + 1) = 0xE000000000000000;
+        _StringGuts.grow(_:)(59);
+        v3._countAndFlagsBits = 0xD000000000000025;
+        v3._object = 0x800000010009B5D0;
+        String.append(_:)(v3);
+        v4 = Array.description.getter();
+        v6 = v5;
+
+        v7._countAndFlagsBits = v4;
+        v7._object = v6;
+        String.append(_:)(v7);
+
+        v8._object = 0x800000010009B600;
+        v8._countAndFlagsBits = 0xD000000000000012;
+        String.append(_:)(v8);
+        v9 = Dictionary.description.getter();
+        v11 = v10;
+
+        v12 = v9;
+        v13 = v11;
+      }
+
+      else
+      {
+        v24 = *(&v28 + 1);
+        _StringGuts.grow(_:)(32);
+
+        *&v27[0] = 0xD00000000000001ELL;
+        *(&v27[0] + 1) = 0x800000010009B580;
+        v12 = v1;
+        v13 = v24;
+      }
+
+      String.append(_:)(*&v12);
+    }
+
+    else
+    {
+      v15 = *(&v28 + 1);
+      _StringGuts.grow(_:)(46);
+
+      *&v27[0] = 0xD000000000000015;
+      *(&v27[0] + 1) = 0x800000010009B620;
+      v16._countAndFlagsBits = v1;
+      v16._object = v15;
+      String.append(_:)(v16);
+
+      v17._object = 0x800000010009B640;
+      v17._countAndFlagsBits = 0xD000000000000015;
+      String.append(_:)(v17);
+      v18 = v2;
+      sub_1000578B4(&unk_1000DA8B0, &unk_1000931E0);
+      v19._countAndFlagsBits = String.init<A>(describing:)();
+      String.append(_:)(v19);
+    }
+
+    return *&v27[0];
+  }
+
+  return v1;
 }
 
 char *sub_10007A8A0(char *result, int64_t a2, char a3, char *a4)
@@ -1291,7 +1056,7 @@ char *sub_10007A8A0(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-size_t sub_10007A9A4(size_t result, int64_t a2, char a3, void *a4)
+void *sub_10007A9A4(void *result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -1351,7 +1116,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -1417,9 +1182,9 @@ void *sub_10007AB7C(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_10007AC04(uint64_t *a1)
+void sub_10007AC04(uint64_t a1)
 {
-  v2 = a1[1];
+  v2 = *(a1 + 8);
   v3 = _minimumMergeRunLength(_:)(v2);
   if (v3 < v2)
   {
@@ -1569,7 +1334,7 @@ LABEL_16:
   }
 }
 
-void sub_10007AF80(id *a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+void sub_10007AF80(id *a1, uint64_t a2, id *a3, uint64_t a4)
 {
   v6 = v4;
   v7 = a3;
@@ -1604,8 +1369,8 @@ LABEL_106:
     }
 
     v13 = *v7;
-    v14 = *(*v7 + 8 * v12);
-    v143 = *(*v7 + 8 * v11);
+    v14 = *(*v7 + v12);
+    v143 = *(*v7 + v11);
     v15 = v143;
     v144 = v14;
     v5 = v14;
@@ -1625,7 +1390,7 @@ LABEL_106:
     }
 
     v126 = v11;
-    v18 = (v13 + 8 * v11 + 16);
+    v18 = &v13[8 * v11 + 16];
     v130 = v8;
     while (1)
     {
@@ -1733,9 +1498,9 @@ LABEL_23:
                 goto LABEL_146;
               }
 
-              v41 = *(v40 + v37);
-              *(v40 + v37) = *(v40 + v36);
-              *(v40 + v36) = v41;
+              v41 = *&v40[v37];
+              *&v40[v37] = *&v40[v36];
+              *&v40[v36] = v41;
             }
 
             ++v39;
@@ -1791,7 +1556,7 @@ LABEL_38:
       goto LABEL_39;
     }
 
-    v43 = v11 + a4;
+    v43 = (v11 + a4);
     if (__OFADD__(v11, a4))
     {
       __break(1u);
@@ -1824,7 +1589,7 @@ LABEL_142:
     do
     {
       v141 = v12;
-      v92 = *(v5 + 8 * v12);
+      v92 = v5[v12];
       v124 = v91;
       v125 = v90;
       v93 = v91;
@@ -1914,7 +1679,7 @@ LABEL_102:
       v91 = v124 - 1;
     }
 
-    while (v141 + 1 != v123);
+    while ((v141 + 1) != v123);
     v12 = v123;
     v11 = v127;
     if (v123 < v127)
@@ -2119,7 +1884,7 @@ LABEL_72:
 
       v88 = *&v10[16 * v87 + 32];
       v5 = *&v10[16 * v49 + 40];
-      sub_10007B908((*v7 + 8 * v88), (*v7 + 8 * *&v10[16 * v49 + 32]), (*v7 + 8 * v5), v48);
+      sub_10007B908(*v7 + v88, *v7 + *&v10[16 * v49 + 32], *v7 + v5, v48);
       if (v6)
       {
         goto LABEL_116;
@@ -2211,7 +1976,7 @@ LABEL_108:
       v7 = (v112 - 1);
       v114 = *&v10[16 * v112];
       v115 = *&v10[16 * v112 + 24];
-      sub_10007B908((v113 + 8 * v114), (v113 + 8 * *&v10[16 * v112 + 16]), (v113 + 8 * v115), v5);
+      sub_10007B908(&v113[v114], &v113[*&v10[16 * v112 + 16]], &v113[v115], v5);
       if (v6)
       {
         break;
@@ -2557,7 +2322,7 @@ LABEL_61:
   return 1;
 }
 
-uint64_t sub_10007BF40(void **__dst, id *__src, id *a3, uint64_t a4, uint64_t (*a5)(id, id))
+uint64_t sub_10007BF40(void **__dst, id *__src, id *a3, unint64_t a4, uint64_t (*a5)(id, id))
 {
   v6 = v5;
   v7 = a3;
@@ -2810,7 +2575,6 @@ uint64_t sub_10007C30C(unint64_t a1)
     v6 = v5 - 1;
     v7 = v3 + 16 * a1;
     v8 = *(v7 + 32);
-    v9 = *(v7 + 40);
     memmove((v7 + 32), (v7 + 48), 16 * (v5 - 1 - a1));
     *(v3 + 16) = v6;
     *v1 = v3;
@@ -2830,12 +2594,11 @@ unint64_t sub_10007C3AC(uint64_t a1)
 
 unint64_t sub_10007C3F0(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v6 = Hasher._finalize()();
+  v4 = Hasher._finalize()();
 
-  return sub_10007C530(a1, a2, v6);
+  return sub_10007C530(a1, a2, v4);
 }
 
 unint64_t sub_10007C468(uint64_t a1, uint64_t a2)
@@ -2893,7 +2656,7 @@ unint64_t sub_10007C530(uint64_t a1, uint64_t a2, uint64_t a3)
   return v5;
 }
 
-void *sub_10007C618(unint64_t a1, void (*a2)(void *, uint64_t, unint64_t))
+void *sub_10007C618(unint64_t a1, uint64_t (*a2)(void *, uint64_t, uint64_t))
 {
   if (!(a1 >> 62))
   {
@@ -3142,7 +2905,7 @@ LABEL_16:
   return result;
 }
 
-uint64_t (*sub_10007CB94(uint64_t (*result)(), unint64_t a2, uint64_t a3))()
+void (*sub_10007CB94(void (*result)(id *a1), unint64_t a2, uint64_t a3))(id *a1)
 {
   v3 = result;
   if ((a3 & 0xC000000000000001) != 0)
@@ -3194,7 +2957,7 @@ LABEL_5:
   return result;
 }
 
-void sub_10007CCC4(unint64_t a1, int a2, char a3, uint64_t a4, unint64_t *a5, uint64_t *a6)
+void sub_10007CCC4(unint64_t a1, uint64_t a2, char a3, uint64_t a4, unint64_t *a5, void *a6)
 {
   if ((a4 & 0xC000000000000001) != 0)
   {
@@ -3291,14 +3054,12 @@ uint64_t sub_10007CEDC(unint64_t a1)
 uint64_t sub_10007CF40(void *a1, uint64_t a2)
 {
   v5 = sub_1000578B4(&unk_1000D9E30, &qword_1000933F0);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v8 = &v23 - v7;
+  __chkstk_darwin(v5 - 8, v6);
+  v8 = &v24 - v7;
   v9 = type metadata accessor for UUID();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = &v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9, v11);
+  v13 = &v24 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10007E198(a2, v8);
   if ((*(v10 + 48))(v8, 1, v9) != 1)
   {
@@ -3307,9 +3068,9 @@ uint64_t sub_10007CF40(void *a1, uint64_t a2)
     sub_10005B9DC(0, &qword_1000DA838, HMCameraProfile_ptr);
     v18 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-    __chkstk_darwin(v19);
-    *(&v23 - 2) = v13;
-    a1 = sub_100077C5C(sub_10007EA98, (&v23 - 4), v18);
+    __chkstk_darwin(v19, v20);
+    *(&v24 - 2) = v13;
+    a1 = sub_100077C5C(sub_10007EA98, (&v24 - 4), v18);
 
     (*(v10 + 8))(v13, v9);
     return a1;
@@ -3320,18 +3081,18 @@ uint64_t sub_10007CF40(void *a1, uint64_t a2)
   sub_10005B9DC(0, &qword_1000DA838, HMCameraProfile_ptr);
   v15 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v24 = sub_10007C618(v15, sub_10007C9F4);
-  sub_100078B70(&v24);
-  result = v24;
+  v25 = sub_10007C618(v15, sub_10007C9F4);
+  sub_100078B70(&v25);
+  result = v25;
   if (v2)
   {
 
     return a1;
   }
 
-  if ((v24 & 0x8000000000000000) == 0 && (v24 & 0x4000000000000000) == 0)
+  if ((v25 & 0x8000000000000000) == 0 && (v25 & 0x4000000000000000) == 0)
   {
-    if (*(v24 + 16))
+    if (*(v25 + 16))
     {
       goto LABEL_9;
     }
@@ -3341,10 +3102,10 @@ LABEL_14:
     return 0;
   }
 
-  v21 = v24;
-  v22 = _CocoaArrayWrapper.endIndex.getter();
-  result = v21;
-  if (!v22)
+  v22 = v25;
+  v23 = _CocoaArrayWrapper.endIndex.getter();
+  result = v22;
+  if (!v23)
   {
     goto LABEL_14;
   }
@@ -3352,15 +3113,15 @@ LABEL_14:
 LABEL_9:
   if ((result & 0xC000000000000001) != 0)
   {
-    v20 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+    v21 = specialized _ArrayBuffer._getElementSlowPath(_:)();
     goto LABEL_12;
   }
 
   if (*(result + 16))
   {
-    v20 = *(result + 32);
+    v21 = *(result + 32);
 LABEL_12:
-    a1 = v20;
+    a1 = v21;
 
     return a1;
   }
@@ -3448,15 +3209,13 @@ id _sSo13HOAppDelegateC7HomeAppE23sceneRootViewControllerSo06UIViewH0CSgvg_0()
 void *sub_10007D5C0(void *a1, uint64_t a2)
 {
   v4 = sub_1000578B4(&unk_1000D9E30, &qword_1000933F0);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = v21 - v6;
+  __chkstk_darwin(v4 - 8, v5);
+  v7 = v22 - v6;
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8);
-  v12 = v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21[1] = &OBJC_PROTOCOL___HFServiceLikeItem;
+  __chkstk_darwin(v8, v10);
+  v12 = v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22[1] = &OBJC_PROTOCOL___HFServiceLikeItem;
   v13 = swift_dynamicCastObjCProtocolConditional();
   if (v13)
   {
@@ -3476,10 +3235,10 @@ void *sub_10007D5C0(void *a1, uint64_t a2)
       sub_100057D7C(&qword_1000D9E70, &unk_1000DA2C0, HMAccessory_ptr);
       v17 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
-      __chkstk_darwin(v18);
-      v21[-2] = v12;
-      sub_100077E98(sub_10007E8C4, &v21[-4], v17);
-      LOBYTE(v16) = v19;
+      __chkstk_darwin(v18, v19);
+      v22[-2] = v12;
+      sub_100077E98(sub_10007E8C4, &v22[-4], v17);
+      LOBYTE(v16) = v20;
 
       if (v16)
       {
@@ -4190,8 +3949,7 @@ void sub_10007E270(void *a1, uint64_t a2, void *a3, uint64_t a4)
   v36 = a2;
   v37 = a3;
   v5 = sub_1000578B4(&unk_1000D9E30, &qword_1000933F0);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
+  __chkstk_darwin(v5 - 8, v6);
   v38 = v33 - v7;
   v35 = a1;
   v8 = [a1 allDisplayedItems];
@@ -4240,7 +3998,7 @@ void sub_10007E270(void *a1, uint64_t a2, void *a3, uint64_t a4)
     if (!v24 || (v39 = v24, swift_dynamicCast(), v23 = v40, v21 = v13, v22 = v14, !v40))
     {
 LABEL_24:
-      sub_100059150();
+      sub_100059150(v10);
       return;
     }
 
@@ -4271,7 +4029,7 @@ LABEL_19:
         v32 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
         sub_1000773E4(v32, &unk_1000DA2C0, HMAccessory_ptr);
-        sub_100059150();
+        sub_100059150(v10);
 
         return;
       }
@@ -4338,13 +4096,6 @@ uint64_t sub_10007E6E8()
 {
 
   return _swift_deallocObject(v0, 32, 7);
-}
-
-void sub_10007E76C()
-{
-  v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
-  sub_100079FA8(*(v0 + 16), *(v0 + 24));
 }
 
 uint64_t sub_10007E790(void (*a1)(void))
@@ -4531,9 +4282,7 @@ uint64_t sub_10007ED74(uint64_t a1, uint64_t a2)
   v2[3] = a2;
   v3 = type metadata accessor for URL();
   v2[4] = v3;
-  v4 = *(v3 - 8);
-  v2[5] = v4;
-  v5 = *(v4 + 64) + 15;
+  v2[5] = *(v3 - 8);
   v2[6] = swift_task_alloc();
 
   return _swift_task_switch(sub_10007EE34, 0, 0);
@@ -4541,89 +4290,85 @@ uint64_t sub_10007ED74(uint64_t a1, uint64_t a2)
 
 uint64_t sub_10007EE34()
 {
-  v43 = v0;
+  v37 = v0;
   if (qword_1000D97F8 != -1)
   {
     swift_once();
   }
 
-  v1 = v0[3];
-  v2 = type metadata accessor for Logger();
-  sub_10006AF58(v2, qword_1000DB8D8);
+  v1 = type metadata accessor for Logger();
+  sub_10006AF58(v1, qword_1000DB8D8);
 
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v3, v4))
+  if (os_log_type_enabled(v2, v3))
   {
-    v5 = v0[5];
-    v6 = v0[6];
-    v7 = v0[3];
-    v8 = v0[4];
-    v9 = swift_slowAlloc();
-    v42 = swift_slowAlloc();
-    *v9 = 136315394;
-    *(v9 + 4) = sub_10006B744(0x286D726F66726570, 0xE900000000000029, &v42);
-    *(v9 + 12) = 2080;
+    v4 = v0[5];
+    v5 = v0[6];
+    v6 = v0[4];
+    v7 = swift_slowAlloc();
+    v36 = swift_slowAlloc();
+    *v7 = 136315394;
+    *(v7 + 4) = sub_10006B744(0x286D726F66726570, 0xE900000000000029, &v36);
+    *(v7 + 12) = 2080;
     IntentParameter.wrappedValue.getter();
     sub_1000769F4();
-    v10 = dispatch thunk of CustomStringConvertible.description.getter();
-    v12 = v11;
-    (*(v5 + 8))(v6, v8);
-    v13 = sub_10006B744(v10, v12, &v42);
+    v8 = dispatch thunk of CustomStringConvertible.description.getter();
+    v10 = v9;
+    (*(v4 + 8))(v5, v6);
+    v11 = sub_10006B744(v8, v10, &v36);
 
-    *(v9 + 14) = v13;
-    _os_log_impl(&_mh_execute_header, v3, v4, "OpenURLInHomeIntent %s - url is %s", v9, 0x16u);
+    *(v7 + 14) = v11;
+    _os_log_impl(&_mh_execute_header, v2, v3, "OpenURLInHomeIntent %s - url is %s", v7, 0x16u);
     swift_arrayDestroy();
   }
 
-  v15 = v0[5];
-  v14 = v0[6];
-  v16 = v0[3];
-  v17 = v0[4];
+  v13 = v0[5];
+  v12 = v0[6];
+  v14 = v0[4];
   IntentParameter.wrappedValue.getter();
-  v18 = URL.scheme.getter();
-  v20 = v19;
-  v21 = *(v15 + 8);
-  v21(v14, v17);
-  v22 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  if (v20)
+  v15 = URL.scheme.getter();
+  v17 = v16;
+  v18 = *(v13 + 8);
+  v18(v12, v14);
+  v19 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  if (v17)
   {
-    if (v18 == v22 && v20 == v23)
+    if (v15 == v19 && v17 == v20)
     {
       goto LABEL_13;
     }
 
-    v25 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v22 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v25)
+    if (v22)
     {
 LABEL_14:
 
 LABEL_15:
-      v27 = v0[6];
-      v28 = v0[3];
-      v29 = v0[4];
-      v30 = [objc_opt_self() sharedInstance];
+      v24 = v0[6];
+      v25 = v0[4];
+      v26 = [objc_opt_self() sharedInstance];
       IntentParameter.wrappedValue.getter();
-      URL._bridgeToObjectiveC()(v31);
-      v33 = v32;
-      v21(v27, v29);
-      v34 = [v30 openURL:v33];
+      URL._bridgeToObjectiveC()(v27);
+      v29 = v28;
+      v18(v24, v25);
+      v30 = [v26 openURL:v29];
 
       goto LABEL_19;
     }
 
-    if (v18 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v20 == v26)
+    if (v15 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v17 == v23)
     {
 LABEL_13:
 
       goto LABEL_14;
     }
 
-    v41 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v35 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v41)
+    if (v35)
     {
       goto LABEL_15;
     }
@@ -4635,24 +4380,22 @@ LABEL_13:
     static String._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
-  v33 = Logger.logObject.getter();
-  v35 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v33, v35))
+  v29 = Logger.logObject.getter();
+  v31 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v29, v31))
   {
-    v36 = swift_slowAlloc();
-    *v36 = 0;
-    _os_log_impl(&_mh_execute_header, v33, v35, "OpenURLInHomeIntent - URL does not appear to be a Home app URL", v36, 2u);
+    v32 = swift_slowAlloc();
+    *v32 = 0;
+    _os_log_impl(&_mh_execute_header, v29, v31, "OpenURLInHomeIntent - URL does not appear to be a Home app URL", v32, 2u);
   }
 
 LABEL_19:
-  v37 = v0[6];
-  v38 = v0[2];
 
   static IntentResult.result<>()();
 
-  v39 = v0[1];
+  v33 = v0[1];
 
-  return v39();
+  return v33();
 }
 
 uint64_t sub_10007F26C@<X0>(uint64_t a1@<X8>)
@@ -4698,25 +4441,20 @@ uint64_t sub_10007F444@<X0>(uint64_t *a1@<X8>)
   v25 = a1;
   v1 = type metadata accessor for InputConnectionBehavior();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  __chkstk_darwin(v1);
+  __chkstk_darwin(v1, v3);
   v5 = &v24 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = sub_1000578B4(&qword_1000DA980, &qword_100093B00);
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6 - 8);
+  __chkstk_darwin(v6 - 8, v7);
   v9 = &v24 - v8;
   v10 = sub_1000578B4(&qword_1000DA988, &qword_100093B08);
-  v11 = *(*(v10 - 8) + 64);
-  __chkstk_darwin(v10 - 8);
+  __chkstk_darwin(v10 - 8, v11);
   v13 = &v24 - v12;
   v14 = sub_1000578B4(&qword_1000DA990, &qword_100093B10);
-  v15 = *(*(v14 - 8) + 64);
-  __chkstk_darwin(v14 - 8);
+  __chkstk_darwin(v14 - 8, v15);
   v17 = &v24 - v16;
   v18 = type metadata accessor for LocalizedStringResource();
   v19 = *(v18 - 8);
-  v20 = *(v19 + 64);
-  __chkstk_darwin(v18);
+  __chkstk_darwin(v18, v20);
   sub_1000578B4(&qword_1000DA998, &qword_100093B18);
   LocalizedStringResource.init(stringLiteral:)();
   (*(v19 + 56))(v17, 1, 1, v18);
@@ -4804,28 +4542,12 @@ void sub_10007FBBC(uint64_t a1, uint64_t a2)
   [v4 handleFailureInFunction:v3 file:@"NSObject+NAAdditions.h" lineNumber:54 description:{@"Expected class of %@ but was %@", a2, objc_opt_class()}];
 }
 
-void sub_10007FC64(uint64_t a1, uint64_t *a2)
+void sub_10007FD6C(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = *a2;
-  sub_10000B338();
-  sub_10000B350(&_mh_execute_header, v4, v5, "Action set not found for action set shortcut item: %@. Action set identifier: %@");
-}
-
-void sub_10007FCD4(uint64_t a1, uint64_t *a2)
-{
-  v2 = *(a1 + 40);
-  v3 = *a2;
-  sub_10000B338();
-  sub_10000B350(&_mh_execute_header, v4, v5, "Home not found for action set shortcut item: %@. Home identifier: %@");
-}
-
-void sub_10007FD6C()
-{
-  v0 = +[NSAssertionHandler currentHandler];
-  v1 = [NSString stringWithUTF8String:"id  _Nullable NAAssertCast(Class  _Nonnull __unsafe_unretained, id  _Nonnull __strong)"];
-  v2 = objc_opt_class();
-  sub_10000F9E4(v2, v3, v4, @"NSObject+NAAdditions.h");
+  v1 = +[NSAssertionHandler currentHandler];
+  v2 = [NSString stringWithUTF8String:"id  _Nullable NAAssertCast(Class  _Nonnull __unsafe_unretained, id  _Nonnull __strong)"];
+  v3 = objc_opt_class();
+  sub_10000F9E4(v3, v4, v5, @"NSObject+NAAdditions.h");
 }
 
 void sub_10007FF7C(uint64_t a1, NSObject *a2)
@@ -4905,13 +4627,11 @@ void sub_100080640()
   _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "(%s) error = %@", v2, 0x16u);
 }
 
-void sub_1000806C4(uint64_t a1)
+void sub_1000806C4()
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   sub_10002D474();
   sub_10002D464();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_100080748()
@@ -4944,12 +4664,11 @@ void sub_10008089C()
   _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "(%s) error = %@", v2, 0x16u);
 }
 
-void sub_100080964(uint64_t a1, uint64_t a2)
+void sub_100080964()
 {
-  v2 = *(a2 + 32);
   sub_10001932C();
   sub_10002D464();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_1000809E4()
@@ -4983,26 +4702,25 @@ void sub_100080B4C()
   sub_1000230AC(v1, v2, v3, @"NSObject+NAAdditions.h", v4, @"Expected class of %@ but was %@", v5, v6, v7, v8, v9, v10);
 }
 
-void sub_100080CB0(uint64_t a1)
+void sub_100080BD8(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *(a1 + 32);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 40);
+  sub_100019310(&_mh_execute_header, a2, a3, "Invalid attempt to display camera %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100080CB0()
+{
   sub_10002D474();
   sub_10002D464();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100080DFC(uint64_t a1)
+void sub_100080D2C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *(a1 + 32);
-  sub_100030FE0();
-  sub_10000B350(&_mh_execute_header, v2, v3, "Trigger name lookup failed for trigger with identifier %@ received error: %@");
-}
-
-void sub_100080E68(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_100030FE0();
-  sub_10000B350(&_mh_execute_header, v2, v3, "User confirmation of trigger with identifier %@ received error: %@");
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HOAppNavigator addPeopleToHome:]";
+  sub_100019310(&_mh_execute_header, a1, a3, "(%s) both canAddHomeMember and canAddAccessCode are NO. Unable to add People. This is non-ideal pathway", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100080ED4(void *a1, uint64_t a2, NSObject *a3)
@@ -5040,20 +4758,6 @@ void sub_1000812A8(void *a1, NSObject *a2)
   v3 = [a1 description];
   sub_10001932C();
   _os_log_fault_impl(&_mh_execute_header, a2, OS_LOG_TYPE_FAULT, "[HODataSyncingViewController-_resetButtonConfirmed] Error erasing Home data: %@", v4, 0xCu);
-}
-
-void sub_10008133C(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 32);
-  sub_10001932C();
-  sub_10000B350(&_mh_execute_header, v3, v4, "[HODataSyncingViewController-startCDPRepair] CDPUIDeviceToDeviceEncryption repair failed. Error: %@ primaryAccountAltDSID: %@");
-}
-
-void sub_1000813B4(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 32);
-  sub_10001932C();
-  sub_10000B350(&_mh_execute_header, v3, v4, "[HODataSyncingViewController-startCDPRepair] CDPUIDeviceToDeviceEncryption encountered error: %@ primaryAccountAltDSID: %@");
 }
 
 void sub_100081454()
@@ -5107,12 +4811,11 @@ void sub_10008178C()
   _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "(%s) error occurred when created MCProfile object with NSData: %@", &v1, 0x16u);
 }
 
-void sub_100081810(uint64_t a1, uint64_t *a2)
+void sub_100081810(uint64_t a1)
 {
-  v8 = [*(a1 + 40) hf_prettyDescription];
-  v9 = *a2;
+  v6 = [*(a1 + 40) hf_prettyDescription];
   sub_100023090();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 void sub_1000818C0(id *a1)

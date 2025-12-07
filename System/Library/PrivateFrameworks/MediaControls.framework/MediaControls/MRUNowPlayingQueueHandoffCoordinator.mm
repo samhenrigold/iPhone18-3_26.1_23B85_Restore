@@ -35,7 +35,7 @@
   if (self->_state != state)
   {
     self->_state = state;
-    v5 = MCLogCategoryDefault();
+    v5 = MCLogCategoryDefault(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;

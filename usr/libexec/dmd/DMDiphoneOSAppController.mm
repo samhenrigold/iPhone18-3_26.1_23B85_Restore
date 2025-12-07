@@ -36,6 +36,7 @@
 - (void)promptUserToSignInWithCompletion:(id)completion;
 - (void)removeTerminationAssertionForBundleIdentifier:(id)identifier;
 - (void)resumeAppInstallationWithBundleIdentifier:(id)identifier completion:(id)completion;
+- (void)sendAppRequestWithBundleIdentifier:(id)identifier storeItemIdentifier:(id)itemIdentifier personaIdentifier:(id)personaIdentifier type:(int64_t)type skipDownloads:(BOOL)downloads completion:(id)completion;
 - (void)startInstallingEnterpriseAppWithManifestURL:(id)l completion:(id)completion;
 - (void)startInstallingNonEnterpriseAppForRequest:(id)request completion:(id)completion;
 - (void)startRedeemingAppWithCode:(id)code completion:(id)completion;
@@ -438,6 +439,73 @@
   v11 = completionCopy;
   v9 = completionCopy;
   [v8 startWithAuthenticateResponseBlock:v10];
+}
+
+- (void)sendAppRequestWithBundleIdentifier:(id)identifier storeItemIdentifier:(id)itemIdentifier personaIdentifier:(id)personaIdentifier type:(int64_t)type skipDownloads:(BOOL)downloads completion:(id)completion
+{
+  downloadsCopy = downloads;
+  identifierCopy = identifier;
+  itemIdentifierCopy = itemIdentifier;
+  personaIdentifierCopy = personaIdentifier;
+  completionCopy = completion;
+  if (!downloadsCopy)
+  {
+
+    identifierCopy = 0;
+  }
+
+  if ((type - 1) > 2)
+  {
+    v18 = @"Undefined";
+  }
+
+  else
+  {
+    v18 = off_1000CE3A8[type - 1];
+  }
+
+  v19 = DMFAppLog();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  {
+    v20 = @"YES";
+    *buf = 138544386;
+    v29 = identifierCopy;
+    if (downloadsCopy)
+    {
+      v20 = @"NO";
+    }
+
+    v21 = @"override";
+    v30 = 2114;
+    v33 = v18;
+    v31 = itemIdentifierCopy;
+    v32 = 2114;
+    if (!personaIdentifierCopy)
+    {
+      v21 = @"default";
+    }
+
+    v34 = 2114;
+    v35 = v20;
+    v36 = 2114;
+    v37 = v21;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Send app store request for bundle identifier: %{public}@, store item identifier: %{public}@, type: %{public}@, download: %{public}@, persona: %{public}@", buf, 0x34u);
+  }
+
+  v22 = [[ASDManagedApplicationRequestOptions alloc] initWithItemIdentifer:itemIdentifierCopy externalVersionIdentifier:0 bundleIdentifier:identifierCopy bundleVersion:0 skipDownloads:downloadsCopy];
+  [v22 setRequestType:type];
+  v23 = [objc_opt_class() _appStoreAccountIdentifierForPersona:personaIdentifierCopy];
+  [v22 setAccountIdentifier:v23];
+
+  v24 = [[ASDManagedApplicationRequest alloc] initWithOptions:v22];
+  v26[0] = _NSConcreteStackBlock;
+  v26[1] = 3221225472;
+  v26[2] = sub_1000193A8;
+  v26[3] = &unk_1000CE2C0;
+  v26[4] = self;
+  v27 = completionCopy;
+  v25 = completionCopy;
+  [v24 sendRequestWithCompletionBlock:v26];
 }
 
 + (id)_appStoreAccountIdentifierForPersona:(id)persona

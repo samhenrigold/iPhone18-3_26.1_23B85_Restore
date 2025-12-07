@@ -315,40 +315,40 @@ void __49__SUUIInteractiveSegmentedControl_layoutSubviews__block_invoke(uint64_t
   }
 }
 
-void __49__SUUIInteractiveSegmentedControl_layoutSubviews__block_invoke_2(uint64_t a1, void *a2)
+void __49__SUUIInteractiveSegmentedControl_layoutSubviews__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v27 = a2;
-  v3 = [v27 segmentPosition];
-  [v27 frame];
-  [v27 sizeThatFits:{*(a1 + 80), CGRectGetHeight(*(a1 + 88))}];
-  v5 = v4;
-  v6 = *(*(*(a1 + 48) + 8) + 24);
+  v28 = a2;
+  v4 = [v28 segmentPosition];
+  [v28 frame];
+  [v28 sizeThatFits:{*(a1 + 80), CGRectGetHeight(*(a1 + 88))}];
+  v6 = v5;
+  v7 = *(*(*(a1 + 48) + 8) + 24);
   Height = CGRectGetHeight(*(a1 + 88));
-  v8 = *(a1 + 120);
-  v9 = 0.0;
-  v29.origin.y = 0.0;
-  v29.origin.x = v6;
-  v29.size.width = v8;
-  v29.size.height = Height;
-  if (v5 <= CGRectGetWidth(v29))
+  v9 = *(a1 + 120);
+  v10 = 0.0;
+  v30.origin.y = 0.0;
+  v30.origin.x = v7;
+  v30.size.width = v9;
+  v30.size.height = Height;
+  if (v6 <= CGRectGetWidth(v30))
   {
     if (*(*(*(a1 + 64) + 8) + 24) > 0.0)
     {
       [*(*(a1 + 32) + 480) count];
       UIFloorToViewScale();
-      v12 = v11;
-      v30.origin.y = 0.0;
-      v30.origin.x = v6;
-      v30.size.width = v8;
-      v30.size.height = Height;
-      v13 = CGRectGetWidth(v30) - v5;
-      if (v12 < v13)
+      v13 = v12;
+      v31.origin.y = 0.0;
+      v31.origin.x = v7;
+      v31.size.width = v9;
+      v31.size.height = Height;
+      v14 = CGRectGetWidth(v31) - v6;
+      if (v13 < v14)
       {
-        v13 = v12;
+        v14 = v13;
       }
 
-      v8 = v8 - v13;
-      *(*(*(a1 + 64) + 8) + 24) = *(*(*(a1 + 64) + 8) + 24) - v13;
+      v9 = v9 - v14;
+      *(*(*(a1 + 64) + 8) + 24) = *(*(*(a1 + 64) + 8) + 24) - v14;
     }
   }
 
@@ -357,64 +357,64 @@ void __49__SUUIInteractiveSegmentedControl_layoutSubviews__block_invoke_2(uint64
     if (*(a1 + 128) > 0.0)
     {
       UIFloorToViewScale();
-      v9 = v10;
+      v10 = v11;
     }
 
-    v8 = v5 - v9;
+    v9 = v6 - v10;
   }
 
-  v14 = *(*(a1 + 72) + 8);
-  v15 = *(v14 + 24);
-  v16 = v15 < 1;
-  v17 = v15 - 1;
-  if (!v16)
+  v15 = *(*(a1 + 72) + 8);
+  v16 = *(v15 + 24);
+  v17 = v16 < 1;
+  v18 = v16 - 1;
+  if (!v17)
   {
-    v8 = v8 + 1.0 / *(a1 + 136);
-    *(v14 + 24) = v17;
+    v9 = v9 + 1.0 / *(a1 + 136);
+    *(v15 + 24) = v18;
   }
 
-  [v27 setFrame:{SUUIRectByApplyingUserInterfaceLayoutDirectionInRect(v6, 0.0, v8, Height, *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 112))}];
-  v31.origin.y = 0.0;
-  v31.origin.x = v6;
-  v31.size.width = v8;
-  v31.size.height = Height;
-  *(*(*(a1 + 48) + 8) + 24) = CGRectGetWidth(v31) + *(*(*(a1 + 48) + 8) + 24);
-  if ((v3 - 1) <= 1)
+  [v28 setFrame:{SUUIRectByApplyingUserInterfaceLayoutDirectionInRect(v7, 0.0, v9, Height, *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 112))}];
+  v32.origin.y = 0.0;
+  v32.origin.x = v7;
+  v32.size.width = v9;
+  v32.size.height = Height;
+  *(*(*(a1 + 48) + 8) + 24) = CGRectGetWidth(v32) + *(*(*(a1 + 48) + 8) + 24);
+  if ((v4 - 1) <= 1)
   {
-    v18 = *(*(*(a1 + 48) + 8) + 24);
-    v19 = *(*(a1 + 32) + 472);
-    v20 = CGRectGetHeight(*(a1 + 88));
-    v21 = [*(a1 + 40) firstObject];
-    if (v21)
+    v19 = *(*(*(a1 + 48) + 8) + 24);
+    v20 = *(*(a1 + 32) + 472);
+    v21 = CGRectGetHeight(*(a1 + 88));
+    v22 = [*(a1 + 40) firstObject];
+    if (v22)
     {
-      v22 = v21;
+      v23 = v22;
       [*(a1 + 40) removeObjectAtIndex:0];
-      [v22 setFrame:{SUUIRectByApplyingUserInterfaceLayoutDirectionInRect(v18, 0.0, v19, v20, *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 112))}];
+      [v23 setFrame:{SUUIRectByApplyingUserInterfaceLayoutDirectionInRect(v19, 0.0, v20, v21, *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 112))}];
     }
 
     else
     {
-      v22 = [*(a1 + 32) _createDividerViewWithFrame:{v18, 0.0, v19, v20}];
-      [*(a1 + 32) addSubview:v22];
-      v23 = *(*(a1 + 32) + 456);
-      if (!v23)
+      v23 = [*(a1 + 32) _createDividerViewWithFrame:{v19, 0.0, v20, v21}];
+      [*(a1 + 32) addSubview:v23];
+      v24 = *(*(a1 + 32) + 456);
+      if (!v24)
       {
-        v24 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:1];
-        v25 = *(a1 + 32);
-        v26 = *(v25 + 456);
-        *(v25 + 456) = v24;
+        v25 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:1];
+        v26 = *(a1 + 32);
+        v27 = *(v26 + 456);
+        *(v26 + 456) = v25;
 
-        v23 = *(*(a1 + 32) + 456);
+        v24 = *(*(a1 + 32) + 456);
       }
 
-      [v23 addObject:v22];
+      [v24 addObject:v23];
     }
 
-    v32.origin.x = v18;
-    v32.origin.y = 0.0;
-    v32.size.width = v19;
-    v32.size.height = v20;
-    *(*(*(a1 + 48) + 8) + 24) = CGRectGetWidth(v32) + *(*(*(a1 + 48) + 8) + 24);
+    v33.origin.x = v19;
+    v33.origin.y = 0.0;
+    v33.size.width = v20;
+    v33.size.height = v21;
+    *(*(*(a1 + 48) + 8) + 24) = CGRectGetWidth(v33) + *(*(*(a1 + 48) + 8) + 24);
   }
 }
 

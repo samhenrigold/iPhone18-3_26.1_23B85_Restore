@@ -65,7 +65,7 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
@@ -81,7 +81,7 @@
 {
   v4 = type metadata accessor for IndexPath();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
+  __chkstk_darwin();
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   (*(v5 + 8))(v7, v4);
@@ -92,9 +92,10 @@
 {
   viewCopy = view;
   selfCopy = self;
-  v8 = sub_10048A398(viewCopy, section);
+  sub_10048A398(viewCopy, section);
+  v9 = v8;
 
-  return v8;
+  return v9;
 }
 
 - (double)tableView:(id)view heightForHeaderInSection:(int64_t)section

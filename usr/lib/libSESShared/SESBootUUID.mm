@@ -21,28 +21,26 @@
 
 void __26__SESBootUUID_getInstance__block_invoke()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v0 = objc_opt_new();
   v1 = getInstance_instance;
   getInstance_instance = v0;
 
-  memset(v6, 0, sizeof(v6));
-  v5 = 37;
-  if (sysctlbyname("kern.bootsessionuuid", v6, &v5, 0, 0))
+  memset(v5, 0, sizeof(v5));
+  v4 = 37;
+  if (sysctlbyname("kern.bootsessionuuid", v5, &v4, 0, 0))
   {
     __26__SESBootUUID_getInstance__block_invoke_cold_1();
   }
 
-  v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v6];
+  v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v5];
   v3 = *(getInstance_instance + 8);
   *(getInstance_instance + 8) = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)isFirstLaunchAfterBootForKey:(id)key
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v4 = +[SESBootUUID getInstance];
   objc_sync_enter(v4);
@@ -73,21 +71,20 @@ void __26__SESBootUUID_getInstance__block_invoke()
   v11 = v9 ^ 1;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v14 = 138412546;
-    v15 = keyCopy;
-    v16 = 1024;
-    v17 = v11;
-    _os_log_impl(&dword_1E0FCB000, v10, OS_LOG_TYPE_INFO, "First launch after boot for %@ %d", &v14, 0x12u);
+    v13 = 138412546;
+    v14 = keyCopy;
+    v15 = 1024;
+    v16 = v11;
+    _os_log_impl(&dword_1E0FCB000, v10, OS_LOG_TYPE_INFO, "First launch after boot for %@ %d", &v13, 0x12u);
   }
 
   objc_sync_exit(v4);
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (void)setFirstLaunchAfterBootDoneForKey:(id)key
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v4 = +[SESBootUUID getInstance];
   objc_sync_enter(v4);
@@ -96,13 +93,12 @@ void __26__SESBootUUID_getInstance__block_invoke()
   v6 = SESDefaultLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = keyCopy;
-    _os_log_impl(&dword_1E0FCB000, v6, OS_LOG_TYPE_INFO, "First launch after boot complete for %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = keyCopy;
+    _os_log_impl(&dword_1E0FCB000, v6, OS_LOG_TYPE_INFO, "First launch after boot complete for %@", &v7, 0xCu);
   }
 
   objc_sync_exit(v4);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (id)getBootUUID

@@ -19,15 +19,21 @@
     shouldLog = [v14 shouldLog];
     if ([v14 shouldLogToDisk])
     {
-      v16 = shouldLog | 2;
+      LODWORD(v16) = shouldLog | 2;
     }
 
     else
     {
-      v16 = shouldLog;
+      LODWORD(v16) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v14 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v14 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
@@ -37,55 +43,65 @@
       return 0;
     }
 
-LABEL_16:
-    v44 = 138412546;
-    v45 = objc_opt_class();
-    v46 = 2112;
-    identifierCopy2 = identifier;
-    LODWORD(v38) = 22;
-    v17 = _os_log_send_and_compose_impl();
-    if (v17)
-    {
-      v18 = v17;
-      [NSString stringWithCString:v17 encoding:4, &v44, v38];
-      free(v18);
-      SSFileLog();
-    }
-
-    return 0;
+    v46 = 138412546;
+    v47 = objc_opt_class();
+    v48 = 2112;
+    identifierCopy3 = identifier;
+    v18 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%@] No receipt data for: %@", &v46, 22);
+    goto LABEL_18;
   }
 
   v9 = [LSApplicationProxy applicationProxyForIdentifier:identifier];
   if (!v9)
   {
-    v21 = +[SSLogConfig sharedDaemonConfig];
-    if (!v21)
+    v22 = +[SSLogConfig sharedDaemonConfig];
+    if (!v22)
     {
-      v21 = +[SSLogConfig sharedConfig];
+      v22 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v21 shouldLog];
-    if ([v21 shouldLogToDisk])
+    shouldLog2 = [v22 shouldLog];
+    if ([v22 shouldLogToDisk])
     {
-      v23 = shouldLog2 | 2;
+      LODWORD(v24) = shouldLog2 | 2;
     }
 
     else
     {
-      v23 = shouldLog2;
+      LODWORD(v24) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v21 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v22 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v23 &= 2u;
+      v24 = v24;
     }
 
-    if (!v23)
+    else
+    {
+      v24 &= 2u;
+    }
+
+    if (!v24)
     {
       return 0;
     }
 
-    goto LABEL_16;
+    v46 = 138412546;
+    v47 = objc_opt_class();
+    v48 = 2112;
+    identifierCopy3 = identifier;
+    v18 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "[%@] No LSApplicationProxy for: %@", &v46, 22);
+LABEL_18:
+    if (v18)
+    {
+      v19 = v18;
+      [NSString stringWithCString:v18 encoding:4];
+      free(v19);
+      SSFileLog();
+    }
+
+    return 0;
   }
 
   containingBundle = v9;
@@ -99,43 +115,47 @@ LABEL_16:
 
     else
     {
-      v24 = +[SSLogConfig sharedDaemonConfig];
-      if (!v24)
+      v26 = +[SSLogConfig sharedDaemonConfig];
+      if (!v26)
       {
-        v24 = +[SSLogConfig sharedConfig];
+        v26 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog3 = [v24 shouldLog];
-      if ([v24 shouldLogToDisk])
+      shouldLog3 = [v26 shouldLog];
+      if ([v26 shouldLogToDisk])
       {
-        v26 = shouldLog3 | 2;
+        LODWORD(v28) = shouldLog3 | 2;
       }
 
       else
       {
-        v26 = shouldLog3;
+        LODWORD(v28) = shouldLog3;
       }
 
-      if (!os_log_type_enabled([v24 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject3 = [v26 OSLogObject];
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
       {
-        v26 &= 2u;
+        v28 = v28;
       }
 
-      if (v26)
+      else
       {
-        v44 = 138412546;
-        v45 = objc_opt_class();
-        v46 = 2112;
-        identifierCopy2 = identifier;
-        LODWORD(v38) = 22;
-        v37 = &v44;
-        v27 = _os_log_send_and_compose_impl();
-        if (v27)
+        v28 &= 2u;
+      }
+
+      if (v28)
+      {
+        v46 = 138412546;
+        v47 = objc_opt_class();
+        v48 = 2112;
+        identifierCopy3 = identifier;
+        v30 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "[%@] No LSPlugInKitProxy for: %@", &v46, 22);
+        if (v30)
         {
-          v28 = v27;
-          v29 = [NSString stringWithCString:v27 encoding:4, &v44, v38];
-          free(v28);
-          v37 = v29;
+          v31 = v30;
+          v32 = [NSString stringWithCString:v30 encoding:4];
+          free(v31);
+          v40 = v32;
           SSFileLog();
         }
       }
@@ -145,47 +165,47 @@ LABEL_16:
   dataContainerURL = [containingBundle dataContainerURL];
   if (dataContainerURL)
   {
-    v19 = [self _writeReceipt:receipt withContainerDirectory:dataContainerURL style:style];
+    v20 = [self _writeReceipt:receipt withContainerDirectory:dataContainerURL style:style];
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
   plugInKitPlugins = [containingBundle plugInKitPlugins];
-  v39 = 0u;
-  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v32 = [plugInKitPlugins countByEnumeratingWithState:&v39 objects:v43 count:16];
-  if (v32)
+  v43 = 0u;
+  v44 = 0u;
+  v35 = [plugInKitPlugins countByEnumeratingWithState:&v41 objects:v45 count:16];
+  if (v35)
   {
-    v33 = v32;
-    v34 = *v40;
+    v36 = v35;
+    v37 = *v42;
     do
     {
-      for (i = 0; i != v33; i = i + 1)
+      for (i = 0; i != v36; i = i + 1)
       {
-        if (*v40 != v34)
+        if (*v42 != v37)
         {
           objc_enumerationMutation(plugInKitPlugins);
         }
 
-        dataContainerURL2 = [*(*(&v39 + 1) + 8 * i) dataContainerURL];
+        dataContainerURL2 = [*(*(&v41 + 1) + 8 * i) dataContainerURL];
         if (dataContainerURL2)
         {
           [self _writeReceipt:receipt withContainerDirectory:dataContainerURL2 style:style];
         }
       }
 
-      v33 = [plugInKitPlugins countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v36 = [plugInKitPlugins countByEnumeratingWithState:&v41 objects:v45 count:16];
     }
 
-    while (v33);
+    while (v36);
   }
 
-  return v19;
+  return v20;
 }
 
 + (BOOL)writeReceipt:(id)receipt forStoreKitClient:(id)client
@@ -211,15 +231,15 @@ LABEL_16:
 {
   if ([receipt length])
   {
-    v26 = 0;
-    v31[0] = NSFileOwnerAccountName;
-    v31[1] = NSFileGroupOwnerAccountName;
-    v32[0] = @"mobile";
-    v32[1] = @"mobile";
-    v8 = [NSDictionary dictionaryWithObjects:v32 forKeys:v31 count:2];
+    v27 = 0;
+    v32[0] = NSFileOwnerAccountName;
+    v32[1] = NSFileGroupOwnerAccountName;
+    v33[0] = @"mobile";
+    v33[1] = @"mobile";
+    v8 = [NSDictionary dictionaryWithObjects:v33 forKeys:v32 count:2];
     v9 = [directory URLByAppendingPathComponent:@"StoreKit" isDirectory:1];
     v10 = objc_alloc_init(NSFileManager);
-    v11 = [v10 createDirectoryAtURL:v9 withIntermediateDirectories:1 attributes:v8 error:&v26];
+    v11 = [v10 createDirectoryAtURL:v9 withIntermediateDirectories:1 attributes:v8 error:&v27];
     if (v11)
     {
       if (style == 1)
@@ -244,78 +264,89 @@ LABEL_16:
         shouldLog = [v14 shouldLog];
         if ([v14 shouldLogToDisk])
         {
-          v16 = shouldLog | 2;
+          LODWORD(v16) = shouldLog | 2;
         }
 
         else
         {
-          v16 = shouldLog;
+          LODWORD(v16) = shouldLog;
         }
 
-        if (!os_log_type_enabled([v14 OSLogObject], OS_LOG_TYPE_DEBUG))
+        oSLogObject = [v14 OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+        {
+          v16 = v16;
+        }
+
+        else
         {
           v16 &= 2u;
         }
 
-        if (!v16 || (v17 = objc_opt_class(), v27 = 138412546, v28 = v17, v29 = 2112, v30 = v13, LODWORD(v25) = 22, (v18 = _os_log_send_and_compose_impl()) == 0))
+        if (!v16 || (v18 = objc_opt_class(), v28 = 138412546, v29 = v18, v30 = 2112, v31 = v13, (v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%@] Wrote receipt to path: %@", &v28, 22)) == 0))
         {
           v11 = 1;
-LABEL_29:
+LABEL_31:
 
           return v11;
         }
 
-LABEL_27:
-        v23 = v18;
-        [NSString stringWithCString:v18 encoding:4, &v27, v25];
-        free(v23);
+LABEL_29:
+        v25 = v19;
+        [NSString stringWithCString:v19 encoding:4];
+        free(v25);
         SSFileLog();
-        goto LABEL_29;
+        goto LABEL_31;
       }
     }
 
     else
     {
-      v19 = +[SSLogConfig sharedDaemonConfig];
-      if (!v19)
+      v20 = +[SSLogConfig sharedDaemonConfig];
+      if (!v20)
       {
-        v19 = +[SSLogConfig sharedConfig];
+        v20 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v19 shouldLog];
-      if ([v19 shouldLogToDisk])
+      shouldLog2 = [v20 shouldLog];
+      if ([v20 shouldLogToDisk])
       {
-        v21 = shouldLog2 | 2;
+        LODWORD(v22) = shouldLog2 | 2;
       }
 
       else
       {
-        v21 = shouldLog2;
+        LODWORD(v22) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v19 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject2 = [v20 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v21 &= 2u;
+        v22 = v22;
       }
 
-      if (v21)
+      else
       {
-        v22 = objc_opt_class();
-        v27 = 138412546;
-        v28 = v22;
-        v29 = 2112;
-        v30 = v9;
-        LODWORD(v25) = 22;
-        v18 = _os_log_send_and_compose_impl();
-        if (v18)
+        v22 &= 2u;
+      }
+
+      if (v22)
+      {
+        v24 = objc_opt_class();
+        v28 = 138412546;
+        v29 = v24;
+        v30 = 2112;
+        v31 = v9;
+        v19 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "[%@] Could not create receipt URL: %@", &v28, 22);
+        if (v19)
         {
-          goto LABEL_27;
+          goto LABEL_29;
         }
       }
     }
 
     v11 = 0;
-    goto LABEL_29;
+    goto LABEL_31;
   }
 
   return 0;

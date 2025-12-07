@@ -228,7 +228,7 @@
         v4 = v9;
         if (v9)
         {
-          objc_storeStrong(&v9->_sessionState, sessionState);
+          objc_storeStrong(v9 + 5, sessionState);
           objc_storeWeak(&v4->_collectionView, v8);
           v10 = objc_alloc_init(_UIVelocityIntegrator);
           velocityIntegrator = v4->_velocityIntegrator;
@@ -694,9 +694,9 @@ LABEL_11:
       sessionState3 = sessionState3[2];
     }
 
-    v12 = [sessionState3 isEqual:sessionCopy];
+    isEqual = objc_msgSend_isEqual_(sessionState3);
 
-    if ((v12 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       if (os_variant_has_internal_diagnostics())
       {
@@ -1383,7 +1383,7 @@ LABEL_24:
     v30 = target3;
     if (target3)
     {
-      [target3 transform];
+      objc_msgSend_transform(target3);
     }
 
     else
@@ -2344,9 +2344,9 @@ LABEL_35:
         {
           v53 = sourceIndexPath;
           sourceIndexPath2 = [v51 sourceIndexPath];
-          v55 = [sourceIndexPath2 isEqual:v62];
+          isEqual = objc_msgSend_isEqual_(sourceIndexPath2);
 
-          if (v55)
+          if (isEqual)
           {
             dragItem = [v51 dragItem];
             v57 = [v45 dropItem:dragItem toItemAtIndexPath:v20];
@@ -2629,7 +2629,7 @@ LABEL_37:
       dropProposalState = [(_UICollectionViewDragDestinationController *)self dropProposalState];
       effectiveIndexPath = [(_UIDragDestinationControllerDropProposalState *)dropProposalState effectiveIndexPath];
 
-      if (firstObject && [firstObject isEqual:effectiveIndexPath])
+      if (firstObject && objc_msgSend_isEqual_(firstObject))
       {
         operation = 0;
         intent = 0;

@@ -22,26 +22,25 @@
   dispatch_async(queue, v8);
 }
 
-uint64_t __77__CSFDropInCallStateNotifier_notifyObserver_didReceiveNotificationWithToken___block_invoke(uint64_t result)
+void *__77__CSFDropInCallStateNotifier_notifyObserver_didReceiveNotificationWithToken___block_invoke(void *result)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 32);
-  if (v1[2] == *(result + 40))
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = result[4];
+  if (v1[2] == result[5])
   {
     v2 = result;
     v3 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315138;
-      v6 = "[CSFDropInCallStateNotifier notifyObserver:didReceiveNotificationWithToken:]_block_invoke";
-      _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Received CSD XPC connection notification. Re-registering for drop-in calls", &v5, 0xCu);
-      v1 = *(v2 + 32);
+      v4 = 136315138;
+      v5 = "[CSFDropInCallStateNotifier notifyObserver:didReceiveNotificationWithToken:]_block_invoke";
+      _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Received CSD XPC connection notification. Re-registering for drop-in calls", &v4, 0xCu);
+      v1 = v2[4];
     }
 
-    result = [v1 _registerForDropInCallbacks];
+    return [v1 _registerForDropInCallbacks];
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -68,7 +67,7 @@ uint64_t __77__CSFDropInCallStateNotifier_notifyObserver_didReceiveNotificationW
 
 void __57__CSFDropInCallStateNotifier__registerForDropInCallbacks__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -79,9 +78,9 @@ void __57__CSFDropInCallStateNotifier__registerForDropInCallbacks__block_invoke(
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v10 = "[CSFDropInCallStateNotifier _registerForDropInCallbacks]_block_invoke";
-        v11 = 2114;
-        v12 = v3;
+        v9 = "[CSFDropInCallStateNotifier _registerForDropInCallbacks]_block_invoke";
+        v10 = 2114;
+        v11 = v3;
         _os_log_error_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_ERROR, "%s Unable to register for drop-in calls: %{public}@", buf, 0x16u);
       }
 
@@ -97,12 +96,10 @@ void __57__CSFDropInCallStateNotifier__registerForDropInCallbacks__block_invoke(
     else if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v10 = "[CSFDropInCallStateNotifier _registerForDropInCallbacks]_block_invoke_2";
+      v9 = "[CSFDropInCallStateNotifier _registerForDropInCallbacks]_block_invoke_2";
       _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s Registered for drop-in calls", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stop

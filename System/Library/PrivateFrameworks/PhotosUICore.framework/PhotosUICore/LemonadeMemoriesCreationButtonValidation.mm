@@ -20,13 +20,13 @@
   *(&self->super.isa + v8) = sub_1A480CB3C(MEMORY[0x1E69E7CC0]);
   *(&self->super.isa + OBJC_IVAR____TtC12PhotosUICore40LemonadeMemoriesCreationButtonValidation_photoLibrary) = libraryCopy;
   v10.receiver = self;
-  v10.super_class = type metadata accessor for LemonadeMemoriesCreationButtonValidation();
+  v10.super_class = type metadata accessor for LemonadeMemoriesCreationButtonValidation(0);
   return [(LemonadeMemoriesCreationButtonValidation *)&v10 init];
 }
 
 - (void)fetchMemoryCreationButtonAvailabilityWithCompletionHandler:(id)handler
 {
-  sub_1A3DB4F20();
+  sub_1A3DB4F20(0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = _Block_copy(handler);

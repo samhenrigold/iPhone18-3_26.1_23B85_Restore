@@ -34,7 +34,7 @@
 {
   v0 = type metadata accessor for Logger();
   v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
+  __chkstk_darwin();
   v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Logger.userActivity.getter();
   v4 = Logger.logObject.getter();

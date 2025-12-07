@@ -22,59 +22,57 @@
 - (void)send:(_TtC5AskTo10ATQuestion *)send to:(signed __int16)to completionHandler:(id)handler
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D7379F8, &qword_2258E1ED0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8, v11);
-  v13 = &v21 - v12;
-  v14 = _Block_copy(handler);
-  v15 = swift_allocObject();
-  *(v15 + 16) = send;
-  *(v15 + 24) = to;
-  *(v15 + 32) = v14;
-  *(v15 + 40) = self;
-  v16 = sub_2258E0E40();
-  (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
+  MEMORY[0x28223BE20](v9 - 8, v10);
+  v12 = &v20 - v11;
+  v13 = _Block_copy(handler);
+  v14 = swift_allocObject();
+  *(v14 + 16) = send;
+  *(v14 + 24) = to;
+  *(v14 + 32) = v13;
+  *(v14 + 40) = self;
+  v15 = sub_2258E0E40();
+  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v16 = swift_allocObject();
+  v16[2] = 0;
+  v16[3] = 0;
+  v16[4] = &unk_2258E1F28;
+  v16[5] = v14;
   v17 = swift_allocObject();
   v17[2] = 0;
   v17[3] = 0;
-  v17[4] = &unk_2258E1F28;
-  v17[5] = v15;
-  v18 = swift_allocObject();
-  v18[2] = 0;
-  v18[3] = 0;
-  v18[4] = &unk_2258E1F30;
-  v18[5] = v17;
+  v17[4] = &unk_2258E1F30;
+  v17[5] = v16;
   sendCopy = send;
   selfCopy = self;
-  sub_2258DEE80(0, 0, v13, &unk_2258E1F38, v18);
+  sub_2258DEE80(0, 0, v12, &unk_2258E1F38, v17);
 }
 
 - (void)canAskTo:(signed __int16)to requiredCapabilities:(NSSet *)capabilities completionHandler:(id)handler
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D7379F8, &qword_2258E1ED0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8, v11);
-  v13 = &v21 - v12;
-  v14 = _Block_copy(handler);
-  v15 = swift_allocObject();
-  *(v15 + 16) = to;
-  *(v15 + 24) = capabilities;
-  *(v15 + 32) = v14;
-  *(v15 + 40) = self;
-  v16 = sub_2258E0E40();
-  (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
+  MEMORY[0x28223BE20](v9 - 8, v10);
+  v12 = &v20 - v11;
+  v13 = _Block_copy(handler);
+  v14 = swift_allocObject();
+  *(v14 + 16) = to;
+  *(v14 + 24) = capabilities;
+  *(v14 + 32) = v13;
+  *(v14 + 40) = self;
+  v15 = sub_2258E0E40();
+  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v16 = swift_allocObject();
+  v16[2] = 0;
+  v16[3] = 0;
+  v16[4] = &unk_2258E1EE0;
+  v16[5] = v14;
   v17 = swift_allocObject();
   v17[2] = 0;
   v17[3] = 0;
-  v17[4] = &unk_2258E1EE0;
-  v17[5] = v15;
-  v18 = swift_allocObject();
-  v18[2] = 0;
-  v18[3] = 0;
-  v18[4] = &unk_2258E1EF0;
-  v18[5] = v17;
+  v17[4] = &unk_2258E1EF0;
+  v17[5] = v16;
   capabilitiesCopy = capabilities;
   selfCopy = self;
-  sub_2258DEE80(0, 0, v13, &unk_2258E1F00, v18);
+  sub_2258DEE80(0, 0, v12, &unk_2258E1F00, v17);
 }
 
 - (_TtC5AskTo16ATDispatchCenter)init

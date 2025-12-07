@@ -225,10 +225,10 @@ LABEL_11:
         v11 = UIViewControllerFromPresentable();
         viewIfLoaded = [v11 viewIfLoaded];
 
-        [viewIfLoaded frame];
+        objc_msgSend_frame(viewIfLoaded);
         v14 = v13;
         v16 = v15;
-        [v5 frame];
+        objc_msgSend_frame(v5);
         v18 = v17;
         v20 = v19;
 
@@ -355,7 +355,7 @@ LABEL_11:
     v15 = [(SBBannerManager *)selfCopy _windowSceneForPresenter:v14];
     v11 = [(SBBannerManager *)selfCopy _acquireGestureRecognizerPriorityAssertionWithPriority:priority windowScene:v15 reason:v10];
 
-    if (([weakObjectsHashTable containsObject:v11] & 1) == 0)
+    if ((objc_msgSend_containsObject_(weakObjectsHashTable) & 1) == 0)
     {
       if (!weakObjectsHashTable)
       {
@@ -1768,7 +1768,7 @@ void __87__SBBannerManager_presenter_willDismissPresentable_withTransitionCoordi
   {
     self->_presentableForActiveGesture = 0;
 
-    if ([(NSMutableSet *)self->_presentablesToRevokeWhenUserInteractionEnd containsObject:v5])
+    if (objc_msgSend_containsObject_(self->_presentablesToRevokeWhenUserInteractionEnd))
     {
       [(NSMutableSet *)self->_presentablesToRevokeWhenUserInteractionEnd removeObject:v5];
       v8[0] = MEMORY[0x277D85DD0];
@@ -2201,7 +2201,7 @@ void __84__SBBannerManager_bannerSourceListener_didUpdateInitialSceneSettingsWit
 
   v13 = [(SBBannerManager *)self _contentViewControllerForWindowScene:activeDisplayWindowScene];
   view = [v13 view];
-  [v9 frame];
+  objc_msgSend_frame(v9);
   [view convertRect:0 toView:?];
   [v11 _convertRectToSceneReferenceSpace:?];
 
@@ -2492,7 +2492,7 @@ LABEL_11:
           }
 
           v17 = *(*(&v20 + 1) + 8 * i);
-          if ([v11 containsObject:{v17, v20}])
+          if (objc_msgSend_containsObject_(v11, v20))
           {
             [allObjects addObject:v17];
             [v11 removeObject:v17];
@@ -2706,7 +2706,7 @@ LABEL_3:
 
       v10 = [(SBBannerManager *)selfCopy _presenterForWindowScene:*(*(&v14 + 1) + 8 * v9), v14];
       allPresentables = [v10 allPresentables];
-      v12 = [allPresentables containsObject:presentableCopy];
+      v12 = objc_msgSend_containsObject_(allPresentables);
 
       if (v12)
       {
@@ -3445,7 +3445,7 @@ void __93__SBBannerManager__acquireGestureRecognizerPriorityAssertionWithPriorit
   v8 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
-  if (WeakRetained && [WeakRetained[10] containsObject:v8])
+  if (WeakRetained && objc_msgSend_containsObject_(WeakRetained[10]))
   {
     [v4[10] removeObject:v8];
     if (![v4[10] count])
@@ -3466,7 +3466,7 @@ void __93__SBBannerManager__acquireGestureRecognizerPriorityAssertionWithPriorit
   }
 }
 
-uint64_t __93__SBBannerManager__acquireGestureRecognizerPriorityAssertionWithPriority_windowScene_reason___block_invoke_2_229(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__93__SBBannerManager__acquireGestureRecognizerPriorityAssertionWithPriority_windowScene_reason___block_invoke_2_229(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = *(a1 + 40);
   result = [a2 priority];
@@ -3608,7 +3608,7 @@ LABEL_10:
   if (presentableCopy && [(SBBannerManager *)self _shouldHideStatusBarForPresentable:presentableCopy])
   {
     v5 = [(SBBannerManager *)self _statusBarAssertionReasonForPresentable:presentableCopy];
-    if (([(NSMutableSet *)self->_statusBarAssertionReasons containsObject:v5]& 1) == 0)
+    if ((objc_msgSend_containsObject_(self->_statusBarAssertionReasons) & 1) == 0)
     {
       v6 = SBLogBanners();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -3685,7 +3685,7 @@ LABEL_10:
   if (presentableCopy && [(SBBannerManager *)self _shouldHideStatusBarForPresentable:presentableCopy])
   {
     v5 = [(SBBannerManager *)self _statusBarAssertionReasonForPresentable:presentableCopy];
-    if ([(NSMutableSet *)self->_statusBarAssertionReasons containsObject:v5])
+    if (objc_msgSend_containsObject_(self->_statusBarAssertionReasons))
     {
       v6 = SBLogBanners();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))

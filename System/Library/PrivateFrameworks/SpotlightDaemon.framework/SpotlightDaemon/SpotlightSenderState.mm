@@ -45,22 +45,21 @@
 
   if (*(v8 + 6) != sClintServiceDisabledBitMap)
   {
-    v3 = logForCSLogCategoryDefault();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = logForCSLogCategoryDefault(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v4 = *(v8 + 6);
+      v5 = *(v8 + 6);
       *buf = 67109376;
       v12 = sClintServiceDisabledBitMap;
       v13 = 1024;
-      v14 = v4;
-      _os_log_impl(&dword_231A35000, v3, OS_LOG_TYPE_INFO, "SpotlightSender: Enabled client state changed from 0x%x to 0x%x", buf, 0xEu);
+      v14 = v5;
+      _os_log_impl(&dword_231A35000, v4, OS_LOG_TYPE_INFO, "SpotlightSender: Enabled client state changed from 0x%x to 0x%x", buf, 0xEu);
     }
 
     sClintServiceDisabledBitMap = *(v8 + 6);
   }
 
   _Block_object_dispose(&v7, 8);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __46__SpotlightSenderState__updateFromPreferences__block_invoke(uint64_t a1, void *a2)

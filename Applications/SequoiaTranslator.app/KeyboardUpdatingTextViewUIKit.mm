@@ -18,7 +18,7 @@
 
 - (NSArray)_additionalTextInputLocales
 {
-  sub_100005AD4(qword_1003B5180);
+  sub_100005AD4(qword_1003B5180, &unk_1002D7DC0);
   type metadata accessor for Locale();
   *(swift_allocObject() + 16) = xmmword_1002D1370;
   swift_getKeyPath();
@@ -38,7 +38,7 @@
 - (UITextInputMode)textInputMode
 {
   selfCopy = self;
-  v3 = sub_10012E72C();
+  v3 = sub_10012E72C(selfCopy);
 
   return v3;
 }

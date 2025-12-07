@@ -871,7 +871,6 @@ LABEL_29:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x40) == 0)
@@ -891,7 +890,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  durationMs = self->_durationMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -906,7 +904,6 @@ LABEL_4:
   }
 
 LABEL_34:
-  sleepDurMs = self->_sleepDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -921,7 +918,6 @@ LABEL_5:
   }
 
 LABEL_35:
-  activeDurMs = self->_activeDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -936,7 +932,6 @@ LABEL_6:
   }
 
 LABEL_36:
-  sleepEntryCount = self->_sleepEntryCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -951,7 +946,6 @@ LABEL_7:
   }
 
 LABEL_37:
-  lowVoltActiveDurMs = self->_lowVoltActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -966,7 +960,6 @@ LABEL_8:
   }
 
 LABEL_38:
-  midVoltActiveDurMs = self->_midVoltActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -981,7 +974,6 @@ LABEL_9:
   }
 
 LABEL_39:
-  highVoltActiveDurMs = self->_highVoltActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -996,7 +988,6 @@ LABEL_10:
   }
 
 LABEL_40:
-  gsmCa5ActiveDurMs = self->_gsmCa5ActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1011,7 +1002,6 @@ LABEL_11:
   }
 
 LABEL_41:
-  lteActiveDurMs = self->_lteActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -1026,7 +1016,6 @@ LABEL_12:
   }
 
 LABEL_42:
-  wcdmaActiveDurMs = self->_wcdmaActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1041,7 +1030,6 @@ LABEL_13:
   }
 
 LABEL_43:
-  tdscdmaActiveDurMs = self->_tdscdmaActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1056,7 +1044,6 @@ LABEL_14:
   }
 
 LABEL_44:
-  hostActiveDurMs = self->_hostActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1071,7 +1058,6 @@ LABEL_15:
   }
 
 LABEL_45:
-  hostCpuSysActiveDurMs = self->_hostCpuSysActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1086,7 +1072,6 @@ LABEL_16:
   }
 
 LABEL_46:
-  hostCpuActiveDurMs = self->_hostCpuActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1101,7 +1086,6 @@ LABEL_17:
   }
 
 LABEL_47:
-  rpcuActiveDurMs = self->_rpcuActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1116,7 +1100,6 @@ LABEL_18:
   }
 
 LABEL_48:
-  phyActiveDurMs = self->_phyActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1131,7 +1114,6 @@ LABEL_19:
   }
 
 LABEL_49:
-  phyNocActiveDurMs = self->_phyNocActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1146,7 +1128,6 @@ LABEL_20:
   }
 
 LABEL_50:
-  bctActiveDurMs = self->_bctActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -1161,7 +1142,6 @@ LABEL_21:
   }
 
 LABEL_51:
-  cdmaActiveDurMs = self->_cdmaActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1176,7 +1156,6 @@ LABEL_22:
   }
 
 LABEL_52:
-  gsmActiveDurMs = self->_gsmActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
@@ -1191,7 +1170,6 @@ LABEL_23:
   }
 
 LABEL_53:
-  tpcuActiveDurMs = self->_tpcuActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1206,7 +1184,6 @@ LABEL_24:
   }
 
 LABEL_54:
-  ioActiveDurMs = self->_ioActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1221,7 +1198,6 @@ LABEL_25:
   }
 
 LABEL_55:
-  perActiveDurMs = self->_perActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1236,7 +1212,6 @@ LABEL_26:
   }
 
 LABEL_56:
-  dbgActiveDurMs = self->_dbgActiveDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1251,12 +1226,10 @@ LABEL_27:
   }
 
 LABEL_57:
-  dpuActiveDurMs = self->_dpuActiveDurMs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x100000) != 0)
   {
 LABEL_28:
-    rauActiveDurMs = self->_rauActiveDurMs;
     PBDataWriterWriteUint32Field();
   }
 

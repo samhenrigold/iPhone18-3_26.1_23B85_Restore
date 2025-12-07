@@ -222,12 +222,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v12 = toCopy;
+  v6 = toCopy;
   if ((has & 0x20) != 0)
   {
-    remoteUID = self->_remoteUID;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v6;
     has = self->_has;
     if ((has & 8) == 0)
     {
@@ -246,91 +245,86 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  identifier = self->_identifier;
   PBDataWriterWriteUint32Field();
-  toCopy = v12;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    date = self->_date;
     PBDataWriterWriteDoubleField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_senderDestinationID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_callbackDestinationID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    duration = self->_duration;
     PBDataWriterWriteDoubleField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_dataURL)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    flags = self->_flags;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_transcriptionURL)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_transcript)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_audio)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    protocolVersion = self->_protocolVersion;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_receiverDestinationID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_receiverLabelID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_uuid)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 }
 
@@ -546,7 +540,6 @@ LABEL_5:
     goto LABEL_51;
   }
 
-  v5 = *(equalCopy + 120);
   if ((*&self->_has & 0x20) != 0)
   {
     if ((*(equalCopy + 120) & 0x20) == 0 || self->_remoteUID != *(equalCopy + 20))
@@ -602,7 +595,6 @@ LABEL_5:
   }
 
   has = self->_has;
-  v9 = *(equalCopy + 120);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 120) & 2) == 0 || self->_duration != *(equalCopy + 2))
@@ -622,14 +614,13 @@ LABEL_5:
     if (![(NSString *)dataURL isEqual:?])
     {
 LABEL_51:
-      v19 = 0;
+      v15 = 0;
       goto LABEL_52;
     }
 
     has = self->_has;
   }
 
-  v11 = *(equalCopy + 120);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 120) & 4) == 0 || self->_flags != *(equalCopy + 12))
@@ -667,7 +658,6 @@ LABEL_51:
     }
   }
 
-  v15 = *(equalCopy + 120);
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 120) & 0x10) == 0 || self->_protocolVersion != *(equalCopy + 14))
@@ -699,17 +689,17 @@ LABEL_51:
   uuid = self->_uuid;
   if (uuid | *(equalCopy + 14))
   {
-    v19 = [(NSString *)uuid isEqual:?];
+    v15 = [(NSString *)uuid isEqual:?];
   }
 
   else
   {
-    v19 = 1;
+    v15 = 1;
   }
 
 LABEL_52:
 
-  return v19;
+  return v15;
 }
 
 - (unint64_t)hash

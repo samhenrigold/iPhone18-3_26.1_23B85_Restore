@@ -63,9 +63,9 @@
     +[ICAttachment(UI) imageCache];
   }
 
-  v1 = imageCache_imageCache_2;
+  v2 = imageCache_imageCache_2;
 
-  return v1;
+  return v2;
 }
 
 + (id)imageLoadingOperationQueue
@@ -138,9 +138,9 @@
     +[ICAttachment(UI) thumbnailOperationQueue];
   }
 
-  v1 = thumbnailOperationQueue_thumbnailOperationQueue;
+  v2 = thumbnailOperationQueue_thumbnailOperationQueue;
 
-  return v1;
+  return v2;
 }
 
 - (id)image
@@ -521,26 +521,26 @@ LABEL_4:
 
 - (id)movieDurationForSpeaking
 {
-  [self duration];
-  v8 = (v7 / 3600.0);
-  v9 = v7 % 3600;
-  v10 = (v7 % 60);
-  if (v8)
+  objc_msgSend_duration(self, a2);
+  v10 = (v9 / 3600.0);
+  v11 = v9 % 3600;
+  v12 = (v9 % 60);
+  if (v10)
   {
-    v11 = MEMORY[0x1E696AEC0];
-    v12 = __ICLocalizedFrameworkString_impl(@"%d hours", @"%d hours", 0, 1);
-    v13 = [v11 localizedStringWithFormat:v12, v8];
+    v13 = MEMORY[0x1E696AEC0];
+    v14 = __ICLocalizedFrameworkString_impl(@"%d hours", @"%d hours", 0, 1);
+    v15 = [v13 localizedStringWithFormat:v14, v10];
   }
 
   else
   {
-    v13 = 0;
+    v15 = 0;
   }
 
-  if ((v9 - 60) > 0xFFFFFF88)
+  if ((v11 - 60) > 0xFFFFFF88)
   {
-    v17 = 0;
-    if (v10)
+    v19 = 0;
+    if (v12)
     {
       goto LABEL_6;
     }
@@ -548,27 +548,27 @@ LABEL_4:
 
   else
   {
-    v14 = (((34953 * v9) >> 16) >> 5) + (((v9 + ((-30583 * v9) >> 16)) & 0x8000) >> 15);
-    v15 = MEMORY[0x1E696AEC0];
-    v16 = __ICLocalizedFrameworkString_impl(@"%d minutes", @"%d minutes", 0, 1);
-    v17 = [v15 localizedStringWithFormat:v16, v14];
+    v16 = (((34953 * v11) >> 16) >> 5) + (((v11 + ((-30583 * v11) >> 16)) & 0x8000) >> 15);
+    v17 = MEMORY[0x1E696AEC0];
+    v18 = __ICLocalizedFrameworkString_impl(@"%d minutes", @"%d minutes", 0, 1);
+    v19 = [v17 localizedStringWithFormat:v18, v16];
 
-    if (v10)
+    if (v12)
     {
 LABEL_6:
-      v18 = MEMORY[0x1E696AEC0];
-      v19 = __ICLocalizedFrameworkString_impl(@"%d seconds", @"%d seconds", 0, 1);
-      v20 = [v18 localizedStringWithFormat:v19, v10];
+      v20 = MEMORY[0x1E696AEC0];
+      v21 = __ICLocalizedFrameworkString_impl(@"%d seconds", @"%d seconds", 0, 1);
+      v22 = [v20 localizedStringWithFormat:v21, v12];
 
       goto LABEL_9;
     }
   }
 
-  v20 = 0;
+  v22 = 0;
 LABEL_9:
-  v21 = __ICAccessibilityStringForVariables(0, v13, v1, v2, v3, v4, v5, v6, v17);
+  v23 = __ICAccessibilityStringForVariables(0, v15, v3, v4, v5, v6, v7, v8, v19);
 
-  return v21;
+  return v23;
 }
 
 - (id)deviceInfosWithoutPreviewImagesFromDeviceInfos:()UI
@@ -662,7 +662,7 @@ LABEL_9:
     if (v29)
     {
       *a11 = 1;
-      [self duration];
+      objc_msgSend_duration(self);
       CMTimeMakeWithSeconds(&v33, v31, 1000000000);
       *a12 = v33;
     }

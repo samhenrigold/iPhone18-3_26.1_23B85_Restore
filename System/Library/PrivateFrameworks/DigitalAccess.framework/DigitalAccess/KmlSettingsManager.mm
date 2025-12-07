@@ -21,10 +21,10 @@
 
 - (KmlSettingsManager)init
 {
-  v12[9] = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = KmlSettingsManager;
-  v2 = [(KmlSettingsManager *)&v10 init];
+  v11[9] = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = KmlSettingsManager;
+  v2 = [(KmlSettingsManager *)&v9 init];
   v3 = v2;
   if (v2)
   {
@@ -34,67 +34,64 @@
     dckConfig = v3->_dckConfig;
     v3->_dckConfig = 0;
 
-    v11[0] = &unk_285B9CB50;
-    v11[1] = &unk_285B9CB68;
-    v12[0] = MEMORY[0x277CBEC38];
-    v12[1] = MEMORY[0x277CBEC28];
-    v11[2] = &unk_285B9CB80;
-    v11[3] = &unk_285B9CB98;
-    v12[2] = MEMORY[0x277CBEC28];
-    v12[3] = MEMORY[0x277CBEC28];
-    v11[4] = &unk_285B9CBB0;
-    v11[5] = &unk_285B9CBC8;
-    v12[4] = MEMORY[0x277CBEC28];
-    v12[5] = MEMORY[0x277CBEC38];
-    v11[6] = &unk_285B9CBE0;
-    v11[7] = &unk_285B9CBF8;
-    v12[6] = MEMORY[0x277CBEC28];
-    v12[7] = MEMORY[0x277CBEC28];
-    v11[8] = &unk_285B9CC10;
-    v12[8] = MEMORY[0x277CBEC28];
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:9];
+    v10[0] = &unk_285B9CB50;
+    v10[1] = &unk_285B9CB68;
+    v11[0] = MEMORY[0x277CBEC38];
+    v11[1] = MEMORY[0x277CBEC28];
+    v10[2] = &unk_285B9CB80;
+    v10[3] = &unk_285B9CB98;
+    v11[2] = MEMORY[0x277CBEC28];
+    v11[3] = MEMORY[0x277CBEC28];
+    v10[4] = &unk_285B9CBB0;
+    v10[5] = &unk_285B9CBC8;
+    v11[4] = MEMORY[0x277CBEC28];
+    v11[5] = MEMORY[0x277CBEC38];
+    v10[6] = &unk_285B9CBE0;
+    v10[7] = &unk_285B9CBF8;
+    v11[6] = MEMORY[0x277CBEC28];
+    v11[7] = MEMORY[0x277CBEC28];
+    v10[8] = &unk_285B9CC10;
+    v11[8] = MEMORY[0x277CBEC28];
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:9];
     defaultSLGValues = v3->_defaultSLGValues;
     v3->_defaultSLGValues = v6;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (BOOL)defaultBoolValueForSetting:(unint64_t)setting
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   defaultSLGValues = self->_defaultSLGValues;
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
   v7 = [(NSDictionary *)defaultSLGValues objectForKey:v6];
 
   if (v7)
   {
-    v8 = self->_defaultSLGValues;
-    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:setting];
-    v10 = [(NSDictionary *)v8 objectForKeyedSubscript:v9];
-    LOBYTE(v8) = [v10 BOOLValue];
+    v9 = self->_defaultSLGValues;
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:setting];
+    v11 = [(NSDictionary *)v9 objectForKeyedSubscript:v10];
+    LOBYTE(v9) = [v11 BOOLValue];
 
-    v11 = *MEMORY[0x277D85DE8];
-    return v8;
+    return v9;
   }
 
   else
   {
-    v13 = KmlLogger();
+    v13 = KmlLogger(v8);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:setting];
-      v16 = 136315650;
-      v17 = "[KmlSettingsManager defaultBoolValueForSetting:]";
-      v18 = 1024;
-      v19 = 83;
-      v20 = 2112;
-      v21 = v14;
-      _os_log_impl(&dword_248BF3000, v13, OS_LOG_TYPE_ERROR, "%s : %i : Missing default value for key: %@, assuming default is NO", &v16, 0x1Cu);
+      v15 = 136315650;
+      v16 = "[KmlSettingsManager defaultBoolValueForSetting:]";
+      v17 = 1024;
+      v18 = 83;
+      v19 = 2112;
+      v20 = v14;
+      _os_log_impl(&dword_248BF3000, v13, OS_LOG_TYPE_ERROR, "%s : %i : Missing default value for key: %@, assuming default is NO", &v15, 0x1Cu);
     }
 
-    v15 = *MEMORY[0x277D85DE8];
     return 0;
   }
 }

@@ -1,4 +1,16 @@
-uint64_t type metadata accessor for DebugMenuViewController()
+unint64_t sub_10004AEA0()
+{
+  result = qword_1001004B0;
+  if (!qword_1001004B0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_1001004B0);
+  }
+
+  return result;
+}
+
+uint64_t type metadata accessor for DebugMenuViewController(uint64_t a1)
 {
   result = qword_1001004B8;
   if (!qword_1001004B8)
@@ -28,7 +40,7 @@ void sub_10004AF80(void *a1)
 
   v9 = swift_allocObject();
   *(v9 + 16) = 0;
-  type metadata accessor for DebugMenuViewController();
+  type metadata accessor for DebugMenuViewController(0);
   v10 = [objc_opt_self() defaultDatabase];
   swift_retain_n();
   DebugMenuView.init(database:close:onShare:)();
@@ -46,13 +58,13 @@ void sub_10004AF80(void *a1)
     if (v16)
     {
       v17 = v16;
-      sub_10002E87C(&qword_1001000E0);
+      sub_10002E87C(&qword_1001000E0, &qword_1000C12D0);
       v18 = swift_allocObject();
       *(v18 + 16) = xmmword_1000C1720;
       v19 = objc_opt_self();
       *(v18 + 32) = [v19 _mediumDetent];
       *(v18 + 40) = [v19 _largeDetent];
-      sub_100002FC4(0, &qword_100100520);
+      sub_100002FC4(0, &qword_100100520, _UISheetDetent_ptr);
       isa = Array._bridgeToObjectiveC()().super.isa;
 
       [v17 _setDetents:isa];
@@ -109,12 +121,12 @@ uint64_t sub_10004B33C(uint64_t a1)
 void sub_10004B428()
 {
   v1 = v0;
-  sub_10002E87C(&qword_100100508);
+  sub_10002E87C(&qword_100100508, &unk_1000C1760);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1000C0C20;
   URL._bridgeToObjectiveC()(&off_1000C0000);
   v4 = v3;
-  *(v2 + 56) = sub_100002FC4(0, &qword_100100510);
+  *(v2 + 56) = sub_100002FC4(0, &qword_100100510, NSURL_ptr);
   *(v2 + 32) = v4;
   v5 = objc_allocWithZone(UIActivityViewController);
   v6 = sub_10004B714(v2, 0);
@@ -143,7 +155,7 @@ void *sub_10004B548(uint64_t a1, uint64_t a2)
 id sub_10004B640(void *a1)
 {
   v5.receiver = v1;
-  v5.super_class = type metadata accessor for DebugMenuViewController();
+  v5.super_class = type metadata accessor for DebugMenuViewController(0);
   v3 = objc_msgSendSuper2(&v5, "initWithCoder:", a1);
 
   if (v3)
@@ -156,7 +168,7 @@ id sub_10004B640(void *a1)
 id sub_10004B6D4()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for DebugMenuViewController();
+  v2.super_class = type metadata accessor for DebugMenuViewController(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
@@ -166,7 +178,7 @@ id sub_10004B714(uint64_t a1, uint64_t a2)
 
   if (a2)
   {
-    sub_100002FC4(0, &qword_100100518);
+    sub_100002FC4(0, &qword_100100518, UIActivity_ptr);
     v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -330,23 +342,23 @@ LABEL_6:
 
 unint64_t *sub_10004BBFC()
 {
-  v0 = type metadata accessor for NavigationDestinationEntity();
+  v0 = type metadata accessor for NavigationDestinationEntity(0);
   v1 = *(v0 - 8);
   __chkstk_darwin(v0 - 8);
-  v3 = &v35 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v36 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   v4 = [objc_opt_self() mainScene];
   if (!v4)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   v5 = v4;
-  v35 = v1;
+  v36 = v1;
   v6 = [v4 delegate];
 
   if (!v6)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   objc_opt_self();
@@ -354,12 +366,12 @@ unint64_t *sub_10004BBFC()
   if (!v7)
   {
     swift_unknownObjectRelease();
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   v8 = [v7 rootViewController];
   swift_unknownObjectRelease();
-  v9 = &_swiftEmptyArrayStorage;
+  v9 = _swiftEmptyArrayStorage;
   if (v8)
   {
     type metadata accessor for MainViewController(0);
@@ -372,9 +384,9 @@ unint64_t *sub_10004BBFC()
       v12 = *(v11 + 16);
       if (v12)
       {
-        v38 = &_swiftEmptyArrayStorage;
+        v39 = _swiftEmptyArrayStorage;
         sub_100062D38(0, v12, 0);
-        v9 = v38;
+        v9 = v39;
         v13 = v11 + 40;
         do
         {
@@ -382,13 +394,13 @@ unint64_t *sub_10004BBFC()
           swift_unknownObjectRetain();
           v14 = dispatch thunk of SidebarSection.destinations.getter();
           swift_unknownObjectRelease();
-          v38 = v9;
+          v39 = v9;
           v16 = v9[2];
           v15 = v9[3];
           if (v16 >= v15 >> 1)
           {
             sub_100062D38(v15 > 1, v16 + 1, 1);
-            v9 = v38;
+            v9 = v39;
           }
 
           v9[2] = v16 + 1;
@@ -402,7 +414,7 @@ unint64_t *sub_10004BBFC()
 
       v18 = 0;
       v19 = v9[2];
-      v20 = &_swiftEmptyArrayStorage;
+      v20 = _swiftEmptyArrayStorage;
       while (v19 != v18)
       {
         if (v18 >= v9[2])
@@ -474,32 +486,33 @@ LABEL_41:
       if (!v29)
       {
 
-        return &_swiftEmptyArrayStorage;
+        return _swiftEmptyArrayStorage;
       }
 
-      v38 = &_swiftEmptyArrayStorage;
-      sub_100062D18();
-      v9 = v38;
-      v37 = type metadata accessor for RootNavigationDestination();
-      v30 = *(v37 - 8);
-      v36 = *(v30 + 16);
+      v39 = _swiftEmptyArrayStorage;
+      sub_100062D18(0, v29, 0);
+      v9 = v39;
+      v38 = type metadata accessor for RootNavigationDestination();
+      v30 = *(v38 - 8);
+      v37 = *(v30 + 16);
       v31 = v20 + ((*(v30 + 80) + 32) & ~*(v30 + 80));
       v32 = *(v30 + 72);
-      v33 = v35;
+      v33 = v36;
       do
       {
-        v36(v3, v31, v37);
-        v38 = v9;
-        v34 = v9[2];
-        if (v34 >= v9[3] >> 1)
+        v37(v3, v31, v38);
+        v39 = v9;
+        v35 = v9[2];
+        v34 = v9[3];
+        if (v35 >= v34 >> 1)
         {
-          sub_100062D18();
-          v33 = v35;
-          v9 = v38;
+          sub_100062D18(v34 > 1, v35 + 1, 1);
+          v33 = v36;
+          v9 = v39;
         }
 
-        v9[2] = v34 + 1;
-        sub_100063A00(v3, v9 + ((*(v33 + 80) + 32) & ~*(v33 + 80)) + *(v33 + 72) * v34);
+        v9[2] = v35 + 1;
+        sub_100063A00(v3, v9 + ((*(v33 + 80) + 32) & ~*(v33 + 80)) + *(v33 + 72) * v35);
         v31 += v32;
         --v29;
       }
@@ -518,7 +531,7 @@ LABEL_41:
 
 uint64_t sub_10004C098()
 {
-  v0 = sub_10002E87C(&qword_1000FF580);
+  v0 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   __chkstk_darwin(v0 - 8);
   v2 = &v12[-v1];
   v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -560,7 +573,7 @@ void NavigationDestinationEntity.displayRepresentation.getter(uint64_t a1, uint6
   sub_1000043AC();
   a19 = v20;
   a20 = v21;
-  v22 = sub_10002E87C(&qword_1000FF580);
+  v22 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   sub_100002EE0(v22);
   sub_100005B90();
   __chkstk_darwin(v23);
@@ -574,7 +587,7 @@ void NavigationDestinationEntity.displayRepresentation.getter(uint64_t a1, uint6
   v27 = sub_100002EE0(v26);
   __chkstk_darwin(v27);
   sub_1000051D8();
-  v28 = sub_10002E87C(&qword_100100528);
+  v28 = sub_10002E87C(&qword_100100528, &qword_1000C1788);
   v29 = sub_100002EE0(v28);
   v30 = __chkstk_darwin(v29);
   v32 = &a9 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -588,7 +601,7 @@ void NavigationDestinationEntity.displayRepresentation.getter(uint64_t a1, uint6
   {
     sub_100005BC0();
     DisplayRepresentation.Image.init(systemName:tintColor:symbolConfiguration:)();
-    sub_1000069B0(v34, &qword_100100528);
+    sub_1000069B0(v34, &qword_100100528, &qword_1000C1788);
     sub_10004D4C4(v32, v34);
   }
 
@@ -603,24 +616,24 @@ void NavigationDestinationEntity.displayRepresentation.getter(uint64_t a1, uint6
   LocalizedStringResource.init(stringInterpolation:)();
   v43 = sub_100008330();
   sub_1000042A8(v43, v44, v45, v24);
-  sub_100063D74(v34, v32, &qword_100100528);
+  sub_100063D74(v34, v32, &qword_100100528, &qword_1000C1788);
   DisplayRepresentation.init(title:subtitle:image:)();
-  sub_1000069B0(v34, &qword_100100528);
+  sub_1000069B0(v34, &qword_100100528, &qword_1000C1788);
   sub_100002EEC();
 }
 
 uint64_t NavigationDestinationEntity.DestinationQuery.entities(for:)()
 {
   sub_100005BE4();
-  sub_100066C24(v1);
-  v2 = type metadata accessor for NavigationDestinationEntity();
-  sub_10000A804(v2);
-  v0[5] = v3;
+  v2 = sub_100066C24(v1);
+  v3 = type metadata accessor for NavigationDestinationEntity(v2);
+  sub_10000A804(v3);
+  v0[5] = v4;
   v0[6] = sub_100066B80();
   v0[7] = swift_task_alloc();
-  v4 = sub_100011E0C();
+  v5 = sub_100011E0C();
 
-  return _swift_task_switch(v4, v5, v6);
+  return _swift_task_switch(v5, v6, v7);
 }
 
 uint64_t sub_10004C79C()
@@ -652,13 +665,13 @@ void sub_10004C87C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   sub_100066DF8();
   v17 = 0;
   v18 = v16[5];
-  v39 = v16 + 2;
-  v40 = v16[9];
-  v19 = *(v40 + 16);
-  v38 = &_swiftEmptyArrayStorage;
+  v42 = v16 + 2;
+  v43 = v16[9];
+  v19 = *(v43 + 16);
+  v41 = _swiftEmptyArrayStorage;
   while (v19 != v17)
   {
-    if (v17 >= *(v40 + 16))
+    if (v17 >= *(v43 + 16))
     {
       __break(1u);
       return;
@@ -671,36 +684,36 @@ void sub_10004C87C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     v16[2] = RootNavigationDestination.sidebarIdentifier.getter();
     v16[3] = v23;
     v24 = swift_task_alloc();
-    *(v24 + 16) = v39;
+    *(v24 + 16) = v42;
     LOBYTE(v20) = sub_10004B914(sub_100063984, v24, v20);
 
     v25 = v16[7];
     if (v20)
     {
       sub_100063A00(v25, v16[6]);
-      v26 = v38;
-      a12 = v38;
+      v26 = v41;
+      a12 = v41;
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
         sub_100066A94();
-        sub_100066CB4();
-        v26 = v38;
+        sub_100066CB4(v27, v28);
+        v26 = v41;
       }
 
-      v28 = v26[2];
-      v27 = v26[3];
-      if (v28 >= v27 >> 1)
+      v30 = v26[2];
+      v29 = v26[3];
+      if (v30 >= v29 >> 1)
       {
-        sub_100005E38(v27);
-        sub_100062D18();
-        v26 = v38;
+        v32 = sub_100005E38(v29);
+        sub_100062D18(v32, v30 + 1, 1);
+        v26 = v41;
       }
 
       ++v17;
-      v29 = v16[6];
-      v26[2] = v28 + 1;
-      v38 = v26;
-      sub_100063A00(v29, v26 + v21 + v28 * v22);
+      v31 = v16[6];
+      v26[2] = v30 + 1;
+      v41 = v26;
+      sub_100063A00(v31, v26 + v21 + v30 * v22);
     }
 
     else
@@ -713,7 +726,7 @@ void sub_10004C87C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   sub_100066A04();
   sub_100066E14();
 
-  v32(v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, a12, a13, a14, a15, a16);
+  v35(v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, a12, a13, a14, a15, a16);
 }
 
 uint64_t NavigationDestinationEntity.DestinationQuery.entities(matching:)()
@@ -721,7 +734,7 @@ uint64_t NavigationDestinationEntity.DestinationQuery.entities(matching:)()
   sub_100005BE4();
   v0[6] = v1;
   v0[7] = v2;
-  v3 = type metadata accessor for NavigationDestinationEntity();
+  v3 = type metadata accessor for NavigationDestinationEntity(0);
   sub_10000A804(v3);
   v0[8] = v4;
   v0[9] = sub_100066B80();
@@ -761,9 +774,9 @@ void sub_10004CBD8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   sub_100066C60();
   v15 = 0;
   v16 = v14[8];
-  v40 = v14[12];
-  v17 = *(v40 + 16);
-  v39 = &_swiftEmptyArrayStorage;
+  v43 = v14[12];
+  v17 = *(v43 + 16);
+  v42 = _swiftEmptyArrayStorage;
   while (v17 != v15)
   {
     sub_100066DEC();
@@ -792,28 +805,28 @@ void sub_10004CBD8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     if (v26)
     {
       sub_100063A00(v27, v14[9]);
-      v28 = v39;
-      a11 = v39;
+      v28 = v42;
+      a11 = v42;
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
         sub_100066A94();
-        sub_100066CB4();
-        v28 = v39;
+        sub_100066CB4(v29, v30);
+        v28 = v42;
       }
 
       sub_100066BD8();
       if (v18)
       {
-        sub_100005E38(v29);
-        sub_100066E70();
-        v28 = v39;
+        v33 = sub_100005E38(v31);
+        sub_100066E70(v33);
+        v28 = v42;
       }
 
       ++v15;
-      v30 = v14[9];
+      v32 = v14[9];
       v28[2] = v19;
-      v39 = v28;
-      sub_100063A00(v30, v28 + v21 + v25 * v22);
+      v42 = v28;
+      sub_100063A00(v32, v28 + v21 + v25 * v22);
     }
 
     else
@@ -826,7 +839,7 @@ void sub_10004CBD8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   sub_100066A04();
   sub_100066AD4();
 
-  v33(v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, a11, a12, a13, a14);
+  v36(v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, a11, a12, a13, a14);
 }
 
 uint64_t sub_10004CD80()
@@ -987,12 +1000,12 @@ void *sub_10004D490(size_t a1)
 
 uint64_t sub_10004D4C4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10002E87C(&qword_100100528);
+  v4 = sub_10002E87C(&qword_100100528, &qword_1000C1788);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
-uint64_t type metadata accessor for NavigationDestinationEntity()
+uint64_t type metadata accessor for NavigationDestinationEntity(uint64_t a1)
 {
   result = qword_100100A70;
   if (!qword_100100A70)
@@ -1005,7 +1018,7 @@ uint64_t type metadata accessor for NavigationDestinationEntity()
 
 uint64_t sub_10004D580(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for NavigationDestinationEntity();
+  v4 = type metadata accessor for NavigationDestinationEntity(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -1019,7 +1032,7 @@ uint64_t NavigationDestinationEntity.FolderQuery.entities(for:)()
   sub_10000A804(v2);
   v0[6] = v3;
   v0[7] = sub_100066AA0();
-  v4 = type metadata accessor for NavigationDestinationEntity();
+  v4 = type metadata accessor for NavigationDestinationEntity(0);
   sub_10000A804(v4);
   v0[8] = v5;
   v0[9] = sub_100066B80();
@@ -1059,16 +1072,16 @@ void sub_10004D7F8()
 {
   v1 = 0;
   v2 = v0[8];
-  v42 = *(v0[14] + 16);
-  v41 = enum case for RootNavigationDestination.gallery(_:);
-  v40 = enum case for RootNavigationDestination.workflowType(_:);
-  v39 = enum case for RootNavigationDestination.folder(_:);
-  v38 = enum case for RootNavigationDestination.autoShortcuts(_:);
-  v37 = enum case for RootNavigationDestination.shortcuts(_:);
-  v36 = enum case for RootNavigationDestination.allShortcuts(_:);
+  v48 = *(v0[14] + 16);
+  v47 = enum case for RootNavigationDestination.gallery(_:);
+  v46 = enum case for RootNavigationDestination.workflowType(_:);
+  v45 = enum case for RootNavigationDestination.folder(_:);
+  v44 = enum case for RootNavigationDestination.autoShortcuts(_:);
+  v43 = enum case for RootNavigationDestination.shortcuts(_:);
+  v42 = enum case for RootNavigationDestination.allShortcuts(_:);
   sub_100066BA8();
-  v44 = &_swiftEmptyArrayStorage;
-  while (v42 != v1)
+  v50 = _swiftEmptyArrayStorage;
+  while (v48 != v1)
   {
     sub_100066DEC();
     if (v3)
@@ -1088,7 +1101,7 @@ LABEL_42:
     v9(v8);
     v10 = sub_100011E00();
     v12 = v11(v10);
-    v13 = v12 == v41 || v12 == v40;
+    v13 = v12 == v47 || v12 == v46;
     if (v13)
     {
 LABEL_10:
@@ -1097,19 +1110,19 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    if (v12 == v39)
+    if (v12 == v45)
     {
       sub_100066AFC();
       v17();
       goto LABEL_20;
     }
 
-    if (v12 == v38)
+    if (v12 == v44)
     {
       goto LABEL_10;
     }
 
-    if (v12 == v37)
+    if (v12 == v43)
     {
 LABEL_11:
       sub_1000639A4(v0[12]);
@@ -1118,10 +1131,10 @@ LABEL_11:
 
     else
     {
-      if (v12 != v36)
+      if (v12 != v42)
       {
         sub_100066B70();
-        if (!v13 && v15 != v35)
+        if (!v13 && v15 != v41)
         {
 
           _diagnoseUnexpectedEnumCase<A>(type:)();
@@ -1133,91 +1146,91 @@ LABEL_11:
 
 LABEL_20:
       sub_100063A00(v0[12], v0[11]);
-      v18 = v44;
+      v18 = v50;
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
         sub_100066A94();
-        sub_100066CB4();
-        v18 = v44;
+        sub_100066CB4(v19, v20);
+        v18 = v50;
       }
 
       sub_100066BD8();
       if (v3)
       {
-        sub_100005E38(v19);
-        sub_100066E70();
-        v18 = v44;
+        v23 = sub_100005E38(v21);
+        sub_100066E70(v23);
+        v18 = v50;
       }
 
       ++v1;
-      v20 = v0[11];
+      v22 = v0[11];
       v18[2] = v4;
-      v44 = v18;
-      sub_100063A00(v20, v18 + v6 + v5 * v7);
+      v50 = v18;
+      sub_100063A00(v22, v18 + v6 + v5 * v7);
     }
   }
 
-  v21 = 0;
-  v22 = v44;
-  v23 = v44[2];
-  v43 = &_swiftEmptyArrayStorage;
-  while (v23 != v21)
+  v24 = 0;
+  v25 = v50;
+  v26 = v50[2];
+  v49 = _swiftEmptyArrayStorage;
+  while (v26 != v24)
   {
-    if (v21 >= v22[2])
+    if (v24 >= v25[2])
     {
       goto LABEL_42;
     }
 
-    v24 = v0[4];
-    v25 = (*(v2 + 80) + 32) & ~*(v2 + 80);
-    v26 = *(v2 + 72);
-    sub_10004D580(v22 + v25 + v26 * v21, v0[10]);
+    v27 = v0[4];
+    v28 = (*(v2 + 80) + 32) & ~*(v2 + 80);
+    v29 = *(v2 + 72);
+    sub_10004D580(v25 + v28 + v29 * v24, v0[10]);
     v0[2] = RootNavigationDestination.sidebarIdentifier.getter();
-    v0[3] = v27;
-    v28 = swift_task_alloc();
-    *(v28 + 16) = v0 + 2;
-    LOBYTE(v24) = sub_10004B914(sub_100066808, v28, v24);
+    v0[3] = v30;
+    v31 = swift_task_alloc();
+    *(v31 + 16) = v0 + 2;
+    LOBYTE(v27) = sub_10004B914(sub_100066808, v31, v27);
 
-    v29 = v0[10];
-    if (v24)
+    v32 = v0[10];
+    if (v27)
     {
-      sub_100063A00(v29, v0[9]);
-      v30 = v43;
+      sub_100063A00(v32, v0[9]);
+      v33 = v49;
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
         sub_100066A94();
-        sub_100066CB4();
-        v30 = v43;
+        sub_100066CB4(v34, v35);
+        v33 = v49;
       }
 
-      v32 = v30[2];
-      v31 = v30[3];
-      if (v32 >= v31 >> 1)
+      v37 = v33[2];
+      v36 = v33[3];
+      if (v37 >= v36 >> 1)
       {
-        sub_100005E38(v31);
-        sub_100062D18();
-        v30 = v43;
+        v39 = sub_100005E38(v36);
+        sub_100062D18(v39, v37 + 1, 1);
+        v33 = v49;
       }
 
-      ++v21;
-      v33 = v0[9];
-      v30[2] = v32 + 1;
-      v43 = v30;
-      sub_100063A00(v33, v30 + v25 + v32 * v26);
-      v22 = v44;
+      ++v24;
+      v38 = v0[9];
+      v33[2] = v37 + 1;
+      v49 = v33;
+      sub_100063A00(v38, v33 + v28 + v37 * v29);
+      v25 = v50;
     }
 
     else
     {
-      sub_1000639A4(v29);
-      ++v21;
-      v22 = v44;
+      sub_1000639A4(v32);
+      ++v24;
+      v25 = v50;
     }
   }
 
   sub_100066A04();
 
-  v34(v43);
+  v40(v49);
 }
 
 uint64_t NavigationDestinationEntity.FolderQuery.entities(matching:)()
@@ -1230,7 +1243,7 @@ uint64_t NavigationDestinationEntity.FolderQuery.entities(matching:)()
   sub_10000A804(v3);
   v0[9] = v4;
   v0[10] = sub_100066AA0();
-  v5 = type metadata accessor for NavigationDestinationEntity();
+  v5 = type metadata accessor for NavigationDestinationEntity(0);
   sub_10000A804(v5);
   v0[11] = v6;
   v0[12] = sub_100066B80();
@@ -1270,29 +1283,29 @@ void sub_10004DE5C()
 {
   v1 = 0;
   v2 = v0[11];
-  v45 = *(v0[17] + 16);
-  v44 = enum case for RootNavigationDestination.gallery(_:);
-  v43 = enum case for RootNavigationDestination.workflowType(_:);
-  v42 = enum case for RootNavigationDestination.folder(_:);
-  v41 = enum case for RootNavigationDestination.autoShortcuts(_:);
-  v40 = enum case for RootNavigationDestination.shortcuts(_:);
-  v39 = enum case for RootNavigationDestination.allShortcuts(_:);
+  v47 = *(v0[17] + 16);
+  v46 = enum case for RootNavigationDestination.gallery(_:);
+  v45 = enum case for RootNavigationDestination.workflowType(_:);
+  v44 = enum case for RootNavigationDestination.folder(_:);
+  v43 = enum case for RootNavigationDestination.autoShortcuts(_:);
+  v42 = enum case for RootNavigationDestination.shortcuts(_:);
+  v41 = enum case for RootNavigationDestination.allShortcuts(_:);
   sub_100066BA8();
-  v47 = &_swiftEmptyArrayStorage;
+  v49 = _swiftEmptyArrayStorage;
   while (1)
   {
     while (1)
     {
-      if (v45 == v1)
+      if (v47 == v1)
       {
 
-        v21 = 0;
-        v22 = v47;
-        v23 = v47[2];
-        v46 = &_swiftEmptyArrayStorage;
+        v22 = 0;
+        v23 = v49;
+        v24 = v49[2];
+        v48 = _swiftEmptyArrayStorage;
         while (1)
         {
-          if (v23 == v21)
+          if (v24 == v22)
           {
 
             sub_100066A04();
@@ -1301,57 +1314,57 @@ void sub_10004DE5C()
             __asm { BRAA            X2, X16 }
           }
 
-          if (v21 >= v22[2])
+          if (v22 >= v23[2])
           {
             break;
           }
 
-          v25 = v0[6];
-          v24 = v0[7];
-          v26 = (*(v2 + 80) + 32) & ~*(v2 + 80);
-          v27 = *(v2 + 72);
-          sub_10004D580(v22 + v26 + v27 * v21, v0[13]);
+          v26 = v0[6];
+          v25 = v0[7];
+          v27 = (*(v2 + 80) + 32) & ~*(v2 + 80);
+          v28 = *(v2 + 72);
+          sub_10004D580(v23 + v27 + v28 * v22, v0[13]);
           v0[2] = RootNavigationDestination.displayName.getter();
-          v0[3] = v28;
-          v0[4] = v25;
-          v0[5] = v24;
+          v0[3] = v29;
+          v0[4] = v26;
+          v0[5] = v25;
           sub_1000200D8();
           sub_100066BB8();
-          v29 = StringProtocol.localizedCaseInsensitiveContains<A>(_:)();
+          v30 = StringProtocol.localizedCaseInsensitiveContains<A>(_:)();
 
-          v30 = v0[13];
-          if (v29)
+          v31 = v0[13];
+          if (v30)
           {
-            sub_100063A00(v30, v0[12]);
-            v31 = v46;
+            sub_100063A00(v31, v0[12]);
+            v32 = v48;
             if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
             {
               sub_100066A40();
-              v31 = v46;
+              v32 = v48;
             }
 
-            v33 = v31[2];
-            v32 = v31[3];
-            if (v33 >= v32 >> 1)
+            v34 = v32[2];
+            v33 = v32[3];
+            if (v34 >= v33 >> 1)
             {
-              sub_100005E38(v32);
-              sub_100066E70();
-              v31 = v46;
+              v36 = sub_100005E38(v33);
+              sub_100066E70(v36);
+              v32 = v48;
             }
 
-            ++v21;
-            v34 = v0[12];
-            v31[2] = v33 + 1;
-            v46 = v31;
-            sub_100063A00(v34, v31 + v26 + v33 * v27);
-            v22 = v47;
+            ++v22;
+            v35 = v0[12];
+            v32[2] = v34 + 1;
+            v48 = v32;
+            sub_100063A00(v35, v32 + v27 + v34 * v28);
+            v23 = v49;
           }
 
           else
           {
-            sub_1000639A4(v30);
-            ++v21;
-            v22 = v47;
+            sub_1000639A4(v31);
+            ++v22;
+            v23 = v49;
           }
         }
 
@@ -1376,7 +1389,7 @@ LABEL_42:
       v9(v8);
       v10 = sub_100011E00();
       v12 = v11(v10);
-      v13 = v12 == v44 || v12 == v43;
+      v13 = v12 == v46 || v12 == v45;
       if (v13)
       {
 LABEL_10:
@@ -1385,7 +1398,7 @@ LABEL_10:
         goto LABEL_11;
       }
 
-      if (v12 != v42)
+      if (v12 != v44)
       {
         break;
       }
@@ -1394,34 +1407,34 @@ LABEL_10:
       v17();
 LABEL_20:
       sub_100063A00(v0[15], v0[14]);
-      v18 = v47;
+      v18 = v49;
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
         sub_100066A40();
-        v18 = v47;
+        v18 = v49;
       }
 
       sub_100066BD8();
       if (v3)
       {
-        sub_100005E38(v19);
-        sub_100066E70();
-        v18 = v47;
+        v21 = sub_100005E38(v19);
+        sub_100066E70(v21);
+        v18 = v49;
       }
 
       ++v1;
       v20 = v0[14];
       v18[2] = v4;
-      v47 = v18;
+      v49 = v18;
       sub_100063A00(v20, v18 + v6 + v5 * v7);
     }
 
-    if (v12 == v41)
+    if (v12 == v43)
     {
       goto LABEL_10;
     }
 
-    if (v12 != v40)
+    if (v12 != v42)
     {
       break;
     }
@@ -1431,13 +1444,13 @@ LABEL_11:
     ++v1;
   }
 
-  if (v12 == v39)
+  if (v12 == v41)
   {
     goto LABEL_20;
   }
 
   sub_100066B70();
-  if (v13 || v15 == v38)
+  if (v13 || v15 == v40)
   {
     goto LABEL_11;
   }
@@ -1455,15 +1468,15 @@ uint64_t NavigationDestinationEntity.FolderQuery.suggestedEntities()()
   sub_10000A804(v1);
   v0[3] = v2;
   v3 = sub_100066AA0();
-  sub_100066C24(v3);
-  v4 = type metadata accessor for NavigationDestinationEntity();
-  sub_10000A804(v4);
-  v0[5] = v5;
+  v4 = sub_100066C24(v3);
+  v5 = type metadata accessor for NavigationDestinationEntity(v4);
+  sub_10000A804(v5);
+  v0[5] = v6;
   v0[6] = sub_100066B80();
   v0[7] = swift_task_alloc();
-  v6 = sub_100011E0C();
+  v7 = sub_100011E0C();
 
-  return _swift_task_switch(v6, v7, v8);
+  return _swift_task_switch(v7, v8, v9);
 }
 
 uint64_t sub_10004E368()
@@ -1493,21 +1506,21 @@ uint64_t sub_10004E3E4()
 void sub_10004E448()
 {
   v1 = 0;
-  v30 = v0[5];
-  v31 = *(v0[9] + 16);
+  v31 = v0[5];
+  v32 = *(v0[9] + 16);
   v2 = (v0[3] + 16);
-  v29 = enum case for RootNavigationDestination.gallery(_:);
-  v28 = enum case for RootNavigationDestination.workflowType(_:);
-  v27 = enum case for RootNavigationDestination.folder(_:);
-  v26 = enum case for RootNavigationDestination.autoShortcuts(_:);
-  v25 = enum case for RootNavigationDestination.shortcuts(_:);
-  v24 = enum case for RootNavigationDestination.allShortcuts(_:);
+  v30 = enum case for RootNavigationDestination.gallery(_:);
+  v29 = enum case for RootNavigationDestination.workflowType(_:);
+  v28 = enum case for RootNavigationDestination.folder(_:);
+  v27 = enum case for RootNavigationDestination.autoShortcuts(_:);
+  v26 = enum case for RootNavigationDestination.shortcuts(_:);
+  v25 = enum case for RootNavigationDestination.allShortcuts(_:);
   sub_100066BA8();
   while (1)
   {
     while (1)
     {
-      if (v31 == v1)
+      if (v32 == v1)
       {
 
         sub_100066A04();
@@ -1526,13 +1539,13 @@ void sub_10004E448()
       v4 = v0[7];
       v5 = v0[4];
       v6 = v0[2];
-      v7 = (*(v30 + 80) + 32) & ~*(v30 + 80);
-      v8 = *(v30 + 72);
+      v7 = (*(v31 + 80) + 32) & ~*(v31 + 80);
+      v8 = *(v31 + 72);
       sub_10004D580(v0[9] + v7 + v8 * v1, v4);
       (*v2)(v5, v4, v6);
       v9 = sub_100011E00();
       v11 = v10(v9);
-      v12 = v11 == v29 || v11 == v28;
+      v12 = v11 == v30 || v11 == v29;
       if (v12)
       {
 LABEL_10:
@@ -1541,7 +1554,7 @@ LABEL_10:
         goto LABEL_11;
       }
 
-      if (v11 != v27)
+      if (v11 != v28)
       {
         break;
       }
@@ -1559,8 +1572,8 @@ LABEL_20:
       v17 = _swiftEmptyArrayStorage[3];
       if (v18 >= v17 >> 1)
       {
-        sub_100005E38(v17);
-        sub_100062D18();
+        v20 = sub_100005E38(v17);
+        sub_100062D18(v20, v18 + 1, 1);
       }
 
       ++v1;
@@ -1569,12 +1582,12 @@ LABEL_20:
       sub_100063A00(v19, _swiftEmptyArrayStorage + v7 + v18 * v8);
     }
 
-    if (v11 == v26)
+    if (v11 == v27)
     {
       goto LABEL_10;
     }
 
-    if (v11 != v25)
+    if (v11 != v26)
     {
       break;
     }
@@ -1584,13 +1597,13 @@ LABEL_11:
     ++v1;
   }
 
-  if (v11 == v24)
+  if (v11 == v25)
   {
     goto LABEL_20;
   }
 
   sub_100066B70();
-  if (v12 || v14 == v23)
+  if (v12 || v14 == v24)
   {
     goto LABEL_11;
   }
@@ -1608,7 +1621,7 @@ uint64_t sub_10004E75C()
   type metadata accessor for RootNavigationDestination();
   sub_100003EC8();
   (*(v3 + 104))(v1, v2);
-  type metadata accessor for NavigationDestinationEntity();
+  type metadata accessor for NavigationDestinationEntity(0);
   sub_1000060AC();
   sub_1000042A8(v4, v5, v6, v7);
   sub_100003BDC();
@@ -1669,11 +1682,11 @@ uint64_t sub_10004EA80(uint64_t a1)
   return NavigationDestinationEntity.FolderQuery.defaultResult()(a1);
 }
 
-uint64_t sub_10004EB20@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_10004EB20@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  result = NavigationDestinationEntity.id.getter();
-  *a1 = result;
-  a1[1] = v3;
+  result = NavigationDestinationEntity.id.getter(a1);
+  *a2 = result;
+  a2[1] = v4;
   return result;
 }
 
@@ -1706,77 +1719,77 @@ void OpenNavigationDestinationAction.init()()
   sub_1000043AC();
   type metadata accessor for InputConnectionBehavior();
   sub_100004458();
-  v44 = v2;
-  v45 = v1;
-  __chkstk_darwin(v1);
+  v52 = v3;
+  v53 = v2;
+  __chkstk_darwin(v2);
   sub_100007944();
-  v43 = v3;
-  v4 = sub_10002E87C(&qword_1000FF570);
-  v5 = sub_100002EE0(v4);
-  __chkstk_darwin(v5);
+  v51 = v4;
+  v5 = sub_10002E87C(&qword_1000FF570, &unk_1000C0480);
+  v6 = sub_100002EE0(v5);
+  __chkstk_darwin(v6);
   sub_10000F1A8();
   sub_10000667C();
-  __chkstk_darwin(v6);
+  __chkstk_darwin(v7);
   sub_100005184();
-  sub_10000F7E0(v7);
-  v8 = sub_10002E87C(&qword_1000FF578);
-  sub_100002EE0(v8);
+  sub_10000F7E0(v8);
+  v9 = sub_10002E87C(&qword_1000FF578, &unk_1000C17D0);
+  sub_100002EE0(v9);
   sub_100005B90();
-  __chkstk_darwin(v9);
+  __chkstk_darwin(v10);
   sub_100005B00();
-  sub_1000669F8(v10);
-  v11 = sub_10002E87C(&qword_1000FF580);
-  sub_100002EE0(v11);
+  sub_1000669F8(v11);
+  v12 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
+  sub_100002EE0(v12);
   sub_100005B90();
-  __chkstk_darwin(v12);
-  sub_100005AEC(v13, v42);
-  v14 = type metadata accessor for LocalizedStringResource.BundleDescription();
+  __chkstk_darwin(v13);
+  sub_100005AEC(v14, v50);
+  v15 = type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_100004458();
-  v16 = v15;
-  __chkstk_darwin(v17);
+  v17 = v16;
+  __chkstk_darwin(v18);
   sub_10000443C();
-  v18 = type metadata accessor for Locale();
-  v19 = sub_100002EE0(v18);
-  __chkstk_darwin(v19);
+  v19 = type metadata accessor for Locale();
+  v20 = sub_100002EE0(v19);
+  __chkstk_darwin(v20);
   sub_10001C794();
-  v20 = type metadata accessor for String.LocalizationValue();
-  v21 = sub_100002EE0(v20);
-  __chkstk_darwin(v21);
+  v21 = type metadata accessor for String.LocalizationValue();
+  v22 = sub_100002EE0(v21);
+  __chkstk_darwin(v22);
   sub_1000039BC();
   sub_100011D5C();
-  v22 = type metadata accessor for LocalizedStringResource();
+  v23 = type metadata accessor for LocalizedStringResource();
   sub_100003EC8();
-  __chkstk_darwin(v23);
+  __chkstk_darwin(v24);
   sub_1000039BC();
-  sub_10002E87C(&qword_1000FF588);
+  sub_10002E87C(&qword_1000FF588, &qword_1000C0498);
   sub_100066BC8();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v24 = enum case for LocalizedStringResource.BundleDescription.main(_:);
-  v25 = *(v16 + 104);
-  v25(v0, enum case for LocalizedStringResource.BundleDescription.main(_:), v14);
+  v25 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+  v26 = *(v17 + 104);
+  v26(v1, enum case for LocalizedStringResource.BundleDescription.main(_:), v15);
   sub_100007A10();
-  sub_1000042D0();
+  sub_1000042D0(v27, v28, v29, v0, v1);
   sub_100004B18();
   sub_100066C48();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v25(v0, v24, v14);
+  v26(v1, v25, v15);
   sub_100007A10();
-  sub_1000042D0();
+  sub_1000042D0(v30, v31, v32, v0, v1);
   sub_1000060AC();
-  sub_100033518(v26, v27, v28, v22);
-  type metadata accessor for NavigationDestinationEntity();
-  v29 = sub_100006150();
-  sub_100033518(v29, v30, v31, v32);
-  v33 = type metadata accessor for IntentDialog();
-  v34 = sub_100008330();
-  sub_1000042A8(v34, v35, v36, v33);
-  v37 = sub_100005E08();
-  sub_1000042A8(v37, v38, v39, v33);
-  (*(v44 + 104))(v43, enum case for InputConnectionBehavior.default(_:), v45);
+  v36 = sub_100033518(v33, v34, v35, v23);
+  type metadata accessor for NavigationDestinationEntity(v36);
+  v37 = sub_100006150();
+  sub_100033518(v37, v38, v39, v40);
+  v41 = type metadata accessor for IntentDialog();
+  v42 = sub_100008330();
+  sub_1000042A8(v42, v43, v44, v41);
+  v45 = sub_100005E08();
+  sub_1000042A8(v45, v46, v47, v41);
+  (*(v52 + 104))(v51, enum case for InputConnectionBehavior.default(_:), v53);
   sub_100013358();
-  sub_100015BD0(v40, v41);
+  sub_100015BD0(v48, v49);
   sub_10000A5A0();
   IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
   sub_100002EEC();
@@ -1796,7 +1809,7 @@ uint64_t static OpenNavigationDestinationAction.title.modify()
 
 uint64_t sub_10004F290()
 {
-  v0 = sub_10002E87C(&qword_1000FF580);
+  v0 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   __chkstk_darwin(v0 - 8);
   v2 = &v12[-v1];
   v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -1822,13 +1835,13 @@ uint64_t sub_10004F290()
 
 uint64_t OpenNavigationDestinationAction.target.setter()
 {
-  sub_100005730();
-  v1 = type metadata accessor for NavigationDestinationEntity();
-  v2 = sub_100002EE0(v1);
-  __chkstk_darwin(v2);
+  v1 = sub_100005730();
+  v2 = type metadata accessor for NavigationDestinationEntity(v1);
+  v3 = sub_100002EE0(v2);
+  __chkstk_darwin(v3);
   sub_1000039BC();
-  v3 = sub_1000042EC();
-  sub_10004D580(v3, v4);
+  v4 = sub_1000042EC();
+  sub_10004D580(v4, v5);
   IntentParameter.wrappedValue.setter();
   return sub_1000639A4(v0);
 }
@@ -1846,7 +1859,7 @@ uint64_t OpenNavigationDestinationAction.perform()()
   sub_100005BE4();
   v0[2] = v1;
   v0[3] = v2;
-  v3 = sub_10002E87C(&qword_1000FFFC0);
+  v3 = sub_10002E87C(&qword_1000FFFC0, &qword_1000C11E0);
   sub_100002EE0(v3);
   v4 = sub_100066AA0();
   sub_100066C24(v4);
@@ -1855,10 +1868,10 @@ uint64_t OpenNavigationDestinationAction.perform()()
   sub_10000A804(v5);
   v0[6] = v6;
   v0[7] = sub_100066AA0();
-  v7 = sub_10002E87C(&qword_100100020);
+  v7 = sub_10002E87C(&qword_100100020, &qword_1000C12A0);
   sub_100002EE0(v7);
   v0[8] = sub_100066AA0();
-  v8 = type metadata accessor for NavigationDestinationEntity();
+  v8 = type metadata accessor for NavigationDestinationEntity(0);
   sub_100002EE0(v8);
   v0[9] = sub_100066AA0();
   type metadata accessor for MainActor();
@@ -1901,7 +1914,7 @@ uint64_t sub_10004F7EC()
     sub_100005BC0();
     RootView.navigate(to:with:completion:)();
 
-    sub_1000069B0(v4, &qword_100100020);
+    sub_1000069B0(v4, &qword_100100020, &qword_1000C12A0);
     type metadata accessor for RootNavigationDestination();
     sub_100003EC8();
     (*(v19 + 8))(v3);
@@ -1957,7 +1970,7 @@ uint64_t sub_10004FBE4()
   v24 = &v20 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
   v2 = type metadata accessor for String.LocalizationValue.StringInterpolation();
   __chkstk_darwin(v2 - 8);
-  v3 = sub_10002E87C(&qword_1000FF580);
+  v3 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   __chkstk_darwin(v3 - 8);
   v26 = &v20 - v4;
   v5 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2018,12 +2031,12 @@ void WorkflowEntity.displayRepresentation.getter()
 {
   sub_1000043AC();
   v2 = v1;
-  v3 = sub_10002E87C(&qword_100100528);
+  v3 = sub_10002E87C(&qword_100100528, &qword_1000C1788);
   sub_100002EE0(v3);
   sub_100005B90();
   __chkstk_darwin(v4);
   sub_100003BE8();
-  v5 = sub_10002E87C(&qword_1000FF580);
+  v5 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   sub_100002EE0(v5);
   sub_100005B90();
   __chkstk_darwin(v6);
@@ -2195,7 +2208,7 @@ void sub_10005068C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v18 = [v17 sortedVisibleWorkflowsByName];
 
   v19 = [v18 descriptors];
-  sub_100002FC4(0, &unk_100101E80);
+  sub_100002FC4(0, &unk_100101E80, WFWorkflowReference_ptr);
   sub_1000095CC();
   v20 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
@@ -2307,7 +2320,7 @@ uint64_t sub_10005094C()
   v1 = [v0 sortedVisibleWorkflowsByName];
 
   v2 = [v1 descriptors];
-  sub_100002FC4(0, &unk_100101E80);
+  sub_100002FC4(0, &unk_100101E80, WFWorkflowReference_ptr);
   sub_1000095CC();
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
@@ -2469,9 +2482,9 @@ uint64_t sub_1000510B8()
 
 uint64_t sub_100051198@<X0>(uint64_t *a1@<X8>)
 {
-  result = WorkflowEntity.id.getter();
+  result = WorkflowEntity.id.getter(*v1);
   *a1 = result;
-  a1[1] = v3;
+  a1[1] = v4;
   return result;
 }
 
@@ -2494,62 +2507,62 @@ void OpenWorkflowAction.init()()
   sub_1000043AC();
   type metadata accessor for InputConnectionBehavior();
   sub_100004458();
-  __chkstk_darwin(v0);
+  __chkstk_darwin(v1);
   sub_100007944();
-  sub_10000516C(v1);
-  v2 = sub_10002E87C(&qword_1000FF570);
-  v3 = sub_100002EE0(v2);
-  __chkstk_darwin(v3);
+  sub_10000516C(v2);
+  v3 = sub_10002E87C(&qword_1000FF570, &unk_1000C0480);
+  v4 = sub_100002EE0(v3);
+  __chkstk_darwin(v4);
   sub_10000F1A8();
   sub_10000667C();
-  v5 = __chkstk_darwin(v4);
-  sub_10000E8B0(v5, v6, v7, v8, v9, v10, v11, v12, v39);
-  v13 = sub_10002E87C(&qword_1000FF580);
-  sub_100002EE0(v13);
+  v6 = __chkstk_darwin(v5);
+  sub_10000E8B0(v6, v7, v8, v9, v10, v11, v12, v13, v40);
+  v14 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
+  sub_100002EE0(v14);
   sub_100005B90();
-  __chkstk_darwin(v14);
-  sub_100005AEC(v15, v40);
+  __chkstk_darwin(v15);
+  sub_100005AEC(v16, v41);
   type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_100004458();
-  v17 = v16;
-  __chkstk_darwin(v18);
+  v18 = v17;
+  __chkstk_darwin(v19);
   sub_10001C6E4();
-  v19 = type metadata accessor for Locale();
-  v20 = sub_100002EE0(v19);
-  __chkstk_darwin(v20);
+  v20 = type metadata accessor for Locale();
+  v21 = sub_100002EE0(v20);
+  __chkstk_darwin(v21);
   sub_10000443C();
-  v21 = type metadata accessor for String.LocalizationValue();
-  v22 = sub_100002EE0(v21);
-  __chkstk_darwin(v22);
+  v22 = type metadata accessor for String.LocalizationValue();
+  v23 = sub_100002EE0(v22);
+  __chkstk_darwin(v23);
   sub_1000039BC();
   sub_100066958();
   type metadata accessor for LocalizedStringResource();
   sub_100003EC8();
-  __chkstk_darwin(v23);
+  __chkstk_darwin(v24);
   sub_1000051D8();
-  sub_10002E87C(&qword_1000FF598);
+  sub_10002E87C(&qword_1000FF598, &unk_1000C04A0);
   sub_1000060C4();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v24 = *(v17 + 104);
-  v25 = sub_1000334F4();
-  v24(v25);
+  v25 = *(v18 + 104);
+  v26 = sub_1000334F4();
+  v25(v26);
   sub_100005B78();
-  sub_10000F6AC();
+  sub_10000F6AC(v0);
   sub_100004B18();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v26 = sub_1000334F4();
-  v24(v26);
-  sub_10000F6AC();
-  v27 = sub_1000046F0();
-  v30 = sub_100066B08(v27, v28, v29);
-  v31 = sub_100008330();
-  sub_1000042A8(v31, v32, v33, v30);
-  v34 = sub_100005E08();
-  sub_1000042A8(v34, v35, v36, v30);
-  v37 = sub_10000A5AC();
-  v38(v37);
+  v27 = sub_1000334F4();
+  v25(v27);
+  sub_10000F6AC(v0);
+  v28 = sub_1000046F0();
+  v31 = sub_100066B08(v28, v29, v30);
+  v32 = sub_100008330();
+  sub_1000042A8(v32, v33, v34, v31);
+  v35 = sub_100005E08();
+  sub_1000042A8(v35, v36, v37, v31);
+  v38 = sub_10000A5AC();
+  v39(v38);
   sub_100021C0C();
   sub_100066C30();
   sub_10000B0B8();
@@ -2571,7 +2584,7 @@ uint64_t static OpenWorkflowAction.title.modify()
 
 uint64_t sub_1000516E8()
 {
-  v0 = sub_10002E87C(&qword_1000FF580);
+  v0 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   __chkstk_darwin(v0 - 8);
   v2 = &v12[-v1];
   v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2593,12 +2606,6 @@ uint64_t sub_1000516E8()
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   sub_1000042A8(v2, 1, 1, v9);
   return IntentDescription.init(_:categoryName:searchKeywords:)();
-}
-
-void AddShortcutToHomeScreenAction.shortcut.setter(void *a1)
-{
-  v2 = a1;
-  sub_100066D58();
 }
 
 uint64_t (*OpenWorkflowAction.target.modify())()
@@ -2652,7 +2659,7 @@ uint64_t sub_100051B44()
 
 uint64_t sub_100051C28@<X0>(uint64_t *a1@<X8>)
 {
-  result = AddShortcutToHomeScreenAction.shortcut.getter();
+  result = AddShortcutToHomeScreenAction.shortcut.getter(*v1);
   *a1 = result;
   return result;
 }
@@ -2687,67 +2694,67 @@ void CreateWorkflowAction.init()()
   sub_1000043AC();
   type metadata accessor for InputConnectionBehavior();
   sub_100004458();
-  __chkstk_darwin(v0);
+  __chkstk_darwin(v1);
   sub_100007944();
-  sub_10000F7E0(v1);
-  v2 = sub_10002E87C(&qword_1000FF570);
-  sub_100002EE0(v2);
+  sub_10000F7E0(v2);
+  v3 = sub_10002E87C(&qword_1000FF570, &unk_1000C0480);
+  sub_100002EE0(v3);
   sub_100005B90();
-  __chkstk_darwin(v3);
+  __chkstk_darwin(v4);
   sub_100005B00();
-  sub_1000669F8(v4);
-  v5 = sub_10002E87C(&qword_1000FF5A8);
-  sub_100002EE0(v5);
+  sub_1000669F8(v5);
+  v6 = sub_10002E87C(&qword_1000FF5A8, &unk_1000C1810);
+  sub_100002EE0(v6);
   sub_100005B90();
-  __chkstk_darwin(v6);
-  sub_100005AEC(v7, v35);
-  v8 = sub_10002E87C(&qword_1000FF580);
-  sub_100002EE0(v8);
+  __chkstk_darwin(v7);
+  sub_100005AEC(v8, v36);
+  v9 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
+  sub_100002EE0(v9);
   sub_100005B90();
-  __chkstk_darwin(v9);
+  __chkstk_darwin(v10);
   sub_100005B00();
   sub_1000042F8();
   type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_100004458();
-  v11 = v10;
-  __chkstk_darwin(v12);
+  v12 = v11;
+  __chkstk_darwin(v13);
   sub_10001C6E4();
-  v13 = type metadata accessor for Locale();
-  v14 = sub_100002EE0(v13);
-  __chkstk_darwin(v14);
+  v14 = type metadata accessor for Locale();
+  v15 = sub_100002EE0(v14);
+  __chkstk_darwin(v15);
   sub_10000443C();
-  v15 = type metadata accessor for String.LocalizationValue();
-  v16 = sub_100002EE0(v15);
-  __chkstk_darwin(v16);
+  v16 = type metadata accessor for String.LocalizationValue();
+  v17 = sub_100002EE0(v16);
+  __chkstk_darwin(v17);
   sub_10001C794();
-  v17 = type metadata accessor for LocalizedStringResource();
+  v18 = type metadata accessor for LocalizedStringResource();
   sub_100003EC8();
-  __chkstk_darwin(v18);
+  __chkstk_darwin(v19);
   sub_1000051D8();
-  sub_10002E87C(&qword_1000FF5B0);
+  sub_10002E87C(&qword_1000FF5B0, &unk_1000C04B0);
   sub_100066CF0();
   static Locale.current.getter();
-  v19 = *(v11 + 104);
-  v20 = sub_100006A08();
-  v19(v20);
+  v20 = *(v12 + 104);
+  v21 = sub_100006A08();
+  v20(v21);
   sub_100005B78();
-  sub_10000F6AC();
+  sub_10000F6AC(v0);
   sub_100004B18();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v21 = sub_100006A08();
-  v19(v21);
-  sub_10000F6AC();
-  v22 = sub_1000046F0();
-  sub_100033518(v22, v23, v24, v17);
+  v22 = sub_100006A08();
+  v20(v22);
+  sub_10000F6AC(v0);
+  v23 = sub_1000046F0();
+  sub_100033518(v23, v24, v25, v18);
   type metadata accessor for String.IntentInputOptions();
-  v25 = sub_100008330();
-  sub_100033518(v25, v26, v27, v28);
+  v26 = sub_100008330();
+  sub_100033518(v26, v27, v28, v29);
   type metadata accessor for IntentDialog();
-  v29 = sub_100005E08();
-  sub_1000042A8(v29, v30, v31, v32);
-  v33 = sub_1000095B8();
-  v34(v33);
+  v30 = sub_100005E08();
+  sub_1000042A8(v30, v31, v32, v33);
+  v34 = sub_1000095B8();
+  v35(v34);
   sub_10000B0B8();
   IntentParameter<>.init(title:description:default:inputOptions:requestValueDialog:inputConnectionBehavior:)();
   sub_100002EEC();
@@ -2767,7 +2774,7 @@ uint64_t static CreateWorkflowAction.title.modify()
 
 uint64_t sub_100052270()
 {
-  v0 = sub_10002E87C(&qword_1000FF580);
+  v0 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   __chkstk_darwin(v0 - 8);
   v2 = &v12[-v1];
   v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -2794,23 +2801,23 @@ uint64_t sub_100052270()
 void static CreateWorkflowAction.parameterSummary.getter()
 {
   sub_1000079FC();
-  v0 = sub_10002E87C(&qword_100100530);
+  v0 = sub_10002E87C(&qword_100100530, &qword_1000C1820);
   sub_100002EE0(v0);
   sub_100005B90();
   __chkstk_darwin(v1);
   sub_100003BE8();
-  sub_10002E87C(&qword_100100538);
+  sub_10002E87C(&qword_100100538, &qword_1000C1828);
   sub_100003EC8();
   sub_100005B90();
   __chkstk_darwin(v2);
   sub_100007B14();
   sub_100063B28();
-  sub_100066B38();
+  sub_100066B38(22);
   sub_100004B18();
   v3._countAndFlagsBits = 0xD000000000000016;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v3);
   swift_getKeyPath();
-  sub_10002E87C(&qword_100100548);
+  sub_10002E87C(&qword_100100548, &qword_1000C1858);
   sub_100066968();
 
   v4._countAndFlagsBits = sub_1000669EC();
@@ -2938,67 +2945,67 @@ void CreateFolderAction.init()()
   sub_1000043AC();
   type metadata accessor for InputConnectionBehavior();
   sub_100004458();
-  __chkstk_darwin(v0);
+  __chkstk_darwin(v1);
   sub_100007944();
-  sub_10000F7E0(v1);
-  v2 = sub_10002E87C(&qword_1000FF570);
-  sub_100002EE0(v2);
+  sub_10000F7E0(v2);
+  v3 = sub_10002E87C(&qword_1000FF570, &unk_1000C0480);
+  sub_100002EE0(v3);
   sub_100005B90();
-  __chkstk_darwin(v3);
+  __chkstk_darwin(v4);
   sub_100005B00();
-  sub_1000669F8(v4);
-  v5 = sub_10002E87C(&qword_1000FF5A8);
-  sub_100002EE0(v5);
+  sub_1000669F8(v5);
+  v6 = sub_10002E87C(&qword_1000FF5A8, &unk_1000C1810);
+  sub_100002EE0(v6);
   sub_100005B90();
-  __chkstk_darwin(v6);
-  sub_100005AEC(v7, v35);
-  v8 = sub_10002E87C(&qword_1000FF580);
-  sub_100002EE0(v8);
+  __chkstk_darwin(v7);
+  sub_100005AEC(v8, v36);
+  v9 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
+  sub_100002EE0(v9);
   sub_100005B90();
-  __chkstk_darwin(v9);
+  __chkstk_darwin(v10);
   sub_100005B00();
   sub_1000042F8();
   type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_100004458();
-  v11 = v10;
-  __chkstk_darwin(v12);
+  v12 = v11;
+  __chkstk_darwin(v13);
   sub_10001C6E4();
-  v13 = type metadata accessor for Locale();
-  v14 = sub_100002EE0(v13);
-  __chkstk_darwin(v14);
+  v14 = type metadata accessor for Locale();
+  v15 = sub_100002EE0(v14);
+  __chkstk_darwin(v15);
   sub_10000443C();
-  v15 = type metadata accessor for String.LocalizationValue();
-  v16 = sub_100002EE0(v15);
-  __chkstk_darwin(v16);
+  v16 = type metadata accessor for String.LocalizationValue();
+  v17 = sub_100002EE0(v16);
+  __chkstk_darwin(v17);
   sub_10001C794();
-  v17 = type metadata accessor for LocalizedStringResource();
+  v18 = type metadata accessor for LocalizedStringResource();
   sub_100003EC8();
-  __chkstk_darwin(v18);
+  __chkstk_darwin(v19);
   sub_1000051D8();
-  sub_10002E87C(&qword_1000FF5B0);
+  sub_10002E87C(&qword_1000FF5B0, &unk_1000C04B0);
   sub_100066CF0();
   static Locale.current.getter();
-  v19 = *(v11 + 104);
-  v20 = sub_100006A08();
-  v19(v20);
+  v20 = *(v12 + 104);
+  v21 = sub_100006A08();
+  v20(v21);
   sub_100005B78();
-  sub_10000F6AC();
+  sub_10000F6AC(v0);
   sub_100004B18();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v21 = sub_100006A08();
-  v19(v21);
-  sub_10000F6AC();
-  v22 = sub_1000046F0();
-  sub_100033518(v22, v23, v24, v17);
+  v22 = sub_100006A08();
+  v20(v22);
+  sub_10000F6AC(v0);
+  v23 = sub_1000046F0();
+  sub_100033518(v23, v24, v25, v18);
   type metadata accessor for String.IntentInputOptions();
-  v25 = sub_100008330();
-  sub_100033518(v25, v26, v27, v28);
+  v26 = sub_100008330();
+  sub_100033518(v26, v27, v28, v29);
   type metadata accessor for IntentDialog();
-  v29 = sub_100005E08();
-  sub_1000042A8(v29, v30, v31, v32);
-  v33 = sub_1000095B8();
-  v34(v33);
+  v30 = sub_100005E08();
+  sub_1000042A8(v30, v31, v32, v33);
+  v34 = sub_1000095B8();
+  v35(v34);
   sub_10000B0B8();
   IntentParameter<>.init(title:description:default:inputOptions:requestValueDialog:inputConnectionBehavior:)();
   sub_100002EEC();
@@ -3018,7 +3025,7 @@ uint64_t static CreateFolderAction.title.modify()
 
 uint64_t sub_1000531AC()
 {
-  v0 = sub_10002E87C(&qword_1000FF580);
+  v0 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   __chkstk_darwin(v0 - 8);
   v2 = &v12[-v1];
   v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3045,23 +3052,23 @@ uint64_t sub_1000531AC()
 void static CreateFolderAction.parameterSummary.getter()
 {
   sub_1000079FC();
-  v0 = sub_10002E87C(&qword_100100560);
+  v0 = sub_10002E87C(&qword_100100560, &qword_1000C1868);
   sub_100002EE0(v0);
   sub_100005B90();
   __chkstk_darwin(v1);
   sub_100003BE8();
-  sub_10002E87C(&qword_100100568);
+  sub_10002E87C(&qword_100100568, &qword_1000C1870);
   sub_100003EC8();
   sub_100005B90();
   __chkstk_darwin(v2);
   sub_100007B14();
   sub_100063BD0();
-  sub_100066B38();
+  sub_100066B38(20);
   sub_100004B18();
   v3._countAndFlagsBits = 0xD000000000000014;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v3);
   swift_getKeyPath();
-  sub_10002E87C(&qword_100100578);
+  sub_10002E87C(&qword_100100578, &qword_1000C18A0);
   sub_100066968();
 
   v4._countAndFlagsBits = sub_1000669EC();
@@ -3086,7 +3093,7 @@ uint64_t CreateFolderAction.perform()()
   sub_100004304();
   v0[6] = v1;
   v0[7] = v2;
-  v3 = type metadata accessor for NavigationDestinationEntity();
+  v3 = type metadata accessor for NavigationDestinationEntity(0);
   v0[8] = v3;
   sub_100002EE0(v3);
   v0[9] = sub_100066B80();
@@ -3192,103 +3199,104 @@ uint64_t sub_100053BD8(uint64_t a1)
 void MoveShortcutToFolderAction.init()()
 {
   sub_1000043AC();
-  v0 = sub_10002E87C(&qword_1000FF578);
-  sub_100002EE0(v0);
+  v1 = sub_10002E87C(&qword_1000FF578, &unk_1000C17D0);
+  sub_100002EE0(v1);
   sub_100005B90();
-  __chkstk_darwin(v1);
+  __chkstk_darwin(v2);
   sub_100005B00();
   sub_1000042F8();
   type metadata accessor for InputConnectionBehavior();
   sub_100004458();
-  v50 = v2;
-  v51 = v3;
-  __chkstk_darwin(v2);
+  v54 = v3;
+  v55 = v4;
+  __chkstk_darwin(v3);
   sub_100007944();
-  sub_1000669F8(v4);
-  v5 = sub_10002E87C(&qword_1000FF570);
-  v6 = sub_100002EE0(v5);
-  __chkstk_darwin(v6);
+  sub_1000669F8(v5);
+  v6 = sub_10002E87C(&qword_1000FF570, &unk_1000C0480);
+  v7 = sub_100002EE0(v6);
+  __chkstk_darwin(v7);
   sub_10000F1A8();
   sub_10000667C();
-  __chkstk_darwin(v7);
+  __chkstk_darwin(v8);
   sub_100005184();
-  v8 = sub_10002E87C(&qword_1000FF580);
-  sub_100002EE0(v8);
+  v9 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
+  sub_100002EE0(v9);
   sub_100005B90();
-  __chkstk_darwin(v9);
+  __chkstk_darwin(v10);
   sub_100005B00();
   type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_100004458();
-  v11 = v10;
-  __chkstk_darwin(v12);
+  v12 = v11;
+  __chkstk_darwin(v13);
   sub_1000039BC();
   sub_100066958();
-  v13 = type metadata accessor for Locale();
-  v14 = sub_100002EE0(v13);
-  __chkstk_darwin(v14);
+  v14 = type metadata accessor for Locale();
+  v15 = sub_100002EE0(v14);
+  __chkstk_darwin(v15);
   sub_1000039BC();
   sub_100011D5C();
-  v15 = type metadata accessor for String.LocalizationValue();
-  v16 = sub_100002EE0(v15);
-  __chkstk_darwin(v16);
-  sub_1000039BC();
-  sub_100017428();
-  v46 = type metadata accessor for LocalizedStringResource();
-  sub_100002F04();
+  v16 = type metadata accessor for String.LocalizationValue();
+  v17 = sub_100002EE0(v16);
   __chkstk_darwin(v17);
   sub_1000039BC();
-  sub_10002E87C(&qword_1000FF5B8);
+  sub_100017428();
+  v50 = type metadata accessor for LocalizedStringResource();
+  sub_100002F04();
+  __chkstk_darwin(v18);
+  sub_1000039BC();
+  sub_10002E87C(&qword_1000FF5B8, &qword_1000C18B0);
   sub_1000060C4();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v18 = *(v11 + 104);
-  v19 = sub_100066C54();
-  v18(v19);
+  v19 = *(v12 + 104);
+  v20 = sub_100066C54();
+  v19(v20);
   sub_100003F1C();
-  sub_10000B0F4();
+  v22 = v21;
+  sub_10000B0F4(v0, v21);
   sub_100004B18();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v20 = sub_100066C54();
-  v18(v20);
-  sub_10000B0F4();
+  v23 = sub_100066C54();
+  v19(v23);
+  sub_10000B0F4(v0, v22);
   sub_1000060AC();
-  sub_1000042A8(v21, v22, v23, v46);
-  v24 = type metadata accessor for IntentDialog();
-  v25 = sub_100008330();
-  sub_1000042A8(v25, v26, v27, v24);
+  sub_1000042A8(v24, v25, v26, v50);
+  v27 = type metadata accessor for IntentDialog();
+  v28 = sub_100008330();
+  sub_1000042A8(v28, v29, v30, v27);
   sub_100004730();
-  sub_1000042A8(v28, v29, v30, v24);
-  v47 = enum case for InputConnectionBehavior.default(_:);
-  v48 = *(v51 + 104);
-  v48();
+  sub_1000042A8(v31, v32, v33, v27);
+  v51 = enum case for InputConnectionBehavior.default(_:);
+  v52 = *(v55 + 104);
+  v52();
   sub_100021C0C();
   sub_100066D70();
   sub_100066D88();
   IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
-  sub_10002E87C(&qword_1000FF588);
+  sub_10002E87C(&qword_1000FF588, &qword_1000C0498);
   sub_100066BC8();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v31 = sub_100066C54();
-  v18(v31);
-  sub_10000B0F4();
+  v34 = sub_100066C54();
+  v19(v34);
+  sub_10000B0F4(v0, 0x6E65746E49707041);
   sub_100019BFC();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v32 = sub_100066C54();
-  v18(v32);
-  sub_10000B0F4();
+  v35 = sub_100066C54();
+  v19(v35);
+  sub_10000B0F4(v0, 0x6E65746E49707041);
   sub_1000060AC();
-  sub_100033518(v33, v34, v35, v46);
-  type metadata accessor for NavigationDestinationEntity();
-  v36 = sub_100004770();
-  sub_1000042A8(v36, v37, v38, v39);
-  v40 = sub_100006150();
-  sub_1000042A8(v40, v41, v42, v24);
-  v43 = sub_100008330();
-  sub_1000042A8(v43, v44, v45, v24);
-  (v48)(v49, v47, v50);
+  v39 = sub_100033518(v36, v37, v38, v50);
+  type metadata accessor for NavigationDestinationEntity(v39);
+  v40 = sub_100004770();
+  sub_1000042A8(v40, v41, v42, v43);
+  v44 = sub_100006150();
+  sub_1000042A8(v44, v45, v46, v27);
+  v47 = sub_100008330();
+  sub_1000042A8(v47, v48, v49, v27);
+  (v52)(v53, v51, v54);
   sub_10002F79C();
   sub_10000A5A0();
   IntentParameter<>.init<A>(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:query:)();
@@ -3309,7 +3317,7 @@ uint64_t static MoveShortcutToFolderAction.title.modify()
 
 uint64_t sub_100054298()
 {
-  v0 = sub_10002E87C(&qword_1000FF580);
+  v0 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   __chkstk_darwin(v0 - 8);
   v2 = &v12[-v1];
   v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3336,28 +3344,28 @@ uint64_t sub_100054298()
 void static MoveShortcutToFolderAction.parameterSummary.getter()
 {
   sub_1000079FC();
-  v0 = sub_10002E87C(&qword_100100590);
+  v0 = sub_10002E87C(&qword_100100590, &qword_1000C18B8);
   sub_100002EE0(v0);
   sub_100005B90();
   __chkstk_darwin(v1);
   sub_100003BE8();
-  sub_10002E87C(&qword_100100598);
+  sub_10002E87C(&qword_100100598, &qword_1000C18C0);
   sub_100003EC8();
   sub_100005B90();
   __chkstk_darwin(v2);
   sub_100007B14();
   sub_100063C78();
-  sub_100066D0C();
+  sub_100066D0C(9);
   v3._countAndFlagsBits = 0x2065766F4DLL;
   v3._object = 0xE500000000000000;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v3);
   swift_getKeyPath();
-  sub_10002E87C(&qword_1001005A8);
+  sub_10002E87C(&qword_1001005A8, &qword_1000C18F0);
   sub_100066968();
 
   sub_100066E30();
   swift_getKeyPath();
-  sub_10002E87C(&qword_1001005B0);
+  sub_10002E87C(&qword_1001005B0, &qword_1000C1920);
   sub_100066968();
 
   v4._countAndFlagsBits = sub_1000669EC();
@@ -3398,11 +3406,11 @@ unint64_t MoveShortcutToFolderAction.MoveError.errorDescription.getter(char a1)
   }
 }
 
-Swift::Int sub_100054830()
+Swift::Int sub_100054830(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MoveShortcutToFolderAction.MoveError.hash(into:)(v3, v1);
+  MoveShortcutToFolderAction.MoveError.hash(into:)(v4, v2);
   return Hasher._finalize()();
 }
 
@@ -3417,7 +3425,7 @@ uint64_t MoveShortcutToFolderAction.perform()()
   sub_10000A804(v4);
   v0[8] = v5;
   v0[9] = sub_100066AA0();
-  v6 = type metadata accessor for NavigationDestinationEntity();
+  v6 = type metadata accessor for NavigationDestinationEntity(0);
   sub_100002EE0(v6);
   v0[10] = sub_100066B80();
   v0[11] = swift_task_alloc();
@@ -3441,9 +3449,9 @@ uint64_t sub_10005498C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   v15 = sub_10004BB2C();
   if (!v15)
   {
-    sub_100063CCC();
-    sub_100066C9C();
-    *v28 = 0;
+    v28 = sub_100063CCC();
+    sub_100066C9C(&type metadata for MoveShortcutToFolderAction.MoveError, v28);
+    *v29 = 0;
     swift_willThrow();
     goto LABEL_12;
   }
@@ -3467,13 +3475,13 @@ uint64_t sub_10005498C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
       goto LABEL_7;
     }
 
-    sub_100063CCC();
-    sub_100066C9C();
-    *v38 = 1;
+    v39 = sub_100063CCC();
+    sub_100066C9C(&type metadata for MoveShortcutToFolderAction.MoveError, v39);
+    *v40 = 1;
     swift_willThrow();
 
-    v39 = sub_100011DAC();
-    v40(v39);
+    v41 = sub_100011DAC();
+    v42(v41);
 LABEL_12:
 
     sub_100003BDC();
@@ -3486,40 +3494,40 @@ LABEL_12:
   v27 = *v25;
 LABEL_7:
   IntentParameter.wrappedValue.getter();
-  v29 = v14[2];
-  v30 = *(v29 + 16);
-  if (v30)
+  v30 = v14[2];
+  v31 = *(v30 + 16);
+  if (v31)
   {
     a10 = _swiftEmptyArrayStorage;
     specialized ContiguousArray.reserveCapacity(_:)();
-    v31 = 32;
+    v32 = 32;
     do
     {
-      v32 = *(v29 + v31);
+      v33 = *(v30 + v32);
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       sub_100066A88();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
-      v31 += 8;
-      --v30;
+      v32 += 8;
+      --v31;
     }
 
-    while (v30);
+    while (v31);
   }
 
   LOBYTE(a10) = 1;
   dispatch thunk of ShortcutMoveService.prepend(_:to:source:)();
-  v33 = v14[11];
+  v34 = v14[11];
 
   OpenNavigationDestinationAction.init()();
-  v35 = v34;
+  v36 = v35;
   IntentParameter.wrappedValue.getter();
-  v36 = sub_100007DBC();
-  sub_10004D580(v36, v37);
+  v37 = sub_100007DBC();
+  sub_10004D580(v37, v38);
   IntentParameter.wrappedValue.setter();
-  sub_1000639A4(v33);
-  v14[3] = v35;
+  sub_1000639A4(v34);
+  v14[3] = v36;
   sub_100063C24();
   static IntentResult.result<A>(opensIntent:)();
 
@@ -3527,7 +3535,7 @@ LABEL_7:
 LABEL_13:
   sub_100066AD4();
 
-  return v42(v41, v42, v43, v44, v45, v46, v47, v48, a9, a10, a11, a12, a13, a14);
+  return v44(v43, v44, v45, v46, v47, v48, v49, v50, a9, a10, a11, a12, a13, a14);
 }
 
 uint64_t sub_100054D14()
@@ -3557,125 +3565,126 @@ uint64_t sub_100054DE8(uint64_t a1)
 void AddShortcutToHomeScreenAction.init()()
 {
   sub_1000043AC();
-  v1 = sub_10002E87C(&qword_1000FF5D0);
-  sub_100002EE0(v1);
+  v2 = sub_10002E87C(&qword_1000FF5D0, &qword_1000C1930);
+  sub_100002EE0(v2);
   sub_100005B90();
-  __chkstk_darwin(v2);
+  __chkstk_darwin(v3);
   sub_100005B00();
-  v3 = sub_10002E87C(&qword_1000FF5A8);
-  sub_100002EE0(v3);
+  v4 = sub_10002E87C(&qword_1000FF5A8, &unk_1000C1810);
+  sub_100002EE0(v4);
   sub_100005B90();
-  __chkstk_darwin(v4);
+  __chkstk_darwin(v5);
   sub_100005B00();
   sub_1000042F8();
-  v69 = type metadata accessor for InputConnectionBehavior();
+  v76 = type metadata accessor for InputConnectionBehavior();
   sub_100004458();
-  v70 = v5;
-  __chkstk_darwin(v6);
+  v77 = v6;
+  __chkstk_darwin(v7);
   sub_100007944();
-  v63 = v7;
-  v8 = sub_10002E87C(&qword_1000FF570);
-  v9 = sub_100002EE0(v8);
-  __chkstk_darwin(v9);
+  v70 = v8;
+  v9 = sub_10002E87C(&qword_1000FF570, &unk_1000C0480);
+  v10 = sub_100002EE0(v9);
+  __chkstk_darwin(v10);
   sub_10000F1A8();
   sub_10000667C();
-  v11 = __chkstk_darwin(v10);
-  sub_10000E8B0(v11, v12, v13, v14, v15, v16, v17, v18, v62);
-  v19 = sub_10002E87C(&qword_1000FF580);
-  sub_100002EE0(v19);
+  v12 = __chkstk_darwin(v11);
+  sub_10000E8B0(v12, v13, v14, v15, v16, v17, v18, v19, v69);
+  v20 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
+  sub_100002EE0(v20);
   sub_100005B90();
-  __chkstk_darwin(v20);
+  __chkstk_darwin(v21);
   sub_100005B00();
-  v21 = type metadata accessor for LocalizedStringResource.BundleDescription();
+  v22 = type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_10000F720();
-  v23 = v22;
-  __chkstk_darwin(v24);
+  v24 = v23;
+  __chkstk_darwin(v25);
   sub_1000039BC();
   sub_100066958();
-  v25 = type metadata accessor for Locale();
-  v26 = sub_100002EE0(v25);
-  __chkstk_darwin(v26);
+  v26 = type metadata accessor for Locale();
+  v27 = sub_100002EE0(v26);
+  __chkstk_darwin(v27);
   sub_1000039BC();
   sub_100011D5C();
-  v27 = type metadata accessor for String.LocalizationValue();
-  v28 = sub_100002EE0(v27);
-  __chkstk_darwin(v28);
+  v28 = type metadata accessor for String.LocalizationValue();
+  v29 = sub_100002EE0(v28);
+  __chkstk_darwin(v29);
   sub_1000039BC();
   sub_10000F43C();
-  v66 = type metadata accessor for LocalizedStringResource();
+  v73 = type metadata accessor for LocalizedStringResource();
   sub_100002F04();
-  __chkstk_darwin(v29);
+  __chkstk_darwin(v30);
   sub_10001C794();
-  sub_10002E87C(&qword_1000FF598);
-  sub_1000060C4();
-  sub_100066EB8();
+  sub_10002E87C(&qword_1000FF598, &unk_1000C04A0);
+  v31 = sub_1000060C4();
+  sub_100066EB8(v31);
   static Locale.current.getter();
-  v30 = enum case for LocalizedStringResource.BundleDescription.main(_:);
-  v31 = *(v23 + 104);
-  v64 = enum case for LocalizedStringResource.BundleDescription.main(_:);
-  (v31)(v0, enum case for LocalizedStringResource.BundleDescription.main(_:), v21);
+  v32 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+  v33 = *(v24 + 104);
+  v71 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+  (v33)(v1, enum case for LocalizedStringResource.BundleDescription.main(_:), v22);
   sub_100003F1C();
-  sub_10000B0F4();
+  v35 = v34;
+  sub_10000B0F4(v0, v34);
   sub_100066984();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v31)(v0, v30, v21);
-  sub_100066A64();
-  sub_10000B0F4();
+  (v33)(v1, v32, v22);
+  v36 = sub_100066A64();
+  sub_10000B0F4(v36, v35);
   sub_1000060AC();
-  sub_1000042A8(v32, v33, v34, v66);
-  v68 = type metadata accessor for IntentDialog();
-  v35 = sub_100005E08();
-  sub_1000042A8(v35, v36, v37, v68);
+  sub_1000042A8(v37, v38, v39, v73);
+  v75 = type metadata accessor for IntentDialog();
+  v40 = sub_100005E08();
+  sub_1000042A8(v40, v41, v42, v75);
   sub_100004730();
-  sub_1000042A8(v38, v39, v40, v68);
-  v67 = enum case for InputConnectionBehavior.default(_:);
-  v65 = *(v70 + 104);
-  v65(v63);
+  sub_1000042A8(v43, v44, v45, v75);
+  v74 = enum case for InputConnectionBehavior.default(_:);
+  v72 = *(v77 + 104);
+  v72(v70);
   sub_100021C0C();
   sub_100066C84();
   IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
-  sub_10002E87C(&qword_1000FF5C8);
+  sub_10002E87C(&qword_1000FF5C8, &unk_1000C04C0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v31)(v0, v64, v21);
-  sub_10000B0F4();
+  (v33)(v1, v71, v22);
+  sub_10000B0F4(v0, 0x6E65746E49707041);
   sub_1000669E0();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v31)(v0, v64, v21);
-  sub_100066A64();
-  sub_10000B0F4();
+  (v33)(v1, v71, v22);
+  v46 = sub_100066A64();
+  sub_10000B0F4(v46, 0x6E65746E49707041);
   sub_1000060AC();
-  sub_1000042A8(v41, v42, v43, v66);
+  sub_1000042A8(v47, v48, v49, v73);
   type metadata accessor for String.IntentInputOptions();
-  v44 = sub_100005E08();
-  sub_1000042A8(v44, v45, v46, v47);
+  v50 = sub_100005E08();
+  sub_1000042A8(v50, v51, v52, v53);
   sub_100004730();
-  sub_1000042A8(v48, v49, v50, v68);
-  (v65)(v63, v67, v69);
+  sub_1000042A8(v54, v55, v56, v75);
+  (v72)(v70, v74, v76);
   sub_100066C84();
   IntentParameter<>.init(title:description:default:inputOptions:requestValueDialog:inputConnectionBehavior:)();
-  sub_10002E87C(&qword_1000FF5D8);
+  sub_10002E87C(&qword_1000FF5D8, &qword_1000C04D0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v31)(v0, v64, v21);
-  sub_10000B0F4();
+  (v33)(v1, v71, v22);
+  sub_10000B0F4(v0, 0x6E65746E49707041);
   sub_1000669E0();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v51 = sub_100066C54();
-  v31(v51);
-  sub_100066A64();
-  sub_10000B0F4();
+  v57 = sub_100066C54();
+  v33(v57);
+  v58 = sub_100066A64();
+  sub_10000B0F4(v58, 0x6E65746E49707041);
   sub_1000060AC();
-  sub_100033518(v52, v53, v54, v66);
+  sub_100033518(v59, v60, v61, v73);
   type metadata accessor for IntentFile();
-  v55 = sub_100004770();
-  sub_1000042A8(v55, v56, v57, v58);
-  v59 = sub_100005E08();
-  sub_1000042A8(v59, v60, v61, v68);
-  (v65)(v63, v67, v69);
+  v62 = sub_100004770();
+  sub_1000042A8(v62, v63, v64, v65);
+  v66 = sub_100005E08();
+  sub_1000042A8(v66, v67, v68, v75);
+  (v72)(v70, v74, v76);
   IntentParameter<>.init(title:description:default:supportedTypeIdentifiers:requestValueDialog:inputConnectionBehavior:)();
   sub_100002EEC();
 }
@@ -3713,7 +3722,7 @@ uint64_t static AddShortcutToHomeScreenAction.title.modify()
 
 uint64_t sub_1000557F4()
 {
-  v0 = sub_10002E87C(&qword_1000FF580);
+  v0 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   __chkstk_darwin(v0 - 8);
   v2 = &v12[-v1];
   v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -3740,12 +3749,12 @@ uint64_t sub_1000557F4()
 void static AddShortcutToHomeScreenAction.parameterSummary.getter()
 {
   sub_1000079FC();
-  v0 = sub_10002E87C(&qword_1001005C0);
+  v0 = sub_10002E87C(&qword_1001005C0, &qword_1000C1938);
   sub_100002EE0(v0);
   sub_100005B90();
   __chkstk_darwin(v1);
   sub_100003BE8();
-  sub_10002E87C(&qword_1001005C8);
+  sub_10002E87C(&qword_1001005C8, &qword_1000C1940);
   sub_100003EC8();
   sub_100005B90();
   __chkstk_darwin(v2);
@@ -3756,7 +3765,7 @@ void static AddShortcutToHomeScreenAction.parameterSummary.getter()
   v3._object = 0xE400000000000000;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v3);
   swift_getKeyPath();
-  sub_10002E87C(&qword_1001005D8);
+  sub_10002E87C(&qword_1001005D8, &qword_1000C1970);
   sub_100007DBC();
   ParameterSummaryString.StringInterpolation.appendInterpolation<A, B>(_:)();
 
@@ -3779,7 +3788,7 @@ uint64_t sub_100055C94()
 
   v1 = static IntentParameterSummary.ParameterKeyPathsBuilder.buildExpression<A>(_:)();
 
-  sub_10002E87C(&qword_1001000E0);
+  sub_10002E87C(&qword_1001000E0, &qword_1000C12D0);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1000C1720;
   *(v2 + 32) = v0;
@@ -3816,14 +3825,14 @@ uint64_t (*AddShortcutToHomeScreenAction.title.modify())()
 uint64_t AddShortcutToHomeScreenAction.image.setter(uint64_t a1)
 {
   v2 = sub_100006144();
-  v3 = sub_10002E87C(v2);
-  sub_100002EE0(v3);
+  v4 = sub_10002E87C(v2, v3);
+  sub_100002EE0(v4);
   sub_100005B90();
-  __chkstk_darwin(v4);
-  sub_100063D74(a1, &v9 - v5, &qword_1000FF5D0);
+  __chkstk_darwin(v5);
+  sub_100063D74(a1, &v10 - v6, &qword_1000FF5D0, &qword_1000C1930);
   IntentParameter.wrappedValue.setter();
-  v6 = sub_1000042EC();
-  return sub_1000069B0(v6, v7);
+  v7 = sub_1000042EC();
+  return sub_1000069B0(v7, v8, &qword_1000C1930);
 }
 
 uint64_t (*AddShortcutToHomeScreenAction.image.modify())()
@@ -3867,11 +3876,11 @@ Swift::Int AddShortcutToHomeScreenAction.AddToHomeScreenError.hashValue.getter(u
   return Hasher._finalize()();
 }
 
-Swift::Int sub_10005625C()
+Swift::Int sub_10005625C(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  AddShortcutToHomeScreenAction.AddToHomeScreenError.hash(into:)(v3, v1);
+  AddShortcutToHomeScreenAction.AddToHomeScreenError.hash(into:)(v4, v2);
   return Hasher._finalize()();
 }
 
@@ -3892,7 +3901,7 @@ uint64_t AddShortcutToHomeScreenAction.perform()()
   sub_10000A804(v7);
   v0[36] = v8;
   v0[37] = sub_100066AA0();
-  v9 = sub_10002E87C(&qword_1001005E0);
+  v9 = sub_10002E87C(&qword_1001005E0, &qword_1000C1980);
   sub_100002EE0(v9);
   v0[38] = sub_100066B80();
   v0[39] = swift_task_alloc();
@@ -3901,7 +3910,7 @@ uint64_t AddShortcutToHomeScreenAction.perform()()
   sub_10000A804(v10);
   v0[41] = v11;
   v0[42] = sub_100066AA0();
-  v12 = sub_10002E87C(&qword_1000FF5D0);
+  v12 = sub_10002E87C(&qword_1000FF5D0, &qword_1000C1930);
   sub_100002EE0(v12);
   v0[43] = sub_100066AA0();
   v13 = type metadata accessor for IntentFile();
@@ -3951,7 +3960,7 @@ uint64_t sub_100056500()
   IntentParameter.wrappedValue.getter();
   if (sub_10000AB80(v7, 1, v6) == 1)
   {
-    sub_1000069B0(v0[43], &qword_1000FF5D0);
+    sub_1000069B0(v0[43], &qword_1000FF5D0, &qword_1000C1930);
     IntentParameter.wrappedValue.getter();
     v8 = v0[22];
     v9 = [v8 icon];
@@ -3964,7 +3973,7 @@ uint64_t sub_100056500()
       v12 = v0[37];
       v13 = v0[34];
       v14 = v0[33];
-      v88 = v0[32];
+      v92 = v0[32];
       static String._unconditionallyBridgeFromObjectiveC(_:)();
 
       v15 = [objc_opt_self() sharedInstance];
@@ -3978,43 +3987,43 @@ uint64_t sub_100056500()
 
       v20 = [v19 backgroundColor];
       *v13 = v20;
-      (*(v14 + 104))(v13, enum case for GlyphIconColorScheme.palette(_:), v88);
+      (*(v14 + 104))(v13, enum case for GlyphIconColorScheme.palette(_:), v92);
       WFHomeScreenController.add(entry:name:colorScheme:symbolName:)();
-      v41 = v0[36];
-      v42 = v0[37];
-      v43 = v0[35];
+      v44 = v0[36];
+      v45 = v0[37];
+      v46 = v0[35];
 
-      v44 = sub_100007DBC();
-      v45(v44);
-      (*(v41 + 8))(v42, v43);
+      v47 = sub_100007DBC();
+      v48(v47);
+      (*(v44 + 8))(v45, v46);
 LABEL_18:
-      v46 = v0[40];
-      v47 = v0[38];
-      v48 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v50 = v49;
+      v49 = v0[40];
+      v50 = v0[38];
+      v51 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v53 = v52;
       sub_100004730();
-      sub_1000042A8(v51, v52, v53, v46);
-      v54 = objc_allocWithZone(WFAppLaunchRequest);
-      v55 = sub_100062AF4(v48, v50, 0, v47, 0, 0);
-      v0[50] = v55;
+      sub_1000042A8(v54, v55, v56, v49);
+      v57 = objc_allocWithZone(WFAppLaunchRequest);
+      v58 = sub_100062AF4(v51, v53, 0, v50, 0, 0);
+      v0[50] = v58;
       v0[2] = v0;
       v0[7] = v0 + 52;
       v0[3] = sub_100056E50;
-      v56 = swift_continuation_init();
-      v0[17] = sub_10002E87C(&qword_1001005F0);
+      v59 = swift_continuation_init();
+      v0[17] = sub_10002E87C(&qword_1001005F0, &qword_1000C1988);
       v0[10] = _NSConcreteStackBlock;
       v0[11] = 1107296256;
       v0[12] = sub_100057200;
       v0[13] = &unk_1000F1E48;
-      v0[14] = v56;
-      [v55 performWithCompletionHandler:v0 + 10];
+      v0[14] = v59;
+      [v58 performWithCompletionHandler:v0 + 10];
 
       return _swift_continuation_await(v0 + 2);
     }
 
-    sub_100063DD0();
-    sub_100066C9C();
-    *v31 = 2;
+    v32 = sub_100063DD0();
+    sub_100066C9C(&type metadata for AddShortcutToHomeScreenAction.AddToHomeScreenError, v32);
+    *v33 = 2;
     swift_willThrow();
   }
 
@@ -4032,116 +4041,116 @@ LABEL_18:
       v27 = v0[44];
       v26 = v0[45];
 
-      sub_1000069B0(v24, &qword_1001005E0);
-      sub_100063DD0();
-      sub_100066C9C();
-      *v28 = 0;
+      sub_1000069B0(v24, &qword_1001005E0, &qword_1000C1980);
+      v28 = sub_100063DD0();
+      sub_100066C9C(&type metadata for AddShortcutToHomeScreenAction.AddToHomeScreenError, v28);
+      *v29 = 0;
       swift_willThrow();
       (*(v26 + 8))(v25, v27);
     }
 
     else
     {
-      v29 = sub_100066C3C();
-      v30(v29);
+      v30 = sub_100066C3C();
+      v31(v30);
       if (URL.startAccessingSecurityScopedResource()())
       {
         Data.init(contentsOf:options:)();
-        sub_100002FC4(0, &qword_100100110);
-        v57 = sub_100066A88();
-        sub_100063AD0(v57, v58);
-        v59 = sub_100066A88();
-        v61 = sub_100057188(v59, v60);
-        if (v61)
+        sub_100002FC4(0, &qword_100100110, UIImage_ptr);
+        v60 = sub_100066A88();
+        sub_100063AD0(v60, v61);
+        v62 = sub_100066A88();
+        v64 = sub_100057188(v62, v63);
+        if (v64)
         {
-          v62 = v61;
-          v63 = [objc_opt_self() sharedInstance];
+          v65 = v64;
+          v66 = [objc_opt_self() sharedInstance];
           IntentParameter.wrappedValue.getter();
-          v64 = v0[25];
-          v65 = String._bridgeToObjectiveC()();
+          v67 = v0[25];
+          v68 = String._bridgeToObjectiveC()();
 
           v0[26] = 0;
-          v66 = [v63 addWorkflowToHomeScreen:v64 withName:v65 image:v62 error:v0 + 26];
+          v69 = [v66 addWorkflowToHomeScreen:v67 withName:v68 image:v65 error:v0 + 26];
 
-          v67 = v0[26];
-          if (v66)
+          v70 = v0[26];
+          if (v69)
           {
-            v68 = v0[45];
-            v92 = v0[46];
-            v69 = v0[44];
-            v70 = v67;
+            v71 = v0[45];
+            v96 = v0[46];
+            v72 = v0[44];
+            v73 = v70;
 
-            v71 = sub_100066A88();
-            sub_100063A78(v71, v72);
+            v74 = sub_100066A88();
+            sub_100063A78(v74, v75);
             URL.stopAccessingSecurityScopedResource()();
-            v73 = sub_100011DAC();
-            v74(v73);
-            (*(v68 + 8))(v92, v69);
+            v76 = sub_100011DAC();
+            v77(v76);
+            (*(v71 + 8))(v96, v72);
             goto LABEL_18;
           }
 
-          v83 = v0[45];
-          v91 = v0[44];
-          v94 = v0[46];
-          v84 = v0[41];
-          v89 = v0[42];
-          v90 = v0[40];
-          v85 = v67;
+          v87 = v0[45];
+          v95 = v0[44];
+          v98 = v0[46];
+          v88 = v0[41];
+          v93 = v0[42];
+          v94 = v0[40];
+          v89 = v70;
 
           _convertNSErrorToError(_:)();
 
           swift_willThrow();
-          v86 = sub_100066A88();
-          sub_100063A78(v86, v87);
+          v90 = sub_100066A88();
+          sub_100063A78(v90, v91);
 
           URL.stopAccessingSecurityScopedResource()();
-          (*(v84 + 8))(v89, v90);
-          (*(v83 + 8))(v94, v91);
+          (*(v88 + 8))(v93, v94);
+          (*(v87 + 8))(v98, v95);
         }
 
         else
         {
-          v93 = v0[46];
-          v76 = v0[44];
-          v75 = v0[45];
-          v77 = v0[41];
-          v78 = v0[42];
-          v79 = v0[40];
+          v97 = v0[46];
+          v79 = v0[44];
+          v78 = v0[45];
+          v80 = v0[41];
+          v81 = v0[42];
+          v82 = v0[40];
 
-          sub_100063DD0();
-          sub_100066C9C();
-          *v80 = 3;
+          v83 = sub_100063DD0();
+          sub_100066C9C(&type metadata for AddShortcutToHomeScreenAction.AddToHomeScreenError, v83);
+          *v84 = 3;
           swift_willThrow();
-          v81 = sub_100066A88();
-          sub_100063A78(v81, v82);
+          v85 = sub_100066A88();
+          sub_100063A78(v85, v86);
           URL.stopAccessingSecurityScopedResource()();
-          (*(v77 + 8))(v78, v79);
-          (*(v75 + 8))(v93, v76);
+          (*(v80 + 8))(v81, v82);
+          (*(v78 + 8))(v97, v79);
         }
       }
 
       else
       {
-        v32 = v0[46];
-        v34 = v0[44];
-        v33 = v0[45];
-        v36 = v0[41];
-        v35 = v0[42];
-        v37 = v0[40];
+        v34 = v0[46];
+        v36 = v0[44];
+        v35 = v0[45];
+        v38 = v0[41];
+        v37 = v0[42];
+        v39 = v0[40];
 
-        sub_100063DD0();
-        sub_100066C9C();
-        *v38 = 0;
+        v40 = sub_100063DD0();
+        sub_100066C9C(&type metadata for AddShortcutToHomeScreenAction.AddToHomeScreenError, v40);
+        *v41 = 0;
         swift_willThrow();
-        (*(v36 + 8))(v35, v37);
-        (*(v33 + 8))(v32, v34);
+        (*(v38 + 8))(v37, v39);
+        (*(v35 + 8))(v34, v36);
       }
     }
   }
 
   sub_100003BDC();
 
-  return v39();
+  return v42();
 }
 
 uint64_t sub_100056E50()
@@ -4202,8 +4211,9 @@ id sub_100057188(uint64_t a1, unint64_t a2)
   return v6;
 }
 
-uint64_t sub_100057200(uint64_t a1, char a2, void *a3)
+uint64_t sub_100057200(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v5 = sub_100041C04((a1 + 32), *(a1 + 56));
   if (a3)
   {
@@ -4212,16 +4222,16 @@ uint64_t sub_100057200(uint64_t a1, char a2, void *a3)
 
   v7 = *v5;
 
-  return sub_1000572DC(v7, a2);
+  return sub_1000572DC(v7, v4);
 }
 
 uint64_t sub_100057278(uint64_t a1, uint64_t a2)
 {
-  sub_10002E87C(&qword_1000FFF88);
-  v4 = sub_100066C9C();
-  *v5 = a2;
+  v4 = sub_10002E87C(&qword_1000FFF88, &qword_1000C11C0);
+  v5 = sub_100066C9C(v4, &protocol self-conformance witness table for Error);
+  *v6 = a2;
 
-  return _swift_continuation_throwingResumeWithError(a1, v4);
+  return _swift_continuation_throwingResumeWithError(a1, v5);
 }
 
 uint64_t sub_100057300(uint64_t a1, uint64_t a2)
@@ -4261,99 +4271,99 @@ uint64_t sub_1000574A4(uint64_t a1)
 void RenameShortcutAction.init()()
 {
   sub_1000043AC();
-  v0 = sub_10002E87C(&qword_1000FF5A8);
-  sub_100002EE0(v0);
+  v1 = sub_10002E87C(&qword_1000FF5A8, &unk_1000C1810);
+  sub_100002EE0(v1);
   sub_100005B90();
-  __chkstk_darwin(v1);
-  sub_100005AEC(v2, v51);
+  __chkstk_darwin(v2);
+  sub_100005AEC(v3, v58);
   type metadata accessor for InputConnectionBehavior();
   sub_100004458();
-  v58 = v3;
-  v59 = v4;
-  __chkstk_darwin(v3);
+  v65 = v4;
+  v66 = v5;
+  __chkstk_darwin(v4);
   sub_100007944();
-  sub_10000F7E0(v5);
-  v6 = sub_10002E87C(&qword_1000FF570);
-  v7 = sub_100002EE0(v6);
-  __chkstk_darwin(v7);
+  sub_10000F7E0(v6);
+  v7 = sub_10002E87C(&qword_1000FF570, &unk_1000C0480);
+  v8 = sub_100002EE0(v7);
+  __chkstk_darwin(v8);
   sub_10000F1A8();
   sub_10000667C();
-  v9 = __chkstk_darwin(v8);
-  sub_10000E8B0(v9, v10, v11, v12, v13, v14, v15, v16, v52);
-  v17 = sub_10002E87C(&qword_1000FF580);
-  sub_100002EE0(v17);
+  v10 = __chkstk_darwin(v9);
+  sub_10000E8B0(v10, v11, v12, v13, v14, v15, v16, v17, v59);
+  v18 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
+  sub_100002EE0(v18);
   sub_100005B90();
-  __chkstk_darwin(v18);
+  __chkstk_darwin(v19);
   sub_100005B00();
   type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_100004458();
-  v20 = v19;
-  __chkstk_darwin(v21);
+  v21 = v20;
+  __chkstk_darwin(v22);
   sub_1000051D8();
-  v22 = type metadata accessor for Locale();
-  v23 = sub_100002EE0(v22);
-  __chkstk_darwin(v23);
+  v23 = type metadata accessor for Locale();
+  v24 = sub_100002EE0(v23);
+  __chkstk_darwin(v24);
   sub_10000443C();
-  v24 = type metadata accessor for String.LocalizationValue();
-  v25 = sub_100002EE0(v24);
-  __chkstk_darwin(v25);
-  sub_1000039BC();
-  sub_10000F43C();
-  v55 = type metadata accessor for LocalizedStringResource();
-  sub_100002F04();
+  v25 = type metadata accessor for String.LocalizationValue();
+  v26 = sub_100002EE0(v25);
   __chkstk_darwin(v26);
   sub_1000039BC();
-  sub_10002E87C(&qword_1000FF598);
-  sub_1000060C4();
-  sub_100066EB8();
+  sub_10000F43C();
+  v62 = type metadata accessor for LocalizedStringResource();
+  sub_100002F04();
+  __chkstk_darwin(v27);
+  sub_1000039BC();
+  sub_10002E87C(&qword_1000FF598, &unk_1000C04A0);
+  v28 = sub_1000060C4();
+  sub_100066EB8(v28);
   static Locale.current.getter();
-  v27 = *(v20 + 104);
-  v28 = sub_100007DA0();
-  v27(v28);
+  v29 = *(v21 + 104);
+  v30 = sub_100007DA0();
+  v29(v30);
   sub_100003F1C();
-  sub_100066A64();
-  sub_100002F40();
+  v31 = sub_100066A64();
+  sub_100002F40(v31, v32);
   sub_100066984();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v29 = sub_100007DA0();
-  v27(v29);
-  sub_100066D7C();
-  sub_100002F40();
+  v33 = sub_100007DA0();
+  v29(v33);
+  v34 = sub_100066D7C();
+  sub_100002F40(v34, v35);
   sub_1000060AC();
-  sub_1000042A8(v30, v31, v32, v55);
-  v56 = type metadata accessor for IntentDialog();
-  v33 = sub_1000095D8();
-  sub_1000042A8(v33, v34, v35, v56);
-  v36 = sub_100004770();
-  sub_1000042A8(v36, v37, v38, v56);
-  v53 = enum case for InputConnectionBehavior.default(_:);
-  v54 = *(v59 + 104);
-  v54();
+  sub_1000042A8(v36, v37, v38, v62);
+  v63 = type metadata accessor for IntentDialog();
+  v39 = sub_1000095D8();
+  sub_1000042A8(v39, v40, v41, v63);
+  v42 = sub_100004770();
+  sub_1000042A8(v42, v43, v44, v63);
+  v60 = enum case for InputConnectionBehavior.default(_:);
+  v61 = *(v66 + 104);
+  v61();
   sub_100021C0C();
   sub_100066D70();
   IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
-  sub_10002E87C(&qword_1000FF5C8);
+  sub_10002E87C(&qword_1000FF5C8, &unk_1000C04C0);
   sub_100066CF0();
   static Locale.current.getter();
-  v39 = sub_100007DA0();
-  v27(v39);
-  sub_100002F40();
+  v45 = sub_100007DA0();
+  v29(v45);
+  sub_100002F40(v0, 0x6E65746E49707041);
   sub_1000669E0();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v40 = sub_100007DA0();
-  v27(v40);
-  sub_100066A64();
-  sub_100002F40();
+  v46 = sub_100007DA0();
+  v29(v46);
+  v47 = sub_100066A64();
+  sub_100002F40(v47, 0x6E65746E49707041);
   sub_1000060AC();
-  sub_100033518(v41, v42, v43, v55);
+  sub_100033518(v48, v49, v50, v62);
   type metadata accessor for String.IntentInputOptions();
-  v44 = sub_100004770();
-  sub_1000042A8(v44, v45, v46, v47);
-  v48 = sub_100006150();
-  sub_1000042A8(v48, v49, v50, v56);
-  (v54)(v57, v53, v58);
+  v51 = sub_100004770();
+  sub_1000042A8(v51, v52, v53, v54);
+  v55 = sub_100006150();
+  sub_1000042A8(v55, v56, v57, v63);
+  (v61)(v64, v60, v65);
   sub_100066B98();
   IntentParameter<>.init(title:description:default:inputOptions:requestValueDialog:inputConnectionBehavior:)();
   sub_100002EEC();
@@ -4362,37 +4372,37 @@ void RenameShortcutAction.init()()
 void sub_1000579F0()
 {
   sub_1000043AC();
-  v2 = v1;
-  v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
+  v3 = v2;
+  v4 = type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_100004458();
-  v5 = v4;
-  __chkstk_darwin(v6);
+  v6 = v5;
+  __chkstk_darwin(v7);
   sub_1000039BC();
   sub_10000F43C();
-  v7 = type metadata accessor for Locale();
-  v8 = sub_100002EE0(v7);
-  __chkstk_darwin(v8);
+  v8 = type metadata accessor for Locale();
+  v9 = sub_100002EE0(v8);
+  __chkstk_darwin(v9);
   sub_1000039BC();
   sub_100066A30();
-  v9 = type metadata accessor for String.LocalizationValue();
-  v10 = sub_100002EE0(v9);
-  __chkstk_darwin(v10);
+  v10 = type metadata accessor for String.LocalizationValue();
+  v11 = sub_100002EE0(v10);
+  __chkstk_darwin(v11);
   sub_10001C6E4();
-  v11 = type metadata accessor for LocalizedStringResource();
-  sub_100066730(v11, v2);
-  sub_10004D458(v11, v2);
+  v12 = type metadata accessor for LocalizedStringResource();
+  sub_100066730(v12, v3);
+  sub_10004D458(v12, v3);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (*(v5 + 104))(v0, enum case for LocalizedStringResource.BundleDescription.main(_:), v3);
+  (*(v6 + 104))(v0, enum case for LocalizedStringResource.BundleDescription.main(_:), v4);
   sub_100003F1C();
   sub_100007A10();
-  sub_1000042D0();
+  sub_1000042D0(v13, v14, v15, v1, v0);
   sub_100002EEC();
 }
 
 uint64_t sub_100057BD4()
 {
-  v0 = sub_10002E87C(&qword_1000FF580);
+  v0 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   __chkstk_darwin(v0 - 8);
   v2 = &v12[-v1];
   v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -4435,28 +4445,28 @@ uint64_t (*RenameShortcutAction.name.modify())()
 void static RenameShortcutAction.parameterSummary.getter()
 {
   sub_1000079FC();
-  v0 = sub_10002E87C(&qword_1001005F8);
+  v0 = sub_10002E87C(&qword_1001005F8, &qword_1000C1990);
   sub_100002EE0(v0);
   sub_100005B90();
   __chkstk_darwin(v1);
   sub_100003BE8();
-  sub_10002E87C(&qword_100100600);
+  sub_10002E87C(&qword_100100600, &qword_1000C1998);
   sub_100003EC8();
   sub_100005B90();
   __chkstk_darwin(v2);
   sub_100007B14();
   sub_100063E24();
-  sub_100066D0C();
+  sub_100066D0C(11);
   v3._countAndFlagsBits = 0x20656D616E6552;
   v3._object = 0xE700000000000000;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v3);
   swift_getKeyPath();
-  sub_10002E87C(&qword_100100610);
+  sub_10002E87C(&qword_100100610, &qword_1000C19C8);
   sub_100066968();
 
   sub_100066E30();
   swift_getKeyPath();
-  sub_10002E87C(&qword_100100618);
+  sub_10002E87C(&qword_100100618, &qword_1000C19F8);
   sub_100066968();
 
   v4._countAndFlagsBits = sub_1000669EC();
@@ -4550,62 +4560,62 @@ void ChangeShortcutIconAction.init()()
   sub_1000043AC();
   type metadata accessor for InputConnectionBehavior();
   sub_100004458();
-  __chkstk_darwin(v0);
+  __chkstk_darwin(v1);
   sub_100007944();
-  sub_10000516C(v1);
-  v2 = sub_10002E87C(&qword_1000FF570);
-  v3 = sub_100002EE0(v2);
-  __chkstk_darwin(v3);
+  sub_10000516C(v2);
+  v3 = sub_10002E87C(&qword_1000FF570, &unk_1000C0480);
+  v4 = sub_100002EE0(v3);
+  __chkstk_darwin(v4);
   sub_10000F1A8();
   sub_10000667C();
-  v5 = __chkstk_darwin(v4);
-  sub_10000E8B0(v5, v6, v7, v8, v9, v10, v11, v12, v39);
-  v13 = sub_10002E87C(&qword_1000FF580);
-  sub_100002EE0(v13);
+  v6 = __chkstk_darwin(v5);
+  sub_10000E8B0(v6, v7, v8, v9, v10, v11, v12, v13, v40);
+  v14 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
+  sub_100002EE0(v14);
   sub_100005B90();
-  __chkstk_darwin(v14);
-  sub_100005AEC(v15, v40);
+  __chkstk_darwin(v15);
+  sub_100005AEC(v16, v41);
   type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_100004458();
-  v17 = v16;
-  __chkstk_darwin(v18);
+  v18 = v17;
+  __chkstk_darwin(v19);
   sub_10001C6E4();
-  v19 = type metadata accessor for Locale();
-  v20 = sub_100002EE0(v19);
-  __chkstk_darwin(v20);
+  v20 = type metadata accessor for Locale();
+  v21 = sub_100002EE0(v20);
+  __chkstk_darwin(v21);
   sub_10000443C();
-  v21 = type metadata accessor for String.LocalizationValue();
-  v22 = sub_100002EE0(v21);
-  __chkstk_darwin(v22);
+  v22 = type metadata accessor for String.LocalizationValue();
+  v23 = sub_100002EE0(v22);
+  __chkstk_darwin(v23);
   sub_1000039BC();
   sub_100066958();
   type metadata accessor for LocalizedStringResource();
   sub_100003EC8();
-  __chkstk_darwin(v23);
+  __chkstk_darwin(v24);
   sub_1000051D8();
-  sub_10002E87C(&qword_1000FF598);
+  sub_10002E87C(&qword_1000FF598, &unk_1000C04A0);
   sub_1000060C4();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v24 = *(v17 + 104);
-  v25 = sub_1000334F4();
-  v24(v25);
+  v25 = *(v18 + 104);
+  v26 = sub_1000334F4();
+  v25(v26);
   sub_100005B78();
-  sub_10000F6AC();
+  sub_10000F6AC(v0);
   sub_100004B18();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v26 = sub_1000334F4();
-  v24(v26);
-  sub_10000F6AC();
-  v27 = sub_1000046F0();
-  v30 = sub_100066B08(v27, v28, v29);
-  v31 = sub_100008330();
-  sub_1000042A8(v31, v32, v33, v30);
-  v34 = sub_100005E08();
-  sub_1000042A8(v34, v35, v36, v30);
-  v37 = sub_10000A5AC();
-  v38(v37);
+  v27 = sub_1000334F4();
+  v25(v27);
+  sub_10000F6AC(v0);
+  v28 = sub_1000046F0();
+  v31 = sub_100066B08(v28, v29, v30);
+  v32 = sub_100008330();
+  sub_1000042A8(v32, v33, v34, v31);
+  v35 = sub_100005E08();
+  sub_1000042A8(v35, v36, v37, v31);
+  v38 = sub_10000A5AC();
+  v39(v38);
   sub_100021C0C();
   sub_100066C30();
   sub_10000B0B8();
@@ -4634,7 +4644,7 @@ uint64_t sub_1000587A4()
 
 uint64_t sub_100058A00()
 {
-  v0 = sub_10002E87C(&qword_1000FF580);
+  v0 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   __chkstk_darwin(v0 - 8);
   v2 = &v12[-v1];
   v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -4669,23 +4679,23 @@ uint64_t (*ChangeShortcutIconAction.shortcut.modify())()
 void static ChangeShortcutIconAction.parameterSummary.getter()
 {
   sub_1000079FC();
-  v0 = sub_10002E87C(&qword_100100620);
+  v0 = sub_10002E87C(&qword_100100620, &qword_1000C1A08);
   sub_100002EE0(v0);
   sub_100005B90();
   __chkstk_darwin(v1);
   sub_100003BE8();
-  sub_10002E87C(&qword_100100628);
+  sub_10002E87C(&qword_100100628, &qword_1000C1A10);
   sub_100003EC8();
   sub_100005B90();
   __chkstk_darwin(v2);
   sub_100007B14();
   sub_100063E78();
-  sub_100066B38();
+  sub_100066B38(15);
   v3._countAndFlagsBits = 0x692065676E616843;
   v3._object = 0xEF20666F206E6F63;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v3);
   swift_getKeyPath();
-  sub_10002E87C(&qword_100100638);
+  sub_10002E87C(&qword_100100638, &qword_1000C1A40);
   sub_100066968();
 
   v4._countAndFlagsBits = sub_1000669EC();
@@ -4702,7 +4712,7 @@ uint64_t ChangeShortcutIconAction.perform()()
   sub_100005BE4();
   v0[3] = v1;
   v0[4] = v2;
-  v3 = sub_10002E87C(&qword_100100018);
+  v3 = sub_10002E87C(&qword_100100018, &qword_1000C1A50);
   sub_100002EE0(v3);
   v0[5] = sub_100066AA0();
   v4 = type metadata accessor for OpenWorkflowOptions();
@@ -4797,9 +4807,9 @@ uint64_t sub_100059244()
   return v2();
 }
 
-uint64_t sub_1000592E4(uint64_t a1, uint64_t a2, void (*a3)(void))
+uint64_t sub_1000592E4(uint64_t a1, uint64_t a2, void (*a3)(uint64_t, uint64_t))
 {
-  a3();
+  a3(a1, a2);
   type metadata accessor for LocalizedStringResource();
   sub_100003EC8();
   v3 = sub_100005BCC();
@@ -4826,7 +4836,7 @@ uint64_t sub_100059418(uint64_t a1)
 
 uint64_t sub_100059454()
 {
-  v0 = sub_10002E87C(&qword_1000FF580);
+  v0 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   __chkstk_darwin(v0 - 8);
   v2 = &v12[-v1];
   v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -4865,135 +4875,135 @@ uint64_t static ShortcutAttribute.typeDisplayRepresentation.modify()
 void static ShortcutAttribute.caseDisplayRepresentations.getter()
 {
   sub_1000043AC();
-  v1 = sub_10002E87C(&qword_100100528);
-  sub_100002EE0(v1);
+  v2 = sub_10002E87C(&qword_100100528, &qword_1000C1788);
+  sub_100002EE0(v2);
   sub_100005B90();
-  __chkstk_darwin(v2);
+  __chkstk_darwin(v3);
   sub_100005B00();
-  v3 = sub_10002E87C(&qword_1000FF580);
-  sub_100002EE0(v3);
+  v4 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
+  sub_100002EE0(v4);
   sub_100005B90();
-  __chkstk_darwin(v4);
+  __chkstk_darwin(v5);
   sub_100005B00();
   sub_1000042F8();
-  v5 = type metadata accessor for LocalizedStringResource.BundleDescription();
+  v6 = type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_10000F720();
-  v7 = v6;
-  __chkstk_darwin(v8);
+  v8 = v7;
+  __chkstk_darwin(v9);
   sub_10001C794();
-  v9 = type metadata accessor for Locale();
-  v10 = sub_100002EE0(v9);
-  __chkstk_darwin(v10);
+  v10 = type metadata accessor for Locale();
+  v11 = sub_100002EE0(v10);
+  __chkstk_darwin(v11);
   sub_1000039BC();
   sub_100066994();
-  v11 = type metadata accessor for String.LocalizationValue();
-  v12 = sub_100002EE0(v11);
-  __chkstk_darwin(v12);
-  sub_10000443C();
-  v39 = type metadata accessor for LocalizedStringResource();
-  sub_100002F04();
+  v12 = type metadata accessor for String.LocalizationValue();
+  v13 = sub_100002EE0(v12);
   __chkstk_darwin(v13);
+  sub_10000443C();
+  v62 = type metadata accessor for LocalizedStringResource();
+  sub_100002F04();
+  __chkstk_darwin(v14);
   sub_100007944();
-  sub_10002E87C(&qword_100100640);
-  v14 = sub_10002E87C(&qword_100100648) - 8;
-  v41 = *(*v14 + 72);
-  v15 = (*(*v14 + 80) + 32) & ~*(*v14 + 80);
-  v16 = swift_allocObject();
-  *(v16 + 16) = xmmword_1000C1770;
-  v17 = v16 + v15;
-  *(v16 + v15) = 1;
+  sub_10002E87C(&qword_100100640, &qword_1000C1A58);
+  v15 = sub_10002E87C(&qword_100100648, &unk_1000C1A60) - 8;
+  v64 = *(*v15 + 72);
+  v16 = (*(*v15 + 80) + 32) & ~*(*v15 + 80);
+  v17 = swift_allocObject();
+  *(v17 + 16) = xmmword_1000C1770;
+  v18 = v17 + v16;
+  *(v17 + v16) = 1;
   sub_100004B18();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v42 = enum case for LocalizedStringResource.BundleDescription.main(_:);
-  v40 = *(v7 + 104);
-  v40(v0);
+  v65 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+  v63 = *(v8 + 104);
+  v63(v0);
   sub_100003F1C();
   sub_100007A10();
-  sub_1000042D0();
-  v18 = sub_100005E08();
-  sub_1000042A8(v18, v19, v20, v39);
+  sub_1000042D0(v19, v20, v21, v1, v0);
+  v22 = sub_100005E08();
+  sub_1000042A8(v22, v23, v24, v62);
   sub_100004B18();
   sub_100005BC0();
   DisplayRepresentation.Image.init(systemName:tintColor:symbolConfiguration:)();
   sub_100066D88();
   DisplayRepresentation.init(title:subtitle:image:)();
-  *(v17 + v41) = 0;
+  *(v18 + v64) = 0;
   sub_100066BE8();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v40)(v0, v42, v5);
+  (v63)(v0, v65, v6);
   sub_100003F1C();
   sub_100007A10();
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-  v21 = sub_100005E08();
-  sub_1000042A8(v21, v22, v23, v39);
+  v25 = sub_100005E08();
+  sub_1000042A8(v25, v26, v27, v62);
   sub_100005BC0();
   DisplayRepresentation.Image.init(systemName:tintColor:symbolConfiguration:)();
   sub_100066D88();
   DisplayRepresentation.init(title:subtitle:image:)();
-  *(v17 + 2 * v41) = 2;
+  *(v18 + 2 * v64) = 2;
   sub_100004B18();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v40)(v0, v42, v5);
+  (v63)(v0, v65, v6);
   sub_100003F1C();
   sub_100005E44();
-  sub_1000042D0();
-  v24 = sub_100006150();
-  sub_1000042A8(v24, v25, v26, v39);
+  sub_1000042D0(v28, v29, v30, v31, v32);
+  v33 = sub_100006150();
+  sub_1000042A8(v33, v34, v35, v62);
   sub_100005BC0();
   DisplayRepresentation.Image.init(systemName:tintColor:symbolConfiguration:)();
   sub_100066CCC();
-  *(v17 + 3 * v41) = 3;
+  *(v18 + 3 * v64) = 3;
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v40)(v0, v42, v5);
+  (v63)(v0, v65, v6);
   sub_100003F1C();
   sub_100005E44();
-  sub_1000042D0();
-  v27 = sub_100006150();
-  sub_1000042A8(v27, v28, v29, v39);
+  sub_1000042D0(v36, v37, v38, v39, v40);
+  v41 = sub_100006150();
+  sub_1000042A8(v41, v42, v43, v62);
   sub_100066BE8();
   sub_100005BC0();
   DisplayRepresentation.Image.init(systemName:tintColor:symbolConfiguration:)();
   sub_100066CCC();
-  *(v17 + 4 * v41) = 4;
+  *(v18 + 4 * v64) = 4;
   sub_100004B18();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v40)(v0, v42, v5);
+  (v63)(v0, v65, v6);
   sub_100003F1C();
   sub_100007A10();
-  sub_1000042D0();
-  v30 = sub_100006150();
-  sub_1000042A8(v30, v31, v32, v39);
+  sub_1000042D0(v44, v45, v46, v1, v0);
+  v47 = sub_100006150();
+  sub_1000042A8(v47, v48, v49, v62);
   sub_100005BC0();
   DisplayRepresentation.Image.init(systemName:tintColor:symbolConfiguration:)();
   DisplayRepresentation.init(title:subtitle:image:)();
-  *(v17 + 5 * v41) = 5;
+  *(v18 + 5 * v64) = 5;
   sub_100004B18();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v40)(v0, v42, v5);
+  (v63)(v0, v65, v6);
   sub_100003F1C();
   sub_100007A10();
-  sub_10000955C();
-  v33 = sub_1000095D8();
-  sub_1000042A8(v33, v34, v35, v39);
+  sub_10000955C(v50, v51, v52, v1);
+  v53 = sub_1000095D8();
+  sub_1000042A8(v53, v54, v55, v62);
   sub_100005BC0();
   DisplayRepresentation.Image.init(systemName:tintColor:symbolConfiguration:)();
   DisplayRepresentation.init(title:subtitle:image:)();
-  *(v17 + 6 * v41) = 6;
+  *(v18 + 6 * v64) = 6;
   sub_100066BE8();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v40)(v0, v42, v5);
+  (v63)(v0, v65, v6);
   sub_100003F1C();
   sub_100007A10();
-  sub_10000955C();
-  v36 = sub_1000095D8();
-  sub_1000042A8(v36, v37, v38, v39);
+  sub_10000955C(v56, v57, v58, v1);
+  v59 = sub_1000095D8();
+  sub_1000042A8(v59, v60, v61, v62);
   sub_100005BC0();
   DisplayRepresentation.Image.init(systemName:tintColor:symbolConfiguration:)();
   DisplayRepresentation.init(title:subtitle:image:)();
@@ -5047,12 +5057,12 @@ Swift::Int sub_10005A1D0(char a1)
   return Hasher._finalize()();
 }
 
-uint64_t sub_10005A248()
+uint64_t sub_10005A248(uint64_t a1, char a2)
 {
   String.hash(into:)();
 }
 
-uint64_t sub_10005A2A8()
+uint64_t sub_10005A2A8(uint64_t a1, char a2)
 {
   String.hash(into:)();
 }
@@ -5066,7 +5076,7 @@ Swift::Int sub_10005A3E8(uint64_t a1, char a2)
   return Hasher._finalize()();
 }
 
-Swift::Int sub_10005A448()
+Swift::Int sub_10005A448(uint64_t a1, char a2)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -5219,7 +5229,7 @@ void sub_10005A97C(void *a1, char a2, id a3)
 
   sub_100084FDC(v7);
   v9 = v8;
-  sub_10002E87C(&qword_100100BC0);
+  sub_10002E87C(&qword_100100BC0, &qword_1000C3EE0);
   if (a2)
   {
     inited = swift_initStackObject();
@@ -5274,17 +5284,17 @@ void sub_10005AAC8(uint64_t a1, void *a2)
   __break(1u);
 }
 
-void *sub_10005AB58(uint64_t a1)
+void *sub_10005AB58(void *a1)
 {
-  v2 = *(a1 + 16);
+  v2 = a1[2];
   if (!v2)
   {
     goto LABEL_4;
   }
 
-  v3 = sub_10008D6A0(*(a1 + 16), 0);
+  v3 = sub_10008D6A0(a1[2], 0);
   v4 = sub_1000480B0(&v6, v3 + 4, v2, a1);
-  sub_100048024();
+  sub_100048024(v6);
   if (v4 != v2)
   {
     __break(1u);
@@ -5301,91 +5311,92 @@ void GetShortcutAttributesAction.init()()
   sub_1000043AC();
   type metadata accessor for InputConnectionBehavior();
   sub_100004458();
-  v45 = v0;
-  v46 = v1;
-  __chkstk_darwin(v0);
+  v49 = v1;
+  v50 = v2;
+  __chkstk_darwin(v1);
   sub_100007944();
-  sub_10000516C(v2);
-  v3 = sub_10002E87C(&qword_1000FF570);
-  v4 = sub_100002EE0(v3);
-  __chkstk_darwin(v4);
+  sub_10000516C(v3);
+  v4 = sub_10002E87C(&qword_1000FF570, &unk_1000C0480);
+  v5 = sub_100002EE0(v4);
+  __chkstk_darwin(v5);
   sub_10000F1A8();
   sub_10000667C();
-  __chkstk_darwin(v5);
+  __chkstk_darwin(v6);
   sub_100005184();
-  sub_10000F7E0(v6);
-  v7 = sub_10002E87C(&qword_1000FF580);
-  sub_100002EE0(v7);
+  sub_10000F7E0(v7);
+  v8 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
+  sub_100002EE0(v8);
   sub_100005B90();
-  __chkstk_darwin(v8);
+  __chkstk_darwin(v9);
   sub_100005B00();
   type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_100004458();
-  v10 = v9;
-  __chkstk_darwin(v11);
+  v11 = v10;
+  __chkstk_darwin(v12);
   sub_1000051D8();
-  v12 = type metadata accessor for Locale();
-  v13 = sub_100002EE0(v12);
-  __chkstk_darwin(v13);
+  v13 = type metadata accessor for Locale();
+  v14 = sub_100002EE0(v13);
+  __chkstk_darwin(v14);
   sub_10000443C();
-  v14 = type metadata accessor for String.LocalizationValue();
-  v15 = sub_100002EE0(v14);
-  __chkstk_darwin(v15);
-  sub_1000039BC();
-  sub_10000F43C();
-  v43 = type metadata accessor for LocalizedStringResource();
-  sub_100002F04();
+  v15 = type metadata accessor for String.LocalizationValue();
+  v16 = sub_100002EE0(v15);
   __chkstk_darwin(v16);
   sub_1000039BC();
-  sub_10002E87C(&qword_1000FF5E0);
+  sub_10000F43C();
+  v47 = type metadata accessor for LocalizedStringResource();
+  sub_100002F04();
+  __chkstk_darwin(v17);
+  sub_1000039BC();
+  sub_10002E87C(&qword_1000FF5E0, &qword_1000C04D8);
   sub_100003E9C();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v17 = *(v10 + 104);
-  v18 = sub_100007DA0();
-  v17(v18);
+  v18 = *(v11 + 104);
+  v19 = sub_100007DA0();
+  v18(v19);
   sub_100003F1C();
-  sub_100002F40();
+  v21 = v20;
+  sub_100002F40(v0, v20);
   sub_100066984();
   sub_100066C48();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v19 = sub_100007DA0();
-  v17(v19);
-  sub_100002F40();
+  v22 = sub_100007DA0();
+  v18(v22);
+  sub_100002F40(v0, v21);
   sub_1000060AC();
-  sub_1000042A8(v20, v21, v22, v43);
-  v23 = type metadata accessor for IntentDialog();
-  v24 = sub_100004770();
-  sub_1000042A8(v24, v25, v26, v23);
-  v27 = sub_1000095D8();
-  sub_1000042A8(v27, v28, v29, v23);
-  v41 = enum case for InputConnectionBehavior.default(_:);
-  v42 = *(v46 + 104);
-  v42();
+  sub_1000042A8(v23, v24, v25, v47);
+  v26 = type metadata accessor for IntentDialog();
+  v27 = sub_100004770();
+  sub_1000042A8(v27, v28, v29, v26);
+  v30 = sub_1000095D8();
+  sub_1000042A8(v30, v31, v32, v26);
+  v45 = enum case for InputConnectionBehavior.default(_:);
+  v46 = *(v50 + 104);
+  v46();
   sub_1000309C0();
   IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:supportedValues:)();
-  sub_10002E87C(&qword_1000FF598);
-  sub_1000060C4();
-  sub_100066EB8();
+  sub_10002E87C(&qword_1000FF598, &unk_1000C04A0);
+  v33 = sub_1000060C4();
+  sub_100066EB8(v33);
   static Locale.current.getter();
-  v30 = sub_100007DA0();
-  v17(v30);
-  sub_100002F40();
+  v34 = sub_100007DA0();
+  v18(v34);
+  sub_100002F40(v0, 0x6E65746E49707041);
   sub_100066984();
   sub_100066C48();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v31 = sub_100007DA0();
-  v17(v31);
-  sub_100002F40();
-  v32 = sub_1000046F0();
-  sub_1000042A8(v32, v33, v34, v43);
-  v35 = sub_100008330();
-  sub_1000042A8(v35, v36, v37, v23);
-  v38 = sub_100004770();
-  sub_1000042A8(v38, v39, v40, v23);
-  (v42)(v44, v41, v45);
+  v35 = sub_100007DA0();
+  v18(v35);
+  sub_100002F40(v0, 0x6E65746E49707041);
+  v36 = sub_1000046F0();
+  sub_1000042A8(v36, v37, v38, v47);
+  v39 = sub_100008330();
+  sub_1000042A8(v39, v40, v41, v26);
+  v42 = sub_100004770();
+  sub_1000042A8(v42, v43, v44, v26);
+  (v46)(v48, v45, v49);
   sub_100021C0C();
   sub_100066C30();
   IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
@@ -5413,7 +5424,7 @@ uint64_t sub_10005B0AC()
 
 uint64_t sub_10005B308()
 {
-  v0 = sub_10002E87C(&qword_1000FF580);
+  v0 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   __chkstk_darwin(v0 - 8);
   v2 = &v12[-v1];
   v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -5445,12 +5456,6 @@ uint64_t (*GetShortcutAttributesAction.attribute.modify())()
   return sub_10006685C;
 }
 
-void GetShortcutAttributesAction.shortcut.setter(void *a1)
-{
-  v2 = a1;
-  sub_100066D58();
-}
-
 uint64_t (*GetShortcutAttributesAction.shortcut.modify())()
 {
   v1 = sub_10000CBF0();
@@ -5462,30 +5467,30 @@ uint64_t (*GetShortcutAttributesAction.shortcut.modify())()
 void static GetShortcutAttributesAction.parameterSummary.getter()
 {
   sub_1000079FC();
-  v0 = sub_10002E87C(&qword_100100658);
+  v0 = sub_10002E87C(&qword_100100658, &qword_1000C1A70);
   sub_100002EE0(v0);
   sub_100005B90();
   __chkstk_darwin(v1);
   sub_100003BE8();
-  sub_10002E87C(&qword_100100660);
+  sub_10002E87C(&qword_100100660, &qword_1000C1A78);
   sub_100003EC8();
   sub_100005B90();
   __chkstk_darwin(v2);
   sub_100007B14();
   sub_100063F20();
-  sub_100066D0C();
+  sub_100066D0C(9);
   v3._countAndFlagsBits = 544499015;
   v3._object = 0xE400000000000000;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v3);
   swift_getKeyPath();
-  sub_10002E87C(&qword_100100670);
+  sub_10002E87C(&qword_100100670, &qword_1000C1AA8);
   sub_100066968();
 
   v4._countAndFlagsBits = 0x20726F6620;
   v4._object = 0xE500000000000000;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v4);
   swift_getKeyPath();
-  sub_10002E87C(&qword_100100678);
+  sub_10002E87C(&qword_100100678, &qword_1000C1AD8);
   sub_100066968();
 
   v5._countAndFlagsBits = sub_1000669EC();
@@ -5508,7 +5513,7 @@ uint64_t GetShortcutAttributesAction.perform()(uint64_t a1, uint64_t a2, uint64_
 uint64_t sub_10005B934()
 {
   sub_100066AF0();
-  sub_100002FC4(0, &qword_100100158);
+  sub_100002FC4(0, &qword_100100158, WFWorkflow_ptr);
   IntentParameter.wrappedValue.getter();
   v1 = [objc_opt_self() defaultDatabase];
   v2 = sub_1000095CC();
@@ -5560,40 +5565,40 @@ uint64_t sub_10005BB98(uint64_t a1)
 void static SetShortcutAttributesAction.SetShortcutAttributesOperation.typeDisplayRepresentation.getter()
 {
   sub_1000043AC();
-  v1 = sub_10002E87C(&qword_1000FF580);
-  sub_100002EE0(v1);
+  v2 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
+  sub_100002EE0(v2);
   sub_100005B90();
-  __chkstk_darwin(v2);
+  __chkstk_darwin(v3);
   sub_100007B14();
-  v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
+  v4 = type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_100004458();
-  v5 = v4;
-  __chkstk_darwin(v6);
+  v6 = v5;
+  __chkstk_darwin(v7);
   sub_1000039BC();
   sub_100017428();
-  v7 = type metadata accessor for Locale();
-  v8 = sub_100002EE0(v7);
-  __chkstk_darwin(v8);
+  v8 = type metadata accessor for Locale();
+  v9 = sub_100002EE0(v8);
+  __chkstk_darwin(v9);
   sub_1000039BC();
   sub_100066994();
-  v9 = type metadata accessor for String.LocalizationValue();
-  v10 = sub_100002EE0(v9);
-  __chkstk_darwin(v10);
+  v10 = type metadata accessor for String.LocalizationValue();
+  v11 = sub_100002EE0(v10);
+  __chkstk_darwin(v11);
   sub_1000039BC();
   sub_100066A30();
-  v11 = type metadata accessor for LocalizedStringResource();
+  v12 = type metadata accessor for LocalizedStringResource();
   sub_100003EC8();
-  __chkstk_darwin(v12);
+  __chkstk_darwin(v13);
   sub_1000051D8();
   sub_100066A10();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (*(v5 + 104))(v0, enum case for LocalizedStringResource.BundleDescription.main(_:), v3);
+  (*(v6 + 104))(v0, enum case for LocalizedStringResource.BundleDescription.main(_:), v4);
   sub_100003F1C();
   sub_100007A10();
-  sub_1000042D0();
-  v13 = sub_100005E08();
-  sub_1000042A8(v13, v14, v15, v11);
+  sub_1000042D0(v14, v15, v16, v1, v0);
+  v17 = sub_100005E08();
+  sub_1000042A8(v17, v18, v19, v12);
   sub_100066D88();
   TypeDisplayRepresentation.init(name:numericFormat:)();
   sub_100002EEC();
@@ -5602,18 +5607,18 @@ void static SetShortcutAttributesAction.SetShortcutAttributesOperation.typeDispl
 void static SetShortcutAttributesAction.SetShortcutAttributesOperation.caseDisplayRepresentations.getter()
 {
   sub_1000043AC();
-  v1 = sub_10002E87C(&qword_100100528);
+  v1 = sub_10002E87C(&qword_100100528, &qword_1000C1788);
   sub_100002EE0(v1);
   sub_100005B90();
   __chkstk_darwin(v2);
   sub_100005B00();
-  v3 = sub_10002E87C(&qword_1000FF580);
+  v3 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   sub_100002EE0(v3);
   sub_100005B90();
   __chkstk_darwin(v4);
   sub_100005B00();
   sub_1000042F8();
-  v30 = type metadata accessor for LocalizedStringResource.BundleDescription();
+  v38 = type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_10000F720();
   v6 = v5;
   __chkstk_darwin(v7);
@@ -5623,48 +5628,49 @@ void static SetShortcutAttributesAction.SetShortcutAttributesOperation.caseDispl
   v9 = sub_100002EE0(v8);
   __chkstk_darwin(v9);
   sub_100007944();
-  v10 = type metadata accessor for String.LocalizationValue();
-  v11 = sub_100002EE0(v10);
-  __chkstk_darwin(v11);
+  v11 = v10;
+  v12 = type metadata accessor for String.LocalizationValue();
+  v13 = sub_100002EE0(v12);
+  __chkstk_darwin(v13);
   sub_1000051D8();
-  v33 = type metadata accessor for LocalizedStringResource();
+  v41 = type metadata accessor for LocalizedStringResource();
   sub_100003EC8();
-  __chkstk_darwin(v12);
+  __chkstk_darwin(v14);
   sub_100007944();
-  sub_10002E87C(&qword_100100688);
-  v13 = sub_10002E87C(&qword_100100690) - 8;
-  v32 = *(*v13 + 72);
-  v14 = (*(*v13 + 80) + 32) & ~*(*v13 + 80);
-  v34 = swift_allocObject();
-  *(v34 + 16) = xmmword_1000C0D80;
-  v15 = v34 + v14;
-  *(v34 + v14) = 0;
+  sub_10002E87C(&qword_100100688, &qword_1000C1AE8);
+  v15 = sub_10002E87C(&qword_100100690, &unk_1000C1AF0) - 8;
+  v40 = *(*v15 + 72);
+  v16 = (*(*v15 + 80) + 32) & ~*(*v15 + 80);
+  v42 = swift_allocObject();
+  *(v42 + 16) = xmmword_1000C0D80;
+  v17 = v42 + v16;
+  *(v42 + v16) = 0;
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v29 = enum case for LocalizedStringResource.BundleDescription.main(_:);
-  v31 = *(v6 + 104);
-  v31(v0);
+  v37 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+  v39 = *(v6 + 104);
+  v39(v0);
   sub_100003F1C();
   sub_100007A10();
-  sub_1000042D0();
-  v16 = sub_100006150();
-  sub_100033518(v16, v17, v18, v33);
-  v19 = type metadata accessor for DisplayRepresentation.Image();
-  v20 = sub_1000095D8();
-  sub_1000042A8(v20, v21, v22, v19);
+  sub_1000042D0(v18, v19, v20, v11, v0);
+  v21 = sub_100006150();
+  sub_100033518(v21, v22, v23, v41);
+  v24 = type metadata accessor for DisplayRepresentation.Image();
+  v25 = sub_1000095D8();
+  sub_1000042A8(v25, v26, v27, v24);
   sub_100006144();
   DisplayRepresentation.init(title:subtitle:image:)();
-  *(v15 + v32) = 1;
+  *(v17 + v40) = 1;
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v31)(v0, v29, v30);
+  (v39)(v0, v37, v38);
   sub_100003F1C();
   sub_100007A10();
-  sub_1000042D0();
-  v23 = sub_100006150();
-  sub_1000042A8(v23, v24, v25, v33);
-  v26 = sub_1000095D8();
-  sub_1000042A8(v26, v27, v28, v19);
+  sub_1000042D0(v28, v29, v30, v11, v0);
+  v31 = sub_100006150();
+  sub_1000042A8(v31, v32, v33, v41);
+  v34 = sub_1000095D8();
+  sub_1000042A8(v34, v35, v36, v24);
   sub_100006144();
   DisplayRepresentation.init(title:subtitle:image:)();
   type metadata accessor for DisplayRepresentation();
@@ -5747,144 +5753,144 @@ uint64_t sub_10005C300(uint64_t a1)
 void SetShortcutAttributesAction.init()()
 {
   sub_1000043AC();
-  v1 = sub_10002E87C(&qword_1000FF600);
-  sub_100002EE0(v1);
+  v2 = sub_10002E87C(&qword_1000FF600, &qword_1000C04E8);
+  sub_100002EE0(v2);
   sub_100005B90();
-  __chkstk_darwin(v2);
+  __chkstk_darwin(v3);
   sub_100005B00();
   sub_1000042F8();
-  v67 = type metadata accessor for InputConnectionBehavior();
+  v79 = type metadata accessor for InputConnectionBehavior();
   sub_100004458();
-  v65 = v3;
-  __chkstk_darwin(v4);
+  v77 = v4;
+  __chkstk_darwin(v5);
   sub_100007944();
-  sub_10000F7E0(v5);
-  v6 = sub_10002E87C(&qword_1000FF570);
-  v7 = sub_100002EE0(v6);
-  __chkstk_darwin(v7);
+  sub_10000F7E0(v6);
+  v7 = sub_10002E87C(&qword_1000FF570, &unk_1000C0480);
+  v8 = sub_100002EE0(v7);
+  __chkstk_darwin(v8);
   sub_10000F1A8();
   sub_10000667C();
-  __chkstk_darwin(v8);
+  __chkstk_darwin(v9);
   sub_100005184();
-  v9 = sub_10002E87C(&qword_1000FF580);
-  sub_100002EE0(v9);
+  v10 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
+  sub_100002EE0(v10);
   sub_100005B90();
-  __chkstk_darwin(v10);
+  __chkstk_darwin(v11);
   sub_100005B00();
-  v11 = type metadata accessor for LocalizedStringResource.BundleDescription();
+  v12 = type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_10000F720();
-  v13 = v12;
-  __chkstk_darwin(v14);
+  v14 = v13;
+  __chkstk_darwin(v15);
   sub_1000051D8();
-  v15 = type metadata accessor for Locale();
-  v16 = sub_100002EE0(v15);
-  __chkstk_darwin(v16);
+  v16 = type metadata accessor for Locale();
+  v17 = sub_100002EE0(v16);
+  __chkstk_darwin(v17);
   sub_1000039BC();
   sub_100011D5C();
-  v17 = type metadata accessor for String.LocalizationValue();
-  v18 = sub_100002EE0(v17);
-  __chkstk_darwin(v18);
-  sub_1000039BC();
-  sub_10000F43C();
-  v62 = type metadata accessor for LocalizedStringResource();
-  sub_100002F04();
+  v18 = type metadata accessor for String.LocalizationValue();
+  v19 = sub_100002EE0(v18);
   __chkstk_darwin(v19);
   sub_1000039BC();
-  sub_10002E87C(&qword_1000FF5F0);
+  sub_10000F43C();
+  v74 = type metadata accessor for LocalizedStringResource();
+  sub_100002F04();
+  __chkstk_darwin(v20);
+  sub_1000039BC();
+  sub_10002E87C(&qword_1000FF5F0, &qword_1000C04E0);
   sub_100066A10();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v20 = enum case for LocalizedStringResource.BundleDescription.main(_:);
-  v21 = *(v13 + 104);
-  v60 = enum case for LocalizedStringResource.BundleDescription.main(_:);
-  (v21)(v0, enum case for LocalizedStringResource.BundleDescription.main(_:), v11);
+  v21 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+  v22 = *(v14 + 104);
+  v72 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+  (v22)(v1, enum case for LocalizedStringResource.BundleDescription.main(_:), v12);
   sub_100003F1C();
-  sub_100066A64();
-  sub_100019C38();
+  v23 = sub_100066A64();
+  sub_100019C38(v23, v24);
   sub_100019BFC();
   sub_1000669E0();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v21)(v0, v20, v11);
-  sub_100066D7C();
-  sub_100019C38();
+  (v22)(v1, v21, v12);
+  v25 = sub_100066D7C();
+  sub_100019C38(v25, v26);
   sub_1000060AC();
-  sub_1000042A8(v22, v23, v24, v62);
-  v61 = type metadata accessor for IntentDialog();
-  v25 = sub_100005E08();
-  sub_1000042A8(v25, v26, v27, v61);
-  v28 = sub_1000095D8();
-  sub_1000042A8(v28, v29, v30, v61);
-  v64 = enum case for InputConnectionBehavior.default(_:);
-  v63 = *(v65 + 104);
-  v63();
+  sub_1000042A8(v27, v28, v29, v74);
+  v73 = type metadata accessor for IntentDialog();
+  v30 = sub_100005E08();
+  sub_1000042A8(v30, v31, v32, v73);
+  v33 = sub_1000095D8();
+  sub_1000042A8(v33, v34, v35, v73);
+  v76 = enum case for InputConnectionBehavior.default(_:);
+  v75 = *(v77 + 104);
+  v75();
   sub_100030FAC();
   IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:supportedValues:)();
-  sub_10002E87C(&qword_1000FF5E0);
+  sub_10002E87C(&qword_1000FF5E0, &qword_1000C04D8);
   sub_100003E9C();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v21)(v0, v60, v11);
-  sub_100019C38();
+  (v22)(v1, v72, v12);
+  sub_100019C38(v0, 0x6E65746E49707041);
   sub_100066984();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v21)(v0, v60, v11);
-  sub_100066A64();
-  sub_100019C38();
+  (v22)(v1, v72, v12);
+  v36 = sub_100066A64();
+  sub_100019C38(v36, 0x6E65746E49707041);
   sub_1000060AC();
-  sub_1000042A8(v31, v32, v33, v62);
-  v34 = sub_100006150();
-  sub_1000042A8(v34, v35, v36, v61);
+  sub_1000042A8(v37, v38, v39, v74);
+  v40 = sub_100006150();
+  sub_1000042A8(v40, v41, v42, v73);
   sub_100004730();
-  sub_1000042A8(v37, v38, v39, v61);
-  (v63)(v66, v64, v67);
+  sub_1000042A8(v43, v44, v45, v73);
+  (v75)(v78, v76, v79);
   sub_1000309C0();
   IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:supportedValues:)();
-  sub_10002E87C(&qword_1000FF598);
-  sub_1000060C4();
-  sub_100066EB8();
+  sub_10002E87C(&qword_1000FF598, &unk_1000C04A0);
+  v46 = sub_1000060C4();
+  sub_100066EB8(v46);
   static Locale.current.getter();
-  (v21)(v0, v60, v11);
-  sub_100019C38();
+  (v22)(v1, v72, v12);
+  sub_100019C38(v0, 0x6E65746E49707041);
   sub_100019BFC();
   sub_1000669E0();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v40 = sub_100007DA0();
-  v21(v40);
-  sub_100011E00();
-  sub_100019C38();
-  v41 = sub_1000046F0();
-  sub_1000042A8(v41, v42, v43, v62);
+  v47 = sub_100007DA0();
+  v22(v47);
+  v48 = sub_100011E00();
+  sub_100019C38(v48, v49);
+  v50 = sub_1000046F0();
+  sub_1000042A8(v50, v51, v52, v74);
   sub_100004730();
-  sub_1000042A8(v44, v45, v46, v61);
+  sub_1000042A8(v53, v54, v55, v73);
   sub_100004730();
-  sub_1000042A8(v47, v48, v49, v61);
-  (v63)(v66, v64, v67);
+  sub_1000042A8(v56, v57, v58, v73);
+  (v75)(v78, v76, v79);
   sub_100021C0C();
   sub_100066D70();
   IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
-  sub_10002E87C(&qword_1000FF608);
+  sub_10002E87C(&qword_1000FF608, &unk_1000C04F0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v21)(v0, v60, v11);
-  sub_100066A64();
-  sub_100019C38();
+  (v22)(v1, v72, v12);
+  v59 = sub_100066A64();
+  sub_100019C38(v59, 0x6E65746E49707041);
   sub_1000669E0();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v21)(v0, v60, v11);
-  sub_100066D7C();
-  sub_100019C38();
+  (v22)(v1, v72, v12);
+  v60 = sub_100066D7C();
+  sub_100019C38(v60, v61);
   sub_1000060AC();
-  sub_1000042A8(v50, v51, v52, v62);
+  sub_1000042A8(v62, v63, v64, v74);
   type metadata accessor for Bool.IntentDisplayName();
-  v53 = sub_100004770();
-  sub_1000042A8(v53, v54, v55, v56);
-  v57 = sub_100006150();
-  sub_1000042A8(v57, v58, v59, v61);
-  (v63)(v66, v64, v67);
+  v65 = sub_100004770();
+  sub_1000042A8(v65, v66, v67, v68);
+  v69 = sub_100006150();
+  sub_1000042A8(v69, v70, v71, v73);
+  (v75)(v78, v76, v79);
   sub_100066B98();
   IntentParameter<>.init(title:description:default:displayName:requestValueDialog:inputConnectionBehavior:)();
   sub_100002EEC();
@@ -5893,149 +5899,149 @@ void SetShortcutAttributesAction.init()()
 void SetShortcutAttributesAction.init(attribute:operation:state:)()
 {
   sub_1000043AC();
-  v1 = sub_10002E87C(&qword_1000FF600);
-  sub_100002EE0(v1);
+  v3 = sub_10002E87C(&qword_1000FF600, &qword_1000C04E8);
+  sub_100002EE0(v3);
   sub_100005B90();
-  __chkstk_darwin(v2);
+  __chkstk_darwin(v4);
   sub_100005B00();
   sub_1000042F8();
   type metadata accessor for InputConnectionBehavior();
   sub_100004458();
-  v67 = v3;
-  v68 = v4;
-  __chkstk_darwin(v3);
+  v74 = v5;
+  v75 = v6;
+  __chkstk_darwin(v5);
   sub_100007944();
-  sub_1000669F8(v5);
-  v6 = sub_10002E87C(&qword_1000FF570);
-  v7 = sub_100002EE0(v6);
-  __chkstk_darwin(v7);
+  sub_1000669F8(v7);
+  v8 = sub_10002E87C(&qword_1000FF570, &unk_1000C0480);
+  v9 = sub_100002EE0(v8);
+  __chkstk_darwin(v9);
   sub_10000F1A8();
   sub_10000667C();
-  __chkstk_darwin(v8);
-  sub_100005184();
-  v9 = sub_10002E87C(&qword_1000FF580);
-  sub_100002EE0(v9);
-  sub_100005B90();
   __chkstk_darwin(v10);
+  sub_100005184();
+  v11 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
+  sub_100002EE0(v11);
+  sub_100005B90();
+  __chkstk_darwin(v12);
   sub_100005B00();
   sub_1000042F8();
-  v11 = type metadata accessor for LocalizedStringResource.BundleDescription();
+  v13 = type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_100004458();
-  v13 = v12;
-  __chkstk_darwin(v14);
-  sub_1000039BC();
-  sub_100011D5C();
-  v15 = type metadata accessor for Locale();
-  v16 = sub_100002EE0(v15);
+  v15 = v14;
   __chkstk_darwin(v16);
   sub_1000039BC();
-  sub_100017428();
-  v17 = type metadata accessor for String.LocalizationValue();
+  sub_100011D5C();
+  v17 = type metadata accessor for Locale();
   v18 = sub_100002EE0(v17);
   __chkstk_darwin(v18);
   sub_1000039BC();
-  sub_100066A30();
-  v65 = type metadata accessor for LocalizedStringResource();
-  sub_100002F04();
-  __chkstk_darwin(v19);
+  sub_100017428();
+  v19 = type metadata accessor for String.LocalizationValue();
+  v20 = sub_100002EE0(v19);
+  __chkstk_darwin(v20);
   sub_1000039BC();
-  sub_10002E87C(&qword_1000FF5F0);
+  sub_100066A30();
+  v72 = type metadata accessor for LocalizedStringResource();
+  sub_100002F04();
+  __chkstk_darwin(v21);
+  sub_1000039BC();
+  sub_10002E87C(&qword_1000FF5F0, &qword_1000C04E0);
   sub_100066A10();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v20 = enum case for LocalizedStringResource.BundleDescription.main(_:);
-  v21 = *(v13 + 104);
-  v22 = sub_100066B60();
-  v21(v22);
+  v22 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+  v23 = *(v15 + 104);
+  v24 = sub_100066B60();
+  v23(v24);
   sub_100066DB8();
-  sub_100066DA0();
-  sub_1000668DC();
+  v25 = sub_100066DA0();
+  sub_1000668DC(v25, v2);
   sub_100019BFC();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v23 = sub_100066B60();
-  v21(v23);
-  sub_1000668DC();
+  v26 = sub_100066B60();
+  v23(v26);
+  sub_1000668DC(v1, v2);
   sub_1000060AC();
-  sub_1000042A8(v24, v25, v26, v65);
-  v63 = type metadata accessor for IntentDialog();
+  sub_1000042A8(v27, v28, v29, v72);
+  v70 = type metadata accessor for IntentDialog();
   sub_100004730();
-  sub_1000042A8(v27, v28, v29, v63);
-  v30 = sub_100005E08();
-  sub_1000042A8(v30, v31, v32, v63);
-  v62 = enum case for InputConnectionBehavior.default(_:);
-  v64 = *(v68 + 104);
-  v64();
+  sub_1000042A8(v30, v31, v32, v70);
+  v33 = sub_100005E08();
+  sub_1000042A8(v33, v34, v35, v70);
+  v69 = enum case for InputConnectionBehavior.default(_:);
+  v71 = *(v75 + 104);
+  v71();
   sub_100030FAC();
   IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:supportedValues:)();
-  sub_10002E87C(&qword_1000FF5E0);
+  sub_10002E87C(&qword_1000FF5E0, &qword_1000C04D8);
 
   sub_100003E9C();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v21)(v0, v20, v11);
-  sub_100066DA0();
-  sub_1000668DC();
+  (v23)(v0, v22, v13);
+  v36 = sub_100066DA0();
+  sub_1000668DC(v36, 0x6E65746E49707041);
   sub_100004B18();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v33 = sub_100066B60();
-  v21(v33);
-  sub_100066DA0();
-  sub_1000668DC();
+  v37 = sub_100066B60();
+  v23(v37);
+  v38 = sub_100066DA0();
+  sub_1000668DC(v38, 0x6E65746E49707041);
   sub_1000060AC();
-  sub_1000042A8(v34, v35, v36, v65);
+  sub_1000042A8(v39, v40, v41, v72);
   sub_100004730();
-  sub_1000042A8(v37, v38, v39, v63);
+  sub_1000042A8(v42, v43, v44, v70);
   sub_100004730();
-  sub_1000042A8(v40, v41, v42, v63);
-  (v64)(v66, v62, v67);
+  sub_1000042A8(v45, v46, v47, v70);
+  (v71)(v73, v69, v74);
   sub_1000309C0();
   sub_100066D94();
   IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:supportedValues:)();
-  sub_10002E87C(&qword_1000FF598);
+  sub_10002E87C(&qword_1000FF598, &unk_1000C04A0);
 
   sub_1000060C4();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v21)(v0, v20, v11);
-  sub_1000668DC();
+  (v23)(v0, v22, v13);
+  sub_1000668DC(v1, 0x6E65746E49707041);
   sub_100019BFC();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v21)(v0, v20, v11);
-  sub_100066DA0();
-  sub_1000668DC();
+  (v23)(v0, v22, v13);
+  v48 = sub_100066DA0();
+  sub_1000668DC(v48, 0x6E65746E49707041);
   sub_1000060AC();
-  sub_1000042A8(v43, v44, v45, v65);
-  v46 = sub_100005E08();
-  sub_1000042A8(v46, v47, v48, v63);
+  sub_1000042A8(v49, v50, v51, v72);
+  v52 = sub_100005E08();
+  sub_1000042A8(v52, v53, v54, v70);
   sub_100004730();
-  sub_1000042A8(v49, v50, v51, v63);
-  (v64)(v66, v62, v67);
+  sub_1000042A8(v55, v56, v57, v70);
+  (v71)(v73, v69, v74);
   sub_100021C0C();
   sub_100066D70();
   sub_10000A5A0();
   IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
-  sub_10002E87C(&qword_1000FF608);
+  sub_10002E87C(&qword_1000FF608, &unk_1000C04F0);
 
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v21)(v0, v20, v11);
+  (v23)(v0, v22, v13);
   sub_100066DB8();
-  sub_1000668DC();
+  sub_1000668DC(v58, v69);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (v21)(v0, v20, v11);
-  sub_1000668DC();
+  (v23)(v0, v22, v13);
+  sub_1000668DC(v1, v69);
   sub_1000060AC();
-  sub_1000042A8(v52, v53, v54, v65);
+  sub_1000042A8(v59, v60, v61, v72);
   type metadata accessor for Bool.IntentDisplayName();
-  v55 = sub_100004770();
-  sub_1000042A8(v55, v56, v57, v58);
-  v59 = sub_100006150();
-  sub_1000042A8(v59, v60, v61, v63);
-  (v64)(v66, v62, v67);
+  v62 = sub_100004770();
+  sub_1000042A8(v62, v63, v64, v65);
+  v66 = sub_100006150();
+  sub_1000042A8(v66, v67, v68, v70);
+  (v71)(v73, v69, v74);
   sub_10000A5A0();
   sub_100066B98();
   IntentParameter<>.init(title:description:default:displayName:requestValueDialog:inputConnectionBehavior:)();
@@ -6069,7 +6075,7 @@ uint64_t sub_10005D460()
 
 uint64_t sub_10005D6BC()
 {
-  v0 = sub_10002E87C(&qword_1000FF580);
+  v0 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   __chkstk_darwin(v0 - 8);
   v2 = &v12[-v1];
   v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -6109,12 +6115,6 @@ uint64_t (*SetShortcutAttributesAction.attribute.modify())()
   return sub_10006685C;
 }
 
-void SetShortcutAttributesAction.shortcut.setter(void *a1)
-{
-  v2 = a1;
-  sub_100066D58();
-}
-
 uint64_t (*SetShortcutAttributesAction.shortcut.modify())()
 {
   v1 = sub_10004D490(0x28uLL);
@@ -6133,17 +6133,17 @@ uint64_t static SetShortcutAttributesAction.parameterSummary.getter()
 {
   KeyPath = swift_getKeyPath();
   v1 = sub_100006144();
-  v2 = sub_10002E87C(v1);
-  v3 = sub_10006401C();
-  v4 = sub_10000966C(&qword_1001006B0, &qword_1001006A0);
+  v3 = sub_10002E87C(v1, v2);
+  v4 = sub_10006401C();
+  v5 = sub_10000966C(&qword_1001006B0, &qword_1001006A0, &qword_1000C1B28);
 
-  return ParameterSummarySwitchCondition.init(_:_:)(KeyPath, sub_10005DCF4, 0, v2, v3, v4);
+  return ParameterSummarySwitchCondition.init(_:_:)(KeyPath, sub_10005DCF4, 0, v3, v4, v5);
 }
 
 uint64_t sub_10005DCF4@<X0>(uint64_t a1@<X8>)
 {
   v28 = a1;
-  v1 = sub_10002E87C(&qword_100100BC8);
+  v1 = sub_10002E87C(&qword_100100BC8, &qword_1000C3EF0);
   v2 = *(v1 - 8);
   v26 = v1;
   v27 = v2;
@@ -6151,20 +6151,20 @@ uint64_t sub_10005DCF4@<X0>(uint64_t a1@<X8>)
   v24 = &v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v3);
   v25 = &v19 - v5;
-  v6 = sub_10002E87C(&qword_100100BD0);
+  v6 = sub_10002E87C(&qword_100100BD0, &qword_1000C3EF8);
   v29 = *(v6 - 8);
   v7 = __chkstk_darwin(v6);
   v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v7);
   v23 = &v19 - v10;
   v30 = 0;
-  v11 = sub_10002E87C(&qword_100100BD8);
+  v11 = sub_10002E87C(&qword_100100BD8, &qword_1000C3F00);
   v21 = sub_10006401C();
   sub_100065930();
-  sub_10000966C(&qword_100100BE0, &qword_100100BD8);
+  sub_10000966C(&qword_100100BE0, &qword_100100BD8, &qword_1000C3F00);
   v22 = v11;
   ParameterSummaryCaseCondition.init(_:_:)();
-  sub_10000966C(&qword_100100BE8, &qword_100100BD0);
+  sub_10000966C(&qword_100100BE8, &qword_100100BD0, &qword_1000C3EF8);
   v12 = v6;
   static ParameterSummaryCaseBuilder.buildExpression<A>(_:)();
   v20 = *(v29 + 8);
@@ -6172,7 +6172,7 @@ uint64_t sub_10005DCF4@<X0>(uint64_t a1@<X8>)
   v20(v9, v6);
   v13 = v24;
   ParameterSummaryDefaultCaseCondition.init(_:)();
-  sub_10000966C(&qword_100100BF0, &qword_100100BC8);
+  sub_10000966C(&qword_100100BF0, &qword_100100BC8, &qword_1000C3EF0);
   v14 = v25;
   v15 = v26;
   static ParameterSummaryCaseBuilder.buildExpression<A>(_:)();
@@ -6187,11 +6187,11 @@ uint64_t sub_10005DCF4@<X0>(uint64_t a1@<X8>)
 uint64_t sub_10005E0D4@<X0>(uint64_t a1@<X8>)
 {
   v17[1] = a1;
-  v1 = sub_10002E87C(&qword_100100BF8);
+  v1 = sub_10002E87C(&qword_100100BF8, &qword_1000C3F08);
   __chkstk_darwin(v1 - 8);
-  v2 = sub_10002E87C(&qword_100100C00);
+  v2 = sub_10002E87C(&qword_100100C00, &qword_1000C3F10);
   __chkstk_darwin(v2);
-  v3 = sub_10002E87C(&qword_100100BD8);
+  v3 = sub_10002E87C(&qword_100100BD8, &qword_1000C3F00);
   v4 = *(v3 - 8);
   v5 = __chkstk_darwin(v3);
   v7 = v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -6203,28 +6203,28 @@ uint64_t sub_10005E0D4@<X0>(uint64_t a1@<X8>)
   v10._object = 0xE000000000000000;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v10);
   swift_getKeyPath();
-  sub_10002E87C(&qword_100100C08);
+  sub_10002E87C(&qword_100100C08, &qword_1000C3F18);
   ParameterSummaryString.StringInterpolation.appendInterpolation<A, B>(_:)();
 
   v11._countAndFlagsBits = 32;
   v11._object = 0xE100000000000000;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v11);
   swift_getKeyPath();
-  sub_10002E87C(&qword_100100C10);
+  sub_10002E87C(&qword_100100C10, &qword_1000C3F48);
   ParameterSummaryString.StringInterpolation.appendInterpolation<A, B>(_:)();
 
   v12._countAndFlagsBits = 32;
   v12._object = 0xE100000000000000;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v12);
   swift_getKeyPath();
-  sub_10002E87C(&qword_100100C20);
+  sub_10002E87C(&qword_100100C20, &qword_1000C3FA8);
   ParameterSummaryString.StringInterpolation.appendInterpolation<A, B>(_:)();
 
   v13._countAndFlagsBits = 0x20726F6620;
   v13._object = 0xE500000000000000;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v13);
   swift_getKeyPath();
-  sub_10002E87C(&qword_100100C18);
+  sub_10002E87C(&qword_100100C18, &qword_1000C3F78);
   ParameterSummaryString.StringInterpolation.appendInterpolation<A, B>(_:)();
 
   v14._countAndFlagsBits = 0;
@@ -6232,7 +6232,7 @@ uint64_t sub_10005E0D4@<X0>(uint64_t a1@<X8>)
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v14);
   ParameterSummaryString.init(stringInterpolation:)();
   IntentParameterSummary.init(_:table:)();
-  sub_10000966C(&qword_100100BE0, &qword_100100BD8);
+  sub_10000966C(&qword_100100BE0, &qword_100100BD8, &qword_1000C3F00);
   static ParameterSummaryBuilder.buildExpression<A>(_:)();
   v15 = *(v4 + 8);
   v15(v7, v3);
@@ -6250,11 +6250,11 @@ uint64_t sub_10005E4A0@<X0>(uint64_t *a1@<X8>)
 uint64_t sub_10005E4CC@<X0>(uint64_t a1@<X8>)
 {
   v16[1] = a1;
-  v1 = sub_10002E87C(&qword_100100BF8);
+  v1 = sub_10002E87C(&qword_100100BF8, &qword_1000C3F08);
   __chkstk_darwin(v1 - 8);
-  v2 = sub_10002E87C(&qword_100100C00);
+  v2 = sub_10002E87C(&qword_100100C00, &qword_1000C3F10);
   __chkstk_darwin(v2);
-  v3 = sub_10002E87C(&qword_100100BD8);
+  v3 = sub_10002E87C(&qword_100100BD8, &qword_1000C3F00);
   v4 = *(v3 - 8);
   v5 = __chkstk_darwin(v3);
   v7 = v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -6266,21 +6266,21 @@ uint64_t sub_10005E4CC@<X0>(uint64_t a1@<X8>)
   v10._object = 0xE000000000000000;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v10);
   swift_getKeyPath();
-  sub_10002E87C(&qword_100100C08);
+  sub_10002E87C(&qword_100100C08, &qword_1000C3F18);
   ParameterSummaryString.StringInterpolation.appendInterpolation<A, B>(_:)();
 
   v11._countAndFlagsBits = 32;
   v11._object = 0xE100000000000000;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v11);
   swift_getKeyPath();
-  sub_10002E87C(&qword_100100C10);
+  sub_10002E87C(&qword_100100C10, &qword_1000C3F48);
   ParameterSummaryString.StringInterpolation.appendInterpolation<A, B>(_:)();
 
   v12._countAndFlagsBits = 0x20726F6620;
   v12._object = 0xE500000000000000;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v12);
   swift_getKeyPath();
-  sub_10002E87C(&qword_100100C18);
+  sub_10002E87C(&qword_100100C18, &qword_1000C3F78);
   ParameterSummaryString.StringInterpolation.appendInterpolation<A, B>(_:)();
 
   v13._countAndFlagsBits = 0;
@@ -6288,7 +6288,7 @@ uint64_t sub_10005E4CC@<X0>(uint64_t a1@<X8>)
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v13);
   ParameterSummaryString.init(stringInterpolation:)();
   IntentParameterSummary.init(_:table:)();
-  sub_10000966C(&qword_100100BE0, &qword_100100BD8);
+  sub_10000966C(&qword_100100BE0, &qword_100100BD8, &qword_1000C3F00);
   static ParameterSummaryBuilder.buildExpression<A>(_:)();
   v14 = *(v4 + 8);
   v14(v7, v3);
@@ -6308,7 +6308,7 @@ uint64_t SetShortcutAttributesAction.perform()(uint64_t a1, uint64_t a2, uint64_
 
 uint64_t sub_10005E86C()
 {
-  sub_100002FC4(0, &qword_100100158);
+  sub_100002FC4(0, &qword_100100158, WFWorkflow_ptr);
   IntentParameter.wrappedValue.getter();
   v1 = [objc_opt_self() defaultDatabase];
   v2 = sub_1000095CC();
@@ -6337,7 +6337,7 @@ uint64_t sub_10005E86C()
   *(v0 + 16) = v0;
   *(v0 + 24) = sub_10005EA90;
   v10 = swift_continuation_init();
-  *(v0 + 136) = sub_10002E87C(&qword_1001006B8);
+  *(v0 + 136) = sub_10002E87C(&qword_1001006B8, &qword_1000C1B38);
   *(v0 + 80) = _NSConcreteStackBlock;
   *(v0 + 88) = 1107296256;
   *(v0 + 96) = sub_10005ECC4;
@@ -6445,62 +6445,62 @@ void CreateShortcutiCloudLinkAction.init()()
   sub_1000043AC();
   type metadata accessor for InputConnectionBehavior();
   sub_100004458();
-  __chkstk_darwin(v0);
+  __chkstk_darwin(v1);
   sub_100007944();
-  sub_10000516C(v1);
-  v2 = sub_10002E87C(&qword_1000FF570);
-  v3 = sub_100002EE0(v2);
-  __chkstk_darwin(v3);
+  sub_10000516C(v2);
+  v3 = sub_10002E87C(&qword_1000FF570, &unk_1000C0480);
+  v4 = sub_100002EE0(v3);
+  __chkstk_darwin(v4);
   sub_10000F1A8();
   sub_10000667C();
-  v5 = __chkstk_darwin(v4);
-  sub_10000E8B0(v5, v6, v7, v8, v9, v10, v11, v12, v39);
-  v13 = sub_10002E87C(&qword_1000FF580);
-  sub_100002EE0(v13);
+  v6 = __chkstk_darwin(v5);
+  sub_10000E8B0(v6, v7, v8, v9, v10, v11, v12, v13, v40);
+  v14 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
+  sub_100002EE0(v14);
   sub_100005B90();
-  __chkstk_darwin(v14);
-  sub_100005AEC(v15, v40);
+  __chkstk_darwin(v15);
+  sub_100005AEC(v16, v41);
   type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_100004458();
-  v17 = v16;
-  __chkstk_darwin(v18);
+  v18 = v17;
+  __chkstk_darwin(v19);
   sub_10001C6E4();
-  v19 = type metadata accessor for Locale();
-  v20 = sub_100002EE0(v19);
-  __chkstk_darwin(v20);
+  v20 = type metadata accessor for Locale();
+  v21 = sub_100002EE0(v20);
+  __chkstk_darwin(v21);
   sub_10000443C();
-  v21 = type metadata accessor for String.LocalizationValue();
-  v22 = sub_100002EE0(v21);
-  __chkstk_darwin(v22);
+  v22 = type metadata accessor for String.LocalizationValue();
+  v23 = sub_100002EE0(v22);
+  __chkstk_darwin(v23);
   sub_1000039BC();
   sub_100066958();
   type metadata accessor for LocalizedStringResource();
   sub_100003EC8();
-  __chkstk_darwin(v23);
+  __chkstk_darwin(v24);
   sub_1000051D8();
-  sub_10002E87C(&qword_1000FF598);
+  sub_10002E87C(&qword_1000FF598, &unk_1000C04A0);
   sub_1000060C4();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v24 = *(v17 + 104);
-  v25 = sub_1000334F4();
-  v24(v25);
+  v25 = *(v18 + 104);
+  v26 = sub_1000334F4();
+  v25(v26);
   sub_100005B78();
-  sub_10000F6AC();
+  sub_10000F6AC(v0);
   sub_100004B18();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v26 = sub_1000334F4();
-  v24(v26);
-  sub_10000F6AC();
-  v27 = sub_1000046F0();
-  v30 = sub_100066B08(v27, v28, v29);
-  v31 = sub_100008330();
-  sub_1000042A8(v31, v32, v33, v30);
-  v34 = sub_100005E08();
-  sub_1000042A8(v34, v35, v36, v30);
-  v37 = sub_10000A5AC();
-  v38(v37);
+  v27 = sub_1000334F4();
+  v25(v27);
+  sub_10000F6AC(v0);
+  v28 = sub_1000046F0();
+  v31 = sub_100066B08(v28, v29, v30);
+  v32 = sub_100008330();
+  sub_1000042A8(v32, v33, v34, v31);
+  v35 = sub_100005E08();
+  sub_1000042A8(v35, v36, v37, v31);
+  v38 = sub_10000A5AC();
+  v39(v38);
   sub_100021C0C();
   sub_100066C30();
   sub_10000B0B8();
@@ -6541,7 +6541,7 @@ uint64_t static CreateShortcutiCloudLinkAction.title.modify()
 
 uint64_t sub_10005F484()
 {
-  v0 = sub_10002E87C(&qword_1000FF580);
+  v0 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   __chkstk_darwin(v0 - 8);
   v2 = &v12[-v1];
   v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -6576,23 +6576,23 @@ uint64_t (*CreateShortcutiCloudLinkAction.shortcut.modify())()
 void static CreateShortcutiCloudLinkAction.parameterSummary.getter()
 {
   sub_1000079FC();
-  v0 = sub_10002E87C(&qword_1001006C0);
+  v0 = sub_10002E87C(&qword_1001006C0, &qword_1000C1B40);
   sub_100002EE0(v0);
   sub_100005B90();
   __chkstk_darwin(v1);
   sub_100003BE8();
-  sub_10002E87C(&qword_1001006C8);
+  sub_10002E87C(&qword_1001006C8, &qword_1000C1B48);
   sub_100003EC8();
   sub_100005B90();
   __chkstk_darwin(v2);
   sub_100007B14();
   sub_100064070();
-  sub_100066B38();
+  sub_100066B38(23);
   sub_100004B18();
   v3._countAndFlagsBits = sub_100066C48();
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v3);
   swift_getKeyPath();
-  sub_10002E87C(&qword_1001006D8);
+  sub_10002E87C(&qword_1001006D8, &qword_1000C1B78);
   sub_100066968();
 
   v4._countAndFlagsBits = sub_1000669EC();
@@ -6625,7 +6625,7 @@ uint64_t sub_10005F9DC()
   sub_100066AF0();
   v1 = [objc_allocWithZone(WFWorkflowPrepareForSharingOptions) init];
   v0[25] = v1;
-  sub_100002FC4(0, &qword_100100158);
+  sub_100002FC4(0, &qword_100100158, WFWorkflow_ptr);
   IntentParameter.wrappedValue.getter();
   v2 = [objc_opt_self() defaultDatabase];
   v3 = sub_1000095CC();
@@ -6651,7 +6651,7 @@ uint64_t sub_10005F9DC()
   v0[7] = v11;
   v0[3] = sub_10005FC9C;
   v13 = swift_continuation_init();
-  v0[17] = sub_10002E87C(&qword_1001006E0);
+  v0[17] = sub_10002E87C(&qword_1001006E0, &qword_1000C1B88);
   v0[10] = _NSConcreteStackBlock;
   v0[11] = 1107296256;
   v0[12] = sub_10005FF70;
@@ -6706,17 +6706,17 @@ uint64_t sub_10005FDA0()
   return v9();
 }
 
-uint64_t sub_10005FECC()
+uint64_t sub_10005FECC(__n128 a1)
 {
-  v1 = *(v0 + 232);
-  v2 = *(v0 + 224);
-  v4 = *(v0 + 200);
-  v3 = *(v0 + 208);
+  v2 = *(v1 + 232);
+  v3 = *(v1 + 224);
+  v5 = *(v1 + 200);
+  v4 = *(v1 + 208);
   swift_willThrow();
 
   sub_100003BDC();
 
-  return v5();
+  return v6();
 }
 
 uint64_t sub_10005FF70(uint64_t a1, uint64_t a2, void *a3)
@@ -6756,53 +6756,53 @@ void DeleteWorkflowAction.init()()
   sub_1000043AC();
   type metadata accessor for InputConnectionBehavior();
   sub_100004458();
-  __chkstk_darwin(v1);
+  __chkstk_darwin(v2);
   sub_100007944();
-  sub_10000516C(v2);
-  v3 = sub_10002E87C(&qword_1000FF570);
-  v4 = sub_100002EE0(v3);
-  __chkstk_darwin(v4);
+  sub_10000516C(v3);
+  v4 = sub_10002E87C(&qword_1000FF570, &unk_1000C0480);
+  v5 = sub_100002EE0(v4);
+  __chkstk_darwin(v5);
   sub_10000F1A8();
   sub_10000667C();
-  __chkstk_darwin(v5);
-  v6 = sub_10002E87C(&qword_1000FF580);
-  sub_100002EE0(v6);
+  __chkstk_darwin(v6);
+  v7 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
+  sub_100002EE0(v7);
   sub_100005B90();
-  __chkstk_darwin(v7);
+  __chkstk_darwin(v8);
   sub_100066994();
-  v8 = type metadata accessor for LocalizedStringResource.BundleDescription();
+  v9 = type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_100004458();
-  v10 = v9;
-  __chkstk_darwin(v11);
+  v11 = v10;
+  __chkstk_darwin(v12);
   sub_10001C6E4();
-  v12 = type metadata accessor for Locale();
-  v13 = sub_100002EE0(v12);
-  __chkstk_darwin(v13);
+  v13 = type metadata accessor for Locale();
+  v14 = sub_100002EE0(v13);
+  __chkstk_darwin(v14);
   sub_10000443C();
-  v14 = type metadata accessor for String.LocalizationValue();
-  v15 = sub_100002EE0(v14);
-  __chkstk_darwin(v15);
+  v15 = type metadata accessor for String.LocalizationValue();
+  v16 = sub_100002EE0(v15);
+  __chkstk_darwin(v16);
   sub_10001C794();
   type metadata accessor for LocalizedStringResource();
   sub_100003EC8();
-  __chkstk_darwin(v16);
+  __chkstk_darwin(v17);
   sub_1000051D8();
-  sub_10002E87C(&qword_1000FF5B8);
+  sub_10002E87C(&qword_1000FF5B8, &qword_1000C18B0);
   sub_1000060C4();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (*(v10 + 104))(v0, enum case for LocalizedStringResource.BundleDescription.main(_:), v8);
+  (*(v11 + 104))(v0, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
   sub_100003F1C();
   sub_100007A10();
-  sub_1000042D0();
+  sub_1000042D0(v18, v19, v20, v1, v0);
   sub_100004730();
-  v20 = sub_100066B08(v17, v18, v19);
-  v21 = sub_100006150();
-  sub_1000042A8(v21, v22, v23, v20);
-  v24 = sub_100005E08();
-  sub_1000042A8(v24, v25, v26, v20);
-  v27 = sub_10000A5AC();
-  v28(v27);
+  v24 = sub_100066B08(v21, v22, v23);
+  v25 = sub_100006150();
+  sub_1000042A8(v25, v26, v27, v24);
+  v28 = sub_100005E08();
+  sub_1000042A8(v28, v29, v30, v24);
+  v31 = sub_10000A5AC();
+  v32(v31);
   sub_100021C0C();
   sub_100066C30();
   IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
@@ -6842,7 +6842,7 @@ uint64_t static DeleteWorkflowAction.title.modify()
 
 uint64_t sub_100060760()
 {
-  v0 = sub_10002E87C(&qword_1000FF580);
+  v0 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   __chkstk_darwin(v0 - 8);
   v2 = &v12[-v1];
   v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -6960,106 +6960,107 @@ uint64_t sub_100060E18(uint64_t a1)
 void SearchShortcutsAction.init()()
 {
   sub_1000043AC();
-  v0 = sub_10002E87C(&qword_1000FF578);
-  sub_100002EE0(v0);
+  v1 = sub_10002E87C(&qword_1000FF578, &unk_1000C17D0);
+  sub_100002EE0(v1);
   sub_100005B90();
-  __chkstk_darwin(v1);
+  __chkstk_darwin(v2);
   sub_100005B00();
   sub_1000042F8();
   type metadata accessor for InputConnectionBehavior();
   sub_100004458();
-  v54 = v2;
-  v55 = v3;
-  __chkstk_darwin(v2);
+  v60 = v3;
+  v61 = v4;
+  __chkstk_darwin(v3);
   sub_100007944();
-  v53 = v4;
-  v5 = sub_10002E87C(&qword_1000FF570);
-  v6 = sub_100002EE0(v5);
-  __chkstk_darwin(v6);
+  v59 = v5;
+  v6 = sub_10002E87C(&qword_1000FF570, &unk_1000C0480);
+  v7 = sub_100002EE0(v6);
+  __chkstk_darwin(v7);
   sub_10000F1A8();
   sub_10000667C();
-  __chkstk_darwin(v7);
+  __chkstk_darwin(v8);
   sub_100005184();
-  v8 = sub_10002E87C(&qword_1000FF5A8);
-  sub_100002EE0(v8);
+  v9 = sub_10002E87C(&qword_1000FF5A8, &unk_1000C1810);
+  sub_100002EE0(v9);
   sub_100005B90();
-  __chkstk_darwin(v9);
+  __chkstk_darwin(v10);
   sub_100005B00();
-  v10 = sub_10002E87C(&qword_1000FF580);
-  sub_100002EE0(v10);
+  v11 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
+  sub_100002EE0(v11);
   sub_100005B90();
-  __chkstk_darwin(v11);
+  __chkstk_darwin(v12);
   sub_100005B00();
   type metadata accessor for LocalizedStringResource.BundleDescription();
   sub_100004458();
-  v13 = v12;
-  __chkstk_darwin(v14);
+  v14 = v13;
+  __chkstk_darwin(v15);
   sub_1000039BC();
   sub_100066958();
-  v15 = type metadata accessor for Locale();
-  v16 = sub_100002EE0(v15);
-  __chkstk_darwin(v16);
+  v16 = type metadata accessor for Locale();
+  v17 = sub_100002EE0(v16);
+  __chkstk_darwin(v17);
   sub_1000039BC();
   sub_100011D5C();
-  v17 = type metadata accessor for String.LocalizationValue();
-  v18 = sub_100002EE0(v17);
-  __chkstk_darwin(v18);
+  v18 = type metadata accessor for String.LocalizationValue();
+  v19 = sub_100002EE0(v18);
+  __chkstk_darwin(v19);
   sub_1000039BC();
   sub_100066994();
-  v52 = type metadata accessor for LocalizedStringResource();
+  v58 = type metadata accessor for LocalizedStringResource();
   sub_100003EC8();
-  __chkstk_darwin(v19);
+  __chkstk_darwin(v20);
   sub_10001C794();
-  sub_10002E87C(&qword_1000FF5C8);
+  sub_10002E87C(&qword_1000FF5C8, &unk_1000C04C0);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v20 = *(v13 + 104);
-  v21 = sub_100066DAC();
-  v20(v21);
-  sub_100003F1C();
-  sub_10000B0F4();
-  String.LocalizationValue.init(stringLiteral:)();
-  static Locale.current.getter();
+  v21 = *(v14 + 104);
   v22 = sub_100066DAC();
-  v20(v22);
-  sub_10000B0F4();
+  v21(v22);
+  sub_100003F1C();
+  v24 = v23;
+  sub_10000B0F4(v0, v23);
+  String.LocalizationValue.init(stringLiteral:)();
+  static Locale.current.getter();
+  v25 = sub_100066DAC();
+  v21(v25);
+  sub_10000B0F4(v0, v24);
   sub_1000060AC();
-  sub_100033518(v23, v24, v25, v52);
+  sub_100033518(v26, v27, v28, v58);
   type metadata accessor for String.IntentInputOptions();
-  v26 = sub_100008330();
-  sub_100033518(v26, v27, v28, v29);
-  v49 = type metadata accessor for IntentDialog();
+  v29 = sub_100008330();
+  sub_100033518(v29, v30, v31, v32);
+  v55 = type metadata accessor for IntentDialog();
   sub_100004730();
-  sub_1000042A8(v30, v31, v32, v33);
-  v50 = enum case for InputConnectionBehavior.default(_:);
-  v51 = *(v55 + 104);
-  v51(v53);
+  sub_1000042A8(v33, v34, v35, v36);
+  v56 = enum case for InputConnectionBehavior.default(_:);
+  v57 = *(v61 + 104);
+  v57(v59);
   IntentParameter<>.init(title:description:default:inputOptions:requestValueDialog:inputConnectionBehavior:)();
-  sub_10002E87C(&qword_1000FF588);
+  sub_10002E87C(&qword_1000FF588, &qword_1000C0498);
   sub_100066BC8();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v34 = sub_100066DAC();
-  v20(v34);
-  sub_10000B0F4();
+  v37 = sub_100066DAC();
+  v21(v37);
+  sub_10000B0F4(v0, 0x6E65746E49707041);
   sub_100004B18();
   sub_100066C48();
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  v35 = sub_100066DAC();
-  v20(v35);
-  sub_100011DAC();
-  sub_10000B0F4();
-  v36 = sub_1000046F0();
-  sub_100033518(v36, v37, v38, v52);
-  type metadata accessor for NavigationDestinationEntity();
-  v39 = sub_100004770();
-  sub_1000042A8(v39, v40, v41, v42);
-  v43 = sub_1000095D8();
-  sub_1000042A8(v43, v44, v45, v49);
-  v46 = sub_100008330();
-  sub_1000042A8(v46, v47, v48, v49);
-  (v51)(v53, v50, v54);
+  v38 = sub_100066DAC();
+  v21(v38);
+  v39 = sub_100011DAC();
+  sub_10000B0F4(v39, v40);
+  v41 = sub_1000046F0();
+  v44 = sub_100033518(v41, v42, v43, v58);
+  type metadata accessor for NavigationDestinationEntity(v44);
+  v45 = sub_100004770();
+  sub_1000042A8(v45, v46, v47, v48);
+  v49 = sub_1000095D8();
+  sub_1000042A8(v49, v50, v51, v55);
+  v52 = sub_100008330();
+  sub_1000042A8(v52, v53, v54, v55);
+  (v57)(v59, v56, v60);
   sub_10002F79C();
   IntentParameter<>.init<A>(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:query:)();
   sub_100002EEC();
@@ -7101,20 +7102,20 @@ uint64_t sub_100061618()
   return v5(v4);
 }
 
-uint64_t sub_1000616E4(uint64_t a1, void *a2, uint64_t (*a3)(void), uint64_t a4)
+uint64_t sub_1000616E4(uint64_t a1, void *a2, uint64_t (*a3)(void), uint64_t a4, uint64_t a5)
 {
   if (*a2 != -1)
   {
     swift_once();
   }
 
-  v7 = a3(0);
-  v8 = sub_10004D458(v7, a4);
+  v8 = a3(0);
+  v9 = sub_10004D458(v8, a4);
   swift_beginAccess();
-  (*(*(v7 - 8) + 24))(v8, a1, v7);
+  (*(*(v8 - 8) + 24))(v9, a1, v8);
   swift_endAccess();
-  v9 = sub_1000042EC();
-  return v10(v9);
+  v10 = sub_1000042EC();
+  return v11(v10);
 }
 
 uint64_t static SearchShortcutsAction.title.modify()
@@ -7131,7 +7132,7 @@ uint64_t static SearchShortcutsAction.title.modify()
 
 uint64_t sub_100061848()
 {
-  v0 = sub_10002E87C(&qword_1000FF580);
+  v0 = sub_10002E87C(&qword_1000FF580, &qword_1000C0490);
   __chkstk_darwin(v0 - 8);
   v2 = &v12[-v1];
   v3 = type metadata accessor for LocalizedStringResource.BundleDescription();
@@ -7155,16 +7156,16 @@ uint64_t sub_100061848()
   return IntentDescription.init(_:categoryName:searchKeywords:)();
 }
 
-uint64_t sub_100061B38(void *a1, uint64_t (*a2)(void), uint64_t a3)
+uint64_t sub_100061B38(void *a1, uint64_t (*a2)(void), uint64_t a3, uint64_t a4)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = a2(0);
+  v6 = a2(0);
 
-  return sub_10004D458(v5, a3);
+  return sub_10004D458(v6, a3);
 }
 
 uint64_t sub_100061BCC()
@@ -7193,13 +7194,13 @@ uint64_t (*SearchShortcutsAction.searchPhrase.modify())()
 
 uint64_t sub_100061CD0()
 {
-  sub_100005730();
-  v1 = type metadata accessor for NavigationDestinationEntity();
-  v2 = sub_100002EE0(v1);
-  __chkstk_darwin(v2);
+  v1 = sub_100005730();
+  v2 = type metadata accessor for NavigationDestinationEntity(v1);
+  v3 = sub_100002EE0(v2);
+  __chkstk_darwin(v3);
   sub_1000039BC();
-  v3 = sub_1000042EC();
-  sub_10004D580(v3, v4);
+  v4 = sub_1000042EC();
+  sub_10004D580(v4, v5);
   IntentParameter.wrappedValue.setter();
   return sub_1000639A4(v0);
 }
@@ -7215,12 +7216,12 @@ uint64_t (*SearchShortcutsAction.folder.modify())()
 void static SearchShortcutsAction.parameterSummary.getter()
 {
   sub_1000079FC();
-  v0 = sub_10002E87C(&qword_1001006F0);
+  v0 = sub_10002E87C(&qword_1001006F0, &qword_1000C1B98);
   sub_100002EE0(v0);
   sub_100005B90();
   __chkstk_darwin(v1);
   sub_100003BE8();
-  sub_10002E87C(&qword_1001006F8);
+  sub_10002E87C(&qword_1001006F8, &qword_1000C1BA0);
   sub_100003EC8();
   sub_100005B90();
   __chkstk_darwin(v2);
@@ -7231,7 +7232,7 @@ void static SearchShortcutsAction.parameterSummary.getter()
   v3._object = 0xE700000000000000;
   ParameterSummaryString.StringInterpolation.appendLiteral(_:)(v3);
   swift_getKeyPath();
-  sub_10002E87C(&qword_100100708);
+  sub_10002E87C(&qword_100100708, &qword_1000C1BD0);
   sub_100007DBC();
   ParameterSummaryString.StringInterpolation.appendInterpolation<A, B>(_:)();
 
@@ -7250,7 +7251,7 @@ uint64_t sub_100061F1C()
   sub_1000640C4();
   v0 = static IntentParameterSummary.ParameterKeyPathsBuilder.buildExpression<A>(_:)();
 
-  sub_10002E87C(&qword_1001000E0);
+  sub_10002E87C(&qword_1001000E0, &qword_1000C12D0);
   v1 = swift_allocObject();
   *(v1 + 16) = xmmword_1000C0DB0;
   *(v1 + 32) = v0;
@@ -7266,7 +7267,7 @@ uint64_t SearchShortcutsAction.perform()()
   v0[5] = v1;
   v0[6] = v2;
   v0[4] = v3;
-  v4 = sub_10002E87C(&qword_1000FFFC0);
+  v4 = sub_10002E87C(&qword_1000FFFC0, &qword_1000C11E0);
   sub_100002EE0(v4);
   v0[7] = sub_100066AA0();
   v5 = type metadata accessor for RootNavigationContext.TransitionType();
@@ -7298,25 +7299,26 @@ uint64_t sub_100062134()
   {
     v2 = v1;
     v3 = *(v0 + 104);
-    v12 = *(v0 + 40);
+    v13 = *(v0 + 40);
     (*(*(v0 + 72) + 104))(*(v0 + 80), enum case for RootNavigationContext.TransitionType.pushAndReplace(_:), *(v0 + 64));
     type metadata accessor for RootPPTTestCase();
     v4 = sub_1000095D8();
     sub_1000042A8(v4, v5, v6, v7);
     sub_100004730();
     RootNavigationContext.init(dismissOccludingViewController:clearSearchState:animateTransition:createAutomation:transitionType:pptTest:)();
-    *(v0 + 152) = static MainActor.shared.getter();
-    v8 = swift_task_alloc();
-    *(v0 + 160) = v8;
-    *(v8 + 16) = v2;
-    *(v8 + 24) = v12;
-    *(v8 + 40) = v3;
+    v8 = static MainActor.shared.getter();
+    *(v0 + 152) = v8;
     v9 = swift_task_alloc();
-    *(v0 + 168) = v9;
-    *v9 = v0;
-    v9[1] = sub_100062320;
+    *(v0 + 160) = v9;
+    *(v9 + 16) = v2;
+    *(v9 + 24) = v13;
+    *(v9 + 40) = v3;
+    v10 = swift_task_alloc();
+    *(v0 + 168) = v10;
+    *v10 = v0;
+    v10[1] = sub_100062320;
 
-    return withCheckedContinuation<A>(isolation:function:_:)();
+    return withCheckedContinuation<A>(isolation:function:_:)(v10, v8, &protocol witness table for MainActor, 0x286D726F66726570, 0xE900000000000029, sub_100064118, v9, &type metadata for () + 8);
   }
 
   else
@@ -7326,7 +7328,7 @@ uint64_t sub_100062134()
 
     sub_100019CB0();
 
-    return v10();
+    return v11();
   }
 }
 
@@ -7395,14 +7397,14 @@ uint64_t sub_100062474()
 
 uint64_t sub_1000625E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = sub_10002E87C(&qword_100100BB8);
+  v7 = sub_10002E87C(&qword_100100BB8, &qword_1000C3EB0);
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
   v10 = &v22 - v9;
-  v11 = sub_10002E87C(&qword_100100020);
+  v11 = sub_10002E87C(&qword_100100020, &qword_1000C12A0);
   __chkstk_darwin(v11 - 8);
   v13 = &v22 - v12;
-  v14 = type metadata accessor for NavigationDestinationEntity();
+  v14 = type metadata accessor for NavigationDestinationEntity(0);
   __chkstk_darwin(v14 - 8);
   v16 = &v22 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   IntentParameter.wrappedValue.getter();
@@ -7417,7 +7419,7 @@ uint64_t sub_1000625E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   sub_100015BD0(&qword_100100000, type metadata accessor for MainViewController);
   RootView.navigate(to:with:completion:)();
 
-  sub_1000069B0(v13, &qword_100100020);
+  sub_1000069B0(v13, &qword_100100020, &qword_1000C12A0);
   v20 = type metadata accessor for RootNavigationDestination();
   return (*(*(v20 - 8) + 8))(v16, v20);
 }
@@ -7501,12 +7503,12 @@ uint64_t sub_100062C28(uint64_t result)
   return result;
 }
 
-void sub_100062C54(uint64_t a1)
+void sub_100062C54(uint64_t result)
 {
   v2 = (*v1)[3];
-  if (a1 + 1 > (v2 >> 1))
+  if (result + 1 > (v2 >> 1))
   {
-    sub_10008D124(v2 > 1, a1 + 1, 1, *v1);
+    sub_10008D124(v2 > 1, result + 1, 1, *v1);
     *v1 = v3;
   }
 }
@@ -7564,24 +7566,24 @@ uint64_t sub_100062DB8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 }
 
-uint64_t sub_100062DFC()
+uint64_t sub_100062DFC(uint64_t a1, uint64_t a2)
 {
-  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = v1;
-  if (v0 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v2 == v3)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
-_BYTE *sub_100062E88(uint64_t a1, void *a2)
+void *sub_100062E88(uint64_t a1, void *a2)
 {
   v2 = a2;
   if (a2[2])
@@ -7874,7 +7876,7 @@ uint64_t sub_1000635A8(void *a1, uint64_t a2, void *__src, uint64_t a4, uint64_t
   return v13;
 }
 
-uint64_t sub_100063630(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+_BYTE *sub_100063630(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = a4;
   if (!a3)
@@ -7891,7 +7893,7 @@ LABEL_6:
     return v4;
   }
 
-  sub_10002E87C(&unk_100101F60);
+  sub_10002E87C(&unk_100101F60, &qword_1000C3EE8);
   result = static _SetStorage.allocate(capacity:)();
   v9 = result;
   if (a2 < 1)
@@ -7922,7 +7924,7 @@ LABEL_17:
     v19 = -1 << v9[32];
     v20 = v18 & ~v19;
     v21 = v20 >> 6;
-    if (((-1 << v20) & ~*(v12 + 8 * (v20 >> 6))) == 0)
+    if (((-1 << v20) & ~*&v12[8 * (v20 >> 6)]) == 0)
     {
       v23 = 0;
       v24 = (63 - v19) >> 6;
@@ -7935,7 +7937,7 @@ LABEL_17:
         }
 
         v23 |= v25;
-        v26 = *(v12 + 8 * v21);
+        v26 = *&v12[8 * v21];
         if (v26 != -1)
         {
           v22 = __clz(__rbit64(~v26)) + (v21 << 6);
@@ -7946,9 +7948,9 @@ LABEL_17:
       goto LABEL_30;
     }
 
-    v22 = __clz(__rbit64((-1 << v20) & ~*(v12 + 8 * (v20 >> 6)))) | v20 & 0x7FFFFFFFFFFFFFC0;
+    v22 = __clz(__rbit64((-1 << v20) & ~*&v12[8 * (v20 >> 6)])) | v20 & 0x7FFFFFFFFFFFFFC0;
 LABEL_26:
-    *(v12 + ((v22 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v22;
+    *&v12[(v22 >> 3) & 0x1FFFFFFFFFFFFFF8] |= 1 << v22;
     *(*(v9 + 6) + 8 * v22) = v17;
     ++*(v9 + 2);
     if (__OFSUB__(v5--, 1))
@@ -8026,29 +8028,29 @@ uint64_t sub_1000638E8(void *a1)
 
 uint64_t sub_1000639A4(uint64_t a1)
 {
-  v2 = type metadata accessor for NavigationDestinationEntity();
+  v2 = type metadata accessor for NavigationDestinationEntity(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
 uint64_t sub_100063A00(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for NavigationDestinationEntity();
+  v4 = type metadata accessor for NavigationDestinationEntity(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
-uint64_t sub_100063A64(uint64_t a1, unint64_t a2)
+double sub_100063A64(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return sub_100063A78(a1, a2);
+    return sub_100063A78(result, a2);
   }
 
-  return a1;
+  return v2;
 }
 
-uint64_t sub_100063A78(uint64_t a1, unint64_t a2)
+double sub_100063A78(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
@@ -8057,15 +8059,17 @@ uint64_t sub_100063A78(uint64_t a1, unint64_t a2)
       return result;
     }
   }
+
+  return result;
 }
 
-uint64_t sub_100063AD0(uint64_t a1, unint64_t a2)
+uint64_t sub_100063AD0(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v2;
     }
   }
 }
@@ -8154,12 +8158,12 @@ unint64_t sub_100063D20()
   return result;
 }
 
-uint64_t sub_100063D74(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_100063D74(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  sub_10002E87C(a3);
+  sub_10002E87C(a3, a4);
   sub_100003EC8();
-  v4 = sub_100005BCC();
-  v5(v4);
+  v5 = sub_100005BCC();
+  v6(v5);
   return a2;
 }
 
@@ -8336,7 +8340,7 @@ unint64_t sub_100064280()
   result = qword_100100730;
   if (!qword_100100730)
   {
-    sub_100041CB4(&qword_100100738);
+    sub_100041CB4(&qword_100100738, qword_1000C1C90);
     sub_100015BD0(&qword_100100580, type metadata accessor for NavigationDestinationEntity);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100100730);
@@ -8470,7 +8474,7 @@ unint64_t sub_1000648A0()
   result = qword_1001007D8;
   if (!qword_1001007D8)
   {
-    sub_100041CB4(&qword_1001007E0);
+    sub_100041CB4(&qword_1001007E0, qword_1000C2310);
     sub_100021754();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1001007D8);
@@ -9103,10 +9107,10 @@ unint64_t sub_100065F64()
   return result;
 }
 
-uint64_t sub_100066018()
+uint64_t sub_100066018(uint64_t a1)
 {
   result = type metadata accessor for RootNavigationDestination();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -9751,7 +9755,7 @@ LABEL_8:
 
 uint64_t sub_1000666C8()
 {
-  v0 = sub_10002E87C(&qword_100100BB8);
+  v0 = sub_10002E87C(&qword_100100BB8, &qword_1000C3EB0);
   sub_100002EE0(v0);
 
   return sub_1000628C8();
@@ -9769,7 +9773,7 @@ uint64_t *sub_100066730(uint64_t a1, uint64_t *a2)
   return a2;
 }
 
-uint64_t sub_1000668DC()
+uint64_t sub_1000668DC(uint64_t a1, uint64_t a2)
 {
 
   return LocalizedStringResource.init(_:table:locale:bundle:comment:)();
@@ -9789,8 +9793,9 @@ uint64_t sub_100066968()
 
 void sub_100066A40()
 {
+  v2 = *(v0 + 16) + 1;
 
-  sub_100062D18();
+  sub_100062D18(0, v2, 1);
 }
 
 uint64_t sub_100066A70(uint64_t a1)
@@ -9814,7 +9819,7 @@ uint64_t sub_100066B08(uint64_t a1, uint64_t a2, uint64_t a3)
   return type metadata accessor for IntentDialog();
 }
 
-uint64_t sub_100066B38()
+uint64_t sub_100066B38(uint64_t a1)
 {
 
   return ParameterSummaryString.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -9826,16 +9831,16 @@ uint64_t sub_100066B80()
   return swift_task_alloc();
 }
 
-uint64_t sub_100066C9C()
+uint64_t sub_100066C9C(uint64_t a1, uint64_t a2)
 {
 
   return swift_allocError();
 }
 
-void sub_100066CB4()
+void sub_100066CB4(uint64_t a1, uint64_t a2)
 {
 
-  sub_100062D18();
+  sub_100062D18(0, a2, 1);
 }
 
 uint64_t sub_100066CCC()
@@ -9850,7 +9855,7 @@ uint64_t sub_100066CF0()
   return String.LocalizationValue.init(stringLiteral:)();
 }
 
-uint64_t sub_100066D0C()
+uint64_t sub_100066D0C(uint64_t a1)
 {
 
   return ParameterSummaryString.StringInterpolation.init(literalCapacity:interpolationCount:)();
@@ -9862,13 +9867,13 @@ uint64_t sub_100066D28()
   return static Array._unconditionallyBridgeFromObjectiveC(_:)();
 }
 
-uint64_t sub_100066D40()
+void *sub_100066D40(uint64_t a1, ...)
 {
 
   return IntentParameter.wrappedValue.getter();
 }
 
-uint64_t sub_100066D58()
+uint64_t sub_100066D58(uint64_t a1, ...)
 {
 
   return IntentParameter.wrappedValue.setter();
@@ -9888,10 +9893,10 @@ uint64_t sub_100066E50()
   return ParameterSummaryString.init(stringInterpolation:)();
 }
 
-void sub_100066E70()
+void sub_100066E70(uint64_t a1)
 {
 
-  sub_100062D18();
+  sub_100062D18(a1, v1, 1);
 }
 
 id sub_100066E88()

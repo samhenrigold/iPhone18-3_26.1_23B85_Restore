@@ -3,6 +3,7 @@
 - (CKFetchRecordZoneChangesConfiguration)init;
 - (CKFetchRecordZoneChangesConfiguration)initWithCoder:(id)coder;
 - (NSArray)desiredKeys;
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)encodeWithCoder:(id)coder;
 - (void)setDesiredKeys:(NSArray *)desiredKeys;
@@ -29,6 +30,57 @@
   }
 
   return result;
+}
+
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand
+{
+  privateCopy = private;
+  publicCopy = public;
+  v8 = objc_msgSend_desiredKeys(self, a2, public, private, expand);
+  v12 = objc_msgSend_dictionaryWithCapacity_(MEMORY[0x1E695DF90], v9, 5);
+  if (privateCopy)
+  {
+    v13 = objc_msgSend_previousServerChangeToken(self, v10, v11);
+    objc_msgSend_CKAddPropertySafelyForKey_value_(v12, v14, @"previousChangeToken", v13);
+
+    if (objc_msgSend_count(v8, v15, v16))
+    {
+      objc_msgSend_CKAddPropertySafelyForKey_value_(v12, v10, @"desiredKeys", v8);
+    }
+  }
+
+  if (publicCopy)
+  {
+    v17 = MEMORY[0x1E696AD98];
+    v18 = objc_msgSend_resultsLimit(self, v10, v11);
+    v20 = objc_msgSend_numberWithUnsignedInteger_(v17, v19, v18);
+    objc_msgSend_CKAddPropertySafelyForKey_value_(v12, v21, @"resultsLimit", v20);
+
+    if (v8)
+    {
+      if (!objc_msgSend_count(v8, v22, v23))
+      {
+        objc_msgSend_CKAddPropertySafelyForKey_value_(v12, v24, @"desiredKeys", @"[system fields only]");
+      }
+    }
+
+    else
+    {
+      objc_msgSend_CKAddPropertySafelyForKey_value_(v12, v22, @"desiredKeys", @"[all keys]");
+    }
+
+    if (objc_msgSend_fetchNewestChangesFirst(self, v24, v25))
+    {
+      objc_msgSend_CKAddPropertySafelyForKey_value_(v12, v26, @"fetchNewestChangesFirst", @"true");
+    }
+
+    if (objc_msgSend_fetchChangesMadeByThisDevice(self, v26, v27))
+    {
+      objc_msgSend_CKAddPropertySafelyForKey_value_(v12, v28, @"fetchChangesMadeByThisDevice", @"true");
+    }
+  }
+
+  return v12;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

@@ -16,10 +16,10 @@
 
 - (BOOL)_axIsDismissButton
 {
-  v40 = *MEMORY[0x29EDCA608];
-  v36.receiver = self;
-  v36.super_class = UIButtonAccessibility__Sharing__UIKit;
-  accessibilityLabel = [(UIButtonAccessibility__Sharing__UIKit *)&v36 accessibilityLabel];
+  v39 = *MEMORY[0x29EDCA608];
+  v35.receiver = self;
+  v35.super_class = UIButtonAccessibility__Sharing__UIKit;
+  accessibilityLabel = [(UIButtonAccessibility__Sharing__UIKit *)&v35 accessibilityLabel];
   if ([accessibilityLabel isEqualToString:@"x"])
   {
     v4 = 1;
@@ -27,59 +27,59 @@
   }
 
   selfCopy = self;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   allTargets = [(UIButtonAccessibility__Sharing__UIKit *)selfCopy allTargets];
-  v7 = [allTargets countByEnumeratingWithState:&v32 objects:v39 count:16];
+  v7 = [allTargets countByEnumeratingWithState:&v31 objects:v38 count:16];
   if (!v7)
   {
     v4 = 0;
     goto LABEL_29;
   }
 
-  v8 = *v33;
-  v22 = *v33;
+  v8 = *v32;
+  v21 = *v32;
   while (2)
   {
     v9 = 0;
-    v23 = v7;
+    v22 = v7;
     do
     {
-      if (*v33 != v8)
+      if (*v32 != v8)
       {
         objc_enumerationMutation(allTargets);
       }
 
-      v10 = *(*(&v32 + 1) + 8 * v9);
+      v10 = *(*(&v31 + 1) + 8 * v9);
+      v27 = 0u;
       v28 = 0u;
       v29 = 0u;
       v30 = 0u;
-      v31 = 0u;
-      v11 = [(UIButtonAccessibility__Sharing__UIKit *)selfCopy actionsForTarget:v10 forControlEvent:0x2000, v22];
-      v12 = [v11 countByEnumeratingWithState:&v28 objects:v38 count:16];
+      v11 = [(UIButtonAccessibility__Sharing__UIKit *)selfCopy actionsForTarget:v10 forControlEvent:0x2000, v21];
+      v12 = [v11 countByEnumeratingWithState:&v27 objects:v37 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v29;
+        v14 = *v28;
 LABEL_10:
         v15 = 0;
         while (1)
         {
-          if (*v29 != v14)
+          if (*v28 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          if ([*(*(&v28 + 1) + 8 * v15) isEqualToString:@"handleDismissButton:"])
+          if ([*(*(&v27 + 1) + 8 * v15) isEqualToString:@"handleDismissButton:"])
           {
             goto LABEL_27;
           }
 
           if (v13 == ++v15)
           {
-            v13 = [v11 countByEnumeratingWithState:&v28 objects:v38 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v27 objects:v37 count:16];
             if (v13)
             {
               goto LABEL_10;
@@ -90,33 +90,33 @@ LABEL_10:
         }
       }
 
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       v11 = [(UIButtonAccessibility__Sharing__UIKit *)selfCopy actionsForTarget:v10 forControlEvent:64];
-      v16 = [v11 countByEnumeratingWithState:&v24 objects:v37 count:16];
+      v16 = [v11 countByEnumeratingWithState:&v23 objects:v36 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v25;
+        v18 = *v24;
 LABEL_18:
         v19 = 0;
         while (1)
         {
-          if (*v25 != v18)
+          if (*v24 != v18)
           {
             objc_enumerationMutation(v11);
           }
 
-          if ([*(*(&v24 + 1) + 8 * v19) isEqualToString:@"handleDismissButton:"])
+          if ([*(*(&v23 + 1) + 8 * v19) isEqualToString:@"handleDismissButton:"])
           {
             break;
           }
 
           if (v17 == ++v19)
           {
-            v17 = [v11 countByEnumeratingWithState:&v24 objects:v37 count:16];
+            v17 = [v11 countByEnumeratingWithState:&v23 objects:v36 count:16];
             if (v17)
             {
               goto LABEL_18;
@@ -135,11 +135,11 @@ LABEL_27:
 LABEL_24:
 
       ++v9;
-      v8 = v22;
+      v8 = v21;
     }
 
-    while (v9 != v23);
-    v7 = [allTargets countByEnumeratingWithState:&v32 objects:v39 count:16];
+    while (v9 != v22);
+    v7 = [allTargets countByEnumeratingWithState:&v31 objects:v38 count:16];
     v4 = 0;
     if (v7)
     {
@@ -152,7 +152,6 @@ LABEL_24:
 LABEL_29:
 
 LABEL_30:
-  v20 = *MEMORY[0x29EDCA608];
   return v4;
 }
 

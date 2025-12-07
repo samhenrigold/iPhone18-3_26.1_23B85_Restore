@@ -156,7 +156,7 @@
   identifierCopy = identifier;
   selfCopy = self;
   groupIdentifier = selfCopy->_groupIdentifier;
-  if (groupIdentifier != identifierCopy && ![(NSString *)groupIdentifier isEqualToString:identifierCopy])
+  if (groupIdentifier != identifierCopy && (objc_msgSend_isEqualToString_(groupIdentifier) & 1) == 0)
   {
     v8 = [[TUIFocusStyle alloc] initWithOther:selfCopy];
 

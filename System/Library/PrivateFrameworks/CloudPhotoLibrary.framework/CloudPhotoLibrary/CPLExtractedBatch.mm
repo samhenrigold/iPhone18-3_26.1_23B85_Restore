@@ -13,74 +13,72 @@
 
 - (void)forceScopeIndexOnAllRecordsTo:(int64_t)to
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = self->_batch;
-  v5 = [(CPLChangeBatch *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(CPLChangeBatch *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) setScopeIndex:{to, v10}];
+        [*(*(&v9 + 1) + 8 * v8++) setScopeIndex:{to, v9}];
       }
 
       while (v6 != v8);
-      v6 = [(CPLChangeBatch *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(CPLChangeBatch *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)effectiveResourceSizeToUploadUsingStorage:(id)storage
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   if (!self->_resourceSizeIsCalculated)
   {
     self->_resourceSizeIsCalculated = 1;
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v5 = self->_batch;
-    v6 = [(CPLChangeBatch *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [(CPLChangeBatch *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
+          v10 = *(*(&v13 + 1) + 8 * i);
           if ([v10 supportsResources] && objc_msgSend(v10, "hasChangeType:", 8))
           {
             self->_resourceSize += [v10 effectiveResourceSizeToUploadUsingStorage:storageCopy];
           }
         }
 
-        v7 = [(CPLChangeBatch *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [(CPLChangeBatch *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
@@ -89,7 +87,6 @@
 
   resourceSize = self->_resourceSize;
 
-  v12 = *MEMORY[0x1E69E9840];
   return resourceSize;
 }
 
@@ -208,7 +205,7 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   [coderCopy encodeObject:self->_batch forKey:@"batch"];
   mutablePushContexts = self->_mutablePushContexts;
@@ -272,16 +269,15 @@ LABEL_16:
 
   [coderCopy encodeObject:mutableUntrustableScopedIndentifiers forKey:@"untrustableIdentifiers"];
   [coderCopy encodeObject:self->_clientCacheIdentifier forKey:@"clientCacheIdentifier"];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (CPLExtractedBatch)initWithCoder:(id)coder
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v32.receiver = self;
-  v32.super_class = CPLExtractedBatch;
-  v5 = [(CPLExtractedBatch *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = CPLExtractedBatch;
+  v5 = [(CPLExtractedBatch *)&v31 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"batch"];
@@ -312,26 +308,26 @@ LABEL_16:
     v15 = v5->_untrustableScopedIdentifiers;
     v5->_untrustableScopedIdentifiers = v14;
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v16 = v5->_batch;
-    v17 = [(CPLChangeBatch *)v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v17 = [(CPLChangeBatch *)v16 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v29;
+      v19 = *v28;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v29 != v19)
+          if (*v28 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v28 + 1) + 8 * i);
+          v21 = *(*(&v27 + 1) + 8 * i);
           scopedIdentifier = [v21 scopedIdentifier];
           v23 = [(NSDictionary *)v5->_pushContexts objectForKeyedSubscript:scopedIdentifier];
           if (!v23)
@@ -346,7 +342,7 @@ LABEL_16:
           }
         }
 
-        v18 = [(CPLChangeBatch *)v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v18 = [(CPLChangeBatch *)v16 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v18);
@@ -357,27 +353,26 @@ LABEL_16:
     v5->_clientCacheIdentifier = v24;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
-uint64_t __35__CPLExtractedBatch_initWithCoder___block_invoke()
+uint64_t __35__CPLExtractedBatch_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x1E695DFD8];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
-  v3 = [v0 setWithObjects:{v1, v2, objc_opt_class(), 0}];
-  v4 = initWithCoder__pushContextsClasses_22599;
-  initWithCoder__pushContextsClasses_22599 = v3;
+  v2 = MEMORY[0x1E695DFD8];
+  v3 = objc_opt_class();
+  v4 = objc_opt_class();
+  v5 = [v2 setWithObjects:{v3, v4, objc_opt_class(), 0}];
+  v6 = initWithCoder__pushContextsClasses_22599;
+  initWithCoder__pushContextsClasses_22599 = v5;
 
-  v5 = MEMORY[0x1E695DFD8];
-  v6 = objc_opt_class();
-  v7 = objc_opt_class();
-  v8 = [v5 setWithObjects:{v6, v7, objc_opt_class(), 0}];
-  v9 = initWithCoder__untrustableIdentifiersClasses;
-  initWithCoder__untrustableIdentifiersClasses = v8;
+  v7 = MEMORY[0x1E695DFD8];
+  v8 = objc_opt_class();
+  v9 = objc_opt_class();
+  v10 = [v7 setWithObjects:{v8, v9, objc_opt_class(), 0}];
+  v11 = initWithCoder__untrustableIdentifiersClasses;
+  initWithCoder__untrustableIdentifiersClasses = v10;
 
-  return MEMORY[0x1EEE66BB8](v8, v9);
+  return MEMORY[0x1EEE66BB8](v10, v11);
 }
 
 - (CPLExtractedBatch)init

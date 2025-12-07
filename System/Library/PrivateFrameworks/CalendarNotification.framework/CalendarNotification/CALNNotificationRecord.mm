@@ -95,40 +95,7 @@
   sourceIdentifier2 = [recordCopy sourceIdentifier];
   v7 = CalEqualStrings();
 
-  if (!v7)
-  {
-    goto LABEL_6;
-  }
-
-  sourceClientIdentifier = [(CALNNotificationRecord *)self sourceClientIdentifier];
-  sourceClientIdentifier2 = [recordCopy sourceClientIdentifier];
-  v10 = CalEqualStrings();
-
-  if (!v10)
-  {
-    goto LABEL_6;
-  }
-
-  content = [(CALNNotificationRecord *)self content];
-  content2 = [recordCopy content];
-  v13 = CalEqualObjects();
-
-  if (!v13)
-  {
-    goto LABEL_6;
-  }
-
-  date = [(CALNNotificationRecord *)self date];
-  date2 = [recordCopy date];
-  v16 = CalEqualObjects();
-
-  if (!v16)
-  {
-    goto LABEL_6;
-  }
-
-  shouldPresentAlert = [(CALNNotificationRecord *)self shouldPresentAlert];
-  if (shouldPresentAlert == [recordCopy shouldPresentAlert])
+  if (v7 && (-[CALNNotificationRecord sourceClientIdentifier](self, "sourceClientIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), [recordCopy sourceClientIdentifier], v9 = objc_claimAutoreleasedReturnValue(), v10 = CalEqualStrings(), v9, v8, v10) && (-[CALNNotificationRecord content](self, "content"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(recordCopy, "content"), v12 = objc_claimAutoreleasedReturnValue(), v13 = CalEqualObjects(), v12, v11, v13) && (-[CALNNotificationRecord date](self, "date"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(recordCopy, "date"), v15 = objc_claimAutoreleasedReturnValue(), v16 = CalEqualObjects(), v15, v14, v16) && (v17 = -[CALNNotificationRecord shouldPresentAlert](self, "shouldPresentAlert"), v17 == objc_msgSend(recordCopy, "shouldPresentAlert")))
   {
     shouldPlaySound = [(CALNNotificationRecord *)self shouldPlaySound];
     v18 = shouldPlaySound ^ [recordCopy shouldPlaySound] ^ 1;
@@ -136,7 +103,6 @@
 
   else
   {
-LABEL_6:
     LOBYTE(v18) = 0;
   }
 

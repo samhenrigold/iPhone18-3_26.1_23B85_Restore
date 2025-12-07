@@ -1,5 +1,6 @@
 @interface PFCKAccountMonitor
 + (BOOL)canEnableSyncWithAccountInfo:(id)info requireDeviceToDeviceEncryption:(BOOL)encryption;
++ (BOOL)shouldNotifyForChangeFromAccountInfo:(id)info toAccountInfo:(id)accountInfo requireDeviceToDeviceEncryption:(BOOL)encryption;
 - (PFCKAccountMonitor)initWithOptions:(id)options forStoreWithIdentifier:(id)identifier;
 - (void)_assertContainer:(uint64_t)container;
 - (void)accountOrIdentityChanged:(id)changed;
@@ -70,32 +71,30 @@
 
 - (void)_assertContainer:(uint64_t)container
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (container && !*(container + 40))
   {
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412546;
+      v7 = 138412546;
       containerCopy2 = container;
-      v10 = 2112;
-      v11 = NSStringFromSelector(a2);
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: %@ can't execute '%@' without a container.\n", &v8, 0x16u);
+      v9 = 2112;
+      v10 = NSStringFromSelector(a2);
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: %@ can't execute '%@' without a container.\n", &v7, 0x16u);
     }
 
     v5 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v7 = NSStringFromSelector(a2);
-      v8 = 138412546;
+      v6 = NSStringFromSelector(a2);
+      v7 = 138412546;
       containerCopy2 = container;
-      v10 = 2112;
-      v11 = v7;
-      _os_log_fault_impl(&dword_18565F000, v5, OS_LOG_TYPE_FAULT, "CoreData: %@ can't execute '%@' without a container.", &v8, 0x16u);
+      v9 = 2112;
+      v10 = v6;
+      _os_log_fault_impl(&dword_18565F000, v5, OS_LOG_TYPE_FAULT, "CoreData: %@ can't execute '%@' without a container.", &v7, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performBlockAtPreferredQoS:(uint64_t)s
@@ -146,7 +145,7 @@
 
 void __71__PFCKAccountMonitor_establishCurrentAccountInfoWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
   v6 = Stream;
@@ -195,31 +194,30 @@ void __71__PFCKAccountMonitor_establishCurrentAccountInfoWithCompletionHandler__
     v10 = *(a1 + 32);
     v11 = *(v10 + 24);
     *buf = 136316162;
-    v17 = "[PFCKAccountMonitor establishCurrentAccountInfoWithCompletionHandler:]_block_invoke";
-    v18 = 1024;
-    v19 = 126;
-    v20 = 2112;
-    v21 = v10;
-    v22 = 2112;
-    v23 = v11;
-    v24 = 2112;
-    v25 = [NSPersistentCloudKitContainerActivityVoucher stringForQoSClass:a2];
+    v16 = "[PFCKAccountMonitor establishCurrentAccountInfoWithCompletionHandler:]_block_invoke";
+    v17 = 1024;
+    v18 = 126;
+    v19 = 2112;
+    v20 = v10;
+    v21 = 2112;
+    v22 = v11;
+    v23 = 2112;
+    v24 = [NSPersistentCloudKitContainerActivityVoucher stringForQoSClass:a2];
     _os_log_impl(&dword_18565F000, v6, v9, "CoreData+CloudKit: %s(%d): %@ for store %@ establishing current account info at '%@'.", buf, 0x30u);
   }
 
   objc_autoreleasePoolPop(v4);
   objc_initWeak(buf, *(a1 + 32));
   v12 = *(*(a1 + 32) + 40);
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __71__PFCKAccountMonitor_establishCurrentAccountInfoWithCompletionHandler___block_invoke_27;
-  v14[3] = &unk_1E6EC1B00;
-  objc_copyWeak(&v15, buf);
-  v14[4] = *(a1 + 40);
-  [v12 accountInfoWithCompletionHandler:v14];
-  objc_destroyWeak(&v15);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __71__PFCKAccountMonitor_establishCurrentAccountInfoWithCompletionHandler___block_invoke_27;
+  v13[3] = &unk_1E6EC1B00;
+  objc_copyWeak(&v14, buf);
+  v13[4] = *(a1 + 40);
+  [v12 accountInfoWithCompletionHandler:v13];
+  objc_destroyWeak(&v14);
   objc_destroyWeak(buf);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __71__PFCKAccountMonitor_establishCurrentAccountInfoWithCompletionHandler___block_invoke_27(uint64_t a1, void *a2)
@@ -255,7 +253,7 @@ void __71__PFCKAccountMonitor_establishCurrentAccountInfoWithCompletionHandler__
 
 void __72__PFCKAccountMonitor_establishCurrentUserRecordIDWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
   v6 = Stream;
@@ -304,31 +302,30 @@ void __72__PFCKAccountMonitor_establishCurrentUserRecordIDWithCompletionHandler_
     v10 = *(a1 + 32);
     v11 = *(v10 + 24);
     *buf = 136316162;
-    v17 = "[PFCKAccountMonitor establishCurrentUserRecordIDWithCompletionHandler:]_block_invoke";
-    v18 = 1024;
-    v19 = 142;
-    v20 = 2112;
-    v21 = v10;
-    v22 = 2112;
-    v23 = v11;
-    v24 = 2112;
-    v25 = [NSPersistentCloudKitContainerActivityVoucher stringForQoSClass:a2];
+    v16 = "[PFCKAccountMonitor establishCurrentUserRecordIDWithCompletionHandler:]_block_invoke";
+    v17 = 1024;
+    v18 = 142;
+    v19 = 2112;
+    v20 = v10;
+    v21 = 2112;
+    v22 = v11;
+    v23 = 2112;
+    v24 = [NSPersistentCloudKitContainerActivityVoucher stringForQoSClass:a2];
     _os_log_impl(&dword_18565F000, v6, v9, "CoreData+CloudKit: %s(%d): %@ for store %@ establishing current user recordID at '%@'.", buf, 0x30u);
   }
 
   objc_autoreleasePoolPop(v4);
   objc_initWeak(buf, *(a1 + 32));
   v12 = *(*(a1 + 32) + 40);
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __72__PFCKAccountMonitor_establishCurrentUserRecordIDWithCompletionHandler___block_invoke_30;
-  v14[3] = &unk_1E6EC1B50;
-  objc_copyWeak(&v15, buf);
-  v14[4] = *(a1 + 40);
-  [v12 fetchUserRecordIDWithCompletionHandler:v14];
-  objc_destroyWeak(&v15);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __72__PFCKAccountMonitor_establishCurrentUserRecordIDWithCompletionHandler___block_invoke_30;
+  v13[3] = &unk_1E6EC1B50;
+  objc_copyWeak(&v14, buf);
+  v13[4] = *(a1 + 40);
+  [v12 fetchUserRecordIDWithCompletionHandler:v13];
+  objc_destroyWeak(&v14);
   objc_destroyWeak(buf);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __72__PFCKAccountMonitor_establishCurrentUserRecordIDWithCompletionHandler___block_invoke_30(uint64_t a1, void *a2)
@@ -352,7 +349,7 @@ void __72__PFCKAccountMonitor_establishCurrentUserRecordIDWithCompletionHandler_
 
 - (void)clearEstablishedAccountInfoAndUserRecordID
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   objc_sync_enter(self);
   v3 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
@@ -402,19 +399,19 @@ void __72__PFCKAccountMonitor_establishCurrentUserRecordIDWithCompletionHandler_
     storeIdentifier = self->_storeIdentifier;
     currentAccountInfo = self->_currentAccountInfo;
     currentUserRecordID = self->_currentUserRecordID;
-    v13 = 136316418;
-    v14 = "[PFCKAccountMonitor clearEstablishedAccountInfoAndUserRecordID]";
-    v15 = 1024;
-    v16 = 175;
-    v17 = 2112;
+    v12 = 136316418;
+    v13 = "[PFCKAccountMonitor clearEstablishedAccountInfoAndUserRecordID]";
+    v14 = 1024;
+    v15 = 175;
+    v16 = 2112;
     selfCopy = self;
-    v19 = 2112;
-    v20 = storeIdentifier;
-    v21 = 2112;
-    v22 = currentAccountInfo;
-    v23 = 2112;
-    v24 = currentUserRecordID;
-    _os_log_impl(&dword_18565F000, v5, v8, "CoreData+CloudKit: %s(%d): %@ for store %@ clearing established account info.\n\t%@\n\t%@", &v13, 0x3Au);
+    v18 = 2112;
+    v19 = storeIdentifier;
+    v20 = 2112;
+    v21 = currentAccountInfo;
+    v22 = 2112;
+    v23 = currentUserRecordID;
+    _os_log_impl(&dword_18565F000, v5, v8, "CoreData+CloudKit: %s(%d): %@ for store %@ clearing established account info.\n\t%@\n\t%@", &v12, 0x3Au);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -422,7 +419,6 @@ void __72__PFCKAccountMonitor_establishCurrentUserRecordIDWithCompletionHandler_
   self->_currentAccountInfo = 0;
   self->_currentUserRecordID = 0;
   objc_sync_exit(self);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __76__PFCKAccountMonitor__fetchAccountInfoAndUserRecordIDWithCompletionHandler___block_invoke(uint64_t a1)
@@ -442,10 +438,10 @@ void __76__PFCKAccountMonitor__fetchAccountInfoAndUserRecordIDWithCompletionHand
 
 void __76__PFCKAccountMonitor__fetchAccountInfoAndUserRecordIDWithCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v7 = *(a1 + 32);
-  v17 = WeakRetained;
+  v16 = WeakRetained;
   if (!WeakRetained)
   {
     v13 = *(v7 + 16);
@@ -460,14 +456,14 @@ LABEL_13:
   {
     if (+[PFCKAccountMonitor canEnableSyncWithAccountInfo:requireDeviceToDeviceEncryption:](PFCKAccountMonitor, "canEnableSyncWithAccountInfo:requireDeviceToDeviceEncryption:", a2, [*(WeakRetained + 2) useDeviceToDeviceEncryption]))
     {
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __75__PFCKAccountMonitor_finishedAccountInfoFetchWith_error_completionHandler___block_invoke;
-      v18[3] = &unk_1E6EC1BF0;
-      v18[4] = v17;
-      v18[5] = a2;
-      v18[6] = v7;
-      [(PFCKAccountMonitor *)v17 performBlockAtPreferredQoS:v18];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __75__PFCKAccountMonitor_finishedAccountInfoFetchWith_error_completionHandler___block_invoke;
+      v17[3] = &unk_1E6EC1BF0;
+      v17[4] = v16;
+      v17[5] = a2;
+      v17[6] = v7;
+      [(PFCKAccountMonitor *)v16 performBlockAtPreferredQoS:v17];
       goto LABEL_14;
     }
 
@@ -492,26 +488,25 @@ LABEL_13:
 
   if (os_log_type_enabled(Stream, v11))
   {
-    v12 = v17[3];
+    v12 = v16[3];
     *buf = 136316418;
-    v20 = "[PFCKAccountMonitor finishedAccountInfoFetchWith:error:completionHandler:]";
-    v21 = 1024;
-    v22 = 287;
-    v23 = 2112;
-    v24 = v17;
-    v25 = 2112;
-    v26 = v12;
-    v27 = 2112;
-    v28 = NSStringFromSelector(sel_accountInfoWithCompletionHandler_);
-    v29 = 2112;
-    v30 = a3;
+    v19 = "[PFCKAccountMonitor finishedAccountInfoFetchWith:error:completionHandler:]";
+    v20 = 1024;
+    v21 = 287;
+    v22 = 2112;
+    v23 = v16;
+    v24 = 2112;
+    v25 = v12;
+    v26 = 2112;
+    v27 = NSStringFromSelector(sel_accountInfoWithCompletionHandler_);
+    v28 = 2112;
+    v29 = a3;
     _os_log_impl(&dword_18565F000, v10, v11, "CoreData+CloudKit: %s(%d): %@ for store %@ '%@' failed with error: %@", buf, 0x3Au);
   }
 
   objc_autoreleasePoolPop(v8);
   (*(v7 + 16))(v7, a2, 0, a3);
 LABEL_14:
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginMonitoringNotifications
@@ -548,7 +543,7 @@ LABEL_14:
 
 - (void)accountOrIdentityChanged:(id)changed
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   objc_sync_enter(self);
   v5 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
@@ -582,28 +577,27 @@ LABEL_14:
   {
     storeIdentifier = self->_storeIdentifier;
     *buf = 136316162;
-    v14 = "[PFCKAccountMonitor accountOrIdentityChanged:]";
-    v15 = 1024;
-    v16 = 239;
-    v17 = 2112;
+    v13 = "[PFCKAccountMonitor accountOrIdentityChanged:]";
+    v14 = 1024;
+    v15 = 239;
+    v16 = 2112;
     selfCopy = self;
-    v19 = 2112;
-    v20 = storeIdentifier;
-    v21 = 2112;
+    v18 = 2112;
+    v19 = storeIdentifier;
+    v20 = 2112;
     name = [changed name];
     _os_log_impl(&dword_18565F000, v7, v9, "CoreData+CloudKit: %s(%d): %@ for store %@ observed '%@'.", buf, 0x30u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __47__PFCKAccountMonitor_accountOrIdentityChanged___block_invoke;
-  v12[3] = &unk_1E6EC1BA0;
-  v12[4] = self;
-  v12[5] = changed;
-  [(PFCKAccountMonitor *)self performBlockAtPreferredQoS:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __47__PFCKAccountMonitor_accountOrIdentityChanged___block_invoke;
+  v11[3] = &unk_1E6EC1BA0;
+  v11[4] = self;
+  v11[5] = changed;
+  [(PFCKAccountMonitor *)self performBlockAtPreferredQoS:v11];
   objc_sync_exit(self);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __47__PFCKAccountMonitor_accountOrIdentityChanged___block_invoke(uint64_t a1)
@@ -634,7 +628,7 @@ void __47__PFCKAccountMonitor_accountOrIdentityChanged___block_invoke(uint64_t a
 
 void __47__PFCKAccountMonitor_accountOrIdentityChanged___block_invoke_2(uint64_t a1, void *a2, id a3, void *a4)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   obj = objc_loadWeakRetained((a1 + 40));
   if (obj)
   {
@@ -664,25 +658,25 @@ LABEL_20:
           v24 = obj[6];
           v25 = obj[7];
           *buf = 136317442;
-          v33 = "[PFCKAccountMonitor _finishedAccountInfoFetchFromNotificationNamed:withAccountInfo:userRecordID:error:]";
-          v34 = 1024;
-          v35 = 337;
-          v36 = 2112;
-          v37 = obj;
-          v38 = 2112;
-          v39 = v23;
-          v40 = 2112;
-          v41 = @"PFCKAccountMonitorAccountChangedNotificationName";
-          v42 = 2112;
-          v43 = v24;
-          v44 = 2112;
-          v45 = v25;
-          v46 = 2112;
-          v47 = a2;
-          v48 = 2112;
-          v49 = a3;
-          v50 = 2112;
-          v51 = a4;
+          v32 = "[PFCKAccountMonitor _finishedAccountInfoFetchFromNotificationNamed:withAccountInfo:userRecordID:error:]";
+          v33 = 1024;
+          v34 = 337;
+          v35 = 2112;
+          v36 = obj;
+          v37 = 2112;
+          v38 = v23;
+          v39 = 2112;
+          v40 = @"PFCKAccountMonitorAccountChangedNotificationName";
+          v41 = 2112;
+          v42 = v24;
+          v43 = 2112;
+          v44 = v25;
+          v45 = 2112;
+          v46 = a2;
+          v47 = 2112;
+          v48 = a3;
+          v49 = 2112;
+          v50 = a4;
           _os_log_impl(&dword_18565F000, v21, v22, "CoreData+CloudKit: %s(%d): %@ for store %@ posting '%@' for the transition from:\n\t%@\n\t%@\nTo:\n\t%@\n\t%@\n\t%@", buf, 0x62u);
         }
 
@@ -761,23 +755,23 @@ LABEL_36:
       v17 = obj[6];
       v18 = obj[7];
       *buf = 136317186;
-      v33 = "[PFCKAccountMonitor _finishedAccountInfoFetchFromNotificationNamed:withAccountInfo:userRecordID:error:]";
-      v34 = 1024;
-      v35 = 386;
-      v36 = 2112;
-      v37 = obj;
-      v38 = 2112;
-      v39 = v16;
-      v40 = 2112;
-      v41 = v17;
-      v42 = 2112;
-      v43 = v18;
-      v44 = 2112;
-      v45 = a2;
-      v46 = 2112;
-      v47 = a3;
-      v48 = 2112;
-      v49 = a4;
+      v32 = "[PFCKAccountMonitor _finishedAccountInfoFetchFromNotificationNamed:withAccountInfo:userRecordID:error:]";
+      v33 = 1024;
+      v34 = 386;
+      v35 = 2112;
+      v36 = obj;
+      v37 = 2112;
+      v38 = v16;
+      v39 = 2112;
+      v40 = v17;
+      v41 = 2112;
+      v42 = v18;
+      v43 = 2112;
+      v44 = a2;
+      v45 = 2112;
+      v46 = a3;
+      v47 = 2112;
+      v48 = a4;
       _os_log_impl(&dword_18565F000, v14, v15, "CoreData+CloudKit: %s(%d): %@ for store %@ ignoring account change for the transition from:\n\t%@\n\t%@\nTo:\n\t%@\n\t%@\n\t%@", buf, 0x58u);
     }
 
@@ -786,7 +780,6 @@ LABEL_36:
   }
 
 LABEL_37:
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __75__PFCKAccountMonitor_finishedAccountInfoFetchWith_error_completionHandler___block_invoke(uint64_t a1)
@@ -806,7 +799,7 @@ void __75__PFCKAccountMonitor_finishedAccountInfoFetchWith_error_completionHandl
 
 void __75__PFCKAccountMonitor_finishedAccountInfoFetchWith_error_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -828,36 +821,33 @@ void __75__PFCKAccountMonitor_finishedAccountInfoFetchWith_error_completionHandl
       if (os_log_type_enabled(Stream, v9))
       {
         v10 = WeakRetained[3];
-        v14 = 136316418;
-        v15 = "[PFCKAccountMonitor finishedAccountInfoFetchWith:error:completionHandler:]_block_invoke_2";
-        v16 = 1024;
-        v17 = 268;
+        v12 = 136316418;
+        v13 = "[PFCKAccountMonitor finishedAccountInfoFetchWith:error:completionHandler:]_block_invoke_2";
+        v14 = 1024;
+        v15 = 268;
+        v16 = 2112;
+        v17 = WeakRetained;
         v18 = 2112;
-        v19 = WeakRetained;
+        v19 = v10;
         v20 = 2112;
-        v21 = v10;
+        v21 = NSStringFromSelector(sel_fetchUserRecordIDWithCompletionHandler_);
         v22 = 2112;
-        v23 = NSStringFromSelector(sel_fetchUserRecordIDWithCompletionHandler_);
-        v24 = 2112;
-        v25 = a3;
-        _os_log_impl(&dword_18565F000, v8, v9, "CoreData+CloudKit: %s(%d): %@ for store %@ '%@' failed with error: %@", &v14, 0x3Au);
+        v23 = a3;
+        _os_log_impl(&dword_18565F000, v8, v9, "CoreData+CloudKit: %s(%d): %@ for store %@ '%@' failed with error: %@", &v12, 0x3Au);
       }
 
       objc_autoreleasePoolPop(v6);
     }
 
-    v11 = *(a1 + 32);
-    v12 = *(*(a1 + 40) + 16);
+    v11 = *(*(a1 + 40) + 16);
   }
 
   else
   {
-    v12 = *(*(a1 + 40) + 16);
+    v11 = *(*(a1 + 40) + 16);
   }
 
-  v12();
-
-  v13 = *MEMORY[0x1E69E9840];
+  v11();
 }
 
 + (BOOL)canEnableSyncWithAccountInfo:(id)info requireDeviceToDeviceEncryption:(BOOL)encryption
@@ -885,6 +875,29 @@ void __75__PFCKAccountMonitor_finishedAccountInfoFetchWith_error_completionHandl
   }
 
   return hasValidCredentials;
+}
+
++ (BOOL)shouldNotifyForChangeFromAccountInfo:(id)info toAccountInfo:(id)accountInfo requireDeviceToDeviceEncryption:(BOOL)encryption
+{
+  encryptionCopy = encryption;
+  v8 = [PFCKAccountMonitor canEnableSyncWithAccountInfo:info requireDeviceToDeviceEncryption:encryption];
+  v9 = [PFCKAccountMonitor canEnableSyncWithAccountInfo:accountInfo requireDeviceToDeviceEncryption:encryptionCopy];
+  result = v8 ^ v9;
+  if (!v9 && v8)
+  {
+    if ([accountInfo accountStatus] && objc_msgSend(accountInfo, "accountStatus") != 4)
+    {
+      return 1;
+    }
+
+    else
+    {
+      hasValidCredentials = [info hasValidCredentials];
+      return hasValidCredentials ^ [accountInfo hasValidCredentials];
+    }
+  }
+
+  return result;
 }
 
 @end

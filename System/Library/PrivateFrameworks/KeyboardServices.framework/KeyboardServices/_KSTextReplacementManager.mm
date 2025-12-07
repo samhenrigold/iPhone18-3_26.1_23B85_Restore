@@ -50,12 +50,12 @@
     v6->_ckStore = v8;
 
     objc_storeStrong(&v6->_directoryPath, path);
-    v10 = KSCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = KSCategory(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
       v16 = "[_KSTextReplacementManager initWithDirectoryPath:]";
-      _os_log_impl(&dword_2557E2000, v10, OS_LOG_TYPE_INFO, "%s  >>> using cloudkit store", buf, 0xCu);
+      _os_log_impl(&dword_2557E2000, v11, OS_LOG_TYPE_INFO, "%s  >>> using cloudkit store", buf, 0xCu);
     }
 
     objc_storeStrong(&v6->_textReplacementStore, v6->_ckStore);
@@ -67,7 +67,6 @@
     objc_autoreleasePoolPop(v7);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

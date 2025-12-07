@@ -4,6 +4,7 @@
 - (void)checkLockedState;
 - (void)checkManagedConfiguration;
 - (void)handleBatteryNotification:(unsigned int)notification;
+- (void)onBatteryStatusChanged:(unsigned int)changed andMessageType:(unsigned int)type andMessageArgument:(void *)argument;
 - (void)onMatchedBatteries:(unsigned int)batteries;
 - (void)toggle:(BOOL)toggle;
 @end
@@ -175,6 +176,14 @@
       IONotificationPortDestroy(v21);
       *(&self->_sysDiagnoseToken + 1) = 0;
     }
+  }
+}
+
+- (void)onBatteryStatusChanged:(unsigned int)changed andMessageType:(unsigned int)type andMessageArgument:(void *)argument
+{
+  if (type == -536723200)
+  {
+    [(MODarwinNotifier *)self handleBatteryNotification:*&changed, *&type, argument];
   }
 }
 

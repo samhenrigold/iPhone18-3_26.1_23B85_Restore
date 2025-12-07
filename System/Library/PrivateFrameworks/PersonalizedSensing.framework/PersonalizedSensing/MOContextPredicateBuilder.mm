@@ -49,7 +49,7 @@
 
 + (void)inspectExpression:(id)expression
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   expressionCopy = expression;
   expressionType = [expressionCopy expressionType];
   arguments = _mo_log_facility_get_os_log(MOLogFacilityPersonalizedSensing);
@@ -82,29 +82,29 @@
             +[MOContextPredicateBuilder inspectExpression:];
           }
 
-          v26 = 0u;
-          v27 = 0u;
-          v24 = 0u;
           v25 = 0u;
+          v26 = 0u;
+          v23 = 0u;
+          v24 = 0u;
           v13 = arguments;
-          v15 = [v13 countByEnumeratingWithState:&v24 objects:v29 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v25;
+            v17 = *v24;
             do
             {
               for (i = 0; i != v16; ++i)
               {
-                if (*v25 != v17)
+                if (*v24 != v17)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                [self inspectExpression:*(*(&v24 + 1) + 8 * i)];
+                [self inspectExpression:*(*(&v23 + 1) + 8 * i)];
               }
 
-              v16 = [v13 countByEnumeratingWithState:&v24 objects:v29 count:16];
+              v16 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
             }
 
             while (v16);
@@ -124,28 +124,28 @@
         }
 
         arguments = [expressionCopy collection];
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
-        v8 = [arguments countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v8 = [arguments countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v21;
+          v10 = *v20;
           do
           {
             for (j = 0; j != v9; ++j)
             {
-              if (*v21 != v10)
+              if (*v20 != v10)
               {
                 objc_enumerationMutation(arguments);
               }
 
-              [self inspectExpression:*(*(&v20 + 1) + 8 * j)];
+              [self inspectExpression:*(*(&v19 + 1) + 8 * j)];
             }
 
-            v9 = [arguments countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v9 = [arguments countByEnumeratingWithState:&v19 objects:v27 count:16];
           }
 
           while (v9);
@@ -192,13 +192,11 @@ LABEL_24:
   }
 
 LABEL_44:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (void)disassemblePredicate:(id)predicate
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -240,31 +238,31 @@ LABEL_19:
       [(MOContextPredicateBuilder *)self disassemblePredicate:compoundPredicateType];
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     leftExpression = [v5 subpredicates];
-    v14 = [leftExpression countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v14 = [leftExpression countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v20;
+      v16 = *v19;
       do
       {
         v17 = 0;
         do
         {
-          if (*v20 != v16)
+          if (*v19 != v16)
           {
             objc_enumerationMutation(leftExpression);
           }
 
-          [self disassemblePredicate:*(*(&v19 + 1) + 8 * v17++)];
+          [self disassemblePredicate:*(*(&v18 + 1) + 8 * v17++)];
         }
 
         while (v15 != v17);
-        v15 = [leftExpression countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v15 = [leftExpression countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v15);
@@ -280,8 +278,6 @@ LABEL_19:
   }
 
 LABEL_22:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (id)stringForOperatorType:(unint64_t)type
@@ -360,42 +356,39 @@ LABEL_22:
 
 + (id)extractFirstValueForKeyPath:(id)path fromPredicates:(id)predicates
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   predicatesCopy = predicates;
-  v6 = [predicatesCopy countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v6 = [predicatesCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v34;
+    v8 = *v30;
     v9 = 0x277CCA000uLL;
-    v10 = 0x277CCA000uLL;
 LABEL_3:
-    v11 = 0;
+    v10 = 0;
     while (1)
     {
-      if (*v34 != v8)
+      if (*v30 != v8)
       {
         objc_enumerationMutation(predicatesCopy);
       }
 
-      v12 = *(*(&v33 + 1) + 8 * v11);
-      v13 = *(v9 + 2328);
+      v11 = *(*(&v29 + 1) + 8 * v10);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         break;
       }
 
-      v24 = *(v10 + 2336);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        subpredicates = [v12 subpredicates];
+        subpredicates = [v11 subpredicates];
         constantValue = [self extractFirstValueForKeyPath:pathCopy fromPredicates:subpredicates];
 
         if (constantValue)
@@ -406,9 +399,9 @@ LABEL_3:
 LABEL_15:
       }
 
-      if (v7 == ++v11)
+      if (v7 == ++v10)
       {
-        v7 = [predicatesCopy countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v7 = [predicatesCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -418,32 +411,31 @@ LABEL_15:
       }
     }
 
-    v14 = v12;
-    leftExpression = [v14 leftExpression];
+    v12 = v11;
+    leftExpression = [v12 leftExpression];
     if ([leftExpression expressionType] == 3)
     {
-      leftExpression2 = [v14 leftExpression];
+      leftExpression2 = [v12 leftExpression];
       [leftExpression2 keyPath];
-      v17 = v7;
-      v18 = v8;
-      v19 = v9;
-      v21 = v20 = predicatesCopy;
-      v31 = [v21 isEqualToString:pathCopy];
+      v15 = v7;
+      v16 = v8;
+      v17 = v9;
+      v19 = v18 = predicatesCopy;
+      v27 = [v19 isEqualToString:pathCopy];
 
-      predicatesCopy = v20;
-      v9 = v19;
-      v8 = v18;
-      v7 = v17;
-      v10 = 0x277CCA000;
+      predicatesCopy = v18;
+      v9 = v17;
+      v8 = v16;
+      v7 = v15;
 
-      if (v31)
+      if (v27)
       {
-        rightExpression = [v14 rightExpression];
+        rightExpression = [v12 rightExpression];
         expressionType = [rightExpression expressionType];
 
         if (!expressionType)
         {
-          rightExpression2 = [v14 rightExpression];
+          rightExpression2 = [v12 rightExpression];
           constantValue = [rightExpression2 constantValue];
 
 LABEL_19:
@@ -463,19 +455,14 @@ LABEL_18:
   constantValue = 0;
 LABEL_20:
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return constantValue;
 }
 
 + (void)inspectExpression:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 variable];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_25E48F000, v2, v3, "Variable: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_25E48F000, v2, v3, "Variable: %@", v4, v5, v6, v7);
 }
 
 + (void)inspectExpression:.cold.2()
@@ -494,12 +481,9 @@ LABEL_20:
 
 + (void)inspectExpression:(void *)a1 .cold.4(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 function];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_25E48F000, v2, v3, "Function: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_25E48F000, v2, v3, "Function: %@", v4, v5, v6, v7);
 }
 
 + (void)inspectExpression:.cold.5()
@@ -518,22 +502,16 @@ LABEL_20:
 
 + (void)inspectExpression:(void *)a1 .cold.7(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 keyPath];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_25E48F000, v2, v3, "Key Path: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_25E48F000, v2, v3, "Key Path: %@", v4, v5, v6, v7);
 }
 
 + (void)inspectExpression:(void *)a1 .cold.8(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 constantValue];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_25E48F000, v2, v3, "Constant Value: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_25E48F000, v2, v3, "Constant Value: %@", v4, v5, v6, v7);
 }
 
 + (void)inspectExpression:.cold.9()
@@ -545,49 +523,37 @@ LABEL_20:
 
 + (void)disassemblePredicate:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)disassemblePredicate:(void *)a1 .cold.2(void *a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [a1 stringForCompoundPredicateType:a2];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_25E48F000, v3, v4, "Compound Predicate Type: %@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_25E48F000, v3, v4, "Compound Predicate Type: %@", v5, v6, v7, v8);
 }
 
 + (void)disassemblePredicate:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)disassemblePredicate:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)disassemblePredicate:(void *)a1 .cold.5(void *a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [a1 stringForOperatorType:a2];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_25E48F000, v3, v4, "Operator Type: %@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_25E48F000, v3, v4, "Operator Type: %@", v5, v6, v7, v8);
 }
 
 @end

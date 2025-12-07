@@ -60,7 +60,7 @@
     v9 = **(v7 + 8);
     v17 = 0;
     v16 = 1;
-    v10 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v9, 64, &v17, &v16);
+    v10 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v9, 0x40uLL, &v17, &v16);
     if (!v10)
     {
       Instance = Phase::Logger::GetInstance(0);
@@ -129,11 +129,11 @@
 
 - (void)setOrientation:
 {
-  v2 = *(self + 16);
-  v1 = *(self + 24);
-  v3 = *(self + 32);
-  v4 = *(self + 40);
-  v6 = *(self + 48);
+  v2 = self[2];
+  v1 = self[3];
+  v3 = self[4];
+  v4 = self[5];
+  v6 = *(self + 3);
   return Phase::ActionTreeManager::SetAmbientOrientation(v2, v1, v3, v4, &v6);
 }
 

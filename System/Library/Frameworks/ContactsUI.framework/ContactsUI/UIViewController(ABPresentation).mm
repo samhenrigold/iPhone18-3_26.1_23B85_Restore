@@ -1,9 +1,9 @@
 @interface UIViewController(ABPresentation)
 - (BOOL)_ab_isInPopoverRecursive:()ABPresentation;
+- (BOOL)ab_shouldShowNavBarButtons;
 - (BOOL)ab_shouldUseTransparentBackgroundInPopovers;
 - (id)cnui_appropriatePresentationController;
 - (uint64_t)ab_isInSheet;
-- (uint64_t)ab_shouldShowNavBarButtons;
 - (void)cnui_addChildViewController:()ABPresentation;
 @end
 
@@ -154,7 +154,7 @@
   return v5;
 }
 
-- (uint64_t)ab_shouldShowNavBarButtons
+- (BOOL)ab_shouldShowNavBarButtons
 {
   if (![self ab_isInPopover])
   {

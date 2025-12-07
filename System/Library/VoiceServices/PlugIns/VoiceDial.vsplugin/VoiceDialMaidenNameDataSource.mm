@@ -1,5 +1,6 @@
 @interface VoiceDialMaidenNameDataSource
 - (BOOL)getName:(id *)name phoneticName:(id *)phoneticName atIndex:(unint64_t)index forPerson:(void *)person;
+- (BOOL)getNth:(unint64_t)nth name:(id *)name phoneticName:(id *)phoneticName ofType:(int)type nameIndex:(unint64_t *)index forPerson:(void *)person;
 - (int)matchingNameType:(id)type fromTypes:(unint64_t)types forPerson:(void *)person;
 - (int)typeOfNameAtIndex:(unint64_t)index;
 - (unint64_t)countOfNamesOfType:(int)type;
@@ -157,6 +158,49 @@ LABEL_22:
     v7.super_class = VoiceDialMaidenNameDataSource;
     return [(VoiceDialNameDataSource *)&v7 typeOfNameAtIndex:index];
   }
+}
+
+- (BOOL)getNth:(unint64_t)nth name:(id *)name phoneticName:(id *)phoneticName ofType:(int)type nameIndex:(unint64_t *)index forPerson:(void *)person
+{
+  v10 = *&type;
+  if (type == 1 && (v20.receiver = self, v20.super_class = VoiceDialMaidenNameDataSource, [(VoiceDialNameDataSource *)&v20 countOfNamesOfType:1]== nth))
+  {
+    if (index)
+    {
+      *index = 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    if (name)
+    {
+      if (VoiceDialPersonIsCompany(person) || (v15 = ABRecordCopyValue(person, *MEMORY[0x29EDBE210])) == 0)
+      {
+        LOBYTE(name) = 0;
+      }
+
+      else
+      {
+        v16 = v15;
+        v17 = VoiceDialMaidenNameDataSourceCreateMaidenNameFromLastName(v15);
+        *name = v17;
+        LOBYTE(name) = v17 != 0;
+        CFRelease(v16);
+      }
+    }
+
+    if (phoneticName)
+    {
+      *phoneticName = 0;
+    }
+  }
+
+  else
+  {
+    v19.receiver = self;
+    v19.super_class = VoiceDialMaidenNameDataSource;
+    LOBYTE(name) = [(VoiceDialNameDataSource *)&v19 getNth:nth name:name phoneticName:phoneticName ofType:v10 nameIndex:index forPerson:person];
+  }
+
+  return name;
 }
 
 - (unint64_t)countOfNamesOfType:(int)type

@@ -87,12 +87,12 @@
   currentMetallicColor = self->_currentMetallicColor;
   if (currentMetallicColor - 1 < 2)
   {
-    self = sub_21C8();
+    self = sub_21C8(self);
   }
 
   else if (currentMetallicColor == 3)
   {
-    self = sub_2184();
+    self = sub_2184(self);
   }
 
   else if (!currentMetallicColor)
@@ -182,100 +182,100 @@ LABEL_7:
 - (void)setupDataSources
 {
   device = [(NTKAnalogMetallicFaceView *)self device];
-  v69[0] = &off_89E0;
-  v3 = sub_21C8();
+  v70[0] = &off_89E0;
+  v3 = sub_21C8(device);
   v4 = [NTKVideoPlayerListing listingForDevice:device withFilename:@"Metallic_Fullscreen_Silver_003" andColor:v3];
-  v70[0] = v4;
-  v69[1] = &off_89F8;
-  v5 = sub_21C8();
+  v71[0] = v4;
+  v70[1] = &off_89F8;
+  v5 = sub_21C8(v4);
   v6 = [NTKVideoPlayerListing listingForDevice:device withFilename:@"Metallic_Fullscreen_GunMetal_003" andColor:v5];
-  v70[1] = v6;
-  v69[2] = &off_8A10;
-  v7 = sub_2184();
+  v71[1] = v6;
+  v70[2] = &off_8A10;
+  v7 = sub_2184(v6);
   v8 = [NTKVideoPlayerListing listingForDevice:device withFilename:@"Metallic_Fullscreen_Rose_003" andColor:v7];
-  v70[2] = v8;
-  v9 = [NSDictionary dictionaryWithObjects:v70 forKeys:v69 count:3];
+  v71[2] = v8;
+  v9 = [NSDictionary dictionaryWithObjects:v71 forKeys:v70 count:3];
 
-  v67[0] = &off_89E0;
-  v48 = NTKImageNamedFromAssetsBundle();
+  v68[0] = &off_89E0;
+  v49 = NTKImageNamedFromAssetsBundle();
   v10 = v9;
-  v50 = [v9 objectForKeyedSubscript:&off_89E0];
-  v66 = v50;
-  v46 = [NSArray arrayWithObjects:&v66 count:1];
-  v44 = [NTKVideoPlayerArrayDataSource dataSourceForDevice:device withPosterImage:v48 andListings:v46];
-  v68[0] = v44;
-  v67[1] = &off_89F8;
-  v40 = NTKImageNamedFromAssetsBundle();
-  v42 = [v9 objectForKeyedSubscript:&off_89F8];
-  v65 = v42;
-  v11 = [NSArray arrayWithObjects:&v65 count:1];
-  v12 = [NTKVideoPlayerArrayDataSource dataSourceForDevice:device withPosterImage:v40 andListings:v11];
-  v68[1] = v12;
-  v67[2] = &off_8A10;
+  v51 = [v9 objectForKeyedSubscript:&off_89E0];
+  v67 = v51;
+  v47 = [NSArray arrayWithObjects:&v67 count:1];
+  v45 = [NTKVideoPlayerArrayDataSource dataSourceForDevice:device withPosterImage:v49 andListings:v47];
+  v69[0] = v45;
+  v68[1] = &off_89F8;
+  v41 = NTKImageNamedFromAssetsBundle();
+  v43 = [v9 objectForKeyedSubscript:&off_89F8];
+  v66 = v43;
+  v11 = [NSArray arrayWithObjects:&v66 count:1];
+  v12 = [NTKVideoPlayerArrayDataSource dataSourceForDevice:device withPosterImage:v41 andListings:v11];
+  v69[1] = v12;
+  v68[2] = &off_8A10;
   v13 = NTKImageNamedFromAssetsBundle();
-  v53 = v9;
+  v54 = v9;
   v14 = [v9 objectForKeyedSubscript:&off_8A10];
-  v64 = v14;
-  v15 = [NSArray arrayWithObjects:&v64 count:1];
+  v65 = v14;
+  v15 = [NSArray arrayWithObjects:&v65 count:1];
   v16 = [NTKVideoPlayerArrayDataSource dataSourceForDevice:device withPosterImage:v13 andListings:v15];
-  v68[2] = v16;
-  v67[3] = &off_8A28;
+  v69[2] = v16;
+  v68[3] = &off_8A28;
   v17 = NTKImageNamedFromAssetsBundle();
   allValues = [v10 allValues];
   v19 = [NTKVideoPlayerArrayDataSource dataSourceForDevice:device withPosterImage:v17 order:1 andListings:allValues];
-  v68[3] = v19;
-  v52 = [NSDictionary dictionaryWithObjects:v68 forKeys:v67 count:4];
+  v69[3] = v19;
+  v53 = [NSDictionary dictionaryWithObjects:v69 forKeys:v68 count:4];
 
-  v62[0] = &off_89E0;
-  v20 = sub_21C8();
-  v21 = [NTKVideoPlayerListing listingForDevice:device withFilename:@"Metallic_Circular_Silver_003" andColor:v20];
-  v63[0] = v21;
-  v62[1] = &off_89F8;
-  v22 = sub_21C8();
-  v23 = [NTKVideoPlayerListing listingForDevice:device withFilename:@"Metallic_Circular_GunMetal_003" andColor:v22];
-  v63[1] = v23;
-  v62[2] = &off_8A10;
-  v24 = sub_2184();
-  v25 = [NTKVideoPlayerListing listingForDevice:device withFilename:@"Metallic_Circular_Rose_003" andColor:v24];
-  v63[2] = v25;
-  v26 = [NSDictionary dictionaryWithObjects:v63 forKeys:v62 count:3];
+  v63[0] = &off_89E0;
+  v21 = sub_21C8(v20);
+  v22 = [NTKVideoPlayerListing listingForDevice:device withFilename:@"Metallic_Circular_Silver_003" andColor:v21];
+  v64[0] = v22;
+  v63[1] = &off_89F8;
+  v23 = sub_21C8(v22);
+  v24 = [NTKVideoPlayerListing listingForDevice:device withFilename:@"Metallic_Circular_GunMetal_003" andColor:v23];
+  v64[1] = v24;
+  v63[2] = &off_8A10;
+  v25 = sub_2184(v24);
+  v26 = [NTKVideoPlayerListing listingForDevice:device withFilename:@"Metallic_Circular_Rose_003" andColor:v25];
+  v64[2] = v26;
+  v27 = [NSDictionary dictionaryWithObjects:v64 forKeys:v63 count:3];
 
-  v60[0] = &off_89E0;
-  v49 = NTKImageNamedFromAssetsBundle();
-  v51 = [v26 objectForKeyedSubscript:&off_89E0];
-  v59 = v51;
-  v47 = [NSArray arrayWithObjects:&v59 count:1];
-  v45 = [NTKVideoPlayerArrayDataSource dataSourceForDevice:device withPosterImage:v49 andListings:v47];
-  v61[0] = v45;
-  v60[1] = &off_89F8;
-  v39 = NTKImageNamedFromAssetsBundle();
-  v43 = [v26 objectForKeyedSubscript:&off_89F8];
-  v58 = v43;
-  v38 = [NSArray arrayWithObjects:&v58 count:1];
-  v27 = [NTKVideoPlayerArrayDataSource dataSourceForDevice:device withPosterImage:v39 andListings:v38];
-  v61[1] = v27;
-  v60[2] = &off_8A10;
-  v28 = NTKImageNamedFromAssetsBundle();
-  v41 = v26;
-  v29 = [v26 objectForKeyedSubscript:&off_8A10];
-  v57 = v29;
-  v30 = [NSArray arrayWithObjects:&v57 count:1];
-  v31 = [NTKVideoPlayerArrayDataSource dataSourceForDevice:device withPosterImage:v28 andListings:v30];
-  v61[2] = v31;
-  v60[3] = &off_8A28;
-  v32 = NTKImageNamedFromAssetsBundle();
-  allValues2 = [v26 allValues];
-  v34 = [NTKVideoPlayerArrayDataSource dataSourceForDevice:device withPosterImage:v32 order:1 andListings:allValues2];
-  v61[3] = v34;
-  v35 = [NSDictionary dictionaryWithObjects:v61 forKeys:v60 count:4];
+  v61[0] = &off_89E0;
+  v50 = NTKImageNamedFromAssetsBundle();
+  v52 = [v27 objectForKeyedSubscript:&off_89E0];
+  v60 = v52;
+  v48 = [NSArray arrayWithObjects:&v60 count:1];
+  v46 = [NTKVideoPlayerArrayDataSource dataSourceForDevice:device withPosterImage:v50 andListings:v48];
+  v62[0] = v46;
+  v61[1] = &off_89F8;
+  v40 = NTKImageNamedFromAssetsBundle();
+  v44 = [v27 objectForKeyedSubscript:&off_89F8];
+  v59 = v44;
+  v39 = [NSArray arrayWithObjects:&v59 count:1];
+  v28 = [NTKVideoPlayerArrayDataSource dataSourceForDevice:device withPosterImage:v40 andListings:v39];
+  v62[1] = v28;
+  v61[2] = &off_8A10;
+  v29 = NTKImageNamedFromAssetsBundle();
+  v42 = v27;
+  v30 = [v27 objectForKeyedSubscript:&off_8A10];
+  v58 = v30;
+  v31 = [NSArray arrayWithObjects:&v58 count:1];
+  v32 = [NTKVideoPlayerArrayDataSource dataSourceForDevice:device withPosterImage:v29 andListings:v31];
+  v62[2] = v32;
+  v61[3] = &off_8A28;
+  v33 = NTKImageNamedFromAssetsBundle();
+  allValues2 = [v27 allValues];
+  v35 = [NTKVideoPlayerArrayDataSource dataSourceForDevice:device withPosterImage:v33 order:1 andListings:allValues2];
+  v62[3] = v35;
+  v36 = [NSDictionary dictionaryWithObjects:v62 forKeys:v61 count:4];
 
-  v55[0] = &off_89E0;
-  v55[1] = &off_8A28;
-  v56[0] = v52;
-  v56[1] = v35;
-  v36 = [NSDictionary dictionaryWithObjects:v56 forKeys:v55 count:2];
+  v56[0] = &off_89E0;
+  v56[1] = &off_8A28;
+  v57[0] = v53;
+  v57[1] = v36;
+  v37 = [NSDictionary dictionaryWithObjects:v57 forKeys:v56 count:2];
   dataSources = self->_dataSources;
-  self->_dataSources = v36;
+  self->_dataSources = v37;
 }
 
 - (void)reloadDataSources

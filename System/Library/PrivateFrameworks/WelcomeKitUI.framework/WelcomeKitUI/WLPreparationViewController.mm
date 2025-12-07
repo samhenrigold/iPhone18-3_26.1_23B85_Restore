@@ -3,6 +3,7 @@
 - (void)cancel;
 - (void)showActivityIndicatorView;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation WLPreparationViewController
@@ -80,6 +81,25 @@ void __37__WLPreparationViewController_cancel__block_invoke(uint64_t a1)
   v3 = [objc_alloc(MEMORY[0x277D751E0]) initWithCustomView:v5];
   navigationItem = [(OBBaseWelcomeController *)self navigationItem];
   [navigationItem setLeftBarButtonItem:v3];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v8.receiver = self;
+  v8.super_class = WLPreparationViewController;
+  [(OBSetupAssistantSpinnerController *)&v8 viewWillDisappear:disappear];
+  navigationController = [(WLPreparationViewController *)self navigationController];
+  transitionCoordinator = [navigationController transitionCoordinator];
+  v6 = [transitionCoordinator viewControllerForKey:*MEMORY[0x277D77230]];
+
+  if (v6 == self && (([(WLPreparationViewController *)self isMovingFromParentViewController]& 1) != 0 || [(WLPreparationViewController *)self isBeingDismissed]))
+  {
+    viewWillDismissBlock = self->_viewWillDismissBlock;
+    if (viewWillDismissBlock)
+    {
+      viewWillDismissBlock[2]();
+    }
+  }
 }
 
 @end

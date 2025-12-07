@@ -51,15 +51,14 @@
 
 - (void)reloadSpecifiersForApp:(id)app
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D69958];
   appCopy = app;
   sharedNotifier = [v3 sharedNotifier];
-  v8[0] = appCopy;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = appCopy;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
 
   [sharedNotifier notify:@"STStoragePluginReloadSpecifiersNotification" forBundleIDs:v6];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

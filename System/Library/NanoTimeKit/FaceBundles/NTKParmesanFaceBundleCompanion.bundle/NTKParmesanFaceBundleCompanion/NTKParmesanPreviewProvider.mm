@@ -28,36 +28,36 @@
 
 - (CGRect)Parmesan_screenBounds
 {
-  v4 = objc_msgSend_device(self->_editor, a2, v2, v3);
-  objc_msgSend_screenBounds(v4, v5, v6, v7);
+  v3 = objc_msgSend_device(self->_editor, a2, v2);
+  objc_msgSend_screenBounds(v3, v4, v5);
+  v7 = v6;
   v9 = v8;
   v11 = v10;
   v13 = v12;
-  v15 = v14;
 
-  v16 = v9;
-  v17 = v11;
-  v18 = v13;
-  v19 = v15;
-  result.size.height = v19;
-  result.size.width = v18;
-  result.origin.y = v17;
-  result.origin.x = v16;
+  v14 = v7;
+  v15 = v9;
+  v16 = v11;
+  v17 = v13;
+  result.size.height = v17;
+  result.size.width = v16;
+  result.origin.y = v15;
+  result.origin.x = v14;
   return result;
 }
 
 - (double)Parmesan_screenCornerRadius
 {
-  v4 = objc_msgSend_device(self->_editor, a2, v2, v3);
-  objc_msgSend_screenCornerRadius(v4, v5, v6, v7);
-  v9 = v8;
+  v3 = objc_msgSend_device(self->_editor, a2, v2);
+  objc_msgSend_screenCornerRadius(v3, v4, v5);
+  v7 = v6;
 
-  return v9;
+  return v7;
 }
 
 - (CGSize)Parmesan_minimumNormalizedCropSize
 {
-  (MEMORY[0x2821F9670])(self->_editor, sel_minimumNormalizedCropSizeForPhotoAtIndex_, self->_selectedImageIndex);
+  MEMORY[0x2821F9670](self->_editor, sel_minimumNormalizedCropSizeForPhotoAtIndex_, self->_selectedImageIndex);
   result.height = v3;
   result.width = v2;
   return result;
@@ -66,37 +66,37 @@
 - (NTKParmesanTypefaceMetrics)Parmesan_typefaceMetrics
 {
   v3 = [NTKParmesanTypefaceMetrics alloc];
-  v7 = objc_msgSend_device(self->_editor, v4, v5, v6);
-  v10 = objc_msgSend_initWithDevice_(v3, v8, v7, v9);
+  v6 = objc_msgSend_device(self->_editor, v4, v5);
+  v8 = objc_msgSend_initWithDevice_(v3, v7, v6);
 
-  return v10;
+  return v8;
 }
 
 - (void)Parmesan_getPreviewWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v8 = objc_msgSend_logObject(NTKParmesanFaceBundle, v5, v6, v7);
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v7 = objc_msgSend_logObject(NTKParmesanFaceBundle, v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     selectedImageIndex = self->_selectedImageIndex;
-    v15 = 134217984;
-    v16 = selectedImageIndex;
-    _os_log_impl(&dword_23BF0C000, v8, OS_LOG_TYPE_DEFAULT, "Requesting preview for asset index = %ld", &v15, 0xCu);
+    v13 = 134217984;
+    v14 = selectedImageIndex;
+    _os_log_impl(&dword_23BF0C000, v7, OS_LOG_TYPE_DEFAULT, "Requesting preview for asset index = %ld", &v13, 0xCu);
   }
 
   editor = self->_editor;
   if (editor)
   {
-    objc_msgSend_previewOfLibraryPhotoAtIndex_completion_(editor, v10, self->_selectedImageIndex, completionCopy);
+    objc_msgSend_previewOfLibraryPhotoAtIndex_completion_(editor, v9, self->_selectedImageIndex, completionCopy);
   }
 
   else
   {
-    v14 = objc_msgSend_logObject(NTKParmesanFaceBundle, v10, v11, v12);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v12 = objc_msgSend_logObject(NTKParmesanFaceBundle, v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_23BFF8938(self, v14);
+      sub_23BFF8938(self, v12);
     }
 
     (*(completionCopy + 2))(completionCopy, 0, 0);
@@ -107,17 +107,17 @@
 {
   assetCopy = asset;
   completionCopy = completion;
-  if (objc_msgSend_Parmesan_canAddPhotoAssets(self, v7, v8, v9))
+  if (objc_msgSend_Parmesan_canAddPhotoAssets(self, v7, v8))
   {
-    v13 = objc_msgSend_replaceAssetAtIndex_withAsset_(self->_editor, v10, self->_selectedImageIndex, assetCopy);
-    if (v13)
+    v11 = objc_msgSend_replaceAssetAtIndex_withAsset_(self->_editor, v9, self->_selectedImageIndex, assetCopy);
+    if (v11)
     {
-      completionCopy[2](completionCopy, 0, v13);
+      completionCopy[2](completionCopy, 0, v11);
     }
 
     else
     {
-      objc_msgSend_Parmesan_getPreviewWithCompletion_(self, v11, completionCopy, v12);
+      objc_msgSend_Parmesan_getPreviewWithCompletion_(self, v10, completionCopy);
     }
   }
 

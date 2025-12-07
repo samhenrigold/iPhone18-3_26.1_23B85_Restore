@@ -929,7 +929,7 @@ id __71__SBDragAndDropWorkspaceTransaction__setupPlatterPreviewForContentDrag__b
   return v2;
 }
 
-uint64_t __71__SBDragAndDropWorkspaceTransaction__setupPlatterPreviewForContentDrag__block_invoke_3(uint64_t a1)
+void *__71__SBDragAndDropWorkspaceTransaction__setupPlatterPreviewForContentDrag__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) isRunning];
   if (result)
@@ -1737,7 +1737,8 @@ void *__72__SBDragAndDropWorkspaceTransaction__handleWillAnimateDropWithAnimator
     [objc_opt_class() prototypeSettingsContentDraggingCommandeerWidth];
     v24 = v23;
     [(SBTouchHistory *)self->_touchHistory averageTouchVelocityOverTimeDuration:0.0416666667];
-    if (BSFloatLessThanFloat() && (([objc_opt_class() isDragOverFullscreenRegionAtLocation:v20 inBounds:{v22, v12, v14, v16, v18}] & 1) != 0 || -[SBLayoutElement layoutRole](self->_layoutElementForWindowDrag, "layoutRole") == 3 && (v25 = objc_opt_class(), objc_msgSend(objc_opt_class(), "_screenInsetsForUIDragDropSession:", sessionCopy), objc_msgSend(v25, "screenEdgeForDragOverSideGutterRegionsAtLocation:inBounds:totalContentDragGutterWidth:screenInsets:", v20, v22, v12, v14, v16, v18, v24, v26, v27, v28, v29))))
+    v25 = BSFloatLessThanFloat();
+    if (v25 && ((v25 = [objc_opt_class() isDragOverFullscreenRegionAtLocation:v20 inBounds:{v22, v12, v14, v16, v18}], (v25 & 1) != 0) || (v25 = -[SBLayoutElement layoutRole](self->_layoutElementForWindowDrag, "layoutRole"), v25 == 3) && (v27 = objc_opt_class(), objc_msgSend(objc_opt_class(), "_screenInsetsForUIDragDropSession:", sessionCopy), (v25 = objc_msgSend(v27, "screenEdgeForDragOverSideGutterRegionsAtLocation:inBounds:totalContentDragGutterWidth:screenInsets:", v20, v22, v12, v14, v16, v18, v24, v28, v29, v30, v31)) != 0)))
     {
       ++self->_windowDragPauseCounter;
     }
@@ -1747,13 +1748,13 @@ void *__72__SBDragAndDropWorkspaceTransaction__handleWillAnimateDropWithAnimator
       self->_windowDragPauseCounter = 0;
     }
 
-    v30 = SBScreenMaximumFramesPerSecond();
+    v32 = SBScreenMaximumFramesPerSecond(v25, v26);
     if (v22 <= 150.0)
     {
-      v30 = v30 * 0.05;
+      v32 = v32 * 0.05;
       windowDragPauseCounter = self->_windowDragPauseCounter;
-      self->_windowDragEnteredPlatterZone = windowDragPauseCounter > v30;
-      if (windowDragPauseCounter <= v30)
+      self->_windowDragEnteredPlatterZone = windowDragPauseCounter > v32;
+      if (windowDragPauseCounter <= v32)
       {
 LABEL_23:
 
@@ -1767,21 +1768,21 @@ LABEL_23:
     }
 
     [(CADisplayLink *)self->_displayLinkForWindowDrag invalidate];
-    v32 = self->_displayLinkForWindowDrag;
+    v34 = self->_displayLinkForWindowDrag;
     self->_displayLinkForWindowDrag = 0;
 
-    v33 = objc_alloc_init(SBWorkspaceApplicationSceneTransitionContext);
-    [(SBWorkspaceTransitionContext *)v33 setAnimationDisabled:1];
+    v35 = objc_alloc_init(SBWorkspaceApplicationSceneTransitionContext);
+    [(SBWorkspaceTransitionContext *)v35 setAnimationDisabled:1];
     layoutRole = [(SBLayoutElement *)self->_layoutElementForWindowDrag layoutRole];
-    v35 = layoutRole;
-    v69 = view;
+    v37 = layoutRole;
+    v71 = view;
     if (layoutRole == 1)
     {
-      v36 = [SBPreviousWorkspaceEntity entityWithPreviousLayoutRole:2];
-      [(SBWorkspaceApplicationSceneTransitionContext *)v33 setEntity:v36 forLayoutRole:1];
+      v38 = [SBPreviousWorkspaceEntity entityWithPreviousLayoutRole:2];
+      [(SBWorkspaceApplicationSceneTransitionContext *)v35 setEntity:v38 forLayoutRole:1];
 
-      v37 = +[(SBWorkspaceEntity *)SBEmptyWorkspaceEntity];
-      [(SBWorkspaceApplicationSceneTransitionContext *)v33 setEntity:v37 forLayoutRole:2];
+      v39 = +[(SBWorkspaceEntity *)SBEmptyWorkspaceEntity];
+      [(SBWorkspaceApplicationSceneTransitionContext *)v35 setEntity:v39 forLayoutRole:2];
     }
 
     else
@@ -1790,11 +1791,11 @@ LABEL_23:
       {
         if (layoutRole == 3)
         {
-          v64 = +[(SBWorkspaceEntity *)SBPreviousWorkspaceEntity];
-          [(SBWorkspaceApplicationSceneTransitionContext *)v33 setEntity:v64 forLayoutRole:1];
+          v66 = +[(SBWorkspaceEntity *)SBPreviousWorkspaceEntity];
+          [(SBWorkspaceApplicationSceneTransitionContext *)v35 setEntity:v66 forLayoutRole:1];
 
-          v65 = +[(SBWorkspaceEntity *)SBPreviousWorkspaceEntity];
-          [(SBWorkspaceApplicationSceneTransitionContext *)v33 setEntity:v65 forLayoutRole:2];
+          v67 = +[(SBWorkspaceEntity *)SBPreviousWorkspaceEntity];
+          [(SBWorkspaceApplicationSceneTransitionContext *)v35 setEntity:v67 forLayoutRole:2];
         }
 
         else
@@ -1804,89 +1805,89 @@ LABEL_23:
             goto LABEL_20;
           }
 
-          v66 = +[(SBWorkspaceEntity *)SBPreviousWorkspaceEntity];
-          [(SBWorkspaceApplicationSceneTransitionContext *)v33 setEntity:v66 forLayoutRole:1];
-
-          v67 = +[(SBWorkspaceEntity *)SBPreviousWorkspaceEntity];
-          [(SBWorkspaceApplicationSceneTransitionContext *)v33 setEntity:v67 forLayoutRole:2];
-
           v68 = +[(SBWorkspaceEntity *)SBPreviousWorkspaceEntity];
-          [(SBWorkspaceApplicationSceneTransitionContext *)v33 setEntity:v68 forLayoutRole:3];
+          [(SBWorkspaceApplicationSceneTransitionContext *)v35 setEntity:v68 forLayoutRole:1];
+
+          v69 = +[(SBWorkspaceEntity *)SBPreviousWorkspaceEntity];
+          [(SBWorkspaceApplicationSceneTransitionContext *)v35 setEntity:v69 forLayoutRole:2];
+
+          v70 = +[(SBWorkspaceEntity *)SBPreviousWorkspaceEntity];
+          [(SBWorkspaceApplicationSceneTransitionContext *)v35 setEntity:v70 forLayoutRole:3];
         }
 
-        v40 = +[(SBWorkspaceEntity *)SBEmptyWorkspaceEntity];
-        v42 = v33;
-        v43 = v40;
-        v41 = v35;
+        v42 = +[(SBWorkspaceEntity *)SBEmptyWorkspaceEntity];
+        v44 = v35;
+        v45 = v42;
+        v43 = v37;
 LABEL_19:
-        [(SBWorkspaceApplicationSceneTransitionContext *)v42 setEntity:v43 forLayoutRole:v41];
+        [(SBWorkspaceApplicationSceneTransitionContext *)v44 setEntity:v45 forLayoutRole:v43];
 
 LABEL_20:
         transitionRequest = [(SBWorkspaceTransaction *)self transitionRequest];
         workspace = [transitionRequest workspace];
         displayConfiguration = [transitionRequest displayConfiguration];
-        v47 = [workspace createRequestWithOptions:0 displayConfiguration:displayConfiguration];
+        v49 = [workspace createRequestWithOptions:0 displayConfiguration:displayConfiguration];
 
-        [v47 setSource:{objc_msgSend(transitionRequest, "source")}];
-        [v47 setEventLabel:@"DragAndDropAppActivation"];
-        [v47 setApplicationContext:v33];
-        [v47 finalize];
-        objc_storeStrong(&self->super.super._transitionRequest, v47);
+        [v49 setSource:{objc_msgSend(transitionRequest, "source")}];
+        [v49 setEventLabel:@"DragAndDropAppActivation"];
+        [v49 setApplicationContext:v35];
+        [v49 finalize];
+        objc_storeStrong(&self->super.super._transitionRequest, v49);
         layoutStateTransitionCoordinator = [(SBWorkspaceTransaction *)self layoutStateTransitionCoordinator];
         [layoutStateTransitionCoordinator beginTransitionForWorkspaceTransaction:self];
 
-        v49 = SBLayoutRoleSetAppLayout();
-        LODWORD(displayConfiguration) = [v49 containsRole:{-[SBLayoutElement layoutRole](self->_layoutElementForWindowDrag, "layoutRole")}];
+        v51 = SBLayoutRoleSetAppLayout();
+        LODWORD(displayConfiguration) = [v51 containsRole:{-[SBLayoutElement layoutRole](self->_layoutElementForWindowDrag, "layoutRole")}];
 
         if (displayConfiguration)
         {
-          applicationContext = [v47 applicationContext];
+          applicationContext = [v49 applicationContext];
           layoutState = [applicationContext layoutState];
-          v52 = [layoutState elementWithRole:1];
+          v54 = [layoutState elementWithRole:1];
 
-          workspaceEntity = [v52 workspaceEntity];
+          workspaceEntity = [v54 workspaceEntity];
           applicationSceneEntity = [workspaceEntity applicationSceneEntity];
 
-          v55 = [[SBApplicationSceneUpdateTransaction alloc] initWithApplicationSceneEntity:applicationSceneEntity transitionRequest:v47];
+          v57 = [[SBApplicationSceneUpdateTransaction alloc] initWithApplicationSceneEntity:applicationSceneEntity transitionRequest:v49];
           sceneUpdateTransactionForWindowDrag = self->_sceneUpdateTransactionForWindowDrag;
-          self->_sceneUpdateTransactionForWindowDrag = v55;
+          self->_sceneUpdateTransactionForWindowDrag = v57;
 
-          v57 = *MEMORY[0x277D76620];
-          v70[0] = MEMORY[0x277D85DD0];
-          v70[1] = 3221225472;
-          v70[2] = __68__SBDragAndDropWorkspaceTransaction__updateForWindowDragForSession___block_invoke;
-          v70[3] = &unk_2783A8C18;
-          v70[4] = self;
-          [v57 sb_performBlockAfterCATransactionSynchronizedCommit:v70];
+          v59 = *MEMORY[0x277D76620];
+          v72[0] = MEMORY[0x277D85DD0];
+          v72[1] = 3221225472;
+          v72[2] = __68__SBDragAndDropWorkspaceTransaction__updateForWindowDragForSession___block_invoke;
+          v72[3] = &unk_2783A8C18;
+          v72[4] = self;
+          [v59 sb_performBlockAfterCATransactionSynchronizedCommit:v72];
         }
 
-        applicationContext2 = [v47 applicationContext];
+        applicationContext2 = [v49 applicationContext];
         layoutState2 = [applicationContext2 layoutState];
         currentLayoutState = self->_currentLayoutState;
         self->_currentLayoutState = layoutState2;
 
-        v61 = objc_loadWeakRetained(&self->_delegate);
+        v63 = objc_loadWeakRetained(&self->_delegate);
         sceneIdentifier = [(SBDeviceApplicationSceneHandle *)self->_draggingApplicationSceneHandle sceneIdentifier];
-        [v61 dragAndDropTransaction:self didPlatterizeWindowDragWithSceneIdentifier:sceneIdentifier];
+        [v63 dragAndDropTransaction:self didPlatterizeWindowDragWithSceneIdentifier:sceneIdentifier];
 
         applicationContext3 = [(SBWorkspaceTransitionRequest *)self->super.super._transitionRequest applicationContext];
         [WeakRetained performTransitionWithContext:applicationContext3 animated:1 completion:0];
 
-        view = v69;
+        view = v71;
         goto LABEL_23;
       }
 
-      v38 = +[(SBWorkspaceEntity *)SBPreviousWorkspaceEntity];
-      [(SBWorkspaceApplicationSceneTransitionContext *)v33 setEntity:v38 forLayoutRole:1];
+      v40 = +[(SBWorkspaceEntity *)SBPreviousWorkspaceEntity];
+      [(SBWorkspaceApplicationSceneTransitionContext *)v35 setEntity:v40 forLayoutRole:1];
 
-      v39 = +[(SBWorkspaceEntity *)SBEmptyWorkspaceEntity];
-      [(SBWorkspaceApplicationSceneTransitionContext *)v33 setEntity:v39 forLayoutRole:2];
+      v41 = +[(SBWorkspaceEntity *)SBEmptyWorkspaceEntity];
+      [(SBWorkspaceApplicationSceneTransitionContext *)v35 setEntity:v41 forLayoutRole:2];
     }
 
-    v40 = +[(SBWorkspaceEntity *)SBPreviousWorkspaceEntity];
-    v41 = 3;
-    v42 = v33;
-    v43 = v40;
+    v42 = +[(SBWorkspaceEntity *)SBPreviousWorkspaceEntity];
+    v43 = 3;
+    v44 = v35;
+    v45 = v42;
     goto LABEL_19;
   }
 
@@ -2420,7 +2421,7 @@ LABEL_5:
         medusaSettings = self->_medusaSettings;
         if (medusaSettings)
         {
-          [(SBMedusaSettings *)medusaSettings coronaVibrantColorMatrixInput];
+          objc_msgSend_coronaVibrantColorMatrixInput(medusaSettings);
         }
 
         else
@@ -3362,7 +3363,7 @@ LABEL_5:
     visibleItemContainers = [v6 visibleItemContainers];
     v14 = [appLayout leafAppLayoutForRole:1];
     v15 = [visibleItemContainers objectForKey:v14];
-    [v15 frame];
+    objc_msgSend_frame(v15);
     v17 = v16;
     v19 = v18;
     v21 = v20;
@@ -3375,7 +3376,7 @@ LABEL_5:
       visibleItemContainers2 = [v6 visibleItemContainers];
       v26 = [appLayout leafAppLayoutForRole:2];
       v27 = [visibleItemContainers2 objectForKey:v26];
-      [v27 frame];
+      objc_msgSend_frame(v27);
       v29 = v28;
       v31 = v30;
 
@@ -4260,52 +4261,52 @@ LABEL_34:
 uint64_t __72__SBDragAndDropWorkspaceTransaction__updateCurrentDropActionForSession___block_invoke_2(uint64_t a1, double a2, double a3, double a4, double a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, double a10, double a11)
 {
   MaxX = CGRectGetMaxX(*&a2);
-  v34.origin.x = a6;
-  v34.origin.y = a7;
-  v34.size.width = a8;
-  v34.size.height = a9;
-  MinX = CGRectGetMinX(v34);
-  v35.origin.x = a6;
-  v35.origin.y = a7;
-  v35.size.width = a8;
-  v35.size.height = a9;
-  v25 = CGRectGetMaxX(v35);
-  v26 = *(a1 + 40);
-  v27 = [*(*(a1 + 32) + 248) layoutContainsRole:2];
-  if (v26 >= a10 && v26 <= MaxX - a10)
+  v27.origin.x = a6;
+  v27.origin.y = a7;
+  v27.size.width = a8;
+  v27.size.height = a9;
+  MinX = CGRectGetMinX(v27);
+  v28.origin.x = a6;
+  v28.origin.y = a7;
+  v28.size.width = a8;
+  v28.size.height = a9;
+  v18 = CGRectGetMaxX(v28);
+  v19 = *(a1 + 40);
+  v20 = [*(*(a1 + 32) + 248) layoutContainsRole:2];
+  if (v19 >= a10 && v19 <= MaxX - a10)
   {
-    if (v26 >= MinX + a11 && v26 <= v25 - a11)
+    if (v19 >= MinX + a11 && v19 <= v18 - a11)
     {
       return *(a1 + 56);
     }
 
-    v30 = v26 < MinX + a11 == ([*MEMORY[0x277D76620] userInterfaceLayoutDirection] == 1);
-    v31 = 6;
+    v23 = v19 < MinX + a11 == ([*MEMORY[0x277D76620] userInterfaceLayoutDirection] == 1);
+    v24 = 6;
   }
 
   else
   {
-    v29 = v27;
-    v30 = v26 < a10 == ([*MEMORY[0x277D76620] userInterfaceLayoutDirection] == 1);
-    if (v29)
+    v22 = v20;
+    v23 = v19 < a10 == ([*MEMORY[0x277D76620] userInterfaceLayoutDirection] == 1);
+    if (v22)
     {
-      v31 = 2;
+      v24 = 2;
     }
 
     else
     {
-      v31 = 4;
+      v24 = 4;
     }
   }
 
-  if (v30)
+  if (v23)
   {
-    return v31 + 1;
+    return v24 + 1;
   }
 
   else
   {
-    return v31;
+    return v24;
   }
 }
 
@@ -4388,7 +4389,7 @@ uint64_t __72__SBDragAndDropWorkspaceTransaction__updateCurrentDropActionForSess
   v119 = v12;
   view2 = [v12 view];
   [view2 bounds];
-  v32 = [(SBDisplayItemLayoutAttributes *)v24 normalizedPointForPoint:v26 inBounds:v28, v29, v30, v31];
+  v32 = [SBDisplayItemLayoutAttributes normalizedPointForPoint:v24 inBounds:v26, v28, v29, v30, v31];
   v34 = v33;
 
   v118 = WeakRetained;
@@ -4789,7 +4790,7 @@ LABEL_70:
   return v112;
 }
 
-uint64_t __69__SBDragAndDropWorkspaceTransaction__transitionRequestForDropAction___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t __69__SBDragAndDropWorkspaceTransaction__transitionRequestForDropAction___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = SBSpaceConfigurationForSpaceConfigurationAndInterfaceOrientation(a2, a3);
   v5 = v4;

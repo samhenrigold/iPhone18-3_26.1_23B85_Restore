@@ -12,6 +12,7 @@
 - (int64_t)tableView:(id)view editingStyleForRowAtIndexPath:(id)path;
 - (void)_handleFitnessUnitPreferencesDidChange;
 - (void)dealloc;
+- (void)setMetricEnabled:(BOOL)enabled forSpecifier:(id)specifier autoMove:(BOOL)move;
 - (void)setMetricEnabled:(id)enabled forSpecifier:(id)specifier;
 - (void)setSpecifier:(id)specifier;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
@@ -22,9 +23,9 @@
 
 - (HPRFSessionTrackerAppActivityTypeSettingsController)init
 {
-  v15.receiver = self;
-  v15.super_class = HPRFSessionTrackerAppActivityTypeSettingsController;
-  v2 = [(HPRFSessionTrackerAppActivityTypeSettingsController *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = HPRFSessionTrackerAppActivityTypeSettingsController;
+  v2 = [(HPRFSessionTrackerAppActivityTypeSettingsController *)&v14 init];
   if (v2)
   {
     v3 = +[NRPairedDeviceRegistry sharedInstance];
@@ -34,16 +35,15 @@
     device = v2->_device;
     v2->_device = firstObject;
 
-    v8 = v2->_device;
-    v9 = FIUIHealthStoreForDevice();
+    v8 = FIUIHealthStoreForDevice();
     v2->_activityMoveMode = FIActivityMoveModeWithHealthStore();
-    v10 = [[FIUIUnitManager alloc] initWithHealthStore:v9];
-    v11 = [[FIUIFormattingManager alloc] initWithUnitManager:v10];
+    v9 = [[FIUIUnitManager alloc] initWithHealthStore:v8];
+    v10 = [[FIUIFormattingManager alloc] initWithUnitManager:v9];
     formattingManager = v2->_formattingManager;
-    v2->_formattingManager = v11;
+    v2->_formattingManager = v10;
 
-    v13 = +[NSNotificationCenter defaultCenter];
-    [v13 addObserver:v2 selector:"_handleFitnessUnitPreferencesDidChange" name:kFIUIFitnessUnitPreferencesDidChangeNotification object:0];
+    v12 = +[NSNotificationCenter defaultCenter];
+    [v12 addObserver:v2 selector:"_handleFitnessUnitPreferencesDidChange" name:kFIUIFitnessUnitPreferencesDidChangeNotification object:0];
   }
 
   return v2;
@@ -229,6 +229,37 @@ LABEL_5:
 {
   specifierCopy = specifier;
   -[HPRFSessionTrackerAppActivityTypeSettingsController setMetricEnabled:forSpecifier:autoMove:](self, "setMetricEnabled:forSpecifier:autoMove:", [enabled BOOLValue], specifierCopy, 1);
+}
+
+- (void)setMetricEnabled:(BOOL)enabled forSpecifier:(id)specifier autoMove:(BOOL)move
+{
+  moveCopy = move;
+  enabledCopy = enabled;
+  specifierCopy = specifier;
+  hprf_metricType = [specifierCopy hprf_metricType];
+  v16 = 0;
+  [(FIUIWorkoutSettingsManager *)self->_settingManager setEnabled:enabledCopy forMetricType:hprf_metricType didChange:&v16];
+  if (moveCopy)
+  {
+    orderedEnabledMetrics = [(FIUIWorkoutSettingsManager *)self->_settingManager orderedEnabledMetrics];
+    v11 = orderedEnabledMetrics;
+    if (enabledCopy)
+    {
+      orderedDisabledMetrics = [NSNumber numberWithUnsignedInteger:hprf_metricType];
+      v13 = [v11 indexOfObject:orderedDisabledMetrics] + 1;
+    }
+
+    else
+    {
+      v14 = [orderedEnabledMetrics count];
+      orderedDisabledMetrics = [(FIUIWorkoutSettingsManager *)self->_settingManager orderedDisabledMetrics];
+      v15 = [NSNumber numberWithUnsignedInteger:hprf_metricType];
+      v13 = [orderedDisabledMetrics indexOfObject:v15] + v14 + 2;
+    }
+
+    [(HPRFSessionTrackerAppActivityTypeSettingsController *)self removeSpecifier:specifierCopy];
+    [(HPRFSessionTrackerAppActivityTypeSettingsController *)self insertSpecifier:specifierCopy atIndex:v13 animated:1];
+  }
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

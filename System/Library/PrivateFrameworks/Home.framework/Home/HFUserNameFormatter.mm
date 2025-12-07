@@ -50,7 +50,7 @@
 
 - (id)stringForObjectValue:(id)value
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   if (!valueCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
@@ -62,11 +62,11 @@
   {
     v5 = MEMORY[0x277CBDA78];
     contactFormatter = [(HFUserNameFormatter *)self contactFormatter];
-    home = [v5 descriptorForRequiredKeysForStyle:{objc_msgSend(contactFormatter, "style")}];
+    v7 = [v5 descriptorForRequiredKeysForStyle:{objc_msgSend(contactFormatter, "style")}];
 
     v8 = +[HFContactStore defaultStore];
-    v19[0] = home;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v7;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     v10 = [v8 contactForUserHandle:valueCopy withKeys:v9];
 
     contactFormatter2 = [(HFUserNameFormatter *)self contactFormatter];
@@ -104,14 +104,12 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  home = [(HFUserNameFormatter *)self home];
-  v14 = [home hf_userForHandle:valueCopy];
+  v7 = objc_msgSend_home(self);
+  v14 = [v7 hf_userForHandle:valueCopy];
   contactFormatter2 = [v14 name];
 
 LABEL_15:
 LABEL_16:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return contactFormatter2;
 }

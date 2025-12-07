@@ -48,7 +48,7 @@
       {
         v7 = 0;
         *&v6 = 134217984;
-        v32 = v6;
+        v35 = v6;
         do
         {
           v8 = v5;
@@ -56,91 +56,92 @@
           v10 = IOPSGetPowerSourceDescription(blob, ValueAtIndex);
           if (v10)
           {
-            CFDictionaryGetDouble();
-            if (v11 <= 0.0)
+            Double = CFDictionaryGetDouble();
+            if (v12 <= 0.0)
             {
-              v19 = sub_100058928();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+              v21 = sub_100058928(Double);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v41 = v10;
-                _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "### No current capacity for power source %@", buf, 0xCu);
+                v44 = v10;
+                _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "### No current capacity for power source %@", buf, 0xCu);
               }
             }
 
             else
             {
-              v12 = NSDictionaryGetNSNumber();
-              if (v12)
+              v13 = NSDictionaryGetNSNumber();
+              if (v13)
               {
                 CFStringGetTypeID();
-                v13 = CFDictionaryGetTypedValue();
-                CFStringGetTypeID();
                 v14 = CFDictionaryGetTypedValue();
-                if (v13 | v14)
+                CFStringGetTypeID();
+                v15 = CFDictionaryGetTypedValue();
+                v16 = v15;
+                if (v14 | v15)
                 {
-                  v15 = [[NSUUID alloc] initWithUUIDString:v13];
-                  v16 = v15 == 0;
+                  v17 = [[NSUUID alloc] initWithUUIDString:v14];
+                  v18 = v17 == 0;
 
-                  if (v16)
+                  if (v18)
                   {
-                    v20 = [(CBStackPowerSourceMonitorBTStack *)self _identifierForAccessoryID:v13];
-                    v21 = v20;
-                    if (v20)
+                    v22 = [(CBStackPowerSourceMonitorBTStack *)self _identifierForAccessoryID:v14];
+                    v23 = v22;
+                    if (v22)
                     {
-                      v17 = v20;
+                      v19 = v22;
 
-                      v18 = [v10 mutableCopy];
-                      [v18 setObject:v17 forKeyedSubscript:@"Accessory Identifier"];
+                      v20 = [v10 mutableCopy];
+                      [v20 setObject:v19 forKeyedSubscript:@"Accessory Identifier"];
                     }
 
                     else
                     {
-                      v17 = v13;
-                      v18 = v10;
+                      v19 = v14;
+                      v20 = v10;
                     }
                   }
 
                   else
                   {
-                    v17 = v13;
-                    v18 = v10;
+                    v19 = v14;
+                    v20 = v10;
                   }
 
-                  v22 = [(CBStackPowerSourceMonitorBTStack *)self _findPowerSourceWithIdentifiers:v17 and:v14, v32];
-                  if (v22)
+                  v24 = [(CBStackPowerSourceMonitorBTStack *)self _findPowerSourceWithIdentifiers:v19 and:v16, v35];
+                  if (v24)
                   {
-                    [(CBStackPowerSourceMonitorBTStack *)self _handlePowerSourceUpdateWithDetails:v22 details:v18];
+                    [(CBStackPowerSourceMonitorBTStack *)self _handlePowerSourceUpdateWithDetails:v24 details:v20];
                   }
 
                   else
                   {
-                    [(CBStackPowerSourceMonitorBTStack *)self _handlePowerSourceFoundWithDetails:v18];
+                    [(CBStackPowerSourceMonitorBTStack *)self _handlePowerSourceFoundWithDetails:v20];
                   }
 
-                  v10 = v18;
+                  v10 = v20;
                 }
 
                 else
                 {
-                  v17 = sub_100058928();
-                  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+                  v19 = sub_100058928(v15);
+                  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v41 = v10;
-                    _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "### No accessoryID or groupID for power source %@", buf, 0xCu);
+                    v44 = v10;
+                    _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "### No accessoryID or groupID for power source %@", buf, 0xCu);
                   }
                 }
               }
 
               else
               {
-                v14 = sub_100058928();
-                if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+                v16 = sub_100058928(0);
+                if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v41 = v10;
-                  _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "### No sourceID for power source %@", buf, 0xCu);
+                  v44 = v10;
+                  _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "### No sourceID for power source %@", buf, 0xCu);
                 }
               }
             }
@@ -148,11 +149,11 @@
 
           else
           {
-            v10 = sub_100058928();
+            v10 = sub_100058928(0);
             if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
             {
-              *buf = v32;
-              v41 = v7;
+              *buf = v35;
+              v44 = v7;
               _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "### IOPSGetPowerSourceDescription %ld failed", buf, 0xCu);
             }
           }
@@ -171,17 +172,17 @@
 
   else
   {
-    v23 = sub_100058928();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v25 = sub_100058928(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      sub_100809E28(v23);
+      sub_100809E28(v25);
     }
   }
 
-  v24 = sub_100058928();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v26 = sub_100058928(v4);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
-    sub_100809E6C(v24);
+    sub_100809E6C(v26);
   }
 
 LABEL_38:
@@ -190,49 +191,50 @@ LABEL_38:
     CFRelease(blob);
   }
 
-  v37 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v39 = 0u;
   allKeys = [(NSMutableDictionary *)self->_powerSources allKeys];
-  v26 = [allKeys countByEnumeratingWithState:&v35 objects:v39 count:16];
-  if (v26)
+  v28 = [allKeys countByEnumeratingWithState:&v38 objects:v42 count:16];
+  if (v28)
   {
-    v27 = *v36;
+    v29 = *v39;
     do
     {
-      for (i = 0; i != v26; i = i + 1)
+      for (i = 0; i != v28; i = i + 1)
       {
-        if (*v36 != v27)
+        if (*v39 != v29)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v29 = [(NSMutableDictionary *)self->_powerSources objectForKeyedSubscript:*(*(&v35 + 1) + 8 * i)];
-        v30 = v29;
-        if (v29)
+        v31 = [(NSMutableDictionary *)self->_powerSources objectForKeyedSubscript:*(*(&v38 + 1) + 8 * i)];
+        v32 = v31;
+        if (v31)
         {
-          [v29 setInternalFlags:{objc_msgSend(v29, "internalFlags") & 0xFFFFFFFD}];
-          if (([v30 present] & 1) == 0)
+          [v31 setInternalFlags:{objc_msgSend(v31, "internalFlags") & 0xFFFFFFFD}];
+          if (([v32 present] & 1) == 0)
           {
-            [(CBStackPowerSourceMonitorBTStack *)self _handlePowerSourceLost:v30];
+            [(CBStackPowerSourceMonitorBTStack *)self _handlePowerSourceLost:v32];
           }
         }
       }
 
-      v26 = [allKeys countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v28 = [allKeys countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
-    while (v26);
+    while (v28);
   }
 
-  if ([(NSMutableDictionary *)self->_powerSources count])
+  v33 = [(NSMutableDictionary *)self->_powerSources count];
+  if (v33)
   {
-    v31 = sub_100058928();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v34 = sub_100058928(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Updated power sources", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Updated power sources", buf, 2u);
     }
 
     [(NSMutableDictionary *)self->_powerSources enumerateKeysAndObjectsUsingBlock:&stru_100AE10F8];
@@ -270,7 +272,7 @@ LABEL_38:
 
 - (void)_activate
 {
-  v3 = sub_100058928();
+  v3 = sub_100058928(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -352,7 +354,7 @@ LABEL_38:
 
 - (void)_invalidate
 {
-  v3 = sub_100058928();
+  v3 = sub_100058928(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -425,11 +427,11 @@ LABEL_38:
     self->_deviceLostHandler = 0;
 
     self->_invalidateDone = 1;
-    v5 = sub_100058928();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100058928(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Invalidated", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Invalidated", v7, 2u);
     }
   }
 }
@@ -445,7 +447,7 @@ LABEL_38:
   }
 
   v7 = [[CBPowerSource alloc] initWithPowerSourceDetails:detailsCopy internalFlags:6];
-  v8 = sub_100058928();
+  v8 = sub_100058928(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138412290;
@@ -473,8 +475,7 @@ LABEL_38:
   v7 = a4;
   if (([detailsCopy internalFlags] & 8) != 0)
   {
-    [detailsCopy setPresent:1];
-    v9 = sub_100058928();
+    v9 = sub_100058928([detailsCopy setPresent:1]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138412290;
@@ -520,25 +521,25 @@ LABEL_38:
 
   if (v12)
   {
-    if (([v9 changeFlags] & 8) != 0 && !objc_msgSend(v9, "hasAllComponents"))
+    if (([v9 changeFlags] & 8) != 0 && (v13 = objc_msgSend(v9, "hasAllComponents"), !v13))
     {
-      v13 = sub_100058928();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100058928(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = v9;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Delay notify for %@", buf, 0xCu);
+        v19 = v9;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Delay notify for %@", buf, 0xCu);
       }
 
-      v14 = dispatch_time(0, 3000000000);
+      v15 = dispatch_time(0, 3000000000);
       dispatchQueue = self->_dispatchQueue;
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = sub_1001296D4;
-      v16[3] = &unk_100AE0B60;
-      v16[4] = self;
-      v16[5] = v8;
-      dispatch_after(v14, dispatchQueue, v16);
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_1001296D4;
+      v17[3] = &unk_100AE0B60;
+      v17[4] = self;
+      v17[5] = v8;
+      dispatch_after(v15, dispatchQueue, v17);
     }
 
     else
@@ -549,7 +550,7 @@ LABEL_38:
 
   else
   {
-    sub_100809F74();
+    sub_100809F74(v9);
   }
 }
 
@@ -557,26 +558,27 @@ LABEL_38:
 {
   lostCopy = lost;
   groupID = [lostCopy groupID];
-  if (groupID || ([lostCopy accessoryID], (groupID = objc_claimAutoreleasedReturnValue()) != 0))
+  v6 = groupID;
+  if (groupID || ([lostCopy accessoryID], groupID = objc_claimAutoreleasedReturnValue(), (v6 = groupID) != 0))
   {
-    v6 = sub_100058928();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100058928(groupID);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = lostCopy;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Power source lost %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = lostCopy;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Power source lost %@", &v11, 0xCu);
     }
 
     if ([lostCopy isAggregateComponent])
     {
-      v7 = [(NSMutableDictionary *)self->_powerSources objectForKeyedSubscript:groupID];
-      v8 = v7;
-      v9 = lostCopy;
-      if (v7)
+      v8 = [(NSMutableDictionary *)self->_powerSources objectForKeyedSubscript:v6];
+      v9 = v8;
+      v10 = lostCopy;
+      if (v8)
       {
-        v9 = v7;
+        v10 = v8;
 
-        [v9 invalidateComponentWithPartID:{objc_msgSend(lostCopy, "partID")}];
+        [v10 invalidateComponentWithPartID:{objc_msgSend(lostCopy, "partID")}];
       }
     }
 
@@ -585,17 +587,17 @@ LABEL_38:
       [lostCopy removeBatteryInfo];
       [lostCopy invalidate];
 
-      v9 = lostCopy;
+      v10 = lostCopy;
       lostCopy = 0;
-      [(NSMutableDictionary *)self->_powerSources setObject:0 forKeyedSubscript:groupID];
+      [(NSMutableDictionary *)self->_powerSources setObject:0 forKeyedSubscript:v6];
     }
 
-    [(CBStackPowerSourceMonitorBTStack *)self _notifyPowerSourceLost:v9];
+    [(CBStackPowerSourceMonitorBTStack *)self _notifyPowerSourceLost:v10];
   }
 
   else
   {
-    v9 = lostCopy;
+    v10 = lostCopy;
   }
 }
 
@@ -605,7 +607,7 @@ LABEL_38:
   if (v7)
   {
     *__p = 0u;
-    v24 = 0u;
+    v27 = 0u;
     sub_1000DEB5C(changed, __p);
     if ((type - 28) >= 3)
     {
@@ -621,8 +623,8 @@ LABEL_38:
     {
       if (v8 == 4)
       {
-        v9 = &v24 + 12;
-        v10 = DWORD2(v24);
+        v9 = &v27 + 12;
+        v10 = DWORD2(v27);
       }
 
       else
@@ -640,8 +642,8 @@ LABEL_38:
 
     else
     {
-      v9 = &v24 + 4;
-      v10 = v24;
+      v9 = &v27 + 4;
+      v10 = v27;
     }
 
     v11 = *v9;
@@ -652,35 +654,36 @@ LABEL_38:
 
     if (v10 & ~(v10 >> 31) | (v11 << 8))
     {
-      v22 = 0;
-      v12 = [[CBPowerSource alloc] initWithBTStackDevice:changed identifier:v7 error:&v22];
-      v13 = v22;
+      v25 = 0;
+      v12 = [[CBPowerSource alloc] initWithBTStackDevice:changed identifier:v7 error:&v25];
+      v13 = v25;
+      v14 = v13;
       if (v12)
       {
-        if (![v12 isAppleDevice] || objc_msgSend(v12, "productID"))
+        if (![v12 isAppleDevice] || (v15 = objc_msgSend(v12, "productID"), v15))
         {
-          v21 = v12;
-          v14 = [(CBStackPowerSourceMonitorBTStack *)self _setPowerSourceGroupID:&v21];
-          v15 = v21;
+          v24 = v12;
+          v16 = [(CBStackPowerSourceMonitorBTStack *)self _setPowerSourceGroupID:&v24];
+          v17 = v24;
 
-          if (v14)
+          if (v16)
           {
-            v16 = sub_100058928();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            v19 = sub_100058928(v18);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v26 = v15;
-              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "StackDeviceInfoChanged %@", buf, 0xCu);
+              v29 = v17;
+              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "StackDeviceInfoChanged %@", buf, 0xCu);
             }
 
-            [(CBStackPowerSourceMonitorBTStack *)self _handleStackSourceUpdate:v15];
+            [(CBStackPowerSourceMonitorBTStack *)self _handleStackSourceUpdate:v17];
           }
 
           goto LABEL_22;
         }
 
-        v19 = sub_100058928();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v22 = sub_100058928(v15);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           sub_10080A000();
         }
@@ -688,32 +691,32 @@ LABEL_38:
 
       else
       {
-        v19 = sub_100058928();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v22 = sub_100058928(v13);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          v20 = CUPrintNSError();
-          sub_10080A068(v20, buf, v19);
+          v23 = CUPrintNSError();
+          sub_10080A068(v23, buf, v22);
         }
 
         v12 = 0;
       }
 
-      v15 = v12;
+      v17 = v12;
 LABEL_22:
     }
   }
 
   else
   {
-    v17 = sub_100058928();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100058928(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       sub_1000E5A58(changed, __p);
-      v18 = (SBYTE7(v24) & 0x80u) == 0 ? __p : __p[0];
+      v21 = (SBYTE7(v27) & 0x80u) == 0 ? __p : __p[0];
       *buf = 136315138;
-      v26 = v18;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "StackDeviceInfoChanged found no identifier for device: %s", buf, 0xCu);
-      if (SBYTE7(v24) < 0)
+      v29 = v21;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "StackDeviceInfoChanged found no identifier for device: %s", buf, 0xCu);
+      if (SBYTE7(v27) < 0)
       {
         operator delete(__p[0]);
       }
@@ -739,14 +742,14 @@ LABEL_22:
     }
 
     productID = [v7 productID];
-    if (productID - 8194 <= 0x2D && ((1 << (productID - 2)) & 0x207C7BB7FF9BLL) != 0)
+    if ((productID - 8194) <= 0x2D && ((1 << (productID - 2)) & 0x207C7BB7FF9BLL) != 0)
     {
       goto LABEL_13;
     }
 
     if (!productID)
     {
-      v14 = sub_100058928();
+      v14 = sub_100058928(productID);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_10080A0C0();
@@ -762,8 +765,7 @@ LABEL_7:
         v10 = transportType;
         if (!transportType || (v11 = [(__CFString *)transportType isEqual:@"USB"], v10, v10, (v11 & 1) == 0))
         {
-          [v7 setChangeFlags:16];
-          v12 = sub_100058928();
+          v12 = sub_100058928([v7 setChangeFlags:16]);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *__p = 138412290;
@@ -779,7 +781,7 @@ LABEL_7:
 
   else
   {
-    v7 = sub_100058928();
+    v7 = sub_100058928(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       sub_1000E5A58(classic, __p);
@@ -811,14 +813,14 @@ LABEL_13:
     }
 
     productID = [v7 productID];
-    if (productID - 8194 <= 0x2D && ((1 << (productID - 2)) & 0x207C7BB7FF9BLL) != 0)
+    if ((productID - 8194) <= 0x2D && ((1 << (productID - 2)) & 0x207C7BB7FF9BLL) != 0)
     {
       goto LABEL_9;
     }
 
     if (!productID)
     {
-      v10 = sub_100058928();
+      v10 = sub_100058928(productID);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_10080A128();
@@ -828,8 +830,7 @@ LABEL_13:
     else
     {
 LABEL_6:
-      [v7 setChangeFlags:16];
-      v9 = sub_100058928();
+      v9 = sub_100058928([v7 setChangeFlags:16]);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v11 = 138412290;
@@ -867,26 +868,27 @@ LABEL_9:
       }
 
       v9 = [(NSMutableDictionary *)self->_powerSources objectForKeyedSubscript:v5];
+      v10 = v9;
       if (v9)
       {
-        v10 = sub_100058928();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = sub_100058928(v9);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = 138412290;
-          v12 = v9;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "StackPairingComplete with %@", &v11, 0xCu);
+          v12 = 138412290;
+          v13 = v10;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "StackPairingComplete with %@", &v12, 0xCu);
         }
 
-        [(CBStackPowerSourceMonitorBTStack *)self _reportMetricIfNeeded:v9];
+        [(CBStackPowerSourceMonitorBTStack *)self _reportMetricIfNeeded:v10];
       }
     }
 
     else
     {
-      v9 = sub_100058928();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100058928(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        sub_1000E5A58(complete, &v11);
+        sub_1000E5A58(complete, &v12);
         sub_10080A190();
       }
     }
@@ -915,17 +917,18 @@ LABEL_9:
     }
 
     v9 = [(NSMutableDictionary *)self->_powerSources objectForKeyedSubscript:uUIDString];
+    v10 = v9;
     if (v9)
     {
-      v10 = sub_100058928();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100058928(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138412290;
-        v12 = v9;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "StackLEPairingComplete with %@", &v11, 0xCu);
+        v12 = 138412290;
+        v13 = v10;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "StackLEPairingComplete with %@", &v12, 0xCu);
       }
 
-      [(CBStackPowerSourceMonitorBTStack *)self _reportMetricIfNeeded:v9];
+      [(CBStackPowerSourceMonitorBTStack *)self _reportMetricIfNeeded:v10];
     }
   }
 }
@@ -949,7 +952,7 @@ LABEL_9:
   groupID = [updateCopy groupID];
   if (!accessoryID)
   {
-    v26 = CBErrorF();
+    v26 = CBErrorF(4294960588, "no accessoryID %@", updateCopy);
     v10 = v38[5];
     v38[5] = v26;
     goto LABEL_37;
@@ -980,8 +983,7 @@ LABEL_9:
   {
     if (([v12 internalFlags] & 8) != 0)
     {
-      [v13 setPresent:1];
-      v24 = sub_100058928();
+      v24 = sub_100058928([v13 setPresent:1]);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 138412290;
@@ -1116,11 +1118,11 @@ LABEL_37:
 
 - (void)_handleStackUSBStateChanged:(void *)changed
 {
-  v5 = sub_100058928();
+  v5 = sub_100058928(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     sub_1000E5A58(changed, __p);
-    v6 = v25;
+    v6 = v28;
     v7 = *__p;
     v8 = *(changed + 1360);
     v9 = sub_10053FCFC(changed);
@@ -1143,12 +1145,12 @@ LABEL_37:
       v12 = "no";
     }
 
-    v27 = 2080;
-    v28 = v12;
-    v29 = 2112;
-    v30 = v9;
+    v30 = 2080;
+    v31 = v12;
+    v32 = 2112;
+    v33 = v9;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "StackUSBStateChanged %s, connectedOveUSB %s, serialNumber %@", buf, 0x20u);
-    if (v25 < 0)
+    if (v28 < 0)
     {
       operator delete(*__p);
     }
@@ -1157,35 +1159,36 @@ LABEL_37:
   v13 = [(CBStackPowerSourceMonitorBTStack *)self _identifierForClassicDevice:changed];
   if (v13)
   {
-    v23 = 0;
-    v14 = [[CBPowerSource alloc] initWithBTStackDevice:changed identifier:v13 error:&v23];
-    v15 = v23;
+    v26 = 0;
+    v14 = [[CBPowerSource alloc] initWithBTStackDevice:changed identifier:v13 error:&v26];
+    v15 = v26;
+    v16 = v15;
     if (v14)
     {
-      if (![v14 isAppleDevice] || objc_msgSend(v14, "productID"))
+      if (![v14 isAppleDevice] || (v17 = objc_msgSend(v14, "productID"), v17))
       {
-        v22 = v14;
-        v16 = [(CBStackPowerSourceMonitorBTStack *)self _setPowerSourceGroupID:&v22];
-        v17 = v22;
+        v25 = v14;
+        v18 = [(CBStackPowerSourceMonitorBTStack *)self _setPowerSourceGroupID:&v25];
+        v19 = v25;
 
-        if (v16)
+        if (v18)
         {
-          v18 = sub_100058928();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v21 = sub_100058928(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *&buf[4] = v17;
-            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "StackUSBStateChanged %@", buf, 0xCu);
+            *&buf[4] = v19;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "StackUSBStateChanged %@", buf, 0xCu);
           }
 
-          [(CBStackPowerSourceMonitorBTStack *)self _handleStackSourceUpdate:v17];
+          [(CBStackPowerSourceMonitorBTStack *)self _handleStackSourceUpdate:v19];
         }
 
         goto LABEL_18;
       }
 
-      v20 = sub_100058928();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v23 = sub_100058928(v17);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         sub_10080A260();
       }
@@ -1193,31 +1196,31 @@ LABEL_37:
 
     else
     {
-      v20 = sub_100058928();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v23 = sub_100058928(v15);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v21 = CUPrintNSError();
-        sub_10080A2C8(v21, buf, v20);
+        v24 = CUPrintNSError();
+        sub_10080A2C8(v24, buf, v23);
       }
 
       v14 = 0;
     }
 
-    v17 = v14;
+    v19 = v14;
 LABEL_18:
 
     goto LABEL_19;
   }
 
-  v15 = sub_100058928();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_100058928(0);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     sub_1000E5A58(changed, buf);
-    v19 = v29 >= 0 ? buf : *buf;
+    v22 = v32 >= 0 ? buf : *buf;
     *__p = 136315138;
-    *&__p[4] = v19;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "StackUSBStateChanged found no identifier for device: %s", __p, 0xCu);
-    if (SHIBYTE(v29) < 0)
+    *&__p[4] = v22;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "StackUSBStateChanged found no identifier for device: %s", __p, 0xCu);
+    if (SHIBYTE(v32) < 0)
     {
       operator delete(*buf);
     }
@@ -1232,7 +1235,7 @@ LABEL_19:
   accessoryID = [sourceCopy accessoryID];
   if (!accessoryID)
   {
-    sub_10080A388();
+    sub_10080A388(sourceCopy);
     goto LABEL_18;
   }
 
@@ -1271,9 +1274,9 @@ LABEL_19:
   if ([v11 isAppleDevice])
   {
     productID = [v11 productID];
-    if (productID - 8201 < 0x18 || productID - 8194 <= 0x2D && ((1 << (productID - 2)) & 0x20FC0000001BLL) != 0)
+    if ((productID - 8201) < 0x18 || (productID - 8194) <= 0x2D && ((1 << (productID - 2)) & 0x20FC0000001BLL) != 0)
     {
-      v13 = sub_100058928();
+      v13 = sub_100058928(productID);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
@@ -1286,7 +1289,7 @@ LABEL_19:
 
     if (!productID)
     {
-      v13 = sub_100058928();
+      v13 = sub_100058928(productID);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_10080A320();
@@ -1298,7 +1301,7 @@ LABEL_19:
 
   if ([v11 publish])
   {
-    v14 = CBErrorF();
+    v14 = CBErrorF(4294960549, "IOPSSetPowerSourceDetails failed for source: %@", v11);
     v13 = v17[5];
     v17[5] = v14;
 LABEL_16:
@@ -1322,7 +1325,7 @@ LABEL_18:
       groupID = [foundCopy accessoryID];
       if (!groupID)
       {
-        sub_10080A50C();
+        sub_10080A50C(foundCopy);
         v5 = foundCopy;
         goto LABEL_19;
       }
@@ -1339,44 +1342,45 @@ LABEL_18:
   {
     if ([v5 changeFlags])
     {
-      v18 = _NSConcreteStackBlock;
-      v19 = 3221225472;
-      v20 = sub_10012B50C;
-      v21 = &unk_100AE0B60;
+      v19 = _NSConcreteStackBlock;
+      v20 = 3221225472;
+      v21 = sub_10012B50C;
+      v22 = &unk_100AE0B60;
       selfCopy = self;
       v5 = v5;
-      v23 = v5;
-      v10 = objc_retainBlock(&v18);
-      if (([v5 changeFlags] & 0x1E) != 0)
+      v24 = v5;
+      v10 = objc_retainBlock(&v19);
+      changeFlags = [v5 changeFlags];
+      if ((changeFlags & 0x1E) != 0)
       {
-        v11 = sub_100058928();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = sub_100058928(changeFlags);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v25 = v5;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Notify power source found: %@", buf, 0xCu);
+          v26 = v5;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Notify power source found: %@", buf, 0xCu);
         }
 
-        v12 = objc_alloc_init(CBDevice);
-        [v12 updateWithCBPowerSource:v5];
+        v13 = objc_alloc_init(CBDevice);
+        [v13 updateWithCBPowerSource:v5];
         logPrivateData = self->_logPrivateData;
-        internalFlags = [v12 internalFlags];
+        internalFlags = [v13 internalFlags];
         if (logPrivateData)
         {
-          v15 = 0x20000;
+          v16 = 0x20000;
         }
 
         else
         {
-          v15 = 0;
+          v16 = 0;
         }
 
-        [v12 setInternalFlags:v15 | internalFlags];
-        v16 = objc_retainBlock(self->_deviceFoundHandler);
-        v17 = v16;
-        if (v16)
+        [v13 setInternalFlags:v16 | internalFlags];
+        v17 = objc_retainBlock(self->_deviceFoundHandler);
+        v18 = v17;
+        if (v17)
         {
-          (*(v16 + 2))(v16, v12);
+          (*(v17 + 2))(v17, v13);
         }
       }
 
@@ -1392,7 +1396,7 @@ LABEL_18:
 
   else
   {
-    sub_10080A480();
+    sub_10080A480(foundCopy);
   }
 
 LABEL_19:
@@ -1401,7 +1405,7 @@ LABEL_19:
 - (void)_notifyPowerSourceLost:(id)lost
 {
   lostCopy = lost;
-  v5 = sub_100058928();
+  v5 = sub_100058928(lostCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
@@ -1436,12 +1440,12 @@ LABEL_19:
 {
   mockCopy = mock;
   selfCopy = self;
-  v40 = mockCopy;
+  v41 = mockCopy;
   if (!self->_powerSources)
   {
     if (error)
     {
-      CBErrorF();
+      CBErrorF(4294960569, "No power sources");
       *error = v26 = 0;
     }
 
@@ -1458,7 +1462,7 @@ LABEL_19:
   {
     if (error)
     {
-      CBErrorF();
+      CBErrorF(4294960569, "Missing accessoryID: %@", v41);
       *error = v26 = 0;
     }
 
@@ -1475,20 +1479,20 @@ LABEL_19:
   if (v7)
   {
     groupID = [v7 groupID];
-    [v40 setGroupID:groupID];
+    [v41 setGroupID:groupID];
 
     accessoryID2 = [v8 accessoryID];
-    [v40 setAccessoryID:accessoryID2];
+    [v41 setAccessoryID:accessoryID2];
 
     goto LABEL_33;
   }
 
-  v43 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
+  v43 = 0u;
   allValues = [(NSMutableDictionary *)self->_powerSources allValues];
-  v12 = [allValues countByEnumeratingWithState:&v41 objects:v47 count:16];
+  v12 = [allValues countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (!v12)
   {
 LABEL_24:
@@ -1496,7 +1500,7 @@ LABEL_24:
 LABEL_25:
     if (error)
     {
-      v25 = CBErrorF();
+      v25 = CBErrorF(4294960569, "No power source found with identifier '%@'", accessoryID);
       v8 = 0;
       goto LABEL_27;
     }
@@ -1505,17 +1509,17 @@ LABEL_25:
     goto LABEL_55;
   }
 
-  v13 = *v42;
+  v13 = *v43;
 LABEL_7:
   v14 = 0;
   while (1)
   {
-    if (*v42 != v13)
+    if (*v43 != v13)
     {
       objc_enumerationMutation(allValues);
     }
 
-    v8 = *(*(&v41 + 1) + 8 * v14);
+    v8 = *(*(&v42 + 1) + 8 * v14);
     accessoryID3 = [v8 accessoryID];
     if (accessoryID3)
     {
@@ -1576,7 +1580,7 @@ LABEL_29:
 LABEL_22:
     if (v12 == ++v14)
     {
-      v12 = [allValues countByEnumeratingWithState:&v41 objects:v47 count:16];
+      v12 = [allValues countByEnumeratingWithState:&v42 objects:v48 count:16];
       if (v12)
       {
         goto LABEL_7;
@@ -1589,10 +1593,10 @@ LABEL_22:
 LABEL_31:
   v28 = v8;
   groupID4 = [v28 groupID];
-  [v40 setGroupID:groupID4];
+  [v41 setGroupID:groupID4];
 
   accessoryID5 = [v28 accessoryID];
-  [v40 setAccessoryID:accessoryID5];
+  [v41 setAccessoryID:accessoryID5];
 
 LABEL_32:
   if (!v8)
@@ -1601,17 +1605,16 @@ LABEL_32:
   }
 
 LABEL_33:
-  if (([v40 internalFlags] & 8) != 0)
+  if (([v41 internalFlags] & 8) != 0)
   {
-    [v40 setChangeFlags:{objc_msgSend(v40, "changeFlags") | 8}];
-    [v40 setPresent:1];
-    [v8 updateWithCBPowerSource:v40];
-    v36 = sub_100058928();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    [v41 setChangeFlags:{objc_msgSend(v41, "changeFlags") | 8}];
+    [v41 setPresent:1];
+    v37 = sub_100058928([v8 updateWithCBPowerSource:v41]);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v46 = v8;
-      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Power source info overridden with mock %@", buf, 0xCu);
+      v47 = v8;
+      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Power source info overridden with mock %@", buf, 0xCu);
     }
 
     [(CBStackPowerSourceMonitorBTStack *)selfCopy _handlePowerSourceFound:v8];
@@ -1641,15 +1644,16 @@ LABEL_50:
       {
         [v33 setPartID:{objc_msgSend(v8, "partID")}];
         v34 = [v8 updateWithCBPowerSource:v33];
-        v35 = sub_100058928();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v35 = v34;
+        v36 = sub_100058928(v34);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v46 = v8;
-          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Power source override reset %@", buf, 0xCu);
+          v47 = v8;
+          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Power source override reset %@", buf, 0xCu);
         }
 
-        if (v34)
+        if (v35)
         {
           [(CBStackPowerSourceMonitorBTStack *)selfCopy _handlePowerSourceFound:v8];
         }
@@ -1666,7 +1670,7 @@ LABEL_55:
     goto LABEL_51;
   }
 
-  v25 = CBErrorF();
+  v25 = CBErrorF(4294960591, "Device identifier is not UUID format: %@", 0);
 LABEL_27:
   v26 = 0;
   *error = v25;
@@ -1691,13 +1695,13 @@ LABEL_53:
       goto LABEL_32;
     }
 
-    v31[0] = _NSConcreteStackBlock;
-    v31[1] = 3221225472;
-    v31[2] = sub_10012C0F4;
-    v31[3] = &unk_100AE0B60;
-    v31[4] = selfCopy;
-    v31[5] = accessoryID;
-    v7 = objc_retainBlock(v31);
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = sub_10012C0F4;
+    v32[3] = &unk_100AE0B60;
+    v32[4] = selfCopy;
+    v32[5] = accessoryID;
+    v7 = objc_retainBlock(v32);
     if ([neededCopy partID] == 1)
     {
       components = [neededCopy components];
@@ -1753,8 +1757,8 @@ LABEL_30:
 
 LABEL_31:
         vendorID = [neededCopy vendorID];
-        v28 = sub_10000F034();
-        (*(*v28 + 808))(v28, v14 | v12 | v11, v20 | (vendorID << 48));
+        v29 = sub_10000F034(vendorID, v28);
+        (*(*v29 + 808))(v29, v14 | v12 | v11, v20 | (vendorID << 48));
         (v7[2])(v7);
 
 LABEL_32:
@@ -1763,7 +1767,7 @@ LABEL_32:
 
       v21 = v18;
       v22 = v21;
-      if (v16 == @"Bluetooth LE" || (v29 = [(__CFString *)v21 isEqual:@"Bluetooth LE"], v22, v29))
+      if (v16 == @"Bluetooth LE" || (v30 = [(__CFString *)v21 isEqual:@"Bluetooth LE"], v22, v30))
       {
 
         productID = [neededCopy productID];
@@ -1771,13 +1775,13 @@ LABEL_32:
         {
           if ([neededCopy partID] == 1)
           {
-            memset(v30, 0, sizeof(v30));
+            memset(v31, 0, sizeof(v31));
             components2 = [neededCopy components];
             allValues = [components2 allValues];
 
-            if ([allValues countByEnumeratingWithState:v30 objects:v32 count:16])
+            if ([allValues countByEnumeratingWithState:v31 objects:v33 count:16])
             {
-              productID2 = [**(&v30[0] + 1) productID];
+              productID2 = [**(&v31[0] + 1) productID];
               if (productID2)
               {
                 productID = productID2;
@@ -1833,7 +1837,7 @@ LABEL_33:
 
     sub_1000498D4(off_100B508C8, (v4 << 40) | (v5 << 32) | (v6 << 24) | (v7 << 16) | (v8 << 8) | v9, 0, 1u, 0, 0, v24);
     v10 = sub_10004DF60(v24);
-    v11 = sub_100058928();
+    v11 = sub_100058928(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       sub_1000C23E0(d, __p);
@@ -1954,6 +1958,7 @@ LABEL_13:
     }
 
     v10 = sub_10056B294(off_100B508E8, v7);
+    v11 = v10;
     if (v10)
     {
       goto LABEL_7;
@@ -1962,10 +1967,11 @@ LABEL_13:
     *&__p[4] = 0;
     *__p = 0;
     [v7 UTF8String];
-    if (TextToHardwareAddress())
+    v10 = TextToHardwareAddress();
+    if (v10)
     {
-      v17 = sub_100058928();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = sub_100058928(v10);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         sub_10080A5E8();
       }
@@ -1973,46 +1979,46 @@ LABEL_13:
 
     else
     {
-      v19 = (__p[0] << 40) | (__p[1] << 32) | (__p[2] << 24) | (__p[3] << 16) | (__p[4] << 8) | __p[5];
-      if (v19)
+      v20 = (__p[0] << 40) | (__p[1] << 32) | (__p[2] << 24) | (__p[3] << 16) | (__p[4] << 8) | __p[5];
+      if (v20)
       {
         if (qword_100B508F0 != -1)
         {
           sub_100809D38();
         }
 
-        v10 = sub_1000504C8(off_100B508E8, v19, 1);
+        v10 = sub_1000504C8(off_100B508E8, v20, 1);
+        v11 = v10;
         if (v10)
         {
 LABEL_7:
-          v11 = sub_100058928();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v12 = sub_100058928(v10);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            sub_1000E5A58(v10, __p);
-            v12 = v21 >= 0 ? __p : *__p;
+            sub_1000E5A58(v11, __p);
+            v13 = v22 >= 0 ? __p : *__p;
             *buf = 138412546;
-            v23 = v7;
-            v24 = 2080;
-            v25 = v12;
-            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Found device with accessoryID '%@': %s", buf, 0x16u);
-            if (v21 < 0)
+            v24 = v7;
+            v25 = 2080;
+            v26 = v13;
+            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Found device with accessoryID '%@': %s", buf, 0x16u);
+            if (v22 < 0)
             {
               operator delete(*__p);
             }
           }
 
-          v13 = [(CBStackPowerSourceMonitorBTStack *)self _classicDeviceUUID:v10];
+          v14 = [(CBStackPowerSourceMonitorBTStack *)self _classicDeviceUUID:v11];
           v9 = 0;
-          for (i = 1; v13 && (i & 1) != 0; i = 0)
+          for (i = 1; v14 && (i & 1) != 0; i = 0)
           {
-            uUIDString = [v13 UUIDString];
+            uUIDString = [v14 UUIDString];
 
-            [(NSMutableDictionary *)self->_classicMap setObject:uUIDString forKeyedSubscript:normalized];
-            v16 = sub_100058928();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            v17 = sub_100058928([(NSMutableDictionary *)self->_classicMap setObject:uUIDString forKeyedSubscript:normalized]);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
               *__p = 0;
-              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Updated Classic Map", __p, 2u);
+              _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Updated Classic Map", __p, 2u);
             }
 
             v9 = uUIDString;
@@ -2026,12 +2032,12 @@ LABEL_26:
       }
     }
 
-    v13 = sub_100058928();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100058928(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *__p = 138412290;
       *&__p[4] = v7;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "### No classic device found for '%@'", __p, 0xCu);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "### No classic device found for '%@'", __p, 0xCu);
     }
 
     v9 = 0;
@@ -2057,21 +2063,21 @@ LABEL_27:
 
   if (!normalized || ([(NSMutableDictionary *)self->_classicMap objectForKeyedSubscript:normalized], (v9 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v33 = *(device + 32);
-    v34 = *(device + 66);
-    v31[0] = 0;
-    v31[1] = 0;
-    v32 = 0;
-    sub_1000BE6F8(&v33, v31);
+    v35 = *(device + 32);
+    v36 = *(device + 66);
+    v33[0] = 0;
+    v33[1] = 0;
+    v34 = 0;
+    sub_1000BE6F8(&v35, v33);
     v10 = [NSString alloc];
-    if (v32 >= 0)
+    if (v34 >= 0)
     {
-      v11 = v31;
+      v11 = v33;
     }
 
     else
     {
-      v11 = v31[0];
+      v11 = v33[0];
     }
 
     v12 = [v10 initWithUTF8String:v11];
@@ -2085,36 +2091,36 @@ LABEL_27:
         goto LABEL_31;
       }
 
-      v14 = [(CBStackPowerSourceMonitorBTStack *)self _classicDeviceUUID:device];
-      v15 = v14;
-      if (v14)
+      v15 = [(CBStackPowerSourceMonitorBTStack *)self _classicDeviceUUID:device];
+      v16 = v15;
+      if (v15)
       {
-        uUIDString = [v14 UUIDString];
+        uUIDString = [v15 UUIDString];
 
         if (uUIDString)
         {
           __p = 0;
           p_p = &__p;
-          v27 = 0x3032000000;
-          v28 = sub_100042214;
-          v29 = sub_10004259C;
-          v30 = 0;
-          v17 = self->_classicMap;
-          v24[0] = _NSConcreteStackBlock;
-          v24[1] = 3221225472;
-          v24[2] = sub_10012CD6C;
-          v24[3] = &unk_100AE11B0;
-          v24[5] = normalized2;
-          v24[6] = &__p;
-          v24[4] = normalized;
-          [(NSMutableDictionary *)v17 enumerateKeysAndObjectsUsingBlock:v24];
-          if (p_p[5] || (normalized ? (v18 = normalized) : (v18 = normalized2), objc_storeStrong(p_p + 5, v18), p_p[5]))
+          v29 = 0x3032000000;
+          v30 = sub_100042214;
+          v31 = sub_10004259C;
+          v32 = 0;
+          v19 = self->_classicMap;
+          v26[0] = _NSConcreteStackBlock;
+          v26[1] = 3221225472;
+          v26[2] = sub_10012CD6C;
+          v26[3] = &unk_100AE11B0;
+          v26[5] = normalized2;
+          v26[6] = &__p;
+          v26[4] = normalized;
+          [(NSMutableDictionary *)v19 enumerateKeysAndObjectsUsingBlock:v26];
+          if (p_p[5] || (normalized ? (v20 = normalized) : (v20 = normalized2), objc_storeStrong(p_p + 5, v20), p_p[5]))
           {
             [(NSMutableDictionary *)self->_classicMap setObject:uUIDString forKeyedSubscript:?];
-            v19 = [(NSMutableDictionary *)self->_powerSources objectForKeyedSubscript:p_p[5]];
-            if (v19)
+            v21 = [(NSMutableDictionary *)self->_powerSources objectForKeyedSubscript:p_p[5]];
+            if (v21)
             {
-              [(NSMutableDictionary *)self->_powerSources setObject:v19 forKeyedSubscript:uUIDString];
+              [(NSMutableDictionary *)self->_powerSources setObject:v21 forKeyedSubscript:uUIDString];
               [(NSMutableDictionary *)self->_powerSources setObject:0 forKeyedSubscript:p_p[5]];
             }
 
@@ -2136,49 +2142,49 @@ LABEL_27:
       {
       }
 
-      uUIDString = sub_100058928();
+      uUIDString = sub_100058928(v18);
       if (os_log_type_enabled(uUIDString, OS_LOG_TYPE_DEFAULT))
       {
         sub_1000E5A58(device, &__p);
-        if (v27 >= 0)
+        if (v29 >= 0)
         {
-          v20 = &__p;
+          v22 = &__p;
         }
 
         else
         {
-          v20 = __p;
+          v22 = __p;
         }
 
         *buf = 136315138;
-        v36 = v20;
-        v21 = "### No identifier found for classic device: %s";
+        v38 = v22;
+        v23 = "### No identifier found for classic device: %s";
         goto LABEL_27;
       }
     }
 
     else
     {
-      uUIDString = sub_100058928();
+      uUIDString = sub_100058928(v14);
       if (os_log_type_enabled(uUIDString, OS_LOG_TYPE_DEFAULT))
       {
         sub_1000E5A58(device, &__p);
-        if (v27 >= 0)
+        if (v29 >= 0)
         {
-          v23 = &__p;
+          v25 = &__p;
         }
 
         else
         {
-          v23 = __p;
+          v25 = __p;
         }
 
         *buf = 136315138;
-        v36 = v23;
-        v21 = "### No address found for classic device: %s";
+        v38 = v25;
+        v23 = "### No address found for classic device: %s";
 LABEL_27:
-        _os_log_impl(&_mh_execute_header, uUIDString, OS_LOG_TYPE_DEFAULT, v21, buf, 0xCu);
-        if (SHIBYTE(v27) < 0)
+        _os_log_impl(&_mh_execute_header, uUIDString, OS_LOG_TYPE_DEFAULT, v23, buf, 0xCu);
+        if (SHIBYTE(v29) < 0)
         {
           operator delete(__p);
         }
@@ -2189,9 +2195,9 @@ LABEL_27:
 LABEL_30:
 
 LABEL_31:
-    if (SHIBYTE(v32) < 0)
+    if (SHIBYTE(v34) < 0)
     {
-      operator delete(v31[0]);
+      operator delete(v33[0]);
     }
   }
 
@@ -2238,7 +2244,7 @@ LABEL_31:
 
   else
   {
-    sub_10080A6FC();
+    sub_10080A6FC(flagsCopy);
   }
 }
 
@@ -2302,7 +2308,7 @@ LABEL_31:
 
     else
     {
-      sub_10080A788();
+      sub_10080A788(v7);
     }
 
     _Block_object_dispose(&v25, 8);

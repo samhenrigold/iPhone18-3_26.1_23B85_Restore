@@ -9,7 +9,7 @@
 
 - (id)ik_nodePath
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if ([(IKDOMNode *)self nodeType]== 9)
   {
     v3 = 0;
@@ -23,7 +23,7 @@
     {
       v7 = 0x279798000uLL;
       *&v6 = 138412546;
-      v24 = v6;
+      v22 = v6;
       while (1)
       {
         objc_opt_class();
@@ -47,7 +47,6 @@
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           v13 = v7;
-          v14 = *(v7 + 1440);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -56,14 +55,14 @@
 
           else
           {
-            v15 = objc_opt_class();
-            NSStringFromClass(v15);
+            v14 = objc_opt_class();
+            NSStringFromClass(v14);
           }
-          v16 = ;
-          *buf = v24;
-          v26 = v16;
-          v27 = 2048;
-          v28 = v10;
+          v15 = ;
+          *buf = v22;
+          v24 = v15;
+          v25 = 2048;
+          v26 = v10;
           _os_log_debug_impl(&dword_2549A4000, v11, OS_LOG_TYPE_DEBUG, "%@ is %lu", buf, 0x16u);
 
           v7 = v13;
@@ -81,30 +80,28 @@
       }
     }
 
-    v17 = v5;
-    v5 = [v5 indexPathByAddingIndex:{0, v24}];
+    v16 = v5;
+    v5 = [v5 indexPathByAddingIndex:{0, v22}];
 
-    v18 = &buf[-((8 * [v5 length] + 15) & 0xFFFFFFFFFFFFFFF0) - 16];
+    v17 = &buf[-((8 * [v5 length] + 15) & 0xFFFFFFFFFFFFFFF0) - 16];
     if ([v5 length])
     {
-      v19 = 0;
-      v20 = v18 - 8;
+      v18 = 0;
+      v19 = v17 - 8;
       do
       {
-        v21 = [v5 indexAtPosition:v19];
-        *&v20[8 * [v5 length]] = v21;
-        ++v19;
-        v20 -= 8;
+        v20 = [v5 indexAtPosition:v18];
+        *&v19[8 * [v5 length]] = v20;
+        ++v18;
+        v19 -= 8;
       }
 
-      while ([v5 length] > v19);
+      while ([v5 length] > v18);
     }
 
-    v3 = [MEMORY[0x277CCAA70] indexPathWithIndexes:v18 length:{objc_msgSend(v5, "length")}];
+    v3 = [MEMORY[0x277CCAA70] indexPathWithIndexes:v17 length:{objc_msgSend(v5, "length")}];
 LABEL_19:
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -179,7 +176,7 @@ uint64_t __44__IKDOMNode_IKJSInspector__ik_nodesWithIds___block_invoke(uint64_t 
 
 - (id)ik_pathsForSearchQuery:(id)query compareOptions:(unint64_t)options currentPath:(id)path
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   pathCopy = path;
   v10 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:0];
@@ -190,40 +187,40 @@ uint64_t __44__IKDOMNode_IKJSInspector__ik_nodesWithIds___block_invoke(uint64_t 
   if (nodeValue)
   {
     nodeValue2 = [(IKDOMNode *)self nodeValue];
-    v36 = [nodeValue2 rangeOfString:queryCopy options:options] != 0x7FFFFFFFFFFFFFFFLL;
+    v35 = [nodeValue2 rangeOfString:queryCopy options:options] != 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v36 = 0;
+    v35 = 0;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v33 = v12;
-    v34 = pathCopy;
-    v35 = v10;
+    v32 = v12;
+    v33 = pathCopy;
+    v34 = v10;
     [(IKDOMNode *)self _attributes];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v15 = v41 = 0u;
-    v16 = [v15 countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v15 = v40 = 0u;
+    v16 = [v15 countByEnumeratingWithState:&v37 objects:v41 count:16];
     if (v16)
     {
       v17 = v16;
-      v37 = *v39;
+      v36 = *v38;
 LABEL_7:
       v18 = 0;
       while (1)
       {
-        if (*v39 != v37)
+        if (*v38 != v36)
         {
           objc_enumerationMutation(v15);
         }
 
-        v19 = *(*(&v38 + 1) + 8 * v18);
+        v19 = *(*(&v37 + 1) + 8 * v18);
         v20 = [v19 rangeOfString:queryCopy options:options];
         v21 = [v15 objectForKey:v19];
         objc_opt_class();
@@ -246,7 +243,7 @@ LABEL_7:
 
         if (v17 == ++v18)
         {
-          v17 = [v15 countByEnumeratingWithState:&v38 objects:v42 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v37 objects:v41 count:16];
           if (v17)
           {
             goto LABEL_7;
@@ -263,9 +260,9 @@ LABEL_17:
       v24 = 0;
     }
 
-    pathCopy = v34;
-    v10 = v35;
-    v12 = v33;
+    pathCopy = v33;
+    v10 = v34;
+    v12 = v32;
   }
 
   else
@@ -273,7 +270,7 @@ LABEL_17:
     v24 = 0;
   }
 
-  if (v12 != 0x7FFFFFFFFFFFFFFFLL || v36 || v24)
+  if (v12 != 0x7FFFFFFFFFFFFFFFLL || v35 || v24)
   {
     v25 = [pathCopy indexPathByAddingIndex:{-[IKDOMNode ITMLID](self, "ITMLID")}];
     [v10 addObject:v25];
@@ -295,8 +292,6 @@ LABEL_17:
 
     while ([childNodesAsArray count] > v27);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

@@ -133,15 +133,15 @@
 
 - (id)_ICP_filenameExtensions
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   tagSpecification = [self tagSpecification];
   v3 = *MEMORY[0x1E6963710];
   v4 = [tagSpecification objectForKey:*MEMORY[0x1E6963710] ofClass:objc_opt_class()];
 
   if (v4)
   {
-    v13[0] = v4;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = v4;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   }
 
   else
@@ -158,8 +158,6 @@
 
     v5 = v10;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

@@ -9,41 +9,40 @@
 
 - (void)dealloc
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if ((BSAtomicGetFlag() & 1) == 0)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"must be sent or invalidated before dealloc"];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"must be sent or invalidated before dealloc"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = NSStringFromSelector(a2);
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
+      v5 = NSStringFromSelector(a2);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
       *buf = 138544642;
-      v12 = v6;
-      v13 = 2114;
-      v14 = v8;
-      v15 = 2048;
+      v11 = v5;
+      v12 = 2114;
+      v13 = v7;
+      v14 = 2048;
       selfCopy = self;
-      v17 = 2114;
-      v18 = @"BSXPCServiceConnection.m";
-      v19 = 1024;
-      v20 = 1526;
-      v21 = 2114;
-      v22 = v5;
+      v16 = 2114;
+      v17 = @"BSXPCServiceConnection.m";
+      v18 = 1024;
+      v19 = 1526;
+      v20 = 2114;
+      v21 = v4;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v9 = v5;
-    [v5 UTF8String];
+    v8 = v4;
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A82675CLL);
   }
 
-  v10.receiver = self;
-  v10.super_class = BSXPCServiceConnectionActivationMessage;
-  [(BSXPCServiceConnectionActivationMessage *)&v10 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = BSXPCServiceConnectionActivationMessage;
+  [(BSXPCServiceConnectionActivationMessage *)&v9 dealloc];
 }
 
 - (void)sendIfNecessary

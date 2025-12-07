@@ -65,7 +65,7 @@ LABEL_11:
 
 + (id)jsonStringFromDictionary:()BRAdditions options:error:
 {
-  v7 = [self _jsonifyObject:?];
+  v7 = [self _jsonifyObject:a3];
   v14 = 0;
   v8 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v7 options:a4 error:&v14];
   v9 = v14;

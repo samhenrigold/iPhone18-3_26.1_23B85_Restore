@@ -251,10 +251,9 @@ void __59__FCPuzzleFetchOperation_fetchPuzzleRecordsWithCompletion___block_invok
 uint64_t __59__FCPuzzleFetchOperation_fetchPuzzleRecordsWithCompletion___block_invoke_6(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) setFetchedPuzzleTypes:a2];
-  v3 = *(a1 + 40);
-  v4 = *(*(a1 + 48) + 16);
+  v3 = *(*(a1 + 48) + 16);
 
-  return v4();
+  return v3();
 }
 
 - (id)completeFetchOperation

@@ -314,9 +314,9 @@ LABEL_24:
 
                 if (indexPath)
                 {
-                  v27 = [indexPath isEqual:v25];
+                  isEqual = objc_msgSend_isEqual_(indexPath);
 
-                  if (v27)
+                  if (isEqual)
                   {
                     goto LABEL_24;
                   }
@@ -360,7 +360,7 @@ LABEL_24:
           completionCopy = v44;
           if (swipeHandler)
           {
-            [(_UISwipeHandler *)swipeHandler currentSwipeConfig];
+            objc_msgSend_currentSwipeConfig(swipeHandler);
             v39 = v50;
             v40 = v51;
           }
@@ -556,9 +556,9 @@ LABEL_16:
 
         if (pathCopy && indexPath)
         {
-          v13 = [indexPath isEqual:v11];
+          isEqual = objc_msgSend_isEqual_(indexPath);
 
-          if (v13)
+          if (isEqual)
           {
             goto LABEL_16;
           }
@@ -607,9 +607,9 @@ LABEL_17:
         goto LABEL_11;
       }
 
-      v9 = [indexPath isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(indexPath);
 
-      if (!v9)
+      if (!isEqual)
       {
         v10 = 0;
 LABEL_12:
@@ -816,7 +816,7 @@ void __48__UISwipeActionController_deleteRowAtIndexPath___block_invoke(uint64_t 
 
     v13 = *(a1 + 32);
     v14 = [v15 indexPath];
-    LODWORD(v13) = [v13 isEqual:v14];
+    LODWORD(v13) = objc_msgSend_isEqual_(v13);
 
     if (v13)
     {
@@ -994,7 +994,7 @@ void __58__UISwipeActionController_moveRowAtIndexPath_toIndexPath___block_invoke
 
   v3 = *(a1 + 32);
   v4 = [v23 indexPath];
-  LODWORD(v3) = [v3 isEqual:v4];
+  LODWORD(v3) = objc_msgSend_isEqual_(v3);
 
   if (v3)
   {
@@ -1182,7 +1182,7 @@ LABEL_13:
   objc_storeStrong(&self->_preparingSwipeOccurrence, v16);
   if (v16)
   {
-    [(UISwipeOccurrence *)v16 prepareWithSwipeDirection:configuration configuration:locationCopy];
+    objc_msgSend_prepareWithSwipeDirection_configuration_(v16);
   }
 
   else
@@ -1450,9 +1450,9 @@ LABEL_25:
 
       if (indexPath)
       {
-        v20 = [indexPath isEqual:v18];
+        isEqual = objc_msgSend_isEqual_(indexPath);
 
-        if (v20)
+        if (isEqual)
         {
           v21 = 1;
 LABEL_22:

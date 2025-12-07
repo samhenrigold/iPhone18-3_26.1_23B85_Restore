@@ -8,10 +8,10 @@
 - (REMHashtagLabelDetailed_Codable)initWithName:(id)name canonicalName:(id)canonicalName firstOccurrenceCreationDate:(id)date recencyDate:(id)recencyDate uuidForChangeTracking:(id)tracking
 {
   selfCopy = self;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14800);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14800, &unk_230316810);
   MEMORY[0x28223BE20](v11 - 8);
   v13 = &v36 - v12;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DB15AA0);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DB15AA0, &unk_23031A950);
   v15 = MEMORY[0x28223BE20](v14 - 8);
   v17 = &v36 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v15);

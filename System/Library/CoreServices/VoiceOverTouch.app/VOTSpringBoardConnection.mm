@@ -220,7 +220,7 @@
   if ((isGuidedAccessActive & 1) == 0)
   {
     v6 = [objc_allocWithZone(NSNumber) initWithBool:switchCopy];
-    sub_10003CA18();
+    sub_10003CA18(1521);
   }
 }
 
@@ -233,21 +233,21 @@
   }
 
   v5 = [NSArray arrayWithObjects:*v4, label, 0];
-  sub_10003CA18();
+  sub_10003CA18(1519);
 }
 
 - (void)setInPassthroughMode:(BOOL)mode
 {
   [NSNumber numberWithBool:mode];
 
-  sub_10003CA18();
+  sub_10003CA18(1524);
 }
 
 - (void)setScreenCurtainEnabled:(BOOL)enabled
 {
   [NSNumber numberWithBool:enabled];
 
-  sub_10003CA18();
+  sub_10003CA18(1512);
 }
 
 @end

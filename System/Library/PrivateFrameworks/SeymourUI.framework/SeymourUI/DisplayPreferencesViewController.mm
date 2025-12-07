@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_20BC41F84();
+  sub_20BC41F84(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -45,17 +45,18 @@
 - (void)viewWillDisappear:(BOOL)disappear
 {
   disappearCopy = disappear;
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for DisplayPreferencesViewController();
-  v4 = v7.receiver;
-  [(DisplayPreferencesViewController *)&v7 viewWillDisappear:disappearCopy];
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for DisplayPreferencesViewController();
+  v4 = v8.receiver;
+  [(DisplayPreferencesViewController *)&v8 viewWillDisappear:disappearCopy];
   v5 = *&v4[OBJC_IVAR____TtC9SeymourUI32DisplayPreferencesViewController_onSettingsDismissed];
   if (v5)
   {
+    v6 = *&v4[OBJC_IVAR____TtC9SeymourUI32DisplayPreferencesViewController_onSettingsDismissed + 8];
 
-    v5(v6);
+    v5(v7);
 
-    sub_20B583ECC(v5);
+    sub_20B583ECC(v5, v6);
   }
 
   else

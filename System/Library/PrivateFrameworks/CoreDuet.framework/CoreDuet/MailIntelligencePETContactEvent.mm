@@ -2748,27 +2748,24 @@ LABEL_121:
   v5 = *(&self->_has + 1);
   if ((v5 & 0x80) != 0)
   {
-    firstPartyMsgTotal = self->_firstPartyMsgTotal;
     PBDataWriterWriteUint64Field();
     v5 = *(&self->_has + 1);
   }
 
   if ((v5 & 0x40) != 0)
   {
-    firstPartyMsgOutgoingRatio = self->_firstPartyMsgOutgoingRatio;
     PBDataWriterWriteDoubleField();
   }
 
-  v8 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x2000000000000000) != 0)
   {
-    firstPartyMsgMorningWeekday = self->_firstPartyMsgMorningWeekday;
     PBDataWriterWriteDoubleField();
-    v8 = *p_has;
+    v6 = *p_has;
     if ((*p_has & 0x400000000000000) == 0)
     {
 LABEL_7:
-      if ((v8 & 0x800000000000000) == 0)
+      if ((v6 & 0x800000000000000) == 0)
       {
         goto LABEL_8;
       }
@@ -2777,18 +2774,17 @@ LABEL_7:
     }
   }
 
-  else if ((v8 & 0x400000000000000) == 0)
+  else if ((v6 & 0x400000000000000) == 0)
   {
     goto LABEL_7;
   }
 
-  firstPartyMsgMorningFri = self->_firstPartyMsgMorningFri;
   PBDataWriterWriteDoubleField();
-  v8 = *p_has;
+  v6 = *p_has;
   if ((*p_has & 0x800000000000000) == 0)
   {
 LABEL_8:
-    if ((v8 & 0x1000000000000000) == 0)
+    if ((v6 & 0x1000000000000000) == 0)
     {
       goto LABEL_10;
     }
@@ -2797,26 +2793,23 @@ LABEL_8:
   }
 
 LABEL_126:
-  firstPartyMsgMorningSat = self->_firstPartyMsgMorningSat;
   PBDataWriterWriteDoubleField();
   if ((*p_has & 0x1000000000000000) != 0)
   {
 LABEL_9:
-    firstPartyMsgMorningSun = self->_firstPartyMsgMorningSun;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_10:
-  v10 = *(&self->_has + 1);
-  if ((v10 & 0x20) != 0)
+  v7 = *(&self->_has + 1);
+  if ((v7 & 0x20) != 0)
   {
-    firstPartyMsgNoonWeekday = self->_firstPartyMsgNoonWeekday;
     PBDataWriterWriteDoubleField();
-    v10 = *(&self->_has + 1);
-    if ((v10 & 4) == 0)
+    v7 = *(&self->_has + 1);
+    if ((v7 & 4) == 0)
     {
 LABEL_12:
-      if ((v10 & 8) == 0)
+      if ((v7 & 8) == 0)
       {
         goto LABEL_13;
       }
@@ -2825,18 +2818,17 @@ LABEL_12:
     }
   }
 
-  else if ((v10 & 4) == 0)
+  else if ((v7 & 4) == 0)
   {
     goto LABEL_12;
   }
 
-  firstPartyMsgNoonFri = self->_firstPartyMsgNoonFri;
   PBDataWriterWriteDoubleField();
-  v10 = *(&self->_has + 1);
-  if ((v10 & 8) == 0)
+  v7 = *(&self->_has + 1);
+  if ((v7 & 8) == 0)
   {
 LABEL_13:
-    if ((v10 & 0x10) == 0)
+    if ((v7 & 0x10) == 0)
     {
       goto LABEL_15;
     }
@@ -2845,26 +2837,23 @@ LABEL_13:
   }
 
 LABEL_130:
-  firstPartyMsgNoonSat = self->_firstPartyMsgNoonSat;
   PBDataWriterWriteDoubleField();
   if ((*(&self->_has + 1) & 0x10) != 0)
   {
 LABEL_14:
-    firstPartyMsgNoonSun = self->_firstPartyMsgNoonSun;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_15:
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x200000000000000) != 0)
   {
-    firstPartyMsgEveWeekday = self->_firstPartyMsgEveWeekday;
     PBDataWriterWriteDoubleField();
-    v12 = *p_has;
+    v8 = *p_has;
     if ((*p_has & 0x40000000000000) == 0)
     {
 LABEL_17:
-      if ((v12 & 0x80000000000000) == 0)
+      if ((v8 & 0x80000000000000) == 0)
       {
         goto LABEL_18;
       }
@@ -2873,18 +2862,17 @@ LABEL_17:
     }
   }
 
-  else if ((v12 & 0x40000000000000) == 0)
+  else if ((v8 & 0x40000000000000) == 0)
   {
     goto LABEL_17;
   }
 
-  firstPartyMsgEveFri = self->_firstPartyMsgEveFri;
   PBDataWriterWriteDoubleField();
-  v12 = *p_has;
+  v8 = *p_has;
   if ((*p_has & 0x80000000000000) == 0)
   {
 LABEL_18:
-    if ((v12 & 0x100000000000000) == 0)
+    if ((v8 & 0x100000000000000) == 0)
     {
       goto LABEL_20;
     }
@@ -2893,46 +2881,40 @@ LABEL_18:
   }
 
 LABEL_134:
-  firstPartyMsgEveSat = self->_firstPartyMsgEveSat;
   PBDataWriterWriteDoubleField();
   if ((*p_has & 0x100000000000000) != 0)
   {
 LABEL_19:
-    firstPartyMsgEveSun = self->_firstPartyMsgEveSun;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_20:
   if ((*(&self->_has + 8) & 2) != 0)
   {
-    firstPartyMsgNightWeekday = self->_firstPartyMsgNightWeekday;
     PBDataWriterWriteDoubleField();
   }
 
-  v15 = *p_has;
+  v9 = *p_has;
   if ((*p_has & 0x4000000000000000) != 0)
   {
-    firstPartyMsgNightFri = self->_firstPartyMsgNightFri;
     PBDataWriterWriteDoubleField();
-    v15 = *p_has;
+    v9 = *p_has;
   }
 
-  if (v15 < 0)
+  if (v9 < 0)
   {
-    firstPartyMsgNightSat = self->_firstPartyMsgNightSat;
     PBDataWriterWriteDoubleField();
   }
 
-  v18 = *(&self->_has + 1);
-  if (v18)
+  v10 = *(&self->_has + 1);
+  if (v10)
   {
-    firstPartyMsgNightSun = self->_firstPartyMsgNightSun;
     PBDataWriterWriteDoubleField();
-    v18 = *(&self->_has + 1);
-    if ((v18 & 0x1000000) == 0)
+    v10 = *(&self->_has + 1);
+    if ((v10 & 0x1000000) == 0)
     {
 LABEL_28:
-      if ((v18 & 0x8000) == 0)
+      if ((v10 & 0x8000) == 0)
       {
         goto LABEL_29;
       }
@@ -2941,18 +2923,17 @@ LABEL_28:
     }
   }
 
-  else if ((v18 & 0x1000000) == 0)
+  else if ((v10 & 0x1000000) == 0)
   {
     goto LABEL_28;
   }
 
-  thirdPartyMsgTotal = self->_thirdPartyMsgTotal;
   PBDataWriterWriteUint64Field();
-  v18 = *(&self->_has + 1);
-  if ((v18 & 0x8000) == 0)
+  v10 = *(&self->_has + 1);
+  if ((v10 & 0x8000) == 0)
   {
 LABEL_29:
-    if ((v18 & 0x1000) == 0)
+    if ((v10 & 0x1000) == 0)
     {
       goto LABEL_30;
     }
@@ -2961,13 +2942,12 @@ LABEL_29:
   }
 
 LABEL_138:
-  thirdPartyMsgMorningWeekday = self->_thirdPartyMsgMorningWeekday;
   PBDataWriterWriteDoubleField();
-  v18 = *(&self->_has + 1);
-  if ((v18 & 0x1000) == 0)
+  v10 = *(&self->_has + 1);
+  if ((v10 & 0x1000) == 0)
   {
 LABEL_30:
-    if ((v18 & 0x2000) == 0)
+    if ((v10 & 0x2000) == 0)
     {
       goto LABEL_31;
     }
@@ -2976,13 +2956,12 @@ LABEL_30:
   }
 
 LABEL_139:
-  thirdPartyMsgMorningFri = self->_thirdPartyMsgMorningFri;
   PBDataWriterWriteDoubleField();
-  v18 = *(&self->_has + 1);
-  if ((v18 & 0x2000) == 0)
+  v10 = *(&self->_has + 1);
+  if ((v10 & 0x2000) == 0)
   {
 LABEL_31:
-    if ((v18 & 0x4000) == 0)
+    if ((v10 & 0x4000) == 0)
     {
       goto LABEL_32;
     }
@@ -2991,13 +2970,12 @@ LABEL_31:
   }
 
 LABEL_140:
-  thirdPartyMsgMorningSat = self->_thirdPartyMsgMorningSat;
   PBDataWriterWriteDoubleField();
-  v18 = *(&self->_has + 1);
-  if ((v18 & 0x4000) == 0)
+  v10 = *(&self->_has + 1);
+  if ((v10 & 0x4000) == 0)
   {
 LABEL_32:
-    if ((v18 & 0x800000) == 0)
+    if ((v10 & 0x800000) == 0)
     {
       goto LABEL_33;
     }
@@ -3006,13 +2984,12 @@ LABEL_32:
   }
 
 LABEL_141:
-  thirdPartyMsgMorningSun = self->_thirdPartyMsgMorningSun;
   PBDataWriterWriteDoubleField();
-  v18 = *(&self->_has + 1);
-  if ((v18 & 0x800000) == 0)
+  v10 = *(&self->_has + 1);
+  if ((v10 & 0x800000) == 0)
   {
 LABEL_33:
-    if ((v18 & 0x100000) == 0)
+    if ((v10 & 0x100000) == 0)
     {
       goto LABEL_34;
     }
@@ -3021,13 +2998,12 @@ LABEL_33:
   }
 
 LABEL_142:
-  thirdPartyMsgNoonWeekday = self->_thirdPartyMsgNoonWeekday;
   PBDataWriterWriteDoubleField();
-  v18 = *(&self->_has + 1);
-  if ((v18 & 0x100000) == 0)
+  v10 = *(&self->_has + 1);
+  if ((v10 & 0x100000) == 0)
   {
 LABEL_34:
-    if ((v18 & 0x200000) == 0)
+    if ((v10 & 0x200000) == 0)
     {
       goto LABEL_35;
     }
@@ -3036,13 +3012,12 @@ LABEL_34:
   }
 
 LABEL_143:
-  thirdPartyMsgNoonFri = self->_thirdPartyMsgNoonFri;
   PBDataWriterWriteDoubleField();
-  v18 = *(&self->_has + 1);
-  if ((v18 & 0x200000) == 0)
+  v10 = *(&self->_has + 1);
+  if ((v10 & 0x200000) == 0)
   {
 LABEL_35:
-    if ((v18 & 0x400000) == 0)
+    if ((v10 & 0x400000) == 0)
     {
       goto LABEL_36;
     }
@@ -3051,13 +3026,12 @@ LABEL_35:
   }
 
 LABEL_144:
-  thirdPartyMsgNoonSat = self->_thirdPartyMsgNoonSat;
   PBDataWriterWriteDoubleField();
-  v18 = *(&self->_has + 1);
-  if ((v18 & 0x400000) == 0)
+  v10 = *(&self->_has + 1);
+  if ((v10 & 0x400000) == 0)
   {
 LABEL_36:
-    if ((v18 & 0x800) == 0)
+    if ((v10 & 0x800) == 0)
     {
       goto LABEL_37;
     }
@@ -3066,13 +3040,12 @@ LABEL_36:
   }
 
 LABEL_145:
-  thirdPartyMsgNoonSun = self->_thirdPartyMsgNoonSun;
   PBDataWriterWriteDoubleField();
-  v18 = *(&self->_has + 1);
-  if ((v18 & 0x800) == 0)
+  v10 = *(&self->_has + 1);
+  if ((v10 & 0x800) == 0)
   {
 LABEL_37:
-    if ((v18 & 0x100) == 0)
+    if ((v10 & 0x100) == 0)
     {
       goto LABEL_38;
     }
@@ -3081,13 +3054,12 @@ LABEL_37:
   }
 
 LABEL_146:
-  thirdPartyMsgEveWeekday = self->_thirdPartyMsgEveWeekday;
   PBDataWriterWriteDoubleField();
-  v18 = *(&self->_has + 1);
-  if ((v18 & 0x100) == 0)
+  v10 = *(&self->_has + 1);
+  if ((v10 & 0x100) == 0)
   {
 LABEL_38:
-    if ((v18 & 0x200) == 0)
+    if ((v10 & 0x200) == 0)
     {
       goto LABEL_39;
     }
@@ -3096,13 +3068,12 @@ LABEL_38:
   }
 
 LABEL_147:
-  thirdPartyMsgEveFri = self->_thirdPartyMsgEveFri;
   PBDataWriterWriteDoubleField();
-  v18 = *(&self->_has + 1);
-  if ((v18 & 0x200) == 0)
+  v10 = *(&self->_has + 1);
+  if ((v10 & 0x200) == 0)
   {
 LABEL_39:
-    if ((v18 & 0x400) == 0)
+    if ((v10 & 0x400) == 0)
     {
       goto LABEL_40;
     }
@@ -3111,13 +3082,12 @@ LABEL_39:
   }
 
 LABEL_148:
-  thirdPartyMsgEveSat = self->_thirdPartyMsgEveSat;
   PBDataWriterWriteDoubleField();
-  v18 = *(&self->_has + 1);
-  if ((v18 & 0x400) == 0)
+  v10 = *(&self->_has + 1);
+  if ((v10 & 0x400) == 0)
   {
 LABEL_40:
-    if ((v18 & 0x80000) == 0)
+    if ((v10 & 0x80000) == 0)
     {
       goto LABEL_41;
     }
@@ -3126,13 +3096,12 @@ LABEL_40:
   }
 
 LABEL_149:
-  thirdPartyMsgEveSun = self->_thirdPartyMsgEveSun;
   PBDataWriterWriteDoubleField();
-  v18 = *(&self->_has + 1);
-  if ((v18 & 0x80000) == 0)
+  v10 = *(&self->_has + 1);
+  if ((v10 & 0x80000) == 0)
   {
 LABEL_41:
-    if ((v18 & 0x10000) == 0)
+    if ((v10 & 0x10000) == 0)
     {
       goto LABEL_42;
     }
@@ -3141,13 +3110,12 @@ LABEL_41:
   }
 
 LABEL_150:
-  thirdPartyMsgNightWeekday = self->_thirdPartyMsgNightWeekday;
   PBDataWriterWriteDoubleField();
-  v18 = *(&self->_has + 1);
-  if ((v18 & 0x10000) == 0)
+  v10 = *(&self->_has + 1);
+  if ((v10 & 0x10000) == 0)
   {
 LABEL_42:
-    if ((v18 & 0x20000) == 0)
+    if ((v10 & 0x20000) == 0)
     {
       goto LABEL_43;
     }
@@ -3156,13 +3124,12 @@ LABEL_42:
   }
 
 LABEL_151:
-  thirdPartyMsgNightFri = self->_thirdPartyMsgNightFri;
   PBDataWriterWriteDoubleField();
-  v18 = *(&self->_has + 1);
-  if ((v18 & 0x20000) == 0)
+  v10 = *(&self->_has + 1);
+  if ((v10 & 0x20000) == 0)
   {
 LABEL_43:
-    if ((v18 & 0x40000) == 0)
+    if ((v10 & 0x40000) == 0)
     {
       goto LABEL_45;
     }
@@ -3171,46 +3138,40 @@ LABEL_43:
   }
 
 LABEL_152:
-  thirdPartyMsgNightSat = self->_thirdPartyMsgNightSat;
   PBDataWriterWriteDoubleField();
   if ((*(&self->_has + 1) & 0x40000) != 0)
   {
 LABEL_44:
-    thirdPartyMsgNightSun = self->_thirdPartyMsgNightSun;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_45:
   if ((*(&self->_has + 6) & 0x10) != 0)
   {
-    callTotal = self->_callTotal;
     PBDataWriterWriteUint64Field();
   }
 
-  v21 = *(&self->_has + 1);
-  if ((v21 & 0x2000000) != 0)
+  v11 = *(&self->_has + 1);
+  if ((v11 & 0x2000000) != 0)
   {
-    callBirthday = self->_callBirthday;
     PBDataWriterWriteUint32Field();
-    v21 = *(&self->_has + 1);
+    v11 = *(&self->_has + 1);
   }
 
-  if ((v21 & 0x40000000) != 0)
+  if ((v11 & 0x40000000) != 0)
   {
-    contactFavorite = self->_contactFavorite;
     PBDataWriterWriteUint32Field();
   }
 
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x20000000000000) != 0)
   {
-    callTotalDur = self->_callTotalDur;
     PBDataWriterWriteDoubleField();
-    v24 = *p_has;
+    v12 = *p_has;
     if ((*p_has & 0x2000000000) == 0)
     {
 LABEL_53:
-      if ((v24 & 0x8000000000000) == 0)
+      if ((v12 & 0x8000000000000) == 0)
       {
         goto LABEL_54;
       }
@@ -3219,18 +3180,17 @@ LABEL_53:
     }
   }
 
-  else if ((v24 & 0x2000000000) == 0)
+  else if ((v12 & 0x2000000000) == 0)
   {
     goto LABEL_53;
   }
 
-  callLongRatio = self->_callLongRatio;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x8000000000000) == 0)
   {
 LABEL_54:
-    if ((v24 & 1) == 0)
+    if ((v12 & 1) == 0)
     {
       goto LABEL_55;
     }
@@ -3239,13 +3199,12 @@ LABEL_54:
   }
 
 LABEL_156:
-  callOutgoingRatio = self->_callOutgoingRatio;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 1) == 0)
   {
 LABEL_55:
-    if ((v24 & 0x4000000000) == 0)
+    if ((v12 & 0x4000000000) == 0)
     {
       goto LABEL_56;
     }
@@ -3254,13 +3213,12 @@ LABEL_55:
   }
 
 LABEL_157:
-  callAvgDur = self->_callAvgDur;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x4000000000) == 0)
   {
 LABEL_56:
-    if ((v24 & 0x40000000000) == 0)
+    if ((v12 & 0x40000000000) == 0)
     {
       goto LABEL_57;
     }
@@ -3269,13 +3227,12 @@ LABEL_56:
   }
 
 LABEL_158:
-  callMaxDur = self->_callMaxDur;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x40000000000) == 0)
   {
 LABEL_57:
-    if ((v24 & 0x8000000000) == 0)
+    if ((v12 & 0x8000000000) == 0)
     {
       goto LABEL_58;
     }
@@ -3284,13 +3241,12 @@ LABEL_57:
   }
 
 LABEL_159:
-  callMorningWeekday = self->_callMorningWeekday;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x8000000000) == 0)
   {
 LABEL_58:
-    if ((v24 & 0x10000000000) == 0)
+    if ((v12 & 0x10000000000) == 0)
     {
       goto LABEL_59;
     }
@@ -3299,13 +3255,12 @@ LABEL_58:
   }
 
 LABEL_160:
-  callMorningFri = self->_callMorningFri;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x10000000000) == 0)
   {
 LABEL_59:
-    if ((v24 & 0x20000000000) == 0)
+    if ((v12 & 0x20000000000) == 0)
     {
       goto LABEL_60;
     }
@@ -3314,13 +3269,12 @@ LABEL_59:
   }
 
 LABEL_161:
-  callMorningSat = self->_callMorningSat;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x20000000000) == 0)
   {
 LABEL_60:
-    if ((v24 & 0x4000000000000) == 0)
+    if ((v12 & 0x4000000000000) == 0)
     {
       goto LABEL_61;
     }
@@ -3329,13 +3283,12 @@ LABEL_60:
   }
 
 LABEL_162:
-  callMorningSun = self->_callMorningSun;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x4000000000000) == 0)
   {
 LABEL_61:
-    if ((v24 & 0x800000000000) == 0)
+    if ((v12 & 0x800000000000) == 0)
     {
       goto LABEL_62;
     }
@@ -3344,13 +3297,12 @@ LABEL_61:
   }
 
 LABEL_163:
-  callNoonWeekday = self->_callNoonWeekday;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x800000000000) == 0)
   {
 LABEL_62:
-    if ((v24 & 0x1000000000000) == 0)
+    if ((v12 & 0x1000000000000) == 0)
     {
       goto LABEL_63;
     }
@@ -3359,13 +3311,12 @@ LABEL_62:
   }
 
 LABEL_164:
-  callNoonFri = self->_callNoonFri;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x1000000000000) == 0)
   {
 LABEL_63:
-    if ((v24 & 0x2000000000000) == 0)
+    if ((v12 & 0x2000000000000) == 0)
     {
       goto LABEL_64;
     }
@@ -3374,13 +3325,12 @@ LABEL_63:
   }
 
 LABEL_165:
-  callNoonSat = self->_callNoonSat;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x2000000000000) == 0)
   {
 LABEL_64:
-    if ((v24 & 0x100000) == 0)
+    if ((v12 & 0x100000) == 0)
     {
       goto LABEL_65;
     }
@@ -3389,13 +3339,12 @@ LABEL_64:
   }
 
 LABEL_166:
-  callNoonSun = self->_callNoonSun;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x100000) == 0)
   {
 LABEL_65:
-    if ((v24 & 0x20000) == 0)
+    if ((v12 & 0x20000) == 0)
     {
       goto LABEL_66;
     }
@@ -3404,13 +3353,12 @@ LABEL_65:
   }
 
 LABEL_167:
-  callEveWeekday = self->_callEveWeekday;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x20000) == 0)
   {
 LABEL_66:
-    if ((v24 & 0x40000) == 0)
+    if ((v12 & 0x40000) == 0)
     {
       goto LABEL_67;
     }
@@ -3419,13 +3367,12 @@ LABEL_66:
   }
 
 LABEL_168:
-  callEveFri = self->_callEveFri;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x40000) == 0)
   {
 LABEL_67:
-    if ((v24 & 0x80000) == 0)
+    if ((v12 & 0x80000) == 0)
     {
       goto LABEL_68;
     }
@@ -3434,13 +3381,12 @@ LABEL_67:
   }
 
 LABEL_169:
-  callEveSat = self->_callEveSat;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x80000) == 0)
   {
 LABEL_68:
-    if ((v24 & 0x400000000000) == 0)
+    if ((v12 & 0x400000000000) == 0)
     {
       goto LABEL_69;
     }
@@ -3449,13 +3395,12 @@ LABEL_68:
   }
 
 LABEL_170:
-  callEveSun = self->_callEveSun;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x400000000000) == 0)
   {
 LABEL_69:
-    if ((v24 & 0x80000000000) == 0)
+    if ((v12 & 0x80000000000) == 0)
     {
       goto LABEL_70;
     }
@@ -3464,13 +3409,12 @@ LABEL_69:
   }
 
 LABEL_171:
-  callNightWeekday = self->_callNightWeekday;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x80000000000) == 0)
   {
 LABEL_70:
-    if ((v24 & 0x100000000000) == 0)
+    if ((v12 & 0x100000000000) == 0)
     {
       goto LABEL_71;
     }
@@ -3479,13 +3423,12 @@ LABEL_70:
   }
 
 LABEL_172:
-  callNightFri = self->_callNightFri;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x100000000000) == 0)
   {
 LABEL_71:
-    if ((v24 & 0x200000000000) == 0)
+    if ((v12 & 0x200000000000) == 0)
     {
       goto LABEL_72;
     }
@@ -3494,13 +3437,12 @@ LABEL_71:
   }
 
 LABEL_173:
-  callNightSat = self->_callNightSat;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x200000000000) == 0)
   {
 LABEL_72:
-    if ((v24 & 0x100) == 0)
+    if ((v12 & 0x100) == 0)
     {
       goto LABEL_73;
     }
@@ -3509,13 +3451,12 @@ LABEL_72:
   }
 
 LABEL_174:
-  callNightSun = self->_callNightSun;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x100) == 0)
   {
 LABEL_73:
-    if ((v24 & 0x20) == 0)
+    if ((v12 & 0x20) == 0)
     {
       goto LABEL_74;
     }
@@ -3524,13 +3465,12 @@ LABEL_73:
   }
 
 LABEL_175:
-  callDurMorningWeekday = self->_callDurMorningWeekday;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x20) == 0)
   {
 LABEL_74:
-    if ((v24 & 0x40) == 0)
+    if ((v12 & 0x40) == 0)
     {
       goto LABEL_75;
     }
@@ -3539,13 +3479,12 @@ LABEL_74:
   }
 
 LABEL_176:
-  callDurMorningFri = self->_callDurMorningFri;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x40) == 0)
   {
 LABEL_75:
-    if ((v24 & 0x80) == 0)
+    if ((v12 & 0x80) == 0)
     {
       goto LABEL_76;
     }
@@ -3554,13 +3493,12 @@ LABEL_75:
   }
 
 LABEL_177:
-  callDurMorningSat = self->_callDurMorningSat;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x80) == 0)
   {
 LABEL_76:
-    if ((v24 & 0x10000) == 0)
+    if ((v12 & 0x10000) == 0)
     {
       goto LABEL_77;
     }
@@ -3569,13 +3507,12 @@ LABEL_76:
   }
 
 LABEL_178:
-  callDurMorningSun = self->_callDurMorningSun;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x10000) == 0)
   {
 LABEL_77:
-    if ((v24 & 0x2000) == 0)
+    if ((v12 & 0x2000) == 0)
     {
       goto LABEL_78;
     }
@@ -3584,13 +3521,12 @@ LABEL_77:
   }
 
 LABEL_179:
-  callDurNoonWeekday = self->_callDurNoonWeekday;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x2000) == 0)
   {
 LABEL_78:
-    if ((v24 & 0x4000) == 0)
+    if ((v12 & 0x4000) == 0)
     {
       goto LABEL_79;
     }
@@ -3599,13 +3535,12 @@ LABEL_78:
   }
 
 LABEL_180:
-  callDurNoonFri = self->_callDurNoonFri;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x4000) == 0)
   {
 LABEL_79:
-    if ((v24 & 0x8000) == 0)
+    if ((v12 & 0x8000) == 0)
     {
       goto LABEL_80;
     }
@@ -3614,13 +3549,12 @@ LABEL_79:
   }
 
 LABEL_181:
-  callDurNoonSat = self->_callDurNoonSat;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x8000) == 0)
   {
 LABEL_80:
-    if ((v24 & 0x10) == 0)
+    if ((v12 & 0x10) == 0)
     {
       goto LABEL_81;
     }
@@ -3629,13 +3563,12 @@ LABEL_80:
   }
 
 LABEL_182:
-  callDurNoonSun = self->_callDurNoonSun;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x10) == 0)
   {
 LABEL_81:
-    if ((v24 & 2) == 0)
+    if ((v12 & 2) == 0)
     {
       goto LABEL_82;
     }
@@ -3644,13 +3577,12 @@ LABEL_81:
   }
 
 LABEL_183:
-  callDurEveWeekday = self->_callDurEveWeekday;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 2) == 0)
   {
 LABEL_82:
-    if ((v24 & 4) == 0)
+    if ((v12 & 4) == 0)
     {
       goto LABEL_83;
     }
@@ -3659,13 +3591,12 @@ LABEL_82:
   }
 
 LABEL_184:
-  callDurEveFri = self->_callDurEveFri;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 4) == 0)
   {
 LABEL_83:
-    if ((v24 & 8) == 0)
+    if ((v12 & 8) == 0)
     {
       goto LABEL_84;
     }
@@ -3674,13 +3605,12 @@ LABEL_83:
   }
 
 LABEL_185:
-  callDurEveSat = self->_callDurEveSat;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 8) == 0)
   {
 LABEL_84:
-    if ((v24 & 0x1000) == 0)
+    if ((v12 & 0x1000) == 0)
     {
       goto LABEL_85;
     }
@@ -3689,13 +3619,12 @@ LABEL_84:
   }
 
 LABEL_186:
-  callDurEveSun = self->_callDurEveSun;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x1000) == 0)
   {
 LABEL_85:
-    if ((v24 & 0x200) == 0)
+    if ((v12 & 0x200) == 0)
     {
       goto LABEL_86;
     }
@@ -3704,13 +3633,12 @@ LABEL_85:
   }
 
 LABEL_187:
-  callDurNightWeekday = self->_callDurNightWeekday;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x200) == 0)
   {
 LABEL_86:
-    if ((v24 & 0x400) == 0)
+    if ((v12 & 0x400) == 0)
     {
       goto LABEL_87;
     }
@@ -3719,13 +3647,12 @@ LABEL_86:
   }
 
 LABEL_188:
-  callDurNightFri = self->_callDurNightFri;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x400) == 0)
   {
 LABEL_87:
-    if ((v24 & 0x800) == 0)
+    if ((v12 & 0x800) == 0)
     {
       goto LABEL_88;
     }
@@ -3734,13 +3661,12 @@ LABEL_87:
   }
 
 LABEL_189:
-  callDurNightSat = self->_callDurNightSat;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x800) == 0)
   {
 LABEL_88:
-    if ((v24 & 0x10000000) == 0)
+    if ((v12 & 0x10000000) == 0)
     {
       goto LABEL_89;
     }
@@ -3749,13 +3675,12 @@ LABEL_88:
   }
 
 LABEL_190:
-  callDurNightSun = self->_callDurNightSun;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x10000000) == 0)
   {
 LABEL_89:
-    if ((v24 & 0x2000000) == 0)
+    if ((v12 & 0x2000000) == 0)
     {
       goto LABEL_90;
     }
@@ -3764,13 +3689,12 @@ LABEL_89:
   }
 
 LABEL_191:
-  callLongMorningWeekday = self->_callLongMorningWeekday;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x2000000) == 0)
   {
 LABEL_90:
-    if ((v24 & 0x4000000) == 0)
+    if ((v12 & 0x4000000) == 0)
     {
       goto LABEL_91;
     }
@@ -3779,13 +3703,12 @@ LABEL_90:
   }
 
 LABEL_192:
-  callLongMorningFri = self->_callLongMorningFri;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x4000000) == 0)
   {
 LABEL_91:
-    if ((v24 & 0x8000000) == 0)
+    if ((v12 & 0x8000000) == 0)
     {
       goto LABEL_92;
     }
@@ -3794,13 +3717,12 @@ LABEL_91:
   }
 
 LABEL_193:
-  callLongMorningSat = self->_callLongMorningSat;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x8000000) == 0)
   {
 LABEL_92:
-    if ((v24 & 0x1000000000) == 0)
+    if ((v12 & 0x1000000000) == 0)
     {
       goto LABEL_93;
     }
@@ -3809,13 +3731,12 @@ LABEL_92:
   }
 
 LABEL_194:
-  callLongMorningSun = self->_callLongMorningSun;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x1000000000) == 0)
   {
 LABEL_93:
-    if ((v24 & 0x200000000) == 0)
+    if ((v12 & 0x200000000) == 0)
     {
       goto LABEL_94;
     }
@@ -3824,13 +3745,12 @@ LABEL_93:
   }
 
 LABEL_195:
-  callLongNoonWeekday = self->_callLongNoonWeekday;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x200000000) == 0)
   {
 LABEL_94:
-    if ((v24 & 0x400000000) == 0)
+    if ((v12 & 0x400000000) == 0)
     {
       goto LABEL_95;
     }
@@ -3839,13 +3759,12 @@ LABEL_94:
   }
 
 LABEL_196:
-  callLongNoonFri = self->_callLongNoonFri;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x400000000) == 0)
   {
 LABEL_95:
-    if ((v24 & 0x800000000) == 0)
+    if ((v12 & 0x800000000) == 0)
     {
       goto LABEL_96;
     }
@@ -3854,13 +3773,12 @@ LABEL_95:
   }
 
 LABEL_197:
-  callLongNoonSat = self->_callLongNoonSat;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x800000000) == 0)
   {
 LABEL_96:
-    if ((v24 & 0x1000000) == 0)
+    if ((v12 & 0x1000000) == 0)
     {
       goto LABEL_97;
     }
@@ -3869,13 +3787,12 @@ LABEL_96:
   }
 
 LABEL_198:
-  callLongNoonSun = self->_callLongNoonSun;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x1000000) == 0)
   {
 LABEL_97:
-    if ((v24 & 0x200000) == 0)
+    if ((v12 & 0x200000) == 0)
     {
       goto LABEL_98;
     }
@@ -3884,13 +3801,12 @@ LABEL_97:
   }
 
 LABEL_199:
-  callLongEveWeekday = self->_callLongEveWeekday;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x200000) == 0)
   {
 LABEL_98:
-    if ((v24 & 0x400000) == 0)
+    if ((v12 & 0x400000) == 0)
     {
       goto LABEL_99;
     }
@@ -3899,13 +3815,12 @@ LABEL_98:
   }
 
 LABEL_200:
-  callLongEveFri = self->_callLongEveFri;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x400000) == 0)
   {
 LABEL_99:
-    if ((v24 & 0x800000) == 0)
+    if ((v12 & 0x800000) == 0)
     {
       goto LABEL_100;
     }
@@ -3914,13 +3829,12 @@ LABEL_99:
   }
 
 LABEL_201:
-  callLongEveSat = self->_callLongEveSat;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x800000) == 0)
   {
 LABEL_100:
-    if ((v24 & 0x100000000) == 0)
+    if ((v12 & 0x100000000) == 0)
     {
       goto LABEL_101;
     }
@@ -3929,13 +3843,12 @@ LABEL_100:
   }
 
 LABEL_202:
-  callLongEveSun = self->_callLongEveSun;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x100000000) == 0)
   {
 LABEL_101:
-    if ((v24 & 0x20000000) == 0)
+    if ((v12 & 0x20000000) == 0)
     {
       goto LABEL_102;
     }
@@ -3944,13 +3857,12 @@ LABEL_101:
   }
 
 LABEL_203:
-  callLongNightWeekday = self->_callLongNightWeekday;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x20000000) == 0)
   {
 LABEL_102:
-    if ((v24 & 0x40000000) == 0)
+    if ((v12 & 0x40000000) == 0)
     {
       goto LABEL_103;
     }
@@ -3959,13 +3871,12 @@ LABEL_102:
   }
 
 LABEL_204:
-  callLongNightFri = self->_callLongNightFri;
   PBDataWriterWriteDoubleField();
-  v24 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x40000000) == 0)
   {
 LABEL_103:
-    if ((v24 & 0x80000000) == 0)
+    if ((v12 & 0x80000000) == 0)
     {
       goto LABEL_105;
     }
@@ -3974,19 +3885,16 @@ LABEL_103:
   }
 
 LABEL_205:
-  callLongNightSat = self->_callLongNightSat;
   PBDataWriterWriteDoubleField();
   if ((*p_has & 0x80000000) != 0)
   {
 LABEL_104:
-    callLongNightSun = self->_callLongNightSun;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_105:
   if ((*(&self->_has + 11) & 0x20) != 0)
   {
-    contactFamilyRelation = self->_contactFamilyRelation;
     PBDataWriterWriteUint32Field();
   }
 
@@ -3995,16 +3903,15 @@ LABEL_105:
     PBDataWriterWriteStringField();
   }
 
-  v27 = *(&self->_has + 1);
-  if ((v27 & 0x10000000) != 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x10000000) != 0)
   {
-    contactFamilyName = self->_contactFamilyName;
     PBDataWriterWriteUint32Field();
-    v27 = *(&self->_has + 1);
-    if ((v27 & 0x4000000000) == 0)
+    v13 = *(&self->_has + 1);
+    if ((v13 & 0x4000000000) == 0)
     {
 LABEL_111:
-      if ((v27 & 0x4000000) == 0)
+      if ((v13 & 0x4000000) == 0)
       {
         goto LABEL_112;
       }
@@ -4013,18 +3920,17 @@ LABEL_111:
     }
   }
 
-  else if ((v27 & 0x4000000000) == 0)
+  else if ((v13 & 0x4000000000) == 0)
   {
     goto LABEL_111;
   }
 
-  contactParent = self->_contactParent;
   PBDataWriterWriteUint32Field();
-  v27 = *(&self->_has + 1);
-  if ((v27 & 0x4000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x4000000) == 0)
   {
 LABEL_112:
-    if ((v27 & 0x8000000) == 0)
+    if ((v13 & 0x8000000) == 0)
     {
       goto LABEL_113;
     }
@@ -4033,13 +3939,12 @@ LABEL_112:
   }
 
 LABEL_209:
-  contactEmergency = self->_contactEmergency;
   PBDataWriterWriteUint32Field();
-  v27 = *(&self->_has + 1);
-  if ((v27 & 0x8000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x8000000) == 0)
   {
 LABEL_113:
-    if ((v27 & 0x1000000000) == 0)
+    if ((v13 & 0x1000000000) == 0)
     {
       goto LABEL_114;
     }
@@ -4048,13 +3953,12 @@ LABEL_113:
   }
 
 LABEL_210:
-  contactEmergencyFamily = self->_contactEmergencyFamily;
   PBDataWriterWriteUint32Field();
-  v27 = *(&self->_has + 1);
-  if ((v27 & 0x1000000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x1000000000) == 0)
   {
 LABEL_114:
-    if ((v27 & 0x2000000000) == 0)
+    if ((v13 & 0x2000000000) == 0)
     {
       goto LABEL_115;
     }
@@ -4063,13 +3967,12 @@ LABEL_114:
   }
 
 LABEL_211:
-  contactInHome = self->_contactInHome;
   PBDataWriterWriteUint32Field();
-  v27 = *(&self->_has + 1);
-  if ((v27 & 0x2000000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x2000000000) == 0)
   {
 LABEL_115:
-    if ((v27 & 0x80000000) == 0)
+    if ((v13 & 0x80000000) == 0)
     {
       goto LABEL_116;
     }
@@ -4078,13 +3981,12 @@ LABEL_115:
   }
 
 LABEL_212:
-  contactInPhotos = self->_contactInPhotos;
   PBDataWriterWriteUint32Field();
-  v27 = *(&self->_has + 1);
-  if ((v27 & 0x80000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x80000000) == 0)
   {
 LABEL_116:
-    if ((v27 & 0x100000000) == 0)
+    if ((v13 & 0x100000000) == 0)
     {
       goto LABEL_117;
     }
@@ -4093,13 +3995,12 @@ LABEL_116:
   }
 
 LABEL_213:
-  contactInAirDrop = self->_contactInAirDrop;
   PBDataWriterWriteUint32Field();
-  v27 = *(&self->_has + 1);
-  if ((v27 & 0x100000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x100000000) == 0)
   {
 LABEL_117:
-    if ((v27 & 0x400000000) == 0)
+    if ((v13 & 0x400000000) == 0)
     {
       goto LABEL_118;
     }
@@ -4108,13 +4009,12 @@ LABEL_117:
   }
 
 LABEL_214:
-  contactInAirDropAtHome = self->_contactInAirDropAtHome;
   PBDataWriterWriteUint32Field();
-  v27 = *(&self->_has + 1);
-  if ((v27 & 0x400000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x400000000) == 0)
   {
 LABEL_118:
-    if ((v27 & 0x800000000) == 0)
+    if ((v13 & 0x800000000) == 0)
     {
       goto LABEL_119;
     }
@@ -4123,13 +4023,12 @@ LABEL_118:
   }
 
 LABEL_215:
-  contactInFMFFollowingMe = self->_contactInFMFFollowingMe;
   PBDataWriterWriteUint32Field();
-  v27 = *(&self->_has + 1);
-  if ((v27 & 0x800000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x800000000) == 0)
   {
 LABEL_119:
-    if ((v27 & 0x200000000) == 0)
+    if ((v13 & 0x200000000) == 0)
     {
       goto LABEL_121;
     }
@@ -4138,17 +4037,14 @@ LABEL_119:
   }
 
 LABEL_216:
-  contactInFMFSharingWithMe = self->_contactInFMFSharingWithMe;
   PBDataWriterWriteUint32Field();
   if ((*(&self->_has + 1) & 0x200000000) != 0)
   {
 LABEL_120:
-    contactInFMFFavorite = self->_contactInFMFFavorite;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_121:
-  mailIntelligenceContactId = self->_mailIntelligenceContactId;
   PBDataWriterWriteUint64Field();
 }
 

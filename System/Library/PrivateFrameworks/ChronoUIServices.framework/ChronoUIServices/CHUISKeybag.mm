@@ -12,50 +12,48 @@
 
 - (void)_queue_evaluateState
 {
-  v21[1] = *MEMORY[0x1E69E9840];
-  v20 = @"ExtendedDeviceLockState";
-  v21[0] = MEMORY[0x1E695E118];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v19[1] = *MEMORY[0x1E69E9840];
+  v18 = @"ExtendedDeviceLockState";
+  v19[0] = MEMORY[0x1E695E118];
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
   v4 = MKBGetDeviceLockStateInfo();
   v5 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69B1A40]];
   integerValue = [v5 integerValue];
 
   v7 = integerValue < 7;
   v8 = v7 & (0x46u >> integerValue);
-  queue_isEffectivelyLocked = self->_queue_isEffectivelyLocked;
+  v9 = BSEqualBools();
   v10 = v7 & (6u >> integerValue);
-  if (!BSEqualBools() || (queue_isEffectivelyLockedAuthentic = self->_queue_isEffectivelyLockedAuthentic, (BSEqualBools() & 1) == 0))
+  if (!v9 || (v9 = BSEqualBools(), (v9 & 1) == 0))
   {
     self->_queue_isEffectivelyLocked = v8;
     self->_queue_isEffectivelyLockedAuthentic = v10;
-    v12 = CHUISLogKeybag();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v11 = CHUISLogKeybag(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = @"NO";
+      v12 = @"NO";
       if (self->_queue_isEffectivelyLocked)
-      {
-        v14 = @"YES";
-      }
-
-      else
-      {
-        v14 = @"NO";
-      }
-
-      if (self->_queue_isEffectivelyLockedAuthentic)
       {
         v13 = @"YES";
       }
 
-      v16 = 138543618;
-      v17 = v14;
-      v18 = 2114;
-      v19 = v13;
-      _os_log_impl(&dword_1D928E000, v12, OS_LOG_TYPE_DEFAULT, "Keybag state changed - locked default policy? %{public}@, locked authentic policy? %{public}@", &v16, 0x16u);
+      else
+      {
+        v13 = @"NO";
+      }
+
+      if (self->_queue_isEffectivelyLockedAuthentic)
+      {
+        v12 = @"YES";
+      }
+
+      v14 = 138543618;
+      v15 = v13;
+      v16 = 2114;
+      v17 = v12;
+      _os_log_impl(&dword_1D928E000, v11, OS_LOG_TYPE_DEFAULT, "Keybag state changed - locked default policy? %{public}@, locked authentic policy? %{public}@", &v14, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (id)sharedInstance
@@ -79,9 +77,9 @@ void __29__CHUISKeybag_sharedInstance__block_invoke()
 
 - (CHUISKeybag)init
 {
-  v18.receiver = self;
-  v18.super_class = CHUISKeybag;
-  v2 = [(CHUISKeybag *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = CHUISKeybag;
+  v2 = [(CHUISKeybag *)&v17 init];
   if (v2)
   {
     v3 = BSDispatchQueueCreateWithQualityOfService();
@@ -93,22 +91,21 @@ void __29__CHUISKeybag_sharedInstance__block_invoke()
     v2->_queue = v5;
 
     objc_initWeak(&location, v2);
-    v7 = v2->_queue;
-    v12 = MEMORY[0x1E69E9820];
-    v13 = 3221225472;
-    v14 = __19__CHUISKeybag_init__block_invoke;
-    v15 = &unk_1E85754A8;
-    objc_copyWeak(&v16, &location);
+    v11 = MEMORY[0x1E69E9820];
+    v12 = 3221225472;
+    v13 = __19__CHUISKeybag_init__block_invoke;
+    v14 = &unk_1E85754A8;
+    objc_copyWeak(&v15, &location);
     v2->_mkbRegistrationToken = MKBEventsRegister();
-    v8 = v2->_queue;
+    v7 = v2->_queue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __19__CHUISKeybag_init__block_invoke_2;
     block[3] = &unk_1E85754D0;
-    v11 = v2;
-    dispatch_sync(v8, block);
+    v10 = v2;
+    dispatch_sync(v7, block);
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(&location);
   }
 
@@ -117,20 +114,19 @@ void __29__CHUISKeybag_sharedInstance__block_invoke()
 
 - (void)_queue_handleKeybagStatusChanged
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   [(CHUISKeybag *)self _queue_evaluateState];
-  v4 = [(NSHashTable *)self->_queue_observers copy];
-  if ([v4 count])
+  v3 = [(NSHashTable *)self->_queue_observers copy];
+  if ([v3 count])
   {
     calloutQueue = self->_calloutQueue;
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __47__CHUISKeybag__queue_handleKeybagStatusChanged__block_invoke;
-    v6[3] = &unk_1E8575520;
-    v7 = v4;
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __47__CHUISKeybag__queue_handleKeybagStatusChanged__block_invoke;
+    v5[3] = &unk_1E8575520;
+    v6 = v3;
     selfCopy = self;
-    dispatch_async(calloutQueue, v6);
+    dispatch_async(calloutQueue, v5);
   }
 }
 
@@ -184,17 +180,16 @@ void *__35__CHUISKeybag_isEffectivelyLocked___block_invoke(void *result)
     [currentHandler handleFailureInMethod:a2 object:self file:@"CHUISKeybag.m" lineNumber:90 description:{@"Invalid parameter not satisfying: %@", @"observer"}];
   }
 
-  queue = self->_queue;
   BSDispatchQueueAssertNot();
-  v7 = self->_queue;
+  queue = self->_queue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __27__CHUISKeybag_addObserver___block_invoke;
   block[3] = &unk_1E8575520;
   block[4] = self;
-  v11 = observerCopy;
-  v8 = observerCopy;
-  dispatch_sync(v7, block);
+  v10 = observerCopy;
+  v7 = observerCopy;
+  dispatch_sync(queue, block);
 }
 
 uint64_t __27__CHUISKeybag_addObserver___block_invoke(uint64_t a1)
@@ -224,58 +219,55 @@ uint64_t __27__CHUISKeybag_addObserver___block_invoke(uint64_t a1)
     [currentHandler handleFailureInMethod:a2 object:self file:@"CHUISKeybag.m" lineNumber:102 description:{@"Invalid parameter not satisfying: %@", @"observer"}];
   }
 
-  queue = self->_queue;
   BSDispatchQueueAssertNot();
-  v7 = self->_queue;
+  queue = self->_queue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __30__CHUISKeybag_removeObserver___block_invoke;
   block[3] = &unk_1E8575520;
   block[4] = self;
-  v11 = observerCopy;
-  v8 = observerCopy;
-  dispatch_sync(v7, block);
+  v10 = observerCopy;
+  v7 = observerCopy;
+  dispatch_sync(queue, block);
 }
 
 void __47__CHUISKeybag__queue_handleKeybagStatusChanged__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     do
     {
       v5 = 0;
       do
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v8 + 1) + 8 * v5);
+        v6 = *(*(&v7 + 1) + 8 * v5);
         if (objc_opt_respondsToSelector())
         {
-          [v6 keybagStateDidChange:{*(a1 + 40), v8}];
+          [v6 keybagStateDidChange:{*(a1 + 40), v7}];
         }
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -11,7 +11,7 @@
 
 + (void)loadBroadcastActivityViewControllerWithPreferredExtension:(id)extension handler:(id)handler broadcastActivitiesNotInstalledAlertTitle:(id)title broadcastActivitiesNotInstalledAlertMessage:(id)message atPoint:(CGPoint)point fromWindow:(id)window
 {
-  v57[2] = *MEMORY[0x277D85DE8];
+  v56[2] = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   handlerCopy = handler;
   titleCopy = title;
@@ -24,7 +24,7 @@
   v17 = [v16 objectForKeyedSubscript:@"CFBundlePrimaryIcon"];
 
   objc_opt_class();
-  v46 = v13;
+  v45 = v13;
   if (objc_opt_isKindOfClass())
   {
     v18 = [v17 objectForKeyedSubscript:@"CFBundleIconFiles"];
@@ -45,7 +45,7 @@
     }
   }
 
-  v56[0] = @"RPBroadcastExtensionKeyExtensionHostInfoAppName";
+  v55[0] = @"RPBroadcastExtensionKeyExtensionHostInfoAppName";
   _rpLocalizedAppName = [mainBundle _rpLocalizedAppName];
   v21 = _rpLocalizedAppName;
   if (_rpLocalizedAppName)
@@ -58,14 +58,14 @@
     v22 = &stru_284D763F8;
   }
 
-  v56[1] = @"RPBroadcastExtensionKeyExtensionHostInfoBundleID";
-  v57[0] = v22;
+  v55[1] = @"RPBroadcastExtensionKeyExtensionHostInfoBundleID";
+  v56[0] = v22;
   bundleIdentifier = [mainBundle bundleIdentifier];
-  v57[1] = bundleIdentifier;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
+  v56[1] = bundleIdentifier;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
   v25 = [v24 mutableCopy];
 
-  v44 = firstObject;
+  v43 = firstObject;
   v26 = [MEMORY[0x277D755B8] imageNamed:firstObject];
   v27 = v26;
   if (v26)
@@ -91,14 +91,14 @@
     [v25 setObject:extensionCopy forKeyedSubscript:@"RPBroadcastExtensionKeyExtensionHostInfoPreferredExtension"];
   }
 
-  v45 = v17;
-  v53 = 0;
-  v31 = [MEMORY[0x277CCA9C8] extensionWithIdentifier:@"com.apple.ReplayKit.RPBroadcastActivityViewControllerExtension" error:&v53];
-  v32 = v53;
+  v44 = v17;
+  v52 = 0;
+  v31 = [MEMORY[0x277CCA9C8] extensionWithIdentifier:@"com.apple.ReplayKit.RPBroadcastActivityViewControllerExtension" error:&v52];
+  v32 = v52;
   if (v32)
   {
     handlerCopy[2](handlerCopy, 0, v32);
-    v33 = v46;
+    v33 = v45;
   }
 
   else
@@ -109,31 +109,29 @@
 
     v36 = objc_alloc(MEMORY[0x277CCAA88]);
     v37 = [v36 initWithItem:v25 typeIdentifier:*MEMORY[0x277CC2050]];
-    v55 = v37;
-    [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
-    v38 = v43 = extensionCopy;
+    v54 = v37;
+    [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+    v38 = v42 = extensionCopy;
     [v34 setAttachments:v38];
 
     v39 = objc_opt_class();
-    v54 = v34;
-    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __208__RPBroadcastActivityViewController_loadBroadcastActivityViewControllerWithPreferredExtension_handler_broadcastActivitiesNotInstalledAlertTitle_broadcastActivitiesNotInstalledAlertMessage_atPoint_fromWindow___block_invoke;
-    v49[3] = &unk_278B62498;
-    v33 = v46;
-    v50 = v46;
-    v51 = 0;
-    v52 = handlerCopy;
+    v53 = v34;
+    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __208__RPBroadcastActivityViewController_loadBroadcastActivityViewControllerWithPreferredExtension_handler_broadcastActivitiesNotInstalledAlertTitle_broadcastActivitiesNotInstalledAlertMessage_atPoint_fromWindow___block_invoke;
+    v48[3] = &unk_278B62498;
+    v33 = v45;
+    v49 = v45;
+    v50 = 0;
+    v51 = handlerCopy;
     v41 = v39;
     v30 = messageCopy;
-    [v41 viewControllerForExtension:v31 inputItems:v40 completionHandler:v49];
+    [v41 viewControllerForExtension:v31 inputItems:v40 completionHandler:v48];
 
-    extensionCopy = v43;
+    extensionCopy = v42;
     v29 = titleCopy;
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __208__RPBroadcastActivityViewController_loadBroadcastActivityViewControllerWithPreferredExtension_handler_broadcastActivitiesNotInstalledAlertTitle_broadcastActivitiesNotInstalledAlertMessage_atPoint_fromWindow___block_invoke(id *a1, void *a2)
@@ -154,31 +152,29 @@ void __208__RPBroadcastActivityViewController_loadBroadcastActivityViewControlle
 void __208__RPBroadcastActivityViewController_loadBroadcastActivityViewControllerWithPreferredExtension_handler_broadcastActivitiesNotInstalledAlertTitle_broadcastActivitiesNotInstalledAlertMessage_atPoint_fromWindow___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 40);
-  v19 = *(a1 + 32);
+  v17 = *(a1 + 32);
   [v2 setModalPresentationStyle:6];
   v3 = [MEMORY[0x277D75348] clearColor];
   v4 = [*(a1 + 40) view];
   [v4 setBackgroundColor:v3];
 
-  [*(a1 + 40) setHostViewController:v19];
-  [v19 setBroadcastActivityViewController:*(a1 + 40)];
+  [*(a1 + 40) setHostViewController:v17];
+  [v17 setBroadcastActivityViewController:*(a1 + 40)];
   v5 = [*(a1 + 40) view];
   [v5 bounds];
   v7 = v6;
   v9 = v8;
   v11 = v10;
   v13 = v12;
-  v14 = [v19 view];
+  v14 = [v17 view];
   [v14 setFrame:{v7, v9, v11, v13}];
 
-  [*(a1 + 40) addChildViewController:v19];
+  [*(a1 + 40) addChildViewController:v17];
   v15 = [*(a1 + 40) view];
-  v16 = [v19 view];
+  v16 = [v17 view];
   [v15 addSubview:v16];
 
-  [v19 didMoveToParentViewController:*(a1 + 40)];
-  v17 = *(a1 + 48);
-  v18 = *(a1 + 40);
+  [v17 didMoveToParentViewController:*(a1 + 40)];
   (*(*(a1 + 56) + 16))();
 }
 

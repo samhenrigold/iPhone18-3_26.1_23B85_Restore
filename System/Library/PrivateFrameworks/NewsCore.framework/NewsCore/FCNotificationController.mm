@@ -3,13 +3,18 @@
 - (BOOL)refreshNotificationsForTopicIDs:(id)ds withTopicGroupingID:(id)d fromChannelID:(id)iD;
 - (BOOL)registerNotificationsForChannelID:(id)d isPaid:(BOOL)paid;
 - (BOOL)registerNotificationsForTopicIDs:(id)ds withTopicGroupingID:(id)d fromChannelID:(id)iD;
+- (BOOL)setMarketingNotificationsEnabled:(BOOL)enabled error:(id *)error;
+- (BOOL)setPuzzleNotificationsEnabled:(BOOL)enabled userTriggered:(BOOL)triggered error:(id *)error;
 - (BOOL)unregisterNotificationsForChannelID:(id)d;
 - (BOOL)unregisterNotificationsForTopicIDs:(id)ds withTopicGroupingID:(id)d fromChannelID:(id)iD;
 - (FCNotificationController)init;
 - (FCNotificationController)initWithUserInfo:(id)info commandQueue:(id)queue configurationManager:(id)manager publisherNotificationsAllowed:(BOOL)allowed appleNewsNotificationsAllowed:(BOOL)notificationsAllowed;
 - (id)appendBreakingNewsIfNeededToChannelIDs:(id)ds;
+- (void)_registerDeviceToken:(id)token deviceDigestMode:(int)mode;
 - (void)dealloc;
+- (void)deviceDigestModeDidUpdateToDigestMode:(int)mode;
 - (void)refreshNotificationsFromAppleNews;
+- (void)registerDeviceToken:(id)token deviceDigestMode:(int)mode;
 - (void)setEndOfAudioTrackNotificationsEnabled:(BOOL)enabled;
 - (void)setNewIssueNotificationsEnabled:(BOOL)enabled;
 - (void)setSportsTopicNotificationsEnabled:(BOOL)enabled;
@@ -46,27 +51,27 @@
 
 - (FCNotificationController)initWithUserInfo:(id)info commandQueue:(id)queue configurationManager:(id)manager publisherNotificationsAllowed:(BOOL)allowed appleNewsNotificationsAllowed:(BOOL)notificationsAllowed
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   queueCopy = queue;
   managerCopy = manager;
   if (!queueCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "commandQueue"];
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "commandQueue"];
     *buf = 136315906;
-    v25 = "[FCNotificationController initWithUserInfo:commandQueue:configurationManager:publisherNotificationsAllowed:appleNewsNotificationsAllowed:]";
-    v26 = 2080;
-    v27 = "FCNotificationController.m";
-    v28 = 1024;
-    v29 = 57;
-    v30 = 2114;
-    v31 = v22;
+    v24 = "[FCNotificationController initWithUserInfo:commandQueue:configurationManager:publisherNotificationsAllowed:appleNewsNotificationsAllowed:]";
+    v25 = 2080;
+    v26 = "FCNotificationController.m";
+    v27 = 1024;
+    v28 = 57;
+    v29 = 2114;
+    v30 = v21;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v23.receiver = self;
-  v23.super_class = FCNotificationController;
-  v16 = [(FCNotificationController *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = FCNotificationController;
+  v16 = [(FCNotificationController *)&v22 init];
   v17 = v16;
   if (v16)
   {
@@ -82,7 +87,6 @@
     [infoCopy addObserver:v17];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -96,46 +100,165 @@
   [(FCNotificationController *)&v4 dealloc];
 }
 
+- (void)registerDeviceToken:(id)token deviceDigestMode:(int)mode
+{
+  v4 = *&mode;
+  tokenCopy = token;
+  deviceToken = [(FCNotificationController *)self deviceToken];
+  v7 = [deviceToken isEqualToString:tokenCopy];
+
+  if ((v7 & 1) == 0)
+  {
+    [(FCNotificationController *)self setDeviceToken:tokenCopy];
+    [(FCNotificationController *)self setDeviceDigestMode:v4];
+    if (tokenCopy)
+    {
+      [(FCNotificationController *)self _registerDeviceToken:tokenCopy deviceDigestMode:v4];
+    }
+  }
+}
+
+- (void)deviceDigestModeDidUpdateToDigestMode:(int)mode
+{
+  v3 = *&mode;
+  [(FCNotificationController *)self setDeviceDigestMode:?];
+  deviceToken = [(FCNotificationController *)self deviceToken];
+
+  if (deviceToken)
+  {
+    deviceToken2 = [(FCNotificationController *)self deviceToken];
+    [(FCNotificationController *)self _registerDeviceToken:deviceToken2 deviceDigestMode:v3];
+  }
+
+  else
+  {
+    v6 = FCPushNotificationsLog;
+    if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to update digest mode; cannot call CAPI endpoint without device token", buf, 2u);
+    }
+  }
+}
+
+- (void)_registerDeviceToken:(id)token deviceDigestMode:(int)mode
+{
+  v4 = *&mode;
+  v28 = *MEMORY[0x1E69E9840];
+  tokenCopy = token;
+  if ([(FCNotificationController *)self publisherNotificationsAllowed]|| [(FCNotificationController *)self appleNewsNotificationsAllowed])
+  {
+    if (!tokenCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "deviceToken"];
+      *buf = 136315906;
+      v21 = "[FCNotificationController _registerDeviceToken:deviceDigestMode:]";
+      v22 = 2080;
+      v23 = "FCNotificationController.m";
+      v24 = 1024;
+      v25 = 115;
+      v26 = 2114;
+      v27 = v17;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+    }
+
+    v7 = +[FCAppleAccount sharedAccount];
+    contentStoreFrontID = [v7 contentStoreFrontID];
+
+    if (tokenCopy)
+    {
+      notificationsUserID = [(FCNotificationController *)self notificationsUserID];
+
+      if (notificationsUserID)
+      {
+        v10 = +[FCNetworkReachability sharedNetworkReachability];
+        if ([v10 isCloudKitReachable])
+        {
+          v11 = [FCRegisterDeviceTokenCommand alloc];
+          notificationsUserID2 = [(FCNotificationController *)self notificationsUserID];
+          v13 = [(FCRegisterDeviceTokenCommand *)v11 initWithUserID:notificationsUserID2 deviceToken:tokenCopy storefrontID:contentStoreFrontID deviceDigestMode:v4];
+
+          commandQueue = [(FCNotificationController *)self commandQueue];
+          [commandQueue addCommand:v13];
+        }
+
+        else
+        {
+          v18[0] = MEMORY[0x1E69E9820];
+          v18[1] = 3221225472;
+          v18[2] = __66__FCNotificationController__registerDeviceToken_deviceDigestMode___block_invoke_22;
+          v18[3] = &unk_1E7C36C58;
+          v18[4] = self;
+          v19 = contentStoreFrontID;
+          __66__FCNotificationController__registerDeviceToken_deviceDigestMode___block_invoke_22(v18);
+        }
+
+        goto LABEL_17;
+      }
+
+      v15 = FCPushNotificationsLog;
+      if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        v16 = "failed to create command to register device token: invalid notificationsUserID";
+        goto LABEL_14;
+      }
+    }
+
+    else
+    {
+      v15 = FCPushNotificationsLog;
+      if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        v16 = "failed to create command to register device token: invalid deviceToken";
+LABEL_14:
+        _os_log_error_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_ERROR, v16, buf, 2u);
+      }
+    }
+
+LABEL_17:
+  }
+}
+
 void __66__FCNotificationController__registerDeviceToken_deviceDigestMode___block_invoke_22(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
   {
-    v4 = *(a1 + 32);
-    v5 = v2;
-    v6 = [v4 deviceToken];
-    v7 = [*(a1 + 32) notificationsUserID];
-    v8 = *(a1 + 40);
-    v9 = 138543874;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v7;
-    v13 = 2114;
-    v14 = v8;
-    _os_log_error_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_ERROR, "failed to create command to register device token: CloudKit unreachable, deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v9, 0x20u);
+    v3 = *(a1 + 32);
+    v4 = v2;
+    v5 = [v3 deviceToken];
+    v6 = [*(a1 + 32) notificationsUserID];
+    v7 = *(a1 + 40);
+    v8 = 138543874;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v7;
+    _os_log_error_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_ERROR, "failed to create command to register device token: CloudKit unreachable, deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v8, 0x20u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)registerNotificationsForChannelID:(id)d isPaid:(BOOL)paid
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if ([(FCNotificationController *)self publisherNotificationsAllowed])
   {
     if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelID"];
+      v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelID"];
       *buf = 136315906;
-      v37 = "[FCNotificationController registerNotificationsForChannelID:isPaid:]";
-      v38 = 2080;
-      v39 = "FCNotificationController.m";
-      v40 = 1024;
-      v41 = 147;
-      v42 = 2114;
-      v43 = v24;
+      v36 = "[FCNotificationController registerNotificationsForChannelID:isPaid:]";
+      v37 = 2080;
+      v38 = "FCNotificationController.m";
+      v39 = 1024;
+      v40 = 147;
+      v41 = 2114;
+      v42 = v23;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -149,15 +272,15 @@ void __66__FCNotificationController__registerDeviceToken_deviceDigestMode___bloc
       {
         if (paid)
         {
-          v34 = dCopy;
-          v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
+          v33 = dCopy;
+          v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
           v14 = 0;
         }
 
         else
         {
-          v35 = dCopy;
-          v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+          v34 = dCopy;
+          v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
           v13 = 0;
         }
 
@@ -166,8 +289,8 @@ void __66__FCNotificationController__registerDeviceToken_deviceDigestMode___bloc
         v17 = [FCModifyNotificationsForChannelsCommand alloc];
         notificationsUserID = [(FCNotificationController *)self notificationsUserID];
         deviceToken = [(FCNotificationController *)self deviceToken];
-        LODWORD(v25) = [(FCNotificationController *)self deviceDigestMode];
-        v20 = [(FCModifyNotificationsForChannelsCommand *)v17 initWithChannelIDsToAdd:v16 paidChannelIDsToAdd:v13 channelIDsToRemove:0 userID:notificationsUserID deviceToken:deviceToken storefrontID:contentStoreFrontID deviceDigestMode:v25];
+        LODWORD(v24) = [(FCNotificationController *)self deviceDigestMode];
+        v20 = [(FCModifyNotificationsForChannelsCommand *)v17 initWithChannelIDsToAdd:v16 paidChannelIDsToAdd:v13 channelIDsToRemove:0 userID:notificationsUserID deviceToken:deviceToken storefrontID:contentStoreFrontID deviceDigestMode:v24];
 
         commandQueue = [(FCNotificationController *)self commandQueue];
         [commandQueue addCommand:v20];
@@ -177,31 +300,31 @@ void __66__FCNotificationController__registerDeviceToken_deviceDigestMode___bloc
 
       else
       {
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = __69__FCNotificationController_registerNotificationsForChannelID_isPaid___block_invoke_29;
-        v26[3] = &unk_1E7C382E8;
-        v27 = dCopy;
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = __69__FCNotificationController_registerNotificationsForChannelID_isPaid___block_invoke_29;
+        v25[3] = &unk_1E7C382E8;
+        v26 = dCopy;
         selfCopy = self;
-        v29 = contentStoreFrontID;
-        v15 = __69__FCNotificationController_registerNotificationsForChannelID_isPaid___block_invoke_29(v26);
+        v28 = contentStoreFrontID;
+        v15 = __69__FCNotificationController_registerNotificationsForChannelID_isPaid___block_invoke_29(v25);
 
-        v16 = v27;
+        v16 = v26;
       }
     }
 
     else
     {
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __69__FCNotificationController_registerNotificationsForChannelID_isPaid___block_invoke_28;
-      v30[3] = &unk_1E7C382E8;
-      v31 = dCopy;
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __69__FCNotificationController_registerNotificationsForChannelID_isPaid___block_invoke_28;
+      v29[3] = &unk_1E7C382E8;
+      v30 = dCopy;
       selfCopy2 = self;
-      v33 = contentStoreFrontID;
-      v15 = __69__FCNotificationController_registerNotificationsForChannelID_isPaid___block_invoke_28(v30);
+      v32 = contentStoreFrontID;
+      v15 = __69__FCNotificationController_registerNotificationsForChannelID_isPaid___block_invoke_28(v29);
 
-      v12 = v31;
+      v12 = v30;
     }
   }
 
@@ -210,81 +333,78 @@ void __66__FCNotificationController__registerDeviceToken_deviceDigestMode___bloc
     v15 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 uint64_t __69__FCNotificationController_registerNotificationsForChannelID_isPaid___block_invoke_28(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v7 = v2;
-    v8 = [v5 deviceToken];
-    v9 = [*(a1 + 40) notificationsUserID];
-    v10 = *(a1 + 48);
-    v11 = 138544130;
-    v12 = v6;
-    v13 = 2114;
-    v14 = v8;
-    v15 = 2114;
-    v16 = v9;
-    v17 = 2114;
-    v18 = v10;
-    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "failed to create command to register notifications for channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v11, 0x2Au);
+    v5 = *(a1 + 32);
+    v4 = *(a1 + 40);
+    v6 = v2;
+    v7 = [v4 deviceToken];
+    v8 = [*(a1 + 40) notificationsUserID];
+    v9 = *(a1 + 48);
+    v10 = 138544130;
+    v11 = v5;
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2114;
+    v15 = v8;
+    v16 = 2114;
+    v17 = v9;
+    _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to create command to register notifications for channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v10, 0x2Au);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __69__FCNotificationController_registerNotificationsForChannelID_isPaid___block_invoke_29(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v7 = v2;
-    v8 = [v5 deviceToken];
-    v9 = [*(a1 + 40) notificationsUserID];
-    v10 = *(a1 + 48);
-    v11 = 138544130;
-    v12 = v6;
-    v13 = 2114;
-    v14 = v8;
-    v15 = 2114;
-    v16 = v9;
-    v17 = 2114;
-    v18 = v10;
-    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "failed to create command to register notifications: CloudKit unreachable, channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v11, 0x2Au);
+    v5 = *(a1 + 32);
+    v4 = *(a1 + 40);
+    v6 = v2;
+    v7 = [v4 deviceToken];
+    v8 = [*(a1 + 40) notificationsUserID];
+    v9 = *(a1 + 48);
+    v10 = 138544130;
+    v11 = v5;
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2114;
+    v15 = v8;
+    v16 = 2114;
+    v17 = v9;
+    _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to create command to register notifications: CloudKit unreachable, channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v10, 0x2Au);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (BOOL)unregisterNotificationsForChannelID:(id)d
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if ([(FCNotificationController *)self publisherNotificationsAllowed])
   {
     if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelID"];
+      v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelID"];
       *buf = 136315906;
-      v33 = "[FCNotificationController unregisterNotificationsForChannelID:]";
-      v34 = 2080;
-      v35 = "FCNotificationController.m";
-      v36 = 1024;
-      v37 = 184;
-      v38 = 2114;
-      v39 = v21;
+      v32 = "[FCNotificationController unregisterNotificationsForChannelID:]";
+      v33 = 2080;
+      v34 = "FCNotificationController.m";
+      v35 = 1024;
+      v36 = 184;
+      v37 = 2114;
+      v38 = v20;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -296,16 +416,16 @@ uint64_t __69__FCNotificationController_registerNotificationsForChannelID_isPaid
       v10 = +[FCNetworkReachability sharedNetworkReachability];
       if ([v10 isCloudKitReachable])
       {
-        v31 = dCopy;
+        v30 = dCopy;
         v11 = 1;
-        v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+        v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
         v13 = [(FCNotificationController *)self appendBreakingNewsIfNeededToChannelIDs:v12];
 
         v14 = [FCModifyNotificationsForChannelsCommand alloc];
         notificationsUserID = [(FCNotificationController *)self notificationsUserID];
         deviceToken = [(FCNotificationController *)self deviceToken];
-        LODWORD(v22) = [(FCNotificationController *)self deviceDigestMode];
-        v17 = [(FCModifyNotificationsForChannelsCommand *)v14 initWithChannelIDsToAdd:0 paidChannelIDsToAdd:0 channelIDsToRemove:v13 userID:notificationsUserID deviceToken:deviceToken storefrontID:contentStoreFrontID deviceDigestMode:v22];
+        LODWORD(v21) = [(FCNotificationController *)self deviceDigestMode];
+        v17 = [(FCModifyNotificationsForChannelsCommand *)v14 initWithChannelIDsToAdd:0 paidChannelIDsToAdd:0 channelIDsToRemove:v13 userID:notificationsUserID deviceToken:deviceToken storefrontID:contentStoreFrontID deviceDigestMode:v21];
 
         commandQueue = [(FCNotificationController *)self commandQueue];
         [commandQueue addCommand:v17];
@@ -313,31 +433,31 @@ uint64_t __69__FCNotificationController_registerNotificationsForChannelID_isPaid
 
       else
       {
-        v23[0] = MEMORY[0x1E69E9820];
-        v23[1] = 3221225472;
-        v23[2] = __64__FCNotificationController_unregisterNotificationsForChannelID___block_invoke_35;
-        v23[3] = &unk_1E7C382E8;
-        v24 = dCopy;
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __64__FCNotificationController_unregisterNotificationsForChannelID___block_invoke_35;
+        v22[3] = &unk_1E7C382E8;
+        v23 = dCopy;
         selfCopy = self;
-        v26 = contentStoreFrontID;
-        v11 = __64__FCNotificationController_unregisterNotificationsForChannelID___block_invoke_35(v23);
+        v25 = contentStoreFrontID;
+        v11 = __64__FCNotificationController_unregisterNotificationsForChannelID___block_invoke_35(v22);
 
-        v13 = v24;
+        v13 = v23;
       }
     }
 
     else
     {
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __64__FCNotificationController_unregisterNotificationsForChannelID___block_invoke_34;
-      v27[3] = &unk_1E7C382E8;
-      v28 = dCopy;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __64__FCNotificationController_unregisterNotificationsForChannelID___block_invoke_34;
+      v26[3] = &unk_1E7C382E8;
+      v27 = dCopy;
       selfCopy2 = self;
-      v30 = contentStoreFrontID;
-      v11 = __64__FCNotificationController_unregisterNotificationsForChannelID___block_invoke_34(v27);
+      v29 = contentStoreFrontID;
+      v11 = __64__FCNotificationController_unregisterNotificationsForChannelID___block_invoke_34(v26);
 
-      v10 = v28;
+      v10 = v27;
     }
   }
 
@@ -346,61 +466,58 @@ uint64_t __69__FCNotificationController_registerNotificationsForChannelID_isPaid
     v11 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 uint64_t __64__FCNotificationController_unregisterNotificationsForChannelID___block_invoke_34(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v7 = v2;
-    v8 = [v5 deviceToken];
-    v9 = [*(a1 + 40) notificationsUserID];
-    v10 = *(a1 + 48);
-    v11 = 138544130;
-    v12 = v6;
-    v13 = 2114;
-    v14 = v8;
-    v15 = 2114;
-    v16 = v9;
-    v17 = 2114;
-    v18 = v10;
-    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "failed to create command to unregister notifications for channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v11, 0x2Au);
+    v5 = *(a1 + 32);
+    v4 = *(a1 + 40);
+    v6 = v2;
+    v7 = [v4 deviceToken];
+    v8 = [*(a1 + 40) notificationsUserID];
+    v9 = *(a1 + 48);
+    v10 = 138544130;
+    v11 = v5;
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2114;
+    v15 = v8;
+    v16 = 2114;
+    v17 = v9;
+    _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to create command to unregister notifications for channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v10, 0x2Au);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __64__FCNotificationController_unregisterNotificationsForChannelID___block_invoke_35(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v7 = v2;
-    v8 = [v5 deviceToken];
-    v9 = [*(a1 + 40) notificationsUserID];
-    v10 = *(a1 + 48);
-    v11 = 138544130;
-    v12 = v6;
-    v13 = 2114;
-    v14 = v8;
-    v15 = 2114;
-    v16 = v9;
-    v17 = 2114;
-    v18 = v10;
-    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "failed to create command to unregister notifications: CloudKit unreachable, channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v11, 0x2Au);
+    v5 = *(a1 + 32);
+    v4 = *(a1 + 40);
+    v6 = v2;
+    v7 = [v4 deviceToken];
+    v8 = [*(a1 + 40) notificationsUserID];
+    v9 = *(a1 + 48);
+    v10 = 138544130;
+    v11 = v5;
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2114;
+    v15 = v8;
+    v16 = 2114;
+    v17 = v9;
+    _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to create command to unregister notifications: CloudKit unreachable, channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v10, 0x2Au);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -471,81 +588,79 @@ uint64_t __64__FCNotificationController_unregisterNotificationsForChannelID___bl
 
 uint64_t __77__FCNotificationController_refreshNotificationsForChannelIDs_paidChannelIDs___block_invoke_2(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 48);
-    v8 = v2;
-    v9 = [v7 deviceToken];
-    v10 = [*(a1 + 48) notificationsUserID];
-    v11 = *(a1 + 56);
-    v12 = 138544386;
-    v13 = v5;
-    v14 = 2114;
-    v15 = v6;
-    v16 = 2114;
-    v17 = v9;
-    v18 = 2114;
-    v19 = v10;
-    v20 = 2114;
-    v21 = v11;
-    _os_log_error_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_ERROR, "failed to create command to refresh notifications for channelIDs: %{public}@ paidChannelIDs: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v12, 0x34u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v6 = *(a1 + 48);
+    v7 = v2;
+    v8 = [v6 deviceToken];
+    v9 = [*(a1 + 48) notificationsUserID];
+    v10 = *(a1 + 56);
+    v11 = 138544386;
+    v12 = v4;
+    v13 = 2114;
+    v14 = v5;
+    v15 = 2114;
+    v16 = v8;
+    v17 = 2114;
+    v18 = v9;
+    v19 = 2114;
+    v20 = v10;
+    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "failed to create command to refresh notifications for channelIDs: %{public}@ paidChannelIDs: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v11, 0x34u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __77__FCNotificationController_refreshNotificationsForChannelIDs_paidChannelIDs___block_invoke_38(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 48);
-    v8 = v2;
-    v9 = [v7 deviceToken];
-    v10 = [*(a1 + 48) notificationsUserID];
-    v11 = *(a1 + 56);
-    v12 = 138544386;
-    v13 = v5;
-    v14 = 2114;
-    v15 = v6;
-    v16 = 2114;
-    v17 = v9;
-    v18 = 2114;
-    v19 = v10;
-    v20 = 2114;
-    v21 = v11;
-    _os_log_error_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_ERROR, "failed to create command to refresh notifications: CloudKit unreachable, channelIDs: %{public}@ paidChannelIDs: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v12, 0x34u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v6 = *(a1 + 48);
+    v7 = v2;
+    v8 = [v6 deviceToken];
+    v9 = [*(a1 + 48) notificationsUserID];
+    v10 = *(a1 + 56);
+    v11 = 138544386;
+    v12 = v4;
+    v13 = 2114;
+    v14 = v5;
+    v15 = 2114;
+    v16 = v8;
+    v17 = 2114;
+    v18 = v9;
+    v19 = 2114;
+    v20 = v10;
+    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "failed to create command to refresh notifications: CloudKit unreachable, channelIDs: %{public}@ paidChannelIDs: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v11, 0x34u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (BOOL)registerNotificationsForTopicIDs:(id)ds withTopicGroupingID:(id)d fromChannelID:(id)iD
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   dCopy = d;
   iDCopy = iD;
   if (!iDCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelID"];
+    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelID"];
     *buf = 136315906;
-    v38 = "[FCNotificationController registerNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:]";
-    v39 = 2080;
-    v40 = "FCNotificationController.m";
-    v41 = 1024;
-    v42 = 248;
-    v43 = 2114;
-    v44 = v25;
+    v37 = "[FCNotificationController registerNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:]";
+    v38 = 2080;
+    v39 = "FCNotificationController.m";
+    v40 = 1024;
+    v41 = 248;
+    v42 = 2114;
+    v43 = v24;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -560,8 +675,8 @@ uint64_t __77__FCNotificationController_refreshNotificationsForChannelIDs_paidCh
       v17 = [FCModifyNotificationsForTopicsCommand alloc];
       notificationsUserID = [(FCNotificationController *)self notificationsUserID];
       deviceToken = [(FCNotificationController *)self deviceToken];
-      LODWORD(v26) = [(FCNotificationController *)self deviceDigestMode];
-      v20 = [(FCModifyNotificationsForTopicsCommand *)v17 initWithTopicIDsToAdd:dsCopy topicIDsToRemove:0 withTopicGroupingID:dCopy fromChannelID:iDCopy userID:notificationsUserID deviceToken:deviceToken storefrontID:contentStoreFrontID deviceDigestMode:v26];
+      LODWORD(v25) = [(FCNotificationController *)self deviceDigestMode];
+      v20 = [(FCModifyNotificationsForTopicsCommand *)v17 initWithTopicIDsToAdd:dsCopy topicIDsToRemove:0 withTopicGroupingID:dCopy fromChannelID:iDCopy userID:notificationsUserID deviceToken:deviceToken storefrontID:contentStoreFrontID deviceDigestMode:v25];
 
       commandQueue = [(FCNotificationController *)self commandQueue];
       [commandQueue addCommand:v20];
@@ -571,116 +686,113 @@ uint64_t __77__FCNotificationController_refreshNotificationsForChannelIDs_paidCh
 
     else
     {
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __95__FCNotificationController_registerNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke_40;
-      v27[3] = &unk_1E7C44E98;
-      v28 = dsCopy;
-      v29 = iDCopy;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __95__FCNotificationController_registerNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke_40;
+      v26[3] = &unk_1E7C44E98;
+      v27 = dsCopy;
+      v28 = iDCopy;
       selfCopy = self;
-      v31 = contentStoreFrontID;
-      v22 = __95__FCNotificationController_registerNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke_40(v27);
+      v30 = contentStoreFrontID;
+      v22 = __95__FCNotificationController_registerNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke_40(v26);
 
-      v20 = v28;
+      v20 = v27;
     }
   }
 
   else
   {
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __95__FCNotificationController_registerNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke;
-    v32[3] = &unk_1E7C44E98;
-    v33 = dsCopy;
-    v34 = iDCopy;
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __95__FCNotificationController_registerNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke;
+    v31[3] = &unk_1E7C44E98;
+    v32 = dsCopy;
+    v33 = iDCopy;
     selfCopy2 = self;
-    v36 = contentStoreFrontID;
-    v22 = __95__FCNotificationController_registerNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke(v32);
+    v35 = contentStoreFrontID;
+    v22 = __95__FCNotificationController_registerNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke(v31);
 
-    v16 = v33;
+    v16 = v32;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 uint64_t __95__FCNotificationController_registerNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 48);
-    v8 = v2;
-    v9 = [v7 deviceToken];
-    v10 = [*(a1 + 48) notificationsUserID];
-    v11 = *(a1 + 56);
-    v12 = 138544386;
-    v13 = v5;
-    v14 = 2114;
-    v15 = v6;
-    v16 = 2114;
-    v17 = v9;
-    v18 = 2114;
-    v19 = v10;
-    v20 = 2114;
-    v21 = v11;
-    _os_log_error_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_ERROR, "failed to create command to register topic notifications with topicIDs: %{public}@ channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v12, 0x34u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v6 = *(a1 + 48);
+    v7 = v2;
+    v8 = [v6 deviceToken];
+    v9 = [*(a1 + 48) notificationsUserID];
+    v10 = *(a1 + 56);
+    v11 = 138544386;
+    v12 = v4;
+    v13 = 2114;
+    v14 = v5;
+    v15 = 2114;
+    v16 = v8;
+    v17 = 2114;
+    v18 = v9;
+    v19 = 2114;
+    v20 = v10;
+    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "failed to create command to register topic notifications with topicIDs: %{public}@ channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v11, 0x34u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __95__FCNotificationController_registerNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke_40(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 48);
-    v8 = v2;
-    v9 = [v7 deviceToken];
-    v10 = [*(a1 + 48) notificationsUserID];
-    v11 = *(a1 + 56);
-    v12 = 138544386;
-    v13 = v5;
-    v14 = 2114;
-    v15 = v6;
-    v16 = 2114;
-    v17 = v9;
-    v18 = 2114;
-    v19 = v10;
-    v20 = 2114;
-    v21 = v11;
-    _os_log_error_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_ERROR, "failed to create command to register notifications: CloudKit unreachable, topicIDs: %{public}@ channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v12, 0x34u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v6 = *(a1 + 48);
+    v7 = v2;
+    v8 = [v6 deviceToken];
+    v9 = [*(a1 + 48) notificationsUserID];
+    v10 = *(a1 + 56);
+    v11 = 138544386;
+    v12 = v4;
+    v13 = 2114;
+    v14 = v5;
+    v15 = 2114;
+    v16 = v8;
+    v17 = 2114;
+    v18 = v9;
+    v19 = 2114;
+    v20 = v10;
+    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "failed to create command to register notifications: CloudKit unreachable, topicIDs: %{public}@ channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v11, 0x34u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (BOOL)unregisterNotificationsForTopicIDs:(id)ds withTopicGroupingID:(id)d fromChannelID:(id)iD
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   dCopy = d;
   iDCopy = iD;
   if (!iDCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelID"];
+    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelID"];
     *buf = 136315906;
-    v38 = "[FCNotificationController unregisterNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:]";
-    v39 = 2080;
-    v40 = "FCNotificationController.m";
-    v41 = 1024;
-    v42 = 280;
-    v43 = 2114;
-    v44 = v25;
+    v37 = "[FCNotificationController unregisterNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:]";
+    v38 = 2080;
+    v39 = "FCNotificationController.m";
+    v40 = 1024;
+    v41 = 280;
+    v42 = 2114;
+    v43 = v24;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -695,8 +807,8 @@ uint64_t __95__FCNotificationController_registerNotificationsForTopicIDs_withTop
       v17 = [FCModifyNotificationsForTopicsCommand alloc];
       notificationsUserID = [(FCNotificationController *)self notificationsUserID];
       deviceToken = [(FCNotificationController *)self deviceToken];
-      LODWORD(v26) = [(FCNotificationController *)self deviceDigestMode];
-      v20 = [(FCModifyNotificationsForTopicsCommand *)v17 initWithTopicIDsToAdd:0 topicIDsToRemove:dsCopy withTopicGroupingID:dCopy fromChannelID:iDCopy userID:notificationsUserID deviceToken:deviceToken storefrontID:contentStoreFrontID deviceDigestMode:v26];
+      LODWORD(v25) = [(FCNotificationController *)self deviceDigestMode];
+      v20 = [(FCModifyNotificationsForTopicsCommand *)v17 initWithTopicIDsToAdd:0 topicIDsToRemove:dsCopy withTopicGroupingID:dCopy fromChannelID:iDCopy userID:notificationsUserID deviceToken:deviceToken storefrontID:contentStoreFrontID deviceDigestMode:v25];
 
       commandQueue = [(FCNotificationController *)self commandQueue];
       [commandQueue addCommand:v20];
@@ -706,96 +818,93 @@ uint64_t __95__FCNotificationController_registerNotificationsForTopicIDs_withTop
 
     else
     {
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __97__FCNotificationController_unregisterNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke_42;
-      v27[3] = &unk_1E7C44E98;
-      v28 = dsCopy;
-      v29 = iDCopy;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __97__FCNotificationController_unregisterNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke_42;
+      v26[3] = &unk_1E7C44E98;
+      v27 = dsCopy;
+      v28 = iDCopy;
       selfCopy = self;
-      v31 = contentStoreFrontID;
-      v22 = __97__FCNotificationController_unregisterNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke_42(v27);
+      v30 = contentStoreFrontID;
+      v22 = __97__FCNotificationController_unregisterNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke_42(v26);
 
-      v20 = v28;
+      v20 = v27;
     }
   }
 
   else
   {
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __97__FCNotificationController_unregisterNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke;
-    v32[3] = &unk_1E7C44E98;
-    v33 = dsCopy;
-    v34 = iDCopy;
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __97__FCNotificationController_unregisterNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke;
+    v31[3] = &unk_1E7C44E98;
+    v32 = dsCopy;
+    v33 = iDCopy;
     selfCopy2 = self;
-    v36 = contentStoreFrontID;
-    v22 = __97__FCNotificationController_unregisterNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke(v32);
+    v35 = contentStoreFrontID;
+    v22 = __97__FCNotificationController_unregisterNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke(v31);
 
-    v16 = v33;
+    v16 = v32;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 uint64_t __97__FCNotificationController_unregisterNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 48);
-    v8 = v2;
-    v9 = [v7 deviceToken];
-    v10 = [*(a1 + 48) notificationsUserID];
-    v11 = *(a1 + 56);
-    v12 = 138544386;
-    v13 = v5;
-    v14 = 2114;
-    v15 = v6;
-    v16 = 2114;
-    v17 = v9;
-    v18 = 2114;
-    v19 = v10;
-    v20 = 2114;
-    v21 = v11;
-    _os_log_error_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_ERROR, "failed to create command to register topic notifications with topicIDs: %{public}@ channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v12, 0x34u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v6 = *(a1 + 48);
+    v7 = v2;
+    v8 = [v6 deviceToken];
+    v9 = [*(a1 + 48) notificationsUserID];
+    v10 = *(a1 + 56);
+    v11 = 138544386;
+    v12 = v4;
+    v13 = 2114;
+    v14 = v5;
+    v15 = 2114;
+    v16 = v8;
+    v17 = 2114;
+    v18 = v9;
+    v19 = 2114;
+    v20 = v10;
+    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "failed to create command to register topic notifications with topicIDs: %{public}@ channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v11, 0x34u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __97__FCNotificationController_unregisterNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke_42(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 48);
-    v8 = v2;
-    v9 = [v7 deviceToken];
-    v10 = [*(a1 + 48) notificationsUserID];
-    v11 = *(a1 + 56);
-    v12 = 138544386;
-    v13 = v5;
-    v14 = 2114;
-    v15 = v6;
-    v16 = 2114;
-    v17 = v9;
-    v18 = 2114;
-    v19 = v10;
-    v20 = 2114;
-    v21 = v11;
-    _os_log_error_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_ERROR, "failed to create command to register notifications: CloudKit unreachable, topicIDs: %{public}@ channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v12, 0x34u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v6 = *(a1 + 48);
+    v7 = v2;
+    v8 = [v6 deviceToken];
+    v9 = [*(a1 + 48) notificationsUserID];
+    v10 = *(a1 + 56);
+    v11 = 138544386;
+    v12 = v4;
+    v13 = 2114;
+    v14 = v5;
+    v15 = 2114;
+    v16 = v8;
+    v17 = 2114;
+    v18 = v9;
+    v19 = 2114;
+    v20 = v10;
+    _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "failed to create command to register notifications: CloudKit unreachable, topicIDs: %{public}@ channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v11, 0x34u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -861,68 +970,233 @@ uint64_t __97__FCNotificationController_unregisterNotificationsForTopicIDs_withT
 
 uint64_t __94__FCNotificationController_refreshNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v8 = *(a1 + 48);
-    v7 = *(a1 + 56);
-    v9 = v2;
-    v10 = [v7 deviceToken];
-    v11 = [*(a1 + 56) notificationsUserID];
-    v12 = *(a1 + 64);
-    v13 = 138544642;
-    v14 = v5;
-    v15 = 2114;
-    v16 = v6;
-    v17 = 2114;
-    v18 = v8;
-    v19 = 2114;
-    v20 = v10;
-    v21 = 2114;
-    v22 = v11;
-    v23 = 2114;
-    v24 = v12;
-    _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "failed to create command to refresh notifications for topicIDs: %{public}@ topicGroupingID: %{public}@ channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v13, 0x3Eu);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v7 = *(a1 + 48);
+    v6 = *(a1 + 56);
+    v8 = v2;
+    v9 = [v6 deviceToken];
+    v10 = [*(a1 + 56) notificationsUserID];
+    v11 = *(a1 + 64);
+    v12 = 138544642;
+    v13 = v4;
+    v14 = 2114;
+    v15 = v5;
+    v16 = 2114;
+    v17 = v7;
+    v18 = 2114;
+    v19 = v9;
+    v20 = 2114;
+    v21 = v10;
+    v22 = 2114;
+    v23 = v11;
+    _os_log_error_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_ERROR, "failed to create command to refresh notifications for topicIDs: %{public}@ topicGroupingID: %{public}@ channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v12, 0x3Eu);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __94__FCNotificationController_refreshNotificationsForTopicIDs_withTopicGroupingID_fromChannelID___block_invoke_43(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v8 = *(a1 + 48);
-    v7 = *(a1 + 56);
-    v9 = v2;
-    v10 = [v7 deviceToken];
-    v11 = [*(a1 + 56) notificationsUserID];
-    v12 = *(a1 + 64);
-    v13 = 138544642;
-    v14 = v5;
-    v15 = 2114;
-    v16 = v6;
-    v17 = 2114;
-    v18 = v8;
-    v19 = 2114;
-    v20 = v10;
-    v21 = 2114;
-    v22 = v11;
-    v23 = 2114;
-    v24 = v12;
-    _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "failed to create command to refresh notifications: CloudKit unreachable, topicIDs: %{public}@ topicGroupingID: %{public}@ channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v13, 0x3Eu);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v7 = *(a1 + 48);
+    v6 = *(a1 + 56);
+    v8 = v2;
+    v9 = [v6 deviceToken];
+    v10 = [*(a1 + 56) notificationsUserID];
+    v11 = *(a1 + 64);
+    v12 = 138544642;
+    v13 = v4;
+    v14 = 2114;
+    v15 = v5;
+    v16 = 2114;
+    v17 = v7;
+    v18 = 2114;
+    v19 = v9;
+    v20 = 2114;
+    v21 = v10;
+    v22 = 2114;
+    v23 = v11;
+    _os_log_error_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_ERROR, "failed to create command to refresh notifications: CloudKit unreachable, topicIDs: %{public}@ topicGroupingID: %{public}@ channelID: %{public}@ deviceToken: %{public}@ notificationsUserID: %{public}@ storefrontID: %{public}@", &v12, 0x3Eu);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
+}
+
+- (BOOL)setMarketingNotificationsEnabled:(BOOL)enabled error:(id *)error
+{
+  enabledCopy = enabled;
+  if ([(FCNotificationController *)self appleNewsNotificationsAllowed])
+  {
+    v7 = +[FCAppleAccount sharedAccount];
+    iTunesAccountDSID = [v7 iTunesAccountDSID];
+
+    if (iTunesAccountDSID)
+    {
+      v9 = +[FCNetworkReachability sharedNetworkReachability];
+      isCloudKitReachable = [v9 isCloudKitReachable];
+      if (isCloudKitReachable)
+      {
+        if (enabledCopy)
+        {
+          v11 = 1;
+        }
+
+        else
+        {
+          v11 = 2;
+        }
+
+        v12 = [[FCModifyNotificationsForMarketingCommand alloc] initWithType:1 action:v11 iTunesDSID:iTunesAccountDSID];
+        commandQueue = [(FCNotificationController *)self commandQueue];
+        [commandQueue addCommand:v12];
+
+        userInfo = [(FCNotificationController *)self userInfo];
+        [userInfo setMarketingNotificationsEnabled:enabledCopy];
+
+        goto LABEL_15;
+      }
+
+      v16 = FCPushNotificationsLog;
+      if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
+      {
+        *v18 = 0;
+        _os_log_error_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_ERROR, "failed to create command to register For Marketing Notifications: CloudKit unreachable", v18, 2u);
+        if (!error)
+        {
+          goto LABEL_15;
+        }
+      }
+
+      else if (!error)
+      {
+LABEL_15:
+
+        goto LABEL_16;
+      }
+
+      *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"FCErrorDomain" code:10 userInfo:0];
+      goto LABEL_15;
+    }
+
+    v15 = FCPushNotificationsLog;
+    if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_ERROR, "Cannot alter marketing notifications status without an iTunes DSID. Please ensure device is logged into iTunes.", buf, 2u);
+      if (error)
+      {
+        goto LABEL_11;
+      }
+    }
+
+    else if (error)
+    {
+LABEL_11:
+      [MEMORY[0x1E696ABC0] fc_errorWithCode:16 description:@"Cannot alter marketing notifications status without an iTunes DSID. Please ensure device is logged into iTunes."];
+      *error = isCloudKitReachable = 0;
+LABEL_16:
+
+      return isCloudKitReachable;
+    }
+
+    isCloudKitReachable = 0;
+    goto LABEL_16;
+  }
+
+  return 0;
+}
+
+- (BOOL)setPuzzleNotificationsEnabled:(BOOL)enabled userTriggered:(BOOL)triggered error:(id *)error
+{
+  triggeredCopy = triggered;
+  enabledCopy = enabled;
+  v24 = *MEMORY[0x1E69E9840];
+  if ([(FCNotificationController *)self appleNewsNotificationsAllowed])
+  {
+    configurationManager = [(FCNotificationController *)self configurationManager];
+    configuration = [configurationManager configuration];
+    puzzlesConfig = [configuration puzzlesConfig];
+    puzzleHubTagID = [puzzlesConfig puzzleHubTagID];
+
+    if (!puzzleHubTagID)
+    {
+      v18 = FCPushNotificationsLog;
+      if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
+      {
+        LOWORD(v22) = 0;
+        _os_log_error_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_ERROR, "Failed to get puzzleHubTagID. Cannot alter puzzles notifications status.", &v22, 2u);
+      }
+
+      v14 = MEMORY[0x1E696ABC0];
+      v15 = @"Failed to get puzzleHubTagID. Cannot alter marketing notifications status without a valid puzzleHubTagID.";
+      goto LABEL_19;
+    }
+
+    if (enabledCopy)
+    {
+      if (![(FCNotificationController *)self registerNotificationsForChannelID:puzzleHubTagID isPaid:0])
+      {
+        v13 = FCPushNotificationsLog;
+        if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
+        {
+          v22 = 138412290;
+          v23 = puzzleHubTagID;
+          _os_log_error_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_ERROR, "Failed to register notifications for %@.", &v22, 0xCu);
+        }
+
+        v14 = MEMORY[0x1E696ABC0];
+        v15 = @"Failed to register notifications for puzzleHubTagID.";
+LABEL_19:
+        [v14 fc_errorWithCode:16 description:v15];
+        *error = v17 = 0;
+        goto LABEL_20;
+      }
+    }
+
+    else if (![(FCNotificationController *)self unregisterNotificationsForChannelID:puzzleHubTagID])
+    {
+      v20 = FCPushNotificationsLog;
+      if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
+      {
+        v22 = 138412290;
+        v23 = puzzleHubTagID;
+        _os_log_error_impl(&dword_1B63EF000, v20, OS_LOG_TYPE_ERROR, "Failed to unregister notifications for %@.", &v22, 0xCu);
+      }
+
+      v14 = MEMORY[0x1E696ABC0];
+      v15 = @"Failed to unregister notifications for puzzleHubTagID.";
+      goto LABEL_19;
+    }
+
+    userInfo = [(FCNotificationController *)self userInfo];
+    [userInfo setPuzzleNotificationsEnabled:enabledCopy userTriggered:triggeredCopy];
+
+    v17 = 1;
+LABEL_20:
+
+    return v17;
+  }
+
+  v16 = FCPushNotificationsLog;
+  if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
+  {
+    LOWORD(v22) = 0;
+    _os_log_error_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_ERROR, "Apple News push notifications not allowed. Cannot alter puzzles notifications status.", &v22, 2u);
+  }
+
+  [MEMORY[0x1E696ABC0] fc_errorWithCode:16 description:@"Apple News push notifications not allowed. Cannot alter puzzles notifications status."];
+  *error = v17 = 0;
+  return v17;
 }
 
 - (void)setNewIssueNotificationsEnabled:(BOOL)enabled

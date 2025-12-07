@@ -34,17 +34,22 @@
 - (id)_descriptionForExtractionStatus:(unsigned __int16)status;
 - (id)_descriptionForInterface:(unsigned __int16)interface;
 - (id)_descriptionForMessageEventDissectorExtractionStatus:(unsigned __int16)status;
+- (id)_eventExtractionDictionaryLogForTemplateName:(id)name extractionStatus:(unsigned __int16)status outputExceptions:(id)exceptions outputInfos:(id)infos jsMessageLogs:(id)logs jsOutputLogs:(id)outputLogs timingProcessing:(unint64_t)processing;
 - (id)_interactionAttributesForEntity:(id)entity parentEntity:(id)parentEntity;
 - (id)_interactionAttributesForRealtimeEvent:(id)event parentEntity:(id)entity;
 - (id)_interactionAttributesForTags:(id)tags parentEntity:(id)entity;
 - (id)_mapsUsageLast2Weeks;
 - (id)allowlistedLogFromLog:(id)log;
 - (id)assetVersionsForMLMessageEvent;
+- (id)baseInteractionDictionaryForInterface:(unsigned __int16)interface actionType:(unsigned __int16)type;
 - (id)bucketizedRemindersCreatedAfterDate:(id)date endDate:(id)endDate;
 - (id)cappedDeliveryEntityCountsCreatedBetweenStartDate:(id)date endDate:(id)endDate;
 - (id)cappedDeliveryEntityCountsCreatedBetweenStartDate:(id)date endDate:(id)endDate store:(id)store;
+- (id)createInteractionSummaryForEventKey:(id)key expirationDate:(id)date interactionKey:(id)interactionKey interactionAttributes:(id)attributes rtcCategory:(unsigned __int16)category;
 - (id)descriptionForEntityType:(int64_t)type;
 - (id)descriptionForSGRTCCategory:(unsigned __int16)category;
+- (id)interactionKeyForCategory:(unsigned __int16)category interface:(unsigned __int16)interface actionType:(unsigned __int16)type;
+- (id)interactionKeyForInterface:(unsigned __int16)interface actionType:(unsigned __int16)type;
 - (id)loggedExtractions;
 - (id)loggedExtractionsDescription;
 - (id)loggedInteractions;
@@ -62,8 +67,13 @@
 - (void)enrichReminderInteractionSummaryLog:(id)log;
 - (void)logAggregateSummaryForInteraction:(id)interaction;
 - (void)logAndIncrementEventCountForDictionary:(id)dictionary;
+- (void)logEventExtractionForTemplateName:(id)name extractionStatus:(unsigned __int16)status outputExceptions:(id)exceptions outputInfos:(id)infos jsMessageLogs:(id)logs jsOutputLogs:(id)outputLogs timingProcessing:(unint64_t)processing;
 - (void)logEventInteractionForEntity:(id)entity interface:(unsigned __int16)interface actionType:(unsigned __int16)type;
+- (void)logEventInteractionForEntitySync:(id)sync interface:(unsigned __int16)interface actionType:(unsigned __int16)type;
 - (void)logEventInteractionForRealtimeEvent:(id)event parentEntity:(id)entity interface:(unsigned __int16)interface actionType:(unsigned __int16)type;
+- (void)logEventInteractionForRealtimeEventSync:(id)sync parentEntity:(id)entity interface:(unsigned __int16)interface actionType:(unsigned __int16)type;
+- (void)logMLMessageEventExtractionForEntitySync:(id)sync interface:(unsigned __int16)interface actionType:(unsigned __int16)type;
+- (void)logMLMessageEventExtractionForTemplateName:(id)name extractionStatus:(unsigned __int16)status outputInfo:(id)info outputExceptions:(id)exceptions timingProcessing:(unint64_t)processing;
 - (void)logMLMessageEventInteractionForEntity:(id)entity interface:(unsigned __int16)interface actionType:(unsigned __int16)type;
 - (void)logNewInteractionSummaryWithDictionary:(id)dictionary;
 - (void)logNewInteractionWithDictionary:(id)dictionary;
@@ -104,31 +114,31 @@
 
 void __27__SGRTCLogging_storeToDisk__block_invoke(void *a1, void *a2)
 {
-  v36[4] = *MEMORY[0x277D85DE8];
+  v35[4] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1[4] + 16) stringByAppendingPathExtension:@"tmp"];
   if (!v4)
   {
-    v27 = [MEMORY[0x277CCA890] currentHandler];
-    [v27 handleFailureInMethod:a1[6] object:a1[4] file:@"SGRTCLogging.m" lineNumber:1232 description:{@"Invalid parameter not satisfying: %@", @"tmpPath"}];
+    v26 = [MEMORY[0x277CCA890] currentHandler];
+    [v26 handleFailureInMethod:a1[6] object:a1[4] file:@"SGRTCLogging.m" lineNumber:1232 description:{@"Invalid parameter not satisfying: %@", @"tmpPath"}];
   }
 
   v5 = v3[1];
   v6 = v3[2];
-  v35[0] = @"loggedExtractions";
-  v35[1] = @"loggedInteractions";
-  v36[0] = v5;
-  v36[1] = v6;
-  v36[2] = v3[3];
+  v34[0] = @"loggedExtractions";
+  v34[1] = @"loggedInteractions";
+  v35[0] = v5;
+  v35[1] = v6;
+  v35[2] = v3[3];
   v7 = MEMORY[0x277D425D8];
-  v35[2] = @"loggedInteractionsSummary";
-  v35[3] = @"storeAge";
+  v34[2] = @"loggedInteractionsSummary";
+  v34[3] = @"storeAge";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:*(v3 + 4)];
-  v36[3] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:4];
-  v30 = 0;
-  v10 = [v7 fileBackedDataWithPropertyList:v9 writtenToPath:v4 error:&v30];
-  v11 = v30;
+  v35[3] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:4];
+  v29 = 0;
+  v10 = [v7 fileBackedDataWithPropertyList:v9 writtenToPath:v4 error:&v29];
+  v11 = v29;
 
   *(*(a1[5] + 8) + 24) = v10 != 0;
   if (*(*(a1[5] + 8) + 24) == 1)
@@ -136,9 +146,9 @@ void __27__SGRTCLogging_storeToDisk__block_invoke(void *a1, void *a2)
     v12 = [MEMORY[0x277CCAA00] defaultManager];
     v13 = [MEMORY[0x277CBEBC0] fileURLWithPath:*(a1[4] + 16)];
     v14 = [MEMORY[0x277CBEBC0] fileURLWithPath:v4];
-    v29 = v11;
-    v15 = [v12 replaceItemAtURL:v13 withItemAtURL:v14 backupItemName:0 options:0 resultingItemURL:0 error:&v29];
-    v16 = v29;
+    v28 = v11;
+    v15 = [v12 replaceItemAtURL:v13 withItemAtURL:v14 backupItemName:0 options:0 resultingItemURL:0 error:&v28];
+    v16 = v28;
 
     *(*(a1[5] + 8) + 24) = v15;
     if (*(*(a1[5] + 8) + 24))
@@ -146,8 +156,8 @@ void __27__SGRTCLogging_storeToDisk__block_invoke(void *a1, void *a2)
       v17 = [MEMORY[0x277D425D8] propertyListWithData:v10 error:0];
       if (!v17)
       {
-        v28 = [MEMORY[0x277CCA890] currentHandler];
-        [v28 handleFailureInMethod:a1[6] object:a1[4] file:@"SGRTCLogging.m" lineNumber:1252 description:{@"Invalid parameter not satisfying: %@", @"plp"}];
+        v27 = [MEMORY[0x277CCA890] currentHandler];
+        [v27 handleFailureInMethod:a1[6] object:a1[4] file:@"SGRTCLogging.m" lineNumber:1252 description:{@"Invalid parameter not satisfying: %@", @"plp"}];
       }
 
       v18 = [v17 objectForKeyedSubscript:@"loggedExtractions"];
@@ -172,16 +182,16 @@ void __27__SGRTCLogging_storeToDisk__block_invoke(void *a1, void *a2)
   v24 = sgLogHandle();
   if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
   {
-    v26 = @"NULL";
+    v25 = @"NULL";
     if (v10)
     {
-      v26 = @"nonnull";
+      v25 = @"nonnull";
     }
 
     *buf = 138412546;
-    v32 = v26;
-    v33 = 2112;
-    v34 = v16;
+    v31 = v25;
+    v32 = 2112;
+    v33 = v16;
     _os_log_fault_impl(&dword_231E60000, v24, OS_LOG_TYPE_FAULT, "Failure in [SGRTCLogging storeToDisk] (plpData is %@), error: %@", buf, 0x16u);
   }
 
@@ -191,8 +201,6 @@ void __27__SGRTCLogging_storeToDisk__block_invoke(void *a1, void *a2)
   }
 
 LABEL_11:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __20__SGRTCLogging_init__block_invoke_2(uint64_t a1)
@@ -539,7 +547,7 @@ double __24__SGRTCLogging_storeAge__block_invoke(uint64_t a1, uint64_t a2)
 - (BOOL)removeInteractionsSummaryLogsFromLogs:(id)logs
 {
   logsCopy = logs;
-  if ([logsCopy count])
+  if (objc_msgSend_count(logsCopy))
   {
     lock = self->_lock;
     v8[0] = MEMORY[0x277D85DD0];
@@ -561,39 +569,37 @@ double __24__SGRTCLogging_storeAge__block_invoke(uint64_t a1, uint64_t a2)
 
 void __54__SGRTCLogging_removeInteractionsSummaryLogsFromLogs___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [v3[3] removeObject:{*(*(&v10 + 1) + 8 * v8++), v10}];
+        [v3[3] removeObject:{*(*(&v9 + 1) + 8 * v8++), v9}];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)resetInteractionsLogs
@@ -655,14 +661,13 @@ void __35__SGRTCLogging_resetExtractionLogs__block_invoke(uint64_t a1, void *a2)
   v7 = v4[1];
   v4[1] = v6;
 
-  v8 = *(a1 + 32);
-  if (([objc_opt_class() _createEmptyFileAtPath:*(v8 + 16)] & 1) == 0)
+  if (([objc_opt_class() _createEmptyFileAtPath:*(*(a1 + 32) + 16)] & 1) == 0)
   {
-    v9 = sgLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = sgLogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      *v10 = 0;
-      _os_log_error_impl(&dword_231E60000, v9, OS_LOG_TYPE_ERROR, "Couldn't create the privacy-aware store for Suggestions.", v10, 2u);
+      *v9 = 0;
+      _os_log_error_impl(&dword_231E60000, v8, OS_LOG_TYPE_ERROR, "Couldn't create the privacy-aware store for Suggestions.", v9, 2u);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 0;
@@ -681,7 +686,7 @@ void __35__SGRTCLogging_resetExtractionLogs__block_invoke(uint64_t a1, void *a2)
 
 - (void)sendRTCLogsWithShouldContinueBlock:(id)block completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   completionCopy = completion;
   v8 = sgLogHandle();
@@ -692,9 +697,9 @@ void __35__SGRTCLogging_resetExtractionLogs__block_invoke(uint64_t a1, void *a2)
   }
 
   [(SGRTCLogging *)self logAggregateSummaryForInteraction:@"rtcLogsSent"];
-  v28 = 0uLL;
-  v9 = [(SGRTCLogging *)self logsToSendWithInteractionSummaryRange:&v28];
-  v10 = [v9 count] == 0;
+  v27 = 0uLL;
+  v9 = [(SGRTCLogging *)self logsToSendWithInteractionSummaryRange:&v27];
+  v10 = objc_msgSend_count(v9) == 0;
   v11 = sgLogHandle();
   v12 = v11;
   if (v10)
@@ -712,9 +717,9 @@ void __35__SGRTCLogging_resetExtractionLogs__block_invoke(uint64_t a1, void *a2)
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v16 = [v9 count];
+      v15 = objc_msgSend_count(v9);
       *buf = 134218242;
-      *&buf[4] = v16;
+      *&buf[4] = v15;
       *&buf[12] = 2112;
       *&buf[14] = v9;
       _os_log_debug_impl(&dword_231E60000, v12, OS_LOG_TYPE_DEBUG, "RTCLogging: Selected logs (%lu): %@", buf, 0x16u);
@@ -724,71 +729,69 @@ void __35__SGRTCLogging_resetExtractionLogs__block_invoke(uint64_t a1, void *a2)
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v30 = 0;
-    v26[0] = 0;
-    v26[1] = v26;
-    v26[2] = 0x2020000000;
-    v27 = 0;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __62__SGRTCLogging_sendRTCLogsWithShouldContinueBlock_completion___block_invoke;
-    v17[3] = &unk_27894D950;
-    v21 = completionCopy;
-    v18 = v9;
-    v22 = blockCopy;
+    v29 = 0;
+    v25[0] = 0;
+    v25[1] = v25;
+    v25[2] = 0x2020000000;
+    v26 = 0;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __62__SGRTCLogging_sendRTCLogsWithShouldContinueBlock_completion___block_invoke;
+    v16[3] = &unk_27894D950;
+    v20 = completionCopy;
+    v17 = v9;
+    v21 = blockCopy;
     selfCopy = self;
     v14 = _createRTCReporting;
-    v20 = v14;
-    v23 = buf;
-    v24 = v26;
-    v25 = v28;
-    [v14 startConfigurationWithCompletionHandler:v17];
+    v19 = v14;
+    v22 = buf;
+    v23 = v25;
+    v24 = v27;
+    [v14 startConfigurationWithCompletionHandler:v16];
 
-    _Block_object_dispose(v26, 8);
+    _Block_object_dispose(v25, 8);
     _Block_object_dispose(buf, 8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __62__SGRTCLogging_sendRTCLogsWithShouldContinueBlock_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v92 = *MEMORY[0x277D85DE8];
-  v59 = a2;
-  if (v59)
+  v91 = *MEMORY[0x277D85DE8];
+  v58 = a2;
+  if (v58)
   {
-    v63 = objc_opt_new();
     v62 = objc_opt_new();
+    v61 = objc_opt_new();
+    v79 = 0u;
     v80 = 0u;
     v81 = 0u;
     v82 = 0u;
-    v83 = 0u;
     obj = *(a1 + 32);
-    v67 = [obj countByEnumeratingWithState:&v80 objects:v91 count:16];
-    if (v67)
+    v66 = [obj countByEnumeratingWithState:&v79 objects:v90 count:16];
+    if (v66)
     {
-      v65 = 0;
-      v66 = *v81;
+      v64 = 0;
+      v65 = *v80;
       *&v3 = 138412290;
-      v58 = v3;
+      v57 = v3;
 LABEL_4:
       v4 = 0;
       while (1)
       {
-        if (*v81 != v66)
+        if (*v80 != v65)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v80 + 1) + 8 * v4);
+        v5 = *(*(&v79 + 1) + 8 * v4);
         context = objc_autoreleasePoolPush();
         if (((*(*(a1 + 64) + 16))() & 1) == 0)
         {
           v53 = sgLogHandle();
           if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
           {
-            *v74 = 0;
-            _os_log_impl(&dword_231E60000, v53, OS_LOG_TYPE_INFO, "RTCLogging: Aborting sending of logs as shouldContinueBlock returned NO", v74, 2u);
+            *v73 = 0;
+            _os_log_impl(&dword_231E60000, v53, OS_LOG_TYPE_INFO, "RTCLogging: Aborting sending of logs as shouldContinueBlock returned NO", v73, 2u);
           }
 
           (*(*(a1 + 56) + 16))();
@@ -797,28 +800,28 @@ LABEL_4:
           goto LABEL_59;
         }
 
-        *v74 = 0;
-        v75 = v74;
-        v76 = 0x3032000000;
-        v77 = __Block_byref_object_copy__13877;
-        v78 = __Block_byref_object_dispose__13878;
-        v79 = v5;
+        *v73 = 0;
+        v74 = v73;
+        v75 = 0x3032000000;
+        v76 = __Block_byref_object_copy__13877;
+        v77 = __Block_byref_object_dispose__13878;
+        v78 = v5;
         *&buf = 0;
         *(&buf + 1) = &buf;
-        v87 = 0x3032000000;
-        v88 = __Block_byref_object_copy__13877;
-        v89 = __Block_byref_object_dispose__13878;
-        v90 = 0;
-        v73[0] = MEMORY[0x277D85DD0];
-        v73[1] = 3221225472;
-        v73[2] = __62__SGRTCLogging_sendRTCLogsWithShouldContinueBlock_completion___block_invoke_284;
-        v73[3] = &unk_27894D928;
-        v73[4] = &buf;
-        v73[5] = v74;
-        v6 = MEMORY[0x2383809F0](v73);
+        v86 = 0x3032000000;
+        v87 = __Block_byref_object_copy__13877;
+        v88 = __Block_byref_object_dispose__13878;
+        v89 = 0;
+        v72[0] = MEMORY[0x277D85DD0];
+        v72[1] = 3221225472;
+        v72[2] = __62__SGRTCLogging_sendRTCLogsWithShouldContinueBlock_completion___block_invoke_284;
+        v72[3] = &unk_27894D928;
+        v72[4] = &buf;
+        v72[5] = v73;
+        v6 = MEMORY[0x2383809F0](v72);
         _Block_object_dispose(&buf, 8);
 
-        v7 = [*(v75 + 5) objectForKeyedSubscript:@"categoryLog"];
+        v7 = [*(v74 + 5) objectForKeyedSubscript:@"categoryLog"];
         v8 = [*(a1 + 40) descriptionForSGRTCCategory:5];
         v9 = [v7 isEqualToString:v8];
 
@@ -846,21 +849,21 @@ LABEL_4:
           v16 = v6[2](v6);
           [v15 enrichInteractionSummaryLog:v16];
 
-          v72[0] = MEMORY[0x277D85DD0];
-          v72[1] = 3221225472;
-          v72[2] = __62__SGRTCLogging_sendRTCLogsWithShouldContinueBlock_completion___block_invoke_2;
-          v72[3] = &unk_278951348;
-          v72[4] = *(a1 + 40);
-          v17 = [v63 resultNonnullWithBlock:v72];
+          v71[0] = MEMORY[0x277D85DD0];
+          v71[1] = 3221225472;
+          v71[2] = __62__SGRTCLogging_sendRTCLogsWithShouldContinueBlock_completion___block_invoke_2;
+          v71[3] = &unk_278951348;
+          v71[4] = *(a1 + 40);
+          v17 = [v62 resultNonnullWithBlock:v71];
           v18 = v6[2](v6);
           [v18 setObject:v17 forKeyedSubscript:@"usageMaps"];
 
-          v71[0] = MEMORY[0x277D85DD0];
-          v71[1] = 3221225472;
-          v71[2] = __62__SGRTCLogging_sendRTCLogsWithShouldContinueBlock_completion___block_invoke_3;
-          v71[3] = &unk_278951370;
-          v71[4] = *(a1 + 40);
-          v19 = [v62 resultNonnullWithBlock:v71];
+          v70[0] = MEMORY[0x277D85DD0];
+          v70[1] = 3221225472;
+          v70[2] = __62__SGRTCLogging_sendRTCLogsWithShouldContinueBlock_completion___block_invoke_3;
+          v70[3] = &unk_278951370;
+          v70[4] = *(a1 + 40);
+          v19 = [v61 resultNonnullWithBlock:v70];
           v20 = v6[2](v6);
           [v20 setObject:v19 forKeyedSubscript:@"usageCalendar"];
 
@@ -924,9 +927,9 @@ LABEL_4:
         if (v33 != 0x7FFFFFFFFFFFFFFFLL)
         {
           v35 = MEMORY[0x277CCABB0];
-          v61 = +[SGAsset localeAsset];
-          v60 = [v35 numberWithUnsignedInteger:{objc_msgSend(v61, "assetVersion")}];
-          v34 = v60;
+          v60 = +[SGAsset localeAsset];
+          v59 = [v35 numberWithUnsignedInteger:{objc_msgSend(v60, "assetVersion")}];
+          v34 = v59;
         }
 
         v36 = v6[2](v6);
@@ -937,18 +940,18 @@ LABEL_4:
         }
 
 LABEL_28:
-        v37 = [*(a1 + 40) allowlistedLogFromLog:{*(v75 + 5), v58}];
+        v37 = [*(a1 + 40) allowlistedLogFromLog:{*(v74 + 5), v57}];
         v38 = *(a1 + 48);
-        v70 = 0;
-        v39 = [v38 sendMessageWithCategory:v10 type:0 payload:v37 error:&v70];
-        v40 = v70;
+        v69 = 0;
+        v39 = [v38 sendMessageWithCategory:v10 type:0 payload:v37 error:&v69];
+        v40 = v69;
         v41 = v40;
         if ((v39 & 1) == 0)
         {
           v43 = sgLogHandle();
           if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(buf) = v58;
+            LODWORD(buf) = v57;
             *(&buf + 4) = v41;
             _os_log_error_impl(&dword_231E60000, v43, OS_LOG_TYPE_ERROR, "RTCLogging: Unable to send logs: %@", &buf, 0xCu);
           }
@@ -957,35 +960,35 @@ LABEL_28:
         }
 
         *(*(*(a1 + 72) + 8) + 24) = 1;
-        if (v65)
+        if (v64)
         {
           v42 = v40;
         }
 
         else
         {
-          v84 = @"storeAge";
+          v83 = @"storeAge";
           v44 = MEMORY[0x277CCABB0];
           v45 = *(a1 + 48);
           [*(a1 + 40) storeAge];
           v46 = [v44 numberWithDouble:?];
-          v85 = v46;
-          v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
-          v69 = v41;
-          v48 = [v45 sendMessageWithCategory:2 type:0 payload:v47 error:&v69];
-          v42 = v69;
+          v84 = v46;
+          v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+          v68 = v41;
+          v48 = [v45 sendMessageWithCategory:2 type:0 payload:v47 error:&v68];
+          v42 = v68;
 
           if ((v48 & 1) == 0)
           {
             v43 = sgLogHandle();
             if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
             {
-              LODWORD(buf) = v58;
+              LODWORD(buf) = v57;
               *(&buf + 4) = v42;
               _os_log_error_impl(&dword_231E60000, v43, OS_LOG_TYPE_ERROR, "RTCLogging: Unable to send logs for storeAge: %@", &buf, 0xCu);
             }
 
-            v65 = 1;
+            v64 = 1;
             v41 = v42;
 LABEL_38:
 
@@ -994,15 +997,15 @@ LABEL_38:
           }
         }
 
-        v65 = 1;
+        v64 = 1;
 LABEL_39:
 
-        _Block_object_dispose(v74, 8);
+        _Block_object_dispose(v73, 8);
         objc_autoreleasePoolPop(context);
-        if (v67 == ++v4)
+        if (v66 == ++v4)
         {
-          v49 = [obj countByEnumeratingWithState:&v80 objects:v91 count:16];
-          v67 = v49;
+          v49 = [obj countByEnumeratingWithState:&v79 objects:v90 count:16];
+          v66 = v49;
           if (v49)
           {
             goto LABEL_4;
@@ -1031,8 +1034,8 @@ LABEL_39:
         v52 = sgLogHandle();
         if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
-          *v74 = 0;
-          _os_log_error_impl(&dword_231E60000, v52, OS_LOG_TYPE_ERROR, "RTCLogging: Unable to flush logs", v74, 2u);
+          *v73 = 0;
+          _os_log_error_impl(&dword_231E60000, v52, OS_LOG_TYPE_ERROR, "RTCLogging: Unable to flush logs", v73, 2u);
         }
       }
 
@@ -1064,14 +1067,12 @@ LABEL_59:
     v54 = sgLogHandle();
     if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
     {
-      *v74 = 0;
-      _os_log_impl(&dword_231E60000, v54, OS_LOG_TYPE_DEFAULT, "RTCLogging: No RTC backends found, no logs will be sent at this time.", v74, 2u);
+      *v73 = 0;
+      _os_log_impl(&dword_231E60000, v54, OS_LOG_TYPE_DEFAULT, "RTCLogging: No RTC backends found, no logs will be sent at this time.", v73, 2u);
     }
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 id __62__SGRTCLogging_sendRTCLogsWithShouldContinueBlock_completion___block_invoke_284(uint64_t a1)
@@ -1093,16 +1094,16 @@ id __62__SGRTCLogging_sendRTCLogsWithShouldContinueBlock_completion___block_invo
 
 - (id)_createRTCReporting
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCABB0] numberWithInt:CFAbsoluteTimeGetCurrent()];
   v3 = +[SGAsset asset];
   assetVersion = [v3 assetVersion];
 
   v5 = *MEMORY[0x277D44030];
-  v22[0] = &unk_2847494E8;
+  v21[0] = &unk_2847494E8;
   v6 = *MEMORY[0x277D44040];
-  v21[0] = v5;
-  v21[1] = v6;
+  v20[0] = v5;
+  v20[1] = v6;
   if (assetVersion == 0x7FFFFFFFFFFFFFFFLL)
   {
     v7 = 0;
@@ -1115,25 +1116,23 @@ id __62__SGRTCLogging_sendRTCLogsWithShouldContinueBlock_completion___block_invo
 
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v7];
   v9 = *MEMORY[0x277D44080];
-  v22[1] = v8;
-  v22[2] = v2;
+  v21[1] = v8;
+  v21[2] = v2;
   v10 = *MEMORY[0x277D44010];
-  v21[2] = v9;
-  v21[3] = v10;
-  v22[3] = MEMORY[0x277CBEC38];
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
+  v20[2] = v9;
+  v20[3] = v10;
+  v21[3] = MEMORY[0x277CBEC38];
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
 
   v12 = *MEMORY[0x277D44098];
-  v19[0] = *MEMORY[0x277D44090];
-  v19[1] = v12;
+  v18[0] = *MEMORY[0x277D44090];
+  v18[1] = v12;
   v13 = *MEMORY[0x277D02460];
-  v20[0] = @"Suggestions";
-  v20[1] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v19[0] = @"Suggestions";
+  v19[1] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
   v15 = objc_alloc(MEMORY[0x277D43FE0]);
   v16 = [v15 initWithSessionInfo:v11 userInfo:v14 frameworksToCheck:MEMORY[0x277CBEBF8]];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -1200,11 +1199,11 @@ void __54__SGRTCLogging_logsToSendWithInteractionSummaryRange___block_invoke(uin
   v12 = [v8 initWithObjects:{v9, v10, v11, 0}];
 
   objc_autoreleasePoolPop(v7);
-  v13 = [*(*(*(a1 + 40) + 8) + 40) count];
+  v13 = objc_msgSend_count(*(*(*(a1 + 40) + 8) + 40));
   v14 = *(*(a1 + 48) + 8);
   *(v14 + 32) = v13;
   *(v14 + 40) = 0;
-  if ([v24[3] count])
+  if (objc_msgSend_count(v24[3]))
   {
     v15 = 0;
     do
@@ -1235,7 +1234,7 @@ void __54__SGRTCLogging_logsToSendWithInteractionSummaryRange___block_invoke(uin
       ++v15;
     }
 
-    while (v15 < [v24[3] count]);
+    while (v15 < objc_msgSend_count(v24[3]));
   }
 }
 
@@ -1247,8 +1246,8 @@ void __54__SGRTCLogging_logsToSendWithInteractionSummaryRange___block_invoke(uin
   [v4 setObject:0 forKeyedSubscript:@"eventDuplicateKey"];
   [v4 setObject:0 forKeyedSubscript:@"expirationDate"];
   [v4 setObject:0 forKeyedSubscript:@"creationDate"];
-  v5 = [v4 count];
-  if (v5 == [logCopy count])
+  v5 = objc_msgSend_count(v4);
+  if (v5 == objc_msgSend_count(logCopy))
   {
     v6 = logCopy;
   }
@@ -1295,6 +1294,221 @@ void __54__SGRTCLogging_logsToSendWithInteractionSummaryRange___block_invoke(uin
   dispatch_async(interactionsWriteQueue, v15);
 }
 
+- (void)logEventInteractionForRealtimeEventSync:(id)sync parentEntity:(id)entity interface:(unsigned __int16)interface actionType:(unsigned __int16)type
+{
+  typeCopy = type;
+  interfaceCopy = interface;
+  v29 = *MEMORY[0x277D85DE8];
+  syncCopy = sync;
+  entityCopy = entity;
+  v12 = [(SGRTCLogging *)self _interactionAttributesForRealtimeEvent:syncCopy parentEntity:entityCopy];
+  v13 = objc_alloc(MEMORY[0x277CCACA8]);
+  v14 = [(SGRTCLogging *)self _descriptionForInterface:interfaceCopy];
+  v15 = [(SGRTCLogging *)self _descriptionForActionType:typeCopy];
+  v16 = [v13 initWithFormat:@"%@_%@", v14, v15];
+
+  event = [syncCopy event];
+  opaqueKey = [event opaqueKey];
+
+  v19 = sgLogHandle();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138412546;
+    v26 = v16;
+    v27 = 2112;
+    v28 = opaqueKey;
+    _os_log_debug_impl(&dword_231E60000, v19, OS_LOG_TYPE_DEBUG, "RTCLogging: logging interaction to RTC for interactionKey: %@, eventKey: %@", buf, 0x16u);
+  }
+
+  v20 = [(SGRTCLogging *)self incrementAndUpgradeInteractionSummaryForEventKey:opaqueKey interactionKey:v16 parentEntity:entityCopy];
+  v21 = [SGRTCLogging locationTypeForRealtimeEvent:syncCopy];
+  [(SGRTCLogging *)self _updateLocationTypeFromInteractionsSummaryForEventKey:opaqueKey locationType:v21];
+
+  if (!v20)
+  {
+    event2 = [syncCopy event];
+    v23 = [event2 end];
+    v24 = [(SGRTCLogging *)self createInteractionSummaryForEventKey:opaqueKey expirationDate:v23 interactionKey:v16 interactionAttributes:v12 rtcCategory:7];
+
+    [(SGRTCLogging *)self logNewInteractionSummaryWithDictionary:v24];
+  }
+}
+
+- (void)logMLMessageEventExtractionForEntitySync:(id)sync interface:(unsigned __int16)interface actionType:(unsigned __int16)type
+{
+  typeCopy = type;
+  interfaceCopy = interface;
+  v34 = *MEMORY[0x277D85DE8];
+  syncCopy = sync;
+  v9 = syncCopy;
+  if (syncCopy && ([syncCopy duplicateKey], v10 = objc_claimAutoreleasedReturnValue(), v10, v10))
+  {
+    v11 = +[SGSqlEntityStore defaultStore];
+    duplicateKey = [v9 duplicateKey];
+    parentKey = [duplicateKey parentKey];
+    v14 = [v11 loadEntityByKey:parentKey];
+
+    v15 = [(SGRTCLogging *)self _interactionAttributesForEntity:v9 parentEntity:v14];
+    v29 = [(SGRTCLogging *)self interactionKeyForInterface:interfaceCopy actionType:typeCopy];
+    duplicateKey2 = [v9 duplicateKey];
+    entityKey = [duplicateKey2 entityKey];
+    serialize = [entityKey serialize];
+
+    v19 = sgLogHandle();
+    v20 = v19;
+    if (serialize)
+    {
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412546;
+        v31 = v29;
+        v32 = 2112;
+        v33 = serialize;
+        _os_log_debug_impl(&dword_231E60000, v20, OS_LOG_TYPE_DEBUG, "RTCLogging: logging interaction to RTC for interactionKey: %@, eventKey: %@", buf, 0x16u);
+      }
+
+      v21 = [(SGRTCLogging *)self incrementAndUpgradeInteractionSummaryForEventKey:serialize interactionKey:v29 parentEntity:v14];
+      v22 = [SGRTCLogging locationTypeForEntity:v9];
+      [(SGRTCLogging *)self _updateLocationTypeFromInteractionsSummaryForEventKey:serialize locationType:v22];
+
+      if (!v21)
+      {
+        assetVersionsForMLMessageEvent = [(SGRTCLogging *)self assetVersionsForMLMessageEvent];
+        [v15 addEntriesFromDictionary:assetVersionsForMLMessageEvent];
+
+        timeRange = [v9 timeRange];
+        endDate = [timeRange endDate];
+        [(SGRTCLogging *)self createInteractionSummaryForEventKey:serialize expirationDate:endDate interactionKey:v29 interactionAttributes:v15 rtcCategory:7];
+        v28 = v14;
+        v27 = v26 = v15;
+
+        [(SGRTCLogging *)self logNewInteractionSummaryWithDictionary:v27];
+        v15 = v26;
+        v14 = v28;
+      }
+
+      v20 = [(SGRTCLogging *)self interactionKeyForCategory:6 interface:interfaceCopy actionType:typeCopy, v28];
+      [(SGRTCLogging *)self logAggregateSummaryForInteraction:v20];
+    }
+
+    else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_231E60000, v20, OS_LOG_TYPE_ERROR, "RTCLogging: entity.duplicateKey.entityKey serialization failed", buf, 2u);
+    }
+  }
+
+  else
+  {
+    v11 = sgLogHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_231E60000, v11, OS_LOG_TYPE_ERROR, "RTCLogging: entity can't be found", buf, 2u);
+    }
+  }
+}
+
+- (void)logEventInteractionForEntitySync:(id)sync interface:(unsigned __int16)interface actionType:(unsigned __int16)type
+{
+  typeCopy = type;
+  interfaceCopy = interface;
+  v34 = *MEMORY[0x277D85DE8];
+  syncCopy = sync;
+  v9 = syncCopy;
+  if (syncCopy && ([syncCopy duplicateKey], v10 = objc_claimAutoreleasedReturnValue(), v10, v10))
+  {
+    v11 = +[SGSqlEntityStore defaultStore];
+    duplicateKey = [v9 duplicateKey];
+    parentKey = [duplicateKey parentKey];
+    v14 = [v11 loadEntityByKey:parentKey];
+
+    v15 = [(SGRTCLogging *)self _interactionAttributesForEntity:v9 parentEntity:v14];
+    v29 = [(SGRTCLogging *)self interactionKeyForInterface:interfaceCopy actionType:typeCopy];
+    duplicateKey2 = [v9 duplicateKey];
+    entityKey = [duplicateKey2 entityKey];
+    serialize = [entityKey serialize];
+
+    v19 = sgLogHandle();
+    v20 = v19;
+    if (serialize)
+    {
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412546;
+        v31 = v29;
+        v32 = 2112;
+        v33 = serialize;
+        _os_log_debug_impl(&dword_231E60000, v20, OS_LOG_TYPE_DEBUG, "RTCLogging: logging interaction to RTC for interactionKey: %@, eventKey: %@", buf, 0x16u);
+      }
+
+      v21 = [(SGRTCLogging *)self incrementAndUpgradeInteractionSummaryForEventKey:serialize interactionKey:v29 parentEntity:v14];
+      v22 = [SGRTCLogging locationTypeForEntity:v9];
+      [(SGRTCLogging *)self _updateLocationTypeFromInteractionsSummaryForEventKey:serialize locationType:v22];
+
+      if (!v21)
+      {
+        trialIdsForStructuredEvent = [(SGRTCLogging *)self trialIdsForStructuredEvent];
+        [v15 addEntriesFromDictionary:trialIdsForStructuredEvent];
+
+        timeRange = [v9 timeRange];
+        endDate = [timeRange endDate];
+        [(SGRTCLogging *)self createInteractionSummaryForEventKey:serialize expirationDate:endDate interactionKey:v29 interactionAttributes:v15 rtcCategory:7];
+        v28 = v14;
+        v27 = v26 = v15;
+
+        [(SGRTCLogging *)self logNewInteractionSummaryWithDictionary:v27];
+        v15 = v26;
+        v14 = v28;
+      }
+
+      v20 = [(SGRTCLogging *)self interactionKeyForCategory:6 interface:interfaceCopy actionType:typeCopy, v28];
+      [(SGRTCLogging *)self logAggregateSummaryForInteraction:v20];
+    }
+
+    else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_231E60000, v20, OS_LOG_TYPE_ERROR, "RTCLogging: entity.duplicateKey.entityKey serialization failed", buf, 2u);
+    }
+  }
+
+  else
+  {
+    v11 = sgLogHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_231E60000, v11, OS_LOG_TYPE_ERROR, "RTCLogging: entity can't be found", buf, 2u);
+    }
+  }
+}
+
+- (id)interactionKeyForCategory:(unsigned __int16)category interface:(unsigned __int16)interface actionType:(unsigned __int16)type
+{
+  typeCopy = type;
+  interfaceCopy = interface;
+  categoryCopy = category;
+  v9 = objc_alloc(MEMORY[0x277CCACA8]);
+  v10 = [(SGRTCLogging *)self descriptionForSGRTCCategory:categoryCopy];
+  v11 = [(SGRTCLogging *)self interactionKeyForInterface:interfaceCopy actionType:typeCopy];
+  v12 = [v9 initWithFormat:@"%@_%@", v10, v11];
+
+  return v12;
+}
+
+- (id)interactionKeyForInterface:(unsigned __int16)interface actionType:(unsigned __int16)type
+{
+  typeCopy = type;
+  interfaceCopy = interface;
+  v7 = objc_alloc(MEMORY[0x277CCACA8]);
+  v8 = [(SGRTCLogging *)self _descriptionForInterface:interfaceCopy];
+  v9 = [(SGRTCLogging *)self _descriptionForActionType:typeCopy];
+  v10 = [v7 initWithFormat:@"%@_%@", v8, v9];
+
+  return v10;
+}
+
 - (void)logMLMessageEventInteractionForEntity:(id)entity interface:(unsigned __int16)interface actionType:(unsigned __int16)type
 {
   entityCopy = entity;
@@ -1327,29 +1541,193 @@ void __54__SGRTCLogging_logsToSendWithInteractionSummaryRange___block_invoke(uin
   dispatch_async(interactionsWriteQueue, block);
 }
 
+- (void)logMLMessageEventExtractionForTemplateName:(id)name extractionStatus:(unsigned __int16)status outputInfo:(id)info outputExceptions:(id)exceptions timingProcessing:(unint64_t)processing
+{
+  statusCopy = status;
+  v34 = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  infoCopy = info;
+  exceptionsCopy = exceptions;
+  v15 = sgLogHandle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  {
+    v25 = [(SGRTCLogging *)self _descriptionForMessageEventDissectorExtractionStatus:statusCopy];
+    *buf = 138412802;
+    v29 = v25;
+    v30 = 2112;
+    v31 = nameCopy;
+    v32 = 2048;
+    processingCopy = processing;
+    _os_log_debug_impl(&dword_231E60000, v15, OS_LOG_TYPE_DEBUG, "RTCLogging: log extraction from Message Event Dissector (%@) to RTC for templateName: %@ timingProcessing: %llu", buf, 0x20u);
+  }
+
+  v16 = objc_opt_new();
+  v17 = v16;
+  if (infoCopy)
+  {
+    [v16 addEntriesFromDictionary:infoCopy];
+  }
+
+  v18 = [(SGRTCLogging *)self descriptionForSGRTCCategory:5, @"categoryLog"];
+  v27[0] = v18;
+  v26[1] = @"extractionStatus";
+  v19 = [(SGRTCLogging *)self _descriptionForMessageEventDissectorExtractionStatus:statusCopy];
+  v27[1] = v19;
+  v27[2] = nameCopy;
+  v26[2] = @"templateName";
+  v26[3] = @"outputExceptions";
+  v20 = [exceptionsCopy _pas_componentsJoinedByString:{@", "}];
+
+  v21 = &stru_284703F00;
+  if (v20)
+  {
+    v21 = v20;
+  }
+
+  v27[3] = v21;
+  v26[4] = @"timingProcessing";
+  v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:processing];
+  v27[4] = v22;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:5];
+  [v17 addEntriesFromDictionary:v23];
+
+  assetVersionsForMLMessageEvent = [(SGRTCLogging *)self assetVersionsForMLMessageEvent];
+  [v17 addEntriesFromDictionary:assetVersionsForMLMessageEvent];
+
+  [(SGRTCLogging *)self logAndIncrementEventCountForDictionary:v17];
+}
+
+- (void)logEventExtractionForTemplateName:(id)name extractionStatus:(unsigned __int16)status outputExceptions:(id)exceptions outputInfos:(id)infos jsMessageLogs:(id)logs jsOutputLogs:(id)outputLogs timingProcessing:(unint64_t)processing
+{
+  statusCopy = status;
+  v31 = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  outputLogsCopy = outputLogs;
+  logsCopy = logs;
+  infosCopy = infos;
+  exceptionsCopy = exceptions;
+  v20 = sgLogHandle();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  {
+    v24 = [(SGRTCLogging *)self _descriptionForExtractionStatus:statusCopy];
+    *buf = 138412802;
+    v26 = v24;
+    v27 = 2112;
+    v28 = nameCopy;
+    v29 = 2048;
+    processingCopy = processing;
+    _os_log_debug_impl(&dword_231E60000, v20, OS_LOG_TYPE_DEBUG, "RTCLogging: log extraction (%@) to RTC for templateName: %@ timingProcessing: %llu", buf, 0x20u);
+  }
+
+  v21 = [(SGRTCLogging *)self _eventExtractionDictionaryLogForTemplateName:nameCopy extractionStatus:statusCopy outputExceptions:exceptionsCopy outputInfos:infosCopy jsMessageLogs:logsCopy jsOutputLogs:outputLogsCopy timingProcessing:processing];
+
+  v22 = [v21 mutableCopy];
+  trialIdsForStructuredEvent = [(SGRTCLogging *)self trialIdsForStructuredEvent];
+  [v22 addEntriesFromDictionary:trialIdsForStructuredEvent];
+
+  [(SGRTCLogging *)self logAndIncrementEventCountForDictionary:v22];
+}
+
+- (id)_eventExtractionDictionaryLogForTemplateName:(id)name extractionStatus:(unsigned __int16)status outputExceptions:(id)exceptions outputInfos:(id)infos jsMessageLogs:(id)logs jsOutputLogs:(id)outputLogs timingProcessing:(unint64_t)processing
+{
+  statusCopy = status;
+  v36[6] = *MEMORY[0x277D85DE8];
+  logsCopy = logs;
+  outputLogsCopy = outputLogs;
+  infosCopy = infos;
+  exceptionsCopy = exceptions;
+  nameCopy = name;
+  v20 = objc_opt_new();
+  v21 = v20;
+  if (logsCopy)
+  {
+    [v20 addEntriesFromDictionary:logsCopy];
+  }
+
+  v34 = logsCopy;
+  if (outputLogsCopy)
+  {
+    [v21 addEntriesFromDictionary:outputLogsCopy];
+  }
+
+  v35[0] = @"categoryLog";
+  processing = [(SGRTCLogging *)self descriptionForSGRTCCategory:5, processing];
+  v36[0] = processing;
+  v35[1] = @"extractionStatus";
+  v23 = [(SGRTCLogging *)self _descriptionForExtractionStatus:statusCopy];
+  v24 = v23;
+  if (nameCopy)
+  {
+    v25 = nameCopy;
+  }
+
+  else
+  {
+    v25 = &stru_284703F00;
+  }
+
+  v36[1] = v23;
+  v36[2] = v25;
+  v35[2] = @"templateName";
+  v35[3] = @"timingProcessing";
+  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v33];
+  v36[3] = v26;
+  v35[4] = @"outputExceptions";
+  v27 = [exceptionsCopy _pas_componentsJoinedByString:{@", "}];
+
+  if (v27)
+  {
+    v28 = v27;
+  }
+
+  else
+  {
+    v28 = &stru_284703F00;
+  }
+
+  v36[4] = v28;
+  v35[5] = @"outputInfos";
+  v29 = [infosCopy _pas_componentsJoinedByString:{@", "}];
+
+  if (v29)
+  {
+    v30 = v29;
+  }
+
+  else
+  {
+    v30 = &stru_284703F00;
+  }
+
+  v36[5] = v30;
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:6];
+
+  [v21 addEntriesFromDictionary:v31];
+
+  return v21;
+}
+
 - (void)logNewInteractionWithDictionary:(id)dictionary
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v12 = dictionaryCopy;
+    v11 = dictionaryCopy;
     _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "RTCLogging: log new interaction: %@", buf, 0xCu);
   }
 
   lock = self->_lock;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __48__SGRTCLogging_logNewInteractionWithDictionary___block_invoke;
-  v9[3] = &unk_27894D818;
-  v10 = dictionaryCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __48__SGRTCLogging_logNewInteractionWithDictionary___block_invoke;
+  v8[3] = &unk_27894D818;
+  v9 = dictionaryCopy;
   v7 = dictionaryCopy;
-  [(_PASLock *)lock runWithLockAcquired:v9];
+  [(_PASLock *)lock runWithLockAcquired:v8];
   [(SGRTCLogging *)self updateAndScheduleDiskWrite];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __48__SGRTCLogging_logNewInteractionWithDictionary___block_invoke(uint64_t a1, uint64_t a2)
@@ -1361,27 +1739,25 @@ void __48__SGRTCLogging_logNewInteractionWithDictionary___block_invoke(uint64_t 
 
 - (void)logNewInteractionSummaryWithDictionary:(id)dictionary
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v12 = dictionaryCopy;
+    v11 = dictionaryCopy;
     _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "RTCLogging: log new interaction summary: %@", buf, 0xCu);
   }
 
   lock = self->_lock;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __55__SGRTCLogging_logNewInteractionSummaryWithDictionary___block_invoke;
-  v9[3] = &unk_27894D818;
-  v10 = dictionaryCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __55__SGRTCLogging_logNewInteractionSummaryWithDictionary___block_invoke;
+  v8[3] = &unk_27894D818;
+  v9 = dictionaryCopy;
   v7 = dictionaryCopy;
-  [(_PASLock *)lock runWithLockAcquired:v9];
+  [(_PASLock *)lock runWithLockAcquired:v8];
   [(SGRTCLogging *)self updateAndScheduleDiskWrite];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logAndIncrementEventCountForDictionary:(id)dictionary
@@ -1401,7 +1777,7 @@ void __48__SGRTCLogging_logNewInteractionWithDictionary___block_invoke(uint64_t 
 void __55__SGRTCLogging_logAndIncrementEventCountForDictionary___block_invoke(uint64_t a1, void *a2)
 {
   v9 = a2;
-  if ([v9[1] count])
+  if (objc_msgSend_count(v9[1]))
   {
     v3 = 0;
     while (1)
@@ -1414,7 +1790,7 @@ void __55__SGRTCLogging_logAndIncrementEventCountForDictionary___block_invoke(ui
         break;
       }
 
-      if (++v3 >= [v9[1] count])
+      if (++v3 >= objc_msgSend_count(v9[1]))
       {
         goto LABEL_5;
       }
@@ -1467,7 +1843,7 @@ LABEL_5:
 void __83__SGRTCLogging__updateLocationTypeFromInteractionsSummaryForEventKey_locationType___block_invoke(void *a1, void *a2)
 {
   v12 = a2;
-  if ([v12[3] count])
+  if (objc_msgSend_count(v12[3]))
   {
     v3 = 0;
     while (1)
@@ -1488,7 +1864,7 @@ void __83__SGRTCLogging__updateLocationTypeFromInteractionsSummaryForEventKey_lo
         }
       }
 
-      if (++v3 >= [v12[3] count])
+      if (++v3 >= objc_msgSend_count(v12[3]))
       {
         goto LABEL_8;
       }
@@ -1506,7 +1882,7 @@ LABEL_8:
 
 - (BOOL)incrementAndUpgradeInteractionSummaryForEventKey:(id)key interactionKey:(id)interactionKey parentEntity:(id)entity
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   interactionKeyCopy = interactionKey;
   entityCopy = entity;
@@ -1523,21 +1899,21 @@ LABEL_8:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v28 = 0;
+  v27 = 0;
   lock = self->_lock;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __93__SGRTCLogging_incrementAndUpgradeInteractionSummaryForEventKey_interactionKey_parentEntity___block_invoke;
-  v21[3] = &unk_27894D888;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __93__SGRTCLogging_incrementAndUpgradeInteractionSummaryForEventKey_interactionKey_parentEntity___block_invoke;
+  v20[3] = &unk_27894D888;
   v13 = keyCopy;
-  v22 = v13;
+  v21 = v13;
   v14 = interactionKeyCopy;
-  v23 = v14;
+  v22 = v14;
   v15 = entityCopy;
-  v24 = v15;
+  v23 = v15;
   selfCopy = self;
-  v26 = buf;
-  [(_PASLock *)lock runWithLockAcquired:v21];
+  v25 = buf;
+  [(_PASLock *)lock runWithLockAcquired:v20];
   if (*(*&buf[8] + 24) == 1)
   {
     [(SGRTCLogging *)self updateAndScheduleDiskWrite];
@@ -1548,22 +1924,21 @@ LABEL_8:
     v16 = sgLogHandle();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      *v20 = 0;
-      _os_log_debug_impl(&dword_231E60000, v16, OS_LOG_TYPE_DEBUG, "RTCLogging: can't find eventKey in loggedInteractionsSummary dictionary", v20, 2u);
+      *v19 = 0;
+      _os_log_debug_impl(&dword_231E60000, v16, OS_LOG_TYPE_DEBUG, "RTCLogging: can't find eventKey in loggedInteractionsSummary dictionary", v19, 2u);
     }
   }
 
   v17 = *(*&buf[8] + 24);
 
   _Block_object_dispose(buf, 8);
-  v18 = *MEMORY[0x277D85DE8];
   return v17 & 1;
 }
 
 void __93__SGRTCLogging_incrementAndUpgradeInteractionSummaryForEventKey_interactionKey_parentEntity___block_invoke(uint64_t a1, void *a2)
 {
   v18 = a2;
-  if ([v18[3] count])
+  if (objc_msgSend_count(v18[3]))
   {
     v3 = 0;
     while (1)
@@ -1577,7 +1952,7 @@ void __93__SGRTCLogging_incrementAndUpgradeInteractionSummaryForEventKey_interac
         break;
       }
 
-      if (++v3 >= [v18[3] count])
+      if (++v3 >= objc_msgSend_count(v18[3]))
       {
         goto LABEL_10;
       }
@@ -1614,18 +1989,18 @@ LABEL_10:
 
 - (id)_calendarUsageLast2Weeks
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke;
-  v11[3] = &unk_27894D860;
-  v11[4] = &v12;
-  [MEMORY[0x277CC5A40] sg_usingSharedStoreForReadingOnly:v11];
-  v2 = v13[3];
+  v19 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke;
+  v10[3] = &unk_27894D860;
+  v10[4] = &v11;
+  [MEMORY[0x277CC5A40] sg_usingSharedStoreForReadingOnly:v10];
+  v2 = v12[3];
   if (v2 >= 1.0)
   {
     v4 = 50.0;
@@ -1644,18 +2019,17 @@ LABEL_10:
   v5 = sgLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v9 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
-    v10 = [MEMORY[0x277CCABB0] numberWithDouble:v13[3]];
+    v8 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
+    v9 = [MEMORY[0x277CCABB0] numberWithDouble:v12[3]];
     *buf = 138412546;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v10;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v9;
     _os_log_debug_impl(&dword_231E60000, v5, OS_LOG_TYPE_DEBUG, "RTCLogging: usageCalendar: %@, (%@ Calendar events found)", buf, 0x16u);
   }
 
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:v4];
-  _Block_object_dispose(&v12, 8);
-  v7 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v11, 8);
 
   return v6;
 }
@@ -1672,7 +2046,7 @@ void __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke(uint64_t a1, void
 
 - (id)_mapsUsageLast2Weeks
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = *MEMORY[0x277D021C8];
   date = [MEMORY[0x277CBEAA8] date];
@@ -1698,34 +2072,33 @@ void __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke(uint64_t a1, void
   v9 = sgLogHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v6];
-    v13 = 138412546;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v12;
-    _os_log_debug_impl(&dword_231E60000, v9, OS_LOG_TYPE_DEBUG, "RTCLogging: usageMaps: %@, (%@ Maps launch in past 2 weeks)", &v13, 0x16u);
+    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v6];
+    v12 = 138412546;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v11;
+    _os_log_debug_impl(&dword_231E60000, v9, OS_LOG_TYPE_DEBUG, "RTCLogging: usageMaps: %@, (%@ Maps launch in past 2 weeks)", &v12, 0x16u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)enrichInteractionSummaryLog:(id)log
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   logCopy = log;
   v4 = [logCopy objectForKeyedSubscript:@"creationDate"];
   if (v4)
   {
     v6 = *MEMORY[0x277D021C8];
-    v16[0] = *MEMORY[0x277D021D0];
-    v5 = v16[0];
-    v16[1] = v6;
+    v15[0] = *MEMORY[0x277D021D0];
+    v5 = v15[0];
+    v15[1] = v6;
     v8 = *MEMORY[0x277D021C0];
-    v17 = *MEMORY[0x277D021A0];
-    v7 = v17;
-    v18 = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:4];
+    v16 = *MEMORY[0x277D021A0];
+    v7 = v16;
+    v17 = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:4];
     v10 = [objc_opt_class() launchCountsForApps:v9 afterDate:v4 lowerBucket:10 bucketSize:3 bucketLimit:50];
     v11 = [v10 objectForKeyedSubscript:v6];
     [logCopy setObject:v11 forKeyedSubscript:@"launchCountMaps"];
@@ -1739,8 +2112,6 @@ void __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke(uint64_t a1, void
     v14 = [v10 objectForKeyedSubscript:v8];
     [logCopy setObject:v14 forKeyedSubscript:@"launchCountMail"];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)bucketizedRemindersCreatedAfterDate:(id)date endDate:(id)endDate
@@ -1776,33 +2147,33 @@ void __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke(uint64_t a1, void
 
 - (id)cappedDeliveryEntityCountsCreatedBetweenStartDate:(id)date endDate:(id)endDate store:(id)store
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   storeCopy = store;
   v10 = objc_opt_new();
-  v30 = storeCopy;
-  v31 = dateCopy;
+  v29 = storeCopy;
+  v30 = dateCopy;
   v11 = [storeCopy entityKeyCountsForEntityType:24 startDate:dateCopy endDate:endDateCopy];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v37;
+    v14 = *v36;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v37 != v14)
+        if (*v36 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        second = [*(*(&v36 + 1) + 8 * i) second];
+        second = [*(*(&v35 + 1) + 8 * i) second];
         unsignedIntegerValue = [second unsignedIntegerValue];
 
         if (unsignedIntegerValue >= 0xA)
@@ -1819,44 +2190,42 @@ void __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke(uint64_t a1, void
         [v10 addObject:v19];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v13);
   }
 
-  v20 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v10, "count")}];
+  v20 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:objc_msgSend_count(v10)];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v21 = v10;
-  v22 = [v21 countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v33;
+    v24 = *v32;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v33 != v24)
+        if (*v32 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = *(*(&v32 + 1) + 8 * j);
+        v26 = *(*(&v31 + 1) + 8 * j);
         v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v21, "countForObject:", v26)}];
         [v20 setObject:v27 forKeyedSubscript:v26];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v23);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -1873,54 +2242,54 @@ void __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke(uint64_t a1, void
 
 - (void)enrichAggregateSummaryLog:(id)log
 {
-  v36[5] = *MEMORY[0x277D85DE8];
+  v35[5] = *MEMORY[0x277D85DE8];
   logCopy = log;
   v5 = [logCopy objectForKeyedSubscript:@"creationDate"];
   if (v5)
   {
     v6 = *MEMORY[0x277D021D0];
-    v35[0] = *MEMORY[0x277D021F0];
-    v35[1] = v6;
-    v36[0] = @"launchCountReminders";
-    v36[1] = @"launchCountMessages";
+    v34[0] = *MEMORY[0x277D021F0];
+    v34[1] = v6;
+    v35[0] = @"launchCountReminders";
+    v35[1] = @"launchCountMessages";
     v7 = *MEMORY[0x277D021C0];
-    v35[2] = *MEMORY[0x277D021A0];
-    v35[3] = v7;
-    v36[2] = @"launchCountCalendar";
-    v36[3] = @"launchCountMail";
-    v35[4] = *MEMORY[0x277D021C8];
-    v36[4] = @"launchCountMaps";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:5];
+    v34[2] = *MEMORY[0x277D021A0];
+    v34[3] = v7;
+    v35[2] = @"launchCountCalendar";
+    v35[3] = @"launchCountMail";
+    v34[4] = *MEMORY[0x277D021C8];
+    v35[4] = @"launchCountMaps";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:5];
     v9 = objc_opt_class();
     allKeys = [v8 allKeys];
     v11 = [v9 aggregateSummaryBucketizedLaunchCountsForApps:allKeys afterDate:v5];
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v12 = v8;
-    v13 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v31;
+      v15 = *v30;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v31 != v15)
+          if (*v30 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v30 + 1) + 8 * i);
-          v18 = [v11 objectForKeyedSubscript:{v17, v30}];
+          v17 = *(*(&v29 + 1) + 8 * i);
+          v18 = [v11 objectForKeyedSubscript:{v17, v29}];
           v19 = [v12 objectForKeyedSubscript:v17];
           [logCopy setObject:v18 forKeyedSubscript:v19];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v14);
@@ -1944,20 +2313,18 @@ void __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke(uint64_t a1, void
       v26 = @"unknown";
     }
 
-    [logCopy setObject:v26 forKeyedSubscript:{@"deviceLanguage", v30}];
+    [logCopy setObject:v26 forKeyedSubscript:{@"deviceLanguage", v29}];
 
     v27 = objc_opt_new();
     v28 = [(SGRTCLogging *)self cappedDeliveryEntityCountsCreatedBetweenStartDate:v5 endDate:v27];
 
     [logCopy addEntriesFromDictionary:v28];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enrichReminderInteractionSummaryLog:(id)log
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   logCopy = log;
   v5 = [logCopy objectForKeyedSubscript:@"creationDate"];
   v6 = v5;
@@ -1965,9 +2332,9 @@ void __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke(uint64_t a1, void
   {
     v7 = [v5 dateByAddingTimeInterval:-1209600.0];
     v8 = objc_opt_class();
-    v15[0] = *MEMORY[0x277D021D0];
-    v9 = v15[0];
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = *MEMORY[0x277D021D0];
+    v9 = v14[0];
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     v11 = [v8 launchCountsForApps:v10 afterDate:v7 lowerBucket:1 bucketSize:10 bucketLimit:50];
     v12 = [v11 objectForKeyedSubscript:v9];
     [logCopy setObject:v12 forKeyedSubscript:@"launchCountMessages"];
@@ -1975,8 +2342,46 @@ void __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke(uint64_t a1, void
     v13 = [(SGRTCLogging *)self bucketizedRemindersCreatedAfterDate:v7 endDate:v6];
     [logCopy setObject:v13 forKeyedSubscript:@"remindersCountStats"];
   }
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (id)createInteractionSummaryForEventKey:(id)key expirationDate:(id)date interactionKey:(id)interactionKey interactionAttributes:(id)attributes rtcCategory:(unsigned __int16)category
+{
+  categoryCopy = category;
+  keyCopy = key;
+  dateCopy = date;
+  interactionKeyCopy = interactionKey;
+  attributesCopy = attributes;
+  if (!dateCopy)
+  {
+    dateCopy = [objc_opt_class() dateByAppendingDaysToCurrentDate:7.0];
+  }
+
+  v16 = objc_opt_new();
+  v17 = [SGRTCLogging numberOfDaysBetweenDate:v16 andDate:dateCopy];
+
+  if (v17 >= 366)
+  {
+    v18 = objc_opt_new();
+    [v18 setYear:1];
+    currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
+    v20 = objc_opt_new();
+    v21 = [currentCalendar dateByAddingComponents:v18 toDate:v20 options:0];
+
+    dateCopy = v21;
+  }
+
+  v22 = [attributesCopy mutableCopy];
+  v23 = [(SGRTCLogging *)self descriptionForSGRTCCategory:categoryCopy];
+  [v22 setObject:v23 forKeyedSubscript:@"categoryLog"];
+
+  [v22 setObject:dateCopy forKeyedSubscript:@"expirationDate"];
+  v24 = objc_opt_new();
+  [v22 setObject:v24 forKeyedSubscript:@"creationDate"];
+
+  [v22 setObject:keyCopy forKeyedSubscript:@"eventKey"];
+  [v22 setObject:&unk_2847494D0 forKeyedSubscript:interactionKeyCopy];
+
+  return v22;
 }
 
 - (id)_interactionAttributesForEntity:(id)entity parentEntity:(id)parentEntity
@@ -2013,7 +2418,7 @@ void __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke(uint64_t a1, void
 
 - (id)_interactionAttributesForTags:(id)tags parentEntity:(id)entity
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   tagsCopy = tags;
   entityCopy = entity;
   duplicateKey = [entityCopy duplicateKey];
@@ -2139,43 +2544,43 @@ void __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke(uint64_t a1, void
     }
   }
 
-  v64 = v11;
-  v70 = v8;
+  v63 = v11;
+  v69 = v8;
   allDay = [MEMORY[0x277D01FA0] allDay];
-  v63 = [tagsCopy containsObject:allDay];
+  v62 = [tagsCopy containsObject:allDay];
 
   extractedEventCancellation = [MEMORY[0x277D01FA0] extractedEventCancellation];
-  v62 = [tagsCopy containsObject:extractedEventCancellation];
+  v61 = [tagsCopy containsObject:extractedEventCancellation];
 
   fromSync = [MEMORY[0x277D01FA0] fromSync];
-  v61 = [tagsCopy containsObject:fromSync];
+  v60 = [tagsCopy containsObject:fromSync];
 
   allowGeocode = [MEMORY[0x277D02098] allowGeocode];
+  v70 = 0u;
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
   obj = tagsCopy;
-  v35 = [obj countByEnumeratingWithState:&v71 objects:v77 count:16];
+  v35 = [obj countByEnumeratingWithState:&v70 objects:v76 count:16];
   if (v35)
   {
     v36 = v35;
     v37 = 0;
-    v38 = *v72;
-    v66 = *MEMORY[0x277D02448];
+    v38 = *v71;
+    v65 = *MEMORY[0x277D02448];
     v39 = @"unknown";
     v40 = @"unknown";
-    v69 = @"unknown";
+    v68 = @"unknown";
     do
     {
       for (i = 0; i != v36; ++i)
       {
-        if (*v72 != v38)
+        if (*v71 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v42 = *(*(&v71 + 1) + 8 * i);
+        v42 = *(*(&v70 + 1) + 8 * i);
         if ([v42 isTemplateName])
         {
           value = [v42 value];
@@ -2196,12 +2601,12 @@ void __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke(uint64_t a1, void
           v46 = eventMetadata;
           if (eventMetadata)
           {
-            v47 = [eventMetadata objectForKeyedSubscript:v66];
+            v47 = [eventMetadata objectForKeyedSubscript:v65];
 
             v48 = [(SGRTCLogging *)selfCopy _descriptionForBundleId:v47];
 
-            v69 = v47;
-            v70 = v48;
+            v68 = v47;
+            v69 = v48;
           }
         }
 
@@ -2211,7 +2616,7 @@ void __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke(uint64_t a1, void
         v37 |= v50;
       }
 
-      v36 = [obj countByEnumeratingWithState:&v71 objects:v77 count:16];
+      v36 = [obj countByEnumeratingWithState:&v70 objects:v76 count:16];
     }
 
     while (v36);
@@ -2222,30 +2627,30 @@ void __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke(uint64_t a1, void
     v37 = 0;
     v39 = @"unknown";
     v40 = @"unknown";
-    v69 = @"unknown";
+    v68 = @"unknown";
   }
 
-  v75[0] = @"eventCategory";
-  v75[1] = @"documentType";
-  v76[0] = v64;
-  v76[1] = v70;
-  v75[2] = @"templateName";
-  v75[3] = @"domain";
-  v76[2] = v39;
-  v76[3] = v40;
-  v75[4] = @"isAllDay";
-  v51 = [MEMORY[0x277CCABB0] numberWithBool:v63];
-  v76[4] = v51;
-  v75[5] = @"isCancelled";
-  v52 = [MEMORY[0x277CCABB0] numberWithBool:v62];
-  v76[5] = v52;
-  v75[6] = @"isFromSync";
-  v53 = [MEMORY[0x277CCABB0] numberWithBool:v61];
-  v76[6] = v53;
-  v75[7] = @"isSplashScreenAcknowledged";
+  v74[0] = @"eventCategory";
+  v74[1] = @"documentType";
+  v75[0] = v63;
+  v75[1] = v69;
+  v74[2] = @"templateName";
+  v74[3] = @"domain";
+  v75[2] = v39;
+  v75[3] = v40;
+  v74[4] = @"isAllDay";
+  v51 = [MEMORY[0x277CCABB0] numberWithBool:v62];
+  v75[4] = v51;
+  v74[5] = @"isCancelled";
+  v52 = [MEMORY[0x277CCABB0] numberWithBool:v61];
+  v75[5] = v52;
+  v74[6] = @"isFromSync";
+  v53 = [MEMORY[0x277CCABB0] numberWithBool:v60];
+  v75[6] = v53;
+  v74[7] = @"isSplashScreenAcknowledged";
   v54 = [MEMORY[0x277CCABB0] numberWithBool:allowGeocode];
-  v76[7] = v54;
-  v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:v75 count:8];
+  v75[7] = v54;
+  v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:8];
   v56 = [v55 mutableCopy];
 
   if (v37)
@@ -2253,18 +2658,27 @@ void __40__SGRTCLogging__calendarUsageLast2Weeks__block_invoke(uint64_t a1, void
     v57 = [(SGRTCLogging *)selfCopy descriptionForEntityType:16];
     [v56 setObject:v57 forKeyedSubscript:@"documentType"];
 
-    if (v69)
+    if (v68)
     {
-      if (([(__CFString *)v69 isEqualToString:@"unknown"]& 1) == 0)
+      if (([(__CFString *)v68 isEqualToString:@"unknown"]& 1) == 0)
       {
-        [v56 setObject:v69 forKeyedSubscript:@"bundleID"];
+        [v56 setObject:v68 forKeyedSubscript:@"bundleID"];
       }
     }
   }
 
-  v58 = *MEMORY[0x277D85DE8];
-
   return v56;
+}
+
+- (id)baseInteractionDictionaryForInterface:(unsigned __int16)interface actionType:(unsigned __int16)type
+{
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7 = @"interactionKey";
+  v4 = [(SGRTCLogging *)self interactionKeyForInterface:interface actionType:type];
+  v8[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+
+  return v5;
 }
 
 - (void)updateAndScheduleDiskWrite
@@ -2340,7 +2754,7 @@ void __32__SGRTCLogging_encodeWithCoder___block_invoke(uint64_t a1, void *a2)
 
 void __30__SGRTCLogging_initWithCoder___block_invoke(uint64_t a1, void *a2)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) decodeObjectOfClasses:*(a1 + 40) forKey:@"loggedExtractions"];
   v5 = v4;
@@ -2357,173 +2771,165 @@ void __30__SGRTCLogging_initWithCoder___block_invoke(uint64_t a1, void *a2)
   v7 = *(v3 + 1);
   *(v3 + 1) = v6;
 
-  v8 = *(v3 + 1);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v44 = [MEMORY[0x277CCA890] currentHandler];
-    [v44 handleFailureInMethod:*(a1 + 56) object:*(a1 + 48) file:@"SGRTCLogging.m" lineNumber:304 description:{@"Invalid parameter not satisfying: %@", @"[guardedData->_loggedExtractions isKindOfClass:NSMutableArray.class]"}];
+    v37 = [MEMORY[0x277CCA890] currentHandler];
+    [v37 handleFailureInMethod:*(a1 + 56) object:*(a1 + 48) file:@"SGRTCLogging.m" lineNumber:304 description:{@"Invalid parameter not satisfying: %@", @"[guardedData->_loggedExtractions isKindOfClass:NSMutableArray.class]"}];
   }
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  v9 = *(v3 + 1);
-  v10 = [v9 countByEnumeratingWithState:&v55 objects:v61 count:16];
-  if (v10)
-  {
-    v11 = v10;
-    v12 = *v56;
-    do
-    {
-      for (i = 0; i != v11; ++i)
-      {
-        if (*v56 != v12)
-        {
-          objc_enumerationMutation(v9);
-        }
-
-        v14 = *(*(&v55 + 1) + 8 * i);
-        objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
-        {
-          v15 = [MEMORY[0x277CCA890] currentHandler];
-          [v15 handleFailureInMethod:*(a1 + 56) object:*(a1 + 48) file:@"SGRTCLogging.m" lineNumber:306 description:{@"Invalid parameter not satisfying: %@", @"[loggedExtraction isKindOfClass:NSDictionary.class]"}];
-        }
-      }
-
-      v11 = [v9 countByEnumeratingWithState:&v55 objects:v61 count:16];
-    }
-
-    while (v11);
-  }
-
-  v16 = [*(a1 + 32) decodeObjectOfClasses:*(a1 + 40) forKey:@"loggedInteractions"];
-  v17 = v16;
-  if (v16)
-  {
-    v18 = v16;
-  }
-
-  else
-  {
-    v18 = objc_opt_new();
-  }
-
-  v19 = *(v3 + 2);
-  *(v3 + 2) = v18;
-
-  v20 = *(v3 + 2);
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    v45 = [MEMORY[0x277CCA890] currentHandler];
-    [v45 handleFailureInMethod:*(a1 + 56) object:*(a1 + 48) file:@"SGRTCLogging.m" lineNumber:309 description:{@"Invalid parameter not satisfying: %@", @"[guardedData->_loggedInteractions isKindOfClass:NSMutableArray.class]"}];
-  }
-
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v21 = *(v3 + 2);
-  v22 = [v21 countByEnumeratingWithState:&v51 objects:v60 count:16];
-  if (v22)
-  {
-    v23 = v22;
-    v24 = *v52;
-    do
-    {
-      for (j = 0; j != v23; ++j)
-      {
-        if (*v52 != v24)
-        {
-          objc_enumerationMutation(v21);
-        }
-
-        v26 = *(*(&v51 + 1) + 8 * j);
-        objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
-        {
-          v27 = [MEMORY[0x277CCA890] currentHandler];
-          [v27 handleFailureInMethod:*(a1 + 56) object:*(a1 + 48) file:@"SGRTCLogging.m" lineNumber:311 description:{@"Invalid parameter not satisfying: %@", @"[loggedInteraction isKindOfClass:NSDictionary.class]"}];
-        }
-      }
-
-      v23 = [v21 countByEnumeratingWithState:&v51 objects:v60 count:16];
-    }
-
-    while (v23);
-  }
-
-  v28 = [*(a1 + 32) decodeObjectOfClasses:*(a1 + 40) forKey:@"loggedInteractionsSummary"];
-  v29 = v28;
-  if (v28)
-  {
-    v30 = v28;
-  }
-
-  else
-  {
-    v30 = objc_opt_new();
-  }
-
-  v31 = *(v3 + 3);
-  *(v3 + 3) = v30;
-
-  v32 = *(v3 + 3);
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    v46 = [MEMORY[0x277CCA890] currentHandler];
-    [v46 handleFailureInMethod:*(a1 + 56) object:*(a1 + 48) file:@"SGRTCLogging.m" lineNumber:314 description:{@"Invalid parameter not satisfying: %@", @"[guardedData->_loggedInteractionsSummary isKindOfClass:NSMutableArray.class]"}];
-  }
-
-  v49 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v33 = *(v3 + 3);
-  v34 = [v33 countByEnumeratingWithState:&v47 objects:v59 count:16];
-  if (v34)
+  v49 = 0u;
+  v8 = *(v3 + 1);
+  v9 = [v8 countByEnumeratingWithState:&v48 objects:v54 count:16];
+  if (v9)
   {
-    v35 = v34;
-    v36 = *v48;
+    v10 = v9;
+    v11 = *v49;
     do
     {
-      for (k = 0; k != v35; ++k)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v48 != v36)
+        if (*v49 != v11)
         {
-          objc_enumerationMutation(v33);
+          objc_enumerationMutation(v8);
         }
 
-        v38 = *(*(&v47 + 1) + 8 * k);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v39 = [MEMORY[0x277CCA890] currentHandler];
-          [v39 handleFailureInMethod:*(a1 + 56) object:*(a1 + 48) file:@"SGRTCLogging.m" lineNumber:316 description:{@"Invalid parameter not satisfying: %@", @"[loggedInteractionSummary isKindOfClass:NSMutableDictionary.class]"}];
+          v13 = [MEMORY[0x277CCA890] currentHandler];
+          [v13 handleFailureInMethod:*(a1 + 56) object:*(a1 + 48) file:@"SGRTCLogging.m" lineNumber:306 description:{@"Invalid parameter not satisfying: %@", @"[loggedExtraction isKindOfClass:NSDictionary.class]"}];
         }
       }
 
-      v35 = [v33 countByEnumeratingWithState:&v47 objects:v59 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v48 objects:v54 count:16];
     }
 
-    while (v35);
+    while (v10);
   }
 
-  v40 = [*(a1 + 32) decodeObjectOfClass:objc_opt_class() forKey:@"storeAge"];
-  [v40 doubleValue];
-  *(v3 + 4) = v41;
+  v14 = [*(a1 + 32) decodeObjectOfClasses:*(a1 + 40) forKey:@"loggedInteractions"];
+  v15 = v14;
+  if (v14)
+  {
+    v16 = v14;
+  }
+
+  else
+  {
+    v16 = objc_opt_new();
+  }
+
+  v17 = *(v3 + 2);
+  *(v3 + 2) = v16;
+
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    v38 = [MEMORY[0x277CCA890] currentHandler];
+    [v38 handleFailureInMethod:*(a1 + 56) object:*(a1 + 48) file:@"SGRTCLogging.m" lineNumber:309 description:{@"Invalid parameter not satisfying: %@", @"[guardedData->_loggedInteractions isKindOfClass:NSMutableArray.class]"}];
+  }
+
+  v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v18 = *(v3 + 2);
+  v19 = [v18 countByEnumeratingWithState:&v44 objects:v53 count:16];
+  if (v19)
+  {
+    v20 = v19;
+    v21 = *v45;
+    do
+    {
+      for (j = 0; j != v20; ++j)
+      {
+        if (*v45 != v21)
+        {
+          objc_enumerationMutation(v18);
+        }
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          v23 = [MEMORY[0x277CCA890] currentHandler];
+          [v23 handleFailureInMethod:*(a1 + 56) object:*(a1 + 48) file:@"SGRTCLogging.m" lineNumber:311 description:{@"Invalid parameter not satisfying: %@", @"[loggedInteraction isKindOfClass:NSDictionary.class]"}];
+        }
+      }
+
+      v20 = [v18 countByEnumeratingWithState:&v44 objects:v53 count:16];
+    }
+
+    while (v20);
+  }
+
+  v24 = [*(a1 + 32) decodeObjectOfClasses:*(a1 + 40) forKey:@"loggedInteractionsSummary"];
+  v25 = v24;
+  if (v24)
+  {
+    v26 = v24;
+  }
+
+  else
+  {
+    v26 = objc_opt_new();
+  }
+
+  v27 = *(v3 + 3);
+  *(v3 + 3) = v26;
+
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    v39 = [MEMORY[0x277CCA890] currentHandler];
+    [v39 handleFailureInMethod:*(a1 + 56) object:*(a1 + 48) file:@"SGRTCLogging.m" lineNumber:314 description:{@"Invalid parameter not satisfying: %@", @"[guardedData->_loggedInteractionsSummary isKindOfClass:NSMutableArray.class]"}];
+  }
+
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v28 = *(v3 + 3);
+  v29 = [v28 countByEnumeratingWithState:&v40 objects:v52 count:16];
+  if (v29)
+  {
+    v30 = v29;
+    v31 = *v41;
+    do
+    {
+      for (k = 0; k != v30; ++k)
+      {
+        if (*v41 != v31)
+        {
+          objc_enumerationMutation(v28);
+        }
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+          v33 = [MEMORY[0x277CCA890] currentHandler];
+          [v33 handleFailureInMethod:*(a1 + 56) object:*(a1 + 48) file:@"SGRTCLogging.m" lineNumber:316 description:{@"Invalid parameter not satisfying: %@", @"[loggedInteractionSummary isKindOfClass:NSMutableDictionary.class]"}];
+        }
+      }
+
+      v30 = [v28 countByEnumeratingWithState:&v40 objects:v52 count:16];
+    }
+
+    while (v30);
+  }
+
+  v34 = [*(a1 + 32) decodeObjectOfClass:objc_opt_class() forKey:@"storeAge"];
+  [v34 doubleValue];
+  *(v3 + 4) = v35;
 
   if (*(v3 + 4) == 0.0)
   {
     [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-    *(v3 + 4) = v42;
+    *(v3 + 4) = v36;
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)loggedExtractionsEventsCount
@@ -2546,41 +2952,39 @@ void __30__SGRTCLogging_initWithCoder___block_invoke(uint64_t a1, void *a2)
 
 void __44__SGRTCLogging_loggedExtractionsEventsCount__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(a2 + 8);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v10 + 1) + 8 * v7) objectForKeyedSubscript:{@"eventsCount", v10}];
+        v8 = [*(*(&v9 + 1) + 8 * v7) objectForKeyedSubscript:{@"eventsCount", v9}];
         *(*(*(a1 + 32) + 8) + 24) += [v8 integerValue];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)loggedInteractionsSummary
@@ -2797,11 +3201,11 @@ void __20__SGRTCLogging_init__block_invoke(uint64_t a1, void *a2)
 
 + (BOOL)_createEmptyFileAtPath:(id)path
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v9 = *MEMORY[0x277CCA1B0];
-  v10[0] = *MEMORY[0x277CCA1A0];
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x277CCA1B0];
+  v9[0] = *MEMORY[0x277CCA1A0];
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   if (pathCopy)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -2813,7 +3217,6 @@ void __20__SGRTCLogging_init__block_invoke(uint64_t a1, void *a2)
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2978,7 +3381,7 @@ uint64_t __29__SGRTCLogging_defaultLogger__block_invoke_3(void *a1)
   if (objc_opt_isKindOfClass())
   {
     v2 = v1;
-    if ([v2 count])
+    if (objc_msgSend_count(v2))
     {
       v3 = 0;
       do
@@ -2997,7 +3400,7 @@ uint64_t __29__SGRTCLogging_defaultLogger__block_invoke_3(void *a1)
         ++v3;
       }
 
-      while (v3 < [v2 count]);
+      while (v3 < objc_msgSend_count(v2));
     }
 
     else
@@ -3047,7 +3450,7 @@ uint64_t __29__SGRTCLogging_defaultLogger__block_invoke_3(void *a1)
   event = [event event];
   locations = [event locations];
 
-  if ([locations count])
+  if (objc_msgSend_count(locations))
   {
     v6 = [locations objectAtIndexedSubscript:0];
     handle = [v6 handle];
@@ -3074,7 +3477,7 @@ uint64_t __29__SGRTCLogging_defaultLogger__block_invoke_3(void *a1)
   locations = [entity locations];
   allObjects = [locations allObjects];
 
-  if ([allObjects count])
+  if (objc_msgSend_count(allObjects))
   {
     v6 = [allObjects objectAtIndexedSubscript:0];
     handle = [v6 handle];

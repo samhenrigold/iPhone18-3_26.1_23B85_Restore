@@ -41,64 +41,65 @@
 {
   recordCopy = record;
   dCopy = d;
-  if (_ASCloudKitSchemaVersionForRecord(recordCopy) == 2)
+  v7 = _ASCloudKitSchemaVersionForRecord(recordCopy);
+  if (v7 == 2)
   {
     encryptedValues = [recordCopy encryptedValues];
-    v8 = [encryptedValues objectForKeyedSubscript:@"EncryptedData"];
+    v10 = [encryptedValues objectForKeyedSubscript:@"EncryptedData"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v9 = v8;
+      v11 = v10;
     }
 
     else
     {
-      v9 = 0;
+      v11 = 0;
     }
 
-    if (v9)
+    if (v11)
     {
-      v11 = [[ASCodableCloudKitNotificationEvent alloc] initWithData:v9];
-      v10 = objc_alloc_init(ASNotificationEvent);
-      v12 = MEMORY[0x277CBEAA8];
-      [(ASCodableCloudKitNotificationEvent *)v11 date];
-      v13 = [v12 dateWithTimeIntervalSinceReferenceDate:?];
-      [(ASNotificationEvent *)v10 setDate:v13];
+      v15 = [[ASCodableCloudKitNotificationEvent alloc] initWithData:v11];
+      v12 = objc_alloc_init(ASNotificationEvent);
+      v16 = MEMORY[0x277CBEAA8];
+      [(ASCodableCloudKitNotificationEvent *)v15 date];
+      v17 = [v16 dateWithTimeIntervalSinceReferenceDate:?];
+      [(ASNotificationEvent *)v12 setDate:v17];
 
-      [(ASNotificationEvent *)v10 setType:[(ASCodableCloudKitNotificationEvent *)v11 type]];
-      v14 = MEMORY[0x277CCAD78];
-      triggerUUID = [(ASCodableCloudKitNotificationEvent *)v11 triggerUUID];
-      v16 = [v14 hk_UUIDWithData:triggerUUID];
-      [(ASNotificationEvent *)v10 setTriggerUUID:v16];
+      [(ASNotificationEvent *)v12 setType:[(ASCodableCloudKitNotificationEvent *)v15 type]];
+      v18 = MEMORY[0x277CCAD78];
+      triggerUUID = [(ASCodableCloudKitNotificationEvent *)v15 triggerUUID];
+      v20 = [v18 hk_UUIDWithData:triggerUUID];
+      [(ASNotificationEvent *)v12 setTriggerUUID:v20];
 
-      [(ASNotificationEvent *)v10 setTriggerSnapshotIndex:[(ASCodableCloudKitNotificationEvent *)v11 triggerSnapshotIndex]];
-      [(ASNotificationEvent *)v10 setFriendUUID:dCopy];
+      [(ASNotificationEvent *)v12 setTriggerSnapshotIndex:[(ASCodableCloudKitNotificationEvent *)v15 triggerSnapshotIndex]];
+      [(ASNotificationEvent *)v12 setFriendUUID:dCopy];
     }
 
     else
     {
-      ASLoggingInitialize();
+      ASLoggingInitialize(v13, v14);
       if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
       {
         +[ASNotificationEvent(CloudKitCodingSupport) notificationEventWithRecord:friendUUID:];
       }
 
-      v10 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    ASLoggingInitialize();
+    ASLoggingInitialize(v7, v8);
     if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
     {
       +[ASNotificationEvent(CloudKitCodingSupport) notificationEventWithRecord:friendUUID:];
     }
 
-    v10 = 0;
+    v12 = 0;
   }
 
-  return v10;
+  return v12;
 }
 
 + (id)goalCompletionEventWithActivitySummary:(id)summary

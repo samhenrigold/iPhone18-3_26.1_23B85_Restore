@@ -19,26 +19,27 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_1001CBC78(highlighted);
+  sub_1001CBC78(highlightedCopy, selfCopy);
 }
 
 - (CGRect)hitRect
 {
   selfCopy = self;
-  v3 = sub_1001CBD68();
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
+  v4 = sub_1001CBD68(selfCopy, v3);
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
 
-  v10 = v3;
-  v11 = v5;
-  v12 = v7;
-  v13 = v9;
-  result.size.height = v13;
-  result.size.width = v12;
-  result.origin.y = v11;
-  result.origin.x = v10;
+  v11 = v4;
+  v12 = v6;
+  v13 = v8;
+  v14 = v10;
+  result.size.height = v14;
+  result.size.width = v13;
+  result.origin.y = v12;
+  result.origin.x = v11;
   return result;
 }
 

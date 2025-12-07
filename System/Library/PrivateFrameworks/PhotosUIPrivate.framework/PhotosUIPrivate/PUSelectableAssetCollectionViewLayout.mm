@@ -146,8 +146,8 @@ LABEL_13:
     {
       v9 = [v5 objectAtIndexedSubscript:i];
       floatingCellIndexPaths = [(PUSelectableAssetCollectionViewLayout *)self floatingCellIndexPaths];
-      indexPath = [v9 indexPath];
-      v12 = [floatingCellIndexPaths member:indexPath];
+      v11 = objc_msgSend_indexPath(v9);
+      v12 = [floatingCellIndexPaths member:v11];
 
       if (v12)
       {
@@ -182,8 +182,8 @@ LABEL_13:
   v5 = attributesCopy;
   if (attributesCopy)
   {
-    indexPath = [attributesCopy indexPath];
-    v7 = [MEMORY[0x1E69DC858] layoutAttributesForSupplementaryViewOfKind:@"PUSelectableAssetBadgeKind" withIndexPath:indexPath];
+    v6 = objc_msgSend_indexPath(attributesCopy);
+    v7 = [MEMORY[0x1E69DC858] layoutAttributesForSupplementaryViewOfKind:@"PUSelectableAssetBadgeKind" withIndexPath:v6];
     [(PUSelectableAssetCollectionViewLayout *)self collectionViewBounds];
     v9 = v8;
     v11 = v10;
@@ -238,8 +238,8 @@ LABEL_13:
     if (!CGRectIsEmpty(*(&v29 - 3)))
     {
       floatingCellIndexPaths = [(PUSelectableAssetCollectionViewLayout *)self floatingCellIndexPaths];
-      indexPath2 = [v7 indexPath];
-      v37 = [floatingCellIndexPaths member:indexPath2];
+      v36 = objc_msgSend_indexPath(v7);
+      v37 = [floatingCellIndexPaths member:v36];
       if (v37)
       {
         v34 = 0.0;
@@ -252,7 +252,7 @@ LABEL_13:
     }
 
     [v7 setAlpha:v34];
-    [(PUSelectableAssetCollectionViewLayout *)self _floatingSelectionBadgeFrameForItemFrame:indexPath visibleItemFrame:v17 atIndexPath:v19, v21, v23, v30, y, width, v39];
+    [(PUSelectableAssetCollectionViewLayout *)self _floatingSelectionBadgeFrameForItemFrame:v6 visibleItemFrame:v17 atIndexPath:v19, v21, v23, v30, y, width, v39];
     [v7 setFrame:?];
     [v7 setZIndex:{objc_msgSend(v5, "zIndex") + 1}];
     [v7 setAlpha:1.0];

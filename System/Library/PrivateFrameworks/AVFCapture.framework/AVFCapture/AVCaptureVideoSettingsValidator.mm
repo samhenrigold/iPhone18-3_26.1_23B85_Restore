@@ -34,28 +34,28 @@
     goto LABEL_35;
   }
 
-  v16 = [objc_msgSend(settings objectForKeyedSubscript:{*MEMORY[0x1E6966130]), "intValue"}];
-  v17 = [settings objectForKeyedSubscript:*MEMORY[0x1E6987CB0]];
+  intValue = [objc_msgSend_objectForKeyedSubscript_(settings) intValue];
+  v17 = objc_msgSend_objectForKeyedSubscript_(settings);
   v18 = v17;
-  if (v16 && v17)
+  if (intValue && v17)
   {
     LOBYTE(v15) = 0;
     formats = @"kCVPixelBufferPixelFormatTypeKey and AVVideoCodecKey may not both be specified";
     goto LABEL_35;
   }
 
-  if (!v16 && !v17)
+  if (!intValue && !v17)
   {
     LOBYTE(v15) = 0;
     formats = @"Either kCVPixelBufferPixelFormatTypeKey or AVVideoCodecKey must be specified";
     goto LABEL_35;
   }
 
-  if ((featuresCopy & 4) != 0 && v16)
+  if ((featuresCopy & 4) != 0 && intValue)
   {
     if (!keys || (v19 = [MEMORY[0x1E695DFD8] setWithArray:keys], v20 = objc_msgSend(MEMORY[0x1E695DFA8], "setWithArray:", objc_msgSend(settings, "allKeys")), objc_msgSend(v20, "minusSet:", v19), !objc_msgSend(v20, "count")))
     {
-      if (formats && ([formats containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", v16)}] & 1) == 0)
+      if (formats && ([formats containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", intValue)}] & 1) == 0)
       {
         formats = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported pixel format type specified: %@. Supported pixel format types are %@", AVStringForOSType(), formats];
 LABEL_47:
@@ -76,7 +76,7 @@ LABEL_46:
 
   if ((featuresCopy & 8) == 0 || !v17)
   {
-    if (v16)
+    if (intValue)
     {
       LOBYTE(v15) = 0;
       formats = @"kCVPixelBufferPixelFormatTypeKey is unsupported";
@@ -116,7 +116,7 @@ LABEL_34:
     goto LABEL_52;
   }
 
-  v24 = [settings objectForKeyedSubscript:*MEMORY[0x1E6987D30]];
+  v24 = objc_msgSend_objectForKeyedSubscript_(settings);
   v25 = *MEMORY[0x1E6987DC0];
   if (v24)
   {

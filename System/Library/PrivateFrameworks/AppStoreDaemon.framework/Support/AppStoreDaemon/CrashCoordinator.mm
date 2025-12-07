@@ -30,7 +30,7 @@
   sub_10013FE88();
 
   (*(v7 + 8))(v9, v6);
-  type metadata accessor for CrashEvent();
+  type metadata accessor for CrashEvent(0);
   v12.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v12.super.isa;
